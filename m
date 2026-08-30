@@ -1,91 +1,201 @@
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28D6031E834;
-	Sun, 30 Aug 2026 07:13:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.152
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F369380FFD
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 07:20:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788074023; cv=none; b=FMlTbEZolLWBS43CEr68Vw18VBrSJwipUiBeVfngoLAUnnNsBIE7Gg5DCyGmCRuzcs7UKH5WSSZORjjMNag0xcO8Tofwm9AkCSnZOWIlcFO2EtUmMNuHZ14vPcdGOzwbupZPYlfV13iOcs5S/RAsJLgqPhEVnwRNjs+11cfnwuk=
+	t=1788074402; cv=none; b=T1PwszYwpJJmMKkiSHuThj/fueKEBJ2Q0A3nX6M6mdXWkfl1SoktqA54FgKRfXDfD7V14kc98O+1mPV4RINb4dSXQH7lbXP3iqvTF93M+cct5C+o5vL6G880eV59RqMBky5Iujg2c42ZyMpge54e4O67xjp86+GdzfuoUTHzj5Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788074023; c=relaxed/simple;
-	bh=3coKOgO4YZeimnJtVQnOaBMlYLRlcyIHiGqgTd+TUkA=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=nBMex9nXCI0bwfZoRd/GGlEih0FZyvTrDYeaCXoy0UyT6no9Xrrz4hqW/fF9R/kV4utyya3r9i/dC3YG9RHXV7INbgGHynk/JcV4GG5iMG8oeIViZ0h8dbTZG56GKcSIYszRieNarw3/3oqyc1Q1TDBo54KifyFkaiMYHWyA9UE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=Ulede2FE; arc=none smtp.client-ip=80.241.56.152
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1788074402; c=relaxed/simple;
+	bh=w1bihQdfG7SxvAlOxktxRYbHp85/sUXdBSl39wH9IsU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Tug8p+4d0yVkHaXx2AT45h+77lyTK4vvMWXtCAXOfRh92RAZrzx53m3Ca7eHiG+sJF7Rozhk0aB3epuAQJsdSEWww3jlUsLnyGC3sq+pWusTS6H9CYxOrheK2nwtqkkOOsU9yanqoUr5TClC99yTG0pKakpmolahHclPHmSUsLI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=CKElfzHa; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="Ulede2FE"
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [10.196.197.102])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4hXjyn5Nk0zKv3W;
-	Sun, 30 Aug 2026 09:13:37 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1788074017;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=3coKOgO4YZeimnJtVQnOaBMlYLRlcyIHiGqgTd+TUkA=;
-	b=Ulede2FEl0CfXIUqE7UnaYIkqjPGvzIah7+aaSOR6PJH9T/U2Z9WSIJxNRTeeDTG/zjHRT
-	wM4nX+Oxkg56N3oKFNl3W7qQwXN5GBLWE5a+00QPxjhiupaD+9OPzPB13pdlRdyxE2gY/c
-	37052SGFaruG2R+H8DMQbAdTtRZNlvgiB3dcq/2VKJSM2j6vMpHOMKQ2mB7hRt9N9xoHce
-	RdlbSltZ73DWUIvp8P4GrFudMn/tRdRi7Fq8ScWAZ9XEkg4Y7efmRND6Etb7KzbsTRFNwN
-	kKmiwwGVFMSWcvjiPLTz9NtXWQtjRNJBvxVXjtEITLv8fNEka84oUtjMo9Wbmw==
-Message-ID: <f0ccda934d2747f7d39d5c263116ec046c7450e2.camel@mailbox.org>
-Subject: Re: [Issue] sphinx: incorrect high-lighting
-From: Manuel Ebner <manuelebnerli@mailbox.org>
-To: Jonathan Corbet <corbet@lwn.net>, Weijie Yuan <wy@wyuan.org>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Shuah Khan
-	 <skhan@linuxfoundation.org>, "open list:DOCUMENTATION PROCESS"
-	 <workflows@vger.kernel.org>, "open list:DOCUMENTATION"
-	 <linux-doc@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>
-Date: Sun, 30 Aug 2026 09:13:31 +0200
-In-Reply-To: <87mrub1wfv.fsf@trenco.lwn.net>
-References: <bba57d51c72d9387ccef2b5979fa618e980c3ebf.camel@mailbox.org>
-	 <aosYfdfH6Z7ai5M2@wyuan.org>
-	 <c7a3db22f56c598ef35676288d10303af21098bf.camel@mailbox.org>
-	 <87mrub1wfv.fsf@trenco.lwn.net>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="CKElfzHa"
+Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67U61k0f2811220;
+	Sun, 30 Aug 2026 07:19:51 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=rSNJLf
+	P2ClgRhLq+3tQST1sdUV0Ru6nvhs393Hlua0Q=; b=CKElfzHa5pLQec2MrRwn1x
+	1GcyRlJwT40rtBlVKSDODF/VZq+FtsiWofndyQJ76Fcepsu5mdk9L8psqlCNp0OJ
+	0Cn/ZWNQ4sUYj8PuxF4raWzhTLQco9mCx1WpJm5VG03woPQnz6Fxc64pUpbvfg5x
+	qKEzuVhzIwf2ywelGZ7TAIX66pYEM8ISwTWHZ9eWMCx8r0XDk0ZyQuuTja+yoJnI
+	sagBafKwlMp/5/aRXdYUgATn8XiaqoW/459F+Y0G7oZEKpwGcq383c5dhPueI8Uz
+	Dk10/MyVHNQIzfyxXpwxNRmlwhus8fmhsx6tpuny24kuNg6W7rKQse35jISkIGXQ
+	==
+Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gbq54btg9-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Sun, 30 Aug 2026 07:19:51 +0000 (GMT)
+Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma13.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67U7Bcxc002833;
+	Sun, 30 Aug 2026 07:19:50 GMT
+Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
+	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gcbyg0h51-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Sun, 30 Aug 2026 07:19:50 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com [10.20.54.100])
+	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67U7JmK749021348
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Sun, 30 Aug 2026 07:19:48 GMT
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 5629820043;
+	Sun, 30 Aug 2026 07:19:48 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 48D0520040;
+	Sun, 30 Aug 2026 07:19:44 +0000 (GMT)
+Received: from [9.67.21.115] (unknown [9.67.21.115])
+	by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Sun, 30 Aug 2026 07:19:43 +0000 (GMT)
+Message-ID: <859d4e5f-c491-4a0d-a7ea-0a16159f8059@linux.ibm.com>
+Date: Sun, 30 Aug 2026 12:49:42 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MBO-RS-META: 7ycnuq3q6wpdzx5t9yfy85ade9skqdip
-X-MBO-RS-ID: fc5110c4f1b32b16279
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 3/9] crash_dump: Read the number of dm-crypt keys from
+ reserved memory
+To: Coiby Xu <coiby.xu@gmail.com>, kexec@lists.infradead.org
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+        Baoquan He <baoquan.he@linux.dev>, Dave Young <ruirui.yang@linux.dev>,
+        Pratyush Yadav <pratyush@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+        Pasha Tatashin <pasha.tatashin@soleen.com>,
+        open list <linux-kernel@vger.kernel.org>
+References: <20260828084900.1496839-1-coiby.xu@gmail.com>
+ <20260828084900.1496839-4-coiby.xu@gmail.com>
+Content-Language: en-US
+From: Sourabh Jain <sourabhjain@linux.ibm.com>
+In-Reply-To: <20260828084900.1496839-4-coiby.xu@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODMwMDA1NyBTYWx0ZWRfXz0YCPV3lv4UH
+ IKPVHBjyBSjCZ8z1zEPIUytpYYoRUYERlcTq53Nn25cvPIOTKJb32Uz1seTvF3Xih0mZn0Ypi0R
+ xwEim4UWU3p15F6U1HJ4QxiaHFqoRGT6u320g61I/XRgr/UvylhxxYeM4eHjm6MqLybhT76A8oA
+ o77SVF2u/Fda3YI+GJ1hnoHBebDNBHnlY6kU6ilY4WEQYdoLntwOC5gP5SmXMlwHBuGfFy0/8rw
+ qMjIS9S3jwarM4cIPMzL2QXkJDqZQGha5liRYVM5eGayKhZ4xCk42gGb4QhX57ghiZVH1JBw7fa
+ 34IZoB7h38LbBqLR+djaVJniSNyV4ZKfyo3QzT9uYwz6JUayWfQopYwMARuODa+DO2Sh98BzBhB
+ lPHOa6PLoFwDNuilrj+PcSb8wlN5Jqr1TDDB+HyuvsTPzIg1sb6n///LnD3XlnTPvcVl41gKzZs
+ BaAiMQ34iOlndBwJl3g==
+X-Proofpoint-ORIG-GUID: k9DhWxakAY-W5qahI_4Jaf_-Q66rmif0
+X-Authority-Analysis: v=2.4 cv=CNgamxrD c=1 sm=1 tr=0 ts=6a93d997 cx=c_pps
+ a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=VnNF1IyMAAAA:8
+ a=pGLkceISAAAA:8 a=Ih1Uonz5PMveX798KfkA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: alrdb3oKMqCcAx18RzoTSmqYnLLTBoJ4
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODMwMDA1NyBTYWx0ZWRfXy9hJ7ZIDxolJ
+ XJXU5HxIIUx156q2RhO8U5NA2PjZ96exStXNOPweczKNJxf4L/99JjMQEOIddusSxQAEujLB6J+
+ kE+OVVf3pivNi0GRO34rIEMxLd9J34U=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-30_02,2026-08-27_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 bulkscore=0 suspectscore=0 phishscore=0 lowpriorityscore=0
+ priorityscore=1501 clxscore=1015 impostorscore=0 adultscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608300057
 
-On Mon, 2026-08-24 at 07:26 -0600, Jonathan Corbet wrote:
-> Manuel Ebner <manuelebnerli@mailbox.org> writes:
->=20
-> > It would be this list:
-> > Skipidentifiers =3D [ 'and', 'are', 'as', 'containing', 'element', 'in'=
-,
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 'including', 'is', 'name', 'n=
-eeds', 'of', 'or',=C2=A0 'page',
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 'pages', 'passed', 'randomiza=
-tion', 'request', 'that',
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 'to', 'where', 'which', 'whos=
-e', 'will' ]
->=20
-> So this is an error-prone game of whac-a-mole...as Randy pointed out,
-> "struct page" is a rather important one in the kernel.
->=20
-> I can apply your updated version of this as a short-term fix, I guess,
-> but a better solution is probably to only apply markup to "struct foo"
-> if we have documentation for that type.=C2=A0 I can look into that later.
-
-That's better, skip my patch.
-
-Thanks
- Manuel=20
 
 
-> jon
+On 28/08/26 14:18, Coiby Xu wrote:
+> In case user adds/deletes the keys by mistake, it's safer to read the
+> number of keys from reserved memory.
+>
+> Fixes: 9ebfa8dcaea7 ("crash_dump: reuse saved dm crypt keys for CPU/memory hot-plugging")
+> Reported-and-Suggested-by: Sourabh Jain <sourabhjain@linux.ibm.com>
+> Signed-off-by: Coiby Xu <coiby.xu@gmail.com>
+> ---
+>   kernel/crash_dump_dm_crypt.c | 36 +++++++++++++++++++++++-------------
+>   1 file changed, 23 insertions(+), 13 deletions(-)
+>
+> diff --git a/kernel/crash_dump_dm_crypt.c b/kernel/crash_dump_dm_crypt.c
+> index 026c7de4ad85..0b9e09c60745 100644
+> --- a/kernel/crash_dump_dm_crypt.c
+> +++ b/kernel/crash_dump_dm_crypt.c
+> @@ -89,21 +89,31 @@ static int get_keys_from_kdump_reserved_memory(void)
+>   {
+>   	struct keys_header *keys_header_loaded;
+>   	size_t keys_header_size;
+> -
+> -	keys_header_size = get_keys_header_size(key_count);
+> -	keys_header = kzalloc(keys_header_size, GFP_KERNEL);
+> -	if (!keys_header)
+> -		return -ENOMEM;
+> +	int r = 0;
+>   
+>   	arch_kexec_unprotect_crashkres();
+>   	keys_header_loaded = kmap_local_page(pfn_to_page(
+>   		kexec_crash_image->dm_crypt_keys_addr >> PAGE_SHIFT));
+>   
+> +	if (keys_header_loaded->total_keys <= 0 ||
+> +	    keys_header_loaded->total_keys > KEY_NUM_MAX) {
+> +		pr_warn("keys_header saved to reserved memory may be corrupt\n");
+> +		r = -EINVAL;
+> +		goto kunmap;
+> +	}
+> +
+> +	keys_header_size = get_keys_header_size(keys_header_loaded->total_keys);
+> +	keys_header = kzalloc(keys_header_size, GFP_KERNEL);
+> +	if (!keys_header) {
+> +		r = -ENOMEM;
+> +		goto kunmap;
+> +	}
+> +
+>   	memcpy(keys_header, keys_header_loaded, keys_header_size);
+> +kunmap:
+>   	kunmap_local(keys_header_loaded);
+>   	arch_kexec_protect_crashkres();
+> -
+> -	return 0;
+> +	return r;
+>   }
+>   
+>   static int restore_dm_crypt_keys_to_thread_keyring(void)
+> @@ -447,12 +457,12 @@ int crash_load_dm_crypt_keys(struct kimage *image)
+>   	mutex_lock(&config_keys_subsys.su_mutex);
+>   	mutex_acquired = true;
+>   
+> -	if (key_count <= 0) {
+> -		kexec_dprintk("No dm-crypt keys\n");
+> -		return 0;
+> -	}
+> -
+>   	if (!is_dm_key_reused) {
+> +		if (key_count <= 0) {
+> +			kexec_dprintk("No dm-crypt keys\n");
+> +			return 0;
+> +		}
+> +
+
+Not directly related to this patch, but I have a query.
+
+Do we really need to take config_keys_subsys.su_mutex when keys are
+reused? If not, how about moving the acquisition and release of
+config_keys_subsys.su_mutex into build_keys_header()?
+
+
+- Sourabh Jain
+>   		r = build_keys_header();
+>   		if (r)
+>   			goto out;
+> @@ -463,7 +473,7 @@ int crash_load_dm_crypt_keys(struct kimage *image)
+>   	 * cleaned up at the end of kexec_file_load syscall
+>   	 */
+>   	kbuf.buffer = keys_header;
+> -	kbuf.bufsz = get_keys_header_size(key_count);
+> +	kbuf.bufsz = get_keys_header_size(keys_header->total_keys);
+>   
+>   	kbuf.memsz = kbuf.bufsz;
+>   	kbuf.buf_align = ELF_CORE_HEADER_ALIGN;
+
