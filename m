@@ -1,99 +1,136 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-188.mta1.migadu.com [95.215.58.188])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5113D25B0B9;
-	Sun, 30 Aug 2026 01:05:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C02638D
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 01:08:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.188
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788051936; cv=none; b=gwzOocG4c+xsi5A23BF1+orwMC7vCvkII9J8dLbaoJ993/y+zDHnECN4XZmCy4E3d5dVsGn9WOZUq/pPMzYJjfGKYqV/lujC75yOGv8jabFsiqUQnl3+UHdjE9CBDvcwDlLgTdVT2pbIXy2myYQaaLUMT2mKGt5cipDGQua14u0=
+	t=1788052133; cv=none; b=XpCAIOM+2cW7EyRnCmGvzNxUlboA4zIQDp/odoTtsmOjMq0HYQW7cSYU4OVEBgluMca+YIu7JYKdazWV/9gPFP8I0eNvDJ4wsErxDDducI90pwi02CwXHKrlx10xEKYBM4jW02qOYjhb+QoT8kjTIR+OZrxdzEgyx915e3VWtG8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788051936; c=relaxed/simple;
-	bh=oB+KPR59cFI7eZAa9KgeABPL3A12TJ8BB5uUmES0v8c=;
-	h=Message-ID:Date:From:To:Cc:Subject:References:MIME-Version:
-	 Content-Type; b=E0nibuOrUQJ/RXnUYY3Oo9MzwIMQLj/qltIwIII49Vv+Ip6qZfbk3xhcTMZElR7OMDtQo+CiVDvlGzbSCPRZ7Nhp929eYatkAJRhDBhque7C2L1j1moqunvEu3gUAxb5XAiqSvKphQNQ2wjruM32ZDgfTm5b1raDe/MGhWoJxh8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OQFEUehx; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788052133; c=relaxed/simple;
+	bh=DZzcjJc9sLyv3Y9LU9lZskwia54d44A48WITPmc1pDE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=S/GU2IGuK8AE46w/wr6g1DWpqLlD6kK8XIUZxbueF9gV2lZvKvbRISVw0t3npYWngJ6jSdh0SyZo5uiygiSbQ3tDZQbqdfu6SsHPaY9KajOmuVdIxmqfKykc8ECuz6+1yuo+MOt0g+yst2swAlIn8UP3DCCAtGt/TJK0+Oddd2E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ru84dXoX; arc=none smtp.client-ip=95.215.58.188
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OQFEUehx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0FBD71F00AC4;
-	Sun, 30 Aug 2026 01:05:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788051935;
-	bh=iTpNiIj47HKLQsR3btqhyiB6ko64R0R8S6RSN4BlvuE=;
-	h=Date:From:To:Cc:Subject:References;
-	b=OQFEUehxQLIAwJ8GlGW3M9aMmtbUf+7zh+Q0cW7Kae+fbGmr0rQDq5d0wmMSGfMnV
-	 XhfJxjFyn20IAdir+FrZMJJAdfBE9df7K9eHeJTrTxsv6Iuc2HClg1G/LEEW7CP+94
-	 421qogtk7KV5pb1EpsXBhJkX2ISWk+O92EpzrkpaZ9gx4J8XvHd7FcP4aN0uFBL/TJ
-	 ywPoLErhufIJ67udXRKZOOoqfeYaWIT36jSSPY4NLky1BZKWgPPSqrHOOuMiaohAU0
-	 5p/9aERvoIOXhz0nZIgbexYRM7shmY8v6mUxbfmxIHx6RA0lTr5rtrdbwat/dCyYV4
-	 ot7BiVl5GXI7Q==
-Received: from rostedt by gandalf with local (Exim 4.99.4)
-	(envelope-from <rostedt@kernel.org>)
-	id 1x0U0C-0000000A4A0-1SRo;
-	Sat, 29 Aug 2026 21:06:28 -0400
-Message-ID: <20260830010628.208350485@kernel.org>
-User-Agent: quilt/0.69
-Date: Sat, 29 Aug 2026 21:05:34 -0400
-From: Steven Rostedt <rostedt@kernel.org>
-To: linux-kernel@vger.kernel.org
-Cc: Masami Hiramatsu <mhiramat@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Vincent Donnefort <vdonnefort@google.com>,
- stable@vger.kernel.org,
- Ivan Immanuel Shaji <ivanimmanuel1234@gmail.com>
-Subject: [for-linus][PATCH 3/3] ring-buffer: Stop remote reader update when page swap fails
-References: <20260830010531.847108845@kernel.org>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ru84dXoX"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=DZzcjJc9sLyv3Y9LU9lZskwia54d44A48WITPmc1pDE=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788052129; v=1; x=1788656929;
+ b=ru84dXoXQJC1LffezUNzlcNZAPYSfKk0C2GZAbLdIw/8JlZJRhuB7IFUrV+ttKGPxYlKq7sV
+ 9KPrVPMmPRuF4UJ9bveBnAwBSEJbumQ2QqB4m4MNCeOiGj6Camm6cXlh7m81R0KZJe8wkvlNwsa
+ DThChZT0+Fz8N+CREim+qwTQ=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 38fa7b8430628112;
+	Sun, 30 Aug 2026 01:08:48 +0000
+X-Mizu-Trace-ID: 38fa7b8430628112
+X-Migadu-Flow: FLOW_OUT
+Date: Sat, 29 Aug 2026 18:08:47 -0700
+From: Shakeel Butt <shakeel.butt@linux.dev>
+To: syzbot <syzbot+cd2073ee6d958a8d0fcd@syzkaller.appspotmail.com>
+Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
+	syzkaller-bugs@googlegroups.com, hughd@google.com
+Subject: Re: [syzbot] [mm?] WARNING in __mod_zone_page_state
+Message-ID: <apOAF5CPFWUUH9du@linux.dev>
+References: <6a931c5a.08e933ee.dbf97.0093.GAE@google.com>
+ <apNjw0HRyr1Oj7q4@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <apNjw0HRyr1Oj7q4@linux.dev>
 
-From: Ivan Immanuel Shaji <ivanimmanuel1234@gmail.com>
++hugh
 
-The remote swap_reader_page callback can return -EBUSY when the writer
-moves the head before the remote catches it, particularly during an event
-storm on a small buffer. __rb_get_reader_page_from_remote() currently
-warns about that failure but continues with the unchanged reader ID and
-rearranges the local page list as though the swap succeeded.
+On Sat, Aug 29, 2026 at 04:03:35PM -0700, Shakeel Butt wrote:
+> On Sat, Aug 29, 2026 at 10:52:26AM -0700, syzbot wrote:
+> > Hello,
+> > 
+> > syzbot found the following issue on:
+> > 
+> > HEAD commit:    818bebeb63dd drm/xe: Don't hand out the flat CCS storage a..
+> > git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+> > console output: https://syzkaller.appspot.com/x/log.txt?x=10286d79580000
+> > kernel config:  https://syzkaller.appspot.com/x/.config?x=ccca94d2c01b9e78
+> > dashboard link: https://syzkaller.appspot.com/bug?extid=cd2073ee6d958a8d0fcd
+> > compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+> > C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=13cf7625580000
+> > 
+> > IMPORTANT: if you fix the issue, please add the following tag to the commit:
+> > Reported-by: syzbot+cd2073ee6d958a8d0fcd@syzkaller.appspotmail.com
+> > 
+> > smpboot: CPU 1 is now offline
+> > ------------[ cut here ]------------
+> > IS_ENABLED(CONFIG_PREEMPT_COUNT) && __lockdep_enabled && (preempt_count() == 0 && this_cpu_read(hardirqs_enabled))
+> > WARNING: mm/vmstat.c:361 at __mod_zone_page_state+0x96/0x190 mm/vmstat.c:361, CPU#2: syz-executor412/6040
+> > Modules linked in:
+> > CPU: 2 UID: 0 PID: 6040 Comm: syz-executor412 Not tainted syzkaller #0 PREEMPT(full) 
+> > Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+> > RIP: 0010:__mod_zone_page_state+0x96/0x190 mm/vmstat.c:361
+> > Code: d0 00 00 00 8b 05 3e 44 ea 0e 85 c0 74 1f 65 8b 05 87 e0 2e 12 65 0b 05 d0 99 2e 12 75 0f 65 8b 05 d3 db 2e 12 85 c0 74 04 90 <0f> 0b 90 48 c7 c7 c0 e7 ff 8b e8 3b b3 6d 09 65 48 0f be 5d 00 48
+> > RSP: 0018:ffffc9000627f8e0 EFLAGS: 00010202
+> > RAX: 0000000000000001 RBX: 0000000000000000 RCX: 1ffffffff2287150
+> > RDX: 0000000000000000 RSI: 0000000000000008 RDI: ffff88807ffd79b8
+> > RBP: ffffffff9489f448 R08: 0000000000000001 R09: 0000000000000000
+> > R10: 0000000000000001 R11: 0000000000000000 R12: ffffffffffffffff
+> > R13: 0000000000000008 R14: ffff88807ffd7940 R15: ffffffff9489f440
+> > FS:  00005555785ce400(0000) GS:ffff8880d5da2000(0000) knlGS:0000000000000000
+> > CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> > CR2: 00005608d531ffb8 CR3: 000000002cb7c000 CR4: 0000000000352ef0
+> > Call Trace:
+> >  <TASK>
+> >  __zone_stat_mod_folio include/linux/vmstat.h:410 [inline]
+> >  __munlock_folio mm/mlock.c:144 [inline]
+> >  mlock_folio_batch+0xf97/0x36e0 mm/mlock.c:204
+> >  mlock_drain_remote+0xe5/0x140 mm/mlock.c:230
+> 
+> So, we are calling stat update functions which requires preemption disabled
+> (because they access per cpu data) an offlined CPU which is fine but we have
+> warning that preemption is not disabled.
+> 
+> Let see if syzbot comes up with a reproducer. We can just simply take the local
+> locks like neighboring functions or something else.
 
-Handle the callback failure as a recoverable error. Report it with
-pr_warn_ratelimited() and return NULL. Callers already handle a NULL reader
-page as a failed attempt. This avoids splicing the same page as both the
-previous and new reader without flooding the log under contention.
+After looking deeper and it seems like __munlock_folio is the only one which
+have a code path where lru lock with irq disabled is not done before call
+__zone_stat_mod_folio. I think we can easily fix __munlock_folio without
+acquiring local_locks here.
 
-Cc: stable@vger.kernel.org
-Fixes: 2e67fabd8b77 ("ring-buffer: Introduce ring-buffer remotes")
-Link: https://patch.msgid.link/20260825-kernel-patch-1-v2-2-bb3461807a32@gmail.com
-Assisted-by: LLM sparse
-Signed-off-by: Ivan Immanuel Shaji <ivanimmanuel1234@gmail.com>
-Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
----
- kernel/trace/ring_buffer.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+Something like below. I will run some tests before proposing a formal patch.
 
-diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
-index 5fc009edc1ec..b7d076b6edcf 100644
---- a/kernel/trace/ring_buffer.c
-+++ b/kernel/trace/ring_buffer.c
-@@ -5805,8 +5805,11 @@ __rb_get_reader_page_from_remote(struct ring_buffer_per_cpu *cpu_buffer)
+diff --git a/mm/mlock.c b/mm/mlock.c
+index efa6716e4dfb..9ab8042671f1 100644
+--- a/mm/mlock.c
++++ b/mm/mlock.c
+@@ -141,11 +141,20 @@ static struct lruvec *__munlock_folio(struct folio *folio, struct lruvec *lruvec
  
- 	prev_reader = cpu_buffer->subbuf_ids[cpu_buffer->meta_page->reader.id];
+ munlock:
+ 	if (folio_test_clear_mlocked(folio)) {
+-		__zone_stat_mod_folio(folio, NR_MLOCK, -nr_pages);
++		enum vm_event_item item;
++
+ 		if (isolated || !folio_test_unevictable(folio))
+-			__count_vm_events(UNEVICTABLE_PGMUNLOCKED, nr_pages);
++			item = UNEVICTABLE_PGMUNLOCKED;
+ 		else
+-			__count_vm_events(UNEVICTABLE_PGSTRANDED, nr_pages);
++			item = UNEVICTABLE_PGSTRANDED;
++
++		if (isolated) {
++			__zone_stat_mod_folio(folio, NR_MLOCK, -nr_pages);
++			__count_vm_events(item, nr_pages);
++		} else {
++			zone_stat_mod_folio(folio, NR_MLOCK, -nr_pages);
++			count_vm_events(item, nr_pages);
++		}
+ 	}
  
--	WARN_ON_ONCE(cpu_buffer->remote->swap_reader_page(cpu_buffer->cpu,
--							  cpu_buffer->remote->priv));
-+	if (cpu_buffer->remote->swap_reader_page(cpu_buffer->cpu,
-+						 cpu_buffer->remote->priv)) {
-+		pr_warn_ratelimited("Remote reader page swap failed\n");
-+		return NULL;
-+	}
- 	/* nr_pages doesn't include the reader page */
- 	if (WARN_ON_ONCE(cpu_buffer->meta_page->reader.id > cpu_buffer->nr_pages))
- 		return NULL;
--- 
-2.53.0
-
-
+ 	/* folio_evictable() has to be checked *after* clearing Mlocked */
