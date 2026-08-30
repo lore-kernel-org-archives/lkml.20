@@ -1,130 +1,152 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9669B310651
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 21:23:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B96031283E;
+	Sun, 30 Aug 2026 21:25:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788125016; cv=none; b=tSacN+Nx0s+cT9gLDR47iYNIakQX3LuF/iVAP7roIjuF1fGeI+lFD+W+FeNBf+HN0TxvGAqvPSafEzolTElNYOomrQ/TG7+rbyaiHccM7v4MnkgfmxxwITFGqtoiLIJMvoc1x7RyP9BI+GRonlwMUyraXCCryHs2/h4op1NTETQ=
+	t=1788125112; cv=none; b=dyfQDYQVkgQJorgQW8zI9srT2dW7hgZvHv7bUeGiBbWqHw5oqtd35zBe1GfMg2wVhamN4uCqVDKsXgXsOlSi8MvPE9jMgDnElPcbf38VA7anjI9V45JaL38+CsPS6JnyUwSwg0GGveW4otBNU6AfTlWXEtQJbOcY/JZprDBCuoE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788125016; c=relaxed/simple;
-	bh=wBPH+Rk3uwwSH+tiyptG7oB+B0g92L3qAggw7PluSjw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ewF3ajvoo5+IN26VFPnqeo7Wuuj32Z9rW6qsvFvGRcJIhbnckbhvWQGd9mTLHDmY9BJ7OEXaGIMvBAxqjZ8i0oXUK1B1TSFEvjJS0o2ogfL7x/RnumW6KdzvDXQavFiwz0D7Wq/CJxMUO26L0QOuPlQwde6sMIy67FEo9yUPx1I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=grimberg.me; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.128.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=grimberg.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4957eefd361so22292095e9.1
-        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 14:23:34 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788125013; x=1788729813;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=KulJb9m4lyjbS/Bxlru8m+jiMLlRHaAM9CjPiqQQbHY=;
-        b=KqVxV9LmbG8ImcvtCCqY72p/+3UrR/Rfh+bJm7GDq7c3P2fgdD4Se7VaC3uXBD/J48
-         2yCy+FuFFNjrfv6Eyv7uZcNCAnajWuaPP9R6r4e4l3LDNJZ9Zl1v0DajgsBuaWNFvEva
-         Ggbz9a0CUDfOwYL8kwWc4GCkigM2w6vaTYKE2748JMfefMqyhXXYyJgBmkUaYZGOysea
-         kJuaacpgsdZfZHW6CyYWUwEmJ+au02Ui6K84K0HgKBmJNRAMGHXvEG91xTDboE9WvC9M
-         uUmS3MnwIZwfU36uqEwnzvYtE4ttIKNLuVAen7O4+jDm0yZ8G4Fz0p4vAmCqCb9bEBVL
-         3Hsw==
-X-Forwarded-Encrypted: i=1; AHgh+Rp4jykTgAdNUyJfDZW2mf/RwLxF83E/SS+Ibub66CMapnqgCCJmkwE38yE8rAxpYTFS/KLnGBAvhoc9oMI=@vger.kernel.org
-X-Gm-Message-State: AFuF++lmgwixJ9f+z8wb/780d3YHGTdHtoU1bF7aVY+2IgkmC9Zo4pyZ
-	OntuvV9xkeXuOh778WP3mU6R+wIP+tmJjOYauAIDqQfR5k7Cn7udvaV5
-X-Gm-Gg: AR+sD13uPn5kGkXp2n90g3JVLghLrl8imZJ//I9BkaF4jdyUdseX7cWFB4xU/h/ifjg
-	O+9PSsSQq4bdTkk7ZQGn11VBFW3lkI1G4BoAnati45DL0jokik34suXJ9lKED+qyPvXW8iubGFw
-	2VLFXaitcFqBoEklb0qX890uDBrtBrgWpfIWuhgUIDoZTj1NXCZsBEfN8puUa6XSd8KdT89fjUB
-	FbUx7W1UYZ3+mGaFEd89jjj3ZL/jZkzyY/DKcfIXewiOVI98wNEt5ezW49Zj1f8+o+IxUY8UIYv
-	eVYLLfJWext4wYZvvsGEiZs2V+F7nn9ex7rVKvSZM+3QcU91sc1uCZVf8YTC52o3LdWrijScfQA
-	8Ab2uF29fBu3lDwh99iKHCMK1AaycxFkROWN4lDzM/SMAz753njMcn1NKiGRhYs2d6Ces95SOZT
-	hFrLExij888M5QMbK+9n5USjrY/udiqSFNgrJZDApFpAbq1+o+iEv+Oj7QCKuxDsWp4hoF1kH8d
-	uoCzSt5W6xQaabYnyTjNA==
-X-Received: by 2002:a05:600c:6088:b0:49b:2796:be30 with SMTP id 5b1f17b1804b1-49b91c433a4mr342610655e9.11.1788125012656;
-        Sun, 30 Aug 2026 14:23:32 -0700 (PDT)
-Received: from [10.100.102.74] (89-138-77-243.bb.netvision.net.il. [89.138.77.243])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b91728319sm219625835e9.12.2026.08.30.14.23.31
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 30 Aug 2026 14:23:32 -0700 (PDT)
-Message-ID: <499d5395-3055-4968-8b73-d095ba427134@grimberg.me>
-Date: Mon, 31 Aug 2026 00:23:30 +0300
+	s=arc-20240116; t=1788125112; c=relaxed/simple;
+	bh=e3DGhgfryeBvmyMQZklEG0R0wT6o3YGyy8gco7UnuL8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=KEiz5HgAMC0E84jwoQF8a0y+Q4wAl1zJqNzvv2gk4KS7N+xp/wJeICrjCp/RSowiM2Wc2CkZ70Weh9imW259dOVYFDKYifwA8En+fkOG00dp5SFETft75FS0TZBvMD1cFBnTSh0B98lhr24dUMRdhORrbJo9kxarroClT7WX1KM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ObNHNS9/; arc=none smtp.client-ip=198.175.65.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ObNHNS9/"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788125109; x=1819661109;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=e3DGhgfryeBvmyMQZklEG0R0wT6o3YGyy8gco7UnuL8=;
+  b=ObNHNS9/2EFUuvXoD+Xdm0VGptK6ad1b33h7XrnFDaUQSTUPmY4gC3lX
+   n63jstf/j0BrwA82Rb9Oycj5URXtI/+vzKB3qoDMStZHr/968lgTDHpqN
+   VbUakUF/1az/w/YAhYTbqky1r4EXEU8sva84XwxejLweH1KmMoofIMonm
+   hWfdie+KR/PKr/sGw43Gxzr+X9oIC75gPPduEYrObHxo/r+jBk4SqUcCJ
+   YK12MtuTHbc6YMjhPAQtme93EFJkz0rZzNLMjDMFOmbpO25P0eABJFbdE
+   tSYQKbkcAwfoSxUi5aFJpOrSKDvS9TpVEHnexAU2sGEcOzeSzDpCjfw8V
+   Q==;
+X-CSE-ConnectionGUID: 4VEBySaDTe6GS/qB6wfDFA==
+X-CSE-MsgGUID: T30f9QZJSou8ViZqx44RTg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11891"; a="100047251"
+X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
+   d="scan'208";a="100047251"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Aug 2026 14:25:09 -0700
+X-CSE-ConnectionGUID: KMlicqj9QYiOJSs2SPAA8w==
+X-CSE-MsgGUID: qnUquIXZQEukjLDuvMohTQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
+   d="scan'208";a="268075473"
+Received: from igk-lkp-server01.igk.intel.com (HELO 32268bdb9915) ([10.211.93.152])
+  by orviesa008.jf.intel.com with ESMTP; 30 Aug 2026 14:25:05 -0700
+Received: from kbuild by 32268bdb9915 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1x0n1S-000000000Dr-1DlD;
+	Sun, 30 Aug 2026 21:25:02 +0000
+Date: Sun, 30 Aug 2026 23:24:06 +0200
+From: kernel test robot <lkp@intel.com>
+To: =?iso-8859-1?Q?Andr=E9?= Almeida <andrealmeid@igalia.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Christian Brauner <brauner@kernel.org>, Kees Cook <kees@kernel.org>,
+	Shuah Khan <skhan@linuxfoundation.org>, willy@infradead.org,
+	mathieu.desnoyers@efficios.com,
+	David Laight <david.laight.linux@gmail.com>,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	akpm@linux-foundation.org, Yafang Shao <laoar.shao@gmail.com>,
+	andrii.nakryiko@gmail.com, arnaldo.melo@gmail.com,
+	Petr Mladek <pmladek@suse.com>
+Cc: oe-kbuild-all@lists.linux.dev, LKML <linux-kernel@vger.kernel.org>,
+	kernel-dev@igalia.com, linux-mm@kvack.org,
+	linux-api@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
+	=?iso-8859-1?Q?Andr=E9?= Almeida <andrealmeid@igalia.com>
+Subject: Re: [PATCH v5 6/6] selftests: prctl: Add test for long thread names
+Message-ID: <202608302318.ORNqwjNf-lkp@intel.com>
+References: <20260827-tonyk-long_name-v5-6-5fa843782a00@igalia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH nvme-7.3 v2 4/4] nvme-fabrics: add helper for DH-CHAP
- secret options
-To: raoxu <raoxu@uniontech.com>
-Cc: axboe@kernel.dk, hch@lst.de, kbusch@kernel.org,
- linux-kernel@vger.kernel.org, linux-nvme@lists.infradead.org
-References: <0D24A9A3F19DBCF9+20260827125710.1381672-1-raoxu@uniontech.com>
- <A234F50F1018A58C+20260827130407.1391174-1-raoxu@uniontech.com>
-Content-Language: en-US
-From: Sagi Grimberg <sagi@grimberg.me>
-In-Reply-To: <A234F50F1018A58C+20260827130407.1391174-1-raoxu@uniontech.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260827-tonyk-long_name-v5-6-5fa843782a00@igalia.com>
+
+Hi André,
+
+kernel test robot noticed the following build warnings:
+
+[auto build test WARNING on 73e3f0710014fe6d4ed98cfc02292f6121db7558]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Andr-Almeida/treewide-Get-rid-of-get_task_comm/20260827-152300
+base:   73e3f0710014fe6d4ed98cfc02292f6121db7558
+patch link:    https://lore.kernel.org/r/20260827-tonyk-long_name-v5-6-5fa843782a00%40igalia.com
+patch subject: [PATCH v5 6/6] selftests: prctl: Add test for long thread names
+config: m68k-allmodconfig (https://download.01.org/0day-ci/archive/20260830/202608302318.ORNqwjNf-lkp@intel.com/config)
+compiler: m68k-linux-gcc (GCC) 16.1.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260830/202608302318.ORNqwjNf-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202608302318.ORNqwjNf-lkp@intel.com/
+
+All warnings (new ones prefixed by >>):
+
+   In file included from include/asm-generic/bug.h:31,
+                    from arch/m68k/include/asm/bug.h:32,
+                    from include/linux/bug.h:5,
+                    from include/linux/slab.h:15,
+                    from include/linux/xattr.h:15,
+                    from security/smack/smack_lsm.c:18:
+   security/smack/smack_lsm.c: In function 'smk_bu_tsk_to_obj':
+   security/smack/smack_lsm.c:150:22: error: implicit declaration of function 'get_task_comm'; did you mean 'set_task_comm'? [-Wimplicit-function-declaration]
+     150 |                 acc, get_task_comm(comm, tsk), note);
+         |                      ^~~~~~~~~~~~~
+   include/linux/printk.h:483:33: note: in definition of macro 'printk_index_wrap'
+     483 |                 _p_func(_fmt, ##__VA_ARGS__);                           \
+         |                                 ^~~~~~~~~~~
+   include/linux/printk.h:584:9: note: in expansion of macro 'printk'
+     584 |         printk(KERN_INFO pr_fmt(fmt), ##__VA_ARGS__)
+         |         ^~~~~~
+   security/smack/smack_lsm.c:148:9: note: in expansion of macro 'pr_info'
+     148 |         pr_info("Smack %s: (%s %s %s) %s %s\n", smk_bu_mess[rc],
+         |         ^~~~~~~
+>> include/linux/kern_levels.h:5:25: warning: format '%s' expects argument of type 'char *', but argument 6 has type 'int' [-Wformat=]
+       5 | #define KERN_SOH        "\001"          /* ASCII Start Of Header */
+         |                         ^~~~~~
+   include/linux/printk.h:483:25: note: in definition of macro 'printk_index_wrap'
+     483 |                 _p_func(_fmt, ##__VA_ARGS__);                           \
+         |                         ^~~~
+   include/linux/printk.h:584:9: note: in expansion of macro 'printk'
+     584 |         printk(KERN_INFO pr_fmt(fmt), ##__VA_ARGS__)
+         |         ^~~~~~
+   include/linux/kern_levels.h:14:25: note: in expansion of macro 'KERN_SOH'
+      14 | #define KERN_INFO       KERN_SOH "6"    /* informational */
+         |                         ^~~~~~~~
+   include/linux/printk.h:584:16: note: in expansion of macro 'KERN_INFO'
+     584 |         printk(KERN_INFO pr_fmt(fmt), ##__VA_ARGS__)
+         |                ^~~~~~~~~
+   security/smack/smack_lsm.c:148:9: note: in expansion of macro 'pr_info'
+     148 |         pr_info("Smack %s: (%s %s %s) %s %s\n", smk_bu_mess[rc],
+         |         ^~~~~~~
 
 
+vim +5 include/linux/kern_levels.h
 
-On 27/08/2026 16:04, raoxu wrote:
-> From: Xu Rao <raoxu@uniontech.com>
->
-> The dhchap_secret and dhchap_ctrl_secret options have a distinct string
-> lifetime because their values are authentication material.  The temporary
-> string must be checked for the DHHC-1 representation and discarded with
-> kfree_sensitive() when validation fails before ownership is transferred.
->
-> Add nvmf_parse_dhchap_secret() to keep match_strdup(), DHHC-1 validation,
-> failure cleanup, replacement of the old value and successful ownership
-> transfer in one scope.  Both secret options use the same helper because
-> their parsing and ownership rules are identical.
->
-> Keep the existing replacement semantics for an already stored valid secret;
-> this patch only moves the parsing and temporary allocation lifetime into
-> the helper.
->
-> No functional change is intended.
->
-> Suggested-by: Christoph Hellwig <hch@lst.de>
-> Reviewed-by: Sagi Grimberg <sagi@grimberg.me>
-> Signed-off-by: Xu Rao <raoxu@uniontech.com>
-> ---
->   drivers/nvme/host/fabrics.c | 48 ++++++++++++++++++-------------------
->   1 file changed, 24 insertions(+), 24 deletions(-)
->
-> diff --git a/drivers/nvme/host/fabrics.c b/drivers/nvme/host/fabrics.c
-> index 24385e777307..dc8883d85f45 100644
-> --- a/drivers/nvme/host/fabrics.c
-> +++ b/drivers/nvme/host/fabrics.c
-> @@ -725,6 +725,25 @@ static int nvmf_parse_string_option(substring_t *args, char **dst)
->   	return 0;
->   }
->   
-> +static int nvmf_parse_dhchap_secret(substring_t *args, char **secret)
-> +{
-> +	char *value;
-> +
-> +	value = match_strdup(args);
-> +	if (!value)
-> +		return -ENOMEM;
-> +
-> +	if (strlen(value) < 11 || strncmp(value, "DHHC-1:", 7)) {
-> +		pr_err("Invalid DH-CHAP secret %s\n", value);
-> +		kfree_sensitive(value);
-> +		return -EINVAL;
-> +	}
-> +
-> +	kfree(*secret);
-> +	*secret = value;
-> +	return 0;
+314ba3520e513a Joe Perches 2012-07-30  4  
+04d2c8c83d0e3a Joe Perches 2012-07-30 @5  #define KERN_SOH	"\001"		/* ASCII Start Of Header */
+04d2c8c83d0e3a Joe Perches 2012-07-30  6  #define KERN_SOH_ASCII	'\001'
+04d2c8c83d0e3a Joe Perches 2012-07-30  7  
 
-Looks very similar to nvmf_parse_string_option... Would this be better? 
--- static int nvmf_parse_dhchap_secret(substring_t *args, char **secret) 
-{ int ret; ret = nvmf_parse_string_option(args, secret); if (ret) return 
-ret; if (strlen(*secret) < 11 || strncmp(*secret, "DHHC-1:", 7)) { 
-pr_err("Invalid DH-CHAP secret %s\n", *secret); 
-kfree_sensitive(*secret); return -EINVAL; } return 0; } --
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
