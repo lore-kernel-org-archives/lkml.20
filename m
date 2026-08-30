@@ -1,37 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E416E331EA3;
-	Sun, 30 Aug 2026 20:19:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CF8C332EC5;
+	Sun, 30 Aug 2026 20:19:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788121185; cv=none; b=ukUGg03od+3EbkeWn9btplnP1bkPOruwyPBhXj/igTR+aMFnPlL28mmHNdC3wCa1dx+xMpMjccR+QLhPLCmDD+eygGnmVYM/ltP0AAZQGU9/FkdJ3yYlPaNl9hMAO1dwZQUqTTR+BUvPz/hzPVSjFYCYxTYbn4BrKy2doRLhxGQ=
+	t=1788121185; cv=none; b=lVr3so1EJK5G427gsKUlQlngxw1x51vAiZUQhxOy+xjrPaq39YzFKDvwuItKZ9GuZfgKhbOWO+kUeRvGCOc9IAAOrViaIwrbaT+aoemOVMbsZ9JNol5+k/DgXimYYtFGQvi3UUyxPO6cdDg9eGfmR4508O0xZ9RzJLhKfkSVtf0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788121185; c=relaxed/simple;
-	bh=CLLkwaKc5+f6XimwNr2nFpZ5Q46wgtKFW0n8D5ES48U=;
+	bh=yLZzvweLjoBBYhWj4yAiYhV53Thr+IzutEkoNWzH/mU=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=j/7TzUSOkvi/PB0EDumHcAuIRjAP5kG5pg9R3VufzSFmRpiWPe0TiNdU1Hno+b/DW4HP9kxH1kApDeUoRERyo+WQryfiEf3IWVOSFmhE8yY6F/JNI7ufg9+aEJHkkROVjfiMeU5106wt77oxIXXd4rC+Qh5xEWTWSC/X5wp38HI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bNl0B7ei; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=iI/Yut4gJE1KtbY7RDsng07BkXmfvrwe4ZIAzVX8egqSF1Kr8I2cGzPuZv2Ss345xPg8binN6u4LF6bkEsvfQ9+1LrIvkHApYwg2dwEbLlWDqZGbaYd70RjvRdLiZc9iGCNScsYQ5FXXzqn5brxzPL/7iU5IAzAYcsPBEnSyqNQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K5IQo6/2; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bNl0B7ei"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id B3538C2BD04;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K5IQo6/2"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id DB111C4AF4D;
 	Sun, 30 Aug 2026 20:19:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1788121184;
-	bh=CLLkwaKc5+f6XimwNr2nFpZ5Q46wgtKFW0n8D5ES48U=;
+	bh=yLZzvweLjoBBYhWj4yAiYhV53Thr+IzutEkoNWzH/mU=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=bNl0B7eiYj/nR7OKhFUWhHR++ZxsEy1wEUCO2RZe/fxZU1Nq0L1QoH1a2VGsgLHa2
-	 ri/TVzGtnO3wI0ySGSQqSuZuZh5W/5ytDaMSEb4/ic6fkyTZoRgM17q5t69NNdRgdv
-	 6KI4AnuWeXnErt9D1MTGgD4sAKhvEAfAsIXzkSuL9ffhfoEUY4/SAqvl/Q7H/TvWr9
-	 y9usljO9CqJlV/UxCAE9Byz/ycBgs+OMmcGVu29/3aotq/WKk1Wa99d9lqcAlcU8G/
-	 tHXDdfvZ975+SFVw12Bk+zH2GW/fckjKaxmtlUQ/SFK2Tna/cgoYjk2JrlXnyocZAg
-	 PR6J4sK3K1srw==
+	b=K5IQo6/2KjiuDg4JiKaO9StPJ7B7aoYzgwk/rfs+zrHztkVJv44jUt0USKxcf63ze
+	 cWEsQ4V/hzoVag43lvJb0mAml0DBTeZzRuND+joF38FoYz8HtG5/z0Cp0cqEQ6YSzO
+	 5WFgmHk5U591YYIo2J/W3I8JL3XX4eZnXuoorsWghsgyyWPhbLeIin47i/ZZR4zUlr
+	 AWud6SQj4rWMT82M9NxEW8Uy8IhiDoEWE4BsHLrVyAxkZkLnaTKzkm1bjNPnu01kkt
+	 oXuvDVxiMuY7UXMHOil9+5fRJZSpDx6LXxZ+EPDyyL1gjfwtXCs3t1zqenwSmW3eZQ
+	 SSXtkwv30TP0Q==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9C691C61DD9;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C3940C61DF0;
 	Sun, 30 Aug 2026 20:19:44 +0000 (UTC)
 From: Sven Peter <sven@kernel.org>
-Date: Sun, 30 Aug 2026 22:19:32 +0200
-Subject: [PATCH 14/19] thunderbolt: Add QUIRK_NO_USB3_BW_ALLOC
+Date: Sun, 30 Aug 2026 22:19:33 +0200
+Subject: [PATCH 15/19] thunderbolt: Export symbols required by the Apple
+ Silicon driver
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -40,7 +41,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260830-b4-apple-soc-tbt-v1-14-44bc9348683c@kernel.org>
+Message-Id: <20260830-b4-apple-soc-tbt-v1-15-44bc9348683c@kernel.org>
 References: <20260830-b4-apple-soc-tbt-v1-0-44bc9348683c@kernel.org>
 In-Reply-To: <20260830-b4-apple-soc-tbt-v1-0-44bc9348683c@kernel.org>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
@@ -57,176 +58,121 @@ Cc: Konrad Dybcio <konradybcio@kernel.org>, linux-usb@vger.kernel.org,
  asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
  Sven Peter <sven@kernel.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6302; i=sven@kernel.org;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3480; i=sven@kernel.org;
  h=from:subject:message-id;
- bh=CLLkwaKc5+f6XimwNr2nFpZ5Q46wgtKFW0n8D5ES48U=;
- b=owGbwMvMwCXmIlirolUq95LxtFoSQ9aUCZFXxd52NOy6O3+rhHf7b8Zn96es63pjJvfO+MAaT
- 7k0N7cPHaUsDGJcDLJiiizb99ubPnn4RnDppkvvYeawMoEMYeDiFICJvJFi+J95pnbHDNugN8/z
- 30z0mJf6+E5Sr1+o/B7HPk2XKWfeJ+5k+GfA1O9dtihRJvuAyu0tViwdE3nDN28+EMj4Y9ufg1u
- 6tvICAA==
+ bh=yLZzvweLjoBBYhWj4yAiYhV53Thr+IzutEkoNWzH/mU=;
+ b=owGbwMvMwCXmIlirolUq95LxtFoSQ9aUCVGxa+/vjl/00ytg7Ty7ZUkmM0LkbPpUQ41LnwrW9
+ 38NX7C7o5SFQYyLQVZMkWX7fnvTJw/fCC7ddOk9zBxWJpAhDFycAjARtxqG/6X8P3eYqC1OmNtf
+ eCrcdPU+yfiVH33cd1a6Lp7p9Jztvysjw67stwyKu+ID5Z/zzDBL2H3v9amI6cwLNledCeHdH/p
+ EjA8A
 X-Developer-Key: i=sven@kernel.org; a=openpgp;
  fpr=A1E3E34A2B3C820DBC4955E5993B08092F131F93
 X-Endpoint-Received: by B4 Relay for sven@kernel.org/default with
  auth_id=407
 
-The host routers on Apple Silicon do not implement USB3 bandwidth
-allocation registers: the CMR bit set in ADP_USB3_CS_2 by
-usb4_usb3_port_cm_request() is never acknowledged and every USB3 tunnel
-bringup fails there after the timeout:
-
-  [   49.259325] thunderbolt-apple-nhi 501f00000.nhi: 1:16: available bandwidth for new USB3 tunnel 18000/18000 Mb/s
-  [   49.265869] thunderbolt-apple-nhi 501f00000.nhi: 1:16: maximum required bandwidth for USB3 tunnel 9000 Mb/s
-  [   49.267894] thunderbolt-apple-nhi 501f00000.nhi: 0:4 <-> 1:16 (USB3): activating
-  [   49.269410] thunderbolt-apple-nhi 501f00000.nhi: 0:4 <-> 1:16 (USB3): allocating initial bandwidth 9000/9000 Mb/s
-  [   50.771764] thunderbolt-apple-nhi 501f00000.nhi: 1:16: USB3 tunnel activation failed, aborting
-
-Add a quirk to skip bandwidth allocation entirely but keep tracking
-the initial allocation in software for the consumed bandwidth
-calculation. For completeness, discovered tunnels book 90% of the
-maximum link rate in software, matching tb_tunnel_alloc_usb3(), although
-Apple Silicon cannot have any pre-existing tunnels.
+The driver for the ACIO host router complex on Apple Silicon SoCs can
+be built as a module and needs tb_probe() and the domain functions to
+register its NHI with the software connection manager as well as
+tb_switch_find_vse_cap(), tb_cfg_write() and tb_port_unlock() to
+configure the cable details for its co-processor and to unlock the
+lane ports. Restrict these exports to the thunderbolt_apple module to
+keep them internal to the Thunderbolt subsystem.
 
 Signed-off-by: Sven Peter <sven@kernel.org>
 ---
- drivers/thunderbolt/nhi.h    |  1 +
- drivers/thunderbolt/tb.c     |  8 ++++++
- drivers/thunderbolt/tb.h     |  3 +++
- drivers/thunderbolt/tunnel.c | 59 +++++++++++++++++++++++++++++---------------
- 4 files changed, 51 insertions(+), 20 deletions(-)
+ drivers/thunderbolt/cap.c    | 2 ++
+ drivers/thunderbolt/ctl.c    | 2 ++
+ drivers/thunderbolt/domain.c | 2 ++
+ drivers/thunderbolt/switch.c | 1 +
+ drivers/thunderbolt/tb.c     | 2 ++
+ 5 files changed, 9 insertions(+)
 
-diff --git a/drivers/thunderbolt/nhi.h b/drivers/thunderbolt/nhi.h
-index c2d16ab6994e..afd9a11489a9 100644
---- a/drivers/thunderbolt/nhi.h
-+++ b/drivers/thunderbolt/nhi.h
-@@ -169,6 +169,7 @@ struct tb_nhi_ops {
- #define QUIRK_E2E					BIT(1)
- #define QUIRK_RESET_DMA_ON_TEARDOWN			BIT(2)
- #define QUIRK_NO_DMA_PORT				BIT(3)
-+#define QUIRK_NO_USB3_BW_ALLOC				BIT(4)
+diff --git a/drivers/thunderbolt/cap.c b/drivers/thunderbolt/cap.c
+index 4ab22d5291ac..e000a53e5e75 100644
+--- a/drivers/thunderbolt/cap.c
++++ b/drivers/thunderbolt/cap.c
+@@ -6,6 +6,7 @@
+  * Copyright (C) 2018, Intel Corporation
+  */
  
- /*
-  * Minimal number of vectors when we use MSI-X. Two for control channel
++#include <linux/export.h>
+ #include <linux/slab.h>
+ #include <linux/errno.h>
+ 
+@@ -254,3 +255,4 @@ int tb_switch_find_vse_cap(struct tb_switch *sw, enum tb_switch_vse_cap vsec)
+ 
+ 	return -ENOENT;
+ }
++EXPORT_SYMBOL_FOR_MODULES(tb_switch_find_vse_cap, "thunderbolt_apple");
+diff --git a/drivers/thunderbolt/ctl.c b/drivers/thunderbolt/ctl.c
+index cd47b627f97b..b2a6b300e934 100644
+--- a/drivers/thunderbolt/ctl.c
++++ b/drivers/thunderbolt/ctl.c
+@@ -8,6 +8,7 @@
+ 
+ #include <linux/crc32.h>
+ #include <linux/delay.h>
++#include <linux/export.h>
+ #include <linux/slab.h>
+ #include <linux/pci.h>
+ #include <linux/dmapool.h>
+@@ -1159,6 +1160,7 @@ int tb_cfg_write(struct tb_ctl *ctl, const void *buffer, u64 route, u32 port,
+ 	}
+ 	return res.err;
+ }
++EXPORT_SYMBOL_FOR_MODULES(tb_cfg_write, "thunderbolt_apple");
+ 
+ /**
+  * tb_cfg_get_upstream_port() - get upstream port number of switch at route
+diff --git a/drivers/thunderbolt/domain.c b/drivers/thunderbolt/domain.c
+index 12c88509a54f..477a64258b87 100644
+--- a/drivers/thunderbolt/domain.c
++++ b/drivers/thunderbolt/domain.c
+@@ -490,6 +490,7 @@ int tb_domain_add(struct tb *tb, bool reset)
+ 
+ 	return ret;
+ }
++EXPORT_SYMBOL_FOR_MODULES(tb_domain_add, "thunderbolt_apple");
+ 
+ /**
+  * tb_domain_remove() - Removes and releases a domain
+@@ -514,6 +515,7 @@ void tb_domain_remove(struct tb *tb)
+ 
+ 	device_unregister(&tb->dev);
+ }
++EXPORT_SYMBOL_FOR_MODULES(tb_domain_remove, "thunderbolt_apple");
+ 
+ /**
+  * tb_domain_suspend_noirq() - Suspend a domain
+diff --git a/drivers/thunderbolt/switch.c b/drivers/thunderbolt/switch.c
+index ef267f40c103..db675e4f0bc2 100644
+--- a/drivers/thunderbolt/switch.c
++++ b/drivers/thunderbolt/switch.c
+@@ -627,6 +627,7 @@ int tb_port_unlock(struct tb_port *port)
+ 		return usb4_port_unlock(port);
+ 	return 0;
+ }
++EXPORT_SYMBOL_FOR_MODULES(tb_port_unlock, "thunderbolt_apple");
+ 
+ static int __tb_port_enable(struct tb_port *port, bool enable)
+ {
 diff --git a/drivers/thunderbolt/tb.c b/drivers/thunderbolt/tb.c
-index c43cdd2c2e2e..7ab53a30fe30 100644
+index 7ab53a30fe30..6a1f49c473eb 100644
 --- a/drivers/thunderbolt/tb.c
 +++ b/drivers/thunderbolt/tb.c
-@@ -3044,6 +3044,14 @@ static int tb_start(struct tb *tb, bool reset)
- 	 */
- 	tb->root_switch->no_dma_port = tb->nhi->quirks & QUIRK_NO_DMA_PORT;
+@@ -6,6 +6,7 @@
+  * Copyright (C) 2019, Intel Corporation
+  */
  
-+	/*
-+	 * Apple Silicon host routers do not implement the USB3 bandwidth
-+	 * allocation registers: the CMR/HCA handshake is never acked and
-+	 * times out. Bandwidth for USB3 tunnels is only booked in software
-+	 * on these machines.
-+	 */
-+	tb->root_switch->no_usb3_bw_alloc = tb->nhi->quirks & QUIRK_NO_USB3_BW_ALLOC;
-+
- 	ret = tb_switch_configure(tb->root_switch);
- 	if (ret) {
- 		tb_switch_put(tb->root_switch);
-diff --git a/drivers/thunderbolt/tb.h b/drivers/thunderbolt/tb.h
-index 0977cd690d7e..530b0e6c3a11 100644
---- a/drivers/thunderbolt/tb.h
-+++ b/drivers/thunderbolt/tb.h
-@@ -140,6 +140,8 @@ struct tb_switch_tmu {
-  * @nvm: Pointer to the NVM if the switch has one (%NULL otherwise)
-  * @no_nvm_upgrade: Prevent NVM upgrade of this switch
-  * @no_dma_port: Prevent adding the DMA port of this switch
-+ * @no_usb3_bw_alloc: Host router does not implement the USB3 bandwidth
-+ *		      allocation registers (ADP_USB3_CS_1..4)
-  * @safe_mode: The switch is in safe-mode
-  * @boot: Whether the switch was already authorized on boot or not
-  * @rpm: The switch supports runtime PM
-@@ -196,6 +198,7 @@ struct tb_switch {
- 	struct tb_nvm *nvm;
- 	bool no_nvm_upgrade;
- 	bool no_dma_port;
-+	bool no_usb3_bw_alloc;
- 	bool safe_mode;
- 	bool boot;
- 	bool rpm;
-diff --git a/drivers/thunderbolt/tunnel.c b/drivers/thunderbolt/tunnel.c
-index 7e8284575dff..9178120a6b66 100644
---- a/drivers/thunderbolt/tunnel.c
-+++ b/drivers/thunderbolt/tunnel.c
-@@ -2268,24 +2268,40 @@ struct tb_tunnel *tb_tunnel_discover_usb3(struct tb *tb, struct tb_port *down,
- 	if (!tb_route(down->sw)) {
- 		int ret;
++#include <linux/export.h>
+ #include <linux/slab.h>
+ #include <linux/errno.h>
+ #include <linux/delay.h>
+@@ -3442,3 +3443,4 @@ struct tb *tb_probe(struct tb_nhi *nhi)
  
--		/*
--		 * Read the initial bandwidth allocation for the first
--		 * hop tunnel.
--		 */
--		ret = usb4_usb3_port_allocated_bandwidth(down,
--			&tunnel->allocated_up, &tunnel->allocated_down);
--		if (ret)
--			goto err_deactivate;
-+		tunnel->consumed_bandwidth = tb_usb3_consumed_bandwidth;
-+
-+		if (down->sw->no_usb3_bw_alloc) {
-+			/*
-+			 * The host router does not implement the bandwidth
-+			 * allocation registers and nothing can be read back
-+			 * here. Book 90% of the maximum link rate in software
-+			 * instead.
-+			 */
-+			ret = tb_usb3_max_link_rate(tunnel->dst_port, down);
-+			if (ret < 0)
-+				goto err_deactivate;
-+
-+			tunnel->allocated_up = ret * 90 / 100;
-+			tunnel->allocated_down = tunnel->allocated_up;
-+		} else {
-+			/*
-+			 * Read the initial bandwidth allocation for the first
-+			 * hop tunnel.
-+			 */
-+			ret = usb4_usb3_port_allocated_bandwidth(down,
-+				&tunnel->allocated_up, &tunnel->allocated_down);
-+			if (ret)
-+				goto err_deactivate;
-+
-+			tunnel->pre_activate = tb_usb3_pre_activate;
-+			tunnel->release_unused_bandwidth =
-+				tb_usb3_release_unused_bandwidth;
-+			tunnel->reclaim_available_bandwidth =
-+				tb_usb3_reclaim_available_bandwidth;
-+		}
- 
- 		tb_tunnel_dbg(tunnel, "currently allocated bandwidth %d/%d Mb/s\n",
- 			      tunnel->allocated_up, tunnel->allocated_down);
--
--		tunnel->pre_activate = tb_usb3_pre_activate;
--		tunnel->consumed_bandwidth = tb_usb3_consumed_bandwidth;
--		tunnel->release_unused_bandwidth =
--			tb_usb3_release_unused_bandwidth;
--		tunnel->reclaim_available_bandwidth =
--			tb_usb3_reclaim_available_bandwidth;
- 	}
- 
- 	tb_tunnel_dbg(tunnel, "discovered\n");
-@@ -2365,12 +2381,15 @@ struct tb_tunnel *tb_tunnel_alloc_usb3(struct tb *tb, struct tb_port *up,
- 		tunnel->allocated_up = min(max_rate, max_up);
- 		tunnel->allocated_down = min(max_rate, max_down);
- 
--		tunnel->pre_activate = tb_usb3_pre_activate;
- 		tunnel->consumed_bandwidth = tb_usb3_consumed_bandwidth;
--		tunnel->release_unused_bandwidth =
--			tb_usb3_release_unused_bandwidth;
--		tunnel->reclaim_available_bandwidth =
--			tb_usb3_reclaim_available_bandwidth;
-+
-+		if (!down->sw->no_usb3_bw_alloc) {
-+			tunnel->pre_activate = tb_usb3_pre_activate;
-+			tunnel->release_unused_bandwidth =
-+				tb_usb3_release_unused_bandwidth;
-+			tunnel->reclaim_available_bandwidth =
-+				tb_usb3_reclaim_available_bandwidth;
-+		}
- 	}
- 
- 	return tunnel;
+ 	return tb;
+ }
++EXPORT_SYMBOL_FOR_MODULES(tb_probe, "thunderbolt_apple");
 
 -- 
 2.55.0
