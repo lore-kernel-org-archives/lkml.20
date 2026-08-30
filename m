@@ -1,91 +1,107 @@
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9879E2C08AC
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 15:06:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E80D385D7F;
+	Sun, 30 Aug 2026 15:07:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788102367; cv=none; b=dQ8cXN9ws5Juh4HfEp5LTHPM/Og1xDmOh3CTVAJtuIp6tKjKGh5y7MY6DZj5DBQTD42FMVW3VJgYIefMd0VYHhQNkUf+9r4dk9KWEVKQgRQ1j6RoI6ZWsBg08EWmI6x1xMfTh6xxmKt0w6/qzHzK9OMMFS/E8icPmEc/eUTbESs=
+	t=1788102447; cv=none; b=HItz4qxbYJstwFJrlfU36NK1Nhf6ZnboDa1HMEtj1Zn4PkuuJDuabjkrnm0/iu4gSwtkvIHajvD/IVxZI/ZLUsl1Q3dfnTm93jl+q0vlVxdqR/KzHP+ge33XHnof6uX3kfzP7j04DW3qncmJGr8UpASdjUaZpiGpo5kE1vUT0M8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788102367; c=relaxed/simple;
-	bh=Whl5AWtLQfu0CVlY/27d81zPn+/1xmWN9O128g0xJhU=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Cc:Date:
-	 Message-Id:References:To; b=kifRE5gmT9aOM1YliR7HSdvG1sLSzxEefj13y4bt8+JAX5b3Ox4VNI8Zfo5ksrg4WQZnAU8ZhumNcc7FFfdIA+ulp8QzfjHGFUH2zMdZ6QEZbQGbHY0vnDfaC/+ttqNG3ZdFbuHcnpk1Go6ClNdDI2GKfzanVqUZRi6uZuXiyX8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=U/LFkwkh; arc=none smtp.client-ip=209.85.216.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788102447; c=relaxed/simple;
+	bh=+/JTs2j0yHRFkid8fzPD4BRlIX9cJAEhtv2HTTAEONw=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=Gox1pEgX5dQO2h5B2OwRUGL1Hk8wTSUT6YE3lO6zGeiAMKhQQpVB4lCJkAk12iWzN4ZkZ5H1MGwGlASxJCqepAcHaPNa0Cn4K8cIZLq2NgMa9Pw9h/s8nh8UgtxlPnZWoOpcAkgx4mETmM6dWD+hlEWQbnRzmEa4TCOQHnwk/Nw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I0AVGzpu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="U/LFkwkh"
-Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3968e063f84so1804173a91.0
-        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 08:06:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788102366; x=1788707166; darn=vger.kernel.org;
-        h=to:references:message-id:date:cc:in-reply-to:from:subject
-         :mime-version:content-transfer-encoding:content-type:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Whl5AWtLQfu0CVlY/27d81zPn+/1xmWN9O128g0xJhU=;
-        b=U/LFkwkhsZNm2GMGzbKw4Pc0O8nbvdyJMiqviJBbGbdJpB2n0bApJK6F8EQGzCyVNC
-         cPKmJcIJ/efgNjKXNpRRde7Nh7ja47JzbjXGE0ZHCZy3JyVgMQvNohzL+W47bUgmdXtS
-         HYR2tXvCVv82KYT5AmFAQl8chR0Jn5PS4INGgyf5pDPieXsvtv+mX4HFGHzdZLTBbn54
-         LGfhw/bQCvL/fxTSn6i0YyAjKCaGCAseeS0TC4+rcbLtdtC1SmqHeoZy/gFWtYxuqLLN
-         oFtdihCy15HalMGZpwENWCSjQorJEKJLH01DTqntMkm2dhjWiYtVwndUi8XxI2Y/nT1j
-         Fhsg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788102366; x=1788707166;
-        h=to:references:message-id:date:cc:in-reply-to:from:subject
-         :mime-version:content-transfer-encoding:content-type:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Whl5AWtLQfu0CVlY/27d81zPn+/1xmWN9O128g0xJhU=;
-        b=gDqLKUI4Zo4g5dwf87K8tE008VTBOLHlKEylwTfGPwCXf5sw+XBvlo/5LFekZp/inG
-         6ILp2rB4A/aDtld6x0lLadiohCyMUoBoWNL1bxHP62DFjLRX4frjzCPjIlIb2DjXWHyx
-         oos9uS947Cb69TZHnvPpuZhDl87GYrsMgw0ab/0M3zefuvNplwP7mPC8Xs9c8I73k4d/
-         5EgRMKd0dbDSkyLjIiW3dGINV5/mZcMaFb/wtNJ2r7jlHwoNFBs3wDPWo8nd0vePM1we
-         RAz56mLN8x4ZdYGAWNsQpe2Wmg55mrfhEOj3GQndqpMZPSTzmzEaqKsfImMvJY1a0uXc
-         u/XQ==
-X-Forwarded-Encrypted: i=1; AKwUvBynd2ZEe7i0NXWvBfZK9vqwU9R9Vsw4nY/EhtSUnOKNnmBpNpgL2PI8wnIaNVDDPszFKbGySplTGbcisW8=@vger.kernel.org
-X-Gm-Message-State: AFuF++kKUT2uvz0TQHfdr+LzxXErOLogEtjeCZoeC1Tbi0K5kCId1ezY
-	GKYZnM40HVKWgHc3FCvBj3CZJp1aeGbW95Qtho+3VS6hIjfbS1wmgTjJ
-X-Gm-Gg: AYBFou1v+Mrmph81To+cJ3ZyrV+pFTgncCy5Eo8FQ0N2A32ifzNChOk2j+xK2NqoGKn
-	OyRFJFa6YxwF9PoMXxNXzT7ivZD2aW7LEyAYonz/rnwIcJ2NItRhe+YsNM5YESg2qkFuhHa9Ese
-	eibAuCa+3nAYKYX4kzTfCBGgt2Sx1BcovMRvXHShVh5IhGyDGn7xbAvHNyqtHjLaJkHCdf25A/6
-	+OwNijcxe4RaknCwgZxGwK/imI0qGHbD7uLFBI7/v3rbfs0XQi3tVlI6E0kVEqPni/o0YjYvPoX
-	Ogbe32KAWuVThRECJXy4qd1Ql11gn1b3jcNiD2medqzNlPhmG23rkmIfV6PQAf0l46zep+JLPEB
-	MOn0GBPYcN8HRetKgKFaNdtKb6KZKZlFQfKuuwPrc/RTslrM6KaHNRwU8XixVdOHGUa6pWR+ETy
-	5oBgic01pbMwxuni2P5KZvNwRhBeVIHAx8ZacHd0OmBU2UAxfHjrnargA49X6ClggqF1P37Z0Oe
-	YuxZWS+iopTHEPnjrZX5uANTf1mSc40gUQ=
-X-Received: by 2002:a17:90b:538e:b0:38e:c232:9d3f with SMTP id 98e67ed59e1d1-396d0e20f00mr33757597a91.5.1788102365812;
-        Sun, 30 Aug 2026 08:06:05 -0700 (PDT)
-Received: from smtpclient.apple ([2409:40f2:2043:7abe:e5a9:be2e:54d5:bcfa])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396b0ea80edsm16746905a91.1.2026.08.30.08.06.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 30 Aug 2026 08:06:05 -0700 (PDT)
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I0AVGzpu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38E2D1F000E9;
+	Sun, 30 Aug 2026 15:07:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788102445;
+	bh=kNU5UKcUoiTDgnQxbU0a5z1W5IhbhmieDlkzbQWUEyM=;
+	h=Date:From:To:Cc:Subject;
+	b=I0AVGzpuKAinFrlRfBZn2D9Uc5VyhL7ihBSBXPbgfHY2LJF9ImElXJIcueZYLVKQe
+	 IuMpoP9X4WWth96KkMxBxbomjbMMXsh5HXCzlpHhFRoCsNiV+NBM+dYj1+aWmnOEsA
+	 Zk68uPmZwtYD5OE0x21s9/YYg1WsKWxspI5F8DDeFB6plfCVz6kb702ddEJw8OKwgR
+	 FIQ1ekiKcgA4rsiLNknUlgrRNH68WfjegayOx8agb7HEjENrPcUostwYp+RIc03LeV
+	 Jt6nA1TTWP83oM/WFcAy+8zziOEVWuHmxjYoTPzFhShHlElh+EJDLPCAHMs4vE1W9e
+	 U/EYMvpg162nQ==
+Date: Sun, 30 Aug 2026 17:07:20 +0200
+From: Andi Shyti <andi.shyti@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: lkml <linux-kernel@vger.kernel.org>, 
+	linux-i2c <linux-i2c@vger.kernel.org>, Andi Shyti <andi.shyti@kernel.org>
+Subject: [GIT PULL] i2c fixes for v7.3-rc1
+Message-ID: <apRF7F65GhuKEF1j@zenone.zhora.eu>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (1.0)
-Subject: Re: [PATCH 2/5] HID: hid-lenovo-go: fix the FPS mode DPI request
-From: Aditya <mradityadash@gmail.com>
-In-Reply-To: <CAFqHKT=jEGuDrR0Ci-ybJ-QZrr=0oejr-2hLjEKyvPnxUCvS=w@mail.gmail.com>
-Cc: Benjamin Tissoires <bentiss@kernel.org>,
- Jiri Kosina <jikos@kernel.org>, Mark Pearson <mpearson-lenovo@squebb.ca>,
- linux-input@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Sun, 30 Aug 2026 20:35:52 +0530
-Message-Id: <D8651095-5ED2-4749-9E50-D61966AE2CC0@gmail.com>
-References: <CAFqHKT=jEGuDrR0Ci-ybJ-QZrr=0oejr-2hLjEKyvPnxUCvS=w@mail.gmail.com>
-To: Derek John Clark <derekjohn.clark@gmail.com>
-X-Mailer: iPhone Mail (24A5390f)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Hi Derek,
+Hi Linus,
 
-Thanks for the review.
+here's the pull request for the new fixes cycle.
 
-Upon further testing this seems to be an unneeded (and wrong) patch and has b=
-een dropped in v2.
+It contains fixes mainly for teardown and resource handling,
+runtime PM and hardware-specific controller issues.
 
-Thanks,
-Aditya=
+It's based on your latest I2C merge commit.
+
+Thank you,
+Andi
+
+The following changes since commit 47096fc3d064a07c0842f748b99ebf01be120f2b:
+
+  Merge tag 'i2c-7.3-part2' of git://git.kernel.org/pub/scm/linux/kernel/git/andi.shyti/linux (2026-08-24 09:07:15 -0700)
+
+are available in the Git repository at:
+
+  git://git.kernel.org/pub/scm/linux/kernel/git/andi.shyti/linux.git tags/i2c-fixes-7.3-rc1
+
+for you to fetch changes up to b15b548d52b43ba8ac4652bc2c7244a8dd1e9622:
+
+  i2c: core: fix debugfs UAF on adapter removal (2026-08-28 03:12:01 +0200)
+
+----------------------------------------------------------------
+i2c-fixes for v7.3-rc1
+
+Fixes mainly for teardown and resource handling, runtime PM and
+hardware-specific controller issues.
+
+- core: fix debugfs use-after-free when removing the adapter
+- designware: apply interrupt mask quirk for HJMC3001
+- imx-lpi2c: avoid target accesses on master-only controllers
+- mux: release channel node when adapter registration fails
+- qcom-cci: fix autosuspend and runtime PM cleanup on removal
+- qcom-geni: fix timing parameters for 32 MHz clock
+
+----------------------------------------------------------------
+Ahmad Byagowi (1):
+      i2c: mux: Fix channel node leak on adapter add failure
+
+Carlos Song (1):
+      i2c: imx-lpi2c: avoid accessing target registers on master-only controllers
+
+Guangshuo Li (1):
+      i2c: qcom-cci: fix autosuspend cleanup
+
+Hongbo Yao (1):
+      i2c: designware: Enable interrupt mask workaround for HJMC3001
+
+Kathiravan Thirumoorthy (1):
+      i2c: qcom-geni: update frequency table to fix timing parameters
+
+Vasileios Almpanis (1):
+      i2c: core: fix debugfs UAF on adapter removal
+
+ drivers/i2c/busses/i2c-designware-platdrv.c |  2 +-
+ drivers/i2c/busses/i2c-imx-lpi2c.c          | 27 +++++++++++++++++++++++----
+ drivers/i2c/busses/i2c-qcom-cci.c           | 11 ++++-------
+ drivers/i2c/busses/i2c-qcom-geni.c          |  4 ++--
+ drivers/i2c/i2c-core-base.c                 |  6 ++++++
+ drivers/i2c/i2c-mux.c                       |  1 +
+ 6 files changed, 37 insertions(+), 14 deletions(-)
