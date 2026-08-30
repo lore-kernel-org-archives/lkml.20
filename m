@@ -1,150 +1,147 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00BBB19049B;
-	Sun, 30 Aug 2026 13:03:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96FE2264612;
+	Sun, 30 Aug 2026 13:04:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788095037; cv=none; b=Ww3kcxV72zzOPK0sEy+PB5mlrOnZcfNVN+kyX9kDeOxI83ZUBq0dEIaUQ/E9kMKbWOA45NtxbIlxDIyzlI2DhR/73QNCw3bO6Ugo7M3mt6gIiv2JDHFrv16Iy4IorlALp/W1B5McZKFgeP77/etrqPGyIcPg/Nal6dxAF0OaRlI=
+	t=1788095044; cv=none; b=RC1+KBy2M2DayNSdm8FZh+xVIe6wPhXLJ4mTtuT5G+84gcKV2UoaeIF7bDyo0NKh8nlDNu5TulHt3wu4kngF5W275EQzX3ehgxaBh7oWGSsWf+tNP2sKjVhl6WYgpXMxfsVIomdAbdpyMfcinFZogU7qfGK+4nZP9x5fJ0lfATo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788095037; c=relaxed/simple;
-	bh=xer063788hE5m5PgAM9CWmFS9V0IwWEt9lEXscINOPA=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=e+IX/VmNe7PEKEz9yNpiSi+h2aBZ4l12SNbm57wuqxZ7tc5HcdAcsDXjcddUrKjSCczM/toghsm/yby3w5s54zQshH1PeLz/2fCwv6Qi06rghM/G0GBb4sUxkhbBBgV+m296ngJXmL/ycPqiyt3VBdAh0mLUUZV4XpUSwEOhws4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=sXiORsp/; arc=none smtp.client-ip=10.30.226.201
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="sXiORsp/"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 74413C2BCC7;
-	Sun, 30 Aug 2026 13:03:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1788095036;
-	bh=xer063788hE5m5PgAM9CWmFS9V0IwWEt9lEXscINOPA=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=sXiORsp/niPbxM+oj5BCc3Ofa1/pwX+2MPDbxGi3JBAsq58CnhSiFeA9io9tTxZ9e
-	 tqVRbz0r6WUrHN4ShIYsJR8JOkJJ0YIlmeP+Qn3pvO5oMo3e4boqVfVQVMTjXS5nwn
-	 6Qp0MpGl6/6IUxfSdcAH5qhLOMMjgQzRMk+UwfdgaSAklm23lKznlSuXthL9gP6gFN
-	 GCrKHgRadYnJoiSDXcc7Hl/YL4zBNSXe1CEWIb99f/s8BixFo6bWAOsNemyOZWcOBn
-	 t8L3T7psjoVdIs2FuHl52hIbesY8E8zHdBCvWMda7EFCJ+LiignuQxB+DVVb8/tQ/7
-	 eSO31BnbD/rww==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 505C6C61DDE;
-	Sun, 30 Aug 2026 13:03:56 +0000 (UTC)
-From: Asai Neko via B4 Relay <devnull+sugar.sne.moe@kernel.org>
-Date: Sun, 30 Aug 2026 21:03:51 +0800
-Subject: [PATCH] hwmon: (asus-ec-sensors) add ROG STRIX X670E-A GAMING WIFI
+	s=arc-20240116; t=1788095044; c=relaxed/simple;
+	bh=VfZeMGTd91Jrl8qon+ZcjLDYDnwd3nWyP2bGBd0z6nA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tvk/SHFKQGnGer7NgMaoO0XtveuedzBRD4XxeOwu9JMM09QOPEPFOvQvD3cxcbbUkzdc0/fstCiV7CpMY8xwuEZCDf3eaOxBgBY2ozQPx6384f1kZU9UTydA7eaXFJbWb5hx9PTStI8nL58c7Jc09Laq5p8Hkci5gcDD/uWD7Ks=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from localhost.localdomain (unknown [111.196.241.250])
+	by APP-03 (Coremail) with SMTP id rQCowABncD4_KpRqGsuaBg--.48136S2;
+	Sun, 30 Aug 2026 21:03:59 +0800 (CST)
+From: Pengpeng Hou <pengpeng@iscas.ac.cn>
+To: Hans Verkuil <hverkuil@kernel.org>
+Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] media: cec: extron: validate response prefixes
+Date: Sun, 30 Aug 2026 21:03:56 +0800
+Message-ID: <20260830130356.159-1-pengpeng@iscas.ac.cn>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260830-asus-x670e-a-hwmon-fix-v1-1-cf0a680ccbe2@sne.moe>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXM0QqCQBCF4VeRuW5g3GyNXiW62OyoE7TGjpYgv
- rtbXn4Hzr+QISmMLsVCCR81HWJGeSio6UPswPrIJifOy/koHGwynn0t4MD99zVEbnXm4E+Vh6C
- sakf5/E7I8z98ve226f5EM/5qtK4byROxT3oAAAA=
-X-Change-ID: 20260830-asus-x670e-a-hwmon-fix-a6546e0e1472
-To: Guenter Roeck <linux@roeck-us.net>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, 
- Eugene Shalygin <eugene.shalygin@gmail.com>
-Cc: linux-hwmon@vger.kernel.org, linux-doc@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Asai Neko <sugar@sne.moe>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3374; i=sugar@sne.moe;
- h=from:subject:message-id;
- bh=woM7oFfMNv790yC/zom6LKZaK43bcPQBp2AM1p8C9nY=;
- b=owJ4nJvAy8zAJfZHZ3FlRAEbJ+NptSSGrCla1i3/ds3PuJk0ubRE9G2FqN6lI5aM6jk8KSq+Q
- YuP1LcHenSUsjCIcTHIiimydB7pKnzyet6HAy66fDBzWJlAhjBwcQrARBy3MzI0hB26us5ViW0S
- U+OUn0Gfm94+eKzl8bDhnOjhvXOrJ6RdY2Rompn3MDCV72dUDdPOf6suLC+UUfjCc25Sl4XsrZD
- jb36zAgClsEhf
-X-Developer-Key: i=sugar@sne.moe; a=openpgp;
- fpr=89C48A71E4EB9EF0C0442D0EFC2CA37958700609
-X-Endpoint-Received: by B4 Relay for sugar@sne.moe/default with auth_id=990
-X-Original-From: Asai Neko <sugar@sne.moe>
-Reply-To: sugar@sne.moe
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowABncD4_KpRqGsuaBg--.48136S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxXr47tFyUtrykWw4DXr1xAFb_yoWrZFy3pF
+	yDG34Du3y8Kw1DKFWvyrs8Gr15AF4xtFyvqr17Ka4kJr17t34rZw10yFy0gF1jkFykZrZI
+	v3W8tryY9rs8KFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUkC14x267AKxVWUJVW8JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x0267AKxVWxJr
+	0_GcWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+	2Ix0cI8IcVAFwI0_JF0_Jw1lYx0Ex4A2jsIE14v26r4j6F4UMcvjeVCFs4IE7xkEbVWUJV
+	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lc7CjxVAaw2AFwI0_
+	JF0_Jw1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67
+	AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIY
+	rxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14
+	v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWx
+	JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjfU089NUU
+	UUU
+X-CM-SenderInfo: pshqw1xhqjqxpvfd2hldfou0/
 
-From: Asai Neko <sugar@sne.moe>
+extron_interrupt() dispatches completed serial lines by comparing fixed
+prefixes and reading fixed offsets without first checking the current line
+length. Short lines can therefore consume stale bytes beyond the
+NUL-terminated message item.
 
-The ROG STRIX X670E-A GAMING WIFI is missing from the driver's DMI
-table. Consequently, the board lookup fails with -ENODEV,
-asus_ec_sensors does not load, and no asusec hwmon device or EC
-temperature readings are available.
+Require each response type to contain the complete dispatch prefix before
+reading its fixed fields.
 
-Add a board definition using the AMD 600-series register layout and the
-ACPI mutex used by the board firmware. Expose CPU, CPU package,
-motherboard, and VRM temperatures, and add the board to the supported
-hardware documentation.
-
-Before the change, there was no asusec device under /sys/class/hwmon and
-there were no EC readings. After the change, the driver registered four
-sensors with representative readings of 57-61 C for CPU, 68-71 C for
-CPU package, 43-44 C for motherboard, and 49-52 C for VRM.
-
-The readings correlated with nct6775 and k10temp. Repeated polling with
-both hwmon drivers loaded produced no EC access, bank-switch, concurrent
-access, or locking errors.
-
-Tested on an ASUS ROG STRIX X670E-A GAMING WIFI with BIOS 2704.
-
-Signed-off-by: Asai Neko <sugar@sne.moe>
+Fixes: 056f2821b631 ("media: cec: extron-da-hd-4k-plus: add the Extron DA HD 4K Plus CEC driver")
+Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
 ---
-Add asus-ec-sensors support for the ASUS ROG STRIX X670E-A GAMING WIFI.
-Testing details and the rationale are included in the patch commit
-message.
+ .../usb/extron-da-hd-4k-plus/extron-da-hd-4k-plus.c    | 18 +++++++++---------
+ 1 file changed, 9 insertions(+), 9 deletions(-)
 
-Background:
-https://github.com/lm-sensors/lm-sensors/issues/474
----
- Documentation/hwmon/asus_ec_sensors.rst | 1 +
- drivers/hwmon/asus-ec-sensors.c         | 9 +++++++++
- 2 files changed, 10 insertions(+)
-
-diff --git a/Documentation/hwmon/asus_ec_sensors.rst b/Documentation/hwmon/asus_ec_sensors.rst
-index 2c68a343a2ed..ebed9f8d2adb 100644
---- a/Documentation/hwmon/asus_ec_sensors.rst
-+++ b/Documentation/hwmon/asus_ec_sensors.rst
-@@ -45,6 +45,7 @@ Supported boards:
-  * ROG STRIX X570-E GAMING WIFI II
-  * ROG STRIX X570-F GAMING
-  * ROG STRIX X570-I GAMING
-+ * ROG STRIX X670E-A GAMING WIFI
-  * ROG STRIX X670E-E GAMING WIFI
-  * ROG STRIX X670E-I GAMING WIFI
-  * ROG STRIX X870-F GAMING WIFI
-diff --git a/drivers/hwmon/asus-ec-sensors.c b/drivers/hwmon/asus-ec-sensors.c
-index e43645e884fd..850c8e297397 100644
---- a/drivers/hwmon/asus-ec-sensors.c
-+++ b/drivers/hwmon/asus-ec-sensors.c
-@@ -752,6 +752,13 @@ static const struct ec_board_info board_info_strix_x570_i_gaming = {
- 	.family = family_amd_500_series,
- };
+diff --git a/drivers/media/cec/usb/extron-da-hd-4k-plus/extron-da-hd-4k-plus.c b/drivers/media/cec/usb/extron-da-hd-4k-plus/extron-da-hd-4k-plus.c
+index 3c6ce6f3d93e7..66780b3cf9188 100644
+--- a/drivers/media/cec/usb/extron-da-hd-4k-plus/extron-da-hd-4k-plus.c
++++ b/drivers/media/cec/usb/extron-da-hd-4k-plus/extron-da-hd-4k-plus.c
+@@ -851,13 +851,13 @@ static irqreturn_t extron_interrupt(struct serio *serio, unsigned char data,
+ 		if (debug)
+ 			dev_info(extron->dev, "received %s\n", extron->data);
+ 		extron->idx = 0;
+-		if (!memcmp(extron->data, "Sig", 3) &&
++		if (extron->len >= 5 && !memcmp(extron->data, "Sig", 3) &&
+ 		    extron->data[4] == '*') {
+ 			extron_process_signal_change(extron, extron->data + 3);
+-		} else if (!memcmp(extron->data, "Hdcp", 4) &&
++		} else if (extron->len >= 6 && !memcmp(extron->data, "Hdcp", 4) &&
+ 			   extron->data[5] == '*') {
+ 			extron_process_edid_change(extron, extron->data + 4);
+-		} else if (!memcmp(extron->data, "DcecI", 5) &&
++		} else if (extron->len >= 6 && !memcmp(extron->data, "DcecI", 5) &&
+ 			   extron->data[5] >= '1' &&
+ 			   extron->data[5] < '1' + extron->num_in_ports) {
+ 			unsigned int p = extron->data[5] - '1';
+@@ -865,7 +865,7 @@ static irqreturn_t extron_interrupt(struct serio *serio, unsigned char data,
+ 			p += extron->num_out_ports;
+ 			extron_process_tx_done(extron->ports[p],
+ 					       extron->data[extron->len - 1]);
+-		} else if (!memcmp(extron->data, "Ceci", 4) &&
++		} else if (extron->len >= 6 && !memcmp(extron->data, "Ceci", 4) &&
+ 			   extron->data[4] >= '1' &&
+ 			   extron->data[4] < '1' + extron->num_in_ports &&
+ 			   extron->data[5] == '*') {
+@@ -874,14 +874,14 @@ static irqreturn_t extron_interrupt(struct serio *serio, unsigned char data,
+ 			p += extron->num_out_ports;
+ 			extron_process_received(extron->ports[p],
+ 						extron->data + 6);
+-		} else if (!memcmp(extron->data, "DcecO", 5) &&
++		} else if (extron->len >= 6 && !memcmp(extron->data, "DcecO", 5) &&
+ 			   extron->data[5] >= '1' &&
+ 			   extron->data[5] < '1' + extron->num_out_ports) {
+ 			unsigned int p = extron->data[5] - '1';
  
-+static const struct ec_board_info board_info_strix_x670e_a_gaming_wifi = {
-+	.sensors = SENSOR_TEMP_CPU | SENSOR_TEMP_CPU_PACKAGE |
-+		SENSOR_TEMP_MB | SENSOR_TEMP_VRM,
-+	.mutex_path = ASUS_HW_ACCESS_MUTEX_SB_PCI0_SBRG_SIO1_MUT0,
-+	.family = family_amd_600_series,
-+};
-+
- static const struct ec_board_info board_info_strix_x670e_e_gaming_wifi = {
- 	.sensors = SENSOR_TEMP_CPU | SENSOR_TEMP_CPU_PACKAGE |
- 		SENSOR_TEMP_MB  | SENSOR_TEMP_VRM,
-@@ -962,6 +969,8 @@ static const struct dmi_system_id dmi_table[] = {
- 					&board_info_strix_x570_f_gaming),
- 	DMI_EXACT_MATCH_ASUS_BOARD_NAME("ROG STRIX X570-I GAMING",
- 					&board_info_strix_x570_i_gaming),
-+	DMI_EXACT_MATCH_ASUS_BOARD_NAME("ROG STRIX X670E-A GAMING WIFI",
-+					&board_info_strix_x670e_a_gaming_wifi),
- 	DMI_EXACT_MATCH_ASUS_BOARD_NAME("ROG STRIX X670E-E GAMING WIFI",
- 					&board_info_strix_x670e_e_gaming_wifi),
- 	DMI_EXACT_MATCH_ASUS_BOARD_NAME("ROG STRIX X670E-I GAMING WIFI",
+ 			extron_process_tx_done(extron->ports[p],
+ 					       extron->data[extron->len - 1]);
+-		} else if (!memcmp(extron->data, "Ceco", 4) &&
++		} else if (extron->len >= 6 && !memcmp(extron->data, "Ceco", 4) &&
+ 			   extron->data[4] >= '1' &&
+ 			   extron->data[4] < '1' + extron->num_out_ports &&
+ 			   extron->data[5] == '*') {
+@@ -889,7 +889,7 @@ static irqreturn_t extron_interrupt(struct serio *serio, unsigned char data,
+ 
+ 			extron_process_received(extron->ports[p],
+ 						extron->data + 6);
+-		} else if (!memcmp(extron->data, "Pceco", 5) &&
++		} else if (extron->len >= 7 && !memcmp(extron->data, "Pceco", 5) &&
+ 			   extron->data[5] >= '1' &&
+ 			   extron->data[5] < '1' + extron->num_out_ports) {
+ 			unsigned int p = extron->data[5] - '1';
+@@ -899,7 +899,7 @@ static irqreturn_t extron_interrupt(struct serio *serio, unsigned char data,
+ 				   &tmp_pa[0], &tmp_pa[1]) == 2)
+ 				extron_phys_addr_change(extron->ports[p],
+ 							tmp_pa[0] << 8 | tmp_pa[1]);
+-		} else if (!memcmp(extron->data, "Pceci", 5) &&
++		} else if (extron->len >= 7 && !memcmp(extron->data, "Pceci", 5) &&
+ 			   extron->data[5] >= '1' &&
+ 			   extron->data[5] < '1' + extron->num_in_ports) {
+ 			unsigned int p = extron->data[5] - '1';
+@@ -910,7 +910,7 @@ static irqreturn_t extron_interrupt(struct serio *serio, unsigned char data,
+ 				   &tmp_pa[0], &tmp_pa[1]) == 2)
+ 				extron_phys_addr_change(extron->ports[p],
+ 							tmp_pa[0] << 8 | tmp_pa[1]);
+-		} else if (!memcmp(extron->data, "EdidR", 5) &&
++		} else if (extron->len >= 7 && !memcmp(extron->data, "EdidR", 5) &&
+ 			   extron->data[5] >= '1' &&
+ 			   extron->data[5] < '1' + extron->num_ports &&
+ 			   extron->data[6] == '*') {
 
----
-base-commit: 75f2c0b3690702c90863c2e138cb5520670845ea
-change-id: 20260830-asus-x670e-a-hwmon-fix-a6546e0e1472
-
-Best regards,
---  
-Asai Neko <sugar@sne.moe>
-
+base-commit: 08dbfad3f5040f5bdb6c529da20d6d4e81fefd72
+-- 
+2.50.1
 
