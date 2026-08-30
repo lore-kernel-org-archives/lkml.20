@@ -1,199 +1,122 @@
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCA203B9DA2
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 14:57:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8522E35C180;
+	Sun, 30 Aug 2026 14:57:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788101850; cv=none; b=GqXoxYWfkuC2W/IWSV2t6Hawart+1hp970yhb6g2etO6hCu9PyLxm6tAFDtelAncx0Jj25EAMojqBdrGknONZ9Rf7KsTzqSvQHITr7rDrD1Ek9UwAINLSf51exmAOEbFXHpG+q0xSZ+Zhpa4EuZ3WsCL+jgoJpZ9Q1qNmz3RDvI=
+	t=1788101881; cv=none; b=hRMj8iBM1FGI/rzfML8OCl/Jxfb00ltDH2yDIVxKhLKPpN8P09tdje9x14w47R0gEQaVUXeszDRLfXINmF3UXJCpWjsY3aDosB7l0lCtn4XqLUbO8mSJDQCqnREMs8J3XRrCg9WK60toYDbfZwrWbR/jOgSvI4Jp5XmKvjGVoME=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788101850; c=relaxed/simple;
-	bh=kyvKj4aiWZsKk79+pNQWhtdDGQxbcy8DpffoE6tdXoo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=f2U4Zs6T6bFxK2ykhqvdi7J9MqPvEwCgbBv6JtkCrPDlX/hjjRTP5QMdfZ7NUm3oAtYkIGVu18jvPEzNdkF7a0r2ZNHGsO15GfdoEvqhIlyw7hHllppSQtIfNlOwKnAnthYg1DRRx0zmra+SGiGiV1gza07vGSfg5ox+hASXGm0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WtJchbg4; arc=none smtp.client-ip=209.85.216.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788101881; c=relaxed/simple;
+	bh=Jz6SGp8A9K6qYUuqL9q2t6pIpvCJVbYQr8/3UysdP40=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=al/6tIINerEHFv6svAzsIzq7BKLZwnU6crGRQKxX1ZuiGoD83+Vup6GRp/g9y1H8LtTBifTF8OI+RF0DrmZbnUz/0fPTXpa4zKIBVd/9CHkJE1ZZktyYqOddEDSohRvd/BRiJJ01TLEhN8Kgcnw0wDnJq3bjflMJ/KB5x4NAc5U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=R+G3xMUP; arc=none smtp.client-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WtJchbg4"
-Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-39682983a0fso3202772a91.3
-        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 07:57:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788101848; x=1788706648; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=oJZEG3Xp29mb0hdnLyMA9g/sKI7+pcsw2OATsKuZZuU=;
-        b=WtJchbg4LUckSdKeFZTWm3PvYIabhUE5bPOz/fuHIM6PdM69b+YUooxwOMwaWrxDDF
-         rQkiGcrH6xYEnBPZXY6k58oKdyLWwcB9JhbLDCLQ4hMf9KvilE1XO4huzArhgDQa/Nun
-         xOzG8p/KCm03U/EZrDgIQBGxja6r/ubpytbSJTBhZqPPpQne9Zh3UxsQfZ6QI3Ifdb02
-         PFXrMtxW/BXd/xILLQnGlAi4j1dE/7fJjMfLM/oewLVJTReTjx7KGJaL5zTxcIGls8bH
-         31U6g8GQQBTKQPyExWdnlW9HID3KALC51joREh9qgVHDcMFAMWl+jezCbD07IpzScvWC
-         4nMA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788101848; x=1788706648;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=oJZEG3Xp29mb0hdnLyMA9g/sKI7+pcsw2OATsKuZZuU=;
-        b=gwTUZukH8okj9z4Skb6TOyGL6MSAaO01nTirrQLfAW0j400jf2UZvd/Kdwoen5b7M9
-         U5fahoRCS25c650OT6UJ0jiMjYLjaJ/+86+9OLtFoG8/l2IFGVqvGOzHSJAO+HVS7MsG
-         7PBsdz4W6yc5cdIX/wDmCuX8oi92GwuD6xSyCVn900lUBg7kRYCo3w1+Xrn+sYXvoUO+
-         hK2DlH2nAkea/gyi8pPChN7Y0q012qJRQqufQvSINdIlQU9DofvonQdwsi/1JoLux9pB
-         DrhkGk7HKGwlKM7Vhz04yi1bNnXyoBiiYcS0or65taZMtRLhzPVZCut2YsSJBEOchXh5
-         yXVg==
-X-Forwarded-Encrypted: i=1; AKwUvBzVuPkNbMTARLtL74cc5pRF9rWDie53bfEkp98O+o1ZoSKj3KLiPug8OEmnWCEePRmle0/q6B4njp0LhJ8=@vger.kernel.org
-X-Gm-Message-State: AFuF++n/y1SVyGlxQ9wIVkKaDFvEdV9H0P73hSvms73q6h3FhF8hw3uj
-	x6n/lwWrk2R2p1UDXxNYYHGuK7MnkA98WA18CydPfEw7gWM4HgseJ2Nv
-X-Gm-Gg: AYBFou1dRrObi/QbPS9QiRCSyoJaVbT9rQX0iY4kSTz/RR6h0kwvSP+IM+H6hgRklgW
-	7SRKkW4nimqDNoxTBwCU8hBcNUArjlfBrP2oizCo56JGdHZ4Tf2jEa78ENaXb7sjcUagV/4Zf5t
-	abbZT2f8dXIME/kGtS1bFhwW+Gi4YtG0+ohgVLuo7gUyYeQ6c1wu3Qk8wmiM7fXkGg85ng9qJDL
-	WYYiPuzxx5eQoaFr0t/OfbSrD+qtg3aed8JgRllTS8blNpofRuKxopFecjH2HLIISdbrdTIkkqB
-	f7KJxvfaQKQKF+8wDIVeR8xo9OFtbk+5H7eNh0D2SYoKAapVVnhPwieHVRmpoL7jUK5LvnWAk0I
-	kiYZqA30ekT8RJDbmwwOUv8KTsfmOdliTDBbbWr9NVlvfteXGcTDPQ1tOkiArwOHGkKDKDjQxb9
-	J7Ubba29jz3PQdpLG2DvYwl616ypCt+zq8hJYCX41Af+KP8MfsV0wmtLE+zEVZPIBkjzr/qBVYn
-	i5VlLCDk8mfEGT42Tw=
-X-Received: by 2002:a17:90b:3c83:b0:398:9bd5:490b with SMTP id 98e67ed59e1d1-3989bd54c84mr18297077a91.18.1788101847980;
-        Sun, 30 Aug 2026 07:57:27 -0700 (PDT)
-Received: from localhost.localdomain ([103.16.69.193])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3286f959575sm23198024eec.15.2026.08.30.07.57.23
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 30 Aug 2026 07:57:27 -0700 (PDT)
-From: Aditya Dash <mradityadash@gmail.com>
-To: Benjamin Tissoires <bentiss@kernel.org>,
-	"Derek J. Clark" <derekjohn.clark@gmail.com>,
-	Jiri Kosina <jikos@kernel.org>,
-	Mark Pearson <mpearson-lenovo@squebb.ca>
-Cc: linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 6/6] HID: hid-lenovo-go: clear calibration status on start
-Date: Sun, 30 Aug 2026 20:26:58 +0530
-Message-ID: <931a17ea1ce972af018252681a253a21465ad494.1788096668.git.mradityadash@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <cover.1788096666.git.mradityadash@gmail.com>
-References: <cover.1788096666.git.mradityadash@gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="R+G3xMUP"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788101879; x=1819637879;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=Jz6SGp8A9K6qYUuqL9q2t6pIpvCJVbYQr8/3UysdP40=;
+  b=R+G3xMUPcLtvpZWvEyTFlhKxFXu86m6ERtmJ48HeA7RGh2L4+ENxWebE
+   AgReK6sIAVTvS5/rOUOETQH+NTKkEC92mYU++pYBk/pDKghU/IMrxjaLf
+   iO/9iSPBFcDq17/kM+WklhLnpSy2s/QPwMNUxCcG90+/uxJ3ZU4jW4Vi1
+   W0qbwg35Dt57YWXxaznMx4pgqOrmKLFnKye3Uq+b4h5vYymmEt08my/bB
+   5NU4g011+AinpBIvtQva6ewB24uCJZD7mIjmKh85czEcH2bZoZoM7+dbC
+   Qqsr5jS1cqDSiqMFWyS0RDT8A65vV+0NE4hGkCSSIy3egXX4cU762Z9Zt
+   g==;
+X-CSE-ConnectionGUID: WNDU9LpIR42k8fb7HoBpqg==
+X-CSE-MsgGUID: A77GPOC1Sbynz3/8alvY0A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11890"; a="99877498"
+X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
+   d="scan'208";a="99877498"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Aug 2026 07:57:59 -0700
+X-CSE-ConnectionGUID: NUdCDotGSWypYZ4ykE5Ycw==
+X-CSE-MsgGUID: wdrIOB+hQ3KIfuK+A17WXg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
+   d="scan'208";a="306825838"
+Received: from igk-lkp-server01.igk.intel.com (HELO 32268bdb9915) ([10.211.93.152])
+  by orviesa001.jf.intel.com with ESMTP; 30 Aug 2026 07:57:57 -0700
+Received: from kbuild by 32268bdb9915 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1x0gyo-00000000095-34uo;
+	Sun, 30 Aug 2026 14:57:54 +0000
+Date: Sun, 30 Aug 2026 16:57:33 +0200
+From: kernel test robot <lkp@intel.com>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org
+Cc: oe-kbuild-all@lists.linux.dev, Linus Walleij <linusw@kernel.org>,
+	Jacky Huang <ychuang3@nuvoton.com>,
+	Shan-Chun Hung <schung@nuvoton.com>
+Subject: Re: [PATCH v1 4/4] pinctrl: pistachio: Replace open coded
+ fwnode_is_gpiochip()
+Message-ID: <202608301629.wjbEOoNN-lkp@intel.com>
+References: <20260824074427.3226457-5-andriy.shevchenko@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260824074427.3226457-5-andriy.shevchenko@linux.intel.com>
 
-A completed calibration leaves success or failure in its status file. If
-the next calibration has the same result, userspace sees no change and
-cannot tell when the new attempt starts or finishes.
+Hi Andy,
 
-Link each calibration action attribute to its status field. Set only that
-field to unknown before submitting Start. Stop leaves the status unchanged,
-and the next firmware result replaces unknown with success or failure.
+kernel test robot noticed the following build errors:
 
-Fixes: 995887a10da1 ("HID: hid-lenovo-go: Add Calibration Settings")
-Assisted-by: Pi:gpt-5.6-sol
-Signed-off-by: Aditya Dash <mradityadash@gmail.com>
----
- drivers/hid/hid-lenovo-go.c | 37 +++++++++++++++++++++++++++++--------
- 1 file changed, 29 insertions(+), 8 deletions(-)
+[auto build test ERROR on brgl/gpio/for-next]
+[also build test ERROR on linusw-pinctrl/devel linusw-pinctrl/for-next linus/master v7.2 next-20260828]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-diff --git a/drivers/hid/hid-lenovo-go.c b/drivers/hid/hid-lenovo-go.c
-index a4231d188b7a..2ed367abd4cc 100644
---- a/drivers/hid/hid-lenovo-go.c
-+++ b/drivers/hid/hid-lenovo-go.c
-@@ -111,6 +111,11 @@ struct go_cfg_attr {
- 	u8 index;
- };
- 
-+struct go_cal_cfg_attr {
-+	u8 index;
-+	u8 *status;
-+};
-+
- struct command_report {
- 	u8 report_id;
- 	u8 id;
-@@ -1410,7 +1415,8 @@ static ssize_t device_status_show(struct device *dev,
- static ssize_t calibrate_config_store(struct device *dev,
- 				      struct device_attribute *attr,
- 				      const char *buf, u8 cmd, u8 sub_cmd,
--				      size_t count, enum dev_type device_type)
-+				      size_t count, enum dev_type device_type,
-+				      u8 *cal_status)
- {
- 	size_t size = 1;
- 	u8 val = 0;
-@@ -1425,6 +1431,8 @@ static ssize_t calibrate_config_store(struct device *dev,
- 	val = ret;
- 	if (!val)
- 		size = 0;
-+	if (val == CAL_START)
-+		*cal_status = CAL_STAT_UNKNOWN;
- 
- 	ret = mcu_property_out(drvdata.hdev, MCU_CONFIG_DATA, cmd, sub_cmd,
- 			       device_type, &val, size);
-@@ -1822,7 +1830,8 @@ static void hid_go_brightness_set(struct led_classdev *led_cdev,
- 				     const char *buf, size_t count)           \
- 	{                                                                     \
- 		return calibrate_config_store(dev, attr, buf, _name.index,    \
--					      _scmd, count, _dtype);          \
-+					      _scmd, count, _dtype,           \
-+					      _name.status);                   \
- 	}                                                                     \
- 	static ssize_t _name##_##_rtype##_show(                               \
- 		struct device *dev, struct device_attribute *attr, char *buf) \
-@@ -1982,17 +1991,23 @@ LEGO_DEVICE_ATTR_RW(rumble_notification_left, "rumble_notification",
- static DEVICE_ATTR_RO_NAMED(rumble_notification_left_index,
- 			    "rumble_notification_index");
- 
--static struct go_cfg_attr cal_trigg_left = { SET_TRIGGER_CFG };
-+static struct go_cal_cfg_attr cal_trigg_left = {
-+	SET_TRIGGER_CFG, &drvdata.gp_left_trigg_cal_status
-+};
- LEGO_CAL_DEVICE_ATTR(cal_trigg_left, "calibrate_trigger", TRIGGER_CALIBRATE,
- 		     LEFT_CONTROLLER, index);
- static DEVICE_ATTR_RO_NAMED(cal_trigg_left_index, "calibrate_trigger_index");
- 
--static struct go_cfg_attr cal_joy_left = { SET_JOYSTICK_CFG };
-+static struct go_cal_cfg_attr cal_joy_left = {
-+	SET_JOYSTICK_CFG, &drvdata.gp_left_joy_cal_status
-+};
- LEGO_CAL_DEVICE_ATTR(cal_joy_left, "calibrate_joystick", JOYSTICK_CALIBRATE,
- 		     LEFT_CONTROLLER, index);
- static DEVICE_ATTR_RO_NAMED(cal_joy_left_index, "calibrate_joystick_index");
- 
--static struct go_cfg_attr cal_gyro_left = { SET_GYRO_CFG };
-+static struct go_cal_cfg_attr cal_gyro_left = {
-+	SET_GYRO_CFG, &drvdata.gp_left_gyro_cal_status
-+};
- LEGO_CAL_DEVICE_ATTR(cal_gyro_left, "calibrate_gyro", GYRO_CALIBRATE,
- 		     LEFT_CONTROLLER, index);
- static DEVICE_ATTR_RO_NAMED(cal_gyro_left_index, "calibrate_gyro_index");
-@@ -2089,17 +2104,23 @@ LEGO_DEVICE_ATTR_RW(rumble_notification_right, "rumble_notification",
- static DEVICE_ATTR_RO_NAMED(rumble_notification_right_index,
- 			    "rumble_notification_index");
- 
--static struct go_cfg_attr cal_trigg_right = { SET_TRIGGER_CFG };
-+static struct go_cal_cfg_attr cal_trigg_right = {
-+	SET_TRIGGER_CFG, &drvdata.gp_right_trigg_cal_status
-+};
- LEGO_CAL_DEVICE_ATTR(cal_trigg_right, "calibrate_trigger", TRIGGER_CALIBRATE,
- 		     RIGHT_CONTROLLER, index);
- static DEVICE_ATTR_RO_NAMED(cal_trigg_right_index, "calibrate_trigger_index");
- 
--static struct go_cfg_attr cal_joy_right = { SET_JOYSTICK_CFG };
-+static struct go_cal_cfg_attr cal_joy_right = {
-+	SET_JOYSTICK_CFG, &drvdata.gp_right_joy_cal_status
-+};
- LEGO_CAL_DEVICE_ATTR(cal_joy_right, "calibrate_joystick", JOYSTICK_CALIBRATE,
- 		     RIGHT_CONTROLLER, index);
- static DEVICE_ATTR_RO_NAMED(cal_joy_right_index, "calibrate_joystick_index");
- 
--static struct go_cfg_attr cal_gyro_right = { SET_GYRO_CFG };
-+static struct go_cal_cfg_attr cal_gyro_right = {
-+	SET_GYRO_CFG, &drvdata.gp_right_gyro_cal_status
-+};
- LEGO_CAL_DEVICE_ATTR(cal_gyro_right, "calibrate_gyro", GYRO_CALIBRATE,
- 		     RIGHT_CONTROLLER, index);
- static DEVICE_ATTR_RO_NAMED(cal_gyro_right_index, "calibrate_gyro_index");
--- 
-2.55.0
+url:    https://github.com/intel-lab-lkp/linux/commits/Andy-Shevchenko/gpio-Split-fwnode_is_gpiochip-helper/20260824-094232
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/brgl/linux.git gpio/for-next
+patch link:    https://lore.kernel.org/r/20260824074427.3226457-5-andriy.shevchenko%40linux.intel.com
+patch subject: [PATCH v1 4/4] pinctrl: pistachio: Replace open coded fwnode_is_gpiochip()
+config: x86_64-rhel-9.4-rust (https://download.01.org/0day-ci/archive/20260830/202608301629.wjbEOoNN-lkp@intel.com/config)
+compiler: clang version 22.1.8 (https://github.com/llvm/llvm-project ca7933e47d3a3451d81e72ac174dcb5aa28b59d1)
+rustc: rustc 1.96.0 (ac68faa20 2026-05-25)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260830/202608301629.wjbEOoNN-lkp@intel.com/reproduce)
 
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202608301629.wjbEOoNN-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+   In file included from rust/helpers/helpers.c:83:
+   In file included from rust/helpers/pwm.c:5:
+   In file included from include/linux/pwm.h:8:
+>> include/linux/gpio/driver.h:888:33: error: use of undeclared identifier 'child'
+     888 |         return fwnode_property_present(child, "gpio-controller");
+         |                                        ^~~~~
+   1 error generated.
+--
+>> include/linux/gpio/driver.h:888:33: error: use of undeclared identifier 'child'
+>> Unable to generate bindings: clang diagnosed error: include/linux/gpio/driver.h:888:33: error: use of undeclared identifier 'child'
+
+
+vim +/child +888 include/linux/gpio/driver.h
+
+   885	
+   886	static inline bool fwnode_is_gpiochip(struct fwnode_handle *fwnode)
+   887	{
+ > 888		return fwnode_property_present(child, "gpio-controller");
+   889	}
+   890	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
