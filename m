@@ -1,118 +1,177 @@
-Received: from mta0.migadu.com (out-250.mta0.migadu.com [91.218.175.250])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92AEB14F70
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 08:18:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.250
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2DDF1A9F87;
+	Sun, 30 Aug 2026 08:25:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788077899; cv=none; b=KPIPldkOEZkzOQI9V4VuQ0C+i5/O5TYN/isHkf01b9Hwjz5v3R/05Qqcfn/PcNOnGzQru/IdSCpPr+pPkYg7Qf4ApCbup7GtdJwP6Rrgm47iS3sqdkscMvDTA6PZISe6IxsrtXU6r35xdjtH3DKEoJSGkoQNOEA0Qu5K5RnDhJM=
+	t=1788078337; cv=none; b=X+clRr80HIyu9LS9i9jmNpSnwFXHJCAEcTq0quVbucrwWrknYZ9W3ExPfCEu0VPcdnlyycwSim5x91siP8ZNAjnyAweCM8Q/1YjX4BnU0EWlqEnpNtR+YxOfyhciuooc6+mucRGJ8J6TuDmS3qQG7Vy52flx8SXci5Y+1ZQee4s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788077899; c=relaxed/simple;
-	bh=NAuA52VSPA72V2eVkgdvw0tVVN3Vtsno0NxmUpvk53E=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pbzWuiTvOV2rbaook0jW5gkx6PI0BkeevlQ21zPzKsWvI0AaLieFcmZtzTZ5HKLCz9nWrL27L69hJu4B2/HZSK3FSLW1d8GqQX0UCc5VXxHNxrtp1X31oCtZfer62CPFZk2Mu3/BR+tlNXTkIp5NhP/wc+buAqpngIQmRoaKaHs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=BhbXhRka; arc=none smtp.client-ip=91.218.175.250
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788078337; c=relaxed/simple;
+	bh=enDvrvucjqCB6QorYOu30xPX0Tspl/vdnaZA/OCJVd8=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=eHeXT/exlVD9ZTvcoOU9xNKfadBU/JNA8IeA3hCI+ehOxNLxnrW/S6GBPdtKeyKr+0Y3oAR5BsTx7tR6rI8dtSUr6ESP5Rn3r3dTOcmQFgaHE4JpzoP8JzPlo1xUCTAndX8LdXjapFa2ojcBt0Mj+qwNlqOtQRpCYyopOacbs+Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kERBUMQh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="BhbXhRka"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=NAuA52VSPA72V2eVkgdvw0tVVN3Vtsno0NxmUpvk53E=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788077890; v=1; x=1788682690;
- b=BhbXhRkaGTAura+VoLoQY9CThEVbxndEdsUI4t+LoWVRf3B590XsYliG7Cc8ZyGzJci2hHuO
- jkqknIeSw+yE2C4lXdn7e/IiluavNn+mIdYx2mss/akzhOPU5e0IROVj0bIubduPUx9xpSYQoWa
- qskg8DfTVWOuqn7SZy0eIvT4=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 813fea7be6b6f147;
-	Sun, 30 Aug 2026 08:18:00 +0000
-X-Mizu-Trace-ID: 813fea7be6b6f147
-X-Migadu-Flow: FLOW_OUT
-Date: Sun, 30 Aug 2026 16:17:41 +0800
-From: Chen Yu <chen.yu@linux.dev>
-To: Tim Chen <tim.c.chen@linux.intel.com>
-Cc: Zhan Xusheng <zhanxusheng1024@gmail.com>, yu.c.chen@intel.com,
-	peterz@infradead.org, mingo@redhat.com, juri.lelli@redhat.com,
-	vincent.guittot@linaro.org, dietmar.eggemann@arm.com,
-	rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de,
-	vschneid@redhat.com, kprateek.nayak@amd.com,
-	linux-kernel@vger.kernel.org, zhanxusheng@xiaomi.com
-Subject: Re: sched/fair: which tasks should nr_pref_llc_running be compared
- against?
-Message-ID: <apPnJaUS5vq2f85J@three-body>
-References: <20260827135000.735138-1-zhanxusheng@xiaomi.com>
- <59e2b8265fc650266b93d8f523c366edfa912428.camel@linux.intel.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kERBUMQh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6500C1F000E9;
+	Sun, 30 Aug 2026 08:25:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788078335;
+	bh=bEUIZ+P1wvBK9wpdoS7CCGcxWQYocPml39xu6l1/88k=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=kERBUMQhAWsGtfPppvbbc5Ow5SVOyx9BzibtFkuYKDdkZKVF/+nExG+oiS5W39jGn
+	 TlfpVFuP300bYoB4ZZm29ZvmOcH5mWtDtO3J3Bn1vjM9ab3rbEjZrH59nooShVKn9F
+	 K2jZ714m8cA7gkqBfpFRTdPH6mbabr0eCD58aHcicTLKLsa7ND6nQPN3bh7bVoxPjM
+	 0pzmG4noJ1tAbDEuR8Wdbs7lv8y86sqkuhHN1y18TCJ1UrSdvqJyODFjIIpTUvjr9C
+	 0V59nsDrZs0y5ZY9GAwEbv8C5k8DFaTlgBDvI6EVpL54T5PuxzIMd3MqG9I4BF2z1y
+	 91Z8nslq4rg6Q==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=lobster-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1x0ar7-00000002Ri4-09sG;
+	Sun, 30 Aug 2026 08:25:33 +0000
+Date: Sun, 30 Aug 2026 09:28:05 +0100
+Message-ID: <87zey4m2qy.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Karl Mehltretter <kmehltretter@gmail.com>
+Cc: Oliver Upton <oupton@kernel.org>,
+	kvmarm@lists.linux.dev,
+	Fuad Tabba <fuad.tabba@linux.dev>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Shuah Khan <shuah@kernel.org>,
+	Eric Auger <eric.auger@redhat.com>,
+	Christoffer Dall <christoffer.dall@arm.com>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	kvm@vger.kernel.org,
+	linux-kselftest@vger.kernel.org
+Subject: Re: [PATCH v3 0/5] KVM: arm64: fix VGICv3 redistributor rollback
+In-Reply-To: <20260822095346.53882-1-kmehltretter@gmail.com>
+References: <20260822095346.53882-1-kmehltretter@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <59e2b8265fc650266b93d8f523c366edfa912428.camel@linux.intel.com>
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: kmehltretter@gmail.com, oupton@kernel.org, kvmarm@lists.linux.dev, fuad.tabba@linux.dev, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, catalin.marinas@arm.com, will@kernel.org, pbonzini@redhat.com, shuah@kernel.org, eric.auger@redhat.com, christoffer.dall@arm.com, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, kvm@vger.kernel.org, linux-kselftest@vger.kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-On Thu, Aug 27, 2026 at 01:57:33PM -0700, Tim Chen wrote:
-> On Thu, 2026-08-27 at 21:50 +0800, Zhan Xusheng wrote:
-> Signed-off-by: Tim Chen <tim.c.chen@linux.intel.com>
-> ---
->  kernel/sched/fair.c | 45 ++++++++++++++++++++++++++++++++++++++++++++-
->  1 file changed, 44 insertions(+), 1 deletion(-)
+On Sat, 22 Aug 2026 10:53:41 +0100,
+Karl Mehltretter <kmehltretter@gmail.com> wrote:
 > 
-> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-> index d78467ec6ee1..1673b17273c5 100644
-> --- a/kernel/sched/fair.c
-> +++ b/kernel/sched/fair.c
-> @@ -1544,7 +1544,14 @@ static void account_llc_dequeue(struct rq *rq, struct task_struct *p)
->  
->  	rq->nr_llc_running--;
->  	if (p->pref_llc_queued) {
-> -		rq->nr_pref_llc_running--;
-> +		/*
-> +		 * If the task is being finally dequeued while still delayed,
-> +		 * set_delayed() already removed it from nr_pref_llc_running;
-> +		 * skip here to avoid underflow. Clearing pref_llc_queued also
-> +		 * stops the subsequent clear_delayed() from re-adding it.
-> +		 */
-> +		if (!p->se.sched_delayed)
-> +			rq->nr_pref_llc_running--;
+> A failed REDIST_REGION write can remove redistributor iodevs from
+> KVM_MMIO_BUS while leaving their cached vCPU assignments intact. A
+> corrected retry then skips those redistributors.
+> 
+> Userspace should instead see a failed region update atomically: no prior
+> redistributor assignment survives the failure, and the next successful
+> update rebuilds all possible assignments in region-index order.
+> 
+> Patch 1 fixes a separate accounting bug when an individual MMIO-bus
+> registration fails. It reserves the selected region slot before
+> registration and undoes that known-latest assignment if registration fails.
+> 
+> Patch 2 implements the atomic failed-region behavior. It unregisters every
+> redistributor iodev, clears every cached assignment, resets the region
+> counters, and frees the newly inserted region. An in-flight vCPU can have
+> an RD iodev before kvm_for_each_vcpu() can see it, so REDIST and
+> REDIST_REGION writes are serialized with vCPU creation and return -EBUSY
+> while the created_vcpus/online_vcpus counts differ.
+> 
+> Patch 3 is independent teardown cleanup. It separates MMIO-bus teardown
+> from config-locked assignment cleanup, preserves the cleanup required
+> before a late failed vCPU creation frees the vCPU, and removes the special
+> conditional from the common vCPU destructor.
+> 
+> Patch 4 keeps the selftest helper aligned with vm_create_with_vcpus(), and
+> patch 5 adds regression coverage for an overlapping region, retry, and
+> final GICR_TYPER accesses to all four redistributors. The test exercises
+> patch 2's final-state behavior; patch 1's MMIO-bus allocation failure is
+> not fault-injected.
+> 
+> Testing: built the patched kernel and the arm64 vgic_init selftest with
+> GCC 13.3.0 in an arm64 Linux container. The selftest passed under QEMU
+> 11.0.2 TCG with -machine virt,virtualization=on,gic-version=3 and -cpu max.
+> 
+> ---
+> Changes since v2:
+> - Patch 1: limit free_index rollback to the immediate registration failure
+>   under slots_lock instead of generic unregistration. (Sashiko)
+> - Patch 2: reset all assignments and region counters after a failed region
+>   update (Marc), and serialize REDIST and REDIST_REGION writes with vCPU
+>   creation so rollback cannot miss an unpublished assignment.
+> - Patch 3: add an already-locked unassignment primitive, move failed-vCPU
+>   cleanup to kvm_vgic_vcpu_destroy(), and remove the redundant base_addr
+>   reset. (Marc)
+> - Patch 4: match vm_create_with_vcpus() by using void * for the guest-code
+>   argument. (Sashiko)
+> - Patch 5: document how the first three redistributors span regions 0
+>   and 1; no functional change.
 
-Should we also do similar check in account_llc_enqueue()? It is possible during
-load balance migration, a migrate_load allows the task to be migrated across
-CPUs. And load balance leverages detach_tasks()/attach_tasks() to move tasks.
-During this stage the p->se.sched_delayed remained unchanged:
-In enqueue_task_fair(), only when if (se->on_rq && se->sched_delayed) is true,
-p->se.sched_delayed will be cleared by requeue_delayed_entity() - during migration,
-se->on_rq is false.
+I really don't understand why this is such a massive departure from
+v2, which was pretty close to what I wanted to see.
 
-As a result, attach_tasks -> enqueue_hierarchy -> enqueue_entity -> account_llc_enqueue(rq, p)
-incorrectly increase rq->nr_pref_llc_running - even that task is in delayed state, and
-not runnable.
+Honestly, you are making things harder for everyone by over-designing
+(or more probably under-filtering) things that should be *fixes*, and
+just that.
 
->  		/*
->  		 * Update the status in case
->  		 * other logic might query
-> @@ -1572,6 +1579,24 @@ static void account_llc_dequeue(struct rq *rq, struct task_struct *p)
->  	}
->  }
->  
-> +/*
-> + * A task becoming delay-dequeued leaves the runnable set while staying
-> + * queued. Keep nr_pref_llc_running in the runnable domain (like
-> + * h_nr_runnable) so alb_break_llc() can compare the two directly.
-> + */
->
+If you want to rework all of the vgic init/destroy, fine by me. Do
+that as a separate series. But for fixes that carry a Cc stable and
+require backporting to 6 year old kernels, that's not on.
 
-Regarding alb_break_llc(), since we have compared nr_pref_llc_running vs 
-nr_runnable, I wonder if we should also change the code?
-	if (env->src_rq->nr_pref_llc_running &&
- 	    env->src_rq->nr_pref_llc_running == env->src_rq->cfs.h_nr_runnable)
-		unsigned long util = 0;
-		struct task_struct *cur;
+The hack below is what I have against your v2 to make it acceptable.
+
+	M.
+
+diff --git a/arch/arm64/kvm/vgic/vgic-init.c b/arch/arm64/kvm/vgic/vgic-init.c
+index 84e67c23bedc0..85b00849e6154 100644
+--- a/arch/arm64/kvm/vgic/vgic-init.c
++++ b/arch/arm64/kvm/vgic/vgic-init.c
+@@ -539,8 +539,6 @@ static void __kvm_vgic_vcpu_destroy(struct kvm_vcpu *vcpu)
+ 		 */
+ 		if (kvm_get_vcpu_by_id(vcpu->kvm, vcpu->vcpu_id) != vcpu)
+ 			vgic_unregister_redist_iodev(vcpu);
+-
+-		vgic_cpu->rd_iodev.base_addr = VGIC_ADDR_UNDEF;
+ 	}
+ }
  
-                if (env->src_rq->cfs.h_nr_runnable <= 1)
-                        return true;
+@@ -563,14 +561,13 @@ void kvm_vgic_destroy(struct kvm *kvm)
+ 
+ 	vgic_debug_destroy(kvm);
+ 
+-	kvm_for_each_vcpu(i, vcpu, kvm)
++	kvm_for_each_vcpu(i, vcpu, kvm) {
+ 		__kvm_vgic_vcpu_destroy(vcpu);
+-
+-	if (kvm->arch.vgic.vgic_model == KVM_DEV_TYPE_ARM_VGIC_V3) {
+-		mutex_unlock(&kvm->arch.config_lock);
+-		kvm_for_each_vcpu(i, vcpu, kvm)
+-			vgic_unregister_redist_iodev(vcpu);
+-		mutex_lock(&kvm->arch.config_lock);
++		if (kvm->arch.vgic.vgic_model == KVM_DEV_TYPE_ARM_VGIC_V3) {
++			kvm_io_bus_unregister_dev(vcpu->kvm, KVM_MMIO_BUS,
++						  &vcpu->arch.vgic_cpu.rd_iodev.dev);
++			__vgic_unassign_redist_iodev(vcpu);
++		}
+ 	}
+ 
+ 	kvm_vgic_dist_destroy(kvm);
 
-thanks,
-Chenyu
+-- 
+Jazz isn't dead. It just smells funny.
