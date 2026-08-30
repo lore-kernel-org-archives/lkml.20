@@ -1,160 +1,220 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-243.mta0.migadu.com [91.218.175.243])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EECB63A5E8F
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 10:10:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FAEE382380
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 10:13:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.243
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788084636; cv=none; b=aKc0Y7VOmTlHd5czQo911TUveEv4P0WFibbpH6y6LraZrwRPC/vEyifAobyhxpZ9zI+zie7P7ovKp4IEIVhhOPdRb9uYrEtGlGEcp3IANcRETRet5J+PaoubEo5hR5XQL4WDRUnSNp+Nj2eHp5FDnzsuzHstHEmXITtlG8JZMjg=
+	t=1788084819; cv=none; b=PMnqgJh1GEdnBpIFqH9bBy/99JaUeQEk1l8836Jpi2bM23tfE/RTAG9Y57RAbGUzuum967zpABNTG+VzDO2ZZzGNp+3h0EgCHIopDstoym6lxrUwEyxq0VMkDB/D/3qwefpqdKx6UeUpLujDyhzkELFmWwgX1aMVVQwlqQ0/bFc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788084636; c=relaxed/simple;
-	bh=j5xquh3YmyWbm6HinwSL5zCuhiJDnGPgbOGMgZZ0rMQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iZYm8QxdBVTYfNZv1CTHicwoJZxVX//WbCj4qfsQiQ2ok9SOdsyZ/gRE+kaRaKDS4wrkkQW0RS0OcTlw3xpAk5TOSfXNAGDQw/F4bn8X2v93zyZ4IohnWOr5Uv7TmwLxyFrU0r5MIyARRnhWJUM+PtuM+dB8ISvlaiSIYaavsBA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=PgprtML1; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=DLJxuC6n; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1788084819; c=relaxed/simple;
+	bh=orh/j8jOJpiqrKlrLd2jKhjQfJBswjC/3RKWNPcbXdI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=sFxtrIHhzjQtlSOKh+iSy8ajCKwUyzNDZmq9vKOtcMTrePPWhdZIUdUh1DJkcLPiYia2rHWWzBnonWOyOUTFUIWCzYFj1j2V5I1CHxdny/H7qSEcFHeuEsoNHE1Vyy4vzjn1LwNpyqNUyH3sMZah6NgPkt1bI+AG9c81Q/YYOVw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=hV9xK6G+; arc=none smtp.client-ip=91.218.175.243
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="PgprtML1";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="DLJxuC6n"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67UA7NL91342638
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 10:10:34 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=tsnnJ/6NpmZ4Kbv6OZKO9KkoG7EvkwFyG/j
-	YSMybLiM=; b=PgprtML1Of3Mrfz+/Vg6qVghym1G7jiEme2994tYitEWpsew6FS
-	+40XKqY+85rJclL/shx6d8B7P+VvEd2DPvCJmHtt8BZf6pLkRJoS0mTeV5cH51I5
-	i3PJD0MdEzpAqXuqWAl7Xn2ZUdiFglr1I2KowgWOFgIPJgHBd3kz8g6d/fJtFp8e
-	jU0QzzKNFS+dTlGsoPLI9WeiML9fPVGcSabpBHRx/eXu41lBPsEzG9my0KJ7In75
-	mP9Bigp5Rp0pLtSuZAS2OFATr5VDBcsAUUiDZbcfMuJRWpYw0V+Sw4DmKDp0A5EI
-	2LyNz7o+CtxGh2ToSQFHZeiIn5ATXzo9Lww==
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gbqhmtrt4-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 10:10:34 +0000 (GMT)
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2d52734fc41so52679585ad.1
-        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 03:10:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788084633; x=1788689433; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=tsnnJ/6NpmZ4Kbv6OZKO9KkoG7EvkwFyG/jYSMybLiM=;
-        b=DLJxuC6nTd11mg18vuDKvYjjxN8UGsqOTjqRl7y4Z8WIlgpB/8w7rXt6Wx09jdisyL
-         zV36lNAjQmNIDxA6PEgT0LlDl4M+TA2P2718Fx+9Qnw435fDLnVVe6WnpFUUNqCqsVCr
-         lnmlqnZG0kMxXNwQpL7V+OsA6mdyVuV/ZvlR9r5ABCPIaQZvDzR2aswtPjdSlfaO4QZp
-         wGOh/LcvZ5z6Eq3nS3e57T9gegQdCGcZqukhTX/uy9vnrT7n84YAcn7mQe+DJlEJD3Kv
-         JfMl5oWBOq2HrwruV2naa7Hd2eY3vLVL0c4O+1z6g6naSHdHDJqD2VI1COqKNyp8h70q
-         YmQQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788084633; x=1788689433;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=tsnnJ/6NpmZ4Kbv6OZKO9KkoG7EvkwFyG/jYSMybLiM=;
-        b=mcmzGF3DjoZLbm825Nlk3XWFTrZF7JuuvGExibDIIQhF6uBUOJrOA6jxObeZOJ8jCx
-         cX/TBP83g7bj7awQrARSy1b/VNZW5aL1Q52/L+qndz0ZhrJYsjZRgXQ7R2KWbATUU2De
-         PMV8MXFgdkZtMN8QNAX73zK6kDKv4nw8IZUPahyDeZ7kE33wGR2jj971OoTlKZTwjdhn
-         iAAtP1sodvbBHkGvORkbuQQJCioz8+msd48Jv7n2fzmm7KMXHB7+VgDdVWNBgnpyLP6w
-         wAaGgdheyVBj1qU5zAgjtCOxFDwiB5PbOJYOdcMZ2ONdJNv9c73UDAbLLKKmplft7W/A
-         CAmw==
-X-Forwarded-Encrypted: i=1; AKwUvBzvcfdQJ3G0rtUZI+v7y0h+DqGPU611mUUtd5NCLctUkKXrdaPZXSfaVL8FPGZ3snqvtoXcbEdHVP1ZJPw=@vger.kernel.org
-X-Gm-Message-State: AFuF++nSfJwFBqCDi4z1hNAMrct31PWi7sevjDnBYEFybd3Va0SPzdOW
-	XLca1CxdAqMgpMPckWFFO4VmborBFUSPWE4pD3i2IfXDECfBAlBEJfCfwjSLL4J+ML5b74dv6+V
-	VC5uXkLvvQsni3elTQdJBjKZBkkjH1+e+X4qh8yEKGc8E7s7mAzVTLgaZVEzaiZsP534=
-X-Gm-Gg: AYBFou3XSO1yKsjBUsdnujOteiJ6z1dvRfkRgzfxrzcDJzQsSG22VPCTxMrIpnF9dfm
-	ARxyA9mzIA6Q3QtzkqokvrI6MH5HBcLmyhh/FryKoI1XpvD7ut9TvzqEpxQbM8qPdZ3mmTXFfz1
-	96rY/wT6R8BHtwZecK/SYA6cp3/SSCwPreqvjRzJm2Zn3Ngdo1vGayiexSIKKdyUI1nGZsQGTPz
-	tp9d5ioW91t+t+wCSJMNRZZWM916CKocSsYtAp1BJmslFSaK/nvdfOG5ytj39Wv7frsfA+pLNou
-	/iOuod4LrPfOr3NJsLhdtUozokPRrNTcp8DcPC2abqmCDy6Q8deyY93pzlYHHBKFTi67pxAGMQ3
-	6lyRrITQrSB+QHV5Hll3dHvL0aJ4zouCRXT2gq8GuRJrDSxhgxbxXNLnFJqs6
-X-Received: by 2002:a17:902:f78b:b0:2c9:df1b:e948 with SMTP id d9443c01a7336-2d74dc78debmr313679755ad.4.1788084633426;
-        Sun, 30 Aug 2026 03:10:33 -0700 (PDT)
-X-Received: by 2002:a17:902:f78b:b0:2c9:df1b:e948 with SMTP id d9443c01a7336-2d74dc78debmr313679155ad.4.1788084633005;
-        Sun, 30 Aug 2026 03:10:33 -0700 (PDT)
-Received: from QCOM-aGQu4IUr3Y.qualcomm.com (i-global052.qualcomm.com. [199.106.103.52])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3286f7be440sm25312274eec.7.2026.08.30.03.10.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 30 Aug 2026 03:10:32 -0700 (PDT)
-From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-To: Daniel Lezcano <daniel.lezcano@kernel.org>
-Cc: "Rafael J . Wysocki" <rafael@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>,
-        Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>, linux-arm-msm@vger.kernel.org,
-        linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Dhruvin Rajpura <drajpura@qti.qualcomm.com>,
-        Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Subject: [PATCH] dt-bindings: thermal: qcom,pm8775-mbg-tm: Document PMAU0102
-Date: Sun, 30 Aug 2026 18:10:25 +0800
-Message-ID: <20260830101025.191697-1-shengchao.guo@oss.qualcomm.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="hV9xK6G+"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=orh/j8jOJpiqrKlrLd2jKhjQfJBswjC/3RKWNPcbXdI=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788084814; v=1; x=1788689614;
+ b=hV9xK6G+s2tQILnyHfaicHJCKWu8j6ovNFFtf2xsQxXkp2ZITHcQNBjt9+UjsEvwE1aB2E0G
+ +GzIb0G0qqZiCT0C2SSiqZj/7RNHTtSDxSB9PZlZOV7cZAsDmkEvVIjAErRVY6bBrzrBp1+oVPk
+ WYn6rh9a84SOeEBHvOG/Gg1M=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id e5d5919426a8fdc3;
+	Sun, 30 Aug 2026 10:13:24 +0000
+X-Mizu-Trace-ID: e5d5919426a8fdc3
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <c0a32c3c-bff8-433c-8552-f0723e3a07b7@linux.dev>
+Date: Sun, 30 Aug 2026 18:13:13 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/2] mm/mglru: fix ineffective memory protection for
+ non-kswapd reclaim
+To: Barry Song <baohua@kernel.org>
+Cc: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
+ Roman Gushchin <roman.gushchin@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Muchun Song <muchun.song@linux.dev>, Kairui Song <kasong@tencent.com>,
+ Qi Zheng <qi.zheng@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>,
+ Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ Chris Down <chris@chrisdown.name>, Tejun Heo <tj@kernel.org>,
+ Yu Zhao <yuzhao@google.com>,
+ "open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)"
+ <cgroups@vger.kernel.org>,
+ "open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)"
+ <linux-mm@kvack.org>, linux-kernel@vger.kernel.org,
+ Ridong Chen <chenridong@xiaomi.com>, stable@vger.kernel.org
+References: <20260828110919.1324028-1-ridong.chen@linux.dev>
+ <20260828110919.1324028-3-ridong.chen@linux.dev>
+ <CAGsJ_4ws6edtcToqJQ0azJPTymAYj41nzdGJvBqEM+gROiJtRQ@mail.gmail.com>
+From: Ridong Chen <ridong.chen@linux.dev>
+In-Reply-To: <CAGsJ_4ws6edtcToqJQ0azJPTymAYj41nzdGJvBqEM+gROiJtRQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODMwMDA4NSBTYWx0ZWRfXwdd9hc8FWVdN
- u+Rb3yRjghGWyPCXs+xyt6U7L+Oz1DY/v4osJcmS6nl3fRJ19r/G2R54ltTvAFUaswkUCFGHVbr
- 3Hc1ygQ9bGY6LQV1bi2xZUpXXRFsKQnXKgjuJaLYzKqiDmx3l1ZPVP9Xsg4fxBnvGSyXPIIX5eF
- +9RKpgYJ5Bo8QSDG3Gy7ks4D646h/s9cG8x2UgT0FOeCpF7d4SWGakatAdntFOWlf4G8/AXD12S
- CZXS2eBTTUGOprkTPOFKMe66FNvtfeAytYLH0pxHSpN8dPzg74bN0Cv+mTf2ZI4nNrgrPuSTZjD
- 5Rh2HKJBMMsLZ2ok2icqAU5ShP2X7Thro7AVqrC1JLYrsB22DMk4JMM92HlY4G/Yc8I+AGSzBiu
- rROnv1JsYca/ADhQwC2YPwCnfNJeY8dMBxbiCSsiyuoiZL/mozIltWm0mSKlDk7FKEdkXx/Y9ru
- QwI4UscbmtXCagNT3lA==
-X-Proofpoint-ORIG-GUID: 2VSjlRvdGeysqtaSKQVUePZpai_A4djn
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODMwMDA4NSBTYWx0ZWRfXxJ9ilr2hCNs4
- 3zZTq+bdLwb7GBJPwTceGXkaCxtmi5JBkCR7/90wset2EfvRl2mvqzBDr1mnIMi2wx+Y/s3UDvZ
- YJ07VcjTYBpqq4Ya3NuXlNh8KPt/Kvo=
-X-Proofpoint-GUID: 2VSjlRvdGeysqtaSKQVUePZpai_A4djn
-X-Authority-Analysis: v=2.4 cv=bpl8wkai c=1 sm=1 tr=0 ts=6a94019a cx=c_pps
- a=JL+w9abYAAE89/QcEU+0QA==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
- a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=EUspDBNiAAAA:8
- a=DV00hUf6onYBliZHTqcA:9 a=324X-CrmTo6CU4MGRt3R:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-30_03,2026-08-27_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 malwarescore=0 suspectscore=0 bulkscore=0 impostorscore=0
- adultscore=0 spamscore=0 priorityscore=1501 lowpriorityscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608300085
 
-From: Dhruvin Rajpura <drajpura@qti.qualcomm.com>
 
-Document MBG temperature monitor on PMAU0102 which is programming-model
-compatible with the one on PM8775.
 
-Signed-off-by: Dhruvin Rajpura <drajpura@qti.qualcomm.com>
-Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
----
- .../devicetree/bindings/thermal/qcom,pm8775-mbg-tm.yaml    | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+On 8/30/2026 3:53 PM, Barry Song wrote:
+> On Fri, Aug 28, 2026 at 7:10 PM Ridong Chen <ridong.chen@linux.dev> wrote:
+>>
+>> From: Ridong Chen <chenridong@xiaomi.com>
+>>
+>> memory.min/low is silently bypassed for MGLRU during global proactive
+>> reclaim (writing to the root memory.reclaim) and global direct reclaim.
+> 
+> I guess nobody is silently bypassing anything. It's just that the
+> effective min is stale data. If kswapd has run at least once, should
+> the protection have been updated already?
+> I guess we need to update the changelog a bit?
+> 
 
-diff --git a/Documentation/devicetree/bindings/thermal/qcom,pm8775-mbg-tm.yaml b/Documentation/devicetree/bindings/thermal/qcom,pm8775-mbg-tm.yaml
-index 2e084d040625..ef8361a55389 100644
---- a/Documentation/devicetree/bindings/thermal/qcom,pm8775-mbg-tm.yaml
-+++ b/Documentation/devicetree/bindings/thermal/qcom,pm8775-mbg-tm.yaml
-@@ -21,7 +21,12 @@ description:
- 
- properties:
-   compatible:
--    const: qcom,pm8775-mbg-tm
-+    oneOf:
-+      - const: qcom,pm8775-mbg-tm
-+      - items:
-+          - enum:
-+              - qcom,pmau0102-mbg-tm
-+          - const: qcom,pm8775-mbg-tm
- 
-   reg:
-     maxItems: 1
+The children's emin/elow are derived from the parent's min/low settings and 
+children_min_usage, both of which can change over time. As a result, emin/elow 
+may become stale, even if kswapd has already run once.
+
+>> It can be reproduced as follows:
+>>
+>>    # echo 7 > /sys/kernel/mm/lru_gen/enabled
+>>    # cd /sys/fs/cgroup
+>>    # mkdir -p a/b
+>>    # echo 100M > a/memory.min
+>>    # echo +memory > a/cgroup.subtree_control
+>>    # echo 100M > a/b/memory.min
+>>    # echo $$ > a/b/cgroup.procs
+>>    # dd if=/dev/zero of=/tmp/testfile bs=1M count=200
+>>    # cat a/b/memory.current
+>>    222650368
+>>    # echo 500M > memory.reclaim
+>>    -bash: echo: write error: Resource temporarily unavailable
+>>    # cat a/b/memory.current
+>>    6070272
+>>
+>> memory.min is 100M, yet reclaim drops a/b down to 6M, breaking the
+>> protection. The traditional LRU path is not affected because
+>> shrink_node() calls mem_cgroup_calculate_protection() for each memcg it
+>> visits during a top-down tree walk.
+>>
+>> Commit 30d77b7eef01 ("mm/mglru: fix ineffective protection calculation")
+>> moved the protection computation into lru_gen_age_node(), which only
+>> runs for kswapd. Non-kswapd global reclaim reaches shrink_one() through
+>> lru_gen_shrink_node() -> shrink_many() without any protection
+>> computation, so emin/elow remain stale or zero.
+>>
+>> Introduce mem_cgroup_protection_path() which computes emin/elow along
+>> the root-to-target path only by iterating through the cgroup ancestors
+>> array top-down. This avoids the full tree traversal that would be
+>> needed with mem_cgroup_calculate_protection(), limiting the cost to
+>> O(depth) per memcg - typically 3-5 levels.
+>>
+>> Call it from shrink_one() for the non-kswapd path so that each memcg
+>> about to be shrunk has correct protection values.
+>>
+>> Fixes: e4dde56cd208 ("mm: multi-gen LRU: per-node lru_gen_folio lists")
+>> Cc: stable@vger.kernel.org
+>> Assisted-by: Claude:claude-opus-4-8
+>> Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
+>> ---
+>>   include/linux/memcontrol.h | 11 ++++++++++
+>>   mm/memcontrol.c            | 45 ++++++++++++++++++++++++++++++++++++++
+>>   mm/vmscan.c                |  8 ++++++-
+>>   3 files changed, 63 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/include/linux/memcontrol.h b/include/linux/memcontrol.h
+>> index 7d1c0ce189a8..8066b798a759 100644
+>> --- a/include/linux/memcontrol.h
+>> +++ b/include/linux/memcontrol.h
+>> @@ -605,6 +605,10 @@ static inline void mem_cgroup_protection(struct mem_cgroup *root,
+>>
+>>   void mem_cgroup_calculate_protection(struct mem_cgroup *root,
+>>                                       struct mem_cgroup *memcg);
+>> +#ifdef CONFIG_LRU_GEN
+>> +void mem_cgroup_protection_path(struct mem_cgroup *root,
+>> +                               struct mem_cgroup *memcg);
+>> +#endif
+>>
+>>   static inline bool mem_cgroup_unprotected(struct mem_cgroup *target,
+>>                                            struct mem_cgroup *memcg)
+>> @@ -1133,6 +1137,13 @@ static inline void mem_cgroup_calculate_protection(struct mem_cgroup *root,
+>>   {
+>>   }
+>>
+>> +#ifdef CONFIG_LRU_GEN
+>> +static inline void mem_cgroup_protection_path(struct mem_cgroup *root,
+>> +                                             struct mem_cgroup *memcg)
+>> +{
+>> +}
+>> +#endif
+>> +
+> 
+> I wonder if we could follow the zswap pattern?
+> 
+> #if defined(CONFIG_MEMCG) && defined(CONFIG_ZSWAP)
+> bool obj_cgroup_may_zswap(struct obj_cgroup *objcg);
+> void obj_cgroup_charge_zswap(struct obj_cgroup *objcg, size_t size);
+> void obj_cgroup_uncharge_zswap(struct obj_cgroup *objcg, size_t size);
+> bool mem_cgroup_zswap_writeback_enabled(struct mem_cgroup *memcg);
+> #else
+> static inline bool obj_cgroup_may_zswap(struct obj_cgroup *objcg)
+> {
+>          return true;
+> }
+
+That is fine for me, I will update it.
+
+> ...
+> #endif
+> 
+>>   static inline bool mem_cgroup_unprotected(struct mem_cgroup *target,
+>>                                            struct mem_cgroup *memcg)
+>>   {
+>> diff --git a/mm/memcontrol.c b/mm/memcontrol.c
+>> index 1271d390b617..095050d4296a 100644
+>> --- a/mm/memcontrol.c
+>> +++ b/mm/memcontrol.c
+>> @@ -5198,6 +5198,51 @@ void mem_cgroup_calculate_protection(struct mem_cgroup *root,
+>>          page_counter_calculate_protection(&root->memory, &memcg->memory, recursive_protection);
+>>   }
+>>
+>> +#ifdef CONFIG_LRU_GEN
+>> +/**
+>> + * mem_cgroup_protection_path - compute protection along root->memcg path
+>> + * @root: the top ancestor of the sub-tree being checked (NULL for root_mem_cgroup)
+>> + * @memcg: the target memory cgroup
+>> + *
+>> + * Walk the ancestor path from @root down to @memcg and compute the effective
+>> + * protection at each level.  This is safe for isolated queries because it
+>> + * ensures parents are computed before children.
+>> + */
+>> +void mem_cgroup_protection_path(struct mem_cgroup *root,
+>> +                               struct mem_cgroup *memcg)
+> 
+> Can we rename it to `mem_cgroup_calculate_protection_path()`?
+> 
+> BTW, I see that the only caller is in vmscan and it passes NULL as
+> `root`. Do we need to keep the `root` argument if the new helper is
+> only used for global reclaim?
+> 
+I'd suggest keeping it as is. This function updates protection along the path 
+from root to memcg, and could be reused later. Note that 
+mem_cgroup_calculate_protection() assumes the caller has already performed the 
+top-down walk, each level's calculation depends on its parent being updated first.
+
+For mem_cgroup_calculate_protection_path(), it can be called in any context 
+without such a precondition.
+
 -- 
-2.43.0
+Best regards
+Ridong
 
