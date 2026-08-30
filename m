@@ -1,86 +1,74 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C788481B1;
-	Sun, 30 Aug 2026 00:59:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80BFB481B1;
+	Sun, 30 Aug 2026 01:02:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788051595; cv=none; b=OXFDGc/OocZvUCBHGxV+6Mv0XDRKOs6pDX+5jilxojwRl6PChBFMIp/PCdl9XoKZrgVUIu48XAW0ZzJVfFdOpBbE4YfdEvj/GhBBRmsA5bFknIPRd9nL1SUPO0bbccdUbzMX9LU5wJsJRfDHsrkDmLC1Ivg2Dohm4bPl7U3V1Dc=
+	t=1788051727; cv=none; b=OH4SI/Ax8LSMZiihCbIFy1JAr/0LnKXxu+Yo6KqR4jllY435QH7uopxGv2iIJSk7VFN3f6gxQfKpTduRoQQsevOIj0LoSc2awK9FgmVnp7Lvi55CR7eG2q/6RBmyaOuXbj1AYFLeE5cOuHd4V2T/rbesT6czk6Khq4BI+ItyHO4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788051595; c=relaxed/simple;
-	bh=EyB1xNFMYQ2Ew4bqHcCjB4Fg2/pDw+DsZwOOQicwQoo=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=DMiZ0UdkaaEjUKQEgwmYvdZjnM6dMWncV57FZgLsi+RYyHf2m/CfDcWsLEpkdsOLW723G0tBU8F7a1Ax8toXsnMh+ggPiVfV7dC8nhJ0yY6zzzcvmf+FBMPTbCsz2OWnTgWrm1TpZqtR1KmkW99c4BSHV2TwPGDaKnE/y400rPk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K3WOhWoI; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788051727; c=relaxed/simple;
+	bh=e3IRJe1WEHnaAfeMZbD2fubotE2R8orkhkr7KsuoH1s=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=SqXpSVOtXPnUJQNA/hd0PglaGAcxuD4xLaE6zRjkTcfkL3ZdNt1Kv3rVLGDRYXGpygTmmMubFhz2qoE4OY736ILj/1XFWbjIO2YWWHArEas24o/yjNHcZ0rYtjAWWNEdfr74BhWHCaS7+Cnz/hcAxid0qC+9/svJpN3lE8srk/o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=ry4S7Gex; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K3WOhWoI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2A491F000E9;
-	Sun, 30 Aug 2026 00:59:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788051593;
-	bh=KJWnhFTNLrxaJHUUO4alJfw2twP+v9Y67h4I2HwF9po=;
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="ry4S7Gex"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA5C21F000E9;
+	Sun, 30 Aug 2026 01:02:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1788051726;
+	bh=xU2s+wyhxKlOGwiNRKg8xReAr+6fxCJGp1fcNYlakHY=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=K3WOhWoIbZ39AY164GV1dGopB4xLc1TMioIRXRwgrITwZkPCMsbCRl7fmc+k9fm61
-	 vQXAYOJCxI/QL7XP5AOKr85dfl1KUQqpevbb3yGYwN7e83t2hAoKpReqMdsYfih6dn
-	 nnD4zRhoNmWdfHgU3i2k0+G43Wpfxu46EPgX6+pajDHoU9xmJtxlZ9DZqn/l1X69Wz
-	 sMpxWb9KDF81qwU4DFBlOClSB9WlC4H/CzhrsF+KADuAvkK+TlvGMUC6cBxSxymTH5
-	 jlEeARcT/47p0VKRs6joBbWe/Qa9++OTUlRu+2hdUoQmgZIPmn22/NV3RbLWI7hC2j
-	 ODJkJFZT743Wg==
-Date: Sun, 30 Aug 2026 01:59:47 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Stefan Popa <stefan.popa@analog.com>
-Cc: linux-iio@vger.kernel.org, lars@metafoo.de,
- Michael.Hennerich@analog.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, andy@kernel.org, dlechner@baylibre.com,
- nuno.sa@analog.com, siratul.islam@linux.dev, u.kleine-koenig@baylibre.com,
- linux@roeck-us.net, joshua.crofts1@gmail.com, ciprian.hegbeli@analog.com,
- krzysztof.kozlowski@oss.qualcomm.com, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v8 0/2] iio: adc: add MAX40080 current-sense amplifier
- driver
-Message-ID: <20260830015947.5635b3a1@jic23-huawei>
-In-Reply-To: <178805109906.2786293.17524353371768518972.b4-review@b4>
-References: <20260828083119.54495-1-stefan.popa@analog.com>
-	<178805109906.2786293.17524353371768518972.b4-review@b4>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	b=ry4S7GexE0+qJs8mGK5v71/GIAmiFFC47QGxR0KwE6MkIFrGYZvYYbSYqZ0LMODDI
+	 /F419UEgz/r4talneQjSic70oxEAYey12uv8cEZ54zcAOM8UCqy2koF4sDosM2+vvg
+	 ABVt7tuYCLZl8Si6SINrvz0aEy7MOUxCnkAK5CBM=
+Date: Sat, 29 Aug 2026 18:02:05 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Andrei Vagin <avagin@google.com>
+Cc: Thomas Gleixner <tglx@kernel.org>, linux-kernel@vger.kernel.org,
+ criu@lists.linux.dev, Thomas Gleixner <tglx@linutronix.de>
+Subject: Re: [PATCH] proc: Report SIGEV_NONE in /proc/pid/timers if target
+ task has died
+Message-Id: <20260829180205.16dc4d5ed20150b79533f3c2@linux-foundation.org>
+In-Reply-To: <20260816161216.984580-1-avagin@google.com>
+References: <20260816161216.984580-1-avagin@google.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
+Mime-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On Sun, 30 Aug 2026 01:51:39 +0100
-Jonathan Cameron <jic23@kernel.org> wrote:
+On Sun, 16 Aug 2026 16:12:15 +0000 Andrei Vagin <avagin@google.com> wrote:
 
-> > This series adds support for the MAX40080, a bidirectional current-sense
-> > amplifier with an integrated 12-bit ADC.
-> > 
-> > The driver is placed in IIO rather than hwmon because:
-> >   - IIO's scale/raw model naturally exposes the selectable gain ranges and
-> >     lets userspace apply the correct scale per range.  
+> When a posix timer is created targeting a specific thread (using
+> SIGEV_SIGNAL | SIGEV_THREAD_ID), it takes a reference to the target
+> struct pid in timer->it_pid. If the target thread subsequently
+> terminates, its numeric tid is freed and can be recycled for an
+> unrelated task. However, the timer holds its reference to the original
+> struct pid.
 > 
-> This one is a bit weaker as autoscaling is possible (if fiddly).
-> 
-> >   - Buffered capture support is planned for a follow-up series -- each
-> >     conversion returns a matched current+voltage pair, which maps cleanly
-> >     to IIO's buffered/triggered model.  
-> 
-> If you have this ready to post, I'd prefer seeing it sooner rather than
-> later just to strengthen the arguement.  A link to a repo would do as well.
-> 
-> Anyhow, just a nice to have!
-> 
+> show_timer() in /proc/[pid]/timers previously called pid_nr_ns()
+> directly on timer->it_pid without checking whether any task remained
+> attached to that struct pid. As a result:
+> 1. It reported the stale tid, which could mistakenly refer to a recycled
+>    pid.
+> 2. In the kernel, expired signals for dead target threads are dropped by
+>    posixtimer_send_sigqueue() because posixtimer_get_target() returns
+>    NULL, so the timer functionally acts as SIGEV_NONE.
+> 3. Checkpoint/restore tools (CRIU) parsing /proc/[pid]/timers would try
+>    to restore a timer with SIGEV_SIGNAL | SIGEV_THREAD_ID targeting a
+>    non-existent or unrelated thread.
 
-The set of changes that Andy and I have asked for are pretty minor
-so I would just have made them as tweaks whilst applying.  However, others
-(e.g. David) have been active in reviewing this series in early versions
-so I want to leave it on list anyway for some more time.
+This sounds like a somewhat significant issue for CRIU but that's just
+me wildly guessing.
 
-Given Andy's request wasn't entirely trivial, if you have time in a few
-days to do a v9 with that stuff tidied up that'll save me a few mins
-and cut down the possibility of me messing things up!
+> Check pid_has_task(timer->it_pid, timer->it_pid_type) in show_timer().
+> If the target task has died, override notify to SIGEV_NONE and report
+> PID 0 (e.g., 'notify: none/pid.0').
 
-Jonathan
+No Fixes: and no cc:stable?  Maybe my guess was wrong?
