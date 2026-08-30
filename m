@@ -1,63 +1,63 @@
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6365D3BE630
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 17:10:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D86973C09EC
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 17:10:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788109821; cv=none; b=XBDNv5D7GJtfFLbRnpqXvXXsEmkXxeqfmPj3OSoCdEjGN5Y2wxN2oAuKEmnD2kafljos57nVlZtss4qos5oSzvX2HoTmW9QMT3L94TatZR1d66ywNOv6c1K6u9U5AhmlaJRT+F0XVBMC6oQ+jVQT96u3iZCFSZMETc3f9QOhrEg=
+	t=1788109832; cv=none; b=mtxI255TMhBuKvDzMx7nvDduECegrof9Z07OTehn+xrQ7b18kHSKYbVzzr39a51VKHItZFr2IQJe0lTh9xVneWP0HYyY7JATzknht8X9gnrZpd7S65a3aM3P0CUcBQW0Gp1ez2tRT5uoia/yMBaa4ICF1jloaPIpEdXTI8SE21A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788109821; c=relaxed/simple;
-	bh=N0Wz03t8OH8ZGlAavGHko236gzmCzIVjxaLhAbD+UYc=;
+	s=arc-20240116; t=1788109832; c=relaxed/simple;
+	bh=GqNRyeTFsr7wcrfJ85wse0w5ODrwzgVQAdrq8D4JKck=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ZIe2s1IWv7Ce+kUsFxUJ/4umeYfRrVmT1cPTJ5fAb1FfJyQ2Wq8SVyQQ2TFYZK0qt04QVexMkLV9DecdEPxUbzTXg4Gvl09UIgZ8MWHwbC32LfMLdT4cUHU7R/b9Sfu1zAWJ4J0vFotiIqFJMCRFH1xv3wsppsSJs2yxf7NyvHM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XDczzemD; arc=none smtp.client-ip=209.85.216.41
+	 MIME-Version; b=mJXycw20RPHseqy/wWSARVuC/SXqQCTtttqySmQCTduthzx2lNf40txuA8B1z73dfxZaGcifnS861hM5R2k5vBBjxY72N6plauQeYzvMsWyx3MiNLvcVGaSiemOuxmYQTcJqaCYQE0RlgbcYDsSsQ4b6bWyXOLcGi3ZYd6ruHwA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EIhBjvjN; arc=none smtp.client-ip=209.85.216.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XDczzemD"
-Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-398c1101c1bso761993a91.1
-        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 10:10:20 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EIhBjvjN"
+Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-38d489b6b71so3027619a91.0
+        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 10:10:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788109820; x=1788714620; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788109829; x=1788714629; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=DSXd07nmgAz6SThzdSSun0e/bFs1/0gaIblRruN5ApQ=;
-        b=XDczzemDI8Q7T/ApymBR2tnf3jdTPR0jT1BQkUjmJLEfZqtE5oSq1Z2vkrFT7xh06W
-         YVlsB+WWY0ftCNFzseYKtl3Lrd+4VtWkcnMd5EzFZ+LoQdxWyoRFKr7MNWar+PlmGORE
-         +R33xsjBiTp/rwXaA6/JZvI87h7zWjMTs4Su2uejFu2b3Zqh8UW2MboVouQMEBFYXhjq
-         H2V61LSLXfiE9ef+LbpwSwt/8sToV49+X0y6aN7J6jt353ef6fYRQ7c4p6T1ebbkS2a1
-         b2TZTzd/gmorJdF9mBKsMgzmH8G1cuT3U5/wxDasIAStzu8u3Wqq0pnFqOzP4B/7iNwk
-         +yBg==
+        bh=ri0QbBDUdQXRFUs7t8FRY1qNhNj6rQaG5ZybdVVmKl0=;
+        b=EIhBjvjNPWq5uPfqy+219fwo0EdJvM+f9D70VNddK0wPAssXs/UgENtbkT68cS0Xfl
+         7h1L4VOVTZ/sZIcak4WTGsyAqSOsG1N6fs9XCqTjSsj6DoWsgIpijfN6w1Sxbx7G5yTe
+         srLbPQu3x2hKV5pCCEN1gZV6sElYmGhvE7x3lYjocwypVxfgWUIzgn7E2yHXrc81rjk/
+         gB4YQSX8zqqu+jtEps5QWqMKIPMJNxeowAsH37H1ouvriccaAlznK231JVQJIEopG68E
+         1SBQ4LZ33DwietvDaIhNt2erjgmNg5KqFS/FXX5diYIwloaV7ndKORzWIUPpEc+2Yk8N
+         7Lsw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788109820; x=1788714620;
+        d=1e100.net; s=20251104; t=1788109829; x=1788714629;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DSXd07nmgAz6SThzdSSun0e/bFs1/0gaIblRruN5ApQ=;
-        b=TghrxsNE1sB0NTZGn1wTzJjCuVLsR3swU8MYwQ8luc98y1zSQOO3rEG4B73y1RiHf0
-         F63x1Ja3mATKmBiGV0fIXGy5cREmbhdUQjcA+4xsRmG2qsHga5Eq24f6oJkItSNwGEfx
-         +1EfIMgaC10PhIVbFl0K3gQnt+4VWZepIWmvOdtHtmlBSRetG73VmeOWpNGXsqKEB5N8
-         dOJYf3pCVKMzpV6kVqjfQIYSXGVDoSco+31mXj63y+kHvAzv5r/S8IidRjdVrJ7nZr5Q
-         4wWeiWK9VT1lgkAtdgc3g/LOJzCEoCV0EEgCdb76kcXEyMR3afej3n27sJ3SDVGDlrj7
-         3a1A==
-X-Forwarded-Encrypted: i=1; AKwUvByZfKcOvKipVq96avS5DQJFcuMyPoLXmN/QXiIBrz7SkShm58bjHSW29icry8HlOYMzz/YGsuO8r7xmECk=@vger.kernel.org
-X-Gm-Message-State: AFuF++mswVGTyEUi3RkGs50ehKMZVqkhuB3xPSGEtFmZZINfMR0Tpqfx
-	yt6Dy8e2O/X/xNZxfF7MbRy+ZzpV4IzrtSMnzteoLx0eiX6hlk5QTOdX
-X-Gm-Gg: AYBFou32CK/6s1j7SN3qaj0oYVP6V54fgEw5d3A3ptsemgUwCJqdri1BeiXfzLT3ba4
-	WeD+QoxK8IG5aWm5hwelj3eeVCah8Zx1xmraU//ezfoatEsr89hiOuBz84EPCgWwAsndgJylF/2
-	OAKWbB6fZAHo2hrLPnkLXN4o1N0LmWcU1tiLZxDFGLWWraxPScz4GNqdbMVHQG7GboMTHSUZ1O6
-	WfdmDImB+XB2oXWQftNATh3r8spji1q3XUVPndhoprnIiyFbakJe3/9G9EO0wPyHm0EP0eNdeWp
-	mxPRcezaAOwUmF9OG4ilgJu/YSti32XOtzFEXn0Ia29eaTXUVvzXm73pkgidn3Pr7oVMiJ6mTpY
-	rllI1AVjjkI67fVko7h1yHfkPvZorhoGxWwq52AC+ugz/+o0LaSVlQ/kZV3AIiGZQcmCYZwLd41
-	coVtJbMmM+0rf6AUmlK0/sHwnNIijrj2iaxKS7d2zaFeau1eOg7jBZ0nRNsg==
-X-Received: by 2002:a17:90b:5284:b0:396:4dfb:5890 with SMTP id 98e67ed59e1d1-396d0e5bbc0mr35517294a91.2.1788109819698;
-        Sun, 30 Aug 2026 10:10:19 -0700 (PDT)
+        bh=ri0QbBDUdQXRFUs7t8FRY1qNhNj6rQaG5ZybdVVmKl0=;
+        b=llTljzzBU7POiBiaWl38F8iM5FVg1xz/t789tpjhWvv1pwSGlkhiONDR25p2+w6LHh
+         13wbGSkh/Y1PQrgoCo+N5fC6hdcQMxp4YP96y+xZYfUXCbXZv5d9QziNl0AW2+4MJ4kg
+         10DFIV1tLf14Oj/PCEhfAiAKKT4X5607hTjKkKKmkp/2+on3S7XXLHiokXpIpKBDbZ4u
+         4/Oy4XH1X1FKA9NpjJnHJb3FfqY7FYKKc2CNxqYF4PKoCny1KCQ+HbZ937j5xeSuTI0V
+         M8z43idauqujB0IpAVn1OHO2G34GbbFGdN5T+ayXMM3O2OSWdf62WhyVt+Z5Q9PUOFdG
+         KTow==
+X-Forwarded-Encrypted: i=1; AKwUvBzt/wzdS+UTbkVRABK0dn2zZgvZaRQdqdooTaVbdpzpwFPhspiglJtC2kg3NTBV802PEZ0+6kk/kYuAX4k=@vger.kernel.org
+X-Gm-Message-State: AFuF++nSPwIRXc0w8zMAEy6RLLJG69O3xNrLopXvuYm1RqMBsJplD3Co
+	ZmlnWv/flp7iwKP4bIaZ5X3yyY2jANSzcfxGcsiaCFgSvJYPef45ofHM
+X-Gm-Gg: AYBFou3g8WiPXP6pLo2mX9Mu3+ahs/lj48vlcTkaGwisfRGINCgJcJwC9vODDT7iLYb
+	K9fQzlVDbwDKx2YoH1u0nomFPBUmAz6JLw2VAoO+yP+P2lVxxIsVtNeKCkekbnuH9nMPjRAAPUr
+	rhM8guL2sVHbLsd+afkJ2GXHENKknqWQ2ezR4OXcbquLDZG2CXLAUir9JrxOQKBlBpmSnP8hZz7
+	6kkgHgFXCu+je8xWjSUma9fw1VbldNVmuW7QR1TGJZUYZg1QrGKAGbQogv8XtdtJuXiVLaKVT4q
+	qI4KsdQ5rs7ec9IfrcCERPqwe3no2B0T1xMcBH+Cce5esKZImfhJRvZrwJJ0KUt3uc8sUdpPwcC
+	ic43OGuSMgfArf4G9Yd0hwMerZ1GhbAULZCo1AERKNAdjy6/nHL9O8Nd9zzsChILnPTSvl3YlLw
+	BLAm6g3D9XzRu2FaTvhn9wgWxO6o95/Uadggzb+W4cIWq3/RR95ZcaZw4u0w==
+X-Received: by 2002:a17:90b:440c:b0:381:6c5:3f63 with SMTP id 98e67ed59e1d1-396d0eab08bmr31913392a91.6.1788109829049;
+        Sun, 30 Aug 2026 10:10:29 -0700 (PDT)
 Received: from ubuntu.. ([2405:201:8026:213e:88d5:45ce:40e:490f])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396b0fcfa3asm17047101a91.6.2026.08.30.10.10.14
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396b0fcfa3asm17047101a91.6.2026.08.30.10.10.22
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 30 Aug 2026 10:10:19 -0700 (PDT)
+        Sun, 30 Aug 2026 10:10:28 -0700 (PDT)
 From: mdshahid03@gmail.com
 To: Jonathan Cameron <jic23@kernel.org>
 Cc: Marcelo Schmitt <marcelo.schmitt1@gmail.com>,
@@ -71,9 +71,9 @@ Cc: Marcelo Schmitt <marcelo.schmitt1@gmail.com>,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	Mohammad Shahid <mdshahid03@gmail.com>
-Subject: [PATCH v2 2/5] iio: adc: bcm_iproc_adc: fix include dependencies
-Date: Sun, 30 Aug 2026 22:39:15 +0530
-Message-ID: <20260830170919.470974-3-mdshahid03@gmail.com>
+Subject: [PATCH v2 3/5] iio: adc: bcm_iproc_adc: use devm-managed cleanup
+Date: Sun, 30 Aug 2026 22:39:16 +0530
+Message-ID: <20260830170919.470974-4-mdshahid03@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260830170919.470974-1-mdshahid03@gmail.com>
 References: <20260830170919.470974-1-mdshahid03@gmail.com>
@@ -87,35 +87,122 @@ Content-Transfer-Encoding: 8bit
 
 From: Mohammad Shahid <mdshahid03@gmail.com>
 
-Add the headers required directly by the driver for completion and
-mutex APIs.
+Use devm_clk_get_enabled() to manage the ADC clock and
+devm_add_action_or_reset() to manage ADC cleanup.
 
-Remove the unused `linux/io.h` header now that register access is
-handled through regmap APIs.
+Since the clock is only needed during probe, keep it as a local
+variable instead of storing it in struct iproc_adc_priv.
+
+Register the ADC cleanup action immediately after enabling the ADC
+so that it is automatically performed on probe failure and device
+removal.
+
+This removes the manual clock cleanup callback and simplifies the
+probe error paths.
 
 Signed-off-by: Mohammad Shahid <mdshahid03@gmail.com>
 ---
- drivers/iio/adc/bcm_iproc_adc.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/iio/adc/bcm_iproc_adc.c | 39 ++++++++++++++-------------------
+ 1 file changed, 17 insertions(+), 22 deletions(-)
 
 diff --git a/drivers/iio/adc/bcm_iproc_adc.c b/drivers/iio/adc/bcm_iproc_adc.c
-index e46e3761993a..2b59819c4ca4 100644
+index 2b59819c4ca4..c7fbdc21f8cc 100644
 --- a/drivers/iio/adc/bcm_iproc_adc.c
 +++ b/drivers/iio/adc/bcm_iproc_adc.c
-@@ -4,11 +4,12 @@
-  */
+@@ -107,7 +107,6 @@ do { \
  
- #include <linux/clk.h>
-+#include <linux/completion.h>
- #include <linux/delay.h>
- #include <linux/interrupt.h>
--#include <linux/io.h>
- #include <linux/mfd/syscon.h>
- #include <linux/module.h>
-+#include <linux/mutex.h>
- #include <linux/platform_device.h>
- #include <linux/regmap.h>
+ struct iproc_adc_priv {
+ 	struct regmap *regmap;
+-	struct clk *adc_clk;
+ 	struct mutex mutex;
+ 	int  irqno;
+ 	int chan_val;
+@@ -449,6 +448,13 @@ static void iproc_adc_disable(struct iio_dev *indio_dev)
+ 	}
+ }
  
++static void iproc_adc_disable_action(void *data)
++{
++	struct iio_dev *indio_dev = data;
++
++	iproc_adc_disable(indio_dev);
++}
++
+ static int iproc_adc_read_raw(struct iio_dev *indio_dev,
+ 			  struct iio_chan_spec const *chan,
+ 			  int *val,
+@@ -508,6 +514,7 @@ static int iproc_adc_probe(struct platform_device *pdev)
+ 	struct iproc_adc_priv *adc_priv;
+ 	struct iio_dev *indio_dev = NULL;
+ 	struct device *dev = &pdev->dev;
++	struct clk *adc_clk;
+ 	int ret;
+ 
+ 	indio_dev = devm_iio_device_alloc(dev, sizeof(*adc_priv));
+@@ -527,10 +534,9 @@ static int iproc_adc_probe(struct platform_device *pdev)
+ 		return dev_err_probe(dev, PTR_ERR(adc_priv->regmap),
+ 				     "failed to get handle for tsc syscon\n");
+ 
+-	adc_priv->adc_clk = devm_clk_get(dev, "tsc_clk");
+-	if (IS_ERR(adc_priv->adc_clk))
+-		return dev_err_probe(dev, PTR_ERR(adc_priv->adc_clk),
+-				     "failed getting clock tsc_clk\n");
++	adc_clk = devm_clk_get_enabled(dev, "tsc_clk");
++	if (IS_ERR(adc_clk))
++		return dev_err_probe(dev, PTR_ERR(adc_clk), "failed to enable clock\n");
+ 
+ 	adc_priv->irqno = platform_get_irq(pdev, 0);
+ 	if (adc_priv->irqno < 0)
+@@ -548,13 +554,13 @@ static int iproc_adc_probe(struct platform_device *pdev)
+ 	if (ret)
+ 		return ret;
+ 
+-	ret = clk_prepare_enable(adc_priv->adc_clk);
++	ret = iproc_adc_enable(indio_dev);
+ 	if (ret)
+-		return dev_err_probe(dev, ret, "failed to enable clock\n");
++		return ret;
+ 
+-	ret = iproc_adc_enable(indio_dev);
++	ret = devm_add_action_or_reset(dev, iproc_adc_disable_action, indio_dev);
+ 	if (ret)
+-		goto err_adc_enable;
++		return ret;
+ 
+ 	indio_dev->name = "iproc-static-adc";
+ 	indio_dev->info = &iproc_adc_iio_info;
+@@ -563,29 +569,18 @@ static int iproc_adc_probe(struct platform_device *pdev)
+ 	indio_dev->num_channels = ARRAY_SIZE(iproc_adc_iio_channels);
+ 
+ 	ret = iio_device_register(indio_dev);
+-	if (ret) {
+-		dev_err(&pdev->dev, "iio_device_register failed:err %d\n", ret);
+-		goto err_clk;
+-	}
++	if (ret)
++		return dev_err_probe(dev, ret, "iio_device_register failed\n");
+ 
+ 	return 0;
+ 
+-err_clk:
+-	iproc_adc_disable(indio_dev);
+-err_adc_enable:
+-	clk_disable_unprepare(adc_priv->adc_clk);
+-
+-	return ret;
+ }
+ 
+ static void iproc_adc_remove(struct platform_device *pdev)
+ {
+ 	struct iio_dev *indio_dev = platform_get_drvdata(pdev);
+-	struct iproc_adc_priv *adc_priv = iio_priv(indio_dev);
+ 
+ 	iio_device_unregister(indio_dev);
+-	iproc_adc_disable(indio_dev);
+-	clk_disable_unprepare(adc_priv->adc_clk);
+ }
+ 
+ static const struct of_device_id iproc_adc_of_match[] = {
 -- 
 2.43.0
 
