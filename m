@@ -1,99 +1,78 @@
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12BFE1A9FBC;
-	Sun, 30 Aug 2026 13:37:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AA0E2BE034;
+	Sun, 30 Aug 2026 13:37:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788097037; cv=none; b=j3xzQWCQ4TZMxQQbtJ9QJx7f2PfxJILgjZjXlgOOzIY89MaCsrYN+l6gmJbw/SF9V5X8fJold05Gv5L4DVs/sjbH96CbkGtzjpe6udbcJ7xZ2ECBUJ+iYDq6A9XahEttk1ISmd/d/BFYBdRGWwI0v7wsdILQrS6Mtjk4dKaGgo0=
+	t=1788097037; cv=none; b=BHdJhUS13MX78czJTxw5Rf2I2LBgF4n4Cg5Z9IwCpeAfEVppil4Z1vCTlfYJV0ZUQX67tzC0zaAhrp56V9OI7RVVxGxKUd/NpR0404T0ENDiJrYuQ5z24pjo+pMCouUTTIY1f13huuQKXF+DkfrCXrbYCI1ZKJsuI6RtvCUBeY4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788097037; c=relaxed/simple;
-	bh=H8fpou32kSYOzfXiyBVBL9oqV3pCi2hwWUYAK6P/Wj8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fFa2VHD5tBRfZkYYB1TSkY0rK0iFi5F0IwdagqptnePf6m71/gwyH8xTCa8SB73I3qoROf/mQpmtklCu0xfGZ3QkaVG29X8ux5GDkb5Dxatq3haL5QqLE84cA6NogcfhmB59iJllszpTR7SggqaeIvuHNvbDk0+19kGZ6/JyusQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from localhost.localdomain (unknown [111.196.241.250])
-	by APP-03 (Coremail) with SMTP id rQCowADH0T_3MZRqVzGbBg--.48150S2;
-	Sun, 30 Aug 2026 21:36:55 +0800 (CST)
-From: Pengpeng Hou <pengpeng@iscas.ac.cn>
-To: Daniel Golle <daniel@makrotopia.org>
-Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>,
-	Aurelien Jarno <aurelien@aurel32.net>,
-	Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
-	Olivia Mackall <olivia@selenic.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	linux-crypto@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
+	bh=pEZ4I4RoQNrnH+CkJR0wlrnXgf3YUwAmCMvitng/gtc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=WJWzDDNjpmHxaUnpnoENAuwcATh3EtIPe4jKbOjYqgo4GjWLnkBczpi9pw4dAG3lxNqmAHfGCRhqWcKeEGbc4ECkKg9zTaVIriejYllY1boO+WWPnTgOjYhoG/ivxrM2XG1TNGEvXvKMjRVYDLXQT3+1/67U0d3EdJhpCc1qwVE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W8f3BVJ2; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W8f3BVJ2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50AC41F000E9;
+	Sun, 30 Aug 2026 13:37:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788097035;
+	bh=mgpGzk2npaI5ha3R4186qbjjw/i4eJm+nG+Y1M8GmsI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=W8f3BVJ2nJtN7H9NueAd3YWSPwiMeEAz9gB/cQDzb8nLC6S7HETZEjyo7Y0NSxoKr
+	 ZKUJYwzzVSIyRSr+78Q+SUYN5vPTbqxxMKzPzFcErTjwUrIitZe3aqZFOcaE7D9Qqd
+	 ypYi7JPo95++Oy91u/2FFD2FmWWgNmkGt5Zh7vzWTDDlrXMf3Q7LeNwYwItutYM1RU
+	 /h9vkidfBuOIxsobINQUIaG4OHTMaDZMLcn+nmSI6jQC2q/5O/IphnBCQla7r6HkME
+	 SNwx1Hm7yGvxy32dlqtVAPB/hpsmLLL5Si6LcCfXyjKwRgCU1LCX+LKcyY7c51YMSU
+	 aRKCddpYuJ8Vw==
+Date: Sun, 30 Aug 2026 10:37:13 -0300
+From: Arnaldo Carvalho de Melo <acme@kernel.org>
+To: Athira Rajeev <atrajeev@linux.ibm.com>,
+	Namhyung Kim <namhyung@kernel.org>
+Cc: Wang Yan <wangyan01@kylinos.cn>, peterz@infradead.org, mingo@redhat.com,
+	mark.rutland@arm.com, alexander.shishkin@linux.intel.com,
+	jolsa@kernel.org, irogers@google.com, adrian.hunter@intel.com,
+	james.clark@linaro.org, linux-perf-users@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] hwrng: rockchip: propagate reset errors
-Date: Sun, 30 Aug 2026 21:36:52 +0800
-Message-ID: <20260830133652.7618-1-pengpeng@iscas.ac.cn>
-X-Mailer: git-send-email 2.50.1
+Subject: Re: [PATCH] perf powerpc-vpadtl: Fix raw_size of DTL samples
+Message-ID: <apQyCcDl1jm5OPN0@x2>
+References: <20260825094733.1031566-1-wangyan01@kylinos.cn>
+ <85CF9B6A-8E46-4D5E-8AAD-A9B3B75DF6BF@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowADH0T_3MZRqVzGbBg--.48150S2
-X-Coremail-Antispam: 1UD129KBjvJXoWrKry5KFWxKFyxtryDXF45GFg_yoW8Jr1xpF
-	WkCFyavrWUC3yFva9rAay5Z3ZYg3WayFWUK3yIk3s7ZwnxJw18Gw1YvFZIqasxXF48try5
-	tr47Aa48uF42vr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9214x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
-	6r4UJwA2z4x0Y4vEx4A2jsIE14v26F4UJVW0owA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Cr
-	1j6rxdM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
-	6xIIjxv20xvE14v26r126r1DMcIj6I8E87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr
-	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E
-	8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFV
-	Cjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWl
-	x4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r
-	4UMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_
-	JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYx
-	BIdaVFxhVjvjDU0xZFpf9x0JUgXocUUUUU=
-X-CM-SenderInfo: pshqw1xhqjqxpvfd2hldfou0/
+In-Reply-To: <85CF9B6A-8E46-4D5E-8AAD-A9B3B75DF6BF@linux.ibm.com>
 
-rk_rng_probe() pulses the optional or required reset array before
-registering
-the hardware RNG, but discards errors from both reset operations.
+On Fri, Aug 28, 2026 at 05:29:00PM +0530, Athira Rajeev wrote:
+> > On 25 Aug 2026, at 3:17 PM, Wang Yan <wangyan01@kylinos.cn> wrote:
+> > 
+> > In powerpc_vpadtl_sample(), raw_data of the synthetic sample points to a
+> > struct powerpc_vpadtl_entry (48 bytes), but raw_size is set to
+> > sizeof(record).  record is a struct powerpc_vpadtl_entry pointer, so
+> > sizeof(record) is the size of the pointer (8 bytes on 64-bit) rather
+> > than the size of the record itself.
+> > 
+> > As a result, consumers that bound their access to raw_data by raw_size
+> > only see or copy the first 8 bytes of each DTL entry instead of the full
+> > record.
+> > 
+> > Use sizeof(*record) so that raw_size reflects the actual length of the
+> > raw data.
+> > 
+> > Fixes: 8644834a482a ("perf powerpc: Process the DTL entries in queue and deliver samples")
+> > Signed-off-by: Wang Yan <wangyan01@kylinos.cn>
 
-Return reset failures before publishing the RNG device.
+> Reviewed-by: Athira Rajeev <atrajeev@linux.ibm.com>
 
-Fixes: 8eff8eb83fc0 ("hwrng: rockchip - add support for rk3588's standalone TRNG")
-Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
----
- drivers/char/hw_random/rockchip-rng.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+Reviewed-by: Arnaldo Carvalho de Melo <acme@redhat.com>
 
-diff --git a/drivers/char/hw_random/rockchip-rng.c b/drivers/char/hw_random/rockchip-rng.c
-index 6e3ed4b856051..ff98fcdc68911 100644
---- a/drivers/char/hw_random/rockchip-rng.c
-+++ b/drivers/char/hw_random/rockchip-rng.c
-@@ -412,9 +412,14 @@ static int rk_rng_probe(struct platform_device *pdev)
- 		if (IS_ERR(rst))
- 			return dev_err_probe(dev, PTR_ERR(rst), "Failed to get reset property\n");
- 
--		reset_control_assert(rst);
-+		ret = reset_control_assert(rst);
-+		if (ret)
-+			return ret;
-+
- 		udelay(2);
--		reset_control_deassert(rst);
-+		ret = reset_control_deassert(rst);
-+		if (ret)
-+			return ret;
- 	}
- 
- 	platform_set_drvdata(pdev, rk_rng);
+Namhyung, I think this is v7.3 material.
 
-base-commit: 08dbfad3f5040f5bdb6c529da20d6d4e81fefd72
--- 
-2.50.1
-
+- Arnaldo
