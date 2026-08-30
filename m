@@ -1,156 +1,127 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A059633030F;
-	Sun, 30 Aug 2026 21:56:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49C323321AA
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 21:56:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788126998; cv=none; b=cG42SYMs6HIMBnFUNovZ8HMyePQRR2JQ6rHJbnKXDGFXzTY5uVedepLgiLH2y4Ws3rKq+b+ir5vgdtDqbE5eW+0Nb2KBXvjA+tJtDZpf4u9VsAI1B/ezQ7Y1+HRoVPP8b9iUego92CA0rK5q2SUevU7U9ce6I1NQu9aCOOjs+6Y=
+	t=1788127005; cv=none; b=D5YseL4lOzulFIdov+jPIX91/1nPmN0ldplK5SaYZIquoG5+vC2znMfA5YdBt86NFslafOVhCtmKZ11jE2EyNYp3mEKI/g3s1ldmnrxuQmzRte9yOurkPe8cEiGSt1KUXRCH22dZp7Jlx4CPDmvX4UtYcSVE+hqoqISCb1CJ5Uo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788126998; c=relaxed/simple;
-	bh=qZlU+p7lXLrxefMKn0dslIY2Q0FciDavNpjIr64YDXw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HOgRvT+lxO4vd9xoEexa1kdreOqbe1AmRt/YvN1z97lwD7sSSX2Duq98BDfRVtcRRx7i/3faJlD9dKB3K98UPHEOM/HoHM1xe0M6IGcyv4FH+SVGtthMvA00+mswVIu4xfttBTq0FI37OSKv2i7UPctuvyi1PTxghv1k40z3kjE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Agm9kTOT; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Agm9kTOT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0825F1F000E9;
-	Sun, 30 Aug 2026 21:56:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788126997;
-	bh=KlTkAZ8T94kU0R76bTccWD/gpwVYPP6lAGYFIXUHTkI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Agm9kTOTMArPZEjG63aXM9nP0taYHpezD93f9wxLAlMVG0arRDlnQJzU9955orkK0
-	 5ewehOeablm9xUlMT7eoqVk23RbpsBV6G/c2iCSWpPLe9Aefa9hfV/OV7VAWCG1Lie
-	 R4l5uxU6JGm9yBbZStZI/CrFWmJeWpno0JJenTGUHRQoKpG9KD1G+vRlHgfJhOVM76
-	 7zoJBRDE6WC4pnKi4AqDVfzAtFQQYAwXt5Tv/cxtefTIn6NoJveH4ouYItYBX7IyRL
-	 DGVjaSp/7X/6n4EZk+KcgIquFgG0+OjH9Dzsrp+hKbw9NzmqiQkpNMIJB5K61cKd+b
-	 hhU9AWZKAqIqg==
-Date: Mon, 31 Aug 2026 07:56:27 +1000
-From: Dave Chinner <dgc@kernel.org>
-To: Ran Hongyun <ranhongyun1@huawei.com>
-Cc: catherine.hoang@oracle.com, chandan.babu@oracle.com, djwong@kernel.org,
-	hch@lst.de, linux-xfs@vger.kernel.org, linux-kernel@vger.kernel.org,
-	chengzhihao1@huawei.com, yangerkun@huawei.com, yi.zhang@huawei.com
-Subject: Re: [QUESTION] xfs: Can we remove flush_workqueue from
- xlog_cil_push_now?
-Message-ID: <apSnC9p0X04cKxDj@dread>
-References: <20260827033654.1172495-1-ranhongyun1@huawei.com>
+	s=arc-20240116; t=1788127005; c=relaxed/simple;
+	bh=2zN3S1e3R1V630IVtUPoqa5EYqZJXCfdR3IfWYtLFaM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Cse0Ctq0pQvvA6j6i2UTS59Mg5w+F8xMISitvieXGHphsgh5fQobG3YK7+oVPkZQHndOprrOnzothRIYsw0gA8ji837z78CI1kq8YrI+AW+iwwC7zwIy5/OFwMICfxSmjZsB4bXnXRusm8AMEf7zeiu0nGLMyn+rQIbbHKTcQgM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=grimberg.me; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=grimberg.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-49b965570d7so25216245e9.0
+        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 14:56:44 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788127002; x=1788731802;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=uuJOe3GXp1yLi6HGLhOGLcLd6ROOLjMJGjbmgFBkKj8=;
+        b=U6TsFQADM9bMegEUy6Sx0JHoiEZ6tjfitaniSfxX5ikQ7dCrU9MK9Ur2RwDOKqEIlG
+         gAUq9wvEY/lKfgEBJo1PWpl+ecArsMVzI11x9Ea4Xaf0PeF+tQsHoCSLCJvWt5HF7Jza
+         N0u5UJ0xwgFflfRGsC7RnlUf/2pueffRAzKpbE5kDYbvFQzfen/mAiIoYSgXHSdNAopJ
+         Pa0UN+UoRCNWpPuph6OTNEQIuaXna4ijLYAgXnWZJQk4aBk9UbDhRY+IZVX3OKzWEkO9
+         TNfJLk5i6AX4Jv2TymyxPk/kAHxzhV/GlD29snJ/DMfqkyE0CjoPZsoj/379uWLKw/9o
+         KaPQ==
+X-Forwarded-Encrypted: i=1; AHgh+RrMlt2MuVOmbu9culqfPDPaDapgE58ndgr4n1FqNhYJCKvco0iZ83JWjuRY4wLlxSS7L/oyfmDimQ/e6EE=@vger.kernel.org
+X-Gm-Message-State: AFuF++lRZj/5Bpe/vFtaP357goWs/Kg1hf3/uCctMNrte/TQUZ6Cmly4
+	/ydgw/PKPUZcsPGT/TaG4n0jSQmTDE5OqnGHNyi3K4MOieL/om2ZHzqF
+X-Gm-Gg: AR+sD12swbOxm5uOh1d0P2o71ta2t6U7hykbltt1N+Fu4H3+CJf9Ji9eLvav091907N
+	uSJUZSAsCRQZ951OtTlnHr6z1r4ujMN3Bm+s16kE3ednX/1dVn57Zj9gRAru7JnyVGOkevGLZsA
+	NM7AXiaXF9qMLuQacCFX9Wu8CD8Avryl9wh2mJWwpiUkExeGG8Bxvnk+kX3r4DEbZKVfHCf6h4V
+	ErIlhKSrOsGleCcHwoibZQQq42mk8U4VTU1HAIBJ7cse4VmZxGGy2CsnXZsdzI0HFzDYwnCR2vj
+	FxYc0fQcb48dh9IyQCzt6G9lOeVjhvMqna3XIuM7DbTJIajoTKbaGbnhYDupFd/UWHpGHbAWHZE
+	HyYxjt7aYHXniZ0n8CX61idYYeoXMyTzRFv3d4QrW+XsBrwY6y5IOAkpkdbl/Zk5q3mXCuvE+AC
+	e+H+2fLeTSxUJXwbcEPFx0EV3igra103l1ZSHVQmiVEHyobvKqdJhwNedM8wImS2fhyADu9a255
+	sQp5xyktHZJa4QTWiaWfg==
+X-Received: by 2002:a05:600c:c08b:b0:49b:9202:6f80 with SMTP id 5b1f17b1804b1-49b92027118mr290072615e9.6.1788127002421;
+        Sun, 30 Aug 2026 14:56:42 -0700 (PDT)
+Received: from [10.100.102.74] (89-138-77-243.bb.netvision.net.il. [89.138.77.243])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b94dd2517sm237392705e9.7.2026.08.30.14.56.39
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 30 Aug 2026 14:56:40 -0700 (PDT)
+Message-ID: <d55e8223-44cb-42e7-bb41-d659f206d573@grimberg.me>
+Date: Mon, 31 Aug 2026 00:56:39 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260827033654.1172495-1-ranhongyun1@huawei.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] nvme-tcp: refactor I/O queue setup path
+To: Surabhi Gogte <sgogte@purestorage.com>, Keith Busch <kbusch@kernel.org>,
+ Jens Axboe <axboe@kernel.dk>, Christoph Hellwig <hch@lst.de>
+Cc: linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org,
+ mkhalfella@purestorage.com, randyj@purestorage.com, adailey@purestorage.com
+References: <20260824225648.316962-1-sgogte@purestorage.com>
+ <20260824225648.316962-2-sgogte@purestorage.com>
+Content-Language: en-US
+From: Sagi Grimberg <sagi@grimberg.me>
+In-Reply-To: <20260824225648.316962-2-sgogte@purestorage.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, Aug 27, 2026 at 11:36:52AM +0800, Ran Hongyun wrote:
-> In xlog_cil_push_now(), we call flush_workqueue(cil->xc_push_wq) before
-> queuing a new work item in sync mode. The intention is to start any
-> pending background push and reduce the wait time for the new sync work.
-> However, after commit 636b927eba5b ("workqueue: Make unbound workqueues
-> to use per-cpu pool_workqueues"), flush_workqueue() iterates over all
-> nr_cpus pool_workqueue entries, instead of per-NUMA nodes. On large SMP
-> systems (e.g. 128 CPUs, 4 NUMA nodes), this adds significant overhead.
-> Even after 85f0d8e39aff ("workqueue: Reduce expensive locks for unbound
-> workqueue") reduced lock cost, the per-CPU iteration remains costly.
-> This seems contrary to the original performance intent of the flush.
-> 
-> Below is a bpftrace test result on a 128-CPU system with 4 NUMA nodes,
-> 16 threads doing sequential writes with fsync per write.
-> 
-> Function                    remove flush          with flush
->                             per-CPU pwqs     per-CPU      per-NUMA
-> -------------------------  --------------   ----------   -----------
-> xfs_fsync_flush_log          32-256 us      256-1000 us    32-256 us
-> flush_workqueue_prep_pwqs      N/A           2-64 us        2-8 us
-> 
-> With flush_workqueue() removed, xfs_fsync_flush_log latency drops
-> back to the per‑NUMA range (32‑256 us).
 
-Ok, but how does the IO performance change? Does this result in a
-measurable increase in RWF_OSYNC write throughput? (write + fsync ==
-pwritev2(RWF_OSYNC)).
 
-However, behavioural changes like this seem like an infrastructure
-regression, and trying to modify callers to hide that regression is
-a bandaid. This affects all UNBOUND workqueues, not just this one,
-and we do not need per-cpu scheduling for workqueues with such low
-work and concurrency counts - there can only be 4 pushs scheduled
-and running concurrently at any time on this work queue. Hence we
-don't even need NUMA queuing - a single global queue would work just
-fine...
+On 25/08/2026 1:56, Surabhi Gogte wrote:
+> Split the I/O queue setup helpers apart so that the individual steps can
+> be called directly from nvme_tcp_configure_io_queues():
+>
+> - Queue count negotiation moves out of nvme_tcp_alloc_io_queues() into a
+>    new nvme_tcp_io_queue_count(), leaving the allocator with just the
+>    per-queue allocation loop.
+> - TLS PSK validation moves out of __nvme_tcp_alloc_io_queues() into a
+>    new nvme_tcp_tls_check_psk().
+> - nvme_tcp_configure_io_queues() now calls the three steps directly in
+>    the same order as before.
+>
+> Signed-off-by: Surabhi Gogte <sgogte@purestorage.com>
+> ---
+>   drivers/nvme/host/tcp.c | 25 +++++++++++++++++++------
+>   1 file changed, 19 insertions(+), 6 deletions(-)
+>
+> diff --git a/drivers/nvme/host/tcp.c b/drivers/nvme/host/tcp.c
+> index 5fda9661bdb7..354668ad29ac 100644
+> --- a/drivers/nvme/host/tcp.c
+> +++ b/drivers/nvme/host/tcp.c
+> @@ -2171,10 +2171,8 @@ static int nvme_tcp_alloc_admin_queue(struct nvme_ctrl *ctrl)
+>   	return ret;
+>   }
+>   
+> -static int __nvme_tcp_alloc_io_queues(struct nvme_ctrl *ctrl)
+> +static int nvme_tcp_tls_check_psk(struct nvme_ctrl *ctrl)
+>   {
+> -	int i, ret;
+> -
+>   	if (nvme_tcp_tls_configured(ctrl)) {
+>   		if (ctrl->opts->concat) {
+>   			/*
+> @@ -2196,6 +2194,13 @@ static int __nvme_tcp_alloc_io_queues(struct nvme_ctrl *ctrl)
+>   		}
+>   	}
+>   
+> +	return 0;
+> +}
+> +
+> +static int __nvme_tcp_alloc_io_queues(struct nvme_ctrl *ctrl)
+> +{
+> +	int i, ret;
+> +
+>   	for (i = 1; i < ctrl->queue_count; i++) {
+>   		ret = nvme_tcp_alloc_queue(ctrl, i,
+>   				ctrl->tls_pskid);
+> @@ -2212,7 +2217,7 @@ static int __nvme_tcp_alloc_io_queues(struct nvme_ctrl *ctrl)
+>   	return ret;
+>   }
+>   
+> -static int nvme_tcp_alloc_io_queues(struct nvme_ctrl *ctrl)
+> +static int nvme_tcp_io_queue_count(struct nvme_ctrl *ctrl)
 
-Hence it seems to me that this overhead problem should be fixed at
-the WQ infra level, not worked around in the caller context...
-
-> The removal relies on the assumption that flush_workqueue is just a
-> performance optimization, not a correctness requirement. Without it,
-> xlog_cil_force_seq already provides a reliable completion guarantee via
-> xlog_wait(&cil->xc_commit_wait), which blocks until the target sequence
-> has been committed. The caller will eventually observe the completion
-> regardless of whether flush_workqueue was called. In addition, ordering
-> is enforced by xlog_cil_order_write, which ensures all records are
-> written in strict sequence order. Therefore, removing flush_workqueue
-> does not weaken any ordering or completion semantics.
-
-And wait latency goes up because now there is nothing to expedidite
-the scheduling of the work we are waiting to complete.
-
-i.e. you might see a drop in CPU time in flush heavy workloads by
-removing it, but the trade off is an increase in wait time variance
-and long tail latencies, especially under light load.
-
-> If this analysis is correct, the change can be applied broadly to all
-> sync force callers through xlog_cil_push_now(), as they all share the
-> same completion and ordering guarantees provided by the existing CIL
-> infrastructure. The per-CPU iteration overhead would be eliminated on
-> every sync log force without affecting correctness.
-> 
-> But there are several concerns I'd like to confirm:
-> 
-> Is flush_workqueue just about performance, or does it hide any
-> correctness dependency I'm missing?
-
-It may well hide implicit correctness bugs.
-
-> Without it, the "if (!ctx->commit_lsn) { goto restart; }" loop in
-> xlog_cil_force_seq may be triggered more often. Is that acceptable,
-> or is it a concern?
-
-That's additional context switches and latency. i.e. CPU overhead
-that we are trying to avoid...
-
-> Are there any ordering guarantees provided by flush_workqueue that
-> xc_push_lock + waitqueues don't already provide?
-
-Removing the flush will change the order in which concurrent push
-pipelines order in the journal. This could change the inherent order
-of checkpoints in the journal, so there could be visible artifacts
-during crash recovery compared to an flushing implementaiton. None
-of that would be a correctness issue, but from an application POV it
-would be like the concurrent fsync operations completing in a
-different order across different kernel versions.
-
-A lakc of flushing could also simply move the ordering latency
-bottleneck to journal IO completion where checkpoints have to be
-completed in ascending LSN order. Whether that causes a problem or
-not is a complete unknown, but it could increase overall wait times
-as waiting seqeunces always get woken in ascending order, and hence
-everything will wait if a low sequeunce flush submission gets held
-up because the kworker isn't scheduled immediately...
-
-> I'd appreciate any thoughts on whether this change is safe.
-
-Probably safe, but there is lots of potential for performance
-regressions by removing it. Better would be to provide a low
-overhead work queue implementation for callers that don't need
-scale-out performance from their unbound workqueues....
-
--Dave.
--- 
-Dave Chinner
-dgc@kernel.org
+Strange function name... maybe nvme_tcp_set_io_queue_count?
