@@ -1,169 +1,149 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa2-f0.google.com (mail-oa2-f0.google.com [74.125.231.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D0921DFFD;
-	Sun, 30 Aug 2026 17:56:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C42CB282F34
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 18:01:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788112570; cv=none; b=ejMmM7lvzh3xbGykQ7gOLnLN6VyXRNgr5jNwqGWG2TOkGRAlCaq2USQO5sWa6CfoyyhZRPLl48EowQUofDyKY4pVj9vANB/Id61sQlR+YCAZMoqi8dxVUa3/JTPGdgmBQGUFW+x3CgL6kR82cOMzlp91gE5U6FnCIqxwTy1BYxQ=
+	t=1788112893; cv=none; b=DnrSGT8SjhiCL2bxE9g0iZUsd4yPvw+KcC8Xo0rc7Ew8fLRzGi0dbJgyFodgS3qugYWTAhRrYuFQ6bIMWdanIebr1ludMurEBZGQjsCkI+rVqTKOhkQ93vYM6cDm3J4h3s8rH2bOX/YD+/n9h3TD8vfEFBgxVQfneTxHfGSThsg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788112570; c=relaxed/simple;
-	bh=Xp5wHcBcPiiQTcpwoSqZ469cyCkUGVeYi6l2ITj9b+w=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=P6RJEFJ0Xxl2vAi4oH5pgLnlUjhRQisblq8pEp8mE1DD36AlkgVxWLjKC9hqW06czr7VzSuLSpp+z2tg+GCIl+0+odRumUxKUWSeKlDUctemwVmtIjI6UsdSIV/ymw9HEW/gZqQdkddIBDmELoPYHoeBTmqBld00+WgiGZIepic=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Sg/Mf207; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Sg/Mf207"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4BABB1F000E9;
-	Sun, 30 Aug 2026 17:56:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788112568;
-	bh=MP2cYbOMQ2yPxsWmqbaEgbim2t5PGL0Oh3kp+NhD3Ds=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Sg/Mf207ElMq9UPBD++UvJIjjunCI4kMpOUqONLj+LSierSJhZ6FE4HSE3hSILL4Z
-	 fk008p3jEfeG+4X88SKnkLh9XLoZAzebV66m/1Qch30vnDIbjGlP82Sm1qdmkevmLm
-	 V5Y31LMQPwsSm3BHGA/VDYDLAidhN1zTbVu/e4zWgV2qtFL2CMFFJkj7kaoHpYWWgB
-	 2Bu2kjJ+byG3uIF3Ldx1b8LyFQsOV8j3Z/hUZ2ta3Aeq0dcgk4Y5/gN5oVNYnmOCmz
-	 dZ4d0cuy8PVeL+I2S7v4Sy59vbs5DmEK9LLBujSisltlAtmK1izy4hZu+IdE37qRJf
-	 rHJ3c+bBtGWVQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/3] livepatch: Clean up klp_init_object_loaded() when
- fails
-Reply-To: sashiko-reviews@lists.linux.dev
-To: pmladek@suse.com, "Harry Hsu" <x90613@gmail.com>
-Cc: jpoimboe@kernel.org, linux-kernel@vger.kernel.org, jikos@kernel.org, joe.lawrence@redhat.com, live-patching@vger.kernel.org, mbenes@suse.cz
-In-Reply-To: <20260830173343.52759-4-x90613@gmail.com>
-References: <20260830173343.52759-1-x90613@gmail.com>
- <20260830173343.52759-4-x90613@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 30 Aug 2026 17:56:07 +0000
-Message-Id: <20260830175608.4BABB1F000E9@smtp.kernel.org>
+	s=arc-20240116; t=1788112893; c=relaxed/simple;
+	bh=RqzC4FzEYqQS6LIAD3jjFLoYwoOXW92oWS0ktLLaSRw=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=h0yuUn0YBWa6eSR1N4/x2oeyQFwIHE+jwryg1BqIK/y4uEx0hBaovxUpv6fea3HQyOafsZRGMvC0Cv4wUCC8MPtIoOKx9GMeHXboH2/Q5y8d/j2xngpJLwzmVcUA1A6lxcrBBnoNHsDloDDPfMCvxisblhLTio6oufEs497Uotk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oa2-f0.google.com with SMTP id 586e51a60fabf-44cdbcd53b8so219690fac.0
+        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 11:01:31 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788112890; x=1788717690;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=TMO+I9B0WYs3owJQkxaxop23TuH+FUDXmgzunS3hq1A=;
+        b=BuI7+KfwaOVWHt5tGCiO4HtugSg4LBvv7u40C4ywk3QtA2xIBWs/Z2BzI1EtlmKLjA
+         f0+9nl/V7hxS+b2hZ561bmzXYnObkY4EGpgsi/SEpMAtXy5KLYSQMBzHDZlHMe9VSgnE
+         rCsLh6GVRA6KDPxKtneBebaBUfb4jKuYL54e4Jp4qCWbt+SjODQDATkUlQ1tVkqPsnyK
+         E0tJw5OD3tvDNtMILwf8x/4C+38H337Kwa5K1HuNHOY2plh0+DQgzR6HghYv2Wy1LFcq
+         bZ4CPt6e4Jw8ncgq6KeEVcYTAjBeeDntigW9OjVLSuzOb0tg5ZtbwGm4gVLrU7ZsQLrS
+         oIug==
+X-Forwarded-Encrypted: i=1; AHgh+RoZfdg/2T28ymv9Cs9Z5szwUSLBS0ts8LYNJJ/rzr2ouYFX8X8pgf4OU+rFQUqqP9TOokZ91aHGpi+9F4U=@vger.kernel.org
+X-Gm-Message-State: AFuF++lAGESV1vsPLN3nJDUKf7iH/2IJb6mMgqJYmC1cywL0gI/loN9C
+	vbzhpI4I2sEq2gjOOvbx0gfu3S7ODY9x4DODuUWi0oyS+M8iTVsx9RTFNVkVJWu2RF8NbZoEk+W
+	aetOy9zxD82B3zKayKhhP745ieUwXfoiOmcV4WhvgAHxeDHzHOf4aV7Acvl8=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-Received: by 2002:a05:6808:c296:b0:4b5:5bfb:f25f with SMTP id
+ 5614622812f47-4b55bfbfca9mr9183513b6e.20.1788112890637; Sun, 30 Aug 2026
+ 11:01:30 -0700 (PDT)
+Date: Sun, 30 Aug 2026 11:01:30 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a946ffa.1d9ded08.62e62.0123.GAE@google.com>
+Subject: [syzbot] [net?] kernel BUG in sock_sendmsg_nosec
+From: syzbot <syzbot+73df3f89e1e13089e466@syzkaller.appspotmail.com>
+To: davem@davemloft.net, edumazet@google.com, horms@kernel.org, 
+	kuba@kernel.org, kuniyu@google.com, linux-kernel@vger.kernel.org, 
+	netdev@vger.kernel.org, pabeni@redhat.com, syzkaller-bugs@googlegroups.com, 
+	willemb@google.com
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+Hello,
 
-New issues:
-- [Medium] Failing `klp_apply_object_relocs()` triggers spurious architectu=
-ral warnings due to unconditional clearing of unapplied relocations in the =
-newly added error path.
+syzbot found the following issue on:
 
-Pre-existing issues:
-- [High] If `klp_pre_patch_callback()` or `klp_patch_object()` fails during=
- `klp_module_coming()`, the successfully initialized state from `klp_init_o=
-bject_loaded()` is leaked. The cleanup function `klp_cleanup_module_patches=
-_limited()` intentionally skips the currently failing patch, leaving applie=
-d relocations in the livepatch module uncleared and causing subsequent load=
- attempts of the target module to persistently fail.
---
+HEAD commit:    2188569e7e1b sctp: fix a TOCTOU race in SCTP_CMD_TIMER_START
+git tree:       net
+console+strace: https://syzkaller.appspot.com/x/log.txt?x=11571d79580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=5e4e3a0e188a497e
+dashboard link: https://syzkaller.appspot.com/bug?extid=73df3f89e1e13089e466
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=12042c15580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=10057d49580000
 
-commit a90c142b7a6f2c5551f83382ec1fcf15614ffbac
-Author: Petr Mladek <pmladek@suse.com>
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/c1f2ec0e5d4f/disk-2188569e.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/c32fe4a8974b/vmlinux-2188569e.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/67c9c4d5cc44/bzImage-2188569e.xz
 
-livepatch: Clean up klp_init_object_loaded() when fails
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+73df3f89e1e13089e466@syzkaller.appspotmail.com
 
-When a module is loaded, klp_module_coming() iterates over patches and
-calls klp_init_object_loaded(). If initialization fails, it delegates
-cleanup to klp_cleanup_module_patches_limited(). This commit updates
-klp_free_object_loaded() to revert all and only changes made by
-klp_init_object_loaded().
+------------[ cut here ]------------
+kernel BUG at net/socket.c:803!
+Oops: invalid opcode: 0000 [#1] SMP KASAN PTI
+CPU: 0 UID: 0 PID: 5628 Comm: syz-executor176 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
+RIP: 0010:sock_sendmsg_nosec+0x145/0x180 net/socket.c:803
+Code: 06 67 48 0f b9 3a eb 95 e8 e8 3a 22 f8 48 89 df 4c 89 f6 4c 89 e2 4d 89 fb 2e e8 32 a5 5c 16 e9 51 ff ff ff e8 cc 3a 22 f8 90 <0f> 0b e8 c4 3a 22 f8 48 83 c3 18 48 89 d8 48 c1 e8 03 42 80 3c 28
+RSP: 0018:ffffc90003aefb48 EFLAGS: 00010293
+RAX: ffffffff89a578d4 RBX: ffff8880764c67c0 RCX: ffff88807fb23e80
+RDX: 0000000000000000 RSI: 00000000fffffdef RDI: 00000000fffffdef
+RBP: 00000000fffffdef R08: ffffc90003aef747 R09: 1ffff9200075dee8
+R10: dffffc0000000000 R11: fffff5200075dee9 R12: 0000000000000001
+R13: dffffc0000000000 R14: ffffc90003aefbc0 R15: ffffffff8aac4310
+FS:  000055559101b400(0000) GS:ffff888124ce0000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000200000000210 CR3: 0000000073dca000 CR4: 00000000003526f0
+Call Trace:
+ <TASK>
+ __sock_sendmsg net/socket.c:815 [inline]
+ sock_write_iter+0x2de/0x3e0 net/socket.c:1266
+ new_sync_write fs/read_write.c:595 [inline]
+ vfs_write+0x612/0xba0 fs/read_write.c:687
+ ksys_write+0x150/0x270 fs/read_write.c:739
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f173130ecb9
+Code: c0 79 93 eb d5 48 8d 7c 1d 00 eb 99 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 d8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007ffd67e44248 EFLAGS: 00000246 ORIG_RAX: 0000000000000001
+RAX: ffffffffffffffda RBX: 0000200000000000 RCX: 00007f173130ecb9
+RDX: 0000000000000001 RSI: 0000200000000000 RDI: 0000000000000003
+RBP: 0000000000000001 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 00007ffd67e44388
+R13: 0000000000000002 R14: 00002000000000c0 R15: 0000000000000002
+ </TASK>
+Modules linked in:
+---[ end trace 0000000000000000 ]---
+RIP: 0010:sock_sendmsg_nosec+0x145/0x180 net/socket.c:803
+Code: 06 67 48 0f b9 3a eb 95 e8 e8 3a 22 f8 48 89 df 4c 89 f6 4c 89 e2 4d 89 fb 2e e8 32 a5 5c 16 e9 51 ff ff ff e8 cc 3a 22 f8 90 <0f> 0b e8 c4 3a 22 f8 48 83 c3 18 48 89 d8 48 c1 e8 03 42 80 3c 28
+RSP: 0018:ffffc90003aefb48 EFLAGS: 00010293
+RAX: ffffffff89a578d4 RBX: ffff8880764c67c0 RCX: ffff88807fb23e80
+RDX: 0000000000000000 RSI: 00000000fffffdef RDI: 00000000fffffdef
+RBP: 00000000fffffdef R08: ffffc90003aef747 R09: 1ffff9200075dee8
+R10: dffffc0000000000 R11: fffff5200075dee9 R12: 0000000000000001
+R13: dffffc0000000000 R14: ffffc90003aefbc0 R15: ffffffff8aac4310
+FS:  000055559101b400(0000) GS:ffff888124de0000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00000000006a9ee0 CR3: 0000000073dca000 CR4: 00000000003526f0
 
-Closes: https://lore.kernel.org/r/20260823062313.1321B1F000E9@smtp.kernel.o=
-rg
 
-> diff --git a/kernel/livepatch/core.c b/kernel/livepatch/core.c
-> index a6796cd6b65fd..706a4a7193514 100644
-> --- a/kernel/livepatch/core.c
-> +++ b/kernel/livepatch/core.c
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-[ ... ]
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
-> @@ -916,11 +920,17 @@ static int klp_init_object_loaded(struct klp_patch =
-*patch,
->  		if (!ret) {
->  			pr_err("kallsyms size lookup failed for '%s' replacement\n",
->  			       func->old_name);
-> -			return -ENOENT;
-> +			ret =3D -ENOENT;
-> +			goto err;
->  		}
->  	}
-> =20
->  	return 0;
-> +
-> +err:
-> +	klp_free_object_loaded(patch, obj);
-> +
-> +	return ret;
->  }
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
 
-[Severity: Medium]
-Does this unconditionally clear unapplied relocations?
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
 
-When klp_init_object_loaded() fails (for example, if a symbol lookup fails
-after klp_apply_object_relocs() succeeds, or if klp_apply_object_relocs()
-itself fails), this newly added error path calls klp_free_object_loaded().
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
 
-This unconditionally invokes klp_clear_object_relocs(), which iterates over
-all .klp.rela sections and attempts to un-apply them via
-clear_relocate_add().
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
 
-However, for sections that were never applied, the target memory remains
-unmodified (zeroed). On architectures like x86, clear_relocate_add() uses
-memcmp() to verify that the memory contains the expected relocated value.
-Since it does not, it prints an "Invalid relocation target" warning for
-every unapplied relocation entry, resulting in significant spurious warning
-spam in the kernel log.
-
-[ ... ]
-
-> @@ -1274,8 +1284,8 @@ static void klp_cleanup_module_patches_limited(stru=
-ct module *mod,
->  			klp_unpatch_object(obj);
-> =20
->  			klp_post_unpatch_callback(obj);
-> -			klp_clear_object_relocs(patch, obj);
-> -			klp_free_object_loaded(obj);
-> +			klp_free_object_loaded(patch, obj);
-> +			obj->mod =3D NULL;
->  			break;
->  		}
->  	}
-
-[Severity: High]
-This is a pre-existing issue, but does this cleanup logic leak relocations
-if klp_module_coming() fails after klp_init_object_loaded() succeeds?
-
-If klp_pre_patch_callback() or klp_patch_object() fails during
-klp_module_coming(), the successfully initialized state from
-klp_init_object_loaded() is leaked.
-
-The cleanup function intentionally skips the currently failing patch:
-
-kernel/livepatch/core.c:klp_cleanup_module_patches_limited() {
-	...
-	klp_for_each_patch(patch) {
-		if (patch =3D=3D limit)
-			break;
-	...
-}
-
-This prevents its newly applied relocations from being cleared. Since these
-relocations modify the livepatch module's memory, they persist even after
-the target module's load attempt is aborted.
-
-Upon a subsequent attempt to load the target module,
-klp_apply_object_relocs() will attempt to apply the relocations again. On
-architectures like x86, apply_relocate_add() verifies that the target
-memory is zero; finding it non-zero, it returns -ENOEXEC. This causes
-klp_module_coming() to fail, permanently preventing the target module
-from being loaded as long as the livepatch is loaded.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260830173343.5275=
-9-1-x90613@gmail.com?part=3D3
+If you want to undo deduplication, reply with:
+#syz undup
