@@ -1,130 +1,104 @@
-Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com [209.85.208.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1700130674C
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 23:06:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 515A32F84F;
+	Sun, 30 Aug 2026 23:08:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788131182; cv=none; b=YrLzx5fj3hqg+8LX6n6Eu9P/qIHky0fxlGrT1R367BiACK+HaZpf0y9syk77/G93KzBnvoYuTnkSKy/64aSnChnL6SCQX5WEOJ7XQdDscA0nNA3OTusiRIbq2KzFandL0Li6Pu15vTyi7DrcuPIWhrE3YWNAjdBvGLZkK3dPx6E=
+	t=1788131316; cv=none; b=CPYUrIIptjbg1jqckWaKnioUhi8V3RoBoPXiEjZJ4RyHJgiwLxDO+VoYWY02PU1XfDKbHWcC/5wgpsUZ0OLBSdP2Me0ZYLxyw3Ka1KwiP1QLb8rlp8ZXeiY7XoYZTN0PQkGIdNQQcl/IGVJcOzZYQYWIVPPc851qXdD2cxf4ujw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788131182; c=relaxed/simple;
-	bh=rL4yxxYKKG4TIDB9CU1E4ZNOHQlWPM2opU9VJ6JG+zk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Pl8Tr+BrEguwjftDvenolMN5NDRA7wWRr8YTFeVGwDsppn5NmvW7cFvb+a78/S2Z6PYYeovvqVcLVbsVSqUoacpD34BQ8JBS5geUkF4yLnlJC1djx9pNW7XemqYef82Zde3O/HVrqmEs4ctyFfyZe2qVCZsD3hWZwxpTasHonS4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=hxjFWMRF; arc=none smtp.client-ip=209.85.208.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	s=arc-20240116; t=1788131316; c=relaxed/simple;
+	bh=jDp+Nw6b7h22SFzKZLUIEWRF8HaZpA2JP2JZBw82m2s=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=B+Y0ct+ig1Svu2079IWMdu8xxFau2Yg5Qkzg44Ag8T6cbXSpq9qzEKT7Xvq+9b3JLcn3uqEFQ2Y16VIzDfZgLPl4+F456feruhgk08MuDBmsrVi3PXsbfmDTKpc/XJ2Z1UFxdpgjqIuj/vTJBsJ/7FswA6uAKsBKjrl1oI4vUmo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Cl3pey6V; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="hxjFWMRF"
-Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6a60f0dbeccso3595601a12.0
-        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 16:06:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linux-foundation.org; s=google; t=1788131178; x=1788735978; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kchg3SI0pR13iwu/DkltwTxRLDpJHhH3QJUlMk6iCEU=;
-        b=hxjFWMRF4q1i6ZxYrXejLkl7Jatic3vdHu02PxLogkpntD80xTjxEpSUnY9CCN3a2L
-         mlvBo/f9F/eJwAveZ5ragf0tJ4/CCikMkqNOu5eAUfGDRZTP+u8FNrYZDu26MZpmplEb
-         BUuhIzFp/fIbVmnirPva0vju/oxgQsn5FY8yg=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788131178; x=1788735978;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=kchg3SI0pR13iwu/DkltwTxRLDpJHhH3QJUlMk6iCEU=;
-        b=G3STTXolJHiAXfbNUqrZM/EcL47qAFWdEzLjCjebyD68PWLkFcAjRORAxqdv7wXFik
-         l9fmttOdz1QSwvVyi92AUxTkQ3k279ztvlsp8dTKliTjswSyAgVHyrUDZ4c6mheaoVo6
-         PttaXnxFGnfo++0g56C4IRYOKBI7+i6sBeqkCKC41PVNIgFYpxVKmieZEixkcDtWhAjF
-         owmrDmaHue6HnQxCjzWMWYpbS1b01fbS0VtEQ1L22kSmuQM19rtEIZno3LLm9+A/3Whc
-         DIOnz8olHZjDiVc2Nbz/ptgWnEHOUNEkMduZCqc7HljTVgQZJJo7xo0W9/1NnjdWr8Mu
-         M2Kg==
-X-Forwarded-Encrypted: i=1; AKwUvBzHqOcMZ2y5sNnGkHoMhgzik7F1mNRN4TYfO0/DFtMzqi9QwEhDo9vYrxi//ti6LC6tkIM2J3jcvNzjtIQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++n0AeGIXK4TO3aHgTYrj73cSQs44NKx87DTDo4hueOPzUK98YcK
-	S1TP8NUlj4HgsN6+O649GDG6j6qIqOhKqclozDktihTW6Kyr5xnXwBcsGhrYjKZh0zA/WFHBmiq
-	xzYktdNc=
-X-Gm-Gg: AYBFou2FzXSoNSnSiNT+mv+AWeXtF4VfsrcYCAB6VpO1jX6vjAohwdRFMUhZ/2+63EA
-	V/HkRwDT9JAlQKOGi+4RoRliP0yy494hrjmQh3Q9nThtwvVdAdxxi+vPOLG7kKG3wjcdLwWp7BM
-	UtrlKDikvpoT/Q31aBnYhoLNEYUCsPi2i9vTjD6MYe0HjPcg6WoHMTSoqCb8KSfmjKrmBG25RQT
-	BdatAGX0ItvWmoDa6ZxQGs7kctMaE+29tpTdqepYJmvynjLarMCNpEoCeqC179V7qZR3NTmbZyC
-	ES/xD6yBuMFObMmEGXsfpTmdsXiMQ2BZO4zFr6eq3Wh4t2G9N4tUZFLVfHoieMlgC1BuAS7cTpQ
-	yO15CSJhP+HoE0xEt9Nczq8FBF7eXn33l1H2X/ZlguxVB7I1Y7GEF7syKlDuSG89GJZTsWYZknf
-	qjy3SwG08tUHT++Tla2IhFSp7Yc7ty4yvRj04i/N5qRlyDCozxZYq+Tspn8WXJVuNPK9sYaLWlr
-	USklvrLDBczuvvUff23rk5EA7kOuF9Yd8zDE445cpu6Cgvz
-X-Received: by 2002:a05:6402:a0cb:b0:6a6:32f9:d7cf with SMTP id 4fb4d7f45d1cf-6a632f9d94emr5204596a12.20.1788131178171;
-        Sun, 30 Aug 2026 16:06:18 -0700 (PDT)
-Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com. [209.85.208.53])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a611b88472sm2600929a12.12.2026.08.30.16.06.17
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 30 Aug 2026 16:06:17 -0700 (PDT)
-Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-6a1542cdb53so2697203a12.2
-        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 16:06:17 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxRl0wjo5TJa+psEhobbWOg2b5a6aKuwa67GrDWFMctvzjsfYU6ib/8qtQ4iHL0f8sUlgw3VSacWhOz7AU=@vger.kernel.org
-X-Received: by 2002:a05:6402:304c:b0:6a1:8d1a:816b with SMTP id
- 4fb4d7f45d1cf-6a60d3c68e1mr10567029a12.11.1788131177037; Sun, 30 Aug 2026
- 16:06:17 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Cl3pey6V"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id E3ABDC2BCFB;
+	Sun, 30 Aug 2026 23:08:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1788131316;
+	bh=jDp+Nw6b7h22SFzKZLUIEWRF8HaZpA2JP2JZBw82m2s=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=Cl3pey6VkNICIFNuLMkHNbav3N80r945qbrQLuAUxxSgr0HgnmaCyNth4fu9MbqS1
+	 d7TBxmQWJUcCGy8sI/MkNKdttmdJCIVzXDeTSgGip3sn+i1lP9LXDvVdCTGOpUGDEd
+	 NMEZ/AVzA7Q3Q77n3NYfG9NemQ7rz7SSDPJS/s3tMhzP44sE5cmapcxZ5HNni9X/kC
+	 GTp8w63IuXJBbLpr6f6CvLhAm01F6IJRMApdelrETswFaT5Erm/NiKoF8Xo68OIOun
+	 D54NEAIhC3BOy0axKm+ad1FH8TWruOHLmUcX0oKqcqkkSFWeYeehxEAQykVp7vJWxA
+	 hVdgl2sQLjU5w==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C1762C61DD9;
+	Sun, 30 Aug 2026 23:08:35 +0000 (UTC)
+From: Per Larsen via B4 Relay <devnull+perlarsen.google.com@kernel.org>
+Date: Sun, 30 Aug 2026 23:08:13 +0000
+Subject: [PATCH v7 1/3] KVM: arm64: Block host-initiated FF-A direct
+ responses
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260830222100.2706175-1-usama.arif@linux.dev> <20260830222100.2706175-3-usama.arif@linux.dev>
-In-Reply-To: <20260830222100.2706175-3-usama.arif@linux.dev>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Sun, 30 Aug 2026 16:06:00 -0700
-X-Gmail-Original-Message-ID: <CAHk-=wg3d5HUkgdWq4Ac74xoUDU_BiHTC_ONacwYFoXnMQZ7Pw@mail.gmail.com>
-X-Gm-Features: AcwNN1V9mL9a1wNLsNDWQwZtJk0bPbWUHAKzqqG4Vlgljpt5d7Cp4YfC54xzDks
-Message-ID: <CAHk-=wg3d5HUkgdWq4Ac74xoUDU_BiHTC_ONacwYFoXnMQZ7Pw@mail.gmail.com>
-Subject: Re: [PATCH v2 2/2] zstd: use cpu_feature_enabled() for in-kernel BMI2 dispatch
-To: Usama Arif <usama.arif@linux.dev>
-Cc: dsterba@suse.com, linux-kernel@vger.kernel.org, terrelln@fb.com, 
-	terrelln@meta.com, linux-crypto@vger.kernel.org, yosry@kernel.org, 
-	ebiggers@kernel.org, hannes@cmpxchg.org, nphamcs@gmail.com, 
-	chengming.zhou@linux.dev, shakeel.butt@linux.dev, kernel-team@meta.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260830-host-direct-messages-v7-1-45f6e6db72c2@google.com>
+References: <20260830-host-direct-messages-v7-0-45f6e6db72c2@google.com>
+In-Reply-To: <20260830-host-direct-messages-v7-0-45f6e6db72c2@google.com>
+To: Marc Zyngier <maz@kernel.org>, Joey Gouly <joey.gouly@arm.com>, 
+ Suzuki K Poulose <suzuki.poulose@arm.com>, 
+ Zenghui Yu <yuzenghui@huawei.com>, 
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+ Yeoreum Yun <yeoreum.yun@arm.com>, Ben Horgan <ben.horgan@arm.com>, 
+ Oliver Upton <oupton@kernel.org>
+Cc: Sebastien Ene <sebastianene@google.com>, 
+ linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, 
+ linux-kernel@vger.kernel.org, Per Larsen <perlarsen@google.com>, 
+ Fuad Tabba <fuad.tabba@linux.dev>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788131315; l=1110;
+ i=perlarsen@google.com; s=20250508; h=from:subject:message-id;
+ bh=8AHoa5902lBdwgQQj0S5IoBZHdWqjlLxCvW0VZ4P46k=;
+ b=lVUR0IW9heVYxTkTzz63UFlzLz6FnS5mvT3oqFqrWvLIISaAwADTyK2fdfCHeMEb0Dcc0DLSR
+ Bm6c5qGAe/fD27T3Z1wSu6KT8UK27gtIO7zVbMh/0xrLlI66QcOW48n
+X-Developer-Key: i=perlarsen@google.com; a=ed25519;
+ pk=jjc/Ta4VmrLRmMoahP6d1mBcKzvWU+nsmdtYe2oS2kQ=
+X-Endpoint-Received: by B4 Relay for perlarsen@google.com/20250508 with
+ auth_id=402
+X-Original-From: Per Larsen <perlarsen@google.com>
+Reply-To: perlarsen@google.com
 
-On Sun, 30 Aug 2026 at 15:21, Usama Arif <usama.arif@linux.dev> wrote:
->
-> Add ZSTD_USE_BMI2() and use it at every runtime BMI2/default selector.
+From: Per Larsen <perlarsen@google.com>
 
-Thanks, this looks sane to me.
+ffa_call_supported() rejects FFA_MSG_SEND_DIRECT_RESP, but allows
+FFA_FN64_MSG_SEND_DIRECT_RESP to be forwarded to firmware.
 
-I do still react to a couple of places. Notably, this part (repeated a
-couple of times):
+The host is never the target of an FF-A direct request and therefore
+cannot initiate a direct response. Reject both calling conventions.
 
-> +#if !defined(ZSTD_USE_KERNEL_CPU_FEATURES)
->      cctx->bmi2 = ZSTD_cpuSupportsBmi2();
-> +#endif
+Suggested-by: Fuad Tabba <tabba@google.com>
+Signed-off-by: Per Larsen <perlarsen@google.com>
+---
+ arch/arm64/kvm/hyp/nvhe/ffa.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-should probably be an "set state" macro the same way ZSTD_USE_BMI2()
-is now a "get state" macro.
+diff --git a/arch/arm64/kvm/hyp/nvhe/ffa.c b/arch/arm64/kvm/hyp/nvhe/ffa.c
+index a327c2bbb6b6..9e8bb95e8845 100644
+--- a/arch/arm64/kvm/hyp/nvhe/ffa.c
++++ b/arch/arm64/kvm/hyp/nvhe/ffa.c
+@@ -686,8 +686,10 @@ static bool ffa_call_supported(u64 func_id)
+ 	case FFA_MSG_SEND:
+ 	case FFA_MSG_POLL:
+ 	case FFA_MSG_WAIT:
+-	/* 32-bit variants of 64-bit calls */
++	/* The host is never the target of a direct request */
+ 	case FFA_MSG_SEND_DIRECT_RESP:
++	case FFA_FN64_MSG_SEND_DIRECT_RESP:
++	/* 32-bit variants of 64-bit calls */
+ 	case FFA_RXTX_MAP:
+ 	case FFA_MEM_DONATE:
+ 	case FFA_MEM_RETRIEVE_REQ:
 
-And:
+-- 
+2.55.0.897.gb25b4bd76c-goog
 
-> +ccflags-$(CONFIG_X86) += -DZSTD_USE_KERNEL_CPU_FEATURES
 
-We don't have anything like this for any other ZSTD defines, so my gut
-feel is that either this is in the wrong place, and it should be in
-something like
-
-   lib/zstd/common/zstd_deps.h
-
-which already has kernel-specific stuff in it, or it should just use
-#ifdef __KERNEL__ like we use elsewhere for things that are also used
-by user space.
-
-The whole situation with ZSTD configuration is a bit strange. I note
-that there are things like ZSTD_ARCH_ARM_NEON that the kernel never
-uses.
-
-Why is "DYNAMIC_BMI2" a settimg but things like that
-ZSTD_ARCH_X86_SSE2 and ZSTD_ARCH_ARM_NEON are never set? This all
-looks messy.
-
-Or is there some hidden config I didn't find?
-
-Strange.
-
-             Linus
