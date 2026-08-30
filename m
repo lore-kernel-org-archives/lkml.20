@@ -1,132 +1,97 @@
-Received: from mta1.migadu.com (out-52.mta1.migadu.com [95.215.58.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1432772630
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 05:18:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8C4D3F104C;
+	Sun, 30 Aug 2026 05:33:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788067124; cv=none; b=SxuEXO0m0up9U04OraxPWviVoVLiCfFyMH1N2Fdj5YzmAtpQ+DtpeOCSAy+6yb6KzR80giPvPcRPgsBBffcvrBjaiZftdLL7yITMxnr8SeS0QYia67zZqVEzue4nzVSHhGnlhkQObTxNmO60rgPB7DV/9pyVRvZJp8AjHPNt2FY=
+	t=1788068011; cv=none; b=CAUT1zIKGSfw/drxNrS6af5GUhdYLT6OhGNjVKsAXd0DU+BJz2zJEzBSXPJAgST0DDBBhA+LhYhS/BvJ3DQRE/elHYsQWHUYxC6fCKnqJHFSzVCBDNiWCKFURfszUpPYer+E8s49B2xIGmuOd+WjHlF41FiXLC37NdaB6FUpTbQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788067124; c=relaxed/simple;
-	bh=zpUnzyomNCkMBgYKtdeC/00VUtDf38xmo/shun73kSE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jeQsFmsZcselUHLbyMCsurDoUPV2Xgk9r2LZrSOL57zEG38iP14l8D+MID5OzPmOz1KoxVQANjV/dal7ZABX/lKlLF1b/BhVZDUjcJMm+aT2D3ymLOGKmAZGGM8oatS4JcP8iQPtdytUHuPczUBbVtoXNYMHlVO4OgZNE1GbLZY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=OUfzD71g; arc=none smtp.client-ip=95.215.58.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788068011; c=relaxed/simple;
+	bh=O78nh4Oy88bdxh0L5QHYz6/ZtqAoeZreiA6jvLqxCjI=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Bihk03mmeyHTMCIJHPWrwhdw0rVBURV3+XKdPUaTBw7zXnHwsjkp7chlubCNB7E5r+oLUx3gqEB/6cQg1J2UtuZJLFsHx8hkKdAJSgG5kDZ//1pFdPl+ZEjE8+op0DUjTqYQBIB/2NuLZmZ8/5vyqsh6bJEWnzRkEiJ0lrXtUk4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=YDUGWOIB; arc=none smtp.client-ip=101.71.155.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="OUfzD71g"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=zpUnzyomNCkMBgYKtdeC/00VUtDf38xmo/shun73kSE=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788067119; v=1; x=1788671919;
- b=OUfzD71gsBHVbLwuzg5cFSUCjzA+5Tj79KnYt6pmfMxrAWGvYUREWb0H/MOx36qj3vQAeMOl
- NOKMbQLTZR1QIrElQM8y3bW2SpaDfdOPxgU0P3KjzcqO2nOPMW09WF5xYaMVrBa1CSlK10aqo+s
- g0GtYJTZa82USoSkMv7sFNDQ=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 82afb8ac5ccba36e;
-	Sun, 30 Aug 2026 05:18:39 +0000
-X-Mizu-Trace-ID: 82afb8ac5ccba36e
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <c2577ec5-acf6-466b-ba66-0b3bcabbef7d@linux.dev>
-Date: Sun, 30 Aug 2026 13:18:24 +0800
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="YDUGWOIB"
+Received: from PC-202605011814.localdomain (unknown [223.112.146.162])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4bd32454f;
+	Sun, 30 Aug 2026 13:33:16 +0800 (GMT+08:00)
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+To: adrian.ho.yin.ng@altera.com
+Cc: sr@denx.de,
+	vkoul@kernel.org,
+	Frank.Li@kernel.org,
+	dmaengine@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	runyu.xiao@seu.edu.cn,
+	jianhao.xu@seu.edu.cn
+Subject: [PATCH] dmaengine: altera-msgdma: initialize state before requesting IRQ
+Date: Sun, 30 Aug 2026 13:33:08 +0800
+Message-Id: <20260830053308.2190597-1-runyu.xiao@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/3] mm: reject zone device folios in more folio
- walkers
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: gourry@gourry.net, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- kernel-team@meta.com, david@kernel.org, ljs@kernel.org, ziy@nvidia.com,
- baolin.wang@linux.alibaba.com, liam@infradead.org, nico.pache@linux.dev,
- ryan.roberts@arm.com, dev.jain@arm.com, baohua@kernel.org,
- usama.arif@linux.dev, vbabka@kernel.org, jannh@google.com,
- matthew.brost@intel.com, joshua.hahnjy@gmail.com, rakie.kim@sk.com,
- byungchul@sk.com, ying.huang@linux.alibaba.com, apopple@nvidia.com,
- balbirs@nvidia.com
-References: <20260817220810.1175596-1-gourry@gourry.net>
- <20260818043143.22297-1-lance.yang@linux.dev>
- <20260829171819.e1e8910e7e9a8a46b87c870f@linux-foundation.org>
-Content-Language: en-US
-From: Lance Yang <lance.yang@linux.dev>
-In-Reply-To: <20260829171819.e1e8910e7e9a8a46b87c870f@linux-foundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa05128620303a1kunm7db0cc95f00cd
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDSB1IVk1MGU9KGh5NQkhPGVYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUhVSkpJVUpPTVVKTUlZV1kWGg8SFR0UWUFZT0tIVUpLSE
+	pPSExVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=YDUGWOIBUuI4RkfDe1fWwL0BKP/27UC+JSqtDwNPMlQIrjmd0WRCDuXCLwd7jmEDxr1WykH9OAJRB2wgVbQmzMPk1xFLk15qsMmrYgzcmEJFw78Uw3DXKMYfkbmno8gZcwrEZSE+KLd+X90lV7KnTHOgYELE7wf8fy752YIfNgQ=; s=default; c=relaxed/relaxed; d=seu.edu.cn; v=1;
+	bh=6JjjVTLXLJgetoxNznReCDPIj5+X9IifVHzbbQlKJjw=;
+	h=date:mime-version:subject:message-id:from;
 
+msgdma_probe() registers the IRQ before initializing the tasklet, lock,
+and descriptor lists used by the interrupt handler. A pending interrupt
+can access incomplete state during probe.
 
+Initialize the handler state before requesting the IRQ so the interrupt
+path observes ready software state.
 
-On 2026/8/30 08:18, Andrew Morton wrote:
-> On Tue, 18 Aug 2026 12:31:43 +0800 Lance Yang <lance.yang@linux.dev> wrote:
-> 
->>
->> On Mon, Aug 17, 2026 at 06:08:07PM -0400, Gregory Price wrote:
->>> Several LRU-oriented mm walkers resolve the folio backing a PMD entry
->>> (or a physical pfn) and then reclaim, age, migrate, or lazyfree it
->>> without ever checking for ZONE_DEVICE memory.
->>>
->>> This series adds missing folio_is_zone_device() rejections, matching
->>> the checks that comparable walkers already perform.
->>>
->>> - mm/huge_memory, mm/madvise: the !pmd_present branch above these sites
->>>   only filters device-private entries (which are non-present).
->>>
->>>   A present zone device PMD (e.g. device-coherent) would still reach the
->>>   folio and be lazyfreed / aged / paged out. Add an explicit check.
->>>
->>> - mm/mempolicy: queue_folios_pmd() can see a present zone device PMD
->>>   (e.g. device-coherent) and queue it for migration.
->>>
->>> No crash reproducer - this is a correctness/hardening cleanup found by
->>> inspection. All checks are placed after the folio is resolved and before
->>> it is acted upon, on paths that already hold the relevant page-table lock,
->>> so no locking or refcount changes are involved.
->>
->> Cool!
->>
->> Gave the whole series a spin on x86_64 QEMU with a PMD-mapped
->> device-coherent THP. Without these patches, partial MADV_FREE and
->> MADV_COLD reliably hit a kernel panic in remove_migration_pte(), while
->> mbind(MPOL_MF_MOVE | MPOL_MF_STRICT) returned -EIO.
->>
->> With v2, all three worked fine, PMD mapping stayed intact, and data
->> checked out :)
->>
->> Note that both kernels used the same small change to the in-kernel HMM
->> test driver, allowing its coherent device memory to be allocated as 2 MB
->> folios so the PMD-mapped test case could be exercised.
->>
->> Tested-by: Lance Yang <lance.yang@linux.dev>
-> 
-> Thanks Lance, you're so diligent.
-> 
-> I'm wondering what to do here.  Gregory told us
-> 
-> : No crash reproducer - this is a correctness/hardening cleanup found by
-> : inspection. All checks are placed after the folio is resolved and before
-> : it is acted upon, on paths that already hold the relevant page-table lock,
-> : so no locking or refcount changes are involved.
-> 
-> And you had to tweak the hmm-test driver to reproduce the bug(s).
-> 
-> So when do we push this series out to -stable?  As a hair-on-fire
-> hotfix, or as a leisurely next-merge-window thing?
+Fixes: a85c6f1b2921 ("dmaengine: Add driver for Altera / Intel mSGDMA IP core")
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:GPT-5
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+---
+ drivers/dma/altera-msgdma.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-Thanks, Andrew :) Yeah, I'd say next merge window should be fine :)
-
-The crash is real once the mapping exists, but I had to tweak test_hmm
-to create that PMD-mapped device-coherent folio, and I couldn't find
-any in-tree production driver doing that today.
-
-So no need to rush this one, I guess.
-
-> 
-> And Sashiko was clearly having a bad day, able to find only nine
-> pre-existing things to shout about:
-> 	https://sashiko.dev/#/patchset/20260817220810.1175596-1-gourry@gourry.net
-> 
-
+diff --git a/drivers/dma/altera-msgdma.c b/drivers/dma/altera-msgdma.c
+index e23e5b441..412f4bce1 100644
+--- a/drivers/dma/altera-msgdma.c
++++ b/drivers/dma/altera-msgdma.c
+@@ -847,11 +847,6 @@ static int msgdma_probe(struct platform_device *pdev)
+ 	if (mdev->irq < 0)
+ 		return -ENXIO;
+ 
+-	ret = devm_request_irq(&pdev->dev, mdev->irq, msgdma_irq_handler,
+-			       0, dev_name(&pdev->dev), mdev);
+-	if (ret)
+-		return ret;
+-
+ 	tasklet_setup(&mdev->irq_tasklet, msgdma_tasklet);
+ 
+ 	dma_cookie_init(&mdev->dmachan);
+@@ -863,6 +858,11 @@ static int msgdma_probe(struct platform_device *pdev)
+ 	INIT_LIST_HEAD(&mdev->done_list);
+ 	INIT_LIST_HEAD(&mdev->free_list);
+ 
++	ret = devm_request_irq(&pdev->dev, mdev->irq, msgdma_irq_handler,
++			       0, dev_name(&pdev->dev), mdev);
++	if (ret)
++		return ret;
++
+ 	dma_dev = &mdev->dmadev;
+ 
+ 	/* Set DMA capabilities */
+-- 
+2.34.1
