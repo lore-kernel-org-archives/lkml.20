@@ -1,136 +1,384 @@
-Received: from mta1.migadu.com (out-188.mta1.migadu.com [95.215.58.188])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from relay.hostedemail.com (smtprelay0013.hostedemail.com [216.40.44.13])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C02638D
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 01:08:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.188
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C24E2D73A6
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 01:15:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788052133; cv=none; b=XpCAIOM+2cW7EyRnCmGvzNxUlboA4zIQDp/odoTtsmOjMq0HYQW7cSYU4OVEBgluMca+YIu7JYKdazWV/9gPFP8I0eNvDJ4wsErxDDducI90pwi02CwXHKrlx10xEKYBM4jW02qOYjhb+QoT8kjTIR+OZrxdzEgyx915e3VWtG8=
+	t=1788052537; cv=none; b=uRh8Mxr2rrStvG23135sqRrt08cc4gftQQ99YUCrrex2nntx07yYTChoFRbd+D0fItzBT7N5WQ2qj0h/7WM/ZZGdb5E0dP/cgZrV+DtgJqlKVSfpa4CsDCROtSrP5prmzUplmCiD32FxdoE41J1tuMI0x6CQkpzxLT55fLs/ZEc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788052133; c=relaxed/simple;
-	bh=DZzcjJc9sLyv3Y9LU9lZskwia54d44A48WITPmc1pDE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=S/GU2IGuK8AE46w/wr6g1DWpqLlD6kK8XIUZxbueF9gV2lZvKvbRISVw0t3npYWngJ6jSdh0SyZo5uiygiSbQ3tDZQbqdfu6SsHPaY9KajOmuVdIxmqfKykc8ECuz6+1yuo+MOt0g+yst2swAlIn8UP3DCCAtGt/TJK0+Oddd2E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ru84dXoX; arc=none smtp.client-ip=95.215.58.188
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788052537; c=relaxed/simple;
+	bh=CXUUUKzt9AftGV0FSwrp/T2lePlU30fGrJiTua1qMag=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=VjdXcKKf8vkOmkMav7h1TXP0827U5M+enbTfQRvf6BJPN2ebZHaTeRkRWAeE/YMwIyoJJcnEdsyaxR13YUq1Nz0aVKZVsntTfEceHeaun6ZZzAkN5sv6a2a6ceSq+KVbShHa5SsJU1/EkOGs4NPchzCoD59RGRUVQNnU185kkjw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=0xPGNXEa; arc=none smtp.client-ip=216.40.44.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ru84dXoX"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=DZzcjJc9sLyv3Y9LU9lZskwia54d44A48WITPmc1pDE=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788052129; v=1; x=1788656929;
- b=ru84dXoXQJC1LffezUNzlcNZAPYSfKk0C2GZAbLdIw/8JlZJRhuB7IFUrV+ttKGPxYlKq7sV
- 9KPrVPMmPRuF4UJ9bveBnAwBSEJbumQ2QqB4m4MNCeOiGj6Camm6cXlh7m81R0KZJe8wkvlNwsa
- DThChZT0+Fz8N+CREim+qwTQ=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 38fa7b8430628112;
-	Sun, 30 Aug 2026 01:08:48 +0000
-X-Mizu-Trace-ID: 38fa7b8430628112
-X-Migadu-Flow: FLOW_OUT
-Date: Sat, 29 Aug 2026 18:08:47 -0700
-From: Shakeel Butt <shakeel.butt@linux.dev>
-To: syzbot <syzbot+cd2073ee6d958a8d0fcd@syzkaller.appspotmail.com>
-Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
-	syzkaller-bugs@googlegroups.com, hughd@google.com
-Subject: Re: [syzbot] [mm?] WARNING in __mod_zone_page_state
-Message-ID: <apOAF5CPFWUUH9du@linux.dev>
-References: <6a931c5a.08e933ee.dbf97.0093.GAE@google.com>
- <apNjw0HRyr1Oj7q4@linux.dev>
+	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="0xPGNXEa"
+Received: from omf04.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay05.hostedemail.com (Postfix) with ESMTP id A6FB940222;
+	Sun, 30 Aug 2026 01:15:25 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf04.hostedemail.com (Postfix) with ESMTPA id 8E0ED20027;
+	Sun, 30 Aug 2026 01:15:23 +0000 (UTC)
+Date: Sat, 29 Aug 2026 21:15:22 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: LKML <linux-kernel@vger.kernel.org>, Masami Hiramatsu
+ <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Deepanshu Kartikey <kartikey406@gmail.com>, Haotian Zhang
+ <vulab@iscas.ac.cn>, Hui Su <sh_def@163.com>, Ivan Immanuel Shaji
+ <ivanimmanuel1234@gmail.com>, =?UTF-8?B?SsOpcsOpbXk=?= Jean
+ <Jeremy.Jean@oss.cyber.gouv.fr>, Vincent Donnefort <vdonnefort@google.com>
+Subject: [GIT PULL] tracing: Fixes for 7.3
+Message-ID: <20260829211522.6623ee83@robin>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <apNjw0HRyr1Oj7q4@linux.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-Stat-Signature: 79euemrydt9jpwayy77or18jahutem87
+X-Rspamd-Server: rspamout06
+X-Rspamd-Queue-Id: 8E0ED20027
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX18GRdRZZfsccBUHBnq8vhWFvRNSVNKQOfw=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=RM+NyLK1sUT0LkA9AYYZttgrLOoJ4zKFpQNLJXepKMc=; b=0xPGNXEavIZ8b5U0CuCDPVpWPLWoU8pyUc7A2r3AKKfvMBANvirxswOivWCGAt+jSiNTeEVOKmLnLJ8BgZw8MUCUR67JxIjUtQtKUXu3e+kCB3+0Wn+Z27I7b0V4XxQePRn+7SogzYt3n/tTBYn6x4GE24V8uy9UphQ/QCGQRjI=
+X-HE-Tag: 1788052523-500647
+X-HE-Meta: U2FsdGVkX1/+ECHhh/NSbS6ajgTdWNH90bvrzNQvpPI0k5n+eqoTL5RguFrqdfVyAen/wMr6f+CoRBW7KEII3KUj/1uu1KMuWAEIz83/KE7m6X+UhE/NHRYlWrFfA9G1V10m1O8fK8EMbos606UtIBqr8KAci9/5v9wdxUQ7RXWDZW/apa4jQ1nuA4V9fmfkUMgHJbYASkG9FQo/3nsjWbHjt8hR0o0IQuXliz0t9kxvLGLPtKJM0nuRzKjP7M7vbdPUJvg2bFluNvPbsa26j6wj3myPDlOsLJLFoIFmJl5LDw4zBIRHjE9X5tv9v1Gy0cLHS0lrpETYSwvRBoh42xW5wQ1r6qN+
 
-+hugh
 
-On Sat, Aug 29, 2026 at 04:03:35PM -0700, Shakeel Butt wrote:
-> On Sat, Aug 29, 2026 at 10:52:26AM -0700, syzbot wrote:
-> > Hello,
-> > 
-> > syzbot found the following issue on:
-> > 
-> > HEAD commit:    818bebeb63dd drm/xe: Don't hand out the flat CCS storage a..
-> > git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-> > console output: https://syzkaller.appspot.com/x/log.txt?x=10286d79580000
-> > kernel config:  https://syzkaller.appspot.com/x/.config?x=ccca94d2c01b9e78
-> > dashboard link: https://syzkaller.appspot.com/bug?extid=cd2073ee6d958a8d0fcd
-> > compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-> > C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=13cf7625580000
-> > 
-> > IMPORTANT: if you fix the issue, please add the following tag to the commit:
-> > Reported-by: syzbot+cd2073ee6d958a8d0fcd@syzkaller.appspotmail.com
-> > 
-> > smpboot: CPU 1 is now offline
-> > ------------[ cut here ]------------
-> > IS_ENABLED(CONFIG_PREEMPT_COUNT) && __lockdep_enabled && (preempt_count() == 0 && this_cpu_read(hardirqs_enabled))
-> > WARNING: mm/vmstat.c:361 at __mod_zone_page_state+0x96/0x190 mm/vmstat.c:361, CPU#2: syz-executor412/6040
-> > Modules linked in:
-> > CPU: 2 UID: 0 PID: 6040 Comm: syz-executor412 Not tainted syzkaller #0 PREEMPT(full) 
-> > Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-> > RIP: 0010:__mod_zone_page_state+0x96/0x190 mm/vmstat.c:361
-> > Code: d0 00 00 00 8b 05 3e 44 ea 0e 85 c0 74 1f 65 8b 05 87 e0 2e 12 65 0b 05 d0 99 2e 12 75 0f 65 8b 05 d3 db 2e 12 85 c0 74 04 90 <0f> 0b 90 48 c7 c7 c0 e7 ff 8b e8 3b b3 6d 09 65 48 0f be 5d 00 48
-> > RSP: 0018:ffffc9000627f8e0 EFLAGS: 00010202
-> > RAX: 0000000000000001 RBX: 0000000000000000 RCX: 1ffffffff2287150
-> > RDX: 0000000000000000 RSI: 0000000000000008 RDI: ffff88807ffd79b8
-> > RBP: ffffffff9489f448 R08: 0000000000000001 R09: 0000000000000000
-> > R10: 0000000000000001 R11: 0000000000000000 R12: ffffffffffffffff
-> > R13: 0000000000000008 R14: ffff88807ffd7940 R15: ffffffff9489f440
-> > FS:  00005555785ce400(0000) GS:ffff8880d5da2000(0000) knlGS:0000000000000000
-> > CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> > CR2: 00005608d531ffb8 CR3: 000000002cb7c000 CR4: 0000000000352ef0
-> > Call Trace:
-> >  <TASK>
-> >  __zone_stat_mod_folio include/linux/vmstat.h:410 [inline]
-> >  __munlock_folio mm/mlock.c:144 [inline]
-> >  mlock_folio_batch+0xf97/0x36e0 mm/mlock.c:204
-> >  mlock_drain_remote+0xe5/0x140 mm/mlock.c:230
-> 
-> So, we are calling stat update functions which requires preemption disabled
-> (because they access per cpu data) an offlined CPU which is fine but we have
-> warning that preemption is not disabled.
-> 
-> Let see if syzbot comes up with a reproducer. We can just simply take the local
-> locks like neighboring functions or something else.
+Linus,
 
-After looking deeper and it seems like __munlock_folio is the only one which
-have a code path where lru lock with irq disabled is not done before call
-__zone_stat_mod_folio. I think we can easily fix __munlock_folio without
-acquiring local_locks here.
+tracing fixes for v7.3:
 
-Something like below. I will run some tests before proposing a formal patch.
+- Fix error output of boot instance creation failure
 
-diff --git a/mm/mlock.c b/mm/mlock.c
-index efa6716e4dfb..9ab8042671f1 100644
---- a/mm/mlock.c
-+++ b/mm/mlock.c
-@@ -141,11 +141,20 @@ static struct lruvec *__munlock_folio(struct folio *folio, struct lruvec *lruvec
- 
- munlock:
- 	if (folio_test_clear_mlocked(folio)) {
--		__zone_stat_mod_folio(folio, NR_MLOCK, -nr_pages);
-+		enum vm_event_item item;
+  Currently if a boot instance creation fails, instead of printing out the
+  name of the instance that failed, it prints "(null)". That is because it
+  prints "cur_str" that had already been processed by strsep(). Print the
+  saved name instead.
+
+  While at it, print the error code of the failure.
+
+- Fix use-after-free for same named historgrams
+
+  Histograms can be named so that they can be used in multiple events. But
+  if the named histogram has a variable attached, the second event that uses
+  the named histogram which duplicates it and needs to free the original
+  after duplication leaves the old variable in place and still visible. If
+  another histogram uses than variable, it will use the stale one which will
+  try to reference the freed duplicate histogram and crash the kernel.
+
+  Free the duplicate variables along with the duplicated histogram data.
+
+- Check return value of kthread_run() in event self test
+
+  The events self tests uses a kthread for testing but does not check if it
+  succeeded in creating a kthread. If the kthread creation were to fail, the
+  code will still try to call kthread_stop() on the error returned.
+
+- Fix race between reading trace_pipe and updating subbuffer size
+
+  If a user is reading the trace_pipe file at the same time they update the
+  ring buffer sub-buffer size, can cause the trace_pipe read to read stale
+  data. Add trace_access_lock() around updating the ring buffer sub-buffer
+  size.
+
+- Fix eventfs_inode on failure path in creation of the events directory
+
+  In the creation of the "events" directory, if after allocating the
+  eventfs_inode a failure is detected, it calls cleanup_ei() which calls
+  free_ei(). The free_ei() will test if eventfs_inode being freed has no
+  children. It is a bug if it does. But on the failure case of the creation
+  of the "events" directory, the children lists have not yet been
+  initialized and the free will trigger a warning because list_empty() on an
+  uninitialized list returns false.
+
+  Move the initialization into init_ei() where it makes more sense and makes
+  sure that a created eventfs_inode has its lists initialized upon creation.
+
+- Check return value of kthread_run() in ftrace direct sample code
+
+  The sample code that shows how to use the ftrace direct calls does not
+  test the return of kthread_run() to see if it succeeds. Return a failure
+  if the kthread_run() doesn't succeed.
+
+- Clear user events state on fork in case of alloc failure
+
+  On fork, the child gets a pointer to the parent's user events state. It
+  makes a copy of it then updates the child's pointer to it. But if the
+  allocation fails, the duplication function leaves the child with a pointer
+  to its parent's descriptor. When the child cleans up its data, it will fr=
+ee
+  the parent's descriptor while the parent is still using it.
+
+  In the duplication function, set the child's user_event_mm to NULL before
+  testing if the allocation succeeded, and when it exits it will not free
+  the parent's descriptor.
+
+- Fix retry exhaustion in simple ring buffer reader swap
+
+  simple_ring_buffer_swap_reader_page() starts with retry set to 8 and
+  post-decrements it only after a failed link replacement. On the final
+  attempt, a successful replacement leaves retry at zero, while a failed
+  replacement leaves it at -1.
+
+  But the check for success expects the retry value to be non-zero and exits
+  with an error on zero. This is the opposite result. Fix it.
+
+- Fail nicely when the remote swap_reader_page() returns an error
+
+  Currently, if the swap_reader_page() of a remote buffer fails, it triggers
+  a WARN_ON_ONCE() and continues normally. Instead, have it exit with an
+  error and a pr_warn() print instead of a full WARNING.
+
+
+Please pull the latest trace-v7.3-2 tree, which can be found at:
+
+
+  git://git.kernel.org/pub/scm/linux/kernel/git/trace/linux-trace.git
+trace-v7.3-2
+
+Tag SHA1: dc1be90a7091efc5769819e7f333d2f1fe08a1a1
+Head SHA1: 5eab74874d11160725c42ab676ba97a797a362eb
+
+
+Deepanshu Kartikey (2):
+      tracing: Fix use-after-free in trace_pipe read on sub-buffer order ch=
+ange
+      eventfs: Initialize ei->children and ei->list in init_ei()
+
+Haotian Zhang (2):
+      samples/ftrace: Fix kthread_stop() on ERR_PTR in ftrace-direct-modify
+      samples/ftrace: Fix kthread_stop() on ERR_PTR in ftrace-direct-multi-=
+modify
+
+Hui Su (2):
+      tracing: Fix use-after-free with same-name named triggers
+      tracing: Fix crash passing ERR_PTR to kthread_stop()
+
+Ivan Immanuel Shaji (2):
+      tracing: Fix retry exhaustion in simple ring buffer reader swap
+      ring-buffer: Stop remote reader update when page swap fails
+
+J=C3=A9r=C3=A9my Jean (1):
+      tracing/user_events: Clear copied tracing state before fork duplicati=
+on
+
+Vincent Donnefort (1):
+      tracing: Fix logged instance name on creation failure
+
+----
+ fs/tracefs/event_inode.c                    |  7 ++-----
+ kernel/trace/ring_buffer.c                  |  7 +++++--
+ kernel/trace/simple_ring_buffer.c           |  4 ++--
+ kernel/trace/trace.c                        |  6 +++++-
+ kernel/trace/trace_events.c                 |  2 ++
+ kernel/trace/trace_events_hist.c            |  4 +++-
+ kernel/trace/trace_events_user.c            |  3 +++
+ samples/ftrace/ftrace-direct-modify.c       | 12 +++++++++---
+ samples/ftrace/ftrace-direct-multi-modify.c | 12 +++++++++---
+ 9 files changed, 40 insertions(+), 17 deletions(-)
+---------------------------
+diff --git a/fs/tracefs/event_inode.c b/fs/tracefs/event_inode.c
+index 604ba3e841d2..6e3513b13cfa 100644
+--- a/fs/tracefs/event_inode.c
++++ b/fs/tracefs/event_inode.c
+@@ -438,6 +438,8 @@ static inline struct eventfs_inode *init_ei(struct even=
+tfs_inode *ei, const char
+ 	if (!ei->name)
+ 		return NULL;
+ 	kref_init(&ei->kref);
++	INIT_LIST_HEAD(&ei->children);
++	INIT_LIST_HEAD(&ei->list);
+ 	return ei;
+ }
+=20
+@@ -729,8 +731,6 @@ struct eventfs_inode *eventfs_create_dir(const char *na=
+me, struct eventfs_inode
+ 	ei->entries =3D entries;
+ 	ei->nr_entries =3D size;
+ 	ei->data =3D data;
+-	INIT_LIST_HEAD(&ei->children);
+-	INIT_LIST_HEAD(&ei->list);
+=20
+ 	scoped_guard(mutex, &eventfs_mutex) {
+ 		if (!parent->is_freed)
+@@ -802,9 +802,6 @@ struct eventfs_inode *eventfs_create_events_dir(const c=
+har *name, struct dentry
+ 	ei->attr.uid =3D uid;
+ 	ei->attr.gid =3D gid;
+=20
+-	INIT_LIST_HEAD(&ei->children);
+-	INIT_LIST_HEAD(&ei->list);
+-
+ 	ti =3D get_tracefs(inode);
+ 	ti->flags |=3D TRACEFS_EVENT_INODE;
+ 	ti->private =3D ei;
+diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
+index 5fc009edc1ec..b7d076b6edcf 100644
+--- a/kernel/trace/ring_buffer.c
++++ b/kernel/trace/ring_buffer.c
+@@ -5805,8 +5805,11 @@ __rb_get_reader_page_from_remote(struct ring_buffer_=
+per_cpu *cpu_buffer)
+=20
+ 	prev_reader =3D cpu_buffer->subbuf_ids[cpu_buffer->meta_page->reader.id];
+=20
+-	WARN_ON_ONCE(cpu_buffer->remote->swap_reader_page(cpu_buffer->cpu,
+-							  cpu_buffer->remote->priv));
++	if (cpu_buffer->remote->swap_reader_page(cpu_buffer->cpu,
++						 cpu_buffer->remote->priv)) {
++		pr_warn_ratelimited("Remote reader page swap failed\n");
++		return NULL;
++	}
+ 	/* nr_pages doesn't include the reader page */
+ 	if (WARN_ON_ONCE(cpu_buffer->meta_page->reader.id > cpu_buffer->nr_pages))
+ 		return NULL;
+diff --git a/kernel/trace/simple_ring_buffer.c b/kernel/trace/simple_ring_b=
+uffer.c
+index f4642f5adda3..49913bb0057a 100644
+--- a/kernel/trace/simple_ring_buffer.c
++++ b/kernel/trace/simple_ring_buffer.c
+@@ -160,8 +160,8 @@ int simple_ring_buffer_swap_reader_page(struct simple_r=
+b_per_cpu *cpu_buffer)
+ 		overrun =3D cpu_buffer->meta->overrun;
+ 	} while (!simple_bpage_unset_head_link(last, reader, SIMPLE_RB_LINK_NORMA=
+L) && retry--);
+=20
+-	if (!retry)
+-		return -EINVAL;
++	if (retry < 0)
++		return -EBUSY;
+=20
+ 	cpu_buffer->head_page =3D simple_bpage_from_link(reader->link.next);
+ 	cpu_buffer->head_page->link.prev =3D &reader->link;
+diff --git a/kernel/trace/trace.c b/kernel/trace/trace.c
+index 89dc1c0ebb90..60c87977f1e3 100644
+--- a/kernel/trace/trace.c
++++ b/kernel/trace/trace.c
+@@ -8214,6 +8214,8 @@ buffer_subbuf_size_write(struct file *filp, const cha=
+r __user *ubuf,
+ 	/* Do not allow tracing while changing the order of the ring buffer */
+ 	tracing_stop_tr(tr);
+=20
++	trace_access_lock(RING_BUFFER_ALL_CPUS);
 +
- 		if (isolated || !folio_test_unevictable(folio))
--			__count_vm_events(UNEVICTABLE_PGMUNLOCKED, nr_pages);
-+			item = UNEVICTABLE_PGMUNLOCKED;
- 		else
--			__count_vm_events(UNEVICTABLE_PGSTRANDED, nr_pages);
-+			item = UNEVICTABLE_PGSTRANDED;
-+
-+		if (isolated) {
-+			__zone_stat_mod_folio(folio, NR_MLOCK, -nr_pages);
-+			__count_vm_events(item, nr_pages);
-+		} else {
-+			zone_stat_mod_folio(folio, NR_MLOCK, -nr_pages);
-+			count_vm_events(item, nr_pages);
-+		}
+ 	old_order =3D ring_buffer_subbuf_order_get(tr->array_buffer.buffer);
+ 	if (old_order =3D=3D order)
+ 		goto out;
+@@ -8253,6 +8255,7 @@ buffer_subbuf_size_write(struct file *filp, const cha=
+r __user *ubuf,
+ #endif
+ 	(*ppos)++;
+  out:
++	trace_access_unlock(RING_BUFFER_ALL_CPUS);
+ 	if (ret)
+ 		cnt =3D ret;
+ 	tracing_start_tr(tr);
+@@ -9726,7 +9729,8 @@ __init static void enable_instances(void)
+=20
+ 		tr =3D trace_array_create_systems(name, NULL, addr, size);
+ 		if (IS_ERR(tr)) {
+-			pr_warn("Tracing: Failed to create instance buffer %s\n", curr_str);
++			pr_warn("Tracing: Failed to create instance buffer '%s' (%ld)\n", name,
++				PTR_ERR(tr));
+ 			continue;
+ 		}
+=20
+diff --git a/kernel/trace/trace_events.c b/kernel/trace/trace_events.c
+index 9f8f2d02276c..1d39eaf6a0f7 100644
+--- a/kernel/trace/trace_events.c
++++ b/kernel/trace/trace_events.c
+@@ -5019,6 +5019,8 @@ static __init void event_test_stuff(void)
+ 	struct task_struct *test_thread;
+=20
+ 	test_thread =3D kthread_run(event_test_thread, NULL, "test-events");
++	if (WARN_ON(IS_ERR(test_thread)))
++		return;
+ 	msleep(1);
+ 	kthread_stop(test_thread);
+ }
+diff --git a/kernel/trace/trace_events_hist.c b/kernel/trace/trace_events_h=
+ist.c
+index 893bd8b0e48a..963e0d6b61fd 100644
+--- a/kernel/trace/trace_events_hist.c
++++ b/kernel/trace/trace_events_hist.c
+@@ -6661,8 +6661,10 @@ static int hist_register_trigger(char *glob,
+ 		tracing_set_filter_buffering(file->tr, true);
  	}
- 
- 	/* folio_evictable() has to be checked *after* clearing Mlocked */
+=20
+-	if (named_data)
++	if (named_data) {
++		remove_hist_vars(hist_data);
+ 		destroy_hist_data(hist_data);
++	}
+  out:
+ 	return ret;
+ }
+diff --git a/kernel/trace/trace_events_user.c b/kernel/trace/trace_events_u=
+ser.c
+index 2bbc89d4a266..93cda2f6f269 100644
+--- a/kernel/trace/trace_events_user.c
++++ b/kernel/trace/trace_events_user.c
+@@ -868,6 +868,9 @@ void user_event_mm_dup(struct task_struct *t, struct us=
+er_event_mm *old_mm)
+ 	struct user_event_mm *mm =3D user_event_mm_alloc(t);
+ 	struct user_event_enabler *enabler;
+=20
++	/* On failure, do not free parent's copy */
++	t->user_event_mm =3D NULL;
++
+ 	if (!mm)
+ 		return;
+=20
+diff --git a/samples/ftrace/ftrace-direct-modify.c b/samples/ftrace/ftrace-=
+direct-modify.c
+index 1ba1927b548e..164d9dd6fd92 100644
+--- a/samples/ftrace/ftrace-direct-modify.c
++++ b/samples/ftrace/ftrace-direct-modify.c
+@@ -320,9 +320,15 @@ static int __init ftrace_direct_init(void)
+ 	ftrace_set_filter_ip(&direct, (unsigned long) my_ip, 0, 0);
+ 	ret =3D register_ftrace_direct(&direct, my_tramp);
+=20
+-	if (!ret)
+-		simple_tsk =3D kthread_run(simple_thread, NULL, "event-sample-fn");
+-	return ret;
++	if (ret)
++		return ret;
++	simple_tsk =3D kthread_run(simple_thread, NULL, "event-sample-fn");
++	if (IS_ERR(simple_tsk)) {
++		unregister_ftrace_direct(&direct, my_tramp, true);
++		return PTR_ERR(simple_tsk);
++	}
++
++	return 0;
+ }
+=20
+ static void __exit ftrace_direct_exit(void)
+diff --git a/samples/ftrace/ftrace-direct-multi-modify.c b/samples/ftrace/f=
+trace-direct-multi-modify.c
+index 7a7822dfeb50..b03766c6217b 100644
+--- a/samples/ftrace/ftrace-direct-multi-modify.c
++++ b/samples/ftrace/ftrace-direct-multi-modify.c
+@@ -364,9 +364,15 @@ static int __init ftrace_direct_multi_init(void)
+=20
+ 	ret =3D register_ftrace_direct(&direct, my_tramp);
+=20
+-	if (!ret)
+-		simple_tsk =3D kthread_run(simple_thread, NULL, "event-sample-fn");
+-	return ret;
++	if (ret)
++		return ret;
++	simple_tsk =3D kthread_run(simple_thread, NULL, "event-sample-fn");
++	if (IS_ERR(simple_tsk)) {
++		unregister_ftrace_direct(&direct, my_tramp, true);
++		return PTR_ERR(simple_tsk);
++	}
++
++	return 0;
+ }
+=20
+ static void __exit ftrace_direct_multi_exit(void)
