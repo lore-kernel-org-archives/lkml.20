@@ -1,43 +1,39 @@
-Received: from mail-10631.protonmail.ch (mail-10631.protonmail.ch [79.135.106.31])
+Received: from mail-10629.protonmail.ch (mail-10629.protonmail.ch [79.135.106.29])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C7083B38B4
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 15:15:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.31
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1D4F3BA237
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 15:16:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.29
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788102954; cv=none; b=oxwVXKMSHZUvpOOhgO2u2/1dhcw7RbwcZ/+AZFMWWTeEkRY7xDZJPSSH3Voo1I1+ueUBJuB6cjifzs1Xk81VsFBOZvoUMnTC2hZgISwzeFY3FLJ8sHBfBN5gLiKr9Tuj8WedpGU+sNcZkpJdCiX/7X7DnUwY7YmUe3+RlzpUiPs=
+	t=1788102969; cv=none; b=S1xHViUKqEryH+vSlCPmBRYzf4SY1z6iczp6GIWmsX23RB74NoUc9jhm7t+Sz7A9WIoOl7E7Q+QRkwv+GozQyR55lv20BqefBDwaaMo44RhUZuG3sTgB2+1nlE5S0IhWd8rkkVjoGHuSF1ZEhkgBBFSzVko+NKlVrG9Z6u9L+Mw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788102954; c=relaxed/simple;
-	bh=iZgjrGqnvOe5pgKwZsQS0+wbB/M9mLRAIsEhxtznrRs=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=O+PF0++wloXs00crC5jRKD+c+mGuH7pn82CDiigNv5Jshsy1g1o87MPSSF7pOe1dUjtqwixWXzQNHEcUwp0ngqqBqhdIMiyRmYJX9DJZ1Sz44tWTRndRZ9mDu1KtChNX0FpFC+rMHU4LW1SDZLcraK97GkEuQpI++cVJrjbNsKY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=itRhO6NT; arc=none smtp.client-ip=79.135.106.31
+	s=arc-20240116; t=1788102969; c=relaxed/simple;
+	bh=pZV5hrfKKHFiDRWMOh/2zNybjRfx4NEcdVEufL221fw=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=oyjJsKOZjkkkwnR69ETd38Hk1zNloGbxDUQA37wuqFqOaK8ssVD1fTtZnsTeK6c/g3X1qovOJVgZTSYc3ORM/BG5KICAx+hmwr2LyvwrMptjWLXo/5S8y5EEClKAEOBTYdbzdlYhscNPUGa5qNSExwV1+e5GYmm2sbZ7ql35YWY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=eDdd862M; arc=none smtp.client-ip=79.135.106.29
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="itRhO6NT"
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="eDdd862M"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1788102948; x=1788362148;
-	bh=QfDLdBTxpW4yJTto1iymVZAPtNCOLmuHYXz56aJF9po=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=itRhO6NTudB5PM7L+AESHmkpZdY2KhlSSiXqdhgCbkcV0Twezvw+1Qhx7j9FVMsbz
-	 aGdOva6Z7cPFUN42PqgFRrQdZoB37cxicBKwQ3+zapmsDh3Nf/uafzQQ9AdVCa6VD0
-	 b8rM/1oK3hClxJvFF00H+UCkoFUR5B0pTCblinl/lrfgAU0iwqKU+7Al1XcjPJUbN2
-	 qk16IZ7RiNRHBj7+5E1igeQ8oNW8A3fpEZbjFEBy9vVA15BhJhJmUx21pteawT5+J0
-	 v7ntJTlTt8VFgZynmS6uWDiQT9BFuByMBkwz96z5EWQCvmb7m/OCh920uIb9YPQJqH
-	 scxdzPK4JwCtg==
-Date: Sun, 30 Aug 2026 15:15:45 +0000
-To: Vinod Koul <vkoul@kernel.org>, Bard Liao <yung-chuan.liao@linux.intel.com>, Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>, Oder Chiou <oder_chiou@realtek.com>, Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+	s=protonmail3; t=1788102965; x=1788362165;
+	bh=Eg4sUp4vaOvNKyvP2sLV47ehNVyZFA3gOLqPonrsOh4=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=eDdd862MM8ApCOvY0RqeCNLYEhgVyu2rTzyvL4TirZMba1SdbTTbypuE0+afWp2AC
+	 DwqCYlYoWr7t/hhxjUmhBxSXTAI1lFaLYChOWf5wIdN/c3HUAsXEUbzGAFwWUrRimR
+	 bfBBLJpaOf2lZXZ/zP/2AK0R04v048D3NPGYsHptwGnfiZN21S9ecvXcR6RxSSPa1j
+	 psDs55PJsLOOnY8o0/AmWuLA+/5T0CDhtSDP5jsUr5Yr7u4PNxiifKPrb9S0ZsXwbH
+	 cDXnLYb5kjJlOHIaStx0XKH8FfzDnAQIth5/7UzL/hQN4siNBIWxM+TImXwoLVvHgc
+	 RKRHswvoTvlAA==
+Date: Sun, 30 Aug 2026 15:15:58 +0000
+To: "Vladimir V. Kondratyev" <vladimirkondratyev2@gmail.com>, Marcel Holtmann <marcel@holtmann.org>, Luiz Augusto von Dentz <luiz.dentz@gmail.com>
 From: Sergey Lebedev <lsa.uz@pm.me>
-Cc: Bard Liao <bard.liao@intel.com>, Amaan Lalani <zlzzm2014@outlook.com>, linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v3 2/2] soundwire: dmi-quirks: drop the ghost RT1320 on the Surface Pro 11 (Intel)
-Message-ID: <20260830151516.44629-3-lsa.uz@pm.me>
-In-Reply-To: <20260830151516.44629-1-lsa.uz@pm.me>
-References: <20260830151516.44629-1-lsa.uz@pm.me>
+Cc: Chandrashekar Devegowda <chandrashekar.devegowda@intel.com>, Kiran K <kiran.k@intel.com>, Tedd Ho-Jeong An <tedd.an@intel.com>, Paul Menzel <pmenzel@molgen.mpg.de>, Arnd Bergmann <arnd@arndb.de>, linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] Bluetooth: btintel_pcie: fix stale cache in set_dxstate fallback check
+Message-ID: <20260830151550.44687-1-lsa.uz@pm.me>
 Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: d09a73fc846615f0aa6b8870a18c2b6942338aee
+X-Pm-Message-ID: 8ffdbec19789efc7f8e6da190c92adcd4fbdc707
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -47,101 +43,87 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-The Microsoft Surface Pro 11 for Business (Intel, Lunar Lake) carries a
-single physical RT1320 amplifier on link 0 and describes it twice:
+Hi Vladimir, Marcel, Luiz,
 
-  SWRA  _ADR 0x000030025D132000   SDCA class 0
-  SWRB  _ADR 0x000030025D132001   SDCA class 1
+This patch is four months old and has had no reply other than the CI
+bot. It fixes a real failure. Here is a report from the field and a
+test of the patch itself.
 
-Identical apart from the class id: same link, same manufacturer, part and
-version, same unique id 0. The part reports class 1, so only SWRB
-enumerates. SWRA never attaches on any boot or firmware version tested,
-including the November 2025 bundle.
+Hardware: Microsoft Surface Pro 11 (Intel, Lunar Lake), Intel BE201,
+8086:a876 rev 10, firmware timestamp 2026.8 buildtype 1 build 113003,
+SHA1 0x08f159a0.
 
-The ghost is not harmless. It consumes an amplifier index in
-find_acpi_adr_device(), so the real part is named "rt1320-2" and the stock
-sof-soundwire UCM profile enables switches on a device that is not there.
-Its endpoints also reach create_sdw_dailink(), which builds DAI link names
-from link id and function type alone; the ghost declares the same SmartMic
-function as the real part, so the card fails to register at all:
+The failure, as it happened here on Ubuntu 7.0.0-28 before any
+workaround existed:
 
-  sysfs: cannot create duplicate filename
-    '.../sof_sdw/SDW0-Capture-SmartMic'
-  kobject_add_internal failed for SDW0-Capture-SmartMic with -EEXIST
-  sof_sdw sof_sdw: probe with driver sof_sdw failed with error -12
+  Bluetooth: hci0: Timeout (200 ms) on alive interrupt for D2 entry, retry =
+count 0
+  Bluetooth: hci0: Timeout (200 ms) on alive interrupt for D2 entry, retry =
+count 1
+  Bluetooth: hci0: Timeout (200 ms) on alive interrupt for D2 entry, retry =
+count 2
+  btintel_pcie 0000:00:14.7: PM: pci_pm_suspend(): btintel_pcie_suspend [bt=
+intel_pcie] returns -16
+  btintel_pcie 0000:00:14.7: PM: dpm_run_callback(): pci_pm_suspend returns=
+ -16
+  btintel_pcie 0000:00:14.7: PM: failed to suspend async: error -16
+  PM: Some devices failed to suspend, or early wake event detected
 
-Remap its _ADR to zero so sdw_acpi_find_slaves() never creates the
-peripheral, which is how ghost devices are handled already - see
-ghost_realtek and global_ghost_adr in this file. Both failures then
-disappear, because neither path is reached.
+One device returning -EBUSY aborts the whole system suspend, so the
+machine simply does not sleep. The workaround in use here since then
+unloads btintel_pcie from a systemd sleep hook.
 
-Matched on DMI_PRODUCT_SKU rather than the product name. A later batch of
-the same model could carry a different RT1320 version, which would change
-the _ADR; keying on the SKU keeps this remap to the hardware it was
-verified on, and follows dell_sku_0A3E above.
+On the frequency I have to be honest rather than useful: it failed on
+2 of the 3 suspends attempted before the workaround was installed, and
+this week, on 7.0.0-30 with the workaround disabled, it succeeded 7
+times out of 7 (3 of those with an LE scan running). Same firmware,
+and no btintel_pcie change between the two kernels. So I cannot give
+you a reproduction rate, and I am not going to invent one.
 
-Suggested-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>
-Suggested-by: Bard Liao <bard.liao@intel.com>
-Signed-off-by: Sergey Lebedev <lsa.uz@pm.me>
----
- drivers/soundwire/dmi-quirks.c | 28 ++++++++++++++++++++++++++++
- 1 file changed, 28 insertions(+)
+What I could do instead is exercise the exact path your patch touches,
+deterministically. Method, so it can be judged:
 
-diff --git a/drivers/soundwire/dmi-quirks.c b/drivers/soundwire/dmi-quirks.=
-c
-index d75037558..8b3c5c8d1 100644
---- a/drivers/soundwire/dmi-quirks.c
-+++ b/drivers/soundwire/dmi-quirks.c
-@@ -111,6 +111,25 @@ static const struct adr_remap ghost_realtek[] =3D {
- =09{}
- };
-=20
-+/*
-+ * The Microsoft Surface Pro 11 (Intel) describes its single physical RT13=
-20
-+ * amplifier twice on link 0, as two _ADR entries differing only in SDCA c=
-lass
-+ * id and sharing the same unique id. Only the class 1 entry enumerates; t=
-he
-+ * class 0 entry is a ghost.
-+ *
-+ * Matched on the product SKU rather than the product name: a later batch =
-of the
-+ * same model could carry a different RT1320 version, which would change t=
-he
-+ * _ADR. Keying on the SKU keeps this remap to the hardware it was verifie=
-d on.
-+ */
-+static const struct adr_remap microsoft_sp11_intel[] =3D {
-+=09/* ghost rt1320 on link0 */
-+=09{
-+=09=090x000030025d132000ull,
-+=09=090x0000000000000000ull
-+=09},
-+=09{}
-+};
-+
- static const struct dmi_system_id adr_remap_quirk_table[] =3D {
- =09/* TGL devices */
- =09{
-@@ -207,6 +226,15 @@ static const struct dmi_system_id adr_remap_quirk_tabl=
-e[] =3D {
- =09=09},
- =09=09.driver_data =3D (void *)ghost_realtek,
- =09},
-+=09/* LNL devices */
-+=09{
-+=09=09.matches =3D {
-+=09=09=09DMI_MATCH(DMI_SYS_VENDOR, "Microsoft Corporation"),
-+=09=09=09DMI_EXACT_MATCH(DMI_PRODUCT_SKU,
-+=09=09=09=09=09"Surface_Pro_11th_Edition_With_Intel_For_Business_2103")
-+=09=09},
-+=09=09.driver_data =3D (void *)microsoft_sp11_intel,
-+=09},
- =09{}
- };
-=20
---=20
-2.50.1 (Apple Git-155)
+  - built v7.0 drivers/bluetooth/btintel_pcie.c out of tree against the
+    running kernel's headers, unmodified apart from the debug knob
+    below, and confirmed it loads and works;
 
+  - added a debug-only module parameter that returns from
+    btintel_pcie_msix_gp0_handler() before the boot_stage_cache
+    refresh, and only while alive_intr_ctxt is BTINTEL_PCIE_D0. That
+    leaves boot_stage_cache stale and gp0_received false, which is
+    precisely the state a genuinely missed alive interrupt leaves
+    behind, while the controller itself still reaches D3.
+
+Without your patch, the emulated missed interrupt reproduces the
+production failure exactly:
+
+  Timeout (200 ms) on alive interrupt for D2 entry, retry count 0
+  Timeout (200 ms) on alive interrupt for D2 entry, retry count 1
+  Timeout (200 ms) on alive interrupt for D2 entry, retry count 2
+  btintel_pcie 0000:00:14.7: PM: failed to suspend async: error -16
+  PM: Some devices failed to suspend, or early wake event detected
+
+With your patch applied to that same build, and nothing else changed:
+
+  PM: suspend entry (s2idle)
+  Bluetooth: hci0: Timeout (200 ms) on alive interrupt for D2 entry, retry =
+count 0
+  PM: suspend exit
+
+One timeout, then the re-read observes D3, set_dxstate() returns 0, and
+the system suspends and resumes normally. That is the difference the
+two added lines make.
+
+The debug knob is a test fixture, not a proposal; I am happy to send it
+to anyone who wants to reproduce this.
+
+Worth noting that btintel_pcie_set_dxstate() is byte-identical in v7.0
+and v7.1-rc7, so this is current, not historical.
+
+Tested-by: Sergey Lebedev <lsa.uz@pm.me>
+
+I have the hardware and can re-test any revision of this patch.
+
+Thanks,
+Sergey
 
