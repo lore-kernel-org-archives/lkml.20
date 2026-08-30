@@ -1,125 +1,103 @@
-Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com [209.85.215.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5479B2459CF
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 09:27:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A65AF25C818
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 09:31:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788082044; cv=none; b=FWmi5bYc9qei88QmOf3kdry5xLXpCz5eKXPVZLdsw6IhIboJ69hufYcmMqy7twCGAPNh5qlj9TkBcxDI3Yck43W2ppIzrkS4U1xGFjh830FGqlJSz0hx/SqMtrq9mps8elSZEuOHu05UUaeNomairdT3U+3vVJVc77BQFFFQ5Eg=
+	t=1788082320; cv=none; b=n9nl1EIvUVS/XdcAngjAyQQkYVKpvDgJSWxnGJaPLu+FigrwjUvw0Uc2aQwyF1YpyUuuHIV7xQUt3+6N74fx/iDJ6e2sdjjoGpREo7rn/S5wG8q9AhENW8ypDlTLkhSe7zh8SMoh+JaBNb0a4yQWoDlceJre/VN+wSV649BeJTM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788082044; c=relaxed/simple;
-	bh=hatNoNGA+YXnGlMiiRKGzTz5dNJ8bwEIiS0xjj5GM4A=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=lgnvmSeLix4VK4bwDVbfjEPmjwTzuBITqXx7RsbwdkYhGHGSBicRbcyE6c24DR+ZQ9IV9gKuvwhhXiFkrSZ97onSqzGcuqQ0BUBdiirvzIf2e/FbEumh0xDt3Tfi3gEKee4LBOgzx0DewoHyzCURWEmWelj0068gufM9GCvinTc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VHDDJO7T; arc=none smtp.client-ip=209.85.215.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788082320; c=relaxed/simple;
+	bh=IJcwjYHj17joDlAXtYdSP6DsUc3ZUsKn5ItYemxd9U8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=CYidVrh+vjHSRpKQJVcmnpFgdyTdUGkb+c2gePvnIV5udqF5/Y6eyHIcdytJ2Dr/iTePXy7dyqzqESdyPvHgnhP6N17tdCn/PiKgxVCiQMutSZprzAHZzE0BAyOW4TVyfkvuLGtY5TSt2gExevxiWMVtpcZ4ekYK3AoYsaw9F58=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fCCv+HHW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VHDDJO7T"
-Received: by mail-pg1-f176.google.com with SMTP id 41be03b00d2f7-cc1c73645a1so1881404a12.1
-        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 02:27:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788082042; x=1788686842; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4mD5bCpSQ2dBdYny3erqq3V+bcIJgzXOhiWs/uhQvjc=;
-        b=VHDDJO7TpbcP9nh3eF8Ip2ARgkSrcHqwLG65ExCKV87GsIvtQ028LNg88d/2DGPjfj
-         nu5TzrjaS0xolRthtgv1NFQ9tHoEBPdtR/0sQWXOjfEcPM07JT2ne2fmRr6bh99+IDb6
-         L4S6jccoYmJ4/rP/ers+ZmTcx8bRodmS7bgIyXvCoJSYyjuCvytFzPlbk3DPY9R05V2c
-         km6TgVxWoIScpfExbnvpHLoNnEmqnbQ1vJC+FWAn/ai6qvVusRopzKK5fxtqmAdBoWbc
-         VIkVovcgwZPge5kKLz/G9T2E8j+X8FOOhCkAPIJFNunafbmarpOycNtFdBR4+uL1EpOv
-         7BtQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788082042; x=1788686842;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4mD5bCpSQ2dBdYny3erqq3V+bcIJgzXOhiWs/uhQvjc=;
-        b=HCXdnMK1BZXnYQzGHaPDcY2qOKi44IfiE28j5MrnvTEwxDRGytBIES7PZhRMwTcCG9
-         njmFYhtfZtT7GnCoTd8gPY19UTXzmL4fpU1d+jowpDFe9zXJIx/W6f0z49hfsQyouig5
-         axcbPr/586zG7CpPiW+GS0qQ7gRIC5f2Bv1N05hvPtlUuuVVNRZfVQnbEIBHANRaEdYC
-         iODVMnxmwvTOGyH0F9nNdNeXgNAsYT5KtChcSMWyW2dQmyBAkNJURKYAq31hiWxh5frG
-         o9X6uOSYG3kBdWbWOVGCc8xsSS+NxqWE7WC6Mt/hyQAIzgHmR2kpETHzhSbibcYnV6rM
-         xCxg==
-X-Forwarded-Encrypted: i=1; AHgh+Rr6UJaqJvPI3fr+d7XfCqO4mgX6Zte/taKUVJWIWGAdvaUWdfO/G9otqla6cJnR4h1bAIID71EB12zGtGw=@vger.kernel.org
-X-Gm-Message-State: AFuF++kjBnvrFUBpzKLSXUe1b+PJfYsW5zkYHF/VGyLmfm8AHrNVGZ+p
-	+bUbdrcaLKaYX/ZsqDdim70DrRfJseTfDjzgCtPTPSAOD/r+Js/IX0cr
-X-Gm-Gg: AR+sD11VUQ4WIH3G5m1eCxI7LdJLm2uX/LVLfDacyvBAskJlW1j2H6LRuobdVe1K9My
-	PVIUT1TCACSA1EUNU93fYo8Lja6H+6doX5SseI1BKa1k/AvkUHZI4n5u//M9c5RP7f4xDge7sLz
-	1TU7dw7n45nmqPuC9rJYOBiSFgEXgRWLxdFRm0ZR3XeCIwrxuW1M3Gt7S4GpfJGDseIUf5w71w2
-	RIxiEO2srLk84zVoDa3i0HiBh0772VPTPNK8fiw5VBm5A/1Q2JdgJB9I9+AqAWh9l6UTL2s4wjA
-	A3n5yyod0tJeBBoC6NzFulEx8LY/yD6OZ1s/9c3OBFD5GRrGEsakV9p7NTA6xut1zuOyo6ql6t9
-	EINkUOEJQdaHML3KN0yxfGzwqjl9f8x/WvzLOqyR4ZIuGOGVhAgj5ZnAUUY4zY5Fvb78SVmFGl2
-	MlJWIzFcEnWCuAVpib+8opvcEKCmsgBzv3xMU4IVO7zljnC36rXg0MwF4hPiR6+1JlAb1sdjrQV
-	UVBO703zQL5ZNpgp+qIFAJXTlR3CVTO1IRQkulg6fI22/EBqdXbfg==
-X-Received: by 2002:a05:6a21:3947:b0:3cc:9288:99aa with SMTP id adf61e73a8af0-3d26329db5amr33871221637.0.1788082042513;
-        Sun, 30 Aug 2026 02:27:22 -0700 (PDT)
-Received: from deepanshu-Legion-Pro-5-16AFR10.. ([2405:201:682f:383f:35a3:71a0:a824:96db])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc1f3312270sm2512628a12.11.2026.08.30.02.27.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 30 Aug 2026 02:27:21 -0700 (PDT)
-From: Deepanshu Kartikey <kartikey406@gmail.com>
-To: hverkuil@kernel.org,
-	mchehab@kernel.org
-Cc: enelsonmoore@gmail.com,
-	sakari.ailus@linux.intel.com,
-	johan@kernel.org,
-	hansg@kernel.org,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Deepanshu Kartikey <kartikey406@gmail.com>,
-	syzbot+537b5eb78cebbff5ea70@syzkaller.appspotmail.com
-Subject: [PATCH] media: gspca: don't call stopN/stop0 after device disconnect
-Date: Sun, 30 Aug 2026 14:57:12 +0530
-Message-ID: <20260830092712.19452-1-kartikey406@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fCCv+HHW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 479C21F000E9
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 09:31:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788082319;
+	bh=nvYs9KqQQiDFu9j18mNGTYlbSQTfBbCYWUQ8jg0y0r4=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=fCCv+HHWayBekTpcF1F3IRCa/NlTMeI0SHFmDk3sJXRVzb5NYiI4k+PAr1AcvyU6Q
+	 3YAt1YQIi1PVpovVNd5xSEfN6Hs3lLmAnILDBFG5GfLK7l/7AH5vEjydVEs9gN3H31
+	 inOHTmiBDKTyLT3qhRXAt5kJNuny/gM6XkeiTagk8BjJdhm9tnLLBxD113isvnQKnr
+	 lJmAWlzKCyuw2jt93bpkuOqmOV3rk3qfIzegw6Vc6J3/XmJ4m856w8qfFeuCWX5a7i
+	 M1gX0nk57QVgeyHMTgrl45j5cgRXvMxYPyGVxp9DNHb+JnWzBuBHppIvWBNsfYGxFa
+	 BNw2amaBlp1yg==
+Received: by mail-qk1-f171.google.com with SMTP id af79cd13be357-92e55b62640so132553785a.0
+        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 02:31:59 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RphVtZnmOIdwyOrBbQy17vcfMsyuXFLPuG/6MkBL8AGIZhvZGQMtutMql8osv+0HBRf+kSemkdTj3HL9hU=@vger.kernel.org
+X-Gm-Message-State: AFuF++mcYg6C7X0upcbDsAEfLnrdZ6ocg1CFMq7qt3R21bSjWgUMk5Ji
+	/oCes3T3GPsA+PfZVj+ivTWfh3uuk4Rk1DSDuAWE65mOwCCwY9ocg5ZSHLKaMObmn80wGER2gbJ
+	eEp9g0+IL7Ee6IEjcl9GsycgP8MKZmow=
+X-Received: by 2002:a05:620a:f04:b0:92e:6a33:7118 with SMTP id
+ af79cd13be357-939138df202mr1911249285a.30.1788082318676; Sun, 30 Aug 2026
+ 02:31:58 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260820142956.1414337-1-qiwenjie@xiaomi.com> <3fa43eaca792bc0bbde4b82a6c1fcdd3f528b398.1787999152.git.qiwenjie@xiaomi.com>
+ <4aba05e1a2c3b61cb337d373eb9b7a8db4ddd822.1788024049.git.qiwenjie@xiaomi.com>
+ <20260829111621.41ed2bc9a0e99e3367eb96c3@linux-foundation.org>
+ <ef160933595c365f2c47597b260bc7ecd98ed7ce.1788029516.git.qiwenjie@xiaomi.com>
+ <CAGsJ_4wpUBOXKd8aGNz76U+87bwDUXZZFSW2UhNcq4qpjVvggQ@mail.gmail.com> <20260830165401.1788080041-1-qwjhust@gmail.com>
+In-Reply-To: <20260830165401.1788080041-1-qwjhust@gmail.com>
+From: Barry Song <baohua@kernel.org>
+Date: Sun, 30 Aug 2026 17:31:46 +0800
+X-Gmail-Original-Message-ID: <CAGsJ_4zGN9rqqxoFU66G_PbXqTiDaeV_tUiyr8vbfxFWEJg62Q@mail.gmail.com>
+X-Gm-Features: AcwNN1XZPfiog3RD9yg8B0eXNaoAai7OPxYRVCjEpqabBekjMlLKWknwxqjTMg0
+Message-ID: <CAGsJ_4zGN9rqqxoFU66G_PbXqTiDaeV_tUiyr8vbfxFWEJg62Q@mail.gmail.com>
+Subject: Re: [PATCH v4] mm: filemap: retain mapped dropbehind folios
+To: Wenjie Qi <qwjhust@gmail.com>
+Cc: willy@infradead.org, jack@suse.cz, akpm@linux-foundation.org, 
+	linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org, axboe@kernel.dk, 
+	trond.myklebust@hammerspace.com, tz2294@columbia.edu, jaegeuk@kernel.org, 
+	chao@kernel.org, qiwenjie@xiaomi.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-gspca_stream_off() calls the sub-driver's stopN() and stop0()
-callbacks unconditionally. These issue USB requests using
-gspca_dev->dev, which becomes a dangling pointer once the USB device
-has been disconnected and freed, causing a use-after-free when the
-video device fd is closed after disconnect.
+On Sun, Aug 30, 2026 at 5:13=E2=80=AFPM Wenjie Qi <qwjhust@gmail.com> wrote=
+:
+>
+> Yes.  The current path removes the folio from the page cache, so a later
+> mmap access can incur both another fault and I/O.  I should have stated
+> that explicitly.
+>
+> For fault-around neighbors, folio_mapped() cannot distinguish the faultin=
+g
+> page from a speculative neighbor.  This patch takes the conservative poli=
+cy
+> that an installed PTE represents a competing cache user and wins over the
+> writer's RWF_DONTCACHE hint.  It can therefore retain a speculative neigh=
+bor
+> which is never accessed.  Distinguishing those cases seems to require
+> fault-around to preserve the faulting folio while not mapping, or later
+> dropping, dropbehind neighbors.  I think that should be considered as a
+> separate follow-up.
 
-Add a gspca_dev->present check before calling stopN() and stop0(),
-matching the existing check already used for gspca_input_create_urb()
-in the same function.
+Yes. Maybe we can skip mapping neighbors with the dropbehind flag in
+fault-around.
 
-Fixes: 1f5965c4dfd7 ("media: gspca: convert to vb2")
-Reported-by: syzbot+537b5eb78cebbff5ea70@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=537b5eb78cebbff5ea70
-Tested-by: syzbot+537b5eb78cebbff5ea70@syzkaller.appspotmail.com
-Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
----
- drivers/media/usb/gspca/gspca.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> For folio_launder(), filemap_end_dropbehind() holds the folio lock and re=
+turns
+> if the folio is dirty or under writeback before calling
+> folio_unmap_invalidate().  folio_launder() also immediately returns for a
+> clean folio.  I do not see how nfs_launder_folio() is reached from this
+> completion path unless the locked, unmapped folio can become dirty betwee=
+n
+> those checks.  Is there a path I am missing?
 
-diff --git a/drivers/media/usb/gspca/gspca.c b/drivers/media/usb/gspca/gspca.c
-index 594d73e50b9f..5c33cf397f3d 100644
---- a/drivers/media/usb/gspca/gspca.c
-+++ b/drivers/media/usb/gspca/gspca.c
-@@ -733,14 +733,14 @@ static void gspca_stream_off(struct gspca_dev *gspca_dev)
- {
- 	gspca_dev->streaming = false;
- 	gspca_dev->usb_err = 0;
--	if (gspca_dev->sd_desc->stopN)
-+	if (gspca_dev->present && gspca_dev->sd_desc->stopN)
- 		gspca_dev->sd_desc->stopN(gspca_dev);
- 	destroy_urbs(gspca_dev);
- 	gspca_input_destroy_urb(gspca_dev);
- 	gspca_set_alt0(gspca_dev);
- 	if (gspca_dev->present)
- 		gspca_input_create_urb(gspca_dev);
--	if (gspca_dev->sd_desc->stop0)
-+	if (gspca_dev->present && gspca_dev->sd_desc->stop0)
- 		gspca_dev->sd_desc->stop0(gspca_dev);
- 	gspca_dbg(gspca_dev, D_STREAM, "stream off OK\n");
- }
--- 
-2.43.0
+You are probably right. I was referring to the bit wait in
+nfs_launder_folio(), though I'm not quite sure whether this can
+actually happen:
+folio_wait_private_2(folio); /* [DEPRECATED] */
 
+I assume we won't wait for `private_2` while the folio is clean. If so,
+it should be fine.
