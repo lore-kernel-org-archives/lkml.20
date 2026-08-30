@@ -1,113 +1,149 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B1103B27D5;
-	Sun, 30 Aug 2026 12:32:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C75F2DF156;
+	Sun, 30 Aug 2026 12:33:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788093130; cv=none; b=i0MmA+1uKsCkGl5UWvZGvFMDCnPSomuSCnbW1QrM7DwpvKsexMwox9aabRdcjzGC9HyR/3XZ3QZjIJFXKdMFJwf0759s/y7dRP1Qx6e1KKEbLD2FSu3n5WIE1dOor73kmupd2wrDR1XA9UcLfV8GoZebP+pbV9uqf95eFLCVMXg=
+	t=1788093217; cv=none; b=CocFVp/rGXsGNamV/JxP5p6AIsvpYThzBELuzIX4ODizRTESUj4upNKN+TgYEbAKB8A/s5bFA6ANtUdBjdgyuANuJ7Vl/K+FhwcQ0ZEm3hPost971i06Ffr0XODApxuuIh7ALFc1k+uJkS8mX0kZX6guireQZ7mG+IIu1cA6W5M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788093130; c=relaxed/simple;
-	bh=9X8cSbd2RK5O+XQYVHGEEKoG3nnAz/8Dc6No6o4JIms=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=A7qahNbjLRBmS0NVLor3WJVNiaJUaDb7rOVCt4h6nuhoMyA2+sOkdqjacQe5CiE5hTt35fEIk6n7eNP9+5+7v5doo9MKs9KuONEwsFEXLmMoL98BDl4qRRvX+qtx1x/bXVMVAm/ixEGuwqpdSK1BoKKQi76KRLkgeuY/qFTdm+Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c5l1n6Hv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788093217; c=relaxed/simple;
+	bh=DbS4K0kZj80XZmqjo44t/Qjn+1io5xEwIT9YkDGH9+Y=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=BnTUjK6LEcc1AScYgxYk4X9DhAnBl5cbrHPrK9nK021a427xmb4PYY6RC1qTRu9Rvfi9+SJZ0I0YGqEvn6XZxjx2HZwW2OXpL7PYQgNtdX75fJxSYx744q7DrqCanSxG8lVTRtQa9J9wcXFAvH9MVkot955T+f4xLmnM8snd0L4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hlK1wUhc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c5l1n6Hv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C8EC1F00A3D;
-	Sun, 30 Aug 2026 12:32:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hlK1wUhc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD1221F000E9;
+	Sun, 30 Aug 2026 12:33:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788093129;
-	bh=RJCuZGSUvPJzHcbaWQPIPczOFaB/IqmH+bcUMXp3qcw=;
-	h=From:To:Cc:Subject:Date;
-	b=c5l1n6HvFsKAm+es+LT/Sp0OuF+wMkeLphXmtcLdrKuGD9n4eCwwg/CCFrnk2CiC7
-	 +UX4roDbEf413wvhu/6pdxWB0+jbqYafwQXHBmO0iQ+jACzCVIPUgaJIo9r7IbHN3x
-	 VCQsrZdbbO44MuehW6kVIN1jIryskahixHBVBqNyeObDcluElWrnnT76qeuhLyt5Tp
-	 yoqnG2IDIDYQzX8qjP4XXg23egbHg7q1+UBq6Q34lfHy3PmuzRtjxi+cbqa/8S7qvk
-	 lS1isaZXlpSxS24V5JO4bs4IkwvtS7CxWfFLOlyYxWN9m/aC5t6H9Ee9JWliAqySst
-	 k1r1XqEzE2BWw==
-From: Leon Romanovsky <leon@kernel.org>
-To: Bjorn Helgaas <bhelgaas@google.com>,
-	Logan Gunthorpe <logang@deltatee.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	=?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
-	Leon Romanovsky <leon@kernel.org>
-Cc: linux-pci@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] PCI/P2PDMA: Update DMABUF lifecycle docs after move_notify() rename
-Date: Sun, 30 Aug 2026 15:31:49 +0300
-Message-ID: <20260830-doc-p2p-move-v1-1-61a388620588@nvidia.com>
-X-Mailer: git-send-email 2.55.0
+	s=k20260515; t=1788093216;
+	bh=4r6vDlF4GeRZu+YbnR/Ofgz9TBi/72A0IMpB00yGr6k=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=hlK1wUhcEZFVy1sf2jHxjutcO4rR3Lp9F0A4JZNm7rR3cz1uJokSofUA1uejeGazq
+	 549fQcZY5nOWLyuMplQBZOr6hUZRVxeUBq34TVUBY1GiwBjdUdKxJ5gQxkugHrZUN9
+	 8lFQ2eZ0cUzi0NEj2rLABip/BhoJRsPM+ps3u6Direa/KRed9ir1iFOOrR7J7qrT9W
+	 kKOnlxGpkSOWRkS/YzYaKbjh1XD2MFvd9jJunKPuvPUyazmIgRTMPXioMikRMrs+Kw
+	 ruuf4VeXGZkMaQAtp+/IP0X1H9CXjT4xL5ZkqnELhgoOqLoxXyEep5+heJn5f+o5Q1
+	 Cx9XdlpNnjfnA==
+Message-ID: <75a42495-d6d0-4ff2-ae05-a0a1bbc30261@kernel.org>
+Date: Sun, 30 Aug 2026 14:33:32 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-X-Change-ID: 20260830-doc-p2p-move-05aad5de1ec1
-X-Mailer: b4 0.15-dev-18f8f
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: int3472: unhandled GPIO type 0x08 leaves the rear camera dead
+ (Surface Pro 11, Intel)
+To: Sergey Lebedev <lsa.uz@pm.me>, Daniel Scally
+ <dan.scally@ideasonboard.com>, Sakari Ailus <sakari.ailus@linux.intel.com>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: platform-driver-x86@vger.kernel.org, linux-media@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260830112736.85573-1-lsa.uz@pm.me>
+From: Hans de Goede <hansg@kernel.org>
+Content-Language: en-US, nl
+In-Reply-To: <20260830112736.85573-1-lsa.uz@pm.me>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Leon Romanovsky <leonro@nvidia.com>=0D
-=0D
-Commit 95308225e5ba ("dma-buf: Rename dma_buf_move_notify() to=0D
-dma_buf_invalidate_mappings()") left the DMABUF section of the P2PDMA=0D
-documentation pointing at move_notify(), a symbol that no longer=0D
-exists. Readers grepping for it find nothing, and this is the only=0D
-place in Documentation/ describing the revocation requirement.=0D
-=0D
-Name the current function and record that importers which cannot unmap=0D
-within bounded time have to be rejected at attach time, which is what=0D
-makes the synchronous unmap on remove() achievable.=0D
-=0D
-Fixes: 95308225e5ba ("dma-buf: Rename dma_buf_move_notify() to dma_buf_inva=
-lidate_mappings()")=0D
-Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>=0D
-Reviewed-by: Logan Gunthorpe <logang@deltatee.com>=0D
-Signed-off-by: Leon Romanovsky <leonro@nvidia.com>=0D
----=0D
- * Split from https://lore.kernel.org/all/20260825-document-dma-buf-v1-0-5e=
-cfb3e1371c@nvidia.com=0D
----=0D
- Documentation/driver-api/pci/p2pdma.rst | 6 ++++--=0D
- 1 file changed, 4 insertions(+), 2 deletions(-)=0D
-=0D
-diff --git a/Documentation/driver-api/pci/p2pdma.rst b/Documentation/driver=
--api/pci/p2pdma.rst=0D
-index d3f406cca694..63cff9e4d2c9 100644=0D
---- a/Documentation/driver-api/pci/p2pdma.rst=0D
-+++ b/Documentation/driver-api/pci/p2pdma.rst=0D
-@@ -167,9 +167,11 @@ In this case the initiator and target pci_devices are =
-known and the P2P subsyste=0D
- is used to determine the mapping type. The phys_addr_t-based DMA API is us=
-ed to=0D
- establish the dma_addr_t.=0D
- =0D
--Lifecycle is controlled by DMABUF move_notify(). When the exporting driver=
- wants=0D
-+Lifecycle is controlled by DMABUF revocation. When the exporting driver wa=
-nts=0D
- to remove() it must deliver an invalidation shutdown to all DMABUF importi=
-ng=0D
--drivers through move_notify() and synchronously DMA unmap all the MMIO.=0D
-+drivers through dma_buf_invalidate_mappings() and synchronously DMA unmap =
-all=0D
-+the MMIO. Importers unable to complete that unmap within bounded time have=
- to=0D
-+be rejected when they attach, which dma_buf_attach_revocable() checks for.=
-=0D
- =0D
- No importing driver can continue to have a DMA map to the MMIO after the=0D
- exporting driver has destroyed its p2p_provider.=0D
-=0D
----=0D
-base-commit: 08dbfad3f5040f5bdb6c529da20d6d4e81fefd72=0D
-change-id: 20260830-doc-p2p-move-05aad5de1ec1=0D
-=0D
-Best regards,=0D
---  =0D
-Leon Romanovsky <leonro@nvidia.com>=0D
-=0D
+Hi,
+
+On 30-Aug-26 13:27, Sergey Lebedev wrote:
+> Hello,
+> 
+> On a Microsoft Surface Pro 11 for Business (Intel, Lunar Lake) the rear
+> camera does not work, and it traces to a single unhandled GPIO type in
+> int3472-discrete.
+> 
+>   int3472-discrete INT3472:00: GPIO type 0x08 unknown;
+>     the sensor may not work
+>   ov13858 i2c-OVTID858:00: failed to find sensor: -5
+>   ov13858 i2c-OVTID858:00: probe with driver ov13858 failed with error -5
+
+There already is a patch which should fix this on the list:
+
+https://lore.kernel.org/platform-driver-x86/20260829-sp7plus-int3472-v3-1-454b50485ce2@berg.pm/
+
+Regards,
+
+Hans
+
+
+
+> 
+> The result is 32 /dev/video* nodes and a media graph with zero entities.
+> The IPU7 itself is healthy - firmware loads, CSE authenticates, the device
+> reaches secure mode - so the failure is entirely on the sensor-power side.
+> 
+> Reproduced on 6.17, 7.0.0-28 and 7.0.0-30 (Ubuntu 26.04), and the switch
+> in drivers/platform/x86/intel/int3472/discrete.c still has no case for
+> 0x08 in 7.1.0-rc7, so I do not believe this is already fixed.
+> 
+> What the firmware describes
+> ---------------------------
+> 
+> The DSDT declares three INT3472 devices. Decoding their _DSM returns with
+> the driver's own field layout (type = bits 7:0, pin = bits 15:8):
+> 
+>   Device (ICL0)  -> INT3472:00, the rear sensor (OVTID858 / ov13858)
+>     0x1000070B   type 0x0b POWER_ENABLE   pin  7
+>     0x10000500   type 0x00 RESET          pin  5
+>     0x1000060D   type 0x0d PRIVACY_LED    pin  6
+>     0x10000408   type 0x08 <unknown>      pin  4    <- refused
+> 
+>   Device (ICL1)
+>     0x1000200B   type 0x0b POWER_ENABLE   pin 32
+>     0x10000810   type 0x10 DOVDD          pin  8
+>     0x10000900   type 0x00 RESET          pin  9
+>     0x10000A0D   type 0x0d PRIVACY_LED    pin 10
+> 
+>   Device (ICL2)
+>     0x1000170B   type 0x0b POWER_ENABLE   pin 23
+>     0x10001600   type 0x00 RESET          pin 22
+>     0x1000250D   type 0x0d PRIVACY_LED    pin 37
+> 
+> ICL0 is the only one of the three that declares a fourth GPIO, it is the
+> only one carrying type 0x08, and it is the one whose sensor fails. I would
+> not claim that proves causation - the driver returns 1 for the unknown
+> type and carries on, so POWER_ENABLE, RESET and PRIVACY_LED are all still
+> registered - but it is the only resource the kernel declines on this
+> machine, and the sensor then does not answer on I2C.
+> 
+> The question
+> ------------
+> 
+> What is type 0x08 meant to be, and should discrete.c handle it? If it is
+> another regulator - the shape of ICL1's DOVDD entry suggests the encoding
+> supports several - then adding it may be all this machine needs. If it is
+> something else, I am happy to be told what and to test whatever you would
+> like tried.
+> 
+> I have not sent a patch because I would only be guessing at the semantics,
+> and guessing wrong here means silently powering a sensor rail for the wrong
+> reason.
+> 
+> What I can provide
+> ------------------
+> 
+>   - full acpidump / disassembled DSDT for this machine
+>   - any debug patch or instrumented build you would like run; the machine
+>     is available and I can rebuild and boot kernels on it
+>   - dmesg at any log level
+> 
+> Two adjacent facts, in case they matter, though I am not asking for
+> anything about them here: the front (SONY0681) and IR (SMO55F0) sensors
+> have no in-tree driver bound at all, and intel_ipu7_isys still announces
+> itself as a staging module.
+> 
+>   Machine: Microsoft Surface Pro 11 for Business (Intel Core Ultra 7 268V)
+>   DMI SKU: Surface_Pro_11th_Edition_With_Intel_For_Business_2103
+>   Firmware: UEFI 17.100.143 (2025-11-19)
+>   Kernel:   7.0.0-30-generic, Ubuntu 26.04.1 LTS
+> 
+> Thanks,
+> Sergey Lebedev
+> 
+
