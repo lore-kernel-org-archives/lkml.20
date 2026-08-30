@@ -1,68 +1,68 @@
-Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
+Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com [209.85.215.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E915324B33
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 20:52:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 041D070808
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 20:52:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788123181; cv=none; b=J+w2bOYoni/Dy6FIun+OcPHWR0cVteQ87iTySNbwT5bnjSujVIQ0WhQuzxl4JteAo92LZqEBvgX+hFvk6yBV7RW40vl6iBLWm7r8Ml2jOT1eKgochsQRmV9eTogeC2xTo47ha+jOUtwM+p2Xi2EdrCM6ZCCdBpp2EXP8oy/iza4=
+	t=1788123179; cv=none; b=sP5xrsoZLVY8rIaQf/vDSysdkHxLRfsyHlxii1V4I/BQXLVgJGXMKo0l5jZB+KIax2wlI9cAfirEmbfa99KNUAtHcaXIBgfhGL1ugny8uLcNTW9TJMua94hB0Qe8paivGuwWBehuC9lJ+AP5lXV9HxFEluwXbBwJ2RGADcjHGuc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788123181; c=relaxed/simple;
-	bh=GXnE++8ycCQ3Geyc1VEaJivw863kljbsemhtvc2XkW0=;
+	s=arc-20240116; t=1788123179; c=relaxed/simple;
+	bh=acCrqg8IpFZBPKIGBafgy4kHQIbRWqxM2O/BWjgnWqs=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=HFTDmcZMptJnN3nqhoxrs3stCDhliMDoYBHe6AJigRUHz+7W2pHQFg2FLS/CxUzgbsjt4g0GxJSccY0YSQG9TApn3hQq6BZe37df0YZJG8zEAF4Yy8bhsKvrdQLHrXuESuk19G/SomOh4MXjoKeIDrgJvvcC3hnPIIxt5EsH/hw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LMIlAmQv; arc=none smtp.client-ip=209.85.215.181
+	 In-Reply-To:To:Cc; b=CzT19DVBR6Lnfb12slumcmHc0AhdniyW6jr5antAfakkBg1T4xWls6nEotz64v6u8F97v53QeWJl1jBZ6W2ju/cN9RmwzgmcFFekaOaYa3dMahAZ2UT2oyFI+zKHDXpipmgsEWPteFJyVbbnablUjrAvsChOlZvpZ2AAhCsxP9c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dPzKy9ME; arc=none smtp.client-ip=209.85.215.176
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LMIlAmQv"
-Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-cc1c7364550so2924012a12.1
-        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 13:52:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dPzKy9ME"
+Received: by mail-pg1-f176.google.com with SMTP id 41be03b00d2f7-ca766c1c9ccso1826291a12.0
+        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 13:52:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788123176; x=1788727976; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788123174; x=1788727974; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=6Dq60Pyzo1OLSy7MU+OaidMLABdeC4LX97otWKe9Wa0=;
-        b=LMIlAmQvTa8F1O3iDv4z56PI9Z8qth5rgwpOm6Het98hLwadf5fDHBEqJ5dgss9zLz
-         3OU7PZ7alooHd3aI5tx5ju1cNQkBKB1w8No5eV1K51x1egwwxWxkTfpeRGY8wEyZ/H9C
-         V9iO9Xpn3U+J7Mh5TfSt5JjS6G99sdmUwjvkmSPVhz2sNzKZ6ECyKJO6lkLiyzCQ744t
-         V+xuuIj734Jt91jZiTDb1b2TJo1TppDPuo6JpLRKUTnXzPO1kuG8/4+Gc5lvAv+olpMV
-         WNCsqd5IgTq03vuSoGv1QgDxR+6AlkNTOOOHAs0eo3D6c8eTfZMqgyQXMg4ZNpTLL0WD
-         EEhA==
+        bh=ChRQxZ6nhdb/L1XpAtq/GVRDJWbntfU/ug1ECOX+bsc=;
+        b=dPzKy9MEnC0jeaONH4i0j0to4Ht5vNM2NxNv1T1I2s8FHTjpXGwmL8EkvxxK0DMOFt
+         OJqq9OVdBoJEllEzSbNd3WLivUkEEDAhHY9I+bvvWdldVv4Q4VZ0G63TFLBpuaheQc4s
+         33tHbxqUhBCcADR8efj9OLzs9a9ov7c3z8Kg+7G9rPL3HHG0K28dE2qErrO7CHy/pVj+
+         4Sglj/lwQg4+6wa/e61iMR4sF45ZifsQu57DsCrpxibkVwx/Km542yll3+8fV3aXMkr0
+         WLXVhQfrE/2w1qSYH4Ey8yBUrQ3MKDkXESexAaZ63DjiCr4XrmTodsmJOk3AX9QPv1xU
+         AyIw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788123176; x=1788727976;
+        d=1e100.net; s=20251104; t=1788123174; x=1788727974;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=6Dq60Pyzo1OLSy7MU+OaidMLABdeC4LX97otWKe9Wa0=;
-        b=E/2Awv/+TkizK/7uKZlNYEAZBFcmbl+74lChN9CfsKhl0ahM7VOyNjKoS8U+aZD+1v
-         +H29Wfr+Gj73y9W1uxsDuOiAh+ZSLC0FBUJY6HWQF4qAZjeuJOuVju8BCrtBIerp1jXw
-         SgjtDKxlilBMk24mIW6VKiLZhImG17Ql5f0AP6cX6GSq1x8D5bCgdtW6YBq+ApP+Xotu
-         zC+IyG1A21Yx5l3XCLn2VbnbHx6a2b9ttiW2IY4Fc4y0kdEkxxPemT7J2+RRhiAf2QG1
-         /OUCbIMEI+L8t6xo3CxqAzSXCO/+6A024Ak5OjoLty5XmNaUJ8em7Cy+KoLd497O+RL5
-         ubgQ==
-X-Gm-Message-State: AFuF++kXR85lKT/twuum44fsRLvwQh8/TxmFUlULRgpzVWikgEoNLvdx
-	GEvp/8D3UMG8B4kA90wITtxu2BPSMgkGXsyOtqhk8sy73CCGvvk/rlQpfFkzqE6X
-X-Gm-Gg: AYBFou3NyHCzTASbgwne5AzCe7vfInpilI+/bU7Z430zaYKEx21YQqaEbsooFeBsN7r
-	tiEg4h+QmeTEpW3lC+UkVVAZXStFYBAcut+HoWrt6OsQ6WkVGMxESzCfDBib3jRilaxh9TQw0t/
-	pSqoVSOUs3FEcmPROpAyr6Aihk+PBRmqjrNaI+HuH3F2JdtK90U02Pp1tmmMMC0Yte4P61UFD6o
-	diJEnXgMRMKgH8gcpC8dLoRv6YSncU+DF5Lua1vm6RGogB6sWc6+5V5FCnWEdMzhPfsH7NFOGiE
-	3GONifl6bnpfZE+7h8z9A93mcF+kiPK/xDt4ailLeA1Nt5/Q0/gfyGDTPqVsLagPgPbe+pVA2vD
-	IcJlLEp4TGi2ZTjm4r5nZnP5Grcwd+vcdFgWB80I9Gc+96enTJnvPv6sp2E0BAnjrByu+S/upjB
-	5PouPEpuDHEYnUxmm6byv8b0rZMhNNEul2SQWfgN+7hJ1Egc2zljOZWsV6kRaQYfNxGFj9qas5D
-	vb0i4RNnhUDVSwvM6bvcDvbHthhocsejba8HyFpTKaZd44pl6A=
-X-Received: by 2002:a17:90b:3812:b0:398:b71e:60c1 with SMTP id 98e67ed59e1d1-398b71e6250mr11845600a91.12.1788123176445;
-        Sun, 30 Aug 2026 13:52:56 -0700 (PDT)
-Received: from dtor-ws.sjc.corp.google.com ([2a00:79e0:2ebe:8:c021:485f:75be:3c7])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3286f9e3cf8sm26849437eec.24.2026.08.30.13.52.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        bh=ChRQxZ6nhdb/L1XpAtq/GVRDJWbntfU/ug1ECOX+bsc=;
+        b=QD5TTTOHr+Xmof9sGeboYZnNxjudoTkei62vptNfakYvnWt8jeewY+vmtvgbhiE5u8
+         1aaIUQ/bIwlTICDJ3w2PfVuDrNKf32E4gZDCrLiF4M4ZajmdMi0FJmsLpk2zX5RjyEgD
+         APEsopBHAMx+LVtUByZ5AUyHEnuaPlbsizOP0v8SbL48wlWS9Trv6Njvx5rxlmSYaOzN
+         FnGKGnlimvhy0qu3FVCwmoNzR8cqP4Hihq9jHnUwpt2kaRBNo4Sro4yWNqRgTQ2F9t4g
+         alVi4yE4NT53eunPIoTQd+Hvbs31KAEMPRdBEJGMihnJNvngQBXAA7GouZJ3AzRhsxbT
+         FwgA==
+X-Gm-Message-State: AFuF++nzPguY11QMzX88hX+vK8e/zzWCRwap8k2Z5GMbQXLpSiiYUOsc
+	gwDYBDxouFvPGsENVNrhoxmpUl/67YZY+S6BMuGxl+8WuwI+kkG8nGGA1+dzsKRH
+X-Gm-Gg: AR+sD11YLXhWBo8oMjXqq5r2+51LupvqlEn18kXKNOyLBzQJlqldgl25u5j2K/Zmsys
+	0fQACOU2Bl8RAcUeLx0YPrFtQDJvZwcUqE4KXr6FnRAKscHhUqAGkWk1v0XHHVF1aF3UwdMrpma
+	NCCUZGXvPQ+ApuB6Ho7AzSmNwaHwkCySrBApVqWI3LhJPBfAiYqunxA68Sj7hwBhdMqgMYFn+YH
+	aWTWfeZ1OXm56WMxHk+mmk1Q+2EVoLLheg5paMfGRQK/wuj1jRqpMwE0ydMhk8g8iCFu+/PsiDd
+	T6jfahVq1wyyml3EXd0IiCZKSiQ0cm3KNu5SsI9yA6nq2m+oMhYz7JiM+wLxs41A3wEAGSwIMJ1
+	FrrJIT7vhuNf0xQTYVT+fEaSHlmAJV+PmtKHdbM78iBJjSWoDJanzBEow4pb1SEVQTlJQht5eyW
+	G0lpyWAFLQYiKCGKTpB0jNdEvjEG1bw/jxTau61zNc/dtyDeoaTeSP2PZHCOKUZAOGQReLyBMYZ
+	ns9ugh98yz6j8UDqsTqNyeNgYxdteMPNhYLow24fh2HokJRVx8=
+X-Received: by 2002:a05:6a20:a108:b0:3cc:f280:ebc6 with SMTP id adf61e73a8af0-3d265c4270cmr33754961637.5.1788123174088;
         Sun, 30 Aug 2026 13:52:54 -0700 (PDT)
+Received: from dtor-ws.sjc.corp.google.com ([2a00:79e0:2ebe:8:c021:485f:75be:3c7])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3286f9e3cf8sm26849437eec.24.2026.08.30.13.52.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 30 Aug 2026 13:52:53 -0700 (PDT)
 From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Date: Sun, 30 Aug 2026 13:52:47 -0700
-Subject: [PATCH 2/7] Input: gscps2 - use RCU for ps2port_list and manage it
- in open/close
+Date: Sun, 30 Aug 2026 13:52:46 -0700
+Subject: [PATCH 1/7] Input: gscps2 - clean up driver code style and
+ structure
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -71,132 +71,408 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260830-gscps2-v1-2-c733d4cae7f9@gmail.com>
+Message-Id: <20260830-gscps2-v1-1-c733d4cae7f9@gmail.com>
 References: <20260830-gscps2-v1-0-c733d4cae7f9@gmail.com>
 In-Reply-To: <20260830-gscps2-v1-0-c733d4cae7f9@gmail.com>
 To: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
  Helge Deller <deller@gmx.de>
 Cc: linux-kernel@vger.kernel.org, linux-input@vger.kernel.org, 
- linux-parisc@vger.kernel.org, sashiko-bot@kernel.org
+ linux-parisc@vger.kernel.org
 X-Mailer: b4 0.16-dev-b242f
 
-Managing ps2port_list in gscps2_probe() and gscps2_remove() had two
-issues:
+Clean up code style issues and function ordering in the gscps2 driver:
+- Reorder functions to place gscps2_interrupt() before its callers,
+  allowing removal of its forward declaration.
+- Change gscps2_enable() to accept a boolean parameter and remove the
+  ENABLE and DISABLE macro definitions.
+- Convert printk() calls to dev_dbg() and dev_warn().
+- Fix operator spacing and multi-variable assignment.
+- Add spinlock comment and use cpu_relax() in spin-wait loop.
 
-- in gscps2_remove(), serio_unregister_port() frees the serio port, but
-  because the port remained in ps2port_list until later in remove, a
-  shared interrupt firing on another CPU could traverse ps2port_list and
-  dereference the freed serio port
-
-- ps2port_list additions and deletions in probe/remove raced locklessly
-  against list traversals in gscps2_interrupt().
-
-Convert ps2port_list traversal in gscps2_interrupt() to use RCU, and
-move list management to gscps2_open() and gscps2_close(). When
-serio_unregister_port() runs during device removal, serio_close() is
-invoked, cleanly taking the port out of ps2port_list before the serio
-structure is destroyed, while maintaining active hardware communication
-during child driver disconnect.
-
-Reported-by: sashiko-bot@kernel.org
 Assisted-by: LLM
 Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
 ---
- drivers/input/serio/gscps2.c | 23 ++++++++++++++++-------
- 1 file changed, 16 insertions(+), 7 deletions(-)
+ drivers/input/serio/gscps2.c | 208 +++++++++++++++++++------------------------
+ 1 file changed, 91 insertions(+), 117 deletions(-)
 
 diff --git a/drivers/input/serio/gscps2.c b/drivers/input/serio/gscps2.c
-index b82c56ba8ff7..5b6e311f8a02 100644
+index 43453ec533b2..b82c56ba8ff7 100644
 --- a/drivers/input/serio/gscps2.c
 +++ b/drivers/input/serio/gscps2.c
-@@ -26,6 +26,7 @@
- #include <linux/io.h>
- #include <linux/ioport.h>
- #include <linux/property.h>
-+#include <linux/rcupdate.h>
- #include <linux/serio.h>
+@@ -1,6 +1,4 @@
+ /*
+- * drivers/input/serio/gscps2.c
+- *
+  * Copyright (c) 2004-2006 Helge Deller <deller@gmx.de>
+  * Copyright (c) 2002 Laurent Canet <canetl@esiee.fr>
+  * Copyright (c) 2002 Thibaut Varene <varenet@parisc-linux.org>
+@@ -37,16 +35,10 @@ MODULE_AUTHOR("Laurent Canet <canetl@esiee.fr>, Thibaut Varene <varenet@parisc-l
+ MODULE_DESCRIPTION("HP GSC PS2 port driver");
+ MODULE_LICENSE("GPL");
  
- #include <asm/irq.h>
-@@ -195,6 +196,7 @@ struct gscps2port {
+-#define PFX "gscps2.c: "
+-
+ /*
+  * Driver constants
+  */
+ 
+-/* various constants */
+-#define ENABLE			1
+-#define DISABLE			0
+-
+ #define GSC_DINO_OFFSET		0x0800	/* offset for DINO controller versus LASI one */
+ 
+ /* PS/2 IO port offsets */
+@@ -77,23 +69,21 @@ MODULE_LICENSE("GPL");
+ #define GSC_ID_KEYBOARD		0	/* device ID values */
+ #define GSC_ID_MOUSE		1
+ 
+-#ifndef CONFIG_SERIO_GSCPS2_RDI_KEYCODES
+-# define CONFLICT(x, y) x
+-#else
+-# define CONFLICT(x, y) y
+-#endif
++#define RDI_CONFLICT(x, y) \
++	((x) * !IS_ENABLED(CONFIG_SERIO_GSCPS2_RDI_KEYCODES) + \
++	 (y) * IS_ENABLED(CONFIG_SERIO_GSCPS2_RDI_KEYCODES))
+ 
+ /*
+  * Sadly RDI (Tadpole) decided to ship a different keyboard layout
+  * than HP for their PS/2 laptop keyboard which leads to conflicting
+  * keycodes between a normal HP PS/2 keyboard and a RDI PrecisionBook.
+- *                       HP:            RDI:
++ *                           HP:                RDI:
+  */
+-#define C_07	CONFLICT(KEY_F12,	KEY_F1)
+-#define C_11	CONFLICT(KEY_LEFTALT,	KEY_LEFTCTRL)
+-#define C_14	CONFLICT(KEY_LEFTCTRL,	KEY_CAPSLOCK)
+-#define C_58	CONFLICT(KEY_CAPSLOCK,	KEY_RIGHTCTRL)
+-#define C_61	CONFLICT(KEY_102ND,	KEY_LEFT)
++#define C_07	RDI_CONFLICT(KEY_F12,		KEY_F1)
++#define C_11	RDI_CONFLICT(KEY_LEFTALT,	KEY_LEFTCTRL)
++#define C_14	RDI_CONFLICT(KEY_LEFTCTRL,	KEY_CAPSLOCK)
++#define C_58	RDI_CONFLICT(KEY_CAPSLOCK,	KEY_RIGHTCTRL)
++#define C_61	RDI_CONFLICT(KEY_102ND,		KEY_LEFT)
+ 
+ /*
+  * Special keycode value recognized by atkbd (ATKBD_KEY_NULL) to silently
+@@ -188,8 +178,6 @@ static const struct software_node gscps2_keyboard_node = {
+ 	.properties = gscps2_props,
+ };
+ 
+-static irqreturn_t gscps2_interrupt(int irq, void *dev);
+-
+ #define BUFFER_SIZE 0x0f
+ 
+ /* GSC PS/2 port device struct */
+@@ -197,33 +185,34 @@ struct gscps2port {
+ 	struct list_head node;
+ 	struct parisc_device *padev;
+ 	struct serio *port;
+-	spinlock_t lock;
++	spinlock_t lock; /* serializes HW access */
+ 	char __iomem *addr;
+ 	u8 act, append; /* position in buffer[] */
+ 	struct {
+ 		u8 data;
+ 		u8 str;
+-	} buffer[BUFFER_SIZE+1];
++	} buffer[BUFFER_SIZE + 1];
  	int id;
  };
  
-+static DEFINE_SPINLOCK(ps2port_list_lock);
- static LIST_HEAD(ps2port_list);
++static LIST_HEAD(ps2port_list);
++
+ /*
+  * Various HW level routines
+  */
+ 
+-#define gscps2_readb_input(x)		readb((x)+GSC_RCVDATA)
+-#define gscps2_readb_control(x)		readb((x)+GSC_CONTROL)
+-#define gscps2_readb_status(x)		readb((x)+GSC_STATUS)
+-#define gscps2_writeb_control(x, y)	writeb((x), (y)+GSC_CONTROL)
+-
++#define gscps2_readb_input(x)		readb((x) + GSC_RCVDATA)
++#define gscps2_readb_control(x)		readb((x) + GSC_CONTROL)
++#define gscps2_readb_status(x)		readb((x) + GSC_STATUS)
++#define gscps2_writeb_control(x, y)	writeb((x), (y) + GSC_CONTROL)
  
  /*
-@@ -292,14 +294,16 @@ static irqreturn_t gscps2_interrupt(int irq, void *dev)
+  * wait_TBE() - wait for Transmit Buffer Empty
+  */
+-
+ static int wait_TBE(char __iomem *addr)
+ {
+ 	int timeout = 25000; /* device is expected to react within 250 msec */
++
+ 	while (gscps2_readb_status(addr) & GSC_STAT_TBNE) {
+ 		if (!--timeout)
+ 			return 0;	/* This should not happen */
+@@ -232,88 +221,17 @@ static int wait_TBE(char __iomem *addr)
+ 	return 1;
+ }
+ 
+-
+ /*
+  * gscps2_flush() - flush the receive buffer
+  */
+-
+ static void gscps2_flush(struct gscps2port *ps2port)
+ {
+ 	while (gscps2_readb_status(ps2port->addr) & GSC_STAT_RBNE)
+ 		gscps2_readb_input(ps2port->addr);
+-	ps2port->act = ps2port->append = 0;
+-}
+-
+-/*
+- * gscps2_writeb_output() - write a byte to the port
+- *
+- * returns 1 on success, 0 on error
+- */
+-
+-static inline int gscps2_writeb_output(struct gscps2port *ps2port, u8 data)
+-{
+-	char __iomem *addr = ps2port->addr;
+-
+-	if (!wait_TBE(addr)) {
+-		printk(KERN_DEBUG PFX "timeout - could not write byte %#x\n", data);
+-		return 0;
+-	}
+-
+-	while (gscps2_readb_status(addr) & GSC_STAT_RBNE)
+-		/* wait */;
+-
+-	scoped_guard(spinlock_irqsave, &ps2port->lock)
+-		writeb(data, addr+GSC_XMTDATA);
+-
+-	/* this is ugly, but due to timing of the port it seems to be necessary. */
+-	mdelay(6);
+-
+-	/* make sure any received data is returned as fast as possible */
+-	/* this is important e.g. when we set the LEDs on the keyboard */
+-	gscps2_interrupt(0, NULL);
+-
+-	return 1;
+-}
+-
+-
+-/*
+- * gscps2_enable() - enables or disables the port
+- */
+-
+-static void gscps2_enable(struct gscps2port *ps2port, int enable)
+-{
+-	u8 data;
+-
+-	/* now enable/disable the port */
+-	scoped_guard(spinlock_irqsave, &ps2port->lock) {
+-		gscps2_flush(ps2port);
+-		data = gscps2_readb_control(ps2port->addr);
+-		if (enable)
+-			data |= GSC_CTRL_ENBL;
+-		else
+-			data &= ~GSC_CTRL_ENBL;
+-		gscps2_writeb_control(data, ps2port->addr);
+-	}
+-
+-	wait_TBE(ps2port->addr);
+-	gscps2_flush(ps2port);
+-}
+-
+-/*
+- * gscps2_reset() - resets the PS/2 port
+- */
+-
+-static void gscps2_reset(struct gscps2port *ps2port)
+-{
+-	/* reset the interface */
+-	guard(spinlock_irqsave)(&ps2port->lock);
+-	gscps2_flush(ps2port);
+-	writeb(0xff, ps2port->addr + GSC_RESET);
+-	gscps2_flush(ps2port);
++	ps2port->act = 0;
++	ps2port->append = 0;
+ }
+ 
+-static LIST_HEAD(ps2port_list);
+-
+ static void gscps2_read_data(struct gscps2port *ps2port)
+ {
+ 	u8 status;
+@@ -348,8 +266,8 @@ static bool gscps2_report_data(struct gscps2port *ps2port)
+ 		data   = ps2port->buffer[ps2port->act].data;
+ 
+ 		ps2port->act = (ps2port->act + 1) & BUFFER_SIZE;
+-		rxflags = ((status & GSC_STAT_TERR) ? SERIO_TIMEOUT : 0 ) |
+-			  ((status & GSC_STAT_PERR) ? SERIO_PARITY  : 0 );
++		rxflags = ((status & GSC_STAT_TERR) ? SERIO_TIMEOUT : 0) |
++			  ((status & GSC_STAT_PERR) ? SERIO_PARITY  : 0);
+ 
+ 		serio_interrupt(ps2port->port, data, rxflags);
+ 	}
+@@ -370,7 +288,6 @@ static bool gscps2_report_data(struct gscps2port *ps2port)
+  * the data as fast as possible and handle the reporting to the upper layer
+  * later.
+  */
+-
+ static irqreturn_t gscps2_interrupt(int irq, void *dev)
  {
  	struct gscps2port *ps2port;
+@@ -392,17 +309,79 @@ static irqreturn_t gscps2_interrupt(int irq, void *dev)
+ 	return IRQ_HANDLED;
+ }
  
--	list_for_each_entry(ps2port, &ps2port_list, node) {
-+	guard(rcu)();
++/*
++ * gscps2_writeb_output() - write a byte to the port
++ *
++ * returns 1 on success, 0 on error
++ */
++static inline int gscps2_writeb_output(struct gscps2port *ps2port, u8 data)
++{
++	char __iomem *addr = ps2port->addr;
 +
-+	list_for_each_entry_rcu(ps2port, &ps2port_list, node) {
- 		guard(spinlock_irqsave)(&ps2port->lock);
- 
- 		gscps2_read_data(ps2port);
--	} /* list_for_each_entry */
++	if (!wait_TBE(addr)) {
++		dev_dbg(&ps2port->padev->dev, "timeout - could not write byte %#x\n", data);
++		return 0;
 +	}
- 
- 	/* all data was read from the ports - now report the data to upper layer */
--	list_for_each_entry(ps2port, &ps2port_list, node) {
-+	list_for_each_entry_rcu(ps2port, &ps2port_list, node) {
- 		if (gscps2_report_data(ps2port)) {
- 			/* More data ready - break early to restart interrupt */
- 			break;
-@@ -397,6 +401,9 @@ static int gscps2_open(struct serio *port)
- 
- 	gscps2_reset(ps2port);
- 
-+	scoped_guard(spinlock_irqsave, &ps2port_list_lock)
-+		list_add_tail_rcu(&ps2port->node, &ps2port_list);
 +
- 	/* enable it */
- 	gscps2_enable(ps2port, true);
++	while (gscps2_readb_status(addr) & GSC_STAT_RBNE)
++		cpu_relax();
++
++	scoped_guard(spinlock_irqsave, &ps2port->lock)
++		writeb(data, addr + GSC_XMTDATA);
++
++	/* this is ugly, but due to timing of the port it seems to be necessary. */
++	mdelay(6);
++
++	/* make sure any received data is returned as fast as possible */
++	/* this is important e.g. when we set the LEDs on the keyboard */
++	gscps2_interrupt(0, NULL);
++
++	return 1;
++}
  
-@@ -413,6 +420,11 @@ static void gscps2_close(struct serio *port)
+ /*
+- * gscps2_write() - send a byte out through the aux interface.
++ * gscps2_enable() - enables or disables the port
+  */
++static void gscps2_enable(struct gscps2port *ps2port, bool enable)
++{
++	u8 data;
+ 
++	/* now enable/disable the port */
++	scoped_guard(spinlock_irqsave, &ps2port->lock) {
++		gscps2_flush(ps2port);
++		data = gscps2_readb_control(ps2port->addr);
++		if (enable)
++			data |= GSC_CTRL_ENBL;
++		else
++			data &= ~GSC_CTRL_ENBL;
++		gscps2_writeb_control(data, ps2port->addr);
++	}
++
++	wait_TBE(ps2port->addr);
++	gscps2_flush(ps2port);
++}
++
++/*
++ * gscps2_reset() - resets the PS/2 port
++ */
++static void gscps2_reset(struct gscps2port *ps2port)
++{
++	/* reset the interface */
++	guard(spinlock_irqsave)(&ps2port->lock);
++	gscps2_flush(ps2port);
++	writeb(0xff, ps2port->addr + GSC_RESET);
++	gscps2_flush(ps2port);
++}
++
++/*
++ * gscps2_write() - send a byte out through the aux interface.
++ */
+ static int gscps2_write(struct serio *port, unsigned char data)
+ {
  	struct gscps2port *ps2port = port->port_data;
  
- 	gscps2_enable(ps2port, false);
+ 	if (!gscps2_writeb_output(ps2port, data)) {
+-		printk(KERN_DEBUG PFX "sending byte %#x failed.\n", data);
++		dev_dbg(&ps2port->padev->dev, "sending byte %#x failed.\n", data);
+ 		return -1;
+ 	}
+ 	return 0;
+@@ -412,7 +391,6 @@ static int gscps2_write(struct serio *port, unsigned char data)
+  * gscps2_open() is called when a port is opened by the higher layer.
+  * It resets and enables the port.
+  */
+-
+ static int gscps2_open(struct serio *port)
+ {
+ 	struct gscps2port *ps2port = port->port_data;
+@@ -420,7 +398,7 @@ static int gscps2_open(struct serio *port)
+ 	gscps2_reset(ps2port);
+ 
+ 	/* enable it */
+-	gscps2_enable(ps2port, ENABLE);
++	gscps2_enable(ps2port, true);
+ 
+ 	gscps2_interrupt(0, NULL);
+ 
+@@ -430,11 +408,11 @@ static int gscps2_open(struct serio *port)
+ /*
+  * gscps2_close() disables the port
+  */
+-
+ static void gscps2_close(struct serio *port)
+ {
+ 	struct gscps2port *ps2port = port->port_data;
+-	gscps2_enable(ps2port, DISABLE);
 +
-+	scoped_guard(spinlock_irqsave, &ps2port_list_lock)
-+		list_del_rcu(&ps2port->node);
-+
-+	synchronize_rcu();
++	gscps2_enable(ps2port, false);
  }
  
  /**
-@@ -446,6 +458,7 @@ static int __init gscps2_probe(struct parisc_device *dev)
- 
- 	ps2port->port = serio;
- 	ps2port->padev = dev;
-+	INIT_LIST_HEAD(&ps2port->node);
- 	ps2port->addr = ioremap(hpa, GSC_STATUS + 4);
- 	if (!ps2port->addr) {
- 		ret = -ENOMEM;
-@@ -501,8 +514,6 @@ static int __init gscps2_probe(struct parisc_device *dev)
- 
- 	serio_register_port(ps2port->port);
- 
--	list_add_tail(&ps2port->node, &ps2port_list);
+@@ -443,7 +421,6 @@ static void gscps2_close(struct serio *port)
+  *
+  * @return: success/error report
+  */
 -
- 	return 0;
+ static int __init gscps2_probe(struct parisc_device *dev)
+ {
+ 	struct gscps2port *ps2port;
+@@ -494,8 +471,8 @@ static int __init gscps2_probe(struct parisc_device *dev)
+ 		goto fail_miserably;
  
- fail:
-@@ -539,12 +550,10 @@ static void __exit gscps2_remove(struct parisc_device *dev)
- 	serio_unregister_port(ps2port->port);
- 	free_irq(dev->irq, ps2port);
- 	gscps2_flush(ps2port);
--	list_del(&ps2port->node);
- 	iounmap(ps2port->addr);
- #if 0
- 	release_mem_region(dev->hpa, GSC_STATUS + 4);
- #endif
--	dev_set_drvdata(&dev->dev, NULL);
+ 	if (ps2port->id != GSC_ID_KEYBOARD && ps2port->id != GSC_ID_MOUSE) {
+-		printk(KERN_WARNING PFX "Unsupported PS/2 port at 0x%08lx (id=%d) ignored\n",
+-				hpa, ps2port->id);
++		dev_warn(&dev->dev, "Unsupported PS/2 port at 0x%08lx (id=%d) ignored\n",
++			 hpa, ps2port->id);
+ 		ret = -ENODEV;
+ 		goto fail;
+ 	}
+@@ -552,7 +529,6 @@ static int __init gscps2_probe(struct parisc_device *dev)
+  *
+  * @return: success/error report
+  */
+-
+ static void __exit gscps2_remove(struct parisc_device *dev)
+ {
+ 	struct gscps2port *ps2port = dev_get_drvdata(&dev->dev);
+@@ -572,7 +548,6 @@ static void __exit gscps2_remove(struct parisc_device *dev)
  	kfree(ps2port);
  }
  
+-
+ static const struct parisc_device_id gscps2_device_tbl[] __initconst = {
+ 	{ HPHW_FIO, HVERSION_REV_ANY_ID, HVERSION_ANY_ID, 0x00084 }, /* LASI PS/2 */
+ #ifdef DINO_TESTED
+@@ -610,6 +585,5 @@ static void __exit gscps2_exit(void)
+ 	software_node_unregister(&gscps2_keyboard_node);
+ }
+ 
+-
+ module_init(gscps2_init);
+ module_exit(gscps2_exit);
 
 -- 
 2.55.0.897.gb25b4bd76c-goog
