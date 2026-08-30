@@ -1,29 +1,29 @@
 Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
 	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 132EF70809;
-	Sun, 30 Aug 2026 14:01:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FFFB70809;
+	Sun, 30 Aug 2026 14:04:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788098500; cv=none; b=hrgFYt8qrTAWmQea6a9+gX6cIPcz3RetEOsLtMZbFQM5HYlpmReBYWd8JXb4R1qTaKBeEzokwB3fZb/mqNMvdl5xHqfCRNb7CFCyIe2n1Gvkc/O808gcgWEM99DTUmKMKKKHfhRH1HYpbZN8gMrnqRQ0xX1zEctbqfXDtwIY37s=
+	t=1788098666; cv=none; b=KChsdhFJkf/6WxZ2mBnowR4KSBcUZL3zdCUhK7hbrIoo/wcReioFW401heaeRdLYKWERjes+9Lgk5iabonO9Z33ugDWnAjHKOpT44NxmJSkumdl4yuq5ZTpSL55gcD7yOzthlQI6uU/78emtQhycEdqT6swm6Wn4ht3GOtGD+wI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788098500; c=relaxed/simple;
-	bh=gFikO6UFfebVtmJXqk2YlhurRboIP+j5W8AzkmpQGls=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ae+lB1H0ukCFyi2B8C8gOMXhlrANXf2bzUp6VAHp0G1kiMUbNi1YgKxUYE8cspdT9oxS5U8F3qFm8wnj6UV2Ke6HkSbogF425FucvHtXYKA7IGGHQt+lGlQz6iFjW7p9H39UlpSKXxkPspfc+htnDRwrPhesO3WS7YSAPfV/CDc=
+	s=arc-20240116; t=1788098666; c=relaxed/simple;
+	bh=6s/LVD45pdGhRdTG39+oa/jmFG+YAdSmgTHycNEpV+0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=CfO/s8Vf5NC05e0qAYotHvxBDavjs3wUmprPZJsIsEWkuy8dynShalrJXcp65MsfaLwPQp3BSWnm0/f4HhMcaDiLh0KG2ZcseFV+V9O88Nk235C3LAxMRkiidbEx6ECcv8TX+ifr3SnDCsclcA6QJO8lF9a7Rge0yzvAYEcbKtw=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
 Received: from localhost.localdomain (unknown [111.196.241.250])
-	by APP-03 (Coremail) with SMTP id rQCowAD3AUC_N5RqRHmbBg--.27689S2;
-	Sun, 30 Aug 2026 22:01:35 +0800 (CST)
+	by APP-03 (Coremail) with SMTP id rQCowADHyjhmOJRqNoGbBg--.17727S2;
+	Sun, 30 Aug 2026 22:04:22 +0800 (CST)
 From: Pengpeng Hou <pengpeng@iscas.ac.cn>
-To: Mark Brown <broonie@kernel.org>
+To: linux-wireless@vger.kernel.org
 Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>,
-	linux-spi@vger.kernel.org,
+	libertas-dev@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] spi: sh-msiof: propagate setup runtime-PM errors
-Date: Sun, 30 Aug 2026 22:01:33 +0800
-Message-ID: <20260830140133.24156-1-pengpeng@iscas.ac.cn>
+Subject: [PATCH] wifi: libertas: validate firmware block extents
+Date: Sun, 30 Aug 2026 22:04:20 +0800
+Message-ID: <20260830140420.26399-1-pengpeng@iscas.ac.cn>
 X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -32,10 +32,10 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowAD3AUC_N5RqRHmbBg--.27689S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Ww45JFy7JFW3Zr4xWrWkCrg_yoW8Gw1DpF
-	4xXFyxAr4ktw40kF47Aw4UuF1a9FWxKry8J3yIgw4kCr1Fy34vvF1UWFy2qF15trWDCa43
-	Za1qy395XF1Y9F7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+X-CM-TRANSID:rQCowADHyjhmOJRqNoGbBg--.17727S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7WF13CF1fGr15Zw4xJw48Xrb_yoW8Gw4UpF
+	yY9ry7Xr45Xa12v3ZrAw4kAay5Ka1ak3W7KFy0ya4F9rs5Xr1fZFyrXFy8Xr4Yqr4UJasI
+	vF4Utry8CFykJ3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
 	9KBjDU0xBIdaVrnRJUUUyG14x267AKxVWUJVW8JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
 	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
 	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
@@ -50,41 +50,43 @@ X-Coremail-Antispam: 1UD129KBjvJXoW7Ww45JFy7JFW3Zr4xWrWkCrg_yoW8Gw1DpF
 	14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7VUj9a97UUUUU==
 X-CM-SenderInfo: pshqw1xhqjqxpvfd2hldfou0/
 
-sh_msiof_spi_setup() ignores pm_runtime_get_sync() before programming
-native chip-select registers and marking the configuration initialized.
+check_fwfile_format() reads each block header and trusts its data length
+before proving that both fit in the firmware image. A truncated header or
+oversized block can therefore pass malformed extents to the download path.
 
-Use the checked runtime-PM helper and return failure before register
-access.
+Require the remaining image to contain the complete header and payload
+before accepting each block.
 
-Fixes: 7ff0b53c4051 ("spi: sh-msiof: Avoid writing to registers from spi_master.setup()")
+Fixes: 954ee164f4f4 ("[PATCH] libertas: reorganize and simplify init sequence")
 Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
 ---
- drivers/spi/spi-sh-msiof.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ drivers/net/wireless/marvell/libertas/if_usb.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/spi/spi-sh-msiof.c b/drivers/spi/spi-sh-msiof.c
-index 1aeab7ec0bc8d..4c425ec627767 100644
---- a/drivers/spi/spi-sh-msiof.c
-+++ b/drivers/spi/spi-sh-msiof.c
-@@ -453,6 +453,7 @@ static int sh_msiof_spi_setup(struct spi_device *spi)
- 	struct sh_msiof_spi_priv *p =
- 		spi_controller_get_devdata(spi->controller);
- 	u32 clr, set, tmp;
-+	int ret;
+diff --git a/drivers/net/wireless/marvell/libertas/if_usb.c b/drivers/net/wireless/marvell/libertas/if_usb.c
+index 5cc0c5cac2574..74870c9bd091c 100644
+--- a/drivers/net/wireless/marvell/libertas/if_usb.c
++++ b/drivers/net/wireless/marvell/libertas/if_usb.c
+@@ -798,10 +798,18 @@ static int check_fwfile_format(const uint8_t *data, uint32_t totlen)
+ 	exit = len = 0;
  
- 	if (spi_get_csgpiod(spi, 0) || spi_controller_is_target(p->ctlr))
- 		return 0;
-@@ -468,7 +469,9 @@ static int sh_msiof_spi_setup(struct spi_device *spi)
- 		clr |= SIMDR1_SYNCAC;
- 	else
- 		set |= SIMDR1_SYNCAC;
--	pm_runtime_get_sync(&p->pdev->dev);
-+	ret = pm_runtime_resume_and_get(&p->pdev->dev);
-+	if (ret < 0)
-+		return ret;
- 	tmp = sh_msiof_read(p, SITMDR1) & ~clr;
- 	sh_msiof_write(p, SITMDR1, tmp | set | SIMDR1_TRMD | SITMDR1_PCON);
- 	tmp = sh_msiof_read(p, SIRMDR1) & ~clr;
+ 	do {
+-		struct fwheader *fwh = (void *)data;
++		struct fwheader *fwh;
++
++		if (totlen - len < sizeof(*fwh))
++			break;
++
++		fwh = (void *)data;
+ 
+ 		bincmd = le32_to_cpu(fwh->dnldcmd);
+ 		blksize = le32_to_cpu(fwh->datalength);
++		if (blksize > totlen - len - sizeof(*fwh))
++			break;
++
+ 		switch (bincmd) {
+ 		case FW_HAS_DATA_TO_RECV:
+ 			offset = sizeof(struct fwheader) + blksize;
 
 base-commit: 08dbfad3f5040f5bdb6c529da20d6d4e81fefd72
 -- 
