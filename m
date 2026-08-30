@@ -1,80 +1,77 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C43722C0303
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 21:41:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 623D43128B6;
+	Sun, 30 Aug 2026 21:41:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788126083; cv=none; b=oAZKXK01SfOEOeaIUDHpOxnDHZCL4t5+NmhUwAlpS2kLZnr95xcunWelpHZRmoHEP36qOH6BFZgllVzcev7n5KLKcM5FTconNMw9CJjKOEj6TWzHUjY45VTXf/MoEhsioSJV1sTSnHszEobNB8WCzMc6nVYredTS5QotdEKBIMA=
+	t=1788126092; cv=none; b=FHI3L1bHuB5map1nT9nwgoJxCjxRGJU8x8KeIoEJM7AuwUOnzQ8lz0pQYTLZOt5zKVTBw0N/uQjxSC2ArEpYEEFe+vo1395j7RcQQAxQfEeEbs2zPizbKq3xAfvtsTXNAxdKsCisggsYknGExelrubO4mwG13/IzeapnTW7lVNU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788126083; c=relaxed/simple;
-	bh=83Xu6UqXx980PQ+fn6M8Iu2SjJiRGmNuPm+GX5QnBT4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To; b=pgrY9rzsRxczix4t8rGmUlOzp4g4iF5shiCureLPbwRbbSaJAtmLrUaJCV+wr1aIjdNeE2atVuox6iUNQQIYDJKahL08ReOy0jCpXJwOPJoomBNvLCrEAvLVCEXY+/yc7KRVrUneZZzc5gd1Dyl5Q5h56wP5Xua1p5vPc7wagVs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l48rzhk+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788126092; c=relaxed/simple;
+	bh=izBmWzncec2BPbNuQAbLaUc8mccJye4cbY6lpBX5AV8=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=e92ELLq8FDKbzcazoLOf3kaTL5xSVUZQWxealwsIVOnk7TObSsc21s2ZbEW9Z0a5ZmQdibzeo+FUR/vs/Tf3qLgi8ULFclmM0isWlGQwts4keY7B+ySgnYYd799YR837J8T9/kmH3wSXWk2dWCFROl0fRU+8eumO0twENsd6src=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CDHQNtj9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l48rzhk+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 64A911F00A3D;
-	Sun, 30 Aug 2026 21:41:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CDHQNtj9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B2801F00A3D;
+	Sun, 30 Aug 2026 21:41:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788126081;
-	bh=PPdCUtCInIBWEak1mgsFNsJGF7Hlkl0Cm5NcOzPtPLU=;
-	h=From:Date:Subject:References:In-Reply-To:To;
-	b=l48rzhk+f5p03YtmsiF2yDbXA74+OJkvu07Vmid5r9HsoN4keaq5tXu62UQVGqZ+1
-	 wLCdX3YFaeWtyV1v5G5zvVSIVbbuNnH/xu/MsOrxj3rNagEvgmNIr+47YuRrytYoNi
-	 xYALnXHzSOCaTKT8RLk94/rghHGVMwUT8ah1IHbqkmEnj00Gy8IzDZA7uEanS98xzC
-	 GvwVb2oTr/CVcsBGRY3znsW9CNkd6TlanGUlzhhohrTPfKFL6p06dnptCFU4rsZ+H2
-	 vpIcD1ota2Je2UKUiRUH7veicBJbsetvKY2YDUNKDVxLF2+abB9gHVnPVAbvbLgtHL
-	 oV/ZxxdR0hLlg==
-From: William Breathitt Gray <wbg@kernel.org>
-Date: Sun, 30 Aug 2026 17:41:14 -0400
-Subject: [PATCH 2/2] MAINTAINERS: Mark ftm-quaddec driver as orphaned
+	s=k20260515; t=1788126091;
+	bh=/e05R4rh4qWf/mmUn7ec5jHatxrWYsrtH92OCG0xJl8=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=CDHQNtj9u5gI1Zxuks2szMg1FLdAHjYJcl5fjS398fhYNoNXmbl79XnyyX8VWlmV0
+	 2AgB4QBxnvByDZhlnM6Q6p4oj3tr++z6+bZIw9u0395Y+eqYnd7TK3BuMpHbNeG6dk
+	 bA5iMn6kqNWhxZREhZKkbY+Ac+bCPaOlaIWzDHRezRL49UXS52Y0PK8dmraKM/+g5h
+	 byiZCA0I3G5//FnXeZCCKb/YSwi3b+sl+o2q0MqzzuAXPOCWnkflDLjL8MF1XJGNOs
+	 NVVmdt+nTBu+GfLnW+eSWvZIwowbO4Jr0nlff1/RLLB5myPbsvcJt/AzfCurzL71Mp
+	 n/RaoJulv9p/A==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id D0B12380CEF0;
+	Sun, 30 Aug 2026 21:40:35 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260830-orphan-counter-drivers-v1-2-3b10ab8b3876@kernel.org>
-References: <20260830-orphan-counter-drivers-v1-0-3b10ab8b3876@kernel.org>
-In-Reply-To: <20260830-orphan-counter-drivers-v1-0-3b10ab8b3876@kernel.org>
-To: linux-kernel@vger.kernel.org, William Breathitt Gray <wbg@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=751; i=wbg@kernel.org;
- h=from:subject:message-id; bh=83Xu6UqXx980PQ+fn6M8Iu2SjJiRGmNuPm+GX5QnBT4=;
- b=owGbwMvMwCW21SPs1D4hZW3G02pJDFlTFjfUtbX9/HLvfZ/7txcM8rYXHyy6tX115LzJt+8Xi
- istesD7oKOUhUGMi0FWTJGl1/zs3QeXVDV+vJi/DWYOKxPIEAYuTgGYyMU8hv/RHSJnSr92B391
- SGRXKxYQfnHfo0a2rGrtRqnMI0XMM0MZGfa7LM5q6O/weOm6qX3SDA0btpCpa79tmyHWU5Yas1p
- IixUA
-X-Developer-Key: i=wbg@kernel.org; a=openpgp;
- fpr=8D37CDDDE0D22528F8E89FB6B54856CABE12232B
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net v3] net: amd-xgbe: discard rx packets with bad FCS
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <178812603439.3466124.1868310641252318448.git-patchwork-notify@kernel.org>
+Date: Sun, 30 Aug 2026 21:40:34 +0000
+References: <20260827232220.69907-1-aslan.jnn@gmail.com>
+In-Reply-To: <20260827232220.69907-1-aslan.jnn@gmail.com>
+To: James Nugraha <aslan.jnn@gmail.com>
+Cc: Raju.Rangoju@amd.com, PrashanthKumar.K.R@amd.com, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ david.laight.linux@gmail.com
 
-The maintainer has indicated a desire to step down. Remove them from the
-driver's entry and mark the driver with a status of Orphan for now.
+Hello:
 
-Signed-off-by: William Breathitt Gray <wbg@kernel.org>
----
- MAINTAINERS | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+This patch was applied to netdev/net.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index f5bfa46536d0..3a2794eb1cf5 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -10134,9 +10134,8 @@ F:	rust/kernel/firmware.rs
- F:	include/linux/firmware.h
- 
- FLEXTIMER FTM-QUADDEC DRIVER
--M:	Patrick Havelange <patrick.havelange@essensium.com>
- L:	linux-iio@vger.kernel.org
--S:	Maintained
-+S:	Orphan
- F:	Documentation/devicetree/bindings/counter/fsl,ftm-quaddec.yaml
- F:	drivers/counter/ftm-quaddec.c
- 
+On Fri, 28 Aug 2026 09:22:19 +1000 you wrote:
+> amd-xgbe driver currently sets the MAC_RCR.DCRCC bit whenever
+> RX is enabled. This disables hardware FCS validation, causing packets
+> with bad FCS to be accepted unconditionally.
+> 
+> This change unsets DCRCC so that packets with bad FCS will be dropped,
+> in-line with typical behaviours of many other network controllers.
+> 
+> [...]
 
+Here is the summary with links:
+  - [net,v3] net: amd-xgbe: discard rx packets with bad FCS
+    https://git.kernel.org/netdev/net/c/ac8d6b28d48c
+
+You are awesome, thank you!
 -- 
-2.55.0
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
 
