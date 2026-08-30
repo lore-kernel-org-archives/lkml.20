@@ -1,507 +1,436 @@
-Received: from mail-vk1-f178.google.com (mail-vk1-f178.google.com [209.85.221.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A73D73BB127
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 17:24:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87A0D3C1991
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 17:24:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788110644; cv=none; b=ECFnJTgMM8vR7ajZz/G+ypMGJInCesooZCouAdm4QG6+O5mbOTUat8JKpze3hAx+hSgHzQvSmc3t5brUJTsG2V2YioFZLPqXQmFAt1yNP+pCIZMVmN7Kcr/b/79H1MGKcZFiwW4ZdkDKOtsLGLTmnHVQMgTphaqecSP3MLsMPl0=
+	t=1788110648; cv=none; b=reObmpvpMquBbd7gdu8RmYpG5Rc8ntSLgdDQ53Ll0VQDr+4zcufZLt7P145PnDusyAJGaSgZgfT/KSQaGMFD5+d4Vy3K6svWOn/EAQGuORrDgj8cYOtza//NNXdJp20tww8VQGf8G2AorWaQ88UcxGc/V3OS07hECxPUN50umGY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788110644; c=relaxed/simple;
-	bh=xxVeXb4jvY5cuRDXjZpM6wV0C5NoiUzvvPu6TV0iLAI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IeKf9sulgmu80nz+TNANZrtAdLIg75wqIueC5IQ2JkTtsX/6WugH/shae8L8JBLGU4X9CaX23lKq6n3o9J8Y3H7lR+/BWMLYwy0Uwsh8IiyJDyjpAVuIl7votufE9lO022MVRbdSp1Rsc2fD4upYUi7QLqQ0P6CRSmQSY1vLpsE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=s7Eu25XY; arc=none smtp.client-ip=209.85.221.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788110648; c=relaxed/simple;
+	bh=iQcqNEQOT/K9fnrEGIQ6j5eVfV7bAE2OEaIYoDLpmk0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=R6QbuQ8HcPN7/DlO8+URitHi4oRXCzmo+Xa9E9dLTYuPnz8R+5kZhzwO+2HukE2wyEwu4eQoXtzWX9gseWMEz2QXVquwruw03KMKlrO77fwJgevXXWE93sMHDdSztqLMjWURHRiyvCfnFv4EBY6Coj1ssLN13PB3FEarGXsohJE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mV9yI1Bw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="s7Eu25XY"
-Received: by mail-vk1-f178.google.com with SMTP id 71dfb90a1353d-5c7991578c2so756033e0c.3
-        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 10:24:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788110639; x=1788715439; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=auiga5dFUTaRf1HhrjsnmsIoHm0d18F433OVE3MYWfc=;
-        b=s7Eu25XY005g4Bh8GUVADaU45cKm9KpV7PhLe8TLjX7zNt5/sZntMSTaPvxdjpc8zd
-         zASR3WzXkrX6QJa3OgQ9wJn1Fjp+7dEGCRQHDHPN/WH6xIcJAQrZhJprLui8tWxIuPes
-         rux7KIBFjofh2AK/HgaFg6NN+Ezy2ii6XwSjlNbNpON+Cmd7WqDzlc5KJmBxIPmSJaCB
-         /VQer2wixh3IO4NLwRRYcY4nruDRulTXCb7aAmx9OT0sThuNcr99zHISOQvazgmUTVoh
-         6m8McZLJyEk8Y4OH7k94jayeLE6Z8UPBr0lWJ5Mo+/SFfulSjX96ssdcCpY6RXIDV7PG
-         yJTQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788110639; x=1788715439;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=auiga5dFUTaRf1HhrjsnmsIoHm0d18F433OVE3MYWfc=;
-        b=bqHVsNDhiMe7tLypeFLXvsOdE2EM6Ta3cXgHAN8ynqIMrv7hL6Qg5k+XCXUQga8acI
-         1XzrkHWgut+KH408cdSHMSIp/O9q6mWBnT/6uJCgyILzbDGBnqCcbPuGYoiRiJjpLLZY
-         xDA4IC+sTa5KzN0GtdKzPhBy+93xjkreH09f1WnzBTuywS4QW0NOTWVeXxuaJaqUSG0q
-         sVsnE0A3wDYFo56m9ey03dGyIgKTHPRh4EjB0qWz+aS35u4SsytCgaofebyUKjvCS4ye
-         WyoMmVrj2CFMq4Hu3wHkmbF50LVOe2nth6AtRU6juGQvNrE8295gscOMmhKGzaVSif6Y
-         FbYQ==
-X-Forwarded-Encrypted: i=1; AHgh+RoOmEd7ywkpVEC7DibIvYW5LdmeKp1aRPhD+SLIo22GugWw3WQtHR7oEr0Elu9HfcZMSbjtCdYAF9t5F7s=@vger.kernel.org
-X-Gm-Message-State: AFuF++l1rlIV2yq1SB1ECnqnuyp/9ypCg1mJ1/3p9iOwCwsLzQv/yVK/
-	kcmilqJxXCUmXWQG4rVlnLkOSJXcpG3jcFoSia7Nh8bN9emM5q/VXdhMAJh/m8V0Ezo=
-X-Gm-Gg: AR+sD10khk1X8gBUOdCFA3qclrxQhEUFN59iZasD4Bbf1N1CxAxr5uH4Or193n9gkHg
-	s9fM0xsZQk3t3lNN5wOn1hT+tXCdLhEbuiqeN3bq3eJcbMRE2V0HR1CLuM9GeWjfntyOwFlMTSX
-	44yhvrD6vb9guc8Oxv7VpehR8NK2Gf6ApJOjnvRG/QXh4M/2W6UDit+s6b9HEpRaZMg1onqVTpR
-	KOPs3lFHcgxKYJz3sz4X12xh38PAFEpyYxgAjKf5rmb9ekTUFOvreTe5v6mWITHRtoomvG0KmQl
-	BVcv02OdicUKJUxHniUBtE1sdhZIREqkSyb1gth1iULhXzCzFld51t3jFTHSQoyTkYRCDIfnHEM
-	Pp5HzyrxbHQ+m3UVQVQ9PmE7vuDmqsiY+7ov0H9YJgu9fqWUb56Iq0eZMHvBqQ3Er6d/GwVk5Z7
-	xPdMwopXkp45UraOstHggJAuxzLUUaOusTVRV+C+qElggLht71mI0S4OWI08vpz66tJUK02HWJA
-	JjqiFg=
-X-Received: by 2002:a05:6102:5cc6:b0:77d:ddec:3ab0 with SMTP id ada2fe7eead31-785977fef72mr5953151137.6.1788110639188;
-        Sun, 30 Aug 2026 10:23:59 -0700 (PDT)
-Received: from alessandro-rzn2024.. ([2804:ebc:9070:7a00:c574:bb1e:fe2d:77bb])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-97ea3cb16d9sm1223354241.8.2026.08.30.10.23.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 30 Aug 2026 10:23:58 -0700 (PDT)
-From: Alessandro Menezes <alessandroasm@gmail.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Hans Verkuil <hverkuil@kernel.org>,
-	ye xingchen <ye.xingchen@zte.com.cn>,
-	Alessandro Menezes <alessandroasm@gmail.com>
-Subject: [PATCH] Revert "media: siano: Convert to use sysfs_emit_at() API"
-Date: Sun, 30 Aug 2026 13:23:30 -0400
-Message-ID: <20260830172330.3395671-1-alessandroasm@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mV9yI1Bw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 363D81F00ACA;
+	Sun, 30 Aug 2026 17:24:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788110644;
+	bh=7vEavxeDlD+SBN+P8+60a1sNGZK4Q3B0tECP75Nnt6M=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=mV9yI1BwtEwrWa9LcmSZHsTurdV6r7ojnxpfuPAsp/CNJr4pkVHvU89EVYoNR9QhJ
+	 iMeKqwwkuqd8DOoqnTtZaGdxXkGvc2OWeqJhuoUOZ7SOchLaPnHTRjqT1H9mw2VEVZ
+	 K2OLP60DBr1f+Q5ECQv7ML+cEPzqPVp0tOy5K8Q20W2U7ZJpQWXe5s56b4RKCKhZ1T
+	 79Mfq5qLjbP0y2Ji6eZeTTfzHf2DF5DeE11yL9l1nsruPP8zDvnLoyM+PKjJj4Pgl8
+	 /zwk6vY7J4MIg5KWrkP3JhVLqsmap7zdollvOpv6h9vE3TCrZn6Qey0ewrQXO+atI9
+	 EQRBq9vLxaWPA==
+From: Jisheng Zhang <jszhang@kernel.org>
+To: Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>
+Cc: linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 3/3] riscv: introduce cap framework and use it to optimize pgtable_l4|l5_enabled
+Date: Mon, 31 Aug 2026 01:04:01 +0800
+Message-ID: <20260830170414.4505-4-jszhang@kernel.org>
+X-Mailer: git-send-email 2.51.0
+In-Reply-To: <20260830170414.4505-1-jszhang@kernel.org>
+References: <20260830170414.4505-1-jszhang@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-This reverts commit 2f7d0c94396e ("media: siano: Convert to use
-sysfs_emit_at() API").
+The pgtable_l4|[l5]_enabled check sits at hot code path, performance
+is impacted a lot. Since pgtable_l4|[l5]_enabled isn't changed after
+boot, we can use alternative mechanism to optimize them.
 
-sysfs_emit_at() may only be used from sysfs show() methods, where the
-destination is the page-sized, page-aligned buffer that sysfs passes to
-the callback.  It enforces that at runtime:
+So the question is whether we can add RISCV_ISA_EXT_SV48/SV5 and use
+riscv_has_extension_*() or not. Although, per [1] and [2], SV48 and
+SV57 are ISA exensions too, RISCV_ISA_EXT_SV48/SV57 are to describe hw
+supported extensions, while this doesn't mean the pgtable_l4|l5 is
+enabled, for example, we may pass no5lvl/no4lvl kernel boot args or
+explicitly ask for SV39 by setting dt mmu-type property as
+"riscv,sv39". If we clear RISCV_ISA_EXT_SV48|SV57, then internal
+extension queries and potentially userspace reporting can no longer
+distinguish “unsupported” from “supported but disabled.”
 
-	if (WARN(!buf || offset_in_page(buf) || at < 0 || at >= PAGE_SIZE,
-		 "invalid sysfs_emit_at: buf:%p at:%d\n", buf, at))
-		return 0;
+Introduce cap framework to describe the capabilities selected by
+kernel. It also uses similar alternatives mechanism as the
+riscv_has_extension_*() helpers.
 
-smsdvb has no show() method.  The converted functions format statistics
-into smsdvb_debugfs.stats_data, a plain char[PAGE_SIZE] member of a
-kmalloc()'d struct, which reaches userspace through debugfs via
-simple_read_from_buffer().  The preceding kref and spinlock_t place
-stats_data at offset 8 in the object, and the object itself is 4136
-bytes, so it is served from the kmalloc-8192 cache with a page-aligned
-base.  offset_in_page(stats_data) is therefore always 8, never 0, and
-every one of the 104 converted calls trips the WARN and returns 0
-without writing anything:
+After that, use it to optimize pgtable_l4|l5_enabled.
 
-  WARNING: fs/sysfs/file.c:781 at sysfs_emit_at+0x59/0xd0
-  invalid sysfs_emit_at: buf:00000000fb2f86e6 at:0
-   smsdvb_print_isdb_stats_ex+0x459/0x650 [smsdvb]
-   smsdvb_update_isdbt_stats_ex+0x34/0x6e0 [smsdvb]
-   smsdvb_onresponse+0x2bc/0x6a0 [smsdvb]
-   smsusb_onresponse+0x117/0x230 [smsusb]
+For the typical access_ok(addr, 1);
+before the patch:
 
-The statistics are formatted from the USB completion handler, so this
-fires from interrupt context on every statistics response the device
-sends, and the debugfs stats file is permanently empty.
+...
+auipc	a5,0xb43
+lbu	a5,100(a5) # ffffffff80b51f68 <pgtable_l5_enabled>
+bnez	a5,ffffffff8000ef46 <foo+0x56>
+auipc	a5,0xb43
+lbu	a5,91(a5) # ffffffff80b51f69 <pgtable_l4_enabled>
+beqz	a5,ffffffff8000ef5a <foo+0x6a>
+...
 
-Note the buffer cannot be realigned the way commit 8f48ba303dfb
-("drm/amdgpu: fix sysfs_emit/sysfs_emit_at warnings(v2)") handled the
-same warning: there the buffer really was a sysfs page that had been
-advanced past its start, so walking back to the page boundary was valid.
-Here it is not a page at all, and backing the pointer up by
-offset_in_page() would land on the struct's own kref and spinlock.
+after the patch:
+there are only two j or nop instructions which avoid memory load and
+test branch.
 
-scnprintf() is the correct interface for formatting into a
-driver-private buffer, and was the deliberate choice here since commit
-af72bc8cd6ab ("media: siano: Use scnprintf() for avoiding potential
-buffer overflow").
+Initial test lmbench's lat_syscall write on TH1520 platforms shows that
+the write syscall latency is reduced by about 2.38%.
 
-Fixes: 2f7d0c94396e ("media: siano: Convert to use sysfs_emit_at() API")
-Cc: stable@vger.kernel.org
-Signed-off-by: Alessandro Menezes <alessandroasm@gmail.com>
+Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
+Link: https://github.com/riscv/riscv-isa-manual/blob/main/src/profiles/profiles.adoc [1]
+Link: https://riscv.atlassian.net/wiki/spaces/HOME/pages/16154732/Ratified+ISA+Extensions [2]
 ---
-Tested on 7.0.0-30-generic with a Siano MDTV receiver (USB 187f:0600,
-ISDB-T).  Before: reading
-/sys/kernel/debug/usb/smsdvb/<dev>/stats returns nothing and each
-statistics response from the device adds a WARN.  After: the file
-contains the full per-layer ISDB-T statistics and no WARN is logged.
+ arch/riscv/Kconfig                         |  1 +
+ arch/riscv/include/asm/alternative.h       |  2 +-
+ arch/riscv/include/asm/cpufeature-macros.h | 46 ++++++++++++++++++++++
+ arch/riscv/include/asm/cpufeature.h        |  2 +
+ arch/riscv/include/asm/hwcap.h             |  6 +++
+ arch/riscv/include/asm/pgtable-64.h        | 12 ++++++
+ arch/riscv/kernel/alternative.c            | 24 +++++++----
+ arch/riscv/kernel/cpufeature.c             | 41 +++++++++++++++----
+ arch/riscv/mm/init.c                       |  9 +++++
+ 9 files changed, 128 insertions(+), 15 deletions(-)
 
-offsetof()/sizeof() above were measured on that kernel, not inferred.
-
---- a/drivers/media/common/siano/smsdvb-debugfs.c
-+++ b/drivers/media/common/siano/smsdvb-debugfs.c
-@@ -45,48 +45,89 @@
+diff --git a/arch/riscv/Kconfig b/arch/riscv/Kconfig
+index 13b7bb77087e..e9476b8cbeb0 100644
+--- a/arch/riscv/Kconfig
++++ b/arch/riscv/Kconfig
+@@ -218,6 +218,7 @@ config RISCV
+ 	select PCI_ECAM if (ACPI && PCI)
+ 	select PCI_MSI if PCI
+ 	select RELOCATABLE if !MMU && !PHYS_RAM_BASE_FIXED
++	select RISCV_ALTERNATIVE_EARLY if 64BIT
+ 	select RISCV_APLIC
+ 	select RISCV_IMSIC
+ 	select RISCV_INTC
+diff --git a/arch/riscv/include/asm/alternative.h b/arch/riscv/include/asm/alternative.h
+index 688c7d1a9ae3..6be7b2b6ade9 100644
+--- a/arch/riscv/include/asm/alternative.h
++++ b/arch/riscv/include/asm/alternative.h
+@@ -33,7 +33,7 @@ void __init apply_early_boot_alternatives(void);
+ void apply_module_alternatives(void *start, size_t length);
  
- 	buf = debug_data->stats_data;
+ void riscv_alternative_fix_offsets(void *alt_ptr, unsigned int len,
+-				   int patch_offset);
++				   int patch_offset, bool early);
  
--	n += sysfs_emit_at(buf, n, "is_rf_locked = %d\n", p->is_rf_locked);
--	n += sysfs_emit_at(buf, n, "is_demod_locked = %d\n", p->is_demod_locked);
--	n += sysfs_emit_at(buf, n, "is_external_lna_on = %d\n", p->is_external_lna_on);
--	n += sysfs_emit_at(buf, n, "SNR = %d\n", p->SNR);
--	n += sysfs_emit_at(buf, n, "ber = %d\n", p->ber);
--	n += sysfs_emit_at(buf, n, "FIB_CRC = %d\n", p->FIB_CRC);
--	n += sysfs_emit_at(buf, n, "ts_per = %d\n", p->ts_per);
--	n += sysfs_emit_at(buf, n, "MFER = %d\n", p->MFER);
--	n += sysfs_emit_at(buf, n, "RSSI = %d\n", p->RSSI);
--	n += sysfs_emit_at(buf, n, "in_band_pwr = %d\n", p->in_band_pwr);
--	n += sysfs_emit_at(buf, n, "carrier_offset = %d\n", p->carrier_offset);
--	n += sysfs_emit_at(buf, n, "modem_state = %d\n", p->modem_state);
--	n += sysfs_emit_at(buf, n, "frequency = %d\n", p->frequency);
--	n += sysfs_emit_at(buf, n, "bandwidth = %d\n", p->bandwidth);
--	n += sysfs_emit_at(buf, n, "transmission_mode = %d\n", p->transmission_mode);
--	n += sysfs_emit_at(buf, n, "modem_state = %d\n", p->modem_state);
--	n += sysfs_emit_at(buf, n, "guard_interval = %d\n", p->guard_interval);
--	n += sysfs_emit_at(buf, n, "code_rate = %d\n", p->code_rate);
--	n += sysfs_emit_at(buf, n, "lp_code_rate = %d\n", p->lp_code_rate);
--	n += sysfs_emit_at(buf, n, "hierarchy = %d\n", p->hierarchy);
--	n += sysfs_emit_at(buf, n, "constellation = %d\n", p->constellation);
--	n += sysfs_emit_at(buf, n, "burst_size = %d\n", p->burst_size);
--	n += sysfs_emit_at(buf, n, "burst_duration = %d\n", p->burst_duration);
--	n += sysfs_emit_at(buf, n, "burst_cycle_time = %d\n", p->burst_cycle_time);
--	n += sysfs_emit_at(buf, n, "calc_burst_cycle_time = %d\n", p->calc_burst_cycle_time);
--	n += sysfs_emit_at(buf, n, "num_of_rows = %d\n", p->num_of_rows);
--	n += sysfs_emit_at(buf, n, "num_of_padd_cols = %d\n", p->num_of_padd_cols);
--	n += sysfs_emit_at(buf, n, "num_of_punct_cols = %d\n", p->num_of_punct_cols);
--	n += sysfs_emit_at(buf, n, "error_ts_packets = %d\n", p->error_ts_packets);
--	n += sysfs_emit_at(buf, n, "total_ts_packets = %d\n", p->total_ts_packets);
--	n += sysfs_emit_at(buf, n, "num_of_valid_mpe_tlbs = %d\n", p->num_of_valid_mpe_tlbs);
--	n += sysfs_emit_at(buf, n, "num_of_invalid_mpe_tlbs = %d\n", p->num_of_invalid_mpe_tlbs);
--	n += sysfs_emit_at(buf, n, "num_of_corrected_mpe_tlbs = %d\n",
--			   p->num_of_corrected_mpe_tlbs);
--	n += sysfs_emit_at(buf, n, "ber_error_count = %d\n", p->ber_error_count);
--	n += sysfs_emit_at(buf, n, "ber_bit_count = %d\n", p->ber_bit_count);
--	n += sysfs_emit_at(buf, n, "sms_to_host_tx_errors = %d\n", p->sms_to_host_tx_errors);
--	n += sysfs_emit_at(buf, n, "pre_ber = %d\n", p->pre_ber);
--	n += sysfs_emit_at(buf, n, "cell_id = %d\n", p->cell_id);
--	n += sysfs_emit_at(buf, n, "dvbh_srv_ind_hp = %d\n", p->dvbh_srv_ind_hp);
--	n += sysfs_emit_at(buf, n, "dvbh_srv_ind_lp = %d\n", p->dvbh_srv_ind_lp);
--	n += sysfs_emit_at(buf, n, "num_mpe_received = %d\n", p->num_mpe_received);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "is_rf_locked = %d\n", p->is_rf_locked);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "is_demod_locked = %d\n", p->is_demod_locked);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "is_external_lna_on = %d\n", p->is_external_lna_on);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "SNR = %d\n", p->SNR);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "ber = %d\n", p->ber);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "FIB_CRC = %d\n", p->FIB_CRC);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "ts_per = %d\n", p->ts_per);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "MFER = %d\n", p->MFER);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "RSSI = %d\n", p->RSSI);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "in_band_pwr = %d\n", p->in_band_pwr);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "carrier_offset = %d\n", p->carrier_offset);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "modem_state = %d\n", p->modem_state);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "frequency = %d\n", p->frequency);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "bandwidth = %d\n", p->bandwidth);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "transmission_mode = %d\n", p->transmission_mode);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "modem_state = %d\n", p->modem_state);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "guard_interval = %d\n", p->guard_interval);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "code_rate = %d\n", p->code_rate);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "lp_code_rate = %d\n", p->lp_code_rate);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "hierarchy = %d\n", p->hierarchy);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "constellation = %d\n", p->constellation);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "burst_size = %d\n", p->burst_size);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "burst_duration = %d\n", p->burst_duration);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "burst_cycle_time = %d\n", p->burst_cycle_time);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "calc_burst_cycle_time = %d\n",
-+		      p->calc_burst_cycle_time);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "num_of_rows = %d\n", p->num_of_rows);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "num_of_padd_cols = %d\n", p->num_of_padd_cols);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "num_of_punct_cols = %d\n", p->num_of_punct_cols);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "error_ts_packets = %d\n", p->error_ts_packets);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "total_ts_packets = %d\n", p->total_ts_packets);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "num_of_valid_mpe_tlbs = %d\n", p->num_of_valid_mpe_tlbs);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "num_of_invalid_mpe_tlbs = %d\n", p->num_of_invalid_mpe_tlbs);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "num_of_corrected_mpe_tlbs = %d\n", p->num_of_corrected_mpe_tlbs);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "ber_error_count = %d\n", p->ber_error_count);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "ber_bit_count = %d\n", p->ber_bit_count);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "sms_to_host_tx_errors = %d\n", p->sms_to_host_tx_errors);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "pre_ber = %d\n", p->pre_ber);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "cell_id = %d\n", p->cell_id);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "dvbh_srv_ind_hp = %d\n", p->dvbh_srv_ind_hp);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "dvbh_srv_ind_lp = %d\n", p->dvbh_srv_ind_lp);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "num_mpe_received = %d\n", p->num_mpe_received);
+ struct alt_entry {
+ 	s32 old_offset;		/* offset relative to original instruction or data  */
+diff --git a/arch/riscv/include/asm/cpufeature-macros.h b/arch/riscv/include/asm/cpufeature-macros.h
+index adaf9e3fb25c..dca320e7e88c 100644
+--- a/arch/riscv/include/asm/cpufeature-macros.h
++++ b/arch/riscv/include/asm/cpufeature-macros.h
+@@ -1,6 +1,7 @@
+ /* SPDX-License-Identifier: GPL-2.0-only */
+ /*
+  * Copyright 2022-2024 Rivos, Inc
++ * Copyright 2026 Jisheng Zhang <jszhang@kernel.org>
+  */
  
- 	debug_data->stats_count = n;
- 	spin_unlock(&debug_data->lock);
-@@ -107,49 +148,78 @@
+ #ifndef _ASM_CPUFEATURE_MACROS_H
+@@ -57,4 +58,49 @@ static __always_inline bool riscv_has_extension_likely(const unsigned long ext)
+ 	return __riscv_has_extension_likely(STANDARD_EXT, ext);
+ }
  
- 	buf = debug_data->stats_data;
- 
--	n += sysfs_emit_at(buf, n, "statistics_type = %d\t", p->statistics_type);
--	n += sysfs_emit_at(buf, n, "full_size = %d\n", p->full_size);
--
--	n += sysfs_emit_at(buf, n, "is_rf_locked = %d\t\t", p->is_rf_locked);
--	n += sysfs_emit_at(buf, n, "is_demod_locked = %d\t", p->is_demod_locked);
--	n += sysfs_emit_at(buf, n, "is_external_lna_on = %d\n", p->is_external_lna_on);
--	n += sysfs_emit_at(buf, n, "SNR = %d dB\t\t", p->SNR);
--	n += sysfs_emit_at(buf, n, "RSSI = %d dBm\t\t", p->RSSI);
--	n += sysfs_emit_at(buf, n, "in_band_pwr = %d dBm\n", p->in_band_pwr);
--	n += sysfs_emit_at(buf, n, "carrier_offset = %d\t", p->carrier_offset);
--	n += sysfs_emit_at(buf, n, "bandwidth = %d\t\t", p->bandwidth);
--	n += sysfs_emit_at(buf, n, "frequency = %d Hz\n", p->frequency);
--	n += sysfs_emit_at(buf, n, "transmission_mode = %d\t", p->transmission_mode);
--	n += sysfs_emit_at(buf, n, "modem_state = %d\t\t", p->modem_state);
--	n += sysfs_emit_at(buf, n, "guard_interval = %d\n", p->guard_interval);
--	n += sysfs_emit_at(buf, n, "system_type = %d\t\t", p->system_type);
--	n += sysfs_emit_at(buf, n, "partial_reception = %d\t", p->partial_reception);
--	n += sysfs_emit_at(buf, n, "num_of_layers = %d\n", p->num_of_layers);
--	n += sysfs_emit_at(buf, n, "sms_to_host_tx_errors = %d\n", p->sms_to_host_tx_errors);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "statistics_type = %d\t", p->statistics_type);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "full_size = %d\n", p->full_size);
++static __always_inline bool __riscv_has_cap_likely(const unsigned long cap)
++{
++	asm goto(ALTERNATIVE("j	%l[l_no]", "nop", 0, %[cap], 1)
++	:
++	: [cap] "i" (cap)
++	:
++	: l_no);
 +
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "is_rf_locked = %d\t\t", p->is_rf_locked);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "is_demod_locked = %d\t", p->is_demod_locked);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "is_external_lna_on = %d\n", p->is_external_lna_on);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "SNR = %d dB\t\t", p->SNR);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "RSSI = %d dBm\t\t", p->RSSI);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "in_band_pwr = %d dBm\n", p->in_band_pwr);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "carrier_offset = %d\t", p->carrier_offset);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "bandwidth = %d\t\t", p->bandwidth);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "frequency = %d Hz\n", p->frequency);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "transmission_mode = %d\t", p->transmission_mode);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "modem_state = %d\t\t", p->modem_state);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "guard_interval = %d\n", p->guard_interval);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "system_type = %d\t\t", p->system_type);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "partial_reception = %d\t", p->partial_reception);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "num_of_layers = %d\n", p->num_of_layers);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "sms_to_host_tx_errors = %d\n", p->sms_to_host_tx_errors);
- 
- 	for (i = 0; i < 3; i++) {
- 		if (p->layer_info[i].number_of_segments < 1 ||
- 		    p->layer_info[i].number_of_segments > 13)
- 			continue;
- 
--		n += sysfs_emit_at(buf, n, "\nLayer %d\n", i);
--		n += sysfs_emit_at(buf, n, "\tcode_rate = %d\t", p->layer_info[i].code_rate);
--		n += sysfs_emit_at(buf, n, "constellation = %d\n", p->layer_info[i].constellation);
--		n += sysfs_emit_at(buf, n, "\tber = %-5d\t", p->layer_info[i].ber);
--		n += sysfs_emit_at(buf, n, "\tber_error_count = %-5d\t",
--				   p->layer_info[i].ber_error_count);
--		n += sysfs_emit_at(buf, n, "ber_bit_count = %-5d\n",
--				   p->layer_info[i].ber_bit_count);
--		n += sysfs_emit_at(buf, n, "\tpre_ber = %-5d\t", p->layer_info[i].pre_ber);
--		n += sysfs_emit_at(buf, n, "\tts_per = %-5d\n", p->layer_info[i].ts_per);
--		n += sysfs_emit_at(buf, n, "\terror_ts_packets = %-5d\t",
--				   p->layer_info[i].error_ts_packets);
--		n += sysfs_emit_at(buf, n, "total_ts_packets = %-5d\t",
--				   p->layer_info[i].total_ts_packets);
--		n += sysfs_emit_at(buf, n, "ti_ldepth_i = %d\n", p->layer_info[i].ti_ldepth_i);
--		n += sysfs_emit_at(buf, n, "\tnumber_of_segments = %d\t",
--				   p->layer_info[i].number_of_segments);
--		n += sysfs_emit_at(buf, n, "tmcc_errors = %d\n", p->layer_info[i].tmcc_errors);
-+		n += scnprintf(&buf[n], PAGE_SIZE - n, "\nLayer %d\n", i);
-+		n += scnprintf(&buf[n], PAGE_SIZE - n, "\tcode_rate = %d\t",
-+			      p->layer_info[i].code_rate);
-+		n += scnprintf(&buf[n], PAGE_SIZE - n, "constellation = %d\n",
-+			      p->layer_info[i].constellation);
-+		n += scnprintf(&buf[n], PAGE_SIZE - n, "\tber = %-5d\t",
-+			      p->layer_info[i].ber);
-+		n += scnprintf(&buf[n], PAGE_SIZE - n,
-+			      "\tber_error_count = %-5d\t",
-+			      p->layer_info[i].ber_error_count);
-+		n += scnprintf(&buf[n], PAGE_SIZE - n, "ber_bit_count = %-5d\n",
-+			      p->layer_info[i].ber_bit_count);
-+		n += scnprintf(&buf[n], PAGE_SIZE - n, "\tpre_ber = %-5d\t",
-+			      p->layer_info[i].pre_ber);
-+		n += scnprintf(&buf[n], PAGE_SIZE - n, "\tts_per = %-5d\n",
-+			      p->layer_info[i].ts_per);
-+		n += scnprintf(&buf[n], PAGE_SIZE - n,
-+			      "\terror_ts_packets = %-5d\t",
-+			      p->layer_info[i].error_ts_packets);
-+		n += scnprintf(&buf[n], PAGE_SIZE - n,
-+			      "total_ts_packets = %-5d\t",
-+			      p->layer_info[i].total_ts_packets);
-+		n += scnprintf(&buf[n], PAGE_SIZE - n, "ti_ldepth_i = %d\n",
-+			      p->layer_info[i].ti_ldepth_i);
-+		n += scnprintf(&buf[n], PAGE_SIZE - n,
-+			      "\tnumber_of_segments = %d\t",
-+			      p->layer_info[i].number_of_segments);
-+		n += scnprintf(&buf[n], PAGE_SIZE - n, "tmcc_errors = %d\n",
-+			      p->layer_info[i].tmcc_errors);
- 	}
- 
- 	debug_data->stats_count = n;
-@@ -171,50 +241,80 @@
- 
- 	buf = debug_data->stats_data;
- 
--	n += sysfs_emit_at(buf, n, "statistics_type = %d\t", p->statistics_type);
--	n += sysfs_emit_at(buf, n, "full_size = %d\n", p->full_size);
--
--	n += sysfs_emit_at(buf, n, "is_rf_locked = %d\t\t", p->is_rf_locked);
--	n += sysfs_emit_at(buf, n, "is_demod_locked = %d\t", p->is_demod_locked);
--	n += sysfs_emit_at(buf, n, "is_external_lna_on = %d\n", p->is_external_lna_on);
--	n += sysfs_emit_at(buf, n, "SNR = %d dB\t\t", p->SNR);
--	n += sysfs_emit_at(buf, n, "RSSI = %d dBm\t\t", p->RSSI);
--	n += sysfs_emit_at(buf, n, "in_band_pwr = %d dBm\n", p->in_band_pwr);
--	n += sysfs_emit_at(buf, n, "carrier_offset = %d\t", p->carrier_offset);
--	n += sysfs_emit_at(buf, n, "bandwidth = %d\t\t", p->bandwidth);
--	n += sysfs_emit_at(buf, n, "frequency = %d Hz\n", p->frequency);
--	n += sysfs_emit_at(buf, n, "transmission_mode = %d\t", p->transmission_mode);
--	n += sysfs_emit_at(buf, n, "modem_state = %d\t\t", p->modem_state);
--	n += sysfs_emit_at(buf, n, "guard_interval = %d\n", p->guard_interval);
--	n += sysfs_emit_at(buf, n, "system_type = %d\t\t", p->system_type);
--	n += sysfs_emit_at(buf, n, "partial_reception = %d\t", p->partial_reception);
--	n += sysfs_emit_at(buf, n, "num_of_layers = %d\n", p->num_of_layers);
--	n += sysfs_emit_at(buf, n, "segment_number = %d\t", p->segment_number);
--	n += sysfs_emit_at(buf, n, "tune_bw = %d\n", p->tune_bw);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "statistics_type = %d\t", p->statistics_type);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "full_size = %d\n", p->full_size);
++	return true;
++l_no:
++	return false;
++}
 +
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "is_rf_locked = %d\t\t", p->is_rf_locked);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "is_demod_locked = %d\t", p->is_demod_locked);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "is_external_lna_on = %d\n", p->is_external_lna_on);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "SNR = %d dB\t\t", p->SNR);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "RSSI = %d dBm\t\t", p->RSSI);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "in_band_pwr = %d dBm\n", p->in_band_pwr);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "carrier_offset = %d\t", p->carrier_offset);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "bandwidth = %d\t\t", p->bandwidth);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "frequency = %d Hz\n", p->frequency);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "transmission_mode = %d\t", p->transmission_mode);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "modem_state = %d\t\t", p->modem_state);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "guard_interval = %d\n", p->guard_interval);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "system_type = %d\t\t", p->system_type);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "partial_reception = %d\t", p->partial_reception);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "num_of_layers = %d\n", p->num_of_layers);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n, "segment_number = %d\t",
-+		      p->segment_number);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n, "tune_bw = %d\n",
-+		      p->tune_bw);
++static __always_inline bool __riscv_has_cap_unlikely(const unsigned long cap)
++{
++
++	asm goto(ALTERNATIVE("nop", "j	%l[l_yes]", 0, %[cap], 1)
++	:
++	: [cap] "i" (cap)
++	:
++	: l_yes);
++
++	return false;
++l_yes:
++	return true;
++}
++
++static __always_inline bool riscv_has_cap_unlikely(const unsigned long cap)
++{
++	compiletime_assert(cap >= RISCV_ISA_EXT_MAX &&
++			   cap < RISCV_CAP_MAX,
++			   "cap must be >= RISCV_ISA_EXT_MAX and < RISCV_CAP_MAX");
++
++	return __riscv_has_cap_unlikely(cap);
++}
++
++static __always_inline bool riscv_has_cap_likely(const unsigned long cap)
++{
++	compiletime_assert(cap >= RISCV_ISA_EXT_MAX &&
++			   cap < RISCV_CAP_MAX,
++			   "cap must be >= RISCV_ISA_EXT_MAX and < RISCV_CAP_MAX");
++
++	return __riscv_has_cap_likely(cap);
++}
++
+ #endif /* _ASM_CPUFEATURE_MACROS_H */
+diff --git a/arch/riscv/include/asm/cpufeature.h b/arch/riscv/include/asm/cpufeature.h
+index 37c9f2a0fb54..50453586558e 100644
+--- a/arch/riscv/include/asm/cpufeature.h
++++ b/arch/riscv/include/asm/cpufeature.h
+@@ -36,6 +36,8 @@ extern const struct seq_operations cpuinfo_op;
+ /* Per-cpu ISA extensions. */
+ extern struct riscv_isainfo hart_isa[NR_CPUS];
  
- 	for (i = 0; i < 3; i++) {
- 		if (p->layer_info[i].number_of_segments < 1 ||
- 		    p->layer_info[i].number_of_segments > 13)
- 			continue;
++extern DECLARE_BITMAP(riscv_cap, RISCV_CAP_MAX - RISCV_ISA_EXT_MAX);
++
+ extern u32 thead_vlenb_of;
  
--		n += sysfs_emit_at(buf, n, "\nLayer %d\n", i);
--		n += sysfs_emit_at(buf, n, "\tcode_rate = %d\t", p->layer_info[i].code_rate);
--		n += sysfs_emit_at(buf, n, "constellation = %d\n", p->layer_info[i].constellation);
--		n += sysfs_emit_at(buf, n, "\tber = %-5d\t", p->layer_info[i].ber);
--		n += sysfs_emit_at(buf, n, "\tber_error_count = %-5d\t",
--				   p->layer_info[i].ber_error_count);
--		n += sysfs_emit_at(buf, n, "ber_bit_count = %-5d\n",
--				   p->layer_info[i].ber_bit_count);
--		n += sysfs_emit_at(buf, n, "\tpre_ber = %-5d\t", p->layer_info[i].pre_ber);
--		n += sysfs_emit_at(buf, n, "\tts_per = %-5d\n", p->layer_info[i].ts_per);
--		n += sysfs_emit_at(buf, n, "\terror_ts_packets = %-5d\t",
--				   p->layer_info[i].error_ts_packets);
--		n += sysfs_emit_at(buf, n, "total_ts_packets = %-5d\t",
--				   p->layer_info[i].total_ts_packets);
--		n += sysfs_emit_at(buf, n, "ti_ldepth_i = %d\n", p->layer_info[i].ti_ldepth_i);
--		n += sysfs_emit_at(buf, n, "\tnumber_of_segments = %d\t",
--				   p->layer_info[i].number_of_segments);
--		n += sysfs_emit_at(buf, n, "tmcc_errors = %d\n", p->layer_info[i].tmcc_errors);
-+		n += scnprintf(&buf[n], PAGE_SIZE - n, "\nLayer %d\n", i);
-+		n += scnprintf(&buf[n], PAGE_SIZE - n, "\tcode_rate = %d\t",
-+			      p->layer_info[i].code_rate);
-+		n += scnprintf(&buf[n], PAGE_SIZE - n, "constellation = %d\n",
-+			      p->layer_info[i].constellation);
-+		n += scnprintf(&buf[n], PAGE_SIZE - n, "\tber = %-5d\t",
-+			      p->layer_info[i].ber);
-+		n += scnprintf(&buf[n], PAGE_SIZE - n,
-+			      "\tber_error_count = %-5d\t",
-+			      p->layer_info[i].ber_error_count);
-+		n += scnprintf(&buf[n], PAGE_SIZE - n, "ber_bit_count = %-5d\n",
-+			      p->layer_info[i].ber_bit_count);
-+		n += scnprintf(&buf[n], PAGE_SIZE - n, "\tpre_ber = %-5d\t",
-+			      p->layer_info[i].pre_ber);
-+		n += scnprintf(&buf[n], PAGE_SIZE - n, "\tts_per = %-5d\n",
-+			      p->layer_info[i].ts_per);
-+		n += scnprintf(&buf[n], PAGE_SIZE - n,
-+			      "\terror_ts_packets = %-5d\t",
-+			      p->layer_info[i].error_ts_packets);
-+		n += scnprintf(&buf[n], PAGE_SIZE - n,
-+			      "total_ts_packets = %-5d\t",
-+			      p->layer_info[i].total_ts_packets);
-+		n += scnprintf(&buf[n], PAGE_SIZE - n, "ti_ldepth_i = %d\n",
-+			      p->layer_info[i].ti_ldepth_i);
-+		n += scnprintf(&buf[n], PAGE_SIZE - n,
-+			      "\tnumber_of_segments = %d\t",
-+			      p->layer_info[i].number_of_segments);
-+		n += scnprintf(&buf[n], PAGE_SIZE - n, "tmcc_errors = %d\n",
-+			      p->layer_info[i].tmcc_errors);
+ void __init riscv_user_isa_enable(void);
+diff --git a/arch/riscv/include/asm/hwcap.h b/arch/riscv/include/asm/hwcap.h
+index f8db798b2654..4a3e2c43afc4 100644
+--- a/arch/riscv/include/asm/hwcap.h
++++ b/arch/riscv/include/asm/hwcap.h
+@@ -128,6 +128,12 @@
+ #define RISCV_ISA_EXT_MAX		128
+ #define RISCV_ISA_EXT_INVALID		U32_MAX
+ 
++/* Kernel capabilities occupy the gap below vendor alternative IDs. */
++#define RISCV_CAP_PGTABLE_L4		RISCV_ISA_EXT_MAX
++#define RISCV_CAP_PGTABLE_L5		(RISCV_ISA_EXT_MAX + 1)
++#define RISCV_CAP_EARLY_MAX		(RISCV_ISA_EXT_MAX + 2)
++#define RISCV_CAP_MAX			RISCV_CAP_EARLY_MAX
++
+ #ifdef CONFIG_RISCV_M_MODE
+ #define RISCV_ISA_EXT_SxAIA		RISCV_ISA_EXT_SMAIA
+ #define RISCV_ISA_EXT_SUPM		RISCV_ISA_EXT_SMNPM
+diff --git a/arch/riscv/include/asm/pgtable-64.h b/arch/riscv/include/asm/pgtable-64.h
+index 72b8c63469fa..b0f59e3d5c31 100644
+--- a/arch/riscv/include/asm/pgtable-64.h
++++ b/arch/riscv/include/asm/pgtable-64.h
+@@ -13,6 +13,7 @@
+ extern bool _pgtable_l4_enabled;
+ extern bool _pgtable_l5_enabled;
+ 
++#ifdef USE_EARLY_PGTABLE_LEVELS
+ static __always_inline bool pgtable_l5_enabled(void)
+ {
+ 	return _pgtable_l5_enabled;
+@@ -22,6 +23,17 @@ static __always_inline bool pgtable_l4_enabled(void)
+ {
+ 	return _pgtable_l4_enabled;
+ }
++#else
++static __always_inline bool pgtable_l4_enabled(void)
++{
++	return riscv_has_cap_likely(RISCV_CAP_PGTABLE_L4);
++}
++
++static __always_inline bool pgtable_l5_enabled(void)
++{
++	return riscv_has_cap_likely(RISCV_CAP_PGTABLE_L5);
++}
++#endif
+ 
+ #define PGDIR_SHIFT_L3  30
+ #define PGDIR_SHIFT_L4  39
+diff --git a/arch/riscv/kernel/alternative.c b/arch/riscv/kernel/alternative.c
+index c0c9306022c5..bbb215349452 100644
+--- a/arch/riscv/kernel/alternative.c
++++ b/arch/riscv/kernel/alternative.c
+@@ -75,7 +75,8 @@ static u32 riscv_instruction_at(void *p)
+ }
+ 
+ static void riscv_alternative_fix_auipc_jalr(void *ptr, u32 auipc_insn,
+-					     u32 jalr_insn, int patch_offset)
++					     u32 jalr_insn, int patch_offset,
++					     bool early)
+ {
+ 	u32 call[2] = { auipc_insn, jalr_insn };
+ 	s32 imm;
+@@ -88,10 +89,15 @@ static void riscv_alternative_fix_auipc_jalr(void *ptr, u32 auipc_insn,
+ 	riscv_insn_insert_utype_itype_imm(&call[0], &call[1], imm);
+ 
+ 	/* patch the call place again */
+-	patch_text_nosync(ptr, call, sizeof(u32) * 2);
++	if (early) {
++		memcpy(ptr, call, sizeof(call));
++	} else {
++		patch_text_nosync(ptr, call, sizeof(call));
++	}
+ }
+ 
+-static void riscv_alternative_fix_jal(void *ptr, u32 jal_insn, int patch_offset)
++static void riscv_alternative_fix_jal(void *ptr, u32 jal_insn, int patch_offset,
++				      bool early)
+ {
+ 	s32 imm;
+ 
+@@ -103,11 +109,14 @@ static void riscv_alternative_fix_jal(void *ptr, u32 jal_insn, int patch_offset)
+ 	riscv_insn_insert_jtype_imm(&jal_insn, imm);
+ 
+ 	/* patch the call place again */
+-	patch_text_nosync(ptr, &jal_insn, sizeof(u32));
++	if (early)
++		memcpy(ptr, &jal_insn, sizeof(u32));
++	else
++		patch_text_nosync(ptr, &jal_insn, sizeof(u32));
+ }
+ 
+ void riscv_alternative_fix_offsets(void *alt_ptr, unsigned int len,
+-				      int patch_offset)
++				   int patch_offset, bool early)
+ {
+ 	int num_insn = len / sizeof(u32);
+ 	int i;
+@@ -131,7 +140,8 @@ void riscv_alternative_fix_offsets(void *alt_ptr, unsigned int len,
+ 				continue;
+ 
+ 			riscv_alternative_fix_auipc_jalr(alt_ptr + i * sizeof(u32),
+-							 insn, insn2, patch_offset);
++							 insn, insn2, patch_offset,
++							 early);
+ 			i++;
+ 		}
+ 
+@@ -144,7 +154,7 @@ void riscv_alternative_fix_offsets(void *alt_ptr, unsigned int len,
+ 				continue;
+ 
+ 			riscv_alternative_fix_jal(alt_ptr + i * sizeof(u32),
+-						  insn, patch_offset);
++						  insn, patch_offset, early);
+ 		}
  	}
+ }
+diff --git a/arch/riscv/kernel/cpufeature.c b/arch/riscv/kernel/cpufeature.c
+index 9915121e9438..9b47fea25ee4 100644
+--- a/arch/riscv/kernel/cpufeature.c
++++ b/arch/riscv/kernel/cpufeature.c
+@@ -40,6 +40,7 @@ unsigned long elf_hwcap __read_mostly;
  
+ /* Host ISA bitmap */
+ static DECLARE_BITMAP(riscv_isa, RISCV_ISA_EXT_MAX) __read_mostly;
++DECLARE_BITMAP(riscv_cap, RISCV_CAP_MAX - RISCV_ISA_EXT_MAX) __read_mostly;
+ 
+ /* Per-cpu ISA extensions. */
+ struct riscv_isainfo hart_isa[NR_CPUS];
+@@ -81,6 +82,14 @@ bool __riscv_isa_extension_available(const unsigned long *isa_bitmap, unsigned i
+ }
+ EXPORT_SYMBOL_GPL(__riscv_isa_extension_available);
+ 
++static bool __riscv_cap_available(unsigned int bit)
++{
++	if (bit >= RISCV_CAP_MAX || bit < RISCV_ISA_EXT_MAX)
++		return false;
++
++	return test_bit(bit - RISCV_ISA_EXT_MAX, riscv_cap);
++}
++
+ static int riscv_ext_f_depends(const struct riscv_isa_ext_data *data,
+ 			       const unsigned long *isa_bitmap)
+ {
+@@ -1257,9 +1266,7 @@ void __init_or_module riscv_cpufeature_patch_func(struct alt_entry *begin,
+ 	struct alt_entry *alt;
+ 	void *oldptr, *altptr;
+ 	u16 id, value, vendor;
+-
+-	if (stage == RISCV_ALTERNATIVES_EARLY_BOOT)
+-		return;
++	bool early = stage == RISCV_ALTERNATIVES_EARLY_BOOT;
+ 
+ 	for (alt = begin; alt < end; alt++) {
+ 		id = PATCH_ID_CPUFEATURE_ID(alt->patch_id);
+@@ -1274,6 +1281,8 @@ void __init_or_module riscv_cpufeature_patch_func(struct alt_entry *begin,
+ 		 * vendor extension.
+ 		 */
+ 		if (id < RISCV_ISA_EXT_MAX) {
++			if (early)
++				continue;
+ 			/*
+ 			 * This patch should be treated as errata so skip
+ 			 * processing here.
+@@ -1287,7 +1296,14 @@ void __init_or_module riscv_cpufeature_patch_func(struct alt_entry *begin,
+ 			value = PATCH_ID_CPUFEATURE_VALUE(alt->patch_id);
+ 			if (!riscv_cpufeature_patch_check(id, value))
+ 				continue;
++		} else if (id < RISCV_CAP_MAX) {
++			if (id >= RISCV_CAP_EARLY_MAX && early)
++				continue;
++			if (!__riscv_cap_available(id))
++				continue;
+ 		} else if (id >= RISCV_VENDOR_EXT_ALTERNATIVES_BASE) {
++			if (early)
++				continue;
+ 			if (!__riscv_isa_vendor_extension_available(VENDOR_EXT_ALL_CPUS, vendor,
+ 								    id - RISCV_VENDOR_EXT_ALTERNATIVES_BASE))
+ 				continue;
+@@ -1299,9 +1315,20 @@ void __init_or_module riscv_cpufeature_patch_func(struct alt_entry *begin,
+ 		oldptr = ALT_OLD_PTR(alt);
+ 		altptr = ALT_ALT_PTR(alt);
+ 
+-		mutex_lock(&text_mutex);
+-		patch_text_nosync(oldptr, altptr, alt->alt_len);
+-		riscv_alternative_fix_offsets(oldptr, alt->alt_len, oldptr - altptr);
+-		mutex_unlock(&text_mutex);
++		if (early) {
++			/* oldptr is writable through the MMU-off kernel mapping. */
++			memcpy(oldptr, altptr, alt->alt_len);
++			riscv_alternative_fix_offsets(oldptr, alt->alt_len,
++						      oldptr - altptr, true);
++		} else {
++			mutex_lock(&text_mutex);
++			patch_text_nosync(oldptr, altptr, alt->alt_len);
++			riscv_alternative_fix_offsets(oldptr, alt->alt_len,
++						      oldptr - altptr, false);
++			mutex_unlock(&text_mutex);
++		}
+ 	}
++
++	if (early)
++		local_flush_icache_all();
+ }
+diff --git a/arch/riscv/mm/init.c b/arch/riscv/mm/init.c
+index fc74142fe6e6..aca09992ef06 100644
+--- a/arch/riscv/mm/init.c
++++ b/arch/riscv/mm/init.c
+@@ -6,6 +6,11 @@
+  *  Nick Kossifidis <mick@ics.forth.gr>
+  */
+ 
++#ifdef CONFIG_64BIT
++/* riscv_has_cap_likely() cannot be used this early */
++#define USE_EARLY_PGTABLE_LEVELS
++#endif
++
+ #include <linux/init.h>
+ #include <linux/mm.h>
+ #include <linux/memblock.h>
+@@ -892,6 +897,10 @@ static __init void set_satp_mode(uintptr_t dtb_pa)
+ 	memset(early_p4d, 0, PAGE_SIZE);
+ 	memset(early_pud, 0, PAGE_SIZE);
+ 	memset(early_pmd, 0, PAGE_SIZE);
++	if (pgtable_l4_enabled())
++		set_bit(RISCV_CAP_PGTABLE_L4 - RISCV_ISA_EXT_MAX, riscv_cap);
++	if (pgtable_l5_enabled())
++		set_bit(RISCV_CAP_PGTABLE_L5 - RISCV_ISA_EXT_MAX, riscv_cap);
+ }
+ #endif
  
 -- 
-2.43.0
+2.53.0
 
