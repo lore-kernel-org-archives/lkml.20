@@ -1,133 +1,123 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 825C8258EF3;
-	Sun, 30 Aug 2026 08:30:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EA112F1FC3;
+	Sun, 30 Aug 2026 08:35:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788078648; cv=none; b=b1k1NyXIZ9G/j+1U1GmJT0ZC5m0s/T3b3hYnNXjMzXlWfkXL9jb/Mz3rWIsRvurClEcbCM6FMBC03QvPFyGF2CF5kXpb5wVV2QTjk5gR5GE61fwx1CFAXDwOdfmkUiYXyWGsnVjpKq8GUJ/mn40NHUZce2HI7XSUKUn3rcVn6eI=
+	t=1788078902; cv=none; b=q0osMwmpETi2kRYTf2Mr2OH7+dPfpRH15XWjACkzEoARm43YI4yPyUwfGlN1ZMOO/4kbQ70EGIhazu/Da4ZgSoQHotwB/myLdaiyHyTVxj6z12ZtkcRk3M3YSXpuxHaYWqf0HGZzzBYlnsNay5/OD4zhnrLQt3v3SP8741qmGqs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788078648; c=relaxed/simple;
-	bh=EE0V+9hvKxThidCRmPLnCawTLyN9e6WCbd5609ZYHFc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=uMq7BQONaEagNXIEYDKrmmYpof3lmyhf/sGPJFSXe9jiSffmQoBlfWvRawj28kOc3hswzeiszBK0pBpaNwugsQLxY5QRgo53RySqaUwwFpCAW6sWL6b06JDPHNzWY4PcEygjhJLIfQaXnVv2h6TXGLgDMay7XWj7rR+Buk9MMwY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GQIuKKEh; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788078902; c=relaxed/simple;
+	bh=WpmfR6ALCJYuuF4+WjNOYYis5nKaxwWmhtWsRCanX0g=;
+	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
+	 Subject:From:To:Cc:Date; b=mYOS4JM7d4KdlDFyUFG5s0WZ60o5gb5/KyQSHhF0cB3AwyVuOIxYyy02LrwhMpiYsrYvyl8jL/+D/mWt6kprmI6yGRM06cCwvRfJH/le00HuUmqT83D6pj1Kec4PXwINesWkogkWDK0XDOJvMy+bYaOhJ/vSf3iYqDenP3O/PgI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ABxtDlHD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GQIuKKEh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 105001F000E9;
-	Sun, 30 Aug 2026 08:30:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ABxtDlHD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 447AB1F000E9;
+	Sun, 30 Aug 2026 08:35:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788078646;
-	bh=j5sIvsE7M+TOJ0IAY63szxYcPq0HJzF40LgRSxYedZ0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=GQIuKKEhRWKaUbc4qLXwDbUoiwiz7PXA1OlmO+/cCaj1G2RP1e/bm70AzkO1CKGj+
-	 EuUJYTX+khYx/1R2nBYLT6LUvvBQw3S0lNGUb1HW2LM/z/exPR03ghi7YMxUyaDeVW
-	 I2Sr+WkXaIRE9k/EDDEgOZFxIi8zNB2VfW0p7upb7n8a0HxrPk74gJGwJbjdYB/cmQ
-	 +73q3wNdk2CIGj/w1puqHhznYkvQoBngv1ec4dkc5cpGYKnnWtjUU0gshLflG34dbd
-	 cERbhDMdAm1kbJtsHLukdE9OLV9dfvW18SPe7ONQWW+tYUDGfYAEc6VPZkvBaV3XIX
-	 E0hdFILXE3/jQ==
-Message-ID: <ac4c6b24-02c7-4dc3-89e4-45aa335255d3@kernel.org>
-Date: Sun, 30 Aug 2026 10:30:37 +0200
+	s=k20260515; t=1788078900;
+	bh=ioCazvgparxIGeT5lFnIkmOmte8GA4wNeKGQVBX/4MI=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=ABxtDlHD0XSicySjDOWqisJvqfJQz+i8nVD+sMXoPRZlbIU/uv5b4zzlH4UGzgWhI
+	 v4kNCh8uS54a49R8t2Wsm1doZN42lW1sAQiNph2NHR8UB+vAG4EgpGjBEbwJEYRBgu
+	 Rw1DNb6WE7M0Zb8KYTImv3v3MIx5HqlNWmGxb7bJkU6DAuao727ReqYzXsBojbJdK9
+	 t3WbKu3lTP5VsC/XOmx7hAHGJrzgLxDkw4GzPFYE7UGc+KESszAyHL2HKZQN6hR2W1
+	 gYhmHP1MB/7TfzRtpMcRi5aVOUN/fjo+wRzjdMIbwqwcpMXIV0G71HMMSOIDR3yiV0
+	 2VTmP4jrSdXYg==
+Content-Type: multipart/mixed; boundary="===============1891050457746649038=="
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 03/21] dt-bindings: pinctrl: Add
- starfive,jhb100-sys0-pinctrl
-To: Changhuang Liang <changhuang.liang@starfivetech.com>,
- Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Emil Renner Berthing <kernel@esmil.dk>,
- Paul Walmsley <pjw@kernel.org>, Albert Ou <aou@eecs.berkeley.edu>,
- Palmer Dabbelt <palmer@dabbelt.com>, Alexandre Ghiti <alex@ghiti.fr>,
- Philipp Zabel <p.zabel@pengutronix.de>, Bartosz Golaszewski <brgl@kernel.org>
-Cc: "linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "linux-riscv@lists.infradead.org" <linux-riscv@lists.infradead.org>,
- Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
-References: <20260829025720.23915-1-changhuang.liang@starfivetech.com>
- <20260829025720.23915-4-changhuang.liang@starfivetech.com>
- <f474f659-8234-4dfb-85cc-06d2cc295107@kernel.org>
- <ZQ4PR01MB1202DDBD0436E8F580EB6575F2AA2@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
- cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
- JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
- gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
- J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
- NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
- BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
- vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
- Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
- TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
- S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
- FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
- /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
- s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
- EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
- rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
- DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
- IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
- vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
- oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
- sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
- vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
- Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
- BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
- 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
- f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
- WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
- XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
- IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
- YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
- p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
- GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
- YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
- vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
- ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
- QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
- +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
- wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
- c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
- K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
- n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
- qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <ZQ4PR01MB1202DDBD0436E8F580EB6575F2AA2@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
-Content-Type: text/plain; charset=UTF-8
+Message-Id: <6d6bd8635809173a29c38636403f6f98d848d5f408b44639478b266a8cc65437@mail.kernel.org>
+In-Reply-To: <20260830073242.148092-2-jiayuan.chen@linux.dev>
+References: <20260830073242.148092-2-jiayuan.chen@linux.dev>
+Subject: Re: [PATCH bpf v2 1/4] bpf: Reject key-less BTF for hash maps
+From: bot+bpf-ci@kernel.org
+To: jiayuan.chen@linux.dev,bpf@vger.kernel.org
+Cc: jiayuan.chen@linux.dev,syzbot+37b56485bbbf90ad8489@syzkaller.appspotmail.com,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com,martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,emil@etsalapatis.com,ihor.solodrai@linux.dev,shuah@kernel.org,yatsenko@meta.com,alan.maguire@oracle.com,linux-kernel@vger.kernel.org,linux-kselftest@vger.kernel.org,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Sun, 30 Aug 2026 08:35:00 +0000 (UTC)
+
+--===============1891050457746649038==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 
-On 30/08/2026 03:29, Changhuang Liang wrote:
-> Hi, Krzysztof
-> 
-> Thanks for the review.
-> 
->> On 29/08/2026 04:57, Changhuang Liang wrote:
->>> +#ifndef __DT_BINDINGS_PINCTRL_STARFIVE_JHB100_H__
->>> +#define __DT_BINDINGS_PINCTRL_STARFIVE_JHB100_H__
->>> +
->>> +/* sys0 pad numbers */
->>> +#define PADNUM_SYS0_GPIO_A0				0
->>> +#define PADNUM_SYS0_GPIO_A1				1
->>> +#define PADNUM_SYS0_GPIO_A2				2
->>> +#define PADNUM_SYS0_GPIO_A3				3
->>
->> I could not find how your driver uses these, so are you sure it's a binding
->> constant for the SW?
-> 
-> Yes, these are not used in the driver, but in PATCH 6/8/10/12, etc., some definitions
-> for other GPIOs are still used. Therefore, I have uniformly defined them in the 
-> binding, and they will be provided to the device tree for use later.
+> map_check_btf() allows a key-less BTF (btf_key_type_id == 0) only for
+> maps that have a ->map_check_btf callback, and leaves the actual
+> decision to that callback. Hash maps used to have no ->map_check_btf,
+> so a key-less BTF was rejected outright.
+>
+> Since commit 1df97a7453ee ("bpf: Register dtor for freeing special
+> fields") htab and rhtab got a ->map_check_btf to register a dtor, but
+> it does not look at the key, so a key-less hash map now passes
+> map_check_btf() and gets created.
 
-I am confused. The driver in these patches 6/8/10/12 does include the
-header but does not use them. Why do you include unused headers? Or what
-is exactly the use?
+Is this attribution accurate? Commit 1df97a7453ee did add
+htab_map_check_btf() to the four htab ops structs (htab_map_ops,
+htab_lru_map_ops, htab_percpu_map_ops, htab_lru_percpu_map_ops), but
+BPF_MAP_TYPE_RHASH did not exist at that commit.
+
+The rhtab regression was introduced three months later by the second
+Fixes: commit 6905f8601298 ("bpf: Allow special fields in resizable
+hashtab"), which added rhtab_map_check_btf() and rhtab_map_ops for the
+first time.
+
+Could the commit message distinguish which regression each Fixes: tag
+addresses? As written, the sentence attributes both regressions to
+1df97a7453ee.
+
+> KASAN: null-ptr-deref in range [0x0000000000000028-0x000000000000002f]
+> RIP: 0010:btf_type_show (kernel/bpf/btf.c:8251)
+> Call Trace:
+>  <TASK>
+>  btf_type_seq_show_flags (kernel/bpf/btf.c:8269)
+>  btf_type_seq_show (kernel/bpf/btf.c:8277)
+>  htab_map_seq_show_elem (kernel/bpf/hashtab.c:1669)
+>  map_seq_show (kernel/bpf/inode.c:293)
+>  seq_read_iter (fs/seq_file.c:273)
+>  seq_read (fs/seq_file.c:163)
+>  vfs_read (fs/read_write.c:572)
+>  ksys_read (fs/read_write.c:716)
+>  __x64_sys_read (fs/read_write.c:725)
+>  do_syscall_64 (arch/x86/entry/syscall_64.c:61)
+>  entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
+>  </TASK>
+
+Does this match the syzbot report? Looking at the actual report at the
+Closes: link, several details differ from what was quoted:
+
+The syscall in the report was pread64:
+  ksys_pread64 [inline]
+  __x64_sys_pread64+0x1eb/0x250 fs/read_write.c:769
+
+But the quoted trace shows read (ksys_read, __x64_sys_read).
+
+The report shows traverse() frames that are missing here:
+  traverse.part.0 fs/seq_file.c:112
+  traverse fs/seq_file.c:99 [inline]
+  seq_read_iter+0x93f/0x1270 fs/seq_file.c:196
+
+And seq_read_iter's line number is 196 in the report, not 273.
+
+There is an extra btf_type_seq_show frame inserted here that is not in
+the report.
+
+The btf.c line numbers are shifted by +19: the report shows
+btf_type_show at 8232, btf_type_seq_show_flags at 8250, and
+btf_type_seq_show at 8258, but the quoted trace adds 19 to each.
+
+Should the crash trace be quoted verbatim from the syzbot report rather
+than edited?
 
 
-Best regards,
-Krzysztof
+---
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/33300136294
+--===============1891050457746649038==--
