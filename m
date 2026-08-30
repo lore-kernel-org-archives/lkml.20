@@ -1,183 +1,130 @@
-Received: from mail-yx1-f41.google.com (mail-yx1-f41.google.com [74.125.224.41])
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FE7C30DD30
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 21:23:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9669B310651
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 21:23:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788124997; cv=none; b=hhBJWTBYZgFX+U65moamQcUo6MHwBwSD8ZGvVw2CfunJj8LybpbtCe9T2zDiQ6tWlOnhFMqa2v03UhmY3WiTilrtaZ4dT9E0JsP47s1/wgayM1OiXto5qJyBVQn8v6MoiH1YVt9yI4iGpGW+7Bo7paRy9YxZo/qXRlo82k+lPok=
+	t=1788125016; cv=none; b=tSacN+Nx0s+cT9gLDR47iYNIakQX3LuF/iVAP7roIjuF1fGeI+lFD+W+FeNBf+HN0TxvGAqvPSafEzolTElNYOomrQ/TG7+rbyaiHccM7v4MnkgfmxxwITFGqtoiLIJMvoc1x7RyP9BI+GRonlwMUyraXCCryHs2/h4op1NTETQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788124997; c=relaxed/simple;
-	bh=noxdCxBTOJYd9u3M9mz8sS3eKpGxBtTJNiFJ53+QoLY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=eUDNUAS1GZh2YpV01b0wQ0RA16Ps7kMEXcP8VQ53CpGo72dcgU1FeknUEImkBgReV3nrimu08UnqBsb/ByolxHL3w8CSvTsCRG/3/vbYZQOJSTCjRir/MxcjOpg88IpwuQO1Uo2jlGYsR4T8ehTBg1xSjVK6Ij3i2DTcQoBnluA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HPhx2I9j; arc=none smtp.client-ip=74.125.224.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	s=arc-20240116; t=1788125016; c=relaxed/simple;
+	bh=wBPH+Rk3uwwSH+tiyptG7oB+B0g92L3qAggw7PluSjw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ewF3ajvoo5+IN26VFPnqeo7Wuuj32Z9rW6qsvFvGRcJIhbnckbhvWQGd9mTLHDmY9BJ7OEXaGIMvBAxqjZ8i0oXUK1B1TSFEvjJS0o2ogfL7x/RnumW6KdzvDXQavFiwz0D7Wq/CJxMUO26L0QOuPlQwde6sMIy67FEo9yUPx1I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=grimberg.me; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=grimberg.me
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HPhx2I9j"
-Received: by mail-yx1-f41.google.com with SMTP id 956f58d0204a3-66e5d39cfe1so592105d50.3
-        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 14:23:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788124994; x=1788729794; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Dux6nks3ScI/W1I3RtYItmlPEB2o40tc65RGc+Gd5Eg=;
-        b=HPhx2I9jUjd/iDNUvS3uf6nJorxWhPwLV2phizpQf40pU5e77sghFk5y9owKhuMwPn
-         uUmYrt8iYv8cqGquObEokF36b5irTbtf33HrAqnbNYqMnVTdl1t065UqXJTPkFTeBzab
-         tDLAbS4rjTGIv6S3GnsT0GXJZGfaYkgdicI7hbvMqqIIzgl9Y+Gsf7sQibgKeA8gpNrj
-         nzu0WJS/qbgKLmp/r9gnlo2xEc0LSj1FfAlT9pbZ1w9apwQitXARKsfzAtd3a2s/zPIj
-         rHU+vWd35ZC/3lks2vHUbW9cn5ONDTyOftAVRTPMDtx/DfoVq+AfYanYX8hE3xBxP810
-         kz5Q==
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4957eefd361so22292095e9.1
+        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 14:23:34 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788124994; x=1788729794;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Dux6nks3ScI/W1I3RtYItmlPEB2o40tc65RGc+Gd5Eg=;
-        b=f/2bFJfTiSLIae5/IXVXTh/d31sWzOlyEddS+EggxRl3yhu+/t37n3TITbSKGs8q2R
-         xdkEiziwi/MEtJmO5VUEPkZTIfecDfgGEJhhKnCZGVTVivJfA+4xPbepRx/PqzLaz4QC
-         B3JAFt22a4o25QF+RCpFysu2lA0vySpvb/3J1qDtQJ8ABAi/zn+LJKPy08GEjdVb6oYx
-         OMdLyEPURtJ0Tb9u7NeP+qmqDX1hf3dFcr1JiTBXwxxslqpjnbqYRqKpW+IWEgb5Y9Ny
-         mOJD+SkDzhna+1GFICj8RXavx6IjmPkF0rKsC5mVZPDpidp5GnqJWjlcgyCil1kSJECS
-         K5eA==
-X-Forwarded-Encrypted: i=1; AKwUvBzUh9HT57xaH8xg7G+GFZ3KXY/Ay7OJ3s6kPlDM/7VgU6XEyQ9+JVBELC/bBnj/fNpGj6wW9orHQy+7oXw=@vger.kernel.org
-X-Gm-Message-State: AFuF++kibg3JyhV70N0yix4HJUqMjwXGOiGpgny7Wuy/igUy+VnZ9JiA
-	sfBwmS8GUVYWicHJsWk6s/e5Y0qffUXjRrijLpsZwhhLtx4k8GW+L4J5
-X-Gm-Gg: AYBFou0f2ELQiMRwb9D6MHfLk4MO6+uQgWhDIVHuPWxefPqdMCM9PLEJ6bTsxTl1pTr
-	dtbRqSM2mwg1Q4HL8rfwzZVVygIMisbnttFc5WeOcL51qMgQciWNYrggEFlg+5pKUE1XvAziKmz
-	iPhNigKmS/iMOpIrhvmoPvXlQeP5FiLywkElGzRZiH4PWc3HtZSQSuQeGg05TLboxhN6yT61so9
-	1THYLgkrQRzB8FIAvlnxuP/V44MABABm8IuvX2N3D+vPtXmxNYOE0Ud7dq+2bVFzDvj6a5ma4Cz
-	0CT9w5iPqpUl8T2VDdP8S1ZV3UqJHyL0uWBK6+IWNxCFpfFU0zWEB3FPJuKG1uaPDjduvlAfBU/
-	+NTG6SS9EFZSOxFJzx68E1X7SAtK3dFsI6cTK10IxSSsanW230b1DMiJ4SPF9yMjC6pgMDJUYpt
-	HlTEbgZdbTIWWmL4alaP5l2Av3N/j7m12fjb1POuEyLgpCDdNlteN9aS+A8ja/plVuxS2MzGqIT
-	veng4nQRynNPhxB90L7GyJAP4Kx6r8JKDb/a0S8ciO2PdBgUSFoHiABFAU+U2mrMMyiIueVVvpC
-	Botbvt0e0g==
-X-Received: by 2002:a05:690e:810:10b0:66c:e845:c0e5 with SMTP id 956f58d0204a3-66e4c698fb4mr4913441d50.17.1788124994298;
-        Sun, 30 Aug 2026 14:23:14 -0700 (PDT)
-Received: from intrepid.netbird.selfhosted ([177.161.242.155])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-66e4ecf1f6fsm4454271d50.13.2026.08.30.14.23.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 30 Aug 2026 14:23:13 -0700 (PDT)
-From: Fabricio Gava <fabriciogava@gmail.com>
-To: Florian Schauer <florian@schauer.to>,
-	Jesper Dangaard Brouer <hawk@kernel.org>,
-	Ilias Apalodimas <ilias.apalodimas@linaro.org>
-Cc: Bruno Xavier <bfxavier@gmail.com>,
-	netdev@vger.kernel.org,
-	bpf@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	ast@kernel.org,
-	daniel@iogearbox.net,
-	john.fastabend@gmail.com,
-	sdf@fomichev.me,
-	linyunsheng@huawei.com
-Subject: Re: [PATCH net v2] page_pool: keep frag_offset aligned for odd-sized requests
-Date: Sun, 30 Aug 2026 18:23:00 -0300
-Message-ID: <20260830212301.545982-1-fabriciogava@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260828060822.2628276-1-florian@schauer.to>
-References: <20260828060822.2628276-1-florian@schauer.to>
+        d=1e100.net; s=20251104; t=1788125013; x=1788729813;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=KulJb9m4lyjbS/Bxlru8m+jiMLlRHaAM9CjPiqQQbHY=;
+        b=KqVxV9LmbG8ImcvtCCqY72p/+3UrR/Rfh+bJm7GDq7c3P2fgdD4Se7VaC3uXBD/J48
+         2yCy+FuFFNjrfv6Eyv7uZcNCAnajWuaPP9R6r4e4l3LDNJZ9Zl1v0DajgsBuaWNFvEva
+         Ggbz9a0CUDfOwYL8kwWc4GCkigM2w6vaTYKE2748JMfefMqyhXXYyJgBmkUaYZGOysea
+         kJuaacpgsdZfZHW6CyYWUwEmJ+au02Ui6K84K0HgKBmJNRAMGHXvEG91xTDboE9WvC9M
+         uUmS3MnwIZwfU36uqEwnzvYtE4ttIKNLuVAen7O4+jDm0yZ8G4Fz0p4vAmCqCb9bEBVL
+         3Hsw==
+X-Forwarded-Encrypted: i=1; AHgh+Rp4jykTgAdNUyJfDZW2mf/RwLxF83E/SS+Ibub66CMapnqgCCJmkwE38yE8rAxpYTFS/KLnGBAvhoc9oMI=@vger.kernel.org
+X-Gm-Message-State: AFuF++lmgwixJ9f+z8wb/780d3YHGTdHtoU1bF7aVY+2IgkmC9Zo4pyZ
+	OntuvV9xkeXuOh778WP3mU6R+wIP+tmJjOYauAIDqQfR5k7Cn7udvaV5
+X-Gm-Gg: AR+sD13uPn5kGkXp2n90g3JVLghLrl8imZJ//I9BkaF4jdyUdseX7cWFB4xU/h/ifjg
+	O+9PSsSQq4bdTkk7ZQGn11VBFW3lkI1G4BoAnati45DL0jokik34suXJ9lKED+qyPvXW8iubGFw
+	2VLFXaitcFqBoEklb0qX890uDBrtBrgWpfIWuhgUIDoZTj1NXCZsBEfN8puUa6XSd8KdT89fjUB
+	FbUx7W1UYZ3+mGaFEd89jjj3ZL/jZkzyY/DKcfIXewiOVI98wNEt5ezW49Zj1f8+o+IxUY8UIYv
+	eVYLLfJWext4wYZvvsGEiZs2V+F7nn9ex7rVKvSZM+3QcU91sc1uCZVf8YTC52o3LdWrijScfQA
+	8Ab2uF29fBu3lDwh99iKHCMK1AaycxFkROWN4lDzM/SMAz753njMcn1NKiGRhYs2d6Ces95SOZT
+	hFrLExij888M5QMbK+9n5USjrY/udiqSFNgrJZDApFpAbq1+o+iEv+Oj7QCKuxDsWp4hoF1kH8d
+	uoCzSt5W6xQaabYnyTjNA==
+X-Received: by 2002:a05:600c:6088:b0:49b:2796:be30 with SMTP id 5b1f17b1804b1-49b91c433a4mr342610655e9.11.1788125012656;
+        Sun, 30 Aug 2026 14:23:32 -0700 (PDT)
+Received: from [10.100.102.74] (89-138-77-243.bb.netvision.net.il. [89.138.77.243])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b91728319sm219625835e9.12.2026.08.30.14.23.31
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 30 Aug 2026 14:23:32 -0700 (PDT)
+Message-ID: <499d5395-3055-4968-8b73-d095ba427134@grimberg.me>
+Date: Mon, 31 Aug 2026 00:23:30 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH nvme-7.3 v2 4/4] nvme-fabrics: add helper for DH-CHAP
+ secret options
+To: raoxu <raoxu@uniontech.com>
+Cc: axboe@kernel.dk, hch@lst.de, kbusch@kernel.org,
+ linux-kernel@vger.kernel.org, linux-nvme@lists.infradead.org
+References: <0D24A9A3F19DBCF9+20260827125710.1381672-1-raoxu@uniontech.com>
+ <A234F50F1018A58C+20260827130407.1391174-1-raoxu@uniontech.com>
+Content-Language: en-US
+From: Sagi Grimberg <sagi@grimberg.me>
+In-Reply-To: <A234F50F1018A58C+20260827130407.1391174-1-raoxu@uniontech.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Fri, Aug 28, 2026 at 08:08:22AM +0200, Florian Schauer wrote:
-> Tracing page_pool_alloc_frag_netmem() over one such run shows the
-> amplification -- two odd-sized requests, nine misaligned offsets:
+
+
+On 27/08/2026 16:04, raoxu wrote:
+> From: Xu Rao <raoxu@uniontech.com>
 >
->   requested size & 7:   0: 17035    5: 1    7: 1
->   frag_offset & 7:      0: 17028    3: 1    4: 1    5: 1    6: 1    7: 5
+> The dhchap_secret and dhchap_ctrl_secret options have a distinct string
+> lifetime because their values are authentication material.  The temporary
+> string must be checked for the DHHC-1 representation and discarded with
+> kfree_sensitive() when validation fails before ownership is transferred.
+>
+> Add nvmf_parse_dhchap_secret() to keep match_strdup(), DHHC-1 validation,
+> failure cleanup, replacement of the old value and successful ownership
+> transfer in one scope.  Both secret options use the same helper because
+> their parsing and ownership rules are identical.
+>
+> Keep the existing replacement semantics for an already stored valid secret;
+> this patch only moves the parsing and temporary allocation lifetime into
+> the helper.
+>
+> No functional change is intended.
+>
+> Suggested-by: Christoph Hellwig <hch@lst.de>
+> Reviewed-by: Sagi Grimberg <sagi@grimberg.me>
+> Signed-off-by: Xu Rao <raoxu@uniontech.com>
+> ---
+>   drivers/nvme/host/fabrics.c | 48 ++++++++++++++++++-------------------
+>   1 file changed, 24 insertions(+), 24 deletions(-)
+>
+> diff --git a/drivers/nvme/host/fabrics.c b/drivers/nvme/host/fabrics.c
+> index 24385e777307..dc8883d85f45 100644
+> --- a/drivers/nvme/host/fabrics.c
+> +++ b/drivers/nvme/host/fabrics.c
+> @@ -725,6 +725,25 @@ static int nvmf_parse_string_option(substring_t *args, char **dst)
+>   	return 0;
+>   }
+>   
+> +static int nvmf_parse_dhchap_secret(substring_t *args, char **secret)
+> +{
+> +	char *value;
+> +
+> +	value = match_strdup(args);
+> +	if (!value)
+> +		return -ENOMEM;
+> +
+> +	if (strlen(value) < 11 || strncmp(value, "DHHC-1:", 7)) {
+> +		pr_err("Invalid DH-CHAP secret %s\n", value);
+> +		kfree_sensitive(value);
+> +		return -EINVAL;
+> +	}
+> +
+> +	kfree(*secret);
+> +	*secret = value;
+> +	return 0;
 
-Two things you may not have: a competing patch for this same defect, and a
-measurement of how far the amplification goes under a different load.
-
-The competing patch fixes the caller instead of the allocator:
-
-net: skbuff: keep the page_pool fragment offset aligned in skb_pp_cow_data()
-  Bruno Xavier <bfxavier@gmail.com>, 2026-08-27
-  https://lore.kernel.org/netdev/20260827122926.31123-1-bfxavier@gmail.com/
-
-Its Notes: section describes your change as "the alternative" and offers to
-send that version instead -- the two look to have been written
-independently, a day apart. Both are in state "new" with no review comments
-on either thread, so a maintainer opening one cannot see the other. I have
-copied Bruno here.
-
-On the numbers: an independent reproduction on a third configuration.
-Fedora 44, kernels 7.1.8 / 7.1.9 / 7.1.10, Intel i5-13420H, NetBird v0.77.1,
-which attaches a SEC("xdp.frags") program to lo and holds an unbound raw
-IPPROTO_UDP socket. Eight panics, all skb_clone+0x159, six from
-raw_v4_input() and two from ipv6_raw_deliver(). Same tracing as yours, over
-a 12 s run of a reproducer generating UDP datagrams of 1400..63000 B on
-loopback:
-
-                                        total    aligned    misaligned
-  size requested from
-    page_pool_alloc_frag_netmem()     1876609      23.7%         76.3%
-  *offset returned by the pool        1876609      31.9%         68.1%
-  skb->head from napi_build_skb()     2314689      91.8%          8.2%
-
-Your trace shows 2 odd-sized requests out of 17037 (0.01%); driving
-skb_pp_cow_data()'s fragment loop with varied datagram sizes puts it at 76%.
-Once an odd-sized request has moved frag_offset off alignment, the
-allocations carved out of that page afterwards are misaligned too, until the
-accumulated sizes happen to land back on a multiple of 8 -- which is why the
-share of misaligned offsets (68%) is so much higher than the rate of odd
-requests alone would suggest. If the changelog needs an argument for the
-stable backport, this is one: the rate is workload-dependent, and it is not
-bounded by anything.
-
-On coverage, which is the part that may bear on which fix is preferred:
-skb_pp_cow_data() is not the only caller passing a raw length to the per-cpu
-system_page_pool. xdp_copy_frags_from_zc() does the same, at
-net/core/xdp.c:700:
-
-	const skb_frag_t *frag = &xinfo->frags[i];
-	u32 len = skb_frag_size(frag);
-	u32 offset, truesize = len;
-	struct page *page;
-
-	page = page_pool_dev_alloc(pp, &offset, &truesize);
-
-and its caller xdp_build_skb_from_zc() takes that pp from
-this_cpu_read(system_page_pool.pool) at xdp.c:753, then feeds
-page_pool_dev_alloc_va() at xdp.c:754 into napi_build_skb() at xdp.c:758. So
-that path both leaves odd frag_offsets behind and consumes the head
-allocations that follow them, on the same per-cpu pool. All three callers
-of page_pool_dev_alloc() in the tree pass an unrounded size --
-enic_rq.c:277-291 asks for netdev->mtu + VLAN_ETH_HLEN, plus xdp.c:702 and
-skbuff.c:988 -- and
-where a caller is safe it is because it rounds on its own beforehand, as
-virtio_net does with ALIGN(len, L1_CACHE_BYTES) at virtio_net.c:2710.
-
-I measured the attribution rather than only arguing it, and it does not
-settle the question: over ~75 s and some 8.6 million fragment requests, the
-probe saw none originating outside skb_pp_cow_data(). That is what one
-should expect on this box, which drives neither the AF_XDP zero-copy path
-nor a page_pool-backed NIC driver, so no other producer was exercised. It
-says the caller-side fix would be enough for this workload, not that it is
-enough.
-
-One observation for the changelog, if useful: the skbs that actually panic
-are small and linear (48..222 B, data_len == 0, ordinary DNS traffic). The
-large non-linear packets are what leave frag_offset odd; they are not the
-victims. That makes the failure look unrelated to the traffic causing it,
-and it is why reports of this are easy to misattribute to whatever process
-happened to be running the softirq.
-
-We have not built and run the patch here; a Tested-by: will follow
-separately if we measure a patched kernel.
-
-Thanks,
-Fabricio Gava
+Looks very similar to nvmf_parse_string_option... Would this be better? 
+-- static int nvmf_parse_dhchap_secret(substring_t *args, char **secret) 
+{ int ret; ret = nvmf_parse_string_option(args, secret); if (ret) return 
+ret; if (strlen(*secret) < 11 || strncmp(*secret, "DHHC-1:", 7)) { 
+pr_err("Invalid DH-CHAP secret %s\n", *secret); 
+kfree_sensitive(*secret); return -EINVAL; } return 0; } --
