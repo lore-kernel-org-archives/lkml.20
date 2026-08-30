@@ -1,430 +1,151 @@
-Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
+Received: from mta0.migadu.com (out-83.mta0.migadu.com [91.218.175.83])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 244C32EBBB7
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 05:14:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76D642ECEB9
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 05:15:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.83
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788066857; cv=none; b=elgYH2UElsyhEBLGHmo9HdBQIHf8/OyIylOGfzOb6I7xydmall+PApz7GFYG8h+/oeYLJiYbZhxryrvNLrJgQKbB2XEp4b405AaHQglqPRxX12VkxL3XBgvhlukVeH6wnHiTXyw8qNZhxjThlkMkCJhDbx2F1sc/2my5CkzOiJk=
+	t=1788066926; cv=none; b=cWLKWQ9Egl0W65TU9cMSpK80N66IVy34BsZ5qpXxo4kjS4I2WJlV4o4JKvvFuNRXTmHZe2XLJ80RyMXejYXZmZLqBsH+F2Q4kHo/HtEurjBrMkoCYefMJvykQUWBLTic2c7ln5xHkWL5ZwY9wVdDJHNbi2h0NhHURg4nMqSv5E0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788066857; c=relaxed/simple;
-	bh=iV3sIWrGxvWungLl3IqCNLrET/Em/Bu90IrLBSW4Yxk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qGyzekMq9VWYXbozBihn9vjf3AMG2QD72bueL/ok3565eJf1n5B8i92VDLqoHAPfjdIvxrS/0mKDKYtzB6EsTsZOnXUPzFIHkbDVAeryVbuQ8R6a6JsKrQnBOy50dCebd5VFF6HPAvjUF5FR2DBZsZ3eP/av99oh7MXfAFrnpR0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=crusoe.ai; spf=pass smtp.mailfrom=crusoe.ai; dkim=pass (2048-bit key) header.d=crusoe.ai header.i=@crusoe.ai header.b=U18EWI+g; arc=none smtp.client-ip=209.85.210.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=crusoe.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crusoe.ai
+	s=arc-20240116; t=1788066926; c=relaxed/simple;
+	bh=HiW3d3TplfCxceccjWG6SJ1prOMobAwhNnC0vLXjVus=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=r69+CLzdFN2Tutzt5Nv0sL2EXCRK4lVCB0XNgyFOyCusf4ZZjZjYn700vMuNsJXopiXsnFG9LdY0FMHC1wLGhaAghlQAzfJgwh1H0c7T5T/ey4AXy8LMI1ht/qYj93nKGQLCmTYBjiBqpSk8JAZcZ9ozVMefpWGCRf03XCQkgRg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Cd2tm3y1; arc=none smtp.client-ip=91.218.175.83
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=crusoe.ai header.i=@crusoe.ai header.b="U18EWI+g"
-Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-855d2bfae95so2535920b3a.1
-        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 22:14:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=crusoe.ai; s=google; t=1788066853; x=1788671653; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1gXFO776y6OOEgXqFyZQVNGCJghM1qCvRqbZsaMk0vw=;
-        b=U18EWI+gSzFCn8/umrsma+543e5b/Mnro+Vt2VLZTX6qC42XOSOOEss/rKxU6IHlyM
-         l5AguLk9SFQcLINwmqB2Sc3UpE1C+hSsnNfR6w1S0iueJ4YltSCIhDxRxLwenS+3iTE5
-         dkrExZ0yYrDtBfTxoC5FtnXq5BA+U/ZgsrNNGxF2AK+lOZki0ZM5KhuJVYCLJMQBrlmI
-         1Pwin+2I3HEGyqAaPLJlzeGbhbyto63+OdjWvjDoV6ZJmyYCfd2MbTJCc3pNVCfipTdv
-         PFCgFjxbtVmRXLjdYO7iUD8PIorAjxZ1Az0gLCcB4wnQROriH9iCrrcGH1+yGrtyYzgG
-         SXUQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788066853; x=1788671653;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1gXFO776y6OOEgXqFyZQVNGCJghM1qCvRqbZsaMk0vw=;
-        b=XuYIPe5XfTjsh9zrzETih9f/ld5UnPfq7O4Q64+015cljruilUYIbEqc19j63rK3Eq
-         o5Zs+OQzxRtQqHjNSyWM4McOPRprvQgOmloJGOdC139ZSK2seW2oPmiYba/DSF7N32K1
-         LTubi5FnAeUTdbSPExd8yPOJWp1g/uTMxTcWXH1BsslKcEAkFSRECMP1KEYhRnZ+MeQr
-         BqicnHZ7W0U6O41j0gz8NxNOhcxc74cVFJcJSj1zuKJZ0/RDiXUt2WZHproMZTETu/B3
-         pmBjwn7SBIaf6VH3AjIqUGrdEVMrmrp6GqciaJinzx+354lEn3OvfUd8b+FU+FGctDCw
-         e8WQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrXlEOjgK6Cf2ofNN5IMJqRa4Z0yHU2QHacJ9QPN+qfqAPsbmiFcFGH4gyr3AT7z3ekKg5/NcACa9rvwMw=@vger.kernel.org
-X-Gm-Message-State: AFuF++mzGs3D6BxIWZWpNPdHpaBDaiRoh8sVFSxVpsrae946gJKU4/lf
-	ucN2gIDpznxCW4GH+d3NzD2YT3dtoZCxX2qwBBMsHoRVywObyR2u5M3I5+m7CbmxUv1QGXxpGIl
-	3i9FM7c4=
-X-Gm-Gg: AR+sD10W/aOSQ/hQG1MtEAhAazmIjYglKiWLDi5DEGf21+AdDYiJPosFL+GKGNfZ+3K
-	ccJ4mbWMqmqO/PEA2NuD8t1Y+VuXdklGuVF3205uPzjrF9N1S5pRBpP+KbHtucT3pKrUSH6IegZ
-	nymX1+ZWHZj+i00QOwtpsQ80G2W1lAbEmJakhra0zvxpRxSTcnexNNUam3ti5T37uL+Ymu3vksb
-	2pFW/MFH6BHycc8aOscHkKLB+E0HDzc4+iYF6cqapOR/JDXYp8atQsV2ALBbwI7iUUi1wqOyTGm
-	1Roi+SYysf6OoiEjzVM6rCv4ioa7G2VpQYLQRakBr0qtmS/CfcK637x+K05nOK6b+7HV1uEvzCr
-	B+AOmHvf+37/cvwL8HDfZik8sAvjo7fKpGj3pdQ9loBu/oPiTV+qIpuQbs90Mz1ggnZgFLmI6b6
-	lq0PVvWKL+by4uKjTAJss3SE7rHuHDOcAHmdF/+YEisSqRUMDLrEEorJYx6a+fazshYYiYmFQ30
-	aFoktUAHOodY2LmMJE8pH5Ij6GZ14SIQmU=
-X-Received: by 2002:a05:6a21:7e84:b0:3d3:3dca:f0a3 with SMTP id adf61e73a8af0-3d5d787403dmr293487637.8.1788066853425;
-        Sat, 29 Aug 2026 22:14:13 -0700 (PDT)
-Received: from MBP-Krishna-Iyer.civet-hops.ts.net ([2601:645:c68a:b830:d101:1d:112c:715e])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3286fa37fa5sm22595810eec.29.2026.08.29.22.14.12
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sat, 29 Aug 2026 22:14:13 -0700 (PDT)
-From: Krishna Iyer <kiyer@crusoe.ai>
-To: SeongJae Park <sj@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	damon@lists.linux.dev,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	Krishna Iyer <kiyer@crusoe.ai>
-Subject: [PATCH 4/6] mm/damon: support flush-assisted access bit clearing for monitoring
-Date: Sat, 29 Aug 2026 22:14:05 -0700
-Message-ID: <20260830051407.50008-5-kiyer@crusoe.ai>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260830051407.50008-1-kiyer@crusoe.ai>
-References: <20260830051407.50008-1-kiyer@crusoe.ai>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Cd2tm3y1"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=HiW3d3TplfCxceccjWG6SJ1prOMobAwhNnC0vLXjVus=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788066921; v=1; x=1788671721;
+ b=Cd2tm3y1EINfQQ5kESgQ13jGNKOcb1G4Eu6EFx1AIXhugCig36Cjjwl9I4gpLn3JBgAThXWr
+ uxjHoVzJlgixBrtJKzQ4Xb0jK3Eu4mdL74N34k8Bbiz//xkgWbX+6E6CJv+MI781BtoUUVMYjW7
+ Uww7aIKwbhjFqx55Qxk/UKkM=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 13f0276adf91ee9f;
+	Sun, 30 Aug 2026 05:15:11 +0000
+X-Mizu-Trace-ID: 13f0276adf91ee9f
+X-Migadu-Flow: FLOW_OUT
+Date: Sat, 29 Aug 2026 22:15:05 -0700
+From: Shakeel Butt <shakeel.butt@linux.dev>
+To: Hugh Dickins <hughd@google.com>
+Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
+	syzbot <syzbot+cd2073ee6d958a8d0fcd@syzkaller.appspotmail.com>, linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
+	syzkaller-bugs@googlegroups.com
+Subject: Re: [syzbot] [mm?] WARNING in __mod_zone_page_state
+Message-ID: <apO7GDwIgyhdn3t7@linux.dev>
+References: <6a931c5a.08e933ee.dbf97.0093.GAE@google.com>
+ <apNjw0HRyr1Oj7q4@linux.dev>
+ <apOAF5CPFWUUH9du@linux.dev>
+ <a2288e73-5001-2104-1e7a-2b383e7edd61@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <a2288e73-5001-2104-1e7a-2b383e7edd61@google.com>
 
-DAMON's access sampling clears the accessed bit of the sampled page and
-re-reads it one sampling interval later.  The clearing uses the
-non-flushing primitives, deliberately trading accuracy for low
-overhead: cached TLB translations survive the clearing, and accesses
-through such cached translations do not perform page table walks, hence
-do not set the accessed bit again.  The bit therefore re-arms at the
-TLB-refill rate rather than the actual access rate.
+On Sat, Aug 29, 2026 at 08:26:02PM -0700, Hugh Dickins wrote:
+> On Sat, 29 Aug 2026, Shakeel Butt wrote:
+> 
+> > +hugh
+> > 
+> > On Sat, Aug 29, 2026 at 04:03:35PM -0700, Shakeel Butt wrote:
+> > > On Sat, Aug 29, 2026 at 10:52:26AM -0700, syzbot wrote:
+> > > > Hello,
+> > > > 
+> > > > syzbot found the following issue on:
+> > > > 
+> > > > HEAD commit:    818bebeb63dd drm/xe: Don't hand out the flat CCS storage a..
+> > > > git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+> > > > console output: https://syzkaller.appspot.com/x/log.txt?x=10286d79580000
+> > > > kernel config:  https://syzkaller.appspot.com/x/.config?x=ccca94d2c01b9e78
+> > > > dashboard link: https://syzkaller.appspot.com/bug?extid=cd2073ee6d958a8d0fcd
+> > > > compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+> > > > C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=13cf7625580000
+> > > > 
+> > > > IMPORTANT: if you fix the issue, please add the following tag to the commit:
+> > > > Reported-by: syzbot+cd2073ee6d958a8d0fcd@syzkaller.appspotmail.com
+> > > > 
+> > > > smpboot: CPU 1 is now offline
+> > > > ------------[ cut here ]------------
+> > > > IS_ENABLED(CONFIG_PREEMPT_COUNT) && __lockdep_enabled && (preempt_count() == 0 && this_cpu_read(hardirqs_enabled))
+> > > > WARNING: mm/vmstat.c:361 at __mod_zone_page_state+0x96/0x190 mm/vmstat.c:361, CPU#2: syz-executor412/6040
+> > > > Modules linked in:
+> > > > CPU: 2 UID: 0 PID: 6040 Comm: syz-executor412 Not tainted syzkaller #0 PREEMPT(full) 
+> > > > Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+> > > > RIP: 0010:__mod_zone_page_state+0x96/0x190 mm/vmstat.c:361
+> > > > Code: d0 00 00 00 8b 05 3e 44 ea 0e 85 c0 74 1f 65 8b 05 87 e0 2e 12 65 0b 05 d0 99 2e 12 75 0f 65 8b 05 d3 db 2e 12 85 c0 74 04 90 <0f> 0b 90 48 c7 c7 c0 e7 ff 8b e8 3b b3 6d 09 65 48 0f be 5d 00 48
+> > > > RSP: 0018:ffffc9000627f8e0 EFLAGS: 00010202
+> > > > RAX: 0000000000000001 RBX: 0000000000000000 RCX: 1ffffffff2287150
+> > > > RDX: 0000000000000000 RSI: 0000000000000008 RDI: ffff88807ffd79b8
+> > > > RBP: ffffffff9489f448 R08: 0000000000000001 R09: 0000000000000000
+> > > > R10: 0000000000000001 R11: 0000000000000000 R12: ffffffffffffffff
+> > > > R13: 0000000000000008 R14: ffff88807ffd7940 R15: ffffffff9489f440
+> > > > FS:  00005555785ce400(0000) GS:ffff8880d5da2000(0000) knlGS:0000000000000000
+> > > > CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> > > > CR2: 00005608d531ffb8 CR3: 000000002cb7c000 CR4: 0000000000352ef0
+> > > > Call Trace:
+> > > >  <TASK>
+> > > >  __zone_stat_mod_folio include/linux/vmstat.h:410 [inline]
+> > > >  __munlock_folio mm/mlock.c:144 [inline]
+> > > >  mlock_folio_batch+0xf97/0x36e0 mm/mlock.c:204
+> > > >  mlock_drain_remote+0xe5/0x140 mm/mlock.c:230
+> > > 
+> > > So, we are calling stat update functions which requires preemption disabled
+> > > (because they access per cpu data) an offlined CPU which is fine but we have
+> > > warning that preemption is not disabled.
+> > > 
+> > > Let see if syzbot comes up with a reproducer. We can just simply take the local
+> > > locks like neighboring functions or something else.
+> > 
+> > After looking deeper and it seems like __munlock_folio is the only one which
+> > have a code path where lru lock with irq disabled is not done before call
+> > __zone_stat_mod_folio. I think we can easily fix __munlock_folio without
+> > acquiring local_locks here.
+> > 
+> > Something like below. I will run some tests before proposing a formal patch.
+> 
+> Thanks for looking into this, Shakeel, but I don't think complicating
+> __munlock_folio() is at all the right fix. This is peculiar to the use
+> by mlock_drain_remote(), isn't it? Which is not taking the usual local_lock
+> because the CPU is going offline. I would say, just take the local_lock in
+> mlock_drain_remote(), but (I haven't read the history) for all I know,
+> there may be PREEMPT_RT reasons why that would be completely wrong.
+> 
+> Hugh
 
-For most setups this is a good trade-off, since TLB pressure re-walks
-hot pages frequently anyway.  It breaks down when translations are
-long-lived, most prominently on virtualization hosts backing guest
-memory with 1 GiB hugetlb pages: covering hundreds of GiB takes only
-hundreds of TLB entries, translations essentially never get evicted,
-and secondary MMU (e.g. KVM/EPT) accessed bits cleared via
-mmu_notifier_clear_young() are rarely set again.  Measurements on a
-1 TiB host showed the reported access fraction pinned at the TLB-refill
-rate: a guest workload continuously accessing 842 GiB was
-indistinguishable from an idle guest.
+Thanks Hugh, I will explore the local_lock approach. BTW I simplified the
+fix to the following. is this still making things more complicated?
 
-Add an 'aging_flush' monitoring context option, default off.  When set,
-the sampling primitives pair the accessed bit clearing with
-mmu_notifier_clear_flush_young(), so secondary MMUs invalidate their
-cached translations and the next guest access must re-walk and re-set
-the accessed bit, making the sampled young state reflect the actual
-access rate.
-
-The flush covers secondary MMU TLBs only, uniformly across the PTE,
-PMD and hugetlb paths.  Primary MMU TLB young-flushing is deliberately
-not added: x86 already implements ptep_clear_flush_young() without a
-flush on the grounds that primary-TLB accessed-bit staleness is not
-worth the flush cost, and the observability target here is secondary
-MMU (guest) access state.
-
-The cost is secondary TLB invalidations during the sampling prepare
-pass.  KVM coalesces flush requests issued in a burst (pending-request
-deduping), so a prepare pass over all regions results in roughly one
-guest TLB flush per pass, and hosts whose guests are backed by huge
-pages have small TLB working sets that are cheap to re-fill -- exactly
-the hosts that need this option.  Measured on a 1 TiB host with a
-176-vCPU guest: ~240 flush calls/sec at auto-tuned intervals,
-bounding worst-case aggregate overhead below 0.1%.
-
-DAMOS filter paths keep the non-flushing behavior unconditionally.
-
-Assisted-by: Claude:claude-fable-5
-Signed-off-by: Krishna Iyer <kiyer@crusoe.ai>
----
- include/linux/damon.h |  2 ++
- mm/damon/core.c       |  2 ++
- mm/damon/ops-common.c | 40 ++++++++++++++++++++++++++++------------
- mm/damon/ops-common.h | 12 +++++++-----
- mm/damon/paddr.c      |  7 ++++---
- mm/damon/vaddr.c      | 19 +++++++++++--------
- 6 files changed, 54 insertions(+), 28 deletions(-)
-
-diff --git a/include/linux/damon.h b/include/linux/damon.h
-index 0c8b7ddef9ab..7fc438677dd8 100644
---- a/include/linux/damon.h
-+++ b/include/linux/damon.h
-@@ -848,6 +848,7 @@ struct damon_attrs {
-  * including damon_call() and damos_walk().
-  *
-  * @addr_unit:	Scale factor for core to ops address conversion.
-+ * @aging_flush:	Flush TLBs when clearing access bits for sampling.
-  * @min_region_sz:	Minimum region size.
-  * @pause:	Pause kdamond main loop.
-  */
-@@ -899,6 +900,7 @@ struct damon_ctx {
+diff --git a/mm/mlock.c b/mm/mlock.c
+index efa6716e4dfb..fa30ffed76ab 100644
+--- a/mm/mlock.c
++++ b/mm/mlock.c
+@@ -141,11 +141,16 @@ static struct lruvec *__munlock_folio(struct folio *folio, struct lruvec *lruvec
  
- /* public: */
- 	unsigned long addr_unit;
-+	bool aging_flush;
- 	unsigned long min_region_sz;
- 	bool pause;
- 
-diff --git a/mm/damon/core.c b/mm/damon/core.c
-index 644daf5a1656..46d6ec3dbffa 100644
---- a/mm/damon/core.c
-+++ b/mm/damon/core.c
-@@ -859,6 +859,7 @@ struct damon_ctx *damon_new_ctx(void)
- 	INIT_LIST_HEAD(&ctx->probes);
- 
- 	ctx->addr_unit = 1;
-+	ctx->aging_flush = false;
- 	ctx->min_region_sz = DAMON_MIN_REGION_SZ;
- 
- 	INIT_LIST_HEAD(&ctx->adaptive_targets);
-@@ -1800,6 +1801,7 @@ static int __damon_commit_ctx(struct damon_ctx *dst, struct damon_ctx *src)
- 	if (err)
- 		return err;
- 	dst->addr_unit = src->addr_unit;
-+	dst->aging_flush = src->aging_flush;
- 	dst->min_region_sz = src->min_region_sz;
- 
- 	dst->maybe_corrupted = false;
-diff --git a/mm/damon/ops-common.c b/mm/damon/ops-common.c
-index ece101d34684..5c2cd13b9b05 100644
---- a/mm/damon/ops-common.c
-+++ b/mm/damon/ops-common.c
-@@ -63,7 +63,8 @@ struct folio *damon_get_folio_incl_hugetlb(unsigned long pfn)
- 	return __damon_get_folio(pfn, true);
- }
- 
--void damon_ptep_mkold(pte_t *pte, struct vm_area_struct *vma, unsigned long addr)
-+void damon_ptep_mkold(pte_t *pte, struct vm_area_struct *vma, unsigned long addr,
-+		bool flush)
- {
- 	pte_t pteval = ptep_get(pte);
- 	struct folio *folio;
-@@ -86,7 +87,12 @@ void damon_ptep_mkold(pte_t *pte, struct vm_area_struct *vma, unsigned long addr
- 	 */
- 	if (likely(pte_present(pteval)))
- 		young |= ptep_test_and_clear_young(vma, addr, pte);
--	young |= mmu_notifier_clear_young(vma->vm_mm, addr, addr + PAGE_SIZE);
-+	if (flush)
-+		young |= mmu_notifier_clear_flush_young(vma->vm_mm, addr,
-+				addr + PAGE_SIZE);
-+	else
-+		young |= mmu_notifier_clear_young(vma->vm_mm, addr,
-+				addr + PAGE_SIZE);
- 	if (young)
- 		folio_set_young(folio);
- 
-@@ -94,7 +100,8 @@ void damon_ptep_mkold(pte_t *pte, struct vm_area_struct *vma, unsigned long addr
- 	folio_put(folio);
- }
- 
--void damon_pmdp_mkold(pmd_t *pmd, struct vm_area_struct *vma, unsigned long addr)
-+void damon_pmdp_mkold(pmd_t *pmd, struct vm_area_struct *vma, unsigned long addr,
-+		bool flush)
- {
- #ifdef CONFIG_TRANSPARENT_HUGEPAGE
- 	pmd_t pmdval = pmdp_get(pmd);
-@@ -113,7 +120,12 @@ void damon_pmdp_mkold(pmd_t *pmd, struct vm_area_struct *vma, unsigned long addr
- 
- 	if (likely(pmd_present(pmdval)))
- 		young |= pmdp_test_and_clear_young(vma, addr, pmd);
--	young |= mmu_notifier_clear_young(vma->vm_mm, addr, addr + HPAGE_PMD_SIZE);
-+	if (flush)
-+		young |= mmu_notifier_clear_flush_young(vma->vm_mm, addr,
-+				addr + HPAGE_PMD_SIZE);
-+	else
-+		young |= mmu_notifier_clear_young(vma->vm_mm, addr,
-+				addr + HPAGE_PMD_SIZE);
- 	if (young)
- 		folio_set_young(folio);
- 
-@@ -124,7 +136,7 @@ void damon_pmdp_mkold(pmd_t *pmd, struct vm_area_struct *vma, unsigned long addr
- 
- #ifdef CONFIG_HUGETLB_PAGE
- void damon_hugetlb_mkold(pte_t *pte, struct mm_struct *mm,
--		struct vm_area_struct *vma, unsigned long addr)
-+		struct vm_area_struct *vma, unsigned long addr, bool flush)
- {
- 	bool referenced = false;
- 	pte_t entry = huge_ptep_get(mm, addr, pte);
-@@ -139,8 +151,10 @@ void damon_hugetlb_mkold(pte_t *pte, struct mm_struct *mm,
- 		set_huge_pte_at(mm, addr, pte, entry, psize);
+ munlock:
+ 	if (folio_test_clear_mlocked(folio)) {
+-		__zone_stat_mod_folio(folio, NR_MLOCK, -nr_pages);
++		/*
++		 * This runs both with and without the lruvec lock held, and
++		 * mlock_drain_remote() reaches it fully preemptible, so use
++		 * the accessors that serialize themselves.
++		 */
++		zone_stat_mod_folio(folio, NR_MLOCK, -nr_pages);
+ 		if (isolated || !folio_test_unevictable(folio))
+-			__count_vm_events(UNEVICTABLE_PGMUNLOCKED, nr_pages);
++			count_vm_events(UNEVICTABLE_PGMUNLOCKED, nr_pages);
+ 		else
+-			__count_vm_events(UNEVICTABLE_PGSTRANDED, nr_pages);
++			count_vm_events(UNEVICTABLE_PGSTRANDED, nr_pages);
  	}
  
--	if (mmu_notifier_clear_young(mm, addr,
--				     addr + huge_page_size(hstate_vma(vma))))
-+	if (flush ? mmu_notifier_clear_flush_young(mm, addr,
-+				addr + huge_page_size(hstate_vma(vma))) :
-+			mmu_notifier_clear_young(mm, addr,
-+				addr + huge_page_size(hstate_vma(vma))))
- 		referenced = true;
- 
- 	if (referenced)
-@@ -212,6 +226,7 @@ int damon_cold_score(struct damon_ctx *c, struct damon_region *r,
- static bool damon_folio_mkold_one(struct folio *folio,
- 		struct vm_area_struct *vma, unsigned long addr, void *arg)
- {
-+	bool flush = *(bool *)arg;
- 	DEFINE_FOLIO_VMA_WALK(pvmw, folio, vma, addr, 0);
- 
- 	while (page_vma_mapped_walk(&pvmw)) {
-@@ -224,19 +239,20 @@ static bool damon_folio_mkold_one(struct folio *folio,
- 			 */
- 			if (folio_test_hugetlb(folio))
- 				damon_hugetlb_mkold(pvmw.pte, vma->vm_mm, vma,
--						addr);
-+						addr, flush);
- 			else
--				damon_ptep_mkold(pvmw.pte, vma, addr);
-+				damon_ptep_mkold(pvmw.pte, vma, addr, flush);
- 		} else {
--			damon_pmdp_mkold(pvmw.pmd, vma, addr);
-+			damon_pmdp_mkold(pvmw.pmd, vma, addr, flush);
- 		}
- 	}
- 	return true;
- }
- 
--void damon_folio_mkold(struct folio *folio)
-+void damon_folio_mkold(struct folio *folio, bool flush)
- {
- 	struct rmap_walk_control rwc = {
-+		.arg = &flush,
- 		.rmap_one = damon_folio_mkold_one,
- 		.anon_lock = folio_lock_anon_vma_read,
- 	};
-@@ -377,7 +393,7 @@ bool damos_folio_filter_match(struct damos_filter *filter, struct folio *folio)
- 	case DAMOS_FILTER_TYPE_YOUNG:
- 		matched = damon_folio_young(folio);
- 		if (matched)
--			damon_folio_mkold(folio);
-+			damon_folio_mkold(folio, false);
- 		break;
- 	case DAMOS_FILTER_TYPE_HUGEPAGE_SIZE:
- 		folio_sz = folio_size(folio);
-diff --git a/mm/damon/ops-common.h b/mm/damon/ops-common.h
-index 68d7de49c87a..df7ef025bc1a 100644
---- a/mm/damon/ops-common.h
-+++ b/mm/damon/ops-common.h
-@@ -8,18 +8,20 @@
- struct folio *damon_get_folio(unsigned long pfn);
- struct folio *damon_get_folio_incl_hugetlb(unsigned long pfn);
- 
--void damon_ptep_mkold(pte_t *pte, struct vm_area_struct *vma, unsigned long addr);
--void damon_pmdp_mkold(pmd_t *pmd, struct vm_area_struct *vma, unsigned long addr);
-+void damon_ptep_mkold(pte_t *pte, struct vm_area_struct *vma, unsigned long addr,
-+		bool flush);
-+void damon_pmdp_mkold(pmd_t *pmd, struct vm_area_struct *vma, unsigned long addr,
-+		bool flush);
- #ifdef CONFIG_HUGETLB_PAGE
- void damon_hugetlb_mkold(pte_t *pte, struct mm_struct *mm,
--		struct vm_area_struct *vma, unsigned long addr);
-+		struct vm_area_struct *vma, unsigned long addr, bool flush);
- #else
- static inline void damon_hugetlb_mkold(pte_t *pte, struct mm_struct *mm,
--		struct vm_area_struct *vma, unsigned long addr)
-+		struct vm_area_struct *vma, unsigned long addr, bool flush)
- {
- }
- #endif	/* CONFIG_HUGETLB_PAGE */
--void damon_folio_mkold(struct folio *folio);
-+void damon_folio_mkold(struct folio *folio, bool flush);
- bool damon_folio_young(struct folio *folio);
- 
- int damon_cold_score(struct damon_ctx *c, struct damon_region *r,
-diff --git a/mm/damon/paddr.c b/mm/damon/paddr.c
-index 09d418b2874b..f2aaa82325d1 100644
---- a/mm/damon/paddr.c
-+++ b/mm/damon/paddr.c
-@@ -35,14 +35,14 @@ static unsigned long damon_pa_core_addr(
- 	return pa / addr_unit;
- }
- 
--static void damon_pa_mkold(phys_addr_t paddr)
-+static void damon_pa_mkold(phys_addr_t paddr, bool flush)
- {
- 	struct folio *folio = damon_get_folio_incl_hugetlb(PHYS_PFN(paddr));
- 
- 	if (!folio)
- 		return;
- 
--	damon_folio_mkold(folio);
-+	damon_folio_mkold(folio, flush);
- 	folio_put(folio);
- }
- 
-@@ -51,7 +51,8 @@ static void __damon_pa_prepare_access_check(struct damon_region *r,
- {
- 	r->sampling_addr = damon_rand(ctx, r->ar.start, r->ar.end);
- 
--	damon_pa_mkold(damon_pa_phys_addr(r->sampling_addr, ctx->addr_unit));
-+	damon_pa_mkold(damon_pa_phys_addr(r->sampling_addr, ctx->addr_unit),
-+			ctx->aging_flush);
- }
- 
- static void damon_pa_prepare_access_checks(struct damon_ctx *ctx)
-diff --git a/mm/damon/vaddr.c b/mm/damon/vaddr.c
-index 15379d984689..7c11022bb664 100644
---- a/mm/damon/vaddr.c
-+++ b/mm/damon/vaddr.c
-@@ -276,7 +276,8 @@ static int damon_mkold_pmd_entry(pmd_t *pmd, unsigned long addr,
- 		pmd_t pmde = pmdp_get(pmd);
- 
- 		if (pmd_present(pmde))
--			damon_pmdp_mkold(pmd, walk->vma, addr);
-+			damon_pmdp_mkold(pmd, walk->vma, addr,
-+					*(bool *)walk->private);
- 		spin_unlock(ptl);
- 		return 0;
- 	}
-@@ -286,7 +287,7 @@ static int damon_mkold_pmd_entry(pmd_t *pmd, unsigned long addr,
- 		return 0;
- 	if (!pte_present(ptep_get(pte)))
- 		goto out;
--	damon_ptep_mkold(pte, walk->vma, addr);
-+	damon_ptep_mkold(pte, walk->vma, addr, *(bool *)walk->private);
- out:
- 	pte_unmap_unlock(pte, ptl);
- 	return 0;
-@@ -306,7 +307,8 @@ static int damon_mkold_hugetlb_entry(pte_t *pte, unsigned long hmask,
- 	if (!pte_present(entry))
- 		goto out;
- 
--	damon_hugetlb_mkold(pte, walk->mm, walk->vma, addr);
-+	damon_hugetlb_mkold(pte, walk->mm, walk->vma, addr,
-+			    *(bool *)walk->private);
- 
- out:
- 	spin_unlock(ptl);
-@@ -316,14 +318,15 @@ static int damon_mkold_hugetlb_entry(pte_t *pte, unsigned long hmask,
- #define damon_mkold_hugetlb_entry NULL
- #endif /* CONFIG_HUGETLB_PAGE */
- 
--static void damon_va_mkold(struct mm_struct *mm, unsigned long addr)
-+static void damon_va_mkold(struct mm_struct *mm, unsigned long addr,
-+		bool flush)
- {
- 	struct mm_walk_ops damon_mkold_ops = {
- 		.pmd_entry = damon_mkold_pmd_entry,
- 		.hugetlb_entry = damon_mkold_hugetlb_entry,
- 	};
- 
--	damon_va_walk_page_range(mm, addr, addr + 1, &damon_mkold_ops, NULL);
-+	damon_va_walk_page_range(mm, addr, addr + 1, &damon_mkold_ops, &flush);
- }
- 
- /*
-@@ -336,7 +339,7 @@ static void __damon_va_prepare_access_check(struct mm_struct *mm,
- {
- 	r->sampling_addr = damon_rand(ctx, r->ar.start, r->ar.end);
- 
--	damon_va_mkold(mm, r->sampling_addr);
-+	damon_va_mkold(mm, r->sampling_addr, ctx->aging_flush);
- }
- 
- static void damon_va_prepare_access_checks(struct damon_ctx *ctx)
-@@ -508,9 +511,9 @@ static bool damos_va_filter_young_match(struct damos_filter *filter,
- 		mmu_notifier_test_young(vma->vm_mm, addr);
- 
- 	if (young && ptep)
--		damon_ptep_mkold(ptep, vma, addr);
-+		damon_ptep_mkold(ptep, vma, addr, false);
- 	else if (young && pmdp)
--		damon_pmdp_mkold(pmdp, vma, addr);
-+		damon_pmdp_mkold(pmdp, vma, addr, false);
- 
- 	return young == filter->matching;
- }
+ 	/* folio_evictable() has to be checked *after* clearing Mlocked */
 -- 
-2.54.0
-
