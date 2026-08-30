@@ -1,47 +1,94 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1FB629D281;
-	Sun, 30 Aug 2026 03:01:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 625382571DA
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 03:02:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788058908; cv=none; b=BezXK65NAL3mVWIFNQ4uFQonLJ/+rz/+41EebZPlYnihNDxJpRSi4GmygGniPGhlic3A6+x8rMF0A3Rr3in5/xos1SOWXWNOHkqxBLWmVhCGzEgsr+ZyzH0IUDSU0lAxQvoGBiHBfsc0vW8VSxXfsIEsQaevnPh2a9ALoc2r2Jc=
+	t=1788058955; cv=none; b=LH7fGcijBASqc8aoVui8bhsUYoQZD3G6mZGW+JM70LayNog7vlWbzzN2aRwZewWj8Awfr3/1gMJDreIifCLoEeeYb0HIiZfhtgMn1wc0esR7fhiHMfv2xWFOBpyy8n6LNoToLrIlGCJcxHvIEWMGkyHkuh8SU6sNxSY3p9aUnEQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788058908; c=relaxed/simple;
-	bh=JUnobn2v3cO4dPnb0BFKkelEAgNeebzyOgm48b9CKZ8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=rYPMheXw28gTdrPFLhZ6Bjt7/Jpb38Caa8YGCvw3Fu67pIhmKgG/rAnF5NwI81QaqB+cMmY0IxjYEZTYOvZhsv5VDXMzJexW1LzOhRp44Zvt2e9igNyS15w+sQ9PgjDT0biL3kKBjpjnwNjPyYdlWpMjaVRuL0w9KwoscING5OA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R/FnjzaJ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788058955; c=relaxed/simple;
+	bh=moqTSGv5ENKB5c0/Y4DGniSwhWkDVvYVa6wj3DK41ZA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XYLA71faQqFhxmlHLT/coae7zOr0Y9irlwR+2rGwOj1y4tnjdP20XzsnEleQh3XIO8YBsMYlt2IHlYoj3ga4T5VcYgNk/6AziPAJnUu4GLM31qx9mG3t5pWkWGHa2RFs59FuLb4tOI1jw2xwGs+rxPlCu+/EJq9Qdx4zLpfWTcc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=C07O4Oj4; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=X38j7jNC; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R/FnjzaJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B90A1F00A3F;
-	Sun, 30 Aug 2026 03:01:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788058907;
-	bh=P+cQXni6U3GYPHJ15XaoclxNFXZQVrVin0rhjt5wetc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=R/FnjzaJ64ornvXeRTDKXE5eOIoYf828KX2SCoku6JcO7QAHoEnukvJDnYRxteIhn
-	 57x+dniQ0KQLcBQIVDv2j71HGAPmhhKSSxXueD6vDcvChRAbGQshKMTaMtVF1OKPRe
-	 jDzIKFX1wUyXgyB+g5ki1XYn7UvuyXpPzQIC4zQoGSp5/iKVtloOkosY9HWaG89GjC
-	 WHrQX9qBBXKTZCHuTl6/JFtlJcT3a0DYZApunERTJ0AYcCxd7KcbX449++FLRwxcgH
-	 l/ShpDezTfZD37kxZs9mYTBXBXH1PdzasuqLdoC/ma6Gn6ST9SQ4SbWCAIUXMzGBc0
-	 Jxk6+G4FLYouQ==
-From: Sasha Levin <sashal@kernel.org>
-To: "Rafael J. Wysocki" <rafael@kernel.org>
-Cc: Sasha Levin <sashal@kernel.org>,
-	linux-pm@vger.kernel.org,
-	regressions@lists.linux.dev,
-	stable@vger.kernel.org,
-	Jiakai Xu <xujiakai24@mails.ucas.ac.cn>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-kernel@vger.kernel.org,
-	Marcin Dawid <mdawid@gmail.com>
-Subject: Re: [REGRESSION] 6.12.y: s2idle hangs after 171ef40fce41 ("PM: sleep: Use complete() in device_pm_sleep_init()")
-Date: Sat, 29 Aug 2026 22:56:44 -0400
-Message-ID: <20260829-stable-daily-0004-pm-sleep-complete-revert@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260829094750.574649-1-mdawid@gmail.com>
-References: <20260829094750.574649-1-mdawid@gmail.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="C07O4Oj4";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="X38j7jNC"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67U2RWRx3947262
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 03:02:26 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=s1c25Lyhl5gqP4AaTKFM7nn3FOFd5aFvBEs
+	hY/ARIuA=; b=C07O4Oj4Q1S5lSqvQrd62n/dLGWGm/E3zM2dAvcXcQIL6a23iwK
+	3AjBfiDKXH3Qm3UtVkZvVXpi/LKZGYNdycEylHLAmryWVg7QDD5rjcomKc40EcGR
+	XCfXWljKgA68PRhjpfP+zyS44jXztkCEizYqVdT7WvZxHmrS0nHDz3Z3TPKyTc/z
+	71TFHk8K6QNt3M3UzME3zsT+JF9F7LInFJNIj67wk6ycfMKaaNk2vk1yAC6aXrpr
+	eLkWKDL8PgmRdRvy8rrQEP9aZIyd8VKNRReaMfbjzJbJgMxVf5xB+dWHWcdYa0em
+	2dz7yMAF5NdScaVzliJIDZZ4t9BZTGz2qnQ==
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gbqdvj7jp-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 03:02:26 +0000 (GMT)
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-38e25e4b41cso3924041a91.0
+        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 20:02:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788058945; x=1788663745; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=s1c25Lyhl5gqP4AaTKFM7nn3FOFd5aFvBEshY/ARIuA=;
+        b=X38j7jNCuu956sXEzD+AZFY11Fc58+u9EdBFZo2GFMXSQhXWC56myj+rccXSF8zEm/
+         RyUn7BEXESJKVBE+aUhewkwzqF1SoUB77ZfOGuKnaEWcnuO2EbdYn9/DeisMe2OlqHft
+         2/5gk8yrYX2G8FYa9+c7fBCD9golJRvoCUHyNeZGw98EQlx4flI9z6uKKm0EHsF9U8CX
+         iIJ9dZTitTeu/CgAMOQsHLmDp9MDUh0zbar+NevafhhL46iwhq9hqhHmjmRUFhqgknCp
+         EMZHobhrJzLQ8/k48iwHt5F3DZRS7CCO5YKZMbiMgSnIUk/G1Dcr+gjWIJONL3EemUGT
+         9FfQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788058945; x=1788663745;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=s1c25Lyhl5gqP4AaTKFM7nn3FOFd5aFvBEshY/ARIuA=;
+        b=s1azBspy9ZnZgTSS5MC5UCF8E9EavO/xsYZSa6gIqA6amN5wIZJz0lftVnH46+O5a/
+         w8FdmXH++oud9Hl8xHtpCBcUciD/ggQoj1LjFfqW4dJnPX6366AkNq6kWmuixme8LbB3
+         Unc54jQiNX+5gtea06KJATQogyVKTsXHhmTokK5CC/nWS1Bmoxwsju0LaduJ2W2eFUFV
+         ZPG1HFCtjKQUG3wydd3gHIUCeUe9F/L+ORVnpwhQ7H9cKhGLKsdPtVIclDheICxmAp8Y
+         TMPe03jQM8jWgi3eKQBJ33W2tasl8sSjafvo1cqsTF8m/B4zCaL5447Hw7w/JZAAR4Yx
+         G/tQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzUp0X42OiropbYdQkys2aouiDKNQ1Uhjz339W7o7Q+ix1K+3xJ6u8fV1EtbbjsO5/QHQZm1oEYSxTH4cY=@vger.kernel.org
+X-Gm-Message-State: AFuF++kWRIR0/QeTJem8bJGDdB82Pyyr0A2d/fE8kNOtGcSHis5+y++9
+	VpsoQrZ3XKVbIpkpkMm+B/BBgrT2jkpA7t/cJw6hR8TjccgbnLdSl0LICvtvM9Uci6UPDoDcgAz
+	Bs/C2KBe4CfxyNW1lhxX2o73MapJ+l70Hn5z0+ExccmwGErAjdc4pLOMYvNaxhVN2ecM=
+X-Gm-Gg: AYBFou15wY2SwwC/hksFB+Xx7xa3trYU6gAY4zIiY0pG1m6mruzZQRwe++bfSrmEmG0
+	KiHLE3uhjXyNtGxzHyIaw0unjyXR2xmD4DZB+V9TAFGpeatxUMU7hP/EMNmsPCkGgH8UubWW1/N
+	NpkYbkhsZ8OUfGoK3CtLwZzc1YLmh4mSBGFlggv35jikz24MplgfFNNL+TXyzG6ka2ThpDgI9WU
+	1S0jkW0uuIt680yZCjXXBOubSQJ4R9dfIb7Qo/OK+buAMHuiV3lwGDmPGOBylKjq4wcoRVdJswh
+	hiEn4+rMYlChV+zs57S6HyRHG9T5gEWej52uURG1FWGdxAV/38eJJEXR8AqGGNiY9Kyp4sOe9xJ
+	UkRHumgvm6dNnT38OG5fZWxWGYkh+6PTVtbFdY39FLgd7HLyicRK653C5JFUz
+X-Received: by 2002:a17:90b:5284:b0:396:4dfb:5890 with SMTP id 98e67ed59e1d1-396d0e5bbc0mr30797653a91.2.1788058945315;
+        Sat, 29 Aug 2026 20:02:25 -0700 (PDT)
+X-Received: by 2002:a17:90b:5284:b0:396:4dfb:5890 with SMTP id 98e67ed59e1d1-396d0e5bbc0mr30797587a91.2.1788058944696;
+        Sat, 29 Aug 2026 20:02:24 -0700 (PDT)
+Received: from QCOM-aGQu4IUr3Y.qualcomm.com (i-global052.qualcomm.com. [199.106.103.52])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-142e0bf8a13sm28608046c88.0.2026.08.29.20.02.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 29 Aug 2026 20:02:24 -0700 (PDT)
+From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+To: Bartosz Golaszewski <brgl@kernel.org>
+Cc: Bjorn Andersson <andersson@kernel.org>, Linus Walleij <linusw@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Shawn Guo <shengchao.guo@oss.qualcomm.com>, stable@vger.kernel.org
+Subject: [PATCH v2] pinctrl: qcom: nord: Split QUP1 SE2/SE3 into lane-pair functions
+Date: Sun, 30 Aug 2026 11:02:01 +0800
+Message-ID: <20260830030201.135637-1-shengchao.guo@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -49,27 +96,169 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Proofpoint-GUID: YwKLdQtVaH1iReSeICgQrPTCEckzSn47
+X-Authority-Analysis: v=2.4 cv=P6EKQCAu c=1 sm=1 tr=0 ts=6a939d42 cx=c_pps
+ a=vVfyC5vLCtgYJKYeQD43oA==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+ a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=hkSOFwkIQQlSBzuAjywA:9 a=O8hF6Hzn-FEA:10
+ a=rl5im9kqc5Lf4LNbBjHf:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODMwMDAyNCBTYWx0ZWRfX/ko20d2JZJln
+ opriIQ35f0lFDuA2x4g9u2/LXpaFHIymxD2ypV7Iyeu1jYX823Eh6HC4/xY51V1qAtLCmaYBy1b
+ x4YauOaTh+QFOgKJdDvp+0wIgLN4sufsPqixBjrIJM6S9xZHgB4UuvsyxFGDvzyu7Q2hkzxWxxs
+ QCZVDmJ8i7qnyb+a9za6FY6zH6/3HdFoopG89fdGxh5qI8XMh0FggLtypRw2AiKyajsksYthAqb
+ CIL4Dfiv2AoNnPrUNIUDg0yMlJfQEqbTs+BwoMp9AQBPsaWwHUbSpRhUzhhU6pwzl0NReVe5YJd
+ mCz/52uyrp6HYEaZ5bNdToSiCLLy7gqpaR3VV0Rkbz7NfglUTlpolWs8fvGORoktjrp3iI2IhGB
+ S63tL6pDj3ihs6VuFNt04klAq47xKisVRrE2nmaSMC3qbzFKFytSK6u8pNA83Budg7i/c8OEFqB
+ ZzWzaZ9kIHaOb8s4X0w==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODMwMDAyNCBTYWx0ZWRfX8+SK5fJ1zLgZ
+ F+KFWf3iFcIwN3GwIvLaqAQoiXg1ElDPurvf0mgo5gh/w8erJNJH6d3lrJNUVWLWXtR+K4bpuNR
+ oQvhMhCK3C48YZnoMAGw1Twd5mIEZFM=
+X-Proofpoint-ORIG-GUID: YwKLdQtVaH1iReSeICgQrPTCEckzSn47
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-30_01,2026-08-27_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 priorityscore=1501 spamscore=0 adultscore=0 impostorscore=0
+ suspectscore=0 lowpriorityscore=0 bulkscore=0 malwarescore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608300024
 
-On Sat, Aug 29, 2026 at 11:47:47AM +0200, Marcin Dawid wrote:
-> My ThinkPad P16v stopped suspending after a kernel update. I bisected
-> the problem to commit 171ef40fce41 ("PM: sleep: Use complete() in
-> device_pm_sleep_init()"), the 6.12.y backport of mainline commit
-> 3855941f1e40. Reverting this commit fixes the problem.
+QUP1 SE2 and SE3 pack all four of their lanes pair-wise onto only two
+pins each: lanes 0/1 (I2C SDA/SCL) at mux value 2 and lanes 2/3 (UART
+TX/RX) at mux value 1, on gpio127/gpio128 and gpio129/gpio130
+respectively.
 
-Thanks for the bisect. Queued the revert for 6.12, 6.6, 6.1, 5.15 and 5.10.
+Both mux values were named "qup1_se2" (respectively "qup1_se3"), so the
+two distinct lane pairs became indistinguishable. msm_pinmux_set_mux()
+stops at the first entry matching the requested function, which means
+mux value 1 was always selected and the I2C lanes could never be muxed
+out. In practice i2c9 and i2c10 got the UART lanes and did not work,
+while uart9 and uart10 happened to be muxed correctly.
 
-> I only see the hang on 6.12.y. I also tested 6.18.45, 7.1.8 and mainline
-> 7.2, which carry the same commit and the laptop suspends normally on all
-> three (see the table below).
+Give each lane pair its own function, following the _01/_23 naming
+already used for the same hardware arrangement by the shikra, eliza,
+hawi and maili TLMM drivers. Both functions still cover the full pin
+pair, so a single pinctrl state per protocol remains sufficient.
 
-That matches what the code shows, so 6.18 and newer keep the commit. Upstream's
-argument for complete() over complete_all() relies on the completion being
-reinitialised for every device by dpm_clear_async_state(), which only exists
-from the v6.15/v6.16 async-suspend rework. 6.12 and older have no such call
-site, so a device that never reaches a phase list keeps the one-shot token and
-a second waiter blocks forever - the same exposure your machine hit, on all
-five of those trees.
+Drop gpio129/gpio130 from the SE2 group list, since those pins
+belong to SE3 and were never reachable through the SE2 function.
 
+Also rename QUP1 SE2/SE3 functions in the binding doc accordingly.
+
+While at it, add missing "gpio", "qup3_se0_mira" and "qup3_se0_mirb"
+to the binding function enum to get the list complete.
+
+Fixes: c24dd0826f06 ("pinctrl: qcom: add the TLMM driver for the Nord platforms")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+---
+Changes for v2:
+- Add missing "gpio" function to binding function enum as well
+- Link to v1: https://lore.kernel.org/all/20260819152356.904023-1-shengchao.guo@oss.qualcomm.com/
+
+ .../bindings/pinctrl/qcom,nord-tlmm.yaml      |  7 ++--
+ drivers/pinctrl/qcom/pinctrl-nord.c           | 34 +++++++++++++------
+ 2 files changed, 27 insertions(+), 14 deletions(-)
+
+diff --git a/Documentation/devicetree/bindings/pinctrl/qcom,nord-tlmm.yaml b/Documentation/devicetree/bindings/pinctrl/qcom,nord-tlmm.yaml
+index 4bb511719f31..56758a85ead8 100644
+--- a/Documentation/devicetree/bindings/pinctrl/qcom,nord-tlmm.yaml
++++ b/Documentation/devicetree/bindings/pinctrl/qcom,nord-tlmm.yaml
+@@ -67,7 +67,7 @@ $defs:
+           Specify the alternative function to be configured for the specified
+           pins.
+ 
+-        enum: [ aoss_cti, atest_char, atest_usb20, atest_usb21,
++        enum: [ gpio, aoss_cti, atest_char, atest_usb20, atest_usb21,
+                 aud_intfc0_clk, aud_intfc0_data, aud_intfc0_ws,
+                 aud_intfc10_clk, aud_intfc10_data, aud_intfc10_ws,
+                 aud_intfc1_clk, aud_intfc1_data, aud_intfc1_ws,
+@@ -98,9 +98,10 @@ $defs:
+                 pcie3_clk_req_n, phase_flag, pll_bist_sync, pll_clk_aux,
+                 prng_rosc0, prng_rosc1, pwrbrk_i_n, qdss, qdss_cti, qspi,
+                 qup0_se0, qup0_se1, qup0_se2, qup0_se3, qup0_se4, qup0_se5,
+-                qup1_se0, qup1_se1, qup1_se3, qup1_se2, qup1_se4, qup1_se5,
++                qup1_se0, qup1_se1, qup1_se2_01, qup1_se2_23, qup1_se3_01,
++                qup1_se3_23, qup1_se4, qup1_se5,
+                 qup1_se6, qup2_se0, qup2_se1, qup2_se2, qup2_se3, qup2_se4,
+-                qup2_se5, qup2_se6,
++                qup2_se5, qup2_se6, qup3_se0_mira, qup3_se0_mirb,
+                 sailss_ospi, sdc4_clk, sdc4_cmd, sdc4_data, smb_alert,
+                 smb_alert_n, smb_clk, smb_dat, tb_trig_sdc4, tmess_prng0,
+                 tmess_prng1, tsc_timer, tsense_pwm, usb0_hs,
+diff --git a/drivers/pinctrl/qcom/pinctrl-nord.c b/drivers/pinctrl/qcom/pinctrl-nord.c
+index 7c21306e77ff..7f37f8e819ba 100644
+--- a/drivers/pinctrl/qcom/pinctrl-nord.c
++++ b/drivers/pinctrl/qcom/pinctrl-nord.c
+@@ -570,8 +570,10 @@ enum nord_functions {
+ 	msm_mux_qup0_se5,
+ 	msm_mux_qup1_se0,
+ 	msm_mux_qup1_se1,
+-	msm_mux_qup1_se2,
+-	msm_mux_qup1_se3,
++	msm_mux_qup1_se2_01,
++	msm_mux_qup1_se2_23,
++	msm_mux_qup1_se3_01,
++	msm_mux_qup1_se3_23,
+ 	msm_mux_qup1_se4,
+ 	msm_mux_qup1_se5,
+ 	msm_mux_qup1_se6,
+@@ -1152,11 +1154,19 @@ static const char *const qup1_se1_groups[] = {
+ 	"gpio123", "gpio124", "gpio125", "gpio126",
+ };
+ 
+-static const char *const qup1_se2_groups[] = {
+-	"gpio127", "gpio128", "gpio129", "gpio130",
++static const char *const qup1_se2_01_groups[] = {
++	"gpio127", "gpio128",
+ };
+ 
+-static const char *const qup1_se3_groups[] = {
++static const char *const qup1_se2_23_groups[] = {
++	"gpio127", "gpio128",
++};
++
++static const char *const qup1_se3_01_groups[] = {
++	"gpio129", "gpio130",
++};
++
++static const char *const qup1_se3_23_groups[] = {
+ 	"gpio129", "gpio130",
+ };
+ 
+@@ -1428,8 +1438,10 @@ static const struct pinfunction nord_functions[] = {
+ 	MSM_PIN_FUNCTION(qup0_se5),
+ 	MSM_PIN_FUNCTION(qup1_se0),
+ 	MSM_PIN_FUNCTION(qup1_se1),
+-	MSM_PIN_FUNCTION(qup1_se2),
+-	MSM_PIN_FUNCTION(qup1_se3),
++	MSM_PIN_FUNCTION(qup1_se2_01),
++	MSM_PIN_FUNCTION(qup1_se2_23),
++	MSM_PIN_FUNCTION(qup1_se3_01),
++	MSM_PIN_FUNCTION(qup1_se3_23),
+ 	MSM_PIN_FUNCTION(qup1_se4),
+ 	MSM_PIN_FUNCTION(qup1_se5),
+ 	MSM_PIN_FUNCTION(qup1_se6),
+@@ -1633,13 +1645,13 @@ static const struct msm_pingroup nord_groups[] = {
+ 			 _, _, _, _, _, _, _),
+ 	[126] = PINGROUP(126, qup1_se1, qup1_se0, ccu_i2c_scl, mdp1_vsync_out,
+ 			 _, atest_usb20, ddr_pxi, _, _, _, _),
+-	[127] = PINGROUP(127, qup1_se2, qup1_se2, _, atest_usb21, ddr_pxi,
++	[127] = PINGROUP(127, qup1_se2_23, qup1_se2_01, _, atest_usb21, ddr_pxi,
+ 			 _, _, _, _, _, _),
+-	[128] = PINGROUP(128, qup1_se2, qup1_se2, _, atest_usb20, ddr_pxi,
++	[128] = PINGROUP(128, qup1_se2_23, qup1_se2_01, _, atest_usb20, ddr_pxi,
+ 			 _, _, _, _, _, _),
+-	[129] = PINGROUP(129, qup1_se3, qup1_se3, ccu_i2c_sda, mdp1_vsync_out,
++	[129] = PINGROUP(129, qup1_se3_23, qup1_se3_01, ccu_i2c_sda, mdp1_vsync_out,
+ 			 _, atest_usb21, ddr_pxi, _, _, _, _),
+-	[130] = PINGROUP(130, qup1_se3, qup1_se3, ccu_i2c_scl, mdp1_vsync_out,
++	[130] = PINGROUP(130, qup1_se3_23, qup1_se3_01, ccu_i2c_scl, mdp1_vsync_out,
+ 			 _, atest_usb20, ddr_pxi, _, _, _, _),
+ 	[131] = PINGROUP(131, qup1_se4, qup1_se6, ccu_i2c_sda, mdp1_vsync_out,
+ 			 _, atest_usb21, ddr_pxi, _, _, _, _),
 -- 
-Thanks,
-Sasha
+2.43.0
+
