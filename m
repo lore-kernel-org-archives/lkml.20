@@ -1,37 +1,49 @@
-Received: from relay2-d.mail.gandi.net (relay2-d.mail.gandi.net [217.70.183.194])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EB6D3D16F4;
-	Mon, 31 Aug 2026 12:54:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.183.194
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0530408630;
+	Mon, 31 Aug 2026 12:54:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788180863; cv=none; b=a/0Y5GCm9YJCucmQy5v6lUJXqAyKeMNbAkczc4wuXbSfl0Wq5drp1FkGUe+AwJ6hM8cgkZdWLyzzOA8Bmf0SmCXQpvx1LKdHE3yZu1LEXJZ4S1sr3G7LcLlwuImhzP1y/2FW4ZIWG+cYIs1x97P8EyzSJZ74GtMDyAYWc5O9hxc=
+	t=1788180864; cv=none; b=QyjEWApg/KUV9SXt2vLvMZFeMuWLZwzyojng4wgP52JoqxNcf7EERnkgFP4NRXRr6GPZw3zKWs9H41VvbLbYI3bfmvWf1hMXcGrjsK8TZSMhNhDzBKZK5eFm1tK2B4aYR45Pr+OR+k/thhQfRxNgAmr2WPMOVZIUORqpooZ45kM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788180863; c=relaxed/simple;
-	bh=Frt5Hh9KcskkhS/sRig0EMszAHCPkhQZVvXUPKdifTc=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=OljQ90qCMP0Z8UP+DN39RiTG6M3uzSYkyyz8bZeppASqgIJuJqeL/LzGApkKk7XRz8kiR7RMPnctXeC9d/urq7h3JevmEmSsoVHKfd5JqL2m5jZ3uxkh/z0kkLE33NEwSQ+y/bjkhaNqE5lqZvUBLzUDuyXC060lwzM/O0VrRaY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marmottus.net; spf=pass smtp.mailfrom=marmottus.net; dkim=pass (2048-bit key) header.d=marmottus.net header.i=@marmottus.net header.b=J6xI1nOT; arc=none smtp.client-ip=217.70.183.194
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marmottus.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marmottus.net
+	s=arc-20240116; t=1788180864; c=relaxed/simple;
+	bh=EJiijE/QLvINb55S7hWRn3eYCJuC1bmVWHCSb3Vzhuk=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=MbZXmnjLvlnNAVc6aZgzHPFvPU9UKqjhbabNy51RTswPWYmBnlDlR2koa9I5pLlqcPq53CDBcixbxOsmmeg1aJSPJzKT+bUkKroT2Rr7ZfwKiIgjka0jbUJFQCxmUgpieie1Vy0zo3mYisZZsUHqDvnAdcPWoIzQFeq9AS1ACrw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eDlZ6Gga; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=marmottus.net header.i=@marmottus.net header.b="J6xI1nOT"
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 93CD03EE1A;
-	Mon, 31 Aug 2026 12:54:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marmottus.net;
-	s=gm1; t=1788180853;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=ui9pyM10EMjrpfH3yKSVfnBzByOx8YuZ4Cx80FXpZ7U=;
-	b=J6xI1nOT18AOm1ABiYijiOpMs5cbgMPSo9MJTnboVJ/6mDMqBtgjE2QLGyqPpcNXyFiqPQ
-	VwFKJnAbQOk8l/f+PfnDyUT2j0buG49OrK8OhL3OXMkM7D1PHstzPRjDrtTY74vRjg/zRZ
-	T24HgP/SQE6HO5R9PuKG0m5ONnP5tnVr2/efISyOUKfF7EllHLmVWV8PGbjG4CnlHifUoM
-	cOGH8YThRdHMud6MHy1bQjr0UeZ7/dd2HAC9JXaAlwnnkxNoOYf+3to/xQbgvqrNfxcIrz
-	PNKRU1jXXq0sOQGPcxUBjyHV3jd3ak8+RjXpyHUZp/HwxZXTz9CbrT0TxiBpAA==
-From: Arthur Crepin Leblond <arthur@marmottus.net>
-Subject: [PATCH net-next v6 0/3] w5100: restore GPIO-based link detection
-Date: Mon, 31 Aug 2026 14:53:33 +0200
-Message-Id: <20260831-wiznet-link-gpio-v6-0-abee6c5c966e@marmottus.net>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eDlZ6Gga"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 595AF1F000E9;
+	Mon, 31 Aug 2026 12:54:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788180863;
+	bh=sXVIxmI+yONoCOEcZqA9QvZx1zGiVeqFf9Xs83sD8gY=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=eDlZ6Ggapd15gH4t7YrCdjAZ0k1rjeBgle5BZ8bc6qGF80/4qDtRGyYvAEc6S/VvO
+	 wNgfLHTUMbypoN5mv433xu/ttbZ0WegtoRwsYgzG2JQmyPQ3wnh3eqpxtSrDk6xDw+
+	 76zETU5Q/fBuecqpqDKI+DeorFMw8HxJBQiemlrGt8ohdPDEcqWt9kVyY420XC7aAj
+	 IeYVHfNg27KeQep4bGh336PEcgWKJkF5V516rl7Y6kE8i3jS0XLTHXX03YQqupro4D
+	 6sMryKcHrWmbssMk30qBNC91ouZUfUg7JWm/tXqUUDe57DGPjd3WsVqrfmM/Sspmau
+	 mK3OmV1VJj7Bw==
+From: Mark Brown <broonie@kernel.org>
+To: Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>, 
+ Baojun Xu <baojun.xu@ti.com>, Sen Wang <sen@ti.com>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, 
+ Takashi Iwai <tiwai@suse.com>, Andrey Golovko <andrey.golovko@gmail.com>
+Cc: Antoine Monnet <antoine@montane.tech>, 
+ Robin Everaars <robineveraars@pm.me>, Ville Saarinen <wiza@saarinenkoti.fi>, 
+ "Holalu Yogendra, Niranjan" <niranjan.hy@ti.com>, 
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>, 
+ Charles Keepax <ckeepax@opensource.cirrus.com>, 
+ Vijendar Mukunda <Vijendar.Mukunda@amd.com>, linux-sound@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20260815113000.4488-1-andrey.golovko@gmail.com>
+References: <20260815113000.4488-1-andrey.golovko@gmail.com>
+Subject: Re: [PATCH] ASoC: tas2783-sdw: split a stereo stream across the
+ two mono amps
+Message-Id: <178812954473.13461.2430772288024082364.b4-ty@b4>
+Date: Sun, 30 Aug 2026 23:39:04 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -40,57 +52,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAE15lWoC/4XPy27DIBAF0F+JWJeIx4BJVvmPqAvMI6FtcATET
- Rv534PdjVVRdTmaO+dqHii7FFxG+80DJTeGHIZYB/myQeas48nhYOuMGGGSKAL4M3xHV/BHiO/
- 4dA0D7nbSc2ksBb9D9eyanA/3hTyiORrdvaDXn02+9W/OlFmcs+eQy5C+lvaRLhd/F40UU9xLJ
- r0F3xnTHy46XYZSbnlbk0vFyP5DGCaY99QSozriuWghfI3IBsIrIjizoClwRZoIrBBKGwhUBKz
- wndVKCa1aiFgjvIGIimhTX5WeAVD+G5mm6Qksvs9y5AEAAA==
-X-Change-ID: 20260804-wiznet-link-gpio-796f36cd14f9
-To: Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: Arnd Bergmann <arnd@arndb.de>, netdev@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Arthur Crepin Leblond <arthur@marmottus.net>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-GND-Sasl: arthur@marmottus.net
-X-GND-Score: -100
-X-GND-Cause: dmFkZTGTUgi1PISssyDWY+4F0AtFxb9cmuOSlXTnpb+JjP8icTA4ThsxKCQemnU9dGR5aqaDX5xeqkVGIjZQJwsTEXejsq3mwDGM7/BPYtY2h4o0UkGMTQ9o/PA+AErYDmyIBEVM6NrGyb1iTVfqIER+f+l/8lYGojbirJ7oLK0/CtzMfhVkyTpea80TL0Mu3RctnIgmRQEEEb/XO0xLeqCyHFSqbeGRtcKoRuovvvuQewBMeSVzECN9KeXVv5dLz+l6HUtn+2iceirAOo0fAqmG3IDdlvkHAhQW7NCuxWGoGim+twX5LO1tNoyIHzBEGdfxdGHuPj0bcdZW26RJ3Rw7qKNjHRblbHsqIOmMG4i/fu25NdMDqD5G03JiUAB2S9tXW4D91txhcshQo9YOBXBOrtYnMk3W92/Azo8mY1eL12Re7FX1LH9fcoh+kFTeTVI1Dhop0ZqNVZ6qR7FjeRSCb/g0daeMVwrkB8LTPvbSevwFvJRH5NoZ4L8pPmjakaRKE3uMj/AKHYPIpnmgz4xK0fTsGx4POV+iTq2FDSUMb21k9RUEoQwb9suGZaOjhyXnEPhjnPzXes+AVNXVLnamZ0+9796uFvecivJ1+E94Hjtj88CBecSlA2ZwQn2Zfy5vrJUEVrcWl6OaHglIdd244dVmbdA5xa1BBtrIYY0OB2F2oA
-X-GND-State: clean
+X-Mailer: b4 0.17-dev
 
-Hi,
+On Sat, 15 Aug 2026 14:50:00 +0300, Andrey Golovko wrote:
+> ASoC: tas2783-sdw: split a stereo stream across the two mono amps
 
-In the previous version of the w5100 driver, the LINKLED pin could be
-wired to a GPIO to detect the link status changes via an interrupt.
-This only works on w5500 as it is the only one documenting its LINKLED
-pin to hold the link status (on w5100 the LINKLED pin is changing with
-RX/TX activity).
+Applied to
 
-This series of patches is bringing back the link status detection on
-w5500 using the Link Status bit of the PHY Configuration Register.
-Additionally, the LINKLED pin can also be wired to detect link status
-changes and read the register in the interrupt handler.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.3
 
-Arthur Crepin Leblond
+Thanks!
 
-Signed-off-by: Arthur Crepin Leblond <arthur@marmottus.net>
----
-- Link to v5: https://patch.msgid.link/20260813-wiznet-link-gpio-v5-0-ac8046f24413@marmottus.net
-- Link to v4: https://patch.msgid.link/20260811-wiznet-link-gpio-v4-0-4d5f7da885a8@marmottus.net
-- Link to v3: https://patch.msgid.link/20260806-wiznet-link-gpio-v3-0-532d4a143805@marmottus.net
-- Link to v2: https://patch.msgid.link/20260804-wiznet-link-gpio-v2-0-3b1d0c870f35@marmottus.net
-- Link to v1: https://patch.msgid.link/20260804-wiznet-link-gpio-v1-1-b626fd4f7ccb@marmottus.net
----
-Arthur Crepin Leblond (3):
-      dt-bindings: net: wiznet,w5100: convert to DT schema
-      dt-bindings: net: wiznet,w5100: add link status interrupt
-      w5100: detect carrier state using link status bit and optional interrupt
+[1/1] ASoC: tas2783-sdw: split a stereo stream across the two mono amps
+      https://git.kernel.org/broonie/sound/c/173cb3147ba2
 
- .../devicetree/bindings/net/wiznet,w5100.yaml      |  71 ++++++++++++
- .../devicetree/bindings/net/wiznet,w5x00.txt       |  50 ---------
- drivers/net/ethernet/wiznet/w5100.c                | 119 +++++++++++++++++++--
- 3 files changed, 179 insertions(+), 61 deletions(-)
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 
