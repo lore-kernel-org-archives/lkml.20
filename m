@@ -1,79 +1,100 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E97C23A1A3C;
-	Sun, 30 Aug 2026 14:06:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 228B73A1A3C;
+	Sun, 30 Aug 2026 14:07:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788098808; cv=none; b=awfsKG2Ek99RRIs7suolTyhNXY/6Z3flugWeCxjcYgUhbXtYWtGj6gbC5+63c7CuKda+GgD/B2NqObVUQsns9j56FV+xVOGOHeg6ui1gBoDvPZU1I3tf+3fBMotACLrkhRrwekZgPl7Klg6oqxyICrexsWf4blt0qcaygrsuFHI=
+	t=1788098838; cv=none; b=RbofQimheJ7H1hOEffMa1GILADRBvxXyn0SCaaFImnYLRhvAXMq6VePX2CQ+o282e7vdjqxxVKtf2CWIdhJNgCMiOexYP2By34mKr4nMJEVH5HnVB6x31idsgRoX7c0bCxnxoh5hHsXCybeX7YnyWy+3IbCdbnucsSFjKZg8X9s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788098808; c=relaxed/simple;
-	bh=Zg44DWgue4MpHWcseIC+aRio/uktHGR+ef0J11c2kA8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PV1W7t/SpDPb9yUU3KRQj8/RSJ4H+UrYDSpkNS/BLr1U5ILLiYj8KZKyaxA6Ca3szLyUs02/M0Ct6s/evohpjsdU2fv09l3F6tj68EHrCPRLhkhdR/lXwxmfgX2jvq7/s8oO0Afmt3XnhEeTkeiP5AhWQXAo/c4/7ZEkwxY6F2s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=nJLiEjjv; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="nJLiEjjv"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=1Cfz+1UkqRDYEv0PlJFOZYosCDiCp7c2SrUMBJNre10=; b=nJLiEjjv8xBWCk/ZKFt3H8roOr
-	aVESBEaLF85CGrAkarjFO1+vSq6tis5whSrXxe0+yuYs8S7i2fwvMbB2Qw7oQHx/sgcFgoezQECxD
-	z6fiDtLEgXK3Dp1AH67FdrKGhD47xfW5G2iXVZH6VA8eJaXSH9a/Ro0a2htwJl0qEEHI=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x0gAq-0022VI-Jj; Sun, 30 Aug 2026 16:06:16 +0200
-Date: Sun, 30 Aug 2026 16:06:16 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Ding Hui <dinghui1111@163.com>
-Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	"open list:STMMAC ETHERNET DRIVER" <netdev@vger.kernel.org>,
-	"moderated list:ARM/STM32 ARCHITECTURE" <linux-stm32@st-md-mailman.stormreply.com>,
-	"moderated list:ARM/STM32 ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>,
-	open list <linux-kernel@vger.kernel.org>, dinghui@lixiang.com,
-	xiasanbo@lixiang.com, yangchen11@lixiang.com,
-	liuxuanjun@lixiang.com
-Subject: Re: [PATCH] net: stmmac: fix NULL pointer dereference in tx/rx
- resource cleanup
-Message-ID: <3fd3506f-f254-4bff-a7ee-1063bf413919@lunn.ch>
-References: <20260830040610.1156008-1-dinghui1111@163.com>
+	s=arc-20240116; t=1788098838; c=relaxed/simple;
+	bh=fKLS6+L+SYIc5j/um1xloKOutoeFQWzh/gn7hySPDRQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VJ6dk7loK8bCqX3F918NPWUoJoopF0CYDSIS5TOwlyGenCzgOyBoKmAWhdd6luQ4JFi9OYh2stydAVn9/WSlvPbPUTxt8pMU1NB62T4Btb61Gc+jazy9l0VQ5kcBaENw2YoM5UiCOFFJVoNuzofYLs/CAdA7CxBIRVbFUcZK36U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from localhost.localdomain (unknown [111.196.241.250])
+	by APP-03 (Coremail) with SMTP id rQCowADH0T8POZRqsIibBg--.48420S2;
+	Sun, 30 Aug 2026 22:07:11 +0800 (CST)
+From: Pengpeng Hou <pengpeng@iscas.ac.cn>
+To: Fabrizio Castro <fabrizio.castro.jz@renesas.com>
+Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	linux-i2c@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] i2c: rzv2m: fail probe on reset and runtime-PM errors
+Date: Sun, 30 Aug 2026 22:07:09 +0800
+Message-ID: <20260830140709.28745-1-pengpeng@iscas.ac.cn>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260830040610.1156008-1-dinghui1111@163.com>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowADH0T8POZRqsIibBg--.48420S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7CrWxJw45ZFWfJw1kXF17GFg_yoW8GF4kpa
+	1xKrZFyry0qFWSqa1DAry3ZFyFgayftFW7JrWIgw18Zw15Cw4qkFy5tFyag3Z7JFWrAF45
+	JanrJayxuFyjvF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUkK14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x0267AKxVWxJr
+	0_GcWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+	2Ix0cI8IcVAFwI0_JF0_Jw1lYx0Ex4A2jsIE14v26r4j6F4UMcvjeVCFs4IE7xkEbVWUJV
+	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lc7CjxVAaw2AFwI0_
+	JF0_Jw1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67
+	AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIY
+	rxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14
+	v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWx
+	JwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7VUjZNVP
+	UUUUU==
+X-CM-SenderInfo: pshqw1xhqjqxpvfd2hldfou0/
 
-On Sun, Aug 30, 2026 at 12:06:08PM +0800, Ding Hui wrote:
-> From: Ding Hui <dinghui@lixiang.com>
-> 
-> The DMA descriptor ring allocation in __init_dma_rx_desc_rings() and
-> __alloc_dma_tx_desc_resources() is split into multiple steps, each of
-> which may fail and return early while the per-queue cleanup paths still
-> call the free helpers for the partially-initialized queue.
+Probe ignores reset deassertion and runtime-PM activation failures before
+initializing the controller and registering an I2C adapter.
 
-"and return early", is the real problem here. When a function returns
-an error, it should first undo what it has done, up to the point of
-the error.
+Propagate both required activation errors and disable runtime PM if its
+initial resume fails.
 
-Rather than add extra NULL checks, please work on
-__init_dma_rx_desc_rings() and __alloc_dma_tx_desc_resources() and
-make them cleanup on error.
+Fixes: e0ca796a151b ("i2c: Add Renesas RZ/V2M controller")
+Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
+---
+ drivers/i2c/busses/i2c-rzv2m.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
-I would say the problem you are trying to fix does not bother anybody,
-so is not for stable. So i aim the patches for net-next.
+diff --git a/drivers/i2c/busses/i2c-rzv2m.c b/drivers/i2c/busses/i2c-rzv2m.c
+index 206a99e722a37..81e0101b61946 100644
+--- a/drivers/i2c/busses/i2c-rzv2m.c
++++ b/drivers/i2c/busses/i2c-rzv2m.c
+@@ -433,7 +433,9 @@ static int rzv2m_i2c_probe(struct platform_device *pdev)
+ 	 * The reset also affects other HW that is not under the control
+ 	 * of Linux. Therefore, all we can do is deassert the reset.
+ 	 */
+-	reset_control_deassert(rstc);
++	ret = reset_control_deassert(rstc);
++	if (ret)
++		return ret;
+ 
+ 	irq = platform_get_irq(pdev, 0);
+ 	if (irq < 0)
+@@ -461,7 +463,11 @@ static int rzv2m_i2c_probe(struct platform_device *pdev)
+ 
+ 	pm_runtime_enable(dev);
+ 
+-	pm_runtime_get_sync(dev);
++	ret = pm_runtime_resume_and_get(dev);
++	if (ret < 0) {
++		pm_runtime_disable(dev);
++		return ret;
++	}
+ 	rzv2m_i2c_init(priv);
+ 	pm_runtime_put(dev);
 
-	 Andrew
+base-commit: 08dbfad3f5040f5bdb6c529da20d6d4e81fefd72
+-- 
+2.50.1
+
