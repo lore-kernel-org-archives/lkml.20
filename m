@@ -1,64 +1,64 @@
-Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 290292DB7BE
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 17:33:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F7173CCFB0
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 17:34:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788111241; cv=none; b=uxUS5M1MEfjBh4rjaS+fLLZpQ2PNuxaQxwI9l4WgIUMb2CE7dq8ebFuFmR1lUNRbWKX8W16LMvkaJuhYRBpOYZSOCXiwDP+tX7r4KoRPRVb6ryhJASrLW0nu6M6yCzX+Vl181ppNDtPWAanIRkfyKIiOET66+6C1Mjgg3KTkAz0=
+	t=1788111244; cv=none; b=uOZFp0jNkBKIHvumtTYiyRv+OX7TG97YvnT3/IQGZ3NKY36y4XPTp8nLewYGBiy9YK/ymOPWHVW7fvKmARPPLCw601aeJgwAcZQoQ31l9SCkS+siNaq1uLdMTO7ZFMFdvHQqpz38p43xCjD4sMmnbFVbTygZRWuAs8bL2XqagM8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788111241; c=relaxed/simple;
-	bh=JQtLJ4B4xGi9RbJQfiBzfWbJpI1166z6juWdKP7ddh0=;
+	s=arc-20240116; t=1788111244; c=relaxed/simple;
+	bh=350E+24cgIQPrkNeuQvH0zUzV5ibQBMEBZPP3eO8cUY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=iv8W/6NISFqSLoTUiRo5fEjhkXi7ESx8MtSWrZcfzx08pXQfrvzw8oi334y0xDUmRRF9VylXi26n/s0ThUUyj2dJuPmpNjd5UEqtsSxvi4wNCCdpRxLf33yTIphibPxSO9/36jukk5g40hltMSY2LmnCBvy5NpoXwrGMBl8JoVo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YqbD3NIv; arc=none smtp.client-ip=209.85.215.181
+	 MIME-Version; b=kujsl+2Y8HC54tNhq/ZEoKwOijlhf1l9UXwT6u/6u2ccIMQpcbXF6f8AZWSCgXJ9PcDTJT52qmZmFtJY7oNQqWUyo9IcWa2STRIw/paJKra6zXgyoA1Iy1A3FVJMasbEvyQRZIHstSzUSOKOuQn5gIEfSaze0RlRHVQ+khm/V2k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=megOhzs1; arc=none smtp.client-ip=209.85.216.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YqbD3NIv"
-Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-c9e607d81fcso1711093a12.2
-        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 10:33:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="megOhzs1"
+Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-398b3d66515so1120565a91.0
+        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 10:34:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788111239; x=1788716039; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788111242; x=1788716042; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=4KElhGwb7qyJUiQrdOeMIsu3TKGiuI6DnUOH7u1OvrE=;
-        b=YqbD3NIvXvoA3UKeI7aXgjvdt0NkrUObpTm1cmIa04Bz/VeE05EHSLA1N6K3+1gfYH
-         t8I4izSscfj+ZIvbH++2nUC4yLTVPTm5qyTm8Y9q2S99fT31uzN+FdFhMKoYk/HOpH0B
-         ZQK9tnixQzH9seK6yNxeNXdc4R3YI62GqRYBKmVq1nbMkWQXM9GuG1fzAHw0lbFEW6EX
-         Wghuj5XzxcKf5R/vPlycXX91AxYDoJoryudLgSOpVGnXTea4L7+qxLMrWPiM3WXBBqq0
-         H1cuRRmxN+yleALWQPIz3kk4lo07o6Pg2npMGovwW2lxbeECny8VYqVgi+zZKBT/E+dp
-         Zgcg==
+        bh=ns3vlUtF6VYFQyrrstAS/BpbWDETkTxgnU62R5+4dgY=;
+        b=megOhzs1jqFkuowHlEtJod5YHZ0uGjw31R+j4yx5IbMDZxc6fuSJqMOES2pb4FR7rg
+         I44IoD+UX1VSKdx1lJNQMs5zZkzRK0yPB/KkC+EsdIk4t9Dm+2wQf8AM/sjBMAmHYirC
+         dRESoGIb8/juTskpFbQ92xWvReUPU23RqXnjYygwZoBeabijX9b+uSqKoGjJnW+Jm9Dq
+         Crlp4VCj0UalE6/l+n52zSnAjfXYfisWO6/Xon3JQ3Op/G0p/v8VJW6OnqttHfmT0dG0
+         6FSKLKGcxXFpxY8JuZ9i8F7YFicyvnvRR9eIUuHyq8rDq2JEt1R4BFrHfEp9T4i/NyEe
+         MmuA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788111239; x=1788716039;
+        d=1e100.net; s=20251104; t=1788111242; x=1788716042;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4KElhGwb7qyJUiQrdOeMIsu3TKGiuI6DnUOH7u1OvrE=;
-        b=ZQWLBzl9uKwSJj0J56ygMJkJWS3mXaDB15bsR3QZlhhQ0YUSCUFhqKoGqnV6umV7ZM
-         2dEQfdcPvZuOUwqkRp2b7Jk5BFbJCSQktItTF6EA6SBEN5pYwY1Sse3y/iOn+mbS4gDe
-         OA9uf9IjQJpjBMUEKJ1GUw1rugztH/2TH+WajpS7qBPm9gl64nKoyMvr7jApJcT5BQSe
-         r26pp2QWOZ4swQpbVLSueJ55+7tY7Lrz8Xl9tTR5yFohChbUgaPdVqoOMwNgYtsgvIO3
-         MySueatQ3THAa/qPNOLHwXYTk01fo0i7vTScWKZeFGMqXOJjNUR/2JQQHQGfJXJFA7QY
-         Cdcw==
-X-Forwarded-Encrypted: i=1; AKwUvBydg0tx8hNn573pmfbcP6Z0TVI2dIF+B3ksZdzcUwOq/9relpiaKFZ0x89U15jALfgwK3fExBdmbxKsOoY=@vger.kernel.org
-X-Gm-Message-State: AFuF++nNKOu8d+AmPdRifpVAXrTQGR2KVuahQMMskjHuEpy7UzM0nOck
-	eKyNr7p82cuXTBZqRvRwY/C2NfLX5IFKflAtBxsGH1X0MTVKxMsLIkMX
-X-Gm-Gg: AYBFou0RIqupu9bjhQRVKyOjXYHgMxTSCS6AlU9HGc8uI1HIAVrIhbnawmlDeizzR+w
-	QFf6W5DIAIB76leSE8F00N9qG5mogRgVZZ22O00gRCGDz80+dIGnHSCO3IvPR7DqQArN+71xJt8
-	icSLVgP8wsxJv8fbxM5TI0kKklWJP467z7rp0It5up2Bj1OFejThvjKdh5YIiu+n2ysFBuOH7oQ
-	O8yAXnin0A1xgNveBoltnZTXk0vWxIEKYSoJ39qAuoVhsL09YcgW7GVbNlAc/VNb4713cBlOEl1
-	pRrNeQQnnySpevm1LnS6RrN56u+KcD3sRr9t4LcRq7zYhByXKeQojdhzRcWpKpeQ76Rm43s8zOS
-	RRRKSh7QNMmBSfoCjtckqRywdhZrboYHei2frkhoYOjdfqn7CrCveCEZV3IpLJwdR0wIaFPNhvk
-	Ky0x4NFdjfY4LSvF8k4s0HgIPlCiqBaHd1J+3RSUwgr+kX80JV02F2LQT1nzmFbDs6FOx/zTz8U
-	L/j1Cx4pB/vBlHRfh0rLmgP4bNdpLw=
-X-Received: by 2002:a17:90b:1d83:b0:38e:2e86:ed02 with SMTP id 98e67ed59e1d1-396d1023217mr27801427a91.14.1788111239411;
-        Sun, 30 Aug 2026 10:33:59 -0700 (PDT)
+        bh=ns3vlUtF6VYFQyrrstAS/BpbWDETkTxgnU62R5+4dgY=;
+        b=Ihdk3fwSm7qogEyYFnZkJVFGNk5gNTT9y/SAfQRcCDwldtzpl8VLjAPIeNxEiJzutn
+         9i9e29bbMqgN02y82h4n2DCbBpZsAPTWHP7rEWWW2fFWoiIc7zQlAKpe39sF1gSE1idV
+         d2YsTt9x18VWmHMPAfnltn6CuSB+G3dq6ZYeKDw11XRMEpzElB2z/rAWHPKHrbfiyoc4
+         YAtNKZd+g23nlHoJAYm2lGAoZrrcTQ8o/aZaeJa8wqDmT+6rdBE3vR7jnJzKNMR+zrDB
+         w/EhKLA9ZA5aPm31vmWVbBEJ0suxpdblmx5qfD+qOFJbW2U0qVs61kz6/671LBeIiAV6
+         Yg/A==
+X-Forwarded-Encrypted: i=1; AKwUvBygY0ZsGBmVZT8zXUZ3ooHLVZ3+DogN8nhJy8lo4UIpMlZqDoW9mHFDI5A2/MJDXTEO4LutsSqg/eGMwUw=@vger.kernel.org
+X-Gm-Message-State: AFuF++lR7Foe4gji1iQsp7qfuWQ38NNayuSeUPwIWvn2k6pNZij8nMht
+	2Hg9SAxeI4NrfkO70EYc9YpftzxcKeCYsdgvVtDZFar1zk+lZDHSCqoy
+X-Gm-Gg: AYBFou0j0oZ5ZlijRsQeLqDq1XvyvbSenGyWLlUrsvEPPCHoUO5QXTH40LY+Navia9J
+	vjRXbse2rLLkufudukmcrwLuwIlaDb/APSWegghifi1thQPro58dvXBNsKm18rdDKLx9A8uoM7u
+	nWOA0sYGLuPp9Sxc63fOEUj5/kiplL93F3gWFfiyx/Ea/z8NFBfdaeUj7c1W1QLLebOz9L+8Ou8
+	BLxbHAJd56cH/zoKwQAHwhqt10x6k45Lcrt7SSfPENGAIsCWNdjxBO3eckKHnnFE2Fctxlim50N
+	rXJ2KsVKNAAT/k0xSrxnmUB+wJo6fIKryr3TpNJ15NNGAIrj6zdCv2MSNhIgVN6dTtpfp2Iv2QG
+	J9CKOwbNmbLr3UEAOp1Y4/GovIQksSdDbgruSlrlcXtbkkleDvsJYTHkw+MPgm3cjs5KDpzWUzs
+	y2rW3mSN3QZhCHUDMQLDNWwoc0tYiQZcHDTJrxQE/lShRyUTB8kWyonscyrbXN2KeATxCbHpWXr
+	vxAWAI99vujZLYzD5Vkzg==
+X-Received: by 2002:a17:90b:534b:b0:398:ceef:edbd with SMTP id 98e67ed59e1d1-398ceefee8emr6899772a91.18.1788111242577;
+        Sun, 30 Aug 2026 10:34:02 -0700 (PDT)
 Received: from localhost.localdomain ([2407:4d00:6c05:13e8:a91f:d3ab:5c4:f6ed])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396b186809dsm17237749a91.10.2026.08.30.10.33.57
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396b186809dsm17237749a91.10.2026.08.30.10.34.00
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 30 Aug 2026 10:33:59 -0700 (PDT)
+        Sun, 30 Aug 2026 10:34:02 -0700 (PDT)
 From: Harry Hsu <x90613@gmail.com>
 To: pmladek@suse.com
 Cc: jpoimboe@kernel.org,
@@ -67,10 +67,11 @@ Cc: jpoimboe@kernel.org,
 	joe.lawrence@redhat.com,
 	live-patching@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Harry Hsu <x90613@gmail.com>
-Subject: [PATCH 2/3] livepatch: Move code for updating livepatch object relocations
-Date: Mon, 31 Aug 2026 01:33:07 +0800
-Message-ID: <20260830173343.52759-3-x90613@gmail.com>
+	Harry Hsu <x90613@gmail.com>,
+	sashiko-bot@kernel.org
+Subject: [PATCH 3/3] livepatch: Clean up klp_init_object_loaded() when fails
+Date: Mon, 31 Aug 2026 01:33:08 +0800
+Message-ID: <20260830173343.52759-4-x90613@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260830173343.52759-1-x90613@gmail.com>
 References: <20260830173343.52759-1-x90613@gmail.com>
@@ -84,109 +85,136 @@ Content-Transfer-Encoding: 8bit
 
 From: Petr Mladek <pmladek@suse.com>
 
-klp_free_object_loaded() is supposed to clear changes made by
-klp_init_object_loaded(). It should call klp_clear_object_relocs()
-which is currently defined later.
+When a module is loaded, klp_module_coming() iterates over patches and
+calls klp_init_object_loaded(). If initialization fails, it delegates
+cleanup to klp_cleanup_module_patches_limited().
 
-Move the code for updating object relocations up.
+However, the cleanup loop skips the failing patch. Each function called
+in klp_init_object_loaded() is supposed to clean its own changes. This
+works except for the changes done by klp_init_object_loaded().
 
-This is just a preparation step. No functional changes.
+The current code is a bit messy. The changes done by
+klp_init_object_loaded() should get cleared by klp_free_object_loaded().
+But this function also clears obj->mod which is set by
+klp_module_coming(). And relocations are cleared separately.
 
+Fix the situations by updating klp_free_object_loaded(). It should
+revert all and only changes made by klp_init_object_loaded().
+This requires some shuffling:
+
+ + Clear obj->mod explicitly in klp_cleanup_module_patches_limited()
+   and do not rely on klp_free_object_loaded().
+
+ + Clear relocations in klp_free_object_loaded(). Remove the explicit
+   call from klp_cleanup_module_patches_limited(). This requires
+   adding the @patch parameter.
+
+Finally, call klp_free_object_loaded() in the error path in
+klp_init_object_loaded().
+
+Reported-by: sashiko-bot@kernel.org
+Closes: https://lore.kernel.org/r/20260823062313.1321B1F000E9@smtp.kernel.org
 Signed-off-by: Petr Mladek <pmladek@suse.com>
 ---
- kernel/livepatch/core.c | 72 ++++++++++++++++++++---------------------
- 1 file changed, 36 insertions(+), 36 deletions(-)
+ kernel/livepatch/core.c | 30 ++++++++++++++++++++----------
+ 1 file changed, 20 insertions(+), 10 deletions(-)
 
 diff --git a/kernel/livepatch/core.c b/kernel/livepatch/core.c
-index 0dd8cda5c9b8..aa895e8259b0 100644
+index aa895e8259b0..4fff00a40d88 100644
 --- a/kernel/livepatch/core.c
 +++ b/kernel/livepatch/core.c
-@@ -342,6 +342,42 @@ int klp_apply_section_relocs(struct module *pmod, Elf_Shdr *sechdrs,
- 					secndx, objname, true);
+@@ -725,18 +725,20 @@ static void __klp_free_funcs(struct klp_object *obj, bool nops_only)
  }
  
-+static int klp_write_object_relocs(struct klp_patch *patch,
-+				   struct klp_object *obj,
-+				   bool apply)
-+{
-+	int i, ret;
-+	struct klp_modinfo *info = patch->mod->klp_info;
-+
-+	for (i = 1; i < info->hdr.e_shnum; i++) {
-+		Elf_Shdr *sec = info->sechdrs + i;
-+
-+		if (!(sec->sh_flags & SHF_RELA_LIVEPATCH))
-+			continue;
-+
-+		ret = klp_write_section_relocs(patch->mod, info->sechdrs,
-+					       info->secstrings,
-+					       patch->mod->core_kallsyms.strtab,
-+					       info->symndx, i, obj->name, apply);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+static int klp_apply_object_relocs(struct klp_patch *patch,
+ /* Clean up when a patched object is unloaded */
+-static void klp_free_object_loaded(struct klp_object *obj)
++static void klp_free_object_loaded(struct klp_patch *patch,
 +				   struct klp_object *obj)
-+{
-+	return klp_write_object_relocs(patch, obj, true);
-+}
+ {
+ 	struct klp_func *func;
+ 
+-	obj->mod = NULL;
+-
+ 	klp_for_each_func(obj, func) {
+ 		func->old_func = NULL;
+ 
+ 		if (func->nop)
+ 			func->new_func = NULL;
+ 	}
 +
-+static void klp_clear_object_relocs(struct klp_patch *patch,
-+				    struct klp_object *obj)
-+{
-+	klp_write_object_relocs(patch, obj, false);
-+}
-+
- /*
-  * Sysfs Interface
-  *
-@@ -826,42 +862,6 @@ static int klp_init_func(struct klp_object *obj, struct klp_func *func)
- 			   func->old_sympos ? func->old_sympos : 1);
++	if (klp_is_module(obj))
++		klp_clear_object_relocs(patch, obj);
  }
  
--static int klp_write_object_relocs(struct klp_patch *patch,
--				   struct klp_object *obj,
--				   bool apply)
--{
--	int i, ret;
--	struct klp_modinfo *info = patch->mod->klp_info;
--
--	for (i = 1; i < info->hdr.e_shnum; i++) {
--		Elf_Shdr *sec = info->sechdrs + i;
--
--		if (!(sec->sh_flags & SHF_RELA_LIVEPATCH))
--			continue;
--
--		ret = klp_write_section_relocs(patch->mod, info->sechdrs,
--					       info->secstrings,
--					       patch->mod->core_kallsyms.strtab,
--					       info->symndx, i, obj->name, apply);
--		if (ret)
+ static void __klp_free_objects(struct klp_patch *patch, bool nops_only)
+@@ -878,7 +880,7 @@ static int klp_init_object_loaded(struct klp_patch *patch,
+ 		 */
+ 		ret = klp_apply_object_relocs(patch, obj);
+ 		if (ret)
 -			return ret;
--	}
--
--	return 0;
--}
--
--static int klp_apply_object_relocs(struct klp_patch *patch,
--				   struct klp_object *obj)
--{
--	return klp_write_object_relocs(patch, obj, true);
--}
--
--static void klp_clear_object_relocs(struct klp_patch *patch,
--				    struct klp_object *obj)
--{
--	klp_write_object_relocs(patch, obj, false);
--}
--
- /* parts of the initialization that is done only when the object is loaded */
- static int klp_init_object_loaded(struct klp_patch *patch,
- 				  struct klp_object *obj)
++			goto err;
+ 	}
+ 
+ 	klp_for_each_func(obj, func) {
+@@ -886,7 +888,7 @@ static int klp_init_object_loaded(struct klp_patch *patch,
+ 					     func->old_sympos,
+ 					     (unsigned long *)&func->old_func);
+ 		if (ret)
+-			return ret;
++			goto err;
+ 
+ 		/*
+ 		 * Aliased symbols share one address, so they would resolve to
+@@ -899,7 +901,8 @@ static int klp_init_object_loaded(struct klp_patch *patch,
+ 			if (prev_func->old_func == func->old_func) {
+ 				pr_err("'%s' and '%s' resolve to the same address, aliased symbols are not supported\n",
+ 				       prev_func->old_name, func->old_name);
+-				return -EINVAL;
++				ret = -EINVAL;
++				goto err;
+ 			}
+ 		}
+ 
+@@ -908,7 +911,8 @@ static int klp_init_object_loaded(struct klp_patch *patch,
+ 		if (!ret) {
+ 			pr_err("kallsyms size lookup failed for '%s'\n",
+ 			       func->old_name);
+-			return -ENOENT;
++			ret = -ENOENT;
++			goto err;
+ 		}
+ 
+ 		if (func->nop)
+@@ -919,11 +923,17 @@ static int klp_init_object_loaded(struct klp_patch *patch,
+ 		if (!ret) {
+ 			pr_err("kallsyms size lookup failed for '%s' replacement\n",
+ 			       func->old_name);
+-			return -ENOENT;
++			ret = -ENOENT;
++			goto err;
+ 		}
+ 	}
+ 
+ 	return 0;
++
++err:
++	klp_free_object_loaded(patch, obj);
++
++	return ret;
+ }
+ 
+ static int klp_init_object(struct klp_patch *patch, struct klp_object *obj)
+@@ -1264,8 +1274,8 @@ static void klp_cleanup_module_patches_limited(struct module *mod,
+ 			klp_unpatch_object(obj);
+ 
+ 			klp_post_unpatch_callback(obj);
+-			klp_clear_object_relocs(patch, obj);
+-			klp_free_object_loaded(obj);
++			klp_free_object_loaded(patch, obj);
++			obj->mod = NULL;
+ 			break;
+ 		}
+ 	}
 -- 
 2.43.0
 
