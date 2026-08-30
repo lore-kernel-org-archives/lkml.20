@@ -1,123 +1,194 @@
-Received: from mail-qk1-f178.google.com (mail-qk1-f178.google.com [209.85.222.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90CF62BD11
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 16:40:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 914722D3ED1;
+	Sun, 30 Aug 2026 16:48:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788108005; cv=none; b=B8eBUkGZo8/YyBHilmjexsA0ieCOSkR+leZ9hgbV9GefxD00UhWlbTQWYXaY6Wol7dmP81bWQgiZwxrIoAsEK0+m6SRFYjFoshy+mtm4rZnvknGlzjLEQRtwSVBIkhEbSj66ln/FQm31X91YTNkIHWJs/NYLXV8J7lvDCSJ6Ojw=
+	t=1788108529; cv=none; b=pCgeMQxMvmh0MXY0kSh36wkUTaXAGIrWd7DbHpWk/G/vRzg5aK6cZkhlMVpMN9BqU+fennhlulCf0YB6tdLxBjAL2UhAHfhqkFtv3Lh2snsPMGRVfq3xpAzmH35CO7Tihm+NW7h6bEgz7egesctM71oKrdemeoW8kja1D/lEHd4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788108005; c=relaxed/simple;
-	bh=0KiJ/rsV+FI0hi6nnxeUYRfWHY02EDUbDnikrBsAd+I=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KuMzNXrJztLUojkIsxtdLCqwx8V9m5Sp12enDCds2ru7di994hBJqsOvLpeTfk5DkiwkZWV5mNg1rmF/T/mUgi5Q1QLc/FKXipVyJnyfzB3ZnbAOuBnZgWbfpPwm9+QpmrzAqTXlgLYPXeMHcTxllkoXCVVB2P/FvYELxdNoAKo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=r718lprH; arc=none smtp.client-ip=209.85.222.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	s=arc-20240116; t=1788108529; c=relaxed/simple;
+	bh=sLgZVCZrLIOvQ3XMGFAaF99G2Af0Q4gko4ca181qTMc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=e9Neu36P6peXs3zS9l/6jGslpvxLGzP5m6INcwd3sRlZE+ewepVl2pQgGRC9DQU6HcSsm1t24PCVaSrzXdc2M+rDwGamqb4I2ofC4R3em0skF+aqxcH6jzoTGjjuGnxBIgtlJsW58LOtcvk8zDtc5ynjrO3AVXNGYV9EgHsURrs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=alleFJ3/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="r718lprH"
-Received: by mail-qk1-f178.google.com with SMTP id af79cd13be357-92e57a753f9so278724485a.2
-        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 09:40:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1788108002; x=1788712802; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=PokV92Wfh1ph78+DVYXuDrVLqAtkUu6EZ7/DX6OOMHg=;
-        b=r718lprH/AYQltFVBRHuWn0Ls3PMZv3gZsFy8Ee/ERzpZCqaw1WYIp+yliinIr5ON5
-         W4/l/r7CVEFD/1ldDd2jk4UA6FW/18hc0l+KgR9p54GQjp/JmmsvTXRuabpp46YNpepY
-         qa6xIrx+wVmEBUBrGVn1ZnGeBVsuRGQZSBWuGfcPh/3SfITgbUCvxreIaaCFybkQlprS
-         HgAIO8CvKBtAy21qxCsN0dU+aF2dfk/eMTczRS7WC+jxkZ/j0kO5aa5JGdoGpKuw3Ays
-         xUnM5K5Ba/RYj4jcRUw2lfyVLXgfXzHFSqGAC9XRKPHIfs4AoBTIi3uUdjLwknmW5ZYI
-         kVzA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788108002; x=1788712802;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=PokV92Wfh1ph78+DVYXuDrVLqAtkUu6EZ7/DX6OOMHg=;
-        b=eY3Iya5Fpv1EbmsV+42FYc+G4Mvgg+e5icExrYsdMo/klVcJqJI1/AnJj0uGi9bD5o
-         sZDqFJxeA/7FBfWq0UeOrxvtQOjULZzebOc+LuVp4iywl7odKScjMFOdQOt7Vju2npnt
-         r1r1CV29NzHDjqTzY6eJW+wAX9/Emu2GIU9opcf+XM4/LMP75hxiaOEY/srSqbdbxzxW
-         dvZ1ISgqZZvsmV+m0LHygK4XkdC2f52rQxLN6sTxJ+zreIHWeJ8RvDd7B04hmNUSYQp3
-         dNfLS/aR6hmHdDG9n3/seFuTBB/UYtPKCGAItMbSuzMBaOgOfzFlgeAKWcQpZG0Onl4r
-         RKWA==
-X-Forwarded-Encrypted: i=1; AHgh+Ro3mzE5C8EBK0hPYgW9+XhlS3gDVy7c5qf3rkhkO9FTpoeGxjci9OveNgVnlpLcywqG3qDAGfufe6mQSko=@vger.kernel.org
-X-Gm-Message-State: AFuF++mSB1Y3ISA9w3GaNyJlL7QDRsmf4a+5xHgGWji3yPn5YR/dyoOV
-	Mr/YKbgEGQv2Ohx7B4CDMgISKbrdm78NmOt39w5jHfI5ex44Ps7dROenZ4bRngPFfeI=
-X-Gm-Gg: AR+sD12AYpGdZvPaEcmm4fCplsDNykuMIPBFkHmVn4xKjWHG5uFBZjcJYVbxOEjOSYx
-	5/8mKHtjlZiBPctqWl4ZTJNu2djW186jbblAn7r56uP+1zU0Xsb9ZwnlDQy+y33zcy33zinTeds
-	jmxVBJMAw83qUTFUwjoN52oWng91iEPpTmByXFr+1I8r9pKirO/aL9tAgDz8OMocL07DIEgsEYl
-	opZHSpqt/SwBcqZ2VNHjvII9BaSZygubyD9PYnVonFQ4s8Uc+wlhNLBNfVEFZBV9B56HEdsrtqt
-	mrSZbxvWuTSA1b/AabbQTauodrJG5BD86+WIVLr+SnZGO9muz/i5QsaSbSFeSuqQG5DgIMRFmBW
-	9uMdrqOZ0iU8lDpixcfF2+T3vFXhcHx5wREPYv1PtPrUSAu/vL0CG8Bpn2SrD1ymkeZf4EAEkOs
-	YaZlt/GXmNyMteGpnYCypWViiEhGS2UMIXLR1ICss1y/HjBQav+47Vk2DW2Si3gSiY/wE5MIykF
-	50bEG2D2pFLeViRMtwTjiLvQIXRu5UQG1zVIpBdFx/O
-X-Received: by 2002:a05:620a:5235:b0:937:5298:7820 with SMTP id af79cd13be357-939137b5b95mr2035043285a.8.1788108002384;
-        Sun, 30 Aug 2026 09:40:02 -0700 (PDT)
-Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9391725f916sm605301085a.20.2026.08.30.09.40.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 30 Aug 2026 09:40:01 -0700 (PDT)
-Date: Sun, 30 Aug 2026 12:39:59 -0400
-From: Gregory Price <gourry@gourry.net>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com, 
-	david@kernel.org, ziy@nvidia.com, matthew.brost@intel.com, joshua.hahnjy@gmail.com, 
-	rakie.kim@sk.com, byungchul@sk.com, ying.huang@linux.alibaba.com, 
-	apopple@nvidia.com, urezki@gmail.com, chenwandun@huawei.com
-Subject: Re: [PATCH 0/2] mm/mempolicy: stop copying state in the interleave
- paths
-Message-ID: <apRczHobjsdUTChR@gourry-fedora-PF4VCD3F>
-References: <20260829015943.1258774-1-gourry@gourry.net>
- <20260829161850.db162f9f99deb419f4700c11@linux-foundation.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="alleFJ3/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E9E621F000E9;
+	Sun, 30 Aug 2026 16:48:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788108528;
+	bh=pzu+ACkuwUxOrchSybuObnY6MIz1l+8zvuyyHN0CqRg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=alleFJ3/WMBQoZD+8zwyyiLEGd0cTl0GKTN52DYrQFDRvVW6EgqTuD/QRRKxP6+Gk
+	 0QgsFSBBursCxqkLwNJz8fg+fxD6m4NX+SwLgEKdbx9rb1lKxAZms1FQgwZrkeON3I
+	 9YdDua1nep0yilZ/Yx1SxJQf7fvjJIzEXVJgaYgCJjTCN6FjmHT2xQeTsP/h7KHQP/
+	 qQmNx5Y1qL+EkvykG0VC4x8aELSYYcuBmaiP1gCYOEi/IzX/DDNwcXjdHi5DUhG2Kg
+	 EPWshzwU/2iNxo+18UbI/EQuYqoK3dGgHnWlPqGPwy65iwYI1w5169mF8y+ZKIP/aW
+	 4sOQErbfdq9Ag==
+From: SJ Park <sj@kernel.org>
+To: Krishna Iyer <kiyer@crusoe.ai>
+Cc: SJ Park <sj@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	damon@lists.linux.dev,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/6] mm/damon/ops-common: handle hugetlb folios in folio mkold/young rmap walkers
+Date: Sun, 30 Aug 2026 09:48:40 -0700
+Message-ID: <20260830164841.103180-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260830051407.50008-3-kiyer@crusoe.ai>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260829161850.db162f9f99deb419f4700c11@linux-foundation.org>
+Content-Transfer-Encoding: 8bit
 
-On Sat, Aug 29, 2026 at 04:18:50PM -0700, Andrew Morton wrote:
-> On Fri, 28 Aug 2026 21:59:41 -0400 Gregory Price <gourry@gourry.net> wrote:
-> 
-> > The interleave node selectors and bulk allocators take copies of
-> > nodemasks and node weights (for weighted interleave) in the fault path.
-> > Both of these copies can be entirely eliminated.
-> > 
-> > For node weights, use SRCU to pin the weights in place.  This eliminates
-> > a copy and a kmalloc from the bulk allocator path.
-> > 
-> > For nodemasks, we can operate directly on pol->nodes as long as we bounds
-> > check the walk.  A concurrent rebind can shrink the mask, or tear the read
-> > of it so the mask appears empty.
-> > 
-> >  - The interleave node selectors fall back to numa_node_id() when that
-> >    happens, which is what they already did when a copy came back empty.
-> > 
-> >  - The bulk allocator simply returns what it managed to allocate.
-> > 
-> > The node count and weight totals are read separately from the nodemask
-> > walk that consumes them - creating a time-of-check / time-of-use race.
-> > Just clamp the walk to a single pass (number of nodes), and clamp each
-> > bulk allocation chunk to the space left in the request.
-> > 
-> > The cost is distribution accuracy during a rebind.  The copies never
-> > corrected for that either - they only kept the code from dividing by
-> > zero and overrunning the allocation request.
-> 
-> Not very well, it seems.  Sashiko thinks there's a div-by-zero in
-> alloc_pages_bulk_interleave().
-> 
-> 	https://sashiko.dev/#/patchset/20260829015943.1258774-1-gourry@gourry.net
-> 
+On Sat, 29 Aug 2026 22:14:03 -0700 Krishna Iyer <kiyer@crusoe.ai> wrote:
 
-That's what this was for :]
+> damon_folio_mkold_one() and damon_folio_young_one() assume the folios
+> they walk are mapped by normal PTEs or THP PMDs.  When the folio is a
+> hugetlb folio, page_vma_mapped_walk() returns the huge PTE in pvmw.pte
+> with its page table lock held, but the walkers treat it as a normal
+> PTE: they read and age it with PAGE_SIZE-granularity helpers, which is
+> wrong for huge PTEs (up to PUD level), and notify secondary MMUs for
+> only PAGE_SIZE of the mapping.
+> 
+> Add hugetlb branches to both walkers.  The mkold walker reuses
+> damon_hugetlb_mkold(), which the virtual address space operations set
+> has been using for hugetlb aging: it clears the young bit of the huge
+> PTE via set_huge_pte_at() and calls mmu_notifier_clear_young() spanning
+> the whole huge page size.  The young walker gets an equivalent new
+> helper, damon_hugetlb_young(), which reads the huge PTE with
+> huge_ptep_get() and consults the page idle flag and
+> mmu_notifier_test_young() like the existing PTE branch.
+> 
+> Locking mirrors what page_vma_mapped_walk() provides: the huge PTE's
+> page table lock is held inside the walk, and for shared hugetlb
+> mappings (the only ones subject to huge PMD sharing), rmap_walk_file()
+> already holds i_mmap_rwsem, satisfying hugetlb_walk()'s locking
+> requirements.
+> 
+> This is currently dead code: both rmap walkers are only reachable
+> through damon_get_folio(), which rejects hugetlb folios since they are
+> not on the LRU lists.  A following commit will let the physical address
+> space monitoring primitives opt in to hugetlb folios.
+> 
+> Assisted-by: Claude:claude-fable-5
+> Signed-off-by: Krishna Iyer <kiyer@crusoe.ai>
+> ---
+>  mm/damon/ops-common.c | 63 +++++++++++++++++++++++++++++++++++--------
+>  1 file changed, 52 insertions(+), 11 deletions(-)
+> 
+> diff --git a/mm/damon/ops-common.c b/mm/damon/ops-common.c
+> index f5fe92b825bb..62004206ca31 100644
+> --- a/mm/damon/ops-common.c
+> +++ b/mm/damon/ops-common.c
+> @@ -193,10 +193,20 @@ static bool damon_folio_mkold_one(struct folio *folio,
+>  
+>  	while (page_vma_mapped_walk(&pvmw)) {
+>  		addr = pvmw.address;
+> -		if (pvmw.pte)
+> -			damon_ptep_mkold(pvmw.pte, vma, addr);
+> -		else
+> +		if (pvmw.pte) {
+> +			/*
+> +			 * For hugetlb folios, page_vma_mapped_walk() sets
+> +			 * pvmw.pte to the huge PTE with its page table lock
+> +			 * held.
+> +			 */
 
-https://lore.kernel.org/linux-mm/20260828193111.1023497-1-gourry@gourry.net/
+This comment looks too verbose.  Let's drop.
 
-~Gregory
+> +			if (folio_test_hugetlb(folio))
+> +				damon_hugetlb_mkold(pvmw.pte, vma->vm_mm, vma,
+> +						addr);
+> +			else
+> +				damon_ptep_mkold(pvmw.pte, vma, addr);
+> +		} else {
+>  			damon_pmdp_mkold(pvmw.pmd, vma, addr);
+> +		}
+>  	}
+>  	return true;
+>  }
+> @@ -221,6 +231,24 @@ void damon_folio_mkold(struct folio *folio)
+>  
+>  }
+>  
+> +#ifdef CONFIG_HUGETLB_PAGE
+> +static bool damon_hugetlb_young(pte_t *pte, struct vm_area_struct *vma,
+> +		unsigned long addr, struct folio *folio)
+> +{
+> +	pte_t entry = huge_ptep_get(vma->vm_mm, addr, pte);
+> +
+> +	return (pte_present(entry) && pte_young(entry)) ||
+> +		!folio_test_idle(folio) ||
+> +		mmu_notifier_test_young(vma->vm_mm, addr);
+> +}
+> +#else
+> +static bool damon_hugetlb_young(pte_t *pte, struct vm_area_struct *vma,
+> +		unsigned long addr, struct folio *folio)
+> +{
+> +	return false;
+> +}
+> +#endif	/* CONFIG_HUGETLB_PAGE */
+> +
+>  static bool damon_folio_young_one(struct folio *folio,
+>  		struct vm_area_struct *vma, unsigned long addr, void *arg)
+>  {
+> @@ -232,16 +260,29 @@ static bool damon_folio_young_one(struct folio *folio,
+>  	while (page_vma_mapped_walk(&pvmw)) {
+>  		addr = pvmw.address;
+>  		if (pvmw.pte) {
+> -			pte = ptep_get(pvmw.pte);
+> -
+>  			/*
+> -			 * PFN swap PTEs, such as device-exclusive ones, that
+> -			 * actually map pages are "old" from a CPU perspective.
+> -			 * The MMU notifier takes care of any device aspects.
+> +			 * For hugetlb folios, page_vma_mapped_walk() sets
+> +			 * pvmw.pte to the huge PTE with its page table lock
+> +			 * held.
+>  			 */
+
+Again, this new comment looks unnecessary.  Let's drop.
+
+> -			*accessed = (pte_present(pte) && pte_young(pte)) ||
+> -				!folio_test_idle(folio) ||
+> -				mmu_notifier_test_young(vma->vm_mm, addr);
+> +			if (folio_test_hugetlb(folio)) {
+> +				*accessed = damon_hugetlb_young(pvmw.pte, vma,
+> +						addr, folio);
+> +			} else {
+> +				pte = ptep_get(pvmw.pte);
+> +
+> +				/*
+> +				 * PFN swap PTEs, such as device-exclusive
+> +				 * ones, that actually map pages are "old"
+> +				 * from a CPU perspective. The MMU notifier
+> +				 * takes care of any device aspects.
+> +				 */
+> +				*accessed = (pte_present(pte) &&
+> +						pte_young(pte)) ||
+> +					!folio_test_idle(folio) ||
+> +					mmu_notifier_test_young(vma->vm_mm,
+> +							addr);
+> +			}
+
+I feel like the indentation becomes too deep.  Could we split out this into
+another static function, say, damon_pte_young()?
+
+>  		} else {
+>  #ifdef CONFIG_TRANSPARENT_HUGEPAGE
+>  			pmd_t pmd = pmdp_get(pvmw.pmd);
+> -- 
+> 2.54.0
+
+Other than the above two simple things, this patch looks good to me.
+
+
+Thanks,
+SJ
