@@ -1,46 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A389B3806BD;
-	Sun, 30 Aug 2026 09:53:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EBEE35F170;
+	Sun, 30 Aug 2026 09:54:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788083626; cv=none; b=L8IuCAoUCy0z5L4xurJrsCC+fnswaNSDhykVpeDggymsaTjykc23s7iWhhMFufa1Yabr+V6AOESuEvqQOdAauDhkvZRlrWpGzisRVjq/Ki9jT2VSsk2z5T7W1kWpSYCViv0LXHMFXUggl/eawIAhcTFX0uRPkq50sryXSNkEOh8=
+	t=1788083683; cv=none; b=Zk5HeuXkTTVDY9J4a2F/llpv4LsM9EEuVEfUxoUY0cNkCi+6U4KTP4xYXo8jPVNB1CrqgpSIcB+5FAeev8sZ/p9+uXl0j1abIQ1MITdHpSne53mOiZGTbySZFs4ilBvqseXjPCZu7yNboQwemRdSomhF5QFGMlP2OWPXQ3o5k0w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788083626; c=relaxed/simple;
-	bh=ZchydP8QjD4yV+Zk9hB5b2DfbGXCpkqqoaj3x6dvggM=;
+	s=arc-20240116; t=1788083683; c=relaxed/simple;
+	bh=CYH52uyF2CtF4DngemQpVHHqkMv7GkRcxpkH5w4S400=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LQR+EZSP9hNkuxpkd5mxnO9EG9dQwT8LVZbysSfGjFJ39ULMYJMLMdqgiQ6bwbeWaQKv5VVmz4yLP+s//FxGO59cyJH6gNoh/roqGjiaezuDEyU441fv4xSnKVVt1Fexv07wosu56W+XrtuutnMw8hxeH2BZf9RjoPurisz9lG4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O8PdxOQw; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=STQo+2TFWjRXedwmw37zbW5iliRe0jF1hj583M+X9SZciHm62QjtRdFvPNkq2oUUf7Yl8a4KR917HiCrA27cplznpmXCg7HUew/Zo51/OPAa/SeD5QnYYInPnqCv9VjHCD8Kht+u9bOUTaMmwrtMGlC2Kr2YiFXPTPIan+FApi8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eafQcu7p; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O8PdxOQw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04A341F000E9;
-	Sun, 30 Aug 2026 09:53:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eafQcu7p"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63CE81F000E9;
+	Sun, 30 Aug 2026 09:54:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788083623;
-	bh=V7GiyyeYtymPDpp0Kz+/T1xEheO8ntFtb7p/uSGB400=;
+	s=k20260515; t=1788083682;
+	bh=CgBrUiBAKCC56x+TVfnfJ4aLrIDbkJO4XUeVoG5VVsY=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=O8PdxOQwutK/bpxrGU7cZckHsp/V/h1BkecByM1NCrRxDGKB3sRBgST0Gzdv6KZXI
-	 zSeFOszM4/xWqgQTiO3Tirwl71iQEZYFzI7UE7q2zmLTYSGNaT8q/M3qV1XWc1G2tq
-	 KMSNIDrWB6o3KbOwclQIt0tcxe6SYR6i0aldSZlvkh2answ/KqSxCBgSHKMSeD4kA2
-	 8aJ3Y2/3abeqRtt6FP1WDAstgrJiSaD//h7cML1pjM5AAsc4a+rg8nyXKZ2+xxQMGt
-	 HcxTJHKRbkriFcNht8KCRPTHNGPLFOYzru4MBdlZmdhl9UHKjn8nH/Y3C7yGiAwRr9
-	 F9jsBwkILRGSw==
-Date: Sun, 30 Aug 2026 11:53:38 +0200
+	b=eafQcu7p8qIVE77ejviVCGXFdVteUCoGSqiX8dm2Z1jxVwcTWqBY8ZoXqFNDmBJ9R
+	 v3oZFeQIafVXekVDXXhWMteJC2oFM0yZpbINc2s2dedtyUrNgKVjjdIumyHnlNm6v4
+	 H8xg0TfXLy8RnbLabGm7B2gyJPxRU6KJ1Pi/KPPp6yVh5WyRHp6sTLMOZoOHjAsOZq
+	 8Ir6HIy2+3fKMZteQ6U3VGKVdSaE1HLcM0Lnr36fRUoXIi1MzauTdv4UBPGkhKXhqm
+	 CwY6rNmTxBnCrxpns/FcXJrGU1PmfB/vzXoTfdaLa3lzPK6XO3+8VrYwTODahAphFd
+	 y1Eu3m66G+v5A==
+Date: Sun, 30 Aug 2026 11:54:38 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Frank.Li@oss.nxp.com
-Cc: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
-	Wensheng Wang <wenswang@yeah.net>, Cosmo Chou <chou.cosmo@gmail.com>, 
-	Colin Huang <u8813345@gmail.com>, Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>, 
-	Dixit Parmar <dixitparmar19@gmail.com>, Antoni Pokusinski <apokusinski01@gmail.com>, 
-	Eddie James <eajames@linux.ibm.com>, Thorsten Blum <thorsten.blum@linux.dev>, 
-	"open list:HARDWARE MONITORING" <linux-hwmon@vger.kernel.org>, 
-	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>, imx@lists.linux.dev
-Subject: Re: [PATCH 1/1] dt-bindings: hwmon: tmp102: move ti,tmp103 out of
- trivial-devices.yaml
-Message-ID: <20260830-alluring-goldfish-of-cubism-eef6db@quoll>
-References: <20260826211422.3299728-1-Frank.Li@oss.nxp.com>
+To: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
+Cc: Jassi Brar <jassisinghbrar@gmail.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH] dt-bindings: mailbox: qcom: Add IPQ9650 APCS compatible
+Message-ID: <20260830-quartz-hippo-of-wonder-0826cc@quoll>
+References: <20260827-apcs-v1-1-33087bf44620@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -49,28 +43,19 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260826211422.3299728-1-Frank.Li@oss.nxp.com>
+In-Reply-To: <20260827-apcs-v1-1-33087bf44620@oss.qualcomm.com>
 
-On Wed, Aug 26, 2026 at 05:14:19PM -0400, Frank.Li@oss.nxp.com wrote:
-> From: Frank Li <Frank.Li@nxp.com>
+On Thu, Aug 27, 2026 at 09:48:07AM +0530, Varadarajan Narayanan wrote:
+> Document the APCS mailbox compatible for the IPQ9650 SoC. IPQ9650 uses
+> qcom,msm8994-apcs-kpss-global as a fallback, so add the valid compatible
+> string combination to the binding.
 > 
-> Move ti,tmp103 binding from trivial-devices.yaml to ti,tmp102.yaml. Both
-> devices are single temperature sensors and update "#thermal-sensor-cells"
-> property to accept values 0 and 1 (passing no argument is equivalent to
-> passing 0 as the first argument)
-
-Why updating the property? If there are single sensors, then what is the
-cell for?
-
-> 
-> Fix below CHECK_DTBS warnings:
-> arch/arm/boot/dts/nxp/imx/imx6dl-plym2m.dtb: temperature-sensor@70 (ti,tmp103): '#thermal-sensor-cells' does not match any of the regexes: '^pinctrl-[0-9]+$'
-> 
-> Signed-off-by: Frank Li <Frank.Li@nxp.com>
+> Signed-off-by: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
 > ---
->  Documentation/devicetree/bindings/hwmon/ti,tmp102.yaml | 5 +++--
->  Documentation/devicetree/bindings/trivial-devices.yaml | 2 --
->  2 files changed, 3 insertions(+), 4 deletions(-)
+>  Documentation/devicetree/bindings/mailbox/qcom,apcs-kpss-global.yaml | 1 +
+>  1 file changed, 1 insertion(+)
+
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
 Krzysztof
