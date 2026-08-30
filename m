@@ -1,240 +1,112 @@
-Received: from mta0.migadu.com (out-114.mta0.migadu.com [91.218.175.114])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7100938D
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 07:47:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.114
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F99A35836E
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 07:48:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788076083; cv=none; b=M0c1FhTCzLmPOI+TSFh4svLV6vFLe/QPoYQGSviUoS+y0TjDN3tpbt3ybl//C/CRYPsePVIRk5Bzh8zKWHQA/QHpVV9Qmm9lsqZRsBI/0Hlmk6R2gnJtuPcJwRjeubV3DLrYl5BqdC+SZFUF9iwjETFUYy/1JmFVwbHImZTlJCk=
+	t=1788076086; cv=none; b=Tlf0l7jwmK1/tjZ0lsnR8QJfGOYqPRPdxcaC9Ih6S1QASHtcoVY66FdsZ4f5hJ/ujEWxlXI0eqDWy2QD8PE9Uf+/uZVuoEVdUH8zOHl7Gxi0nQ73ikgv3kGvW2U/0H3I03fkDCoLy5Q0+z9BaRlAhPl54yV9GVHU5U1FqmtTK4E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788076083; c=relaxed/simple;
-	bh=sSUo0d8E6BWyoxCIKSh8oJBYJiXLVVUVNPEG+Z60ppw=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=awiK4C9apo1snq4Brgbw2eGe2w+qqow3iJt8BrhM7acP6/cIyC4umssk7dwQK9St1dvSk/pxYV3e8E3BF4+Kd2K6X8owpSj8m+XcnXQt5MxTPSlwScMSJPHk72CeYY8WxlqLtWMSr+f7ttmATFx4qq8TvijwnfEjMnvTpR/nB2Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=sqO8IcNj; arc=none smtp.client-ip=91.218.175.114
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788076086; c=relaxed/simple;
+	bh=4LTNW+B1VYaR3rSi+gtNh9uqKardCXvz/n4WZKm71qE=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=tFMExIbsR4R1EQiICNoB/dd4yA09+fZ33UBlmdwDvcaZJk0uT0a6on+1+8IQL40h+hAG/7/GgP8+ry2k3PuQoyQ11OlSSZySX2DiFAjPe4aYihOHoTt9LZPFBFtEihoufCKcD2/DwX/KS1BghvOJVptvNVJvBCcO7jrXNrwKY5o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XXZjfJn/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="sqO8IcNj"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=sSUo0d8E6BWyoxCIKSh8oJBYJiXLVVUVNPEG+Z60ppw=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788076078; v=1; x=1788680878;
- b=sqO8IcNj7JPbFlYWHqTLO58fqocmUBqAgaCtJrLlZj/TsIlfysYRbJlYgEl8A0FhJs57kbgb
- jJR9OzSvXMvso+Ud0X7iaBXbCqzUZnvR9WwmpjDoL15R4rLEtdKwT8dtS+pL/dTP+bK1umZ5lWe
- DNTmzjb2ePlCh8PT8pgfrRyg=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id ee9797414e8e0c9f;
-	Sun, 30 Aug 2026 07:47:57 +0000
-X-Mizu-Trace-ID: ee9797414e8e0c9f
-X-Migadu-Flow: FLOW_OUT
-From: Lance Yang <lance.yang@linux.dev>
-To: akpm@linux-foundation.org
-Cc: gourry@gourry.net,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	kernel-team@meta.com,
-	david@kernel.org,
-	ljs@kernel.org,
-	ziy@nvidia.com,
-	baolin.wang@linux.alibaba.com,
-	liam@infradead.org,
-	nico.pache@linux.dev,
-	ryan.roberts@arm.com,
-	dev.jain@arm.com,
-	baohua@kernel.org,
-	usama.arif@linux.dev,
-	vbabka@kernel.org,
-	jannh@google.com,
-	matthew.brost@intel.com,
-	joshua.hahnjy@gmail.com,
-	rakie.kim@sk.com,
-	byungchul@sk.com,
-	ying.huang@linux.alibaba.com,
-	apopple@nvidia.com,
-	balbirs@nvidia.com,
-	Lance Yang <lance.yang@linux.dev>
-Subject: Re: [PATCH v2 0/3] mm: reject zone device folios in more folio walkers
-Date: Sun, 30 Aug 2026 15:47:51 +0800
-Message-Id: <20260830074751.25370-1-lance.yang@linux.dev>
-X-Mailer: git-send-email 2.39.3 (Apple Git-146)
-In-Reply-To: <c2577ec5-acf6-466b-ba66-0b3bcabbef7d@linux.dev>
-References: <c2577ec5-acf6-466b-ba66-0b3bcabbef7d@linux.dev>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XXZjfJn/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A1DB1F00A3D;
+	Sun, 30 Aug 2026 07:48:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788076085;
+	bh=OUSBuPbkgvvs7WqRcGgbke6rpMilgaQ3CVPiWBPYFtU=;
+	h=From:Subject:Date:To:Cc;
+	b=XXZjfJn/l9reN3sv2uNRKT5zpSYocUtRxKxv0hFlqrV2qAEv3KArYO1bQ5PW/ZzXH
+	 +6kirRWN0MtdcbEr5t8AcnRqqDN66u266Jz0y749SjJeez9cY1jd8xVH+zOXVcsSxm
+	 NcWySLa70EOYMctxt31QjbYGu6nLpYSWa94OkoknlcjRT99gYC8/e3M0BDRsRXw8c1
+	 cfK8mDOHqBmw+Vbj+guW2u5KC6quklkb6MC7Xhw1DQ4T8CGy41suH4Ce++HEwiMPGC
+	 1uQU3w+ur5AR/DGX88A29qzh3rDHzoaB9MRDS/t/K9w32a77MxjoBFVTMOBOaxewBa
+	 33LT3VS739U6w==
+From: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
+Subject: [PATCH 0/4] char/misc: replace page allocator calls with
+ k[mz]alloc()
+Date: Sun, 30 Aug 2026 10:47:57 +0300
+Message-Id: <20260830-char-misc-v1-0-05e2ce44f291@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWM0QrCMAwAf2Xk2chsxU5/RXxo08xFsEqiIoz9u
+ +18vOO4GYxV2ODUzaD8EZNHqbDbdEBTLFdGyZXB9e7QD+6I1SrexQgz0Z69D2EYM9T+qTzKd32
+ dL3+2d7oxvdqgFSkaY9JYaGpqxbD1sCw/fME+7YgAAAA=
+X-Change-ID: 20260829-char-misc-dcc4e33778fd
+To: Arnd Bergmann <arnd@arndb.de>, Brad Warrum <bwarrum@linux.ibm.com>, 
+ Eli Billauer <eli.billauer@gmail.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Michal Simek <michal.simek@amd.com>, Ritu Agarwal <rituagar@linux.ibm.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, Matthew Wilcox <willy@infradead.org>, 
+ Mike Rapoport <rppt@kernel.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ linux-mm@kvack.org, linuxppc-dev@lists.ozlabs.org
+X-Mailer: b4 0.17-dev
 
+This is a (small) part of larger work of replacing page allocator calls
+with kmalloc.
 
-On Sun, Aug 30, 2026 at 01:18:24PM +0800, Lance Yang wrote:
->
->
->On 2026/8/30 08:18, Andrew Morton wrote:
->> On Tue, 18 Aug 2026 12:31:43 +0800 Lance Yang <lance.yang@linux.dev> wrote:
->> 
->>>
->>> On Mon, Aug 17, 2026 at 06:08:07PM -0400, Gregory Price wrote:
->>>> Several LRU-oriented mm walkers resolve the folio backing a PMD entry
->>>> (or a physical pfn) and then reclaim, age, migrate, or lazyfree it
->>>> without ever checking for ZONE_DEVICE memory.
->>>>
->>>> This series adds missing folio_is_zone_device() rejections, matching
->>>> the checks that comparable walkers already perform.
->>>>
->>>> - mm/huge_memory, mm/madvise: the !pmd_present branch above these sites
->>>>   only filters device-private entries (which are non-present).
->>>>
->>>>   A present zone device PMD (e.g. device-coherent) would still reach the
->>>>   folio and be lazyfreed / aged / paged out. Add an explicit check.
->>>>
->>>> - mm/mempolicy: queue_folios_pmd() can see a present zone device PMD
->>>>   (e.g. device-coherent) and queue it for migration.
->>>>
->>>> No crash reproducer - this is a correctness/hardening cleanup found by
->>>> inspection. All checks are placed after the folio is resolved and before
->>>> it is acted upon, on paths that already hold the relevant page-table lock,
->>>> so no locking or refcount changes are involved.
->>>
->>> Cool!
->>>
->>> Gave the whole series a spin on x86_64 QEMU with a PMD-mapped
->>> device-coherent THP. Without these patches, partial MADV_FREE and
->>> MADV_COLD reliably hit a kernel panic in remove_migration_pte(), while
->>> mbind(MPOL_MF_MOVE | MPOL_MF_STRICT) returned -EIO.
->>>
->>> With v2, all three worked fine, PMD mapping stayed intact, and data
->>> checked out :)
->>>
->>> Note that both kernels used the same small change to the in-kernel HMM
->>> test driver, allowing its coherent device memory to be allocated as 2 MB
->>> folios so the PMD-mapped test case could be exercised.
->>>
->>> Tested-by: Lance Yang <lance.yang@linux.dev>
->> 
->> Thanks Lance, you're so diligent.
->> 
->> I'm wondering what to do here.  Gregory told us
->> 
->> : No crash reproducer - this is a correctness/hardening cleanup found by
->> : inspection. All checks are placed after the folio is resolved and before
->> : it is acted upon, on paths that already hold the relevant page-table lock,
->> : so no locking or refcount changes are involved.
->> 
->> And you had to tweak the hmm-test driver to reproduce the bug(s).
->> 
->> So when do we push this series out to -stable?  As a hair-on-fire
->> hotfix, or as a leisurely next-merge-window thing?
->
->Thanks, Andrew :) Yeah, I'd say next merge window should be fine :)
->
->The crash is real once the mapping exists, but I had to tweak test_hmm
->to create that PMD-mapped device-coherent folio, and I couldn't find
->any in-tree production driver doing that today.
->
->So no need to rush this one, I guess.
+My initial intention a few month ago was to remove ugly casts [1], but then
+willy pointed out that Linus objected to something like this [2] and it
+looks like more than a decade old technical debt.
 
-BTW, noticed that the ZONE_DEVICE split handling only covers
-device-private folios, so device-coherent folios aren't supported ...
+Largely, anything that doesn't need struct page (or a memdesc in the
+future) should just use kmalloc() or kvmalloc() to allocate memory.
+kmalloc() guarantees alignment, physical contiguity and working
+virt_to_phys() and beside nicer API that returns void * on alloc and
+doesn't require to know the allocation size on free, kmalloc() provides
+better debugging capabilities than page allocator.
 
-The call chains are:
+Another thing is that touching these allocation sites gives the reviewers
+opportunity to see if a PAGE_SIZE buffer is actually needed or maybe
+another size is appropriate.
 
-split_folio()
-  -> __folio_split()
-    -> folio_check_splittable()
-    -> __folio_freeze_and_split_unmapped()
+For larger allocations that don't need physically contiguous memory
+kvmalloc() can be a better option that __get_free_pages() because under
+memory pressure it's is easier to allocate several order-0 pages than a
+physically contiguous chunk with the same number of pages.
 
-migrate_vma_pages()
-  -> __migrate_device_pages()
-    -> migrate_vma_split_unmapped_folio()
-      -> folio_split_unmapped()
-        -> __folio_freeze_and_split_unmapped()
+And last, but not least, removing needless calls to page allocator should
+help with memdesc (aka project folio) conversion. There will be way less
+places to audit to see if the user was actually using struct page.
 
-And I added the device-coherent check to folio_check_splittable() and
-folio_split_unmapped(). See below. They can go away once device-coherent
-folio splitting is supported :)
+The patches are deliberately kept small: each one deals with a single
+driver or subsystem and with a single type of allocation, so that every
+conversion can be reviewed, and if needed reverted, on its own.
 
-If folks think it's worth having, I can send it as a follow-up :)
+[1] https://lore.kernel.org/all/20251018093002.3660549-1-rppt@kernel.org/
+[2] https://lore.kernel.org/all/CA+55aFwp4iy4rtX2gE2WjBGFL=NxMVnoFeHqYa2j1dYOMMGqxg@mail.gmail.com/
 
----8<---
-Subject: [PATCH] mm/huge_memory: don't split device-coherent folios
+Note that the xillybus 'salami' buffer in xillybus_core.c is left alone: it
+is allocated with __GFP_DMA32 which kmalloc() does not support.
 
-From: Lance Yang <lance.yang@linux.dev>
-
-The ZONE_DEVICE split handling only covers device-private folios.
-Device-coherent folios are not supported.
-
-The call chains are:
-
-split_folio()
-  -> __folio_split()
-    -> folio_check_splittable()
-    -> __folio_freeze_and_split_unmapped()
-
-migrate_vma_pages()
-  -> __migrate_device_pages()
-    -> migrate_vma_split_unmapped_folio()
-      -> folio_split_unmapped()
-        -> __folio_freeze_and_split_unmapped()
-
-Reject device-coherent folios in folio_check_splittable() and
-folio_split_unmapped().
-
-Fixes: a30b48bf1b24 ("mm/migrate_device: implement THP migration of zone device pages")
-Signed-off-by: Lance Yang <lance.yang@linux.dev>
 ---
- mm/huge_memory.c | 14 +++++++++++---
- 1 file changed, 11 insertions(+), 3 deletions(-)
+Mike Rapoport (Microsoft) (4):
+      char: xilinx_hwicap: replace page allocator calls with k[mz]alloc()
+      char: xillybus: replace __get_free_pages() with kmalloc()
+      misc: ibmvmc: replace get_zeroed_page() with kzalloc()
+      platform: goldfish: pipe: replace __get_free_page() with kmalloc()
 
-diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index 54494c3fa983..a5dd38e9a8de 100644
---- a/mm/huge_memory.c
-+++ b/mm/huge_memory.c
-@@ -3937,6 +3937,10 @@ int folio_check_splittable(struct folio *folio, unsigned int new_order,
- 	if (!folio->mapping && !folio_test_anon(folio))
- 		return -EBUSY;
-
-+	/* TODO: Support splitting device-coherent folios. */
-+	if (folio_is_device_coherent(folio))
-+		return -EOPNOTSUPP;
-+
- 	/* order-1 is not supported for anonymous THP. */
- 	if (folio_test_anon(folio) && new_order == 1)
- 		return -EINVAL;
-@@ -4354,15 +4358,16 @@ static int __folio_split(struct folio *folio, unsigned int new_order,
-  *
-  * anon_vma_lock is not required to be held, mmap_read_lock() or
-  * mmap_write_lock() should be held. @folio is expected to be locked by the
-- * caller. device-private and non device-private folios are supported along
-+ * caller. device-private and non-ZONE_DEVICE folios are supported along
-  * with folios that are in the swapcache. @folio should also be unmapped and
-  * isolated from LRU (if applicable)
-  *
-  * Upon return, the folio is not remapped, split folios are not added to LRU,
-  * free_folio_and_swap_cache() is not called, and new folios remain locked.
-  *
-- * Return: 0 on success, -EAGAIN if the folio cannot be split (e.g., due to
-- *         insufficient reference count or extra pins).
-+ * Return: 0 on success, -EOPNOTSUPP for device-coherent folios, or -EAGAIN if
-+ *         the folio cannot be split (e.g., due to insufficient reference
-+ *         count or extra pins).
-  */
- int folio_split_unmapped(struct folio *folio, unsigned int new_order)
- {
-@@ -4373,6 +4378,9 @@ int folio_split_unmapped(struct folio *folio, unsigned int new_order)
- 	VM_WARN_ON_ONCE_FOLIO(!folio_test_large(folio), folio);
- 	VM_WARN_ON_ONCE_FOLIO(!folio_test_anon(folio), folio);
-
-+	if (folio_is_device_coherent(folio))
-+		return -EOPNOTSUPP;
-+
- 	if (folio_expected_ref_count(folio) != folio_ref_count(folio) - 1)
- 		return -EAGAIN;
+ drivers/char/xilinx_hwicap/xilinx_hwicap.c | 18 +++++++++---------
+ drivers/char/xillybus/xillyusb.c           | 25 +++++++------------------
+ drivers/misc/ibmvmc.c                      |  6 +++---
+ drivers/platform/goldfish/goldfish_pipe.c  | 22 ++++++++++------------
+ 4 files changed, 29 insertions(+), 42 deletions(-)
+---
+base-commit: 1b78070aaef63512688aebfbc82365ef9d6660f1
+change-id: 20260829-char-misc-dcc4e33778fd
 
 --
+Sincerely yours,
+Mike.
 
-Cheers, Lance
