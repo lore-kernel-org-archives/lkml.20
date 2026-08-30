@@ -1,175 +1,132 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EFFA382380;
-	Sun, 30 Aug 2026 08:35:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 897842EEE60
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 08:35:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788078945; cv=none; b=sk/RXfFv+1Gqys0id5E8Mlg22Lw8f1AWnJEJZs0VDWnJQEQTO+xqxOSnba256029FsrMyY/ly4f5m3gvqp4lhDEUB4ERvijVKTgaWHUdlq1nEharFLZeDfi+8vw/TE/ONN6pAU/v9Rw+pR6qR6vsbr+3Et/481CIbMoOPejRyiY=
+	t=1788078953; cv=none; b=kWXRHrAPIP4w1VKwwsCm0u9blLmz1YbLQTw8BCLL/QIaDMaDVZxN3cj/ZO5sYpplHTISH8euE9G8kPwWziWhvhewIEbU1/r9Zqkh38LnyZMTLTrqGxhOLV5KZo8WHpJTu+3PaOuDuVsgs03ZpDA13CMtvxjLyr9DYMZThIp/WYs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788078945; c=relaxed/simple;
-	bh=4ImRa1XNESIUl/suhHZTEHPObbGsxkW/TyzIC8DOkeM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=YyxV/xhoNwJ6ARpp3K0x9aGarmLZjrV/FcsQPp4XkRwxpHa3JDkqC4VANdIftM0gyKnfcBquZLvbcC0m8gPWpSYfnUts6vC9sgtYuoXZiAqAgvqJMdrKrK8419a0ahRhqU/A54l1PMAKzrKhW7AgiBJXDZ6KiAMXZWZSxr3cvks=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bkHlSqYn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788078953; c=relaxed/simple;
+	bh=A4ifKx/Y7UrQjBOJn3HDOEpZ4lNxL9SvaY8VBuTbiXg=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=KprCVoAThChuEAm/u+2oNmN/r+sYuLq7B0G6Ft19yrtPOLXieLfx+ArMyi1i9pdNKUbfz3PwaE7aQfFJEdd9OBs7P2aVGSXIImWYuIji4euou9jDv5zPGcRLOjhEFGByRaI9kjh946sveouZpQrfdk9zNEBKWiNUfkjZuyzgKbg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=I3mrSJXQ; arc=none smtp.client-ip=209.85.221.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bkHlSqYn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D784E1F000E9;
-	Sun, 30 Aug 2026 08:35:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788078944;
-	bh=hTFCf+/WK7bUzDOulou6SgSDwFha6MKK5QsGq8xUtuQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=bkHlSqYnZEO5cbaeV4uD7xXqe/YGRrKTPWZ92KWx2jJW+Db1PJe+haQKq1/8p38JM
-	 3MFVg4xSUhR6ggeZYtFKjubYPXh0DyNv5J8xQvsp/P0miFhOOcmNsvPtCsUnm1WWvI
-	 xHXgU46KHW5kchkLGRutsumBdjd6z+FyUEMp9ibwmy4SY947uz9taLC9JN/gN0V9XR
-	 QyP9x0qMcpffL0DzL0W38+tmZWz6DX//yZpq0q19sgxr3t9R02U8Tjtssia8/AvPWy
-	 fiXL1qx7I0+ka/sfHxQWKF1G58jIT71cEH84tKDUOzOzQDArlXKoAcH/Z4pFzYTwZ3
-	 95oeYQeoWPQFw==
-Message-ID: <417251d0-c2cc-4e10-940d-b75ab20acdec@kernel.org>
-Date: Sun, 30 Aug 2026 10:35:39 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="I3mrSJXQ"
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-48431648f33so540915f8f.0
+        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 01:35:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788078950; x=1788683750; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=XgVrC5x1G4IfWTMfMHMlJhQeGiqGU6pwFQaBnJPjxcA=;
+        b=I3mrSJXQ8NTIfNt+S3RsrNs1CnV6Bc6wRsvKQ3wSfvvOH6xSJwhx4W8vyMBinUCNFq
+         4C6MyjSLgUilSuWBH61hMgbfaUIowBw+XfPCLdX27D1M03UEJslnaLSUIEMcBpQJ7VtH
+         bS9hmyVCFCmYtClc6Gfe6aHXrIPF0PkT0zh78XvKp0Z9gBb0EP99Nl6GE6vEDv8fZ5uv
+         6NrF4W+kacjqDzDHSIqoJguqWUnGZH0EZ9eA5jDIX6NKTa0Zm5dZi2rlZZZCLS8FowWS
+         Z+ZFtVQNzx7tXG/rrabMw5NeUwAYsj7KPcMAV7IVul+D1D4JF+HOIo/JKaDzJ8TAKsS8
+         VN9g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788078950; x=1788683750;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=XgVrC5x1G4IfWTMfMHMlJhQeGiqGU6pwFQaBnJPjxcA=;
+        b=KG1WRen+TbVoEnfMr4JXdAdDg7+zUyiNEaTdlK1OgIPtYnKPZSy5CR1ad45yBibeqb
+         M3bC0TwdL8eGWW9u/XeUh2Cncj9/v/Xl8rDU9x/53S4vbp10UPl+tLSGU8N0jf1DmUP3
+         zKxQsk93aS0L6GTZzwn4ds1AwJCVzpLK4fZl/CiPEZ/lK0UEYKV+oYDHggDi4ObcuXGb
+         gkdmM4t4Uq02rZotCc5JqABMa+YpN02FdQJ96gk90dGMm/9boOG09MqX8fZH+Jj8bSYR
+         12LS7/zthZ8BtI5xMRQjQQBnITClyrP8/zDwTK47/vgMay8AATk2TDBebFl1/Ep0ynni
+         CfPw==
+X-Forwarded-Encrypted: i=1; AHgh+RrhKe7/e2Gz7n+y9PWGKU1zzYUEst/AjEvrQFcz6uiQblYgQ9M2w0GuoCdAA6O8qZU993YesYKUrbCJifs=@vger.kernel.org
+X-Gm-Message-State: AFuF++lKvtTI+3TiHXxaLNA2xeia3Q5wKC91QRYQbmOBaTGg/inTOJus
+	Hi11+tD0APtpkkct9haLy8vqVn8k/m6WC1RMBkNpjElHJkNXIOOpdoCb
+X-Gm-Gg: AR+sD11ldVufFMyfwLK6jN43p2ICzXbftvJnhyY4X981RbCWmxcWIMFCVa0YUA+D+4d
+	rSDPilMHCJx/A9OukoHy/gKTRbP2pDX+57G/3lVhlt9cv5+U64yAm5MBSnuZp2AtZLCWWxZQKI5
+	WGd2xH/ugtT9eSBkcKL2RVeglCRh0GyUtLDC+R6HBp/OYCLuLmFPnsk7hgFwRLLPodm6NygacB7
+	J+oHTAFY8yi47OtPPaPJJTMBuI54QPDfBaV466NXvaeU/hCNeBIWJDJzoyCcTrIa9+3Xy7bfA1S
+	9/8bwXRb/iCHsyW5Hj1sU1ymmgk7/DJDCEyr3ufxEnkQqm4Jin5gFrpxCWYeTi1SL4tlA7I1Asw
+	aRxxd75T6PGR2GGwiG5SkgIhWHMVYPg9TBDkYpP2v/yg/pN6zLtrmE1fGNBiU+pS9j7yLeTqAoO
+	Fl9ltkq6YTkoftSJHfEdpDfUuX05eer/dibBQTmSsqYXKsJ+L1K9ChYZscf5DQKAcrhLs=
+X-Received: by 2002:a05:600c:699a:b0:49c:799a:177b with SMTP id 5b1f17b1804b1-49cd5312c62mr22024085e9.2.1788078949471;
+        Sun, 30 Aug 2026 01:35:49 -0700 (PDT)
+Received: from foxbook (bfk5.neoplus.adsl.tpnet.pl. [83.28.48.5])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cca1ed292sm133688495e9.8.2026.08.30.01.35.48
+        (version=TLS1_2 cipher=AES128-SHA bits=128/128);
+        Sun, 30 Aug 2026 01:35:49 -0700 (PDT)
+Date: Sun, 30 Aug 2026 10:35:46 +0200
+From: Michal Pecio <michal.pecio@gmail.com>
+To: Thomas Gleixner <tglx@kernel.org>
+Cc: Anna-Maria Behnsen <anna-maria@linutronix.de>, Frederic Weisbecker
+ <frederic@kernel.org>, Ingo Molnar <mingo@kernel.org>,
+ linux-kernel@vger.kernel.org, Boqun Feng <boqun@kernel.org>
+Subject: Re: [BUG] NOHZ tick-stop error: local softirq work is pending
+Message-ID: <20260830103532.544eb946.michal.pecio@gmail.com>
+In-Reply-To: <875x0sduce.ffs@fw13>
+References: <20260829201401.2b107cd1.michal.pecio@gmail.com>
+	<875x0sduce.ffs@fw13>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 2/2] soc: starfive: Add JHB100 UART Routing driver
-To: Changhuang Liang <changhuang.liang@starfivetech.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-References: <20260830065118.51551-1-changhuang.liang@starfivetech.com>
- <20260830065118.51551-3-changhuang.liang@starfivetech.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260830065118.51551-3-changhuang.liang@starfivetech.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On 30/08/2026 08:51, Changhuang Liang wrote:
-> Add driver support for JHB100 UART Routing control, allowing runtime
-> configuration of RX muxes between UART controllers and I/O pins.
+On Sun, 30 Aug 2026 07:56:49 +0200, Thomas Gleixner wrote:
+> On Sat, Aug 29 2026 at 20:14, Michal Pecio wrote:
+> > I'm getting these warnings on current mainline. Quite reliable trigger
+> > is I/O load (like md5sum /dev/sda) on an otherwise idle system:
+> >
+> > [   86.082138] NOHZ tick-stop error: local softirq work is pending, handler #40!!!
+> > [  117.959975] NOHZ tick-stop error: local softirq work is pending, handler #40!!!
+> > [  121.054544] NOHZ tick-stop error: local softirq work is pending, handler #40!!!
+> > [  121.988208] NOHZ tick-stop error: local softirq work is pending, handler #40!!!
+> > [  143.932445] NOHZ tick-stop error: local softirq work is pending, handler #40!!!
+> > [  156.083120] NOHZ tick-stop error: local softirq work is pending, handler #40!!!
+> > [  156.685222] NOHZ tick-stop error: local softirq work is pending, handler #40!!!
+> > [  156.789911] NOHZ tick-stop error: local softirq work is pending, handler #40!!!
+> > [  158.986070] NOHZ tick-stop error: local softirq work is pending, handler #40!!!
+> >
+> > I see it consistently across several reboots. I also did two v7.2
+> > boots with the same workload and these ran cleanly 10 minutes each,
+> > so it looks like a merge window regression.
+> >
+> >
+> > It seems bisectable, but maybe somebody has better ideas?  
 > 
-> A sysfs interface is provided for easy checking and updating of routing
-> paths.
+> It's likely the issue being discussed here:
 > 
-> Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
-> ---
->  .../sysfs-driver-starfive-jhb100-uart-routing |  45 +++
->  MAINTAINERS                                   |   7 +
->  drivers/soc/starfive/Kconfig                  |   1 +
->  drivers/soc/starfive/Makefile                 |   1 +
->  drivers/soc/starfive/uart-routing/Kconfig     |  14 +
->  drivers/soc/starfive/uart-routing/Makefile    |   2 +
->  .../uart-routing/jhb100-uart-routing.c        | 262 ++++++++++++++++++
->  7 files changed, 332 insertions(+)
->  create mode 100644 Documentation/ABI/testing/sysfs-driver-starfive-jhb100-uart-routing
->  create mode 100644 drivers/soc/starfive/uart-routing/Kconfig
->  create mode 100644 drivers/soc/starfive/uart-routing/Makefile
->  create mode 100644 drivers/soc/starfive/uart-routing/jhb100-uart-routing.c
+>    https://lore.kernel.org/lkml/20260824105523.GA4121620@noisy.programming.kicks-ass.net/
 > 
-> diff --git a/Documentation/ABI/testing/sysfs-driver-starfive-jhb100-uart-routing b/Documentation/ABI/testing/sysfs-driver-starfive-jhb100-uart-routing
-> new file mode 100644
-> index 000000000000..2844133bea1b
-> --- /dev/null
-> +++ b/Documentation/ABI/testing/sysfs-driver-starfive-jhb100-uart-routing
-> @@ -0,0 +1,45 @@
-> +What:		/sys/bus/platform/drivers/starfive-jhb100-uart-routing/\*/uart\*
-> +Date:		August 2026
-> +Contact:	Changhuang Liang <changhuang.liang@starfivetech.com>
-> +Description:	Selects the RX source of the UARTx device.
-> +
-> +		When read, each file shows the list of available options with currently
-> +		selected option marked by brackets "[]". The list of available options
-> +		depends on the selected file.
-> +
-> +		e.g.
-> +		cat /sys/bus/platform/drivers/starfive-jhb100-uart-routing/\*.uart-routing/uart1
-> +		io0 [io1] io2 io3 io4 io5 io6 io7 io8 io9 io10 io11 io12 io13 io14 uart0 uart1
-> +		uart2 uart3 uart4 uart5 uart6 uart7 uart8 uart9 uart10 uart11 uart12 uart13 uart14
-> +
-> +		In this case, UART1 gets its input from IO1 (physical serial port 1).
-> +
-> +		To switch the RX source of UART1 to UART2, write the desired source to the file:
-> +		echo uart2 > /sys/bus/platform/drivers/starfive-jhb100-uart-routing/*.uart-routing/uart1
-> +
-> +		This indicates that UART1 now receives its input from UART2.
-> +
-> +Users:		OpenBMC.  Proposed changes should be mailed to
-> +		openbmc@lists.ozlabs.org
-> +
-> +What:		/sys/bus/platform/drivers/starfive-jhb100-uart-routing/\*/io\*
-> +Date:		August 2026
-> +Contact:	Changhuang Liang <changhuang.liang@starfivetech.com>
-> +Description:	Selects the RX source of IOx serial port. The current selection
-> +		will be marked by brackets "[]". The list of available options
-> +		depends on the selected file.
-> +
-> +		e.g.
-> +		cat /sys/bus/platform/drivers/starfive-jhb100-uart-routing/\*.uart-routing/io9
-> +		uart0 uart1 uart2 uart3 uart4 uart5 uart6 uart7 uart8 [uart9] uart10 uart11 uart12
-> +		uart13 uart14 io0 io1 io2 io3 io4 io5 io6 io7 io8 io9 io10 io11 io12 io13 io14
-> +
-> +		In this case, IO9 (physical serial port 9) gets its input from UART9.
-> +
-> +		To switch the RX source of IO9 to UART10, write the desired source to the file:
-> +		echo uart10 > /sys/bus/platform/drivers/starfive-jhb100-uart-routing/*.uart-routing/io9
-> +
-> +		This indicates that IO9 now receives its input from UART10.
-> +
-> +Users:		OpenBMC.  Proposed changes should be mailed to
-> +		openbmc@lists.ozlabs.org
+> There is a revert queued which probably will cure it for you unless
+> you are using Rust drivers. Plus a fix for the remaining Rust
+> specific issue is on the way.
 
-drivers/soc/ should not define user-space interfaces. This is not the
-place for them. You need to route user-spaces interfaces only through
-one of other approved subsystems, after their review.
+Thank you, cherry picking 46094a7708b7 from tip solved this.
 
-This looks like pin multiplexing interface.
+And no, I absolutely loathe this cargo cult and it saddens me to see
+people's time and CPU cycles being wasted on converting the kernel to
+idiomatic C++ with its arbitrary limitations.
 
-Best regards,
-Krzysztof
+Surely all those irq_disable counters in Linux data centers around the
+world will have a carbon footprint, even if (hypothetically) they are
+"free" on superscalar CPUs with branch prediction?
+
+And all of that for the sake of potential bugs which may or may not
+exist, and which look like they could be found (or proven absence of)
+by static analysis if required, and because of an experiment 15 years
+which showed that static analysis beats reference counting?
+
+Could only be more ironic if Moore's law were approaching a wall and
+energy costs were rising everywhere with no end in sight...
+
+Have a nice Sunday everyone,
+
+Michal
