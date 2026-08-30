@@ -1,125 +1,137 @@
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 979823B4E81;
-	Sun, 30 Aug 2026 13:08:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E296838D41A;
+	Sun, 30 Aug 2026 13:10:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788095286; cv=none; b=akNp4jpbdbmzHbysuLeC59uAkFDAKj/Le/ZDTd+2qRyIWVFEVAlRK83ILnDPILRuQjJkkaKZNn0H6I++Ljf5dgO5o+j/5+J2raxaaUvFF+wQ3EZI5C0WpI+YH5PlqUDmxDsA/MHr+4t1gvQw+EduhqwhTLZaF7OcppamBaNCEC8=
+	t=1788095450; cv=none; b=KmIfgEyAZtQ4AchpwGXYC6+VP82KPOedd3aZwpWmq6OYbfZYvaOxdjApF+6o22pXwFwCLNaqZdMkrEEPwwOhKHj2UfJFEH3RM7yZ2ySi44a8VvmT3eo2I9JvPJQTBTHJpuYZJtL5E/Oj1422wxk6iDiD2jDnJJrUSUwc3fK0Fg4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788095286; c=relaxed/simple;
-	bh=g4dOvEXL4ZYUUCgoiTokQCfy9OFRqEFluD322yinIQE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LonozmLMA0DZc50u8FTQcWH3sIv0QXmF+fZIdWVvBBdVY+9cnqFtPmMezU9jGv25GtW0my+MYYehtrwLrttCkgRecmvoZXrB6DXotDGLkwo4AG9m1744RTNP4bhRj9amo+FchNmHKYS5Wq5SayTE2Nxkt+pw+sS+D5U7B24CZns=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from localhost.localdomain (unknown [111.196.241.250])
-	by APP-03 (Coremail) with SMTP id rQCowABncD4mK5Rqp9aaBg--.48169S2;
-	Sun, 30 Aug 2026 21:07:50 +0800 (CST)
-From: Pengpeng Hou <pengpeng@iscas.ac.cn>
-To: Corentin Labbe <clabbe@baylibre.com>
-Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S . Miller" <davem@davemloft.net>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	linux-crypto@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] crypto: rockchip: propagate activation errors
-Date: Sun, 30 Aug 2026 21:07:48 +0800
-Message-ID: <20260830130748.944-1-pengpeng@iscas.ac.cn>
-X-Mailer: git-send-email 2.50.1
+	s=arc-20240116; t=1788095450; c=relaxed/simple;
+	bh=RdktVl9rJSg1dc4gnDF4+2Olbs7dpFV3Gp/zOMfl7jU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LQAI/9MqXrVTK66vmdavVE/quLUMnLN/gds0cKRJftPHDzA860MY2FxAlcxznNg3Xbxipgww3lb1EdrBCGDwMZXPVVFBViTcF8WU0xarnUV3uOQ6I6l70+zJuSGBM4j03d5fybzzcS0Rlpf7PgUupcLoCBOu1zXHs2JjUg7LQzQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VsIbgX3X; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VsIbgX3X"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3BFD1F000E9;
+	Sun, 30 Aug 2026 13:10:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788095448;
+	bh=kjIBYKqjca5AJtwNJFjuYlFco4j1jiJIOswjnyir5Ug=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=VsIbgX3X2WaXH/SrvByDwvtIU7lhvKjUGtg89fgulyel8V48/lfZg8McK9C1XAuxK
+	 58wr290cNK8CfDnKq4x8WaUs40WIPNBflW8StXFg35IkIK9I94bniOAq10ak6drVzl
+	 p+ohUO3Y9epbrZw2/NdYHqeupalN+NTMSmqZjoC9HiXSMKaBtGx7jPfPX/sPhTgpXw
+	 bB+y747G3UZ1HLiLfV6i1uiAPI8+361oMC9719lgebqSzjdmiwMVfasmPHHnJ4enrA
+	 WI9btRB4o46ZLdeVpcZC6tZWO1wsTPtqDIeFCFsItVF6MXkN4/edrldzLfIGjxcvcR
+	 bQJMTaPDfHqxw==
+Date: Sun, 30 Aug 2026 10:10:45 -0300
+From: Arnaldo Carvalho de Melo <acme@kernel.org>
+To: Namhyung Kim <namhyung@kernel.org>
+Cc: Adrian Hunter <adrian.hunter@intel.com>, Jiri Olsa <jolsa@kernel.org>,
+	Ian Rogers <irogers@google.com>, linux-kernel@vger.kernel.org,
+	linux-perf-users@vger.kernel.org, tlipcon@google.com,
+	eranian@google.com
+Subject: Re: [PATCH] perf symbol: Do not use debug file as the binary type
+Message-ID: <apQr1UOHdI9f0IqU@x2>
+References: <20260825062345.115073-1-adrian.hunter@intel.com>
+ <apCR1kJMBbdDC8B3@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowABncD4mK5Rqp9aaBg--.48169S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Aw1rGw1xuw1UGFy8XF47Arb_yoW8ZFW3pr
-	13GrZrArWkCr4xGa95tr1rZF4rX3ySyry3Jr47K3WfAw1aqw1IgrWayFy0vFnxAFy8J3y5
-	AFs7Aa48CF1xZFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9214x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
-	6r4UJwA2z4x0Y4vEx4A2jsIE14v26F4UJVW0owA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Cr
-	1j6rxdM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
-	6xIIjxv20xvE14v26r126r1DMcIj6I8E87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr
-	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E
-	8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFV
-	Cjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWl
-	x4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r
-	4UMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWxJVW8Jr1lIxAIcVCF04k26cxKx2IYs7xG6r1j
-	6r1xMIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYx
-	BIdaVFxhVjvjDU0xZFpf9x0JUgXocUUUUU=
-X-CM-SenderInfo: pshqw1xhqjqxpvfd2hldfou0/
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <apCR1kJMBbdDC8B3@google.com>
 
-The Rockchip crypto driver ignores reset and crypto-engine start failures
-in
-probe, and ignores a reset deassertion failure during runtime resume. It
-can therefore publish or resume the crypto device without a usable engine.
+On Thu, Aug 27, 2026 at 12:36:54PM -0700, Namhyung Kim wrote:
+> Hello,
+> 
+> On Tue, Aug 25, 2026 at 09:23:45AM +0300, Adrian Hunter wrote:
+> > dso__load() sets the binary type of a DSO to the type of the first symbol
+> > source found. For a DSO with a separate debug file linked via
+> > .gnu-debuglink, that is DSO_BINARY_TYPE__DEBUGLINK, which makes
+> > dso__get_filename() return the name of the debug file instead of the file
+> > that was actually executed.
+> > 
+> > Consumers that need to read instruction bytes, such as Intel PT decoding
+> > in 'perf script', then read from the debug file and produce wrong
+> > instructions.
+> > 
+> > Prefer DSO_BINARY_TYPE__BUILD_ID_CACHE, and otherwise
+> > DSO_BINARY_TYPE__SYSTEM_PATH_DSO, over debug-only types, which restores
+> > the behaviour of using a file that contains the executed instructions.
+> > 
+> > This is a workaround. Properly separating the binary file used for
+> > instructions from the file used for debug symbols is left for later.
+> > 
+> > Example:
+> > 
+> >  Create a shared object with a separate .gnu_debuglink debug file. Note
+> >  that 'objcopy --only-keep-debug' leaves .text as NOBITS, so instructions
+> >  read from the debug file are zeros:
+> > 
+> >   # cat > foo.c << EOF
+> >   unsigned long foo_work(unsigned long n)
+> >   {
+> >         unsigned long s = 0;
+> > 
+> >         for (unsigned long i = 0; i < n; i++)
+> >                 s = s * 31 + i;
+> >         return s;
+> >   }
+> >   EOF
+> >   # cat > main.c << EOF
+> >   #include <stdio.h>
+> >   unsigned long foo_work(unsigned long n);
+> >   int main(void)
+> >   {
+> >         printf("%lu\n", foo_work(1000));
+> >         return 0;
+> >   }
+> >   EOF
+> >   # gcc -g -O2 -shared -fPIC -o libfoo.so foo.c
+> >   # gcc -g -O2 -o main main.c -L. -lfoo -Wl,-rpath,'$ORIGIN'
+> >   # objcopy --only-keep-debug libfoo.so libfoo.so.debug
+> >   # objcopy --strip-debug libfoo.so
+> >   # objcopy --add-gnu-debuglink=libfoo.so.debug libfoo.so
+> >   # perf record -e intel_pt//u ./main
+> > 
+> >  Note that branch samples must be requested, because it is the resolving
+> >  of the branch target symbol that causes dso__load() to be called, and
+> >  hence the binary type to be set, before the decoder walks the code.
+> >  With '--itrace=e' alone, nothing loads symbols for libfoo.so, the binary
+> >  type is left as DSO_BINARY_TYPE__NOT_FOUND, the correct file is read
+> >  anyway, and no errors are reported either way.
+> > 
+> >  Before:
+> > 
+> >   # perf.before script --itrace=be 2>&1 | grep "instruction trace error"
+> >    instruction trace error type 1 time 2350.467489498 cpu 9 pid 75634 tid 75634 ip 0x77d48480718f code 6: Trace doesn't match instruction
+> >    instruction trace error type 1 time 2350.467489832 cpu 9 pid 75634 tid 75634 ip 0x77d484807341 code 6: Trace doesn't match instruction
+> >    instruction trace error type 1 time 2350.467496412 cpu 9 pid 75634 tid 75634 ip 0x5b4de37a8074 code 6: Trace doesn't match instruction
+> >    instruction trace error type 1 time 2350.467593393 cpu 9 pid 75634 tid 75634 ip 0x77d4848070d0 code 6: Trace doesn't match instruction
+> >    instruction trace error type 1 time 2350.467593954 cpu 9 pid 75634 tid 75634 ip 0x77d4848075a8 code 6: Trace doesn't match instruction
+> >    instruction trace error type 1 time 2350.467595728 cpu 9 pid 75634 tid 75634 ip 0x77d4848324de code 6: Trace doesn't match instruction
+> >   6 instruction trace errors
+> > 
+> >  After:
+> > 
+> >   # perf script --itrace=be 2>&1 | grep "instruction trace error"
+> >   #
+> > 
+> > Fixes: 5363c306787c8 ("perf symbol: Set binary_type of dso when loading")
+> > Reported-by: Todd Lipcon <tlipcon@google.com>
+> > Closes: https://lore.kernel.org/all/CAGH6UiG=RJLqBU3kLu9XJciPyPO1HZkbAPERguVUMRuWQgqf=A@mail.gmail.com/
+> > Signed-off-by: Adrian Hunter <adrian.hunter@intel.com>
+> 
+> Thanks for the patch and a test case.
+> 
+> Arnaldo, I can take this to the perf-tools tree for v7.3.
 
-Return reset and engine-start failures, and disable the clocks if a runtime
-resume reset deassertion fails.
+Ok!
 
-Fixes: 433cd2c617bf ("crypto: rockchip - add crypto driver for rk3288")
-Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
----
- drivers/crypto/rockchip/rk3288_crypto.c | 21 +++++++++++++++++----
- 1 file changed, 17 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/crypto/rockchip/rk3288_crypto.c b/drivers/crypto/rockchip/rk3288_crypto.c
-index 7cb1316b6f189..18ecbec1f101b 100644
---- a/drivers/crypto/rockchip/rk3288_crypto.c
-+++ b/drivers/crypto/rockchip/rk3288_crypto.c
-@@ -133,7 +133,12 @@ static int rk_crypto_pm_resume(struct device *dev)
- 	if (ret)
- 		return ret;
- 
--	reset_control_deassert(rkdev->rst);
-+	ret = reset_control_deassert(rkdev->rst);
-+	if (ret) {
-+		rk_crypto_disable_clk(rkdev);
-+		return ret;
-+	}
-+
- 	return 0;
- 
- }
-@@ -341,9 +346,14 @@ static int rk_crypto_probe(struct platform_device *pdev)
- 		goto err_crypto;
- 	}
- 
--	reset_control_assert(crypto_info->rst);
-+	err = reset_control_assert(crypto_info->rst);
-+	if (err)
-+		goto err_crypto;
-+
- 	usleep_range(10, 20);
--	reset_control_deassert(crypto_info->rst);
-+	err = reset_control_deassert(crypto_info->rst);
-+	if (err)
-+		goto err_crypto;
- 
- 	crypto_info->reg = devm_platform_ioremap_resource(pdev, 0);
- 	if (IS_ERR(crypto_info->reg)) {
-@@ -374,7 +384,10 @@ static int rk_crypto_probe(struct platform_device *pdev)
- 		goto err_crypto;
- 	}
- 
--	crypto_engine_start(crypto_info->engine);
-+	err = crypto_engine_start(crypto_info->engine);
-+	if (err)
-+		goto err_pm;
-+
- 	init_completion(&crypto_info->complete);
- 
- 	err = rk_crypto_pm_init(crypto_info);
-
-base-commit: 08dbfad3f5040f5bdb6c529da20d6d4e81fefd72
--- 
-2.50.1
-
+- Arnaldo
