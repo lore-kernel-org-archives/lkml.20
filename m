@@ -1,141 +1,202 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC36C346ADC
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 12:31:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 439043002DD;
+	Sun, 30 Aug 2026 12:32:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788093118; cv=none; b=uTA0bpiHEoViFHDOjTYG1WNyxe8/lgpC2SDVQkFuvAR4Ke9WItGc6RWbwa4t3IonuBMppwcA1B3LtcoQ7+pxW/C3DpnEMH9r6Dh5CYSxoD2Tu3nuyVv+oASkAADb940b1XtwbLiZAWsPb/QWSQpU7eV8593EwCyR+ey6pAWK/hk=
+	t=1788093128; cv=none; b=nXS8YKC96qZHURH2HU3u2vKCl6IHpBRS+1KH9bjZvj2m49CRG3JY6xlt6CgeGxAfAzfI4oZM63Ev4tSnk60Abp0HfwQgyKjW4kLGFJx32nwPh0eG2mWcb5VQZM6bvUhdnMdxjvLcTh4v1QrJNuWfpGhimLoWlC5DZKuVrRGmXgQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788093118; c=relaxed/simple;
-	bh=rXr6ALkiHMHf713Iew4k9Nwjfd2L6V40hSe8JbjfnkE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fZLKdYKPK9Rd/E45APf8wFGJXS9syU8lO4Lr8zh/N5h8ycYnrFejWlJr8lKTWKlRzP9GQQHqkjNhGsF43Lggs6AbOK6xpiF1ptYrCT3sVx7U0J4pRxJi75NAFTCYeLVVa99qkSnueT8MH4PrFxuQ89W4TqmESk8XcmSYSYEsj7c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Y9HvTas0; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=GC1osOw5; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1788093128; c=relaxed/simple;
+	bh=+SQlbwVsi0Xy0A0F0vLWdgCjWJgSzJyabvJ6X8kpZCQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=itqvEjnY7sO/Rfc3UKxPGkjW04Hwq/02xl4eSwtqmLg5KTukVdnW5pMLl3w/voRpjOjFHMSya7jDhZP2o16bbjsujkhaQ5E3o1fthjOXad/L2tS7HYGoFRyuG1Ix5ZzPOuR2UTxOefmDOHIB0kfItC8+5aDHPVy584A3FGCg+wc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m9ElfUVe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Y9HvTas0";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="GC1osOw5"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67UA7xTH346868
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 12:31:56 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=87UiTHIpsbJI0MEwi3jZC7kB
-	bzVbhdVpOgM75F6ZNAU=; b=Y9HvTas0eG2nUXeLARoIJXIZRH2ESGSZyfFXyDxA
-	U9x9Rzrunb4t4jbR6OBKAMifmIUW8DnAtODR4+t7REj8d585QvhTKTEFrN0dRUb9
-	6K4nPKNZAvi9JInF7/4Dsy0p1iRF02KYVotVW1AWVqi9AIXzp/OZlaLei9uaxV0P
-	knjOmCQHllHvciBvP8GH3BARzr2HKothl5P5kRuJhiaRf/8Ec4CUpPxWL3BNlxqg
-	/5ZAi+yUfjileGFMZBVJ+Z/V5vzmxQosN75Vw+owa1dR49L0z1n0wSCHkUx6xINe
-	hs4yFnTQVVDIWcEeU/Bd7YBxjJ1AkmXKsz0FDBFs4WU+HA==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gbqhwayty-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 12:31:55 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-52dcf1bb6e9so52387901cf.1
-        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 05:31:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788093115; x=1788697915; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=87UiTHIpsbJI0MEwi3jZC7kBbzVbhdVpOgM75F6ZNAU=;
-        b=GC1osOw5TmSNyyv4QAwvI7ctbdZM0PM0U6HZ4w4r6xRkQgpEXDyPXb54+Ar5kFrv2n
-         mVaS1CiaALHXknMT4bOPLx//xFHFvVHV3cfGziCoNCqWHt2t0s64E3LbfHG//taIToD5
-         Wq2SkTpjASlLxHnz94jzSQ/NPVbyrSH+wSCZ2mMNb26V9iiRKS5Xq7K71KG7HzuOE721
-         urq1Z5YT/VvnAwQDzt8uhyDdA1pjslCzM2pDFla4Ej7V82J53fvH9xuoSZrmnq7390UX
-         gdRdLF0ZWkM6YFjJpb1euzsynNp+RpkkVuzGhgA5lwBa9P+jXvaUSM4Fm21y/VLD/wsw
-         Aw8g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788093115; x=1788697915;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=87UiTHIpsbJI0MEwi3jZC7kBbzVbhdVpOgM75F6ZNAU=;
-        b=XjcVyBAmEa3o879WhWf32Y3XV64wSQtxgx3zw0HFdd91s68EjzBzuQn4I9f6N//SgR
-         2d4x4L9jzpPq3ZXNX1en66gmoMJ6DrdHesVoZZBJDv+d/x8fLwWX8qN+QSeL+1Z9pVLf
-         7+OhOce+dHbMKzqoIhXrck0QCoV/0RhEVBxNTYACpcWHgVRSwqTfFpqp8Pqv7G3SJTxU
-         7nmcUBTf+tBt/Xn9yIkizFqhZhmvY6xP9Jc+UkLRtTKFgR+d91RHhlQ9MtJi6n8lYnwX
-         y1fvPJ3023Fg83v8HRouLjnAWspnTdeVualeK3TTjL9U7S+TJKR6gqeswbRTNqHoF3lw
-         Z6WQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rp8fhPQRvsHvNjHeRyzOSOEFLkkry73Np9JeDU9tWJVuQI2DLwCExnh2MSSlaWaGamCjkJ/9WQ8quknU4Q=@vger.kernel.org
-X-Gm-Message-State: AFuF++l7kDWmV2okuJDHqRo0ig97SAHsahc8OWepokdt57phr7OHBa9S
-	FnS9/vRa7gczCERNMpru3uP/XPNdBECtjy+YfyC4/0UBmH/Z2e7cBSgrD1v7Xf8/UFn1JRVWq7W
-	kwTAgIYMmVSr0HnBAm4o6IlAjekV3A0Eq3kkYCwDNpOE2J7lTOvikv/QVlUXZvS7M2SE=
-X-Gm-Gg: AR+sD10WUdX344daDV/oCIesl9teFnNDnoRpgnKpnjYjbgjwYONk2Bc4cJF4KXVi4Zv
-	zoZ4eEPSoWCGYmGg2wsVrvC4e/bSrDtYoexpqvteNzAQ82PaT6cFC+CBL3i6jzX6+0jCpN9N1E6
-	A+s4D+CRTFClI+lTNxF1bxnowmrofjfoP9R2sBOoLrwy1FHnLqcYSCd6zPO69yIevs4hBO8TTRG
-	w9jmF3fWDNrslZkarTBnZ2MSSg+0M74RtDETJMw1p+HSn3g/e8ZfeWSKrCjm8Ia6S0USuQs3YSq
-	vhe+wWni09TbgagyPVy79EEk8K09YBXRZpXgd9Pc4SClZAhVW4oXdjVI/AmD3YpstOmSH2zl17g
-	i58TOtrtQSbWOCQ==
-X-Received: by 2002:a05:622a:581b:b0:52f:b77a:fdb4 with SMTP id d75a77b69052e-5300b74845bmr22446461cf.2.1788093114921;
-        Sun, 30 Aug 2026 05:31:54 -0700 (PDT)
-X-Received: by 2002:a05:622a:581b:b0:52f:b77a:fdb4 with SMTP id d75a77b69052e-5300b74845bmr22445931cf.2.1788093114428;
-        Sun, 30 Aug 2026 05:31:54 -0700 (PDT)
-Received: from oss.qualcomm.com ([86.121.170.13])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b961820ffsm91156865e9.3.2026.08.30.05.31.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 30 Aug 2026 05:31:53 -0700 (PDT)
-Date: Sun, 30 Aug 2026 15:31:50 +0300
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] arm64: dts: qcom: Drop deprecated qcom,bus-id from SPMI
- nodes
-Message-ID: <3sjdjyd6xgy6il6dsmhd5uak4fms3sh6ltk4y6abvr6gh7gcsx@sqeodm4js5wq>
-References: <20260830122633.203250-1-shengchao.guo@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m9ElfUVe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0E5B1F000E9;
+	Sun, 30 Aug 2026 12:32:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788093126;
+	bh=L8MI8dWJKh7fTx2tojrm0Hj39u2L4UwbqCTCYCjG1Xs=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=m9ElfUVehxKipxWANwQ8IbirbQZ1d71BquBtg1ufG1zIhJVM2/NjgpmXVmvyqWfZT
+	 Y9r/iaFUPYwD5C68TwrlIUE7i6rOnPGb1X1YO+Qs1UZi2ZO10sCGcUY5ZYgS5z4tYY
+	 u/XrVOldxy27HOh2pKM0HnhD6oGxYqEyDmE/nq6siYqvQHzVyn/2GRqAUUSyNx7pQR
+	 6fF8q9XXfEN+Kn0OpOiJ1qoYmFQhMLj3J9OoCOeKmVS6dLS/dNg76o7bfKHOCsiCkq
+	 hquJPF97jiUJh6uQiqE2k0TpUHzbhvXv2ZdOhd2Vjnx0ZwBNhtRGmKBx8+9R5wPrDP
+	 7J8SmRWmWWkdQ==
+Message-ID: <9b07fedf-57a4-4291-9db5-415dca5ad480@kernel.org>
+Date: Sun, 30 Aug 2026 14:32:04 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260830122633.203250-1-shengchao.guo@oss.qualcomm.com>
-X-Proofpoint-GUID: 2NMHpmJf-NQrLZZPsi1R48tBHcGtZQGO
-X-Proofpoint-ORIG-GUID: 2NMHpmJf-NQrLZZPsi1R48tBHcGtZQGO
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODMwMDEwNiBTYWx0ZWRfX3Fc/ezrNJFLC
- YRExoIUT1JYQvZxI9OWprngkbCpunmxjt6SvKBkUXkGx2QgkNzqVs9l0WsrnuueKLlJ23hwuiaR
- XEqbLe8fXkt09y2lGS6XByllqk9JHvA=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODMwMDEwNiBTYWx0ZWRfX1smte5g8pjBI
- ieIuVHsH1woQDyjems9/xxepZf4RADVK4uKj2XUoQS3lNvBmTWweK0m8lp14AT9Bvyo7xUmWgqz
- kQ4dZHLoJZB7W3eMe7ZnaQwpP1dgB1xUxGnCW5wRx3Bf4mbNNRmw+PAq7BYau1ituIFiWY7feR1
- zZnKiwBopPxxlNk28V/A1xPJUXZxEREO5mBqXOdYRCTWCfe5bydUfE9SKEnTqZoBPQ5zPmYUbnM
- EzAYZWtZV9145Ofc2ytZgBp8Da1H8sTeqVJ4EJNXEvM6r0BES/f08Hstuhr80uJnMzf0SIDfGBK
- ejiMrAuqu/bjbrP7dNENZfY8XheWf8qzzELBFpv1xOkFY3SppqqzGoAKi47at1VQQNLIARFdnG4
- GKVgXoWJcJOUaxEE/yBN6KQU8Bw3aAOGXD+UeRicy5dzIjSz8CZaOurYtHitjqmpQBkJtWAjAyZ
- Msccu+6/37y3m6zuXaA==
-X-Authority-Analysis: v=2.4 cv=YKKvDxGx c=1 sm=1 tr=0 ts=6a9422bb cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=clBUptZa5v5FR042Ey+sjA==:17
- a=kj9zAlcOel0A:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=EUspDBNiAAAA:8 a=Ptejb-WZcwQgoGJDpb0A:9 a=CjuIK1q_8ugA:10 a=zZCYzV9kfG8A:10
- a=dawVfQjAaf238kedN5IG:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-30_03,2026-08-27_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 adultscore=0 suspectscore=0 priorityscore=1501 phishscore=0
- impostorscore=0 lowpriorityscore=0 spamscore=0 clxscore=1015 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608300106
+User-Agent: Mozilla Thunderbird
+Subject: Re: int3472: discrete: 4-char GPIO supply name limit and unhandled
+ vendor GPIO type 0x08 leave OV8865 unpowered (Surface Pro 7+)
+To: "D. Manresa" <dmanresa@gmail.com>,
+ Daniel Scally <dan.scally@ideasonboard.com>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Ilpo Jarvinen <ilpo.jarvinen@linux.intel.com>,
+ platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260827232634.93131-1-dmanresa@gmail.com>
+From: Hans de Goede <hansg@kernel.org>
+Content-Language: en-US, nl
+In-Reply-To: <20260827232634.93131-1-dmanresa@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On 26-08-30 20:26:33, Shawn Guo wrote:
-> The qcom,bus-id property was deprecated by commit 345fbbca3f76
-> ("dt-bindings: spmi: Deprecate qcom,bus-id"). The property is not
-> referenced anywhere in the spmi-pmic-arb driver, so the value has
-> no effect at all.
-> 
-> Drop it from the remaining users to avoid spreading.  No functional
-> change intended.
-> 
-> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Hi,
 
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+On 28-Aug-26 01:26, D. Manresa wrote:
+> Hi,
+> 
+> On the Microsoft Surface Pro 7+ the rear camera (OV8865, ACPI INT347A)
+> can never be powered up by the int3472 driver, for two independent
+> reasons: its second power rail is declared by ACPI with the
+> vendor-specific _DSM GPIO type 0x08, which the driver does not handle,
+> and even if it were handled, the supply name the ov8865 driver most
+> plausibly needs ("dovdd") cannot be expressed at all because
+> GPIO_SUPPLY_NAME_LENGTH only allows 4 characters plus NUL. A related
+> con_id mismatch also leaves the OV7251 IR camera (INT347E) unpowered.
+
+There already is a patch on the list fixing this:
+
+https://lore.kernel.org/platform-driver-x86/20260829-sp7plus-int3472-v3-1-454b50485ce2@berg.pm/
+
+Regards,
+
+Hans
+
+
+
+
+
+
+> Hardware / kernel
+> -----------------
+> - Microsoft Surface Pro 7+, IPU6 Tiger Lake (PCI 8086:9a19)
+> - rear OV8865 at ACPI INT347A, discrete PMIC INT3472:01
+> - IR OV7251 at ACPI INT347E
+> - observed on linux-surface 6.19.8-surface-3 (base v6.19.8)
+> 
+> All file/line references below are against mainline v6.19. The
+> linux-surface patchset does modify this area (see below); where the
+> observed dmesg comes from its downstream patch this is marked.
+> 
+> 1) GPIO_SUPPLY_NAME_LENGTH cannot hold "dovdd"
+> ----------------------------------------------
+> include/linux/platform_data/x86/int3472.h:36:
+> 
+> 	/* E.g. "avdd\0" */
+> 	#define GPIO_SUPPLY_NAME_LENGTH				5
+> 
+> and skl_int3472_register_regulator() enforces it,
+> drivers/platform/x86/intel/int3472/clk_and_regulator.c:204:
+> 
+> 	if (strlen(supply_name) >= GPIO_SUPPLY_NAME_LENGTH) {
+> 		dev_err(int3472->dev, "supply-name '%s' length too long\n",
+> 			supply_name);
+> 		return -E2BIG;
+> 	}
+> 
+> "dovdd" is the standard OmniVision I/O rail name and is what sensor
+> drivers actually request, e.g. drivers/media/i2c/ov8865.c:2970:
+> 
+> 	sensor->dovdd = devm_regulator_get(dev, "dovdd");
+> 
+> At 5 characters it is rejected, so no int3472_gpio_map[] entry and no
+> future type mapping can ever route a GPIO-gated regulator to a sensor
+> driver's "dovdd" supply. (The buffer that motivates the limit is
+> supply_name_upper[GPIO_SUPPLY_NAME_LENGTH] at int3472.h:101.)
+> 
+> 2) GPIO type 0x08 is declared by this platform and unhandled
+> ------------------------------------------------------------
+> The _DSM of INT3472:01 declares a second power GPIO (pin 0xaf) with
+> type 0x08. In mainline, int3472_get_con_id_and_polarity()
+> (drivers/platform/x86/intel/int3472/discrete.c:169) falls through to
+> the default case (con_id "unknown", discrete.c:232), and
+> skl_int3472_handle_gpio_resources() then ignores the pin entirely with
+> the warning at discrete.c:376:
+> 
+> 	"GPIO type 0x%02x unknown; the sensor may not work\n"
+> 
+> The warning is accurate: with only the type 0x0b rail powered
+> (registered as "avdd"), the sensor's first I2C access fails with
+> -EREMOTEIO and probe dies. Verbatim dmesg from this machine (note:
+> this kernel carries the linux-surface downstream patch,
+> patches/6.19/0013-cameras.patch, added for the Surface Pro 9, which
+> registers type 0x08 as a regulator under con_id "pwr1"; the first
+> three lines are from that patch and would not appear on pure
+> mainline -- the end result is identical because no sensor driver
+> requests a "pwr1" supply):
+> 
+> 	int3472-discrete INT3472:01: GPIO type 0x08 detected on pin 0xaf
+> 	int3472-discrete INT3472:01:   con_id=pwr1, flags=0x0
+> 	int3472-discrete INT3472:01:   register_regulator returned: 0
+> 	ov8865 i2c-INT347A:00: supply dvdd not found, using dummy regulator
+> 	ov8865 i2c-INT347A:00: supply dovdd not found, using dummy regulator
+> 	ov8865 i2c-INT347A:00: failed to perform sw reset
+> 	ov8865 i2c-INT347A:00: Error -121 runtime-resuming sensor, cannot
+> 	 instantiate VCM
+> 
+> 3) The rail is real: mapping it powers the sensor
+> -------------------------------------------------
+> Mapping the type 0x08 GPIO to INT3472_GPIO_TYPE_POWER_ENABLE with
+> con_id "dvdd" makes the OV8865 probe and stream correctly (verified,
+> including the dw9719 VCM coming up). Which physical rail the GPIO
+> gates (DVDD or DOVDD) is unknown -- ACPI provides no name, and "dovdd"
+> cannot even be tried because of (1).
+> 
+> Related: the INT347E (OV7251) power-enable GPIO is registered with the
+> default con_id "avdd" (discrete.c:222), but the ov7251 driver requests
+> vdda/vddd/vdddo, so that sensor is never powered either:
+> 
+> 	ov7251 i2c-INT347E:00: ov7251_write_reg: write reg error -121:
+> 	 reg=103, val=1
+> 	ov7251 i2c-INT347E:00: probe with driver ov7251 failed with
+> 	 error -121
+> 
+> An int3472_gpio_map[] entry mapping INT347E POWER_ENABLE to "vdda"
+> fixes that one; it fits the existing mechanism.
+> 
+> Reproducer
+> ----------
+> Boot a Surface Pro 7+ on mainline v6.19 with the IPU6/ipu-bridge stack
+> and the ov8865/ov7251 drivers enabled. int3472 warns about GPIO type
+> 0x08 and both sensors fail probe with -121 as above. (Note the INT3472
+> GPIO enumeration only happens at probe, so each test needs a fresh
+> boot or driver rebind.)
+> 
+> Workaround
+> ----------
+> We currently carry a local patch (not proposed as the proper fix):
+> it maps type 0x08 on INT347A to a power-enable regulator whose con_id
+> is a module parameter defaulting to "dvdd", and adds the INT347E ->
+> "vdda" map entry:
+> 
+> https://github.com/dmanresa-saes/surface-ipu6-cameras
+> (patches/int3472-surface-sensors.patch)
+> 
+> Open questions before attempting a real fix:
+> 
+> - Should GPIO_SUPPLY_NAME_LENGTH simply be raised to 6 so "dovdd"
+>   fits, or is the limit load-bearing somewhere beyond the two arrays
+>   in int3472.h?
+> - Since ACPI does not say which rail a power GPIO feeds, is a
+>   per-sensor (HID + type -> con_id) table like int3472_gpio_map[] the
+>   right place for these, entry by entry? That does not scale well.
+> - Is there any documentation of the vendor _DSM GPIO types 0x08 (and
+>   0x10, also seen on Surface devices) from the Windows camera stack
+>   side that would let them be handled generically?
+> 
+> Happy to test patches on this hardware.
+> 
+> This report was drafted with AI assistance (Anthropic Claude) and
+> verified on the actual hardware by the undersigned.
+> 
+> D. Manresa <dmanresa@gmail.com>
+
