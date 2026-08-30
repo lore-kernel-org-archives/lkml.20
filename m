@@ -1,263 +1,135 @@
-Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70ECC250BF2
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 11:55:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.171
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6C2033AAF4A;
+	Sun, 30 Aug 2026 11:57:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788090957; cv=none; b=Nzfv8Rk9HdyFn/uvsbdvROiPqEt85XeYPv/nnBxaRq+QUVS1r24lAUQQzX0+q6PNc+/a3zJkgGE+8hkAGTK+LzZRgh8XiGDaPCQNFezUh3sXBuCqhqgOF64wYJpTD/dBLMUrIZOfV6Abxf/veQhXCvBtHlNYxkvJ+SxdgeDPvlg=
+	t=1788091056; cv=none; b=MGn5JiuqKE9WB8IVsKvgeW6qXj57TuTloe5B7OFf69ns+lXann9bUa/Xn8EqMK0BCOnPJplCuUnCyXlkmC/ceWnHiobGHFSJkCeihekgJJeNa5Lj8hZXNQ1E2IdjHRePCjKCPzVU+VQYKbuNTEdgIBT0rY8gFOyJfWKviJmEcE0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788090957; c=relaxed/simple;
-	bh=zmjm2TQIi7ZYcXFvX6kkbUarn5qiJfknxctpJ8rIKrI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Bo197HWb0ruxU51nG0IewbLmiRppMKM5Cexj3xIjtbqliZSBgR02WuDJwqXXEQSGZ8CUVHBRA1T0pbktgt1YvhvVHyc3Dqk4CgAOQ/JH/RDXvF/Mho+DGnHFa6+bD4TErirI2JqcABTtb7Smz8Le4oK0Yvasf10RJU+8/+GOrLU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=s6+bkj1y; arc=none smtp.client-ip=209.85.215.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788091056; c=relaxed/simple;
+	bh=y4x2hBtTKq/UTTtPQl7KCSgGM77FGT9bLH90ajPUoXw=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=F/hzuoyOEml8nAeWbnkeGNIVHqyz6BxVFpEW3l1qrGsxrwBoLC92x7xm0f6D0RRjK1snv6MgeI32mXXo304667stamfd0tdxThfopP5UZy/MTJFsGqISYkOUMWVPU4Ym5DmiJ8fPzmsBi5j/3oF+wBcXQU/UHOP1Pw8+6Rvv7U0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=VordWIci; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="s6+bkj1y"
-Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-cc1c3c90074so2000113a12.2
-        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 04:55:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788090956; x=1788695756; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=uXAVtdXqT4N3HaypUIR8DYqRj/FnDuduwp3EKXKiO+U=;
-        b=s6+bkj1yMu4crPPeSW8sKr0SV8OkTvZKH68rCp5XWuCs4tdGcIQKgrZFQSejdTjg8O
-         wMMw5SYpC9OHoq49CTCuaOh8hDpO/2B+wumrtriI0M+Vfg1fo13NpKkx7JzYovmhtnWI
-         w0ct4BLYnxpf3rl0PR8AQ3iaPZgixbvNbZp4vI1TajUB2unpgVQMQ+BUOMGheX5Dm2Ue
-         Mht8/byj7w1pDIENTDMfQDI13bJCj1AsG9lk9reAa2KHcljAf26d3HCRl3de5I41y5Bg
-         emUql6Z5mAvutQtWfEYAkLicaguK5lypowmQzzo7+UHg2pLVKV5Cu/j7tBlBgRgId/Fr
-         jz5g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788090956; x=1788695756;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=uXAVtdXqT4N3HaypUIR8DYqRj/FnDuduwp3EKXKiO+U=;
-        b=jyQ1z4HlJ+Xcc6dQ4/Fi9gjlJLS4lKpKyxMADPBsqbKsJxJjVQ78QXSe9XaNk/ZnU5
-         Z/YPiRy3D3eOVhQjgLbhPzsTkIYfbKCKjwLWFYNmjPhVsXCJLTN4GwyrNnzx549ND5/K
-         d8y8xXVyQTEne1OjoiEI02YSzoKUrk17S0dvSY9FDTJxPq2YPR6H7VWvf99QR7lXQmyS
-         6GC0J510Z+Tz8QDRbp5yz7cCCF0EvXhXeseFRgagXAOk0HgaFyJJPn1c1iEy/B9626hT
-         wl1HjmG6y0UHZutvO1MXNhhyEfKC9RFtCPK9ITqaejnYmrVCL0mb4Na2c7JtSi7nEfog
-         FfaA==
-X-Gm-Message-State: AFuF++mJiVXMBY04JdWwtRibK1oxiUF7vepAO/H8G6dnYvMgxEgIzvES
-	/ePpa9PVrpzqSWx4S//sX3tgbHl2h7c4BEh2q/kWizVrfg5CwDMw3zh7
-X-Gm-Gg: AR+sD10qthaBZ3mVE/4uTdOMScH5ZAhJj8t1dVQ7uGKjC4hhF8Jc/yVxCzIOTEIHhj9
-	HkAobxixL5ORcLUrfgE5ooodLFcRBYwPF80eHm6S+7+wspP25tljR2J6Ck0fFqJksUx7CSUgfLd
-	UNemCSkXzL7+CruDhHpajO54ZFVlnBxZwasbfDBueWuFXiwfQA+/sEGz726QiQ77DiZS1+ecixd
-	jQiMFVR+HcHa3Cr84kr3L28Q/+Z/0hmI+Pv+dFz4CQnJRX0R1qF9Amlh3/pVBKWAIrMLN3J5056
-	Dx2Fd5Lc7u6+tpaBUZ4xjcfIZK2Bxqc3bxwXpzR2wYY8PzTzTiQxIhD0P5Yjt3ltLoutDIAdQ+i
-	BYOfXXjDNArlUpclg3oAYvUm1mt6TbIILQzpEq7526c6kB+tjFzewjJMmf0gKy0AVmjQEyt84e9
-	7yWQyt9Mu9k03yMcfOKTzu0KLeb+ALZzQY8UKwkV4XjUsJQwpyDNH+
-X-Received: by 2002:a05:6a21:115:b0:3cd:9f99:3381 with SMTP id adf61e73a8af0-3d262679aa2mr35624073637.0.1788090955588;
-        Sun, 30 Aug 2026 04:55:55 -0700 (PDT)
-Received: from homebox ([66.75.253.8])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-142e0d1abbdsm19622929c88.2.2026.08.30.04.55.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 30 Aug 2026 04:55:55 -0700 (PDT)
-From: Yuan Tan <yuantan098@gmail.com>
-To: netdev@vger.kernel.org,
-	netfilter-devel@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	workflows@vger.kernel.org,
-	yuantan098@gmail.com,
-	frankw@nebusec.ai,
-	jhs@mojatatu.com,
-	ksummit@lists.linux.dev,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	kerneljasonxing@gmail.com,
-	roman.gushchin@linux.dev,
-	jgg@nvidia.com,
-	mchehab+huawei@kernel.org,
-	torvalds@linux-foundation.org,
-	ben.copeland@linaro.org,
-	gregkh@linuxfoundation.org
-Subject: [ANNOUNCE] A Syzbot-style Platform for Verifying and Fixing LLM-reported Bugs
-Date: Sun, 30 Aug 2026 04:55:45 -0700
-Message-ID: <20260830115546.3942129-1-yuantan098@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="VordWIci"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 833B714BF;
+	Sun, 30 Aug 2026 04:57:24 -0700 (PDT)
+Received: from e127648.arm.com (unknown [10.57.5.212])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 0FEB33F66F;
+	Sun, 30 Aug 2026 04:57:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1788091048; bh=y4x2hBtTKq/UTTtPQl7KCSgGM77FGT9bLH90ajPUoXw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=VordWIciOpTP/LOwS9b8FkW1MiCui/16xibW2HbvyegNJQTu3GlHiYh53VTuwe/ah
+	 6E0NUuVFyofbhkKGn6LsbjxIcSlpRSLMPmjcXIzRAhq/L4WiVfTeMgGRLWqIatekUo
+	 48bsXgjLWBkvjZ1L7aCPFYTzUI/PDhAxloi6km8o=
+From: Christian Loehle <christian.loehle@arm.com>
+To: "Rafael J . Wysocki" <rafael@kernel.org>,
+	Viresh Kumar <viresh.kumar@linaro.org>
+Cc: linux-pm@vger.kernel.org,
+	linux-acpi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Len Brown <lenb@kernel.org>,
+	Jie Zhan <zhanjie9@hisilicon.com>,
+	Lifeng Zheng <zhenglifeng1@huawei.com>,
+	Pierre Gondois <pierre.gondois@arm.com>,
+	Sumit Gupta <sumitg@nvidia.com>,
+	Sudeep Holla <sudeep.holla@arm.com>,
+	Ionela Voinescu <ionela.voinescu@arm.com>,
+	zhongqiu.han@oss.qualcomm.com,
+	Christian Loehle <christian.loehle@arm.com>,
+	Sashiko <sashiko-bot@kernel.org>
+Subject: [PATCH v6 01/15] ACPI: CPPC: Validate the _CPC package header
+Date: Sun, 30 Aug 2026 12:56:30 +0100
+Message-Id: <20260830115644.2056983-2-christian.loehle@arm.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260830115644.2056983-1-christian.loehle@arm.com>
+References: <20260830115644.2056983-1-christian.loehle@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
+The _CPC NumEntries field includes every package element, including
+NumEntries and Revision. acpi_cppc_processor_probe() nevertheless reads
+those first two elements before checking that they exist and trusts
+NumEntries when walking the remaining elements.
 
-Hi all,
+Reject packages with fewer than two elements and NumEntries values which
+exceed the package count before accessing Revision or iterating over
+register descriptors. Although the specification defines NumEntries as the
+number of package elements, tolerate additional trailing elements because
+ignoring them is safe and avoids rejecting padded firmware.
 
-A month ago, I posted an RFC[1] to the mailing list proposing an automated
-platform that validates AI-reported bugs and prepares draft fixes, and
-later discussed the idea at the Netdev conference. After further
-development, it is finally ready.
+Revision is specified as a BYTE, but the parser assigns its 64-bit AML
+Integer to an unsigned int before validating it. Reject values above U8_MAX
+before conversion so, for example, 0x100000004 cannot truncate to revision
+4.
 
-While preparing to send this email, I noticed that Roman has since started
-a related discussion:
-[MAINTAINERS SUMMIT] The place of AI code review in the Linux Kernel process
+Fixes: 337aadff8e45 ("ACPI: Introduce CPU performance controls using CPPC")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Link: https://sashiko.dev/#/patchset/20260724134251.1632824-1-christian.loehle%40arm.com
+Link: https://sashiko.dev/#/patchset/20260808082644.1251332-1-christian.loehle%40arm.com
+Signed-off-by: Christian Loehle <christian.loehle@arm.com>
+---
+ drivers/acpi/cppc_acpi.c | 22 ++++++++++++++++++----
+ 1 file changed, 18 insertions(+), 4 deletions(-)
 
-It turns out this platform already addresses several of the needs raised
-there.
+diff --git a/drivers/acpi/cppc_acpi.c b/drivers/acpi/cppc_acpi.c
+index fef54fcd00b7..3b8cdf88e31d 100644
+--- a/drivers/acpi/cppc_acpi.c
++++ b/drivers/acpi/cppc_acpi.c
+@@ -793,6 +793,11 @@ int acpi_cppc_processor_probe(struct acpi_processor *pr)
+ 	}
+ 
+ 	out_obj = (union acpi_object *) output.pointer;
++	if (out_obj->package.count < 2) {
++		pr_debug("Unexpected _CPC package count (%u) for CPU:%d\n",
++			 out_obj->package.count, pr->id);
++		goto out_buf_free;
++	}
+ 
+ 	cpc_ptr = kzalloc_obj(struct cpc_desc);
+ 	if (!cpc_ptr) {
+@@ -803,12 +808,15 @@ int acpi_cppc_processor_probe(struct acpi_processor *pr)
+ 	/* First entry is NumEntries. */
+ 	cpc_obj = &out_obj->package.elements[0];
+ 	if (cpc_obj->type == ACPI_TYPE_INTEGER)	{
+-		num_ent = cpc_obj->integer.value;
+-		if (num_ent <= 1) {
+-			pr_debug("Unexpected _CPC NumEntries value (%d) for CPU:%d\n",
+-				 num_ent, pr->id);
++		if (cpc_obj->integer.value < 2 ||
++		    cpc_obj->integer.value > out_obj->package.count) {
++			pr_debug("Invalid _CPC NumEntries (%llu) for package count (%u) on CPU:%d\n",
++				 cpc_obj->integer.value, out_obj->package.count,
++				 pr->id);
+ 			goto out_free;
+ 		}
++
++		num_ent = cpc_obj->integer.value;
+ 	} else {
+ 		pr_debug("Unexpected _CPC NumEntries entry type (%d) for CPU:%d\n",
+ 			 cpc_obj->type, pr->id);
+@@ -818,6 +826,12 @@ int acpi_cppc_processor_probe(struct acpi_processor *pr)
+ 	/* Second entry should be revision. */
+ 	cpc_obj = &out_obj->package.elements[1];
+ 	if (cpc_obj->type == ACPI_TYPE_INTEGER)	{
++		if (cpc_obj->integer.value > U8_MAX) {
++			pr_debug("Invalid _CPC Revision (%llu) for CPU:%d\n",
++				 cpc_obj->integer.value, pr->id);
++			ret = -EINVAL;
++			goto out_free;
++		}
+ 		cpc_rev = cpc_obj->integer.value;
+ 	} else {
+ 		pr_debug("Unexpected _CPC Revision entry type (%d) for CPU:%d\n",
+-- 
+2.34.1
 
-The platform is available at:
-https://bugtracker.nebusec.ai
-
-It is currently hosted under my company's domain for convenience. I would
-prefer to move it to a neutral, community-oriented domain once the project
-name is settled.
-Access is currently restricted to maintainers whose email addresses are
-listed in the Linux kernel MAINTAINERS file.
-For now, only bug reports from the net subsystem have been fully imported
-and processed.
-
--------------------------------------------------------------------------
-
-LLM-powered tools such as Sashiko and Claskiko produce a significant number
-of false positives. Pre-existing bugs uncovered by these tools are also not
-collected in one place and they remain scattered across individual review
-reports.
-
-To address this, like syzbot for fuzzer-found bugs, this platform provides
-an **automated** tracking layer for AI-reported bugs, but goes further by
-generating PoCs, running them in QEMU to produce crash logs, triaging
-severity, and drafting patches. This requires no extra effort from
-maintainers; instead, it may helps them understand and fix these bugs more
-efficiently.
-
-
-The platform offers the following capabilities:
-
-1. Collect and Deduplicate
-
-The platform ingests bug reports from multiple sources, including Sashiko,
-Claskiko, and others. It deduplicates them and monitors mailing lists and
-git history to track whether they have been fixed.
-
-It also provides visibility into the Sashiko/Claskiko ingestion queue, so
-users can see which reports are waiting to be collected and processed.
-
-
-2. Verify by generating PoC and running it in QEMU
-
-An agent attempts to generate a proof-of-concept for each bug to determine
-whether it is a false positive. According to paper Patch-to-PoC[2] and
-follow-up research, GPT-5.4 achieves up to a 95% success rate in generating
-PoCs for genuinely exploitable bugs.
-
-This makes PoC generation a strong signal: if a bug has no PoC, it is very
-likely a false positive. And even in cases where a real bug is missed, the
-difficulty of generating a PoC suggests it is unlikely to be practically
-exploitable.
-
-
-3. Draft Patch
-
-The platform produces a draft patch to give maintainers a starting point
-and suggested fix direction. These still require human review. Patches can
-be downloaded via b4 am.
-
-These patches are not sent to mailing lists to avoid adding AI-generated
-noise.
-
-
-4. Triage
-
-Based on the PoC, the agent evaluates the conditions required to trigger
-the bug, for example, whether it requires a namespace, root privileges, or
-can be triggered by an unprivileged user.
-
-Bugs that require root are generally less important, while those reachable
-by unprivileged users are more likely to have real security impact.
-
-If a bug can be triggered from namespace, it is still worth
-paying attention to.
-In particular, a bug should not be considered root-only merely because
-triggering it requires CAP_NET_ADMIN in a network namespace. On systems
-that allow unprivileged user namespaces, an ordinary user may be able to
-create a user namespace, create a network namespace owned by it, and obtain
-capabilities such as CAP_NET_ADMIN with respect to that namespace. Such
-bugs may therefore still be reachable by an otherwise unprivileged local
-user.
-
-For example, this configuration has historically been available by default
-on distributions such as Ubuntu 22.04 LTS and earlier.
-
-Jamal previously offered some suggestions on this severity classification
-scheme which I have not yet had time to implement; that will come in a
-future update.
-
-
-5. Chat with agent
-
-Each bug page includes a chat interface for discussing the bug and its fix
-with the agent.
-
-
-
-Based on earlier feedback, the system is not fully public. Only email
-addresses listed in the MAINTAINERS file are eligible to register, to
-prevent bugs with potential security impact from being exposed publicly.
-
-Jason’s idea of delegating fixes could also be implemented on this
-platform. This is essentially what my volunteer bug-fixing team and I have
-been doing over the past six months: anyone interested can pick up an issue
-and try to fix it. 
-Each subsystem’s maintainers could choose whether to make its issues
-public. Making them public would also let potential reporters check whether
-an issue is already known before submitting a new report.
-
-Bugs are also categorized by subsystem, so after logging in, maintainers
-see only the bugs relevant to the modules they maintain.
-
-
-Welcome any suggestions:)  I will continue maintaining this system and
-adding more features, not only out of personal interest, but also our
-bug-fixing volunteer team is using it too.
-
-We periodically burn tokens and run state-of-the-art models against the
-full kernel source code, with the goal of finding security vulnerabilities
-before attackers do. While I am not an expert in the net subsystem and
-cannot review patches myself at this time, I still hope this platform can
-be of help to the community.
-
-If this system proves genuinely useful, I am happy to transfer project
-ownership to the Linux Foundation or another neutral host.
-
-Going forward, the platform will expose a public API so that other bug
-finding research teams can submit their findings here for centralized
-processing. We also plan to ingest syzbot-found bugs to provide them with
-the same triage workflow.
-
-P.S. I have been struggling to come up with a good name for this platform. A
-few candidates I am considering are Palomar, Tengu, FixArc, and Ephemeris.
-If anyone has a preference or a better suggestion, I would love to hear it.
-
-
-Current Limitations
-
-- For a tracked bug, the system currently only knows that a fix exists; it
-does not yet distinguish between a patch that has been posted to the
-mailing list and one that has already been merged.
-
-- PoC generation and false-positive verification are not yet supported for
-driver-related bugs.
-
-- Unable to scrape Sashiko/Clashiko review reports that are still under embargo.
-
-- Only net subsystem bugs from Sashiko and Claskiko have been imported with
-a fully automated fix-detection pipeline so far. Bugs from other subsystems
-are shown but may already be fixed. If other subsystem maintainers are
-interested, I will prioritize adding support.
-
-
-[1] https://lore.kernel.org/all/20260708092247.4188498-1-yuantan098@gmail.com/
-[2] Juefei Pu, Xingyu Li, Zhengchuan Liang, et al. "Patch-to-PoC: A
-Systematic Study of Agentic LLM Systems for Linux Kernel N-Day
-Reproduction." arXiv:2602.07287, 2026. https://arxiv.org/abs/2602.07287
-
-
-Thanks,
-Yuan
