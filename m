@@ -1,220 +1,165 @@
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout.kundenserver.de (mout.kundenserver.de [217.72.192.75])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F7173CCFB0
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 17:34:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C37F3B71BB;
+	Sun, 30 Aug 2026 17:34:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.72.192.75
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788111244; cv=none; b=uOZFp0jNkBKIHvumtTYiyRv+OX7TG97YvnT3/IQGZ3NKY36y4XPTp8nLewYGBiy9YK/ymOPWHVW7fvKmARPPLCw601aeJgwAcZQoQ31l9SCkS+siNaq1uLdMTO7ZFMFdvHQqpz38p43xCjD4sMmnbFVbTygZRWuAs8bL2XqagM8=
+	t=1788111249; cv=none; b=CDHIuevVbBryW3dCfaXjWc5uuGIAioCFCPWEemiuSrqHmFnmsiPG4bAT8bzX92mCUWGL8PgBe1lAZQnSfjs4tdz2fdqjET7mtDII6PTGUz0DTQD25kMII9xnohoC009/3dhs04IzjvQcvEKSQADNLdMamcicXTkX/kxaQTKeu7E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788111244; c=relaxed/simple;
-	bh=350E+24cgIQPrkNeuQvH0zUzV5ibQBMEBZPP3eO8cUY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kujsl+2Y8HC54tNhq/ZEoKwOijlhf1l9UXwT6u/6u2ccIMQpcbXF6f8AZWSCgXJ9PcDTJT52qmZmFtJY7oNQqWUyo9IcWa2STRIw/paJKra6zXgyoA1Iy1A3FVJMasbEvyQRZIHstSzUSOKOuQn5gIEfSaze0RlRHVQ+khm/V2k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=megOhzs1; arc=none smtp.client-ip=209.85.216.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788111249; c=relaxed/simple;
+	bh=s/92348jRP6269mIxI1Kdv+Oa/BEZJNWF1roWsEKQqM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=H4HvlEG5d4Xlqk8fJJNhhpSnrD2ev4lOXo09BEQ0lbvqjaeQ7SqYXgiTrcQZxUuQ/DTJjOMLL56aG+FQ078kGbN3VsMXK+etJFDwGFjhXov0SsgsYEMjPrJK/kRuuXJA9rkvhh0CXYRReCZpzhpO8dSXq9yuzggy6ag37YW9A1o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=themurphys.eu; spf=pass smtp.mailfrom=themurphys.eu; dkim=pass (2048-bit key) header.d=themurphys.eu header.i=christian@themurphys.eu header.b=oln1DZBa; arc=none smtp.client-ip=217.72.192.75
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=themurphys.eu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=themurphys.eu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="megOhzs1"
-Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-398b3d66515so1120565a91.0
-        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 10:34:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788111242; x=1788716042; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ns3vlUtF6VYFQyrrstAS/BpbWDETkTxgnU62R5+4dgY=;
-        b=megOhzs1jqFkuowHlEtJod5YHZ0uGjw31R+j4yx5IbMDZxc6fuSJqMOES2pb4FR7rg
-         I44IoD+UX1VSKdx1lJNQMs5zZkzRK0yPB/KkC+EsdIk4t9Dm+2wQf8AM/sjBMAmHYirC
-         dRESoGIb8/juTskpFbQ92xWvReUPU23RqXnjYygwZoBeabijX9b+uSqKoGjJnW+Jm9Dq
-         Crlp4VCj0UalE6/l+n52zSnAjfXYfisWO6/Xon3JQ3Op/G0p/v8VJW6OnqttHfmT0dG0
-         6FSKLKGcxXFpxY8JuZ9i8F7YFicyvnvRR9eIUuHyq8rDq2JEt1R4BFrHfEp9T4i/NyEe
-         MmuA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788111242; x=1788716042;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ns3vlUtF6VYFQyrrstAS/BpbWDETkTxgnU62R5+4dgY=;
-        b=Ihdk3fwSm7qogEyYFnZkJVFGNk5gNTT9y/SAfQRcCDwldtzpl8VLjAPIeNxEiJzutn
-         9i9e29bbMqgN02y82h4n2DCbBpZsAPTWHP7rEWWW2fFWoiIc7zQlAKpe39sF1gSE1idV
-         d2YsTt9x18VWmHMPAfnltn6CuSB+G3dq6ZYeKDw11XRMEpzElB2z/rAWHPKHrbfiyoc4
-         YAtNKZd+g23nlHoJAYm2lGAoZrrcTQ8o/aZaeJa8wqDmT+6rdBE3vR7jnJzKNMR+zrDB
-         w/EhKLA9ZA5aPm31vmWVbBEJ0suxpdblmx5qfD+qOFJbW2U0qVs61kz6/671LBeIiAV6
-         Yg/A==
-X-Forwarded-Encrypted: i=1; AKwUvBygY0ZsGBmVZT8zXUZ3ooHLVZ3+DogN8nhJy8lo4UIpMlZqDoW9mHFDI5A2/MJDXTEO4LutsSqg/eGMwUw=@vger.kernel.org
-X-Gm-Message-State: AFuF++lR7Foe4gji1iQsp7qfuWQ38NNayuSeUPwIWvn2k6pNZij8nMht
-	2Hg9SAxeI4NrfkO70EYc9YpftzxcKeCYsdgvVtDZFar1zk+lZDHSCqoy
-X-Gm-Gg: AYBFou0j0oZ5ZlijRsQeLqDq1XvyvbSenGyWLlUrsvEPPCHoUO5QXTH40LY+Navia9J
-	vjRXbse2rLLkufudukmcrwLuwIlaDb/APSWegghifi1thQPro58dvXBNsKm18rdDKLx9A8uoM7u
-	nWOA0sYGLuPp9Sxc63fOEUj5/kiplL93F3gWFfiyx/Ea/z8NFBfdaeUj7c1W1QLLebOz9L+8Ou8
-	BLxbHAJd56cH/zoKwQAHwhqt10x6k45Lcrt7SSfPENGAIsCWNdjxBO3eckKHnnFE2Fctxlim50N
-	rXJ2KsVKNAAT/k0xSrxnmUB+wJo6fIKryr3TpNJ15NNGAIrj6zdCv2MSNhIgVN6dTtpfp2Iv2QG
-	J9CKOwbNmbLr3UEAOp1Y4/GovIQksSdDbgruSlrlcXtbkkleDvsJYTHkw+MPgm3cjs5KDpzWUzs
-	y2rW3mSN3QZhCHUDMQLDNWwoc0tYiQZcHDTJrxQE/lShRyUTB8kWyonscyrbXN2KeATxCbHpWXr
-	vxAWAI99vujZLYzD5Vkzg==
-X-Received: by 2002:a17:90b:534b:b0:398:ceef:edbd with SMTP id 98e67ed59e1d1-398ceefee8emr6899772a91.18.1788111242577;
-        Sun, 30 Aug 2026 10:34:02 -0700 (PDT)
-Received: from localhost.localdomain ([2407:4d00:6c05:13e8:a91f:d3ab:5c4:f6ed])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396b186809dsm17237749a91.10.2026.08.30.10.34.00
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 30 Aug 2026 10:34:02 -0700 (PDT)
-From: Harry Hsu <x90613@gmail.com>
-To: pmladek@suse.com
-Cc: jpoimboe@kernel.org,
-	jikos@kernel.org,
-	mbenes@suse.cz,
-	joe.lawrence@redhat.com,
-	live-patching@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=themurphys.eu header.i=christian@themurphys.eu header.b="oln1DZBa"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=themurphys.eu;
+	s=s1-ionos; t=1788111231; x=1788716031; i=christian@themurphys.eu;
+	bh=zrfOUbmlUBAPXl3rgn7B1xdEsiBW5cG3AtqHwJQcP7Q=;
+	h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-ID:
+	 MIME-Version:Content-Transfer-Encoding:cc:
+	 content-transfer-encoding:content-type:date:from:message-id:
+	 mime-version:reply-to:subject:to;
+	b=oln1DZBap8wjoTkq9x4N/0Adwf2Jl9DHH2bOG+KrNSbXBnvub/q07GnsnR0NWQG8
+	 S/jedwVX14y9DZFxKXMjQ1vFlm69uViIoYAQYWLi8oCu224InLaewIWbAbrqatxAZ
+	 kCCo20dOLfA2LIPuQAY9+dW5iJNGhZLnp0SjBDpQLyd+AsQ+bogYBbNDeEoVIx1/X
+	 8k/32Gs+JvDBzeX1B/Uf3nKn3vh9VJbR3IuTNG6gQKKxhw74IjeqVvbGjsuZE2XrA
+	 A9tHPZkleaUGw6WBJKloWheuVCefPaPwcpOQ4Wg6OtwDLiuX6tuF7T5kRlNWDGAx7
+	 8ZwWRA5tYsNd2NPh1w==
+X-UI-Sender-Class: 55c96926-9e95-11ee-ae09-1f7a4046a0f6
+Received: from client.hidden.invalid by mrelayeu.kundenserver.de (mreue106
+ [213.165.67.119]) with ESMTPSA (Nemesis) id 1MCJvA-1xA34P27XO-00ALkg; Sun, 30
+ Aug 2026 19:33:51 +0200
+From: Christian Murphy <christian@themurphys.eu>
+To: linux-media@vger.kernel.org
+Cc: hpa@redhat.com,
+	sakari.ailus@linux.intel.com,
+	mchehab@kernel.org,
+	tarang.raval@siliconsignals.io,
+	jai.luthra@ideasonboard.com,
 	linux-kernel@vger.kernel.org,
-	Harry Hsu <x90613@gmail.com>,
-	sashiko-bot@kernel.org
-Subject: [PATCH 3/3] livepatch: Clean up klp_init_object_loaded() when fails
-Date: Mon, 31 Aug 2026 01:33:08 +0800
-Message-ID: <20260830173343.52759-4-x90613@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260830173343.52759-1-x90613@gmail.com>
-References: <20260830173343.52759-1-x90613@gmail.com>
+	Christian Murphy <christian@themurphys.eu>
+Subject: [PATCH] media: i2c: imx471: Fix pixel rate and line length
+Date: Sun, 30 Aug 2026 18:33:45 +0100
+Message-ID: <20260830173345.15886-1-christian@themurphys.eu>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:K8EECfPEYaz01tXdH7HrMV8Dzy8hCR1JnN0+zg9N8zQM+2RbKpZ
+ w0PetQoE79wAL/rP0k6yoHn5sJrEiLUcQ9kge6yEqt7m4N36cCsVnsd0/YPLEyTlfO9sL5C
+ hO/6RGfb+IZOHmtWwOMIzrdpzrp+Eb228pZ5oXzLOhxvhOAPP8JBgsHT7t2v9rdGvaTqNAT
+ b+f/tlQIljokgPh0/lQzw==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:Cb/u6g1eO/0=;+7Tf0AX5aWxf+F66MtOFZFGTJkb
+ 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
+ 9RsuHjC9A==
 
-From: Petr Mladek <pmladek@suse.com>
+The pixel rate is derived from the CSI-2 link frequency, 200 MHz * 2 *
+4 lanes / 10 bits =3D 160 MHz, and the line length is the binned array
+width, 2328. Neither describes the pixel array.
 
-When a module is loaded, klp_module_coming() iterates over patches and
-calls klp_init_object_loaded(). If initialization fails, it delegates
-cleanup to klp_cleanup_module_patches_limited().
+The VT PLL gives 19.2 MHz / PREPLLCK_VT_DIV 2 * PLL_VT_MPY 121 /
+VTPXCK_DIV 6 =3D 193.6 MHz and the array reads two pixels per clock, so
+the pixel rate is 387.2 MHz. LINE_LENGTH_PCK is never written and its
+power-on default reads back 5120. Timing frames at several written
+line lengths confirms 387.2 MHz at every value.
 
-However, the cleanup loop skips the failing patch. Each function called
-in klp_init_object_loaded() is supposed to clean its own changes. This
-works except for the changes done by klp_init_object_loaded().
+With the declared values the line duration comes out 14.55 us instead
+of 13.22 us and exposure is overstated by 10%: libcamera reports a
+maximum ExposureTime longer than the frame.
 
-The current code is a bit messy. The changes done by
-klp_init_object_loaded() should get cleared by klp_free_object_loaded().
-But this function also clears obj->mod which is set by
-klp_module_coming(). And relocations are cleared separately.
+Set the pixel rate to 387.2 MHz and the line length to 5120, which
+changes HBLANK from 400 to 3192. No register write is added.
 
-Fix the situations by updating klp_free_object_loaded(). It should
-revert all and only changes made by klp_init_object_loaded().
-This requires some shuffling:
+Fixes: be1589e567ae ("media: i2c: imx471: Add Sony IMX471 image sensor dri=
+ver")
+Link: https://lore.kernel.org/linux-media/20260728042013.23707-1-hpa@redha=
+t.com/
+Assisted-by: Claude-Code:claude-fable-5
+Signed-off-by: Christian Murphy <christian@themurphys.eu>
+=2D--
 
- + Clear obj->mod explicitly in klp_cleanup_module_patches_limited()
-   and do not rely on klp_free_object_loaded().
+Notes:
+    LINE_LENGTH_PCK reads back 0x1400 (5120) from the streaming sensor.
+    Written to 5632, 6144, 5008 and 5120 in one stream, the line period is
+    llp / 387.2 MHz at every value (14.5457, 15.8680, 12.9341, 13.2234 us)=
+.
+   =20
+    Tested on a ThinkPad X1 Carbon Gen 14 (Debian linux 7.1.8-2, libcamera
+    0.7.2): controls read back 387200000 / 3192, 17.296 ms frames, maximum
+    ExposureTime 17.057 ms. v4l2-compliance 46/46; W=3D1 and sparse clean.
+    The driver is in no release (7.3 merge window), so no Cc: stable.
 
- + Clear relocations in klp_free_object_loaded(). Remove the explicit
-   call from klp_cleanup_module_patches_limited(). This requires
-   adding the @patch parameter.
+ drivers/media/i2c/imx471.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-Finally, call klp_free_object_loaded() in the error path in
-klp_init_object_loaded().
+diff --git a/drivers/media/i2c/imx471.c b/drivers/media/i2c/imx471.c
+index 4053aed84340..7a1335873270 100644
+=2D-- a/drivers/media/i2c/imx471.c
++++ b/drivers/media/i2c/imx471.c
+@@ -282,7 +282,7 @@ static const struct imx471_mode imx471_modes[] =3D {
+ 		.height =3D 1088,
+ 		.fll_def =3D 1308,
+ 		.fll_min =3D 1308,
+-		.llp =3D 2328,
++		.llp =3D 5120,
+ 		.default_mode_regs =3D mode_1928x1088_regs,
+ 		.default_mode_regs_length =3D ARRAY_SIZE(mode_1928x1088_regs),
+ 	},
+@@ -691,8 +691,8 @@ static int imx471_init_controls(struct imx471 *sensor)
+ 					   0,
+ 					   link_freq_menu_items);
+=20
+-	/* pixel_rate =3D link_freq * 2 * nr_of_lanes / bits_per_sample */
+-	pixel_rate =3D div_u64(IMX471_LINK_FREQ_DEFAULT * 2 * 4, 10);
++	/* pixel_rate =3D 2 * vt_pix_clk, with vt_pix_clk =3D 19.2 MHz / 2 * 121=
+ / 6 */
++	pixel_rate =3D 387200000;
+=20
+ 	v4l2_ctrl_new_std(ctrl_hdlr, &imx471_ctrl_ops,
+ 			  V4L2_CID_PIXEL_RATE, pixel_rate,
 
-Reported-by: sashiko-bot@kernel.org
-Closes: https://lore.kernel.org/r/20260823062313.1321B1F000E9@smtp.kernel.org
-Signed-off-by: Petr Mladek <pmladek@suse.com>
----
- kernel/livepatch/core.c | 30 ++++++++++++++++++++----------
- 1 file changed, 20 insertions(+), 10 deletions(-)
-
-diff --git a/kernel/livepatch/core.c b/kernel/livepatch/core.c
-index aa895e8259b0..4fff00a40d88 100644
---- a/kernel/livepatch/core.c
-+++ b/kernel/livepatch/core.c
-@@ -725,18 +725,20 @@ static void __klp_free_funcs(struct klp_object *obj, bool nops_only)
- }
- 
- /* Clean up when a patched object is unloaded */
--static void klp_free_object_loaded(struct klp_object *obj)
-+static void klp_free_object_loaded(struct klp_patch *patch,
-+				   struct klp_object *obj)
- {
- 	struct klp_func *func;
- 
--	obj->mod = NULL;
--
- 	klp_for_each_func(obj, func) {
- 		func->old_func = NULL;
- 
- 		if (func->nop)
- 			func->new_func = NULL;
- 	}
-+
-+	if (klp_is_module(obj))
-+		klp_clear_object_relocs(patch, obj);
- }
- 
- static void __klp_free_objects(struct klp_patch *patch, bool nops_only)
-@@ -878,7 +880,7 @@ static int klp_init_object_loaded(struct klp_patch *patch,
- 		 */
- 		ret = klp_apply_object_relocs(patch, obj);
- 		if (ret)
--			return ret;
-+			goto err;
- 	}
- 
- 	klp_for_each_func(obj, func) {
-@@ -886,7 +888,7 @@ static int klp_init_object_loaded(struct klp_patch *patch,
- 					     func->old_sympos,
- 					     (unsigned long *)&func->old_func);
- 		if (ret)
--			return ret;
-+			goto err;
- 
- 		/*
- 		 * Aliased symbols share one address, so they would resolve to
-@@ -899,7 +901,8 @@ static int klp_init_object_loaded(struct klp_patch *patch,
- 			if (prev_func->old_func == func->old_func) {
- 				pr_err("'%s' and '%s' resolve to the same address, aliased symbols are not supported\n",
- 				       prev_func->old_name, func->old_name);
--				return -EINVAL;
-+				ret = -EINVAL;
-+				goto err;
- 			}
- 		}
- 
-@@ -908,7 +911,8 @@ static int klp_init_object_loaded(struct klp_patch *patch,
- 		if (!ret) {
- 			pr_err("kallsyms size lookup failed for '%s'\n",
- 			       func->old_name);
--			return -ENOENT;
-+			ret = -ENOENT;
-+			goto err;
- 		}
- 
- 		if (func->nop)
-@@ -919,11 +923,17 @@ static int klp_init_object_loaded(struct klp_patch *patch,
- 		if (!ret) {
- 			pr_err("kallsyms size lookup failed for '%s' replacement\n",
- 			       func->old_name);
--			return -ENOENT;
-+			ret = -ENOENT;
-+			goto err;
- 		}
- 	}
- 
- 	return 0;
-+
-+err:
-+	klp_free_object_loaded(patch, obj);
-+
-+	return ret;
- }
- 
- static int klp_init_object(struct klp_patch *patch, struct klp_object *obj)
-@@ -1264,8 +1274,8 @@ static void klp_cleanup_module_patches_limited(struct module *mod,
- 			klp_unpatch_object(obj);
- 
- 			klp_post_unpatch_callback(obj);
--			klp_clear_object_relocs(patch, obj);
--			klp_free_object_loaded(obj);
-+			klp_free_object_loaded(patch, obj);
-+			obj->mod = NULL;
- 			break;
- 		}
- 	}
--- 
-2.43.0
+base-commit: 4900cad020c0580dfb1be27776ff10a4ef110cfa
+=2D-=20
+2.53.0
 
