@@ -1,64 +1,64 @@
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0246031E834
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 07:44:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 639D9382295
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 07:45:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788075864; cv=none; b=lI8kG7CNbTJd9sHOlm0GjgQsozBMlVYrd+pB7kAkHPMZcTOIqxIKkoi+pTnNQXA+5QF3c0D7DzZ3/y1tdCwlsVnYW/UZ7Qrz5EkYGSVYEffOJJmUg+SEcOpeAff8HDYxxtjaxDKxgC7sa8rMsZ7MgiLhxBvgOBKRyNyqic6hE24=
+	t=1788075907; cv=none; b=LWHV5JpA/d531ewAP+8kdCQltN6fjyvsjP0NUG4Dm6RDrvr2aYLYHGySx5za04Pmptr5UelpjHBfEA6sGCXRVoLM9V/7Kp1E/T1TJHheek4aseMaQIsZl4uh08u8RgytLQ3skX5TfnlaZmH0YE4DoHXgEE4CgTQWEZr8J71LHBM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788075864; c=relaxed/simple;
-	bh=mMjFsIQfSYpF3u2RxLrVZ/VoGV0TmCIoxhWin2USHsU=;
+	s=arc-20240116; t=1788075907; c=relaxed/simple;
+	bh=/VGQ63AfaY3zFHxTCv9OLtPTRCZGUd//RETv1E2mm0E=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Sqb46nPJZliKkjFGQ9IXbpEJ1Oj/BunVU/iO43MvlACSrTCLGjm28zplDn6Y8n0azScq0/zJeCTGXU4MJLgFIcpBfmCXJIliNm4B2Gz57h+g4Mi3IFvGBHGY4P9//WAsnqkmJ4Qs7mrLRt9ddcXtzN3GnCrki1YfZpykusFJzz8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sT+iS8/j; arc=none smtp.client-ip=209.85.216.52
+	 MIME-Version; b=QQYe+dQVco8qG1xX+VbNVu8huo9O1mC4Z0lFs90tNilq7JSoOw+TOm1vQVrJRV+DQkbVoj4EGDOdQ6lJVh9TuvLg3ASmmvS+Im5pPEmeoehk9ZRpI4xCAvdrt6t75k5W9SyrB32VeUuHCSntQ3S/CntrwOs3Nz3FnLj76QomfSA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KY+y4RX/; arc=none smtp.client-ip=209.85.216.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sT+iS8/j"
-Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-3969e82ff8fso2597089a91.0
-        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 00:44:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KY+y4RX/"
+Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-39675172593so2025639a91.2
+        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 00:45:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788075862; x=1788680662; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788075906; x=1788680706; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=1463Nua5rsy1ZKhdUuK5314KEKn538+dBkzqnDChMps=;
-        b=sT+iS8/j7cGxZkHKOWmAeOAaIKxY62xvjBOenAD9++rqX01hvgAggM6nbNKvA3Ni9L
-         ijmmm0h3G4jt7xMsWdNjSYn0BFoVDNQAIz6WipVZEhtZpKaqW1TaWHsfZ4OnJRKJnDDo
-         ZArfvInzUGu6weV0msHrWYdWIOv32HGuxyOQak3UHhkCiiAegNryLGktqqlRC+Hm7FW5
-         OQt3c1MXff5VvXZszIZpdprFq6kj2CQe6UwNZnuuy8Rc5jaqiwR/4uAMuHJbWRWR5HfW
-         53+sSeVVXXRSugS4+yddrCLl38Oj2K8G9AlcxJBu37WHi1YRr08ma8E++/hXfDDvk8hq
-         JyjA==
+        bh=dnQmRfOj9jURwrL7DeKDSG0H8W6p70+xYqiH8s21HTY=;
+        b=KY+y4RX/PwE95Y82Lu9LtYfXdH95+7p+iTJ39wlJxXhjLwzuOApfg7uv4j87M+W/9G
+         hRlOqnyX6B+b5tIPfWwi7g2dqb+fm+zncjAkIJ5VpHQMzkOXugJFxUHhs0WXL24VyUHt
+         rebbrLmeO2H7HKuyyK3CL/BiuCESnuZFGRJoqudE7394iZguPFfTduQMSV8kOJLoX3w1
+         Yn4fbBR8VmoIqvF7JkskGeHtjykVeDKFMKhdsm1HSGC5fIJdQiRlIZY5M9cquY5LpUDE
+         poEhO/Wno0awF3lrQAYtNZWObAM6DbVqJBwMjp1pQAnQzqw3cE2LAL/rTmkz7lULHFIN
+         S3Rw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788075862; x=1788680662;
+        d=1e100.net; s=20251104; t=1788075906; x=1788680706;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1463Nua5rsy1ZKhdUuK5314KEKn538+dBkzqnDChMps=;
-        b=QPMxq7dYuYWM7FCX6ysi4yban8hFehlJvs6+iwgWiYQAS0wz3llZ2fFLVLwpbVDRh9
-         ffZwoKNyN/hyehcqjc/TksDyfctpFa99Bf+zeQ4Av1kzyULrVskCff85QOkYS01fu7RV
-         Gsdx2qpApoA1T+7G/U4lLfrvSYttxXmH2SwyGOOaIPVPIm1yfsxpc1j2nTAmbklXmalW
-         rQxcSbH5pXfZf4sjiGkrAPGnF7ovA+gDYZD7sMaTByWsV2SMOOWV09fKIRqOn5yJqyRE
-         V4OY3lxn6lkbq07l5kPVnGtQHyzzjvBUhg/gAOHS3rSd6ex573BUSafrR9w9s02+rL7a
-         t7iA==
-X-Forwarded-Encrypted: i=1; AKwUvByiVS8/lC9LucRUJp6jf/pK8uyp8RnfmxIPKXYHeZZaEOplcmDRd6pfU974XdTHEvvPT+PiEGoitbt0HOg=@vger.kernel.org
-X-Gm-Message-State: AFuF++nP0hA9+A2vWszAhzLvBzC06au7ZmyeatfRc5loA6Jm7T+tEwlC
-	bpE2TtA4msKnmNy0a2LRHkRqIdQR5P8YdrgubRuX/zB5oMLDRPsmbJom
-X-Gm-Gg: AYBFou0vDPyjQCaGVnuQ3TuM6ZVVo6lJid/+cMy03xKSb8yAtNvJV3j9EivRwJ5gXRS
-	+wyjQgkxurXGLMQYG4T/ZbZkvNTB9trCMpDA7ZLGEf/Q/uYVn3Lu4IX4CEevhQB4hg4pvEVn69S
-	yFV104m0Bhlc73Uw9B3WIgBNtjOfYwLfUo1PYI6sAwaUoHCGnAmNFYHoSNBRJNOHM/WPlpez4Nn
-	D+s0adfAd/KRUqBE5fUTChMN29qqZUM6YnQR414Sbf6enQCk0FjsqPBJ+mjjdUx/lY6h1D66kW6
-	wgPTesiT5wifd890tqa7DkPwM7/l+Wid5Kflpd4M641JnA6X+tC08ApGYjksplHA65YR5yyq2bK
-	/eqPWy6IBNPKb4NY2olbFa578Ji1JjyasE1arPo0uPwZzWm88JMCwTzsusmlvK+UCsFPbgsWrf2
-	BVJ+h3JrOUBTwmm6rk6z1/s+gjjicmGpGLa6e2hFT33wtJJvaa3qR9PaUCNyDF9iT6d/fBd53wY
-	Jq37UdAvDcAgldtTeSeY2GpB6Q5o2lCd07ZMLs=
-X-Received: by 2002:a17:90b:2243:b0:398:9bd5:490d with SMTP id 98e67ed59e1d1-3989bd54c26mr10681172a91.20.1788075862358;
-        Sun, 30 Aug 2026 00:44:22 -0700 (PDT)
+        bh=dnQmRfOj9jURwrL7DeKDSG0H8W6p70+xYqiH8s21HTY=;
+        b=UDMQ5t4gkVbbgVrM6MkZuwky9BfW05xIRe7OWpD7+m8g8cYoKVHi/G5ImXPydA+/Xz
+         niz2gTSdd6qK+ZPNtmTtCEKoVchMJvUs8QCsU3Fa+V7DhEqdS52H7MAZ/uCcxYigXang
+         jBoMiz3Vgc/bSf1zkTziVFUxfcm9jMETu7altia2+yWprBJ9Vq+I/XNyAQ81c45zNvQR
+         1WqUW8C+AWptbkYqPYaOEEVmlNKNFcuY6sDym21sC5cz3P9ehJx79DMl+GN2xmEzbvoI
+         sfTkG+SF4YT+jR7xiAZ0jOEL/IJgrZCmfGgnx5P8ek2RoHufufhJW7WfhVreew3tIdBE
+         FNTw==
+X-Forwarded-Encrypted: i=1; AKwUvBzHmTC+9enBqTpKK2ILdpjJ8/9f5zjD28jDTdB7lDbDSUc/C8bjKTtrhwFsWzURwr2Ee5jTVObwiuIf4So=@vger.kernel.org
+X-Gm-Message-State: AFuF++m3+PnVWNepG9xaN/2ptCTb8PZdzFgLvJU+BFlYGZR/UuZJ6w9Z
+	XuLvJXcufHa8lnNhUT02lu3mnNscyh3vYnS4vsVR27UmHqywZrYNkmWG
+X-Gm-Gg: AYBFou3qNDUDxShTdSTw81CGxOehhiVTsKkgvYm+dx3/nUlSOKeK6UK61UfOgkgNMvZ
+	UtufwXBaxSs5penAHdIoccFkOjhiEd14wNtHRCpjFZ3eSPEP+pdzjxTdhZd3QAL/KcHElIpurms
+	EobuTcFW/CFOsvssE1Hz391Mb4pg6RZ5ENl/96vFHBpoOl1dJn1QalTtoEAtOfk0CKAAZiyhHaF
+	H7nNypIZcmUKAFKlTBQRSQUkB6OgDVPU/duv8ZX7+2nVHjBT0QZqDMFXUZNHNL8bm+w/ciIUo3P
+	NVcxLFrgwmjKCVf9+vSzpKOqLpQrS03px8H2DfYoOvq1CjpxcoM3iAkKEa0AuzgVKeufvdgKhUR
+	eyQ6HmJ5ZmkciaAo+DNTfcSwQiXNN5zd4CaY+AlJSJNnweQrY7DYlgI6vfPxaPpt7y23HjrTcgJ
+	h5o1XwZl6L0xsk+/xj8tQJmqHuhqq7E3+0EolJ/C8bOpvz//7phZ19vz9yj46yW0Acd8hQyH2IS
+	A25HiTNhd/2MW/xEbMbyqBqG9z4
+X-Received: by 2002:a17:90b:1d05:b0:396:65dd:4093 with SMTP id 98e67ed59e1d1-396d0ff519cmr30220142a91.14.1788075905659;
+        Sun, 30 Aug 2026 00:45:05 -0700 (PDT)
 Received: from localhost.localdomain (vmi2317720.contaboserver.net. [84.247.152.65])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-398bd356f80sm4527719a91.9.2026.08.30.00.44.13
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396b186809dsm15145238a91.10.2026.08.30.00.44.56
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 30 Aug 2026 00:44:22 -0700 (PDT)
+        Sun, 30 Aug 2026 00:45:05 -0700 (PDT)
 From: Lian Wang <lianux.mm@gmail.com>
 To: "Barry Song (Xiaomi)" <baohua@kernel.org>
 Cc: akpm@linux-foundation.org,
@@ -83,12 +83,12 @@ Cc: akpm@linux-foundation.org,
 	yuanchu@google.com,
 	zhangbo56@xiaomi.com,
 	Xueyuan Chen <xueyuan.chen21@gmail.com>
-Subject: Re: [PATCH v2 5/7] mm/mglru: make LRU folio prefetch helper an inline function
-Date: Sun, 30 Aug 2026 15:43:56 +0800
-Message-ID: <20260830074405.79857-1-lianux.mm@gmail.com>
+Subject: Re: [PATCH v2 6/7] mm/mglru: move folios from oldest gen to second-oldest gen from head to tail
+Date: Sun, 30 Aug 2026 15:44:38 +0800
+Message-ID: <20260830074446.79916-1-lianux.mm@gmail.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260827234704.63163-6-baohua@kernel.org>
-References: <20260827234704.63163-1-baohua@kernel.org> <20260827234704.63163-6-baohua@kernel.org>
+In-Reply-To: <20260827234704.63163-7-baohua@kernel.org>
+References: <20260827234704.63163-1-baohua@kernel.org> <20260827234704.63163-7-baohua@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -97,71 +97,84 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Fri, 28 Aug 2026 07:47:02 +0800 "Barry Song (Xiaomi)" <baohua@kernel.org> wrote:
+On Fri, 28 Aug 2026 07:47:03 +0800 "Barry Song (Xiaomi)" <baohua@kernel.org> wrote:
 
-> `prefetchw_prev_lru_folio()` is currently implemented as a macro with a
-> potentially unused argument. This makes the helper harder to read and can
-> also trigger checkpatch warnings about unused macro arguments.
->
-> Make it a `static inline` function and remove the unnecessary `_field`
-> argument. The helper always prefetches the previous folio's `flags`, so
-> there is no need to make the field configurable.
+> For reclamation, it makes sense to reclaim folios from tail to
+> head, as folios near the head are relatively hot. However, when
+> moving folios from the oldest generation to the second-oldest
+> generation, using the tail-to-head order would effectively cause
+> a cold/hot inversion.
 >
 > Signed-off-by: Barry Song (Xiaomi) <baohua@kernel.org>
+> Reviewed-by: Baoquan He <baoquan.he@linux.dev>
 > Tested-by: Xueyuan Chen <xueyuan.chen21@gmail.com>
 > ---
->  mm/vmscan.c | 26 +++++++++++++++-----------
->  1 file changed, 15 insertions(+), 11 deletions(-)
+>  mm/vmscan.c | 23 +++++++++++++++++++++--
+>  1 file changed, 21 insertions(+), 2 deletions(-)
 >
 > diff --git a/mm/vmscan.c b/mm/vmscan.c
-> index 2b33d3f44682..81f95a968447 100644
+> index 81f95a968447..17524e96fe64 100644
 > --- a/mm/vmscan.c
 > +++ b/mm/vmscan.c
-> @@ -182,17 +182,21 @@ struct scan_control {
->  };
->
->  #ifdef ARCH_HAS_PREFETCHW
-> -#define prefetchw_prev_lru_folio(_folio, _base, _field)			\
-> -	do {								\
-> -		if ((_folio)->lru.prev != _base) {			\
-> -			struct folio *prev;				\
-> -									\
-> -			prev = lru_to_folio(&(_folio->lru));		\
-> -			prefetchw(&prev->_field);			\
-> -		}							\
-> -	} while (0)
-> +static inline void prefetchw_prev_lru_folio(struct folio *folio,
+> @@ -192,11 +192,27 @@ static inline void prefetchw_prev_lru_folio(struct folio *folio,
+>  		prefetchw(&prev->flags);
+>  	}
+>  }
+> +
+> +static inline void prefetchw_next_lru_folio(struct folio *folio,
 > +		struct list_head *base)
 > +{
-> +	if (folio->lru.prev != base) {
-> +		struct folio *prev;
+> +	if (folio->lru.next != base) {
+> +		struct folio *next;
 > +
-> +		prev = lru_to_folio(&folio->lru);
-> +		prefetchw(&prev->flags);
+> +		next = list_entry(folio->lru.next, struct folio, lru);
+> +		prefetchw(&next->flags);
 > +	}
 > +}
 >  #else
-> -#define prefetchw_prev_lru_folio(_folio, _base, _field) do { } while (0)
-> +static inline void prefetchw_prev_lru_folio(struct folio *folio,
+>  static inline void prefetchw_prev_lru_folio(struct folio *folio,
+>  		struct list_head *base)
+>  {
+>  }
+> +
+> +static inline void prefetchw_next_lru_folio(struct folio *folio,
 > +		struct list_head *base)
 > +{
 > +}
 >  #endif
 >
 >  /*
-> @@ -1695,7 +1699,7 @@ static unsigned long isolate_lru_folios(unsigned long nr_to_scan,
->  		struct folio *folio;
+> @@ -3938,10 +3954,11 @@ static bool inc_min_seq(struct lruvec *lruvec, int type, int swappiness)
+>  	/* prevent cold/hot inversion if the type is evictable */
+>  	for (zone = 0; zone < MAX_NR_ZONES; zone++) {
+>  		struct list_head *head = &lrugen->folios[old_gen][type][zone];
+> +		struct list_head *pos = head->next;
+>  		long delta = 0;
 >
->  		folio = lru_to_folio(src);
-> -		prefetchw_prev_lru_folio(folio, src, flags);
-> +		prefetchw_prev_lru_folio(folio, src);
+> -		while (!list_empty(head)) {
+> -			struct folio *folio = lru_to_folio(head);
+> +		while (pos != head) {
+> +			struct folio *folio = list_entry(pos, struct folio, lru);
+>  			long nr_pages = folio_nr_pages(folio);
+>  			int refs = folio_lru_refs(folio);
+>  			bool workingset = folio_test_workingset(folio);
+> @@ -3952,6 +3969,8 @@ static bool inc_min_seq(struct lruvec *lruvec, int type, int swappiness)
+>  			VM_WARN_ON_ONCE_FOLIO(folio_is_file_lru(folio) != type, folio);
+>  			VM_WARN_ON_ONCE_FOLIO(folio_zonenum(folio) != zone, folio);
 >
->  		nr_pages = folio_nr_pages(folio);
->  		total_scan += nr_pages;
+> +			prefetchw_next_lru_folio(folio, head);
+> +			pos = pos->next;
+
+Saving `pos->next` before moving the current folio keeps the forward iterator
+valid. Across partial-batch restarts, processing from head to tail and appending
+to the target tail preserves the relative hot-to-cold order of these folios.
+
+>  			new_gen = __folio_inc_gen(folio, old_gen, &gen_increased);
+>  			if (gen_increased) {
+>  				delta += nr_pages;
 > --
 > 2.34.1
 
-This preserves the prefetch behavior while making the helper
-interface clearer. Looks good to me.
+Looks good to me.
 
 Reviewed-by: Lian Wang <lianux.mm@gmail.com>
