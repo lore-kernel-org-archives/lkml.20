@@ -1,201 +1,210 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F369380FFD
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 07:20:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71B8318DB2A
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 07:25:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788074402; cv=none; b=T1PwszYwpJJmMKkiSHuThj/fueKEBJ2Q0A3nX6M6mdXWkfl1SoktqA54FgKRfXDfD7V14kc98O+1mPV4RINb4dSXQH7lbXP3iqvTF93M+cct5C+o5vL6G880eV59RqMBky5Iujg2c42ZyMpge54e4O67xjp86+GdzfuoUTHzj5Q=
+	t=1788074751; cv=none; b=c0M77qRFAtQgxPIvgBpK262EWRCkUavxXShEsx4GqgJm+zBiScwczZwHRnVZBRx63Rx/RJclzN+Q6I2brssmRMQd5JI2aW8kGAMnLOmVOe5l0P5aHF+GnAN6WWMJPm3GAGkoLXG7FEhUdx319AQbnrrpXDS9rh2IBpt1oSXmaxs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788074402; c=relaxed/simple;
-	bh=w1bihQdfG7SxvAlOxktxRYbHp85/sUXdBSl39wH9IsU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Tug8p+4d0yVkHaXx2AT45h+77lyTK4vvMWXtCAXOfRh92RAZrzx53m3Ca7eHiG+sJF7Rozhk0aB3epuAQJsdSEWww3jlUsLnyGC3sq+pWusTS6H9CYxOrheK2nwtqkkOOsU9yanqoUr5TClC99yTG0pKakpmolahHclPHmSUsLI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=CKElfzHa; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1788074751; c=relaxed/simple;
+	bh=rHhQ3CouOpfrU4V+eXvK5UciHi/ecpohAdH2hDPyzsE=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=KUkncA9gLUeJMK9OcC434w3g0kEPot/SJItyo7A/JDygdrWllQf3TqWazRhIAwurz1tf3ZflGwkKsk8Tkcp5Mbw4m7M1AcbK5jDBOT2dyE9bUrN7z+zSQvAaHQEvX5Kfx52KwNmd0bO8UD+Z3LQETfymKBnVcoV174RKuhDj+r8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ePIYUi7g; arc=none smtp.client-ip=209.85.214.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="CKElfzHa"
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67U61k0f2811220;
-	Sun, 30 Aug 2026 07:19:51 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=rSNJLf
-	P2ClgRhLq+3tQST1sdUV0Ru6nvhs393Hlua0Q=; b=CKElfzHa5pLQec2MrRwn1x
-	1GcyRlJwT40rtBlVKSDODF/VZq+FtsiWofndyQJ76Fcepsu5mdk9L8psqlCNp0OJ
-	0Cn/ZWNQ4sUYj8PuxF4raWzhTLQco9mCx1WpJm5VG03woPQnz6Fxc64pUpbvfg5x
-	qKEzuVhzIwf2ywelGZ7TAIX66pYEM8ISwTWHZ9eWMCx8r0XDk0ZyQuuTja+yoJnI
-	sagBafKwlMp/5/aRXdYUgATn8XiaqoW/459F+Y0G7oZEKpwGcq383c5dhPueI8Uz
-	Dk10/MyVHNQIzfyxXpwxNRmlwhus8fmhsx6tpuny24kuNg6W7rKQse35jISkIGXQ
-	==
-Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gbq54btg9-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Sun, 30 Aug 2026 07:19:51 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma13.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67U7Bcxc002833;
-	Sun, 30 Aug 2026 07:19:50 GMT
-Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
-	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gcbyg0h51-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Sun, 30 Aug 2026 07:19:50 +0000 (GMT)
-Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com [10.20.54.100])
-	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67U7JmK749021348
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Sun, 30 Aug 2026 07:19:48 GMT
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 5629820043;
-	Sun, 30 Aug 2026 07:19:48 +0000 (GMT)
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 48D0520040;
-	Sun, 30 Aug 2026 07:19:44 +0000 (GMT)
-Received: from [9.67.21.115] (unknown [9.67.21.115])
-	by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Sun, 30 Aug 2026 07:19:43 +0000 (GMT)
-Message-ID: <859d4e5f-c491-4a0d-a7ea-0a16159f8059@linux.ibm.com>
-Date: Sun, 30 Aug 2026 12:49:42 +0530
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ePIYUi7g"
+Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2ccf2360620so19745355ad.3
+        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 00:25:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788074750; x=1788679550; darn=vger.kernel.org;
+        h=content-disposition:content-type:mime-version:message-id:subject:cc
+         :to:from:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Hcmzw/bzGZXuqmnVsevrBZ8607zbsdAVZ+LLgOu15kE=;
+        b=ePIYUi7gEIt80fDE/wmvjyA4/wxN8qZZrER8DO7fv7QkAtJilnY7/Fc7h4Ab8JBcvq
+         +AzleE89/WGnFsB0NoCfXrVuwSrIzu24cTwOeO6rR5uLqHAblzNXJmwpRHFNYplChYOe
+         +340QpVNpj4XlXOKQLsg3HtTmD1gYhxAJs7ypyDi6gkhG+xExseKFZ/L5CpDl8L8Hv95
+         uJA8MTNvNlqfvefkeC2bO9Q2+a46XMz9NGcUe7VWAAEpjMNtF3JNHH3BgkfAx7wsHJL9
+         uOatQBVwU4NQKwGDbNC8FsAH0tUL0qTzG3syhjhh52QuN69sD+CVExM6Lp3FKeiDMo/8
+         /vMA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788074750; x=1788679550;
+        h=content-disposition:content-type:mime-version:message-id:subject:cc
+         :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Hcmzw/bzGZXuqmnVsevrBZ8607zbsdAVZ+LLgOu15kE=;
+        b=hcFp9M+hRcRMAZduijsVECaOZYpYI+w6fxD7FCQZ1SmwB5EfB5FMzp9tnXzruB5gdy
+         yJRb8LQppxJMAxMChxOR1vf1K1A9yEQnjPRYaezcGFBQQi8hWMo6pCYfOaQCftyzH2I0
+         +WGAFpXRG0zepJQhc/JtxS72ClTt8c/FyaIV/dxBh0H77FmwWRwyY6d4W9Rit3NTPPzT
+         1E3Ksh/xN9ko2j7gevZ3pi2wL7EPXqd9OppMoI8cAuFyNoMfeMNITudOEq2hVxsDs2Um
+         t927vGM+Oihax1To8+7fIO0MId4sUN7Ak5zo0vPHwujDM7RYsw0RDezVw3cA9dyjcQLN
+         MKZA==
+X-Forwarded-Encrypted: i=1; AKwUvBwLp0M+xuv0+VU+EHCIPOKs880zjnBFMYlSahmOw0Ej/nr6AMoS5ukY7JeY34D9ny1iKMoPKKSpnqZLIXo=@vger.kernel.org
+X-Gm-Message-State: AFuF++kewEOe4t/rmhBxxMVdYa1uQEDFqgRqWziSTRrX7VJIByS8Uz5t
+	hkItxpuPohF1+3CnQ1uDdPYvGKDPxT9qIQ62uytuj8352dYTxMEZPh2t
+X-Gm-Gg: AYBFou06SjNzFLdzU2ab9oCzgoX7VyPip1Si8se07Lyrw8zRWlIXpBH8gidVVw55xkl
+	5k+A5C5y0iIZagflq8VJpemRsYVCJcuDfY3TPpJV5/8OpCxCisgUUUkKM6ahk8wMad48Z7ISsOH
+	ZZVO3lItNWfaRsmWxsIoypKmtaVsTfwwGf7EdN4tnK43PLylbddvP13nEEyPZ7Pux6eJmEtkwWM
+	rNvapCcAn3CbUZCuAzAEX70HXl3vCUUmFiwmAqPTMnCcBdbC2vLAlAwYJuz+syAS+Mmz6VWgL8l
+	FmqzsAxVO6+SNjPq2tgKrYUOlHLw526O9mbDYaoC6V6aIWPeWXVPBzPLSYeutbTH7kuVKWMwLPT
+	XsDAC6P81QLxukf6U3dP2q59e0vBh1E0gM8LbE03EXd25cfFpxnoqwxZwfSjVoREqUJ7eo6QmGY
+	VW2C+lnHHpDVgQgxNCX3GEGq2eQqBHya9NiXvfsfj1wQ3xgB9CPiNl7CgrzUwtd/N0Eqdcgdm6F
+	eHChJw=
+X-Received: by 2002:a17:90b:2fcc:b0:398:9be9:ab8f with SMTP id 98e67ed59e1d1-3989be9aca2mr16397639a91.20.1788074749551;
+        Sun, 30 Aug 2026 00:25:49 -0700 (PDT)
+Received: from v4bel ([58.123.110.97])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396dda7835dsm10440159a91.5.2026.08.30.00.25.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 30 Aug 2026 00:25:49 -0700 (PDT)
+Date: Sun, 30 Aug 2026 16:25:45 +0900
+From: Hyunwoo Kim <imv4bel@gmail.com>
+To: Vlastimil Babka <vbabka@kernel.org>, Harry Yoo <harry@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>
+Cc: Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>,
+	David Rientjes <rientjes@google.com>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Suren Baghdasaryan <surenb@google.com>, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org, imv4bel@gmail.com
+Subject: [PATCH] mm/slab: take n->list_lock for the list_add() in
+ __refill_objects_node()
+Message-ID: <apPa-cGLcyt90l-E@v4bel>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 3/9] crash_dump: Read the number of dm-crypt keys from
- reserved memory
-To: Coiby Xu <coiby.xu@gmail.com>, kexec@lists.infradead.org
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-        Baoquan He <baoquan.he@linux.dev>, Dave Young <ruirui.yang@linux.dev>,
-        Pratyush Yadav <pratyush@kernel.org>, Mike Rapoport <rppt@kernel.org>,
-        Pasha Tatashin <pasha.tatashin@soleen.com>,
-        open list <linux-kernel@vger.kernel.org>
-References: <20260828084900.1496839-1-coiby.xu@gmail.com>
- <20260828084900.1496839-4-coiby.xu@gmail.com>
-Content-Language: en-US
-From: Sourabh Jain <sourabhjain@linux.ibm.com>
-In-Reply-To: <20260828084900.1496839-4-coiby.xu@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODMwMDA1NyBTYWx0ZWRfXz0YCPV3lv4UH
- IKPVHBjyBSjCZ8z1zEPIUytpYYoRUYERlcTq53Nn25cvPIOTKJb32Uz1seTvF3Xih0mZn0Ypi0R
- xwEim4UWU3p15F6U1HJ4QxiaHFqoRGT6u320g61I/XRgr/UvylhxxYeM4eHjm6MqLybhT76A8oA
- o77SVF2u/Fda3YI+GJ1hnoHBebDNBHnlY6kU6ilY4WEQYdoLntwOC5gP5SmXMlwHBuGfFy0/8rw
- qMjIS9S3jwarM4cIPMzL2QXkJDqZQGha5liRYVM5eGayKhZ4xCk42gGb4QhX57ghiZVH1JBw7fa
- 34IZoB7h38LbBqLR+djaVJniSNyV4ZKfyo3QzT9uYwz6JUayWfQopYwMARuODa+DO2Sh98BzBhB
- lPHOa6PLoFwDNuilrj+PcSb8wlN5Jqr1TDDB+HyuvsTPzIg1sb6n///LnD3XlnTPvcVl41gKzZs
- BaAiMQ34iOlndBwJl3g==
-X-Proofpoint-ORIG-GUID: k9DhWxakAY-W5qahI_4Jaf_-Q66rmif0
-X-Authority-Analysis: v=2.4 cv=CNgamxrD c=1 sm=1 tr=0 ts=6a93d997 cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=VnNF1IyMAAAA:8
- a=pGLkceISAAAA:8 a=Ih1Uonz5PMveX798KfkA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-GUID: alrdb3oKMqCcAx18RzoTSmqYnLLTBoJ4
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODMwMDA1NyBTYWx0ZWRfXy9hJ7ZIDxolJ
- XJXU5HxIIUx156q2RhO8U5NA2PjZ96exStXNOPweczKNJxf4L/99JjMQEOIddusSxQAEujLB6J+
- kE+OVVf3pivNi0GRO34rIEMxLd9J34U=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-30_02,2026-08-27_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 bulkscore=0 suspectscore=0 phishscore=0 lowpriorityscore=0
- priorityscore=1501 clxscore=1015 impostorscore=0 adultscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608300057
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
+In __refill_objects_node(), the list_add(&slab->slab_list, &pc.slabs) that
+follows a successful __slab_try_return_freelist() is done without
+n->list_lock.
 
+__slab_try_return_freelist() only succeeds while slab->freelist is NULL. The
+slab we are refilling from is taken off pc.slabs by the list_del() at the
+top of the loop, so at that point it is on no list.
 
-On 28/08/26 14:18, Coiby Xu wrote:
-> In case user adds/deletes the keys by mistake, it's safer to read the
-> number of keys from reserved memory.
->
-> Fixes: 9ebfa8dcaea7 ("crash_dump: reuse saved dm crypt keys for CPU/memory hot-plugging")
-> Reported-and-Suggested-by: Sourabh Jain <sourabhjain@linux.ibm.com>
-> Signed-off-by: Coiby Xu <coiby.xu@gmail.com>
-> ---
->   kernel/crash_dump_dm_crypt.c | 36 +++++++++++++++++++++++-------------
->   1 file changed, 23 insertions(+), 13 deletions(-)
->
-> diff --git a/kernel/crash_dump_dm_crypt.c b/kernel/crash_dump_dm_crypt.c
-> index 026c7de4ad85..0b9e09c60745 100644
-> --- a/kernel/crash_dump_dm_crypt.c
-> +++ b/kernel/crash_dump_dm_crypt.c
-> @@ -89,21 +89,31 @@ static int get_keys_from_kdump_reserved_memory(void)
->   {
->   	struct keys_header *keys_header_loaded;
->   	size_t keys_header_size;
-> -
-> -	keys_header_size = get_keys_header_size(key_count);
-> -	keys_header = kzalloc(keys_header_size, GFP_KERNEL);
-> -	if (!keys_header)
-> -		return -ENOMEM;
-> +	int r = 0;
->   
->   	arch_kexec_unprotect_crashkres();
->   	keys_header_loaded = kmap_local_page(pfn_to_page(
->   		kexec_crash_image->dm_crypt_keys_addr >> PAGE_SHIFT));
->   
-> +	if (keys_header_loaded->total_keys <= 0 ||
-> +	    keys_header_loaded->total_keys > KEY_NUM_MAX) {
-> +		pr_warn("keys_header saved to reserved memory may be corrupt\n");
-> +		r = -EINVAL;
-> +		goto kunmap;
-> +	}
-> +
-> +	keys_header_size = get_keys_header_size(keys_header_loaded->total_keys);
-> +	keys_header = kzalloc(keys_header_size, GFP_KERNEL);
-> +	if (!keys_header) {
-> +		r = -ENOMEM;
-> +		goto kunmap;
-> +	}
-> +
->   	memcpy(keys_header, keys_header_loaded, keys_header_size);
-> +kunmap:
->   	kunmap_local(keys_header_loaded);
->   	arch_kexec_protect_crashkres();
-> -
-> -	return 0;
-> +	return r;
->   }
->   
->   static int restore_dm_crypt_keys_to_thread_keyring(void)
-> @@ -447,12 +457,12 @@ int crash_load_dm_crypt_keys(struct kimage *image)
->   	mutex_lock(&config_keys_subsys.su_mutex);
->   	mutex_acquired = true;
->   
-> -	if (key_count <= 0) {
-> -		kexec_dprintk("No dm-crypt keys\n");
-> -		return 0;
-> -	}
-> -
->   	if (!is_dm_key_reused) {
-> +		if (key_count <= 0) {
-> +			kexec_dprintk("No dm-crypt keys\n");
-> +			return 0;
-> +		}
-> +
+If another CPU frees an object of that slab, __slab_free() sees the slab as
+full and puts it back on n->partial. If a third CPU then takes that object
+in get_from_partial_node(), the freelist becomes NULL again.
 
-Not directly related to this patch, but I have a query.
+A slab that sits on n->partial with a NULL freelist only exists while
+get_from_partial_node() holds n->list_lock, between its cmpxchg and its
+remove_partial().
 
-Do we really need to take config_keys_subsys.su_mutex when keys are
-reused? If not, how about moving the acquisition and release of
-config_keys_subsys.su_mutex into build_keys_header()?
+A list_add() in that window overwrites slab_list to point into pc.slabs.
+The list_del() in remove_partial() then follows the overwritten links, so it
+unlinks the slab from pc.slabs and poisons slab_list while leaving the
+n->partial side alone. n->partial is left pointing at the poisoned slab.
 
+           CPU0                        CPU1                  CPU2
 
-- Sourabh Jain
->   		r = build_keys_header();
->   		if (r)
->   			goto out;
-> @@ -463,7 +473,7 @@ int crash_load_dm_crypt_keys(struct kimage *image)
->   	 * cleaned up at the end of kexec_file_load syscall
->   	 */
->   	kbuf.buffer = keys_header;
-> -	kbuf.bufsz = get_keys_header_size(key_count);
-> +	kbuf.bufsz = get_keys_header_size(keys_header->total_keys);
->   
->   	kbuf.memsz = kbuf.bufsz;
->   	kbuf.buf_align = ELF_CORE_HEADER_ALIGN;
+  __refill_objects_node()
+    get_partial_node_bulk()   // n->partial to pc.slabs
+    list_del()                // on no list now
+    get_freelist_nofreeze()   // freelist = NULL
+                              __slab_free()
+                                add_partial()
+                                // back on n->partial
+	                        // freelist is not NULL
+
+                                                    get_from_partial_node()
+                                                      lock
+                                                      cmpxchg
+                                                      // freelist = NULL
+    __slab_try_return_freelist()
+    list_add(&pc.slabs)       // overwrites slab_list
+                                                      remove_partial()
+                                                        list_del()
+                                                        // off pc.slabs
+                                                        // slab_list = POISON
+
+panic log:
+
+  list_add corruption. next->prev should be prev
+  (ffff888100000248), but was dead000000000122.
+  (next=ffffea000416e410).
+  kernel BUG at lib/list_debug.c:29!
+  Oops: invalid opcode: 0000 [#1] SMP NOPTI
+  CPU: 1 UID: 65534 PID: 144 Comm: poc Not tainted
+  7.2.0-16172-gcf72cbb39da8-dirty #1 PREEMPT(lazy)
+  RIP: 0010:__list_add_valid_or_report+0x80/0xd0
+  ...
+  Call Trace:
+   alloc_from_new_slab+0x183/0x300
+   ___slab_alloc+0x31c/0x890
+   __kmalloc_noprof+0x3d4/0x800
+   lsm_blob_alloc+0x2d/0x50
+   security_msg_msg_alloc+0x26/0x90
+   load_msg+0x1aa/0x210
+   do_msgsnd+0x91/0x800
+   do_syscall_64+0x109/0x5d0
+   entry_SYSCALL_64_after_hwframe+0x77/0x7f
+  ...
+  Kernel panic - not syncing: Fatal exception
+
+Do the list_add() under n->list_lock. Reattaching the freelist stays outside
+the lock. Once it succeeds the freelist is no longer NULL, so __slab_free()
+cannot put the slab back, and by the time the lock is taken remove_partial()
+has finished and the slab is on no list.
+
+The lock is held until the block below that returns the remaining slabs to
+the partial list. That block already took the same lock on this path, so no
+lock/unlock pair is added.
+
+The unlock is keyed on having taken the lock instead of on pc.slabs being
+empty. With CONFIG_DEBUG_LIST or CONFIG_LIST_HARDENED, __list_add() returns
+without linking anything if its check fails, which would leave pc.slabs
+empty.
+
+Fixes: ba7425312607 ("mm, slab: add an optimistic __slab_try_return_freelist()")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hyunwoo Kim <imv4bel@gmail.com>
+---
+ mm/slub.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
+
+diff --git a/mm/slub.c b/mm/slub.c
+index f9b56cb439e709..4f6d1a03a8ee46 100644
+--- a/mm/slub.c
++++ b/mm/slub.c
+@@ -7260,6 +7260,7 @@ __refill_objects_node(struct kmem_cache *s, void **p, gfp_t gfp, unsigned int mi
+ 	struct slab *slab, *slab2;
+ 	unsigned int refilled = 0;
+ 	unsigned long flags;
++	bool locked = false;
+ 	void *object;
+ 
+ 	pc.flags = gfp;
+@@ -7297,7 +7298,10 @@ __refill_objects_node(struct kmem_cache *s, void **p, gfp_t gfp, unsigned int mi
+ 			void *tail;
+ 
+ 			if (__slab_try_return_freelist(s, slab, head, count)) {
++				/* get_from_partial_node() may be mid-removal of the slab */
++				spin_lock_irqsave(&n->list_lock, flags);
+ 				list_add(&slab->slab_list, &pc.slabs);
++				locked = true;
+ 				break;
+ 			}
+ 
+@@ -7312,9 +7316,12 @@ __refill_objects_node(struct kmem_cache *s, void **p, gfp_t gfp, unsigned int mi
+ 			break;
+ 	}
+ 
+-	if (!list_empty(&pc.slabs)) {
++	if (!locked && !list_empty(&pc.slabs)) {
+ 		spin_lock_irqsave(&n->list_lock, flags);
++		locked = true;
++	}
+ 
++	if (locked) {
+ 		list_for_each_entry(slab, &pc.slabs, slab_list)
+ 			set_node_partial_state(n, slab);
+ 
+-- 
+2.43.0
 
