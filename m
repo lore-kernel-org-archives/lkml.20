@@ -1,220 +1,114 @@
-Received: from mta0.migadu.com (out-243.mta0.migadu.com [91.218.175.243])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FAEE382380
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 10:13:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.243
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52EA94086A;
+	Sun, 30 Aug 2026 10:24:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.151
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788084819; cv=none; b=PMnqgJh1GEdnBpIFqH9bBy/99JaUeQEk1l8836Jpi2bM23tfE/RTAG9Y57RAbGUzuum967zpABNTG+VzDO2ZZzGNp+3h0EgCHIopDstoym6lxrUwEyxq0VMkDB/D/3qwefpqdKx6UeUpLujDyhzkELFmWwgX1aMVVQwlqQ0/bFc=
+	t=1788085493; cv=none; b=tLAE+MHy/XE0zJolE5IsDXDztosF9bIbkPa7vnnkx23zxR8TRsJ48aI96ryhWjiLCy7lHcfa+cgUEgXVhqaJSC5rZ3RbNgs9pOPIXRa5AZ1+cOB7Cz22+EBJSkfDqtQRM+VupFLIJSp14HpfR4nl7GP5kzA9YxnmfkH8RqCneVs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788084819; c=relaxed/simple;
-	bh=orh/j8jOJpiqrKlrLd2jKhjQfJBswjC/3RKWNPcbXdI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=sFxtrIHhzjQtlSOKh+iSy8ajCKwUyzNDZmq9vKOtcMTrePPWhdZIUdUh1DJkcLPiYia2rHWWzBnonWOyOUTFUIWCzYFj1j2V5I1CHxdny/H7qSEcFHeuEsoNHE1Vyy4vzjn1LwNpyqNUyH3sMZah6NgPkt1bI+AG9c81Q/YYOVw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=hV9xK6G+; arc=none smtp.client-ip=91.218.175.243
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788085493; c=relaxed/simple;
+	bh=/xQqq2F78uimG+g8/cBVSpRGnUqLT/RocKUf4xON28M=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ZBsXOIJ+lGADwzUgNaE0HqOdQzXrRDryF4Ei1fKlZgLKLBZ+qFQ0viaOP783+E0kiBq2uaD2W7K5OYDzgQbUQi9MPahAt/WoZ0JWASyiUo2GT1DLxq3EzMtR5WZSy0V016cs6VfD/TOXedyJPWi9fwF+hIXXEO50WTYFRZMVisI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=xJWjiFX3; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=xJNuYAFX; arc=none smtp.client-ip=80.241.56.151
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="hV9xK6G+"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=orh/j8jOJpiqrKlrLd2jKhjQfJBswjC/3RKWNPcbXdI=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788084814; v=1; x=1788689614;
- b=hV9xK6G+s2tQILnyHfaicHJCKWu8j6ovNFFtf2xsQxXkp2ZITHcQNBjt9+UjsEvwE1aB2E0G
- +GzIb0G0qqZiCT0C2SSiqZj/7RNHTtSDxSB9PZlZOV7cZAsDmkEvVIjAErRVY6bBrzrBp1+oVPk
- WYn6rh9a84SOeEBHvOG/Gg1M=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id e5d5919426a8fdc3;
-	Sun, 30 Aug 2026 10:13:24 +0000
-X-Mizu-Trace-ID: e5d5919426a8fdc3
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <c0a32c3c-bff8-433c-8552-f0723e3a07b7@linux.dev>
-Date: Sun, 30 Aug 2026 18:13:13 +0800
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="xJWjiFX3";
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="xJNuYAFX"
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4hXpCG6pNlz8v1Y;
+	Sun, 30 Aug 2026 12:24:42 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1788085482;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=hUg3LnMKjV9MVE0n08fRIjqBr7ECB//Eerd8cLFE4fg=;
+	b=xJWjiFX3MDMvqVROFKNrk7mkZgZsK6kOo1AgkAeTvkjLV1uBgfEwbLIhbUGM3CG8FKKoWH
+	2IM/VGqJ0jm4xvGnl7UDA8NgEPKkvf7zrRjO5YXE6tT255ixz4rXSrFEt6XBgyFUrMvTVV
+	bZQG05k0jt7GExNpZt76yGLGxCzjzcyUGTqiyVNqcXjCtPmIZTusIjR+i4AMKr23Zs1HBd
+	CtcgUXprBzLQ3xPEeSIWdhhKah0gs897b8nCBuegIsC/VTvAiDYn0VE0pA3uzeHN7KWqGZ
+	tlwga5nri3/5vqFHFTe2JjmNo4SxD1D2xFOraybRdexIHUvrYiXbGSXvg/s7og==
+Authentication-Results: outgoing_mbo_mout;
+	dkim=pass header.d=mailbox.org header.s=mail20150812 header.b=xJNuYAFX;
+	spf=pass (outgoing_mbo_mout: domain of manuelebnerli@mailbox.org designates 2001:67c:2050:b231:465::1 as permitted sender) smtp.mailfrom=manuelebnerli@mailbox.org
+From: Manuel Ebner <manuelebnerli@mailbox.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1788085481;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=hUg3LnMKjV9MVE0n08fRIjqBr7ECB//Eerd8cLFE4fg=;
+	b=xJNuYAFXEVdbkpwFYuvr22tl1ozi5iicKwEomIUH6TPHkkArizub3FiJZl0KIAxxFC7qta
+	2zY2yIH6u8+X5nShRPFQ1fDvgqcU8vmGpUaGpvMsNYJCZIQCcofd2e/JvvgqaLhv2CMKrV
+	8mtnfqoHUDh3KbGG0+/C6CliIACOaIG91HLNBATxWobkxmZ5Q+6NAvvrv9udx6iEHWY//Y
+	2PLGrJk9tERSsq28shulSVaoMxAfbZ5DQnZxugIluN+53o5meM0SmtOO0UR0Oy24eXLhRE
+	taP0U0ZUFTf7Eo92gzkctj4rvmmcVOnqNHwf6/nnSK8tDy+QDGQZnqLbP5d23A==
+To: Herbert Xu <herbert@gondor.apana.org.au>,
+	"David S. Miller" <davem@davemloft.net>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Cheng-Yang Chou <yphbchou0911@gmail.com>,
+	Eric Biggers <ebiggers@kernel.org>
+Cc: Manuel Ebner <manuelebnerli@mailbox.org>,
+	Kees Cook <kees@kernel.org>,
+	linux-crypto@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] crypto: arm64/aes-neonbs: transition to kmalloc_obj()
+Date: Sun, 30 Aug 2026 12:17:14 +0200
+Message-ID: <20260830101714.625728-3-manuelebnerli@mailbox.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] mm/mglru: fix ineffective memory protection for
- non-kswapd reclaim
-To: Barry Song <baohua@kernel.org>
-Cc: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
- Roman Gushchin <roman.gushchin@linux.dev>,
- Shakeel Butt <shakeel.butt@linux.dev>,
- Andrew Morton <akpm@linux-foundation.org>,
- Muchun Song <muchun.song@linux.dev>, Kairui Song <kasong@tencent.com>,
- Qi Zheng <qi.zheng@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>,
- Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Chris Down <chris@chrisdown.name>, Tejun Heo <tj@kernel.org>,
- Yu Zhao <yuzhao@google.com>,
- "open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)"
- <cgroups@vger.kernel.org>,
- "open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)"
- <linux-mm@kvack.org>, linux-kernel@vger.kernel.org,
- Ridong Chen <chenridong@xiaomi.com>, stable@vger.kernel.org
-References: <20260828110919.1324028-1-ridong.chen@linux.dev>
- <20260828110919.1324028-3-ridong.chen@linux.dev>
- <CAGsJ_4ws6edtcToqJQ0azJPTymAYj41nzdGJvBqEM+gROiJtRQ@mail.gmail.com>
-From: Ridong Chen <ridong.chen@linux.dev>
-In-Reply-To: <CAGsJ_4ws6edtcToqJQ0azJPTymAYj41nzdGJvBqEM+gROiJtRQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-MBO-RS-META: ipfna54i738khrgexqrc7bq9u1f7nd7i
+X-MBO-RS-ID: 592fd02ed3e8ea0018b
+X-Rspamd-Queue-Id: 4hXpCG6pNlz8v1Y
 
+Convert to type aware allocation as suggested in commit 2932ba8d9c99
+("slab: Introduce kmalloc_obj() and family")
 
+CC: Kees Cook <kees@kernel.org>
+Fixes: 652a3017c485 ("crypto: arm64/aes-neonbs - Move key expansion off the stack")
+Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
+---
+I have a couple similar patches lined up but they could be automated or maybe
+the script is already made by Kees.
+Kees can you make a script assisted commit (again)?
+---
+ arch/arm64/crypto/aes-neonbs-glue.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-On 8/30/2026 3:53 PM, Barry Song wrote:
-> On Fri, Aug 28, 2026 at 7:10 PM Ridong Chen <ridong.chen@linux.dev> wrote:
->>
->> From: Ridong Chen <chenridong@xiaomi.com>
->>
->> memory.min/low is silently bypassed for MGLRU during global proactive
->> reclaim (writing to the root memory.reclaim) and global direct reclaim.
-> 
-> I guess nobody is silently bypassing anything. It's just that the
-> effective min is stale data. If kswapd has run at least once, should
-> the protection have been updated already?
-> I guess we need to update the changelog a bit?
-> 
-
-The children's emin/elow are derived from the parent's min/low settings and 
-children_min_usage, both of which can change over time. As a result, emin/elow 
-may become stale, even if kswapd has already run once.
-
->> It can be reproduced as follows:
->>
->>    # echo 7 > /sys/kernel/mm/lru_gen/enabled
->>    # cd /sys/fs/cgroup
->>    # mkdir -p a/b
->>    # echo 100M > a/memory.min
->>    # echo +memory > a/cgroup.subtree_control
->>    # echo 100M > a/b/memory.min
->>    # echo $$ > a/b/cgroup.procs
->>    # dd if=/dev/zero of=/tmp/testfile bs=1M count=200
->>    # cat a/b/memory.current
->>    222650368
->>    # echo 500M > memory.reclaim
->>    -bash: echo: write error: Resource temporarily unavailable
->>    # cat a/b/memory.current
->>    6070272
->>
->> memory.min is 100M, yet reclaim drops a/b down to 6M, breaking the
->> protection. The traditional LRU path is not affected because
->> shrink_node() calls mem_cgroup_calculate_protection() for each memcg it
->> visits during a top-down tree walk.
->>
->> Commit 30d77b7eef01 ("mm/mglru: fix ineffective protection calculation")
->> moved the protection computation into lru_gen_age_node(), which only
->> runs for kswapd. Non-kswapd global reclaim reaches shrink_one() through
->> lru_gen_shrink_node() -> shrink_many() without any protection
->> computation, so emin/elow remain stale or zero.
->>
->> Introduce mem_cgroup_protection_path() which computes emin/elow along
->> the root-to-target path only by iterating through the cgroup ancestors
->> array top-down. This avoids the full tree traversal that would be
->> needed with mem_cgroup_calculate_protection(), limiting the cost to
->> O(depth) per memcg - typically 3-5 levels.
->>
->> Call it from shrink_one() for the non-kswapd path so that each memcg
->> about to be shrunk has correct protection values.
->>
->> Fixes: e4dde56cd208 ("mm: multi-gen LRU: per-node lru_gen_folio lists")
->> Cc: stable@vger.kernel.org
->> Assisted-by: Claude:claude-opus-4-8
->> Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
->> ---
->>   include/linux/memcontrol.h | 11 ++++++++++
->>   mm/memcontrol.c            | 45 ++++++++++++++++++++++++++++++++++++++
->>   mm/vmscan.c                |  8 ++++++-
->>   3 files changed, 63 insertions(+), 1 deletion(-)
->>
->> diff --git a/include/linux/memcontrol.h b/include/linux/memcontrol.h
->> index 7d1c0ce189a8..8066b798a759 100644
->> --- a/include/linux/memcontrol.h
->> +++ b/include/linux/memcontrol.h
->> @@ -605,6 +605,10 @@ static inline void mem_cgroup_protection(struct mem_cgroup *root,
->>
->>   void mem_cgroup_calculate_protection(struct mem_cgroup *root,
->>                                       struct mem_cgroup *memcg);
->> +#ifdef CONFIG_LRU_GEN
->> +void mem_cgroup_protection_path(struct mem_cgroup *root,
->> +                               struct mem_cgroup *memcg);
->> +#endif
->>
->>   static inline bool mem_cgroup_unprotected(struct mem_cgroup *target,
->>                                            struct mem_cgroup *memcg)
->> @@ -1133,6 +1137,13 @@ static inline void mem_cgroup_calculate_protection(struct mem_cgroup *root,
->>   {
->>   }
->>
->> +#ifdef CONFIG_LRU_GEN
->> +static inline void mem_cgroup_protection_path(struct mem_cgroup *root,
->> +                                             struct mem_cgroup *memcg)
->> +{
->> +}
->> +#endif
->> +
-> 
-> I wonder if we could follow the zswap pattern?
-> 
-> #if defined(CONFIG_MEMCG) && defined(CONFIG_ZSWAP)
-> bool obj_cgroup_may_zswap(struct obj_cgroup *objcg);
-> void obj_cgroup_charge_zswap(struct obj_cgroup *objcg, size_t size);
-> void obj_cgroup_uncharge_zswap(struct obj_cgroup *objcg, size_t size);
-> bool mem_cgroup_zswap_writeback_enabled(struct mem_cgroup *memcg);
-> #else
-> static inline bool obj_cgroup_may_zswap(struct obj_cgroup *objcg)
-> {
->          return true;
-> }
-
-That is fine for me, I will update it.
-
-> ...
-> #endif
-> 
->>   static inline bool mem_cgroup_unprotected(struct mem_cgroup *target,
->>                                            struct mem_cgroup *memcg)
->>   {
->> diff --git a/mm/memcontrol.c b/mm/memcontrol.c
->> index 1271d390b617..095050d4296a 100644
->> --- a/mm/memcontrol.c
->> +++ b/mm/memcontrol.c
->> @@ -5198,6 +5198,51 @@ void mem_cgroup_calculate_protection(struct mem_cgroup *root,
->>          page_counter_calculate_protection(&root->memory, &memcg->memory, recursive_protection);
->>   }
->>
->> +#ifdef CONFIG_LRU_GEN
->> +/**
->> + * mem_cgroup_protection_path - compute protection along root->memcg path
->> + * @root: the top ancestor of the sub-tree being checked (NULL for root_mem_cgroup)
->> + * @memcg: the target memory cgroup
->> + *
->> + * Walk the ancestor path from @root down to @memcg and compute the effective
->> + * protection at each level.  This is safe for isolated queries because it
->> + * ensures parents are computed before children.
->> + */
->> +void mem_cgroup_protection_path(struct mem_cgroup *root,
->> +                               struct mem_cgroup *memcg)
-> 
-> Can we rename it to `mem_cgroup_calculate_protection_path()`?
-> 
-> BTW, I see that the only caller is in vmscan and it passes NULL as
-> `root`. Do we need to keep the `root` argument if the new helper is
-> only used for global reclaim?
-> 
-I'd suggest keeping it as is. This function updates protection along the path 
-from root to memcg, and could be reused later. Note that 
-mem_cgroup_calculate_protection() assumes the caller has already performed the 
-top-down walk, each level's calculation depends on its parent being updated first.
-
-For mem_cgroup_calculate_protection_path(), it can be called in any context 
-without such a precondition.
-
+diff --git a/arch/arm64/crypto/aes-neonbs-glue.c b/arch/arm64/crypto/aes-neonbs-glue.c
+index 5bcbac979..7cb1aede9 100644
+--- a/arch/arm64/crypto/aes-neonbs-glue.c
++++ b/arch/arm64/crypto/aes-neonbs-glue.c
+@@ -66,7 +66,7 @@ static int aesbs_setkey(struct crypto_skcipher *tfm, const u8 *in_key,
+ 	struct crypto_aes_ctx *rk;
+ 	int err;
+ 
+-	rk = kmalloc(sizeof(*rk), GFP_KERNEL);
++	rk = kmalloc_obj(*rk);
+ 	if (!rk)
+ 		return -ENOMEM;
+ 
+@@ -128,7 +128,7 @@ static int aesbs_cbc_ctr_setkey(struct crypto_skcipher *tfm, const u8 *in_key,
+ 	struct crypto_aes_ctx *rk;
+ 	int err;
+ 
+-	rk = kmalloc(sizeof(*rk), GFP_KERNEL);
++	rk = kmalloc_obj(*rk);
+ 	if (!rk)
+ 		return -ENOMEM;
+ 
 -- 
-Best regards
-Ridong
+2.54.0
 
