@@ -1,137 +1,128 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E296838D41A;
-	Sun, 30 Aug 2026 13:10:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F6473B47F7;
+	Sun, 30 Aug 2026 13:10:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788095450; cv=none; b=KmIfgEyAZtQ4AchpwGXYC6+VP82KPOedd3aZwpWmq6OYbfZYvaOxdjApF+6o22pXwFwCLNaqZdMkrEEPwwOhKHj2UfJFEH3RM7yZ2ySi44a8VvmT3eo2I9JvPJQTBTHJpuYZJtL5E/Oj1422wxk6iDiD2jDnJJrUSUwc3fK0Fg4=
+	t=1788095461; cv=none; b=LiDTrl9PPQaDhWBGhto4p581nawbvQAVn0dHMlFcYRDTLUfjSL1M2FI1zWaNVFZptQmn54kB7HcNUOvkO7TRaccdWmXWa0m6VyUs5lNne9opjIgbMwFPlfbuCZc3H9DQ/z4cLlBEGV82VdO90O23L+Wgtsw1/cbhEajwH95rK0g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788095450; c=relaxed/simple;
-	bh=RdktVl9rJSg1dc4gnDF4+2Olbs7dpFV3Gp/zOMfl7jU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LQAI/9MqXrVTK66vmdavVE/quLUMnLN/gds0cKRJftPHDzA860MY2FxAlcxznNg3Xbxipgww3lb1EdrBCGDwMZXPVVFBViTcF8WU0xarnUV3uOQ6I6l70+zJuSGBM4j03d5fybzzcS0Rlpf7PgUupcLoCBOu1zXHs2JjUg7LQzQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VsIbgX3X; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VsIbgX3X"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3BFD1F000E9;
-	Sun, 30 Aug 2026 13:10:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788095448;
-	bh=kjIBYKqjca5AJtwNJFjuYlFco4j1jiJIOswjnyir5Ug=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=VsIbgX3X2WaXH/SrvByDwvtIU7lhvKjUGtg89fgulyel8V48/lfZg8McK9C1XAuxK
-	 58wr290cNK8CfDnKq4x8WaUs40WIPNBflW8StXFg35IkIK9I94bniOAq10ak6drVzl
-	 p+ohUO3Y9epbrZw2/NdYHqeupalN+NTMSmqZjoC9HiXSMKaBtGx7jPfPX/sPhTgpXw
-	 bB+y747G3UZ1HLiLfV6i1uiAPI8+361oMC9719lgebqSzjdmiwMVfasmPHHnJ4enrA
-	 WI9btRB4o46ZLdeVpcZC6tZWO1wsTPtqDIeFCFsItVF6MXkN4/edrldzLfIGjxcvcR
-	 bQJMTaPDfHqxw==
-Date: Sun, 30 Aug 2026 10:10:45 -0300
-From: Arnaldo Carvalho de Melo <acme@kernel.org>
-To: Namhyung Kim <namhyung@kernel.org>
-Cc: Adrian Hunter <adrian.hunter@intel.com>, Jiri Olsa <jolsa@kernel.org>,
-	Ian Rogers <irogers@google.com>, linux-kernel@vger.kernel.org,
-	linux-perf-users@vger.kernel.org, tlipcon@google.com,
-	eranian@google.com
-Subject: Re: [PATCH] perf symbol: Do not use debug file as the binary type
-Message-ID: <apQr1UOHdI9f0IqU@x2>
-References: <20260825062345.115073-1-adrian.hunter@intel.com>
- <apCR1kJMBbdDC8B3@google.com>
+	s=arc-20240116; t=1788095461; c=relaxed/simple;
+	bh=X4r92/t6pk8o6AWocdvpZdh0ZxRn0z8KXqjbM/EwlPw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pK+A4bUYi4oulIePgBw8rusw4FNyNacsdj8TLds3XJlwiFPaAeSo1rdeAi52TEZDHkVB9xkAoumAf0h7dy46tarP2zZCmj2jWJFc5kvMMVAfTesHtansRTXom0QyGkN+fZK/3vI6zEq9UYALJ1vJmh9Ar/OCRE+pOeGzD7TPXoM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from localhost.localdomain (unknown [111.196.241.250])
+	by APP-03 (Coremail) with SMTP id rQCowACnrjzbK5Rq7N+aBg--.43594S2;
+	Sun, 30 Aug 2026 21:10:52 +0800 (CST)
+From: Pengpeng Hou <pengpeng@iscas.ac.cn>
+To: Felix Fietkau <nbd@nbd.name>
+Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>,
+	Lorenzo Bianconi <lorenzo@kernel.org>,
+	Ryder Lee <ryder.lee@mediatek.com>,
+	Shayne Chen <shayne.chen@mediatek.com>,
+	Sean Wang <sean.wang@mediatek.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org
+Subject: [PATCH] wifi: mt76: mt7615: validate MCU response lengths
+Date: Sun, 30 Aug 2026 21:10:49 +0800
+Message-ID: <20260830131049.2097-1-pengpeng@iscas.ac.cn>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <apCR1kJMBbdDC8B3@google.com>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowACnrjzbK5Rq7N+aBg--.43594S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Zry7CryUJw47uF18Jry5urg_yoW5JFWxpF
+	WjgFyayr4DJrsFga10vw1ku3yaq3s3tFyaqa4DW3s5J3s5C3WrCF4F9a4Fvr1rJFZ8Cr1r
+	Jw4qqrsxuFZ0q3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9I14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
+	6r4UJwA2z4x0Y4vEx4A2jsIE14v26F4UJVW0owA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Cr
+	1j6rxdM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
+	6xIIjxv20xvE14v26r126r1DMcIj6I8E87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr
+	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E
+	8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFV
+	Cjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWl
+	x4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r
+	4UMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWxJVW8Jr1lIxAIcVCF04k26cxKx2IYs7xG6r1j
+	6r1xMIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJb
+	IYCTnIWIevJa73UjIFyTuYvjfU5dgADUUUU
+X-CM-SenderInfo: pshqw1xhqjqxpvfd2hldfou0/
 
-On Thu, Aug 27, 2026 at 12:36:54PM -0700, Namhyung Kim wrote:
-> Hello,
-> 
-> On Tue, Aug 25, 2026 at 09:23:45AM +0300, Adrian Hunter wrote:
-> > dso__load() sets the binary type of a DSO to the type of the first symbol
-> > source found. For a DSO with a separate debug file linked via
-> > .gnu-debuglink, that is DSO_BINARY_TYPE__DEBUGLINK, which makes
-> > dso__get_filename() return the name of the debug file instead of the file
-> > that was actually executed.
-> > 
-> > Consumers that need to read instruction bytes, such as Intel PT decoding
-> > in 'perf script', then read from the debug file and produce wrong
-> > instructions.
-> > 
-> > Prefer DSO_BINARY_TYPE__BUILD_ID_CACHE, and otherwise
-> > DSO_BINARY_TYPE__SYSTEM_PATH_DSO, over debug-only types, which restores
-> > the behaviour of using a file that contains the executed instructions.
-> > 
-> > This is a workaround. Properly separating the binary file used for
-> > instructions from the file used for debug symbols is left for later.
-> > 
-> > Example:
-> > 
-> >  Create a shared object with a separate .gnu_debuglink debug file. Note
-> >  that 'objcopy --only-keep-debug' leaves .text as NOBITS, so instructions
-> >  read from the debug file are zeros:
-> > 
-> >   # cat > foo.c << EOF
-> >   unsigned long foo_work(unsigned long n)
-> >   {
-> >         unsigned long s = 0;
-> > 
-> >         for (unsigned long i = 0; i < n; i++)
-> >                 s = s * 31 + i;
-> >         return s;
-> >   }
-> >   EOF
-> >   # cat > main.c << EOF
-> >   #include <stdio.h>
-> >   unsigned long foo_work(unsigned long n);
-> >   int main(void)
-> >   {
-> >         printf("%lu\n", foo_work(1000));
-> >         return 0;
-> >   }
-> >   EOF
-> >   # gcc -g -O2 -shared -fPIC -o libfoo.so foo.c
-> >   # gcc -g -O2 -o main main.c -L. -lfoo -Wl,-rpath,'$ORIGIN'
-> >   # objcopy --only-keep-debug libfoo.so libfoo.so.debug
-> >   # objcopy --strip-debug libfoo.so
-> >   # objcopy --add-gnu-debuglink=libfoo.so.debug libfoo.so
-> >   # perf record -e intel_pt//u ./main
-> > 
-> >  Note that branch samples must be requested, because it is the resolving
-> >  of the branch target symbol that causes dso__load() to be called, and
-> >  hence the binary type to be set, before the decoder walks the code.
-> >  With '--itrace=e' alone, nothing loads symbols for libfoo.so, the binary
-> >  type is left as DSO_BINARY_TYPE__NOT_FOUND, the correct file is read
-> >  anyway, and no errors are reported either way.
-> > 
-> >  Before:
-> > 
-> >   # perf.before script --itrace=be 2>&1 | grep "instruction trace error"
-> >    instruction trace error type 1 time 2350.467489498 cpu 9 pid 75634 tid 75634 ip 0x77d48480718f code 6: Trace doesn't match instruction
-> >    instruction trace error type 1 time 2350.467489832 cpu 9 pid 75634 tid 75634 ip 0x77d484807341 code 6: Trace doesn't match instruction
-> >    instruction trace error type 1 time 2350.467496412 cpu 9 pid 75634 tid 75634 ip 0x5b4de37a8074 code 6: Trace doesn't match instruction
-> >    instruction trace error type 1 time 2350.467593393 cpu 9 pid 75634 tid 75634 ip 0x77d4848070d0 code 6: Trace doesn't match instruction
-> >    instruction trace error type 1 time 2350.467593954 cpu 9 pid 75634 tid 75634 ip 0x77d4848075a8 code 6: Trace doesn't match instruction
-> >    instruction trace error type 1 time 2350.467595728 cpu 9 pid 75634 tid 75634 ip 0x77d4848324de code 6: Trace doesn't match instruction
-> >   6 instruction trace errors
-> > 
-> >  After:
-> > 
-> >   # perf script --itrace=be 2>&1 | grep "instruction trace error"
-> >   #
-> > 
-> > Fixes: 5363c306787c8 ("perf symbol: Set binary_type of dso when loading")
-> > Reported-by: Todd Lipcon <tlipcon@google.com>
-> > Closes: https://lore.kernel.org/all/CAGH6UiG=RJLqBU3kLu9XJciPyPO1HZkbAPERguVUMRuWQgqf=A@mail.gmail.com/
-> > Signed-off-by: Adrian Hunter <adrian.hunter@intel.com>
-> 
-> Thanks for the patch and a test case.
-> 
-> Arnaldo, I can take this to the perf-tools tree for v7.3.
+mt7615_mcu_parse_response() reads the common response header before
+checking its size and then consumes command-specific fields after unchecked
+skb_pull() calls. A short firmware response can therefore be read beyond
+its current extent.
 
-Ok!
+Validate the common header and each command-specific payload before reading
+it.
 
-- Arnaldo
+Fixes: 0e6a29e477f3 ("mt76: mt7615: add support to read temperature from mcu")
+Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
+---
+ drivers/net/wireless/mediatek/mt76/mt7615/mcu.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
+
+diff --git a/drivers/net/wireless/mediatek/mt76/mt7615/mcu.c b/drivers/net/wireless/mediatek/mt76/mt7615/mcu.c
+index ff57ede87f717..084949dd3e94e 100644
+--- a/drivers/net/wireless/mediatek/mt76/mt7615/mcu.c
++++ b/drivers/net/wireless/mediatek/mt76/mt7615/mcu.c
+@@ -143,18 +143,26 @@ int mt7615_mcu_parse_response(struct mt76_dev *mdev, int cmd,
+ 			cmd, seq);
+ 		return -ETIMEDOUT;
+ 	}
++	if (skb->len < sizeof(*rxd))
++		return -EMSGSIZE;
+ 
+ 	rxd = (struct mt7615_mcu_rxd *)skb->data;
+ 	if (seq != rxd->seq)
+ 		return -EAGAIN;
+ 
+ 	if (cmd == MCU_CMD(PATCH_SEM_CONTROL)) {
++		if (skb->len < sizeof(*rxd) - 4 + sizeof(skb->data[0]))
++			return -EMSGSIZE;
+ 		skb_pull(skb, sizeof(*rxd) - 4);
+ 		ret = *skb->data;
+ 	} else if (cmd == MCU_EXT_CMD(THERMAL_CTRL)) {
++		if (skb->len < sizeof(*rxd) + sizeof(__le32))
++			return -EMSGSIZE;
+ 		skb_pull(skb, sizeof(*rxd));
+ 		ret = le32_to_cpu(*(__le32 *)skb->data);
+ 	} else if (cmd == MCU_EXT_QUERY(RF_REG_ACCESS)) {
++		if (skb->len < sizeof(*rxd) + 8 + sizeof(__le32))
++			return -EMSGSIZE;
+ 		skb_pull(skb, sizeof(*rxd));
+ 		ret = le32_to_cpu(*(__le32 *)&skb->data[8]);
+ 	} else if (cmd == MCU_UNI_CMD(DEV_INFO_UPDATE) ||
+@@ -165,12 +173,16 @@ int mt7615_mcu_parse_response(struct mt76_dev *mdev, int cmd,
+ 		   cmd == MCU_UNI_CMD(SUSPEND)) {
+ 		struct mt76_connac_mcu_uni_event *event;
+ 
++		if (skb->len < sizeof(*rxd) + sizeof(*event))
++			return -EMSGSIZE;
+ 		skb_pull(skb, sizeof(*rxd));
+ 		event = (struct mt76_connac_mcu_uni_event *)skb->data;
+ 		ret = le32_to_cpu(event->status);
+ 	} else if (cmd == MCU_CE_QUERY(REG_READ)) {
+ 		struct mt76_connac_mcu_reg_event *event;
+ 
++		if (skb->len < sizeof(*rxd) + sizeof(*event))
++			return -EMSGSIZE;
+ 		skb_pull(skb, sizeof(*rxd));
+ 		event = (struct mt76_connac_mcu_reg_event *)skb->data;
+ 		ret = (int)le32_to_cpu(event->val);
+
+base-commit: 08dbfad3f5040f5bdb6c529da20d6d4e81fefd72
+-- 
+2.50.1
+
