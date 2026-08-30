@@ -1,109 +1,134 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-24418.protonmail.ch (mail-24418.protonmail.ch [109.224.244.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C707B27FD76
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 12:16:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB27833EB01
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 12:26:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788092184; cv=none; b=ScQhvfVSZQa27xTPvEE+/r9P7MEDQd3+z5eIWIzFken5dV9JErVFHblBAKAJTsKFyUQ+fGvZdEqWV4hgv2HLk7GuR7BTwK+qgB4eJyWoYvBVacenRIhSA5kPnTEyXQnCpt2M2KX8M+RsJZVz8Fb7VZdKVv7LsOWSyU26Bm6kb80=
+	t=1788092784; cv=none; b=aDMRMvmz0ruDL1G54O9T9iRGIvEcg5eEWlMupVYiYvNch5yx4vwG3EYPTFvsLv+mxuxhDnFKmfxoHrvZiJ4KjDNSpHqKRrazhhZDGDGNZFYCH+TKLMWkGb8uIBI8M8jRGzXaDSUr7nzWqadoD8DDRQGIa62vxLV751c9l0N/zWM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788092184; c=relaxed/simple;
-	bh=2hPVVnHZVDE3pU3r6Dw9DK2UQYwmQlYhpfUhixFlDF4=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=k/6EUngQy/iKY4MrJWfQt3mupfGxFmyIQvLsWJt1BbB/xSZJ99bFVIvdPW6mSaAkU8iYplOMTuvxSvIRKC2UlzjV+20dWkZ2fqjitrmglpVJZbtq6Kcy5xDaH0GwTaQDl+oNv96/IeuLjnd7az6iwS+tl4Dn/Pb899MSvdQ9qRA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WoOsqyjY; arc=none smtp.client-ip=209.85.128.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788092784; c=relaxed/simple;
+	bh=gMES+XbAaTWdwIOpV7xRmxgC1klgiNi5llJN8rx27zQ=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=WS7SwXPETOaAiuVGR5USFQWufBTW3qP6TB2lV2j/FL2NeTe7xx2SLm1nk7GZSeAEmwceGcRJStv9Kyq21rxSWsqLDg1TRFzP4axVaWr/MWxNFsxphD1Ot9SMaDWxm+OEp0a+BlZ2hyiXNHcebNekNm7JRUISJD+BJRgxBm4ZBO8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=AtBMpcnM; arc=none smtp.client-ip=109.224.244.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WoOsqyjY"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4957eefd361so20192465e9.1
-        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 05:16:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788092181; x=1788696981; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2hPVVnHZVDE3pU3r6Dw9DK2UQYwmQlYhpfUhixFlDF4=;
-        b=WoOsqyjYwY4bsY0jZjAoAHi4s9IenT288gKTHz19xF2vUZPT8Vz7TpPBRt9cB6XQEV
-         frn+3K/7Abe92MWC5qMtbUa0qS7w7pgkerr6scbTnz8MaQKwIBE3MGwjxHF1+rJyZNzc
-         hT9kTwLNEOy8BqptE1kz6w1UPEbebXZUyWzF7o0DG6vNuIPXqvEPFXRkMZ3jKePbpTxo
-         LncPn7Qw5Vi5SbufVXONFLP3IdGGtfWXvpMYlf4YWalIEp8rnrIn8Ho/XTf9grqfmajp
-         hPTHeGbzHOjtTgkP+e+B+XXe1JiUW/vDgwv4xG2fM3ZOOR1cwizKvgKInwp83vykyDPD
-         sEyg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788092181; x=1788696981;
-        h=content-transfer-encoding:content-type:mime-version:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=2hPVVnHZVDE3pU3r6Dw9DK2UQYwmQlYhpfUhixFlDF4=;
-        b=db9jx/EtG/lxKTkJ9+B93e39dgl/CsqDwUvSicAFbbadfbb7X+qdhZ3BwAhTEWJFeR
-         cFNq40N9pNcLcpNdkhKhan5Qd5ZFTzT+Sdi+rxlImP3nBq41qHIoUMmfmFsqAwAJpOPA
-         ymGRY5gqYE4G41AxVgTWC2flWuCOlCcFf8V699688SuGyOxagaEtQSAHpk/zA/hEByqO
-         9p5tqYifleslkTRZmFWHQs/geYUqWZRWMKx6uX0Kr1poZ8puq1eIplE2ZtJFwpG+V92N
-         NItWfeCmqzJyRfuO5Cf+xM7csliIOvRLe255Kd9ntM6BcMm9yvjMWx55uP0axDp7mlr4
-         ySUQ==
-X-Gm-Message-State: AFuF++lpmz0YQ+WRoxCt03s/x2aGL30GkXN22+toaJguOhk7eXikmIXl
-	hBwkOACy519FvBDbLD8i2RQeq+pBDpMN/G8gvbDbQTsQhjVClRQu9WVz3M2sSw==
-X-Gm-Gg: AR+sD12UPDrJmWrQNthexlGNqpOLwv99EeeUFyxOejpY3AOAZJRmN8zi+Sdl0/K8d7o
-	4GizIn9D+MxKHkS7I5lXKJPGWDXtul2YxZxoYeYaFEzXFTrSAhzzoTP7wEIS1HQuDF6yvlSDEiJ
-	K4VkkVGQlJagx2pVk6hLqKIhPNfyr+AuJtpbbPMWR0YUszwnT2GDRaFLy86NC/unrFDQkDn44OF
-	OUG4185MGOjXTuJ7d6BNSIqYJHBaV2rsd8ElRyTpyanI2Snw9qadE7avIe+0gHDq8FfKQhqZlZR
-	c5h9ZJYR0k4aDydycAxb7j8HbYDMZ801HS49hTTJwCh8PoO9P0K4+U97LzgmivIbTC2gQzzKAJl
-	y/05gUUj/49pJCvPeil9RvywR6lW1Qe+R7LWH13etgx+KieAFrTrLMJ6K0ICB6lcHP8ZUqUv3um
-	Ehal//IWGmLAMGDaTNTNTUJfXGh/kMN70TCQe/aeO18b4P3CJPFO0yXa4DrfpZ6oLg6UE=
-X-Received: by 2002:a05:600c:5288:b0:499:84fe:5f3e with SMTP id 5b1f17b1804b1-49b91c41014mr310827385e9.9.1788092180768;
-        Sun, 30 Aug 2026 05:16:20 -0700 (PDT)
-Received: from foxbook (bfk5.neoplus.adsl.tpnet.pl. [83.28.48.5])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b94dc0f57sm231676445e9.2.2026.08.30.05.16.19
-        (version=TLS1_2 cipher=AES128-SHA bits=128/128);
-        Sun, 30 Aug 2026 05:16:19 -0700 (PDT)
-Date: Sun, 30 Aug 2026 14:16:16 +0200
-From: Michal Pecio <michal.pecio@gmail.com>
-To: Thomas Gleixner <tglx@kernel.org>
-Cc: linux-kernel@vger.kernel.org
-Subject: Watchdog remote CPU read timed out
-Message-ID: <20260830141503.42994806.michal.pecio@gmail.com>
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="AtBMpcnM"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1788092780; x=1788351980;
+	bh=xw89cOOqbr5zzKQkcOLyWx3QnxWIgSvTdDfm1qS8+oQ=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=AtBMpcnMy6Mj+QfWQlp+QKmjkYoDs4kGlyvdRgvJ/C7nKY/NGr80uq9S8HVNFX8Pk
+	 aZ14W8iVUWBUzHYDEHJd910aK6vkmTgnuQj2t+JkyBKF1blbhOemiA9MsRPVQvof8I
+	 13b+IqL/uzBuNYP4lHpSKH1rMD2ePHfEu0OMwTCp1os6U4ZJTMqD0ZViWYPe1Cne3p
+	 +D600fTPh9rh3JZjfTe6yhIl3j7eFfssJzPQiC1SugqlzHDENIfHe5DrRNRAG3VJ5L
+	 TiL0iigs8VUmylDNWxYKRZnXwawPMs6pd6ZsftpZInZLjQ1LBuLa3q2M8AP/UasEs6
+	 3xSTDo7QX9fxQ==
+Date: Sun, 30 Aug 2026 12:26:13 +0000
+To: Vinod Koul <vkoul@kernel.org>, Bard Liao <yung-chuan.liao@linux.intel.com>, Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>, Oder Chiou <oder_chiou@realtek.com>, Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Amaan Lalani <zlzzm2014@outlook.com>
+From: Sergey Lebedev <lsa.uz@pm.me>
+Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 0/2] ASoC: fix audio on the Microsoft Surface Pro 11 (Intel)
+Message-ID: <20260830122606.47028-1-lsa.uz@pm.me>
+In-Reply-To: <20260830084500.6123-1-lsa.uz@pm.me>
+References: <20260804225853.31585-1-lsa.uz@pm.me> <20260830084500.6123-1-lsa.uz@pm.me>
+Feedback-ID: 113843758:user:proton
+X-Pm-Message-ID: a726369410a390c3c9c15938ac90a3a81daa0169
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Hi Thomas,
+Some context I should have gathered before v1, not after v2. None of it
+needs action from you; it is here so nobody spends time twice.
 
-This is another warning I'm getting on recent 7.x kernels, apparently
-from new code you wrote a few months ago.
+1. An overlapping series is already on the list
+-----------------------------------------------
 
-Increasing WATCHDOG_DEFAULT_TIMEOUT_NS to 100us makes it go away, at
-least for a few minutes (I will try longer uptime later).
+Amaan Lalani sent this on 2026-08-28, two days before my v2:
 
-With a few debug prints, I found that watchdog_wait_seq() fails every
-few seconds, usually on CPU 0 but sporadically on others too.
+  [PATCH 0/2] ASoC: fix SoundWire enumeration on Surface Pro 11
+  https://lore.kernel.org/linux-sound/BY5PR02MB63701A05A58EF6B4D6CAAC31A0AC=
+2@BY5PR02MB6370.namprd02.prod.outlook.com/
 
-Example output below. Is this something to worry about / fix?
+Same machine, and in substance the same two changes as my v1 2/3 and 3/3 -
+the name-prefix reuse for _ADR entries differing only in class id, and an
+is_peripheral_attached() test on SDW_SLAVE_UNATTACHED. So the review you
+already gave me applies to it unchanged: it detects the ghost at runtime
+rather than removing it at enumeration.
+
+Their version is better than mine was in two respects worth keeping if that
+approach is ever preferred: it hooks both asoc_sdw_count_sdw_endpoints() an=
+d
+asoc_sdw_parse_sdw_endpoints() rather than only the parse path, and it
+carries Fixes: tags.
+
+2. There is a body of downstream work for this machine
+------------------------------------------------------
+
+Andr=C3=A9 Gilerson has carried Surface Pro 11 Intel patches in a linux-sur=
+face
+fork since February - audio, cameras, an IR sensor driver, touchpad, lid
+wake, a suspend hang fix. People have been running them daily for months.
+None of it has been submitted here.
+
+  https://github.com/linux-surface/linux-surface/pull/1990
+
+His audio fix takes the traditional shape: a DMI-gated machine entry in
+soc-acpi-intel-lnl-match.c naming the real peripheral outright, with
+name_prefix "rt1320-1" and two endpoints. With such an entry matched, the
+generic find_acpi_adr_device() path is never reached, so the ghost never
+gets the chance to consume an amp index.
+
+3. The part that is actually interesting: the generic path is better here
+--------------------------------------------------------------------------
+
+Measured on this machine today, with v2 applied, stock alsa-ucm-conf
+1.2.15.3 and firmware-sof 2025.12.2, and no local configuration:
+
+  Components: 'HDA:80862820,80860101,00100000  cfg-amp:1
+               iec61937-pcm:7,6,5 spk:rt1320 mic:rt1320-1 cfg-mics:1'
+
+  Using function topologies instead intel/sof-ipc4-tplg/sof-lnl-dummy.tplg
+  loading topology 0: intel/sof-ipc4-tplg/sof-sdca-1amp-id2.tplg
+  loading topology 1: intel/sof-ipc4-tplg/sof-sdca-mic-id4.tplg
+  loading topology 2: intel/sof-ipc4-tplg/sof-hdmi-pcm5-id5.tplg
+
+  arecord -l: card 0: sofsoundwire, device 4: Microphone
+
+With no machine entry, the generic path uses a *-dummy.tplg base, dispatche=
+s
+the function topologies itself, and produces cfg-mics:1.
+
+On the machine-entry branches the microphone is a recurring problem. Users
+report the mic missing entirely on the 6.18 branch - sof-sdca-mic-id4.tplg
+present in firmware but never requested - and the v7.0 commit fixes it by
+switching to a dummy base and forcing "Playback-SmartAmp" /
+"Capture-SmartMic" dailink names, which is the dispatcher's own behaviour
+reimplemented by hand. Its commit message attributes the loss to the
+monolithic base topology discarding the SmartMic function. Separately, the
+missing cfg-mics breaks the UCM import outright on alsa-ucm-conf 1.2.16.
+
+I have not run that branch here, so that comparison is their reports agains=
+t
+my measurements rather than one machine tested both ways. I have offered to
+do exactly that on this device and will report the result.
+
+If it holds, the general shape is worth more than this laptop: remove ghost
+_ADRs at enumeration and let the generic path do its job, instead of adding
+a match entry per model - which for this hardware appears to cost the
+microphone. Surface Pro 12 (Panther Lake) is reported to have the same
+firmware shape, so it would be the next test of that idea rather than the
+next entry.
 
 Thanks,
-Michal
-
-[ 4307.502933] clocksource: watchdog_wait_seq done on cpu 0
-[ 4307.502946] clocksource: watchdog_wait_seq done on cpu 1
-[ 4307.502950] clocksource: watchdog_wait_seq done on cpu 0
-[ 4307.502952] clocksource: watchdog_wait_seq done on cpu 1
-[ 4307.502954] clocksource: watchdog_wait_seq done on cpu 0
-[ 4307.502956] clocksource: watchdog_wait_seq done on cpu 1
-[ 4307.502958] clocksource: watchdog_wait_seq done on cpu 0
-[ 4307.502960] clocksource: watchdog_wait_seq done on cpu 1
-[ 4308.006997] clocksource: watchdog_wait_seq done on cpu 0
-[ 4308.007028] clocksource: watchdog_wait_seq done on cpu 0
-[ 4308.007031] clocksource: watchdog_wait_seq done on cpu 0
-[ 4308.007028] clocksource: WD_CPU_TIMEOUT in watchdog_wait_seq cpu 2
-[ 4308.007034] clocksource: watchdog_wait_seq done on cpu 0
-[ 4308.502975] clocksource: watchdog_wait_seq done on cpu 0
-[ 4308.502991] clocksource: watchdog_wait_seq done on cpu 3
-[ 4308.503021] clocksource: WD_CPU_TIMEOUT in watchdog_wait_seq cpu 0
-[ 4308.503048] clocksource: watchdog_wait_seq done on cpu 3
-[ 4308.503050] clocksource: watchdog_wait_seq done on cpu 3
-[ 4308.503051] clocksource: watchdog_wait_seq done on cpu 3
+Sergey
 
