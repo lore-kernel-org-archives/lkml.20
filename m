@@ -1,136 +1,209 @@
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB5841DED4C;
-	Sun, 30 Aug 2026 12:43:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFED93AB288
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 12:45:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788093809; cv=none; b=l34i7NJZ/Qt6BqWNCKDG+D3RdKz5CHcnp60UjY1XV024bEM2nuFg6b61v7aPxE6LlipK7WgGFGOQtNFC7s2njtJego0/XWqHITsESMZ7BMsaaWIjrTWEGBblCH4Wh9qIPf9irUx5HFjOU+fJcpfd5BVtQqRo3S/F8xOZXyo8BII=
+	t=1788093922; cv=none; b=clgc+vObpQ8FqDKL+YWba0nCpQTRnBqPcluTFt+zHFj/PaEEj0c+iLHH3zyll4BkqsJtc/FTjbmtaNVROi2qhq03n7qnvdUA3VfcvNqFL7HjVR78rWp6+/T5gftZ+cMCRK5Ftgvrru9lWGa2OSNFbnSahM50dirvKK519tVxVFQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788093809; c=relaxed/simple;
-	bh=WOPVwHazyUPnvQyAQJZJFZH8rYLme33Mpw49oj2mo/I=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bod2wOoXD6tv30QVX1jipqsy6NlEmbQLtA6+dSkekbkQsna+9Y9Z8nRercDW9BqMOU1vqxYfkEBieKWfC+mAOwP9D92j2MJ3q3yH8Cv/OmluG9be8dQcaSykrsOJr7dv7Vm/ey+rz/uCVuIm9phm5ZVJyyF0OaqCzxKvO75a23M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from localhost.localdomain (unknown [111.196.241.250])
-	by APP-03 (Coremail) with SMTP id rQCowAAHED5qJZRq1oiaBg--.39702S2;
-	Sun, 30 Aug 2026 20:43:23 +0800 (CST)
-From: Pengpeng Hou <pengpeng@iscas.ac.cn>
-To: Marc Kleine-Budde <mkl@pengutronix.de>
-Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>,
-	Vincent Mailhol <mailhol@kernel.org>,
-	linux-can@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] can: kvaser_pciefd: validate DMA packet extents
-Date: Sun, 30 Aug 2026 20:43:11 +0800
-Message-ID: <20260830124320.96232-1-pengpeng@iscas.ac.cn>
-X-Mailer: git-send-email 2.50.1
+	s=arc-20240116; t=1788093922; c=relaxed/simple;
+	bh=DjI1Xq7oeAFCBrWVVElxyyF1DqFChUAr7MdQFzoflVQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=eX/7OGM8YLlV0hbZHma9j2ks8YD3CJ+I5tM43gqYXIuNwOYJCSU4cM49YmzaIgKvXIyA1rv2xYx5aWfIHDtideq39pyBFtwjiLiec4fMo0BBjzZr1I6uloNGxXL5qcerX0ZgkANbhh/OsyIP+POMe7yUbiG1RhgyAWkCeNShKNc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A3t3iDLZ; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A3t3iDLZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 044191F000E9;
+	Sun, 30 Aug 2026 12:45:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788093920;
+	bh=k9cnmp5ZkTHdW2lOosIXUykWsrrVlbAOxtMT9OdCYxk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=A3t3iDLZnHq1YFyUtUOiBvOMlXGNNVk912o1wn7eYy18KDA+IFdiRun+WxiQq9YEU
+	 Cmdw73N9/G9XQIzqWRG+VNDPlO3HMMaKCp5ZITH4U5y0zMXp40px/ZyWcJkUHU6PLU
+	 ikmJUxoosR3F6tAI2l2jytjXhcWo+FFudJ0K8fpkI4GAGZKLb2lvoQF/fm7dxnLt3T
+	 pkUCiK62yxjzuWVHVOI61LlU0ELjQp1fvH/vA/VOq8HqyczrSaU5sEJchwkwmesVOQ
+	 tusT6c7RdUk1nYSRM19d2l11kEAyusfnSoPQxl0OwOuB++psqIoapLu/0KZpD5ivrX
+	 tunkXec23SWSA==
+Date: Sun, 30 Aug 2026 12:45:17 +0000
+From: Harry Yoo <harry@kernel.org>
+To: Hyunwoo Kim <imv4bel@gmail.com>
+Cc: Vlastimil Babka <vbabka@kernel.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>, 
+	David Rientjes <rientjes@google.com>, Roman Gushchin <roman.gushchin@linux.dev>, 
+	Suren Baghdasaryan <surenb@google.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] mm/slab: take n->list_lock for the list_add() in
+ __refill_objects_node()
+Message-ID: <apQU8wjMlvbKBQgh@dev>
+References: <apPa-cGLcyt90l-E@v4bel>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowAAHED5qJZRq1oiaBg--.39702S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxAr45Aw1kKw48Zry8Zr48Crg_yoW5Cw4fpw
-	45KFWYyrZ8tw1avw1xuFs8AryYv3ZxAr1093yIq34FvwnIyr1DW3W093W3KFW0krWIvFyY
-	y34UCrn7GFs5A3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUkC14x267AKxVWUJVW8JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r1I6r4UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x0267AKxVWxJr
-	0_GcWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
-	2Ix0cI8IcVAFwI0_Jrv_JF1lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
-	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lc7CjxVAaw2AFwI0_
-	JF0_Jw1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67
-	AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIY
-	rxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14
-	v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8
-	JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjfU5oGQDU
-	UUU
-X-CM-SenderInfo: pshqw1xhqjqxpvfd2hldfou0/
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <apPa-cGLcyt90l-E@v4bel>
 
-The RX parser reads a packet header and payload before checking the packet
-size. It also compares its word index against the DMA buffer size in bytes,
-allowing the loop index to pass the end of the 4 KiB buffer.
+On Sun, Aug 30, 2026 at 04:25:45PM +0900, Hyunwoo Kim wrote:
+> In __refill_objects_node(), the list_add(&slab->slab_list, &pc.slabs) that
+> follows a successful __slab_try_return_freelist() is done without
+> n->list_lock.
+>
+> __slab_try_return_freelist() only succeeds while slab->freelist is NULL. The
+> slab we are refilling from is taken off pc.slabs by the list_del() at the
+> top of the loop, so at that point it is on no list.
+> 
+> If another CPU frees an object of that slab, __slab_free() sees the slab as
+> full and puts it back on n->partial. If a third CPU then takes that object
+> in get_from_partial_node(), the freelist becomes NULL again.
 
-Bound the word index, require the fixed packet header, validate the
-declared packet span, and prove a CAN payload fits before passing it to the
-packet handler.
+Ouch. Good catch, Hyunwoo.
+A classic ABA problem :)
 
-Fixes: 26ad340e582d ("can: kvaser_pciefd: Add driver for Kvaser PCIEcan devices")
-Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
----
- drivers/net/can/kvaser_pciefd/kvaser_pciefd_core.c | 20 ++++++++++++++++++--
- 1 file changed, 18 insertions(+), 2 deletions(-)
+> A slab that sits on n->partial with a NULL freelist only exists while
+> get_from_partial_node() holds n->list_lock, between its cmpxchg and its
+> remove_partial().
+> 
+> A list_add() in that window overwrites slab_list to point into pc.slabs.
+> The list_del() in remove_partial() then follows the overwritten links, so it
+> unlinks the slab from pc.slabs and poisons slab_list while leaving the
+> n->partial side alone. n->partial is left pointing at the poisoned slab.
+> 
+>            CPU0                        CPU1                  CPU2
+> 
+>   __refill_objects_node()
+>     get_partial_node_bulk()   // n->partial to pc.slabs
+>     list_del()                // on no list now
+>     get_freelist_nofreeze()   // freelist = NULL
+>                               __slab_free()
+>                                 add_partial()
+>                                 // back on n->partial
+> 	                        // freelist is not NULL
+> 
+>                                                     get_from_partial_node()
+>                                                       lock
+>                                                       cmpxchg
+>                                                       // freelist = NULL
+>     __slab_try_return_freelist()
+>     list_add(&pc.slabs)       // overwrites slab_list
+>                                                       remove_partial()
+>                                                         list_del()
+>                                                         // off pc.slabs
+>                                                         // slab_list = POISON
+> 
+> panic log:
+> 
+>   list_add corruption. next->prev should be prev
+>   (ffff888100000248), but was dead000000000122.
+>   (next=ffffea000416e410).
+>   kernel BUG at lib/list_debug.c:29!
+>   Oops: invalid opcode: 0000 [#1] SMP NOPTI
+>   CPU: 1 UID: 65534 PID: 144 Comm: poc Not tainted
+>   7.2.0-16172-gcf72cbb39da8-dirty #1 PREEMPT(lazy)
+>   RIP: 0010:__list_add_valid_or_report+0x80/0xd0
+>   ...
+>   Call Trace:
+>    alloc_from_new_slab+0x183/0x300
+>    ___slab_alloc+0x31c/0x890
+>    __kmalloc_noprof+0x3d4/0x800
+>    lsm_blob_alloc+0x2d/0x50
+>    security_msg_msg_alloc+0x26/0x90
+>    load_msg+0x1aa/0x210
+>    do_msgsnd+0x91/0x800
+>    do_syscall_64+0x109/0x5d0
+>    entry_SYSCALL_64_after_hwframe+0x77/0x7f
+>   ...
+>   Kernel panic - not syncing: Fatal exception
+> 
+> Do the list_add() under n->list_lock. Reattaching the freelist stays outside
+> the lock. Once it succeeds the freelist is no longer NULL, so __slab_free()
+> cannot put the slab back, and by the time the lock is taken remove_partial()
+> has finished and the slab is on no list.
 
-diff --git a/drivers/net/can/kvaser_pciefd/kvaser_pciefd_core.c b/drivers/net/can/kvaser_pciefd/kvaser_pciefd_core.c
-index d8c9bfb202304..354a9e29a056e 100644
---- a/drivers/net/can/kvaser_pciefd/kvaser_pciefd_core.c
-+++ b/drivers/net/can/kvaser_pciefd/kvaser_pciefd_core.c
-@@ -1552,6 +1552,7 @@ static int kvaser_pciefd_read_packet(struct kvaser_pciefd *pcie, int *start_pos,
- 				     int dma_buf)
- {
- 	__le32 *buffer = pcie->dma_data[dma_buf];
-+	const int buffer_words = KVASER_PCIEFD_DMA_SIZE / sizeof(*buffer);
- 	__le64 timestamp;
- 	struct kvaser_pciefd_rx_packet packet;
- 	struct kvaser_pciefd_rx_packet *p = &packet;
-@@ -1560,11 +1561,16 @@ static int kvaser_pciefd_read_packet(struct kvaser_pciefd *pcie, int *start_pos,
- 	int size;
- 	int ret = 0;
- 
-+	if (*start_pos < 0 || *start_pos >= buffer_words)
-+		return -EIO;
-+
- 	size = le32_to_cpu(buffer[pos++]);
- 	if (!size) {
- 		*start_pos = 0;
- 		return 0;
+Yeah, this should work correctly. 
+
+> The lock is held until the block below that returns the remaining slabs to
+> the partial list. That block already took the same lock on this path, so no
+> lock/unlock pair is added.
+> 
+> The unlock is keyed on having taken the lock instead of on pc.slabs being
+> empty. With CONFIG_DEBUG_LIST or CONFIG_LIST_HARDENED, __list_add() returns
+> without linking anything if its check fails, which would leave pc.slabs
+> empty.
+
+Well, if the check fails, it has a bug and should be fixed.
+We should not make the code less readable to handle a bug.
+
+I think it's better to have (diff on top of the patch, not tested):
+
+diff --git a/mm/slub.c b/mm/slub.c
+index 7a7f9935c711..eff96b992164 100644
+--- a/mm/slub.c
++++ b/mm/slub.c
+@@ -7216,12 +7216,10 @@ __refill_objects_node(struct kmem_cache *s, void **p, gfp_t gfp, unsigned int mi
+ 			break;
  	}
-+	if (size < 5 || size > buffer_words - *start_pos)
-+		return -EIO;
  
- 	p->header[0] = le32_to_cpu(buffer[pos++]);
- 	p->header[1] = le32_to_cpu(buffer[pos++]);
-@@ -1577,13 +1583,22 @@ static int kvaser_pciefd_read_packet(struct kvaser_pciefd *pcie, int *start_pos,
- 	type = FIELD_GET(KVASER_PCIEFD_PACKET_TYPE_MASK, p->header[1]);
- 	switch (type) {
- 	case KVASER_PCIEFD_PACK_TYPE_DATA:
-+		if (!(p->header[0] & KVASER_PCIEFD_RPACKET_RTR)) {
-+			u8 data_len, data_words;
-+
-+			data_len = can_fd_dlc2len(FIELD_GET(KVASER_PCIEFD_RPACKET_DLC_MASK,
-+							    p->header[1]));
-+			data_words = DIV_ROUND_UP(data_len, sizeof(*buffer));
-+			if (data_words > *start_pos + size - pos)
-+				return -EIO;
-+		}
- 		ret = kvaser_pciefd_handle_data_packet(pcie, p, &buffer[pos]);
- 		if (!(p->header[0] & KVASER_PCIEFD_RPACKET_RTR)) {
- 			u8 data_len;
+-	if (!locked && !list_empty(&pc.slabs)) {
+-		spin_lock_irqsave(&n->list_lock, flags);
+-		locked = true;
+-	}
++	if (!list_empty(&pc.slabs)) {
++		if (!locked)
++			spin_lock_irqsave(&n->list_lock, flags);
  
- 			data_len = can_fd_dlc2len(FIELD_GET(KVASER_PCIEFD_RPACKET_DLC_MASK,
- 							    p->header[1]));
--			pos += DIV_ROUND_UP(data_len, 4);
-+			pos += DIV_ROUND_UP(data_len, sizeof(*buffer));
- 		}
- 		break;
- 
-@@ -1640,7 +1655,8 @@ static int kvaser_pciefd_read_buffer(struct kvaser_pciefd *pcie, int dma_buf)
- 
- 	do {
- 		res = kvaser_pciefd_read_packet(pcie, &pos, dma_buf);
--	} while (!res && pos > 0 && pos < KVASER_PCIEFD_DMA_SIZE);
-+	} while (!res && pos > 0 &&
-+		 pos < KVASER_PCIEFD_DMA_SIZE / sizeof(__le32));
- 
- 	/* Report ACKs in this buffer to BQL en masse for correct periods */
- 	for (i = 0; i < pcie->nr_channels; ++i) {
+-	if (locked) {
+ 		list_for_each_entry(slab, &pc.slabs, slab_list)
+ 			set_node_partial_state(n, slab);
 
-base-commit: 08dbfad3f5040f5bdb6c529da20d6d4e81fefd72
+> Fixes: ba7425312607 ("mm, slab: add an optimistic __slab_try_return_freelist()")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Hyunwoo Kim <imv4bel@gmail.com>
+> ---
+>  mm/slub.c | 9 ++++++++-
+>  1 file changed, 8 insertions(+), 1 deletion(-)
+> 
+> diff --git a/mm/slub.c b/mm/slub.c
+> index f9b56cb439e709..4f6d1a03a8ee46 100644
+> --- a/mm/slub.c
+> +++ b/mm/slub.c
+> @@ -7260,6 +7260,7 @@ __refill_objects_node(struct kmem_cache *s, void **p, gfp_t gfp, unsigned int mi
+>  	struct slab *slab, *slab2;
+>  	unsigned int refilled = 0;
+>  	unsigned long flags;
+> +	bool locked = false;
+>  	void *object;
+>  
+>  	pc.flags = gfp;
+
+uh, I'm not a big fan of having a new variable to store 'locked' state,
+but okay, this seems unavoidable with current implementation.
+
+> @@ -7297,7 +7298,10 @@ __refill_objects_node(struct kmem_cache *s, void **p, gfp_t gfp, unsigned int mi
+>  			void *tail;
+>  
+>  			if (__slab_try_return_freelist(s, slab, head, count)) {
+> +				/* get_from_partial_node() may be mid-removal of the slab */
+> +				spin_lock_irqsave(&n->list_lock, flags);
+>  				list_add(&slab->slab_list, &pc.slabs);
+> +				locked = true;
+>  				break;
+>  			}
+>  
+> @@ -7312,9 +7316,12 @@ __refill_objects_node(struct kmem_cache *s, void **p, gfp_t gfp, unsigned int mi
+>  			break;
+>  	}
+>  
+> -	if (!list_empty(&pc.slabs)) {
+> +	if (!locked && !list_empty(&pc.slabs)) {
+>  		spin_lock_irqsave(&n->list_lock, flags);
+> +		locked = true;
+> +	}
+ 
 -- 
-2.50.1
-
+Cheers,
+Harry / Hyeonggon
+ 
