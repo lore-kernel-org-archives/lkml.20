@@ -1,216 +1,177 @@
-Received: from mail-lf1-f45.google.com (mail-lf1-f45.google.com [209.85.167.45])
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5C2928488F
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 05:10:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.45
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788066656; cv=pass; b=eS2Gp5MyxJltEAiB/ZJlWqcHk6l0Su2BWVdeXHhJ09eVIvSs0eJwaKHSPoFEIic5CfpTRMUNzQbeYzRyqjP0W4dr/KgGRjl+nywvJIeRhFrMCBV7rCpLSkqzZM3YJMBly7qyADqXn3/KFwKPENFv1XrdGhmDuHSPcUo5Xvtoy38=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788066656; c=relaxed/simple;
-	bh=EcokqOrpwwkJDa3/TmKd74l8l32zk/+gqO5e0HKb86M=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=MpOZYcR++jihVjKakBcfHD1eb202Z0yCadZ+v/HehJzQq0M5CCfoNLHJwGhgYrhuMerhigXHTpk7ognsgdP/Op05AKhdDXWpxQQtMXHkAonaAlzUqD978bqHtIM8w7DRBLeVGRufK1/KPoj+avFq67jhwHRAExr5KkeVDgilKcw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BaSpdUI/; arc=pass smtp.client-ip=209.85.167.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70D1B2E229F
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 05:14:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788066851; cv=none; b=kZCtIwpAf9OLwqeGAzrMqYSpIoTDtRb3qUt04gQzkcc5plj1JayvdENccrX9hB0b1UQd3hKp5R6xnjdu7LHeJsK4ge39xNNT0pWULzAasSL14UIsJSHMnhQRsdHGQtFPVgeVQkJl9p3/TYQCgHxNUup0vReepa8aWQGcMq3jX1g=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788066851; c=relaxed/simple;
+	bh=YNpuLImCERzGNRsD2EeSDn0ZCfRe6qCilKGUFPh+X+U=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ceJDHpEOT5BWR4Lk8pL2gvuMJAJQoAyusVkw1ROgFMa5xINn+0q7jeQ5uXdPvnKb+77LHLHuU7OHMN/5UWoGl78MU691AaLeFecZmvDwYOLQmrk+1dHaeCZX3CrrL26O+VeLFr8CpDUk/xyyixU6e7p44I5bPV+7lWTchMztxlE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=crusoe.ai; spf=pass smtp.mailfrom=crusoe.ai; dkim=pass (2048-bit key) header.d=crusoe.ai header.i=@crusoe.ai header.b=fHDWVEBh; arc=none smtp.client-ip=209.85.214.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=crusoe.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crusoe.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BaSpdUI/"
-Received: by mail-lf1-f45.google.com with SMTP id 2adb3069b0e04-5b523efb0bfso2150576e87.3
-        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 22:10:54 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788066653; cv=none;
-        d=google.com; s=arc-20260327;
-        b=bRZWZIkadRj2QJUZ6lHKtgjcB0Rhf9AiEOD2hwwXEl1R0qS4JcozNsWH3CxdClN6m8
-         OwSsPbApyfBUmnPKdVQHrQkQ1nfcfn8YKPWQ92BCsKI3mq8cUsZSpMTcCk6jX+ZduRnu
-         ypdMlNuG/t1IP7gZP99pkbPBK8fTNI2l9mU/IELwEfqwGmCZ1ja/UB93noJVLYL5hYfa
-         CYqxQwRSbLx/zzHRG27SftXFcHvD4wy9XxunFiTM2v064ISxPnzkYTZ34k1MGSgcTpHT
-         O6GGDwHSXTZ0OwfU//cxPs2QqseEEtRKMYKN5C5IhVPdCr3pfb7JlBk5tqxgbo4VJvNa
-         N0Og==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=84JT6cOw8u9kFp+0ao4yoSlNBQ7xKs7udQojtC77JVY=;
-        fh=yJcQa6AfRQ3tiBZ0MEQgUem70sO3SzFkGKBQfrKIj34=;
-        b=dHM3x4MNe/4kGk/f4NUk+o7394OPCzLBh1eKU4bJZXZwBQyyYU5LZ4bzvHDXhAVNwo
-         Xumo+sO4en8I+eucbAooqwwkxEmesS9r5LVAcrupxY8m0KJJJ8de1amgWsiWVKVd26bq
-         WLBI2rWUto+IZ2ddUy+ViH+Bb+F2Yoea5afhgYJvh/HIWfYC42grX6z1tjqg+CbDUrJB
-         I2oPdeNwoELgKE3dw/kqLsjHTyJbzonyUyqT5TYrH0XFJdFfTKeHFKD+aI2pcWJPhSFf
-         2T+pR97SlazluenTI2URC9Vep9vDnuRbjVPqLYX4xkouMgodrQ9s2vTeR46JfzUvESGM
-         TGYQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=crusoe.ai header.i=@crusoe.ai header.b="fHDWVEBh"
+Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2cacb8416a1so20098615ad.1
+        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 22:14:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788066653; x=1788671453; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=84JT6cOw8u9kFp+0ao4yoSlNBQ7xKs7udQojtC77JVY=;
-        b=BaSpdUI/612IHIbRlGnouu4bGj//T5UgGxkrLyxm4e7ACWaPYpruYPO0n5FiLcYzvR
-         RFIlbKEOgsj2QtMyGbVOdn3MRaasFYybE6D7h+6T6/9F2Roh5FGv1raXHUYGj5OBype8
-         U+vz0ZH0xSW0uB5gtQETamZYhp6O25MWAMHHu9S3g9xS50VmbIhMQH7PeWtfD58jWVcE
-         T+WXt7S9uPwUJ3PWnqly7kqbLdrWqB9ohsFwFnbaDcIjHjxMqo6OVT2TV9oPZsKPIVgs
-         cFhLsmxSGxnwlEntF3sYXIoD65aDNcHLOqoSOU9fRWzvh2zx9x0GH0FD8bNnHDnKLNpT
-         dKdQ==
+        d=crusoe.ai; s=google; t=1788066849; x=1788671649; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=hnvYqsxNp8b49/rBowWqUXaz80+meTKicT7aB9r1cG0=;
+        b=fHDWVEBhSioRn7sXjSOv73k9BNjz1Z0G8/DGRdnEm9TCjP9tfEyhM/HUNDo2LNvW+X
+         7aMi5fsboy5WXpFjHt4g7NdCGVFvkYH35CeV771ci9+TU2Yc9QRgBrt63fRg5XaRiYZO
+         1N7XIAbBVjTTeHS6z3hA1L08toHH7iWi7n4aFfAIlka1/LQ5dQDnYXXsMjgpL1UaMYYJ
+         rjDIpSX6IwAIchazcWpOinP874zyS3senOL5VUCb6uzBhStY+NppdEolY3HDO2ajPftv
+         sFyEc5qNPvthJS63dgEN21xmPokClFNqFPIV2QX6NljO1RFpjYm8zK2xjr7j8DBwyaXb
+         f3DA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788066653; x=1788671453;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=84JT6cOw8u9kFp+0ao4yoSlNBQ7xKs7udQojtC77JVY=;
-        b=Z51TTQla5CU4JAmphZhRSigW0jP3F2qEKrddT3gZU3KuhUSZVItwCYa0z0cv4ADPWJ
-         mVbTdkG3U+xm0wVsLXR93el+W9T/mPWEbR3fdSbcuXe0m+uPRpq/zSwvIkcch5Q3JJix
-         1af7pisYIovG8lddPl2wY8boJbAZploLobI9Rxygs1REQScLVtSouNp7rddLOS9g8vMz
-         sjQM/kWNPorQwMmtuaDa4x9zs2d61hck3aVKs/Ezf8Yg689nCwdMrAhz27WPS6R7iR+W
-         GdfZMHQy6eyq5Lo2QdLj85mbm1miFwH2Hyjxhd4NhrlxMGJuyeEzFTVUOehtDyoED0N8
-         kZrw==
-X-Forwarded-Encrypted: i=1; AKwUvBy2EFeTPjovTDtzqBOE9dNc+lvOGp39uqfAZj2mPhHLZuoJuQd6a9zuBVakGlRu0qH6ZLscKwDGrs/pNcA=@vger.kernel.org
-X-Gm-Message-State: AFuF++kC6z1e/5drUr/iJB52j4G3jZu+hgpguBEknXeXzyDLHNDYhNlp
-	pBowaKnJClm3Cez1aXDyXSYFJMQV/RICR7VKu1AXIoz1R3vdnnDgAJpLg6m+IFknSll0yFOKRVC
-	rxu+TpDCKCc1/vcbGvapS7vHtP8ZKv7KrjN4Y1QI=
-X-Gm-Gg: AYBFou1RNw1FUjgc6Ecle/ldYLznDJQV9Mo8ktpcUzsJoCmgcL9rIFru9UOYD8oiqYi
-	8/v1xYUprYCQaK3vxeNBqZSCilU7HgOf2EJ8aYunYueeVUY2or3TsnUxw0rPORLCrPOnsKg02OQ
-	q2FWKDhB2tNnYJQL+0sGhcw8vxXyC3NVjZHVfDPr0qzGOX2TGHteP2jakNzer8/GXF2+smxGefL
-	ELzyyzmtUxnVMASjjHXlsPnG4u76PZz5fZuDPB8ZmrYQ9P840KaMU4OgRpAOrk3YULr/1pcgkzM
-	nRNopy6O696DFClVI+l2Az8uY8iiXj0AlIvdTYO7UeK5E9MkCGjS3CJEOWlkxVELZ/koYiCtpGD
-	K1U0bTrc03Sf/r8zHraXZiv2vJ2w=
-X-Received: by 2002:a05:6512:3501:b0:5b4:ef51:8cfa with SMTP id
- 2adb3069b0e04-5b5e68b61acmr4943182e87.8.1788066652494; Sat, 29 Aug 2026
- 22:10:52 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788066849; x=1788671649;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=hnvYqsxNp8b49/rBowWqUXaz80+meTKicT7aB9r1cG0=;
+        b=pr/otCsc2Iz931Xohp6dMbjAjTXBCiKaviRc6yAD0ybFQbMFl+CMNAY1O9IP9ZLu/X
+         oxpEdx+c3H/pO+iEDvXDniueW/bMMdeBb4DeTjM+brvE9YtlymlpOosNlE4yUlaleARN
+         AFXf3dwE35fTy0SdCPEolhtoc3r5FpPHrytluD4wZxYJ7b1PDJ1cthwJFp4rQoUMf5jZ
+         TGReLpxq6AXa0IGDcXVRhVpmd0wlBlTx8o6xjX7PrBvECRuvBrEzCZvSUuvR/yaIe9IC
+         SYOnDO8Q6X9qH/ylBQUd1lg8JEusC9ZK2Y0u28WOKb37KdV9kKoJ7Doje8kOeLUOoUkV
+         mQGw==
+X-Forwarded-Encrypted: i=1; AKwUvBzAftyFWMlxTY2zzimVD4BCv4PL7RK+KSrL7HejocJkpvq3F+SeqctR97xMnWR1ENcfrPAl/2jK7rszUQk=@vger.kernel.org
+X-Gm-Message-State: AFuF++lUB2UM7dqrRlTaqJywqk7cykOC9/lw9xukERcYJWe91E0zNVw0
+	OpdArJSBigk/BSwX9JRaZBGJl88g5/4JJGXy3W2aCXghmqkoQAlz1XT+0lzgMzoLnL8=
+X-Gm-Gg: AR+sD10x5LOfRRyDLLXfX5KwMw6braNPxaLmXz/VMr/WN13tej/Kslh1Upb4XYPyRun
+	2g0iYodIgTJuu7mcl0geqw1++mt0iwRsL6XGyk0A7qdFXX9bkLwz+FLUowjE13tg2lVuNLQLUnZ
+	2XaF3TNhakFG3pVLCrdPRqq9/Ep4+d4+TylzXJd2ghe9GFZoHqnJSRVCgO5PqpGztpmAWDjnzQT
+	aq/xDXfESE9aI8HwMjOIE5FAJ7nEw2uQESfHA1uci9bdafuSeBjhV33Y74shjuhRX1Pb+w9jn2W
+	Gwoz6u9Xl7zCyhAm7hcC7M7XqY0cZ5NJkVuNckDYIHTkslBHyzck86lsu8iDizCHeilYgrAMB30
+	JpvvmP40MjNLmPhdVoJxNvMFObaZqyTwEnpQc3iyo0s2xrb+Jv+x1nddHcyfHxK5JMSzF+G8Pe8
+	5kdHib+l4FO+rQ6ZgielKVZjslJQ0vcAD2RyG2jV3ErZ724OZFx8hYguHWTZuJUDLiNQ497eC4E
+	4U/CU2zG+A5ADvIJwVjxln2tg5ujdZAHMQ=
+X-Received: by 2002:a17:902:ce88:b0:2c9:c952:6e9 with SMTP id d9443c01a7336-2d74dca2281mr279592645ad.2.1788066849370;
+        Sat, 29 Aug 2026 22:14:09 -0700 (PDT)
+Received: from MBP-Krishna-Iyer.civet-hops.ts.net ([2601:645:c68a:b830:d101:1d:112c:715e])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3286fa37fa5sm22595810eec.29.2026.08.29.22.14.08
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sat, 29 Aug 2026 22:14:09 -0700 (PDT)
+From: Krishna Iyer <kiyer@crusoe.ai>
+To: SeongJae Park <sj@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	damon@lists.linux.dev,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	Krishna Iyer <kiyer@crusoe.ai>
+Subject: [PATCH 0/6] mm/damon: support access monitoring of hugetlb-backed memory
+Date: Sat, 29 Aug 2026 22:14:01 -0700
+Message-ID: <20260830051407.50008-1-kiyer@crusoe.ai>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1787502619.git.ahmadexp@gmail.com> <a4abcd31c3a6758e219f5edcdd4acd307e674f18.1787502619.git.ahmadexp@gmail.com>
- <ao0tPhBvK1Er_Vs0@gryt> <CAOQiBWNVvHpO7X8yWyZEa3-nV76YJfRbkzo+_4U-upEj4VNfow@mail.gmail.com>
- <ao_VE0W-FohWqPPt@ashevche-desk.local> <apO31ydKoiqWCEKo@gryt>
-In-Reply-To: <apO31ydKoiqWCEKo@gryt>
-From: Ahmad Byagowi <ahmadexp@gmail.com>
-Date: Sat, 29 Aug 2026 22:10:40 -0700
-X-Gm-Features: AcwNN1WMfys-Lv2qkNkQwS1zYM8cqlHImchaOtKCuY4HCELC8S0B3995OEX6SgM
-Message-ID: <CAOQiBWN5DgOcJ9Gg7s2GZmpQguJUh121Jn9yUzxxm=D530c8dA@mail.gmail.com>
-Subject: Re: [PATCH v7 3/3] i2c: mux: Propagate software nodes to channel adapters
-To: Peter Rosin <peda@lysator.liu.se>
-Cc: Andy Shevchenko <andriy.shevchenko@intel.com>, Andy Shevchenko <andy@kernel.org>, 
-	Andi Shyti <andi.shyti@kernel.org>, Jakub Kicinski <kuba@kernel.org>, linux-i2c@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Peter, thanks for clarifying.
+On virtualization hosts, most system memory is often backed by
+hugetlbfs.  On our production hosts, for example, ~95% of RAM is 1 GiB
+hugetlb pages backing guest memory.  DAMON's physical address space
+monitoring cannot produce a useful access signal for such memory, for
+two layered reasons.
 
-The check is intentional. Without it, the generic traversal would also
-inspect ACPI firmware nodes and could match _DSD child nodes carrying
-a "reg" property, while the existing ACPI path below uses
-acpi_preset_companion() to associate the adapter by channel address.
+First, it is blind to hugetlb folios.  Every access check starts at
+damon_get_folio(), which rejects folios that are not on the LRU lists,
+and hugetlb folios are managed outside of the LRU by design.  As a
+result, all hugetlb-backed memory is silently reported as never
+accessed.
 
-I have not established that changing the ACPI lookup behavior is safe,
-and that change is not needed for software-node support. With the
-check retained, OF and software nodes use the generic lookup, while
-ACPI continues to use the existing acpi_preset_companion() path
-exclusively.
+Second, even once hugetlb folios are visible, access-bit-based sampling
+under-reports hot memory.  DAMON deliberately clears accessed bits
+without TLB flushes to keep the overhead low, so accesses served from
+cached translations do not walk the page tables and never re-set the
+bit.  With 1 GiB mappings, translations effectively never leave the
+TLBs, pinning the observed access rate to the TLB-refill rate: a
+saturating guest is indistinguishable from a nearly idle one.
 
-That said, I will clarify this in the commit message for the next revision.
+Patches 1-3 address the visibility problem.  The first patch moves
+damon_hugetlb_mkold() from vaddr to ops-common as a preparation.  The
+second patch teaches the folio mkold/young rmap walkers to handle
+hugetlb folios, aging the huge PTE and notifying secondary MMUs across
+the whole huge page size; the secondary MMU notification is what
+surfaces guest-side (e.g., KVM/EPT) accessed bits.  The third patch
+adds damon_get_folio_incl_hugetlb() and uses it from the paddr
+monitoring primitives only.  DAMOS action appliers such as
+DAMON_RECLAIM and DAMON_LRU_SORT keep the LRU-only lookup and are
+behaviorally unchanged.
 
-Regards,
-Ahmad
+Patches 4-6 address the intensity problem with a new default-off
+monitoring context option, 'aging_flush'.  When set, access bit
+clearing for monitoring uses the flushing primitives
+(mmu_notifier_clear_flush_young() and TLB-flushing PTE/PMD/hugetlb
+aging) so that the next access is guaranteed to re-set the accessed
+bit.  The option is exposed via the DAMON sysfs interface (patch 5) and
+as a DAMON_STAT module parameter (patch 6).  With the option unset, the
+behavior is identical to before this series.
 
+Evaluation on an Intel EPT host running a 944 GiB guest with an 842 GiB
+in-guest memory workload (masim):
 
-On Sat, Aug 29, 2026 at 9:55=E2=80=AFPM Peter Rosin <peda@lysator.liu.se> w=
-rote:
->
-> Den Thu, Aug 27, 2026 at 09:11:31AM +0300, skrev Andy Shevchenko:
-> > On Wed, Aug 26, 2026 at 08:29:47AM -0700, Ahmad Byagowi wrote:
-> > > Hi Peter, Andy,
-> > >
-> > > Yes, software-node handling is needed for the ptp_ocp use case.
-> >
-> > That driver is a mess. I'm surprised nobody told to the authors of
-> > the respective changes to look at the auxiliary implementation.
-> >
-> > > ptp_ocp is a PCI driver. It creates its board-specific I2C topology a=
-t
-> > > runtime with software nodes: the mux, its channel nodes, sensors, and=
- LED
-> > > controller. Firmware does not provide ACPI nodes for this topology.
-> > >
-> > > The existing acpi_preset_companion() path only associates a mux adapt=
-er
-> > > with an existing ACPI child. It does not associate the adapter with o=
-ne of
-> > > these dynamically created software-node channel nodes. Without that
-> > > association, i2c_get_adapter_by_fwnode() cannot find the channel adap=
-ter by
-> > > the channel software node, so ptp_ocp cannot instantiate the downstre=
-am I2C
-> > > devices on the correct channel.
-> > >
-> > > Does this address the concern, or would you prefer a different way to
-> > > represent this dynamically created topology?
-> >
-> > Wouldn't it be possible to use some kind of DT overlay to have that?
->
-> For me, the above is a bit unrelated to this patch series, which is
-> about converting i2c-mux from of-only properties to device properties.
-> That seems like a change that stands on its own.
->
-> I probably wasn't clear enough with my original question, but what I
-> wondered about was what regression risk that conversion might have
-> for the ACPI case. Specifically, there might be ACPI properties that
-> match what the code is now looking for. It seems unlikely that such
-> properties are actually deployed, but I know next to nothing about
-> ACPI...
->
-> TL;DR
->
-> My original question should have been: Is it safe to simply remove
-> these lines from the patch:
-> > +     if (!is_of_node(dev_node) && !is_software_node(dev_node))
-> > +             return NULL;
-> and let the code trawl all kinds of device properties?
->
-> Sorry for the confusion...
->
-> Cheers,
-> Peter
->
-> > > Thanks, Andi, for taking the first patch into i2c/i2c-fixes. I will d=
-rop it
-> > > from the next revision and rebase the remaining two patches once this
-> > > question is resolved.
-> >
-> > > On Mon, Aug 24, 2026 at 10:50=E2=80=AFPM Peter Rosin <peda@lysator.li=
-u.se> wrote:
-> > > > Den Sun, Aug 23, 2026 at 09:34:38AM -0700, skrev Ahmad Byagowi:
-> > > > > Device Tree channel nodes are associated with the adapters create=
-d by
-> > > > > i2c-mux, but equivalent software-node descriptions are not.
-> > > > >
-> > > > > Use generic firmware-node operations for the existing channel loo=
-kup and
-> > > > > accept either an OF node or a software node. Associate the return=
-ed node
-> > > > > with the adapter so child I2C devices can be instantiated from
-> > > > > software-node properties.
-> > > > >
-> > > > > Save the adapter firmware node before adapter deletion and releas=
-e the
-> > > > > reference afterwards, following the lifetime pattern in i2c-atr.
-> >
-> > --
-> > With Best Regards,
-> > Andy Shevchenko
-> >
-> >
+  configuration          estimated access rate    idle -> load
+                         idle -> load (GB/s)      separation
+  stock                  0.08 -> 0.21             none (guest memory
+                                                  invisible)
+  patches 1-3            1.70 -> 1.96             1.2x
+  full series, flush on  1.21 -> 5.34             4.4x
+
+With aging_flush set, the estimated hot footprint covers ~82% of the
+actual working set size, compared to ~40% without flushing, where the
+signal mostly reflects the ambient TLB-refill rate rather than guest
+accesses.  kdamond CPU consumption stays approximately 0%, and the
+worst-case flush overhead measured is below 0.1%, which is acceptable
+for hosts that opt in.
+
+Per Documentation/process/generated-content.rst, this series was
+developed with the assistance of an AI coding assistant (Anthropic
+Claude, via Claude Code).  The assistant helped draft the code and
+changelogs, and performed the rebase of the series from its original
+6.17-based development tree onto mm-new, including merge conflict
+resolution against recent DAMON changes.  All changes were reviewed by
+the human submitter, who takes full responsibility for the
+contribution.
+
+The series as posted here was regression-tested on its base commit
+with a full x86_64 kernel build (no new W=1 warnings in mm/damon), the
+DAMON kunit suite (41/41 passing) and the DAMON selftests (15/15
+passing) on a kernel booted with virtme-ng.  Functional validation
+(the evaluation above, ftrace verification that the flag switches the
+notifier variants, and enable/disable stress testing) was performed by
+the submitter on production-like hosts running the 6.17-based backport
+of this series.
+
+Krishna Iyer (6):
+  mm/damon: move damon_hugetlb_mkold() from vaddr to ops-common
+  mm/damon/ops-common: handle hugetlb folios in folio mkold/young rmap
+    walkers
+  mm/damon/paddr: support hugetlb folios in access monitoring
+  mm/damon: support flush-assisted access bit clearing for monitoring
+  mm/damon/sysfs: support aging_flush
+  mm/damon/stat: support aging_flush
+
+ include/linux/damon.h |   2 +
+ mm/damon/core.c       |   2 +
+ mm/damon/ops-common.c | 154 ++++++++++++++++++++++++++++++++++++------
+ mm/damon/ops-common.h |  18 ++++-
+ mm/damon/paddr.c      |  11 +--
+ mm/damon/stat.c       |   6 ++
+ mm/damon/sysfs.c      |  29 ++++++++
+ mm/damon/vaddr.c      |  46 +++----------
+ 8 files changed, 203 insertions(+), 65 deletions(-)
 
 
+base-commit: d2aad7fdcda7ae8a726926f2d6de7fe9e8ee7563
+-- 
+2.54.0
 
---=20
-73
-With best wishes / Mit herzlichsten Gr=C3=BC=C3=9Fen
-Ahmad Byagowi, Ph.D., Dr. Techn., P.Eng.
-Phone: +1 (650) 924 6653
-
- Please consider the environment before printing this e-mail.
