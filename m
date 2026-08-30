@@ -1,90 +1,123 @@
-Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-179.mta1.migadu.com [95.215.58.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 818C83B8D75;
-	Sun, 30 Aug 2026 14:30:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4C4D3B27D4
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 14:32:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788100218; cv=none; b=ag6Ef2rbtw2e6RzDH/jEnik2WXJPsIuAX6C7Iri/q3pBjMk7GZ51auFHNH+2NhKQW3F45iLRygVtBoiQoBde3g5M9/BjIWaeld0OBI1Do9XADkvOpSdDxhTrwwuPkPWnMdUJA+bQcTZW5kUsOeRDpxxisxgjZK0h7N3RhXZIXTM=
+	t=1788100346; cv=none; b=WQ89nzSio6pxHvh9EpIvnmqh4AfBjiZsdo398cDu+11oQ1EtNTrK5iKQ08v7ImePrIS0Z8arXM2DpQEhgzvs8fbnh4SrJL6BNfFJm9GTn2r1dnHHAxAlMzCfw0rZNjKVJ8F5Db/f64fkCjhw5N1hN6Gu4+XdI4hd+WADWlLF72c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788100218; c=relaxed/simple;
-	bh=Ct2NO6oH56nH2n0sDUC8gwPDJxIDC5PQ/X6CYFsBDLg=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=VyGQXuiz4BII2zzFTXJFO8Sp3xdQQ2QJswGtfhiZszPYwEddivOBdrCaF2RCX4yzEHq1SDptvREY3z+kaWMiUCYgzZS0bG9h+lHbYFtiqq1b4+/fHvXmL93EQCQ4s9b7f20LWdaozApEkDxc1zPYGMIP6gds20H4Q2fHIphRfqw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=Siq1YIim; arc=none smtp.client-ip=45.254.49.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+	s=arc-20240116; t=1788100346; c=relaxed/simple;
+	bh=lgf0MuQPFoZlIab78/zqlZds7+shjXNJmT7lgzsTekU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=DpdSfUv8qo+CjgE2iYbnZ9bkYEr2Qzq3GTD/akD46sZiXE7bDAF8720DGLLFSQf3p1PKtIP9Fn4soSn4MUPohXyXfCFPVzBkUIsQMItDUL54DK3+iyWI/XBgrc1Wk89xm5y0IxQvmi4qn36QSEm4XXZ/oKSDNCHWviPW/CWQCGc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wyuan.org; spf=pass smtp.mailfrom=wyuan.org; dkim=pass (2048-bit key) header.d=wyuan.org header.i=@wyuan.org header.b=toh5ZXcq; arc=none smtp.client-ip=95.215.58.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wyuan.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wyuan.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="Siq1YIim"
-Received: from PC-202605011814.localdomain (unknown [58.241.16.34])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4bd71cc71;
-	Sun, 30 Aug 2026 22:30:10 +0800 (GMT+08:00)
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-To: hverkuil@kernel.org
-Cc: mchehab@kernel.org,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	runyu.xiao@seu.edu.cn,
-	jianhao.xu@seu.edu.cn,
-	stable@vger.kernel.org
-Subject: [PATCH] media: saa7146: Initialize interrupt lock before requesting IRQ
-Date: Sun, 30 Aug 2026 22:30:02 +0800
-Message-Id: <20260830143002.2690859-1-runyu.xiao@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=wyuan.org header.i=@wyuan.org header.b="toh5ZXcq"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=lgf0MuQPFoZlIab78/zqlZds7+shjXNJmT7lgzsTekU=;
+ c=simple/simple; d=wyuan.org;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788100341; v=1; x=1788705141;
+ b=toh5ZXcqCvC8nLke1DMDLgtRkg1xWupLZ+s1M3gVCBEJYqDuoC2VwOqJ0goqYr89Bxe+Eq1g
+ N3N1ily50P2IQotfboQuDpxhJUrv18/gwLa6lem2cXL3dznOV0eykf7cwllWlWpL0w/iRH6JWXO
+ LjYCQfIUd9zowtdk/JFgY4kjsCjHmVWUO5m8VVFkrQ3DdqdJR29PJGLbS2WNt1U/Lfe9F+m/pJt
+ cUCUlB6KHzvCPmEFSGaSvujhbvHeEsoqZojbj6UmNMWhjqKDK75dYp/Vy+VwmXYiamFciP2L0hs
+ stgwEkJC2/PseHMvaXY6Za8X1CuXeAP9bk6GIqjaxnUWQ==
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 7c357459d6dfa994;
+	Sun, 30 Aug 2026 14:32:21 +0000
+X-Mizu-Trace-ID: 7c357459d6dfa994
+X-Migadu-Flow: FLOW_OUT
+Date: Sun, 30 Aug 2026 22:32:13 +0800
+From: Weijie Yuan <wy@wyuan.org>
+To: Yao Zi <me@ziyao.cc>
+Cc: Yukai Wu <xiaoyewuz.ruster@gmail.com>, Alex Shi <alexs@kernel.org>,
+	Yanteng Si <si.yanteng@linux.dev>, Jonathan Corbet <corbet@lwn.net>,
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Dongliang Mu <dzm91@hust.edu.cn>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Alexandre Ghiti <alex@ghiti.fr>, linux-doc@vger.kernel.org,
+	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] docs/zh_CN: Update arch/riscv/vm-layout.rst translation
+Message-ID: <apQ-7U-omIeXvZ1N@wyuan.org>
+References: <20260829041542.256360-1-xiaoyewuz.Ruster@gmail.com>
+ <apMPjRICH06wAxPp@pie>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa05313edb203a1kunmead4b91a1036b9
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaQ0wdVhkdHU4fSRpMSkxKHlYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlOQ1VJT0pVSk1VSE9ZV1kWGg8SFR0UWUFZT0tIVUpLSEpPSE
-	xVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=Siq1YIimVIs9LPHJOGODF/IA9y9cLzwnQL2Xu+VqRCmwY+VgJ+jL2VL3d/W6TUP/aEIoJodNV5CfC6QhJZbLiCAhFsqbMYLuD3UByGAukRvkSXjFHksLnHHKPqV35A/1fGMBbqsSM7dqLp7V/Phd6X5AS1FxzCOC/olLDCxdzfo=; s=default; c=relaxed/relaxed; d=seu.edu.cn; v=1;
-	bh=Xi/wrjSw+AJTVv12s/i3arvf8gyonJf1sgsdvGreaEU=;
-	h=date:mime-version:subject:message-id:from;
+In-Reply-To: <apMPjRICH06wAxPp@pie>
 
-The saa7146 interrupt handler can call SAA7146_IER_DISABLE(), which
-serializes register access with dev->int_slock. request_irq() allows the
-shared handler to run before saa7146_init_one() reaches the current lock
-initialization block.
+On Sat, Aug 29, 2026 at 04:57:49PM +0000, Yao Zi wrote:
+> On Sat, Aug 29, 2026 at 12:15:10PM +0800, Yukai Wu wrote:
+> > Update Documentation/arch/riscv/vm-layout.rst translation.
+> > 
+> > Update the translation through commit 954260ff5a46
+> > ("Revert "RISC-V: mm: Document mmap changes"")
+> > 
+> > Signed-off-by: Yukai Wu <xiaoyewuz.Ruster@gmail.com>
+> > ---
+> >  .../zh_CN/arch/riscv/vm-layout.rst             | 18 +++++++++---------
+> >  1 file changed, 9 insertions(+), 9 deletions(-)
+> > 
+> > diff --git a/Documentation/translations/zh_CN/arch/riscv/vm-layout.rst b/Documentation/translations/zh_CN/arch/riscv/vm-layout.rst
+> > index 4b9f4dcf6c19..0d0ec8ea5d05 100644
+> > --- a/Documentation/translations/zh_CN/arch/riscv/vm-layout.rst
+> > +++ b/Documentation/translations/zh_CN/arch/riscv/vm-layout.rst
+> > @@ -15,7 +15,7 @@ RISC-V Linux上的虚拟内存布局
+> >  :作者: Alexandre Ghiti <alex@ghiti.fr>
+> >  :日期: 12 February 2021
+> >  
+> > -这份文件描述了RISC-V Linux内核使用的虚拟内存布局。
+> > +这份文件描述了 RISC-V Linux 内核使用的虚拟内存布局。
+> >  
+> >  32位 RISC-V Linux 内核
+> >  ======================
+> > @@ -28,9 +28,9 @@ TODO
+> >  64位 RISC-V Linux 内核
+> >  ======================
+> >  
+> > -RISC-V特权架构文档指出，64位地址 "必须使第63-48位值都等于第47位，否则将发生缺页异常。"：这将虚
+> > -拟地址空间分成两半，中间有一个非常大的洞，下半部分是用户空间所在的地方，上半部分是RISC-V Linux
+> > -内核所在的地方。
+> > +RISC-V 特权架构文档指出，64 位地址“必须使第 63-48 位值都等于第 47 位，否则将发生缺页异常。”：
+> > +这将虚拟地址空间分成两半，中间有一个非常大的洞，下半部分是用户空间所在的地方，上半部分是 RISC-V
+> > +Linux 内核所在的地方。
+> 
+> I think changes above are purely style improvements? If so please
+> mention it in the commit message, instead of specifying it's "updating"
+> only.
 
-Initialize dev->int_slock before requesting the interrupt so every handler
-path sees an initialized lock.
+Agreed. To put it further, I think the commit message template we
+provided in how-to.rst [1] is somewhat like telling contributors: That's
+all you need to do.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:GPT-5
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
----
- drivers/media/common/saa7146/saa7146_core.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+Of course, in some cases, the patch is quite simple and there is nothing
+else to elaborate on. However, in some cases, such as when making
+extensive changes and updates, we should encourage contributors to write
+down some relevant information for future reference.
 
-diff --git a/drivers/media/common/saa7146/saa7146_core.c b/drivers/media/common/saa7146/saa7146_core.c
-index c297d019f..70d6ca005 100644
---- a/drivers/media/common/saa7146/saa7146_core.c
-+++ b/drivers/media/common/saa7146/saa7146_core.c
-@@ -340,6 +340,8 @@ static int saa7146_init_one(struct pci_dev *pci, const struct pci_device_id *ent
- 		goto out;
- 	}
- 
-+	spin_lock_init(&dev->int_slock);
-+
- 	/* create a nice device name */
- 	sprintf(dev->name, "saa7146 (%d)", saa7146_num);
- 
-@@ -425,7 +427,6 @@ static int saa7146_init_one(struct pci_dev *pci, const struct pci_device_id *ent
- 	dev->ext = ext;
- 
- 	mutex_init(&dev->v4l2_lock);
--	spin_lock_init(&dev->int_slock);
- 	spin_lock_init(&dev->slock);
- 
- 	mutex_init(&dev->i2c_lock);
--- 
-2.34.1
+Similarly, just like this patch, the author did more than just update;
+he also carried out other actions, but failed to include the relevant
+details in the commit message. So I feel that perhaps our template might
+have somewhat restricted our writing? (to some extent)
 
+Sure, the requirements for commit messages in the Chinese documentation
+are certainly not as strict as those for the more core subsystems.
+However, I do think it's fine to appropriately explicitly encourage
+contributors to include more meaningful relevant information in the
+commit messages.
+
+Any ideas for this, or any objections? ;)
+
+Thanks!
+
+[1] https://docs.kernel.org/translations/zh_CN/how-to.html#id13
