@@ -1,116 +1,109 @@
-Received: from fout-a2-smtp.messagingengine.com (fout-a2-smtp.messagingengine.com [103.168.172.145])
+Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [85.215.255.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A44F83B9D98;
-	Sun, 30 Aug 2026 15:46:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.145
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788104798; cv=none; b=s/QuWTEo5veFlBVWWOWpxFF1PXsPuVCNhUc8VX6wXnxeYkUkX+S7AAY6FUWDihElR6yjs/RElSxkZcCgS7GnDI7517WK07cKi0KrBRDuMTxVfpPjxmbbxaQscPj6tp73NEdb0iDZfiG6RMUW45807JVmXV0Y5sCSCpMvs77vKUM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788104798; c=relaxed/simple;
-	bh=PnXdbbonI6TDVucUJnB/aGVbLdU6d3iGG+sX+Bz32RU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GKJn8aVh+lXmc4nxrqueoM3RJyZjY2xaitSUO8gCM6GdBqwntElzI8EXNzzu3eGnMxhIDezKvEzUx+a88bUFqabZTdtTsUNt6SaIceUu6ocBV508k4NBxSRDsEfZnOZieL8YAQ2LdwtA1CFEau4l6k+E3sAO0oakBoRwSTXRx50=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jannau.net; spf=pass smtp.mailfrom=jannau.net; dkim=pass (2048-bit key) header.d=jannau.net header.i=@jannau.net header.b=Awu3naLG; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=PEP181CD; arc=none smtp.client-ip=103.168.172.145
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jannau.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jannau.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9217625B0AC;
+	Sun, 30 Aug 2026 15:47:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=85.215.255.53
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788104840; cv=pass; b=nSAGygSEuM1OUnPQobb6J4MIxU9GQnbIsKbeWwJlSPzFG8vvUVdewol/JrkjwnaWKhVcKt8r5a5hCZSKbxZfAQ+A1eF0NEfxWdtfxglWvDH1jL/STmPqVDWv7RA2QrLj0yChbPFbPD0LW3qpDHH0IvKBMtmNKLHpaXOdqvO8kgU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788104840; c=relaxed/simple;
+	bh=z2m01tKlkKHlaM/0IXx3sQbwCS88IIrV5vJiFQBhVbI=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=IlonV3gZTKkVJ9cxxAzzxRF4O0V0u+LAKRN5l6CZtHFh+TiL7ZIikh49zVNVS9MRmigK524aB7y4envF7J9Baqac2gD/19JgPqW4x31lzp9oCVa+k4v2qFkAWjfWaGgIrGDkFB0UdrhMjW8k9MEiyAHa2vlYyQez32HHrD5rqC4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iokpp.de; spf=none smtp.mailfrom=iokpp.de; dkim=pass (2048-bit key) header.d=iokpp.de header.i=@iokpp.de header.b=ngkf2WV/; dkim=permerror (0-bit key) header.d=iokpp.de header.i=@iokpp.de header.b=h6Z8MQty; arc=pass smtp.client-ip=85.215.255.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iokpp.de
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=iokpp.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=jannau.net header.i=@jannau.net header.b="Awu3naLG";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="PEP181CD"
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfout.phl.internal (Postfix) with ESMTP id B7088EC0175;
-	Sun, 30 Aug 2026 11:46:35 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-05.internal (MEProxy); Sun, 30 Aug 2026 11:46:35 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jannau.net; h=cc
-	:cc:content-type:content-type:date:date:from:from:in-reply-to
-	:in-reply-to:message-id:mime-version:references:reply-to:subject
-	:subject:to:to; s=fm2; t=1788104795; x=1788191195; bh=MihlHA0jeW
-	9cf62qZZuSDAm/xr/Skg1GoMpPWPUioZI=; b=Awu3naLGhxs6DNzMVZ/y5uVxuH
-	mo/jt2sQdf3xqebztoCcdDi5HxuDDLpYAVqXvFpDlTV9+CuQ88IhpOugj2RyspWZ
-	GdDQnJDxwIoA7eNsTbqlN1B6ULQXmXJe+7BLq1T0jEy77YvwL9LBSOw+G5R6isaH
-	Tr29zTOKWoZuz8JQt28Kb/cldynUfVOcea7v8Jr8mrFqWyb1xX50jPgKpKEwdxda
-	bYCb6S34iEAZzs21zqcOSPPsvCIRqUGUzq5zHZbLUfGzK6l3k6r+SHka9LI39LCn
-	BKAJKVrUH5deSkwRD6PbBoDHBTF3vPACB2G+nW3DNiXeKYoi6mJGVLT8rKzg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
-	1788104795; x=1788191195; bh=MihlHA0jeW9cf62qZZuSDAm/xr/Skg1GoMp
-	PWPUioZI=; b=PEP181CDMaZody9j/uydol4/X0uG5oOkaaioYRRHeWHZdhdH9+8
-	RiMROxs8/62QJuhZWbQYLcUS0SguOemsam5DmsT9fMZPBhxxHbj5uIsW0SuonDgh
-	3nN/xmaL3NLaDsUd8h7XErNNrGM7QGjCfwNigfTXL1TjCxGnmSUH68pemkDybSnE
-	lcgNEWhmKcL3ilv/yN9dTGY/iPE63DRjotYoYF54E96e2MOZAjMQ5Gnf9kG+o6yo
-	/FFnvDHv15dR62IUnh1+sBY8dwz5XsfSAEzcSFvH+ebFVQyq5QRsWBUDBz62Ho2C
-	aZW/+t9/k/ursxa3I3sZUA29vQ/6hJsu2Zg==
-X-ME-Sender: <xms:W1CUanVfhvurg80lEyKTCNvzbdgjSzZuSERAXBL6bg6ID9Iz1lOk6w>
-    <xme:W1CUasKpob-wfo0jHe9491cCn5uVeFtmi1QcRXike50lCIc8AlpTiMFdE0PIvOtfz
-    N0E9wi5fv42IEzYerCFvIryHrSrL5mJaJwSEyd3MCiNXES8NsGhUQ>
-X-ME-Received: <xmr:W1CUan3M1wR4M9LP_CwTz7lmuBIHqQuJbUh9DiivOPBfNkrsdBiApwJdrw018Sm3xVEBlBk6slD1txVuXx8o0voDOAhYQpMm6pU>
-X-ME-Proxy-Cause: dmFkZTEOYRK4gF0nS1OU3xem0WZp15SpUOTtBPG0aPfGupIuYPdkf//EB6U20QS5qwMibE
-    5xh3VNHbQsPBXG/WzMft+EW7AUnukz/ERkxvkIAczmn9Y258jeSCGpTxCNUvven2Kxx+JU
-    /eR5GnwCNq0xJCKmedT8YmYPRbtXx3vF1jmbPtdcFR+QipxXHZFc+keCuudFGmpoJGX419
-    KKmLoe2RuisnuCQSErHe+aeQOdLg5w4+3PhUCUQnbPTriE4Iq08GroO9iA1cgQG3zNcKSc
-    6T8v6Sl4d+5howPOj81vFOPmvZj+0Ri9+yj0AMYH4nHLVMkfzjXT9oic2CEPTmSTuO38Jg
-    CIcfGw2h6zpEfHXQ2eEnHK3ACmSZnxW/uUrwn0KGpBxSgT9BOQtCsPs/+F4julBRH1Yhg5
-    BgBRsBn6MLOreK0uviMip8UyEvzMRPLm/6Rljyf4U4ioeH+GSmWMNq4ctEiIz9UB2iiEJb
-    irdWJrOxMLhT3JLNhKEqvBSCbFLyL0VOiZtydeV6mIn+iTfgkDfP3+930ZPjHK0TQXlVAu
-    49+jOmB8QaUXvPvQH8GvalWLWC0TOV/1i782v4fx618ZU/b0YCEUq5pOfcsvgspG4hw0+N
-    JunNhCTJ9JwwqiiLI6nI0+76aSqT4cegUANCcW+1NLD84Z3mygeVK1zp6EQw
-X-ME-Proxy: <xmx:W1CUapJgSwv0S6NbiF_dhTq3QJtGAxrpy4i6GS_92UfcfiTT1BH_wg>
-    <xmx:W1CUaigikYbJQFZdKjtXuXqHfi48-Tu5EAup5DhsjGSitVDLb1C_fg>
-    <xmx:W1CUapDyXbY2XedCU43bJkXxIfk0pk4nVrJz4s07y4ZXSCzwdDMZ1w>
-    <xmx:W1CUak4Qbh6ZdJSZIYIqKUS_v_YU-Ja0Y6Fs8XmdwegztRE6M9X__Q>
-    <xmx:W1CUaoxI285qFTACu9dfBQhKSnolp32zwxlAVlogOEgibArVn9zzgcbx>
-Feedback-ID: i47b949f6:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
- 30 Aug 2026 11:46:34 -0400 (EDT)
-Date: Sun, 30 Aug 2026 17:46:33 +0200
-From: Janne Grunau <j@jannau.net>
-To: Sven Peter <sven@kernel.org>
-Cc: Neal Gompa <neal@gompa.dev>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, asahi@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/3] arm64: dts: apple: Fix cpus node indentation
-Message-ID: <20260830154633.GA1748618@robin.jannau.net>
-References: <20260830-b4-apple-dts-fixes-v1-0-cc20f8445754@kernel.org>
+	dkim=pass (2048-bit key) header.d=iokpp.de header.i=@iokpp.de header.b="ngkf2WV/";
+	dkim=permerror (0-bit key) header.d=iokpp.de header.i=@iokpp.de header.b="h6Z8MQty"
+ARC-Seal: i=1; a=rsa-sha256; t=1788104656; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=UYmDnMqEHTl4rYDHkmoO6PdkWPzzGACfMgsSbl/R4tNwjr1G5h2H8aWoQa1M9yKkYu
+    UCTrQTF0jD1GCPQCluzI3nbg1T/vhZaLSYRPXpb3i7dNNWmg3aT2/EOoveD0cBJ9FaMu
+    2FfEQGasrvCDZpD/CMl0gF8nRrbwBrGMg7boflqswvs90tPdTEGIKVnhbv6n/s4Ryaph
+    lDRSnCOYe0mZoUNLQJ3dk+mAnfUvZc2kI32+yRfax71qJS3WG+y5CB1XFAjWQyAhZue0
+    H55l8/ddkJr2ATvolB0IcHkmqTMuqkdvdErgBiHv4WYAdGbPzmxXqeCP1mBGQM/jpA22
+    vBEw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1788104656;
+    s=strato-dkim-0002; d=strato.com;
+    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
+    From:Subject:Sender;
+    bh=z2m01tKlkKHlaM/0IXx3sQbwCS88IIrV5vJiFQBhVbI=;
+    b=mDUdXC5CFE/R137N7liXkn839asvGfEE3lMidgqTsNrOFY/7bXSjsVGHJY0l81hgmK
+    JGkls59WEzgi9TxbSRKtoEdgbByFjifQ7nc3hXv1kFb4PR8QOXqVqcbtf7MXB3x6ZcOd
+    LIG1E2dm9HZbU8pFbhz4PeruuN7wkUu0aeoK7VdAqfZvQUPcevx7UMDHm5/NU25Zd0O4
+    SbsZJVXl9NudETKhQ+IARZsrrGGdgHeAxuBAxS8ATmUFOVp6ycVt9/CDrbEphped+2gB
+    N3jdTfZbsPLt/n79AoZPNGsg4fqZ5rl0Z7RIfkT4b3xP635TaRacVsBYekMcL5tz9iBL
+    M8QA==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo01
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1788104656;
+    s=strato-dkim-0002; d=iokpp.de;
+    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
+    From:Subject:Sender;
+    bh=z2m01tKlkKHlaM/0IXx3sQbwCS88IIrV5vJiFQBhVbI=;
+    b=ngkf2WV/1/liM7L66IfArmEQHa2SGESNiHkMA9RleyNmSf/otueoq6bnalT8LWc/DS
+    i/yByp83JLOrbru74+7Ir9lHvqbAet3BF8jr4ahvofX6z/GV/9lOtDhexniSDbkl+1f9
+    ZLwL3kyT3/rjMNhey087teemy3MOA7gpsNpiBscYQWt3tAtWtMEb40jjoTNQXD0LuoJL
+    aAm6/qF/3mCgNKLfkvdze7W/xojszEqkKhULO45TsDG+iTg096srvHiUUvOXPesCHMsK
+    OcrQW9zPrO6otmWC85XoRQZqxvhtMI2+73b0Y7wWuAEHPQjQhwDwZcwJuSz1pFyml4UD
+    GDfQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1788104656;
+    s=strato-dkim-0003; d=iokpp.de;
+    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
+    From:Subject:Sender;
+    bh=z2m01tKlkKHlaM/0IXx3sQbwCS88IIrV5vJiFQBhVbI=;
+    b=h6Z8MQtyHGi9/ITjy3HNgiSPnYk/Xim/QJBCZ9XlGuV4LgMmzfz7vtkNVyYn7jNu6v
+    G2+OPqaABV5CPhbTpPAw==
+X-RZG-AUTH: ":LmkFe0i9dN8c2t4QQyGBB/NDXvjDB6pBSe9tgBDSDt0V0zNriHg+YfT0rGaZpI+/4y2xJGqxKO/71WLEX+9Og/eiUqko/dE="
+Received: from p200300c5872968993aedd1469d684940.dip0.t-ipconnect.de
+    by smtp.strato.de (RZmta 55.6.2 AUTH)
+    with ESMTPSA id ze37e127UFiFgif
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+	(Client did not present a certificate);
+    Sun, 30 Aug 2026 17:44:15 +0200 (CEST)
+Message-ID: <3e9b0d90733b6fdee6da3f1acb7c91c320ac2179.camel@iokpp.de>
+Subject: Re: [PATCH v4 1/2] ufs: rpmb: retry power-on UNIT ATTENTION on the
+ RPMB WLUN
+From: Bean Huo <beanhuo@iokpp.de>
+To: Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>, 
+	James.Bottomley@HansenPartnership.com, martin.petersen@oracle.com, 
+	alim.akhtar@samsung.com, avri.altman@wdc.com, bvanassche@acm.org, 
+	beanhuo@micron.com, can.guo@oss.qualcomm.com, sumit.garg@oss.qualcomm.com, 
+	jenswi@kernel.org
+Cc: linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	op-tee@lists.trustedfirmware.org
+Date: Sun, 30 Aug 2026 17:44:15 +0200
+In-Reply-To: <20260827070345.2853821-2-jorge.ramirez@oss.qualcomm.com>
+References: <20260827070345.2853821-1-jorge.ramirez@oss.qualcomm.com>
+	 <20260827070345.2853821-2-jorge.ramirez@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.44.4-0ubuntu2.1 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260830-b4-apple-dts-fixes-v1-0-cc20f8445754@kernel.org>
 
-On Sun, Aug 30, 2026 at 04:22:06PM +0200, Sven Peter wrote:
-> Hi,
-> 
-> Just a small series to drop a spurious space in our dts file. No
-> functional changes.
-> 
-> Best,
-> 
-> Sven
-> 
-> Signed-off-by: Sven Peter <sven@kernel.org>
-> ---
-> Sven Peter (3):
->       arm64: dts: apple: t602x: Fix cpus node indentation
->       arm64: dts: apple: t6030: Fix cpus node indentation
->       arm64: dts: apple: t6032: Fix cpus node indentation
-> 
->  arch/arm64/boot/dts/apple/t602x-common.dtsi | 2 +-
->  arch/arm64/boot/dts/apple/t6030.dtsi        | 2 +-
->  arch/arm64/boot/dts/apple/t6032.dtsi        | 2 +-
->  3 files changed, 3 insertions(+), 3 deletions(-)
+On Thu, 2026-08-27 at 09:03 +0200, Jorge Ramirez-Ortiz wrote:
+> After a power cycle, the first command sent to any UFS logical unit
+> completes with CHECK CONDITION reporting a power-on UNIT ATTENTION.
+> The SCSI core surfaces this condition to the caller rather than
+> retrying it.
+>=20
+> For the RPMB well-known LU the first command after boot is the first
+> RPMB frame, and RPMB has no earlier, guaranteed access that could clear
+> the condition beforehand. The power-on UNIT ATTENTION therefore reaches
+> RPMB and fails that first frame, breaking RPMB on every cold boot.
+>=20
+> The RPMB WLUN needs the power-on UNIT ATTENTION to be retried so that
+> RPMB works from the very first access after a power cycle.
+>=20
+> Signed-off-by: Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>
 
-whole series
-
-Reviewed-by: Janne Grunau <j@jannau.net>
-
-Janne
+Reviewed-by: Bean Huo <beanhuo@micron.com>
