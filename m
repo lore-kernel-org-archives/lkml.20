@@ -1,200 +1,181 @@
-Received: from mail-oa2-f1.google.com (mail-oa2-f1.google.com [74.125.231.65])
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E1F219CD0A
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 18:31:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.65
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B736D21B192
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 18:34:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788114691; cv=none; b=KV9tGIQ9ZgCOUZtOORxZmYvSAzAP6LaCrqB11Wd5xCeuE/8ujS4pbM232wVhDCoCG1CocLXBDoTz0caEyHe7N5BTi46XtVyDhNQDurH4kTCYVfG6xC3avvSlzWyEor3RdeUSsKgHL8bh/PwY37x0JwR/J6olvkn8h3mZ1jouAt8=
+	t=1788114893; cv=none; b=BPukhH91hMUgjMU/SmoavpfqtmH/7OsvISExpFkZaPDj2YnpuOHVWmTAHRf6j3PfjRdGwb1xT1V/Yu4//+2RRum2kOVbcZpmkQv9Lla9BQp53RsJ4dp+IgfVCpxbSkofiLkh4hVaPRBwGtKYNoFlwSscYOthiIqv+W0Q8Rc/byI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788114691; c=relaxed/simple;
-	bh=Dc/SDUG7wsTJwkmbP2Ir4YGAA4eRTTTF2JIZziwjDPs=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=hfxh8BFyr0hMzFr+6ORVaJR//7d6hoJv8uLPChMyiQW59YPoCcdOIF9u0UutwV4fDcde0pdUriTo0ukg+mF50QR8PUAozvfrya9LbxLS6fawgSMKDzclmDd42tA53NjVP7FElVXm+31nTRGl24nQ3rrXP2UAKWvm8ocz0lm6ZeM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=masoncamara.com; spf=pass smtp.mailfrom=masoncamara.com; dkim=pass (2048-bit key) header.d=masoncamara-com.20251104.gappssmtp.com header.i=@masoncamara-com.20251104.gappssmtp.com header.b=v+K7vvVT; arc=none smtp.client-ip=74.125.231.65
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=masoncamara.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=masoncamara.com
+	s=arc-20240116; t=1788114893; c=relaxed/simple;
+	bh=5/5s81NWJ47FiUJFRDO+SzIEGSJvrgMrmIrqhox4ohU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ttEmWdGHtNR8PJjueGHV6Ue/sVre2ATaksGGEG/STmWL9NERLNDZFuvg7AOcIh8R0xF2kMM8ni7uCvnsWVhrYkrHWP005ULslJwZz2h6GZvHpNOthyBOkWSxmhtQr+pfNfBTDUYPb/DHQcpBm+H5v5xAVUdpociSeiP8Gw1oKIM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UyhoGSKB; arc=none smtp.client-ip=209.85.216.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=masoncamara-com.20251104.gappssmtp.com header.i=@masoncamara-com.20251104.gappssmtp.com header.b="v+K7vvVT"
-Received: by mail-oa2-f1.google.com with SMTP id 586e51a60fabf-451e22b4773so1272299fac.0
-        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 11:31:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UyhoGSKB"
+Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-396750cfee6so2110593a91.2
+        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 11:34:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=masoncamara-com.20251104.gappssmtp.com; s=20251104; t=1788114688; x=1788719488; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=dgh1NzZ5hofs8HTSQ7QUxgLQk3+1tZCEvxkmug+HP5E=;
-        b=v+K7vvVTxX+70x6G8trJMQMDcVHGCDgALTaSSjH3qPNcjDLJdaFU1jj6NrCEDlN8pF
-         GB+xKEyUhBCQ7sgXlB37Ij3pdHI46CGYiXKpiybukQFvx1cYcZZW6YVdyUBdLgMD03u3
-         Y0+ANJKQirSsbfedZ2CY628gOnZAAVc3SdW+Fi3/BjYpCxEiIcOc8lKI37x2m0XHAD3u
-         soFe3drC9RtgIeA364YOdaF7THiYmoLcdNzIEsVXjj3w01UmPFAsa0U75bcbSIK+HZpz
-         Pzy8gXn9bmYsU4WHdpEV3jCQUafKRSUITGPyGhWb2a/DCBJGyHGe4qZcrKtXMhAuXtwN
-         aBgw==
+        d=gmail.com; s=20251104; t=1788114891; x=1788719691; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=G0B4wZ3fn9SdpG81JGH8ihBKW0Pv8b+m2YhlqJODgpk=;
+        b=UyhoGSKBptxU9+2IP6vXABW7+bdfmRONs2ktvbLzUglaXAxQp4mXhOVa9pcOKmvYys
+         uKO5FG5EVo3xWgYo/EMLk6jXbm6jSxjCxIAw2TrXAf67dk8esomf7r002KJCMeMmStrg
+         YhsgCGSnvuVyBeV0Ob24SbEEnTfIej9TvNFS+OkrpzTOtkc74Aj+1tnNSoIu8hCv4e1C
+         VdDNSJ/CG0cL/TNshjK6uz+1KzFwrUbWCfSAVZYURuqO3QeKsNH0NA/tQzcziuxQMeGn
+         cCR/r8HtRO9UN4Yt+ci+0sV7Ict99FiK2MMI6kV9kho8ZFwkUSzLonyMHTIN5tau+UNl
+         8xWw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788114688; x=1788719488;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=dgh1NzZ5hofs8HTSQ7QUxgLQk3+1tZCEvxkmug+HP5E=;
-        b=j0O7U7upfyBq0oOtKIn6VeJDUAPFX0eZNQW26rR11jBfZJkcds5N4+QsxVmno0Mo8d
-         WJM8DHVG5stUkdNeU3Bi2PBi7QYH+scHF3Ohy4q6UBB/Hqvo7SliNvfiDe2VBU+uV+li
-         hTje3SoZmns5duVNYnV+SwtxiUgd8Tqb4hpHh/DHbe9wsoNovm/xITEdhhoE6OzP5mnE
-         9/vRH6HxCsRHUs3UGhZY3Oom+hjWoy6oBneOzx9JYuCpLU7m+jtqM+VDc2h2TEsInLOC
-         1ENJSRJJhnTn2f3gCWXP/qqXEFDn0nBdKWRlqwSvo2knlmVnAmxu/P3nYG/jO5Z/JS6j
-         Ox1Q==
-X-Forwarded-Encrypted: i=1; AHgh+RqUoja4RTl25zHkwr0st+fg/vNoLhjQFsF6ashlbP5imiCdAxZls1z8Uqkh6wZa0+jOD1F4nyy6Hm8k5hM=@vger.kernel.org
-X-Gm-Message-State: AFuF++lq38dVGfVBMi1quyXphPb/sK+BQvlpSHiCuQIKfLWg3DU42cZf
-	/Xjzu90NawP+DzmH5Lol8EwC0QSag2pW/1oKAlC2G1aUpcMnhXqD1s0VlpD+uyA/TFxe
-X-Gm-Gg: AR+sD12D89IUgFHnZDN67Pll4B2W9qxFCihZqs421mIKmbCmrq8AqpFMX21x2zr46my
-	Tp5oBUX8cNgcI+OAH7nVcfSdRYtirdo3Xu2LzFzCuC5qLk7p281c81gYetMQRQljs3CFk+g3NvU
-	5dOl8c9IYmKImi1P63QlF87uSDRYJCs+dFHMoKT7TOFAPqYpQYBMcAyco3AFopXy0SVLx72K3xx
-	QZF6Em4qm9lZVt0LOgbsBcjYDSY8K6+yywIeA5k1/wxPHt48PQHm+gdxJiTc+qQcsJBEw9K3PEV
-	c1PQPeneT50rT7aZo7MI+ZwtSK1xtuBSi+c2qpKNhqugTCf+vKEmkuEzf1wti/bIPj4yCObIJAw
-	XIxwf5vBHg/lxTSGcPIBR4EFdu1lxoi7dpxYuNhcwVYuqnGeivPXHq1XLv5hv7ttjKYUpwLsAml
-	iEz0RgylJ2S2jx3MqmCnmUCCL9BeT2/oat2ZMhHmkGBv9BIat6WHNR+Xv+QfNpw5PeKoEkALpzL
-	YdT8hMUmXSwGcuzTE7sAOFFMoByOA2RKDQMZ3QSiOtD91dqBg==
-X-Received: by 2002:a05:6830:81d8:b0:7d7:fbe2:9725 with SMTP id 46e09a7af769-7f4f2220121mr22615283a34.5.1788114688486;
-        Sun, 30 Aug 2026 11:31:28 -0700 (PDT)
-Received: from localhost.localdomain ([69.26.129.115])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7f4fa96cf17sm6436259a34.15.2026.08.30.11.31.27
+        d=1e100.net; s=20251104; t=1788114891; x=1788719691;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=G0B4wZ3fn9SdpG81JGH8ihBKW0Pv8b+m2YhlqJODgpk=;
+        b=op13Bgpyej9wtFR6z50jwwEsVujpHNZa3Zju3rSoci1aRz+At/5m3/GFRCIv6ZVqpe
+         MMx7Iv13Fk98MqrRk8pnV/3aoqTCjfgHYzKni6thIrvAyOB4vAzqgndqMNbrYcOyiIWt
+         iTnmKMp8bFA0dC0RqY0H0IgUHMNsGUTIWLVZcrrFWTQKyb5cKwuN2TObLOw5aFOWcvJ4
+         L1tVcbP/az29by3hGo7NPYioTd+MfuNRnhLOBe2RX1o16tP8i10VMCJqMvHNc76vDtdA
+         bbGlkJ1l1K4SJJKpiyBqSqv5cigigBD9aYEfHH3WOTL0CrKqfBfICRrqiPJfqmV+Q+nb
+         lBYg==
+X-Forwarded-Encrypted: i=1; AKwUvBw5FAHmlJrNmmDQiO6e+vY+kbkFkoUTtxUCuJrIwRgm/00Kl/O789FTxnuEoL053c7VFoRphIsAcA8Af/4=@vger.kernel.org
+X-Gm-Message-State: AFuF++n8YtOugf0HMvDqZ2k57YzKMh/VGOJ+wWVmyNVN52JXdvmI1O+P
+	OBY2IzmGB//Zt9JHOolaJqtX/UCtya9wNar1sNqbk3xO8D5HaufsiHY6
+X-Gm-Gg: AYBFou0Vy4KVUYG/wGgKmTzGR9VkGVDo9z7EAEhmEzibnKsGiiEYp1htnFzC42IOoTq
+	96E5HnCo+PymU8k3+lFZ9tfiilMAqdruSI8BQ0n0qsG5rTX4UtKfFRZK9eRgrDsez/5fG2AwDWX
+	okPRLiHv5tzKyb8wlCTotZi5dELa3puvpLMfONL8jO6p+mxm0096Z5hukS33ayhNVt5vO7f4QZi
+	WPBG0pS/tiBhGpq6+cLI+/xCj9wGdzpxXnsw63EB9uiXiO7xNHaAuJN/C7ZNRDEQbvqTyCdxu8A
+	3alhbDpU9m3lFp5Y6q15lwz8SdKneW40Qfq1q3NrUD8JnvchxHolqZuxn2mCJAFX/Tn13xQzz3s
+	SBKa1uGsuCn4kBok1ym+f7JrYThE+I1whVZJDDlI65MZ368X+q46l9J56Jc5caEy+WIWSPotuaD
+	hTOq+QTs1gbZnkPjg31HKkmMG2FaaY7aXreVD3ZE15KVH0nm2S3KAplV3WTvJPIyvkqM5Ed2EC2
+	ChTIU7n3EpV5+bDjrzDZw4bsQ==
+X-Received: by 2002:a17:90a:4ca6:b0:398:bd66:35f5 with SMTP id 98e67ed59e1d1-398bd66372fmr8496745a91.25.1788114890953;
+        Sun, 30 Aug 2026 11:34:50 -0700 (PDT)
+Received: from KASONG-MC4 ([101.32.222.185])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-398a2d45bd0sm3248973a91.0.2026.08.30.11.34.43
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 30 Aug 2026 11:31:27 -0700 (PDT)
-From: Mason Camara <ping@masoncamara.com>
-To: jikos@kernel.org,
-	bentiss@kernel.org,
-	shuah@kernel.org
-Cc: linux-input@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	wh6cyy@gmail.com,
-	Mason Camara <ping@masoncamara.com>
-Subject: [PATCH v2] selftests/hid: test battery queries with nonzero field offsets
-Date: Sun, 30 Aug 2026 12:31:09 -0600
-Message-Id: <20260830183109.9441-1-ping@masoncamara.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+        Sun, 30 Aug 2026 11:34:50 -0700 (PDT)
+Date: Mon, 31 Aug 2026 02:34:41 +0800
+From: Kairui Song <ryncsn@gmail.com>
+To: Barry Song <baohua@kernel.org>
+Cc: linux-mm@kvack.org, Andrew Morton <akpm@linux-foundation.org>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+	Baoquan He <baoquan.he@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
+	Roman Gushchin <roman.gushchin@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
+	Chris Li <chrisl@kernel.org>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+	Ridong Chen <ridong.chen@linux.dev>, David Hildenbrand <david@kernel.org>, 
+	Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Yu Zhao <yuzhao@google.com>, Zi Yan <ziy@nvidia.com>, 
+	Qi Zheng <qi.zheng@linux.dev>, cgroups@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 2/6] mm/mglru: introduce helpers for manipulating gen
+ and refs flags
+Message-ID: <apR2LxjPMbripExL@KASONG-MC4>
+References: <20260826-mglru-flags-cleanup-v3-0-d9f1c75549c8@tencent.com>
+ <20260826-mglru-flags-cleanup-v3-2-d9f1c75549c8@tencent.com>
+ <CAGsJ_4yasRXO52K-13dx9ZXPw95wEyn2bpnf0NiQ2z56dxf-vQ@mail.gmail.com>
+ <CAMgjq7B7TFfBZLPorZEmg5y9u6TzFbYVQXZNC8+iztGtifmdKQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAMgjq7B7TFfBZLPorZEmg5y9u6TzFbYVQXZNC8+iztGtifmdKQ@mail.gmail.com>
 
-Commit d07644524b65 ("HID: input: read battery capacity from its actual
-report offset") fixed synchronous battery queries for reports that place
-the capacity byte after status fields.
+On Sat, Aug 29, 2026 at 03:47:42PM +0800, Kairui Song wrote:
+> On Sat, Aug 29, 2026 at 12:22 PM Barry Song <baohua@kernel.org> wrote:
+> >
+> > On Wed, Aug 26, 2026 at 1:53 AM Kairui Song via B4 Relay
+> > <devnull+kasong.tencent.com@kernel.org> wrote:
+> > >
+> > > From: Kairui Song <kasong@tencent.com>
+> > >
+> > > Instead of doing bit ops on folio->flags.f, introduce helpers for
+> > > adjusting a folio's refs and generation info, making the code easier
+> > > to debug and understand.
+> > >
+> > > No functional change is intended: some combined atomic operations are
+> > > split into two, which only creates harmless transient states. There is
+> > > no measurable performance impact, and some paths even look slightly
+> > > better in the generated assembly.
+> >
+> > Hi Kairui,
+> >
+> > I like your idea. Overall, it looks good to me. With some cleanup,
+> > we might have the following:
+> >
+> > >
+> > > Signed-off-by: Kairui Song <kasong@tencent.com>
+> > > ---
+> > >  include/linux/mm_inline.h | 76 ++++++++++++++++++++++++++++++++++++++++++-----
+> > >  include/linux/mmzone.h    |  1 +
+> > >  mm/folio.c                | 19 +++++++-----
+> > >  mm/vmscan.c               | 61 ++++++++++++++++++++-----------------
+> > >  4 files changed, 114 insertions(+), 43 deletions(-)
+> > >
+> > > diff --git a/include/linux/mm_inline.h b/include/linux/mm_inline.h
+> > > index 621c8653d8f7..edfaf2661812 100644
+> > > --- a/include/linux/mm_inline.h
+> > > +++ b/include/linux/mm_inline.h
+> > > @@ -142,10 +142,42 @@ static inline int lru_tier_from_refs(int refs, bool workingset)
+> > >         return workingset ? MAX_NR_TIERS - 1 : order_base_2(refs);
+> > >  }
+> > >
+> > > -static inline int folio_lru_refs(const struct folio *folio)
+> > > +/**
+> > > + * lru_gen_from_flags - Return the LRU generation number from folio flags.
+> > > + * @flags: folio flags
+> > > + *
+> > > + * Returns: A number between 0 and (MAX_NR_GENS - 1), inclusive. Returns
+> > > + * -1 if the flags indicate the folio is off the list (e.g., isolated).
+> > > + */
+> > > +static inline int lru_gen_from_flags(unsigned long flags)
+> > > +{
+> > > +       int gen = ((flags & LRU_GEN_MASK) >> LRU_GEN_PGOFF);
+> > > +
+> > > +       BUILD_BUG_ON(LRU_GEN_MASK & LRU_REFS_MASK);
+> > > +       gen -= 1;
+> > > +       VM_WARN_ON_ONCE(gen != -1 && gen >= MAX_NR_GENS);
+> >
+> > Since `gen` is an `int`, it seems a bit odd to have
+> > `gen != -1 && gen >= MAX_NR_GENS` combined here.
+> >
+> > Do you actually mean the following instead?
+> >
+> > VM_WARN_ON_ONCE(gen < -1 || gen >= MAX_NR_GENS);
+> 
+> Thanks for the review!
+> 
+> Yeah, thats's a better sanity check, will udpate it.
 
-Add a UHID mouse with the Magic Mouse 2 report layout and answer GET_REPORT
-with 90 04 5f. Read capacity before sending an input report so the test
-exercises the synchronous query path. Without the fix, it reads the status
-byte as 4%; with the fix, it reads capacity as 95%.
+Hi Barry
 
-Enable CONFIG_HID_BATTERY_STRENGTH in the HID selftest configuration.
+After second though, I now remember why I did this in the first place.
+And there is already many following checks in upstream:
 
-Link: https://bugzilla.kernel.org/show_bug.cgi?id=221263
-Assisted-by: LLM
-Signed-off-by: Mason Camara <ping@masoncamara.com>
----
+VM_WARN_ON_ONCE(new_gen != -1 && new_gen >= MAX_NR_GENS);
+VM_WARN_ON_ONCE(old_gen != -1 && new_gen >= MAX_NR_GENS);
 
-Changes in v2:
-- Drop driver fix, superseded by d07644524b65.
-- Rebase the regression test onto the current HID for-next branch.
-- Amend commit message and tool-assistance trailer.
+And gen is signed everything since it has a -1 special value.
 
-v1: https://lore.kernel.org/linux-input/20260712044702.893825-1-ping@masoncamara.com/
+The reason is MAX_NR_GENS is unsigned, so a signed -1 will
+look larger and trigger false warning on it.
 
- tools/testing/selftests/hid/config            |  1 +
- .../testing/selftests/hid/tests/test_mouse.py | 54 +++++++++++++++++++
- 2 files changed, 55 insertions(+)
+Or we will have to have something like:
+VM_WARN_ON_ONCE(gen < -1 || gen >= (int)MAX_NR_GENS)
 
-diff --git a/tools/testing/selftests/hid/config b/tools/testing/selftests/hid/config
-index 1758b055f..da52335b8 100644
---- a/tools/testing/selftests/hid/config
-+++ b/tools/testing/selftests/hid/config
-@@ -16,6 +16,7 @@ CONFIG_FTRACE_SYSCALLS=y
- CONFIG_FUNCTION_TRACER=y
- CONFIG_HIDRAW=y
- CONFIG_HID=y
-+CONFIG_HID_BATTERY_STRENGTH=y
- CONFIG_HID_BPF=y
- CONFIG_INPUT_EVDEV=y
- CONFIG_UHID=y
-diff --git a/tools/testing/selftests/hid/tests/test_mouse.py b/tools/testing/selftests/hid/tests/test_mouse.py
-index eb4e15a0e..141c1f069 100644
---- a/tools/testing/selftests/hid/tests/test_mouse.py
-+++ b/tools/testing/selftests/hid/tests/test_mouse.py
-@@ -11,6 +11,7 @@ import hidtools.hid
- from hidtools.util import BusType
- import libevdev
- import logging
-+import threading
- import pytest
- 
- logger = logging.getLogger("hidtools.test.mouse")
-@@ -598,6 +599,35 @@ class ResolutionMultiplierHWheelMouse(TwoWheelMouse):
-         return 0
- 
- 
-+class BatteryOffsetMouse(BaseMouse):
-+    report_descriptor = [
-+        # Mouse report
-+        0x05, 0x01, 0x09, 0x02, 0xa1, 0x01, 0x85, 0x12,
-+        0x05, 0x09, 0x19, 0x01, 0x29, 0x02, 0x15, 0x00,
-+        0x25, 0x01, 0x95, 0x02, 0x75, 0x01, 0x81, 0x02,
-+        0x95, 0x01, 0x75, 0x06, 0x81, 0x01, 0x05, 0x01,
-+        0x09, 0x01, 0xa1, 0x00, 0x09, 0x30, 0x09, 0x31,
-+        0x15, 0x81, 0x25, 0x7f, 0x75, 0x08, 0x95, 0x02,
-+        0x81, 0x06, 0xc0, 0xc0,
-+        # Battery report: one status byte followed by capacity
-+        0x06, 0x00, 0xff, 0x09, 0x14, 0xa1, 0x01, 0x85,
-+        0x90, 0x05, 0x84, 0x75, 0x01, 0x95, 0x03, 0x15,
-+        0x00, 0x25, 0x01, 0x09, 0x61, 0x05, 0x85, 0x09,
-+        0x44, 0x09, 0x46, 0x81, 0x02, 0x95, 0x05, 0x81,
-+        0x01, 0x75, 0x08, 0x95, 0x01, 0x15, 0x00, 0x26,
-+        0xff, 0x00, 0x09, 0x65, 0x81, 0x02, 0xc0,
-+    ]
-+
-+    def __init__(self, rdesc=report_descriptor, name=None, input_info=None):
-+        super().__init__(rdesc, name, input_info)
-+
-+    def get_report(self, req, rnum, rtype):
-+        if rtype != self.UHID_INPUT_REPORT or rnum != 0x90:
-+            return (1, [])
-+
-+        return (0, [0x90, 0x04, 0x5F])
-+
-+
- class BaseTest:
-     class TestMouse(base.BaseTestCase.TestUhid):
-         def test_buttons(self):
-@@ -1045,3 +1075,27 @@ class TestBadReportDescriptorMouse(base.BaseTestCase.TestUhid):
- 
-     def assertName(self, uhdev):
-         pass
-+
-+
-+class TestBatteryOffsetMouse(base.BaseTestCase.TestUhid):
-+    def create_device(self):
-+        return BatteryOffsetMouse()
-+
-+    def test_queried_battery_field_offset(self):
-+        uhdev = self.uhdev
-+        power_supply = uhdev.power_supply_class
-+        assert power_supply is not None
-+
-+        done = False
-+
-+        def dispatch():
-+            while not done:
-+                uhdev.dispatch(1)
-+
-+        thread = threading.Thread(target=dispatch)
-+        thread.start()
-+        try:
-+            assert power_supply.capacity == 95
-+        finally:
-+            done = True
-+            thread.join()
+I prefer to keep it with the existing style, with proper
+comment, further sanity check cleanup later. Right now the
+usage of MAX_NR_GENS is limited so I think we are fine.
 
-base-commit: 931aaa59d1826f43b0bb3f07e21233f6faf4540a
--- 
-2.39.5 (Apple Git-154)
-
+In fact I'm think we can get rid of the -1 by combining with
+PG_lru, or use a formal special flag. Which can be done later.
