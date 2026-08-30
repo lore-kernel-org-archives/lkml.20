@@ -1,103 +1,196 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com [209.85.167.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A65AF25C818
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 09:31:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CD5421CC5C
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 09:32:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788082320; cv=none; b=n9nl1EIvUVS/XdcAngjAyQQkYVKpvDgJSWxnGJaPLu+FigrwjUvw0Uc2aQwyF1YpyUuuHIV7xQUt3+6N74fx/iDJ6e2sdjjoGpREo7rn/S5wG8q9AhENW8ypDlTLkhSe7zh8SMoh+JaBNb0a4yQWoDlceJre/VN+wSV649BeJTM=
+	t=1788082340; cv=none; b=M43iiFYFMOTOgJiwZR9JBUzCb46v4PUrHTZF0l8yz3cIcngXUT+P12JakWs+sko72GOYmcqUkEMO8649eeoZnugDHHC905EF03OmYPckJ1q80ykigHyM6AZgZDrccocOIzj2lwY07D3C3yjl4O2Zt5LpB4+0D2SbXL7c1POWgi8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788082320; c=relaxed/simple;
-	bh=IJcwjYHj17joDlAXtYdSP6DsUc3ZUsKn5ItYemxd9U8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=CYidVrh+vjHSRpKQJVcmnpFgdyTdUGkb+c2gePvnIV5udqF5/Y6eyHIcdytJ2Dr/iTePXy7dyqzqESdyPvHgnhP6N17tdCn/PiKgxVCiQMutSZprzAHZzE0BAyOW4TVyfkvuLGtY5TSt2gExevxiWMVtpcZ4ekYK3AoYsaw9F58=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fCCv+HHW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788082340; c=relaxed/simple;
+	bh=dLTflUZhWO3k4/Rm9ZG0yWNmYzlAYv2sf6OvtYCp+v4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=hTegTSXfjIcSaSOb56ZaRRSXzoFuB3Wmo/s/6ozvBspyRUrHrCxjrqSd7nI2YjbyzQ3cuFRHfEaSDel5Q5pyG/kzPs6cLjz/RDdcVcyfzXJQX9bNEVAMXHePTifWM6iNonJYuKipTIiUYYQiGsCJ92aQqhh1rrjDRKRIq/k/wzU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=q6jjHk5t; arc=none smtp.client-ip=209.85.167.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fCCv+HHW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 479C21F000E9
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 09:31:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788082319;
-	bh=nvYs9KqQQiDFu9j18mNGTYlbSQTfBbCYWUQ8jg0y0r4=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=fCCv+HHWayBekTpcF1F3IRCa/NlTMeI0SHFmDk3sJXRVzb5NYiI4k+PAr1AcvyU6Q
-	 3YAt1YQIi1PVpovVNd5xSEfN6Hs3lLmAnILDBFG5GfLK7l/7AH5vEjydVEs9gN3H31
-	 inOHTmiBDKTyLT3qhRXAt5kJNuny/gM6XkeiTagk8BjJdhm9tnLLBxD113isvnQKnr
-	 lJmAWlzKCyuw2jt93bpkuOqmOV3rk3qfIzegw6Vc6J3/XmJ4m856w8qfFeuCWX5a7i
-	 M1gX0nk57QVgeyHMTgrl45j5cgRXvMxYPyGVxp9DNHb+JnWzBuBHppIvWBNsfYGxFa
-	 BNw2amaBlp1yg==
-Received: by mail-qk1-f171.google.com with SMTP id af79cd13be357-92e55b62640so132553785a.0
-        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 02:31:59 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RphVtZnmOIdwyOrBbQy17vcfMsyuXFLPuG/6MkBL8AGIZhvZGQMtutMql8osv+0HBRf+kSemkdTj3HL9hU=@vger.kernel.org
-X-Gm-Message-State: AFuF++mcYg6C7X0upcbDsAEfLnrdZ6ocg1CFMq7qt3R21bSjWgUMk5Ji
-	/oCes3T3GPsA+PfZVj+ivTWfh3uuk4Rk1DSDuAWE65mOwCCwY9ocg5ZSHLKaMObmn80wGER2gbJ
-	eEp9g0+IL7Ee6IEjcl9GsycgP8MKZmow=
-X-Received: by 2002:a05:620a:f04:b0:92e:6a33:7118 with SMTP id
- af79cd13be357-939138df202mr1911249285a.30.1788082318676; Sun, 30 Aug 2026
- 02:31:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="q6jjHk5t"
+Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5b4ab40d839so2261303e87.3
+        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 02:32:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788082337; x=1788687137; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+ZJhRwyLAW0jsfUB61doEJc+nQrzQWlaMJNzh2taQBY=;
+        b=q6jjHk5tjBi2KfNZiphxGu4V+MHzvp2OA4cMZPn6mxe9NHLhBuXIAVPrY3wOoY2BGj
+         Eno+5z0BTjnkl+oNx5IWzzpUccjOqQT9VLDraWFwDxDv3JWoWsyLva7RYaMhNkazunWC
+         SnO3x+Gt9HbaYgg+UQTjkUYfSmriXvli0alVElQcmzXfKarStxL1/Dx5W7JdbCqbb0li
+         Lbwv7HYkWWFBgDxcGfyKcfPr0ftM5nvDyRpnHWcffPmM7T4RVC6EOX0yM0bHLAbRe8Tk
+         Bu+TfZ8sAlRGV3uLT9ZrKViTmRD3ise4UqTSfq3q1dPu+fxYRBaZ3T1HHpI/pKM5TngZ
+         2jrA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788082337; x=1788687137;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+ZJhRwyLAW0jsfUB61doEJc+nQrzQWlaMJNzh2taQBY=;
+        b=QY8MmVgE1sABimjcyQIiXBIpesVA+BcMee1o1Q28kp5Mm2vC0HKYz1U0/RzolLbNI+
+         FILsueV0QZHvwQqRFNTgFGZqIQDaoSKNLeirHTg32cwEX8OmtIu5SqQ0XwfrRkqHTHzq
+         +mXMf2MCT9WCMAyBlQbskG5XYgv87ThTBc3gOwdsXlJszCuotQz87j4Uj9IEdD8XEFfN
+         NPv6Ll4ravCIMklfn1yfZG2D4lw/bgN32ej4iIRt2V5n+tuusa7PungAJ0tIcVlWyGVZ
+         SgOFM0hrEr5+hNj5y92+Fnox7pKSC3t6Vi3gbq18UBNyoQ9GF0nV+8itA0Mn1KSmPfZr
+         y2MA==
+X-Forwarded-Encrypted: i=1; AKwUvBwn6hqs++p7KrGfEf9sfATKXYv4UhD7YMimlacRZw5XFHJw3AIRaYB7G9A3Zr6LdWrInbSyqObO0+8Z2EU=@vger.kernel.org
+X-Gm-Message-State: AFuF++lx9H5+e9/IvEqzg0KrxYZesrXMKLR4YqZ1HWm8/YUcOxazq+wx
+	YVfouU7pq45slcEE2009B299ZlU4geKEhMOgMu4POGoODFEChKtu0bRQ
+X-Gm-Gg: AYBFou3fV38iJTgMNVN9YO7OenItsuWzf4Fnuizxfc6AwbGRo2AhKnYc83Y50A0D6xe
+	f2kOV8NGyHmtNe4PnIcQJ7k25bL/gM/7lcC0hvAjhWBB6KS9i/NwY/nHEJmCosP39xROmkF0KHl
+	JirI3u2yz53HAXsqyVWXZMnvp+8+WbWdcsanfqSungnJl8Vjrf+y6FAlQV/PfiViuLH2y3LVMGq
+	oakqhIbtZFYlrSnhVM22usdVzY6QLRUcAk818eaX65rgLrV1laeGVOCoa5mNLP6ycgSzcCItLRq
+	mHxvEznyXzLriiRJ8ATZKOFiKDAx+GJMq4MmPgcRfxZ9D9rWS63yQB8pDXFlqBZf7/rToM/fEWq
+	OxtX2+F9TbsItNTdo/a94VbsQETRT6cNBeL9so7BTNWwX31BFDJTj1VWtvZ8XYH2sW+5RJp77Dz
+	JxYXCl6pqJuaTI8B5gOi0QlX7HrWusnEyfKwdbQJNA76MqmYfHp+j2jE/LGLZ+IA0ERg+X/A0mB
+	9yJjeI4jbbt1oTzl7QCQzb+eV3XQAGsMqjiFVBtdx5A
+X-Received: by 2002:a05:6512:3d8e:b0:5b2:9f7a:29aa with SMTP id 2adb3069b0e04-5b5e68489ffmr5726157e87.0.1788082336658;
+        Sun, 30 Aug 2026 02:32:16 -0700 (PDT)
+Received: from ?IPV6:2a10:a5c0:800d:dd00:8fdf:935a:2c85:d703? ([2a10:a5c0:800d:dd00:8fdf:935a:2c85:d703])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b5e89d60ddsm1513610e87.31.2026.08.30.02.32.13
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 30 Aug 2026 02:32:16 -0700 (PDT)
+Message-ID: <0d808de2-090b-4a7a-8f72-2cb657406ee3@gmail.com>
+Date: Sun, 30 Aug 2026 12:32:13 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260820142956.1414337-1-qiwenjie@xiaomi.com> <3fa43eaca792bc0bbde4b82a6c1fcdd3f528b398.1787999152.git.qiwenjie@xiaomi.com>
- <4aba05e1a2c3b61cb337d373eb9b7a8db4ddd822.1788024049.git.qiwenjie@xiaomi.com>
- <20260829111621.41ed2bc9a0e99e3367eb96c3@linux-foundation.org>
- <ef160933595c365f2c47597b260bc7ecd98ed7ce.1788029516.git.qiwenjie@xiaomi.com>
- <CAGsJ_4wpUBOXKd8aGNz76U+87bwDUXZZFSW2UhNcq4qpjVvggQ@mail.gmail.com> <20260830165401.1788080041-1-qwjhust@gmail.com>
-In-Reply-To: <20260830165401.1788080041-1-qwjhust@gmail.com>
-From: Barry Song <baohua@kernel.org>
-Date: Sun, 30 Aug 2026 17:31:46 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4zGN9rqqxoFU66G_PbXqTiDaeV_tUiyr8vbfxFWEJg62Q@mail.gmail.com>
-X-Gm-Features: AcwNN1XZPfiog3RD9yg8B0eXNaoAai7OPxYRVCjEpqabBekjMlLKWknwxqjTMg0
-Message-ID: <CAGsJ_4zGN9rqqxoFU66G_PbXqTiDaeV_tUiyr8vbfxFWEJg62Q@mail.gmail.com>
-Subject: Re: [PATCH v4] mm: filemap: retain mapped dropbehind folios
-To: Wenjie Qi <qwjhust@gmail.com>
-Cc: willy@infradead.org, jack@suse.cz, akpm@linux-foundation.org, 
-	linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org, axboe@kernel.dk, 
-	trond.myklebust@hammerspace.com, tz2294@columbia.edu, jaegeuk@kernel.org, 
-	chao@kernel.org, qiwenjie@xiaomi.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/4] iio: light: rohm-bu27034: Fix infinite delay on
+ error
+To: Jonathan Cameron <jic23@kernel.org>,
+ Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>,
+ Matti Vaittinen <matti.vaittinen@linux.dev>,
+ David Lechner <dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ Mehdi Djait <mehdi.djait.k@gmail.com>, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <cover.1787901813.git.mazziesaccount@gmail.com>
+ <7f0d8efb3578cd4f23a7c70fa4a8f7a967c9df8e.1787901813.git.mazziesaccount@gmail.com>
+ <apE-gauHWlJO8-5X@ashevche-desk.local>
+ <5d274bfb-2570-4336-af16-60640550e6c9@gmail.com>
+ <apFqmjGZKQ-qW7L7@ashevche-desk.local> <20260830021626.025397c8@jic23-huawei>
+Content-Language: en-US, en-AU, en-GB, en-BW
+From: Matti Vaittinen <mazziesaccount@gmail.com>
+In-Reply-To: <20260830021626.025397c8@jic23-huawei>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Sun, Aug 30, 2026 at 5:13=E2=80=AFPM Wenjie Qi <qwjhust@gmail.com> wrote=
-:
->
-> Yes.  The current path removes the folio from the page cache, so a later
-> mmap access can incur both another fault and I/O.  I should have stated
-> that explicitly.
->
-> For fault-around neighbors, folio_mapped() cannot distinguish the faultin=
-g
-> page from a speculative neighbor.  This patch takes the conservative poli=
-cy
-> that an installed PTE represents a competing cache user and wins over the
-> writer's RWF_DONTCACHE hint.  It can therefore retain a speculative neigh=
-bor
-> which is never accessed.  Distinguishing those cases seems to require
-> fault-around to preserve the faulting folio while not mapping, or later
-> dropping, dropbehind neighbors.  I think that should be considered as a
-> separate follow-up.
+On 30/08/2026 04:16, Jonathan Cameron wrote:
+> On Fri, 28 Aug 2026 14:01:46 +0300
+> Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
+> 
+>> On Fri, Aug 28, 2026 at 12:46:24PM +0300, Matti Vaittinen wrote:
+>>> On 28/08/2026 10:53, Andy Shevchenko wrote:
+>>>> On Fri, Aug 28, 2026 at 10:40:36AM +0300, Matti Vaittinen wrote:
+>>
+>>
+>> ...
+>>
+>>>>>    	wait_ms = bu27034_get_int_time(data);
+>>>>> +
+>>>>> +	/*
+>>>>> +	 * If reading the integration time fails, default to the minimum so we
+>>>>> +	 * don't lose samples. This may waste CPU cycles, but as a hardening
+>>>>> +	 * against theoretical, once-in-a-blue-moon error, this should be Ok.
+>>>>> +	 */
+>>>>> +	if (wait_ms < 0)
+>>>>> +		wait_ms = BU27034_INT_TIME_US_MIN;
+>>>>> +
+>>>>>    	wait_ms /= 1000;
+>>>>
+>>>> With the above being open coded the _ms feels not right.
+>>>> I would expect the TIME_MIN to be in MS from the start
+>>>> (and for the consistency's sake with the below) and having
+>>>> all this to be written like
+>>>>
+>>>> 	ret = bu27034_get_int_time(data);
+>>>> 	if (ret < 0)
+>>>> 		wait_ms = _MS_MIN;
+>>>> 	else
+>>>> 		wait_ms = ret / USEC_PER_MSEC;
+>>>>    
+>>>>>    	wait_ms -= BU27034_MEAS_WAIT_PREMATURE_MS;
+>>>
+>>> I don't like using 'ret' there.
+>>>
+>>> At first glance, the
+>>> ret = bu27034_get_int_time(data);
+>>>
+>>> looks like ret is containing just the success status. Furthermore,
+>>>> 		wait_ms = ret / USEC_PER_MSEC;
+>>>
+>>> forces one to go back and see WTF the 'ret' is (even if just couple of lines
+>>> - but this is not an improvement, using ret is obfuscation).
+>>>
+>>> I could change this to:
+>>
+>> I suggested without knowing the possible ranges of the returned value.
+>>
+>>> wait_ms = bu27034_get_int_time(data) / USEC_PER_MSEC;
+>>> if (wait_ms < BU27034_INT_TIME_MIN_MS)
+>>>                  wait_ms = BU27034_INT_TIME_MIN_MS;
+>>
+>> This looks sane to me and  removes the confusion I was talking about.
+> 
+> Except that wait_ms can be negative due to a read error and that is obscure
+> by what now looks like
+> 	wait_ms = max(wait_ms, BU27034_INT_TIME_MIN_MS);
+> so ensuring we clamp an out of range value.
 
-Yes. Maybe we can skip mapping neighbors with the dropbehind flag in
-fault-around.
+Which, in this case, is perfectly fine because it does not matter what 
+the cause of the failure is. There is no need to distinguish between 
+read error and 'returned value is below the minimum time' - in both 
+cases we just use the minimum time.
 
->
-> For folio_launder(), filemap_end_dropbehind() holds the folio lock and re=
-turns
-> if the folio is dirty or under writeback before calling
-> folio_unmap_invalidate().  folio_launder() also immediately returns for a
-> clean folio.  I do not see how nfs_launder_folio() is reached from this
-> completion path unless the locked, unmapped folio can become dirty betwee=
-n
-> those checks.  Is there a path I am missing?
+> I'd just go a touch further and split return value and parameter
+> + provide a default.
+> 
+> wait_us = BU27034_INT_TIME_US;
+> ret = bu27034_get_int_time(data, &wait_us);
+> if (ret)
+> 	dev_warn(dev, "Failed to read int time, muddling on\n");
+I do both agree and disagree. This is not the first time when I am 
+pondering if a "getter API" should only return an error, and fill the 
+desired output in location pointed by a parameter (your suggestion here).
 
-You are probably right. I was referring to the bit wait in
-nfs_launder_folio(), though I'm not quite sure whether this can
-actually happen:
-folio_wait_private_2(folio); /* [DEPRECATED] */
+In many cases it is simpler in the calling site to just use the return 
+value, and error handling can still be reliably done when all legitimate 
+values are positive (in this case, also greater than minimum). Using the 
+pointer argument for value retrieval typically brings potential issues 
+with value initialization if call is unsuccessful.
 
-I assume we won't wait for `private_2` while the folio is clean. If so,
-it should be fine.
+Hence, I am often using this "dual meaning" for return value (negative 
+error code or positive valid value) in cases, where all successful 
+values are guaranteed to be positive.
+
+I would definitely favour your suggested signature if retrieved value 
+could be negative, or was a pointer. I have never liked the IS_ERR() and 
+others - but check:
+if "value < allowed minimum" and decision "then, something is wrong - 
+use default" is really quite clear to me.
+
+Yours,
+	-- Matti
+
+-- 
+Matti Vaittinen
+Linux kernel developer at ROHM Semiconductors
+Oulu Finland
+
+~~ When things go utterly wrong vim users can always type :help! ~~
