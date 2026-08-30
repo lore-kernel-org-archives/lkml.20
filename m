@@ -1,96 +1,100 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AA9A2517AF
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 01:05:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AA2C12CDA5;
+	Sun, 30 Aug 2026 01:05:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788051936; cv=none; b=WLpR5Me9E10uZyw7wEXIgzORDN1RaWgv+OagAigB3jkFYnncWSSCgdzJ21uSc7uU5OfKqXHIaVP2qZP8F1FWbDk6KDbdLoaK018FbiikUxQ8YAM04XNFkMnbaNYSeLI0CCmJHs1uzlMNfazWRM4pv7+RtXntqnOeOMqbWLrEP/g=
+	t=1788051936; cv=none; b=PSnOO6N6ZQRbcFWtzVNxaI9+wxpxgKEc7hQkS5SlHwrPF5D8B0L/qu9clFeXnVIf/96BFpF8kbuR+jQA1JCbMljsHMylcJjHOw/31bh5jq863H0k6efL8OEBQLT3qXoUw+n19PNnDGlqkli7PSKDM/r+XiemIA9Jza0n6wO1WvI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788051936; c=relaxed/simple;
-	bh=+WuCrbokaXSxVlDKXL4dQZJUHySugDyiu8vwO0dykRM=;
-	h=Message-ID:Date:From:To:Cc:Subject; b=RakpBkyhYk5SMlQcwh9hxipP1mAZF+MAVH1TqTwYIxP0oNMx5nB3VSC+DhIgrEkKSlkGX/z6Y8yCoDvuPU7HCTwMMRHx7UX2mAcD3dJpWRy3ETX59GJpoJs8Pe3LtJsOXfAalSm3HuPkzgD729LnULxm+Rk3ypsuHNUKBYuAcO8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AWN6g5zC; arc=none smtp.client-ip=100.103.45.18
+	bh=DqR8gnCgPjdDDpd1yS/qjAjDRYbt/fDTTOPtqsdfb9I=;
+	h=Message-ID:Date:From:To:Cc:Subject:References:MIME-Version:
+	 Content-Type; b=fGThfSQI+LBJ8N4fqSvSI2Vz4m/7zir/5zORLqzfsM6GWqMgGONugGyWqBy5IktkavZEKSe0wrCuLJjl71NAlwKX9B0rrBSialQnLk0DS2qZGQ3ilcpEKmzkGrlQY6InI8L7r7n/KUwVar/SGAnV/fCZ9LGSpWyXRXGJAaN1DZM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SUTzhCFU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AWN6g5zC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC94F1F000E9;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SUTzhCFU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE5961F00A3E;
 	Sun, 30 Aug 2026 01:05:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1788051934;
-	bh=OgnU5kEPdBfyJpRP/+AmW49rFGDbm09zF92cxGAp23E=;
-	h=Date:From:To:Cc:Subject;
-	b=AWN6g5zCXbnIlFzGe5xARnmAP88rcxOpT9gzxI5IQokClIDkj7m51e6aOr9NdjjWL
-	 K1a2xtEIBqKnLxDuHgOzAxjeqEUCN83ijYZDHiHGl46SmrPuHjpMy0iLaqXL31/yaz
-	 65nGd8pqmkRbzShvYryzIJ/A78IZSCS/Tz6kd5vLyZl7GPtAQNxIqT1560pex+CNQ5
-	 i1C2yJ7kpGCT5LKOjM7rQNgnexS1DvTBVQeEqu+a0mACoyx4npa/qFJtrekVa+xHbt
-	 YMT3A47c6JnIUh2xMHoUUeVtWlJoTnHGIBJsHn1rsgToFNpVR7aZHcpnB1TVw0tbuE
-	 7iAIriP+Ar/oQ==
+	bh=qB5MP1zgfIYCeSEZAt1zSTxgVF9hwMWNiuptqshEvtk=;
+	h=Date:From:To:Cc:Subject:References;
+	b=SUTzhCFUu0PXQzjJK14Qr6iKgbUlGKuNwFmatTuuoeKX5+IzRBsc9SgsoLn490+ra
+	 F0ksGNnjbpJ+UvQnM/NC9UyIKiPWnz1SVWC6LJTHdAI8Mxc5YRfi53Eaf7FZYBCyzf
+	 52Q3jxSgNMG9OpjnVqFxx+zPeMlnDKXGA7jOopgkVea0nydfscQ/ljv5Q73MJY+h/V
+	 5sB6bs6QKV4op2qMbKJ8xfLBCQW5xQE97evkdvIA1ZSTTAbKItN3OZLbS5CBtZb42R
+	 dI4kfctfMRD/cQu+ZpCd1ji2EAmQLOsO1Jix8KXEPQsepis5WGGkbM1xKi3BL60t61
+	 MXvBDhj68Y5bw==
 Received: from rostedt by gandalf with local (Exim 4.99.4)
 	(envelope-from <rostedt@kernel.org>)
-	id 1x0U0B-0000000A48V-3ZGO;
-	Sat, 29 Aug 2026 21:06:27 -0400
-Message-ID: <20260830010531.847108845@kernel.org>
+	id 1x0U0C-0000000A49W-0nEx;
+	Sat, 29 Aug 2026 21:06:28 -0400
+Message-ID: <20260830010628.049582948@kernel.org>
 User-Agent: quilt/0.69
-Date: Sat, 29 Aug 2026 21:05:31 -0400
+Date: Sat, 29 Aug 2026 21:05:33 -0400
 From: Steven Rostedt <rostedt@kernel.org>
 To: linux-kernel@vger.kernel.org
 Cc: Masami Hiramatsu <mhiramat@kernel.org>,
  Mark Rutland <mark.rutland@arm.com>,
  Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
  Andrew Morton <akpm@linux-foundation.org>,
- Vincent Donnefort <vdonnefort@google.com>
-Subject: [for-linus][PATCH 0/3] tracing: More fixes for 7.3
+ Vincent Donnefort <vdonnefort@google.com>,
+ stable@vger.kernel.org,
+ Ivan Immanuel Shaji <ivanimmanuel1234@gmail.com>
+Subject: [for-linus][PATCH 2/3] tracing: Fix retry exhaustion in simple ring buffer reader swap
+References: <20260830010531.847108845@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 
-More fixes for 7.3:
+From: Ivan Immanuel Shaji <ivanimmanuel1234@gmail.com>
 
-- Clear user events state on fork in case of alloc failure
+simple_ring_buffer_swap_reader_page() starts with retry set to 8 and
+post-decrements it only after a failed link replacement. On the final
+attempt, a successful replacement leaves retry at zero, while a failed
+replacement leaves it at -1.
 
-  On fork, the child gets a pointer to the parent's user events state. It
-  makes a copy of it then updates the child's pointer to it. But if the
-  allocation fails, the duplication function leaves the child with a pointer
-  to its parent's descriptor. When the child cleans up its data, it will free
-  the parent's descriptor while the parent is still using it.
+The current !retry test reverses both outcomes. It returns an error after
+a successful final replacement, leaving the link update complete but the
+reader bookkeeping unfinished. After a failed final replacement, it
+falls through and updates the head and reader pointers as though the
+replacement succeeded, which can corrupt the ring.
 
-  In the duplication function, set the child's user_event_mm to NULL before
-  testing if the allocation succeeded, and when it exits it will not free
-  the parent's descriptor.
+Treat only a negative counter as exhaustion and return the documented
+-EBUSY error.
 
-- Fix retry exhaustion in simple ring buffer reader swap
-
-  simple_ring_buffer_swap_reader_page() starts with retry set to 8 and
-  post-decrements it only after a failed link replacement. On the final
-  attempt, a successful replacement leaves retry at zero, while a failed
-  replacement leaves it at -1.
-
-  But the check for success expects the retry value to be non-zero and exits
-  with an error on zero. This is the opposite result. Fix it.
-
-- Fail nicely when the remote swap_reader_page() returns an error
-
-  Currently, if the swap_reader_page() of a remote buffer fails, it triggers
-  a WARN_ON_ONCE() and continues normally. Instead, have it exit with an
-  error and a pr_warn() print instead of a full WARNING.
-
-  git://git.kernel.org/pub/scm/linux/kernel/git/trace/linux-trace.git
-trace/fixes
-
-Head SHA1: 5eab74874d11160725c42ab676ba97a797a362eb
-
-
-Ivan Immanuel Shaji (2):
-      tracing: Fix retry exhaustion in simple ring buffer reader swap
-      ring-buffer: Stop remote reader update when page swap fails
-
-Jérémy Jean (1):
-      tracing/user_events: Clear copied tracing state before fork duplication
-
-----
- kernel/trace/ring_buffer.c        | 7 +++++--
+Cc: stable@vger.kernel.org
+Fixes: 34e5b958bdad ("tracing: Introduce simple_ring_buffer")
+Link: https://patch.msgid.link/20260825-kernel-patch-1-v2-1-bb3461807a32@gmail.com
+Assisted-by: LLM sparse
+Reviewed-by: Vincent Donnefort <vdonnefort@google.com>
+Signed-off-by: Ivan Immanuel Shaji <ivanimmanuel1234@gmail.com>
+Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
+---
  kernel/trace/simple_ring_buffer.c | 4 ++--
- kernel/trace/trace_events_user.c  | 3 +++
- 3 files changed, 10 insertions(+), 4 deletions(-)
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/kernel/trace/simple_ring_buffer.c b/kernel/trace/simple_ring_buffer.c
+index f4642f5adda3..49913bb0057a 100644
+--- a/kernel/trace/simple_ring_buffer.c
++++ b/kernel/trace/simple_ring_buffer.c
+@@ -160,8 +160,8 @@ int simple_ring_buffer_swap_reader_page(struct simple_rb_per_cpu *cpu_buffer)
+ 		overrun = cpu_buffer->meta->overrun;
+ 	} while (!simple_bpage_unset_head_link(last, reader, SIMPLE_RB_LINK_NORMAL) && retry--);
+ 
+-	if (!retry)
+-		return -EINVAL;
++	if (retry < 0)
++		return -EBUSY;
+ 
+ 	cpu_buffer->head_page = simple_bpage_from_link(reader->link.next);
+ 	cpu_buffer->head_page->link.prev = &reader->link;
+-- 
+2.53.0
+
+
