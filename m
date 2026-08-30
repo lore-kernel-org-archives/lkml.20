@@ -1,120 +1,91 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 935733B895D
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 15:52:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55C4D3B47E2;
+	Sun, 30 Aug 2026 15:53:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788105141; cv=none; b=VfnOCme89AE37AVn6jfeGJ7ahFSNsLHzjl3qDQBXL1QfXj+IUl1g1LXVUhbXAr51UWJFW/diR0tthosyED/nn2w6vjKdgqjX0UyKHypXfJKXRDuvqgO1CyfAIqKsks1SA13mqjxbFhiQ8FMfN5LoFeXGqkjO7Dm7lwYyfM/Lg90=
+	t=1788105197; cv=none; b=RQtafWSVMCJmH9uk/hAIBtKyNoruDDPChkY2Og5kZBGPRalsnciOyIyW9RX1Is4ZKUCgcSflGwB+It7AZ9gvvcmfWtofRAdUVgM83zzF/jEEqQ436RjrHVZ64HmFmKJBs87R+uTaOCv/reLmVhiVg8WnNGDv8A/dFEND/cUWkHw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788105141; c=relaxed/simple;
-	bh=R7Emn6xm8pXsKAcdrDs+f1v2J7med05J/NuiW1giTgk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=WITuC96YGQm9lKpigxzUbb0+Gy/Z2NJ9YOII+CGF3VA5q4fNFMItW2qWxiBWEovTpB1PPNRXIb1h5qQC8YaiJlImwr4c98KTpPObJ1t6tF0exNG4CAqJ/hhYc+o7czifonuBFO5h1NgY1yGeOU9uYXpPQY7Y/Z3hoWrGDO1Ssoc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Sk65VCN9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788105197; c=relaxed/simple;
+	bh=hsHuiUwutCvr/VtqLCTRbYQGHmAMqfRe2iNL4QOD4xo=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=U/KBHWr82P5yimf9PjgRUZb4SGhRXGlMJDOl3M03eUKGYj7EQQ78hVMdi5cIfx4lHOATr/13twbFMpNXR/041iCcx+r7EUT1LlEba/+CJv6amTtBt3M3s5QQFpM012VrhovGWZoB/qEsDHXI5aHxZgAqXVXE2nsv9xfms4sbQYs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=E8Kctk2N; arc=none smtp.client-ip=45.254.49.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Sk65VCN9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EEBEF1F000E9;
-	Sun, 30 Aug 2026 15:52:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788105140;
-	bh=lTn2PwZa/M8+jVj3fJrDpEEh/COhBy7FRr29V6qoiYI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Sk65VCN98VsowdHN+8Zoh22imIXgdBaOP7PxtTldPwfbpfAo/y59yZ/4RYrYu4x5w
-	 iVHCkW+vNye4ghW0ubslfMd/4D+ggCwHAXfpnXhHS6dcp/KzSXfJAeSTVs/RT32Mj8
-	 h3PTGZN1mycvPUnvvKeyFKTgJhoCgNUzKysnH9pKM5K5QNGQcHNVMvJ9RTnNyw71Bc
-	 gAtgNERhBYT9wor5+n1FemtO8LmlnFRlH9WsfMY93jhDxcs1RxILx0mezVHQtbIBdZ
-	 P1HeqziyyP/feTb6f8Me7R/3YceRW5mAYvK5Jwbz4gvrZaqpF1bYGrJYoIH1YtNnhv
-	 dV7Oa369JSrQQ==
-From: SJ Park <sj@kernel.org>
-To: =?UTF-8?q?Thomas=20Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>
-Cc: SJ Park <sj@kernel.org>,
-	Richard Weinberger <richard@nod.at>,
-	Anton Ivanov <anton.ivanov@cambridgegreys.com>,
-	Johannes Berg <johannes@sipsolutions.net>,
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	linux-um@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] um: Use asm-generic/timex.h over the host architecture one
-Date: Sun, 30 Aug 2026 08:52:11 -0700
-Message-ID: <20260830155212.97975-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260819-uml-timex-fix-v1-1-f690b514fc9f@linutronix.de>
-References: 
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="E8Kctk2N"
+Received: from PC-202605011814.localdomain (unknown [58.241.16.34])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4bd7a2162;
+	Sun, 30 Aug 2026 23:53:09 +0800 (GMT+08:00)
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+To: rafael@kernel.org
+Cc: viresh.kumar@linaro.org,
+	linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	runyu.xiao@seu.edu.cn,
+	jianhao.xu@seu.edu.cn,
+	stable@vger.kernel.org
+Subject: [PATCH] cpufreq: initialize policy rwsem before sysfs publication
+Date: Sun, 30 Aug 2026 23:53:01 +0800
+Message-Id: <20260830155301.2713780-1-runyu.xiao@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa0535fe8da03a1kunmaea15bf5106482
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZQ0NJVkpJHkpNGk9PTE1DSVYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlOQ1VJT0pVSk1VSE9ZV1kWGg8SFR0UWUFZT0tIVUpLSEpPSE
+	xVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=E8Kctk2N4fPhiBUGezpJ1H4W4CYV9HIAk+U7Qkhkp9GGz/COGbjZJ6FrSoJ7sEY1DrPAwXnrCZYB47pb7knLJufHO0/DceapwT2u8SLgsQSAGjhpv+qnofnCfLD+vhdH4cQmFWt66HFC7EG8OosdqLZ477LJVgh/KaTfHWLK+fE=; s=default; c=relaxed/relaxed; d=seu.edu.cn; v=1;
+	bh=s+bmwNUs1VXUmIRihvb79HKjQN710jIbHZEnpTHONHs=;
+	h=date:mime-version:subject:message-id:from;
 
-On Wed, 19 Aug 2026 09:24:21 +0200 Thomas Weißschuh <thomas.weissschuh@linutronix.de> wrote:
+cpufreq_policy_alloc() initializes policy->rwsem after
+kobject_init_and_add() has created the policy sysfs directory and its
+default attributes. A sysfs access can therefore reach a policy callback
+before the semaphore has been initialized.
 
-> The removal of the architecture-specific asm/timex.h was meant to fall
-> back to asm-generic/timex.h. However on UML, the host architecture
-> headers are earlier on the include path and therefore asm/timex.h from
-> the host architecture is used.
-> On x86 that header in turn requires the generation of cpufeaturemasks.h,
-> which is not set up for UML and the build fails.
-> 
-> In file included from ../arch/x86/include/asm/tsc.h:9,
->                  from ../arch/x86/include/asm/timex.h:6,
->                  from ../include/linux/timex.h:67,
->                  from ../include/linux/time32.h:13,
->                  from ../include/linux/time.h:60,
->                  from ../include/linux/jiffies.h:10,
->                  from ../include/linux/ktime.h:25,
->                  from ../include/linux/timer.h:6,
->                  from ../include/linux/uprobes.h:18,
->                  from ../include/linux/mm_types.h:16,
->                  from ../include/linux/mmzone.h:22,
->                  from ../include/linux/gfp.h:7,
->                  from ../include/linux/slab.h:17,
->                  from ../include/linux/crypto.h:18,
->                  from ../arch/um/kernel/asm-offsets.c:6:
-> arch/x86/include/asm/tsc.h: In function ‘get_cycles’:
-> arch/um/include/asm/cpufeature.h:52:39: error: implicit declaration of function ‘DISABLED_MASK_BIT_SET’ [-Wimplicit-function-declaration]
->    52 |         (__builtin_constant_p(bit) && DISABLED_MASK_BIT_SET(bit) ? 0 : _static_cpu_has(bit))
->       |                                       ^~~~~~~~~~~~~~~~~~~~~
-> arch/x86/include/asm/tsc.h:79:14: note: in expansion of macro ‘cpu_feature_enabled’
->    79 |         if (!cpu_feature_enabled(X86_FEATURE_TSC))
->       |              ^~~~~~~~~~~~~~~~~~~
-> arch/um/include/asm/cpufeature.h:115:17: error: implicit declaration of function ‘_static_cpu_has’ [-Wimplicit-function-declaration]
->   115 |                 _static_cpu_has(bit)                            \
->       |                 ^~~~~~~~~~~~~~~
-> arch/um/include/asm/cpufeature.h:52:72: note: in expansion of macro ‘_static_cpu_has’
->    52 |         (__builtin_constant_p(bit) && DISABLED_MASK_BIT_SET(bit) ? 0 : _static_cpu_has(bit))
->       |                                                                        ^~~~~~~~~~~~~~~
-> arch/x86/include/asm/tsc.h:79:14: note: in expansion of macro ‘cpu_feature_enabled’
->    79 |         if (!cpu_feature_enabled(X86_FEATURE_TSC))
->       |              ^~~~~~~~~~~~~~~~~~~
-> arch/um/include/asm/cpufeature.h:115:17: note: ‘_static_cpu_has’ is a function-like macro and might be used incorrectly
-> arch/um/include/asm/cpufeature.h:52:72: note: in expansion of macro ‘_static_cpu_has’
->    52 |         (__builtin_constant_p(bit) && DISABLED_MASK_BIT_SET(bit) ? 0 : _static_cpu_has(bit))
->       |                                                                        ^~~~~~~~~~~~~~~
-> arch/x86/include/asm/tsc.h:79:14: note: in expansion of macro ‘cpu_feature_enabled’
->    79 |         if (!cpu_feature_enabled(X86_FEATURE_TSC))
->       |              ^~~~~~~~~~~~~~~~~~~
-> 
-> The x86-specific timex.h also doesn't make sense on UML in general.
-> 
-> Reintroduce the UML-specific asm/timex.h and add a comment to document
-> its necessity.
+Initialize policy->rwsem before publishing the policy kobject so sysfs
+callbacks always see an initialized semaphore.
 
-I got the same issue, and confirmed this patch fixes it on my setup.  Thank you
-for sharing this patch.
+Fixes: ad7722dab729 ("cpufreq: create per policy rwsem instead of per CPU cpu_policy_rwsem")
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:GPT-5
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+---
+ drivers/cpufreq/cpufreq.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-> 
-> Fixes: 3ed403bbc967 ("treewide: Remove CLOCK_TICK_RATE")
-> Signed-off-by: Thomas Weißschuh <thomas.weissschuh@linutronix.de>
+diff --git a/drivers/cpufreq/cpufreq.c b/drivers/cpufreq/cpufreq.c
+index 0d0df986f..9efbf5b17 100644
+--- a/drivers/cpufreq/cpufreq.c
++++ b/drivers/cpufreq/cpufreq.c
+@@ -1258,6 +1258,8 @@ static struct cpufreq_policy *cpufreq_policy_alloc(unsigned int cpu)
+ 	if (!zalloc_cpumask_var(&policy->real_cpus, GFP_KERNEL))
+ 		goto err_free_rcpumask;
+ 
++	init_rwsem(&policy->rwsem);
++
+ 	init_completion(&policy->kobj_unregister);
+ 	ret = kobject_init_and_add(&policy->kobj, &ktype_cpufreq,
+ 				   cpufreq_global_kobject, "policy%u", cpu);
+@@ -1272,8 +1274,6 @@ static struct cpufreq_policy *cpufreq_policy_alloc(unsigned int cpu)
+ 		goto err_free_real_cpus;
+ 	}
+ 
+-	init_rwsem(&policy->rwsem);
+-
+ 	freq_constraints_init(&policy->constraints);
+ 
+ 	policy->nb_min.notifier_call = cpufreq_notifier_min;
+-- 
+2.34.1
 
-Tested-by: SJ Park <sj@kernel.org>
-
-
-Thanks,
-SJ
-
-[...]
