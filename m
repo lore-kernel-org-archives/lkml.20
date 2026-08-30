@@ -1,94 +1,213 @@
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mail-oa2-f1.google.com (mail-oa2-f1.google.com [74.125.231.65])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 877CB3B42E0;
-	Sun, 30 Aug 2026 12:48:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49A3B30C147
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 12:50:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.65
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788094098; cv=none; b=OunFTA8S9OmEWRi4om7mcCQFRkn1IDQd7AhyuvvnkOCoCRb1gxhHM5uF6k9QHp+8BrIx7MnyufT3paAHqJfHYcLx6X6Au5Hk405Atsj7Xrkge2fSbHox/4QbYDo1cnpa4oiREp7mB9LhqRz+SaHEoVPyREU2mqndxd6jFZDBfCE=
+	t=1788094230; cv=none; b=b8vraH1OQs30oGHNQ57M+l7+Ur983u9yg5WGK5wFl83bQolFJ546WXcFZsD32UVVXoyAuWnb3o7uBkhYVNbIpfztLoZeW5PGO1NmNpYHWWTAbjwchzFmv51tyk2Wqw07DQ+uqBfAPQKkHgAmbrHtnLWUsRFrijTZQjVjOjctBtk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788094098; c=relaxed/simple;
-	bh=CzA/c/YGzrlWgQufDdsCxm2/n4eXqNKN6wnMCOQ01b4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=AA7hLHjCVMiotrEQ9Gw12143KMbk3LpHQIbMPYJv2OUwZwLPrWh4XIqn+hR5f9mkBCG2XT8uFpWsukGAtA/BEhJBafsaXe2hcNEkC9awmzdf9/uqvtm5fY+EUVE7UTTTCKpH9H6vrC0CEO8qlY3h7qjx8QWjhAWTo3tMbpdKxxs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from localhost.localdomain (unknown [111.196.241.250])
-	by APP-03 (Coremail) with SMTP id rQCowADH0T+MJpRq05maBg--.47695S2;
-	Sun, 30 Aug 2026 20:48:13 +0800 (CST)
-From: Pengpeng Hou <pengpeng@iscas.ac.cn>
-To: linux-wireless@vger.kernel.org
-Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>,
-	libertas-dev@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] wifi: libertas_tf: validate firmware block extents
-Date: Sun, 30 Aug 2026 20:48:10 +0800
-Message-ID: <20260830124810.97223-1-pengpeng@iscas.ac.cn>
-X-Mailer: git-send-email 2.50.1
+	s=arc-20240116; t=1788094230; c=relaxed/simple;
+	bh=C6E7Y94FP+suWFyULPZWMPFn3OYYCjHsZw7LbY90qHY=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=KLEW5ixZVLwsWz5CeW8kiV3TVMxppUhjiG9SqIOX/GD3IFqSkXy/HeoKYXvyW8RKvWN7qLq1F6BTiGrC/epjwiCC6muI+WAfgdtarcheOcFaXa1rMDkalCcaHWsW19X/I5T0E0VJ6m95VQiUdO+eWbeDugGk6V3kuhlebTpHZHo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.65
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oa2-f1.google.com with SMTP id 586e51a60fabf-4489b7aa0e7so690941fac.1
+        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 05:50:29 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788094228; x=1788699028;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/XI9Sq1kNaZAPWZ2QuqGzoa86CKZO8KeH/ZtsnkY1c4=;
+        b=oY3bLZQsLxCf/hfZnbjDVXV+/2TExaSyyxxwZ534Fjsfq8YMTbtTrM3ymuxd4GV57X
+         HTHJYIWV9s3DMyc1kN2yf8mylEOOnFiOdPoMc5Y/gJreBWG94pczqGm+IduDkz0ZfIsT
+         blX9L41519/jnkRBqVsFURWwcKmfBVM34axdnLKGXhOAYO5gdbNo56K91JWVakX8SPrV
+         vqIuNDATrqIyBjjgA6v/r776NNcpuZqTdu/R4vxXVIUtus3LNj437CYMWgajVXpfakGQ
+         FNhAmlQyqUmGSXwJSARDKxQE5FdXoQhDr17tqC1mN/iCYtksCzwlaytj4yUwa/EZ1c/f
+         fFAA==
+X-Forwarded-Encrypted: i=1; AHgh+Ro9j5F0FVv6pb6w/7URpF4zmPxmqKCIbhw5ms3V4S6CDmzfyoiptbLnvyLWP9iAC29HjMaj/WgXGPCvVpc=@vger.kernel.org
+X-Gm-Message-State: AFuF++luIEIFGYmhn6XpRUts0Juik8Wik8lolEJsS+qCddjZGGfZvbTy
+	RGVxitc1E0CmxXbQdtX/zWzDLJs+hadauP+SwBYpeECHL8Vwo2bnL1bMNQOAspWCv5OyvJlLb6k
+	nP/0wyjFxBeqJOs0wjk3vwLEeS/JC5hBENbCdyD59GLc0UqTJxaYifrb+teA=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowADH0T+MJpRq05maBg--.47695S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7WF13CF1fJFW8tr4rXr4fXwb_yoW8GFWDpa
-	4FkFy2qr45Xw4jv3ZFyan5ZFWrWa1fG3W3JFy0ya4Fkrs5Wr1rZFWrXFyfXr4YqrWrAasa
-	vr4qyrWUCFykKaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUyl14x267AKxVWUJVW8JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r1I6r4UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x0267AKxVWxJr
-	0_GcWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
-	2Ix0cI8IcVAFwI0_JF0_Jw1lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
-	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1l42xK82IYc2Ij64vI
-	r41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8Gjc
-	xK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2Ix0
-	cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8V
-	AvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E
-	14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjfUYwIDUUUUU
-X-CM-SenderInfo: pshqw1xhqjqxpvfd2hldfou0/
+X-Received: by 2002:a05:6808:2229:b0:496:2b3:ae71 with SMTP id
+ 5614622812f47-4b39839d589mr22177376b6e.18.1788094228273; Sun, 30 Aug 2026
+ 05:50:28 -0700 (PDT)
+Date: Sun, 30 Aug 2026 05:50:28 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a942714.4d659fcc.734b4.003a.GAE@google.com>
+Subject: [syzbot] [usb?] [nfc?] [net?] memory leak in nci_send_cmd
+From: syzbot <syzbot+b197a0fb4e741cc5030e@syzkaller.appspotmail.com>
+To: davem@davemloft.net, david@ixit.cz, edumazet@google.com, horms@kernel.org, 
+	krzk@kernel.org, kuba@kernel.org, linux-kernel@vger.kernel.org, 
+	linux-usb@vger.kernel.org, netdev@vger.kernel.org, 
+	oe-linux-nfc@lists.linux.dev, pabeni@redhat.com, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-check_fwfile_format() reads each block header and trusts its data length
-before proving that both fit in the firmware image. A truncated header or
-oversized block can therefore pass malformed extents to the download path.
+Hello,
 
-Require the remaining image to contain the complete header and payload
-before accepting each block.
+syzbot found the following issue on:
 
-Fixes: c305a19a0d0a ("libertas_tf: usb specific functions")
-Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
+HEAD commit:    73ae59e97596 Merge tag 'erofs-for-7.3-rc1-2' of git://git...
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=12e70d49580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=563582168294b9d9
+dashboard link: https://syzkaller.appspot.com/bug?extid=b197a0fb4e741cc5030e
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=11df1625580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=148b6979580000
+
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/0e5c9cbfb31a/disk-73ae59e9.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/481171cf3bc4/vmlinux-73ae59e9.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/9df84fec3c49/bzImage-73ae59e9.xz
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+b197a0fb4e741cc5030e@syzkaller.appspotmail.com
+
+BUG: memory leak
+unreferenced object 0xffff88810a94e600 (size 240):
+  comm "syz.6.23", pid 5954, jiffies 4294942380
+  hex dump (first 32 bytes):
+    00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+    00 40 38 2b 81 88 ff ff 00 00 00 00 00 00 00 00  .@8+............
+  backtrace (crc 98a4d7):
+    kmemleak_alloc_recursive include/linux/kmemleak.h:44 [inline]
+    slab_post_alloc_hook mm/slub.c:4696 [inline]
+    slab_alloc_node mm/slub.c:4996 [inline]
+    kmem_cache_alloc_node_noprof+0x39f/0x440 mm/slub.c:5068
+    __alloc_skb+0xdc/0x4e0 net/core/skbuff.c:704
+    alloc_skb include/linux/skbuff.h:1384 [inline]
+    nci_skb_alloc include/net/nfc/nci_core.h:330 [inline]
+    nci_send_cmd+0x46/0x110 net/nfc/nci/core.c:1397
+    nci_reset_req net/nfc/nci/core.c:167 [inline]
+    __nci_request net/nfc/nci/core.c:108 [inline]
+    nci_open_device net/nfc/nci/core.c:503 [inline]
+    nci_dev_up+0x1b6/0x690 net/nfc/nci/core.c:643
+    nfc_dev_up+0xca/0x160 net/nfc/core.c:118
+    nfc_genl_dev_up+0x3d/0x70 net/nfc/netlink.c:775
+    genl_family_rcv_msg_doit+0x12e/0x1a0 net/netlink/genetlink.c:1114
+    genl_family_rcv_msg net/netlink/genetlink.c:1194 [inline]
+    genl_rcv_msg+0x302/0x440 net/netlink/genetlink.c:1209
+    netlink_rcv_skb+0x89/0x1c0 net/netlink/af_netlink.c:2556
+    genl_rcv+0x28/0x40 net/netlink/genetlink.c:1218
+    netlink_unicast_kernel net/netlink/af_netlink.c:1319 [inline]
+    netlink_unicast+0x38f/0x4e0 net/netlink/af_netlink.c:1345
+    netlink_sendmsg+0x335/0x690 net/netlink/af_netlink.c:1900
+    sock_sendmsg_nosec net/socket.c:800 [inline]
+    __sock_sendmsg net/socket.c:815 [inline]
+    ____sys_sendmsg+0x54a/0x580 net/socket.c:2713
+    ___sys_sendmsg+0x101/0x140 net/socket.c:2767
+    __sys_sendmsg+0xcd/0x140 net/socket.c:2799
+    do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+    do_syscall_64+0xe9/0x530 arch/x86/entry/syscall_64.c:84
+
+BUG: memory leak
+unreferenced object 0xffff888109c4bc80 (size 704):
+  comm "syz.6.23", pid 5954, jiffies 4294942380
+  hex dump (first 32 bytes):
+    20 00 01 01 00 00 00 00 00 00 00 00 00 00 00 00   ...............
+    00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+  backtrace (crc 40ddf9):
+    kmemleak_alloc_recursive include/linux/kmemleak.h:44 [inline]
+    slab_post_alloc_hook mm/slub.c:4696 [inline]
+    slab_alloc_node mm/slub.c:4996 [inline]
+    kmem_cache_alloc_node_noprof+0x39f/0x440 mm/slub.c:5068
+    kmalloc_reserve+0xd2/0x1b0 net/core/skbuff.c:615
+    __alloc_skb+0x15d/0x4e0 net/core/skbuff.c:715
+    alloc_skb include/linux/skbuff.h:1384 [inline]
+    nci_skb_alloc include/net/nfc/nci_core.h:330 [inline]
+    nci_send_cmd+0x46/0x110 net/nfc/nci/core.c:1397
+    nci_reset_req net/nfc/nci/core.c:167 [inline]
+    __nci_request net/nfc/nci/core.c:108 [inline]
+    nci_open_device net/nfc/nci/core.c:503 [inline]
+    nci_dev_up+0x1b6/0x690 net/nfc/nci/core.c:643
+    nfc_dev_up+0xca/0x160 net/nfc/core.c:118
+    nfc_genl_dev_up+0x3d/0x70 net/nfc/netlink.c:775
+    genl_family_rcv_msg_doit+0x12e/0x1a0 net/netlink/genetlink.c:1114
+    genl_family_rcv_msg net/netlink/genetlink.c:1194 [inline]
+    genl_rcv_msg+0x302/0x440 net/netlink/genetlink.c:1209
+    netlink_rcv_skb+0x89/0x1c0 net/netlink/af_netlink.c:2556
+    genl_rcv+0x28/0x40 net/netlink/genetlink.c:1218
+    netlink_unicast_kernel net/netlink/af_netlink.c:1319 [inline]
+    netlink_unicast+0x38f/0x4e0 net/netlink/af_netlink.c:1345
+    netlink_sendmsg+0x335/0x690 net/netlink/af_netlink.c:1900
+    sock_sendmsg_nosec net/socket.c:800 [inline]
+    __sock_sendmsg net/socket.c:815 [inline]
+    ____sys_sendmsg+0x54a/0x580 net/socket.c:2713
+    ___sys_sendmsg+0x101/0x140 net/socket.c:2767
+    __sys_sendmsg+0xcd/0x140 net/socket.c:2799
+
+BUG: memory leak
+unreferenced object 0xffff88810aa0d700 (size 240):
+  comm "syz.0.26", pid 5976, jiffies 4294942681
+  hex dump (first 32 bytes):
+    00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+    00 a0 5b 28 81 88 ff ff 00 00 00 00 00 00 00 00  ..[(............
+  backtrace (crc cdb4723c):
+    kmemleak_alloc_recursive include/linux/kmemleak.h:44 [inline]
+    slab_post_alloc_hook mm/slub.c:4696 [inline]
+    slab_alloc_node mm/slub.c:4996 [inline]
+    kmem_cache_alloc_node_noprof+0x39f/0x440 mm/slub.c:5068
+    __alloc_skb+0xdc/0x4e0 net/core/skbuff.c:704
+    alloc_skb include/linux/skbuff.h:1384 [inline]
+    nci_skb_alloc include/net/nfc/nci_core.h:330 [inline]
+    nci_send_cmd+0x46/0x110 net/nfc/nci/core.c:1397
+    nci_reset_req net/nfc/nci/core.c:167 [inline]
+    __nci_request net/nfc/nci/core.c:108 [inline]
+    nci_open_device net/nfc/nci/core.c:503 [inline]
+    nci_dev_up+0x1b6/0x690 net/nfc/nci/core.c:643
+    nfc_dev_up+0xca/0x160 net/nfc/core.c:118
+    nfc_genl_dev_up+0x3d/0x70 net/nfc/netlink.c:775
+    genl_family_rcv_msg_doit+0x12e/0x1a0 net/netlink/genetlink.c:1114
+    genl_family_rcv_msg net/netlink/genetlink.c:1194 [inline]
+    genl_rcv_msg+0x302/0x440 net/netlink/genetlink.c:1209
+    netlink_rcv_skb+0x89/0x1c0 net/netlink/af_netlink.c:2556
+    genl_rcv+0x28/0x40 net/netlink/genetlink.c:1218
+    netlink_unicast_kernel net/netlink/af_netlink.c:1319 [inline]
+    netlink_unicast+0x38f/0x4e0 net/netlink/af_netlink.c:1345
+    netlink_sendmsg+0x335/0x690 net/netlink/af_netlink.c:1900
+    sock_sendmsg_nosec net/socket.c:800 [inline]
+    __sock_sendmsg net/socket.c:815 [inline]
+    ____sys_sendmsg+0x54a/0x580 net/socket.c:2713
+    ___sys_sendmsg+0x101/0x140 net/socket.c:2767
+    __sys_sendmsg+0xcd/0x140 net/socket.c:2799
+    do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+    do_syscall_64+0xe9/0x530 arch/x86/entry/syscall_64.c:84
+
+connection error: failed to recv *flatrpc.ExecutorMessageRawT: EOF
+
+
 ---
- drivers/net/wireless/marvell/libertas_tf/if_usb.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-diff --git a/drivers/net/wireless/marvell/libertas_tf/if_usb.c b/drivers/net/wireless/marvell/libertas_tf/if_usb.c
-index b85c6d783bf7b..b9d1a33bddfce 100644
---- a/drivers/net/wireless/marvell/libertas_tf/if_usb.c
-+++ b/drivers/net/wireless/marvell/libertas_tf/if_usb.c
-@@ -769,10 +769,18 @@ static int check_fwfile_format(const u8 *data, u32 totlen)
- 	exit = len = 0;
- 
- 	do {
--		struct fwheader *fwh = (void *) data;
-+		struct fwheader *fwh;
-+
-+		if (totlen - len < sizeof(*fwh))
-+			break;
-+
-+		fwh = (void *)data;
- 
- 		bincmd = le32_to_cpu(fwh->dnldcmd);
- 		blksize = le32_to_cpu(fwh->datalength);
-+		if (blksize > totlen - len - sizeof(*fwh))
-+			break;
-+
- 		switch (bincmd) {
- 		case FW_HAS_DATA_TO_RECV:
- 			offset = sizeof(struct fwheader) + blksize;
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
-base-commit: 08dbfad3f5040f5bdb6c529da20d6d4e81fefd72
--- 
-2.50.1
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
 
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
