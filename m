@@ -1,83 +1,77 @@
-Received: from out-2z4y-a153.jellyfish.systems (out-2z4y-a153.jellyfish.systems [198.54.127.153])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EB703264EA
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 20:20:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.54.127.153
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 468BA2C0294;
+	Sun, 30 Aug 2026 20:23:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788121222; cv=none; b=IxQ5mWdk2hKZ/Eve337xAIjprOvvq3jXB00/ozRVybFiPDv9IQ/4NvPiZyPRstLNCAwNZ6rDu7BOH/8q9FSLab9o8FN1FquE4I11EuwE64KbTIJtdwJJ0g7yv5c6uHUqnI8AIb99BdfD84FFzcuDoZLCo8PFOBh/sVdMkpmM6AQ=
+	t=1788121438; cv=none; b=uZB6P34shOgVv1Yc+2EM3mz09QCpFBac2dayPRehP6+jlDQk8XZy/2SVENn3yYijJWpuPPMu1cishfrXq/i5l3olM0p3HkM1eTdobff/9eRnhhvYwfUfyQYQHimK08It3HKcWJx1ajcBBUBSuiN9aRgNCagy2MTROSjWB031EFs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788121222; c=relaxed/simple;
-	bh=r4RyBd1+2rZJnAt+P/8o29QnDiXHkVkx0+IAic5RRyQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=DFkvXq/Fk3UU+G8sIZuT/w29Gz2pcHlsPlXH/wolAE5dfX5YiaxMpLcpi/hv+oOVaMwvjAOQnxTfKwdqr35Y1DTVr9hbqcfLD2AJgYJRvig31J5tqbvJn4uMFFy0es+TfcSkGJoTdBY2X+iz8OoXPZaXuPMdrfFcd0gAEBL+1iw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=catcrafts.net; spf=pass smtp.mailfrom=catcrafts.net; arc=none smtp.client-ip=198.54.127.153
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=catcrafts.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=catcrafts.net
-Received: from mail.privateemail.com (unknown [87.215.145.39])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mail.privateemail.com (Postfix) with ESMTPSA id 4hY3Q10vf3z8sWQ;
-	Sun, 30 Aug 2026 20:19:52 +0000 (UTC)
-From: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
-To: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
-Cc: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>,
-	Jonathan Cameron <jic23@kernel.org>,
-	linux-iio@vger.kernel.org,
-	David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Andy Shevchenko <andriy.shevchenko@intel.com>,
+	s=arc-20240116; t=1788121438; c=relaxed/simple;
+	bh=I6Qy7c1SCo3kXYxfli+0PRMCzLl4TBog0mFhMqPaqUs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cNv1zHu3ICNM533oqomVncfw46XwL2o7uR2zKwYLB3pyaWvcrU7OsZzTVrxc3xLirvJY43fn8kaBKUd+Y/aBbc8cXXuX9oMOWORlmoPRaqeW96qGR6Sgxyfrj42GFhMrxSQksdDsn24Ii6hSyEhAKjBXmiNyQgqyCIl4jIOTa3g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=Vjh/aTjJ; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="Vjh/aTjJ"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=fvp1pXNe5TqeRLtSD0qiAJjH/t/R2XXpNq+2z1rCEXU=; b=Vjh/aTjJEGC3nFUNrV6JDgufiv
+	vaTbt6Pkv5qks/+2yHr3qWO9ssIQ9iRuffyV90OaMvgiW0ifnYe2Pg7a4F03VTx/uWY9qVZHKixg0
+	NV7N/++3Qslszxy654Zlsr/GEnlZhbA2RDY2mHOUyIYOH0Om434kTC0LeTFiMNnsdvrA=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1x0m3l-00254S-3T; Sun, 30 Aug 2026 22:23:21 +0200
+Date: Sun, 30 Aug 2026 22:23:21 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Prasanth Kumar Padarthi <prasanth.padarthi10@gmail.com>
+Cc: Joel Stanley <joel@jms.id.au>,
+	Andrew Jeffery <andrew@codeconstruct.com.au>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	devicetree@vger.kernel.org,
-	Kees Cook <kees@kernel.org>,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	linux-hardening@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Luca Weiss <luca.weiss@fairphone.com>
-Subject: Re: [PATCH v2 5/5] iio: light: stk3310: support the Sensortek STK36C61
-Date: Sun, 30 Aug 2026 22:19:50 +0200
-Message-ID: <20260830201950.63838-1-jorijnvdgraaf@catcrafts.net>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <apRGQVfPKWHvE2Ct@debian-BULLSEYE-live-builder-AMD64>
-References: <20260826175409.326131-1-jorijnvdgraaf@catcrafts.net> <20260826175409.326131-6-jorijnvdgraaf@catcrafts.net> <apEMCqQXyj1tAMoP@debian-BULLSEYE-live-builder-AMD64> <20260828154705.11962-1-jorijnvdgraaf@catcrafts.net> <apRGQVfPKWHvE2Ct@debian-BULLSEYE-live-builder-AMD64>
+	Ryan Chen <ryan_chen@aspeedtech.com>,
+	Billy Tsai <billy_tsai@aspeedtech.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 0/2] ARM: dts: aspeed: Add ASRock Rack B650D4U BMC
+Message-ID: <d60f234e-1b9e-44cc-9bad-da79e794fe44@lunn.ch>
+References: <20260830182036.284736-1-prasanth.padarthi10@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Envelope-From: jorijnvdgraaf@catcrafts.net
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260830182036.284736-1-prasanth.padarthi10@gmail.com>
 
-On Sun, Aug 30, 2026 at 12:03:29PM -0300, Marcelo Schmitt wrote:
-> Having a closer look at the data sheet I found for STK36C61, I noticed registers
-> 0x13 and 0x14 are not listed. Does the newer part has ambient light sensing
-> besides the clear channel?
+On Sun, Aug 30, 2026 at 11:50:34PM +0530, Prasanth Kumar Padarthi wrote:
+> Add device tree support for the ASRock Rack B650D4U BMC, which is
+> based on the ASPEED AST2600 SoC.
+> 
+> The series adds the board compatible and describes the BMC memory,
+> SPI NOR flash layout, UART console, and MAC0 connected to an
+> RTL8211F Ethernet PHY.
+> 
+> The MAC0 RGMII timing configuration was validated on B650D4U
+> hardware. With plain "rgmii", the PHY negotiated 1000baseT/Full but
+> received no valid packets and accumulated RX CRC errors. With
+> "rgmii-rxid", a 5000-packet test completed with 0% packet loss and
+> no RX CRC errors. "rgmii-id" was also tested successfully, but the
+> additional TX delay is not required, so "rgmii-rxid" is retained.
 
-That looks to be the "STK36C61-A Preliminary Datasheet v0.9" hosted by
-LCSC [1], which I hadn't found before, so the cover letter's "There is
-no public datasheet" is wrong. It documents the -A variant, however,
-and gives PDT_ID as 0x93, while the part in the Fairphone 6 reports
-0x95. It does agree with the device on the colour-engine layout: RGBC
-data at 0x15-0x1C, a clear-channel gain in GAINCTRL 0x4E, and the
-shared GAIN_RGB/IT_ALS fields in ALSCTRL1.
+Please take a read of:
 
-Yes, there is ambient light sensing besides the clear channel:
-0x13/0x14 are present on this device despite their absence from the
-datasheet map. They behave exactly like the stk3310's ALS data
-registers and are what the illuminance channel reads. The ALS word
-tracks the green channel exactly, proven by the x16 gain step moving
-both from 25 to 404. The sheet's own text does describe the function:
-it defines DATA_ALS[15:0] ("16-bits ALS channel raw data"), windows it
-with the THDH/THDL_ALS thresholds at 0x0A-0x0D, and calls FLG_ALS_INT
-"the Green channel out-of-windows event", which is consistent with the
-ALS == green behaviour I measured.
+https://elixir.bootlin.com/linux/v6.15/source/Documentation/devicetree/bindings/net/ethernet-controller.yaml#L287
 
-[1] https://www.lcsc.com/datasheet/C49230205.pdf
+Does the PCB have 2ns of delay for TX, but notR RX?
 
-Thanks,
-Jorijn
+     Andrew
