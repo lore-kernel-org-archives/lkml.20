@@ -1,166 +1,123 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56C0735C1A9;
-	Sun, 30 Aug 2026 07:09:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2E8F1E51E0;
+	Sun, 30 Aug 2026 07:12:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788073799; cv=none; b=NaBUaIoSIzzNlOD6qyY6DL0tNqucYKFVkQLy8L9Qu57NYNwY7KrvuZV5crBIhYeXbhX88ZxAnR8VuRNWJNlzx1xyATJfVwXYevl4Q65HyMYlANAaEtQn7AcimUSDgifNtiV2ljfA5nddAu5D8Ptrnk+AjqFD5gTIK5SUYieQTUI=
+	t=1788073972; cv=none; b=KS4i3MXmW1EuKB2W1UIrPclWS/yZRoACzFGGaboMqjOzXxdOaHuHXgKUUYufqtgRF5/zVw5gZV4dgtIID8lWvIVrZ4prtAKPlgutT5YxYe5pQo9XjaQlxjY3cCs9YRGohLeDCx9JW9Q180rkJwrplgudDQy2QaM5TefttNwEH1s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788073799; c=relaxed/simple;
-	bh=WUy6WoO/WqUl1q9oVvwQFB+Di9tkCZw+1WB5W+xqYpc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=kHStPVQy+7XHXauuQM7tS/DIdGIEm9DmfFBYfLPzP9WbfcEpTkpcL0GeKzAMCJVNgdbowUyCNYo1BLHRv04NMdcRo90E+2QgdGTCxszw6fqdjjR+imFLG3b5KwVkCT5HCEHqCZdi6UlrTXinnTWfUtqIUlckiNxj/P/FLp+z4e8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JFUnuKTD; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1788073972; c=relaxed/simple;
+	bh=iazp0KDG9XO8tNOtwqgDz8WtQg1nj0t2IAFOstoA9/k=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=imnDZDI2wVDGegc1//0w6dwi2oUDIrgWtc54S21w5W3cAXeJJ0Cez6n5aSWLOZZnpTUQzmNac20Ju2cmRUAxIcG1/RAKgc78tmUeS3Kk0gPNpkk+N0z05Sln/buk3SrVfdljFdtPcCGDyEdwwLtEAFEJ2JFvRi3lmbpb/K3lDf8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ZNkYkutc; arc=none smtp.client-ip=198.175.65.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JFUnuKTD"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 56737C2BCF4;
-	Sun, 30 Aug 2026 07:09:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1788073798;
-	bh=WUy6WoO/WqUl1q9oVvwQFB+Di9tkCZw+1WB5W+xqYpc=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=JFUnuKTDT8omAZKCvVKCOpwb7oZgRhlEgwN7hh3qbsL/T9f/DO0prBrW5TVmGpEiJ
-	 i6g84lJ8ZMCzCCnQEuvwRvkmDO64k+D5TAy3DoSYT05duA4nYtH8J8ify7e8NeHDUZ
-	 gjn1GfHi9athTb2Phs0q54hGSqK4t5LEBE1UbQWsxObLW5XbX3e9GRMHFDOVk+nKpE
-	 lRR//Ma35v7WHxbfsKEmDYNBrxrp9oT+xWlMOrN4QIYRP4O8ymWF0mLyFT0zQNh1VQ
-	 t+Um/J0NxjSyKY1B1YRjEPDQf5M958eQz0+bRXAH4+M3A1x+PelTLvx2mBruKJJS1R
-	 a+/FvS8tX7wrA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 43CDEC61DE2;
-	Sun, 30 Aug 2026 07:09:58 +0000 (UTC)
-From: Quanye Yang via B4 Relay <devnull+quanyeyang.proton.me@kernel.org>
-Date: Sun, 30 Aug 2026 15:09:55 +0800
-Subject: [PATCH] RDMA/rtrs-clt: Fix CQ pool leak when connect is
- interrupted
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ZNkYkutc"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788073969; x=1819609969;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=iazp0KDG9XO8tNOtwqgDz8WtQg1nj0t2IAFOstoA9/k=;
+  b=ZNkYkutcT5Ppb/vmRYPAY43wadBKyCzBA0BL+1jFoou941l6jkqFI5fe
+   b5syLEVT2eKqJW3OD/AKDZhAE0a0DE8hjPL55YySNY1ZkiZfkAZ42N/8v
+   l+/b4wHTGF1A9cuQxeYNNUK/sZbT4cbxoJeC6JD/5v49HeGrODMUSyz5H
+   goRBI2jx6LsmtmHmlWSg/bgKRYhxyhsXh55Lh3xC6C/qkYZavol9OoKrM
+   Lzum2Tq+ofOEJUfuTLdt3i21JYgmUrvF2hSyRPqW5lHgkLNe5HjirzYea
+   pZQmXkiLeZ8t7KZWZ3AmKQtP42Lm7PsmjA7SqIRLyAfCRvSpbBGU8dHgg
+   g==;
+X-CSE-ConnectionGUID: hi67F+nyTOe78bFGqoNR1w==
+X-CSE-MsgGUID: QC/cj4nkRUC/ghDIpFajZg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11890"; a="92200426"
+X-IronPort-AV: E=Sophos;i="6.25,251,1779174000"; 
+   d="scan'208";a="92200426"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Aug 2026 00:12:49 -0700
+X-CSE-ConnectionGUID: IxVKxOtaSNCL6aggQofF+A==
+X-CSE-MsgGUID: 2Ag3hX7cRYC1ynJibEgjHg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,251,1779174000"; 
+   d="scan'208";a="262412193"
+Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost) ([10.245.245.243])
+  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Aug 2026 00:12:44 -0700
+Date: Sun, 30 Aug 2026 10:12:41 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: Janani Sunil <janani.sunil@analog.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	David Lechner <dlechner@baylibre.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Olivier Moysan <olivier.moysan@foss.st.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Michael Walle <mwalle@kernel.org>, linux@analog.com,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
+	linux-doc@vger.kernel.org, jananisunil.dev@gmail.com,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>
+Subject: Re: [PATCH v5 00/20] iio: adc: Add AD7768/AD7768-4 ADC driver support
+Message-ID: <apPX6ZeomgPd4WPU@ashevche-desk.local>
+References: <20260828-ad7768-driver-v5-0-e33ca6f841a2@analog.com>
+ <20260829191954.7a5f1875@jic23-huawei>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260830-rdma-rtrs-clt-cq-pool-leak-v1-1-b169434fd3df@proton.me>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMwQ6CMAwA0F8hPdtkA+KIv2I8jFG0Ohm005AQ/
- t2px3d5GygJk8Kp2kDozcppKrCHCsLNT1dCHoqhNvXRdI1BGZ4eJYtiiBnDgnNKESP5B7putL1
- xjprWQglmoZHXX36+/K2v/k4hf0fY9w/JgTQkfgAAAA==
-X-Change-ID: 20260830-rdma-rtrs-clt-cq-pool-leak-78f1b077e341
-To: "Md. Haris Iqbal" <haris.iqbal@ionos.com>, 
- Jack Wang <jinpu.wang@ionos.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
- Leon Romanovsky <leon@kernel.org>
-Cc: Jack Wang <jinpu.wang@cloud.ionos.com>, linux-rdma@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- syzbot+d396918a29afb8543e1c@syzkaller.appspotmail.com, 
- Quanye Yang <quanyeyang@proton.me>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788073795; l=3778;
- i=quanyeyang@proton.me; s=20260801; h=from:subject:message-id;
- bh=cn9IkRUu0B89uWfK7vLWOhB21IgObrIMhVPL+RLvT4M=;
- b=aDuIS6UusZbS31KSqt2aMZnI1gtCGGold4AKeQ8ALgGzI9GcUH8Rxd2ul3d4COI5PPUaBxmHb
- 6dVUDASJ/bWCiY+RaiE8sp1ALqEDqC8ASBTQjiJx0xgPfa8rdyhgCgx
-X-Developer-Key: i=quanyeyang@proton.me; a=ed25519;
- pk=9L9FrcvzMgxPaBRU6XV0EnqTgjDqVO596rQKSZ9qZoY=
-X-Endpoint-Received: by B4 Relay for quanyeyang@proton.me/20260801 with
- auth_id=963
-X-Original-From: Quanye Yang <quanyeyang@proton.me>
-Reply-To: quanyeyang@proton.me
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260829191954.7a5f1875@jic23-huawei>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-From: Quanye Yang <quanyeyang@proton.me>
+On Sat, Aug 29, 2026 at 07:19:54PM +0100, Jonathan Cameron wrote:
+> > ---
+> > base-commit: b75697ef53e435d894833dad2a8c2fa882cb9b19
+> 
+> Where is this commit?  I tried the various IIO trees, GPIO and linux-next.
+> None of them seem to have it.  That means automated tooling is failing
+> to apply this including sashiko (and I'm starting to use b4 review which
+> has similar problems)  Please fix up and send a v6.
 
-The client borrows shared CQ credits in the ADDR_RESOLVED handler via
-ib_cq_pool_get(), before the peer is connected. create_cm() can return
--ERESTARTSYS from wait_event_interruptible_timeout() without destroying
-the CM ID. The init_conns() and stop-and-destroy paths then call
-destroy_con_cq_qp() while cq is still NULL (no PUT) and only afterwards
-rdma_destroy_id().
+> Choices for base - and say in text which it is as well as the
+> commit id.
 
-CMA serializes the handler against rdma_destroy_id() with handler_mutex,
-but that does not order the GET against destroy_con_cq_qp(). If
-ADDR_RESOLVED has already passed the DESTROYING check, it can take
-con_mutex, GET credits, and then lose the con to kfree. Device
-unregister later hits WARN_ON(cq->cqe_used) in ib_cq_pool_cleanup().
+Hmm... I usually find the text is redundant, especially in the case like this
+where it may add ambiguity. If, say, text refers to vX.Y-rcZ and base can't
+be found, this will rise even more questions (at least to me). Having the only
+one source of info helps (in my opinion). And in the case like this it's simply
+wrong base and we see it immediately without any text description required.
 
-Set a per-connection flag under con_mutex before CQ/QP teardown so a
-racing ADDR_RESOLVED cannot borrow credits after teardown has begun.
+> Latest mainline release
+> rc1 of the new release - occasionally rcX but then you must call that out
+> with reasons
+> 
+> These first two are the strong preference.
+> 
+> An immutable branch that others have created to allow some cross subsystem
+> work in a single cycle.
 
-Reported-by: syzbot+d396918a29afb8543e1c@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=d396918a29afb8543e1c
-Fixes: 3b89e92c2a95 ("RDMA/rtrs: Use new shared CQ mechanism")
-Signed-off-by: Quanye Yang <quanyeyang@proton.me>
----
-Fix a syzbot WARNING in ib_cq_pool_cleanup(): an ADDR_RESOLVED handler
-can ib_cq_pool_get() after connection teardown has already skipped the
-matching PUT.
+> togreg branch of iio.git - but call that out and say why.
 
-Reproduced on rxe with rnbd-client only (no rtrs server): write
-map_device with path=ip:127.0.0.1, interrupt create_cm() with a signal,
-then rdma link delete. Device unregister no longer reports leftover
-cqe_used after this change.
----
- drivers/infiniband/ulp/rtrs/rtrs-clt.c | 8 ++++++++
- drivers/infiniband/ulp/rtrs/rtrs-clt.h | 2 ++
- 2 files changed, 10 insertions(+)
+I agree that for the special cases the text might be needed to explain
+the choice of the (non-standard) base.
 
-diff --git a/drivers/infiniband/ulp/rtrs/rtrs-clt.c b/drivers/infiniband/ulp/rtrs/rtrs-clt.c
-index 7b2c51ae614f..eac38b57b00d 100644
---- a/drivers/infiniband/ulp/rtrs/rtrs-clt.c
-+++ b/drivers/infiniband/ulp/rtrs/rtrs-clt.c
-@@ -1732,6 +1732,8 @@ static void destroy_con_cq_qp(struct rtrs_clt_con *con)
- 	/*
- 	 * Be careful here: destroy_con_cq_qp() can be called even
- 	 * create_con_cq_qp() failed, see comments there.
-+	 * Caller must set con->destroyed under this lock first so a
-+	 * racing ADDR_RESOLVED cannot ib_cq_pool_get() after we PUT/SKIP.
- 	 */
- 	lockdep_assert_held(&con->con_mutex);
- 	rtrs_cq_qp_destroy(&con->c);
-@@ -1766,6 +1768,10 @@ static int rtrs_rdma_addr_resolved(struct rtrs_clt_con *con)
- 	int err;
- 
- 	mutex_lock(&con->con_mutex);
-+	if (con->destroyed) {
-+		mutex_unlock(&con->con_mutex);
-+		return -ECONNABORTED;
-+	}
- 	err = create_con_cq_qp(con);
- 	mutex_unlock(&con->con_mutex);
- 	if (err) {
-@@ -2221,6 +2227,7 @@ static void rtrs_clt_stop_and_destroy_conns(struct rtrs_clt_path *clt_path)
- 			break;
- 		con = to_clt_con(clt_path->s.con[cid]);
- 		mutex_lock(&con->con_mutex);
-+		con->destroyed = true;
- 		destroy_con_cq_qp(con);
- 		mutex_unlock(&con->con_mutex);
- 		destroy_cm(con);
-@@ -2387,6 +2394,7 @@ static int init_conns(struct rtrs_clt_path *clt_path)
- 		if (con->c.cm_id) {
- 			stop_cm(con);
- 			mutex_lock(&con->con_mutex);
-+			con->destroyed = true;
- 			destroy_con_cq_qp(con);
- 			mutex_unlock(&con->con_mutex);
- 			destroy_cm(con);
-diff --git a/drivers/infiniband/ulp/rtrs/rtrs-clt.h b/drivers/infiniband/ulp/rtrs/rtrs-clt.h
-index 1305601a6251..ad64f4517c4b 100644
---- a/drivers/infiniband/ulp/rtrs/rtrs-clt.h
-+++ b/drivers/infiniband/ulp/rtrs/rtrs-clt.h
-@@ -75,6 +75,8 @@ struct rtrs_clt_con {
- 	unsigned int		cpu;
- 	struct mutex		con_mutex;
- 	int			cm_err;
-+	/* Set under con_mutex before CQ/QP teardown. */
-+	bool			destroyed;
- };
- 
- /**
+> Anyhow, given I have a long queue today and this base commit thing has
+> been going on for a few cycles (as seen by sashiko not reviewing it)
+> I'm going to give v5 a skip and wait for v6.
 
----
-base-commit: 08dbfad3f5040f5bdb6c529da20d6d4e81fefd72
-change-id: 20260830-rdma-rtrs-clt-cq-pool-leak-78f1b077e341
-
-Best regards,
---  
-Quanye Yang <quanyeyang@proton.me>
+-- 
+With Best Regards,
+Andy Shevchenko
 
 
