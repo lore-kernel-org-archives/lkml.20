@@ -1,35 +1,84 @@
-Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55C4D3B47E2;
-	Sun, 30 Aug 2026 15:53:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2ED0335C180
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 16:02:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788105197; cv=none; b=RQtafWSVMCJmH9uk/hAIBtKyNoruDDPChkY2Og5kZBGPRalsnciOyIyW9RX1Is4ZKUCgcSflGwB+It7AZ9gvvcmfWtofRAdUVgM83zzF/jEEqQ436RjrHVZ64HmFmKJBs87R+uTaOCv/reLmVhiVg8WnNGDv8A/dFEND/cUWkHw=
+	t=1788105756; cv=none; b=j73yJRQuIWfJRfMRmqkzUZBjiiFxUTq5PQKyVmwq9ndiJtxss/qYH8h0JiRbbpxmrGvOdFvBt1i2mxtNQDyig9NYNn4Cqa3EUHiT3DOHFNanLQYUljJ+eSj7Qbx+woc8MHr6g9dTnMGRQxJMBelJ6XG83J236JKDUW9+uJHRuuQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788105197; c=relaxed/simple;
-	bh=hsHuiUwutCvr/VtqLCTRbYQGHmAMqfRe2iNL4QOD4xo=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=U/KBHWr82P5yimf9PjgRUZb4SGhRXGlMJDOl3M03eUKGYj7EQQ78hVMdi5cIfx4lHOATr/13twbFMpNXR/041iCcx+r7EUT1LlEba/+CJv6amTtBt3M3s5QQFpM012VrhovGWZoB/qEsDHXI5aHxZgAqXVXE2nsv9xfms4sbQYs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=E8Kctk2N; arc=none smtp.client-ip=45.254.49.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+	s=arc-20240116; t=1788105756; c=relaxed/simple;
+	bh=5I7WZk9Likezcszkxm2f5VMiSja2ZVMFwssHq+M2D28=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=EGE0p3avpiEe+Z1oZDftFpvm9Dy3MAisTG7gfZ/zfNVlTnE8d4OR4bABXAPDPgiYuWvPB1ETJFjVnLlWMKRXxWegeE7o8z+720ge2GT2zj4tGX2yj/0Eee+0Mc8s0SCB47Rfc+EVSF5x/i3jdMxbBkkorLrVmob577eNziZBMyc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kyksnbdq; arc=none smtp.client-ip=209.85.215.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="E8Kctk2N"
-Received: from PC-202605011814.localdomain (unknown [58.241.16.34])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4bd7a2162;
-	Sun, 30 Aug 2026 23:53:09 +0800 (GMT+08:00)
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-To: rafael@kernel.org
-Cc: viresh.kumar@linaro.org,
-	linux-pm@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kyksnbdq"
+Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-cc1a4c62804so2144834a12.3
+        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 09:02:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788105754; x=1788710554; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=EU/f9ZuMkFjEGmh1dmO/3ytBQ8IveQK8KxWk7ZUANeY=;
+        b=kyksnbdqZ47+kSj+nWGucjW4eEB6AIvW9McJEgCa1C4c9Y1XcU78Nb9VGvvF8DLiVq
+         UMRCJumCfZpR+TZupOv/RGjQxzVz3Udw4dvVYlKswWvSD++w1Oy2A/tPI5Km1z0KKMo5
+         7NP/tPbKZ44VxYfno+ZpuLaoh2VncCJDsDxlUZSLQBU8MtA5GaNHSnsyNdGsHx7D13+e
+         8f9fvprPZnmvgCAh2flwCH8o06sZ6p3h6dQWXYhZ945btkTetrqtBLekyrLsxFX9MQxx
+         64mKJhh+mkuHTcUG7bO1tI7xHbbGYzi/br4Jl/D7XNhAOG4WS5D8Qx0CySOm2cUUBoG7
+         9RPg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788105754; x=1788710554;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=EU/f9ZuMkFjEGmh1dmO/3ytBQ8IveQK8KxWk7ZUANeY=;
+        b=V1I3mAYKqy+HSaOr15Ud2oEdWipxNyYFQaswCMCUel9J7w5GECcTi06Fm/fhNYEExD
+         4wdzOTLcSuOZSr7tUD3OedNbZbYMdWrPs6LMBgoOi/y9IGZp1YB1UHja07k8GTxU48sd
+         +CfX4zJRMqqTBQrEAdldj0bcZ1K0+zQhQQkFTIlHExxtYrnTHY10tVYvOcOfTj3JAMO8
+         wkXrwCqS0IUQiWF/7tVUQPXp8hPE79LN+zZusBatLMa+Nti1yJBAAtWC+9n24hPbvZSH
+         lMVIwFhwh62/QMSOcqIqk39k2HVGfatyP0wU2pOtSpRsTfGhFTp1tsynvF+4ktTgY18G
+         ddRg==
+X-Forwarded-Encrypted: i=1; AHgh+RoV9Pyfsk0XVeT5bFMc1uwGNGYM5S9oUabeiX+aHVVHeKWNB77szYUegqnp63XDEdz40DcT66GOZssw3Pg=@vger.kernel.org
+X-Gm-Message-State: AFuF++llMHzpW+aQ5OAdYKmOdQO6DkyISIGdhcNTxTH/ixqRo2QAFJtu
+	tyTjBHiX3+M+cd5iaZXwjZrFS8JSTjTUxtEM4ELMeVw3CuSzc40TW1Q9/OkEM0t0
+X-Gm-Gg: AR+sD10Rx81Ip2LVgiH36hM1PlRv4Dcqyk947fIPvlsyBFZ9Ml6lVIUrYC0Nj6QPtXp
+	lZRaSLWUThqWAi6km+HcNIpICI7tXWXdO6MtTy0gNGfknkwnU+itIy78xjdMEL4CorKRceJaZvC
+	hPQ1zpd5n4YEXDpK3w4OtIseXHwuy2XdU4k7cyM+5ulvzxh6NB3QnHbnot4/f+shr908Ns+j8X8
+	V71AzGvMw8e3iLGdqgarA5iOlDbLURpPkQxgcrT1/SloQo4bs+/bauTmDN/MAdbNgPJoDy75E8y
+	LqLt7Pgf1Mz1tdNIFayoP3CE9WB3dEdA00yJs3pEy2CbEPFI5MSs3i6pUJuOfH6uc1q2Ur3IcEl
+	xvYX/5QjIjSVhXfBS3W37ahpvW40CF1lX6IrZWb2ctKMxSTcNNjIoSBxhrk2cnVZQHUzt0gDw7h
+	228NxF9tqA0CsSvq1rtaJoc8BIfylzyAU5dNi8uLBuvWD+PGPQbPgcF4CI+zf5QMMzi+eUBw8oL
+	xH6eb7qqAn0lNgDfbUiOq/dm67cSMLkKP9/9Ib1fN9/q05TsiA/aQ==
+X-Received: by 2002:a05:6a20:729b:b0:3cc:9618:f51a with SMTP id adf61e73a8af0-3d26615ece4mr29016741637.8.1788105754380;
+        Sun, 30 Aug 2026 09:02:34 -0700 (PDT)
+Received: from nuvole (2.248.212.35.bc.googleusercontent.com. [35.212.248.2])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc1f3312270sm2839584a12.11.2026.08.30.09.02.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 30 Aug 2026 09:02:34 -0700 (PDT)
+From: Pengyu Luo <mitltlatltl@gmail.com>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Martin Kepplinger-Novakovic <martink@posteo.de>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Sebastian Krzyszkowiak <sebastian.krzyszkowiak@puri.sm>
+Cc: devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	runyu.xiao@seu.edu.cn,
-	jianhao.xu@seu.edu.cn,
-	stable@vger.kernel.org
-Subject: [PATCH] cpufreq: initialize policy rwsem before sysfs publication
-Date: Sun, 30 Aug 2026 23:53:01 +0800
-Message-Id: <20260830155301.2713780-1-runyu.xiao@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	linux-media@vger.kernel.org,
+	Pengyu Luo <mitltlatltl@gmail.com>
+Subject: [PATCH v6 0/5] fix and improve for Hi846
+Date: Mon, 31 Aug 2026 00:00:20 +0800
+Message-ID: <20260830160025.211384-1-mitltlatltl@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -37,55 +86,56 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa0535fe8da03a1kunmaea15bf5106482
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZQ0NJVkpJHkpNGk9PTE1DSVYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlOQ1VJT0pVSk1VSE9ZV1kWGg8SFR0UWUFZT0tIVUpLSEpPSE
-	xVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=E8Kctk2N4fPhiBUGezpJ1H4W4CYV9HIAk+U7Qkhkp9GGz/COGbjZJ6FrSoJ7sEY1DrPAwXnrCZYB47pb7knLJufHO0/DceapwT2u8SLgsQSAGjhpv+qnofnCfLD+vhdH4cQmFWt66HFC7EG8OosdqLZ477LJVgh/KaTfHWLK+fE=; s=default; c=relaxed/relaxed; d=seu.edu.cn; v=1;
-	bh=s+bmwNUs1VXUmIRihvb79HKjQN710jIbHZEnpTHONHs=;
-	h=date:mime-version:subject:message-id:from;
 
-cpufreq_policy_alloc() initializes policy->rwsem after
-kobject_init_and_add() has created the policy sysfs directory and its
-default attributes. A sysfs access can therefore reach a policy callback
-before the semaphore has been initialized.
+This series fixes errors blocking Hi846 driver function, fixes
+link frequency and supports 6MP and 8MP modes on Hi846.
 
-Initialize policy->rwsem before publishing the policy kobject so sysfs
-callbacks always see an initialized semaphore.
-
-Fixes: ad7722dab729 ("cpufreq: create per policy rwsem instead of per CPU cpu_policy_rwsem")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:GPT-5
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Signed-off-by: Pengyu Luo <mitltlatltl@gmail.com>
 ---
- drivers/cpufreq/cpufreq.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Changes in v6:
+- Add link freq ctrl back (Sakari)
+- Use v4l2_link_freq_to_bitmap() to get matched link freqs (Sakari)
+- Move clk_get() before than hi846_parse_dt(), since we use clock in hi846_parse_dt()
+- Add link freq check in filter for v4l2_find_nearest_size_conditional().
+- Link to v5: https://lore.kernel.org/linux-media/20260712115012.91600-1-mitltlatltl@gmail.com
 
-diff --git a/drivers/cpufreq/cpufreq.c b/drivers/cpufreq/cpufreq.c
-index 0d0df986f..9efbf5b17 100644
---- a/drivers/cpufreq/cpufreq.c
-+++ b/drivers/cpufreq/cpufreq.c
-@@ -1258,6 +1258,8 @@ static struct cpufreq_policy *cpufreq_policy_alloc(unsigned int cpu)
- 	if (!zalloc_cpumask_var(&policy->real_cpus, GFP_KERNEL))
- 		goto err_free_rcpumask;
- 
-+	init_rwsem(&policy->rwsem);
-+
- 	init_completion(&policy->kobj_unregister);
- 	ret = kobject_init_and_add(&policy->kobj, &ktype_cpufreq,
- 				   cpufreq_global_kobject, "policy%u", cpu);
-@@ -1272,8 +1274,6 @@ static struct cpufreq_policy *cpufreq_policy_alloc(unsigned int cpu)
- 		goto err_free_real_cpus;
- 	}
- 
--	init_rwsem(&policy->rwsem);
--
- 	freq_constraints_init(&policy->constraints);
- 
- 	policy->nb_min.notifier_call = cpufreq_notifier_min;
+Changes in v5:
+- Use separated fields instead of raw register values for PLL cfg (Sakari)
+- Use mul_u64_u32_div() to avoid loss of pricision and u64/u32 issues (Sakari)
+- Use v4l2_find_nearest_size_conditional() to filter for different lane cases. (Sakari)
+- Drop line break (Sakari)
+- Rename post_div to mipi_clk_div
+- Correct div1 number from 1 to 2
+- Link to v4: https://lore.kernel.org/linux-media/20260511103927.279550-1-mitltlatltl@gmail.com
+
+Changes in v4:
+- Correct default lane cfg in commit for 'fix link frequency handling'
+- Fix messed header (the Media CI robot)
+- Move constant to the right side when comparsion (the Media CI robot)
+- Link to v3: https://lore.kernel.org/linux-media/20260511090924.269106-1-mitltlatltl@gmail.com
+
+Changes in v3:
+- Fix modes handling for different lane cases (Sebastian)
+- Fix header missing (the Media CI robot)
+- Link to v2: https://lore.kernel.org/linux-media/20260501095433.1609309-1-mitltlatltl@gmail.com
+
+Changes in v2:
+- Remove uncessary `else` (Sakari)
+- Fix link frequency (Sakari)
+- Correct link frequency for DT
+- Link to v1: https://lore.kernel.org/linux-media/20260429070351.1307204-1-mitltlatltl@gmail.com
+
+Pengyu Luo (5):
+  media: hi846: Fix hi846_write_reg_16 handling
+  media: hi846: Fix link frequency handling
+  media: hi846: Fix modes handling for different lane cases
+  media: hi846: Add 6MP and 8MP modes support
+  arm64: dts: imx8mq-librem5: Correct link frequency list
+
+ .../boot/dts/freescale/imx8mq-librem5.dtsi    |   2 +-
+ drivers/media/i2c/hi846.c                     | 370 ++++++++++++++----
+ 2 files changed, 289 insertions(+), 83 deletions(-)
+
 -- 
-2.34.1
+2.55.0
 
