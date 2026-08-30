@@ -1,191 +1,163 @@
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14E192DEA8F;
-	Sun, 30 Aug 2026 12:53:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7217C229B38
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 12:54:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788094409; cv=none; b=sWvSSyaSnVTcrcRII6u+1apycxvISmf/JpDrdS/Z546icJ1Y/7T98xXeIpMAUz1mMdEvjyl5sWXBrkzjYOvckPftASKRJeY6M4vrDeFtgzzHF7b0kYvjLhy1iQKCxgbsucfXgIBxd/drGHPn6x+TFOKDd3VioIyVpu8iuKG5irs=
+	t=1788094464; cv=none; b=lMSkGtS9GPxBBCP7X977SWQpZCMTEG1mkvOI27SmL+qey3uXz0SQD4aWtar4cq0MbRV/4HiQ3SIEsj1L96tFdg9tXxFXa05wzYXwwuBgp8UOWOEuNtxIe/IUpRNqo7Eb3Vm7cD3lXcTJTfIjFsSMG4UbPhWgDKjEry5OEo8Dsco=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788094409; c=relaxed/simple;
-	bh=EPd5ms3w1RzfQvz6ciYloATZy/TSHx2EIgphDmbyJos=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rZ2ctKYjT5sAjl2qfdDg6lboq/yRUBJon+J1EhcJ1UJC7pmz1+oLS9Nb5CGtNd4Uc18SqE5ojeuS+VBMcy9uELUIDSMqEZcaWeFT49NwAdPxEgP9HR+3/wH8/9ZjMU7kdydHAb/7djPEOxroUsnajC8I6Bx5I7bCIR8wjPI6/jA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from localhost.localdomain (unknown [111.196.241.250])
-	by APP-03 (Coremail) with SMTP id rQCowABHUD7EJ5RqfKuaBg--.40012S2;
-	Sun, 30 Aug 2026 20:53:24 +0800 (CST)
-From: Pengpeng Hou <pengpeng@iscas.ac.cn>
-To: Marc Kleine-Budde <mkl@pengutronix.de>
-Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>,
-	Vincent Mailhol <mailhol@kernel.org>,
-	linux-can@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] can: kvaser_usb: hydra: validate command prefixes before parsing
-Date: Sun, 30 Aug 2026 20:53:22 +0800
-Message-ID: <20260830125322.98199-1-pengpeng@iscas.ac.cn>
-X-Mailer: git-send-email 2.50.1
+	s=arc-20240116; t=1788094464; c=relaxed/simple;
+	bh=TtVL3g5CXHtJtj6eOzuWf7skEeoSjxP3wk/z54dfag0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pV3RZQA2gBEz1n22KzbDz8RGG2qSJ7d6lEINXWq442gtf3bU9vRv+YH21/OeiCum/seOMF0bFwEYtaEb4jj2iD/XtiG0JQY0x6B3jlba+BVGTvtxKNndLL2fywQMn16DCOn0IM3DkrOYYDJSB8mmzv6fK1Yre66alwK32302xvo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=mS82BS67; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Bg7W5xqv; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="mS82BS67";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Bg7W5xqv"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67UA7TZ2418221
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 12:54:22 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=XgbZbNxl9MVPXRQCf49rJEHJ
+	jRyGus6jFeoy1vIRV6Q=; b=mS82BS67hj4LKM38qD1GqrOOR+ZkIgJbKf58dHw4
+	AXamjvO0VYdyuRZRrgUXnIw3fBT1tDfc6AK34XoY09SNJp1W6eLy7MiMr6awHEpg
+	111+xNvEKEvOiprysHG5FoclGu3pSGKXHG5E7cRPPbdbqK4ZR0rwq/HZD4W5/GHy
+	4nnvvnGs3g5qAmIwRpYlxCfrn9YRg4Qsjg6aQ2adzd7tLMCGYslMzPFMWdzG0mjT
+	8+lN0+XjTDW1XwF+FP2BouNAmPiiEs5MZAUNL4OUX/NREhXc40mkqOkmdgyoYeuU
+	M+BqBFUjnltX30gIp3yoSg8C7lDr6jnvmXWc87qGvHzH1g==
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gbqgyk11x-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 12:54:22 +0000 (GMT)
+Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-52fc16ac179so39345121cf.0
+        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 05:54:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788094462; x=1788699262; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=XgbZbNxl9MVPXRQCf49rJEHJjRyGus6jFeoy1vIRV6Q=;
+        b=Bg7W5xqv+67nEOgFqUwUggjtovCMBPYAC50dK2+Gz8t0MDFCbPmKYR1Lu3QROlhsD+
+         WCxqMrpDJ/f45JW7ptfNrSBFgo/uYkR3EVmDK19Px3L54bBWaiaDZLWzRuGcNCx6XyV8
+         ObKJL2zspLPS6DM9SXyBU59u6uXS6paxERkpuAwWPhnq8Ses+kRYFpx8Aa/ncMd2jr83
+         RVcFoozZ954fEkBy1PLLxEUTgvnkmIxN0vePAQeh8hup9nBcDLSlBBKPgVg1go2VTfDd
+         wqPyGzAkCYcE6I470a2qzYptWDOplpNgaA02lFxRouyvwnepNV1yTacf8+gghIERVPY9
+         266w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788094462; x=1788699262;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=XgbZbNxl9MVPXRQCf49rJEHJjRyGus6jFeoy1vIRV6Q=;
+        b=OrjCCyr2NVnfv1cewaAgnXwhpSRG8EJjeYk1aAvd2IvIaGvDT3GHIRzxBwdrYN/+Hx
+         9LhguGZyNb8DbX/gVv3vu02Ek8/8RL7naQNJ8JzfNEqb3+TdYG7WK7LYgTnV/YSheCFG
+         wEFC6fB684WALevHys3RWcj+89MoyTPKfRqlRB+Su6HE+TJ7fdyd+3Bdel8lkacOjCUW
+         wboWon9uvKdZ2MtXdGUJmZ28t/hjCSRD8LozgSYcYIFxqF/63uvmDIQhrwQibNe4SP4X
+         mFtu0ON9HWec5Ulmofc/8hOXRKanRimiglMI2QkxPU1ABZq9u83PutRExscI8yyKXe0k
+         c4lw==
+X-Forwarded-Encrypted: i=1; AHgh+Rp7EO1fY5oXFQ5cILZnyL6EEIXe6p0AX6X0qRYlpsla6WmpdNMiLn0yQuamYhPxqNx8TDfe092klWXHkfo=@vger.kernel.org
+X-Gm-Message-State: AFuF++mVCd9hHQ2TvYHUWIvPBwKBlBviYCZZH0d7xQxUQ6PmDwf6ErJ4
+	LY2VIaLGj66q+w3Ru4IEXyysOy7XxpiPLQz7GaAvqEq/H9JlpgZ/756i9pQBu5XuDzhveYGjQDJ
+	NKit86VsJmhBvVZUWjfNsV1d2+QS6YBS5nBquAM+otF8NeX+Ib8IuGMe2Qh1ooMpFXiI=
+X-Gm-Gg: AR+sD13O3NdE9YPnz4HLTfLEBf1xnfc6HpBNLftZ9/VmPNzN2elBCORNAslygFY0b4c
+	4ST5bP6C4gsvMcjGv2i0SA+A957OvVrL4FEpobFcpiARXig0aHCxKMNqjw4Z7xEgTkoH5+CGEZQ
+	95ElQwczVB2VqTvnBhhvEcmIq/LFHdii2rHvnsbQ4rtkb+aEOnUNQIKHgDRWnS3aeV4HRj7nabU
+	Ox+Gp+TKduDFJcB7h+zjm9Lm9J7U6SA+vByzg4qpFs3D0B6RI6frMmbemcpi/MB3jsqKB85ifP6
+	d0WAELDyx3/SeifJDkWzgQoBhniwQasZLv6CvTDBv0kQafHENjisdcXuV2sH55GTm/bArusMap1
+	k6TZnI5l6B7IcSQ==
+X-Received: by 2002:ac8:7d45:0:b0:52e:125b:9444 with SMTP id d75a77b69052e-5300b8e5b6cmr20132951cf.17.1788094461629;
+        Sun, 30 Aug 2026 05:54:21 -0700 (PDT)
+X-Received: by 2002:ac8:7d45:0:b0:52e:125b:9444 with SMTP id d75a77b69052e-5300b8e5b6cmr20132621cf.17.1788094461044;
+        Sun, 30 Aug 2026 05:54:21 -0700 (PDT)
+Received: from oss.qualcomm.com ([86.121.170.13])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b91c52fdbsm159275475e9.0.2026.08.30.05.54.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 30 Aug 2026 05:54:20 -0700 (PDT)
+Date: Sun, 30 Aug 2026 15:54:18 +0300
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Joshua Yeong <joshua.yeong@starfivetech.com>
+Cc: Ulf Hansson <ulfh@kernel.org>,
+        Geert Uytterhoeven <geert+renesas@glider.be>,
+        Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
+        Heiko Stuebner <heiko@sntech.de>,
+        Hiago De Franco <hiago.franco@toradex.com>,
+        Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+        linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] pmdomain: core: Honour pd_ignore_unused in the
+ sync_state power-off
+Message-ID: <citqj2vmvg76gec3aebql5hiw5fctkud6ii6ylvvodrvoues3k@batgphik664u>
+References: <20260829195105.4173953-1-joshua.yeong@starfivetech.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowABHUD7EJ5RqfKuaBg--.40012S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxAryrJFW8uryrZry5CF43GFg_yoWrur4xpa
-	47WFs8tr13Jr45J3ykGrs7Z345W3Z7Gay0v3yru3s3X3WUt3yj9ay0gr1FqFWakry3AFW2
-	ya1jvF90kF1DCFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUkC14x267AKxVWUJVW8JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x0267AKxVWxJr
-	0_GcWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
-	2Ix0cI8IcVAFwI0_JF0_Jw1lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
-	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lc7CjxVAaw2AFwI0_
-	JF0_Jw1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67
-	AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIY
-	rxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14
-	v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8
-	JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjfUeKsjUU
-	UUU
-X-CM-SenderInfo: pshqw1xhqjqxpvfd2hldfou0/
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260829195105.4173953-1-joshua.yeong@starfivetech.com>
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODMwMDExMCBTYWx0ZWRfX8Ju//Ihfy9wf
+ AYu+Q1WbocAfBT1TVIX0RZM0Bqdq7O/fXOmhvLO/cfY8J/Ik8Ekm4Vta9aYVXprQ4JyRYp6hXKF
+ ZHR9Pj3KS38M+DbY/Y2y5YzHG90HLjg=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODMwMDExMCBTYWx0ZWRfX/CB0845jOTXb
+ xdr3gldxO+3QXJWHVzBL1nqqxqcbkbGvUEGivue8GW+NiCgomFk9kCR7MLhhXBJ9UjLwtWErR/z
+ aAB6Yyv6M/YSQ1eddbNC8pzK5JPi3FQD9addGxuWgd0CaNG5Ysa7wkmGq9s3UU1nvQnq4U90EkJ
+ gLexIz2HKgL5JZY/HZ6d9+a2+zDbqSWZB+IFv6Ws3j9jWkSZjmkyNekhRKLPFthYbbIDeuKVWJx
+ dQY42qBJrxfw1xW53UGHHPoPgKmVGak1irqcUovV3DpTklX1iG/UR4D6BPc6CztfNGG/5decqn2
+ aur8HG+y55e5mMNtIKEogLcNWIlt3S5rMRCjhY7vBgH7Wa3TNKCg9V2ZhUuVR8CvCSfTJqrtYq0
+ mObzJhnuM5Lu5U/LaKU+hB5YzliFDWqjbvdWuHWk1Ymyom9UlWk484+h76+7KmIvx7C01o0gZQL
+ QP7sAgsjB42hlUPCHCg==
+X-Proofpoint-ORIG-GUID: DKHZOkhs7CXTTWLkl2ymkNMeMz3VlI2a
+X-Authority-Analysis: v=2.4 cv=R5Ez39RX c=1 sm=1 tr=0 ts=6a9427fe cx=c_pps
+ a=WeENfcodrlLV9YRTxbY/uA==:117 a=clBUptZa5v5FR042Ey+sjA==:17
+ a=kj9zAlcOel0A:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=Bq6zwJu1AAAA:8 a=EUspDBNiAAAA:8 a=SNTRIsVtzyLZ7Te-p9sA:9 a=CjuIK1q_8ugA:10
+ a=kacYvNCVWA4VmyqE58fU:22 a=KQ6X2bKhxX7Fj2iT9C4S:22
+X-Proofpoint-GUID: DKHZOkhs7CXTTWLkl2ymkNMeMz3VlI2a
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-30_03,2026-08-27_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 suspectscore=0 phishscore=0 impostorscore=0 spamscore=0
+ bulkscore=0 adultscore=0 clxscore=1015 priorityscore=1501 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608300110
 
-The Hydra receive paths derive a command length from the current buffer
-before
-checking that a complete command header is available. For an extended
-command
-this also reads the extended length field before proving that field is in
-the
-current USB transfer or saved fragment.
+On 26-08-30 03:51:05, Joshua Yeong wrote:
+> The pd_ignore_unused command line option is documented to "keep all
+> power-domains already enabled by bootloader on, even if no driver has
+> claimed them". On an OF platform it no longer does.
+> 
+> Powering off unclaimed PM domains used to be the job of
+> genpd_power_off_unused(), which bails out on the option.
+> Commit 002ebddd695a ("pmdomain: core: Restore behaviour for disabling
+> unused PM domains") stopped that late_initcall_sync from clearing
+> stay_on, so it can no longer power off a PM domain that was found
+> powered-on at initialization. The only remaining path that clears
+> stay_on is ->sync_state(), and it never looked at the option, so an
+> unclaimed PM domain that the bootloader left on is powered off there
+> regardless.
+> 
+> Honour the option in the sync_state paths, for the PM domains that have
+> no consumer attached. Those are the ones the option describes, and once
+> genpd_power_off_unused() has bailed out they have no other power-off
+> trigger, so they stay on as documented.
+> 
+> The stay_on constraint is dropped either way, leaving the lifetime of
+> the constraint unchanged. The PM domains that do have a consumer
+> attached therefore stay under the control of runtime PM, which the
+> option has never covered, and a PM domain that gains a consumer after
+> ->sync_state() is not left pinned.
+> 
+> Fixes: 0e789b491ba0 ("pmdomain: core: Leave powered-on genpds on until sync_state")
+> Signed-off-by: Joshua Yeong <joshua.yeong@starfivetech.com>
 
-Validate the header and extended-length prefix before decoding a command
-length. Keep partial prefixes in the existing leftover buffer until enough
-bytes arrive to establish the command extent, and reject invalid extents.
+This looks OK to me, so:
 
-Fixes: aec5fb2268b7 ("can: kvaser_usb: Add support for Kvaser USB hydra family")
-Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
----
- drivers/net/can/usb/kvaser_usb/kvaser_usb_hydra.c | 76 +++++++++++++++++++++--
- 1 file changed, 70 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/net/can/usb/kvaser_usb/kvaser_usb_hydra.c b/drivers/net/can/usb/kvaser_usb/kvaser_usb_hydra.c
-index efbb7bed34c9d..92c78fa690281 100644
---- a/drivers/net/can/usb/kvaser_usb/kvaser_usb_hydra.c
-+++ b/drivers/net/can/usb/kvaser_usb/kvaser_usb_hydra.c
-@@ -536,6 +536,30 @@ static size_t kvaser_usb_hydra_cmd_size(struct kvaser_cmd *cmd)
- 	return ret;
- }
- 
-+static int kvaser_usb_hydra_cmd_len(const void *buf, size_t len,
-+				    size_t *cmd_len)
-+{
-+	const struct kvaser_cmd *cmd = buf;
-+
-+	if (len < sizeof(cmd->header))
-+		return -EMSGSIZE;
-+
-+	if (cmd->header.cmd_no != CMD_EXTENDED) {
-+		*cmd_len = sizeof(*cmd);
-+		return 0;
-+	}
-+
-+	if (len < offsetofend(struct kvaser_cmd_ext, len))
-+		return -EMSGSIZE;
-+
-+	*cmd_len = le16_to_cpu(((const struct kvaser_cmd_ext *)cmd)->len);
-+	if (*cmd_len < offsetofend(struct kvaser_cmd_ext, cmd_no_ext) ||
-+	    *cmd_len > KVASER_USB_HYDRA_MAX_CMD_LEN)
-+		return -EINVAL;
-+
-+	return 0;
-+}
-+
- static struct kvaser_usb_net_priv *
- kvaser_usb_hydra_net_priv_from_cmd(const struct kvaser_usb *dev,
- 				   const struct kvaser_cmd *cmd)
-@@ -675,8 +699,10 @@ static int kvaser_usb_hydra_wait_cmd(const struct kvaser_usb *dev, u8 cmd_no,
- 			size_t cmd_len;
- 
- 			tmp_cmd = buf + pos;
--			cmd_len = kvaser_usb_hydra_cmd_size(tmp_cmd);
--			if (pos + cmd_len > actual_len) {
-+			err = kvaser_usb_hydra_cmd_len(tmp_cmd, actual_len - pos,
-+						       &cmd_len);
-+			if (err || cmd_len > actual_len - pos ||
-+			    cmd_len > sizeof(*cmd)) {
- 				dev_err_ratelimited(&dev->intf->dev,
- 						    "Format error\n");
- 				break;
-@@ -2121,12 +2147,44 @@ static void kvaser_usb_hydra_read_bulk_callback(struct kvaser_usb *dev,
- 	usb_rx_leftover_len = card_data->usb_rx_leftover_len;
- 	if (usb_rx_leftover_len) {
- 		int remaining_bytes;
-+		int err;
-+		size_t needed;
- 
- 		cmd = (struct kvaser_cmd *)card_data->usb_rx_leftover;
- 
--		cmd_len = kvaser_usb_hydra_cmd_size(cmd);
-+		while (true) {
-+			err = kvaser_usb_hydra_cmd_len(cmd, usb_rx_leftover_len,
-+						       &cmd_len);
-+			if (err != -EMSGSIZE)
-+				break;
-+
-+			needed = sizeof(cmd->header);
-+			if (usb_rx_leftover_len >= needed &&
-+			    cmd->header.cmd_no == CMD_EXTENDED)
-+				needed = offsetofend(struct kvaser_cmd_ext, len);
-+
-+			remaining_bytes = min_t(unsigned int, len - pos,
-+						needed - usb_rx_leftover_len);
-+			memcpy(card_data->usb_rx_leftover + usb_rx_leftover_len,
-+			       buf + pos, remaining_bytes);
-+			usb_rx_leftover_len += remaining_bytes;
-+			pos += remaining_bytes;
-+
-+			if (remaining_bytes == 0) {
-+				card_data->usb_rx_leftover_len = usb_rx_leftover_len;
-+				spin_unlock_irqrestore(usb_rx_leftover_lock, irq_flags);
-+				return;
-+			}
-+		}
- 
--		remaining_bytes = min_t(unsigned int, len,
-+		if (err) {
-+			dev_err(&dev->intf->dev, "Format error\n");
-+			card_data->usb_rx_leftover_len = 0;
-+			spin_unlock_irqrestore(usb_rx_leftover_lock, irq_flags);
-+			return;
-+		}
-+
-+		remaining_bytes = min_t(unsigned int, len - pos,
- 					cmd_len - usb_rx_leftover_len);
- 		/* Make sure we do not overflow usb_rx_leftover */
- 		if (remaining_bytes + usb_rx_leftover_len >
-@@ -2152,11 +2210,17 @@ static void kvaser_usb_hydra_read_bulk_callback(struct kvaser_usb *dev,
- 	spin_unlock_irqrestore(usb_rx_leftover_lock, irq_flags);
- 
- 	while (pos < len) {
-+		int err;
-+
- 		cmd = buf + pos;
- 
--		cmd_len = kvaser_usb_hydra_cmd_size(cmd);
-+		err = kvaser_usb_hydra_cmd_len(cmd, len - pos, &cmd_len);
-+		if (err == -EINVAL) {
-+			dev_err(&dev->intf->dev, "Format error\n");
-+			return;
-+		}
- 
--		if (pos + cmd_len > len) {
-+		if (err == -EMSGSIZE || cmd_len > len - pos) {
- 			/* We got first part of a command */
- 			int leftover_bytes;
-
-base-commit: 08dbfad3f5040f5bdb6c529da20d6d4e81fefd72
--- 
-2.50.1
-
+Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
