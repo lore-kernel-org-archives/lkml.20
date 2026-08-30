@@ -1,135 +1,157 @@
-Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
+Received: from mail-oa2-f1.google.com (mail-oa2-f1.google.com [74.125.231.65])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4601C3A785D
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 15:02:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8ECBC3939BD
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 15:03:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.65
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788102162; cv=none; b=ts1tlwBredFjm0TjwFfcDX7KDXcZfIMGkorcoWQgA45RozXdj2DnH2Aiqabx1Ls0wDNVfdOpNgBtSOIMSRqxOIK1lAqgKSfRZlu46jtp3TSHp0sXBns/8skfHtc5P+pY5BEotqw/npsVLWTCkvMHOP+czrMTbe1NMWZs9EM1AsQ=
+	t=1788102212; cv=none; b=Ign4ariGlL1iXn9sWzK5n1gb5/GhIvYrMjFir3S+L/Ey4yOFikjbpNkp33Xc78oH+NjXIoYVWXSpSNTeoF6obq0gDDXJxpl9PJJNZzlqY77pFjbkV7Qct8LU4CSkz02LpTJ7ZndFa3kmnDbbHoboTQpDxbF2N0ac6qZVO8A7mYc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788102162; c=relaxed/simple;
-	bh=8b5Cu/WzFELCN7I99cyIzKY4tM/BIzLp/hfo1qCjLvc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aFf/9QjjFDyZMbV89TihrpnQ8sW2i0Hsoi926WAnbBTrlfY9c4F5ocdSqjDbDk3ypiXXu8EoRBYp5A2bOhNPXHX4tHREjRdJSb789bPPT/SCqgFp81ClEBXtV9lkepek5vkrDNvHlHhzpfIaS0iLoYaAK1c4nVA6ZggHjEhDf+o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TCWzWu54; arc=none smtp.client-ip=209.85.215.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TCWzWu54"
-Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-cbedf433a99so2881471a12.2
-        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 08:02:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788102161; x=1788706961; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=4YMamzAVSqXj8/xPRdP9NGRtFgjUVXMOQM5Ll4+vfHg=;
-        b=TCWzWu54thRUsTOA0kgj/XnMst9KtjAFE7JjcnqLIRcgcXbSIdC7MynZYvLMDRCdp3
-         yQ23gZr1Nd/pJZfBDLOja8A3jtPxDFmwmAAuE+oN7lhdApXPNzsCJ1/qjhaRPeZjhm8q
-         TVV+n2Z3KMjBXjapwFRiBbOUg32UlMTTD+3rDj6yz4bykW+9DFm6FtoTOJBLeK4tJh++
-         JC1//hEIThLY6LAfTHTFNygzFV/UobPBLXPFku7/0hlsqiArFx2NRhZ1GwQr8GLV/rND
-         LoRnpY16gdo1H51YJZj03mF5qEslyFb/Ya+H+y2HaFghAEqBRpnwOK4zYMGQ5scdr8/C
-         iKGQ==
+	s=arc-20240116; t=1788102212; c=relaxed/simple;
+	bh=U4H9BqySYPL0L7p7XIhAHlXpgN2X7ZypyBq+Buw8xwc=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=Ee1GaPu07mf3XHP/I2vPlTHc6QTtMixtnsyBIFdP9HXeO/7NIIF90F4CNlts0fZrUiNb/ovkKvz4TCPx9KKi0/PRT/TPGnzBRvDEKF3dy/m1YC3Zd2KYxxP54B6fVUmjmmnTS544fd5eEoHU6AetM1P2zvKw++JKHwriqpCpgaQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.65
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oa2-f1.google.com with SMTP id 586e51a60fabf-4489b7aa0e7so721156fac.1
+        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 08:03:30 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788102161; x=1788706961;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20251104; t=1788102209; x=1788707009;
+        h=content-type:to:from:subject:message-id:date:mime-version
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=4YMamzAVSqXj8/xPRdP9NGRtFgjUVXMOQM5Ll4+vfHg=;
-        b=UNc6KsqqOEeNykBB95874HRHnF+pqlnQEydmrbvikle8CtYw9icHDB8ssSdvQ0wDYx
-         Gpz5tZs6HPtEAUSFltizLqLunsZ/RS7l0YZBxxWYocqNjMSlRuemo29X+7SMxb7yZx2n
-         rP7UcDxQfQtBIv4SCwemAG2ewab6NIbSULWAv1ZXUpUZH1Je1bDpz85zqUOwn208TS9a
-         q1gY2g3Op68VArBy4Y7rt3/NnbXdlqt5F4u+2pLDZCTo/wUOsP0ZX7Ba0mi3oEakhI+6
-         Qh8EqDDDORB4XjAp/eAfwjz1bIA78aWIxMziQLu+n3owzZfIkoEZLCOTw4LgH2l4AtlO
-         bbeA==
-X-Forwarded-Encrypted: i=1; AHgh+RpiiLZz8wKx1ifBBJPYQ1hyw7F8v1URjp2z9PmZcKESfAfusZPBsbcDs8ek0CMxLXBMy8KTXPPCi/dCYGo=@vger.kernel.org
-X-Gm-Message-State: AFuF++mG05OFW2TSaTgJaaZaq9NXnNYZ4CxKq/ncO0cNHlV/Tifo1YnG
-	/zywvp3Ea03593s6sNXQcSa2w9BCLTnRjduAKQnHSVK9cLrgQA2c1zt8
-X-Gm-Gg: AR+sD11O1EhbFKdxBI+OpH8yElXhUiHV79OaXhkN2Ts/iHt8EiA+tvL0re4OeW1Topw
-	zhOX6dOO08ErLpmWgA3bpX/OK47wSwS37Ge7l6sBkHsrA/0qRxeycqEYmPkwBg8DEaFb9nsvqBR
-	N7XuErHG6Xd6CWUD4x0g1vo3OoDPI7ltHso/pJLX+zIGsYuJCVwYgAqpie/3RaxQ/6kObSVkJBk
-	wuMB6lg7EzWYTnPSYvPXMCcp9SgRywLLJmgU7TQ22cHIJKJRWulWL8KWIfhDubNUV6dPTw6EnnA
-	DDs+RJ3rhENkfJ06Yjc2P5LJRPGvA1/CwDZLrg43wdtUahgs9OHsnLMmdyMxmuoTv4p3R84Ov+K
-	3tjQJdh3Dz+/L8gA5fE8lCXOqwRwq3rf6eOTcv/mFqJcUxm83hFkImGUqtTYHlSp8ejqkX+e8/I
-	BChkFvFGc6vYAWYEnJdTldz98QMK5vzeG2xOQaQbw/kCJ4qnwC7peKsWUWAoEjmGRBUTgu
-X-Received: by 2002:a05:6a21:496:b0:3c4:1916:9d40 with SMTP id adf61e73a8af0-3d2672043dfmr35677104637.12.1788102160582;
-        Sun, 30 Aug 2026 08:02:40 -0700 (PDT)
-Received: from localhost ([2804:30c:97d:e800:9454:1179:18df:ab33])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-142e0d2e465sm31939929c88.4.2026.08.30.08.02.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 30 Aug 2026 08:02:39 -0700 (PDT)
-Date: Sun, 30 Aug 2026 12:03:29 -0300
-From: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
-To: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
-Cc: Jonathan Cameron <jic23@kernel.org>, linux-iio@vger.kernel.org,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Andy Shevchenko <andriy.shevchenko@intel.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
-	Kees Cook <kees@kernel.org>,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	linux-hardening@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Luca Weiss <luca.weiss@fairphone.com>
-Subject: Re: [PATCH v2 5/5] iio: light: stk3310: support the Sensortek
- STK36C61
-Message-ID: <apRGQVfPKWHvE2Ct@debian-BULLSEYE-live-builder-AMD64>
-References: <20260826175409.326131-1-jorijnvdgraaf@catcrafts.net>
- <20260826175409.326131-6-jorijnvdgraaf@catcrafts.net>
- <apEMCqQXyj1tAMoP@debian-BULLSEYE-live-builder-AMD64>
- <20260828154705.11962-1-jorijnvdgraaf@catcrafts.net>
+        bh=6wtiGisHmTSw2KWwt9Wk+GviNuqppzh3TCDJTsgBRGo=;
+        b=YKW+2B6ZcIUPPKowhkZjhoS1qIGm08nqTk7IHTBG96VPYG7IYbMRgO6ODLmtnJG4vV
+         3sMqBIyu0c1PVcthIv4uby3qJlQZCOgv/DIwjYcpyrUrAMptXj9cISY5kX+Ev4ekFwdS
+         ADdH13c9TAtKHNjMtejtP5cerbsZQcbSdUPsY03eZmk2BtH8NHqahOMfV7otM6X1FrH9
+         hzY9asC0nlzO5rX2FWK22gTpdauG+YUzHrRZ0SoTrMgWlll7swimqfOwRdgqMXek8o1e
+         uYgdDVMLecwTXPbxECn7mK9i7R1lWUukD2LTi8oXho75HGQyQIEh4VplcmQj9x0KfPqG
+         EVJQ==
+X-Forwarded-Encrypted: i=1; AHgh+Roj61Qm3b0lxiPeGIjoV2WZb824HnDMoP47IuZTpfBxwVI1HtNwEdNz27dCj503dnpoGY2CiqGZkmp9oM4=@vger.kernel.org
+X-Gm-Message-State: AFuF++nDOs5v8pJuxpeBUr7kZJAU6n/NfL8L0pV4WDB7XGzitYZ+Q8xC
+	/clrYYZrRonD57rUPwiRBVhrQZVfedlAA7rRovYlNc3KaEo9AkXpPT7OXNDdgnwvxC0xUGlaYYy
+	XpluNEdrjtTePW7ibAKwAArQNPUEKccOILrQWoAo9lpp9rOJPl0e5rp235rA=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260828154705.11962-1-jorijnvdgraaf@catcrafts.net>
+X-Received: by 2002:a05:6808:c197:b0:4b3:89ae:df60 with SMTP id
+ 5614622812f47-4b398342e94mr21728714b6e.16.1788102209400; Sun, 30 Aug 2026
+ 08:03:29 -0700 (PDT)
+Date: Sun, 30 Aug 2026 08:03:29 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a944641.4d659fcc.734b4.003b.GAE@google.com>
+Subject: [syzbot] [kernfs?] WARNING in generic_access_phys
+From: syzbot <syzbot+fafc2cbca26ad7368aae@syzkaller.appspotmail.com>
+To: driver-core@lists.linux.dev, gregkh@linuxfoundation.org, 
+	linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com, tj@kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 08/28, Jorijn van der Graaf wrote:
-> On Fri, Aug 28, 2026 at 01:18:18AM -0300, Marcelo Schmitt wrote:
-> > > @@ -417,10 +459,10 @@ static int stk3310_read_raw(struct iio_dev *indio_dev,
-> > >  		mutex_unlock(&data->lock);
-> > >  		return IIO_VAL_INT;
-> > >  	case IIO_CHAN_INFO_INT_TIME:
-> > > -		if (chan->type == IIO_LIGHT)
-> > > -			ret = regmap_field_read(data->reg_als_it, &index);
-> > > -		else
-> > > +		if (chan->type == IIO_PROXIMITY)
-> > >  			ret = regmap_field_read(data->reg_ps_it, &index);
-> > > +		else
-> > > +			ret = regmap_field_read(data->reg_als_it, &index);
-> > The above seems unnecessary. Why changing the comparison from IIO_LIGHT to IIO_PROXIMITY?
-> > After the proposed update we would have the integration time for both light and
-> > intensity channels being read from the same register field?
-> 
-> These arms now see three channel types instead of two, so the two-way
-> branch has to put the intensity channels on one side or the other:
-> keyed on IIO_LIGHT they would fall into the else and read or write the
-> proximity fields. Proximity is the odd one out - its engine has its
-> own integration-time and gain fields - so the comparison keys on it
-> (the write_raw arms route identically, hence the same change there).
-> 
-> And yes, light and intensity read the same field: the chip measures
-> the colour channels in the same engine run as the ALS data, over the
-> ALS integration time. Stepping that field through the driver doubles
-> the ALS count and all four colour counts together (measured on the
-> device: ALS 30/59/120 across three settings, C 83/167/334, R/G/B
-> likewise).
+Hello,
 
-Ah, so both STK3310 and STK36C61 have register 0x02 for integration time and
-gain configurations that applies for all light/color channels. I think changing
-to compare with IIO_PROXIMITY makes sense then.
+syzbot found the following issue on:
 
-Having a closer look at the data sheet I found for STK36C61, I noticed registers
-0x13 and 0x14 are not listed. Does the newer part has ambient light sensing
-besides the clear channel?
+HEAD commit:    45c13f3f9e3b Merge tag 'hwlock-v7.3' of git://git.kernel.o..
+git tree:       https://kernel.googlesource.com/pub/scm/linux/kernel/git/torvalds/linux master
+console output: https://syzkaller.appspot.com/x/log.txt?x=173c5d79580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=d6a4e008e57a0e64
+dashboard link: https://syzkaller.appspot.com/bug?extid=fafc2cbca26ad7368aae
+compiler:       aarch64-linux-gnu-gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+userspace arch: arm
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=11d7ac15580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=17320349580000
+
+Downloadable assets:
+disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/fa3fbcfdac58/non_bootable_disk-45c13f3f.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/f88d9fecef79/vmlinux-45c13f3f.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/87ae79a5d86d/zImage-45c13f3f.xz
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+fafc2cbca26ad7368aae@syzkaller.appspotmail.com
+
+------------[ cut here ]------------
+WARNING: ./arch/arm64/include/asm/io.h:283 at rcu_read_unlock include/linux/rcupdate.h:878 [inline], CPU#0: syz.2.18/3678
+WARNING: ./arch/arm64/include/asm/io.h:283 at pte_unmap include/linux/pgtable.h:117 [inline], CPU#0: syz.2.18/3678
+WARNING: ./arch/arm64/include/asm/io.h:283 at follow_pfnmap_end mm/memory.c:7077 [inline], CPU#0: syz.2.18/3678
+WARNING: ./arch/arm64/include/asm/io.h:283 at generic_access_phys+0x26c/0x344 mm/memory.c:7126, CPU#0: syz.2.18/3678
+Modules linked in:
+CPU: 0 UID: 0 PID: 3678 Comm: syz.2.18 Tainted: G        W           syzkaller #0 PREEMPT 
+Tainted: [W]=WARN
+Hardware name: linux,dummy-virt (DT)
+pstate: 20000005 (nzCv daif -PAN -UAO -TCO -DIT -SSBS BTYPE=--)
+pc : ioremap_prot arch/arm64/include/asm/io.h:283 [inline]
+pc : generic_access_phys+0x26c/0x344 mm/memory.c:7116
+lr : rcu_read_unlock include/linux/rcupdate.h:882 [inline]
+lr : pte_unmap include/linux/pgtable.h:117 [inline]
+lr : follow_pfnmap_end mm/memory.c:7077 [inline]
+lr : generic_access_phys+0xcc/0x344 mm/memory.c:7111
+sp : ffff8000a1d37830
+x29: ffff8000a1d378f0 x28: ffff8000a1d37870 x27: 0000000000000000
+x26: 0000000000000001 x25: ffff700010ef8fd0 x24: 0000000000001000
+x23: ffff8000877c7e80 x22: 0000000000000000 x21: 0160000000000f92
+x20: ffff000017a38a00 x19: 0000000010042000 x18: 0000000000000000
+x17: ffff800080c267fc x16: ffff800080e49be0 x15: ffff800080e496d8
+x14: ffff800080a8ead0 x13: ffff800089e66530 x12: ffff600003cfbfbd
+x11: 1fffe00003cfbfbc x10: ffff600003cfbfbc x9 : dfff800000000000
+x8 : ffff00001e7dfde0 x7 : 0000000000000001 x6 : ffff600003cfbfbc
+x5 : ffff00001e7dfde0 x4 : 0000000000000000 x3 : 1fffe000025ac430
+x2 : 0000000000000000 x1 : 0000000000001000 x0 : 000000003fffffff
+Call trace:
+ rcu_read_unlock include/linux/rcupdate.h:878 [inline] (P)
+ pte_unmap include/linux/pgtable.h:117 [inline] (P)
+ follow_pfnmap_end mm/memory.c:7077 [inline] (P)
+ generic_access_phys+0x26c/0x344 mm/memory.c:7126 (P)
+ kernfs_vma_access+0x14c/0x1f0 fs/kernfs/file.c:437
+ __access_remote_vm+0x3dc/0x600 mm/memory.c:7194
+ access_remote_vm+0x10/0x20 mm/memory.c:7241
+ mem_rw+0x16c/0x580 fs/proc/base.c:912
+ mem_read+0x14/0x20 fs/proc/base.c:940
+ vfs_read+0x190/0xa18 fs/read_write.c:572
+ ksys_read+0xf0/0x1e0 fs/read_write.c:716
+ __do_sys_read fs/read_write.c:725 [inline]
+ __se_sys_read fs/read_write.c:723 [inline]
+ __arm64_sys_read+0x70/0xa0 fs/read_write.c:723
+ __invoke_syscall arch/arm64/kernel/syscall.c:35 [inline]
+ invoke_syscall+0x74/0x240 arch/arm64/kernel/syscall.c:49
+ el0_svc_common.constprop.0+0xac/0x230 arch/arm64/kernel/syscall.c:121
+ do_el0_svc_compat+0x40/0x58 arch/arm64/kernel/syscall.c:146
+ el0_svc_compat+0x54/0x264 arch/arm64/kernel/entry-common.c:909
+ el0t_32_sync_handler+0x88/0xac arch/arm64/kernel/entry-common.c:927
+ el0t_32_sync+0x19c/0x1a0 arch/arm64/kernel/entry.S:595
+irq event stamp: 2118
+hardirqs last  enabled at (2117): [<ffff8000859a8084>] irqentry_exit_to_kernel_mode_after_preempt include/linux/irq-entry-common.h:507 [inline]
+hardirqs last  enabled at (2117): [<ffff8000859a8084>] __arm64_exit_to_kernel_mode+0x38/0x98 arch/arm64/kernel/entry-common.c:60
+hardirqs last disabled at (2118): [<ffff8000859a81d0>] el1_brk64+0x20/0x54 arch/arm64/kernel/entry-common.c:445
+softirqs last  enabled at (2112): [<ffff80008023b5b8>] softirq_handle_end kernel/softirq.c:491 [inline]
+softirqs last  enabled at (2112): [<ffff80008023b5b8>] handle_softirqs+0xa98/0x1048 kernel/softirq.c:673
+softirqs last disabled at (2101): [<ffff8000800103d4>] __do_softirq+0x14/0x20 kernel/softirq.c:679
+---[ end trace 0000000000000000 ]---
 
 
-With best regards,
-Marcelo
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
