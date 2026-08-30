@@ -1,186 +1,183 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f41.google.com (mail-yx1-f41.google.com [74.125.224.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A586630C62D
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 21:23:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FE7C30DD30
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 21:23:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788124989; cv=none; b=HtFvBqpjvhCDQB3RzkRqHm51qaHgQd6Gl87lAawJ2v3Aybk8E7txebXiKgHnxkJGpBDjIFsmIaxM3tNIjwhiHTBQdKSXCjhaO0Tfk1FeUIidC4gTSwQv2RF5IHWYToySjpMxx+FPDfbuOrfxCVA6gX1AQCshyPn0f+mLTc2PNIs=
+	t=1788124997; cv=none; b=hhBJWTBYZgFX+U65moamQcUo6MHwBwSD8ZGvVw2CfunJj8LybpbtCe9T2zDiQ6tWlOnhFMqa2v03UhmY3WiTilrtaZ4dT9E0JsP47s1/wgayM1OiXto5qJyBVQn8v6MoiH1YVt9yI4iGpGW+7Bo7paRy9YxZo/qXRlo82k+lPok=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788124989; c=relaxed/simple;
-	bh=28VtCgq71+c7mrKpRMPfDhWoUNIGGWeOVuoPzcXt56g=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=sI6xweS1F2DFA14zGS8VLM3TL/vVO3vtE1FWpL3iNVoILtizXLpKd1dIyqHanXbyyXMZcXjN6/mNlI9sfJPRZOrY9jMGM5sSTEJRpYQ1UpM1NEI8VILfiTq/LJtnSXGVP4S4JqJxqF1EzHlp3CKDVnkUnV/W4W1e6TLDEmKQ2/c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a68jgZAr; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788124997; c=relaxed/simple;
+	bh=noxdCxBTOJYd9u3M9mz8sS3eKpGxBtTJNiFJ53+QoLY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=eUDNUAS1GZh2YpV01b0wQ0RA16Ps7kMEXcP8VQ53CpGo72dcgU1FeknUEImkBgReV3nrimu08UnqBsb/ByolxHL3w8CSvTsCRG/3/vbYZQOJSTCjRir/MxcjOpg88IpwuQO1Uo2jlGYsR4T8ehTBg1xSjVK6Ij3i2DTcQoBnluA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HPhx2I9j; arc=none smtp.client-ip=74.125.224.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a68jgZAr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F32AB1F00A3D;
-	Sun, 30 Aug 2026 21:23:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788124988;
-	bh=hAHfxbcI5WYNxeZ7eReGH3Z2z8o9MxecCYQT6NTRHpo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=a68jgZAre3KMGtegFXz3I0cNc7/71VYrhLZMH9J68Ri+fGLJZOsacnottAEdqqMTw
-	 dI6kfDG4z0Dz1yYLGeMzCavksnhKwbaPJeXrT0JS9CzVMounqdhj5DoREaVi2f5kM7
-	 8+QNAvl1ouQtvbRun0Fw5Lj9gXf1Vr7V1J3dIVPXzARlaNZ9XLiJDjp5KqlUYW9lLt
-	 AqfpmDMMo4/3MeFCPAbt7smbx90NT+ZHLsUQzycAkwIF1r3GVIFY6blvWcZ3fjDf1I
-	 I4VasAl8iS505SiN3YSrbB8P5U1Uv691qGC8bhm9cRNfZhfFvIrhZagBpfrTiYYC7k
-	 bHyQDABSIa6dg==
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailfauth.phl.internal (Postfix) with ESMTP id E06A5F40066;
-	Sun, 30 Aug 2026 17:23:06 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-03.internal (MEProxy); Sun, 30 Aug 2026 17:23:06 -0400
-X-ME-Sender: <xms:Op-Uao5z8cS3cf1IFJIcuWVH0evRi3dlh2j9URzohwIpYlujVQV1bw>
-    <xme:Op-UajM3dVf-IYTgf76myy9DHvn6z3EzfAmFsC35HmXXBebWC2ZLXGYPa7yOnzPl8
-    o0wCoDQ4AVXbaS6QZZ9d4dPFh3VisRVjPjhFIf-NZRv0zGQbEi93A>
-X-ME-Received: <xmr:Op-Uaush-g_uHfh49dphH_jclolC1hsOPGPqR5hv_mb_T-lxnrCN3q5UFzM-DQb0D5CnWQnLM3dqvuIKb7xFlyEmr6Z6jUe_>
-X-ME-Proxy-Cause: dmFkZTE69IWGdEcQ/TDXBT5Nq5+envGzPFlr8BbOihWf+2HmxkANtkIrbsU1ux4GKhj7H+
-    QZSf0JlWG9cKhLsF63EQsnRYSVkQOeVtF85EVj4By8avITInyz0NPCL70ekfniqYQGOaxs
-    i1XCyGgr4rDFzGQZAi96ubP8nxWgp2NnopUGy5P6YdxV3dCdf2J+NJO5irvw0MGBzYHXcu
-    ylVf/zcSZbTxHGti1prjH4+8B7BO7OXaKPqUZaE6lO0QKGTEZl0RvwS1midcOZ/pb+/4LL
-    ZVaGZgvcBrsgQp2uC6MC9wNJdQUegUuF7kxAvNzhVMty6wDk+hD/y/oGmd6F+0Ib4CGFt5
-    seFuHs7zBKmnWntI2wLylaXicD8V2a3vDZYOyC/Dw8saD36egBMsH9rvggD011GWM+3Mzs
-    190kPVB1Ghw/CjyzofVgjdFDu0hTQeGejgn9BzYD5QJVhh1rNoQEQvR2UymmloyhlGXad2
-    g93ROVgWGw1CXmnOEiZwrxd4pLD1RHxY6GfiPL+EKtNa0JmrdOy5dF2Z9XJ5GY7booUX+4
-    bBzgB2TDaQahXjJMo6F/hr2pcfp/mNElnT+6xj4xsKGP5rsyDrvi8qIclwjuKh4MH/yqFY
-    OsuoZ1RvOg23v/EqNWZWQziqZfAR6EdULXgsjXCjs2C9VzcQH++LMsshoygQ
-X-ME-Proxy: <xmx:Op-UauaxzSUxuNKAOlCJds6a-mi9uJpxBHVb6HnlM2aWf_SjeKAj1g>
-    <xmx:Op-UaozZeWgSq85ndinTY5BE3CHNKzpn6zatLhESEg-SRRkp7yxfZg>
-    <xmx:Op-UauhsM-k0mHo_Gk3eR5loTaHzNX66nfulwXnDFeIPmE6DGihx2g>
-    <xmx:Op-Uasmq4f9QkyL0uIzxh69JGfUHN1cQ32L9PohEpZ2apD4kg1043Q>
-    <xmx:Op-Uasi7gQBQC0Epj-0evbibqjQtLVWPb6UjuyNzvFULG-FU6zmFJczT>
-Feedback-ID: i8dbe485b:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
- 30 Aug 2026 17:23:06 -0400 (EDT)
-Date: Sun, 30 Aug 2026 14:23:05 -0700
-From: Boqun Feng <boqun@kernel.org>
-To: Thomas Gleixner <tglx@kernel.org>
-Cc: Peter Zijlstra <peterz@infradead.org>, linux-kernel@vger.kernel.org,
-	linux-tip-commits@vger.kernel.org, x86@kernel.org
-Subject: Re: [PATCH] locking: Revert switching guards to
- _irq_{disable,enable}()
-Message-ID: <apSfObo_6Ji5HA7E@tardis.local>
-References: <apA4M7Asz0mV9uaw@tardis.local>
- <87jypbfu1t.ffs@fw13>
- <apBrZuxU8bmCgG8h@tardis.local>
- <87bjanfmzz.ffs@fw13>
- <apCS3T63WUxHd1GH@tardis.local>
- <87wltbdvmd.ffs@fw13>
- <87mru5et6r.ffs@fw13>
- <apNtQWqOgwF5_Ctq@tardis.local>
- <apRJzVbMl-hj-otX@tardis.local>
- <87v78rcrf9.ffs@fw13>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HPhx2I9j"
+Received: by mail-yx1-f41.google.com with SMTP id 956f58d0204a3-66e5d39cfe1so592105d50.3
+        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 14:23:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788124994; x=1788729794; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Dux6nks3ScI/W1I3RtYItmlPEB2o40tc65RGc+Gd5Eg=;
+        b=HPhx2I9jUjd/iDNUvS3uf6nJorxWhPwLV2phizpQf40pU5e77sghFk5y9owKhuMwPn
+         uUmYrt8iYv8cqGquObEokF36b5irTbtf33HrAqnbNYqMnVTdl1t065UqXJTPkFTeBzab
+         tDLAbS4rjTGIv6S3GnsT0GXJZGfaYkgdicI7hbvMqqIIzgl9Y+Gsf7sQibgKeA8gpNrj
+         nzu0WJS/qbgKLmp/r9gnlo2xEc0LSj1FfAlT9pbZ1w9apwQitXARKsfzAtd3a2s/zPIj
+         rHU+vWd35ZC/3lks2vHUbW9cn5ONDTyOftAVRTPMDtx/DfoVq+AfYanYX8hE3xBxP810
+         kz5Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788124994; x=1788729794;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Dux6nks3ScI/W1I3RtYItmlPEB2o40tc65RGc+Gd5Eg=;
+        b=f/2bFJfTiSLIae5/IXVXTh/d31sWzOlyEddS+EggxRl3yhu+/t37n3TITbSKGs8q2R
+         xdkEiziwi/MEtJmO5VUEPkZTIfecDfgGEJhhKnCZGVTVivJfA+4xPbepRx/PqzLaz4QC
+         B3JAFt22a4o25QF+RCpFysu2lA0vySpvb/3J1qDtQJ8ABAi/zn+LJKPy08GEjdVb6oYx
+         OMdLyEPURtJ0Tb9u7NeP+qmqDX1hf3dFcr1JiTBXwxxslqpjnbqYRqKpW+IWEgb5Y9Ny
+         mOJD+SkDzhna+1GFICj8RXavx6IjmPkF0rKsC5mVZPDpidp5GnqJWjlcgyCil1kSJECS
+         K5eA==
+X-Forwarded-Encrypted: i=1; AKwUvBzUh9HT57xaH8xg7G+GFZ3KXY/Ay7OJ3s6kPlDM/7VgU6XEyQ9+JVBELC/bBnj/fNpGj6wW9orHQy+7oXw=@vger.kernel.org
+X-Gm-Message-State: AFuF++kibg3JyhV70N0yix4HJUqMjwXGOiGpgny7Wuy/igUy+VnZ9JiA
+	sfBwmS8GUVYWicHJsWk6s/e5Y0qffUXjRrijLpsZwhhLtx4k8GW+L4J5
+X-Gm-Gg: AYBFou0f2ELQiMRwb9D6MHfLk4MO6+uQgWhDIVHuPWxefPqdMCM9PLEJ6bTsxTl1pTr
+	dtbRqSM2mwg1Q4HL8rfwzZVVygIMisbnttFc5WeOcL51qMgQciWNYrggEFlg+5pKUE1XvAziKmz
+	iPhNigKmS/iMOpIrhvmoPvXlQeP5FiLywkElGzRZiH4PWc3HtZSQSuQeGg05TLboxhN6yT61so9
+	1THYLgkrQRzB8FIAvlnxuP/V44MABABm8IuvX2N3D+vPtXmxNYOE0Ud7dq+2bVFzDvj6a5ma4Cz
+	0CT9w5iPqpUl8T2VDdP8S1ZV3UqJHyL0uWBK6+IWNxCFpfFU0zWEB3FPJuKG1uaPDjduvlAfBU/
+	+NTG6SS9EFZSOxFJzx68E1X7SAtK3dFsI6cTK10IxSSsanW230b1DMiJ4SPF9yMjC6pgMDJUYpt
+	HlTEbgZdbTIWWmL4alaP5l2Av3N/j7m12fjb1POuEyLgpCDdNlteN9aS+A8ja/plVuxS2MzGqIT
+	veng4nQRynNPhxB90L7GyJAP4Kx6r8JKDb/a0S8ciO2PdBgUSFoHiABFAU+U2mrMMyiIueVVvpC
+	Botbvt0e0g==
+X-Received: by 2002:a05:690e:810:10b0:66c:e845:c0e5 with SMTP id 956f58d0204a3-66e4c698fb4mr4913441d50.17.1788124994298;
+        Sun, 30 Aug 2026 14:23:14 -0700 (PDT)
+Received: from intrepid.netbird.selfhosted ([177.161.242.155])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-66e4ecf1f6fsm4454271d50.13.2026.08.30.14.23.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 30 Aug 2026 14:23:13 -0700 (PDT)
+From: Fabricio Gava <fabriciogava@gmail.com>
+To: Florian Schauer <florian@schauer.to>,
+	Jesper Dangaard Brouer <hawk@kernel.org>,
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>
+Cc: Bruno Xavier <bfxavier@gmail.com>,
+	netdev@vger.kernel.org,
+	bpf@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	ast@kernel.org,
+	daniel@iogearbox.net,
+	john.fastabend@gmail.com,
+	sdf@fomichev.me,
+	linyunsheng@huawei.com
+Subject: Re: [PATCH net v2] page_pool: keep frag_offset aligned for odd-sized requests
+Date: Sun, 30 Aug 2026 18:23:00 -0300
+Message-ID: <20260830212301.545982-1-fabriciogava@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260828060822.2628276-1-florian@schauer.to>
+References: <20260828060822.2628276-1-florian@schauer.to>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <87v78rcrf9.ffs@fw13>
+Content-Transfer-Encoding: 8bit
 
-On Sun, Aug 30, 2026 at 09:57:30PM +0200, Thomas Gleixner wrote:
-> On Sun, Aug 30 2026 at 08:18, Boqun Feng wrote:
-> > On Sat, Aug 29, 2026 at 04:37:37PM -0700, Boqun Feng wrote:
-> >> And while we are at, we can just introduce a
-> >> raw_local_irq_restore_auto() (definitely needs a better name), which
-> >> doesn't need a cnt:
-> >>
-> >> static __always_inline void __raw_local_irq_restore_auto(void)
-> >> {
-> >> 	debug_assert((preempt_count() & HARDIRQ_DISABLE_MASK));
-> >> 
-> >> 	if (!(__preempt_count_sub_return(HARDIRQ_DISABLE_OFFSET) & HARDIRQ_DISABLE_MASK))
-> >> 		arch_local_irq_enable();
-> >> }
-> 
-> Can we just make the thing work in the first place?
->  
+On Fri, Aug 28, 2026 at 08:08:22AM +0200, Florian Schauer wrote:
+> Tracing page_pool_alloc_frag_netmem() over one such run shows the
+> amplification -- two odd-sized requests, nine misaligned offsets:
+>
+>   requested size & 7:   0: 17035    5: 1    7: 1
+>   frag_offset & 7:      0: 17028    3: 1    4: 1    5: 1    6: 1    7: 5
 
-Yes, for sure.
+Two things you may not have: a competing patch for this same defect, and a
+measurement of how far the amplification goes under a different load.
 
-> >> And we can slowly convert irq_restore() users to use it?
-> 
-> Somewhere down the road.
-> 
-> > I decided to use local_irq_resume(), not sure whether it's a good name
-> > either...
-> >
-> > If we are OK to not fully revert on commit e901c1510e24 ("irq,spin_lock:
-> > Add counted interrupt disabling/enabling"), I think the following will
-> > resolve the 0day built errors on your irqflags branch (I rebased onto
-> > tip/locking/urgent with rest of your series on irqflags branch). A few
-> > things to notice:
-> 
-> The zero day failure is not due to that. It's because I reverted that
-> refcounted muck as well in my git tree.
-> 
+The competing patch fixes the caller instead of the allocator:
 
-Right, that's why I said "if we are OK to not fully revert commit
-e901c1510e24 ...", but your movestuff.patch should works as well.
+net: skbuff: keep the page_pool fragment offset aligned in skb_pp_cow_data()
+  Bruno Xavier <bfxavier@gmail.com>, 2026-08-27
+  https://lore.kernel.org/netdev/20260827122926.31123-1-bfxavier@gmail.com/
 
-> I just rebased the series on top of tip locking/urgent, which only has
-> the irq,spinlock revert and your patches on top.
-> 
-> > * I haven't found a way that we can do a local_irq_resume() when
-> >   !CONFIG_PREEMPT_COUNT_IRQFLAGS, and if we cannot, it's going to make
-> >   part of Rust code depends on CONFIG_PREEMPT_COUNT_IRQFLAGS=y
-> 
-> That's a good thing as it might make people actually get their act
-> together. And you can work around that in interrupt_rc.h itself.
-> 
-> Can you please stop bouncing around like a rubber ball and take your
-> time?
-> 
+Its Notes: section describes your change as "the alternative" and offers to
+send that version instead -- the two look to have been written
+independently, a day apart. Both are in state "new" with no review comments
+on either thread, so a maintainer opening one cannot see the other. I have
+copied Bruno here.
 
-Apologies. I was just trying to help (and explore myself) the
-integration of PREEMPT_COUNT_IRQFLAGS with local_interrupt_disable(),
-it's merely some food for thoughts...
+On the numbers: an independent reproduction on a third configuration.
+Fedora 44, kernels 7.1.8 / 7.1.9 / 7.1.10, Intel i5-13420H, NetBird v0.77.1,
+which attaches a SEC("xdp.frags") program to lo and holds an unbound raw
+IPPROTO_UDP socket. Eight panics, all skb_clone+0x159, six from
+raw_v4_input() and two from ipv6_raw_deliver(). Same tracing as yours, over
+a 12 s run of a reproducer generating UDP datagrams of 1400..63000 B on
+loopback:
 
-> First of all I want to move interrupt_rc.h and the whole spinlock muck
-> into rust/helpers/ now. Why?
-> 
-> Simply because it is Rust only and we don't want to expose any of this
-> stuff to random driver writers. See attached patch.
-> 
+                                        total    aligned    misaligned
+  size requested from
+    page_pool_alloc_frag_netmem()     1876609      23.7%         76.3%
+  *offset returned by the pool        1876609      31.9%         68.1%
+  skb->head from napi_build_skb()     2314689      91.8%          8.2%
 
-Sure. I will give the movestuff.patch some test.
+Your trace shows 2 odd-sized requests out of 17037 (0.01%); driving
+skb_pp_cow_data()'s fragment loop with varied datagram sizes puts it at 76%.
+Once an odd-sized request has moved frag_offset off alignment, the
+allocations carved out of that page afterwards are misaligned too, until the
+accumulated sizes happen to land back on a multiple of 8 -- which is why the
+share of misaligned offsets (68%) is so much higher than the rate of odd
+requests alone would suggest. If the changelog needs an argument for the
+stable backport, this is one: the rate is workload-dependent, and it is not
+bounded by anything.
 
-> I've rebased my devel branch on top of tip/locking/urgent and applied
-> that patch so the robots can have their field day.
-> 
-> The actual PREEMPT_COUNT_IRQFLAGS thing will be 7.4 material obviously
-> and as this is confined to Rust then it's trivial enough to work around
-> it locally without exposing more stuff. See tiny delta patch below.
-> 
-> So the only side effect of that is that the Rust implementation will not
-> be fully integrated into the preempt count magic, but it should just
-> work, no?
-> 
+On coverage, which is the part that may bear on which fix is preferred:
+skb_pp_cow_data() is not the only caller passing a raw length to the per-cpu
+system_page_pool. xdp_copy_frags_from_zc() does the same, at
+net/core/xdp.c:700:
 
-Right, that works. It's similar to the "alternatively" approach I
-mentioned here [1].
+	const skb_frag_t *frag = &xinfo->frags[i];
+	u32 len = skb_frag_size(frag);
+	u32 offset, truesize = len;
+	struct page *page;
 
-> And when an architecture supports the real thing then it gets all the
-> benefits with bells and whistels.
-> 
-> I really want to get the PREEMPT_COUNT_IRQFLAGS design right first and
-> then we can think about simplifications and cleanups and remove the
-> whole Rust magic once all architectures which support Rust play along.
-> 
+	page = page_pool_dev_alloc(pp, &offset, &truesize);
 
-Yeah, that's a better plan. 
+and its caller xdp_build_skb_from_zc() takes that pp from
+this_cpu_read(system_page_pool.pool) at xdp.c:753, then feeds
+page_pool_dev_alloc_va() at xdp.c:754 into napi_build_skb() at xdp.c:758. So
+that path both leaves odd frag_offsets behind and consumes the head
+allocations that follow them, on the same per-cpu pool. All three callers
+of page_pool_dev_alloc() in the tree pass an unrounded size --
+enic_rq.c:277-291 asks for netdev->mtu + VLAN_ETH_HLEN, plus xdp.c:702 and
+skbuff.c:988 -- and
+where a caller is safe it is because it rounds on its own beforehand, as
+virtio_net does with ALIGN(len, L1_CACHE_BYTES) at virtio_net.c:2710.
 
-[1]: https://lore.kernel.org/lkml/apCS3T63WUxHd1GH@tardis.local/
+I measured the attribution rather than only arguing it, and it does not
+settle the question: over ~75 s and some 8.6 million fragment requests, the
+probe saw none originating outside skb_pp_cow_data(). That is what one
+should expect on this box, which drives neither the AF_XDP zero-copy path
+nor a page_pool-backed NIC driver, so no other producer was exercised. It
+says the caller-side fix would be enough for this workload, not that it is
+enough.
 
-Regards,
-Boqun
+One observation for the changelog, if useful: the skbs that actually panic
+are small and linear (48..222 B, data_len == 0, ordinary DNS traffic). The
+large non-linear packets are what leave frag_offset odd; they are not the
+victims. That makes the failure look unrelated to the traffic causing it,
+and it is why reports of this are easy to misattribute to whatever process
+happened to be running the softirq.
 
-> Thanks,
-> 
->         tglx
-> 
-> ---
-[...]
+We have not built and run the patch here; a Tested-by: will follow
+separately if we measure a patched kernel.
+
+Thanks,
+Fabricio Gava
