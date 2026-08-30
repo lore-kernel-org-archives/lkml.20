@@ -1,111 +1,175 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3032B38657D
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 08:35:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EFFA382380;
+	Sun, 30 Aug 2026 08:35:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788078932; cv=none; b=ptkDPz/KXa9KaPYBge9s93QSVxrE1ig0wcrhFHvviEzTQbCqbqCUlIeDowR35yBQftBduLKl0qRfAw26bpv2c9kjeHosEOkVd74NT/btOoIwE+UIYxJSOXUIkIpH6YD0zkqBeK5UftcrHFEWDwj8r0OV8i4vg0EvwYgsyMMezus=
+	t=1788078945; cv=none; b=sk/RXfFv+1Gqys0id5E8Mlg22Lw8f1AWnJEJZs0VDWnJQEQTO+xqxOSnba256029FsrMyY/ly4f5m3gvqp4lhDEUB4ERvijVKTgaWHUdlq1nEharFLZeDfi+8vw/TE/ONN6pAU/v9Rw+pR6qR6vsbr+3Et/481CIbMoOPejRyiY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788078932; c=relaxed/simple;
-	bh=IwKC9arFrlo3osqzy7dK3GG/SZuNnbG9cEDyBvv53bI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=KbplPGX8WZXApIDt6F5AaZRy8BEHzQsJyOig7lr6AteChn1zwNzZMXfPcOlAqAsCi9DAToJ32orLmny+IGQejVIGkrG8inFW1KH5mEM4PVqvmuTH8nxHe8iYr5TVHUbbHZg26yxZBGcyV5USM/4m0/Yir1ojzGoh312Llz0sSBQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LzZiEl+4; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788078945; c=relaxed/simple;
+	bh=4ImRa1XNESIUl/suhHZTEHPObbGsxkW/TyzIC8DOkeM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=YyxV/xhoNwJ6ARpp3K0x9aGarmLZjrV/FcsQPp4XkRwxpHa3JDkqC4VANdIftM0gyKnfcBquZLvbcC0m8gPWpSYfnUts6vC9sgtYuoXZiAqAgvqJMdrKrK8419a0ahRhqU/A54l1PMAKzrKhW7AgiBJXDZ6KiAMXZWZSxr3cvks=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bkHlSqYn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LzZiEl+4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB70B1F00ACA
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 08:35:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bkHlSqYn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D784E1F000E9;
+	Sun, 30 Aug 2026 08:35:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788078931;
-	bh=B/BZcM1Q1yyTiL+u2PtZ1N/UUsr6bDlHImpT2ZOZlfs=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=LzZiEl+4YaaKEGtsT2bkjqnO6zeigwRBRqWGW+ayyQacxywOZKa0gbKEJKay+Ohm7
-	 8quir4Y/yyal2sPlNvmXstUMiGmdrIJZ8/ABxiUgVw3LsePPmY75yIuGDgiTta0CKJ
-	 B5UWHiRZq2WZgr+CU2IAv07AkMGnI1NDI+QM2mNU0Slm7SkfWjnzL8WYZ6GrlKerk4
-	 nv3KBzjdSUk+IYSVnFLNdXcknorNud45jGJiU6ayj07NdYYr/LKta11remyo0DlyZc
-	 cG8bB/LpDPUHMkhDIMIg/+iag9mpDMOn7GfD1slgaMz6fLHmSEmuHsQVvgHGMbpCdB
-	 NSz+7zLwYQvEQ==
-Received: by mail-qk1-f176.google.com with SMTP id af79cd13be357-9371bcf1f8fso157936185a.1
-        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 01:35:30 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RqnkdzszoYFr2/jkVmsptFA+K9LoNUVOG0vG1kcSrYJWZhNODQqFej3fzHD4Ygx6n0/gig2suWjL0rRF7Q=@vger.kernel.org
-X-Gm-Message-State: AFuF++khwoQPSHAjzs70PrB0R/8XCVs8s3aaKBb3liOSYIdlMXN17OaW
-	Df+NamPKfJlCuUs9fwY9lVsh8VSv2BOyDge7vIvjW9+BoUK3qCx0RjA0Q54ASxR9xcnaonGfA8O
-	xjMeglGk/GsfR1TtOBxJzyKIcHxHnqls=
-X-Received: by 2002:a05:620a:40cb:b0:936:cda7:554d with SMTP id
- af79cd13be357-93913798773mr2019122985a.14.1788078930311; Sun, 30 Aug 2026
- 01:35:30 -0700 (PDT)
+	s=k20260515; t=1788078944;
+	bh=hTFCf+/WK7bUzDOulou6SgSDwFha6MKK5QsGq8xUtuQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=bkHlSqYnZEO5cbaeV4uD7xXqe/YGRrKTPWZ92KWx2jJW+Db1PJe+haQKq1/8p38JM
+	 3MFVg4xSUhR6ggeZYtFKjubYPXh0DyNv5J8xQvsp/P0miFhOOcmNsvPtCsUnm1WWvI
+	 xHXgU46KHW5kchkLGRutsumBdjd6z+FyUEMp9ibwmy4SY947uz9taLC9JN/gN0V9XR
+	 QyP9x0qMcpffL0DzL0W38+tmZWz6DX//yZpq0q19sgxr3t9R02U8Tjtssia8/AvPWy
+	 fiXL1qx7I0+ka/sfHxQWKF1G58jIT71cEH84tKDUOzOzQDArlXKoAcH/Z4pFzYTwZ3
+	 95oeYQeoWPQFw==
+Message-ID: <417251d0-c2cc-4e10-940d-b75ab20acdec@kernel.org>
+Date: Sun, 30 Aug 2026 10:35:39 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260820142956.1414337-1-qiwenjie@xiaomi.com> <3fa43eaca792bc0bbde4b82a6c1fcdd3f528b398.1787999152.git.qiwenjie@xiaomi.com>
- <4aba05e1a2c3b61cb337d373eb9b7a8db4ddd822.1788024049.git.qiwenjie@xiaomi.com>
- <20260829111621.41ed2bc9a0e99e3367eb96c3@linux-foundation.org> <ef160933595c365f2c47597b260bc7ecd98ed7ce.1788029516.git.qiwenjie@xiaomi.com>
-In-Reply-To: <ef160933595c365f2c47597b260bc7ecd98ed7ce.1788029516.git.qiwenjie@xiaomi.com>
-From: Barry Song <baohua@kernel.org>
-Date: Sun, 30 Aug 2026 16:35:19 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4wpUBOXKd8aGNz76U+87bwDUXZZFSW2UhNcq4qpjVvggQ@mail.gmail.com>
-X-Gm-Features: AcwNN1XKAv-WpIMNo6BgbyKwLX6-0pyA1HhQGvJzilWFR4BrtIbEJ34mKKdkwmc
-Message-ID: <CAGsJ_4wpUBOXKd8aGNz76U+87bwDUXZZFSW2UhNcq4qpjVvggQ@mail.gmail.com>
-Subject: Re: [PATCH v4] mm: filemap: retain mapped dropbehind folios
-To: Wenjie Qi <qwjhust@gmail.com>
-Cc: willy@infradead.org, jack@suse.cz, akpm@linux-foundation.org, 
-	linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org, axboe@kernel.dk, 
-	trond.myklebust@hammerspace.com, tz2294@columbia.edu, jaegeuk@kernel.org, 
-	chao@kernel.org, qiwenjie@xiaomi.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 2/2] soc: starfive: Add JHB100 UART Routing driver
+To: Changhuang Liang <changhuang.liang@starfivetech.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+References: <20260830065118.51551-1-changhuang.liang@starfivetech.com>
+ <20260830065118.51551-3-changhuang.liang@starfivetech.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
+ cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
+ JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
+ gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
+ J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
+ NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
+ BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
+ vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
+ Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
+ TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
+ S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
+ FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
+ /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
+ s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
+ EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
+ rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
+ DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
+ IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
+ vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
+ oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
+ sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
+ vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
+ Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
+ BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
+ 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
+ f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
+ WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
+ XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
+ IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
+ YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
+ p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
+ GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
+ YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
+ vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
+ ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
+ QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
+ +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
+ wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
+ c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
+ K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
+ n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
+ qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
+In-Reply-To: <20260830065118.51551-3-changhuang.liang@starfivetech.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Sun, Aug 30, 2026 at 11:25=E2=80=AFAM Wenjie Qi <qwjhust@gmail.com> wrot=
-e:
->
-> From: Wenjie Qi <qiwenjie@xiaomi.com>
->
-> Fault-around can map ready dropbehind folios without going through the
-> normal page-cache lookup that clears dropbehind. A mapping represents a
-> competing cached user, but writeback completion can currently unmap that
-> folio. A later mmap access must then fault it back in.
+On 30/08/2026 08:51, Changhuang Liang wrote:
+> Add driver support for JHB100 UART Routing control, allowing runtime
+> configuration of RX muxes between UART controllers and I/O pins.
+> 
+> A sysfs interface is provided for easy checking and updating of routing
+> paths.
+> 
+> Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
+> ---
+>  .../sysfs-driver-starfive-jhb100-uart-routing |  45 +++
+>  MAINTAINERS                                   |   7 +
+>  drivers/soc/starfive/Kconfig                  |   1 +
+>  drivers/soc/starfive/Makefile                 |   1 +
+>  drivers/soc/starfive/uart-routing/Kconfig     |  14 +
+>  drivers/soc/starfive/uart-routing/Makefile    |   2 +
+>  .../uart-routing/jhb100-uart-routing.c        | 262 ++++++++++++++++++
+>  7 files changed, 332 insertions(+)
+>  create mode 100644 Documentation/ABI/testing/sysfs-driver-starfive-jhb100-uart-routing
+>  create mode 100644 drivers/soc/starfive/uart-routing/Kconfig
+>  create mode 100644 drivers/soc/starfive/uart-routing/Makefile
+>  create mode 100644 drivers/soc/starfive/uart-routing/jhb100-uart-routing.c
+> 
+> diff --git a/Documentation/ABI/testing/sysfs-driver-starfive-jhb100-uart-routing b/Documentation/ABI/testing/sysfs-driver-starfive-jhb100-uart-routing
+> new file mode 100644
+> index 000000000000..2844133bea1b
+> --- /dev/null
+> +++ b/Documentation/ABI/testing/sysfs-driver-starfive-jhb100-uart-routing
+> @@ -0,0 +1,45 @@
+> +What:		/sys/bus/platform/drivers/starfive-jhb100-uart-routing/\*/uart\*
+> +Date:		August 2026
+> +Contact:	Changhuang Liang <changhuang.liang@starfivetech.com>
+> +Description:	Selects the RX source of the UARTx device.
+> +
+> +		When read, each file shows the list of available options with currently
+> +		selected option marked by brackets "[]". The list of available options
+> +		depends on the selected file.
+> +
+> +		e.g.
+> +		cat /sys/bus/platform/drivers/starfive-jhb100-uart-routing/\*.uart-routing/uart1
+> +		io0 [io1] io2 io3 io4 io5 io6 io7 io8 io9 io10 io11 io12 io13 io14 uart0 uart1
+> +		uart2 uart3 uart4 uart5 uart6 uart7 uart8 uart9 uart10 uart11 uart12 uart13 uart14
+> +
+> +		In this case, UART1 gets its input from IO1 (physical serial port 1).
+> +
+> +		To switch the RX source of UART1 to UART2, write the desired source to the file:
+> +		echo uart2 > /sys/bus/platform/drivers/starfive-jhb100-uart-routing/*.uart-routing/uart1
+> +
+> +		This indicates that UART1 now receives its input from UART2.
+> +
+> +Users:		OpenBMC.  Proposed changes should be mailed to
+> +		openbmc@lists.ozlabs.org
+> +
+> +What:		/sys/bus/platform/drivers/starfive-jhb100-uart-routing/\*/io\*
+> +Date:		August 2026
+> +Contact:	Changhuang Liang <changhuang.liang@starfivetech.com>
+> +Description:	Selects the RX source of IOx serial port. The current selection
+> +		will be marked by brackets "[]". The list of available options
+> +		depends on the selected file.
+> +
+> +		e.g.
+> +		cat /sys/bus/platform/drivers/starfive-jhb100-uart-routing/\*.uart-routing/io9
+> +		uart0 uart1 uart2 uart3 uart4 uart5 uart6 uart7 uart8 [uart9] uart10 uart11 uart12
+> +		uart13 uart14 io0 io1 io2 io3 io4 io5 io6 io7 io8 io9 io10 io11 io12 io13 io14
+> +
+> +		In this case, IO9 (physical serial port 9) gets its input from UART9.
+> +
+> +		To switch the RX source of IO9 to UART10, write the desired source to the file:
+> +		echo uart10 > /sys/bus/platform/drivers/starfive-jhb100-uart-routing/*.uart-routing/io9
+> +
+> +		This indicates that IO9 now receives its input from UART10.
+> +
+> +Users:		OpenBMC.  Proposed changes should be mailed to
+> +		openbmc@lists.ozlabs.org
 
-Andrew is asking for a visible user-facing impact. I think the current
-mainline code might result in an extra fault-in and extra I/O. Maybe we
-should highlight this?
-On the other hand, my gut feeling is that this patch might only be
-50% right, rather than 100% right.
-Fault-around might just end up mapping data that will never be accessed
-at all (fault-around mappings aren't really fault-mapped), while the user
-has explicitly requested "dropbehind", which seems like a strong hint
-that they don't need it :-)
+drivers/soc/ should not define user-space interfaces. This is not the
+place for them. You need to route user-spaces interfaces only through
+one of other approved subsystems, after their review.
 
->
-> Retain mapped folios instead. For a mapped folio,
-> folio_unmap_invalidate() can call unmap_mapping_folio(), which takes
-> i_mmap_rwsem and may sleep. Retaining the folio also avoids this path whe=
-n
-> folio_end_dropbehind() runs in non-preemptible task context.
->
+This looks like pin multiplexing interface.
 
-I'm not quite sure this can be entirely avoided. Somehow,
-`folio_launder(mapping, folio)` could also be nasty. For example, NFS
-can still be problematic today:
-
-static int nfs_launder_folio(struct folio *folio)
-{
-        struct inode *inode =3D folio->mapping->host;
-        int ret;
-
-        dfprintk(PAGECACHE, "NFS: launder_folio(%llu, %llu)\n",
-                inode->i_ino, folio_pos(folio));
-
-        folio_wait_private_2(folio); /* [DEPRECATED] */
-        ret =3D nfs_wb_folio(inode, folio);
-        trace_nfs_launder_folio_done(inode, folio_pos(folio),
-                        folio_size(folio), ret);
-        return ret;
-}
-
-Best Regards
-Barry
+Best regards,
+Krzysztof
