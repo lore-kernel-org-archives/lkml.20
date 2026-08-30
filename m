@@ -1,87 +1,126 @@
-Received: from mail.ispras.ru (mail.ispras.ru [83.149.199.84])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-212.mta0.migadu.com [91.218.175.212])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CE9628FFF6;
-	Sun, 30 Aug 2026 14:59:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=83.149.199.84
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D42D3B47C6
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 14:59:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.212
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788101963; cv=none; b=LP+FzBv+ugc/zz/X+y39/ZHRo28uOtCOnoT67yGjLbO/K1MFt4OaDufK+xV1UWGq/iK0+TiYM88adWZ5hMwBFSPcudkSWutOqQDK4XeKrKWtnOUNiKtDiwC5dyZJVAyUoXCTqI143Wf8NkSZfLeWLkn10OddNQ10/wDdwutBe7U=
+	t=1788101972; cv=none; b=ZTRpbamQdEMTPMracVKPoIxyeN6JI60+iI2ZK8sgJbV/eVTc76FnSJWD/WgAFkvvD+LaTkIWKDFRri1FOuDXRUiZc38mQeG8IizJYd+PQmLuwOD7oxAnQiVQt77j4+HIg23AfobR+/D0FinKd7zbze4HTzWh2SwTkrMWq9K4r2A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788101963; c=relaxed/simple;
-	bh=evJepSGuzGoWlLnAMFRPe8iRN2DWWqU6ds2d42fT4Pw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=um8JegqfpRSvMVtVVrmV9OrCAMS+2K0aT3nMf0Cbr2IEE9JsqFESV+HM2WLQWlWN1dFtQ5g9z4eliab9cXg9wzN1Ggok5CyefXuipUfqoa5sy4K8UKoMuoKlQCziPrOnHUl9fKF6tNb47Eu+us22r/KTvFt0S4vGiVXlENBeqYw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ispras.ru; spf=pass smtp.mailfrom=ispras.ru; dkim=pass (1024-bit key) header.d=ispras.ru header.i=@ispras.ru header.b=Dj+E8JwV; arc=none smtp.client-ip=83.149.199.84
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ispras.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ispras.ru
+	s=arc-20240116; t=1788101972; c=relaxed/simple;
+	bh=rLY5GKWhKys/u3ldPHSR1SF53EIXXyEYyCrHcX2TQiA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=T77WvLMTDrRilLduoT6zQEXTzrwDy1a4jE5PD1BJOnDyyhKTNb8hxGUW9Cl8fcO+w0c/KNhH4nn7aIY4GnHlTee542VeyMqxw+ZcDl69rfjn/vBKt66/WvLMiZI5oUwTV9QecMhd7Bvv/OqmqJXw6xq9ZoeU25hOzSeKO+Luj0w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=sUmia9Iu; arc=none smtp.client-ip=91.218.175.212
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ispras.ru header.i=@ispras.ru header.b="Dj+E8JwV"
-Received: from fedora.intra.ispras.ru (unknown [10.10.165.18])
-	by mail.ispras.ru (Postfix) with ESMTPSA id 9240540755CF;
-	Sun, 30 Aug 2026 14:53:31 +0000 (UTC)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.ispras.ru 9240540755CF
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ispras.ru;
-	s=default; t=1788101611;
-	bh=XfajMX9CbuMgDEeBVGJXZ9nzYyzLpt8bRW52v/wenZo=;
-	h=From:To:Cc:Subject:Date:From;
-	b=Dj+E8JwVwrmsti55gIlUBPmoPUzoI0lP5JpoCUyHfTCcTqkJ9kiTalNN2TcPvXRJT
-	 RMPS9uxeUfYR61BDH5DIn5GLAc4tTLgmGH13h/6lFRJzkeTj6rMbG6Pyfm348IqfDo
-	 4KWzZQZb8s4I6O99p7zElfzof5M0U8JHXGC2rVjo=
-From: Fedor Pchelkin <pchelkin@ispras.ru>
-To: stable@vger.kernel.org
-Cc: Fedor Pchelkin <pchelkin@ispras.ru>,
-	Sasha Levin <sashal@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Johan Hovold <johan@kernel.org>,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	lvc-project@linuxtesting.org
-Subject: [PATCH 5.10] Revert "USB: serial: keyspan_pda: fix information leak"
-Date: Sun, 30 Aug 2026 17:53:19 +0300
-Message-ID: <20260830145321.100701-1-pchelkin@ispras.ru>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="sUmia9Iu"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=rLY5GKWhKys/u3ldPHSR1SF53EIXXyEYyCrHcX2TQiA=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788101967; v=1; x=1788706767;
+ b=sUmia9Iu4pFWxfswH31SEz/JfpAcztqfKcgtOVAIlp+z9/icgXskxfBQwoqM6LvcEK9wZwbQ
+ ift1RZWg8PY/VXOY2I0rVuGl+TxD7UIE3UC7yiyixw68ec/kELsJUHKjLvdYXf3zahIho3TfNv/
+ 7SyVhaJzzEfSigkAvoVbmexs=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id c08b8e8a6516a298;
+	Sun, 30 Aug 2026 14:59:17 +0000
+X-Mizu-Trace-ID: c08b8e8a6516a298
+X-Migadu-Flow: FLOW_OUT
+Date: Sun, 30 Aug 2026 22:59:10 +0800
+From: Hao Li <hao.li@linux.dev>
+To: Pedro Falcato <pfalcato@suse.de>
+Cc: vbabka@kernel.org, harry@kernel.org, akpm@linux-foundation.org, 
+	cl@gentwo.org, rientjes@google.com, roman.gushchin@linux.dev, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH 0/2] mm/slub: reduce list_lock contention with slab
+ parking
+Message-ID: <apRBmrMB6bJ6tTqY@fedora>
+References: <20260824122004.3652-1-hao.li@linux.dev>
+ <apBioBxd4VkmaGhA@pedro-suse>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <apBioBxd4VkmaGhA@pedro-suse>
 
-This reverts commit cccef1711efbcdbe999738ac27d37b9ef6271abd which is
-commit 6bfc8d01ac4068eced509f8fc74d0cd205e4dcec upstream.
+On Thu, Aug 27, 2026 at 05:24:32PM +0100, Pedro Falcato wrote:
+> On Mon, Aug 24, 2026 at 08:19:50PM +0800, Hao Li wrote:
+> > This patch series might sound a bit wild, but the initial numbers don't
+> > look too bad so far. I would really appreciate any feedback and
+> > discussion :)
+> 
+> The numbers look great, I have to say ;)
 
-The 5.10 backport is incorrect - instead of keyspan_pda_write_start() it
-touches the wrong function keyspan_pda_write() which now returns an
-incorrect number of buffered bytes.
+Thanks and sorry for the delayed reply!
 
-It turns out that the proper fix for keyspan_pda_write_start() has been
-already incorporated into the ported version of upstream commit
-034e38e8f687 ("USB: serial: keyspan_pda: add write-fifo support"), for
-unknown reason.
+> 
+> > 
+> > On a will-it-scale mmap1 run with 192 processes, list_lock is the top
+> > contention point: __slab_free() and __refill_objects_node() together
+> > spend 44% of cycles in native_queued_spin_lock_slowpath. The free
+> > slowpath takes the lock mainly to add slabs that became non-full to the
+> > partial list.
+> 
+> Doesn't this mean you're hitting the slow path way too many times? I think
+> that's the actual issue, no?
 
-Other stable kernels, starting with 5.15, got proper backports.
+Partly, let me separate the two sides.
 
-Found by Linux Verification Center (linuxtesting.org) with Svace static
-analysis tool.
+> 
+> > 
+> > By adding extra instrumentation to __slab_free(), I collect the following
+> > data for the maple_node cache (in counts):
+> > 
+> >   partial->partial    843017414
+> >   full->partial       550719384
+> >   partial->empty      17459564
+> >   full->empty         2
+> > 
+> > We can see that full -> partial transitions account for a significant
+> > proportion, and optimizing them can help reduce lock contention to some
+> > extent.
+> > 
+> > This series introduces the parking mechanism to address this issue.
+> > When the trylock fails during a full -> partial/empty transition,
+> > __slab_free() parks the slab on a per-node llist instead of waiting. The
+> > paths that consume the partial list (sheaf refill, alloc slowpath,
+> > shrink, cache destruction) unpark the slabs after taking the lock, and a
+> > delayed work covers the case where none of them runs.
+> > 
+> > Patch 1 cleans up the case handling in __slab_free(), no functional
+> > change. Patch 2 introduces the parking mechanism.
+> 
+> This looks like fundamentally the wrong fix, when we want to find out why
+> 1) you're hitting the alloc slowpath so hard
 
-Signed-off-by: Fedor Pchelkin <pchelkin@ispras.ru>
----
- drivers/usb/serial/keyspan_pda.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Regarding the alloc side, it mostly goes through sheaf refilling, which isn't
+quite the actual slowpath in the usual sense. The full slowpath would be
+allocating a single object directly from the partial list, and from what we've
+observed in testing, that path is rarely ever hit.
 
-diff --git a/drivers/usb/serial/keyspan_pda.c b/drivers/usb/serial/keyspan_pda.c
-index 21dfd9bdc150..7141660d5d59 100644
---- a/drivers/usb/serial/keyspan_pda.c
-+++ b/drivers/usb/serial/keyspan_pda.c
-@@ -606,7 +606,7 @@ static int keyspan_pda_write(struct tty_struct *tty, struct usb_serial_port *por
- 	if (rc)
- 		return rc;
- 
--	return 0;
-+	return count;
- }
- 
- static void keyspan_pda_dtr_rts(struct usb_serial_port *port, int on)
+> 2) you're hitting the free slowpath so hard
+
+Yes, the free side does indeed take the slowpath, which is precisely the
+problem this series aims to address.
+
+> 
+> and ideally find some way to tune it properly. Maybe if sheaf size is scaled
+> up/down in some way (by default at least), according to amount of RAM or amount of
+> CPUs.
+
+I think the idea makes sense, though it might only offer partial relief. Since
+much of the overhead seems to come from free-side lock contention, a lockless
+approach could be a more fundamental fix.
+
+Thanks for the discussion!
+
 -- 
-2.55.0
-
+Thanks,
+Hao
