@@ -1,196 +1,107 @@
-Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com [209.85.167.51])
+Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CD5421CC5C
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 09:32:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.51
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788082340; cv=none; b=M43iiFYFMOTOgJiwZR9JBUzCb46v4PUrHTZF0l8yz3cIcngXUT+P12JakWs+sko72GOYmcqUkEMO8649eeoZnugDHHC905EF03OmYPckJ1q80ykigHyM6AZgZDrccocOIzj2lwY07D3C3yjl4O2Zt5LpB4+0D2SbXL7c1POWgi8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788082340; c=relaxed/simple;
-	bh=dLTflUZhWO3k4/Rm9ZG0yWNmYzlAYv2sf6OvtYCp+v4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=hTegTSXfjIcSaSOb56ZaRRSXzoFuB3Wmo/s/6ozvBspyRUrHrCxjrqSd7nI2YjbyzQ3cuFRHfEaSDel5Q5pyG/kzPs6cLjz/RDdcVcyfzXJQX9bNEVAMXHePTifWM6iNonJYuKipTIiUYYQiGsCJ92aQqhh1rrjDRKRIq/k/wzU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=q6jjHk5t; arc=none smtp.client-ip=209.85.167.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="q6jjHk5t"
-Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5b4ab40d839so2261303e87.3
-        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 02:32:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788082337; x=1788687137; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+ZJhRwyLAW0jsfUB61doEJc+nQrzQWlaMJNzh2taQBY=;
-        b=q6jjHk5tjBi2KfNZiphxGu4V+MHzvp2OA4cMZPn6mxe9NHLhBuXIAVPrY3wOoY2BGj
-         Eno+5z0BTjnkl+oNx5IWzzpUccjOqQT9VLDraWFwDxDv3JWoWsyLva7RYaMhNkazunWC
-         SnO3x+Gt9HbaYgg+UQTjkUYfSmriXvli0alVElQcmzXfKarStxL1/Dx5W7JdbCqbb0li
-         Lbwv7HYkWWFBgDxcGfyKcfPr0ftM5nvDyRpnHWcffPmM7T4RVC6EOX0yM0bHLAbRe8Tk
-         Bu+TfZ8sAlRGV3uLT9ZrKViTmRD3ise4UqTSfq3q1dPu+fxYRBaZ3T1HHpI/pKM5TngZ
-         2jrA==
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FEC9202F70
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 09:33:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.45
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788082399; cv=pass; b=dR0w39b7j5xNFk3ofVi+ZgvkDYhL5+jtGvVSU4OO7rtIhYAx4EVk82EEzE1DYTp1JqDVPqRjDxP0B4xVz8AzFIa1mEKBIPAOwFXsbJLWZMssPR0Gr3extKK0BPnjnfkCEEZkCWXDWB+UNgpPtjYVxlQJ/oL2GiZLXNOHGYSFL1M=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788082399; c=relaxed/simple;
+	bh=XjkYzubNknDxtSLcJD0OSIc3FWWZftOwgASfjFMJ1JI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=n3m9QOl3OMQ+qwr6uS9KVaC5H6BLtORntXgGffou7sZYQv3vFom8d9dCB7C14M6dfR/vcK0i+mMqa5MNi//bxqShwnbF0egIBpWdRRlsLfAsJk9Np541M0CiUMmtZO+fjwk6qHLUUZTsu4VFCJTJwzqeXp2KM07LkYTioHcj+Rk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=divinehawk.com; spf=pass smtp.mailfrom=divinehawk.com; arc=pass smtp.client-ip=209.85.218.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=divinehawk.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=divinehawk.com
+Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c255206b4dfso315432566b.1
+        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 02:33:18 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788082396; cv=none;
+        d=google.com; s=arc-20260327;
+        b=fPbW0hoh6x28nwmnonTfna++DTCfNtaRHPvPQJTHhczErF7RRG9mnifTZpMQQf99rE
+         ksSg9mpc3i4bqiPCqhBjHA+HnLm+ECx6cF8b/QkLw/rErOWcT0FWf/WCCKsSkJmj4NTI
+         lFUAFCuqp0s22im/xYsFe8Y540is25KcsmOW6ukeuc5i0EXpxDm5PUd1elWVByy5UdZl
+         +nSq8dle60ZA4BljqgAq1Yd3NHPXO4A1HTghKrZwLjj58qYfIo8ZBjhRE+8tTCT917GM
+         lJcq/J1JHM9YM5JXWJeGYV/RHfF5AUSTjdExTcYoaNcGikFwFQOOFPyHYrGB2/Jyhhab
+         9Cpw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version;
+        bh=4S/Q8LsIlAtco+cE6yiBQGlAUU2xKF533bVW2yFHbcQ=;
+        fh=VnyyP2HRsmdy9k6D21R3rOZyEEFjy2WAe6q+I6qCwzY=;
+        b=IThXvyZBUq/JJUpY7QPltfFmK6ZBkfA5iW3j8Zh4MfcdbxGFw5s0/C2Mvj3HB98vlO
+         SUb6giM+0Y0ARCXBw7r+outOA04pgOqoy+j6BmaOZ5a7/411ya54A2PzJCex6wXutqhd
+         J+7TU5ZuT1XX65JqQrWnPRBhTaBS94o4jgJzMzRyPPtSXRyeBu0jQl/zbEQ+WGIx66y0
+         i3zBQiWxQtfCpMfCOPi9Fi0pIzG99l+J3fOGYdzlf8O/EGpsQeJgEUGmFLp6RDaT9TV6
+         gLTynEALPU3pmuhrI3dcPHIvb7CwsGtUaRo67VUgaRuoYrm2xq3iJsYX3hfzFkuawbCo
+         FQkg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788082337; x=1788687137;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+ZJhRwyLAW0jsfUB61doEJc+nQrzQWlaMJNzh2taQBY=;
-        b=QY8MmVgE1sABimjcyQIiXBIpesVA+BcMee1o1Q28kp5Mm2vC0HKYz1U0/RzolLbNI+
-         FILsueV0QZHvwQqRFNTgFGZqIQDaoSKNLeirHTg32cwEX8OmtIu5SqQ0XwfrRkqHTHzq
-         +mXMf2MCT9WCMAyBlQbskG5XYgv87ThTBc3gOwdsXlJszCuotQz87j4Uj9IEdD8XEFfN
-         NPv6Ll4ravCIMklfn1yfZG2D4lw/bgN32ej4iIRt2V5n+tuusa7PungAJ0tIcVlWyGVZ
-         SgOFM0hrEr5+hNj5y92+Fnox7pKSC3t6Vi3gbq18UBNyoQ9GF0nV+8itA0Mn1KSmPfZr
-         y2MA==
-X-Forwarded-Encrypted: i=1; AKwUvBwn6hqs++p7KrGfEf9sfATKXYv4UhD7YMimlacRZw5XFHJw3AIRaYB7G9A3Zr6LdWrInbSyqObO0+8Z2EU=@vger.kernel.org
-X-Gm-Message-State: AFuF++lx9H5+e9/IvEqzg0KrxYZesrXMKLR4YqZ1HWm8/YUcOxazq+wx
-	YVfouU7pq45slcEE2009B299ZlU4geKEhMOgMu4POGoODFEChKtu0bRQ
-X-Gm-Gg: AYBFou3fV38iJTgMNVN9YO7OenItsuWzf4Fnuizxfc6AwbGRo2AhKnYc83Y50A0D6xe
-	f2kOV8NGyHmtNe4PnIcQJ7k25bL/gM/7lcC0hvAjhWBB6KS9i/NwY/nHEJmCosP39xROmkF0KHl
-	JirI3u2yz53HAXsqyVWXZMnvp+8+WbWdcsanfqSungnJl8Vjrf+y6FAlQV/PfiViuLH2y3LVMGq
-	oakqhIbtZFYlrSnhVM22usdVzY6QLRUcAk818eaX65rgLrV1laeGVOCoa5mNLP6ycgSzcCItLRq
-	mHxvEznyXzLriiRJ8ATZKOFiKDAx+GJMq4MmPgcRfxZ9D9rWS63yQB8pDXFlqBZf7/rToM/fEWq
-	OxtX2+F9TbsItNTdo/a94VbsQETRT6cNBeL9so7BTNWwX31BFDJTj1VWtvZ8XYH2sW+5RJp77Dz
-	JxYXCl6pqJuaTI8B5gOi0QlX7HrWusnEyfKwdbQJNA76MqmYfHp+j2jE/LGLZ+IA0ERg+X/A0mB
-	9yJjeI4jbbt1oTzl7QCQzb+eV3XQAGsMqjiFVBtdx5A
-X-Received: by 2002:a05:6512:3d8e:b0:5b2:9f7a:29aa with SMTP id 2adb3069b0e04-5b5e68489ffmr5726157e87.0.1788082336658;
-        Sun, 30 Aug 2026 02:32:16 -0700 (PDT)
-Received: from ?IPV6:2a10:a5c0:800d:dd00:8fdf:935a:2c85:d703? ([2a10:a5c0:800d:dd00:8fdf:935a:2c85:d703])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b5e89d60ddsm1513610e87.31.2026.08.30.02.32.13
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 30 Aug 2026 02:32:16 -0700 (PDT)
-Message-ID: <0d808de2-090b-4a7a-8f72-2cb657406ee3@gmail.com>
-Date: Sun, 30 Aug 2026 12:32:13 +0300
+        d=1e100.net; s=20251104; t=1788082396; x=1788687196;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4S/Q8LsIlAtco+cE6yiBQGlAUU2xKF533bVW2yFHbcQ=;
+        b=R8Y81RWnFB/Iusdw7CKOajKCtv80SlukK1pdFJsRo89srQvcr6ASZYlqgXvmsrTTfJ
+         2jRhwn9el5q7Txmldao38n4EDvXsxnrpNOqI23cqhb9646/m34x8C7EAOCJW69Krz5yl
+         ReZU/TJIYprgRj3KZPLPkuKPkFHfJBuvOwGylDiNOICorHCfc/R+/tNYpY/4ioLATWGd
+         tjQEt+6S+tL1b2DEHpE8X3Kh9pSHA97o7YTauNFch3UDLXIWYK0HDKhooYwx14dzg+uL
+         ZoldpY0xmeuDm/rf1cf6h2WGxF1aGEJpQFQBIgHJYuFlISuxFuyLUwBoR3psB93sHYyB
+         Klzw==
+X-Forwarded-Encrypted: i=1; AHgh+Rpke0qBaXbDz+fosyMEc0e3naLAI+ncV7iuDhpz3ul/cBXdVgAHmvIoQNd/ObhU9XZ12rG3k7x8eIz+r14=@vger.kernel.org
+X-Gm-Message-State: AFuF++lYRJoiwTBSbTO823AfBWsLdpxUtUiRKFEHuMC8d+fNBnhVOtsU
+	jk8S8OV8oHR8uEb+v3wfz/eDuyAdgr8/LqCtlwlsBpeTPTpmJ5zJUcNMFPghLcUo2FyLkpNTKwF
+	CGUD1AiJvQC8o4slbh8uQjLDsRiuT4s1I1chXqmkB
+X-Gm-Gg: AR+sD1146d6xH6yHPXOvcjbO1uYwCr+x3ri51FjMKa0gjsz382+HOmHBo5Vzq7aMARq
+	PsWMhsz7bZ7BZjq5ykOwtRhJyth0GZBXyTq542Qnef3s1Jxi3J51uXC7mrjDRd+2CTbyqQMzd+L
+	900u1czsLVtVP6T7LNay8oQlJPr4/Vn8YQFbnqsUCS3IZYsjCuJlk6L+32zFd7est5S1eIM3197
+	WXf/Lsu/JGJZ1D73AH2BbnIj2AbTcD1I4gRrS3RoMeGUq4G93D5HnCTyghhf9zs1QYQlR8UGVQr
+	IaM/rfgAEGWMsZE6ayrJ2Qv/qqahVDIeWtzNPVnRvpoaiKqMzyAg/YIZORc2Ry8xNHJVB0uPNut
+	iVYV2fQLBGaBOeY7HZMj1BDuzbanhxaRisb8=
+X-Received: by 2002:a17:907:7a13:b0:c25:2e93:289e with SMTP id
+ a640c23a62f3a-c25571deb5fmr1292724366b.16.1788082396393; Sun, 30 Aug 2026
+ 02:33:16 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/4] iio: light: rohm-bu27034: Fix infinite delay on
- error
-To: Jonathan Cameron <jic23@kernel.org>,
- Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>,
- Matti Vaittinen <matti.vaittinen@linux.dev>,
- David Lechner <dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- Mehdi Djait <mehdi.djait.k@gmail.com>, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <cover.1787901813.git.mazziesaccount@gmail.com>
- <7f0d8efb3578cd4f23a7c70fa4a8f7a967c9df8e.1787901813.git.mazziesaccount@gmail.com>
- <apE-gauHWlJO8-5X@ashevche-desk.local>
- <5d274bfb-2570-4336-af16-60640550e6c9@gmail.com>
- <apFqmjGZKQ-qW7L7@ashevche-desk.local> <20260830021626.025397c8@jic23-huawei>
-Content-Language: en-US, en-AU, en-GB, en-BW
-From: Matti Vaittinen <mazziesaccount@gmail.com>
-In-Reply-To: <20260830021626.025397c8@jic23-huawei>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20260829-xhci-no-soft-retry-v2-0-0efe22f1c2f8@divinehawk.com> <20260829-xhci-no-soft-retry-v2-2-0efe22f1c2f8@divinehawk.com>
+In-Reply-To: <20260829-xhci-no-soft-retry-v2-2-0efe22f1c2f8@divinehawk.com>
+From: Matt Eaton <linux@divinehawk.com>
+Date: Sun, 30 Aug 2026 11:33:05 +0200
+X-Gm-Features: AcwNN1XMIbCJzCRFD4Hg1pCFjnrmfyXU44jNCBVbq9X8JPUOmt7-zWV52VzJ6iE
+Message-ID: <CABUBpLfK=w6e-M_TV4BfwX7EsUCLaZO7_GN9_506yHvBFEWJEg@mail.gmail.com>
+Subject: Re: [PATCH v2 2/3] usb: dwc3: add xhci_no_soft_retry software property
+To: linux@divinehawk.com
+Cc: Mathias Nyman <mathias.nyman@intel.com>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Thinh Nguyen <Thinh.Nguyen@synopsys.com>, 
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 30/08/2026 04:16, Jonathan Cameron wrote:
-> On Fri, 28 Aug 2026 14:01:46 +0300
-> Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
-> 
->> On Fri, Aug 28, 2026 at 12:46:24PM +0300, Matti Vaittinen wrote:
->>> On 28/08/2026 10:53, Andy Shevchenko wrote:
->>>> On Fri, Aug 28, 2026 at 10:40:36AM +0300, Matti Vaittinen wrote:
->>
->>
->> ...
->>
->>>>>    	wait_ms = bu27034_get_int_time(data);
->>>>> +
->>>>> +	/*
->>>>> +	 * If reading the integration time fails, default to the minimum so we
->>>>> +	 * don't lose samples. This may waste CPU cycles, but as a hardening
->>>>> +	 * against theoretical, once-in-a-blue-moon error, this should be Ok.
->>>>> +	 */
->>>>> +	if (wait_ms < 0)
->>>>> +		wait_ms = BU27034_INT_TIME_US_MIN;
->>>>> +
->>>>>    	wait_ms /= 1000;
->>>>
->>>> With the above being open coded the _ms feels not right.
->>>> I would expect the TIME_MIN to be in MS from the start
->>>> (and for the consistency's sake with the below) and having
->>>> all this to be written like
->>>>
->>>> 	ret = bu27034_get_int_time(data);
->>>> 	if (ret < 0)
->>>> 		wait_ms = _MS_MIN;
->>>> 	else
->>>> 		wait_ms = ret / USEC_PER_MSEC;
->>>>    
->>>>>    	wait_ms -= BU27034_MEAS_WAIT_PREMATURE_MS;
->>>
->>> I don't like using 'ret' there.
->>>
->>> At first glance, the
->>> ret = bu27034_get_int_time(data);
->>>
->>> looks like ret is containing just the success status. Furthermore,
->>>> 		wait_ms = ret / USEC_PER_MSEC;
->>>
->>> forces one to go back and see WTF the 'ret' is (even if just couple of lines
->>> - but this is not an improvement, using ret is obfuscation).
->>>
->>> I could change this to:
->>
->> I suggested without knowing the possible ranges of the returned value.
->>
->>> wait_ms = bu27034_get_int_time(data) / USEC_PER_MSEC;
->>> if (wait_ms < BU27034_INT_TIME_MIN_MS)
->>>                  wait_ms = BU27034_INT_TIME_MIN_MS;
->>
->> This looks sane to me and  removes the confusion I was talking about.
-> 
-> Except that wait_ms can be negative due to a read error and that is obscure
-> by what now looks like
-> 	wait_ms = max(wait_ms, BU27034_INT_TIME_MIN_MS);
-> so ensuring we clamp an out of range value.
+On Sat, Aug 29, 2026 at 10:04=E2=80=AFPM Matt Eaton via B4 Relay
+<devnull+linux.divinehawk.com@kernel.org> wrote:
+>
+> From: Matt Eaton <linux@divinehawk.com>
+>
+> diff --git a/drivers/usb/dwc3/host.c b/drivers/usb/dwc3/host.c
+> index c5674161b2b0..e22a8dc5d090 100644
+> --- a/drivers/usb/dwc3/host.c
+> +++ b/drivers/usb/dwc3/host.c
+> @@ -130,7 +130,7 @@ static int dwc3_host_get_irq(struct dwc3 *dwc)
+>
+>  int dwc3_host_init(struct dwc3 *dwc)
+>  {
+> -       struct property_entry   props[6];
+> +       struct property_entry   props[7];
+I think this should be props[8] now as it should have been props[7]
+before (latent bug?), with the last entry being NULL to satisfy
+property_entries_dup(). I can do a patch v3.
 
-Which, in this case, is perfectly fine because it does not matter what 
-the cause of the failure is. There is no need to distinguish between 
-read error and 'returned value is below the minimum time' - in both 
-cases we just use the minimum time.
-
-> I'd just go a touch further and split return value and parameter
-> + provide a default.
-> 
-> wait_us = BU27034_INT_TIME_US;
-> ret = bu27034_get_int_time(data, &wait_us);
-> if (ret)
-> 	dev_warn(dev, "Failed to read int time, muddling on\n");
-I do both agree and disagree. This is not the first time when I am 
-pondering if a "getter API" should only return an error, and fill the 
-desired output in location pointed by a parameter (your suggestion here).
-
-In many cases it is simpler in the calling site to just use the return 
-value, and error handling can still be reliably done when all legitimate 
-values are positive (in this case, also greater than minimum). Using the 
-pointer argument for value retrieval typically brings potential issues 
-with value initialization if call is unsuccessful.
-
-Hence, I am often using this "dual meaning" for return value (negative 
-error code or positive valid value) in cases, where all successful 
-values are guaranteed to be positive.
-
-I would definitely favour your suggested signature if retrieved value 
-could be negative, or was a pointer. I have never liked the IS_ERR() and 
-others - but check:
-if "value < allowed minimum" and decision "then, something is wrong - 
-use default" is really quite clear to me.
-
-Yours,
-	-- Matti
-
--- 
-Matti Vaittinen
-Linux kernel developer at ROHM Semiconductors
-Oulu Finland
-
-~~ When things go utterly wrong vim users can always type :help! ~~
+Regards,
+Matt
