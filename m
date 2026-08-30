@@ -1,238 +1,121 @@
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61E4A3B6C01;
-	Sun, 30 Aug 2026 14:15:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 175CE3B6348
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 14:16:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788099333; cv=none; b=QPcmkwm7mYv83Pr+fqr/UCaiYtiajcJqK1SL6Ef0keoAxd/z7+o3dGCxLTg4DJXhOYYVyOeU0IEuCsXrQrjp5R0HzessvSmBiMGfeApMU5sHZ99wP2b9T+Kp/DwZKBQKJ8E45NsID6ltmu5C9MDTp2WxmkNf2E/L6dIz4CtoSjk=
+	t=1788099414; cv=none; b=Uw8htqVJ2ykp6JVmgi0tSv6+sJTC2Z0taZSgEfdmVqg5LZaDBYW8rxQHw62QYpDFjvX1De/BerUY+4LJ+gRb5BPOCHwi0RTOnz9kUCHOuM3KJ6YdswSEUugdr8drWIUNbquWQMnzIS1LKyH3i3wdt/j2N+NSPctE3bWHyZLzFww=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788099333; c=relaxed/simple;
-	bh=BjLaTTRa82IB/v8JATjULW2oZ05oK0WzmAPwsJrAvrY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nyRdxFZiKSk/YBuUfRJSAZzFGthS9G/dasLSopXXNNMEETPAgeqGlnliDVGmlkdZRiVYuCDSdrHUaYWoHarFjTZwe1GgG5r21k9X/jvXI7DjsCcXNfSn1UjPf8pNsKaBfYtZJIqbweB7rs2yT0HZnF9m5hCEGUKBOrGAMa7MZDY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from localhost.localdomain (unknown [111.196.241.250])
-	by APP-03 (Coremail) with SMTP id rQCowACXnTv7OpRqPZ6bBg--.46271S2;
-	Sun, 30 Aug 2026 22:15:23 +0800 (CST)
-From: Pengpeng Hou <pengpeng@iscas.ac.cn>
-To: Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>
-Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] ASoC: sta32x: make power restoration transactional
-Date: Sun, 30 Aug 2026 22:15:21 +0800
-Message-ID: <20260830141521.33246-1-pengpeng@iscas.ac.cn>
-X-Mailer: git-send-email 2.50.1
+	s=arc-20240116; t=1788099414; c=relaxed/simple;
+	bh=IREn/rs5zdurWmNIOZF3mPc402Ofd1OmuAqzLcxfFL8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZzLDQOIRiwIJ7+fB1oGZqb9+vmqb0ty8PzkXBo4Ue6O4a27HY7mKE2J0IvcUX50atKXDpd8bx2y+B/OHjp7dHvgjshB6qcEwzDloWOeGWnCEsgBIvAxYcYi3KaeiAtZnaMyk+lg82sP3KwDTn3XMoznZThSIhGaCgJ5h64/bB5g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U4SVdEBw; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U4SVdEBw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88B221F000E9;
+	Sun, 30 Aug 2026 14:16:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788099406;
+	bh=Mg4oJr5LO/AzIo+skfypsCMkyFcaXymyOHEtCwpNPL8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=U4SVdEBwJoI84ZaoSEX0hirIip5mGpRa1QT8emFhrAknGgAyAnWlxEtMiNEwsApvR
+	 /pAGi98u2a9gNf96qNNGme2DvMJ4V0bYF3NIlTfI+TiICjb4ekJulxua1CsB05RPj5
+	 KiV2JqWLp61+2LzjGRe/eilXL/8shw3XOvjv1HlunRmeKCzbmNl9Di72/OdgMcZcGI
+	 yE87VwMhdMja3HmiRXFm6OBAQNZpleeqvlZbf123W3/af3K9I17Rr6lcFRT/CGjSPe
+	 i5Q8yuSl4zteUm8SHX9+J34Vh9NTqEDSYRyUE5a1ZuCV6IG995CKmrjCEk+XPHGesu
+	 4/r77VGxlv1XQ==
+Received: by traversing.sirena.org.uk (Postfix, from userid 1000)
+	id 76A98CC2131; Sun, 30 Aug 2026 15:16:43 +0100 (BST)
+Date: Sun, 30 Aug 2026 15:16:43 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Thomas Gleixner <tglx@kernel.org>
+Cc: Farhad Alemi <farhad.alemi@berkeley.edu>, falemi@asu.edu,
+	Radu Rendec <radu@rendec.net>, linux-kernel@vger.kernel.org
+Subject: Re: [BUG] KASAN: slab-use-after-free Read in
+ irq_migrate_all_off_this_cpu
+Message-ID: <apQ7S5oUtlIyMvSG@sirena.org.uk>
+References: <CA+0ovCh1hKPQ3DSXBdaf3MHGZKv3-mbSNiWrAETr62mDd1weKg@mail.gmail.com>
+ <874igcdt2z.ffs@fw13>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowACXnTv7OpRqPZ6bBg--.46271S2
-X-Coremail-Antispam: 1UD129KBjvJXoW3Xry7Xr4DXw18AFW8AFy5Arb_yoW7Zw1fpr
-	WayFZ5trs2vF4fZF17tr4qqF15KrWxtr45Za42gw47ZF1DCF929r1akF42vF98GrZ0gF4U
-	Xw42y3yrCa1jgaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUkK14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x0267AKxVWxJr
-	0_GcWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
-	2Ix0cI8IcVAFwI0_JF0_Jw1lYx0Ex4A2jsIE14v26r4j6F4UMcvjeVCFs4IE7xkEbVWUJV
-	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lc7CjxVAaw2AFwI0_
-	JF0_Jw1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67
-	AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIY
-	rxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14
-	v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWx
-	JwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7VUjZNVP
-	UUUUU==
-X-CM-SenderInfo: pshqw1xhqjqxpvfd2hldfou0/
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="1eYNTaxP4ux7DLE4"
+Content-Disposition: inline
+In-Reply-To: <874igcdt2z.ffs@fw13>
+X-Cookie: My mind is a potato field ...
 
-sta32x_set_bias_level() enables the codec supplies, restores the
-coefficient and register state, and then starts the watchdog. Register
-access errors in the mute and coefficient helpers and the cache replay
-are discarded, allowing DAPM to publish STANDBY for a partially restored
-codec.
 
-Propagate every operation in the local restore transaction, including
-the final standby-state write. Start the watchdog only after that write
-succeeds. On failure, hold reset, mark the cache dirty, disable the
-supplies and report a cleanup failure while preserving the primary
-error. The DAPM bias callback consumes the returned error independently
-of component resume handling.
+--1eYNTaxP4ux7DLE4
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Fixes: 54dc6cabe684 ("ASoC: sta32x: preserve coefficient RAM")
-Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
----
- sound/soc/codecs/sta32x.c | 101 +++++++++++++++++++++++++++++++++++-----------
- 1 file changed, 77 insertions(+), 24 deletions(-)
+On Sun, Aug 30, 2026 at 08:24:04AM +0200, Thomas Gleixner wrote:
 
-diff --git a/sound/soc/codecs/sta32x.c b/sound/soc/codecs/sta32x.c
-index d6de739212f92..3766db457b673 100644
---- a/sound/soc/codecs/sta32x.c
-+++ b/sound/soc/codecs/sta32x.c
-@@ -342,27 +342,48 @@ static int sta32x_sync_coef_shadow(struct snd_soc_component *component)
- {
- 	struct sta32x_priv *sta32x = snd_soc_component_get_drvdata(component);
- 	unsigned int cfud;
--	int i;
-+	int i, ret;
- 
- 	/* preserve reserved bits in STA32X_CFUD */
--	regmap_read(sta32x->regmap, STA32X_CFUD, &cfud);
-+	ret = regmap_read(sta32x->regmap, STA32X_CFUD, &cfud);
-+	if (ret)
-+		return ret;
-+
- 	cfud &= 0xf0;
- 
- 	for (i = 0; i < STA32X_COEF_COUNT; i++) {
--		regmap_write(sta32x->regmap, STA32X_CFADDR2, i);
--		regmap_write(sta32x->regmap, STA32X_B1CF1,
--			     (sta32x->coef_shadow[i] >> 16) & 0xff);
--		regmap_write(sta32x->regmap, STA32X_B1CF2,
--			     (sta32x->coef_shadow[i] >> 8) & 0xff);
--		regmap_write(sta32x->regmap, STA32X_B1CF3,
--			     (sta32x->coef_shadow[i]) & 0xff);
-+		ret = regmap_write(sta32x->regmap, STA32X_CFADDR2, i);
-+		if (ret)
-+			return ret;
-+
-+		ret = regmap_write(sta32x->regmap, STA32X_B1CF1,
-+				   (sta32x->coef_shadow[i] >> 16) & 0xff);
-+		if (ret)
-+			return ret;
-+
-+		ret = regmap_write(sta32x->regmap, STA32X_B1CF2,
-+				   (sta32x->coef_shadow[i] >> 8) & 0xff);
-+		if (ret)
-+			return ret;
-+
-+		ret = regmap_write(sta32x->regmap, STA32X_B1CF3,
-+				   sta32x->coef_shadow[i] & 0xff);
-+		if (ret)
-+			return ret;
-+
- 		/*
- 		 * chip documentation does not say if the bits are
- 		 * self-clearing, so do it explicitly
- 		 */
--		regmap_write(sta32x->regmap, STA32X_CFUD, cfud);
--		regmap_write(sta32x->regmap, STA32X_CFUD, cfud | 0x01);
-+		ret = regmap_write(sta32x->regmap, STA32X_CFUD, cfud);
-+		if (ret)
-+			return ret;
-+
-+		ret = regmap_write(sta32x->regmap, STA32X_CFUD, cfud | 0x01);
-+		if (ret)
-+			return ret;
- 	}
-+
- 	return 0;
- }
- 
-@@ -370,15 +391,24 @@ static int sta32x_cache_sync(struct snd_soc_component *component)
- {
- 	struct sta32x_priv *sta32x = snd_soc_component_get_drvdata(component);
- 	unsigned int mute;
--	int rc;
-+	int restore_ret, ret;
- 
- 	/* mute during register sync */
--	regmap_read(sta32x->regmap, STA32X_MMUTE, &mute);
--	regmap_write(sta32x->regmap, STA32X_MMUTE, mute | STA32X_MMUTE_MMUTE);
--	sta32x_sync_coef_shadow(component);
--	rc = regcache_sync(sta32x->regmap);
--	regmap_write(sta32x->regmap, STA32X_MMUTE, mute);
--	return rc;
-+	ret = regmap_read(sta32x->regmap, STA32X_MMUTE, &mute);
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_write(sta32x->regmap, STA32X_MMUTE,
-+			   mute | STA32X_MMUTE_MMUTE);
-+	if (ret)
-+		return ret;
-+
-+	ret = sta32x_sync_coef_shadow(component);
-+	if (!ret)
-+		ret = regcache_sync(sta32x->regmap);
-+
-+	restore_ret = regmap_write(sta32x->regmap, STA32X_MMUTE, mute);
-+	return ret ?: restore_ret;
- }
- 
- /* work around ESD issue where sta32x resets and loses all configuration */
-@@ -794,9 +824,9 @@ static int sta32x_startup_sequence(struct sta32x_priv *sta32x)
- static int sta32x_set_bias_level(struct snd_soc_component *component,
- 				 enum snd_soc_bias_level level)
- {
--	int ret;
- 	struct sta32x_priv *sta32x = snd_soc_component_get_drvdata(component);
- 	struct snd_soc_dapm_context *dapm = snd_soc_component_to_dapm(component);
-+	int cleanup_ret, ret;
- 
- 	dev_dbg(component->dev, "level = %d\n", level);
- 	switch (level) {
-@@ -820,15 +850,28 @@ static int sta32x_set_bias_level(struct snd_soc_component *component,
- 				return ret;
- 			}
- 
--			sta32x_startup_sequence(sta32x);
--			sta32x_cache_sync(component);
-+			ret = sta32x_startup_sequence(sta32x);
-+			if (!ret)
-+				ret = sta32x_cache_sync(component);
-+			if (ret)
-+				goto restore_failed;
-+
-+			ret = regmap_update_bits(sta32x->regmap, STA32X_CONFF,
-+						 STA32X_CONFF_PWDN | STA32X_CONFF_EAPD,
-+						 0);
-+			if (ret)
-+				goto restore_failed;
-+
- 			sta32x_watchdog_start(sta32x);
-+			break;
- 		}
- 
- 		/* Power down */
--		regmap_update_bits(sta32x->regmap, STA32X_CONFF,
--				   STA32X_CONFF_PWDN | STA32X_CONFF_EAPD,
--				   0);
-+		ret = regmap_update_bits(sta32x->regmap, STA32X_CONFF,
-+					 STA32X_CONFF_PWDN | STA32X_CONFF_EAPD,
-+					 0);
-+		if (ret)
-+			return ret;
- 
- 		break;
- 
-@@ -846,6 +889,16 @@ static int sta32x_set_bias_level(struct snd_soc_component *component,
- 		break;
- 	}
- 	return 0;
-+
-+restore_failed:
-+	gpiod_set_value(sta32x->gpiod_nreset, 0);
-+	regcache_mark_dirty(sta32x->regmap);
-+	cleanup_ret = regulator_bulk_disable(ARRAY_SIZE(sta32x->supplies),
-+					     sta32x->supplies);
-+	if (cleanup_ret)
-+		dev_warn(component->dev, "Failed to disable supplies: %d\n",
-+			 cleanup_ret);
-+	return ret;
- }
- 
- static const struct snd_soc_dai_ops sta32x_dai_ops = {
+> Though based on the meager information I think I roughly can see how
+> that happens not only in the reported version. It's still the same
+> problem upstream.
 
-base-commit: 32b4e6b134c62e14291206da331891e99e2fb63d
--- 
-2.50.1
+> Allocation happens at:
 
+> regmap_add_irq_chip_fwnode+0x375/0x2dd0 drivers/base/regmap/regmap-irq.c:709
+
+>          d = kzalloc_obj(*d);
+
+> That's initialized and then handed in as host_data when the interrupt
+> domain is created.
+
+Huh, due to the lack of information in the report that you noted I'd
+thought this was misdirected due to -next or something...
+
+> regmap_add_irq_chip_fwnode+0xd76/0x2dd0 drivers/base/regmap/regmap-irq.c:963
+
+> Interestingly enough the code has a comment in that failure path:
+
+> err_domain:
+>         /* Should really dispose of the domain but... */
+
+> And it should dispose the domain properly which also would remove and
+> free the interrupt descriptors.
+
+...
+
+> Mark, do you remember why you ended up with adding this comment instead
+> of actualy mopping up the domain?
+
+I believe that at the time there was no way of freeing irqdomains, or I
+couldn't find it.  irq_domain_remove() was added in May 2012 as a bit of
+an afterthought in 58ee99ada293b (irqdomain: Support removal of IRQ
+domains.), the above comment was added in the same month so won't have
+been in the kernel I was working on.  This was one of the first users
+that wasn't arch code I think, having an interrupt controller that wasnt
+arch code had a bunch of fun at that point in time.  I do remember being
+confused about why there wasn't a remove function and I imagine I meant
+to go back and figure something out there but clearly never got round to
+it, practically speaking the regmap-irq code was being used by things
+like PMICs that would never actually get removed so this path was never
+getting exercised.
+
+I'll add the cleanup.
+
+--1eYNTaxP4ux7DLE4
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqUO0YACgkQJNaLcl1U
+h9C34wf/VfTzP+cvUTL3vEx0Sz3QZRQAMBDEJ5I4nYy4RZBAk/711LS8k8z3kCyy
+v/MRfs17KOv8FlGndKpdg/U1kfopMZhiy6U1BLlElYcY6uCb7PXl/+PxPVOfxGVu
+Jl2zUVCb951VUmGRDtm2yGdL/+ZNI1nhSbmfrMQBR0SjgPl7pCFBDhyT1V1Te3L3
+2eTfreKuuAQWrUVP5B/C/hfKSFOHqOFDUELCQph5EZBjA20YtnVnk5GFc1R1mArK
+jObQISOq+p12jglW7GxwN0oyMqZAYXXXa3tz+43uTOFCH1xsOG4asrfMEjtoNJcL
+TFsDsy7fzArnktqtGYETU/kCmOlMUQ==
+=gHE1
+-----END PGP SIGNATURE-----
+
+--1eYNTaxP4ux7DLE4--
