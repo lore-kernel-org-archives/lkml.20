@@ -1,178 +1,141 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BEF728686;
-	Sun, 30 Aug 2026 12:30:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC36C346ADC
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 12:31:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788093054; cv=none; b=mvYvsS0SxTOMlv5k3yhvaRRlhDqxhAcBPwQ+EwrAE/i4qB8q6YLlZTLdbJ6Oj6U3qWSjqxmzBzSW54kvSFJMX7XNkEgdR110sN1471ZBFP8c0eQZ2GBVGO1AkRMJ2xAM+aYVdaU8dTs6gK3jRpAy8KLyL1EAYLALQLhPMXuhn1c=
+	t=1788093118; cv=none; b=uTA0bpiHEoViFHDOjTYG1WNyxe8/lgpC2SDVQkFuvAR4Ke9WItGc6RWbwa4t3IonuBMppwcA1B3LtcoQ7+pxW/C3DpnEMH9r6Dh5CYSxoD2Tu3nuyVv+oASkAADb940b1XtwbLiZAWsPb/QWSQpU7eV8593EwCyR+ey6pAWK/hk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788093054; c=relaxed/simple;
-	bh=AkpaE4j9f5lyxuk4jd9qVHB3nXf8xfcZSXNVP12Ru3M=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=kfyGl47zbmgrpi6J+BbiwH0dW8LFL14uMP3yIfeD689u3x/3Y/K89GqTzCy3bj4CtT5/JMyhKHwEiqmcmT4oq7RS+CT+rIUTd5EjcmXS4hkkssNl4muoE1R6xYUVSKvJXXySiCy+A0YzfliKFCMaVKGTo7CkkeMDRvI3HNwoEpA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fGPCtg1r; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788093118; c=relaxed/simple;
+	bh=rXr6ALkiHMHf713Iew4k9Nwjfd2L6V40hSe8JbjfnkE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fZLKdYKPK9Rd/E45APf8wFGJXS9syU8lO4Lr8zh/N5h8ycYnrFejWlJr8lKTWKlRzP9GQQHqkjNhGsF43Lggs6AbOK6xpiF1ptYrCT3sVx7U0J4pRxJi75NAFTCYeLVVa99qkSnueT8MH4PrFxuQ89W4TqmESk8XcmSYSYEsj7c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Y9HvTas0; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=GC1osOw5; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fGPCtg1r"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 036031F000E9;
-	Sun, 30 Aug 2026 12:30:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788093052;
-	bh=wYv/c8xgtRcRRjKu/TXHwCu9Z0itCsQOguvE04sQbc0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=fGPCtg1rwvIibpRY0kQDggBvqoH6LCwFqqSDzBHqkk6JOI6l3OAJrakqPbn5inPs+
-	 1d8I0QuTml0bDof/kaFF2n7hXIUO+Ncalh93ReWcoTP2UfTTSYPcHJLCamXFJDIXNd
-	 QtUGgTPq6m4HmG839i5h3NTbjzwYhk3YvGi1aOz5/8hEEdRY25PI438A5oLhSBBKuD
-	 yZoGyzeBTaEQOyvsTigWrY8R+DAJAylJXdNGMz4RC/bHlBSab75zIjdloIVqE45uPs
-	 4mt7S7oj7neX0fX9ujdufcYacOhss0OPvS/E5yJXgYS8ak+B5oP5phJ6r+Aou0CI+k
-	 CsqkzagPni9RA==
-Message-ID: <619cbfad-5c9d-4491-bc21-229107d90223@kernel.org>
-Date: Sun, 30 Aug 2026 14:30:48 +0200
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Y9HvTas0";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="GC1osOw5"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67UA7xTH346868
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 12:31:56 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=87UiTHIpsbJI0MEwi3jZC7kB
+	bzVbhdVpOgM75F6ZNAU=; b=Y9HvTas0eG2nUXeLARoIJXIZRH2ESGSZyfFXyDxA
+	U9x9Rzrunb4t4jbR6OBKAMifmIUW8DnAtODR4+t7REj8d585QvhTKTEFrN0dRUb9
+	6K4nPKNZAvi9JInF7/4Dsy0p1iRF02KYVotVW1AWVqi9AIXzp/OZlaLei9uaxV0P
+	knjOmCQHllHvciBvP8GH3BARzr2HKothl5P5kRuJhiaRf/8Ec4CUpPxWL3BNlxqg
+	/5ZAi+yUfjileGFMZBVJ+Z/V5vzmxQosN75Vw+owa1dR49L0z1n0wSCHkUx6xINe
+	hs4yFnTQVVDIWcEeU/Bd7YBxjJ1AkmXKsz0FDBFs4WU+HA==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gbqhwayty-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 12:31:55 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-52dcf1bb6e9so52387901cf.1
+        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 05:31:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788093115; x=1788697915; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=87UiTHIpsbJI0MEwi3jZC7kBbzVbhdVpOgM75F6ZNAU=;
+        b=GC1osOw5TmSNyyv4QAwvI7ctbdZM0PM0U6HZ4w4r6xRkQgpEXDyPXb54+Ar5kFrv2n
+         mVaS1CiaALHXknMT4bOPLx//xFHFvVHV3cfGziCoNCqWHt2t0s64E3LbfHG//taIToD5
+         Wq2SkTpjASlLxHnz94jzSQ/NPVbyrSH+wSCZ2mMNb26V9iiRKS5Xq7K71KG7HzuOE721
+         urq1Z5YT/VvnAwQDzt8uhyDdA1pjslCzM2pDFla4Ej7V82J53fvH9xuoSZrmnq7390UX
+         gdRdLF0ZWkM6YFjJpb1euzsynNp+RpkkVuzGhgA5lwBa9P+jXvaUSM4Fm21y/VLD/wsw
+         Aw8g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788093115; x=1788697915;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=87UiTHIpsbJI0MEwi3jZC7kBbzVbhdVpOgM75F6ZNAU=;
+        b=XjcVyBAmEa3o879WhWf32Y3XV64wSQtxgx3zw0HFdd91s68EjzBzuQn4I9f6N//SgR
+         2d4x4L9jzpPq3ZXNX1en66gmoMJ6DrdHesVoZZBJDv+d/x8fLwWX8qN+QSeL+1Z9pVLf
+         7+OhOce+dHbMKzqoIhXrck0QCoV/0RhEVBxNTYACpcWHgVRSwqTfFpqp8Pqv7G3SJTxU
+         7nmcUBTf+tBt/Xn9yIkizFqhZhmvY6xP9Jc+UkLRtTKFgR+d91RHhlQ9MtJi6n8lYnwX
+         y1fvPJ3023Fg83v8HRouLjnAWspnTdeVualeK3TTjL9U7S+TJKR6gqeswbRTNqHoF3lw
+         Z6WQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rp8fhPQRvsHvNjHeRyzOSOEFLkkry73Np9JeDU9tWJVuQI2DLwCExnh2MSSlaWaGamCjkJ/9WQ8quknU4Q=@vger.kernel.org
+X-Gm-Message-State: AFuF++l7kDWmV2okuJDHqRo0ig97SAHsahc8OWepokdt57phr7OHBa9S
+	FnS9/vRa7gczCERNMpru3uP/XPNdBECtjy+YfyC4/0UBmH/Z2e7cBSgrD1v7Xf8/UFn1JRVWq7W
+	kwTAgIYMmVSr0HnBAm4o6IlAjekV3A0Eq3kkYCwDNpOE2J7lTOvikv/QVlUXZvS7M2SE=
+X-Gm-Gg: AR+sD10WUdX344daDV/oCIesl9teFnNDnoRpgnKpnjYjbgjwYONk2Bc4cJF4KXVi4Zv
+	zoZ4eEPSoWCGYmGg2wsVrvC4e/bSrDtYoexpqvteNzAQ82PaT6cFC+CBL3i6jzX6+0jCpN9N1E6
+	A+s4D+CRTFClI+lTNxF1bxnowmrofjfoP9R2sBOoLrwy1FHnLqcYSCd6zPO69yIevs4hBO8TTRG
+	w9jmF3fWDNrslZkarTBnZ2MSSg+0M74RtDETJMw1p+HSn3g/e8ZfeWSKrCjm8Ia6S0USuQs3YSq
+	vhe+wWni09TbgagyPVy79EEk8K09YBXRZpXgd9Pc4SClZAhVW4oXdjVI/AmD3YpstOmSH2zl17g
+	i58TOtrtQSbWOCQ==
+X-Received: by 2002:a05:622a:581b:b0:52f:b77a:fdb4 with SMTP id d75a77b69052e-5300b74845bmr22446461cf.2.1788093114921;
+        Sun, 30 Aug 2026 05:31:54 -0700 (PDT)
+X-Received: by 2002:a05:622a:581b:b0:52f:b77a:fdb4 with SMTP id d75a77b69052e-5300b74845bmr22445931cf.2.1788093114428;
+        Sun, 30 Aug 2026 05:31:54 -0700 (PDT)
+Received: from oss.qualcomm.com ([86.121.170.13])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b961820ffsm91156865e9.3.2026.08.30.05.31.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 30 Aug 2026 05:31:53 -0700 (PDT)
+Date: Sun, 30 Aug 2026 15:31:50 +0300
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] arm64: dts: qcom: Drop deprecated qcom,bus-id from SPMI
+ nodes
+Message-ID: <3sjdjyd6xgy6il6dsmhd5uak4fms3sh6ltk4y6abvr6gh7gcsx@sqeodm4js5wq>
+References: <20260830122633.203250-1-shengchao.guo@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] platform/x86: int3472: support the POWER1 GPIO type
-To: Jakob Berg Jespersen <dev@berg.pm>,
- Daniel Scally <dan.scally@ideasonboard.com>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: platform-driver-x86@vger.kernel.org, linux-media@vger.kernel.org,
- linux-kernel@vger.kernel.org, Tooraj Taraz <tooraj.taraz@yahoo.com>,
- "Joseph V. Lavigne" <jlavig88@gmail.com>, "D. Manresa" <dmanresa@gmail.com>
-References: <20260829-sp7plus-int3472-v3-1-454b50485ce2@berg.pm>
-From: Hans de Goede <hansg@kernel.org>
-Content-Language: en-US, nl
-In-Reply-To: <20260829-sp7plus-int3472-v3-1-454b50485ce2@berg.pm>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260830122633.203250-1-shengchao.guo@oss.qualcomm.com>
+X-Proofpoint-GUID: 2NMHpmJf-NQrLZZPsi1R48tBHcGtZQGO
+X-Proofpoint-ORIG-GUID: 2NMHpmJf-NQrLZZPsi1R48tBHcGtZQGO
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODMwMDEwNiBTYWx0ZWRfX3Fc/ezrNJFLC
+ YRExoIUT1JYQvZxI9OWprngkbCpunmxjt6SvKBkUXkGx2QgkNzqVs9l0WsrnuueKLlJ23hwuiaR
+ XEqbLe8fXkt09y2lGS6XByllqk9JHvA=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODMwMDEwNiBTYWx0ZWRfX1smte5g8pjBI
+ ieIuVHsH1woQDyjems9/xxepZf4RADVK4uKj2XUoQS3lNvBmTWweK0m8lp14AT9Bvyo7xUmWgqz
+ kQ4dZHLoJZB7W3eMe7ZnaQwpP1dgB1xUxGnCW5wRx3Bf4mbNNRmw+PAq7BYau1ituIFiWY7feR1
+ zZnKiwBopPxxlNk28V/A1xPJUXZxEREO5mBqXOdYRCTWCfe5bydUfE9SKEnTqZoBPQ5zPmYUbnM
+ EzAYZWtZV9145Ofc2ytZgBp8Da1H8sTeqVJ4EJNXEvM6r0BES/f08Hstuhr80uJnMzf0SIDfGBK
+ ejiMrAuqu/bjbrP7dNENZfY8XheWf8qzzELBFpv1xOkFY3SppqqzGoAKi47at1VQQNLIARFdnG4
+ GKVgXoWJcJOUaxEE/yBN6KQU8Bw3aAOGXD+UeRicy5dzIjSz8CZaOurYtHitjqmpQBkJtWAjAyZ
+ Msccu+6/37y3m6zuXaA==
+X-Authority-Analysis: v=2.4 cv=YKKvDxGx c=1 sm=1 tr=0 ts=6a9422bb cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=clBUptZa5v5FR042Ey+sjA==:17
+ a=kj9zAlcOel0A:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=EUspDBNiAAAA:8 a=Ptejb-WZcwQgoGJDpb0A:9 a=CjuIK1q_8ugA:10 a=zZCYzV9kfG8A:10
+ a=dawVfQjAaf238kedN5IG:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-30_03,2026-08-27_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 adultscore=0 suspectscore=0 priorityscore=1501 phishscore=0
+ impostorscore=0 lowpriorityscore=0 spamscore=0 clxscore=1015 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608300106
 
-Hi,
+On 26-08-30 20:26:33, Shawn Guo wrote:
+> The qcom,bus-id property was deprecated by commit 345fbbca3f76
+> ("dt-bindings: spmi: Deprecate qcom,bus-id"). The property is not
+> referenced anywhere in the spmi-pmic-arb driver, so the value has
+> no effect at all.
+> 
+> Drop it from the remaining users to avoid spreading.  No functional
+> change intended.
+> 
+> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
 
-On 29-Aug-26 10:29, Jakob Berg Jespersen wrote:
-> INT3472 can describe a second sensor power rail as a GPIO of type
-> POWER1 (0x08), which the driver does not recognise, so the rail is left
-> unmapped and never enabled:
-> 
->   int3472-discrete INT3472:01: GPIO type 0x08 unknown; the sensor may
->   not work
-> 
-> On the Microsoft Surface Pro 7+ the rear camera's INT3472 (INT347A,
-> ov8865) has such a pin; without it the ov8865 "dvdd" supply resolves to
-> a dummy regulator and the sensor never probes.
-> 
-> Define the POWER0 (0x07) and POWER1 (0x08) GPIO types and map POWER1 to
-> a regulator with con_id "dvdd" for all devices, the supply the in-tree
-> ov8865 driver already requests. POWER0 is defined but left unmapped, as
-> no device that uses it is known.
-> 
-> Out-of-tree work approached the same rail by exposing it to the sensor
-> as a new "pwr1" supply (linux-surface PR #1867 for the Surface Pro 9,
-> PR #2201 for the Pro 7+ ov8865); mapping POWER1 to the existing "dvdd"
-> keeps the change contained to int3472.
-> 
-> With this change the Surface Pro 7+ rear camera probes and streams
-> reliably.
-> 
-> Link: https://github.com/linux-surface/linux-surface/pull/1867
-> Link: https://github.com/linux-surface/linux-surface/pull/2201
-> Suggested-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-> Signed-off-by: Jakob Berg Jespersen <dev@berg.pm>
-
-
-Thanks, patch looks good to me:
-
-Reviewed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
-
-Regards,
-
-Hans
-
-> ---
-> Changes in v3:
-> - No functional changes; the patch is identical to v2, rebased onto
->   current pdx86/for-next (which has since gained the multi-HID GPIO map
->   entries and the IMX471 "vana" entries).
-> - Resent with linux-media@vger.kernel.org on Cc, as requested.
-> - Link to v2: https://patch.msgid.link/20260729-sp7plus-int3472-v2-1-cdfaf97ac3ad@berg.pm
-> 
-> Changes in v2:
-> 
-> - Reworked from a per-device INT347A quirk into a generic mapping of the
->   POWER1 (0x08) GPIO type to "dvdd" for all devices, per review.
-> - Added INT3472_GPIO_TYPE_POWER0 (0x07) and POWER1 (0x08) definitions;
->   POWER0 is defined but left unmapped for now.
-> - Retested on the Surface Pro 7+ (kernel 7.1.5): the rear ov8865 probes,
->   instantiates its VCM, and streams.
-> - Link to v1: https://patch.msgid.link/20260719-sp7plus-int3472-v1-1-521a43f5c191@berg.pm
-> ---
->  drivers/platform/x86/intel/int3472/discrete.c | 8 ++++++++
->  include/linux/platform_data/x86/int3472.h     | 2 ++
->  2 files changed, 10 insertions(+)
-> 
-> diff --git a/drivers/platform/x86/intel/int3472/discrete.c b/drivers/platform/x86/intel/int3472/discrete.c
-> index 6c729fcfce5d..6ab8e589fcd3 100644
-> --- a/drivers/platform/x86/intel/int3472/discrete.c
-> +++ b/drivers/platform/x86/intel/int3472/discrete.c
-> @@ -266,6 +266,10 @@ static void int3472_get_con_id_and_polarity(struct int3472_discrete_device *int3
->  		*con_id = "avdd";
->  		*gpio_flags = GPIO_ACTIVE_HIGH;
->  		break;
-> +	case INT3472_GPIO_TYPE_POWER1:
-> +		*con_id = "dvdd";
-> +		*gpio_flags = GPIO_ACTIVE_HIGH;
-> +		break;
->  	case INT3472_GPIO_TYPE_DOVDD:
->  		*con_id = "dovdd";
->  		*gpio_flags = GPIO_ACTIVE_HIGH;
-> @@ -296,6 +300,8 @@ static void int3472_get_con_id_and_polarity(struct int3472_discrete_device *int3
->   * 0x00 Reset
->   * 0x01 Power down
->   * 0x02 Strobe
-> + * 0x07 Power 0
-> + * 0x08 Power 1
->   * 0x0b Power enable
->   * 0x0c Clock enable
->   * 0x0d Privacy LED
-> @@ -382,6 +388,7 @@ static int skl_int3472_handle_gpio_resources(struct acpi_resource *ares,
->  	case INT3472_GPIO_TYPE_PRIVACY_LED:
->  	case INT3472_GPIO_TYPE_STROBE:
->  	case INT3472_GPIO_TYPE_POWER_ENABLE:
-> +	case INT3472_GPIO_TYPE_POWER1:
->  	case INT3472_GPIO_TYPE_DOVDD:
->  	case INT3472_GPIO_TYPE_HANDSHAKE:
->  		gpio = skl_int3472_gpiod_get_from_temp_lookup(int3472, agpio, con_id, gpio_flags);
-> @@ -408,6 +415,7 @@ static int skl_int3472_handle_gpio_resources(struct acpi_resource *ares,
->  		case INT3472_GPIO_TYPE_POWER_ENABLE:
->  			second_sensor = int3472->quirks.avdd_second_sensor;
->  			fallthrough;
-> +		case INT3472_GPIO_TYPE_POWER1:
->  		case INT3472_GPIO_TYPE_DOVDD:
->  		case INT3472_GPIO_TYPE_HANDSHAKE:
->  			ret = skl_int3472_register_regulator(int3472, gpio, enable_time_us,
-> diff --git a/include/linux/platform_data/x86/int3472.h b/include/linux/platform_data/x86/int3472.h
-> index a73841dfae27..b1040e36deb8 100644
-> --- a/include/linux/platform_data/x86/int3472.h
-> +++ b/include/linux/platform_data/x86/int3472.h
-> @@ -25,6 +25,8 @@
->  #define INT3472_GPIO_TYPE_RESET					0x00
->  #define INT3472_GPIO_TYPE_POWERDOWN				0x01
->  #define INT3472_GPIO_TYPE_STROBE				0x02
-> +#define INT3472_GPIO_TYPE_POWER0				0x07
-> +#define INT3472_GPIO_TYPE_POWER1				0x08
->  #define INT3472_GPIO_TYPE_POWER_ENABLE				0x0b
->  #define INT3472_GPIO_TYPE_CLK_ENABLE				0x0c
->  #define INT3472_GPIO_TYPE_PRIVACY_LED				0x0d
-> 
-> ---
-> base-commit: 5b05bb3f6c5716fab6911e12d60dd1f43ad9806a
-> change-id: 20260719-sp7plus-int3472-8f014b8de79c
-> 
-> Best regards,
-> --  
-> Jakob Berg Jespersen <dev@berg.pm>
-> 
-
+Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
