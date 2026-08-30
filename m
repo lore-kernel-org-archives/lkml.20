@@ -1,88 +1,122 @@
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mail3-relais-sop.national.inria.fr (mail3-relais-sop.national.inria.fr [192.134.164.104])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE1B23B14A2;
-	Sun, 30 Aug 2026 12:58:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B250F3B3C03
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 12:59:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.134.164.104
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788094734; cv=none; b=Z/JXGcyJJabCMy3jgkRc56fxykPd9jPJ98bLrnY+A0fvvYcmNaT/Ken2jNMbKn84JgcwG6hNiWOCrk3NYc1eWcjo4hptlVdGklJ+DA2VzqRlfg9kvZ7yl3RXvsk4+QIbEvycuX8X897qGA8+6vSaf1eTGQmcyEmE6zYOYrn3syc=
+	t=1788094763; cv=none; b=krcPvR7aIlJPnghYmfkNkQZ3G4XG80pMRElZrGiwirjhYBD7fMAWgaE5xgKYnHbMz5GFTqpQ2db99X7jXoLsdgPGFOA6U8QrJVrqCzSinqsmQtWaaP7k7n2aIvtqeo2r5FvjlsJ4/2+cVG+LRGldCzz0yT/R72s8nTTkwrQG93w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788094734; c=relaxed/simple;
-	bh=ULLsCIvRURUfWtY7aMZOQIJq838+3+EZQOBCAb4TPwM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=uKHvLdbUd4r7CGweA+cyWclqZsjqt2EG2YrRHPHCq4lV5wmThl4TsfVHbOPaIRBkwaMY+/5DzxdprYPFT9PY/yWFZ1BvRViBDfEqQGV5ImJIc+4XGo7V9hdpsVUFqvCQa2NwJUDrES6xqZ23Lb1iSmMl22HTD51IxSsLChFDVH4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from localhost.localdomain (unknown [111.196.241.250])
-	by APP-03 (Coremail) with SMTP id rQCowADn6jgFKZRqOLuaBg--.22542S2;
-	Sun, 30 Aug 2026 20:58:45 +0800 (CST)
-From: Pengpeng Hou <pengpeng@iscas.ac.cn>
-To: Thierry Reding <thierry.reding@kernel.org>
-Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>,
-	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	linux-pwm@vger.kernel.org,
-	linux-tegra@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] pwm: tegra: fail probe on reset deassert errors
-Date: Sun, 30 Aug 2026 20:58:43 +0800
-Message-ID: <20260830125843.99132-1-pengpeng@iscas.ac.cn>
-X-Mailer: git-send-email 2.50.1
+	s=arc-20240116; t=1788094763; c=relaxed/simple;
+	bh=kvkBKXr5v70bJuP9ETsOEYwcBLNhbfz1W6u3CSNAvMk=;
+	h=Date:From:To:cc:Subject:Message-ID:MIME-Version:Content-Type; b=N49sjebr7PBnPYbcXp8aFQVVW2/d+j01aRV1xRY51tno+dsMpT+VjZFKEq6hFxsuowjlMpfs2wshg0NcbCIjlnhFj2s/Wvg/ZY4AYaut/bf31VF155WkRVtOiwVGnPexBfudPXM9F/XMIRL7SbwvR/TCDDoUQAD12NMLB8NxlzE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=inria.fr; spf=pass smtp.mailfrom=inria.fr; dkim=pass (1024-bit key) header.d=inria.fr header.i=@inria.fr header.b=ji4BZooR; arc=none smtp.client-ip=192.134.164.104
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=inria.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=inria.fr
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=inria.fr header.i=@inria.fr header.b="ji4BZooR"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=inria.fr; s=dc;
+  h=date:from:to:cc:subject:message-id:mime-version;
+  bh=uYS38WJwuqbtZpX1o0G6n5p6zhUoGMkjLwa2LxYVu+Y=;
+  b=ji4BZooRQeS9TTnZVE9doShWe211FS8O6InsprFm9aO2TXSwlh2JwqCv
+   OOv+8doRn1uCIZsBUVwaX+oluJJSLfCm7QSOMPjE4+WwuFo4e62B3E0sR
+   0Njb5pOV+Z0Rm1SKhdkt4oiDzQODiiTdlUos/rJduK09cCjxudYTYYZiZ
+   k=;
+X-CSE-ConnectionGUID: +kTTu38cRxmKLF462aRMsA==
+X-CSE-MsgGUID: B8lGMNeQRM24g1YBMex3ow==
+Authentication-Results: mail3-relais-sop.national.inria.fr; dkim=none (message not signed) header.i=none; spf=SoftFail smtp.mailfrom=julia.lawall@inria.fr; dmarc=fail (p=none dis=none) d=inria.fr
+X-IronPort-AV: E=Sophos;i="6.25,252,1779141600"; 
+   d="scan'208";a="155406045"
+Received: from 88-188-149-159.subs.proxad.net (HELO hadrien.home) ([88.188.149.159])
+  by mail3-relais-sop.national.inria.fr with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Aug 2026 14:59:18 +0200
+Date: Sun, 30 Aug 2026 14:59:16 +0200 (CEST)
+From: Julia Lawall <julia.lawall@inria.fr>
+To: torvalds@linux-foundation.org
+cc: linux-kernel@vger.kernel.org, ekffu200098@gmail.com, 
+    akira.aiura.bj@hitachi.com
+Subject: [GIT PULL] coccinelle changes for v7.3-rc1
+Message-ID: <b81556f5-338-ea2a-6a71-5e115e66b84@inria.fr>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowADn6jgFKZRqOLuaBg--.22542S2
-X-Coremail-Antispam: 1UD129KBjvdXoWrurW5Gw47XFyxAryDur4xCrg_yoWDWFc_u3
-	4xXFsrWws8CryvkFnxt3yfZFWayF98uF10grZrtw13Kas0qF15GryvyrW5u34xWan8uFy7
-	GFW2vrWfA3sxAjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUb4xFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
-	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
-	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr0_
-	Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I8E87Iv6xkF7I0E14v26F4UJV
-	W0owAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
-	I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r
-	4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AKxVWU
-	AVWUtwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14
-	v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkG
-	c2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7CjxVAFwI
-	0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4U
-	MIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0JUmjgxUUU
-	UU=
-X-CM-SenderInfo: pshqw1xhqjqxpvfd2hldfou0/
+Content-Type: multipart/mixed; boundary="8323329-253680050-1788094757=:3907"
 
-tegra_pwm_probe() registers the PWM provider after deasserting the reset
-control without checking whether the reset controller accepted the request.
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-Propagate the failure through the existing runtime-PM cleanup path instead
-of publishing a PWM controller whose hardware may still be reset.
+--8323329-253680050-1788094757=:3907
+Content-Type: text/plain; charset=ISO-2022-JP
 
-Fixes: 5dfbd2bd5439 ("pwm: tegra: Add support for reset control")
-Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
----
- drivers/pwm/pwm-tegra.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+The following changes since commit b6b019a1d9b90ac51174f0ca15b1338b61506bf9:
 
-diff --git a/drivers/pwm/pwm-tegra.c b/drivers/pwm/pwm-tegra.c
-index 5cdbe120ba2d8..d9fa16a7b31f4 100644
---- a/drivers/pwm/pwm-tegra.c
-+++ b/drivers/pwm/pwm-tegra.c
-@@ -379,7 +379,9 @@ static int tegra_pwm_probe(struct platform_device *pdev)
- 		goto put_pm;
- 	}
- 
--	reset_control_deassert(pc->rst);
-+	ret = reset_control_deassert(pc->rst);
-+	if (ret)
-+		goto put_pm;
- 
- 	chip->ops = &tegra_pwm_ops;
+  Merge tag 'parisc-for-7.3-rc1' of git://git.kernel.org/pub/scm/linux/kernel/git/deller/parisc-linux (2026-08-23 10:30:02 -0700)
 
-base-commit: 08dbfad3f5040f5bdb6c529da20d6d4e81fefd72
--- 
-2.50.1
+are available in the Git repository at:
 
+  ssh://git@gitolite.kernel.org/pub/scm/linux/kernel/git/jlawall/linux.git tags/cocci-7.3-rc1
+
+for you to fetch changes up to ef6a1dca8de41a408019310649e6d1b7b21ac4bc:
+
+  coccinelle: ifnulldev_put: update error message (2026-08-30 14:36:11 +0200)
+
+----------------------------------------------------------------
+Coccinelle patches for Linux v7.3
+
+Sang-Heon Jeon <ekffu200098@gmail.com> has cleaned up a number
+of the semantic patches in the scripts/coccinelle directory,
+particularly with respect to functions that no longer exist in
+the kernel.  He and I have also done some reorganizations that
+improve performance.
+
+I eliminatd some false positives.
+
+相浦彰 / AIURA，AKIRA <akira.aiura.bj@hitachi.com> fixed an
+out of date URL.
+
+----------------------------------------------------------------
+Julia Lawall (6):
+      coccinelle: misc: minmax: drop unneeded parentheses
+      coccinelle: misc: minmax: check for the presence of if cases
+      coccinelle: misc: minmax: avoid unhelpful isomorphisms
+      coccinelle: api: check for macro context
+      scripts: coccinelle: devm_free: reduce false positives
+      coccinelle: ifnulldev_put: update error message
+
+Sang-Heon Jeon (11):
+      coccinelle: double_lock: improve performance when no double lock exists
+      coccinelle: misc: minmax: improve performance when no candidate exists
+      coccinelle: mini_lock: improve performance when searching loops
+      coccinelle: misc: struct_size: drop unneeded parentheses
+      coccinelle: remove obsolete pci_free_consistent.cocci
+      coccinelle: alloc_cast: drop removed allocators
+      coccinelle: zalloc-simple: drop the kmem_alloc rules
+      coccinelle: pool_zalloc-simple: drop the pci_pool_alloc rules
+      coccinelle: kfree_mismatch: drop vmalloc_exec
+      coccinelle: atomic_as_refcounter: drop atomic_long_dec_and_lock
+      coccinelle: ifnulldev_put: update outdated helper names
+
+相浦彰 / AIURA，AKIRA (1):
+      coccinelle: update Coccinelle website URL
+
+ Documentation/process/4.Coding.rst                 |  3 +-
+ scripts/coccicheck                                 |  4 +-
+ scripts/coccinelle/api/alloc/alloc_cast.cocci      | 43 +++++++++++-----
+ .../coccinelle/api/alloc/pool_zalloc-simple.cocci  | 17 ++----
+ scripts/coccinelle/api/alloc/zalloc-simple.cocci   | 41 +--------------
+ scripts/coccinelle/api/atomic_as_refcounter.cocci  |  4 --
+ scripts/coccinelle/api/kfree_mismatch.cocci        | 12 ++---
+ scripts/coccinelle/free/devm_free.cocci            | 15 ++++--
+ scripts/coccinelle/free/ifnulldev_put.cocci        | 12 ++---
+ scripts/coccinelle/free/pci_free_consistent.cocci  | 53 -------------------
+ scripts/coccinelle/locks/double_lock.cocci         | 15 +++++-
+ scripts/coccinelle/locks/mini_lock.cocci           | 24 ++++++++-
+ scripts/coccinelle/misc/minmax.cocci               | 60 ++++++++++++++++++----
+ scripts/coccinelle/misc/struct_size.cocci          |  8 +--
+ scripts/nsdeps                                     |  2 +-
+ 15 files changed, 149 insertions(+), 164 deletions(-)
+ delete mode 100644 scripts/coccinelle/free/pci_free_consistent.cocci
+--8323329-253680050-1788094757=:3907--
