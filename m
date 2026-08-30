@@ -1,296 +1,337 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F39B322A1F
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 21:02:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2482F224AF1
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 21:10:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788123746; cv=none; b=uzocu0fxtCEtYz4yd/pbLSLCU8YXYOo+sk8qO3SEdl2rQMLVsGQDuOUBpvjkqRZ9WSkdVJMFz2lhksH3BYm2Gs+mgEpQovnbbiDdsJnQEMzWN35sdmJhXdBPTjznLDOi/QWLbKyAIGaqy20+6WZYstAKmnxmEaRR52G12xCGWZo=
+	t=1788124207; cv=none; b=liKLwI6a1ivX9GzpGTigpJMj5CcjkH9Qc/vD4byKcSppJAcTuTcrV3Un6lcYbuppt9u5tMO3kHsujLF7TEwbCpItcShMgGgpVrlCjOMe72AEhO/zI9WIKHp5fyZ3aiYgHGlwWZfcTGRL9/XkgYYIsGPhppGHnIfR9mjxZlss2+A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788123746; c=relaxed/simple;
-	bh=3Iubn3yY0qzzYguxe6NT2uIvj1sb1cJ5GS3fGjumoj4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=joVdmmp/gmCPmGFivi4Efg/7kdN/ziD6Ff2svirmA7VGT3b/532d7y/Hssu02wZ5fDifZMP2oZLN7cxSgyxeuXUYPKEH62hjn85RMA8vKA64IXZf49DcNGwDBNk/m4jRXQ+/CHHOLjMVnt5egdCABPpO/fMsc9SK0uUQUyjPHkc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=BFHIAhn+; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=e7dlHA5M; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="BFHIAhn+";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="e7dlHA5M"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67UJJMjP1416169
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 21:02:23 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	z8jImfCFIp0QhmtLaoWkhsJutQo2dFJoVYFJe6BQiII=; b=BFHIAhn+mISfN1t9
-	LckRa9r7KYHV+dr540xxO6F3mqGTYQASmmS7jT8rsTz+38yZKhip9zzpwa1qD6RD
-	NXJlBFdeLjt50sUReZARr3OGBI7zShw4vYp/zH1mc3VqsuLo7hfIxlTV6f9IN3Tr
-	owXNdtu3bOsnp62dn5a/MPNPYSKKHwOtybYSnUMSbcRgF9UNvk1WikxUn4OocwRe
-	yhZuyAjVlLLmyBWSiZ4FTabsZormIsSx/ufTswwf+dcrZF/KyPOCiehkMqFW+i4g
-	J+LpDUKvMo96bkwH8bI4ooDHQTYBHDYIcHIp7Hi4gb6n6Jxdy/IRA7tYtsnsOLxY
-	mW3big==
-Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gbqn2knyr-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 21:02:23 +0000 (GMT)
-Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cc1b80835d5so4528976a12.2
-        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 14:02:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788123743; x=1788728543; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=z8jImfCFIp0QhmtLaoWkhsJutQo2dFJoVYFJe6BQiII=;
-        b=e7dlHA5MkQu77oR10liKceMrHONntO1t4ggg8f7n+y+abPjYhI8QLY1bh/RpzvXsuI
-         2wrKsOnOqT26E5WL6JCLD5nnqCsc5UWyHxCtRU2WN9rMnKysT6AyPzdN8++1VVY2juAH
-         zMGH85sJYK8k6THI05L/HXUCuL1zGCxxol9WaTjaoGXz3ungub17UmyZ+kuf2aZ+st7I
-         LPZbltQhNryqPu/TtNWfxhB8ksx3frCGfVKEp7lWoE3lpkn5CDRdGwSaCJw8/NWsu2bZ
-         yydllA5Tu2vODpbfhuUPEsjMyDwssfW3/OKdFsrxPXzQb4kkWvStCtMn3EDieeF6c/68
-         oPBw==
+	s=arc-20240116; t=1788124207; c=relaxed/simple;
+	bh=aFPeXqmUJpocKi0EUbb+9k4RI8tpyFUDxvK8AIEpmyE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=J7SArw9YypEJL+E5xizvhsblKK+0vJc2BVr6HeuG0SDZq5paBQmXwffxGJ86IB7thhcpoRPXSabV9FPxSITN4k80yxE3Jp6t2BlKX7jJ6PGSUYsAael/beXSuZSCz1ArPDWMHqxIaUvilpfao+ZLfBlgAcqdihw4xVNkalSriG4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=grimberg.me; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=grimberg.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-4815bce4652so1971825f8f.1
+        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 14:10:03 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788123743; x=1788728543;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=z8jImfCFIp0QhmtLaoWkhsJutQo2dFJoVYFJe6BQiII=;
-        b=O52ADSr7OS2uPrXijMPPVLA6aRXWy9IOsnfpIgQn+B282PMzeUZqGBibIWFhaI6Ifa
-         p1Vb/IesGKXVrEfcz7LDzzrbAfLY335/FNtVqyXMTHD4ZrHUw+c0YJ5w1uoANYFR0a/L
-         nIFl3VmqpVfDev3mSz9FvKZDSRk2pt9Xk0kH7FhRWfJNsoSOofzqWSWgmrth84CnL8s7
-         BdkYJC5rwi51p4sN7jMyuahneXU2al3nLOC4IJhhrthAiOva+pvYv/YVy4tJkFcG8M4n
-         VafKGFJqyZCX9+fqwX2trvI6J/Xag0/aDnUkCbyj+IwtF2LG64W+f6Mt6ajMIWSqdu5i
-         RvUA==
-X-Forwarded-Encrypted: i=1; AHgh+RrQ2cIUAebf7WV2B2JC2zYELS6eUM9xkWA3AmYht8ixA6xZmhEAC22TmLOmXV6YcJKe/9FoYKhKwt+Da38=@vger.kernel.org
-X-Gm-Message-State: AFuF++ksSN4FvkSJInnJ2Zxf0E8WV9wimRFzFPpQInVax1E5Kue9fdZr
-	xVEO1igFTTRkAukaueU0VAI19EQI9kh+M5tRP3OIevFYGOp9nqetKpB0wOqrmOp4k0z1hY62IMd
-	hZWAsyoStsmzILZkTzKlxe83792v9r+YrzW41UJUFbbDa5Xo9kOlv0X/Df1Y7a4iIdj0=
-X-Gm-Gg: AR+sD12kUmNk+EY2kVP/CkyvJhRLJ59iKbwGLIPdYpk5ccgjFcMGX5kiQWwS/SIzqrS
-	+oquqOsjSKJnbMUPwouFeULbxKkjSXTUxLH7GreVyidR/H5V68iYnVeIQwTTjl8KoKMQLznlKJT
-	SGvZLgskVQitCvSZW5xoH1JLdCaX1cLaUfAUqzGyQeVB718v744FE63fLd1ju7Ac/omlJQZAVC9
-	xV5V7dLozKO6Ad4Mxl8AQCj5NH/cR4CR9WkxQpwa3e3IPLU9w/rxMVnaJXhg8v2Z4m29/QEBAxa
-	fFs+3Qhc2QE9qHucWWPN1B0FHtI/D/3wcNn6gNxzTT+V17l9GOyfqzJ4pAz+LiDcyciXaRucuZZ
-	I8/p8/E9FjdKdGJprm/9FLKqPfKU9XtMkPYTg8VIjwA==
-X-Received: by 2002:a05:6a21:2d4b:b0:3cc:ec12:a788 with SMTP id adf61e73a8af0-3d266cb67dbmr38156598637.4.1788123742970;
-        Sun, 30 Aug 2026 14:02:22 -0700 (PDT)
-X-Received: by 2002:a05:6a21:2d4b:b0:3cc:ec12:a788 with SMTP id adf61e73a8af0-3d266cb67dbmr38156542637.4.1788123742580;
-        Sun, 30 Aug 2026 14:02:22 -0700 (PDT)
-Received: from [169.254.0.13] (Global_NAT1.qualcomm.com. [129.46.96.20])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-32b49c867f5sm10980013eec.2.2026.08.30.14.02.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 30 Aug 2026 14:02:21 -0700 (PDT)
-From: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
-Date: Sun, 30 Aug 2026 21:02:03 +0000
-Subject: [PATCH 2/3] arm64: dts: qcom: hamoa-crd: Add thermal control
+        d=1e100.net; s=20251104; t=1788124202; x=1788729002;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=LLwe7RYO5qtdTcBEv4Lbai/rPQFtnZfCH/j4lPsWE3Q=;
+        b=F0LRcc/gR4sILrOxbUCXMD8BnI/96zszAox2Azv32+1EmqQZTt2+uWf5P4vUBwWufZ
+         2L3h9CQIm7A3ZIn32+B7QH+RJ2EHiRhdvuiyHHlvYGy8zu0+HXfvcD6TrMHIx8d4vu+c
+         hn27VKvgkNn6zfgs2reK6ulhmxv94GvbUrUOZ3o2m8dbSwxnQ53y30p92z7YaestTUGi
+         GIDRSqHrJnE78B63tR3PDUzXr7xqO7/RmXfc2Mw6E6jz2uskUMzOgud2eAm7hLp6O//J
+         3WpMnc7N/wuIe9b+HfFOMN/+ya+bzLMz4E8Guk9BA5PMHGMoYL1xfslkq3MuptYteX5r
+         RglQ==
+X-Forwarded-Encrypted: i=1; AHgh+RqussIzs7iF5uzDFjEF0CllJWE6o18L+g9y0XHWGN7sRYLlhyEbaQhdQStgUuuDmYnOJMZULz2R0qOllbs=@vger.kernel.org
+X-Gm-Message-State: AFuF++kWElv+QkCLxs/BEGeoeKG1W3QUiBEitkGcjhVTszUOGKiPtRQC
+	aKia2H2lFjtbbTWaowuXjmNpztSyYb8lbA0JZs2bLByktgo123VR2pRB
+X-Gm-Gg: AR+sD11D4KDBnodFO0qTvH9+fplEGkTWR+k63hwnVECZPG8zBS0KZvbUOMMTkGI/j+C
+	hW9+hpknDFMD1C7Kj8ozd9t7dnZpFx1mOw2YwVeoMzqmXr0dRsTJzYGH97Sm/CQ14Ruk0kfiWtJ
+	TQ7PA2O7oWLWsWMJnklQv32kkaUNJ2Qf0IgbnylznruySMpQfSD0CqxoaAOzKHt8SzKVF1bxFM0
+	Mmm9OYf2gs/BnCU3bvMl+G8m0dL9WB7SaFBUWbLj2IEmVDGdDTBuLt3hmh8/rp5xw3kKwqCssMg
+	1QjfJ4ksKusd98+/s8/s0+Fddw0aGGt9Q1nj84/HymX6pfp9Bxin9PUnV4TAw3IOTTG4t7k2VIk
+	zvBnFkPCO0DFrWSoWLeam5bl3F5ZbvvlcJ3vSBQ6b/JXfmo6h9lVLhSLIU7uv169G1SswzfprRM
+	ylcOFCFROwwq381lwpjyK3WGAmmsVOmE+FHAcK6MuI/TpzrqHOpFBNsPLigL14ONsHd0zf9vVdF
+	o5ffvKAtt7gORK6BJNUOZk=
+X-Received: by 2002:a05:600c:1c0a:b0:493:bd2a:93be with SMTP id 5b1f17b1804b1-49b91c276efmr352626095e9.6.1788124202176;
+        Sun, 30 Aug 2026 14:10:02 -0700 (PDT)
+Received: from [10.100.102.74] (89-138-77-243.bb.netvision.net.il. [89.138.77.243])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4843adf1377sm3092323f8f.18.2026.08.30.14.10.00
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 30 Aug 2026 14:10:01 -0700 (PDT)
+Message-ID: <0d9ea3ed-b164-4f99-8484-87041ddffaa6@grimberg.me>
+Date: Mon, 31 Aug 2026 00:10:00 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] nvme-rdma: fix ib_device removal race that hangs PCI
+ unbind
+To: Casey Chen <cachen@purestorage.com>, linux-nvme@lists.infradead.org
+Cc: leon@kernel.org, kbusch@kernel.org, hch@lst.de, axboe@kernel.dk,
+ linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260806211822.317074-1-cachen@purestorage.com>
+ <20260828232436.270184-1-cachen@purestorage.com>
+Content-Language: en-US
+From: Sagi Grimberg <sagi@grimberg.me>
+In-Reply-To: <20260828232436.270184-1-cachen@purestorage.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260830-hamoa-sys-therm-v1-2-27108c40fba5@oss.qualcomm.com>
-References: <20260830-hamoa-sys-therm-v1-0-27108c40fba5@oss.qualcomm.com>
-In-Reply-To: <20260830-hamoa-sys-therm-v1-0-27108c40fba5@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788123739; l=4383;
- i=bjorn.andersson@oss.qualcomm.com; s=20230915; h=from:subject:message-id;
- bh=3Iubn3yY0qzzYguxe6NT2uIvj1sb1cJ5GS3fGjumoj4=;
- b=I7ACeisDbTUKW+hx2+sYwC8SpI6bKi0sxAYp5rtPFlFB+PhBr9KWkjE/zj8zaYcjuz1ZOASgI
- QPnilAX/JrQDWAF7skXpUzN/buK4nWgNL9ekXHXS8M3cvFVfTWEAi3G
-X-Developer-Key: i=bjorn.andersson@oss.qualcomm.com; a=ed25519;
- pk=VkhObtljigy9k0ZUIE1Mvr0Y+E1dgBEH9WoLQnUtbIM=
-X-Proofpoint-ORIG-GUID: wv2HjQRIUc8DZ5oR4WvTpw8VD0j8pnqx
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODMwMDE4NCBTYWx0ZWRfX1fUfz9R12eY+
- omsgIx89Wjkk55x4jRurnEOTCGLR2EKlNb5eB/7oKMeqVtXKogpT8mSDVippsPEC/+0v7VoxGzP
- hKf8kbi7Vf0gdSoBRg5G7dTqpX7OmgaHsIUAIKuNpUwy5OdLs1A7tBUJk5BqOrk1EEkvCL2OZJV
- kURDD1huQ4lAVStlemC3trlKx7cIbLlP3XumXKKS6oL3NgHG/XGfOgkBRz4inPsnKP797v/bv/x
- 3eCVENCDmiZdQgH6lMa9YDOQZBcXp7epp5UpuEXe1uim62fHCEYTMSg/D3aupsgel6j0cFsp5Xm
- XWjDXZZ0JTLqlieZcUAkbGVG3XSMRPFC2xP92r08+J8GLI/EnkmYUU1MUc+dFg5f0Axug+QfIWC
- CI9qZh6+2gyM2WyOFrehrjdDiVROPWff1QO6K6GFET4KDITbyFIU4ZSqQiPhIuzXbHkbp0io0N1
- 4Gx+Gd8DFj62BvI2RIg==
-X-Proofpoint-GUID: wv2HjQRIUc8DZ5oR4WvTpw8VD0j8pnqx
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODMwMDE4NCBTYWx0ZWRfXywbh8fbemTe+
- W2TiNRPPD5VmBhzDlhJRQeq7kLznXF9/sG905nvqlhk6DMh2+2Mvdxd9a+t1fV8ylrafoqYU01A
- 1TyL86s1dRCjs/V4F6q5Q9YAeooMoQw=
-X-Authority-Analysis: v=2.4 cv=a5kAM0SF c=1 sm=1 tr=0 ts=6a949a5f cx=c_pps
- a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=SrWXOAHHq75Mue0GltgA:9 a=QEXdDO2ut3YA:10
- a=_Vgx9l1VpLgwpw_dHYaR:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-30_06,2026-08-27_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 bulkscore=0 malwarescore=0 phishscore=0 clxscore=1015
- adultscore=0 priorityscore=1501 spamscore=0 impostorscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608300184
 
-The "limits" hardware performs rapid thermal management of the CPU
-cores, but during prolonged CPU usage the system's overall temperature
-need to be further managed by software.
 
-The reference design provides seven "system thermistors", connected to
-the PMK8550 VADC. Particularly interesting is the "keyboard hotspot
-thermistor", which is wired up to sys_therm1.
 
-Use this to throttle the CPUs, in the same way that we're throttling
-previous generation laptops based on "skin-temp". The trips are chosen
-from those existing examples, but are comparable with the ACPI thermal
-policy.
+On 29/08/2026 2:24, Casey Chen wrote:
+> nvme_rdma_remove_one() samples nvme_rdma_ctrl_list once, then blocks in
+> flush_workqueue(nvme_delete_wq). A connect can publish a controller on
+> the same ib_device during that window: nvme_rdma_find_get_device()
+> matches on node GUID in nvme_rdma's private device_list and never
+> consults ib_core unregistration state. Such a controller is never
+> deleted, so its rdma_cm_ids keep a reference on the cma_device.
+>
+> ib_clients are removed LIFO, so nvme_rdma_remove_one() runs before
+> cma_remove_one(), which then waits for that reference forever. Removing
+> the RDMA interface underneath live NVMe-oF connections:
+>
+>    echo 1 | sudo tee /sys/bus/pci/devices/0000:2a:00.1/remove
+>
+> wedges the unbind permanently:
+>
+>    INFO: task tee:164872 blocked for more than 200 seconds.
+>    task:tee             state:D stack:0     pid:164872 ppid:164870 flags:0x00004002
+>    Call Trace:
+>     <TASK>
+>     __schedule+0x4b4/0xf90
+>     schedule+0x5a/0xc0
+>     schedule_timeout+0x105/0x110
+>     ? cma_process_remove+0x1f9/0x240 [rdma_cm]
+>     __wait_for_common+0xc7/0x1f0
+>     ? usleep_range_state+0xb0/0xb0
+>     cma_remove_one+0x50/0xb0 [rdma_cm]
+>     remove_client_context+0x88/0xc0 [ib_core]
+>     disable_device+0x8a/0x160 [ib_core]
+>     __ib_unregister_device+0x42/0xa0 [ib_core]
+>     ib_unregister_device+0x22/0x30 [ib_core]
+>     mlx5r_remove+0x39/0x60 [mlx5_ib]
+>     auxiliary_bus_remove+0x18/0x30
+>     device_release_driver_internal+0x18f/0x1f0
+>     bus_remove_device+0xbc/0x120
+>     device_del+0x154/0x3d0
+>     ? devl_param_driverinit_value_get+0x29/0x90
+>     mlx5_rescan_drivers_locked.part.0+0x78/0x1c0 [mlx5_core]
+>     mlx5_unregister_device+0x34/0x50 [mlx5_core]
+>     mlx5_uninit_one+0x45/0x110 [mlx5_core]
+>     remove_one+0x4e/0xc0 [mlx5_core]
+>     pci_device_remove+0x39/0xa0
+>     device_release_driver_internal+0x18f/0x1f0
+>     pci_stop_bus_device+0x68/0x90
+>     pci_stop_and_remove_bus_device_locked+0x28/0x40
+>     remove_store+0x75/0x90
+>     kernfs_fop_write_iter+0x147/0x1d0
+>     vfs_write+0x2af/0x410
+>     ksys_write+0x5f/0xe0
+>     do_syscall_64+0x35/0x80
+>     entry_SYSCALL_64_after_hwframe+0x4b/0xb5
+>     </TASK>
+>
+> Because the unbind stalls mid-teardown the netdev is never unregistered,
+> so userspace keeps reconnecting over the interface and loses the race
+> again.
+>
+> Close the window at both ends, each with state guarded by the lock that
+> already covers the list it belongs to:
+>
+>   - nvme_rdma_device gains ->dying, set and tested under
+>     device_list_mutex. nvme_rdma_find_get_device() refuses a device that
+>     is going away, so no new queues, PD or QP are created on it once
+>     nvme_rdma_remove_one() has started. A re-probed HCA with the same node
+>     GUID is a distinct ib_device and gets a fresh nvme_rdma_device.
+>
+>   - nvme_rdma_remove_one() records the ib_device on nvme_rdma_removing_list
+>     in the same nvme_rdma_ctrl_mutex section that walks
+>     nvme_rdma_ctrl_list, and nvme_rdma_create_ctrl() tests that list under
+>     the same mutex immediately before publishing. A connect that took the
+>     mutex first is on the list and is deleted by the walk; one that takes
+>     it afterwards sees the entry and deletes its own controller. No
+>     controller can be added behind the walk, so a single sweep suffices.
+>
+> The controller is fully live at the point the connect is refused, so it
+> is torn down with nvme_delete_ctrl_sync(). ->list is still empty there,
+> leaving opts to nvmf_create_ctrl(), and nvme_init_ctrl() left two
+> references while nvme_delete_ctrl_sync() consumes only the one that
+> nvme_uninit_ctrl() drops, so the other is put explicitly.
+>
+> Reproduced on a 6.6 based kernel by removing and rescanning the mlx5
+> interface carrying the NVMe-oF RDMA connections in a loop, with IO
+> running and a userspace daemon reconnecting the controllers throughout.
+> The hang is racy: most removals complete normally, and only one that
+> lands while a connect is in flight leaves the sysfs write stuck in D
+> state with the trace above. With this patch the loop ran clean: removals
+> complete and the controllers reconnect after the following PCI rescan.
+>
+> Fixes: e87a911fed07 ("nvme-rdma: use ib_client API to detect device removal")
+> Signed-off-by: Casey Chen <cachen@purestorage.com>
+> ---
+>
+> Changes since v1:
+> https://lore.kernel.org/all/20260806211822.317074-1-cachen@purestorage.com/
+>
+>   - ->dying is no longer read under nvme_rdma_ctrl_mutex (Leon). It stays
+>     guarded by device_list_mutex and is only tested in
+>     nvme_rdma_find_get_device(), which already holds that mutex. The test at
+>     the publish point now uses a separate nvme_rdma_removing_list guarded by
+>     nvme_rdma_ctrl_mutex, so each piece of state is accessed only under the
+>     lock that declares it and the READ_ONCE()/WRITE_ONCE() pair is gone. The
+>     two mutexes are still never held at the same time.
+>   - Drop the code comments; the reasoning lives in the commit message (Sagi).
+>
+> Leon, on moving the dying device off device_list onto a local removal list
+> instead of keeping ->dying: that does remove the flag, but it also lets a
+> connect racing the removal allocate a fresh nvme_rdma_device and call
+> ib_alloc_pd() on the device being unregistered, since
+> nvme_rdma_find_get_device() would no longer see anything to refuse. That
+> exposure exists upstream today, so unlinking is not a regression, but
+> keeping ->dying closes it as well, which seemed worth the one bool now that
+> it is no longer read across locks. A local (on-stack) removal list also
+> needs care: nvme_rdma_free_dev() does list_del() whenever the last kref
+> drops, and a connect holding a reference can outlive nvme_rdma_remove_one(),
+> so the list head would have to be static rather than on the stack. Happy to
+> switch to unlinking if you prefer it.
+>
+> Sagi, on moving the test into nvme_rdma_setup_ctrl() before
+> nvme_start_ctrl(): that would let the existing destroy_io path do the
+> unwind, which is nicer, but I do not think it closes the race on its own.
+> setup_ctrl() returns before nvme_rdma_create_ctrl() takes
+> nvme_rdma_ctrl_mutex and calls list_add_tail(), so a removal landing in that
+> gap still walks nvme_rdma_ctrl_list before the controller is published. The
+> test has to be atomic with the publish, which is why it stayed under the
+> mutex. Happy to be told I am missing something.
+>
+> One window is knowingly left open. Once nvme_rdma_remove_one() has returned,
+> the removal entry is gone and the nvme_rdma_device it marked has usually
+> been freed by the last nvme_rdma_dev_put(), taking ->dying with it. A
+> connect arriving between that point and cma_remove_one() unlinking the
+> cma_device allocates a fresh nvme_rdma_device and can still publish a
+> controller that nothing will delete. ib_clients are removed LIFO, so that
+> gap spans every remaining client's remove callback. It exists upstream today
+> and is strictly narrower with this patch, so I did not try to cover it here.
+> Closing it needs a test keyed on ib_core state rather than nvme_rdma's, for
+> example an ->add callback storing a token so that
+> ib_get_client_data(cm_id->device, &nvme_rdma_ib_client) == NULL identifies
+> "our remove callback has already returned". That reads client_data outside
+> what its kernel-doc permits, so it seemed better kept as a separate patch.
+>   drivers/nvme/host/core.c |  1 +
+>   drivers/nvme/host/rdma.c | 41 ++++++++++++++++++++++++++++++++++++++++
+>   2 files changed, 42 insertions(+)
+>
+> diff --git a/drivers/nvme/host/core.c b/drivers/nvme/host/core.c
+> index 758245c799a1..bede16fe1ff5 100644
+> --- a/drivers/nvme/host/core.c
+> +++ b/drivers/nvme/host/core.c
+> @@ -282,6 +282,7 @@ void nvme_delete_ctrl_sync(struct nvme_ctrl *ctrl)
+>   		nvme_do_delete_ctrl(ctrl);
+>   	nvme_put_ctrl(ctrl);
+>   }
+> +EXPORT_SYMBOL_GPL(nvme_delete_ctrl_sync);
+>   
+>   static blk_status_t nvme_error_status(u16 status)
+>   {
+> diff --git a/drivers/nvme/host/rdma.c b/drivers/nvme/host/rdma.c
+> index 29ecbe71bb2e..63453d902619 100644
+> --- a/drivers/nvme/host/rdma.c
+> +++ b/drivers/nvme/host/rdma.c
+> @@ -45,6 +45,24 @@ static LIST_HEAD_GUARDED(device_list, device_list_mutex);
+>   
+>   static DEFINE_MUTEX(nvme_rdma_ctrl_mutex);
+>   static LIST_HEAD_GUARDED(nvme_rdma_ctrl_list, nvme_rdma_ctrl_mutex);
+> +static LIST_HEAD_GUARDED(nvme_rdma_removing_list, nvme_rdma_ctrl_mutex);
+> +
+> +struct nvme_rdma_removing_device {
+> +	struct list_head	entry
+> +		__guarded_by(&nvme_rdma_ctrl_mutex);
+> +	struct ib_device	*dev;
+> +};
 
-While not used for cooling/throttling, also add the other thermal zones
-for temperature reporting purposes.
+I don't understand why this is needed.
 
-Enable thermal-monitor mode for all 7 channels in the ADC.
+> +
+> +static bool nvme_rdma_device_removing(struct ib_device *ib_device)
+> +	__must_hold(&nvme_rdma_ctrl_mutex)
+> +{
+> +	struct nvme_rdma_removing_device *removing;
+> +
+> +	list_for_each_entry(removing, &nvme_rdma_removing_list, entry)
+> +		if (removing->dev == ib_device)
+> +			return true;
+> +	return false;
+> +}
+>   
+>   struct nvme_rdma_device {
+>   	struct ib_device	*dev;
+> @@ -53,6 +71,8 @@ struct nvme_rdma_device {
+>   	struct list_head	entry
+>   		__guarded_by(&device_list_mutex);
+>   	unsigned int		num_inline_segments;
+> +	bool			dying
+> +		__guarded_by(&device_list_mutex);
+>   };
+>   
+>   struct nvme_rdma_qe {
+> @@ -378,6 +398,11 @@ nvme_rdma_find_get_device(struct rdma_cm_id *cm_id)
+>   
+>   	mutex_lock(&device_list_mutex);
+>   	list_for_each_entry(ndev, &device_list, entry) {
+> +		if (ndev->dying) {
+> +			if (ndev->dev == cm_id->device)
+> +				goto out_err;
+> +			continue;
+> +		}
+>   		if (ndev->dev->node_guid == cm_id->device->node_guid &&
+>   		    nvme_rdma_dev_get(ndev))
+>   			goto out_unlock;
+> @@ -2380,6 +2405,15 @@ static struct nvme_ctrl *nvme_rdma_create_ctrl(struct device *dev,
+>   		nvmf_ctrl_subsysnqn(&ctrl->ctrl), &ctrl->addr, opts->host->nqn);
+>   
+>   	mutex_lock(&nvme_rdma_ctrl_mutex);
+> +	if (nvme_rdma_device_removing(ctrl->device->dev)) {
+> +		mutex_unlock(&nvme_rdma_ctrl_mutex);
+> +		dev_info(ctrl->ctrl.device,
+> +			 "hca %s is being removed, aborting connect\n",
+> +			 dev_name(ctrl->device->dev->dma_device));
+> +		nvme_delete_ctrl_sync(&ctrl->ctrl);
+> +		nvme_put_ctrl(&ctrl->ctrl);
+> +		return ERR_PTR(-ECONNREFUSED);
+> +	}
 
-Signed-off-by: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/x1e80100-crd.dts | 116 ++++++++++++++++++++++++++++++
- 1 file changed, 116 insertions(+)
+Why not instead of this, simply do in nvme_rdma_setup_ctrl:
 
-diff --git a/arch/arm64/boot/dts/qcom/x1e80100-crd.dts b/arch/arm64/boot/dts/qcom/x1e80100-crd.dts
-index 429deffcf3e9..065af18357d7 100644
---- a/arch/arm64/boot/dts/qcom/x1e80100-crd.dts
-+++ b/arch/arm64/boot/dts/qcom/x1e80100-crd.dts
-@@ -11,6 +11,92 @@
- / {
- 	model = "Qualcomm Technologies, Inc. X1E80100 CRD";
- 	compatible = "qcom,x1e80100-crd", "qcom,x1e80100";
-+
-+	thermal-zones {
-+		soc-thermal {
-+			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX1_GPIO_100K_PU(1)>;
-+		};
-+
-+		keyboard-thermal {
-+			polling-delay-passive = <250>;
-+
-+			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX2_GPIO_100K_PU(1)>;
-+
-+			trips {
-+				skin_alert0: trip-point0 {
-+					temperature = <55000>;
-+					hysteresis = <1000>;
-+					type = "passive";
-+				};
-+
-+				skin_alert1: trip-point1 {
-+					temperature = <58000>;
-+					hysteresis = <1000>;
-+					type = "passive";
-+				};
-+
-+				skin-crit {
-+					temperature = <73000>;
-+					hysteresis = <1000>;
-+					type = "critical";
-+				};
-+			};
-+
-+			cooling-maps {
-+				map0 {
-+					trip = <&skin_alert0>;
-+					cooling-device = <&cpu0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu1 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu2 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu3 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu4 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu5 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu6 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu7 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu8 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu9 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu10 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu11 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
-+				};
-+
-+				map1 {
-+					trip = <&skin_alert1>;
-+					cooling-device = <&cpu0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu1 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu2 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu3 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu4 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu5 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu6 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu7 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu8 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu9 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu10 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu11 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
-+				};
-+			};
-+		};
-+
-+		backcover-thermal {
-+			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX1_THM_100K_PU(1)>;
-+		};
-+
-+		smb-thermal {
-+			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX2_THM_100K_PU(1)>;
-+		};
-+
-+		sdx-thermal {
-+			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX3_THM_100K_PU(1)>;
-+		};
-+
-+		east-thermal {
-+			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX4_THM_100K_PU(1)>;
-+		};
-+
-+		west-thermal {
-+			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX5_THM_100K_PU(1)>;
-+		};
-+	};
- };
- 
- &gpu_zap_shader {
-@@ -20,3 +106,33 @@ &gpu_zap_shader {
- &iris {
- 	status = "okay";
- };
-+
-+&pmk8550_vadc {
-+	channel@144 {
-+		qcom,adc-tm;
-+	};
-+
-+	channel@145 {
-+		qcom,adc-tm;
-+	};
-+
-+	channel@146 {
-+		qcom,adc-tm;
-+	};
-+
-+	channel@147 {
-+		qcom,adc-tm;
-+	};
-+
-+	channel@148 {
-+		qcom,adc-tm;
-+	};
-+
-+	channel@14a {
-+		qcom,adc-tm;
-+	};
-+
-+	channel@14b {
-+		qcom,adc-tm;
-+	};
-+};
-
--- 
-2.55.0
+>   	list_add_tail(&ctrl->list, &nvme_rdma_ctrl_list);
+>   	mutex_unlock(&nvme_rdma_ctrl_mutex);
+>   
+> @@ -2407,6 +2441,7 @@ static struct nvmf_transport_ops nvme_rdma_transport = {
+>   
+>   static void nvme_rdma_remove_one(struct ib_device *ib_device, void *client_data)
+>   {
+> +	struct nvme_rdma_removing_device removing = { .dev = ib_device };
+>   	struct nvme_rdma_ctrl *ctrl;
+>   	struct nvme_rdma_device *ndev;
+>   	bool found = false;
+> @@ -2414,6 +2449,7 @@ static void nvme_rdma_remove_one(struct ib_device *ib_device, void *client_data)
+>   	mutex_lock(&device_list_mutex);
+>   	list_for_each_entry(ndev, &device_list, entry) {
+>   		if (ndev->dev == ib_device) {
+> +			ndev->dying = true;
+>   			found = true;
+>   			break;
+>   		}
+> @@ -2425,6 +2461,7 @@ static void nvme_rdma_remove_one(struct ib_device *ib_device, void *client_data)
+>   
+>   	/* Delete all controllers using this device */
+>   	mutex_lock(&nvme_rdma_ctrl_mutex);
+> +	list_add(&removing.entry, &nvme_rdma_removing_list);
+>   	list_for_each_entry(ctrl, &nvme_rdma_ctrl_list, list) {
+>   		if (ctrl->device->dev != ib_device)
+>   			continue;
+> @@ -2433,6 +2470,10 @@ static void nvme_rdma_remove_one(struct ib_device *ib_device, void *client_data)
+>   	mutex_unlock(&nvme_rdma_ctrl_mutex);
+>   
+>   	flush_workqueue(nvme_delete_wq);
+> +
+> +	mutex_lock(&nvme_rdma_ctrl_mutex);
+> +	list_del(&removing.entry);
+> +	mutex_unlock(&nvme_rdma_ctrl_mutex);
+>   }
+>   
+>   static struct ib_client nvme_rdma_ib_client = {
+>
+> base-commit: 9eabc91952f9821824ca0288a76b3aba57961c6b
 
