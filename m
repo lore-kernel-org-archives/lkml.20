@@ -1,172 +1,387 @@
-Received: from mail-vk1-f180.google.com (mail-vk1-f180.google.com [209.85.221.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7794C222580
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 23:49:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6879A222580;
+	Sun, 30 Aug 2026 23:50:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788133761; cv=none; b=GV6eRubIvp90/MHirX2UgGUWOxGe+AirxC7botEtRIBwdQuTMaXsPlWvZDNFTZXCo1Hb2aKmlbV4Y96Ox3veeUBRpyWIYbdcoCtnLsqPVVujYhRMG/YG40MahX7XIlthRzSj3tpnNYBpm2Zojb13DDafdHJ2KLoRDRk3QRcDZBM=
+	t=1788133824; cv=none; b=elfg3CNLnY68gNah2SuumA22MmaHNCjpQBnGDvhNcZhfTndbsM/TDu550Ayogf1Afg7r4Tq5SnbYvYPhk4z0HnALF9xG90r8CJem3xNHAQqfvMt91/azc4tzIlJCYOzARunI+aD3/ATpjl//HsLl7Ro/EKFtgf7sQdgL7iNF/vc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788133761; c=relaxed/simple;
-	bh=KsaH5A6iFx83X/q5AlegGGoA6eyhF2dPglZuD/fD+gE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=HBhXBePMt4hq/Bl4Rd3rauAy/9rEbJa7+oZxJZ3owzRz/bTBlF5ZMG0rnu+3blGJHavIu05R3uaryEc9wsemNAbqZgZRnuju3t7IzoZE/vjFKcSaKKzOaXe9zHLDtVCSrG4tzfEYvpX0ffatI/2FxTVnmPwmOfEdWntkmTvKHxo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RwsySV44; arc=none smtp.client-ip=209.85.221.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788133824; c=relaxed/simple;
+	bh=AXbRSg4KqFY98P1RsKPqC7UNPh24HY7QscljV6abne4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XC0q5IorwGmigLV3Est/CtuoIKpu7BxcO7ZZQZidJ54QrnouqW46dGHwy1UplAprJq//GQL/1BJHUzFEoj0uoTxYg9rbsPo2miq4f6QeJPfNUw2xJtuAHJAPJR2MfALBRE4Mj6feL4SIbmcJ6UUb0btP1ojdksmLdWujP2OlFQE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XG/UkaDZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RwsySV44"
-Received: by mail-vk1-f180.google.com with SMTP id 71dfb90a1353d-5bf5370d38fso1099271e0c.2
-        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 16:49:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788133759; x=1788738559; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=nDrnzNFgJwSAtWrkQNEzs8cKW+XO1e6VplYcP0/oLkg=;
-        b=RwsySV44QpwVq5IiTh6UNCFw8WPZo9d4sLzfRhPW7bq5R48NohzLAIhT1dvQeQysgo
-         AzRdIZybMCCnGQJD00sjQnNpZ3j/PklROppnn6Bjm9g4sGb0GRVCxv0EWXHPy939oPgS
-         2lAehDnLKoLj7guPph5SBRdhUF9l84hRbYythZYiLbBytOonWdrJoEIEstN0jLygRb0J
-         d2z/Q4YcQpPKpTldI3QKb/kifz9QcPStj8OA1Cm5BJQlFMGE45emYsBpY3yG6NgcoD5Z
-         MH+CYbAy/XLhRApjBut48iyRRXPnTiCdeaKyXH2On9qtWmcVLtVatmbB67UDFm4uKgt5
-         9eBQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788133759; x=1788738559;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=nDrnzNFgJwSAtWrkQNEzs8cKW+XO1e6VplYcP0/oLkg=;
-        b=ccMpBj+QgQ84i9X1zbtHHsaGtnF5c9QMC+DCKoqrlhzB3UnI++OtxfuEyGCP4b8IgF
-         8/NNQDk+Rhfaay6zG/lp/kkKv+9ZNqIsbORaRpZgRzypsVMXQgzyd2DDTZ8e0sIwBtRb
-         UVkv3YBKrOpD3cK0nip2vw0yder0smnZ3cy+EPhC/48URkHr16fjnMYjrGs2XUaoEUou
-         NsclmUEU9pq4my26lCV4RysBgErl993VeLFw2w5k3QtuI8JFwATe6WrOOwttG1jT2i+w
-         ObNGlV2CV9CGROSh6kj1+mDbLkwlMYMLxCFJn2RnUVSevsJ9VzwGavwHhatR4HUVB3WX
-         DO1Q==
-X-Forwarded-Encrypted: i=1; AHgh+Rr1c3MaRJHRHxoknjODYvKMT6JyLaudjfCTLT7fH75hF83VSHkPONYtyFJWGW0SoTh6Iinq4nqK8g0s6fY=@vger.kernel.org
-X-Gm-Message-State: AFuF++mvkneVD5eZY/pwvNdN7TPpdCQkBuPwdXfGTszG0R+gTtgRF6OA
-	oh8NpND92kpUpStHsBFhSUsWjt2OFgOJoEn+Ry4iN3PmupdzOoYRwpmA
-X-Gm-Gg: AR+sD13zBjd5mvn/I2d5srL8QaIgJbF2XgKW8g4H/4V5/XlvMx/SXk8Lb4q/DOfXzPJ
-	7BJBf7exqjjBSkPpY4EWrrB70OZ5cRmSDQcwDTVBhDQOwpzc7ZaqGcgn+GmH3XJzqS6Zenm8+By
-	G7pf6Q/wbdlNd3TK4sML7MXXuhnQZncSKhCowIDdpgZbCh/9QhOxgGmyDgZDtQpkqUwQ0DVlmm8
-	ONWlUbvcZ/rlrSb+Zd4aDEZK5hMQsYZ9rUmapAq6tgXgGju+IzNtAR35zl8w07gPUJCStPdhnqJ
-	m2UNGxtReSFb7DVk92PNq4yjXPSR4SjsL44QXPEFNshEIDHacVwN/c7YxIQpA2xT6Qdqgo5qRXJ
-	1M3ptz+YawMWfhVlebWPRYKCBuqe/FQylxkGlIjc92e++O/zP/PAyf7UgtD3U0zVDcEf/kE385j
-	h9qmVB/RuSasRK445Ay37yMBo1ydgak/E8OWuMx8m1S3MoLTy/qXNKrsE+PCQf
-X-Received: by 2002:a05:6122:1c85:b0:5bd:aba5:3830 with SMTP id 71dfb90a1353d-5c680ebbf4fmr7108211e0c.0.1788133759221;
-        Sun, 30 Aug 2026 16:49:19 -0700 (PDT)
-Received: from pop-os ([2804:14c:daa2:8daa:5c26:a166:6a81:daf2])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c7159c4c8asm6920968e0c.0.2026.08.30.16.49.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 30 Aug 2026 16:49:18 -0700 (PDT)
-From: Giovanna Macedo Cox <giovannamccds@gmail.com>
-To: Daniel Pereira <danielmaraboo@gmail.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>
-Cc: linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Giovanna Macedo Cox <giovannamccds@gmail.com>
-Subject: [PATCH] docs: translations: pt_BR: translate coding-assistants.rst
-Date: Sun, 30 Aug 2026 20:45:13 -0300
-Message-ID: <20260830234515.63131-1-giovannamccds@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XG/UkaDZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4E121F000E9;
+	Sun, 30 Aug 2026 23:50:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788133822;
+	bh=nk53B6mnC9ONZ1g/6QwuuQHCnqJzmlXt3JqTbZUgnCI=;
+	h=From:To:Cc:Subject:Date;
+	b=XG/UkaDZQPkduayD+DgkEP6WGK4n9FBOxeDCEY1VkZL1L9hsOEpr6KBq7oFmAlNQt
+	 s+OJ3zF/FQ3pFqmC16/KEbAiTewpqsjffw+GVe8f5HaNiOx2j80mzn9iIqZqdTh7kS
+	 wQuQCfeOF2T8N54osUOiBfDOEWpIE3sMW9DrYG/fM1B6jceJIZzj9AZ4k9o/BwVRYV
+	 /8ojm9c+wjeKqY5k4CNRViSn2Gk3fJ3N+ylME7NFys/qn3SWptzQBtyAzsbFFVGxOB
+	 B/EevLuQ+sFi+h4HbArqSitB1Jthq7ZHYOrz4DtNTbLqqxr98uOhu1+StD/Nlbrxoi
+	 OuKwCtfgDlAoA==
+From: SJ Park <sj@kernel.org>
+To: damon@lists.linux.dev
+Cc: SJ Park <sj@kernel.org>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: DAMON Release Newsletter for v7.3-rc1
+Date: Sun, 30 Aug 2026 16:50:13 -0700
+Message-ID: <20260830235014.64406-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Translate coding-assistants.rst into Brazilian Portuguese
-and add it to the pt_BR process documentation index.
+Hello community,
 
-Assisted-by: ChatGPT:GPT-5.5
-Signed-off-by: Giovanna Macedo Cox <giovannamccds@gmail.com>
----
- .../pt_BR/process/coding-assistants.rst       | 59 +++++++++++++++++++
- .../translations/pt_BR/process/index.rst      |  1 +
- 2 files changed, 60 insertions(+)
- create mode 100644 Documentation/translations/pt_BR/process/coding-assistants.rst
 
-diff --git a/Documentation/translations/pt_BR/process/coding-assistants.rst b/Documentation/translations/pt_BR/process/coding-assistants.rst
-new file mode 100644
-index 000000000..18e9b69ad
---- /dev/null
-+++ b/Documentation/translations/pt_BR/process/coding-assistants.rst
-@@ -0,0 +1,59 @@
-+.. SPDX-License-Identifier: GPL-2.0
-+
-+IA Assistente de código
-++++++++++++++++++++++++
-+
-+Esta documentação fornece um guia para ferramentas de IA e desenvolvedores que
-+usam IA como assistente para contribuir para o kernel do Linux.
-+
-+Ferramentas de IA que ajudam desenvolvedores do Linux kernel devem seguir os
-+padrões de desenvolvimento do kernel:
-+
-+* Documentation/process/development-process.rst
-+* Documentation/process/coding-style.rst
-+* Documentation/process/submitting-patches.rst
-+
-+Para guias e conteúdo sobre códigos gerados por assistentes de IA veja:
-+
-+* Documentation/process/generated-content.rst
-+
-+Licenças e Requisitos Legais
-+============================
-+
-+Todas as contribuições devem estar de acordo com os requisitos de licença do
-+kernel:
-+
-+* Todo código deve ser compatível apenas com GPL-2.0
-+* Use identificadores SPDX de licença apropriado
-+* Veja Documentation/process/license-rules.rst para mais detalhes
-+
-+Assinatura e certificado de origem do desenvolvedor
-+===================================================
-+
-+Agentes de IA NÃO DEVEM ser incluídos nas tags de assinaturas. Apenas pessoas
-+podem legalmente certificar o Certificado de Origem do Desenvolvedor (DCO).
-+A pessoa que envia é responsável por:
-+
-+* Revisar todo código gerado por IA
-+* Garantir conformidade com os requisitos de licença
-+* Acrescentar sua própria tag de certificado de assinatura o DCO
-+* Assumir toda responsabilidade pela contribuição
-+
-+Atribuições
-+===========
-+
-+Quando ferramentas de IA contribuir com o desenvolvedor kernel, a atribuição
-+adequada ajuda a rastrear a função da IA no processo de desenvolvimento.
-+Contribuições devem incluir a tag de assistência seguindo este formato::
-+
-+    Assisted-by: LLM [FERRAMENTA1] [FERRAMENTA2]
-+
-+* ``[FERRAMENTA1] [FERRAMENTA2]`` são usadas ferramentas opcionais de análise
-+  especializadas (Exemplo: coccinelle, sparse, smatch, clang-tidy)
-+
-+Ferramentas básicas de desenvolvimento (git, gcc, make, editors) não são
-+listadas.
-+
-+Exemplo::
-+
-+  Assisted-by: LLM coccinelle sparse
-\ No newline at end of file
-diff --git a/Documentation/translations/pt_BR/process/index.rst b/Documentation/translations/pt_BR/process/index.rst
-index eda2a3fc5..6c68ac496 100644
---- a/Documentation/translations/pt_BR/process/index.rst
-+++ b/Documentation/translations/pt_BR/process/index.rst
-@@ -59,6 +59,7 @@ Estas são as regras pelas quais tentamos viver na comunidade do kernel
-    Modelos de Maturidade para Contribuição no Kernel Linux <contribution-maturity-model.rst>
-    Declaração sobre Drivers do Kernel <kernel-driver-statement>
-    Estilo de gerenciamento do kernel Linux <management-style>
-+   Assistentes de código <coding-assistants>
-    Conclave (Continuidade do projeto) <conclave>
- 
- Lidando com bugs
--- 
-2.55.0
+This newsletter covers DAMON features that landed on or queued for the
+mainline, development statistics and misc events that were noteworthy in my
+opinion, that were happened from v7.1-rc1 (2026-06-28) to v7.2-rc1 (2026-08-30)
+time period.
 
+The newsletter covering the previous release cycle (v7.1-rc1..v7.2-rc1) is
+also available [1].
+
+TL; DR
+======
+
+Just after breaking the record of DAMON history in the last cycle, this cycle
+again broke the record.  It was the busiest cycle of DAMON history.  20 authors
+made 161 commits and 2283 lines of changes for DAMON on the Linux mainline.  A
+new data attributes monitoring feature, a few optimizations for DAMON users,
+and quite a lot of refactoring are delivered.  New DAMON usages and development
+projects are shared.  The first DAMON (nano) Conference is scheduled.
+
+
+Changes Landed on 7.2
+=====================
+
+All 95 commits that were landed on v7.2-rc1 have successfully landed on v7.2.
+In addition to those, 15 additional hotfixes have merged into 7.2.
+
+Those from 7.2-rc1 include a few user-visible and impactful features.  To pick
+only two among those, new DAMOS auto-tuning goal for tiered memory system
+(node_eligible_mem_bp, commit 9138e27a3bc38) and data attributes monitoring
+(commit 45c49d9fd6089) are introduced.  Read the previous newsletter [1] for
+more details.
+
+
+Chanegs Landed for 7.3
+======================
+
+During the 7.3-rc1 merge window, 146 DAMON patches have landed via the MM pull
+requests [2,3].  Introducing a few of changes that could introduce non-trivial
+impacts.
+
+New Features
+------------
+
+In this merge window, the below user-visible feature is added.
+
+1. Commit 37aae41c1056: Patch series "mm/damon: introduce data attributes only
+   monitoring".
+
+This feature makes DAMON useful for monitoring not only the data access
+pattern, but also general data attributes.  This is an important feature for
+extending DAMON for not only access monitoring but general data attributes
+monitoring.  It is also the foundation part of ongoing project [4] for multiple
+access check primitives support.   As a followup, we are working on extending
+data attributes to include access events.  Once it is done, access monitoring
+will be just a part of flexible attributes monitoring.
+
+Optimizations
+-------------
+
+This merge window also introduces below DAMON internal behavior optimizations.
+
+1. Commit 1a582e6e0174: Patch series "mm/damon/core: detect internal variation
+   above max_nr_regions/2", v3.
+2. Commit aa497a270f68: Patch series "mm/damon: provide pseudo moving sum
+   probe_hits".
+3. Commit 6c25083f7ae7: mm/damon/ops-common: use nr_accesses moving sum for
+   quota score
+
+The first optimization is contributed by Jiayuan from Shopee.  With it, DAMON
+makes more efforts on the monitoring accuracy.  The second optimization makes
+snapshot-based data attributes monitoring (update_schemes_tried_regions) just
+works.  Without it, DAMON tracepoints were the only reliable way to get
+attributes monitoring results.  The third optimization improves DAMOS quality
+in setups that separately and differently have schemes apply interval and
+monitoring aggregation interval.
+
+Refactoring
+-----------
+
+This merge window also introduced many cleanups and refactoring.  Below three
+changes among those may be noteworthy.
+
+1. Commit b90408ef1163: Patch series "mm/damon: validate all parameters in the
+   core".
+2. Commit 5bf9c1f3a97e: Patch series "mm/damon: refactor
+   damon_{start,stop,commit}() for simple error handling".
+3. Commit e0ea9467dbef: Patch series "mm/damon/core: hide core-private struct
+   fields".
+
+These are mostly motivated from recently found classes of bugs.  Hopefully
+these refactoring will reduce future bugs of same classes.
+
+Changes Cooking for >7.3
+========================
+
+A number of patches are queued and being developed for future mainline landing.
+My personal tree for those (damon/next) contains 214 downstream patches as of
+this writing.  Not all the patches are ready to be merged.  Some will be
+squashed or broken down.  Anyway, the number was 231 for the last release
+cycle.  This cycle might be less busier than the last cycle, but still expected
+to be non-idle.
+
+Statistics
+==========
+
+Putting simple statistics for the last release period.  Tools other than git
+that are used here for getting the numbers are available [4,5] at GitHub.
+
+In short, this cycle was the busiest cycle of DAMON development history.
+
+Number Hotfixes and Non-hotfixes
+--------------------------------
+
+15 DAMON hotfixes have landed on 7.2.
+
+    git -C ./ log v7.2-rc1..v7.2 --oneline --no-merges -- \
+            Documentation/ABI/testing/sysfs-kernel-mm-damon \
+            Documentation/admin-guide/mm/damon/ Documentation/mm/damon/ \
+            Documentation/vm/damon/ include/linux/damon.h \
+            include/trace/events/damon.h mm/damon/ samples/damon/ \
+            tools/testing/selftests/damon  | wc -l
+    15
+
+146 six DAMON changes have landed on 7.3-rc1 during the merge
+window.
+
+    git -C ./ log v7.2..linus/master --oneline --no-merges -- \
+            Documentation/ABI/testing/sysfs-kernel-mm-damon \
+            Documentation/admin-guide/mm/damon/ Documentation/mm/damon/ \
+            Documentation/vm/damon/ include/linux/damon.h \
+            include/trace/events/damon.h mm/damon/ samples/damon/ \
+            tools/testing/selftests/damon  | wc -l
+    146
+
+The numbers for the last ten release cycles are like below:
+
+    7.2   fixes:  15  7.3   changes: 146
+    7.1   fixes:  11  7.2   changes:  95
+    7.0   fixes:  9   7.1   changes:  64
+    6.19  fixes:  7   7.0   changes:  68
+    6.18  fixes:  7   6.19  changes:  78
+    6.17  fixes:  15  6.18  changes:  41
+    6.16  fixes:  8   6.17  changes:  93
+    6.15  fixes:  0   6.16  changes:  22
+    6.14  fixes:  6   6.15  changes:  62
+    6.13  fixes:  4   6.14  changes:  57
+
+The 6.17 development cycle was the busiest DAMON development cycle in history
+(~6 years since 5.15) before the 7.2 cycle.  The 7.2 cycle broke the record.
+And right after that, this cycle for 7.3 broke the record again.
+
+Authors, Commits and Changed Lines
+----------------------------------
+
+In this cycle, 20 people made gratful 161 commits and 2283 lines of changes
+for DAMON on the Linux mainline.
+
+    $ # stat for number of commits
+    $ ./lazybox/version_control/authors.py ./linux/ \
+            --since v7.2-rc1 --until v7.3-rc1 \
+            --skip_merge_commits --linux_subsystems DAMON
+    1. SJ Park <sj@kernel.org>: 130 commits
+    2. Song Hu <husong@kylinos.cn>: 6 commits
+    3. Kunwu Chan <chentao@kylinos.cn>: 3 commits
+    4. SeongJae Park <sj@kernel.org>: 3 commits
+    5. Jiayuan Chen <jiayuan.chen@shopee.com>: 2 commits
+    6. Ruslan Valiyev <linuxoid@gmail.com>: 2 commits
+    7. Cheng Nie <niecheng1@uniontech.com>: 2 commits
+    8. Xuewen Wang <wangxuewen@kylinos.cn>: 1 commits
+    9. Jiahui Zhang <jiahuitry@outlook.com>: 1 commits
+    10. Enze Li <lienze@kylinos.cn>: 1 commits
+    11. liyouhong <liyouhong@kylinos.cn>: 1 commits
+    12. Lorenzo Stoakes <ljs@kernel.org>: 1 commits
+    13. wang wei <a929244872@163.com>: 1 commits
+    14. Sailesh Nandanavanam <saileshnandanavanam@gmail.com>: 1 commits
+    15. Asier Gutierrez <gutierrez.asier@huawei-partners.com>: 1 commits
+    16. Doehyun Baek <doehyunbaek@gmail.com>: 1 commits
+    17. Philippe Laferriere <plafer@proton.me>: 1 commits
+    18. Akinobu Mita <akinobu.mita@gmail.com>: 1 commits
+    19. Arnd Bergmann <arnd@arndb.de>: 1 commits
+    20. Zenghui Yu <yuzenghui@huawei.com>: 1 commits
+    # 20 authors, 161 commits in total
+
+    $ # stat for number of lines
+    $ ./lazybox/version_control/authors.py ./worktree.linux/ \
+            --since v7.2-rc1 --until v7.3-rc1 --skip_merge_commits \
+            --linux_subsystems DAMON --sortby lines
+    1. SJ Park <sj@kernel.org>: 1810 lines
+    2. Jiayuan Chen <jiayuan.chen@shopee.com>: 113 lines
+    3. Song Hu <husong@kylinos.cn>: 95 lines
+    4. Ruslan Valiyev <linuxoid@gmail.com>: 85 lines
+    5. Kunwu Chan <chentao@kylinos.cn>: 34 lines
+    6. Cheng Nie <niecheng1@uniontech.com>: 33 lines
+    7. Sailesh Nandanavanam <saileshnandanavanam@gmail.com>: 28 lines
+    8. SeongJae Park <sj@kernel.org>: 26 lines
+    9. Doehyun Baek <doehyunbaek@gmail.com>: 20 lines
+    10. liyouhong <liyouhong@kylinos.cn>: 9 lines
+    11. Xuewen Wang <wangxuewen@kylinos.cn>: 6 lines
+    12. Lorenzo Stoakes <ljs@kernel.org>: 5 lines
+    13. Akinobu Mita <akinobu.mita@gmail.com>: 4 lines
+    14. Zenghui Yu <yuzenghui@huawei.com>: 3 lines
+    15. Jiahui Zhang <jiahuitry@outlook.com>: 2 lines
+    16. Enze Li <lienze@kylinos.cn>: 2 lines
+    17. wang wei <a929244872@163.com>: 2 lines
+    18. Asier Gutierrez <gutierrez.asier@huawei-partners.com>: 2 lines
+    19. Philippe Laferriere <plafer@proton.me>: 2 lines
+    20. Arnd Bergmann <arnd@arndb.de>: 2 lines
+    # 20 authors, 2283 lines in total
+
+Snapshots of the number of authors, commits and changed lines for the last ten
+cycles are below.  The snapshots for the entire DAMON history is also available
+[7] at the DAMON project blog.
+
+    <version>  <nr_authors>  <nr_commits>  <nr_lines>
+    v7.3-rc1   21            162           2283
+    v7.2-rc1   14            109           3311
+    v7.1-rc1   9             77            1070
+    v7.0-rc1   12            75            1279
+    v6.19-rc1  10            85            1640
+    v6.18-rc1  13            59            864
+    v6.17-rc1  8             104           3785
+    v6.16-rc1  5             22            564
+    v6.15-rc1  7             68            1479
+    v6.14-rc1  8             61            4008
+
+In terms of number of contributors and number of commits, this was the busiest
+cycle in DAMON's development history.
+
+DAMON user-space tool (damo) also got a significant amount of changes.
+
+    ./lazybox/version_control/authors.py ./damo \
+            --since 2026-06-28T12:01:31-07:00 \
+            --until 2026-08-30T13:34:40-07:00 \
+            --skip_merge_commits
+    1. SJ Park <sj@kernel.org>: 257 commits
+    2. Michel Lind <salimma@fedoraproject.org>: 1 commits
+    3. Enze Li <lienze@kylinos.cn>: 1 commits
+    4. Daniel Lysyi <daniellysy566@gmail.com>: 1 commits
+    5. oopiec <157018150+oopiec@users.noreply.github.com>: 1 commits
+    # 5 authors, 261 commits in total
+
+The last line was "4 authors, 151 commits in total" for the last cycle [1].
+
+Mailing List Traffic
+--------------------
+
+DAMON mailing list was quite busy.
+
+    $ hkml list damon --since v7.2-rc1 --until v7.3-rc1 --collapse \
+            --stat_only --stdout --ignore_cache
+    # stat for total mails
+    # 2019 mails, 183 threads, 180 new threads
+    # 871 patches, 148 series
+    [...]
+
+The traffic for the last ten cycles were like below.  The numbers for the
+entire DAMON development history is also available [7] at DAMON project blog.
+
+    <version>  <nr_mails>  <nr_threads>  <nr_new_threads>  <nr_patches>  <nr_series>
+    v7.3-rc1   2019        183           180               871           148
+    v7.2-rc1   1486        164           142               671           126
+    v7.1-rc1   1098        152           147               450           129
+    v7.0-rc1   426         111           58                223           43
+    v6.19-rc1  414         48            43                222           38
+    v6.18-rc1  563         82            62                211           53
+    v6.17-rc1  499         78            72                256           64
+    v6.16-rc1  147         40            31                63            22
+    v6.15-rc1  263         56            41                176           34
+    v6.14-rc1  260         55            34                154           23
+
+So the traffic is continuously and exponentially increasing.  By every traffic
+metric, the last cycle was the busiest cycle in DAMON's history.
+
+Events
+======
+
+Lian Wang from ProcessMission continued working on mTHP monitoring
+improvement.  As a part of it, they developed and shared patches [8] for
+extending DAMOS to flexibly handle mTHP collapse and split.
+
+Asier Gutierrez from Huawei continued working on DAMOS tuning goal for THP
+(hugepage_mem_bp).  The latest version [9] of the series has passed my humble
+review.  Hopefully it will be merged into 7.4-rc1.
+
+Kunwu Chan and Lian Wang developed and shared [10] ARM SPE based DAMON backend.
+As soon as the major milestones of ongoing projects for multiple DAMON access
+check primitives support [4] is completed, this series will also hopefully be
+merged.
+
+Jason Angelov developed and shared [11] a user-space pager that finds cold
+pages using DAMON and compresses those.
+
+Krishna Iyer from Crusoe developed and shared patches [12] for monitoring
+hugetlb pages on physical address space mode.  It also includes interesting
+test results on Crusoe's VM host setups.
+
+I'm also more that excited to share that we will have our first DAMON (nano)
+Conference [13] at LPC this year.  There will be five small sessions covering
+the evolution of DAMON for multiple access check primitives, memory tiering,
+huge pages, and AI cloud.  Refer to the website [13] for more details.
+
+Newsletter Subscription
+=======================
+
+This newsletter series is posted to DAMON mailing list [14] and archived on the
+project blog [15], for each release.  If you want a reliable delivery of this
+newsletter series to your inbox, subscribing to the mailing list [16] could be
+an option.  If the mailing list traffic is too much, feel free to ask me (send
+mail to sj@kernel.org) to [b]cc you for each newsletter posting.
+
+References
+==========
+
+[1] 7.2-rc1 news: https://lore.kernel.org/20260628211904.94361-1-sj@kernel.org/
+[2] First MM PR for 7.3-rc1:
+    https://lore.kernel.org/178728181878.600189.588163658498005550.pr-tracker-bot@kernel.org
+[3] Second MM PR for 7.3-rc1:
+    https://lore.kernel.org/20260826152330.9cdd482b43726942d6c149cb@linux-foundation.org/
+[4] DAMON access primitives extension roadmap:
+    https://lore.kernel.org/20260525225208.1179-1-sj@kernel.org/
+[5] authors.py: https://github.com/sjp38/lazybox/blob/master/version_control/authors.py
+[6] hkml: https://github.com/hackermail
+[7] DAMON development stat history: https://damonitor.github.io/posts/dev_stat/
+[8] DAMOS mTHP collapse/split series:
+    https://lore.kernel.org/20260720030327.80153-1-lianux.mm@gmail.com
+[9] hugepage_mem_bp series:
+    https://lore.kernel.org/20260720120140.881468-1-gutierrez.asier@huawei-partners.com
+[10] ARM SPE-based DAMON backend:
+     https://lore.kernel.org/all/20260816142222.689624-1-kunwu.chan@linux.dev/
+[11] Cold Pages DAMON Pager:
+     https://github.com/jasonangelov/damon-compression-pager
+[12] paddr hugetlb monitoring series:
+     https://lore.kernel.org/20260830051407.50008-1-kiyer@crusoe.ai/
+[13] DAMON (nano) Conference: https://lpc.events/event/20/contributions/2453/
+[14] DAMON mailing list: https://lore.kernel.org/damon
+[15] News letter on project blog: https://damonitor.github.io/tags/release_news/
+[16] Mailing list subscription guide: https://subspace.kernel.org/subscribing.html
+
+
+Thanks,
+SJ
