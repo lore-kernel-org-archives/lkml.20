@@ -1,85 +1,158 @@
-Received: from relay.hostedemail.com (smtprelay0016.hostedemail.com [216.40.44.16])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59A791F3BA2;
-	Sun, 30 Aug 2026 01:22:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AEEB1C84A0;
+	Sun, 30 Aug 2026 01:23:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788052936; cv=none; b=cWsyzU8UqVWqZNFycvEjGW6cc70kOmdZLLYqO22lwflft5y4ovpcnycnl/OgkfQ1cIRijTfE6Zn5hdBMzCxMKTO9QqA62MbEHGZbJyy65Wy3uToiPQO0K008YKQJvRwQRFVN2xR/Ku7g+/NIrd2oGO7zpG/kj1hXaKTJNt5gbao=
+	t=1788052984; cv=none; b=UbBKT3pMpB88/+Rq5FnStBPXRREJV97ZJBmflDqMbmXS5vN0tg0fcq1R9JlCdNERuC9eL4xTk1zh0ZzEh9gn6RfTzT/wqCEIek0NtlE7iDKWvML4rL7CX1tRGYVHmLa0yHaN2ZSe4YeEvOsV67F+bM+PSMwB+t1MpUbk5VrS07U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788052936; c=relaxed/simple;
-	bh=3IHIEfnt4vtTfFYqiZiEgy+nV7fnnKTw5A1pNm63pVs=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=e3FdlqkgTx/4Lb5EmbEsnMn3HVUJIodqQzdaumW1Zlghlvef9xkevADewlqQUgySIxxYUNqIAy7nqX08bCt8h7JEjfXUt/EPR2HNeXQ7im3yX/rYNXrSVkJ6JrM3/uTWC3b6mfDRIifoawiociXKMJ0xzBVU6GPHU4omUE5tHJE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=aUszwaZc; arc=none smtp.client-ip=216.40.44.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	s=arc-20240116; t=1788052984; c=relaxed/simple;
+	bh=RI+5wU5EtiUTV9CiTX6RS490GxlRGloS8lilxk43vr8=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=ItWDE/rqiQzQ+dA3S5KsRZCMa5F3YjcqRdPvWUDqviZATB/VbXpn3vdszaUYtn9+Be00ea3uo2uBUUBGP2hqzKO3BXE94OK9rq17LbIaczENUitqV5W9SeL2sBfpLhviTKLZo+QU7nDy6wJ76voMgBu8sinv2jM9NyRhPJKEhYo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YlBCetkP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="aUszwaZc"
-Received: from omf07.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay10.hostedemail.com (Postfix) with ESMTP id 209E4C01FB;
-	Sun, 30 Aug 2026 01:22:06 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf07.hostedemail.com (Postfix) with ESMTPA id E36492002D;
-	Sun, 30 Aug 2026 01:22:03 +0000 (UTC)
-Date: Sat, 29 Aug 2026 21:22:02 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Roman 'Hedin' Storozhenko <romeusmeister@gmail.com>
-Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Masami
- Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers
- <mathieu.desnoyers@efficios.com>, linux-riscv@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org
-Subject: Re: [PATCH] riscv: mm: Trace TLB flush path selection
-Message-ID: <20260829212202.57db49ca@robin>
-In-Reply-To: <20260829-tlb_tracepoint-v1-1-dfdaede7e741@gmail.com>
-References: <20260829-tlb_tracepoint-v1-1-dfdaede7e741@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YlBCetkP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E8001F000E9;
+	Sun, 30 Aug 2026 01:23:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788052983;
+	bh=chZALl9SReI0x7zfIHUauZgPEoTl2J93muIW1PYESZU=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=YlBCetkPFpkLNvCwksktJm7Wg8blq4HBsYz/qeB2ke++5gYne7G/k+1klQyVk3GLG
+	 eUFCx1p0v0Qgtj1qcbCrlXpY/+fyF+nQCoWRg3iIBzOTCY8r626o+Q2YbAIp5cfphO
+	 woYybqu05sk0W2uuXV89MB5tNOXj29Oi529L2WggKPI0AY6FoKQWSxg3mdNbHEi8Hq
+	 q8jh5IHfNW79H6WQq16eaAEkJkrYlWbZob5Q912sKYSwajbujfQLvzAgQVA1uX4L5m
+	 pDGTW9jIPWhJuIyzL4FWaPn/q9XssKEDhA4UVtYTCwn/6N2gmNXSz6WaEtTh4Fp8pd
+	 bFw41T48YUSsA==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Stat-Signature: ukqctwoyphodb13xzayqebz7r4f4dmek
-X-Rspamd-Server: rspamout02
-X-Rspamd-Queue-Id: E36492002D
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX1/sqVK0fFooPR1itamYVWNSbX7CA3T24RY=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=4sRIP04b9wK9VjtW1o66xTIPvzY/H2UE5MvlBWnKKPA=; b=aUszwaZcQphe/6RW9aC3DbZu7MgM5/QL73IiMyklaB2N9HFhtstT3ZO7M7kLXfT9PvYJ/xw4Wm96RKVVFNXOazvTMx3QGArSu2Ow8bsLHMPdvwwTMA3xoRD4SDH0QYAhlurMTpAXISJOsiVVK+NdX5z1IP1hgqw+r3HfMLYXUFE=
-X-HE-Tag: 1788052923-607629
-X-HE-Meta: U2FsdGVkX1/wQ+Oy6cCSBIUf39XP6U3b3Q63hB4YOQx2PzNY3F5HuBYUg3xu8fpdaMceW8EDr1Ht9QoMe7RjrFymxjxRR9SkxVn7s+pAmzieKjq7CDgqI7gRwRWymf2iNNrhkFLK+RaaPOJ7aSMnsIPsMRRrBwZxz8PZ15/oWaWaYJ1XLnjywIbxOrBam8ga6izc20V5RXF2re5X0mD0osJwtbVqIZ9sncZvCYwDZki8dyw7rZJFrcZK92QBfQiinedxY9N2N6tDxBMD3cQy5HNebtqnC2GUCNVpvfXdDT6dXoyq2FaMw5pOay+rscGtIhBXvWscl1Bez+1Er4SdnxBKH9PrYGVT
+Subject: Re: [PATCH v2 3/4] iio: accel: kionix-kx022a: Prevent memory leak
+ and fix state
+From: Jonathan Cameron <jic23@kernel.org>
+To: Matti Vaittinen <mazziesaccount@gmail.com>
+Cc: Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>, 
+ Matti Vaittinen <matti.vaittinen@linux.dev>, 
+ Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>, Mehdi Djait <mehdi.djait.k@gmail.com>, 
+ linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <9e4453fcc00df6ec988207df8916226d18aecb20.1787901813.git.mazziesaccount@gmail.com>
+References: <cover.1787901813.git.mazziesaccount@gmail.com>
+ <9e4453fcc00df6ec988207df8916226d18aecb20.1787901813.git.mazziesaccount@gmail.com>
+Date: Sun, 30 Aug 2026 02:22:41 +0100
+Message-Id: <178805296127.2788519.3966625158499254314.b4-review@b4>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2772;
+ i=jonathan.cameron@oss.qualcomm.com; h=from:subject:message-id;
+ bh=RI+5wU5EtiUTV9CiTX6RS490GxlRGloS8lilxk43vr8=;
+ b=owEBfwKA/ZANAwAKAVSFNJnE9BaIAcsmYgBqk4XjZmedrW/AcUDV8OCkE9v6XMagfj0yMmBvO
+ lAfieUi/bWJAkUEAAEKAC8WIQRuKWazh4QGUpEmgbFUhTSZxPQWiAUCapOF4xEcamljMjNAa2Vy
+ bmVsLm9yZwAKCRBUhTSZxPQWiHnkEACvXGdgwtgiDzlCsoAS+on19i+5vJ/GAZBQ+BrHYGa4vlj
+ Yf7l/eqo9r0CtZc8sMXprvvrdojDQijO7LCbYKA0d5rJVdSN0lAgkgwu7bHb++MXeypEm0tTZoE
+ 6F1OZ8C/P4dzuaK5QAhxuVpVsc3maR7h6WxnxLwbMDi6/Mr1O/hUtjGBydKSPBZtgpRlqpvENyV
+ QUKF9nuyoEX/sTYVGQgcwinpufPb5B55jlvWWoVuymTN5N9l4I/carbVZdLWb4AFLizqPSwPw9X
+ CitAt6CalyezIp/OFhwko3R3AxWSXd9GFOAQ1P1EHpI63kClBU9+cpLRlcur+PF8dhJ1N30m5BO
+ Rq9SghzEcGdkNO2FCiTx0ysuO4ipzumhSTXxvNejlkbAn52V8JmajJSpX47lZqvD6Z2UrjfHkm2
+ O0DBsYSJF+ytBqsHxIauesPGAi6dECv8zxI24mLQXl4GAc4F40EXDSZQwQou8FuLhoHgWqt3HCB
+ d7r8nmw9DEqVykajwitWecZ3b6SY8nuNsyGAp+b2JKNmzZRUn0/Ko24iyj1zPXeofVSiqGpLF2z
+ ugRfhMZL3/biMYbBPdnwBnjmDG/W1dHwvm5wP+5SSoEl92NezPniLhTpRKefwLdLDzVq9g7P9yP
+ PnyDhrH73BsHpMUwRNXpmdqBPQwvd2UrBcKjhig==
+X-Developer-Key: i=jonathan.cameron@oss.qualcomm.com; a=openpgp;
+ fpr=6E2966B387840652912681B154853499C4F41688
 
-On Sat, 29 Aug 2026 17:44:18 +0200
-Roman 'Hedin' Storozhenko <romeusmeister@gmail.com> wrote:
+> The driver allocates memory for samples at buffer enable path. If regmap
+> operation fails in the kx022a_fifo_enable() at the buffer enable path, the
+> allocated memory is never freed. Furthermore, the state information and
+> previous hardware configuration(s) aren't undone, potentially leaving
+> WMI interrupts and buffers enabled, or driver state flags wrong.
+> 
+> Free the memory and revert the hardware configuration and state flags on
+> error path.
+> 
+> Fixes: e7123a4dfcd7 ("iio: accel: kionix-kx022a: Refactor driver and add chip_info structure")
+> Signed-off-by: Matti Vaittinen <mazziesaccount@gmail.com>
+> Reviewed-by: Mehdi Djait <mehdi.djait@linux.intel.com>
 
-> +static __always_inline void
-> +riscv_tlb_trace_flush_path(const struct cpumask *cmask, unsigned long start,
-> +			   unsigned long size, unsigned long stride,
-> +			   unsigned long asid, bool has_mm,
-> +			   enum riscv_tlb_flush_path path)
-> +{
-> +	enum riscv_tlb_flush_scope scope;
+I'm not happy with the label naming.  It had me very confused!
+
+>
+> diff --git a/drivers/iio/accel/kionix-kx022a.c b/drivers/iio/accel/kionix-kx022a.c
+> index 02dd1db7a646..42bac6d724a0 100644
+> --- a/drivers/iio/accel/kionix-kx022a.c
+> +++ b/drivers/iio/accel/kionix-kx022a.c
+> @@ -980,26 +980,44 @@ static int kx022a_fifo_enable(struct kx022a_data *data)
+>  	guard(mutex)(&data->mutex);
+>  	ret = __kx022a_turn_on_off(data, false);
+>  	if (ret)
+> -		return ret;
+> +		goto err_free_out;
+Label naming wise - this one is talking about what needs doing (works for me!)
+>  
+>  	/* Update watermark to HW */
+>  	ret = kx022a_fifo_set_wmi(data);
+>  	if (ret)
+> -		return ret;
+> +		goto err_wmi_out;
+
+This one is talkign about why we went there.  For consistency would
+need to be something about turning off not this.
+
+>  
+>  	/* Enable buffer */
+>  	ret = regmap_set_bits(data->regmap, data->chip_info->buf_cntl2,
+>  			      KX022A_MASK_BUF_EN);
+>  	if (ret)
+> -		return ret;
+> +		goto err_wmi_out;
+
+This I'd kind of expect to undo the set wmi but it doesn't...
+
+>  
+>  	data->state |= KX022A_STATE_FIFO;
+>  	ret = regmap_set_bits(data->regmap, data->ien_reg,
+>  			      KX022A_MASK_WMI);
+>  	if (ret)
+> -		return ret;
+> +		goto err_buf_en_out;
+
+This one is back to what we are undoing (good).
+
+>  
+> -	return __kx022a_turn_on_off(data, true);
+> +	ret = __kx022a_turn_on_off(data, true);
+> +	if (ret)
+> +		goto err_on_out;
+
+This is another where we came form, not where we are going to.
+
 > +
-> +	if (!trace_riscv_tlb_flush_path_enabled())
-> +		return;
+> +	return ret;
 > +
-> +	scope = riscv_tlb_get_flush_scope(size, stride, has_mm);
-> +	trace_riscv_tlb_flush_path(start, size, stride, asid, has_mm, cmask,
-> +				   scope, path);
-
-instead of using two static calls you can use the new:
-
-   trace_call__riscv_tlb_flush_path()
-
-That is to be used instead of the trace_<event>() if it's behind a
-trace_<event>_enabled() check. That is because the
-trace_call__<event>() will always trigger the trace event logic because
-it should only be called when the trace event was enabled.
-
--- Steve
-
-
-> +}
+> +err_on_out:
+> +	regmap_clear_bits(data->regmap, data->ien_reg,
+> +			  KX022A_MASK_WMI);
+> +err_buf_en_out:
+> +	regmap_clear_bits(data->regmap, data->chip_info->buf_cntl2,
+> +			  KX022A_MASK_BUF_EN);
+> +	data->state &= ~KX022A_STATE_FIFO;
+> +err_wmi_out:
+> +	__kx022a_turn_on_off(data, true);
+> +err_free_out:
+> +	kfree(data->fifo_buffer);
 > +
+> +	return ret;
+>  }
+>  
+>  static int kx022a_buffer_postenable(struct iio_dev *idev)
+Thanks,
+
+-- 
+Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
