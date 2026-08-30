@@ -1,78 +1,70 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8768E283FE5;
-	Sun, 30 Aug 2026 21:27:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A557154763
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 21:28:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788125222; cv=none; b=nr4UVAxQdJ8kF0ybOfJH6WhYgr+Qb2E+FlgCd9skz/GXWMoJD+0lRWAKO6W5DfTP486VdO0e8Abo1XMhBr5vc/hRqxgIN/D+WADkdcfD3MqY4MCQ0p0tiJ8INobbSTC+DqHqIS4AMNNbGn97NrzWPGBAXRZCoe763S5COQplFA8=
+	t=1788125300; cv=none; b=nsHva0nI1aXANpqOfCpiA7Zi7vJaPLVl3VplqH9Cap0loS0X2mvWRtzZfxuxskeJ5y5zoCXUSeVmu9c1ySFa5IoLbMTkYFcR6beEmIvgfvUYCEfeRW8MdmSvbEbQffaHqGo6aL1UkJUOja5HSiFdJ0WPUavdKtKGhVuJRupd+vE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788125222; c=relaxed/simple;
-	bh=aVdW3BvEcbrycslt8Hyb+i4ZB2SPLEswpYHsRGMpHnw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JX8WZkB4CoZ4joxyXvFLYGtSPCT8ChEC+TSZt+r1RI9fGp7YUjt3Xgpuivyweo8Dk6ZQg6fmBtSp/NomxlquTCPqxyKfFqU/AzD9geQdpTdKqyI7Yw4aORUAaVc/MS5yLruRUZPE2Fs4dwuE8pE0yPS2TTgc4aa3B9eJZSKS2xY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ksmRdfUm; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ksmRdfUm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1FDEC1F000E9;
-	Sun, 30 Aug 2026 21:26:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788125221;
-	bh=3Y7cQIIUkLF3AFKNozzptSjXt1bW2+TYRTBhbmQb0p8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ksmRdfUmxvF4VmmK3XwpsyHGqIxR/3hBLIPv3xSMifPoHzx4BjDsI3wBnpX81m0Fg
-	 apM0eUq7Qxw/eKqrk5siegU06JR+4iHTWHo+pKyDYNFV26gNjerOV25rtoNnWbgk9v
-	 u0uc+3KmBS598zdLnYuSrCZFD15a7KJ56Kb92hOoj8cL5kTLd6aPsbY5/Et05lkGNO
-	 ohvfhxtmUUa5thNgU5MttqFY1EDJohz2JpgKWPh6nI+opybCnHFohu8OisNDuS4H+g
-	 BGtJSEBgFNik4VlnaNe7SbZRNNBOrJi/kAEotYpkhILf0aRIo5UnRI3uNT8dTaunmN
-	 bnvXlCeqRVnHg==
-Date: Mon, 31 Aug 2026 07:26:52 +1000
-From: Dave Chinner <dgc@kernel.org>
-To: Eric Peterson <linuxinstalled@gmail.com>
-Cc: Carlos Maiolino <cem@kernel.org>, linux-xfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Eric Peterson <eric.peterson@hpe.com>
-Subject: Re: [PATCH] xfs: add per-mount read/write I/O completion counters
-Message-ID: <apSgHPl4er6Jy9xi@dread>
-References: <20260828033429.4070267-1-linuxinstalled@gmail.com>
+	s=arc-20240116; t=1788125300; c=relaxed/simple;
+	bh=nWpDQmZNg8zKVk12QskQ7NNS05C4fI/JmZBKLdKyu8Q=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=NYFqRBeh2Pp9zWzsY4UooBuBLi1PvcUnZF4czKAgIENGAl+Urw/5WIzpt3QkqnYftxttoZSRzW5VQNV4JTzxGWtVGvvyQk+heYeylzkGT3r5u7KFc9xsnCTO5d4msYsH3gdLrHr4weo7DKWo9NxzDu+JF+QsA5hLKPtv0BbRUsc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=grimberg.me; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=grimberg.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-49b392ccaacso38261365e9.2
+        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 14:28:18 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788125297; x=1788730097;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=nWpDQmZNg8zKVk12QskQ7NNS05C4fI/JmZBKLdKyu8Q=;
+        b=dSGnxEtKP3ALVPax38w85mti2lfPVj9FoHBPjFrW+njBBTn+qiZZ0ahsfU9lZkLhY2
+         ycS5kzDWLlWISjspQHgdpBXC2wE4IttvTmmpD6PJ+QNZJH5Zi9BEjijt7ZxT9HBXfJCB
+         FbdGwDs2xhxFYNhw5IZpSma089JnOX5t258Rba4Tzkz1A5hgUUVVVGZ9QkicQqh8QIha
+         sgBTnLC+1m3n3NMZbVUFYeuhY8y9Ee3s+JAOeRrm1avJOMiqjUT0+UJ7zsgm8owH2fsQ
+         gRWiRu29s+D3AGIWxX2ytZB29S3WeKHr/YztW0Tys2BkfOJDaoDx6s3VHN7d9wyD+Yp2
+         MXNw==
+X-Forwarded-Encrypted: i=1; AHgh+RqjhwfP36oCf5EwcCHEmQ9tUcbkIeAAPCC6dm4dytAReEgj0PEahGWfO9HN8G7b/1KwYtdQyF99ZGB3tL0=@vger.kernel.org
+X-Gm-Message-State: AFuF++kQ0oYlTksTKkCmn/z1CBi7V62z5RXiJ76SYrxa4kqbpduepi1O
+	F/m+CI3xfnzM8oVZQqU0oxWkXnJgEiPUp2EtU57nWyyWWTCAGoUKx423
+X-Gm-Gg: AR+sD131X+Z24t9ZWB/IdH+xK7qtxUa0My8UfBHUUmbs6C64jg3XA3S+RtV4Bp+GTiG
+	MpuC4EoN2c6J/Dl85CukWomTNX7grJA/DULncLeg5KVYnpsiKRFZM7zx7nv3IbIrxmx8Bpy2RMl
+	nvWZeUUKFjDd6tC02+fsM56ml3nFkjo4DQ4uwAblJBX0gKRU23Ni4LyTqR3A3xeo+BaETVfwgVv
+	v54zP4F7ihiyzdCWZNzP2CIQftdQYst8ibn3XjSkF3WqKwE9juVCswYtoko/Hy2gPqikT8eq1JR
+	VWqhI0Ftu1yLpnAyuKuvBnDc6f+rWDyqg5vPphwqnaKS+MBTZFU9muLJKNnkTiX5ttX1ubUnD3c
+	WfSNQ1arB1Y27+rhV4zGL9IeJpy7h0cJ9E4TSz6mMaDZtiQeW0RpVYbnMeSLWW9kSRFcH3du/cb
+	28lynpKRy/5amIx5xlc0ZmX9/sZUgIuSVdpWhUgnz/drYjSwA3eS5Gyg0may+ydzbWbitvNjTFA
+	OoUj+2VCE4hx56pg4gO1w==
+X-Received: by 2002:a05:600c:19ca:b0:49c:cee0:f383 with SMTP id 5b1f17b1804b1-49ccee0f3cdmr140900095e9.16.1788125296808;
+        Sun, 30 Aug 2026 14:28:16 -0700 (PDT)
+Received: from [10.100.102.74] (89-138-77-243.bb.netvision.net.il. [89.138.77.243])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48436e2af45sm9074554f8f.9.2026.08.30.14.28.15
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 30 Aug 2026 14:28:16 -0700 (PDT)
+Message-ID: <62abbbbf-e0ea-4e06-af5c-1e1854ea6295@grimberg.me>
+Date: Mon, 31 Aug 2026 00:28:15 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260828033429.4070267-1-linuxinstalled@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] nvmet: reject namespace enable without device path
+To: Seokgyu Choi <tjrrb0313@gmail.com>, Christoph Hellwig <hch@lst.de>,
+ Chaitanya Kulkarni <kch@nvidia.com>
+Cc: linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org,
+ syzbot+f613f9f010ec98eb9d86@syzkaller.appspotmail.com
+References: <20260827075221.312935-1-tjrrb0313@gmail.com>
+Content-Language: en-US
+From: Sagi Grimberg <sagi@grimberg.me>
+In-Reply-To: <20260827075221.312935-1-tjrrb0313@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, Aug 27, 2026 at 09:34:29PM -0600, Eric Peterson wrote:
-> From: Eric Peterson <eric.peterson@hpe.com>
-> 
-> Add two per-mount statistics counters, xs_read_completions and
-> xs_write_completions, to complement the existing xs_read_calls and
-> xs_write_calls counters. The existing counters count I/O submissions
-> (entries); the new counters count I/O completions. The pair (calls,
-> completions) lets a consumer compute outstanding I/O as a queue depth
-> (calls - completions) and, via Little's law, derive an approximate
-> response time in userspace without any hot-path timestamping.
-
-I'm not sure the fs is the right place for this - the bdev has long
-exposed enough information for filesystem-wide queue depths to be
-monitored directly.  e.g:
-
-$ man iostat |grep -A 1 aqu-sz
-	aqu-sz  The average queue length of the requests that were
-		issued to the device.
-$  pminfo -t disk.dev.avg_qlen
-disk.dev.avg_qlen [average read and write queue length]
-$
-
-and so on.
-
-Hence this really doesn't seem like something we should be trying to
-infer from indirect filesystem stats. Why can't you use the bdev
-stats to get the actual filesystem wide queue depth information?
-
--Dave.
--- 
-Dave Chinner
-dgc@kernel.org
+Reviewed-by: Sagi Grimberg <sagi@grimberg.me>
