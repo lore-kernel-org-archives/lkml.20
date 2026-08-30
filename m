@@ -1,347 +1,244 @@
-Received: from flow-b5-smtp.messagingengine.com (flow-b5-smtp.messagingengine.com [202.12.124.140])
+Received: from mout.gmx.net (mout.gmx.net [212.227.15.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 435E730EF89;
-	Sun, 30 Aug 2026 23:10:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B49930674C;
+	Sun, 30 Aug 2026 23:10:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.15.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788131422; cv=none; b=DlSpe2/hSBv2/iDsx5PUP/uHvyac5slQpDC8zxlLERIIP71lJv2dv+wWz1xm4MFl9e5d196ii8YwRIRQiqw3ZxtzLy70GPofdimYQ64Q0HukMBQRHsvANz5+mMgNfgeW8s2qjXE5hJkJZbJm3+9QmpCFdtiIbcm580J7SCOI1+w=
+	t=1788131451; cv=none; b=ksszBCUhw7r+h99aH658OW5a0W1Y2CfNcPH34/BEXrCoToyIdKar6PU4OV71wWdbAfG3a2xWE9NbpJXXfhSRML+zXOvo4vpIwisFaHSYdiQkL57zX/ELMmQfu/TmToix2r6ggpThvHrgpjlgzxbJdph2ROfrq8MKHc+eaMjewpo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788131422; c=relaxed/simple;
-	bh=Ntb372e/rWIeBr1J4NjUE3vuIDUZz1AUEM6kRXEBLvA=;
-	h=Content-Type:MIME-Version:From:To:Cc:Subject:In-reply-to:
-	 References:Date:Message-id; b=DNxN6ZRXTSRF6BSj5LSnd/NMQIHjoi8xch+9yUq/o0n2KyPhvW5M8k6q16VvuFcd+ifjHo6+ol92jEd2yWs+UJKRQAxbmWjw4YyyTLEY6Gjg2VykBeihmk/VuvU+n2LwW1+Qg5XLk7YufASniVqzEaQ8O4H6wJlp41yQpJ6hHGY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ownmail.net; spf=pass smtp.mailfrom=ownmail.net; dkim=pass (2048-bit key) header.d=ownmail.net header.i=@ownmail.net header.b=Qo6ieQvu; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=VPm/7Fhe; arc=none smtp.client-ip=202.12.124.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ownmail.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ownmail.net
+	s=arc-20240116; t=1788131451; c=relaxed/simple;
+	bh=OaSoxd7hPhZfCMoQILKtVbQ9kvLNoIpDYbHoBrV7hkU=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=gs532Sf3dvJGPvVqynDk5JAmnPQOJhaflxGg2cCaqkMXLrNPMuQ6WT10bHeJbWwyTPbilVRE1eGdiLPFdFsrfekRIYf+L+aPXR5exwsHJI+z8quV220h8aswnNJVdfW0tc5q9t/IZquXlPLROBS7mHyjBecLmwY1nbJh0KwFock=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de; spf=pass smtp.mailfrom=gmx.de; dkim=pass (2048-bit key) header.d=gmx.de header.i=w_armin@gmx.de header.b=algW4sx0; arc=none smtp.client-ip=212.227.15.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ownmail.net header.i=@ownmail.net header.b="Qo6ieQvu";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="VPm/7Fhe"
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
-	by mailflow.stl.internal (Postfix) with ESMTP id E9FB813001B0;
-	Sun, 30 Aug 2026 19:10:14 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-06.internal (MEProxy); Sun, 30 Aug 2026 19:10:19 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ownmail.net; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:reply-to:subject:subject:to:to; s=fm3; t=
-	1788131414; x=1788138614; bh=zEc5hZJIk8YRnx+J+eo4+Y3sVspDxogbjvE
-	EZwuJ7rQ=; b=Qo6ieQvuNCpEAFNGUhEaIGd1tM2qenglCvyZhQAtLYcKgEz5uZv
-	VBkmAHxWVjh7GITNYGQRuizAhYS66fu/QSC2e7UCmgPz4kXTk5AkzcfuRQnlVFRP
-	obCI4MlwXEShM2SHCHkmDlPo5XISgTzwCrpLP/3SjKxujKlWi9nqvG6db9p/iXJV
-	OpWFgdf4BeBSzTD8k+jOmUwdbzP/2FzRQ2JsA+NRYO/Wb8e+aEbOrBj5DJeqKV4F
-	mo0lR8bF74G8iO9YI3oa5e0UEi/LrPdRcv9f2BM5MbieoQLkdq9lj0/U9rjqixab
-	TWu+hSlLYlUN95axFhjHuP3dfSYVVt6XzGA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1788131414; x=
-	1788138614; bh=zEc5hZJIk8YRnx+J+eo4+Y3sVspDxogbjvEEZwuJ7rQ=; b=V
-	Pm/7FheSQWTuf0BTxlWwZtt+3pYz2nhduLw4e4y8za/QfTSzRWzNLT9xWYuPmAIc
-	u2iScyJLSttTa87WeCPnCZXn/Gl2gPZabiNI/TusdTrg2rxoLAc/VMFiqpkhoR6S
-	LQ0iKTcxz3hk+DwmEohzGehsn/5Wh1AzucxvOgw+WnDShRgf/uBTnxZEvQeejUv4
-	uiy25ACTvijKoXphHgt82oizR4gYVdqyJePgq/uKO/Q8l7aBEXKtFaecz0P2KuDW
-	NPFfEanh10Tr4PIAw9/Ttp6lzVA7Tw5SgfgV5/JqbWCARVUi3EaZbxN01GMjB+kI
-	lCRwskirVvl7AMPYTRbWw==
-X-ME-Sender: <xms:UbiUap_MtTSeFpMNORlr4wTWDVh0aA6ScnON58j3rpFyccMpDXHIBQ>
-    <xme:UbiUahH2TNeUk63s7BMkgYDKvmxeqjrvmkBoHgCp0p_iRIhMT_WV7fRvdL5DfgV9Z
-    xV8KqlrCQaK0hplET15otnZI5BE2coA-O7f7PR3q4bp8VG_>
-X-ME-Received: <xmr:UbiUagJhhsp10jRM39PBdQWH_D435G2njFRNXy8dKyREtIAZmuZC2LqatWjo_-5YIsgSO4CAuvUBwdlLl9RmrRBi5dPRqwg>
-X-ME-Proxy-Cause: dmFkZTFOIUHJLQqborIagOgmNN+pPcupbVotrH4sXk/9BxNtfHYUJG+jOdd9lP23wPqSUQ
-    AUFqozauDGsFj2Fcxtj3sABYHvl0ph+0UXejznX6q1Xr1Xg/U0V2IT+Tk94c9p2xCxdGcm
-    a9fTqsnIiGGjKyH3aovg7Hbw39SYODzd4xSmoty3roVPn9gC8PR9IGrItxoJJkl5Z9SeqL
-    qN1gQzMRLAf1DVi5pqAy+RVGbsxy3biNw6Ht0LFpwq7yHA4P1bo1DCXcT6AbluvZMKn1Ad
-    6oUtTqY8wpxkXvPNqdcZVzXrArQI+dyTirjeQU9xaq2PAci/BLvZmkKdn6HOgCF/wiNDR5
-    9ypjS27kIioFVXtCK3cYVV4EX87YiMJFRv1YmG81V/CBOpPEVGlHijee21VZbsDPuWUWT2
-    eIkpdBbOecXlENZwKR/2eekW+LLYVEGcUat3eiQbHa7r5NCiXFUSvoh9n0m66Cfn6MPY8F
-    nn+/UAVo+bSz0lZ0FMnWAjcbwosDDLMUFcjHtb2oWyUdokurmOw1uyWf9PuZC23xX1bhno
-    M6fmT9hcOCYeC8ptuK39TgThobX4Z06It4CZvTdsheRb100K9ulRUQKwJiTqPv3ZqMrr5g
-    wtS1gF+w0PemKcSEjYqBuy5LHyuHib4TgEnaucnWv4jXuwuB92nJE5Nsi6mg
-X-ME-Proxy: <xmx:UbiUah47CBbO19kbrhNmEsPxHAHgpefoYPnpR5z-_ohOrh1cCgC-Dg>
-    <xmx:UbiUalPzSFg1nYeOw2R5sG3wTQxx6Y0zUwyNG3X2kHwPHQNKUtVYuw>
-    <xmx:UbiUaprYVwmp1o7kh4B5Ol26B9junaQQXQMqO5xX3y2ZMifwxkjWAA>
-    <xmx:UbiUaseNryne3JEtbfGoTy-pA0krO1YyMhJ9fCu36NsZC9i9Dd6f2g>
-    <xmx:VriUatkHi2UuWhglcFHVNe1ttc7HDvYZlla8FaR0rvxatg4WTOf727px>
-Feedback-ID: i9d664b8f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
- 30 Aug 2026 19:09:27 -0400 (EDT)
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=gmx.de header.i=w_armin@gmx.de header.b="algW4sx0"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
+	s=s31663417; t=1788131447; x=1788736247; i=w_armin@gmx.de;
+	bh=TX6ryr4d4G1v5Am+vQW/E1zqQ/9vx30LUjP509ndCR4=;
+	h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-Id:
+	 MIME-Version:Content-Transfer-Encoding:cc:
+	 content-transfer-encoding:content-type:date:from:message-id:
+	 mime-version:reply-to:subject:to;
+	b=algW4sx0ukTpBftDlrx8cVmyhSYLGITE1R4eI1iDXfgY8hePAeg6p2YCMAIqFxj1
+	 vb6XSE1QIu4JEHdLtF1RrEjpdWYacbW4zKTDzBlfcnFYGWFyQ3Bvs0lUtMioBJLHT
+	 opHR3GH5pP1oAKWHaw5XIR/OScPUVkyMpanIU+oy+OieP0J3oMq6cychVBToMg9Ik
+	 ObwhxmKVDb5sts0gJzYmJ+i+A9eVuSTHhdbMtVwGmDm2E5CFKXHUPV6xvPADOur2s
+	 0PhNQFqPFtePhF1bXwvTJTODXtIGNvRdXms1iUQZgnvMg9JnebV49o7wo/yMAFupl
+	 nWhkHaW+6DEVJpWjnw==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from client.hidden.invalid by mail.gmx.net (mrgmx004
+ [212.227.17.190]) with ESMTPSA (Nemesis) id 1MZktZ-1xMZ2O0T8J-00UFEB; Mon, 31
+ Aug 2026 01:10:47 +0200
+From: Armin Wolf <W_Armin@gmx.de>
+To: linux@roeck-us.net
+Cc: linux-hwmon@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	ggirouard@bungeetaco.com
+Subject: [PATCH] hwmon: (spd5118) Select page 0 unconditionally during probe
+Date: Mon, 31 Aug 2026 01:10:36 +0200
+Message-Id: <20260830231036.203719-1-W_Armin@gmx.de>
+X-Mailer: git-send-email 2.39.5
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: NeilBrown <neilb@ownmail.net>
-To: "Byungchul Park" <byungchul@sk.com>
-Cc: "David Hildenbrand (Arm)" <david@kernel.org>,
- linux-kernel@vger.kernel.org, max.byungchul.park@gmail.com,
- kernel_team@skhynix.com, torvalds@linux-foundation.org,
- damien.lemoal@opensource.wdc.com, linux-ide@vger.kernel.org,
- adilger.kernel@dilger.ca, linux-ext4@vger.kernel.org, mingo@redhat.com,
- peterz@infradead.org, will@kernel.org, tglx@linutronix.de,
- rostedt@goodmis.org, joel@joelfernandes.org, sashal@kernel.org,
- daniel.vetter@ffwll.ch, duyuyang@gmail.com, johannes.berg@intel.com,
- tj@kernel.org, tytso@mit.edu, willy@infradead.org, david@fromorbit.com,
- amir73il@gmail.com, gregkh@linuxfoundation.org, linux-mm@kvack.org,
- akpm@linux-foundation.org, mhocko@kernel.org, minchan@kernel.org,
- hannes@cmpxchg.org, vdavydov.dev@gmail.com, sj@kernel.org,
- jglisse@redhat.com, dennis@kernel.org, cl@linux.com, penberg@kernel.org,
- rientjes@google.com, vbabka@suse.cz, ngupta@vflare.org,
- linux-block@vger.kernel.org, josef@toxicpanda.com,
- linux-fsdevel@vger.kernel.org, jack@suse.cz, jlayton@kernel.org,
- dan.j.williams@intel.com, hch@infradead.org, djwong@kernel.org,
- dri-devel@lists.freedesktop.org, rodrigosiqueiramelo@gmail.com,
- melissa.srw@gmail.com, hamohammed.sa@gmail.com, chris.p.wilson@intel.com,
- gwan-gyeong.mun@intel.com, boqun.feng@gmail.com, longman@redhat.com,
- yunseong.kim@ericsson.com, ysk@kzalloc.com, yeoreum.yun@arm.com,
- netdev@vger.kernel.org, matthew.brost@intel.com, her0gyugyu@gmail.com,
- corbet@lwn.net, catalin.marinas@arm.com, bp@alien8.de, x86@kernel.org,
- hpa@zytor.com, luto@kernel.org, sumit.semwal@linaro.org,
- gustavo@padovan.org, christian.koenig@amd.com, andi.shyti@kernel.org,
- arnd@arndb.de,  Liam.Howlett@oracle.com, rppt@kernel.org,
- surenb@google.com, mcgrof@kernel.org, petr.pavlu@suse.com,
- da.gomez@kernel.org, samitolvanen@google.com, paulmck@kernel.org,
- frederic@kernel.org, neeraj.upadhyay@kernel.org, joelagnelf@nvidia.com,
- josh@joshtriplett.org, urezki@gmail.com, mathieu.desnoyers@efficios.com,
- jiangshanlai@gmail.com, qiang.zhang@linux.dev, juri.lelli@redhat.com,
- vincent.guittot@linaro.org, dietmar.eggemann@arm.com, bsegall@google.com,
- mgorman@suse.de, vschneid@redhat.com, chuck.lever@oracle.com,
- okorniev@redhat.com, Dai.Ngo@oracle.com, tom@talpey.com,
- trondmy@kernel.org, anna@kernel.org, kees@kernel.org,
- bigeasy@linutronix.de, clrkwllms@kernel.org, mark.rutland@arm.com,
- ada.coupriediaz@arm.com, kristina.martsenko@arm.com,
- wangkefeng.wang@huawei.com, broonie@kernel.org, kevin.brodsky@arm.com,
- dwmw@amazon.co.uk, shakeel.butt@linux.dev, ast@kernel.org,
- ziy@nvidia.com, yuzhao@google.com, baolin.wang@linux.alibaba.com,
- usamaarif642@gmail.com, joel.granados@kernel.org,
- richard.weiyang@gmail.com, geert+renesas@glider.be,
- tim.c.chen@linux.intel.com, linux@treblig.org,
- alexander.shishkin@linux.intel.com, lillian@star-ark.net,
- chenhuacai@kernel.org, francesco@valla.it, guoweikang.kernel@gmail.com,
- link@vivo.com, jpoimboe@kernel.org, masahiroy@kernel.org,
- brauner@kernel.org, thomas.weissschuh@linutronix.de, oleg@redhat.com,
- mjguzik@gmail.com, andrii@kernel.org, wangfushuai@baidu.com,
- linux-doc@vger.kernel.org, linux-media@vger.kernel.org,
- linux-i2c@vger.kernel.org, linux-arch@vger.kernel.org,
- linux-modules@vger.kernel.org, rcu@vger.kernel.org,
- linux-nfs@vger.kernel.org, linux-rt-devel@lists.linux.dev,
- 2407018371@qq.com, dakr@kernel.org, miguel.ojeda.sandonis@gmail.com,
- bagasdotme@gmail.com, wsa+renesas@sang-engineering.com,
- dave.hansen@intel.com, geert@linux-m68k.org, ojeda@kernel.org,
- alex.gaynor@gmail.com, gary@garyguo.net, bjorn3_gh@protonmail.com,
- lossin@kernel.org, a.hindborg@kernel.org, aliceryhl@google.com,
- tmgross@umich.edu, rust-for-linux@vger.kernel.org
-Subject: Re: [PATCH v19 00/40] DEPT(DEPendency Tracker)
-In-reply-to: <20260825130843.GB23086@system.software.com>
-References: <20260706061928.66713-1-byungchul@sk.com>
-  <359ea967-9b97-4584-88e6-bddb4044de2e@kernel.org>
-  <20260821042143.GA40890@system.software.com>
-  <825134a8-ceae-430c-b2fc-d1d0c7240f39@kernel.org>
-  <178730572084.2852630.7732425311008244683@noble.neil.brown.name>
-  <20260825130843.GB23086@system.software.com>
-Date: Mon, 31 Aug 2026 09:09:23 +1000
-Message-id: <178813136354.3510150.4730256876703029797@noble.neil.brown.name>
-Reply-To: NeilBrown <neil@brown.name>
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:uGIPr4jmQn/SFlg/IvqLpEmEwAEbr6yNvw6pn2myqkCcdDe2n6f
+ zDQ5OMmPMJr52Y43yszKbBmo0WK2eDNQnvY4DVnweAmG7kuBg1UF80y1MT1wL6p7bTpoPnw
+ YHr99xDx1RUNJo56j9b5WsG3ZIaoU4TUwiKJbBBSeX77QHDkmIefpV3oDpX6CYdFsVjpfrw
+ 4+myjPVEOcjUb0PyLkz6g==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:rIkiv2O/h+Q=;gx870ocYLkB6xWvfZfux7yxOgxM
+ 03scV86qcd/chi/2AlEQuZOXuyaIqInmqp3Si/Uxw8dhY5iUKdxhK7iP2lYclhq6QKHILDEHU
+ 0AIigAbQsH5aLG4jEMQp66aZPNi1V4rBxhPa5xCtVYaKab/0X0hc7GQIDocpujk2kTTn9h63/
+ 0XzqMGNbMfGFbeBN5HHAGna70hDVmikd83qICBmHoLk9qDmmF6cNBvfoQZEy5o1Pmn/OxWIUR
+ Dg+0ZWSIrIC4rkwRvX/jq23P6IwtFcOyFAcWiTriL3C+jiElRZ0DWuGvW4DkwTt9bu5J+u6Nq
+ uX1/FLZG41/hJnE4pEJanmesUr54jOhpB21W1GvML5tSXqzJE8i+TyUxoX+pG1Eow7iUMXARr
+ xyMjzh1yFPXXeUuFlMr3Fc/hRzf9KQe3lZbpJOyZjpdMVBM3hRBDW6q1ZLUAOIGew0vK76/nB
+ 8gR7vp2LZJ2cvBahPOJKATUa6et67xu/ztU1M6vWej30GCIm5v1KTA0P8iU2bc2cDidVFBwwl
+ W02SIXdyt8knE+nUB5lvNs1bIQslNCJqre/E8mu5nRbXpqcITy0FYn6nhphQHovdu3QDGbkNI
+ PS+CnmmB1kpnM9yQKAmO1Qhw7And9lHWwJ8CuSw77iJobCbqz6BAZZeIALxEQ3CGPkvojFYTJ
+ sxEyoLrQ7bXlcSxhLPY8LYqNtdTkQIsczelUcT30CGnLVOQnrwU4MhHMoUFtRt83e7BqsBdyt
+ w7Z6tOd3XJA5vuorSYGqWh0KhrCNLb80h5lvXQI+Pae6lspfi2DJOjbWPCNm9IyQGH3Nz6zPi
+ Vca77LieriO8nNMyxFnLwfo21YNykpKWZYyJ9UnLngdPKi84Tc6fa1ehJPlfGzZUYfINmHfoQ
+ m5JRgTm1pl4/nZB+3aMb2nhCFT3fI476+b2/dFppq1FQu9c7Ok4JRFRVtocxmsWqR6CXM6+VZ
+ T/V+rmxl6nnu4863/ToYffFw0bwN8t8x/scXHS/lni8GiIXKbg78Xfx/wKWnEmrNidtTd+vR9
+ SnLb6BgXEd1rjXCLTN07rj6zYqFa86Sogr+VVQ60aGRwbsgNwuz0OCqYZQRHQVS3zFDJ7uRIi
+ UrFz58ZY12u6uJZj5+PNWYToksVPflQozCyeWyB5vkfuQ3tJVvIjFudvZQkR2vIeC2sbR3VIr
+ Y+hv6tl5OWuo/QpxLh9WterD4lDCvsvLiN2MBZnrHcWsOzNIxnOGNTJA7/uh2wQVJjdoHC+MS
+ Iunl0vVsxiC0FTtmSzPVoF2bqmLkFQNleNwhD8EB4HdTfmdHA30Zjech49lgOObgLBVhQEmBv
+ b/2qdQDL5seDCmoR1sUVyvQqpJaH3Nm9c02/k4ki8s3V9oC/7sr/3ziWeAhJZcnvguE1GqX8j
+ KY/+3BRRdd0swmrJYqu7cYMpuUlQokw2IlP+IARz8vQXEMW1YvjSTmHH1s0Ux4q0UlRC4KLAS
+ 4o9+M1IzBiD/bmSdvniBV8wF5KTZsfAE7pcFevCGVIRYpCb+hocOMNPqywDaJD4nvwzcId2WZ
+ 3ly7VDI+VE68JS4l+tZyZ3FeIgltLPB5poTS0f8U6HiODfPZO8QuNnX58gi+/BwWWG+GqmNVo
+ GzSK7qsch+98F/iADJw6nKKIM1aVC51CWi+gUp7Ip7nvHV3DninaGO9m4lpOlXd6tesWOps1R
+ b3qNBIqdtn3M3VE30Znypd0PkMOYvhDcWvgFJqCE8nLWGWCr41y+n7FbKwafIBoIIc6VA2LyO
+ XRv4O0fTzNijGYYx3rzTq5me1o2wc+HSpewNdYi8KaPpyBqbkzFAGdi0j44jFVtf6NoxbFupD
+ hChJDunbA07R/ihmYFpE1G7c15O5xX8WLH9+EhnKPp4Ga2KANuEnwzc0YsBn7flXfrQ8/H0Mv
+ +3/yq7HK6H20IMvlXRDzLJEQdcsXxgx01wybwEbqxMgStwLWI7e5GoJHluc18//jN7QuU9Yky
+ EgKInBC0xVooHdKtp7QbEz/XVyDQHH96f1jp2th0QXCx0Akd7bJnGEDnNzL7xcI4QziUkeJ+E
+ EcBWM4G7s2WG+r4VKORDAq+FSA0LoFyVk+rMbSLMgBkm9UnISCMPnYFn6uk1tG8jVRIZQpqeY
+ vO4Ii6yBEXomnu8yCIAozMxt3sdlHBnt+jfMQFdMeELCckfsEYRGXskoAhdeIXXD6hFvL7nDt
+ b84Bpq3KCrtV0GrJAore0RecTBfPcm5zcE/g+BmOdzZDZPz3oJ/Nz83HDV3Uy+98gOyszi6+l
+ jl6LfJJeo/rJkFlYfCHD85w9SIJI8Jfrf71+JGdXVJIE9WXNzajtmrCKxpdzUveT4aHrO9qpI
+ Wur4xSYnxTHplF/EH/IkGRgqnhvaZwqF73JsOF11t6wfkAkItnCakM6sk8fHIQv3Pkg+T2oay
+ 7ovsUvB7bAKrCKnq8dJe7RpM+00qjnxm5eT/WBWpiInd4gz5xqXqXf8wrzubWnqbeQ7G2wf56
+ 2SrUuHWBe9/+ebFX09MfmeWSYj8ZXE8eeOJSc0BBi3t7ISpN+lzVu4KQCxSP1TqL4pJuFbY9P
+ ZxQ0UTS/qMBdx4sG00yzCJTbJDFENNyuzZEqb49b2mGqilDNguIqCC55+oSPuC4o6fCUGDLxX
+ LupT38CCgOz4rsmtV+FGfTOi3Viwozh61KC9IX3V7Eqh/e9/EC6K+LXhkjXcSrIN5NRvS24lp
+ t/FyuYSgRCFZTIJmJztb2MqvPymqSlodF4nD1qF7jM4WWQo/cW/hjxNptWV4KivHe6EcX6E51
+ 9wxiyrYQX+tHY0w3H1atINzG4+jmQJ4q02lZeh1RI6yIIK16mSEwC/K4Slhn+OkG8/aCPjumU
+ gmQBB9jmOTMXAy6Mk8mrBM2B+yiSLw4fm168AqZ1Fkdp1xYP8kQ23jz3SRAfYuLJAKZDiM5Nl
+ rltsqJ/mP2ls5AvXyVnCAnx8g5g+ZYPwnOIor3qf1fYu28blS733VE4vttdNp1bclrtfo3mpm
+ EVgd40/SbM3dJta0U6UAETN3AFgA5hEc+5Tbv0ROjBGECQwkfKB7gSezh0eoxSs/ynnMsUo5K
+ p+JhMiixSTbg/GIXZwRzs8m3FMhxLENb0wjNPZwsOy4s+xjooZCGgmp5pKbi/teASOQ6dCrFq
+ iEz050po3u8x1K4sKZibn6Cuk9k56W9twDB8fmrHtuVoMReQKnIZj1307Qryf0KC2lteAdnYK
+ M65Wf9NnH3lIqtup3yrr8XjYusyzKrQePifOVBBZ2pe+u5r3PjtJsUVZme/NiQNKwoJDK21Pe
+ AjermmzSYZCPCjfN5gVRINI6doJv8i6b0gHyB9FZhpPA5ItSqyEMAQWjPt7zgPfW0ghLiV/mD
+ 7xkVKCVPiSLVwZsMEI9LMoceYG+R8EWsjsDz3Dmji38xybJwQX48Rf1hNj8Cx2zSxqAGLkruf
+ F3ZbUnWaEofyEB3lgKqezIFkG8I8qIFP6CuLrqqqY8ME7db7br5PwdYhuDTWhyGmrzIO1Ig9G
+ HC1X/r/3/E1IOnZzZqGq+uKhl056pdud44JgoqXfkSXrs2mm9F6JNL5ZDww8Be1E43nsgOhvM
+ b1R1/GzwOFQ2iMzt1cgw3rzez6RgvklkxCd33mrgzE/o4dFEGSHfb6rSsjiWcZXXzkfwaj3jQ
+ 8cJ3nwCypgQ3raaH9uGGkIxPvDRy9UNnQqVPMUgGPhGH8VjNS/NmcmvkwmVu2fbOuAfFS/ZBr
+ eHw+S8AEOkd6RzsSUwVp8f1xp2s2PW+cDhRen++i9aB8/Vu17FmzISDolKUX5zkZOKgKFvpq9
+ eN8Wy2v2pQKCJDJ/J2VVwZ+uXLSP8DiYpjdZMRyU1dPmszWdOgxV0xaTcUQFImc5QM5cg9o4u
+ if3nvIx8t//ux31gIFfs0q6EPX4LPYBvWN5EXdoy8lum8AmFV4nrvlwktzGgvzvpku194xKzF
+ Cjt2bwD4LpgmNnbn+lC6bEMXGy6A3dipSLc8eGT4nSwRhPnhF5pAjylFRWIGdm07Q61/KZdiM
+ W7OA03EbsdKWa2XPBC2hIXUTnShDflp64iLXwGiCBQbhUfdjAArXfBxIaY39bAqp5r9qX4LbS
+ Ry1wNBsn01v6uxVU9EhuJPid1G6dleZa+rgXsmDyDEx/AzHgwjQOqld8SNH0OZE7T2YyJJ810
+ cy6p2/j6T9W9dT+kNg3NdL/5XLOEv/1gSUdoj0PBLKpwVMd7wdXhOr/VX6Vv95+OUPPAJ815+
+ c9ii4WwQ1NlxF2/2KTRCe0fSl0da7+Z3eifc+c0PY4/5XbXxUSRAtnQj8SoaxXrLpLkpDUIrj
+ luDeSsaV2bRXxrFX80zFMVvs1B7nNLM5lhcSJOzTWqedQN1uMYna5/56UlseUZceeS9Fzw5Xq
+ U+UwiNsVvHox9G+dfIXuo0OqpAhcErmcFkUQ8iU3koO3nrOfJndd0eOmCen3Xb2NtK6WTnEy9
+ ugsmxRWgsaY7vgIPrKMy8axysCXlhgT0kTnJjfrS+/kEUd/idoEL9leezGBpVDkmzC8eVDokU
+ wshlNkktSBUUDh9ivSjLEy/MaMAuzoA00BX3McOLCPnlwyo9oi1is9gR/agZnvy0085u6dvf0
+ uYpRurzwltL8qhZfxYI7wet7q0/cH2WhYkXZ0yFqkSv07GiuzcP0WF/7BD2yosSR6si+Ds/IW
+ 1wwocJCY7nzqDq+vVKGwzbBYsrzzDRpJAQestL5wFP4lMnJWzD28bVfoioh5KpAJJ2mzVSfb+
+ Iw/FgleJXedGl8srudD0kHdbOfupa9Pj5uGnk0zE/Az8VQ7aPwD9i/zelsIpCzt+rQesfJAzj
+ MF3y5stO4+suCLTR7+ahrES5AYMQ1B3aOPQp9LiZwczdqaub88cP875+Zppf/hSK5C5Sgx/5d
+ JZ2YVEim9RfwmMsji4NITaW8augkIN1JeRtkix0D+5gANLxP1ktedcASoDICMYzzcR1sPu8qM
+ u5D4fHHMHHUFGZjg2NtNfY0OYMiQR+egn9K/1e5luz48p57SnfkzF+fFT6r1IvmuR5u7TkM4R
+ UTzHyY3fJSzNEM1YHdHesFmz9cHtxHWvW/2SnNJECJtgDGueqqlA7m/3RiqbBneAsV25HqiP1
+ 9wA2T+an36qpu6de7tVL40PLbVwQR21FYPNCwUvG93Jmn2E3HepdVGDBbGs93lkavA6gbnrQH
+ yJr3l2MIp/clPbOGuOI9/uwn5upnd3chrZm75oMfE2RGKzxWPw76XlXPMEOhFkImk3v7V+mk9
+ B9iVqUw2ZYIWNzsesLBGb6573OEwRZZseIkBmVfEJ4mWbnwqSqKI7WqAFp8vVuOfXYL3cR1+0
+ DdlRGPRTHWYt6zSI9Qb1iBD6TqbTBlU///nshf5sOHEWSVVjxngabVVPWnoep7EbZkX+Sh992
+ JzN6+HUV28gLuL2Unuu0KYFaHbi4w9u4HuZ9xHQJ1K8fkSICpkRh0a6iR8Kru+Jc71ec8w1Cd
+ zlvP49YEehzfk/cfinx3HNyGjvF4FNoCwZHyWRR5FHvb5DEjQmx2hmUWe0C5TwGuQ1Yxg8XsK
+ 4MNSQrZIg0Tmsxmxbj6L9M7fsD7yI6aobk6cR7q/+g9rkGL9jIv1oP0+sQJ+jqiWe6+fQe5rO
+ JeBQTjJ7r1cB2fdFTNEaC73j2G6PZbzVTfIPXGU69SP6Fwz6TR9QENlm5ZFIVyuAIq8kYtntX
+ NtUmuFU1KTeuV+hb2NoKdrj7U6oOqaHMlyT6toaqVFbNI8LlHI03REbkr5CuqHIGAERcda6vB
+ MW0u+Kuz0W/ebvveKU6eha5wsAfKINJTQ3TGF8uRnN28g1gEazxHOw/zf199CZ0UI+OaDGKoo
+ Zs/mOo74ufWEkKJ0L68rnohYLIc1iVbE+va6ClmzyMMtmqBm2rRHwD8YIx07QFjtGksyzu/JA
+ gLu6t2V2Y3WRoeYhssvWmom+0amIINg+kaGhvFhfLMzcheWdlexPuTe5sErSbH1lGHi3LmgUF
+ kxjCDaAmg24O/cgWN/286cnbJ+0Y5QvVrBs2jC7Z+oADKCwiK8B1LVcP10xJKcwxn5F1NJGZZ
+ LPd7nZoPciKu3DxjF9qkhqPjVWICzEzNj2HpFkBKiaL24Vd3COL3gM4yjmVrE+Yth9MO0hM5L
+ H2e09pTnubDk/g0wKOBbq6V2pf+e9vo+HjhjVIol00HqJC+3x0VJ1bRhq2liPg065d3AYrtOk
+ yhZ+qV+HFG5MEOF50p/5AY8QkLDcv3jHUQRVZn+G2od1qWD1xTEBRB6pa0HRGlDoVzl2JJ6wH
+ 0ieW3WotJsiuJBuTBOqGyHhMfi3jk2tbXvtKGpvKeDLf+yLzwBb+UQWF776Aj1MvMRzh4rWnI
+ fhZbf0hwtlq5Ls/D8uF8m9IIVRbHGVjkL4Sui8c2EYYuI1hXHBnwejUgK19A+4B+NRu57i9tZ
+ sh+NQllg6OUqWmea1p6jcs5C0ZDErrz56Z2ynQ58Na3bmESjhkufQP9XfccnJzqc6iqtuuJVa
+ /THC5cNpGhUCvBHmBGHWq86w1HNUl7D2eL1r5ZRwEp6AHFHvjHBRYkMhvSdTP+CQ7zGCgGqTR
+ lXAak67ImL0Q0yZHhflBisPk4Ac/zlG7y59moKnUGju45pEXP75fGm2sDeacwDZqAGRbvxzf+
+ qNM+HntzMwxyp9x42SVTObkroBlzSwiOmBy07Gh+ZUuLx8CtoSCiKqp2yeYtQxgOgdd0I2JIi
+ bLyEpHheFV4cDXlgGEt+a3phOpDJXinHPOjA20qKGT+m1EshsJ49mAd8/qQat0fBMT7VFqOVh
+ ZhZ8sbKVB2Q=
 
-On Tue, 25 Aug 2026, Byungchul Park wrote:
-> On Fri, Aug 21, 2026 at 07:48:40PM +1000, NeilBrown wrote:
-> > On Fri, 21 Aug 2026, David Hildenbrand (Arm) wrote:
-> > > [...]
-> > >
-> > > > Exactly.  That's why we use classification e.g. lock class - DEPT also
-> > > > makes use of the concept.
-> > > >
-> > > > DEPT doesn't use a full map in each page but uses a minimum space for=
- a
-> > > > timestamp in each to track when each starts to wait so as to use the
-> > > > recorded timestamp when the event occurs e.g. folio_unlock().
-> > >
-> > > Thanks for that information!
-> > >
-> > > >
-> > > >> Given that lockdep is a debug feature, and we will at some point all=
-ocate struct
-> > > >> folio separately, I assume we could just squeeze a "struct lockdep_m=
-ap" in there
-> > > >> in such debug configs and the world would not collapse.
-> > > >
-> > > > That's a good news for lockdep.  (And even for DEPT :)
-> > >
-> > > He :) Where do you currently store the additional per-page information?
-> >=20
-> > lockdep doesn't need to store per-page information.  Possibly DEPT
-> > doesn't either.
->=20
-> Class can be stored in global map, but DEPT needs to keep a timestamp
-> in each page to track when a potential-wait e.g. folio_lock() has been
-> started and to refer to the information on its event e.g. folio_unlock().
+Some Intel i2c controllers can be configured by the BIOS to reject
+writes to the SPD device. This often causes problems when the register
+page needs to be changed, usually during resume.
 
-A timestamp?  What does that do?
-There is a lot of detail in your cover letter, but I think there is a
-lot missing too.  I would like to understand how DEPT works, but I don't
-want to dig too hard.  The document in patch 25/40 helps a bit, but it
-is still a bit vague.
-Where is the document which would explain at a level that would help me
-understand this timestamp?
+Avoid probing on affected devices by unconditionally selecting page 0
+by writing the SPD5118_REG_I2C_LEGACY_MODE register during probe.
+This will fail on affected controllers and thus prevent the driver
+from probing.
 
->=20
-> > lockdep needs one lockdep_map for each lock class.  It would make sense
-> > for all folio locks to use the same global lockdep_map.
->=20
-> Exactly.  Only considering classes, you are right.
->=20
-> > Each specific lock is known to lockdep as a task which holds the lock, a
-> > lockdep_map which represents the class of locks, and subclass number
-> > which allows a given task to hold multiple locks of the same class
-> > providing it declare (e.g. with spin_lock_nested() etc).
->=20
-> Right, lockdep works that way.
->=20
-> > > >> Doing that today (one "struct lockdep_map" in each "struct page") wo=
-uldn't work
-> > > >> as mm_zero_struct_page() would not expect such large "struct page". =
-But
-> > > >> conceptually, for a debug kernel with a special CONFIG_LOCKDEP_PAGE_=
-LOCK, maybe
-> > > >> that would already be ok and we could just do that (and optimize it =
-as we
-> > > >> allocate folios separately).
-> > > >
-> > > > Sounds great.
-> > > >
-> > > >> Not that it's ideal, but for a debug feature to at least check PG_lo=
-ck, probably
-> > > >> an easier way to achieve it than some completely new infrastructure.
-> > > >
-> > > > I understand what you are going to tell.
-> > > >
-> > > > However, it's worth noting that lockdep tracks dependencies basically
-> > > > based on **lock acqusition orders** in the system.  To make it track
-> > > > even rwlock and general synchronization mechanism as well, lockdep has
-> > > > no choice but to get more complicated.
-> > >
-> > > Well, yes, sure :)
-> > >
-> > > >
-> > > > Focusing on only the dependency checking, the most parts of lockdep a=
-re
-> > > > for the tricky things, so the reusable parts are not that big.
-> > > >
-> > > >> Now, Willy said "locking rules don't really apply to individual foli=
-os", I
-> > > >> wonder if that could just help to also let lockdep check PG_lock wit=
-h less
-> > > >> metadata? (didn't fully wrap my head around the implications)
-> > > >
-> > > > That's what DEPT did and what brought external wgen introduced in DEP=
-T.
-> > > > I was considering the exactly same thing :)
-> > > >
-> > > > Again, lockdep that tracks lock acquisition orders can't do that.
-> > > >
-> > > >> [1]
-> > > >> https://lore.kernel.org/all/aR3WHf9QZ_dizNun@casper.infradead.org/?u=
-tm_source=3Dchatgpt.com
-> > > >>
-> > > >>
-> > > >> It's your guiding example, that's why I mention it. You do mention o=
-ther wait
-> > > >> cases here, I don't know anything about them, but for folios it's re=
-ally just
-> > > >> "we used a single bit so far" AFAIKs.
-> > > >
-> > > > It doesn't matter whether it's implemented using bit or not.  folio l=
-ock
-> > > > is quite special since it's allowed to be released other than the
-> > > > acquisition context that makes lockdep impossible to track them.
-> > >
-> > > Does that really make lockdep *impossible* to track them? IOW, there is=
- no way
-> > > to extend lockdep to support lock release in different context?
-> >=20
-> > Yes and no....
-> >=20
-> > lockdep has no knowledge of control flows moving across threads in the
-> > way that I assume DEPT does.  But it should be possible to tell it.
-> >=20
-> > If you have some code that takes a lock and then hands it off to
-> > another thread, at the hand-off point you call
-> >    lock_map_release(&the_lock_map)
-> >=20
-> > This says "no task owns this lock any more".
-> >=20
-> > maybe you put the folio which is locked on a queue or an lru or
-> > whatever.
-> >=20
-> > There is no way to say "that queue owns this lock".  Maybe that could
-> > usefully be added - assuming coherent semantics can be designed.
->=20
-> It's certainly useful to track who owns the lock, but the essence, when
-> it comes to deadlock detection, lies elsewhere.  DEPT is based on the
-> essence, that is, a deadlock comes from waits that are never awakened.
+Signed-off-by: Armin Wolf <W_Armin@gmx.de>
+=2D--
+ drivers/hwmon/spd5118.c | 57 ++++++++++++++++-------------------------
+ 1 file changed, 22 insertions(+), 35 deletions(-)
 
-I disagree.
-The "essence" of deadlock detection involves the interplay of ownership
-and waiting.
-In your cover letter "THE DEPT APPROACH" talks about [S] where and
-event context begins, and [E] where the even occurs.  This S-E section
-is exactly ownership.  During that time something "owns" the event.
-Maybe the terminology is different, but the concept is the same.
+diff --git a/drivers/hwmon/spd5118.c b/drivers/hwmon/spd5118.c
+index 9724cf70b61d..65a0d5852ce8 100644
+=2D-- a/drivers/hwmon/spd5118.c
++++ b/drivers/hwmon/spd5118.c
+@@ -637,45 +637,32 @@ static int spd5118_i2c_init(struct i2c_client *clien=
+t)
+ 				     I2C_FUNC_SMBUS_WORD_DATA))
+ 		return -ENODEV;
+=20
+-	regval =3D i2c_smbus_read_word_swapped(client, SPD5118_REG_TYPE);
+-	if (regval < 0 || (regval && regval !=3D 0x5118))
+-		return -ENODEV;
+-
+ 	/*
+-	 * If the device type registers return 0, it is possible that the chip
+-	 * has a non-zero page selected and takes the specification literally,
++	 * We must first select page 0 to ensure that we can reliably read
++	 * the volatile registers on chips that take the specification literally=
+,
+ 	 * i.e. disables access to volatile registers besides the page register
+ 	 * if the page is not 0. The Renesas/ITD SPD5118 Hub Controller is known
+-	 * to show this behavior. Try to identify such chips.
++	 * to show this behavior.
++	 *
++	 * We must also perform an unconditional register write to detect if
++	 * the i2c controller blocks write accesses to the SPD device. Some Inte=
+l
++	 * controllers might be configured by the BIOS to do this.
+ 	 */
+-	if (!regval) {
+-		/* Vendor ID registers must also be 0 */
+-		regval =3D i2c_smbus_read_word_data(client, SPD5118_REG_VENDOR);
+-		if (regval)
+-			return -ENODEV;
+-
+-		/* The selected page in MR11 must not be 0 */
+-		mode =3D i2c_smbus_read_byte_data(client, SPD5118_REG_I2C_LEGACY_MODE);
+-		if (mode < 0 || (mode & ~SPD5118_LEGACY_MODE_MASK) ||
+-		    !(mode & SPD5118_LEGACY_PAGE_MASK))
+-			return -ENODEV;
+-
+-		err =3D i2c_smbus_write_byte_data(client, SPD5118_REG_I2C_LEGACY_MODE,
+-						mode & SPD5118_LEGACY_MODE_ADDR);
+-		if (err)
+-			return -ENODEV;
+-
+-		/*
+-		 * If the device type registers are still bad after selecting
+-		 * page 0, this is not a SPD5118 device. Restore original
+-		 * legacy mode register value and abort.
+-		 */
+-		regval =3D i2c_smbus_read_word_swapped(client, SPD5118_REG_TYPE);
+-		if (regval !=3D 0x5118) {
+-			i2c_smbus_write_byte_data(client, SPD5118_REG_I2C_LEGACY_MODE, mode);
+-			return -ENODEV;
+-		}
+-	}
++	mode =3D i2c_smbus_read_byte_data(client, SPD5118_REG_I2C_LEGACY_MODE);
++	if (mode < 0)
++		return mode;
++
++	err =3D i2c_smbus_write_byte_data(client, SPD5118_REG_I2C_LEGACY_MODE,
++					mode & SPD5118_LEGACY_MODE_ADDR);
++	if (err < 0)
++		return err;
++
++	regval =3D i2c_smbus_read_word_swapped(client, SPD5118_REG_TYPE);
++	if (regval < 0)
++		return regval;
++
++	if (regval !=3D 0x5118)
++		return -ENODEV;
+=20
+ 	/* We are reasonably sure that this is really a SPD5118 hub controller *=
+/
+ 	return 0;
+=2D-=20
+2.39.5
 
->=20
-> > Somewhere else some other task takes responsibility for that folio and
-> > the lock.  maybe it dequeues a page, or maybe an lru callback gives the
-> > locked page to some code.
-> > That code then calls
-> >    lock_map_acquire_try(&the_lock_map)
-> >=20
-> > This says "this task is now holding this lock" (or more accurately "now
-> > holding a lock of this class").
-> > Note the "_try" - that says that the task didn't have to wait for the
-> > lock, it just got it for free, which in fact it did.
-> >=20
-> > Now if that task takes some other lock, lockdep will see a dependency
-> > between the page lock and the new lock, and will accept or reject it as
-> > you would expect.
->=20
-> It's an interesting approach if your goal is to track the owenership,
-> but if the goal is for tracking dependencies.. well.. I'm not sure.
-
-I am sure.  Dependencies are between waiters and owners.
-
-A strong theme in your cover letter is the need to add comprehensive
-annotation for DEPT to work.
-My position is that most of what we need for LOCKDEP to be able to
-detect exactly the same things is appropriate annotation.
-We need to annotate when ownership is handed off to another thread, and
-when the other thread takes on ownership.
-
-So what does your scheme provide that is clearly better?  Is the
-annotation easier?  Is some of it automatic?  Does if give better error
-reports?=20
-
-I had a look through dept.rst and it seems that if a lock is released by
-a different thread than the one which took the lock, then DEPT can
-detect that and do something useful.  That might be interesting.
-But how does it know when it first took ownership of that lock?  Or you
-use your terminology: how does it know when that lock first entered the
-context in that thread?
-
-Maybe when you see an "unlock", you assume the lock has been owned since
-the last time the context didn't hold hold any locks.  Would that be
-right?=20
-Surely it wouldn't the too hard to teach lockdep about that.
-i.e.  when a lock, which is allowed to migrate across threads, is
-released though it wasn't held - insert this lock at the top of the
-current context and re-assess all the wait points.
-
-How do you decide that a lock that was taken is no longer part of the
-current context?
-
-
-NeilBrown
