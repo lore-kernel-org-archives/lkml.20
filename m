@@ -1,78 +1,88 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7B341DA57;
-	Sun, 30 Aug 2026 01:56:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A414276041;
+	Sun, 30 Aug 2026 01:57:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788054987; cv=none; b=DDMmCH66uwOHM82MwVJYuGwlt26eHEF+YapJg8l4eAPcEjUvMG5Shz0RPOlM+P7oswxs/3GNe3kIPwTAOAL8z0dUnE76nIUBT/m+PYX1xr8o4/7KTTxEVn2u7oVCZQ6EIvsBXozf10viQ/yW2PkD73MbXrmwueFfMUVWR+bXiSc=
+	t=1788055070; cv=none; b=jgFdXoe3GyW9MshbgQESqbw7o5fCXXS9/mFjn6aTU581ArLkZZ9Hz/WRI3qvx4syJ68R4EyNCnCnBpQ/Hvny29jjGQPCrMnBqZKVnRW+YAlH9LX0ueI7bB29bDR34qHAAotn8OiyN/q+69gTmrBjkcVdyadgtZVfTqbrjgwTBcw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788054987; c=relaxed/simple;
-	bh=CI3CfKCAA8qfLBvlaXEg8ChdvQ5vJF5dvXsKkaG2aJU=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=Tn9OYI70UUGuMmicaZ1S+7avfc+65XG/zmbRM6FOoa3Bx1gRUEs/IUiPEukl8ILZB9BMPBFOPGeOmQRoT+eA6olfLHncZQADofU2XI73wGNoKI9wVZbL5F8ihuwb6T6jUK1HWMxIBRClYrmOJRTNJF95iZvaP9dkNrPN5ycoxFY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=Iby4Jm3r; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788055070; c=relaxed/simple;
+	bh=u3E41Z+YKjXyLtxHlZDjpEOydnQ4rtNWatB8xFHkFZk=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=eTqjhnTvgzgqpLCt6rcHIqrc6G6cDt+nPbzwXBN60OpxKS1379Pk2WrbeRC17Tz9VXJ7IKHToe07csMjbjgnNwvwWq/sX5ek47N1Qgf3j+qq2XmdOLcn+VwKXyc92goHCu4dzMpq6nm4YGjywzSJDygHR2Aa0wsikU5Da56Qby4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oQJW1YO7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="Iby4Jm3r"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C20D1F000E9;
-	Sun, 30 Aug 2026 01:56:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1788054986;
-	bh=ktLOUS2dthbwSMgKwyyKMwScfNeWqoT/1bLyJqBmlPc=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oQJW1YO7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 414091F000E9;
+	Sun, 30 Aug 2026 01:57:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788055069;
+	bh=e0JhEpC2MchROPqnxxS3ZC7QejhZgB0QtqKA3dM7w1o=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=Iby4Jm3rsZ8tfSz3FvmKIHdQOgTxh6SIlBZ7J6BwALAyJrwJAuRuqcg7Yz2e05fke
-	 fbkXbPsZDeq0rRI0NW3ngAbpSnaQlemg/NtRhK4nQEu3r+iRW2Q3fqPVMwPHmLt5nO
-	 Kq++nDMnigZAdvVoMH0P9f/2f38+CSUZt8jlLAqk=
-Date: Sat, 29 Aug 2026 18:56:25 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Suren Baghdasaryan <surenb@google.com>
-Cc: dave.hansen@linux.intel.com, Liam.Howlett@oracle.com, ljs@kernel.org,
- david@redhat.com, willy@infradead.org, shakeel.butt@linux.dev,
- vbabka@kernel.org, jannh@google.com, aliceryhl@google.com,
- arve@android.com, cmllamas@google.com, christian@brauner.io,
- tkjos@android.com, dsahern@kernel.org, davem@davemloft.net,
- gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
- linux-mm@kvack.org, netdev@vger.kernel.org
-Subject: Re: [PATCH v6 0/5] mm: Unconditional per-VMA locks and cleanups
-Message-Id: <20260829185625.f5ee1b2931818843a78af88d@linux-foundation.org>
-In-Reply-To: <20260813193433.3318288-1-surenb@google.com>
-References: <20260813193433.3318288-1-surenb@google.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	b=oQJW1YO7flgMwxqLGk4V8v79foQVQ/aVN6jnW+W7DDOfqJi1hL74UIPBZ2onnbsXw
+	 ec6F/+/8F9EjoK7YoRgvbXQ6zH1bYRZjzlg6H0jr9XPXbMVQ6Dnn0qHzSnxo2ggKdh
+	 2DGTiQICavq1Ve+3S+gKQUuvg8J3wkAEmhQ5kR1Ue8X+/991Un0rY0maDENZ50Wbps
+	 ZyrZ7qY4GMxg0sz6WShgzqBFRhUfRs7ZIocVnPNWpuBclf4e5MhaTPtgu3GoRk4cHB
+	 TteBwXL1wwBwgsAKmoniomKfeG7uZjnlUihL+ACyDWDKRt27Es8lZEOT/1WDzNmSEu
+	 GLf0pLSOpd4BA==
+Date: Sun, 30 Aug 2026 02:57:43 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Conor Dooley <conor@kernel.org>
+Cc: Kurt Borja <kuurtb@gmail.com>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, David
+ Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 02/10] dt-bindings: iio: adc: support the TI ADS126x
+ ADC family
+Message-ID: <20260830025743.70dc65e4@jic23-huawei>
+In-Reply-To: <20260828-cartel-willow-9592e4e8b912@spud>
+References: <20260828-ads126x-v4-0-1dc27e9c0260@gmail.com>
+	<20260828-ads126x-v4-2-1dc27e9c0260@gmail.com>
+	<20260828-cartel-willow-9592e4e8b912@spud>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
+MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On Thu, 13 Aug 2026 12:34:28 -0700 Suren Baghdasaryan <surenb@google.com> wrote:
-
-> v2 version of this patchset [1] was written by Dave Hansen and per his
-> request, I'm taking over this series.
+> > +
+> > +  clocks:
+> > +    maxItems: 1  
 > 
-> tl;dr: Make per-VMA locks available in all configs. Simplify some
-> of the per-VMA lock users now that they can rely on them being
-> always available.
+> clock doesn't appear mandatory, what does it do?
+> 
+> > +
+> > +  '#io-channel-cells':
+> > +    minimum: 1
+> > +    maximum: 2  
+> 
+> What's the use case for actually setting this as a single cell? Kinda
+> confused by it.
 
-It's been 2+ weeks so perhaps a refresh-and-remind would be helpful.
+Part dependent, but I think we should just make them both take the two
+parameters and have the value of one of those fixed to 0 for some parts.
+Probably easier to understand that way at least.
 
-But it applies well enough and is adequately reviewed so I put it in
-there for testing, thanks.
+> 
+> Otherwise, quite frankly, the binding is too complicated for me! I'll
+> have to leave it up to the IIO folks to cover whether what's being done
+> is sane.
 
-AI review might have found a couple of pre-existing binder bugs:
+I'm rely on David to take a look :)
 
-	https://sashiko.dev/#/patchset/20260813193433.3318288-1-surenb@google.com
+To me it looks mostly fine but a few odd corners where I'm not sure
+how things are supposed to work.
 
-and a small rusty thing which you might wish to attend to.
+Jonathan
 
-> Binder and networking folks: Your code is the target of the cleanups.
-> I'm cc'ing you now on v2 because there's emerging consensus on the mm
-> side that the approach here is sane. I'm not quite sure how this pile
-> would get merged, but ack/review tags would be appreciated if this
-> looks good to you.
-
-As said, a resend might help with this.
-
-More binder/net acks would be helpful, please.
+> 
+> Cheers,
+> Conor.
+> 
