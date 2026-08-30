@@ -1,87 +1,213 @@
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18B3E3822BF
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 07:37:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B911231A3B
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 07:41:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788075437; cv=none; b=O8OU7Q87dmXCmJuENkRNhywQIqk5ng5Hlw+NdGVo0fIeP0BOYfXMwnX5mnRWrfLt+VSPyxP38XrMrRJxkwXmsA2uR0gdwTiWo44xEh1NubfpzxKX5e0fX145qHG89OWqGGpK74DF8ehSFq1hQetchQ8BlT/tS7Vj9Gsq04gQ3AY=
+	t=1788075668; cv=none; b=swrj4qUmwO1aP9DpTC/v0rwhCcT+dwly7ylLXgPo4OW6Ms+6Mzgfhnq5d+gSuYb57E64CB40SEigxr64vLyk+4z/YtXvOoHykzRaLQxIT/jqqNiHA6N5NZH87h+CudCmk59+WIyk31JCNb9jqJhpf9EQf4VS3fBhjtdo4HRs2BM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788075437; c=relaxed/simple;
-	bh=ASrGp8zTgurRcysp4W2GZweU1AMnNyJvAleGf5hP4hA=;
-	h=Message-ID:Date:MIME-Version:To:Cc:References:Subject:From:
-	 In-Reply-To:Content-Type; b=AZH/Cb58IYmLWCKX18hJXGAL8GD8J0tfHzaUG2kMhkfnx4xs3stDP9Ea+quwl8Bs/eC8zeVU4kR/OR89lh7qwYV/d9/0ks3HP2l9kItgC8yA6kWS8ukcbxtrbkw9P93YCgWvi9L3e7VkD9N0Q7GbOmAJ1P6XEgILpzEwVlLhrXQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Rkwh9Goa; arc=none smtp.client-ip=209.85.214.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788075668; c=relaxed/simple;
+	bh=HJX6rVGRzchhfl0LK5UYbAONX5xLucqG0vyAkcALXU8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DSPl4Yj14BRGTz4hTx5da08kGGUdar5jbKWavcEsTuWv9pFmG5xsaeACidISfjVRsh1epVwERoK64n2OlaayqGMRxAjGky1rrEpijFH90dy8pYERuUTaGon8GzIfwbBvuc3V6/VlT2iLilp8kzHhalCmr5ewTn/cab3QXUjs3kk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=IYLHgWHz; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Rkwh9Goa"
-Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2d712281f8bso27458425ad.1
-        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 00:37:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788075435; x=1788680235; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:subject:references:cc:to:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ASrGp8zTgurRcysp4W2GZweU1AMnNyJvAleGf5hP4hA=;
-        b=Rkwh9GoaBrwMxLrMfUsl7S+1x6p2Bwz1AeKPE/4rr29GaMBwPpV51logrpAE6tHP5S
-         Oi7bGjH3qMdEuyjed6hvp4Ge7KsLQePC1MuZ6W5ac5ZZ1acqmxfgTqXG2U2pt2p2vaH5
-         +wDhwCSqzEsQxYLwtZ7NubB0srAFh15SCG+UkqN3+UINEWYAB4OUe1mH8TFapv/KlJC/
-         A6XTlwUAymM7gLQDtTKjZgZV7wxBTsg6UekgBLg7mkrMV39G0nd486M0d+1LD9FaYt2K
-         c+RViA3V1aeENSnqqNW7zguXV02dMmnLY81b5/DY/4l/DjMGNoxtLID8U9WGaQIwyKwk
-         XoQg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788075435; x=1788680235;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:subject:references:cc:to:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ASrGp8zTgurRcysp4W2GZweU1AMnNyJvAleGf5hP4hA=;
-        b=S+malaiJVGiZGn4FvTxD9mySpFEod2E2kQbA1NfKHsQ4SZB72vvITGZu50wA5yHmAd
-         nVddfd2pXfdnz0N0010yjGll0WeOn/h67jTrZC5P/Soa54iYcY8UFxITiX2lIsCzCM8w
-         YV24Jkf1J31Ubp0MhL8MfMmVq2tgHZFPrOWrM2ea6ExYOx9BWRwD+/UsP54DK5nG+LXb
-         C7TbHJLYSPSiD6Ky3FrCKQwwMajcBtdzWR0EEHfs992s0eK4auzO5VQ2Ph6ATzRxsgY6
-         zyiElLAfl20iy0C+XrQkM/QW1FnB2TmuzOi8W88JtThnfNnPrdskRQTtGhqFQiGacKkp
-         CZ7g==
-X-Forwarded-Encrypted: i=1; AHgh+Rr/iOOhPEccSBRo+CN1P5VpUyv5Qs0kctJ6RN0bC460D68GN/h9zGHcC35OjGMu1oObjcoZnO4CjJlFrys=@vger.kernel.org
-X-Gm-Message-State: AFuF++m1yByUxjxmpktKorXnm60d9sqJgz6JPh7KlFCL3lXnWJ0/iI3n
-	P4541NkskXAC/UIpJoZnFiJpxwpNW9D7HuOxUFZK1DqHQl894Ssw849V
-X-Gm-Gg: AYBFou2q1qDBAGuBgOcIv7Yt9JfjdPQsjI2Dx8tipncO+uIPClo9f4cRm7yxi1hRoDw
-	Sfi/2ZiwkKZiuoAvAjUya2jAqw1NYQ0NrRbkCa7mwRGlLIHlerjHjR0m37lveRpZJHKsX1tOqc5
-	nZX7Wx3LePlgxHpBRA4G1ypMjxvARviXS5sPFfL+euLarhABZgJa4PPcH7F9kVWe+ttOYcnqy0g
-	m7nU740QlqLlCwburU/11C8SqdQq93DHJiqDrWsL635VthNlhHai7tjddJ3P2k0cu8GtIVXzjTk
-	QzFKM8ibbhL5TZlrm/QtUJ6+s6pZhglh/ApcK2bk12EPrtu3VpvVWJ5DD9tWtUjuNn0mRy6dfmc
-	VtIOOFM/NuLMrsZoN4/COeeWPL/n3pyUM0R1fxEcXlNjrenAc5fcrCfTrp9feTqKURjRuAI8w0Z
-	0XGstus98PVRuNYoC9O7RF02xXGdAJvhN39bPgiRzbQ/qaX+wPVAK6Oz0tayDPLMPPx5f2AL5Vy
-	VYEYqL4yDbAjMecr0ngHUbB3S8yQHIvWcL0sD72Dag=
-X-Received: by 2002:a17:903:1a2d:b0:2d8:d4cc:be64 with SMTP id d9443c01a7336-2d8d4ccc92amr160990335ad.17.1788075435070;
-        Sun, 30 Aug 2026 00:37:15 -0700 (PDT)
-Received: from [192.168.68.67] (104-12-136-65.lightspeed.irvnca.sbcglobal.net. [104.12.136.65])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3286f9e3cf8sm22814491eec.24.2026.08.30.00.37.14
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 30 Aug 2026 00:37:14 -0700 (PDT)
-Message-ID: <edb89cda-3c2f-4e1f-a545-2f2fe52c8b5a@gmail.com>
-Date: Sun, 30 Aug 2026 00:37:14 -0700
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="IYLHgWHz"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788075666;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=aXoUJxuS1mRtVSrOpvHKE2/qrhG/UJoXo+mvRC6oA6Q=;
+	b=IYLHgWHz5O+y9bhvAC8ric3NSCkfJTegboRel5ks+XGfZwnoJm0JI1PeQEPTbXhrJOOYJN
+	Rg+Zj9f+1WUsfCindn3UfQ48fN+Z62kf2wsD47zHE9oaxS1EvlCESrmJOLCzGL6N17BgYg
+	VDDzJ1xAIvDILX8OfjndADTtdUmUYDE=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-664-JcjjZu-CMkGdY12_lXaVyw-1; Sun,
+ 30 Aug 2026 03:41:02 -0400
+X-MC-Unique: JcjjZu-CMkGdY12_lXaVyw-1
+X-Mimecast-MFC-AGG-ID: JcjjZu-CMkGdY12_lXaVyw_1788075660
+Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id DBF891956096;
+	Sun, 30 Aug 2026 07:40:59 +0000 (UTC)
+Received: from snishika-thinkpadp16vgen1.tokyo.csb (unknown [10.64.240.8])
+	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 6217930001A2;
+	Sun, 30 Aug 2026 07:40:54 +0000 (UTC)
+From: Seiji Nishikawa <snishika@redhat.com>
+To: mingo@redhat.com,
+	peterz@infradead.org,
+	juri.lelli@redhat.com,
+	vincent.guittot@linaro.org
+Cc: dietmar.eggemann@arm.com,
+	rostedt@goodmis.org,
+	bsegall@google.com,
+	mgorman@suse.de,
+	vschneid@redhat.com,
+	kprateek.nayak@amd.com,
+	jstultz@google.com,
+	linux-kernel@vger.kernel.org,
+	snishika@redhat.com
+Subject: [PATCH] sched/rt,dl: Skip migrate-disabled tasks when picking a push candidate
+Date: Sun, 30 Aug 2026 16:37:46 +0900
+Message-ID: <20260830073746.2189355-1-snishika@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: devnull+muzafferkadir.mainlining.org@kernel.org
-Cc: git@luigi311.com, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, mchehab@kernel.org, megi@xff.cz,
- muzafferkadir@mainlining.org, pavel@ucw.cz, phone-devel@vger.kernel.org,
- sakari.ailus@linux.intel.com, tomm.merciai@gmail.com
-References: <20260829-imx258-add-reset-gpio-patch-v2-2-bfd27891e225@mainlining.org>
-Subject: Re: [PATCH v2 2/2] media: i2c: imx258: Add reset-gpio support
-Content-Language: en-US
-From: Rudraksha Gupta <guptarud@gmail.com>
-In-Reply-To: <20260829-imx258-add-reset-gpio-patch-v2-2-bfd27891e225@mainlining.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
 
-Tested-by: Rudraksha Gupta <guptarud@gmail.com>
+A migrate_disable()'d RT task cannot be moved to another CPU, but the
+scheduler still keeps such a task on that CPU's pushable list
+(rq->rt.pushable_tasks) and still marks the runqueue RT-overloaded
+(rq->rt.overloaded = 1). So the RT balancer keeps treating this CPU as
+having a task to move away, and keeps trying to move the task, but the
+push can never succeed. When the head is pinned, push_rt_task() does not
+give up either. It falls back to pushing rq->curr instead, using the
+per-CPU stopper, as added by commit a7c81556ec4d ("sched: Fix
+migrate_disable() vs rt/dl balancing").
+
+The CPU spends tens of milliseconds in this retry loop. The core is
+isolated for real-time work, but during the loop nearly half of its time
+is consumed by pushes that cannot succeed.
+
+An ftrace capture of the affected CPU, with sched_switch enabled and
+commit 94894c9c477e ("sched/rt: Skip currently executing CPU in
+rto_next_cpu()") applied, shows where the CPU time went. Two SCHED_FIFO
+tasks at equal priority shared the CPU, taskA migrate_disable()'d and
+queued, taskB as rq->curr. In one 89 ms window, taskB got only 52 ms of
+CPU. The other 37 ms went to the stopper thread.
+
+The scheduler kept trying to push taskA, the pinned head of the pushable
+list, fell back to pushing taskB instead, and woke the stopper 5204
+times. Every one of those pushes failed and no task was moved. taskA
+stayed runnable and queued the whole time, and never ran.
+
+Pushing taskB fails on a re-check. find_lock_lowest_rq() drops the rq
+lock to take the target rq lock, then checks again with
+"task != pick_next_pushable_task(rq)".
+
+The task being pushed is taskB, but the pick returns taskA, the head of
+the pushable list. taskB is rq->curr, and set_next_task_rt() removes the
+running task from that list, so taskB can never be the head. The check
+expects a candidate taken from the pushable list, but the fallback
+pushes rq->curr, which is never on that list. So the check fails every
+time.
+
+   .--> push-IPI arrives
+   |          |
+   |          v
+   |     pushable head = taskA   ->  pinned, cannot be pushed
+   |          |
+   |          v
+   |     so push taskB instead   ->  wake migration/N, a stop-class
+   |          |                      thread, so it preempts taskB
+   |          v
+   |     re-check compares taskB against the pushable head,
+   |     which is still taskA                        ->  give up
+   |          |
+   |          v
+   |     nothing moved, taskA still queued, rq still overloaded
+   |          |
+   '----------'
+         repeats every ~17 us, 5204 times, for 89 ms
+
+   The loop cannot stop itself. Every round leaves the runqueue
+   exactly as it was, so the next push-IPI does the same thing. In
+   the capture it ended only when taskB went to sleep on its own.
+   taskA was then picked locally and left the pushable list.
+
+   CPU time per task in the window, from sched_switch:
+
+     taskB         51.95 ms   real work
+     migration/N   37.18 ms   nothing moved
+     taskA          0.00 ms   queued the whole time, never picked
+     idle           0.01 ms
+
+   Counts over the same window:
+
+      7667  push-IPIs handled on this CPU
+     17481  pick_next_pushable_task() returned taskA, still pinned
+      5204  find_lock_lowest_rq() gave up on the re-check
+         1  push that actually completed
+         0  migrations of taskA
+
+   The CPU times and the window length come from the standard
+   sched_switch tracepoint. The counts needed tracepoints added inside
+   the RT balancer for this investigation.
+
+The self-IPI path is closed by the rto_next_cpu() fix above, and that
+part works. But the runqueue is still marked overloaded, because the
+pinned task is still advertised as pushable. Other CPUs now send the
+push-IPIs during their own RT balancing, and the same loop runs again.
+Closing the self-IPI path did not stop a pinned task from triggering
+push balancing.
+
+A pinned task should never have been returned as a push candidate in the
+first place. A migrate_disable()'d task cannot be migrated, so it
+belongs in the same skip that was added for on_cpu tasks by
+commit e0ca8991b2de ("sched: Make class_schedulers avoid pushing
+current, and get rid of proxy_tag_curr()"). Add is_migration_disabled()
+to the skip condition in pick_next_pushable_task() and
+pick_next_pushable_dl_task().
+
+With the skip in place, if the pinned task is the only extra runnable
+task the helpers return NULL, push_rt_task() and push_dl_task() give up
+early, and no stopper is woken. The pinned task then runs locally once
+curr yields. If a task that really can be migrated is queued behind the
+pinned head, it is now picked and pushed for real.
+
+This makes the fallback that pushes rq->curr unreachable when the
+pushable head is migrate-disabled. Nothing is lost, because that path
+was always stopped by the re-check described above. In the capture it
+ran 5204 times and moved nothing.
+
+Fixes: a7c81556ec4d ("sched: Fix migrate_disable() vs rt/dl balancing")
+Signed-off-by: Seiji Nishikawa <snishika@redhat.com>
+---
+ kernel/sched/deadline.c | 4 ++--
+ kernel/sched/rt.c       | 4 ++--
+ 2 files changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
+index 857dbe3519a8..0663c00c41c0 100644
+--- a/kernel/sched/deadline.c
++++ b/kernel/sched/deadline.c
+@@ -3028,8 +3028,8 @@ static struct task_struct *pick_next_pushable_dl_task(struct rq *rq)
+ 	next_node = rb_first_cached(&rq->dl.pushable_dl_tasks_root);
+ 	while (next_node) {
+ 		i = __node_2_pdl(next_node);
+-		/* make sure task isn't on_cpu (possible with proxy-exec) */
+-		if (!task_on_cpu(rq, i)) {
++		/* skip tasks that cannot be migrated */
++		if (!task_on_cpu(rq, i) && !is_migration_disabled(i)) {
+ 			p = i;
+ 			break;
+ 		}
+diff --git a/kernel/sched/rt.c b/kernel/sched/rt.c
+index e6e5f8a2caaf..85303add726d 100644
+--- a/kernel/sched/rt.c
++++ b/kernel/sched/rt.c
+@@ -1872,8 +1872,8 @@ static struct task_struct *pick_next_pushable_task(struct rq *rq)
+ 		return NULL;
+ 
+ 	plist_for_each_entry(i, head, pushable_tasks) {
+-		/* make sure task isn't on_cpu (possible with proxy-exec) */
+-		if (!task_on_cpu(rq, i)) {
++		/* skip tasks that cannot be migrated */
++		if (!task_on_cpu(rq, i) && !is_migration_disabled(i)) {
+ 			p = i;
+ 			break;
+ 		}
+-- 
+2.55.0
 
