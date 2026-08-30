@@ -1,78 +1,80 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C40F53BBFAD
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 18:20:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1851C3BE163
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 18:20:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788114034; cv=none; b=aY5GrE+RC52nkuxkdGtpvz+T1U+uITaCuDigvNHGZIqsVRuuo6ZvRN+5jivaAVmXyrvY78zUXDofcKxPSOYamz8D6tyNxvedydx/TixuLoeEjEu6ooE3enWY4OxuLuWg00KNLljSWoZOdf4igJDx3pdzdQNmsvx5HkLsCf3K6ME=
+	t=1788114049; cv=none; b=RQgZnGJ4NWTaNuF7xyJUoHbADhZo8cVAIKZqwASyWgQY4aih+qj5rAfHNN3UCdnCef2Ydp6XyrguOJrGkXZ9Ttv8Wxq6Yfk9MKTmUutP3OJa6uz/9+opN9PlSVswKdws9Vkegayhw0EYXfU5dptD61Hce3ZQf1C0KUUMqAdYb9o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788114034; c=relaxed/simple;
-	bh=TVCyLwZDMmVp0hAurQYMH3T2j5DMGrsKI0ZW+vcU8T4=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=nAv+FzXD/511NRwgoARx+s/uPE0jk+QgCn1pfj2hHFugT/eMSbAknm0sejcLVs5HeWd7niN+Jwmftj6mO63g6u4rRiEq8yp7fIGX6AmEhf2wE+Wu0Xmu4jnJOol1PWQH/jmB3YXElig7u2ci+rwotU8DOzcJbgH1AEiRTjCD2TI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VKmLibdZ; arc=none smtp.client-ip=209.85.128.42
+	s=arc-20240116; t=1788114049; c=relaxed/simple;
+	bh=u1TIZt+CHOCWQOH9BZ/QQLKHjmLWjHuJGP5POnmAlzA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YxpLwtwn574H+FCqUhg0rMoTw9tEtvlVhDasLAApRp58RH93jG/JO5iYiVhVHWm0nH4577sYvIFFP9nB/bV3ingyqMIVvU/YCSrGTLT998YHBX29XIhBHq+uOtCKFGFtJ1Lz3KWXBBW8iqTLssAKgwoCSNlBipMpdNbRKTp1XDo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=drhh4W3T; arc=none smtp.client-ip=209.85.215.179
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VKmLibdZ"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-49ccfbe062eso8414345e9.3
-        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 11:20:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="drhh4W3T"
+Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-cc1cc97b84bso2344210a12.1
+        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 11:20:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788114030; x=1788718830; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788114047; x=1788718847; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Rco2GCRhLFay115dRTUgmepuW15efqnKFUOomZek2ow=;
-        b=VKmLibdZ2hzJjmcmtqZhbmpzR2rX3cJB7sKEUjaMQ4PflODCN0/VedqcwTI6bYGBji
-         SyFEdoRBlylb0MbOZs/84j629JUiWxLkvdkC8LvueJXfPQQhDkEY80rt8oO/fOCsHcWo
-         MLehDz7MTz2ijFlekXeRDAJ3coNK0gTw5o+NGC5OXFFn95QFfsyJvCHxEbsX10yWd3Gw
-         I5Ebf8ZmhZUf/6nskQNviZS9ds+TVmY8eBwtdOJFNhdPRdl7UH0JC7I/5/HhWTStyfbD
-         RzZQYNVdR5D2yqUo7IcVTYdF6YSja4tCCI1s16MlCJvm+VPWnPKqOk54+YZeTf+8CZoV
-         Mxlg==
+        bh=4Z/BxeJ8T4MCVt5zsyL/JPI0APYo+zl6RdZeA6DakAU=;
+        b=drhh4W3TVrk21h7U2VRLEBGYDnOo4WVmMpOBDkhSIKN36qhtFdf0ePF48lec1pbTe0
+         KU2Zwhk+oyppaQKlM7SdgqH01oPtmHAo3Zo/oNkn2oNWe+XOrk3NCfbgHGrP1nNM03De
+         mPY5QWNRCuAE+hpO9tANsVf9wswsmFadbseXBtH589Iq8Vn7Ax8jc5dc0oRHTFyTlGnD
+         uicurQmiLzQwkd1QzuOiSV9DoiDMAdIf+x/vbpGVVOfSuQBfS7trOU4VX7IsnFZwdDLj
+         3rhx/P53hn/Kcm1wUCsdWPboKdJUPTg4Bys9gkc4aoFVqeFGNeCB3+Zqe51UeMyAW2ek
+         gBcw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788114030; x=1788718830;
+        d=1e100.net; s=20251104; t=1788114047; x=1788718847;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Rco2GCRhLFay115dRTUgmepuW15efqnKFUOomZek2ow=;
-        b=VZaAiLcJCOoSNUMHNWuPGyjTTwvREGbHV6am+Eb2BCh8NUApz1rYyoMw/fwuwIAwBP
-         yBI8CNPsB++P1C2gBCR3oplJxP1sIIG56yJk9iabbGLZOGe8+FIHn2fuxgvI21zoiim2
-         Hm6G+zpNE/up8qyjgpl2UsP8f4OGJatajaZJFRXn2TZLfo4RJ0echfVylfl4wle5sbmr
-         W+mPeNAeyri5rAUblX1urDtcsgO+LYwbZPVcmAAE/TIRK4VzAsAUiHpQ8WnTHnjJSUkv
-         fbd+k0klXWBgnC22FQ26jPzWijUhWD1PLZD/teloflFNg7CIiydLBM62IrnboaKvrU7y
-         ajAg==
-X-Forwarded-Encrypted: i=1; AHgh+RoPl6PomFfO1gbjbmtfyCqBDC+PxSqSFiNEET3VUACeNkazWK9Z/UpvhSgRNiPUzQkm/3ZR11oYw7CubH8=@vger.kernel.org
-X-Gm-Message-State: AFuF++mMs66UZUcOBumJU/4zvJfh49N7/GaXbxvWy8JvZPSkiIACqbN8
-	/v+G5YMmWLSW3jSD8UUXdwKF+zfvabnUPESTiMmGzzMPEFFzO9TZmEYP
-X-Gm-Gg: AR+sD13h9HEJbk4Gg+jNzKzcrIzg94W4suVQ+KoGWpIT1QcHW4C4+SypHCE9O4jtgcY
-	p2mBZGkaDGD85XLXsKpgTneezcqo60BpXNy3ykHeiBb9ZBtHMxWBM6cZn+b++IGGx/EPhhE0cac
-	sS86WvcowkDPM+7AxQCT51Fbvv4ouk6DrFcPh+qYINTSslEzDgcdlTdxlSvY2HRJdzUYNyFQwy9
-	GzFUR2HrJ1zfFoVmQduX2742EJUeThwQHpsWyIPVqCszmeY8bFhfL+fC3bOHJhZO7brQBrGne5M
-	Xn4u4z6Txge+9EPoWp4CZMHMDzbRGuiEVIdtHXMsyYwaZYEVpuqfnzlaYmp+begZ4d7c+8UmJU5
-	8ZU94couk+tyzabBdv6dWFXbaPz/kGVhFgQqkwlys1MgPGn9D0jwJguFqfBuofqfPC8cgCePD3d
-	prdqn8Ktf7xL1RWeSKSQO7neR0hTm7TLke9QwbUbDX8SmGSgdr+Xkzd/+VC6WKgIBylXl718ajx
-	WLkiv2iw/wE8kWnzCz278o7PsNQrCEJHv6Sq4vxlJJKZi1KOkBWiSxjpPOoz+0sQWCFM5s4XdKt
-	6F7Xb2BJ8vk9ACB7//VvikInAGdv4M6QOkvztu9RhOZYlpJBaFszZT/Bxh8bVtQvyRSnQzQprH7
-	sHpuNfXCDwmKbssl7yR88Uw==
-X-Received: by 2002:a05:600c:8b86:b0:493:f5bf:4dc6 with SMTP id 5b1f17b1804b1-49b91c2777emr366315815e9.7.1788114029578;
-        Sun, 30 Aug 2026 11:20:29 -0700 (PDT)
-Received: from MacBook-Pro-von-Karl.localdomain (dynamic-2a02-3100-adda-dc01-edc7-8a6f-c6f3-73e0.310.pool.telefonica.de. [2a02:3100:adda:dc01:edc7:8a6f:c6f3:73e0])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b94dc0f57sm252584505e9.2.2026.08.30.11.20.28
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 30 Aug 2026 11:20:29 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: David Howells <dhowells@redhat.com>,
-	Jarkko Sakkinen <jarkko@kernel.org>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Paul Moore <paul@paul-moore.com>,
-	James Morris <jmorris@namei.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>,
-	keyrings@vger.kernel.org,
-	linux-security-module@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] keys: set persistent keyring timeout before destination linking
-Date: Sun, 30 Aug 2026 20:20:26 +0200
-Message-Id: <bb0370340c671.1788111790.git.kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+        bh=4Z/BxeJ8T4MCVt5zsyL/JPI0APYo+zl6RdZeA6DakAU=;
+        b=Pb+UrGOwMj69zzi9Hw39bXNri5tVfSGpUaTNBFnwD3xMjmS6VKSLWaXX6aXfcjKASi
+         LqRsNR+Tx7vjx4jR1bRtYmd9Tm5hRBrkOQ5S5dd/Um8OmYSH6nwhh4cqHhdJZkbpB5pv
+         Ep7sOCO0U7i5XkFinQaYHLqbSaco0UVU7XRC4Km+lnjTA0wQzaXcNeDmdZxvTkGg0LmS
+         AhSLsbNHFFaTJ9fPzm7fedKIW9NnlCtOVWWb+UqkYPdd7KslHlZ3crjDZP9QBxQtTcoj
+         yxey1gX2Xv1aUVzzLKG/uy5Rq67EJIGS7B3KapPqgKkMYDZl+viBq4igCpfTzHKcYVKD
+         iGIQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rr9x1vf8uOtsS+O9iBYL2IhNubfND+jWooLus0ZcyfsN6DHpiVGqXxqmhtvwsqLFjjBAe/wVvbLI3a1/pA=@vger.kernel.org
+X-Gm-Message-State: AFuF++nlDRsNAGwtm+PZatkfiEWMIz52RnpMCIUI34oEtK++K5Uh7duU
+	ngjRDC2x+c7aCMmCla6UDDidQ0zYK8nxbAw74ZiiflSNjxp3uthwGOGe
+X-Gm-Gg: AR+sD100OytElU5Uh2LmNwFf+e/N7+WnN1ExRfC7J2mPJXXBLCeGLl58tO8MMPfaBcM
+	+W30YJF1P1isq4sygPntbT/IMlc682MMOz5WQlJhaOli8MM+v7qxshY+cQ5cO7Ep0hdS06Tdqxg
+	fKBq1vbsWzUktU4LdecVpJc/jyb0B83fzumtKqHssPqBMlmQxeJyvz2k80eJmRI6K5lcCeZa+p5
+	OdhMaOeOtJfmq6mtseBEibgQg/6QwcTygKK/qLZLQn/TdxS45SooiWjoOg6m3lGm1Th7zEomQF3
+	j1PEPtWg3Z1SG+zQbLQdLyaBss8YNMjYL1BfeGBouh7SFYxuoWVmElQCHZI5PO5S1azDyExtvGK
+	C1rh0h2Fp6nIp+CJcE9l4+QusRVFT64y4ElTF5r9XsgV1FFKB77MQpjgRloucGTrltjO+Tk856i
+	jfoVrZOyPsf8HlUnKkgUqnFzs4tDrKnJJlEc6sXgbnOzJ9jMxEDyijCh/hWufB5hEbjzbyQE8iY
+	p9xhg==
+X-Received: by 2002:a05:6a21:4d07:b0:3d3:af44:ee12 with SMTP id adf61e73a8af0-3d3af44f160mr20178531637.27.1788114047417;
+        Sun, 30 Aug 2026 11:20:47 -0700 (PDT)
+Received: from debian.prasanth ([103.177.82.239])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3286f95a847sm21619480eec.17.2026.08.30.11.20.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 30 Aug 2026 11:20:46 -0700 (PDT)
+From: Prasanth Kumar Padarthi <prasanth.padarthi10@gmail.com>
+To: Joel Stanley <joel@jms.id.au>,
+	Andrew Jeffery <andrew@codeconstruct.com.au>
+Cc: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Ryan Chen <ryan_chen@aspeedtech.com>,
+	Billy Tsai <billy_tsai@aspeedtech.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-aspeed@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org,
+	Prasanth Kumar Padarthi <prasanth.padarthi10@gmail.com>
+Subject: [PATCH v4 0/2] ARM: dts: aspeed: Add ASRock Rack B650D4U BMC
+Date: Sun, 30 Aug 2026 23:50:34 +0530
+Message-ID: <20260830182036.284736-1-prasanth.padarthi10@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,65 +83,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-keyring_alloc() links a newly created persistent keyring into the
-namespace's hidden register with TIME64_MAX expiry.
-key_get_persistent() sets the configured timeout only after linking the
-keyring into the caller's destination.
+Add device tree support for the ASRock Rack B650D4U BMC, which is
+based on the ASPEED AST2600 SoC.
 
-If the destination rejects the link, the registered keyring retains
-infinite expiry. It is exempt from key quota and can remain until namespace
-teardown or reboot even though the syscall returned an error. At most one
-such keyring exists per UID per namespace. Repeated failures for the same
-UID therefore strand only one small allocation.
+The series adds the board compatible and describes the BMC memory,
+SPI NOR flash layout, UART console, and MAC0 connected to an
+RTL8211F Ethernet PHY.
 
-This is reachable from unprivileged userspace: KEYCTL_RESTRICT_KEYRING on
-the destination makes key_link() return -EPERM via restrict_link_reject(),
-after key_create_persistent() has already registered the keyring.
+The MAC0 RGMII timing configuration was validated on B650D4U
+hardware. With plain "rgmii", the PHY negotiated 1000baseT/Full but
+received no valid packets and accumulated RX CRC errors. With
+"rgmii-rxid", a 5000-packet test completed with 0% packet loss and
+no RX CRC errors. "rgmii-id" was also tested successfully, but the
+additional TX delay is not required, so "rgmii-rxid" is retained.
 
-Set the timeout immediately after creating and registering the keyring. A
-later permission or destination-link failure then leaves a collectible
-persistent keyring. The successful path may refresh the same timeout again
-without changing its semantics.
+Changes in v4:
+- Validate the MAC0 RGMII timing configuration on B650D4U hardware.
+- Keep phy-mode = "rgmii-rxid" based on hardware A/B testing.
+- Add the SPI NOR fixed partition layout validated on B650D4U
+  hardware.
+- Correct the BMC memory size to 512 MiB.
+- Order peripheral nodes alphabetically by label.
 
-Fixes: f36f8c75ae2e ("KEYS: Add per-user_namespace registers for persistent per-UID kerberos caches")
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
----
-Tested with QEMU 10.2.1 TCG. The reproducer set
-/proc/sys/kernel/keys/persistent_keyring_expiry to 60 seconds, restricted
-the destination with KEYCTL_RESTRICT_KEYRING, and then called
-KEYCTL_GET_PERSISTENT. No LSM policy was loaded.
+Prasanth Kumar Padarthi (2):
+  dt-bindings: arm: aspeed: Add ASRock Rack B650D4U
+  ARM: dts: aspeed: Add ASRock Rack B650D4U BMC
 
-                      syscall result  /proc/keys expiry
-  i386 baseline       -EPERM          perm
-  i386 patched        -EPERM          1m
-  x86_64 patched      -EPERM          1m
+ .../bindings/arm/aspeed/aspeed.yaml           |  1 +
+ arch/arm/boot/dts/aspeed/Makefile             |  1 +
+ .../dts/aspeed/aspeed-bmc-asrock-b650d4u.dts  | 95 +++++++++++++++++++
+ 3 files changed, 97 insertions(+)
+ create mode 100644 arch/arm/boot/dts/aspeed/aspeed-bmc-asrock-b650d4u.dts
 
-Full kernel builds completed for i386 and ARM926, and for x86_64 with
-CONFIG_PROVE_LOCKING=y. The x86_64 reproducer completed without lockdep
-reports, warnings, or bugs.
-
- security/keys/persistent.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/security/keys/persistent.c b/security/keys/persistent.c
-index 97af230aa4b22..0eca8c5758434 100644
---- a/security/keys/persistent.c
-+++ b/security/keys/persistent.c
-@@ -63,6 +63,12 @@ static key_ref_t key_create_persistent(struct user_namespace *ns, kuid_t uid,
- 	if (IS_ERR(persistent))
- 		return ERR_CAST(persistent);
- 
-+	/* Set the expiry now: if the caller then fails to link the keyring to
-+	 * its destination, the register is left holding a collectible key
-+	 * rather than a permanent, quota-exempt one.
-+	 */
-+	key_set_timeout(persistent, persistent_keyring_expiry);
-+
- 	return make_key_ref(persistent, true);
- }
- 
-
-base-commit: 08dbfad3f5040f5bdb6c529da20d6d4e81fefd72
 -- 
-2.53.0
+2.47.3
+
