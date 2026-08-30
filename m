@@ -1,208 +1,112 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 170FF353A66
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 07:54:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDCEC1E51E0
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 07:55:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788076445; cv=none; b=IT0L6VADqFBJdDidMJyspSxqPa8rehx3LNLWba4TQyTr3QXfs2tNqrSLShUG9ms6rfh8icvZBBwBAAcZnBZYHaWCt5IanQAC92gIx4HQAcStcmRLQCJ+kR0YgVDwChSeeLC5aXzlKLST8cGO/JN29bOajVdu/yvkgSeRHSfejw8=
+	t=1788076543; cv=none; b=NHTB96XRau3Hrv+szSgO7+Hn7B5n8LNGAPq/n+hAFPDiX28g3FtKuhh1WkU9OvSSKH6FyuPjY3Y20ziWcIjeAqi+/aEt8z/AGgb+hUqkru+W6NtxXC6ybWvwTofJnUS18SxQdG+NKVR7kuRxMGMR3UBlgVilbHzM9DXtqA3GxMo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788076445; c=relaxed/simple;
-	bh=Hn03e+/WULF81D3yHyPxkS+4ZIZvHapTPnkx+jlSYf4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=VYmnIq4QmzRBUCfS218chOFw+DLCS6MHzKooqriuysj0iK7+XT9p+9/lVQlnIixYjsMmHxESCfHg3SsemgSSs6nTs2yvankdnxmvCTtcI5VLpei8NSd0NAyB5gAxHDHWkyADrVmiH2mBXENhC5BW2HVhEEeBFR+0c+9UFR9JI/c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ocy4ylfF; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ocy4ylfF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A4F91F00ADB
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 07:54:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788076443;
-	bh=UeEQ5jVzcI0HkkaBYNG8dZHlQd9/ubRiXJT++zIWi7M=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=ocy4ylfFrWKNIBjucLRgP/bcUttjvfQaZdfmC/pHFTioFbRGlQ/BlBKtxGZvpA56x
-	 y5ImLCwoTbty6dkS6KMS89q6JBdaD+/NQTN5LkWHvvPGlmvCnDIw8/djn59ZygBqOv
-	 qpf6b1LPrGedr/UXbe+Q7ljzC/EK74Z0OZfMDyxNLvShInFyiXq22EwFZBrL7ZaP90
-	 A1o3rLatmXqkczN8qBvTranP1LLvheI1b78mbPVMICwC8PwQZ6zS3T3aK3OzuKZ781
-	 BMoERzwL+5IbTPFjHwrOp6xKzLVWu4mbxGH77VAham2ilthQ3rh/KxqQjwbVAoXHAA
-	 +v6+rbaqH2HMg==
-Received: by mail-qk1-f178.google.com with SMTP id af79cd13be357-930c0f9c1b1so158210585a.1
-        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 00:54:03 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RpzSfjD771c7xjkmvjc3wk4+XJCrezg2KDtfEfjlJHKussRa8Yr2cOV3B1m8mlhTJ8GoGJN6o7sBdQKKCQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++m+o0FGNCFhnGTikvflnDe2+GCY8u2vAJP4Mqxy5+VXpXz00XPM
-	c6i2WRoHdMU6cUJiOJtEX5y59ewx5w+wQKYqWLTW5MdxHSyQoo2A5ZdjNgkdKmFzi/v0CdOsfJX
-	g0kb7nSt9GXkoEvULZFTpeePMhvYpR0I=
-X-Received: by 2002:a05:620a:6c0d:b0:938:fd60:4f9 with SMTP id
- af79cd13be357-939138ffdc0mr2008314785a.27.1788076442846; Sun, 30 Aug 2026
- 00:54:02 -0700 (PDT)
+	s=arc-20240116; t=1788076543; c=relaxed/simple;
+	bh=qdgOvI9ZfoXBgad9Bu6vpvpaB75XjF0VCfNp3WoOhk4=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:Cc:
+	 Content-Type; b=aDqMG+h0qmozEz7MyszmIu4p+VzOs1LaIpP3ainUbTN62Swyn+wDcWkuHo2/2SW+Yi2hWqnuBexzF2bU5M5Kd76Cq9LEhjzCADhFUYrMU+Dyb9nUWTz+qx9WlFGfZ56UPQHRsa/Na3VfEaF7Cil2sMlOLGDGe3lnab3+tKDylhA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4b2f2b8d88fso4753697b6e.2
+        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 00:55:41 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788076541; x=1788681341;
+        h=content-type:cc:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=IyWKVtx2DmQgfl0T4AIbgWKHxP9LYOliY6XtyNUqPz8=;
+        b=q81cH184j5vSzHvCw0G94hPkc5vfeNk6KPGYF8D6Et30wy6s6gJeDULXq1ghzvEekS
+         ICgfn43si0JX67MDTCi9I5yduRx+cXXouDBOf1glwcN5JtCtAbLncrgYDtZIhcMxauAU
+         gamDcYKrV/Z+lTO3gtn8B65YEDhsImk+FVYglrDoqrXYL+l5tL1BlB8BECn8TgB99S+X
+         8zjWJLfpI2BHbw22PZ+Aakn5ucz+uw+0WYmyIun/FHz5IBV5O3VY+aGQ2VlNM8Rc+WWc
+         hWGQGfFaooADdOIWqvFRp8l/44eaO2sCoGayTLvIuoJhv+zuFVPy5b3ErYjY/c5dF2zN
+         suzw==
+X-Forwarded-Encrypted: i=1; AHgh+Rrzt4k5M6YVxae6KDKeD12sOEQ6uhX1u3CKzkIGXQLtVtyVS4hr/PCb8CQo007cIzSiu/M00Y7ababy4vA=@vger.kernel.org
+X-Gm-Message-State: AFuF++kPrujBvaJ+w77DNUk+20FQtGb5jHeLdFNPq9BU8uFKnZ/V1LBx
+	Q4U3PeWIT5zFdl/vkc8UthYgMLr1QDobBw+XqFDY9ndaNHITGzuqDsQ0hWHD8Y7fOZYzty2LAK0
+	aLahs20XiGWNusYvrO4AvhZsYYLUJigXoXwBSfgDNuZYZSsXuQcPOpYlx9hk=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260828110919.1324028-1-ridong.chen@linux.dev> <20260828110919.1324028-3-ridong.chen@linux.dev>
-In-Reply-To: <20260828110919.1324028-3-ridong.chen@linux.dev>
-From: Barry Song <baohua@kernel.org>
-Date: Sun, 30 Aug 2026 15:53:51 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4ws6edtcToqJQ0azJPTymAYj41nzdGJvBqEM+gROiJtRQ@mail.gmail.com>
-X-Gm-Features: AcwNN1XAAY1zLhOoDIQLd7-dIIw1xCvdhjIWr8q4jSclCc3cBnbDulr35kYiJ1A
-Message-ID: <CAGsJ_4ws6edtcToqJQ0azJPTymAYj41nzdGJvBqEM+gROiJtRQ@mail.gmail.com>
-Subject: Re: [PATCH v2 2/2] mm/mglru: fix ineffective memory protection for
- non-kswapd reclaim
-To: Ridong Chen <ridong.chen@linux.dev>
-Cc: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
-	Roman Gushchin <roman.gushchin@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	Andrew Morton <akpm@linux-foundation.org>, Muchun Song <muchun.song@linux.dev>, 
-	Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>, 
-	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
-	Wei Xu <weixugc@google.com>, David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
-	Chris Down <chris@chrisdown.name>, Tejun Heo <tj@kernel.org>, Yu Zhao <yuzhao@google.com>, 
-	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>, 
-	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <linux-mm@kvack.org>, linux-kernel@vger.kernel.org, 
-	Ridong Chen <chenridong@xiaomi.com>, stable@vger.kernel.org
+X-Received: by 2002:a05:6808:4f52:b0:4b3:79ae:14a3 with SMTP id
+ 5614622812f47-4b397f557e3mr21183014b6e.3.1788076540856; Sun, 30 Aug 2026
+ 00:55:40 -0700 (PDT)
+Date: Sun, 30 Aug 2026 00:55:40 -0700
+In-Reply-To: <20260830075523.16233-1-kartikey406@gmail.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a93e1fc.1d9ded08.62e62.0117.GAE@google.com>
+Subject: Re: [PATCH] media: vidtv: fix mutex use-after-destroy in vidtv_bridge_remove()
+From: syzbot <syzbot+3157015c6bd85395cddc@syzkaller.appspotmail.com>
+To: kartikey406@gmail.com
+Cc: kartikey406@gmail.com, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Fri, Aug 28, 2026 at 7:10=E2=80=AFPM Ridong Chen <ridong.chen@linux.dev>=
- wrote:
->
-> From: Ridong Chen <chenridong@xiaomi.com>
->
-> memory.min/low is silently bypassed for MGLRU during global proactive
-> reclaim (writing to the root memory.reclaim) and global direct reclaim.
+> #syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
 
-I guess nobody is silently bypassing anything. It's just that the
-effective min is stale data. If kswapd has run at least once, should
-the protection have been updated already?
-I guess we need to update the changelog a bit?
+This crash does not have a reproducer. I cannot test it.
 
-> It can be reproduced as follows:
 >
->   # echo 7 > /sys/kernel/mm/lru_gen/enabled
->   # cd /sys/fs/cgroup
->   # mkdir -p a/b
->   # echo 100M > a/memory.min
->   # echo +memory > a/cgroup.subtree_control
->   # echo 100M > a/b/memory.min
->   # echo $$ > a/b/cgroup.procs
->   # dd if=3D/dev/zero of=3D/tmp/testfile bs=3D1M count=3D200
->   # cat a/b/memory.current
->   222650368
->   # echo 500M > memory.reclaim
->   -bash: echo: write error: Resource temporarily unavailable
->   # cat a/b/memory.current
->   6070272
 >
-> memory.min is 100M, yet reclaim drops a/b down to 6M, breaking the
-> protection. The traditional LRU path is not affected because
-> shrink_node() calls mem_cgroup_calculate_protection() for each memcg it
-> visits during a top-down tree walk.
+> mutex_destroy(&dvb->feed_lock) is called too early in
+> vidtv_bridge_remove(), before dvb_dmxdev_release() and
+> dvb_dmx_release(). Both of these can still trigger vidtv_stop_feed(),
+> which locks feed_lock, causing DEBUG_LOCKS_WARN_ON(lock->magic !=
+> lock) in __mutex_lock().
 >
-> Commit 30d77b7eef01 ("mm/mglru: fix ineffective protection calculation")
-> moved the protection computation into lru_gen_age_node(), which only
-> runs for kswapd. Non-kswapd global reclaim reaches shrink_one() through
-> lru_gen_shrink_node() -> shrink_many() without any protection
-> computation, so emin/elow remain stale or zero.
+> Fix by moving mutex_destroy() to after dvb_dmxdev_release() and
+> dvb_dmx_release() return, and by stopping any active streaming under
+> feed_lock beforehand so a late vidtv_stop_feed() call sees
+> dvb->streaming == false and returns early.
 >
-> Introduce mem_cgroup_protection_path() which computes emin/elow along
-> the root-to-target path only by iterating through the cgroup ancestors
-> array top-down. This avoids the full tree traversal that would be
-> needed with mem_cgroup_calculate_protection(), limiting the cost to
-> O(depth) per memcg - typically 3-5 levels.
->
-> Call it from shrink_one() for the non-kswapd path so that each memcg
-> about to be shrunk has correct protection values.
->
-> Fixes: e4dde56cd208 ("mm: multi-gen LRU: per-node lru_gen_folio lists")
-> Cc: stable@vger.kernel.org
-> Assisted-by: Claude:claude-opus-4-8
-> Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
+> Reported-by: syzbot+3157015c6bd85395cddc@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=3157015c6bd85395cddc
+> Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
 > ---
->  include/linux/memcontrol.h | 11 ++++++++++
->  mm/memcontrol.c            | 45 ++++++++++++++++++++++++++++++++++++++
->  mm/vmscan.c                |  8 ++++++-
->  3 files changed, 63 insertions(+), 1 deletion(-)
+>  drivers/media/test-drivers/vidtv/vidtv_bridge.c | 12 +++++++++++-
+>  1 file changed, 11 insertions(+), 1 deletion(-)
 >
-> diff --git a/include/linux/memcontrol.h b/include/linux/memcontrol.h
-> index 7d1c0ce189a8..8066b798a759 100644
-> --- a/include/linux/memcontrol.h
-> +++ b/include/linux/memcontrol.h
-> @@ -605,6 +605,10 @@ static inline void mem_cgroup_protection(struct mem_=
-cgroup *root,
->
->  void mem_cgroup_calculate_protection(struct mem_cgroup *root,
->                                      struct mem_cgroup *memcg);
-> +#ifdef CONFIG_LRU_GEN
-> +void mem_cgroup_protection_path(struct mem_cgroup *root,
-> +                               struct mem_cgroup *memcg);
-> +#endif
->
->  static inline bool mem_cgroup_unprotected(struct mem_cgroup *target,
->                                           struct mem_cgroup *memcg)
-> @@ -1133,6 +1137,13 @@ static inline void mem_cgroup_calculate_protection=
-(struct mem_cgroup *root,
->  {
->  }
->
-> +#ifdef CONFIG_LRU_GEN
-> +static inline void mem_cgroup_protection_path(struct mem_cgroup *root,
-> +                                             struct mem_cgroup *memcg)
-> +{
-> +}
-> +#endif
+> diff --git a/drivers/media/test-drivers/vidtv/vidtv_bridge.c b/drivers/media/test-drivers/vidtv/vidtv_bridge.c
+> index fd69b4ee16f4..6bebf4617100 100644
+> --- a/drivers/media/test-drivers/vidtv/vidtv_bridge.c
+> +++ b/drivers/media/test-drivers/vidtv/vidtv_bridge.c
+> @@ -548,7 +548,14 @@ static void vidtv_bridge_remove(struct platform_device *pdev)
+>  	media_device_cleanup(&dvb->mdev);
+>  #endif /* CONFIG_MEDIA_CONTROLLER_DVB */
+>  
+> -	mutex_destroy(&dvb->feed_lock);
+> +	mutex_lock(&dvb->feed_lock);
+> +	if (dvb->streaming) {
+> +		dvb->streaming = false;
+> +		vidtv_mux_stop_thread(dvb->mux);
+> +		vidtv_mux_destroy(dvb->mux);
+> +		dvb->mux = NULL;
+> +	}
+> +	mutex_unlock(&dvb->feed_lock);
+>  
+>  	for (i = 0; i < NUM_FE; ++i) {
+>  		dvb_unregister_frontend(dvb->fe[i]);
+> @@ -559,6 +566,9 @@ static void vidtv_bridge_remove(struct platform_device *pdev)
+>  	dvb_dmxdev_release(&dvb->dmx_dev);
+>  	dvb_dmx_release(&dvb->demux);
+>  	dvb_unregister_adapter(&dvb->adapter);
 > +
-
-I wonder if we could follow the zswap pattern?
-
-#if defined(CONFIG_MEMCG) && defined(CONFIG_ZSWAP)
-bool obj_cgroup_may_zswap(struct obj_cgroup *objcg);
-void obj_cgroup_charge_zswap(struct obj_cgroup *objcg, size_t size);
-void obj_cgroup_uncharge_zswap(struct obj_cgroup *objcg, size_t size);
-bool mem_cgroup_zswap_writeback_enabled(struct mem_cgroup *memcg);
-#else
-static inline bool obj_cgroup_may_zswap(struct obj_cgroup *objcg)
-{
-        return true;
-}
-...
-#endif
-
->  static inline bool mem_cgroup_unprotected(struct mem_cgroup *target,
->                                           struct mem_cgroup *memcg)
->  {
-> diff --git a/mm/memcontrol.c b/mm/memcontrol.c
-> index 1271d390b617..095050d4296a 100644
-> --- a/mm/memcontrol.c
-> +++ b/mm/memcontrol.c
-> @@ -5198,6 +5198,51 @@ void mem_cgroup_calculate_protection(struct mem_cg=
-roup *root,
->         page_counter_calculate_protection(&root->memory, &memcg->memory, =
-recursive_protection);
+> +	mutex_destroy(&dvb->feed_lock);
+> +
+>  	dev_info(&pdev->dev, "Successfully removed vidtv\n");
 >  }
+>  
+> -- 
+> 2.43.0
 >
-> +#ifdef CONFIG_LRU_GEN
-> +/**
-> + * mem_cgroup_protection_path - compute protection along root->memcg pat=
-h
-> + * @root: the top ancestor of the sub-tree being checked (NULL for root_=
-mem_cgroup)
-> + * @memcg: the target memory cgroup
-> + *
-> + * Walk the ancestor path from @root down to @memcg and compute the effe=
-ctive
-> + * protection at each level.  This is safe for isolated queries because =
-it
-> + * ensures parents are computed before children.
-> + */
-> +void mem_cgroup_protection_path(struct mem_cgroup *root,
-> +                               struct mem_cgroup *memcg)
-
-Can we rename it to `mem_cgroup_calculate_protection_path()`?
-
-BTW, I see that the only caller is in vmscan and it passes NULL as
-`root`. Do we need to keep the `root` argument if the new helper is
-only used for global reclaim?
-
-Best Regards
-Barry
