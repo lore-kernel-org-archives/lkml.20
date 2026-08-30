@@ -1,81 +1,36 @@
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03309309EF4
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 13:07:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 979823B4E81;
+	Sun, 30 Aug 2026 13:08:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788095248; cv=none; b=cNJ5LUd99HMv7JHLQDfbtgwtzrpt2WU7F7Nz2V8zaWPX6dC8LOGFRPbhu55fPBiuBd7h53wv6pHfWKybZ7gFxMIw9Rt2mb653ZCACk/EYxtQkn6JVRTRpvDb0R4XvhGgJOtiASROiQsyIOwYLACGMHw+TsMLt9Xw033ufDGYzAY=
+	t=1788095286; cv=none; b=akNp4jpbdbmzHbysuLeC59uAkFDAKj/Le/ZDTd+2qRyIWVFEVAlRK83ILnDPILRuQjJkkaKZNn0H6I++Ljf5dgO5o+j/5+J2raxaaUvFF+wQ3EZI5C0WpI+YH5PlqUDmxDsA/MHr+4t1gvQw+EduhqwhTLZaF7OcppamBaNCEC8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788095248; c=relaxed/simple;
-	bh=HSmkZaU5um5sq0Qt6uORYxOtOEKxN0bOvLzk2TFw+8A=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=p9nObCvPkRIW8/zSFjThdX9xDzJSygSMvEZQ+Snc+bKbTXSKPVGobyWwEse12VOqHxf6WME0XnBpwTJKSrudhInjKmb+ph+Sfpj2S437s8remD85dzI0yi+M0mSAaBE3HGcxjbVn1nm+DQRnmCBdFgDcE2qSF1IeotCQ9xc5d8Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nRi/4JGa; arc=none smtp.client-ip=209.85.214.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nRi/4JGa"
-Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2d6f624c323so25131145ad.0
-        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 06:07:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788095246; x=1788700046; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ff+tAYyxP+Ja85LcjLz6eITSmOy44S8AX6xrfczNf6Y=;
-        b=nRi/4JGafYlSwrPR/fSbtPfY6eROQSkQSgI50eBkJAfVvZHrTvxzSkHxXJjJrXS2y2
-         LU2RWHZyG/3ogSGfl/6nCMnT8HsohOQzNpl2+C5lkhZzKCciNo1lT2o1o1u2oaLcxZ1K
-         VtdlCa3zt8+t8uHFxWcc4cGOrl/FAOvStxYBie8KvYMe7l+P2IRW18eOyvrpTfktzQSS
-         4DrYrfQDXUAQCAnXB9Nk4O9I+ItmZ2H3eV/25BnYs6Y4nXIe2qpogsNlp2vcodCdQUL2
-         s1bv2cwXV5vAIBqKtZdUNWTpNMh/GrSE2BWSnlH6W+z56ZWoY/v3Hy3cXWSXUZEeAkSF
-         aUww==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788095246; x=1788700046;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ff+tAYyxP+Ja85LcjLz6eITSmOy44S8AX6xrfczNf6Y=;
-        b=qjU9DC2tvU0qeFxfmzW+hom4CTn5lqfocZDEtPGqfAxjknjAF2pjiQ2qOzeMwmTBp6
-         GsaQGsm63v7pKcLzyvngj3yYC9ekzSb217mJKItdqpsPAGdRKaqAGRzl9kScPeZbxFY8
-         1ID/t2NMxHfJm5lNNplU2pUkYr4Z9wUzbFkH3j7UZEVoE99Mz0ubKYLExOPt7sDwBkGa
-         iPkZ0nJF8xkFNL0Pf+Qkd3i7fBbQDcu0Oes/t38+Pl+t4CSVKi4CiZJkSIJ8aXkxA1mg
-         SyRBBuVWYKJaR99pF7HjFaqhsMdk1tsHbuKEXK5E7HqUNAW9S5cWdedrsIhYpnoF3XOr
-         Usfg==
-X-Forwarded-Encrypted: i=1; AKwUvBz9RPTRLVLRz7oVNAvz0edGAmCl2Jr4aB9CfeUz9ENuY4qhV+yxs7NGA8IJKmJU0lpfR/wwvT8OGR+Krfk=@vger.kernel.org
-X-Gm-Message-State: AFuF++kYb/w0rr9TEi+HrH2K/Ssvdry1LRGejkxaI06TurWLJCjKP2Pt
-	C2nSK1w1EhdKT+UEwBACgY2IttWdQTN6fXP/rYuBr0gPx69+daCT086l
-X-Gm-Gg: AYBFou0EigLPtX5Wc8aVj8nTPOAvoM4wrDsUAdXD1p0+jubXnV4z/CvVzf5d/5oKPLx
-	biXozB06DT4hIRmzyyGVwYPUl60DXeXR67oI3B/N5VyCMU3zDYeLhhSDcRHxQOuUvSDLnVQa5g3
-	xcdeRyu7drvAKV8IJBaTAoSVjMTTY4RoHA0uQg37o4+uBxrbkmL3W+PcZlp6pv+1Y3Hb9AINMtA
-	ohqCYS37b8xixFJfAFWqNl8FXWa4JM2D6o4Briu/0fVaXyuI+amDA2BFGI4RK1BCLmU8s8sIaAu
-	9Z4gfYEw2Fs3Ld8MGVJhM7ICl3PLGYohaHldw003s8woiV51Y/mVFO2fWnw6ub+iYIkEUcqxeTB
-	mD7rKZpr8tV/cWcmoorRt7/GUee8XcijofzV+okMXifv4acRFNCtoq3eSvSmpZNOhUNLrPc5Bwr
-	KdEEWCIoEQq9HVOPZPy+CegZEonsK6i96oE6L44v9WOKq1gV99YJx+t0+M31ZN+iQoFs+XSvPVe
-	bdD1TDsJ5efIKwLD2s9BFeZHeXlXQEKcryuIduRNXc=
-X-Received: by 2002:a17:903:320d:b0:2cc:6018:f030 with SMTP id d9443c01a7336-2d74df16112mr345982995ad.14.1788095246201;
-        Sun, 30 Aug 2026 06:07:26 -0700 (PDT)
-Received: from hnkz-ubuntu-vm1.mshome.net (flh4-125-195-69-140.tky.mesh.ad.jp. [125.195.69.140])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d7598d26e4sm22386025ad.84.2026.08.30.06.07.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 30 Aug 2026 06:07:25 -0700 (PDT)
-From: Kazuki Hanai <hnkz.64@gmail.com>
-To: mripard@kernel.org,
-	dave.stevenson@raspberrypi.com
-Cc: mcanal@igalia.com,
-	kernel-list@raspberrypi.com,
-	maarten.lankhorst@linux.intel.com,
-	tzimmermann@suse.de,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	eric@anholt.net,
-	bbrezillon@kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	Kazuki Hanai <hnkz.64@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] drm/vc4: Hold a GEM reference while purging userspace BOs
-Date: Sun, 30 Aug 2026 22:07:00 +0900
-Message-ID: <20260830130700.680041-1-hnkz.64@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	s=arc-20240116; t=1788095286; c=relaxed/simple;
+	bh=g4dOvEXL4ZYUUCgoiTokQCfy9OFRqEFluD322yinIQE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LonozmLMA0DZc50u8FTQcWH3sIv0QXmF+fZIdWVvBBdVY+9cnqFtPmMezU9jGv25GtW0my+MYYehtrwLrttCkgRecmvoZXrB6DXotDGLkwo4AG9m1744RTNP4bhRj9amo+FchNmHKYS5Wq5SayTE2Nxkt+pw+sS+D5U7B24CZns=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from localhost.localdomain (unknown [111.196.241.250])
+	by APP-03 (Coremail) with SMTP id rQCowABncD4mK5Rqp9aaBg--.48169S2;
+	Sun, 30 Aug 2026 21:07:50 +0800 (CST)
+From: Pengpeng Hou <pengpeng@iscas.ac.cn>
+To: Corentin Labbe <clabbe@baylibre.com>
+Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	"David S . Miller" <davem@davemloft.net>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	linux-crypto@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] crypto: rockchip: propagate activation errors
+Date: Sun, 30 Aug 2026 21:07:48 +0800
+Message-ID: <20260830130748.944-1-pengpeng@iscas.ac.cn>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -83,54 +38,88 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowABncD4mK5Rqp9aaBg--.48169S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Aw1rGw1xuw1UGFy8XF47Arb_yoW8ZFW3pr
+	13GrZrArWkCr4xGa95tr1rZF4rX3ySyry3Jr47K3WfAw1aqw1IgrWayFy0vFnxAFy8J3y5
+	AFs7Aa48CF1xZFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9214x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
+	6r4UJwA2z4x0Y4vEx4A2jsIE14v26F4UJVW0owA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Cr
+	1j6rxdM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
+	6xIIjxv20xvE14v26r126r1DMcIj6I8E87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr
+	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E
+	8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFV
+	Cjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWl
+	x4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r
+	4UMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWxJVW8Jr1lIxAIcVCF04k26cxKx2IYs7xG6r1j
+	6r1xMIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYx
+	BIdaVFxhVjvjDU0xZFpf9x0JUgXocUUUUU=
+X-CM-SenderInfo: pshqw1xhqjqxpvfd2hldfou0/
 
-vc4_bo_userspace_cache_purge() removes a BO from the purgeable list and
-then drops the list lock before taking the BO madvise lock. A concurrent
-final GEM put can therefore release the BO while the purge path still
-holds only a raw pointer.
+The Rockchip crypto driver ignores reset and crypto-engine start failures
+in
+probe, and ignores a reset deassertion failure during runtime resume. It
+can therefore publish or resume the crypto device without a usable engine.
 
-Acquire a non-zero GEM reference while the purgeable list lock still
-protects the lookup. If final release has already started, drop the list
-lock so the release path can remove the entry and retry. Put the temporary
-reference after dropping the madvise lock to avoid recursing into final
-release while that lock is held.
+Return reset and engine-start failures, and disable the clocks if a runtime
+resume reset deassertion fails.
 
-Fixes: b9f19259b84d ("drm/vc4: Add the DRM_IOCTL_VC4_GEM_MADVISE ioctl")
-Cc: stable@vger.kernel.org
-Signed-off-by: Kazuki Hanai <hnkz.64@gmail.com>
+Fixes: 433cd2c617bf ("crypto: rockchip - add crypto driver for rk3288")
+Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
 ---
- drivers/gpu/drm/vc4/vc4_bo.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+ drivers/crypto/rockchip/rk3288_crypto.c | 21 +++++++++++++++++----
+ 1 file changed, 17 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/vc4/vc4_bo.c b/drivers/gpu/drm/vc4/vc4_bo.c
-index 49ea2ed0996b4..5289e69f3345f 100644
---- a/drivers/gpu/drm/vc4/vc4_bo.c
-+++ b/drivers/gpu/drm/vc4/vc4_bo.c
-@@ -319,6 +319,19 @@ static void vc4_bo_userspace_cache_purge(struct drm_device *dev)
- 		struct drm_gem_object *obj = &bo->base.base;
- 		size_t purged_size = 0;
+diff --git a/drivers/crypto/rockchip/rk3288_crypto.c b/drivers/crypto/rockchip/rk3288_crypto.c
+index 7cb1316b6f189..18ecbec1f101b 100644
+--- a/drivers/crypto/rockchip/rk3288_crypto.c
++++ b/drivers/crypto/rockchip/rk3288_crypto.c
+@@ -133,7 +133,12 @@ static int rk_crypto_pm_resume(struct device *dev)
+ 	if (ret)
+ 		return ret;
  
-+		/*
-+		 * The last GEM reference can be dropped concurrently. Its free
-+		 * callback removes the BO from this list before releasing it, so
-+		 * the list lock makes an unless-zero get safe. Never carry only a
-+		 * raw list pointer across the lock drop below.
-+		 */
-+		if (!kref_get_unless_zero(&obj->refcount)) {
-+			mutex_unlock(&vc4->purgeable.lock);
-+			cond_resched();
-+			mutex_lock(&vc4->purgeable.lock);
-+			continue;
-+		}
+-	reset_control_deassert(rkdev->rst);
++	ret = reset_control_deassert(rkdev->rst);
++	if (ret) {
++		rk_crypto_disable_clk(rkdev);
++		return ret;
++	}
 +
- 		vc4_bo_remove_from_purgeable_pool_locked(bo);
+ 	return 0;
  
- 		/* Release the purgeable lock while we're purging the BO so
-@@ -345,6 +358,7 @@ static void vc4_bo_userspace_cache_purge(struct drm_device *dev)
- 			vc4_bo_purge(obj);
- 		}
- 		mutex_unlock(&bo->madv_lock);
-+		drm_gem_object_put(obj);
- 		mutex_lock(&vc4->purgeable.lock);
+ }
+@@ -341,9 +346,14 @@ static int rk_crypto_probe(struct platform_device *pdev)
+ 		goto err_crypto;
+ 	}
  
- 		if (purged_size) {
+-	reset_control_assert(crypto_info->rst);
++	err = reset_control_assert(crypto_info->rst);
++	if (err)
++		goto err_crypto;
++
+ 	usleep_range(10, 20);
+-	reset_control_deassert(crypto_info->rst);
++	err = reset_control_deassert(crypto_info->rst);
++	if (err)
++		goto err_crypto;
+ 
+ 	crypto_info->reg = devm_platform_ioremap_resource(pdev, 0);
+ 	if (IS_ERR(crypto_info->reg)) {
+@@ -374,7 +384,10 @@ static int rk_crypto_probe(struct platform_device *pdev)
+ 		goto err_crypto;
+ 	}
+ 
+-	crypto_engine_start(crypto_info->engine);
++	err = crypto_engine_start(crypto_info->engine);
++	if (err)
++		goto err_pm;
++
+ 	init_completion(&crypto_info->complete);
+ 
+ 	err = rk_crypto_pm_init(crypto_info);
+
+base-commit: 08dbfad3f5040f5bdb6c529da20d6d4e81fefd72
+-- 
+2.50.1
+
