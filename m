@@ -1,76 +1,33 @@
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D0113B71DB
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 14:17:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DD9C218592;
+	Sun, 30 Aug 2026 14:18:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788099457; cv=none; b=mCSDPdxEMOyk7W9j0VAcX1Vksg+UDYteHT/SewCcbk59f29iIXli3aTq6qhfqhh4Tmn/TESWWm6mRZp7LztC7Dbwc+Fcgg9lpVQV50Bj/93fKFNCM5nfZwgEYT6KdepRlNz53C2a36EI7kf6wJlaS+vdgFUILVJ7mKz1QnohJUg=
+	t=1788099521; cv=none; b=vAnrqgw9hMPFBO6OCJAwQU9AWDk8aeTIZ9v1/3XRZuWOILJOUZZ0coATF+POD03KTZfoxKLt+EH1wFSHVkY2Ghaf7jU78gISbz378MTjFpPc6RQt48T63qIXZ4bZRRVYaRw1ukHuWQTvgUuF58WVr+Q4nQ5SWI2q8UU9kMaBmXg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788099457; c=relaxed/simple;
-	bh=YYpAuj1PY1RFub7ck2lahF5Gc0M1QLmgcRGitoqusDA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=LxXcYTHyVJLa3lTw3df5FU8y7GLxUHmrd6DQ3qSTxmZKoPbZM2HEkFhe18yx0SHKruzy7b63WU4uYciFZoakPHxyR9MmcVmruletWEGqO0+YDMFikyBhmW9ApmqqaP8aENtRO+HdnTTiL1Vn0P+Em4B293vE37YcYuzh4DquZ6g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MjXjvjIQ; arc=none smtp.client-ip=209.85.128.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MjXjvjIQ"
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-496bb7cdf51so30332385e9.2
-        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 07:17:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788099451; x=1788704251; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=mm6NKReOgq/ERbyVD64APvzyNDdk3/BeVLkOCPhJjJU=;
-        b=MjXjvjIQyqAnfMtqjxZDo3WbQJE1XZzNjMLboeja0zBZv4IqFXp4SBqNIYHkW6/hzd
-         68ixfsZq+bhXE8VoUyPIOQh6ssCR7EV4wAbXGtoSaugAGLwyW3bEXdtw5sxF/lE4Siay
-         63s9F1vgV5b37jR8gz4h3PsG/Ltc5vlHNA4wmG+lKiVEF23BqjTvuBWJKKwrI+iD5HVn
-         rXJnitPtwN3gYAlRD7eOlU2PcTPiGN+aTAYLWdx96hX7Cem1MBUvGm6LSmOaH1i5Kei/
-         dnlA6jucmjGfaKGzxHej55dOJkeeie3uXT5VyzySyBqFJDYGbk/MMLpRv/ss72CSdMiO
-         rS8w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788099451; x=1788704251;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mm6NKReOgq/ERbyVD64APvzyNDdk3/BeVLkOCPhJjJU=;
-        b=K/2WHOtam6SeQj8WpKW8j4Tix4CavfJ4YUI4hqh1i9dQymBy/hhuQl7NUveB198qHq
-         Q3sgeIxkGGS+pfRmEQAVild02ADJHNR3sv0DRKKUQJ7nk/PR3nhIV7qkn83J9LiNwicK
-         OM1rhsmj+4AHl1UTd9/I9Xp1P1H6tF8hALsU6YxI1DlIHePp8EB4wTRRhVRAH/72iGs2
-         IOkrSFuMpVUVLRgeUyPydfGnmNzUwtB5v/vq2MjM2/V/3GgBov2BN2hWSwpdqkIUUgUx
-         yjdw7t4fjo0lHoSeDkm/4VsMB2VCliVddC05yLpZX5zpI+srDt2Rx6sMCA4eL4QTMTqU
-         WEgA==
-X-Forwarded-Encrypted: i=1; AHgh+RrnPw38IBNfWTVAZFAt5zid+E6X+wkD++XFgh+2gnHcRqMbYORMra1Xe1Q8hPTYC4xeWAzQeXPKsldEdk8=@vger.kernel.org
-X-Gm-Message-State: AFuF++ms+9a94g2SFHbxy1wRwdFjq6cD2D/Tznmx+Gt4nZQMJPKW70td
-	CfTRX+BiT+WlZJ3Lk0iQA+mvvB42wpu/2hjuDP9P1ILe+svJFZ4jMetO
-X-Gm-Gg: AR+sD10X0QY3V6p7+Lq0Fc0mf62bsXsTmCTxnNLvb6wkhR5SUyQUiQ9ah6vbN9XQ/zA
-	MBC3smBJ+AMHe3ZvNQWSWdxFZqqHQELK/mm4jxH1kNkh4uzowaWWaq7NPMg6no1PG3OaKsKGT/Q
-	BaVMY+rB0SQR1quBszNJRAOkLxwBY2Nm8raZQIJ+sqy//haVYmGp8gi/wIKA9JaAf1DqtckLyJi
-	QdoftMAAE0ZuhLUEGlJoksES3UgvTRPIe5CrCMb4lAXAvTp3Wg/bxV4ZIMOlkDGlMEZX95q1XOX
-	fycF1Hv3gju19ckTySO0ZcO8PC6smed6dxRdL0PShGOMjOhXxAg/nbDCDjVnPnZygLnkEAynN/u
-	9kUkcPnrKes5NzOpsWH/iSQkhJryJcSgAAaJmjSdu2qQauh8cP+c6V8Xj0YL4Ztf6oN96ozfFbG
-	ELoCaVhIEBXpI/dKWPThS3hB85uRk/wk/cUZqAlgo5P3lsBPOTeH1SlR2cX5WKMaJG4/foHkWPB
-	TZFyhrMNfmVYjxa+Gkzbd008e9eJHx7emXocGMSnHcx/uIwxB9XiQ==
-X-Received: by 2002:a05:600c:4e14:b0:499:ae94:be05 with SMTP id 5b1f17b1804b1-49b91bd78c0mr339903405e9.0.1788099451081;
-        Sun, 30 Aug 2026 07:17:31 -0700 (PDT)
-Received: from 1Z10 ([37.161.215.13])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b94dc1076sm203877985e9.3.2026.08.30.07.17.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 30 Aug 2026 07:17:30 -0700 (PDT)
-From: Maurizio Casciano <mauriziocasciano7@gmail.com>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Sashiko AI review <sashiko-bot@kernel.org>,
-	Maurizio Casciano <mauriziocasciano7@gmail.com>
-Subject: [PATCH v4] Input: drv260x: Fix suspend and resume sequencing
-Date: Sun, 30 Aug 2026 16:17:28 +0200
-Message-ID: <20260830141728.53320-1-mauriziocasciano7@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260829230740.126461F000E9@smtp.kernel.org>
-References: <20260829230740.126461F000E9@smtp.kernel.org>
+	s=arc-20240116; t=1788099521; c=relaxed/simple;
+	bh=ABPHStH+QhuUzlxKfOJeUhI0q0fpMI2bZvMLnt+c798=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UV34dOB96nPopOsAZJLTltzlPUuCZK/c9SYAdAv0sug5YzzkXfDeXONh8Cw2msX9BaGapKmWLxgFWUrlpmVfdx1M+JQ3xq96PDJk+Ucw8zUU8kB8lJQmrdNTuA5tOIhqE3x9qQp2pRd1Pm3WyQZTZYoWRNwM1Arj2q14jJ5i3O4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from localhost.localdomain (unknown [111.196.241.250])
+	by APP-03 (Coremail) with SMTP id rQCowAD3AUC3O5RqK6ebBg--.27828S2;
+	Sun, 30 Aug 2026 22:18:31 +0800 (CST)
+From: Pengpeng Hou <pengpeng@iscas.ac.cn>
+To: Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>
+Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] ASoC: nau8822: keep regcache offline while supplies are off
+Date: Sun, 30 Aug 2026 22:18:28 +0800
+Message-ID: <20260830141828.34419-1-pengpeng@iscas.ac.cn>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -78,134 +35,90 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowAD3AUC3O5RqK6ebBg--.27828S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxAF4UAw18JrW8Gr45Zr17GFg_yoW5XFyrpF
+	s5KrZ5ur48uFWrZFyFyF48XF1rKrWFyF4fA3ZrK3yFyw13Ar929rn5KF1jvFZ8JrW8JFsr
+	Zr47ZayjgF1rGaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUkK14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x0267AKxVWxJr
+	0_GcWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+	2Ix0cI8IcVAFwI0_JF0_Jw1lYx0Ex4A2jsIE14v26r4j6F4UMcvjeVCFs4IE7xkEbVWUJV
+	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lc7CjxVAaw2AFwI0_
+	JF0_Jw1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67
+	AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIY
+	rxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14
+	v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWx
+	JwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7VUjZNVP
+	UUUUU==
+X-CM-SenderInfo: pshqw1xhqjqxpvfd2hldfou0/
 
-Force-feedback playback is queued asynchronously, but system suspend
-can cut power while the worker is pending. Disable and drain the work
-item before entering standby, and keep it disabled until resume has
-restored communication.
+nau8822_suspend() disables all codec supplies and marks the register
+cache dirty, but leaves regmap in live I/O mode. Resume then attempts
+the cache replay without first leaving a corresponding cache-only state.
 
-The enable GPIO gates I2C access without resetting the device. Raise it
-and observe the startup delay before leaving standby after resume or a
-failed regulator shutdown.
+Enter cache-only mode after the regulators have been disabled
+successfully, leave it after the supplies are restored, and stop the
+local resume sequence if cache replay fails. Do not power the codec back
+down on a resume error, because deferred component resume remains best
+effort and continues after the callback.
 
-Use explicit mutex locking with goto-based error unwinding, and balance
-the work disable count on every resume error path so a later successful
-resume can restore playback.
+regulator_bulk_disable() restores regulators already disabled by the
+same bulk operation if a later disable fails. Only publish cache-only
+state after the whole power-off operation succeeds, so the regmap state
+continues to match the hardware state on either outcome.
 
-Reported-by: Sashiko AI review <sashiko-bot@kernel.org>
-Link: https://lore.kernel.org/linux-input/20260829230740.126461F000E9@smtp.kernel.org/
-Suggested-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Link: https://lore.kernel.org/linux-input/apLD91vzHIrLOPWC@google.com/
-Assisted-by: Codex:gpt-5.6-sol [sparse]
-Signed-off-by: Maurizio Casciano <mauriziocasciano7@gmail.com>
+Fixes: 1e3cb6c321be ("ASoC: nau8822: new codec driver")
+Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
 ---
- drivers/input/misc/drv260x.c | 50 ++++++++++++++++++++++++++----------
- 1 file changed, 37 insertions(+), 13 deletions(-)
+ sound/soc/codecs/nau8822.c | 15 ++++++++++++---
+ 1 file changed, 12 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/input/misc/drv260x.c b/drivers/input/misc/drv260x.c
-index 6c5c4c53753b..b6499b2fcd8d 100644
---- a/drivers/input/misc/drv260x.c
-+++ b/drivers/input/misc/drv260x.c
-@@ -569,18 +569,20 @@ static int drv260x_probe(struct i2c_client *client)
- static int drv260x_suspend(struct device *dev)
+diff --git a/sound/soc/codecs/nau8822.c b/sound/soc/codecs/nau8822.c
+index 830164e991a79..889c3b5f6d04f 100644
+--- a/sound/soc/codecs/nau8822.c
++++ b/sound/soc/codecs/nau8822.c
+@@ -1059,10 +1059,14 @@ static int nau8822_suspend(struct snd_soc_component *component)
  {
- 	struct drv260x_data *haptics = dev_get_drvdata(dev);
--	int error;
-+	int error, restore_error;
+ 	struct nau8822 *nau8822 = snd_soc_component_get_drvdata(component);
+ 	struct snd_soc_dapm_context *dapm = snd_soc_component_to_dapm(component);
++	int ret;
  
--	guard(mutex)(&haptics->input_dev->mutex);
-+	mutex_lock(&haptics->input_dev->mutex);
+ 	snd_soc_dapm_force_bias_level(dapm, SND_SOC_BIAS_OFF);
+-	regulator_bulk_disable(NAU8822_NUM_SUPPLIES, nau8822->supplies);
++	ret = regulator_bulk_disable(NAU8822_NUM_SUPPLIES, nau8822->supplies);
++	if (ret)
++		return ret;
  
- 	if (input_device_enabled(haptics->input_dev)) {
-+		disable_work_sync(&haptics->work);
-+
- 		error = regmap_update_bits(haptics->regmap,
- 					   DRV260X_MODE,
- 					   DRV260X_STANDBY_MASK,
- 					   DRV260X_STANDBY);
- 		if (error) {
- 			dev_err(dev, "Failed to set standby mode\n");
--			return error;
-+			goto err_enable_work;
- 		}
++	regcache_cache_only(nau8822->regmap, true);
+ 	regcache_mark_dirty(nau8822->regmap);
  
- 		gpiod_set_value(haptics->enable_gpio, 0);
-@@ -588,14 +590,25 @@ static int drv260x_suspend(struct device *dev)
- 		error = regulator_disable(haptics->regulator);
- 		if (error) {
- 			dev_err(dev, "Failed to disable regulator\n");
--			regmap_update_bits(haptics->regmap,
--					   DRV260X_MODE,
--					   DRV260X_STANDBY_MASK, 0);
--			return error;
-+			goto err_leave_standby;
- 		}
- 	}
- 
-+	mutex_unlock(&haptics->input_dev->mutex);
  	return 0;
+@@ -1072,7 +1076,9 @@ static int nau8822_resume(struct snd_soc_component *component)
+ {
+ 	struct nau8822 *nau8822 = snd_soc_component_get_drvdata(component);
+ 	struct snd_soc_dapm_context *dapm = snd_soc_component_to_dapm(component);
+-	int ret = regulator_bulk_enable(NAU8822_NUM_SUPPLIES, nau8822->supplies);
++	int ret;
 +
-+err_leave_standby:
-+	gpiod_set_value(haptics->enable_gpio, 1);
-+	fsleep(250);
-+	restore_error = regmap_update_bits(haptics->regmap,
-+					   DRV260X_MODE,
-+					   DRV260X_STANDBY_MASK, 0);
-+	if (restore_error)
-+		dev_err(dev, "Failed to leave standby mode: %d\n", restore_error);
-+err_enable_work:
-+	enable_work(&haptics->work);
-+	mutex_unlock(&haptics->input_dev->mutex);
-+	return error;
- }
++	ret = regulator_bulk_enable(NAU8822_NUM_SUPPLIES, nau8822->supplies);
  
- static int drv260x_resume(struct device *dev)
-@@ -603,28 +616,39 @@ static int drv260x_resume(struct device *dev)
- 	struct drv260x_data *haptics = dev_get_drvdata(dev);
- 	int error;
+ 	if (ret) {
+ 		dev_err(component->dev,
+@@ -1082,7 +1088,10 @@ static int nau8822_resume(struct snd_soc_component *component)
  
--	guard(mutex)(&haptics->input_dev->mutex);
-+	mutex_lock(&haptics->input_dev->mutex);
+ 	fsleep(100);
  
- 	if (input_device_enabled(haptics->input_dev)) {
- 		error = regulator_enable(haptics->regulator);
- 		if (error) {
- 			dev_err(dev, "Failed to enable regulator\n");
--			return error;
-+			goto err_enable_work;
- 		}
+-	regcache_sync(nau8822->regmap);
++	regcache_cache_only(nau8822->regmap, false);
++	ret = regcache_sync(nau8822->regmap);
++	if (ret)
++		return ret;
  
-+		gpiod_set_value(haptics->enable_gpio, 1);
-+		fsleep(250);
-+
- 		error = regmap_update_bits(haptics->regmap,
- 					   DRV260X_MODE,
- 					   DRV260X_STANDBY_MASK, 0);
- 		if (error) {
--			dev_err(dev, "Failed to unset standby mode\n");
--			regulator_disable(haptics->regulator);
--			return error;
-+			dev_err(dev, "Failed to leave standby mode: %d\n", error);
-+			goto err_disable_regulator;
- 		}
- 
--		gpiod_set_value(haptics->enable_gpio, 1);
-+		enable_work(&haptics->work);
- 	}
- 
-+	mutex_unlock(&haptics->input_dev->mutex);
- 	return 0;
-+
-+err_disable_regulator:
-+	gpiod_set_value(haptics->enable_gpio, 0);
-+	regulator_disable(haptics->regulator);
-+err_enable_work:
-+	enable_work(&haptics->work);
-+	mutex_unlock(&haptics->input_dev->mutex);
-+	return error;
- }
- 
- static DEFINE_SIMPLE_DEV_PM_OPS(drv260x_pm_ops, drv260x_suspend, drv260x_resume);
+ 	snd_soc_dapm_force_bias_level(dapm, SND_SOC_BIAS_STANDBY);
+
+base-commit: 32b4e6b134c62e14291206da331891e99e2fb63d
 -- 
-2.53.0
+2.50.1
 
