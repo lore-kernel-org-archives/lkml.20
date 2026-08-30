@@ -1,114 +1,135 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CDDD3B6354
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 15:02:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4601C3A785D
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 15:02:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788102137; cv=none; b=JqYmRsRhRJW959GDU3N7oLqGtpwT9OuQo1olYDUBBGp50p1H3cv2xJWP9iDrbDa8HqLNnAgtfzxh0e7DZj9tzWkLNSYf6Wigr+dip9GiH2rnouCq5oD5b74PvHo47IoHOKUIuTp3NidOmjVze16VfqR5VmkoDHuFDJw3HHwb3c4=
+	t=1788102162; cv=none; b=ts1tlwBredFjm0TjwFfcDX7KDXcZfIMGkorcoWQgA45RozXdj2DnH2Aiqabx1Ls0wDNVfdOpNgBtSOIMSRqxOIK1lAqgKSfRZlu46jtp3TSHp0sXBns/8skfHtc5P+pY5BEotqw/npsVLWTCkvMHOP+czrMTbe1NMWZs9EM1AsQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788102137; c=relaxed/simple;
-	bh=XUVWVuQrBdxE3yJL6IrorJDrHmI/gREoXd5KkUagmtE=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=J2K5i6iqgOiEpNNZyZvFWcC90/n7Mjd4VsIZOZMfd8NknxVfMAwwRAiD5LWOdSmC/EhqtYBgaMSmpICiScMXb/XVaa49nWBbEnT94g8+CKAjz5K49ONu4XLtlVMfY+FnRbcLyVMucvi55IihXJ/8I+/AAmweccpA1ltJh1pfBIc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=h9TNv89P; arc=none smtp.client-ip=209.85.128.45
+	s=arc-20240116; t=1788102162; c=relaxed/simple;
+	bh=8b5Cu/WzFELCN7I99cyIzKY4tM/BIzLp/hfo1qCjLvc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=aFf/9QjjFDyZMbV89TihrpnQ8sW2i0Hsoi926WAnbBTrlfY9c4F5ocdSqjDbDk3ypiXXu8EoRBYp5A2bOhNPXHX4tHREjRdJSb789bPPT/SCqgFp81ClEBXtV9lkepek5vkrDNvHlHhzpfIaS0iLoYaAK1c4nVA6ZggHjEhDf+o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TCWzWu54; arc=none smtp.client-ip=209.85.215.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="h9TNv89P"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-49cd77e0f95so553015e9.3
-        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 08:02:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TCWzWu54"
+Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-cbedf433a99so2881471a12.2
+        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 08:02:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788102132; x=1788706932; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1788102161; x=1788706961; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=AxDJBHK8GZ5nWALr8EBSgszbwIyzo9ArpXjhOeVOR6U=;
-        b=h9TNv89Pvbc6RtR020OqhzFKnXJ8uwNHwi9cXFw+xsmj3YMmK5SSwT/71H4sgJv+ki
-         fCLamYd5oJCb2nn7AIwx7iBaX3vnScNT/TXrdi30U10AFUV1vK80mmf1EusZJOFuX/Yf
-         AArwzZ4+3nceECBiIcSX7KfkMXAl3xXiCHFwD9VIy58TUIwX9SmQR/EpnT1cCgwyHgbO
-         ciQZgdPHDIwEgEUi+PHeMCG4ITiJIXBHxzLw6GRns4Bz3GavpLxG1qyzjQzk8WZry3ak
-         hQO8mZJf5rmkpqqqrdyno8kWk2UJdqFnI9gvqTP8OzL8TuDAZXHi3R8PZjlU7Yfi3GY3
-         WcxQ==
+        bh=4YMamzAVSqXj8/xPRdP9NGRtFgjUVXMOQM5Ll4+vfHg=;
+        b=TCWzWu54thRUsTOA0kgj/XnMst9KtjAFE7JjcnqLIRcgcXbSIdC7MynZYvLMDRCdp3
+         yQ23gZr1Nd/pJZfBDLOja8A3jtPxDFmwmAAuE+oN7lhdApXPNzsCJ1/qjhaRPeZjhm8q
+         TVV+n2Z3KMjBXjapwFRiBbOUg32UlMTTD+3rDj6yz4bykW+9DFm6FtoTOJBLeK4tJh++
+         JC1//hEIThLY6LAfTHTFNygzFV/UobPBLXPFku7/0hlsqiArFx2NRhZ1GwQr8GLV/rND
+         LoRnpY16gdo1H51YJZj03mF5qEslyFb/Ya+H+y2HaFghAEqBRpnwOK4zYMGQ5scdr8/C
+         iKGQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788102132; x=1788706932;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20251104; t=1788102161; x=1788706961;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=AxDJBHK8GZ5nWALr8EBSgszbwIyzo9ArpXjhOeVOR6U=;
-        b=oiF31VMW+9ehMINUxWGdsFCpKkEgnD8ulgB6ahZkUxof2lkf0R8Za+8xDycoZsm7bY
-         5TIVkQI2o0+u/Tf/iX5XsaLT96HN8HUxlPcqJJW+qzZPIm4BK7WIKRE7bGcIj8azBWPu
-         tDWY/vsFvz+VqvzKTWYXqC9NDRfT2g5irqm24lyaGMybst1ImSpx88O4bTIm/HziBuaV
-         vhNrd3I54iUhLpaEvi3G8859EtVnYm9Ox12ZZumGxdd6CKa2ccIKOgnuIOpxz4k5LMoM
-         VywGpxCfKaZO8aydGOyO7YI7LG5zMAlIMgVLT7cCQd4MyD/sER1VJND6vBV6FV6laVu5
-         e7uA==
-X-Forwarded-Encrypted: i=1; AHgh+RoHy/HqcSwumRD3+nEo9c2xZX83nJP59gdcLvEJINy3IgfB+BCD88CCIKu3AKb+ufOR1dVmRbDGVBi0raE=@vger.kernel.org
-X-Gm-Message-State: AFuF++ndvR1nK7n0HKDLafVX2BXRNLiPja5OUKDjf/NM97rEO/AE1Xxd
-	eHUY+PH20RkYK+Mhj+vMctuX8Mouy6ymflV+inyK3ymIEuZNFOdVufCG
-X-Gm-Gg: AR+sD125/fuoQoJJC4wPxsm+VqIBUxkMP6vjGaIPPBbk6MDUuF4YjsrhkXldzTXw+FJ
-	tTZtsiLlMMW45Tze7lhUxiIAHiBqgFCBLveSY7iOpOhkQcftL6e0sWtjlmyqbWaQO6vNgw58Yf4
-	3hgU42PWzoAYHsA7kvk6I0turRCXICBfjfKqKB8Dwz+3hlsYpyfxuLk+bvENoZ9JsRKURQSVKvU
-	Sq1F3cuD/Lr9Gmt5HEAhjVCtWQ5jfvptMq7on6GwSK0C5bXSD9azrDJAcSwOX2irBA+RPN5xuWF
-	kzo7EnSoUlTZH0Lix2d+kT0KwRB0R0ercFT+gj5wZktsM70lRxs55MjqUw/6L/Nh6grDtv8wx+y
-	fOgfrPJfaEyj/nRondvMNVqdJl+5elt5veEgXOGkRQjbqNv3cbZJUk/mIJgRWrFXlB0u2kZr1ZA
-	8OmyXQIXdqvkGjrS99I0TkJr67ui02djlxmRyFjQHfITr+pcGnHWBWm80WufkmtjqOVSQ=
-X-Received: by 2002:a05:600c:37c9:b0:49c:cedd:65b9 with SMTP id 5b1f17b1804b1-49ccedd661cmr149983145e9.16.1788102132121;
-        Sun, 30 Aug 2026 08:02:12 -0700 (PDT)
-Received: from foxbook (bfk5.neoplus.adsl.tpnet.pl. [83.28.48.5])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48436e2af45sm7203457f8f.9.2026.08.30.08.02.11
-        (version=TLS1_2 cipher=AES128-SHA bits=128/128);
-        Sun, 30 Aug 2026 08:02:11 -0700 (PDT)
-Date: Sun, 30 Aug 2026 17:02:08 +0200
-From: Michal Pecio <michal.pecio@gmail.com>
-To: Matt Eaton via B4 Relay <devnull+linux.divinehawk.com@kernel.org>
-Cc: linux@divinehawk.com, Mathias Nyman <mathias.nyman@intel.com>, Greg
- Kroah-Hartman <gregkh@linuxfoundation.org>, Thinh Nguyen
- <Thinh.Nguyen@synopsys.com>, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
-Subject: Re: [PATCH v2 1/3] usb: xhci-plat: add xhci-no-soft-retry-quirk
- device property
-Message-ID: <20260830165934.34e5b82f.michal.pecio@gmail.com>
-In-Reply-To: <20260829-xhci-no-soft-retry-v2-1-0efe22f1c2f8@divinehawk.com>
-References: <20260829-xhci-no-soft-retry-v2-0-0efe22f1c2f8@divinehawk.com>
-	<20260829-xhci-no-soft-retry-v2-1-0efe22f1c2f8@divinehawk.com>
+        bh=4YMamzAVSqXj8/xPRdP9NGRtFgjUVXMOQM5Ll4+vfHg=;
+        b=UNc6KsqqOEeNykBB95874HRHnF+pqlnQEydmrbvikle8CtYw9icHDB8ssSdvQ0wDYx
+         Gpz5tZs6HPtEAUSFltizLqLunsZ/RS7l0YZBxxWYocqNjMSlRuemo29X+7SMxb7yZx2n
+         rP7UcDxQfQtBIv4SCwemAG2ewab6NIbSULWAv1ZXUpUZH1Je1bDpz85zqUOwn208TS9a
+         q1gY2g3Op68VArBy4Y7rt3/NnbXdlqt5F4u+2pLDZCTo/wUOsP0ZX7Ba0mi3oEakhI+6
+         Qh8EqDDDORB4XjAp/eAfwjz1bIA78aWIxMziQLu+n3owzZfIkoEZLCOTw4LgH2l4AtlO
+         bbeA==
+X-Forwarded-Encrypted: i=1; AHgh+RpiiLZz8wKx1ifBBJPYQ1hyw7F8v1URjp2z9PmZcKESfAfusZPBsbcDs8ek0CMxLXBMy8KTXPPCi/dCYGo=@vger.kernel.org
+X-Gm-Message-State: AFuF++mG05OFW2TSaTgJaaZaq9NXnNYZ4CxKq/ncO0cNHlV/Tifo1YnG
+	/zywvp3Ea03593s6sNXQcSa2w9BCLTnRjduAKQnHSVK9cLrgQA2c1zt8
+X-Gm-Gg: AR+sD11O1EhbFKdxBI+OpH8yElXhUiHV79OaXhkN2Ts/iHt8EiA+tvL0re4OeW1Topw
+	zhOX6dOO08ErLpmWgA3bpX/OK47wSwS37Ge7l6sBkHsrA/0qRxeycqEYmPkwBg8DEaFb9nsvqBR
+	N7XuErHG6Xd6CWUD4x0g1vo3OoDPI7ltHso/pJLX+zIGsYuJCVwYgAqpie/3RaxQ/6kObSVkJBk
+	wuMB6lg7EzWYTnPSYvPXMCcp9SgRywLLJmgU7TQ22cHIJKJRWulWL8KWIfhDubNUV6dPTw6EnnA
+	DDs+RJ3rhENkfJ06Yjc2P5LJRPGvA1/CwDZLrg43wdtUahgs9OHsnLMmdyMxmuoTv4p3R84Ov+K
+	3tjQJdh3Dz+/L8gA5fE8lCXOqwRwq3rf6eOTcv/mFqJcUxm83hFkImGUqtTYHlSp8ejqkX+e8/I
+	BChkFvFGc6vYAWYEnJdTldz98QMK5vzeG2xOQaQbw/kCJ4qnwC7peKsWUWAoEjmGRBUTgu
+X-Received: by 2002:a05:6a21:496:b0:3c4:1916:9d40 with SMTP id adf61e73a8af0-3d2672043dfmr35677104637.12.1788102160582;
+        Sun, 30 Aug 2026 08:02:40 -0700 (PDT)
+Received: from localhost ([2804:30c:97d:e800:9454:1179:18df:ab33])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-142e0d2e465sm31939929c88.4.2026.08.30.08.02.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 30 Aug 2026 08:02:39 -0700 (PDT)
+Date: Sun, 30 Aug 2026 12:03:29 -0300
+From: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
+To: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
+Cc: Jonathan Cameron <jic23@kernel.org>, linux-iio@vger.kernel.org,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Andy Shevchenko <andriy.shevchenko@intel.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+	Kees Cook <kees@kernel.org>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	linux-hardening@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Luca Weiss <luca.weiss@fairphone.com>
+Subject: Re: [PATCH v2 5/5] iio: light: stk3310: support the Sensortek
+ STK36C61
+Message-ID: <apRGQVfPKWHvE2Ct@debian-BULLSEYE-live-builder-AMD64>
+References: <20260826175409.326131-1-jorijnvdgraaf@catcrafts.net>
+ <20260826175409.326131-6-jorijnvdgraaf@catcrafts.net>
+ <apEMCqQXyj1tAMoP@debian-BULLSEYE-live-builder-AMD64>
+ <20260828154705.11962-1-jorijnvdgraaf@catcrafts.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260828154705.11962-1-jorijnvdgraaf@catcrafts.net>
 
-On Sat, 29 Aug 2026 22:04:10 +0200, Matt Eaton via B4 Relay wrote:
-> From: Matt Eaton <linux@divinehawk.com>
+On 08/28, Jorijn van der Graaf wrote:
+> On Fri, Aug 28, 2026 at 01:18:18AM -0300, Marcelo Schmitt wrote:
+> > > @@ -417,10 +459,10 @@ static int stk3310_read_raw(struct iio_dev *indio_dev,
+> > >  		mutex_unlock(&data->lock);
+> > >  		return IIO_VAL_INT;
+> > >  	case IIO_CHAN_INFO_INT_TIME:
+> > > -		if (chan->type == IIO_LIGHT)
+> > > -			ret = regmap_field_read(data->reg_als_it, &index);
+> > > -		else
+> > > +		if (chan->type == IIO_PROXIMITY)
+> > >  			ret = regmap_field_read(data->reg_ps_it, &index);
+> > > +		else
+> > > +			ret = regmap_field_read(data->reg_als_it, &index);
+> > The above seems unnecessary. Why changing the comparison from IIO_LIGHT to IIO_PROXIMITY?
+> > After the proposed update we would have the integration time for both light and
+> > intensity channels being read from the same register field?
 > 
-> XHCI_NO_SOFT_RETRY exists for hosts that can't perform xHCI 1.0 Soft Retry
-> correctly, but it's only reachable from xhci-pci, matched against two AMD
-> Promontory PCI ids. Platform hosts have no way to ask for it.
+> These arms now see three channel types instead of two, so the two-way
+> branch has to put the intensity channels on one side or the other:
+> keyed on IIO_LIGHT they would fall into the else and read or write the
+> proximity fields. Proximity is the odd one out - its engine has its
+> own integration-time and gain fields - so the comparison keys on it
+> (the write_raw arms route identically, hence the same change there).
 > 
-> Add it as a device property, read in the same parent-walk block as
-> quirk-broken-port-ped and its neighbors. It's opt-in, so no existing
-> platform is affected. The following patches set it from the dwc3 core
-> on behalf of hardware known to need it, rather than from devicetree.
-> 
-> Needed for the Synopsys DWC3 on a Qualcomm IPQ4019, whose command ring
-> wedges when a Stop Endpoint command lands on a just-soft-retry-reset
-> endpoint -- exactly what unplugging a device mid-transfer triggers:
-> 
-> xhci-hcd xhci-hcd.1.auto: xHCI host not responding to stop endpoint command
-> xhci-hcd xhci-hcd.1.auto: xHCI host controller not responding, assume dead
-> xhci-hcd xhci-hcd.1.auto: HC died; cleaning up
+> And yes, light and intensity read the same field: the chip measures
+> the colour channels in the same engine run as the ALS data, over the
+> ALS integration time. Stepping that field through the driver doubles
+> the ALS count and all four colour counts together (measured on the
+> device: ALS 30/59/120 across three settings, C 83/167/334, R/G/B
+> likewise).
 
-Hi,
+Ah, so both STK3310 and STK36C61 have register 0x02 for integration time and
+gain configurations that applies for all light/color channels. I think changing
+to compare with IIO_PROXIMITY makes sense then.
 
-Does it still happen in current Linus tree aka upcoming v7.3-rc1?
+Having a closer look at the data sheet I found for STK36C61, I noticed registers
+0x13 and 0x14 are not listed. Does the newer part has ambient light sensing
+besides the clear channel?
 
-Similar problem, limited to the specific case of disconnection from the
-root hub, was found on Renesas PCIe controllers (it looked like some
-internal power management interfering with operation). It seems to be
-solved by avoiding Soft Retry on known-disconnected root hub ports.
 
-Regards,
-Michal
+With best regards,
+Marcelo
