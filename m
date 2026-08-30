@@ -1,117 +1,96 @@
-Received: from mail-106120.protonmail.ch (mail-106120.protonmail.ch [79.135.106.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 912AD3839B4;
-	Sun, 30 Aug 2026 13:41:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.120
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09FA2264612;
+	Sun, 30 Aug 2026 13:42:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788097315; cv=none; b=VPsYKS7gA7jLYBw88N34qp+xZQjeZ2fMVLFju8BfNskvZzGA83sgjXC4bj6WzrDgz+/2BTvm5lUrdVTeNsDOBqZlzY15rYlxJHKZVWrLA853BbFPb1pxC6RMyOyYmCeOu7oOyZJIwlDoZPyYBSZDeYmCSBwBk2Vg7lYeWkvx/zU=
+	t=1788097366; cv=none; b=SIGXW2f9XSOW82Tm+bJJ4RytfR9/FBc0Hom6q5EmxMEDVC3cqQ92CPz2HMumKAJofPqRTHJkqxGTep7vmEfZ8dwfWtm9qJzRvRyz/18kx4gh1BKvHKu4ghvb1ZiTu2QICErKuAk3u4/YUtI6zOA5UI7SCu27tTwga6O59LTGdCQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788097315; c=relaxed/simple;
-	bh=7dtriMKxRXX4Lsk/DomV1/ym2FQvXMsrZJDsf7xb2VQ=;
-	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=fx/KVC1cYnApnBf4umyqiY+MLDTm8Z4oOCkQZpc0MxICehcIra1+XIIhYIltlaKHAAPj8PhOB2PaWuX1l2FemoVKtdhK/bsgWwlQXvP48K1BGfN8vzziu7OaDVgfW+pfngxRvJveqrdlbMPi2SG1SX5N1nI9SS4dSFVMZRNF4Fs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=FnHSzToo; arc=none smtp.client-ip=79.135.106.120
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="FnHSzToo"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1788097305; x=1788356505;
-	bh=4lIQR+SxrGdvqWHtdhnkczAZ8UQBOyST39cxsDbCjaw=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=FnHSzTookIYA2htOfLviaM5/EB6Z+cHuVNadlA8mSDgyQbP38J/Y1s0d5eDN+N258
-	 4hzMHluCas5mDxdF6YkzWnlAA55PGFkp2/WEjvJw2UkwF82sbaWmSGyAjtlkymMx/4
-	 RaLRf5ody78VHGbzXLTD6rPpizUEQ8RqDJfH46zIiIfSH7DkKOUY/uQzAWbgjd9X3j
-	 YBmGKzCNoMqiDGsEqBkA+gbm75Wimd8xb8rkIm78JS2fBFMtEWSsy7HQVATd4DpwhD
-	 ZSr/DewoO1RcdhRGDBRJ+w45UsKtqtI+9y+nNg5MSIY8usER0iWfVPo9r5nV0TFS3P
-	 gDlcIqOcAuUpw==
-Date: Sun, 30 Aug 2026 13:41:40 +0000
-To: Jakob Berg Jespersen <dev@berg.pm>, Daniel Scally <dan.scally@ideasonboard.com>, Sakari Ailus <sakari.ailus@linux.intel.com>, Hans de Goede <hansg@kernel.org>, =?utf-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-From: Sergey Lebedev <lsa.uz@pm.me>
-Cc: platform-driver-x86@vger.kernel.org, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] platform/x86: int3472: support the POWER1 GPIO type
-Message-ID: <20260830134126.70277-1-lsa.uz@pm.me>
-Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: 2805229cf4eaa51c9f2979770813899d7a9fd005
+	s=arc-20240116; t=1788097366; c=relaxed/simple;
+	bh=1x3XoWUSFTA/RTpvtqRuX9LS14pvjW/d0xCBH5LVEYg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ntyLotpybTv9Sf3uQ3yKEhSqboJqUk1KnkWjI1d607TiKDBRiC6MMCXC+GnyJEDe44uz3ptE8vKxrAKHzuYLsyer15wSt2pMoUCtrkuvn3HCn/TeWjj/I/QYZrWHdmioQvkmE5aT380MJXLQimnic5UkFjvk2xn6yaGPG45CkQQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from localhost.localdomain (unknown [111.196.241.250])
+	by APP-03 (Coremail) with SMTP id rQCowADn8T9FM5RqqUGbBg--.17102S2;
+	Sun, 30 Aug 2026 21:42:29 +0800 (CST)
+From: Pengpeng Hou <pengpeng@iscas.ac.cn>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>,
+	David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Joel Stanley <joel@jms.id.au>,
+	Andrew Jeffery <andrew@codeconstruct.com.au>,
+	Ryan Chen <ryan_chen@aspeedtech.com>,
+	Billy Tsai <billy_tsai@aspeedtech.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	linux-iio@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-aspeed@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] iio: adc: aspeed: propagate reset deassert errors
+Date: Sun, 30 Aug 2026 21:42:27 +0800
+Message-ID: <20260830134227.9085-1-pengpeng@iscas.ac.cn>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowADn8T9FM5RqqUGbBg--.17102S2
+X-Coremail-Antispam: 1UD129KBjvdXoWrtw48WF1DKFy3WF47ur4rZrb_yoWkuFcE9r
+	48WFZrWrnxCrZ0kw1jyw1fZrZY9FyDuFyvk3Wjvr43KFyUXrWDAryDuFWYvw1Uurs2v343
+	AF1q9rWfA3sxGjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUba8FF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
+	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr0_
+	Gr1UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x0267AKxVWxJr
+	0_GcWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+	2Ix0cI8IcVAFwI0_JF0_Jw1lYx0Ex4A2jsIE14v26r4j6F4UMcvjeVCFs4IE7xkEbVWUJV
+	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
+	Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x
+	0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2
+	zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JFI_Gr
+	1lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWU
+	CwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcS
+	sGvfC2KfnxnUUI43ZEXa7VUbo5l5UUUUU==
+X-CM-SenderInfo: pshqw1xhqjqxpvfd2hldfou0/
 
-Hans pointed me at this from a report I sent this morning about the same
-GPIO type on a Surface Pro 11 - thank you, and sorry for the duplicate
-question. I have now tested this patch on that machine, which is a third
-model and, more usefully, a different sensor. Result below, with the part
-that is still missing for this sensor family.
+aspeed_adc_probe() continues to register ADC resources after deasserting
+the shared reset, even if the reset controller reports a failure.
 
-Tested-by: Sergey Lebedev <lsa.uz@pm.me>   # Surface Pro 11, INT3472 side
+A failed deassertion leaves the hardware unavailable, so stop probing
+before
+installing the cleanup action and enabling the ADC.
 
-What the patch fixes here
--------------------------
+Fixes: edf7550a1f93 ("iio: adc: aspeed: Deassert reset in probe")
+Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
+---
+ drivers/iio/adc/aspeed_adc.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-Built on 7.0.0-30 (Ubuntu 26.04). The warning is gone and the rail is
-mapped:
+diff --git a/drivers/iio/adc/aspeed_adc.c b/drivers/iio/adc/aspeed_adc.c
+index 6169ce28261e1..452c30cf04f28 100644
+--- a/drivers/iio/adc/aspeed_adc.c
++++ b/drivers/iio/adc/aspeed_adc.c
+@@ -585,7 +585,9 @@ static int aspeed_adc_probe(struct platform_device *pdev)
+ 		return dev_err_probe(dev, PTR_ERR(data->rst),
+ 				     "invalid or missing reset controller device tree entry");
+ 
+-	reset_control_deassert(data->rst);
++	ret = reset_control_deassert(data->rst);
++	if (ret)
++		return ret;
+ 
+ 	ret = devm_add_action_or_reset(dev, aspeed_adc_reset_assert, data->rst);
+ 	if (ret)
 
-  before: int3472-discrete INT3472:00: GPIO type 0x08 unknown;
-                                       the sensor may not work
-  after : no int3472 messages at all
-
-  /sys/class/regulator:
-    regulator.1  INT3472:00-avdd
-    regulator.2  INT3472:00-dvdd     <- new, from this patch
-    regulator.3  INT3472:01-avdd
-    regulator.4  INT3472:01-dovdd
-    regulator.5  INT3472:02-avdd
-
-Nothing else regressed: audio, Secure Boot and module signing unaffected,
-no failed units.
-
-What it does not fix, and why that is not this patch's fault
-------------------------------------------------------------
-
-The camera is exactly as dead as before:
-
-  ov13858 i2c-OVTID858:00: failed to find sensor: -5
-  every regulator: num_users=3D0, state=3Ddisabled
-  /dev/media0: 0 entities
-
-The rear sensor here is an OV13858, and the in-tree ov13858 driver requests
-no regulators and touches no GPIOs at all - zero `regulator` and zero
-`gpiod` references in drivers/media/i2c/ov13858.c. So INT3472:00-dvdd is
-registered and then never claimed by anyone, and the sensor is still held
-in reset because nothing releases it.
-
-That is exactly the difference between your machine and this one. ov8865
-asks for "dvdd", "dovdd" and "avdd" by name, so mapping POWER1 to "dvdd"
-completes the picture for the Surface Pro 7+. ov13858 asks for nothing.
-
-The same conclusion was reached independently on the Surface Pro 10, which
-carries the same OV13858:
-
-  https://github.com/linux-surface/linux-surface/issues/2153
-
-There they had to add reset-GPIO handling to ov13858_probe() and force the
-regulators on, and describe the latter as too broad for upstream.
-
-So: this patch is correct and necessary, and for the OV13858 machines it is
-not sufficient. The remaining work is in the sensor driver rather than in
-int3472, which seems worth stating explicitly so nobody expects the Pro 10
-or Pro 11 rear camera to start working when this lands.
-
-If it would help, I am happy to test a patch teaching ov13858 to request
-its supplies and release reset - it is the same shape as what ov8865
-already does. The machine is here and I can build and boot kernels on it.
-
-One note for anyone reproducing this out-of-tree: the module build uses
-/usr/src/linux-headers-<ver>/include/, not the patched source tree, so
-patching only the tree gives 'INT3472_GPIO_TYPE_POWER1' undeclared. The
-installed header has to be patched too.
-
-Thanks,
-Sergey
+base-commit: 08dbfad3f5040f5bdb6c529da20d6d4e81fefd72
+-- 
+2.50.1
 
