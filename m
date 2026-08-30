@@ -1,59 +1,53 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-119.mta1.migadu.com [95.215.58.119])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95C9C312819
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 23:41:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E44C7339370
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 23:43:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.119
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788133302; cv=none; b=S7lIIOCwAPIQEICZp15R/LmLtfOtNmFqZZUoQkuzpAou8FyJuadbykuGlqRvYNwNHV7GGt1gAfjuuQDC13WPNLl1acwRGDCrpyk8Sl5Ev0sQC7UTDmNz2EEg/wrtjPi9t9J25iqrU6t13BgnNdZb7nb5tl4DPEH366OX3klFs3Q=
+	t=1788133407; cv=none; b=atLW6tH9vvnl/r4rN/5sZBVhtzbA1GTntJHlKuSqjFsHmFGnKnveKLTodLFMopNKX1q/c+aGeXIy757nymFVL8wFOjbBHmHkDkCfI+iQLqqhQkCyw5YM4DKtdUth+WKWoX3fx6wkvEy6UcD/B4Q8hHInsTHvgDMbpD3mqDN4tM0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788133302; c=relaxed/simple;
-	bh=j9te3OWYE4q/agJtQp37/JfyK42ZH3HhKlYGROr74UQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=mI3UrGYMfjwTCOqbzmg/8t8TqiQuVTmr94OqNOecoo+cQsr3NecJYsqDKjGj02qc43WS9bQlH6Dhbl4mFRqo97Zd6kobjUJsRspmVsEGFo9CkzuU/AU1NZRxWY3StPgBEphKqaSkPZ+kZx+jEmUc7jIDbctIv3hmkSQQUdWXrNo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Zq0R2g4P; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1788133407; c=relaxed/simple;
+	bh=zLK9ilxnouBl8OfzKtWT4IUHOCTEywTf0m+xYBuIXWw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=HeKP564xceUcFdr12XjLJSneWbCcL1/CBxgvJ6kYrr0ibMB7eVLUbpGGcizOvkyFqbqnAdkaGTWZevr4u5o2wYuE0X9cAwK/9MakXjronBPFKgwwoJsmiFPnnprbixoI3T4/9vKN3kwC/1Yd7ZG3ucDZ1tzTFHOT+OyulSDmzz0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=QsNf07/Q; arc=none smtp.client-ip=95.215.58.119
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Zq0R2g4P"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788133299;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=mMPIZIrn1EgQ8JTDbAng37oc//SGxkVB8BVy3qqof1k=;
-	b=Zq0R2g4PP5/NorQAcxH2kqsMrxX2M7D7+19MUTgGP4nL2OHxfnn30pUJpbZMAd37dT2+0I
-	rBZ2dulHQLyVIAD8j1jp4//ycEILp5HpnaFX81c5vhClluyJM016E5gJsUZ9irHua+FjlO
-	IgUd8qfjG3rpwgldeo2xTTgTz8GNJVg=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-61-ocnhDGtyOyKpc92GpyC2dg-1; Sun,
- 30 Aug 2026 19:41:36 -0400
-X-MC-Unique: ocnhDGtyOyKpc92GpyC2dg-1
-X-Mimecast-MFC-AGG-ID: ocnhDGtyOyKpc92GpyC2dg_1788133294
-Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 768BF1955F72;
-	Sun, 30 Aug 2026 23:41:34 +0000 (UTC)
-Received: from llong-thinkpadp16vgen1.redhat.corp (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
-	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 8DAC8180059E;
-	Sun, 30 Aug 2026 23:41:32 +0000 (UTC)
-From: Waiman Long <longman@redhat.com>
-To: "K. Y. Srinivasan" <kys@microsoft.com>,
-	Haiyang Zhang <haiyangz@microsoft.com>,
-	Wei Liu <wei.liu@kernel.org>,
-	Dexuan Cui <decui@microsoft.com>,
-	Long Li <longli@microsoft.com>,
-	Saurabh Sengar <ssengar@linux.microsoft.com>,
-	Michael Kelley <mikelley@microsoft.com>
-Cc: linux-hyperv@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Waiman Long <longman@redhat.com>
-Subject: [PATCH v5] Drivers: hv: Avoid infinite retry loop in init_vp_index()
-Date: Sun, 30 Aug 2026 19:41:24 -0400
-Message-ID: <20260830234124.878502-1-longman@redhat.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="QsNf07/Q"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=zLK9ilxnouBl8OfzKtWT4IUHOCTEywTf0m+xYBuIXWw=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788133404; v=1; x=1788738204;
+ b=QsNf07/QAo9FFycttjg7kduQvyE9kg+ODF3+savGYpsucHU2qmNG8HJZhQDUv5fq2Dltr5Mj
+ j3/FB684IppKKhPGxeNjjIw1M9hfUhCW8HMSAe2pkSq3lRZe7kTADd0UeG14st2W88L08aOPS7g
+ JMLdco0Bd/o5Fe9cCeH+Od/I=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 0aa1dce65fc93252;
+	Sun, 30 Aug 2026 23:43:24 +0000
+X-Mizu-Trace-ID: 0aa1dce65fc93252
+X-Migadu-Flow: FLOW_OUT
+From: Denis Benato <denis.benato@linux.dev>
+To: linux-kernel@vger.kernel.org
+Cc: linux-input@vger.kernel.org,
+	"Benjamin Tissoires" <bentiss@kernel.org>,
+	"Jiri Kosina" <jikos@kernel.org>,
+	"Luke D . Jones" <luke@ljones.dev>,
+	"Mateusz Schwartz" <matthew.schwartz@linux.dev>,
+	"Denis Benato" <benato.denis96@gmail.com>,
+	"Jonathan LoBue" <jlobue10@gmail.com>,
+	"Khamunetri Clark" <khamunetriclark@gmail.com>,
+	"Derek J. Clark" <derekjohn.clark@gmail.com>,
+	Panz Dev <panz.development@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v4 01/13] HID: asus: do not send keyboard init reports to touchpads
+Date: Sun, 30 Aug 2026 23:43:08 +0000
+Message-ID: <20260830234320.114356-2-denis.benato@linux.dev>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260830234320.114356-1-denis.benato@linux.dev>
+References: <20260830234320.114356-1-denis.benato@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -61,73 +55,56 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
-There is a retry loop in init_vp_index() where the CPUs from a certain
-node are stripped out if they have already been in the allocated cpumask
-or not in HK_TYPE_MANAGED_IRQ housekeeping cpumask. If there is no
-CPU left, the allocated cpumask is ignored and the process is retried
-again. However, if the HK_TYPE_MANAGED_IRQ housekeeping cpumask turns
-out not to contain any CPU in that particular node, that will become an
-infinite retry loop.  This particular problem was reported by sashiko
-[1]. This should rarely happen, but we still need to guard against this.
+From: Panz Dev <panz.development@gmail.com>
 
-Fix this infinite loop problem by also skipping NUMA node that has no
-housekeeping CPU in the inner while loop of init_vp_index(). Also update
-the early abort check to check for the absence of online housekeeping
-CPUs instead of just the emptiness of the cpumask. As the outer for
-loop will only be reached if the housekeeping cpumask has at least one
-online CPU, a NUMA node with housekeeping CPUs will eventually be found.
+Commit 0919db9f3583 ("HID: asus: always fully initialize devices") added a
+loop during asus_probe() to send keyboard feature report initializations
+(asus_kbd_init) to all ASUS HID devices.
 
-Link: https://sashiko.dev/#/message/20260422030903.E1BFCC2BCB0%40smtp.kernel.org [1]
-Fixes: 6640b5df1a38 ("Drivers: hv: vmbus: Don't assign VMbus channel interrupts to isolated CPUs")
-Signed-off-by: Waiman Long <longman@redhat.com>
+On ASUS laptops with I2C/HID touchpads (such as the ASUS E200HA), sending
+keyboard feature reports (FEATURE_KBD_REPORT_ID) to touchpad endpoints
+sends invalid feature requests to touchpad hardware, corrupting probe
+state and causing the touchpad to become unresponsive.
+
+Wrap the asus_report_id_init loop in an `if (!drvdata->tp)` check so
+keyboard feature initialization only runs for actual keyboards.
+
+Tested on ASUS E200HA (where touchpad functionality is fully restored)
+and ASUS VivoBook Flip 14 TP401MA (confirming zero regressions).
+
+Fixes: 0919db9f3583 ("HID: asus: always fully initialize devices")
+Cc: stable@vger.kernel.org
+Signed-off-by: Panz Dev <panz.development@gmail.com>
 ---
- drivers/hv/channel_mgmt.c | 12 +++++++++---
- 1 file changed, 9 insertions(+), 3 deletions(-)
+ drivers/hid/hid-asus.c | 14 ++++++++------
+ 1 file changed, 8 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/hv/channel_mgmt.c b/drivers/hv/channel_mgmt.c
-index 89d214dda360..28b8ff9aea6e 100644
---- a/drivers/hv/channel_mgmt.c
-+++ b/drivers/hv/channel_mgmt.c
-@@ -752,13 +752,14 @@ static void init_vp_index(struct vmbus_channel *channel)
- 	u32 i, ncpu = num_online_cpus();
- 	cpumask_var_t available_mask;
- 	struct cpumask *allocated_mask;
-+	const struct cpumask *node_mask;
- 	const struct cpumask *hk_mask = housekeeping_cpumask(HK_TYPE_MANAGED_IRQ);
- 	u32 target_cpu;
- 	int numa_node;
+diff --git a/drivers/hid/hid-asus.c b/drivers/hid/hid-asus.c
+index ec966fc0a411..bd46aba6622a 100644
+--- a/drivers/hid/hid-asus.c
++++ b/drivers/hid/hid-asus.c
+@@ -1493,12 +1493,14 @@ static int asus_probe(struct hid_device *hdev, const struct hid_device_id *id)
+ 		return ret;
+ 	}
  
- 	if (!perf_chn ||
- 	    !alloc_cpumask_var(&available_mask, GFP_KERNEL) ||
--	    cpumask_empty(hk_mask)) {
-+	    !cpumask_intersects(hk_mask, cpu_online_mask)) {
- 		/*
- 		 * If the channel is not a performance critical
- 		 * channel, bind it to VMBUS_CONNECT_CPU.
-@@ -780,14 +781,19 @@ static void init_vp_index(struct vmbus_channel *channel)
- 				next_numa_node_id = 0;
- 				continue;
- 			}
--			if (cpumask_empty(cpumask_of_node(numa_node)))
-+			/*
-+			 * Try next NUMA node if current NUMA node has no CPU
-+			 * or doesn't contain any housekeeping CPU.
-+			 */
-+			node_mask = cpumask_of_node(numa_node);
-+			if (!cpumask_intersects(node_mask, hk_mask))
- 				continue;
- 			break;
+-	for (int r = 0; r < ARRAY_SIZE(asus_report_id_init); r++) {
+-		if (asus_has_report_id(hdev, asus_report_id_init[r])) {
+-			ret = asus_kbd_init(hdev, asus_report_id_init[r]);
+-			if (ret < 0)
+-				hid_warn(hdev, "Failed to initialize 0x%x: %d.\n",
+-					 asus_report_id_init[r], ret);
++	if (!drvdata->tp) {
++		for (int r = 0; r < ARRAY_SIZE(asus_report_id_init); r++) {
++			if (asus_has_report_id(hdev, asus_report_id_init[r])) {
++				ret = asus_kbd_init(hdev, asus_report_id_init[r]);
++				if (ret < 0)
++					hid_warn(hdev, "Failed to initialize 0x%x: %d.\n",
++						 asus_report_id_init[r], ret);
++			}
  		}
- 		allocated_mask = &hv_context.hv_numa_map[numa_node];
+ 	}
  
- retry:
--		cpumask_xor(available_mask, allocated_mask, cpumask_of_node(numa_node));
-+		cpumask_xor(available_mask, allocated_mask, node_mask);
- 		cpumask_and(available_mask, available_mask, hk_mask);
- 
- 		if (cpumask_empty(available_mask)) {
 -- 
-2.55.0
+2.47.3
 
