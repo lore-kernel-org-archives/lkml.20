@@ -1,35 +1,35 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB1E81514F8
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 21:41:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7456F1E22E9
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 21:41:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788126082; cv=none; b=TVT4XJvtxWXDBRG05SuZjvCzL6Suik68ntX6xQ4/sdbEgz2sx4aNq/8cxlQsUOsRr26yIeOGBIMM46fqmYIdrR4Rf0vNtHcPAgVxfK60/cUYE4VKld3UbbCZQb3q0ksNGKMXY/DTj0lrLDz8h1ahR3XLIDfVdaFJerI053RnGng=
+	t=1788126082; cv=none; b=WOF44b8KhIx1FJWa2rAEKrYSuLLNb7xG91H4PX6r5l2AwMpiZIzUaiIk7T8rGQ80aMsJqNwR2G8dPTp3rTII3qp6Z7f08whriJD3klFkfrUpawEcsWWkQlG1fJ0NnIojvWvOS7fz5EyCvK2HnSlRZ16RMMzh4unrfYULDpf6kHY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788126082; c=relaxed/simple;
-	bh=jKz2OKgxvSZI/0BWbrps8HMe6WLp1un3inEvVRnvUjs=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To; b=o7gSe78UM/nm2/WjpcbjH8eCIoZqaoqZJV2qRtbBR6iybCrM+/tZIqaDpTG3P9Z5RclX6WyAMDbvA7z0oLl0j4bH2oEmQh2X1B+EPIBBY/HGspNNfIVe3wI+jaSvs9kWixUHAD5VNy3XIe+ryuBm5ME6VKe/CUCjxLsR0FahuMw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K2pAh1E7; arc=none smtp.client-ip=100.103.45.18
+	bh=hA3frRkMVLT8yqScNMW6PNFs2EYBzOF0cHoTo31xgD4=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To; b=eplr1sppP4d5EDJHh9bPiQ0VFCXV6n3UUb5NhtNoRBsn9gefEBFRHuutLA5EYCE5s57DNRI9aYJXKowu58J5Yiq1Zk8RuP9EyBb+z+k35GSKRQCCY0wjdHGC3PPUFpGy5Moyd42o81nOl9Jnj7fzHWzwp2REMhLMPAeI8g/5RGY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lR9N4Rpm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K2pAh1E7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D30E1F000E9;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lR9N4Rpm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D30EC1F00A3E;
 	Sun, 30 Aug 2026 21:41:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788126080;
-	bh=C1+zDMG99bMt2xAaxS69HT/hrZ4u2XNu+7HKWqXy5Vs=;
-	h=From:Subject:Date:To;
-	b=K2pAh1E7wiGe2CxEaRT3Kag6M8nZiJ/IXdW4Yfg7we/dN0hNRWHDSIi2I7WJA02RT
-	 0JCD8jTWEjT5sg5y4+bp1HG4VL8oSLL/XwdrEcrr5GwVp38uy+m6eUWOG3AYP56jD1
-	 M0EglLdt+OxQgB7xYPLlt72KmEYoTKNX0K4gA6RgtOIc2pzcm4KwuHrfMiGHS6L/eF
-	 NNzgAdJQuFbCp7qo5cQbXc9tAV/VqwPYNJL0tHp3IIDY1ktAkrwKJbTl1X/Hd52LYt
-	 /n8qE+jCdwxpuMhsIE1JBf6HsM5PM2e5Tr9HTCCELe9vPAfsT9JpgX6sE9R+ivNTHF
-	 bhXcsVB27tCIQ==
+	s=k20260515; t=1788126081;
+	bh=ZJPCNcXSmhdWPBMlLZP18snAyY6mpXKvcYbhbom1sBI=;
+	h=From:Date:Subject:References:In-Reply-To:To;
+	b=lR9N4Rpmx1eAO1u0XNWAwvsfAGRbTTPYhLEcI9tROVdeux29b8spqJIP2OUgKI8MC
+	 BYougaCwWIKXARfF+ljnRFhJN6rF5/GIBnGHHC/kKkOUYhcudop6cQMrdFzDYEHDAH
+	 Mmj0C3tc5jduDUsAcv4kU9CyQ3hHs5aFNqFblCMznqfJK8T2+KoTkZe0nkw4tZSTmy
+	 9E7tlUKtJy5+Z6N/CvmhghaTLy98F1bWeFFx6gBP17ApqotkjBbvge6Jxl9tSktWjE
+	 cBznWird1fZQorNImrPQ6zTAj3PCct//48lKtw+NhYZpMDvgx76y1U//ewQUKVz2uy
+	 q5Jwt/2K5V3Bg==
 From: William Breathitt Gray <wbg@kernel.org>
-Subject: [PATCH 0/2] counter: Update MAINTAINERS for orphaned Counter
- drivers
-Date: Sun, 30 Aug 2026 17:41:12 -0400
-Message-Id: <20260830-orphan-counter-drivers-v1-0-3b10ab8b3876@kernel.org>
+Date: Sun, 30 Aug 2026 17:41:13 -0400
+Subject: [PATCH 1/2] MAINTAINERS: Mark microchip-tcb-capture driver as
+ orphaned
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -38,44 +38,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2MQQqFMBDFriKz/gNtRSleRVxofepsWpn6RRDvb
- nGZQHJThgoyddVNilOypFjA/ioK2xhXsMyFyRnXGl8bTroXzyH94wHlWeWEZvZ2cT5ghJ0aKvG
- uWOT6xv3wPC+jdySsaAAAAA==
-X-Change-ID: 20260830-orphan-counter-drivers-81f28ceae1b5
+Message-Id: <20260830-orphan-counter-drivers-v1-1-3b10ab8b3876@kernel.org>
+References: <20260830-orphan-counter-drivers-v1-0-3b10ab8b3876@kernel.org>
+In-Reply-To: <20260830-orphan-counter-drivers-v1-0-3b10ab8b3876@kernel.org>
 To: linux-kernel@vger.kernel.org, William Breathitt Gray <wbg@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=980; i=wbg@kernel.org;
- h=from:subject:message-id; bh=jKz2OKgxvSZI/0BWbrps8HMe6WLp1un3inEvVRnvUjs=;
- b=owGbwMvMwCW21SPs1D4hZW3G02pJDFlTFjfITKuzvG7BVmDz/qPC9mDB60acleX7ZxR1LLKdZ
- PozomhLRykLgxgXg6yYIkuv+dm7Dy6pavx4MX8bzBxWJpAhDFycAjCR3gkMf+U2OOv/PvVgw/3X
- ffZvvmXY9G25vEb+J5cMk9yFN63xc6cyMrQd17LPj7DUf56zwPvEJwHFW97yAVu9b6vwzYhI/jN
- BmBkA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=868; i=wbg@kernel.org;
+ h=from:subject:message-id; bh=hA3frRkMVLT8yqScNMW6PNFs2EYBzOF0cHoTo31xgD4=;
+ b=owGbwMvMwCW21SPs1D4hZW3G02pJDFlTFjdUfn/lXr97T+f6+rK0zxJB4ZZvd20ukLTq9JOfV
+ GgaHry3o5SFQYyLQVZMkaXX/OzdB5dUNX68mL8NZg4rE8gQBi5OAZiIXjYjwy0m580VDVf6274b
+ OfSKrVr8eeG915fOG+hwyPhvfqex6wjDH56lDu8Y23+ln36z1dJW8ud5sYQzc3N8SuZOe1W8pSP
+ tPisA
 X-Developer-Key: i=wbg@kernel.org; a=openpgp;
  fpr=8D37CDDDE0D22528F8E89FB6B54856CABE12232B
 
-The ftm-quaddec and microchip-tcb-capture drivers have been orphaned by
-their maintainers. This patch series updates the MAINTAINERS entries for
-these drivers to reflect their orphaned status.
-
-Patrick Havelange, the listed maintainer of ftm-quaddec, has indicated a
-desire to step down from the role of maintainer. Kamel Bouhara, the
-listed maintainer of microchip-tcb-capture, has been unresponsive to
-several pings for some time now, so I consider the driver's
-maintainership currently abandoned.
+The maintainer has not responded to pings for some time. Consider this
+driver abandoned, remove the maintainer line, and mark the driver with a
+status of Orphan for now.
 
 Signed-off-by: William Breathitt Gray <wbg@kernel.org>
 ---
-William Breathitt Gray (2):
-      MAINTAINERS: Mark microchip-tcb-capture driver as orphaned
-      MAINTAINERS: Mark ftm-quaddec driver as orphaned
+ MAINTAINERS | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
- MAINTAINERS | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
----
-base-commit: 353b2e09f44a91e64c6b8117df46b6999c52e465
-change-id: 20260830-orphan-counter-drivers-81f28ceae1b5
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 15011f5752a9..f5bfa46536d0 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -17813,10 +17813,9 @@ F:	drivers/misc/atmel-ssc.c
+ F:	include/linux/atmel-ssc.h
+ 
+ Microchip Timer Counter Block (TCB) Capture Driver
+-M:	Kamel Bouhara <kamel.bouhara@bootlin.com>
+ L:	linux-arm-kernel@lists.infradead.org (moderated for non-subscribers)
+ L:	linux-iio@vger.kernel.org
+-S:	Maintained
++S:	Orphan
+ F:	drivers/counter/microchip-tcb-capture.c
+ F:	include/uapi/linux/counter/microchip-tcb-capture.h
+ 
 
-Best regards,
 -- 
-William Breathitt Gray <wbg@kernel.org>
+2.55.0
 
