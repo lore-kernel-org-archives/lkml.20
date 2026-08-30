@@ -1,165 +1,121 @@
-Received: from mout.kundenserver.de (mout.kundenserver.de [217.72.192.75])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa1-f79.google.com (mail-oa1-f79.google.com [209.85.160.79])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C37F3B71BB;
-	Sun, 30 Aug 2026 17:34:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.72.192.75
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE7523B6362
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 17:38:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.79
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788111249; cv=none; b=CDHIuevVbBryW3dCfaXjWc5uuGIAioCFCPWEemiuSrqHmFnmsiPG4bAT8bzX92mCUWGL8PgBe1lAZQnSfjs4tdz2fdqjET7mtDII6PTGUz0DTQD25kMII9xnohoC009/3dhs04IzjvQcvEKSQADNLdMamcicXTkX/kxaQTKeu7E=
+	t=1788111514; cv=none; b=LGJCD1Ecunw/IwuYVAyDQa1kAtrv8t7YaUoHcMd68mCMubvSeHh50Fl4VqFL4pCjNW58LaPxGpdcFvmyR1G8ZDYYtfX7qwCBDMqIOoqo27riW60B3XPG6AWJ3sXC/go+zeZxmkBvO2Ui3KGIfxHqwILJNWbBJRsHqj/vCD3N2eE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788111249; c=relaxed/simple;
-	bh=s/92348jRP6269mIxI1Kdv+Oa/BEZJNWF1roWsEKQqM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=H4HvlEG5d4Xlqk8fJJNhhpSnrD2ev4lOXo09BEQ0lbvqjaeQ7SqYXgiTrcQZxUuQ/DTJjOMLL56aG+FQ078kGbN3VsMXK+etJFDwGFjhXov0SsgsYEMjPrJK/kRuuXJA9rkvhh0CXYRReCZpzhpO8dSXq9yuzggy6ag37YW9A1o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=themurphys.eu; spf=pass smtp.mailfrom=themurphys.eu; dkim=pass (2048-bit key) header.d=themurphys.eu header.i=christian@themurphys.eu header.b=oln1DZBa; arc=none smtp.client-ip=217.72.192.75
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=themurphys.eu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=themurphys.eu
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=themurphys.eu header.i=christian@themurphys.eu header.b="oln1DZBa"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=themurphys.eu;
-	s=s1-ionos; t=1788111231; x=1788716031; i=christian@themurphys.eu;
-	bh=zrfOUbmlUBAPXl3rgn7B1xdEsiBW5cG3AtqHwJQcP7Q=;
-	h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-ID:
-	 MIME-Version:Content-Transfer-Encoding:cc:
-	 content-transfer-encoding:content-type:date:from:message-id:
-	 mime-version:reply-to:subject:to;
-	b=oln1DZBap8wjoTkq9x4N/0Adwf2Jl9DHH2bOG+KrNSbXBnvub/q07GnsnR0NWQG8
-	 S/jedwVX14y9DZFxKXMjQ1vFlm69uViIoYAQYWLi8oCu224InLaewIWbAbrqatxAZ
-	 kCCo20dOLfA2LIPuQAY9+dW5iJNGhZLnp0SjBDpQLyd+AsQ+bogYBbNDeEoVIx1/X
-	 8k/32Gs+JvDBzeX1B/Uf3nKn3vh9VJbR3IuTNG6gQKKxhw74IjeqVvbGjsuZE2XrA
-	 A9tHPZkleaUGw6WBJKloWheuVCefPaPwcpOQ4Wg6OtwDLiuX6tuF7T5kRlNWDGAx7
-	 8ZwWRA5tYsNd2NPh1w==
-X-UI-Sender-Class: 55c96926-9e95-11ee-ae09-1f7a4046a0f6
-Received: from client.hidden.invalid by mrelayeu.kundenserver.de (mreue106
- [213.165.67.119]) with ESMTPSA (Nemesis) id 1MCJvA-1xA34P27XO-00ALkg; Sun, 30
- Aug 2026 19:33:51 +0200
-From: Christian Murphy <christian@themurphys.eu>
-To: linux-media@vger.kernel.org
-Cc: hpa@redhat.com,
-	sakari.ailus@linux.intel.com,
-	mchehab@kernel.org,
-	tarang.raval@siliconsignals.io,
-	jai.luthra@ideasonboard.com,
-	linux-kernel@vger.kernel.org,
-	Christian Murphy <christian@themurphys.eu>
-Subject: [PATCH] media: i2c: imx471: Fix pixel rate and line length
-Date: Sun, 30 Aug 2026 18:33:45 +0100
-Message-ID: <20260830173345.15886-1-christian@themurphys.eu>
-X-Mailer: git-send-email 2.53.0
+	s=arc-20240116; t=1788111514; c=relaxed/simple;
+	bh=G8uudVDlmu6OBfesgS6iZ9rS4NwZkdL34dsSJd7B7bI=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=Kgppa/5RJqAjVFVFAiTvhkDQdlgRcXUQO8RVqC5qxYeZ4VErxw+bwc3hRhS+888L9q+uHT3zhwoxUEZ/G8F5wapbUWd4qZg/46WUwYwJ66b8FIKYTsu3CsEfUW+hGd/i4tz/Osc03feyhA9jRF/JazJnzA1MFG9M6dmXvhg2/oY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.160.79
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oa1-f79.google.com with SMTP id 586e51a60fabf-464e69965b8so5912681fac.0
+        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 10:38:32 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788111511; x=1788716311;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=5VNzQWRFLebN1X6lVK2IUMMclgAeM+X4+PsLzs0+xtk=;
+        b=GvX3OdxQ7l9OY00ae3Ajrj/PmWt7aUHyUBmFawJDm0kA6WTB0fK5XmO/ergLRw1jrn
+         bnBbSGSk0uqSTdX+Rgi1e7EpV9UDyG7k2t+yP0QB4ksK/1hwO2Zwx5WBggCaoEU2JcCi
+         pA2/pk+2KmpLPJ7AXREqk+Mg5O551sJ/q/TjYuMEs7nGDBHhCeH5WwWl5D3PzidD1Z+7
+         /kfeufUI86KdNwoWNXHTc7YNMQpEZTRGbbKyE3AGLYuZzNtgkrIQauyekGkGWqedbOTW
+         Hokg+SxDPBmid+/1Li6xjIbxdDlC+EBEHEzPIJtabXf0EiPg7W/lEYusLNS7BCXATuIK
+         I14w==
+X-Forwarded-Encrypted: i=1; AHgh+RqZyMWcx0FcD5t9gOhkDTIVW8A8xAs2IXDTEjKLLCFDs1pVl5uvdk2eU8yE1MB2cw69ALHUUpDMx7NRUOA=@vger.kernel.org
+X-Gm-Message-State: AFuF++mrPowTxLJW7wj07YihjmHB3vGpWdyRtUslnUEu0Zwi354v/unD
+	Nq9pa+2b2870SbibGM1V6u3scXIm7ewOiRzp//nIinNc4mfwUzm0jt80ZXf72HE1dl2bDoCaflT
+	e4MTSWIuSukK6451hfdbNLgRRihDA4iEHdvLcLcp1ybzMV9yLCza4nZaQAE4=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:K8EECfPEYaz01tXdH7HrMV8Dzy8hCR1JnN0+zg9N8zQM+2RbKpZ
- w0PetQoE79wAL/rP0k6yoHn5sJrEiLUcQ9kge6yEqt7m4N36cCsVnsd0/YPLEyTlfO9sL5C
- hO/6RGfb+IZOHmtWwOMIzrdpzrp+Eb228pZ5oXzLOhxvhOAPP8JBgsHT7t2v9rdGvaTqNAT
- b+f/tlQIljokgPh0/lQzw==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:Cb/u6g1eO/0=;+7Tf0AX5aWxf+F66MtOFZFGTJkb
- HQ+OS+IpMI4t+id+eaJNp6+oH0FL1nVBCuxORDVmwlV0OOAISf7czrfkYw77gpSSSAUq8pFWf
- c47LZ6B+Mkq+AW+1EZlVfn/GSJwjrZthf7OAefBrEdhrfKiox0QINsw/f5j/reMRRtIsCyeSc
- ytARXG3MSWq4J/K+Hzch0SATeKSeSGMx4vgI5r2rljFhnYlYSE4nxUOwupHHZfXPWOsIdnpiT
- AuK3nL9X+b5JLjEEOvo8406slqrAlWAbfue/fQRL2RvrN4BpRLOH5swHkJox++WOjd+98CvIc
- jFszv9IZDTKxu5pv3Z/2PT2oRlz63jlaeSwTuvCLCaJTWDkrlJ7KeDg/1ilBtMTRHnSPF3hKL
- y+eK8yrWoXUKQJNpyvvTzEOTQjNuyAkP3QHjK821eE1PE5TZ926M1vOUBOUibYrdeuF2UvFZM
- VIbaH7wWmjzwvUozXnrXdn+lvluC2hrqgTaO5NRIZBrqYmgA5g8RJGMdnT1VXqD7jqNHV/ozf
- NGGcAfHMdq3W0la1yBRPUNsdoOaB/I3rCy+sh9FGzpLjtxGfXzxuQpJqBbnAef3ouEclTWXxR
- vRFaacrYvMcEkYE+LaMKDTdPuQKu+CifPBnm/A/xH7AhCYbswyPEfH0kHhTX0z0GwDi/6FoQl
- +eG4O4eOnS2f2WwTWRSodUjHxcFKWjShTXRF++YO/u2D56yUQuIHD6U3ono3htUiVuuw2HwCX
- UIqs6QXrqKuIpeHCKvwkWsHJHv//eJgTCSV7jb4m3QrW0uT3H6O7UQ6h1O/uC4VlbDznlGZyv
- W7qKkM0AILSIilixIQQOsvA1Z/JCkuNB8NS37n24uF97ZTGCt4JRLegh00TxXDv+1oy+foyn/
- 9avdyL/lm1aSDSc0NNs02Cf0G/j8bMjH2m0z9AgpoG9hz2Ea3eZ00pskLEW9LcXRL5/cKo8Qi
- qkMaq4bamurgMoNZydUUCQ5C5CHtEXf3yQC6KE3o0SxPI8VSZwuSEynvX/3VKSedTyw8VdoHo
- 3+fk5SwfMWm6jEKqgW6hITLvE1meaWCozR2qjeZddCaw9IqDs00j9m2s59xtEEvqsRid7VY4l
- E/MjunvskeEMym/kGVngnV9xfatahSdjrqTwmP/lLuz/UTLKns00kbLuB7gSSY7Ww+cdaQSbr
- SwODJNluhhpNl3Hbc6MD2dfvAeyzeU3pReWEFA1Mj873Q0MiGhHRzonYnz/knir8bhYUVGEbe
- YJ1tpuOdOlgQ8MH8CHf65nvUKqDwW5HklE/cE8loJGwi1zGpDD3fw0Iyjz+69x/eKwLnBPFfb
- PQmWfnaSr2IEHjYWzAq3J/nvcIWkoMv2+Elqsz+XUNKmOBoo88PmhUlDmZfd7mAqdscCp02pE
- 5IMHzbqTCP0/eLevbgip7FtIxexjiNa6C6/Lg19VqJGYbbsaTA3x3ac9IJflFRI9WJeXwov61
- jSH5JD6DFhxiLdXQQS016w5cPTsDixxXU9rebNFiHbxY48OVChJYTd/vffElJcV0/iAmNANnP
- aWOyMIYlTRisJSIfhKtec00Jd09Tr4y7wExMyKEPz4QMiRC9tIFDmcD8+8+sSeZq04lKWhIoK
- DXwNKLxMxjJ2AEk2XtdpLyZqpFJcJlo53tecLDe6DkY2OnNX+L/jZZRXjJmhhmSvb+LyecgDa
- pehQqGN5774C44Sy/0ni1ta+c9/h7YM7/pVQqSEiXSFzypxXJWdqpDNpCMAoUF/Alu1S8aJ1o
- S0vPxupMh2+aexFPVSRvaMHDWa2dj0eQTsi6w0MnUI2INLCEbrpa+78Gb4DvoMxmaFuol9nLy
- 6aaZcySZs5jlrpLxYVTpYfIwBiJbnoDzvIwyjDbzDfAZ3SmK8cRIjsXTWcC7ukFLfLanipWvI
- Lq/fp8qyFW7I+9yjR/jc+J1ehyWYH9bYwBqGEs41hT6zRKhs4uFd0bh0NB/Rpxod5aoJDdIHo
- PTQnwdaQVetbMr7YbxaoUQm7d9TQkZNl9XjdS7J7WWlxG5nAXBHTLm7cYIodAh8K21QNHyzbI
- EQNoA9jPNO2roS13zZ9RLuDZ6YEql3KeHET03fv+k07jf8bYko6Hez/BapinHZwKyEiUqAsBD
- 57+RDfHRa3lSUSdI78J2sn1ddQc94Cw5Z+brWOjRE5CnuB/OQQdgaotlKscMZaX7km9OD/srQ
- gJxdiFdus5eDffqKym8N2EkJrg8NXKT6ivre/xLN9+goIK8P1ow1fsORCWJIEH9f7QUMHH0GO
- GBg1Xav0lyn1NV5gyRdH9HRGZ2SNqyXNmlH/nLyHCZtYwYkFnsuMOsQ+ZYexoSnfKLFwP9Jf7
- ePDVibz7Ty0iPt2kw7U/E5mVTF1FExwXO5MtlzX/5jWKN2I1riypfTQyQyMnlmAzc0VddKMd7
- H7rt4NvfhaH2vZr8S5CRqKtI6/lVgw5YunAviqlz/AwGMf58ODBXnMmt6OVe2df6l0MObacj6
- 9RsuHjC9A==
+X-Received: by 2002:a05:6808:c145:b0:4b2:8d83:436e with SMTP id
+ 5614622812f47-4b59e7b66f2mr3077637b6e.8.1788111511597; Sun, 30 Aug 2026
+ 10:38:31 -0700 (PDT)
+Date: Sun, 30 Aug 2026 10:38:31 -0700
+In-Reply-To: <6a77c53d.01d0871a.3a0d52.0077.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a946a97.1d9ded08.62e62.0120.GAE@google.com>
+Subject: Re: [syzbot] [bluetooth?] kernel panic: kernel: panic_on_warn set ... (3)
+From: syzbot <syzbot+fe5ea83cdd7fc263f452@syzkaller.appspotmail.com>
+To: axboe@kernel.dk, io-uring@vger.kernel.org, krzk@kernel.org, 
+	linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	luiz.dentz@gmail.com, marcel@holtmann.org, netdev@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-The pixel rate is derived from the CSI-2 link frequency, 200 MHz * 2 *
-4 lanes / 10 bits =3D 160 MHz, and the line length is the binned array
-width, 2328. Neither describes the pixel array.
+syzbot has found a reproducer for the following issue on:
 
-The VT PLL gives 19.2 MHz / PREPLLCK_VT_DIV 2 * PLL_VT_MPY 121 /
-VTPXCK_DIV 6 =3D 193.6 MHz and the array reads two pixels per clock, so
-the pixel rate is 387.2 MHz. LINE_LENGTH_PCK is never written and its
-power-on default reads back 5120. Timing frames at several written
-line lengths confirms 387.2 MHz at every value.
+HEAD commit:    08dbfad3f504 Merge tag 'for-linus' of git://git.kernel.org..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=14f47379580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=5e4e3a0e188a497e
+dashboard link: https://syzkaller.appspot.com/bug?extid=fe5ea83cdd7fc263f452
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=10c2a379580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=16181e25580000
 
-With the declared values the line duration comes out 14.55 us instead
-of 13.22 us and exposure is overstated by 10%: libcamera reports a
-maximum ExposureTime longer than the frame.
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/ddff5719ec3b/disk-08dbfad3.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/4b5e39b20fa5/vmlinux-08dbfad3.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/eb1f70eed57f/bzImage-08dbfad3.xz
 
-Set the pixel rate to 387.2 MHz and the line length to 5120, which
-changes HBLANK from 400 to 3192. No register write is added.
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+fe5ea83cdd7fc263f452@syzkaller.appspotmail.com
 
-Fixes: be1589e567ae ("media: i2c: imx471: Add Sony IMX471 image sensor dri=
-ver")
-Link: https://lore.kernel.org/linux-media/20260728042013.23707-1-hpa@redha=
-t.com/
-Assisted-by: Claude-Code:claude-fable-5
-Signed-off-by: Christian Murphy <christian@themurphys.eu>
-=2D--
+ <TASK>
+ process_one_work kernel/workqueue.c:3387 [inline]
+ process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3470
+ worker_thread+0xa47/0xfb0 kernel/workqueue.c:3551
+ kthread+0x38b/0x480 kernel/kthread.c:436
+ ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
+Kernel panic - not syncing: kernel: panic_on_warn set ...
+CPU: 1 UID: 0 PID: 5905 Comm: kworker/u9:5 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
+Workqueue: hci5 hci_conn_timeout
+Call Trace:
+ <TASK>
+ vpanic+0x56d/0xa60 kernel/panic.c:651
+ panic+0xc5/0xd0 kernel/panic.c:788
+ check_panic_on_warn kernel/panic.c:525 [inline]
+ __warn+0x315/0x4c0 kernel/panic.c:1104
+ __report_bug+0x276/0x570 lib/bug.c:254
+ report_bug+0x16b/0x220 lib/bug.c:286
+ handle_bug+0x9c/0x200 arch/x86/kernel/traps.c:436
+ exc_invalid_op+0x1a/0x50 arch/x86/kernel/traps.c:490
+ asm_exc_invalid_op+0x1a/0x20 arch/x86/include/asm/idtentry.h:593
+RIP: 0010:hci_conn_timeout+0xff/0x2c0 net/bluetooth/hci_conn.c:641
+Code: 48 89 df e8 e3 f5 09 00 eb 07 e8 ac 50 f1 f6 b0 13 0f b6 f0 48 89 df 5b 41 5c 41 5e 41 5f 5d e9 d7 9f fe ff e8 92 50 f1 f6 90 <0f> 0b 90 eb 8c 44 89 f9 80 e1 07 80 c1 03 38 c1 0f 8c 31 ff ff ff
+RSP: 0018:ffffc90003097ab0 EFLAGS: 00010293
+RAX: ffffffff8ad6630e RBX: ffff888079288000 RCX: ffff88802f728000
+RDX: 0000000000000000 RSI: 00000000ffffffff RDI: 0000000000000000
+RBP: 00000000ffffffff R08: ffff888079288013 R09: 1ffff1100f251002
+R10: dffffc0000000000 R11: ffffed100f251003 R12: dffffc0000000000
+R13: ffffffff818f95da R14: ffff888079288a50 R15: ffff888079288010
+ process_one_work kernel/workqueue.c:3387 [inline]
+ process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3470
+ worker_thread+0xa47/0xfb0 kernel/workqueue.c:3551
+ kthread+0x38b/0x480 kernel/kthread.c:436
+ ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
+Kernel Offset: disabled
+Rebooting in 86400 seconds..
 
-Notes:
-    LINE_LENGTH_PCK reads back 0x1400 (5120) from the streaming sensor.
-    Written to 5632, 6144, 5008 and 5120 in one stream, the line period is
-    llp / 387.2 MHz at every value (14.5457, 15.8680, 12.9341, 13.2234 us)=
-.
-   =20
-    Tested on a ThinkPad X1 Carbon Gen 14 (Debian linux 7.1.8-2, libcamera
-    0.7.2): controls read back 387200000 / 3192, 17.296 ms frames, maximum
-    ExposureTime 17.057 ms. v4l2-compliance 46/46; W=3D1 and sparse clean.
-    The driver is in no release (7.3 merge window), so no Cc: stable.
 
- drivers/media/i2c/imx471.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/media/i2c/imx471.c b/drivers/media/i2c/imx471.c
-index 4053aed84340..7a1335873270 100644
-=2D-- a/drivers/media/i2c/imx471.c
-+++ b/drivers/media/i2c/imx471.c
-@@ -282,7 +282,7 @@ static const struct imx471_mode imx471_modes[] =3D {
- 		.height =3D 1088,
- 		.fll_def =3D 1308,
- 		.fll_min =3D 1308,
--		.llp =3D 2328,
-+		.llp =3D 5120,
- 		.default_mode_regs =3D mode_1928x1088_regs,
- 		.default_mode_regs_length =3D ARRAY_SIZE(mode_1928x1088_regs),
- 	},
-@@ -691,8 +691,8 @@ static int imx471_init_controls(struct imx471 *sensor)
- 					   0,
- 					   link_freq_menu_items);
-=20
--	/* pixel_rate =3D link_freq * 2 * nr_of_lanes / bits_per_sample */
--	pixel_rate =3D div_u64(IMX471_LINK_FREQ_DEFAULT * 2 * 4, 10);
-+	/* pixel_rate =3D 2 * vt_pix_clk, with vt_pix_clk =3D 19.2 MHz / 2 * 121=
- / 6 */
-+	pixel_rate =3D 387200000;
-=20
- 	v4l2_ctrl_new_std(ctrl_hdlr, &imx471_ctrl_ops,
- 			  V4L2_CID_PIXEL_RATE, pixel_rate,
-
-base-commit: 4900cad020c0580dfb1be27776ff10a4ef110cfa
-=2D-=20
-2.53.0
-
+---
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
