@@ -1,77 +1,91 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 468BA2C0294;
-	Sun, 30 Aug 2026 20:23:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 436082BFC8F;
+	Sun, 30 Aug 2026 20:25:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788121438; cv=none; b=uZB6P34shOgVv1Yc+2EM3mz09QCpFBac2dayPRehP6+jlDQk8XZy/2SVENn3yYijJWpuPPMu1cishfrXq/i5l3olM0p3HkM1eTdobff/9eRnhhvYwfUfyQYQHimK08It3HKcWJx1ajcBBUBSuiN9aRgNCagy2MTROSjWB031EFs=
+	t=1788121551; cv=none; b=U5EJUDgifv7kgpTCc9YC721TmyjcUSR7r+PdIQ5PkhOIB9DWy0SBUJ9Jf917au41bFFP3EmlnKH567AjafKV7bHJx+yWik8nczNlN9vkjHLuQqdrx0Yl4LhAWxEMadOqL3ZO4a0njqFqOWSVpvfGJbecxy8AclGKb1vFzKQ72yc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788121438; c=relaxed/simple;
-	bh=I6Qy7c1SCo3kXYxfli+0PRMCzLl4TBog0mFhMqPaqUs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cNv1zHu3ICNM533oqomVncfw46XwL2o7uR2zKwYLB3pyaWvcrU7OsZzTVrxc3xLirvJY43fn8kaBKUd+Y/aBbc8cXXuX9oMOWORlmoPRaqeW96qGR6Sgxyfrj42GFhMrxSQksdDsn24Ii6hSyEhAKjBXmiNyQgqyCIl4jIOTa3g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=Vjh/aTjJ; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1788121551; c=relaxed/simple;
+	bh=DpsBPTsiiRMc9Jfqxq9ivIXspOVDc/2T+OP02ftTjxg=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=RQQZpPv6mXAZwK1fwPpHAT2oNX2YXkgQFl16GIBXlUC1PfflaFP4ro0pACzMXLSIVwc6ptJr4j1JsuyH6Fw3aF3u4prAcasmkrfzsUZmkfq3lXfh+P8HXRqDpzKBdKnFj3nlQsHVJE75VUaUBM1TOb6EEI3HZPA6lVeikVMbOoc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hPBijgbn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="Vjh/aTjJ"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=fvp1pXNe5TqeRLtSD0qiAJjH/t/R2XXpNq+2z1rCEXU=; b=Vjh/aTjJEGC3nFUNrV6JDgufiv
-	vaTbt6Pkv5qks/+2yHr3qWO9ssIQ9iRuffyV90OaMvgiW0ifnYe2Pg7a4F03VTx/uWY9qVZHKixg0
-	NV7N/++3Qslszxy654Zlsr/GEnlZhbA2RDY2mHOUyIYOH0Om434kTC0LeTFiMNnsdvrA=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x0m3l-00254S-3T; Sun, 30 Aug 2026 22:23:21 +0200
-Date: Sun, 30 Aug 2026 22:23:21 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Prasanth Kumar Padarthi <prasanth.padarthi10@gmail.com>
-Cc: Joel Stanley <joel@jms.id.au>,
-	Andrew Jeffery <andrew@codeconstruct.com.au>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Ryan Chen <ryan_chen@aspeedtech.com>,
-	Billy Tsai <billy_tsai@aspeedtech.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 0/2] ARM: dts: aspeed: Add ASRock Rack B650D4U BMC
-Message-ID: <d60f234e-1b9e-44cc-9bad-da79e794fe44@lunn.ch>
-References: <20260830182036.284736-1-prasanth.padarthi10@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hPBijgbn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6106B1F000E9;
+	Sun, 30 Aug 2026 20:25:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788121549;
+	bh=gWUrnFGYufl3syZYwtYjuU9uZOGyhIpP8L/7zqTakLE=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=hPBijgbn++DmdnYqGa42jWjjiWb2KXV9V3Ge1OpXI77KCVa8yY6hCjGY07HXKfM/e
+	 I7p2qKfD2orBLXZFLkrYkZQaeguGGNvadmhiO0Vc57HbPsB78VAmgo8pNvdWG3yGjP
+	 akW3HG7vXrWEFETDSk7z34d4Ckiu6XMFBHSl6oqC57fpCHstx+sux5H0MaWh7vReri
+	 kjExMIWOe+iqZYm6Fj2RLJAqzRLG3qrpUsXF0pPpHBUZf2SW9pIb/0BaSa6SlFOKOZ
+	 RIhsoJ6QVd8+40EtdE5r4AwV3cKWI/0nrxo7/ykbKxHaVc/TVhyuzkGhrWDvrOI2xr
+	 w/Ldo0xLBUDsg==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260830182036.284736-1-prasanth.padarthi10@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH] iio: adc: aspeed: propagate reset deassert errors
+From: Jonathan Cameron <jic23@kernel.org>
+To: Pengpeng Hou <pengpeng@iscas.ac.cn>
+Cc: Jonathan Cameron <jic23@kernel.org>, 
+ David Lechner <dlechner@baylibre.com>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>, Joel Stanley <joel@jms.id.au>, 
+ Andrew Jeffery <andrew@codeconstruct.com.au>, 
+ Ryan Chen <ryan_chen@aspeedtech.com>, 
+ Billy Tsai <billy_tsai@aspeedtech.com>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, linux-iio@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20260830134227.9085-1-pengpeng@iscas.ac.cn>
+References: <20260830134227.9085-1-pengpeng@iscas.ac.cn>
+Date: Sun, 30 Aug 2026 21:25:43 +0100
+Message-Id: <178812154332.2788519.4278277683256006454.b4-review@b4>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=608;
+ i=jonathan.cameron@oss.qualcomm.com; h=from:subject:message-id;
+ bh=DpsBPTsiiRMc9Jfqxq9ivIXspOVDc/2T+OP02ftTjxg=;
+ b=owEBfwKA/ZANAwAKAVSFNJnE9BaIAcsmYgBqlJHMmuJ2BEz3bQ3iQmyjjiHsjbBZLIJdc99yp
+ C6/aP+1PXCJAkUEAAEKAC8WIQRuKWazh4QGUpEmgbFUhTSZxPQWiAUCapSRzBEcamljMjNAa2Vy
+ bmVsLm9yZwAKCRBUhTSZxPQWiLykD/9YQs9EHXb9+mHMdLXUhmpJRh//t4UnHIHIsaopeW59sqq
+ xi58RVSrrqeZ2bGLYmoU1k0YvLOdFNrMu6VaI0evHYSspOGpOX+3kzypS1u47wxTcCdbb+rc7QJ
+ ngbbI8GY9Pud17iy8tF3nyaFM3keLXbjfnz40H+trKnx98DY5W5Ce4CxTIE0JkJG3sP4S5MaCiP
+ muawDsufIm+U4WxtMeRThY1uBkHLKAxt009OR5Fz0Yc6/V83oBG2twLxXNouevIIF/4MaotrhCT
+ jf8noauo6bm0cN+HPV3P0OYryEXQYlXJ8mOeGBpBldteZ60UGHZvAmYG7V1+0B+D6azirMZU1qy
+ jBb9UBqkrXRo+9otOHPQN6XkpXzoTklg3EN0WolYWv06X2r8Ef7w6tae8nJy0jTCWw5qw6GnnU7
+ dHNWJGYacZvhZDL0i2+gc3Fg9/RXdoDx1vr9R2KfjixmFysFdrm27XZVOoTniVbcuaSDeMagRhP
+ roP3Y2OAxOXB9CQ8YX8Al1oks/Ikokr+OqleyI/xukHOY8TAo/3nA2d4y3yH5yzGO3DNV78PKzp
+ qZ/jKoG5ZuzlPvNf58jHB/tKZt7TGEgHLVH8gqxwuyhQDeJ9q88CpUCumFxhn2ATryeWCkNFGh0
+ L72SuSltOmlouErS1Zwpqt4iLHFLIbqqB5UuxVQ==
+X-Developer-Key: i=jonathan.cameron@oss.qualcomm.com; a=openpgp;
+ fpr=6E2966B387840652912681B154853499C4F41688
 
-On Sun, Aug 30, 2026 at 11:50:34PM +0530, Prasanth Kumar Padarthi wrote:
-> Add device tree support for the ASRock Rack B650D4U BMC, which is
-> based on the ASPEED AST2600 SoC.
+> aspeed_adc_probe() continues to register ADC resources after deasserting
+> the shared reset, even if the reset controller reports a failure.
 > 
-> The series adds the board compatible and describes the BMC memory,
-> SPI NOR flash layout, UART console, and MAC0 connected to an
-> RTL8211F Ethernet PHY.
-> 
-> The MAC0 RGMII timing configuration was validated on B650D4U
-> hardware. With plain "rgmii", the PHY negotiated 1000baseT/Full but
-> received no valid packets and accumulated RX CRC errors. With
-> "rgmii-rxid", a 5000-packet test completed with 0% packet loss and
-> no RX CRC errors. "rgmii-id" was also tested successfully, but the
-> additional TX delay is not required, so "rgmii-rxid" is retained.
+> A failed deassertion leaves the hardware unavailable, so stop probing
+> before
+> installing the cleanup action and enabling the ADC.
+Something odd happened here with the line wrap.
 
-Please take a read of:
+Otherwise, this one looks 'obvious' enough that I'll pick it up
+now and apply it to the fixes-togreg branch of iio.git.
 
-https://elixir.bootlin.com/linux/v6.15/source/Documentation/devicetree/bindings/net/ethernet-controller.yaml#L287
+Note I'll be rebasing that on rc1 once it becomes available.
 
-Does the PCB have 2ns of delay for TX, but notR RX?
+Thanks,
 
-     Andrew
+Jonathan
+
+-- 
+Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
