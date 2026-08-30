@@ -1,210 +1,108 @@
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
+Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71B8318DB2A
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 07:25:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 561B618DB2A
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 07:27:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788074751; cv=none; b=c0M77qRFAtQgxPIvgBpK262EWRCkUavxXShEsx4GqgJm+zBiScwczZwHRnVZBRx63Rx/RJclzN+Q6I2brssmRMQd5JI2aW8kGAMnLOmVOe5l0P5aHF+GnAN6WWMJPm3GAGkoLXG7FEhUdx319AQbnrrpXDS9rh2IBpt1oSXmaxs=
+	t=1788074831; cv=none; b=Tjx4fudAJX+qSa3GGMsdlqksDNYZLPjFTRQCRGJN04U0zbLlzxpQtIqYR+FMqsdkk3fyoHGA5O1DokUvWfFJEWxw8LcfnKlyul6Ws75aw1EGqkYaQWRjH2rYJJdI+WCDScvhRic/XZSL/FYKYEi51yzyHjH06PW/pL5gl7TtMEE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788074751; c=relaxed/simple;
-	bh=rHhQ3CouOpfrU4V+eXvK5UciHi/ecpohAdH2hDPyzsE=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=KUkncA9gLUeJMK9OcC434w3g0kEPot/SJItyo7A/JDygdrWllQf3TqWazRhIAwurz1tf3ZflGwkKsk8Tkcp5Mbw4m7M1AcbK5jDBOT2dyE9bUrN7z+zSQvAaHQEvX5Kfx52KwNmd0bO8UD+Z3LQETfymKBnVcoV174RKuhDj+r8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ePIYUi7g; arc=none smtp.client-ip=209.85.214.176
+	s=arc-20240116; t=1788074831; c=relaxed/simple;
+	bh=H0NSc8dCdzQEaixfxG0SBDT4pCc/TJMvf+PTu1jP0Oc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=NX6SCbQRfilGKwUAAqm2MyCm+/9IXUlXveCEESQthyqkSEE0mxpZOGUOmeptEDASi2VekDBPSJHwi4rvh8MDKNTGYfrvFGvAYcZN1LyoXTMCq6PQDXWm5PmCAcE+rNZhjn/hT7OxbCXxLZycqck7QgbLfWdkc+sie02+6y4n/Y0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hMeyZA49; arc=none smtp.client-ip=209.85.215.179
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ePIYUi7g"
-Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2ccf2360620so19745355ad.3
-        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 00:25:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hMeyZA49"
+Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-cc1cbb64a1fso2305862a12.1
+        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 00:27:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788074750; x=1788679550; darn=vger.kernel.org;
-        h=content-disposition:content-type:mime-version:message-id:subject:cc
-         :to:from:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Hcmzw/bzGZXuqmnVsevrBZ8607zbsdAVZ+LLgOu15kE=;
-        b=ePIYUi7gEIt80fDE/wmvjyA4/wxN8qZZrER8DO7fv7QkAtJilnY7/Fc7h4Ab8JBcvq
-         +AzleE89/WGnFsB0NoCfXrVuwSrIzu24cTwOeO6rR5uLqHAblzNXJmwpRHFNYplChYOe
-         +340QpVNpj4XlXOKQLsg3HtTmD1gYhxAJs7ypyDi6gkhG+xExseKFZ/L5CpDl8L8Hv95
-         uJA8MTNvNlqfvefkeC2bO9Q2+a46XMz9NGcUe7VWAAEpjMNtF3JNHH3BgkfAx7wsHJL9
-         uOatQBVwU4NQKwGDbNC8FsAH0tUL0qTzG3syhjhh52QuN69sD+CVExM6Lp3FKeiDMo/8
-         /vMA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788074750; x=1788679550;
-        h=content-disposition:content-type:mime-version:message-id:subject:cc
-         :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1788074829; x=1788679629; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Hcmzw/bzGZXuqmnVsevrBZ8607zbsdAVZ+LLgOu15kE=;
-        b=hcFp9M+hRcRMAZduijsVECaOZYpYI+w6fxD7FCQZ1SmwB5EfB5FMzp9tnXzruB5gdy
-         yJRb8LQppxJMAxMChxOR1vf1K1A9yEQnjPRYaezcGFBQQi8hWMo6pCYfOaQCftyzH2I0
-         +WGAFpXRG0zepJQhc/JtxS72ClTt8c/FyaIV/dxBh0H77FmwWRwyY6d4W9Rit3NTPPzT
-         1E3Ksh/xN9ko2j7gevZ3pi2wL7EPXqd9OppMoI8cAuFyNoMfeMNITudOEq2hVxsDs2Um
-         t927vGM+Oihax1To8+7fIO0MId4sUN7Ak5zo0vPHwujDM7RYsw0RDezVw3cA9dyjcQLN
-         MKZA==
-X-Forwarded-Encrypted: i=1; AKwUvBwLp0M+xuv0+VU+EHCIPOKs880zjnBFMYlSahmOw0Ej/nr6AMoS5ukY7JeY34D9ny1iKMoPKKSpnqZLIXo=@vger.kernel.org
-X-Gm-Message-State: AFuF++kewEOe4t/rmhBxxMVdYa1uQEDFqgRqWziSTRrX7VJIByS8Uz5t
-	hkItxpuPohF1+3CnQ1uDdPYvGKDPxT9qIQ62uytuj8352dYTxMEZPh2t
-X-Gm-Gg: AYBFou06SjNzFLdzU2ab9oCzgoX7VyPip1Si8se07Lyrw8zRWlIXpBH8gidVVw55xkl
-	5k+A5C5y0iIZagflq8VJpemRsYVCJcuDfY3TPpJV5/8OpCxCisgUUUkKM6ahk8wMad48Z7ISsOH
-	ZZVO3lItNWfaRsmWxsIoypKmtaVsTfwwGf7EdN4tnK43PLylbddvP13nEEyPZ7Pux6eJmEtkwWM
-	rNvapCcAn3CbUZCuAzAEX70HXl3vCUUmFiwmAqPTMnCcBdbC2vLAlAwYJuz+syAS+Mmz6VWgL8l
-	FmqzsAxVO6+SNjPq2tgKrYUOlHLw526O9mbDYaoC6V6aIWPeWXVPBzPLSYeutbTH7kuVKWMwLPT
-	XsDAC6P81QLxukf6U3dP2q59e0vBh1E0gM8LbE03EXd25cfFpxnoqwxZwfSjVoREqUJ7eo6QmGY
-	VW2C+lnHHpDVgQgxNCX3GEGq2eQqBHya9NiXvfsfj1wQ3xgB9CPiNl7CgrzUwtd/N0Eqdcgdm6F
-	eHChJw=
-X-Received: by 2002:a17:90b:2fcc:b0:398:9be9:ab8f with SMTP id 98e67ed59e1d1-3989be9aca2mr16397639a91.20.1788074749551;
-        Sun, 30 Aug 2026 00:25:49 -0700 (PDT)
-Received: from v4bel ([58.123.110.97])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396dda7835dsm10440159a91.5.2026.08.30.00.25.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 30 Aug 2026 00:25:49 -0700 (PDT)
-Date: Sun, 30 Aug 2026 16:25:45 +0900
-From: Hyunwoo Kim <imv4bel@gmail.com>
-To: Vlastimil Babka <vbabka@kernel.org>, Harry Yoo <harry@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>
-Cc: Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>,
-	David Rientjes <rientjes@google.com>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Suren Baghdasaryan <surenb@google.com>, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, imv4bel@gmail.com
-Subject: [PATCH] mm/slab: take n->list_lock for the list_add() in
- __refill_objects_node()
-Message-ID: <apPa-cGLcyt90l-E@v4bel>
+        bh=H0NSc8dCdzQEaixfxG0SBDT4pCc/TJMvf+PTu1jP0Oc=;
+        b=hMeyZA49RhNNFB6d9ieIOiX5ZX/BRT51AuPhclqOpiYgUKADo1P6+2SNTUU6qPpGtU
+         UmggUjAJ4N+EEjWVylH8NAX1fEt5JHLGFc6C7+6dJWoO6m/kEJBH/GjjmdbIrpg4Kilb
+         6ylgJSTpWV4DnXWPaZivjrvAjPaMYkHIKeYu9gG0oEPBEyMupsxp74t172UZw9rXu6Dh
+         h3O8XJEZI4Otly7WEZsVBheGOGT45XHB3yDJnO0p4h96WBB1wZ8VAm5AdST3VR+UJLAo
+         C3As9+mdgLRWvTbJp+S+mV3auGNR3dqRRMMqSmHdpXhIMSrTyV4gcjlaN6reHTqZCTCl
+         8VtA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788074829; x=1788679629;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=H0NSc8dCdzQEaixfxG0SBDT4pCc/TJMvf+PTu1jP0Oc=;
+        b=DDV8TEHw0/CpsBfsJ538Kg9Iq8oCKzWS/vIPQYPL+4u+OVyWn7lvOBVkNaI2Xql4tR
+         RENV29y8kPUdfcPysdt32D+h02eeWq16Ia+33129JiDzz2BBrb061qEz9rUHzwdLMuyR
+         oejxoZvsmcMp2JmI80ToUmSdn9y1VSzi7QvC0KZMIKqH75Q4gCj/sx34RiV1rSduOb8p
+         iKUxvxKddWJIhhqLRF873J7aAXcaCy2+2XzK84Bf5q7dsfPO0sadlMnBVKNojhN0w9i8
+         kyrXdxYUCfaShB1HcIlZ0Yqcnqkx0MbdrZZUvjIt3cWR3obHjUd/xlNTYC0FmE1RBuIe
+         QUaA==
+X-Forwarded-Encrypted: i=1; AKwUvBwy4E4KAuFSLBQGXbAM4wh1RqdPm9DY2ai8K32nKDMibv0Qx2PZoxoEynkSfBuDu7qjb/i3vzmz8UT2u80=@vger.kernel.org
+X-Gm-Message-State: AFuF++mAX/c6sUZsdgt7ODRGn0zDZK2Q1igoFxX206IhssFps6RsHObU
+	0ayur6qpMmCpqburv0LENHPpLFg57inXizHW0VAnm3wHMtp7ZFecqcW2
+X-Gm-Gg: AYBFou1tKEZ1EW0UPDCWRMqviL4tLtosQ/zXCI3WAFU3o8+eLCjWIKJnG+T1p1zccxr
+	zPt+pwTCmMJSLDNpbzPcxlKw6kl7J/8fcZy+F++JLpLk1GMuUnLj90MuB03iVezQH6EpDe3cfGc
+	CqDxWiGaxMEcX4N4dz0384WEnpvQEtgi5OqUIIiO9szGxY8JeDL17i/rBgd7OHq36sHGaryZzB9
+	moH6LlrdL+s7jNf4rcNyGxbNNsDq9Rc1ePddXOWcXPlmiEhQQ2+tUrAnv9HwLQomwpLXcla90Tk
+	NYyxfTFX6yj8eSOCeL3tvulvDZ4QUjNsYs5/zUL10bcYdXxR3hCaiuVDXci7FDfBb0nHDUOYs0v
+	on42FXVrpLFOXRdKY/Lt+gPETIhgIwvxUPBYUshKrdALI50DSF9uPrRGl8MCSbLK0+l+rLSsA+Q
+	WCBXXzASgyF8Elt3pT/TjDHeqc3ZGTAPcjQfqcQoV3ANhES7C1HPlSv50rNf6yeHy4XKtHmm1HB
+	fBjXRO8O+Zb9ZxJWbW69Q6BkwX+
+X-Received: by 2002:a17:90b:3f50:b0:381:a766:efc9 with SMTP id 98e67ed59e1d1-396d0df72e2mr29568789a91.7.1788074829523;
+        Sun, 30 Aug 2026 00:27:09 -0700 (PDT)
+Received: from localhost.localdomain (vmi2317720.contaboserver.net. [84.247.152.65])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-398bda33e17sm4492394a91.14.2026.08.30.00.26.59
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sun, 30 Aug 2026 00:27:08 -0700 (PDT)
+From: Lian Wang <lianux.mm@gmail.com>
+To: "Barry Song (Xiaomi)" <baohua@kernel.org>
+Cc: akpm@linux-foundation.org,
+	lianux.mm@gmail.com,
+	axelrasmussen@google.com,
+	baolin.wang@linux.alibaba.com,
+	baoquan.he@linux.dev,
+	chenridong@xiaomi.com,
+	david@kernel.org,
+	hannes@cmpxchg.org,
+	kasong@tencent.com,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	ljs@kernel.org,
+	lyugaofei@xiaomi.com,
+	mhocko@kernel.org,
+	qi.zheng@linux.dev,
+	shakeel.butt@linux.dev,
+	stevensd@chromium.org,
+	wangzicheng@honor.com,
+	weixugc@google.com,
+	yuanchu@google.com,
+	zhangbo56@xiaomi.com,
+	Xueyuan Chen <xueyuan.chen21@gmail.com>
+Subject: Re: [PATCH v2 1/7] mm/mglru: separate folio generation update from LRU accounting
+Date: Sun, 30 Aug 2026 15:26:41 +0800
+Message-ID: <20260830072651.78997-1-lianux.mm@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260827234704.63163-2-baohua@kernel.org>
+References: <20260827234704.63163-1-baohua@kernel.org> <20260827234704.63163-2-baohua@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 
-In __refill_objects_node(), the list_add(&slab->slab_list, &pc.slabs) that
-follows a successful __slab_try_return_freelist() is done without
-n->list_lock.
+> Extract the generation update into __folio_inc_gen(), which only updates
+> the folio's generation and reports whether the generation was actually
+> increased. Keep folio_inc_gen() as the wrapper that performs the LRU size
+> accounting when needed.
 
-__slab_try_return_freelist() only succeeds while slab->freelist is NULL. The
-slab we are refilling from is taken off pc.slabs by the list_del() at the
-top of the loop, so at that point it is on no list.
+This is a nice split. Separating the per-folio generation update from the
+LRU accounting makes the batching path straightforward. Looks good to me.
 
-If another CPU frees an object of that slab, __slab_free() sees the slab as
-full and puts it back on n->partial. If a third CPU then takes that object
-in get_from_partial_node(), the freelist becomes NULL again.
-
-A slab that sits on n->partial with a NULL freelist only exists while
-get_from_partial_node() holds n->list_lock, between its cmpxchg and its
-remove_partial().
-
-A list_add() in that window overwrites slab_list to point into pc.slabs.
-The list_del() in remove_partial() then follows the overwritten links, so it
-unlinks the slab from pc.slabs and poisons slab_list while leaving the
-n->partial side alone. n->partial is left pointing at the poisoned slab.
-
-           CPU0                        CPU1                  CPU2
-
-  __refill_objects_node()
-    get_partial_node_bulk()   // n->partial to pc.slabs
-    list_del()                // on no list now
-    get_freelist_nofreeze()   // freelist = NULL
-                              __slab_free()
-                                add_partial()
-                                // back on n->partial
-	                        // freelist is not NULL
-
-                                                    get_from_partial_node()
-                                                      lock
-                                                      cmpxchg
-                                                      // freelist = NULL
-    __slab_try_return_freelist()
-    list_add(&pc.slabs)       // overwrites slab_list
-                                                      remove_partial()
-                                                        list_del()
-                                                        // off pc.slabs
-                                                        // slab_list = POISON
-
-panic log:
-
-  list_add corruption. next->prev should be prev
-  (ffff888100000248), but was dead000000000122.
-  (next=ffffea000416e410).
-  kernel BUG at lib/list_debug.c:29!
-  Oops: invalid opcode: 0000 [#1] SMP NOPTI
-  CPU: 1 UID: 65534 PID: 144 Comm: poc Not tainted
-  7.2.0-16172-gcf72cbb39da8-dirty #1 PREEMPT(lazy)
-  RIP: 0010:__list_add_valid_or_report+0x80/0xd0
-  ...
-  Call Trace:
-   alloc_from_new_slab+0x183/0x300
-   ___slab_alloc+0x31c/0x890
-   __kmalloc_noprof+0x3d4/0x800
-   lsm_blob_alloc+0x2d/0x50
-   security_msg_msg_alloc+0x26/0x90
-   load_msg+0x1aa/0x210
-   do_msgsnd+0x91/0x800
-   do_syscall_64+0x109/0x5d0
-   entry_SYSCALL_64_after_hwframe+0x77/0x7f
-  ...
-  Kernel panic - not syncing: Fatal exception
-
-Do the list_add() under n->list_lock. Reattaching the freelist stays outside
-the lock. Once it succeeds the freelist is no longer NULL, so __slab_free()
-cannot put the slab back, and by the time the lock is taken remove_partial()
-has finished and the slab is on no list.
-
-The lock is held until the block below that returns the remaining slabs to
-the partial list. That block already took the same lock on this path, so no
-lock/unlock pair is added.
-
-The unlock is keyed on having taken the lock instead of on pc.slabs being
-empty. With CONFIG_DEBUG_LIST or CONFIG_LIST_HARDENED, __list_add() returns
-without linking anything if its check fails, which would leave pc.slabs
-empty.
-
-Fixes: ba7425312607 ("mm, slab: add an optimistic __slab_try_return_freelist()")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hyunwoo Kim <imv4bel@gmail.com>
----
- mm/slub.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
-
-diff --git a/mm/slub.c b/mm/slub.c
-index f9b56cb439e709..4f6d1a03a8ee46 100644
---- a/mm/slub.c
-+++ b/mm/slub.c
-@@ -7260,6 +7260,7 @@ __refill_objects_node(struct kmem_cache *s, void **p, gfp_t gfp, unsigned int mi
- 	struct slab *slab, *slab2;
- 	unsigned int refilled = 0;
- 	unsigned long flags;
-+	bool locked = false;
- 	void *object;
- 
- 	pc.flags = gfp;
-@@ -7297,7 +7298,10 @@ __refill_objects_node(struct kmem_cache *s, void **p, gfp_t gfp, unsigned int mi
- 			void *tail;
- 
- 			if (__slab_try_return_freelist(s, slab, head, count)) {
-+				/* get_from_partial_node() may be mid-removal of the slab */
-+				spin_lock_irqsave(&n->list_lock, flags);
- 				list_add(&slab->slab_list, &pc.slabs);
-+				locked = true;
- 				break;
- 			}
- 
-@@ -7312,9 +7316,12 @@ __refill_objects_node(struct kmem_cache *s, void **p, gfp_t gfp, unsigned int mi
- 			break;
- 	}
- 
--	if (!list_empty(&pc.slabs)) {
-+	if (!locked && !list_empty(&pc.slabs)) {
- 		spin_lock_irqsave(&n->list_lock, flags);
-+		locked = true;
-+	}
- 
-+	if (locked) {
- 		list_for_each_entry(slab, &pc.slabs, slab_list)
- 			set_node_partial_state(n, slab);
- 
--- 
-2.43.0
-
+Reviewed-by: Lian Wang <lianux.mm@gmail.com>
