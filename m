@@ -1,230 +1,584 @@
-Received: from out02.mta.xmission.com (out02.mta.xmission.com [166.70.13.232])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C06D2F7F19
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 22:04:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=166.70.13.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABE2C184540
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 22:05:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788127465; cv=none; b=LHqPepGBvze3Lfc+aDCUpoc/QRsejjiPPsB6l6QxWnKmP6lctnKZH3HGTGg1ghJ+3aHOYZ3QJvDsY076tU/K6Ltj8PXzFQoOhPbtRwXBgifDMa3H6/JLvQUeob5xg4CMVDvp5gwMax+K1Ng0qTIV20ySEPsHN/s8hC2Pc8yWw5w=
+	t=1788127560; cv=none; b=qQfGYFFueueUKTidqrwiX6FjIYhVDfTymWBjTcjxFLejH/493hOMfuX9x75g6rA3mYHiK0I/n9ncPMstNjDfQk69t1Fm3tRsnU+ybWD22pbhJ3IQc52hiPLKkToepicPt0V3yJPEL2OdIpLMhA4buUYxyu6lQOlPA400UYgpgmo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788127465; c=relaxed/simple;
-	bh=Xh9x1iMv2LVjid8UlU3cQtrYBqc3FfLYUom54GAnilQ=;
-	h=From:To:Cc:In-Reply-To:References:Date:Message-ID:MIME-Version:
-	 Content-Type:Subject; b=sjMFrncAB6wx2jiGvmRS4i5zkmXs0U2a5SXCJ783uK1PeDAVnST/zmt4Max8dzzdrlIfz79gh22zXybuN08sWN6HHVTFhbVlbpvKShBXgrDuRKwgdkZPEkHEtNL96viOVqmt8WCoGcexDntTq94M9fERm6NbymCr1BgOs6Pjawo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=xmission.com; spf=pass smtp.mailfrom=xmission.com; dkim=pass (1024-bit key) header.d=xmission.com header.i=@xmission.com header.b=U3qouB6n; arc=none smtp.client-ip=166.70.13.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=xmission.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xmission.com
+	s=arc-20240116; t=1788127560; c=relaxed/simple;
+	bh=yg0YIFQWWoTzMxH5VP0SrkrdLgBRbjLUSg+jirwYxK8=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Content-Type; b=O7DalEvomit8mh/kQQ6LuM3U4wNzkiFibfA01UI6YdKfFAzCs9Qb+or57DJC8YSKcMkBE/D+Kqp+eikBf/fVcQyhqydasCWDb+gtGQSH3S5FfVrb/eEvDas3n9M2Gl2hxqHU69j1pfvxYHnGEallIKwugVU8aMPIqv9GHbSLQuo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=V3dcagLd; arc=none smtp.client-ip=209.85.218.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=xmission.com header.i=@xmission.com header.b="U3qouB6n"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=simple/simple; d=xmission.com;
-	 s=xmission; h=Subject:Content-Type:MIME-Version:Message-ID:Date:References:
-	In-Reply-To:Cc:To:From:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
-	List-Post:List-Owner:List-Archive;
-	bh=Xh9x1iMv2LVjid8UlU3cQtrYBqc3FfLYUom54GAnilQ=; b=U3qouB6noV9NzrEJHYouEzQU40
-	0NBAzS0OVucjYPGAe22L4dt4BU4Mii4mMpxB1BRW92fFsh2v1qmmMCwSf4IGGdqKw0jfmdhL6ygN9
-	fzawDUruVvnY+WTd4pqt5dDjdhVzcikVAgP1RVNkCCck8p1Xt/yimFAoYmsj6nowGCMw=;
-Received: from in01.mta.xmission.com ([166.70.13.51]:37140)
-	by out02.mta.xmission.com with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.93)
-	(envelope-from <ebiederm@xmission.com>)
-	id 1x0ndP-0017Ln-QA; Sun, 30 Aug 2026 16:04:15 -0600
-Received: from ip72-198-198-28.om.om.cox.net ([72.198.198.28]:38232 helo=email.froward.int.ebiederm.org.xmission.com)
-	by in01.mta.xmission.com with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.93)
-	(envelope-from <ebiederm@xmission.com>)
-	id 1x0ndO-009cY6-OY; Sun, 30 Aug 2026 16:04:15 -0600
-From: "Eric W. Biederman" <ebiederm@xmission.com>
-To: Thomas Gleixner <tglx@kernel.org>
-Cc: Oleg Nesterov <oleg@redhat.com>,  Frederic Weisbecker
- <frederic@kernel.org>,  Hyunwoo Kim <imv4bel@gmail.com>,
-  brauner@kernel.org,  peterz@infradead.org,  anna-maria@linutronix.de,
-  linux-kernel@vger.kernel.org
-In-Reply-To: <871pbfeaiv.ffs@fw13> (Thomas Gleixner's message of "Sun, 30 Aug
-	2026 20:19:36 +0200")
-References: <875x10hrkt.ffs@fw13> <8733w3j1i1.ffs@fw13>
-	<aowkvvxg8cPP5V0X@redhat.com> <aoww8qi_ce_8ECA9@redhat.com>
-	<aoxOVAd8ooqHFW12@localhost.localdomain> <87pkz6gms6.ffs@fw13>
-	<ao3kt-eRxw4agOj7@redhat.com> <87fr02gegn.ffs@fw13>
-	<ao6zmDB9EjsqPIVN@redhat.com> <87zey8g05g.ffs@fw13>
-	<ao8_NUo0ACPAA4QB@redhat.com>
-	<87ecfki6l5.fsf@email.froward.int.ebiederm.org> <87se3zgb3m.ffs@fw13>
-	<87mru7h09e.fsf@email.froward.int.ebiederm.org> <87tsofdvf2.ffs@fw13>
-	<871pbfeaiv.ffs@fw13>
-Date: Sun, 30 Aug 2026 17:04:09 -0500
-Message-ID: <87zey3fep2.fsf@email.froward.int.ebiederm.org>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="V3dcagLd"
+Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c2020421077so426010766b.3
+        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 15:05:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linux-foundation.org; s=google; t=1788127556; x=1788732356; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:to:subject:message-id:date
+         :from:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3GN4RGJsJq6wjlUSRnp3gh6wHugssuscZPgLbZeLcBE=;
+        b=V3dcagLdszouJEf8KP6HIkUFus/HE6NOuep+Bi8HVgZ+UOc1wQ+hJVIVlzSs+hxos/
+         VAMdUe700yYhsRHFc3SG5UtcZiHfiVWX/YCipbsgpqaFjY1a497Qq/ch++w5M71p0MUf
+         RY0EPnLuLz0u+IHvfZmi3+2tFAYZIeRPGNJcw=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788127556; x=1788732356;
+        h=content-transfer-encoding:content-type:to:subject:message-id:date
+         :from:mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=3GN4RGJsJq6wjlUSRnp3gh6wHugssuscZPgLbZeLcBE=;
+        b=Sqh3efaWXLVshGGdGHujhO3G7Uv9BvAG5Dz2wIMT65LXnrYEkhr0HI2PachjgACny9
+         J5lT9PLozwvVQ+SrRZDk1mLFPg9J+I1SqJ7LfS+EqTzt31l5ksuhTpKFwUOGkHuu3Hj3
+         81orEQVbtRpt2SEuaFdRDawX5cFhyoRY6w0yAO+YGd7dYO/y2B2nlmw2BlZZJ9QSmIb7
+         qw3TcJKvqYvw7lUJdByahqQKU4xfE4FMktfgk/pkP1riH6PFshvWUF4503xTzFqEh0L1
+         Fii3bIFqQIWbm31s5CfJaNB6Zo0gwOIumad+MA4kLBsq5OhUW2Pj75tgvm2U1zkFJ0m4
+         5BPA==
+X-Gm-Message-State: AFuF++kph0yIh2s6/YDJnIW4drD9vnprIyZom68i+Ep4kLDtyJy68kTE
+	Z0uiW9V4+PirS3DMWNrp3R6ge/im7ij7RaFLo39NZEEDzkLnyL/IG6Xp+mmvF6m0HfSRN3g53Wy
+	uGp0IOg0=
+X-Gm-Gg: AR+sD13/cdffc4rpE9TRpDJrwK/kIt19JmDj7pWgAo4hUc7Nt/ESzWQi3FkQeWhT8cf
+	iMGgsZhyPgYsPc7n7e52ykNq23oULhitqyaI4OkETHY7qZ57vWEuP8qoOLLiz+j0kNm9b+B100R
+	7IyqfYqL3u0Z06d8m9TAfjxmZgHhoulSleYHmubHzYmBbcwZtTJPcyXoQlvv0A5krFD1v9sVeLY
+	oze1pjKmm6fg+PI2PKzsJtUka3peAZ3LKSpTJybRI3K7mvJbvdIypeWZxLpc1gfmkuqSt6mx0Vv
+	lbS5UKCjRx+DGOmgkv6HxcEAQehChhYVXarRNlgtlCTJNccYUaft/z0cm5ghSJ+OBtDpuNmwGA1
+	EAwVWZQdp6dx2wOHuXU1UWojxzJ9Qktp1yrIi/MEiEeKL/zPLk3XvtLpiLotbR5vaxKW1+Nop2r
+	XJ071qbrfgzHTYpQKGQEF80IsZuPvPhgOIn26FOEneoHLi8uVPbOcamO+11UIatwMOY1AHXuRoA
+	4I5TYtxBhma7F2HmkjbCc7Uh5WYQYvZQkh4NIqXzKYdfFbB
+X-Received: by 2002:a17:906:fe02:b0:c25:833d:383e with SMTP id a640c23a62f3a-c25833d3abdmr604309166b.13.1788127555658;
+        Sun, 30 Aug 2026 15:05:55 -0700 (PDT)
+Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com. [209.85.208.52])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c255ee09eb6sm350533566b.10.2026.08.30.15.05.55
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 30 Aug 2026 15:05:55 -0700 (PDT)
+Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-69f7fa1c548so4323564a12.2
+        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 15:05:55 -0700 (PDT)
+X-Received: by 2002:a05:6402:3812:b0:6a3:6d83:ba44 with SMTP id
+ 4fb4d7f45d1cf-6a60d2f3663mr13678260a12.2.1788127554704; Sun, 30 Aug 2026
+ 15:05:54 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-XM-SPF: eid=1x0ndO-009cY6-OY;;;mid=<87zey3fep2.fsf@email.froward.int.ebiederm.org>;;;hst=in01.mta.xmission.com;;;ip=72.198.198.28;;;frm=ebiederm@xmission.com;;;sPfnum=0;;;sPf=pass
-X-XM-AID: U2FsdGVkX1+Lpv5eEEZPMJKRV79UUyt8GYamVPgEWEM=
-X-Spam-Level: 
-X-Spam-Report: 
-	* -1.0 ALL_TRUSTED Passed through trusted hosts only via SMTP
-	*  0.1 BAYES_50 BODY: Bayes spam probability is 40 to 60%
-	*      [score: 0.5000]
-	*  0.5 XMGappySubj_01 Very gappy subject
-	*  0.7 XMSubLong Long Subject
-	*  0.0 T_TM2_M_HEADER_IN_MSG BODY: No description available.
-	* -0.0 DCC_CHECK_NEGATIVE Not listed in DCC
-	*      [sa08 1397; Body=1 Fuz1=1 Fuz2=1]
-	*  0.0 T_TooManySym_02 5+ unique symbols in subject
-	*  0.0 T_TooManySym_01 4+ unique symbols in subject
-X-Spam-DCC: XMission; sa08 1397; Body=1 Fuz1=1 Fuz2=1 
-X-Spam-Combo: ;Thomas Gleixner <tglx@kernel.org>
-X-Spam-Relay-Country: 
-X-Spam-Timing: total 585 ms - load_scoreonly_sql: 0.07 (0.0%),
-	signal_user_changed: 12 (2.0%), b_tie_ro: 10 (1.8%), parse: 1.27
-	(0.2%), extract_message_metadata: 5 (0.9%), get_uri_detail_list: 2.7
-	(0.5%), tests_pri_-2000: 4.4 (0.8%), tests_pri_-1000: 2.6 (0.4%),
-	tests_pri_-950: 1.15 (0.2%), tests_pri_-900: 0.81 (0.1%),
-	tests_pri_-90: 93 (16.0%), check_bayes: 92 (15.6%), b_tokenize: 11
-	(1.8%), b_tok_get_all: 9 (1.6%), b_comp_prob: 3.5 (0.6%),
-	b_tok_touch_all: 61 (10.5%), b_finish: 1.54 (0.3%), tests_pri_0: 443
-	(75.7%), check_dkim_signature: 0.98 (0.2%), check_dkim_adsp: 3.9
-	(0.7%), poll_dns_idle: 1.06 (0.2%), tests_pri_10: 1.93 (0.3%),
-	tests_pri_500: 9 (1.6%), rewrite_mail: 0.00 (0.0%)
-Subject: Re: [PATCH] signal: Use list_del_init_careful() in flush_sigqueue()
-X-SA-Exim-Connect-IP: 166.70.13.51
-X-SA-Exim-Rcpt-To: linux-kernel@vger.kernel.org, anna-maria@linutronix.de, peterz@infradead.org, brauner@kernel.org, imv4bel@gmail.com, frederic@kernel.org, oleg@redhat.com, tglx@kernel.org
-X-SA-Exim-Mail-From: ebiederm@xmission.com
-X-SA-Exim-Scanned: No (on out02.mta.xmission.com); SAEximRunCond expanded to false
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Sun, 30 Aug 2026 15:05:37 -0700
+X-Gmail-Original-Message-ID: <CAHk-=wjpN3XkKU+JX6zoh_bzJXr1aPYN4FY14UX0z7yCidosPQ@mail.gmail.com>
+X-Gm-Features: AcwNN1UPpUsoAN4gDNhtODEphuSk6KzYoVwvGIkJ-YvBAz9tO0ks7hpZmcpzgBw
+Message-ID: <CAHk-=wjpN3XkKU+JX6zoh_bzJXr1aPYN4FY14UX0z7yCidosPQ@mail.gmail.com>
+Subject: Linux 7.3-rc1
+To: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thomas Gleixner <tglx@kernel.org> writes:
+Two weeks have passed, it's Sunday afternoon, and the merge window has clos=
+ed.
 
-> On Fri, Aug 28 2026 at 00:56, Thomas Gleixner wrote:
->> On Thu, Aug 27 2026 at 13:43, Eric W. Biederman wrote:
->>> The obvious place to clean up task::pending i.e. signals is in
->>> exit_signals().
->>>
->>> I expect if I read through the history again that I would find that
->>> exit_signals() used to call flush_sigqueue, and that during the addition
->>> of posix thread signal handling flush_sigqueue was moved into
->>> __exit_signal in release_task because knowing if the entire thread group
->>> is dead was not available during that part of 2.5.
->>>
->>> We should honor PF_EXITING on a task and simply stop delivering
->>> signals to it.  Today the code goes halfway there and does not
->>> set sig-pending after PF_EXITING is set.
->>
->> If flushing tsk::pending in exit_signals() is safe and stopping signals
->> to be queued when PF_EXITING is observed under sighand lock, then sure
->> that's the right thing to do. I'll look into that tomorrow.
->
-> By some definition of tomorrow. :)
->
-> Something like the below?
+Nothing really stands out - except for the fact that it's big. It's
+not the biggest rc1 we've ever had, but it's certainly up there, at
+least in number of commits.
 
-Yes.
+And I don't think that surprises anybody any more. It's all the same
+pattern we've been seeing for a while now.
 
-It all comes after
-   ptrace_event(PTRACE_EVENT_EXIT, code) and
-   coredump_task_exit(tsk, core_state)
-so should be completely invisible to userspace.
+It's also big as an actual diff, and the reason for *that* is not
+surprising either: this is yet another one of those releases with a
+big AMD GPU register dump. This time it's the AMD DCN6 register
+headers. They're huge. As usual. That's what you get when you dump all
+the hardware definitions as C header #defines. There's also the
+accompanying code for the new gen. All in all, that AMD GPU code and
+header dump accounts for about a third of the whole rc1 patch.
 
-I don't see any problems with your proposed patch.
+But if you just mask out that big chunk, things look pretty normal,
+and this merge window didn't feel that different from most of them
+despite being large. I made it unnecessarily hard for myself by being
+a grade A nincompoop and doing a system upgrade in the middle, and
+then having to chase down an issue that caused, but that was entirely
+on me. I knew I shouldn't have done it, but I just naively went
+"nothing will go wrong". And hey, it was all good in the end, I just
+made this merge window harder for myself than I should have.
 
-I am pondering what it would take to move
-"flush_sigqueue(&p->signal->shared_pending);"
-into do_exit in the group_dead case.
+Let's hope the rest of this release will go smoothly. And be small and
+uneventful. But who am I kidding? It almost certainly won't be small,
+but I can always hope.
 
-Perhaps exit_signals could perform the decrement of signal->live
-and return group_dead.  If so all of the work could be performed
-in exit_signals().  As a follow-on change of cource.
+                Linus
 
-But before I even propose something like that I have another change
-in this area that I need to post.
+---
 
-Eric
+Alex Williamson (1):
+    VFIO updates
 
+Alexandre Belloni (2):
+    I3C updates
+    RTC updates
 
+Alison Schofield (1):
+    NVDIMM and DAX updates
 
-> ---
-> --- a/kernel/exit.c
-> +++ b/kernel/exit.c
-> @@ -299,12 +299,13 @@ void release_task(struct task_struct *p)
->  	free_pids(post.pids);
->  	release_thread(p);
->  	/*
-> -	 * This task was already removed from the process/thread/pid lists
-> -	 * and lock_task_sighand(p) can't succeed. Nobody else can touch
-> -	 * ->pending or, if group dead, signal->shared_pending. We can call
-> -	 * flush_sigqueue() lockless.
-> +	 * This task was already removed from the process/thread/pid lists and
-> +	 * lock_task_sighand(p) can't succeed. If it's the group leader then
-> +	 * flush tsk->signal->shared_pending. tsk->pending has been flushed
-> +	 * already in exit_signals(). Nothing else can touch
-> +	 * signal->shared_pending anymore, so flush_sigqueue() can be invoked
-> +	 * lockless.
->  	 */
-> -	flush_sigqueue(&p->pending);
->  	if (thread_group_leader(p))
->  		flush_sigqueue(&p->signal->shared_pending);
->  
-> --- a/kernel/signal.c
-> +++ b/kernel/signal.c
-> @@ -1030,6 +1030,10 @@ static int __send_signal_locked(int sig,
->  	lockdep_assert_held(&t->sighand->siglock);
->  
->  	result = TRACE_SIGNAL_IGNORED;
-> +
-> +	if (unlikely(type == PIDTYPE_PID && (t->flags & PF_EXITING)))
-> +		goto ret;
-> +
->  	if (!prepare_signal(sig, t, force))
->  		goto ret;
->  
-> @@ -1990,6 +1994,9 @@ void posixtimer_send_sigqueue(struct k_i
->  	if (!likely(lock_task_sighand(t, &flags)))
->  		return;
->  
-> +	if (unlikely(tmr->it_pid_type == PIDTYPE_PID && (t->flags & PF_EXITING)))
-> +		return;
-> +
->  	/*
->  	 * Update @tmr::sigqueue_seq for posix timer signals with sighand
->  	 * locked to prevent a race against dequeue_signal().
-> @@ -3118,6 +3125,16 @@ static void retarget_shared_pending(stru
->  	}
->  }
->  
-> +/*
-> + * tsk::flags has PF_EXITING set which prevents signals to be queued for on
-> + * tsk::pending. Nothing else can touch the tsk::pending anymore so it can be
-> + * flushed lockless.
-> + */
-> +static inline void flush_pending_unlocked(struct task_struct *tsk)
-> +{
-> +	flush_sigqueue(&tsk->pending);
-> +}
-> +
->  void exit_signals(struct task_struct *tsk)
->  {
->  	int group_stop = 0;
-> @@ -3130,8 +3147,10 @@ void exit_signals(struct task_struct *ts
->  	cgroup_threadgroup_change_begin(tsk);
->  
->  	if (thread_group_empty(tsk) || (tsk->signal->flags & SIGNAL_GROUP_EXIT)) {
-> -		tsk->flags |= PF_EXITING;
-> +		scoped_guard(spinlock_irq, &tsk->sighand->siglock)
-> +			tsk->flags |= PF_EXITING;
->  		cgroup_threadgroup_change_end(tsk);
-> +		flush_pending_unlocked(tsk);
->  		return;
->  	}
->  
-> @@ -3157,6 +3176,8 @@ void exit_signals(struct task_struct *ts
->  out:
->  	spin_unlock_irq(&tsk->sighand->siglock);
->  
-> +	flush_pending_unlocked(tsk);
-> +
->  	/*
->  	 * If group stop has completed, deliver the notification.  This
->  	 * should always go to the real parent of the group leader.
+Andi Shyti (3):
+    i2c updates
+    more i2c updates
+    i2c fixes
+
+Andreas Gruenbacher (1):
+    gfs2 updates
+
+Andreas Hindborg (1):
+    configfs update
+
+Andrew Morton (4):
+    MM updates
+    hotfixes
+    non-MM updates
+    more MM updates
+
+Andy Shevchenko (1):
+    auxdisplay updates
+
+Ard Biesheuvel (1):
+    EFI updates
+
+Arnd Bergmann (4):
+    SoC devicetree updates
+    SoC driver updates
+    SoC defconfig updates
+    ARM SoC platform updates
+
+Bartosz Golaszewski (3):
+    power sequencing updates
+    gpio updates
+    another power sequencing update
+
+Bjorn Andersson (3):
+    remoteproc updates
+    rpmsg updates
+    hwspinlock updates
+
+Bjorn Helgaas (1):
+    PCI updates
+
+Borislav Petkov (5):
+    x86 MCE update
+    x86 alternatives update
+    x86 resource control updates
+    x86 cleanups
+    x86 cpuid updates
+
+Carlos Maiolino (1):
+    xfs updates
+
+Casey Schaufler (1):
+    smack updates
+
+Christian Brauner (15):
+    misc ipc and core updates
+    binfmt updates
+    efs and freevxfs removal
+    failfs filesystem
+    FAT update
+    iomap updates
+    vfs bpf access updates
+    kthread vfs updates
+    vfs lookup updates
+    misc vfs updates
+    mount updates
+    cachefiles ondemand removal
+    overlayfs updates
+    vfs superblock updates
+    vfs writeback updates
+
+Chuck Lever (1):
+    nfsd updates
+
+Corey Minyard (1):
+    ipmi updates
+
+Damien Le Moal (1):
+    ata updates
+
+Daniel Borkmann (1):
+    bpf updates
+
+Danilo Krummrich (1):
+    driver core updates
+
+Dave Airlie (2):
+    drm updates
+    more drm updates
+
+Dave Hansen (4):
+    x86 entry update
+    misc x86 updates
+    x86 TDX updates
+    x86 mm updates
+
+Dave Jiang (1):
+    CXL updates
+
+David Sterba (1):
+    btrfs updates
+
+Dmitry Torokhov (1):
+    input updates
+
+Eric Biggers (3):
+    fscrypt updates
+    crypto library updates
+    crypto library test updates
+
+Gabriel Krisman Bertazi (1):
+    unicode updates
+
+Gao Xiang (2):
+    erofs updates
+    more erofs updates
+
+Geert Uytterhoeven (1):
+    m68k updates
+
+Greg KH (4):
+    char/misc/IIO/etc driver updates
+    staging driver updates
+    USB / Thunderbolt updates
+    TTY / serial driver updates
+
+Greg Ungerer (1):
+    m68knommu updates
+
+Guenter Roeck (2):
+    watchdog updates
+    hwmon updates
+
+Guo Ren (1):
+    csky update
+
+Helge Deller (2):
+    fbdev updates
+    parisc architecture updates
+
+Herbert Xu (2):
+    crypto update
+    crypto fix
+
+Huacai Chen (1):
+    LoongArch updates
+
+Ilpo J=C3=A4rvinen (1):
+    x86 platform driver updates
+
+Ilya Dryomov (1):
+    ceph updates
+
+Ingo Molnar (15):
+    objtool updates
+    performance events updates
+    locking updates
+    scheduler updates
+    x86 MSR updates
+    x86 boot updates
+    x86 build update
+    x86 core updates
+    x86 documentation updates
+    timer fixes
+    irqchip driver fixes
+    futex fixes
+    scheduler fixes
+    locking fix
+    timer fix
+
+Jaegeuk Kim (1):
+    f2fs updates
+
+Jakub Kicinski (2):
+    networking updates
+    networking fixes
+
+James Bottomley (1):
+    SCSI updates
+
+Jan Kara (2):
+    fsnotify updates
+    ext2, udf, isofs, and quota updates
+
+Jarkko Sakkinen (2):
+    TPM update
+    TPM updates
+
+Jason Gunthorpe (3):
+    iommufd updates
+    fwctl updates
+    RDMA updates
+
+Jassi Brar (1):
+    mailbox updates
+
+Jens Axboe (3):
+    io_uring update
+    block updates
+    io_uring fixes
+
+Jiri Kosina (1):
+    HID updates
+
+Joel Granados (1):
+    sysctl updates
+
+Joerg Roedel (1):
+    iommu updates
+
+John Johansen (1):
+    AppArmor updates
+
+Jonathan Corbet (2):
+    documentation updates
+    more documentation updates
+
+Juergen Gross (1):
+    xen updates
+
+Julia Lawall (1):
+    Coccinelle updates
+
+Kees Cook (1):
+    execve update
+
+Konstantin Komarov (1):
+    ntfs3 updates
+
+Lee Jones (3):
+    MFD updates
+    LED updates
+    backlight updates
+
+Linus Walleij (1):
+    pin control updates
+
+Madhavan Srinivasan (1):
+    powerpc updates
+
+Magnus Lindholm (1):
+    alpha updates
+
+Marco Elver (1):
+    Kernel Concurrency Sanitizer (KCSAN) update
+
+Marek Szyprowski (2):
+    dma-mapping updates
+    dma-mapping fix
+
+Mark Brown (5):
+    regmap updates
+    regulator updates
+    spi updates
+    regulator fix
+    spi fixes
+
+Martin Petersen (1):
+    more SCSI updates
+
+Masami Hiramatsu (2):
+    probes updates
+    bootconfig updates
+
+Mauro Carvalho Chehab (1):
+    media updates
+
+Max Filippov (1):
+    Xtensa updates
+
+Michael Tsirkin (1):
+    vhost,vdpa,virtio updates
+
+Micka=C3=ABl Sala=C3=BCn (1):
+    Landlock update
+
+Miguel Ojeda (2):
+    Rust updates
+    Rust fixes
+
+Mike Marshall (1):
+    orangefs updates
+
+Mike Rapoport (4):
+    memblock updates
+    kexec updates
+    liveupdate updates
+    more liveupdate updates
+
+Miklos Szeredi (1):
+    fuse updates
+
+Mikulas Patocka (1):
+    device mapper updates
+
+Mimi Zohar (1):
+    integrity updates
+
+Miquel Raynal (1):
+    mtd updates
+
+Namhyung Kim (1):
+    perf tools updates
+
+Namjae Jeon (3):
+    exfat updates
+    smb server updates
+    ntfs updates
+
+Nicolas Schier (1):
+    Kbuild/Kconfig updates
+
+Paolo Bonzini (1):
+    kvm updates
+
+Paul McKenney (2):
+    RCU updates
+    smp_call_function() torture-test updates
+
+Paul Moore (3):
+    audit updates
+    selinux updates
+    LSM updates
+
+Paul Walmsley
+ (1):
+    RISC-V updates
+
+Paulo Alcantara (2):
+    cifs maintainer update
+    smb client updates
+
+Petr Mladek (2):
+    printk updates
+    livepatching updates
+
+Petr Pavlu (1):
+    module updates
+
+Rafael Wysocki (7):
+    ACPI support updates
+    power management updates
+    thermal control updates
+    more ACPI support updates
+    more power management updates
+    more thermal control updates
+    ACPI support fix
+
+Richard Weinberger (1):
+    UBI and UBIFS updates
+
+Rob Herring (2):
+    devicetree updates
+    devicetree fixes
+
+Russell King (1):
+    arm updates
+
+Sebastian Reichel (2):
+    HSI updates
+    power supply and reset updates
+
+Serge Hallyn (1):
+    capabilities update
+
+Shuah Khan (2):
+    kunit updates
+    kselftest update
+
+Stafford Horne (1):
+    OpenRISC updates
+
+Stephen Boyd (1):
+    clk updates
+
+Steven Rostedt (8):
+    Real-time Verifier updates
+    RTLA updates
+    ftrace updates
+    tracing updates
+    tracefs updates
+    ring-buffer updates
+    runtime verification fix
+    tracing fixes
+
+Takashi Iwai (2):
+    sound updates
+    sound fixes
+
+Takashi Sakamoto (1):
+    firewire updates
+
+Ted Ts'o (1):
+    ext4 updates
+
+Tejun Heo (3):
+    workqueue updates
+    cgroup updates
+    sched_ext updates
+
+Thomas Bogendoerfer (1):
+    MIPS updates
+
+Thomas Gleixner (10):
+    generic entry code updates
+    rseq updates
+    generic interrupt subsystem updates
+    interrupt chip driver updates
+    futex updates
+    SMP core updates
+    treewide timer related cleanups
+    clocksource/event driver updates
+    timer and timekeeping core updates
+    VDSO updates
+
+Thomas Wei=C3=9Fschuh (1):
+    nolibc updates
+
+Trond Myklebust (1):
+    NFS client updates
+
+Tyler Hicks (1):
+    eCryptfs updates
+
+Tzung-Bi Shih (2):
+    chrome platform updates
+    chrome platform firmware updates
+
+Ulf Hansson (2):
+    pmdomain updates
+    MMC updates
+
+Uwe Kleine-K=C3=B6nig (1):
+    pwm updates
+
+Vasily Gorbik (1):
+    s390 updates
+
+Viacheslav Dubeyko (2):
+    HFS updates
+    nilfs2 updates
+
+Vinod Koul (3):
+    soundwire updates
+    phy updates
+    dmaengine updates
+
+Vlastimil Babka (1):
+    slab updates
+
+Wei Liu (1):
+    hyperv updates
+
+Will Deacon (2):
+    arm64 updates
+    arm64 fixes
+
+Yury Norov (1):
+    bitmap updates
