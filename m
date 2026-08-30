@@ -1,127 +1,242 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC67839282C
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 07:58:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A81F63955C0;
+	Sun, 30 Aug 2026 07:58:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788076707; cv=none; b=pZnIHLSkbyCFCpF3D5cOMs9I2ynkLMqkjecv/EBDGLzpQ0OqL3x7MCyJIz/eaJ2VVkwY+e7YvxSyeKdGCJNJLOVGMbz1BnTfsRldc8kwTRIjPN9drPcrVyJjnL9uKs++oyo0XhyS8yEdanLcoIsSSrbnTxbG0B6nGWRiVdvkB64=
+	t=1788076720; cv=none; b=TZ367GRyQ7SN7cG+FZMmMg00eJ1ftcjwevLjLMn2ZDA0E/Pe2JuT+TsfS0fNjW8BwHHHr/rHshvWriCbAXMTWboDWJ+pf1UT+VtF9jqHHnkyya17HTIWBGyiSi4fUoHos1R9Fhz8RCvzp77F32F96WcGnmYvdV/T5of3PXB4tSs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788076707; c=relaxed/simple;
-	bh=jegzOw+EXJIP4W/35cQGumTCQXocudJkdz7vv0uyPE8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kgzwoY/Al75vlNkrj+eJUyogmjvwmNuA4oMKDCCQCCBK+/ApBEipXru0oUYky2vPBDz0BIPLim8zC3Xrjwt5qDbHtU0VTu7ksEJd4z8Hm17cux20uzkqUrXaeAulVDtbeXoPClbKwI3MPkJK7EovgGTd8nlctor7gXdOyusiLyI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dIMGFTD3; arc=none smtp.client-ip=209.85.128.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788076720; c=relaxed/simple;
+	bh=RbIehlscokWvItXrupNe+Z4FkU50ruhLbEk8wF8HX0o=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=kG74I0GWPKRQVqGnH/c0xL9SNeIvqWj07L4519aZZvCeMM5V47lQY+plDv0JbvKofx78x6Vl4TF1apoRhZj0bU+jXMxggjTIiFzVVxvKI1WGPe5/w+VjncsOOR1KRWnTntR67S/xLGe75jSyC4VrA3Evsx8KrmAR4qo60s/d2Nc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZAZD8oED; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dIMGFTD3"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4995b0343c1so23285235e9.3
-        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 00:58:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788076696; x=1788681496; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+j1AD6ZP4+NwsaE6HRfrB5G8mDdyvb/fqBpbDqu3VZE=;
-        b=dIMGFTD34cL9Vp75CFV88Ji/ud6Q61woZTjg2Bh1TNJjNi7ef1uJWzbmNQy1TDX2aM
-         yeK8qjhzkGiZZAuNS6xwGRmUe4kNbgKCL0FbhRTTm2vt8ZSWLnrXo92j/gy03NsPtT17
-         GrUwmZmIUkczBgUU52rALxI3qa4QbaqK9K6zy7glSUgz5QMZwaXb1uI+vui44B27WzrS
-         604b3ER5kPVzt5NGyOcZY73Pl6FfaXUTL+EMmy45RHIjD4MPVUzJaju34ozBTshwE17q
-         zFtSfHbyhFlJUlWIMjUQ+8hahc8Vbl4A1K5a/RjQQcz/vwciaWgMbyqgtjtO+Wp38sTW
-         ddsQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788076696; x=1788681496;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+j1AD6ZP4+NwsaE6HRfrB5G8mDdyvb/fqBpbDqu3VZE=;
-        b=J+ee3WCs3z442Duatn6uKfJKsUc3XvqxHvQcS7OfAiGJghqIIoxQWFpgOdLo1qZezO
-         R9SHO2NAOJn007R9oEfdlCg9tiBT/b/C/Fnc6PaUPvgy7XGobLIpZHDHO7qS9mg6cqCA
-         UHmpF1ettFgqp4YoYCfCbSlS/7kkHf+NTi1huwQtF1BxtuEW2X5R1RxLRHk2PiRh28Um
-         sdNBP6uC9kip0CR3JqwVZEiy2Jl4IpLCfE4kTd1qs8e/TnLyCfw1dlPO79fQO9b6nv4j
-         H2KoQMx5TgHtXcgp/GFxwYBO5oWA/RhT/rjy1ph0L7CVgjy6dGDdCKgKzIba+Tmh859r
-         IT2Q==
-X-Forwarded-Encrypted: i=1; AHgh+Rr1JSJpQJMHqHP5ncdQNR3DNKjg/V7lgGhpkKl7JIsQe5mq0Fat5dASxCYtydKm5Sff+6YiGPyMTt6WWlc=@vger.kernel.org
-X-Gm-Message-State: AFuF++kTjg/RnCEAl52+CN3G96g3v+1k1tWPuDZlpYJrm57Tx8e+JrTa
-	/aEVrcffkt/Q4M/7u4NndtzfAi2qXXzLhyoB7Mk3dW1T96nGgGqWeeV02HnUVW0=
-X-Gm-Gg: AR+sD12kuG1vO7r1J5/OlEET/8pEQoSl7t/1/+kJaNq0fEIYZZd+Q/iUgalDDKWocNS
-	Vc1xQw+tvibVRr7Y4+WSb3LIqptl5M6SsM+uA0Nb62SxN0e3ylLyYmwUXGxZXSw+L3zQMU3pkBn
-	j7IEJNkduEkIuGbd9OBn9x7XFORdaplrhtO6KFRbizga726O8rnKBYFmBh4Z5m8nTXguRdkIlWs
-	946Gj5wS3WQNuxvN4EWMxRYhzlXb//YR84KOerM81kmbW5sK1eATDFHBbENfAcgz3nZ38/79hIm
-	1aLW1eHY8q8GS77omZhA1VF0l/ZC93+bsm3vA9ugTZHHUj6qRv9nN3nkcstxfLm8kA8U52fJzHo
-	8gFHqVg+uRIWrQC1ygYfjajMRSZ/vm7++2+fuxXV/9cJfZYv+8KItX9u1GuDTEf7ze4SZaPuDkZ
-	6qNBYwYXeUMI/Sd4j7MwNtwcE3lOwqSvehRh8seIv5cb/Q3YoDlmI=
-X-Received: by 2002:a05:600c:8b35:b0:499:7a19:408b with SMTP id 5b1f17b1804b1-49b91c3b71dmr267281245e9.11.1788076696142;
-        Sun, 30 Aug 2026 00:58:16 -0700 (PDT)
-Received: from fedora ([46.8.219.5])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cd53a4678sm14757875e9.13.2026.08.30.00.58.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 30 Aug 2026 00:58:15 -0700 (PDT)
-From: Vitaliy Sochnev <sochnev.v.74@gmail.com>
-To: Lorenzo Bianconi <lorenzo@kernel.org>,
-	netdev@vger.kernel.org
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	linux-mediatek@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Vitaliy Sochnev <sochnev.v.74@gmail.com>
-Subject: [PATCH net-next 4/4] net: airoha: grow RX ring 4 to 128 descriptors
-Date: Sun, 30 Aug 2026 10:57:17 +0100
-Message-ID: <20260830095717.37218-5-sochnev.v.74@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260830095717.37218-1-sochnev.v.74@gmail.com>
-References: <20260830095717.37218-1-sochnev.v.74@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZAZD8oED"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F1411F000E9;
+	Sun, 30 Aug 2026 07:58:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788076713;
+	bh=HOmmRwqD7gQcSXkQ2l1n56F/y5mkR8//mASfpntUu1A=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ZAZD8oEDR0G4EHppVGa9RCnPv3EcH4cHhiWcT5UPvnDBgkW216fwGfVn/Bed3ZDSo
+	 pnjQNj55YqMLEirLlYs6Y0NvDTCfCpbJxUphUzQ5P/ywpfe9tK0Oy2d6fqBoTF/ITS
+	 l9RabAaOr0mt6n2sZXSEhAWI6cQTAIdnMuEE5GPLNbO5xJwY7xQ/lkcxpMz5uurJPw
+	 ngNmXfnBedKQLNyUzayuGUx65bi8T5NCn+Dq5Xa88gjO96H+5CMlKnndxvlJbwk5K1
+	 bbGYdkOHxT03bXNMmewBX+uT2P0ip9ZWDNnjMbpInxyzXKPw3RRkkwMLRQ3qHp8aP9
+	 wlOuK60yS+79w==
+Date: Sun, 30 Aug 2026 10:58:28 +0300
+From: Leon Romanovsky <leon@kernel.org>
+To: Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+Cc: Bjorn Helgaas <bhelgaas@google.com>,
+	Logan Gunthorpe <logang@deltatee.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+	Sumit Semwal <sumit.semwal@linaro.org>, linux-pci@vger.kernel.org,
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+	linaro-mm-sig@lists.linaro.org
+Subject: Re: [Linaro-mm-sig] [PATCH 2/2] dma-buf: Document how exporters and
+ importers agree on mapping lifetime
+Message-ID: <20260830075828.GA24140@unreal>
+References: <20260825-document-dma-buf-v1-0-5ecfb3e1371c@nvidia.com>
+ <20260825-document-dma-buf-v1-2-5ecfb3e1371c@nvidia.com>
+ <7f13dc482e5ea2d22ddff75fe30c03cd8df42fb5.camel@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <7f13dc482e5ea2d22ddff75fe30c03cd8df42fb5.camel@linux.intel.com>
 
-Ring 4 is the shared "force to CPU" ring for a wide set of protocols
-(BOOTP, PPPoE Discovery, PPP LCP/IPCP/CHAP/IPv6CP/PAP, ISAKMP, DHCPv6,
-SIP, LLDP, ...) and currently falls into the 16-descriptor default in
-RX_DSCP_NUM(), same as most other non-hashed rings. The hw completion
-race recovered by airoha_qdma_rx_check_stall()/rx_recover_work() in
-the previous commits appears strongly correlated with a ring going
-from idle to receiving its first frame(s) - exactly the access pattern
-this shared ring sees under protocol negotiation bursts. Give it the
-same 128-descriptor allowance already used for rings 2/11/15, matching
-the other rings that see bursty, non-hashed traffic, to reduce how
-often that condition is hit in the first place.
+On Thu, Aug 27, 2026 at 09:18:29PM +0200, Thomas Hellström wrote:
+> Hi,
+> 
+> Some comments below:
+> 
+> On Tue, 2026-08-25 at 09:28 +0300, Leon Romanovsky wrote:
+> > From: Leon Romanovsky <leonro@nvidia.com>
+> > 
+> > Pinned, revoked and movable mappings are selected by which optional
+> > callbacks each side implements and by whether dma_buf_pin() succeeds,
+> > not by any flag or enum. Nothing in Documentation/ says so, and the
+> > rules are spread over the kdoc of dma_buf_ops.pin,
+> > dma_buf_attach_ops.invalidate_mappings and
+> > dma_buf_invalidate_mappings(),
+> > so a driver author has to know the symbol names before finding them.
+> > 
+> > Name, per flow, the callbacks both sides have to implement to end up
+> > in
+> > it, describe dma_buf_pin() as the runtime negotiation, and record
+> > that
+> > the pin is what tells a revoke from a move.
+> > 
+> > Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
+> > ---
+> >  Documentation/driver-api/dma-buf.rst |  6 +++
+> >  drivers/dma-buf/dma-buf.c            | 85
+> > +++++++++++++++++++++++++++++++++++-
+> >  2 files changed, 90 insertions(+), 1 deletion(-)
+> > 
+> > diff --git a/Documentation/driver-api/dma-buf.rst
+> > b/Documentation/driver-api/dma-buf.rst
+> > index 2f36c21d9948..39c201f38aa6 100644
+> > --- a/Documentation/driver-api/dma-buf.rst
+> > +++ b/Documentation/driver-api/dma-buf.rst
+> > @@ -113,6 +113,12 @@ Basic Operation and Device DMA Access
+> >  .. kernel-doc:: drivers/dma-buf/dma-buf.c
+> >     :doc: dma buf device access
+> >  
+> > +Mapping Lifetime Negotiation
+> > +~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> > +
+> > +.. kernel-doc:: drivers/dma-buf/dma-buf.c
+> > +   :doc: mapping lifetime negotiation
+> > +
+> >  CPU Access to DMA Buffer Objects
+> >  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> >  
+> > diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
+> > index d504c636dc29..30afec7365bc 100644
+> > --- a/drivers/dma-buf/dma-buf.c
+> > +++ b/drivers/dma-buf/dma-buf.c
+> > @@ -684,7 +684,90 @@ static struct file *dma_buf_getfile(size_t size,
+> > int flags)
+> >   *    reference acquired with dma_buf_get() by calling
+> > dma_buf_put().
+> >   *
+> >   * For the detailed semantics exporters are expected to implement
+> > see
+> > - * &dma_buf_ops.
+> > + * &dma_buf_ops. Whether the exporter may still move or destroy the
+> > backing
+> > + * storage after step 3 depends on what exporter and importer
+> > implement, see
+> > + * the mapping lifetime negotiation section below.
+> > + */
+> > +
+> > +/**
+> > + * DOC: mapping lifetime negotiation
+> > + *
+> > + * No flag or enum says whether the exporter may move or take away
+> > the backing
+> > + * storage while an importer holds a mapping. Each side implements a
+> > set of
+> > + * optional callbacks, and dma_buf_pin() settles the result at
+> > runtime. Three
+> > + * flows come out of it:
+> > + *
+> > + * - Pinned: the storage never moves and is never taken away.
+> > + * - Revoked: the storage never moves, but the exporter may take it
+> > away.
+> > + * - Movable: the exporter may relocate the storage at any time.
+> 
+> Perhaps add "even temporarily to locations that are not available for
+> DMA".
 
-Ring 4 and the VIP classification that forces these protocols onto it
-are shared driver-wide, with no DT/hardware property distinguishing
-one chip variant's ring 4 from another's, so this isn't scoped to
-AN7583 specifically even though that's where the race was found and
-reproduced. 24h+ stress runs forcing repeated PPPoE/DHCP renegotiation
-on an AN7581 board, both with and without the two preceding fixes,
-completed 570+ forced reconnect cycles each with no regressions from
-the larger ring.
+I don't know. "Not available for DMA" defeats the whole purpose of dma-buf,
+which is intended to expose DMA-capable memory to other peers. I imagine
+that "everything is optional dmabuf world" this is possible, but it
+looks to me like a partial version of revoked flow.
 
-Signed-off-by: Vitaliy Sochnev <sochnev.v.74@gmail.com>
----
- drivers/net/ethernet/airoha/airoha_eth.h | 1 +
- 1 file changed, 1 insertion(+)
+> 
+> > + *
+> > + * Every exporter implements &dma_buf_ops.map_dma_buf,
+> > + * &dma_buf_ops.unmap_dma_buf and &dma_buf_ops.release.
+> > dma_buf_export()
+> > + * rejects an exporter missing any of them.
+> > + *
+> > + * An importer reaches its flow like this:
+> > + *
+> > + * 1. Attach with dma_buf_dynamic_attach(). Leaving
+> > + *    &dma_buf_attach_ops.invalidate_mappings NULL rules out
+> > everything but the
+> > + *    pinned flow, because the importer can then never be told
+> > anything.
+> > + * 2. Call dma_buf_pin() under the reservation lock.
+> > + * 3. On failure run the movable flow, or give up.
+> > + * 4. On success the storage stays put. Whether the exporter may
+> > still take it
+> > + *    away, which makes this the revoked flow instead of the pinned
+> > one, is the
+> > + *    exporter's choice and is not reported back.
+> > + *
+> > + * dma_buf_attach() is the shorthand for an importer which only ever
+> > wants the
+> > + * pinned flow. It passes no &dma_buf_attach_ops, and DMA-buf then
+> > pins around
+> > + * every dma_buf_map_attachment() and waits for the
+> > DMA_RESV_USAGE_KERNEL
+> > + * fences on the importer's behalf. Peer to peer needs
+> > + * dma_buf_dynamic_attach(), because
+> > &dma_buf_attach_ops.allow_peer2peer lives
+> > + * in the attach ops.
+> > + *
+> > + * Pinned flow:
+> > + *
+> > + * - Exporter: implement &dma_buf_ops.pin and &dma_buf_ops.unpin to
+> > hold the
+> > + *   storage still on request. An exporter whose storage never moves
+> > implements
+> > + *   neither, and dma_buf_pin() then succeeds on its own. An
+> > exporter which
+> > + *   refuses to be pinned implements &dma_buf_ops.pin and fails it.
+> > + * - Importer: nothing more. The mapping stays valid until it
+> > unmaps.
+> > + *
+> > + * Revoked flow:
+> > + *
+> > + * - Exporter: answer dma_buf_pin() as above. Call
+> > + *   dma_buf_invalidate_mappings() when the storage goes away and
+> > fail
+> > + *   &dma_buf_ops.map_dma_buf while it is gone. The two waits which
+> > complete a
+> > + *   revocation are described in dma_buf_invalidate_mappings().
+> > + * - Importer: &dma_buf_attach_ops.invalidate_mappings has to unmap
+> > within
+> > + *   bounded time and drop the pin.
+> > + *
+> > + * Movable flow:
+> > + *
+> > + * - Exporter: call dma_buf_invalidate_mappings() before each move,
+> > then wait
+> > + *   for the &dma_buf.resv fences. &dma_buf_ops.pin and
+> > &dma_buf_ops.unpin play
+> > + *   no part here.
+> > + * - Importer: hold no pin. &dma_buf_attach_ops.invalidate_mappings
+> > drops the
+> > + *   cached mapping and has to lead to dma_buf_unmap_attachment()
+> > within
+> > + *   bounded time.
+> 
+> Hear I would want to see the exporter being allowed to force unmap the
+> dma mappings and reclaim thestorage when the fences mentioned above
+> have signaled, but the importer has not yet called
+> dma_buf_unmap_attachment(). That would allow importers to call
+> dma_buf_unmap_attachment() lazily, just before the next map_attachment,
+> which would allow simplifying importer implementations. 
 
-diff --git a/drivers/net/ethernet/airoha/airoha_eth.h b/drivers/net/ethernet/airoha/airoha_eth.h
-index d6591a779743..cd75c16d8d0c 100644
---- a/drivers/net/ethernet/airoha/airoha_eth.h
-+++ b/drivers/net/ethernet/airoha/airoha_eth.h
-@@ -41,6 +41,7 @@
- #define TX_DSCP_NUM			1024
- #define RX_DSCP_NUM(_n)			\
- 	((_n) ==  2 ? 128 :		\
-+	 (_n) ==  4 ? 128 :		\
- 	 (_n) == 11 ? 128 :		\
- 	 (_n) == 15 ? 128 :		\
- 	 (_n) ==  0 ? 1024 : 16)
--- 
-2.55.0
+How? It will move one piece of code as is to another place. In addition,
+both exporter and importer need to stop HW access to same region.
 
+> More of a related idea than something that needs fixing for this patch.
+> 
+> >  It need not stop the hardware, because access runs until the
+> > + *   importer's &dma_buf.resv fences retire. Map again before the
+> > next DMA.
+> 
+> A successful map will mean the exporter has placed the data in storage
+> compatible with what was agreed during attachment?
+
+Yes.
+
+> 
+> Thanks,
+> Thomas
+> 
