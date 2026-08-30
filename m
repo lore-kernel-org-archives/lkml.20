@@ -1,113 +1,127 @@
-Received: from sphereful.davidgow.net (sphereful.davidgow.net [203.29.242.92])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-151.mta1.migadu.com [95.215.58.151])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B037C3A1D05;
-	Sun, 30 Aug 2026 10:43:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.29.242.92
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4E1242A80
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 10:57:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.151
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788086627; cv=none; b=Q4+x1oayj+z74ItpSbwi3Ba40XtSPGzQYoUqEIvqMW4MQCCnWO9HVTdP4f6ixCMfD5l9ybAmZPFeVJwflnK7JF3QEvt6x+0QY0h+z5/IgWmt0mSQF+ra+ez1wC8SYHiu0JjiSa7mLWXD5nqasT0iIMp2ZHbIC+WadmPATddsofg=
+	t=1788087441; cv=none; b=DxqIYf7DxFEYoeBdGfkCEb4BCZcDAbLpEWoj1K4C9xRsCdRVEh+q5/DDZjINediSKHtEUmI5AgEZPCyTviu9OgP2STja09c78TN9iw1asWy29C5V1yLDO8r3lFyU3Kac6M0g1xpqogbPlS8Qo7gl8NR4DbD2KqWqOU/kJ03JDV4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788086627; c=relaxed/simple;
-	bh=xjTC4xWTnioS5g/Ov1tHKok+d2kWyIBA+qCPx7iGMZk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bfuSWVx8V4cwZ8zJW1Yb7xUPk4TBhDndG2enb5m1L6Qe5s3KX8JvILERQRVdBFXDJaGs2Ob/0W+EjU7EzCNOCnhnyVkDdz5Vc1faYdtQgDWk5+bqOY3LcqjZHlJckQx6TlibsLSQvv40ns9f4PqCq+ntSPKmcaUhCbeZlN+ghzM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=davidgow.net; spf=pass smtp.mailfrom=davidgow.net; arc=none smtp.client-ip=203.29.242.92
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=davidgow.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=davidgow.net
-Received: by sphereful.davidgow.net (Postfix, from userid 119)
-	id 781D71EAAFE; Sun, 30 Aug 2026 18:33:38 +0800 (AWST)
-X-Spam-Level: 
-Received: from sparky.lan (unknown [IPv6:2001:8003:8802:7000::9c4])
-	by sphereful.davidgow.net (Postfix) with ESMTPSA id C64071EAAE8;
-	Sun, 30 Aug 2026 18:33:30 +0800 (AWST)
-From: David Gow <david@davidgow.net>
-To: Jim Cromie <jim.cromie@gmail.com>,
-	"Maciej W . Rozycki" <macro@orcam.me.uk>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Matthew Auld <matthew.auld@intel.com>,
-	Arun Pravin <arunpravin.paneerselvam@amd.com>,
-	Joel Fernandes <joelagnelf@nvidia.com>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Chris Mason <mason@kernel.org>,
-	David Sterba <dsterba@suse.com>
-Cc: David Gow <david@davidgow.net>,
-	dri-devel@lists.freedesktop.org,
-	linux-btrfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 3/3] fs:btrfs: Use the new global is_power_of_2_u64() helper
-Date: Sun, 30 Aug 2026 18:33:17 +0800
-Message-ID: <20260830103321.2042968-3-david@davidgow.net>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260830103321.2042968-1-david@davidgow.net>
-References: <20260830103321.2042968-1-david@davidgow.net>
+	s=arc-20240116; t=1788087441; c=relaxed/simple;
+	bh=yzCS2uJ6tHwcB7fqOOQe9/2KmZ3F1ciT33gbDIVkuaI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=AZxY4qF9yKHCtr83GwPwPZZrjD+7oRm/vPSwqwqL42LkPVB8QO3euCRD55LOyTA9p6IkKati/7CFHvHy4TZUUojLbc9DNMcZjosjF2xz/cLzunQzn5yNDpLmPryKfM0A+oSlm3tojdrmfmgOouc85d0nMeTLV8kCxifWaXCu7nE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=TeCLhTro; arc=none smtp.client-ip=95.215.58.151
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="TeCLhTro"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=yzCS2uJ6tHwcB7fqOOQe9/2KmZ3F1ciT33gbDIVkuaI=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788087436; v=1; x=1788692236;
+ b=TeCLhTroa41J58XGdLShIZaU9Qmd75n7b/gevcF+hfbpeIjxZlIXVXxKe18Sv/9GLVgHfvE8
+ 8WSQT5VT1Ewup6F19wi2JckVfI4rmsjRPnh7zX71H/mCvsa7yQf5RO7LSMUQVg6E3MQ1++4j1nz
+ 0K/WTuvwEvVVxNS6+fWx0CVk=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id a1b9075004b6ac5b;
+	Sun, 30 Aug 2026 10:57:06 +0000
+X-Mizu-Trace-ID: a1b9075004b6ac5b
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <b9494f20-9ec0-45fc-830a-1bc2f92ecff2@linux.dev>
+Date: Sun, 30 Aug 2026 18:56:53 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/2] mm/mglru: fix ineffective memory protection for
+ non-kswapd reclaim
+To: Barry Song <baohua@kernel.org>
+Cc: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
+ Roman Gushchin <roman.gushchin@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Muchun Song <muchun.song@linux.dev>, Kairui Song <kasong@tencent.com>,
+ Qi Zheng <qi.zheng@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>,
+ Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ Chris Down <chris@chrisdown.name>, Tejun Heo <tj@kernel.org>,
+ Yu Zhao <yuzhao@google.com>,
+ "open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)"
+ <cgroups@vger.kernel.org>,
+ "open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)"
+ <linux-mm@kvack.org>, linux-kernel@vger.kernel.org,
+ Ridong Chen <chenridong@xiaomi.com>, stable@vger.kernel.org
+References: <20260828110919.1324028-1-ridong.chen@linux.dev>
+ <20260828110919.1324028-3-ridong.chen@linux.dev>
+ <CAGsJ_4ws6edtcToqJQ0azJPTymAYj41nzdGJvBqEM+gROiJtRQ@mail.gmail.com>
+ <c0a32c3c-bff8-433c-8552-f0723e3a07b7@linux.dev>
+ <CAGsJ_4wvYNV2UMaFW0a3Fb9U09v6bPfXyg4Rzw4B27xo-NVYbw@mail.gmail.com>
+From: Ridong Chen <ridong.chen@linux.dev>
+In-Reply-To: <CAGsJ_4wvYNV2UMaFW0a3Fb9U09v6bPfXyg4Rzw4B27xo-NVYbw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-btrfs currently provides its own 64-bit safe version of
-is_power_of_2(), in order to handle 64-bit values on 32-bit systems.
 
-Since other subsystems also have similar helpers, a new implementation
-has been added to linux/log2.h. Use this instead of the btrfs-specific
-one.
 
-Signed-off-by: David Gow <david@davidgow.net>
----
+On 8/30/2026 6:40 PM, Barry Song wrote:
+> On Sun, Aug 30, 2026 at 6:13 PM Ridong Chen <ridong.chen@linux.dev> wrote:
+>>
+>>
+>>
+>> On 8/30/2026 3:53 PM, Barry Song wrote:
+>>> On Fri, Aug 28, 2026 at 7:10 PM Ridong Chen <ridong.chen@linux.dev> wrote:
+>>>>
+>>>> From: Ridong Chen <chenridong@xiaomi.com>
+>>>>
+>>>> memory.min/low is silently bypassed for MGLRU during global proactive
+>>>> reclaim (writing to the root memory.reclaim) and global direct reclaim.
+>>>
+>>> I guess nobody is silently bypassing anything. It's just that the
+>>> effective min is stale data. If kswapd has run at least once, should
+>>> the protection have been updated already?
+>>> I guess we need to update the changelog a bit?
+>>>
+>>
+>> The children's emin/elow are derived from the parent's min/low settings and
+>> children_min_usage, both of which can change over time. As a result, emin/elow
+>> may become stale, even if kswapd has already run once.
+> 
+> right, let's just say this in changelog, we are *not* bypassing we are
+> just checking
+> against stable data. The current changelog seems to be misleading.
+> 
 
-This basically just replaces a btrfs helper with the version in patch 1.
-It probably doesn't make sense for this series to go in via the btrfs
-tree, so it's probably worth either accepting the posssibility for a
-conflict, or sending this patch in separately after the first one lands.
+Thanks, Will update.
 
-Cheers,
--- David
+> [...]
+>>>> +void mem_cgroup_protection_path(struct mem_cgroup *root,
+>>>> +                               struct mem_cgroup *memcg)
+>>>
+>>> Can we rename it to `mem_cgroup_calculate_protection_path()`?
+>>>
+>>> BTW, I see that the only caller is in vmscan and it passes NULL as
+>>> `root`. Do we need to keep the `root` argument if the new helper is
+>>> only used for global reclaim?
+>>>
+>> I'd suggest keeping it as is. This function updates protection along the path
+>> from root to memcg, and could be reused later. Note that
+>> mem_cgroup_calculate_protection() assumes the caller has already performed the
+>> top-down walk, each level's calculation depends on its parent being updated first.
+>>
+>> For mem_cgroup_calculate_protection_path(), it can be called in any context
+>> without such a precondition.
+> 
+> I am fine with this -  keeping the root there. but I guess rename is worth it.
+> 
 
-[This patch was introduced in v2 of the series.]
+Yeah, I will rename in the next version.
 
----
- fs/btrfs/misc.h  | 7 +------
- fs/btrfs/zoned.c | 2 +-
- 2 files changed, 2 insertions(+), 7 deletions(-)
-
-diff --git a/fs/btrfs/misc.h b/fs/btrfs/misc.h
-index 802060943180..e8be78341dc0 100644
---- a/fs/btrfs/misc.h
-+++ b/fs/btrfs/misc.h
-@@ -110,15 +110,10 @@ static inline u64 mult_perc(u64 num, u32 percent)
- {
- 	return div_u64(num * percent, 100);
- }
--/* Copy of is_power_of_two that is 64bit safe */
--static inline bool is_power_of_two_u64(u64 n)
--{
--	return n != 0 && (n & (n - 1)) == 0;
--}
- 
- static inline bool has_single_bit_set(u64 n)
- {
--	return is_power_of_two_u64(n);
-+	return is_power_of_2_u64(n);
- }
- 
- /*
-diff --git a/fs/btrfs/zoned.c b/fs/btrfs/zoned.c
-index a016cb471beb..b90ac4ff71b8 100644
---- a/fs/btrfs/zoned.c
-+++ b/fs/btrfs/zoned.c
-@@ -421,7 +421,7 @@ int btrfs_get_dev_zone_info(struct btrfs_device *device, bool populate_cache)
- 		zone_sectors = bdev_zone_sectors(bdev);
- 	}
- 
--	ASSERT(is_power_of_two_u64(zone_sectors));
-+	ASSERT(is_power_of_2_u64(zone_sectors));
- 	zone_info->zone_size = zone_sectors << SECTOR_SHIFT;
- 
- 	/* We reject devices with a zone size larger than 8GB */
 -- 
-2.55.0
+Best regards
+Ridong
 
