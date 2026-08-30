@@ -1,122 +1,200 @@
-Received: from mta0.migadu.com (out-202.mta0.migadu.com [91.218.175.202])
+Received: from mail-oi1-f205.google.com (mail-oi1-f205.google.com [209.85.167.205])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2921318FC80
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 00:21:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.202
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1179123C8AE
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 00:30:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.205
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788049293; cv=none; b=qcIbDYnp2rWH8zOG/jD7ryciQ7esrLxloCdq0gf1aTJnqzMdia7zwoQTls33w9cGCUg57C1AlyQOJifXzcsC9EqZ4Hv1awPiTshj22Y8eU5zM3v4vlZFx3gvMO+NV9iVj4VaXwX0H0d8nlmPWp6OYX29IX8yjYl0+h1wgcVDB24=
+	t=1788049831; cv=none; b=Y+uTG6ec9uFDiPziQgzqWeVSiWdwhd7UYjWlAYyS9lcjav3NtIzEfiI/nvuE7NxvpGJGQ123mxxipdwXXtRYgPD4+4Rin82zr8bS5asO/55PqC+laDqSb6rXHQQKRup/35XtGaQn4dTOViKFaPHGgvCircX5kKWZp1P3FnS5/Wk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788049293; c=relaxed/simple;
-	bh=HW0I75C/5UBwwd+jukPw0ARJed7HblTEcNCAI5VbTdI=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=YWZZGtj1fxs5XKlzAQRTCVjGlu0xkVvAn21DOeNVDRG3NoHUw8LncQbdJic8Fvmt3E6iz9ktruag4zzMWFo5ueHhqgOpFwefL9sN0LhjQP+xIwx3u91eYjVDOYfm+RDmrX188JNMdYSm0X1FoXmFIuqoEr3M7Osh3YZB7y88M9M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=cv5J/t3a; arc=none smtp.client-ip=91.218.175.202
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="cv5J/t3a"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=HW0I75C/5UBwwd+jukPw0ARJed7HblTEcNCAI5VbTdI=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788049289; v=1; x=1788654089;
- b=cv5J/t3aEBhM4DKLAaOZG4aDJjyvdVlwaVEnSmjLfQx0ZFmRa45LBUDqVbjlbP0DwkvrP81S
- FeQSBC6pO23xN4OYtcPP1Xggo7ZHjbu6LvSoMZubHavDI2ci1/0xGhb/KEdjtYW8Nu61ERUtFDr
- Bu+zv/3Yn6pU/bvtFpJ6H90w=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 485d79aea16e38b9;
-	Sun, 30 Aug 2026 00:21:29 +0000
-X-Mizu-Trace-ID: 485d79aea16e38b9
-X-Migadu-Flow: FLOW_OUT
-From: Ridong Chen <ridong.chen@linux.dev>
-To: Johannes Weiner <hannes@cmpxchg.org>,
-	Michal Hocko <mhocko@kernel.org>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Andrew Morton <akpm@linux-foundation.org>
-Cc: Muchun Song <muchun.song@linux.dev>,
-	Tejun Heo <tj@kernel.org>,
-	=?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
-	David Finkel <davidf@vimeo.com>,
-	cgroups@vger.kernel.org (open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)),
-	linux-mm@kvack.org (open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)),
-	linux-kernel@vger.kernel.org,
-	Tao Cui <cuitao@kylinos.cn>,
-	Ridong Chen <ridong.chen@linux.dev>,
-	Ridong Chen <chenridong@xiaomi.com>
-Subject: [PATCH v4 RESEND 2/2] mm, memcg: fix memory.peak reset clobbering other fds' watermark
-Date: Sun, 30 Aug 2026 08:20:44 +0800
-Message-Id: <20260830002044.1938621-3-ridong.chen@linux.dev>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260830002044.1938621-1-ridong.chen@linux.dev>
-References: <20260830002044.1938621-1-ridong.chen@linux.dev>
+	s=arc-20240116; t=1788049831; c=relaxed/simple;
+	bh=HLVWaMVldZGCM1CNOfEHLO61y+UvHI0bHYIPOoaiHwg=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=K9S4SJDEyYR16iKgr0BiRQBp/ZSMWRuDXdJ3YVhEyQi8l+8kv4Fm/yh+i21UdDK8AFG6ymPxImWuZRQCYOnL4oGobD7F8Qb49rltr1Iirh39vr7Afv1C4YXwQFuGXD0O5ymsyNY7yszGd6u9iAdcs/W7mYUXsxU6zmSvqfvvuV0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.205
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f205.google.com with SMTP id 5614622812f47-4b3b05aa29dso2222946b6e.0
+        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 17:30:29 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788049829; x=1788654629;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=GkWDQBE726VxWf1LI026GoG6+i9KDMEuoSzzOrab5TA=;
+        b=rMhVi/tz0M18MmPST9Ye0OAevUa1P/Ur9UJyj0QrQC8W2kDBJFwsjSNTG7IJn/1nn4
+         mj1POqv+brtpGG0T9QxqwZF4HH48FRPVW2W/W1V9u4I2MfMPoFlPa1nY6sL04q4tTK2A
+         BItbHl4IcMUuUKsH3iWb2m/9cZgjsNntPzPxdgSdggjx7s6yHV1m0bGYsGz9A/l5d6iF
+         GXEbvOyAt1FJepiVrlo19cUhwrtoj8EKNutWe7eK59YP6Op+fP3BrJwW8z4N/hUMxMAc
+         TXUqlZoxGkZSQO7gDU0iEbo7Ielsr5kWgq5Qd6YnxLMufMKL2UUEy+HSVGBdexAPD0/h
+         eYfA==
+X-Forwarded-Encrypted: i=1; AHgh+Rov8FQRs0M8G9PUZPybCCOdcKB9tDH1Pt9Kb6NAgbTJjgu6oodsonlxiO2yzjf2ys5+X1DqFRnohfHyXWk=@vger.kernel.org
+X-Gm-Message-State: AFuF++nrHOEr02VO0K4soepcuHbtM9CIsFPisRIaKaHf5zS3xhT4s9lB
+	U+98UamzP1TVm+5w1/Zlhlk+/Q1QEUAke6zhjXO7zpOVerYPYxIt73Yr4CqDi1cdVlFZnrz8KZq
+	CaMK8+GCvOLYZr55Lk3kAyBbSU90eRHdaMMBZly327Esh1Ihyp6o4RfFbJHY=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6808:14c4:b0:4b3:18d2:5fa0 with SMTP id
+ 5614622812f47-4b37ca840ddmr22776221b6e.14.1788049829067; Sat, 29 Aug 2026
+ 17:30:29 -0700 (PDT)
+Date: Sat, 29 Aug 2026 17:30:29 -0700
+In-Reply-To: <695e9bb5.050a0220.1c677c.0372.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a9379a5.1d9ded08.62e62.0114.GAE@google.com>
+Subject: Re: [syzbot] [net?] INFO: rcu detected stall in kernfs_fop_write_iter (3)
+From: syzbot <syzbot+10b515098afdcfc455c7@syzkaller.appspotmail.com>
+To: dakr@kernel.org, davem@davemloft.net, driver-core@lists.linux.dev, 
+	edumazet@google.com, gregkh@linuxfoundation.org, horms@kernel.org, 
+	kuba@kernel.org, linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
+	pabeni@redhat.com, rafael@kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-From: Ridong Chen <chenridong@xiaomi.com>
+syzbot has found a reproducer for the following issue on:
 
-Writing to memory.peak resets the peak for that fd only. Each fd is a
-watcher and reads back max(its own value, the shared local_watermark).
+HEAD commit:    1b78070aaef6 Merge tag 'net-7.3-rc1' of git://git.kernel.o..
+git tree:       net-next
+console output: https://syzkaller.appspot.com/x/log.txt?x=132ec379580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=5e4e3a0e188a497e
+dashboard link: https://syzkaller.appspot.com/bug?extid=10b515098afdcfc455c7
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=1208fd49580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=16b92c15580000
 
-peak_write() resets by lowering local_watermark to the current usage.
-To keep the other watchers' peaks it then walks the watcher list, but it
-stores the current usage into them instead of the old watermark. So once
-usage has dropped from a peak, a reset on one fd wrongly drags every
-other fd's peak down too, even fds that never reset.
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/18856a03a9a3/disk-1b78070a.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/cc2bc68d7ef4/vmlinux-1b78070a.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/05a5e00f8f91/bzImage-1b78070a.xz
 
-Reproduced on 7.2.0-rc5-next under QEMU, two fds A and B on one cgroup:
-B sees the peak (410624 KB), usage drops, then A resets -- and B's peak
-collapses to 1060 KB although B never reset. With this patch B keeps
-reading 410624 KB.
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+10b515098afdcfc455c7@syzkaller.appspotmail.com
 
-Fix: save the old watermark before lowering it and use that to floor the
-other watchers, so a reset only affects the fd that issued it.
+rcu: INFO: rcu_preempt detected stalls on CPUs/tasks:
+rcu: 	1-...!: (1 ticks this GP) idle=51bc/1/0x4000000000000000 softirq=17926/17938 fqs=6
+rcu: 	(detected by 0, t=10502 jiffies, g=16769, q=4471 ncpus=2)
+Sending NMI from CPU 0 to CPUs 1:
+NMI backtrace for cpu 1
+CPU: 1 UID: 0 PID: 4984 Comm: udevd Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
+RIP: 0010:check_preemption_disabled+0x1a/0xd0 lib/smp_processor_id.c:53
+Code: 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 55 41 57 41 56 53 65 8b 05 4b ee b0 07 65 48 8b 0d 1b ee b0 07 85 c9 74 0c 5b <41> 5e 41 5f 5d c3 cc cc cc cc cc 9c 59 f7 c1 00 02 00 00 74 ea 65
+RSP: 0018:ffffc90000a18d68 EFLAGS: 00000002
+RAX: 0000000000000001 RBX: 00000000ffffffff RCX: 0000000001000001
+RDX: 0000000001000001 RSI: ffffffff8e48da65 RDI: ffffffff8c6d8b80
+RBP: 00000000ffffffff R08: 0000000001000001 R09: 0000000000000000
+R10: ffff88802b880308 R11: ffffed1005710063 R12: 0000000000000046
+R13: ffff88807ed40000 R14: ffff8880b8728298 R15: ffff8880b8728390
+FS:  00007f352db77880(0000) GS:ffff888124de0000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 000055556bd98a38 CR3: 000000007efac000 CR4: 00000000003526f0
+Call Trace:
+ <IRQ>
+ lockdep_recursion_inc kernel/locking/lockdep.c:465 [inline]
+ lock_is_held_type+0x5a/0x150 kernel/locking/lockdep.c:5981
+ lock_is_held include/linux/lockdep.h:249 [inline]
+ __run_hrtimer kernel/time/hrtimer.c:2033 [inline]
+ __hrtimer_run_queues+0x20b/0xa10 kernel/time/hrtimer.c:2124
+ hrtimer_interrupt+0x4cd/0xaa0 kernel/time/hrtimer.c:2243
+ local_apic_timer_interrupt arch/x86/kernel/apic/apic.c:1051 [inline]
+ __sysvec_apic_timer_interrupt+0x102/0x430 arch/x86/kernel/apic/apic.c:1068
+ instr_sysvec_apic_timer_interrupt arch/x86/kernel/apic/apic.c:1062 [inline]
+ sysvec_apic_timer_interrupt+0xa1/0xc0 arch/x86/kernel/apic/apic.c:1062
+ </IRQ>
+ <TASK>
+ asm_sysvec_apic_timer_interrupt+0x1a/0x20 arch/x86/include/asm/idtentry.h:674
+RIP: 0010:add_uevent_var+0x25f/0x460 lib/kobject_uevent.c:692
+Code: 01 00 00 e8 63 ee ed f5 4c 8b 64 24 38 42 0f b6 04 3b 84 c0 48 8b 54 24 10 0f 85 aa 01 00 00 49 83 c4 18 4c 63 32 41 8d 46 01 <89> 02 bf 40 00 00 00 44 89 f6 e8 32 f3 ed f5 49 83 fe 3f 0f 87 aa
+RSP: 0018:ffffc9000253f880 EFLAGS: 00000286
+RAX: 0000000000000009 RBX: 1ffff1100feb9043 RCX: ffff88807ed40000
+RDX: ffff88807f5c8218 RSI: 000000000000007b RDI: 0000000000000801
+RBP: ffffc9000253f9b0 R08: ffffc9000253f757 R09: 0000000000000000
+R10: ffffc9000253f740 R11: fffff520004a7eeb R12: ffff88807f5c8018
+R13: 1ffff920004a7f20 R14: 0000000000000008 R15: dffffc0000000000
+ dev_uevent+0x4ab/0x870 drivers/base/core.c:2774
+ kobject_uevent_env+0x475/0x9e0 lib/kobject_uevent.c:576
+ kobject_synth_uevent+0x45e/0x950 lib/kobject_uevent.c:207
+ uevent_store+0x26/0x70 drivers/base/core.c:2847
+ kernfs_fop_write_iter+0x3a4/0x540 fs/kernfs/file.c:345
+ new_sync_write fs/read_write.c:595 [inline]
+ vfs_write+0x612/0xba0 fs/read_write.c:687
+ ksys_write+0x150/0x270 fs/read_write.c:739
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f352d4a7407
+Code: 48 89 fa 4c 89 df e8 38 aa 00 00 8b 93 08 03 00 00 59 5e 48 83 f8 fc 74 1a 5b c3 0f 1f 84 00 00 00 00 00 48 8b 44 24 10 0f 05 <5b> c3 0f 1f 80 00 00 00 00 83 e2 39 83 fa 08 75 de e8 23 ff ff ff
+RSP: 002b:00007fff3d25d8b0 EFLAGS: 00000202 ORIG_RAX: 0000000000000001
+RAX: ffffffffffffffda RBX: 00007f352db77880 RCX: 00007f352d4a7407
+RDX: 0000000000000007 RSI: 000055716b1e2a00 RDI: 000000000000000c
+RBP: 000055716b1e2a00 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000202 R12: 0000000000000007
+R13: 000055716b1ea8a0 R14: 00007f352d5efea0 R15: 00007fff3d25dbf0
+ </TASK>
+rcu: rcu_preempt kthread starved for 10472 jiffies! g16769 f0x0 RCU_GP_WAIT_FQS(5) ->state=R ->cpu=0
+rcu: 	Unless rcu_preempt kthread gets sufficient CPU time, OOM is now expected behavior.
+rcu: RCU grace-period kthread stack dump:
+task:rcu_preempt     state:R  running task     stack:27496 pid:17    tgid:17    ppid:2      task_flags:0x208040 flags:0x00080000
+Call Trace:
+ <TASK>
+ context_switch kernel/sched/core.c:5520 [inline]
+ __schedule+0x17d4/0x5820 kernel/sched/core.c:7270
+ __schedule_loop kernel/sched/core.c:7347 [inline]
+ schedule+0x164/0x2b0 kernel/sched/core.c:7362
+ schedule_timeout+0x152/0x2c0 kernel/time/sleep_timeout.c:99
+ rcu_gp_fqs_loop+0x30c/0x11f0 kernel/rcu/tree.c:2122
+ rcu_gp_kthread+0x9e/0x2b0 kernel/rcu/tree.c:2330
+ kthread+0x38b/0x480 kernel/kthread.c:436
+ ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
+rcu: Stack dump where RCU GP kthread last ran:
+CPU: 0 UID: 0 PID: 5760 Comm: syz-executor Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
+RIP: 0010:csd_lock_wait kernel/smp.c:363 [inline]
+RIP: 0010:csd_lock kernel/smp.c:396 [inline]
+RIP: 0010:smp_call_function_many_cond+0x61e/0x1500 kernel/smp.c:944
+Code: b6 04 04 84 c0 0f 85 d5 03 00 00 44 8b 3b 44 89 fe 83 e6 01 31 ff e8 51 51 0c 00 41 83 e7 01 75 07 e8 46 4c 0c 00 eb 3f f3 90 <48> b8 00 00 00 00 00 fc ff df 41 0f b6 04 04 84 c0 75 0f f7 03 01
+RSP: 0018:ffffc9000355f420 EFLAGS: 00000293
+RAX: ffffffff81bb677e RBX: ffff8880b87414c8 RCX: ffff888020330000
+RDX: 0000000000000000 RSI: 0000000000000001 RDI: 0000000000000000
+RBP: ffffc9000355f570 R08: ffff88802033159f R09: 1ffff110040662b3
+R10: dffffc0000000000 R11: 0000000000000000 R12: 1ffff110170e8299
+R13: 0000000000000001 R14: ffff8880b87414c0 R15: 0000000000000001
+FS:  000055556bd7d500(0000) GS:ffff888124ce0000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007fe76eb556c8 CR3: 000000007b140000 CR4: 00000000003526f0
+Call Trace:
+ <TASK>
+ __flush_tlb_multi arch/x86/include/asm/paravirt.h:46 [inline]
+ flush_tlb_multi arch/x86/mm/tlb.c:1361 [inline]
+ flush_tlb_mm_range+0x8ff/0x1090 arch/x86/mm/tlb.c:1435
+ dup_mmap+0x1758/0x1dc0 mm/mmap.c:1884
+ dup_mm kernel/fork.c:1543 [inline]
+ copy_mm+0x11a/0x480 kernel/fork.c:1595
+ copy_process+0x1e75/0x43e0 kernel/fork.c:2307
+ kernel_clone+0x2d7/0x940 kernel/fork.c:2766
+ __do_sys_clone kernel/fork.c:2908 [inline]
+ __se_sys_clone kernel/fork.c:2892 [inline]
+ __x64_sys_clone+0x1b6/0x230 kernel/fork.c:2892
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7fe76ddc6bd2
+Code: 89 e7 e8 71 8b f7 ff 45 31 c0 31 d2 31 f6 64 48 8b 04 25 10 00 00 00 bf 11 00 20 01 4c 8d 90 d0 02 00 00 b8 38 00 00 00 0f 05 <48> 3d 00 f0 ff ff 77 66 89 c5 85 c0 75 3b 64 48 8b 04 25 10 00 00
+RSP: 002b:00007ffc068b1d70 EFLAGS: 00000246 ORIG_RAX: 0000000000000038
+RAX: ffffffffffffffda RBX: 00007ffc068b1d70 RCX: 00007fe76ddc6bd2
+RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000001200011
+RBP: 00007ffc068b1efc R08: 0000000000000000 R09: 0000000000000000
+R10: 000055556bd7d7d0 R11: 0000000000000246 R12: 0000000000000001
+R13: 000055556bd90a00 R14: 000000000001ae67 R15: 00007ffc068b1f50
+ </TASK>
 
-Fixes: c6f53ed8f213 ("mm, memcg: cg2 memory{.swap,}.peak write handlers")
-Closes: https://sashiko.dev/#/patchset/20260807090000.1532495-1-ridong.chen@linux.dev
-Assisted-by: Claude:claude-opus-4-8
-Acked-by: Tao Cui <cuitao@kylinos.cn>
-Acked-by: Johannes Weiner <hannes@cmpxchg.org>
-Acked-by: Shakeel Butt <shakeel.butt@linux.dev>
-Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
+
 ---
- mm/memcontrol.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
-
-diff --git a/mm/memcontrol.c b/mm/memcontrol.c
-index b84f448fe984..4c02d7de460c 100644
---- a/mm/memcontrol.c
-+++ b/mm/memcontrol.c
-@@ -4749,7 +4749,7 @@ static ssize_t peak_write(struct kernfs_open_file *of, char *buf, size_t nbytes,
- 			  loff_t off, struct page_counter *pc,
- 			  struct list_head *watchers)
- {
--	unsigned long usage;
-+	unsigned long usage, old_watermark;
- 	struct cgroup_of_peak *peer_ctx;
- 	struct mem_cgroup *memcg = mem_cgroup_from_css(of_css(of));
- 	struct cgroup_of_peak *ofp = of_peak(of);
-@@ -4757,11 +4757,12 @@ static ssize_t peak_write(struct kernfs_open_file *of, char *buf, size_t nbytes,
- 	spin_lock(&memcg->peaks_lock);
- 
- 	usage = page_counter_read(pc);
-+	old_watermark = READ_ONCE(pc->local_watermark);
- 	WRITE_ONCE(pc->local_watermark, usage);
- 
- 	list_for_each_entry(peer_ctx, watchers, list)
--		if (usage > peer_ctx->value)
--			WRITE_ONCE(peer_ctx->value, usage);
-+		if (peer_ctx != ofp && old_watermark > peer_ctx->value)
-+			WRITE_ONCE(peer_ctx->value, old_watermark);
- 
- 	/* initial write, register watcher */
- 	if (ofp->value == OFP_PEAK_UNSET)
--- 
-2.34.1
-
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
