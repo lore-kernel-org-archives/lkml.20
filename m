@@ -1,61 +1,63 @@
-Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com [209.85.215.178])
+Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F6FF632
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 04:29:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A33BA632
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 04:29:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788064170; cv=none; b=jltmrUBRjdeIoo4HiFanVs/NOG/h1OBV0745+qs/vmB67UIGatUZ0CO0vHGOz62UkvwR42+l2eehdCTNw70w33cT4X21CQaHazLowBSpsL8K1zgrJyCWdJsGU/pG04xEw+N7oplt1He3fgUIEDnWbhxTyGY+JZRWyzsDlNgCWaA=
+	t=1788064176; cv=none; b=tuW3tLI+5UBTRF7HkVPv+5ovwcoH9yymE/LSR4fia0JYpushTYk5HiMjI+8B18jBsVqrSKz9zxS2oAZltgIDPNbbabhzHbvhl3xVcgHNvIBSK99VqCzyxxXGfoRKLMcTcScNmaSrnTAySVa5RXEPjdSXXCrBRQgHp9p5U4pLt5I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788064170; c=relaxed/simple;
-	bh=O/lKz//erVnwd1XOCFd8Bk3wkmE9YF+3nlNQAs+Q1G4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=K6m1giSbFKHPvksMduzxwBIwiDWKqEtd7LMZEMCO1mrTEQAXAWieXsswfbLI/LfDeXDNdEwkDLy2PVVnfBKDGmIdlhBxt8juHQC478tWi591XOoLGvvQU0sPMOHdeFWdrgbpYSlYDoWiRnPPCPEG8vXFZ7jGwwa2sTNDLLamhs8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dkvdz6W1; arc=none smtp.client-ip=209.85.215.178
+	s=arc-20240116; t=1788064176; c=relaxed/simple;
+	bh=9IpPFSzcLdM/8SH0aciFnU7h9JSdrOn6A0jBLTwIgtM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=VwTOu4bh/nPSWJ3wyJzFPvFrqqxZbIrHEdmU8wzLDMt5ZPMQFjosrDnIcuuMmiaziURsOkOQ8pI7Fhf0uECxkBB6n6544wsXXK84Q9NO5feBa4n1DSeDq5qlonZuOw76cBN91qCzQzFxwZCJnwg9n7C+0R3XAYOXTNbuuROsa9A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YQxk98Sj; arc=none smtp.client-ip=209.85.214.180
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dkvdz6W1"
-Received: by mail-pg1-f178.google.com with SMTP id 41be03b00d2f7-ca5b707b78aso370860a12.0
-        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 21:29:28 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YQxk98Sj"
+Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2cf110997efso2911045ad.2
+        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 21:29:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788064168; x=1788668968; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7Xlgh6vQbD4bTs7SCk5VD/YGUSfPcjuafvIL7aXc420=;
-        b=dkvdz6W10MDZqzI4D9EbO4KnFwrmw9u36DyRMR/XCpEMub3s4WFASh+yR9D3bWNj3b
-         aodjvAEwicj40Lf2S+si0FoWzaKfzrGFYg71pVFZ2BmvA4TEjoGFZGcS+L63EFfBxeTi
-         BoXaQ1uijVA4DNfIZc7cBtXN2L1e1guBW+G+q3JLIPbIuDYIFoQCXEdJzgNu1SPmubeC
-         nxPaSW7V9dmXEZMT221D4mTCuvVHVmdUz13tMA69iqduTrtvUhi1SLiHioiE40U3Fi6j
-         ekyWSjmUiEMQRGlAB+XxzEM3pMMKSgiQtuARQrpg+TZNJD1z+OBDZNj63Zx0UJ5Cwq2u
-         Q3qQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788064168; x=1788668968;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1788064174; x=1788668974; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=7Xlgh6vQbD4bTs7SCk5VD/YGUSfPcjuafvIL7aXc420=;
-        b=meN4BWiZh+gQovPQutDh41izdLTB2N2LLw78sEkn4vCf9bMiaXA3CifqYNiwN1XoJv
-         5E+gRCGTKVFP0k2VVc9w31onMdyevAnhs2xapFyM1+JSFs56cKOBQh38qZsbDaWHPUa3
-         2gn8dsyItxkGdKz+3cHvr/J+5cDTQhJhB9Xe2QI7vP9UmP7+6nWf85niEyZn9djJZGej
-         gKHE33MXJVZS177ZOGzxPf/9XKYyvzY7EcqABQ/MDXo+c0esMDbGmdy8lHYko1IisKSs
-         dXljzg+ghMG8zBr6wiYG14kMzqK+0h2nfFYdXbji1ThCRzlu6ohZ+gyrOatHi4u4RuR3
-         wfng==
-X-Gm-Message-State: AFuF++mSW+N6Hc7AvAYz2qLzjJF9L1sZ4Sm78K60nHaUkstr/xVhM6sY
-	aHDlWW2Zy9n+fH/qlGMb7kkQZIfxnTeLOrjzn0t8jtMijeNdxl3OxFrX
-X-Gm-Gg: AYBFou1wMtZfYwo59r3KzUhNldHP0IRrdOxVWQ3irmsvm+UeH6buPOWMx/jjQTbo73F
-	Ko3oDqWfupWejCJMzXbkyl6dMTY5UlRH91Y5vYC/UW8mdhAv52b8Ug23WSRKxEmIe68stCmz59g
-	Z5HpIb3M8DAWANDxB1p0AsYhKKfyoQh2xqAYl7VnshwKMTD7ifjc230gNdWfuLjS2CXMqznAo1s
-	esa3oSFVA0tr+7KCp0bJELAQwOsxvV2XDDM/Vp+HRjTWgQcSc9DQd1EEp61MG2HvBKIo9DIKBEf
-	XTxtKP8oTPYhAW/6o33VSl/uYAofjPtqw5pZ90DHV2YE4IOrTnCuuzMAWpYuhF4Sl8dHAqi5T/1
-	hZ2D86qTpi3DuLIwUTTSa7N4yXjToxoZ+wJzjJZu0Ly1zSOsS3DPQSUwAG/Im0irGOu+cRHcMYY
-	yXB6fS1kMj15cZ5H7MCSx6kXvdHaRxB3k2/EgujJwy5VhERsu4WKLb26ENQ7zX9J/FGqRQUokxY
-	d+80nA+X9G9Si9mMZswgMqmHNA9pOMp1/Ej33PdmlkfrnQxMCY=
-X-Received: by 2002:a17:903:3093:b0:2d8:d29b:c1e5 with SMTP id d9443c01a7336-2d8d29bcb42mr73839805ad.0.1788064168222;
-        Sat, 29 Aug 2026 21:29:28 -0700 (PDT)
+        bh=HgBqYNXZCzr06f5NE3mn9NXVjLKoxOpoLRZ6XBqO/qg=;
+        b=YQxk98SjDJPDMnJlW4hOvuSBRj6k7+uyilsE4BVW92xcQAHTJqNvZ0dex2smaX3v/i
+         Xia9beFQ5crg8Myd2W8qxZViVYSKhkxXkXEOhhsb1n2KlBVHYZ3V489oHXO3cb6bdVvP
+         zXd2GpWvu/KSAWSPW0A6dN/MhUIAfmYVKF5+lWWmrqr6nY1FNR7eJFenTIDls800Vjb6
+         3WaedjA3iM2v8WA3zoV7Xo2Onf6jqH4wY9qFGoa0ogvppIPkC8bI962Ru5VClykiG92y
+         1A8RLvy9bk9fBiaDfT3kIR88WisOonG/Pb/aj3JHJRYgGi30bJX4TmQLKgWXg8zZrBDk
+         P2BQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788064174; x=1788668974;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=HgBqYNXZCzr06f5NE3mn9NXVjLKoxOpoLRZ6XBqO/qg=;
+        b=eOhKG6uUaVEGc/yriAbKVprCqrl/sUnmzyMszIb/QtJWGlf6nBU8Pj8mqUReZu//E1
+         yKhPZkNWQQWDwWQf/tY/0p+26/SF/nnzY+/YKNbDttebiRHMUPR23f6RqLVv8W8IuqEg
+         8403/IPCPWl2J9lWyfCVRD0WZZDrpDq5T0ySJYh+U6CkKc0np1tMNUigGTU7yOp0OAzS
+         O9OCxIbNylr4tYsGu3XYHLezE4jRVHlliYss2rfNggdUdUvRT8Ymt8nnuvOQl00wwPVI
+         sYnpD7NwiU3vfNy8BmoVlB1XBOOofGVwAgkZ6XP6vdzemvshXuO9Fcr2Qkl4jbEkJRBc
+         58fw==
+X-Gm-Message-State: AFuF++m78a5CDBNZfNFdvm5ZZl8fMvTfUCsS7+/35CSQVbc3HYekiLs3
+	X1ARGeT7+lxZFd1ss6YWey4zh4aBLj0jxTpvEL2G/imnQ+GiWbJnMwlA
+X-Gm-Gg: AYBFou2kij6I0FpKqCn8E2xpiAGM5rxmtYV3lsd6UdCLKr3wU6t7AbnkIKRmRvP+bd7
+	cryrUmm7wJ+Z/V+Lg2dBb7PtEWwbmRqz5U8es0+5hYwBi+Ns45QFjljno2qdmtbPt4bpciDKbVs
+	W5N7w3jJIlTy5TaUUqMsYe8q3lxWyYBrUQhGKRrGu+l/gxayxOpvXAEVxCQxn2pZ/8a9FDogQMO
+	3f36ppkpb6YCTGoIuslWsjhd5t/KmvRwa3p/LJW4dvVKMBA3wOlQ5KvbDyn6RTSTOuhvxd74Bt6
+	+bA2VlJPCD3EVg9KorAP3HMAV7fM83tciSCBH2XZ/zfyBiIuIxXIOmvorZT+k3U2Suh+epqZ+Yx
+	XBVzfxKYUHMv68FIx/1vYShwxEAhJTarOq6niXJZ8vjkGtl+lO9qb/og//gkiGY8jNhwk++Euu8
+	96Xbyz7cBIS7bEBLRmIiDswHseVtqFovun5oWf8k6MbuGx1czJlMGvKlbwJ2NtxfuNGcNg3amCt
+	O9wgzSp3CkKgA3kGRoYVwyXgrgn5mnyHvHdZpw2Qwf8d4ShRo6X
+X-Received: by 2002:a17:903:1112:b0:2d6:3c1a:85ef with SMTP id d9443c01a7336-2d74e08b96emr156523785ad.4.1788064173835;
+        Sat, 29 Aug 2026 21:29:33 -0700 (PDT)
 Received: from o6.lan ([188.253.112.231])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d8f98d46casm7493535ad.83.2026.08.29.21.29.22
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d8f98d46casm7493535ad.83.2026.08.29.21.29.28
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 29 Aug 2026 21:29:27 -0700 (PDT)
+        Sat, 29 Aug 2026 21:29:33 -0700 (PDT)
 From: Xueyuan Chen <xueyuan.chen21@gmail.com>
 To: akpm@linux-foundation.org,
 	linux-mm@kvack.org
@@ -79,10 +81,12 @@ Cc: linux-kernel@vger.kernel.org,
 	david@kernel.org,
 	ljs@kernel.org,
 	xueyuan.chen21@gmail.com
-Subject: [PATCH v7 0/4] mm: avoid large folio splits when swap is unavailable
-Date: Sun, 30 Aug 2026 12:29:16 +0800
-Message-ID: <20260830042920.2280454-1-xueyuan.chen21@gmail.com>
+Subject: [PATCH v7 1/4] mm: add page_counter_margin()
+Date: Sun, 30 Aug 2026 12:29:17 +0800
+Message-ID: <20260830042920.2280454-2-xueyuan.chen21@gmail.com>
 X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260830042920.2280454-1-xueyuan.chen21@gmail.com>
+References: <20260830042920.2280454-1-xueyuan.chen21@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -91,116 +95,87 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This is v7 of Barry's original RFC patch, "mm: Avoiding split large
-folios if swap has no space":
+From: Johannes Weiner <hannes@cmpxchg.org>
 
-https://lore.kernel.org/r/20260618221720.71768-1-baohua@kernel.org
+mem_cgroup_get_nr_swap_pages() open-codes the remaining capacity across
+the memcg swap counter hierarchy.
 
-Barry's RFC showed the no-swap case with MADV_PAGEOUT on 16KB mTHP: the
-large-folio split counter increased by 1024 even though no swapout
-progress was possible. Skipping the split in that case kept the counter
-at 0.
+Add page_counter_margin() to return the minimum usable space from a page
+counter to the root, and use it in mem_cgroup_get_nr_swap_pages(). This
+is a pure refactoring with no intended behavior change.
 
-This series makes folio_alloc_swap() classify failures according to
-whether splitting a large folio might allow swapout to make progress.
-Callers can then avoid destroying the large folio when neither global
-swap availability nor the folio's memcg swap hierarchy has capacity for
-even a smaller folio.
-
-Patch #1 adds page_counter_margin(), a small helper that computes the
-minimum remaining chargeable space across a page_counter hierarchy.
-
-Patch #2 establishes the folio_alloc_swap() return-value contract:
-
-  - -E2BIG: splitting may let smaller folios make progress
-  - -ENOSPC: no global swap space is available
-  - -ENOMEM: splitting is not expected to help, including when the
-    folio's memcg swap hierarchy has no remaining capacity
-
-Patch #3 makes vmscan split a large folio only when folio_alloc_swap()
-returns -E2BIG. Other failures keep the existing activation path and
-avoid destroying the large folio when no smaller part can be backed by
-swap either.
-
-Patch #4 applies the same contract to shmem_writeout(), which currently
-splits a large folio on every folio_alloc_swap() failure. It now enters
-the split fallback only on -E2BIG; other failures redirty and reactivate
-the folio as before.
-
-Testing:
-
-With a 1GB anonymous mapping backed by 16KB mTHPs and
-memory.swap.max=0, the patch reduced the median latency of 30
-process_madvise(MADV_PAGEOUT) runs from 743.8 ms to 181.7 ms, while the
-number of large-folio splits per run dropped from 65536 to 0. Neither
-kernel swapped out any pages.
-
-I also ran DaCapo h2 under swap pressure and found no statistically
-significant change in wall time or CPU time. The overall benefit appears
-minor and workload-dependent.
-
-v6 -> v7:
-- Add test results and clarify that the overall benefit is minor. No code
-  changes.
-- https://lore.kernel.org/r/20260813075025.1406585-1-xueyuan.chen21@gmail.com
-
-RFC v5 -> v6:
-- Simplify Patch #2's failure handling following Kairui Song's review,
-  avoiding additional plumbing through the memcg charge path.
-- https://lore.kernel.org/r/20260730122304.2496440-1-xueyuan.chen21@gmail.com
-
-RFC v4 -> RFC v5:
-- Fix Patch #3 to jump to activate_locked, not activate_locked_split, when
-  folio_alloc_swap() fails with an error other than -E2BIG. The folio has
-  not been split in that case, so activate_locked_split would incorrectly
-  adjust nr_scanned and nr_pages as if tail pages had been split out.
-- https://lore.kernel.org/r/20260730021630.2235914-1-xueyuan.chen21@gmail.com
-
-RFC v3 -> RFC v4:
-- Keep global swap availability and memcg swap margin separate, following
-  feedback from Barry Song, Johannes Weiner, and Youngjun Park.
-- Handle early rejections and memcg charge failures with the refined
-  folio_alloc_swap() return-value contract.
-- Apply the requested vmscan and shmem condition layout changes.
-- https://lore.kernel.org/r/20260717122514.51514-1-xueyuan.chen21@gmail.com
-
-RFC v2 -> RFC v3:
-- Use Johannes Weiner's original page_counter_margin() patch and preserve
-  his authorship. Move the mem_cgroup_get_nr_swap_pages() conversion into
-  Patch #1 so the helper addition remains a pure refactoring.
-- Add Patch #4 to make shmem_writeout() split large folios only on -E2BIG,
-  as suggested by Baolin Wang.
-- https://lore.kernel.org/r/20260709145124.764807-1-xueyuan.chen21@gmail.com
-
-RFC v1 -> RFC v2:
-- Split the RFC into helper, swap allocation, and vmscan patches.
-- Add page_counter_margin() and use it for hierarchical memcg swap
-  capacity checks.
-- Make folio_alloc_swap() return -E2BIG only when a smaller folio may
-  still be swapped out.
-- Return -ENOSPC for no global swap space and -ENOMEM when splitting is
-  not expected to help, including memcg swap exhaustion.
-- Make vmscan split large folios only on -E2BIG from folio_alloc_swap().
-
-Barry Song (Xiaomi) (1):
-  mm/vmscan: avoid pointless large folio splits without swap
-
-Johannes Weiner (1):
-  mm: add page_counter_margin()
-
-Xueyuan Chen (2):
-  mm: distinguish large folio swap allocation failures
-  mm/shmem: split large folios only on -E2BIG
-
+Signed-off-by: Johannes Weiner <hannes@cmpxchg.org>
+Signed-off-by: Xueyuan Chen <xueyuan.chen21@gmail.com>
+Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
+---
  include/linux/page_counter.h |  1 +
- include/linux/swap.h         |  6 ++++++
- mm/memcontrol.c              | 32 ++++++++++++++++++++++++++------
+ mm/memcontrol.c              |  9 +++------
  mm/page_counter.c            | 20 ++++++++++++++++++++
- mm/shmem.c                   |  7 ++++---
- mm/swapfile.c                | 26 +++++++++++++++++++-------
- mm/vmscan.c                  |  7 ++++++-
- 7 files changed, 82 insertions(+), 17 deletions(-)
+ 3 files changed, 24 insertions(+), 6 deletions(-)
 
+diff --git a/include/linux/page_counter.h b/include/linux/page_counter.h
+index d649b6bbbc87..07b7cb12249c 100644
+--- a/include/linux/page_counter.h
++++ b/include/linux/page_counter.h
+@@ -68,6 +68,7 @@ static inline unsigned long page_counter_read(struct page_counter *counter)
+ 	return atomic_long_read(&counter->usage);
+ }
+ 
++long page_counter_margin(struct page_counter *counter);
+ void page_counter_cancel(struct page_counter *counter, unsigned long nr_pages);
+ void page_counter_charge(struct page_counter *counter, unsigned long nr_pages);
+ bool page_counter_try_charge(struct page_counter *counter,
+diff --git a/mm/memcontrol.c b/mm/memcontrol.c
+index 8319ad8c5c23..109c08be91cf 100644
+--- a/mm/memcontrol.c
++++ b/mm/memcontrol.c
+@@ -5670,12 +5670,9 @@ long mem_cgroup_get_nr_swap_pages(struct mem_cgroup *memcg)
+ {
+ 	long nr_swap_pages = get_nr_swap_pages();
+ 
+-	if (mem_cgroup_disabled() || do_memsw_account())
+-		return nr_swap_pages;
+-	for (; !mem_cgroup_is_root(memcg); memcg = parent_mem_cgroup(memcg))
+-		nr_swap_pages = min_t(long, nr_swap_pages,
+-				      READ_ONCE(memcg->swap.max) -
+-				      page_counter_read(&memcg->swap));
++	if (!mem_cgroup_disabled() && !do_memsw_account())
++		nr_swap_pages = min(nr_swap_pages, page_counter_margin(&memcg->swap));
++
+ 	return nr_swap_pages;
+ }
+ 
+diff --git a/mm/page_counter.c b/mm/page_counter.c
+index 661e0f2a5127..450543f4b318 100644
+--- a/mm/page_counter.c
++++ b/mm/page_counter.c
+@@ -46,6 +46,26 @@ static void propagate_protected_usage(struct page_counter *c,
+ 	}
+ }
+ 
++/**
++ * page_counter_margin - remaining usable space within hierarchical limits
++ * @counter: counter
++ *
++ * Return: The minimum value of max minus usage across @counter and all of
++ * its ancestors. The value may be negative during a concurrent charge.
++ */
++long page_counter_margin(struct page_counter *counter)
++{
++	long margin = PAGE_COUNTER_MAX;
++
++	do {
++		long m = READ_ONCE(counter->max) - page_counter_read(counter);
++
++		margin = min(margin, m);
++	} while ((counter = counter->parent));
++
++	return margin;
++}
++
+ /**
+  * page_counter_cancel - take pages out of the local counter
+  * @counter: counter
 
 base-commit: c73b725a57f276a3702ca213bde78fca029bc619
 -- 
