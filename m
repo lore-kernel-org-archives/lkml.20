@@ -1,43 +1,43 @@
-Received: from mail-24417.protonmail.ch (mail-24417.protonmail.ch [109.224.244.17])
+Received: from mail-06.mail-europe.com (mail-06.mail-europe.com [85.9.210.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E81F28C2A1
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 03:52:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5553E25B090
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 03:52:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=85.9.210.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788061934; cv=none; b=qrK7Q7xkSxUGjapB9XPTSRwlTLLRHtTsHjrsK1/2aCEm4cHA6iBExRHt/kPOeUhl2lONndDueTUAsG/ADH34KhqQKxO+3k8SUkOL4CMrIRKxFP2pqeQUIg2YKG+fltVL0Q3x59m+QgLy7PEbNCE61OGizSgebbEQQUKFUELoiJk=
+	t=1788061950; cv=none; b=PIA9EHNcomzPlsdLroSnqQFKtZe3ls6jaCyS0zsYtfWkZ2+9BOZf5p6x3Ho7k4h5w2iU6qY+gF7Vhq2+mUfGT0pX6DCRuQq2oHR924BovqKcC1sdH+5rR7po6Tl4vBuZMRPZP8tSzLSadaUU4yXnHwSi9GS4CagoJ7VczGIomv4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788061934; c=relaxed/simple;
-	bh=FiAT8Y4Baa5dFZFKeSF15n+QhOknhExAlPkRUi5GkuY=;
+	s=arc-20240116; t=1788061950; c=relaxed/simple;
+	bh=dSLLNlPblDrKH/gkWcBv4e6F56mNwveHJZroK8jqUIg=;
 	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=GfymgfkD/EZZhzqsDhgFVmPecV5rnD08tzkAyInnGpgJxnY1KdcQNlGarcx40he3HZUzLKgT7SPR9ZdyFUMMr5qvKd7b1bx5TLAZqntqlt85YcPtVL85xxEUZx5loe1I4SelwGZ/EHjjuPSqA5uvM6iXul8NDI+2LMcfQxu6Ykk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=ZKC61E0H; arc=none smtp.client-ip=109.224.244.17
+	 MIME-Version:Content-Type; b=U2G6A9zjKcNSPoZbD1WxgVhwYsrVdRMMHG2YBf6BmLpHN9zuEGJwGD8TBsgz2tPAuAIPFpEPlwqzPeQTyR9R9lS3fpfYNaJXzEzUccMgft2aqcuFIEeqCbF9h8J1dt5DtmBuxfbMmUldmPrmXED/kEPCAGjZhdEGcaQmvhzZJPY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=QQeQgUVS; arc=none smtp.client-ip=85.9.210.45
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="ZKC61E0H"
+	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="QQeQgUVS"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1788061924; x=1788321124;
-	bh=jnji4+6IgYi4Ks1u6FUqTfrHf09mB52dg2/DurOipCQ=;
+	s=5jyqa2t64jfz7j3mddw2j2si6q.protonmail; t=1788061929; x=1788321129;
+	bh=ZalboOQlaRdM07h0DCHOooTZyMCDymSdS7Ibwrc+ZOA=;
 	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
 	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
 	 Message-ID:BIMI-Selector;
-	b=ZKC61E0HlqSWJ/6DatUJJrWJULEPaw7xB/kSMwT+Bnl01LVekS07P5pXxxH3KJmnA
-	 TLs5O0qHkF1iYlW3gGXEkveaUF6P2t/o9KLAL9mQ/zuNDw0Hn33bQiRE9URPFLEyss
-	 40CraMSOPVYFairLWKGdDNCqP19wdalwamb30E5zcjDzGnPhU1t1vtThkOuSpm8C9U
-	 H1g7VriwxqctPMKF4zaAjFJBiBcROPsl94k3jxLXzYgd2ELp4WO2w2iD2C68EFWbPp
-	 KIsPa7TIyaQn8PZC/iMhtB4opoZZ6MVaQWfNfwzKcYI36rzwlLbtbsO4yB//EAgyeT
-	 /FPaW8Fks6jXg==
-Date: Sun, 30 Aug 2026 03:51:58 +0000
+	b=QQeQgUVSbsRZ/Pr60TiLr0vFvhdHoXGuDMyKAvBEEHlFJ2CGnEt1r5+I0//6PrkuP
+	 xJFZILNCeTjoiqf0wl4sGr8iFeL0v6Q3mz21wgdQLGUbs6LicYDhUImfg1bnSE+PMg
+	 8KSzx5Wpb29GADdvpQdlfWvSl/v0ETbYPkb9K433f19pIhF6/AJKuPxhsRruUC3JEh
+	 IJYMwcXGF+142eFmxwdiPk+g1XmO0kG6qjf/p2PrCx/VK/HUmUozrg9CkynfkUQRnE
+	 WkGkR8fPS4JB+W5MlbLx1QSalu7JYtHE8CsS+jbJqAbLD1zPRA4cYOtex2jxYsc6oi
+	 /bk7h1sfbCuqQ==
+Date: Sun, 30 Aug 2026 03:52:06 +0000
 To: amd-gfx@lists.freedesktop.org
 From: Satyajit Roy <edu042sjroy@proton.me>
 Cc: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com, alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch, jerry.zuo@amd.com, wayne.lin@amd.com, yan.li@amd.com, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Satyajit Roy <sroy14@alum.utk.edu>
-Subject: [PATCH 1/3] drm/amd/display: Propagate HDMI RGB quantization selectability
-Message-ID: <20260830035120.937992-2-edu042sjroy@proton.me>
+Subject: [PATCH 2/3] drm/amd/display: Honor Broadcast RGB for BT.2020 RGB output
+Message-ID: <20260830035120.937992-3-edu042sjroy@proton.me>
 In-Reply-To: <20260830035120.937992-1-edu042sjroy@proton.me>
 References: <20260830035120.937992-1-edu042sjroy@proton.me>
 Feedback-ID: 147615787:user:proton
-X-Pm-Message-ID: f4cf8d134f4afb49c85062f7dec4c0287be81f1e
+X-Pm-Message-ID: 1a25c08e6bc2c6a214d24d3c36fb934063f828a2
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -49,62 +49,133 @@ Content-Transfer-Encoding: quoted-printable
 
 From: Satyajit Roy <sroy14@alum.utk.edu>
 
-DC uses dc_edid_caps.qs_bit when constructing the HDMI AVI InfoFrame
-quantization-range field. Although DRM parses the sink capability into
-drm_display_info, DM never copies it into the DC EDID capabilities. The
-field therefore remains zero and the AVI quantization range stays at its
-default value.
+amdgpu_dm_get_output_color_space() applies the Broadcast RGB connector
+property to default RGB output, but always selects full-range output for
+BT.2020 RGB. Consequently, explicitly selecting Limited has no effect on
+the output CSC or AVI InfoFrame when HDR uses BT.2020 RGB.
 
-Copy rgb_quant_range_selectable for HDMI sinks and extend the existing
-EDID-capability KUnit test to cover it.
+Select COLOR_SPACE_2020_RGB_LIMITEDRANGE when the output encoding is RGB
+and Broadcast RGB is Limited. Keep Automatic and Full at full range, and
+leave YCbCr output unchanged.
+
+Add KUnit coverage for limited-range RGB output through both BT.2020
+connector colorspace values.
 
 Fixes: 6eb4c13a3845 ("drm/amd/display: Support "Broadcast RGB" drm property=
 ")
 Signed-off-by: Satyajit Roy <sroy14@alum.utk.edu>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c       | 1 +
- .../drm/amd/display/amdgpu_dm/tests/amdgpu_dm_helpers_test.c    | 2 ++
- 2 files changed, 3 insertions(+)
+ .../display/amdgpu_dm/amdgpu_dm_connector.c   | 10 +++--
+ .../tests/amdgpu_dm_connector_test.c          | 37 +++++++++++++++++++
+ 2 files changed, 44 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/dr=
-ivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-index ab15ceec4da..e49a8dda512 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-@@ -218,6 +218,7 @@ enum dc_edid_status dm_helpers_parse_edid_caps(
- =09edid_caps->edid_hdmi =3D connector->display_info.is_hdmi;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/=
+drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+index 8a35e4df13c..f2f6a2a0db9 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+@@ -758,10 +758,14 @@ amdgpu_dm_get_output_color_space(const struct dc_crtc=
+_timing *dc_crtc_timing,
+ =09=09break;
+ =09case DRM_MODE_COLORIMETRY_BT2020_RGB:
+ =09case DRM_MODE_COLORIMETRY_BT2020_YCC:
+-=09=09if (dc_crtc_timing->pixel_encoding =3D=3D PIXEL_ENCODING_RGB)
+-=09=09=09color_space =3D COLOR_SPACE_2020_RGB_FULLRANGE;
+-=09=09else
++=09=09if (dc_crtc_timing->pixel_encoding =3D=3D PIXEL_ENCODING_RGB) {
++=09=09=09if (connector_state->hdmi.broadcast_rgb =3D=3D DRM_HDMI_BROADCAST=
+_RGB_LIMITED)
++=09=09=09=09color_space =3D COLOR_SPACE_2020_RGB_LIMITEDRANGE;
++=09=09=09else
++=09=09=09=09color_space =3D COLOR_SPACE_2020_RGB_FULLRANGE;
++=09=09} else {
+ =09=09=09color_space =3D COLOR_SPACE_2020_YCBCR_LIMITED;
++=09=09}
+ =09=09break;
+ =09case DRM_MODE_COLORIMETRY_DEFAULT: /* ITU601 */
+ =09default:
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connecto=
+r_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_=
+test.c
+index 76334fb840d..29bbe9f7826 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.=
+c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.=
+c
+@@ -570,6 +570,23 @@ static void dm_test_output_color_space_bt2020_rgb(stru=
+ct kunit *test)
+ =09=09=09(int)COLOR_SPACE_2020_RGB_FULLRANGE);
+ }
 =20
- =09if (edid_caps->edid_hdmi) {
-+=09=09edid_caps->qs_bit =3D connector->display_info.rgb_quant_range_select=
-able;
- =09=09populate_hdmi_info_from_connector(link->dc->config.enable_frl, &conn=
-ector->display_info.hdmi, edid_caps);
- =09=09drm_dbg_driver(connector->dev, "%s: HDMI_FRL [%s] max_frl_rate %d\n"=
-, __func__, connector->name, edid_caps->max_frl_rate);
- =09=09if (edid_caps->frl_dsc_support)
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_helpers_=
-test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_helpers_test=
-.c
-index d4232648d8e..b13f258740c 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_helpers_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_helpers_test.c
-@@ -412,12 +412,14 @@ static void dm_test_parse_edid_caps_hdmi_frl(struct k=
-unit *test)
++/**
++ * dm_test_output_color_space_bt2020_rgb_limited - Test limited BT.2020 RG=
+B
++ * @test: The KUnit test context
++ */
++static void dm_test_output_color_space_bt2020_rgb_limited(struct kunit *te=
+st)
++{
++=09struct dc_crtc_timing timing =3D {};
++=09struct drm_connector_state state =3D {};
++
++=09timing.pixel_encoding =3D PIXEL_ENCODING_RGB;
++=09state.colorspace =3D DRM_MODE_COLORIMETRY_BT2020_RGB;
++=09state.hdmi.broadcast_rgb =3D DRM_HDMI_BROADCAST_RGB_LIMITED;
++
++=09KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &s=
+tate),
++=09=09=09(int)COLOR_SPACE_2020_RGB_LIMITEDRANGE);
++}
++
+ /**
+  * dm_test_output_color_space_bt2020_ycc - Test Output color space bt2020 =
+ycc
+  * @test: The KUnit test context
+@@ -641,6 +658,24 @@ static void dm_test_output_color_space_bt2020_ycc_rgb_=
+encoding(struct kunit *tes
+ =09=09=09(int)COLOR_SPACE_2020_RGB_FULLRANGE);
+ }
 =20
- =09/* Drive the HDMI/FRL branch */
- =09connector->display_info.is_hdmi =3D true;
-+=09connector->display_info.rgb_quant_range_selectable =3D true;
- =09connector->display_info.hdmi.scdc.supported =3D true;
- =09connector->display_info.hdmi.max_lanes =3D 4;
- =09connector->display_info.hdmi.max_frl_rate_per_lane =3D 12;
-=20
- =09KUNIT_EXPECT_EQ(test, dm_helpers_parse_edid_caps(link, dc_edid, edid_ca=
-ps), EDID_OK);
- =09KUNIT_EXPECT_TRUE(test, edid_caps->edid_hdmi);
-+=09KUNIT_EXPECT_EQ(test, edid_caps->qs_bit, 1);
- =09KUNIT_EXPECT_TRUE(test, edid_caps->scdc_present);
- =09/* max_lanes 4 + max_frl_rate_per_lane 12 -> rate index 6 */
- =09KUNIT_EXPECT_EQ(test, edid_caps->max_frl_rate, 6);
++/**
++ * dm_test_output_color_space_bt2020_ycc_rgb_encoding_limited - Test limit=
+ed
++ * BT.2020 RGB output selected through the BT.2020 YCC connector colorspac=
+e
++ * @test: The KUnit test context
++ */
++static void dm_test_output_color_space_bt2020_ycc_rgb_encoding_limited(str=
+uct kunit *test)
++{
++=09struct dc_crtc_timing timing =3D {};
++=09struct drm_connector_state state =3D {};
++
++=09timing.pixel_encoding =3D PIXEL_ENCODING_RGB;
++=09state.colorspace =3D DRM_MODE_COLORIMETRY_BT2020_YCC;
++=09state.hdmi.broadcast_rgb =3D DRM_HDMI_BROADCAST_RGB_LIMITED;
++
++=09KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &s=
+tate),
++=09=09=09(int)COLOR_SPACE_2020_RGB_LIMITEDRANGE);
++}
++
+ /**
+  * dm_test_output_color_space_bt2020_rgb_ycc_encoding - Test Output color =
+space
+  * bt2020 rgb with non-rgb pixel encoding falls back to limited ycbcr
+@@ -8409,10 +8444,12 @@ static struct kunit_case amdgpu_dm_connector_tests[=
+] =3D {
+ =09KUNIT_CASE(dm_test_output_color_space_bt709_y_only),
+ =09KUNIT_CASE(dm_test_output_color_space_oprgb),
+ =09KUNIT_CASE(dm_test_output_color_space_bt2020_rgb),
++=09KUNIT_CASE(dm_test_output_color_space_bt2020_rgb_limited),
+ =09KUNIT_CASE(dm_test_output_color_space_bt2020_ycc),
+ =09KUNIT_CASE(dm_test_output_color_space_default_ycbcr709_y_only),
+ =09KUNIT_CASE(dm_test_output_color_space_default_ycbcr601),
+ =09KUNIT_CASE(dm_test_output_color_space_bt2020_ycc_rgb_encoding),
++=09KUNIT_CASE(dm_test_output_color_space_bt2020_ycc_rgb_encoding_limited),
+ =09KUNIT_CASE(dm_test_output_color_space_bt2020_rgb_ycc_encoding),
+ =09/* Tests for amdgpu_dm_convert_dc_color_depth_into_bpc */
+ =09KUNIT_CASE(dm_test_convert_color_depth_bpc_mappings),
 --=20
 2.51.1
 
