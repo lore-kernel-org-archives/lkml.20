@@ -1,69 +1,69 @@
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CA5B3B14CE
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 11:15:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFB032F7EE1
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 11:15:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788088519; cv=none; b=ldbgaY2zNQ047lo+7PW11OZvoeVh6utcIrswnaBBJ3fsW8OIyRZdcGn+SZlJjwGiw134fEZ6ALFioj2Dn+1fkJDzJm/EEzueSIzEb7DqLBTdctSJnaRY1ddar5Pp/RThDIsa/OEwlHZ40aJ5p13VjJGqZn0c7QoKGgvMnnjWgI0=
+	t=1788088521; cv=none; b=I+z1R8VOlHQrHq+BGzm7UOoyd90fKusbVlXg0YqXduU844ict6dC+4lp5msZimmzK446cAdEwQrQF90FgGij6nTWtyaFBaiew9oF4wrKX57Dtay0pgmfN5ssZ5hansH7QBCUNPAcHbhKqOl6iX5g2A7Fln7et7KeRVjn8ERX0bA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788088519; c=relaxed/simple;
-	bh=eyDDi/hj33KPiiGi1bcVYD+lSsfPmyqoGVEsktLoN4E=;
+	s=arc-20240116; t=1788088521; c=relaxed/simple;
+	bh=L+kBfOFoAZ0Oqva+U3xNU7w4Xq/HFuIKHhhVREciYCc=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ShVuMR/zkoq0gCndI8RMYDgkfWf9zaqOBPAYarPKiucGj4LlUTKKbZQD2W2r7Lq761WUPScAtUFDHwHX4Ua4JoPk+Pw67rUtWZ6jI2mh89xhaVJxn9gwjuLfSygKy+eye0B6m9R1aFv4jW6y0e7hRoEy6omgk8HL1U1z5PobSO8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HEd8VzLZ; arc=none smtp.client-ip=209.85.216.50
+	 In-Reply-To:To:Cc; b=PqT1QXb1pZsHqRoRt5OlgAnN6wp2Qp1w7Qgo6CfDgRHotAKyddk0/ZyPEdyY9XrfQ8l1VmSDuFuCyypkLonIaTlu0Yzc17/ZSrNm2oUCrtCxZWKllx385NdKz5/ybDhmAzdBRscsM0qTcKtkIOzXjWaoc8fcvEzdYLnYiuk9iM8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sg78OhFy; arc=none smtp.client-ip=209.85.214.175
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HEd8VzLZ"
-Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-39675172593so2106437a91.2
-        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 04:15:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sg78OhFy"
+Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2d91ff7d9acso325775ad.3
+        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 04:15:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788088515; x=1788693315; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788088517; x=1788693317; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=5McLVfOcUe323ZqnXbKqgnGk8UnfNHbpkIXezyE7ocw=;
-        b=HEd8VzLZfaFiaZFxhJwiqETXH69QJsdsx4Yfh68Mht0vmNtX/9/5xpL+eGd6HUpKOR
-         GkNCPr8OJkdcLdhUh99Bo0CtQ+sUU+bvzz6dsOfD9Iaom+Uurwel6UaeRKphMOXUmNcG
-         WD2JZuo/5D27MbQRrg+UpNj2jaMmA9oIfERmhh2AfWayEVb/W7UNvJ4zmz570kTnAQ4L
-         6VzVJed20uen7h0uowadVnrJvU0jRPO4C4eg3Lsyo01K39JVyqinEFFuOfS62oonyo9D
-         HHa6ihKA19Vdsq8SZ4GEtt0rr7ezUY247VJpkf94Q8xdmvgO5YT6LHMrQqkmOMW/x2aS
-         O5aw==
+        bh=zeoPQYEaTrf5uEGgRnLGKCII+rVjxqLzd1wRSr/Slf8=;
+        b=sg78OhFyi52k9f7u6DWvLabLZe5vNnzVPsUOX0zpSFHpxjpFSsmryA9ufGDY3qjso9
+         rSmzCuk7eReQ3pv/EZ9k45wtS4hg7k2+RSqwfh0SRA++DbkLIB3ZVqEtFdaJpajBex7n
+         8ULdLUjngbsQt9renHzYIZyg4dGfjxhNDQC59shP4FGczYM1gfSPq5IFN+UItN4rHoVu
+         gVPpUXs/S1Iblkc3FQvMQHOoaVusxOlrW2Lahy5qXpsE31H/RpG+hREMu3js3eOL+KNM
+         K4p87K5/OUaI2geSkQsEFFjWrINpCqa5B1ipqMeZ3fNzdIRUXMCWMJk9Su2UkjySSaP2
+         GVcw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788088515; x=1788693315;
+        d=1e100.net; s=20251104; t=1788088517; x=1788693317;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=5McLVfOcUe323ZqnXbKqgnGk8UnfNHbpkIXezyE7ocw=;
-        b=SLkfAjKUDQQ+YLRnYwkw8GBfSfzfiYjry9Mwa7yXQidhH8thx9ztvSbcLwTUTXhDRt
-         KXgM8Edrz6n14+ouswCtQ+X2yuKkgJQXaG0fBmHKJkdmnwtYI1qxEkAuq2HQ0WSYH5st
-         YHrZP4ppn2GS6SRPBsM1sZSIb5P8czQ0Qa26BpCkDqRh5dxpE/VWusVdCITwjdWRuDqv
-         POqypSGgtFFRqdtE1aphnWHZOAOTsDWj1CBMymoD9xog07bWMbDg2FhUsujdUO4U2kw6
-         YvfLNU1jSIdn5gdPYSYOtX/DeWuKi72WYsdD47lQfIfWpF+4wqYeEe0AWqSQSMGFgqfB
-         tg/A==
-X-Forwarded-Encrypted: i=1; AKwUvBymIBdQvRMCL/KIieEdYWWCezKg9AyUbyVKRo67GOKrYvksZBgWbgQ7sceqh72DBjn77i+4IRntsHC3AnM=@vger.kernel.org
-X-Gm-Message-State: AFuF++mDzC7B3qFLRUz8x9xt4+xU4NBjhtetmOf+wQiENPuHqgqUXBZa
-	jLDHtzOdmHSMzcBYTrXNpD/KCWdutw0/8WDnjXazLNA+iwGldIn3aOZx
-X-Gm-Gg: AYBFou3SbWPycMRmb1DZIMnncLh2EFvbE2Bev17OMXLQYAP/Cdeg5ClF4iPN4lDClzW
-	m9vh1eXekMnOPVEnrDNBhfn0XVnjGesiv+tFEP+EgLt7aFGJYhmdznm606jo1vRL63eghj8PJks
-	m98l2nFJan+i0+et26JgRgjE7/WsyRaGZl8f6lZ4P24UDnjgiG8lZ4RFCJsXKRFgELqgLyojQ8u
-	G8O21CHfoolONnOkA4fUPZs9OPhEEdRtm4sgjBiqiNKGvfTrB/v6TUfGCzYZYVUOzAdmxjHrE+m
-	JvSGjv+jiD2cm8aIZSc2VfhUdXCT9Ccq9ux+pdQTlUyZhPsIP0uZdI6xqAbnlQxHJGPMlQ8rE52
-	GL2evJcIX/I0jBl5QxWiXMKKnSuW2TlYS4sE205PZzrBw3U6k6cQGtOdjbSmcMESrU6tBS8B8Vj
-	gEPQ6x7v3xjqLyLm0JTDa8u45lwqDAhZXElhxnJAu7Wn7t2ljZY6EigDi9FIZGZQbJ2n13QNYUB
-	tVaXWBvmO/s6zH8pby8Gmdls2+yPGh+M95yrVONU1D7Oyawqx/avZb+CImK+g==
-X-Received: by 2002:a17:90b:1d05:b0:396:65dd:4093 with SMTP id 98e67ed59e1d1-396d0ff519cmr31217212a91.14.1788088515276;
-        Sun, 30 Aug 2026 04:15:15 -0700 (PDT)
+        bh=zeoPQYEaTrf5uEGgRnLGKCII+rVjxqLzd1wRSr/Slf8=;
+        b=sXXwhwDlezuPWFZI2NBhBO9aT+O2CHRg0OZrZOSF1WcoABoTBUVXqIjKCtuKg1SPOy
+         LfgJJ4juNx3HS4AhBHfvChWgkhVCMLsIVfqXlvfRi/VvbfNqxHxgxvvPRafFQdPOgxMF
+         jGO7afOkPbZ5aP5Q0hhlsJLshGQex3dERl9wc5d9p5I0yAcWqTdtcQxkpY9wNrcuKk87
+         krdn/G6cmxkHFoNIoTsWaYnOUgPuww/Yy5DSoIiYr1db9hKEx4TU/wBIru0xc38ZVAJ2
+         frP6z6thfI7M/U5op7aKVdxlh8jrTuamLVRPcx9j1tPOIfCIrW9O8HPF5pWZefY7VBAY
+         f8ZA==
+X-Forwarded-Encrypted: i=1; AKwUvBzDFdATjGk55jTVswIKvmVBUE5tCI7+bmhZsFt1nmIfE7Sh/7qt0Wu/Xvne7PVIS9hObpdF08GyFeruTM8=@vger.kernel.org
+X-Gm-Message-State: AFuF++kPclxkeJ+LeuDXGluctwGnTujwZA2q7/exjRLKtyGPp/o2n4XB
+	SfhgaVx0uJHwePovYwpW1OhswXCkQQy06er+IsERse9ik8OTeGRh9hXw
+X-Gm-Gg: AYBFou3WAuH0IUKLBMfHXZsplHkI4BaiV88ErhLjB/i2JGWjlZ2Q/U4BpsfyIqcpoCb
+	Fvgp8SLxiapaW2ZjNgQADitgVnK0+BFnFO3O+IneZPvyuiPr2LRaJzQ4f99Xdn6KsF+MgXxlDEq
+	Kq/YSmN6f3wmum3HMUsfYhcnGugtW1A3lSuMIYfTy7YZYqHknd5cj5gzi2FFvKfUxtcVwJbHqUE
+	V2+bUB50in9GuI4rpqXaxqqJDgNfPXOwmA2tK79izjXAfY+lRzGLm7YO0XgrUy9JJKAcMHNxRaw
+	osGhbC9pJuiNSn+48+yqVwAuwQa+nt8TJ5600GoO9fIG6Z95JWE2/b/eBIKbGlfXLr3CvKVPzUI
+	6HYwmPs3SqNipdVwflzO5/RSuhlBGtvbqKMJclf9hN8P+Er8pNcaiyTqkA2KbfHotlIqdV0+PjA
+	A4QTbLn5Q6HiTTwmtksiNrsdPOZe7OIky4tZReKQ5MWE0cONXmFN1GsDJpC1zhmdeE1lhYLhL1X
+	c9cGUYZEhR3Fp+cLJtvzCHCr1eqRTCTKVTH6UeK7qrzdIiq/5LVwMeyVfwhMsA=
+X-Received: by 2002:a17:902:ec82:b0:2d6:3c2f:6a4 with SMTP id d9443c01a7336-2d74df293c5mr249489195ad.13.1788088516722;
+        Sun, 30 Aug 2026 04:15:16 -0700 (PDT)
 Received: from dtor-ws.sjc.corp.google.com ([2a00:79e0:2ebe:8:c021:485f:75be:3c7])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-32874498f9esm18782313eec.20.2026.08.30.04.15.13
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-32874498f9esm18782313eec.20.2026.08.30.04.15.15
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 30 Aug 2026 04:15:14 -0700 (PDT)
+        Sun, 30 Aug 2026 04:15:15 -0700 (PDT)
 From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Date: Sun, 30 Aug 2026 04:15:05 -0700
-Subject: [PATCH 1/6] platform/x86: x86-android-tablets: fix Arizona GPIO
- swnode references
+Date: Sun, 30 Aug 2026 04:15:06 -0700
+Subject: [PATCH 2/6] platform/x86: x86-android-tablets: hold device
+ reference for secondary fwnode teardown
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -72,7 +72,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260830-x86-android-lenovo-swnode-v1-1-066a91acb4ba@gmail.com>
+Message-Id: <20260830-x86-android-lenovo-swnode-v1-2-066a91acb4ba@gmail.com>
 References: <20260830-x86-android-lenovo-swnode-v1-0-066a91acb4ba@gmail.com>
 In-Reply-To: <20260830-x86-android-lenovo-swnode-v1-0-066a91acb4ba@gmail.com>
 To: Hans de Goede <hansg@kernel.org>, 
@@ -83,92 +83,46 @@ To: Hans de Goede <hansg@kernel.org>,
 Cc: platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
 X-Mailer: b4 0.16-dev-b242f
 
-The standalone arizona_gpiochip_node was created when gpiolib supported
-matching a software node name against the GPIO chip label ("arizona").
-Later, gpiolib replaced name matching with firmware node identity
-mapping (and eventually dropped the fallback mechanism), causing GPIO
-lookups on unattached software nodes to fail.
+In gpio_secondary_fwnode_init(), acpi_bus_find_device_by_name() returns a
+device reference, but the local dev variable is declared with
+__free(put_device), dropping the reference at the end of each iteration.
+Meanwhile, devm_add_action_or_reset() saves the dev pointer for
+gpio_secondary_unset() without incrementing its reference count, which
+could lead to a use-after-free during driver teardown if the device is
+released in the interim.
 
-In gpio-arizona, the GPIO chip inherits the firmware node of the parent
-codec device. Fix the lookups by pointing the GPIO property entries
-directly to the codec device software node (which is attached to the
-parent device) and dropping the obsolete arizona_gpiochip_node.
+Acquire an explicit device reference with get_device() when registering
+the devres action, and drop it with put_device() inside
+gpio_secondary_unset().
 
-Fixes: 611fd6cfe139 ("gpio: swnode: remove deprecated lookup mechanism")
+Fixes: 1448c2d2ca5c ("platform/x86: x86-android-tablets: enable fwnode matching of GPIO chips")
 Assisted-by: LLM
 Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
 ---
- drivers/platform/x86/x86-android-tablets/lenovo.c | 16 +++++++---------
- 1 file changed, 7 insertions(+), 9 deletions(-)
+ drivers/platform/x86/x86-android-tablets/core.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/platform/x86/x86-android-tablets/lenovo.c b/drivers/platform/x86/x86-android-tablets/lenovo.c
-index 8d825e0b4661..c34f62bdf8f9 100644
---- a/drivers/platform/x86/x86-android-tablets/lenovo.c
-+++ b/drivers/platform/x86/x86-android-tablets/lenovo.c
-@@ -61,10 +61,6 @@ static struct lp855x_platform_data lenovo_lp8557_reg_only_pdata = {
- 	.initial_brightness = 128,
- };
+diff --git a/drivers/platform/x86/x86-android-tablets/core.c b/drivers/platform/x86/x86-android-tablets/core.c
+index 5db794d65eb5..722c0ae4ecd1 100644
+--- a/drivers/platform/x86/x86-android-tablets/core.c
++++ b/drivers/platform/x86/x86-android-tablets/core.c
+@@ -367,6 +367,7 @@ static void gpio_secondary_unset(void *data)
+ 	struct device *dev = data;
  
--static const struct software_node arizona_gpiochip_node = {
--	.name = "arizona",
--};
--
- static const struct software_node crystalcove_gpiochip_node = {
- 	.name = "gpio_crystalcove",
- };
-@@ -416,15 +412,17 @@ static const struct platform_device_info lenovo_yoga_tab2_830_1050_pdevs[] __ini
+ 	set_secondary_fwnode(dev, NULL);
++	put_device(dev);
+ }
  
- #define LENOVO_YOGA_TAB2_830_1050_CODEC_NAME "spi-10WM5102:00"
+ static void gpio_secondary_unregister_node_group(void *data)
+@@ -409,7 +410,7 @@ static int gpio_secondary_fwnode_init(struct device *parent)
  
-+static const struct software_node lenovo_yoga_tab2_830_1050_wm5102;
-+
- static const struct property_entry lenovo_yoga_tab2_830_1050_wm1502_props[] = {
- 	PROPERTY_ENTRY_GPIO("reset-gpios",
- 			    &crystalcove_gpiochip_node, 3, GPIO_ACTIVE_HIGH),
- 	PROPERTY_ENTRY_GPIO("wlf,ldoena-gpios",
- 			    &baytrail_gpiochip_nodes[1], 23, GPIO_ACTIVE_HIGH),
- 	PROPERTY_ENTRY_GPIO("wlf,spkvdd-ena-gpios",
--			    &arizona_gpiochip_node, 2, GPIO_ACTIVE_HIGH),
-+			    &lenovo_yoga_tab2_830_1050_wm5102, 2, GPIO_ACTIVE_HIGH),
- 	PROPERTY_ENTRY_GPIO("wlf,micd-pol-gpios",
--			    &arizona_gpiochip_node, 4, GPIO_ACTIVE_LOW),
-+			    &lenovo_yoga_tab2_830_1050_wm5102, 4, GPIO_ACTIVE_LOW),
- 	{ }
- };
+ 		set_secondary_fwnode(dev, fwnode);
  
-@@ -434,7 +432,6 @@ static const struct software_node lenovo_yoga_tab2_830_1050_wm5102 = {
- 
- static const struct software_node *lenovo_yoga_tab2_830_1050_swnodes[] = {
- 	&crystalcove_gpiochip_node,
--	&arizona_gpiochip_node,
- 	&lenovo_yoga_tab2_830_1050_wm5102,
- 	&generic_lipo_hv_4v35_battery_node,
- 	NULL
-@@ -985,13 +982,15 @@ static struct arizona_pdata lenovo_yt3_wm5102_pdata = {
- 	},
- };
- 
-+static const struct software_node lenovo_yt3_wm5102;
-+
- static const struct property_entry lenovo_yt3_wm1502_props[] = {
- 	PROPERTY_ENTRY_GPIO("wlf,spkvdd-ena-gpios",
- 			    &cherryview_gpiochip_nodes[0], 75, GPIO_ACTIVE_HIGH),
- 	PROPERTY_ENTRY_GPIO("wlf,ldoena-gpios",
- 			    &cherryview_gpiochip_nodes[0], 81, GPIO_ACTIVE_HIGH),
- 	PROPERTY_ENTRY_GPIO("reset-gpios", &cherryview_gpiochip_nodes[0], 82, GPIO_ACTIVE_HIGH),
--	PROPERTY_ENTRY_GPIO("wlf,micd-pol-gpios", &arizona_gpiochip_node, 2, GPIO_ACTIVE_HIGH),
-+	PROPERTY_ENTRY_GPIO("wlf,micd-pol-gpios", &lenovo_yt3_wm5102, 2, GPIO_ACTIVE_HIGH),
- 	{ }
- };
- 
-@@ -1001,7 +1000,6 @@ static const struct software_node lenovo_yt3_wm5102 = {
- };
- 
- static const struct software_node *lenovo_yt3_swnodes[] = {
--	&arizona_gpiochip_node,
- 	&lenovo_yt3_wm5102,
- 	NULL
- };
+-		ret = devm_add_action_or_reset(parent, gpio_secondary_unset, dev);
++		ret = devm_add_action_or_reset(parent, gpio_secondary_unset, get_device(dev));
+ 		if (ret)
+ 			return ret;
+ 	}
 
 -- 
 2.55.0.897.gb25b4bd76c-goog
