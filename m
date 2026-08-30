@@ -1,139 +1,285 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1974525785D;
-	Sun, 30 Aug 2026 05:36:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A728C2E285C
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 05:37:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788068178; cv=none; b=W8tA7+8lDyuqCBnokRVIAdy7iJ0XuIpvAhyrI1bIxi9gAxE7s0lF4AB51/Pf+eK5Jt6Llgiq9lUPK+DKWYvD0WvVZRje59B1ijzpofBCF7ogp/izZrT9VKm/Y1IrGBdjgyF0Ttyczg6bymuUu6g1OcxvSbK3RTQJQlTm6R9JYhw=
+	t=1788068272; cv=none; b=fV4QK1P3GA+FZMs+xhksXIVy9nT7KltdFOm+rC2ma30iA9Rp56pqcA1O9T8Ywv14rfGjRohaU5RozKvGkFf/HXpS7jHQMpR9nIdGFdo8iJfDi1A/7GQaFjrU1BiIuKDM9n1lBAYLDhKGX+sbO+bWMqrKQh71Nm19c/WWlXSEZPI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788068178; c=relaxed/simple;
-	bh=ppANgCqYjbrHGJPNi8JX7qDzvfAij53sX9+QybYQSlw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RaDsuKmUL6jHrGL+pnnD5SfZkn3nPRs2VRk+QhYsCm3zfoOuPIRowjgo7mbxz3H9ydG3amYGDnmgn7hXLXMMJ4PoJIKKPkjK4xTXb3zHgOnDhUwrZd+NdH82BikAamYaJuiPQ2W4KLecAtLM7nEN1xRACDsQpC+bVTuhQETZiCk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F5e3f3zr; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788068272; c=relaxed/simple;
+	bh=BD7ztCypMJDfCpj6tlqGZ7aCaEpAc3fAUjhuiUmDFVo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ucG7v9eUQ8pzCTJl0NsIoBgjQiYnRuWcaTxfyTspLVn5PS+42F74B/sfashGN1Sv6XxCGwNtevT5sG8yLHbj81GbjNze9niJlg/2tgN33g87nMSdM47K4GevGkUYiz4LCmaudfoqHhMYBaQcXtfxUtbH8f0Jy/+7Z+qMb7sYT0k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=OJw5zDp5; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F5e3f3zr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9AFA1F000E9;
-	Sun, 30 Aug 2026 05:36:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788068176;
-	bh=dbu7Q3qcydpbduK5d5xuw3bm+6kDkYu6ps7F3h/cYC4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=F5e3f3zrh6K28tm/qQp6Oue55tKOTLOm01Yu0X0OpWd11buxJM+oaQZgRaPgAlviw
-	 orfhumU4zI6rXgZbcTbz0VyTxjMqyrqmt1yX+dwx/pPQKPoDwxaZymNkiEKL37jeMy
-	 m8iwifd6CBos3sCjQc12VSH5HxST5TNAz8sS8HWLLTXtD53zgpGszWjYd1Udf6YqOi
-	 RItioxeawc68IRB5v4ZTiIT2/t0l07vAMlA5MEkxNFTdL0oaOKmRwu/l+811BFK+ra
-	 hPrKDWDpFPIFCqHB2QRZ5eP+KTGkOQHlKN9AYVVTraJss062/hlCVu+RUurmS761IA
-	 JU6btVfCDBo7Q==
-Date: Sun, 30 Aug 2026 08:36:01 +0300
-From: Mike Rapoport <rppt@kernel.org>
-To: Tal Zussman <tz2294@columbia.edu>
-Cc: "David Hildenbrand (Arm)" <david@kernel.org>,
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Barry Song <baohua@kernel.org>, Dev Jain <dev.jain@arm.com>,
-	Hugh Dickins <hughd@google.com>, Jann Horn <jannh@google.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>,
-	Jonathan Corbet <corbet@lwn.net>, Lance Yang <lance.yang@linux.dev>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Michal Hocko <mhocko@suse.com>, Muchun Song <muchun.song@linux.dev>,
-	Nico Pache <nico.pache@linux.dev>,
-	Oscar Salvador <osalvador@suse.de>,
-	Pedro Falcato <pfalcato@suse.de>, Peter Xu <peterx@redhat.com>,
-	Ryan Roberts <ryan.roberts@arm.com>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Usama Arif <usama.arif@linux.dev>,
-	Vlastimil Babka <vbabka@kernel.org>, Zi Yan <ziy@nvidia.com>,
-	linux-doc@vger.kernel.org, linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org,
-	linux-trace-kernel@vger.kernel.org
-Subject: Re: [PATCH 6/6] userfaultfd: collapse VM_UFFD_{MISSING,WP,MINOR,RWP}
- into single VM_UFFD
-Message-ID: <apPBQQ-850DwlCVA@kernel.org>
-References: <20260823-uffd-vm-flags-v1-v1-0-3086981b33cf@kernel.org>
- <20260823-uffd-vm-flags-v1-v1-6-3086981b33cf@kernel.org>
- <ao16VxNvaYzlt2WG@gremlin>
- <ao_9R3CbjYFipFu7@kernel.org>
- <apAB9GSnHNyNoSc1@gremlin>
- <apAcweThjiD-iIBF@gremlin>
- <37f6af95-950e-4457-886e-6548d4719f0d@kernel.org>
- <apK7s4xSgA_GmY7d@kernel.org>
- <178802897277.671075.10362065249796431311.b4-reply@b4>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="OJw5zDp5"
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67U2VgQj2400412;
+	Sun, 30 Aug 2026 05:37:41 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=2I2ajY
+	WCqKEQ9Cd+CeMHNLEbWOrhmNEJMlpAnHbushI=; b=OJw5zDp5xewtqTZiC3YOmZ
+	tTYz/HMEs/r+OA6YRSQXIZvDiAZsYA4mMkW+Om89XUfCWBtb+47GJM93DYllGCsT
+	Qx8FkRyaNxAJaMjt0B/vN08AWRXuX7h7Dxui6azNRj8+aUMl2Rl+Fftb90g/0K2q
+	Qi6I01bJHS28F8xCEqUfF2HItk5TZhaOmjVhFWdKrSdS2JDs/Lhbp5Zk/w7fNddi
+	8ycukp2BENTPIVrICgFrDU/Yx3wZ7em0xmdiMcmoGlDdUPmTi+i4KVHrgiKb3u9u
+	DrKJ6AJTWshuPSgQyWPYxRRsrhBbBBvLEsYqTmdxFvsXTsXTwbA3/uiY4yhMnZcA
+	==
+Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gbpx53nct-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Sun, 30 Aug 2026 05:37:40 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma21.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67U5QItJ020171;
+	Sun, 30 Aug 2026 05:37:39 GMT
+Received: from smtprelay01.fra02v.mail.ibm.com ([9.218.2.227])
+	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gcarjrgeb-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Sun, 30 Aug 2026 05:37:39 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com [10.20.54.100])
+	by smtprelay01.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67U5bbEJ35783086
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Sun, 30 Aug 2026 05:37:37 GMT
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 2E2B020043;
+	Sun, 30 Aug 2026 05:37:37 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 2306720040;
+	Sun, 30 Aug 2026 05:37:33 +0000 (GMT)
+Received: from [9.67.21.115] (unknown [9.67.21.115])
+	by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Sun, 30 Aug 2026 05:37:32 +0000 (GMT)
+Message-ID: <ccf3c0ae-f04b-4d81-b09e-daa5c785ec10@linux.ibm.com>
+Date: Sun, 30 Aug 2026 11:07:30 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <178802897277.671075.10362065249796431311.b4-reply@b4>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 2/9] crash_dump: Disallow writing to dm-crypt configfs
+ during kexec_file_load syscall
+To: Coiby Xu <coiby.xu@gmail.com>
+Cc: kexec@lists.infradead.org, Andrew Morton <akpm@linux-foundation.org>,
+        Baoquan He <baoquan.he@linux.dev>, Dave Young <ruirui.yang@linux.dev>,
+        Pratyush Yadav <pratyush@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+        Pasha Tatashin <pasha.tatashin@soleen.com>,
+        open list <linux-kernel@vger.kernel.org>
+References: <20260828084900.1496839-1-coiby.xu@gmail.com>
+ <20260828084900.1496839-3-coiby.xu@gmail.com>
+ <86f3b10d-6fc2-4dbc-a20b-5d2365601be2@linux.ibm.com> <apLKk_P9wHc9uSZQ@Rk>
+Content-Language: en-US
+From: Sourabh Jain <sourabhjain@linux.ibm.com>
+In-Reply-To: <apLKk_P9wHc9uSZQ@Rk>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Authority-Analysis: v=2.4 cv=PPc/P/qC c=1 sm=1 tr=0 ts=6a93c1a5 cx=c_pps
+ a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=VnNF1IyMAAAA:8
+ a=pGLkceISAAAA:8 a=zrT50iyv3olL9t5bMM8A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: mkVsZ8SwpwOXGIyRlQt0mIzvuPJlsdri
+X-Proofpoint-ORIG-GUID: xzYwBCdw7OZSbcWKYxgx9bhkX4Tcjt3O
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODMwMDA0NCBTYWx0ZWRfX/JqsCKTFy3uX
+ g7VNxjk+7UuR/yP1AD7kTgDm/j1VxUDRQI9UP3XDe115XOZZUpDISiKMrxclbvZZG6kMgF/dDN5
+ 6UDOaOe9aYYrmmFOj66c9o9Yyg7R4tQ=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODMwMDA0NCBTYWx0ZWRfX1mO7/atKZcVY
+ E00wR+Q6vSPuAYmr88LHeujqzuQEfH+ByF1EATmvswwV109k4EjZCAa43nFYThodlKwRF6lfZXN
+ ylikOYt4bwFPHi47vYObkpOPiQ+2pH8jep9IfcQAqkTYOUcp0Ktw81g+4pNK1GUgvRk7sxviBAE
+ drG3/Lxoh89/629YaTDZnmlLKSypbRlsjD1KxFpZgKX3JZtD3XZDNk84fBPySWzJh/dk2vRQLxe
+ E2PQRmduMcGyVhOJNVrEWOjwJpaWcoe9g3w2MDZNLl7x0pp0g4qptEzeUl56SlRCAES3GJU/lDu
+ vQomvfhmsgjMhF7uIdoHryWQe+ifhm/S0P31t/KWCB3+xm2GRBzcl3Y78I94Rf+cq31WBjHedhg
+ Qsftm+CxCSvnpGHQ+uSu5yuxLW1zPac/OvxRh8rBvaCn8/sAHhXEoT36koGipNqRhw3NSKc76Rw
+ wGCHBIiLNTShFp8IwLA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-30_01,2026-08-27_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 phishscore=0 adultscore=0 suspectscore=0 bulkscore=0
+ spamscore=0 priorityscore=1501 impostorscore=0 malwarescore=0
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2608300044
 
-On Sat, Aug 29, 2026 at 02:42:52PM -0400, Tal Zussman wrote:
-> On 2026-08-29 14:00 +0300, Mike Rapoport wrote:
-> > On Thu, Aug 27, 2026 at 05:19:30PM +0200, David Hildenbrand (Arm) wrote:
-> > > On 8/27/26 13:18, Lorenzo Stoakes (ARM) wrote:
-> > > > On Thu, Aug 27, 2026 at 12:16:32PM +0100, Lorenzo Stoakes (ARM) wrote:
-> > > >> So actually you're increasing by a cacheline and increasing the VMA size by
-> > > >> 64 bytes, i.e. 1/3, which is unacceptable obviously.
-> > > >>
-> > > >> Maybe there's something that can be done with:
-> > > >>
-> > > >> 		/* forced alignments: 1 */
-> > > >>
-> > > >> Perhaps? But that looks potentially ugly.
-> > > >>
-> > > > 
-> > > > I say elsewhere (or think I do) but to highlight - I think probably we could fix
-> > > > this by putting the flags in the low bits of vm_uffd_state.ctx?
-> > > 
-> > > if that's possible that would be clearly preferable memory-wise.
-> > 
-> > This gives only 4 bits and makes this completely not extendable.
-> 
-> Wouldn't it be 6 bits? struct userfaultfd_ctx is allocated with
-> kmem_cache_create() and SLAB_HWCACHE_ALIGN, and most of the flags are
-> only available on 64 bit, so it should be 64-byte aligned in the
-> relevant cases.
-> 
-> (Not that 6 is that much better than 4... but it's a little more wiggle
-> room.)
 
-I did remember that SLAB_HWCACHE_ALIGN could be as small as 16 bytes, but I
-didn't verify it for architectures that support fancy uffd modes.
- 
-> It could in theory also be bumped up to 7 by setting align in
-> kmem_cache_create(). userfaultfd_ctx already takes 192 bytes due to
-> existing alignment. Aligning it to 128 bytes would make it 256 bytes,
-> adding 64 bytes to each uffd rather than each VMA. But this sounds like
-> more pain for little gain :)
 
-Yeah, even with as plenty as 7 bits :)
- 
-> > So I think I'll drop this for now and wait until VMA grows another cache
-> > line or until having per-VMA uffd state rather than a pointer to per-fd
-> > context is a must.
-> >  
-> > > -- 
-> > > Cheers,
-> > > 
-> > > David
-> > 
-> > -- 
-> > Sincerely yours,
-> > Mike.
-> > 
-> > 
-> 
-> 
+On 29/08/26 17:47, Coiby Xu wrote:
+> On Sat, Aug 29, 2026 at 12:32:46PM +0530, Sourabh Jain wrote:
+>>
+>>
+>> On 28/08/26 14:18, Coiby Xu wrote:
+>>> If writing to the configfs group happens concurrently during
+>>> kexec_file_load syscall, it may lead to the following issues,
+>>>   - buffer overflow if dm-crypt keys are added after allocation
+>>>   - stale total_keys if dm-crypt keys are removed during iteration
+>>>   - keys_header will not be freed if config/crash_dm_crypt_key/reuse is
+>>>     set true
+>>>
+>>> So hold config_keys_subsys.su_mutex for the entire sequence during the
+>>> kexec_file_load syscall to ensure a consistent snapshot. To have serial
+>>> access to config/crash_dm_crypt_key/reuse, use the kexec lock as we 
+>>> also
+>>> need to access kexec_crash_image serially.
+>>>
+>>> Fixes: 479e58549b0f ("crash_dump: store dm crypt keys in kdump 
+>>> reserved memory")
+>>> Suggested-by: Sourabh Jain <sourabhjain@linux.ibm.com>
+>>> Signed-off-by: Coiby Xu <coiby.xu@gmail.com>
+>>> ---
+>>>  kernel/crash_dump_dm_crypt.c | 28 ++++++++++++++++++++++++----
+>>>  1 file changed, 24 insertions(+), 4 deletions(-)
+>>>
+>>> diff --git a/kernel/crash_dump_dm_crypt.c 
+>>> b/kernel/crash_dump_dm_crypt.c
+>>> index 4335b6cb1fc4..026c7de4ad85 100644
+>>> --- a/kernel/crash_dump_dm_crypt.c
+>>> +++ b/kernel/crash_dump_dm_crypt.c
+>>> @@ -7,6 +7,7 @@
+>>>  #include <linux/configfs.h>
+>>>  #include <linux/module.h>
+>>>  #include <linux/sysfs.h>
+>>> +#include "kexec_internal.h"
+>>>  #define KEY_NUM_MAX 128    /* maximum dm crypt keys */
+>>>  #define KEY_SIZE_MAX 256    /* maximum dm crypt key size */
+>>> @@ -296,14 +297,20 @@ static ssize_t config_keys_reuse_store(struct 
+>>> config_item *item,
+>>>      bool val;
+>>>      int r;
+>>> +    if (!kexec_trylock()) {
+>>> +        r = -EBUSY;
+>>> +        goto unlock;
+>>
+>>
+>> Are we unlocking a lock that we didn't acquire? How about returning 
+>> -EBUSY directly instead?
+>
+> Ah, thanks for catching my mistake! And also thanks for prioritizing
+> reviewing my patch!
 
--- 
-Sincerely yours,
-Mike.
+No worries at all! Happy to help, and thanks for the patch.
+
+
+>
+>>
+>>
+>>> +    }
+>>> +
+>>> +    r = -EINVAL;
+>>>      if (!kexec_crash_image || 
+>>> !kexec_crash_image->dm_crypt_keys_addr) {
+>>>          kexec_dprintk(
+>>>              "dm-crypt keys haven't be saved to crash-reserved 
+>>> memory\n");
+>>> -        return -EINVAL;
+>>> +        goto unlock;
+>>>      }
+>>>      if (kstrtobool(page, &val) || !val)
+>>> -        return -EINVAL;
+>>> +        goto unlock;
+>>>      if (is_dm_key_reused) {
+>>>          pr_info("Already got dm-crypt keys, please continue with 
+>>> kexec_file_load syscall\n");
+>>> @@ -311,12 +318,15 @@ static ssize_t config_keys_reuse_store(struct 
+>>> config_item *item,
+>>>          r = get_keys_from_kdump_reserved_memory();
+>>>          if (r) {
+>>>              pr_warn("Failed to get dm-crypt keys from reserved 
+>>> memory\n");
+>>> -            return r;
+>>> +            goto unlock;
+>>>          }
+>>>          is_dm_key_reused = true;
+>> [...]
+>>>      }
+>>> -    return count;
+>>> +    r = count;
+>>> +unlock:
+>>> +    kexec_unlock();
+>>> +    return r;
+>>>  }
+>>>  CONFIGFS_ATTR(config_keys_, reuse);
+>>> @@ -421,6 +431,8 @@ static int build_keys_header(void)
+>>>      return 0;
+>>>  }
+>>> +static bool mutex_acquired;
+>>> +
+>>>  int crash_load_dm_crypt_keys(struct kimage *image)
+>>>  {
+>>>      struct kexec_buf kbuf = {
+>>> @@ -432,6 +444,9 @@ int crash_load_dm_crypt_keys(struct kimage *image)
+>>>      };
+>>>      int r = 0;
+>>> +    mutex_lock(&config_keys_subsys.su_mutex);
+>>> +    mutex_acquired = true;
+>>> +
+>>>      if (key_count <= 0) {
+>>>          kexec_dprintk("No dm-crypt keys\n");
+>>>          return 0;
+>>> @@ -481,6 +496,11 @@ void 
+>>> kexec_file_post_load_cleanup_dm_crypt(struct kimage *image)
+>>
+>> I explored the kexec_file_load syscall entry path and noticed
+>> that there is a path where the call to
+>> kimage_file_post_load_cleanup() can be skipped.
+>>
+>> For example, if kexec_file_load is called and everything goes well
+>> but kexec_post_load() fails, we skip
+>> kimage_file_post_load_cleanup(), and consequently
+>> kexec_file_post_load_cleanup_dm_crypt() as well.
+>>
+>> If that happens, the config_keys_subsys.su_mutex remains locked,
+>> which could cause problems with the next kexec load, right?
+>
+> Thanks for exploring the kexec_file_load syscall entry path! I took a
+> further look at it. Even though kimage_file_post_load_cleanup can be
+> skipped, kimage_free will be called regardless which will in turn call
+> kimage_file_post_load_cleanup.
+
+Ah yes, I missed that. That said, we are calling
+kimage_file_post_load_cleanup() twice for every kexec_file_load, so this
+needs to be looked into separately.
+
+>     // kernel/kexec_core.c
+>     void kimage_free(struct kimage *image)
+>     {
+>         /*
+>          * Free up any temporary buffers allocated. This might hit if
+>          * error occurred much later after buffer allocation.
+>          */
+>         if (image->file_mode)
+>             kimage_file_post_load_cleanup(image);
+>     }
+>
+> But I realize by using kexec lock to ensure serial access to
+> is_dm_key_reused, we can actually release the mutex lock at the end of
+> crash_load_dm_crypt_keys function which can make the code simpler and
+> potentially more robust. Thanks for inspiring me to find a better
+> way!
+
+That will be good. Lock ownership will be with just one function, which 
+will make
+things easier to manage.
+
+- Sourabh Jain
+
+>>
+>>>          kfree_sensitive(keys_header);
+>>>          keys_header = NULL;
+>>>      }
+>>> +
+>>> +    if (mutex_acquired) {
+>>> +        mutex_unlock(&config_keys_subsys.su_mutex);
+>>> +        mutex_acquired = false;
+>>> +    }
+>>>  }
+>>>  static int __init configfs_dmcrypt_keys_init(void)
+>>
+>
+
