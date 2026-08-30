@@ -1,94 +1,189 @@
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2471119049B;
-	Sun, 30 Aug 2026 13:06:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 441F0309EF4
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 13:06:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788095179; cv=none; b=OSwwmL0djvOK7KpI7yEpxpODtZfJ7+BFAR/6iQisrtsKWybEKvAoa6w46zNR62g3FyUdQsp3NGAOrWOCIREQ5CcJ4nF2AoIBY2qHnE4qGH04wArUqyiG2X86pDJWy5JELZWRr4kk2tns2jVj0eebKXKp4jiM8um6hbtj0rGIxgs=
+	t=1788095204; cv=none; b=gfxJzhQ1V8xKOGMbM/NbgFU1KEPIZy2yloDf43xwItxvDf8olxSgIkqQ60dKoEK5PAZvIy2e3cAgqyaidhITWndUGk55Icny0NJWne1Q0jh8uTA2b145kNff6MBTOKWtBRaxzBBYZdO1iys117m1ktQxuDhJXuygDvqxdoPvwcw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788095179; c=relaxed/simple;
-	bh=yp9XlnF/QYne/dRHa6riBQMBmcT18ZyLfr3TR5YqCtA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qG4+L0zMv+Sc3y7lj8e0FEbvk9zp1yzltbOGxHHU4Z+M0I5C2g413ENL6+TlgwV7vEQniYccPVtfk62cYRhL1DtsIylZ1cm5nknkOKTQtUE1uj4TXaho7ILxDzvugEtItKBWLoop+hAteq+Q8sTZE+fmb3A4FfPxt9NCTg6rz98=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from localhost.localdomain (unknown [111.196.241.250])
-	by APP-03 (Coremail) with SMTP id rQCowAAXGzm6KpRqe9GaBg--.26886S2;
-	Sun, 30 Aug 2026 21:06:02 +0800 (CST)
-From: Pengpeng Hou <pengpeng@iscas.ac.cn>
-To: Ryan Chen <ryan_chen@aspeedtech.com>
-Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>,
-	Benjamin Herrenschmidt <benh@kernel.crashing.org>,
-	Joel Stanley <joel@jms.id.au>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	Andrew Jeffery <andrew@codeconstruct.com.au>,
-	Billy Tsai <billy_tsai@aspeedtech.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	linux-i2c@vger.kernel.org,
-	openbmc@lists.ozlabs.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-aspeed@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] i2c: aspeed: propagate reset deassert errors
-Date: Sun, 30 Aug 2026 21:06:00 +0800
-Message-ID: <20260830130600.560-1-pengpeng@iscas.ac.cn>
-X-Mailer: git-send-email 2.50.1
+	s=arc-20240116; t=1788095204; c=relaxed/simple;
+	bh=WjEdZj/N+aOfZRtaHCBCBk/U7+N/dXvDf3LoxLpJh4Y=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=OaOauq9BMAR+Nhi+OAHM1WkAsMf6JKnPw77M7hPZh8kgjm2fYTQpqVW9GSobawrwzfFwQWw3HQux0zV7z5PtZqSutJzNjEQoIbQzUqmfKcWGvLyYsBzveD3gLsEUOGK8U/7tQmpSNBMIO2naaL5iaAYS3v1+n4w8yW/iFYr3YJ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=aK1cIaHn; arc=none smtp.client-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="aK1cIaHn"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-49557167508so26427395e9.1
+        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 06:06:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1788095201; x=1788700001; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=jq+ZfaXrZvTkZsYgTJsjcj34MHFpmYRP4Z0eWcu7sE0=;
+        b=aK1cIaHnG0w75USItbRI0E+X1hYDgQkdqMGGamw3fzLpFXI9NNq9tz2gWRiNE97lCY
+         0vGhj10NtHt/ZRD7ghLbtHcz7qnv+LnOWkFuGKhWV/pU5HoiadiGNGvYA3PHAuUZTg/I
+         aJhIQoo70Mq73/XciZzdxvRcVjg7XCmD1qfJMwKcx2x/ibD9j5vMLpYU2EFj/4FivuA8
+         k+UPaw2m29qvE+AFj3MKpJ2wi4AjRA3BbwiuPdfR+EPffzk2YBo0HXUVXEfPVdRBb4RG
+         ilDcuj+5bJq4+85d24mkR9I6Yu+GzfRf6i9rZE+rYlTYbBknM6Q04+Z7nABv7joWzith
+         yDDg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788095201; x=1788700001;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=jq+ZfaXrZvTkZsYgTJsjcj34MHFpmYRP4Z0eWcu7sE0=;
+        b=oSf4SbmeAgqdRhlw0KKv2zvyqEzanLtO069rONWBXKssXuagOFYCxbxTKuoV2gwq+q
+         FUTsjLjgm/x6bG3jZepqW8YdgQJ37RpIuahoIg6g0ykipgeuwyY4i9ePVtSrcbGEELoK
+         PQk3O+4YNLvd19qkIl2FpGSDJvIRA3ObHcjzY1HMYrq9o53xt1V22hPm/47sDE+nTlCc
+         i0yODfCiZ+sNMVEg2Aoi1v/BlBsXPoTuyPGgoIlDwwrFxBaZcvADPI6czO1DM7Wo7L9C
+         S+3dM0L+rJzCaLlurbB7WUw5pW42Vem8XOW6d2MBT8jYivC1uoJo5lq4wGLXfq1OyJZP
+         LAYw==
+X-Forwarded-Encrypted: i=1; AHgh+RoLetbFBEJLQmNM99xvCwOi6f5WdOZNhsQCovjJNrvJHdBoCdcV8c3NoroJ3oyS5w0bPtfl2qfQ+OZ7WkU=@vger.kernel.org
+X-Gm-Message-State: AFuF++mwIpi9AWF0r4FV+zKll/s6w6RiKRD73OxQTZOIm+vD8QIULtdD
+	OfstZC+97gMxoeUVVUe15LHhJ+9Z75163d8wWqNn4SpMxdRxApP7wEcWC3yS4PAxAzM=
+X-Gm-Gg: AR+sD10W55E/egDTlCmZbCv3T29i0nBKmIYnoisBUA+aRZIO3SgR5meB+GvOT0FYdx1
+	XfAMCH32wKd6+miDXMuJIMyCaaxGZ62PCuw3olZldwMw4D+F/sZOOuF2FEK9+imWENUMgyQl37r
+	Lqp2EtEls1kPMdrNyjeK1EMWNWHbMQLYU0RMDkzu2BR+ebO74JBVvHGPtCSXdfcVHJgCRVRdvaL
+	keK712AdVTe2eUhRcLfDfggSC0pC4LarqUroAnjhlKkv/LntQi3d2wyOm4VmElc+stH6S3Ajjjt
+	wUJb+K4lxDEOfLSNdeRdrZNTk31QwwE4m+kX2GgT8QOo8ZoN4y0hPwM0cuPzJeYmwg7ntOoqUnF
+	cgJ3JocZgbR3dNFua9XascWCy29QXZ/wCRUuH7L/V+7NwCevHOHE7WqAxSrRREZICx19hotA+GB
+	oSDTBeCZxrTV1tIo+X2YEAA/+t6nlNPOVP++dh0MjAq8hzNGNjV3jyHlVEBMFmGadWyU0AItbd
+X-Received: by 2002:a05:600c:19ca:b0:495:52a5:8829 with SMTP id 5b1f17b1804b1-49b91c47b3dmr274079255e9.11.1788095201493;
+        Sun, 30 Aug 2026 06:06:41 -0700 (PDT)
+Received: from [192.168.1.36] ([83.214.235.72])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482fbb20713sm15406915f8f.21.2026.08.30.06.06.36
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 30 Aug 2026 06:06:41 -0700 (PDT)
+Message-ID: <b9270c4d-bb7c-4c69-ad18-8481b43a48ea@linaro.org>
+Date: Sun, 30 Aug 2026 15:06:34 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowAAXGzm6KpRqe9GaBg--.26886S2
-X-Coremail-Antispam: 1UD129KBjvdXoWrZw1DGFyxKw13Jw18GF4kZwb_yoWkCrXE9F
-	1kW3ZxXrn8CrZY9w15J3y3ZrZIkF909F1kW3WUtw1SkFyjvayUXF1DZr95Ar43Xr12gFy7
-	u3WYvr4fAwnrGjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUb3kFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
-	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
-	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr0_
-	Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I8E87Iv6xkF7I0E14v26F4UJV
-	W0owAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
-	I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r
-	4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628v
-	n2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7x
-	kEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E
-	67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCVW8Jw
-	CI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1x
-	MIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIda
-	VFxhVjvjDU0xZFpf9x0JUgXocUUUUU=
-X-CM-SenderInfo: pshqw1xhqjqxpvfd2hldfou0/
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH 2/4] arm64: dts: amlogic: t7: fix the pin groups of two
+ PWM outputs
+To: Lucas Tanure <tanure@linux.com>, Kevin Hilman <khilman@baylibre.com>,
+ Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>
+Cc: Jian Hu <jian.hu@amlogic.com>, Ronald Claveau
+ <linux-kernel-dev@aliel.fr>, Brian Masney <bmasney@redhat.com>,
+ Chuan Liu <chuan.liu@amlogic.com>, linux-arm-kernel@lists.infradead.org,
+ linux-amlogic@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org
+References: <20260829094758.23248-1-tanure@linux.com>
+ <20260829094758.23248-3-tanure@linux.com>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20260829094758.23248-3-tanure@linux.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-aspeed_i2c_probe_bus() initializes and registers an adapter after
-deasserting its shared reset, without checking whether the reset provider
-accepted that transition.
+On 8/29/26 11:47, Lucas Tanure wrote:
+> Two of the PWM outputs can each appear on more than one pin, but the
+> description named a single group that does not exist, so anything using
+> it refused to start.
+> 
+> Name the real groups instead, one entry per pin, the same way the other
+> multi-pin PWM output is already described.
+> 
+> Fixes: 2a2a7b9701a7 ("arm64: dts: amlogic: t7: Add PWM pinctrl nodes")
+> Assisted-by: Claude:claude-opus-5
+> Signed-off-by: Lucas Tanure <tanure@linux.com>
+> ---
+>   arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi | 32 ++++++++++++++++++---
+>   1 file changed, 28 insertions(+), 4 deletions(-)
+> 
+> diff --git a/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi b/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
+> index c3dc479b137d..8c4bd683cce0 100644
+> --- a/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
+> +++ b/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
+> @@ -458,9 +458,25 @@ mux {
+>   					};
+>   				};
+>   
+> -				pwm_ao_g_pins: pwm-ao-g {
+> +				pwm_ao_g_d11_pins: pwm-ao-g-d11 {
+>   					mux {
+> -						groups = "pwm_ao_g";
+> +						groups = "pwm_ao_g_d11";
+> +						function = "pwm_ao_g";
+> +						bias-disable;
+> +					};
+> +				};
+> +
+> +				pwm_ao_g_d7_pins: pwm-ao-g-d7 {
+> +					mux {
+> +						groups = "pwm_ao_g_d7";
+> +						function = "pwm_ao_g";
+> +						bias-disable;
+> +					};
+> +				};
+> +
+> +				pwm_ao_g_e_pins: pwm-ao-g-e {
+> +					mux {
+> +						groups = "pwm_ao_g_e";
+>   						function = "pwm_ao_g";
+>   						bias-disable;
+>   					};
+> @@ -474,9 +490,17 @@ mux {
+>   					};
+>   				};
+>   
+> -				pwm_ao_h_pins: pwm-ao-h {
+> +				pwm_ao_h_d5_pins: pwm-ao-h-d5 {
+> +					mux {
+> +						groups = "pwm_ao_h_d5";
+> +						function = "pwm_ao_h";
+> +						bias-disable;
+> +					};
+> +				};
+> +
+> +				pwm_ao_h_d10_pins: pwm-ao-h-d10 {
+>   					mux {
+> -						groups = "pwm_ao_h";
+> +						groups = "pwm_ao_h_d10";
+>   						function = "pwm_ao_h";
+>   						bias-disable;
+>   					};
 
-Do not publish an adapter whose controller may still be held in reset.
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 
-Fixes: edd20e95bca4 ("i2c: aspeed: Deassert reset in probe")
-Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
----
- drivers/i2c/busses/i2c-aspeed.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/i2c/busses/i2c-aspeed.c b/drivers/i2c/busses/i2c-aspeed.c
-index a26b74c712061..bf29719bab1ea 100644
---- a/drivers/i2c/busses/i2c-aspeed.c
-+++ b/drivers/i2c/busses/i2c-aspeed.c
-@@ -1023,7 +1023,9 @@ static int aspeed_i2c_probe_bus(struct platform_device *pdev)
- 			"missing or invalid reset controller device tree entry\n");
- 		return PTR_ERR(bus->rst);
- 	}
--	reset_control_deassert(bus->rst);
-+	ret = reset_control_deassert(bus->rst);
-+	if (ret)
-+		return ret;
- 
- 	ret = of_property_read_u32(pdev->dev.of_node,
- 				   "bus-frequency", &bus->bus_frequency);
-
-base-commit: 08dbfad3f5040f5bdb6c529da20d6d4e81fefd72
--- 
-2.50.1
-
+Thanks,
+Neil
