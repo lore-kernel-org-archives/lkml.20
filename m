@@ -1,244 +1,164 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90F44279907;
-	Sun, 30 Aug 2026 21:00:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB92D32AAD6
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 21:00:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788123657; cv=none; b=sLlfFqE6xZPSR2utgf2Z4lNqe1iSmX2o0R0/WCGOt0uNHzQR5JEdtRBgQ80CFD0EOAVuNnFSMjsuif+MLTfnDq3LniiILAlMVeCzwGQX7k0qGxHLWPIZ6bgs3vZHfmeT4j/xSw4HGRwIg9XauLFiFPyFz9AywARib65jSK3xn8k=
+	t=1788123661; cv=none; b=YebRRC7nXWqFcLhTjT5gAPDPcVTTEbykhaHOz/bccH2bnTOMugzFMnjb50Lx5LaAPp1cZzwyYJxnxD4DIEq2ouQw6yuObviVcURdS1hmXt5bhWsNqJObprhcXL7CJC6FqlI+DrebnYY2gwBh7XbXITFBaKOL0fVu3RbEdOe0JQU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788123657; c=relaxed/simple;
-	bh=nw+Y9zFroB6yPKvqzQTMcfA0M2z+Wmw2rDDJgwrAP4Q=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=s5NwykazdolkcY7y0s1At+tuthp/7owH7EMrLiL4//19dYoNEZHL3A6E/wPuoIYJeFCNqTnoJuPWnl2IY8n+a8JFmZJcaq+jCV3RURGSdwY4pgCbzWoP5jC99QjJ9LUI8Wmf+sYJuWcZCiKEVxo51AKFW3ooRmbADp4qLVi3iM8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FXHrID5o; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FXHrID5o"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2316F1F00A3D;
-	Sun, 30 Aug 2026 21:00:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788123656;
-	bh=ychzp4QE8CYMx3sUGGqXn0rCA2pRhz4wz69YCWiLapo=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=FXHrID5oRLnaDM9Uznvmxfirtn2fkKlNObIoMdVFiIjrmq8KltUAroGXqIgzNM8QK
-	 177r/Gif/EAO+rwgmNamIkxSKCKLIzj/qEr2Mu9v20SJDinFvbKUDzLmZWEMfLdKjK
-	 H6n9R+6K0SVd4Zif6pKN10JwJcTKKhKfYm05QLDmy8s3pbhcEIDn2AkWs71evAOyFy
-	 4utzbIZ9smWUIILfzMNIHxqyCKBGxJlj/nW0cZAeKQvjUMI6CsD+pCZxmj9Uav3BAq
-	 Xi+w5Ollo+pEXvOeRCVYEpKiuaAjAvLq+00YanC3Yo1THIwweqv5h5knPg4LzRQNRZ
-	 nk26jxzsVd63Q==
+	s=arc-20240116; t=1788123661; c=relaxed/simple;
+	bh=48Z8pADhloahzqwHkrwsTajEqIpsHa3c3IQHLONLmVc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=JHmHCxkdvRaoJbPXSmDLugmSMuaHVj5+BpgZil4cyt9Mzku/MCAPnFhEWxRDfQASE+TyWDRUeOTiXyM/tC2OurebEauZDvkwpIVHrAJG3kGeDf4OPb1fFuoMptme/VDOYsq/nxRNxD0Y6YhEd87jElsZTyvMwYhgMPaq2FnLfkA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=grimberg.me; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=grimberg.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-49b0d78a801so21310835e9.2
+        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 14:00:59 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788123658; x=1788728458;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+SUPoHHPw0mF/bch7D9vN3W20nq3H4FIOb7kgeyb72g=;
+        b=XPUdhlfeP1Zd+2ti9ZpsGnVGhzNESm/yZyDB7SL/eSeLZ7L97INzoeiFm5vcljx6dh
+         egLugJd3/Zzz74ccdUR7E6BneOXN8iu+gwLGzSLIqeL14I3YMd2fmay4t5J40Adysf0q
+         lP3fkmmUNxlIA/itYtX/7U8rsZcn+Sxla+2ad/jlvBQKTHBQYDtQJVi6xq4NZXgjR3cc
+         g5Wg7Gys2f/qVNFkDGNsckwYl+tqL7ke1nUd9CTt+oMjd7Syms4i0paOF8/Jatg80cyH
+         sPk1aW5agpLQNxz4pjYM7/N2UmeOFjqkVS8AGUmf8NSFPeToPEAEG667Xe2xtVViyw0J
+         CUBg==
+X-Forwarded-Encrypted: i=1; AHgh+RqnJvShDFtk2s3vIL2X7HzeTPIpvim0ii4eYlzr6WXO0TJSh2mtECPz7ftuetSV/FYjUspWG4lZ1ClzDpo=@vger.kernel.org
+X-Gm-Message-State: AFuF++kjj0YDrcALVKu0pn6U7nICNDXTW0/K/vd2SkWQK5oKOCqL6108
+	FVcKDVQPcDoQ4ei2zWnMuemvuIsiFz3Vdo5wWbHE2y9MQIeSBm8DwQI+ezOWbn7s51c=
+X-Gm-Gg: AR+sD136DPIw92is5E4S6PWV/LS65U9M+nOVFQlz9Iz/GFZvc1UpJCiWuCQ/4sDWvhR
+	EXEm+QeeCCClqiOQTQ1dArsY7+zFMn+n8ry147K+aAhMPcETVAMhIsPjlOU8HhAIPbi89Fgbn3Y
+	wuU8OXEb5lMYLp3dW7yFc9u11ZVBBmY2Daz+9RW6lEUzVUtCaqCZIoZydsKgZB1KnXr6dSMt7kf
+	LuRRy+Xi1OHWzIkhXg6DY89Vy5N0UFK+LThEh7LbwQic2KM2jqMCcB0Gdt0o3RaGlzk0RIUWG+G
+	YrYyssWZ/liHuN7ZKQRWFUUllN279ZYMjfzr/PW3/oNYUW26lE2Puh/YWK3lNSB4leeprVP/zKS
+	DR4q8m81mZ7slzjWJMZCd0ab1/y5cm6oS+YZ8yOz6kwdhs3XXoMeGGStjLOq55ipIp1NAmEhi5l
+	zLBsB11uiGhjPn6+8WawcI2or+b9yaHIZEQhhmc8vMhBER13LjN8TRlO7s5r6vyOzlSWOAMjdBm
+	1sisXltDInhVgJ69TonwQ==
+X-Received: by 2002:a05:600c:5487:b0:495:7888:281c with SMTP id 5b1f17b1804b1-49b91bd1463mr258542345e9.0.1788123657772;
+        Sun, 30 Aug 2026 14:00:57 -0700 (PDT)
+Received: from [10.100.102.74] (89-138-77-243.bb.netvision.net.il. [89.138.77.243])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b9500c80asm270763245e9.9.2026.08.30.14.00.56
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 30 Aug 2026 14:00:57 -0700 (PDT)
+Message-ID: <a1770149-e633-4a58-af06-849da27fa7cb@grimberg.me>
+Date: Mon, 31 Aug 2026 00:00:56 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] nvmet-tcp: report a bounded MDTS instead of "no limit"
+To: Alfonso Kuen <gerencia@idkmanager.com>, hch@lst.de, kch@nvidia.com
+Cc: linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20260828222356.1264-1-gerencia@idkmanager.com>
+ <20260829013900.10392-1-gerencia@idkmanager.com>
+Content-Language: en-US
+From: Sagi Grimberg <sagi@grimberg.me>
+In-Reply-To: <20260829013900.10392-1-gerencia@idkmanager.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v4 3/3] iio: adc: ti-ads112c14: add continuous mode
- support
-From: Jonathan Cameron <jic23@kernel.org>
-To: "David Lechner (TI)" <dlechner@baylibre.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>, Chris Hall <c-hall@ti.com>, 
- Patrick Edwards <pedwards@ti.com>, Kurt Borja <kuurtb@gmail.com>, 
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260827-iio-adc-ti-ads112c14-continuous-mode-v4-3-1e51a6e20a69@baylibre.com>
-References: <20260827-iio-adc-ti-ads112c14-continuous-mode-v4-0-1e51a6e20a69@baylibre.com>
- <20260827-iio-adc-ti-ads112c14-continuous-mode-v4-3-1e51a6e20a69@baylibre.com>
-Date: Sun, 30 Aug 2026 22:00:34 +0100
-Message-Id: <178812363490.2788519.7648614173312615575.b4-review@b4>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6111;
- i=jonathan.cameron@oss.qualcomm.com; h=from:subject:message-id;
- bh=nw+Y9zFroB6yPKvqzQTMcfA0M2z+Wmw2rDDJgwrAP4Q=;
- b=owEBfwKA/ZANAwAKAVSFNJnE9BaIAcsmYgBqlJoFnFBpqNMN3DzmZ6MK1rYhA3SoSUuKeSyJU
- ZNMEl9jnLuJAkUEAAEKAC8WIQRuKWazh4QGUpEmgbFUhTSZxPQWiAUCapSaBREcamljMjNAa2Vy
- bmVsLm9yZwAKCRBUhTSZxPQWiDvRD/4hYBihT31nGeAeomIRaZOcOktnGza2w0+WxAHb0DByEPC
- uf3LSEA5fmJ6aKHjaixFnGP5AvwkETB2EzNSTM4E/THf+bINQgTgkH2CE3kHfBOv4YIOFsXxApc
- bXFCpEh23eVI2I1I3z4Gm/J8JJcROiRDjGmSyaDUqLBPAYZBMRb/xE3kxM/7zeaXTA14xpEPPym
- L2Frvp99WzU2Zp+dE+otvOBy5InLJ1FfVGeHgoSd4WORPpqSdTI3xKxJrcVZtfDrhIWbYWvcau4
- 9ZjdNQJvki6gvlmk+FNVy8PY6q7QIZN673/QjdbFurxN9I2WqqUwwSZoBJ5ejKgYEVgHL3rXlwn
- JRBR15b81pCXD3RR2erJEW1tIoWHfs0OEW2pYf+Bv3EvVxy2QnVS0w6hcTLQzCccbNTj9a24rLQ
- RanAGot8r1WmsMn4E8UCLpXDbppJDbr0m7l2zSico9fRDDYCWSn/ta7PzTaSxIquhNPB4AgLm1c
- hmclkOsee1Gu+mXsu1idehX6IyFfoXVF8UbrZbDdB3o6Z5w4zgXv2eJKViIN3arqD/vwfVXkeAs
- 4EdRUxIcGPXFNSsKDNaTRzqGAOnI1rJT1wZbDojgNxwPhCTqnEnnE16L3+lnSNv0B+/ozDve4l3
- LOnvbhA84+IQ0bEusIWy1Xd8ONR0fvqHzML1Q7w==
-X-Developer-Key: i=jonathan.cameron@oss.qualcomm.com; a=openpgp;
- fpr=6E2966B387840652912681B154853499C4F41688
 
-> Add support for continuous mode in the TI ADS112C14 ADC driver. In this
-> mode the ADC itself is starting each conversion, so we add a trigger
-> based on the DRDY interrupt to read each sample. This mode is also
-> limited in that only one channel can be enabled at a time since the
-> chip does not have a sequencer or simultaneous sampling capability.
-> Continuous mode will only be used when this new trigger is the current
-> trigger.
-> 
-> Signed-off-by: David Lechner (TI) <dlechner@baylibre.com>
-Sashiko caught some interesting things in this one.
 
-See inline.
 
+On 29/08/2026 4:39, Alfonso Kuen wrote:
+> nvmet-tcp does not implement .get_mdts, so nvmet_ctrl_mdts() falls back
+> to the port value (0 by default) and identify-controller advertises "no
+> maximum data transfer size". The initiator believes it:
+> nvme_init_ctrl_finish() sets max_hw_sectors to UINT_MAX.
 >
-> diff --git a/drivers/iio/adc/ti-ads112c14.c b/drivers/iio/adc/ti-ads112c14.c
-> index 23f15be303fb..878764deffc5 100644
-> --- a/drivers/iio/adc/ti-ads112c14.c
-> +++ b/drivers/iio/adc/ti-ads112c14.c
-> @@ -9,6 +9,7 @@
->   */
->  
->  #include <linux/bitfield.h>
-> +#include <linux/bitmap.h>
->  #include <linux/cleanup.h>
->  #include <linux/completion.h>
->  #include <linux/crc8.h>
-> @@ -18,6 +19,7 @@
->  #include <linux/i2c.h>
->  #include <linux/iio/buffer.h>
->  #include <linux/iio/iio.h>
-> +#include <linux/iio/trigger.h>
->  #include <linux/iio/trigger_consumer.h>
->  #include <linux/iio/triggered_buffer.h>
->  #include <linux/interrupt.h>
-> @@ -257,6 +259,7 @@ struct ads112c14_measurement {
->  struct ads112c14_data {
->  	const struct ads112c14_chip_info *chip_info;
->  	struct regmap *regmap;
-> +	struct iio_trigger *drdy_trig;
->  	/* Synchronizes access to register value fields. */
->  	struct mutex lock;
->  	int drdy_irq;
-> @@ -280,11 +283,18 @@ static irqreturn_t ads112c14_drdy_irq_handler(int irq, void *private)
->  	struct iio_dev *indio_dev = private;
->  	struct ads112c14_data *data = iio_priv(indio_dev);
->  
-> -	complete(&data->drdy_completion);
-> +	if (indio_dev->trig && iio_trigger_using_own(indio_dev))
+> What the initiator then issues is decided by the block layer. The
+> generic cap is 4 MiB (BLK_DEF_MAX_SECTORS_CAP), but a namespace that
+> advertises a large NOWS raises it: blk_validate_limits() takes
+> max_sectors from io_opt once io_opt exceeds that cap. On the array we
+> measured, NOWS is 65535, so io_opt is 32 MiB and the initiator emitted
+> 32 MiB commands -- from a controller that advertised no MDTS at all.
+>
+> The target cannot serve those, in one of two ways depending on the
+> kernel.
+>
+> Since 4a3f00262a04 ("nvmet-tcp: bound SGL data length before allocating
+> command buffers"), nvmet_tcp_map_data() rejects any len above
+> NVMET_TCP_MAXH2CDATA (4 MiB) with NVME_SC_SGL_INVALID_DATA | DNR, so the
+> command fails hard and deterministically. That is the right response to
+> an oversized command, but the initiator had no way to avoid sending it:
+> nothing advertised the limit it was exceeding.
+>
+> Before that commit the command reached sgl_alloc(), which for 32 MiB
+> needs 8192 scatterlist entries -- 256 KiB, an order-6 kmalloc. Under
+> fragmentation that fails, and it surfaces as NVME_SC_INTERNAL, a generic
+> status, so NVMe multipath does not fail the command over to another
+> path. A 1 MiB command needs 256 entries, 8 KiB, served from the
+> kmalloc-8k slab, which does not fail. That failure mode is intermittent
+> and load-dependent rather than deterministic; on a vendor kernel
+> predating the bound it cost us roughly 98 GiB of a 2 TiB image copy,
+> with the copy tool exiting 0.
+>
+> nvmet-rdma has advertised a bounded MDTS since "nvmet-rdma: Implement
+> get_mdts controller op" (Max Gurtovoy, Mar 2020), which left the other
+> transports untouched.
 
+Nit - instead of this patch reference - you should simply say:
 
-This indeed needs more guarding given we hit these interrupts for
-a normal read (to get to the completion)
-
-
-Likewise seems valid.
-
-> +		iio_trigger_poll(data->drdy_trig);
-> +	else
-> +		complete(&data->drdy_completion);
->  
->  	return IRQ_HANDLED;
->  }
-
-...
-
->  static irqreturn_t ads112c14_trigger_handler(int irq, void *private)
->  {
->  	struct iio_poll_func *pf = private;
-> @@ -961,6 +984,26 @@ static irqreturn_t ads112c14_trigger_handler(int irq, void *private)
->  	u32 i;
->  	int ret;
->  
-> +	if (iio_trigger_using_own(indio_dev)) {
-
- | sashiko.dev <sashiko@sashiko.dev>:
- |
- | [Severity: High]
- | Will this check incorrectly enable continuous mode processing for any
- | external trigger that belongs to its own device?
- |
- | If a user assigns an external trigger that sets its attached_own_device
- | property to true, iio_trigger_using_own() will evaluate to true. Could this
- | misroute the interrupt handler into assuming continuous mode when it should
- | not?
- |
- | via: https://sashiko.dev/#/message/20260827-iio-adc-ti-ads112c14-continuous-mode-v4-3-1e51a6e20a69@baylibre.com
-
-I think this is triggered by the more complex handling you have
-to detect use of the dataready trigger below.  There is only one trigger
-currently so they end up the same, but perhaps we should make the handling
-more similar?
-
-> +		const struct iio_chan_spec *chan;
+>   Do the same for TCP, using the same 1 MiB value,
+> so initiators size their commands to something the target accepts
+> instead of discovering the limit by failing.
+>
+> Signed-off-by: Alfonso Kuen <gerencia@idkmanager.com>
+> ---
+> Changes in v2:
+>   - Rewrite the rationale. v1 described the sgl_alloc() order-6 failure as
+>     current behaviour; since 4a3f00262a04 that path is unreachable and an
+>     oversized command is rejected earlier with SGL_INVALID_DATA | DNR. Both
+>     failure modes are now described, and which kernels see which.
+>   - v1 attributed the 32 MiB command size to a "generic 32 MiB ceiling" in
+>     the block layer. The generic cap is 4 MiB; the 32 MiB came from the
+>     target's own NOWS raising io_opt. Corrected -- and it sharpens the point,
+>     since the same controller advertises an optimal I/O size it cannot serve.
+>   - v1 called the 1 MiB SGL an order-0 allocation; it is 8 KiB.
+>   - No functional change: the diff is byte-identical to v1.
+>   drivers/nvme/target/tcp.c | 9 +++++++++
+>   1 file changed, 9 insertions(+)
+>
+> diff --git a/drivers/nvme/target/tcp.c b/drivers/nvme/target/tcp.c
+> index e4f603b2a..414ba896e 100644
+> --- a/drivers/nvme/target/tcp.c
+> +++ b/drivers/nvme/target/tcp.c
+> @@ -23,6 +23,9 @@
+>   #include "nvmet.h"
+>   
+>   #define NVMET_TCP_DEF_INLINE_DATA_SIZE	(4 * PAGE_SIZE)
 > +
-> +		chan = ads112c14_first_active_channel(indio_dev);
-> +		if (!chan)
-> +			goto out;
-> +
-> +		ret = ads112c14_scan_read(data, (u8 *)&data->scan[0]);
-
- | sashiko.dev <sashiko@sashiko.dev>:
- |
- | [Severity: High]
- | This is a pre-existing issue, but is there a missing length check in the
- | underlying I2C block read that leaves stack memory partially uninitialized?
- |
- | If i2c_smbus_read_i2c_block_data() (called by ads112c14_scan_read()) returns
- | a positive value smaller than the requested length, the condition if (ret < 0)
- | fails to catch the short read. Does this leak uninitialized stack memory to
- | userspace when data->scan is later pushed to the IIO buffers?
- |
- | via: https://sashiko.dev/#/message/20260827-iio-adc-ti-ads112c14-continuous-mode-v4-3-1e51a6e20a69@baylibre.com
-
-I haven't chased this one through - but in a similar example in a review
-I did yesterday I suggested just initializing the memory anyway
-so we don't have to care one way or the other.
-
-> +		if (ret) {
-> +			dev_err_once(indio_dev->dev.parent,
-> +				     "failed to read channel %d: %pe; additional errors will be suppressed\n",
-> +				     chan->channel, ERR_PTR(ret));
-> +			goto out;
-> +		}
-> +
-> +		iio_push_to_buffers_with_ts(indio_dev, data->scan,
-> +					    sizeof(data->scan), pf->timestamp);
-> +		goto out;
-> +	}
-> +
->  	iio_for_each_active_channel(indio_dev, i) {
->  		const struct iio_chan_spec *chan = &indio_dev->channels[i];
->  
-> @@ -992,6 +1035,88 @@ static const struct iio_info ads112c14_info = {
->  	.read_label = ads112c14_read_label,
->  };
->  
-
-...
-
-> +static int ads112c14_buffer_postenable(struct iio_dev *indio_dev)
+> +/* Assume mpsmin == device_page_size == 4KB */
+> +#define NVMET_TCP_MAX_MDTS		8
+>   #define NVMET_TCP_MAXH2CDATA		0x400000 /* 16M arbitrary limit */
+>   #define NVMET_TCP_BACKLOG 128
+>   
+> @@ -2243,6 +2246,11 @@ static ssize_t nvmet_tcp_host_port_addr(struct nvmet_ctrl *ctrl,
+>   			(struct sockaddr *)&queue->sockaddr_peer);
+>   }
+>   
+> +static u8 nvmet_tcp_get_mdts(const struct nvmet_ctrl *ctrl)
 > +{
-> +	struct ads112c14_data *data = iio_priv(indio_dev);
-> +	const struct iio_chan_spec *chan;
-> +	int ret;
+> +	return NVMET_TCP_MAX_MDTS;
+> +}
 > +
-> +	if (!ads112c14_using_drdy_trigger(indio_dev))
-> +		return 0;
-> +
-> +	chan = ads112c14_first_active_channel(indio_dev);
-> +	if (!chan)
-> +		return -EINVAL;
-> +
-> +	guard(mutex)(&data->lock);
-> +
-> +	ret = ads112c14_prepare_channel(data, chan);
+>   static const struct nvmet_fabrics_ops nvmet_tcp_ops = {
+>   	.owner			= THIS_MODULE,
+>   	.type			= NVMF_TRTYPE_TCP,
+> @@ -2254,6 +2262,7 @@ static const struct nvmet_fabrics_ops nvmet_tcp_ops = {
+>   	.install_queue		= nvmet_tcp_install_queue,
+>   	.disc_traddr		= nvmet_tcp_disc_port_addr,
+>   	.host_traddr		= nvmet_tcp_host_port_addr,
+> +	.get_mdts		= nvmet_tcp_get_mdts,
+>   };
+>   
+>   static int __init nvmet_tcp_init(void)
 
-
-Hmm. Indeed an interesting corner...  From a quick look it is correct.
-I'm not sure if this is in practice an existing bug - do other
-drivers change acceptable channels based on another change such as
-which trigger is in use?   Either way we need to close this.
-
-We can't just go clearing the set bits on setting the trigger as
-that might cause a regression.  So I think all we can do is add
-a well commented additional check early in the buffer enable path.
-
-Given the behaviour that is causing problems is present in this
-driver we could either add the protection in fix and rely on that
-going upstream first, or add it as first patch in this series and
-let it work its way upstream with this patch.
-
-Nice catch to sashiko!
-
--- 
-Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
