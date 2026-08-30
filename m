@@ -1,208 +1,135 @@
-Received: from mail-qk1-f173.google.com (mail-qk1-f173.google.com [209.85.222.173])
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D54281A6835
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 00:05:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.222.173
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788048353; cv=pass; b=Mwqx2PGeMV7xXq2Im029DuU6tE+O1f0TamkpwHR9PsWJFBQaEcS0yDy90thUHUIHM0rga2Jiu9q4ZeIM7BrrPtT2xvTCrr0OQvJoi3z8DUZwWTsmr/y4SgDZrKMtg/qw0rOR9R4eGaicGog7IRW8tKWVzPa7kHHPv+XxSO33+8Y=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788048353; c=relaxed/simple;
-	bh=OdTWre4/E0GzO36yssBeAmGKtS1r+8euXeCxROlaL4g=;
-	h=From:In-Reply-To:References:MIME-Version:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ci3EAw9sboHfotLqMJVA5O9lznMbuEj19cwIWJpE7k763ZwSSQUjEOhC+4NCW2G6Ji7d4L85Tk7rfEkpna4BlhSzohpF4K79GVtwb0d9YSmcm3e+j5LeP2IwC1IK7k9rCQlZSunaW2Q3BXr1qwjQiaczKqGeuZPuD1JjJdiarOk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=FntZFPkg; arc=pass smtp.client-ip=209.85.222.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 832EC10F2
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 00:15:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788048954; cv=none; b=Um3ssMIYHX+EjeS8U93cse8cpPW/0Z5sFVmhubkL5Sx7vFZqJoQAk2qW7tna0fz+RUbdDYbAJKDrRRVUNElIbMOeNpGzxZnzM2EZALjnf1/IyRauR0R/e1ZyTD/sui67cGORV7UHfsP8ezrwnB2MGYnkfWfLbMMBjCeZCraroGA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788048954; c=relaxed/simple;
+	bh=GBkRZfhhhjMPhwvKL0XDc2B5qkJvnA6DudmV/I9oFqM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=mlG2m2VFV4OJJ/6O9vvvBYnI47dqUF/wtvbZN4pFJz8nWr3yhVDRtSywWz2EtvsjMHSZPnId0BSvqu5SY6nP4HcuzBwjKihMWsub3fu0elrLGpIUAU3f5sa/O/N6e+G8IJurCZs+OmIyuEx6oMOwV0EyshN5KQsTZQRHZC0et8M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TxiGy36F; arc=none smtp.client-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="FntZFPkg"
-Received: by mail-qk1-f173.google.com with SMTP id af79cd13be357-92e57a753f9so230704285a.2
-        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 17:05:50 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788048349; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ehSaJCCMPINJuQd/yiB4FYiMvVXAfe/Pe2sUi8SUn7xUc2WKgHKkbXaSQBLVDA4Pbd
-         xqDE9NWe/ZnedtTwS/+ItnboS4AbYBS4KNrsvP5Z2sNPDaMhzexQ+0bmkgNZPrPyM8BR
-         6YwVGNWYMxu7BU+pGeWHYcaYojBX+VcodO3dLKKQ940vgPsBDYMeJY/O3zCwMJpLrATv
-         Af+HbH/9ZV/xymyLldQZrP1aJTYo9X0Wy0cYMxA6tLySudG1qWhTLRBcNFNFrSc110rb
-         g8IrmL7PNEuxrN5kPz+PZmOBTcqaY1csZBMOUVgMnYniU1C8LQJ9Gb2BqIUhEhWAsqie
-         uOXg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:mime-version:references:in-reply-to
-         :from:dkim-signature;
-        bh=OVPtev+UPa7dvRpZFUPuPS+p0V4Z4HKOiUpL+88GmnU=;
-        fh=5PGwoBjUpeSDmbz5jP97vFpC2YBSXW6gdqJ238z8cWw=;
-        b=ExSeV+ZObdg2xzgmjmWK8MB6ZhbpYRW3A8rlYUbZin2Bl4l60w4jAq1/gv3z0UPc+2
-         /hpOhcncuXJPnUOUlR/gT8a1WIDlajyfSV7vEDN1UsfXriJRli0+Yj3wNYe3CmeSdWbZ
-         QNveb68O+q9zkb3ZW0WruawPCG5Z3KphXii1VhaAC5MzOvQTvER+NiWNPqll6vqGleio
-         hPUaBbPIGjMHckAULlDPU8H2Zo6ZA356bN2kubpKdWEWpKewhMSAPxhXtLOu3T4abHDh
-         L6Cq3kk0ofjxh3dINqx3wTJGFW4/URHtJ8B7qiQafvS2l4+LRmpipqmL0UVVv2Ig6+jX
-         9LvA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TxiGy36F"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-49b0dd3c9a0so16226825e9.1
+        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 17:15:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788048349; x=1788653149; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:mime-version:references
-         :in-reply-to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=OVPtev+UPa7dvRpZFUPuPS+p0V4Z4HKOiUpL+88GmnU=;
-        b=FntZFPkgEkRUwbbHbmEKsdoQVaEcHbWlapP9tERIlbZ2roeyhjIMPb9q6TBF+nxQ0t
-         SqmTsOczcuYsdNz0X1uu3BgJwgw9eiSUIwjS4gD7ledhNglZMn6tg9ccqIp1gjLMMOfH
-         jlRe6SaGmpIOLDE6TCzPrN8SCI6VopvIGb5Yr2RmSWvojdqUcH1KxTYe5OQ9yUePrwLI
-         WaggqDDoxHnXSA+Y5/bEe8mjJqLAY2I7YnAgxlTEshX0ViVAZBFFD1eGFDb4NsfnItuI
-         +MuWPKZnQ1a+ApuSYZDisRiu1wFqLFpEr6PQcNfL9PAZjgpR6bg7aTumg92KkeqjTKFj
-         5vOw==
+        d=gmail.com; s=20251104; t=1788048952; x=1788653752; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/PK/sXxsciKxVrUSs99U8nxlxsFltkAdmaHPPtgu7OU=;
+        b=TxiGy36FBQ6vey5F2m6g7o3GbosVsZ1c707KcPZ93Vt9MXkSyIb958Qzrt8c2otWAP
+         ooXMCaOfk6EIb4fUA9KIG1sUkf+kCG1hKIGSywVx9wkz3GzLOg31coB1/V/KhtBfkXkX
+         hTDEHmvL0Ral/ftqOfDsEIk5ig7zYJjGsdqCI8IJ6Bf7ITa+BekEiEgAp5EdAVaCDxN4
+         iZ+QST+2mfDyB/0kZLpj5ANroEth5F7gHZOL379rsaaIClOOw2s6EndSxf2g2hzr69zr
+         th5PCaRnW8q3YQnJncDRU0xZvhVUUCMOTnm+Gg8lGbIQGxFJu/wEEKkIlFDidTR50oHN
+         iPhg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788048349; x=1788653149;
-        h=content-type:cc:to:subject:message-id:date:mime-version:references
-         :in-reply-to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1788048952; x=1788653752;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=OVPtev+UPa7dvRpZFUPuPS+p0V4Z4HKOiUpL+88GmnU=;
-        b=oDHia+wiTcXL1y6ZwlrMiw8MhiFIT6+vIbcRZLOHj3chu6XCpLE0/7WpcAKSQg4BIj
-         jNPE4uZhVrn8F2cOSw5lrvQimoUz41+u3xIGoov7yjtGqzj4hgCPUt5AOj4Z4ckwYrv7
-         uKm589TVk6EB6+L6H/Zmku1/Z5qXCcL3/mjYOJ5v6xiiAaTxyw0w/I7qMtAnlVZJp7VU
-         kmzvl+M2hdWDI2KToWp3365mGWvNpWlogz0IvturrbgT0Z+uQ99aJBqp8cyFDdGm+ct+
-         NNV1zZ3fxHhsUqmTnfz+SunkDJz6uk/uEzh6OzOkyycL/bmVWn+RGua+G7rC9geNikaX
-         Hbwg==
-X-Forwarded-Encrypted: i=1; AHgh+RqgtBDJUL4DfL8ufq/bBb03Mn27hvQ53zxIdPz/8sHmzotutSrc4U+yqgKS02Kp2pCV4XxGgDWf9dTqxVM=@vger.kernel.org
-X-Gm-Message-State: AFuF++mMblg+VyZFW+jw5ixEjhG95aJ4Nk515z2ciiZIL7ehGiUrK/dl
-	LYxVZoRgFrszHokh6mxU5zt585MEp79Jove2RgJoeeAJW3W2VJ17IpDEsfWFcVktNu+VwQcGpBR
-	qJOrQ9gEnLtiQ1MEakJa96D/uCe90oU4dz9cUBZkJ
-X-Gm-Gg: AR+sD12LPe8LRXh1eoMQCUvM1IbOjmxp3Xf5EgDUKKQaomiVr4HXWdR6rBDBi5lf38z
-	bNu0Gcy3UUp+66q0WIw9xVhug4BKFbma/pzXPRz07zb7WwzU7JwyGXLvCZRcGSCyaANmOGr8Ed6
-	rZhZmBauMF2cM/NxEI93MP4pB3lCmPbxMo+QIssRAe51fpQ/ST+3LJj3hT4A6lHPaClxA8zf3MB
-	8u4gYELEJBPquwWjcRvzf1ozR4SUQtDqxkVn3r5BgXOAQQounG3/H1l5McGn3DG3RVNOVg8g9TW
-	W7bDZNbNbJolrlHePPflN2snh7Cjv59E1OaSkI+cJTRaL7eAt70VyhfsWrPZb+YX4XK1NBI2RFN
-	+mFaQRlWTtp1oWA==
-X-Received: by 2002:a05:620a:2b8f:b0:930:f35d:41ba with SMTP id
- af79cd13be357-939139565fbmr2030756285a.36.1788048348431; Sat, 29 Aug 2026
- 17:05:48 -0700 (PDT)
-Received: from 176938342045 named unknown by gmailapi.google.com with
- HTTPREST; Sat, 29 Aug 2026 17:05:47 -0700
-Received: from 176938342045 named unknown by gmailapi.google.com with
- HTTPREST; Sat, 29 Aug 2026 17:05:47 -0700
-From: Ackerley Tng <ackerleytng@google.com>
-In-Reply-To: <CAEvNRgHAwAJee6_ra9-zioDh_BqHM9Lbu+TGXxWHbG7za=g5Aw@mail.gmail.com>
-References: <20260823-memory-failure-mf-delayed-fix-v5-0-d97a5703e45a@google.com>
- <20260823-memory-failure-mf-delayed-fix-v5-5-d97a5703e45a@google.com>
- <8a99f753-0713-4194-8eb5-90da0724e647@kernel.org> <ao8pCI3AaUssIO8S@google.com>
- <CAEvNRgHAwAJee6_ra9-zioDh_BqHM9Lbu+TGXxWHbG7za=g5Aw@mail.gmail.com>
+        bh=/PK/sXxsciKxVrUSs99U8nxlxsFltkAdmaHPPtgu7OU=;
+        b=VcmWzOYjmES8azpMZxrQ54DbgS1ka8ljRcO6B3+72A8sv7OSVXVbEXnG8UbNcHNLS3
+         8aa9g3rf49lbYeYEcnpVNtlZUij4fNunrgwejMouU35raP2QQcUbeYuaMLch+lfaDEtE
+         bHQ/oKHuWkLfrCosCo/yGRsxH3g6B+X6yY4S4dILeacGLRdyVjvHdl/5+yGHofDBLk3m
+         nzeGlzKqZmwXd7DNA28Ut74e9HxdU5X7/dLVRsLRGOv0xqbv4LKlIOTz2GWoUgy3VrpK
+         zhSfPtVjCYqrN1RRTQ6k25HXGivTjjkrs72oS3YpWbjUtJsWvoE6CN4cjpEKRiwSngP/
+         5llA==
+X-Forwarded-Encrypted: i=1; AHgh+Rr4cAGVu/kk2m0l8lLDw1cKYTaFGoW7S9oSj/coo8QtliOHfgLH25qjdY90r7rC3zLrbnthlO/adXHpcfo=@vger.kernel.org
+X-Gm-Message-State: AFuF++mYzLgB6EmwdtTXiXy5giwpqoNdNMQfRd9NjpjZ++puAiAHMaRg
+	Axv6t9FIkNsyZ1+oehh6UY8XiqJEKeNBprJIEOtT39tCo3GOZEkXjFe3
+X-Gm-Gg: AR+sD12J/LKODMku7glpX6350seBXZ0JVoLUwPwrLKxgJH0RI9kc8/QzDdM13/MRqyb
+	YoX19CpM4S4W2xgL2ZblGWkFJTcbm4Xjjvrt7cuA+xXFUMq4sBv3PUPvKBPiPKCyN5npaftx0wj
+	BwXix59Ib28aqUGPhyv15l0qp77UFvn51SpX9ptvFqXMmYT6CHi+ly1SkJGKOko1RnA5fu1Z9iM
+	Ni80rp/v1uPro9doLa2vd63+u/cOFntpgdq9gvdb6WzL2yGAwvG/DbKv5deTUb7srmfBop7nyI+
+	e5hzRDhC933UUy1a7PI86n9F7EXLzC6ycYFuzM2imIutMNgoYEfBi1hMUFhbm5uOmHfJx60BZh2
+	DacZE2522ahTedcFT9SRQj5Ra7lBz3T2vtB4GlVcsbOaMSo2f9QHmdi2LDxvVSQXa1S9JaFxic1
+	yu4Vbc090zXzUJvIWu8CSkMmntXGo4IQmbg979fukpETFt8+i6ILxpHFvFknuWHv1E1TsnXHsGL
+	vsS+9L631k8M2NRvJAJ7bYAaNW0J4Ll+lAxNU/55YhzpNXQjL1mpUpnFzeykftnc1BpivjzAg==
+X-Received: by 2002:a7b:c30a:0:b0:49b:8c63:dfdf with SMTP id 5b1f17b1804b1-49b91c5749fmr191750615e9.15.1788048951616;
+        Sat, 29 Aug 2026 17:15:51 -0700 (PDT)
+Received: from ideapad-amd-linux (host-79-43-65-53.retail.telecomitalia.it. [79.43.65.53])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b49cc61cfsm269974105e9.6.2026.08.29.17.15.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 29 Aug 2026 17:15:51 -0700 (PDT)
+From: Jacopo Labardi <jacopolabardi@gmail.com>
+To: Namjae Jeon <linkinjeon@kernel.org>,
+	Hyunchul Lee <hyc.lee@gmail.com>
+Cc: Christoph Hellwig <hch@lst.de>,
+	ntfs@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] ntfs: fix FITRIM range alignment
+Date: Sun, 30 Aug 2026 02:15:36 +0200
+Message-ID: <20260830001536.30841-1-jacopolabardi@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Sat, 29 Aug 2026 17:05:47 -0700
-X-Gm-Features: AcwNN1UOqbFFjDrkvuROHBeY-FoM3Gy-1FuQx69V_3hC_6MdAax2NDuhHQBC0j4
-Message-ID: <CAEvNRgECQqS8xXu61btmESZj_eWWjuEt-Yq0vRFrxCObvfnJVQ@mail.gmail.com>
-Subject: Re: [PATCH v5 5/5] mm: selftests: Add shmem into memory failure test
-To: Lisa Wang <wyihan@google.com>, "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Miaohe Lin <linmiaohe@huawei.com>, Naoya Horiguchi <nao.horiguchi@gmail.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, Paolo Bonzini <pbonzini@redhat.com>, 
-	Shuah Khan <shuah@kernel.org>, Hugh Dickins <hughd@google.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org, kvm@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, Andi Kleen <andi@firstfloor.org>, 
-	Hidehiro Kawai <hidehiro.kawai.ez@hitachi.com>, Rik van Riel <riel@redhat.com>, 
-	Yu Zhang <yu.c.zhang@linux.intel.com>, Lorenzo Stoakes <ljs@kernel.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, rientjes@google.com, seanjc@google.com, 
-	vannapurve@google.com, michael.roth@amd.com, jiaqiyan@google.com, 
-	tabba@google.com, dave.hansen@linux.intel.com, 
-	Isaku Yamahata <isaku.yamahata@intel.com>, Xiaoyao Li <xiaoyao.li@intel.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Ackerley Tng <ackerleytng@google.com> writes:
+ntfs_trim_fs() aligns the start of a free extent up to the device discard
+granularity, but derives the discard length by aligning the original extent
+length down. When the free extent start is not discard-aligned, adding that
+length to the aligned start can extend the discard past the free extent and
+into allocated clusters.
 
-> Lisa Wang <wyihan@google.com> writes:
->
->> On Mon, Aug 24, 2026 at 03:00:47PM +0200, David Hildenbrand (Arm) wrote:
->>> > +++ b/tools/testing/selftests/mm/memory-failure.c
->>> > @@ -20,6 +20,10 @@
->>> >
->>> >  #include "vm_util.h"
->>> >
->>> > +#ifndef fallthrough
->>> > +# define fallthrough __attribute__((__fallthrough__))
->>> > +#endif
->>>
->>> This doesn't belong into this test.
->>>
->>> rseq/rseq.c selftest already uses it.
->>>
->>> I think tools/testing/include/ already provides it.
->>>
->>> Maybe
->>>
->>> 	#include <linux/compiler.h>
->>>
->>> does the trick?
->>
->> Hi David,
->> Thank you for replying.
->> Would it be better to change it to /* FALLTHROUGH */
->> like the rest of the mm selftests?
->>
->> If we prefer to include <linux/compiler.h>, we can
->> certainly do that, but we would also need to update
->> the Makefile and fix a redefinition in pkey-helpers.h.
->>
->> --- a/tools/testing/selftests/mm/Makefile
->> +++ b/tools/testing/selftests/mm/Makefile
->> @@ -37,7 +37,7 @@ endif
->>  # LDLIBS.
->>  MAKEFLAGS += --no-builtin-rules
->>
->> -CFLAGS = -Wall -O2 -I $(top_srcdir) $(EXTRA_CFLAGS) $(KHDR_INCLUDES) $(TOOLS_INCLUDES)
->> +CFLAGS = -Wall -O2 -I $(top_srcdir) $(EXTRA_CFLAGS) $(KHDR_INCLUDES) $(TOOLS_INCLUDES) -I$(top_srcdir)/tools/include
->>  CFLAGS += -Wunreachable-code
->>  LDLIBS = -lrt -lpthread -lm
->>
->> --- a/tools/testing/selftests/mm/pkey-helpers.h
->> +++ b/tools/testing/selftests/mm/pkey-helpers.h
->> @@ -22,7 +22,7 @@
->>  typedef __u8   u8;
->>  typedef __u16  u16;
->>  typedef __u32  u32;
->> -typedef __u64  u64;
->> +// typedef __u64       u64;
->
-> Removing this u64 typedef seems to be unrelated, the layers of includes
-> probably has some weirdness that needs to be ironed out.
->
-> If the weirdness is not too complex to iron out to be in time for 7.4, I
-> think we can iron that out, if not perhaps using /* FALLTHROUGH */ is
-> fine, to be aligned with the other mm selftests.
->
+For example, with 4 KiB clusters and 32 KiB discard granularity, the free
+extent [4 KiB, 36 KiB) becomes the discard range [32 KiB, 64 KiB), so
+28 KiB beyond the free extent may be discarded.
 
-Lisa did some more investigation, and we discussed too. Here's my
-understanding:
+Align the absolute end of the free extent down and derive the length from
+the two aligned endpoints. Skip extents that contain no full discard unit.
 
-TOOLS_INCLUDES in the Makefile points to tools/include/uapi, which provides
-underscored types like __u64 to avoid polluting userspace symbol names. That
-makes sense since tools/include/uapi is generally copied from usr/include/
-that is generated at build time, and usr/include/ is used by userspace
-programs in general.
+Reproduced with a 4 KiB-cluster NTFS filesystem on scsi_debug configured
+for 32 KiB discard granularity and read-zero-after-trim. Before this
+change, FITRIM zeroed seven allocated 4 KiB clusters following an unaligned
+32 KiB hole. With this change, the same data remains intact across FITRIM
+and remount.
 
-selftests are a special case of userspace programs, and since we want selftests
-to look similar to the kernel, we want to use u64 instead of __u64. While
-the kernel uses include/linux/types.h, the tools subsystem provides its own
-userspace compatibility header at tools/include/linux/types.h defining u64.
+Fixes: 11ccc9107dc4 ("ntfs: update runlist handling and cluster allocator")
+Cc: stable@vger.kernel.org
+Assisted-by: OpenAI Codex:GPT-5.6 Sol Max
+Signed-off-by: Jacopo Labardi <jacopolabardi@gmail.com>
+---
+ fs/ntfs/bitmap.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-Hence:
+diff --git a/fs/ntfs/bitmap.c b/fs/ntfs/bitmap.c
+index b1436b3151b98..1840b7d84c628 100644
+--- a/fs/ntfs/bitmap.c
++++ b/fs/ntfs/bitmap.c
+@@ -64,7 +64,7 @@ int ntfs_trim_fs(struct ntfs_volume *vol, struct fstrim_range *range)
+ 
+ 		end = start_buf;
+ 		while (end < end_buf) {
+-			u64 aligned_start, aligned_count;
++			u64 aligned_start, aligned_end, aligned_count;
+ 			u64 start = find_next_zero_bit(bitmap, end_buf - start_buf,
+ 					end - start_buf) + start_buf;
+ 			if (start >= end_buf)
+@@ -74,8 +74,10 @@ int ntfs_trim_fs(struct ntfs_volume *vol, struct fstrim_range *range)
+ 					start - start_buf) + start_buf;
+ 
+ 			aligned_start = ALIGN(ntfs_cluster_to_bytes(vol, start), dq);
+-			aligned_count =
+-				ALIGN_DOWN(ntfs_cluster_to_bytes(vol, end - start), dq);
++			aligned_end = ALIGN_DOWN(ntfs_cluster_to_bytes(vol, end), dq);
++			if (aligned_start >= aligned_end)
++				continue;
++			aligned_count = aligned_end - aligned_start;
+ 			if (aligned_count >= range->minlen) {
+ 				ret = blkdev_issue_discard(vol->sb->s_bdev, aligned_start >> 9,
+ 						aligned_count >> 9, GFP_NOFS);
 
-1. tools/include/uapi/linux/types.h provides __u64.
-2. tools/include/linux/types.h provides u64.
+base-commit: ac727d86fb84bdc9626ba9c756c26767459f3083
+-- 
+2.55.0
 
-Adding -I$(top_srcdir)/tools/include switches from 1 to 2, causing
-definition conflicts in the mm selftests and more warnings.
-
-
-Since adding the tools/include path to use
-tools/include/linux/compiler.h breaks existing definitions, my vote is
-to use the comment-style fallthrough like the other mm selftests and
-clean up in a separate patch series.
-
->>
->>
->> Lisa
