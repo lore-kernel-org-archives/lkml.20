@@ -1,122 +1,197 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa2-f1.google.com (mail-oa2-f1.google.com [74.125.231.65])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8522E35C180;
-	Sun, 30 Aug 2026 14:57:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87FB13B27C8
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 14:58:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.65
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788101881; cv=none; b=hRMj8iBM1FGI/rzfML8OCl/Jxfb00ltDH2yDIVxKhLKPpN8P09tdje9x14w47R0gEQaVUXeszDRLfXINmF3UXJCpWjsY3aDosB7l0lCtn4XqLUbO8mSJDQCqnREMs8J3XRrCg9WK60toYDbfZwrWbR/jOgSvI4Jp5XmKvjGVoME=
+	t=1788101921; cv=none; b=kcaGyKqdayAW102qkeXSJzAHtSzPxRpOu5+xbYclVBhAEseqbdU6WxPwXtCcRhhPttvUOwDFoHlO+sUa1VPUxfEHdOFsIKGZax/ug37VUH4Qj0tik2sVzEElMj+F4Bjhdp8npDW41wq+MaWH2qYJzhSN+KD66QeTJlhHVhCoSWU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788101881; c=relaxed/simple;
-	bh=Jz6SGp8A9K6qYUuqL9q2t6pIpvCJVbYQr8/3UysdP40=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=al/6tIINerEHFv6svAzsIzq7BKLZwnU6crGRQKxX1ZuiGoD83+Vup6GRp/g9y1H8LtTBifTF8OI+RF0DrmZbnUz/0fPTXpa4zKIBVd/9CHkJE1ZZktyYqOddEDSohRvd/BRiJJ01TLEhN8Kgcnw0wDnJq3bjflMJ/KB5x4NAc5U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=R+G3xMUP; arc=none smtp.client-ip=192.198.163.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="R+G3xMUP"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788101879; x=1819637879;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=Jz6SGp8A9K6qYUuqL9q2t6pIpvCJVbYQr8/3UysdP40=;
-  b=R+G3xMUPcLtvpZWvEyTFlhKxFXu86m6ERtmJ48HeA7RGh2L4+ENxWebE
-   AgReK6sIAVTvS5/rOUOETQH+NTKkEC92mYU++pYBk/pDKghU/IMrxjaLf
-   iO/9iSPBFcDq17/kM+WklhLnpSy2s/QPwMNUxCcG90+/uxJ3ZU4jW4Vi1
-   W0qbwg35Dt57YWXxaznMx4pgqOrmKLFnKye3Uq+b4h5vYymmEt08my/bB
-   5NU4g011+AinpBIvtQva6ewB24uCJZD7mIjmKh85czEcH2bZoZoM7+dbC
-   Qqsr5jS1cqDSiqMFWyS0RDT8A65vV+0NE4hGkCSSIy3egXX4cU762Z9Zt
-   g==;
-X-CSE-ConnectionGUID: WNDU9LpIR42k8fb7HoBpqg==
-X-CSE-MsgGUID: A77GPOC1Sbynz3/8alvY0A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11890"; a="99877498"
-X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
-   d="scan'208";a="99877498"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Aug 2026 07:57:59 -0700
-X-CSE-ConnectionGUID: NUdCDotGSWypYZ4ykE5Ycw==
-X-CSE-MsgGUID: wdrIOB+hQ3KIfuK+A17WXg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
-   d="scan'208";a="306825838"
-Received: from igk-lkp-server01.igk.intel.com (HELO 32268bdb9915) ([10.211.93.152])
-  by orviesa001.jf.intel.com with ESMTP; 30 Aug 2026 07:57:57 -0700
-Received: from kbuild by 32268bdb9915 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1x0gyo-00000000095-34uo;
-	Sun, 30 Aug 2026 14:57:54 +0000
-Date: Sun, 30 Aug 2026 16:57:33 +0200
-From: kernel test robot <lkp@intel.com>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org
-Cc: oe-kbuild-all@lists.linux.dev, Linus Walleij <linusw@kernel.org>,
-	Jacky Huang <ychuang3@nuvoton.com>,
-	Shan-Chun Hung <schung@nuvoton.com>
-Subject: Re: [PATCH v1 4/4] pinctrl: pistachio: Replace open coded
- fwnode_is_gpiochip()
-Message-ID: <202608301629.wjbEOoNN-lkp@intel.com>
-References: <20260824074427.3226457-5-andriy.shevchenko@linux.intel.com>
+	s=arc-20240116; t=1788101921; c=relaxed/simple;
+	bh=nPaWLgyxMG7XSZ+BOOHlBYYOuctcqNir3sdBkm/jYCY=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=L+zIDRgBML48SIuGcCplhOg9sNl6Q1s/JwiJLfNvEpdO7+VGVPKZG40xOkfP0IVgnfuseJ3+/0eXGPzsJIfBi9+YpvG2DcH7V9I/Ex1WXZ33TEwIhYYCzuzfkI7L/2b6uTQs9ZhuXQO4Jf42p25tccZiISV4kA2L5oqftBYSeUs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.65
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oa2-f1.google.com with SMTP id 586e51a60fabf-451e22b4773so1224534fac.0
+        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 07:58:39 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788101918; x=1788706718;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Qxvwk/TwqCvron/Z2JUCofoPA/9R3UNI5aVovBkbXPY=;
+        b=mgEfvrmvVVpTHj/mFgfAblFuF+wEySqxxa3T/RnBJ02Oi96PNNplKj3y3DWiGM+0/g
+         uLTWLVztJFkyOwZHocDbgleYWdKOQ6qsdwdPENhrfWHyGSO/KC4azS4BDI4HqXS0Z/l/
+         XlxnJYP4mLfw92kXtrUkvjyn8Uf9jc1wFTg209DTWjQahbTzTtfecC40jb6DO7plaPUY
+         nwWawvGFBGQyesY/5b/j/Cwjh27ZE2QL1+ZG2dVA1lAcHNKONXEhaoTsHvWDGQR8kp4q
+         P8JkVwFDNGAWNRuUuJjBOIuLJGy4i/c+nQ0UUtTv0xkziQLHon+YukDicIU2+DjYollc
+         NevQ==
+X-Forwarded-Encrypted: i=1; AHgh+Ro4Au9gQOfb0u3XaxXngRwrgLVoTEoBtuu/kEGNcxag0TKBWYaylHQaLV01ISlLtC+pjXVtLYg1/S9SB0g=@vger.kernel.org
+X-Gm-Message-State: AFuF++lNicQh16yaFAXTuP8s2AOW8D7VFkSrm4aN9h3EQ6pOXGXWarUw
+	BHooinYS9KsrKxGDQx7JAUQ3KVEkkCGQew2507C09qZGU1SkJXCrO954Z/1sPC+WjTUVcwsHYTn
+	rmhnhOhd4iTCZgKE6WEMQOjf3/+xEFQwHarPmEd+TPMhMcKTqqpR0+h4HuQo=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260824074427.3226457-5-andriy.shevchenko@linux.intel.com>
+X-Received: by 2002:a05:6808:c3ee:b0:4b2:6ca6:9cd8 with SMTP id
+ 5614622812f47-4b397f53781mr22411140b6e.1.1788101918596; Sun, 30 Aug 2026
+ 07:58:38 -0700 (PDT)
+Date: Sun, 30 Aug 2026 07:58:38 -0700
+In-Reply-To: <6a926514.1d9ded08.62e62.00ff.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a94451e.1d9ded08.62e62.011d.GAE@google.com>
+Subject: Re: [syzbot] [fs?] possible deadlock in __balance_push_cpu_stop
+From: syzbot <syzbot+acf142088e0182172e58@syzkaller.appspotmail.com>
+To: bp@alien8.de, dave.hansen@linux.intel.com, hpa@zytor.com, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, mingo@redhat.com, 
+	syzkaller-bugs@googlegroups.com, tglx@kernel.org, x86@kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Andy,
+syzbot has found a reproducer for the following issue on:
 
-kernel test robot noticed the following build errors:
+HEAD commit:    08dbfad3f504 Merge tag 'for-linus' of git://git.kernel.org..
+git tree:       upstream
+console+strace: https://syzkaller.appspot.com/x/log.txt?x=154fb379580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=b454dc6b1b7acd30
+dashboard link: https://syzkaller.appspot.com/bug?extid=acf142088e0182172e58
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=17c19379580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=134fb379580000
 
-[auto build test ERROR on brgl/gpio/for-next]
-[also build test ERROR on linusw-pinctrl/devel linusw-pinctrl/for-next linus/master v7.2 next-20260828]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/8aa9167f616f/disk-08dbfad3.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/9ec932d59de3/vmlinux-08dbfad3.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/86e2243e886e/bzImage-08dbfad3.xz
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Andy-Shevchenko/gpio-Split-fwnode_is_gpiochip-helper/20260824-094232
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/brgl/linux.git gpio/for-next
-patch link:    https://lore.kernel.org/r/20260824074427.3226457-5-andriy.shevchenko%40linux.intel.com
-patch subject: [PATCH v1 4/4] pinctrl: pistachio: Replace open coded fwnode_is_gpiochip()
-config: x86_64-rhel-9.4-rust (https://download.01.org/0day-ci/archive/20260830/202608301629.wjbEOoNN-lkp@intel.com/config)
-compiler: clang version 22.1.8 (https://github.com/llvm/llvm-project ca7933e47d3a3451d81e72ac174dcb5aa28b59d1)
-rustc: rustc 1.96.0 (ac68faa20 2026-05-25)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260830/202608301629.wjbEOoNN-lkp@intel.com/reproduce)
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+acf142088e0182172e58@syzkaller.appspotmail.com
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202608301629.wjbEOoNN-lkp@intel.com/
+======================================================
+WARNING: possible circular locking dependency detected
+syzkaller #0 Not tainted
+------------------------------------------------------
+migration/1/27 is trying to acquire lock:
+ffff8880b8740998 (_T->lock){....}-{2:2}, at: rt_mutex_slowtrylock kernel/locking/rtmutex.c:1404 [inline]
+ffff8880b8740998 (_T->lock){....}-{2:2}, at: __rt_spin_trylock kernel/locking/spinlock_rt.c:123 [inline]
+ffff8880b8740998 (_T->lock){....}-{2:2}, at: rt_spin_trylock+0x56/0x2b0 kernel/locking/spinlock_rt.c:135
 
-All errors (new ones prefixed by >>):
+but task is already holding lock:
+ffff88803cefe8c0 (&p->pi_lock){-...}-{2:2}, at: class_raw_spinlock_irq_constructor include/linux/spinlock.h:575 [inline]
+ffff88803cefe8c0 (&p->pi_lock){-...}-{2:2}, at: __balance_push_cpu_stop+0x78/0x410 kernel/sched/core.c:8446
 
-   In file included from rust/helpers/helpers.c:83:
-   In file included from rust/helpers/pwm.c:5:
-   In file included from include/linux/pwm.h:8:
->> include/linux/gpio/driver.h:888:33: error: use of undeclared identifier 'child'
-     888 |         return fwnode_property_present(child, "gpio-controller");
-         |                                        ^~~~~
-   1 error generated.
---
->> include/linux/gpio/driver.h:888:33: error: use of undeclared identifier 'child'
->> Unable to generate bindings: clang diagnosed error: include/linux/gpio/driver.h:888:33: error: use of undeclared identifier 'child'
+which lock already depends on the new lock.
 
 
-vim +/child +888 include/linux/gpio/driver.h
+the existing dependency chain (in reverse order) is:
 
-   885	
-   886	static inline bool fwnode_is_gpiochip(struct fwnode_handle *fwnode)
-   887	{
- > 888		return fwnode_property_present(child, "gpio-controller");
-   889	}
-   890	
+-> #1 (&p->pi_lock){-...}-{2:2}:
+       __raw_spin_lock include/linux/spinlock_api_smp.h:190 [inline]
+       _raw_spin_lock+0x2e/0x40 kernel/locking/spinlock.c:173
+       rtlock_slowlock_locked+0x1ec/0x3c20 kernel/locking/rtmutex.c:1874
+       rtlock_slowlock kernel/locking/rtmutex.c:1922 [inline]
+       rtlock_lock kernel/locking/spinlock_rt.c:43 [inline]
+       __rt_spin_lock kernel/locking/spinlock_rt.c:49 [inline]
+       rt_spin_lock+0x165/0x400 kernel/locking/spinlock_rt.c:57
+       spin_lock include/linux/spinlock_rt.h:45 [inline]
+       finish_wait+0xbe/0x1e0 kernel/sched/wait.c:395
+       synchronize_rcu_expedited+0x63e/0x770 kernel/rcu/tree_exp.h:981
+       srcu_readers_active_idx_check kernel/rcu/srcutree.c:538 [inline]
+       try_check_zero+0x2c8/0x4c0 kernel/rcu/srcutree.c:1135
+       srcu_advance_state kernel/rcu/srcutree.c:1827 [inline]
+       process_srcu+0x148/0x16f0 kernel/rcu/srcutree.c:1954
+       process_one_work kernel/workqueue.c:3387 [inline]
+       process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3470
+       worker_thread+0xa47/0xfb0 kernel/workqueue.c:3551
+       kthread+0x38b/0x470 kernel/kthread.c:436
+       ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+-> #0 (_T->lock){....}-{2:2}:
+       check_prev_add kernel/locking/lockdep.c:3181 [inline]
+       check_prevs_add kernel/locking/lockdep.c:3300 [inline]
+       validate_chain kernel/locking/lockdep.c:3924 [inline]
+       __lock_acquire+0x15ff/0x2e40 kernel/locking/lockdep.c:5254
+       lock_acquire+0x115/0x350 kernel/locking/lockdep.c:5908
+       __raw_spin_lock_irqsave include/linux/spinlock_api_smp.h:155 [inline]
+       _raw_spin_lock_irqsave+0x40/0x60 kernel/locking/spinlock.c:181
+       rt_mutex_slowtrylock kernel/locking/rtmutex.c:1404 [inline]
+       __rt_spin_trylock kernel/locking/spinlock_rt.c:123 [inline]
+       rt_spin_trylock+0x56/0x2b0 kernel/locking/spinlock_rt.c:135
+       __kfree_rcu_sheaf+0xd3/0x620 mm/slub.c:6113
+       kfree_rcu_sheaf mm/slab_common.c:1688 [inline]
+       kvfree_call_rcu+0xa4/0x430 mm/slab_common.c:2037
+       set_cpus_allowed_force+0x1bd/0x2a0 kernel/sched/core.c:2833
+       cpuset_cpus_allowed_fallback+0x24a/0x370 kernel/cgroup/cpuset.c:4258
+       select_fallback_rq+0x11e/0x200 kernel/sched/core.c:3589
+       __balance_push_cpu_stop+0xa1/0x410 kernel/sched/core.c:8453
+       cpu_stopper_thread+0x25e/0x3f0 kernel/stop_machine.c:510
+       smpboot_thread_fn+0x565/0xa70 kernel/smpboot.c:160
+       kthread+0x38b/0x470 kernel/kthread.c:436
+       ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+
+other info that might help us debug this:
+
+ Possible unsafe locking scenario:
+
+       CPU0                    CPU1
+       ----                    ----
+  lock(&p->pi_lock);
+                               lock(_T->lock);
+                               lock(&p->pi_lock);
+  lock(_T->lock);
+
+ *** DEADLOCK ***
+
+locks held by migration/1/27: 2, last CPU#1:
+ #0: ffff88803cefe8c0 (&p->pi_lock){-...}-{2:2}, at: class_raw_spinlock_irq_constructor include/linux/spinlock.h:575 [inline]
+ #0: ffff88803cefe8c0 (&p->pi_lock){-...}-{2:2}, at: __balance_push_cpu_stop+0x78/0x410 kernel/sched/core.c:8446
+ #1: ffffffff8e1c3ac0 (rcu_read_lock){....}-{1:3}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #1: ffffffff8e1c3ac0 (rcu_read_lock){....}-{1:3}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #1: ffffffff8e1c3ac0 (rcu_read_lock){....}-{1:3}, at: cpuset_cpus_allowed_fallback+0x22/0x370 kernel/cgroup/cpuset.c:4255
+
+stack backtrace:
+CPU: 1 UID: 0 PID: 27 Comm: migration/1 Not tainted syzkaller #0 PREEMPT_{RT,(full)} 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
+Stopper: __balance_push_cpu_stop+0x0/0x410 kernel/sched/sched.h:3965 <- balance_push+0x28d/0x4f0
+Call Trace:
+ <TASK>
+ dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
+ print_circular_bug+0x2e2/0x300 kernel/locking/lockdep.c:2059
+ check_noncircular+0x12f/0x150 kernel/locking/lockdep.c:2191
+ check_prev_add kernel/locking/lockdep.c:3181 [inline]
+ check_prevs_add kernel/locking/lockdep.c:3300 [inline]
+ validate_chain kernel/locking/lockdep.c:3924 [inline]
+ __lock_acquire+0x15ff/0x2e40 kernel/locking/lockdep.c:5254
+ lock_acquire+0x115/0x350 kernel/locking/lockdep.c:5908
+ __raw_spin_lock_irqsave include/linux/spinlock_api_smp.h:155 [inline]
+ _raw_spin_lock_irqsave+0x40/0x60 kernel/locking/spinlock.c:181
+ rt_mutex_slowtrylock kernel/locking/rtmutex.c:1404 [inline]
+ __rt_spin_trylock kernel/locking/spinlock_rt.c:123 [inline]
+ rt_spin_trylock+0x56/0x2b0 kernel/locking/spinlock_rt.c:135
+ __kfree_rcu_sheaf+0xd3/0x620 mm/slub.c:6113
+ kfree_rcu_sheaf mm/slab_common.c:1688 [inline]
+ kvfree_call_rcu+0xa4/0x430 mm/slab_common.c:2037
+ set_cpus_allowed_force+0x1bd/0x2a0 kernel/sched/core.c:2833
+ cpuset_cpus_allowed_fallback+0x24a/0x370 kernel/cgroup/cpuset.c:4258
+ select_fallback_rq+0x11e/0x200 kernel/sched/core.c:3589
+ __balance_push_cpu_stop+0xa1/0x410 kernel/sched/core.c:8453
+ cpu_stopper_thread+0x25e/0x3f0 kernel/stop_machine.c:510
+ smpboot_thread_fn+0x565/0xa70 kernel/smpboot.c:160
+ kthread+0x38b/0x470 kernel/kthread.c:436
+ ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
+process 5610 (syz-executor350) no longer affine to cpu1
+
+
+---
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
