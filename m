@@ -1,129 +1,263 @@
-Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
+Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FBF6346ADB
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 11:48:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70ECC250BF2
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 11:55:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788090533; cv=none; b=cHfOHkSy2b9VwWIl4s8hL4eEC4NsXFeVkm+HfUlfcYXn5rbKRBgpWX38I4KIGSkjbLazB8jy5+vX7fvbKED9jAUs4rFgXwSHG3GI2jkDRPXkTsd2jymZr9zw6dvjJ75IsYtRecx/bbKaO3DMw8RwajWXQVBc0EXfSMdeDZ1GoUA=
+	t=1788090957; cv=none; b=Nzfv8Rk9HdyFn/uvsbdvROiPqEt85XeYPv/nnBxaRq+QUVS1r24lAUQQzX0+q6PNc+/a3zJkgGE+8hkAGTK+LzZRgh8XiGDaPCQNFezUh3sXBuCqhqgOF64wYJpTD/dBLMUrIZOfV6Abxf/veQhXCvBtHlNYxkvJ+SxdgeDPvlg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788090533; c=relaxed/simple;
-	bh=gF1P2TPTeg0X/fs1Hsa7kd6AlUHV704xkybKWIIDC0I=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=shiDkNvrMGPTE8H3ZZhXB6IMnCb4ORiALk8q00G9RAW5hzCuS2EaxNYz2YREbESTEw2bqKg2KjcsZdckdvaQKh2MIKev7cPD755/Ixurpx0ZSG+f3m7NemN68V7e1GVxjhVekkG75tahfXXsNO4kJabetMcHkBq3fTsTbZeCzyc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MoCxldkY; arc=none smtp.client-ip=209.85.215.180
+	s=arc-20240116; t=1788090957; c=relaxed/simple;
+	bh=zmjm2TQIi7ZYcXFvX6kkbUarn5qiJfknxctpJ8rIKrI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Bo197HWb0ruxU51nG0IewbLmiRppMKM5Cexj3xIjtbqliZSBgR02WuDJwqXXEQSGZ8CUVHBRA1T0pbktgt1YvhvVHyc3Dqk4CgAOQ/JH/RDXvF/Mho+DGnHFa6+bD4TErirI2JqcABTtb7Smz8Le4oK0Yvasf10RJU+8/+GOrLU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=s6+bkj1y; arc=none smtp.client-ip=209.85.215.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MoCxldkY"
-Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-cbedd5aece4so2816329a12.0
-        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 04:48:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="s6+bkj1y"
+Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-cc1c3c90074so2000113a12.2
+        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 04:55:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788090531; x=1788695331; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=F6dWzVftJmVxxbOmYyIM0bVDs+vsg5QWyjKFPq8DPDo=;
-        b=MoCxldkYJf/kqMufIGRjvA9x+uhrcsukHj/p+yfmgDPll7Mj+ZB4cNrU42qFo8kmdc
-         VR+qjnByl8RyA1KTa8jIvkcwZTm3Cq4CV7C2APhUNSoFpG1+Zj9aHnUKTkXZ65/1pBf0
-         lGz92DwyQRwlcwuo2Steko8U+9OrZPeiji4UfcvfpIZzs4xdtlLdRuvOuT3PJTFwGIhY
-         lqV+TvZoaV9ywuTv6u0u6rdBBrfvUIqZftDiyuLSyemPASVyhoHnt1DkhJTBeWYmDOp9
-         kkbRZnrB26wDpAtneQWAeuFWnicvqFZX0AMGZbnA0zS77HCk2JfryYcZLRTVi1fq8Ohm
-         G4sg==
+        d=gmail.com; s=20251104; t=1788090956; x=1788695756; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=uXAVtdXqT4N3HaypUIR8DYqRj/FnDuduwp3EKXKiO+U=;
+        b=s6+bkj1yMu4crPPeSW8sKr0SV8OkTvZKH68rCp5XWuCs4tdGcIQKgrZFQSejdTjg8O
+         wMMw5SYpC9OHoq49CTCuaOh8hDpO/2B+wumrtriI0M+Vfg1fo13NpKkx7JzYovmhtnWI
+         w0ct4BLYnxpf3rl0PR8AQ3iaPZgixbvNbZp4vI1TajUB2unpgVQMQ+BUOMGheX5Dm2Ue
+         Mht8/byj7w1pDIENTDMfQDI13bJCj1AsG9lk9reAa2KHcljAf26d3HCRl3de5I41y5Bg
+         emUql6Z5mAvutQtWfEYAkLicaguK5lypowmQzzo7+UHg2pLVKV5Cu/j7tBlBgRgId/Fr
+         jz5g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788090531; x=1788695331;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=F6dWzVftJmVxxbOmYyIM0bVDs+vsg5QWyjKFPq8DPDo=;
-        b=NV72UfpvW7K8+aqRA6Eq4nqo+1XXBjeBfNu/DveYdk38/BJvUf34p1A99sNbgWvl1e
-         Byid5W6PF6GkyyGd2lbKSgSTMCZuFx5gnUcqdXZ+xLHWwn5n8uwk6Mrabyot0xmOekEU
-         o1WmXlKxemUOAreRlCUNrCYIN32tRDevQ/OscpjBipoPOKqiS7yctI4S4XjOUYoATzGF
-         UFpST7Sws2KrBgNb2CJjFYXOaa25gtI3d9x2rgDeDbTnU+XyuAn8If90i9wUnvZUupiE
-         J/z70xKO+DLNa9ePobsO/e9f12bXWYf3TTIJD7ngdOWcWbjAbSZhzTclMz11fyDBqYTE
-         AqoA==
-X-Forwarded-Encrypted: i=1; AKwUvBwW96F5hIKIPShNa6sk9jTcGehdZJJqbpfwfgwLb41SkJJol7ATaGTn4rssW2Mt9qkJfqyBfGj1vqWE44M=@vger.kernel.org
-X-Gm-Message-State: AFuF++lYVmJAxocBW/RR4ScW6Tp6/KkNzACq1/bqii32wCu/9N5LLsZb
-	dcdX4Z18e02QDfnRBJERnUtd7Ppkzk4ZZZfjTrWyL4QaxT9krcq1xJ0A
-X-Gm-Gg: AYBFou115rwvupopV+TnIPTPey48bAFPBFOOsrDBBrCUB/v5hCIaTeLQUi+duoC6j5t
-	NwMjg6cNsoQzuPOdfkQjqjZwr5JaIc12hOmjaGkMCgkkBcbdwm8em2pAJnNm5FGj31ojzkrx8Cx
-	2dgLBvKy4634c8OthC0ON9R47oBwpUeJongSq47DGXmmEDgP7SkiuJXblRChF5tqPGgyE1FFh19
-	TYa2oQ1z97MzJGwYsAk8MsVVeD9WbNb+1ARfjbQZ5/hhNwrTAfFSYNBJu7cb/q3RUTteST/fnqc
-	om6UJGlPoW4TZYz+XwYLAtMb15bKElRc0Tvj88YicK3Z8FkVMrVbhfxWXcGdi9jrBUv/NUIIxY+
-	FxAdlB7A3F8+hJ8jhhs+3FBSdkVyF+2u0tzG5xqCTyuXChqtYjmw3y1bC6uIQAd5qSQB/51rsNW
-	GVZP4KWnI/kDVSzcronk5ddygHCtAwqlWrf5H1Tl6Rqp4kg3B9oS8OYksyjhyVTi/WiG5Edccqa
-	xAl65XocNAvut8wqLqBTg==
-X-Received: by 2002:a17:90b:48cf:b0:38f:de94:bf34 with SMTP id 98e67ed59e1d1-398da6f3e41mr1421458a91.10.1788090531274;
-        Sun, 30 Aug 2026 04:48:51 -0700 (PDT)
-Received: from qiwenjie-ThinkCentre-M760t.mioffice.cn ([43.224.245.241])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396b0ea7fa9sm16269311a91.4.2026.08.30.04.48.47
+        d=1e100.net; s=20251104; t=1788090956; x=1788695756;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=uXAVtdXqT4N3HaypUIR8DYqRj/FnDuduwp3EKXKiO+U=;
+        b=jyQ1z4HlJ+Xcc6dQ4/Fi9gjlJLS4lKpKyxMADPBsqbKsJxJjVQ78QXSe9XaNk/ZnU5
+         Z/YPiRy3D3eOVhQjgLbhPzsTkIYfbKCKjwLWFYNmjPhVsXCJLTN4GwyrNnzx549ND5/K
+         d8y8xXVyQTEne1OjoiEI02YSzoKUrk17S0dvSY9FDTJxPq2YPR6H7VWvf99QR7lXQmyS
+         6GC0J510Z+Tz8QDRbp5yz7cCCF0EvXhXeseFRgagXAOk0HgaFyJJPn1c1iEy/B9626hT
+         wl1HjmG6y0UHZutvO1MXNhhyEfKC9RFtCPK9ITqaejnYmrVCL0mb4Na2c7JtSi7nEfog
+         FfaA==
+X-Gm-Message-State: AFuF++mJiVXMBY04JdWwtRibK1oxiUF7vepAO/H8G6dnYvMgxEgIzvES
+	/ePpa9PVrpzqSWx4S//sX3tgbHl2h7c4BEh2q/kWizVrfg5CwDMw3zh7
+X-Gm-Gg: AR+sD10qthaBZ3mVE/4uTdOMScH5ZAhJj8t1dVQ7uGKjC4hhF8Jc/yVxCzIOTEIHhj9
+	HkAobxixL5ORcLUrfgE5ooodLFcRBYwPF80eHm6S+7+wspP25tljR2J6Ck0fFqJksUx7CSUgfLd
+	UNemCSkXzL7+CruDhHpajO54ZFVlnBxZwasbfDBueWuFXiwfQA+/sEGz726QiQ77DiZS1+ecixd
+	jQiMFVR+HcHa3Cr84kr3L28Q/+Z/0hmI+Pv+dFz4CQnJRX0R1qF9Amlh3/pVBKWAIrMLN3J5056
+	Dx2Fd5Lc7u6+tpaBUZ4xjcfIZK2Bxqc3bxwXpzR2wYY8PzTzTiQxIhD0P5Yjt3ltLoutDIAdQ+i
+	BYOfXXjDNArlUpclg3oAYvUm1mt6TbIILQzpEq7526c6kB+tjFzewjJMmf0gKy0AVmjQEyt84e9
+	7yWQyt9Mu9k03yMcfOKTzu0KLeb+ALZzQY8UKwkV4XjUsJQwpyDNH+
+X-Received: by 2002:a05:6a21:115:b0:3cd:9f99:3381 with SMTP id adf61e73a8af0-3d262679aa2mr35624073637.0.1788090955588;
+        Sun, 30 Aug 2026 04:55:55 -0700 (PDT)
+Received: from homebox ([66.75.253.8])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-142e0d1abbdsm19622929c88.2.2026.08.30.04.55.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 30 Aug 2026 04:48:50 -0700 (PDT)
-From: Wenjie Qi <qwjhust@gmail.com>
-To: willy@infradead.org,
-	jack@suse.cz,
-	akpm@linux-foundation.org
-Cc: linux-fsdevel@vger.kernel.org,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	baohua@kernel.org,
-	axboe@kernel.dk,
-	trond.myklebust@hammerspace.com,
-	tz2294@columbia.edu,
-	chao@kernel.org,
-	qiwenjie@xiaomi.com,
-	qwjhust@gmail.com
-Subject: [PATCH] mm: filemap: skip dropbehind folios during fault-around
-Date: Sun, 30 Aug 2026 19:48:45 +0800
-Message-ID: <4a4ac0b4accb50641f504f205663435047c4b26e.1788086386.git.qiwenjie@xiaomi.com>
-X-Mailer: git-send-email 2.43.0
+        Sun, 30 Aug 2026 04:55:55 -0700 (PDT)
+From: Yuan Tan <yuantan098@gmail.com>
+To: netdev@vger.kernel.org,
+	netfilter-devel@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	workflows@vger.kernel.org,
+	yuantan098@gmail.com,
+	frankw@nebusec.ai,
+	jhs@mojatatu.com,
+	ksummit@lists.linux.dev,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	kerneljasonxing@gmail.com,
+	roman.gushchin@linux.dev,
+	jgg@nvidia.com,
+	mchehab+huawei@kernel.org,
+	torvalds@linux-foundation.org,
+	ben.copeland@linaro.org,
+	gregkh@linuxfoundation.org
+Subject: [ANNOUNCE] A Syzbot-style Platform for Verifying and Fixing LLM-reported Bugs
+Date: Sun, 30 Aug 2026 04:55:45 -0700
+Message-ID: <20260830115546.3942129-1-yuantan098@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Wenjie Qi <qiwenjie@xiaomi.com>
 
-filemap_map_pages() maps uptodate folios speculatively without going
-through the normal filemap lookup that clears dropbehind. As a result,
-a neighboring dropbehind folio can acquire a PTE and the mapped-folio
-completion guard will retain it even if that PTE is never accessed.
+Hi all,
 
-Skip still-dropbehind folios in next_uptodate_folio(). If the skipped
-folio covers the fault address, do_read_fault() falls back to
-filemap_fault(), where the normal lookup clears dropbehind and updates
-WB_DONTCACHE_DIRTY accounting before mapping it. Speculative neighbors
-remain unmapped and can be discarded when I/O completes. Normal folios
-continue to use fault-around.
+A month ago, I posted an RFC[1] to the mailing list proposing an automated
+platform that validates AI-reported bugs and prepares draft fixes, and
+later discussed the idea at the Netdev conference. After further
+development, it is finally ready.
 
-Dropbehind is folio-wide, so a fault into any subpage retains the whole
-large folio through the normal fault path.
+While preparing to send this email, I noticed that Roman has since started
+a related discussion:
+[MAINTAINERS SUMMIT] The place of AI code review in the Linux Kernel process
 
-Signed-off-by: Wenjie Qi <qiwenjie@xiaomi.com>
----
-Tested on XFS over a 5-second dm-delay target in QEMU:
-- neighbor-dontcache: the target remained unmapped and was evicted.
-- target-dontcache: the directly faulted target was mapped and retained.
-- neighbor-normal: the target was fault-around mapped and retained.
-- unmapped-dontcache: the target remained unmapped and was evicted.
-All cases completed writeback, validated data, and kept dmesg clean.
+It turns out this platform already addresses several of the needs raised
+there.
 
- mm/filemap.c | 2 ++
- 1 file changed, 2 insertions(+)
+The platform is available at:
+https://bugtracker.nebusec.ai
 
-diff --git a/mm/filemap.c b/mm/filemap.c
-index 00fd89cf6f550..c123de583b3e1 100644
---- a/mm/filemap.c
-+++ b/mm/filemap.c
-@@ -3769,6 +3769,8 @@ static struct folio *next_uptodate_folio(struct xa_state *xas,
- 			goto unlock;
- 		if (!folio_test_uptodate(folio))
- 			goto unlock;
-+		if (folio_test_dropbehind(folio))
-+			goto unlock;
- 		max_idx = DIV_ROUND_UP(i_size_read(mapping->host), PAGE_SIZE);
- 		if (xas->xa_index >= max_idx)
- 			goto unlock;
--- 
-2.43.0
+It is currently hosted under my company's domain for convenience. I would
+prefer to move it to a neutral, community-oriented domain once the project
+name is settled.
+Access is currently restricted to maintainers whose email addresses are
+listed in the Linux kernel MAINTAINERS file.
+For now, only bug reports from the net subsystem have been fully imported
+and processed.
+
+-------------------------------------------------------------------------
+
+LLM-powered tools such as Sashiko and Claskiko produce a significant number
+of false positives. Pre-existing bugs uncovered by these tools are also not
+collected in one place and they remain scattered across individual review
+reports.
+
+To address this, like syzbot for fuzzer-found bugs, this platform provides
+an **automated** tracking layer for AI-reported bugs, but goes further by
+generating PoCs, running them in QEMU to produce crash logs, triaging
+severity, and drafting patches. This requires no extra effort from
+maintainers; instead, it may helps them understand and fix these bugs more
+efficiently.
+
+
+The platform offers the following capabilities:
+
+1. Collect and Deduplicate
+
+The platform ingests bug reports from multiple sources, including Sashiko,
+Claskiko, and others. It deduplicates them and monitors mailing lists and
+git history to track whether they have been fixed.
+
+It also provides visibility into the Sashiko/Claskiko ingestion queue, so
+users can see which reports are waiting to be collected and processed.
+
+
+2. Verify by generating PoC and running it in QEMU
+
+An agent attempts to generate a proof-of-concept for each bug to determine
+whether it is a false positive. According to paper Patch-to-PoC[2] and
+follow-up research, GPT-5.4 achieves up to a 95% success rate in generating
+PoCs for genuinely exploitable bugs.
+
+This makes PoC generation a strong signal: if a bug has no PoC, it is very
+likely a false positive. And even in cases where a real bug is missed, the
+difficulty of generating a PoC suggests it is unlikely to be practically
+exploitable.
+
+
+3. Draft Patch
+
+The platform produces a draft patch to give maintainers a starting point
+and suggested fix direction. These still require human review. Patches can
+be downloaded via b4 am.
+
+These patches are not sent to mailing lists to avoid adding AI-generated
+noise.
+
+
+4. Triage
+
+Based on the PoC, the agent evaluates the conditions required to trigger
+the bug, for example, whether it requires a namespace, root privileges, or
+can be triggered by an unprivileged user.
+
+Bugs that require root are generally less important, while those reachable
+by unprivileged users are more likely to have real security impact.
+
+If a bug can be triggered from namespace, it is still worth
+paying attention to.
+In particular, a bug should not be considered root-only merely because
+triggering it requires CAP_NET_ADMIN in a network namespace. On systems
+that allow unprivileged user namespaces, an ordinary user may be able to
+create a user namespace, create a network namespace owned by it, and obtain
+capabilities such as CAP_NET_ADMIN with respect to that namespace. Such
+bugs may therefore still be reachable by an otherwise unprivileged local
+user.
+
+For example, this configuration has historically been available by default
+on distributions such as Ubuntu 22.04 LTS and earlier.
+
+Jamal previously offered some suggestions on this severity classification
+scheme which I have not yet had time to implement; that will come in a
+future update.
+
+
+5. Chat with agent
+
+Each bug page includes a chat interface for discussing the bug and its fix
+with the agent.
+
+
+
+Based on earlier feedback, the system is not fully public. Only email
+addresses listed in the MAINTAINERS file are eligible to register, to
+prevent bugs with potential security impact from being exposed publicly.
+
+Jason’s idea of delegating fixes could also be implemented on this
+platform. This is essentially what my volunteer bug-fixing team and I have
+been doing over the past six months: anyone interested can pick up an issue
+and try to fix it. 
+Each subsystem’s maintainers could choose whether to make its issues
+public. Making them public would also let potential reporters check whether
+an issue is already known before submitting a new report.
+
+Bugs are also categorized by subsystem, so after logging in, maintainers
+see only the bugs relevant to the modules they maintain.
+
+
+Welcome any suggestions:)  I will continue maintaining this system and
+adding more features, not only out of personal interest, but also our
+bug-fixing volunteer team is using it too.
+
+We periodically burn tokens and run state-of-the-art models against the
+full kernel source code, with the goal of finding security vulnerabilities
+before attackers do. While I am not an expert in the net subsystem and
+cannot review patches myself at this time, I still hope this platform can
+be of help to the community.
+
+If this system proves genuinely useful, I am happy to transfer project
+ownership to the Linux Foundation or another neutral host.
+
+Going forward, the platform will expose a public API so that other bug
+finding research teams can submit their findings here for centralized
+processing. We also plan to ingest syzbot-found bugs to provide them with
+the same triage workflow.
+
+P.S. I have been struggling to come up with a good name for this platform. A
+few candidates I am considering are Palomar, Tengu, FixArc, and Ephemeris.
+If anyone has a preference or a better suggestion, I would love to hear it.
+
+
+Current Limitations
+
+- For a tracked bug, the system currently only knows that a fix exists; it
+does not yet distinguish between a patch that has been posted to the
+mailing list and one that has already been merged.
+
+- PoC generation and false-positive verification are not yet supported for
+driver-related bugs.
+
+- Unable to scrape Sashiko/Clashiko review reports that are still under embargo.
+
+- Only net subsystem bugs from Sashiko and Claskiko have been imported with
+a fully automated fix-detection pipeline so far. Bugs from other subsystems
+are shown but may already be fixed. If other subsystem maintainers are
+interested, I will prioritize adding support.
+
+
+[1] https://lore.kernel.org/all/20260708092247.4188498-1-yuantan098@gmail.com/
+[2] Juefei Pu, Xingyu Li, Zhengchuan Liang, et al. "Patch-to-PoC: A
+Systematic Study of Agentic LLM Systems for Linux Kernel N-Day
+Reproduction." arXiv:2602.07287, 2026. https://arxiv.org/abs/2602.07287
+
+
+Thanks,
+Yuan
