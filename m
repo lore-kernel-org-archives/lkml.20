@@ -1,185 +1,256 @@
-Received: from mail-yw1-f175.google.com (mail-yw1-f175.google.com [209.85.128.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout.gmx.net (mout.gmx.net [212.227.15.15])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D92E735E931
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 23:22:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8525D2EEE7E;
+	Sun, 30 Aug 2026 23:30:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.15.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788132176; cv=none; b=HviCzkgbHWxbvup/1im6GvfoxpRXpdo111YxUmtakn1NLymd3ZKK+o8p8M0W7zSpvd+A/a/6XnFfIBi2RCqE+KEbJhvKRb7Q4sKrmop6VvIOOCbgueoXLunw9gXwun9yyQisQNJ1rqCrRD8hj1OVhWF5+WmDkuOGHPDZvA5DuSk=
+	t=1788132636; cv=none; b=aZ8WwKBRPOaX9KxbdqgjgA+xzpJtcfyZRRSI9Jr0pRPMTIaO5oWZ2kgzE44B5fQnGRQRUwfmYXRVtLeQQeRGN4kX7S07S5PTZ4CVRXeWNsxOOJowXf0/rMXbAjw1QMwTNdu9kSaXBpLZGNvyNEHQAK5YcYaDwwmZx13H4Xp0NjY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788132176; c=relaxed/simple;
-	bh=DVj+WxYMaH7xErgtRURdPZIYrygxVAeE8S+6pSHRAj8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=GPSf1sXiMOsHa/xWWcKw1WL6Qg7FLJaEDoNs6NGczkqHxnRIR09zhZ9mDa8WT5sSyUysuP2we+EQV/dV84NpAAApsnhaJ0x2Ns4wJZOBgtduy4RSbzkmIARjUwgn+iNpGEHl5yzeRvACiykhqSwp1CMILFN/G5r+2coF5i5ilK4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FTeZw+Nq; arc=none smtp.client-ip=209.85.128.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788132636; c=relaxed/simple;
+	bh=nl/C3vJNIMwjl32CzBMjcUuT1enNy0W9uICTQLti610=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=nFOzKLyUX0GHGpcaS3tXierQ7B7aKgYF2rEpy63oTx/VSJ4zScVIFy1FafZWveJ+WlTO6+AB0+LNgRIOZn+20ou36qOkiZ946I5Fmp2ETJZc5jkYnUxa0Q7LDWoFFDmfNV9ApY6XKo/GwpEv2oGt3Dob6YpNqGAkPq/C3645MUA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de; spf=pass smtp.mailfrom=gmx.de; dkim=pass (2048-bit key) header.d=gmx.de header.i=w_armin@gmx.de header.b=ku5h+6B9; arc=none smtp.client-ip=212.227.15.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FTeZw+Nq"
-Received: by mail-yw1-f175.google.com with SMTP id 00721157ae682-8615bb9d857so2978947b3.2
-        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 16:22:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788132173; x=1788736973; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=TGMddz4oxHyMD/VYwjKLQUQ8UAQjzIFIQ1x/LerDgfU=;
-        b=FTeZw+Nq2KYYn97EkC+fvhK/53kMym6WJ2hnmDeYhVn/O0fl3gGUgn6XR6pBvalh2Y
-         907JT5ZBb82HlYC5966Htpz8rPLzR/NkNY7csNsWTc6ojeZPFDqLIPHq8TfrfbDRtEym
-         CVMAxhTQLzrCapOL47Vc5Y6A9+nRSAqQaVkYqkd/iTMj/rmE8wehDX68e5miOkeDP/2h
-         joZNc93JJ3kXemRwFWwjekG3EMxSTGBA4t4BK1i8UKKqyuELgbbie1Yhz2cOnKYEreCM
-         9qUYbSZm6ymyLhnPhVnMe8cGNt8RxoBS5GpQY9QE1Yi852Xug5JUdqpzl0rgBWEG2b9G
-         5ErA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788132173; x=1788736973;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=TGMddz4oxHyMD/VYwjKLQUQ8UAQjzIFIQ1x/LerDgfU=;
-        b=jQiXju+yJosQkAQOE/1Exf66Bvaz0zineudhIuA8axoKJt498uz3pLYICoHdrTREn1
-         o2G3xOSVIkAiCEe+ERwM8TkLKravayqPruaeUa28cBMUsIR7of/Z3O3rHyRyTLvs5rMY
-         zNIawoMIItJsi5tpFfCOP/9ylMbYK8EdnA9jZMlCVG9iJkgwr3CLKDP7fLiCmRHkIQAK
-         Iow5lR4m9c5e6hawD+UWakioIqPMfxh0UEKUhIPVEUIF5IcgUTiQqt6WGi/W1BAIGn29
-         bMyfxQSmcDtq1pdM3+JOFBBKmQqwDA3sFAyioAHf/fLWSwvEE/jZFtmkxEadaUan0/p3
-         zQLQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwMXnyM0e/l5HK6KuMY6M/DRKFEMY80G5F+tMET5iUUIbOLRLl/mNPGw7sqT7YDCjz2ng67YqfqSdpUIMM=@vger.kernel.org
-X-Gm-Message-State: AFuF++m6CF9VQ9ragI0eQky9tctmlSk1fUOtj4ZAWKWDAo4LmUCFwbcN
-	G53Pm92KwzYznfZQrxAMk6bh2ZJm3g2XGzy2EzZC8WxN23JoAq/Rotmd
-X-Gm-Gg: AYBFou1u1N0GN6B/3F8uR4bz3LgvCe+M7r0GV/3Nt7aYnId+qXc85UlESZB80GiI6pT
-	SJj6k+JcHYUE9/Dd6hQFsfa9ZwA5T+1lqfqqNyQvCBYwoNVq8F+SCrBVEgio9jEU2h9rNDXImkr
-	kMCnpBbAfpb8trzSbnGf/kq2/2R3/de91X9BFnSwMn8bAq79V5q17uFWQZ40R4PqpRmNuP5Fh76
-	LNrGzOmgWAdyIEXUk4VzSJw1O7sMiApJoF4uUpBsO6IsVnPndIAz7Fp0KvoxkcwpdoypDNfhN6M
-	mH3VhiTzAOA4j82aVS5t2utt2SVc+xQG5siil0rRlM/cMZsTOGu5iiHwAPj6F2hcEXXr6utKpW0
-	Kt6jFpzlPMHbQPHLBz3PUjJgjQsljrr2eT/XeGfg5zcFGWbqkg0ICBAbnsKFYsu3HhER92YLyLf
-	qwjFvcR2Ij9j5IV5MulmxjWIOutAckdxP2TxxuqOPE
-X-Received: by 2002:a05:690c:e15c:20b0:81d:e7d2:a46d with SMTP id 00721157ae682-85d65ee90b5mr61045247b3.5.1788132173517;
-        Sun, 30 Aug 2026 16:22:53 -0700 (PDT)
-Received: from devobuntu.lan ([2600:6c5c:6b00:316::23])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-85e677606aesm39025937b3.45.2026.08.30.16.22.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 30 Aug 2026 16:22:53 -0700 (PDT)
-From: Matt Vollrath <tactii@gmail.com>
-To: intel-wired-lan@lists.osuosl.org
-Cc: netdev@vger.kernel.org,
-	Tony Nguyen <anthony.l.nguyen@intel.com>,
-	Przemek Kitszel <przemyslaw.kitszel@intel.com>,
-	Alexander Lobakin <aleksander.lobakin@intel.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	linux-doc@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmx.de header.i=w_armin@gmx.de header.b="ku5h+6B9"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
+	s=s31663417; t=1788132615; x=1788737415; i=w_armin@gmx.de;
+	bh=YEECwBRv8fS2aHVveVOGNgmVZGlzZYhkcVC5/ihPPKE=;
+	h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-Id:
+	 MIME-Version:Content-Transfer-Encoding:cc:
+	 content-transfer-encoding:content-type:date:from:message-id:
+	 mime-version:reply-to:subject:to;
+	b=ku5h+6B96Ksw7PGmPN/tprWAFHpnPvu3PshWipmq4rT9WR1vny0uvymC5GlwONCK
+	 ggcjMCbF4WZpVX0vR8eCkLjmPPMiFZeiq6sv61sXSIrnUK3re4tbqlDdqE+yCQF1a
+	 F5qqsFV2pY8zv38N04ZvwmgMRmMQecomcyGd/tgIQ2aLxxP08Ru+quYLPpqwiV+fG
+	 tSe0JmVJ3BERY3+dv/kieYxPVGEBlpi3yPngoN14WuW2NdtOHl7XL4yd52biseJJM
+	 6SaR88Z8AABR3dByWJs2jrmzpv3z1iMBXf/xuPGQAc5CEWFyYTRXxdqsD4faCtLJu
+	 eeRX5nl2SS3xMxrFkQ==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from client.hidden.invalid by mail.gmx.net (mrgmx004
+ [212.227.17.190]) with ESMTPSA (Nemesis) id 1MpDNl-1wXkQy0bwV-00jQcY; Mon, 31
+ Aug 2026 01:30:15 +0200
+From: Armin Wolf <W_Armin@gmx.de>
+To: linux@roeck-us.net
+Cc: linux-hwmon@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Matt Vollrath <tactii@gmail.com>
-Subject: [PATCH iwl-next 8/8] e1000e: return skbs to NAPI cache
-Date: Sun, 30 Aug 2026 19:21:46 -0400
-Message-ID: <20260830232146.36948-9-tactii@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260830232146.36948-1-tactii@gmail.com>
-References: <20260830232146.36948-1-tactii@gmail.com>
+	ggirouard@bungeetaco.com
+Subject: [PATCH v2] hwmon: (spd5118) Select page 0 unconditionally during probe
+Date: Mon, 31 Aug 2026 01:30:09 +0200
+Message-Id: <20260830233009.322206-1-W_Armin@gmx.de>
+X-Mailer: git-send-email 2.39.5
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:6yMRq/oelM6SJH4AHXYOPTCal8y1EgIl6mDmU2CTFGIJxy1BNug
+ Rco9WwdUYDkYxpKBHfYimUnfyirconNb8pSFPzuKXUmm7ID81yXwVKLpPLDOz499xGjelzw
+ u/mhBu01IpiOjzl5fwL7f0ILOevJnpkCxz3HL3pXdN+1JjBJfxRBX+QYIuYHADi10MTn8aK
+ kXn/s98sV68NitHPeeBUg==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:29JQlO0jiIs=;2nXlYsH5VFhbW3D5D6CSlgBHIJ8
+ 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
 
-Use napi_consume_skb to hand skbs back to the NAPI cache. This closes
-the loop with changes to the Rx path.
+Some Intel i2c controllers can be configured by the BIOS to reject
+writes to the SPD device. This often causes problems when the register
+page needs to be changed, usually during resume.
 
-Signed-off-by: Matt Vollrath <tactii@gmail.com>
-Assisted-by: Claude:claude-5-fable
----
- drivers/net/ethernet/intel/e1000e/netdev.c | 18 ++++++++++--------
- 1 file changed, 10 insertions(+), 8 deletions(-)
+Avoid probing on affected devices by unconditionally selecting page 0
+by writing the SPD5118_REG_I2C_LEGACY_MODE register during probe.
+This will fail on affected controllers and thus prevent the driver
+from probing.
 
-diff --git a/drivers/net/ethernet/intel/e1000e/netdev.c b/drivers/net/ethernet/intel/e1000e/netdev.c
-index c906175ad38d..a28ee0750f4b 100644
---- a/drivers/net/ethernet/intel/e1000e/netdev.c
-+++ b/drivers/net/ethernet/intel/e1000e/netdev.c
-@@ -713,7 +713,7 @@ static struct sk_buff *e1000_build_rx_skb(const struct libeth_fqe *fqe,
- 
- static void e1000_put_txbuf(struct e1000_ring *tx_ring,
- 			    struct e1000_buffer *buffer_info,
--			    bool drop)
-+			    bool drop, int budget)
- {
- 	struct e1000_adapter *adapter = tx_ring->adapter;
- 
-@@ -730,7 +730,7 @@ static void e1000_put_txbuf(struct e1000_ring *tx_ring,
- 		if (drop)
- 			dev_kfree_skb_any(buffer_info->skb);
- 		else
--			dev_consume_skb_any(buffer_info->skb);
-+			napi_consume_skb(buffer_info->skb, budget);
- 		buffer_info->skb = NULL;
- 	}
- 	buffer_info->time_stamp = 0;
-@@ -860,11 +860,12 @@ static void e1000e_tx_hwtstamp_work(struct work_struct *work)
- /**
-  * e1000_clean_tx_irq - Reclaim resources after transmit completes
-  * @tx_ring: Tx descriptor ring
-+ * @napi_budget: NAPI polling budget, or 0 when called outside NAPI context
-  *
-  * the return value indicates whether actual cleaning was done, there
-  * is no guarantee that everything was cleaned
-  **/
--static bool e1000_clean_tx_irq(struct e1000_ring *tx_ring)
-+static bool e1000_clean_tx_irq(struct e1000_ring *tx_ring, int napi_budget)
- {
- 	struct e1000_adapter *adapter = tx_ring->adapter;
- 	struct net_device *netdev = adapter->netdev;
-@@ -899,7 +900,8 @@ static bool e1000_clean_tx_irq(struct e1000_ring *tx_ring)
- 				}
- 			}
- 
--			e1000_put_txbuf(tx_ring, buffer_info, false);
-+			e1000_put_txbuf(tx_ring, buffer_info, false,
-+					napi_budget);
- 			tx_desc->upper.data = 0;
- 
- 			i++;
-@@ -1340,7 +1342,7 @@ static irqreturn_t e1000_intr_msix_tx(int __always_unused irq, void *data)
- 	adapter->total_tx_bytes = 0;
- 	adapter->total_tx_packets = 0;
- 
--	if (!e1000_clean_tx_irq(tx_ring))
-+	if (!e1000_clean_tx_irq(tx_ring, 0))
- 		/* Ring was not completely cleaned, so fire another interrupt */
- 		ew32(ICS, tx_ring->ims_val);
- 
-@@ -1816,7 +1818,7 @@ static void e1000_clean_tx_ring(struct e1000_ring *tx_ring)
- 
- 	for (i = 0; i < tx_ring->count; i++) {
- 		buffer_info = &tx_ring->buffer_info[i];
--		e1000_put_txbuf(tx_ring, buffer_info, false);
-+		e1000_put_txbuf(tx_ring, buffer_info, false, 0);
- 	}
- 
- 	netdev_reset_queue(adapter->netdev);
-@@ -2060,7 +2062,7 @@ static int e1000e_poll(struct napi_struct *napi, int budget)
- 
- 	if (!adapter->msix_entries ||
- 	    (adapter->rx_ring->ims_val & adapter->tx_ring->ims_val))
--		tx_cleaned = e1000_clean_tx_irq(adapter->tx_ring);
-+		tx_cleaned = e1000_clean_tx_irq(adapter->tx_ring, budget);
- 
- 	e1000_clean_rx_irq(adapter->rx_ring, &work_done, budget);
- 
-@@ -5019,7 +5021,7 @@ static int e1000_tx_map(struct e1000_ring *tx_ring, struct sk_buff *skb,
- 			i += tx_ring->count;
- 		i--;
- 		buffer_info = &tx_ring->buffer_info[i];
--		e1000_put_txbuf(tx_ring, buffer_info, true);
-+		e1000_put_txbuf(tx_ring, buffer_info, true, 0);
- 	}
- 
+Signed-off-by: Armin Wolf <W_Armin@gmx.de>
+=2D--
+Changes since v1:
+- Avoid zeroing reserved bits inside SPD5118_REG_I2C_LEGACY_MODE
+=2D--
+ drivers/hwmon/spd5118.c | 58 ++++++++++++++++-------------------------
+ 1 file changed, 23 insertions(+), 35 deletions(-)
+
+diff --git a/drivers/hwmon/spd5118.c b/drivers/hwmon/spd5118.c
+index 9724cf70b61d..95b7cbd2f111 100644
+=2D-- a/drivers/hwmon/spd5118.c
++++ b/drivers/hwmon/spd5118.c
+@@ -14,6 +14,7 @@
+  * memory modules.
+  */
+=20
++#include <linux/bitfield.h>
+ #include <linux/bitops.h>
+ #include <linux/bits.h>
+ #include <linux/err.h>
+@@ -637,45 +638,32 @@ static int spd5118_i2c_init(struct i2c_client *clien=
+t)
+ 				     I2C_FUNC_SMBUS_WORD_DATA))
+ 		return -ENODEV;
+=20
+-	regval =3D i2c_smbus_read_word_swapped(client, SPD5118_REG_TYPE);
+-	if (regval < 0 || (regval && regval !=3D 0x5118))
+-		return -ENODEV;
+-
+ 	/*
+-	 * If the device type registers return 0, it is possible that the chip
+-	 * has a non-zero page selected and takes the specification literally,
++	 * We must first select page 0 to ensure that we can reliably read
++	 * the volatile registers on chips that take the specification literally=
+,
+ 	 * i.e. disables access to volatile registers besides the page register
+ 	 * if the page is not 0. The Renesas/ITD SPD5118 Hub Controller is known
+-	 * to show this behavior. Try to identify such chips.
++	 * to show this behavior.
++	 *
++	 * We must also perform an unconditional register write to detect if
++	 * the i2c controller blocks write accesses to the SPD device. Some Inte=
+l
++	 * controllers might be configured by the BIOS to do this.
+ 	 */
+-	if (!regval) {
+-		/* Vendor ID registers must also be 0 */
+-		regval =3D i2c_smbus_read_word_data(client, SPD5118_REG_VENDOR);
+-		if (regval)
+-			return -ENODEV;
+-
+-		/* The selected page in MR11 must not be 0 */
+-		mode =3D i2c_smbus_read_byte_data(client, SPD5118_REG_I2C_LEGACY_MODE);
+-		if (mode < 0 || (mode & ~SPD5118_LEGACY_MODE_MASK) ||
+-		    !(mode & SPD5118_LEGACY_PAGE_MASK))
+-			return -ENODEV;
+-
+-		err =3D i2c_smbus_write_byte_data(client, SPD5118_REG_I2C_LEGACY_MODE,
+-						mode & SPD5118_LEGACY_MODE_ADDR);
+-		if (err)
+-			return -ENODEV;
+-
+-		/*
+-		 * If the device type registers are still bad after selecting
+-		 * page 0, this is not a SPD5118 device. Restore original
+-		 * legacy mode register value and abort.
+-		 */
+-		regval =3D i2c_smbus_read_word_swapped(client, SPD5118_REG_TYPE);
+-		if (regval !=3D 0x5118) {
+-			i2c_smbus_write_byte_data(client, SPD5118_REG_I2C_LEGACY_MODE, mode);
+-			return -ENODEV;
+-		}
+-	}
++	mode =3D i2c_smbus_read_byte_data(client, SPD5118_REG_I2C_LEGACY_MODE);
++	if (mode < 0)
++		return mode;
++
++	FIELD_MODIFY(SPD5118_LEGACY_PAGE_MASK, &mode, 0);
++	err =3D i2c_smbus_write_byte_data(client, SPD5118_REG_I2C_LEGACY_MODE, m=
+ode);
++	if (err < 0)
++		return err;
++
++	regval =3D i2c_smbus_read_word_swapped(client, SPD5118_REG_TYPE);
++	if (regval < 0)
++		return regval;
++
++	if (regval !=3D 0x5118)
++		return -ENODEV;
+=20
+ 	/* We are reasonably sure that this is really a SPD5118 hub controller *=
+/
  	return 0;
--- 
-2.43.0
+=2D-=20
+2.39.5
 
