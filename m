@@ -1,147 +1,111 @@
-Received: from mail-yw1-f169.google.com (mail-yw1-f169.google.com [209.85.128.169])
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADF0B340282
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 17:30:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E1C42DB7BE
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 17:33:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788111002; cv=none; b=hQ3F2t3vMrF6AzqViIwE14+6cysUXlAXv/Qh7MNRspCdbDZGE8FanhuFhhcpjIXfONSrW1rohqM7RAPOEAobC/p/MtFLG+ypzn2ItnJiG/cXcRsDIiXFSn1gkEFNz8touIVexK4j8J24K9uYQJs7W3eYU9Q1+xSURJRFvm5dB00=
+	t=1788111231; cv=none; b=DfDMQlfpUAjydgfAlzTawa9x436j+GPrh2XUJdrhCCvH1Sd3Feq4/iXM2/GDzbZpXtLg2WIVZDbGjW8hvlbL9JgAqSKHi4CRrS/4y4Ac1DKWwbC6pSwwNSwHmQwGMgsdylanG88hUASO4pwXlBKKodPXKmxNIo1qnYADY54to+E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788111002; c=relaxed/simple;
-	bh=qdZQchCJg+WNDpQcGIL/RJh8XFw3pwBrkIgWpCk6sAM=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=XgbAibCkRMIGd17YRad71mo1aEny+tB8eZ2J22HO1Jd5nyGcwzhVaVzyn3lnUtOFjkPQGxX9qV37kaJmLSNpqAWKAOwzAbORvAlLKHFhV+WiHegPfVrpTXkIHFSsyBhUXzlVaD1VIv8VU0uvPbQpZEeWkp733fv14E+1qaofysM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Kje9QClR; arc=none smtp.client-ip=209.85.128.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1788111231; c=relaxed/simple;
+	bh=TByE+cFHkN88dDuBl+Ud78hUPGn9v39quj45oHZsxGo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=B7Napf58uYnwCF+PkR+CaCzoExGwwPWRXwcKQnYpzlHSlc+LYL5QIMm4zt/c5GjOgGRyRd9g/vxzNOPQDRo3euxZD4F3puI4akSmQwFbZRGXP6d1YbkrhCJo+kyxosu2L6TMq0ZYbWZADrY4QWMyjnPEacPafsU1Et27geeryIQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ol0dvHzo; arc=none smtp.client-ip=209.85.216.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Kje9QClR"
-Received: by mail-yw1-f169.google.com with SMTP id 00721157ae682-856114a8247so31655987b3.2
-        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 10:30:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ol0dvHzo"
+Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-39675172593so2256139a91.2
+        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 10:33:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788110999; x=1788715799; darn=vger.kernel.org;
-        h=content-type:mime-version:references:message-id:in-reply-to:subject
-         :cc:to:from:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=r9bIKH9EdEupiOsvi/7uUfU5zw2gR56vprnADjG67WE=;
-        b=Kje9QClR0aS1Ae6lnX7ILood3SGlvEIkkMiVroiYOW9H1tr8rkX9r1buJ4UlLCbR0F
-         AOjsc9Ed27EPnbnf8FXPUzvDw1d0rtL05j+KLcqH1CTumkhmNrDOzxP2jUh8CzCuiZK2
-         9Bpka/MI6uiwCwGtVexQFHYjW01wcicS9GqLE+Be8gwoJwwninpNKeZ+FMxWbAwX+zPq
-         gnVw4xaF07uIK54mfbv+g1FpNYxyx2WPxmbalYigRPfOu53kfYznt5IqyvvlmqbK3Gbs
-         vv9QkayC0mMVdtfqo8EnB2wcCRYtfxhRBD7DNoNtwDcA+j9efdsDDsET/njGRC2XDcm4
-         o8sw==
+        d=gmail.com; s=20251104; t=1788111230; x=1788716030; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=aIrgjdjScg7nld7Ey4Dlfd+00beZRs0A8XzyvdJn2jE=;
+        b=Ol0dvHzoRwj1pvB5C2LcUi4x7GEAjaCvEm34b9hOFFrGIrDegCfFo6xanJa0VEgG7t
+         4Q3pxvTca5IJOZrxTDP47/LQwL5cHHqugnKMLMqAZThkh6XR6XX05an+T+H68+trqT6H
+         yEPyuIppjaSxTWvaGDq+Pna61+QQSJzHwy/clnFwlgJwSZf8SbRT1mwWoEGAIxrsgpQx
+         Srzy1OQ9SwOloHKrCA/YCpQgBxMcdYyOhQ0q5dPc+a9oTc99+Ln0n9coAOoTdktEz4Uk
+         36d3Rgz8qbjWayhK7ZQk3yYs9vOm3NHXoDsGacqRdQYRKTbrMrHuBPpPnd2arErDMwBF
+         B7VQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788110999; x=1788715799;
-        h=content-type:mime-version:references:message-id:in-reply-to:subject
-         :cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1788111230; x=1788716030;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=r9bIKH9EdEupiOsvi/7uUfU5zw2gR56vprnADjG67WE=;
-        b=itVIxwOYMJ/1k3Ul4bE7KRRvz+L5OtYYluKnR73M6LGL2PqwOtuvyk58+kkryx7ULr
-         7GElUmlRatGx+BSeMknw5KRTH+hgWoSh4WF26iToOlZa3WFDXNhYzmO9XodVLwb85mQj
-         q98alm/7J7Ih3J0W/coDILwPKoOOHobF8Pr9wX1L2UFSTClGGbPqE3b5kEB4oN4GxAZM
-         RwiPrRn558D7JuruB1ilf9HUAyoFSeHcLluLSFIbBXGnELqOSlT21pExSJtHIVhwXRNx
-         wwHNeGQ5QefThbMsSBCu3nog2RdMzsHtiRxhyNkINZB4IZB0hsAZYuwwOKeVl8G64QFj
-         FzGw==
-X-Forwarded-Encrypted: i=1; AKwUvBwWB3Dc4eGstb0pdsHvURLus7wj7T5InsJ43rU08OKUn/nfJ84hekvZKERwC1M7+yCsjnwQYZ48glha3ZE=@vger.kernel.org
-X-Gm-Message-State: AFuF++nPh5kwk+OM/gHKSHprNki9aJKxlbKjfeb/gNc0gvxIKZ46jKDO
-	sIV9gf1xq8BRwgJjDusQVb01JQmNrwP3/BK8nbOL3qIObbLLiKX4E6OTSF5em4gPDA==
-X-Gm-Gg: AYBFou0FMjwjUT6hkSQGK17r7/OOGWCicSoqEoEEFzNpQdpHe5bOHSIUqXQbQ6SVsYs
-	UIygCfZTOiX1cL4KUdGiD09XhL6wJWC5a3uUDaUJzMR3UqB2AYgcvoSN9CPxFBOal4KQgWwknxr
-	EHs0obcjJ5m9DIbDEOhe6k5qNS+WQZMKrLrv7LjNl0HhlIseMWogkIhUMIxLHc+p7caseioV1Zv
-	VgZdjA+MgACBoieMZcW1HNHWJ+GQAmObmwWXP5A/Rx+xqxKv7bStdzAHl4JwjWjZLhmsmxoucR1
-	HSgRSGZP3i4MFmLRMkoQhRG+rJ3+8l9uOZkB+aHA3cA5+K5xf4KOTuAtsjaXvZZ+pUtvwg/2ERx
-	p2uCdOGnc8Su6PjfETk/KgEsI2T9nyUq7Fq2Y4CMs2AHCF3q1iN+27leMQF4V3khgeTZq2uyx1h
-	9fmARd3WtLmBQZRWipfXrTF6Ucmdw7qrQ8hAJSJAGrW/JCumPcM9ull+0Ib/gWZ1aFSuQ8UsG7N
-	HjW3ykOUXwAUQJJCw9WhPaIUQ9SGklAcJTG5syBex0=
-X-Received: by 2002:a05:690c:c384:b0:85b:7fb9:22fa with SMTP id 00721157ae682-85d69e01880mr75661847b3.10.1788110999083;
-        Sun, 30 Aug 2026 10:29:59 -0700 (PDT)
-Received: from [192.168.1.137] (172-10-233-147.lightspeed.sntcca.sbcglobal.net. [172.10.233.147])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-863fa116fdesm8698117b3.31.2026.08.30.10.29.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 30 Aug 2026 10:29:57 -0700 (PDT)
-Date: Sun, 30 Aug 2026 10:29:46 -0700 (PDT)
-From: Hugh Dickins <hughd@google.com>
-To: Shakeel Butt <shakeel.butt@linux.dev>
-cc: Hugh Dickins <hughd@google.com>, 
-    Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
-    syzbot <syzbot+cd2073ee6d958a8d0fcd@syzkaller.appspotmail.com>, 
-    linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
-    syzkaller-bugs@googlegroups.com
-Subject: Re: [syzbot] [mm?] WARNING in __mod_zone_page_state
-In-Reply-To: <apO7GDwIgyhdn3t7@linux.dev>
-Message-ID: <4793259a-00da-ea31-8cbd-a6cb5bf48692@google.com>
-References: <6a931c5a.08e933ee.dbf97.0093.GAE@google.com> <apNjw0HRyr1Oj7q4@linux.dev> <apOAF5CPFWUUH9du@linux.dev> <a2288e73-5001-2104-1e7a-2b383e7edd61@google.com> <apO7GDwIgyhdn3t7@linux.dev>
+        bh=aIrgjdjScg7nld7Ey4Dlfd+00beZRs0A8XzyvdJn2jE=;
+        b=avIsE9GyWAQyHIvjAPU8uL4qMY+njyEKvfGN3lIQdWs9FeCat22SGQ4EFMHXaM7Lm7
+         A1TEZE+K88eGPSA/h1uj7w8UjUDbsLswgTMlvtBTJKknZ90BR6TUJtoq3iIsuo56hVEj
+         x8aHlslxQovaxsameDsBFeLtHFgWs2sR3lJSebFGtyVfgm3ZL09BcRtUJ2Tol+UIuQHK
+         64D0vSux0KkOJGJmC6CsDuxsEcAQKR29vedZI+aug4Oxs+iFhyjR3Iu2/qTv1rns1u/M
+         m4gEIAlXKAuIqIQLfz7KVIOdIhncCEjtOp/X+kg4REQ8EsSdsezl6vp5MiTPxr33DeHl
+         0DKw==
+X-Forwarded-Encrypted: i=1; AKwUvBwJphNdc8ILj/VzNptKoSPvghsF4RiFIluMDylpCH1by4K0BVuD9i5clpBxLuDmqf+UZ5ZeVAbk+b0Y9BY=@vger.kernel.org
+X-Gm-Message-State: AFuF++nk5V8LG4BH6S6xwDFRFyLSxTbUHEwDM8QfFzhRIjlldPfqDafk
+	AvFjSRUFXLhmpU6mnTsDLcUciDE2Tz6XVUnYZMMFjjISiWER1LjksSqXxFLCRtPY
+X-Gm-Gg: AYBFou04kT9GSrAZ8uK2mZF+WuEDGEscO8H2/GpgBZnMsopkffGSE32sbnqhUawiYDm
+	7fHZM0GuM1KFt+McLLVWsATsb+RVXh3+A1zpE4sDvJUQUB0JHv1gfDs4wbVVT8B8ARVOY1wM+Gc
+	2ZPjqFOtIf+JE1swviQCV6ahvb5GgSMtoZU5vmWVs/pKZdgJhuFNlFkd/jU/nGOAS7CIePAR3QD
+	0JwcG1LOP1ERSXTQLhYTsUawx5bBeLxNCWFvK+TkrtNYti8RmqrzenUA4sE3TsKvmVHA89k35IV
+	I8uR2UkOUFnojdjfa2m7WvmjcMk3morWhpNXIQNolUGdhOqtqZjDLQczdofPY4ShGUCgY8+qynd
+	v0UoBCLzI5w2fKLiDNpjDwAmoefIIJFJYAquJUET/Ooh74GJrR/cK2HMEizjegL1l8uxuygOPym
+	bZHRi+pjTpEn726UGo4yL6qDhJPTadEmB7Tx8fF6iQQ02Ta6R2p70obHb4BbaAE9gu8y5oAA6Su
+	l0lNr8HXyfWBr5Kta2OO3PFbtFYcnI=
+X-Received: by 2002:a17:90b:4a90:b0:38d:b36e:9813 with SMTP id 98e67ed59e1d1-396d0f8e9f9mr31394165a91.11.1788111229611;
+        Sun, 30 Aug 2026 10:33:49 -0700 (PDT)
+Received: from localhost.localdomain ([2407:4d00:6c05:13e8:a91f:d3ab:5c4:f6ed])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396b186809dsm17237749a91.10.2026.08.30.10.33.47
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sun, 30 Aug 2026 10:33:49 -0700 (PDT)
+From: Harry Hsu <x90613@gmail.com>
+To: pmladek@suse.com
+Cc: jpoimboe@kernel.org,
+	jikos@kernel.org,
+	mbenes@suse.cz,
+	joe.lawrence@redhat.com,
+	live-patching@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Harry Hsu <x90613@gmail.com>
+Subject: [PATCH v3 0/3] livepatch: Fail object initialization on duplicate patched function
+Date: Mon, 31 Aug 2026 01:33:05 +0800
+Message-ID: <20260830173343.52759-1-x90613@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 8bit
 
-On Sat, 29 Aug 2026, Shakeel Butt wrote:
-> On Sat, Aug 29, 2026 at 08:26:02PM -0700, Hugh Dickins wrote:
-...
-> > 
-> > Thanks for looking into this, Shakeel, but I don't think complicating
-> > __munlock_folio() is at all the right fix. This is peculiar to the use
-> > by mlock_drain_remote(), isn't it? Which is not taking the usual local_lock
-> > because the CPU is going offline. I would say, just take the local_lock in
-> > mlock_drain_remote(), but (I haven't read the history) for all I know,
-> > there may be PREEMPT_RT reasons why that would be completely wrong.
-> > 
-> > Hugh
-> 
-> Thanks Hugh, I will explore the local_lock approach.
+This is v3 of the patch failing object initialization when it patches
+the same underlying function twice through two aliased symbols
+(functions sharing one address) in the same object [1].
 
-Please do. But we may need input from Sebastian. So far as I can see,
-page_alloc_cpu_dead()'s neighbouring use of lru_add_drain_cpu(cpu)
-would suffer from the exact same issue, there are __counts there too.
-Maybe syzbot has not discovered that yet, or maybe I'm confused.
+Per Miroslav's review, the changelog and title have been reworded to
+avoid implying this is livepatch-specific validation: the check runs
+during object initialization, which klp_module_coming() also triggers
+for a module still being loaded.
 
-(But you'll understand that I don't particularly welcome a reorg of
-the local_locking around the lru_add_drains at the moment; and there's
-at least one among them which takes advantage of the fbatch local_lock
-to lock something else too.)
+Petr found that the error path in klp_init_object_loaded() -- taken
+by this new check, among others -- leaves stale object state behind
+on failure. His two patches (2/3, 3/3) fix that by routing all of
+klp_init_object_loaded()'s error returns through proper cleanup, and
+are included in this series since they touch the same code and would
+otherwise conflict with patch 1/3.
 
-Oh for the good old days when we were allowed to say preempt_disable()!
+[1] https://lore.kernel.org/all/20260823060734.58443-1-x90613@gmail.com/
 
-> BTW I simplified the
-> fix to the following. is this still making things more complicated?
+Harry Hsu (1):
+  livepatch: Fail object initialization on duplicate patched function
 
-That is less distracting than your first one, but it's still not the
-right fix: the right fix is to have the function called under the
-proper conditions in all cases.
+Petr Mladek (2):
+  livepatch: Move code for updating livepatch object relocations
+  livepatch: Clean up klp_init_object_loaded() when fails
 
-> 
-> diff --git a/mm/mlock.c b/mm/mlock.c
-> index efa6716e4dfb..fa30ffed76ab 100644
-> --- a/mm/mlock.c
-> +++ b/mm/mlock.c
-> @@ -141,11 +141,16 @@ static struct lruvec *__munlock_folio(struct folio *folio, struct lruvec *lruvec
->  
->  munlock:
->  	if (folio_test_clear_mlocked(folio)) {
-> -		__zone_stat_mod_folio(folio, NR_MLOCK, -nr_pages);
-> +		/*
-> +		 * This runs both with and without the lruvec lock held, and
-> +		 * mlock_drain_remote() reaches it fully preemptible, so use
-> +		 * the accessors that serialize themselves.
+ kernel/livepatch/core.c | 117 ++++++++++++++++++++++++----------------
+ 1 file changed, 71 insertions(+), 46 deletions(-)
 
-I'm very far from being a good advisor on PREEMPT_RT,
-but I think that comment about lruvec lock would be wrong there.
+-- 
+2.43.0
 
-Hugh
-
-> +		 */
-> +		zone_stat_mod_folio(folio, NR_MLOCK, -nr_pages);
->  		if (isolated || !folio_test_unevictable(folio))
-> -			__count_vm_events(UNEVICTABLE_PGMUNLOCKED, nr_pages);
-> +			count_vm_events(UNEVICTABLE_PGMUNLOCKED, nr_pages);
->  		else
-> -			__count_vm_events(UNEVICTABLE_PGSTRANDED, nr_pages);
-> +			count_vm_events(UNEVICTABLE_PGSTRANDED, nr_pages);
->  	}
->  
->  	/* folio_evictable() has to be checked *after* clearing Mlocked */
-> -- 
