@@ -1,72 +1,91 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 689BB2BE656
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 02:46:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DC1B25B0BE
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 02:48:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788058005; cv=none; b=ZAOmHFSHts9jTypt9lH19XVJPoV3B2NLI+lwUyTFRb6n9u4cty33y1Z9FkHz3hgfOO81RK23HP277aBa3NMqGDTojhHxdIzS5DNOLIq5ilxWAojchc72gEnZ60QWd7hoKtEV6nHXXQ2f5jZ9HyXunyoOAsilompY+TtWF0S2iag=
+	t=1788058130; cv=none; b=b7v0M7YbDStte5Yjkhmtr7JPr0zKD5MO/hXTKdtLeoEdFpoQEa2wMaAz2UiDvCJ9jo4a+/hHJO45HFgqygViZQIOthLBPNJS0q9dohd7QdqJcbgOOcZU8s/Q0IiXjNV03LOkBhzuQblIvOLmM9Uj0tg1W/BA2dvZY20JHv0SSm8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788058005; c=relaxed/simple;
-	bh=vBtNJNW457j7BNnyPQqYWb81GSxNuVRCeHAERbUvB+Y=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=YpNNFbudXYCUa35E9j7gW1a4ZIM/MbOqABaNofN0WMgGzlPEfD/URNgEK9F7H1+NfKhkhLXhz+tWobfd/DwlpFPGADdhwzmdspR5YFk5H9tuoxqQyOc0lSFYYBpjdwLjy2JrKgN8tJCzuFgwQBLikYsLEsBXFVvNIkT3wNerUVA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GbgRkOzK; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788058130; c=relaxed/simple;
+	bh=NlQEp129kN3pCxTJpaZ+/2EhoQQ4R8elN/VBerk3BJ4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=UfkaD3QNZZxoORtaKCgBtC3VZNThlnI2dL4t1W1VQUixSDr2kI9Xu5pdorINAesRW0QB1jR4hLDLiO4ZpHQZO6ZuakXG2fpTwq04XmA2TEsDbimoFz+EHXm4a+i2bwR0JO2OYipa5XgPAiPfTH21gndBfIynKPzQe80FzHesoAQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nUiU+KTx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GbgRkOzK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E835A1F000E9;
-	Sun, 30 Aug 2026 02:46:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nUiU+KTx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 344D31F00A3D
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 02:48:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788058004;
-	bh=g43uc1QmRkP6RENguZs4jOVBKObSamnVOMpqJVeiHDs=;
-	h=Date:From:To:Cc:Subject;
-	b=GbgRkOzK/+8PPYSy2+D9gvsZLhA3ubf+YMkR3vquVyxQ+wczQoTlhee/mjguSVH60
-	 R8lgeI9/zCtSWGh8GU1sO1YjrTHnScOVFcwvrGTsbts0AVEUoKMXoE/iAKWGKM8LaH
-	 r4MBYZNVu1zasFDl0UDnQskcqKs002QkGhht/BNSZa8RcWVs1yH/GEYLoZSv7Zvzgf
-	 7XGFYapHFd6psM5Fajx8V0f9PtID3AgWa6chRG9luaiBvvdCsWaplnLpkLxZ2WTlQj
-	 7fte15/DWeENc2SYajj1f03Jrq3LiOb1xdeq+mM+Av9ap4rnqLjWMRjDYlbTRgOZ+h
-	 TEWFqnzjGZf7A==
-Date: Sun, 30 Aug 2026 04:46:39 +0200
-From: Ingo Molnar <mingo@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: linux-kernel@vger.kernel.org, Thomas Gleixner <tglx@linutronix.de>,
-	Daniel Lezcano <daniel.lezcano@linaro.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Anna-Maria Behnsen <anna-maria@linutronix.de>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Oleg Nesterov <oleg@redhat.com>
-Subject: [GIT PULL] timer subsystem fix
-Message-ID: <apOZj2iOQp8cDjKP@gmail.com>
+	s=k20260515; t=1788058129;
+	bh=NlQEp129kN3pCxTJpaZ+/2EhoQQ4R8elN/VBerk3BJ4=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=nUiU+KTxe3hftQrO82Tt3lagO8CSwn55WkWwHXInasYkFvFF+rE6QdB/KaZRRHZlV
+	 O7D3WZaNOoQgildoI1XBdKOAdZfKegfxarQ+thjczO+XqT0vBLWDTnMBUKM+2RDRU3
+	 WCSy9oDABG7XIMyx7haKQBxKJSwz8t91LvL4hl8XVNCHo+HAPy1mKV7AE+Zmod9WCa
+	 IrR58sdmCLSuva18bFlV6MYhu4Vl1k4kaSmXxAHPiSdCjNRE1Lz5pbgLa0USoep0je
+	 0gA4ph3My8L/kj6c8dYQDzxUTGKy8THs122XlzrHUcyU1D0CAarmtm8RbU6PMM50+K
+	 TEBn4Qd9KPYoQ==
+Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-6a38098734bso3831047a12.1
+        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 19:48:49 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxcwZXZs2oHBSXOZPkWckDWZOTHFr0xHqhW9nWJjrdS/BaCXaWXanI7WYBlbsvVsdYMT0W+FU7P9BMORg4=@vger.kernel.org
+X-Gm-Message-State: AFuF++k7AIKe8dWntBXhfRTJiDUjl+wgTvibxmqsfTYAXA2ogt/vyhgX
+	fjF7O30m0TB4gNYqF4gGwXsyDO8yE7wvsyj+Z7jvohqG7JqcSXQ7j5oPMN1ocvavDgBW4Dvd0Xy
+	4bRFeCk5T37mP0664qnDB+ltpph1b8cE=
+X-Received: by 2002:a05:6402:a0d2:b0:6a5:d6b5:cf80 with SMTP id
+ 4fb4d7f45d1cf-6a60d3933b6mr9431532a12.11.1788058127808; Sat, 29 Aug 2026
+ 19:48:47 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
+References: <20260830001536.30841-1-jacopolabardi@gmail.com>
+In-Reply-To: <20260830001536.30841-1-jacopolabardi@gmail.com>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Sun, 30 Aug 2026 11:48:35 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd9U9XOSu-NAq2O7N2eJ-A-DaOYgrrQT3YH1Y21UA3yEFw@mail.gmail.com>
+X-Gm-Features: AcwNN1WhzHEYJEsgG4TEoOKPc9DUOQin4JJe5uLruVZO0bt-rrg3fpfOt7uiTmQ
+Message-ID: <CAKYAXd9U9XOSu-NAq2O7N2eJ-A-DaOYgrrQT3YH1Y21UA3yEFw@mail.gmail.com>
+Subject: Re: [PATCH] ntfs: fix FITRIM range alignment
+To: Jacopo Labardi <jacopolabardi@gmail.com>
+Cc: Hyunchul Lee <hyc.lee@gmail.com>, Christoph Hellwig <hch@lst.de>, ntfs@lists.linux.dev, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Linus,
-
-Please pull the latest timers/urgent Git tree from:
-
-   git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git timers-urgent-2026-08-30
-
-for you to fetch changes up to 64f74d8f728877858372c52067e5c0c091f8db24:
-
- - Fix UM build regression caused by the removal of the UM
-   specific timex.h header. (Thomas Weiﬂschuh)
-
- Thanks,
-
-	Ingo
-
------------------->
-Thomas Weiﬂschuh (1):
-      um: Use asm-generic/timex.h over the host architecture one
-
-
- arch/um/include/asm/timex.h | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
- create mode 100644 arch/um/include/asm/timex.h
+On Sun, Aug 30, 2026 at 9:15=E2=80=AFAM Jacopo Labardi <jacopolabardi@gmail=
+.com> wrote:
+>
+> ntfs_trim_fs() aligns the start of a free extent up to the device discard
+> granularity, but derives the discard length by aligning the original exte=
+nt
+> length down. When the free extent start is not discard-aligned, adding th=
+at
+> length to the aligned start can extend the discard past the free extent a=
+nd
+> into allocated clusters.
+>
+> For example, with 4 KiB clusters and 32 KiB discard granularity, the free
+> extent [4 KiB, 36 KiB) becomes the discard range [32 KiB, 64 KiB), so
+> 28 KiB beyond the free extent may be discarded.
+>
+> Align the absolute end of the free extent down and derive the length from
+> the two aligned endpoints. Skip extents that contain no full discard unit=
+.
+>
+> Reproduced with a 4 KiB-cluster NTFS filesystem on scsi_debug configured
+> for 32 KiB discard granularity and read-zero-after-trim. Before this
+> change, FITRIM zeroed seven allocated 4 KiB clusters following an unalign=
+ed
+> 32 KiB hole. With this change, the same data remains intact across FITRIM
+> and remount.
+>
+> Fixes: 11ccc9107dc4 ("ntfs: update runlist handling and cluster allocator=
+")
+> Cc: stable@vger.kernel.org
+> Assisted-by: OpenAI Codex:GPT-5.6 Sol Max
+> Signed-off-by: Jacopo Labardi <jacopolabardi@gmail.com>
+Applied it to #ntfs-next.
+Thanks!
