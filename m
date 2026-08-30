@@ -1,84 +1,128 @@
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABA233ACA5B
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 14:22:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A5DE3B5F63;
+	Sun, 30 Aug 2026 14:23:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788099776; cv=none; b=LjQP3ewgWf4lSeZWB0fpnTH2tV4L9XPeIB+XwGn7H416t/dbAoPKz6UzTSojYgguE6iQ678blzb+vvy8JorHgJnTzeQjcjE5Jd7/h3CA6L7Tvdo9OCO/mCQGW1ohGohFQmR6yc2WpQQr15XEqnQwPAdZPTjDB2tpsiGYlltJQTc=
+	t=1788099786; cv=none; b=HSGxdmX9IVnXaAxBpFbX/efkLH9UZV3n/ChZQCnkrGjVY+j1ifuwgdDfWwC51ChgcCaWCu3WZlKyTzUEQPCQFvEV6DSbaApIAM3i8lQ68ZJ/K0DqpdmpzmnX5Nms4mM1qevuGPj2go6tnBknBR72jRRfJT0YAESUZoeRN8w+h74=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788099776; c=relaxed/simple;
-	bh=2Vf0TxuMFqEMwslw0AZjsjEK/WEeXmGvhfNDCvu7/gs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LMV82VbUI+YqoxiMCnbemxG5oJjIwF1nd+/zhb7Xo+P9fWHjJwLZuA9F5AtlwKlf6eWpRHV+15u4vNWOFTvIjK3VRYsUqI7DIlMb6hAKOYMpffnTKYeN0znfv694JXCo/Eh0cNcyWRR/py3hTHhxq7YRbC6B3kPTt5S20i9/8NU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from localhost.localdomain (unknown [111.196.241.250])
-	by APP-03 (Coremail) with SMTP id rQCowAD3AUC2PJRqo7ObBg--.27880S2;
-	Sun, 30 Aug 2026 22:22:46 +0800 (CST)
-From: Pengpeng Hou <pengpeng@iscas.ac.cn>
-To: Dinh Nguyen <dinguyen@kernel.org>
-Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>,
-	Russell King <linux@armlinux.org.uk>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] ARM: socfpga: select the PL310 erratum 753970 workaround
-Date: Sun, 30 Aug 2026 22:22:44 +0800
-Message-ID: <20260830142244.37216-1-pengpeng@iscas.ac.cn>
-X-Mailer: git-send-email 2.50.1
+	s=arc-20240116; t=1788099786; c=relaxed/simple;
+	bh=tSFkx6LTEwoodmn/GWSqXreyxx5xhWG5rKj78rchVq8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=G4w3qRdR2ApxUZoVGlE0uqgYVD+hunpFYaU53ZY+WJPm//qk9LvWDGRbECd5ayk6c9/IzkLvba4643sEQYatDzLfb+ITJ1EWjTp4agh+AVggupv0XITejLqOjYdpsu0ZUfLQ6LyCSkp3FZuL0Cj5ZCqFyjp5Ziy2cTTQUpUIO9Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lHTeeJJt; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lHTeeJJt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C96A91F00A3D;
+	Sun, 30 Aug 2026 14:22:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788099780;
+	bh=k2CnB52Tk5cRweLryWaQrcbSePVmhdv7HPuySx6iD00=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=lHTeeJJtetJ10FlpfgFKQuH6khW+G77eLdx/731U/wNZL+ULKdytVS8RD5MgvsL5y
+	 /XGmxrlh1K/stjh3feuQRwxo4swiK+RvVCU8at80IKz98IJkI6M8LRIZ8x15JtnCUi
+	 dKEStnxbZ1OMK5QWVWnRzWx8OXk+2b/hoFNh6DGOtpPcMt91Oixi1S33IusPNaaKEF
+	 3eaj8tzVDMPY0CORKNjqu5/SSqcZeOH1bmTyey63lm/egQF1HL2nhh8+CZznVsZlvd
+	 q60bTKfc9/TxfGhJD5c6VN9Rcdn0C+nafz452dBreh+KKDabovfu+n/RR2wseqtqG3
+	 uRZ6l9SefqqDA==
+Date: Sun, 30 Aug 2026 14:22:56 +0000
+From: Harry Yoo <harry@kernel.org>
+To: Longlong Xia <xialonglong2025@163.com>
+Cc: vbabka@kernel.org, akpm@linux-foundation.org, hao.li@linux.dev, 
+	cl@gentwo.org, rientjes@google.com, roman.gushchin@linux.dev, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org, paulmck@kernel.org, 
+	rcu@vger.kernel.org, xialonglong@kylinos.cn
+Subject: Re: [PATCH v2] mm/slab_common: fix shrink budget underflow in
+ kfree_rcu_shrink_scan
+Message-ID: <apQsbGJDPPyXcn8R@dev>
+References: <20260826075653.3304251-1-xialonglong2025@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowAD3AUC2PJRqo7ObBg--.27880S2
-X-Coremail-Antispam: 1UD129KBjvdXoW7Jw4kXr4UKrWDCFW3CFyUZFb_yoWkXrb_Ja
-	nxK3y7uF1F934Dur1jqF4kWrZ2vayDCFy8tryjvr1UZ3yDX3W7CaykJF1j93s5tw4UKryf
-	u3yvvFn8u34FyjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUb4kFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2IYs7xG
-	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
-	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr0_
-	Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I8E87Iv6xkF7I0E14v26F4UJV
-	W0owAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
-	I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r
-	4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AKxVWU
-	AVWUtwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14
-	v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1lIxkG
-	c2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7CjxVAFwI
-	0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j6F4U
-	MIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCTnIWIevJa73UjIFyTuYvjfU089NUU
-	UUU
-X-CM-SenderInfo: pshqw1xhqjqxpvfd2hldfou0/
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260826075653.3304251-1-xialonglong2025@163.com>
 
-ARCH_INTEL_SOCFPGA selects CACHE_L2X0 and several PL310 erratum
-workarounds. The 753970 workaround is still conditioned on PL310, but that
-Kconfig symbol no longer exists, so this one selection is always disabled.
+On Wed, Aug 26, 2026 at 03:56:53PM +0800, Longlong Xia wrote:
+> From: Longlong Xia <xialonglong@kylinos.cn>
 
-Select PL310_ERRATA_753970 directly, consistently with the other PL310
-workarounds required by the platform.
+Hi Longlong, I have a few questions.
 
-Fixes: fbc125afdc50 ("ARM: socfpga: Turn on ARM errata for L2 cache")
-Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
----
- arch/arm/mach-socfpga/Kconfig | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+> The kfree_rcu shrinker decremented sc->nr_to_scan (unsigned long)
+> and then tested the result with <= 0. When a single CPU's object
+> count exceeds the remaining budget, the subtraction wraps to a large
+> positive value and the <= 0 comparison, which is equivalent to == 0
+> for an unsigned type, never fires again.
 
-diff --git a/arch/arm/mach-socfpga/Kconfig b/arch/arm/mach-socfpga/Kconfig
-index eb72c240c2486..528c5c1368c37 100644
---- a/arch/arm/mach-socfpga/Kconfig
-+++ b/arch/arm/mach-socfpga/Kconfig
-@@ -16,7 +16,7 @@ menuconfig ARCH_INTEL_SOCFPGA
- 	select ARM_ERRATA_775420
- 	select PL310_ERRATA_588369
- 	select PL310_ERRATA_727915
--	select PL310_ERRATA_753970 if PL310
-+	select PL310_ERRATA_753970
- 	select PL310_ERRATA_769419
- 	select RESET_CONTROLLER
+Since when (which commit) has it been broken?
+If it has been undiscovered for a very long time, why is that so?
 
-base-commit: 08dbfad3f5040f5bdb6c529da20d6d4e81fefd72
+And how did you discover this?
+
+> The scan loop then iterates
+> through every possible CPU instead of honouring the reclaim budget.
+
+Did you confirm this actually does happen? If so, how often does the
+kernel end up iterating through every possible CPUs, very rarely or
+almost always?
+
+Would this affect the kernel's reclamation behavior in some way?
+
+> Accumulate into freed and stop once freed >= nr_to_scan. The shrinker
+> core treats nr_to_scan as input-only, so dropping the decrement is
+> safe; freed becomes unsigned long to match the return type.
+>
+> Suggested-by: Hao Li <hao.li@linux.dev>
+> Assisted-by: Codex:gpt-5.6-sol
+> Signed-off-by: Longlong Xia <xialonglong@kylinos.cn>
+> ---
+> Changes in v2:
+> - Rework per suggestion from Hao Li: accumulate into freed directly,
+>   compare freed >= nr_to_scan instead of decrementing nr_to_scan, and
+>   drop the per-CPU count local; promote freed to unsigned long.
+> 
+> Link: https://lore.kernel.org/all/20260824091838.1692153-1-xialonglong2025@163.com/
+> ---
+>  mm/slab_common.c | 13 +++++--------
+>  1 file changed, 5 insertions(+), 8 deletions(-)
+> 
+> diff --git a/mm/slab_common.c b/mm/slab_common.c
+> index 657fd75776ea..e227c2ef2a4e 100644
+> --- a/mm/slab_common.c
+> +++ b/mm/slab_common.c
+> @@ -2162,20 +2162,17 @@ kfree_rcu_shrink_count(struct shrinker *shrink, struct shrink_control *sc)
+>  static unsigned long
+>  kfree_rcu_shrink_scan(struct shrinker *shrink, struct shrink_control *sc)
+>  {
+> -	int cpu, freed = 0;
+> +	int cpu;
+> +	unsigned long freed = 0;
+>  
+>  	for_each_possible_cpu(cpu) {
+> -		int count;
+>  		struct kfree_rcu_cpu *krcp = per_cpu_ptr(&krc, cpu);
+>  
+> -		count = krc_count(krcp);
+> -		count += drain_page_cache(krcp);
+> +		freed += krc_count(krcp);
+> +		freed += drain_page_cache(krcp);
+>  		kfree_rcu_monitor(&krcp->monitor_work.work);
+>  
+> -		sc->nr_to_scan -= count;
+> -		freed += count;
+> -
+> -		if (sc->nr_to_scan <= 0)
+> +		if (freed >= sc->nr_to_scan)
+>  			break;
+>  	}
+>  
+> -- 
+> 2.43.0
+
 -- 
-2.50.1
-
+Cheers,
+Harry / Hyeonggon
