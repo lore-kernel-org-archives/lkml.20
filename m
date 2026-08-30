@@ -1,220 +1,132 @@
-Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
+Received: from mail3-relais-sop.national.inria.fr (mail3-relais-sop.national.inria.fr [192.134.164.104])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D5703B27FA;
-	Sun, 30 Aug 2026 12:10:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D91B3B38AE
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 12:10:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.134.164.104
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788091813; cv=none; b=XE0WWP0CR8pRBdKGXTTy1r7hKWNPH9LqFe/cGQPVs9I3RNP09453VtgKXfbWKaJ56VhDNHnlojnnxH63RYBfwbST0+m6As2Iuz3xVZVEBUkIMmy8fEoRW/4YzOCk42IxH7yT0bOnJ+OeYtnPnouMmKrbIBtFBjnj5DvRgiIjt5M=
+	t=1788091819; cv=none; b=OOel3kvGMAAODb8+OsLEYGyy4dLcuSvgADh+MCMKW0STj08rGMnt29UI9nWVfPaqK75ghg2ugxC4yvG2dOFUWiNz+j25YPHt2Yl0AmHtm2148AkqwAMT8qR9833ewgUQAZViMfL0zbAkFcvNqEFsEnzdQ+RFUjIEcCHraGovak4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788091813; c=relaxed/simple;
-	bh=4iPgzy5ngYiz4G9CcHoNRwSPNOGougkXh/FU2g76I8U=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=UunYHHO5aQruR/5VAog4uRb+m7KaUBWIFJRZ3uYq/68QUcg+RFB/tQRvb284xZavjEIIpLqMNqazCbJeZh2Tq3x6DGXE1PQG43/ad0PZ/XVqUZkF2IlvODxhJwQmOwycaEYmsHgzdfNfa2fLReNgHQl8g2bNKE5Eu+9TR2ISN7U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=g4PcaCLH; arc=none smtp.client-ip=101.71.155.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+	s=arc-20240116; t=1788091819; c=relaxed/simple;
+	bh=bDcq/4MaF+KfJ0uWR8l2pvdtUocoyHnYxeuIULNZdwI=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=VnpgE7Zyl3RBm42wI5AgKrmTD+fojZ4O78q/lb/iUagHaKY2FxD22E4KJkbS6zx4cLT5CT08kbh3sQnOrbm+KVb9aMzVvqi/QWp6/w2NOGu/qqCMFYzIfbru/DXPjXph86cAu4w7fRoVuUahBeB0OUN2SdLIJXg+OaJRXVuWwR8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=inria.fr; spf=pass smtp.mailfrom=inria.fr; dkim=pass (1024-bit key) header.d=inria.fr header.i=@inria.fr header.b=DFKa70d+; arc=none smtp.client-ip=192.134.164.104
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=inria.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=inria.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="g4PcaCLH"
-Received: from PC-202605011814.localdomain (unknown [58.241.16.34])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4bd6507d3;
-	Sun, 30 Aug 2026 20:10:01 +0800 (GMT+08:00)
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-To: sean.wang@mediatek.com
-Cc: vkoul@kernel.org,
-	Frank.Li@kernel.org,
-	matthias.bgg@gmail.com,
-	angelogioacchino.delregno@collabora.com,
-	dmaengine@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	runyu.xiao@seu.edu.cn,
-	jianhao.xu@seu.edu.cn,
-	stable@vger.kernel.org
-Subject: [PATCH v2] dmaengine: mediatek: initialize tasklets before requesting IRQs
-Date: Sun, 30 Aug 2026 20:09:55 +0800
-Message-Id: <20260830120955.2638359-1-runyu.xiao@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260830060422.2204459-1-runyu.xiao@seu.edu.cn>
-References: <20260830060422.2204459-1-runyu.xiao@seu.edu.cn>
+	dkim=pass (1024-bit key) header.d=inria.fr header.i=@inria.fr header.b="DFKa70d+"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=inria.fr; s=dc;
+  h=date:from:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=wKanZT1RXGv/VQBqsk2MRwPINnZZKd+OPyx386S5ZPc=;
+  b=DFKa70d+NUkWrb7q+5PmUCb+uvS9enemAm1Sl1rQbFWBP4q82tYeYb4M
+   IoX+/5fufAHdPYJooiIdTLucFzpDhsnCOZXMn4YiR8pRsMn2dnsQfsZu9
+   NZ+AZ0ffhJTW6OQMjqn+/LqUzEZiCk4hG+9lWdoi+wGWovi9zuEMoOb/h
+   w=;
+X-CSE-ConnectionGUID: XVaBxPN/QNagcr7ToBetSA==
+X-CSE-MsgGUID: LolSKyHQQ1Wcg+mbWf+CSg==
+Authentication-Results: mail3-relais-sop.national.inria.fr; dkim=none (message not signed) header.i=none; spf=SoftFail smtp.mailfrom=julia.lawall@inria.fr; dmarc=fail (p=none dis=none) d=inria.fr
+X-IronPort-AV: E=Sophos;i="6.25,252,1779141600"; 
+   d="scan'208";a="155404682"
+Received: from 88-188-149-159.subs.proxad.net (HELO hadrien.home) ([88.188.149.159])
+  by mail3-relais-sop.national.inria.fr with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Aug 2026 14:10:08 +0200
+Date: Sun, 30 Aug 2026 14:10:07 +0200 (CEST)
+From: Julia Lawall <julia.lawall@inria.fr>
+To: Sang-Heon Jeon <ekffu200098@gmail.com>
+cc: Nicolas Palix <nicolas.palix@imag.fr>, cocci@inria.fr, 
+    linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 5/7] coccinelle: kfree_mismatch: drop vmalloc_exec
+In-Reply-To: <20260823161826.3805598-6-ekffu200098@gmail.com>
+Message-ID: <4d9d25-b8d1-6e5e-f1-d86396d6386c@inria.fr>
+References: <20260823161826.3805598-1-ekffu200098@gmail.com> <20260823161826.3805598-6-ekffu200098@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa05293a01a03a1kunm00237a53fe57a
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZGRkaVhgaSEgeQxlKGUsYGVYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlOQ1VJT0pVSk1VSE9ZV1kWGg8SFR0UWUFZT0tIVUpLSEpPSE
-	xVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=g4PcaCLHNFM/ofzTYLkAFaUzdqz5oSmW7Y5jjy+t+ZWUo4lJmovp7c42xQxrbNHyaKJUfEm/MPFT+prv4tt2MJeMVY0eQhKaJ0hLABBXsePs/2DV5ulud0fkp+H4Eg8TlHQoKcN4jrc0OpQ/DmmJapceIHSbuWiFYPdegKzpmEA=; s=default; c=relaxed/relaxed; d=seu.edu.cn; v=1;
-	bh=ub791A4BOmeMS2MciMpwB8pjEJE56jW4Bbfb4aufBFQ=;
-	h=date:mime-version:subject:message-id:from;
+Content-Type: text/plain; charset=US-ASCII
 
-The CQDMA probe registers each physical-channel IRQ before initializing
-the tasklet scheduled by the interrupt handler. A pending interrupt can
-access an uninitialized physical channel or schedule an uninitialized
-tasklet while probe is still running.
 
-Initialize all physical channels, including their tasklets, before
-registering any IRQ.
 
-On probe failure, unwind every requested IRQ and initialized tasklet
-before devres releases the physical-channel and virtual-channel objects.
-Also release the OF DMA controller when hardware initialization fails
-after registration.
+On Mon, 24 Aug 2026, Sang-Heon Jeon wrote:
 
-Fixes: b1f01e48df5a ("dmaengine: Add MediaTek Command-Queue DMA controller for MT6765 SoC")
-Cc: stable@vger.kernel.org
-Link: https://lore.kernel.org/all/20260830060422.2204459-1-runyu.xiao@seu.edu.cn/
-Assisted-by: Codex:GPT-5
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+> vmalloc_exec() was removed by commit 7a0e27b2a0ce ("mm: remove
+> vmalloc_exec").
+>
+> So drop it from the rules.
+>
+> No functional change.
 
----
-v2:
-- Initialize all physical channels before registering any IRQ, since the
-  interrupt handler scans all channels.
-- Disable requested IRQs before killing physical- and virtual-channel
-  tasklets, then free the IRQs on every probe error path before devres
-  releases channel state.
-- Release the OF DMA controller when hardware initialization fails.
----
- drivers/dma/mediatek/mtk-cqdma.c | 59 +++++++++++++++++++++++---------
- 1 file changed, 43 insertions(+), 16 deletions(-)
+Applied.
 
-diff --git a/drivers/dma/mediatek/mtk-cqdma.c b/drivers/dma/mediatek/mtk-cqdma.c
-index 80791e30a..741b6325c 100644
---- a/drivers/dma/mediatek/mtk-cqdma.c
-+++ b/drivers/dma/mediatek/mtk-cqdma.c
-@@ -749,7 +749,7 @@ static int mtk_cqdma_probe(struct platform_device *pdev)
- 	struct mtk_cqdma_vchan *vc;
- 	struct dma_device *dd;
- 	int err;
--	u32 i;
-+	u32 i, nr_tasklets = 0, nr_irqs = 0;
- 
- 	cqdma = devm_kzalloc(&pdev->dev, sizeof(*cqdma), GFP_KERNEL);
- 	if (!cqdma)
-@@ -805,41 +805,54 @@ static int mtk_cqdma_probe(struct platform_device *pdev)
- 	if (!cqdma->pc)
- 		return -ENOMEM;
- 
--	/* initialization for PCs */
-+	/* Initialize all PCs before registering any IRQ. */
- 	for (i = 0; i < cqdma->dma_channels; ++i) {
- 		cqdma->pc[i] = devm_kcalloc(&pdev->dev, 1,
- 					    sizeof(**cqdma->pc), GFP_KERNEL);
--		if (!cqdma->pc[i])
--			return -ENOMEM;
-+		if (!cqdma->pc[i]) {
-+			err = -ENOMEM;
-+			goto err_tasklets;
-+		}
- 
- 		INIT_LIST_HEAD(&cqdma->pc[i]->queue);
- 		spin_lock_init(&cqdma->pc[i]->lock);
- 		refcount_set(&cqdma->pc[i]->refcnt, 0);
-+		tasklet_setup(&cqdma->pc[i]->tasklet, mtk_cqdma_tasklet_cb);
-+		nr_tasklets++;
- 		cqdma->pc[i]->base = devm_platform_ioremap_resource(pdev, i);
--		if (IS_ERR(cqdma->pc[i]->base))
--			return PTR_ERR(cqdma->pc[i]->base);
-+		if (IS_ERR(cqdma->pc[i]->base)) {
-+			err = PTR_ERR(cqdma->pc[i]->base);
-+			goto err_tasklets;
-+		}
- 
- 		/* allocate IRQ resource */
- 		err = platform_get_irq(pdev, i);
- 		if (err < 0)
--			return err;
-+			goto err_tasklets;
- 		cqdma->pc[i]->irq = err;
-+	}
- 
-+	/* Register IRQs only after all PCs are initialized. */
-+	for (i = 0; i < cqdma->dma_channels; ++i) {
- 		err = devm_request_irq(&pdev->dev, cqdma->pc[i]->irq,
- 				       mtk_cqdma_irq, 0, dev_name(&pdev->dev),
- 				       cqdma);
- 		if (err) {
- 			dev_err(&pdev->dev,
- 				"request_irq failed with err %d\n", err);
--			return -EINVAL;
-+			err = -EINVAL;
-+			goto err_tasklets;
- 		}
-+		nr_irqs++;
- 	}
- 
- 	/* allocate resource for VCs */
- 	cqdma->vc = devm_kcalloc(&pdev->dev, cqdma->dma_requests,
- 				 sizeof(*cqdma->vc), GFP_KERNEL);
--	if (!cqdma->vc)
--		return -ENOMEM;
-+	if (!cqdma->vc) {
-+		err = -ENOMEM;
-+		goto err_tasklets;
-+	}
- 
- 	for (i = 0; i < cqdma->dma_requests; i++) {
- 		vc = &cqdma->vc[i];
-@@ -850,7 +863,7 @@ static int mtk_cqdma_probe(struct platform_device *pdev)
- 
- 	err = dma_async_device_register(dd);
- 	if (err)
--		return err;
-+		goto err_tasklets;
- 
- 	err = of_dma_controller_register(pdev->dev.of_node,
- 					 of_dma_xlate_by_chan_id, cqdma);
-@@ -864,22 +877,36 @@ static int mtk_cqdma_probe(struct platform_device *pdev)
- 	if (err) {
- 		dev_err(&pdev->dev,
- 			"MediaTek CQDMA HW initialization failed %d\n", err);
--		goto err_unregister;
-+		goto err_of_unregister;
- 	}
- 
- 	platform_set_drvdata(pdev, cqdma);
- 
--	/* initialize tasklet for each PC */
--	for (i = 0; i < cqdma->dma_channels; ++i)
--		tasklet_setup(&cqdma->pc[i]->tasklet, mtk_cqdma_tasklet_cb);
--
- 	dev_info(&pdev->dev, "MediaTek CQDMA driver registered\n");
- 
- 	return 0;
- 
-+err_of_unregister:
-+	of_dma_controller_free(pdev->dev.of_node);
-+
- err_unregister:
- 	dma_async_device_unregister(dd);
- 
-+err_tasklets:
-+	/* Prevent IRQ handlers from accessing channel state during cleanup. */
-+	for (i = 0; i < nr_irqs; i++)
-+		disable_irq(cqdma->pc[i]->irq);
-+
-+	for (i = 0; i < nr_tasklets; i++)
-+		tasklet_kill(&cqdma->pc[i]->tasklet);
-+
-+	if (cqdma->vc)
-+		for (i = 0; i < cqdma->dma_requests; i++)
-+			tasklet_kill(&cqdma->vc[i].vc.task);
-+
-+	for (i = 0; i < nr_irqs; i++)
-+		devm_free_irq(&pdev->dev, cqdma->pc[i]->irq, cqdma);
-+
- 	return err;
- }
- 
--- 
-2.34.1
-
+>
+> Signed-off-by: Sang-Heon Jeon <ekffu200098@gmail.com>
+> ---
+>  scripts/coccinelle/api/kfree_mismatch.cocci | 12 ++++++------
+>  1 file changed, 6 insertions(+), 6 deletions(-)
+>
+> diff --git a/scripts/coccinelle/api/kfree_mismatch.cocci b/scripts/coccinelle/api/kfree_mismatch.cocci
+> index d46a9b3eb7b3..bc90d0c071ac 100644
+> --- a/scripts/coccinelle/api/kfree_mismatch.cocci
+> +++ b/scripts/coccinelle/api/kfree_mismatch.cocci
+> @@ -29,7 +29,7 @@ position kok, vok;
+>    } else {
+>      ...
+>      E = \(vmalloc\|vzalloc\|vmalloc_user\|vmalloc_node\|
+> -          vzalloc_node\|vmalloc_exec\|vmalloc_32\|
+> +          vzalloc_node\|vmalloc_32\|
+>            vmalloc_32_user\|__vmalloc\|__vmalloc_node_range\|
+>            __vmalloc_node\)(...)@vok
+>      ...
+> @@ -42,7 +42,7 @@ position kok, vok;
+>    if (E == NULL) {
+>      ...
+>      E = \(vmalloc\|vzalloc\|vmalloc_user\|vmalloc_node\|
+> -          vzalloc_node\|vmalloc_exec\|vmalloc_32\|
+> +          vzalloc_node\|vmalloc_32\|
+>            vmalloc_32_user\|__vmalloc\|__vmalloc_node_range\|
+>            __vmalloc_node\)(...)@vok
+>      ...
+> @@ -68,7 +68,7 @@ position f != free.fok;
+>  * E = \(kmalloc\|kzalloc\|krealloc\|kcalloc\|kmalloc_node\|
+>  *       kzalloc_node\|kmalloc_array\|kmalloc_array_node\|
+>  *       kcalloc_node\)(...)@a
+> -  ... when != if (...) { ... E = \(vmalloc\|vzalloc\|vmalloc_user\|vmalloc_node\|vzalloc_node\|vmalloc_exec\|vmalloc_32\|vmalloc_32_user\|__vmalloc\|__vmalloc_node_range\|__vmalloc_node\)(...); ... }
+> +  ... when != if (...) { ... E = \(vmalloc\|vzalloc\|vmalloc_user\|vmalloc_node\|vzalloc_node\|vmalloc_32\|vmalloc_32_user\|__vmalloc\|__vmalloc_node_range\|__vmalloc_node\)(...); ... }
+>        when != is_vmalloc_addr(E)
+>        when any
+>  * \(vfree\|vfree_atomic\|kvfree\)(E)@f
+> @@ -82,7 +82,7 @@ position f != free.fok;
+>    E = \(kmalloc\|kzalloc\|krealloc\|kcalloc\|kmalloc_node\|
+>          kzalloc_node\|kmalloc_array\|kmalloc_array_node\|
+>          kcalloc_node\)(...)@a
+> -  ... when != if (...) { ... E = \(vmalloc\|vzalloc\|vmalloc_user\|vmalloc_node\|vzalloc_node\|vmalloc_exec\|vmalloc_32\|vmalloc_32_user\|__vmalloc\|__vmalloc_node_range\|__vmalloc_node\)(...); ... }
+> +  ... when != if (...) { ... E = \(vmalloc\|vzalloc\|vmalloc_user\|vmalloc_node\|vzalloc_node\|vmalloc_32\|vmalloc_32_user\|__vmalloc\|__vmalloc_node_range\|__vmalloc_node\)(...); ... }
+>        when != is_vmalloc_addr(E)
+>        when any
+>  - \(vfree\|vfree_atomic\|kvfree\)(E)@f
+> @@ -95,7 +95,7 @@ position f != free.fok;
+>  @@
+>
+>  * E = \(vmalloc\|vzalloc\|vmalloc_user\|vmalloc_node\|vzalloc_node\|
+> -*       vmalloc_exec\|vmalloc_32\|vmalloc_32_user\|__vmalloc\|
+> +*       vmalloc_32\|vmalloc_32_user\|__vmalloc\|
+>  *       __vmalloc_node_range\|__vmalloc_node\)(...)@a
+>    ... when != is_vmalloc_addr(E)
+>        when any
+> @@ -108,7 +108,7 @@ position f != free.fok;
+>  @@
+>
+>    E = \(vmalloc\|vzalloc\|vmalloc_user\|vmalloc_node\|vzalloc_node\|
+> -        vmalloc_exec\|vmalloc_32\|vmalloc_32_user\|__vmalloc\|
+> +        vmalloc_32\|vmalloc_32_user\|__vmalloc\|
+>          __vmalloc_node_range\|__vmalloc_node\)(...)@a
+>    ... when != is_vmalloc_addr(E)
+>        when any
+> --
+> 2.43.0
+>
+>
