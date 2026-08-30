@@ -1,265 +1,257 @@
-Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
+Received: from mail-yw1-f174.google.com (mail-yw1-f174.google.com [209.85.128.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E749135674F
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 23:21:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51FCB357D0F
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 23:22:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788132111; cv=none; b=Ri/TU4fQ70WuyKpKHg55Sez8Pc5zftXG+oo1dU2/0nytRx3cohC7jY/H1a6G60ptAsrU0MFRREoLswbWeSUCTVQqO7wzVwBcw7JABkQnt0Owyn5LQLhA0PGZouJActl7eZJf3CS0oArNZfyHoFxxBCXqtyPgFG4bQD74gr+UsV0=
+	t=1788132134; cv=none; b=Ly8d9f+v5nlilf8fsyjLvm6RUVVzVVvX+snzgTngIEP/R8Qt5Ztws3HE2Wtp3mggqILo/tcOv++TswlAar4H+wgin1JprGa1ul/8QVkkD2iJL+2wCUrW4zuE9KibaeYNQUGl6zY3jl8cZ9E6zq+ZxhyvkU62bMIC+wmn+kpxN24=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788132111; c=relaxed/simple;
-	bh=bMuYoioqlMaVnr1r9my/Evzfgwz86VHeL6VgoFPM4wc=;
-	h=Message-ID:Date:MIME-Version:From:Subject:Cc:To:Content-Type; b=cNVoCGxppHJz6QUk45INe3Xm2qoGh/c+4JcZ8CIYH2GVPRc5VOikyULE2rosQ046Rq06xA0+Kvu+9njFr3K4xHW+VZ/kS9cEWuW4+u9WXZrEgIJMPz3Bif/oUuyODTXNmsE1kfhu6iOsEG+4/kQXAtGvQqUBhbLKjV0XrjIYTgA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=p9WG6RoM; arc=none smtp.client-ip=209.85.215.172
+	s=arc-20240116; t=1788132134; c=relaxed/simple;
+	bh=Ev3T7nRFXsNE7bJfZqzSGPSEaUayY0VO+QHWI+zeEKg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NPolzwDTvB/QR/6Zw0Tn/oyPcavqpgUhTTxt5AlaQlFShQgmXtuRBejbcLqOw8GCj+ldg+cfq8VBc4XUa1Tf3+/RIOM8GTPyj5OgVmy+hsui+itqYczg3QpihtgiORR2xa81vZt4bymUNKa91NmYaf0v40geSoqYVDjUBwGIiF4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ON9EYsEn; arc=none smtp.client-ip=209.85.128.174
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="p9WG6RoM"
-Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-cc1cbb64a1fso2706982a12.1
-        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 16:21:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ON9EYsEn"
+Received: by mail-yw1-f174.google.com with SMTP id 00721157ae682-836ce6cbe1eso28249947b3.1
+        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 16:22:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788132109; x=1788736909; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:to:cc:subject:from
-         :content-language:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=H+q+KZyXMCQhpGVKJhlVxkIhaCMPebupG3k+Zp6a/h4=;
-        b=p9WG6RoMNSlc97bxjlCjmPrWXDzr1bO7NfEdXbuYUwq3aijwEI/T+gkg0WVm7HUj1Z
-         A+qfHUAWfpZG8qwykiDHaN+tp7inXYLM+4vFjRem9BryIi6+pCctSH2CeIdvRsFcfT0u
-         0A551K+F2ttaGebcID7vwTQ2Y7PR3PdYezrOEW+YnLgEDt2yBH3k5aWse0dCttnZfP2n
-         ArgLJm3x99RrsOMnxpIb0LQRsZjwoB+R+4NQHzuFRpSReIkPVnhoAQ4zHf2kINrxwp/F
-         ArWgWgHGi7k7JQaC7lr5GJBMKOb1BuIPZ+FehycyAzwVgOP76ZfenGyQCm2OyGp0XfOI
-         RkKw==
+        d=gmail.com; s=20251104; t=1788132132; x=1788736932; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=n4rOnTRkH1wkU5lCvSZzN1icwwcD6oE7qDsPfernsaU=;
+        b=ON9EYsEnjlTGCicprOiA1hQi9sfgPdkhmeaqIEg4xHLupF2/qZ7KweQ1P8NisvvPTx
+         S+hZ3aEZBvQKHvWse0c81dj4R1+AY9lksBRxOxB2C1aedfiltUFb8JoLF22XBD/ez7F1
+         EsXKwkfRy95XxCQuksTryoP7gC1duhYRRQBoqCUHLLJ09cPrA/mYiNxjfxXrd6AHr5OF
+         +k42eDdfz/DCEBsZhlSx5ei3sWRN+jnpLH779gumKBZHiZbH78VcssS092utL9FhzFcu
+         oedvgKZbkFw11KxPt3441jmpX7Gfgw5qOq+iab4dsSiNxm6KCkO/RfFNnYBMRUkZrU0q
+         K+/Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788132109; x=1788736909;
-        h=content-transfer-encoding:content-type:to:cc:subject:from
-         :content-language:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=H+q+KZyXMCQhpGVKJhlVxkIhaCMPebupG3k+Zp6a/h4=;
-        b=Hx8R5C3+tjmgjmUX4y2+ehsXwNA7Koj//mM6UFEZnC9nAUipqtZpCl6YyoBq6Fp62P
-         UdRbFq90w7dxMzqLc/pxgi/gG3fG0BG/53KG/G9ujdF2bbfTzAnj/HSVctMtysRnN7n+
-         O6zBZh1tQiMD7uNoofrGBsRbyJjmCVfu6tqvz+p3iFzosFhb7zrXeeQMeP7Y17fC4ltx
-         xmm+oVSOxNSWpK2LeJgjJKkwabcq2HjGh8CamMK9v9DDOhZEDnGel4PcrDtjXFLNB5YN
-         b7a7ZvePNqTceh1XH7YYJfOe98OThSfBeRMklER21iZrl/FsCVLlLfAGwCjm3cxOlrb3
-         pKjQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrCia7TS9Qr2yNuA5yqst/f/CqB/THbtybYniHgKF4Ej5wsiAtmOaZQeG0SHCHdnJbk+QvkxgumHcbF0oM=@vger.kernel.org
-X-Gm-Message-State: AFuF++nlhf7UDvVFyR+kGD0qZK0RTkGvzm8IrGfDXMlxMxP8LAILaicR
-	3T92/eiFE/P+18bcEU/jw43SqTWRCCjNRyRFk/0fbVlOCCyy6YzIaHoAPmfcUt87014=
-X-Gm-Gg: AR+sD10L5ZFPYxgdN08/xKS604+b7vGmsQmEYVseMwtUGSqh39F6I9isFtf9PTj0W+V
-	jgFVm9mxzWay1m2xXlZYMGcIx8XNfUnNyJyijCrlhjodan963fEgSLqUp62o3Af0KTVBYaUMzCR
-	NHRXBZrxrY8qIhuvHsnljMVUdHUErxPGNR2J52TnHMMPFJyzrBQwrOhOxT66H0AHhfVTcqiZBO1
-	6Nlus8lCgyJ5jfKnDEVyqMHfqq4ajMT5Ki4J8LRAtV8e8mn3FWpYIdoKvVMcjGXWYm3ixaW3Ewu
-	qyyMQMmsG0RZpSkzt0VmXuxrEFPX/B5N54ZS83PTv6wJaruhc9nnlCs3AxqTSf6PPQCESIIiRdh
-	gmWFzGAJPt9145MPz0DZkoZhLOxCeyzImzRve29nOzTRVUY4Zu7f3tQ7Wt6aqwQW+4EZ5VcREr8
-	E6D5hpKKTkA7EoS3xRQI+/nMcxfxApgnM+IdSE1o3FTBoGIIGIuQp9UWYOEEKsSX5C2V4nY63qw
-	1WlKB+ePgE5vO5UMezMql0i3R3L7/pNvI0bgGu6/AkiBE43C73g/oXNb2j3Mw==
-X-Received: by 2002:a05:6a20:d043:b0:3bf:6222:2e7e with SMTP id adf61e73a8af0-3d265e3f83fmr39934505637.4.1788132108907;
-        Sun, 30 Aug 2026 16:21:48 -0700 (PDT)
-Received: from [10.21.0.95] (wnpgmb0592w-ds02-161-177-131.dynamic.bellmts.net. [207.161.177.131])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc1f341dd18sm3193537a12.14.2026.08.30.16.21.48
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 30 Aug 2026 16:21:48 -0700 (PDT)
-Message-ID: <1a8ea9da-1ac1-4312-a8ca-ea4a9f35093f@gmail.com>
-Date: Sun, 30 Aug 2026 18:21:46 -0500
+        d=1e100.net; s=20251104; t=1788132132; x=1788736932;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=n4rOnTRkH1wkU5lCvSZzN1icwwcD6oE7qDsPfernsaU=;
+        b=QXi2+DZ51U9mppYa2nO83MmCh5ZFi7x25J+J0qvvFG23xBUtkNtWk0ulBosRR7qaL0
+         MTaTrc+frXOu5XP5zsUHMTeGnR8/VOd4F/B3uaQsqj1yIE+Ffs0U4XQ2H1qiz9PwROFb
+         RbqU5KiWJzqzWC/tKcXsGuhQrlfyD+bCAQjOAWJ91weIxcT7C+VyuwwWdwsrqVN5UKgJ
+         PxmsLjug/kbDk1qKXrIYKAz2DxhKD43zn6YzrP0wyJXr6xP6LxycABWIqNhntLDXOfG6
+         NRnSF+Stz3O9zCk/ctq7IoL/a/2RjTUnk5H2D9bYJafXnrlHIhxSZTlV3gh8yB9UvJXC
+         oj6g==
+X-Forwarded-Encrypted: i=1; AKwUvByDMqpXLRZm1LWxClVRvn6H/7sG76IjiLfRukua8z3K9M+uDx85nV0N+A4ymgZi8qeR9HKPqFHeLVquF8o=@vger.kernel.org
+X-Gm-Message-State: AFuF++nvQ2VE6SWY+gORUTGiGLPl9zcd6nr1dE4yhVMWOd9lxw3RKjU5
+	r0YAZYDIO7oo8cOASs8CpCXC+iZQljYySiTyrOKJ2+oL00lc7D/MKFnsdwnBIxB8UYQ=
+X-Gm-Gg: AYBFou1klkmBx5tZfeQKJlm/HyJweXvCr+JwD5TQatxMOf5I4urPxiZwFSO4VT7jWtp
+	CF5KOIbSR6AGtFo3Lz9BpUhJ77aAxpPoPW36LZVBVEqJVQOyQO47S4nI7sZdGPchPKKu1Jfhckd
+	V8GcBL5M154vSImIRE86UHeRTMhsnUo7Z89FWaoXb9sG4GcyNn2wn207GmebNPZXItMJNBHx4RH
+	zA/qez75vJ4OuyW4GJFgEKl5B6B2fh6Y9qe9S8ctWIHF3RW8dtuMXl+Y1dI6+XI2tAgDzm7fMT6
+	E0/YcMfqG7mBD5xDmCk274zhO+NzlZARWtV8n22NJYDOXCzJp7gCaUiWEk82uiFBsBg6ahDEdCk
+	lK9xMKgPZf+uUwwsVOYThPpJ/eFOQydqcbo663YFSvlS7LIn3JBlPAqSeHaXWBsnG19Z1ov/GCY
+	qaposHc94R6MSzYzgpT0HOaae9tb6gYuyLb6jFUZxw
+X-Received: by 2002:a05:690c:38a:b0:861:d742:8c1 with SMTP id 00721157ae682-86722c33022mr677777b3.2.1788132132176;
+        Sun, 30 Aug 2026 16:22:12 -0700 (PDT)
+Received: from devobuntu.lan ([2600:6c5c:6b00:316::23])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-85e677606aesm39025937b3.45.2026.08.30.16.22.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 30 Aug 2026 16:22:11 -0700 (PDT)
+From: Matt Vollrath <tactii@gmail.com>
+To: intel-wired-lan@lists.osuosl.org
+Cc: netdev@vger.kernel.org,
+	Tony Nguyen <anthony.l.nguyen@intel.com>,
+	Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+	Alexander Lobakin <aleksander.lobakin@intel.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Matt Vollrath <tactii@gmail.com>
+Subject: [PATCH iwl-next 0/8] e1000e: use page pool
+Date: Sun, 30 Aug 2026 19:21:38 -0400
+Message-ID: <20260830232146.36948-1-tactii@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Betterbird (Linux)
-Content-Language: en-US
-From: Matthew Bettencourt <matthew.bettencourt@gmail.com>
-Subject: [BUG] SPD5118 Intermittent MR11 Corruption During Suspend/Resume
-Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org
-To: linux@roeck-us.net
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Hello,
+This series converges the three e1000e Rx paths into one and then makes
+it use a page pool. The jumbo path is chosen as the golden path because
+it is the only one that can handle every combination of MTU and page
+size. Any performance regression caused by using that path for all
+configurations is remedied by eliminating allocations and DMA mapping
+from the hot path, as shown in benchmarks below.
 
-I believe I have identified a bug in the spd5118 driver's suspend/resume 
-cycle where register MR11 (0x0B) becomes corrupted and set to 0x08 
-during spd5118_suspend().
+There are some general modernizations in this conversion, intended to
+make this driver match conventions found in other Intel drivers. The
+copybreak parameter is removed. The NAPI skb cache is used. The netmem
+API is used for chained frames. Prefetch is used optimistically in the
+cleaner loop to pull in the next descriptor and the frame headers.
 
-Upon system wake, MR11 remains set to 0x08. This persists across warm 
-reboots, causing the motherboard BIOS and OS to incorrectly identify a 
-32GB DIMM as only 2GB after a warm reboot. A complete cold power cycle 
-clears MR11 back to 0x00, after which the system correctly detects the 
-full 32GB capacity again. Blacklisting the spd5118 driver prevents the 
-issue entirely.
+User-visible changes:
+* The copybreak module parameter and its documentation are removed.
+* The rx_header_split ethtool stat is removed.
+* Small packets are charged at the buffer's full 2 KB truesize at
+  standard MTU.
+* Jumbo MTU frames are delivered as 2 KB chunks. At MTU > 2026 this
+  increases userspace copy overhead by gathering more fragments and
+  increases truesize accounting per frame. This is described in more
+  detail below.
 
-To troubleshoot, I instrumented the spd5118 driver to log both the 
-cached and physical values of MR11 before and after key function calls 
-during suspend and resume. The corruption occurs during the 
-regmap_update_bits() call (~lines 505–506):
+The series begins by fixing some existing bugs which would either be
+more reachable or have worse consequences after the conversion.
+Missing support for CrcStripping=0 is added. The page dump routine's
+mis-read of jumbo buffers is remedied. A race between the reset task
+and runtime PM is guarded.
 
-regmap_update_bits(regmap, SPD5118_REG_TEMP_CONFIG,
-                    SPD5118_TS_DISABLE, SPD5118_TS_DISABLE);
+Then the standard and packet-split paths are removed, making the jumbo
+path the only way to Rx. At this point standard-MTU Rx allocates and
+maps a page per packet, until the page pool conversion removes that
+cost.
 
---- System Information ---
-System info:Motherboard: ASRock X870 Pro-A WiFi (UEFI v4.43)
-CPU: AMD Ryzen 7 9800X3D
-RAM: 64GB (2x32GB) G.Skill DDR5 (Part: F5-6400J3239G32G)
-Kernel: 7.2.0-1-default (openSUSE Tumbleweed)
-SMBus Controller: AMD PIIX4 (i2c-piix4 / bus i2c-12)
+Next NAPI is disabled while the adapter is down, which is required to
+pass assertions when the page pool is destroyed.
 
---- Testing and Logs ---
-Logging captured via dmesg shows:
-[  277.569950] [    T113] i2c i2c-12: Transaction (pre): CNT=08, CMD=1a, 
-ADD=a7, DAT0=00, DAT1=18
-[  277.570507] [    T113] i2c i2c-12: Transaction (post): CNT=08, 
-CMD=1a, ADD=a7, DAT0=00, DAT1=18
-[  277.570594] [   T3293] i2c i2c-12: Transaction (pre): CNT=08, CMD=1a, 
-ADD=a3, DAT0=00, DAT1=18
-[  277.571150] [   T3293] i2c i2c-12: Transaction (post): CNT=08, 
-CMD=1a, ADD=a3, DAT0=00, DAT1=18
-[  277.571226] [    T113] i2c i2c-12: Transaction (pre): CNT=08, CMD=0b, 
-ADD=a7, DAT0=00, DAT1=18
-[  277.572067] [    T113] i2c i2c-12: Transaction (post): CNT=08, 
-CMD=0b, ADD=a7, DAT0=00, DAT1=18
-[  277.572082] [    T113] spd5118 12-0053: PRE BIT UPDATE: SUSPEND MR11 
-(0x0B) -> Cache: 0x00 | Bus: 0x00
-[  277.572142] [   T3293] i2c i2c-12: Transaction (pre): CNT=08, CMD=0b, 
-ADD=a3, DAT0=00, DAT1=18
-[  277.573073] [   T3293] i2c i2c-12: Transaction (post): CNT=08, 
-CMD=0b, ADD=a3, DAT0=00, DAT1=18
-[  277.573085] [   T3293] spd5118 12-0051: PRE BIT UPDATE: SUSPEND MR11 
-(0x0B) -> Cache: 0x00 | Bus: 0x00
-[  277.573140] [    T113] i2c i2c-12: Transaction (pre): CNT=08, CMD=0b, 
-ADD=a7, DAT0=00, DAT1=18
-[  277.574063] [    T113] i2c i2c-12: Transaction (post): CNT=08, 
-CMD=0b, ADD=a7, DAT0=00, DAT1=18
-[  277.574130] [   T3293] i2c i2c-12: Transaction (pre): CNT=08, CMD=0b, 
-ADD=a3, DAT0=00, DAT1=18
-[  277.575552] [   T3293] i2c i2c-12: Transaction (post): CNT=08, 
-CMD=01, ADD=45, DAT0=ff, DAT1=18
-[  277.575617] [    T113] i2c i2c-12: Transaction (pre): CNT=08, CMD=1a, 
-ADD=a7, DAT0=ff, DAT1=18
-[  277.576169] [    T113] i2c i2c-12: Transaction (post): CNT=08, 
-CMD=1a, ADD=a7, DAT0=00, DAT1=18
-[  277.576237] [   T3293] i2c i2c-12: Transaction (pre): CNT=08, CMD=0b, 
-ADD=a2, DAT0=f8, DAT1=18
-[  277.577061] [   T3293] i2c i2c-12: Transaction (post): CNT=08, 
-CMD=0b, ADD=a2, DAT0=f8, DAT1=18
-[  277.577121] [    T113] i2c i2c-12: Transaction (pre): CNT=08, CMD=0b, 
-ADD=a7, DAT0=f8, DAT1=18
-[  277.578063] [    T113] i2c i2c-12: Transaction (post): CNT=08, 
-CMD=0b, ADD=a7, DAT0=00, DAT1=18
-[  277.578127] [   T3293] i2c i2c-12: Transaction (pre): CNT=08, CMD=1a, 
-ADD=a3, DAT0=00, DAT1=18
-[  277.579062] [   T3293] i2c i2c-12: Transaction (post): CNT=08, 
-CMD=1a, ADD=a3, DAT0=00, DAT1=18
-[  277.579131] [    T113] i2c i2c-12: Transaction (pre): CNT=08, CMD=1a, 
-ADD=a6, DAT0=01, DAT1=18
-[  277.579560] [    T113] i2c i2c-12: Transaction (post): CNT=08, 
-CMD=1a, ADD=a6, DAT0=01, DAT1=18
-[  277.579620] [   T3293] i2c i2c-12: Transaction (pre): CNT=08, CMD=0b, 
-ADD=a3, DAT0=01, DAT1=18
-[  277.580170] [   T3293] i2c i2c-12: Transaction (post): CNT=08, 
-CMD=0b, ADD=a3, DAT0=08, DAT1=18
-[  277.580234] [    T113] i2c i2c-12: Transaction (pre): CNT=08, CMD=0b, 
-ADD=a7, DAT0=08, DAT1=18
-[  277.581061] [    T113] i2c i2c-12: Transaction (post): CNT=08, 
-CMD=0b, ADD=a7, DAT0=00, DAT1=18
-[  277.581072] [    T113] spd5118 12-0053: POST BIT UPDATE: SUSPEND MR11 
-(0x0B) -> Cache: 0x00 | Bus: 0x00
-[  277.581128] [   T3293] i2c i2c-12: Transaction (pre): CNT=08, CMD=1a, 
-ADD=a2, DAT0=01, DAT1=18
-[  277.581559] [   T3293] i2c i2c-12: Transaction (post): CNT=08, 
-CMD=1a, ADD=a2, DAT0=01, DAT1=18
-[  277.581626] [   T3293] i2c i2c-12: Transaction (pre): CNT=08, CMD=0b, 
-ADD=a3, DAT0=01, DAT1=18
-[  277.582236] [   T3293] i2c i2c-12: Transaction (post): CNT=08, 
-CMD=0b, ADD=a3, DAT0=08, DAT1=18
-[  277.582250] [   T3293] spd5118 12-0051: POST BIT UPDATE: SUSPEND MR11 
-(0x0B) -> Cache: 0x00 | Bus: 0x08
+Next is the main event, the singular Rx path is converted to use a page
+pool with support from libeth.
+
+Finally, a small change to Tx to return skbs to the NAPI cache, which
+the Rx side now pulls from when constructing frame heads.
+
+Benchmarks were run on an I218-V and Xeon E3-1240v3 pinned at 3.8GHz.
+NAPI was isolated on one core and iperf3 on another. ITR was fixed at
+4000/s because the adaptive scaling can take a few minutes to settle (to
+be fixed separately). C-states above C1 and EEE were disabled. Kernel
+version was 7.1.12. Direct link from sender to receiver.
+
+The sender was an 82574L in a Xeon E3-1270 pinned at 3.4GHz, NIC vectors
+and iperf3 -s pinned to separate cores, ITR fixed.
+
+For cycle measurements, each cell is perf stat cycles on the core
+divided by packets received over 30s, averaged over three runs. IOMMU
+"lazy" is the default DMA-FQ. Throughput was identical between stock
+and series, with one exception noted below. The stock driver is
+configured at the default copybreak=256. Note that the stock copybreak
+features is flawed; it always remaps DMA when sending an already-mapped
+buffer back to the h/w.
+
+Bulk TCP, segments sized to the MTU (line rate at both MTUs):
+
+                      NAPI core cycles/pkt    consumer core cycles/pkt
+  MTU   IOMMU   kpps    stock  series  change   stock  series  change
+  1500  off     81.4     2523    1784    -29%    2193    2193      0%
+  1500  lazy    81.4     5170    1938    -63%    2369    2323     -2%
+  9000  off     13.9    11590    7574    -35%   11764   12792     +9%
+  9000  lazy    13.9    21781    8423    -61%   12129   13396    +10%
+
+The increase in consumer cost at MTU 9000 is probably because the frame
+arrives as five 2 KB chunks instead of three pieces from the legacy
+packet-split path. The copy to userspace walks more fragments and GRO
+merges fewer frames per skb.
+
+TCP with an 88-byte MSS (iperf3 -M 88, ~142-byte frames):
+
+                      NAPI core cycles/pkt    consumer core cycles/pkt
+  MTU   IOMMU   kpps    stock  series  change   stock  series  change
+  1500  off    754.3     1453     793    -45%     446     484     +8%
+  1500  lazy   754.3     3819     809    -79%     387     496    +28%
+  9000  off    754.4     2231     780    -65%     498     509     +2%
+  9000  lazy 520/754     6920     798    -88%     430     523    +22%
+
+At MTU 9000 with IOMMU on, the stock driver can't keep up with the
+stream at line rate. It polls continuously at 95% of the core and can't
+send descriptors back to h/w fast enough, so it sends pause frames and
+flow control throttles the sender.
+
+Differences in consumer cost are likely explained by two things:
+* The stock copybreak=256 leaves the payload in the NAPI core's cache.
+* The high IOMMU cost in the stock driver causes it to return more bytes
+  per read.
+
+UDP, one full-size datagram per frame (1472/8972 bytes, line rate):
+
+                      NAPI core cycles/pkt    consumer core cycles/pkt
+  MTU   IOMMU   kpps    stock  series  change   stock  series  change
+  1500  off     81.4     4991    4417    -11%    6409    6381      0%
+  1500  lazy    81.4     7426    4397    -41%    6619    6395     -3%
+  9000  off     13.9    12070    8286    -31%   12861   13624     +6%
+  9000  lazy    13.9    21494    8289    -61%   12566   13772    +10%
+
+Here we see a similar tax on the jumbo MTU consumer due to gathering
+more fragments.
+
+UDP, 64-byte datagrams paced at 150 kpps:
+
+                      NAPI core cycles/pkt    consumer core cycles/pkt
+  MTU   IOMMU   kpps    stock  series  change   stock  series  change
+  1500  off    150.2     4202    3939     -6%    5541    5525      0%
+  1500  lazy   150.3     6663    3919    -41%    6151    5465    -11%
+  9000  off    150.2     4376    3956    -10%    5535    5428     -2%
+  9000  lazy   150.2     6821    3953    -42%    6154    5453    -11%
+
+At MTU 9000, this rate of datagrams runs up against the socket receive
+buffer's limits in the series, causing a 0.003% drop rate. Because each
+datagram sits in a full page buffer, the default 213 KB socket buffer
+only holds 48 vs. stock's ~275. This can be remedied by increasing
+SO_RCVBUF or rmem_default. This is another example of copybreak truesize
+compression value in the stock driver.
+
+Payload Density:
+
+This table shows pieces per frame and density at every MTU breakpoint.
+Stock is the standard path at 1500 and packet-split above it.
+
+                stock (std / packet split)    series (2 KB chunks)
+MTU            pieces truesize   density    pieces truesize   density
+<= 1500           1     2688      0.56         1     2304      0.66
+1501-2026         1     4864   0.31-0.42       1     4352   0.35-0.47
+2027-4074         1     4864   0.42-0.84       2     8448   0.24-0.48
+4075-4096         1     4864      0.84         3    12544      0.33
+4097-6122         2     8960   0.46-0.68       3    12544   0.33-0.49
+6123-8170         2     8960   0.68-0.91       4    16640   0.37-0.49
+8171-8192         2     8960   0.91-0.92       5    20736   0.39-0.40
+8193-9212         3    13056   0.63-0.71       5    20736   0.40-0.44
+
+Series chunk counts assume the worst-case frame (MTU + 22: VLAN tag
+and FCS present).
+
+This series is hungrier for socket buffer size under two conditions:
+* At higher-than-standard MTU, some page size is wasted because
+  RCTL.BSIZE only accepts powers of two, unlike the more granular
+  settings of later h/w.
+* For small packets at any MTU, copybreak no longer moves the payload
+  into an appropriately-sized buffer.
+
+Matt Vollrath (8):
+  e1000e: add jumbo Rx CRC stripping
+  e1000e: dump pages for jumbo Rx buffers
+  e1000e: prevent race between PM and reset task
+  e1000e: remove packet-split Rx path
+  e1000e: always use jumbo Rx path
+  e1000e: disable NAPI while interface is down
+  e1000e: use libeth page_pool for Rx
+  e1000e: return skbs to NAPI cache
+
+ .../device_drivers/ethernet/intel/e1000e.rst  |   15 -
+ drivers/net/ethernet/intel/Kconfig            |    1 +
+ drivers/net/ethernet/intel/e1000e/e1000.h     |   53 +-
+ drivers/net/ethernet/intel/e1000e/ethtool.c   |    1 -
+ drivers/net/ethernet/intel/e1000e/netdev.c    | 1374 +++++------------
+ drivers/net/ethernet/intel/e1000e/param.c     |    6 -
+ 6 files changed, 382 insertions(+), 1068 deletions(-)
 
 
---- The logs that are of interest ---
-[  277.573085] [   T3293] spd5118 12-0051: PRE BIT UPDATE: SUSPEND MR11 
-(0x0B) -> Cache: 0x00 | Bus: 0x00
-…
-…
-…
-[  277.582250] [   T3293] spd5118 12-0051: POST BIT UPDATE: SUSPEND MR11 
-(0x0B) -> Cache: 0x00 | Bus: 0x08
+base-commit: 1b78070aaef63512688aebfbc82365ef9d6660f1
+-- 
+2.43.0
 
-I enabled i2c debugging as well in case it helps. The lines I focusing 
-on are “PRE BIT UPDATE…” and “POST BIT UPDATE…”, immediately after 
-regmap_update_bits() the physical bus value for MR11 shifts to 0x08 
-while the regmap cache remains 0x00.
-
-I looked through the history of spd5118 patches and bugs and noticed 
-there has been some issues around suspend and sleep cycles. This might 
-be a deeper issue than just the spd5118 driver.
-
-Additional Notes:
-- Intermittent Nature: The issue is intermittent and typically 
-reproduces within ~10 sleep/resume cycles.
-
-- Single DIMM Testing: I was unable to reproduce the issue with only 1 
-DIMM installed after running over 30 sleep/resume cycles, though the 
-intermittent nature makes it hard to rule out entirely.
-
-- Hardware Health: Memory stability was verified with a varitey of 
-memory tests with zero errors. Issue occurs with JEDEC and XMP profiles 
-enabled
-
-
---- Steps to Reproduce ---
-1. Boot system from cold boot. Load the spd5118 driver.
-2. Put system to sleep
-3. Wake system
-4. Check value of MR11, if corrupted warm reboot go to step 7
-6. Go to step 2, repeat
-7. System now shows corrupted DIMM with a size of 2GB
-
---- My test spd5118_suspend function ---
-static int spd5118_suspend(struct device *dev)
-{
-  struct spd5118_data *data = dev_get_drvdata(dev);
-  struct regmap *regmap = data->regmap;
-  u32 cache_val = 0, bus_val = 0;
-  u32 regval;
-  int err;
-
-  err = regmap_read(regmap, SPD5118_REG_TEMP_CONFIG, &regval);
-  if (err < 0)
-  return err;
-
-
-  /* 1. Read cached MR11 value from RAM */
-  regmap_read(regmap, SPD5118_REG_I2C_LEGACY_MODE, &cache_val);
-
-  /* 2. Read physical MR11 value directly from I2C bus */
-  regcache_cache_bypass(regmap, true);
-  regmap_read(regmap, SPD5118_REG_I2C_LEGACY_MODE, &bus_val);
-  regcache_cache_bypass(regmap, false);
-
-  /* 3. Output both on the exact same log line */
-  dev_info(dev, "PRE BIT UPDATE: SUSPEND MR11 (0x0B) -> Cache: 0x%02x | 
-Bus: 0x%02x\n", cache_val, bus_val);
-
-  regcache_cache_bypass(regmap, true);
-  regmap_update_bits(regmap, SPD5118_REG_TEMP_CONFIG, SPD5118_TS_DISABLE,
-  SPD5118_TS_DISABLE);
-  regcache_cache_bypass(regmap, false);
-
-  /* 1. Read cached MR11 value from RAM */
-  regmap_read(regmap, SPD5118_REG_I2C_LEGACY_MODE, &cache_val);
-
-     /* 2. Read physical MR11 value directly from I2C bus */
-     regcache_cache_bypass(regmap, true);
-     regmap_read(regmap, SPD5118_REG_I2C_LEGACY_MODE, &bus_val);
-     regcache_cache_bypass(regmap, false);
-
-     /* 3. Output both on the exact same log line */
-     dev_info(dev, "POST BIT UPDATE: SUSPEND MR11 (0x0B) -> Cache: 
-0x%02x | Bus: 0x%02x\n", cache_val, bus_val);
-
-     regcache_cache_only(regmap, true);
-     regcache_mark_dirty(regmap);
-
-     return 0;
-}
