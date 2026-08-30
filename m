@@ -1,68 +1,68 @@
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41D8731CA4E
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 20:53:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9963D325485
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 20:53:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788123182; cv=none; b=UwnwaXqvm5KrJQXgCC+eQ3iMjJbvWzKIt25stfZZo5/0Q8B0gP51QxnByyYBd4ThyF26mrNx6UC6Bv1E5aw+PSTEoULJ3ZXSE+JW9QFxQmo/MtTVkRvk/ItjDWlMMStSYhxO1xcicKDMOIeTgSMM0Cj1i529rtY2IeCSfbkLHsY=
+	t=1788123183; cv=none; b=JpMMJ8ToyO5w5GcdNtZ8UCfv8o0+Kz1BIpjs2865QAUqGgt2YlD8qNg9zpROXCnt35vmsCOm+ShJ6BRacb2un0SGNWmIcq/RI5Bp3EUoJSuhwV8kw8tXCT0epXL1bmJEGcC25TzygpTtQUa/pI4bdIQZ8uImcYBDSoTH8IVeQTc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788123182; c=relaxed/simple;
-	bh=dgRlrPA0xNRpVH6a2orSrjoVD6Nad1aDhCkhQHF7NZc=;
+	s=arc-20240116; t=1788123183; c=relaxed/simple;
+	bh=EOnSXOVAAeXVYSqilMUhL2SUOzE8QoOUvM+prd9A1TM=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=S0WbR8UDnod2gt3tkOip+cWNa8TZIehb0TFUZv8z9fvRHL8tmJbCXbQHIhe/TJezsTurw/orrp5cOOGXZ6npupFdWvnI/TbPFVXk0Q+ffQA24dQhZXC8An/EIpseBwgaSf8SkmTGVaFb7JZXWJYk7BstlPjBDSM8ETHX6/ghylA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=K4ulL8SM; arc=none smtp.client-ip=209.85.214.181
+	 In-Reply-To:To:Cc; b=ATxj/CDZm89pqwvt29FtmcsdYJh8dyaBGHr/9NeBEW0Lp7Xv0ru4QqTyH8pxdlzFVENAJPkcd9J3/nlbH1QKRw8ZtAXRSatgjUA9NE6H02uyRIh7+IIwUmtoWS+g1UqqIDKtej4wvJ4o55bAYf6y4mjYDF5+1TFJwzDhA3Wqbfg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GjXVZdSd; arc=none smtp.client-ip=209.85.214.174
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="K4ulL8SM"
-Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2cace91f112so22313815ad.0
-        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 13:52:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GjXVZdSd"
+Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2d7195706f1so27098745ad.0
+        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 13:53:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788123178; x=1788727978; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788123179; x=1788727979; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=EUPfcFMxDXMk/XqBeY+4XwVjn+mvGP82psS7PbouEZI=;
-        b=K4ulL8SMDxQGY9peYtUl96MNzOmlNI+cDtc9p4EoZ2NfPXPLblNsOnlFSu94jxZ9xf
-         CwIjBZMSdGrzVsvZ+vg6/nJsXP9PkNXXnkBOX5hLcr5krzFtl9U9hV7ByhKZ5l+iFr+q
-         179zMzQ6kX6VRCBUQR6AlSOQWtfMnKS21QPt80xe6ATIY9+4/E4GV1DMcze92KtRigOl
-         yHLgf8HKJvT4d24v8y10rTS0vukPHfzqjWiBGB0cr13v6HXNaxdXWgn1s3/xAmy7OQmd
-         l3zK6yeP1DBfgwSbl3RcFzPvhFDjcKhKV+qufAsr4BHPruRstaj+1jq05xNJIxkwiJRE
-         leJQ==
+        bh=AsQW+e9qFtWuEHb6msaYSCJD2h6v64jckrT0lnLqEOQ=;
+        b=GjXVZdSdWxHhSfEhqJ8f4a51fhS4ThyTHXbGnhbNAG5wJt9Y3orej4TlIrgsnZcWxW
+         E0s605c0keDlpf1+vdcR8rrPE9u+gFnSuNLwiRYuEuydLolOaAgrPjBiUAGU/O1JMtXo
+         7QxH4YvFAF6fod38gVg0R9n0eY7SfPhToTCWyXYDaasKr4pI6LLnTO7LZwRBIDiApFV0
+         mc4IYzuaRl7c28C0ron65xJ4zugSOjI1FRBBa/jTr6yOrvhudPqnpZOmY3j/p1zuT6k3
+         gYzUEFj6VBB+icdKFVdEQMiVPrQud6tLQ8ZvtIakaVVjCF0BXNM9VGVezNQjHHjRXxTK
+         r4Vg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788123178; x=1788727978;
+        d=1e100.net; s=20251104; t=1788123179; x=1788727979;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=EUPfcFMxDXMk/XqBeY+4XwVjn+mvGP82psS7PbouEZI=;
-        b=LAsFtxrwxXnP+/IebDj8Y+l7b1F53INHDtjv62BmyElAxyMlSoTqyykot1ejM2YeR0
-         ORYifD/M4S2KEFztLAjmLP0Nl9VjWE0+9MuoWCpj7yBffm289D3y8KeEgNav8Ojwrk0e
-         QwtO731qQjP2Xh3H38RxKUnUid8mVas/ALIvLpEUkDb8JEiTSWgxq/9f6pNi+lUGLYOF
-         4lUiijGzQ/s05tLN9a+dicGXg78irbx66OCHf18j2g7wv3Y/oGACA434PIEvIIlG/4xc
-         qnhoab1Go6m8zxSIJ1ZTmCymZRiT6D/UwjvU5Djwt8c79v6r9srGs9rDJga7OBaCyXxY
-         wTuQ==
-X-Gm-Message-State: AFuF++nxd5Ey18cF/4//yJ+WPXlYakhFQ0yblIYwlq//h3HxXOJQ+OW2
-	46KiEjpF/Mlj5zli7hcxTX4A9AVy2G+3l/LqvXieyZAPn8VjJVogrRZEyQwnnNil
-X-Gm-Gg: AR+sD115bhBY+lO/Z6O1uN5QKPGEas4XEF/4m5DK9mFwKlnNcNEo6MLqfGOaS60b/kL
-	V5Faz1nxOt/hmQZ+byYk0ePqo96RUI5H5ZwzFthxM7xrllmSB7mPeqy84anOvvbxVXhKEJCCgq9
-	FWjIEq4+imycgXfvkNJfPcOdYcT59AEwby6BSAN8QvR83m//mghMeUpsRF9dv62n1sFRc8hfBd6
-	GdKj1A+xhovGidTjRqQx4jMfuWr8WDMWGGcZVVkfk4s+wfoqmunA+I0BSXOzlfDjM4qB7KuBdPm
-	yIyyX07i/eHUh0uZu7D2Zuco7blwhpiaNToGJc8iR9ckOeNyCkJz624rmwhH3BWRUGEiEbZaAJ0
-	n6TZ/0WRR3r3/2TJltqYKT0MfTGrXnYmBXsogjFutLCbvoCFQNv/3rZunfJQ0IMZQXRE4S6r+Rg
-	aYgWR50v9MYRO2F4bD5H2ezwFths3GrgvvpQOISqQQtnodwF1JQah1cXVMCJqc+YO8COSUm/Sms
-	EIIUCY0LQzIjF3UtsOvHZ2sUgiOhGIM4tAu6RRpceBTwNsbx7M=
-X-Received: by 2002:a05:6a20:a108:b0:3cc:f280:ebc6 with SMTP id adf61e73a8af0-3d265c4270cmr33755175637.5.1788123177680;
-        Sun, 30 Aug 2026 13:52:57 -0700 (PDT)
+        bh=AsQW+e9qFtWuEHb6msaYSCJD2h6v64jckrT0lnLqEOQ=;
+        b=T58mYDCCZ6H6Pv9ke7r6dLVcfCZmQsQE15pamvMDkLy31ISZ+aWJV7mQdstWeL5cTe
+         KB1fzjfj5t1jE147NW8TJZ7Bx6uUNY+sqXstDGiTA2ujm9kaE4aLdOBv5Z/xWR1YtM31
+         /I6QC7vAuNeG8VoPrRR7fBlSpwB+2Lw58pGr990sqVK4iT81jzsYz3LFC6fO0LoELnYi
+         nvSVTdA1Mh8cqljG0UwNRYNWQn+Ko6O92kOpNHWubebLtfkcbnKfHX6SA/QDy4pbEkvC
+         is+HJ71j01kfLHai2kwh4eJA6/T+n5iuHn5EL3So6lDGD/X/Gvs3wecd2O67tWNiC3FY
+         /y4g==
+X-Gm-Message-State: AFuF++nZRD9VHOLfRjotiZgb4qNlXkNAvCKiK7ytdi8VOZkAYsKuIQF1
+	LgpUd9lDPAClMH3+K213Xd5stq/g+3fl+FPdzBQJdaWtQVIZNe/XOKM/ipgj2nZQ
+X-Gm-Gg: AYBFou3ofex+bg5wp+vDIjZIe2hURCKfSsZZRsFZbw3foCnLgeFyQuAvBAWYa1gOayD
+	oeZ6TwDrvGNRhuc+0peIAPGITvMvDNCTyDQ/2Y3YxPbZH/iGDnDig0T2XfaQ+8+tkLVUom/IM2a
+	65oEwtI27X1T5L8OqMMipbHetC/TDOsTnqdYUzhFI0IfMHX6rf/PE731lyODTqN4HOkMHvQf1oY
+	fWQk0nkMnb5A8KXfr4m80KUcQv6W/b7U8QHJrhOyeIEXcercH3jH07wBwh4i8jYfWiU8DzH3KhY
+	IOMigZY1QQOzJoEZanW+abru7CmrgxpZyub4HnUMBeXrC4OZr121U2BBe3lsCSxVfWVuvMykU27
+	U8t5TlU5UpRuIOv9eE69Fjci+7jOTL/WMeMi1AndFeTXDlJO6cgSKhEJFwc+D5JeE2aSSVi10AB
+	eyRV7HHTp8V6Xf2IijXS0OhzWDe+Ld/zSQlLOsLMtx5HRpi7LZYRD1qF2TgHef2d0o+ZOWKe0IZ
+	DoDu+XOItDgoqmV7DXI6TUaG1GNH0PZFPK/dHyk88/WCT9Fd3Y=
+X-Received: by 2002:a17:903:1aa3:b0:2d0:cc92:f7a3 with SMTP id d9443c01a7336-2d74dc1065fmr279050945ad.2.1788123178954;
+        Sun, 30 Aug 2026 13:52:58 -0700 (PDT)
 Received: from dtor-ws.sjc.corp.google.com ([2a00:79e0:2ebe:8:c021:485f:75be:3c7])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3286f9e3cf8sm26849437eec.24.2026.08.30.13.52.56
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3286f9e3cf8sm26849437eec.24.2026.08.30.13.52.57
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 30 Aug 2026 13:52:57 -0700 (PDT)
+        Sun, 30 Aug 2026 13:52:58 -0700 (PDT)
 From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Date: Sun, 30 Aug 2026 13:52:48 -0700
-Subject: [PATCH 3/7] Input: gscps2 - protect buffer access in read and
- report helpers
+Date: Sun, 30 Aug 2026 13:52:49 -0700
+Subject: [PATCH 4/7] Input: gscps2 - serialize hardware and buffer access
+ in gscps2_flush()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -71,7 +71,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260830-gscps2-v1-3-c733d4cae7f9@gmail.com>
+Message-Id: <20260830-gscps2-v1-4-c733d4cae7f9@gmail.com>
 References: <20260830-gscps2-v1-0-c733d4cae7f9@gmail.com>
 In-Reply-To: <20260830-gscps2-v1-0-c733d4cae7f9@gmail.com>
 To: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
@@ -80,87 +80,56 @@ Cc: linux-kernel@vger.kernel.org, linux-input@vger.kernel.org,
  linux-parisc@vger.kernel.org, sashiko-bot@kernel.org
 X-Mailer: b4 0.16-dev-b242f
 
-In gscps2_report_data(), the ring buffer consumer index ps2port->act was
-read and updated locklessly. When gscps2_interrupt() was called from
-process context (such as during port write or open) concurrently with a
-hardware interrupt running on another CPU, two execution contexts could
-execute gscps2_report_data() simultaneously for the same port, racing on
-ps2port->act and leading to duplicate, skipped, or out-of-order bytes.
+gscps2_flush() reads from hardware registers and resets the ring buffer
+indices ps2port->act and ps2port->append. In gscps2_enable(), the
+trailing gscps2_flush() was called without holding ps2port->lock, racing
+with concurrent hardware interrupts and buffer access.
 
-Protect buffer access by taking ps2port->lock inside gscps2_read_data()
-and gscps2_report_data(). In gscps2_report_data(), acquire ps2port->lock
-only when popping entries from the ring buffer and release it before
-calling serio_interrupt() to avoid recursive deadlocks if the input
-driver synchronously sends a command back via serio_write().
+Assert that ps2port->lock is held in gscps2_flush() with
+lockdep_assert_held(), and ensure all callers acquire ps2port->lock so
+that multi-step hardware sequences remain fully serialized without
+unprotected windows.
 
 Reported-by: sashiko-bot@kernel.org
 Assisted-by: LLM
 Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
 ---
- drivers/input/serio/gscps2.c | 22 ++++++++++++----------
- 1 file changed, 12 insertions(+), 10 deletions(-)
+ drivers/input/serio/gscps2.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/input/serio/gscps2.c b/drivers/input/serio/gscps2.c
-index 5b6e311f8a02..fef6fffb6f86 100644
+index fef6fffb6f86..36c25db9ff7f 100644
 --- a/drivers/input/serio/gscps2.c
 +++ b/drivers/input/serio/gscps2.c
-@@ -238,6 +238,8 @@ static void gscps2_read_data(struct gscps2port *ps2port)
+@@ -228,6 +228,8 @@ static int wait_TBE(char __iomem *addr)
+  */
+ static void gscps2_flush(struct gscps2port *ps2port)
  {
- 	u8 status;
- 
-+	guard(spinlock_irqsave)(&ps2port->lock);
++	lockdep_assert_held(&ps2port->lock);
 +
- 	do {
- 		status = gscps2_readb_status(ps2port->addr);
- 		if (!(status & GSC_STAT_RBNE))
-@@ -255,7 +257,7 @@ static bool gscps2_report_data(struct gscps2port *ps2port)
- 	unsigned int rxflags;
- 	u8 data, status;
- 
--	while (ps2port->act != ps2port->append) {
-+	while (true) {
- 		/*
- 		 * Did new data arrived while we read existing data ?
- 		 * If yes, exit now and let the new irq handler start
-@@ -264,17 +266,20 @@ static bool gscps2_report_data(struct gscps2port *ps2port)
- 		if (gscps2_readb_status(ps2port->addr) & GSC_STAT_CMPINTR)
- 			return true;
- 
--		status = ps2port->buffer[ps2port->act].str;
--		data   = ps2port->buffer[ps2port->act].data;
-+		scoped_guard(spinlock_irqsave, &ps2port->lock) {
-+			if (ps2port->act == ps2port->append)
-+				return false;
-+
-+			status = ps2port->buffer[ps2port->act].str;
-+			data   = ps2port->buffer[ps2port->act].data;
-+			ps2port->act = (ps2port->act + 1) & BUFFER_SIZE;
-+		}
- 
--		ps2port->act = (ps2port->act + 1) & BUFFER_SIZE;
- 		rxflags = ((status & GSC_STAT_TERR) ? SERIO_TIMEOUT : 0) |
- 			  ((status & GSC_STAT_PERR) ? SERIO_PARITY  : 0);
- 
- 		serio_interrupt(ps2port->port, data, rxflags);
+ 	while (gscps2_readb_status(ps2port->addr) & GSC_STAT_RBNE)
+ 		gscps2_readb_input(ps2port->addr);
+ 	ps2port->act = 0;
+@@ -364,7 +366,8 @@ static void gscps2_enable(struct gscps2port *ps2port, bool enable)
  	}
--
--	return false;
+ 
+ 	wait_TBE(ps2port->addr);
+-	gscps2_flush(ps2port);
++	scoped_guard(spinlock_irqsave, &ps2port->lock)
++		gscps2_flush(ps2port);
  }
  
- /**
-@@ -296,11 +301,8 @@ static irqreturn_t gscps2_interrupt(int irq, void *dev)
+ /*
+@@ -551,7 +554,8 @@ static void __exit gscps2_remove(struct parisc_device *dev)
  
- 	guard(rcu)();
- 
--	list_for_each_entry_rcu(ps2port, &ps2port_list, node) {
--		guard(spinlock_irqsave)(&ps2port->lock);
--
-+	list_for_each_entry_rcu(ps2port, &ps2port_list, node)
- 		gscps2_read_data(ps2port);
--	}
- 
- 	/* all data was read from the ports - now report the data to upper layer */
- 	list_for_each_entry_rcu(ps2port, &ps2port_list, node) {
+ 	serio_unregister_port(ps2port->port);
+ 	free_irq(dev->irq, ps2port);
+-	gscps2_flush(ps2port);
++	scoped_guard(spinlock_irqsave, &ps2port->lock)
++		gscps2_flush(ps2port);
+ 	iounmap(ps2port->addr);
+ #if 0
+ 	release_mem_region(dev->hpa, GSC_STATUS + 4);
 
 -- 
 2.55.0.897.gb25b4bd76c-goog
