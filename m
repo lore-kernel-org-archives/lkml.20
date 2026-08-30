@@ -1,82 +1,62 @@
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from meesny.iki.fi (meesny.iki.fi [195.140.195.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 058E33C09F2
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 17:10:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788109850; cv=none; b=XqKpceTFJqTnFmw/OCT0kMfQwAVCN2HQYIVlIbQTXDPJODMXXiFMDQCTZBfmr0KkY6e6wnpYwf1lXr6p1xiTFmQyzAWXC0Q6Pzd2uTYLxY2Ge9LM1fgdoOswlTv0RgcSw1d2PTOiB1bJ+4YPMlQvF3ITUvHKTTS0cs2p8KP5PHg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788109850; c=relaxed/simple;
-	bh=sy8BZryh+VKv74VP8uHYb984yUyfJh7wIVMGurHwjnI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=H8ekQggh/3NmEzhODltZSzMc6Qk9TNqAI+D3oIRiAtnfIW44TLtONKJqydAbwiWJKPurJ4iLwE2NMdv3ygltgaJMpJ0b9b9eQ6mqCpylKPuuNigfOTEWaW9jH8McEMBjg696JsHBz6MDI/8llRYJMKdpu2yHAy7QqZXUg6vj0cw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IHgtMmR1; arc=none smtp.client-ip=209.85.216.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29D6A3C583B;
+	Sun, 30 Aug 2026 17:11:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=195.140.195.201
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788109924; cv=pass; b=GT+DsOYGY4WpUtF86lkJSvZSOd5c4ipybyHNA1p7bugkJJDTgD+9Y3P1rz7mlwAWb+W8Ov8kdhkjx/SItlI0t06U3ZBNVLGbMj9se02G11xU2xhwf5r1wnjrZp3AmcpsNPhtNdJ4r/EBwR6ne52hrZ3Lfpl6bHWAvpfYxdRc7rw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788109924; c=relaxed/simple;
+	bh=EiTZjn2skgUCXyBgFeo/zN/Gn1JDJZNxpC5pxOeCDvA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pWqbry2TR/wOFliHvjXTVCaMMzv1GrZBKfn/2NuBJNG4lU086ywxYEuqv3U8Ycn2mrxnVFwgXeHiOnm/fmUNPKgyalzp+I7YIAjoZEyaM6x80WnJVD7G3gHoQzWF6X2pP3eFDlHYL6K7DB7Q1ywu9408wuEElK9aS7UwuDgVbqA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi; spf=pass smtp.mailfrom=iki.fi; dkim=pass (1024-bit key) header.d=iki.fi header.i=@iki.fi header.b=MPQns11j; arc=pass smtp.client-ip=195.140.195.201
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iki.fi
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IHgtMmR1"
-Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-39647aa9d52so2617825a91.0
-        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 10:10:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788109847; x=1788714647; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+GRZL0uxq37pp9qHzlDeSvEEyunsmZeKfcXgUqg4T+M=;
-        b=IHgtMmR1e28ozTFPzIVA2Feyxf74vjQZouzJ+OZZNKEKAOWUxNkH39HPj4o2TYl0Pv
-         OWMyiLgUQJYCwNpjDPSum+bszpMkZqgv2YPPbx/BEDrIeFa9VRp+Fd7ahkdcCGoY8uE1
-         Gr0Tk+08W/Y7hWonPnBuwpEDSyM21a21bg2GjUfs/Ne7b0DtKmPENb+iX96hrxfL+Dom
-         X/1n75ZvQYRqPsH/jGTcBoq2F5vfUdXfOUdZ8UMhv5YgssMwsnJVRdG0XAYlXBYgHC4+
-         T30rytVKcephGN/CJlju0cY5U3ln3tY/Jita2GmDhejeFPD6JtQ0e+6zt2HCl4rEgFP/
-         G+8w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788109847; x=1788714647;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+GRZL0uxq37pp9qHzlDeSvEEyunsmZeKfcXgUqg4T+M=;
-        b=r0V1aJJtQBHQ77e3ZsOTMoFzaipWmpIEmxzdcFz74m9h9uOkru8+kIm3YYEJ6zpt3Q
-         Lpc72+Zp66cLz+1WbVjuKK8O4jx4UKWYoyXy+6m9mo5EoDcCcNz7f8bj9wiVuraNxYiN
-         EoWKZtgZHv076SBH551JAiOAzBU/6PQ2h9VJvzvMmrCUawHQI+flzymWhXI1g3nyPaBu
-         JdhP3IgMEVAzJJc54zFH1FCkYAfcTBi5jUOchefKqR17ufgZnigIpt4KBCS71ssX4ePH
-         I88EcmMCD2NgKeeU8NW023H3AcJLg2fZqRZpR3ynTf9LKRDo/bKGUcFtTTWWK8+vhXHR
-         EXOA==
-X-Forwarded-Encrypted: i=1; AKwUvBzxgW8aGY4XhEakelRhKwGzmo32zhKypZbzFB9I+AWK8n3mB43+FMjWtM7U/5+QURFes7XwFWatEr9bU3s=@vger.kernel.org
-X-Gm-Message-State: AFuF++no8TCJ+RnOrN7lmceU7RFnXNHgiDLPWineq0BZeu9oISPBAyls
-	Dx+Q3Jlm/fnHS6+U5FVRmQoLasevv4vhOCG2wlGlGQIjMfIHr/1DV+gU
-X-Gm-Gg: AYBFou1ZIMRm2mckeEd5jOUjLA6fwSu2Ix9t1CnnyFnbw1L0F1RdjOoOJipnbSzrSRW
-	Y/TGuqmQOQwuHJkg6imbShtcsPc+6Wti+2alK7V4Cep9RsuGDX30bNQBwveBabzER8jXgxbHgVB
-	fUZDohVDFHx1klv3TjQkbfPw61xSqd/jJwYsIqf4y+udPrzzfcIsfTvuNbcSDelqJseKdBgDlCe
-	xFe4jQknKzmSgQnNaP95+0aolNFxJFywV1qH5VsEjXkRfuUnVjraNg0HpXwHnxO+7mN/yJvoGPy
-	D9QAGMeVndau8nMaPzxzqwSG/QodZ4KuMIBpJjYosTiOGvShotRHBsPAh1axgrXa4xHeLuaBE2i
-	QP5YhTW2aqK4PPOnVtmlIBd59rDzCrusRnMrTb6Vi4v2HfTA2Abx2aXW8kE9A/R7N8JRQZ1tlHi
-	KdrYILClbBChEMgvMXWTSd0sMfxjFpli3REoYQABg0jgPhXvoze19xVzNicg==
-X-Received: by 2002:a17:90a:ec87:b0:390:84db:888e with SMTP id 98e67ed59e1d1-398da62a9f1mr2503612a91.7.1788109846855;
-        Sun, 30 Aug 2026 10:10:46 -0700 (PDT)
-Received: from ubuntu.. ([2405:201:8026:213e:88d5:45ce:40e:490f])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396b0fcfa3asm17047101a91.6.2026.08.30.10.10.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 30 Aug 2026 10:10:46 -0700 (PDT)
-From: mdshahid03@gmail.com
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: Marcelo Schmitt <marcelo.schmitt1@gmail.com>,
-	David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Ray Jui <rjui@broadcom.com>,
-	Scott Branden <sbranden@broadcom.com>,
-	bcm-kernel-feedback-list@broadcom.com,
-	linux-iio@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Mohammad Shahid <mdshahid03@gmail.com>
-Subject: [PATCH v2 5/5] iio: adc: bcm_iproc_adc: use devm_iio_device_register()
-Date: Sun, 30 Aug 2026 22:39:18 +0530
-Message-ID: <20260830170919.470974-6-mdshahid03@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260830170919.470974-1-mdshahid03@gmail.com>
-References: <20260830170919.470974-1-mdshahid03@gmail.com>
+	dkim=pass (1024-bit key) header.d=iki.fi header.i=@iki.fi header.b="MPQns11j"
+Received: from monolith.lan (unknown [IPv6:2a02:6ea0:1508:6::d001])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: pav)
+	by meesny.iki.fi (Postfix) with ESMTPSA id 4hXzDw3XyZzyVm;
+	Sun, 30 Aug 2026 20:11:44 +0300 (EEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi; s=meesny;
+	t=1788109904;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=3UyIKhf38CAPWDO5jGGj9DniOZGXUOXEcBEK9OBgYR4=;
+	b=MPQns11jrXPdkHtfl5QoNBpgwceNJDs1qZej0GWPpbgK2mr2HJkGezFrGNME15WesCg+wi
+	Ubbls5RpAvQm0JFWgNm8bZUuI0KpHhPPE30Pvdz15m5IZN4SiqjmNgg4H7sU9L3tjR8rW8
+	JUWAoM6B1+QxuO7kN5S6qG6H9WXypF8=
+ARC-Seal: i=1; a=rsa-sha256; d=iki.fi; s=meesny; cv=none; t=1788109904;
+	b=fow5pzyixys1/T5RFl42UPsWlIhQMQ/jIv4WDRuQ9GG+H1f4l0GvPzis9pMepfGp92MUrr
+	qtPYRuShXZpbNR6gOsW9JPsZP3SaUN0nQh9G6Jgq4Iiaai6VAq48SXIoCc96x6u7kF5SN9
+	8BcNAifDLMsLrcQRQJpWzjd8vm2aCsA=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi;
+	s=meesny; t=1788109904;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=3UyIKhf38CAPWDO5jGGj9DniOZGXUOXEcBEK9OBgYR4=;
+	b=QnbtOFyJeq8sJMSx90gcsAcrtZA5Q+MzD6+AGeLqUe72kVCnM1/OqmzWUEQlXuzShtcnG+
+	ax6GTPU4C3NyUsAWXHSA5drdAMeGSSylIUxIEIncsvMrNIplOuF61vFabhMtcRT/twZSe0
+	5WSAnvuAvmdQhnEGEr9omV3zsTXmujU=
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=pav smtp.mailfrom=pav@iki.fi
+From: Pauli Virtanen <pav@iki.fi>
+To: linux-bluetooth@vger.kernel.org
+Cc: Pauli Virtanen <pav@iki.fi>,
+	marcel@holtmann.org,
+	luiz.dentz@gmail.com,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] Bluetooth: L2CAP: fix chan mode for LE_CONN_REQ + EXT_FLOWCTL pchan
+Date: Sun, 30 Aug 2026 20:11:36 +0300
+Message-ID: <b30626af1ee0165d56dbfc15e5d16ae6efbd726b.1788109840.git.pav@iki.fi>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -85,54 +65,64 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Mohammad Shahid <mdshahid03@gmail.com>
+l2cap_new_connection() sets default value of channel mode to match the
+parent channel.  l2cap_le_connect_req() left this at the default, and
+created L2CAP_MODE_EXT_FLOWCTL channels if listening pchan has that
+mode.  This causes FLAG_DEFER_SETUP channels to reply to
+L2CAP_LE_CONN_REQ with L2CAP_ECRED_CONN_RSP, which is incorrect.
 
-Use `devm_iio_device_register()` to automatically unregister the IIO
-device when the device is detached.
+It can also result to stack OOB write (of l2cap_alloc_cid determined
+values) in l2cap_ecred_rsp_defer(), as l2cap_le_connect_req() does not
+limit maximum number of deferred channels or check for duplicate ident.
 
-This removes the manual `iio_device_unregister()` call and makes the
-`iproc_adc_remove()` callback unnecessary.
+Fix by setting chan->mode correctly in l2cap_le_connect_req().
 
-Signed-off-by: Mohammad Shahid <mdshahid03@gmail.com>
+Also check channel mode in l2cap_ecred_rsp_defer(), and do WARN_ON_ONCE
+instead of OOB write to make it less brittle.
+
+Fixes: 15f02b910562 ("Bluetooth: L2CAP: Add initial code for Enhanced Credit Based Mode")
+Signed-off-by: Pauli Virtanen <pav@iki.fi>
 ---
- drivers/iio/adc/bcm_iproc_adc.c | 10 +---------
- 1 file changed, 1 insertion(+), 9 deletions(-)
 
-diff --git a/drivers/iio/adc/bcm_iproc_adc.c b/drivers/iio/adc/bcm_iproc_adc.c
-index 11f2bc12c19a..38a153d6fc70 100644
---- a/drivers/iio/adc/bcm_iproc_adc.c
-+++ b/drivers/iio/adc/bcm_iproc_adc.c
-@@ -570,7 +570,7 @@ static int iproc_adc_probe(struct platform_device *pdev)
- 	indio_dev->channels = iproc_adc_iio_channels;
- 	indio_dev->num_channels = ARRAY_SIZE(iproc_adc_iio_channels);
+Notes:
+    This is another pre-existing issue from sashiko.dev reviews
+
+ net/bluetooth/l2cap_core.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/net/bluetooth/l2cap_core.c b/net/bluetooth/l2cap_core.c
+index 358b11eabd4f..fa7dbf5f448e 100644
+--- a/net/bluetooth/l2cap_core.c
++++ b/net/bluetooth/l2cap_core.c
+@@ -3886,6 +3886,9 @@ static void l2cap_ecred_rsp_defer(struct l2cap_chan *chan, void *data)
+ 	struct l2cap_ecred_conn_rsp *rsp_flex =
+ 		container_of(&rsp->pdu.rsp, struct l2cap_ecred_conn_rsp, hdr);
  
--	ret = iio_device_register(indio_dev);
-+	ret = devm_iio_device_register(dev, indio_dev);
- 	if (ret)
- 		return dev_err_probe(dev, ret, "iio_device_register failed\n");
++	if (chan->mode != L2CAP_MODE_EXT_FLOWCTL)
++		return;
++
+ 	/* Check if channel for outgoing connection or if it wasn't deferred
+ 	 * since in those cases it must be skipped.
+ 	 */
+@@ -3896,6 +3899,10 @@ static void l2cap_ecred_rsp_defer(struct l2cap_chan *chan, void *data)
+ 	/* Reset ident so only one response is sent */
+ 	chan->ident = 0;
  
-@@ -578,13 +578,6 @@ static int iproc_adc_probe(struct platform_device *pdev)
++	/* Unreachable, check in l2cap_ecred_conn_req. If reached, drop rest */
++	if (WARN_ON_ONCE(rsp->count >= ARRAY_SIZE(rsp->pdu.scid)))
++		rsp->pdu.rsp.result = cpu_to_le16(L2CAP_CR_LE_NO_MEM);
++
+ 	/* Include all channels pending with the same ident */
+ 	if (!rsp->pdu.rsp.result)
+ 		rsp_flex->dcid[rsp->count++] = cpu_to_le16(chan->scid);
+@@ -5064,6 +5071,7 @@ static int l2cap_le_connect_req(struct l2cap_conn *conn,
+ 	__set_chan_timer(chan, chan->ops->get_sndtimeo(chan));
  
- }
+ 	chan->ident = cmd->ident;
++	chan->mode = L2CAP_MODE_LE_FLOWCTL;
  
--static void iproc_adc_remove(struct platform_device *pdev)
--{
--	struct iio_dev *indio_dev = platform_get_drvdata(pdev);
--
--	iio_device_unregister(indio_dev);
--}
--
- static const struct of_device_id iproc_adc_of_match[] = {
- 	{.compatible = "brcm,iproc-static-adc", },
- 	{ }
-@@ -593,7 +586,6 @@ MODULE_DEVICE_TABLE(of, iproc_adc_of_match);
- 
- static struct platform_driver iproc_adc_driver = {
- 	.probe = iproc_adc_probe,
--	.remove = iproc_adc_remove,
- 	.driver = {
- 		.name = "iproc-static-adc",
- 		.of_match_table = iproc_adc_of_match,
+ 	if (test_bit(FLAG_DEFER_SETUP, &chan->flags)) {
+ 		l2cap_state_change(chan, BT_CONNECT2);
 -- 
-2.43.0
+2.55.0
 
