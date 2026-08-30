@@ -1,143 +1,98 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0D95145A1F;
-	Sun, 30 Aug 2026 01:36:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9227725B0B9;
+	Sun, 30 Aug 2026 01:51:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788053786; cv=none; b=AFVyTQDf3HGtS9LyLKFJbQ48ZN0yV0McrB/TDneJ9ULGzt6oOMtjpmKW7MnrBvZGVEVtFIGEr+YGL+M1DkNwfMytgUwTxo6++Qsk1q8lKUHwk+F6Vnc5R1SUBjcWTc2QbEvQHr2FVj540C+puT0ImW6yJIIDIyrRpqIgAim17Fg=
+	t=1788054700; cv=none; b=XUu9/ZCyVr4XEy9u5hgR1N4hl/DVWni4HHRUROFzugWj5mYEy9lYYlsldD1N3GHXdrNpj7NJkLaGk0KQeFLvbjfIdqTGUoXB37Dahu8JO7q43J0eRzRWQsHcw488oN6bSp2GXrzrx2N0X0rvwf1Emder7VQWkDDxQf5zH2DIdRA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788053786; c=relaxed/simple;
-	bh=Vv5i4jqd6MRM17DD001GHFOxW0HC9j2oP47qPtvKzqs=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=k7gSP41bmruORh6peMZ7epOlFaT+8VddwDIjiqd2+fcBqFzAvn1PFCFwkqkyTxQlMwzSIkAntIhMTZiCow7YZWrCpL+F+xZbxZyhmde10jemzdaUs/n/lpZ+rutbNRn+UUZjsNsjhEPMNMz3AnDk6dSqkqEbkKe/TnFbV6eJrF8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ajeeDKkF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788054700; c=relaxed/simple;
+	bh=u+jOu82T2Vpuxz80KFOge2EQ0q7wFuyLh5VGuv89T6E=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=nw+Y+3niYhHdtrLkLFtRpMHInw9C0wZLA5fsxsM+ujmcNhvaGQoDDpOVcjXbZVOE2xez9t+DosCJ+kR+G79BIP2RXuaX+z1uZmVQ7O0ZByNwmFyd5otFbYrOupLMrQKYmcPVJy6yCKSmnTNrJ9okOFTNVbDazMUHKYdRkCircXg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=kWP/Ii4E; arc=none smtp.client-ip=45.254.49.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ajeeDKkF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59E621F000E9;
-	Sun, 30 Aug 2026 01:36:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788053785;
-	bh=UdmgjnbDZPNvfBySictjfkzf6a9ms2p598rmvEHmvDI=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=ajeeDKkFTHUkYeU6OUd2Y/Bsb8ZguFW2xSfmR0ZW0QsQM6JuCly6ue7X0nCi4l/FF
-	 ZEspahW+S4hrguSsm/BJ9fFvMVjaawYRXsaX/2vSk3sL9P7IDv0SgQ1bv1GMfYhxOV
-	 yhxaFQDGSjxJUjcSty3xQIMqNnuRDk4QvRjrK6zWDtn+xQQ446YGNE378rZkPqQdry
-	 bdnuazHauQRhJWdHE0Qszdz3arw4bW8OEQ+5Stht1NZApC/vZoxTxUMk8CSAh6TEEz
-	 P1tp7MT2qyeeQEhlSJxOeoREE02QaHPT/HVuFGzZKHyimFw+5Yjw9sb7c3oD+suLFJ
-	 TLd7lru748j4g==
-Date: Sun, 30 Aug 2026 02:36:19 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Kurt Borja <kuurtb@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, David Lechner <dlechner@baylibre.com>,
- Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko
- <andy@kernel.org>, linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 04/10] iio: adc: ti-ads1262: support per-channel
- sampling frequency
-Message-ID: <20260830023619.654d1bbe@jic23-huawei>
-In-Reply-To: <20260828-ads126x-v4-4-1dc27e9c0260@gmail.com>
-References: <20260828-ads126x-v4-0-1dc27e9c0260@gmail.com>
-	<20260828-ads126x-v4-4-1dc27e9c0260@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="kWP/Ii4E"
+Received: from PC-202605011814.localdomain (unknown [58.241.16.34])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4bd15770c;
+	Sun, 30 Aug 2026 09:51:30 +0800 (GMT+08:00)
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+To: mario.limonciello@amd.com
+Cc: thomas.lendacky@amd.com,
+	john.allen@amd.com,
+	herbert@gondor.apana.org.au,
+	davem@davemloft.net,
+	linux-crypto@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	runyu.xiao@seu.edu.cn,
+	jianhao.xu@seu.edu.cn
+Subject: [PATCH v2] crypto: ccp: Initialize DBC ioctl mutex before registering device
+Date: Sun, 30 Aug 2026 09:51:04 +0800
+Message-Id: <20260830015104.2040153-1-runyu.xiao@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260829133410.1708684-1-runyu.xiao@seu.edu.cn>
+References: <20260829133410.1708684-1-runyu.xiao@seu.edu.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa0505d59dd03a1kunmd7826b21e7dac
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZTE0dVkJLSxkdQxhISx9MGVYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlOQ1VJT0pVSk1VSE9ZV1kWGg8SFR0UWUFZT0tIVUpLSEpPSE
+	xVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=kWP/Ii4EvbygR3rSFVn2CU7Yne0IWqlLSJDa3ujGm+YvViahMS7aJ9b0Hh7JXe4MdkqI6r5z5jdc+cH3/RFI+LShcyQztX3SSQ5C2jikmUB+aQiSpTqlX0Cup595xlEkV8367/jtGtup4Gr0XiNH5jjteiexQgj0Va5BZCfj3xM=; s=default; c=relaxed/relaxed; d=seu.edu.cn; v=1;
+	bh=y740TBYuiOL4j25V3xrb8r9hhghIl4Frs7wek9rWvUk=;
+	h=date:mime-version:subject:message-id:from;
 
-On Fri, 28 Aug 2026 01:38:19 -0500
-Kurt Borja <kuurtb@gmail.com> wrote:
+dbc_dev_init() registers the DBC misc device before initializing
+ioctl_mutex. Once misc_register() publishes the device, userspace can
+open it and invoke dbc_ioctl() while the mutex is still uninitialized.
 
-> Add per-channel sampling frequency support. The "available" attribute is
-> assigned per-channel too, in order to eventually support per-filter
-> availability.
-> 
-> Signed-off-by: Kurt Borja <kuurtb@gmail.com>
-A build issue below.
+Initialize ioctl_mutex before calling misc_register() so the published
+ioctl callback always sees an initialized mutex.
 
->  };
->  
-> +static const struct ads1262_channel ads1262_default_channel = {
-> +	.data_rate = ADS1262_DR_20_SPS,
-> +	.filter = ADS1262_FILTER_FIR,
-> +};
+Fixes: c04cf9e14f10 ("crypto: ccp - Add support for fetching a nonce for dynamic boost control")
+Cc: stable@vger.kernel.org
+Link: https://lore.kernel.org/all/20260829133410.1708684-1-runyu.xiao@seu.edu.cn/
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Assisted-by: Codex:GPT-5
+---
+v2:
+- Move mutex initialization before setting up the misc device, as suggested
+  by Tom Lendacky.
 
-See below - this probably wants to be a slightly more complex define.
+ drivers/crypto/ccp/dbc.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-
-
-> @@ -763,8 +970,15 @@ static int ads1262_parse_channels(struct iio_dev *indio_dev)
->  	if (!chan_specs)
->  		return -ENOMEM;
->  
-> +	st->num_channels = num_fw_channels + ADS1262_MON_CHANNEL_COUNT;
-> +	st->channels = devm_kcalloc(dev, st->num_channels, sizeof(*st->channels),
-> +				    GFP_KERNEL);
-> +	if (!st->channels)
-> +		return -ENOMEM;
-> +
->  	device_for_each_named_child_node_scoped(dev, node, "channel") {
->  		struct iio_chan_spec *spec = &chan_specs[i];
-> +		struct ads1262_channel *chan = &st->channels[i];
->  
->  		ret = fwnode_property_read_u32(node, "reg", &reg);
->  		if (ret)
-> @@ -772,6 +986,8 @@ static int ads1262_parse_channels(struct iio_dev *indio_dev)
->  		if (reg >= ADS1262_MONITOR_ADDR_OFFSET)
->  			return dev_err_probe(dev, -EINVAL, "%pfwP: reg out of range\n", node);
->  
-> +		*chan = (struct ads1262_channel)ads1262_default_channel;
-
-This is giving me a build warning:
-
-drivers/iio/adc/ti-ads1262.c:1913:26: warning: cast to non-scalar
-drivers/iio/adc/ti-ads1262.c:1913:26: warning: cast from non-scalar
-
-So we can't do this... Hmm. It's pretty simply. Use a define for
-the default channel with the (struct adds1262_channel)
-and that should work for us.
-
-> +
->  		ret = ads1262_parse_channel_node(st, spec, node);
->  		if (ret)
->  			return ret;
-> @@ -786,7 +1002,9 @@ static int ads1262_parse_channels(struct iio_dev *indio_dev)
->  			.storagebits = 32,
->  			.endianness = IIO_BE,
->  		};
-> -		spec->info_mask_separate = BIT(IIO_CHAN_INFO_RAW);
-> +		spec->info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
-> +					   BIT(IIO_CHAN_INFO_SAMP_FREQ);
-> +		spec->info_mask_separate_available = BIT(IIO_CHAN_INFO_SAMP_FREQ);
->  
->  		i++;
->  	}
-> @@ -795,6 +1013,7 @@ static int ads1262_parse_channels(struct iio_dev *indio_dev)
->  	       sizeof(ads1262_monitor_chan_specs));
->  
->  	for (unsigned int mon = 0; mon < ADS1262_MON_CHANNEL_COUNT; mon++) {
-> +		st->channels[i] = (struct ads1262_channel)ads1262_default_channel;
-Same here - a define would allow this to work rather than giving build
-problems as it currently does.
-
->  		chan_specs[i].scan_index = i;
->  		i++;
->  	}
-> @@ -890,6 +1109,10 @@ static int ads1262_spi_probe(struct spi_device *spi)
->  
->  	indio_dev->name = ads1262_device_id_to_name[st->dev_id];
->  
-> +	ret = ads1262_populate_tables(indio_dev);
-> +	if (ret)
-> +		return ret;
-> +
->  	/*
->  	 * REVISIT: This chip has software polling capabilities, which could be
->  	 * used to stop depending on the DRDY signal.
-> 
-
+diff --git a/drivers/crypto/ccp/dbc.c b/drivers/crypto/ccp/dbc.c
+index 410084a9039c..4db49a14550c 100644
+--- a/drivers/crypto/ccp/dbc.c
++++ b/drivers/crypto/ccp/dbc.c
+@@ -235,6 +235,8 @@ int dbc_dev_init(struct psp_device *psp)
+ 		goto cleanup_mbox;
+ 	}
+ 
++	mutex_init(&dbc_dev->ioctl_mutex);
++
+ 	dbc_dev->char_dev.minor = MISC_DYNAMIC_MINOR;
+ 	dbc_dev->char_dev.name = "dbc";
+ 	dbc_dev->char_dev.fops = &dbc_fops;
+@@ -243,8 +245,6 @@ int dbc_dev_init(struct psp_device *psp)
+ 	if (ret)
+ 		goto cleanup_mbox;
+ 
+-	mutex_init(&dbc_dev->ioctl_mutex);
+-
+ 	return 0;
+ 
+ cleanup_mbox:
