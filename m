@@ -1,116 +1,91 @@
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com [136.143.188.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A11F3BB9E0
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 16:24:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788107090; cv=none; b=V0GwaN5Fm9oVoHApzrBsCHsgfK0MnV0kl+wPus+7k3qEqffVlNukHPbHRdG+uMO2n2VmTsmB7tcVU93AOQqLrQqlnSX2b4IbEJ2HXwDGRKXP7DdkpPBOqD85J/I3i07JUYAoersq/Aov9wBUxVryf6D/wk3RiR0h6eC/8LvtkHo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788107090; c=relaxed/simple;
-	bh=wd4/Np9BcKgCQVe8dzA/j4ReDI2xnURtUc5ruSckYZo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tCQGebpRcBpP62PDfmkiQ6g158CB/W/Yuxr1DUwUVSsCYFcaHFsm+IzDKpDu7RilD+x5rtTkLk0JAlP2vY7sCeqynRf5XOc/858OaZjoW/8OwsWYGEZV/g75G0YqFwZXYaHc0Az47W1RAcz37v4ech9vSifa2pFZk4SWXMpxHQU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Q0zqLHRP; arc=none smtp.client-ip=209.85.216.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF1B13BB674;
+	Sun, 30 Aug 2026 16:25:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.12
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788107103; cv=pass; b=KlbUr/k/433pvX91+d1NLiElkrxI3vHVlItdu/0QImU4oxBPk2xzXOP1+DaxaqjagVpTV5r+Q4pP6MsNAMzAl1e0GCIvTvFQ4dT68zxAGMx8TjdiRLqa2S4ACmfvlzuDpwRsX0KkzmPCrvYhF2VXfQFkIQNDYIOSlv6a17Co9eM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788107103; c=relaxed/simple;
+	bh=GmBfcRy0uBNjSyTd3QM14EIKLu45BjfLWEcmRo1I9Ms=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=LB9/3y9+WMh+8eHOLFS3gYwv0wQxXJhxW74G2rabbCNj69fcY2CvvlTxDJX+zTKz70BDQgJ3EXyJ0XCvs7u9rt6AgVKv2eQB3PuyQLyj7Ivl0l+iE+neIKZ5rALqQMUDrULD9Kp08Roh67F/SdeLNkxWWX8PvgbSVgTSt+f1N4I=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=yoavmoshe.com; spf=pass smtp.mailfrom=yoavmoshe.com; dkim=pass (1024-bit key) header.d=yoavmoshe.com header.i=linux@yoavmoshe.com header.b=DeGxx07c; arc=pass smtp.client-ip=136.143.188.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=yoavmoshe.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yoavmoshe.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Q0zqLHRP"
-Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-398ba166ce3so755682a91.1
-        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 09:24:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788107088; x=1788711888; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=9uoOcHIFQQdBWhdhIIcmPfZrkUN2MX77IqhljKCPDFs=;
-        b=Q0zqLHRPkU/cKQ2pboJU+wNDp9U9QRIfbF1N+vrdYwdw09KvpxCxldeakOZakYUevd
-         C2rQMt2P0f5PdDEnVqURuBGCqG2EN7+HCEIndGVUJ4V65XTpA1Ziys4DIC2VoLya4ULy
-         lgTxMTJQropDd1f1F8G5oF7w4TFzwPgwPQfjGVIHH0OYNinUQc4ugARsLVqVOooS3P/3
-         Ec4MJY/RF86dU2i3fmnP33P9+U5JehNQ+9lebyA8rU+gt4OBYvG8UPs1ErTcZZXJ0mR3
-         3j5N5+Q4E4x7E0+Bq1bLopgZSQqW8X3yRcN3gPJ6FXZfYF8eGQjE50AIP2HiQTJtGLKF
-         ty3w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788107088; x=1788711888;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=9uoOcHIFQQdBWhdhIIcmPfZrkUN2MX77IqhljKCPDFs=;
-        b=Um9TPcQ0gzZETbbx16F13Hvf1TnOe4gN49oW+6DrrvbnlGJhfkzD2oOHtp/mV8R0Rg
-         4ye9DSgPvpi0ilfHvg1vHtSnZgKZzzWamls1kNoP6GwO/GidFyzRgbrEKEgt+Qz6y2pN
-         Fl8TtdHb4dPznp5PTI50XJ+lvTikxvL9uHM9wBpw+H3iptKrJLaE21AJtigdytnvmSF+
-         18uiYIMfHKg5rRL1esvQvP9srUDjwvrl6zawbjjzO/6uDtrZpRfCJ6q9NMGEu1+KS58c
-         tMOBatkxJcMAkuJLeAN+rrkwah7aCCmreQDUMit3LbfA3SuvAFrNqr7rwQscWVBla3j2
-         xybw==
-X-Forwarded-Encrypted: i=1; AKwUvBxQOYnBi0tNZnQyqrIfik4KNmDe3yst7agRMR7oSjYjADt2Dc7uqa3RNWSn7oi+J+xKRxyvdrq+iQKR4BA=@vger.kernel.org
-X-Gm-Message-State: AFuF++lC/UlCFFCmmBOxbmupyuVMbw/wM94rXnovpJvzvYm4l5WbGTr+
-	Ip7v10rC5Tbvyewgwg5s85EAdpoM3HE1hg0gkZQ/TvZROJ1449hFw7pq
-X-Gm-Gg: AYBFou1GCANJ6VSR5GKkSZZOl0PC5qL94QfqGszr9YrBhc2ff5Nmr8/OFTvgnffeHsn
-	2IxMWJNe7cT1JWRNwiuOBZVctFeZ6tvbqpHP4xkEa3hTyyuIcar+U46PrqsBkN7HwXIybOWpcj+
-	nRapz69AYY8vvzRPHLc0HrA1J+VAeZQyji2yOgyK/SuJknSiN6L9T6biv6oLYBso8m3aEXeGrs9
-	pk/xeN1lSYFXVqqaAr+MfqYIMLTHhpNHZzHRgaYRC0tSSjQZNX9B0TIJM64TWdDiwp9U+WqaK0m
-	EVDuufWH07EKorsKlOLtki7UDLMCJuYGpKIsMXZWcZ0/pOo9GWSMAOf4PuiQxjqmZb87su6w9R8
-	gk3wfxhWCnABYrsKfjT6EuabwoISqWeaV7VxQGOPnLkKSsdoKJr+4QX39lR5/ygzAtQdOy/0EIc
-	jYun1CJ+SYP11ngDDFkXjqXAPA7Fi9z1gvqhjB4h35/d+9pkYQEBMdy5o7NJ9Jw4ZWPg==
-X-Received: by 2002:a17:90a:38a3:b0:398:d6e8:f84e with SMTP id 98e67ed59e1d1-398d6e8ffbamr3534533a91.9.1788107088286;
-        Sun, 30 Aug 2026 09:24:48 -0700 (PDT)
-Received: from user ([2405:201:c052:b00b:fcb:65b0:addd:e3f8])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3286f9e907fsm21087126eec.25.2026.08.30.09.24.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 30 Aug 2026 09:24:47 -0700 (PDT)
-Date: Sun, 30 Aug 2026 21:54:19 +0530
-From: Yalagada Pavan Kumar <pavankumaryalagada@gmail.com>
-To: syzbot <syzbot+b197a0fb4e741cc5030e@syzkaller.appspotmail.com>
-Cc: davem@davemloft.net, david@ixit.cz, edumazet@google.com,
-	horms@kernel.org, krzk@kernel.org, kuba@kernel.org,
-	linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
-	netdev@vger.kernel.org, oe-linux-nfc@lists.linux.dev,
-	pabeni@redhat.com, syzkaller-bugs@googlegroups.com
-Subject: Re: [syzbot] [usb?] [nfc?] [net?] memory leak in nci_send_cmd
-Message-ID: <apRZM5ZkGw7KQq4-@user>
-References: <6a942714.4d659fcc.734b4.003a.GAE@google.com>
+	dkim=pass (1024-bit key) header.d=yoavmoshe.com header.i=linux@yoavmoshe.com header.b="DeGxx07c"
+ARC-Seal: i=1; a=rsa-sha256; t=1788107074; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=XdGy/sr3rnNAf8bb96XvAwHAREUe3cxNcki7E02MDYhicdhOLJ282kjyglQU+XtaWx5TA06MqCm0wk7Q0B/d2OACuwrtYX2cfKlOiSYW9pL9vuP1peRUvK0dpoN34aYQocCRn9dlVG58C9u7MkgUbTiyOBHpI3Nl6NXJxKoozbI=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1788107074; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=GmBfcRy0uBNjSyTd3QM14EIKLu45BjfLWEcmRo1I9Ms=; 
+	b=cjG7BqArSc+oKGncPM+El5jlT03vBF0aMBJG76ONkzviNZ3SramFZHixGtyGtn3WB42lUMyzNueS+mqXEaqBgq5/+5k/2D3ICbkN2HrgX8PeOCK+2aDt8W08potEuvX1myhZOMnymnLmtSGCvM/l+tqwL43601NJHGkqUUnnYKY=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=yoavmoshe.com;
+	spf=pass  smtp.mailfrom=linux@yoavmoshe.com;
+	dmarc=pass header.from=<linux@yoavmoshe.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1788107074;
+	s=zoho; d=yoavmoshe.com; i=linux@yoavmoshe.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=GmBfcRy0uBNjSyTd3QM14EIKLu45BjfLWEcmRo1I9Ms=;
+	b=DeGxx07cvLm+imNF4WG1+C4HClXhhNxqAZhzUxJm29XeW/VnL+KUtXpFXAq+lb2P
+	YhkAfbUlBj5xvj30g56/9yaKf9TRPHd7vKY8VlA2E61PA1A26xArZAM6EfUgFPgj2wb
+	3C+vm/GzQAb6jackRPdpQpYV2fyZ7JSO6/uL+bKU=
+Received: by mx.zohomail.com with SMTPS id 178810707135525.803322459182027;
+	Sun, 30 Aug 2026 09:24:31 -0700 (PDT)
+Message-ID: <2bd0c842-d0cb-4ad7-b3a3-fed2000dea83@yoavmoshe.com>
+Date: Sun, 30 Aug 2026 18:24:27 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <6a942714.4d659fcc.734b4.003a.GAE@google.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4] ARM: imx: Fix suspend/resume crash with Clang CFI
+To: Sami Tolvanen <samitolvanen@google.com>,
+ Nick Desaulniers <ndesaulniers@google.com>
+Cc: Yo'av Moshe <linux@yoavmoshe.com>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>, Russell King <linux@armlinux.org.uk>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Nathan Chancellor <nathan@kernel.org>,
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ llvm@lists.linux.dev, stable@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260718111340.159896-1-linux@yoavmoshe.com>
+ <20260827194508.446733-1-linux@yoavmoshe.com>
+ <CAKwvOdkSZBbq=e916=efx8G-CTzZ5b31AhyUytO6eJjjkEdMow@mail.gmail.com>
+ <CABCJKuc0cWWdkA7zrCcuze4AE-qTSETuUi-eRewPnn_ivHEADQ@mail.gmail.com>
+ <CAKwvOdnA7Ej_uppSL7U2xwxyUQoDMvO+RArj4HCUSOziH0rCqA@mail.gmail.com>
+ <CABCJKuezb0HtOcMBsObczS=HBaRvMszagkOZGHyOVbXBqtJi5g@mail.gmail.com>
+Content-Language: en-GB, sv-SE
+From: Yo'av Moshe <linux@yoavmoshe.com>
+In-Reply-To: <CABCJKuezb0HtOcMBsObczS=HBaRvMszagkOZGHyOVbXBqtJi5g@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 
-#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git 73ae59e975966d24e32926247ddb45a537ebe184
+On 2026-08-28 10:50 PM, Sami Tolvanen wrote:
+> Looks reasonable, but this still feels ARM-specific to me. How about
+> adding the macro to arch/arm/include/asm/linkage.h unless you have
+> other users in mind?
+I've now sent a v5 with Nick's macro added to
+arch/arm/include/asm/linkage.h as you suggested, plus the other fixes
+Nick asked for:
 
-diff --git a/drivers/nfc/nfcmrvl/usb.c b/drivers/nfc/nfcmrvl/usb.c
-index c7f2afe00b93..7a4094797ba4 100644
---- a/drivers/nfc/nfcmrvl/usb.c
-+++ b/drivers/nfc/nfcmrvl/usb.c
-@@ -224,12 +224,16 @@ static int nfcmrvl_usb_nci_send(struct nfcmrvl_private *priv,
-        unsigned int pipe;
-        int err;
- 
--       if (!drv_data->bulk_tx_ep)
-+       if (!drv_data->bulk_tx_ep) {
-+               kfree_skb(skb);
-                return -ENODEV;
-+       }
- 
-        urb = usb_alloc_urb(0, GFP_ATOMIC);
--       if (!urb)
-+       if (!urb) {
-+               kfree_skb(skb);
-                return -ENOMEM;
-+       }
- 
-        pipe = usb_sndbulkpipe(drv_data->udev,
-                                drv_data->bulk_tx_ep->bEndpointAddress);
-@@ -254,6 +258,7 @@ static int nfcmrvl_usb_nci_send(struct nfcmrvl_private *priv,
-                                "urb %p submission failed (%d)\n", urb, -err);
-                kfree(urb->setup_packet);
-                usb_unanchor_urb(urb);
-+               kfree_skb(skb);
-        } else {
-                usb_mark_last_busy(drv_data->udev);
-        }
+https://lore.kernel.org/all/20260830155100.1020620-1-linux@yoavmoshe.com/
 
+The sashiko-bot's comment on v5 indeed pointed out that imx5, at91 and
+omap1 might suffer from the same bug: their suspend routines are also
+fncpy()'d into SRAM without a type hash and called indirectly. They're
+all ARM, so asm/linkage.h still seems like the right place for the
+macro.
+
+Do you think these need to be fixed as part of this patch, or as
+follow-ups? I only have my one imx6 device (a Kobo Clara HD), so I'm not
+sure how to test the fixes for the others.
+
+Yo'av
