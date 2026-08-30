@@ -1,74 +1,164 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-216.mta1.migadu.com [95.215.58.216])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0014E3A9631;
-	Sun, 30 Aug 2026 09:43:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A90513A4F2F
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 09:43:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.216
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788082982; cv=none; b=CdAqJjpSfR2fppOgW+8kNehbK1eXH1fpTpdMutDx7t7nGz6BZqtftB1v33OUoklpSac0o151/LKAZoBtJSVC8xtUCNU7lnzXek17AXhJCMOmx0el5/SgcdFZGc5aNYEzz41K7xfdtS1ld7xSDCsyQP/Vt2IHqFH140yDy5PPtyQ=
+	t=1788083018; cv=none; b=ZGwv3CjzaJLfo/E9TmSz+/tnySXgyYqZRfN/IQGsE0PpYbQkJGgIQyGNbKH74YNyPtDtp7HydDksuqDq431WF7NRckNlM+I/EhvKDj0j8PCifyEJwQ204Mom2Co2wu6SajC05AIoBm7rnsCFEthdVbjF2qAys9lEbarQQUN3hsE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788082982; c=relaxed/simple;
-	bh=e6Q0w8FJOUBWAQuSBaiTnBEiYjdsjgdLxFaRxl7MeVk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rNl6c1lXZs13pRwwDUa8QZScuTCT+fgVVzg1q8MTjTSKu8fBXsuCEup95kUBjPn6Qn3uQqQVW0B4YQIPlADhBCJnHnUTCOB541pt1fs5NaGhsP3OxvOSM47wh4UKmoMr6f/t0iyRx1rfDTI/oUqF/TcbOoUnSThqdFRX0UEg9Hk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mz2IqBJz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788083018; c=relaxed/simple;
+	bh=WLzeZ4W+JrfRBuJ4IDHnEXj5Yo3WA5fDEH3jQpf5dZg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ZLll4bekJsW74WjF/Hq3c17OoPWN/4kNVPpOzfnd3HAqbHAexPl0MYrxDpaTOtmCBbRl4x1TkqkDR9BZbCY57Gs7r7t50WZnML1m7bw4i7jrakt8K04OyVkCsSDJpTA84FeFDMJCei9bNwBXZuhiPrT6IEU7PhJOzBu+kuUSgOg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ii8B1GFX; arc=none smtp.client-ip=95.215.58.216
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mz2IqBJz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA4381F000E9;
-	Sun, 30 Aug 2026 09:42:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788082979;
-	bh=KSzrSUzfrVyz+3h5TAg7uiKzQIyKJXzhhPFii6440X4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=mz2IqBJzIytQ9vMUd4C28TDgR4Qg4nlAV18vUV1gxriuK+c7OClRlu74v4EuhbIfS
-	 wpjxgA0gqEmVuZboqWfWix3iKJkE1xUfKrXQH6AMtO9wQ6tqUENMr1HedEuGNjGKyh
-	 OqV56xTOjCb7tax0pMPGHJw0igRiFB3Y86riMxSW8szbzxTAUf9WtSV29bKf6X0SAE
-	 QPfTTGVE3l62n998IcD1+nSP86Fek6F/+k+m9w09cATZIuzCiWkXjYM6NlKU8UYIK0
-	 vVcOf03qM2og+k8fL6zm6tvkxg2yc+GS8MslTp509glWp4r/8NgiYwuOAY0ik3CFSf
-	 6Huv74fPC1j2Q==
-Date: Sun, 30 Aug 2026 11:42:55 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: George Moussalem <george.moussalem@outlook.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Wesley Cheng <quic_wcheng@quicinc.com>, 
-	Thinh Nguyen <Thinh.Nguyen@synopsys.com>, Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
-Subject: Re: [PATCH 2/9] usb: dwc3: core: Allow glue layer to pass reference
- clock
-Message-ID: <20260830-fragrant-jolly-snail-eadb92@quoll>
-References: <20260825-ipq-flatten-usb-v1-0-5c1f3170bbe9@outlook.com>
- <20260825-ipq-flatten-usb-v1-2-5c1f3170bbe9@outlook.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ii8B1GFX"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=WLzeZ4W+JrfRBuJ4IDHnEXj5Yo3WA5fDEH3jQpf5dZg=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788083009; v=1; x=1788687809;
+ b=ii8B1GFXIP4C97TtjNGFHcTISARp+DTjIZA8SS0lxTod4xH+CLkW8kpFqAXKP6HUglSKjt7M
+ o/h2fdjf13ZZv0k2zlzN6AyzDVd54LdjtCI7BDFETHvCsurlxq8kMkLFe51APXMuztPNqkE6HIu
+ O+cW510HbcdvqGZTCxK1ttFQ=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id b5dc266f82cf0c4a;
+	Sun, 30 Aug 2026 09:43:19 +0000
+X-Mizu-Trace-ID: b5dc266f82cf0c4a
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <d469a60a-3aaf-43d3-955a-238042115a3e@linux.dev>
+Date: Sun, 30 Aug 2026 17:43:06 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260825-ipq-flatten-usb-v1-2-5c1f3170bbe9@outlook.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 5/6] mm/mglru: use explicit tier range in
+ read_ctrl_pos()
+To: kasong@tencent.com, linux-mm@kvack.org
+Cc: Andrew Morton <akpm@linux-foundation.org>, Barry Song
+ <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>,
+ Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
+ Baoquan He <baoquan.he@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
+ Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
+ Roman Gushchin <roman.gushchin@linux.dev>,
+ Muchun Song <muchun.song@linux.dev>, Chris Li <chrisl@kernel.org>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Yu Zhao <yuzhao@google.com>, Zi Yan <ziy@nvidia.com>,
+ Qi Zheng <qi.zheng@linux.dev>, cgroups@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Kairui Song <ryncsn@gmail.com>
+References: <20260826-mglru-flags-cleanup-v3-0-d9f1c75549c8@tencent.com>
+ <20260826-mglru-flags-cleanup-v3-5-d9f1c75549c8@tencent.com>
+From: Ridong Chen <ridong.chen@linux.dev>
+In-Reply-To: <20260826-mglru-flags-cleanup-v3-5-d9f1c75549c8@tencent.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, Aug 25, 2026 at 02:42:27PM +0400, George Moussalem wrote:
-> Add ability to pass a reference clock from the glue layer to the DWC3
-> core driver. The core calculates the reference clock period and frame
-> length adjustment based on the reference clock rate.
-> 
-> In the flattened snsp-dwc3 model, it is currently not possible to pass a
-> reference clock that differs from the default since:
-> commit 613a2e655d4d ("usb: dwc3: core: Expose core driver as library")
-> 
-> The new glue layers (incl. Qualcomm's) set the ignore_clocks_and_resets
-> flag in dwc3_probe_data to true, which disables the core driver's clock
-> management, thus it also doesn't acquire the reference clock from the
-> devicetree needed in dwc3_ref_clk_period.
-> 
-> There's an existing DT property 'snps,quirk-ref-clk-period-ns', but
 
-Where? git grep gave me zero results.
 
-Best regards,
-Krzysztof
+On 8/26/2026 1:53 AM, Kairui Song via B4 Relay wrote:
+> From: Kairui Song <kasong@tencent.com>
+> 
+> read_ctrl_pos() encodes the tier range in a single "tier" parameter
+> via "tier % MAX_NR_TIERS" as the start and "min(tier, MAX_NR_TIERS-1)"
+> as the end. This is hard to follow, maintain, or extend. Tier values
+> 0..3 select a single tier, while tier == MAX_NR_TIERS selects the
+> full range.
+> 
+> Replace it with explicit (tier_min, tier_max) parameters using a
+> closed [tier_min, tier_max] interval, and add LRU_TIER_MIN and
+> LRU_TIER_MAX for the tier bounds. The call sites now become
+> self-documenting:
+> 
+>    - get_tier_idx:   (LRU_TIER_MIN, LRU_TIER_MIN) for the first tier,
+>                      (tier, tier) for each subsequent tier
+>    - get_type_to_scan: (LRU_TIER_MIN, LRU_TIER_MAX) for the full range
+> 
+> No functional change.
+> 
+> Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+> Reviewed-by: Baoquan He <baoquan.he@linux.dev>
+> Reviewed-by: Barry Song <baohua@kernel.org>
+> Signed-off-by: Kairui Song <kasong@tencent.com>
+> ---
+>   include/linux/mmzone.h |  2 ++
+>   mm/vmscan.c            | 18 ++++++++++--------
+>   2 files changed, 12 insertions(+), 8 deletions(-)
+> 
+> diff --git a/include/linux/mmzone.h b/include/linux/mmzone.h
+> index c9ecf370cd9f..9b27cf53bdbc 100644
+> --- a/include/linux/mmzone.h
+> +++ b/include/linux/mmzone.h
+> @@ -492,6 +492,8 @@ enum lruvec_flags {
+>    * folio->flags, masked by LRU_REFS_MASK.
+>    */
+>   #define MAX_NR_TIERS		4U
+> +#define LRU_TIER_MIN		0U
+> +#define LRU_TIER_MAX		(MAX_NR_TIERS - 1)
+>   
+>   #ifndef __GENERATING_BOUNDS_H
+>   
+> diff --git a/mm/vmscan.c b/mm/vmscan.c
+> index 52ef4c3705bd..cdc2e44875da 100644
+> --- a/mm/vmscan.c
+> +++ b/mm/vmscan.c
+> @@ -3198,8 +3198,8 @@ struct ctrl_pos {
+>   	int gain;
+>   };
+>   
+> -static void read_ctrl_pos(struct lruvec *lruvec, int type, int tier, int gain,
+> -			  struct ctrl_pos *pos)
+> +static void read_ctrl_pos(struct lruvec *lruvec, int type, int tier_min,
+> +			  int tier_max, int gain, struct ctrl_pos *pos)
+>   {
+>   	int i;
+>   	struct lru_gen_folio *lrugen = &lruvec->lrugen;
+> @@ -3208,7 +3208,7 @@ static void read_ctrl_pos(struct lruvec *lruvec, int type, int tier, int gain,
+>   	pos->gain = gain;
+>   	pos->refaulted = pos->total = 0;
+>   
+> -	for (i = tier % MAX_NR_TIERS; i <= min(tier, MAX_NR_TIERS - 1); i++) {
+> +	for (i = tier_min; i <= tier_max; i++) {
+>   		pos->refaulted += lrugen->avg_refaulted[type][i] +
+>   				  atomic_long_read(&lrugen->refaulted[hist][type][i]);
+>   		pos->total += lrugen->avg_total[type][i] +
+> @@ -4809,9 +4809,9 @@ static int get_tier_idx(struct lruvec *lruvec, int type)
+>   	 * This value is chosen because any other tier would have at least twice
+>   	 * as many refaults as the first tier.
+>   	 */
+> -	read_ctrl_pos(lruvec, type, 0, 2, &sp);
+> -	for (tier = 1; tier < MAX_NR_TIERS; tier++) {
+> -		read_ctrl_pos(lruvec, type, tier, 3, &pv);
+> +	read_ctrl_pos(lruvec, type, LRU_TIER_MIN, LRU_TIER_MIN, 2, &sp);
+> +	for (tier = LRU_TIER_MIN + 1; tier <= LRU_TIER_MAX; tier++) {
+> +		read_ctrl_pos(lruvec, type, tier, tier, 3, &pv);
+>   		if (!positive_ctrl_err(&sp, &pv))
+>   			break;
+>   	}
+> @@ -4832,8 +4832,10 @@ static int get_type_to_scan(struct lruvec *lruvec, int swappiness)
+>   	 * Compare the sum of all tiers of anon with that of file to determine
+>   	 * which type to scan.
+>   	 */
+> -	read_ctrl_pos(lruvec, LRU_GEN_ANON, MAX_NR_TIERS, swappiness, &sp);
+> -	read_ctrl_pos(lruvec, LRU_GEN_FILE, MAX_NR_TIERS, MAX_SWAPPINESS - swappiness, &pv);
+> +	read_ctrl_pos(lruvec, LRU_GEN_ANON, LRU_TIER_MIN, LRU_TIER_MAX,
+> +		      swappiness, &sp);
+> +	read_ctrl_pos(lruvec, LRU_GEN_FILE, LRU_TIER_MIN, LRU_TIER_MAX,
+> +		      MAX_SWAPPINESS - swappiness, &pv);
+>   
+>   	return positive_ctrl_err(&sp, &pv);
+>   }
+> 
+Reviewed-by: Ridong Chen <ridong.chen@linux.dev>
+Thanks.
+-- 
+Best regards
+Ridong
 
