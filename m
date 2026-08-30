@@ -1,103 +1,118 @@
-Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
+Received: from mta0.migadu.com (out-250.mta0.migadu.com [91.218.175.250])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F960343896
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 08:16:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92AEB14F70
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 08:18:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.250
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788077794; cv=none; b=JEVp4T6R0LkARNFWsXSZYdMSLl7M6bsuVa0SKpCjnnlAAn6UUosqvzo6OLd4OdVppQv09FG+Aolp+t4Ph6VHDS6KuVS89RpHnFy2u0TNuKve50yZH7Z/8W/yeXts3KY5/FKUlhdSkZ8mK71iMSkOUG+cETFMeOvhUySg6Wudpvw=
+	t=1788077899; cv=none; b=KPIPldkOEZkzOQI9V4VuQ0C+i5/O5TYN/isHkf01b9Hwjz5v3R/05Qqcfn/PcNOnGzQru/IdSCpPr+pPkYg7Qf4ApCbup7GtdJwP6Rrgm47iS3sqdkscMvDTA6PZISe6IxsrtXU6r35xdjtH3DKEoJSGkoQNOEA0Qu5K5RnDhJM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788077794; c=relaxed/simple;
-	bh=UpbNU8emgfBSZZJbeYC2DucLSvOABXsYMSei6BCuLM4=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=FYK3Z+iXQLSm6yk1APFQIzDZslRAh/fBojRVnMmlq3ato7NVaFaJBHQtaSsS6JkgFjxvVIH0h8a03/UBDGSyEJtUV0mzUWW9RsIZiVze9EWF64llmrwRNYetUYEajBCh2Aq1kxNeX48NMIvLIE/VxvMyVA2tSTntpuks+DZprWA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4b2f2b8d88fso4768286b6e.2
-        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 01:16:32 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788077792; x=1788682592;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=qIKw63fFvbajGME/KIgaoTokvwo54jJuY9jmWOnYpck=;
-        b=Q5OlEI4SMhQGthCYPpTEA5kpuIAp5OpCrKVUXzkujRhdJdq5vJc3zy961llQ6D3AFm
-         TNK36RRQ0lfKubJf9xTieWkYt+XZOjAEXrQz83mj+x92cQ9BFCBvDs25tTIGLCd4afde
-         EQPZJG/BDkfsjg3NLv3NYsw/GujpcR4s0d31SFFD7XcuOdSpbXfGErtDCVsZFWR/rN2B
-         8JTkqJhn69Zp5naBFnfw1yBDq/MFkI4RkEemCGYrF5Wmqh643eRMGL/BL57EzVpUFceK
-         ZH93vtOsg0/K57kDDc4nMsbfmfMqiJyfWmDpCzh2mdwttqpEzMHWNb5a1SuqdXKAtNcJ
-         Uj+A==
-X-Gm-Message-State: AFuF++nl6f/QEYx4p8fFaD+BnysUxpkgTX4DOKaiUckkVIq7t0ox0CmG
-	cQO9OJ1vU6ymF119iPtf5nzyCZELtsGMt3z8b+zUKaT7gJlrorx0j1WiLkcLon1pJpt4yietGwK
-	/tMtGxKTmEzurjcjl/+/BSfq23rN/WCKPCtgHHsaeuKvNfTtMTeSvXhQud1w=
+	s=arc-20240116; t=1788077899; c=relaxed/simple;
+	bh=NAuA52VSPA72V2eVkgdvw0tVVN3Vtsno0NxmUpvk53E=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pbzWuiTvOV2rbaook0jW5gkx6PI0BkeevlQ21zPzKsWvI0AaLieFcmZtzTZ5HKLCz9nWrL27L69hJu4B2/HZSK3FSLW1d8GqQX0UCc5VXxHNxrtp1X31oCtZfer62CPFZk2Mu3/BR+tlNXTkIp5NhP/wc+buAqpngIQmRoaKaHs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=BhbXhRka; arc=none smtp.client-ip=91.218.175.250
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="BhbXhRka"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=NAuA52VSPA72V2eVkgdvw0tVVN3Vtsno0NxmUpvk53E=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788077890; v=1; x=1788682690;
+ b=BhbXhRkaGTAura+VoLoQY9CThEVbxndEdsUI4t+LoWVRf3B590XsYliG7Cc8ZyGzJci2hHuO
+ jkqknIeSw+yE2C4lXdn7e/IiluavNn+mIdYx2mss/akzhOPU5e0IROVj0bIubduPUx9xpSYQoWa
+ qskg8DfTVWOuqn7SZy0eIvT4=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 813fea7be6b6f147;
+	Sun, 30 Aug 2026 08:18:00 +0000
+X-Mizu-Trace-ID: 813fea7be6b6f147
+X-Migadu-Flow: FLOW_OUT
+Date: Sun, 30 Aug 2026 16:17:41 +0800
+From: Chen Yu <chen.yu@linux.dev>
+To: Tim Chen <tim.c.chen@linux.intel.com>
+Cc: Zhan Xusheng <zhanxusheng1024@gmail.com>, yu.c.chen@intel.com,
+	peterz@infradead.org, mingo@redhat.com, juri.lelli@redhat.com,
+	vincent.guittot@linaro.org, dietmar.eggemann@arm.com,
+	rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de,
+	vschneid@redhat.com, kprateek.nayak@amd.com,
+	linux-kernel@vger.kernel.org, zhanxusheng@xiaomi.com
+Subject: Re: sched/fair: which tasks should nr_pref_llc_running be compared
+ against?
+Message-ID: <apPnJaUS5vq2f85J@three-body>
+References: <20260827135000.735138-1-zhanxusheng@xiaomi.com>
+ <59e2b8265fc650266b93d8f523c366edfa912428.camel@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:6c85:b0:495:eb86:6e8f with SMTP id
- 5614622812f47-4b398248186mr22658849b6e.14.1788077792082; Sun, 30 Aug 2026
- 01:16:32 -0700 (PDT)
-Date: Sun, 30 Aug 2026 01:16:32 -0700
-In-Reply-To: <6a9087a4.4d659fcc.734b4.0014.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a93e6e0.1d9ded08.62e62.0119.GAE@google.com>
-Subject: Forwarded: [PATCH] media: gspca: don't call stopN/stop0 after device disconnect
-From: syzbot <syzbot+537b5eb78cebbff5ea70@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <59e2b8265fc650266b93d8f523c366edfa912428.camel@linux.intel.com>
 
-For archival purposes, forwarding an incoming command email to
-linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
+On Thu, Aug 27, 2026 at 01:57:33PM -0700, Tim Chen wrote:
+> On Thu, 2026-08-27 at 21:50 +0800, Zhan Xusheng wrote:
+> Signed-off-by: Tim Chen <tim.c.chen@linux.intel.com>
+> ---
+>  kernel/sched/fair.c | 45 ++++++++++++++++++++++++++++++++++++++++++++-
+>  1 file changed, 44 insertions(+), 1 deletion(-)
+> 
+> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+> index d78467ec6ee1..1673b17273c5 100644
+> --- a/kernel/sched/fair.c
+> +++ b/kernel/sched/fair.c
+> @@ -1544,7 +1544,14 @@ static void account_llc_dequeue(struct rq *rq, struct task_struct *p)
+>  
+>  	rq->nr_llc_running--;
+>  	if (p->pref_llc_queued) {
+> -		rq->nr_pref_llc_running--;
+> +		/*
+> +		 * If the task is being finally dequeued while still delayed,
+> +		 * set_delayed() already removed it from nr_pref_llc_running;
+> +		 * skip here to avoid underflow. Clearing pref_llc_queued also
+> +		 * stops the subsequent clear_delayed() from re-adding it.
+> +		 */
+> +		if (!p->se.sched_delayed)
+> +			rq->nr_pref_llc_running--;
 
-***
+Should we also do similar check in account_llc_enqueue()? It is possible during
+load balance migration, a migrate_load allows the task to be migrated across
+CPUs. And load balance leverages detach_tasks()/attach_tasks() to move tasks.
+During this stage the p->se.sched_delayed remained unchanged:
+In enqueue_task_fair(), only when if (se->on_rq && se->sched_delayed) is true,
+p->se.sched_delayed will be cleared by requeue_delayed_entity() - during migration,
+se->on_rq is false.
 
-Subject: [PATCH] media: gspca: don't call stopN/stop0 after device disconnect
-Author: kartikey406@gmail.com
+As a result, attach_tasks -> enqueue_hierarchy -> enqueue_entity -> account_llc_enqueue(rq, p)
+incorrectly increase rq->nr_pref_llc_running - even that task is in delayed state, and
+not runnable.
 
-#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+>  		/*
+>  		 * Update the status in case
+>  		 * other logic might query
+> @@ -1572,6 +1579,24 @@ static void account_llc_dequeue(struct rq *rq, struct task_struct *p)
+>  	}
+>  }
+>  
+> +/*
+> + * A task becoming delay-dequeued leaves the runnable set while staying
+> + * queued. Keep nr_pref_llc_running in the runnable domain (like
+> + * h_nr_runnable) so alb_break_llc() can compare the two directly.
+> + */
+>
 
-gspca_stream_off() calls the sub-driver's stopN() and stop0()
-callbacks unconditionally. These issue USB requests using
-gspca_dev->dev, which becomes a dangling pointer once the USB device
-has been disconnected and freed, causing a use-after-free when the
-video device fd is closed after disconnect.
+Regarding alb_break_llc(), since we have compared nr_pref_llc_running vs 
+nr_runnable, I wonder if we should also change the code?
+	if (env->src_rq->nr_pref_llc_running &&
+ 	    env->src_rq->nr_pref_llc_running == env->src_rq->cfs.h_nr_runnable)
+		unsigned long util = 0;
+		struct task_struct *cur;
+ 
+                if (env->src_rq->cfs.h_nr_runnable <= 1)
+                        return true;
 
-Add a gspca_dev->present check before calling stopN() and stop0(),
-matching the existing check already used for gspca_input_create_urb()
-in the same function.
-
-Reported-by: syzbot+537b5eb78cebbff5ea70@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=537b5eb78cebbff5ea70
-Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
----
- drivers/media/usb/gspca/gspca.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/media/usb/gspca/gspca.c b/drivers/media/usb/gspca/gspca.c
-index 594d73e50b9f..5c33cf397f3d 100644
---- a/drivers/media/usb/gspca/gspca.c
-+++ b/drivers/media/usb/gspca/gspca.c
-@@ -733,14 +733,14 @@ static void gspca_stream_off(struct gspca_dev *gspca_dev)
- {
- 	gspca_dev->streaming = false;
- 	gspca_dev->usb_err = 0;
--	if (gspca_dev->sd_desc->stopN)
-+	if (gspca_dev->present && gspca_dev->sd_desc->stopN)
- 		gspca_dev->sd_desc->stopN(gspca_dev);
- 	destroy_urbs(gspca_dev);
- 	gspca_input_destroy_urb(gspca_dev);
- 	gspca_set_alt0(gspca_dev);
- 	if (gspca_dev->present)
- 		gspca_input_create_urb(gspca_dev);
--	if (gspca_dev->sd_desc->stop0)
-+	if (gspca_dev->present && gspca_dev->sd_desc->stop0)
- 		gspca_dev->sd_desc->stop0(gspca_dev);
- 	gspca_dbg(gspca_dev, D_STREAM, "stream off OK\n");
- }
--- 
-2.43.0
-
+thanks,
+Chenyu
