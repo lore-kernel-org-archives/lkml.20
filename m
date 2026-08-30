@@ -1,102 +1,251 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F1362BFC8F;
-	Sun, 30 Aug 2026 18:03:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FF3A3F105B;
+	Sun, 30 Aug 2026 18:04:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788113023; cv=none; b=C8XwKmR4ki2kZIx3GDR8XFai6JgR/xab3FdP70DfTbzcUs9ZrH6Tf4uVJG4Is8GEO4S2So5ACwH6wHl3yhhEJMe+R22xNLIYTwvIzeCsZOCxKi7qadPGte3GQwaXR+Z1PNkBLgBxTd5JDl+aoeqaiKUEkS4D8vTKBgKvfJlFDZw=
+	t=1788113060; cv=none; b=joyml/REEY3V5LcV2icbn46Z84r2gLBz1ximVGd2luoK00OzmnkRmkGDnOtpHekLTkFffbOueNXwGQr6y8DSOBmtD0tIBCsn7tH0apbNxGfnoINA1QmijXpVkYM/z4v1NPRE6eSEtQEWmZp5jfg0I28PLYVAjgF4yvbpLm7Ly0I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788113023; c=relaxed/simple;
-	bh=lleQPyBGLLD/ZVebmz99IjY/3UMxABvMROm7L17HXI0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=erUPJXGSfJXi/hCW+J6IjXVrivNqzBaII/tcEhOJ3kDV7i78qhT9nYl68htgaTBdpi+yaDtyBHyUB0Uof1anPZv/UsxZ5JYnXLci/qPQnuBolBYTRdr1k5UXvTAyHn+KhsrTIz/L3kZ0Licu+ifxTu/j9d5XmwAIB8FdatD0xzU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=S8uDnnqS; arc=none smtp.client-ip=192.198.163.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1788113060; c=relaxed/simple;
+	bh=3nOsf/WwS4ndXuO3uNa1zvzND7BWlSNK7AdVKcsPNVg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=PjTxww5KANrS3I8u2ioowrBZpe572yIscgCs1Iagccu+B0wL7X5ofV1w1pQj5cNiiCfxs6M45Qg1jlIW4ZhJbgsTwHvM7DiN44c8z5LS9r0ztW7RGFqFasez1P9aIhFBvNscTadNz2q/xKiBszy/BGIOsSF8uZ737X8rmCkfjRY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UgLTMhUa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="S8uDnnqS"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788113021; x=1819649021;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=lleQPyBGLLD/ZVebmz99IjY/3UMxABvMROm7L17HXI0=;
-  b=S8uDnnqS6rcYcYLDqvZPKMfJIT262FPHh9ircYRy4S8yuC2BVarVvDEb
-   BJJCWOlWSFhlb1sXOOa7LDhUYDaP++YnS+3+AaClleRDCCKjoBitsh0ew
-   yd3rLI+AvPs3aNscG2i+48v6osyK+UBSnRLJXtbr0T1IWRXa0WCXcek02
-   Vq3YvCkmpKKOqj3vMYIixijem5AcgheVCpsx/A/7mHrKWXdUyueae75qw
-   ij7HjFt8BWVHjrWD+cg8h4yanBuoEC/aXvY3P5GvlpTGB3RnIDkYVwRhN
-   TSjc4nxGf3Sfqb96BwNgluWAfp/g6b1z25rlHbwxZfGOUFBo72jFims5/
-   Q==;
-X-CSE-ConnectionGUID: J9f141TdRGSTvD24ixTXSQ==
-X-CSE-MsgGUID: UA70eJ3mTYOnMhiyjUBXgQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11891"; a="91045438"
-X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
-   d="scan'208";a="91045438"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Aug 2026 11:03:40 -0700
-X-CSE-ConnectionGUID: MAqk5aqaTvGy5Cmf7/lsZQ==
-X-CSE-MsgGUID: ZscK/XFrTgGBgrFm2gcakg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
-   d="scan'208";a="292109347"
-Received: from lkp-server01.sh.intel.com (HELO 3532383e6126) ([10.239.97.150])
-  by fmviesa002.fm.intel.com with ESMTP; 30 Aug 2026 11:03:38 -0700
-Received: from kbuild by 3532383e6126 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1x0jsO-00000000E84-0Tez;
-	Sun, 30 Aug 2026 18:03:29 +0000
-Date: Mon, 31 Aug 2026 02:03:26 +0800
-From: kernel test robot <lkp@intel.com>
-To: Tate Whiteberg <whiteberg@arista.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Andy Shevchenko <andy@kernel.org>
-Cc: oe-kbuild-all@lists.linux.dev, Tate Whiteberg <whiteberg@arista.com>,
-	linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org
-Subject: Re: [PATCH] serial: 8250_mid: wait for LSR tx empty before setting
- termios
-Message-ID: <202608310138.0uIPCjfP-lkp@intel.com>
-References: <20260828144617.1210599-2-whiteberg@arista.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UgLTMhUa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57A0E1F000E9;
+	Sun, 30 Aug 2026 18:04:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788113058;
+	bh=m88xwc8JeINQOcEmdlY5EvrRQoPq/hErRaBWIQ73IgI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=UgLTMhUaoy23cUFdrrSHJgkX2Cwez8f8AB4yxm3mRLGkgbS4p1BXJohv7il1iva2r
+	 N4TGWinDnKGvt036jNZuSGnWiFMXi8AgBfQUXMwCbax3JLjk07r46g4BDK61rRkaCs
+	 KoPX5sPgUyhzxv0IBwgut2ar2W/pG+squx+cImEx4ze8okE6J8m6dUAshbWf9Vlh1Y
+	 r6RVDWIFuQ1xBDvQq+8piJApEeqFhieXfCLBJIA5acK3hx51/QzMCltO/TfMKotiVy
+	 bEuJjPOgYxV6Wa5DvSRjvZYggCzFkPNE2C6xVYZKJhO+0IfbsWtaixl/6yKHqwUokL
+	 efhpvsWNz11ww==
+From: SJ Park <sj@kernel.org>
+To: Krishna Iyer <kiyer@crusoe.ai>
+Cc: SJ Park <sj@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	damon@lists.linux.dev,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/6] mm/damon: support access monitoring of hugetlb-backed memory
+Date: Sun, 30 Aug 2026 11:04:11 -0700
+Message-ID: <20260830180411.103772-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260830051407.50008-1-kiyer@crusoe.ai>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260828144617.1210599-2-whiteberg@arista.com>
+Content-Transfer-Encoding: 8bit
 
-Hi Tate,
+Hi Krishna,
 
-kernel test robot noticed the following build errors:
 
-[auto build test ERROR on tty/tty-testing]
-[also build test ERROR on tty/tty-next tty/tty-linus usb/usb-testing usb/usb-next usb/usb-linus linus/master next-20260828]
-[cannot apply to v7.2]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+Thanks you for this great patch series.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Tate-Whiteberg/serial-8250_mid-wait-for-LSR-tx-empty-before-setting-termios/20260828-144517
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/gregkh/tty.git tty-testing
-patch link:    https://lore.kernel.org/r/20260828144617.1210599-2-whiteberg%40arista.com
-patch subject: [PATCH] serial: 8250_mid: wait for LSR tx empty before setting termios
-config: powerpc64-randconfig-001-20260829 (https://download.01.org/0day-ci/archive/20260831/202608310138.0uIPCjfP-lkp@intel.com/config)
-compiler: powerpc64-linux-gcc (GCC) 13.4.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260831/202608310138.0uIPCjfP-lkp@intel.com/reproduce)
+On Sat, 29 Aug 2026 22:14:01 -0700 Krishna Iyer <kiyer@crusoe.ai> wrote:
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202608310138.0uIPCjfP-lkp@intel.com/
+> On virtualization hosts, most system memory is often backed by
+> hugetlbfs.  On our production hosts, for example, ~95% of RAM is 1 GiB
+> hugetlb pages backing guest memory.  DAMON's physical address space
+> monitoring cannot produce a useful access signal for such memory, for
+> two layered reasons.
+> 
+> First, it is blind to hugetlb folios.  Every access check starts at
+> damon_get_folio(), which rejects folios that are not on the LRU lists,
+> and hugetlb folios are managed outside of the LRU by design.  As a
+> result, all hugetlb-backed memory is silently reported as never
+> accessed.
 
-All errors (new ones prefixed by >>, old ones prefixed by <<):
+Nice catch.  I admit DAMON is completely broken for your use case, and this
+will effectively and completely fix it.  I want to get this fix as soon as
+possible.
 
->> ERROR: modpost: drivers/tty/serial/8250/8250_mid.ko: module uses symbol 'serial8250_wait_for_xmitr' from namespace 'SERIAL_8250', but does not import it.
+> 
+> Second, even once hugetlb folios are visible, access-bit-based sampling
+> under-reports hot memory.  DAMON deliberately clears accessed bits
+> without TLB flushes to keep the overhead low, so accesses served from
+> cached translations do not walk the page tables and never re-set the
+> bit.  With 1 GiB mappings, translations effectively never leave the
+> TLBs, pinning the observed access rate to the TLB-refill rate: a
+> saturating guest is indistinguishable from a nearly idle one.
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+There were similar issue reports.  In most cases, it was because they were
+running small test workloads on large systems.  It was unclear if the same
+issue can happen on real production workloads.  That's because we expect real
+workloads to intentionally access most of system memory, and therefore
+naturally flush TLB entries.  On 1 TiB memory system utilizing 1 GiB huge tlb
+pages, I can agree the issue can happen more frequently, even on real
+workloads.  But, I'm still curious what is the real impact.
+
+> 
+> Patches 1-3 address the visibility problem.  The first patch moves
+> damon_hugetlb_mkold() from vaddr to ops-common as a preparation.  The
+> second patch teaches the folio mkold/young rmap walkers to handle
+> hugetlb folios, aging the huge PTE and notifying secondary MMUs across
+> the whole huge page size; the secondary MMU notification is what
+> surfaces guest-side (e.g., KVM/EPT) accessed bits.  The third patch
+> adds damon_get_folio_incl_hugetlb() and uses it from the paddr
+> monitoring primitives only.  DAMOS action appliers such as
+> DAMON_RECLAIM and DAMON_LRU_SORT keep the LRU-only lookup and are
+> behaviorally unchanged.
+
+I left a few trivial comments for names and comments to patches 2 and 3.  After
+resolving the trivial things, these will be ready to be merged in my opinion.
+
+Meanwhile, I have a few concerns and want to have sufficient discussions for
+rest of this series.  Could you pleae split the first patches out of this
+series, revision for the given comments and post as another series?  After
+finishing it, we could take more time on the second part of this series.
+
+> 
+> Patches 4-6 address the intensity problem with a new default-off
+> monitoring context option, 'aging_flush'.  When set, access bit
+> clearing for monitoring uses the flushing primitives
+> (mmu_notifier_clear_flush_young() and TLB-flushing PTE/PMD/hugetlb
+> aging) so that the next access is guaranteed to re-set the accessed
+> bit.  The option is exposed via the DAMON sysfs interface (patch 5) and
+> as a DAMON_STAT module parameter (patch 6).  With the option unset, the
+> behavior is identical to before this series.
+
+I understand this is really needed for your use case.  But, I'd like to take
+sufficient time here.  Two concerns stand out to me.  The maintenance of the
+new interface, and the performance impact.
+
+Firstly, the new interface.  We are changing DAMON for general data attributes
+monitoring.  Memory access will be only one of the attributes that DAMON can
+monitor.  For this, we introduced probes interface.  As soon as the new
+interface is matured, we would discourage use of the old interface for access
+monitoring.  We might even deprecate it over long time.  To make it easier, I
+don't want to add more features for access monitoring only.  I'd like to make
+this TLB flush interface as part of the new interface.
+
+More specifically, I'm working [1] on introduce monitoring preparation actions
+concept.  We could add TLB flushing as one of preparation actions and implement
+interface on it.  For example,
+
+    cd /sys/kernel/mm/damon/...
+    echo tlb_flush > preps/0/prep_action
+
+It could also later be extended for custom periodic TLB flush (we might not
+want to flush TLB for every sampling but once per N samplings), like below.
+
+    # do the given prep action once per 5 sampling intervals.
+    echo 5 > preps/0/action_interval
+
+I'm giving above as an example brain-storming ideas.  I'm not suggesting to do
+exactly that.  But my point is, I think we need more thought about the
+long-term sustainable and maintainable interface.
+
+> 
+> Evaluation on an Intel EPT host running a 944 GiB guest with an 842 GiB
+> in-guest memory workload (masim):
+> 
+>   configuration          estimated access rate    idle -> load
+>                          idle -> load (GB/s)      separation
+>   stock                  0.08 -> 0.21             none (guest memory
+>                                                   invisible)
+>   patches 1-3            1.70 -> 1.96             1.2x
+>   full series, flush on  1.21 -> 5.34             4.4x
+
+So, you can show some of the guest access after patches 1-3, because TLB is
+naturally flushed even in your setup.  But with explicit and periodic TLB
+flush, you show definitely more and real access.  This makes sense to me, and
+align with the theory.
+
+> 
+> With aging_flush set, the estimated hot footprint covers ~82% of the
+> actual working set size, compared to ~40% without flushing, where the
+> signal mostly reflects the ambient TLB-refill rate rather than guest
+> accesses.
+
+I think that makes sense, but having more details would be even nicer.  For
+example, below questions are raised on my head.
+
+How do you define and detect the actual working set size, and DAMON-found
+working set size?
+
+What is the size of TLB in your setup?
+
+Could you share more details about your masim [2] run setup?
+
+What is the estimated memory bandwidth if you run DAMON inside guest?
+
+> kdamond CPU consumption stays approximately 0%, and the
+> worst-case flush overhead measured is below 0.1%, which is acceptable
+> for hosts that opt in.
+
+Flushing TLB makes overhead in kdamond.  But it also makes performance
+degradation to the running workloads.  Actually that's bigger concern.  Have
+you had a chance to measure that?  If so, could you share that too?
+
+> 
+> Per Documentation/process/generated-content.rst, this series was
+> developed with the assistance of an AI coding assistant (Anthropic
+> Claude, via Claude Code).  The assistant helped draft the code and
+> changelogs, and performed the rebase of the series from its original
+> 6.17-based development tree onto mm-new, including merge conflict
+> resolution against recent DAMON changes.  All changes were reviewed by
+> the human submitter, who takes full responsibility for the
+> contribution.
+> 
+> The series as posted here was regression-tested on its base commit
+> with a full x86_64 kernel build (no new W=1 warnings in mm/damon), the
+> DAMON kunit suite (41/41 passing) and the DAMON selftests (15/15
+> passing) on a kernel booted with virtme-ng.  Functional validation
+> (the evaluation above, ftrace verification that the flag switches the
+> notifier variants, and enable/disable stress testing) was performed by
+> the submitter on production-like hosts running the 6.17-based backport
+> of this series.
+
+This kind of transparent and detailed disclosures help reviewers.  Thank you
+for doing this.
+
+So, to summarize, I'd suggest reposting the first three patches as another
+series and focus on it for now.  In parallel or after it is done, we could
+further discuss about TLB flush change.
+
+> 
+> Krishna Iyer (6):
+>   mm/damon: move damon_hugetlb_mkold() from vaddr to ops-common
+>   mm/damon/ops-common: handle hugetlb folios in folio mkold/young rmap
+>     walkers
+>   mm/damon/paddr: support hugetlb folios in access monitoring
+>   mm/damon: support flush-assisted access bit clearing for monitoring
+>   mm/damon/sysfs: support aging_flush
+>   mm/damon/stat: support aging_flush
+
+Because there are high level things that I'd like to discuss first, I will hold
+reviewing patches 4-6 for now.
+
+> 
+>  include/linux/damon.h |   2 +
+>  mm/damon/core.c       |   2 +
+>  mm/damon/ops-common.c | 154 ++++++++++++++++++++++++++++++++++++------
+>  mm/damon/ops-common.h |  18 ++++-
+>  mm/damon/paddr.c      |  11 +--
+>  mm/damon/stat.c       |   6 ++
+>  mm/damon/sysfs.c      |  29 ++++++++
+>  mm/damon/vaddr.c      |  46 +++----------
+>  8 files changed, 203 insertions(+), 65 deletions(-)
+> 
+> 
+> base-commit: d2aad7fdcda7ae8a726926f2d6de7fe9e8ee7563
+> -- 
+> 2.54.0
+
+[1] https://lore.kernel.org/20260728041242.187380-1-sj@kernel.org
+[2] https://github.com/sjp38/masim
+
+
+Thanks,
+SJ
