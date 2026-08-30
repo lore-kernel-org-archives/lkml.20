@@ -1,118 +1,260 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-222.mta1.migadu.com [95.215.58.222])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 485F11A724C;
-	Sun, 30 Aug 2026 09:02:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBC5414F70
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 09:08:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.222
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788080549; cv=none; b=niwOZnrB7Fh6E66Vlp3qUIIA826UwuQh2yUHJxvZ21dSHUM4FLwWlKevhaJQpgAgmdUkE20hQhTNxlPtmA26WN/BTRy+cKtuV2mh/LZqSq7YhkhWNP0NlKB/InOsLDr+IVKziHwOu0jHFBui+9CNFUkM+2daH4+EWHKNqGW/v4g=
+	t=1788080916; cv=none; b=jxIWG1wJwBb4/xWETq95bA2WCrqiYCEtVtRlfI/vX9RqL6rD+IFXDoZc6SHOg9NaYBWEHVW+lVHLDiQ3hyr93PGbnZgt/5vLPjCmKkZufYJRsqbgcO2yCRlcnGsmYH6rtxFPQsgLlQMP6fxuC3L0qJ95a58cYbmZepBEfdI5JUw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788080549; c=relaxed/simple;
-	bh=02CLWUUyRHFwgLg4rbtWAIkgAwb1o/JlfMX1K1fIoLw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZVVX2KfFlnH7nYSEOshcSJUWn66Zh5na25gyyEKSG5Ye4RVdjQuFgyMSJ2CJjcM+NBPyHT/SGiOME34SQfNNg96dHy25hfGuYWfXwKcdKmT9Fqby1IM8Ba5rHUUOoyhu1w9+X8K+xSUwiSI8etx2IDH86WASaxbGEcTdO5/ALZ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W3JzSC32; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788080916; c=relaxed/simple;
+	bh=V2dtd4OYMUBexxYoOnaLyFCYO8Ylxw79o0cRyiJ0VzI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=TTQJCzYNOdw8L1pvC2hBkthpwYIjOLSp09BA1SzKhHuEl8d3WkjC45mB1XiBQ3us5yUZpyLR7DrHhGLlvZSMaRPZ85p9AdM0siXmLV/6ofmzG9+mXzvkTPXcYI9/R8Vp4O46o/3NAqsKHStvw6zq37kcWcg8mJ9okqS/bT+BnoQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=gWm6X2w3; arc=none smtp.client-ip=95.215.58.222
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W3JzSC32"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5FC761F000E9;
-	Sun, 30 Aug 2026 09:02:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788080548;
-	bh=gZG+fbtzfW0EdsZ6oxJpMMUz9b/LqkrL4s/q3J5ieSs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=W3JzSC328eSA7ae3nUb1o5wcRQefeIE9PTf+ZF+ZF+hRQBblBSKPTNDPJqE2MAahV
-	 qvkPC+mnwytnt373GLEFKpma7Ta4Bn3okEYjUkL4Zugzr4aQBkDy5SaFuqvjzbOTRb
-	 qZf6HuwbWYth/c4249VlZYP4/I+QnjuKQzcDAAlF5EfCcLHSzqdxHjT0vg7B2JPmg+
-	 bmV3N/z21TLmiwXgewKfosbGBgAlPkDOgV9TPgmCFWbUYpqs7QRKA/+9IITpMuGClk
-	 hCzIRN+FPNvLlLqpBYrO/zOglaF5wQ3NH83MbabyCTWAfxVfVR0pAkDUMT/PQMCZYv
-	 0pjW/N66DAyog==
-Date: Sun, 30 Aug 2026 12:02:23 +0300
-From: Leon Romanovsky <leon@kernel.org>
-To: Jason Gunthorpe <jgg@nvidia.com>
-Cc: Bjorn Helgaas <bhelgaas@google.com>,
-	Logan Gunthorpe <logang@deltatee.com>,
-	Chaitanya Kulkarni <kch@nvidia.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jens Axboe <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
-	Ankit Agrawal <ankita@nvidia.com>, Jason Gunthorpe <jgg@ziepe.ca>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org, iommu@lists.linux.dev,
-	Tushar Dave <tdave@nvidia.com>, Matt Evans <matt@ozlabs.org>
-Subject: Re: [PATCH v4 00/18] PCI/P2PDMA: Fix ACS egress control handling
-Message-ID: <20260830090223.GC24140@unreal>
-References: <20260821-fix-p2p-acs-v4-0-v4-0-94426b96de73@nvidia.com>
- <178761377033.3197084.14418777457559555376.b4-review@b4>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="gWm6X2w3"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=V2dtd4OYMUBexxYoOnaLyFCYO8Ylxw79o0cRyiJ0VzI=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788080911; v=1; x=1788685711;
+ b=gWm6X2w318Tm9BUpaoSF20X1w9rnY1A9fdT5HEHUKpCVMVKevFobkk3n7fRbn5OOVRpWEXJD
+ +d5EQ01N8n5+cMs2qAaRSP/fO3/oVDMe1Swz9eieZnbyCiMQSpSDx813+5YmZRsEeSxtd0gMI6C
+ kuhWUO6u1a4oKcrOlJrVcY/Y=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id b72dab2c1cd40654;
+	Sun, 30 Aug 2026 09:08:21 +0000
+X-Mizu-Trace-ID: b72dab2c1cd40654
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <d270d063-027a-4297-bd0c-8f4a1eaf3f40@linux.dev>
+Date: Sun, 30 Aug 2026 17:08:04 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <178761377033.3197084.14418777457559555376.b4-review@b4>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/6] mm/mglru: introduce helpers for manipulating gen
+ and refs flags
+To: Barry Song <baohua@kernel.org>, kasong@tencent.com
+Cc: linux-mm@kvack.org, Andrew Morton <akpm@linux-foundation.org>,
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
+ Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>,
+ Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>,
+ Muchun Song <muchun.song@linux.dev>, Chris Li <chrisl@kernel.org>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Yu Zhao <yuzhao@google.com>, Zi Yan <ziy@nvidia.com>,
+ Qi Zheng <qi.zheng@linux.dev>, cgroups@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Kairui Song <ryncsn@gmail.com>
+References: <20260826-mglru-flags-cleanup-v3-0-d9f1c75549c8@tencent.com>
+ <20260826-mglru-flags-cleanup-v3-2-d9f1c75549c8@tencent.com>
+ <CAGsJ_4yasRXO52K-13dx9ZXPw95wEyn2bpnf0NiQ2z56dxf-vQ@mail.gmail.com>
+From: Ridong Chen <ridong.chen@linux.dev>
+In-Reply-To: <CAGsJ_4yasRXO52K-13dx9ZXPw95wEyn2bpnf0NiQ2z56dxf-vQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Mon, Aug 24, 2026 at 08:22:50PM -0300, Jason Gunthorpe wrote:
-> > PCI P2PDMA treats any enabled ACS P2P Egress Control bit as an upstream
-> > redirect. PCIe r7.0, sec 6.12.3, table 6-11 says the Egress Control
-> > Vector bit for the target port decides instead: a clear bit routes a peer
-> > request directly, regardless of P2P Request Redirect. Firmware can
-> > therefore enable Egress Control with a permissive vector while Linux
-> > incorrectly rejects a valid direct P2P path.
-> 
-> I've never seen anyone use the egress control vector and broadly Linux
-> doesn't support it. The ACS command line shouldn't enable "P2P Egress
-> Control Enable" for this reason.
 
-I tried to follow the PCI specification as closely as possible here, but
-of course I always welcome the idea of eliminating one of the paths.
 
+On 8/29/2026 12:21 PM, Barry Song wrote:
+> On Wed, Aug 26, 2026 at 1:53 AM Kairui Song via B4 Relay
+> <devnull+kasong.tencent.com@kernel.org> wrote:
+>>
+>> From: Kairui Song <kasong@tencent.com>
+>>
+>> Instead of doing bit ops on folio->flags.f, introduce helpers for
+>> adjusting a folio's refs and generation info, making the code easier
+>> to debug and understand.
+>>
+>> No functional change is intended: some combined atomic operations are
+>> split into two, which only creates harmless transient states. There is
+>> no measurable performance impact, and some paths even look slightly
+>> better in the generated assembly.
 > 
-> It is not a bad thing to accommodate the egress vector when improving
-> the ACS logic, but the main stream usage is the interaction of the
-> other bits along with ATS & RO in the TLP. See the comment I left a
-> long time ago:
+> Hi Kairui,
 > 
-> https://elixir.bootlin.com/linux/v7.2/source/drivers/infiniband/hw/mlx5/mlx5_ib.h#L1649
+> I like your idea. Overall, it looks good to me. With some cleanup,
+> we might have the following:
 > 
-> So it would be nicer to read in the commit message how the mainstream
-> stuff is fixed up and just a little bit about egress control.
+>>
+>> Signed-off-by: Kairui Song <kasong@tencent.com>
+>> ---
+>>   include/linux/mm_inline.h | 76 ++++++++++++++++++++++++++++++++++++++++++-----
+>>   include/linux/mmzone.h    |  1 +
+>>   mm/folio.c                | 19 +++++++-----
+>>   mm/vmscan.c               | 61 ++++++++++++++++++++-----------------
+>>   4 files changed, 114 insertions(+), 43 deletions(-)
+>>
+>> diff --git a/include/linux/mm_inline.h b/include/linux/mm_inline.h
+>> index 621c8653d8f7..edfaf2661812 100644
+>> --- a/include/linux/mm_inline.h
+>> +++ b/include/linux/mm_inline.h
+>> @@ -142,10 +142,42 @@ static inline int lru_tier_from_refs(int refs, bool workingset)
+>>          return workingset ? MAX_NR_TIERS - 1 : order_base_2(refs);
+>>   }
+>>
+>> -static inline int folio_lru_refs(const struct folio *folio)
+>> +/**
+>> + * lru_gen_from_flags - Return the LRU generation number from folio flags.
+>> + * @flags: folio flags
+>> + *
+>> + * Returns: A number between 0 and (MAX_NR_GENS - 1), inclusive. Returns
+>> + * -1 if the flags indicate the folio is off the list (e.g., isolated).
+>> + */
+>> +static inline int lru_gen_from_flags(unsigned long flags)
+>> +{
+>> +       int gen = ((flags & LRU_GEN_MASK) >> LRU_GEN_PGOFF);
+>> +
+>> +       BUILD_BUG_ON(LRU_GEN_MASK & LRU_REFS_MASK);
+>> +       gen -= 1;
+>> +       VM_WARN_ON_ONCE(gen != -1 && gen >= MAX_NR_GENS);
+> 
+> Since `gen` is an `int`, it seems a bit odd to have
+> `gen != -1 && gen >= MAX_NR_GENS` combined here.
+> 
 
-I will split the series into bug-fix patches and code improvements.
-This should also help describe the purpose of the series more clearly.
+Agreed. Especially with the gen -= 1 right above, it took me a while to figure 
+out what that actually meant.
 
+> Do you actually mean the following instead?
 > 
-> > [ ... 36 lines skipped ... ]
-> > A pre-existing gap comes first. The routing analysis covers only Requests
-> > carrying an Untranslated address; ACS Direct Translated P2P overrides
-> > those controls, so that scope is now written down rather than implied.
+> VM_WARN_ON_ONCE(gen < -1 || gen >= MAX_NR_GENS);
 > 
-> What I talked about with Thomas is we probably need the P2P subsystem
-> to know what kind of TLP the driver intends to put here when doing the
-> evaluation: strict order, relaxed order and translated all have
-> different possible routing options, and real system configure things
-> so each one takes a different path :\
-> 
-> Currently I think the P2P subsystem is assuming strict order
-> non-translated TLPs when it makes its calculations. Which is fine, but
-> as we go toward enhancing this each of the different paths should be
-> kept seperate.
-> 
-> I don't know how the driver facing API should work, but at least real
-> devices have options to use ATS or not, use RO or not, and can make
-> use of information from the P2P subsytem to make the right choice.
 
-Do you see a function like mlx5_umem_needs_ats() being implemented as part of
-the PCI P2P logic?
-https://lore.kernel.org/all/4-v1-bd147097458e+ede-umem_dmabuf_jgg@nvidia.com/
+Maybe we could add a macro like the one I mentioned in my earlier reply:
 
+GENS_UNREF -1
+
+>> +       return gen;
+>> +}
+>> +
+>> +/**
+>> + * lru_gen_set_flags - Set the LRU generation number to specified folio flags.
+>> + * @flags: pointer to the folio flags
+>> + * @gen: generation number, between 0 and (MAX_NR_GENS - 1), inclusive.
+>> + */
+>> +static inline void lru_gen_set_flags(unsigned long *flags, int gen)
+>>   {
+>> -       unsigned long flags = READ_ONCE(folio->flags.f);
+>> +       VM_WARN_ON_ONCE(gen >= MAX_NR_GENS || gen < 0);
+>> +
+>> +       *flags &= ~LRU_GEN_MASK;
+>> +       *flags |= (gen + 1UL) << LRU_GEN_PGOFF;
+>> +}
 > 
-> Further, when we get to things like an ACPI description of this stuff,
-> it would be nice to still discover these differences as well.
+> It seems that we are setting the gen in the flags, rather than
+> setting the flags themselves.
 > 
-> -- 
-> Jason
+> The current name makes me think that the function is setting the
+> entire flags field, especially since `lru_gen` is used as the
+> namespace for various MGLRU functions, e.g.:
+> 
+> void lru_gen_add_mm(struct mm_struct *mm);
+> void lru_gen_del_mm(struct mm_struct *mm);
+> void lru_gen_migrate_mm(struct mm_struct *mm);
+> struct lru_gen_folio;
+> lru_gen_update_size(lruvec, folio, old_gen, new_gen);
+> 
+> However, this function only sets the gen bits in the flags.
+> Maybe we could use a name that makes this distinction clearer?
+> 
+> Could they be named as below, or is there a better naming option?
+> 
+> set_gen_to_flags(unsigned long *flags, int gen);
+> get_gen_from_flags(unsigned long flags);
+> 
+> Or something like flags_to_gen() or gen_from_flags()?
+> 
+>>
+>> +/**
+>> + * lru_refs_from_flags - Return LRU referenced / access count from folio flags.
+>> + * @flags: folio flags
+>> + */
+>> +static inline int lru_refs_from_flags(unsigned long flags)
+>> +{
+>>          if (!(flags & BIT(PG_referenced)))
+>>                  return 0;
+>>          /*
+>> @@ -155,11 +187,40 @@ static inline int folio_lru_refs(const struct folio *folio)
+>>          return ((flags & LRU_REFS_MASK) >> LRU_REFS_PGOFF) + 1;
+>>   }
+>>
+>> -static inline int folio_lru_gen(const struct folio *folio)
+>> +/**
+>> + * lru_refs_set_flags - Set the LRU referenced / access count to specified folio flags.
+>> + * @flags: pointer to the folio flags
+>> + * @refs: referenced / access count number, between 0 and LRU_REFS_MAX, inclusive.
+>> + */
+>> +static inline void lru_refs_set_flags(unsigned long *flags, unsigned int refs)
+>> +{
+>> +       VM_WARN_ON_ONCE(refs > LRU_REFS_MAX);
+>> +       BUILD_BUG_ON(LRU_REFS_MAX != (LRU_REFS_MASK >> LRU_REFS_PGOFF) + 1);
+>> +
+>> +       *flags &= ~LRU_REFS_FLAGS;
+>> +       if (!refs)
+>> +               return;
+>> +       *flags |= (BIT(PG_referenced) | ((refs - 1UL) << LRU_REFS_PGOFF));
+>> +}
+> 
+> Similar to the above, maybe we could use more descriptive names?
+> 
+>> +
+>> +static inline int folio_lru_refs(const struct folio *folio)
+>>   {
+>> -       unsigned long flags = READ_ONCE(folio->flags.f);
+>> +       return lru_refs_from_flags(READ_ONCE(*const_folio_flags(folio, 0)));
+>> +}
+>> +
+>> +static inline void folio_set_lru_refs(struct folio *folio, unsigned int refs)
+>> +{
+>> +       unsigned long new_flags, old_flags = READ_ONCE(*folio_flags(folio, 0));
+>> +
+>> +       do {
+>> +               new_flags = old_flags;
+>> +               lru_refs_set_flags(&new_flags, refs);
+>> +       } while (!try_cmpxchg(folio_flags(folio, 0), &old_flags, new_flags));
+>> +}
+>>
+>> -       return ((flags & LRU_GEN_MASK) >> LRU_GEN_PGOFF) - 1;
+> 
+> [...]
+> 
+>> diff --git a/mm/vmscan.c b/mm/vmscan.c
+>> index 73a81b4a3e16..9ee9f8dc6805 100644
+>> --- a/mm/vmscan.c
+>> +++ b/mm/vmscan.c
+>> @@ -843,19 +843,22 @@ static bool lru_gen_set_refs(struct folio *folio, const vma_flags_t *vma_flags)
+>>          if (!folio_test_referenced(folio) && !folio_test_workingset(folio)) {
+>>                  /* Activate file-backed executable folios after first usage. */
+>>                  if (is_exec_file_folio(folio, vma_flags)) {
+>> -                       set_mask_bits(&folio->flags.f, LRU_REFS_FLAGS, BIT(PG_workingset));
+>> +                       folio_set_workingset(folio);
+>> +                       folio_set_lru_refs(folio, 0);
+>>                          return true;
+>>                  }
+>>
+>> -               set_mask_bits(&folio->flags.f, LRU_REFS_MASK, BIT(PG_referenced));
+>> +               folio_set_lru_refs(folio, 1);
+> 
+> We have quite a few instances of folio_set_lru_refs(folio, 1) and
+> folio_set_lru_refs(folio, 0). Do these values have any special
+> meaning? Could we add wrapper helpers to make the code more readable?
+> 
+> `1` just means `PG_referenced`, right? Could we add a comment or
+> changelog description to clarify that `1` actually means `refs = 0`,
+> but `PG_referenced` is set?
+> 
+> Thanks
+> Barry
+
+-- 
+Best regards
+Ridong
+
