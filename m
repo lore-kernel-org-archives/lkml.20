@@ -1,131 +1,200 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa2-f1.google.com (mail-oa2-f1.google.com [74.125.231.65])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16DB419CD0A;
-	Sun, 30 Aug 2026 18:31:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E1F219CD0A
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 18:31:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.65
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788114679; cv=none; b=gL/9h0U4f8054c3QjMhZK8L1FfjppiPBBcYVX9NrCTmhAthP+G9JW0syRjwV3ya6TpusDGdY4HOYvExlHrDQvLqrg0d2f3FMJQQME+vaObOseo4DUIm20QodJD8JTdqgz7vDXMIZ7MMExvQhRDrfhXSf8IR3r1fzUxPEcHWUYVE=
+	t=1788114691; cv=none; b=KV9tGIQ9ZgCOUZtOORxZmYvSAzAP6LaCrqB11Wd5xCeuE/8ujS4pbM232wVhDCoCG1CocLXBDoTz0caEyHe7N5BTi46XtVyDhNQDurH4kTCYVfG6xC3avvSlzWyEor3RdeUSsKgHL8bh/PwY37x0JwR/J6olvkn8h3mZ1jouAt8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788114679; c=relaxed/simple;
-	bh=o4+VJ9pmZEZo3BJ/Dd2FrUCOh1nUkEzpFpvPUgsy6co=;
-	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
-	 Message-ID:Content-Type; b=IOtoLDGyyGY5QmlXumpXycuaF5hsx8q4RC7REWEVC49+nMA56mm5kc3mcx6XDBgHOF2hWL9LCc3wF6bP1+4jBMXwbRRDCElPf7hOo5HQX7ThCHLrRg8LKjdV2TYa85wK+5Un4x3eJ4A9DOxEgB+W899GDgeS4CjoYEOFSj3S+T8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=IbIRACdP; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=pkHOHHuF; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1788114691; c=relaxed/simple;
+	bh=Dc/SDUG7wsTJwkmbP2Ir4YGAA4eRTTTF2JIZziwjDPs=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=hfxh8BFyr0hMzFr+6ORVaJR//7d6hoJv8uLPChMyiQW59YPoCcdOIF9u0UutwV4fDcde0pdUriTo0ukg+mF50QR8PUAozvfrya9LbxLS6fawgSMKDzclmDd42tA53NjVP7FElVXm+31nTRGl24nQ3rrXP2UAKWvm8ocz0lm6ZeM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=masoncamara.com; spf=pass smtp.mailfrom=masoncamara.com; dkim=pass (2048-bit key) header.d=masoncamara-com.20251104.gappssmtp.com header.i=@masoncamara-com.20251104.gappssmtp.com header.b=v+K7vvVT; arc=none smtp.client-ip=74.125.231.65
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=masoncamara.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=masoncamara.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="IbIRACdP";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="pkHOHHuF"
-Date: Sun, 30 Aug 2026 18:31:13 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1788114675;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=INGuIDrn3IOrtH1P4qma+tRJp7/4H0ECXmPZ6p0CaHQ=;
-	b=IbIRACdP9XZZu9XSOVSBYEtNUdGwq2JEuGltZApYPPOfaVBuxfApiwvDfHN1VcS2ZDziiX
-	ryVhsSCPm6B5KRS/ERnMY0Fs/zdfI4GS1/bBVgNFLMAkPlLIORaD6dalM7YV48ZsIJwmXJ
-	311kqambvfxNHAoLdDv6PBvxSpgNVC3YlU+6gPdCin6DnR4+wmvWgaXNm5VutLNuDi/bxY
-	Y1t75Rz+aT1Np7PuloVVrfkn2YowdfVLFYckFQgelZ1E1eStPjaNyuX40CFaB4tiffFnlh
-	iQi2fRiNEcGtMi3UmgDrf7UT4kigiZBlAYf5ESgLmoukanDzUi+tz7rNpy+ZAQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1788114675;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=INGuIDrn3IOrtH1P4qma+tRJp7/4H0ECXmPZ6p0CaHQ=;
-	b=pkHOHHuF8KIaUhI7MzJjNP1c82c3axpr/lQFQ+/KRKh+l0sytXjJ8rtkB8cY1sJSouHOjX
-	KAuDehmWXDBwiuAw==
-From: "tip-bot2 for Boqun Feng" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject: [tip: locking/urgent] preempt: Remove hardirq_disable_count()
-Cc: Boqun Feng <boqun@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
- x86@kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260827194835.38968-1-boqun@kernel.org>
-References: <20260827194835.38968-1-boqun@kernel.org>
+	dkim=pass (2048-bit key) header.d=masoncamara-com.20251104.gappssmtp.com header.i=@masoncamara-com.20251104.gappssmtp.com header.b="v+K7vvVT"
+Received: by mail-oa2-f1.google.com with SMTP id 586e51a60fabf-451e22b4773so1272299fac.0
+        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 11:31:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=masoncamara-com.20251104.gappssmtp.com; s=20251104; t=1788114688; x=1788719488; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=dgh1NzZ5hofs8HTSQ7QUxgLQk3+1tZCEvxkmug+HP5E=;
+        b=v+K7vvVTxX+70x6G8trJMQMDcVHGCDgALTaSSjH3qPNcjDLJdaFU1jj6NrCEDlN8pF
+         GB+xKEyUhBCQ7sgXlB37Ij3pdHI46CGYiXKpiybukQFvx1cYcZZW6YVdyUBdLgMD03u3
+         Y0+ANJKQirSsbfedZ2CY628gOnZAAVc3SdW+Fi3/BjYpCxEiIcOc8lKI37x2m0XHAD3u
+         soFe3drC9RtgIeA364YOdaF7THiYmoLcdNzIEsVXjj3w01UmPFAsa0U75bcbSIK+HZpz
+         Pzy8gXn9bmYsU4WHdpEV3jCQUafKRSUITGPyGhWb2a/DCBJGyHGe4qZcrKtXMhAuXtwN
+         aBgw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788114688; x=1788719488;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=dgh1NzZ5hofs8HTSQ7QUxgLQk3+1tZCEvxkmug+HP5E=;
+        b=j0O7U7upfyBq0oOtKIn6VeJDUAPFX0eZNQW26rR11jBfZJkcds5N4+QsxVmno0Mo8d
+         WJM8DHVG5stUkdNeU3Bi2PBi7QYH+scHF3Ohy4q6UBB/Hqvo7SliNvfiDe2VBU+uV+li
+         hTje3SoZmns5duVNYnV+SwtxiUgd8Tqb4hpHh/DHbe9wsoNovm/xITEdhhoE6OzP5mnE
+         9/vRH6HxCsRHUs3UGhZY3Oom+hjWoy6oBneOzx9JYuCpLU7m+jtqM+VDc2h2TEsInLOC
+         1ENJSRJJhnTn2f3gCWXP/qqXEFDn0nBdKWRlqwSvo2knlmVnAmxu/P3nYG/jO5Z/JS6j
+         Ox1Q==
+X-Forwarded-Encrypted: i=1; AHgh+RqUoja4RTl25zHkwr0st+fg/vNoLhjQFsF6ashlbP5imiCdAxZls1z8Uqkh6wZa0+jOD1F4nyy6Hm8k5hM=@vger.kernel.org
+X-Gm-Message-State: AFuF++lq38dVGfVBMi1quyXphPb/sK+BQvlpSHiCuQIKfLWg3DU42cZf
+	/Xjzu90NawP+DzmH5Lol8EwC0QSag2pW/1oKAlC2G1aUpcMnhXqD1s0VlpD+uyA/TFxe
+X-Gm-Gg: AR+sD12D89IUgFHnZDN67Pll4B2W9qxFCihZqs421mIKmbCmrq8AqpFMX21x2zr46my
+	Tp5oBUX8cNgcI+OAH7nVcfSdRYtirdo3Xu2LzFzCuC5qLk7p281c81gYetMQRQljs3CFk+g3NvU
+	5dOl8c9IYmKImi1P63QlF87uSDRYJCs+dFHMoKT7TOFAPqYpQYBMcAyco3AFopXy0SVLx72K3xx
+	QZF6Em4qm9lZVt0LOgbsBcjYDSY8K6+yywIeA5k1/wxPHt48PQHm+gdxJiTc+qQcsJBEw9K3PEV
+	c1PQPeneT50rT7aZo7MI+ZwtSK1xtuBSi+c2qpKNhqugTCf+vKEmkuEzf1wti/bIPj4yCObIJAw
+	XIxwf5vBHg/lxTSGcPIBR4EFdu1lxoi7dpxYuNhcwVYuqnGeivPXHq1XLv5hv7ttjKYUpwLsAml
+	iEz0RgylJ2S2jx3MqmCnmUCCL9BeT2/oat2ZMhHmkGBv9BIat6WHNR+Xv+QfNpw5PeKoEkALpzL
+	YdT8hMUmXSwGcuzTE7sAOFFMoByOA2RKDQMZ3QSiOtD91dqBg==
+X-Received: by 2002:a05:6830:81d8:b0:7d7:fbe2:9725 with SMTP id 46e09a7af769-7f4f2220121mr22615283a34.5.1788114688486;
+        Sun, 30 Aug 2026 11:31:28 -0700 (PDT)
+Received: from localhost.localdomain ([69.26.129.115])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7f4fa96cf17sm6436259a34.15.2026.08.30.11.31.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 30 Aug 2026 11:31:27 -0700 (PDT)
+From: Mason Camara <ping@masoncamara.com>
+To: jikos@kernel.org,
+	bentiss@kernel.org,
+	shuah@kernel.org
+Cc: linux-input@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	wh6cyy@gmail.com,
+	Mason Camara <ping@masoncamara.com>
+Subject: [PATCH v2] selftests/hid: test battery queries with nonzero field offsets
+Date: Sun, 30 Aug 2026 12:31:09 -0600
+Message-Id: <20260830183109.9441-1-ping@masoncamara.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <178811467400.3717435.15043865041996767341.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-The following commit has been merged into the locking/urgent branch of tip:
+Commit d07644524b65 ("HID: input: read battery capacity from its actual
+report offset") fixed synchronous battery queries for reports that place
+the capacity byte after status fields.
 
-Commit-ID:     2af470916a208b576ac9975d221d9a378cf8ace9
-Gitweb:        https://git.kernel.org/tip/2af470916a208b576ac9975d221d9a378cf=
-8ace9
-Author:        Boqun Feng <boqun@kernel.org>
-AuthorDate:    Thu, 27 Aug 2026 12:48:35 -07:00
-Committer:     Thomas Gleixner <tglx@kernel.org>
-CommitterDate: Sun, 30 Aug 2026 20:25:21 +02:00
+Add a UHID mouse with the Magic Mouse 2 report layout and answer GET_REPORT
+with 90 04 5f. Read capacity before sending an input report so the test
+exercises the synchronous query path. Without the fix, it reads the status
+byte as 4%; with the fix, it reads capacity as 95%.
 
-preempt: Remove hardirq_disable_count()
+Enable CONFIG_HID_BATTERY_STRENGTH in the HID selftest configuration.
 
-It turns out the previous usage of hardirq_disable_count() in
-__irq_exit_rcu() would cause softirq pending issues. Without that usage,
-hardirq_disable_count() doesn't need to exist, so remove it.
-
-Also move hardirq_disable_enter/exit() into the Rust specific interrupt_rc
-header.
-
-[ tglx: Move the helpers over ]
-
-Signed-off-by: Boqun Feng <boqun@kernel.org>
-Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-Link: https://patch.msgid.link/20260827194835.38968-1-boqun@kernel.org
+Link: https://bugzilla.kernel.org/show_bug.cgi?id=221263
+Assisted-by: LLM
+Signed-off-by: Mason Camara <ping@masoncamara.com>
 ---
- include/linux/interrupt_rc.h | 3 +++
- include/linux/preempt.h      | 4 ----
- 2 files changed, 3 insertions(+), 4 deletions(-)
 
-diff --git a/include/linux/interrupt_rc.h b/include/linux/interrupt_rc.h
-index e68e1be..a9ed937 100644
---- a/include/linux/interrupt_rc.h
-+++ b/include/linux/interrupt_rc.h
-@@ -52,6 +52,9 @@ extern void _local_interrupt_save_state(unsigned long flags=
-);
- extern void _local_interrupt_enable(void);
- #endif /* !MODULE */
-=20
-+#define hardirq_disable_enter()	__preempt_count_add_return(HARDIRQ_DISABLE_O=
-FFSET)
-+#define hardirq_disable_exit()	__preempt_count_sub_return(HARDIRQ_DISABLE_OF=
-FSET)
+Changes in v2:
+- Drop driver fix, superseded by d07644524b65.
+- Rebase the regression test onto the current HID for-next branch.
+- Amend commit message and tool-assistance trailer.
+
+v1: https://lore.kernel.org/linux-input/20260712044702.893825-1-ping@masoncamara.com/
+
+ tools/testing/selftests/hid/config            |  1 +
+ .../testing/selftests/hid/tests/test_mouse.py | 54 +++++++++++++++++++
+ 2 files changed, 55 insertions(+)
+
+diff --git a/tools/testing/selftests/hid/config b/tools/testing/selftests/hid/config
+index 1758b055f..da52335b8 100644
+--- a/tools/testing/selftests/hid/config
++++ b/tools/testing/selftests/hid/config
+@@ -16,6 +16,7 @@ CONFIG_FTRACE_SYSCALLS=y
+ CONFIG_FUNCTION_TRACER=y
+ CONFIG_HIDRAW=y
+ CONFIG_HID=y
++CONFIG_HID_BATTERY_STRENGTH=y
+ CONFIG_HID_BPF=y
+ CONFIG_INPUT_EVDEV=y
+ CONFIG_UHID=y
+diff --git a/tools/testing/selftests/hid/tests/test_mouse.py b/tools/testing/selftests/hid/tests/test_mouse.py
+index eb4e15a0e..141c1f069 100644
+--- a/tools/testing/selftests/hid/tests/test_mouse.py
++++ b/tools/testing/selftests/hid/tests/test_mouse.py
+@@ -11,6 +11,7 @@ import hidtools.hid
+ from hidtools.util import BusType
+ import libevdev
+ import logging
++import threading
+ import pytest
+ 
+ logger = logging.getLogger("hidtools.test.mouse")
+@@ -598,6 +599,35 @@ class ResolutionMultiplierHWheelMouse(TwoWheelMouse):
+         return 0
+ 
+ 
++class BatteryOffsetMouse(BaseMouse):
++    report_descriptor = [
++        # Mouse report
++        0x05, 0x01, 0x09, 0x02, 0xa1, 0x01, 0x85, 0x12,
++        0x05, 0x09, 0x19, 0x01, 0x29, 0x02, 0x15, 0x00,
++        0x25, 0x01, 0x95, 0x02, 0x75, 0x01, 0x81, 0x02,
++        0x95, 0x01, 0x75, 0x06, 0x81, 0x01, 0x05, 0x01,
++        0x09, 0x01, 0xa1, 0x00, 0x09, 0x30, 0x09, 0x31,
++        0x15, 0x81, 0x25, 0x7f, 0x75, 0x08, 0x95, 0x02,
++        0x81, 0x06, 0xc0, 0xc0,
++        # Battery report: one status byte followed by capacity
++        0x06, 0x00, 0xff, 0x09, 0x14, 0xa1, 0x01, 0x85,
++        0x90, 0x05, 0x84, 0x75, 0x01, 0x95, 0x03, 0x15,
++        0x00, 0x25, 0x01, 0x09, 0x61, 0x05, 0x85, 0x09,
++        0x44, 0x09, 0x46, 0x81, 0x02, 0x95, 0x05, 0x81,
++        0x01, 0x75, 0x08, 0x95, 0x01, 0x15, 0x00, 0x26,
++        0xff, 0x00, 0x09, 0x65, 0x81, 0x02, 0xc0,
++    ]
 +
- static inline void local_interrupt_disable(void)
- {
- 	int new_count;
-diff --git a/include/linux/preempt.h b/include/linux/preempt.h
-index 8299657..2e689de 100644
---- a/include/linux/preempt.h
-+++ b/include/linux/preempt.h
-@@ -168,10 +168,6 @@ static __always_inline unsigned char interrupt_context_l=
-evel(void)
- #define in_softirq()		(softirq_count())
- #define in_interrupt()		(irq_count())
-=20
--#define hardirq_disable_count()	((preempt_count() & HARDIRQ_DISABLE_MASK) >>=
- HARDIRQ_DISABLE_SHIFT)
--#define hardirq_disable_enter()	__preempt_count_add_return(HARDIRQ_DISABLE_O=
-FFSET)
--#define hardirq_disable_exit()	__preempt_count_sub_return(HARDIRQ_DISABLE_OF=
-FSET)
--
- /*
-  * The preempt_count offset after preempt_disable();
-  */
++    def __init__(self, rdesc=report_descriptor, name=None, input_info=None):
++        super().__init__(rdesc, name, input_info)
++
++    def get_report(self, req, rnum, rtype):
++        if rtype != self.UHID_INPUT_REPORT or rnum != 0x90:
++            return (1, [])
++
++        return (0, [0x90, 0x04, 0x5F])
++
++
+ class BaseTest:
+     class TestMouse(base.BaseTestCase.TestUhid):
+         def test_buttons(self):
+@@ -1045,3 +1075,27 @@ class TestBadReportDescriptorMouse(base.BaseTestCase.TestUhid):
+ 
+     def assertName(self, uhdev):
+         pass
++
++
++class TestBatteryOffsetMouse(base.BaseTestCase.TestUhid):
++    def create_device(self):
++        return BatteryOffsetMouse()
++
++    def test_queried_battery_field_offset(self):
++        uhdev = self.uhdev
++        power_supply = uhdev.power_supply_class
++        assert power_supply is not None
++
++        done = False
++
++        def dispatch():
++            while not done:
++                uhdev.dispatch(1)
++
++        thread = threading.Thread(target=dispatch)
++        thread.start()
++        try:
++            assert power_supply.capacity == 95
++        finally:
++            done = True
++            thread.join()
+
+base-commit: 931aaa59d1826f43b0bb3f07e21233f6faf4540a
+-- 
+2.39.5 (Apple Git-154)
+
