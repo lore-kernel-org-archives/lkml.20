@@ -1,172 +1,89 @@
-Received: from mta1.migadu.com (out-222.mta1.migadu.com [95.215.58.222])
+Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A3E137C0F0
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 07:34:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.222
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3C8321CC5C
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 07:37:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788075293; cv=none; b=lKgSETmoRGnPa17KpWFf8sq9nDSB+WcBQAVIhNQlflgYVgvVNJCjQFt8xXOnLjk+FhXDDcIurkCqcQwptgxRsQKy6mHXMx+dzf/KsUoN0my3vBTCN7Cu1ViNkiV6tx09tF/7wESv+q6O9SyU9Dl02teVd1xcKgn3iG8UorT3C1I=
+	t=1788075422; cv=none; b=ItEH3JtKz8NA+RpCbLCkA8PeDopM+NwrcsDVZSoSWxk/Q3AfWHm0npQg3IiOCkndYbhftAfB9VT9mae6DdQ58NA8dcBEh71egORPd7cMhAxrckBdKZhybsX5FeXwH0XwVJf9FN3deCSz5ZqkqnRQiBaqgjVa9toLlKS+nuW83/A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788075293; c=relaxed/simple;
-	bh=3hNN2sJx7jce4kX+dZSg5U54CCuIoPecIBlxjnu4xRQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=vFzTBOBTR0jLeSoIj/NppzDVkkBfb51zTf2c+knGI0vf6NOaoPdJotuLyapWkkhqUz6rCG/wz8c+L+rYo6hjrkJDSpLh5AFXVuNLE51MShMU5+1WFSXWCw05UqlbRYAym3AxK9pQWc8GBEDp29WabsW9CfXkt8BIzrVe4MfVlyI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=FWw1RItb; arc=none smtp.client-ip=95.215.58.222
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788075422; c=relaxed/simple;
+	bh=7lwjYtbpG/4E3ybQ9cNUmnF2Qr0zI0DNipARBzxmj30=;
+	h=Message-ID:Date:MIME-Version:To:Cc:References:Subject:From:
+	 In-Reply-To:Content-Type; b=I7QLEYNWdkR7drQWlyjy6erZgvk62LNvcJcWzsEVCubXfh1eF5MqVSQ7myJLS5IC6GXPsdcWr9OSnUjEslArH93J5FlB/rY3Prmc8xe3Z7YtYo3ANBp0V0Mjp8tKRDwTbTfSgiN/uyQVeMSP/kNeiqbQlAeINrLt/Zg5jMgbN/w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eFPpli9U; arc=none smtp.client-ip=209.85.214.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="FWw1RItb"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=3hNN2sJx7jce4kX+dZSg5U54CCuIoPecIBlxjnu4xRQ=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788075287; v=1; x=1788680087;
- b=FWw1RItbbjz8QQfYXfgCpxOHFNnjN5y4kHK83vEEc8KATz459Qs+eU4N9lvp/yg2fi1tjaNk
- n9fwzlkqNFBNHXnUpnSMJlaapaXtw4cTy6SmIBC2nOlgXvTX5jouQhiOcOf1YO5RP7y4+IjrhzF
- HlJxbI8+6//AOOvgdhYPBZt0=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 7828805adfc406f3;
-	Sun, 30 Aug 2026 07:34:47 +0000
-X-Mizu-Trace-ID: 7828805adfc406f3
-X-Migadu-Flow: FLOW_OUT
-From: Jiayuan Chen <jiayuan.chen@linux.dev>
-To: bpf@vger.kernel.org
-Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	Shuah Khan <shuah@kernel.org>,
-	Mykyta Yatsenko <yatsenko@meta.com>,
-	Alan Maguire <alan.maguire@oracle.com>,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: [PATCH bpf v2 4/4] selftests/bpf: Add test for showing a void BTF type
-Date: Sun, 30 Aug 2026 15:30:59 +0800
-Message-ID: <20260830073242.148092-5-jiayuan.chen@linux.dev>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260830073242.148092-1-jiayuan.chen@linux.dev>
-References: <20260830073242.148092-1-jiayuan.chen@linux.dev>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eFPpli9U"
+Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2ccf2360620so19776175ad.3
+        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 00:37:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788075420; x=1788680220; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:subject:references:cc:to:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7lwjYtbpG/4E3ybQ9cNUmnF2Qr0zI0DNipARBzxmj30=;
+        b=eFPpli9U0E+KxnlfNhF/6Io7KcyzbXzny3HXdFsAEcjFuAMKz5F29B1mtMGwMolnvc
+         bpSQrWd4IDAzd8tnOkYlomWNj/Qb4TUxqlD4/A1iZfZXO3DuobAEhSNUBjwjtFiDMqVe
+         qR/9wFhUxQ72lsQAsORWa01l/XKSMXG0oclFCgX+NLTdIs+Q+Hi4iRKugGfz08hn6kwc
+         +ona0Ip+Xbl12oo48NKiFZIdJKwwOramcCieOhnuR0+hsrNYWCgmUvbWTe6Y/9Y0eLr2
+         LYX4mzXy5eELgOSMc8KvJcGHtPfH4MbLdXOOoduFn8kg6a+8KciQOHzD5Aaq6uXimBFo
+         nOLg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788075420; x=1788680220;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:subject:references:cc:to:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7lwjYtbpG/4E3ybQ9cNUmnF2Qr0zI0DNipARBzxmj30=;
+        b=J2XQp3afX8zT5BL6/Hucjca8SyK/P+2uNDPfo4W5veBusHluoHmSd9C/ndPFy257v+
+         Rqqz1PBeSerQhcM8PM1t70IaR41vDaRHT3FFB5ld5Sv3JiJHWEDFPiWKhIwn7/VbwDeg
+         20flCbYpwVqkiOlcyPnBl9tLZdxuux4Vao16uMRZiwvLQqxpiH5ZtZHJVG4EBHOWKf6r
+         aFwULCUZqPHZU7Ypri5T/OFQFv5c6Ow2ErrMmEMSkhapvxyt43Qt+HhtG6mMkTOMwueL
+         2yV7FoqZYaIOmutJpZpX6vx4eQRIcseEnjZol1z/zhwNjgHK2U8jMcIZd2jOMWpcmbdv
+         6KWw==
+X-Forwarded-Encrypted: i=1; AKwUvByMdSp5OBeBV7UwoojmfrCMBBGFsIEKIDzxBkXSSLkKZdL2xPVR/BOjomOhyk3a92tkbPfwSzDw4NAi2kk=@vger.kernel.org
+X-Gm-Message-State: AFuF++lq+FiQBAs4KhmlAbtrwzdh71twy9B8xqfx2S1b5Woj1UCTnsff
+	Wi/gNwfUi8igJMhHUo/xI+6Li2SGWeVy+8iUDcWcYoL+vDvyCYshpwE0
+X-Gm-Gg: AYBFou2ZXiderwallNp3B698VGG+r+ElRbNIAo6kLeoNAQ9F5NrX0RKnWBxsyq5cbTJ
+	TLKLOxwvsWlVAt8nd/SeVjSP0y63AYCOJfMBE1H0pILrNwAyyfuJLarVOtL6vPk9ARDGEOkNLRW
+	2gKjT8LuMXoTq9DO0AUvqwPZXqh2RTF76jy9LW1tv3K0yQqPW8Kj7URUa/vlx+Q3aBacWELQDZj
+	6ybvUkVIe8wLkyDCyM2TCv23n72kf8y2EDXWxrK/SLELbGz59f8dYyoE5cMtngNcJ67C08NzyLg
+	LsZLjRYAGhRC0LNvYAxeMVkSLW1ffZvwUis99crg2cNJFIpPQnMoFl6fi3dSC1gpZbueMPERahB
+	qMIVBz6RdR5jIUzQfjYXFJ5JojciSLhyUtB5WLyTC814T6fCNwih2ZmuzRhWFgDuzjM15hFCnZA
+	2eM1n55vPrW68n7IXfWXYyTZvLk3RjLigayCQNDrUsu3hoKGPAnKImLLSjSFfO0A+8AyTcG9AGd
+	8bsn6xqRMMW13e2Oxe/OrJTTlhPMugcs/DW8vmNwtE=
+X-Received: by 2002:a17:903:3803:b0:2c8:2808:3ec9 with SMTP id d9443c01a7336-2d74df0328amr332620145ad.12.1788075420167;
+        Sun, 30 Aug 2026 00:37:00 -0700 (PDT)
+Received: from [192.168.68.67] (104-12-136-65.lightspeed.irvnca.sbcglobal.net. [104.12.136.65])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-328713b0451sm25390894eec.16.2026.08.30.00.36.59
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 30 Aug 2026 00:36:59 -0700 (PDT)
+Message-ID: <037b393f-4b8b-41d5-8a88-e0d4c2e28416@gmail.com>
+Date: Sun, 30 Aug 2026 00:36:58 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+To: devnull+muzafferkadir.mainlining.org@kernel.org
+Cc: git@luigi311.com, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, mchehab@kernel.org, megi@xff.cz,
+ muzafferkadir@mainlining.org, pavel@ucw.cz, phone-devel@vger.kernel.org,
+ sakari.ailus@linux.intel.com, tomm.merciai@gmail.com
+References: <20260829-imx258-add-reset-gpio-patch-v2-1-bfd27891e225@mainlining.org>
+Subject: Re: [PATCH v2 1/2] media: i2c: imx258: Add wait after enabling
+Content-Language: en-US
+From: Rudraksha Gupta <guptarud@gmail.com>
+In-Reply-To: <20260829-imx258-add-reset-gpio-patch-v2-1-bfd27891e225@mainlining.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Call bpf_snprintf_btf() with the type_id of a "const void" from the
-vmlinux BTF and check the rendered output is the "<unsupported kind:0>"
-placeholder. On an unfixed kernel this used to NULL-deref in
-btf_modifier_show(), so the test doubles as a reproducer: it oopses the
-task (and panics it under panic_on_oops).
+Great series! Enables the back camera on my Pinephone Pro.
 
-Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
----
- .../selftests/bpf/prog_tests/btf_show_void.c  | 57 +++++++++++++++++++
- .../selftests/bpf/progs/btf_show_void.c       | 22 +++++++
- 2 files changed, 79 insertions(+)
- create mode 100644 tools/testing/selftests/bpf/prog_tests/btf_show_void.c
- create mode 100644 tools/testing/selftests/bpf/progs/btf_show_void.c
-
-diff --git a/tools/testing/selftests/bpf/prog_tests/btf_show_void.c b/tools/testing/selftests/bpf/prog_tests/btf_show_void.c
-new file mode 100644
-index 000000000000..546833199195
---- /dev/null
-+++ b/tools/testing/selftests/bpf/prog_tests/btf_show_void.c
-@@ -0,0 +1,57 @@
-+// SPDX-License-Identifier: GPL-2.0
-+#include <test_progs.h>
-+#include <bpf/btf.h>
-+#include "btf_show_void.skel.h"
-+
-+/*
-+ * bpf_snprintf_btf() with the type_id of a "const void" (a modifier that
-+ * resolves to void, present in the vmlinux BTF) used to NULL-deref in
-+ * btf_modifier_show(). A fixed kernel prints the "<unsupported kind:0>"
-+ * placeholder; on an unfixed kernel this oopses the task (and panics it under
-+ * panic_on_oops), so it doubles as a reproducer.
-+ */
-+void test_btf_show_void(void)
-+{
-+	LIBBPF_OPTS(bpf_test_run_opts, topts);
-+	const struct btf_type *t;
-+	struct btf_show_void *skel;
-+	int i, n, cv = 0, err;
-+	char ctx[16] = {};
-+	struct btf *btf;
-+
-+	btf = btf__parse("/sys/kernel/btf/vmlinux", NULL);
-+	if (!ASSERT_OK_PTR(btf, "btf__parse vmlinux"))
-+		return;
-+
-+	n = btf__type_cnt(btf);
-+	for (i = 1; i < n; i++) {
-+		t = btf__type_by_id(btf, i);
-+		if (btf_kind(t) == BTF_KIND_CONST && t->type == 0) {
-+			cv = i;
-+			break;
-+		}
-+	}
-+	if (!ASSERT_GT(cv, 0, "find const void in vmlinux BTF"))
-+		goto out_btf;
-+
-+	skel = btf_show_void__open();
-+	if (!ASSERT_OK_PTR(skel, "skel_open"))
-+		goto out_btf;
-+	skel->rodata->const_void_id = cv;
-+	if (!ASSERT_OK(btf_show_void__load(skel), "skel_load"))
-+		goto out_skel;
-+
-+	topts.ctx_in = ctx;
-+	topts.ctx_size_in = sizeof(ctx);
-+	err = bpf_prog_test_run_opts(bpf_program__fd(skel->progs.dump_const_void),
-+				     &topts);
-+	if (!ASSERT_OK(err, "test_run"))
-+		goto out_skel;
-+
-+	ASSERT_EQ(skel->bss->ret, sizeof("<unsupported kind:0>") - 1, "ret");
-+	ASSERT_STREQ(skel->bss->out, "<unsupported kind:0>", "placeholder");
-+out_skel:
-+	btf_show_void__destroy(skel);
-+out_btf:
-+	btf__free(btf);
-+}
-diff --git a/tools/testing/selftests/bpf/progs/btf_show_void.c b/tools/testing/selftests/bpf/progs/btf_show_void.c
-new file mode 100644
-index 000000000000..9fabd7372f89
---- /dev/null
-+++ b/tools/testing/selftests/bpf/progs/btf_show_void.c
-@@ -0,0 +1,22 @@
-+// SPDX-License-Identifier: GPL-2.0
-+#include "btf_ptr.h"
-+#include <bpf/bpf_helpers.h>
-+
-+const volatile __u32 const_void_id;
-+char out[64];
-+long ret;
-+
-+SEC("raw_tp/sys_enter")
-+int dump_const_void(void *ctx)
-+{
-+	struct btf_ptr ptr = {
-+		.ptr = ctx,
-+		.type_id = const_void_id,
-+		.flags = 0,
-+	};
-+
-+	ret = bpf_snprintf_btf(out, sizeof(out), &ptr, sizeof(ptr), 0);
-+	return 0;
-+}
-+
-+char _license[] SEC("license") = "GPL";
--- 
-2.43.0
+Tested-by: Rudraksha Gupta <guptarud@gmail.com>
 
