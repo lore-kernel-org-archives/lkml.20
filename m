@@ -1,584 +1,294 @@
-Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from ewsoutbound.kpnmail.nl (ewsoutbound.kpnmail.nl [195.121.94.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABE2C184540
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 22:05:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 362102F7F19
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 22:07:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.121.94.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788127560; cv=none; b=qQfGYFFueueUKTidqrwiX6FjIYhVDfTymWBjTcjxFLejH/493hOMfuX9x75g6rA3mYHiK0I/n9ncPMstNjDfQk69t1Fm3tRsnU+ybWD22pbhJ3IQc52hiPLKkToepicPt0V3yJPEL2OdIpLMhA4buUYxyu6lQOlPA400UYgpgmo=
+	t=1788127630; cv=none; b=B+e0MYbqDaRXcMHKO+WfP0q2WRnHugJJtxTR4vwT/gUpFV7Mf8SXfpMhGk1Qx5HHOdhTcl6sg5SILr4clqnO3HTX6caEhUZd+OSN8VU5M8rBsohP5EuISe78qJ7FyFuVCP0DBhTM1HOyMv3QeTnDqw1clfyQkXg+Dg4LLHiQGD0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788127560; c=relaxed/simple;
-	bh=yg0YIFQWWoTzMxH5VP0SrkrdLgBRbjLUSg+jirwYxK8=;
-	h=MIME-Version:From:Date:Message-ID:Subject:To:Content-Type; b=O7DalEvomit8mh/kQQ6LuM3U4wNzkiFibfA01UI6YdKfFAzCs9Qb+or57DJC8YSKcMkBE/D+Kqp+eikBf/fVcQyhqydasCWDb+gtGQSH3S5FfVrb/eEvDas3n9M2Gl2hxqHU69j1pfvxYHnGEallIKwugVU8aMPIqv9GHbSLQuo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=V3dcagLd; arc=none smtp.client-ip=209.85.218.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	s=arc-20240116; t=1788127630; c=relaxed/simple;
+	bh=57Mu784D4x6t4ZDIjBG5ypdqnipOtlVWOJ5KFZhhrEo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LfEjsXa+5cXTivDAZJzMT+jKv6ZUwWd3wKqeXgzqHXOD76cXFTJNqYV5uYEFIKV8RNlyQd76AZ5QhItceISPsVTv2VRIO54LEeXFSfSz5YvLFAnjkiI0EBSUfWKhhFrIOJNYMJfvZi4dUDUPbgK3IbatDt2CD0mwlq51u83gBz8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xs4all.nl; spf=pass smtp.mailfrom=xs4all.nl; dkim=pass (2048-bit key) header.d=xs4all.nl header.i=@xs4all.nl header.b=msX4qP8E; arc=none smtp.client-ip=195.121.94.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xs4all.nl
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xs4all.nl
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="V3dcagLd"
-Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c2020421077so426010766b.3
-        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 15:05:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=xs4all.nl header.i=@xs4all.nl header.b="msX4qP8E"
+X-KPN-MessageId: f80c69e3-a4be-11f1-83b4-005056ab378f
+Received: from smtp.kpnmail.nl (unknown [10.31.155.37])
+	by ewsoutbound.so.kpn.org (Halon) with ESMTPS
+	id f80c69e3-a4be-11f1-83b4-005056ab378f;
+	Mon, 31 Aug 2026 00:05:53 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linux-foundation.org; s=google; t=1788127556; x=1788732356; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:to:subject:message-id:date
-         :from:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3GN4RGJsJq6wjlUSRnp3gh6wHugssuscZPgLbZeLcBE=;
-        b=V3dcagLdszouJEf8KP6HIkUFus/HE6NOuep+Bi8HVgZ+UOc1wQ+hJVIVlzSs+hxos/
-         VAMdUe700yYhsRHFc3SG5UtcZiHfiVWX/YCipbsgpqaFjY1a497Qq/ch++w5M71p0MUf
-         RY0EPnLuLz0u+IHvfZmi3+2tFAYZIeRPGNJcw=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788127556; x=1788732356;
-        h=content-transfer-encoding:content-type:to:subject:message-id:date
-         :from:mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=3GN4RGJsJq6wjlUSRnp3gh6wHugssuscZPgLbZeLcBE=;
-        b=Sqh3efaWXLVshGGdGHujhO3G7Uv9BvAG5Dz2wIMT65LXnrYEkhr0HI2PachjgACny9
-         J5lT9PLozwvVQ+SrRZDk1mLFPg9J+I1SqJ7LfS+EqTzt31l5ksuhTpKFwUOGkHuu3Hj3
-         81orEQVbtRpt2SEuaFdRDawX5cFhyoRY6w0yAO+YGd7dYO/y2B2nlmw2BlZZJ9QSmIb7
-         qw3TcJKvqYvw7lUJdByahqQKU4xfE4FMktfgk/pkP1riH6PFshvWUF4503xTzFqEh0L1
-         Fii3bIFqQIWbm31s5CfJaNB6Zo0gwOIumad+MA4kLBsq5OhUW2Pj75tgvm2U1zkFJ0m4
-         5BPA==
-X-Gm-Message-State: AFuF++kph0yIh2s6/YDJnIW4drD9vnprIyZom68i+Ep4kLDtyJy68kTE
-	Z0uiW9V4+PirS3DMWNrp3R6ge/im7ij7RaFLo39NZEEDzkLnyL/IG6Xp+mmvF6m0HfSRN3g53Wy
-	uGp0IOg0=
-X-Gm-Gg: AR+sD13/cdffc4rpE9TRpDJrwK/kIt19JmDj7pWgAo4hUc7Nt/ESzWQi3FkQeWhT8cf
-	iMGgsZhyPgYsPc7n7e52ykNq23oULhitqyaI4OkETHY7qZ57vWEuP8qoOLLiz+j0kNm9b+B100R
-	7IyqfYqL3u0Z06d8m9TAfjxmZgHhoulSleYHmubHzYmBbcwZtTJPcyXoQlvv0A5krFD1v9sVeLY
-	oze1pjKmm6fg+PI2PKzsJtUka3peAZ3LKSpTJybRI3K7mvJbvdIypeWZxLpc1gfmkuqSt6mx0Vv
-	lbS5UKCjRx+DGOmgkv6HxcEAQehChhYVXarRNlgtlCTJNccYUaft/z0cm5ghSJ+OBtDpuNmwGA1
-	EAwVWZQdp6dx2wOHuXU1UWojxzJ9Qktp1yrIi/MEiEeKL/zPLk3XvtLpiLotbR5vaxKW1+Nop2r
-	XJ071qbrfgzHTYpQKGQEF80IsZuPvPhgOIn26FOEneoHLi8uVPbOcamO+11UIatwMOY1AHXuRoA
-	4I5TYtxBhma7F2HmkjbCc7Uh5WYQYvZQkh4NIqXzKYdfFbB
-X-Received: by 2002:a17:906:fe02:b0:c25:833d:383e with SMTP id a640c23a62f3a-c25833d3abdmr604309166b.13.1788127555658;
-        Sun, 30 Aug 2026 15:05:55 -0700 (PDT)
-Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com. [209.85.208.52])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c255ee09eb6sm350533566b.10.2026.08.30.15.05.55
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 30 Aug 2026 15:05:55 -0700 (PDT)
-Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-69f7fa1c548so4323564a12.2
-        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 15:05:55 -0700 (PDT)
-X-Received: by 2002:a05:6402:3812:b0:6a3:6d83:ba44 with SMTP id
- 4fb4d7f45d1cf-6a60d2f3663mr13678260a12.2.1788127554704; Sun, 30 Aug 2026
- 15:05:54 -0700 (PDT)
+	d=xs4all.nl; s=xs4all01;
+	h=content-type:mime-version:message-id:subject:to:from:date;
+	bh=Lsf5NsFzPaorS/9woplqtN+XphdrOiDRUsyY2lkrT5g=;
+	b=msX4qP8Edkft2tfgAAQ1kGnOVQrbcndc5/UfBABVFORBJLNHsXv+M3tHAesujoV0+QkfF3RDx5gzY
+	 fXHf2Msrd9pMOvgenCyxK6N5opRJXNVKs6QofR72wYblGMmYrsUYeSlwumg5mLGnbq/0G5M1ibGILy
+	 JSKGEBPjDkwDj/7pe1EdTmdi5V9opMc10AtTbf6SOCHoZoPPHNsjh70gd3fYKIerLyIY6XPtAkodKL
+	 +aGWOvOzXkiTnFVfO/xCEGmvFN63Epc/UMd2lnvPdSNnkhuAqtpsjT1toqgy9oo75jgN+1tfixnmZc
+	 CdyBdGF1G2ITkQgODTzDpWT3Y0xEGJw==
+X-KPN-MID: 33|Jv2/0rIq33NJNxEeypGaM1uyj44B33/L6yCGdo1JkLgZTJj7uk72kNflk5YzjyZ
+ SDUl8xM+AP5fU/cwJcwaboinDWAq06YRJhJtqGyNJ6ks=
+X-KPN-VerifiedSender: Yes
+X-CMASSUN: 33|x8nYVI/1Nv6lAVyMCIP6tj1z+q0wWe6QzKvKsbvRpibkBbMp+L/XTdM5AJ2uIc3
+ F9FdqkoCLtCBC//z4eBlyHw==
+Received: from localhost (unknown [178.226.150.234])
+	by smtp.xs4all.nl (Halon) with ESMTPSA
+	id f74c8911-a4be-11f1-927f-005056ab1411;
+	Mon, 31 Aug 2026 00:05:53 +0200 (CEST)
+Date: Mon, 31 Aug 2026 00:05:45 +0200
+From: Jori Koolstra <jkoolstra@xs4all.nl>
+To: Mateusz Guzik <mjguzik@gmail.com>
+Cc: brauner@kernel.org, viro@zeniv.linux.org.uk, jack@suse.cz, 
+	linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org
+Subject: Re: [PATCH v5] fs: avoid spurious dentry ref/unref cycle on open
+Message-ID: <apSkPymcTBsKOjCV@lt-jori.localdomain>
+References: <20260803125138.1937674-1-mjguzik@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Sun, 30 Aug 2026 15:05:37 -0700
-X-Gmail-Original-Message-ID: <CAHk-=wjpN3XkKU+JX6zoh_bzJXr1aPYN4FY14UX0z7yCidosPQ@mail.gmail.com>
-X-Gm-Features: AcwNN1UPpUsoAN4gDNhtODEphuSk6KzYoVwvGIkJ-YvBAz9tO0ks7hpZmcpzgBw
-Message-ID: <CAHk-=wjpN3XkKU+JX6zoh_bzJXr1aPYN4FY14UX0z7yCidosPQ@mail.gmail.com>
-Subject: Linux 7.3-rc1
-To: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Two weeks have passed, it's Sunday afternoon, and the merge window has clos=
-ed.
-
-Nothing really stands out - except for the fact that it's big. It's
-not the biggest rc1 we've ever had, but it's certainly up there, at
-least in number of commits.
-
-And I don't think that surprises anybody any more. It's all the same
-pattern we've been seeing for a while now.
-
-It's also big as an actual diff, and the reason for *that* is not
-surprising either: this is yet another one of those releases with a
-big AMD GPU register dump. This time it's the AMD DCN6 register
-headers. They're huge. As usual. That's what you get when you dump all
-the hardware definitions as C header #defines. There's also the
-accompanying code for the new gen. All in all, that AMD GPU code and
-header dump accounts for about a third of the whole rc1 patch.
-
-But if you just mask out that big chunk, things look pretty normal,
-and this merge window didn't feel that different from most of them
-despite being large. I made it unnecessarily hard for myself by being
-a grade A nincompoop and doing a system upgrade in the middle, and
-then having to chase down an issue that caused, but that was entirely
-on me. I knew I shouldn't have done it, but I just naively went
-"nothing will go wrong". And hey, it was all good in the end, I just
-made this merge window harder for myself than I should have.
-
-Let's hope the rest of this release will go smoothly. And be small and
-uneventful. But who am I kidding? It almost certainly won't be small,
-but I can always hope.
-
-                Linus
-
----
-
-Alex Williamson (1):
-    VFIO updates
-
-Alexandre Belloni (2):
-    I3C updates
-    RTC updates
-
-Alison Schofield (1):
-    NVDIMM and DAX updates
-
-Andi Shyti (3):
-    i2c updates
-    more i2c updates
-    i2c fixes
-
-Andreas Gruenbacher (1):
-    gfs2 updates
-
-Andreas Hindborg (1):
-    configfs update
-
-Andrew Morton (4):
-    MM updates
-    hotfixes
-    non-MM updates
-    more MM updates
-
-Andy Shevchenko (1):
-    auxdisplay updates
-
-Ard Biesheuvel (1):
-    EFI updates
-
-Arnd Bergmann (4):
-    SoC devicetree updates
-    SoC driver updates
-    SoC defconfig updates
-    ARM SoC platform updates
-
-Bartosz Golaszewski (3):
-    power sequencing updates
-    gpio updates
-    another power sequencing update
-
-Bjorn Andersson (3):
-    remoteproc updates
-    rpmsg updates
-    hwspinlock updates
-
-Bjorn Helgaas (1):
-    PCI updates
-
-Borislav Petkov (5):
-    x86 MCE update
-    x86 alternatives update
-    x86 resource control updates
-    x86 cleanups
-    x86 cpuid updates
-
-Carlos Maiolino (1):
-    xfs updates
-
-Casey Schaufler (1):
-    smack updates
-
-Christian Brauner (15):
-    misc ipc and core updates
-    binfmt updates
-    efs and freevxfs removal
-    failfs filesystem
-    FAT update
-    iomap updates
-    vfs bpf access updates
-    kthread vfs updates
-    vfs lookup updates
-    misc vfs updates
-    mount updates
-    cachefiles ondemand removal
-    overlayfs updates
-    vfs superblock updates
-    vfs writeback updates
-
-Chuck Lever (1):
-    nfsd updates
-
-Corey Minyard (1):
-    ipmi updates
-
-Damien Le Moal (1):
-    ata updates
-
-Daniel Borkmann (1):
-    bpf updates
-
-Danilo Krummrich (1):
-    driver core updates
-
-Dave Airlie (2):
-    drm updates
-    more drm updates
-
-Dave Hansen (4):
-    x86 entry update
-    misc x86 updates
-    x86 TDX updates
-    x86 mm updates
-
-Dave Jiang (1):
-    CXL updates
-
-David Sterba (1):
-    btrfs updates
-
-Dmitry Torokhov (1):
-    input updates
-
-Eric Biggers (3):
-    fscrypt updates
-    crypto library updates
-    crypto library test updates
-
-Gabriel Krisman Bertazi (1):
-    unicode updates
-
-Gao Xiang (2):
-    erofs updates
-    more erofs updates
-
-Geert Uytterhoeven (1):
-    m68k updates
-
-Greg KH (4):
-    char/misc/IIO/etc driver updates
-    staging driver updates
-    USB / Thunderbolt updates
-    TTY / serial driver updates
-
-Greg Ungerer (1):
-    m68knommu updates
-
-Guenter Roeck (2):
-    watchdog updates
-    hwmon updates
-
-Guo Ren (1):
-    csky update
-
-Helge Deller (2):
-    fbdev updates
-    parisc architecture updates
-
-Herbert Xu (2):
-    crypto update
-    crypto fix
-
-Huacai Chen (1):
-    LoongArch updates
-
-Ilpo J=C3=A4rvinen (1):
-    x86 platform driver updates
-
-Ilya Dryomov (1):
-    ceph updates
-
-Ingo Molnar (15):
-    objtool updates
-    performance events updates
-    locking updates
-    scheduler updates
-    x86 MSR updates
-    x86 boot updates
-    x86 build update
-    x86 core updates
-    x86 documentation updates
-    timer fixes
-    irqchip driver fixes
-    futex fixes
-    scheduler fixes
-    locking fix
-    timer fix
-
-Jaegeuk Kim (1):
-    f2fs updates
-
-Jakub Kicinski (2):
-    networking updates
-    networking fixes
-
-James Bottomley (1):
-    SCSI updates
-
-Jan Kara (2):
-    fsnotify updates
-    ext2, udf, isofs, and quota updates
-
-Jarkko Sakkinen (2):
-    TPM update
-    TPM updates
-
-Jason Gunthorpe (3):
-    iommufd updates
-    fwctl updates
-    RDMA updates
-
-Jassi Brar (1):
-    mailbox updates
-
-Jens Axboe (3):
-    io_uring update
-    block updates
-    io_uring fixes
-
-Jiri Kosina (1):
-    HID updates
-
-Joel Granados (1):
-    sysctl updates
-
-Joerg Roedel (1):
-    iommu updates
-
-John Johansen (1):
-    AppArmor updates
-
-Jonathan Corbet (2):
-    documentation updates
-    more documentation updates
-
-Juergen Gross (1):
-    xen updates
-
-Julia Lawall (1):
-    Coccinelle updates
-
-Kees Cook (1):
-    execve update
-
-Konstantin Komarov (1):
-    ntfs3 updates
-
-Lee Jones (3):
-    MFD updates
-    LED updates
-    backlight updates
-
-Linus Walleij (1):
-    pin control updates
-
-Madhavan Srinivasan (1):
-    powerpc updates
-
-Magnus Lindholm (1):
-    alpha updates
-
-Marco Elver (1):
-    Kernel Concurrency Sanitizer (KCSAN) update
-
-Marek Szyprowski (2):
-    dma-mapping updates
-    dma-mapping fix
-
-Mark Brown (5):
-    regmap updates
-    regulator updates
-    spi updates
-    regulator fix
-    spi fixes
-
-Martin Petersen (1):
-    more SCSI updates
-
-Masami Hiramatsu (2):
-    probes updates
-    bootconfig updates
-
-Mauro Carvalho Chehab (1):
-    media updates
-
-Max Filippov (1):
-    Xtensa updates
-
-Michael Tsirkin (1):
-    vhost,vdpa,virtio updates
-
-Micka=C3=ABl Sala=C3=BCn (1):
-    Landlock update
-
-Miguel Ojeda (2):
-    Rust updates
-    Rust fixes
-
-Mike Marshall (1):
-    orangefs updates
-
-Mike Rapoport (4):
-    memblock updates
-    kexec updates
-    liveupdate updates
-    more liveupdate updates
-
-Miklos Szeredi (1):
-    fuse updates
-
-Mikulas Patocka (1):
-    device mapper updates
-
-Mimi Zohar (1):
-    integrity updates
-
-Miquel Raynal (1):
-    mtd updates
-
-Namhyung Kim (1):
-    perf tools updates
-
-Namjae Jeon (3):
-    exfat updates
-    smb server updates
-    ntfs updates
-
-Nicolas Schier (1):
-    Kbuild/Kconfig updates
-
-Paolo Bonzini (1):
-    kvm updates
-
-Paul McKenney (2):
-    RCU updates
-    smp_call_function() torture-test updates
-
-Paul Moore (3):
-    audit updates
-    selinux updates
-    LSM updates
-
-Paul Walmsley
- (1):
-    RISC-V updates
-
-Paulo Alcantara (2):
-    cifs maintainer update
-    smb client updates
-
-Petr Mladek (2):
-    printk updates
-    livepatching updates
-
-Petr Pavlu (1):
-    module updates
-
-Rafael Wysocki (7):
-    ACPI support updates
-    power management updates
-    thermal control updates
-    more ACPI support updates
-    more power management updates
-    more thermal control updates
-    ACPI support fix
-
-Richard Weinberger (1):
-    UBI and UBIFS updates
-
-Rob Herring (2):
-    devicetree updates
-    devicetree fixes
-
-Russell King (1):
-    arm updates
-
-Sebastian Reichel (2):
-    HSI updates
-    power supply and reset updates
-
-Serge Hallyn (1):
-    capabilities update
-
-Shuah Khan (2):
-    kunit updates
-    kselftest update
-
-Stafford Horne (1):
-    OpenRISC updates
-
-Stephen Boyd (1):
-    clk updates
-
-Steven Rostedt (8):
-    Real-time Verifier updates
-    RTLA updates
-    ftrace updates
-    tracing updates
-    tracefs updates
-    ring-buffer updates
-    runtime verification fix
-    tracing fixes
-
-Takashi Iwai (2):
-    sound updates
-    sound fixes
-
-Takashi Sakamoto (1):
-    firewire updates
-
-Ted Ts'o (1):
-    ext4 updates
-
-Tejun Heo (3):
-    workqueue updates
-    cgroup updates
-    sched_ext updates
-
-Thomas Bogendoerfer (1):
-    MIPS updates
-
-Thomas Gleixner (10):
-    generic entry code updates
-    rseq updates
-    generic interrupt subsystem updates
-    interrupt chip driver updates
-    futex updates
-    SMP core updates
-    treewide timer related cleanups
-    clocksource/event driver updates
-    timer and timekeeping core updates
-    VDSO updates
-
-Thomas Wei=C3=9Fschuh (1):
-    nolibc updates
-
-Trond Myklebust (1):
-    NFS client updates
-
-Tyler Hicks (1):
-    eCryptfs updates
-
-Tzung-Bi Shih (2):
-    chrome platform updates
-    chrome platform firmware updates
-
-Ulf Hansson (2):
-    pmdomain updates
-    MMC updates
-
-Uwe Kleine-K=C3=B6nig (1):
-    pwm updates
-
-Vasily Gorbik (1):
-    s390 updates
-
-Viacheslav Dubeyko (2):
-    HFS updates
-    nilfs2 updates
-
-Vinod Koul (3):
-    soundwire updates
-    phy updates
-    dmaengine updates
-
-Vlastimil Babka (1):
-    slab updates
-
-Wei Liu (1):
-    hyperv updates
-
-Will Deacon (2):
-    arm64 updates
-    arm64 fixes
-
-Yury Norov (1):
-    bitmap updates
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260803125138.1937674-1-mjguzik@gmail.com>
+
+On Mon, Aug 03, 2026 at 02:51:38PM +0200, Mateusz Guzik wrote:
+> Opening a file grabs a reference on the terminal dentry in
+> __legitimize_path(), then another one in do_dentry_open() and finally
+> drops the initial reference in terminate_walk().
+> 
+> That's 2 modifications which don't need to be there -- do_dentry_open()
+> can consume the already held reference instead.
+> 
+> When benchmarking on a 20-core vm using will-it-scale to open the same
+> file read-only, the results are (ops/s):
+> before:	4043375
+> after:	5629378 (+39%)
+> 
+> Signed-off-by: Mateusz Guzik <mjguzik@gmail.com>
+
+So, the legitimize path stuff grabs a ref to the nd path which is
+balanced at terminate_walk(), and you're saying that in the regular open
+path (not O_TMPFILE or O_PATH), since vfs_open() also grabs a ref, why
+not reuse that one. Is that what you are saying?
+
+It seems then that this issue also plagues do_o_path():
+
+static int do_o_path(struct nameidata *nd, unsigned flags, struct file *file)
+{
+	struct path path;
+	int error = path_lookupat(nd, flags, &path);
+	if (!error) {
+		audit_inode(nd->name, path.dentry, 0);
+		error = vfs_open(&path, file);
+		path_put(&path);			// Not needed?
+	}
+	return error;
+}
+
+> ---
+> 
+> The spurious ref cycle remains an issue and it is trivially avoidable,
+> for the most common case anyway.
+> 
+> Al Viro had a more involved patchset which got stalled, see:
+> https://lore.kernel.org/linux-fsdevel/20240822003359.GO504335@ZenIV/
+> 
+> I already pointed this out over a year ago when sending v3.
+> 
+> Given lack of traffic on the more involved variant, the nice win from my
+> simple patch and its overall triviality, I think it should go in. Worst
+> case, if the more involved work ever gets off the ground it can be
+> trivially reverted later.
+> 
+> bench is:
+> $ cat tests/openro3.c
+> 
+> #include <stdlib.h>
+> #include <unistd.h>
+> #include <sys/types.h>
+> #include <sys/stat.h>
+> #include <fcntl.h>
+> #include <assert.h>
+> 
+> static char tmpfile[] = "/tmp/willitscale.XXXXXX";
+> 
+> char *testcase_description = "Same file open/close read-only";
+> 
+> void testcase_prepare(unsigned long nr_tasks)
+> {
+> 	int fd = mkstemp(tmpfile);
+> 
+> 	assert(fd >= 0);
+> 	close(fd);
+> }
+> 
+> void testcase(unsigned long long *iterations, unsigned long nr)
+> {
+> 	while (1) {
+> 		int fd = open(tmpfile, O_RDONLY);
+> 		assert(fd >= 0);
+> 		close(fd);
+> 
+> 		(*iterations)++;
+> 	}
+> }
+> 
+> void testcase_cleanup(void)
+> {
+> 	unlink(tmpfile);
+> }
+> 
+> v5:
+> - the extra ref is of course needed, i blame the heatwave for thinking
+>   it is not this time around
+> 
+> v4:
+> - rebase
+> - don't grab the extra ref on mnt for truncate
+> - bench opening things r/o. note perf improved from last year thanks to
+>   other changes
+> 
+> 
+>  fs/internal.h |  1 +
+>  fs/namei.c    | 15 ++++++++++++---
+>  fs/open.c     | 27 ++++++++++++++++++++++++++-
+>  3 files changed, 39 insertions(+), 4 deletions(-)
+> 
+> diff --git a/fs/internal.h b/fs/internal.h
+> index c658c8a5ebd5..9632239036ac 100644
+> --- a/fs/internal.h
+> +++ b/fs/internal.h
+> @@ -205,6 +205,7 @@ int do_fchownat(int dfd, const char __user *filename, uid_t user, gid_t group,
+>  		int flag);
+>  int chown_common(const struct path *path, uid_t user, gid_t group);
+>  extern int vfs_open(const struct path *, struct file *);
+> +int vfs_open_consume(struct path *, struct file *);
+>  
+>  /*
+>   * inode.c
+> diff --git a/fs/namei.c b/fs/namei.c
+> index 3f9bf103ba12..f71481b9bf8f 100644
+> --- a/fs/namei.c
+> +++ b/fs/namei.c
+> @@ -4789,6 +4789,7 @@ static const char *open_last_lookups(struct nameidata *nd,
+>  static int do_open(struct nameidata *nd,
+>  		   struct file *file, const struct open_flags *op)
+>  {
+> +	struct vfsmount *mnt;
+>  	struct mnt_idmap *idmap;
+>  	int open_flag = op->open_flag;
+>  	bool do_truncate;
+> @@ -4830,11 +4831,17 @@ static int do_open(struct nameidata *nd,
+>  		error = mnt_want_write(nd->path.mnt);
+>  		if (error)
+>  			return error;
+> +		/*
+> +		 * A dedicated reference is needed because after the call to
+> +		 * vfs_open_consume() we no longer own the reference in nd->path.mnt
+> +		 * while we need to undo write acess below.
+> +		 */
+> +		mnt = mntget(nd->path.mnt);
+
+Is this needed? The file cannot be closed until after open(2) is done,
+so how can that ref be lost before reaching mnt_drop_write below?
+
+>  		do_truncate = true;
+>  	}
+>  	error = may_open(idmap, &nd->path, acc_mode, open_flag);
+>  	if (!error && !(file->f_mode & FMODE_OPENED))
+> -		error = vfs_open(&nd->path, file);
+> +		error = vfs_open_consume(&nd->path, file);
+>  	if (!error)
+>  		error = security_file_post_open(file, op->acc_mode);
+>  	if (!error && do_truncate)
+> @@ -4843,8 +4850,10 @@ static int do_open(struct nameidata *nd,
+>  		WARN_ON(1);
+>  		error = -EINVAL;
+>  	}
+> -	if (do_truncate)
+> -		mnt_drop_write(nd->path.mnt);
+> +	if (do_truncate) {
+> +		mnt_drop_write(mnt);
+> +		mntput(mnt);
+> +	}
+>  	return error;
+>  }
+>  
+> diff --git a/fs/open.c b/fs/open.c
+> index 6b1c14e684a9..2a7697cee00b 100644
+> --- a/fs/open.c
+> +++ b/fs/open.c
+> @@ -931,6 +931,11 @@ static inline int file_get_write_access(struct file *f)
+>  	return error;
+>  }
+>  
+> +/*
+> + * Populate struct file
+> + *
+> + * NOTE: it assumes f_path is populated and consumes the caller's reference.
+> + */
+>  static int do_dentry_open(struct file *f,
+>  			  int (*open)(struct inode *, struct file *))
+>  {
+> @@ -938,7 +943,6 @@ static int do_dentry_open(struct file *f,
+>  	struct inode *inode = f->f_path.dentry->d_inode;
+>  	int error;
+>  
+> -	path_get(&f->f_path);
+>  	f->f_inode = inode;
+>  	f->f_mapping = inode->i_mapping;
+>  	f->f_wb_err = filemap_sample_wb_err(f->f_mapping);
+> @@ -1055,6 +1059,7 @@ int finish_open(struct file *file, struct dentry *dentry,
+>  	BUG_ON(file->f_mode & FMODE_OPENED); /* once it's opened, it's opened */
+>  
+>  	file->__f_path.dentry = dentry;
+> +	path_get(&file->f_path);
+>  	return do_dentry_open(file, open);
+>  }
+>  EXPORT_SYMBOL(finish_open);
+> @@ -1098,6 +1103,7 @@ int vfs_open(const struct path *path, struct file *file)
+>  	int ret;
+>  
+>  	file->__f_path = *path;
+> +	path_get(&file->f_path);
+>  	ret = do_dentry_open(file, NULL);
+>  	if (!ret) {
+>  		/*
+> @@ -1110,6 +1116,25 @@ int vfs_open(const struct path *path, struct file *file)
+>  	return ret;
+>  }
+>  
+> +/**
+> + * vfs_open_consume - open the file at the given path and consume the reference
+> + * @path: path to open
+> + * @file: newly allocated file with f_flag initialized
+> + */
+> +int vfs_open_consume(struct path *path, struct file *file)
+> +{
+> +	int ret;
+> +
+> +	file->__f_path = *path;
+> +	path->mnt = NULL;
+> +	path->dentry = NULL;
+> +	ret = do_dentry_open(file, NULL);
+> +	if (!ret) {
+> +		fsnotify_open(file);
+> +	}
+> +	return ret;
+> +}
+> +
+>  struct file *dentry_open(const struct path *path, int flags,
+>  			 const struct cred *cred)
+>  {
+> -- 
+> 2.53.0
+> 
+
+Thanks,
+Jori.
