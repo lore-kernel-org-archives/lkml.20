@@ -1,80 +1,145 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F3013BA244;
-	Sun, 30 Aug 2026 18:19:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C40F53BBFAD
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 18:20:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788113991; cv=none; b=Cz893PnVDDLfEXcVufcZwZZLpkCfafJm1V2UY0Fo4YwT8pNoqknQUJgBUF+W25SgRlTEc3U0+G/8XYrJ7/DxKm/QHej5959CQyHZeWq0jt1lI9TS2A0ISTmPc0GFfxL1UlwXC34Q35qe2HEBICVS7I5Bmlkf3fDZZeB1vVrOT88=
+	t=1788114034; cv=none; b=aY5GrE+RC52nkuxkdGtpvz+T1U+uITaCuDigvNHGZIqsVRuuo6ZvRN+5jivaAVmXyrvY78zUXDofcKxPSOYamz8D6tyNxvedydx/TixuLoeEjEu6ooE3enWY4OxuLuWg00KNLljSWoZOdf4igJDx3pdzdQNmsvx5HkLsCf3K6ME=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788113991; c=relaxed/simple;
-	bh=jcUIUYZ5aGvgeUTxmAdH651O9yNjJJbI7/peW56ZGxU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ARj1rXE5Blm7Gm8ed73tWkbNUykTJykV1Gk4OZtrbrourGQtTBKzuNt/wOFEVH/C5ZSsK5e9M/DhQDe//7Uo8OjZhs3iuXpplk2P7vbee+3q9yRuUKbZmrgCyWj53TwYhO6pO8UW7KhuRHufHF+ETAUayy0V86ivtZEKhqI8vy8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fwQUATdX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788114034; c=relaxed/simple;
+	bh=TVCyLwZDMmVp0hAurQYMH3T2j5DMGrsKI0ZW+vcU8T4=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=nAv+FzXD/511NRwgoARx+s/uPE0jk+QgCn1pfj2hHFugT/eMSbAknm0sejcLVs5HeWd7niN+Jwmftj6mO63g6u4rRiEq8yp7fIGX6AmEhf2wE+Wu0Xmu4jnJOol1PWQH/jmB3YXElig7u2ci+rwotU8DOzcJbgH1AEiRTjCD2TI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VKmLibdZ; arc=none smtp.client-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fwQUATdX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 503391F000E9;
-	Sun, 30 Aug 2026 18:19:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788113989;
-	bh=5SqRNdRyE2iHbo2TY2yUhpUaws7xCw/1k9HypViG8yw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=fwQUATdXvyneRvcpE998axXTNOdIwX0pJsd9DSnQ9/NvdO6YXYQSppRxogA2E4iXj
-	 86Hn4lsBL/itQcF5BZO33tWWCP9px2fSW2SYV3a8h17/fqxrsrDa2sHpIl26SSl1MR
-	 z4RSLxathv/3j0dRYlYKVctudLSh8N0Q7+kjWLVZf2WWYX4KYx+UIZrpxRNXR5wflG
-	 Vv15MOuOm33P6f91nZDa9QJ6QeKzQFeFNeeuGPiSo4wlT1HlllSdfQ7nUOD1YsDHns
-	 8GqJsWLzpqNGg8XJIpiQQrKXLuOfXXEcIIgEWFT4weKC9yQogT1dY1W0JykYlgz1EF
-	 Szss5ORW0d/Xg==
-Date: Sun, 30 Aug 2026 13:19:48 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Zhijian Han <hanzhijian1991@gmail.com>
-Cc: Bartosz Golaszewski <brgl@kernel.org>,
-	Srinivas Kandagatla <srini@kernel.org>,
-	Robert Marko <robert.marko@sartura.hr>,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	linux-gpio@vger.kernel.org, Linus Walleij <linusw@kernel.org>,
-	Guenter Roeck <linux@roeck-us.net>,
-	Conor Dooley <conor+dt@kernel.org>, linux-hwmon@vger.kernel.org,
-	Antoniu Miclaus <antoniu.miclaus@analog.com>,
-	Frank Li <Frank.Li@nxp.com>
-Subject: Re: [PATCH v2] dt-bindings: fix typos in various bindings
-Message-ID: <178811398752.106276.7299870239024792960.robh@kernel.org>
-References: <20260821105605.1967718-1-hanzhijian1991@gmail.com>
- <20260828095459.834657-1-hanzhijian1991@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VKmLibdZ"
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-49ccfbe062eso8414345e9.3
+        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 11:20:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788114030; x=1788718830; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Rco2GCRhLFay115dRTUgmepuW15efqnKFUOomZek2ow=;
+        b=VKmLibdZ2hzJjmcmtqZhbmpzR2rX3cJB7sKEUjaMQ4PflODCN0/VedqcwTI6bYGBji
+         SyFEdoRBlylb0MbOZs/84j629JUiWxLkvdkC8LvueJXfPQQhDkEY80rt8oO/fOCsHcWo
+         MLehDz7MTz2ijFlekXeRDAJ3coNK0gTw5o+NGC5OXFFn95QFfsyJvCHxEbsX10yWd3Gw
+         I5Ebf8ZmhZUf/6nskQNviZS9ds+TVmY8eBwtdOJFNhdPRdl7UH0JC7I/5/HhWTStyfbD
+         RzZQYNVdR5D2yqUo7IcVTYdF6YSja4tCCI1s16MlCJvm+VPWnPKqOk54+YZeTf+8CZoV
+         Mxlg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788114030; x=1788718830;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Rco2GCRhLFay115dRTUgmepuW15efqnKFUOomZek2ow=;
+        b=VZaAiLcJCOoSNUMHNWuPGyjTTwvREGbHV6am+Eb2BCh8NUApz1rYyoMw/fwuwIAwBP
+         yBI8CNPsB++P1C2gBCR3oplJxP1sIIG56yJk9iabbGLZOGe8+FIHn2fuxgvI21zoiim2
+         Hm6G+zpNE/up8qyjgpl2UsP8f4OGJatajaZJFRXn2TZLfo4RJ0echfVylfl4wle5sbmr
+         W+mPeNAeyri5rAUblX1urDtcsgO+LYwbZPVcmAAE/TIRK4VzAsAUiHpQ8WnTHnjJSUkv
+         fbd+k0klXWBgnC22FQ26jPzWijUhWD1PLZD/teloflFNg7CIiydLBM62IrnboaKvrU7y
+         ajAg==
+X-Forwarded-Encrypted: i=1; AHgh+RoPl6PomFfO1gbjbmtfyCqBDC+PxSqSFiNEET3VUACeNkazWK9Z/UpvhSgRNiPUzQkm/3ZR11oYw7CubH8=@vger.kernel.org
+X-Gm-Message-State: AFuF++mMs66UZUcOBumJU/4zvJfh49N7/GaXbxvWy8JvZPSkiIACqbN8
+	/v+G5YMmWLSW3jSD8UUXdwKF+zfvabnUPESTiMmGzzMPEFFzO9TZmEYP
+X-Gm-Gg: AR+sD13h9HEJbk4Gg+jNzKzcrIzg94W4suVQ+KoGWpIT1QcHW4C4+SypHCE9O4jtgcY
+	p2mBZGkaDGD85XLXsKpgTneezcqo60BpXNy3ykHeiBb9ZBtHMxWBM6cZn+b++IGGx/EPhhE0cac
+	sS86WvcowkDPM+7AxQCT51Fbvv4ouk6DrFcPh+qYINTSslEzDgcdlTdxlSvY2HRJdzUYNyFQwy9
+	GzFUR2HrJ1zfFoVmQduX2742EJUeThwQHpsWyIPVqCszmeY8bFhfL+fC3bOHJhZO7brQBrGne5M
+	Xn4u4z6Txge+9EPoWp4CZMHMDzbRGuiEVIdtHXMsyYwaZYEVpuqfnzlaYmp+begZ4d7c+8UmJU5
+	8ZU94couk+tyzabBdv6dWFXbaPz/kGVhFgQqkwlys1MgPGn9D0jwJguFqfBuofqfPC8cgCePD3d
+	prdqn8Ktf7xL1RWeSKSQO7neR0hTm7TLke9QwbUbDX8SmGSgdr+Xkzd/+VC6WKgIBylXl718ajx
+	WLkiv2iw/wE8kWnzCz278o7PsNQrCEJHv6Sq4vxlJJKZi1KOkBWiSxjpPOoz+0sQWCFM5s4XdKt
+	6F7Xb2BJ8vk9ACB7//VvikInAGdv4M6QOkvztu9RhOZYlpJBaFszZT/Bxh8bVtQvyRSnQzQprH7
+	sHpuNfXCDwmKbssl7yR88Uw==
+X-Received: by 2002:a05:600c:8b86:b0:493:f5bf:4dc6 with SMTP id 5b1f17b1804b1-49b91c2777emr366315815e9.7.1788114029578;
+        Sun, 30 Aug 2026 11:20:29 -0700 (PDT)
+Received: from MacBook-Pro-von-Karl.localdomain (dynamic-2a02-3100-adda-dc01-edc7-8a6f-c6f3-73e0.310.pool.telefonica.de. [2a02:3100:adda:dc01:edc7:8a6f:c6f3:73e0])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b94dc0f57sm252584505e9.2.2026.08.30.11.20.28
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sun, 30 Aug 2026 11:20:29 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: David Howells <dhowells@redhat.com>,
+	Jarkko Sakkinen <jarkko@kernel.org>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Paul Moore <paul@paul-moore.com>,
+	James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>,
+	keyrings@vger.kernel.org,
+	linux-security-module@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] keys: set persistent keyring timeout before destination linking
+Date: Sun, 30 Aug 2026 20:20:26 +0200
+Message-Id: <bb0370340c671.1788111790.git.kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260828095459.834657-1-hanzhijian1991@gmail.com>
+Content-Transfer-Encoding: 8bit
 
+keyring_alloc() links a newly created persistent keyring into the
+namespace's hidden register with TIME64_MAX expiry.
+key_get_persistent() sets the configured timeout only after linking the
+keyring into the caller's destination.
 
-On Fri, 28 Aug 2026 17:54:59 +0800, Zhijian Han wrote:
-> Fix spelling errors found by the kernel's scripts/spelling.txt
-> and codespell in several devicetree binding documents:
-> 
->   - "curent" -> "current" in adi,ltc2991.yaml
->   - "deivce" -> "device" in zii,rave-sp-eeprom.yaml
->   - "ouput" -> "output" in delta,tn48m-gpio.yaml
->   - "redudant" -> "redundant" in trivial-devices.yaml
-> 
-> Signed-off-by: Zhijian Han <hanzhijian1991@gmail.com>
-> ---
-> v2:
-> - Use consistent identity "Zhijian Han" instead of the login-style name
->   "hanzhijian"
-> 
->  Documentation/devicetree/bindings/gpio/delta,tn48m-gpio.yaml    | 2 +-
->  Documentation/devicetree/bindings/hwmon/adi,ltc2991.yaml        | 2 +-
->  Documentation/devicetree/bindings/nvmem/zii,rave-sp-eeprom.yaml | 2 +-
->  Documentation/devicetree/bindings/trivial-devices.yaml          | 2 +-
->  4 files changed, 4 insertions(+), 4 deletions(-)
-> 
+If the destination rejects the link, the registered keyring retains
+infinite expiry. It is exempt from key quota and can remain until namespace
+teardown or reboot even though the syscall returned an error. At most one
+such keyring exists per UID per namespace. Repeated failures for the same
+UID therefore strand only one small allocation.
 
-Applied, thanks!
+This is reachable from unprivileged userspace: KEYCTL_RESTRICT_KEYRING on
+the destination makes key_link() return -EPERM via restrict_link_reject(),
+after key_create_persistent() has already registered the keyring.
 
+Set the timeout immediately after creating and registering the keyring. A
+later permission or destination-link failure then leaves a collectible
+persistent keyring. The successful path may refresh the same timeout again
+without changing its semantics.
+
+Fixes: f36f8c75ae2e ("KEYS: Add per-user_namespace registers for persistent per-UID kerberos caches")
+Assisted-by: LLM
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+---
+Tested with QEMU 10.2.1 TCG. The reproducer set
+/proc/sys/kernel/keys/persistent_keyring_expiry to 60 seconds, restricted
+the destination with KEYCTL_RESTRICT_KEYRING, and then called
+KEYCTL_GET_PERSISTENT. No LSM policy was loaded.
+
+                      syscall result  /proc/keys expiry
+  i386 baseline       -EPERM          perm
+  i386 patched        -EPERM          1m
+  x86_64 patched      -EPERM          1m
+
+Full kernel builds completed for i386 and ARM926, and for x86_64 with
+CONFIG_PROVE_LOCKING=y. The x86_64 reproducer completed without lockdep
+reports, warnings, or bugs.
+
+ security/keys/persistent.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/security/keys/persistent.c b/security/keys/persistent.c
+index 97af230aa4b22..0eca8c5758434 100644
+--- a/security/keys/persistent.c
++++ b/security/keys/persistent.c
+@@ -63,6 +63,12 @@ static key_ref_t key_create_persistent(struct user_namespace *ns, kuid_t uid,
+ 	if (IS_ERR(persistent))
+ 		return ERR_CAST(persistent);
+ 
++	/* Set the expiry now: if the caller then fails to link the keyring to
++	 * its destination, the register is left holding a collectible key
++	 * rather than a permanent, quota-exempt one.
++	 */
++	key_set_timeout(persistent, persistent_keyring_expiry);
++
+ 	return make_key_ref(persistent, true);
+ }
+ 
+
+base-commit: 08dbfad3f5040f5bdb6c529da20d6d4e81fefd72
+-- 
+2.53.0
