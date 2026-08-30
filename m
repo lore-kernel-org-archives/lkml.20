@@ -1,84 +1,90 @@
-Received: from ms.lwn.net (ms.lwn.net [45.79.88.28])
+Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDDF13B47C3;
-	Sun, 30 Aug 2026 14:45:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.79.88.28
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C34823FFD;
+	Sun, 30 Aug 2026 14:48:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788101150; cv=none; b=iXtDW23YXHNCELbbRwBmD6WsAbs6gK2FNtVrJvDuUDuZ+Y5L1qdDHbG7iGzW+t6pgdO76oLuptqv508dXVrzXwJFDiX1xLzCHUDZhPa2dL67RIfmuYsRvFgfin4+oHeA6BrtnIGdcE4eaEfJACURnIo8h2vWtYGWnAmFb36kyUA=
+	t=1788101324; cv=none; b=Gu4gZT1kU9mxraAw9IxXw1xyvClB6e0QwIQ6lOslOxIoqqQr8sjGi2oLF8uWg2AjBK1odbV66P1WPEjIYEBi8T7wpny7l+hQkeXbYhURPuDUf2JKh6S74vonQzoFnuTRz0ow+XJ0lw5PvejD9IvTObJVhXHpYfVkTGGRv79Zmy0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788101150; c=relaxed/simple;
-	bh=CSRsAmlEGdXvv8L+D6uraOHhCuZS0iuReJv7z4DIcR0=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=TZ6Wm+IwbRAvxmzi7Fz4ueS6wQ0CyddCG/ZtEslqCSZdJ6fxzd0I+Yb79TG051zXUAK/HNEPxyjuMoi0JvVchw41AefBlduQpuiFPIO62tgCDL6UEY8V+xWZHMAq+/MvlbEzvFf3rk9nvdmbe9uj0g4h+vhRmP8Y+UVy7WV8x08=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net; spf=pass smtp.mailfrom=lwn.net; dkim=pass (2048-bit key) header.d=lwn.net header.i=@lwn.net header.b=LFmo4/fE; arc=none smtp.client-ip=45.79.88.28
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lwn.net
+	s=arc-20240116; t=1788101324; c=relaxed/simple;
+	bh=mQVJ7zDvrT6sNKYopfcwhYtHg5BubOvImcbeGOJdQyM=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=VKxy7mvIj5LBeZrgr1dBg7eWKjZTV0C+pL6t8LTQGfP0In08SX9YjrBuV8j3YNegy4CFTmcqz6CvwTD3x72XdlQpV2HJHUZqE8z++2cgTMJgqIfn1ZlBRZ5kHnqM4kRepc3VrcYDcgs7vhIFzLXYtCDg3hAwESyt9lFKuHR4lM4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=gUXhzYXJ; arc=none smtp.client-ip=45.254.49.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lwn.net header.i=@lwn.net header.b="LFmo4/fE"
-DKIM-Filter: OpenDKIM Filter v2.11.0 ms.lwn.net 3257B40430
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lwn.net; s=20201203;
-	t=1788101142; bh=KSwHaylzujYwz65gMRgnf6/prISOr0onbHrOuXbAQus=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
-	b=LFmo4/fEI4IF6dN/UEdWgYs4KqSgD7VtZ6qc+06+bWk9ynvK24SmiSPTx82TqMrRB
-	 QJSRMjGKbIH8OhNAYD+HKrnLtkOEvjzSy5Vbm3nFbBK3O6vYSv/T7IbkeXNAIxxMnT
-	 BHjaIcggvCEe/H3aVZbIVn8buYQc9We4/Wp4NEUFPifWD2SdhwJguwXZ6jTlrKEhwo
-	 oxgK7ho/DYYjORSJyAbcycwoEMv06OVq6+CDq0TXLPtzFUAyYxceZAmPK6gAP7xqwf
-	 o5vTLDTg7wtRW22kYVQjMXeW/aYMOA+Awk5nFOlU39i2GSem2yldawrqMzxfmKyt9a
-	 72zzrFrOVHg6w==
-Received: from localhost (unknown [IPv6:2601:280:4600:814::1fe])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by ms.lwn.net (Postfix) with ESMTPSA id 3257B40430;
-	Sun, 30 Aug 2026 14:45:42 +0000 (UTC)
-From: Jonathan Corbet <corbet@lwn.net>
-To: Pengpeng Hou <pengpeng@iscas.ac.cn>, Mauro Carvalho Chehab
- <mchehab@kernel.org>
-Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>, linux-media@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] media: dvb-frontends: ds3000: validate firmware size
-In-Reply-To: <20260830124034.95459-1-pengpeng@iscas.ac.cn>
-References: <20260830124034.95459-1-pengpeng@iscas.ac.cn>
-Date: Sun, 30 Aug 2026 08:45:40 -0600
-Message-ID: <87o6ejll9n.fsf@trenco.lwn.net>
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="gUXhzYXJ"
+Received: from PC-202605011814.localdomain (unknown [58.241.16.34])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4bd75f902;
+	Sun, 30 Aug 2026 22:48:35 +0800 (GMT+08:00)
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+To: tiffany.lin@mediatek.com
+Cc: andrew-ct.chen@mediatek.com,
+	yunfei.dong@mediatek.com,
+	mchehab@kernel.org,
+	matthias.bgg@gmail.com,
+	angelogioacchino.delregno@collabora.com,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	runyu.xiao@seu.edu.cn,
+	jianhao.xu@seu.edu.cn,
+	stable@vger.kernel.org
+Subject: [PATCH] media: mediatek: vcodec: Initialize context lock before firmware setup
+Date: Sun, 30 Aug 2026 22:48:27 +0800
+Message-Id: <20260830144827.2701887-1-runyu.xiao@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa05324ca4503a1kunm748a56ff10419f
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaHhlLVhhDT04aTUsdTR0ZSVYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlOQ1VJT0pVSk1VSE9ZV1kWGg8SFR0UWUFZT0tIVUpLSEpPSE
+	xVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=gUXhzYXJL1n6Ohtr4BC7UXBxUc8olWj4achRmmp4nPcWG2WD2SAWhEdkAF6ljCVtb8YPKhsZJQ+ePDT6TpRcpga4JN+Zb4F4qiAy0VGpJDPANw8WNJUfa41P2DGJwc0cw3zeR0uVFn+wMhFHte4KruOPTKs/ZIhCazFFx/5Nf6c=; s=default; c=relaxed/relaxed; d=seu.edu.cn; v=1;
+	bh=s3dZ8lISZQr52REE7ec1HbSkTDws0HKFv6UJz6Thh6A=;
+	h=date:mime-version:subject:message-id:from;
 
-Pengpeng Hou <pengpeng@iscas.ac.cn> writes:
+The VPU firmware setup registers a watchdog callback that accesses the
+encoder context lock. Initialize the lock before selecting the firmware
+implementation so the callback cannot observe an uninitialized lock during
+probe.
 
-> The firmware diagnostic reads the first two and final two bytes without
-> proving that the firmware object contains at least two bytes.
->
-> Reject undersized firmware before the diagnostic and upload path consume
-> it.
->
-> Fixes: 09ea33e5c696 ("V4L/DVB (13493): TeVii S470 and TBS 6920 fixes")
-> Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
-> ---
->  drivers/media/dvb-frontends/ds3000.c | 2 ++
->  1 file changed, 2 insertions(+)
->
-> diff --git a/drivers/media/dvb-frontends/ds3000.c b/drivers/media/dvb-frontends/ds3000.c
-> index ce7ae424b27cc..76d2eb98932ae 100644
-> --- a/drivers/media/dvb-frontends/ds3000.c
-> +++ b/drivers/media/dvb-frontends/ds3000.c
-> @@ -374,6 +374,8 @@ static int ds3000_load_firmware(struct dvb_frontend *fe,
->  	int ret = 0;
->  
->  	dprintk("%s\n", __func__);
-> +	if (fw->size < 2)
-> +		return -EINVAL;
+Fixes: afaaf3a0f647 ("media: mediatek: vcodec: adding lock to protect encoder context list")
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:GPT-5
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+---
+ .../media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc_drv.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-So, you have generated an awful lot of fixes all over the tree in the
-last few months.  Can you tell us about what tool you are using to find
-and fix these bugs, and how you are testing your fixes?
+diff --git a/drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc_drv.c b/drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc_drv.c
+index 4e4541b2f..e6cd3817a 100644
+--- a/drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc_drv.c
++++ b/drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc_drv.c
+@@ -255,6 +255,7 @@ static int mtk_vcodec_probe(struct platform_device *pdev)
+ 
+ 	INIT_LIST_HEAD(&dev->ctx_list);
+ 	dev->plat_dev = pdev;
++	spin_lock_init(&dev->dev_ctx_lock);
+ 
+ 	if (!of_property_read_u32(pdev->dev.of_node, "mediatek,vpu",
+ 				  &rproc_phandle)) {
+@@ -308,7 +309,6 @@ static int mtk_vcodec_probe(struct platform_device *pdev)
+ 
+ 	mutex_init(&dev->enc_mutex);
+ 	mutex_init(&dev->dev_mutex);
+-	spin_lock_init(&dev->dev_ctx_lock);
+ 	spin_lock_init(&dev->irqlock);
+ 
+ 	snprintf(dev->v4l2_dev.name, sizeof(dev->v4l2_dev.name), "%s",
+-- 
+2.34.1
 
-Thanks,
-
-jon
