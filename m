@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0DC470808;
-	Sun, 30 Aug 2026 20:54:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5AE4314D35;
+	Sun, 30 Aug 2026 20:57:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788123251; cv=none; b=gFD0vKEOSM4SrqoJEcHlBitTWIVi547GywvLD+TkbPZSQ+5lqpvtf3q7drDBauhJMeARopzj5e+RfJvXDgLfD0wfyP8YiIls2b5hNhQkInYCLlMIJE+P7A6KHIvhCvVvoNrIFtYiR9PKSqCNwCzS4RoE66iysM0590nqN5MNyqA=
+	t=1788123449; cv=none; b=b//RSqKk2Vof7S5+cgnayNkDcdkEbcJsMDMAQcnWbsfUX03Pp0JN31aD43FuPAu003LI3h6IXZcT59tu/AvsVqw2VIERS5IfmgVFw9327MoezowHtHulRTH5MzJld6MGu3W7tVwtLh4n28Lsf/KEbybFuTugHDc323K8V+ox8ME=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788123251; c=relaxed/simple;
-	bh=SK17BJ4IjPknfPQZ9bI1dL6y30VUkuAWXyGkt00Iz78=;
+	s=arc-20240116; t=1788123449; c=relaxed/simple;
+	bh=QH3nQmg3R3uokTkQYTDfaFaDH8ATjs2uPE7nFsY2Vyo=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=UeTuOUzHmSZgzqwS9Hio2lruiAbc7mnVmSzT2BDD5a47BGsNx/OXPYQiTjEQGhqxsRDrIiQvEyxVzXE9BJX2a/uHY2qUhH9qTFYW0omv5bN/VRFxHlEwz8zLlY8i4aAcaNPVey9xxtJSNdMvEAiq/Gj5S6YiEy49YzZkNeg+BlA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GRCcbe6y; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=sSB1GedKerRIUD6xPfhlRu8cPW3jknklYijathidAeAnXH4sIjprKQIIDk4lbalFKTvkkOZtUy7qFnp7CYvOBpwfi4lr3mwRfOnYfQ9j6Cu8NaHrio5zzseaHiWs6oP3II2Rr7np2tqMxIY1aBUuQiymYwYel4UrvVQYOSTQEtE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J2LbFXaI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GRCcbe6y"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE4C61F000E9;
-	Sun, 30 Aug 2026 20:54:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J2LbFXaI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3D4F1F000E9;
+	Sun, 30 Aug 2026 20:57:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788123249;
-	bh=goNLfOtxBsyBapg7MWkUAbOk+kFGl8p2/ez2oPAxAqQ=;
+	s=k20260515; t=1788123448;
+	bh=LKElqTLN0wD6IK2Wi/sNtqT3LB1Inz6RDAhcFKtE12Q=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=GRCcbe6y8hNgnBjuzWUKb9H2S3FEH1QEaWdo1JJi5wSp07owk8MLFPP1qQZ4aBteX
-	 t8Gi19fJzuizpKupTISRez5U0ZCE9liTQy5iV8fKX/mBy9XDmvT1X+DUJCIue4wkuk
-	 zpgw9hbcTEMNR++BXKdIqtCAxZkQ4CFXC3Pskj7q0mZnFtUFKV8bmOT9+ZZ8p7TCHt
-	 kFijVOugctvOqaqmBlUf4oRWYI6/1biFa830b6bIiebAYj3vKPRuX8Hv13FH5+o6wt
-	 QuwpLDLM1i46z5olKvL1FY2DQbgpT5Yg3odYJp3Dj/Ty7ayl13tTTxpt6/EXKmsZaQ
-	 L8TeVzbcsIr0Q==
-Message-ID: <d58fa6b2-f4de-4fa3-b0e9-a34e24bc06bc@kernel.org>
-Date: Sun, 30 Aug 2026 22:53:59 +0200
+	b=J2LbFXaIHVTartD8Z6qY1w2oyScHFBDuwm9L/iuNh6tcgr7MT32yoNe4BckOiaa8s
+	 DAndSoIohUzPcaxvLYNQzgiUejWccRUscqrN65+dZvb2mw59ayCT1eREDUIiotHyEt
+	 Zh8dWVK6Df0seGJ5n/PU0aEhhnUn5f1E30L0u3mSnVLE+BGBYe69/T6KiW7NpqgvDU
+	 bTVNMqSpGl2ZWr3FywvPVPiZmV/rDQAVBhT9d7ZHUQdVVt3NVuqptztOgn4Wk8aCIV
+	 PPaq41HX5DpW/yPSFAjzcAM7xU1JaGU8oJ+35gGwDIjTfruoQzV4laCT8YkDivZl+x
+	 M7HYN1Wr2C99g==
+Message-ID: <425f93a7-3574-4681-b5e6-9bef45ed39a2@kernel.org>
+Date: Sun, 30 Aug 2026 22:57:23 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,22 +35,16 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/1] dt-bindings: hwmon: tmp102: move ti,tmp103 out of
- trivial-devices.yaml
-To: Frank.Li@oss.nxp.com, Guenter Roeck <linux@roeck-us.net>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
- Wensheng Wang <wenswang@yeah.net>, Cosmo Chou <chou.cosmo@gmail.com>,
- Colin Huang <u8813345@gmail.com>, =?UTF-8?Q?Nuno_S=C3=A1?=
- <nuno.sa@analog.com>, Dixit Parmar <dixitparmar19@gmail.com>,
- Antoni Pokusinski <apokusinski01@gmail.com>,
- Eddie James <eajames@linux.ibm.com>, Thorsten Blum
- <thorsten.blum@linux.dev>,
- "open list:HARDWARE MONITORING" <linux-hwmon@vger.kernel.org>,
- "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>
-Cc: imx@lists.linux.dev
-References: <20260826211422.3299728-1-Frank.Li@oss.nxp.com>
+Subject: Re: [PATCH 4/6] dtc: dt-check-style: Add test for node and property
+ name styles
+To: Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Saravana Kannan <saravanak@kernel.org>,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260829-dts-style-checker-sort-v1-0-6693a37d7ae1@oss.qualcomm.com>
+ <20260829-dts-style-checker-sort-v1-4-6693a37d7ae1@oss.qualcomm.com>
+ <20260830195909.GA151984-robh@kernel.org>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -96,58 +90,21 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20260826211422.3299728-1-Frank.Li@oss.nxp.com>
+In-Reply-To: <20260830195909.GA151984-robh@kernel.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 26/08/2026 23:14, Frank.Li@oss.nxp.com wrote:
-> From: Frank Li <Frank.Li@nxp.com>
+On 30/08/2026 21:59, Rob Herring wrote:
+> On Sat, Aug 29, 2026 at 09:53:20PM +0200, Krzysztof Kozlowski wrote:
+>> Common style violation is usage of underscores in node or property
+>> names, so add rules for following recommended names.  There is plenty of
+>> legacy approach, so add the rules only for 'strict' mode of checking.
 > 
-> Move ti,tmp103 binding from trivial-devices.yaml to ti,tmp102.yaml. Both
-> devices are single temperature sensors and update "#thermal-sensor-cells"
-> property to accept values 0 and 1 (passing no argument is equivalent to
-> passing 0 as the first argument)
-> 
-> Fix below CHECK_DTBS warnings:
-> arch/arm/boot/dts/nxp/imx/imx6dl-plym2m.dtb: temperature-sensor@70 (ti,tmp103): '#thermal-sensor-cells' does not match any of the regexes: '^pinctrl-[0-9]+$'
-> 
-> Signed-off-by: Frank Li <Frank.Li@nxp.com>
-> ---
->  Documentation/devicetree/bindings/hwmon/ti,tmp102.yaml | 5 +++--
->  Documentation/devicetree/bindings/trivial-devices.yaml | 2 --
->  2 files changed, 3 insertions(+), 4 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/hwmon/ti,tmp102.yaml b/Documentation/devicetree/bindings/hwmon/ti,tmp102.yaml
-> index 96b2e4969f78a..cd96b1d8a2d5e 100644
-> --- a/Documentation/devicetree/bindings/hwmon/ti,tmp102.yaml
-> +++ b/Documentation/devicetree/bindings/hwmon/ti,tmp102.yaml
-> @@ -4,7 +4,7 @@
->  $id: http://devicetree.org/schemas/hwmon/ti,tmp102.yaml#
->  $schema: http://devicetree.org/meta-schemas/core.yaml#
->  
-> -title: TMP102 temperature sensor
-> +title: TMP102/TMP103 temperature sensor
->  
->  maintainers:
->    - Krzysztof Kozlowski <krzk@kernel.org>
-> @@ -13,6 +13,7 @@ properties:
->    compatible:
->      enum:
->        - ti,tmp102
-> +      - ti,tmp103
->  
->    interrupts:
->      maxItems: 1
-> @@ -25,7 +26,7 @@ properties:
->        A descriptive name for this channel, like "ambient" or "psu".
->  
->    "#thermal-sensor-cells":
-> -    const: 1
-> +    enum: [0, 1]
+> We already have this in dtc, do we need it here too?
 
-I missed that old value was '1' which was not really correct. Looks good.
-
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Not sure really. DTC has it in W=2, so initially I thought no one ever
+looks there, but duplicating maybe is not a good idea. I don't mind
+skipping this, next patches in this set should still apply cleanly.
 
 Best regards,
 Krzysztof
