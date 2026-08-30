@@ -1,134 +1,220 @@
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com [209.85.160.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BC1825B0AC;
-	Sun, 30 Aug 2026 13:27:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788096455; cv=none; b=Slbrd3RCwwjcexmkj2xJQ7fu7uX8RBzSPTN4T1uRo3VAEEdSAdZIoN1QoGPaeSli9atpAR6lKk+3G1SSXVLw0H+mYyN/z+RpRGa6PukUUxCJfOIAM949ZaxNPUgtpOGm9uEFItiu0kmZ8pqQu/GO1F55Pvo2x4BFcpIXVycnmq0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788096455; c=relaxed/simple;
-	bh=gTknnmJVsv1KKwoadU2pO+gLkmP3l7mc+0gm7q9pZNw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fyvxqdzWWTlD4F1vpc9HRWmnEv3Ei9oVhuBkdnrrjl85gtIz88+fPBUNUkC3Viezd/qzgFSWVPF/V3n8pVHDpI8sKfktoCx7X1VwPLel5YkDt8jHVIvMDy48KdoNZHcjcrZsFN7fYBAEVClx9zbaZdAh3dbm/1e6U7DdriVB8V4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from localhost.localdomain (unknown [111.196.241.250])
-	by APP-03 (Coremail) with SMTP id rQCowABHUD6+L5RqwBebBg--.40350S2;
-	Sun, 30 Aug 2026 21:27:26 +0800 (CST)
-From: Pengpeng Hou <pengpeng@iscas.ac.cn>
-To: "James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>
-Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>,
-	"Martin K . Petersen" <mkp@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	linux-scsi@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] ufs: rockchip: propagate controller reset errors
-Date: Sun, 30 Aug 2026 21:27:23 +0800
-Message-ID: <20260830132723.5855-1-pengpeng@iscas.ac.cn>
-X-Mailer: git-send-email 2.50.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3BCC3B19D0
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 13:27:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.176
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788096468; cv=pass; b=g0ygdR3eYggzGXc/khGAwBIemxGUPAf8I1rv83mIxyDo9mtlikSlHuIWA5P5CA3UPbURWPgsHfx8xJJ3vbJJ+WwjeO5mJ+o9pxXhInz+wcFhxI8qer8PGNGslCP7KbgznZ4WKfCAHmsT7qk2vikBf3x8mufrbII1ztpKza36rKA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788096468; c=relaxed/simple;
+	bh=YPKz5OqBk9usb2e2pk4uZojEfnktwmodxCOMK6glqFg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=qPVjh/lvmF01Hx7PnZCBNbKModkJjAgWF4kgxujr49cyQnaRCt+B8h+v9B36LR5pyhjHIlercGRyu8v5ZRTjRyJu4wv0bjxO05wiiZYkWMtEyPBgYAYwStVxyKG2Aud3gVJtFBJXgNlxmQWHaY6AM75axj3bB3yT+H6+dKMejZI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=leXjO4jK; arc=pass smtp.client-ip=209.85.160.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="leXjO4jK"
+Received: by mail-qt1-f176.google.com with SMTP id d75a77b69052e-52f2577ac01so17526311cf.1
+        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 06:27:46 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788096466; cv=none;
+        d=google.com; s=arc-20260327;
+        b=bswS4VJq6Od2efDYZVUnQfgpA+wlxepJuJQQNKgvIW1qPjZpk0RuyKyEYDjLaUTVd2
+         xC2L85o64JbfHNrpZTt8A6Xo/n/2uu9hLfYkmYDroKNOGAf2rNmGt27uVBdMjpt8tHQe
+         i+T0WqptgjAyPIMMHtD5HEie+IYkdN/MV0Vf4gF8Jq+/0gCl0lyn8MjEWeTVUHeuD8Wr
+         G1uPVYDNqVtdAvxc7RNABrC8nXd7C3oo9drHepTJf163nYuiDeBtO/ACCHa0Yt8jg0LX
+         Nn5ZQgOBMYJEV+MA03gwOgEPxh7Iec9etFLjHqN/OLyrm9ELd0fRKMv5XBlSDLiIJxNo
+         uFuw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=YPKz5OqBk9usb2e2pk4uZojEfnktwmodxCOMK6glqFg=;
+        fh=GpVnscyCmy+M7TfFNsROOIGr/ZwQXLkBwPRXx5X/kug=;
+        b=e1VhFUwONzRIJ5bJDMU1nBQpmwLMN7PrevQEj2YJPAgeQJsW4RDUDsXhe+XAYlM6f4
+         6342aiR5cpiDg5qiVn/N72oNAh/6rei4bC33GzvlgBDnazGhE4nGoVlzfej6/LY1/sqi
+         le2QUwfHCIzEpqAgWopmCReYu2JcokSMO1lQqe6zHJ8C3Mu97iCuXtPL2tpx8+6pSw8/
+         rekpcXK6ckKLx98bB7B7xE+0hUpqhMKnRkgRwGTe9qv/sEmN2fYOSrDFvU+tkQK/djJk
+         zY78cZLrDkiJn2ZQ+JgOxXclY8UcwhTWrFHQ9NNkiX6Y5gJgliBMqfQQAPQTh5T72Do4
+         Ye1g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788096466; x=1788701266; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=YPKz5OqBk9usb2e2pk4uZojEfnktwmodxCOMK6glqFg=;
+        b=leXjO4jKHQ6Cbc1JBzxk9ScLlNkd2tSoW/JxG9XGbNjYAJgN/tLQk1c+Pjo2swnjaX
+         kr/Zqhrh+VKlDVTTVGdsEhWjarXnqp9TXQtl06ZHkqVnXYpuEPLLYcPUrWKclGHt0umx
+         ZnOrbWD2c3Wq82atVwLXdM5JPJMzw4yQHBIkkVMPhFm4lHmLhnLZKicTsf8FRQFyL+AR
+         Wn1m6u7snZLjIFIeHGqAY5j5dSRe053VJyPU5S5JZWAleIWrNcYPa1+xBeDO3u12rLOx
+         DR7Y/fxNNX/3WhbYhWdV0RuPmMovAsx4E7vp+olaYmGjLa3y6WWYF5rYtOJkvoe3C2VU
+         Bgjg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788096466; x=1788701266;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YPKz5OqBk9usb2e2pk4uZojEfnktwmodxCOMK6glqFg=;
+        b=A2Mhv3c8NrSOg7vYEMkiLcyPzqofSt+HynjZ5Um0NYcU2VDB25DgY/zzC6pSXmuSSe
+         jDmJ6o3NfyLrMFXkqAn3HeyB8YX0Ud9n/oYEcFrWOtQKORFvUOXqZoCFFHiaq5BFaNSh
+         f2ZPr3LLcUdouTUM8CgCb1/LexvuwfZwr6pBORL4pgKbQ0AtN/R+daJ1TXT7LHfOiUC/
+         jujO7iCqv1edh/vc46+tDsEWclJ7iOcIsmDXgpvjwo/50r5oqq50AY/BUMg8yvBqzyIu
+         3yQ8t+er2l7r54SvCJ3n3UczitHf6of8bikuKpsMiPoqZdn5YSku28CFvm2OT2nsx8pJ
+         8uVQ==
+X-Forwarded-Encrypted: i=1; AHgh+RrS2XRF7WcTTSE+MpCVsIFiaMcibolDbUAqkbE0+hXMdLaB/VGBlFV6eI/i7nrJoO4noqH5xPZEWE5PjdU=@vger.kernel.org
+X-Gm-Message-State: AFuF++ndI9f+OxdxR7Z/dkk6gQwedEuDV5dYVa4uUAHJDsx1ySUAH5IA
+	oUah006RzArSeAG2SX9OKftU3aRQXCXQlksD7f5VHTyBgsCNYhdxaqgjLNfFXoPW4dhEwBIZITH
+	eFYNxGY5nBu+JxjwhG11IhKKKcl0ZZOI=
+X-Gm-Gg: AR+sD11AyL11+/U2rK+/0Qmpoe4ylh8G5MKthBErpugaDHbnWpM5d2oiSM7NWfB1lf0
+	FDeplVgfEi6a/x5zs7jGDHfA1V3PIm2k26zbrDYZlJjHO6A2ETQYHGBaynLti1zgejtT2JkSKTk
+	dLobh1p9KNlvmHOZtKHTbKk/ShuTMbtdA0AfJBBkt9SGtXs8nYlNC+TMRgCKo+p40pefJlBnoeC
+	i1xdx7n84JG5r3iIqpy0Dy15besrmWjUgxlFJ7DjbfWrjolsVlzJXH2toEEX1ESqbDYhIgJ0qy8
+	jFbx74gI6VqsRCuKtNIhrBEurAZ7TCoHDGLhXb+3o3PSdYLEcmXd9Q==
+X-Received: by 2002:a05:622a:608:b0:52f:b37f:35c7 with SMTP id
+ d75a77b69052e-52fb963ff45mr228736891cf.23.1788096465724; Sun, 30 Aug 2026
+ 06:27:45 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowABHUD6+L5RqwBebBg--.40350S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7tr1xAF4fZrWkuF18AFWrXwb_yoW8KF45pF
-	s8C3y3tr1DKF43XFZ7trn3A3WFqan3Kw47J397Ga4fAw1xtw1UWa4vkF1FqF4Dtry5ZFy5
-	uF43Ja48uanFqrUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUkK14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x0267AKxVWxJr
-	0_GcWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
-	2Ix0cI8IcVAFwI0_JF0_Jw1lYx0Ex4A2jsIE14v26r4j6F4UMcvjeVCFs4IE7xkEbVWUJV
-	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lc7CjxVAaw2AFwI0_
-	Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67
-	AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIY
-	rxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14
-	v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWx
-	JwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7VUbo5l5
-	UUUUU==
-X-CM-SenderInfo: pshqw1xhqjqxpvfd2hldfou0/
+References: <178806598504.23591.11490486941444891398.reportbug@localhost>
+ <178807922598.807847.18300931641658404390@eldamar.lan> <ac830f9d-ea86-4f49-b88b-9aa8a09015c0@gmx.de>
+In-Reply-To: <ac830f9d-ea86-4f49-b88b-9aa8a09015c0@gmx.de>
+From: Mo Jun <royclark086@gmail.com>
+Date: Sun, 30 Aug 2026 21:26:00 +0800
+X-Gm-Features: AcwNN1V7T-iwBuAmO8RzAd8_9s0H2yuoPxXxuECbkRKPOz2U3ZJQLvpqb0mJ0WY
+Message-ID: <CAL2p-7jB4LUEPhyBy2QjtK+Cn_hMBQ+ereWZryHpZ3JDJ_ZpPw@mail.gmail.com>
+Subject: Re: asus-laptop: Fn hotkeys no longer work on ThinkPad SL400 after
+ 378500dc1313 ("platform/x86: asus-laptop: Register ACPI notify handler directly")
+To: Armin Wolf <W_Armin@gmx.de>
+Cc: Salvatore Bonaccorso <carnil@debian.org>, 1146124@bugs.debian.org, 
+	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>, Denis Benato <denis.benato@linux.dev>, 
+	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+	Corentin Chary <corentin.chary@gmail.com>, Hans de Goede <hansg@kernel.org>, 
+	platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	regressions@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The Rockchip UFS reset helper discards reset-controller errors before
-probe, HCE enable, and runtime resume continue as if the controller were
-reset.
+Hi Armin Wolf,
 
-Return reset errors from the helper and unwind the resume clock on failure.
+On Sun, Aug 30, 2026 at 7:59=E2=80=AFPM Armin Wolf <W_Armin@gmx.de> wrote:
+>
+> Am 30.08.26 um 10:42 schrieb Salvatore Bonaccorso:
+>
+> > Control: forwarded -1 https://lore.kernel.org/regressions/178807922598.=
+807847.18300931641658404390@eldamar.lan
+> > Control: tags -1 + upstream
+> >
+> > Hi
+> >
+> > In Debian, in https://bugs.debian.org/1146124, Jun Mo, reported the
+> > following, with a bisection result:
+> >
+> > On Sun, Aug 30, 2026 at 12:59:45PM +0800, Jun MO wrote:
+> >> Dear Maintainer,
+> >>
+> >> Fn hotkeys on Lenovo ThinkPad SL400, which are supported by the
+> >> module asus-laptop, no longer work starting from Linux 7.1. Normally
+> >> when those keys/key combinations are pressed,
+> >> acpi_listen/kacpimon/"evtest
+> >> /dev/input/by-path/platform-asus_laptop-event" will capture related
+> >> events, for example:
+> >>
+> >> $ acpi_listen
+> >> ^[[1;2Photkey ATK0101:00 00000032 00000000
+> >> button/mute MUTE 00000080 00000000 K
+> >> ^C
+> >>
+> >> Starting from Linux 7.1, there are not any related event captured by t=
+hose command.
+> >>
+> >> Using snapshot.debian.org, I found out that the last working kernel ve=
+rsion is 7.0.14-1 while the first not working version is 7.1~rc2-1~exp1.
+> >>
+> >> Following instructions in [1] and using /boot/config-7.0.14+deb14-amd6=
+4, a bisect resulted in:
+> >>
+> >> git bisect start
+> >> # status: waiting for both 'good' and 'bad' commits
+> >> # good: [458c6079fc1d41d564c37679c8ace02cd83ee817] Linux 7.0.14
+> >> git bisect good 458c6079fc1d41d564c37679c8ace02cd83ee817
+> >> # status: waiting for 'bad' commit, 1 'good' commit known
+> >> # bad: [7fd2df204f342fc17d1a0bfcd474b24232fb0f32] Linux 7.1-rc2
+> >> git bisect bad 7fd2df204f342fc17d1a0bfcd474b24232fb0f32
+> >> # good: [028ef9c96e96197026887c0f092424679298aae8] Linux 7.0
+> >> git bisect good 028ef9c96e96197026887c0f092424679298aae8
+> >> # good: [334fbe734e687404f346eba7d5d96ed2b44d35ab] Merge tag 'mm-stabl=
+e-2026-04-13-21-45' of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/m=
+m
+> >> git bisect good 334fbe734e687404f346eba7d5d96ed2b44d35ab
+> >> # good: [cdd4dc3aebeab43a72ce0bc2b5bab6f0a80b97a5] Merge tag 'ntfs-for=
+-7.1-rc1-v2' of git://git.kernel.org/pub/scm/linux/kernel/git/linkinjeon/nt=
+fs
+> >> git bisect good cdd4dc3aebeab43a72ce0bc2b5bab6f0a80b97a5
+> >> # bad: [beaba8bfbb91e3bb3133eacacd62fd6fea515e34] Merge tag 'probes-v7=
+.1-2' of git://git.kernel.org/pub/scm/linux/kernel/git/trace/linux-trace
+> >> git bisect bad beaba8bfbb91e3bb3133eacacd62fd6fea515e34
+> >> # good: [bea8d77e45a8b77f2beca1affc9aa7ed28f39b17] Merge tag 'staging-=
+7.1-rc1' of git://git.kernel.org/pub/scm/linux/kernel/git/gregkh/staging
+> >> git bisect good bea8d77e45a8b77f2beca1affc9aa7ed28f39b17
+> >> # bad: [065c4e67cc2c40e6dd94649e8e720096fbabd4ee] Merge tag 'uml-for-7=
+.1-rc1' of git://git.kernel.org/pub/scm/linux/kernel/git/uml/linux
+> >> git bisect bad 065c4e67cc2c40e6dd94649e8e720096fbabd4ee
+> >> # good: [4b0b946019e7376752456380b67e54eea2f10a7c] Merge tag 'for-linu=
+s' of git://git.kernel.org/pub/scm/linux/kernel/git/rdma/rdma
+> >> git bisect good 4b0b946019e7376752456380b67e54eea2f10a7c
+> >> # bad: [d6116d86e58a04a9522e349c4a27145521c01ad7] platform/x86: int347=
+2: Use local variable for LED struct access
+> >> git bisect bad d6116d86e58a04a9522e349c4a27145521c01ad7
+> >> # good: [19ebacfb442b83aa5fe75f9c6851b4edbfff3760] platform/x86: dell/=
+dell-rbtn: Convert ACPI driver to a platform one
+> >> git bisect good 19ebacfb442b83aa5fe75f9c6851b4edbfff3760
+> >> # bad: [378500dc1313e2c06a2f675bb00ab5d7880433ba] platform/x86: asus-l=
+aptop: Register ACPI notify handler directly
+> >> git bisect bad 378500dc1313e2c06a2f675bb00ab5d7880433ba
+> >> # good: [03ae0a0d0973b9e584a05136aab08fee2ef8e455] platform/x86: uniwi=
+ll-laptop: Implement USB-C power priority setting
+> >> git bisect good 03ae0a0d0973b9e584a05136aab08fee2ef8e455
+> >> # good: [b0bcf48c74cc7f72d1b6effc7cecdae871b1785e] platform/x86: toshi=
+ba_acpi: Register ACPI notify handler directly
+> >> git bisect good b0bcf48c74cc7f72d1b6effc7cecdae871b1785e
+> >> # good: [553b2ac59fbb434330287fde0cabc64bc6f11ceb] platform/x86: toshi=
+ba_bluetooth: Convert ACPI driver to a platform one
+> >> git bisect good 553b2ac59fbb434330287fde0cabc64bc6f11ceb
+> >> # good: [3a96c7915d93231e128df74901fe8fcb960b0ecb] platform/x86: toshi=
+ba_haps: Convert ACPI driver to a platform one
+> >> git bisect good 3a96c7915d93231e128df74901fe8fcb960b0ecb
+> >> # first 'bad' commit: [378500dc1313e2c06a2f675bb00ab5d7880433ba] platf=
+orm/x86: asus-laptop: Register ACPI notify handler directly
+> >>
+> >> [1] https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=3D1143721#15
+> > #regzbot introduced: 378500dc1313e2c06a2f675bb00ab5d7880433ba
+> > #regzbot link: https://bugs.debian.org/1146124
+> >
+> > Does this rings a bell?
+>
+> I think i found the culprit, could you please test the attached patch?
 
-Fixes: d3cbe455d6eb ("scsi: ufs: rockchip: Initial support for UFS")
-Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
----
- drivers/ufs/host/ufs-rockchip.c | 25 +++++++++++++++++--------
- 1 file changed, 17 insertions(+), 8 deletions(-)
+Build the module with the patch(only "make -C .
+M=3Ddrivers/platform/x86") and load the built
+drivers/platform/x86/asus-laptop.ko, now the Fn hotkeys works again.
 
-diff --git a/drivers/ufs/host/ufs-rockchip.c b/drivers/ufs/host/ufs-rockchip.c
-index bac68f238e1c4..3b9661befe6ae 100644
---- a/drivers/ufs/host/ufs-rockchip.c
-+++ b/drivers/ufs/host/ufs-rockchip.c
-@@ -20,11 +20,16 @@
- #include "ufshcd-pltfrm.h"
- #include "ufs-rockchip.h"
- 
--static void ufs_rockchip_controller_reset(struct ufs_rockchip_host *host)
-+static int ufs_rockchip_controller_reset(struct ufs_rockchip_host *host)
- {
--	reset_control_assert(host->rst);
-+	int ret;
-+
-+	ret = reset_control_assert(host->rst);
-+	if (ret)
-+		return ret;
- 	udelay(1);
--	reset_control_deassert(host->rst);
-+
-+	return reset_control_deassert(host->rst);
- }
- 
- static int ufs_rockchip_hce_enable_notify(struct ufs_hba *hba,
-@@ -46,9 +51,7 @@ static int ufs_rockchip_hce_enable_notify(struct ufs_hba *hba,
- 	}
- 
- 	/* PRE_CHANGE */
--	ufs_rockchip_controller_reset(host);
--
--	return 0;
-+	return ufs_rockchip_controller_reset(host);
- }
- 
- static void ufs_rockchip_set_pm_lvl(struct ufs_hba *hba)
-@@ -167,7 +170,9 @@ static int ufs_rockchip_common_init(struct ufs_hba *hba)
- 		return dev_err_probe(dev, PTR_ERR(host->rst),
- 				"failed to get reset control\n");
- 
--	ufs_rockchip_controller_reset(host);
-+	err = ufs_rockchip_controller_reset(host);
-+	if (err)
-+		return dev_err_probe(dev, err, "failed to reset controller\n");
- 
- 	host->ref_out_clk = devm_clk_get_enabled(dev, "ref_out");
- 	if (IS_ERR(host->ref_out_clk))
-@@ -291,7 +296,11 @@ static int ufs_rockchip_runtime_resume(struct device *dev)
- 		return err;
- 	}
- 
--	ufs_rockchip_controller_reset(host);
-+	err = ufs_rockchip_controller_reset(host);
-+	if (err) {
-+		clk_disable_unprepare(host->ref_out_clk);
-+		return err;
-+	}
- 
- 	return ufshcd_runtime_resume(dev);
- }
+Thanks!
 
-base-commit: 08dbfad3f5040f5bdb6c529da20d6d4e81fefd72
--- 
-2.50.1
+Regards,
+Jun MO
 
+>
+> Thanks,
+> Armin Wolf
+>
+> >
+> > Regards,
+> > Salvatore
+> >
