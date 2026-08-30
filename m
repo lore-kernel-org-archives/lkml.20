@@ -1,154 +1,108 @@
-Received: from mail-24416.protonmail.ch (mail-24416.protonmail.ch [109.224.244.16])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12BEE3A1683
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 08:45:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 030553A3E95
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 08:45:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788079527; cv=none; b=qjidgOpsnirLVihVzKaHFaQ9e8likGlC10+lAuXnsNLgXnU3Z5iE/cDlopCGAEaw7sxUOHJNjZ73JRHcyadjFtwJC6rDak+29ch0ToT8/ZAt8dBS89Qlu2WhXUBmYrIMUR266x4cY3fKdsZTtr/7yRPPRF851/anq978eWZPCTM=
+	t=1788079528; cv=none; b=g2QgvIOdy0OW0gV1AAIyGHalSLGuSQI97SWZ7KHn4RJ0aa/BxiulpYL1LRjOJRkrDkK7XFsl42+XIW+IG4IVO/u5G6Z9lTjd4+RcHnZHxC2LtjB+Ub3122wVoGH69nGlSpEuTxN71mRnJXH67dbVUFXRaeh6pSAojUBUPYWWBD4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788079527; c=relaxed/simple;
-	bh=lcs4zcrgdLIT3JD+m7JIIvdFU0tstU3E/FP3fDCC6aM=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=o4TVwnZXtMVI9XkPFHQfeadGoXakJ2KLLi8FZaqE8nzvt9bn/azOBPD0dJPgxvVOvkVOLUVCG+z6xB3onk3f1M+GJoIft+ZEG3uI6C8Jx78BBwvfn3GfNEV0aCyAVRN7vs2pLQKG/9dyjd6q/MUU/BNSwzdHuPt9jMUY8mUXCFc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=oIQeFc4P; arc=none smtp.client-ip=109.224.244.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	s=arc-20240116; t=1788079528; c=relaxed/simple;
+	bh=6WhnVC+AjMiupX5xOGHcfLWtYRGleD+P30ykDNu4ocI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=N1Q2dcDeQfEZIF9yGgo6SaOt1KKmw3aN9VknDEXXLzz1VBv1tc7cbTYBONHlFIYnyAlJIUEE1bUFhuIZ6puEmjIF+c1D7CTa+rG46nBVh4AqzRLK/siiDFUmsZr6xgDh2OU+UQSycT/eC+UiKDGvOXLvPzwIEOw65kuNLBadpk0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GaQVowwc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="oIQeFc4P"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1788079523; x=1788338723;
-	bh=qLEuIV9WXMF8WA2Og6nH2usoaxxRB7X4vIDz5I7QZmU=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=oIQeFc4PK+OexnYPkcAATKV809YRpWFF2dBNDX3Xq9IM5zVwyMtu4bQa9g87Sb1vR
-	 XOuBTbZHNy1dxb/aMy4to85hRLEyaDFinyzgORPNZTGbS7yP8EFJPdRdWZFCWko2Ux
-	 mmpOHrrIDMccwTb+a1CIOTG3mN0td+P5pKLR1V8PxlyqTSwxid9zVO4fTH2nsgvq34
-	 WKEMm5xkaXIRBXoOv2nwmhoLC6FTarZeR4+t1s1nvGgN2M2CvqEql58yfQ8J9D9tbe
-	 U7KuGnpZsN/o1laIsb4hKHHL5K7owGNtKTHym2k6tgI1pv4c909ebdjJY6i5eq5Zq3
-	 6HrqoFxvJQPEQ==
-Date: Sun, 30 Aug 2026 08:45:20 +0000
-To: Vinod Koul <vkoul@kernel.org>, Bard Liao <yung-chuan.liao@linux.intel.com>, Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>, Oder Chiou <oder_chiou@realtek.com>, Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-From: Sergey Lebedev <lsa.uz@pm.me>
-Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v2 2/2] soundwire: dmi-quirks: drop the ghost RT1320 on the Surface Pro 11 (Intel)
-Message-ID: <20260830084500.6123-3-lsa.uz@pm.me>
-In-Reply-To: <20260830084500.6123-1-lsa.uz@pm.me>
-References: <20260804225853.31585-1-lsa.uz@pm.me> <20260830084500.6123-1-lsa.uz@pm.me>
-Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: c887decb40059c5d4142f26eb1a2606818aca2dc
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GaQVowwc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 902901F00ACF
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 08:45:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788079526;
+	bh=7EkBLffHUilXUOjYRnC67N1nxTA08hQD3hpd88dlmDM=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=GaQVowwcTTHSnoV07mxxH7tp3H0PPNfB7ije6AYFDP9JHUlPWqBF/K+elcY4Og3De
+	 GRq3QStCWJaF8QA6OJS/FKAQDCh9SKNZkwOA4qBzoTHiVe7bVHSDEzapqJAgsXKI3d
+	 Q3DkG1N1RJF2rahVShFluAeUcQx46U54xKFgM04CSYYWYTSWFFIIAiveagZUCcKCQK
+	 9Jb/Y6w+dBJaNEekiGVhwvlcE2pX7FUCq+xEuK3/cTtELO0MW0wXAmVZCWYoCq4TQq
+	 5y/lkUeytEztpNhiVSsq8YXZjxOAOLCPWSPk345k06XRhUOeJsvH5Lk3zaXvmiN5Fo
+	 XjD6LFXlNFxDA==
+Received: by mail-qk1-f172.google.com with SMTP id af79cd13be357-92e6a434cabso139019485a.1
+        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 01:45:26 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RoHAAlNNPzM8YXj9sHiXJFFaNUFR0MLMSymPzCCpT3xWvDXgAD0nKTp1tZB/SdrKTWaOTKdPWA/H7bbuA8=@vger.kernel.org
+X-Gm-Message-State: AFuF++lVyQOgwQMTADTm7ZoOe7TrAsqGfoWu3trazHm136xYX4NPd/0w
+	/ynf0Sy9p6SNrz1SAuIi/S0y6TIgSfefQzy9/Nr/tcl8NnCNrvRpeA3t7LolgJv7rQ0PP1wABLv
+	v9gO5I1OBFCB3pmf8FeHl+RMBC54Crk4=
+X-Received: by 2002:a05:620a:1a1f:b0:937:37d4:5dbb with SMTP id
+ af79cd13be357-9391390a280mr2106971885a.27.1788079525955; Sun, 30 Aug 2026
+ 01:45:25 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+References: <20260820142956.1414337-1-qiwenjie@xiaomi.com> <20260828181035.ce6e23970d37e38b64818f10@linux-foundation.org>
+ <20260829121335.3491374-1-qwjhust@gmail.com>
+In-Reply-To: <20260829121335.3491374-1-qwjhust@gmail.com>
+From: Barry Song <baohua@kernel.org>
+Date: Sun, 30 Aug 2026 16:45:14 +0800
+X-Gmail-Original-Message-ID: <CAGsJ_4xxDpeaPv9Uh_1qsuXsMLkx+J0X=2V6342idLFO5jkTBw@mail.gmail.com>
+X-Gm-Features: AcwNN1X4DbE0lm3JyC3by5kykwuVyKlkaTLRkog7SDb_iT14PqwGbCiV-P3uFKs
+Message-ID: <CAGsJ_4xxDpeaPv9Uh_1qsuXsMLkx+J0X=2V6342idLFO5jkTBw@mail.gmail.com>
+Subject: Re: [PATCH] mm: filemap: tighten dropbehind completion context check
+To: Wenjie Qi <qwjhust@gmail.com>
+Cc: akpm@linux-foundation.org, willy@infradead.org, jack@suse.cz, 
+	linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, qiwenjie@xiaomi.com
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-The Microsoft Surface Pro 11 for Business (Intel, Lunar Lake) carries a
-single physical RT1320 amplifier on link 0 and describes it twice:
+On Sat, Aug 29, 2026 at 8:13=E2=80=AFPM Wenjie Qi <qwjhust@gmail.com> wrote=
+:
+>
+> I kept the helper private to avoid an MM dependency on <linux/bio.h>.
+>
+> After looking further at the mapped-folio case Matthew raised, I think th=
+e
+> better fix is to retain a dropbehind folio once it is mapped.  A mapping
+> represents a competing cached user, and retaining it avoids the sleeping
+> unmap path, so filemap no longer needs a stricter context helper; the
+> existing in_task() guard remains.  I will respin the patch on that basis.
 
-  SWRA  _ADR 0x000030025D132000   SDCA class 0
-  SWRB  _ADR 0x000030025D132001   SDCA class 1
+But we still have `bio_in_atomic()` in `include/linux/bio.h`:
 
-Identical apart from the class id: same link, same manufacturer, part and
-version, same unique id 0. The part reports class 1, so only SWRB
-enumerates. SWRA never attaches on any boot or firmware version tested,
-including the November 2025 bundle.
+/**
+ * bio_in_atomic - check if the current context is unsafe for bio completio=
+n
+ *
+ * Return: %true in atomic contexts (e.g. hard/soft IRQ, preempt-disabled);
+ * %false when a bio can be safely completed in the current context.
+ */
+static inline bool bio_in_atomic(void)
+{
+        if (IS_ENABLED(CONFIG_PREEMPTION) && rcu_preempt_depth())
+                return true;
+        if (!IS_ENABLED(CONFIG_PREEMPT_COUNT))
+                return true;
+        return !preemptible();
+}
 
-The ghost is not harmless. It consumes an amplifier index in
-find_acpi_adr_device(), so the real part is named "rt1320-2" and the stock
-sof-soundwire UCM profile enables switches on a device that is not there.
-Its endpoints also reach create_sdw_dailink(), which builds DAI link names
-from link id and function type alone; the ghost declares the same SmartMic
-function as the real part, so the card fails to register at all:
+Right now, it's used in three places, and I expect we'll see more users
+over time.
 
-  sysfs: cannot create duplicate filename
-    '.../sof_sdw/SDW0-Capture-SmartMic'
-  kobject_add_internal failed for SDW0-Capture-SmartMic with -EEXIST
-  sof_sdw sof_sdw: probe with driver sof_sdw failed with error -12
+   1   1925  block/bio.c <<bio_endio>>
+             if (bio_flagged(bio, BIO_COMPLETE_IN_TASK) && bio_in_atomic())
+   2   1451  fs/erofs/zdata.c <<z_erofs_decompress_kickoff>>
+             if (bio_in_atomic()) {
+   3    403  include/linux/bio.h <<bio_complete_in_task>>
+             if (!bio_in_atomic())
 
-Remap its _ADR to zero so sdw_acpi_find_slaves() never creates the
-peripheral, which is how ghost devices are handled already - see
-ghost_realtek and global_ghost_adr in this file. Both failures then
-disappear, because neither path is reached.
+Yet it really has nothing to do with `bio` at all; it's purely a
+scheduler thing!
 
-Matched on DMI_PRODUCT_SKU rather than the product name. A later batch of
-the same model could carry a different RT1320 version, which would change
-the _ADR; keying on the SKU keeps this remap to the hardware it was
-verified on, and follows dell_sku_0A3E above.
+So I fully agree with Andrew that we should move it to `sched` and
+continue the discussion there. Maybe the current `in_atomic()` helpers
+aren't really good enough?
 
-Suggested-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>
-Suggested-by: Bard Liao <bard.liao@intel.com>
-Signed-off-by: Sergey Lebedev <lsa.uz@pm.me>
----
-v2:
- - new in v2. Replaces v1's 2/3 (sdw_utils runtime presence test) and 3/3
-   (SOF/Intel amp-index dedup) with a single remap at enumeration, per
-   Pierre-Louis Bossart's suggestion.
- - matched on DMI_PRODUCT_SKU rather than the product name, per Bard Liao:
-   a later batch could carry a different RT1320 version and therefore a
-   different _ADR.
- drivers/soundwire/dmi-quirks.c | 28 ++++++++++++++++++++++++++++
- 1 file changed, 28 insertions(+)
-
-diff --git a/drivers/soundwire/dmi-quirks.c b/drivers/soundwire/dmi-quirks.=
-c
-index d75037558..8b3c5c8d1 100644
---- a/drivers/soundwire/dmi-quirks.c
-+++ b/drivers/soundwire/dmi-quirks.c
-@@ -111,6 +111,25 @@ static const struct adr_remap ghost_realtek[] =3D {
- =09{}
- };
-=20
-+/*
-+ * The Microsoft Surface Pro 11 (Intel) describes its single physical RT13=
-20
-+ * amplifier twice on link 0, as two _ADR entries differing only in SDCA c=
-lass
-+ * id and sharing the same unique id. Only the class 1 entry enumerates; t=
-he
-+ * class 0 entry is a ghost.
-+ *
-+ * Matched on the product SKU rather than the product name: a later batch =
-of the
-+ * same model could carry a different RT1320 version, which would change t=
-he
-+ * _ADR. Keying on the SKU keeps this remap to the hardware it was verifie=
-d on.
-+ */
-+static const struct adr_remap microsoft_sp11_intel[] =3D {
-+=09/* ghost rt1320 on link0 */
-+=09{
-+=09=090x000030025d132000ull,
-+=09=090x0000000000000000ull
-+=09},
-+=09{}
-+};
-+
- static const struct dmi_system_id adr_remap_quirk_table[] =3D {
- =09/* TGL devices */
- =09{
-@@ -207,6 +226,15 @@ static const struct dmi_system_id adr_remap_quirk_tabl=
-e[] =3D {
- =09=09},
- =09=09.driver_data =3D (void *)ghost_realtek,
- =09},
-+=09/* LNL devices */
-+=09{
-+=09=09.matches =3D {
-+=09=09=09DMI_MATCH(DMI_SYS_VENDOR, "Microsoft Corporation"),
-+=09=09=09DMI_EXACT_MATCH(DMI_PRODUCT_SKU,
-+=09=09=09=09=09"Surface_Pro_11th_Edition_With_Intel_For_Business_2103")
-+=09=09},
-+=09=09.driver_data =3D (void *)microsoft_sp11_intel,
-+=09},
- =09{}
- };
-=20
---=20
-2.50.1 (Apple Git-155)
-
-
+Best Regards
+Barry
