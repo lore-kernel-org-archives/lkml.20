@@ -1,205 +1,126 @@
-Received: from sphereful.davidgow.net (sphereful.davidgow.net [203.29.242.92])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0266634CFCA;
-	Sun, 30 Aug 2026 10:38:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.29.242.92
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82D6A208D0
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 10:40:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788086328; cv=none; b=qnTl1zE/qKOXBPxcUYCo8yGzy0x65x2ACuL4EKtCn2vorz5v6AGQsGSDbGDN3XHySdcj/sb5DdqppCRd7Fu8KUTLeWWJpmtll8DfL9QJpceLLP/bRbH8gZjsYJGILh42qj8/FYf+FMmL1NMhSggL5RO/MzQ8K0frStnwRacudhg=
+	t=1788086436; cv=none; b=FsfA4hm3/cRbW+qoHNn64sEHyeshj+r9LBhH8Ci5QP/pbdGpOhji7I7tYHoNHDW9fI5rWG20bXTAkBnTHYiKMcqqRU7p80zAtp5hh3oW+lsVDqy+CLZicb8XK/CrL/ayp+cU2ZQkgFeJo5iPTGSuQigVTd21nVmYSB1LEe+MB70=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788086328; c=relaxed/simple;
-	bh=3kY1dBWeCgwwn55xI3/xDSegyE80N73ZTxbg/1MQ3/o=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VvpYNG/2NqI3xyjHquFk7Z3S/ZEtgrhrvI6tuT9bzkVl+lkUze8xZphpgvgkuwWDzypdKjJ52iFp6WqRDkE/lMXTUJZPZbP7tKJXyddSN4CzPWXgUJdm0MHidIprA3BJ9Ed3wWJoXZ9jXAjN3B7++XtWNrOO1SGzu2hzBxWiFrY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=davidgow.net; spf=pass smtp.mailfrom=davidgow.net; arc=none smtp.client-ip=203.29.242.92
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=davidgow.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=davidgow.net
-Received: by sphereful.davidgow.net (Postfix, from userid 119)
-	id D2CFD1EAAE6; Sun, 30 Aug 2026 18:33:35 +0800 (AWST)
-X-Spam-Level: 
-Received: from sparky.lan (unknown [IPv6:2001:8003:8802:7000::9c4])
-	by sphereful.davidgow.net (Postfix) with ESMTPSA id ACBF81EAAE6;
-	Sun, 30 Aug 2026 18:33:30 +0800 (AWST)
-From: David Gow <david@davidgow.net>
-To: Jim Cromie <jim.cromie@gmail.com>,
-	"Maciej W . Rozycki" <macro@orcam.me.uk>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Matthew Auld <matthew.auld@intel.com>,
-	Arun Pravin <arunpravin.paneerselvam@amd.com>,
-	Joel Fernandes <joelagnelf@nvidia.com>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Chris Mason <mason@kernel.org>,
-	David Sterba <dsterba@suse.com>
-Cc: David Gow <david@davidgow.net>,
-	dri-devel@lists.freedesktop.org,
-	linux-btrfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 1/3] linux/log2.h: Add 64-bit safe variants of power-of-two functions
-Date: Sun, 30 Aug 2026 18:33:15 +0800
-Message-ID: <20260830103321.2042968-1-david@davidgow.net>
-X-Mailer: git-send-email 2.55.0
+	s=arc-20240116; t=1788086436; c=relaxed/simple;
+	bh=s7dNTbr/tNVz69TngDdkquZjYKowk/qW7jQMXcLbnMI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=pbTJmHQZKc1Pnwzbiu97s8tqC/cQ6puoP1iFv0qfwHgwM0K6l/I3hNQqRIoe/mvfd3CJ/6sq/TwMGZV3gWuqJwj2VOSbx6o0pIUcQe30rLc8WpeT/XYOE7s9kTWjancV7eOYIlADUN0zXtowOSSdT60lczi4MbxHGI6c3vNUTa4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZKwTF8Xd; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZKwTF8Xd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1CAAF1F00ACA
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 10:40:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788086435;
+	bh=uFsR1+Syprr5J5tje5S4jkkUx1bx6a8Akbh+NdTo87c=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=ZKwTF8XdyuTnYcKU3cKihII2IaOstkhQwk4UQEpQ6cT6ncHu/P3ABfgk416wQMaHR
+	 f9kB4VtezvF4fGBXxVKBw8NZw9KIZehBGrW63xCNaHv8x5Dn3vmtuYj6emZjkUBlpp
+	 6dUtGrVlipvgx77PIkg/YwmpAKiib21K0oodlswduGfpHE9HLLgXhwsie5HUst1jYg
+	 sL+zBO9LRzC264DOm1bIgZKyvPZTxfhKFAlGb5tLpv/9j4zlSlNC5iDoDjPTINClED
+	 fdm11sH5J4S19pcQsY/mz4cu7nryGkI+xlrR2DFAD3TGq7O/MNjI4QX0aUE9SwSYyi
+	 usCapY+9/deiQ==
+Received: by mail-qt1-f169.google.com with SMTP id d75a77b69052e-52f2577ac01so17005251cf.1
+        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 03:40:35 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RpvjaDqyZJhGkHsa50bc5s+8etrtxVPgegjjMZXgPiu66J9FfdaMKN9ZT+cOvIY7GJuLTUgRGb44KkGbX8=@vger.kernel.org
+X-Gm-Message-State: AFuF++lb/4Lc8akb8vC5SXCFQFdxZHxdJVfN86b3GreV2g5DAhcJtKbO
+	1S51pwrtxqkC77+5zWWPyH/BPgT6h6XGy6cy1irDzWkn627kAaF8WM6G8AL/ayCvjpsXsSyi1Xy
+	ab9tyIaD/3eF3MwoHVosDAvLAgeAAWMg=
+X-Received: by 2002:a05:620a:a0c8:10b0:938:fdde:34e6 with SMTP id
+ af79cd13be357-939138cc83cmr1680232985a.28.1788086434432; Sun, 30 Aug 2026
+ 03:40:34 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260828110919.1324028-1-ridong.chen@linux.dev>
+ <20260828110919.1324028-3-ridong.chen@linux.dev> <CAGsJ_4ws6edtcToqJQ0azJPTymAYj41nzdGJvBqEM+gROiJtRQ@mail.gmail.com>
+ <c0a32c3c-bff8-433c-8552-f0723e3a07b7@linux.dev>
+In-Reply-To: <c0a32c3c-bff8-433c-8552-f0723e3a07b7@linux.dev>
+From: Barry Song <baohua@kernel.org>
+Date: Sun, 30 Aug 2026 18:40:23 +0800
+X-Gmail-Original-Message-ID: <CAGsJ_4wvYNV2UMaFW0a3Fb9U09v6bPfXyg4Rzw4B27xo-NVYbw@mail.gmail.com>
+X-Gm-Features: AcwNN1W5OF4FZEbyI9ahVrtlbMzghVUAZzbwgduCOLK4Zm5BUL7Ps1VGygdfhkY
+Message-ID: <CAGsJ_4wvYNV2UMaFW0a3Fb9U09v6bPfXyg4Rzw4B27xo-NVYbw@mail.gmail.com>
+Subject: Re: [PATCH v2 2/2] mm/mglru: fix ineffective memory protection for
+ non-kswapd reclaim
+To: Ridong Chen <ridong.chen@linux.dev>
+Cc: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
+	Roman Gushchin <roman.gushchin@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	Andrew Morton <akpm@linux-foundation.org>, Muchun Song <muchun.song@linux.dev>, 
+	Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+	Wei Xu <weixugc@google.com>, David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+	Chris Down <chris@chrisdown.name>, Tejun Heo <tj@kernel.org>, Yu Zhao <yuzhao@google.com>, 
+	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>, 
+	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <linux-mm@kvack.org>, linux-kernel@vger.kernel.org, 
+	Ridong Chen <chenridong@xiaomi.com>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The existing roundup_pow_of_two() and rounddown_pow_of_two() functions work
-on values of type unsigned long, which is 32-bit on 32-bit systems.
-Equally, is_power_of_2() operates on an unsigned long.
+On Sun, Aug 30, 2026 at 6:13=E2=80=AFPM Ridong Chen <ridong.chen@linux.dev>=
+ wrote:
+>
+>
+>
+> On 8/30/2026 3:53 PM, Barry Song wrote:
+> > On Fri, Aug 28, 2026 at 7:10=E2=80=AFPM Ridong Chen <ridong.chen@linux.=
+dev> wrote:
+> >>
+> >> From: Ridong Chen <chenridong@xiaomi.com>
+> >>
+> >> memory.min/low is silently bypassed for MGLRU during global proactive
+> >> reclaim (writing to the root memory.reclaim) and global direct reclaim=
+.
+> >
+> > I guess nobody is silently bypassing anything. It's just that the
+> > effective min is stale data. If kswapd has run at least once, should
+> > the protection have been updated already?
+> > I guess we need to update the changelog a bit?
+> >
+>
+> The children's emin/elow are derived from the parent's min/low settings a=
+nd
+> children_min_usage, both of which can change over time. As a result, emin=
+/elow
+> may become stale, even if kswapd has already run once.
 
-There are several instances where 64-bit safe versions of these (which
-operate on a 64-bit value regardless of sizeof(long)) are required. Most
-particularly, some hardware (especially GPUs) have 64-bit address spaces,
-and some formats (such as filesystems) use 64-bit offsets. Some of these
-(such as i915 and btrfs) have already implemented their own 64-bit
-is_power_of_2() helpers.
+right, let's just say this in changelog, we are *not* bypassing we are
+just checking
+against stable data. The current changelog seems to be misleading.
 
-Add a version of these which always operate on a 64-bit value. These have
-the (unimaginative) names:
-- is_power_of_2_u64()
-- roundup_pow_of_two_u64(), and
-- rounddown_pow_of_two_u64()
-and otherwise work identically to their unsigned long counterparts.
+[...]
+> >> +void mem_cgroup_protection_path(struct mem_cgroup *root,
+> >> +                               struct mem_cgroup *memcg)
+> >
+> > Can we rename it to `mem_cgroup_calculate_protection_path()`?
+> >
+> > BTW, I see that the only caller is in vmscan and it passes NULL as
+> > `root`. Do we need to keep the `root` argument if the new helper is
+> > only used for global reclaim?
+> >
+> I'd suggest keeping it as is. This function updates protection along the =
+path
+> from root to memcg, and could be reused later. Note that
+> mem_cgroup_calculate_protection() assumes the caller has already performe=
+d the
+> top-down walk, each level's calculation depends on its parent being updat=
+ed first.
+>
+> For mem_cgroup_calculate_protection_path(), it can be called in any conte=
+xt
+> without such a precondition.
 
-To avoid conflicts, the i915 implementation is also removed here. The btrfs
-one (which has a different name) is replaced in a separate patch.
+I am fine with this -  keeping the root there. but I guess rename is worth =
+it.
 
-Signed-off-by: David Gow <david@davidgow.net>
----
-
-This patch adds u64 helpers, and the following two use them. And v2 also
-has the i915 change to remove the conflicting implementation.
-
-So I'm not sure who best wants to take these. Ultimately it's an include/linux
-change, but it touches i915, patch 2 touches GPU/DRM, and patch 3 btrfs.
-Personally, I'm keen to get patch 2 in, as it fixes a real issue, so if taking
-1 and 2 via DRM makes more sense, that's fine by me.
-
-Changes since v1:
-https://lore.kernel.org/all/20260821091918.1902032-1-david@ingeniumdigital.com/
-- Include is_power_of_2_u64() as well, and remove the i915 version
-  (Thanks, Matthew)
-- Use _u64 as a suffix for the 64-bit versions, not just 64
-  (This is a much nicer name, and matches what everone else was doing)
-- Fix some comment typos.
-- Add a third patch which removes a similar is_power_of_two_u64() helper
-  from btrfs.
-
----
- drivers/gpu/drm/i915/i915_utils.h |  5 ---
- include/linux/log2.h              | 73 +++++++++++++++++++++++++++++++
- 2 files changed, 73 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/i915_utils.h b/drivers/gpu/drm/i915/i915_utils.h
-index ecc20e0528f4..1cec51984d8c 100644
---- a/drivers/gpu/drm/i915/i915_utils.h
-+++ b/drivers/gpu/drm/i915/i915_utils.h
-@@ -75,11 +75,6 @@ struct drm_i915_private;
- 	__idx;								\
- })
- 
--static inline bool is_power_of_2_u64(u64 n)
--{
--	return (n != 0 && ((n & (n - 1)) == 0));
--}
--
- void add_taint_for_CI(struct drm_i915_private *i915, unsigned int taint);
- static inline void __add_taint_for_CI(unsigned int taint)
- {
-diff --git a/include/linux/log2.h b/include/linux/log2.h
-index e17ceb32e0c9..fc44e59f5732 100644
---- a/include/linux/log2.h
-+++ b/include/linux/log2.h
-@@ -47,6 +47,22 @@ bool is_power_of_2(unsigned long n)
- 	return n - 1 < (n ^ (n - 1));
- }
- 
-+/**
-+ * is_power_of_2_u64() - check if a 64-bit value is a power of two
-+ * @n: the value to check
-+ *
-+ * Determine whether some value is a power of two, where zero is
-+ * *not* considered a power of two. Unlike is_power_of_2, this version
-+ * always operates on 64-bit values, even on 32-bit architectures where
-+ * long is 32-bit.
-+ * Return: true if @n is a power of 2, otherwise false.
-+ */
-+static __always_inline __attribute_const__
-+bool is_power_of_2_u64(u64 n)
-+{
-+	return n - 1 < (n ^ (n - 1));
-+}
-+
- /**
-  * __roundup_pow_of_two() - round up to nearest power of two
-  * @n: value to round up
-@@ -195,6 +211,63 @@ unsigned long __rounddown_pow_of_two(unsigned long n)
- 	__rounddown_pow_of_two(n)		\
-  )
- 
-+/**
-+ * __rounddown_pow_of_two_64() - round a 64-bit value down to nearest power of two
-+ * @n: value to round down
-+ */
-+static inline __attribute_const__
-+u64 __rounddown_pow_of_two_u64(u64 n)
-+{
-+	return 1ULL << ilog2(n);
-+}
-+
-+/**
-+ * rounddown_pow_of_two_u64 - round a 64-bit value down to nearest power of two
-+ * @n: parameter
-+ *
-+ * round the given value down to the nearest power of two
-+ * - this always operates on 64-bit values, even on 32-bit systems
-+ * - the result is undefined when n == 0
-+ * - this can be used to initialise global variables from constant data
-+ */
-+#define rounddown_pow_of_two_u64(n)		\
-+(						\
-+	__builtin_constant_p(n) ? (		\
-+		((n) == 1) ? 1ULL :		\
-+		(1ULL << ilog2((n)))		\
-+				   ) :		\
-+	__rounddown_pow_of_two_u64(n)		\
-+)
-+
-+
-+/**
-+ * __roundup_pow_of_two_u64() - round a 64-bit value up to nearest power of two
-+ * @n: value to round up
-+ */
-+static inline __attribute_const__
-+u64 __roundup_pow_of_two_u64(u64 n)
-+{
-+	return 1ULL << (ilog2(n - 1) + 1);
-+}
-+
-+/**
-+ * roundup_pow_of_two_u64 - round a 64-bit value up to nearest power of two
-+ * @n: parameter
-+ *
-+ * round the given value up to the nearest power of two
-+ * - this always operates on 64-bit values, even on 32-bit systems
-+ * - the result is undefined when n == 0
-+ * - this can be used to initialise global variables from constant data
-+ */
-+#define roundup_pow_of_two_u64(n)		\
-+(						\
-+	__builtin_constant_p(n) ? (		\
-+		((n) == 1) ? 1ULL :		\
-+		(1ULL << (ilog2((n) - 1) + 1))	\
-+				   ) :		\
-+	__roundup_pow_of_two_u64(n)		\
-+)
-+
- static inline __attribute_const__
- int __order_base_2(unsigned long n)
- {
--- 
-2.55.0
-
+Best Regards
+Barry
