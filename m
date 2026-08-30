@@ -1,149 +1,136 @@
-Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com [136.143.188.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f45.google.com (mail-lf1-f45.google.com [209.85.167.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4420521B192;
-	Sun, 30 Aug 2026 18:54:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E36D221257F
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 19:01:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.45
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788116047; cv=pass; b=VvWbuVjM8i5gMWmITLqrP0KDdTNzh5kq1sb/8crE5Ro0agUUaJKyin91BoSb9FQWAghWTU17gqa8ktaWfdCRjrOHSoyLGvyNaeWeBZgCy5y02WO2//tTBN+2sENsgSaYS6v+Dz8dh16o4sdmaMAizRKas+NA/X91F8v7H944xs8=
+	t=1788116520; cv=pass; b=llsjLkohyXe9tiqychNZBvBBxREDtG3CNAgulRCqsH5ym5uWQYwefb3uLZ2w36lyTO2X9BqF0PvqnmMZDGcIkWo9QDyBx7mebSVsEZE4zgDA0E0roaXUnbPoYe7EU52JGlV94wzWwwF0WHVaeBnao8lhXM01RfHqfC7ndZRDkh8=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788116047; c=relaxed/simple;
-	bh=EXAnMJ6xRJh+Me6kD0bTLQJDHBFIcMtq3O0tDNsN/+Y=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=m5KZqdU9daKNa+yiia7I2Dz6F/iU26QTHTd9XlIJJFHwa+lsWw/m/4csWgrMMUetzDTzYjTGEw+FTZRwBqgXUIXawDr/052FXc1AX17PU2MMZJX0XGqLRSIw1b9Bk4eW8FuH3oJqtLSGFjBoKaZuvzI3l5RIOnt8zknCz/ZrJmc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ziyao.cc; spf=pass smtp.mailfrom=ziyao.cc; dkim=pass (1024-bit key) header.d=ziyao.cc header.i=me@ziyao.cc header.b=gV+lB/Ic; arc=pass smtp.client-ip=136.143.188.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ziyao.cc
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziyao.cc
+	s=arc-20240116; t=1788116520; c=relaxed/simple;
+	bh=Aw69XSiWbGpFsFLtQRZwB1RWfF9glV45DFF9AfI7qow=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=dIqgE7axRAFCfJtwwo3YdMza7JFB/GBPtWtwPiFHZ9Q7fLA0E2GWea4XtWhFr5+aHXOlbUPnFqifaGgZyTp//iAJhqSLm7Ns2dGY9qeU05wCEbW0ykM8iEURMJcOMCHFSj6KxlHlzPyJxYt7KA7aSJSu2cLgfqsvZ8eipotnlh4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mI1vRdJk; arc=pass smtp.client-ip=209.85.167.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ziyao.cc header.i=me@ziyao.cc header.b="gV+lB/Ic"
-ARC-Seal: i=1; a=rsa-sha256; t=1788116008; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=J9pPgTGIWkMZT/3kcW8s3iyH3mjyqeElsf5bAvw8Faod+/zY3tXC+Tu8SjrvaiY/iqb0I5EeACcU2ERDgrPyil2AHWMMEGiT/bpTq6Hhiw1YbDpHuSn+TOlcsZtvMBXkAktzrJN9ZACKEvXrfASlW03X+mVliCZR2/jDCIodjVA=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1788116008; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=nVDIHfbzyQ8ElDQ6asi5CRQYO2SYCRhwy8nKszFhgXE=; 
-	b=Nst6fob6AmqcyVng6Ai1+J4+iWEEcX0QzPrIEl6XaAzAYQuzUVqgyHSdbMyEcI+Ur4XJ/BEb808B4Nw+bzF3a54QlBWNJn/SIi/7UATz3Nhsv52e67OUAuS4uChZR/0jZyCXaKe1NlaN+CXzA7q4hu5GtV8Fv6TNj9UIWocgTIU=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=ziyao.cc;
-	spf=pass  smtp.mailfrom=me@ziyao.cc;
-	dmarc=pass header.from=<me@ziyao.cc>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1788116008;
-	s=zmail; d=ziyao.cc; i=me@ziyao.cc;
-	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:In-Reply-To:Message-Id:Reply-To;
-	bh=nVDIHfbzyQ8ElDQ6asi5CRQYO2SYCRhwy8nKszFhgXE=;
-	b=gV+lB/IczCLw56DM6o/kKneXdg3VmBKnUY0te+8GoVcCTl9/xpgGrA7bJSjDkbfG
-	wXWkEf0yuUMTIcUwvC6FOmoeEj96fckJ/eQ7RBLTzPoYGB1XycmhySdfVXmixleoryD
-	Tnp7fxEjhHdqedAJ7vgGJ5kKr5JTSXgfv8oXJBEQ=
-Received: by mx.zohomail.com with SMTPS id 1788116003921735.6548742229019;
-	Sun, 30 Aug 2026 11:53:23 -0700 (PDT)
-Date: Sun, 30 Aug 2026 18:53:07 +0000
-From: Yao Zi <me@ziyao.cc>
-To: Weijie Yuan <wy@wyuan.org>, Yao Zi <me@ziyao.cc>
-Cc: Yukai Wu <xiaoyewuz.ruster@gmail.com>, Alex Shi <alexs@kernel.org>,
-	Yanteng Si <si.yanteng@linux.dev>, Jonathan Corbet <corbet@lwn.net>,
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Dongliang Mu <dzm91@hust.edu.cn>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Alexandre Ghiti <alex@ghiti.fr>, linux-doc@vger.kernel.org,
-	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] docs/zh_CN: Update arch/riscv/vm-layout.rst translation
-Message-ID: <apR8CoTs4hj-vqLG@pie>
-References: <20260829041542.256360-1-xiaoyewuz.Ruster@gmail.com>
- <apMPjRICH06wAxPp@pie>
- <apQ-7U-omIeXvZ1N@wyuan.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mI1vRdJk"
+Received: by mail-lf1-f45.google.com with SMTP id 2adb3069b0e04-5b0115b9e17so2891400e87.0
+        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 12:01:58 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788116517; cv=none;
+        d=google.com; s=arc-20260327;
+        b=T0xmBtWp5MF+y01WEa4opza0oQdvLWfk4f2MR/MVVIVuz2wpwjiQva3Eq3dkqoThur
+         gPM674LbXiSols2MAy30EY5eUGdqzdJDW2r/yRGbQn7jat4CkkcjuxjEqff0hIpUJq+1
+         Mud6oFI/Qve5QViI5ImO7z+mra58vO39WUZFOUX6jBmV+hPFBGwPrmhZd2VOuwh8iR6o
+         5QcplLSIXs4mWKkRywQax/HOHTHDI7/QZdoUG0fCn4pipHiKUxkDMGVJpcdORzTJ6Dqu
+         9OLwtdm9kCg9oze00/z+sNrt6oD06ne5bHCWOtp4SIFsTzhJr546iIoQiQYJaUDgDrp0
+         bSvw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=xFCHS9y+rltPZAUUGlotlTizcT/cuz/3d41GnzmltgU=;
+        fh=TC4iTWK9TRgMMrcQajxT4QvIh+YxwwEfIuPxyGvJAIQ=;
+        b=rdE1QeE2vcFPin6rFg+RZAO3lSA+vauXaLh8VmifU+jbj8k6qRxMKZSUAKLWWnaDzV
+         /rEH6hZpEOIJ9hHKPpJYad0mWjIwIM5BLwmbVzm6e62NADwRSx3VKCUUAuvvEBsqsH4v
+         HamUFIVx60UQ9NUoyXrkhbi7TbvRX84Q3AZr0Tc5pBZvgb5WIdcKLaHV/vtlM3C0ffzC
+         Df5DjfVAl0Vt6zSqe51j56+QKnffor/ruuQnMPtDa097NISYOSF+kzxG5E6hby/RqlET
+         jYrB2EFPkyxwYIYUB83J+BSunwOYncq+FjLUF8cOH7a25Yw4Ncp+AsrDDbnFnJj+SJhW
+         aKAQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788116517; x=1788721317; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=xFCHS9y+rltPZAUUGlotlTizcT/cuz/3d41GnzmltgU=;
+        b=mI1vRdJkRcEVtShqqwSysrw4htE3t/TS3UrqNGsOxMyEXBXMDbaUsjluyHFinjUU29
+         +8qVGWk92eKV2b/BBheRf08VKjj13bBX4JdmV4VMOKs+Uojit/vKky4qsZaWkB777ZgM
+         LBu1NXhJtWajL1J1vevS6jK/HGEi032F5S7uSUqa4+czw+ZK6wlcMavjcCPmOEHU7Ac1
+         u51klvbQ1EZlOyf1EQKEn7Zlap9m7dP/ezw9rC36/p2rffji6F/GkLBp6Ix3iVUg1enE
+         3EQR3UGkkzu3S+et1eb3s3szYntcSNYXxItJvHyLRAQMEceYUDldOWpf2M9161E2B1nQ
+         5yUA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788116517; x=1788721317;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=xFCHS9y+rltPZAUUGlotlTizcT/cuz/3d41GnzmltgU=;
+        b=jBrhZ6C4mh3RNvj1UL2LWwv3+Tull5fVF+FHI4Ie/+/NdNu+vDNE3wrfkUJjbLxy/e
+         aIofixiIBwnyTvfj+gW6/LTZrno2S8eoKtB8FXFhh0tFff0sQhU/PZkGZx0kmB55hHIF
+         hzTG6vWcSNg2olXads1dtsbB91hc7O13ELEAT1JdldpI7I6OXuRpd5zH41bePOZK9xCW
+         RyGrVbBrFm2To4Z/GljbVArwjyj7cVq4LM1L92gDzgUECcDnzELqv9eaGsIcrVDsEMYI
+         jFtEq3ykSNO8JA2wOKPNLtHqpcgyHW5z6Fa0k6rENv01RdXWEuN1WmZoObTabQ147G2P
+         NN0g==
+X-Forwarded-Encrypted: i=1; AKwUvBz3MuVqnY6ltHqK65cfVkSQ35s+bEyEgq/vbRjQUm5Kst9c8hz1brgBcHebsg++tvLs5xlJ5Cr4MS+QNdE=@vger.kernel.org
+X-Gm-Message-State: AFuF++lXT2QSzj8axqXIUUudn/Z5brhtLy9jq/4RBS8JyCI1dGVj+RR0
+	Zj/fB06MC0f/EL14TrBOrc+qW0BddWvv93kyZXIUxNX/ELfOlfd4Bt3no6V30eFNYtWy5Wevpoq
+	awDUu+k+ourf8ZOY69rF/oiPc/p8StG4eR/o5v+puhjBRJQ==
+X-Gm-Gg: AYBFou0guPKDS5yXzy9JNHCnx5ed9gKMdmaCb7pGTuBQVcBH8hsnnD8tftsMcyyY0a1
+	7Yi24VUwsa2/D+JYMNwfYWTUo/7cBfSx6MFhmlkJ9Lrhiqdv36LkedtNv/lEcbY+Y4u7AoN2TiF
+	wtJYG7pPx9lEe6VWQhVwUoWDIc12TSeCYtrc3K/yKCM2aMP/wCiNuwVgtrNxIf+DiTlZ7aefOFo
+	lXAnW6zi/hyfRHelv+aPjrryEl31NV5em9RWQuottfYjKWmfDkXdDvvsTZDSb29s0ssMHiCWItB
+	RVt5HT90EVtvSr2scBNj5a81s0gunCpkFvklYsov9byukVajghOKGZc5F6a4w5o=
+X-Received: by 2002:a05:6512:4605:b0:5b2:a6e6:8d83 with SMTP id
+ 2adb3069b0e04-5b5e6b07d24mr6613988e87.23.1788116516570; Sun, 30 Aug 2026
+ 12:01:56 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <apQ-7U-omIeXvZ1N@wyuan.org>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.10.1.5.2/288.103.78
-X-ZohoMailClient: External
+References: <20260830054237.2147950-1-donggeunyoo.kernel@gmail.com> <20260830174116.36fccbdb@systembl0wer>
+In-Reply-To: <20260830174116.36fccbdb@systembl0wer>
+From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+Date: Mon, 31 Aug 2026 04:01:43 +0900
+X-Gm-Features: AcwNN1V1FvmhrwbE6PvSdYFPuLz9cA0AaGTHVxRNN4ZJggNHXTVHV3ILC6479Hg
+Message-ID: <CAGdSRjkCaEKCcwvZaE+V_jFXdPATJfa0MAW5fybyKU9+pFHGbQ@mail.gmail.com>
+Subject: Re: [PATCH] iio: light: vcnl4000: use sysfs_emit() for near_level
+To: Joshua Crofts <joshua.crofts1@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+	=?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
+	Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Sun, Aug 30, 2026 at 10:32:13PM +0800, Weijie Yuan wrote:
-> On Sat, Aug 29, 2026 at 04:57:49PM +0000, Yao Zi wrote:
-> > On Sat, Aug 29, 2026 at 12:15:10PM +0800, Yukai Wu wrote:
-> > > Update Documentation/arch/riscv/vm-layout.rst translation.
-> > > 
-> > > Update the translation through commit 954260ff5a46
-> > > ("Revert "RISC-V: mm: Document mmap changes"")
-> > > 
-> > > Signed-off-by: Yukai Wu <xiaoyewuz.Ruster@gmail.com>
-> > > ---
-> > >  .../zh_CN/arch/riscv/vm-layout.rst             | 18 +++++++++---------
-> > >  1 file changed, 9 insertions(+), 9 deletions(-)
-> > > 
-> > > diff --git a/Documentation/translations/zh_CN/arch/riscv/vm-layout.rst b/Documentation/translations/zh_CN/arch/riscv/vm-layout.rst
-> > > index 4b9f4dcf6c19..0d0ec8ea5d05 100644
-> > > --- a/Documentation/translations/zh_CN/arch/riscv/vm-layout.rst
-> > > +++ b/Documentation/translations/zh_CN/arch/riscv/vm-layout.rst
-> > > @@ -15,7 +15,7 @@ RISC-V Linux上的虚拟内存布局
-> > >  :作者: Alexandre Ghiti <alex@ghiti.fr>
-> > >  :日期: 12 February 2021
-> > >  
-> > > -这份文件描述了RISC-V Linux内核使用的虚拟内存布局。
-> > > +这份文件描述了 RISC-V Linux 内核使用的虚拟内存布局。
-> > >  
-> > >  32位 RISC-V Linux 内核
-> > >  ======================
-> > > @@ -28,9 +28,9 @@ TODO
-> > >  64位 RISC-V Linux 内核
-> > >  ======================
-> > >  
-> > > -RISC-V特权架构文档指出，64位地址 "必须使第63-48位值都等于第47位，否则将发生缺页异常。"：这将虚
-> > > -拟地址空间分成两半，中间有一个非常大的洞，下半部分是用户空间所在的地方，上半部分是RISC-V Linux
-> > > -内核所在的地方。
-> > > +RISC-V 特权架构文档指出，64 位地址“必须使第 63-48 位值都等于第 47 位，否则将发生缺页异常。”：
-> > > +这将虚拟地址空间分成两半，中间有一个非常大的洞，下半部分是用户空间所在的地方，上半部分是 RISC-V
-> > > +Linux 内核所在的地方。
-> > 
-> > I think changes above are purely style improvements? If so please
-> > mention it in the commit message, instead of specifying it's "updating"
-> > only.
-> 
-> Agreed. To put it further, I think the commit message template we
-> provided in how-to.rst [1] is somewhat like telling contributors: That's
-> all you need to do.
+> You should also include <linux/sysfs.h>.
 
-Oops, I don't even realize it's part of our existing contributing
-guide...
+Thanks, added in v2.
 
-> Of course, in some cases, the patch is quite simple and there is nothing
-> else to elaborate on. However, in some cases, such as when making
-> extensive changes and updates, we should encourage contributors to write
-> down some relevant information for future reference.
-> 
-> Similarly, just like this patch, the author did more than just update;
-> he also carried out other actions, but failed to include the relevant
-> details in the commit message. So I feel that perhaps our template might
-> have somewhat restricted our writing? (to some extent)
 
-Agree.
-
-> Sure, the requirements for commit messages in the Chinese documentation
-> are certainly not as strict as those for the more core subsystems.
-> However, I do think it's fine to appropriately explicitly encourage
-> contributors to include more meaningful relevant information in the
-> commit messages.
-> 
-> Any ideas for this, or any objections? ;)
-
-I think it's worth pointing out that the template commit message is for
-reference only in how-to.rst, and guiding readers to
-submitting-patches.rst so at least newcomers have a brief understanding
-of the process and requirements.
-
-Now how-to.rst refers process/index.rst, but this index seems to contain
-too much for anyone unfamiliar with the process to read through.
-
-> Thanks!
-> 
-> [1] https://docs.kernel.org/translations/zh_CN/how-to.html#id13
-
-Regards,
-Yao Zi
+On Mon, Aug 31, 2026 at 12:41=E2=80=AFAM Joshua Crofts <joshua.crofts1@gmai=
+l.com> wrote:
+>
+> On Sun, 30 Aug 2026 14:42:36 +0900
+> Donggeun Yoo <donggeunyoo.kernel@gmail.com> wrote:
+>
+> > Use sysfs_emit() instead of sprintf() for writing to the sysfs
+> > output buffer. sysfs_emit() is aware of the buffer's PAGE_SIZE
+> > limit and is the preferred helper for sysfs callbacks.
+> >
+> > Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+> > ---
+> >  drivers/iio/light/vcnl4000.c | 2 +-
+> >  1 file changed, 1 insertion(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/iio/light/vcnl4000.c b/drivers/iio/light/vcnl4000.=
+c
+> > index 336468d59ea7..dac235dd6220 100644
+> > --- a/drivers/iio/light/vcnl4000.c
+> > +++ b/drivers/iio/light/vcnl4000.c
+> > @@ -1504,7 +1504,7 @@ static ssize_t vcnl4000_read_near_level(struct ii=
+o_dev *indio_dev,
+> >  {
+> >       struct vcnl4000_data *data =3D iio_priv(indio_dev);
+> >
+> > -     return sprintf(buf, "%u\n", data->near_level);
+> > +     return sysfs_emit(buf, "%u\n", data->near_level);
+>
+> You should also include <linux/sysfs.h>.
+>
+> --
+> Kind regards,
+> Joshua Crofts
