@@ -1,37 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2727D2BFC8F;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33DE73033E3;
 	Sun, 30 Aug 2026 20:19:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788121184; cv=none; b=ppsfAxzQDRpkiDtorIhNawCvswpyQ5ZL1uB4GuSZO5E7uCQAGAHL3caV8yzK0vfPrlyPcgCPxxvrhPOAYVBqQnQ1Gv2tlLkawdALqw8sWjvihIteg6dokhqAmLk0a+ql2EY/u283UXgIR8b0SfcpbXIz4XiFav7tXPYVXb4uS2o=
+	t=1788121184; cv=none; b=WTpQpIZEnRwT7DUw1/as6+vX0BqljP/qNyigkGUZNWq5m2C9Ax8i3bf1mPKS3sO4V3aJmeJhP4IKEmpM32WIAF/mzG+wEVaVN1FFsZBDUxQCGYn/7QkGW7wfE7QSCcEnmlUK90QbUnReU1yp1WzSsYJsI8tICpu3eDIsmSJHYJ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788121184; c=relaxed/simple;
-	bh=AM+uADRTsie5/REEheLPhgbwiWPLSEIpJ/A32xZhBDE=;
+	bh=q5r1Np3eUnTrcGkauW7sWKDIVR3AiUTcYWTLnTecjRk=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=XiWGcYTkeYmn3MoM3OgsCeBG+DsS3BkWJ/2rMtBZeHpf1xCebqXxd1vWDUT4845xRSWPhG50MSeYRhcWhLkFMerJX4iM6SjbP2wHx/ZfU6SBG1qAfCeHPSiT0yc9m5Uo9/vIm1y8ihv0HFwjcPwF/BlWCWKsguMGiqJRZiJ9k/Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IWn/pepg; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=cZOyfRNS0YlfGfnB06oMh85ZB7opDUd+alCUOQII/umAiJJfQYTnei+kU2BclKBB2fnTW+0pho8S5GfBoQ22wZ6T8gUkTG1IcbISXY46Q7rHn37JGbMC32NxB+r5aTiwBhINf8YQmRoFaDSEpThIpEN/DjphwE/5OjESs0HBCV4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A/0hoQqM; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IWn/pepg"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id C369BC2BCFB;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A/0hoQqM"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id E69C6C2BD00;
 	Sun, 30 Aug 2026 20:19:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1788121183;
-	bh=AM+uADRTsie5/REEheLPhgbwiWPLSEIpJ/A32xZhBDE=;
+	s=k20201202; t=1788121184;
+	bh=q5r1Np3eUnTrcGkauW7sWKDIVR3AiUTcYWTLnTecjRk=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=IWn/pepgyYo0JXKFvZJneBbfzMIlaXqEXdcG76dca5SbUyXoqPjEcS0noCsRIZjUH
-	 641FkhSqmmX34iDI88DS9URNqb7vXhXh/52MxULj+QYpdYcgm+5GZPzVcJqZE0W4/s
-	 D6DBOq/FjbXHJyowVhx8VQK/1hopnSSVfCOVz62gPwgAUNQ6PDlMXpcLIFlWIe8KhL
-	 wMRqXHlj9baCWK82XspGFYFMpUUrVzkaMM6UaAcoI7yF1ec7YkZLSRCM90AuWbyS+b
-	 addNxzzOxaUljDnbdF9Tqo9J7xyNFKAA+gdHBxFHAqVbf+fG8ggmbE5eiRCatLPIvU
-	 EEGg6CvJ6ql3g==
+	b=A/0hoQqMWvuDHEBCBUQfEehc/0HPvx1YdDvn1Pe3wJRJgr7IIIkd7pyXIz7rpHf8+
+	 HhjqeA3tpxGqsRgMomY0JCexiuhPocIx7rgHQuF/MBhjTs4VI2521K/c/YsuawJ3s1
+	 OTYsuQyvvrwvwJiA4bZOSRXSPu+lhRwhcPwIsjmBZtn5VmSHPwrAnxO1ZaS3f/mMnQ
+	 1/QzEawK0X+QnWQd1OVekrA/VmIY6L65lcTtWX2SA9pN+Yxv+CExUIYuFVTgLGY0vr
+	 Sci12T4FnhBwU0Bsaoghsw1IHx8NM6kmyi00WXRvBQkodioPzIvf9plYnNIMJCP5sO
+	 zQs6CxL2ioo2g==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A4C56C61DE2;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C8542C61DE1;
 	Sun, 30 Aug 2026 20:19:43 +0000 (UTC)
 From: Sven Peter <sven@kernel.org>
-Date: Sun, 30 Aug 2026 22:19:19 +0200
-Subject: [PATCH 01/19] dt-bindings: usb: Add thunderbolt-switch property
+Date: Sun, 30 Aug 2026 22:19:21 +0200
+Subject: [PATCH 03/19] usb: typec: tipd: Hook up Thunderbolt switch for
+ CD321x
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -40,7 +41,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260830-b4-apple-soc-tbt-v1-1-44bc9348683c@kernel.org>
+Message-Id: <20260830-b4-apple-soc-tbt-v1-3-44bc9348683c@kernel.org>
 References: <20260830-b4-apple-soc-tbt-v1-0-44bc9348683c@kernel.org>
 In-Reply-To: <20260830-b4-apple-soc-tbt-v1-0-44bc9348683c@kernel.org>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
@@ -57,43 +58,150 @@ Cc: Konrad Dybcio <konradybcio@kernel.org>, linux-usb@vger.kernel.org,
  asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
  Sven Peter <sven@kernel.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1068; i=sven@kernel.org;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5456; i=sven@kernel.org;
  h=from:subject:message-id;
- bh=AM+uADRTsie5/REEheLPhgbwiWPLSEIpJ/A32xZhBDE=;
- b=owGbwMvMwCXmIlirolUq95LxtFoSQ9aUCUHRPSviIt489LzkwM0pd0Fr586tWgtyjb2DWzveW
- ChM4gnrKGVhEONikBVTZNm+3970ycM3gks3XXoPM4eVCWQIAxenAExkuh3DX/G2G2avHrYoTJ7C
- +bRsRUKc/SFv/RiWGesK6rhuxTKm9jL89746k2XX7OdTNVyO3+1co37q7uyN4p9cT608FVHpKWX
- 7iwcA
+ bh=q5r1Np3eUnTrcGkauW7sWKDIVR3AiUTcYWTLnTecjRk=;
+ b=owGbwMvMwCXmIlirolUq95LxtFoSQ9aUCcEvz8Zqf/RaeGPtVz3fzT37LhzIDzx/7okus8bvZ
+ rM/a9itO0pZGMS4GGTFFFm277c3ffLwjeDSTZfew8xhZQIZwsDFKQAT2S3B8Jvt8rrFP/3YZKd6
+ zJme18FY+uiBcf2mqjmJdQFubg+UuxYwMnQV3U8OTAtjz5IzcoqU3JwielmIabrcoY+/DJOy1y4
+ qZwQA
 X-Developer-Key: i=sven@kernel.org; a=openpgp;
  fpr=A1E3E34A2B3C820DBC4955E5993B08092F131F93
 X-Endpoint-Received: by B4 Relay for sven@kernel.org/default with
  auth_id=407
 
-The USB4/Thunderbolt host routers on Apple Silicon SoCs require cable
-and mode details to be provided out-of-band by the Type-C port controller.
-Add a thunderbolt-switch property next to the existing orientation and mode
-switches which marks a node as handler of these notifications.
+Look up the Thunderbolt switch for CD321x ports and forward cable details
+whenever a Thunderbolt or USB4 connection comes up or goes away.
 
 Signed-off-by: Sven Peter <sven@kernel.org>
 ---
- Documentation/devicetree/bindings/usb/usb-switch.yaml | 6 ++++++
- 1 file changed, 6 insertions(+)
+ drivers/usb/typec/tipd/core.c | 37 +++++++++++++++++++++++++++++++++++++
+ 1 file changed, 37 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/usb/usb-switch.yaml b/Documentation/devicetree/bindings/usb/usb-switch.yaml
-index f77731493dc4..5d125fbb252d 100644
---- a/Documentation/devicetree/bindings/usb/usb-switch.yaml
-+++ b/Documentation/devicetree/bindings/usb/usb-switch.yaml
-@@ -25,4 +25,10 @@ properties:
-     description: Possible handler of SuperSpeed signals retiming
-     type: boolean
+diff --git a/drivers/usb/typec/tipd/core.c b/drivers/usb/typec/tipd/core.c
+index 522f56742aa9..5016f9dba956 100644
+--- a/drivers/usb/typec/tipd/core.c
++++ b/drivers/usb/typec/tipd/core.c
+@@ -216,6 +216,8 @@ struct cd321x {
+ 	struct typec_mux *mux;
+ 	struct typec_mux_state state;
  
-+  thunderbolt-switch:
-+    description:
-+      Possible handler of USB4/Thunderbolt host router activation and cable
-+      information updates
-+    type: boolean
++	struct typec_thunderbolt_switch *tbt_switch;
 +
- additionalProperties: true
+ 	struct cd321x_status update_status;
+ 	struct delayed_work update_work;
+ 	struct usb_pd_identity cur_partner_identity;
+@@ -677,6 +679,9 @@ static void tps6598x_handle_plug_event(struct tps6598x *tps, u32 status)
+ static void cd321x_typec_update_mode(struct tps6598x *tps, struct cd321x_status *st)
+ {
+ 	struct cd321x *cd321x = container_of(tps, struct cd321x, tps);
++	struct typec_thunderbolt_switch_data tbt_switch_data = {
++		.state = TYPEC_THUNDERBOLT_SWITCH_OFF,
++	};
+ 
+ 	if (!(st->data_status & TPS_DATA_STATUS_DATA_CONNECTION)) {
+ 		if (cd321x->state.mode == TYPEC_STATE_SAFE)
+@@ -684,6 +689,7 @@ static void cd321x_typec_update_mode(struct tps6598x *tps, struct cd321x_status
+ 		cd321x->state.alt = NULL;
+ 		cd321x->state.mode = TYPEC_STATE_SAFE;
+ 		cd321x->state.data = NULL;
++		typec_thunderbolt_switch_set(cd321x->tbt_switch, &tbt_switch_data);
+ 		typec_mux_set(cd321x->mux, &cd321x->state);
+ 	} else if (st->data_status & TPS_DATA_STATUS_DP_CONNECTION) {
+ 		struct typec_displayport_data dp_data;
+@@ -723,6 +729,7 @@ static void cd321x_typec_update_mode(struct tps6598x *tps, struct cd321x_status
+ 		cd321x->state.alt = cd321x->port_altmode_dp;
+ 		cd321x->state.data = &dp_data;
+ 		cd321x->state.mode = mode;
++		typec_thunderbolt_switch_set(cd321x->tbt_switch, &tbt_switch_data);
+ 		typec_mux_set(cd321x->mux, &cd321x->state);
+ 	} else if (st->data_status & TPS_DATA_STATUS_TBT_CONNECTION) {
+ 		struct typec_thunderbolt_data tbt_data;
+@@ -738,6 +745,13 @@ static void cd321x_typec_update_mode(struct tps6598x *tps, struct cd321x_status
+ 		cd321x->state.mode = TYPEC_TBT_MODE;
+ 		cd321x->state.data = &tbt_data;
+ 		typec_mux_set(cd321x->mux, &cd321x->state);
++
++		tbt_switch_data.state = TYPEC_THUNDERBOLT_SWITCH_TBT;
++		tbt_switch_data.tbt = tbt_data;
++		tbt_switch_data.orientation = TPS_STATUS_TO_UPSIDE_DOWN(st->status) ?
++						      TYPEC_ORIENTATION_REVERSE :
++						      TYPEC_ORIENTATION_NORMAL;
++		typec_thunderbolt_switch_set(cd321x->tbt_switch, &tbt_switch_data);
+ 	} else if (st->data_status & CD321X_DATA_STATUS_USB4_CONNECTION) {
+ 		struct enter_usb_data eusb_data;
+ 
+@@ -752,12 +766,20 @@ static void cd321x_typec_update_mode(struct tps6598x *tps, struct cd321x_status
+ 		cd321x->state.data = &eusb_data;
+ 		cd321x->state.mode = TYPEC_MODE_USB4;
+ 		typec_mux_set(cd321x->mux, &cd321x->state);
++
++		tbt_switch_data.state = TYPEC_THUNDERBOLT_SWITCH_USB4;
++		tbt_switch_data.usb4 = eusb_data;
++		tbt_switch_data.orientation = TPS_STATUS_TO_UPSIDE_DOWN(st->status) ?
++						      TYPEC_ORIENTATION_REVERSE :
++						      TYPEC_ORIENTATION_NORMAL;
++		typec_thunderbolt_switch_set(cd321x->tbt_switch, &tbt_switch_data);
+ 	} else {
+ 		if (cd321x->state.alt == NULL && cd321x->state.mode == TYPEC_STATE_USB)
+ 			return;
+ 		cd321x->state.alt = NULL;
+ 		cd321x->state.mode = TYPEC_STATE_USB;
+ 		cd321x->state.data = NULL;
++		typec_thunderbolt_switch_set(cd321x->tbt_switch, &tbt_switch_data);
+ 		typec_mux_set(cd321x->mux, &cd321x->state);
+ 	}
+ 
+@@ -771,6 +793,9 @@ static void cd321x_update_work(struct work_struct *work)
+ 					    struct cd321x, update_work);
+ 	struct tps6598x *tps = &cd321x->tps;
+ 	struct cd321x_status st;
++	struct typec_thunderbolt_switch_data tbt_switch_data = {
++		.state = TYPEC_THUNDERBOLT_SWITCH_OFF,
++	};
+ 
+ 	guard(mutex)(&tps->lock);
+ 
+@@ -821,6 +846,7 @@ static void cd321x_update_work(struct work_struct *work)
+ 
+ 	/* If there was a disconnection, set PHY to off */
+ 	if (!new_connected || was_disconnected) {
++		typec_thunderbolt_switch_set(cd321x->tbt_switch, &tbt_switch_data);
+ 		cd321x->state.alt = NULL;
+ 		cd321x->state.mode = TYPEC_STATE_SAFE;
+ 		cd321x->state.data = NULL;
+@@ -1328,6 +1354,12 @@ cd321x_register_port(struct tps6598x *tps, struct fwnode_handle *fwnode)
+ 		goto err_unregister_altmodes;
+ 	}
+ 
++	cd321x->tbt_switch = fwnode_typec_thunderbolt_switch_get(fwnode);
++	if (IS_ERR(cd321x->tbt_switch)) {
++		ret = PTR_ERR(cd321x->tbt_switch);
++		goto err_unregister_mux;
++	}
++
+ 	cd321x->state.alt = NULL;
+ 	cd321x->state.mode = TYPEC_STATE_SAFE;
+ 	cd321x->state.data = NULL;
+@@ -1335,6 +1367,9 @@ cd321x_register_port(struct tps6598x *tps, struct fwnode_handle *fwnode)
+ 
+ 	return 0;
+ 
++err_unregister_mux:
++	typec_mux_put(cd321x->mux);
++	cd321x->mux = NULL;
+ err_unregister_altmodes:
+ 	typec_unregister_altmode(cd321x->port_altmode_dp);
+ 	typec_unregister_altmode(cd321x->port_altmode_tbt);
+@@ -1356,6 +1391,8 @@ cd321x_unregister_port(struct tps6598x *tps)
+ {
+ 	struct cd321x *cd321x = container_of(tps, struct cd321x, tps);
+ 
++	typec_thunderbolt_switch_put(cd321x->tbt_switch);
++	cd321x->tbt_switch = NULL;
+ 	typec_mux_put(cd321x->mux);
+ 	cd321x->mux = NULL;
+ 	typec_unregister_altmode(cd321x->port_altmode_dp);
 
 -- 
 2.55.0
