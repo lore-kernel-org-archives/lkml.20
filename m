@@ -1,148 +1,92 @@
-Received: from mail-yx1-f45.google.com (mail-yx1-f45.google.com [74.125.224.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A5913A48E4
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 14:19:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.45
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788099577; cv=pass; b=fa3qp0bFV3tF+n5spy3jR0k84W396I0dGvRNNE65wuRrzYgeFkzDDo3j57UAr+rEeDxzmhfXYmbohvAjbqow0cyLZD9cuOAlt9KWHmeRshVAVE8oDU7PjKZOwcoBSAzRVvSvXC/0Jxh7EC7Y0gpHgKOy77toqMtgdCMGLOa67pg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788099577; c=relaxed/simple;
-	bh=ucHaSmmK3HDJRBDMZKovNeMryNnaSYvBg6uxiM9ku9k=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=euVwZtoCel/2auMylnN/1/QiMH03k9cPhILelnjLH60CIIu3faHuGxsdQ4Pqh5xBZTEzBb/OWxNU/h8laXh7BlilzaZnevfJ+5a9HGVSMTC+si0PRF0A5pldl3yUfeolYe8ZOwWJBiTQtcehf0YomItOhLHjWG2sBvYSXN5QhMo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bozai+pb; arc=pass smtp.client-ip=74.125.224.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E17683B6BF4;
+	Sun, 30 Aug 2026 14:20:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788099653; cv=none; b=IUXpin8j9WELz9ryJmEBfkBxNKZm0x1TUzIwXiiUjuekYcFfCNNpIF678AX3ebvPzHNyZ4W2CXuYjXIczMCBuG1wv7JM7AmnSAXyYQx7HwZkAH7CE4hkgZu+1vl/eICuGbsnZzm5fs3sEc0iqG8WqKQNL5w48VWlDAaQpwMVfQw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788099653; c=relaxed/simple;
+	bh=T03PuuoSRa1jWsCZpYBXs4OhFF/fgPSmDr0NaF8p8PE=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=oQbMOB2FCnRSmbbNfMAQ+DtM5OwodoFCG+B1N+Z5Qf87gyU6g/lhz9XRrF8nGfk9oHZoqjtvqV+0OMsxO8oWuL2BJK68GA5roJIALE33fFK8mpPbznD3LstZVS9KiX5nYsG/96+IJCtEoHDPvk7PbYVIprrkmFFY+feI+E0+VK4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=V3MtdQBH; arc=none smtp.client-ip=101.71.155.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bozai+pb"
-Received: by mail-yx1-f45.google.com with SMTP id 956f58d0204a3-66c7e3a2332so2422836d50.2
-        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 07:19:27 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788099563; cv=none;
-        d=google.com; s=arc-20260327;
-        b=kFNTSCiqA43Q979mnNHQLlzPLhqbWNoruURGby4mljuAZM+uHk3Dr4gd25UGiVQbaT
-         s/CQ7Yjg1/jesLjr6Zy6Oz45YNmOgIDOK2HK8fetBDRWPKARvIdGH9JvjM6oZ7VxphSj
-         7tCJR/llc/L/RnBacCAVe9kpr1WZqouRkf9cFQjDmRsAziM0mLDiN0uJY7FD2VrCeTUF
-         V9gHbpwKEWQACgOTNH6P+ss3UtU9qSILWEYRJLMVIP4c4hBkP10s/iKhsZ/C9IY+1Vup
-         baDYAjSIPFFa5CUdtfopYymDhZ1Ggw68iHMl/9SyBldqfstOBoOpjFz7vUwDpTLAs82i
-         Kb1A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=/BVr42MRUVRldWx4XHVEPdrXKSjB9vqpAshQuqAdcyg=;
-        fh=TQ3wKsOrJyjBLnrlDWEiqBkLi16zuqnacLz3KOUfwyI=;
-        b=fbaTj0UDJ9gIE7tetitzYgrxbxmLBSb6bfEWDQ8qYHLA/FsvlZ5eWhamkJ8Z+AP9Ar
-         7pi+3Pc3eHm6FYIW0XTq20rYTslId8mYXPJaB+hG5VpkweNb2LZwyeA9TE0KfXqhNVMl
-         TH91NKVDUcXVu9XWoG2Z4z7v2B494KtEBYk5309froQvQjh/UXsEROqH1g9qvXd6Mdt8
-         qKmiKH1HWgZ1CGXstkXnKSjmqddM4vWxpPB0sAN/apVrfShAAYpcq5b80tPuQJWesPSu
-         Bv2h88ie2WQblH60UFQj0lIGPbJH5ks95K3yI9RIgfh+Jnl2SMFctpGa9sAOKZqL6u3y
-         EFkQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788099563; x=1788704363; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=/BVr42MRUVRldWx4XHVEPdrXKSjB9vqpAshQuqAdcyg=;
-        b=bozai+pbXtXPXJN59yfTjO3bk2GR4URfD+2FP/ciwhmpKEobjra/zeP7bFrbwxeaw0
-         6VlFJyfFObreyjNd0ibkE8O+WbweDRcyuNmZjQ567ZSkO8Wq1wwolUm5YEAFdmkCs8OM
-         2vZNS4SzdGStZhADJupMsScnenzxf29l9CReRced9eAsJlq6Ez8ij0h8ZeLy7voh7HOv
-         KwSs50Mvyy4b6t9qQ39R3CvIQXKTGkVmp7oZGmPPZnm8ASm5yaMt+VnnxVD+EAGyhgPC
-         iWSeydYuFGpoOzPosVjWUK6T0j6Bqna2X3dImuGNaXfCwLQ9N895hjmHV8x+upbss+CQ
-         MRDA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788099563; x=1788704363;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/BVr42MRUVRldWx4XHVEPdrXKSjB9vqpAshQuqAdcyg=;
-        b=sv2WuEdGJT73cZr2N9CnaBaa3RIivURFyFSkwpxZs4D0FJ912cKoJF4yvTOdZZsYIX
-         wusWl/lSjM6IkyaPgvFxvPNeqpCn6qaadLtr0AAjVdIPadjQP0wnbf+ht3IY3VQMgKH6
-         vfXd/zvC5u+C85zbAztTAFALeQRzUVXFqADZMhReEYjLtBznU3p+MAq5ANr9P7KMyOAo
-         hc06pZXBH6TsdfESLNpi+BfcE3FPJ6MnQxaMNxo4jzlrmvaKO05txN1+ORmPjj+smCon
-         lWrzM7kDSemTF+DNSVpGqJIqRXG/4S2PF2WvSm0bLtWPAiHyA19OH5DU99VVEwXyQZE/
-         35Ow==
-X-Forwarded-Encrypted: i=1; AKwUvBwtbHQ8AHNSFGLS7BIkthk6ve72Dt9L2ByAfc7St9CCC9LGuEP6i4Qs81D1NvPIiG8PCqf4os05YFsFGJ0=@vger.kernel.org
-X-Gm-Message-State: AFuF++lnMw8bIpyfXRbc5dkKu3KiythDDdoqSBQRWHFITsQ/aDvOFvyG
-	dt7e3steGXBA0pvmYO+He4aT4j679dQH8BWkcEadE51oO+IfBOweLN6+ySqnZH4VBrCbiYRGHan
-	PNiHuOwN1RRaA/ua8bMABsxyzbNkvqFQ=
-X-Gm-Gg: AYBFou3tQvDdR4f3x/Q1YzTXitRF0h3hCh6+JZh/qmXRC88ZVrJiGsDNWhMnamHEIPS
-	9Qd8JtPtknM313PT7v++C1OuGpkp3HLSJdYOpW3gRKF/xVVXMLDt7AbwMh8QRrjt0Dy7+CUp7X0
-	AjroIN3JUKS5xkVCStZhFeMdjOyu6fCiLINObh1LPVor6KQj0WPuQEaanPFK6HoRwW4pqAQbsxr
-	oDLIfuHumf39ZI9/ZiRIwS0tJIcMm9G/Dp4oWGfcHhTgFSWWUw6hleksrsJfE8uLOnMSa9T3b4R
-	wYopcUPfpEfKKdi2WvT7NPm/mEFeT7QDOqmOQkeOaK9P
-X-Received: by 2002:a05:690c:e0d1:20b0:81e:ae6d:caed with SMTP id
- 00721157ae682-85d6cbd5517mr53744887b3.34.1788099563185; Sun, 30 Aug 2026
- 07:19:23 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="V3MtdQBH"
+Received: from PC-202605011814.localdomain (unknown [223.112.146.162])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4bd71cb64;
+	Sun, 30 Aug 2026 22:20:37 +0800 (GMT+08:00)
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+To: arnaud.pouliquen@foss.st.com
+Cc: lgirdwood@gmail.com,
+	broonie@kernel.org,
+	perex@perex.cz,
+	tiwai@suse.com,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	runyu.xiao@seu.edu.cn,
+	jianhao.xu@seu.edu.cn,
+	stable@vger.kernel.org
+Subject: [PATCH] ASoC: sti: initialize IRQ lock before requesting IRQ
+Date: Sun, 30 Aug 2026 22:20:26 +0800
+Message-Id: <20260830142026.2666914-1-runyu.xiao@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260829-tlb_tracepoint-v1-1-dfdaede7e741@gmail.com> <20260829212202.57db49ca@robin>
-In-Reply-To: <20260829212202.57db49ca@robin>
-From: Roman Storozhenko <romeusmeister@gmail.com>
-Date: Sun, 30 Aug 2026 16:19:11 +0200
-X-Gm-Features: AcwNN1WNdWcyYR1PyOdxtYXwKqRQnAQhNWg1LwpDWL57H9UOvMPUEn5qfIfVDMw
-Message-ID: <CALsPMBMHSMLnOzO+a3gOMzD6x-+8-8fr61MOr3GVH9_LoY_dQA@mail.gmail.com>
-Subject: Re: [PATCH] riscv: mm: Trace TLB flush path selection
-To: Steven Rostedt <rostedt@goodmis.org>
-Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
-	Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
-	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	linux-trace-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa0530b321b03a1kunm3934c37810313a
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCHkkfVkoZHR1KHk4ZShgfQ1YeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUhVSkpJVUpPTVVKTUlZV1kWGg8SFR0UWUFZT0tIVUpLSE
+	pPSExVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=V3MtdQBHO7BeGQxMhnTABEcTnWBxXs1J6W5E7xBKU9FfPg1JgJiE0n7CYsiWB/XqdJ19CyJ0sjHjhNCOqU0JMzBkJ0m5Aekfn0aRyaoR1uK4g7FInxATUS/031LYXwp7R+1FK+nUwyxdE1KVGy/gez5uAZfS3Db5PEtAyheXObc=; s=default; c=relaxed/relaxed; d=seu.edu.cn; v=1;
+	bh=aTWn2c6FB8B9+AnEg+IOIk1k9j/44DH3LogairwFP18=;
+	h=date:mime-version:subject:message-id:from;
 
-On Sun, Aug 30, 2026 at 3:22=E2=80=AFAM Steven Rostedt <rostedt@goodmis.org=
-> wrote:
->
-> On Sat, 29 Aug 2026 17:44:18 +0200
-> Roman 'Hedin' Storozhenko <romeusmeister@gmail.com> wrote:
->
-> > +static __always_inline void
-> > +riscv_tlb_trace_flush_path(const struct cpumask *cmask, unsigned long =
-start,
-> > +                        unsigned long size, unsigned long stride,
-> > +                        unsigned long asid, bool has_mm,
-> > +                        enum riscv_tlb_flush_path path)
-> > +{
-> > +     enum riscv_tlb_flush_scope scope;
-> > +
-> > +     if (!trace_riscv_tlb_flush_path_enabled())
-> > +             return;
-> > +
-> > +     scope =3D riscv_tlb_get_flush_scope(size, stride, has_mm);
-> > +     trace_riscv_tlb_flush_path(start, size, stride, asid, has_mm, cma=
-sk,
-> > +                                scope, path);
->
-> instead of using two static calls you can use the new:
->
->    trace_call__riscv_tlb_flush_path()
->
-> That is to be used instead of the trace_<event>() if it's behind a
-> trace_<event>_enabled() check. That is because the
-> trace_call__<event>() will always trigger the trace event logic because
-> it should only be called when the trace event was enabled.
->
+uni_reader_init() registers the shared IRQ before initializing
+reader->irq_lock. A pending interrupt can invoke the handler while the
+lock is still uninitialized.
 
-Thanks, Steve. Makes sense. I'll use
-trace_call__riscv_tlb_flush_path() after the existing enabled check in
-v2.
+Initialize the lock before registering the IRQ so the interrupt path
+always sees valid lock state.
 
-> -- Steve
->
->
-> > +}
-> > +
+Fixes: d05d862ead8e ("ASoC: STI: Fix null ptr deference in IRQ handler")
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:GPT-5
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+---
+ sound/soc/sti/uniperif_reader.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-
-
---=20
-Kind regards,
-Roman Storozhenko
+diff --git a/sound/soc/sti/uniperif_reader.c b/sound/soc/sti/uniperif_reader.c
+index 45d7613f5..5347f9620 100644
+--- a/sound/soc/sti/uniperif_reader.c
++++ b/sound/soc/sti/uniperif_reader.c
+@@ -416,6 +416,8 @@ int uni_reader_init(struct platform_device *pdev,
+ 	else
+ 		reader->hw = &uni_reader_pcm_hw;
+ 
++	spin_lock_init(&reader->irq_lock);
++
+ 	ret = devm_request_irq(&pdev->dev, reader->irq,
+ 			       uni_reader_irq_handler, IRQF_SHARED,
+ 			       dev_name(&pdev->dev), reader);
+@@ -424,8 +426,6 @@ int uni_reader_init(struct platform_device *pdev,
+ 		return -EBUSY;
+ 	}
+ 
+-	spin_lock_init(&reader->irq_lock);
+-
+ 	return 0;
+ }
+ EXPORT_SYMBOL_GPL(uni_reader_init);
+-- 
+2.34.1
