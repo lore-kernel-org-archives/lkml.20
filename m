@@ -1,38 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A42F3264CF;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA27F32B9BB;
 	Sun, 30 Aug 2026 20:19:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788121184; cv=none; b=YFayaru6QaYy1Vq2A+oqNiDLabCyY5dMYtTPajm4er+fxfC7VnxknHsN2Qr9G5tZsq4DdLPwb4QGw0HjEq8Y+WkOoLo0y7HTfpLEvOyDLFK0AcSQRkr6/kDbH2+z4G2LDmGJtoAP/aXdYdUMnavGKtJO6rafk8ylZgUF/4Y3Sw8=
+	t=1788121184; cv=none; b=mYS4WbwS5qwi8Bjne8VRy+aakbE+iqCElGPMM6o0deHMSWuSxqE2rrmW7uYJBXFsYpDcAgGRU7v+OP1yE9IAGh9Bem+iA2EVgc1WR+HSHb+lUwbmwWLuvUOiWc7+AD8tDuFdopufS9uZtkKte20DZP4N2byY52Rzx4xCdCdxn7g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788121184; c=relaxed/simple;
-	bh=5XX7FpDBpIyvJfx+M3LmY3siJAf3LFS0+gQqxSzs9eQ=;
+	bh=bjN1NTiSvc6/6RtUd8MUWugBmdf1TrTNf6e7OfieaZY=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=pj0SWL1i1OfBe9bUpGE5DBxRjfzDfTt1UBQskKEfjw6+aotRpbXiygKWBBM7/oN4FG089mWD9IcYSneMW9a62ZCUNkZZLPCezifEZuCo0paCxK4GOT47UmOWxsImaqAim5+qq9BXevsEL6J10nbmD5hNEV1cyX19C7LtV6LdGAU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VzO2/9BC; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=C/IgSbFaqSeWkP5X5XiSgHevy/DBrWMfSjNFZght65Nxy3e90k7PQVPd+dHakMuk+IhO0MxS9GdEj6Zzqiu+3fFddAieXkxmq6WKbYWSVbzEM04090fRwjK6YlUvpeBbuFWb8O+8Txr0LIYfsVAJrRag9DS3HD84NHpMwJ45daA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=sBxHG/y7; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VzO2/9BC"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 663F6C2BD00;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="sBxHG/y7"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 89811C4AF1C;
 	Sun, 30 Aug 2026 20:19:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1788121184;
-	bh=5XX7FpDBpIyvJfx+M3LmY3siJAf3LFS0+gQqxSzs9eQ=;
+	bh=bjN1NTiSvc6/6RtUd8MUWugBmdf1TrTNf6e7OfieaZY=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=VzO2/9BCbD0HayC+lwIiI5cb2upvxMlSY/WL/8cFVNpDTkz8IVDoA2rwM5HzPrw0o
-	 TRp1ogue9EibcxGcYXyjQeVH4H6+KfPg5IW6UmHLmCI1FyAP5j9n4W+Kuzlf8Ofh23
-	 UMil8d8IUfcBRCw1xRZ26+n7quqJS8VZN0Wfw1XgXw5FWEbZJPsX+MFnlhplCszSyj
-	 dV1H9rDNS+EWXJ1vtGaAyGg42KTvwO4plIAq7a23rwDNn7eCx9RLzE2lcH1lt1LgKu
-	 SmXq/MpWiVzuEEKgx9zZDdsojiH+8fowQbNbY+MxdixJ5iE/sDchcbg50Pm+80y0sx
-	 27H6i+w3GNsuA==
+	b=sBxHG/y7+E6JC7LuaiPSJ3+NeCFvwKHwGCYuO2NElXJW51LmYeeI2VWtc+Wxd/s1w
+	 lrsePCkLTtOaHx/zK3tmlDyY8IJnsyEcIhDxi1rFm6tY90GEgg29s46bAWW0QMj8Fx
+	 JFgssiWQ0Hm3o6o1Dq41kpj9WUPXqMJz8uv22C25lzOCOAEGSDh9BnDCY2XhNV+7K3
+	 +x6RdT4WEhTM5S2pleBs1xoS8UvUmGJu6NveMHcb0+lqI+uD/3k13pYh9mYFSmuBM2
+	 VePDeOxdLA7EO41zQZNgXKvA/l01ZClbrEKCVvnp59JRE8SFZab52GbTaHZzWWSXT1
+	 Mro23Qhv6mVaw==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 53EDFC61DD9;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 73059C61DE2;
 	Sun, 30 Aug 2026 20:19:44 +0000 (UTC)
 From: Sven Peter <sven@kernel.org>
-Date: Sun, 30 Aug 2026 22:19:28 +0200
-Subject: [PATCH 10/19] thunderbolt: Make the ring register layout
- configurable
+Date: Sun, 30 Aug 2026 22:19:30 +0200
+Subject: [PATCH 12/19] thunderbolt: Add ring_configure to tb_nhi_ops
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,7 +40,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260830-b4-apple-soc-tbt-v1-10-44bc9348683c@kernel.org>
+Message-Id: <20260830-b4-apple-soc-tbt-v1-12-44bc9348683c@kernel.org>
 References: <20260830-b4-apple-soc-tbt-v1-0-44bc9348683c@kernel.org>
 In-Reply-To: <20260830-b4-apple-soc-tbt-v1-0-44bc9348683c@kernel.org>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
@@ -58,143 +57,146 @@ Cc: Konrad Dybcio <konradybcio@kernel.org>, linux-usb@vger.kernel.org,
  asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
  Sven Peter <sven@kernel.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4811; i=sven@kernel.org;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4597; i=sven@kernel.org;
  h=from:subject:message-id;
- bh=5XX7FpDBpIyvJfx+M3LmY3siJAf3LFS0+gQqxSzs9eQ=;
- b=owGbwMvMwCXmIlirolUq95LxtFoSQ9aUCeHxR9omvpN+LLff5LeTgbhkdt65J7JRi/o3F3qqv
- hONCnjUUcrCIMbFICumyLJ9v73pk4dvBJduuvQeZg4rE8gQBi5OAZhITTvDH95VrWt0Ncu/1atW
- 3lD8MslyX9Tt6mkhduePLLxx+Mi1TxKMDH+VAq0cZH+Z9b2K21erMOHT+6n3ehqssj0FLq3Y9GC
- qKAMA
+ bh=bjN1NTiSvc6/6RtUd8MUWugBmdf1TrTNf6e7OfieaZY=;
+ b=owGbwMvMwCXmIlirolUq95LxtFoSQ9aUCRGb7y9IvDeVK3KSiYFpxoEfsc4HqxmXntyjaagmf
+ yRQbEZGRykLgxgXg6yYIsv2/famTx6+EVy66dJ7mDmsTCBDGLg4BWAir1YzMpzSj7SPu/RBwvxf
+ lbBpvc+a6mBDu4LtrcH83uU184xrSxgZbi3cLN/E9OBG0Zqtb9yntJi8UnvbmbIlPm6p7k1vP9V
+ /PAA=
 X-Developer-Key: i=sven@kernel.org; a=openpgp;
  fpr=A1E3E34A2B3C820DBC4955E5993B08092F131F93
 X-Endpoint-Received: by B4 Relay for sven@kernel.org/default with
  auth_id=407
 
-The ring descriptor and options registers are laid out differently on
-the Apple NHI. Describe their offsets and strides with a
-tb_nhi_ring_layout struct that NHI drivers can override.
+The Apple NHI has to configure and enable each ring with a single write
+and uses a separate register range for the receive ring PDF masks. Add
+an optional tb_nhi_ops hook for it which falls back to the standard USB4
+NHI method when it is not set.
 
 Signed-off-by: Sven Peter <sven@kernel.org>
 ---
- drivers/thunderbolt/nhi.c   | 30 ++++++++++++++++++++++++------
- drivers/thunderbolt/nhi.h   | 18 ++++++++++++++++++
- include/linux/thunderbolt.h |  3 +++
- 3 files changed, 45 insertions(+), 6 deletions(-)
+ drivers/thunderbolt/nhi.c | 55 ++++++++++++++++++++++++++++++-----------------
+ drivers/thunderbolt/nhi.h |  4 ++++
+ 2 files changed, 39 insertions(+), 20 deletions(-)
 
 diff --git a/drivers/thunderbolt/nhi.c b/drivers/thunderbolt/nhi.c
-index fc54ff7edfb9..3a3d334e69fd 100644
+index 3cb69deec63e..696da52abff6 100644
 --- a/drivers/thunderbolt/nhi.c
 +++ b/drivers/thunderbolt/nhi.c
-@@ -176,19 +176,32 @@ void nhi_disable_interrupts(struct tb_nhi *nhi)
- 
- /* ring helper methods */
- 
-+static const struct tb_nhi_ring_layout nhi_default_ring_layout = {
-+	.tx_desc_base = REG_TX_RING_BASE,
-+	.rx_desc_base = REG_RX_RING_BASE,
-+	.desc_stride = 16,
-+	.tx_options_base = REG_TX_OPTIONS_BASE,
-+	.rx_options_base = REG_RX_OPTIONS_BASE,
-+	.options_stride = 32,
-+};
-+
- static void __iomem *ring_desc_base(struct tb_ring *ring)
- {
-+	const struct tb_nhi_ring_layout *layout = ring->nhi->ring_layout;
- 	void __iomem *io = ring->nhi->iobase;
--	io += ring->is_tx ? REG_TX_RING_BASE : REG_RX_RING_BASE;
--	io += ring->hop * 16;
-+
-+	io += ring->is_tx ? layout->tx_desc_base : layout->rx_desc_base;
-+	io += ring->hop * layout->desc_stride;
- 	return io;
+@@ -239,6 +239,31 @@ static void ring_iowrite32options(struct tb_ring *ring, u32 value, u32 offset)
+ 	iowrite32(value, ring_options_base(ring) + offset);
  }
  
- static void __iomem *ring_options_base(struct tb_ring *ring)
++static void ring_configure(struct tb_ring *ring, u32 flags, u32 e2e_flags)
++{
++	if (ring->is_tx)
++		ring_iowrite32options(ring, 0, 4);
++	else
++		ring_iowrite32options(ring, ring->sof_mask << 16 | ring->eof_mask, 4);
++
++	ring_iowrite32options(ring, flags, 0);
++
++	/*
++	 * Now that the ring valid bit is set we can configure E2E if
++	 * enabled for the ring.
++	 */
++	if (e2e_flags)
++		ring_iowrite32options(ring, flags | e2e_flags, 0);
++}
++
++static void nhi_ring_configure(struct tb_ring *ring, u32 flags, u32 e2e_flags)
++{
++	if (ring->nhi->ops->ring_configure)
++		ring->nhi->ops->ring_configure(ring, flags, e2e_flags);
++	else
++		ring_configure(ring, flags, e2e_flags);
++}
++
+ static bool ring_full(struct tb_ring *ring)
  {
-+	const struct tb_nhi_ring_layout *layout = ring->nhi->ring_layout;
- 	void __iomem *io = ring->nhi->iobase;
--	io += ring->is_tx ? REG_TX_OPTIONS_BASE : REG_RX_OPTIONS_BASE;
--	io += ring->hop * 32;
-+
-+	io += ring->is_tx ? layout->tx_options_base : layout->rx_options_base;
-+	io += ring->hop * layout->options_stride;
- 	return io;
- }
- 
-@@ -215,8 +228,10 @@ static void ring_iowrite32desc(struct tb_ring *ring, u32 value, u32 offset)
- 
- static void ring_iowrite64desc(struct tb_ring *ring, u64 value, u32 offset)
+ 	return ((ring->head + 1) % ring->size) == ring->tail;
+@@ -694,6 +719,7 @@ EXPORT_SYMBOL_GPL(tb_ring_alloc_rx);
+  */
+ void tb_ring_start(struct tb_ring *ring)
  {
--	iowrite32(value, ring_desc_base(ring) + offset);
--	iowrite32(value >> 32, ring_desc_base(ring) + offset + 4);
-+	void __iomem *base = ring_desc_base(ring);
++	u32 e2e_flags = 0;
+ 	u16 frame_size;
+ 	u32 flags;
+ 
+@@ -717,30 +743,13 @@ void tb_ring_start(struct tb_ring *ring)
+ 		flags = RING_FLAG_ENABLE | RING_FLAG_RAW;
+ 	}
+ 
+-	ring_iowrite64desc(ring, ring->descriptors_dma, 0);
+-	if (ring->is_tx) {
+-		ring_iowrite32desc(ring, ring->size, 12);
+-		ring_iowrite32options(ring, 0, 4);
+-		ring_iowrite32options(ring, flags, 0);
+-	} else {
+-		u32 sof_eof_mask = ring->sof_mask << 16 | ring->eof_mask;
+-
+-		ring_iowrite32desc(ring, (frame_size << 16) | ring->size, 12);
+-		ring_iowrite32options(ring, sof_eof_mask, 4);
+-		ring_iowrite32options(ring, flags, 0);
+-	}
+-
+-	/*
+-	 * Now that the ring valid bit is set we can configure E2E if
+-	 * enabled for the ring.
+-	 */
+ 	if (ring->flags & RING_FLAG_E2E) {
+ 		if (!ring->is_tx) {
+ 			u32 hop;
+ 
+ 			hop = ring->e2e_tx_hop << REG_RX_OPTIONS_E2E_HOP_SHIFT;
+ 			hop &= REG_RX_OPTIONS_E2E_HOP_MASK;
+-			flags |= hop;
++			e2e_flags |= hop;
+ 
+ 			dev_dbg(ring->nhi->dev,
+ 				"enabling E2E for %s %d with TX HopID %d\n",
+@@ -750,10 +759,16 @@ void tb_ring_start(struct tb_ring *ring)
+ 				RING_TYPE(ring), ring->hop);
+ 		}
+ 
+-		flags |= RING_FLAG_E2E_FLOW_CONTROL;
+-		ring_iowrite32options(ring, flags, 0);
++		e2e_flags |= RING_FLAG_E2E_FLOW_CONTROL;
+ 	}
+ 
++	ring_iowrite64desc(ring, ring->descriptors_dma, 0);
++	if (ring->is_tx)
++		ring_iowrite32desc(ring, ring->size, 12);
++	else
++		ring_iowrite32desc(ring, (frame_size << 16) | ring->size, 12);
++	nhi_ring_configure(ring, flags, e2e_flags);
 +
-+	iowrite32(value, base + offset);
-+	iowrite32(value >> 32, base + offset + 4);
- }
- 
- static void ring_iowrite32options(struct tb_ring *ring, u32 value, u32 offset)
-@@ -1253,6 +1268,9 @@ int nhi_probe(struct tb_nhi *nhi)
- 	if (!nhi->ops->init_interrupts)
- 		return dev_err_probe(dev, -EINVAL, "missing required NHI ops\n");
- 
-+	if (!nhi->ring_layout)
-+		nhi->ring_layout = &nhi_default_ring_layout;
-+
- 	nhi->hop_count = ioread32(nhi->iobase + REG_CAPS) & 0x3ff;
- 	dev_dbg(dev, "total paths: %d\n", nhi->hop_count);
- 
+ 	if (!(ring->flags & RING_FLAG_NO_INTERRUPT))
+ 		nhi_ring_interrupt_active(ring, true);
+ 	ring->running = true;
 diff --git a/drivers/thunderbolt/nhi.h b/drivers/thunderbolt/nhi.h
-index 4884c3f5a2b2..035cee433a3c 100644
+index 5f70d7ddc2e2..670b48efeec5 100644
 --- a/drivers/thunderbolt/nhi.h
 +++ b/drivers/thunderbolt/nhi.h
-@@ -40,6 +40,24 @@ void nhi_reset_interface(struct tb_nhi *nhi);
- 
- extern const struct dev_pm_ops nhi_pm_ops;
- 
-+/**
-+ * struct tb_nhi_ring_layout - Layout of the ring registers in the NHI MMIO space
-+ * @tx_desc_base: Offset of the descriptor registers of the first TX ring
-+ * @rx_desc_base: Offset of the descriptor registers of the first RX ring
-+ * @desc_stride: Stride between the descriptor registers of neighboring rings
-+ * @tx_options_base: Offset of the options registers of the first TX ring
-+ * @rx_options_base: Offset of the options registers of the first RX ring
-+ * @options_stride: Stride between the options registers of neighboring rings
-+ */
-+struct tb_nhi_ring_layout {
-+	u32 tx_desc_base;
-+	u32 rx_desc_base;
-+	u32 desc_stride;
-+	u32 tx_options_base;
-+	u32 rx_options_base;
-+	u32 options_stride;
-+};
-+
- /**
-  * struct tb_nhi_ops - NHI specific optional operations
-  * @init: NHI specific initialization
-diff --git a/include/linux/thunderbolt.h b/include/linux/thunderbolt.h
-index d48623fda79b..7c2717bd2945 100644
---- a/include/linux/thunderbolt.h
-+++ b/include/linux/thunderbolt.h
-@@ -503,6 +503,8 @@ void tb_service_properties_changed(struct tb_service *svc);
-  *	  interrupt_work when dispatching interrupts to individual rings.
-  * @dev: Device associated with this NHI instance
-  * @ops: NHI specific optional ops
-+ * @ring_layout: Layout of the ring registers inside @iobase. If not set
-+ *		 the default layout from the USB4 specification is used.
-  * @iobase: MMIO space of the NHI
-  * @tx_rings: All Tx rings available on this host controller
-  * @rx_rings: All Rx rings available on this host controller
-@@ -524,6 +526,7 @@ struct tb_nhi {
- 	spinlock_t lock;
- 	struct device *dev;
- 	const struct tb_nhi_ops *ops;
-+	const struct tb_nhi_ring_layout *ring_layout;
- 	void __iomem *iobase;
- 	struct tb_ring **tx_rings;
- 	struct tb_ring **rx_rings;
+@@ -76,6 +76,9 @@ struct tb_nhi_ring_layout {
+  * @ring_interrupt_mask: NHI specific hook to mask/unmask the interrupt of a
+  *			 single ring. If not set the standard USB4 NHI
+  *			 registers are used.
++ * @ring_configure: NHI specific hook to program the ring options registers
++ *		    and enable the ring with the given flags. If not set
++ *		    the standard USB4 NHI registers are used.
+  * @is_present: Whether the device is currently present on the parent bus
+  * @init_interrupts: NHI specific interrupt initialization hook
+  * @reset_interface: Resets the host interface
+@@ -93,6 +96,7 @@ struct tb_nhi_ops {
+ 	void (*release_ring_irq)(struct tb_ring *ring);
+ 	void (*ring_interrupt_active)(struct tb_ring *ring, bool active);
+ 	void (*ring_interrupt_mask)(struct tb_ring *ring, bool mask);
++	void (*ring_configure)(struct tb_ring *ring, u32 flags, u32 e2e_flags);
+ 	bool (*is_present)(struct tb_nhi *nhi);
+ 	int (*init_interrupts)(struct tb_nhi *nhi);
+ 	void (*reset_interface)(struct tb_nhi *nhi);
 
 -- 
 2.55.0
