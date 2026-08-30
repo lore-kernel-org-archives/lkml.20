@@ -1,137 +1,97 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CE7823504B
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 15:33:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E70E03BB67B;
+	Sun, 30 Aug 2026 15:35:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788104036; cv=none; b=a7wAPVtgM+hHHHmJKnaxDJrWqW9rWuCR94ysPE1T8ZIJlqb1KJTbYBoHPfgtqtLsEqIzXt5Dq+GE58WNUfDkgXvnNLE1RC372/oe+TSZzGPX/nkiyw54m4SIv17UyZxhMUxLWLjfsLGptGFNzOKV3ZJkMHQy7WIx9Q0/90v1L0s=
+	t=1788104139; cv=none; b=CrOFdzOAKCKrvFB0OP9bVTzFou0ZuahPeEGyEz+DgCLtoiVuGDdSRlAYj/xxqr2UzjzzvxeFiWevPgkDTxxC9EoOfrISraQ4a/dK7KW34x94ZUscuiroDfq/m3yjcvX1rjAxxogvGXlysqEp+kq8JC39hJgwGv5YxUVqSotXyEY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788104036; c=relaxed/simple;
-	bh=70oCqBBoSTv5DaCW/nFvu3CrymPxNOg5ubjmttCD2fc=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=sx6Q32nKRmWP+rEMjeTM2BXa4nBFraSZSo+tCBodivDVPjvBMhdmIizQf8L9t3fTFdqZ3rKRI/KMJCJW2x1IA2Nbn1tC+3YcA/wfiC6d6Y+52TD/TXt8w/xj8Wvj753emaemKMLNKIAp06EqXbqiyKDrLnAfjhgjtOU+eHaaRQs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=gPGcMlAz; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1788104139; c=relaxed/simple;
+	bh=RFNpnfMp6x166CoMAVeIa0ulHLzLrT4Rw5ijlTELv0s=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=FTZCzJ3+OYQ/k7svGftATTdRsNERbDyWjm8eywJOzLBz6JcS85EJagA5BLiVzGjZ1pJbVuPs2icvjDJ96EIRL9jzCZ+Px9DBtZMCYio4azLt1TjdmyDXuV6JEvALnmng5udmGL5WbBlF5vCNnlxj1ks7imYLOfV0vLzLxPp5/oA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=WacYdhAx; arc=none smtp.client-ip=45.254.49.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="gPGcMlAz"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788104034;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to; bh=GwKgkU/7anYEDkREv3CsBQbrNrroVx1a5tcXYAfd8fk=;
-	b=gPGcMlAzi7YhVjCLfcft2xC8ygJGBn4UQHf1+PmDfLtli9LcujerPYfVxRi87ir96c9K0E
-	eDWkJhAtf+AmNSxbMBM5LioePEQy1QeJ9CVvzsCOhG4++2xEmtKKNULXLs/XnGaE343Tv5
-	0JHfpOzg1QzUWrwp93X5L+EQXqOyjnM=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-141-L9TqTexIPRa0beGBqiHdiw-1; Sun,
- 30 Aug 2026 11:33:50 -0400
-X-MC-Unique: L9TqTexIPRa0beGBqiHdiw-1
-X-Mimecast-MFC-AGG-ID: L9TqTexIPRa0beGBqiHdiw_1788104029
-Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id D08161800EC7;
-	Sun, 30 Aug 2026 15:33:48 +0000 (UTC)
-Received: from fedora (unknown [10.44.48.13])
-	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id 86826195608A;
-	Sun, 30 Aug 2026 15:33:45 +0000 (UTC)
-Received: by fedora (nbSMTP-1.00) for uid 1000
-	oleg@redhat.com; Sun, 30 Aug 2026 17:33:48 +0200 (CEST)
-Date: Sun, 30 Aug 2026 17:33:43 +0200
-From: Oleg Nesterov <oleg@redhat.com>
-To: Joel Granados <joel.granados@kernel.org>
-Cc: Mark Brown <broonie@kernel.org>, Luis Chamberlain <mcgrof@kernel.org>,
-	Sudip Mukherjee <sudipm.mukherjee@gmail.com>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
-	Kees Cook <kees@kernel.org>, linux-kernel@vger.kernel.org
-Subject: [PATCH v2 3/3] sysctl: remove redundant CONFIG_PROC_FS checks
-Message-ID: <apRNV23wMmkUkX31@redhat.com>
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="WacYdhAx"
+Received: from PC-202605011814.localdomain (unknown [58.241.16.34])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4bd7a1ff6;
+	Sun, 30 Aug 2026 23:35:28 +0800 (GMT+08:00)
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+To: nicolas.ferre@microchip.com
+Cc: claudiu.beznea@microchip.com,
+	richardcochran@gmail.com,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	runyu.xiao@seu.edu.cn,
+	jianhao.xu@seu.edu.cn,
+	stable@vger.kernel.org
+Subject: [PATCH net] net: macb: initialize PTP lock before registering clock
+Date: Sun, 30 Aug 2026 23:35:20 +0800
+Message-Id: <20260830153520.2710520-1-runyu.xiao@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <apRNJWJD52wsaX3s@redhat.com>
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa0534fb82e03a1kunmc421144b105b5c
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaGhgdVk4dSkpPHU8eTRlKSVYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlOQ1VJT0pVSk1VSE9ZV1kWGg8SFR0UWUFZT0tIVUpLSEpPSE
+	xVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=WacYdhAxcypX7/RofuxM7oYmUXkh5EJolLpm8N4tkPXeHGirlK/kK6w5y4DXU6CXzvdqeBb1PS8J/1SuQD+NgZeafhDyyS4C13Iim096l0N+rPeMUn/iGCpc7p9JcCjPFI1l8/9oNxn8Ff5hzC7qHtg9ZTWl/2FNywxWCDmbZk0=; s=default; c=relaxed/relaxed; d=seu.edu.cn; v=1;
+	bh=ZM4cjofOAm1isMTLn9AY1gPKotHGVH+P4ZFGKGKbUVM=;
+	h=date:mime-version:subject:message-id:from;
 
-Now that CONFIG_PROC_SYSCTL is gone, CONFIG_SYSCTL depends on
-CONFIG_PROC_FS directly in fs/proc/Kconfig, so the double guard
-defined(CONFIG_SYSCTL) && defined(CONFIG_PROC_FS) is redundant.
-Simplify to "#ifdef CONFIG_SYSCTL".
+gem_ptp_init() registers the PTP clock before initializing
+bp->tsu_clk_lock. ptp_clock_register() publishes the PTP character
+device, so a userspace operation can enter a PTP callback as soon as
+registration completes. Those callbacks use tsu_clk_lock and can therefore
+observe the lock before it has been initialized.
 
-Signed-off-by: Oleg Nesterov <oleg@redhat.com>
+Initialize the lock before registering the PTP clock so all published
+callbacks see valid synchronization state.
+
+Fixes: ab91f0a9b5f4 ("net: macb: Add hardware PTP support")
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:GPT-5
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
 ---
- drivers/parport/procfs.c | 6 +++---
- fs/dcache.c              | 2 +-
- fs/file_table.c          | 2 +-
- 3 files changed, 5 insertions(+), 5 deletions(-)
+ drivers/net/ethernet/cadence/macb_ptp.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/parport/procfs.c b/drivers/parport/procfs.c
-index 3880460e67f2..1bfafc2a5724 100644
---- a/drivers/parport/procfs.c
-+++ b/drivers/parport/procfs.c
-@@ -26,7 +26,7 @@
+diff --git a/drivers/net/ethernet/cadence/macb_ptp.c b/drivers/net/ethernet/cadence/macb_ptp.c
+index e5195d7da..055160c42 100644
+--- a/drivers/net/ethernet/cadence/macb_ptp.c
++++ b/drivers/net/ethernet/cadence/macb_ptp.c
+@@ -330,6 +330,8 @@ void gem_ptp_init(struct net_device *netdev)
  
- #include <linux/uaccess.h>
+ 	bp->ptp_clock_info = gem_ptp_caps_template;
  
--#if defined(CONFIG_SYSCTL) && defined(CONFIG_PROC_FS)
-+#ifdef CONFIG_SYSCTL
++	spin_lock_init(&bp->tsu_clk_lock);
++
+ 	/* nominal frequency and maximum adjustment in ppb */
+ 	bp->tsu_rate = bp->ptp_info->get_tsu_rate(bp);
+ 	bp->ptp_clock_info.max_adj = bp->ptp_info->get_ptp_max_adj();
+@@ -345,8 +347,6 @@ void gem_ptp_init(struct net_device *netdev)
+ 		return;
+ 	}
  
- #define PARPORT_MIN_TIMESLICE_VALUE 1ul 
- #define PARPORT_MAX_TIMESLICE_VALUE ((unsigned long) HZ)
-@@ -560,7 +560,7 @@ static void __exit parport_default_proc_unregister(void)
- 	parport_bus_exit();
+-	spin_lock_init(&bp->tsu_clk_lock);
+-
+ 	gem_ptp_init_tsu(bp);
+ 
+ 	dev_info(&bp->pdev->dev, "%s ptp clock registered.\n",
+@@ -467,4 +467,3 @@ int gem_set_hwtst(struct net_device *netdev,
+ 
+ 	return 0;
  }
- 
--#else /* no sysctl or no procfs*/
-+#else /* CONFIG_SYSCTL */
- 
- int parport_proc_register(struct parport *pp)
- {
-@@ -591,7 +591,7 @@ static void __exit parport_default_proc_unregister (void)
- {
- 	parport_bus_exit();
- }
--#endif
-+#endif /* CONFIG_SYSCTL */
- 
- subsys_initcall(parport_default_proc_register)
- module_exit(parport_default_proc_unregister)
-diff --git a/fs/dcache.c b/fs/dcache.c
-index 1b1a81f10da6..7ce421e9191f 100644
---- a/fs/dcache.c
-+++ b/fs/dcache.c
-@@ -144,7 +144,7 @@ static DEFINE_PER_CPU(long, nr_dentry_unused);
- static DEFINE_PER_CPU(long, nr_dentry_negative);
- static int dentry_negative_policy;
- 
--#if defined(CONFIG_SYSCTL) && defined(CONFIG_PROC_FS)
-+#ifdef CONFIG_SYSCTL
- /* Statistics gathering. */
- static struct dentry_stat_t dentry_stat = {
- 	.age_limit = 45,
-diff --git a/fs/file_table.c b/fs/file_table.c
-index c68b8c0a4097..08ca3631b726 100644
---- a/fs/file_table.c
-+++ b/fs/file_table.c
-@@ -122,7 +122,7 @@ unsigned long get_max_files(void)
- }
- EXPORT_SYMBOL_GPL(get_max_files);
- 
--#if defined(CONFIG_SYSCTL) && defined(CONFIG_PROC_FS)
-+#ifdef CONFIG_SYSCTL
- 
- /*
-  * Handle nr_files sysctl
+-
 -- 
-2.52.0
-
+2.34.1
