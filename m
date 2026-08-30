@@ -1,148 +1,87 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp37.cstnet.cn [159.226.251.37])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87A4E2BD59C;
-	Sun, 30 Aug 2026 22:47:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54B81299920;
+	Sun, 30 Aug 2026 22:53:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.37
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788130071; cv=none; b=uYUNbXKTrn2hczfB46x9K9bV6jF00TaKIx9C8uvUTuDD8VMhaI1T/SdgsYw/nQi+L/kmtzSCCB4RwG6mXgAmeu4jw0EP9fV3NxmmE2b4aLCQ9si3a+JWPkjVmZbviYS9JudMRup31be7MjMjGBZNjLkMhmSH9CPXcInz4/4yz+U=
+	t=1788130421; cv=none; b=iuPdcy031EtNIb1lli016kGYw8NtIQhWq87khOo9IhfjTABOeN+YxNNJ4keauMBoxkyLmf5f6rMKvTLXuAkJsQ22Gj1vwZAAcFsWUrB1Zd234c5KJQzhO+vktWwVPEqAaYOVXGKBqR1Wq5vIMagxvHTLnzbP7wltgo+1av+o3zQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788130071; c=relaxed/simple;
-	bh=Ml669jWNUPB6veXivIWGPaXi4VODorGd01ePhwDYgCI=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=XkD687rpmz9lf3s2fO6sJUmxXlAwhI0ozzse6CJlhHgTdxz+Iktoae3kxZPtAlhOqh2dIbZ4njorXI1QnNy+q5+M1Tn4nvzBWjSQzgGe3X/i/OJz+ECDgBCxckebbdU+8SqRhkzWoqrwjeloDPoNzisqFePvBvd2aMHyQQnczSA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Oipy+zJP; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Oipy+zJP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF81F1F000E9;
-	Sun, 30 Aug 2026 22:47:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788130070;
-	bh=IlNmwGiY0W2+hm7BPL2uH+3Ld2UzHycm4agb/Ohh3c8=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=Oipy+zJP+3k8Tu1RTgpZx+LOJ//odyXn6BdeG3Jm+gxmfXZkS3jSEuoufaeZKVJiV
-	 pd2CEOzauvpgkNyNkT2huDBYz4OgZ9vGnTRotNMnu98f6y1Vc+JWNJHjKZCm2c18aR
-	 aA0bF9JDe3+SUataY6lbANM62eU+l75W6Pgv4EWmQTPvBO10WCU/jXPztJcdQhBt+J
-	 HN5M9qNrCFcGL3bs/ufFbST5HZ+qs+YRbnhM3uxEeLmw6dRFlUu2dxaeyTrPqE6aWI
-	 jJHPoFNEk1iKnx+J465DXSQnmi9AisaBCOn2jES1idyyssOuKHFZW8fPeyNXMLRE04
-	 WG9j7lMuckS4g==
+	s=arc-20240116; t=1788130421; c=relaxed/simple;
+	bh=ShskSJmVXHCsMx3tT+XV/c0l9krf7Sa0bVSbhuRqKqs=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
+	 MIME-Version:Message-ID; b=YIuI9FKeVMz3Uy4M4Ns//ueC3iCPlKCnItoQu5OkCX1og0KQ5bddcdDCcE/yDzGAzO8d0kWqO+BIMv09Ao0/rEFF3hwWkgnpnDd7XvrKgTdAsE6WeHO7soX4yOIRQ9GYm8k6SNMmswu5lXUzHfkYQ2vjwSnimaHAamFSvkuieRI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.37
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from pengpeng$iscas.ac.cn ( [45.78.7.153] ) by ajax-webmail-APP-12
+ (Coremail) ; Mon, 31 Aug 2026 06:45:51 +0800 (GMT+08:00)
+Date: Mon, 31 Aug 2026 06:45:51 +0800 (GMT+08:00)
+X-CM-HeaderCharset: UTF-8
+From: =?UTF-8?B?5L6v5pyL5pyL?= <pengpeng@iscas.ac.cn>
+To: "Jonathan Corbet" <corbet@lwn.net>
+Cc: "Mauro Carvalho Chehab" <mchehab@kernel.org>, 
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: Re: [PATCH] media: dvb-frontends: ds3000: validate firmware
+ size
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2024.1-cmXT5 build
+ 20240627(e6c6db66) Copyright (c) 2002-2026 www.mailtech.cn cnic.cn
+In-Reply-To: <87o6ejll9n.fsf@trenco.lwn.net>
+References: <20260830124034.95459-1-pengpeng@iscas.ac.cn>
+ <87o6ejll9n.fsf@trenco.lwn.net>
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=UTF-8
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v2 1/2] iio: adc: ti-ads112c14: add burnout current
- support
-From: Jonathan Cameron <jic23@kernel.org>
-To: "David Lechner (TI)" <dlechner@baylibre.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>, Chris Hall <c-hall@ti.com>, 
- Patrick Edwards <pedwards@ti.com>, Kurt Borja <kuurtb@gmail.com>, 
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260827-iio-adc-ti-ads112c14-burnout-v2-1-00a1fab9e2d1@baylibre.com>
-References: <20260827-iio-adc-ti-ads112c14-burnout-v2-0-00a1fab9e2d1@baylibre.com>
- <20260827-iio-adc-ti-ads112c14-burnout-v2-1-00a1fab9e2d1@baylibre.com>
-Date: Sun, 30 Aug 2026 23:47:34 +0100
-Message-Id: <178813005477.2788519.8915020094810013082.b4-review@b4>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2770;
- i=jonathan.cameron@oss.qualcomm.com; h=from:subject:message-id;
- bh=Ml669jWNUPB6veXivIWGPaXi4VODorGd01ePhwDYgCI=;
- b=owEBfwKA/ZANAwAKAVSFNJnE9BaIAcsmYgBqlLMKMZJwJ2OV5cslBIoxJ+t3ai09acclsimNX
- x0OzTFIpjqJAkUEAAEKAC8WIQRuKWazh4QGUpEmgbFUhTSZxPQWiAUCapSzChEcamljMjNAa2Vy
- bmVsLm9yZwAKCRBUhTSZxPQWiC69D/47lfLVWZHDX4uCJoAOzFvLGY2dIKgBsSBARpCQjncYfM1
- uHGECPtIUlpkVUw7l0aUWbirH19GJiQWJE92PLZdvA96obfszo4GFHwNTN6BJrsJ6AQL7TlNeQX
- NRoDMFcfRpECEjgbEhG9gqY7lXRmRbAdn17IPke50HWFI6vcK4wkTN7DTnHQS0BBQ+AeMDZiZmh
- llqCIydRjD4Yd1NYl1U+ZJsHT5wJLfh/GOSUFF/PGtY4gaQbKCcRU/ySsVdAKygbV4aV9miz8GM
- b0BVjSmKL7FDopVjQiCoCMxZhYVEgqeb9A9KXIQOanBmyT7nVZtTuBap2KJoHSABrrNaL7BzEGL
- ZDKOiGaT87/KuDXOSR7SU3Ro2OQ5C4v9phdBBPhIly9Rqipcrpuyxv1FwVFmrgPRp93Ry18kGDK
- uv3E/5dOjD0AHXXAJ3t5IzX0MbVvD1vK1jbDN9gx1KtElRM6ETTIwX5DS/IpJKzI7haUa6d37ca
- MbRw12Ak/b9vJfHPojY3FI0syOFC3JerT1Ep+UBOrLRUEEI4EWWRnZrOzMPG2PSDHSEGn8UxQ/Q
- QwdXZD9mPkb0AXJTvOjWyQ4Gp22GiTpvWYEOR5Dkahkc2b2AP/u7KPgOCs8CmpdeV631eI24xLq
- qJcr+wewHLAbxIH/QUQWf3ZCaO+dutCCCcj3i6Q==
-X-Developer-Key: i=jonathan.cameron@oss.qualcomm.com; a=openpgp;
- fpr=6E2966B387840652912681B154853499C4F41688
+Message-ID: <5c173af9.ec340.1a054d9be08.Coremail.pengpeng@iscas.ac.cn>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:tgCowACXTNGgspRqqfQJAA--.51397W
+X-CM-SenderInfo: pshqw1xhqjqxpvfd2hldfou0/1tbiBwIPBWqUO9RwnAADsx
+X-Coremail-Antispam: 1Ur529EdanIXcx71UUUUU7IcSsGvfJ3iIAIbVAYjsxI4VWxJw
+	CS07vEb4IE77IF4wCS07vE1I0E4x80FVAKz4kxMIAIbVAFxVCaYxvI4VCIwcAKzIAtYxBI
+	daVFxhVjvjDU=
 
-> Add a custom attribute via ext_info when a channel has a burnout current
-> specified in the devicetree. This adds an in_{voltageY,resistanceY,
-> voltageY-voltageX}_burnoutraw sysfs attribute for the channel that
-> performs a single conversion (same as _raw attribute) except that it
-> enables the burnout current. The chip also has a restriction that input
-> chopping cannot be enabled when burnout current is enabled, so we also
-> disable input chopping when burnout current is active.
-> 
-> Signed-off-by: David Lechner (TI) <dlechner@baylibre.com>
-
-Hi David,
-
-A few trivial things inline.
-
-Thanks,
-
-Jonathan
->
-> diff --git a/drivers/iio/adc/ti-ads112c14.c b/drivers/iio/adc/ti-ads112c14.c
-> index 878764deffc5..58c815f5faeb 100644
-> --- a/drivers/iio/adc/ti-ads112c14.c
-> +++ b/drivers/iio/adc/ti-ads112c14.c
-> @@ -76,6 +76,11 @@
->  #define   ADS112C14_DEVICE_CFG_PWDN			BIT(7)
->  #define   ADS112C14_DEVICE_CFG_STBY_MODE		BIT(6)
->  #define   ADS112C14_DEVICE_CFG_BOCS			GENMASK(5, 4)
-> +#define     ADS112C14_DEVICE_CFG_BOCS_DISABLED		  0
-> +#define     ADS112C14_DEVICE_CFG_BOCS_200_nA		  1
-> +#define     ADS112C14_DEVICE_CFG_BOCS_1_uA		  2
-> +#define     ADS112C14_DEVICE_CFG_BOCS_10_uA		  3
-
-...
-
-
->  static int ads112c14_populate_idac_mag(u32 current_nA, u8 *idac_mag)
->  {
->  	u32 current_uA = current_nA / (NANO / MICRO);
-> @@ -1285,6 +1365,34 @@ static int ads112c14_parse_channels(struct iio_dev *indio_dev,
->  		measurement->global_chop = fwnode_property_read_bool(child,
->  								     "input-chopping");
->
-> +		if (fwnode_property_present(child, "burn-out-current-nanoamp")) {
-
-Andy already covered this.  I kind of fall on the side of having the
-text inline for grepping when there are only 1 or two instances, but
-when we reach 3 it seems like the time has come to use a local
-variable.
-
-> +			u32 burnout_nA;
-> +
-> +			ret = fwnode_property_read_u32(child, "burn-out-current-nanoamp",
-> +						       &burnout_nA);
-> +			if (ret)
-> +				return dev_err_probe(dev, ret,
-> +						     "failed to read burn-out-current-nanoamp property\n");
-> +
-> +			switch (burnout_nA) {
-> +			case 200:
-> +				measurement->burnout = ADS112C14_DEVICE_CFG_BOCS_200_nA;
-> +				break;
-> +			case 1000:
-> +				measurement->burnout = ADS112C14_DEVICE_CFG_BOCS_1_uA;
-> +				break;
-> +			case 10000:
-> +				measurement->burnout = ADS112C14_DEVICE_CFG_BOCS_10_uA;
-> +				break;
-> +			default:
-> +				return dev_err_probe(dev, -EINVAL,
-> +						     "invalid burn-out-current-nanoamp value\n");
-> +			}
-> +
-> +			if (measurement->burnout)
-
-I would use an explicit match against
-!= ADS112C14_DEVICE_CFG_BOCS_DISABLED
-here rather than non 0.
-
--- 
-Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+V2UgYXJlIGEgc3lzdGVtcyBzb2Z0d2FyZSByZXNlYXJjaCBncm91cCBkZXZlbG9waW5nIHN0YXRp
+YyBhbmFseXNpcyB0b29scyBzaW1pbGFyIHRvIFNwYXJzZSBhbmQgQ29jY2luZWxsZS4gT3VyIGdv
+YWwgaXMgdG8gcHVibGlzaCBhdCB2ZW51ZXMgc3VjaCBhcyBGU0UgYW5kIElDU0Ugd2hpbGUgYWxz
+byBjb250cmlidXRpbmcgdXNlZnVsIGZpeGVzIHVwc3RyZWFtLgpNb3N0IG9mIG91ciBrZXJuZWwg
+cGF0Y2hlcyBvcmlnaW5hdGUgZnJvbSBmaW5kaW5ncyByZXBvcnRlZCBieSBvdXIgdG9vbHMgYW5k
+IGFyZSByZXZpZXdlZCBib3RoIG1hbnVhbGx5IGFuZCB3aXRoIExMTSBhc3Npc3RhbmNlLiBEeW5h
+bWljIHZhbGlkYXRpb24gaXMgb2Z0ZW4gaW1wcmFjdGljYWwsIGVzcGVjaWFsbHkgZm9yIGhhcmR3
+YXJlLWRlcGVuZGVudCBkcml2ZXIgY29kZSwgYW5kIGVtdWxhdGlvbiBpcyBub3QgYWx3YXlzIHN1
+ZmZpY2llbnQuIFdlIHRoZXJlZm9yZSByZWx5IG1haW5seSBvbiBzdGF0aWMgYW5hbHlzaXMgYW5k
+IGNhcmVmdWwgcmV2aWV3LCBhbmQgb2Z0ZW4gc3RhdGUgdGhpcyB3YXkgaW4gb3VyIHByaW9yIHBh
+dGNoZXM6VGhlIGlzc3VlIHdhcyBpZGVudGlmaWVkIHRocm91Z2ggc3RhdGljIGFuYWx5c2lzIGFu
+ZCBtYW51YWxseSByZXZpZXdlZC4KCgo+IC0tLS0t5Y6f5aeL6YKu5Lu2LS0tLS0KPiDlj5Hku7bk
+uro6ICJKb25hdGhhbiBDb3JiZXQiIDxjb3JiZXRAbHduLm5ldD4KPiDlj5HpgIHml7bpl7Q6IDIw
+MjYtMDgtMzAgMjI6NDU6NDAgKOaYn+acn+aXpSkKPiDmlLbku7bkuro6ICJQZW5ncGVuZyBIb3Ui
+IDxwZW5ncGVuZ0Bpc2Nhcy5hYy5jbj4sICJNYXVybyBDYXJ2YWxobyBDaGVoYWIiIDxtY2hlaGFi
+QGtlcm5lbC5vcmc+Cj4g5oqE6YCBOiAiUGVuZ3BlbmcgSG91IiA8cGVuZ3BlbmdAaXNjYXMuYWMu
+Y24+LCBsaW51eC1tZWRpYUB2Z2VyLmtlcm5lbC5vcmcsIGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5l
+bC5vcmcKPiDkuLvpopg6IFJlOiBbUEFUQ0hdIG1lZGlhOiBkdmItZnJvbnRlbmRzOiBkczMwMDA6
+IHZhbGlkYXRlIGZpcm13YXJlIHNpemUKPiAKPiBQZW5ncGVuZyBIb3UgPHBlbmdwZW5nQGlzY2Fz
+LmFjLmNuPiB3cml0ZXM6Cj4gCj4gPiBUaGUgZmlybXdhcmUgZGlhZ25vc3RpYyByZWFkcyB0aGUg
+Zmlyc3QgdHdvIGFuZCBmaW5hbCB0d28gYnl0ZXMgd2l0aG91dAo+ID4gcHJvdmluZyB0aGF0IHRo
+ZSBmaXJtd2FyZSBvYmplY3QgY29udGFpbnMgYXQgbGVhc3QgdHdvIGJ5dGVzLgo+ID4KPiA+IFJl
+amVjdCB1bmRlcnNpemVkIGZpcm13YXJlIGJlZm9yZSB0aGUgZGlhZ25vc3RpYyBhbmQgdXBsb2Fk
+IHBhdGggY29uc3VtZQo+ID4gaXQuCj4gPgo+ID4gRml4ZXM6IDA5ZWEzM2U1YzY5NiAoIlY0TC9E
+VkIgKDEzNDkzKTogVGVWaWkgUzQ3MCBhbmQgVEJTIDY5MjAgZml4ZXMiKQo+ID4gU2lnbmVkLW9m
+Zi1ieTogUGVuZ3BlbmcgSG91IDxwZW5ncGVuZ0Bpc2Nhcy5hYy5jbj4KPiA+IC0tLQo+ID4gIGRy
+aXZlcnMvbWVkaWEvZHZiLWZyb250ZW5kcy9kczMwMDAuYyB8IDIgKysKPiA+ICAxIGZpbGUgY2hh
+bmdlZCwgMiBpbnNlcnRpb25zKCspCj4gPgo+ID4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvbWVkaWEv
+ZHZiLWZyb250ZW5kcy9kczMwMDAuYyBiL2RyaXZlcnMvbWVkaWEvZHZiLWZyb250ZW5kcy9kczMw
+MDAuYwo+ID4gaW5kZXggY2U3YWU0MjRiMjdjYy4uNzZkMmViOTg5MzJhZSAxMDA2NDQKPiA+IC0t
+LSBhL2RyaXZlcnMvbWVkaWEvZHZiLWZyb250ZW5kcy9kczMwMDAuYwo+ID4gKysrIGIvZHJpdmVy
+cy9tZWRpYS9kdmItZnJvbnRlbmRzL2RzMzAwMC5jCj4gPiBAQCAtMzc0LDYgKzM3NCw4IEBAIHN0
+YXRpYyBpbnQgZHMzMDAwX2xvYWRfZmlybXdhcmUoc3RydWN0IGR2Yl9mcm9udGVuZCAqZmUsCj4g
+PiAgCWludCByZXQgPSAwOwo+ID4gIAo+ID4gIAlkcHJpbnRrKCIlc1xuIiwgX19mdW5jX18pOwo+
+ID4gKwlpZiAoZnctPnNpemUgPCAyKQo+ID4gKwkJcmV0dXJuIC1FSU5WQUw7Cj4gCj4gU28sIHlv
+dSBoYXZlIGdlbmVyYXRlZCBhbiBhd2Z1bCBsb3Qgb2YgZml4ZXMgYWxsIG92ZXIgdGhlIHRyZWUg
+aW4gdGhlCj4gbGFzdCBmZXcgbW9udGhzLiAgQ2FuIHlvdSB0ZWxsIHVzIGFib3V0IHdoYXQgdG9v
+bCB5b3UgYXJlIHVzaW5nIHRvIGZpbmQKPiBhbmQgZml4IHRoZXNlIGJ1Z3MsIGFuZCBob3cgeW91
+IGFyZSB0ZXN0aW5nIHlvdXIgZml4ZXM/Cj4gCj4gVGhhbmtzLAo+IAo+IGpvbgo=
