@@ -1,413 +1,178 @@
-Received: from mta1.migadu.com (out-35.mta1.migadu.com [95.215.58.35])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA412385530
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 08:39:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.35
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E2FA38331D
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 08:40:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788079193; cv=none; b=mu9GH1bCDrXlDUgWWmK6rWnEEp0AvyVjj/UfF2IWrhTbrRSlzQiL3CRVXwVVbKRU4ChH0uqZqDZzCtYVxxJMCpmbGNNSG29+PVXKZeN8hyTzwlk2tPFpJ0SQX0MyY3YmtUgkf1tHnURnw9BtrS0w+LHyzdrKV0gglvPPmpMkIA8=
+	t=1788079260; cv=none; b=Pp5GTeqkvdZ5f31K8v4+413QI51zPtkgDIT+A7niiEAWmxYVLvNv5x6X377PhgpWOEVuFqpAYJAMV64gulpD8DjgH0jy6Yknhgc/LC+ScgsbTrLiLL9JhdKtyYv8nBRpK+N3A862Vu2/wStxGtRr6oXd7nG0KVRV8QMVsN1bD7g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788079193; c=relaxed/simple;
-	bh=poyqFmqVhqESctsgwAG+EcOJLqeE1cvWI7I6QYVl1/o=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Q5EEvK+Ak88IRiFF+UXDg9Fhwg6Dc8GH85Hnuu6v5WvDHz8278nDVSrVSRjxUfR1/Q5aYjvoz9R7wotWR34FdTFDTbmo6UI46KfuUmqoxdk0VBdKxOi71hDyTogGIz5u9RLmWo04Pwg2Kw1RetcEXdUunMOCaoDtViwBpOQ3j9g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=hMEGXbmF; arc=none smtp.client-ip=95.215.58.35
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788079260; c=relaxed/simple;
+	bh=xstTPquafbNGlKwlQsKZ7eJq5FPgU6WMbUCfJXuADdE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bC5FnyoXBeqeVLFJ1b6hdSKQmQv5ciQGFJeA0ahlHDoFZeigVrvPihwAVMMwKEeoMt+bv963knb/1dZ92TgT+GHub9N5FLofuExDmro9QREcAWo7aAjvx6SlyaWQHhLsLSUBMhAoiLR4FD925CI1Qz9oICY7vD+KlbefQ4xZlJI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=S5IhCqd/; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=AdgM631C; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="hMEGXbmF"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=poyqFmqVhqESctsgwAG+EcOJLqeE1cvWI7I6QYVl1/o=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788079188; v=1; x=1788683988;
- b=hMEGXbmFGsxdnO8efxRXV6CWIz/Wxlh6K/SiQ2jUWVNYc2wlfuHJ5h4jtKx8zVirdfyWG5C0
- JP8+fY0Xo41BKN94K1uJm4Cfg6kAZ0/D0iN11LJlDoAjxoWKxUwL1dvKSb/fsmYgIo3qBi+pV9Q
- 5wiAUzS9EHJPIkknES6cSCUs=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 3983c7bbd036915e;
-	Sun, 30 Aug 2026 08:39:48 +0000
-X-Mizu-Trace-ID: 3983c7bbd036915e
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <ad8acdc0-7618-4caf-88ca-4780e39ff324@linux.dev>
-Date: Sun, 30 Aug 2026 16:39:33 +0800
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="S5IhCqd/";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="AdgM631C"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67U5vl6n2820295
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 08:40:56 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=M/Nytepkmt/ZP2rVkdCu7doVcdz2bZqfv3E
+	nSqqfb8w=; b=S5IhCqd/1yiomJiHtcsSCPVCmHL/DPZNP3Afc88iJsUa4NgF2+H
+	+u6Vvasdq3BRQ7Qznqvk8FONNef7TuMqgNfkx6qbWSIDUm0kRgdIBEXZQR5cWxuc
+	5ZXl9nVNrv3H5EZEHgS8OdEMPzuglitZ01eHLTEHuZk9qvjtkK5YJTrlW+wyDsLU
+	7ioH9VrIstWJRr2OmAI/bBMlzJNq6Gf3nXEswresLi5y+1ks02H3qw/cxt9pdbbr
+	34YICvvBsM7o2reA9bngHgAjmWYgr5lXU6VkOgn6+n9Q+NwKFBNuMUqe39Gi2fZu
+	Ar2z0lmKXlxznMXO0fnwsy3soIExWRxUbaQ==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gbrkgtgq6-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 08:40:56 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-52f64c48bf2so50768211cf.0
+        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 01:40:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788079256; x=1788684056; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=M/Nytepkmt/ZP2rVkdCu7doVcdz2bZqfv3EnSqqfb8w=;
+        b=AdgM631CVn6rLFXVMAAQzc15dta9Y1IQcD/2tNHkoY03hSLYSS8ExMm02oap5LJXUw
+         JO7vhFEr4gtiSCLvhCTQ6Mc1FowIA9b97fUb0XGQJTtYD2A97S7jlfPe38Q8J8stvdh0
+         Ofr3Ir/9TNS4TcX5qSdOM/NKy1dbaA1C4RtrxvPcKFgq3j3uW6Qobr9l7O/fA1nfVI/o
+         O7m286U5CXUcCWAkqVrXs5k7RHXEMDTjbd8HCLDrYTzJjDyRZPnmoTs0dlsx+23IjQci
+         AL0un1YHocBTDxG6nBC2qnjyWtbQCbxqc7sV5cFnilElKXynApnJCseOYq7qfBZBtVtq
+         9kqQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788079256; x=1788684056;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=M/Nytepkmt/ZP2rVkdCu7doVcdz2bZqfv3EnSqqfb8w=;
+        b=Yut1T8wk6qvnzieUv7enWsIGLm1qGx/bmlkVXlE78I7WIqxZbHQcjHmpSc8z0YRDzp
+         Uu+A2wrEXRFF2OkdUYAi1Vl08N35ypC+yRLUutgO75N3UGPKf9w+42oTS45bDZxhjHA2
+         +9hI2fdGu180kbUboTRv2nir/2lmaiOid6n31Z49vg/xEOTXPCzv7vwS4iuzicfIXfnv
+         bOP2F06HHBWQuSQ94gDCJ+mLF0rL5rY3HN655rEc/mskrINDIgX7kiCZODzz//tJtylO
+         we6sQL9Wx/ExOFY0hh4oMydiqaM0Gj1PLVfD6gjAYdakVsnAfAbme7wi7UoN8T3s8yoA
+         Bx0A==
+X-Forwarded-Encrypted: i=1; AHgh+RoLBrKkUPKSWT8V2S9s07PQtF2yI/GODq1mEOJBOo0WMYHbBfJRGfpgiW7HNpOS0dVSXYCGyvLj9ts5njM=@vger.kernel.org
+X-Gm-Message-State: AFuF++nsmmHUzjRFm1UPEiCRHFuYR+TjxxHLyviKgOyGrsudHmYJ5IO/
+	YYxqkvwVzGHkRiVDhF2k2q38rL/TQKh7WYXZlMLzq5JNqJqzby3ifFNLIN3NTwd+Fh6B3Z/Sbr2
+	STZWSOzYkw+lhpIocnInv6j8MINSYynasMu6tQeDuBXbKkRoFcVMEnF8TPgvBm0UPMZc=
+X-Gm-Gg: AR+sD13C+8PSg5GVMOmdxjtk4h5IaVv6rwTCDgBC4jUJ/4pH7GeO/yK25AG0Ph0tuXv
+	yIwzPDilun+ZQQxZfbShJG3YzpTmYgXKuVDquMS4Vylic9Hf9clRzTwwmWcHSZUnVZPTmD/ujSS
+	6muRBn0PRUHQU2chq6jPu1fzBW1WrYrVgQfBq42E0SSpUI4RKkjNfbnAeohqDLlepG0lZlEoRcg
+	GxeOWFjVZdxZaHyi0L9r7Ooyb3z1+C/olf1JhtKKQcHvcxMk1TZe8vGy8L1UApXTG8/0AHc4IXQ
+	NHDyFPNQc3Z/dadq1eNHS6P4G+asSVLq7l71TZUwGhI2UhMmUv9MdNT4b9Ju8+6GHM2sMhCdkFE
+	n+g2tVSMoRdiBgy8=
+X-Received: by 2002:a05:622a:2588:b0:52f:a178:4c59 with SMTP id d75a77b69052e-52fb9657401mr225644641cf.37.1788079255891;
+        Sun, 30 Aug 2026 01:40:55 -0700 (PDT)
+X-Received: by 2002:a05:622a:2588:b0:52f:a178:4c59 with SMTP id d75a77b69052e-52fb9657401mr225644401cf.37.1788079255534;
+        Sun, 30 Aug 2026 01:40:55 -0700 (PDT)
+Received: from quoll ([178.197.219.214])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b963c3c0asm314870005e9.10.2026.08.30.01.40.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 30 Aug 2026 01:40:54 -0700 (PDT)
+From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+        Sascha Hauer <s.hauer@pengutronix.de>,
+        Pengutronix Kernel Team <kernel@pengutronix.de>,
+        Fabio Estevam <festevam@gmail.com>,
+        Oleksij Rempel <o.rempel@pengutronix.de>, linux-sound@vger.kernel.org,
+        devicetree@vger.kernel.org, imx@lists.linux.dev,
+        linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH v2] ASoC: dt-bindings: imx-audmux: Replace tabs with spaces
+Date: Sun, 30 Aug 2026 10:40:47 +0200
+Message-ID: <20260830084046.14679-2-krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/6] mm/mglru: introduce helpers for manipulating gen
- and refs flags
-To: kasong@tencent.com, linux-mm@kvack.org
-Cc: Andrew Morton <akpm@linux-foundation.org>, Barry Song
- <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>,
- Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
- Baoquan He <baoquan.he@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
- Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
- Roman Gushchin <roman.gushchin@linux.dev>,
- Muchun Song <muchun.song@linux.dev>, Chris Li <chrisl@kernel.org>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Yu Zhao <yuzhao@google.com>, Zi Yan <ziy@nvidia.com>,
- Qi Zheng <qi.zheng@linux.dev>, cgroups@vger.kernel.org,
- linux-kernel@vger.kernel.org, Kairui Song <ryncsn@gmail.com>
-References: <20260826-mglru-flags-cleanup-v3-0-d9f1c75549c8@tencent.com>
- <20260826-mglru-flags-cleanup-v3-2-d9f1c75549c8@tencent.com>
-From: Ridong Chen <ridong.chen@linux.dev>
-In-Reply-To: <20260826-mglru-flags-cleanup-v3-2-d9f1c75549c8@tencent.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1385; i=krzysztof.kozlowski@oss.qualcomm.com;
+ h=from:subject; bh=xstTPquafbNGlKwlQsKZ7eJq5FPgU6WMbUCfJXuADdE=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBqk+yOzvIYQOZZBzBQj6W1Qw9AqvmkZDdJ/+c6L
+ pnuewph0cuJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCapPsjgAKCRDBN2bmhouD
+ 1ytkD/4qT4rdd3yN7yDIh42thkTo+Unwa2sFG31D9cU3y7Mjm2p5Xq0Dg3hI7zzGFyqWeKDZQLd
+ ow5ABRV1PGgwuEic9y2reK+Okt+dWElZBc/09FeWtcJY0hRcUSVZpTqpdSOCPfccLZvWBH44Xko
+ tbK6f7710D+MNASE4jDx0xIyqEdMhSNwiJscYiKUKucg1MOSufYlRYa3sj4E93IWZZF3SOWT5ga
+ r1jT70VNPX7FiVOTquQoanidMyYoZDJvqjx+3MpoDPN79lSK2w1HciOsoD32E6nGW9utrc0kJlx
+ OPbwVKT7gISsR4j4nKtI1PtSY6H3Z76oke4iG+QYkqyESDzfjCFFWhOKK7Mg1FIWsgWTVgAfO0i
+ Kv4P7rzu3/MlT0CdTzBVG7g0mOLLMWfD0FcBypJ45JUxJtdXyEbDVGTf/kJdBT/p5qTUiQKl/wO
+ W5ysEOZiE150cZWvpfrjsobpzeGHXCxpusk9BqLgHLQr5OUlDh1KDV80IhMR2NJtjdxpEubuP2s
+ mBsBXlHJFPCOmiRRwGhs6gwUFzAZBL8ie+o7V5DRnMaztcrN0wPdreMDLCDXheljmOoLfZyhq51
+ O4gPbISfvBcyvAB6QfgVByG7Nm+kk1mB0aC7AXVsxEGWkGSM3BikOf+IC3vXPkbgmE6GVca9zN6 jbEY2GFGR+K9sHg==
+X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp; fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODMwMDA3MSBTYWx0ZWRfX60fxzBMmaG/x
+ bQHOS/UWCELvYHq+NctKE1jOr5q0uqYqCUCSbsy/mYY9tqP6popIjSyzLOegalyhnodTByxux7r
+ px4uubXPybxHq6B3jFeyj/AmhXutA9tvcHdRYL1T5e13ByFbT1ncnM6g1vBXEK+j5FKtdwq5aui
+ IfuUU1hkkavKsfnLppI7KXSXmLSGBU+s1OAg/3QcdJ+YPUx3+a1+KN9g469Dr80BhDphp1Q4mmm
+ gknjiopYcwBV3VCL7orIVUkvjP9PXjK28wWEgSLDAhRSm5YTXoqwEUV9fPLDt8Iwrte6ClgHDD9
+ Fu065NqBjVEH/xJmZvR4Wqiy4dz1fkJzvfKvQUYwB5KvMmURgmawedeo3D8ImU6B1UcY9dErvZ8
+ DetwZCNimnyzhZUMBGyosxfKRe1IbPMRM3DqNYncEESi/DeyDe2B8Oqw2hKKoHbqFlzaV8xgQ0J
+ jB21ZCJel+44CcHt7cw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODMwMDA3MSBTYWx0ZWRfX/J0FzvKwEqSr
+ wJrUU8IHjyj4Dm5G2hzWoBBSVBPZyOvTMUcfxEtWykP9TzYpwYuHxt6TFfLhMN9hEcNHz+N5cGL
+ U5etEsWzUJonmnTopI9olZUHi57ce9k=
+X-Proofpoint-ORIG-GUID: j1_E1cTHOWxAG7_Ioxk6JHqqK2QFCpdH
+X-Authority-Analysis: v=2.4 cv=Cr6PtH4D c=1 sm=1 tr=0 ts=6a93ec98 cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=+bKQE0WJfmhK2875HamI0Q==:17
+ a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8
+ a=i9mLyMywaSABm-nTGLoA:9 a=uxP6HrT_eTzRwkO_Te1X:22
+X-Proofpoint-GUID: j1_E1cTHOWxAG7_Ioxk6JHqqK2QFCpdH
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-30_02,2026-08-27_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 spamscore=0 phishscore=0 bulkscore=0 adultscore=0
+ malwarescore=0 clxscore=1015 priorityscore=1501 lowpriorityscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2608300071
 
+YAML files do not use tabs, even within the values in DTS.  No
+functional change, although dt-style-check will warn about it
+("[tab-in-yaml] tab character not allowed in DTS example").
 
+Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-On 8/26/2026 1:53 AM, Kairui Song via B4 Relay wrote:
-> From: Kairui Song <kasong@tencent.com>
-> 
-> Instead of doing bit ops on folio->flags.f, introduce helpers for
-> adjusting a folio's refs and generation info, making the code easier
-> to debug and understand.
-> 
-> No functional change is intended: some combined atomic operations are
-> split into two, which only creates harmless transient states. There is
-> no measurable performance impact, and some paths even look slightly
-> better in the generated assembly.
-> 
-> Signed-off-by: Kairui Song <kasong@tencent.com>
-> ---
->   include/linux/mm_inline.h | 76 ++++++++++++++++++++++++++++++++++++++++++-----
->   include/linux/mmzone.h    |  1 +
->   mm/folio.c                | 19 +++++++-----
->   mm/vmscan.c               | 61 ++++++++++++++++++++-----------------
->   4 files changed, 114 insertions(+), 43 deletions(-)
-> 
-> diff --git a/include/linux/mm_inline.h b/include/linux/mm_inline.h
-> index 621c8653d8f7..edfaf2661812 100644
-> --- a/include/linux/mm_inline.h
-> +++ b/include/linux/mm_inline.h
-> @@ -142,10 +142,42 @@ static inline int lru_tier_from_refs(int refs, bool workingset)
->   	return workingset ? MAX_NR_TIERS - 1 : order_base_2(refs);
->   }
->   
-> -static inline int folio_lru_refs(const struct folio *folio)
-> +/**
-> + * lru_gen_from_flags - Return the LRU generation number from folio flags.
-> + * @flags: folio flags
-> + *
-> + * Returns: A number between 0 and (MAX_NR_GENS - 1), inclusive. Returns
-> + * -1 if the flags indicate the folio is off the list (e.g., isolated).
-> + */
-> +static inline int lru_gen_from_flags(unsigned long flags)
-> +{
-> +	int gen = ((flags & LRU_GEN_MASK) >> LRU_GEN_PGOFF);
-> +
-> +	BUILD_BUG_ON(LRU_GEN_MASK & LRU_REFS_MASK);
-> +	gen -= 1;
-> +	VM_WARN_ON_ONCE(gen != -1 && gen >= MAX_NR_GENS);
-> +	return gen;
-> +}
-> +
-> +/**
-> + * lru_gen_set_flags - Set the LRU generation number to specified folio flags.
-> + * @flags: pointer to the folio flags
-> + * @gen: generation number, between 0 and (MAX_NR_GENS - 1), inclusive.
-> + */
-> +static inline void lru_gen_set_flags(unsigned long *flags, int gen)
->   {
-> -	unsigned long flags = READ_ONCE(folio->flags.f);
-> +	VM_WARN_ON_ONCE(gen >= MAX_NR_GENS || gen < 0);
-> +
-> +	*flags &= ~LRU_GEN_MASK;
-> +	*flags |= (gen + 1UL) << LRU_GEN_PGOFF;
-> +}
->   
-> +/**
-> + * lru_refs_from_flags - Return LRU referenced / access count from folio flags.
-> + * @flags: folio flags
-> + */
-> +static inline int lru_refs_from_flags(unsigned long flags)
-> +{
->   	if (!(flags & BIT(PG_referenced)))
->   		return 0;
->   	/*
-> @@ -155,11 +187,40 @@ static inline int folio_lru_refs(const struct folio *folio)
->   	return ((flags & LRU_REFS_MASK) >> LRU_REFS_PGOFF) + 1;
->   }
->   
-> -static inline int folio_lru_gen(const struct folio *folio)
-> +/**
-> + * lru_refs_set_flags - Set the LRU referenced / access count to specified folio flags.
-> + * @flags: pointer to the folio flags
-> + * @refs: referenced / access count number, between 0 and LRU_REFS_MAX, inclusive.
-> + */
-> +static inline void lru_refs_set_flags(unsigned long *flags, unsigned int refs)
-> +{
-> +	VM_WARN_ON_ONCE(refs > LRU_REFS_MAX);
-> +	BUILD_BUG_ON(LRU_REFS_MAX != (LRU_REFS_MASK >> LRU_REFS_PGOFF) + 1);
-> +
-> +	*flags &= ~LRU_REFS_FLAGS;
-> +	if (!refs)
-> +		return;
-> +	*flags |= (BIT(PG_referenced) | ((refs - 1UL) << LRU_REFS_PGOFF));
-> +}
-> +
-> +static inline int folio_lru_refs(const struct folio *folio)
->   {
-> -	unsigned long flags = READ_ONCE(folio->flags.f);
-> +	return lru_refs_from_flags(READ_ONCE(*const_folio_flags(folio, 0)));
-> +}
-> +
-> +static inline void folio_set_lru_refs(struct folio *folio, unsigned int refs)
-> +{
-> +	unsigned long new_flags, old_flags = READ_ONCE(*folio_flags(folio, 0));
-> +
-> +	do {
-> +		new_flags = old_flags;
-> +		lru_refs_set_flags(&new_flags, refs);
-> +	} while (!try_cmpxchg(folio_flags(folio, 0), &old_flags, new_flags));
-> +}
->   
-> -	return ((flags & LRU_GEN_MASK) >> LRU_GEN_PGOFF) - 1;
-> +static inline int folio_lru_gen(const struct folio *folio)
-> +{
-> +	return lru_gen_from_flags(READ_ONCE(*const_folio_flags(folio, 0)));
->   }
->   
->   static inline bool lru_gen_is_active(const struct lruvec *lruvec, int gen)
-> @@ -270,7 +331,7 @@ static inline bool lru_gen_add_folio(struct lruvec *lruvec, struct folio *folio,
->   	gen = lru_gen_from_seq(seq);
->   	flags = (gen + 1UL) << LRU_GEN_PGOFF;
->   	/* see the comment on MIN_NR_GENS about PG_active */
-> -	set_mask_bits(&folio->flags.f, LRU_GEN_MASK | BIT(PG_active), flags);
-> +	set_mask_bits(folio_flags(folio, 0), LRU_GEN_MASK | BIT(PG_active), flags);
->   
->   	lru_gen_update_size(lruvec, folio, -1, gen);
->   	/* for folio_rotate_reclaimable() */
-> @@ -295,7 +356,7 @@ static inline bool lru_gen_del_folio(struct lruvec *lruvec, struct folio *folio,
->   
->   	/* for folio_migrate_flags() */
->   	flags = !reclaiming && lru_gen_is_active(lruvec, gen) ? BIT(PG_active) : 0;
-> -	flags = set_mask_bits(&folio->flags.f, LRU_GEN_MASK, flags);
-> +	flags = set_mask_bits(folio_flags(folio, 0), LRU_GEN_MASK, flags);
->   	gen = ((flags & LRU_GEN_MASK) >> LRU_GEN_PGOFF) - 1;
->   
->   	lru_gen_update_size(lruvec, folio, gen, -1);
-> @@ -339,7 +400,6 @@ static inline bool lru_gen_del_folio(struct lruvec *lruvec, struct folio *folio,
->   
->   static inline void folio_migrate_refs(struct folio *new, const struct folio *old)
->   {
-> -
->   }
->   #endif /* CONFIG_LRU_GEN */
->   
-> diff --git a/include/linux/mmzone.h b/include/linux/mmzone.h
-> index 94f9c3ff5416..c9ecf370cd9f 100644
-> --- a/include/linux/mmzone.h
-> +++ b/include/linux/mmzone.h
-> @@ -497,6 +497,7 @@ enum lruvec_flags {
->   
->   #define LRU_GEN_MASK		((BIT(LRU_GEN_WIDTH) - 1) << LRU_GEN_PGOFF)
->   #define LRU_REFS_MASK		((BIT(LRU_REFS_WIDTH) - 1) << LRU_REFS_PGOFF)
-> +#define LRU_REFS_MAX		BIT(LRU_REFS_WIDTH)
->   
->   /*
->    * For folios accessed multiple times through file descriptors,
-> diff --git a/mm/folio.c b/mm/folio.c
-> index c02dcea9c03c..a932059057ac 100644
-> --- a/mm/folio.c
-> +++ b/mm/folio.c
-> @@ -353,26 +353,28 @@ static void __lru_cache_activate_folio(struct folio *folio)
->   
->   static void lru_gen_inc_refs(struct folio *folio)
->   {
-> -	unsigned long new_flags, old_flags = READ_ONCE(folio->flags.f);
-> +	unsigned long new_flags, old_flags = READ_ONCE(*folio_flags(folio, 0));
-> +	int refs;
->   
->   	if (folio_test_unevictable(folio))
->   		return;
->   
->   	/* see the comment on LRU_REFS_FLAGS */
-> -	if (!folio_test_referenced(folio)) {
-> -		set_mask_bits(&folio->flags.f, LRU_REFS_MASK, BIT(PG_referenced));
-> +	if (!folio_lru_refs(folio)) {
-> +		folio_set_lru_refs(folio, 1);
->   		return;
->   	}
->   
+---
 
-Do we still need this branch now?
+Changes in v2:
+1. Correct logic in commit msg spaces->tabs
+---
+ Documentation/devicetree/bindings/sound/imx-audmux.yaml | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-If folio_lru_refs(folio) == 0, that means refs = lru_refs_from_flags(old_flags) 
-== 0, correct?
-
-If so, the do-while loop below already handles this case, making this early 
-return redundant.
-
-Or am I missing something here?
-
->   	do {
-> -		if ((old_flags & LRU_REFS_MASK) == LRU_REFS_MASK) {
-> +		new_flags = old_flags;
-> +		refs = lru_refs_from_flags(old_flags);
-> +		if (refs == LRU_REFS_MAX) {
->   			if (!folio_test_workingset(folio))
->   				folio_set_workingset(folio);
->   			return;
->   		}
-> -
-> -		new_flags = old_flags + BIT(LRU_REFS_PGOFF);
-> -	} while (!try_cmpxchg(&folio->flags.f, &old_flags, new_flags));
-> +		lru_refs_set_flags(&new_flags, refs + 1);
-> +	} while (!try_cmpxchg(folio_flags(folio, 0), &old_flags, new_flags));
->   }
->   
->   static bool lru_gen_clear_refs(struct folio *folio)
-> @@ -384,7 +386,8 @@ static bool lru_gen_clear_refs(struct folio *folio)
->   	if (gen < 0)
->   		return true;
->   
-> -	set_mask_bits(&folio->flags.f, LRU_REFS_FLAGS | BIT(PG_workingset), 0);
-> +	folio_set_lru_refs(folio, 0);
-> +	folio_clear_workingset(folio);
->   
->   	rcu_read_lock();
->   	seq = READ_ONCE(folio_lruvec(folio)->lrugen.min_seq[type]);
-> diff --git a/mm/vmscan.c b/mm/vmscan.c
-> index 73a81b4a3e16..9ee9f8dc6805 100644
-> --- a/mm/vmscan.c
-> +++ b/mm/vmscan.c
-> @@ -843,19 +843,22 @@ static bool lru_gen_set_refs(struct folio *folio, const vma_flags_t *vma_flags)
->   	if (!folio_test_referenced(folio) && !folio_test_workingset(folio)) {
->   		/* Activate file-backed executable folios after first usage. */
->   		if (is_exec_file_folio(folio, vma_flags)) {
-> -			set_mask_bits(&folio->flags.f, LRU_REFS_FLAGS, BIT(PG_workingset));
-> +			folio_set_workingset(folio);
-> +			folio_set_lru_refs(folio, 0);
->   			return true;
->   		}
->   
-> -		set_mask_bits(&folio->flags.f, LRU_REFS_MASK, BIT(PG_referenced));
-> +		folio_set_lru_refs(folio, 1);
->   		return false;
->   	}
->   
->   	/* Promote on second access */
-> -	if (folio_lru_refs(folio) > 1)
-> -		set_mask_bits(&folio->flags.f, LRU_REFS_FLAGS, BIT(PG_workingset));
-> -	else
-> +	if (folio_lru_refs(folio) > 1) {
-> +		folio_set_workingset(folio);
-> +		folio_set_lru_refs(folio, 0);
-> +	} else {
->   		folio_mark_accessed(folio);
-> +	}
->   	return true;
->   }
->   #else
-> @@ -3266,11 +3269,10 @@ static bool positive_ctrl_err(struct ctrl_pos *sp, struct ctrl_pos *pv)
->    ******************************************************************************/
->   
->   /* promote pages accessed through page tables */
-> -static int folio_update_gen(struct folio *folio, int gen, const vma_flags_t *vma_flags)
-> +static int folio_update_gen(struct folio *folio, int new_gen, const vma_flags_t *vma_flags)
->   {
-> -	unsigned long new_flags, old_flags = READ_ONCE(folio->flags.f);
-> -
-> -	VM_WARN_ON_ONCE(gen >= MAX_NR_GENS);
-> +	unsigned long new_flags, old_flags = READ_ONCE(*folio_flags(folio, 0));
-> +	int old_gen;
->   
->   	/*
->   	 * See the comment on LRU_REFS_FLAGS, and activate file-backed
-> @@ -3279,20 +3281,24 @@ static int folio_update_gen(struct folio *folio, int gen, const vma_flags_t *vma
->   	 */
->   	if (!folio_test_referenced(folio) && !folio_test_workingset(folio) &&
->   	    !is_exec_file_folio(folio, vma_flags)) {
-> -		set_mask_bits(&folio->flags.f, LRU_REFS_MASK, BIT(PG_referenced));
-> +		folio_set_lru_refs(folio, 1);
->   		return -1;
->   	}
->   
->   	do {
-> +		old_gen = lru_gen_from_flags(old_flags);
-> +		new_flags = old_flags;
-> +
->   		/* lru_gen_del_folio() has isolated this page? */
-> -		if (!(old_flags & LRU_GEN_MASK))
-> -			return -1;
-> +		if (old_gen < 0)
-> +			break;
->   
-> -		new_flags = old_flags & ~(LRU_GEN_MASK | LRU_REFS_FLAGS);
-> -		new_flags |= ((gen + 1UL) << LRU_GEN_PGOFF) | BIT(PG_workingset);
-> -	} while (!try_cmpxchg(&folio->flags.f, &old_flags, new_flags));
-> +		lru_gen_set_flags(&new_flags, new_gen);
-> +		lru_refs_set_flags(&new_flags, 0);
-> +		new_flags |= BIT(PG_workingset);
-> +	} while (!try_cmpxchg(folio_flags(folio, 0), &old_flags, new_flags));
->   
-> -	return ((old_flags & LRU_GEN_MASK) >> LRU_GEN_PGOFF) - 1;
-> +	return old_gen;
->   }
->   
->   /* protect pages accessed multiple times through file descriptors */
-> @@ -3301,21 +3307,20 @@ static int folio_inc_gen(struct lruvec *lruvec, struct folio *folio)
->   	int type = folio_is_file_lru(folio);
->   	struct lru_gen_folio *lrugen = &lruvec->lrugen;
->   	int new_gen, old_gen = lru_gen_from_seq(lrugen->min_seq[type]);
-> -	unsigned long new_flags, old_flags = READ_ONCE(folio->flags.f);
-> -
-> -	VM_WARN_ON_ONCE_FOLIO(!(old_flags & LRU_GEN_MASK), folio);
-> +	unsigned long new_flags, old_flags = READ_ONCE(*folio_flags(folio, 0));
->   
->   	do {
-> -		new_gen = ((old_flags & LRU_GEN_MASK) >> LRU_GEN_PGOFF) - 1;
-> +		new_gen = lru_gen_from_flags(old_flags);
-> +
->   		/* folio_update_gen() has promoted this page? */
->   		if (new_gen >= 0 && new_gen != old_gen)
->   			return new_gen;
->   
-> +		new_flags = old_flags;
->   		new_gen = (old_gen + 1) % MAX_NR_GENS;
-> -
-> -		new_flags = old_flags & ~(LRU_GEN_MASK | LRU_REFS_FLAGS);
-> -		new_flags |= (new_gen + 1UL) << LRU_GEN_PGOFF;
-> -	} while (!try_cmpxchg(&folio->flags.f, &old_flags, new_flags));
-> +		lru_gen_set_flags(&new_flags, new_gen);
-> +		lru_refs_set_flags(&new_flags, 0);
-> +	} while (!try_cmpxchg(folio_flags(folio, 0), &old_flags, new_flags));
->   
->   	lru_gen_update_size(lruvec, folio, old_gen, new_gen);
->   
-> @@ -4716,7 +4721,7 @@ static bool isolate_folio(struct lruvec *lruvec, struct folio *folio, struct sca
->   
->   	/* see the comment on LRU_REFS_FLAGS */
->   	if (!folio_test_referenced(folio))
-> -		set_mask_bits(&folio->flags.f, LRU_REFS_MASK, 0);
-> +		folio_set_lru_refs(folio, 0);
->   
->   	success = lru_gen_del_folio(lruvec, folio, true);
->   	VM_WARN_ON_ONCE_FOLIO(!success, folio);
-> @@ -4932,8 +4937,10 @@ static int evict_folios(unsigned long nr_to_scan, struct lruvec *lruvec,
->   		}
->   
->   		/* don't add rejected folios to the oldest generation */
-> -		if (lru_gen_folio_seq(lruvec, folio, false) == min_seq[type])
-> -			set_mask_bits(&folio->flags.f, LRU_REFS_FLAGS, BIT(PG_active));
-> +		if (lru_gen_folio_seq(lruvec, folio, false) == min_seq[type]) {
-> +			folio_set_lru_refs(folio, 0);
-> +			folio_set_active(folio);
-> +		}
->   	}
->   
->   	move_folios_to_lru(&list);
-> 
-
+diff --git a/Documentation/devicetree/bindings/sound/imx-audmux.yaml b/Documentation/devicetree/bindings/sound/imx-audmux.yaml
+index dab45c310670..501af1add3c1 100644
+--- a/Documentation/devicetree/bindings/sound/imx-audmux.yaml
++++ b/Documentation/devicetree/bindings/sound/imx-audmux.yaml
+@@ -101,10 +101,10 @@ examples:
+         mux-ssi1 {
+             fsl,audmux-port = <0>;
+             fsl,port-config = <
+-                IMX_AUDMUX_V2_PTCR_SYN		0
+-                IMX_AUDMUX_V2_PTCR_TFSEL(2)	0
+-                IMX_AUDMUX_V2_PTCR_TCSEL(2)	0
+-                IMX_AUDMUX_V2_PTCR_TFSDIR	0
++                IMX_AUDMUX_V2_PTCR_SYN      0
++                IMX_AUDMUX_V2_PTCR_TFSEL(2) 0
++                IMX_AUDMUX_V2_PTCR_TCSEL(2) 0
++                IMX_AUDMUX_V2_PTCR_TFSDIR   0
+                 IMX_AUDMUX_V2_PTCR_TCLKDIR      IMX_AUDMUX_V2_PDCR_RXDSEL(2)
+               >;
+         };
 -- 
-Best regards
-Ridong
+2.53.0
 
