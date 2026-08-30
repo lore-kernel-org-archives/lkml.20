@@ -1,213 +1,93 @@
-Received: from mail-oa2-f1.google.com (mail-oa2-f1.google.com [74.125.231.65])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49A3B30C147
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 12:50:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.65
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F3F43B0599;
+	Sun, 30 Aug 2026 12:51:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788094230; cv=none; b=b8vraH1OQs30oGHNQ57M+l7+Ur983u9yg5WGK5wFl83bQolFJ546WXcFZsD32UVVXoyAuWnb3o7uBkhYVNbIpfztLoZeW5PGO1NmNpYHWWTAbjwchzFmv51tyk2Wqw07DQ+uqBfAPQKkHgAmbrHtnLWUsRFrijTZQjVjOjctBtk=
+	t=1788094265; cv=none; b=MT/nbuCmIwnwB0z06orP5uIm/E6KHM1KIriY6sOKy100fqa06N6BP/J5+vC0AS5wUxjv6rORYUFwu5JhXHOZhpMSXwEdC433HyeIfcuB4F3p7Jz4ObZ55oAT784j9vXXuWcOMYEmdYHbYVGGMdZv1FRsNPz0xHl3RWI0G/XaHXM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788094230; c=relaxed/simple;
-	bh=C6E7Y94FP+suWFyULPZWMPFn3OYYCjHsZw7LbY90qHY=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=KLEW5ixZVLwsWz5CeW8kiV3TVMxppUhjiG9SqIOX/GD3IFqSkXy/HeoKYXvyW8RKvWN7qLq1F6BTiGrC/epjwiCC6muI+WAfgdtarcheOcFaXa1rMDkalCcaHWsW19X/I5T0E0VJ6m95VQiUdO+eWbeDugGk6V3kuhlebTpHZHo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.65
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oa2-f1.google.com with SMTP id 586e51a60fabf-4489b7aa0e7so690941fac.1
-        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 05:50:29 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788094228; x=1788699028;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/XI9Sq1kNaZAPWZ2QuqGzoa86CKZO8KeH/ZtsnkY1c4=;
-        b=oY3bLZQsLxCf/hfZnbjDVXV+/2TExaSyyxxwZ534Fjsfq8YMTbtTrM3ymuxd4GV57X
-         HTHJYIWV9s3DMyc1kN2yf8mylEOOnFiOdPoMc5Y/gJreBWG94pczqGm+IduDkz0ZfIsT
-         blX9L41519/jnkRBqVsFURWwcKmfBVM34axdnLKGXhOAYO5gdbNo56K91JWVakX8SPrV
-         vqIuNDATrqIyBjjgA6v/r776NNcpuZqTdu/R4vxXVIUtus3LNj437CYMWgajVXpfakGQ
-         FNhAmlQyqUmGSXwJSARDKxQE5FdXoQhDr17tqC1mN/iCYtksCzwlaytj4yUwa/EZ1c/f
-         fFAA==
-X-Forwarded-Encrypted: i=1; AHgh+Ro9j5F0FVv6pb6w/7URpF4zmPxmqKCIbhw5ms3V4S6CDmzfyoiptbLnvyLWP9iAC29HjMaj/WgXGPCvVpc=@vger.kernel.org
-X-Gm-Message-State: AFuF++luIEIFGYmhn6XpRUts0Juik8Wik8lolEJsS+qCddjZGGfZvbTy
-	RGVxitc1E0CmxXbQdtX/zWzDLJs+hadauP+SwBYpeECHL8Vwo2bnL1bMNQOAspWCv5OyvJlLb6k
-	nP/0wyjFxBeqJOs0wjk3vwLEeS/JC5hBENbCdyD59GLc0UqTJxaYifrb+teA=
+	s=arc-20240116; t=1788094265; c=relaxed/simple;
+	bh=H8bityHP/ZFd+dcS6S/8dsm4yXn3yyl2EEAPOGOufmM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=FZEI3Cs7RX0tCkOQk/ociKWGmFXoukEtrwgbBaV27jFdD6aRPk7kQ49CT8dV67f9fmJc0mncwtR0TOgoP5aG0/7KH6JZWM34v6eyxD2rpPtO5RCc7A4lqoU7lhO4SCg8y+iUMQG8SRKEISlRsSGOcSlWcNGA4ntC/sDbEi1FmGg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from localhost.localdomain (unknown [111.196.241.250])
+	by APP-03 (Coremail) with SMTP id rQCowAAXGzkmJ5Rq8aKaBg--.26750S2;
+	Sun, 30 Aug 2026 20:50:47 +0800 (CST)
+From: Pengpeng Hou <pengpeng@iscas.ac.cn>
+To: Guenter Roeck <linux@roeck-us.net>
+Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>,
+	Joel Stanley <joel@jms.id.au>,
+	Andrew Jeffery <andrew@codeconstruct.com.au>,
+	Ryan Chen <ryan_chen@aspeedtech.com>,
+	Billy Tsai <billy_tsai@aspeedtech.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	linux-hwmon@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-aspeed@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] hwmon: aspeed-pwm-tacho: propagate reset deassert errors
+Date: Sun, 30 Aug 2026 20:50:44 +0800
+Message-ID: <20260830125044.97718-1-pengpeng@iscas.ac.cn>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:2229:b0:496:2b3:ae71 with SMTP id
- 5614622812f47-4b39839d589mr22177376b6e.18.1788094228273; Sun, 30 Aug 2026
- 05:50:28 -0700 (PDT)
-Date: Sun, 30 Aug 2026 05:50:28 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a942714.4d659fcc.734b4.003a.GAE@google.com>
-Subject: [syzbot] [usb?] [nfc?] [net?] memory leak in nci_send_cmd
-From: syzbot <syzbot+b197a0fb4e741cc5030e@syzkaller.appspotmail.com>
-To: davem@davemloft.net, david@ixit.cz, edumazet@google.com, horms@kernel.org, 
-	krzk@kernel.org, kuba@kernel.org, linux-kernel@vger.kernel.org, 
-	linux-usb@vger.kernel.org, netdev@vger.kernel.org, 
-	oe-linux-nfc@lists.linux.dev, pabeni@redhat.com, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowAAXGzkmJ5Rq8aKaBg--.26750S2
+X-Coremail-Antispam: 1UD129KBjvdXoW7Jw4kur43JF18KF47WFyxAFb_yoWkCwcE9r
+	48WF9rXrW3GrZ8ur1qyrWfZFWY9F9xu3ZY9rn0qwsxJF9Ivr98ur1vkrn8ZF1UG3sIqFy3
+	uF4DZrWfAw13ujkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUb3kFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
+	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr0_
+	Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I8E87Iv6xkF7I0E14v26F4UJV
+	W0owAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+	I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r
+	4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628v
+	n2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7x
+	kEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E
+	67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCVW8Jw
+	CI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1x
+	MIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIda
+	VFxhVjvjDU0xZFpf9x0JUL0edUUUUU=
+X-CM-SenderInfo: pshqw1xhqjqxpvfd2hldfou0/
 
-Hello,
+aspeed_pwm_tacho_probe() installs its reset cleanup action and configures
+the
+controller after an unchecked reset deassertion.
 
-syzbot found the following issue on:
+Stop probing when the reset controller rejects the transition, before the
+hwmon device becomes visible.
 
-HEAD commit:    73ae59e97596 Merge tag 'erofs-for-7.3-rc1-2' of git://git...
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=12e70d49580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=563582168294b9d9
-dashboard link: https://syzkaller.appspot.com/bug?extid=b197a0fb4e741cc5030e
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=11df1625580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=148b6979580000
-
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/0e5c9cbfb31a/disk-73ae59e9.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/481171cf3bc4/vmlinux-73ae59e9.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/9df84fec3c49/bzImage-73ae59e9.xz
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+b197a0fb4e741cc5030e@syzkaller.appspotmail.com
-
-BUG: memory leak
-unreferenced object 0xffff88810a94e600 (size 240):
-  comm "syz.6.23", pid 5954, jiffies 4294942380
-  hex dump (first 32 bytes):
-    00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
-    00 40 38 2b 81 88 ff ff 00 00 00 00 00 00 00 00  .@8+............
-  backtrace (crc 98a4d7):
-    kmemleak_alloc_recursive include/linux/kmemleak.h:44 [inline]
-    slab_post_alloc_hook mm/slub.c:4696 [inline]
-    slab_alloc_node mm/slub.c:4996 [inline]
-    kmem_cache_alloc_node_noprof+0x39f/0x440 mm/slub.c:5068
-    __alloc_skb+0xdc/0x4e0 net/core/skbuff.c:704
-    alloc_skb include/linux/skbuff.h:1384 [inline]
-    nci_skb_alloc include/net/nfc/nci_core.h:330 [inline]
-    nci_send_cmd+0x46/0x110 net/nfc/nci/core.c:1397
-    nci_reset_req net/nfc/nci/core.c:167 [inline]
-    __nci_request net/nfc/nci/core.c:108 [inline]
-    nci_open_device net/nfc/nci/core.c:503 [inline]
-    nci_dev_up+0x1b6/0x690 net/nfc/nci/core.c:643
-    nfc_dev_up+0xca/0x160 net/nfc/core.c:118
-    nfc_genl_dev_up+0x3d/0x70 net/nfc/netlink.c:775
-    genl_family_rcv_msg_doit+0x12e/0x1a0 net/netlink/genetlink.c:1114
-    genl_family_rcv_msg net/netlink/genetlink.c:1194 [inline]
-    genl_rcv_msg+0x302/0x440 net/netlink/genetlink.c:1209
-    netlink_rcv_skb+0x89/0x1c0 net/netlink/af_netlink.c:2556
-    genl_rcv+0x28/0x40 net/netlink/genetlink.c:1218
-    netlink_unicast_kernel net/netlink/af_netlink.c:1319 [inline]
-    netlink_unicast+0x38f/0x4e0 net/netlink/af_netlink.c:1345
-    netlink_sendmsg+0x335/0x690 net/netlink/af_netlink.c:1900
-    sock_sendmsg_nosec net/socket.c:800 [inline]
-    __sock_sendmsg net/socket.c:815 [inline]
-    ____sys_sendmsg+0x54a/0x580 net/socket.c:2713
-    ___sys_sendmsg+0x101/0x140 net/socket.c:2767
-    __sys_sendmsg+0xcd/0x140 net/socket.c:2799
-    do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
-    do_syscall_64+0xe9/0x530 arch/x86/entry/syscall_64.c:84
-
-BUG: memory leak
-unreferenced object 0xffff888109c4bc80 (size 704):
-  comm "syz.6.23", pid 5954, jiffies 4294942380
-  hex dump (first 32 bytes):
-    20 00 01 01 00 00 00 00 00 00 00 00 00 00 00 00   ...............
-    00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
-  backtrace (crc 40ddf9):
-    kmemleak_alloc_recursive include/linux/kmemleak.h:44 [inline]
-    slab_post_alloc_hook mm/slub.c:4696 [inline]
-    slab_alloc_node mm/slub.c:4996 [inline]
-    kmem_cache_alloc_node_noprof+0x39f/0x440 mm/slub.c:5068
-    kmalloc_reserve+0xd2/0x1b0 net/core/skbuff.c:615
-    __alloc_skb+0x15d/0x4e0 net/core/skbuff.c:715
-    alloc_skb include/linux/skbuff.h:1384 [inline]
-    nci_skb_alloc include/net/nfc/nci_core.h:330 [inline]
-    nci_send_cmd+0x46/0x110 net/nfc/nci/core.c:1397
-    nci_reset_req net/nfc/nci/core.c:167 [inline]
-    __nci_request net/nfc/nci/core.c:108 [inline]
-    nci_open_device net/nfc/nci/core.c:503 [inline]
-    nci_dev_up+0x1b6/0x690 net/nfc/nci/core.c:643
-    nfc_dev_up+0xca/0x160 net/nfc/core.c:118
-    nfc_genl_dev_up+0x3d/0x70 net/nfc/netlink.c:775
-    genl_family_rcv_msg_doit+0x12e/0x1a0 net/netlink/genetlink.c:1114
-    genl_family_rcv_msg net/netlink/genetlink.c:1194 [inline]
-    genl_rcv_msg+0x302/0x440 net/netlink/genetlink.c:1209
-    netlink_rcv_skb+0x89/0x1c0 net/netlink/af_netlink.c:2556
-    genl_rcv+0x28/0x40 net/netlink/genetlink.c:1218
-    netlink_unicast_kernel net/netlink/af_netlink.c:1319 [inline]
-    netlink_unicast+0x38f/0x4e0 net/netlink/af_netlink.c:1345
-    netlink_sendmsg+0x335/0x690 net/netlink/af_netlink.c:1900
-    sock_sendmsg_nosec net/socket.c:800 [inline]
-    __sock_sendmsg net/socket.c:815 [inline]
-    ____sys_sendmsg+0x54a/0x580 net/socket.c:2713
-    ___sys_sendmsg+0x101/0x140 net/socket.c:2767
-    __sys_sendmsg+0xcd/0x140 net/socket.c:2799
-
-BUG: memory leak
-unreferenced object 0xffff88810aa0d700 (size 240):
-  comm "syz.0.26", pid 5976, jiffies 4294942681
-  hex dump (first 32 bytes):
-    00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
-    00 a0 5b 28 81 88 ff ff 00 00 00 00 00 00 00 00  ..[(............
-  backtrace (crc cdb4723c):
-    kmemleak_alloc_recursive include/linux/kmemleak.h:44 [inline]
-    slab_post_alloc_hook mm/slub.c:4696 [inline]
-    slab_alloc_node mm/slub.c:4996 [inline]
-    kmem_cache_alloc_node_noprof+0x39f/0x440 mm/slub.c:5068
-    __alloc_skb+0xdc/0x4e0 net/core/skbuff.c:704
-    alloc_skb include/linux/skbuff.h:1384 [inline]
-    nci_skb_alloc include/net/nfc/nci_core.h:330 [inline]
-    nci_send_cmd+0x46/0x110 net/nfc/nci/core.c:1397
-    nci_reset_req net/nfc/nci/core.c:167 [inline]
-    __nci_request net/nfc/nci/core.c:108 [inline]
-    nci_open_device net/nfc/nci/core.c:503 [inline]
-    nci_dev_up+0x1b6/0x690 net/nfc/nci/core.c:643
-    nfc_dev_up+0xca/0x160 net/nfc/core.c:118
-    nfc_genl_dev_up+0x3d/0x70 net/nfc/netlink.c:775
-    genl_family_rcv_msg_doit+0x12e/0x1a0 net/netlink/genetlink.c:1114
-    genl_family_rcv_msg net/netlink/genetlink.c:1194 [inline]
-    genl_rcv_msg+0x302/0x440 net/netlink/genetlink.c:1209
-    netlink_rcv_skb+0x89/0x1c0 net/netlink/af_netlink.c:2556
-    genl_rcv+0x28/0x40 net/netlink/genetlink.c:1218
-    netlink_unicast_kernel net/netlink/af_netlink.c:1319 [inline]
-    netlink_unicast+0x38f/0x4e0 net/netlink/af_netlink.c:1345
-    netlink_sendmsg+0x335/0x690 net/netlink/af_netlink.c:1900
-    sock_sendmsg_nosec net/socket.c:800 [inline]
-    __sock_sendmsg net/socket.c:815 [inline]
-    ____sys_sendmsg+0x54a/0x580 net/socket.c:2713
-    ___sys_sendmsg+0x101/0x140 net/socket.c:2767
-    __sys_sendmsg+0xcd/0x140 net/socket.c:2799
-    do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
-    do_syscall_64+0xe9/0x530 arch/x86/entry/syscall_64.c:84
-
-connection error: failed to recv *flatrpc.ExecutorMessageRawT: EOF
-
-
+Fixes: 18c514cc0e02 ("hwmon: (aspeed-pwm-tacho) Deassert reset in probe")
+Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
 ---
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+ drivers/hwmon/aspeed-pwm-tacho.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+diff --git a/drivers/hwmon/aspeed-pwm-tacho.c b/drivers/hwmon/aspeed-pwm-tacho.c
+index 1c5945d4ba377..bfce589c3fb1f 100644
+--- a/drivers/hwmon/aspeed-pwm-tacho.c
++++ b/drivers/hwmon/aspeed-pwm-tacho.c
+@@ -934,7 +934,9 @@ static int aspeed_pwm_tacho_probe(struct platform_device *pdev)
+ 			"missing or invalid reset controller device tree entry");
+ 		return PTR_ERR(priv->rst);
+ 	}
+-	reset_control_deassert(priv->rst);
++	ret = reset_control_deassert(priv->rst);
++	if (ret)
++		return ret;
+ 
+ 	ret = devm_add_action_or_reset(dev, aspeed_pwm_tacho_remove, priv);
+ 	if (ret)
 
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
+base-commit: 08dbfad3f5040f5bdb6c529da20d6d4e81fefd72
+-- 
+2.50.1
 
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
