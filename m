@@ -1,89 +1,133 @@
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0452814F70
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 08:27:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 825C8258EF3;
+	Sun, 30 Aug 2026 08:30:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788078453; cv=none; b=QrsUw9a7F9AwPYRnMHtnyiEv69Bm1B6pMss/811KsngNDZEqjfl2UkeH01oXR0vlHk+GEVK2qEcwiLQE9lNcVihz7inW1xVZNuWrwTLG66xjr9dYArtKYTHCe7sG4JWZfY6J8AonMKYqC6HUhh7+VerEU4jeO4IgcG1UsgcsntI=
+	t=1788078648; cv=none; b=b1k1NyXIZ9G/j+1U1GmJT0ZC5m0s/T3b3hYnNXjMzXlWfkXL9jb/Mz3rWIsRvurClEcbCM6FMBC03QvPFyGF2CF5kXpb5wVV2QTjk5gR5GE61fwx1CFAXDwOdfmkUiYXyWGsnVjpKq8GUJ/mn40NHUZce2HI7XSUKUn3rcVn6eI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788078453; c=relaxed/simple;
-	bh=IA+d0A5QcyMe6n8YDpvZW44tVbbxmmPH7u3V+8hzS1Q=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=mF0dd2ANchM0j/X8cIIJGGlYzpiyxerdBcRduTHTtiE/1F6sSk2IleCn8dgh+wLdFrVV1E1ju3ipaUUc+7kAdFkJSm9Cfrlh8hAGbqPuNtkNs65rpa774dhvcVRQlcZaoFJI1CGqOqY3ET3y6lVv7eoNYzDOAnODtvumU4nNmxc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HuR9XT5J; arc=none smtp.client-ip=209.85.216.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788078648; c=relaxed/simple;
+	bh=EE0V+9hvKxThidCRmPLnCawTLyN9e6WCbd5609ZYHFc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=uMq7BQONaEagNXIEYDKrmmYpof3lmyhf/sGPJFSXe9jiSffmQoBlfWvRawj28kOc3hswzeiszBK0pBpaNwugsQLxY5QRgo53RySqaUwwFpCAW6sWL6b06JDPHNzWY4PcEygjhJLIfQaXnVv2h6TXGLgDMay7XWj7rR+Buk9MMwY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GQIuKKEh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HuR9XT5J"
-Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-38a0c7e841fso3553123a91.2
-        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 01:27:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788078451; x=1788683251; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=IA+d0A5QcyMe6n8YDpvZW44tVbbxmmPH7u3V+8hzS1Q=;
-        b=HuR9XT5JYCrvblV3mtMNm9t22F0nIN7XZ8AMROg0aXAwCMemQpHrGvyDdKTeVvzlHq
-         CTdRpF+f04zFpXwCosmiQdPH80mC+lbSZVu6I0TjTV/FnoONzYOVZxHO191DKYyYFLvQ
-         DhOyKgx6ntQWVNH30ZzCd+dwfVOmKxJ7uF47JpYPTwSLAgxKkUwSv3L/HGydGmouT6hm
-         5zaR00Lrd5HcngZPC5+M8Hyi+c57s3ssl9jxhZW7toTUoa7oJ7mzm2sYLIY+EBOWzPJh
-         nQmqfSEnIqavOq4hmc8xRdKuClXPv3vQLaLADSyzNzxPJdbxQeuUY8xdmzCoOh4peKqJ
-         tj/w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788078451; x=1788683251;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=IA+d0A5QcyMe6n8YDpvZW44tVbbxmmPH7u3V+8hzS1Q=;
-        b=s11re2Wny0axvZAksEkLljih3XoE6erqUpxDLPNUJi31nJGpe3h+/FeaIjKOyO/VAm
-         cZsESAG/wlma8z7wk3oVm7FGHq7r0jXB3JhSTPYFJZkyLk5HSTUty8ja2xUQf0P/GCni
-         EEy9k6PIHVcmA2STtb4RXZlzaMB+ITdBt03GJ2HGFC87fCnNzcNmYGQvfS7si3MSf2Yd
-         1FRfA60iq0VEql1tBXqYW0MSFfVeFhwPMt+9nBBtVAq3BwEQmNZhBw49jW4Kc/ORjtYf
-         ZE27F0C5vnThKknjY0Lep7JqJaKtR8VE62ZEX8wyfuH8nSPIUKlgMH5hoIcR8mpoNRXo
-         IKgg==
-X-Forwarded-Encrypted: i=1; AKwUvBwHh3CSvx5EvmeOnreDmn8lkLjS6cKoESIEFdyuE3c7HdrIp4jAY6D8h2Fp4+GN04rrHq0yta4sallZANQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++lr+XdI0TERUj74mShWn6ahI/aH/KiVqxeVn0T7ZiAf7uxF4s8o
-	U4BxvPqKtoAYcsvUvC0nPGmfmum0o/v9aEwS35IrKGN2Nd5Dlp+BdPiR
-X-Gm-Gg: AYBFou1DbHeEr9pwqaT4kDkedfjklp5jdPdie+Gl6FTZqeSp51Uh0f0OCmqULPOk/YV
-	tRVVDS3GlsPGbCB+q/XVpsYEa3Gqhj9M1leEqlDbVdHLG8EpIHG43DZfbRAvAOmz/AR87EBq1x0
-	0XRC2D/vb0Se6wnxQippmNjmjUh+AeeEotx/G9BeTc3SjbA0y+lCZhepoy8vAFPxflczrYVFt0P
-	9KMsiTjvgf1kiUDkICSXfGZhf4GA0+izxfJ+BNqiiS9M25pA/+z5AwyIUbeMCc3Q8MZl/ig3z/T
-	YwUbZPMZ8MPEwAivYrSAcsU21HNrNLPvvSjIX4b/XXIVJANe1bqKsut+OdAJvJDfjw18ha5vY3Q
-	+1k5X8SZi9qMiQrMBPviLSppAhtGxLCxePmBjWy81TA5I7F+NImGumgqXOjhtjU4sHG44bfGEca
-	nuW/iiX/RJTVlqaIBiijok30tT9IMVO5Mi2d9AA9Bd0nJlAxUR2lKDIZNW2saIH1k/
-X-Received: by 2002:a17:90a:da8b:b0:398:9be5:b41a with SMTP id 98e67ed59e1d1-3989be62ef6mr16592222a91.21.1788078451274;
-        Sun, 30 Aug 2026 01:27:31 -0700 (PDT)
-Received: from Default ([2409:40f4:101a:c47:80b4:fa67:fe3f:eecf])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-142e0df264csm36211979c88.14.2026.08.30.01.27.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 30 Aug 2026 01:27:30 -0700 (PDT)
-From: Jeffin Philip <jeffinphilip14@gmail.com>
-To: jeffinphilip14@gmail.com
-Cc: dmitry.torokhov@gmail.com,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	syzbot+1e2ef9bcb29af666b2e6@syzkaller.appspotmail.com
-Subject: Re: [PATCH v4] Input: atkbd - fix uaf in atkbd_set_repeat_rate
-Date: Sun, 30 Aug 2026 13:57:18 +0530
-Message-ID: <20260830082718.8375-1-jeffinphilip14@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260830081415.15187-1-jeffinphilip14@gmail.com>
-References: <20260830081415.15187-1-jeffinphilip14@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GQIuKKEh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 105001F000E9;
+	Sun, 30 Aug 2026 08:30:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788078646;
+	bh=j5sIvsE7M+TOJ0IAY63szxYcPq0HJzF40LgRSxYedZ0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=GQIuKKEhRWKaUbc4qLXwDbUoiwiz7PXA1OlmO+/cCaj1G2RP1e/bm70AzkO1CKGj+
+	 EuUJYTX+khYx/1R2nBYLT6LUvvBQw3S0lNGUb1HW2LM/z/exPR03ghi7YMxUyaDeVW
+	 I2Sr+WkXaIRE9k/EDDEgOZFxIi8zNB2VfW0p7upb7n8a0HxrPk74gJGwJbjdYB/cmQ
+	 +73q3wNdk2CIGj/w1puqHhznYkvQoBngv1ec4dkc5cpGYKnnWtjUU0gshLflG34dbd
+	 cERbhDMdAm1kbJtsHLukdE9OLV9dfvW18SPe7ONQWW+tYUDGfYAEc6VPZkvBaV3XIX
+	 E0hdFILXE3/jQ==
+Message-ID: <ac4c6b24-02c7-4dc3-89e4-45aa335255d3@kernel.org>
+Date: Sun, 30 Aug 2026 10:30:37 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 03/21] dt-bindings: pinctrl: Add
+ starfive,jhb100-sys0-pinctrl
+To: Changhuang Liang <changhuang.liang@starfivetech.com>,
+ Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Emil Renner Berthing <kernel@esmil.dk>,
+ Paul Walmsley <pjw@kernel.org>, Albert Ou <aou@eecs.berkeley.edu>,
+ Palmer Dabbelt <palmer@dabbelt.com>, Alexandre Ghiti <alex@ghiti.fr>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Bartosz Golaszewski <brgl@kernel.org>
+Cc: "linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "linux-riscv@lists.infradead.org" <linux-riscv@lists.infradead.org>,
+ Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
+References: <20260829025720.23915-1-changhuang.liang@starfivetech.com>
+ <20260829025720.23915-4-changhuang.liang@starfivetech.com>
+ <f474f659-8234-4dfb-85cc-06d2cc295107@kernel.org>
+ <ZQ4PR01MB1202DDBD0436E8F580EB6575F2AA2@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <ZQ4PR01MB1202DDBD0436E8F580EB6575F2AA2@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Sun, 30 Aug 2026 13:44:15 +0530, Jeffin Philip wrote:
->Would cleaning up leds cause any weird issues on reconnect?
+On 30/08/2026 03:29, Changhuang Liang wrote:
+> Hi, Krzysztof
+> 
+> Thanks for the review.
+> 
+>> On 29/08/2026 04:57, Changhuang Liang wrote:
+>>> +#ifndef __DT_BINDINGS_PINCTRL_STARFIVE_JHB100_H__
+>>> +#define __DT_BINDINGS_PINCTRL_STARFIVE_JHB100_H__
+>>> +
+>>> +/* sys0 pad numbers */
+>>> +#define PADNUM_SYS0_GPIO_A0				0
+>>> +#define PADNUM_SYS0_GPIO_A1				1
+>>> +#define PADNUM_SYS0_GPIO_A2				2
+>>> +#define PADNUM_SYS0_GPIO_A3				3
+>>
+>> I could not find how your driver uses these, so are you sure it's a binding
+>> constant for the SW?
+> 
+> Yes, these are not used in the driver, but in PATCH 6/8/10/12, etc., some definitions
+> for other GPIOs are still used. Therefore, I have uniformly defined them in the 
+> binding, and they will be provided to the device tree for use later.
 
-Correction: Would _NOT_ cleaning up leds cause any weird issues
-on reconnect?
+I am confused. The driver in these patches 6/8/10/12 does include the
+header but does not use them. Why do you include unused headers? Or what
+is exactly the use?
 
-Thanks,
-Jeffin.
 
+Best regards,
+Krzysztof
