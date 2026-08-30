@@ -1,95 +1,166 @@
-Received: from mail-4316.protonmail.ch (mail-4316.protonmail.ch [185.70.43.16])
+Received: from meesny.iki.fi (meesny.iki.fi [195.140.195.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C30A83ACEF0;
-	Sun, 30 Aug 2026 12:00:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.16
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788091225; cv=none; b=qNa4iyZqreSiyAstrLWLiLwuQS/kSLVEviGdITEJJ5BZw3cOCWNffRDLIz5mIEmblQNNWUO+m3tZM1N/CCzIDryIgUH8OmIEpDpmBiOW6b1eNFfyf0Hj2JCFrWqi3IlnYEN8HJXfGAnKSGpIj9TtVjGFsrQ470q6Pl2bkMySHbY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788091225; c=relaxed/simple;
-	bh=PwX9bj6002H462i9TjMrY1TVcwVq0b7tUsRonNYBYvU=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=JrgUvZdxOmgfz+5rvr8e7L0usssiQFQdWatR3HANr/nvl5dA2w8LI/53T+/dv0zDurvlZ81/3iDrWLbgBWI6JPzCynq41vYxxi/LwO8+FH4hM84n5UL54z+LJ19XI7gjhvsppWCM40fggEJujUQEmbHXBbG17IU7RDoYg4DkeLM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=gkPFBhQP; arc=none smtp.client-ip=185.70.43.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4686F2F6188;
+	Sun, 30 Aug 2026 12:04:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=195.140.195.201
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788091459; cv=pass; b=IDYM36eZZRRv+/qzf2DWns+Jc4I37p7v+AwmmDro7lPtmnLr7pdyqH+THZz3X1eZM7kXNIjAkyj4FhEgkefcDyZIO1NrMEXQyVDK+4Dvrgc9j/w9nv888hc8d2uoc3quI4GsMPwxGa0wxq+nQOnufxEJ8JX0EsRhSP+2ik0jp/U=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788091459; c=relaxed/simple;
+	bh=A9rklMPuyzrE14fi/pO/Ydf1YVTm+qJXiTBTZR5cdCc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qS0RnB976B6FTKxabOrg8VtCf9wvm0J6CAfHS4ZVTa7hDECx56jtkcqGSQMv5LcFRAX5tIi0M9DS7qw+0ysV6C9CSxM1kFvV1UJ2+mHxDq6E4gEgdlCKi4+aNGO1b6ige/pazxK9vMhdoH3h8CiNtoMGVzEvA1sW0Fmr4bofyjM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi; spf=pass smtp.mailfrom=iki.fi; dkim=pass (1024-bit key) header.d=iki.fi header.i=@iki.fi header.b=zQMtRjGr; arc=pass smtp.client-ip=195.140.195.201
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iki.fi
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="gkPFBhQP"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1788091215; x=1788350415;
-	bh=jOE0CSh8ox9EXM8+5H/rT+NIWygOxY5svge8bmpNeDw=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=gkPFBhQPNg/GmAoXUIqvWfBHrFD/6jSYd+tPNux2j48wSvXPsEZ1rmUVOlAeDvh1g
-	 e42pH29Gf3F2XVpuGLkTt84e3+Aw+ghCsCXE164mBGwKyOzF9IsSNl9Ji13TtgoaI3
-	 bMn/PSI7FEzf4opNBiK+EVs1Qy2E80CxkEpO7vtsZpab66alQRLmHtgfOLNRlG6I3I
-	 i1PKDpUGqYTanrT3jd3FRQm24A9YN0Ujo5sGWU1TwTK/IaQg9hNWjugzbqaUePCSmC
-	 UMetNoR5n5JDdCKEtpSBJmNNhIQrpaFYigNzZpUclHRIYZsiIRcfKm/KPfeDSMcSBK
-	 aznZ7JhGKGygg==
-Date: Sun, 30 Aug 2026 12:00:10 +0000
-To: Daniel Scally <dan.scally@ideasonboard.com>, Sakari Ailus <sakari.ailus@linux.intel.com>, Hans de Goede <hansg@kernel.org>, =?utf-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-From: Sergey Lebedev <lsa.uz@pm.me>
-Cc: platform-driver-x86@vger.kernel.org, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: int3472: unhandled GPIO type 0x08 leaves the rear camera dead (Surface Pro 11, Intel)
-Message-ID: <20260830120003.35709-1-lsa.uz@pm.me>
-In-Reply-To: <20260830112736.85573-1-lsa.uz@pm.me>
-References: <20260830112736.85573-1-lsa.uz@pm.me>
-Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: cc760786752fb274dbc3651bd4fd7188c347276b
+	dkim=pass (1024-bit key) header.d=iki.fi header.i=@iki.fi header.b="zQMtRjGr"
+Received: from monolith.lan (unknown [IPv6:2a02:6ea0:1508:6::d001])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: pav)
+	by meesny.iki.fi (Postfix) with ESMTPSA id 4hXrQ23Qp7zyVw;
+	Sun, 30 Aug 2026 15:04:10 +0300 (EEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi; s=meesny;
+	t=1788091450;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=Jpkq5gloEA+gu3kHhMtoFYmS0u3z3b9Q4t6Mlc4LPQY=;
+	b=zQMtRjGr9RVQhx0WQlYKnSFsww097DVaOaxEpRfM9CK5KMJyBWQNHmSYOgKZFlCybO7mkO
+	/YELfGm5MO8I5AaDiTFo3q2x5DbQGPcSW5SoocOzuMqVaKFRkav3iNURHoMRb6NRTV4oiS
+	95g8NwzP9cetJYWfJEP+1dAOPXPYveY=
+ARC-Seal: i=1; a=rsa-sha256; d=iki.fi; s=meesny; cv=none; t=1788091450;
+	b=n1F3059OKBTQ6BAhRu8kKby2fQO+68KyFxc3EAekqgQAx0UZplITmCpMbcs9mo9mHtEjfH
+	xnE2Uzu42RM87qXoPZqwcF3Y05btkQw79glHkMr/8IVrJ1WF+gLfxDzVXLVKmjJGbavFBJ
+	kLSf155oZ+lm4vSo64X5sBE3klcGLPw=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi;
+	s=meesny; t=1788091450;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=Jpkq5gloEA+gu3kHhMtoFYmS0u3z3b9Q4t6Mlc4LPQY=;
+	b=TOyq5Hmey4EWPfDMbf5i7PtbY81LJWjoeRhftzJ+fx5doNCUk8z1bkhcfl1TtMFUIk04UH
+	fMdF6kcSuVplOoixbJEMIu4NyFPAHTxuN/b/JI2ckBHZjhzPRIMdqPJEm+dq4MX4M4J66j
+	EoxGAlYqeZutGnChAG8c9809Sq9uvrk=
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=pav smtp.mailfrom=pav@iki.fi
+From: Pauli Virtanen <pav@iki.fi>
+To: linux-bluetooth@vger.kernel.org
+Cc: Pauli Virtanen <pav@iki.fi>,
+	marcel@holtmann.org,
+	luiz.dentz@gmail.com,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 1/2] Bluetooth: L2CAP: fix out-of-bounds write in l2cap_ecred_connect
+Date: Sun, 30 Aug 2026 15:04:01 +0300
+Message-ID: <2b863abeea0ada6e990b07a7f3182e261ecd8e09.1788091154.git.pav@iki.fi>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Following up on my own report from this morning, because I should have
-found this first: the question I asked has already been answered in
-public, on a sibling machine, with patches.
+l2cap_chan_connect() tries to ensure there are no more than
+L2CAP_ECRED_CONN_SCID_MAX pending ECRED channels, so they fit in the
+same L2CAP_ECRED_CONN_REQ that l2cap_ecred_connect() constructs.
 
-  https://github.com/linux-surface/linux-surface/issues/2153
+However, the check only counts deferred channels.  If 6 L2CAP sockets
+are connected at the same time in order DDDDND (D=deferred,
+N=non-deferred), the last can bump the total to max+1.  It results to
+one __le16 written out of bounds of the scid array, and an invalid
+ECRED_CONN_REQ being sent.
 
-djmulder worked out the Surface Pro 10 rear camera - the same OV13858
-behind the same OVTID858 ACPI id - and identified GPIO type 0x08 as
-DVDD, a second digital power rail, mapped as con_id "dvdd2". They also
-found three causes my report did not mention at all, because I had not
-looked:
+Fix by leaving room for the non-deferred pending ECRED channels in the
+counting in l2cap_chan_connect(), so the limit can't be exceeded.
 
-  - drivers/media/pci/intel/ipu-bridge.c has no entry for OVTID858, so the =
-IPU
-    never recognises the sensor even once it is powered
-  - ov13858 never requests or releases the reset GPIO; the sensor is held i=
-n
-    reset by the INT3472 and answers on I2C as soon as it is let go
-  - INT3472_MAX_SENSOR_GPIOS is 3, and the _DSM here declares four, so the
-    fourth would be refused by the array bound even with 0x08 understood
+Move counting under same critical section where the channel is added.
+Although race conditions involving this appear unreachable, it's easier
+to see.
 
-So please do not spend time re-deriving any of that on my account. My
-apologies for the noise; I searched the kernel history and MAINTAINERS
-before writing, but not the place where Surface owners actually work on
-Surface hardware, which is the obvious first place to look and is entirely
-my error.
+Also add WARN_ON_ONCE check in l2cap_ecred_defer_connect() to make this
+less brittle.
 
-What I think is still open, and what I can usefully do:
+Fixes: da49b602f7f7 ("Bluetooth: L2CAP: Use DEFER_SETUP to group ECRED connections")
+Signed-off-by: Pauli Virtanen <pav@iki.fi>
+---
 
-None of it has been confirmed on the Surface Pro 11, and the two machines
-are not identical. On SP10 the 0x08 GPIO sits at pin 0xC6; on this SP11 it
-is at pin 4, with the whole ICL0 descriptor set at different pins. The
-thread also notes the two models use different sensor clock rates.
+Notes:
+    Bug found as pre-existing in sashiko.dev report
+    
+    v2:
+    - Do counting differently, to avoid calling chan->ops->get_peer_pid for
+      non-deferred channels.
+    - Move counting inside existing conn->lock critical section, it's better
+      for locking context of get_peer_pid.
 
-I will apply those four patches here, report back whether they are
-sufficient on SP11 unchanged, and say plainly where they are not.
+ net/bluetooth/l2cap_core.c | 20 ++++++++++++++------
+ 1 file changed, 14 insertions(+), 6 deletions(-)
 
-That thread describes its own CLK_IS_CRITICAL and always_on regulator
-constraints as too broad for upstream. If you would rather see a different
-shape tested - a DMI quirk, or teaching ov13858 to request its own
-regulators and clock - say which and I will try it here. The machine is
-available and I can build and boot kernels on it.
-
-Thanks,
-Sergey
+diff --git a/net/bluetooth/l2cap_core.c b/net/bluetooth/l2cap_core.c
+index 358b11eabd4f..1b612b9beaa8 100644
+--- a/net/bluetooth/l2cap_core.c
++++ b/net/bluetooth/l2cap_core.c
+@@ -1329,7 +1329,7 @@ static void l2cap_le_connect(struct l2cap_chan *chan)
+ struct l2cap_ecred_conn_data {
+ 	struct {
+ 		struct l2cap_ecred_conn_req_hdr req;
+-		__le16 scid[5];
++		__le16 scid[L2CAP_ECRED_CONN_SCID_MAX];
+ 	} __packed pdu;
+ 	struct l2cap_chan *chan;
+ 	struct pid *pid;
+@@ -1357,6 +1357,10 @@ static void l2cap_ecred_defer_connect(struct l2cap_chan *chan, void *data)
+ 	if (test_and_set_bit(FLAG_ECRED_CONN_REQ_SENT, &chan->flags))
+ 		return;
+ 
++	/* Unreachable, checked in l2cap_connect (+timer drops it if reached) */
++	if (WARN_ON_ONCE(conn->count >= ARRAY_SIZE(conn->pdu.scid)))
++		return;
++
+ 	l2cap_ecred_init(chan, 0);
+ 
+ 	/* Set the same ident so we can match on the rsp */
+@@ -7374,6 +7378,9 @@ int l2cap_chan_connect(struct l2cap_chan *chan, __le16 psm, u16 cid,
+ 		goto done;
+ 	}
+ 
++	mutex_lock(&conn->lock);
++	l2cap_chan_lock(chan);
++
+ 	if (chan->mode == L2CAP_MODE_EXT_FLOWCTL) {
+ 		struct l2cap_chan_data data;
+ 
+@@ -7381,19 +7388,20 @@ int l2cap_chan_connect(struct l2cap_chan *chan, __le16 psm, u16 cid,
+ 		data.pid = chan->ops->get_peer_pid(chan);
+ 		data.count = 1;
+ 
+-		l2cap_chan_list(conn, l2cap_chan_by_pid, &data);
++		__l2cap_chan_list(conn, l2cap_chan_by_pid, &data);
++
++		/* Leave room for non-deferred channel that ends the group. */
++		if (test_bit(FLAG_DEFER_SETUP, &chan->flags))
++			data.count += 1;
+ 
+ 		/* Check if there isn't too many channels being connected */
+ 		if (data.count > L2CAP_ECRED_CONN_SCID_MAX) {
+ 			hci_conn_drop(hcon);
+ 			err = -EPROTO;
+-			goto done;
++			goto chan_unlock;
+ 		}
+ 	}
+ 
+-	mutex_lock(&conn->lock);
+-	l2cap_chan_lock(chan);
+-
+ 	if (cid && __l2cap_get_chan_by_dcid(conn, cid)) {
+ 		hci_conn_drop(hcon);
+ 		err = -EBUSY;
+-- 
+2.55.0
 
