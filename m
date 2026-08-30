@@ -1,107 +1,118 @@
-Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
+Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com [209.85.167.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FEC9202F70
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 09:33:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.45
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788082399; cv=pass; b=dR0w39b7j5xNFk3ofVi+ZgvkDYhL5+jtGvVSU4OO7rtIhYAx4EVk82EEzE1DYTp1JqDVPqRjDxP0B4xVz8AzFIa1mEKBIPAOwFXsbJLWZMssPR0Gr3extKK0BPnjnfkCEEZkCWXDWB+UNgpPtjYVxlQJ/oL2GiZLXNOHGYSFL1M=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788082399; c=relaxed/simple;
-	bh=XjkYzubNknDxtSLcJD0OSIc3FWWZftOwgASfjFMJ1JI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=n3m9QOl3OMQ+qwr6uS9KVaC5H6BLtORntXgGffou7sZYQv3vFom8d9dCB7C14M6dfR/vcK0i+mMqa5MNi//bxqShwnbF0egIBpWdRRlsLfAsJk9Np541M0CiUMmtZO+fjwk6qHLUUZTsu4VFCJTJwzqeXp2KM07LkYTioHcj+Rk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=divinehawk.com; spf=pass smtp.mailfrom=divinehawk.com; arc=pass smtp.client-ip=209.85.218.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=divinehawk.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=divinehawk.com
-Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c255206b4dfso315432566b.1
-        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 02:33:18 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788082396; cv=none;
-        d=google.com; s=arc-20260327;
-        b=fPbW0hoh6x28nwmnonTfna++DTCfNtaRHPvPQJTHhczErF7RRG9mnifTZpMQQf99rE
-         ksSg9mpc3i4bqiPCqhBjHA+HnLm+ECx6cF8b/QkLw/rErOWcT0FWf/WCCKsSkJmj4NTI
-         lFUAFCuqp0s22im/xYsFe8Y540is25KcsmOW6ukeuc5i0EXpxDm5PUd1elWVByy5UdZl
-         +nSq8dle60ZA4BljqgAq1Yd3NHPXO4A1HTghKrZwLjj58qYfIo8ZBjhRE+8tTCT917GM
-         lJcq/J1JHM9YM5JXWJeGYV/RHfF5AUSTjdExTcYoaNcGikFwFQOOFPyHYrGB2/Jyhhab
-         9Cpw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version;
-        bh=4S/Q8LsIlAtco+cE6yiBQGlAUU2xKF533bVW2yFHbcQ=;
-        fh=VnyyP2HRsmdy9k6D21R3rOZyEEFjy2WAe6q+I6qCwzY=;
-        b=IThXvyZBUq/JJUpY7QPltfFmK6ZBkfA5iW3j8Zh4MfcdbxGFw5s0/C2Mvj3HB98vlO
-         SUb6giM+0Y0ARCXBw7r+outOA04pgOqoy+j6BmaOZ5a7/411ya54A2PzJCex6wXutqhd
-         J+7TU5ZuT1XX65JqQrWnPRBhTaBS94o4jgJzMzRyPPtSXRyeBu0jQl/zbEQ+WGIx66y0
-         i3zBQiWxQtfCpMfCOPi9Fi0pIzG99l+J3fOGYdzlf8O/EGpsQeJgEUGmFLp6RDaT9TV6
-         gLTynEALPU3pmuhrI3dcPHIvb7CwsGtUaRo67VUgaRuoYrm2xq3iJsYX3hfzFkuawbCo
-         FQkg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788082396; x=1788687196;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 266A53A5E71
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 09:33:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.41
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788082402; cv=none; b=TxHE/lJ/4qeLorSaGPOkFv1DPsYD9uA/df2liTtbUgHKJ+wN/HAEY1fCJ+7mRKAFta82LZRnAX6/HtflwgA3vuNsnMxynESUF3MF9y2gjNqxpg+6CeYY/MqG29HJ/JL4olY+nhHmYgqP9UIhiSnPiaGGogYYM6OU/i5SxhLIG/E=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788082402; c=relaxed/simple;
+	bh=/DKnhV0MmVJPWDzTPG3icFO2F50OI3OFtVu85d9jTUI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=HmVchgdn30sRv9RmO1cavcBTy6wu+BhYgFhmrghprWR/giLeUhxO8RAAOyCetVEnwPK/trsY3PjWbnSdkIg8gtpfKdFfhFrp+4OA8CLV0ifC96Vwej8kE3wgCU4Ed1GmlOCKGT2yd6kuxdzYKcTnj9iWlcCVBgk/jF3uBo+W10k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hEJsZqkR; arc=none smtp.client-ip=209.85.167.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hEJsZqkR"
+Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5b5607bd3b5so2136651e87.3
+        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 02:33:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788082399; x=1788687199; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=4S/Q8LsIlAtco+cE6yiBQGlAUU2xKF533bVW2yFHbcQ=;
-        b=R8Y81RWnFB/Iusdw7CKOajKCtv80SlukK1pdFJsRo89srQvcr6ASZYlqgXvmsrTTfJ
-         2jRhwn9el5q7Txmldao38n4EDvXsxnrpNOqI23cqhb9646/m34x8C7EAOCJW69Krz5yl
-         ReZU/TJIYprgRj3KZPLPkuKPkFHfJBuvOwGylDiNOICorHCfc/R+/tNYpY/4ioLATWGd
-         tjQEt+6S+tL1b2DEHpE8X3Kh9pSHA97o7YTauNFch3UDLXIWYK0HDKhooYwx14dzg+uL
-         ZoldpY0xmeuDm/rf1cf6h2WGxF1aGEJpQFQBIgHJYuFlISuxFuyLUwBoR3psB93sHYyB
-         Klzw==
-X-Forwarded-Encrypted: i=1; AHgh+Rpke0qBaXbDz+fosyMEc0e3naLAI+ncV7iuDhpz3ul/cBXdVgAHmvIoQNd/ObhU9XZ12rG3k7x8eIz+r14=@vger.kernel.org
-X-Gm-Message-State: AFuF++lYRJoiwTBSbTO823AfBWsLdpxUtUiRKFEHuMC8d+fNBnhVOtsU
-	jk8S8OV8oHR8uEb+v3wfz/eDuyAdgr8/LqCtlwlsBpeTPTpmJ5zJUcNMFPghLcUo2FyLkpNTKwF
-	CGUD1AiJvQC8o4slbh8uQjLDsRiuT4s1I1chXqmkB
-X-Gm-Gg: AR+sD1146d6xH6yHPXOvcjbO1uYwCr+x3ri51FjMKa0gjsz382+HOmHBo5Vzq7aMARq
-	PsWMhsz7bZ7BZjq5ykOwtRhJyth0GZBXyTq542Qnef3s1Jxi3J51uXC7mrjDRd+2CTbyqQMzd+L
-	900u1czsLVtVP6T7LNay8oQlJPr4/Vn8YQFbnqsUCS3IZYsjCuJlk6L+32zFd7est5S1eIM3197
-	WXf/Lsu/JGJZ1D73AH2BbnIj2AbTcD1I4gRrS3RoMeGUq4G93D5HnCTyghhf9zs1QYQlR8UGVQr
-	IaM/rfgAEGWMsZE6ayrJ2Qv/qqahVDIeWtzNPVnRvpoaiKqMzyAg/YIZORc2Ry8xNHJVB0uPNut
-	iVYV2fQLBGaBOeY7HZMj1BDuzbanhxaRisb8=
-X-Received: by 2002:a17:907:7a13:b0:c25:2e93:289e with SMTP id
- a640c23a62f3a-c25571deb5fmr1292724366b.16.1788082396393; Sun, 30 Aug 2026
- 02:33:16 -0700 (PDT)
+        bh=mA3g2yHDcdRcBYbXDsH8zS7Qjtttirgrx3DJv7xsWNs=;
+        b=hEJsZqkRaf97G+Lauk+gTXTBDrIqCAOrGe1skn+JGmhIzeChV2icg3HwQm+780Wo9T
+         Kk4R7LZHboDevYCcVO1zoeqItVK0ZduMCiyJQB0pPFg+gGUtlG8QHJsK6yRF/oCtzvOM
+         kXHvxyuMJWY31mnPbs3mcub2216ppx+X3Fkj63UbD5eMWAxRhyPJRFak2h9BTUc1pgUx
+         cCWxhwt4jMElWSm/t2rMt5Cb2P47a7sTDSW/Z+TMqtSIRs0EzTl9YfKBW89bfK+XOuZO
+         i25gL3AXLboIl54f/7nSu/TVeMqrKHA2eLifmIJeoZobAKBACR/KoUvDW0Rf1eKJG5DC
+         eQRA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788082399; x=1788687199;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=mA3g2yHDcdRcBYbXDsH8zS7Qjtttirgrx3DJv7xsWNs=;
+        b=KhMHeYRfXI2IAczvGvWWPFoubsRfzJCfU2mTvx3opO7YbJwJ2YyTgei7pVEV+LWKip
+         IapxK5ixMlSNAUFRDvv+/RlMr4PzSQs0ekM4dlKDZAUIVnjLIvKoffeXDgw/MvS+OJ8U
+         /cAIkkyrk0F8i9SbrmZutWemm5aVZ9c0caJbxepN55knDLKO19jpfDegTBcJXpRZoEVB
+         ztXNGwOkSxyCklec0+2CxubmDO7tkN1ZszmcIsvvx8fWO40rCeWnjbrghyPIRn5+XPRA
+         ywepkS9P3QOB7EVdB6V/NkRteFQH0Tun3Z+OPolhaXfRboKMrcHXszta5Jjd1GwWPt44
+         QdJQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxqmaulPQIp8YFJZpaQ12LBG29N6ZpaddBaD3ekQobPYn22a6/cK9hEABy0L58LkaXwqNSydDF/LCMTTG8=@vger.kernel.org
+X-Gm-Message-State: AFuF++n1xnx4oBvlaxJ3blplmk+CthSGhuwlZ7kzOOU1sVCKl7og5J+r
+	0XfbnM3/fxZts46aBRtWSxL/x9LfNlkHfPRrR9D8KlMeAgnYKSRzHlUnAxbW3IUV
+X-Gm-Gg: AYBFou1OWa7dkp0HzzUm7G07MfUdCX6RNNnCYQVaKnf8Z4fJmY0w8jan0QEtqZdFw1D
+	OTwPHmgrvwInM7iE1OetzZKTQUH/3F2xVMLpLvAjE8NFyCQJnbg6Bs+675iLlJ046I4tb1vLMqt
+	1PZlJXLJpPX6XjIwY+zSrAmK3vPzTCLnCIQTK5SzR5+TrEa2blv1gIx/18EGT1ocbSd3EQTFsjh
+	S+pigQ1YQOk6eC8HJeEZdG2Ue9ncydZ8AsFRbZVfS6oLzvUDJthz0rFbumueaVLbczF52uCW6kN
+	gyKV6Ew3TH8VIeYZu8YgrUQKaR6rHpW+d6XgcwqjqfUvWi0NYzRkNUSK5qV2oLh5Ws8NPjgu/Dt
+	jRMFUJDFyPJxfNVzEB44/sPXKPC9+mJBIKKt7TkQcRaliSoyXo8EIzGv9V66cMCn2eEpYUIPBvq
+	YtSlWAhCC4I4Oj8F4c/R4BAyPQ++W5AguYVmUAKnHVMyB5/NC1KmyJd8mGdtNPe3yxtQV8Fymhm
+	6zS/u4rYHRKjCnJOuS+LoHIbwJI5jRh9AcxWbmA3lul
+X-Received: by 2002:a05:6512:2396:b0:5b4:5f6b:d43e with SMTP id 2adb3069b0e04-5b5e68d9e4bmr5364758e87.14.1788082398764;
+        Sun, 30 Aug 2026 02:33:18 -0700 (PDT)
+Received: from ?IPV6:2a10:a5c0:800d:dd00:8fdf:935a:2c85:d703? ([2a10:a5c0:800d:dd00:8fdf:935a:2c85:d703])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b5e89c5ad9sm1477182e87.7.2026.08.30.02.33.17
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 30 Aug 2026 02:33:18 -0700 (PDT)
+Message-ID: <ab8f1a0c-0666-4b7f-884a-55f9f26a1ac6@gmail.com>
+Date: Sun, 30 Aug 2026 12:33:17 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260829-xhci-no-soft-retry-v2-0-0efe22f1c2f8@divinehawk.com> <20260829-xhci-no-soft-retry-v2-2-0efe22f1c2f8@divinehawk.com>
-In-Reply-To: <20260829-xhci-no-soft-retry-v2-2-0efe22f1c2f8@divinehawk.com>
-From: Matt Eaton <linux@divinehawk.com>
-Date: Sun, 30 Aug 2026 11:33:05 +0200
-X-Gm-Features: AcwNN1XMIbCJzCRFD4Hg1pCFjnrmfyXU44jNCBVbq9X8JPUOmt7-zWV52VzJ6iE
-Message-ID: <CABUBpLfK=w6e-M_TV4BfwX7EsUCLaZO7_GN9_506yHvBFEWJEg@mail.gmail.com>
-Subject: Re: [PATCH v2 2/3] usb: dwc3: add xhci_no_soft_retry software property
-To: linux@divinehawk.com
-Cc: Mathias Nyman <mathias.nyman@intel.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Thinh Nguyen <Thinh.Nguyen@synopsys.com>, 
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-msm@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/4] iio: accel: kionix-kx022a: Prevent memory leak and
+ fix state
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>,
+ Matti Vaittinen <matti.vaittinen@linux.dev>,
+ David Lechner <dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ Mehdi Djait <mehdi.djait.k@gmail.com>, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <cover.1787901813.git.mazziesaccount@gmail.com>
+ <9e4453fcc00df6ec988207df8916226d18aecb20.1787901813.git.mazziesaccount@gmail.com>
+ <178805296127.2788519.3966625158499254314.b4-review@b4>
+Content-Language: en-US, en-AU, en-GB, en-BW
+From: Matti Vaittinen <mazziesaccount@gmail.com>
+In-Reply-To: <178805296127.2788519.3966625158499254314.b4-review@b4>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Sat, Aug 29, 2026 at 10:04=E2=80=AFPM Matt Eaton via B4 Relay
-<devnull+linux.divinehawk.com@kernel.org> wrote:
->
-> From: Matt Eaton <linux@divinehawk.com>
->
-> diff --git a/drivers/usb/dwc3/host.c b/drivers/usb/dwc3/host.c
-> index c5674161b2b0..e22a8dc5d090 100644
-> --- a/drivers/usb/dwc3/host.c
-> +++ b/drivers/usb/dwc3/host.c
-> @@ -130,7 +130,7 @@ static int dwc3_host_get_irq(struct dwc3 *dwc)
->
->  int dwc3_host_init(struct dwc3 *dwc)
->  {
-> -       struct property_entry   props[6];
-> +       struct property_entry   props[7];
-I think this should be props[8] now as it should have been props[7]
-before (latent bug?), with the last entry being NULL to satisfy
-property_entries_dup(). I can do a patch v3.
+On 30/08/2026 04:22, Jonathan Cameron wrote:
+>> The driver allocates memory for samples at buffer enable path. If regmap
+>> operation fails in the kx022a_fifo_enable() at the buffer enable path, the
+>> allocated memory is never freed. Furthermore, the state information and
+>> previous hardware configuration(s) aren't undone, potentially leaving
+>> WMI interrupts and buffers enabled, or driver state flags wrong.
+>>
+>> Free the memory and revert the hardware configuration and state flags on
+>> error path.
+>>
+>> Fixes: e7123a4dfcd7 ("iio: accel: kionix-kx022a: Refactor driver and add chip_info structure")
+>> Signed-off-by: Matti Vaittinen <mazziesaccount@gmail.com>
+>> Reviewed-by: Mehdi Djait <mehdi.djait@linux.intel.com>
+> 
+> I'm not happy with the label naming.  It had me very confused!
 
-Regards,
-Matt
+Hmm. I suppose it could be more consistent :) Thanks.
+
+Yours,
+	-- Matti
+
+
+-- 
+Matti Vaittinen
+Linux kernel developer at ROHM Semiconductors
+Oulu Finland
+
+~~ When things go utterly wrong vim users can always type :help! ~~
