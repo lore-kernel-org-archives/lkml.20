@@ -1,72 +1,82 @@
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A0A83B27FA;
-	Sun, 30 Aug 2026 12:40:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BE3A3B3C03;
+	Sun, 30 Aug 2026 12:40:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788093636; cv=none; b=Y/Q06qm0BoJTVKbFMklM7irqP13Jd3N5mi/Nn+hYgnS+9opkbHvvwTStAtG6W1l7vq/i1V9Y35SW+l6Y+pewlkHWP/Qywpn/bVWc/J0FaMQsYE0GUDU0El6UHPrbwkyjFf4WJzpabaNOjECyfbDrbMG7drddv3ljwbODMKjV8dA=
+	t=1788093643; cv=none; b=a3g70SMTRcmXL0o6x0wLnjZyODFsQaIatJwweRViSHzXddpXG2OpBehhk/7i8l6Ks8/gVwr6Oc2ThHY1BQhT09NSbNY2AIRhACgiAeFLgjPvIbWk4HD8bmr+cw2jkZhWPrCTqwTjKHxbWEasQTJDKjtu0gE8wD+4rLVydOC0pkg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788093636; c=relaxed/simple;
-	bh=IdDJuaJEMaX+/zhA1A+Py/N84hA/ca1Tsd72WJpq67M=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CiL/ulPIeGAsUsWU3fiJ9OKZiME1Iv/Ocx/P5jVzQ+tEnuFTeie4Out+0+iHXQwxqrmNX0iVkY2v83rjoMObq2yUcwHflK+G4UoRNb2Cr69pm9lxWYQxzjljxyr+QHPvT/5HeG1aXRszhV2H8RprDYZsc7pdPZV6FBzkNLdCODo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=vi16hdNt; arc=none smtp.client-ip=90.155.50.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="vi16hdNt"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=w2Yu37RyGHuTKU6LsWqjv/TrIzDjNCcF8SRXvGzqih4=; b=vi16hdNtyhciZcatyDKz3kgJy5
-	J+WeKhMezb5Mt6ZiVsesV0t1vOTXKwUlQLOpI6X+1YqOQmFQKxWPjb00+rQBWKg6TQt//WfDabH0q
-	GMvIrCLU3AZ3zOku2lPW9zwcccZAC7a/BVmo7wfMCae2+g3fOirlK3Auoor5CJRxWHUfthMht4AbA
-	YPOh79MZLOSjAuDsq/cxjzBQMD8A2KSlYPdF7RhmVqPMsU/KinIFEGhVd3HYiH0A6xIgVd7S5dUfo
-	pNfhUgBGgu4Z3CW+NoDoK02aZponE9o2wgNhkDNk+xNr1X4TAIGrBSyamNbnKNBRz1oKNomhZkQoH
-	CQCCDpkg==;
-Received: from willy by casper.infradead.org with local (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1x0epe-00000000zXY-0Jv4;
-	Sun, 30 Aug 2026 12:40:18 +0000
-Date: Sun, 30 Aug 2026 13:40:17 +0100
-From: Matthew Wilcox <willy@infradead.org>
-To: Wenjie Qi <qwjhust@gmail.com>
-Cc: jack@suse.cz, akpm@linux-foundation.org, linux-fsdevel@vger.kernel.org,
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org, baohua@kernel.org,
-	axboe@kernel.dk, trond.myklebust@hammerspace.com,
-	tz2294@columbia.edu, chao@kernel.org, qiwenjie@xiaomi.com
-Subject: Re: [PATCH] mm: filemap: skip dropbehind folios during fault-around
-Message-ID: <apQksVlTvJY_0aTi@casper.infradead.org>
-References: <4a4ac0b4accb50641f504f205663435047c4b26e.1788086386.git.qiwenjie@xiaomi.com>
+	s=arc-20240116; t=1788093643; c=relaxed/simple;
+	bh=Old8QB90Ux33BOYGXmtT/hrvEcn532k+LWNFbmLlJfo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ZESgiv8qQnuiKPE/aQeuR6XAYyRXvK691ulqnGBh35zi7yIyzPAIgxwQQExwRk4SX0KtVJsoOiZGOw2EQ8d4aVgJ0EccoLKOhA0vHlFb8AJ19sLP+/Rvmo93vehtnihbxtFU5rGWmOPwJIC1xb5yYMI+Sb6MPaYwsk8Hi2Hgdd4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from localhost.localdomain (unknown [111.196.241.250])
+	by APP-03 (Coremail) with SMTP id rQCowACnc0HEJJRqNYGaBg--.26755S2;
+	Sun, 30 Aug 2026 20:40:37 +0800 (CST)
+From: Pengpeng Hou <pengpeng@iscas.ac.cn>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] media: dvb-frontends: ds3000: validate firmware size
+Date: Sun, 30 Aug 2026 20:39:50 +0800
+Message-ID: <20260830124034.95459-1-pengpeng@iscas.ac.cn>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <4a4ac0b4accb50641f504f205663435047c4b26e.1788086386.git.qiwenjie@xiaomi.com>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowACnc0HEJJRqNYGaBg--.26755S2
+X-Coremail-Antispam: 1UD129KBjvdXoW7Xr4ruryxZr4DXr4kZr4ktFb_yoWDXFgEkw
+	1DZF9xuw1YgF1kZr1jgr1xX3yq93yUuryvvF42vw43JFW8Z3W5Jr1vvasxtFW5Ga12gF98
+	A3Wjva1Uua92kjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbwAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
+	A2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr0_
+	Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I8E87Iv6xkF7I0E14v26F4UJV
+	W0owAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+	I7IYx2IY67AKxVWUGVWUXwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r
+	4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCF04k20xvY0x0EwIxG
+	rwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4
+	vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1lIxkGc2Ij64vIr41lIxAIcVC0I7IY
+	x2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26c
+	xKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAF
+	wI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0JUdEfOUUUUU=
+X-CM-SenderInfo: pshqw1xhqjqxpvfd2hldfou0/
 
-On Sun, Aug 30, 2026 at 07:48:45PM +0800, Wenjie Qi wrote:
-> From: Wenjie Qi <qiwenjie@xiaomi.com>
-> 
-> filemap_map_pages() maps uptodate folios speculatively without going
-> through the normal filemap lookup that clears dropbehind. As a result,
-> a neighboring dropbehind folio can acquire a PTE and the mapped-folio
-> completion guard will retain it even if that PTE is never accessed.
-> 
-> Skip still-dropbehind folios in next_uptodate_folio(). If the skipped
-> folio covers the fault address, do_read_fault() falls back to
-> filemap_fault(), where the normal lookup clears dropbehind and updates
-> WB_DONTCACHE_DIRTY accounting before mapping it. Speculative neighbors
-> remain unmapped and can be discarded when I/O completes. Normal folios
-> continue to use fault-around.
-> 
-> Dropbehind is folio-wide, so a fault into any subpage retains the whole
-> large folio through the normal fault path.
+The firmware diagnostic reads the first two and final two bytes without
+proving that the firmware object contains at least two bytes.
 
-I don't think we should do this.  Even if a folio is brought in through
-fault-around, it still indicates some conflict between dropbehind and
-another user, which indicates that the dropbehind hint was wrong.
+Reject undersized firmware before the diagnostic and upload path consume
+it.
+
+Fixes: 09ea33e5c696 ("V4L/DVB (13493): TeVii S470 and TBS 6920 fixes")
+Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
+---
+ drivers/media/dvb-frontends/ds3000.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/media/dvb-frontends/ds3000.c b/drivers/media/dvb-frontends/ds3000.c
+index ce7ae424b27cc..76d2eb98932ae 100644
+--- a/drivers/media/dvb-frontends/ds3000.c
++++ b/drivers/media/dvb-frontends/ds3000.c
+@@ -374,6 +374,8 @@ static int ds3000_load_firmware(struct dvb_frontend *fe,
+ 	int ret = 0;
+ 
+ 	dprintk("%s\n", __func__);
++	if (fw->size < 2)
++		return -EINVAL;
+ 	dprintk("Firmware is %zu bytes (%02x %02x .. %02x %02x)\n",
+ 			fw->size,
+ 			fw->data[0],
+
+base-commit: 08dbfad3f5040f5bdb6c529da20d6d4e81fefd72
+-- 
+2.50.1
+
