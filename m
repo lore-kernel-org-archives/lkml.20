@@ -1,140 +1,115 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36B0425B0B6;
-	Sun, 30 Aug 2026 09:38:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4462225B0AA;
+	Sun, 30 Aug 2026 09:41:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788082741; cv=none; b=BjLYQQgi04foyQXvfSR+HJMtqgghdj9/JbdDva+FDmCSiVpabFH1LFZgQLK8f30Px3IvUZOdfWz9QTPTE7tItIuviC0CJsT1dXv1CCuM3y+aXsIb/k512KTK2nXBigi7PBUo+POHz8AkDRzOVtrrgrgSwRLV4P7GUf6Z50EJrIw=
+	t=1788082880; cv=none; b=bzjCVOe/Yg4vZlPIks/YrINb0h2F1xMC76Q5e17neiv21TNsl5t+pAaia6PSnIeUBtMTSPD3x9as/e8kO5vhMdQD6Uzg16PRfO2Ty+rxj1Yvbb4tIufllPccm1fY57jItnWA20yBxBsPvpU5zF9PypXC7WkCB1RqCnHpLtFKl4o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788082741; c=relaxed/simple;
-	bh=DYEGJThvxD3EI8tPBUw/f6YQmYdrmiC3fayS5oSThp8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=k+fQKHJB1PgOEz4N7uMSvxgUcg8c9umP8V1zLmE6uNoAmnUdP/R/pEW536jw56BSZH4iFbL08XeZyEfu8puw0Ur0FnJih5vtcf97QrnKEEI3kE3KIuGifTIzxjeG7+ETMhHycA09iPPEIYCMXyrB9hrMMKwC4vGSU3L3/ecTG1s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mMIndOHI; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788082880; c=relaxed/simple;
+	bh=FIOSq77btE2jEexpcIy0sQV3ik8NzDiD46Hdfrpksg4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=nK6fr31JTAhh0HxxkPHmsAz5XU2R4+QCTK7v6TdkBbta5vq25Al63qYTjBgd/rZ83Pu2a4GZ9ITofavvYd8xYlmIgn0TY4nN9MRVdzsjUMMRSDs4tp3UIYq6nKMHLOWrXHgZz1rtEAXhVG35yD410wOIl5WEaKXnbmFiu9FZgFs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ESAbBCyY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mMIndOHI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 479041F000E9;
-	Sun, 30 Aug 2026 09:38:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ESAbBCyY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5951E1F000E9;
+	Sun, 30 Aug 2026 09:41:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788082739;
-	bh=c5wbSvMfE0pJzRIujez5O2qKEvAya60BbFimcnSfaYo=;
-	h=From:To:Cc:Subject:Date;
-	b=mMIndOHIQIh2ztgyw/k2toN7mzUq+Z0gU6czKpMHBMUki8MUTvBU4JahoNXT4Mikv
-	 pP+t1aIohR5ZimAHO0TnaNO13vh8zXQCZ+zH3noQ0au/e8Q0gm83ZEnQjHjlmvHAhu
-	 Az/S9BlvGFv2JJbOAFbGPB2i10GwF4bP03Q9zMOr5pjSUDiUoT+dXUwZtB6wHCwq5p
-	 QKpVFvsAHuHixR7Rz8ymosbNk0pKN/L90kPdRpG9SvrFg2o9BzXVacRtyT1NjQ4Pi2
-	 PaowHRdNMYn5rS+TzjI+rXDtoTwe/VDoMdjhdjGo1RRoR9VrkBzKa0eqhd0UpxH0JW
-	 usnPUuB4Z5tJA==
-From: Miguel Ojeda <ojeda@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Miguel Ojeda <ojeda@kernel.org>,
-	Boqun Feng <boqun@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Trevor Gross <tmgross@umich.edu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
-	rust-for-linux@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [GIT PULL] Rust fixes for 7.3
-Date: Sun, 30 Aug 2026 11:38:34 +0200
-Message-ID: <20260830093834.275112-1-ojeda@kernel.org>
+	s=k20260515; t=1788082878;
+	bh=yrc5OceLOqYuhC0Jhzc+o7Zvca1fcHD8ktpQZihCCtg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ESAbBCyYgALcwK7zibx+GrVKsxlHvPM8SMaXok2ncxpKFSjL85J6vSBgH6uPB99cN
+	 6D98nbGGcoWWTooFlOv9gjeCY9RD2W0oGv+2gc5cywkk+pXkeBSl8/TBQB1M4FJX7k
+	 uW67kI2dC9fboPwzT+0ZZVvvpjC0JQ4oQ95sMd41V5cibQBxV1SZzj+Ov4WbDzdxeE
+	 uj8OSRJUAphJt2LQFG3w+iC0MrxJjKQHU78h6catQFtQ107t0EY9A1g9ulaVq1efOH
+	 OP2Kl6ebI3AlhelBlhUAbdsii2bAuUN7VUzjanLFuzBBEjdGeqJWMOCOhpSi2ZAhGt
+	 vcsY9G5+4xy0A==
+Date: Sun, 30 Aug 2026 11:41:14 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: George Moussalem <george.moussalem@outlook.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Wesley Cheng <quic_wcheng@quicinc.com>, 
+	Thinh Nguyen <Thinh.Nguyen@synopsys.com>, Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
+Subject: Re: [PATCH 1/9] dt-bindings: usb: qcom,snps-dwc3: Add ability to
+ select UTMI as reference clock
+Message-ID: <20260830-primitive-faithful-mouse-cdd1e8@quoll>
+References: <20260825-ipq-flatten-usb-v1-0-5c1f3170bbe9@outlook.com>
+ <20260825-ipq-flatten-usb-v1-1-5c1f3170bbe9@outlook.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260825-ipq-flatten-usb-v1-1-5c1f3170bbe9@outlook.com>
 
-Hi Linus,
+On Tue, Aug 25, 2026 at 02:42:26PM +0400, George Moussalem wrote:
+> Add ability to select the UTMI clock as reference clock which is passed
+> by the glue layer to the DWC3 core to calculate the reference clock
+> period and frame length adjustment based on its clock rate.
+> 
+> In the flattened snsp-dwc3 model, it is currently not possible to pass a
+> reference clock that differs from the default since:
+> commit 613a2e655d4d ("usb: dwc3: core: Expose core driver as library")
+> 
+> This prevents moving chipsets such as IPQ5018, IPQ6018, IPQ5332, IPQ5424
+> and IPQ9574 with a reference clock rate different from 19.2 MHz from
+> moving to the flattened model.
+> 
+> The Qualcomm takes care of clock and resets management itself and sets
+> the ignore_clocks_and_resets flag in dwc3_probe_data to true, so the
+> core doesn't acquire the reference clock from the devicetree.
+> 
+> The existing DT property 'snps,quirk-ref-clk-period-ns' has been
+> deprecated.
 
-Please pull these fixes for Rust.
+There is no such property.
 
-They have been in linux-next for at least 3 rounds (most for a week).
 
-No conflicts expected.
+> 
+> So, add a property to select the UTMI clock used by many (if not all)
+> Qualcomm USB controllers as the reference clock.
+> 
+> Signed-off-by: George Moussalem <george.moussalem@outlook.com>
+> ---
+>  Documentation/devicetree/bindings/usb/qcom,snps-dwc3.yaml | 9 +++++++++
+>  1 file changed, 9 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/usb/qcom,snps-dwc3.yaml b/Documentation/devicetree/bindings/usb/qcom,snps-dwc3.yaml
+> index ea60f7220afe..aa263dfd42a1 100644
+> --- a/Documentation/devicetree/bindings/usb/qcom,snps-dwc3.yaml
+> +++ b/Documentation/devicetree/bindings/usb/qcom,snps-dwc3.yaml
+> @@ -155,6 +155,15 @@ properties:
+>        HS/FS/LS modes are supported.
+>      type: boolean
+>  
+> +  qcom,select-utmi-as-ref-clk:
+> +    description:
+> +      If present, pass the UTMI clock as the reference clock to the DWC3 core to
+> +      use its clock rate to calculate the reference clock period and frame
+> +      length adjustment in GUCTL and GFLADJ registers. This is needed when these
+> +      values based on the standard clock rate deviate from the hardware default
+> +      values. If not set, the hardware default values are used.
 
-Thanks!
+Sashiko comment seems valid. You describe Linux behavior. In your commit
+msg you mention that clock cannot be passed since commit 613a2e655d4d,
+which is a driver commit. So trivial answer would be: if issue was
+caused by driver commit, then fix is within driver, not bindings.
 
-Cheers,
-Miguel
+Maybe there is different issue which is not purely-driver specific, but
+I did not get that from description.
 
-The following changes since commit d24f5cdbeff8b6a063fca92d0a1f94122a799b59:
+For example, if given SoC has different rates, then the SoC-specific DWC
+compatible defines which clock to use and you do not need such property.
 
-  Merge tag 'rust-7.3' of git://git.kernel.org/pub/scm/linux/kernel/git/ojeda/linux (2026-08-18 11:25:09 -0700)
+Best regards,
+Krzysztof
 
-are available in the Git repository at:
-
-  ssh://git@gitolite.kernel.org/pub/scm/linux/kernel/git/ojeda/linux.git tags/rust-fixes-7.3
-
-for you to fetch changes up to 1b0bab4a873f1034c27573cfc613394cff7e0a5b:
-
-  rust: kbuild: disambiguate `zerocopy_derive` for `rusttest` (2026-08-25 22:19:27 +0200)
-
-----------------------------------------------------------------
-Rust fixes for v7.3
-
-Toolchain and infrastructure:
-
- - Fix KCFI failures, such as in Rust doctests, by disabling function
-   merging when CFI is enabled. Gary reported the LLVM bug to upstream
-   and it is now fixed in their mainline.
-
- - Fix 'objtool' fallthrough warnings under the experimental
-   'CONFIG_RUST_INLINE_HELPERS' by passing (for the combined Rust and
-   helpers code) the LLVM options needed to preserve the unreachable
-   traps that 'rustc' normally emits.
-
-   In addition, fix 'objtool' errors when LTO is enabled on top, by
-   also filtering out the LTO flags (for the combined Rust and helpers
-   code) so that the traps are kept in place.
-
- - Fix 'objtool' warnings by adding one more 'noreturn' function.
-
- - Fix 'make rusttest' target when the 'rustc-dev' component is
-   installed and Rust >= 1.82.0, <= 1.87.0 is used.
-
-'kernel' crate:
-
- - 'num' module: fix soundness issue in the 'Bounded' conversion from
-   'bool' by restricting the conversions to unsigned 'Bounded'.
-
- - 'jump_label' module: fix future 'make rusttest' target failures when
-   'ARCH=' is set to an arch different than the host's.
-
- - 'list' module: fix incorrect 'pop_back()' comment.
-
-----------------------------------------------------------------
-FUJITA Tomonori (1):
-      rust: jump_label: skip arch-specific asm in `testlib` builds
-
-Gary Guo (1):
-      rust: cfi: disable function merging if CFI is enabled
-
-Miguel Ojeda (4):
-      objtool/rust: add one more `noreturn` Rust function
-      kbuild: rust: preserve unreachable traps with inline helpers
-      kbuild: rust: keep Rust objects out of Clang LTO with inline helpers
-      rust: kbuild: disambiguate `zerocopy_derive` for `rusttest`
-
-Nikolai Grlica (1):
-      rust: kernel: list: fix incorrect pop_back example comment
-
-Younes Akhouayri (1):
-      rust: num: restrict bool conversion to unsigned Bounded
-
- Makefile                   | 13 ++++++++++++-
- rust/Makefile              |  6 ++++--
- rust/kernel/jump_label.rs  | 12 ++++++++++++
- rust/kernel/list.rs        |  2 +-
- rust/kernel/num/bounded.rs | 30 +++++++++++++++++++++---------
- scripts/Makefile.build     |  3 ++-
- tools/objtool/check.c      |  1 +
- 7 files changed, 53 insertions(+), 14 deletions(-)
