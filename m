@@ -1,185 +1,152 @@
-Received: from outbound.ms.icloud.com (ms-2003e-snip4-1.eps.apple.com [57.103.72.132])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30E523B42F8
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 17:15:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.72.132
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77D562EB5A6
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 17:19:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788110129; cv=none; b=SeFp4tTs5nYZYO84ojVk21SJyCFtuLKyF7WHGDqn/RNE0119mIzfH81Wf9myv8DyIvmL80gOv0MtBs/VdSZaZnITicXPCMgI9ErgxwZukGt98kZmdIlNzuRM0yLJBSH2th1BimmyAyi7Ik+PvRfBw9AvDxWytvezdaME0JZHUvM=
+	t=1788110361; cv=none; b=d6uTRiGU41mfablECnftwSMr4jE8FPPas52f6DUYtXKbMnrlZ6Xbr7wfx5jEGCeuF84OumT6O/syX/WIWIywJWdxevholtAYD1nr6C0NQvu2gTa9j0/eP3J8hsz7GzoIV1GdJkjhBR23yeJd6ApTtqhQiNwqNIWl9mQRZU7qRuA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788110129; c=relaxed/simple;
-	bh=BEuAuym4UsyHC3Ia5dCtau5HnU+nSBEwBzb3ae4yvH8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rAploqLoSsUKBCDm274svSUcao/DOLOzYYW3nnZ+Ms87jk2shAb/LQvDP8W6SJeLig6wAARSgzaNI0BEPbV3ZCiPpqwNW4sQSNXKy1wrMWOaw8oQlklz9qr2xdyLw8WWMgHsI0hrbNo8BPrxW9EeuwO6S/ZClosx5xh3z5nbZNM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=albertopimpo.com; spf=pass smtp.mailfrom=albertopimpo.com; dkim=pass (2048-bit key) header.d=albertopimpo.com header.i=@albertopimpo.com header.b=Fdv0vGvg; arc=none smtp.client-ip=57.103.72.132
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=albertopimpo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=albertopimpo.com
+	s=arc-20240116; t=1788110361; c=relaxed/simple;
+	bh=xph1ZbpAuVGBQ9BGgKp2r4tB6wXDf4tOCzRDoW0QHA8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ucDgMwRFx2nNBc+szZJHui9puFdf/tPXNshEluw3zzb8NaAGhv3X/wOE2Moan/IXq+h8j9lfMO+EIOCW2JLBAG+sd87ZjECSuuMVLAjprv557ZlCi8axV8PFUWZTJgPsWRC+DY8UQstdPYmF2TouOkPH6AiClkj6w693u31TeOA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rmvnw6sS; arc=none smtp.client-ip=209.85.214.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=albertopimpo.com header.i=@albertopimpo.com header.b="Fdv0vGvg"
-Received: from outbound.ms.icloud.com (unknown [127.0.0.2])
-	by p00-icloudmta-asmtp-us-west-3a-60-percent-5 (Postfix) with ESMTPS id EA7901800408;
-	Sun, 30 Aug 2026 17:15:24 +0000 (UTC)
-X-ICL-RepId: 01a053ab-3749-7b34-893c-bad1b353f438
-X-ICL-Out-Info: HUtFAUMHWwJACUgBTUQeDx5WFlZNRAJCTQBLHV4ARQNJCVYCVABLVxQEFVYtVgdQFUsMXB1eBkIfFxtcABcNVk1YFFEIRR9dAFAVQwIZCF0dGQpQUAFLWhVVFw4CQh9QH0wWV0NaGBwZWhRcGFNFUR9UWEMZRVZpQQtPHV0ZWxxCZFhXCQoKXhJcCkcCRwJfAFZWUAJaS18ZXUUPXwdZBEABSwNcAFsKRA5WB14GXAddCFVeCHcKXhJcCkcCRwJfAFZWUAJaVRIEQAhWUFQeQQRWFWwJWAZTGVc=
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=albertopimpo.com; s=sig1; t=1788110126; x=1790702126; bh=/PQdvgACE2o+g6IkEljQdipY87Jo8ELWfKTcyPxJrEk=; h=From:To:Subject:Date:Message-ID:MIME-Version:x-icloud-hme; b=Fdv0vGvgPwnDdE0CQuzK4OqmtRP9otzewgFFd1P3hIgqKLlOsdiQFcr4nLsDGFnp9w9k4xOLhWNeRMlisbBejeAXPoyyaWO8KYFwKZWbPoS02YFxrEUSpP8Uy4x0684IRBsBlksbA6EQ8R5VXgEfeypEyrWhzy4M2iUg2QxYsG348Bn830Y7iyJM3mViLT8n3UZbyxovVk2KkO8+jX0riyno4XcGlrx976qiT6k2NaWq3OgWjZUX0fXISyvbaOlJBzKF4lWJB+eskAGKsLwFyQJytEww2LHEJIpIxQIl65Q+Q0k4Wg4/ORX7e4jzF1VLocOSUqdoTfV+SRGOmIJQKg==
-mail-alias-created-date: 1786285329818
-Received: from ubuntumacvm (unknown [17.156.208.39])
-	by p00-icloudmta-asmtp-us-west-3a-60-percent-5 (Postfix) with ESMTPSA id 1079C180030E;
-	Sun, 30 Aug 2026 17:15:21 +0000 (UTC)
-From: Alberto Pimpo <me@albertopimpo.com>
-To: dwlsalmeida@gmail.com
-Cc: mchehab@kernel.org,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Alberto Pimpo <me@albertopimpo.com>
-Subject: [PATCH] media: vidtv: validate the frequency module parameters
-Date: Sun, 30 Aug 2026 17:08:47 +0000
-Message-ID: <20260830170847.43175-1-me@albertopimpo.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rmvnw6sS"
+Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2d91ff7d9acso1716665ad.3
+        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 10:19:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788110360; x=1788715160; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Y2hq6QuB9tMpONgBvXPbELPoG76SYlrSEl+e1j2HRJk=;
+        b=rmvnw6sS3CWG9WYTJu9J/0CSqiaY9+htmnU3Ew4kIPBYypubJMojH6hkyw/xCFxmoH
+         GwJjQRCYcYxXnwrtnxBmvf4SflJvnBPGFLfXxtLTi6BXLywXAtUKWFUgsBZ+hNXUrsyb
+         oZG5H1OlqWPMRTtmhVDNEKcMvmWL64sjcET33SQLk7hAyIZfxUcfFqL72CqYI2Y8v+Pw
+         fCZmyR6g/R3OKqt5xLdGCGnyPdUJK94ppz9u1lUgXj4g0VPNKsJoR1cNM96+kXqMiWt3
+         c7InbcdDyaz11CWcJ9/1BLM0sU7QPeC4Pbp4adXwi4NU0BVZkT0eGpCXeiNDpsvx29ep
+         QdOQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788110360; x=1788715160;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Y2hq6QuB9tMpONgBvXPbELPoG76SYlrSEl+e1j2HRJk=;
+        b=fTsthTG0KtkB6gqjxwXy5/F2WbVToK9P0MSVPpvFnnbcO9JMmcjOiSxSa+8nno/Q51
+         C+CnPhZuRfQQLanf/6TQwNgsBHT4aNtmmyuhRcO5/VHwlc0RL99rFdZr+v+7oy3atNJ8
+         MWq4N+shej9yNm9fITiH0lidvszDclqYreYIw1ZwPim2NUtlfG2TmRhXUGGVP6yayWpw
+         7seYTfXnGtkgF8CrWyY9nmLEpWGuhDMYFAx69cmd/B1RM+hRFmqcuV7Aoxi77dp4YzHY
+         eK7gi5EQ9jQg+1ZK9eQujIBwE2wbkJO/zwHIKzlD8UbubQx51iPRIauCF/x2gW9l1Vun
+         GgZg==
+X-Forwarded-Encrypted: i=1; AKwUvBzNq19ZzD8012DaPgFvftxWOpGvjw0P23Js5i16d+Spd8WcE+J1UYt3/DUh8jG8w8LTXSlLpIsGEeFvMfY=@vger.kernel.org
+X-Gm-Message-State: AFuF++ky00NMaKDda1f6cF3796E3DDFPUTZb1UqrRGDN1qTnhn3yp4iQ
+	AaovEBAJaXYcGfX6ganEVUa6C0yTN8IiLpMg2FtXSTn17+OLHPY1pTiM
+X-Gm-Gg: AYBFou2z0WioGnNEXhUvfES2a1B30+7Z38C9QQgGE2e+5McP8egUY6p/S+glQYEhHl1
+	Aq6l9OFWbr5w1yY9zpguWGZsIPWmaZ0jUCUaxmHcomx5jFMFCbRZQJNE/A5jgED/8flVKJsa0cS
+	Gt5TmAs4W4gZOrEQ5w6rscvblcASE3Zpbs9oNTsf5RushRPtT06OtidIZ/4HEf3+NPwGOjpd62Q
+	qBD3wcE1niRU+Enb2oROyQtLh4O3kKXibCujNPp/5It3ZBmFnZlvz1oXDfgWvW1z51LuQszXCrH
+	IAtm4gPwVUDDZCC89PKTGLq17zNPiNonXFFHG8cBGRidLkKffiPw7QZS6nQKA8WLzpcxolgyH+F
+	CVKX0yGYwDgMXgh90zlq5YrqNiXwadFtTY33fppOsrEJIESqjzpcLso9litda8vdkUgtlD1GCDo
+	jOECNNwoQOzrh7O8Me5Yl8fzZNSYnRr+OHiHEoQG/Xq4/xSKCjnVBTxIvKnhtt7vMVcLE+IALkz
+	Omr0TaIpfofPDXU/ZRF73ZvXoxEON3n/FM=
+X-Received: by 2002:a17:90b:54c5:b0:395:4de4:92c7 with SMTP id 98e67ed59e1d1-396d0e5ccc7mr35280422a91.3.1788110359674;
+        Sun, 30 Aug 2026 10:19:19 -0700 (PDT)
+Received: from KASONG-MC4 ([101.32.222.185])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396b1992e05sm17245893a91.15.2026.08.30.10.19.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 30 Aug 2026 10:19:19 -0700 (PDT)
+Date: Mon, 31 Aug 2026 01:19:11 +0800
+From: Kairui Song <ryncsn@gmail.com>
+To: Ridong Chen <ridong.chen@linux.dev>
+Cc: kasong@tencent.com, linux-mm@kvack.org, 
+	Andrew Morton <akpm@linux-foundation.org>, Barry Song <baohua@kernel.org>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+	Baoquan He <baoquan.he@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
+	Roman Gushchin <roman.gushchin@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
+	Chris Li <chrisl@kernel.org>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+	David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Yu Zhao <yuzhao@google.com>, 
+	Zi Yan <ziy@nvidia.com>, Qi Zheng <qi.zheng@linux.dev>, cgroups@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 2/6] mm/mglru: introduce helpers for manipulating gen
+ and refs flags
+Message-ID: <apRkq7A-tvmNvO0O@KASONG-MC4>
+References: <20260826-mglru-flags-cleanup-v3-0-d9f1c75549c8@tencent.com>
+ <20260826-mglru-flags-cleanup-v3-2-d9f1c75549c8@tencent.com>
+ <ad8acdc0-7618-4caf-88ca-4780e39ff324@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: qvZ--IE6VyAgQLMPRKCz0_7HRgR9u5nA
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODMwMDE1MSBTYWx0ZWRfX1HAL/YADbZY7
- DCIZrUTu/2AY2n/a19gpmVWkywhz5rCi05cWDsq/wpYy8D6a+ZBi40OK+QKJlVBs/RYrWbMk4NG
- Mt2hZlP/+pLgM7+hjEDzKcQtQAFJoYdZimGj54yWqsHlqnK1/RbEYJCHgYqc/sZBOKPK3/eYhkT
- oSlPBkv2MA2l2se0g9g7ri2fze1q6iuRObPiAakrbqj5+gtj54TruPZXfMDkK3GZpt85lezALcX
- ESx4Y4cGc9MeKPtWgMMqCdsPkifp1PuQRlZgbJnM79TRkeEU4lckEUSJUZa095jYkVjBIsS0dIz
- P4i55uh9roU3vV0BbU9CNlO36a1bip1qTAjTYif7Oqxrokq8NGOdXhcJr5fztA=
-X-Proofpoint-GUID: qvZ--IE6VyAgQLMPRKCz0_7HRgR9u5nA
-X-Authority-Info-Out: v=2.4 cv=cdffb3DM c=1 sm=1 tr=0 ts=6a94652d
- cx=c_apl:c_pps:t_out a=kRaGL2Q7qLiahLf3O6OaIA==:117
- a=kRaGL2Q7qLiahLf3O6OaIA==:17 a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=clVqxvNCAAAA:8 a=dQkeq5CGmAAQs0QBx38A:9 a=uPQ7wDaL34lJzY1hCFs5:22
-X-JNJ: AAAAAAABQg7K3pv+AhDTCgQptbgPbLCqf3nuErCBaliVipJeVhdq7lxthaJwmSs7A5+ggvqlwWgty5Doc2is2OwfM36vB/ShCl7bkCBSobH2Sr2sA56JHEJNojhwgWmpJF6q5Q18V8+T2PfYILeG9lycSgabe+qRtJXrVKoPhBfu6gXxlgM6vlBWgirgB7yk8Jt7pbllHIvJ1JXW1GSAv7bdY80ZBvxxx5kOL1qSfxch2jyyLQzekIo1LVw2yefRMAA70EtSvDhH+UOhiw39q4CYrQjT6TY5lGU2gWnLNaS9SFZf72GLuEALKAjvNYKR+RWkSkHrFqCZRbK34a4De21cjLC2M1ONK+xzVqaqza37B2N5arAlx/e32tHCeA4ZZUV0DfN+Mq6D/PRWILF/dNagAcnKlMtXIqMVX+IzCicsLnHlTkHwqMnM2k4D/1woGfE8KtpuYjzvu3YVWZzevyHqIWMtDvGvl6VIsXqPyAupwJZtmh05VaETe1FMA+MQbmwBajM+uCorVHJ2vynUbA5n9HDU/+f2xlShsSwuhdEusoLzs6tNqMjdVWWe+c7qwzJwM2c7FzNXuyEGsHGLZnPDJQ0O48aynpDxyuMGtY/dZZhpX97IthD4eXlp+389sMJznREDEVa3A+zbq/5OJPPKuFlJcl+3ZppgO6PXu9gIHjgHnvmteiXZcFLvijWcZ/Du5WqYr9h/VUiFLb02Gn24/1AfbEKQ37w4PhE3T1vhl4tJvpy+FU1dMkekUXMecFiyKQ99V0LquKDgXKnJ3OIBcADW5csj+IKn+qUu6s2xyLSvanAwvn3vJ0OYJMPH57BCsjtlQmevMLkQqGuVoGasYhM6Z6zPwMfUisGQl2CppNJiSRypJ9gIsDku++Ig9/MFg7v+UUGZd5j8uTWsTjr+GEK5cLZU0Zqd9iMcCEehBgdptjLVo5jLPiZPXFAWJZkfXLV9POrfnfFitOfpWjUOQ2CrAIp
- sAYZLuN8Wl71SF/Me1FPuKl88IKgXKjnpNTVFf9a7/v86cKKAMGlba/k+aCo95zkNVCy/uixNATX36EFy/behLPS54LwgHth1LHldqFkhGJndTmlb9P4Xn6g68k0JCDb66g8RZkoGQvllLOrU+kDmZeVopkBSZQqBhjS4YsQAUiDtngZkqo1rZGmYTdVtzqvKCGZ34pDu8fCCBEtI+Wyjo0mAJ3btgmI/Ur0GPHJ7KE3FxSm0HuXH9civTy83XRfudMHO
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ad8acdc0-7618-4caf-88ca-4780e39ff324@linux.dev>
 
-The lists of frequencies the simulated tuner locks onto are module
-parameters, and were handed over to the tuner module without being
-checked first.
+On Sun, Aug 30, 2026 at 04:39:33PM +0800, Ridong Chen wrote:
+> 
+> 
+> On 8/26/2026 1:53 AM, Kairui Song via B4 Relay wrote:
+> > From: Kairui Song <kasong@tencent.com>
+> > 
+> > Instead of doing bit ops on folio->flags.f, introduce helpers for
+> > adjusting a folio's refs and generation info, making the code easier
+> > to debug and understand.
+> > 
+> > No functional change is intended: some combined atomic operations are
+> > split into two, which only creates harmless transient states. There is
+> > no measurable performance impact, and some paths even look slightly
+> > better in the generated assembly.
+> > 
+> > Signed-off-by: Kairui Song <kasong@tencent.com>
+> > ---
+> >   include/linux/mm_inline.h | 76 ++++++++++++++++++++++++++++++++++++++++++-----
+> >   include/linux/mmzone.h    |  1 +
+> >   mm/folio.c                | 19 +++++++-----
+> >   mm/vmscan.c               | 61 ++++++++++++++++++++-----------------
+> >   4 files changed, 114 insertions(+), 43 deletions(-)
+> > 
 
-A terrestrial or cable frequency outside the range the demodulator
-reports to the DVB core is unreachable, as dvb_frontend_check_parameters()
-rejects such a tuning request before the tuner is ever asked about the
-frequency. A satellite frequency outside the Ku-band covered by the
-simulated LNBf is equally meaningless, since it is downconverted using
-the LNBf local oscillators before reaching the tuner.
+...
 
-In both cases vidtv used to initialize successfully and then never lock
-on anything, leaving no clue about the cause.
+> > diff --git a/mm/folio.c b/mm/folio.c
+> > index c02dcea9c03c..a932059057ac 100644
+> > --- a/mm/folio.c
+> > +++ b/mm/folio.c
+> > @@ -353,26 +353,28 @@ static void __lru_cache_activate_folio(struct folio *folio)
+> >   static void lru_gen_inc_refs(struct folio *folio)
+> >   {
+> > -	unsigned long new_flags, old_flags = READ_ONCE(folio->flags.f);
+> > +	unsigned long new_flags, old_flags = READ_ONCE(*folio_flags(folio, 0));
+> > +	int refs;
+> >   	if (folio_test_unevictable(folio))
+> >   		return;
+> >   	/* see the comment on LRU_REFS_FLAGS */
+> > -	if (!folio_test_referenced(folio)) {
+> > -		set_mask_bits(&folio->flags.f, LRU_REFS_MASK, BIT(PG_referenced));
+> > +	if (!folio_lru_refs(folio)) {
+> > +		folio_set_lru_refs(folio, 1);
+> >   		return;
+> >   	}
+> 
+> Do we still need this branch now?
+> 
+> If folio_lru_refs(folio) == 0, that means refs =
+> lru_refs_from_flags(old_flags) == 0, correct?
+> 
+> If so, the do-while loop below already handles this case, making this early
+> return redundant.
+> 
+> Or am I missing something here?
 
-Check the terrestrial and cable frequencies against the range advertised
-by the demodulator, and the satellite ones against the Ku-band covered by
-the simulated LNBf, failing the probe with an explicit error message
-otherwise.
-
-Signed-off-by: Alberto Pimpo <me@albertopimpo.com>
----
- .../media/test-drivers/vidtv/vidtv_bridge.c   | 71 ++++++++++++++++++-
- 1 file changed, 70 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/media/test-drivers/vidtv/vidtv_bridge.c b/drivers/media/test-drivers/vidtv/vidtv_bridge.c
-index fd69b4ee16f4..37e9b1e8e793 100644
---- a/drivers/media/test-drivers/vidtv/vidtv_bridge.c
-+++ b/drivers/media/test-drivers/vidtv/vidtv_bridge.c
-@@ -44,6 +44,10 @@
- #define LNB_LOW_FREQ		9750000		/* low IF frequency */
- #define LNB_HIGH_FREQ		10600000	/* transition frequency */
- 
-+/* The Ku-band range covered by such an LNBf, in kHz */
-+#define LNB_KU_BAND_MIN_FREQ	10700000
-+#define LNB_KU_BAND_MAX_FREQ	12750000
-+
- static unsigned int drop_tslock_prob_on_low_snr;
- module_param(drop_tslock_prob_on_low_snr, uint, 0444);
- MODULE_PARM_DESC(drop_tslock_prob_on_low_snr,
-@@ -367,6 +371,36 @@ static int vidtv_bridge_probe_demod(struct vidtv_dvb *dvb, u32 n)
- 	return 0;
- }
- 
-+/*
-+ * Reject frequencies the simulation could never tune into, as the module
-+ * would otherwise load just fine and then never lock on anything, leaving
-+ * no clue about what went wrong.
-+ */
-+static int vidtv_bridge_check_freqs(struct vidtv_dvb *dvb,
-+				    const unsigned int *freqs,
-+				    u32 array_sz,
-+				    u32 min_freq,
-+				    u32 max_freq,
-+				    const char *name)
-+{
-+	u32 i;
-+
-+	for (i = 0; i < array_sz; i++) {
-+		/* a zeroed entry means an unused slot */
-+		if (!freqs[i])
-+			continue;
-+
-+		if (freqs[i] < min_freq || freqs[i] > max_freq) {
-+			dev_err(&dvb->pdev->dev,
-+				"%s[%u]: %u is out of range (%u..%u)\n",
-+				name, i, freqs[i], min_freq, max_freq);
-+			return -EINVAL;
-+		}
-+	}
-+
-+	return 0;
-+}
-+
- static int vidtv_bridge_probe_tuner(struct vidtv_dvb *dvb, u32 n)
- {
- 	struct vidtv_tuner_config cfg = {
-@@ -374,10 +408,45 @@ static int vidtv_bridge_probe_tuner(struct vidtv_dvb *dvb, u32 n)
- 		.mock_power_up_delay_msec = mock_power_up_delay_msec,
- 		.mock_tune_delay_msec     = mock_tune_delay_msec,
- 	};
-+	u32 min_freq = dvb->fe[n]->ops.info.frequency_min_hz;
-+	u32 max_freq = dvb->fe[n]->ops.info.frequency_max_hz;
- 	u32 freq;
-+	int ret;
- 	int i;
- 
--	/* TODO: check if the frequencies are at a valid range */
-+	/*
-+	 * Terrestrial and cable frequencies are given in Hz and are used as
-+	 * is, so they have to fit within the range the demod reports to the
-+	 * DVB core: the core rejects a tuning request outside of it before
-+	 * the tuner is ever asked about the frequency.
-+	 */
-+	ret = vidtv_bridge_check_freqs(dvb, vidtv_valid_dvb_t_freqs,
-+				       ARRAY_SIZE(vidtv_valid_dvb_t_freqs),
-+				       min_freq, max_freq,
-+				       "vidtv_valid_dvb_t_freqs");
-+	if (ret)
-+		return ret;
-+
-+	ret = vidtv_bridge_check_freqs(dvb, vidtv_valid_dvb_c_freqs,
-+				       ARRAY_SIZE(vidtv_valid_dvb_c_freqs),
-+				       min_freq, max_freq,
-+				       "vidtv_valid_dvb_c_freqs");
-+	if (ret)
-+		return ret;
-+
-+	/*
-+	 * Satellite frequencies are given in kHz at Ku-band and are
-+	 * downconverted below, so check them against the band the simulated
-+	 * LNBf covers instead. Doing so also ensures that the frequencies
-+	 * are above the LNBf local oscillators.
-+	 */
-+	ret = vidtv_bridge_check_freqs(dvb, vidtv_valid_dvb_s_freqs,
-+				       ARRAY_SIZE(vidtv_valid_dvb_s_freqs),
-+				       LNB_KU_BAND_MIN_FREQ,
-+				       LNB_KU_BAND_MAX_FREQ,
-+				       "vidtv_valid_dvb_s_freqs");
-+	if (ret)
-+		return ret;
- 
- 	memcpy(cfg.vidtv_valid_dvb_t_freqs,
- 	       vidtv_valid_dvb_t_freqs,
--- 
-2.53.0
-
+You are right, it can be optimized. And that's is not the only part can be
+optimized after the cleanup I think. But perhaps optimization can come
+later? The helper convertion will be harder to review if mixed with
+optimization I think.
