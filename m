@@ -1,117 +1,112 @@
-Received: from 011.lax.mailroute.net (011.lax.mailroute.net [199.89.1.14])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF6063F1045;
-	Sun, 30 Aug 2026 00:16:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=199.89.1.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01D9C10F2
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 00:18:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788048976; cv=none; b=Gc13A2qPgx6X68XHiCCbFF4pq4TXqDrXIAokqOzlGJ7q1EqxqkqfU0gIkXzv9Uo/SEVIDq+PtadK/lkpW2L3mB0550uUs9vldxhKWjzmH+lHnzvTIo5yGzbDfpnr0XtVj15loRn25H2CFxxF2l7gXtIkyPsfjS47x291enJssL4=
+	t=1788049102; cv=none; b=Flb92EFRNfZ2IcRnixNqz/OcDdSb4hyeu279OIsuqSa6DJ2/RVDBAHssHqRJcIIn9D/bCRGe+0a3plxXSu0AVilHJWmsPdaellkNcdwcGV8UQgB9ljuGCo98vxd2XLv8fjloyXVsdOkEN36yLe2g9iIfn61XQeLKsIZrODr99Do=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788048976; c=relaxed/simple;
-	bh=hWPeW2bnlSHWE26VZa4Dkp1Om2W4eiJgpNIkNqvy3DM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=FUW/Kzs37oLfO+xHDx2fh9h8O6x/iOtYctLM8tWMGasekKyEDNzs5eDTarfqgCZtNy3dJFoKrknBrX7JWYyH1WKKCWl9XCIHuswAUy88X47rrPQvtzyRxW8PS/2x9HzlgEmFNvrqB4l4V6+iTNiqWMRcrLA7kXpzpH/nqLUQZJc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org; spf=pass smtp.mailfrom=acm.org; dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b=k6bNDLmd; arc=none smtp.client-ip=199.89.1.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
+	s=arc-20240116; t=1788049102; c=relaxed/simple;
+	bh=3voPvyptRTXJdffJMp/qlbLqaB1iYxDbglqweDyvfD0=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=XyFyEZ0DyP4f9dxj3IgJrjwdKZnCI5K+LlWD10V3j3N3du4VOW9tGmTizIJk24WE3fVY+IpMwrLGoIZzfYyGX/J/7fjdigkEo2Y1IYbljh27MflFdyrpTo1vkwK6x2u/cKO23MIfg6Don2og93NMmHkaD7lAKb1aJRpFAuY36sQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=RRRZVrhU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b="k6bNDLmd"
-Received: from localhost (localhost [127.0.0.1])
-	by 011.lax.mailroute.net (Postfix) with ESMTP id 4hXXj42bxzz1XM6JB;
-	Sun, 30 Aug 2026 00:16:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
-	content-transfer-encoding:content-type:content-type:in-reply-to
-	:from:from:content-language:references:subject:subject
-	:user-agent:mime-version:date:date:message-id:received:received;
-	 s=mr01; t=1788048963; x=1790640964; bh=Wtaf/cIuCZ36ss7taFgx1buy
-	K4QIVLCAsKiQ+IlDW54=; b=k6bNDLmdF8PiLDd0KSYU6RGXLC8sm7WKpn2f7exL
-	sDSjBCbnRKi//MZZFX8sT6oG4VziYeWfptYUDgdtFAFW+caXcE0ABHezn7Ww8lsi
-	PiKgnhCajWcMthWzEj/cc4KNkus/ovFRliLsJdZml5NHGMWLUPu99wDNzCBEobmX
-	x70ohLdCgA6EI4i9Efr1/2xRuGgaQqy/fRWFI+B/SlzVa33JNRFRGDWwfJ0X5v+E
-	2jszn1Ykhbs/tm4O2IeeRmvg3aQP0KjgXxjwnTHNIHMithzX/AlqNm8DoV7CQPg5
-	+TiVmdeTHq6kuFm0SU1WweSOGYwG0TiIxb9RD7DKM2c4gg==
-X-Virus-Scanned: by MailRoute
-Received: from 011.lax.mailroute.net ([127.0.0.1])
- by localhost (011.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
- id LpLhf2E7jO38; Sun, 30 Aug 2026 00:16:03 +0000 (UTC)
-Received: from [192.168.50.14] (c-73-231-117-72.hsd1.ca.comcast.net [73.231.117.72])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bvanassche@acm.org)
-	by 011.lax.mailroute.net (Postfix) with ESMTPSA id 4hXXhx4XnSz1XM6J6;
-	Sun, 30 Aug 2026 00:16:01 +0000 (UTC)
-Message-ID: <2cf45e85-176a-4209-86ad-8f389a9a4282@acm.org>
-Date: Sat, 29 Aug 2026 17:16:00 -0700
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="RRRZVrhU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B56351F000E9;
+	Sun, 30 Aug 2026 00:18:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1788049100;
+	bh=rLwaRMYQSdlC9dDrcYF6uhIrk96lZ4AnEwSNRsJJ7Jk=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=RRRZVrhUsMA1mrxJwrnY8deTAOsAhEgmZGzHX+tXScdO1bRIGsHwN7fDXs08zlApd
+	 DpQiip2DP81dFltY/sey8H1holAPNm78Zd1a+kuZ6I1yEeTXDITuoxuy6wZv9njlDu
+	 f6SZl0KBRhksKXL0kgUxkApA0hPEe5oPSYgC/EDo=
+Date: Sat, 29 Aug 2026 17:18:19 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Lance Yang <lance.yang@linux.dev>
+Cc: gourry@gourry.net, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ kernel-team@meta.com, david@kernel.org, ljs@kernel.org, ziy@nvidia.com,
+ baolin.wang@linux.alibaba.com, liam@infradead.org, nico.pache@linux.dev,
+ ryan.roberts@arm.com, dev.jain@arm.com, baohua@kernel.org,
+ usama.arif@linux.dev, vbabka@kernel.org, jannh@google.com,
+ matthew.brost@intel.com, joshua.hahnjy@gmail.com, rakie.kim@sk.com,
+ byungchul@sk.com, ying.huang@linux.alibaba.com, apopple@nvidia.com,
+ balbirs@nvidia.com
+Subject: Re: [PATCH v2 0/3] mm: reject zone device folios in more folio
+ walkers
+Message-Id: <20260829171819.e1e8910e7e9a8a46b87c870f@linux-foundation.org>
+In-Reply-To: <20260818043143.22297-1-lance.yang@linux.dev>
+References: <20260817220810.1175596-1-gourry@gourry.net>
+	<20260818043143.22297-1-lance.yang@linux.dev>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [syzbot] [block?] BUG: corrupted list in
- blk_mq_request_bypass_insert
-To: syzbot <syzbot+f4353e96f7004ae5a09e@syzkaller.appspotmail.com>,
- axboe@kernel.dk, linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
- syzkaller-bugs@googlegroups.com, Keith Busch <kbusch@kernel.org>,
- Christoph Hellwig <hch@lst.de>
-References: <6a926eaf.1d9ded08.62e62.0102.GAE@google.com>
-Content-Language: en-US
-From: Bart Van Assche <bvanassche@acm.org>
-In-Reply-To: <6a926eaf.1d9ded08.62e62.0102.GAE@google.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On 8/28/26 10:31 PM, syzbot wrote:
-> kernel BUG at lib/list_debug.c:34!
-> Call trace:
->   __list_add_valid_or_report+0x144/0x148 lib/list_debug.c:32 (P)
->   __list_add_valid include/linux/list.h:96 [inline]
->   __list_add include/linux/list.h:158 [inline]
->   list_add_tail include/linux/list.h:191 [inline]
->   blk_mq_request_bypass_insert+0x130/0x1cc block/blk-mq.c:2551
->   blk_mq_requeue_work+0x3a4/0x52c block/blk-mq.c:1560
->   process_one_work kernel/workqueue.c:3322 [inline]
->   process_scheduled_works+0x788/0x10b8 kernel/workqueue.c:3405
->   worker_thread+0x798/0xbd0 kernel/workqueue.c:3486
->   kthread+0x304/0x3d4 kernel/kthread.c:436
->   ret_from_fork+0x10/0x20 arch/arm64/kernel/entry.S:838
+On Tue, 18 Aug 2026 12:31:43 +0800 Lance Yang <lance.yang@linux.dev> wrote:
 
-If my AI assistant got it right the root cause of this issue is as
-follows (I haven't tried to verify this):
-* Concurrent calls of nvme_reset_work() and blk_mq_requeue_work().
-* nvme_decide_disposition() does not check NVME_REQ_CANCELLED for
-   non-multipath requests and returns RETRY instead of COMPLETE.
+> 
+> On Mon, Aug 17, 2026 at 06:08:07PM -0400, Gregory Price wrote:
+> >Several LRU-oriented mm walkers resolve the folio backing a PMD entry
+> >(or a physical pfn) and then reclaim, age, migrate, or lazyfree it
+> >without ever checking for ZONE_DEVICE memory.
+> >
+> >This series adds missing folio_is_zone_device() rejections, matching
+> >the checks that comparable walkers already perform.
+> >
+> >- mm/huge_memory, mm/madvise: the !pmd_present branch above these sites
+> >  only filters device-private entries (which are non-present).
+> >
+> >  A present zone device PMD (e.g. device-coherent) would still reach the
+> >  folio and be lazyfreed / aged / paged out. Add an explicit check.
+> >
+> >- mm/mempolicy: queue_folios_pmd() can see a present zone device PMD
+> >  (e.g. device-coherent) and queue it for migration.
+> >
+> >No crash reproducer - this is a correctness/hardening cleanup found by
+> >inspection. All checks are placed after the folio is resolved and before
+> >it is acted upon, on paths that already hold the relevant page-table lock,
+> >so no locking or refcount changes are involved.
+> 
+> Cool!
+> 
+> Gave the whole series a spin on x86_64 QEMU with a PMD-mapped
+> device-coherent THP. Without these patches, partial MADV_FREE and
+> MADV_COLD reliably hit a kernel panic in remove_migration_pte(), while
+> mbind(MPOL_MF_MOVE | MPOL_MF_STRICT) returned -EIO.
+> 
+> With v2, all three worked fine, PMD mapping stayed intact, and data
+> checked out :)
+> 
+> Note that both kernels used the same small change to the in-kernel HMM
+> test driver, allowing its coherent device memory to be allocated as 2 MB
+> folios so the PMD-mapped test case could be exercised.
+> 
+> Tested-by: Lance Yang <lance.yang@linux.dev>
 
-The same AI assistant proposes the following patch (again, I have not
-verified whether this makes sense):
+Thanks Lance, you're so diligent.
 
-diff --git a/drivers/nvme/host/core.c b/drivers/nvme/host/core.c
-index 8e45a2789123..a1b2c3d4e5f6 100644
---- a/drivers/nvme/host/core.c
-+++ b/drivers/nvme/host/core.c
-@@ -425,7 +425,8 @@ static inline enum nvme_disposition 
-nvme_decide_disposition(struct request *req)
-  		if (nvme_is_path_error(nvme_req(req)->status) ||
-  		    blk_queue_dying(req->q))
-  			return FAILOVER;
-  	} else {
--		if (blk_queue_dying(req->q))
-+		if (blk_queue_dying(req->q) ||
-+		    (nvme_req(req)->flags & NVME_REQ_CANCELLED))
-  			return COMPLETE;
-  	}
+I'm wondering what to do here.  Gregory told us
 
-@@ -551,7 +552,7 @@ bool nvme_cancel_request(struct request *req, void 
-*data)
-  	if (blk_mq_rq_state(req) != MQ_RQ_IN_FLIGHT)
-  		return true;
+: No crash reproducer - this is a correctness/hardening cleanup found by
+: inspection. All checks are placed after the folio is resolved and before
+: it is acted upon, on paths that already hold the relevant page-table lock,
+: so no locking or refcount changes are involved.
 
--	nvme_req(req)->status = NVME_SC_HOST_ABORTED_CMD;
-+	nvme_req(req)->status = NVME_SC_HOST_ABORTED_CMD | NVME_STATUS_DNR;
-  	nvme_req(req)->flags |= NVME_REQ_CANCELLED;
-  	blk_mq_complete_request(req);
-  	return true;
+And you had to tweak the hmm-test driver to reproduce the bug(s).
 
-Bart.
+So when do we push this series out to -stable?  As a hair-on-fire
+hotfix, or as a leisurely next-merge-window thing?
+
+
+And Sashiko was clearly having a bad day, able to find only nine
+pre-existing things to shout about:
+	https://sashiko.dev/#/patchset/20260817220810.1175596-1-gourry@gourry.net
+
