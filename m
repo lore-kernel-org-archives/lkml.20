@@ -1,209 +1,87 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFED93AB288
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 12:45:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E747E282F34;
+	Sun, 30 Aug 2026 12:46:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788093922; cv=none; b=clgc+vObpQ8FqDKL+YWba0nCpQTRnBqPcluTFt+zHFj/PaEEj0c+iLHH3zyll4BkqsJtc/FTjbmtaNVROi2qhq03n7qnvdUA3VfcvNqFL7HjVR78rWp6+/T5gftZ+cMCRK5Ftgvrru9lWGa2OSNFbnSahM50dirvKK519tVxVFQ=
+	t=1788093991; cv=none; b=iFhHjzt91DBdNXKsVRRU7FHO9RQGthDckfxDWhOZuzKGcVmqbWGYYqYgTuDbxlge5tR4i2EL9hQYyQ77WsJdxgGIFK7vSUoxRE0rUnwcv+m/gghf5sUkwvdoww+TKfKahZ2fAUb+x3/ZYVjQLuoHa/CYD2a+AXRzGO9CbCzc4Xc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788093922; c=relaxed/simple;
-	bh=DjI1Xq7oeAFCBrWVVElxyyF1DqFChUAr7MdQFzoflVQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eX/7OGM8YLlV0hbZHma9j2ks8YD3CJ+I5tM43gqYXIuNwOYJCSU4cM49YmzaIgKvXIyA1rv2xYx5aWfIHDtideq39pyBFtwjiLiec4fMo0BBjzZr1I6uloNGxXL5qcerX0ZgkANbhh/OsyIP+POMe7yUbiG1RhgyAWkCeNShKNc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A3t3iDLZ; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A3t3iDLZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 044191F000E9;
-	Sun, 30 Aug 2026 12:45:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788093920;
-	bh=k9cnmp5ZkTHdW2lOosIXUykWsrrVlbAOxtMT9OdCYxk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=A3t3iDLZnHq1YFyUtUOiBvOMlXGNNVk912o1wn7eYy18KDA+IFdiRun+WxiQq9YEU
-	 Cmdw73N9/G9XQIzqWRG+VNDPlO3HMMaKCp5ZITH4U5y0zMXp40px/ZyWcJkUHU6PLU
-	 ikmJUxoosR3F6tAI2l2jytjXhcWo+FFudJ0K8fpkI4GAGZKLb2lvoQF/fm7dxnLt3T
-	 pkUCiK62yxjzuWVHVOI61LlU0ELjQp1fvH/vA/VOq8HqyczrSaU5sEJchwkwmesVOQ
-	 tusT6c7RdUk1nYSRM19d2l11kEAyusfnSoPQxl0OwOuB++psqIoapLu/0KZpD5ivrX
-	 tunkXec23SWSA==
-Date: Sun, 30 Aug 2026 12:45:17 +0000
-From: Harry Yoo <harry@kernel.org>
-To: Hyunwoo Kim <imv4bel@gmail.com>
-Cc: Vlastimil Babka <vbabka@kernel.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>, 
-	David Rientjes <rientjes@google.com>, Roman Gushchin <roman.gushchin@linux.dev>, 
-	Suren Baghdasaryan <surenb@google.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] mm/slab: take n->list_lock for the list_add() in
- __refill_objects_node()
-Message-ID: <apQU8wjMlvbKBQgh@dev>
-References: <apPa-cGLcyt90l-E@v4bel>
+	s=arc-20240116; t=1788093991; c=relaxed/simple;
+	bh=yVQ1lYDqRkSpd2tVXe+kEQYJUHFOJLO9si0Cdi6KwVk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kS7PCXWLpeUv14RFymRiiMJMVXlY1PKeL0aLHwbPGxLdLneMDX05E357RH/1qs3kDUIi9xwPf2S6A6hcSa34HCMdVxl7viHmN4rWvfLi3JI/k88WDCPpRKVbuuhxJzFZuY9JcL4BEGRSOrtYSrxKz5Emxn7T6Ui8Sw1B8hWX8Xw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from localhost.localdomain (unknown [111.196.241.250])
+	by APP-03 (Coremail) with SMTP id rQCowACXnTshJpRqPpKaBg--.45504S2;
+	Sun, 30 Aug 2026 20:46:25 +0800 (CST)
+From: Pengpeng Hou <pengpeng@iscas.ac.cn>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] media: dvb-frontends: cx24116: validate firmware size
+Date: Sun, 30 Aug 2026 20:45:38 +0800
+Message-ID: <20260830124622.96693-1-pengpeng@iscas.ac.cn>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <apPa-cGLcyt90l-E@v4bel>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowACXnTshJpRqPpKaBg--.45504S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7WrWUZF47ZFy7ZFW5KF1kuFg_yoW8JF4kpa
+	yjyFy5tFWjgw43Ja4qya1Du3sYq3Z5Ga90ka9rJa48Zr1fWFsrWrn8Kas7Xwn8Jr4xJay2
+	g3ZrZryUCFZ7Kw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUyl14x267AKxVWUJVW8JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r1I6r4UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x0267AKxVWxJr
+	0_GcWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+	2Ix0cI8IcVAFwI0_Jrv_JF1lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
+	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1l42xK82IYc2Ij64vI
+	r41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8Gjc
+	xK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2Ix0
+	cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8V
+	AvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E
+	14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjfUYDGYDUUUU
+X-CM-SenderInfo: pshqw1xhqjqxpvfd2hldfou0/
 
-On Sun, Aug 30, 2026 at 04:25:45PM +0900, Hyunwoo Kim wrote:
-> In __refill_objects_node(), the list_add(&slab->slab_list, &pc.slabs) that
-> follows a successful __slab_try_return_freelist() is done without
-> n->list_lock.
->
-> __slab_try_return_freelist() only succeeds while slab->freelist is NULL. The
-> slab we are refilling from is taken off pc.slabs by the list_del() at the
-> top of the loop, so at that point it is on no list.
-> 
-> If another CPU frees an object of that slab, __slab_free() sees the slab as
-> full and puts it back on n->partial. If a third CPU then takes that object
-> in get_from_partial_node(), the freelist becomes NULL again.
+The firmware diagnostic reads the first two and final two bytes without
+proving that the firmware object contains at least two bytes.
 
-Ouch. Good catch, Hyunwoo.
-A classic ABA problem :)
+Reject undersized firmware before the diagnostic and upload path consume
+it.
 
-> A slab that sits on n->partial with a NULL freelist only exists while
-> get_from_partial_node() holds n->list_lock, between its cmpxchg and its
-> remove_partial().
-> 
-> A list_add() in that window overwrites slab_list to point into pc.slabs.
-> The list_del() in remove_partial() then follows the overwritten links, so it
-> unlinks the slab from pc.slabs and poisons slab_list while leaving the
-> n->partial side alone. n->partial is left pointing at the poisoned slab.
-> 
->            CPU0                        CPU1                  CPU2
-> 
->   __refill_objects_node()
->     get_partial_node_bulk()   // n->partial to pc.slabs
->     list_del()                // on no list now
->     get_freelist_nofreeze()   // freelist = NULL
->                               __slab_free()
->                                 add_partial()
->                                 // back on n->partial
-> 	                        // freelist is not NULL
-> 
->                                                     get_from_partial_node()
->                                                       lock
->                                                       cmpxchg
->                                                       // freelist = NULL
->     __slab_try_return_freelist()
->     list_add(&pc.slabs)       // overwrites slab_list
->                                                       remove_partial()
->                                                         list_del()
->                                                         // off pc.slabs
->                                                         // slab_list = POISON
-> 
-> panic log:
-> 
->   list_add corruption. next->prev should be prev
->   (ffff888100000248), but was dead000000000122.
->   (next=ffffea000416e410).
->   kernel BUG at lib/list_debug.c:29!
->   Oops: invalid opcode: 0000 [#1] SMP NOPTI
->   CPU: 1 UID: 65534 PID: 144 Comm: poc Not tainted
->   7.2.0-16172-gcf72cbb39da8-dirty #1 PREEMPT(lazy)
->   RIP: 0010:__list_add_valid_or_report+0x80/0xd0
->   ...
->   Call Trace:
->    alloc_from_new_slab+0x183/0x300
->    ___slab_alloc+0x31c/0x890
->    __kmalloc_noprof+0x3d4/0x800
->    lsm_blob_alloc+0x2d/0x50
->    security_msg_msg_alloc+0x26/0x90
->    load_msg+0x1aa/0x210
->    do_msgsnd+0x91/0x800
->    do_syscall_64+0x109/0x5d0
->    entry_SYSCALL_64_after_hwframe+0x77/0x7f
->   ...
->   Kernel panic - not syncing: Fatal exception
-> 
-> Do the list_add() under n->list_lock. Reattaching the freelist stays outside
-> the lock. Once it succeeds the freelist is no longer NULL, so __slab_free()
-> cannot put the slab back, and by the time the lock is taken remove_partial()
-> has finished and the slab is on no list.
+Fixes: 0d46748c3f87 ("V4L/DVB (8986): cx24116: Adding DVB-S2 demodulator support")
+Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
+---
+ drivers/media/dvb-frontends/cx24116.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-Yeah, this should work correctly. 
-
-> The lock is held until the block below that returns the remaining slabs to
-> the partial list. That block already took the same lock on this path, so no
-> lock/unlock pair is added.
-> 
-> The unlock is keyed on having taken the lock instead of on pc.slabs being
-> empty. With CONFIG_DEBUG_LIST or CONFIG_LIST_HARDENED, __list_add() returns
-> without linking anything if its check fails, which would leave pc.slabs
-> empty.
-
-Well, if the check fails, it has a bug and should be fixed.
-We should not make the code less readable to handle a bug.
-
-I think it's better to have (diff on top of the patch, not tested):
-
-diff --git a/mm/slub.c b/mm/slub.c
-index 7a7f9935c711..eff96b992164 100644
---- a/mm/slub.c
-+++ b/mm/slub.c
-@@ -7216,12 +7216,10 @@ __refill_objects_node(struct kmem_cache *s, void **p, gfp_t gfp, unsigned int mi
- 			break;
- 	}
+diff --git a/drivers/media/dvb-frontends/cx24116.c b/drivers/media/dvb-frontends/cx24116.c
+index c10053a7cb829..e9f8ff5231287 100644
+--- a/drivers/media/dvb-frontends/cx24116.c
++++ b/drivers/media/dvb-frontends/cx24116.c
+@@ -556,6 +556,8 @@ static int cx24116_load_firmware(struct dvb_frontend *fe,
+ 	unsigned char vers[4];
  
--	if (!locked && !list_empty(&pc.slabs)) {
--		spin_lock_irqsave(&n->list_lock, flags);
--		locked = true;
--	}
-+	if (!list_empty(&pc.slabs)) {
-+		if (!locked)
-+			spin_lock_irqsave(&n->list_lock, flags);
- 
--	if (locked) {
- 		list_for_each_entry(slab, &pc.slabs, slab_list)
- 			set_node_partial_state(n, slab);
+ 	dprintk("%s\n", __func__);
++	if (fw->size < 2)
++		return -EINVAL;
+ 	dprintk("Firmware is %zu bytes (%02x %02x .. %02x %02x)\n",
+ 			fw->size,
+ 			fw->data[0],
+@@ -1494,4 +1496,3 @@ static const struct dvb_frontend_ops cx24116_ops = {
+ MODULE_DESCRIPTION("DVB Frontend module for Conexant cx24116/cx24118 hardware");
+ MODULE_AUTHOR("Steven Toth");
+ MODULE_LICENSE("GPL");
+-
 
-> Fixes: ba7425312607 ("mm, slab: add an optimistic __slab_try_return_freelist()")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hyunwoo Kim <imv4bel@gmail.com>
-> ---
->  mm/slub.c | 9 ++++++++-
->  1 file changed, 8 insertions(+), 1 deletion(-)
-> 
-> diff --git a/mm/slub.c b/mm/slub.c
-> index f9b56cb439e709..4f6d1a03a8ee46 100644
-> --- a/mm/slub.c
-> +++ b/mm/slub.c
-> @@ -7260,6 +7260,7 @@ __refill_objects_node(struct kmem_cache *s, void **p, gfp_t gfp, unsigned int mi
->  	struct slab *slab, *slab2;
->  	unsigned int refilled = 0;
->  	unsigned long flags;
-> +	bool locked = false;
->  	void *object;
->  
->  	pc.flags = gfp;
-
-uh, I'm not a big fan of having a new variable to store 'locked' state,
-but okay, this seems unavoidable with current implementation.
-
-> @@ -7297,7 +7298,10 @@ __refill_objects_node(struct kmem_cache *s, void **p, gfp_t gfp, unsigned int mi
->  			void *tail;
->  
->  			if (__slab_try_return_freelist(s, slab, head, count)) {
-> +				/* get_from_partial_node() may be mid-removal of the slab */
-> +				spin_lock_irqsave(&n->list_lock, flags);
->  				list_add(&slab->slab_list, &pc.slabs);
-> +				locked = true;
->  				break;
->  			}
->  
-> @@ -7312,9 +7316,12 @@ __refill_objects_node(struct kmem_cache *s, void **p, gfp_t gfp, unsigned int mi
->  			break;
->  	}
->  
-> -	if (!list_empty(&pc.slabs)) {
-> +	if (!locked && !list_empty(&pc.slabs)) {
->  		spin_lock_irqsave(&n->list_lock, flags);
-> +		locked = true;
-> +	}
- 
+base-commit: 08dbfad3f5040f5bdb6c529da20d6d4e81fefd72
 -- 
-Cheers,
-Harry / Hyeonggon
- 
+2.50.1
+
