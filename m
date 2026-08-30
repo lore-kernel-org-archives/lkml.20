@@ -1,125 +1,121 @@
-Received: from mta1.migadu.com (out-81.mta1.migadu.com [95.215.58.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from ms.puri.sm (ms.puri.sm [135.181.196.210])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B913282F16
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 22:21:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 756441E22E9;
+	Sun, 30 Aug 2026 22:23:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=135.181.196.210
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788128513; cv=none; b=K5HvSJVeDMgI3O85bwdUhZKuJ78zduGgYaDv6z7Kdrd5/ECzu3m4GfX0+meGxKYcbV4P4gd6X5WFKfLc6kRb/o+zwlKmOppTEsbZteOkwCECAaCn0YODjlm6ozAattfSkDv+5It+66Jhc6kYbtKbJO968mylwxxBRRPtYZbyues=
+	t=1788128595; cv=none; b=fzQSZ2Iexzk4eoA3iPUpc6X95bXgzY4AK52yAC3eGKrTy5RRF5361B8wQnfsOiBuG6f4/Hcdd2XpGxr03kYTtmc3IbrCCtC937GVYu0eenpHLRv88tVJNQJYID9x8d88W6gQsFpsd5LBIxqlUilYBPLMv/pLWhPdyjsv5thoeaY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788128513; c=relaxed/simple;
-	bh=P3Pfsspw/iZhTjaE9APEnxcrvItJXiFZcT0e29q+vrg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UpTSakgOpgGRkaY96YlYTsCP/mav+NH5sfL7Lgrywljd/Xp+JwLTqX04S+7TjijzWxAEdGHISVjwJUcGU9VesoSUiFn0TBKV84oK3hWY6IeEZnrjnh9WrspiIAxWH0uhh8XBoyKLb995dWPj744tBy4OTyPSYaS4qDCA9MCnOik=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Kev4lbRi; arc=none smtp.client-ip=95.215.58.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788128595; c=relaxed/simple;
+	bh=4JEe6MAnrQ77ke4wWUwz68qY4hoagUd12Z+MB80HeBs=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=ctg/0YhowfW4rMQRzZktF1ZiByOM77sg/UrchQWegvicFt0J46spZoDpMt4Hq9LC9Sc49bcbgsP3tAkNYx9Pp++b9TWtnn6BkNicNrCyltydUUvDqV7IzIwld5V3ObYe4VeqdmcD+2T/H4L+wmjYb+DUYNNU45yUanCdd9ampnA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=puri.sm; spf=pass smtp.mailfrom=puri.sm; dkim=pass (2048-bit key) header.d=puri.sm header.i=@puri.sm header.b=ibu5BgeD; arc=none smtp.client-ip=135.181.196.210
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=puri.sm
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=puri.sm
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Kev4lbRi"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=P3Pfsspw/iZhTjaE9APEnxcrvItJXiFZcT0e29q+vrg=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788128509; v=1; x=1788733309;
- b=Kev4lbRiay6+FgToUuHS48PeeEZAovutXuAVO4+L4BIglPCSypC85y9h2RTkCYBUDWg8d7bn
- d0BKQrVJVwGjVnRbRRJnOEV35uup/Jx/XLVPR6ceybHoYZVsgVa8QWCuJvEyGJVuYaMOITS6XEL
- LWcYizjcFFB6GecYqgCSbn0g=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id 5d2b57443428d443;
-	Sun, 30 Aug 2026 22:21:39 +0000
-X-Mizu-Trace-ID: 5d2b57443428d443
-X-Migadu-Flow: FLOW_OUT
-From: Usama Arif <usama.arif@linux.dev>
-To: dsterba@suse.com,
-	linux-kernel@vger.kernel.org,
-	terrelln@fb.com,
-	terrelln@meta.com,
-	linux-crypto@vger.kernel.org,
-	yosry@kernel.org,
-	ebiggers@kernel.org,
-	torvalds@linux-foundation.org
-Cc: hannes@cmpxchg.org,
-	nphamcs@gmail.com,
-	chengming.zhou@linux.dev,
-	shakeel.butt@linux.dev,
-	kernel-team@meta.com,
-	Usama Arif <usama.arif@linux.dev>
-Subject: [PATCH v2 0/2] zstd: use x86 feature infrastructure for BMI2 dispatch
-Date: Sun, 30 Aug 2026 15:20:23 -0700
-Message-ID: <20260830222100.2706175-1-usama.arif@linux.dev>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=puri.sm header.i=@puri.sm header.b="ibu5BgeD"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=puri.sm; s=smtp2;
+	t=1788128053; bh=4JEe6MAnrQ77ke4wWUwz68qY4hoagUd12Z+MB80HeBs=;
+	h=From:Date:Subject:To:Cc;
+	b=ibu5BgeDGi1D7/eKvq110LXxiCOdftKf1Bh/FiqIO7ooyetRkWeaOs/WilMm9qM4U
+	 JxZ+1+R3tM735sY+0pJxi3NOKTPr78Z02/MlYQ+0K2taM/QTN0QLcS3jj5QtJpdiLg
+	 cn5rFrU5A5VN7cr5zKR/kStak1sfY/y6FIDZv6xbbQSY/5/csNVSZSALgBzE/PmTqo
+	 VqGl0YpwpDt+KJx2/yOmp1he2aam8EVcxpJNchenc5pa1LGlICt6c5o0kMrwVaLGeZ
+	 S8pto5YnUqzMizdQTP7ut0syJREut64g0YKZIeuAnIiY+gNg+Avzxgv7KCOasCCBz1
+	 AeYzOs+mj+52A==
+Received: from pliszka.localdomain (79.184.59.122.ipv4.supernova.orange.pl [79.184.59.122])
+	by ms.puri.sm (Postfix) with ESMTPSA id BF2BC1F787;
+	Sun, 30 Aug 2026 15:14:12 -0700 (PDT)
+From: Sebastian Krzyszkowiak <sebastian.krzyszkowiak@puri.sm>
+Date: Mon, 31 Aug 2026 00:13:32 +0200
+Subject: [PATCH] media: hi846: Improve the power on sequence
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Message-Id: <20260831-hi846-poweronseq-v1-1-1091cf78cac3@puri.sm>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/zWMQQ7CIBBFr9LM2kmgrS3xKsYF4CjjAipTtUnTu
+ ws2Lt/L/28FocwkcGpWyPRm4RQL6EMDPth4J+RrYWhVOyjTaQxs+gGn9KGcotATR02j9d2xV9p
+ BuU2Zbrz8kufLzvJyD/Jz7dSFs0Loso0+VBVpmXHvt+bvt+0L6u8HaZsAAAA=
+X-Change-ID: 20260831-hi846-poweronseq-71e7ac35401b
+To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ Martin Kepplinger-Novakovic <martink@posteo.de>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Pavel Machek <pavel@ucw.cz>
+Cc: kernel@puri.sm, Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, 
+ linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, 
+ Sebastian Krzyszkowiak <sebastian.krzyszkowiak@puri.sm>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1684;
+ i=sebastian.krzyszkowiak@puri.sm; h=from:subject:message-id;
+ bh=4JEe6MAnrQ77ke4wWUwz68qY4hoagUd12Z+MB80HeBs=;
+ b=owEBbQKS/ZANAwAKAejyNc8728P/AcsmYgBqlKs0qLug7PlsKGiey9ZkMQBCt468uy3e30tC8
+ Yxh3cHUiEqJAjMEAAEKAB0WIQQi3Z+uAGoRQ1g2YXzo8jXPO9vD/wUCapSrNAAKCRDo8jXPO9vD
+ /6/gEADCKfmWpcuXuFI+T5NRwY0+dGrsumBAOZCuAeoQsNikQx+dO55i/inGg4dNbAiQz8oTf2f
+ /kqSoNj10rCsshvLYQwjW4whRXvGDXukvfU2IAUL1JEOzfpOaWshuJ/SkYZibsj5wziJRPMnVf8
+ 8fqEco0YCFqOndme72Y08abiACyjXoVAJfjR/kYTQSAvb0pdzCxcwEMepxCeh/ryBGWmDMRwB2u
+ 1moF1wSGBxb6GvormBJpufpW2AI2FCrDc9Lxts46QmSJ5dGAhPPKZapKWcilG7Ei4DcWNR5XqCu
+ lXLoUwjm98qo3Om8ux4Dvg91BT14SdcN4D60zzmhf2ru8MuDU9Px0izuH0/mCidIkiMmT5IsXEP
+ wYiBGbTxfS5XXjSdCw2qNrOuwfdTw5qg7pI6HBn/r8l+IMKlkRTt8HAo/qS1udEzwlJ3XgCF1Pf
+ T25Fil8rQ9uSYqXaFPFENr/xfsA1Q+kdjUmn37nciZknmjhAijagb8fPru3NAjbJxX+Sq7wPnbL
+ MPzfD30hifd1//yPQxlB0rSbTRZicCSQxirQZunvyTlcYPTNFnE8pYVG7GVjzU6MEJRhL1/3uin
+ MGtzvxtyaf4uI+Rr1KXz4rIuUoBImVUGIKlMFacIvax9KtqrEOGfxXv6cEsNgsqUqWYUhWyOk1G
+ Bb+ls1fZfv1ggdQ==
+X-Developer-Key: i=sebastian.krzyszkowiak@puri.sm; a=openpgp;
+ fpr=22DD9FAE006A11435836617CE8F235CF3BDBC3FF
 
-Zstd currently probes CPUID whenever a compression or decompression
-context is initialized, stores the result in the context, and tests that
-value at each BMI2 dispatch site. For normal x86 kernel builds this
-duplicates the kernel's CPU feature infrastructure, bypasses its feature
-policy, and leaves an ordinary runtime test in the dispatch path.
+Section 4.2 of YACG4D0C9SHC(Hi-846) datasheet specifies the time
+between XSHUTDOWN rising and RESETB rising (t3-1) and RESETB rising
+to the first I2C transaction (t3-2) to be both at least 2400 MCLK
+cycles. This driver currently requires the MCLK rate to be set to
+25 MHz, so t3-1 and t3-2 need to be at least 96 µs.
 
-Use cpu_feature_enabled(X86_FEATURE_BMI2) directly at the dispatch sites
-for normal x86 kernel objects. This uses the x86 alternatives-backed
-static CPU feature mechanism, allowing the feature test to be resolved at
-boot instead of loading and testing a value stored in each context.
+On top of that, Figure 14 shows that RESETB needs to be held for
+at least 120 MCLK cycles. Ensure that this is the case.
 
-ZSTD_USE_BMI2() keeps the other build modes working as before. It expands
-to the caller-provided flag for standalone builds and to false when
-DYNAMIC_BMI2 is disabled. The x86 preboot decompressor is built outside
-lib/zstd/Makefile, so it continues to use Zstd's raw CPUID detection.
+Fixes: e8c0882685f9 ("media: i2c: add driver for the SK Hynix Hi-846 8M pixel camera")
+Cc: stable@vger.kernel.org
+Signed-off-by: Sebastian Krzyszkowiak <sebastian.krzyszkowiak@puri.sm>
+---
+ drivers/media/i2c/hi846.c | 13 +++++++++----
+ 1 file changed, 9 insertions(+), 4 deletions(-)
 
-Patch 1 adds aliases from BMI2 function names to their default
-implementations when the BMI2 variants are not compiled. This is a
-no-functional-change preparation: after patch 2 removes the affected
-selector-level preprocessor guards, the compiler must still resolve the
-function named in an if (0) branch before eliminating it.
+diff --git a/drivers/media/i2c/hi846.c b/drivers/media/i2c/hi846.c
+index a3f77b8434ca..d58940c8da20 100644
+--- a/drivers/media/i2c/hi846.c
++++ b/drivers/media/i2c/hi846.c
+@@ -1643,11 +1643,16 @@ static int hi846_power_on(struct hi846 *hi846)
+ 	if (hi846->shutdown_gpio)
+ 		gpiod_set_value_cansleep(hi846->shutdown_gpio, 0);
+ 
+-	/* 30us = 2400 cycles at 80Mhz */
+-	usleep_range(30, 60);
+-	if (hi846->rst_gpio)
++	/* 96us = 2400 cycles at 25MHz */
++	usleep_range(96, 120);
++
++	if (hi846->rst_gpio) {
++		gpiod_set_value_cansleep(hi846->rst_gpio, 1);
++		/* 5us = 120 cycles at 25MHz */
++		usleep_range(5, 10);
+ 		gpiod_set_value_cansleep(hi846->rst_gpio, 0);
+-	usleep_range(30, 60);
++		usleep_range(96, 120);
++	}
+ 
+ 	return 0;
+ 
 
-Patch 2 adds ZSTD_USE_BMI2(), converts the runtime selectors, and avoids
-Zstd's private CPUID probes in normal x86 kernel objects. The BMI2 members
-remain in the context structures so their layouts do not change.
+---
+base-commit: e30626823a406725ce29bc75cb8ec467d3e1e326
+change-id: 20260831-hi846-poweronseq-71e7ac35401b
 
-A 4 KiB zstd-generic crypto_acomp benchmark [1] in a one-vCPU KVM guest
-gave these median results:
-
-                    Before      After     Change
-  Compression      16,634 ns   13,394 ns   -19.5%
-  Decompression     3,480 ns      963 ns   -72.3%
-
-The improvement is especially large in a guest because raw CPUID causes
-a VM exit.
-
-[1] https://gist.github.com/uarif1/5cf02f0e22c23f0d1b3d84348f12914c
-
-v1 -> v2: https://lore.kernel.org/all/20260826122558.2662013-1-usama.arif@linux.dev/
-- Replace the proposed cached feature value with cpu_feature_enabled(X86_FEATURE_BMI2)
-  at each dispatch site. (Eric Biggers and Linus Torvalds)
-- Check only X86_FEATURE_BMI2 instead of BMI1, BMI2, and ABM. (Linus Torvalds)
-- Split the fallback aliases into a separate no-functional-change patch.
-
-Usama Arif (2):
-  lib/zstd: add fallback aliases for disabled BMI2 variants
-  zstd: use cpu_feature_enabled() for in-kernel BMI2 dispatch
-
- lib/zstd/Makefile                             |  1 +
- lib/zstd/common/compiler.h                    |  8 +++++
- lib/zstd/common/entropy_common.c              | 16 ++++++----
- lib/zstd/common/fse_decompress.c              |  9 ++++--
- lib/zstd/compress/huf_compress.c              |  7 +++-
- lib/zstd/compress/zstd_compress.c             | 12 ++++---
- lib/zstd/compress/zstd_compress_internal.h    |  9 ++++++
- lib/zstd/compress/zstd_compress_sequences.c   | 12 +++++--
- lib/zstd/compress/zstd_compress_superblock.c  |  2 +-
- lib/zstd/decompress/huf_decompress.c          | 23 +++++++------
- lib/zstd/decompress/zstd_decompress.c         |  4 +++
- lib/zstd/decompress/zstd_decompress_block.c   | 32 ++++++++++++-------
- .../decompress/zstd_decompress_internal.h     |  2 +-
- 13 files changed, 97 insertions(+), 40 deletions(-)
-
-
-base-commit: 4b18edbd8e70f7e6860d56370f13244896d0f95c
--- 
-2.53.0-Meta
+Best regards,
+--  
+Sebastian Krzyszkowiak <sebastian.krzyszkowiak@puri.sm>
 
