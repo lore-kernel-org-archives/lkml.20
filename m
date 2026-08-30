@@ -1,162 +1,151 @@
-Received: from mail-yw1-f181.google.com (mail-yw1-f181.google.com [209.85.128.181])
+Received: from mail-yx1-f41.google.com (mail-yx1-f41.google.com [74.125.224.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC7CA2F7F14
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 06:24:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D9A02F7F14
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 06:25:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.41
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788071100; cv=pass; b=Rdl2lGq+yHIBm+FB0mI5vUL2ECV0xyYYjedsSfcIyo6sm5pV5OUp0KcJEn/zBN1rpIcSSzZE8Dhj01HTO0g5c7+VuD5fPAJfGnQw35MoHOXKPsw+sB9GLl6t0852inCf7CtUxwJUM4MLyTV/ewB+9kRBRZMqKZ90TOT8HeKDSe4=
+	t=1788071145; cv=pass; b=MD2ZwjxYTd1a9e9Rf0cllaO/QGygCxbTeFfAGI2qCWX1BPpIOpdFSTPxBJyfCQIPC5I+WD3RXaPJs43Q/EwzNnn0nbKGwLCNjmy9IvV1QBnPKKdsNYXn6bB4Ujaw+jHD3HqwS4s6l/uBGFNnOFMvtHd5Ltvev8jj9hX0eY4Yi4c=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788071100; c=relaxed/simple;
-	bh=mwbnbaMlp8Ae2B8ikyuYp+/a1SwbvdOTBH/giZFf1pY=;
+	s=arc-20240116; t=1788071145; c=relaxed/simple;
+	bh=GalG5KeewwDo5F/yvEnnWSTdgiJ/XKsm/a64IaDoohc=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=hBXfW8FOTd8o6o3KS7Y84agrVrMa+YMTJzBQ+CjMyd8JKr3haD5HBIQrHHlw/eBUhlVS86qyH8qEy+NwcgkKAq1HTo35jhglO6zt/fuUhvRPGXb6KlBaIS1gyLVBUuBCmL3Kz8jxqfKTpAHZ5DKSvT1mPYsAt1cGWuh8fsAE/m8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aB9nAcNX; arc=pass smtp.client-ip=209.85.128.181
+	 To:Cc:Content-Type; b=ZlqZYrypKfGaFrXmY+6fk58s5bIpP676MDnaJQ8bk5/+33I44IQhZ7696Iv3tf16IRqh/EXjNuC+SA8Bn2EC3bcWaOIGXKKnMnRE0XrNweOZ157tAvMYOlvvOLEqAItAvjbZN34w9uR1Zc+NKxcvsZub3aLSbFpYEvmSJgTIxqs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PpQOb0eg; arc=pass smtp.client-ip=74.125.224.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aB9nAcNX"
-Received: by mail-yw1-f181.google.com with SMTP id 00721157ae682-81ecf499af9so27538347b3.1
-        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 23:24:58 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788071097; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PpQOb0eg"
+Received: by mail-yx1-f41.google.com with SMTP id 956f58d0204a3-66e3d262d43so625145d50.2
+        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 23:25:44 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788071143; cv=none;
         d=google.com; s=arc-20260327;
-        b=ptRy/AR+RXG/asBse21NNITU2/cb1V5yCBFW1Y3wPhSmWoiLRzEXUtiPznQtWlQBco
-         W2Feji3zKn7OwNa2y+ZTRoZOqpomBaaOa3pzdISL91NKqAwVt3EuOEv0gm8AGjujCvxn
-         CI6HXyesSUMPEAmzjd0yyUT130dpUnoKi9G5fwtKjobj6lwEknk3OvLmmvA5ne+JyUje
-         6l68NGPCUFs0/qwPs5aQBLQ3SyOwknrt5Xe0Ixt+EtY/mpUTln86I7tOuuI9rEeGJfoH
-         9IJmpdGunJHzRC7NgBGSnrSXKJT4J/c3+Zi3G9ilf0Ac/2vcEPCu9fyRUYUYoA2L+6p8
-         xFJA==
+        b=HvNWmhYG6XLeNKam81nEhfDELTJZFfNfcjBRdEfwyxfUqiYV1C6gqP6l3+sq7yQAS6
+         I8wS4KKZlX6fPLrWQREYDg/UjvAQckka8ArzxjRcpXRbETrwcm0a8BS8q2DIZrmeJfGc
+         iLrZYnbVPQ+gykwhk0la/rxdoa55Zd9IvVymUvtbDL7N7oT4L/Pz2ZHf4eSgCnGuCae5
+         sgTehsxXlNroLTdF52Z7Dqn8YvoV5ni0uKBVjXtbbdqjTafKqb9mhujQJBEL6vdV+l57
+         gaykWzAoAv8NTZcaUBSyILHKjtgaJfviWsozY7pQOsh0LpDgaIMgJwV9CiI769vHBNls
+         5afQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=ZkOfAYL8ZF1FMqf/kMu36qJzGPBJNOCPM8hwn45vbh8=;
-        fh=CWmzbeBWvJG9hbmA/Ecm7J5Weiq+BSTEuCpR1whoues=;
-        b=OZ39iyU78uUzLi21Y7Pp+vap8Vfra/pQO1P9zI+vC0nSDXUuNx6q6VoUyflq5prEO7
-         WO+g/xPE+EzJ7f+0HUFXupqZfu9SPbpeMTQlubBL/wSsicrhrGuy1wYmWTkwXf4R+76X
-         zaJSk3vckjUDQEViOAQvFKIser4QWU/LqkUbTclV9iXq2IvUQvXuXbT59qo3B+ZxNK6U
-         d3vFnKDZ6BUf5wlBtHdbsVIaxEL8/xQ8KSBeeK2zwBTX2uLUH8mW+FKo+m4ml4AcLZv4
-         mXqobm3MrR9oqi7gqbZKQbfZukjzwWS8AuWrxhXbq8KavYfh+aWDYGSWj2zfMV4HSGrV
-         Y0Uw==;
+        bh=ie2zZl8YsHAeQXHgNP1pjeAs7NQ+FFglXIo7DLINxR8=;
+        fh=DVxasMRoByR3TCWM0Q5Mg9bLfoSbJAi0REcpBdzIpvg=;
+        b=gyfEVcV3SgeElWmsOx865qOB6ydd3Ki9STbIf4p4n65M64lHFfN2W8fzpBhwZnAz+H
+         IvVsthIQ/EkYA9YYhy1E+uwokKlWvqfSwlPks1fHoL6cC930r54ZalsVsIMINUxd/3Eo
+         Q0FI2qHfDhytPdtB7eegdTpddSC0rmhRsqj61otzeyKQBshmM3gJeI5EOIZmFnb8bcuH
+         6FmvqH1Vp1SVFXiRoC5MXP8CTkVYEwmdZnQYtHm6qvhyIoJgxE+PzWf0q2NM5cbJ/ICA
+         /5GuEzjiBXP14laMVuyf+9d48ZZpHb9YWMeZ4en2un3smwmXq8HKvNDtn4/pQCOjr5te
+         V6pg==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788071097; x=1788675897; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788071143; x=1788675943; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=ZkOfAYL8ZF1FMqf/kMu36qJzGPBJNOCPM8hwn45vbh8=;
-        b=aB9nAcNXdlaizemZAEDW0HlxNga9CJNXMVl8w47V+7iWr8hRPcU6h6Cztrlu/SvhHS
-         4SURfH99wDWltcgfyf9QkJgpGDpbu/UfM3Ivp/gXz/lxTxEf4wTn0b9wZVNLEgR4Z3kQ
-         eHbj/gVgNKp5og6rPDOTXo3XYEB9a6CD7G9uyxgX1aXVlQTHexzFnSuq5oLvzELRorPs
-         J11VoT6sbfw31BKvVqtSc5qmPOd9OmzxTfjr2ZEhVt2+Fuxra4/ovg+gUWeRtjTNZDO2
-         hLQYetiMveRTd0vlTUsaCWUdM/N4TenodcNIprngyuV7dHYQtd+2GI0++/n84y5t8/p0
-         ffIA==
+        bh=ie2zZl8YsHAeQXHgNP1pjeAs7NQ+FFglXIo7DLINxR8=;
+        b=PpQOb0eg2Gla59JRcMDKsW5dzbrkjlT0LCsL8mbWFGXTCIqO5ZXs6+MSNQgmRkl5Ep
+         tVlmrk2rZucczL42ZdKfLCSYD/K8cya4PuGKPvulQecTdM5ftNbh98xylPln093PHjQv
+         m/o2ctNWXfK1a0a204PLSD7On2HIIPDNvn76X2tdx4bbazlq1Kv+0IRw1UNw2bc7PEMN
+         Z0UHdKYaRRtocYddTl6KCu8A4Dd25ee5UyUjGFBBF1xqG+KKmAbKbaKApecBliMRfD1I
+         NQZkigV5Z/b6mt8TAvuU0wDLKzilxXpkXJWzI/Iv+FDMxVvkczH/tZkdHk8YchEJ6jTf
+         oGJQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788071097; x=1788675897;
+        d=1e100.net; s=20251104; t=1788071143; x=1788675943;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ZkOfAYL8ZF1FMqf/kMu36qJzGPBJNOCPM8hwn45vbh8=;
-        b=SZzD5kxpmEW5kIXRKLOx9x+PG2IOT1y/K4xOi9qCOCK0xi90kZQjA1BBWBb8JzbQIH
-         EiU1rZzw8zMpn05wdlbLk13W6mGP4Pn5hhns86IAfxXRNRu/sF7bPjTOIS4M15UvM++F
-         JIXyHMm54zPxaS/lpxCuOIijvPSO6dXkKY+0ZAT6AYFUrbCHpOrbZgu9Xhdab04wnQ17
-         ByME1z0OA+2a6QWY7Ubo1bHxL5bRX+1pOPoKF45YplXuY4yorfgHgsbR+cmGWBleHHKa
-         XI5U2mNrHBUMB9U2J/f22nWfMdBKboG6O1mJD8EHnsDoJ7szpd5FPGaFVGFGb4z7Y5ke
-         2mlQ==
-X-Forwarded-Encrypted: i=1; AKwUvByh2mHSY84DzDVEZGSU4EXO9YwQN1F7H5RuzaD04vdNJoEOif8OxWeV6HNkpH+w+1H3/JkyZ3fP00hBon4=@vger.kernel.org
-X-Gm-Message-State: AFuF++nt2G86QymR1vA/Eqj1iuKXKhbHV4bxEs4VRIAjt4JQ7toScuuX
-	B/8mz+fbvuNO5UiLUUNA4kw3k3KfbjL64gh1vCwlv3CmEVl57WMsK0vft3Ye2QnoDWcno0XoNXE
-	bwQ0BN0xk85LiP+tnurNH9eXGafR+bRQ=
-X-Gm-Gg: AYBFou0vgMP+/LGM5nT0qvrPrdfGIOB3yVwaBY9XR8TFg/wEonz6xwCzeB2/eCkpMEm
-	nVppTeJG+Kl9+hzyl4p2RS2LuFP6rLIPwT5RSTiyNNxE+gm0PiYPDFlR9gOzWl5fGc5GQ7hq5yO
-	ugx9Hm13ZOLsBTwH7b4Orz827Qiuy/5RekvVEB4tOl5eEpJ4Q/2qMvaxeyd3Adg00feoF4ZDjgp
-	jCktz62XYqV7VDspdGAdgYNp3benABm9xz9bmBKEsmBFfM1ewlcTLHtp6i0i6HPLje3CoQ/UUI9
-	NOGZq6+k88U4e16159NkXcEghmO8kM8sDRFE9L5Xp52uUY0EQZrhwuGCBbHLdfvLlHt09Z34/CT
-	1+OAtHrNQO2ZBP8Ub9J8qJ2m38S4HG9F8jg==
-X-Received: by 2002:a05:690e:118a:b0:66e:5085:f264 with SMTP id
- 956f58d0204a3-66e55740fc0mr3654481d50.49.1788071097333; Sat, 29 Aug 2026
- 23:24:57 -0700 (PDT)
+        bh=ie2zZl8YsHAeQXHgNP1pjeAs7NQ+FFglXIo7DLINxR8=;
+        b=p7sgNTxeoc2eK9L/sKCXI3mB0ZYdKXgbMpv0/SVvV6/mwjzaMAMDGGJ4jtWhDX/nIL
+         J9yovjRu7KzFL4Zxj7JvF76My5BoGVLRECEpgUlx/s/DzKXp3qR9U+jsm4re6gd2+nT5
+         XEOYWC3LIMlOm5Gr+1LkV4hYeGwDmVMgWgRJEOr2dKdhi+L+pqifO/7ApbHIW3bd0h/t
+         bpGU7RwKtCp+/lWkMBHoB1eESt/34w7TnW0iek8YisnUCKC+saBOZLfe2AXf9oWschGD
+         NfJIUAL/K7lvQmipegU7azMdTc81gncLUfx61Jge3uy0Lj92804CkI8yX6P5mPtjqAIc
+         riog==
+X-Forwarded-Encrypted: i=1; AKwUvBzcdAWDwVuy8WqHt7yiF463HD1xDYkLwI6B8KcTJCPVPQaaTEjy6QVKwk+KAsRF6AsuQi37i+IWx4P8gT8=@vger.kernel.org
+X-Gm-Message-State: AFuF++kaJuUzHhwjVAS1bKtILbsf+TiXDQcrx9B2GEoZ3n7Ywhi+zpu1
+	WlkpdEoyxorA1+u7Zarx87s64Pc4QZ9ZcZ58BCZBcxvLvsNg409H0nUuWT5cGHLjS14gE3tL99S
+	HsTddu8TzVqkuoT42sPfB4nG9TNatsv0=
+X-Gm-Gg: AYBFou0B7iABR1J8SMw52zl2gUObuT4UvJUwuXfkxx0IBDP7Cgaku4CuLoT/oKqYhbf
+	mN/vot9vCa1rtx4fkM91PFR9T31LiSiDNFd7T2+/yjL1yWTCOk4eOdZOUJC/ZtZkLN8ohsSUUMd
+	pgwMJbaXH00VsBTDfS0rpz3t5C5em7unaxE793J/KquLXJn7IQXuBf8QeG0RR4W2gXkvVeTOYs1
+	o9dR8tHp6RChGM7y4H6aDL8YQ/0YnA7aFWtdLgSIo8df91swnG3EZskpyjrCGq46TDaHMP7bZc3
+	buPru6qIOkt1MPn/46l+xNSwoqXJYPlcC5RIbb0jwN+VY6tkpVF6DQv1RJJx43KwfLTrrHJQcK0
+	ouTEC2nYYyPCd56iXQesRLNJS+qXsF9nA9Q==
+X-Received: by 2002:a05:690e:480b:b0:66e:61be:b280 with SMTP id
+ 956f58d0204a3-66e61beb351mr919322d50.48.1788071143285; Sat, 29 Aug 2026
+ 23:25:43 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260825044507.15217-1-kartikey406@gmail.com>
-In-Reply-To: <20260825044507.15217-1-kartikey406@gmail.com>
+References: <20260813064902.367504-1-kartikey406@gmail.com>
+In-Reply-To: <20260813064902.367504-1-kartikey406@gmail.com>
 From: Deepanshu Kartikey <kartikey406@gmail.com>
-Date: Sun, 30 Aug 2026 11:54:45 +0530
-X-Gm-Features: AcwNN1UJXiPxeecGwMmPThQayYhPtdBKrxtA98QGwRhlFNCPnG14xtruFeO76pg
-Message-ID: <CADhLXY6D-+FC24c8-UWf8xW+5tVGM=J-qhViKxRWCfPDyvQ9Lw@mail.gmail.com>
-Subject: Re: [PATCH v2] perf/bpf: Fix lockless access to parent_event->prog in perf_event_alloc()
-To: peterz@infradead.org, mingo@redhat.com, acme@kernel.org, 
-	namhyung@kernel.org, mark.rutland@arm.com, alexander.shishkin@linux.intel.com, 
-	jolsa@kernel.org, irogers@google.com, adrian.hunter@intel.com, 
-	james.clark@linaro.org, daniel@iogearbox.net, andriin@fb.com
-Cc: linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	bpf@vger.kernel.org
+Date: Sun, 30 Aug 2026 11:55:31 +0530
+X-Gm-Features: AcwNN1Uz1IASuABwBGrNzT8vqscd8g3KsyTVjcnjYQteHxWUUv-5lbfRLHAaf4c
+Message-ID: <CADhLXY4YXGWUi8JcfdYMJ4HhKMKS2RLg2WvnZnku_XK45m4-fQ@mail.gmail.com>
+Subject: Re: [PATCH v2] drm/i915: Guard against NULL driver_data in i915_pci_probe()
+To: jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com, 
+	rodrigo.vivi@intel.com, tursulin@ursulin.net, airlied@gmail.com, 
+	simona@ffwll.ch, krzysztof.karas@intel.com
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org, 
+	syzbot+db96c5ff032f4292a8dc@syzkaller.appspotmail.com, stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, Aug 25, 2026 at 10:15=E2=80=AFAM Deepanshu Kartikey
+On Thu, Aug 13, 2026 at 12:19=E2=80=AFPM Deepanshu Kartikey
 <kartikey406@gmail.com> wrote:
 >
-> During fork(), perf_event_alloc() reads parent_event->prog locklessly
-> which can race with concurrent detach clearing and freeing the prog via
-> perf_event_free_bpf_handler() or perf_event_detach_bpf_prog(). This
-> can result in a NULL pointer dereference or use-after-free in
-> bpf_prog_inc().
+> pci_match_device() can return the dummy pci_device_id_any entry
+> when a device is force-bound via sysfs driver_override, in which
+> case ->driver_data is unset (NULL). i915_pci_probe() casts it to
+> struct intel_device_info * unconditionally and dereferences
+> intel_info->require_force_probe, causing a NULL-ptr-deref.
 >
-> Fix by using READ_ONCE() to atomically read parent_event->prog into a
-> local variable and bpf_prog_inc_not_zero() to safely increment the
-> reference count only if the program is still alive. This handles both
-> tracing and non-tracing event types without requiring any additional
-> locking.
->
-> Fixes: 85192dbf4de0 ("bpf: Convert bpf_prog refcnt to atomic64_t")
+> Reported-by: syzbot+db96c5ff032f4292a8dc@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=3Ddb96c5ff032f4292a8dc
+> Tested-by: syzbot+db96c5ff032f4292a8dc@syzkaller.appspotmail.com
+> Cc: stable@vger.kernel.org
 > Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
 > ---
-> v2:
-> - Drop bpf_event_mutex approach which was wrong for non-tracing events
->   as perf_event_free_bpf_handler() operates locklessly
-> - Use READ_ONCE() + bpf_prog_inc_not_zero() instead which handles both
->   tracing and non-tracing event types safely without any lock
-> - Remove extern bpf_event_mutex from perf_event.h (no longer needed)
-> - Remove static removal from bpf_trace.c (no longer needed)
+> v2: Drop Fixes tag, this isn't a regression from a single commit -
+>     the unconditional dereference of ->driver_data has always assumed
+>     it points into a MODULE_DEVICE_TABLE()-backed entry, an assumption
+>     broken by the generic driver_override fallback path, not by any
+>     i915-specific change. Add Cc: stable instead. (Krzysztof, Jani)
 > ---
->  kernel/events/core.c | 11 ++++++-----
->  1 file changed, 6 insertions(+), 5 deletions(-)
+>  drivers/gpu/drm/i915/i915_pci.c | 3 +++
+>  1 file changed, 3 insertions(+)
 >
-> diff --git a/kernel/events/core.c b/kernel/events/core.c
-> index ba5bd6a78fe7..39755bfacc55 100644
-> --- a/kernel/events/core.c
-> +++ b/kernel/events/core.c
-> @@ -13433,11 +13433,13 @@ perf_event_alloc(struct perf_event_attr *attr, =
-int cpu,
->                 overflow_handler =3D parent_event->overflow_handler;
->                 context =3D parent_event->overflow_handler_context;
->  #if defined(CONFIG_BPF_SYSCALL) && defined(CONFIG_EVENT_TRACING)
-> -               if (parent_event->prog) {
-> -                       struct bpf_prog *prog =3D parent_event->prog;
-> -
-> -                       bpf_prog_inc(prog);
-> -                       event->prog =3D prog;
-> +               struct bpf_prog *prog;
+> diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_=
+pci.c
+> index 82415af47d54..2f03f95945f1 100644
+> --- a/drivers/gpu/drm/i915/i915_pci.c
+> +++ b/drivers/gpu/drm/i915/i915_pci.c
+> @@ -958,6 +958,9 @@ static int i915_pci_probe(struct pci_dev *pdev, const=
+ struct pci_device_id *ent)
+>                 (struct intel_device_info *) ent->driver_data;
+>         int err;
+>
+> +       if (!intel_info)
+> +               return -ENODEV;
 > +
-> +               prog =3D READ_ONCE(parent_event->prog);
-> +               if (prog) {
-> +                       prog =3D bpf_prog_inc_not_zero(prog);
-> +                       if (!IS_ERR(prog))
-> +                               event->prog =3D prog;
->                 }
->  #endif
->         }
+>         if (intel_info->require_force_probe && !id_forced(pdev->device)) =
+{
+>                 dev_info(&pdev->dev,
+>                          "Your graphics device %04x is not properly suppo=
+rted by i915 in this\n"
 > --
 > 2.43.0
 >
 
-Gentle Reminder. Please let me know the status of this patch.
+Gente Reminder. Let me know the status of this patch .
 
 Thanks
 
