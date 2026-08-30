@@ -1,91 +1,91 @@
-Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com [136.143.188.12])
+Received: from mail.mindbit.ro (xs1.mindbit.ro [80.86.107.70])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF1B13BB674;
-	Sun, 30 Aug 2026 16:25:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.12
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788107103; cv=pass; b=KlbUr/k/433pvX91+d1NLiElkrxI3vHVlItdu/0QImU4oxBPk2xzXOP1+DaxaqjagVpTV5r+Q4pP6MsNAMzAl1e0GCIvTvFQ4dT68zxAGMx8TjdiRLqa2S4ACmfvlzuDpwRsX0KkzmPCrvYhF2VXfQFkIQNDYIOSlv6a17Co9eM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788107103; c=relaxed/simple;
-	bh=GmBfcRy0uBNjSyTd3QM14EIKLu45BjfLWEcmRo1I9Ms=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=LB9/3y9+WMh+8eHOLFS3gYwv0wQxXJhxW74G2rabbCNj69fcY2CvvlTxDJX+zTKz70BDQgJ3EXyJ0XCvs7u9rt6AgVKv2eQB3PuyQLyj7Ivl0l+iE+neIKZ5rALqQMUDrULD9Kp08Roh67F/SdeLNkxWWX8PvgbSVgTSt+f1N4I=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=yoavmoshe.com; spf=pass smtp.mailfrom=yoavmoshe.com; dkim=pass (1024-bit key) header.d=yoavmoshe.com header.i=linux@yoavmoshe.com header.b=DeGxx07c; arc=pass smtp.client-ip=136.143.188.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=yoavmoshe.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yoavmoshe.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 843F22EC56E
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 16:30:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.86.107.70
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788107435; cv=none; b=mxbC9O5vxWfJioNvAP/ubbBvwbvyMn8lYBDfPbvkjmFGg1EEiOr0LA6WFj8mWKCGJ9Rv11xTlOBMlZMWASYIlB8QYu/xzhv/nifH5g1rxDmOSGdL7QrgCXXe94ybK/SdG6twrMdPM+Krabf2npOwdSmGQJKlcUN7LIN7B0+z+gE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788107435; c=relaxed/simple;
+	bh=aNS8gAc2JRPWto6wkjb9L5yUtOT4hCY5RJlAwW+y8Hs=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=rnsxSkqjcEncLhCOcVzwwC5Ig9/80VBQYUSinlGFJUH4x/vboBPSXVDTH2R1BostCZKgemVb+m4J8lSxqHBcyGmYESfAQ/wHYYU57WdW0dDB1EmhALIF2S2ALth1eirNJFw6tkLspp6O0i/vGCXnJ/a7hhQvCttLKITWHT4I75o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rendec.net; spf=pass smtp.mailfrom=rendec.net; dkim=pass (2048-bit key) header.d=rendec.net header.i=@rendec.net header.b=VbnYzlYA; arc=none smtp.client-ip=80.86.107.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rendec.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rendec.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=yoavmoshe.com header.i=linux@yoavmoshe.com header.b="DeGxx07c"
-ARC-Seal: i=1; a=rsa-sha256; t=1788107074; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=XdGy/sr3rnNAf8bb96XvAwHAREUe3cxNcki7E02MDYhicdhOLJ282kjyglQU+XtaWx5TA06MqCm0wk7Q0B/d2OACuwrtYX2cfKlOiSYW9pL9vuP1peRUvK0dpoN34aYQocCRn9dlVG58C9u7MkgUbTiyOBHpI3Nl6NXJxKoozbI=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1788107074; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=GmBfcRy0uBNjSyTd3QM14EIKLu45BjfLWEcmRo1I9Ms=; 
-	b=cjG7BqArSc+oKGncPM+El5jlT03vBF0aMBJG76ONkzviNZ3SramFZHixGtyGtn3WB42lUMyzNueS+mqXEaqBgq5/+5k/2D3ICbkN2HrgX8PeOCK+2aDt8W08potEuvX1myhZOMnymnLmtSGCvM/l+tqwL43601NJHGkqUUnnYKY=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=yoavmoshe.com;
-	spf=pass  smtp.mailfrom=linux@yoavmoshe.com;
-	dmarc=pass header.from=<linux@yoavmoshe.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1788107074;
-	s=zoho; d=yoavmoshe.com; i=linux@yoavmoshe.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=GmBfcRy0uBNjSyTd3QM14EIKLu45BjfLWEcmRo1I9Ms=;
-	b=DeGxx07cvLm+imNF4WG1+C4HClXhhNxqAZhzUxJm29XeW/VnL+KUtXpFXAq+lb2P
-	YhkAfbUlBj5xvj30g56/9yaKf9TRPHd7vKY8VlA2E61PA1A26xArZAM6EfUgFPgj2wb
-	3C+vm/GzQAb6jackRPdpQpYV2fyZ7JSO6/uL+bKU=
-Received: by mx.zohomail.com with SMTPS id 178810707135525.803322459182027;
-	Sun, 30 Aug 2026 09:24:31 -0700 (PDT)
-Message-ID: <2bd0c842-d0cb-4ad7-b3a3-fed2000dea83@yoavmoshe.com>
-Date: Sun, 30 Aug 2026 18:24:27 +0200
+	dkim=pass (2048-bit key) header.d=rendec.net header.i=@rendec.net header.b="VbnYzlYA"
+Received: from dog.kanata.rendec.net (pool-174-112-193-187.cpe.net.cable.rogers.com [174.112.193.187])
+	by mail.mindbit.ro (Postfix) with ESMTPSA id 572C4CC505;
+	Sun, 30 Aug 2026 19:30:28 +0300 (EEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.mindbit.ro 572C4CC505
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rendec.net;
+	s=default; t=1788107430;
+	bh=DHbQgw0rVP+95Tv0kAeoRDdjuGbtzcnAd7wDYd7T4VY=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+	b=VbnYzlYA/is4ElrnBAiVpynIrmgkXqFz8NREmw6TFB236tIPAP0Rj6EZPNRW9A6bo
+	 qYRSCl+FKSPWv1qdPuuKd7jcsmkSjieEnzBAOa+OrSaXKcdsRfw+oIbb749n6La0qr
+	 PmtmiCvjf9YJWIgYO9ghTa/xzswW0LaDlQJh6mt/5AGSSljNsvUDiP5TPaAvmdt+AB
+	 QyyJnf1rkX4m+IsG3bumpZ7jc+02U0WzU/N3tIInaP4QgNI6VLXC6TAaZBcO66h7po
+	 XiZ41hUAHi9ZCgTq4zlrc/aEtAUunfBKqmnth2RtN0llWsP+0/tarLiLK6RTCydtaP
+	 q0j3u2ru77ubQ==
+Message-ID: <0b44f9fe48a6e81a5dbbb61ead46b77b117433b4.camel@rendec.net>
+Subject: Re: [PATCH v5 4/9] irqchip/imx-irqsteer: Dispose of parent IRQ
+ mappings in remove()
+From: Radu Rendec <radu@rendec.net>
+To: Zhipeng.wang_1@oss.nxp.com, Thomas Gleixner <tglx@kernel.org>, Marc
+ Zyngier	 <maz@kernel.org>, Frank Li <Frank.Li@nxp.com>
+Cc: Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team
+	 <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, Jindong Yue
+	 <jindong.yue@nxp.com>, xuegang.liu@nxp.com, linux-kernel@vger.kernel.org, 
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org
+Date: Sun, 30 Aug 2026 12:30:26 -0400
+In-Reply-To: <20260821101039.4037925-5-Zhipeng.wang_1@oss.nxp.com>
+References: <20260821101039.4037925-1-Zhipeng.wang_1@oss.nxp.com>
+	 <20260821101039.4037925-5-Zhipeng.wang_1@oss.nxp.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4] ARM: imx: Fix suspend/resume crash with Clang CFI
-To: Sami Tolvanen <samitolvanen@google.com>,
- Nick Desaulniers <ndesaulniers@google.com>
-Cc: Yo'av Moshe <linux@yoavmoshe.com>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>, Russell King <linux@armlinux.org.uk>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Nathan Chancellor <nathan@kernel.org>,
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- llvm@lists.linux.dev, stable@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260718111340.159896-1-linux@yoavmoshe.com>
- <20260827194508.446733-1-linux@yoavmoshe.com>
- <CAKwvOdkSZBbq=e916=efx8G-CTzZ5b31AhyUytO6eJjjkEdMow@mail.gmail.com>
- <CABCJKuc0cWWdkA7zrCcuze4AE-qTSETuUi-eRewPnn_ivHEADQ@mail.gmail.com>
- <CAKwvOdnA7Ej_uppSL7U2xwxyUQoDMvO+RArj4HCUSOziH0rCqA@mail.gmail.com>
- <CABCJKuezb0HtOcMBsObczS=HBaRvMszagkOZGHyOVbXBqtJi5g@mail.gmail.com>
-Content-Language: en-GB, sv-SE
-From: Yo'av Moshe <linux@yoavmoshe.com>
-In-Reply-To: <CABCJKuezb0HtOcMBsObczS=HBaRvMszagkOZGHyOVbXBqtJi5g@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
 
-On 2026-08-28 10:50 PM, Sami Tolvanen wrote:
-> Looks reasonable, but this still feels ARM-specific to me. How about
-> adding the macro to arch/arm/include/asm/linkage.h unless you have
-> other users in mind?
-I've now sent a v5 with Nick's macro added to
-arch/arm/include/asm/linkage.h as you suggested, plus the other fixes
-Nick asked for:
+On Fri, 2026-08-21 at 19:10 +0900, Zhipeng.wang_1@oss.nxp.com wrote:
+> From: Zhipeng Wang <zhipeng.wang_1@nxp.com>
+>=20
+> probe() maps the parent output interrupts with irq_of_parse_and_map(),
+> but remove() only unchains the handlers and never disposes of those
+> mappings, leaking them on unbind. The child mappings handed out by the
+> domain are freed by their consumers and, together with the domain, are
+> now torn down by devres, so remove() only has to dispose of the parent
+> mappings it created itself.
+>=20
+> Dispose of the parent mappings alongside the chained-handler teardown.
+>=20
+> Fixes: 0136afa08967 ("irqchip: Add driver for imx-irqsteer controller")
+> Signed-off-by: Zhipeng Wang <zhipeng.wang_1@nxp.com>
+> Reviewed-by: Frank Li <Frank.Li@nxp.com>
+> ---
+> =C2=A0drivers/irqchip/irq-imx-irqsteer.c | 1 +
+> =C2=A01 file changed, 1 insertion(+)
+>=20
+> diff --git a/drivers/irqchip/irq-imx-irqsteer.c b/drivers/irqchip/irq-imx=
+-irqsteer.c
+> index 571324de8bd1..071ab1ac1fe9 100644
+> --- a/drivers/irqchip/irq-imx-irqsteer.c
+> +++ b/drivers/irqchip/irq-imx-irqsteer.c
+> @@ -287,6 +287,7 @@ static void imx_irqsteer_remove(struct platform_devic=
+e *pdev)
+> =C2=A0
+> =C2=A0		irq_set_chained_handler_and_data(irqsteer_data->irq[i],
+> =C2=A0						 NULL, NULL);
+> +		irq_dispose_mapping(irqsteer_data->irq[i]);
+> =C2=A0	}
+> =C2=A0
+> =C2=A0	clk_disable_unprepare(irqsteer_data->ipg_clk);
 
-https://lore.kernel.org/all/20260830155100.1020620-1-linux@yoavmoshe.com/
-
-The sashiko-bot's comment on v5 indeed pointed out that imx5, at91 and
-omap1 might suffer from the same bug: their suspend routines are also
-fncpy()'d into SRAM without a type hash and called indirectly. They're
-all ARM, so asm/linkage.h still seems like the right place for the
-macro.
-
-Do you think these need to be fixed as part of this patch, or as
-follow-ups? I only have my one imx6 device (a Kobo Clara HD), so I'm not
-sure how to test the fixes for the others.
-
-Yo'av
+Reviewed-by: Radu Rendec <radu@rendec.net>
