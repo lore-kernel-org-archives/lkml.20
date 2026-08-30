@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33D6F2EEE66;
-	Sun, 30 Aug 2026 20:19:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2719926E71F;
+	Sun, 30 Aug 2026 20:19:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788121184; cv=none; b=PQNbAPjdKsAFLWDaJdpE1jqYBFbgDq3HMy9EXK+f2r764+CyUvWtsH04p9bfoOQqCSPQNMFPBNX4SvptOArHFPgIW//7GMEBIW86cO8VZQb8fbM7V0PJRnwEAgrnshunxVSJEciepU4H/oIe+gk82O5CTvmcy6MRQUDOERLd5rc=
+	t=1788121184; cv=none; b=YAqkt7aQ7d0yiK4POm6NZ8aIDKhyo4jtA29JG0r2m1aYrJwOqlc9podzsOWUvaYmUH54Dwvt5PqwSTCGY1zSnWv+bdl9o3ng1/CAeYllHWmq07t+rLXFqYewI4c1XnwZnicpk7JwH40n2c63Pm0bGQ5yMH4M8aZEfoMv644L3ZY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788121184; c=relaxed/simple;
-	bh=ST4ik3WBagvYGb9odthpBturzioGl2ubZbVZscCANes=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=o0VWLuueh2qy86Mkpesfn4I7mK+3yEqHJBWrN4jVRQRqtn7doGcWTfoiABnLDBfUgWpOheITCe756fW+2vh9GW8Aunif8TR6U3YZQQ6T9EbqUAr2axn305PeI/paXJ3baVlT/D8xxFSJ6eNpnx/5AVCa3LrbclQhNCR4qFPWNZo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=il+834lR; arc=none smtp.client-ip=10.30.226.201
+	bh=agb1V0MjhGm8j+oIm1EcaNuPn6C/Rl+xZ1GYecArZD0=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=sm9J8USefmyhFdj1FVG1KF0OKVGoEd4yV3eaXwWAsL9KjcLGSw9ZnVfOlbXoQ76hyoRayPneG/OAGaVZkyN+Yx8vOz7aLJ05QGkOkKPfR81ih/WtcSfgPqoNSjOBVQ64o8H7xWssP45BBcnAHxytpan9ftbGV9t93BmBgeoRfMk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jNfr9PfN; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="il+834lR"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id F0DF0C2BD05;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jNfr9PfN"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id B8544C2BCF4;
 	Sun, 30 Aug 2026 20:19:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1788121184;
-	bh=ST4ik3WBagvYGb9odthpBturzioGl2ubZbVZscCANes=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=il+834lR+fWeOP4pJPPnSK6EDG91BxP5ko5nafIyH7USSuZl9kwerhiSFA6APWiIO
-	 PCdmAgG6lQVahHs8iYNWXB0VmoEPx7qu3ZEwoRRIkZJQqGvQ2YqfpuipCRAkCaTaWv
-	 xDeMNTYvcTsuaEafMnf8s3uC01WMPs4aXnqKoM8obnc1yrgA9Ws0ZV+kKlvKyciJ1Z
-	 3jbaqIN5GVBV9WEMH0kY+B4jsstBIBQTqV5Fm3cLEbO4sM7HYp8lV+KfKZpQG1BUmi
-	 IUHlA4sA7ke1n2TXRrMNHQHLbRkLb3Qa+CcCK1yeeMlphO/HhQDwUlvYfEoe8TJl76
-	 CAQImfT+Gp6qg==
+	s=k20201202; t=1788121183;
+	bh=agb1V0MjhGm8j+oIm1EcaNuPn6C/Rl+xZ1GYecArZD0=;
+	h=From:Subject:Date:To:Cc:From;
+	b=jNfr9PfNbPgTh/VgpnrpuVJCOZdJ34nHbp4l6gyIWQGddB0Tk/JehLgUUSUE/vNJ/
+	 +1JS6IAhr4KEXeY8nAPnz6S7OjME1CAz/UM7czUTffLf3lrIpeDtIyQwvKECZG+qoO
+	 qwlGn3KERbUzldTPSEXt/qD/W7q/7E9Il50bTAATVNKU45lqze/bBoFl5exNPR6TZT
+	 UTJIT+ZhiJGLnv2zGDJw8f4FcrVhRmVkCuJAKW/EcuplSWXtIWTh2bMLq1pvPrWqkU
+	 +vT6EB5gtPpLcBKS6nyl7/leB9IurdIdk2wOV6hZje9F3TYptKCA2IgcP0o8ANQxdF
+	 sCiPrDO2DEzxQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DA0EEC61DF1;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 925E0C61DD9;
 	Sun, 30 Aug 2026 20:19:43 +0000 (UTC)
 From: Sven Peter <sven@kernel.org>
-Date: Sun, 30 Aug 2026 22:19:22 +0200
-Subject: [PATCH 04/19] dt-bindings: thunderbolt: Add Apple USB4/Thunderbolt
- NHI
+Subject: [PATCH 00/19] Initial USB4/Thunderbolt support for Apple M1/M2/M3
+ SoCs
+Date: Sun, 30 Aug 2026 22:19:18 +0200
+Message-Id: <20260830-b4-apple-soc-tbt-v1-0-44bc9348683c@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,9 +41,10 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260830-b4-apple-soc-tbt-v1-4-44bc9348683c@kernel.org>
-References: <20260830-b4-apple-soc-tbt-v1-0-44bc9348683c@kernel.org>
-In-Reply-To: <20260830-b4-apple-soc-tbt-v1-0-44bc9348683c@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/y2N0Q6CMBAEf4Xcs5fUior+ivGhLaueMVB6xZAQ/
+ t2qPE4yOzuTIgmUztVMCW9R6bsC201F4eG6O1jawmSNPZjGntjX7GJ8gbUPnH1mZwya487tbeu
+ pzGLCTaZf8nL9s47+iZC/ndVIGMbylVdtWT4YopnsiQAAAA==
+X-Change-ID: 20260829-b4-apple-soc-tbt-a00e873a52db
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, 
@@ -58,216 +59,152 @@ Cc: Konrad Dybcio <konradybcio@kernel.org>, linux-usb@vger.kernel.org,
  asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
  Sven Peter <sven@kernel.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6395; i=sven@kernel.org;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7208; i=sven@kernel.org;
  h=from:subject:message-id;
- bh=ST4ik3WBagvYGb9odthpBturzioGl2ubZbVZscCANes=;
- b=owGbwMvMwCXmIlirolUq95LxtFoSQ9aUCSEBrgwKebrpG/+knlBjvKEQsijsQnr6Me4rogLlM
- /6+DWjpKGVhEONikBVTZNm+3970ycM3gks3XXoPM4eVCWQIAxenAEzkZTfD/4zUd9GLIzY+Znz1
- wFnrxf49lxcm73i47Qfz1YOS15pEOK0Y/ru/Nnrv5OPcFmm+9Pe5g4X3WD6vWve9YvnyN1NjWWJ
- +P+YFAA==
+ bh=agb1V0MjhGm8j+oIm1EcaNuPn6C/Rl+xZ1GYecArZD0=;
+ b=owGbwMvMwCXmIlirolUq95LxtFoSQ9aUCZ7ml8/Knn17VCNZJEdA3nDv+wOdryaaN10oZP7c+
+ 0XH6VlQRykLgxgXg6yYIsv2/famTx6+EVy66dJ7mDmsTCBDGLg4BWAiT1Yx/K/0YjqtaTZTe9We
+ q5aqX2NK933YYtLLJf9TJrxk6z4F13CGfwq/JOpYoqcfFXA3fdq21+/T2v6wx+ejV8sYbeQQK12
+ 6hx8A
 X-Developer-Key: i=sven@kernel.org; a=openpgp;
  fpr=A1E3E34A2B3C820DBC4955E5993B08092F131F93
 X-Endpoint-Received: by B4 Relay for sven@kernel.org/default with
  auth_id=407
 
-The Native Host Interface (NHI) provides the TX and RX rings used by the
-software connection manager on Apple Silicon SoCs.
+Hi,
 
-The NHI is part of the ACIO host router and is exposed to the main SoC
-bus while the ACIO co-processor is running.
+This series adds initial USB4/Thunderbolt support for Apple Silicon
+M1, M2 and M3 SoCs. Each USB4 capable Type-C port comes with an ACIO
+("Apple Converged I/O") block which contains a Cortex-M3 co-processor
+and the hardware implementing the USB4 router.
 
-T6000 and T6020 use one DART stream for the TX and RX control rings and
-one shared by all other rings, which are used for XDomain connections.
-This likely improves the isolation of those host-to-host connections.
+The NHI and DART IOMMU are part of this ACIO block as well. Instead of
+being exposed as independent always-accessible devices the main SoC bus
+only gets a 16 MiB window into ACIO's MMIO space while its co-processor
+is running. It is not entirely clear whether this is ACIO's own address
+space or a window into the co-processor's address space.
 
-The M3 generation uses a slightly insane set of 24 IOMMU entries. These
-are probably one DART stream for each TX and RX ring.
+This is why the device tree represents the NHI and DART as children of
+ACIO with addresses relative to that window. The driver only populates
+these children after booting the co-processor and removes them again
+before powering ACIO down. This setup is slightly unusual but matches
+both the MMIO layout and the lifetime of the devices.
+
+ACIO also has rather strict ordering requirements: it can only be
+started after the Type-C PHY has been configured for USB4/Thunderbolt
+and has to be stopped again before the PHY is powered down. It also
+needs cable details which are only known to the Type-C port controller.
+The existing Type-C mode switch cannot express the required reverse
+teardown order, so the first three patches add a separate Thunderbolt
+switch and hook it up to the CD321x port controller.
+
+The next two patches add the bindings for the NHI and ACIO. The
+following patches then prepare the Thunderbolt core for the slightly
+different NHI register layout and interrupt handling, read the USB4
+router DROM from the device tree and add quirks for functionality not
+implemented by the Apple hardware.
+
+The main driver powers up ACIO, boots the co-processor, populates
+the DART and NHI children once their MMIO regions are accessible and
+registers the NHI with the software connection manager. The last three
+patches add the device tree nodes for the M1 and M2. M3 nodes will follow
+once the rest of the stack is upstream, but the current Thunderbolt/USB4
+code has already been successfully tested on those.
+
+Right now only XDomain connections and USB3-via-USB4 tunnels are
+supported. Both PCIe and DisplayPort tunnels will come later since those
+require additional work and reverse engineering that is not done yet.
+Suspend is also not supported yet and we actually have to prevent
+suspending whenever an active connection is present because we would
+otherwise resume into an SError.
+
+This series depends on the Apple CIO reset controller [1], the ATCPHY
+USB3-via-4 pipehandler support [2] and support for specifying the DART DMA
+aperture in the device tree [3], a fix for CD321x Thunderbolt
+altmode VDOs [4], and fixes for making the DPTX capabilities read fail
+gracefully [5]. I couldn't split it any further since the remaining
+patches now directly depend upon each other.
+Except for the dts changes the series applies cleanly without these
+dependencies though.
+
+For merging it probably makes most sense if all of this (except for the
+DTS changes) is taken through the thunderbolt tree once everything's been
+reviewed.
+
+Best,
+
+Sven
+
+[1] https://patch.msgid.link/20260821-b4-cio-reset-v2-0-2d045f80a424@kernel.org
+[2] https://patch.msgid.link/20260821-b4-atcphy-usb4-v1-0-45c0b741e0c0@kernel.org
+[3] https://patch.msgid.link/20260819-iommu-apple-dart-aperture-v1-0-252703f381aa@jannau.net
+[4] https://patch.msgid.link/20260813-b4-tipd-vdo-fix-v1-1-70317f2cd554@kernel.org
+[5] https://patch.msgid.link/20260829-b4-tbt-fixes-v3-0-e1fab6ac54fe@kernel.org
 
 Signed-off-by: Sven Peter <sven@kernel.org>
 ---
- .../bindings/thunderbolt/apple,t8103-usb4-nhi.yaml | 151 +++++++++++++++++++++
- MAINTAINERS                                        |   2 +
- 2 files changed, 153 insertions(+)
+Sven Peter (19):
+      dt-bindings: usb: Add thunderbolt-switch property
+      usb: typec: Add thunderbolt switch
+      usb: typec: tipd: Hook up Thunderbolt switch for CD321x
+      dt-bindings: thunderbolt: Add Apple USB4/Thunderbolt NHI
+      dt-bindings: thunderbolt: Add Apple USB4/Thunderbolt ACIO block
+      thunderbolt: Try reading host DROM from device tree first
+      thunderbolt: Don't read the UID if we already know it
+      thunderbolt: Allocate ring HopID before requesting the ring interrupt
+      thunderbolt: Add ring_interrupt_active to tb_nhi_ops
+      thunderbolt: Make the ring register layout configurable
+      thunderbolt: Add ring_interrupt_mask to tb_nhi_ops
+      thunderbolt: Add ring_configure to tb_nhi_ops
+      thunderbolt: Add QUIRK_NO_DMA_PORT
+      thunderbolt: Add QUIRK_NO_USB3_BW_ALLOC
+      thunderbolt: Export symbols required by the Apple Silicon driver
+      thunderbolt: Add Apple Silicon support
+      arm64: dts: apple: t8103: Add USB4 ACIO and NHI
+      arm64: dts: apple: t8112: Add USB4 ACIO and NHI
+      arm64: dts: apple: t60xx: Add USB4 ACIO and NHI
 
-diff --git a/Documentation/devicetree/bindings/thunderbolt/apple,t8103-usb4-nhi.yaml b/Documentation/devicetree/bindings/thunderbolt/apple,t8103-usb4-nhi.yaml
-new file mode 100644
-index 000000000000..a80c8db3ef51
---- /dev/null
-+++ b/Documentation/devicetree/bindings/thunderbolt/apple,t8103-usb4-nhi.yaml
-@@ -0,0 +1,151 @@
-+# SPDX-License-Identifier: GPL-2.0 OR BSD-2-Clause
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/thunderbolt/apple,t8103-usb4-nhi.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Apple Silicon USB4/Thunderbolt Native Host Interface (NHI)
-+
-+maintainers:
-+  - Sven Peter <sven@kernel.org>
-+
-+description: |
-+  On Apple Silicon SoCs the Native Host Interface (NHI) is part of the ACIO
-+  host router. It provides the transmit and receive rings used by the software
-+  connection manager.
-+
-+  The ACIO co-processor exposes its registers to the main SoC bus while it is
-+  running. The NHI is therefore represented as a child of the ACIO node.
-+
-+properties:
-+  compatible:
-+    oneOf:
-+      - const: apple,t8103-usb4-nhi
-+      - items:
-+          - enum:
-+              - apple,t6000-usb4-nhi
-+              - apple,t6020-usb4-nhi
-+              - apple,t6030-usb4-nhi
-+              - apple,t6031-usb4-nhi
-+              - apple,t8112-usb4-nhi
-+              - apple,t8122-usb4-nhi
-+          - const: apple,t8103-usb4-nhi
-+
-+  reg:
-+    items:
-+      - description: NHI registers with the transmit and receive rings
-+      - description:
-+          Protocol Defined Field (PDF) bitmasks selecting which frames are
-+          accepted by each receive ring
-+
-+  reg-names:
-+    items:
-+      - const: nhi
-+      - const: pdf
-+
-+  interrupts:
-+    description:
-+      One interrupt for each of the 12 transmit rings followed by one for each
-+      of the 12 receive rings.
-+    maxItems: 24
-+
-+  interrupt-names:
-+    items:
-+      - const: txring0
-+      - const: txring1
-+      - const: txring2
-+      - const: txring3
-+      - const: txring4
-+      - const: txring5
-+      - const: txring6
-+      - const: txring7
-+      - const: txring8
-+      - const: txring9
-+      - const: txring10
-+      - const: txring11
-+      - const: rxring0
-+      - const: rxring1
-+      - const: rxring2
-+      - const: rxring3
-+      - const: rxring4
-+      - const: rxring5
-+      - const: rxring6
-+      - const: rxring7
-+      - const: rxring8
-+      - const: rxring9
-+      - const: rxring10
-+      - const: rxring11
-+
-+  iommus:
-+    minItems: 1
-+    maxItems: 24
-+    description: |
-+      T8103 and T8112 use a single IOMMU for all DMA transactions.
-+
-+      T6000 and T6020 use two IOMMUs: The first is used for transmit ring 0
-+      and receive ring 0 which carry control traffic. The second is shared by
-+      all other rings which are only used for XDomain connections to other
-+      hosts.
-+
-+      T6030, T6031 and T8122 use 24 IOMMUs. These are most likely one DART
-+      stream for each of the 12 transmit and 12 receive rings.
-+
-+  apple,thunderbolt-drom:
-+    $ref: /schemas/types.yaml#/definitions/uint8-array
-+    description:
-+      DROM of the host router built by the bootloader from Apple's Device Tree.
-+
-+  apple,tunable-nhi:
-+    $ref: /schemas/types.yaml#/definitions/uint32-matrix
-+    items:
-+      items:
-+        - description: Register offset
-+        - description: Mask of bits to clear
-+        - description: Bits to set
-+    description: |
-+      List of (register offset, mask, value) tuples copied from Apple's Device
-+      Tree, converted by the bootloader and used to configure the NHI after
-+      the co-processor has booted.
-+
-+required:
-+  - compatible
-+  - reg
-+  - reg-names
-+  - interrupts
-+  - interrupt-names
-+  - iommus
-+  - apple,thunderbolt-drom
-+
-+allOf:
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            enum:
-+              - apple,t6030-usb4-nhi
-+              - apple,t6031-usb4-nhi
-+              - apple,t8122-usb4-nhi
-+    then:
-+      properties:
-+        iommus:
-+          minItems: 24
-+          maxItems: 24
-+    else:
-+      if:
-+        properties:
-+          compatible:
-+            contains:
-+              enum:
-+                - apple,t6000-usb4-nhi
-+                - apple,t6020-usb4-nhi
-+      then:
-+        properties:
-+          iommus:
-+            minItems: 2
-+            maxItems: 2
-+      else:
-+        properties:
-+          iommus:
-+            maxItems: 1
-+
-+additionalProperties: false
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 3a19da74d00c..bb26036a043f 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -2658,6 +2658,7 @@ F:	Documentation/devicetree/bindings/rtc/apple,smc-rtc.yaml
- F:	Documentation/devicetree/bindings/soc/apple/apple,t6000-pmgr-misc.yaml
- F:	Documentation/devicetree/bindings/spi/apple,spi.yaml
- F:	Documentation/devicetree/bindings/spmi/apple,spmi.yaml
-+F:	Documentation/devicetree/bindings/thunderbolt/apple,t8103-usb4-nhi.yaml
- F:	Documentation/devicetree/bindings/usb/apple,dwc3.yaml
- F:	Documentation/devicetree/bindings/watchdog/apple,wdt.yaml
- F:	Documentation/hwmon/macsmc-hwmon.rst
-@@ -27215,6 +27216,7 @@ L:	linux-usb@vger.kernel.org
- S:	Maintained
- T:	git git://git.kernel.org/pub/scm/linux/kernel/git/westeri/thunderbolt.git
- F:	Documentation/admin-guide/thunderbolt.rst
-+F:	Documentation/devicetree/bindings/thunderbolt/
- F:	drivers/thunderbolt/
- F:	include/linux/thunderbolt.h
- 
+ .../thunderbolt/apple,t8103-usb4-acio.yaml         |  218 +++++
+ .../bindings/thunderbolt/apple,t8103-usb4-nhi.yaml |  151 +++
+ .../devicetree/bindings/usb/usb-switch.yaml        |    6 +
+ MAINTAINERS                                        |    4 +
+ arch/arm64/boot/dts/apple/t6002-j375d.dts          |   67 ++
+ arch/arm64/boot/dts/apple/t600x-dieX.dtsi          |  384 ++++++++
+ arch/arm64/boot/dts/apple/t600x-j314-j316.dtsi     |  107 ++
+ arch/arm64/boot/dts/apple/t600x-j375.dtsi          |  137 +++
+ arch/arm64/boot/dts/apple/t6022-j180d.dts          |  202 ++++
+ arch/arm64/boot/dts/apple/t6022-j475d.dts          |   10 +
+ arch/arm64/boot/dts/apple/t6022-jxxxd.dtsi         |   57 ++
+ arch/arm64/boot/dts/apple/t602x-dieX.dtsi          |  384 ++++++++
+ arch/arm64/boot/dts/apple/t8103-jxxx.dtsi          |   61 ++
+ arch/arm64/boot/dts/apple/t8103.dtsi               |  188 ++++
+ arch/arm64/boot/dts/apple/t8112-jxxx.dtsi          |   61 ++
+ arch/arm64/boot/dts/apple/t8112.dtsi               |  190 ++++
+ drivers/thunderbolt/Kconfig                        |   13 +
+ drivers/thunderbolt/Makefile                       |    3 +
+ drivers/thunderbolt/apple.c                        | 1028 ++++++++++++++++++++
+ drivers/thunderbolt/cap.c                          |    2 +
+ drivers/thunderbolt/ctl.c                          |    2 +
+ drivers/thunderbolt/domain.c                       |    2 +
+ drivers/thunderbolt/eeprom.c                       |   32 +-
+ drivers/thunderbolt/nhi.c                          |  132 ++-
+ drivers/thunderbolt/nhi.h                          |   32 +
+ drivers/thunderbolt/switch.c                       |   19 +-
+ drivers/thunderbolt/tb.c                           |   18 +
+ drivers/thunderbolt/tb.h                           |    5 +
+ drivers/thunderbolt/tunnel.c                       |   59 +-
+ drivers/usb/typec/mux.c                            |  201 ++++
+ drivers/usb/typec/mux.h                            |   12 +
+ drivers/usb/typec/tipd/core.c                      |   37 +
+ include/linux/thunderbolt.h                        |    3 +
+ include/linux/usb/typec_mux.h                      |  114 +++
+ 34 files changed, 3872 insertions(+), 69 deletions(-)
+---
+base-commit: 78bb208b99e7d3314f670710fa9ee0a793682bca
+change-id: 20260829-b4-apple-soc-tbt-a00e873a52db
 
--- 
-2.55.0
+Best regards,
+--  
+Sven Peter <sven@kernel.org>
 
 
