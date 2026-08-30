@@ -1,64 +1,64 @@
-Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D0882DFA3A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 074A72DEA95
 	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 05:14:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788066853; cv=none; b=kYc1OpEs/Wo4tmOI4eST3+NVV4gVmYTltMoHWn6XiQShpiI3DlIovcA0Zw4zrvX2Eaj6qjbraXh7Ep4MrCMN+1DXhQGBc+HNv98VTS184f+8LsFJmUDG07u9QuRJPYpTmpOaeFoC61uz3enrS8wN0xY8taERTUvMqvf1OsbU3R8=
+	t=1788066854; cv=none; b=AuYC/l29gc5ks+s5+JIX4JUnTHucFAX97k4P7rgIZNK/JicvzhdvfVTYNbYknFR7NC5atm8pb3UZmZS39ljX0z49wPhhp4oHsWsBkvm1Ckmtau7pgf6QN8WuAU9x8jVp3dnW8iiinqF4/Tf2jkCXc4dVEU+Z4nxo2xJtwWOV3r0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788066853; c=relaxed/simple;
-	bh=HkCP7VGJZpo8tqbPFVRl/GGgUC8qiBQ05t6gcGsjZ+Y=;
+	s=arc-20240116; t=1788066854; c=relaxed/simple;
+	bh=qDar28JySQZOFBLHqw4DU1n4wiE0RevwYt64tfL76/M=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=UvcAlzCt8fx4yH0Gcn7XldpQYUe52Yn/gllwWS2Z/jcheDSxq0CGoiGPdrP3vscyf6rNCafNr1O8JzAZsOThIev4LObOyQBF2/8pIntyt/SPb7y0NHsb7u3c0P8bDVQshlnEYO0JKjGggkto/6P4WIGW21dyPi6N0GFDR0H/Vfo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=crusoe.ai; spf=pass smtp.mailfrom=crusoe.ai; dkim=pass (2048-bit key) header.d=crusoe.ai header.i=@crusoe.ai header.b=iScyj66Q; arc=none smtp.client-ip=209.85.215.181
+	 MIME-Version; b=qPT20RN9wNMDCSR8slbT00virl+plyO2LnbEaEFIwBKjF4OqdOex47y7Bs66fAAqwxEILS1XjNKR0WE99Dsp7tqvIbNbsRJblxvwqlJtzSUH/I1usWbios2vpVZyknZYHkDeXuKVFw0K/jW3g5tULyJec6j7hb4OOLAtv3XVEyI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=crusoe.ai; spf=pass smtp.mailfrom=crusoe.ai; dkim=pass (2048-bit key) header.d=crusoe.ai header.i=@crusoe.ai header.b=cLSdzcQ0; arc=none smtp.client-ip=209.85.214.174
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=crusoe.ai
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crusoe.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=crusoe.ai header.i=@crusoe.ai header.b="iScyj66Q"
-Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-cc1c3d79b9bso2055307a12.3
+	dkim=pass (2048-bit key) header.d=crusoe.ai header.i=@crusoe.ai header.b="cLSdzcQ0"
+Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2ce7d2adef4so36228035ad.3
         for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 22:14:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=crusoe.ai; s=google; t=1788066851; x=1788671651; darn=vger.kernel.org;
+        d=crusoe.ai; s=google; t=1788066852; x=1788671652; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=+Qq90Jf7KadtS5HpHzOCYry3UrGmes12BSmNzbFVazM=;
-        b=iScyj66QET0xUCMvPK83i8rJ3H4sZEfq7RHfA7W1Mdi6nzXjChdeeOE/xUeipZhsVD
-         Qk0kWqII5Tozx2TXVyJmb48mXFd1p6elHe84WdZDRmXxpcxYJAdhL6fhXuvX8r7pUQY8
-         /uH/S4kD1cATvKAo3O5P+NSaVnAG9UZWwDcCt4idt43dd9I6ZBVHXcyu3DHtasnUbL/Q
-         UGp7hXH+cpl/nnu5AF0c+IlMj+UzypwUZx4LaOr5Omo6GFXNfn4Hxb3OFw2K7j4tY5fl
-         YLeBgtnqC38CpCXrpGR0UlAOOcenWQlR6lOyvSPYqPdpHVn1SzDL5HnhWmdsXMTB4Res
-         T2ag==
+        bh=Ezj01Z6T9okgOiQa4EOGNSsW3Mil1bOoLksIRT0LM8A=;
+        b=cLSdzcQ0B669YvQHpR9RGQTQtmoUbFAgfvsUNpKI6/51FHgXS/zA9OqeF7StFly33k
+         L4jtT2i2YpQ1Okk8Th4rxZ2cXmk9KPl7Edad3mq8uDVhUoVcAwk9gB6CWHYL1jQr92LG
+         ndQQOmtwFwGwZ8nWUZUaW+c/iEHXfuSyy1oac9afe6QtI83fdj9estWIDS3YczMpjwi8
+         EBz7OZu4aotked7NMtF+6PnQGdDpz1kFZtpD8LJX614YYl9dfLZM89aXjQwIKDvex7wn
+         sGjW1URJB7QJWxE97dN5iBw6K1kYkNwUmgFzp8Q/HJjXAUE0CTiAX3Ax4yaWSGmzZKiy
+         wfTg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788066851; x=1788671651;
+        d=1e100.net; s=20251104; t=1788066852; x=1788671652;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+Qq90Jf7KadtS5HpHzOCYry3UrGmes12BSmNzbFVazM=;
-        b=OlVGNfrAzgWdCuHhfbszcJMDUU5VMmZzt+XenOU39Eky+8jlhUHjwFNzePwmz69IZa
-         eEECtin5sqy8HWsK3X42vTzCdut0/oSFPk3QtpTrfOWcXtkDAz0dV73FK+RaYVzWTRKk
-         gWyeg/WMexGqsUVEjToWYSKzgKU+tIOxdaySh+fdI1OvwdjbrWQugg3dGNeQ/hFnQ9OI
-         X34cXkqyrtC6a4EpGyd/zPS6S4DSOljMl4MUlOytCpLnYnDp0Qpu6wj5DxtCU2c+eBMt
-         H3e6JcF39qQT6046eqHABEg9X8BaXGfsuw3o7wInX62vPSTaZLP1AMvPPjykHbERQSwB
-         eCfw==
-X-Forwarded-Encrypted: i=1; AHgh+Rpg8QZDTmDzOuEXL/+XLCwGf70KNOLzrEI5tebO3m5sUMQKzuTC76f4VluzdBhFbuorlgRMIAs37vfN2wM=@vger.kernel.org
-X-Gm-Message-State: AFuF++kxiHN5ShNLiaEY1Ve0lp69J7BfR0HmrQR8Uvy5xRFZ3FBRp/+j
-	TIA0TmgM1p1OJaGpfOB62EAbZWwBqNIm8CawdMrjXMqovvEMf06O7rjqrH3wV2HBC+g=
-X-Gm-Gg: AR+sD13P2ILz8Tu9GqW4QG6fkuqXqItA4Saro2SlDLMuvLtOHXi3GyfvE1j9mod+IXt
-	dTOI8OMkMO34VsLPhwviVqN5llm7ajJpB/o2d3mAMPl5swES1C1/ejWOdyVqEQTnBYvAXHWxRJE
-	NPAHrRnQR6t5rHXE5l5RaLnIPXqF5hgjNeTvOq1TMhtIxJKt0FxHmUWmRY0dZaeaf98PWhJoSr+
-	ih8oT6hK3HvXNPqjUo+puwwWy2kAHzfM09fQxSPyKyK1FJk00q5pq/jSFi4hbYuNB2OlTmOgRSo
-	R06lFbyo+L5IVaS1ZPkXEQBieESCqHS4s5HzJObO0H/WJR+I5BIAVDrV6fGNHb2s5yP08MtzIK6
-	JUPdsw50N1UESRCp3mV+ej8XdbKpf8oyIvT8Z9gedmMNByMo70IMFFTeVQGvAy1KLdHLjJ8cytO
-	hjfRJ4U4pIfsYMZ9GDiT9v4cyT8dorlPQaoeYtTt3Bt4x4H/3ykEcpjpT8x1Ep2L+TAek1mULqV
-	M2rx1VZPdKmHhW3bN0vUZeKk5xS7elS3IKl
-X-Received: by 2002:a05:6a21:998a:b0:3c4:2b8b:e88f with SMTP id adf61e73a8af0-3d26646a960mr24213242637.5.1788066851383;
-        Sat, 29 Aug 2026 22:14:11 -0700 (PDT)
+        bh=Ezj01Z6T9okgOiQa4EOGNSsW3Mil1bOoLksIRT0LM8A=;
+        b=T3Smbitp7Ial0QTl2s15mfc8cU0cRbP+nakZlQ8j+2YkgF8CVDnidL7NSkvayO0ADH
+         APzqxgE5rPxcUzX2RQ2IVW950S8xIvX2EX4JlRqUEFoshDsp8cQxkI1gm0iegndCo129
+         94qCRaltzlrVXwoJds+AEY7/K8/4vDIldL2J04bKEy/jVlSOvvgCTvr6cqc+mVr4a9wB
+         nH2fAzrme8Z0CGuVAlJqy7kDjuSPOLiQod+OYsiuUtITgy0lDE0ojsW3+fRHV96kcag2
+         pH0mMDy7ghSGiLUQDEV63cfh7hJ39b0O4pdZdjVE8lVVi1VgESq3uolfzX7nqgJBw0R/
+         skTw==
+X-Forwarded-Encrypted: i=1; AKwUvBxA7lk5VvJ/Sfd4V5npqRgf3K5W6oRwM5LTHPn7BmDTMN0JD0HKe775WQDWj+d2fv3gS+k3AB/iSlr139o=@vger.kernel.org
+X-Gm-Message-State: AFuF++m6kzilCim9oZ/cKzgjSFaip/Ml+ei6xlb5nIa7YntQUaAvSLZf
+	YcISany3iRICiMu5/ezQhtHMm/WZDP0gSQSnf1Efv7T1MX7vcLQor5A9NvaB5DRD4oA=
+X-Gm-Gg: AR+sD13oNrqjmKLo3h2z++OkvitFlD5qdXr909UIOliuBGxElZBDc0FIZ/lAl9WdKDA
+	PzZ4izfH0PWR6j9HGkmkxe7lM5VDb/kvhrfGUcxKPEp2Mm4b7ppsiALh65zEeE2sl5AiXN0k/rD
+	GdW3/QbgqZrf1wBD35tbf7ShIJPCxIjYU/c/nHb6I9TJkyXY6dZX1Ch6X6tSNObFwZMXr0Gu9QK
+	OrXDI4sAmn4aLB7N/9qAbRw1V1Zz/Vj6qjX9XlHvPNJ0eCJt0IiQOpZKdmSb7WSovw5WyV8Rg8D
+	VrVgziJpNll4M0WwvJOKFyK2QnQrpT2Y8d7yNjzyY9kw+EqXmOBLEG4nr21gIUBIMJR6fnRTwCF
+	yy3wBx2hgIGDllfakmOmWRfKt4+6P+dx3da0/PswZbcYSTfjUzqUZUfyJ39Ru3/vSep69iNlsjL
+	999NLjaKnaYEPFtoQ9eposYbteU/q7iH4PmgGEgL4w7GnU4Zaxztq7kc30s/rsoasqs195oQM1V
+	1la0D6NJcR7OmRT6ZqrBcdCVEV3ljnPhrPb
+X-Received: by 2002:a17:903:2342:b0:2d7:414e:f2f with SMTP id d9443c01a7336-2d74def676fmr265059445ad.14.1788066852465;
+        Sat, 29 Aug 2026 22:14:12 -0700 (PDT)
 Received: from MBP-Krishna-Iyer.civet-hops.ts.net ([2601:645:c68a:b830:d101:1d:112c:715e])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3286fa37fa5sm22595810eec.29.2026.08.29.22.14.10
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3286fa37fa5sm22595810eec.29.2026.08.29.22.14.11
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sat, 29 Aug 2026 22:14:11 -0700 (PDT)
+        Sat, 29 Aug 2026 22:14:12 -0700 (PDT)
 From: Krishna Iyer <kiyer@crusoe.ai>
 To: SeongJae Park <sj@kernel.org>
 Cc: Andrew Morton <akpm@linux-foundation.org>,
@@ -66,9 +66,9 @@ Cc: Andrew Morton <akpm@linux-foundation.org>,
 	linux-mm@kvack.org,
 	linux-kernel@vger.kernel.org,
 	Krishna Iyer <kiyer@crusoe.ai>
-Subject: [PATCH 2/6] mm/damon/ops-common: handle hugetlb folios in folio mkold/young rmap walkers
-Date: Sat, 29 Aug 2026 22:14:03 -0700
-Message-ID: <20260830051407.50008-3-kiyer@crusoe.ai>
+Subject: [PATCH 3/6] mm/damon/paddr: support hugetlb folios in access monitoring
+Date: Sat, 29 Aug 2026 22:14:04 -0700
+Message-ID: <20260830051407.50008-4-kiyer@crusoe.ai>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260830051407.50008-1-kiyer@crusoe.ai>
 References: <20260830051407.50008-1-kiyer@crusoe.ai>
@@ -80,131 +80,148 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-damon_folio_mkold_one() and damon_folio_young_one() assume the folios
-they walk are mapped by normal PTEs or THP PMDs.  When the folio is a
-hugetlb folio, page_vma_mapped_walk() returns the huge PTE in pvmw.pte
-with its page table lock held, but the walkers treat it as a normal
-PTE: they read and age it with PAGE_SIZE-granularity helpers, which is
-wrong for huge PTEs (up to PUD level), and notify secondary MMUs for
-only PAGE_SIZE of the mapping.
+DAMON's physical address space monitoring is blind to hugetlb-backed
+memory.  Every access check starts at damon_get_folio(), which rejects
+folios that are not on the LRU lists.  Hugetlb folios are managed
+outside of the LRU by design, so every sampling attempt on
+hugetlb-backed memory silently fails and the pages are reported as
+never accessed.
 
-Add hugetlb branches to both walkers.  The mkold walker reuses
-damon_hugetlb_mkold(), which the virtual address space operations set
-has been using for hugetlb aging: it clears the young bit of the huge
-PTE via set_huge_pte_at() and calls mmu_notifier_clear_young() spanning
-the whole huge page size.  The young walker gets an equivalent new
-helper, damon_hugetlb_young(), which reads the huge PTE with
-huge_ptep_get() and consults the page idle flag and
-mmu_notifier_test_young() like the existing PTE branch.
+This is a significant blind spot on virtualization hosts.  Cloud
+hypervisor hosts commonly back guest memory with 1 GiB hugetlbfs pages,
+covering the vast majority of the machine's memory.  On such hosts,
+modules like DAMON_STAT observe only the host-side remainder (kernel,
+page cache, daemons) and report all guest working sets as permanently
+idle, defeating the purpose of host-level access monitoring.  In
+testing on a 1 TiB host, an hour of 4-thread random access over 842 GiB
+inside a guest was statistically indistinguishable from an idle host,
+while a 40x smaller host-side workload produced a quantitatively
+correct response.
 
-Locking mirrors what page_vma_mapped_walk() provides: the huge PTE's
-page table lock is held inside the walk, and for shared hugetlb
-mappings (the only ones subject to huge PMD sharing), rmap_walk_file()
-already holds i_mmap_rwsem, satisfying hugetlb_walk()'s locking
-requirements.
+Add damon_get_folio_incl_hugetlb(), which additionally accepts hugetlb
+folios, and use it in the two paddr access monitoring primitives,
+damon_pa_mkold() and damon_pa_young().  With the previous commit
+teaching the folio-granular rmap walkers to age huge PTEs and to call
+the mmu notifiers spanning the whole huge page, this makes guest
+accesses visible through secondary MMU (e.g. KVM/EPT) young bits.
 
-This is currently dead code: both rmap walkers are only reachable
-through damon_get_folio(), which rejects hugetlb folios since they are
-not on the LRU lists.  A following commit will let the physical address
-space monitoring primitives opt in to hugetlb folios.
+Free hugetlb pool folios have a zero refcount, so folio_try_get()
+naturally keeps rejecting them.
+
+The DAMOS action appliers (damon_pa_pageout(),
+damon_pa_mark_accessed_or_deactivate(), damon_pa_migrate(),
+damon_pa_stat()) keep using damon_get_folio(): reclaim, LRU
+manipulation and migration cannot act on hugetlb folios, so their
+behavior is unchanged.
+
+Note that the access check granularity for hugetlb-backed memory is the
+huge page size: one touched byte reports the whole (up to 1 GiB) page
+as accessed.  Also, DAMON now consumes secondary MMU young bits that
+KVM's own aging uses; at DAMON's sampling rate (one page per region per
+sampling interval) the interference is negligible.
 
 Assisted-by: Claude:claude-fable-5
 Signed-off-by: Krishna Iyer <kiyer@crusoe.ai>
 ---
- mm/damon/ops-common.c | 63 +++++++++++++++++++++++++++++++++++--------
- 1 file changed, 52 insertions(+), 11 deletions(-)
+ mm/damon/ops-common.c | 31 +++++++++++++++++++++++++++----
+ mm/damon/ops-common.h |  1 +
+ mm/damon/paddr.c      |  4 ++--
+ 3 files changed, 30 insertions(+), 6 deletions(-)
 
 diff --git a/mm/damon/ops-common.c b/mm/damon/ops-common.c
-index f5fe92b825bb..62004206ca31 100644
+index 62004206ca31..ece101d34684 100644
 --- a/mm/damon/ops-common.c
 +++ b/mm/damon/ops-common.c
-@@ -193,10 +193,20 @@ static bool damon_folio_mkold_one(struct folio *folio,
+@@ -15,14 +15,20 @@
+ #include "../internal.h"
+ #include "ops-common.h"
  
- 	while (page_vma_mapped_walk(&pvmw)) {
- 		addr = pvmw.address;
--		if (pvmw.pte)
--			damon_ptep_mkold(pvmw.pte, vma, addr);
--		else
-+		if (pvmw.pte) {
-+			/*
-+			 * For hugetlb folios, page_vma_mapped_walk() sets
-+			 * pvmw.pte to the huge PTE with its page table lock
-+			 * held.
-+			 */
-+			if (folio_test_hugetlb(folio))
-+				damon_hugetlb_mkold(pvmw.pte, vma->vm_mm, vma,
-+						addr);
-+			else
-+				damon_ptep_mkold(pvmw.pte, vma, addr);
-+		} else {
- 			damon_pmdp_mkold(pvmw.pmd, vma, addr);
-+		}
- 	}
- 	return true;
- }
-@@ -221,6 +231,24 @@ void damon_folio_mkold(struct folio *folio)
- 
- }
- 
-+#ifdef CONFIG_HUGETLB_PAGE
-+static bool damon_hugetlb_young(pte_t *pte, struct vm_area_struct *vma,
-+		unsigned long addr, struct folio *folio)
++static bool damon_folio_observable(struct folio *folio, bool incl_hugetlb)
 +{
-+	pte_t entry = huge_ptep_get(vma->vm_mm, addr, pte);
-+
-+	return (pte_present(entry) && pte_young(entry)) ||
-+		!folio_test_idle(folio) ||
-+		mmu_notifier_test_young(vma->vm_mm, addr);
++	return folio_test_lru(folio) ||
++		(incl_hugetlb && folio_test_hugetlb(folio));
 +}
-+#else
-+static bool damon_hugetlb_young(pte_t *pte, struct vm_area_struct *vma,
-+		unsigned long addr, struct folio *folio)
-+{
-+	return false;
-+}
-+#endif	/* CONFIG_HUGETLB_PAGE */
 +
- static bool damon_folio_young_one(struct folio *folio,
- 		struct vm_area_struct *vma, unsigned long addr, void *arg)
+ /*
+- * Get an online page for a pfn if it's in the LRU list.  Otherwise, returns
+- * NULL.
++ * Get an online page for a pfn if it's in the LRU list, or a hugetlb folio if
++ * @incl_hugetlb is set.  Otherwise, returns NULL.
+  *
+  * The body of this function is stolen from the 'page_idle_get_folio()'.  We
+  * steal rather than reuse it because the code is quite simple.
+  */
+-struct folio *damon_get_folio(unsigned long pfn)
++static struct folio *__damon_get_folio(unsigned long pfn, bool incl_hugetlb)
  {
-@@ -232,16 +260,29 @@ static bool damon_folio_young_one(struct folio *folio,
- 	while (page_vma_mapped_walk(&pvmw)) {
- 		addr = pvmw.address;
- 		if (pvmw.pte) {
--			pte = ptep_get(pvmw.pte);
--
- 			/*
--			 * PFN swap PTEs, such as device-exclusive ones, that
--			 * actually map pages are "old" from a CPU perspective.
--			 * The MMU notifier takes care of any device aspects.
-+			 * For hugetlb folios, page_vma_mapped_walk() sets
-+			 * pvmw.pte to the huge PTE with its page table lock
-+			 * held.
- 			 */
--			*accessed = (pte_present(pte) && pte_young(pte)) ||
--				!folio_test_idle(folio) ||
--				mmu_notifier_test_young(vma->vm_mm, addr);
-+			if (folio_test_hugetlb(folio)) {
-+				*accessed = damon_hugetlb_young(pvmw.pte, vma,
-+						addr, folio);
-+			} else {
-+				pte = ptep_get(pvmw.pte);
+ 	struct page *page = pfn_to_online_page(pfn);
+ 	struct folio *folio;
+@@ -33,13 +39,30 @@ struct folio *damon_get_folio(unsigned long pfn)
+ 	folio = page_folio(page);
+ 	if (!folio_try_get(folio))
+ 		return NULL;
+-	if (unlikely(page_folio(page) != folio) || !folio_test_lru(folio)) {
++	if (unlikely(page_folio(page) != folio) ||
++			!damon_folio_observable(folio, incl_hugetlb)) {
+ 		folio_put(folio);
+ 		folio = NULL;
+ 	}
+ 	return folio;
+ }
+ 
++struct folio *damon_get_folio(unsigned long pfn)
++{
++	return __damon_get_folio(pfn, false);
++}
 +
-+				/*
-+				 * PFN swap PTEs, such as device-exclusive
-+				 * ones, that actually map pages are "old"
-+				 * from a CPU perspective. The MMU notifier
-+				 * takes care of any device aspects.
-+				 */
-+				*accessed = (pte_present(pte) &&
-+						pte_young(pte)) ||
-+					!folio_test_idle(folio) ||
-+					mmu_notifier_test_young(vma->vm_mm,
-+							addr);
-+			}
- 		} else {
- #ifdef CONFIG_TRANSPARENT_HUGEPAGE
- 			pmd_t pmd = pmdp_get(pvmw.pmd);
++/*
++ * Same to damon_get_folio(), but also accepts hugetlb folios, which are
++ * managed outside of the LRU lists.  Aimed to be used by access monitoring
++ * primitives.  DAMOS actions that assume LRU-managed folios should keep using
++ * damon_get_folio().
++ */
++struct folio *damon_get_folio_incl_hugetlb(unsigned long pfn)
++{
++	return __damon_get_folio(pfn, true);
++}
++
+ void damon_ptep_mkold(pte_t *pte, struct vm_area_struct *vma, unsigned long addr)
+ {
+ 	pte_t pteval = ptep_get(pte);
+diff --git a/mm/damon/ops-common.h b/mm/damon/ops-common.h
+index f7811c9c7a02..68d7de49c87a 100644
+--- a/mm/damon/ops-common.h
++++ b/mm/damon/ops-common.h
+@@ -6,6 +6,7 @@
+ #include <linux/damon.h>
+ 
+ struct folio *damon_get_folio(unsigned long pfn);
++struct folio *damon_get_folio_incl_hugetlb(unsigned long pfn);
+ 
+ void damon_ptep_mkold(pte_t *pte, struct vm_area_struct *vma, unsigned long addr);
+ void damon_pmdp_mkold(pmd_t *pmd, struct vm_area_struct *vma, unsigned long addr);
+diff --git a/mm/damon/paddr.c b/mm/damon/paddr.c
+index 5c6c3a597fd0..09d418b2874b 100644
+--- a/mm/damon/paddr.c
++++ b/mm/damon/paddr.c
+@@ -37,7 +37,7 @@ static unsigned long damon_pa_core_addr(
+ 
+ static void damon_pa_mkold(phys_addr_t paddr)
+ {
+-	struct folio *folio = damon_get_folio(PHYS_PFN(paddr));
++	struct folio *folio = damon_get_folio_incl_hugetlb(PHYS_PFN(paddr));
+ 
+ 	if (!folio)
+ 		return;
+@@ -67,7 +67,7 @@ static void damon_pa_prepare_access_checks(struct damon_ctx *ctx)
+ 
+ static bool damon_pa_young(phys_addr_t paddr)
+ {
+-	struct folio *folio = damon_get_folio(PHYS_PFN(paddr));
++	struct folio *folio = damon_get_folio_incl_hugetlb(PHYS_PFN(paddr));
+ 	bool accessed;
+ 
+ 	if (!folio)
 -- 
 2.54.0
 
