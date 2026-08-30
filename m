@@ -1,126 +1,208 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com [209.85.215.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18F6C632
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 04:28:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F6FF632
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 04:29:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788064104; cv=none; b=tNUwMR+VTE+Lmnijpc8YszcoYhxcbrlnc7mm2QYaLEO3CLMKUoPF3sH6JPtFcpdd7eC3+pIYPJ2wKnG+PzedG4sQSot8QeQ8QlYGJxYicmpnZVzaTCDjpMgS4Gzxsmi8Z8Ht+v+RSrjnMydhtPodCSBw7SOY4SNDt7Pa5cQhd1w=
+	t=1788064170; cv=none; b=jltmrUBRjdeIoo4HiFanVs/NOG/h1OBV0745+qs/vmB67UIGatUZ0CO0vHGOz62UkvwR42+l2eehdCTNw70w33cT4X21CQaHazLowBSpsL8K1zgrJyCWdJsGU/pG04xEw+N7oplt1He3fgUIEDnWbhxTyGY+JZRWyzsDlNgCWaA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788064104; c=relaxed/simple;
-	bh=YztifXJckWcAQZfGfl9Ic9fLzPEK4/BKQ/crc/bFkhE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=uX1KE0Kjya4PaqNsJdGSyTxUkOnZdjAXOBrtFA46z34+rbF9lcdCRcplSwya8mFrsNsaeiUaOhpnzzOb6I5J8JXRTyzg/xa9PRu6CW+x/HywL+WHpWl4OQhawD2nd15mvFykflOmMsu27WRIxwNik+LC9PxU7BWvO9ZXZNWc23E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bBvdCKYg; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788064170; c=relaxed/simple;
+	bh=O/lKz//erVnwd1XOCFd8Bk3wkmE9YF+3nlNQAs+Q1G4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=K6m1giSbFKHPvksMduzxwBIwiDWKqEtd7LMZEMCO1mrTEQAXAWieXsswfbLI/LfDeXDNdEwkDLy2PVVnfBKDGmIdlhBxt8juHQC478tWi591XOoLGvvQU0sPMOHdeFWdrgbpYSlYDoWiRnPPCPEG8vXFZ7jGwwa2sTNDLLamhs8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dkvdz6W1; arc=none smtp.client-ip=209.85.215.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bBvdCKYg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDFDA1F01564
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 04:28:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788064103;
-	bh=kwhhqAKQey/9CCyH5sr0Bsi1+3+p1VFmtEf1p7MZ37I=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=bBvdCKYg0IVGZL/bbErUF4otBLnH80RZUI5S5H35G/ruYNuZVt246aCRd/XzhndjS
-	 CnfwzC/ujmFcKGuulD44rczLEFaVYGZ2kpgXfj7kZMgQZIB+O8rBAuINmCrBrlJxT9
-	 7k7e5LrCUq/XHJLaMfJC/60fCmTcd7USl7S1FfYHOPqCRhDqt6CoUhsIKfIh9CAlQu
-	 qY+67a8n/GjjxNMnZ3jpjizOhH2IprpYLdNMeBBxFcwek/swn2sC+c4gBVcateDp3A
-	 41U/DSpDovo1yxuZ9Jx2D5LmQP4BWRQbG6QoQXk2kTH6Ynk2zZXwM2z3oAEwPjGYiM
-	 GS9keQjrxgJcA==
-Received: by mail-qk1-f176.google.com with SMTP id af79cd13be357-9390a2c8909so154450485a.0
-        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 21:28:22 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RpctXCUza7n1U8vZ8a94iuQiK961tKpzftMwsIqVLvDkF5rMHvOJ2+usJ5DhVx2T+pJYd2+bGtTKEoAoCo=@vger.kernel.org
-X-Gm-Message-State: AFuF++khnhT0GeKPuZ/p7ylmQeOGVEC7IiWSAaqmZzxsc1Pd6k/aFWe8
-	m/K/bdr2Nm+26MVZGCj0MdADx+K9Y9gpEK3BQMehbo0P/zyiaoAd7SxDd1LUZAL8I5uRpEHRTY7
-	QrQbRbnQ/i6mUcvxES1IA46BOhX4GF1c=
-X-Received: by 2002:a05:620a:29d1:b0:939:1b82:47c4 with SMTP id
- af79cd13be357-9391b8249e0mr1079000085a.37.1788064102271; Sat, 29 Aug 2026
- 21:28:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dkvdz6W1"
+Received: by mail-pg1-f178.google.com with SMTP id 41be03b00d2f7-ca5b707b78aso370860a12.0
+        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 21:29:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788064168; x=1788668968; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=7Xlgh6vQbD4bTs7SCk5VD/YGUSfPcjuafvIL7aXc420=;
+        b=dkvdz6W10MDZqzI4D9EbO4KnFwrmw9u36DyRMR/XCpEMub3s4WFASh+yR9D3bWNj3b
+         aodjvAEwicj40Lf2S+si0FoWzaKfzrGFYg71pVFZ2BmvA4TEjoGFZGcS+L63EFfBxeTi
+         BoXaQ1uijVA4DNfIZc7cBtXN2L1e1guBW+G+q3JLIPbIuDYIFoQCXEdJzgNu1SPmubeC
+         nxPaSW7V9dmXEZMT221D4mTCuvVHVmdUz13tMA69iqduTrtvUhi1SLiHioiE40U3Fi6j
+         ekyWSjmUiEMQRGlAB+XxzEM3pMMKSgiQtuARQrpg+TZNJD1z+OBDZNj63Zx0UJ5Cwq2u
+         Q3qQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788064168; x=1788668968;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7Xlgh6vQbD4bTs7SCk5VD/YGUSfPcjuafvIL7aXc420=;
+        b=meN4BWiZh+gQovPQutDh41izdLTB2N2LLw78sEkn4vCf9bMiaXA3CifqYNiwN1XoJv
+         5E+gRCGTKVFP0k2VVc9w31onMdyevAnhs2xapFyM1+JSFs56cKOBQh38qZsbDaWHPUa3
+         2gn8dsyItxkGdKz+3cHvr/J+5cDTQhJhB9Xe2QI7vP9UmP7+6nWf85niEyZn9djJZGej
+         gKHE33MXJVZS177ZOGzxPf/9XKYyvzY7EcqABQ/MDXo+c0esMDbGmdy8lHYko1IisKSs
+         dXljzg+ghMG8zBr6wiYG14kMzqK+0h2nfFYdXbji1ThCRzlu6ohZ+gyrOatHi4u4RuR3
+         wfng==
+X-Gm-Message-State: AFuF++mSW+N6Hc7AvAYz2qLzjJF9L1sZ4Sm78K60nHaUkstr/xVhM6sY
+	aHDlWW2Zy9n+fH/qlGMb7kkQZIfxnTeLOrjzn0t8jtMijeNdxl3OxFrX
+X-Gm-Gg: AYBFou1wMtZfYwo59r3KzUhNldHP0IRrdOxVWQ3irmsvm+UeH6buPOWMx/jjQTbo73F
+	Ko3oDqWfupWejCJMzXbkyl6dMTY5UlRH91Y5vYC/UW8mdhAv52b8Ug23WSRKxEmIe68stCmz59g
+	Z5HpIb3M8DAWANDxB1p0AsYhKKfyoQh2xqAYl7VnshwKMTD7ifjc230gNdWfuLjS2CXMqznAo1s
+	esa3oSFVA0tr+7KCp0bJELAQwOsxvV2XDDM/Vp+HRjTWgQcSc9DQd1EEp61MG2HvBKIo9DIKBEf
+	XTxtKP8oTPYhAW/6o33VSl/uYAofjPtqw5pZ90DHV2YE4IOrTnCuuzMAWpYuhF4Sl8dHAqi5T/1
+	hZ2D86qTpi3DuLIwUTTSa7N4yXjToxoZ+wJzjJZu0Ly1zSOsS3DPQSUwAG/Im0irGOu+cRHcMYY
+	yXB6fS1kMj15cZ5H7MCSx6kXvdHaRxB3k2/EgujJwy5VhERsu4WKLb26ENQ7zX9J/FGqRQUokxY
+	d+80nA+X9G9Si9mMZswgMqmHNA9pOMp1/Ej33PdmlkfrnQxMCY=
+X-Received: by 2002:a17:903:3093:b0:2d8:d29b:c1e5 with SMTP id d9443c01a7336-2d8d29bcb42mr73839805ad.0.1788064168222;
+        Sat, 29 Aug 2026 21:29:28 -0700 (PDT)
+Received: from o6.lan ([188.253.112.231])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d8f98d46casm7493535ad.83.2026.08.29.21.29.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 29 Aug 2026 21:29:27 -0700 (PDT)
+From: Xueyuan Chen <xueyuan.chen21@gmail.com>
+To: akpm@linux-foundation.org,
+	linux-mm@kvack.org
+Cc: linux-kernel@vger.kernel.org,
+	cgroups@vger.kernel.org,
+	zhaonanzhe@xiaomi.com,
+	baohua@kernel.org,
+	hannes@cmpxchg.org,
+	ryncsn@gmail.com,
+	youngjun.park@lge.com,
+	baolin.wang@linux.alibaba.com,
+	hughd@google.com,
+	chrisl@kernel.org,
+	shikemeng@huaweicloud.com,
+	nphamcs@gmail.com,
+	baoquan.he@linux.dev,
+	mhocko@kernel.org,
+	roman.gushchin@linux.dev,
+	shakeel.butt@linux.dev,
+	muchun.song@linux.dev,
+	david@kernel.org,
+	ljs@kernel.org,
+	xueyuan.chen21@gmail.com
+Subject: [PATCH v7 0/4] mm: avoid large folio splits when swap is unavailable
+Date: Sun, 30 Aug 2026 12:29:16 +0800
+Message-ID: <20260830042920.2280454-1-xueyuan.chen21@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260827234704.63163-1-baohua@kernel.org> <20260827234704.63163-4-baohua@kernel.org>
- <af26ac3d-30cb-47de-a295-6f9b4f2e2c32@linux.dev>
-In-Reply-To: <af26ac3d-30cb-47de-a295-6f9b4f2e2c32@linux.dev>
-From: Barry Song <baohua@kernel.org>
-Date: Sun, 30 Aug 2026 12:28:10 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4zTHhkBjzL-Q2N9kk6ggjYeKQOmkXBPofRyQno8QrE5LQ@mail.gmail.com>
-X-Gm-Features: AcwNN1VbJ6v4Z40lv3fn5JDjk7Qgjnd1FigfVZYZsefYA5vPub56D-6w5qqkpCk
-Message-ID: <CAGsJ_4zTHhkBjzL-Q2N9kk6ggjYeKQOmkXBPofRyQno8QrE5LQ@mail.gmail.com>
-Subject: Re: [PATCH v2 3/7] mm/mglru: enhance cold/hot inversion handling in inc_min_seq()
-To: Ridong Chen <ridong.chen@linux.dev>
-Cc: akpm@linux-foundation.org, lianux.mm@gmail.com, axelrasmussen@google.com, 
-	baolin.wang@linux.alibaba.com, baoquan.he@linux.dev, chenridong@xiaomi.com, 
-	david@kernel.org, hannes@cmpxchg.org, kasong@tencent.com, 
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org, ljs@kernel.org, 
-	lyugaofei@xiaomi.com, mhocko@kernel.org, qi.zheng@linux.dev, 
-	shakeel.butt@linux.dev, stevensd@chromium.org, wangzicheng@honor.com, 
-	weixugc@google.com, yuanchu@google.com, zhangbo56@xiaomi.com, 
-	Xueyuan Chen <xueyuan.chen21@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Sun, Aug 30, 2026 at 10:44=E2=80=AFAM Ridong Chen <ridong.chen@linux.dev=
-> wrote:
-[...]
+This is v7 of Barry's original RFC patch, "mm: Avoiding split large
+folios if swap has no space":
 
-> > --- a/mm/vmscan.c
-> > +++ b/mm/vmscan.c
-> > @@ -3949,9 +3949,12 @@ static bool inc_min_seq(struct lruvec *lruvec, i=
-nt type, int swappiness)
-> >                       VM_WARN_ON_ONCE_FOLIO(folio_zonenum(folio) !=3D z=
-one, folio);
-> >
-> >                       new_gen =3D __folio_inc_gen(folio, old_gen, &gen_=
-increased);
-> > -                     list_move_tail(&folio->lru, &lrugen->folios[new_g=
-en][type][zone]);
-> > -                     if (gen_increased)
-> > +                     if (gen_increased) {
-> >                               delta +=3D nr_pages;
-> > +                             list_move_tail(&folio->lru, &lrugen->foli=
-os[new_gen][type][zone]);
->
-> Nit.
-> This is a bit confusing to me.
->
-> When I read the code, I thought this implementation contradicts what the =
-commit
-> message says, which means I thought that we move the folios that have bee=
-n
-> promoted to the tail.
->
-> > +                     } else {
->
-> Maybe adding a comment would make it clearer, like:
->
-> If gen_increased =3D=3D false, it means the folio has been promoted, so m=
-ove it to
-> the head.
+https://lore.kernel.org/r/20260618221720.71768-1-baohua@kernel.org
 
-Good idea. will do it in v3.
+Barry's RFC showed the no-swap case with MADV_PAGEOUT on 16KB mTHP: the
+large-folio split counter increased by 1024 even though no swapout
+progress was possible. Skipping the split in that case kept the counter
+at 0.
 
->
-> > +                             list_move(&folio->lru, &lrugen->folios[ne=
-w_gen][type][zone]);
-> > +                     }
->
->
->
-> >                       /* don't count the workingset being lazily promot=
-ed */
-> >                       if (refs + workingset !=3D BIT(LRU_REFS_WIDTH) + =
-1) {
-> >                               int tier =3D lru_tier_from_refs(refs, wor=
-kingset);
->
-> Overall, looks good to me.
->
-> Reviewed-by: Ridong Chen <ridong.chen@linux.dev>
+This series makes folio_alloc_swap() classify failures according to
+whether splitting a large folio might allow swapout to make progress.
+Callers can then avoid destroying the large folio when neither global
+swap availability nor the folio's memcg swap hierarchy has capacity for
+even a smaller folio.
 
-thanks!
+Patch #1 adds page_counter_margin(), a small helper that computes the
+minimum remaining chargeable space across a page_counter hierarchy.
 
-Best Regards
-Barry
+Patch #2 establishes the folio_alloc_swap() return-value contract:
+
+  - -E2BIG: splitting may let smaller folios make progress
+  - -ENOSPC: no global swap space is available
+  - -ENOMEM: splitting is not expected to help, including when the
+    folio's memcg swap hierarchy has no remaining capacity
+
+Patch #3 makes vmscan split a large folio only when folio_alloc_swap()
+returns -E2BIG. Other failures keep the existing activation path and
+avoid destroying the large folio when no smaller part can be backed by
+swap either.
+
+Patch #4 applies the same contract to shmem_writeout(), which currently
+splits a large folio on every folio_alloc_swap() failure. It now enters
+the split fallback only on -E2BIG; other failures redirty and reactivate
+the folio as before.
+
+Testing:
+
+With a 1GB anonymous mapping backed by 16KB mTHPs and
+memory.swap.max=0, the patch reduced the median latency of 30
+process_madvise(MADV_PAGEOUT) runs from 743.8 ms to 181.7 ms, while the
+number of large-folio splits per run dropped from 65536 to 0. Neither
+kernel swapped out any pages.
+
+I also ran DaCapo h2 under swap pressure and found no statistically
+significant change in wall time or CPU time. The overall benefit appears
+minor and workload-dependent.
+
+v6 -> v7:
+- Add test results and clarify that the overall benefit is minor. No code
+  changes.
+- https://lore.kernel.org/r/20260813075025.1406585-1-xueyuan.chen21@gmail.com
+
+RFC v5 -> v6:
+- Simplify Patch #2's failure handling following Kairui Song's review,
+  avoiding additional plumbing through the memcg charge path.
+- https://lore.kernel.org/r/20260730122304.2496440-1-xueyuan.chen21@gmail.com
+
+RFC v4 -> RFC v5:
+- Fix Patch #3 to jump to activate_locked, not activate_locked_split, when
+  folio_alloc_swap() fails with an error other than -E2BIG. The folio has
+  not been split in that case, so activate_locked_split would incorrectly
+  adjust nr_scanned and nr_pages as if tail pages had been split out.
+- https://lore.kernel.org/r/20260730021630.2235914-1-xueyuan.chen21@gmail.com
+
+RFC v3 -> RFC v4:
+- Keep global swap availability and memcg swap margin separate, following
+  feedback from Barry Song, Johannes Weiner, and Youngjun Park.
+- Handle early rejections and memcg charge failures with the refined
+  folio_alloc_swap() return-value contract.
+- Apply the requested vmscan and shmem condition layout changes.
+- https://lore.kernel.org/r/20260717122514.51514-1-xueyuan.chen21@gmail.com
+
+RFC v2 -> RFC v3:
+- Use Johannes Weiner's original page_counter_margin() patch and preserve
+  his authorship. Move the mem_cgroup_get_nr_swap_pages() conversion into
+  Patch #1 so the helper addition remains a pure refactoring.
+- Add Patch #4 to make shmem_writeout() split large folios only on -E2BIG,
+  as suggested by Baolin Wang.
+- https://lore.kernel.org/r/20260709145124.764807-1-xueyuan.chen21@gmail.com
+
+RFC v1 -> RFC v2:
+- Split the RFC into helper, swap allocation, and vmscan patches.
+- Add page_counter_margin() and use it for hierarchical memcg swap
+  capacity checks.
+- Make folio_alloc_swap() return -E2BIG only when a smaller folio may
+  still be swapped out.
+- Return -ENOSPC for no global swap space and -ENOMEM when splitting is
+  not expected to help, including memcg swap exhaustion.
+- Make vmscan split large folios only on -E2BIG from folio_alloc_swap().
+
+Barry Song (Xiaomi) (1):
+  mm/vmscan: avoid pointless large folio splits without swap
+
+Johannes Weiner (1):
+  mm: add page_counter_margin()
+
+Xueyuan Chen (2):
+  mm: distinguish large folio swap allocation failures
+  mm/shmem: split large folios only on -E2BIG
+
+ include/linux/page_counter.h |  1 +
+ include/linux/swap.h         |  6 ++++++
+ mm/memcontrol.c              | 32 ++++++++++++++++++++++++++------
+ mm/page_counter.c            | 20 ++++++++++++++++++++
+ mm/shmem.c                   |  7 ++++---
+ mm/swapfile.c                | 26 +++++++++++++++++++-------
+ mm/vmscan.c                  |  7 ++++++-
+ 7 files changed, 82 insertions(+), 17 deletions(-)
+
+
+base-commit: c73b725a57f276a3702ca213bde78fca029bc619
+-- 
+2.47.3
+
