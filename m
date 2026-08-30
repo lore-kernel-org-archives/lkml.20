@@ -1,131 +1,119 @@
-Received: from mail-oi2-f1.google.com (mail-oi2-f1.google.com [74.125.231.193])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.34])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 618204086A
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 11:05:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.193
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4174352C35;
+	Sun, 30 Aug 2026 11:07:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=160.30.148.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788087933; cv=none; b=MWL06C0CEBDNSRgTzNe77sEiDax+yX91wTh6ld9YFXgkTZKBTkud7OIfyJwLTHlmJsIKFry/NG7RihUUOMHO5hNMdFdyHdcemS/3/5zVl5ota0YYm4jkPc0Kvk93z/waRT3HgE2V4Y0cxr55axP3UT0uyejMHiqbm1hqd9KJ1SA=
+	t=1788088082; cv=none; b=uHKP6cDQY8r5H2HGqBt55IS5/xm+de+tk5Ral6mjtgL628UNeMocRHQZWMzejCKuFPase5gE21BoTq9/vhQ2vmNwHggapBbk6zFNCx7IMfk/NXS6ORD96AyE1pXVjf0dSFfGFsXat24rnwVeUHk7b6cfca+pI1KoFULXf4Qd4JA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788087933; c=relaxed/simple;
-	bh=Ot/Tu/xzqAxIsAg/oAnAoLHX6Z+B1ewGsuzjLT1CUXE=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=nn1DXWTHGGPzTfQMpaIucW3BOXAqdh2LvRr0zGkY0qAxEmnZ/o0g6cKeWbu8dL84iemA1eGwCU7m3xN8OVzRs0mYOKbc4+rHC9M9cFsgy3k0mp0TFNrcpMLOHubdriwIJmsIpZWTlUsK+52R/vEoWSmaBFoGsHCevHTUbQuNarw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.193
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi2-f1.google.com with SMTP id 5614622812f47-4b3780fb4f5so950280b6e.1
-        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 04:05:31 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788087930; x=1788692730;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=qttM/mbfeOt4T2qPpTH7zFfPdue3YkmkOeBj+OtO/eY=;
-        b=JQKBogV0cYIITAywX6NNzkJ76D6lnfFDRJAXUKTNO/EKDPpKi2lj1mnEHEy5pfzUBn
-         ue5xIJlxXMZuBAYO6sVup6PVlQCxwNcd9N7qhyH77Np9pFy6WKUIM5LImI1ln/BcTVH7
-         i+2z7WULMKg1no+taN5e4944hKlkKLLj3N1pN770d6byVy3nOCiQ701I8xcZRqo4tXFA
-         PozLLdjbut3CliFxU27QGDdT8O+2heZTzKaZ8lJtFtftXSBzUnV7k8WqkvBU/c3epR4v
-         o5TWhZlZG87dlBy6Mlr+b2kkSETk3peerkpswawr0sH72YVqe80uE3Aeu2AA0nUMm9qW
-         IKDg==
-X-Forwarded-Encrypted: i=1; AHgh+Rpm1qV/qyfBksNMaEOuCuLPXyLhHLCLOI1LW5xqcUAntBQWgqQKfF5+bILBQkPpm6ml0BVFnv9WbO+S+8Y=@vger.kernel.org
-X-Gm-Message-State: AFuF++lUbsF0gjR06ykCltJ4Fk1LnpxyWtiNb3qUWtP/Q8brhy2NDjmu
-	Q1muVqoGBJFIr2FBLfjIPwV2tMwta0hqBD71PZ9Fs19/avY1DXq6oBpOTG2HoD8eKSvWNineJpe
-	ZPSvmd9buFN4Sw1WlWQsK7cKSHqN0ILr+o0fsOsSLeFlFwGEnU7CWBNDMmgU=
+	s=arc-20240116; t=1788088082; c=relaxed/simple;
+	bh=1NFyqTOg+03XPnHmRfEQV3E/SZ/glhCG7tkjVKm3+qk=;
+	h=Message-ID:Date:Mime-Version:From:To:Cc:Subject:Content-Type; b=UoQwAuM7DKGA50mT6xAbjjBw9WSLOewNqVpb3YVUyiQtnARNT8E4a7AF9+XNz7wj87TDxKpIs1byWVDNvffQwNPXb2QpGEgkvTiXGgbfygQumuvNnvEOfXwvjFbXJPW9K1DqVWjyzwbnL3GXFpqTXE2TRQxKLbA0IrsOQSm+5I0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn; spf=pass smtp.mailfrom=zte.com.cn; arc=none smtp.client-ip=160.30.148.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
+Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4hXq9203CTz5BNRf;
+	Sun, 30 Aug 2026 19:07:50 +0800 (CST)
+Received: from xaxapp01.zte.com.cn ([10.88.99.176])
+	by mse-fl1.zte.com.cn with SMTP id 67UB7gPo002739;
+	Sun, 30 Aug 2026 19:07:42 +0800 (+08)
+	(envelope-from hu.shengming@zte.com.cn)
+Received: from mapi (xaxapp01[null])
+	by mapi (Zmail) with MAPI id mid32;
+	Sun, 30 Aug 2026 19:07:43 +0800 (CST)
+X-Zmail-TransId: 2af96a940effb92-dcc0f
+X-Mailer: Zmail v1.0
+Message-ID: <20260830190743637MhXoixrAPc1rfm-G8eIcg@zte.com.cn>
+Date: Sun, 30 Aug 2026 19:07:43 +0800 (CST)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-Received: by 2002:a05:6808:190f:b0:4b3:74d0:6ef7 with SMTP id
- 5614622812f47-4b398037cdamr18008160b6e.4.1788087930233; Sun, 30 Aug 2026
- 04:05:30 -0700 (PDT)
-Date: Sun, 30 Aug 2026 04:05:30 -0700
-In-Reply-To: <6a6c59a4.77639fcc.3d4fd0.0022.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a940e7a.4d659fcc.734b4.0037.GAE@google.com>
-Subject: Re: [syzbot] [dri?] WARNING in __drm_atomic_helper_set_config
-From: syzbot <syzbot+ca23c8570669ead78867@syzkaller.appspotmail.com>
-To: airlied@gmail.com, dri-devel@lists.freedesktop.org, 
-	linux-kernel@vger.kernel.org, maarten.lankhorst@linux.intel.com, 
-	mripard@kernel.org, simona@ffwll.ch, syzkaller-bugs@googlegroups.com, 
-	tzimmermann@suse.de
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+From: <hu.shengming@zte.com.cn>
+To: <rostedt@goodmis.org>, <mhiramat@kernel.org>
+Cc: <mathieu.desnoyers@efficios.com>, <mark.rutland@arm.com>, <corbet@lwn.net>,
+        <skhan@linuxfoundation.org>, <rdunlap@infradead.org>,
+        <linux-kernel@vger.kernel.org>, <linux-trace-kernel@vger.kernel.org>,
+        <linux-doc@vger.kernel.org>, <ran.xiaokai@zte.com.cn>,
+        <xu.xin16@zte.com.cn>, <zhang.run@zte.com.cn>
+Subject: =?UTF-8?B?W1JGQyBQQVRDSCAwLzRdIGZ0cmFjZTogQWRkIHRhc2sgY29tbSBmaWx0ZXJpbmcgZm9yIGZ1bmN0aW9uIHRyYWNpbmc=?=
+Content-Type: text/plain;
+	charset="UTF-8"
+X-MAIL:mse-fl1.zte.com.cn 67UB7gPo002739
+X-TLS: YES
+X-ENVELOPE-SENDER: hu.shengming@zte.com.cn
+X-SOURCE-IP: 10.5.228.132 unknown Sun, 30 Aug 2026 19:07:50 +0800
+X-CLEAN: YES
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 6A940F05.000/4hXq9203CTz5BNRf
 
-syzbot has found a reproducer for the following issue on:
+Hi Steven and Masami,
 
-HEAD commit:    08dbfad3f504 Merge tag 'for-linus' of git://git.kernel.org..
-git tree:       upstream
-console+strace: https://syzkaller.appspot.com/x/log.txt?x=13380349580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=8c5c3949d762a91f
-dashboard link: https://syzkaller.appspot.com/bug?extid=ca23c8570669ead78867
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=17392379580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=17380349580000
+This series adds two comm-based task filters for the function and
+function_graph tracers:
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/e64f94ffb05c/disk-08dbfad3.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/36a861364fe8/vmlinux-08dbfad3.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/6130bd19ca7f/bzImage-08dbfad3.xz
+  set_ftrace_comm
+  set_ftrace_notrace_comm
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+ca23c8570669ead78867@syzkaller.appspotmail.com
+Function tracing currently supports selecting tasks by PID. This makes
+it difficult to configure tracing before a service starts, because it
+does not have a PID yet. It is also inconvenient to keep tracing the
+same service across restarts, as its PID may change. This use case was
+suggested by Xuxin, a KSM reviewer.
 
-------------[ cut here ]------------
-!set->fb
-WARNING: drivers/gpu/drm/drm_atomic.c:2031 at __drm_atomic_helper_set_config+0xa45/0xee0 drivers/gpu/drm/drm_atomic.c:2031, CPU#1: syz-executor419/5624
-Modules linked in:
-CPU: 1 UID: 0 PID: 5624 Comm: syz-executor419 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/16/2026
-RIP: 0010:__drm_atomic_helper_set_config+0xa45/0xee0 drivers/gpu/drm/drm_atomic.c:2031
-Code: 84 c0 74 09 3c 03 7f 05 e8 28 6e b4 fc 45 89 75 38 e9 0e fb ff ff e8 6a 5b 41 fc 90 0f 0b 90 e9 9f f7 ff ff e8 5c 5b 41 fc 90 <0f> 0b 90 e9 47 f7 ff ff 8b 6c 24 28 e8 4a 5b 41 fc 49 8d 7c 24 08
-RSP: 0018:ffffc900036d7890 EFLAGS: 00010293
-RAX: 0000000000000000 RBX: ffff8880349c1000 RCX: 0000000000000000
-RDX: ffff88802f3dcb00 RSI: ffffffff85ca8bd4 RDI: ffff88802f3dcb00
-RBP: ffff8880315d3800 R08: 0000000000000007 R09: fffffffffffff000
-R10: ffff888028212c00 R11: 0000000000000000 R12: ffff88801c14e400
-R13: ffff888028212c00 R14: ffff888028210c00 R15: ffff8880332d5328
-FS:  0000000000000000(0000) GS:ffff888123c64000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007ffcfbaa06a8 CR3: 0000000033c3a000 CR4: 00000000003526f0
-Call Trace:
- <TASK>
- drm_client_modeset_commit_atomic+0x53d/0x7e0 drivers/gpu/drm/drm_client_modeset.c:1085
- drm_client_modeset_commit_locked+0x14d/0x580 drivers/gpu/drm/drm_client_modeset.c:1207
- drm_client_modeset_commit+0x4f/0x80 drivers/gpu/drm/drm_client_modeset.c:1233
- __drm_fb_helper_restore_fbdev_mode_unlocked.part.0+0x137/0x160 drivers/gpu/drm/drm_fb_helper.c:138
- __drm_fb_helper_restore_fbdev_mode_unlocked drivers/gpu/drm/drm_fb_helper.c:126 [inline]
- drm_fb_helper_restore_fbdev_mode_unlocked+0x93/0xc0 drivers/gpu/drm/drm_fb_helper.c:169
- drm_fbdev_client_restore+0x1b/0x30 drivers/gpu/drm/clients/drm_fbdev_client.c:45
- drm_client_dev_restore+0x205/0x2a0 drivers/gpu/drm/drm_client_event.c:118
- drm_lastclose drivers/gpu/drm/drm_file.c:408 [inline]
- drm_release+0x2c6/0x360 drivers/gpu/drm/drm_file.c:441
- __fput+0x3ff/0xb50 fs/file_table.c:512
- task_work_run+0x150/0x240 kernel/task_work.c:233
- exit_task_work include/linux/task_work.h:40 [inline]
- do_exit+0x951/0x2ae0 kernel/exit.c:1008
- do_group_exit+0xd5/0x2a0 kernel/exit.c:1151
- __do_sys_exit_group kernel/exit.c:1162 [inline]
- __se_sys_exit_group kernel/exit.c:1160 [inline]
- __x64_sys_exit_group+0x3e/0x50 kernel/exit.c:1160
- x64_sys_call+0x1567/0x1570 arch/x86/include/generated/asm/syscalls_64.h:232
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f2694f1eb65
-Code: Unable to access opcode bytes at 0x7f2694f1eb3b.
-RSP: 002b:00007ffcb598ab38 EFLAGS: 00000202 ORIG_RAX: 00000000000000e7
-RAX: ffffffffffffffda RBX: 0000000000000001 RCX: 00007f2694f1eb65
-RDX: 00000000000000e7 RSI: ffffffffffffffd8 RDI: 0000000000000000
-RBP: 0000000000000000 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000202 R12: 0000000000000000
-R13: 00007f2694fb7108 R14: 00007f2694fbc648 R15: 00007f2694fbc660
- </TASK>
+The new filters match task comm names exactly. When both PID and comm 
+include filters are active, a task must match both to be traced. A
+match in either the PID or comm notrace filter excludes the task.
 
+To avoid string matching in the function tracing fast path, the filters
+are evaluated when a task is scheduled in. The result is stored in the
+existing per-CPU cache used by PID filtering. Changing a filter refreshes
+the cached result for currently running tasks. If a task's comm changes,
+the new name is used the next time the task is scheduled in.
 
----
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
+The first two patches prepare the existing PID-filtering infrastructure
+by using general task-filter names and centralizing sched_switch probe
+registration and per-CPU cache updates. The third patch adds the comm
+filters, and the final patch documents their interface and interaction
+with PID filters.
+
+This is an RFC intended to discuss whether comm-based task filtering is
+a useful direction for function tracing and whether this interface would
+be suitable for eventual upstream inclusion. Additional selftests are
+planned for the next revision. Feedback on the overall approach and
+interface would be greatly appreciated.
+
+Thanks,
+Shengming
+
+Shengming Hu (4):
+  ftrace: Generalize function task filter names
+  ftrace: Centralize task filter state updates
+  ftrace: Add exact task comm filtering
+  Documentation/ftrace: Document function comm filters
+
+ Documentation/trace/ftrace.rst |  31 +++
+ include/linux/ftrace.h         |   4 +-
+ kernel/trace/Makefile          |   1 +
+ kernel/trace/comm_list.c       | 314 +++++++++++++++++++++++++
+ kernel/trace/comm_list.h       |  17 ++
+ kernel/trace/fgraph.c          |   4 +-
+ kernel/trace/ftrace.c          | 402 ++++++++++++++++++++++++++++++---
+ kernel/trace/trace.c           |   5 +
+ kernel/trace/trace.h           |  34 ++-
+ kernel/trace/trace_events.c    |  16 +-
+ kernel/trace/trace_functions.c |   2 +-
+ kernel/trace/trace_pid.c       |   8 +-
+ 12 files changed, 791 insertions(+), 47 deletions(-)
+ create mode 100644 kernel/trace/comm_list.c
+ create mode 100644 kernel/trace/comm_list.h
+
+-- 
+2.25.1
