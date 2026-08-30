@@ -1,52 +1,66 @@
-Received: from mta0.migadu.com (out-216.mta0.migadu.com [91.218.175.216])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.lysator.liu.se (mail.lysator.liu.se [130.236.254.3])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04EAB28F5
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 04:55:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.216
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30C5457C9F;
+	Sun, 30 Aug 2026 04:55:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=130.236.254.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788065724; cv=none; b=r8sB94/BbDWegG4M1FohmgGYpGrsVfpcTKyvVqAc08aIfeg9v3pviogK3J2ezeQ8FqQaweMAt4FD4R5FolFTUB1MA6jpv0O9hLXrbokie3NeDLA5ylPqh80aWvPCRVjVU/gkfJz8A41FbeGG/SaMoCCBvJoMvMcUZr53d+7Aog4=
+	t=1788065759; cv=none; b=Jx//Dqa01GekkAwJ+nBswmf4IizzEiVlpD7BqGWQQU2HDfhAaOq97dEtC/XQIphBBaFtqJvuv+O19oi1vbxwyQO8MVzF59ohqV/vPHDtwPX3453oubXHqtyi+YGz/CM4ubQRG2/78row/psnKyqv/SgO8UxmeSKOXNZi+rzWVvE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788065724; c=relaxed/simple;
-	bh=kW8u6QAGL30Ul+wHORAOeZzkRSJ24MIILtkoaK3HiBQ=;
+	s=arc-20240116; t=1788065759; c=relaxed/simple;
+	bh=vwG3ABwS/raQIcS/TkWs1L7CD1G0QFFA00S8295M+Sk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=U7eJNs0uxkb6PNVDahj83v3wx4JGGsEKeqNhlSKDpmHBfur9Qvi63Yl+uYDUyiKEQ43qDcJrKkKOiyOfz9nRnQXC3ntYxkPd2ikGCS00lE90i7ASSp3wbmTb5eoEze2+9kT3mI8zlPYgSLr9qwKcv4bxeYmg5TO50FZqgGPhwD4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wyuan.org; spf=pass smtp.mailfrom=wyuan.org; dkim=pass (2048-bit key) header.d=wyuan.org header.i=@wyuan.org header.b=FNU6ErIN; arc=none smtp.client-ip=91.218.175.216
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wyuan.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wyuan.org
+	 Content-Type:Content-Disposition:In-Reply-To; b=jIPiEHj01mHouTmWyyJGV8BunftDHZn6KqXIKT1c16kjwNxn2+3QYfVMvXk1J//bdYJmP6TKQ3jV55lPFfGhsbUbeF4TV23nQANzzIeCJnONEObOvO1gj4rsICHvjKqKQa6V4mRiQfdJ0/yYsVwhlcgB24XV4iORcn51IktAeKU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lysator.liu.se; spf=pass smtp.mailfrom=lysator.liu.se; dkim=pass (2048-bit key) header.d=lysator.liu.se header.i=@lysator.liu.se header.b=t89OxvEy; dkim=pass (2048-bit key) header.d=lysator.liu.se header.i=@lysator.liu.se header.b=MeCdeHqn; arc=none smtp.client-ip=130.236.254.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lysator.liu.se
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lysator.liu.se
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=wyuan.org header.i=@wyuan.org header.b="FNU6ErIN"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=kW8u6QAGL30Ul+wHORAOeZzkRSJ24MIILtkoaK3HiBQ=;
- c=simple/simple; d=wyuan.org;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788065718; v=1; x=1788670518;
- b=FNU6ErINnd/L8TNrOEbXX3yPu490Bnat7n4GG5ZXq63E+E+h+74HZMhO21CD7e9p63sQRlm9
- APEVtouWFSylzQycPAU9m/KMVbYDOGNrWcl26wmPo39oLTT7bcjFvX+LYiG3z881th81twP6pio
- dStAfIw3iPoG+LBI3K7n98JXpFJesqL/6FnD2LtgUx0c/gOrp6U6UKsMtwXS2vHWg+06PN+AKHw
- w+rzn8QjKFsHqSUzJsQgEgOyGU9qUG2532jzaLXYHhOaK3FjX55DSh1oFqmLPKXgEQ7X+iN9f9e
- quFKRfqod7A1CdEsoC+DIxJ/GF0V14kgQiCKHulCm5S3w==
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 8d93383cd71421ba;
-	Sun, 30 Aug 2026 04:55:11 +0000
-X-Mizu-Trace-ID: 8d93383cd71421ba
-X-Migadu-Flow: FLOW_OUT
-Date: Sun, 30 Aug 2026 12:55:04 +0800
-From: Weijie Yuan <wy@wyuan.org>
-To: Yukai Wu <xiaoyewuz.ruster@gmail.com>
-Cc: Alex Shi <alexs@kernel.org>, Yanteng Si <si.yanteng@linux.dev>,
-	Jonathan Corbet <corbet@lwn.net>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Dongliang Mu <dzm91@hust.edu.cn>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Alexandre Ghiti <alex@ghiti.fr>, linux-doc@vger.kernel.org,
-	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
-	Chen-Yu Yeh <chenyou910331@gmail.com>
-Subject: Re: [PATCH] docs/zh_CN: Update arch/riscv/vm-layout.rst translation
-Message-ID: <apO3qAhf95TyJauu@wyuan.org>
-References: <20260829041542.256360-1-xiaoyewuz.Ruster@gmail.com>
- <apL7ctZhcN5t77Yu@wyuan.org>
- <f-IgWNAyTmaoW34tfNxIvg@gmail.com>
+	dkim=pass (2048-bit key) header.d=lysator.liu.se header.i=@lysator.liu.se header.b="t89OxvEy";
+	dkim=pass (2048-bit key) header.d=lysator.liu.se header.i=@lysator.liu.se header.b="MeCdeHqn"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lysator.liu.se;
+	s=2026; t=1788065753;
+	bh=vwG3ABwS/raQIcS/TkWs1L7CD1G0QFFA00S8295M+Sk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=t89OxvEy+kmAHAx0vTWLimTRsjieWBrnG5e2+sTN07Dfzynd9gzq4OZt1fOXpgqmY
+	 0RwNhVOijKqvByGV5aLh5mHBcH+3pM60GYPKvi8VExSYJC/uXP4NuP/5dUDhf9YtQH
+	 cyOfADRwYTNLS79UWDDtLKfg/QvH2OMUsOSiZruV15czS4pFXq/dOdfxTkdt1rMuIQ
+	 06CSDi7idwiBORbOtVSZ7R936ZKA0JkApcC/1GEig8nWs8w9cXG+xynWkO0v86Tvp9
+	 c0WqV68zoAULX+LrmPg6NHWJhX3KeOAic1Qq7IGAqJrGuo06vN31wdY0zlPAOsjLkW
+	 1KfFWDpZpoY8w==
+Received: from mail.lysator.liu.se (localhost [127.0.0.1])
+	by mail.lysator.liu.se (Postfix) with ESMTP id 194A29D91;
+	Sun, 30 Aug 2026 06:55:53 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lysator.liu.se;
+	s=2026; t=1788065752;
+	bh=vwG3ABwS/raQIcS/TkWs1L7CD1G0QFFA00S8295M+Sk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=MeCdeHqnilcbOEX//H8YLKr6VgGzGs7F0B/sE0P96ijArZqO6VaoBDN7bxuxFHT8Z
+	 iUPL8rYCEm9AsK5+FfAVwcI/EvvsfqoKnKd5gbca7hQl1PHYx+lJJBRCP5wmls7OQU
+	 E4Orq98bKPIa8FF6abUoe2JNEnvb6EHnnNUoKYJLshJ4++/MeVqYtxf8FxouEnBG8f
+	 NA/thR6Z9I/rkLIG7n6X9fXum8QIQ1Jf0pFgo5Ek66bUUVy0F1xljfWGTWEvfc1kcy
+	 cwNmy07r/EpsyZOBZpsUHQAGI6jWwbbaUFp3k1mx8foCT7lmzIMhs+AOXg1DiwUFFn
+	 1N3Ob/zrqMBdg==
+Received: from gryt (81-225-28-11-no2391.tbcn.telia.com [81.225.28.11])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by mail.lysator.liu.se (Postfix) with ESMTPSA id BAEC99C55;
+	Sun, 30 Aug 2026 06:55:52 +0200 (CEST)
+Date: Sun, 30 Aug 2026 06:55:51 +0200
+From: Peter Rosin <peda@lysator.liu.se>
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Ahmad Byagowi <ahmadexp@gmail.com>, Andy Shevchenko <andy@kernel.org>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, linux-i2c@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v7 3/3] i2c: mux: Propagate software nodes to channel
+ adapters
+Message-ID: <apO31ydKoiqWCEKo@gryt>
+References: <cover.1787502619.git.ahmadexp@gmail.com>
+ <a4abcd31c3a6758e219f5edcdd4acd307e674f18.1787502619.git.ahmadexp@gmail.com>
+ <ao0tPhBvK1Er_Vs0@gryt>
+ <CAOQiBWNVvHpO7X8yWyZEa3-nV76YJfRbkzo+_4U-upEj4VNfow@mail.gmail.com>
+ <ao_VE0W-FohWqPPt@ashevche-desk.local>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -56,109 +70,77 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <f-IgWNAyTmaoW34tfNxIvg@gmail.com>
+In-Reply-To: <ao_VE0W-FohWqPPt@ashevche-desk.local>
+X-Virus-Scanned: ClamAV using ClamSMTP
 
-On Sun, Aug 30, 2026 at 09:33:12AM +0800, Yukai Wu wrote:
-> On Saturday, August 29, 2026 11:32:02 PM China Standard Time Weijie Yuan 
-> wrote:
-> > Hi, it's me again ;-)
+Den Thu, Aug 27, 2026 at 09:11:31AM +0300, skrev Andy Shevchenko:
+> On Wed, Aug 26, 2026 at 08:29:47AM -0700, Ahmad Byagowi wrote:
+> > Hi Peter, Andy,
 > > 
-> > On Sat, Aug 29, 2026 at 12:15:10PM +0800, Yukai Wu wrote:
-> > > Update Documentation/arch/riscv/vm-layout.rst translation.
-> > > 
-> > > Update the translation through commit 954260ff5a46
-> > > ("Revert "RISC-V: mm: Document mmap changes"")
-> > 
-> > Somehow I guess you didn't get the actual meaning behind this "Update xxx
-> > through commit...".
-> > 
-> > Correct me if I'm wrong. If you write this line in your commit message.
-> > Then it means if we apply this patch of yours. The Chinese documentation
-> > of this file should be already _completely_ synchronized.
-> > 
+> > Yes, software-node handling is needed for the ptp_ocp use case.
 > 
-> I agree. My fault again.
-
-No worries at all.
-
+> That driver is a mess. I'm surprised nobody told to the authors of
+> the respective changes to look at the auxiliary implementation.
 > 
-> > However, the current translation of this file is missing this part:
+> > ptp_ocp is a PCI driver. It creates its board-specific I2C topology at
+> > runtime with software nodes: the mux, its channel nodes, sensors, and LED
+> > controller. Firmware does not provide ACPI nodes for this topology.
 > > 
-> > RISC-V Linux Kernel SV57
-> > ------------------------
+> > The existing acpi_preset_companion() path only associates a mux adapter
+> > with an existing ACPI child. It does not associate the adapter with one of
+> > these dynamically created software-node channel nodes. Without that
+> > association, i2c_get_adapter_by_fwnode() cannot find the channel adapter by
+> > the channel software node, so ptp_ocp cannot instantiate the downstream I2C
+> > devices on the correct channel.
 > > 
-> > ... which is not translated/synchronized in your patch.
-> > 
-> > 
+> > Does this address the concern, or would you prefer a different way to
+> > represent this dynamically created topology?
 > 
-> Didn't see that because I just used the tools/docs/checktransupdate.py script, 
-> which cannot see the commits before ed843ae947f8 ("docs: move riscv under 
-> arch"). That commit just moved the Chinese translation but was treated as an 
-> update by the script. And I only looked at the commits reported by the script.
+> Wouldn't it be possible to use some kind of DT overlay to have that?
 
-OK, I noticed that this file was moved/renamed.
+For me, the above is a bit unrelated to this patch series, which is
+about converting i2c-mux from of-only properties to device properties.
+That seems like a change that stands on its own.
 
-$ tools/docs/checktransupdate.py Documentation/translations/zh_CN/arch/riscv/vm-layout.rst
-[1788062042.378100] Documentation/translations/zh_CN/arch/riscv/vm-layout.rst
-[1788062042.518400] commit 954260ff5a46 ("Revert "RISC-V: mm: Document mmap changes"")
-[1788062042.560926] commit 5c8405d763dc ("riscv: Extend sv39 linear mapping max size to 128G")
-[1788062042.601822] commit 371a3c2055db ("docs: riscv: Define behavior of mmap")
-[1788062042.601947] 3 commits needs resolving in total
+I probably wasn't clear enough with my original question, but what I
+wondered about was what regression risk that conversion might have
+for the ACPI case. Specifically, there might be ACPI properties that
+match what the code is now looking for. It seems unlikely that such
+properties are actually deployed, but I know next to nothing about
+ACPI...
 
-.. So our script missed a few commit before name-changing?
+TL;DR
 
-But whatever, this file is not long and complicated. And the script is
-just a reference to check the status.
+My original question should have been: Is it safe to simply remove
+these lines from the patch:
+> +	if (!is_of_node(dev_node) && !is_software_node(dev_node))
+> +		return NULL;
+and let the code trawl all kinds of device properties?
 
-Also, we do not need contributors to update the translation one commit
-by one commit.
+Sorry for the confusion...
 
-So, the best solution now is simply manually synchronizing the
-translation, I think.
+Cheers,
+Peter
 
-> > Note that I'm not blaming on you for this. But I feel this is a point
-> > that a newcomer might find confusing, including me and Chen-Yu a couple
-> > of weeks ago, if did not read the script.
-> > 
-> > Our current how-to.rst only asks to write this line in the commit
-> > message but does not explain the results or the actual work behind it.
-> > 
-> > [...]
-> > 	Update the translation through commit b080e52110ea
-> > 	("docs: update self-protection __ro_after_init status")
-> > 	# 请执行 git log --oneline <您翻译的英文文档路径>，并替换上述内容
-> > 
-> > 	So when a newcomer comes and just does what this asks, without
-> > 	considering whether his/her/its translation is completely
-> > 	synchronized or not, our script would be kind of inaccurate. ?
-> > 
-> > Maybe we can add a description or a hint like:
-> > 
-> > If your current changes make the translation completely in line with the
-> > English version, then please add this line after your descriptions and
-> > before a blank line and your sign-off:
-> > 
-> > Update the translation through commit e83c5163316f
-> > (Initial revision of "git", the information manager from hell)
-> > 
-> > ..then follows a template commit message
+> > Thanks, Andi, for taking the first patch into i2c/i2c-fixes. I will drop it
+> > from the next revision and rebase the remaining two patches once this
+> > question is resolved.
 > 
-> Allowing partial updates to the translation?
-
-I think it's fine to do partial updates. If you just do partial updates,
-therefore do not add that line "Update the translation through commit abc".
-That would make the script think you have done all the missing jobs.
-
-Also, you can absolutely write the _specific_ commit hash if you do so,
-(only update partial) , not the lastest commit hash of the English original one.
-
-That said, I did not read the script yet. :(  So I'd better take a close
-look then.
-
-> > (Should I cc the original authors of the script?)
+> > On Mon, Aug 24, 2026 at 10:50 PM Peter Rosin <peda@lysator.liu.se> wrote:
+> > > Den Sun, Aug 23, 2026 at 09:34:38AM -0700, skrev Ahmad Byagowi:
+> > > > Device Tree channel nodes are associated with the adapters created by
+> > > > i2c-mux, but equivalent software-node descriptions are not.
+> > > >
+> > > > Use generic firmware-node operations for the existing channel lookup and
+> > > > accept either an OF node or a software node. Associate the returned node
+> > > > with the adapter so child I2C devices can be instantiated from
+> > > > software-node properties.
+> > > >
+> > > > Save the adapter firmware node before adapter deletion and release the
+> > > > reference afterwards, following the lifetime pattern in i2c-atr.
 > 
-> CC the authors of the checktransupdate.py script?
-
-Yes, but since Dongliang is the original author, I guess it's enough.
-
-Thanks.
+> -- 
+> With Best Regards,
+> Andy Shevchenko
+> 
+> 
