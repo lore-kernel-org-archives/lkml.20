@@ -1,109 +1,91 @@
-Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [85.215.255.53])
+Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9217625B0AC;
-	Sun, 30 Aug 2026 15:47:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=85.215.255.53
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788104840; cv=pass; b=nSAGygSEuM1OUnPQobb6J4MIxU9GQnbIsKbeWwJlSPzFG8vvUVdewol/JrkjwnaWKhVcKt8r5a5hCZSKbxZfAQ+A1eF0NEfxWdtfxglWvDH1jL/STmPqVDWv7RA2QrLj0yChbPFbPD0LW3qpDHH0IvKBMtmNKLHpaXOdqvO8kgU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788104840; c=relaxed/simple;
-	bh=z2m01tKlkKHlaM/0IXx3sQbwCS88IIrV5vJiFQBhVbI=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=IlonV3gZTKkVJ9cxxAzzxRF4O0V0u+LAKRN5l6CZtHFh+TiL7ZIikh49zVNVS9MRmigK524aB7y4envF7J9Baqac2gD/19JgPqW4x31lzp9oCVa+k4v2qFkAWjfWaGgIrGDkFB0UdrhMjW8k9MEiyAHa2vlYyQez32HHrD5rqC4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iokpp.de; spf=none smtp.mailfrom=iokpp.de; dkim=pass (2048-bit key) header.d=iokpp.de header.i=@iokpp.de header.b=ngkf2WV/; dkim=permerror (0-bit key) header.d=iokpp.de header.i=@iokpp.de header.b=h6Z8MQty; arc=pass smtp.client-ip=85.215.255.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iokpp.de
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=iokpp.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A090F2AD2C;
+	Sun, 30 Aug 2026 15:49:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.198
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788104968; cv=none; b=PiU4TldWZ6WutmpNN9+TAjP/8jpx503+6IsoqMK1q1RpLyWUfuJJsnMyacfSmJKff1D6MZ+6nX1FwhXZhYAdGnwssGMLnev6zC1yClRVM0HUIv9QmWtBI0inKF70E4NqEllOogFOdksmlGzBdD/7ZGFH8s8OB5rOhf/8UEbheDw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788104968; c=relaxed/simple;
+	bh=oYOXAs5m6/yltOsQ25/2RCcA+bN/zLr8dqhSca4eIPI=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=AoAs8iPMEd4WaUeW/NcQZpmNLTIksGvEzUiHJKsVhmaWShreaurF7OJxRGXZYY2QZ4JQfJDOxReonEstoehzRJiVXst8BPu6/WRt2XA/wfxdM7dEUUQxY/z8b4bxJ79yrlYgDfRd4qenm3pDgvnWE8da5D3K07GwUlwflorDOhc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=X4nyemi6; arc=none smtp.client-ip=45.254.49.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=iokpp.de header.i=@iokpp.de header.b="ngkf2WV/";
-	dkim=permerror (0-bit key) header.d=iokpp.de header.i=@iokpp.de header.b="h6Z8MQty"
-ARC-Seal: i=1; a=rsa-sha256; t=1788104656; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=UYmDnMqEHTl4rYDHkmoO6PdkWPzzGACfMgsSbl/R4tNwjr1G5h2H8aWoQa1M9yKkYu
-    UCTrQTF0jD1GCPQCluzI3nbg1T/vhZaLSYRPXpb3i7dNNWmg3aT2/EOoveD0cBJ9FaMu
-    2FfEQGasrvCDZpD/CMl0gF8nRrbwBrGMg7boflqswvs90tPdTEGIKVnhbv6n/s4Ryaph
-    lDRSnCOYe0mZoUNLQJ3dk+mAnfUvZc2kI32+yRfax71qJS3WG+y5CB1XFAjWQyAhZue0
-    H55l8/ddkJr2ATvolB0IcHkmqTMuqkdvdErgBiHv4WYAdGbPzmxXqeCP1mBGQM/jpA22
-    vBEw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1788104656;
-    s=strato-dkim-0002; d=strato.com;
-    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=z2m01tKlkKHlaM/0IXx3sQbwCS88IIrV5vJiFQBhVbI=;
-    b=mDUdXC5CFE/R137N7liXkn839asvGfEE3lMidgqTsNrOFY/7bXSjsVGHJY0l81hgmK
-    JGkls59WEzgi9TxbSRKtoEdgbByFjifQ7nc3hXv1kFb4PR8QOXqVqcbtf7MXB3x6ZcOd
-    LIG1E2dm9HZbU8pFbhz4PeruuN7wkUu0aeoK7VdAqfZvQUPcevx7UMDHm5/NU25Zd0O4
-    SbsZJVXl9NudETKhQ+IARZsrrGGdgHeAxuBAxS8ATmUFOVp6ycVt9/CDrbEphped+2gB
-    N3jdTfZbsPLt/n79AoZPNGsg4fqZ5rl0Z7RIfkT4b3xP635TaRacVsBYekMcL5tz9iBL
-    M8QA==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo01
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1788104656;
-    s=strato-dkim-0002; d=iokpp.de;
-    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=z2m01tKlkKHlaM/0IXx3sQbwCS88IIrV5vJiFQBhVbI=;
-    b=ngkf2WV/1/liM7L66IfArmEQHa2SGESNiHkMA9RleyNmSf/otueoq6bnalT8LWc/DS
-    i/yByp83JLOrbru74+7Ir9lHvqbAet3BF8jr4ahvofX6z/GV/9lOtDhexniSDbkl+1f9
-    ZLwL3kyT3/rjMNhey087teemy3MOA7gpsNpiBscYQWt3tAtWtMEb40jjoTNQXD0LuoJL
-    aAm6/qF/3mCgNKLfkvdze7W/xojszEqkKhULO45TsDG+iTg096srvHiUUvOXPesCHMsK
-    OcrQW9zPrO6otmWC85XoRQZqxvhtMI2+73b0Y7wWuAEHPQjQhwDwZcwJuSz1pFyml4UD
-    GDfQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1788104656;
-    s=strato-dkim-0003; d=iokpp.de;
-    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=z2m01tKlkKHlaM/0IXx3sQbwCS88IIrV5vJiFQBhVbI=;
-    b=h6Z8MQtyHGi9/ITjy3HNgiSPnYk/Xim/QJBCZ9XlGuV4LgMmzfz7vtkNVyYn7jNu6v
-    G2+OPqaABV5CPhbTpPAw==
-X-RZG-AUTH: ":LmkFe0i9dN8c2t4QQyGBB/NDXvjDB6pBSe9tgBDSDt0V0zNriHg+YfT0rGaZpI+/4y2xJGqxKO/71WLEX+9Og/eiUqko/dE="
-Received: from p200300c5872968993aedd1469d684940.dip0.t-ipconnect.de
-    by smtp.strato.de (RZmta 55.6.2 AUTH)
-    with ESMTPSA id ze37e127UFiFgif
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
-	(Client did not present a certificate);
-    Sun, 30 Aug 2026 17:44:15 +0200 (CEST)
-Message-ID: <3e9b0d90733b6fdee6da3f1acb7c91c320ac2179.camel@iokpp.de>
-Subject: Re: [PATCH v4 1/2] ufs: rpmb: retry power-on UNIT ATTENTION on the
- RPMB WLUN
-From: Bean Huo <beanhuo@iokpp.de>
-To: Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>, 
-	James.Bottomley@HansenPartnership.com, martin.petersen@oracle.com, 
-	alim.akhtar@samsung.com, avri.altman@wdc.com, bvanassche@acm.org, 
-	beanhuo@micron.com, can.guo@oss.qualcomm.com, sumit.garg@oss.qualcomm.com, 
-	jenswi@kernel.org
-Cc: linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	op-tee@lists.trustedfirmware.org
-Date: Sun, 30 Aug 2026 17:44:15 +0200
-In-Reply-To: <20260827070345.2853821-2-jorge.ramirez@oss.qualcomm.com>
-References: <20260827070345.2853821-1-jorge.ramirez@oss.qualcomm.com>
-	 <20260827070345.2853821-2-jorge.ramirez@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.44.4-0ubuntu2.1 
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="X4nyemi6"
+Received: from PC-202605011814.localdomain (unknown [58.241.16.34])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4bd7a2105;
+	Sun, 30 Aug 2026 23:49:20 +0800 (GMT+08:00)
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+To: anthony.l.nguyen@intel.com
+Cc: przemyslaw.kitszel@intel.com,
+	richardcochran@gmail.com,
+	intel-wired-lan@lists.osuosl.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	runyu.xiao@seu.edu.cn,
+	jianhao.xu@seu.edu.cn,
+	stable@vger.kernel.org
+Subject: [PATCH net] igb: initialize PTP lock before registering PHC
+Date: Sun, 30 Aug 2026 23:49:12 +0800
+Message-Id: <20260830154912.2712900-1-runyu.xiao@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa0535c69c303a1kunm233e997d10627a
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaQxkfVkpCGk5CSUJCT09CGlYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlOQ1VJT0pVSk1VSE9ZV1kWGg8SFR0UWUFZT0tIVUpLSEpPSE
+	xVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=X4nyemi6vu4tmw1fy1QRs7Noc2eW3bgUHCE3J2Hs95OvYpBt94IemQkqthL4A6mgBbZKFWOrsQlrQNx6mgJDVwsU2sneMp9t9s6vl3DtGjhmQCDSon3tD4OjmmsJi3ZezoQ295OAjbcXhEnRl2hw/2KRsUKjO/GC0J6pXRxguS8=; s=default; c=relaxed/relaxed; d=seu.edu.cn; v=1;
+	bh=f1gzZMaQn/1LyNKQ9BDeU2sp9XpnY13ijo2O/3Sv6sg=;
+	h=date:mime-version:subject:message-id:from;
 
-On Thu, 2026-08-27 at 09:03 +0200, Jorge Ramirez-Ortiz wrote:
-> After a power cycle, the first command sent to any UFS logical unit
-> completes with CHECK CONDITION reporting a power-on UNIT ATTENTION.
-> The SCSI core surfaces this condition to the caller rather than
-> retrying it.
->=20
-> For the RPMB well-known LU the first command after boot is the first
-> RPMB frame, and RPMB has no earlier, guaranteed access that could clear
-> the condition beforehand. The power-on UNIT ATTENTION therefore reaches
-> RPMB and fails that first frame, breaking RPMB on every cold boot.
->=20
-> The RPMB WLUN needs the power-on UNIT ATTENTION to be retried so that
-> RPMB works from the very first access after a power cycle.
->=20
-> Signed-off-by: Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>
+igb_ptp_init() registers the PHC before initializing
+adapter->tmreg_lock.  ptp_clock_register() publishes the PHC device,
+so a userspace PTP operation can enter a callback and take the lock
+before it has been initialized.
 
-Reviewed-by: Bean Huo <beanhuo@micron.com>
+Initialize tmreg_lock before registering the PHC so all published PTP
+callbacks see a valid lock.
+
+Fixes: b888c510f7b3 ("igb: Avoid starting unnecessary workqueues")
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:GPT-5
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+---
+ drivers/net/ethernet/intel/igb/igb_ptp.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/net/ethernet/intel/igb/igb_ptp.c b/drivers/net/ethernet/intel/igb/igb_ptp.c
+index 638d8242b..2a4ea327a 100644
+--- a/drivers/net/ethernet/intel/igb/igb_ptp.c
++++ b/drivers/net/ethernet/intel/igb/igb_ptp.c
+@@ -1378,6 +1378,7 @@ void igb_ptp_init(struct igb_adapter *adapter)
+ 		return;
+ 	}
+ 
++	spin_lock_init(&adapter->tmreg_lock);
+ 	adapter->ptp_clock = ptp_clock_register(&adapter->ptp_caps,
+ 						&adapter->pdev->dev);
+ 	if (IS_ERR(adapter->ptp_clock)) {
+@@ -1388,7 +1389,6 @@ void igb_ptp_init(struct igb_adapter *adapter)
+ 			 adapter->netdev->name);
+ 		adapter->ptp_flags |= IGB_PTP_ENABLED;
+ 
+-		spin_lock_init(&adapter->tmreg_lock);
+ 		INIT_WORK(&adapter->ptp_tx_work, igb_ptp_tx_work);
+ 
+ 		if (adapter->ptp_flags & IGB_PTP_OVERFLOW_CHECK)
+-- 
+2.34.1
+
