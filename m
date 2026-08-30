@@ -1,147 +1,161 @@
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96FE2264612;
-	Sun, 30 Aug 2026 13:04:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0201619049B
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 13:04:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788095044; cv=none; b=RC1+KBy2M2DayNSdm8FZh+xVIe6wPhXLJ4mTtuT5G+84gcKV2UoaeIF7bDyo0NKh8nlDNu5TulHt3wu4kngF5W275EQzX3ehgxaBh7oWGSsWf+tNP2sKjVhl6WYgpXMxfsVIomdAbdpyMfcinFZogU7qfGK+4nZP9x5fJ0lfATo=
+	t=1788095086; cv=none; b=e5bd48n/TpJoEKVVPaeQUfu/hHpWU5FDa5XweN+o9HZ2fqwV3+Mhq5F4m+dHSYXtqytteIB7Kwhp0qve38PapAqEPTQCi0o6dsupwEf/wjyYWh07uCxXkcsXPeVUx4KwywjMnIsc7/L5wvRzieaDdrBSCMOAF3dkCt8I32wXIkU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788095044; c=relaxed/simple;
-	bh=VfZeMGTd91Jrl8qon+ZcjLDYDnwd3nWyP2bGBd0z6nA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tvk/SHFKQGnGer7NgMaoO0XtveuedzBRD4XxeOwu9JMM09QOPEPFOvQvD3cxcbbUkzdc0/fstCiV7CpMY8xwuEZCDf3eaOxBgBY2ozQPx6384f1kZU9UTydA7eaXFJbWb5hx9PTStI8nL58c7Jc09Laq5p8Hkci5gcDD/uWD7Ks=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from localhost.localdomain (unknown [111.196.241.250])
-	by APP-03 (Coremail) with SMTP id rQCowABncD4_KpRqGsuaBg--.48136S2;
-	Sun, 30 Aug 2026 21:03:59 +0800 (CST)
-From: Pengpeng Hou <pengpeng@iscas.ac.cn>
-To: Hans Verkuil <hverkuil@kernel.org>
-Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] media: cec: extron: validate response prefixes
-Date: Sun, 30 Aug 2026 21:03:56 +0800
-Message-ID: <20260830130356.159-1-pengpeng@iscas.ac.cn>
-X-Mailer: git-send-email 2.50.1
+	s=arc-20240116; t=1788095086; c=relaxed/simple;
+	bh=Lh/QdKDKUhi+nstzx0NETNDyYUB5yLFuyQqV576Cz3g=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=csvimfMVnWmkLmdaC5znXhs/yo2M3eo0d9rkByGOLuCAjVAgE+RUpoiaJNpKOqcCTwbDDAwJ6mq96X9lkRVl+/29d0SsW+UjQP+0vHBeK6rQ0LCN5RRZqEoKRIHPh8SM64qoO02lZ2mpvsn2SbZuh0nx5XIOGx7a2W3udvU90v8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=d4w1cqA8; arc=none smtp.client-ip=209.85.221.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="d4w1cqA8"
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-48433f36a21so600336f8f.1
+        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 06:04:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1788095083; x=1788699883; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=BGEZNmWTNMZMXanzrEPwQbHM5u7d/Ry5Or1T+0Vsl9w=;
+        b=d4w1cqA8Gr2WlVB/J3GPJJsnw8be1LaomneXeoWWY1mIon5XW+OKErMadRhdX62thc
+         vs3VNPhbyUTMqFZSD0mA/VHmx7c+Jh0WPClnIRs9RDCakf249XJ13gd8VDofk+SCXULb
+         AM3MbV1wold7gcst4oHsNbSiCB4ezdQr7EfTsDd3TtcMrZ5yC2Bos4UGqzKl/nbvOCGV
+         zRGWpn9th4QIjrybtS9vV4JRURoKDDm7KWDaYKkxH20VyjFykzI/dgUZeWt9z4ZH8pLf
+         GtKcSOPMbdX9MANr5BN1cq0U9zIsfcfY3sdg9jHtMk8SkRKnxwRPzc5L+97zth+yaOXI
+         LiAg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788095083; x=1788699883;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=BGEZNmWTNMZMXanzrEPwQbHM5u7d/Ry5Or1T+0Vsl9w=;
+        b=BYrVlMxvJTI6iUfWW4GgRtJ2PQxxR05S7kPx4Ui8kbwmXvFFg2lfouzu+k4l8Ux3yf
+         4Kj3grhNFseFJG5F1siP1bMqc5piQPffXuiXqjFHwXPVPvgWNzvpUNFskD9tkkDhWPSp
+         biUbW8WS4ox52KD7aUIc17XQrJ8C1Lzo1z/eUP1TaH1Nhq4N4ox5sB289Q9fnRhGeNDp
+         WTKZ+nviYOnkBsiBJgzX9yfd4a8LIXJ1DlbPTEUCCbC1nRNyciym4vch1Y1IjqpKm6B6
+         Bgp71pHs0zQPBnYrXMg/CpkQRlBkkyUCLL+2KrUsWOiGgtZvzkTDqKFAo2ypxGSri/+3
+         rvmg==
+X-Forwarded-Encrypted: i=1; AHgh+RpE4W1M+irK+D325o5vbwB7U9G0Vuj/rNJ0FvnCY1cdnzXaAkb3z+i7PJYIj2WJlg4hQIQ5yoyjKx5fuu4=@vger.kernel.org
+X-Gm-Message-State: AFuF++m9OgNwZAdQ5H2ifqERiZdDmvWOSn6KpcVuVb1lX45c6lTk5WCm
+	0u5pIhf9OiCSRI7Hdp7+hf4HuNV6QBL0FfLkXz5gqPdoPEKFnIt9VVnL6Ey9fZUlJNU=
+X-Gm-Gg: AR+sD11xOMiTtEdfe81BhazP9PSsh0DG38r5ItIskce6ovn2J3hbWkEYUbwVer5YVLw
+	X8TrEiYEZdsV51ql7HMTrGEyVYQpwEmUr13kpsCIuoe36c0ZsnYUgX18/Mo6B0DG+nSVNgvkvbd
+	M16K1mTcHsrtBGvgfJCAMcLLmMSbzbL5BA8j/Gvev8xTDpwBaDfXUiNrIzf0rnSVjK6k8KCQJJZ
+	jvCxiNpOL6ThLD2R7E3wL046MijdQGnbHIMqICk9fw8ZywQD4xhaFc18De0iEK9Ct9zYvQEVWu+
+	Abz2dgyRsGxFL6MNWQtQ4/4z9E39hahoQ38OMGXAgGOYIj9itpoQuJ9NRDtW03ioa0dLyreZeZA
+	jLFRqjNEfPRBADvYdIovg7HsBfTa6pUt52r6vK4cRF+gaWFJRpyChKyWlyaN+J4SHWv9pSNdsex
+	LIJi1iMbIp0VQPjnw1xGwgvBR3BcxoptPUDjO61gfKcIVyavWyigqouJVcF0DTdqudpP1p6hxu
+X-Received: by 2002:a05:600c:8b63:b0:49c:ced9:ab7f with SMTP id 5b1f17b1804b1-49cd53c438bmr35600565e9.8.1788095083121;
+        Sun, 30 Aug 2026 06:04:43 -0700 (PDT)
+Received: from [192.168.1.36] ([83.214.235.72])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b95018ee8sm205342395e9.15.2026.08.30.06.04.41
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 30 Aug 2026 06:04:42 -0700 (PDT)
+Message-ID: <d4ba8298-fb80-4fed-b1ce-7fc5d0adf5a0@linaro.org>
+Date: Sun, 30 Aug 2026 15:02:26 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowABncD4_KpRqGsuaBg--.48136S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxXr47tFyUtrykWw4DXr1xAFb_yoWrZFy3pF
-	yDG34Du3y8Kw1DKFWvyrs8Gr15AF4xtFyvqr17Ka4kJr17t34rZw10yFy0gF1jkFykZrZI
-	v3W8tryY9rs8KFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUkC14x267AKxVWUJVW8JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x0267AKxVWxJr
-	0_GcWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
-	2Ix0cI8IcVAFwI0_JF0_Jw1lYx0Ex4A2jsIE14v26r4j6F4UMcvjeVCFs4IE7xkEbVWUJV
-	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lc7CjxVAaw2AFwI0_
-	JF0_Jw1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67
-	AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIY
-	rxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14
-	v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWx
-	JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjfU089NUU
-	UUU
-X-CM-SenderInfo: pshqw1xhqjqxpvfd2hldfou0/
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH 4/4] arm64: dts: amlogic: t7: fix the pin groups of the
+ vsync PWM
+To: Lucas Tanure <tanure@linux.com>, Kevin Hilman <khilman@baylibre.com>,
+ Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>
+Cc: Jian Hu <jian.hu@amlogic.com>, Ronald Claveau
+ <linux-kernel-dev@aliel.fr>, Brian Masney <bmasney@redhat.com>,
+ Chuan Liu <chuan.liu@amlogic.com>, linux-arm-kernel@lists.infradead.org,
+ linux-amlogic@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org
+References: <20260829094758.23248-1-tanure@linux.com>
+ <20260829094758.23248-5-tanure@linux.com>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20260829094758.23248-5-tanure@linux.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-extron_interrupt() dispatches completed serial lines by comparing fixed
-prefixes and reading fixed offsets without first checking the current line
-length. Short lines can therefore consume stale bytes beyond the
-NUL-terminated message item.
+On 8/29/26 11:47, Lucas Tanure wrote:
+> The vsync PWM output can appear on either of two pins, but the
+> description named a single group that does not exist, so anything using
+> it would refuse to start.
+> 
+> Name the real groups instead, one entry per pin. No board describes this
+> output yet, so nothing changes today.
+> 
+> Fixes: 2a2a7b9701a7 ("arm64: dts: amlogic: t7: Add PWM pinctrl nodes")
+> Assisted-by: Claude:claude-opus-5
+> Signed-off-by: Lucas Tanure <tanure@linux.com>
+> ---
+>   arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi | 12 ++++++++++--
+>   1 file changed, 10 insertions(+), 2 deletions(-)
+> 
+> diff --git a/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi b/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
+> index 8c4bd683cce0..719e111bc3dd 100644
+> --- a/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
+> +++ b/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
+> @@ -546,9 +546,17 @@ mux {
+>   					};
+>   				};
+>   
+> -				pwm_vs_pins: pwm-vs {
+> +				pwm_vs_y_pins: pwm-vs-y {
+>   					mux {
+> -						groups = "pwm_vs";
+> +						groups = "pwm_vs_y";
+> +						function = "pwm_vs";
+> +						bias-disable;
+> +					};
+> +				};
+> +
+> +				pwm_vs_h_pins: pwm-vs-h {
+> +					mux {
+> +						groups = "pwm_vs_h";
+>   						function = "pwm_vs";
+>   						bias-disable;
+>   					};
 
-Require each response type to contain the complete dispatch prefix before
-reading its fixed fields.
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 
-Fixes: 056f2821b631 ("media: cec: extron-da-hd-4k-plus: add the Extron DA HD 4K Plus CEC driver")
-Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
----
- .../usb/extron-da-hd-4k-plus/extron-da-hd-4k-plus.c    | 18 +++++++++---------
- 1 file changed, 9 insertions(+), 9 deletions(-)
-
-diff --git a/drivers/media/cec/usb/extron-da-hd-4k-plus/extron-da-hd-4k-plus.c b/drivers/media/cec/usb/extron-da-hd-4k-plus/extron-da-hd-4k-plus.c
-index 3c6ce6f3d93e7..66780b3cf9188 100644
---- a/drivers/media/cec/usb/extron-da-hd-4k-plus/extron-da-hd-4k-plus.c
-+++ b/drivers/media/cec/usb/extron-da-hd-4k-plus/extron-da-hd-4k-plus.c
-@@ -851,13 +851,13 @@ static irqreturn_t extron_interrupt(struct serio *serio, unsigned char data,
- 		if (debug)
- 			dev_info(extron->dev, "received %s\n", extron->data);
- 		extron->idx = 0;
--		if (!memcmp(extron->data, "Sig", 3) &&
-+		if (extron->len >= 5 && !memcmp(extron->data, "Sig", 3) &&
- 		    extron->data[4] == '*') {
- 			extron_process_signal_change(extron, extron->data + 3);
--		} else if (!memcmp(extron->data, "Hdcp", 4) &&
-+		} else if (extron->len >= 6 && !memcmp(extron->data, "Hdcp", 4) &&
- 			   extron->data[5] == '*') {
- 			extron_process_edid_change(extron, extron->data + 4);
--		} else if (!memcmp(extron->data, "DcecI", 5) &&
-+		} else if (extron->len >= 6 && !memcmp(extron->data, "DcecI", 5) &&
- 			   extron->data[5] >= '1' &&
- 			   extron->data[5] < '1' + extron->num_in_ports) {
- 			unsigned int p = extron->data[5] - '1';
-@@ -865,7 +865,7 @@ static irqreturn_t extron_interrupt(struct serio *serio, unsigned char data,
- 			p += extron->num_out_ports;
- 			extron_process_tx_done(extron->ports[p],
- 					       extron->data[extron->len - 1]);
--		} else if (!memcmp(extron->data, "Ceci", 4) &&
-+		} else if (extron->len >= 6 && !memcmp(extron->data, "Ceci", 4) &&
- 			   extron->data[4] >= '1' &&
- 			   extron->data[4] < '1' + extron->num_in_ports &&
- 			   extron->data[5] == '*') {
-@@ -874,14 +874,14 @@ static irqreturn_t extron_interrupt(struct serio *serio, unsigned char data,
- 			p += extron->num_out_ports;
- 			extron_process_received(extron->ports[p],
- 						extron->data + 6);
--		} else if (!memcmp(extron->data, "DcecO", 5) &&
-+		} else if (extron->len >= 6 && !memcmp(extron->data, "DcecO", 5) &&
- 			   extron->data[5] >= '1' &&
- 			   extron->data[5] < '1' + extron->num_out_ports) {
- 			unsigned int p = extron->data[5] - '1';
- 
- 			extron_process_tx_done(extron->ports[p],
- 					       extron->data[extron->len - 1]);
--		} else if (!memcmp(extron->data, "Ceco", 4) &&
-+		} else if (extron->len >= 6 && !memcmp(extron->data, "Ceco", 4) &&
- 			   extron->data[4] >= '1' &&
- 			   extron->data[4] < '1' + extron->num_out_ports &&
- 			   extron->data[5] == '*') {
-@@ -889,7 +889,7 @@ static irqreturn_t extron_interrupt(struct serio *serio, unsigned char data,
- 
- 			extron_process_received(extron->ports[p],
- 						extron->data + 6);
--		} else if (!memcmp(extron->data, "Pceco", 5) &&
-+		} else if (extron->len >= 7 && !memcmp(extron->data, "Pceco", 5) &&
- 			   extron->data[5] >= '1' &&
- 			   extron->data[5] < '1' + extron->num_out_ports) {
- 			unsigned int p = extron->data[5] - '1';
-@@ -899,7 +899,7 @@ static irqreturn_t extron_interrupt(struct serio *serio, unsigned char data,
- 				   &tmp_pa[0], &tmp_pa[1]) == 2)
- 				extron_phys_addr_change(extron->ports[p],
- 							tmp_pa[0] << 8 | tmp_pa[1]);
--		} else if (!memcmp(extron->data, "Pceci", 5) &&
-+		} else if (extron->len >= 7 && !memcmp(extron->data, "Pceci", 5) &&
- 			   extron->data[5] >= '1' &&
- 			   extron->data[5] < '1' + extron->num_in_ports) {
- 			unsigned int p = extron->data[5] - '1';
-@@ -910,7 +910,7 @@ static irqreturn_t extron_interrupt(struct serio *serio, unsigned char data,
- 				   &tmp_pa[0], &tmp_pa[1]) == 2)
- 				extron_phys_addr_change(extron->ports[p],
- 							tmp_pa[0] << 8 | tmp_pa[1]);
--		} else if (!memcmp(extron->data, "EdidR", 5) &&
-+		} else if (extron->len >= 7 && !memcmp(extron->data, "EdidR", 5) &&
- 			   extron->data[5] >= '1' &&
- 			   extron->data[5] < '1' + extron->num_ports &&
- 			   extron->data[6] == '*') {
-
-base-commit: 08dbfad3f5040f5bdb6c529da20d6d4e81fefd72
--- 
-2.50.1
-
+Thanks,
+Neil
