@@ -1,123 +1,247 @@
-Received: from mta1.migadu.com (out-179.mta1.migadu.com [95.215.58.179])
+Received: from mta1.migadu.com (out-199.mta1.migadu.com [95.215.58.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4C4D3B27D4
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 14:32:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D54C3B6BF1
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 14:35:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788100346; cv=none; b=WQ89nzSio6pxHvh9EpIvnmqh4AfBjiZsdo398cDu+11oQ1EtNTrK5iKQ08v7ImePrIS0Z8arXM2DpQEhgzvs8fbnh4SrJL6BNfFJm9GTn2r1dnHHAxAlMzCfw0rZNjKVJ8F5Db/f64fkCjhw5N1hN6Gu4+XdI4hd+WADWlLF72c=
+	t=1788100522; cv=none; b=K3bNLepSnQZhov6jeB+VkwO1uXWJJ38v7HQGMLoKfpdxIch+yzT2p6oUHO3O61rW3b7bSfIwXzHpxoXrbYcJ89+OMHoc1qVV1Ex4V/CfKJXZBTpnnsq1JCdk0eCrw3CwZ8qpPSD9qN+GXqK2E3Zn/oE+O6MihLfaeXJfhV9WMzU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788100346; c=relaxed/simple;
-	bh=lgf0MuQPFoZlIab78/zqlZds7+shjXNJmT7lgzsTekU=;
+	s=arc-20240116; t=1788100522; c=relaxed/simple;
+	bh=+N14Rp4OCXct2uVsVwDD8EQMxAy6jpii7x/pKnom5qk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DpdSfUv8qo+CjgE2iYbnZ9bkYEr2Qzq3GTD/akD46sZiXE7bDAF8720DGLLFSQf3p1PKtIP9Fn4soSn4MUPohXyXfCFPVzBkUIsQMItDUL54DK3+iyWI/XBgrc1Wk89xm5y0IxQvmi4qn36QSEm4XXZ/oKSDNCHWviPW/CWQCGc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wyuan.org; spf=pass smtp.mailfrom=wyuan.org; dkim=pass (2048-bit key) header.d=wyuan.org header.i=@wyuan.org header.b=toh5ZXcq; arc=none smtp.client-ip=95.215.58.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wyuan.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wyuan.org
+	 Content-Type:Content-Disposition:In-Reply-To; b=PuXO8CMeTM7W7rehF9EqgCUBBtDTaOGsdS5m5ZzHyvEqoF5Zj6ZlN+E0iduTDB3sMt35PuEDKdzfUMZ5l5/LIfi3BsgJHO7Qa7m+peGjs117qy/HnQlNKD1nu1a+/EK63shZYU1cFgOXo1PswgN3/NDr/qUWhDdIASVyMg0uDs4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=YEf6glFJ; arc=none smtp.client-ip=95.215.58.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=wyuan.org header.i=@wyuan.org header.b="toh5ZXcq"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="YEf6glFJ"
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=lgf0MuQPFoZlIab78/zqlZds7+shjXNJmT7lgzsTekU=;
- c=simple/simple; d=wyuan.org;
+DKIM-Signature: a=rsa-sha256; bh=+N14Rp4OCXct2uVsVwDD8EQMxAy6jpii7x/pKnom5qk=;
+ c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788100341; v=1; x=1788705141;
- b=toh5ZXcqCvC8nLke1DMDLgtRkg1xWupLZ+s1M3gVCBEJYqDuoC2VwOqJ0goqYr89Bxe+Eq1g
- N3N1ily50P2IQotfboQuDpxhJUrv18/gwLa6lem2cXL3dznOV0eykf7cwllWlWpL0w/iRH6JWXO
- LjYCQfIUd9zowtdk/JFgY4kjsCjHmVWUO5m8VVFkrQ3DdqdJR29PJGLbS2WNt1U/Lfe9F+m/pJt
- cUCUlB6KHzvCPmEFSGaSvujhbvHeEsoqZojbj6UmNMWhjqKDK75dYp/Vy+VwmXYiamFciP2L0hs
- stgwEkJC2/PseHMvaXY6Za8X1CuXeAP9bk6GIqjaxnUWQ==
+ t=1788100518; v=1; x=1788705318;
+ b=YEf6glFJxRskQA11glTzC4mptlVeLQnhLl1+DO9+9JgwJIXfV3wG1T5k0VCeJmop/dppTduk
+ RAXOtvHvuAee4q6rRKz+Nj+nXwR5AiXgsmENRemXOlwDNZ1QFUQ9GyOxWhuNnxU6FKndT0zqp+6
+ 6wX4ZQQW+HAJmiKdhw1yOW7E=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 7c357459d6dfa994;
-	Sun, 30 Aug 2026 14:32:21 +0000
-X-Mizu-Trace-ID: 7c357459d6dfa994
+Received: by smtp.migadu.com with ESMTPS id 6a81fa71451a6454;
+	Sun, 30 Aug 2026 14:35:13 +0000
+X-Mizu-Trace-ID: 6a81fa71451a6454
 X-Migadu-Flow: FLOW_OUT
-Date: Sun, 30 Aug 2026 22:32:13 +0800
-From: Weijie Yuan <wy@wyuan.org>
-To: Yao Zi <me@ziyao.cc>
-Cc: Yukai Wu <xiaoyewuz.ruster@gmail.com>, Alex Shi <alexs@kernel.org>,
-	Yanteng Si <si.yanteng@linux.dev>, Jonathan Corbet <corbet@lwn.net>,
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Dongliang Mu <dzm91@hust.edu.cn>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Alexandre Ghiti <alex@ghiti.fr>, linux-doc@vger.kernel.org,
-	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] docs/zh_CN: Update arch/riscv/vm-layout.rst translation
-Message-ID: <apQ-7U-omIeXvZ1N@wyuan.org>
-References: <20260829041542.256360-1-xiaoyewuz.Ruster@gmail.com>
- <apMPjRICH06wAxPp@pie>
+Date: Sun, 30 Aug 2026 22:35:01 +0800
+From: Hao Li <hao.li@linux.dev>
+To: Harry Yoo <harry@kernel.org>
+Cc: Hyunwoo Kim <imv4bel@gmail.com>, Vlastimil Babka <vbabka@kernel.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, Christoph Lameter <cl@gentwo.org>, 
+	David Rientjes <rientjes@google.com>, Roman Gushchin <roman.gushchin@linux.dev>, 
+	Suren Baghdasaryan <surenb@google.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] mm/slab: take n->list_lock for the list_add() in
+ __refill_objects_node()
+Message-ID: <apQ7osHcRj3vdJPn@fedora>
+References: <apPa-cGLcyt90l-E@v4bel>
+ <apQU8wjMlvbKBQgh@dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <apMPjRICH06wAxPp@pie>
+In-Reply-To: <apQU8wjMlvbKBQgh@dev>
 
-On Sat, Aug 29, 2026 at 04:57:49PM +0000, Yao Zi wrote:
-> On Sat, Aug 29, 2026 at 12:15:10PM +0800, Yukai Wu wrote:
-> > Update Documentation/arch/riscv/vm-layout.rst translation.
+On Sun, Aug 30, 2026 at 12:45:17PM +0000, Harry Yoo wrote:
+> On Sun, Aug 30, 2026 at 04:25:45PM +0900, Hyunwoo Kim wrote:
+> > In __refill_objects_node(), the list_add(&slab->slab_list, &pc.slabs) that
+> > follows a successful __slab_try_return_freelist() is done without
+> > n->list_lock.
+> >
+> > __slab_try_return_freelist() only succeeds while slab->freelist is NULL. The
+> > slab we are refilling from is taken off pc.slabs by the list_del() at the
+> > top of the loop, so at that point it is on no list.
 > > 
-> > Update the translation through commit 954260ff5a46
-> > ("Revert "RISC-V: mm: Document mmap changes"")
-> > 
-> > Signed-off-by: Yukai Wu <xiaoyewuz.Ruster@gmail.com>
-> > ---
-> >  .../zh_CN/arch/riscv/vm-layout.rst             | 18 +++++++++---------
-> >  1 file changed, 9 insertions(+), 9 deletions(-)
-> > 
-> > diff --git a/Documentation/translations/zh_CN/arch/riscv/vm-layout.rst b/Documentation/translations/zh_CN/arch/riscv/vm-layout.rst
-> > index 4b9f4dcf6c19..0d0ec8ea5d05 100644
-> > --- a/Documentation/translations/zh_CN/arch/riscv/vm-layout.rst
-> > +++ b/Documentation/translations/zh_CN/arch/riscv/vm-layout.rst
-> > @@ -15,7 +15,7 @@ RISC-V Linux上的虚拟内存布局
-> >  :作者: Alexandre Ghiti <alex@ghiti.fr>
-> >  :日期: 12 February 2021
-> >  
-> > -这份文件描述了RISC-V Linux内核使用的虚拟内存布局。
-> > +这份文件描述了 RISC-V Linux 内核使用的虚拟内存布局。
-> >  
-> >  32位 RISC-V Linux 内核
-> >  ======================
-> > @@ -28,9 +28,9 @@ TODO
-> >  64位 RISC-V Linux 内核
-> >  ======================
-> >  
-> > -RISC-V特权架构文档指出，64位地址 "必须使第63-48位值都等于第47位，否则将发生缺页异常。"：这将虚
-> > -拟地址空间分成两半，中间有一个非常大的洞，下半部分是用户空间所在的地方，上半部分是RISC-V Linux
-> > -内核所在的地方。
-> > +RISC-V 特权架构文档指出，64 位地址“必须使第 63-48 位值都等于第 47 位，否则将发生缺页异常。”：
-> > +这将虚拟地址空间分成两半，中间有一个非常大的洞，下半部分是用户空间所在的地方，上半部分是 RISC-V
-> > +Linux 内核所在的地方。
+> > If another CPU frees an object of that slab, __slab_free() sees the slab as
+> > full and puts it back on n->partial. If a third CPU then takes that object
+> > in get_from_partial_node(), the freelist becomes NULL again.
 > 
-> I think changes above are purely style improvements? If so please
-> mention it in the commit message, instead of specifying it's "updating"
-> only.
+> Ouch. Good catch, Hyunwoo.
+> A classic ABA problem :)
+> 
+> > A slab that sits on n->partial with a NULL freelist only exists while
+> > get_from_partial_node() holds n->list_lock, between its cmpxchg and its
+> > remove_partial().
+> > 
+> > A list_add() in that window overwrites slab_list to point into pc.slabs.
+> > The list_del() in remove_partial() then follows the overwritten links, so it
+> > unlinks the slab from pc.slabs and poisons slab_list while leaving the
+> > n->partial side alone. n->partial is left pointing at the poisoned slab.
+> > 
+> >            CPU0                        CPU1                  CPU2
+> > 
+> >   __refill_objects_node()
+> >     get_partial_node_bulk()   // n->partial to pc.slabs
+> >     list_del()                // on no list now
+> >     get_freelist_nofreeze()   // freelist = NULL
+> >                               __slab_free()
+> >                                 add_partial()
+> >                                 // back on n->partial
+> > 	                        // freelist is not NULL
+> > 
+> >                                                     get_from_partial_node()
+> >                                                       lock
+> >                                                       cmpxchg
+> >                                                       // freelist = NULL
+> >     __slab_try_return_freelist()
+> >     list_add(&pc.slabs)       // overwrites slab_list
+> >                                                       remove_partial()
+> >                                                         list_del()
+> >                                                         // off pc.slabs
+> >                                                         // slab_list = POISON
+> > 
+> > panic log:
+> > 
+> >   list_add corruption. next->prev should be prev
+> >   (ffff888100000248), but was dead000000000122.
+> >   (next=ffffea000416e410).
+> >   kernel BUG at lib/list_debug.c:29!
+> >   Oops: invalid opcode: 0000 [#1] SMP NOPTI
+> >   CPU: 1 UID: 65534 PID: 144 Comm: poc Not tainted
+> >   7.2.0-16172-gcf72cbb39da8-dirty #1 PREEMPT(lazy)
+> >   RIP: 0010:__list_add_valid_or_report+0x80/0xd0
+> >   ...
+> >   Call Trace:
+> >    alloc_from_new_slab+0x183/0x300
+> >    ___slab_alloc+0x31c/0x890
+> >    __kmalloc_noprof+0x3d4/0x800
+> >    lsm_blob_alloc+0x2d/0x50
+> >    security_msg_msg_alloc+0x26/0x90
+> >    load_msg+0x1aa/0x210
+> >    do_msgsnd+0x91/0x800
+> >    do_syscall_64+0x109/0x5d0
+> >    entry_SYSCALL_64_after_hwframe+0x77/0x7f
+> >   ...
+> >   Kernel panic - not syncing: Fatal exception
+> > 
+> > Do the list_add() under n->list_lock. Reattaching the freelist stays outside
+> > the lock. Once it succeeds the freelist is no longer NULL, so __slab_free()
+> > cannot put the slab back, and by the time the lock is taken remove_partial()
+> > has finished and the slab is on no list.
+> 
+> Yeah, this should work correctly. 
+> 
+> > The lock is held until the block below that returns the remaining slabs to
+> > the partial list. That block already took the same lock on this path, so no
+> > lock/unlock pair is added.
+> > 
+> > The unlock is keyed on having taken the lock instead of on pc.slabs being
+> > empty. With CONFIG_DEBUG_LIST or CONFIG_LIST_HARDENED, __list_add() returns
+> > without linking anything if its check fails, which would leave pc.slabs
+> > empty.
+> 
+> Well, if the check fails, it has a bug and should be fixed.
+> We should not make the code less readable to handle a bug.
+> 
+> I think it's better to have (diff on top of the patch, not tested):
+> 
+> diff --git a/mm/slub.c b/mm/slub.c
+> index 7a7f9935c711..eff96b992164 100644
+> --- a/mm/slub.c
+> +++ b/mm/slub.c
+> @@ -7216,12 +7216,10 @@ __refill_objects_node(struct kmem_cache *s, void **p, gfp_t gfp, unsigned int mi
+>  			break;
+>  	}
+>  
+> -	if (!locked && !list_empty(&pc.slabs)) {
+> -		spin_lock_irqsave(&n->list_lock, flags);
+> -		locked = true;
+> -	}
+> +	if (!list_empty(&pc.slabs)) {
+> +		if (!locked)
+> +			spin_lock_irqsave(&n->list_lock, flags);
+>  
+> -	if (locked) {
+>  		list_for_each_entry(slab, &pc.slabs, slab_list)
+>  			set_node_partial_state(n, slab);
 
-Agreed. To put it further, I think the commit message template we
-provided in how-to.rst [1] is somewhat like telling contributors: That's
-all you need to do.
+Since introducing a new variable seems unavoidable, what if we temporarily
+stash this slab in a pointer like below, and then add it to pc.slabs once we
+acquire the lock.
 
-Of course, in some cases, the patch is quite simple and there is nothing
-else to elaborate on. However, in some cases, such as when making
-extensive changes and updates, we should encourage contributors to write
-down some relevant information for future reference.
+struct slab *leftover_slab = NULL;
 
-Similarly, just like this patch, the author did more than just update;
-he also carried out other actions, but failed to include the relevant
-details in the commit message. So I feel that perhaps our template might
-have somewhat restricted our writing? (to some extent)
+...
+...
+	if (__slab_try_return_freelist(s, slab, head, count)) {
+		leftover_slab = slab;
+		break;
+	}
 
-Sure, the requirements for commit messages in the Chinese documentation
-are certainly not as strict as those for the more core subsystems.
-However, I do think it's fine to appropriately explicitly encourage
-contributors to include more meaningful relevant information in the
-commit messages.
+...
+...
+if (!list_empty(&pc.slabs)) {
+	spin_lock_irqsave(&n->list_lock, flags);
 
-Any ideas for this, or any objections? ;)
+	if (leftover_slab)
+		list_add(&leftover_slab->slab_list, &pc.slabs);
+	...
+	...
+}
 
-Thanks!
+PS: If I recall correctly, Vlastimil's initial patch was actually fine. It was
+my suggestion to save an extra lock/unlock pair that accidentally led to this
+trap...
 
-[1] https://docs.kernel.org/translations/zh_CN/how-to.html#id13
+> 
+> > Fixes: ba7425312607 ("mm, slab: add an optimistic __slab_try_return_freelist()")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Hyunwoo Kim <imv4bel@gmail.com>
+> > ---
+> >  mm/slub.c | 9 ++++++++-
+> >  1 file changed, 8 insertions(+), 1 deletion(-)
+> > 
+> > diff --git a/mm/slub.c b/mm/slub.c
+> > index f9b56cb439e709..4f6d1a03a8ee46 100644
+> > --- a/mm/slub.c
+> > +++ b/mm/slub.c
+> > @@ -7260,6 +7260,7 @@ __refill_objects_node(struct kmem_cache *s, void **p, gfp_t gfp, unsigned int mi
+> >  	struct slab *slab, *slab2;
+> >  	unsigned int refilled = 0;
+> >  	unsigned long flags;
+> > +	bool locked = false;
+> >  	void *object;
+> >  
+> >  	pc.flags = gfp;
+> 
+> uh, I'm not a big fan of having a new variable to store 'locked' state,
+> but okay, this seems unavoidable with current implementation.
+> 
+> > @@ -7297,7 +7298,10 @@ __refill_objects_node(struct kmem_cache *s, void **p, gfp_t gfp, unsigned int mi
+> >  			void *tail;
+> >  
+> >  			if (__slab_try_return_freelist(s, slab, head, count)) {
+> > +				/* get_from_partial_node() may be mid-removal of the slab */
+> > +				spin_lock_irqsave(&n->list_lock, flags);
+> >  				list_add(&slab->slab_list, &pc.slabs);
+> > +				locked = true;
+> >  				break;
+> >  			}
+> >  
+> > @@ -7312,9 +7316,12 @@ __refill_objects_node(struct kmem_cache *s, void **p, gfp_t gfp, unsigned int mi
+> >  			break;
+> >  	}
+> >  
+> > -	if (!list_empty(&pc.slabs)) {
+> > +	if (!locked && !list_empty(&pc.slabs)) {
+> >  		spin_lock_irqsave(&n->list_lock, flags);
+> > +		locked = true;
+> > +	}
+>  
+> -- 
+> Cheers,
+> Harry / Hyeonggon
+>  
+
+-- 
+Thanks,
+Hao
