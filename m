@@ -1,97 +1,175 @@
-Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E70E03BB67B;
-	Sun, 30 Aug 2026 15:35:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5CB63B4EA5
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 15:38:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788104139; cv=none; b=CrOFdzOAKCKrvFB0OP9bVTzFou0ZuahPeEGyEz+DgCLtoiVuGDdSRlAYj/xxqr2UzjzzvxeFiWevPgkDTxxC9EoOfrISraQ4a/dK7KW34x94ZUscuiroDfq/m3yjcvX1rjAxxogvGXlysqEp+kq8JC39hJgwGv5YxUVqSotXyEY=
+	t=1788104294; cv=none; b=ZHCldVOb2td+9x3e+s3ehc44NHNCtmPIquBdskDZiVKwFMfqnwy8fNGvKzlmrbGvkgX8IuOh9yJ6Hr9aLA3IFWgJ/4sDDt3AV94oAR68BpfR384c+LhUnqaZDH3Y7V19mF4ZxaGM/vd6q8coRfyA3Xivq1Bte0ymeMl3FEtif5A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788104139; c=relaxed/simple;
-	bh=RFNpnfMp6x166CoMAVeIa0ulHLzLrT4Rw5ijlTELv0s=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=FTZCzJ3+OYQ/k7svGftATTdRsNERbDyWjm8eywJOzLBz6JcS85EJagA5BLiVzGjZ1pJbVuPs2icvjDJ96EIRL9jzCZ+Px9DBtZMCYio4azLt1TjdmyDXuV6JEvALnmng5udmGL5WbBlF5vCNnlxj1ks7imYLOfV0vLzLxPp5/oA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=WacYdhAx; arc=none smtp.client-ip=45.254.49.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+	s=arc-20240116; t=1788104294; c=relaxed/simple;
+	bh=42a7FeYTUqyvHIggrb14edhLBGxKxj9yK2RL3MdOSbw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ELWeRVrZz3Zb/Xd8leyKFzfV0TIb1eGoL/dQhVTGY/Sc/AzkG2G4j+crfMNylAnYd1GkOICXvkV7rgShs3h8gXOGHaqU80GFx2QAWorTaQDHyn3VbkpDXGZQmA+mW/FTzu+HQ8/dKsXU9P/61W08y8oJlkxq2BuGdaRRbK6lSCc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=muvk5iVW; arc=none smtp.client-ip=209.85.215.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="WacYdhAx"
-Received: from PC-202605011814.localdomain (unknown [58.241.16.34])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4bd7a1ff6;
-	Sun, 30 Aug 2026 23:35:28 +0800 (GMT+08:00)
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-To: nicolas.ferre@microchip.com
-Cc: claudiu.beznea@microchip.com,
-	richardcochran@gmail.com,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	runyu.xiao@seu.edu.cn,
-	jianhao.xu@seu.edu.cn,
-	stable@vger.kernel.org
-Subject: [PATCH net] net: macb: initialize PTP lock before registering clock
-Date: Sun, 30 Aug 2026 23:35:20 +0800
-Message-Id: <20260830153520.2710520-1-runyu.xiao@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="muvk5iVW"
+Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-cc1e1ff659bso2273530a12.0
+        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 08:38:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788104292; x=1788709092; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ciRQvpR+Sh+544fgrHeR8zv7MW8fKoH4Hb2ESodOcd4=;
+        b=muvk5iVWSOPy9xp/zAWa1xVqYPWzkWblqEAhR3RWKJ7VIGsxgYOvepb61JnRTfYpJw
+         r153OEWp+HGEjaB9cgpvFAcl5Ro5kxeexJJdi6e8CQ5tHpryHlp+Q27eOEwPjbot/KbF
+         +PzjUH3Acfnr0XPQtRc446yMTTv4LEeG1XESJAfw+UIyOHTFK1G0I5orWO/32LZf+29z
+         nhhl8fR5SGsDx6xKujmohXbxp1sOg4RQf22xSP+OKgIVW487MyaYLcr9Xqv6CF9LjzBM
+         Ixo1pCRV9vFtja1ylmsdz38DZaM9zkdNzPcJD6rYWPMgxzWfDG0SVMDOfCaSbofVMjYH
+         iAzA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788104292; x=1788709092;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=ciRQvpR+Sh+544fgrHeR8zv7MW8fKoH4Hb2ESodOcd4=;
+        b=QsGaUKq1xt81i2WZIZvpN+X2d/ZtKEdwP4sSnMcpgpmO7WekLq0PBT37QUBxDxVSHI
+         IhI+qQgr1e3HuFxc4jQ6rCS3aULA38Ke+D7EPwrZfaSrMwsAvJqRVVPD7xxtNxFMpSBE
+         MBAicjErgTPTqU5Lf7IxifD+YNFavuqhslnC6CX26CE/E+9wKosAThJNUGz1JAaeHifp
+         UUwByBgTWiGIVzlZinNsOWBxv39AFMl+/TiaPHT57wdV5QL4kCv/65vMJkFEUKQdKymL
+         aqLoNVgb3mdVuCNUWzPY1R8JWR6OwR4toid+1A9uPlvHP1cmW445WB2CtDGS2cROsG0C
+         ynuw==
+X-Forwarded-Encrypted: i=1; AHgh+Rp3mR2zJzohzW7FPAZRhmDmwfoT++PFBPwp/TS044xFToS/0QHA/hfcq2YAB7MvpSjIv6hvtuCuckjZhy8=@vger.kernel.org
+X-Gm-Message-State: AFuF++lwZx+6RDqyPhNpcoucdRgXshDj7prQFD46bQPT7Dauv4gSfV6p
+	X3sOHII5Ni3yBDfwz8eF9UXVXXMGLOoFd/JoweRUCy+WYEkjbWG82XMjVCoLpg==
+X-Gm-Gg: AR+sD10ZU/Jq/ivnI74nOdBMZ0xr2wZlnKwZNUf0/mOxLHVc87NBEV67QWs6uQlyl+2
+	vSDXUqPBK5jgcgOrEGXcAdI1Qchw9ke8EqvVXWNOqn+YobNIai158I7wwQyV7pLWHYJIChwoxLu
+	+WGM+0xSgH63kGNsb+W6EBu3yX29tkfL7oJ69x8WFzn7yYdzLrn8W6s6G6D5SAzkaoXv/D+cAwa
+	e5l2SRTaHEnR1XuiXdoklhJ19TQyEtOLHtSSOQwdAhuokZ/YP7Aui5KnXkNpiu7uS+hGO9dsQS7
+	OAyYAbHioMUhpUpRc8QDu9kUrc5TjiY3hJ3e+CdarRGe4Ay/HB9mXlV07ToFpB4aPLNojpCaG1s
+	A9y4/nfmZQBXJlrFVvtC7LKthwmW2gUoqftAsKty78YGIFvguyP8Tyid40aCSwLRtrO2b/V13wu
+	3DuJpLERP1fDeQiHrG4VX7DAN0ZTCQ104b9bNMO0n3UGdBcGXk4KBjEfNE8E5zHmmohuLtLMlbp
+	6jGOAWsqpCzZnqC6IE2jXJAmCNkSYFWlJ7GBRQMkwDd1Gjn
+X-Received: by 2002:a05:6a20:7345:b0:3d1:60d3:99f8 with SMTP id adf61e73a8af0-3d266ebc963mr30705222637.5.1788104292060;
+        Sun, 30 Aug 2026 08:38:12 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc1f36ae4ccsm3055626a12.19.2026.08.30.08.38.10
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 30 Aug 2026 08:38:11 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <77319f64-75d1-48d6-954d-7e1891362b08@roeck-us.net>
+Date: Sun, 30 Aug 2026 08:38:10 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa0534fb82e03a1kunmc421144b105b5c
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaGhgdVk4dSkpPHU8eTRlKSVYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlOQ1VJT0pVSk1VSE9ZV1kWGg8SFR0UWUFZT0tIVUpLSEpPSE
-	xVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=WacYdhAxcypX7/RofuxM7oYmUXkh5EJolLpm8N4tkPXeHGirlK/kK6w5y4DXU6CXzvdqeBb1PS8J/1SuQD+NgZeafhDyyS4C13Iim096l0N+rPeMUn/iGCpc7p9JcCjPFI1l8/9oNxn8Ff5hzC7qHtg9ZTWl/2FNywxWCDmbZk0=; s=default; c=relaxed/relaxed; d=seu.edu.cn; v=1;
-	bh=ZM4cjofOAm1isMTLn9AY1gPKotHGVH+P4ZFGKGKbUVM=;
-	h=date:mime-version:subject:message-id:from;
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/1] dt-bindings: hwmon: tmp102: move ti,tmp103 out of
+ trivial-devices.yaml
+To: Krzysztof Kozlowski <krzk@kernel.org>, Frank.Li@oss.nxp.com
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+ Wensheng Wang <wenswang@yeah.net>, Cosmo Chou <chou.cosmo@gmail.com>,
+ Colin Huang <u8813345@gmail.com>, =?UTF-8?Q?Nuno_S=C3=A1?=
+ <nuno.sa@analog.com>, Dixit Parmar <dixitparmar19@gmail.com>,
+ Antoni Pokusinski <apokusinski01@gmail.com>,
+ Eddie James <eajames@linux.ibm.com>, Thorsten Blum
+ <thorsten.blum@linux.dev>,
+ "open list:HARDWARE MONITORING" <linux-hwmon@vger.kernel.org>,
+ "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>,
+ imx@lists.linux.dev
+References: <20260826211422.3299728-1-Frank.Li@oss.nxp.com>
+ <20260830-alluring-goldfish-of-cubism-eef6db@quoll>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <20260830-alluring-goldfish-of-cubism-eef6db@quoll>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-gem_ptp_init() registers the PTP clock before initializing
-bp->tsu_clk_lock. ptp_clock_register() publishes the PTP character
-device, so a userspace operation can enter a PTP callback as soon as
-registration completes. Those callbacks use tsu_clk_lock and can therefore
-observe the lock before it has been initialized.
+On 8/30/26 02:53, Krzysztof Kozlowski wrote:
+> On Wed, Aug 26, 2026 at 05:14:19PM -0400, Frank.Li@oss.nxp.com wrote:
+>> From: Frank Li <Frank.Li@nxp.com>
+>>
+>> Move ti,tmp103 binding from trivial-devices.yaml to ti,tmp102.yaml. Both
+>> devices are single temperature sensors and update "#thermal-sensor-cells"
+>> property to accept values 0 and 1 (passing no argument is equivalent to
+>> passing 0 as the first argument)
+> 
+> Why updating the property? If there are single sensors, then what is the
+> cell for?
+> 
 
-Initialize the lock before registering the PTP clock so all published
-callbacks see valid synchronization state.
+It registers as temperature sensor with the thermal subsystem. The documentation
+of #thermal-sensor-cells states that the property is mandatory and "... Will be
+0 on sensor nodes with only a single sensor". I don't claim to understand how
+this is supposed to work, but the thermal subsystem code looking for it does
+seem to suggest that the property is mandatory, even if there is only a single
+sensor.
 
-Fixes: ab91f0a9b5f4 ("net: macb: Add hardware PTP support")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:GPT-5
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
----
- drivers/net/ethernet/cadence/macb_ptp.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+Thanks,
+Guenter
 
-diff --git a/drivers/net/ethernet/cadence/macb_ptp.c b/drivers/net/ethernet/cadence/macb_ptp.c
-index e5195d7da..055160c42 100644
---- a/drivers/net/ethernet/cadence/macb_ptp.c
-+++ b/drivers/net/ethernet/cadence/macb_ptp.c
-@@ -330,6 +330,8 @@ void gem_ptp_init(struct net_device *netdev)
- 
- 	bp->ptp_clock_info = gem_ptp_caps_template;
- 
-+	spin_lock_init(&bp->tsu_clk_lock);
-+
- 	/* nominal frequency and maximum adjustment in ppb */
- 	bp->tsu_rate = bp->ptp_info->get_tsu_rate(bp);
- 	bp->ptp_clock_info.max_adj = bp->ptp_info->get_ptp_max_adj();
-@@ -345,8 +347,6 @@ void gem_ptp_init(struct net_device *netdev)
- 		return;
- 	}
- 
--	spin_lock_init(&bp->tsu_clk_lock);
--
- 	gem_ptp_init_tsu(bp);
- 
- 	dev_info(&bp->pdev->dev, "%s ptp clock registered.\n",
-@@ -467,4 +467,3 @@ int gem_set_hwtst(struct net_device *netdev,
- 
- 	return 0;
- }
--
--- 
-2.34.1
+>>
+>> Fix below CHECK_DTBS warnings:
+>> arch/arm/boot/dts/nxp/imx/imx6dl-plym2m.dtb: temperature-sensor@70 (ti,tmp103): '#thermal-sensor-cells' does not match any of the regexes: '^pinctrl-[0-9]+$'
+>>
+>> Signed-off-by: Frank Li <Frank.Li@nxp.com>
+>> ---
+>>   Documentation/devicetree/bindings/hwmon/ti,tmp102.yaml | 5 +++--
+>>   Documentation/devicetree/bindings/trivial-devices.yaml | 2 --
+>>   2 files changed, 3 insertions(+), 4 deletions(-)
+> 
+> Best regards,
+> Krzysztof
+
