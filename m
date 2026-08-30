@@ -1,158 +1,217 @@
-Received: from mail-pf1-f227.google.com (mail-pf1-f227.google.com [209.85.210.227])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C93B639E6FC
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 09:14:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.227
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FC0521CC5C;
+	Sun, 30 Aug 2026 09:15:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788081258; cv=none; b=RrWS2p2g7GHWcCayjYXbpcrnIMSRu1U157JXkXdcStnPZxWUwqnNumtugHqpgnC59gtpzLS8puhZAzKxqxv/+d8irV7vO4rh5RlD2k9MWJRTSFWQFCIjl9YwQmElt72o2AMDwu2vnzEZvXyJxJXNEtfobD4f906jv8vdnJy1G6w=
+	t=1788081302; cv=none; b=ZL36VJxo5Kwpu8fe8/PD7mGFRwd1/uiHAKp0YEebeF2UuwjgyFml2GpqETC6XK4CDpkZquOEY6M2o8PsoxctXEvzMVLd9kffm2pChECHQM2eukbgudSPgHwBhmQZStHQsoPeKTNtsRbRhe01B2ythwZprGmviGo+Fj57jNq2LXM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788081258; c=relaxed/simple;
-	bh=AqudLIf/iTthiXu19RutYAR2E41lgzFux0xXyzaNkSQ=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=JawHgMGn/No796v3hW+jvy3LwGG5c8wQaNfiII7vdjy0llO6cn3cEzkix41xZ4y6fIcJUZwtltfPIn9bFNLw4l3Wxdcb2SKuL1Ru7FH92WXLlQ0Odq1MpdARtIJQuGIt2n4/PONW/C8SkN02dmB/jR0BRmEE7x7odJvp7enubUg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=KPT5ojkM; arc=none smtp.client-ip=209.85.210.227
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	s=arc-20240116; t=1788081302; c=relaxed/simple;
+	bh=1XQ+f2Gl37kFF5KFC7j3ce+V+kY9h7N26GClr0Qe5fs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HyNwy1SGB4VdrdyjYQjP9lCFF3a0i96fDC2rfmdKWZiZVT3hdHO/m1bi6GWlIdtFi39LmEBZXEXLQMYjLB1w2vHUUVTm107J4GP7YUV4FQinRL6c0rm5uKweNi9rJT5pPSoVeeRQyQ6lsaT9+2E0BYCmzt1CF5lCbB7gl9HnBCY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UDa7j5sB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="KPT5ojkM"
-Received: by mail-pf1-f227.google.com with SMTP id d2e1a72fcca58-84e84a6c4bfso2191883b3a.1
-        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 02:14:16 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788081256; x=1788686056;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=31p2j+a2MROOfrBQh9qdpbaoRZRWKQkLx8FBZclkpJw=;
-        b=dZWa2DQVErnL+48HeBGdEMeBPExyCPVhEoe3D3YU6wKiPB0/qxoW67K10zC8DS+/ro
-         a6Rc6X4IFCn2tPvHWHYSzYMtWto6hEhZBduIiW6e5iUOIM/GgIxVtt6GHSHy0VbcU245
-         EpaWRQ87CITlJolFGxxztxV2MsS3w/OHbgvDo+5X29hDmjd+4hhgnH1j39Kww7wsG+xf
-         9/yIjjuF+b346QB21A6/HnJZYybg2llcaOe4vLy2Oy5i+KiiBP8eUa4xhJL5QfrU8cmI
-         bZVQyruEg8NrvrePs+dOpvjIlURifEbEV18pLGIOokWMenTVkprTXrjI4af1iRXPvf0K
-         oLPA==
-X-Forwarded-Encrypted: i=1; AHgh+RpSYMgaeGC/v1rVIHERwmz2PlV9ePnXpFeVSGfHFd3z3+sjz+AGyMxq02Qg/9DtRfjZFb81wMo0uKdPJuw=@vger.kernel.org
-X-Gm-Message-State: AFuF++l7ULpA/UPQiBBQPE3U4KXrv5X66fmDo2rNKnBHMLD+/W84UV74
-	FuhLJRte347Za+GQnyfmNIc68DrVIah00QJci7WJhBR9EfwhOgEJDUwMFrg6wdVWfl6kXJLU9BY
-	uExyWAUKqkbDPq9JAJu3UbOUw+YIPf5JggVdr7k8ajuZpKoBGprIckg1Rn8BIEN3DZN1rF9gZAR
-	gxRFxjuCZ7a2yxaDAKNNjtMIJjL9gg7w2Fy2kQ/sNovJzZXIvn06QvY4aeSrBWlI1xsz17nfnwC
-	ep6xToIzG47C7vMqcbf58M2hPaJ
-X-Gm-Gg: AR+sD10VmCW1F6FdyDfsHNoI223pmy2uJ3Ryxs6Nd3laRxkwwO6aMSPLfNVRmVMaPD3
-	CIBhz+gByDHizbFegrlNln23LCQ9wxVm9FcMt3c1aqT8Hh/x+jowx3UZko4lAme6kILVO41aP/Y
-	vD/af/VWdJCaD0S/+M4xF5GU3PcHrlnbZrXS7oIdMnZ4Y96mQ6hdHo+1R1JtM51SztbWBZ7ZJc3
-	wDS7az67GTD97TFPY3GRbEVCzwABNKjNj8ucT7wLCb7hQk9zt1HGRBagG8VkzxNcD5gjWtIQKAH
-	Z5Ly0GZOYIqy7QqwhQmETRr9j6RNqu+sqDLxkBEoxZLLpVQsmm3pYpkPNlFWn5D7Pr1vPk32/yY
-	LSYW42YP5w7nxjwmW+D4kYbTQWemLtTBbx5OAFcQCyWb16Y5hZLRwQ980LckwbCWK9SpRu4MJqk
-	0M+Ux5yF0cE1wl/SwTW5XPQ3cNPljJA84Lxuus
-X-Received: by 2002:a05:6a00:1814:b0:84a:65e8:137e with SMTP id d2e1a72fcca58-85996706d5dmr953379b3a.17.1788081255937;
-        Sun, 30 Aug 2026 02:14:15 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-1.dlp.protect.broadcom.com. [144.49.247.1])
-        by smtp-relay.gmail.com with ESMTPS id d2e1a72fcca58-856a170c519sm1994314b3a.3.2026.08.30.02.14.15
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Sun, 30 Aug 2026 02:14:15 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cc1c18c775eso1365761a12.0
-        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 02:14:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1788081254; x=1788686054; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=31p2j+a2MROOfrBQh9qdpbaoRZRWKQkLx8FBZclkpJw=;
-        b=KPT5ojkM8C5H4eoT8xeyI3sG53c0Fn5+wEAWMzWOEZgCVTmYw7/WNakgVunVgZtz/9
-         h1u/jorHHK8HIrw8uWA03nZaZAEC89ogN77KZ2kIkg1Ru5hXzl4OVCpo1DHEb5HvUklS
-         SMJp0YjFTToXHZBikL65XuF5NH9yZN/M5jBSE=
-X-Forwarded-Encrypted: i=1; AKwUvBwDAkEuxVeeveq/suQ/uvmZntkQNr8K36Y+JWrNZE/d//up5A4688ACDdYicW8HzEkMIT/5iP9v8VSYCOY=@vger.kernel.org
-X-Received: by 2002:a17:90b:1a87:b0:398:c6e1:dceb with SMTP id 98e67ed59e1d1-398da61d56dmr1054576a91.9.1788081253893;
-        Sun, 30 Aug 2026 02:14:13 -0700 (PDT)
-X-Received: by 2002:a17:90b:1a87:b0:398:c6e1:dceb with SMTP id 98e67ed59e1d1-398da61d56dmr1054548a91.9.1788081253416;
-        Sun, 30 Aug 2026 02:14:13 -0700 (PDT)
-Received: from [192.168.178.26] (f215227.upc-f.chello.nl. [80.56.215.227])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-142e0d2e465sm29855331c88.4.2026.08.30.02.14.10
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 30 Aug 2026 02:14:12 -0700 (PDT)
-Message-ID: <8a866e2b-8802-4a8e-8421-2732da5f5c8f@broadcom.com>
-Date: Sun, 30 Aug 2026 11:14:09 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UDa7j5sB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43E1D1F000E9;
+	Sun, 30 Aug 2026 09:14:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788081300;
+	bh=rPp2OT/PhibfUcKJNdOviFxwsm8XzNErNmszA+p7SLM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=UDa7j5sBM+w1WCVvzyyxdgZ0dckSKywp1Yl2ZB4enA37jLSF4Z7BDTRWGbyw4L8V+
+	 hwXBOgmmE8EP2HfuMdSq1+dCdY98o2iDETjLiw8q+oa/d7t7K5TtJJzkNGSyRPIo7F
+	 j5wEfrw4LPaGoHCbhPhtobwRrC6dGwfxguKA0qyccJatgyDnLn9fovDiJRW/zuH332
+	 PDcug/z7F+MPCd3poDRS/YZM73BaKA/D1XdkgMDzqnxhqBzdg+IU+tEnUeX3T32I8t
+	 oHfSrETSRhFhdpTJcm0M4oY7HVsu1PITrMpmbsQc7JhbucFEJG/ftqXTZQ24X3UwBV
+	 fq/cy0wJi9WzA==
+Date: Sun, 30 Aug 2026 12:14:56 +0300
+From: Leon Romanovsky <leon@kernel.org>
+To: Logan Gunthorpe <logang@deltatee.com>
+Cc: Bjorn Helgaas <bhelgaas@google.com>,
+	Chaitanya Kulkarni <kch@nvidia.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jens Axboe <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
+	Ankit Agrawal <ankita@nvidia.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org, iommu@lists.linux.dev,
+	Tushar Dave <tdave@nvidia.com>, Matt Evans <matt@ozlabs.org>
+Subject: Re: I
+Message-ID: <20260830091456.GD24140@unreal>
+References: <20260821-fix-p2p-acs-v4-0-v4-0-94426b96de73@nvidia.com>
+ <20260821-fix-p2p-acs-v4-0-v4-5-94426b96de73@nvidia.com>
+ <d559d41c-5cba-4a95-bc8b-b1f78a49a18c@deltatee.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 1/5] wifi: nl80211: add roam offload extended feature
-From: Arend van Spriel <arend.vanspriel@broadcom.com>
-To: Jason Huang <Jason.Huang2@infineon.com>, linux-wireless@vger.kernel.org
-Cc: johannes.berg@intel.com, johannes@sipsolutions.net,
- hsin-hung.li@cypress.com, linux-kernel@vger.kernel.org,
- brcm80211@lists.linux.dev, brcm80211-dev-list.pdl@broadcom.com,
- wlan-kernel-dev-list@infineon.com, jeff.johnson@oss.qualcomm.com,
- Carella Chen <carella.chen@infineon.com>
-References: <20260821-upstream-wireless-next-main-jason-11r-support-v1-v5-0-eeab4fda0f31@infineon.com>
- <20260821-upstream-wireless-next-main-jason-11r-support-v1-v5-1-eeab4fda0f31@infineon.com>
- <382c3dbb-ff32-4e62-9b79-c6e4cc6273ef@broadcom.com>
-Content-Language: en-US
-In-Reply-To: <382c3dbb-ff32-4e62-9b79-c6e4cc6273ef@broadcom.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <d559d41c-5cba-4a95-bc8b-b1f78a49a18c@deltatee.com>
 
-On 22/08/2026 20:36, Arend van Spriel wrote:
-> On 21/08/2026 09:56, Jason Huang wrote:
->> From: Carella Chen <carella.chen@infineon.com>
->>
->> Drivers can offload FT or OKC roaming without necessarily
->> advertising full 802.1X 4-way handshake offload. Add an extended
->> feature bit for that capability and allow PMK configuration when it is
->> present.
->>
->> This gives userspace a way to provide PMK or PMK-R0 material needed
->> by firmware roaming implementations while keeping the existing 4-way
->> handshake offload capability unchanged.
->>
->> Assisted-by: GitHub-Copilot-CLI:gpt-5.5
->> Signed-off-by: Carella Chen <carella.chen@infineon.com>
->> Signed-off-by: Jason Huang <jason.huang2@infineon.com>
->> ---
->>   include/uapi/linux/nl80211.h | 4 ++++
->>   net/wireless/nl80211.c       | 7 +++++--
->>   2 files changed, 9 insertions(+), 2 deletions(-)
->>
-
-[...]
-
->> diff --git a/net/wireless/nl80211.c b/net/wireless/nl80211.c
->> index 44f2bad08670..15731440c57a 100644
->> --- a/net/wireless/nl80211.c
->> +++ b/net/wireless/nl80211.c
->> @@ -18434,6 +18434,7 @@ static int 
->> nl80211_set_multicast_to_unicast(struct sk_buff *skb,
->>   static int nl80211_set_pmk(struct sk_buff *skb, struct genl_info *info)
->>   {
->>       struct cfg80211_registered_device *rdev = info->user_ptr[0];
->> +    struct wiphy *wiphy = &rdev->wiphy;
->>       struct net_device *dev = info->user_ptr[1];
->>       struct wireless_dev *wdev = dev->ieee80211_ptr;
->>       struct cfg80211_pmk_conf pmk_conf = {};
->> @@ -18442,8 +18443,10 @@ static int nl80211_set_pmk(struct sk_buff 
->> *skb, struct genl_info *info)
->>           wdev->iftype != NL80211_IFTYPE_P2P_CLIENT)
->>           return -EOPNOTSUPP;
->> -    if (!wiphy_ext_feature_isset(&rdev->wiphy,
->> -                     NL80211_EXT_FEATURE_4WAY_HANDSHAKE_STA_1X))
->> +    if (!wiphy_ext_feature_isset(wiphy,
->> +                     NL80211_EXT_FEATURE_4WAY_HANDSHAKE_STA_1X) &&
->> +        !wiphy_ext_feature_isset(wiphy,
->> +                     NL80211_EXT_FEATURE_ROAM_OFFLOAD))
+On Mon, Aug 24, 2026 at 02:29:34PM -0600, Logan Gunthorpe wrote:
 > 
-> Ah. _FAST_ROAM_OFFLOAD is not longer than the other ext_feature checked 
-> here.
+> 
+> On 2026-08-21 13:38, Leon Romanovsky wrote:
+> > From: Leon Romanovsky <leonro@nvidia.com>
+> > 
+> > pdev->p2pdma has two lifetime models. Provider-based entry points are
+> > quiesced by their driver before remove completes. pci_p2pmem_find_many()
+> > and the p2pmem sysfs attributes can race with unbind and therefore rely
+> > on the teardown grace period.
+> > 
+> > Document publication, teardown, and how the grace period protects both
+> > the struct pci_p2pdma object and its optional gen_pool.
+> > 
+> > Tested-by: Tushar Dave <tdave@nvidia.com>
+> > Cc: Alex Williamson <alex@shazbot.org>
+> > Cc: Matt Evans <matt@ozlabs.org>
+> > Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
+> > ---
+> >  drivers/pci/p2pdma.c | 54 +++++++++++++++++++++++++++++++++++++++++++++++++++-
+> >  1 file changed, 53 insertions(+), 1 deletion(-)
+> > 
+> > diff --git a/drivers/pci/p2pdma.c b/drivers/pci/p2pdma.c
+> > index a77ef9deb3c6..49bc8cf06240 100644
+> > --- a/drivers/pci/p2pdma.c
+> > +++ b/drivers/pci/p2pdma.c
+> > @@ -21,6 +21,39 @@
+> >  #include <linux/seq_buf.h>
+> >  #include <linux/xarray.h>
+> >  
+> > +/*
+> > + * Lifetime and RCU usage
+> > + *
+> > + * Within one driver bind, pdev->p2pdma is published exactly once, by
+> 
+> Is published the right verb here? Seems like we use published for
+> different purposes in p2pdma and calling pcim_p2pdma_init() publishing
+> reads strangely.
 
-Actually there is a checkpatch warning that line with the STA_1X check 
-is 82 characters. So my suggestion please make it FAST_ROAMING instead 
-of ROAM_OFFLOAD and swap the two checks to fix the checkpatch warning.
+It should probably say "pdev->p2pdma is set exactly once".
 
-Regards,
-Arend
+> 
+> > + * pcim_p2pdma_init(), and cleared exactly once, by the pci_p2pdma_release()
+> > + * devres action that the same function installs. It is never re-pointed at a
+> 
+> "It is never re-pointed at" is some strange wording. I had to read it a
+> few times to understand what it is saying.
+
+Sorry about that. AI + non-english speaker = "re-pointed".
+
+> 
+> > + * second struct pci_p2pdma, so a reader that observes a non-NULL pointer
+> > + * always observes the same, fully initialised object. That object is devres
+> > + * memory allocated before the action is installed, so devres frees it only
+> > + * after pci_p2pdma_release() has returned.
+> 
+> I don't quite follow the point of this paragraph. It's like it's
+> building to some kind of gotcha, but all it seems to be saying is is the
+> life cycle of pdev->p2pdma is the same as the lifecycle of pdev.
+
+Yes
+
+> 
+> > + * Most exported entry points reach pdev->p2pdma through a struct pci_dev or a
+> > + * struct p2pdma_provider owned by the provider driver, and
+> > + * pcim_p2pdma_provider() requires callers to drop those references before the
+> > + * driver's remove() completes. Those cannot run concurrently with
+> > + * pci_p2pdma_release(), and their rcu_dereference() calls are simply how an
+> > + * __rcu pointer is read.
+> > + *
+> > + * pci_p2pmem_find_many() and the p2pmem sysfs attributes are the exceptions.
+> > + * The first walks every PCI device, so it can reach a provider whose driver is
+> > + * unbinding: pci_get_device() pins the struct pci_dev, not the driver. The
+> > + * second is reachable from userspace until sysfs_remove_group() runs at the end
+> > + * of the release. pci_has_p2pmem() must dereference the object to determine
+> > + * whether it owns a gen_pool, so even a poolless object must remain alive until
+> 
+> Maybe a hyphen with pool-less or maybe better to use plain language: "so
+> even a device without a pool must remain alive..."
+
+I will try to simplify the language.
+
+> 
+> > + * that RCU reader exits. The sysfs group is created with the pool.
+> > + *
+> > + * The grace period in pci_p2pdma_release() first protects the struct
+> > + * pci_p2pdma itself from being freed while pci_has_p2pmem() is using it. For a
+> > + * pool-backed provider it also fences the gen_pool: gen_pool_alloc_owner()
+> > + * walks pool->chunks under RCU and gen_pool_destroy() frees those chunks
+> > + * without waiting for a grace period of its own, so pci_alloc_p2pmem() and
+> > + * p2pmem_alloc_mmap() hold rcu_read_lock() across the allocation.
+> > + */
+> >  struct pci_p2pdma {
+> >  	struct gen_pool *pool;
+> >  	bool p2pmem_published;
+> > @@ -235,9 +268,19 @@ static void pci_p2pdma_release(void *data)
+> >  	if (!p2pdma)
+> >  		return;
+> >  
+> > -	/* Flush and disable pci_alloc_p2p_mem() */
+> > +	/*
+> > +	 * Stop new RCU readers and wait for readers that observed p2pdma before
+> > +	 * allowing devres to free it. This is required even without a pool,
+> > +	 * because pci_has_p2pmem() dereferences every non-NULL p2pdma it finds.
+> > +	 * For a pool-backed provider this also fences gen_pool_destroy().
+> > +	 */
+> >  	RCU_INIT_POINTER(pdev->p2pdma, NULL);
+> >  	synchronize_rcu();
+> > +
+> > +	/*
+> > +	 * The grace period also ensures no RCU reader can still be accessing
+> > +	 * map_types here.
+> > +	 */
+> >  	xa_destroy(&p2pdma->map_types);
+> >  
+> >  	if (!p2pdma->pool)
+> > @@ -255,6 +298,9 @@ static void pci_p2pdma_release(void *data)
+> >   * for a PCI device. It allocates and sets up the necessary data
+> >   * structures to support P2PDMA operations, including mapping type
+> >   * tracking.
+> > + *
+> > + * The state is published once per driver bind and torn down by a devres
+> 
+> I still find the use of "published" here a bit odd and I'm not sure what
+> "state" it is referring to.
+
+published == assigned.
+
+> 
+> > + * action on unbind. Repeated calls for the same device are a no-op.
+> >   */
+> >  int pcim_p2pdma_init(struct pci_dev *pdev)
+> >  {
+> > @@ -786,6 +832,12 @@ calc_map_type_and_dist(struct pci_dev *provider, struct pci_dev *client,
+> >  		map_type = PCI_P2PDMA_MAP_NOT_SUPPORTED;
+> >  	}
+> >  done:
+> > +	/*
+> > +	 * pci_p2pmem_find_many() reaches this with a provider whose driver may
+> > +	 * be unbinding, so the store runs under RCU: pci_p2pdma_release()
+> > +	 * clears the pointer and waits for readers before destroying
+> > +	 * map_types. See "Lifetime and RCU usage" above.
+> > +	 */
+> 
+> I don't know, but this seems like we're just describing basic RCU usage
+> here. I'm not sure I personally find much value in the comment.
+
+It was mainly intended to help AI review P2P patches according to the
+lifetime model.
+
+> 
+> >  	rcu_read_lock();
+> >  	p2pdma = rcu_dereference(provider->p2pdma);
+> >  	if (p2pdma)
+> > 
+> 
+> Thanks,
+> 
+> Logan
