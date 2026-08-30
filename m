@@ -1,89 +1,135 @@
-Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f208.google.com (mail-oi1-f208.google.com [209.85.167.208])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 188721E1A3D;
-	Sun, 30 Aug 2026 06:04:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F90A242D97
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 06:07:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.208
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788069876; cv=none; b=gJEUH/7Jv5ZXLu7sc07kt3akR2H5jk0qqW4EuE8wnBJp2JpGTXfe1UoALAeKAI7Kow7tSaUkxiL3bjYiVkBRoIKpKQebxO99L0JbMlE/yc48ratJLwieS0IDzmQKE7uQEAxMlizdc7so5Ks46dPy9YMu6XEIlpVVHuVezn2WDZI=
+	t=1788070050; cv=none; b=szZaNFH1UkqK3o6s7GBY7VATJEoqxRWMXZG1bOgh0sGGz+GtiBJo+IMoOISGRYG9dkAQyLdmsFkdZ+jhk34Bwr9x1wKmArWTvzJOFiG4yfPPBxcD6lCCP/FghKqjI5ObwpY2HuSCo16g01cU7WCE0+CgzSmbLZklT4B2leRL+sQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788069876; c=relaxed/simple;
-	bh=xo1dMyg+/Rd5ThGZUqqfd+WM/Q7yVLItecLF3QdgL8Q=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=evkGkJ7C8AS5N503JtTUQE9In+XMLnVU4G8puFkcTMjsurrqiCs/d0jN2Xu4X7jSo2lo1PPWaCLHbzsJIYOhZG3F46NMUzYmVzi7KONSs0mn6samhVaL51VSac1hS0lfLksFWIDQRPgE/laaRlrwfC8FsKPZRK3VxtDoPvceE0Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=MAHrKP+b; arc=none smtp.client-ip=101.71.155.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="MAHrKP+b"
-Received: from PC-202605011814.localdomain (unknown [58.241.16.34])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4bd37c65a;
-	Sun, 30 Aug 2026 14:04:27 +0800 (GMT+08:00)
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-To: vkoul@kernel.org
-Cc: dmaengine@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	runyu.xiao@seu.edu.cn,
-	jianhao.xu@seu.edu.cn
-Subject: [PATCH] dmaengine: mediatek: initialize tasklets before requesting IRQs
-Date: Sun, 30 Aug 2026 14:04:22 +0800
-Message-Id: <20260830060422.2204459-1-runyu.xiao@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1788070050; c=relaxed/simple;
+	bh=XkPbtOqrriHPiCBNvOsmJOASC0BOzzVjchLp+H9zuRg=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=djVvg0EYkcTznep/hHNtQimPNmy10VsjVQEpiZ95HGS/b9uphwG1JbBaki+1Xlzmpo4tiwqjchoruGtL56Lo0Pph9z02dK+w6qUUbdcyAHZuB2tW6e/h1GW9n4RtIdpgN1gY0b5xpyEszwjrMmM+65+undBLWEZ1buHDJlereiA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.208
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f208.google.com with SMTP id 5614622812f47-4b28d7ffab1so4436953b6e.1
+        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 23:07:28 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788070047; x=1788674847;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=p5La2iTpV+quS/m9MwVA3ijcOPBPbgelWJbwzyRXVRI=;
+        b=cpEtg3x4kvN1YYW6QI2nw1nsvev8ShgnLZD0J4k6+k088Zdv1W4HRG/qKrYDcJGyZp
+         lsujj688D+hCfaC4paRM48QiPxJ3XxF0KPZO5xlW1JsqVGu/9O1W/PqjAg6XLqYs97KW
+         ASi5Ea+iXDEvQ+Cqq68+hjdfxBa7PF7Y+IWfyCIufDowYlW6D5zAjg+JeYUgI/tMAZ1g
+         0E/xyusMmKLcv1DuC7nXq2Or23eUDfOEkVq83NYYWmVxZd3V+cb3yhpQFmZN4TxcxU78
+         e3IhDE9CqqE2HsP2T/0nSYjsNfvD4WBjXVQQzX2ZoBYBezyh1HJGyhkOhVCTDKrz4LYg
+         6TuQ==
+X-Forwarded-Encrypted: i=1; AHgh+RoXK9iiaZRwDkBrj12ALq7QHaCJiDsYDSni1565XDTGISI3NevYoxgcXJYFYBD6YoKGgxhh5IfwDQizGLk=@vger.kernel.org
+X-Gm-Message-State: AFuF++kEwswF3w4wgp6xkplAmfWX9HihoYN+F2f8dumzyvoVOhIasM+n
+	rBScz0+jLU6SHnIZorZWOlNGphOMux7VQ3rkBwoKCEB/Cmn6zAeyEOvjTg7MVH5FZzz0Rk+7f91
+	ZVWy6IvgEi8z2tP/fuB/442QU3HJytgltm71apQe362YAuec0ynzsx6K2bZA=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa05144ef1b03a1kunm1ce9fc29f1215
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDHR9KVhhKTU1OHhhLHhgaTlYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlOQ1VJT0pVSk1VSE9ZV1kWGg8SFR0UWUFZT0tIVUpLSEpPSE
-	xVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=MAHrKP+bvsVpW3fN+Ty/oTRyRsGZp0Z0QLt0ZTL5mTVkcarHO9dcuaxXk79N07DhQJWWn4HIYvNAsyUJYB/0mQOTd2BOk61CftNUpjSUo08FMAaErzuO8VQT44L35H2UHvjd2SZDCFNcnobcpKooxV2U4KCIx2cQOSzesLl5wQQ=; s=default; c=relaxed/relaxed; d=seu.edu.cn; v=1;
-	bh=i7KZYx3u2m5meljaWToLKg2o1Rh8mtUpTkTyuFW8LYE=;
-	h=date:mime-version:subject:message-id:from;
+X-Received: by 2002:a05:6808:144f:b0:492:c9a4:2104 with SMTP id
+ 5614622812f47-4b59e8d21afmr386604b6e.10.1788070047659; Sat, 29 Aug 2026
+ 23:07:27 -0700 (PDT)
+Date: Sat, 29 Aug 2026 23:07:27 -0700
+In-Reply-To: <6a8bd82a.dbb3a75c.13dd47.0060.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a93c89f.08e933ee.dbf97.00fd.GAE@google.com>
+Subject: Re: [syzbot] [kernel?] KASAN: global-out-of-bounds Read in uevent_store
+From: syzbot <syzbot+d164947c037324221043@syzkaller.appspotmail.com>
+To: dakr@kernel.org, driver-core@lists.linux.dev, gregkh@linuxfoundation.org, 
+	jeffinphilip14@gmail.com, linux-kernel@vger.kernel.org, rafael@kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-The CQDMA probe registers each physical-channel IRQ before initializing
-the tasklet scheduled by the interrupt handler. A pending interrupt can
-schedule an uninitialized tasklet while probe is still running.
+syzbot has found a reproducer for the following issue on:
 
-Initialize each tasklet when its physical channel is allocated, before
-registering the corresponding IRQ.
+HEAD commit:    f1b8fa82cab7 Merge branch 'for-next/core' into for-kernelci
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux.git for-kernelci
+console output: https://syzkaller.appspot.com/x/log.txt?x=12e82379580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=d1128bc53f2ef7f3
+dashboard link: https://syzkaller.appspot.com/bug?extid=d164947c037324221043
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+userspace arch: arm64
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=12597d79580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=16e82379580000
 
-Fixes: b1f01e48df5a ("dmaengine: Add MediaTek Command-Queue DMA controller for MT6765 SoC")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:GPT-5
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/932d85a2bda2/disk-f1b8fa82.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/5b6b8fb76e8d/vmlinux-f1b8fa82.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/c246b61ee396/Image-f1b8fa82.gz.xz
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+d164947c037324221043@syzkaller.appspotmail.com
+
+==================================================================
+BUG: KASAN: global-out-of-bounds in kobject_action_type lib/kobject_uevent.c:86 [inline]
+BUG: KASAN: global-out-of-bounds in kobject_synth_uevent+0x1e0/0x730 lib/kobject_uevent.c:200
+Read of size 1 at addr ffff800087b429cb by task syz.0.17/4919
+
+CPU: 1 UID: 0 PID: 4919 Comm: syz.0.17 Not tainted syzkaller #0 PREEMPT 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 08/07/2026
+Call trace:
+ show_stack+0x2c/0x3c arch/arm64/kernel/stacktrace.c:499 (C)
+ __dump_stack+0x30/0x40 lib/dump_stack.c:94
+ dump_stack_lvl+0xd8/0x12c lib/dump_stack.c:120
+ print_address_description+0xb0/0x238 mm/kasan/report.c:378
+ print_report+0x68/0x84 mm/kasan/report.c:482
+ kasan_report+0x8c/0xc4 mm/kasan/report.c:595
+ __asan_report_load1_noabort+0x20/0x2c mm/kasan/report_generic.c:378
+ kobject_action_type lib/kobject_uevent.c:86 [inline]
+ kobject_synth_uevent+0x1e0/0x730 lib/kobject_uevent.c:200
+ uevent_store+0x54/0x84 drivers/base/core.c:2851
+ drv_attr_store+0x80/0xa4 drivers/base/bus.c:125
+ sysfs_kf_write+0xe0/0x108 fs/sysfs/file.c:145
+ kernfs_fop_write_iter+0x260/0x3b8 fs/kernfs/file.c:345
+ new_sync_write fs/read_write.c:595 [inline]
+ vfs_write+0x51c/0xa0c fs/read_write.c:687
+ ksys_write+0x12c/0x228 fs/read_write.c:739
+ __do_sys_write fs/read_write.c:750 [inline]
+ __se_sys_write fs/read_write.c:747 [inline]
+ __arm64_sys_write+0x84/0x98 fs/read_write.c:747
+ __invoke_syscall arch/arm64/kernel/syscall.c:35 [inline]
+ invoke_syscall+0x98/0x244 arch/arm64/kernel/syscall.c:49
+ el0_svc_common+0xec/0x23c arch/arm64/kernel/syscall.c:121
+ do_el0_svc+0x4c/0x5c arch/arm64/kernel/syscall.c:140
+ el0_svc+0x64/0x260 arch/arm64/kernel/entry-common.c:758
+ el0t_64_sync_handler+0x44/0x104 arch/arm64/kernel/entry-common.c:777
+ el0t_64_sync+0x198/0x19c arch/arm64/kernel/entry.S:590
+
+The buggy address belongs to the variable:
+ .str.34+0x6b/0x80
+
+The buggy address belongs to a vmalloc virtual mapping
+The buggy address belongs to the physical page:
+page: refcount:1 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x21a142
+flags: 0x5ffc00000002000(reserved|node=0|zone=2|lastcpupid=0x7ff)
+raw: 05ffc00000002000 fffffdffc7685088 fffffdffc7685088 0000000000000000
+raw: 0000000000000000 0000000000000000 00000001ffffffff 0000000000000000
+page dumped because: kasan: bad access detected
+
+Memory state around the buggy address:
+ ffff800087b42880: 07 f9 f9 f9 05 f9 f9 f9 07 f9 f9 f9 00 f9 f9 f9
+ ffff800087b42900: 05 f9 f9 f9 07 f9 f9 f9 00 02 f9 f9 00 00 00 00
+>ffff800087b42980: 00 00 00 00 00 03 f9 f9 f9 f9 f9 f9 00 00 00 00
+                                              ^
+ ffff800087b42a00: 00 00 01 f9 f9 f9 f9 f9 00 00 00 04 f9 f9 f9 f9
+ ffff800087b42a80: 00 00 02 f9 f9 f9 f9 f9 06 f9 f9 f9 00 00 00 00
+==================================================================
+
+
 ---
- drivers/dma/mediatek/mtk-cqdma.c | 5 +----
- 1 file changed, 1 insertion(+), 4 deletions(-)
-
-diff --git a/drivers/dma/mediatek/mtk-cqdma.c b/drivers/dma/mediatek/mtk-cqdma.c
-index 80791e30a..8038f14d1 100644
---- a/drivers/dma/mediatek/mtk-cqdma.c
-+++ b/drivers/dma/mediatek/mtk-cqdma.c
-@@ -815,6 +815,7 @@ static int mtk_cqdma_probe(struct platform_device *pdev)
- 		INIT_LIST_HEAD(&cqdma->pc[i]->queue);
- 		spin_lock_init(&cqdma->pc[i]->lock);
- 		refcount_set(&cqdma->pc[i]->refcnt, 0);
-+		tasklet_setup(&cqdma->pc[i]->tasklet, mtk_cqdma_tasklet_cb);
- 		cqdma->pc[i]->base = devm_platform_ioremap_resource(pdev, i);
- 		if (IS_ERR(cqdma->pc[i]->base))
- 			return PTR_ERR(cqdma->pc[i]->base);
-@@ -869,10 +870,6 @@ static int mtk_cqdma_probe(struct platform_device *pdev)
- 
- 	platform_set_drvdata(pdev, cqdma);
- 
--	/* initialize tasklet for each PC */
--	for (i = 0; i < cqdma->dma_channels; ++i)
--		tasklet_setup(&cqdma->pc[i]->tasklet, mtk_cqdma_tasklet_cb);
--
- 	dev_info(&pdev->dev, "MediaTek CQDMA driver registered\n");
- 
- 	return 0;
--- 
-2.34.1
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
