@@ -1,63 +1,63 @@
-Received: from mail-yw1-f178.google.com (mail-yw1-f178.google.com [209.85.128.178])
+Received: from mail-yw1-f181.google.com (mail-yw1-f181.google.com [209.85.128.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CD05358399
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 23:22:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1D85356754
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 23:22:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788132145; cv=none; b=X5vMUHNbVnseshWi9aqH7xj8Rd2G+nYxU3rRBn9H6ZI3nmbwKXMYwRVxhoH2T4Jqjlz5SgG+rvHIuHMhFmDegFqzIFx4lqUCh7uS7etNobysxk7Z77RKsPQ1eCERRRA0Rt+x1AgX+iLOSLFEiWRJUIRlsVIW9Jf+qWSi8/Fg1wA=
+	t=1788132151; cv=none; b=UXZteFyGz091mjJqCODgunZ9vFQcgrIGxLpNZYbGokk5eiD+xOWKYcj+VS7wOvmwACabuk42fv+rvg1I6tDr940PE386gj6SZPvt9aoLCRS3nNwaAXTNLmOIEzH/vzk3+0Uy3en82KAnh0aocf//CWh3UuwKjWX0GPLtTTpecB8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788132145; c=relaxed/simple;
-	bh=lWdkSLVMrJME+IC4sl1WFmK4U1DvQrIT1XEOvyx3X9M=;
+	s=arc-20240116; t=1788132151; c=relaxed/simple;
+	bh=i2wCKpYfmJRZYMcu671/cz07L/pWSr8Quj12tbY6/lc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=l7nSD3wHE7ycZmt8Ri8h7PjqZmXDfZ+ch+OyAWcYnAXBLAbbRfU7BXLjkL/k2OcoVKA/id3qfYNUputVGsHbXLoQCYm1dcHCuSJiksSj5ZzmUPoNPrPcr5LNV5oaw+U3qPdvaomejBJkVdwVYuB0chHbuK48Lgi2GoEyaYidxYo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JTsrHMgF; arc=none smtp.client-ip=209.85.128.178
+	 MIME-Version; b=oTEmQQnv55Aia3L3x1SYxJQq6qle9wbqk5yHvVgkgvOHw9QN5Shw6Tak8cxp/k0d9gfUi8kmJLPxEv7T+v20pj9F7JFLqxoGY/wkHKdfBjE2ct9aXTB2o6Qs3YL45nlsULuBR3UnjXKT2/UJPJuhe6bM/QzvTxy97UvfBCmSFs8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QGACnzyh; arc=none smtp.client-ip=209.85.128.181
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JTsrHMgF"
-Received: by mail-yw1-f178.google.com with SMTP id 00721157ae682-861feb6d61bso8303757b3.2
-        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 16:22:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QGACnzyh"
+Received: by mail-yw1-f181.google.com with SMTP id 00721157ae682-86162c086f8so13802477b3.1
+        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 16:22:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788132143; x=1788736943; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788132149; x=1788736949; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=oDyIKzL6PQfyOtcZdXIqJp7bl04CBybW0yg006Rr6/Q=;
-        b=JTsrHMgF3Sr0E2BdUIqgdWLqVBl6CGEQTO5CbSaBs5JvJ2yFHrUiD09jUGYgoMC/pg
-         13xtSMJQWrOhHGzDkjslSIH0EE3+sIfbw0rFkGQsJgXL3r5A122PbMhqJawjyY8Fb8yB
-         Ca+iVoLsE2Qe2WGMGjcQWQDmxpDeZ20DpALdaHKQfki05ocWiGc/Bf+DimAevTwS/TJu
-         WyJIkV65Mluvti/7D0EUhEkdwI46VilB2YbTNorWYesNQMGDlp2VSADvey7erA5GqEpN
-         SNJOT4spYvuJmDQeiG3zH7QJq8OOm7b8w2VQT7UkqZ9AxydW7kUwBUi3JWVnVzTvONGX
-         YLfA==
+        bh=l1d2o7Bv+elIT7N1ffI/14l1K9kWTm1+Hxafq5ZWY3U=;
+        b=QGACnzyhRC4A5f+CZiaBYXIL8g5FZJyveQSty0Aps5wF6F4MbxkyQHWuaOCp6LVCcy
+         J8Rwu/wY4eK7JfUeaa70ImGYWVLeshiAis1DdIfvnvzGcAK5MqbqMkVnURh94ySlkgCD
+         JC/wJ9KAAtRziRAIRCIE3Yxk7jZwuMKnRxuyobiCS9yu1txof4MHtoVknYf1Mh/YxSKo
+         aCViUvdhKq5v1I5Y6Z+Uk/90MtvZT9YmloAzIGbDVSg30vehilEgJwc0WS3oB2ozdNqq
+         Tsh3mrjGMP2sUtUyHN8R4FIfnle0vPFeScrm5r0aBYSFwmHN1CFN0i+t9y1RdOpSEiar
+         jbTw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788132143; x=1788736943;
+        d=1e100.net; s=20251104; t=1788132149; x=1788736949;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=oDyIKzL6PQfyOtcZdXIqJp7bl04CBybW0yg006Rr6/Q=;
-        b=g47Op4Sn7/igP0MdqK8lCtJddIstyKRGYiREtDsQOvM9agyn09d2BC5k2/Y9K1LHll
-         22DuL9NuT/CqxFylT/a/PHrQQenmw6ATy89Ad02TfA6a4X+h31jollMSBdzzhYeAZRPK
-         xeVORmBfAqtSiU2B3DCaAuv0UFILTJXHb71iWA+b326UXObkhtp7vUSIEZerCa8OCYle
-         JGFZA/rt6Nak4dCGEMl3JBdr7Te/SaXu1WlIv3qw2MdTB89mpQh4CVMlYKlqs8yfb0rR
-         o8PtrTO5XyDlQZSBXp8/3pZ1CsaPU0fMHL9sTt9/+ZYWnV9hmHed+DIDqJxHiaVIhWOY
-         3wOg==
-X-Forwarded-Encrypted: i=1; AKwUvByUSDe0W6t1nva43MDIpeVKi0z8zR4hXnUkaawVVQR4RO9xaW3Q8LNdvjGZ5tB8fY/LrlMkf8yMveJ2TtM=@vger.kernel.org
-X-Gm-Message-State: AFuF++nueibppUgP4QM7uDTLU2E3IuZstX4Mc2Ru8HECBPJgpbgsu5ge
-	qgY/lfSx+Esnpowr2eB99OQxpi1d/bk5eqm+Jh4F8G0W83jZ/MGaZOx4
-X-Gm-Gg: AYBFou2IMDNjx5PRtaUkiJdB0ir9VT1CfZ3gfk6DNBFH81p0cIjUYT7eivzoc3bndvd
-	2l5x7Hdb7niNJ2JcTnJwd1Zol09ApWZZrj3DUjv9GlFN7+QtyrBfG/xX7BWH/nCEI22h7z4J73q
-	OROA/jD5SShc63feQVEvhbawewRiN3Oe7DFDlxj1lYO0oMP9l1HJoDvcOT92jMWeH/wst5R96mB
-	0rWqQq3+SJaHPEJgmikpSkqyA/tpOs9ekr6vviGPYFYFbJCWP+OjW890ptQA77+K5zBDwSqmF2y
-	J/k7N/l1pHRbcbDs8U+WPLKJ2asNlWr0ycjTJz6gXl/OGFiLd4o4LURYsRSDDSv0us903CIqHpS
-	jDpq6JGhN2nMfDfjoIA5iQl+YFAn55u9UF5IOk+dhjfaYL1d23NXDwJ8Q+8O6nOxSBSa5n11ObB
-	eKaxepjAu8sjiIceKVy4UuZj32HYVNmm9ai68bo70ofA7Z5pehKUE=
-X-Received: by 2002:a05:690c:e294:b0:862:65f4:c8c2 with SMTP id 00721157ae682-86726879df3mr283417b3.21.1788132143343;
-        Sun, 30 Aug 2026 16:22:23 -0700 (PDT)
+        bh=l1d2o7Bv+elIT7N1ffI/14l1K9kWTm1+Hxafq5ZWY3U=;
+        b=OJDXFoKh2iAaDb+myQjOCjZkCvofU2fz2oLoKoED2xXza/eksiFKU/WW+EzhuiHEH/
+         ClXF8zkhsIa4BP1HfrrjOVTRvCXd5C7iZf8Mgb0iyW0YWEshyy3hmWh8KLd3V2+Ho2fo
+         IL8ONuP0XYQ+LAG9XafxefocrhA12Ke2M8Lxqb7i1cFhfJGY6Db8ZyqJCW0Id8MqHUrE
+         +RtyaijVr1pKTDBTM7eu8pUkNm0OlIP0Tsfk4aVTTXsswbDZ2IOyPHn6DSHnvoZ5oMj+
+         Eovn6I2wmAC1sy+WPPRQRqOipHEMjCNdzuBGb0B7FibdJUpaF2kAwo6/yXCb8W4vB55t
+         mcBA==
+X-Forwarded-Encrypted: i=1; AKwUvBzoQOD2dbAKv9GWznlVp86+ygYQPeXDUptwo/XMKWYiej5VIC//h43TzZIEwiptDjNU6EKKh7Kv1mQ4NEU=@vger.kernel.org
+X-Gm-Message-State: AFuF++k15VwHaBltUGR4E/jjjhoXzDlMiPqhWpPctGjD/0vwVtVntvhl
+	26DoBDo2FQw44GNpFsmGLHHBNzbh6FcXpKOwsNkCD6WcOlLR4uIvGoIc
+X-Gm-Gg: AYBFou3L/Jgj8qVr16PaA7s1VUSWp36fVPnFyLkul8MK9BpQpq5Ylh9xVOX05e9y7b0
+	Qo1G74NM94RynjRLim+o0uGsV6L/5V9LwLHNIXHsRDkdY5jOEuFUO+vVrv+hiT8Owa6HkGEVbpp
+	AMo8wLitzOAZ+l8ZDuZxWfUbBhvqAFf82i5qMe54kon9TA0ukbFdGqRqpk1fWnUMTxqLSSGXS2T
+	hsdLhF7b93lsMHwfwzoJcvECvSxf77x9DX+FGCIXDh/qADeu/NC1bGO3sH3QsxJ8kwY+M1MJY2E
+	uVWaMTNyPQXVaUcyhcTC80pQa2CfPCWNI3caoml6wh1tdzM1q3NpYAQ+SSLxJ5Pu/yookPqrqPc
+	5pONVc2gJXMOkgqHyeso+XwUADtm6E9p9YJXW6xhsETVY7j0nDigs4KeOQING190WrUxiVQ6o/N
+	vgSYx84/dPC5H3zLTCneOUhkKWz9U6UEznillbsDzj3g==
+X-Received: by 2002:a05:690c:e3ca:b0:858:bf8e:d0a4 with SMTP id 00721157ae682-864f634fffbmr13982757b3.18.1788132148676;
+        Sun, 30 Aug 2026 16:22:28 -0700 (PDT)
 Received: from devobuntu.lan ([2600:6c5c:6b00:316::23])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-85e677606aesm39025937b3.45.2026.08.30.16.22.22
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-85e677606aesm39025937b3.45.2026.08.30.16.22.26
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 30 Aug 2026 16:22:22 -0700 (PDT)
+        Sun, 30 Aug 2026 16:22:28 -0700 (PDT)
 From: Matt Vollrath <tactii@gmail.com>
 To: intel-wired-lan@lists.osuosl.org
 Cc: netdev@vger.kernel.org,
@@ -76,9 +76,9 @@ Cc: netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Matt Vollrath <tactii@gmail.com>,
 	stable@vger.kernel.org
-Subject: [PATCH iwl-next 2/8] e1000e: dump pages for jumbo Rx buffers
-Date: Sun, 30 Aug 2026 19:21:40 -0400
-Message-ID: <20260830232146.36948-3-tactii@gmail.com>
+Subject: [PATCH iwl-next 3/8] e1000e: prevent race between PM and reset task
+Date: Sun, 30 Aug 2026 19:21:41 -0400
+Message-ID: <20260830232146.36948-4-tactii@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260830232146.36948-1-tactii@gmail.com>
 References: <20260830232146.36948-1-tactii@gmail.com>
@@ -90,52 +90,70 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The jumbo Rx path keeps its data in buffer_info->page rather than the
-skb, which is only a shell. Previously data beyond the end of the skb
-allocation would be dumped. The jumbo path would at best dump useless
-garbage. At worst it would dump arbitrary kernel memory. This OOB read
-is only reachable when page size is >16K and MTU is >1518.
+e1000e_down could be entered simultaneously by the reset task and the
+runtime PM suspend callback. Prevent this by acquiring a runtime PM
+reference in the reset task.
 
-Dump the page instead when it exists. Skip dumping the shell skb left
-behind when a jumbo slot is cleaned.
+The intention is that:
+* A reset attempted during runtime suspend should drop silently; the
+  interface is already going down.
+* A runtime suspend attempted during a reset will be retried later.
+* All callers of e1000e_down are now serialized.
 
 Signed-off-by: Matt Vollrath <tactii@gmail.com>
-Fixes: f0c5dadff3fb ("e1000e: fix panic while dumping packets on Tx hang with IOMMU")
+Fixes: 23606cf5d119 ("e1000e / PCI / PM: Add basic runtime PM support (rev. 4)")
 Cc: stable@vger.kernel.org
 Assisted-by: Claude:claude-5-fable
 ---
- drivers/net/ethernet/intel/e1000e/netdev.c | 17 ++++++++++++++++-
- 1 file changed, 16 insertions(+), 1 deletion(-)
+ drivers/net/ethernet/intel/e1000e/netdev.c | 25 ++++++++++++++++++----
+ 1 file changed, 21 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/net/ethernet/intel/e1000e/netdev.c b/drivers/net/ethernet/intel/e1000e/netdev.c
-index 599600ad695c..47ff3c6ab451 100644
+index 47ff3c6ab451..4c15ca307b08 100644
 --- a/drivers/net/ethernet/intel/e1000e/netdev.c
 +++ b/drivers/net/ethernet/intel/e1000e/netdev.c
-@@ -465,8 +465,23 @@ static void e1000e_dump(struct e1000_adapter *adapter)
- 					(unsigned long long)buffer_info->dma,
- 					buffer_info->skb, next_desc);
+@@ -6004,20 +6004,37 @@ static void e1000_tx_timeout(struct net_device *netdev, unsigned int __always_un
+ static void e1000_reset_task(struct work_struct *work)
+ {
+ 	struct e1000_adapter *adapter;
++	struct device *dev;
++	int rc;
++
+ 	adapter = container_of(work, struct e1000_adapter, reset_task);
++	dev = &adapter->pdev->dev;
  
-+				/* Jumbo buffers land in the page; a cleaned
-+				 * jumbo slot keeps only its small shell skb
-+				 * until it is refilled, so only dump an skb
-+				 * that can hold a whole buffer.
-+				 */
- 				if (netif_msg_pktdata(adapter) &&
--				    buffer_info->skb)
-+				    buffer_info->page)
-+					print_hex_dump(KERN_INFO, "",
-+						       DUMP_PREFIX_ADDRESS, 16,
-+						       1,
-+						       page_address(buffer_info->page),
-+						       adapter->rx_buffer_len,
-+						       true);
-+				else if (netif_msg_pktdata(adapter) &&
-+					 buffer_info->skb &&
-+					 skb_tailroom(buffer_info->skb) >=
-+					 adapter->rx_buffer_len)
- 					print_hex_dump(KERN_INFO, "",
- 						       DUMP_PREFIX_ADDRESS, 16,
- 						       1,
+ 	rtnl_lock();
++
++	/* Runtime suspend downs the device without holding rtnl.  Hold a
++	 * runtime PM reference so it cannot start underneath the reset, and
++	 * skip the reset if the device is already suspending or suspended:
++	 * resuming resets the hardware anyway.
++	 */
++	rc = pm_runtime_get_if_active(dev);
++	if (!rc)
++		goto out_unlock;
++
+ 	/* don't run the task if already down */
+-	if (test_bit(__E1000_DOWN, &adapter->state)) {
+-		rtnl_unlock();
+-		return;
+-	}
++	if (test_bit(__E1000_DOWN, &adapter->state))
++		goto out_put;
+ 
+ 	if (!(adapter->flags & FLAG_RESTART_NOW)) {
+ 		e1000e_dump(adapter);
+ 		e_err("Reset adapter unexpectedly\n");
+ 	}
+ 	e1000e_reinit_locked(adapter);
++
++out_put:
++	if (rc > 0)
++		pm_runtime_put(dev);
++out_unlock:
+ 	rtnl_unlock();
+ }
+ 
 -- 
 2.43.0
 
