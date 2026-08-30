@@ -1,281 +1,299 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8F6943B27FB;
-	Sun, 30 Aug 2026 11:58:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mx0b-00364e01.pphosted.com (mx0b-00364e01.pphosted.com [148.163.139.74])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C02B39E6CD
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 11:59:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.139.74
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788091093; cv=none; b=qDrZCVQ3Sc39dnirrwgVM9RD0fa7n3q1vIWgLK5Nq/aAWH/BYEjIQd4cSw8wM/etDJO10vjM4flEONk9BfQgXR+szx/Un7+6akLD+tMmcdUtMzYQhbfiQOMP7fAaljvb4iBOVKP11EGYdjVs9zORJHpaewhAsK36LVbW+hLEpGs=
+	t=1788091146; cv=none; b=kyhsYqCKlyneT+XqVW+YdWEes0+z6JcMmY1o7/EEbqkHdWbCgV/t3VWy8NpfCfl152RFdjVWVjEY8BigXA8wqAvh65xjrHgeiNfizBq0rhU4l65XvjnIxjyXacEenKGmKZOaL8t0KEJdcMCYgQZJYq6FdSvJ75KoLxP3/4p+ANE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788091093; c=relaxed/simple;
-	bh=IYp92z4c1GvSh3j+1HhyFeJSLA35rEUerY8K7gzGp0w=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=NkQNHLRlucDlBrYo0UrBxGBQiLrY5bbLJ1rZz0g/8vNz2yBVGsuODFmSxQ9GQ3k4zsgCjc2lRTnrmqh4rIxSZ3G4DWWF+zPe2hRwvwHZPFhq2MfZJ9K0LIz+P4M9b+Q7AWaZ4IUo9UH6Sfb/MIZRFgGf5qz90lyixUfYpggY+us=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=kxhhK+gx; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1788091146; c=relaxed/simple;
+	bh=o/uLwB/ZLdTGDM5qgnMqn7XqpOXx8vUfbZPnw1YgPaw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=g4dVeFyuTvVBBd1Q3KFVfvlhneU9XVIvkabv1A2i5LyoAkQQWTSOJP34HMpLYEJFM+Lv6S3QJIN/DVmX4tzRFAZ1kM48Y2+7z2xvo3SvAZ3exNttDwLgb/xVc8DUyjR3Dk31RXkcYfvsFPVKrQ2D6/1GBEoYR6r5+0cku5u3Gbs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu; spf=pass smtp.mailfrom=columbia.edu; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=R1fYfzRZ; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=AmXOrv2V; arc=none smtp.client-ip=148.163.139.74
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="kxhhK+gx"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 5A8901477;
-	Sun, 30 Aug 2026 04:58:04 -0700 (PDT)
-Received: from e127648.arm.com (unknown [10.57.5.212])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 9F4C03F66F;
-	Sun, 30 Aug 2026 04:58:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1788091088; bh=IYp92z4c1GvSh3j+1HhyFeJSLA35rEUerY8K7gzGp0w=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=kxhhK+gxocAd4urvrX1ubE/UHpFueYDB54L5Xh/0TvbSFR4txVufMliyIRrCL1lUm
-	 WEvSJa+ZvGJz8qhSohugMtYRk8tIay3V/+2mNxAqXR2JDdLwyM+6MCJXAhPHWAIyMb
-	 9yFWrMZjPX3ApFb6hM8Tyb2jnMBV4iE12xH/ok+Y=
-From: Christian Loehle <christian.loehle@arm.com>
-To: "Rafael J . Wysocki" <rafael@kernel.org>,
-	Viresh Kumar <viresh.kumar@linaro.org>
-Cc: linux-pm@vger.kernel.org,
-	linux-acpi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Len Brown <lenb@kernel.org>,
-	Jie Zhan <zhanjie9@hisilicon.com>,
-	Lifeng Zheng <zhenglifeng1@huawei.com>,
-	Pierre Gondois <pierre.gondois@arm.com>,
-	Sumit Gupta <sumitg@nvidia.com>,
-	Sudeep Holla <sudeep.holla@arm.com>,
-	Ionela Voinescu <ionela.voinescu@arm.com>,
-	zhongqiu.han@oss.qualcomm.com,
-	Christian Loehle <christian.loehle@arm.com>,
-	Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH v6 15/15] ACPI: CPPC: Clear Performance Limited without a stale read
-Date: Sun, 30 Aug 2026 12:56:44 +0100
-Message-Id: <20260830115644.2056983-16-christian.loehle@arm.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260830115644.2056983-1-christian.loehle@arm.com>
-References: <20260830115644.2056983-1-christian.loehle@arm.com>
+	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="R1fYfzRZ";
+	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="AmXOrv2V"
+Received: from pps.filterd (m0499198.ppops.net [127.0.0.1])
+	by mx0b-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67UAm6m43795738
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 07:59:03 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pps01; bh=Cga6
+	AlYSi7DCvZrZkLitELwSbIPiw2zoKeAlwpkN2QM=; b=R1fYfzRZvSO1FDHDhGXw
+	PcaI6hMnEQ/xqggSf7cs1BiJfs1arR1Ga52y2IMmdtQHz9ERH8r+lTSXR7AEIGEi
+	uZ0VzBon73C3fwyQew/NIGcr97SjbOHZzm4ndo3vN47Hgtuz8eiDxisN4zVftZHh
+	W1XyGiVVqTuueMMPOd5OlGyGeoOvQEdUKdi3Il2hRko9Z5HKsURS6SGZYDnTqo/M
+	eE4Wf6UQACIzzDcNudBTmUHxNEuz5PdrK2iL/RlD2M8hcoD+YJpMfdLyAiDfEdTz
+	uO0sJoyhcu9HpCUg2oEmRXt9/OLYJyqPrwfsdwiRWd+g4lWtMqABYNzeZav8GgZk
+	HA==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
+	by mx0b-00364e01.pphosted.com (PPS) with ESMTPS id 4gcgdtgh8m-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 07:59:02 -0400 (EDT)
+Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-52fc3bff8bdso37267521cf.3
+        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 04:59:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=columbia.edu; s=lionmail; t=1788091142; x=1788695942; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Cga6AlYSi7DCvZrZkLitELwSbIPiw2zoKeAlwpkN2QM=;
+        b=AmXOrv2VWRyDaOVvRlVmINAaOLSjDygO++DzRs4t/tjCGJZb7glUKAgajUB4XT19R3
+         KMYVaUVA41cz9IYSr/bG9R4qCn+LL9eXOdoY+gmC8a/nmJtNK/4AuGsA3fpvivU3Ieqz
+         MKOep5C9PtPbtnnDrg6QbZXJS+hCIjV0so+BMgDyi2GaYDVI9vXwWI1Z2HE1itkKf7r4
+         4k/MV41Dz4JaTQ7y2AWwUXeaz8Zi13t9WTGPeuY7q6RzfJ2+GjFE7dStNcUbA6DbJGdr
+         v31XdhISZ1HYfKPx2n53VdCe1HPSlLCcj5adgZnxprH0JEW36uWMPQ0gNYAlUFsKFLb3
+         mMyQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788091142; x=1788695942;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Cga6AlYSi7DCvZrZkLitELwSbIPiw2zoKeAlwpkN2QM=;
+        b=RnNlSHWEgnB1B0LOkU7D8mlloptSqURQ7025gT3FNW11Rp0XTYQ9TJMb8d/aG/W9JE
+         FdwLVZ/DUYVsCQnKXgxLp90K82W8dmGELRHv5y3EF7grW0FJb+gS4pFnsZw9ZPDC7rNz
+         9wHTyJ2nBlHECZOnHLyHiAcpbVkENzYF4QFhcVvb4cc4Vomr0SEE+RVJk/HiQEJDW+NV
+         bUoQsjqsMwCk/OUOesaEa0mrkzkh0k2g0uudbXApigPtltVk9Rwp9F8ctm15L8tWQ6jy
+         biRnMv4ZrKakhRUs1vLm3ccbTSviaLz9bKKKooDbfOo4c7/e47LWsD9EB4HFSpxnpIh3
+         po9Q==
+X-Forwarded-Encrypted: i=1; AHgh+RqyzTsTGo7kNHYRic5q5kKEqzOPvCFIQCcuBhrnC1RLODUUbb2AiIp1BrFgkGgRzP+rkIKiflUVs9pRVzQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++nbbhy4A0htjfIMWpCAYrZFR6GWV3W9u6Nx1xgiFvKWtAsX0j9K
+	qyb2Zh8BFXFU+uDgi2w7D/tvJpuNsKxufyFp5riYw3R07NaWLCrZ7fww/mlTmzvCdXAGPKAz0fb
+	yXBs1TaSybP/c4Mx0EbWJvphZI+yuxY6tn2Ymm12RS6SPb+MpeztXl/Y/kTWg4A==
+X-Gm-Gg: AR+sD10e1KcKh93+wVWMMD+qmB1R1wy5Kj4kuoDw6TIQMpzakcKyzIFdChiB5z20RwV
+	WQYK8D+9TYOTsSIeR2impVTaD1mC66b9yAFcTZc0WWUoM3UpohSEhnoBr14R8JwA97kMDDBGE9a
+	xln3SQFE11cDuvEV/bW3I6+D1GrTZhxKwPXIDk32Tu0ANB5DEXCGVvOr9w7CPbMPA0c6ReRVHTr
+	8XSp/1l08kI+1eyxKU/Rm0XJ/G6asmWm4VLRO+JE6JKx2up/0lj6IeQF+uRYrDo5RXha+Z79cf9
+	WlIYWrx8ed8NH5OeiKbkXPTJWafv0D6S6D/KOnfzLFqLCccTj8K3W1RK+9JDc9NOiypj/FTDtVv
+	pxR+c8Hz+oeo5Qni0dY+ThCvkV2OwV6X6imWdcBmYyLxUdsk=
+X-Received: by 2002:a05:622a:550a:b0:52b:4e1f:940e with SMTP id d75a77b69052e-52fb93b34b5mr233769051cf.1.1788091141987;
+        Sun, 30 Aug 2026 04:59:01 -0700 (PDT)
+X-Received: by 2002:a05:622a:550a:b0:52b:4e1f:940e with SMTP id d75a77b69052e-52fb93b34b5mr233768661cf.1.1788091141539;
+        Sun, 30 Aug 2026 04:59:01 -0700 (PDT)
+Received: from [192.168.0.175] (bzq-79-179-7-133.red.bezeqint.net. [79.179.7.133])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482fbb32d30sm16562243f8f.34.2026.08.30.04.58.59
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 30 Aug 2026 04:59:00 -0700 (PDT)
+Message-ID: <076bb01b-6fcf-4691-be8c-0e8507c9fe64@columbia.edu>
+Date: Sun, 30 Aug 2026 14:58:58 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4] mm: filemap: retain mapped dropbehind folios
+To: Wenjie Qi <qwjhust@gmail.com>, willy@infradead.org, jack@suse.cz,
+        akpm@linux-foundation.org
+Cc: linux-fsdevel@vger.kernel.org, linux-mm@kvack.org,
+        linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+        baohua@kernel.org, axboe@kernel.dk, trond.myklebust@hammerspace.com,
+        jaegeuk@kernel.org, chao@kernel.org, qiwenjie@xiaomi.com
+References: <20260820142956.1414337-1-qiwenjie@xiaomi.com>
+ <3fa43eaca792bc0bbde4b82a6c1fcdd3f528b398.1787999152.git.qiwenjie@xiaomi.com>
+ <4aba05e1a2c3b61cb337d373eb9b7a8db4ddd822.1788024049.git.qiwenjie@xiaomi.com>
+ <20260829111621.41ed2bc9a0e99e3367eb96c3@linux-foundation.org>
+ <ef160933595c365f2c47597b260bc7ecd98ed7ce.1788029516.git.qiwenjie@xiaomi.com>
+Content-Language: en-US
+From: Tal Zussman <tz2294@columbia.edu>
+In-Reply-To: <ef160933595c365f2c47597b260bc7ecd98ed7ce.1788029516.git.qiwenjie@xiaomi.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODMwMDEwMSBTYWx0ZWRfXxoQ/uh31EHw3
+ 8JAQ7sSxDNxe/iKNkPysrJ+7faRWMk1EuPoG3q6VixTCv8JEulTyor2XdLiURABaEuLZ/ULZqTu
+ DqbBCebrCvcgphfwqzqODSvoR9VkVfvsT099v5N/OMsNpYHpczTb1q1XjNFhX9ccodSwWN6WNph
+ /7lkhnNXtKw1PDIZ+uUDbiSLnLDVJpeZIRXf6ttIfPLiJ+/rijjxCayiB3V9il5iYcI7uxwkK3E
+ q3e5qOasnmygvs50LzA3HbfcHokx9DHnel3LZNgMfigWNBqSI1qk5GI1TrnkORfMFNPJWj030JV
+ taiQF7qaEHdJVAUd+oV+OnyryWAWazIHbqNCc4rNIUDNn7y9/QzAhR/Kq2YLe2eQvhGG6mwmniw
+ /R11gHaTjFJ3djbrSWUNSkW8eVrlgQ/BNCAQxFbK6l59Vdp56eq+Ts5y3JhJ8r1oIreI6f96y4j
+ sttGCn0tt/kBoEL/zJQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODMwMDEwMSBTYWx0ZWRfX3VbzcDM9eupH
+ f51F8V9f3PIdfQMbeLeqAyXo725tJph8sw8KRpCUr5RJjR5lJx2n0DdxCmy+YbuVSWaYeJvtJbG
+ TTKu21xXov0OgV+HLFZYu/OobgVZjxjrAv4/e5M2amc08uq60AoU
+X-Proofpoint-GUID: HmAaHdptFNI7dP1YjqYDjYDtOmjD8Mbo
+X-Authority-Analysis: v=2.4 cv=ZKXnX37b c=1 sm=1 tr=0 ts=6a941b06 cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=LRATYcvZeiQrLRB5MfbBvg==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=BpGzv1V74M3SfeTrGa8v:22
+ a=IeNN-m2dAAAA:8 a=VwQbUJbxAAAA:8 a=JfrnYn6hAAAA:8 a=G6hifmNftL5Xi8x2x9UA:9
+ a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=uxP6HrT_eTzRwkO_Te1X:22
+ a=1CNFftbPRP8L7MoqJWF3:22
+X-Proofpoint-ORIG-GUID: HmAaHdptFNI7dP1YjqYDjYDtOmjD8Mbo
+X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11890
+ signatures=596817
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 spamscore=0 bulkscore=10 priorityscore=1501 malwarescore=0
+ suspectscore=0 clxscore=1015 phishscore=0 lowpriorityscore=10
+ impostorscore=10 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2608300101
 
-The Performance Limited status bits are sticky and write-zero-to-clear.
-ACPI 6.6 Section 8.4.6.1.3.2 also requires both entities to use interlocked
-accesses.
+On 8/30/26 6:25 AM, Wenjie Qi wrote:
+> From: Wenjie Qi <qiwenjie@ xiaomi. com> Fault-around can map ready dropbehind 
+> folios without going through the normal page-cache lookup that clears 
+> dropbehind. A mapping represents a competing cached user, but writeback 
+> completion can currently
+> ZjQcmQRYFpfptBannerStart
+> This Message Is From an External Sender
+> This message came from outside your organization.
+> ZjQcmQRYFpfptBannerEnd
+> 
+> From: Wenjie Qi <qiwenjie@xiaomi.com>
+> 
+> Fault-around can map ready dropbehind folios without going through the
+> normal page-cache lookup that clears dropbehind. A mapping represents a
+> competing cached user, but writeback completion can currently unmap that
+> folio. A later mmap access must then fault it back in.
+> 
+> Retain mapped folios instead. For a mapped folio,
+> folio_unmap_invalidate() can call unmap_mapping_folio(), which takes
+> i_mmap_rwsem and may sleep. Retaining the folio also avoids this path when
+> folio_end_dropbehind() runs in non-preemptible task context.
+> 
+> Unmapped dropbehind folios continue through the existing invalidation path.
+> 
+> Fixes: fb7d3bc41493 ("mm/filemap: drop streaming/uncached pages when writeback completes")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Wenjie Qi <qiwenjie@xiaomi.com>
+> Reviewed-by: Matthew Wilcox (Oracle) <willy@infradead.org>
+> Reviewed-by: Tal Zussman <tz2294@columbia.edu>
+> ---
+> The mapped-plus-dropbehind state was reproduced in QEMU. The patched
+> kernel retained the mapped folio and continued to evict the unmapped
+> dontcache folio. I did not reproduce the sleeping-in-atomic warning and
+> am not aware of an existing report.
+> 
 
-cppc_set_perf_limited() currently reads the register, computes a new value,
-and writes it in a separate transaction. If the platform reports another
-excursion between those transactions, the stale write can clear that new
-event.
+I was able to trigger the sleeping-while-atomic BUG on current mainline with
+some help from Claude. The reproducer itself is straightforward enough, but the
+configuration was a little finicky. The atomic context comes from using
+threadirqs so that virtblk_done() completes requests from the irq thread under
+local_bh_disable() and the vq spinlock with irqs off, so in_task() is true but
+the i_mmap_rwsem down_read() sleeps. It also needed 1 vCPU (so completion stays
+in the irq thread rather than softirq) and ext4 -o dioread_lock (so end_io runs
+inline instead of on a workqueue). With v4 applied the bug is gone, so:
 
-Write zero to the requested bits and one to the other defined status bits
-directly. Keep reserved bits zero as required for hardware status registers
-by ACPI 6.6 Section 4.6.1. This removes the stale read window.
+Tested-by: Tal Zussman <tz2294@columbia.edu>
 
-A partial SystemMemory field would still make the generic writer perform a
-read-modify-write to preserve the containing access unit. The
-per-descriptor spinlock cannot interlock that RMW with platform updates, so
-reject clears of such a field. Keep the descriptor mapped and readable,
-because reading the containing access unit once and extracting the field
-does not require RMW.
+Full splat:
 
-Classify a field as a writer during overlap validation only when its _CPC
-semantics permit writes and its validated resource remains writable. This
-allows partial Performance Limited fields whose clear path was disabled to
-share an access unit with other read-only fields, while still rejecting an
-actual writer in that access unit.
+[   46.745106] BUG: sleeping function called from invalid context at kernel/locking/rwsem.c:1573
+[   46.745183] in_atomic(): 1, irqs_disabled(): 1, non_block: 0, pid: 61, name: irq/40-virtio1-
+[   46.745211] preempt_count: 201, expected: 0
+[   46.745233] RCU nest depth: 0, expected: 0
+[   46.745292] locks held by irq/40-virtio1-/61: 1, last CPU#0:
+[   46.745324]  #0: ff1fce9901fc2f20 (&vblk->vqs[i].lock){....}-{3:3}, at: virtblk_done+0x56/0x100
+[   46.746801] irq event stamp: 1585
+[   46.748015] hardirqs last  enabled at (1583): [<ffffffff88dc7c54>] finish_task_switch.isra.0+0xd4/0x360
+[   46.748224] hardirqs last disabled at (1585): [<ffffffff88e2b16c>] irq_forced_thread_fn+0x5c/0x60
+[   46.748405] softirqs last  enabled at (1578): [<ffffffff88e2b159>] irq_forced_thread_fn+0x49/0x60
+[   46.748580] softirqs last disabled at (1584): [<ffffffff88e2b12d>] irq_forced_thread_fn+0x1d/0x60
+[   46.749233] CPU: 0 UID: 0 PID: 61 Comm: irq/40-virtio1- Not tainted 7.2.0+ #5 PREEMPT(full)
+[   46.749323] Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+[   46.749472] Call Trace:
+[   46.749552]  <TASK>
+[   46.749653]  dump_stack_lvl+0x66/0xa0
+[   46.749747]  __might_resched+0x154/0x260
+[   46.749787]  down_read+0x1e/0x170
+[   46.749806]  unmap_mapping_folio+0x74/0xd0
+[   46.749854]  folio_unmap_invalidate+0x92/0x200
+[   46.749886]  folio_end_writeback+0x51/0xb0
+[   46.749906]  ext4_finish_bio+0x36d/0x3a0
+[   46.749979]  ext4_end_bio+0x51/0x140
+[   46.750010]  blk_update_request+0x101/0x4d0
+[   46.750045]  ? detach_buf_split_in_order+0x18c/0x1b0
+[   46.750098]  blk_mq_end_request+0x20/0x130
+[   46.750135]  virtblk_done+0x75/0x100
+[   46.750173]  ? irq_thread+0xb3/0x2a0
+[   46.750190]  vring_interrupt+0x8c/0xd0
+[   46.750205]  irq_thread_fn+0x23/0x60
+[   46.750238]  irq_forced_thread_fn+0x35/0x60
+[   46.750261]  irq_thread+0x17c/0x2a0
+[   46.750274]  ? __pfx_irq_forced_thread_fn+0x10/0x10
+[   46.750299]  ? __pfx_irq_thread_dtor+0x10/0x10
+[   46.750333]  ? __pfx_irq_thread+0x10/0x10
+[   46.750353]  kthread+0xf6/0x130
+[   46.750369]  ? __pfx_kthread+0x10/0x10
+[   46.750404]  ret_from_fork+0x248/0x350
+[   46.750421]  ? __pfx_kthread+0x10/0x10
+[   46.750442]  ret_from_fork_asm+0x1a/0x30
+[   46.750585]  </TASK>
 
-Also reject another writable SystemMemory field sharing Performance
-Limited's access unit. Its RMW could similarly replay stale status bits,
-and an OSPM lock cannot serialize against the platform.
+[   46.752964] =============================
+[   46.753047] [ BUG: Invalid wait context ]
+[   46.753230] 7.2.0+ #5 Tainted: G        W
+[   46.753353] -----------------------------
+[   46.753438] irq/40-virtio1-/61 is trying to lock:
+[   46.753533] ff1fce99004e4990 (&mapping->i_mmap_rwsem){++++}-{4:4}, at: unmap_mapping_folio+0x74/0xd0
+[   46.753882] other info that might help us debug this:
+[   46.754000] context-{5:5}
+[   46.754062] locks held by irq/40-virtio1-/61: 1, last CPU#0:
+[   46.754171]  #0: ff1fce9901fc2f20 (&vblk->vqs[i].lock){....}-{3:3}, at: virtblk_done+0x56/0x100
+[   46.754371] stack backtrace:
+[   46.754441] CPU: 0 UID: 0 PID: 61 Comm: irq/40-virtio1- Tainted: G        W           7.2.0+ #5 PREEMPT(full)
+[   46.754656] Tainted: [W]=WARN
+[   46.754725] Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+[   46.754887] Call Trace:
+[   46.754942]  <TASK>
+[   46.754996]  dump_stack_lvl+0x66/0xa0
+[   46.755082]  __lock_acquire+0x92e/0x1a80
+[   46.755197]  lock_acquire+0xcd/0x2d0
+[   46.755282]  ? unmap_mapping_folio+0x74/0xd0
+[   46.755403]  down_read+0x42/0x170
+[   46.755476]  ? unmap_mapping_folio+0x74/0xd0
+[   46.755565]  unmap_mapping_folio+0x74/0xd0
+[   46.755664]  folio_unmap_invalidate+0x92/0x200
+[   46.755763]  folio_end_writeback+0x51/0xb0
+[   46.755851]  ext4_finish_bio+0x36d/0x3a0
+[   46.755958]  ext4_end_bio+0x51/0x140
+[   46.756043]  blk_update_request+0x101/0x4d0
+[   46.756135]  ? detach_buf_split_in_order+0x18c/0x1b0
+[   46.756254]  blk_mq_end_request+0x20/0x130
+[   46.756349]  virtblk_done+0x75/0x100
+[   46.756438]  ? irq_thread+0xb3/0x2a0
+[   46.756515]  vring_interrupt+0x8c/0xd0
+[   46.756595]  irq_thread_fn+0x23/0x60
+[   46.756678]  irq_forced_thread_fn+0x35/0x60
+[   46.756768]  irq_thread+0x17c/0x2a0
+[   46.756842]  ? __pfx_irq_forced_thread_fn+0x10/0x10
+[   46.756945]  ? __pfx_irq_thread_dtor+0x10/0x10
+[   46.757045]  ? __pfx_irq_thread+0x10/0x10
+[   46.757136]  kthread+0xf6/0x130
+[   46.757207]  ? __pfx_kthread+0x10/0x10
+[   46.757302]  ret_from_fork+0x248/0x350
+[   46.757383]  ? __pfx_kthread+0x10/0x10
+[   46.757466]  ret_from_fork_asm+0x1a/0x30
+[   46.757594]  </TASK>
 
-Also reject 64-bit SystemMemory descriptions on 32-bit kernels, where
-generic readq()/writeq() may be split into two 32-bit operations and cannot
-provide the required portable interlocked access. A naturally aligned
-full-width QWord remains supported on 64-bit kernels, where the
-architecture provides a native 64-bit MMIO accessor.
 
-Retain any inaccessible Performance Limited descriptor whose conservative
-physical range is still locatable, while marking both reads and writes
-unsupported. This includes a QWord on a 32-bit kernel. Skip its mapping and
-the flexible-address-space capability gate, because Linux will issue no
-access, without hiding the asynchronous status range from
-neighbouring-writer validation. Both the interval registry and pairwise
-overlap test use the larger of the access unit and logical field span, so a
-malformed field extending beyond its nominal access unit remains covered.
-
-Performance Limited status is not required for CPPC control. If firmware
-describes it without even a locatable physical range, disable that status
-register instead of rejecting the processor's otherwise usable _CPC
-package. Report reads as unsupported rather than returning a synthetic
-zero, and emit a single warning for each nonfatal fallback.
-
-Fixes: 13c45a26635f ("ACPI: CPPC: add APIs and sysfs interface for perf_limited")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Link: https://sashiko.dev/#/patchset/20260807111303.1062391-1-christian.loehle%40arm.com
-Signed-off-by: Christian Loehle <christian.loehle@arm.com>
----
- drivers/acpi/cppc_acpi.c | 76 +++++++++++++++++++++++++++++-----------
- 1 file changed, 56 insertions(+), 20 deletions(-)
-
-diff --git a/drivers/acpi/cppc_acpi.c b/drivers/acpi/cppc_acpi.c
-index 25bccd4cfb34..a07440ed7f80 100644
---- a/drivers/acpi/cppc_acpi.c
-+++ b/drivers/acpi/cppc_acpi.c
-@@ -443,6 +443,22 @@ static int cpc_validate_sysmem_reg(struct cpc_desc *cpc_desc,
- 	if (!cpc_reg_access_aligned(gas, access_size))
- 		goto invalid;
- 
-+	if (reg_idx == PERF_LIMITED) {
-+		if (access_width == 64 && !IS_ENABLED(CONFIG_64BIT)) {
-+			pr_warn("CPU%d: Performance Limited register cannot be accessed atomically; keeping its range reserved\n",
-+				cpc_desc->cpu_id);
-+			cpc_desc->cpc_regs[reg_idx].cpc_entry.read_unsupported = true;
-+			cpc_desc->cpc_regs[reg_idx].cpc_entry.write_unsupported = true;
-+			return 0;
-+		}
-+
-+		if (gas->bit_offset || gas->bit_width != access_width) {
-+			pr_warn("CPU%d: Performance Limited register cannot be cleared safely; keeping it readable\n",
-+				cpc_desc->cpu_id);
-+			cpc_desc->cpc_regs[reg_idx].cpc_entry.write_unsupported = true;
-+		}
-+	}
-+
- 	return 0;
- 
- invalid:
-@@ -452,8 +468,9 @@ static int cpc_validate_sysmem_reg(struct cpc_desc *cpc_desc,
- 		access_size = access_width / 8;
- 	if (gas->bit_width)
- 		access_size = max(access_size, cpc_sysmem_field_size(gas));
--	if (cpc_reg_is_write_only(cpc_desc, reg_idx) && gas->address &&
--	    access_size && gas->address <= U64_MAX - (access_size - 1)) {
-+	if ((cpc_reg_is_write_only(cpc_desc, reg_idx) ||
-+	     reg_idx == PERF_LIMITED) && gas->address && access_size &&
-+	    gas->address <= U64_MAX - (access_size - 1)) {
- 		struct cpc_register_resource *reg = &cpc_desc->cpc_regs[reg_idx];
- 
- 		pr_warn("CPU%d: _CPC v%d register %u is inaccessible; keeping its range reserved\n",
-@@ -502,6 +519,14 @@ static int cpc_resolve_unsupported(struct cpc_desc *cpc_desc,
- 		if (!(unsupported & BIT(i)))
- 			continue;
- 
-+		/* CPPC control does not depend on Performance Limited status. */
-+		if (i == PERF_LIMITED) {
-+			pr_warn("CPU%d: ignoring inaccessible Performance Limited register\n",
-+				cpc_desc->cpu_id);
-+			cpc_disable_reg(cpc_desc, i);
-+			continue;
-+		}
-+
- 		if (i == DESIRED_PERF && cpc_immutable_autonomous(cpc_desc)) {
- 			pr_warn("CPU%d: ignoring inaccessible Desired Performance register in autonomous mode\n",
- 				cpc_desc->cpu_id);
-@@ -803,7 +828,8 @@ static void cpc_mark_rmw_lock_users(struct cpc_desc *cpc_desc)
- 	for (i = 0; i < cpc_desc->num_entries - 2; i++) {
- 		struct cpc_register_resource *reg = &cpc_desc->cpc_regs[i];
- 
--		if (CPC_SUPPORTED(reg) && CPC_IN_SYSTEM_MEMORY(reg))
-+		if (CPC_SUPPORTED(reg) && CPC_IN_SYSTEM_MEMORY(reg) &&
-+		    cpc_is_writable(reg))
- 			reg->cpc_entry.use_rmw_lock =
- 				cpc_sysmem_reg_needs_rmw(reg);
- 	}
-@@ -905,6 +931,7 @@ static int cpc_validate_sysmem_pair(const struct cpc_desc *a_desc,
- 	const struct cpc_register_resource *b = &b_desc->cpc_regs[b_idx];
- 	bool a_writable, b_writable;
- 
-+	/* The overlap helper includes each descriptor's conservative claim. */
- 	if (!CPC_SUPPORTED(a) || !CPC_IN_SYSTEM_MEMORY(a) ||
- 	    !CPC_SUPPORTED(b) || !CPC_IN_SYSTEM_MEMORY(b) ||
- 	    !cpc_sysmem_access_units_overlap(a, b))
-@@ -933,6 +960,15 @@ static int cpc_validate_sysmem_pair(const struct cpc_desc *a_desc,
- 		goto conflict;
- 	}
- 
-+	/*
-+	 * The platform may set Performance Limited asynchronously.  A write to
-+	 * another field in the same access unit could write back stale status
-+	 * bits, which an OSPM lock cannot prevent.
-+	 */
-+	if ((a_idx == PERF_LIMITED && b_writable) ||
-+	    (b_idx == PERF_LIMITED && a_writable))
-+		goto conflict;
-+
- 	/* A full-width writable register owns its complete access unit. */
- 	if ((a_writable && !cpc_sysmem_reg_needs_rmw(a) &&
- 	     cpc_sysmem_full_width_conflicts(a, b)) ||
-@@ -2167,6 +2203,9 @@ static int cpc_read(int cpu, struct cpc_register_resource *reg_res, u64 *val)
- 	int pcc_ss_id = per_cpu(cpu_pcc_subspace_idx, cpu);
- 	struct cpc_reg *reg = &reg_res->cpc_entry.reg;
- 
-+	if (!cpc_is_readable(reg_res))
-+		return -EOPNOTSUPP;
-+
- 	if (reg_res->type == ACPI_TYPE_INTEGER) {
- 		*val = reg_res->cpc_entry.int_value;
- 		return 0;
-@@ -2268,13 +2307,10 @@ static int cpc_write(int cpu, struct cpc_register_resource *reg_res, u64 val)
- 	unsigned int i;
- 	bool locked = false;
- 
--	if (reg_res->type != ACPI_TYPE_BUFFER)
-+	if (!cpc_is_writable(reg_res))
- 		return -EOPNOTSUPP;
- 
- 	reg = &reg_res->cpc_entry.reg;
--	if (IS_NULL_REG(reg))
--		return -EOPNOTSUPP;
--
- 	size = GET_BIT_WIDTH(reg);
- 
- 	if (reg->space_id == ACPI_ADR_SPACE_SYSTEM_IO) {
-@@ -2438,9 +2474,13 @@ static int cppc_get_reg_val(int cpu, enum cppc_regs reg_idx, u64 *val)
- 
- 	reg = &cpc_desc->cpc_regs[reg_idx];
- 
--	/* Desired may be absent for immutable autonomous selection. */
-+	/*
-+	 * Desired and Performance Limited may be disabled despite not being
-+	 * generally optional.
-+	 */
- 	if ((reg->type == ACPI_TYPE_INTEGER &&
--	     (IS_OPTIONAL_CPC_REG(reg_idx) || reg_idx == DESIRED_PERF) &&
-+	     (IS_OPTIONAL_CPC_REG(reg_idx) || reg_idx == DESIRED_PERF ||
-+	      reg_idx == PERF_LIMITED) &&
- 	     !reg->cpc_entry.int_value) || (reg->type != ACPI_TYPE_INTEGER &&
- 	     IS_NULL_REG(&reg->cpc_entry.reg))) {
- 		pr_debug("CPC register is not supported\n");
-@@ -3468,9 +3508,6 @@ EXPORT_SYMBOL_GPL(cppc_get_perf_limited);
-  */
- int cppc_set_perf_limited(int cpu, u64 bits_to_clear)
- {
--	u64 current_val, new_val;
--	int ret;
--
- 	/* Only bits 0 and 1 are valid */
- 	if (bits_to_clear & ~CPPC_PERF_LIMITED_MASK)
- 		return -EINVAL;
-@@ -3478,14 +3515,13 @@ int cppc_set_perf_limited(int cpu, u64 bits_to_clear)
- 	if (!bits_to_clear)
- 		return 0;
- 
--	ret = cppc_get_perf_limited(cpu, &current_val);
--	if (ret)
--		return ret;
--
--	/* Clear the specified bits */
--	new_val = current_val & ~bits_to_clear;
--
--	return cppc_set_reg_val(cpu, PERF_LIMITED, new_val);
-+	/*
-+	 * Performance Limited is write-zero-to-clear.  Write one to the other
-+	 * defined sticky bits so a concurrently reported event is not cleared
-+	 * using a value obtained by an earlier, separate read transaction.
-+	 */
-+	return cppc_set_reg_val(cpu, PERF_LIMITED,
-+				CPPC_PERF_LIMITED_MASK & ~bits_to_clear);
- }
- EXPORT_SYMBOL_GPL(cppc_set_perf_limited);
- 
--- 
-2.34.1
+> Changes since v3:
+> - Describe the forced-unmap/refault runtime effect.
+> - Record the reproduction boundary and add Cc: stable@vger.kernel.org.
+> 
+>   mm/filemap.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/mm/filemap.c b/mm/filemap.c
+> index 6afec636881f..00fd89cf6f55 100644
+> --- a/mm/filemap.c
+> +++ b/mm/filemap.c
+> @@ -1616,7 +1616,7 @@ static void filemap_end_dropbehind(struct folio *folio)
+>   		return;
+>   	if (!folio_test_clear_dropbehind(folio))
+>   		return;
+> -	if (mapping)
+> +	if (mapping && !folio_mapped(folio))
+>   		folio_unmap_invalidate(mapping, folio, 0);
+>   }
+>   
+> -- 
+> 2.43.0
+> 
 
