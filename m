@@ -1,165 +1,125 @@
-Received: from mta1.migadu.com (out-89.mta1.migadu.com [95.215.58.89])
+Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com [209.85.215.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F4521E9919
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 09:23:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.89
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5479B2459CF
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 09:27:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788081821; cv=none; b=SOcDwFETDjwwIJH/W+oybDd0ZHqMSYOjRKgRZXuvW5avsld57q+Ru/WYaxOeKpP6PIITRl5ABgVUjZHyOF5/6nYyWLmUbPQ2obljEoFwg/WX/bVFJ/Id46eik7TNXirrGDJxzVAGZIk+RZxFTkTjp3A3Ui8g+w+wNWZyLsTGXOY=
+	t=1788082044; cv=none; b=FWmi5bYc9qei88QmOf3kdry5xLXpCz5eKXPVZLdsw6IhIboJ69hufYcmMqy7twCGAPNh5qlj9TkBcxDI3Yck43W2ppIzrkS4U1xGFjh830FGqlJSz0hx/SqMtrq9mps8elSZEuOHu05UUaeNomairdT3U+3vVJVc77BQFFFQ5Eg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788081821; c=relaxed/simple;
-	bh=jKjkjhNXcmDtFarhVB4q9KhIzqF2CfBDnbDyY+pXTh0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=fXLSuObUg0I/otwn5D/NWXKX12GxWUoy1qCj6YSOkuSuZcUmDNQmpEJfYUfVC5CBoXNqPFx1j/14bv0RRDUQsnSyPEyiavS5lE82hynGnIg+vl5u/GY30tVStxpmyeL1/w+gzKeqtaxUJBxxSgPqFFeBCsLmyTZoaEy0XCD+n3s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Z5qBH8oi; arc=none smtp.client-ip=95.215.58.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788082044; c=relaxed/simple;
+	bh=hatNoNGA+YXnGlMiiRKGzTz5dNJ8bwEIiS0xjj5GM4A=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=lgnvmSeLix4VK4bwDVbfjEPmjwTzuBITqXx7RsbwdkYhGHGSBicRbcyE6c24DR+ZQ9IV9gKuvwhhXiFkrSZ97onSqzGcuqQ0BUBdiirvzIf2e/FbEumh0xDt3Tfi3gEKee4LBOgzx0DewoHyzCURWEmWelj0068gufM9GCvinTc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VHDDJO7T; arc=none smtp.client-ip=209.85.215.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Z5qBH8oi"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=jKjkjhNXcmDtFarhVB4q9KhIzqF2CfBDnbDyY+pXTh0=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788081817; v=1; x=1788686617;
- b=Z5qBH8oi1GQxJg8h+SKU4TyvEw3ZuNh8YyxPEL6fJtaMJi06inn7XTCTvNsXYH2Ha/XM6Rdo
- pmBLwK9Ov6KVish8Zo6AMsCfRiDpNCR0rFPfn3YmCUG7E1LqwENFnd/EE7ApsOQ5czdj0kVVI1u
- BXJzviccRitczqhql7z8fOug=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 313c9a3f512e14d9;
-	Sun, 30 Aug 2026 09:23:27 +0000
-X-Mizu-Trace-ID: 313c9a3f512e14d9
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <77a3aa03-a2ef-4c7f-a11b-6759b700c562@linux.dev>
-Date: Sun, 30 Aug 2026 17:23:13 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VHDDJO7T"
+Received: by mail-pg1-f176.google.com with SMTP id 41be03b00d2f7-cc1c73645a1so1881404a12.1
+        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 02:27:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788082042; x=1788686842; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=4mD5bCpSQ2dBdYny3erqq3V+bcIJgzXOhiWs/uhQvjc=;
+        b=VHDDJO7TpbcP9nh3eF8Ip2ARgkSrcHqwLG65ExCKV87GsIvtQ028LNg88d/2DGPjfj
+         nu5TzrjaS0xolRthtgv1NFQ9tHoEBPdtR/0sQWXOjfEcPM07JT2ne2fmRr6bh99+IDb6
+         L4S6jccoYmJ4/rP/ers+ZmTcx8bRodmS7bgIyXvCoJSYyjuCvytFzPlbk3DPY9R05V2c
+         km6TgVxWoIScpfExbnvpHLoNnEmqnbQ1vJC+FWAn/ai6qvVusRopzKK5fxtqmAdBoWbc
+         VIkVovcgwZPge5kKLz/G9T2E8j+X8FOOhCkAPIJFNunafbmarpOycNtFdBR4+uL1EpOv
+         7BtQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788082042; x=1788686842;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=4mD5bCpSQ2dBdYny3erqq3V+bcIJgzXOhiWs/uhQvjc=;
+        b=HCXdnMK1BZXnYQzGHaPDcY2qOKi44IfiE28j5MrnvTEwxDRGytBIES7PZhRMwTcCG9
+         njmFYhtfZtT7GnCoTd8gPY19UTXzmL4fpU1d+jowpDFe9zXJIx/W6f0z49hfsQyouig5
+         axcbPr/586zG7CpPiW+GS0qQ7gRIC5f2Bv1N05hvPtlUuuVVNRZfVQnbEIBHANRaEdYC
+         iODVMnxmwvTOGyH0F9nNdNeXgNAsYT5KtChcSMWyW2dQmyBAkNJURKYAq31hiWxh5frG
+         o9X6uOSYG3kBdWbWOVGCc8xsSS+NxqWE7WC6Mt/hyQAIzgHmR2kpETHzhSbibcYnV6rM
+         xCxg==
+X-Forwarded-Encrypted: i=1; AHgh+Rr6UJaqJvPI3fr+d7XfCqO4mgX6Zte/taKUVJWIWGAdvaUWdfO/G9otqla6cJnR4h1bAIID71EB12zGtGw=@vger.kernel.org
+X-Gm-Message-State: AFuF++kjBnvrFUBpzKLSXUe1b+PJfYsW5zkYHF/VGyLmfm8AHrNVGZ+p
+	+bUbdrcaLKaYX/ZsqDdim70DrRfJseTfDjzgCtPTPSAOD/r+Js/IX0cr
+X-Gm-Gg: AR+sD11VUQ4WIH3G5m1eCxI7LdJLm2uX/LVLfDacyvBAskJlW1j2H6LRuobdVe1K9My
+	PVIUT1TCACSA1EUNU93fYo8Lja6H+6doX5SseI1BKa1k/AvkUHZI4n5u//M9c5RP7f4xDge7sLz
+	1TU7dw7n45nmqPuC9rJYOBiSFgEXgRWLxdFRm0ZR3XeCIwrxuW1M3Gt7S4GpfJGDseIUf5w71w2
+	RIxiEO2srLk84zVoDa3i0HiBh0772VPTPNK8fiw5VBm5A/1Q2JdgJB9I9+AqAWh9l6UTL2s4wjA
+	A3n5yyod0tJeBBoC6NzFulEx8LY/yD6OZ1s/9c3OBFD5GRrGEsakV9p7NTA6xut1zuOyo6ql6t9
+	EINkUOEJQdaHML3KN0yxfGzwqjl9f8x/WvzLOqyR4ZIuGOGVhAgj5ZnAUUY4zY5Fvb78SVmFGl2
+	MlJWIzFcEnWCuAVpib+8opvcEKCmsgBzv3xMU4IVO7zljnC36rXg0MwF4hPiR6+1JlAb1sdjrQV
+	UVBO703zQL5ZNpgp+qIFAJXTlR3CVTO1IRQkulg6fI22/EBqdXbfg==
+X-Received: by 2002:a05:6a21:3947:b0:3cc:9288:99aa with SMTP id adf61e73a8af0-3d26329db5amr33871221637.0.1788082042513;
+        Sun, 30 Aug 2026 02:27:22 -0700 (PDT)
+Received: from deepanshu-Legion-Pro-5-16AFR10.. ([2405:201:682f:383f:35a3:71a0:a824:96db])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc1f3312270sm2512628a12.11.2026.08.30.02.27.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 30 Aug 2026 02:27:21 -0700 (PDT)
+From: Deepanshu Kartikey <kartikey406@gmail.com>
+To: hverkuil@kernel.org,
+	mchehab@kernel.org
+Cc: enelsonmoore@gmail.com,
+	sakari.ailus@linux.intel.com,
+	johan@kernel.org,
+	hansg@kernel.org,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Deepanshu Kartikey <kartikey406@gmail.com>,
+	syzbot+537b5eb78cebbff5ea70@syzkaller.appspotmail.com
+Subject: [PATCH] media: gspca: don't call stopN/stop0 after device disconnect
+Date: Sun, 30 Aug 2026 14:57:12 +0530
+Message-ID: <20260830092712.19452-1-kartikey406@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 3/6] mm/migrate: copy all referenced state via
- folio_migrate_lru_refs
-To: kasong@tencent.com, linux-mm@kvack.org
-Cc: Andrew Morton <akpm@linux-foundation.org>, Barry Song
- <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>,
- Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
- Baoquan He <baoquan.he@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
- Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
- Roman Gushchin <roman.gushchin@linux.dev>,
- Muchun Song <muchun.song@linux.dev>, Chris Li <chrisl@kernel.org>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Yu Zhao <yuzhao@google.com>, Zi Yan <ziy@nvidia.com>,
- Qi Zheng <qi.zheng@linux.dev>, cgroups@vger.kernel.org,
- linux-kernel@vger.kernel.org, Kairui Song <ryncsn@gmail.com>
-References: <20260826-mglru-flags-cleanup-v3-0-d9f1c75549c8@tencent.com>
- <20260826-mglru-flags-cleanup-v3-3-d9f1c75549c8@tencent.com>
-From: Ridong Chen <ridong.chen@linux.dev>
-In-Reply-To: <20260826-mglru-flags-cleanup-v3-3-d9f1c75549c8@tencent.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+gspca_stream_off() calls the sub-driver's stopN() and stop0()
+callbacks unconditionally. These issue USB requests using
+gspca_dev->dev, which becomes a dangling pointer once the USB device
+has been disconnected and freed, causing a use-after-free when the
+video device fd is closed after disconnect.
 
+Add a gspca_dev->present check before calling stopN() and stop0(),
+matching the existing check already used for gspca_input_create_urb()
+in the same function.
 
-On 8/26/2026 1:53 AM, Kairui Song via B4 Relay wrote:
-> From: Kairui Song <kasong@tencent.com>
-> 
-> folio_migrate_flags() copies PG_referenced separately from the MGLRU
-> refs counter, which folio_migrate_refs() transfers. Yet under MGLRU,
-> PG_referenced and the refs counter bits together describe the
-> referenced status of a folio.
-> 
-> Consolidate the two: rename folio_migrate_refs() to
-> folio_migrate_lru_refs() and let it copy the complete referenced
-> status, i.e., the MGLRU refs count including PG_referenced, or just
-> PG_referenced for the active/inactive LRU. Drop the open-coded
-> PG_referenced copy so the referenced status is transferred in one
-> place. No behavior change is intended: under the active/inactive LRU
-> the extra bits are unused, so operating on them is a noop.
-> 
-> Transfer the reference state first, before the destination folio is
-> marked uptodate, so a concurrent lockless reader cannot have its
-> reference update overwritten by the copy.
-> 
-> Reviewed-by: Baoquan He <baoquan.he@linux.dev>
-> Signed-off-by: Kairui Song <kasong@tencent.com>
-> ---
->   include/linux/mm_inline.h | 20 +++++++++++++++-----
->   mm/migrate.c              |  6 +++---
->   2 files changed, 18 insertions(+), 8 deletions(-)
-> 
-> diff --git a/include/linux/mm_inline.h b/include/linux/mm_inline.h
-> index edfaf2661812..7f91a89b5ba3 100644
-> --- a/include/linux/mm_inline.h
-> +++ b/include/linux/mm_inline.h
-> @@ -365,11 +365,19 @@ static inline bool lru_gen_del_folio(struct lruvec *lruvec, struct folio *folio,
->   	return true;
->   }
->   
-> -static inline void folio_migrate_refs(struct folio *new, const struct folio *old)
-> +/**
-> + * folio_migrate_lru_refs - copy the reference state to a new folio
-> + * @new: the destination folio
-> + * @old: the source folio
-> + *
-> + * Transfer the reference state to @new during migration: the MGLRU
-> + * refs count, including PG_referenced, or just PG_referenced for the
-> + * active/inactive LRU.
-> + */
-> +static inline void folio_migrate_lru_refs(struct folio *new, const struct folio *old)
->   {
-> -	unsigned long refs = READ_ONCE(old->flags.f) & LRU_REFS_MASK;
-> -
-> -	set_mask_bits(&new->flags.f, LRU_REFS_MASK, refs);
-> +	BUILD_BUG_ON(LRU_REFS_MASK & BIT(PG_referenced));
-> +	folio_set_lru_refs(new, folio_lru_refs(old));
->   }
->   #else /* !CONFIG_LRU_GEN */
->   
-> @@ -398,8 +406,10 @@ static inline bool lru_gen_del_folio(struct lruvec *lruvec, struct folio *folio,
->   	return false;
->   }
->   
-> -static inline void folio_migrate_refs(struct folio *new, const struct folio *old)
-> +static inline void folio_migrate_lru_refs(struct folio *new, const struct folio *old)
->   {
-> +	if (folio_test_referenced(old))
-> +		folio_set_referenced(new);
->   }
->   #endif /* CONFIG_LRU_GEN */
->   
-> diff --git a/mm/migrate.c b/mm/migrate.c
-> index 15b45832bcfa..a369d0c95c38 100644
-> --- a/mm/migrate.c
-> +++ b/mm/migrate.c
-> @@ -776,8 +776,9 @@ void folio_migrate_flags(struct folio *newfolio, struct folio *folio)
->   {
->   	int cpupid;
->   
-> -	if (folio_test_referenced(folio))
-> -		folio_set_referenced(newfolio);
-> +	/* Copy the reference state, including PG_referenced */
-> +	folio_migrate_lru_refs(newfolio, folio);
-> +
->   	if (folio_test_uptodate(folio))
->   		folio_mark_uptodate(newfolio);
->   	if (folio_test_clear_active(folio)) {
-> @@ -807,7 +808,6 @@ void folio_migrate_flags(struct folio *newfolio, struct folio *folio)
->   	if (folio_test_idle(folio))
->   		folio_set_idle(newfolio);
->   
-> -	folio_migrate_refs(newfolio, folio);
->   	/*
->   	 * Copy NUMA information to the new page, to prevent over-eager
->   	 * future migrations of this same page.
-> 
+Fixes: 1f5965c4dfd7 ("media: gspca: convert to vb2")
+Reported-by: syzbot+537b5eb78cebbff5ea70@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=537b5eb78cebbff5ea70
+Tested-by: syzbot+537b5eb78cebbff5ea70@syzkaller.appspotmail.com
+Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
+---
+ drivers/media/usb/gspca/gspca.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Reviewed-by: Ridong Chen <ridong.chen@linux.dev>
-Thanks.
-
+diff --git a/drivers/media/usb/gspca/gspca.c b/drivers/media/usb/gspca/gspca.c
+index 594d73e50b9f..5c33cf397f3d 100644
+--- a/drivers/media/usb/gspca/gspca.c
++++ b/drivers/media/usb/gspca/gspca.c
+@@ -733,14 +733,14 @@ static void gspca_stream_off(struct gspca_dev *gspca_dev)
+ {
+ 	gspca_dev->streaming = false;
+ 	gspca_dev->usb_err = 0;
+-	if (gspca_dev->sd_desc->stopN)
++	if (gspca_dev->present && gspca_dev->sd_desc->stopN)
+ 		gspca_dev->sd_desc->stopN(gspca_dev);
+ 	destroy_urbs(gspca_dev);
+ 	gspca_input_destroy_urb(gspca_dev);
+ 	gspca_set_alt0(gspca_dev);
+ 	if (gspca_dev->present)
+ 		gspca_input_create_urb(gspca_dev);
+-	if (gspca_dev->sd_desc->stop0)
++	if (gspca_dev->present && gspca_dev->sd_desc->stop0)
+ 		gspca_dev->sd_desc->stop0(gspca_dev);
+ 	gspca_dbg(gspca_dev, D_STREAM, "stream off OK\n");
+ }
 -- 
-Best regards
-Ridong
+2.43.0
 
