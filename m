@@ -1,162 +1,126 @@
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A53F3806BD
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 09:56:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C85F3A1D05
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 10:04:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788083779; cv=none; b=Jo16m8wGLz65dyF5U4jyfzzyuctxb49CCMwuw3obYwtT3gR5fDgfaO64rW/jGh50IjLS3azRF2xHurgkO3piV7XEpZK3PjydQyz4Y/ju1ms1D2MXd/fAIMGvdw8zGTl6IljKIr4YzGHbCR4XyWluQArg4sfw3c1CsDUcQmLwJfk=
+	t=1788084294; cv=none; b=iZ8qabcoqT/eSC6VRYng2PAFHRCSw/4R/yIFXynnkjOqYWZcEOVhvfseUaG6az22yWHmjtuCSg5IzinHA2skYSKXOhcR/+xCIWEiqNY10V+F30WXit7MEPCHqgzP4kQLy7uaFEFatp8ghFK56Q2uHmp10EDlFyepLLW7zwIUE54=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788083779; c=relaxed/simple;
-	bh=XzNmT6UqYUaI3bzKr5Gekq2xyab52rqTypKA733dS5E=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=e+CEGo2JKExPDLdB1xmxg/YV3QssmFsU+mlsjrfE+pNj9WMr+tI5qQJJ3SKs7MMcAFtSDYqdI6UAjo6V7DhBwFBuWzOfUrfQTxYmgXQBCormqonzmaFYnKSTz/ZyU7Z40eeSP5oUb4KuBbZramkKpVSmM1SfGBdJssPlYr5ZS9g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=B8WQDK1r; arc=none smtp.client-ip=209.85.216.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="B8WQDK1r"
-Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-398a5aad413so969211a91.3
-        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 02:56:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788083778; x=1788688578; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ln/5bDFiIG/k0+oCaFFVx/O89bQKJL6QY77jSm0UJxY=;
-        b=B8WQDK1reLgJ/RJ7YCc3IAtxr1kGLRO7IBi+1Baa5zlgwziMAQpnnU0dB87FcG4NPu
-         gYMTikAVb7UBlyLZ5Hi9DrCjEnPYfuoR6BPSS4YZ7uQYquzfqYI2JnjPlhivYN1UDC3r
-         L0BZJdnS9plufdtH7bq5BaJLuIgL3uBIqNAItzGzUWy9fV/SSXIlVO/juBad6xX2YnVq
-         InDBkLnaQLXOfYO2qrjp99FD/NpYxB+EDS+O8qDtmaJi/gYbde3240+t0Le+eJsbV54u
-         aAVBY/W0kVdGY2BZrnxYkCByP8b1e6eveg4XWQ3Pl9ZUruK3+Rzl87NNpbzr63k4xZg8
-         Yekg==
+	s=arc-20240116; t=1788084294; c=relaxed/simple;
+	bh=KM6Cnj399XIBC9u0uEwCdTRH26w5grUstLV/5UCRGeM=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=RX0Xlr1cShpk+CIZgcTekl7xP4AYcLDf+Jg+RF9QEgDMDSMXHhkg3YZMWN/0gwXexNgenoF/gIIFOMuAwrg265nHZzuEC7jI62Dq7hzmUycvKRl9xq7mpeNMJHg73OPK9Q8xDv2BghbjtNsvM0VJA3vO4IOb/wr5uySFAmOwZ04=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4b37620eb73so5648809b6e.1
+        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 03:04:52 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788083778; x=1788688578;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ln/5bDFiIG/k0+oCaFFVx/O89bQKJL6QY77jSm0UJxY=;
-        b=QNtsu2gB8Gpg6Rr6wA+zQ+VsQn/2VxaAbP1qDopgF6/QXxMApZ5hvtgHulwqDZ4GMR
-         Ycjs+FVO2/WXc5uoH4Ye25DMSSoImRBn9npRKVHQ4nyiAsMgIpS2O6jAwTpXyX/jtCx/
-         Ta+2T5r9lfcPFgsxnqQhGkXZiqQyg1iceHqGAYCY3WVai+2OBI4aoMQBwkK+BogoY5+S
-         08DLa7AoyI9HEIK/qqD1QKUSXxqdsZ4NLA/h4fDsayO0CQOvw3AbbPJSeqTrNpPx/IE2
-         /NIRSBCOM/OhvFJfX5yfWwytYygmWOWPiFLi8A7wBA1UHLd15LNgJi4lW/5pQtIRys8p
-         /9HA==
-X-Forwarded-Encrypted: i=1; AKwUvBwC0IotE+m5M3VzbDOBDJjnoDfKqv+fvsgefRUYbxjc20ajtmAWjx/pkUQrwAJW1fy/hhwf3q/JfUg982M=@vger.kernel.org
-X-Gm-Message-State: AFuF++lxQcf2tMJrP5K4BLSsAYLFFlBggqoIFke0WwptzS84a+5HoLpO
-	4+umXS2jPxjY4Coo6g7r2WMqJBsCYjqeoVQN1lhh5IO2hH4bEbwS4GXom0MHa7C7kek=
-X-Gm-Gg: AYBFou1F8Nnz+BZm1zXfhfM1kdbMDMqPnBrVdjL9vPBdo1I37NtFFp6LpBjhS4bZxEd
-	3mPZ6kpXmW3mo02vG3JeBBa/UMc9lkxPuxO//S902luU9+BQR/nx7VwQE7CtVDd1aS1E2nGU4ur
-	kG/pSuLV53rOoRmyc3bScb518WNMxQXvfxfDel5dLIFnJjUjswQ7Ok/p6/NEGBIxjR+Q4cBZ+nu
-	co+sh/ViQk7FGBb9g+TaUPcj11KR1HcIeDoiQCD2SCeGqSdEjW+9rO3fZrNyrlBWBAzSqwET8HJ
-	n9s2btqSyLnUzBMI0QlclrzuK4x8uELy9AdYXxLgJ4eQtJvCDf+/WnHWjRrIl4/F0O2SUJYGBez
-	ko06sdMNKbPMxLa/zWRrjlFbnQpGqTIfKn6GY/g92APinhHZQMXinZUsXGdTxWHRa0EuHt05GIk
-	DtYz00VQVjYCFjYyucFx66P3TcsN2D9m5vRq4SCjXi5+qO4JXDWar3q6gcq4R4bNfJSWqeFVfxY
-	9zCB/tjd/C5vIUtPWYwxY5zIjs=
-X-Received: by 2002:a17:90a:da83:b0:38f:efed:5445 with SMTP id 98e67ed59e1d1-396d0de796fmr31299768a91.4.1788083777574;
-        Sun, 30 Aug 2026 02:56:17 -0700 (PDT)
-Received: from shpark-MS-7E27.tailee9dcb.ts.net ([218.49.81.87])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396ddc0c703sm10888092a91.9.2026.08.30.02.56.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 30 Aug 2026 02:56:17 -0700 (PDT)
-From: Sunho Park <shpark061104@gmail.com>
-To: paulmck@kernel.org
-Cc: jiangshanlai@gmail.com,
-	josh@joshtriplett.org,
-	work@onurozkan.dev,
-	rostedt@goodmis.org,
-	mathieu.desnoyers@efficios.com,
-	qiang.zhang@linux.dev,
-	frederic@kernel.org,
-	rcu@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Sunho Park <shpark061104@gmail.com>,
-	syzbot+d4faf7db59e11f6fd1ab@syzkaller.appspotmail.com
-Subject: [PATCH v2] srcu: Fix WARN_ON() for rcu_segcblist_n_cbs() in cleanup_srcu_struct()
-Date: Sun, 30 Aug 2026 18:56:05 +0900
-Message-ID: <20260830095605.3560267-1-shpark061104@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        d=1e100.net; s=20251104; t=1788084292; x=1788689092;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kVP6cY2WCLtan0qu4XTPvdPvb7JjsJOvNyDuILhJ8Q8=;
+        b=YrK4jo8EjXMsv2+tnjzRcSpgG7YXb+0MnacMvPajYQGfqZpcnQ9JEUfwnR//QsC2zx
+         CtmlXg3aFLFWD957nmRIhvsyro8JX60nCq5+fCj7ORHN84CYuAQkvj4nQeNXLmnza1cV
+         MlSOeCEJ8X6GUk0xm8re0vlCA8bw5IqiLFTP3U9muGFn+oNJRS+mCInmMVVZPuLywJMv
+         rLRVJ0XZmn+fV15vK6j29/Xc7a4roEU1NdsMtt2xxhX75ZhUztVQoOlwY7e03fPWe9D6
+         mbcmKD3j8tzDSijo+i6lgi3dre3TOEU7IAsZMdIahYcXkjFlvpYpPk2MFoPqEXwQU4Py
+         5QJQ==
+X-Gm-Message-State: AFuF++nJSYinjLZcUhMHNwKVYGaUKnQTUBVf6anXMqoYmWm24H/2CfD4
+	EAdXyfh52dsbPNyxvlIKKa6yjwT6SVGgx+8BUVAuxhXxIQ9D/zBYbRDu8GX1TKdQ6yp/ELIDavE
+	KV1C5rJmEfxMUiJYMk1Q5vA5wp2eD5uw1blQ079LiVlLCt8qfE554O3Apprs=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6808:3305:b0:495:c607:b13d with SMTP id
+ 5614622812f47-4b397faca9bmr21201736b6e.2.1788084292161; Sun, 30 Aug 2026
+ 03:04:52 -0700 (PDT)
+Date: Sun, 30 Aug 2026 03:04:52 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a940044.1d9ded08.62e62.011a.GAE@google.com>
+Subject: [syzbot] WARNING in wiphy_delayed_work_cancel
+From: syzbot <syzbot+e9cbd080a7801f06cf08@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-The WARN_ON() added by commit 78a38cbf6f20 ("srcu: Queue sdp->work
-when the delay timer is successfully deleted") uses rcu_segcblist_n_cbs()
-to detect callbacks that srcu_barrier() failed to wait for. However, the
-->len counter is decremented only at the end of srcu_invoke_callbacks(),
-after the invoking loop has finished. Since srcu_barrier() can return
-right after the barrier callback is invoked, cleanup_srcu_struct() can see
-a non-zero n_cbs even though the cblist is already physically empty,
-falsely triggering the WARN_ON() together with a still-pending delay_work
-timer.
+Hello,
 
-This can be triggered as follows, as seen in the syzbot report against
-kvm_destroy_vm() -> cleanup_srcu_struct(&kvm->srcu):
+syzbot found the following issue on:
 
-1. call_srcu(&kvm->srcu, &bus->rcu, __free_bus) starts SRCU grace
-   period GP1.
+HEAD commit:    818bebeb63dd drm/xe: Don't hand out the flat CCS storage a..
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+console output: https://syzkaller.appspot.com/x/log.txt?x=11cff979580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=ccca94d2c01b9e78
+dashboard link: https://syzkaller.appspot.com/bug?extid=e9cbd080a7801f06cf08
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=1284d979580000
 
-2. GP1 ends: a delay timer is armed and sdp->work is queued, but
-   sdp->work has not run yet.
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+e9cbd080a7801f06cf08@syzkaller.appspotmail.com
 
-3. Another call_srcu(&kvm->srcu, &bus->rcu, __free_bus) call invokes
-   srcu_segcblist_advance(), which moves the GP1 callback to
-   RCU_DONE_TAIL, and starts SRCU grace period GP2.
+------------[ cut here ]------------
+debug_locks && !(lock_is_held(&(&wiphy->mtx)->dep_map) != 0)
+WARNING: net/wireless/core.c:1957 at wiphy_delayed_work_cancel+0x9a/0xb0 net/wireless/core.c:1957, CPU#3: kworker/u32:0/12
+Modules linked in:
+CPU: 3 UID: 0 PID: 12 Comm: kworker/u32:0 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+Workqueue: netns cleanup_net
+RIP: 0010:wiphy_delayed_work_cancel+0x9a/0xb0 net/wireless/core.c:1957
+Code: e8 bb a8 fa f6 48 8d 7d 60 be ff ff ff ff e8 ed 85 b6 00 31 ff 41 89 c4 89 c6 e8 11 a3 fa f6 45 85 e4 75 bf e8 97 a8 fa f6 90 <0f> 0b 90 eb b4 48 c7 c7 84 8a 43 91 e8 45 7c 6d f7 eb 90 0f 1f 00
+RSP: 0018:ffffc900000f7740 EFLAGS: 00010293
+RAX: 0000000000000000 RBX: ffff88802b5e18a8 RCX: 0000000000000000
+RDX: ffff88801ee9cb00 RSI: ffffffff8b105939 RDI: ffff88801ee9cb00
+RBP: ffff888103680740 R08: 0000000000000005 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000001 R12: 0000000000000000
+R13: 0000000000000000 R14: ffff888103680f40 R15: ffff888103680f90
+FS:  0000000000000000(0000) GS:ffff8880d5ea2000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 000055979cdf8da8 CR3: 000000003e9c7000 CR4: 0000000000352ef0
+Call Trace:
+ <TASK>
+ ieee80211_free_keys+0xcd/0x640 net/mac80211/key.c:1148
+ ieee80211_teardown_sdata+0x54/0x250 net/mac80211/iface.c:906
+ unregister_netdevice_many_notify+0x1407/0x2150 net/core/dev.c:12537
+ unregister_netdevice_many net/core/dev.c:12589 [inline]
+ default_device_exit_batch+0x907/0xbd0 net/core/dev.c:13288
+ ops_exit_list net/core/net_namespace.c:206 [inline]
+ ops_undo_list+0x363/0xab0 net/core/net_namespace.c:253
+ cleanup_net+0x499/0x920 net/core/net_namespace.c:706
+ process_one_work+0xac7/0x1b10 kernel/workqueue.c:3387
+ process_scheduled_works kernel/workqueue.c:3470 [inline]
+ worker_thread+0x5ef/0xe50 kernel/workqueue.c:3551
+ kthread+0x373/0x450 kernel/kthread.c:436
+ ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
 
-4. srcu_barrier() is called. It queues its barrier callback after the
-   GP2 callback and waits for srcu_invoke_callbacks() to invoke it.
 
-5. GP2 ends: another delay timer is armed, and the sdp->work queued in
-   step 2 begins to run. Its srcu_invoke_callbacks() call invokes
-   srcu_segcblist_advance() again, moving the GP2 and barrier callbacks
-   to RCU_DONE_TAIL as well, and then invokes all of them. However,
-   rcu_segcblist_add_len(), which updates srcu_cblist's ->len, has not
-   run yet at this point.
-
-6. srcu_barrier() returns once its callback has been invoked, and
-   cleanup_srcu_struct() starts running. It finds the delay timer
-   armed in step 5 still pending and srcu_cblist's ->len still
-   non-zero (because step 5 has not reached rcu_segcblist_add_len()
-   yet), and WARN_ON() fires even though every callback has actually
-   been invoked.
-
-Use rcu_segcblist_empty(), which checks the actual head of the cblist,
-instead of rcu_segcblist_n_cbs(), which checks the racy ->len counter.
-Callbacks that have genuinely not been invoked yet still leave the list
-non-empty, so the WARN_ON() still catches callers that skip srcu_barrier()
-or queue callbacks after it.
-
-Link: https://lore.kernel.org/rcu/e6350377085ddd85d6ef00d8e9a67bd50c762d3c@linux.dev/T/#t
-Reported-by: syzbot+d4faf7db59e11f6fd1ab@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=d4faf7db59e11f6fd1ab
-Fixes: 78a38cbf6f20 ("srcu: Queue sdp->work when the delay timer is successfully deleted")
-Suggested-by: Zqiang <qiang.zhang@linux.dev>
-Signed-off-by: Sunho Park <shpark061104@gmail.com>
 ---
-v2: Describe the exact interleaving of call_srcu()/srcu_barrier()/
-    srcu_invoke_callbacks() that triggers the false-positive WARN_ON(),
-    per Zqiang. No code change from v1.
-Link: https://lore.kernel.org/rcu/1b9d3ddaa26ba6a8ac2ad4c586c2d19a5c1f927e@linux.dev/T/#t
----
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
- kernel/rcu/srcutree.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
-diff --git a/kernel/rcu/srcutree.c b/kernel/rcu/srcutree.c
-index ed204b3f4b84..ad27880dd690 100644
---- a/kernel/rcu/srcutree.c
-+++ b/kernel/rcu/srcutree.c
-@@ -704,7 +704,7 @@ void cleanup_srcu_struct(struct srcu_struct *ssp)
- 		// Call srcu_barrier() before this cleanup_srcu_struct()
- 		// to avoid triggering this WARN_ON().
- 		if (WARN_ON(timer_delete_sync(&sdp->delay_work) &&
--			    rcu_segcblist_n_cbs(&sdp->srcu_cblist)) &&
-+			    !rcu_segcblist_empty(&sdp->srcu_cblist)) &&
- 		    rcu_cpu_beenfullyonline(sdp->cpu))
- 			queue_work_on(sdp->cpu, rcu_gp_wq, &sdp->work);
- 		flush_work(&sdp->work);
--- 
-2.43.0
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
 
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
