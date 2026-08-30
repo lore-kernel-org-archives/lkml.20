@@ -1,173 +1,143 @@
-Received: from mail-pz2-f1.google.com (mail-pz2-f1.google.com [74.125.228.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97D59234994
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 01:33:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0D95145A1F;
+	Sun, 30 Aug 2026 01:36:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788053601; cv=none; b=FpZrqX3fy6R4znsvd1HUVIPrfmO32m97TegrS+/DK5YLWY7wqaD8GZC85RisuapYBlORwSDyaDj9j5KDXcgiwMoSKyVFLXDioOryqdmL72uC34Az01g310iIv+D5MidoFyuPrk5dPtJscv0Bq5SHAEP7N20X1ZZ0r9voUmE0Goc=
+	t=1788053786; cv=none; b=AFVyTQDf3HGtS9LyLKFJbQ48ZN0yV0McrB/TDneJ9ULGzt6oOMtjpmKW7MnrBvZGVEVtFIGEr+YGL+M1DkNwfMytgUwTxo6++Qsk1q8lKUHwk+F6Vnc5R1SUBjcWTc2QbEvQHr2FVj540C+puT0ImW6yJIIDIyrRpqIgAim17Fg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788053601; c=relaxed/simple;
-	bh=L7IW1tp/lGDKRsN936NmztOL2L700ArRooNqrimHdTY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=LkdSjM8TrhQjZGKGPIhdc8kmpL8vRiJC+eRoZyQnMpNHybTESd6XsTVURG50jcUlGL/jR+zGTeP//1eXoIfZEWy6jGP+4ReeC07TrsUU3vyTyMsvEliSAyICf6mss/21IFH4rsnlMv/QHF/43Kb9/l+HwD0HThB84mR7hwO0gYE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GssOtfoO; arc=none smtp.client-ip=74.125.228.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788053786; c=relaxed/simple;
+	bh=Vv5i4jqd6MRM17DD001GHFOxW0HC9j2oP47qPtvKzqs=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=k7gSP41bmruORh6peMZ7epOlFaT+8VddwDIjiqd2+fcBqFzAvn1PFCFwkqkyTxQlMwzSIkAntIhMTZiCow7YZWrCpL+F+xZbxZyhmde10jemzdaUs/n/lpZ+rutbNRn+UUZjsNsjhEPMNMz3AnDk6dSqkqEbkKe/TnFbV6eJrF8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ajeeDKkF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GssOtfoO"
-Received: by mail-pz2-f1.google.com with SMTP id 41be03b00d2f7-c9fe62e0da3so794069a12.1
-        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 18:33:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788053599; x=1788658399; darn=vger.kernel.org;
-        h=content-type:content-transfer-encoding:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=uemCnbI4NOWffBqE2fLB5b76TLqLWSQp97k3pFWmors=;
-        b=GssOtfoOTwxohc69IRbUYnIbUvU/Vqc3OQvX7jvHnq8s3s59j93eyBGrZO12fd8Sf0
-         otLF3+AclXlEMQ4sRLGg0IzL3K9DYJ0Mz9CjJLQ2FHJBCtDoeD4a4qyK3WIuqtmOQuD1
-         euI9fhMvtXKvGxtOB0z6MX0+fHN4RWaQ7ma/9tzimH/XdHPRLT7GflbCqGqcMalgUu3A
-         AHa372xoXjM3ey/k8Gkvny5l7fcwbuP9SCFmB+RvmkHfI+5BF9TSJxLiLUHA4PINFtsY
-         Y47LXwBt6IERM/ej0X/WuMYY1613rP2Ljj1lWmfImgHPbOIOMcPGou95uPxpZUHDafuT
-         hseQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788053599; x=1788658399;
-        h=content-type:content-transfer-encoding:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=uemCnbI4NOWffBqE2fLB5b76TLqLWSQp97k3pFWmors=;
-        b=AavAD1MxubqwW4PlY9qJatSxRIWo7+q6TbLMiTKAagOxL3t1AhZR1qT8qos0/b6smU
-         NpGPnNwd4/IBqI/nFOJ651+TkS1BInIe2d8+Hykep6GFvnYZmSs280oGNjLjixqG4nE/
-         VBR+Z2tvUgM2XEdWDL7ad1QO5sJjAydcGY36gH0cOk8aZygi8+1JPQGU06bZ6qyN6oXe
-         xxqFxtblZUMQcCeHAHijLfyx7u4kd4IMmDVMWnmhYFQ0AtV5GuP0hcjKVksf8umeqxF+
-         swnObuBulm2qJGHKQ3RVW3+xDRB7pUE78Y52gnVMDsDpe2neAQKnO+jPL/Nz86rlF+cv
-         egrA==
-X-Forwarded-Encrypted: i=1; AHgh+RpJDTNA2zUn7eo8SVXpDP8bNWCNX6Xxt+aNnXdT1h7/6bk6+RJW4ZCBy5Ev17TEEp58l6ik5WwLKZVWJQc=@vger.kernel.org
-X-Gm-Message-State: AFuF++n7E1hCnNXNCQLc3Z0pR0eCNLk81PN8lSnf0/01rJhGO9ObhVdJ
-	8JLl9tFUwcCW2Vvpe0WNpshT603Z68YVKKiVaF4D0gkoBPReD65uyT39
-X-Gm-Gg: AR+sD13zL7mx3c0ZQhu2jUcusd9aIonxtUKxzFcBDHoD6c5L54Ulmeja0979s5QgoO4
-	8xWODdu3UVHKLRk3TluhS8mt1+pIZMRGbOq6luumnx0SpDBStkeR7zP8jvCRHCR2UPok3mvmsFP
-	SEgLIDWmvg6VgKHBmY3g74TLHP+g5ckGZ0YXzaYr/8ngIgu7A4B44uS+JHTnyybeT8DLEkgHYed
-	RM8ojezY0o/plEf2FCfGqsctxZp+SUcsuMHuOlw62yGjVRH6EgGhMfZWgeVo42wHKI0umAaFxxh
-	duEJNQ7kvJwSZZs3lnmBTGahKzV0Y8goteNz+tE99XUX/OyRklTRdrXc1ovycEzn9xrO/SS830w
-	7bu2XU8yU188G1yO+oetkZSzEbXvPDh9w6Y17UgBkIltWPWz9MSrKKY4A8jNLfKdWDbmWIM5Mue
-	nEzhmo/AXjo2jrQdCdML1fanP7B3/kK0xbtR+69MpdwoDjfOuGr2mGAROvMdKOUF5G9jHfS+TMd
-	cg+iaQm9TblFg==
-X-Received: by 2002:a05:6a00:4f8e:b0:857:73e2:9102 with SMTP id d2e1a72fcca58-85773e29356mr13611225b3a.18.1788053598822;
-        Sat, 29 Aug 2026 18:33:18 -0700 (PDT)
-Received: from hppc-archlinux.localnet ([101.68.111.107])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-856a2ea798esm1818145b3a.32.2026.08.29.18.33.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 29 Aug 2026 18:33:18 -0700 (PDT)
-From: Yukai Wu <xiaoyewuz.ruster@gmail.com>
-X-Google-Original-From: Yukai Wu <xiaoyewuz.Ruster@gmail.com>
-To: Weijie Yuan <wy@wyuan.org>
-Cc: Alex Shi <alexs@kernel.org>, Yanteng Si <si.yanteng@linux.dev>,
- Jonathan Corbet <corbet@lwn.net>, Paul Walmsley <pjw@kernel.org>,
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
- Dongliang Mu <dzm91@hust.edu.cn>, Shuah Khan <skhan@linuxfoundation.org>,
- Alexandre Ghiti <alex@ghiti.fr>, linux-doc@vger.kernel.org,
- linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
- Chen-Yu Yeh <chenyou910331@gmail.com>
-Subject: Re: [PATCH] docs/zh_CN: Update arch/riscv/vm-layout.rst translation
-Date: Sun, 30 Aug 2026 09:33:12 +0800
-Message-ID: <f-IgWNAyTmaoW34tfNxIvg@gmail.com>
-In-Reply-To: <apL7ctZhcN5t77Yu@wyuan.org>
-References:
- <20260829041542.256360-1-xiaoyewuz.Ruster@gmail.com>
- <apL7ctZhcN5t77Yu@wyuan.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ajeeDKkF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59E621F000E9;
+	Sun, 30 Aug 2026 01:36:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788053785;
+	bh=UdmgjnbDZPNvfBySictjfkzf6a9ms2p598rmvEHmvDI=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=ajeeDKkFTHUkYeU6OUd2Y/Bsb8ZguFW2xSfmR0ZW0QsQM6JuCly6ue7X0nCi4l/FF
+	 ZEspahW+S4hrguSsm/BJ9fFvMVjaawYRXsaX/2vSk3sL9P7IDv0SgQ1bv1GMfYhxOV
+	 yhxaFQDGSjxJUjcSty3xQIMqNnuRDk4QvRjrK6zWDtn+xQQ446YGNE378rZkPqQdry
+	 bdnuazHauQRhJWdHE0Qszdz3arw4bW8OEQ+5Stht1NZApC/vZoxTxUMk8CSAh6TEEz
+	 P1tp7MT2qyeeQEhlSJxOeoREE02QaHPT/HVuFGzZKHyimFw+5Yjw9sb7c3oD+suLFJ
+	 TLd7lru748j4g==
+Date: Sun, 30 Aug 2026 02:36:19 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Kurt Borja <kuurtb@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, David Lechner <dlechner@baylibre.com>,
+ Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko
+ <andy@kernel.org>, linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 04/10] iio: adc: ti-ads1262: support per-channel
+ sampling frequency
+Message-ID: <20260830023619.654d1bbe@jic23-huawei>
+In-Reply-To: <20260828-ads126x-v4-4-1dc27e9c0260@gmail.com>
+References: <20260828-ads126x-v4-0-1dc27e9c0260@gmail.com>
+	<20260828-ads126x-v4-4-1dc27e9c0260@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Saturday, August 29, 2026 11:32:02=E2=80=AFPM China Standard Time Weijie=
- Yuan=20
-wrote:
-> Hi, it's me again ;-)
->=20
-> On Sat, Aug 29, 2026 at 12:15:10PM +0800, Yukai Wu wrote:
-> > Update Documentation/arch/riscv/vm-layout.rst translation.
-> >=20
-> > Update the translation through commit 954260ff5a46
-> > ("Revert "RISC-V: mm: Document mmap changes"")
->=20
-> Somehow I guess you didn't get the actual meaning behind this "Update xxx
-> through commit...".
->=20
-> Correct me if I'm wrong. If you write this line in your commit message.
-> Then it means if we apply this patch of yours. The Chinese documentation
-> of this file should be already _completely_ synchronized.
->=20
+On Fri, 28 Aug 2026 01:38:19 -0500
+Kurt Borja <kuurtb@gmail.com> wrote:
 
-I agree. My fault again.
+> Add per-channel sampling frequency support. The "available" attribute is
+> assigned per-channel too, in order to eventually support per-filter
+> availability.
+> 
+> Signed-off-by: Kurt Borja <kuurtb@gmail.com>
+A build issue below.
 
-> However, the current translation of this file is missing this part:
->=20
-> RISC-V Linux Kernel SV57
-> ------------------------
->=20
-> ... which is not translated/synchronized in your patch.
->=20
->=20
+>  };
+>  
+> +static const struct ads1262_channel ads1262_default_channel = {
+> +	.data_rate = ADS1262_DR_20_SPS,
+> +	.filter = ADS1262_FILTER_FIR,
+> +};
 
-Didn't see that because I just used the tools/docs/checktransupdate.py scri=
-pt,=20
-which cannot see the commits before ed843ae947f8 ("docs: move riscv under=20
-arch"). That commit just moved the Chinese translation but was treated as a=
-n=20
-update by the script. And I only looked at the commits reported by the scri=
-pt.
-
-> Note that I'm not blaming on you for this. But I feel this is a point
-> that a newcomer might find confusing, including me and Chen-Yu a couple
-> of weeks ago, if did not read the script.
->=20
-> Our current how-to.rst only asks to write this line in the commit
-> message but does not explain the results or the actual work behind it.
->=20
-> [...]
-> 	Update the translation through commit b080e52110ea
-> 	("docs: update self-protection __ro_after_init status")
-> 	# =E8=AF=B7=E6=89=A7=E8=A1=8C git log --oneline <=E6=82=A8=E7=BF=BB=E8=
-=AF=91=E7=9A=84=E8=8B=B1=E6=96=87=E6=96=87=E6=A1=A3=E8=B7=AF=E5=BE=84>=EF=
-=BC=8C=E5=B9=B6=E6=9B=BF=E6=8D=A2=E4=B8=8A=E8=BF=B0=E5=86=85=E5=AE=B9
->=20
-> 	So when a newcomer comes and just does what this asks, without
-> 	considering whether his/her/its translation is completely
-> 	synchronized or not, our script would be kind of inaccurate. ?
->=20
-> Maybe we can add a description or a hint like:
->=20
-> If your current changes make the translation completely in line with the
-> English version, then please add this line after your descriptions and
-> before a blank line and your sign-off:
->=20
-> Update the translation through commit e83c5163316f
-> (Initial revision of "git", the information manager from hell)
->=20
-> ..then follows a template commit message
-
-Allowing partial updates to the translation?
-
->=20
->=20
-> Any ideas?
->=20
-> (Should I cc the original authors of the script?)
-
-CC the authors of the checktransupdate.py script?
-
->=20
-> Thanks.
-
-Best,
-Yukai Wu
+See below - this probably wants to be a slightly more complex define.
 
 
+
+> @@ -763,8 +970,15 @@ static int ads1262_parse_channels(struct iio_dev *indio_dev)
+>  	if (!chan_specs)
+>  		return -ENOMEM;
+>  
+> +	st->num_channels = num_fw_channels + ADS1262_MON_CHANNEL_COUNT;
+> +	st->channels = devm_kcalloc(dev, st->num_channels, sizeof(*st->channels),
+> +				    GFP_KERNEL);
+> +	if (!st->channels)
+> +		return -ENOMEM;
+> +
+>  	device_for_each_named_child_node_scoped(dev, node, "channel") {
+>  		struct iio_chan_spec *spec = &chan_specs[i];
+> +		struct ads1262_channel *chan = &st->channels[i];
+>  
+>  		ret = fwnode_property_read_u32(node, "reg", &reg);
+>  		if (ret)
+> @@ -772,6 +986,8 @@ static int ads1262_parse_channels(struct iio_dev *indio_dev)
+>  		if (reg >= ADS1262_MONITOR_ADDR_OFFSET)
+>  			return dev_err_probe(dev, -EINVAL, "%pfwP: reg out of range\n", node);
+>  
+> +		*chan = (struct ads1262_channel)ads1262_default_channel;
+
+This is giving me a build warning:
+
+drivers/iio/adc/ti-ads1262.c:1913:26: warning: cast to non-scalar
+drivers/iio/adc/ti-ads1262.c:1913:26: warning: cast from non-scalar
+
+So we can't do this... Hmm. It's pretty simply. Use a define for
+the default channel with the (struct adds1262_channel)
+and that should work for us.
+
+> +
+>  		ret = ads1262_parse_channel_node(st, spec, node);
+>  		if (ret)
+>  			return ret;
+> @@ -786,7 +1002,9 @@ static int ads1262_parse_channels(struct iio_dev *indio_dev)
+>  			.storagebits = 32,
+>  			.endianness = IIO_BE,
+>  		};
+> -		spec->info_mask_separate = BIT(IIO_CHAN_INFO_RAW);
+> +		spec->info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
+> +					   BIT(IIO_CHAN_INFO_SAMP_FREQ);
+> +		spec->info_mask_separate_available = BIT(IIO_CHAN_INFO_SAMP_FREQ);
+>  
+>  		i++;
+>  	}
+> @@ -795,6 +1013,7 @@ static int ads1262_parse_channels(struct iio_dev *indio_dev)
+>  	       sizeof(ads1262_monitor_chan_specs));
+>  
+>  	for (unsigned int mon = 0; mon < ADS1262_MON_CHANNEL_COUNT; mon++) {
+> +		st->channels[i] = (struct ads1262_channel)ads1262_default_channel;
+Same here - a define would allow this to work rather than giving build
+problems as it currently does.
+
+>  		chan_specs[i].scan_index = i;
+>  		i++;
+>  	}
+> @@ -890,6 +1109,10 @@ static int ads1262_spi_probe(struct spi_device *spi)
+>  
+>  	indio_dev->name = ads1262_device_id_to_name[st->dev_id];
+>  
+> +	ret = ads1262_populate_tables(indio_dev);
+> +	if (ret)
+> +		return ret;
+> +
+>  	/*
+>  	 * REVISIT: This chip has software polling capabilities, which could be
+>  	 * used to stop depending on the DRDY signal.
+> 
 
