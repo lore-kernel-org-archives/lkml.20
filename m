@@ -1,43 +1,43 @@
-Received: from mail-10628.protonmail.ch (mail-10628.protonmail.ch [79.135.106.28])
+Received: from mail-10631.protonmail.ch (mail-10631.protonmail.ch [79.135.106.31])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 559D12DFA4A
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 15:15:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.28
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C7083B38B4
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 15:15:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.31
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788102946; cv=none; b=n/yS308IydvDltY7Y5RLOwce7KJe+coNwdKQcYQ4Q/M/jRH4NtTw+iHyCU98zRrsDvslqGcnPIa/r8VMvQ9h3T3fdqhxd3lPc7UzPexu1s7JLaOBKNRZwF2mZZItsGBBlHW8Y4JBGtTRENc4PCppTaVuyTS2FqsKv7DM7gy9VbI=
+	t=1788102954; cv=none; b=oxwVXKMSHZUvpOOhgO2u2/1dhcw7RbwcZ/+AZFMWWTeEkRY7xDZJPSSH3Voo1I1+ueUBJuB6cjifzs1Xk81VsFBOZvoUMnTC2hZgISwzeFY3FLJ8sHBfBN5gLiKr9Tuj8WedpGU+sNcZkpJdCiX/7X7DnUwY7YmUe3+RlzpUiPs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788102946; c=relaxed/simple;
-	bh=H4e7Ps1XtiKH4TO/3BjbXXc8kP7dZkzLPOEI7twRvAk=;
+	s=arc-20240116; t=1788102954; c=relaxed/simple;
+	bh=iZgjrGqnvOe5pgKwZsQS0+wbB/M9mLRAIsEhxtznrRs=;
 	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=IS2+6Pe1pXrIycrOCv8J+2dl3mbSTo3ks8ugJdetPThDR+spimxCMXu34N5rUtbpyf4V9WKP3uRN0dGHZy38evvaSFX4OYzA9X8fOctqDYD868zwx2mP8ghrqZevQeWIZgTH5ekJjMEwUnxHW2ijXISCe5u+V8pqkrZglAw+igg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=hSpsWtHp; arc=none smtp.client-ip=79.135.106.28
+	 MIME-Version:Content-Type; b=O+PF0++wloXs00crC5jRKD+c+mGuH7pn82CDiigNv5Jshsy1g1o87MPSSF7pOe1dUjtqwixWXzQNHEcUwp0ngqqBqhdIMiyRmYJX9DJZ1Sz44tWTRndRZ9mDu1KtChNX0FpFC+rMHU4LW1SDZLcraK97GkEuQpI++cVJrjbNsKY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=itRhO6NT; arc=none smtp.client-ip=79.135.106.31
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="hSpsWtHp"
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="itRhO6NT"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1788102941; x=1788362141;
-	bh=rAjpVHNOuKzbCe4ywlmfVDM0tSDIwLDF//f7jRQKZz8=;
+	s=protonmail3; t=1788102948; x=1788362148;
+	bh=QfDLdBTxpW4yJTto1iymVZAPtNCOLmuHYXz56aJF9po=;
 	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
 	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
 	 Message-ID:BIMI-Selector;
-	b=hSpsWtHp6hokVpmcJn3Gvqaw/8rsxT0+d9yE/d1q2MDowlYwob1QYdaWP6TzXUIIa
-	 uXMqBnwh1igyQ2Naf3nYLVcpM49CCoga6gW3c02xRyDduVgNfhNvY9VaFug7QOWhEn
-	 QOLOSkrynhLe1BwEgI8vze604Lod3vRsyXgBmaawq9Yxi2IDx3HTyLR+uezr7N0ayJ
-	 I4MDnZcUle8hDd0h8WAhqBmtCi8CingqpZLqJ2xtHzgbWg1lYEiwj5kN/5CDGb7QTB
-	 okmc8/nbaxmW8Y93YSBNX6kelT4UI+CXiyJqEZ/dk5WKVmVZnFgGBKr1HdUsQnaTix
-	 gIMSPwISa1+gA==
-Date: Sun, 30 Aug 2026 15:15:36 +0000
+	b=itRhO6NTudB5PM7L+AESHmkpZdY2KhlSSiXqdhgCbkcV0Twezvw+1Qhx7j9FVMsbz
+	 aGdOva6Z7cPFUN42PqgFRrQdZoB37cxicBKwQ3+zapmsDh3Nf/uafzQQ9AdVCa6VD0
+	 b8rM/1oK3hClxJvFF00H+UCkoFUR5B0pTCblinl/lrfgAU0iwqKU+7Al1XcjPJUbN2
+	 qk16IZ7RiNRHBj7+5E1igeQ8oNW8A3fpEZbjFEBy9vVA15BhJhJmUx21pteawT5+J0
+	 v7ntJTlTt8VFgZynmS6uWDiQT9BFuByMBkwz96z5EWQCvmb7m/OCh920uIb9YPQJqH
+	 scxdzPK4JwCtg==
+Date: Sun, 30 Aug 2026 15:15:45 +0000
 To: Vinod Koul <vkoul@kernel.org>, Bard Liao <yung-chuan.liao@linux.intel.com>, Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>, Oder Chiou <oder_chiou@realtek.com>, Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
 From: Sergey Lebedev <lsa.uz@pm.me>
 Cc: Bard Liao <bard.liao@intel.com>, Amaan Lalani <zlzzm2014@outlook.com>, linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v3 1/2] ASoC: rt1320: run the initialisation preset on the first hardware init
-Message-ID: <20260830151516.44629-2-lsa.uz@pm.me>
+Subject: [PATCH v3 2/2] soundwire: dmi-quirks: drop the ghost RT1320 on the Surface Pro 11 (Intel)
+Message-ID: <20260830151516.44629-3-lsa.uz@pm.me>
 In-Reply-To: <20260830151516.44629-1-lsa.uz@pm.me>
 References: <20260830151516.44629-1-lsa.uz@pm.me>
 Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: 38181b0fa2026e65e0047983b4278b82083e0fb7
+X-Pm-Message-ID: d09a73fc846615f0aa6b8870a18c2b6942338aee
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -47,54 +47,100 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-rt1320_io_init() applies the vendor initialisation preset only when the
-amplifier's SDCA function status has FUNCTION_NEEDS_INITIALIZATION set:
+The Microsoft Surface Pro 11 for Business (Intel, Lunar Lake) carries a
+single physical RT1320 amplifier on link 0 and describes it twice:
 
-=09if ((amp_func_status & FUNCTION_NEEDS_INITIALIZATION)) {
+  SWRA  _ADR 0x000030025D132000   SDCA class 0
+  SWRB  _ADR 0x000030025D132001   SDCA class 1
 
-Its two sibling drivers guard the same write differently, also running
-the preset on the first hardware init:
+Identical apart from the class id: same link, same manufacturer, part and
+version, same unique id 0. The part reports class 1, so only SWRB
+enumerates. SWRA never attaches on any boot or firmware version tested,
+including the November 2025 bundle.
 
-  rt712-sdca.c:  if ((amp_func_status & FUNCTION_NEEDS_INITIALIZATION) ||
-                     (!rt712->first_hw_init)) {
-  rt722-sdca.c:  if ((amp_func_status & FUNCTION_NEEDS_INITIALIZATION) ||
-                     (!rt722->first_hw_init)) {
+The ghost is not harmless. It consumes an amplifier index in
+find_acpi_adr_device(), so the real part is named "rt1320-2" and the stock
+sof-soundwire UCM profile enables switches on a device that is not there.
+Its endpoints also reach create_sdw_dailink(), which builds DAI link names
+from link id and function type alone; the ghost declares the same SmartMic
+function as the real part, so the card fails to register at all:
 
-On the Microsoft Surface Pro 11 (Intel) the RT1320 never sets that bit.
-Its function status reads back 0x41 on every boot, cold or warm:
+  sysfs: cannot create duplicate filename
+    '.../sof_sdw/SDW0-Capture-SmartMic'
+  kobject_add_internal failed for SDW0-Capture-SmartMic with -EEXIST
+  sof_sdw sof_sdw: probe with driver sof_sdw failed with error -12
 
-  rt1320-sdca sdw:0:0:025d:1320:01: rt1320_io_init amp func_status=3D0x41
+Remap its _ADR to zero so sdw_acpi_find_slaves() never creates the
+peripheral, which is how ghost devices are handled already - see
+ghost_realtek and global_ghost_adr in this file. Both failures then
+disappear, because neither path is reached.
 
-which is NEWLY_ATTACHED | FUNCTION_HAS_BEEN_RESET: the function reports
-that it has been reset and does not consider itself in need of
-initialisation. Bit 5 is never set, so the preset never runs,
-rt1320_vc_preset() and the MCU patch load are skipped, and the amplifier
-is left unprogrammed. rt712 and rt722 would have run it via their
-first_hw_init fallback.
+Matched on DMI_PRODUCT_SKU rather than the product name. A later batch of
+the same model could carry a different RT1320 version, which would change
+the _ADR; keying on the SKU keeps this remap to the hardware it was
+verified on, and follows dell_sku_0A3E above.
 
-Add the same fallback. With it rt1320_vc_preset() executes and the
-amplifier reports RT1320_KR0_INT_READY=3D0x1f where previously it did not.
-
+Suggested-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>
+Suggested-by: Bard Liao <bard.liao@intel.com>
 Signed-off-by: Sergey Lebedev <lsa.uz@pm.me>
 ---
- sound/soc/codecs/rt1320-sdw.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/soundwire/dmi-quirks.c | 28 ++++++++++++++++++++++++++++
+ 1 file changed, 28 insertions(+)
 
-diff --git a/sound/soc/codecs/rt1320-sdw.c b/sound/soc/codecs/rt1320-sdw.c
-index 13493b85f..d1f3b160a 100644
---- a/sound/soc/codecs/rt1320-sdw.c
-+++ b/sound/soc/codecs/rt1320-sdw.c
-@@ -1900,7 +1900,7 @@ static int rt1320_io_init(struct device *dev, struct =
-sdw_slave *slave)
- =09dev_dbg(dev, "%s amp func_status=3D0x%x\n", __func__, amp_func_status);
+diff --git a/drivers/soundwire/dmi-quirks.c b/drivers/soundwire/dmi-quirks.=
+c
+index d75037558..8b3c5c8d1 100644
+--- a/drivers/soundwire/dmi-quirks.c
++++ b/drivers/soundwire/dmi-quirks.c
+@@ -111,6 +111,25 @@ static const struct adr_remap ghost_realtek[] =3D {
+ =09{}
+ };
 =20
- =09/* initialization write */
--=09if ((amp_func_status & FUNCTION_NEEDS_INITIALIZATION)) {
-+=09if ((amp_func_status & FUNCTION_NEEDS_INITIALIZATION) || !rt1320->first=
-_hw_init) {
- =09=09switch (rt1320->dev_id) {
- =09=09case RT1320_DEV_ID:
- =09=09=09if (rt1320->version_id < RT1320_VC)
++/*
++ * The Microsoft Surface Pro 11 (Intel) describes its single physical RT13=
+20
++ * amplifier twice on link 0, as two _ADR entries differing only in SDCA c=
+lass
++ * id and sharing the same unique id. Only the class 1 entry enumerates; t=
+he
++ * class 0 entry is a ghost.
++ *
++ * Matched on the product SKU rather than the product name: a later batch =
+of the
++ * same model could carry a different RT1320 version, which would change t=
+he
++ * _ADR. Keying on the SKU keeps this remap to the hardware it was verifie=
+d on.
++ */
++static const struct adr_remap microsoft_sp11_intel[] =3D {
++=09/* ghost rt1320 on link0 */
++=09{
++=09=090x000030025d132000ull,
++=09=090x0000000000000000ull
++=09},
++=09{}
++};
++
+ static const struct dmi_system_id adr_remap_quirk_table[] =3D {
+ =09/* TGL devices */
+ =09{
+@@ -207,6 +226,15 @@ static const struct dmi_system_id adr_remap_quirk_tabl=
+e[] =3D {
+ =09=09},
+ =09=09.driver_data =3D (void *)ghost_realtek,
+ =09},
++=09/* LNL devices */
++=09{
++=09=09.matches =3D {
++=09=09=09DMI_MATCH(DMI_SYS_VENDOR, "Microsoft Corporation"),
++=09=09=09DMI_EXACT_MATCH(DMI_PRODUCT_SKU,
++=09=09=09=09=09"Surface_Pro_11th_Edition_With_Intel_For_Business_2103")
++=09=09},
++=09=09.driver_data =3D (void *)microsoft_sp11_intel,
++=09},
+ =09{}
+ };
+=20
 --=20
 2.50.1 (Apple Git-155)
 
