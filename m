@@ -1,88 +1,34 @@
-Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3FF73BC687
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 16:03:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC6A63BE163;
+	Sun, 30 Aug 2026 16:03:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788105804; cv=none; b=GCnWC3AFSWLDBOgC+wMCVGnwYBhcTetfo/8HQJt8q1kxByAazFVhMB7VxPgZL3IeUhZpYUKPy27DcswRw01Munqw2NDYzu/cdOB5WCRv8fgYyBatQH/d+jIknhEswNH90H3YGIwK3VQ8h5YJdN2EFn6XleOeAiDtT+blL8wRQec=
+	t=1788105839; cv=none; b=P3vCdwnVxKCgSxXeruUtk9FN3peq9tt/EWmjhVnNkN4Otme/k5p0bYZO/tDBaKHHiscDh2BPhbtu/gF/3CXRcwoIh4aMxEbShjQJZBLm5CZUhjQdJWC0TzbEjqDEReoctbi3bIEjDqXcy7c5tKBQhcw+rBXMMOQQ2aK678aNxyM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788105804; c=relaxed/simple;
-	bh=oiC51w1NPaioikE1Hg9uEJxGeYzaTROkH+16a9WiVbw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=SJ9PFuiaUz5KBeK/dCPjQs91RZWAJwv680X+dbhwu5w0YgfkJxV77W4vwZXp0I8jON2TDE5LYoxnLM4wHtR5/y7NzCW27qnrXlf7hUMpRjaZsWeq1gahg7Wd8lnM1wy6q1/EqYu7JGn6Wnw44cMKhtPyIsw+ehNHp2zOsoBzFvQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KQg3q7jG; arc=none smtp.client-ip=209.85.215.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788105839; c=relaxed/simple;
+	bh=fVk+dpBQMnUa9wCjBx/IcrDTh42iXyeZjf40wv9wQBU=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=T8fOkjnQDy+LKSDTqSRCOmxwySKaVW74n3e0lLAsdAtfFO+BteIyIU2+v4ZR46g6GPcfdcPYm7MdQ+bbuoV7ZyX3pO7032XIClUiQmJiMjhWiyE7/Yo5EwY4XrvSejDIjn1oalcg+wOjLdKtLjBJc/EafSxGvi1xCXWvg+bSk0Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=Jrsttch5; arc=none smtp.client-ip=45.254.49.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KQg3q7jG"
-Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-cb5b8572b70so2732926a12.2
-        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 09:03:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788105802; x=1788710602; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Y55JaARfg3EV2mur3cWs7k4GhU5c80X4HvQLCTJYTYs=;
-        b=KQg3q7jGb6UFORf0io0LV15mwS62/21ABDqJ/PJu1NzsDvZ7Hnmqis+PtErW7saHqU
-         HacYZyeD/zKaqTfRLrb0vWHfsYwUqCT8K0u4QDYI7pwEzYCf0mJ/eCUtJT34WCu0tSk8
-         I31Tz6Fo9JyNwuvXEpp+BLt1P/OFfVI3ejCn+8LcThlKlDrwjztSMVwVvwJT/o8IvPKO
-         eLAijPZdd50ueC1d+lEfzlFoZ4t/vVa4ZntHctEnqMtNM7Mf+Q+Ahq/vXXNYhzIz2Y6S
-         KJ2+V/zw1aZ5Wn0vPeSSQmxMToVgftG3aH6EwM/v2CwH14/++B3kBkdNaQpFIRK0fyRn
-         cEsw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788105802; x=1788710602;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Y55JaARfg3EV2mur3cWs7k4GhU5c80X4HvQLCTJYTYs=;
-        b=M6R827C+IUJAVb+UJmw4aBBOilK7yDuBoc3keIqC/pkvOG5c8FrVPWlKE2oAYJe3gU
-         tMXck5ET5wL7utp/v+AVwSJgkJhc7kEkYQRwjPUVXEr3/SQZ8/nt5qegiOO8aIKE9A+4
-         FqKlpc53HAywVUzRFJDh/Lhhjhr3L2QYmebtg+bK7qO1dLibdrcXpYz8ExsCAmp/gjd3
-         WqgmRKAHVVHMMOnrhMZ9yws09XD2hxgk2ZOaPJ4PLM5rE5JL7hVRk9rFBeLtKVEBS1km
-         v7znbBCwfbYJYN/izQt9Wz0INA+K3gvwYs+mXKs1UOwgdjY9ptYGznILrKDGToN4iP0e
-         9FRg==
-X-Forwarded-Encrypted: i=1; AHgh+RoOlN8phIOww4sYMS0tYhEtodRBWpjn51T5wWn4QwboywFGpnmn6xGxs8LJbw+MeOOUnRh1Xb/dFpTBcdo=@vger.kernel.org
-X-Gm-Message-State: AFuF++nuobH3eCeUmUdOELRl64SdfffHqb72z0XevMPLjCS7K9cvre0g
-	yd/QZZ04wcNNjL+GPGuwdQJbg+SE9O2WPrGunqAj4Y4uN6ByikIGuUdI
-X-Gm-Gg: AR+sD12K/dxhzI0WtCT2UyKA1DSOyr2hj8GEl65YAkPulRimC3KCx3n4XYg4JcqTcfi
-	bqqCMi73RcXrUn/G3Qzi/71vzbL5kYUaxXzn4vjXdhvZdtfEbSEBTb0tPyHEwWMWIp0xWmtlX8m
-	7Ttsfu4BQZShGARBEJqyAyWA+t6vkwUlnhxV7aZyJ/Wh251bTlHpGRKvG0naxTchyq8OzZuqIqM
-	Mnskr0GWOCo9/xwCC6IlFjiNLKFZIlwJ2egvQGveBW/tzvKNrmJAmxYonUb5Hb3uvb3NLaMhIBS
-	Qp+jO8sbD6ZlIAkZcO/8Pm9FPL8CPFU4VaCXpJJtUjYxYcPOvQ102hBIQaKlzaZgNf608VIlMzA
-	tAWM53DF02R0Kdq4ciunTK3vxZ94BkSftM4zXYdg3WdGS36vMN8wkSro5phY0oiSNLk9WG7Nzg1
-	Gw8GbzoAhYZNXP2v4nv8jkIpOu50XIH40k6YobVh4DzWOty6M+ZXSZ322btyAgwHDe2tHRRaCui
-	xUIz+c95cLDVqblHKfPlon4+BuXHojLHmcn2HAff5fsoQdwpe3a
-X-Received: by 2002:a05:6a20:a124:b0:3bf:5b7a:fc8b with SMTP id adf61e73a8af0-3d2633a1e56mr31289054637.0.1788105802212;
-        Sun, 30 Aug 2026 09:03:22 -0700 (PDT)
-Received: from nuvole (2.248.212.35.bc.googleusercontent.com. [35.212.248.2])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc1f3312270sm2839584a12.11.2026.08.30.09.03.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 30 Aug 2026 09:03:21 -0700 (PDT)
-From: Pengyu Luo <mitltlatltl@gmail.com>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Martin Kepplinger-Novakovic <martink@posteo.de>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Sebastian Krzyszkowiak <sebastian.krzyszkowiak@puri.sm>
-Cc: devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="Jrsttch5"
+Received: from PC-202605011814.localdomain (unknown [58.241.16.34])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4bd7e9710;
+	Mon, 31 Aug 2026 00:03:52 +0800 (GMT+08:00)
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+To: sre@kernel.org
+Cc: carlos.chinea@nokia.com,
 	linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org,
-	Pengyu Luo <mitltlatltl@gmail.com>
-Subject: [PATCH v6 5/5] arm64: dts: imx8mq-librem5: Correct link frequency list
-Date: Mon, 31 Aug 2026 00:00:25 +0800
-Message-ID: <20260830160025.211384-6-mitltlatltl@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260830160025.211384-1-mitltlatltl@gmail.com>
-References: <20260830160025.211384-1-mitltlatltl@gmail.com>
+	runyu.xiao@seu.edu.cn,
+	jianhao.xu@seu.edu.cn,
+	stable@vger.kernel.org
+Subject: [PATCH] HSI: omap_ssi: Initialize lock before requesting IRQ
+Date: Mon, 31 Aug 2026 00:03:46 +0800
+Message-Id: <20260830160346.2716091-1-runyu.xiao@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -90,34 +36,47 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa05369b93403a1kunmcba1369d106a69
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaGB4ZVh5LTUtPH0pKSElJSFYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlOQ1VJT0pVSk1VSE9ZV1kWGg8SFR0UWUFZT0tIVUpLSEpPSE
+	xVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=Jrsttch5uw8Y6UFo2bXxCPTGj7oCBs/SRwaV8JvX97KsZu71yhUi2hbslKkuKld5GehsK/ebMds7Xh4evtapEhIQQeiDTAGcP3mHJx8fmh5XvyqrIqlxB7GWNWY8KiRxz6nwjBzN10QPMlxyuFS97HQ2S8lYiTdht7l0iocmD1g=; s=default; c=relaxed/relaxed; d=seu.edu.cn; v=1;
+	bh=yS2pRrlvssh39k9LK/xUes/1U4jcuXwF42KC2ORiREE=;
+	h=date:mime-version:subject:message-id:from;
 
-According to the hi846 datasheet and the register lists, they are
+The GDD interrupt handler schedules a tasklet which can eventually use
+the controller lock. Initialize the lock before registering the handler
+so an early interrupt cannot reach the tasklet with an uninitialized lock.
 
-mclk / prediv * multiplier / mipi_clk_div1 / mipi_clk_div2 =
-25Mhz / 3 * 90 / 2 / {1,2} = 187.5Mhz, 375Mhz
-
-Signed-off-by: Pengyu Luo <mitltlatltl@gmail.com>
+Fixes: b209e047bc74 ("HSI: Introduce OMAP SSI driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
 ---
-v5:
-- Rename post_div to mipi_clk_div
-- Correct div1 number from 1 to 2
----
- arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi | 2 +-
+ drivers/hsi/controllers/omap_ssi_core.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi b/arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi
-index f5d529c5baf3..cc5604172192 100644
---- a/arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi
-+++ b/arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi
-@@ -1122,7 +1122,7 @@ port {
- 			camera1_ep: endpoint {
- 				data-lanes = <1 2>;
- 				link-frequencies = /bits/ 64
--					<80000000 200000000 300000000>;
-+					<187500000 375000000>;
- 				remote-endpoint = <&mipi1_sensor_ep>;
- 			};
- 		};
+diff --git a/drivers/hsi/controllers/omap_ssi_core.c b/drivers/hsi/controllers/omap_ssi_core.c
+index 0f5a6f752..dbbb56e81 100644
+--- a/drivers/hsi/controllers/omap_ssi_core.c
++++ b/drivers/hsi/controllers/omap_ssi_core.c
+@@ -366,6 +366,7 @@ static int ssi_add_controller(struct hsi_controller *ssi,
+ 	if (err < 0)
+ 		goto out_err;
+ 	omap_ssi->gdd_irq = err;
++	spin_lock_init(&omap_ssi->lock);
+ 	tasklet_init(&omap_ssi->gdd_tasklet, ssi_gdd_tasklet,
+ 							(unsigned long)ssi);
+ 	err = devm_request_irq(&ssi->device, omap_ssi->gdd_irq, ssi_gdd_isr,
+@@ -396,7 +397,6 @@ static int ssi_add_controller(struct hsi_controller *ssi,
+ 	omap_ssi->get_loss = NULL;
+ 
+ 	omap_ssi->max_speed = UINT_MAX;
+-	spin_lock_init(&omap_ssi->lock);
+ 	err = hsi_register_controller(ssi);
+ 
+ 	if (err < 0)
 -- 
-2.55.0
-
+2.34.1
