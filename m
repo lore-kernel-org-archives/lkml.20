@@ -1,158 +1,85 @@
-Received: from mta0.migadu.com (out-9.mta0.migadu.com [91.218.175.9])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from relay.hostedemail.com (smtprelay0016.hostedemail.com [216.40.44.16])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A611E27603A
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 01:20:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59A791F3BA2;
+	Sun, 30 Aug 2026 01:22:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788052830; cv=none; b=p969X+Wvx6PrASL7jvUKuvftH1ahCTXZSEeC4pyZcxWG0RKLhaFQ22ifJu2hnMPdAR/f5oAN5UQ0p0R2VsBEqlzqH4PSIhWTW80f08A341cnOEk4EBqN0j0j3fgrd6+d8GHOvbKdDTrcL/6GivErQKdpI9DCdunKTWhTsVRjWvE=
+	t=1788052936; cv=none; b=cWsyzU8UqVWqZNFycvEjGW6cc70kOmdZLLYqO22lwflft5y4ovpcnycnl/OgkfQ1cIRijTfE6Zn5hdBMzCxMKTO9QqA62MbEHGZbJyy65Wy3uToiPQO0K008YKQJvRwQRFVN2xR/Ku7g+/NIrd2oGO7zpG/kj1hXaKTJNt5gbao=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788052830; c=relaxed/simple;
-	bh=cXHnugjrYFIs1UwN0nVV8md0Hm/sTFj0FoTfSt8CKkQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=FDfsgehHNdMaAry9G0p20CmePKN+lF7mhUhCVOjj6/7RtZdFiMYnfIH5IGt/WYTDCHOUChcixxSb2AQDMZuBgPXAakOZzEjhC/iyp1tL6iMkeLXmlfqqAucYG+ZmRc+BzRlBfa+gXtETjh/3y7pX2UhPHfkmUm+NFeS2IDd6H50=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=uj+g9NvU; arc=none smtp.client-ip=91.218.175.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788052936; c=relaxed/simple;
+	bh=3IHIEfnt4vtTfFYqiZiEgy+nV7fnnKTw5A1pNm63pVs=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=e3FdlqkgTx/4Lb5EmbEsnMn3HVUJIodqQzdaumW1Zlghlvef9xkevADewlqQUgySIxxYUNqIAy7nqX08bCt8h7JEjfXUt/EPR2HNeXQ7im3yX/rYNXrSVkJ6JrM3/uTWC3b6mfDRIifoawiociXKMJ0xzBVU6GPHU4omUE5tHJE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=aUszwaZc; arc=none smtp.client-ip=216.40.44.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="uj+g9NvU"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=cXHnugjrYFIs1UwN0nVV8md0Hm/sTFj0FoTfSt8CKkQ=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788052825; v=1; x=1788657625;
- b=uj+g9NvUax7kkrmIpYg5SAngii4rI5NgZzTsmimdl7DRGWtZKrBbA4vzOltKw3RmjP45oemd
- c4Hn8XvTb+1yIkyINTqftazhZ8oPSr+ZUCLw2B2zLD+nJPvNohSU6CBT06lVB0SRDhdzxYx//6L
- nQJ2sM9NxgDidSbFkEHYpY58=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 0ca15c6cd765ee62;
-	Sun, 30 Aug 2026 01:20:25 +0000
-X-Mizu-Trace-ID: 0ca15c6cd765ee62
-X-Migadu-Flow: FLOW_OUT
-From: Md Haris Iqbal <haris.iqbal@linux.dev>
-To: Jens Axboe <axboe@kernel.dk>,
-	linux-block@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	Christoph Hellwig <hch@lst.de>,
-	Keith Busch <kbusch@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	linux-doc@vger.kernel.org,
-	Md Haris Iqbal <haris.iqbal@linux.dev>
-Subject: [v2 for-next 3/3] Documentation: block: document error injection delays
-Date: Sun, 30 Aug 2026 03:20:02 +0200
-Message-ID: <20260830012002.80275-4-haris.iqbal@linux.dev>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260830012002.80275-1-haris.iqbal@linux.dev>
-References: <20260830012002.80275-1-haris.iqbal@linux.dev>
+	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="aUszwaZc"
+Received: from omf07.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay10.hostedemail.com (Postfix) with ESMTP id 209E4C01FB;
+	Sun, 30 Aug 2026 01:22:06 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf07.hostedemail.com (Postfix) with ESMTPA id E36492002D;
+	Sun, 30 Aug 2026 01:22:03 +0000 (UTC)
+Date: Sat, 29 Aug 2026 21:22:02 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Roman 'Hedin' Storozhenko <romeusmeister@gmail.com>
+Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Masami
+ Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers
+ <mathieu.desnoyers@efficios.com>, linux-riscv@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org
+Subject: Re: [PATCH] riscv: mm: Trace TLB flush path selection
+Message-ID: <20260829212202.57db49ca@robin>
+In-Reply-To: <20260829-tlb_tracepoint-v1-1-dfdaede7e741@gmail.com>
+References: <20260829-tlb_tracepoint-v1-1-dfdaede7e741@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Stat-Signature: ukqctwoyphodb13xzayqebz7r4f4dmek
+X-Rspamd-Server: rspamout02
+X-Rspamd-Queue-Id: E36492002D
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX1/sqVK0fFooPR1itamYVWNSbX7CA3T24RY=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=4sRIP04b9wK9VjtW1o66xTIPvzY/H2UE5MvlBWnKKPA=; b=aUszwaZcQphe/6RW9aC3DbZu7MgM5/QL73IiMyklaB2N9HFhtstT3ZO7M7kLXfT9PvYJ/xw4Wm96RKVVFNXOazvTMx3QGArSu2Ow8bsLHMPdvwwTMA3xoRD4SDH0QYAhlurMTpAXISJOsiVVK+NdX5z1IP1hgqw+r3HfMLYXUFE=
+X-HE-Tag: 1788052923-607629
+X-HE-Meta: U2FsdGVkX1/wQ+Oy6cCSBIUf39XP6U3b3Q63hB4YOQx2PzNY3F5HuBYUg3xu8fpdaMceW8EDr1Ht9QoMe7RjrFymxjxRR9SkxVn7s+pAmzieKjq7CDgqI7gRwRWymf2iNNrhkFLK+RaaPOJ7aSMnsIPsMRRrBwZxz8PZ15/oWaWaYJ1XLnjywIbxOrBam8ga6izc20V5RXF2re5X0mD0osJwtbVqIZ9sncZvCYwDZki8dyw7rZJFrcZK92QBfQiinedxY9N2N6tDxBMD3cQy5HNebtqnC2GUCNVpvfXdDT6dXoyq2FaMw5pOay+rscGtIhBXvWscl1Bez+1Er4SdnxBKH9PrYGVT
 
-Document the delay_us option: the delay happens above the driver, a
-delayed bio is not run through the rules again, and holding a bio back
-reorders it against bios submitted later.
+On Sat, 29 Aug 2026 17:44:18 +0200
+Roman 'Hedin' Storozhenko <romeusmeister@gmail.com> wrote:
 
-Cc: Christoph Hellwig <hch@lst.de>
-Signed-off-by: Md Haris Iqbal <haris.iqbal@linux.dev>
----
- Documentation/block/error-injection.rst | 58 ++++++++++++++++++++++++-
- 1 file changed, 56 insertions(+), 2 deletions(-)
+> +static __always_inline void
+> +riscv_tlb_trace_flush_path(const struct cpumask *cmask, unsigned long start,
+> +			   unsigned long size, unsigned long stride,
+> +			   unsigned long asid, bool has_mm,
+> +			   enum riscv_tlb_flush_path path)
+> +{
+> +	enum riscv_tlb_flush_scope scope;
+> +
+> +	if (!trace_riscv_tlb_flush_path_enabled())
+> +		return;
+> +
+> +	scope = riscv_tlb_get_flush_scope(size, stride, has_mm);
+> +	trace_riscv_tlb_flush_path(start, size, stride, asid, has_mm, cmask,
+> +				   scope, path);
 
-diff --git a/Documentation/block/error-injection.rst b/Documentation/block/error-injection.rst
-index 81f31af82e65..a1f50d41211d 100644
---- a/Documentation/block/error-injection.rst
-+++ b/Documentation/block/error-injection.rst
-@@ -9,7 +9,8 @@ Overview
- 
- Configurable error injection allows injecting specific block layer status codes
- for sector ranges of a block device.  Errors can be injected unconditionally, or
--with a given probability.
-+with a given probability.  Instead of, or before, failing a bio it can also be
-+held back for a while to model a slow device.
- 
- To use configurable error injection, CONFIG_BLK_ERROR_INJECTION must be enabled.
- 
-@@ -34,15 +35,60 @@ op=<string>		block layer operation this rule applies to.  This uses
- 			the XYZ for each REQ_OP_XYZ operation, e.g. READ, WRITE
- 			or DISCARD. Mandatory.
- status=<string>		Status to return.  This uses XYZ for each BLK_STS_XYZ
--			code, e.g. IOERR or MEDIUM. Mandatory.
-+			code, e.g. IOERR or MEDIUM. Mandatory unless delay_us
-+			is given.
- start=<number>		First block layer sector the rule applies to.
- 			Optional, defaults to 0.
- nr_sectors=<number>	Number of sectors this rule applies.
- 			Optional, defaults to the remainder of the device.
- chance=<number>		Only return a failure with a likelihood of 1/chance.
- 			Optional, defaults to 1 (always).
-+delay_us=<number>	Hold the bio back for this many microseconds.  Without
-+			status the bio is then submitted to the device as
-+			usual, with status it is failed once the delay has
-+			expired.  Optional, defaults to 0 (no delay).
-+			Values above 600 seconds are rejected.
- ===================	=======================================================
- 
-+Delays
-+------
-+
-+A delayed bio is held before it is submitted, so the device itself never sees a
-+slow I/O: the delay is not visible to the driver, to the I/O statistics, or to
-+anything else below submission such as writeback throttling.  Throttling by
-+blk-throttle happens before a bio can be delayed, so it is not affected either.
-+What it does exercise is everything waiting above the block layer, for instance
-+io_uring cancellation, hung task detection, and filesystem or userspace
-+timeouts.  Because the low level driver is not involved, a delay does not reach
-+the blk-mq timeout handler or SCSI error handling.
-+
-+Once a bio has been delayed no rule is evaluated for it a second time, not when
-+its delay expires and it is submitted below the injection hook, and not when
-+the block layer splits it and resubmits the remainder above the hook.  A bio
-+that matched a delay rule therefore never gets an error from another rule, even
-+one covering the same sectors, and is held for the delay once rather than once
-+per split.  Put the delay and the status in a single rule to fail a bio after
-+holding it back.
-+
-+A delayed bio is issued after bios submitted while it was held, which reorders
-+the I/O stream.  On zoned devices this breaks sequential write ordering: zone
-+write plugging happens below the injection hook, so the writes issued while a
-+write is held reach the zone out of order and are failed as misaligned.  Only
-+delay reads there.
-+
-+Bios that must not block are never delayed.  A bio with REQ_NOWAIT set is
-+submitted, or failed with the rule's status, immediately.
-+
-+The delay is a lower bound for anything longer than a timer tick, and the timer
-+wheel adds further slack as the delay grows.  Values shorter than a tick are of
-+little use: they expire on the next tick, which is anywhere between now and one
-+tick away.
-+
-+Removing rules does not release bios that are already being delayed by them;
-+those run out on their own.  A delayed bio whose disk is removed in the meantime
-+is not submitted until its delay expires, by which point the queue no longer
-+accepts I/O, so it fails with EIO.
-+
- Example
- -------
- 
-@@ -54,6 +100,14 @@ Return BLK_STS_MEDIUM for every write to /dev/nvme0n1:
- 
- 	$ echo 'add,op=WRITE,start=0,status=MEDIUM' > /sys/kernel/debug/block/nvme0n1/error_injection
- 
-+Delay every read of /dev/nvme0n1 by 10 milliseconds, then issue it normally:
-+
-+	$ echo 'add,op=READ,delay_us=10000' > /sys/kernel/debug/block/nvme0n1/error_injection
-+
-+Fail one in 100 writes with BLK_STS_TIMEOUT, but only after 30 seconds:
-+
-+	$ echo 'add,op=WRITE,status=TIMEOUT,chance=100,delay_us=30000000' > /sys/kernel/debug/block/nvme0n1/error_injection
-+
- Remove all rules for /dev/nvme0n1:
- 
- 	$ echo 'removeall' > /sys/kernel/debug/block/nvme0n1/error_injection
--- 
-2.53.0
+instead of using two static calls you can use the new:
 
+   trace_call__riscv_tlb_flush_path()
+
+That is to be used instead of the trace_<event>() if it's behind a
+trace_<event>_enabled() check. That is because the
+trace_call__<event>() will always trigger the trace event logic because
+it should only be called when the trace event was enabled.
+
+-- Steve
+
+
+> +}
+> +
