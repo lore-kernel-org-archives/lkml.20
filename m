@@ -1,36 +1,33 @@
-Received: from mta1.migadu.com (out-216.mta1.migadu.com [95.215.58.216])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A90513A4F2F
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 09:43:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.216
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 761391A9F87;
+	Sun, 30 Aug 2026 09:46:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788083018; cv=none; b=ZGwv3CjzaJLfo/E9TmSz+/tnySXgyYqZRfN/IQGsE0PpYbQkJGgIQyGNbKH74YNyPtDtp7HydDksuqDq431WF7NRckNlM+I/EhvKDj0j8PCifyEJwQ204Mom2Co2wu6SajC05AIoBm7rnsCFEthdVbjF2qAys9lEbarQQUN3hsE=
+	t=1788083207; cv=none; b=l2TUbgN6q6r6aCvJZHoYsgCMKsMyDD1/K8QO1m4UmdajJCc8KLULIOzM+KBI+ir8XycVplRVtuLiyp0KlNgizP47Jk64UZUk/eReUt4G+v7tyHTIHQt5bsEzO8aMhhmRoo2H4G2lg3zsJLcf81o7FnaZxz2tQB7QZkwDrN41/gE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788083018; c=relaxed/simple;
-	bh=WLzeZ4W+JrfRBuJ4IDHnEXj5Yo3WA5fDEH3jQpf5dZg=;
+	s=arc-20240116; t=1788083207; c=relaxed/simple;
+	bh=LpevewQsmVgYmajkHqWJjo3sjI8wfw9r1ejUS/IFq9w=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ZLll4bekJsW74WjF/Hq3c17OoPWN/4kNVPpOzfnd3HAqbHAexPl0MYrxDpaTOtmCBbRl4x1TkqkDR9BZbCY57Gs7r7t50WZnML1m7bw4i7jrakt8K04OyVkCsSDJpTA84FeFDMJCei9bNwBXZuhiPrT6IEU7PhJOzBu+kuUSgOg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ii8B1GFX; arc=none smtp.client-ip=95.215.58.216
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	 In-Reply-To:Content-Type; b=TuS34E6cYsCjbzaQ1UEe4G2kUkFETLD1+yvomRKMBUb3bHcOOUCX5vEzIaMm377KUVpAotwbT7SIrqMcZOPftCLRxR4TQsQ6MpSnGKo1oUlam41pLIow0QH8rnSeTvU+ax9z5KX56QPOP9JXgW+2oTjWnfJSaiDUHJP+vhbfAx0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E3q8NoDm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ii8B1GFX"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=WLzeZ4W+JrfRBuJ4IDHnEXj5Yo3WA5fDEH3jQpf5dZg=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788083009; v=1; x=1788687809;
- b=ii8B1GFXIP4C97TtjNGFHcTISARp+DTjIZA8SS0lxTod4xH+CLkW8kpFqAXKP6HUglSKjt7M
- o/h2fdjf13ZZv0k2zlzN6AyzDVd54LdjtCI7BDFETHvCsurlxq8kMkLFe51APXMuztPNqkE6HIu
- O+cW510HbcdvqGZTCxK1ttFQ=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id b5dc266f82cf0c4a;
-	Sun, 30 Aug 2026 09:43:19 +0000
-X-Mizu-Trace-ID: b5dc266f82cf0c4a
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <d469a60a-3aaf-43d3-955a-238042115a3e@linux.dev>
-Date: Sun, 30 Aug 2026 17:43:06 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E3q8NoDm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 840B51F000E9;
+	Sun, 30 Aug 2026 09:46:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788083206;
+	bh=VRV/PaqAgm1+PUWOMsKMnupda7cAgpIVkDXwvtdmlFU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=E3q8NoDmxjx6ssMpxGCf2DJNGx/tsyKMrAAUwZygN3sXBNMcG+3Pt9YSVqUTa3YG4
+	 vAMNyvtC65OpwfL7Y0UPqYrh80hg3FGaxEwXV0aMYRF2Af5CTy76GXeoANWPTsgtkV
+	 KwM1wQbit55UjzF5EDvsj9IL7HSSvDAQ6uFPzINGIxlQUXnvRnnFNlbESKwwfHH6eO
+	 8pWzf+ymAMhVa0nRvRMdNktJaNmsfR377eWWVaAtONS3OkaIBa33pQUMyHPnWk2UdV
+	 i/S3aJIGdwETgot7mVKkFKFNEenOvkhevmPnAvRhONZTZNHv0jcaJkyvaSlyxgvGO2
+	 dlxkt67Roi7sA==
+Message-ID: <3f78536a-2119-4b75-ab80-914c9fd583ae@kernel.org>
+Date: Sun, 30 Aug 2026 11:46:36 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -38,127 +35,95 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 5/6] mm/mglru: use explicit tier range in
- read_ctrl_pos()
-To: kasong@tencent.com, linux-mm@kvack.org
-Cc: Andrew Morton <akpm@linux-foundation.org>, Barry Song
- <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>,
- Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
- Baoquan He <baoquan.he@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
- Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
- Roman Gushchin <roman.gushchin@linux.dev>,
- Muchun Song <muchun.song@linux.dev>, Chris Li <chrisl@kernel.org>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Yu Zhao <yuzhao@google.com>, Zi Yan <ziy@nvidia.com>,
- Qi Zheng <qi.zheng@linux.dev>, cgroups@vger.kernel.org,
- linux-kernel@vger.kernel.org, Kairui Song <ryncsn@gmail.com>
-References: <20260826-mglru-flags-cleanup-v3-0-d9f1c75549c8@tencent.com>
- <20260826-mglru-flags-cleanup-v3-5-d9f1c75549c8@tencent.com>
-From: Ridong Chen <ridong.chen@linux.dev>
-In-Reply-To: <20260826-mglru-flags-cleanup-v3-5-d9f1c75549c8@tencent.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Subject: Re: [PATCH 3/6] arm64: dts: qcom: kaanapali: Add CDSP FastRPC
+ extended context bank
+To: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>,
+ Srinivas Kandagatla <srini@kernel.org>,
+ Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: Bharath Kumar <bkumar@qti.qualcomm.com>,
+ Chenna Kesava Raju <chennak@qti.qualcomm.com>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260826-extended-mapping-v1-0-d046c1cb9a9f@oss.qualcomm.com>
+ <20260826-extended-mapping-v1-3-d046c1cb9a9f@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
+ cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
+ JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
+ gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
+ J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
+ NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
+ BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
+ vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
+ Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
+ TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
+ S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
+ FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
+ /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
+ s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
+ EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
+ rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
+ DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
+ IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
+ vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
+ oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
+ sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
+ vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
+ Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
+ BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
+ 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
+ f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
+ WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
+ XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
+ IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
+ YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
+ p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
+ GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
+ YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
+ vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
+ ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
+ QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
+ +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
+ wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
+ c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
+ K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
+ n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
+ qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
+In-Reply-To: <20260826-extended-mapping-v1-3-d046c1cb9a9f@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-
-
-On 8/26/2026 1:53 AM, Kairui Song via B4 Relay wrote:
-> From: Kairui Song <kasong@tencent.com>
+On 26/08/2026 15:45, Vinayak Katoch wrote:
+> Add a fastrpc_far_region reserved-memory node and link compute-cb@13 to
+> it via memory-region so the driver detects it as the extended mapping
+> bank. Bump #address-cells and #size-cells to <2> on the fastrpc ancestor
+> nodes and update all compute-cb reg values to the 4-cell format to
+> accommodate the 64-bit iommu-addresses values.
 > 
-> read_ctrl_pos() encodes the tier range in a single "tier" parameter
-> via "tier % MAX_NR_TIERS" as the start and "min(tier, MAX_NR_TIERS-1)"
-> as the end. This is hard to follow, maintain, or extend. Tier values
-> 0..3 select a single tier, while tier == MAX_NR_TIERS selects the
-> full range.
-> 
-> Replace it with explicit (tier_min, tier_max) parameters using a
-> closed [tier_min, tier_max] interval, and add LRU_TIER_MIN and
-> LRU_TIER_MAX for the tier bounds. The call sites now become
-> self-documenting:
-> 
->    - get_tier_idx:   (LRU_TIER_MIN, LRU_TIER_MIN) for the first tier,
->                      (tier, tier) for each subsequent tier
->    - get_type_to_scan: (LRU_TIER_MIN, LRU_TIER_MAX) for the full range
-> 
-> No functional change.
-> 
-> Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-> Reviewed-by: Baoquan He <baoquan.he@linux.dev>
-> Reviewed-by: Barry Song <baohua@kernel.org>
-> Signed-off-by: Kairui Song <kasong@tencent.com>
+> Signed-off-by: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
 > ---
->   include/linux/mmzone.h |  2 ++
->   mm/vmscan.c            | 18 ++++++++++--------
->   2 files changed, 12 insertions(+), 8 deletions(-)
+>  arch/arm64/boot/dts/qcom/kaanapali.dtsi | 35 +++++++++++++++++++++------------
+>  1 file changed, 22 insertions(+), 13 deletions(-)
 > 
-> diff --git a/include/linux/mmzone.h b/include/linux/mmzone.h
-> index c9ecf370cd9f..9b27cf53bdbc 100644
-> --- a/include/linux/mmzone.h
-> +++ b/include/linux/mmzone.h
-> @@ -492,6 +492,8 @@ enum lruvec_flags {
->    * folio->flags, masked by LRU_REFS_MASK.
->    */
->   #define MAX_NR_TIERS		4U
-> +#define LRU_TIER_MIN		0U
-> +#define LRU_TIER_MAX		(MAX_NR_TIERS - 1)
->   
->   #ifndef __GENERATING_BOUNDS_H
->   
-> diff --git a/mm/vmscan.c b/mm/vmscan.c
-> index 52ef4c3705bd..cdc2e44875da 100644
-> --- a/mm/vmscan.c
-> +++ b/mm/vmscan.c
-> @@ -3198,8 +3198,8 @@ struct ctrl_pos {
->   	int gain;
->   };
->   
-> -static void read_ctrl_pos(struct lruvec *lruvec, int type, int tier, int gain,
-> -			  struct ctrl_pos *pos)
-> +static void read_ctrl_pos(struct lruvec *lruvec, int type, int tier_min,
-> +			  int tier_max, int gain, struct ctrl_pos *pos)
->   {
->   	int i;
->   	struct lru_gen_folio *lrugen = &lruvec->lrugen;
-> @@ -3208,7 +3208,7 @@ static void read_ctrl_pos(struct lruvec *lruvec, int type, int tier, int gain,
->   	pos->gain = gain;
->   	pos->refaulted = pos->total = 0;
->   
-> -	for (i = tier % MAX_NR_TIERS; i <= min(tier, MAX_NR_TIERS - 1); i++) {
-> +	for (i = tier_min; i <= tier_max; i++) {
->   		pos->refaulted += lrugen->avg_refaulted[type][i] +
->   				  atomic_long_read(&lrugen->refaulted[hist][type][i]);
->   		pos->total += lrugen->avg_total[type][i] +
-> @@ -4809,9 +4809,9 @@ static int get_tier_idx(struct lruvec *lruvec, int type)
->   	 * This value is chosen because any other tier would have at least twice
->   	 * as many refaults as the first tier.
->   	 */
-> -	read_ctrl_pos(lruvec, type, 0, 2, &sp);
-> -	for (tier = 1; tier < MAX_NR_TIERS; tier++) {
-> -		read_ctrl_pos(lruvec, type, tier, 3, &pv);
-> +	read_ctrl_pos(lruvec, type, LRU_TIER_MIN, LRU_TIER_MIN, 2, &sp);
-> +	for (tier = LRU_TIER_MIN + 1; tier <= LRU_TIER_MAX; tier++) {
-> +		read_ctrl_pos(lruvec, type, tier, tier, 3, &pv);
->   		if (!positive_ctrl_err(&sp, &pv))
->   			break;
->   	}
-> @@ -4832,8 +4832,10 @@ static int get_type_to_scan(struct lruvec *lruvec, int swappiness)
->   	 * Compare the sum of all tiers of anon with that of file to determine
->   	 * which type to scan.
->   	 */
-> -	read_ctrl_pos(lruvec, LRU_GEN_ANON, MAX_NR_TIERS, swappiness, &sp);
-> -	read_ctrl_pos(lruvec, LRU_GEN_FILE, MAX_NR_TIERS, MAX_SWAPPINESS - swappiness, &pv);
-> +	read_ctrl_pos(lruvec, LRU_GEN_ANON, LRU_TIER_MIN, LRU_TIER_MAX,
-> +		      swappiness, &sp);
-> +	read_ctrl_pos(lruvec, LRU_GEN_FILE, LRU_TIER_MIN, LRU_TIER_MAX,
-> +		      MAX_SWAPPINESS - swappiness, &pv);
->   
->   	return positive_ctrl_err(&sp, &pv);
->   }
-> 
-Reviewed-by: Ridong Chen <ridong.chen@linux.dev>
-Thanks.
--- 
-Best regards
-Ridong
+> diff --git a/arch/arm64/boot/dts/qcom/kaanapali.dtsi b/arch/arm64/boot/dts/qcom/kaanapali.dtsi
+> index 131fd2a16c54..0f258eb2a7a9 100644
+> --- a/arch/arm64/boot/dts/qcom/kaanapali.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/kaanapali.dtsi
+> @@ -451,6 +451,10 @@ rmtfs_mem: rmtfs@d7c00000 {
+>  			qcom,client-id = <1>;
+>  			qcom,vmid = <QCOM_SCM_VMID_MSS_MSA>;
+>  		};
+> +
+> +		fastrpc_far_region: fastrpc_far_region {
 
+Please follow DTS coding style for naming.
+
+Best regards,
+Krzysztof
