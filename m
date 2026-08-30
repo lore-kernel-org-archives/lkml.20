@@ -1,148 +1,208 @@
-Received: from flow-b1-smtp.messagingengine.com (flow-b1-smtp.messagingengine.com [202.12.124.136])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0682B241686;
-	Sun, 30 Aug 2026 07:53:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.136
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 170FF353A66
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 07:54:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788076427; cv=none; b=BfucmmpxnzVSKKuvAAB4iDfdYBCGdQsRRkCgIT8KizNxA1mWQSMIhm8x7/eNZHwUye3lchEsGfDTIQXnKuX0WHqgLYVCUjcoSEwl8LENS179fWkmeAbU8S/9xw9ySb8NEAPGpCDh3dRf/izLYGAqIMXqNMFA8yFG3RUbGQKuzRk=
+	t=1788076445; cv=none; b=IT0L6VADqFBJdDidMJyspSxqPa8rehx3LNLWba4TQyTr3QXfs2tNqrSLShUG9ms6rfh8icvZBBwBAAcZnBZYHaWCt5IanQAC92gIx4HQAcStcmRLQCJ+kR0YgVDwChSeeLC5aXzlKLST8cGO/JN29bOajVdu/yvkgSeRHSfejw8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788076427; c=relaxed/simple;
-	bh=VUeMPa9FyohwrkfRiF8kZfcIyZuYgy4EnQo7t/6sN0c=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=r23jYpNN2bdI+sH8PEtPmyLO1FJbeP9l7TDdQ/c4q23f83HAkqzd/YRn0mwHuFtppPqMOnZyG7fswU5DMf/Te2qiWpTxvi5NuVGb5lBPLLEuTNb2ynsbuFw3Ryo5oJbzN6AfPdXN4+PwefD3inSdrqv37fdBJVodcejbTkoD+A4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=alex-min.fr; spf=pass smtp.mailfrom=alex-min.fr; dkim=pass (2048-bit key) header.d=alex-min.fr header.i=@alex-min.fr header.b=c34t1fWR; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=C3XBqeOx; arc=none smtp.client-ip=202.12.124.136
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=alex-min.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alex-min.fr
+	s=arc-20240116; t=1788076445; c=relaxed/simple;
+	bh=Hn03e+/WULF81D3yHyPxkS+4ZIZvHapTPnkx+jlSYf4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=VYmnIq4QmzRBUCfS218chOFw+DLCS6MHzKooqriuysj0iK7+XT9p+9/lVQlnIixYjsMmHxESCfHg3SsemgSSs6nTs2yvankdnxmvCTtcI5VLpei8NSd0NAyB5gAxHDHWkyADrVmiH2mBXENhC5BW2HVhEEeBFR+0c+9UFR9JI/c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ocy4ylfF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=alex-min.fr header.i=@alex-min.fr header.b="c34t1fWR";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="C3XBqeOx"
-Received: from ams-compute-01.internal (ams-compute-01.internal [10.64.2.61])
-	by mailflow.stl.internal (Postfix) with ESMTP id 1B924130008B;
-	Sun, 30 Aug 2026 03:53:41 -0400 (EDT)
-Received: from ams-imap-13 ([10.64.2.33])
-  by ams-compute-01.internal (MEProxy); Sun, 30 Aug 2026 03:53:43 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alex-min.fr; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1788076420;
-	 x=1788083620; bh=G6epI7ZnNZNtzgn1RABkpJmt/w3yGfJEmW6rZAtvt00=; b=
-	c34t1fWRfSKkN5Ew3E/Qk0zgGPUMsOIL0LWR5uE3fiYaTyjC0V94EOk7YNNoyZKL
-	Znm0PnFNnMLH5O6Vmz6zzD2e33T/mHB8MgWhIZtRvAgD9F8INgRfPb8/SeSBU3YT
-	9MaollBk5QjfdlwvmNMiPhx7rCyLCbxsu3KQKS8SoIIVSz8SZ7iKw9/TPVaIHZXm
-	2BIsHWo/QEeutDMozCrb4mF56rwcr3D7Okf3njbNk7sJXSmrkrcBHs0iGFlk2juA
-	NKzUJBpXITWETNe36ts8PZij5NBDFULMk8oCGq5oaLkFtRumNZpDAKZKuYU3wb7x
-	X8JCAgArA6+Umvma/OOXQQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1788076420; x=
-	1788083620; bh=G6epI7ZnNZNtzgn1RABkpJmt/w3yGfJEmW6rZAtvt00=; b=C
-	3XBqeOxJwcG043QAJE4U4KwBZSLgsxjO6+14VTnE7epHGCvZAu1gsvQ++Td/OVZP
-	OSeRe4MDnJwdgAhufMxxugN99LSUgw0W+tEwgy3cdmoodWK47GFlOK2AHt/t77ot
-	+mdfnlWsI4gpDwC17TTIPBTtQ/t3nU3vKAr6REkdHZqVDIs0XZjp0MJE+J+oJEH3
-	lPbP/tL4d57IBVACMAlGQ6ynlj7rJ6fdDpVxF0yPsxyAAGlrEuPFjX/2/PohRRYV
-	qYA/fDPYY83Pu3fDKJdR+OPM18MzWEiyJxEigix9ACiTGj5zdt1Am5O33lE9jp8H
-	JQFaTr9CXomA5pFgisujg==
-X-ME-Sender: <xms:feGTarNxjiwMV2-BklVkP7KSisV1P37KLV4TsRDfHXRx3pZKvM5QrA>
-    <xme:feGTagwPYNmceLMi_kXJJ6ZadIXv9zD7-A8Kwd-WtIaj-jVHDUVoxyn3yrrJ6sJBp
-    M7Cajw7ZVZ0Ic6yuzpiaA1BhC5RYpU0dUhZAfZ1q5XH31mKqc5OAUE>
-X-ME-Proxy-Cause: dmFkZTE0775jnaewL4xvj4WmD/nTrN0QHquMU/dRaSE6eNZxMPyVt4nSOBfXeJJ7KFzcKz
-    Jgrgv2hpwlUjonO7MKfTdnDYbb1IHjk+chT1pM0ODsnsCEpRmCFJeXjnBwV5pxcek4e0O3
-    r5g4pJ+yoqE7umYaW6OcJt5lYnZW0hXJtAlwAjVWQUWc87l5I+E1yS4TUdlulBhJaapS6d
-    JVKt9ZBaf8E6fcovY9lwRVQAC4lHwBTYuhfD0JI4uEHWpXaWcml3QZPD3k+I/2xOOChHTp
-    dZrfGDIzAUaFitPY+uC9pmKgdZm64z0VyG8U5BQw0NML2evsyMGO0TwmQx3wk8w5pUdckP
-    q/BsVvDPlcGbozpeTQlg7FeR4M+/5Sn0sVuv7FBkORCkA6SV4oyrbwm6rVl9Id9i0Dw+qE
-    Wqvn3MbKnlEO/e7BBAZBGJM9aiU6qGVDlJ9F2tXPz1LOGtWatT0ZT1u/Cj2MMRCo4tqSnt
-    9sJgx9uu12sA55vX/hbNbMfS6pUZybg4lCg5S+B+7J5X42HhYhikrRSWgGN+rkC0LGznpM
-    l4kOXe6PuRd9wsIItzD7SjdCXggIypQbseaefz30auVhdf40poN65ZafGaFqc/0aTWE/9n
-    22wF9OAwwK0xRh19WxzVQRGzAn7JixlRfoVWo8pBQNYRUvt6tHFhUKT0HF/Q
-X-ME-Proxy: <xmx:gOGTaoPQ84IUY2_cxNno87X-iuTH3O5CWG2nerRQL7PU58Uun0zrtw>
-    <xmx:gOGTaj1tOqTY0taiF2aJmBHliR5B1z8dWXLtKZZqRMncNyL_d9gwUA>
-    <xmx:gOGTas1hbV2QSNc5euuRGOQfXJAhv-Dv_Tnu0_RuUSS9cX7mdfPVOQ>
-    <xmx:gOGTaiyiDwmr9IrCXdE5hiTqIGxs6y7huPz39eqIU0paCMnhToPfsw>
-    <xmx:hOGTaqOTpQopY5N2P1O-eXHbftKN_hs5d7Wy1ciI6BUJwfgQKwZHoz1z>
-Feedback-ID: i72694427:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 51157F8007E; Sun, 30 Aug 2026 03:53:33 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ocy4ylfF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A4F91F00ADB
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 07:54:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788076443;
+	bh=UeEQ5jVzcI0HkkaBYNG8dZHlQd9/ubRiXJT++zIWi7M=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=ocy4ylfFrWKNIBjucLRgP/bcUttjvfQaZdfmC/pHFTioFbRGlQ/BlBKtxGZvpA56x
+	 y5ImLCwoTbty6dkS6KMS89q6JBdaD+/NQTN5LkWHvvPGlmvCnDIw8/djn59ZygBqOv
+	 qpf6b1LPrGedr/UXbe+Q7ljzC/EK74Z0OZfMDyxNLvShInFyiXq22EwFZBrL7ZaP90
+	 A1o3rLatmXqkczN8qBvTranP1LLvheI1b78mbPVMICwC8PwQZ6zS3T3aK3OzuKZ781
+	 BMoERzwL+5IbTPFjHwrOp6xKzLVWu4mbxGH77VAham2ilthQ3rh/KxqQjwbVAoXHAA
+	 +v6+rbaqH2HMg==
+Received: by mail-qk1-f178.google.com with SMTP id af79cd13be357-930c0f9c1b1so158210585a.1
+        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 00:54:03 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RpzSfjD771c7xjkmvjc3wk4+XJCrezg2KDtfEfjlJHKussRa8Yr2cOV3B1m8mlhTJ8GoGJN6o7sBdQKKCQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++m+o0FGNCFhnGTikvflnDe2+GCY8u2vAJP4Mqxy5+VXpXz00XPM
+	c6i2WRoHdMU6cUJiOJtEX5y59ewx5w+wQKYqWLTW5MdxHSyQoo2A5ZdjNgkdKmFzi/v0CdOsfJX
+	g0kb7nSt9GXkoEvULZFTpeePMhvYpR0I=
+X-Received: by 2002:a05:620a:6c0d:b0:938:fd60:4f9 with SMTP id
+ af79cd13be357-939138ffdc0mr2008314785a.27.1788076442846; Sun, 30 Aug 2026
+ 00:54:02 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: AXMGWqqIHK9F
-Date: Sun, 30 Aug 2026 09:52:50 +0200
-From: "MINETTE Alexandre" <contact@alex-min.fr>
-To: "Bartosz Golaszewski" <brgl@kernel.org>
-Cc: 
- "Alexandre MINETTE via B4 Relay" <devnull+contact.alex-min.fr@kernel.org>,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
- phone-devel@vger.kernel.org,
- "Konrad Dybcio" <konrad.dybcio@oss.qualcomm.com>,
- "Bjorn Andersson" <andersson@kernel.org>,
- "Konrad Dybcio" <konradybcio@kernel.org>, "Rob Herring" <robh@kernel.org>,
- "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
- "Conor Dooley" <conor+dt@kernel.org>,
- "MyungJoo Ham" <myungjoo.ham@samsung.com>,
- "Chanwoo Choi" <cw00.choi@samsung.com>,
- "Guru Das Srinagesh" <linux@gurudas.dev>,
- "Linus Walleij" <linusw@kernel.org>,
- "Rob Clark" <robin.clark@oss.qualcomm.com>, "Kees Cook" <kees@kernel.org>,
- "Tony Luck" <tony.luck@intel.com>,
- "Guilherme G. Piccoli" <gpiccoli@igalia.com>, "Lee Jones" <lee@kernel.org>
-Message-Id: <b6a6d425-c981-438e-9309-5aa00bc23c43@app.fastmail.com>
-In-Reply-To: 
- <CAMRc=MdKYW_NQpqBES5UcyNqBJd_t1cHiLA3av0wWSWwFgOH-g@mail.gmail.com>
-References: <20260804-mainline-send-v1-sending-v5-0-149dd4372ac8@alex-min.fr>
- <20260804-mainline-send-v1-sending-v5-2-149dd4372ac8@alex-min.fr>
- <CAMRc=MdKYW_NQpqBES5UcyNqBJd_t1cHiLA3av0wWSWwFgOH-g@mail.gmail.com>
-Subject: Re: [PATCH v5 2/6] pinctrl: qcom: Register functions before enabling pinctrl
-Content-Type: text/plain; charset=utf-8
+References: <20260828110919.1324028-1-ridong.chen@linux.dev> <20260828110919.1324028-3-ridong.chen@linux.dev>
+In-Reply-To: <20260828110919.1324028-3-ridong.chen@linux.dev>
+From: Barry Song <baohua@kernel.org>
+Date: Sun, 30 Aug 2026 15:53:51 +0800
+X-Gmail-Original-Message-ID: <CAGsJ_4ws6edtcToqJQ0azJPTymAYj41nzdGJvBqEM+gROiJtRQ@mail.gmail.com>
+X-Gm-Features: AcwNN1XAAY1zLhOoDIQLd7-dIIw1xCvdhjIWr8q4jSclCc3cBnbDulr35kYiJ1A
+Message-ID: <CAGsJ_4ws6edtcToqJQ0azJPTymAYj41nzdGJvBqEM+gROiJtRQ@mail.gmail.com>
+Subject: Re: [PATCH v2 2/2] mm/mglru: fix ineffective memory protection for
+ non-kswapd reclaim
+To: Ridong Chen <ridong.chen@linux.dev>
+Cc: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
+	Roman Gushchin <roman.gushchin@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	Andrew Morton <akpm@linux-foundation.org>, Muchun Song <muchun.song@linux.dev>, 
+	Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+	Wei Xu <weixugc@google.com>, David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+	Chris Down <chris@chrisdown.name>, Tejun Heo <tj@kernel.org>, Yu Zhao <yuzhao@google.com>, 
+	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>, 
+	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <linux-mm@kvack.org>, linux-kernel@vger.kernel.org, 
+	Ridong Chen <chenridong@xiaomi.com>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi Bartosz,
-
-It seems the patch has already been applied to linux-next with commit 98=
-1aefd53b3cdafae0e45332a1023b80d67f52be, so there's nothing to do, sorry =
-for the confusion
---=20
-  MINETTE Alexandre
-  contact@alex-min.fr
-
-Lun 10 ao=C3=BBt 2026, =C3=A0 13:09, Bartosz Golaszewski a =C3=A9crit=E2=
-=80=AF:
-> On Tue, 4 Aug 2026 08:34:27 +0200, Alexandre MINETTE via B4 Relay
-> <devnull+contact.alex-min.fr@kernel.org> said:
->> From: Alexandre MINETTE <contact@alex-min.fr>
->>
->> pinctrl consumers can request states while the pinctrl core enables t=
-he
->> controller. On Qualcomm pinctrl drivers this can happen before the SoC
->> function list has been registered, which leaves the function table
->> incomplete during state lookup.
->>
->> On APQ8064 this can fail while claiming pinctrl hogs:
->>
->>    apq8064-pinctrl 800000.pinctrl: invalid function ps_hold in map ta=
-ble
->>    apq8064-pinctrl 800000.pinctrl: error claiming hogs: -22
->>    apq8064-pinctrl 800000.pinctrl: could not claim hogs: -22
->>
->> Register Qualcomm pinctrl with devm_pinctrl_register_and_init(), add =
-the
->> SoC pin functions, and only then enable the pinctrl device.
->>
->> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
->> Signed-off-by: Alexandre MINETTE <contact@alex-min.fr>
->> ---
+On Fri, Aug 28, 2026 at 7:10=E2=80=AFPM Ridong Chen <ridong.chen@linux.dev>=
+ wrote:
 >
-> This doesn't apply on top of current linux-next. Can you rebase, resen=
-d this
-> as a separate patch and add the Cc: stable and Fixes: tags?
+> From: Ridong Chen <chenridong@xiaomi.com>
 >
-> Bart
+> memory.min/low is silently bypassed for MGLRU during global proactive
+> reclaim (writing to the root memory.reclaim) and global direct reclaim.
+
+I guess nobody is silently bypassing anything. It's just that the
+effective min is stale data. If kswapd has run at least once, should
+the protection have been updated already?
+I guess we need to update the changelog a bit?
+
+> It can be reproduced as follows:
+>
+>   # echo 7 > /sys/kernel/mm/lru_gen/enabled
+>   # cd /sys/fs/cgroup
+>   # mkdir -p a/b
+>   # echo 100M > a/memory.min
+>   # echo +memory > a/cgroup.subtree_control
+>   # echo 100M > a/b/memory.min
+>   # echo $$ > a/b/cgroup.procs
+>   # dd if=3D/dev/zero of=3D/tmp/testfile bs=3D1M count=3D200
+>   # cat a/b/memory.current
+>   222650368
+>   # echo 500M > memory.reclaim
+>   -bash: echo: write error: Resource temporarily unavailable
+>   # cat a/b/memory.current
+>   6070272
+>
+> memory.min is 100M, yet reclaim drops a/b down to 6M, breaking the
+> protection. The traditional LRU path is not affected because
+> shrink_node() calls mem_cgroup_calculate_protection() for each memcg it
+> visits during a top-down tree walk.
+>
+> Commit 30d77b7eef01 ("mm/mglru: fix ineffective protection calculation")
+> moved the protection computation into lru_gen_age_node(), which only
+> runs for kswapd. Non-kswapd global reclaim reaches shrink_one() through
+> lru_gen_shrink_node() -> shrink_many() without any protection
+> computation, so emin/elow remain stale or zero.
+>
+> Introduce mem_cgroup_protection_path() which computes emin/elow along
+> the root-to-target path only by iterating through the cgroup ancestors
+> array top-down. This avoids the full tree traversal that would be
+> needed with mem_cgroup_calculate_protection(), limiting the cost to
+> O(depth) per memcg - typically 3-5 levels.
+>
+> Call it from shrink_one() for the non-kswapd path so that each memcg
+> about to be shrunk has correct protection values.
+>
+> Fixes: e4dde56cd208 ("mm: multi-gen LRU: per-node lru_gen_folio lists")
+> Cc: stable@vger.kernel.org
+> Assisted-by: Claude:claude-opus-4-8
+> Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
+> ---
+>  include/linux/memcontrol.h | 11 ++++++++++
+>  mm/memcontrol.c            | 45 ++++++++++++++++++++++++++++++++++++++
+>  mm/vmscan.c                |  8 ++++++-
+>  3 files changed, 63 insertions(+), 1 deletion(-)
+>
+> diff --git a/include/linux/memcontrol.h b/include/linux/memcontrol.h
+> index 7d1c0ce189a8..8066b798a759 100644
+> --- a/include/linux/memcontrol.h
+> +++ b/include/linux/memcontrol.h
+> @@ -605,6 +605,10 @@ static inline void mem_cgroup_protection(struct mem_=
+cgroup *root,
+>
+>  void mem_cgroup_calculate_protection(struct mem_cgroup *root,
+>                                      struct mem_cgroup *memcg);
+> +#ifdef CONFIG_LRU_GEN
+> +void mem_cgroup_protection_path(struct mem_cgroup *root,
+> +                               struct mem_cgroup *memcg);
+> +#endif
+>
+>  static inline bool mem_cgroup_unprotected(struct mem_cgroup *target,
+>                                           struct mem_cgroup *memcg)
+> @@ -1133,6 +1137,13 @@ static inline void mem_cgroup_calculate_protection=
+(struct mem_cgroup *root,
+>  {
+>  }
+>
+> +#ifdef CONFIG_LRU_GEN
+> +static inline void mem_cgroup_protection_path(struct mem_cgroup *root,
+> +                                             struct mem_cgroup *memcg)
+> +{
+> +}
+> +#endif
+> +
+
+I wonder if we could follow the zswap pattern?
+
+#if defined(CONFIG_MEMCG) && defined(CONFIG_ZSWAP)
+bool obj_cgroup_may_zswap(struct obj_cgroup *objcg);
+void obj_cgroup_charge_zswap(struct obj_cgroup *objcg, size_t size);
+void obj_cgroup_uncharge_zswap(struct obj_cgroup *objcg, size_t size);
+bool mem_cgroup_zswap_writeback_enabled(struct mem_cgroup *memcg);
+#else
+static inline bool obj_cgroup_may_zswap(struct obj_cgroup *objcg)
+{
+        return true;
+}
+...
+#endif
+
+>  static inline bool mem_cgroup_unprotected(struct mem_cgroup *target,
+>                                           struct mem_cgroup *memcg)
+>  {
+> diff --git a/mm/memcontrol.c b/mm/memcontrol.c
+> index 1271d390b617..095050d4296a 100644
+> --- a/mm/memcontrol.c
+> +++ b/mm/memcontrol.c
+> @@ -5198,6 +5198,51 @@ void mem_cgroup_calculate_protection(struct mem_cg=
+roup *root,
+>         page_counter_calculate_protection(&root->memory, &memcg->memory, =
+recursive_protection);
+>  }
+>
+> +#ifdef CONFIG_LRU_GEN
+> +/**
+> + * mem_cgroup_protection_path - compute protection along root->memcg pat=
+h
+> + * @root: the top ancestor of the sub-tree being checked (NULL for root_=
+mem_cgroup)
+> + * @memcg: the target memory cgroup
+> + *
+> + * Walk the ancestor path from @root down to @memcg and compute the effe=
+ctive
+> + * protection at each level.  This is safe for isolated queries because =
+it
+> + * ensures parents are computed before children.
+> + */
+> +void mem_cgroup_protection_path(struct mem_cgroup *root,
+> +                               struct mem_cgroup *memcg)
+
+Can we rename it to `mem_cgroup_calculate_protection_path()`?
+
+BTW, I see that the only caller is in vmscan and it passes NULL as
+`root`. Do we need to keep the `root` argument if the new helper is
+only used for global reclaim?
+
+Best Regards
+Barry
