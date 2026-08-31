@@ -1,447 +1,369 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from out-2z4y-a139.jellyfish.systems (out-2z4y-a139.jellyfish.systems [198.54.127.139])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EE6541D102;
-	Mon, 31 Aug 2026 16:31:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DCDA44A725
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 16:32:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.54.127.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788193886; cv=none; b=HLcU5Y7I8kq5nYVgnhTFGaZEBWy68wH5lr7BJ5lwAVzz5WFPjhkRSnivo7bjQ4N7SINUnndszbTCgYq7NbtMm7dV4CvtSIZJB9qE+MnGjUQCeLqIr5hd8jsgmvN1dynD4ltkFy5lcEfJcyZgOwmooHNAt9oyQgeByRdXHWiLh0o=
+	t=1788193930; cv=none; b=JCpaYzw6AdHBu0rsfkz1qHUOaj2lVpSXMgBzk+f8JdmBmMwpv8LzToJaS3mR+XR5+P4hhHX3B2UyGYSqDYAnm+tDLdj1NTTjHYO+GK9sy0ewjoyR+BYHtj/pzDOpaMG6D8ItcxLx1tJU2q5Dh6p4erOZ5ut/pB1hLpobm8kKGjM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788193886; c=relaxed/simple;
-	bh=kuuJMihYHY0eCbXK3ZAMEY+5UR4DMbo2+SnUg/srbks=;
-	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=NYRlJMZAbRAPNkvHtWBrrLCF4JSTcpp4pgh1NRazwJTghRigj9LJFbXouDPUf596qhkR8x0fcqUt7vnwvTifI1hOuFWIhhYyMigsKhNNPY6T/851wigVUooJyQqgkKxGS3PlwHiZikje1qEJRkLLUb/wzYLutzbGG/HbWLvrZP4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=gDZy7Al8; arc=none smtp.client-ip=198.175.65.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1788193930; c=relaxed/simple;
+	bh=cT4su7834oe1cDhDtm3Z1O0puBE9pZtp7GN8lB5AtNk=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=FWKWH7V1Eb3l3PL8P7TcVDJVsyKVVj9CqG9jHVC5Cb1io03T112VMwUMsnC58+ETbxRMW3ggYgx+uJ/kErErpXwBQKSi5cuZhoaOJuvqCMPL3yPVnFrkrSkOHNp8yde2bkHfqbOOjsmMGsUZNnC5BsC24KzAhlYs9nt/tLgnoQA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gurudas.dev; spf=pass smtp.mailfrom=gurudas.dev; dkim=pass (2048-bit key) header.d=gurudas.dev header.i=@gurudas.dev header.b=Q53sFcUD; arc=none smtp.client-ip=198.54.127.139
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gurudas.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gurudas.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="gDZy7Al8"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788193884; x=1819729884;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=kuuJMihYHY0eCbXK3ZAMEY+5UR4DMbo2+SnUg/srbks=;
-  b=gDZy7Al8fJCweEM6KIFrRIvq4XFWFeodHvPzwxyEcuKZkxAJq+3qR2pT
-   yWmz+kyQgTnHoi7R0Iz8CGXa4PbqeF8SqZhqmpHbdAFfF2UbMId0wH9bf
-   waTNxXfEagyfAH7CBi2OquU8sEn+9PPsSQVMRFvFFolvvYQ5r01nUwRf7
-   l5eAUtEyqlPu7lc8HIIsq39sie0s/F8VI3xAfUrnGeYCtX/yvibmyVACh
-   UTqJPUXOlxTCFqmU/FIwQjN6pyjhW/0q9kUIp5XWRzhV75Qp7+Yj+FK6t
-   6m55e5NN1SFZDuUVmL29OuyY6C+MemcZ+DggjkvicS0cwSWqqSyae13uw
-   A==;
-X-CSE-ConnectionGUID: Qirv04bjQEqJM4U9jgY6Gw==
-X-CSE-MsgGUID: 2gQFtynITHSxgS2v3C95uw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11892"; a="88655572"
-X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; 
-   d="scan'208";a="88655572"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 09:31:23 -0700
-X-CSE-ConnectionGUID: TwbFpxzDSD2/7eSdJPUWGA==
-X-CSE-MsgGUID: XKUFGUEURvmHXwPnEWyzrA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; 
-   d="scan'208";a="272630060"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.121])
-  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 09:31:19 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Mon, 31 Aug 2026 19:31:15 +0300 (EEST)
-To: Geramy Loveless <gloveless@jqluv.com>
-cc: Bjorn Helgaas <bhelgaas@google.com>, alexander.deucher@amd.com, 
-    amd-gfx@lists.freedesktop.org, mario.limonciello@amd.com, 
-    nra3088@gmail.com, 
-    =?ISO-8859-15?Q?Christian_K=F6nig?= <christian.koenig@amd.com>, 
-    meiling.leung@embeddedllm.com, linux-pci@vger.kernel.org, 
-    LKML <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] PCI: Reserve prefetchable window headroom for Resizable
- BARs
-In-Reply-To: <39e09dd8-f73e-4dc2-ba36-8a9228516d26@jqluv.com>
-Message-ID: <fba65262-5490-4d60-d06d-9badaafc7e17@linux.intel.com>
-References: <39e09dd8-f73e-4dc2-ba36-8a9228516d26@jqluv.com>
+	dkim=pass (2048-bit key) header.d=gurudas.dev header.i=@gurudas.dev header.b="Q53sFcUD"
+Received: from [192.168.1.106] (107-194-158-19.lightspeed.sntcca.sbcglobal.net [107.194.158.19])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mail.spacemail.com (Postfix) with ESMTPSA id 4hYZBn4W5mz2xB0;
+	Mon, 31 Aug 2026 16:26:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gurudas.dev;
+	s=spacemail; t=1788193619;
+	bh=9/pnXXu42c1SsaCh/C97k7+pe5SrUF1Y0XulTf+Z6Sw=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=Q53sFcUDU9QoHj+3ujyMg5B+ZhjI5OOEraNNrB5lXiBnacWzeWB3FJg/uSNBsR7nY
+	 vgy05s4W+4be6F9Z30XqrPbnGQYU+kxZQ2WTSCd5fu2nOseGSaeu2iTycZMd7FOhE2
+	 kc1SJ2CRN8TisGYgQRuO5ke8dHKFAi93Xs4alzqVrVtdOL24wkADna/9OXUUYnDwDx
+	 JwEcdMZPBP1jSsS65rWJBp5oHcyoxRfrA/i45NRQQba9MvEa9u6eVMEEQqV04FtTmd
+	 YgyCD7nSSYbkpD+oo1Nh50YSGSw+sHbTfuZxxZyz4DWDY7ivCndZPCEV4/xwdRq7Rx
+	 o77HyzrlZTUxQ==
+From: Guru Das Srinagesh <linux@gurudas.dev>
+Date: Mon, 31 Aug 2026 09:26:29 -0700
+Subject: [PATCH v3 2/3] lib/tests: Add in_range_inclusive() KUnit test
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260831-minmax-in-range-incl-v3-2-30444a2fd2a5@gurudas.dev>
+References: <20260831-minmax-in-range-incl-v3-0-30444a2fd2a5@gurudas.dev>
+In-Reply-To: <20260831-minmax-in-range-incl-v3-0-30444a2fd2a5@gurudas.dev>
+To: Alex Lanzano <lanzano.alex@gmail.com>, 
+ Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>, Matthew Wilcox <willy@infradead.org>, 
+ Andrew Morton <akpm@linux-foundation.org>, 
+ Gustavo Silva <gustavograzs@gmail.com>
+Cc: linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org, 
+ Guru Das Srinagesh <linux@gurudas.dev>
+X-Mailer: b4 0.15.2
+X-Envelope-From: linux@gurudas.dev
 
-On Fri, 28 Aug 2026, Geramy Loveless wrote:
+Add a KUnit test for the minmax.h in_range_inclusive() logic.
 
-> Firmware typically sizes prefetchable bridge windows for the boot-time
-> BAR size. Behind a fixed (non-hotplug) PCIe switch fabric, there is then
-> no room for a driver to grow a Resizable BAR afterwards: every window
-> from the leaf up to the root is sized for the small BAR, so
-> pci_resize_resource() fails with -ENOSPC. 
-> 
-> Furthermore, a small prefetchable BAR (e.g., a 2 MiB doorbell) sharing a 
-> bridge's single prefetchable window with a much larger one (e.g., a 32 GiB 
-> VRAM BAR) pushes the required window size past the large BAR's alignment. 
+Assisted-by: Claude-Code:claude-opus-5
+Signed-off-by: Guru Das Srinagesh <linux@gurudas.dev>
+---
+ lib/Kconfig.debug                    |  18 +++
+ lib/tests/Makefile                   |   1 +
+ lib/tests/in_range_inclusive_kunit.c | 249 +++++++++++++++++++++++++++++++++++
+ 3 files changed, 268 insertions(+)
 
-> Because bridge windows round up to a power of two,
-
-Do they??? In which kernel version I must ask??
-
-> this forces a massive 
-> alignment waste (e.g., 32 GiB + 2 MiB rounds up to a 64 GiB window, 
-> wasting ~32 GiB per GPU).
-
-The largest I've seen is 32GB + half of that. And that's not with the 
-latest kernel.
-
-> This patch solves both issues to enable ReBAR on cascaded switch fabrics:
-> 
-> 1. Reserve Headroom: 
-> Reserve prefetchable window headroom for the maximum size of each 
-> downstream Resizable BAR during the bridge sizing pass. The device BAR 
-> and hardware ReBAR are left at their boot size to prevent tearing down 
-> firmware-loaded state (e.g., AMD R9700 PSP) before the driver binds.
-
-... reorganizing ...
-
-> Fallback / Alignment logic:
-> If the 32-bit space is exhausted, small BARs remain in the prefetchable 
-> window. The alignment logic gracefully handles this by rounding the bridge 
-> window up to the next power of two (e.g., growing to 64 GiB to fit a 32 GiB 
-> BAR + BAR2) to maintain PCIe compatibility, ensuring sibling GPUs land in 
-> properly aligned slots.
-> 
-> Reserving is safe by default: __assign_resources_sorted() satisfies all
-> required resources first. Use pci=no_rebar_reserve and pci=no_bar_demote 
-> to restore previous behaviours.
-
-And how does this fallback, if the largest size doesn't fit? What are the 
-failure modes?
-
-It's correct that the sizing decision should be done in pbus_size_mem() 
-but it must not result in breaking things which a naive approach like 
-this will surely do.
-
-Without proper fallbacks done, there will be too much breakage it's a 
-showstopper for a naive patch like this.
-
-Basically, what we'd want to do is try with the largest size, then reduce 
-it one step at a time (because it's 2^n -> 2^(n-1) even one step saves 
-quite much so one might not need to reduce that many steps). But also, in 
-some IOV enabled cases the oversubscription of the space is very 
-substantial and you'd still want to maximize the BAR sizes to what is 
-allowed by the available space.
-
-Fallback is hard to implement, because sizing and assignment are quite far 
-from each other codewise and there are no structures to carry information 
-over to the next retry phase.
-
-> 2. Pack Oversized Windows (BAR Demotion): 
-> The PCI-to-PCI Bridge spec (r1.2, sec 3.2.5) permits a prefetchable BAR 
-> to be assigned from the non-prefetchable window. By clearing the PREFETCH 
-> flag on small control BARs during enumeration, they are placed below 4 GiB. 
-> The prefetchable window is then cleanly sized to the large BAR alone.
->
-> Why this is safe for 32-bit (< 4G) MMIO space:
-> To prevent exhausting legacy < 4G space, demotion is strictly bounded. It 
-> only triggers beside a massive prefetchable BAR (>= 64 MiB), and the demoted 
-> BAR is strictly capped at 16 MiB (PCI_BAR_PACK_CAP). Even on an 8x GPU 
-> system, this consumes at most 128 MiB of < 4G space.  
-
-I'm not entirely sure I agree with this, at least it shouldn't be the 
-default configuration.
-
-This would also break setups where the GPU has large BARs that do not 
-share the alignment.
-
-It might be workable as very targetted instruction to put a particular BAR 
-into non-prefetchable window. For that, one needs to write a parser for 
-giving them on cmdline though but that might end up being generally 
-useful for avoiding some hotplug cannot-predict-the-future problems 
-(the current memsize controls are too coarse-grained to be useful in many 
-hotplug scenarios).
-
-
-A somewhat related problem currently is that more and more devices are 
-taking the liberty of not setting PREFETCH because recent PCIe spec made 
-the bridge window difference be 32/64-bit based. This results in very 
-suboptimal placement for such BARs.
-
-
-BTW, why you're not sending the patches as a proper series but merging 
-them into a single email??? It makes things harder for the reviewers. :-(
-
-
-Also, I note you sent multiple versions within a day. Please give some 
-time for commenting the first version. You should also list the changes 
-you've made in each version (the patch history).
+diff --git a/lib/Kconfig.debug b/lib/Kconfig.debug
+index 1244dcac2294..88f5abc70266 100644
+--- a/lib/Kconfig.debug
++++ b/lib/Kconfig.debug
+@@ -3031,6 +3031,24 @@ config MIN_HEAP_KUNIT_TEST
+ 
+ 	  If unsure, say N
+ 
++config IN_RANGE_INCLUSIVE_KUNIT_TEST
++	tristate "Test minmax in_range_inclusive() logic" if !KUNIT_ALL_TESTS
++	depends on KUNIT
++	default KUNIT_ALL_TESTS
++	help
++	  Enable this option to build the in_range_inclusive KUnit module.
++	  It tests the in_range_inclusive() logic.
++
++	  KUnit tests run during boot and output the results to the debug log
++	  in TAP format (http://testanything.org/). Only useful for kernel devs
++	  running the KUnit test harness, and not intended for inclusion into a
++	  production build.
++
++	  For more information on KUnit and unit tests in general please refer
++	  to the KUnit documentation in Documentation/dev-tools/kunit/.
++
++	  If unsure, say N.
++
+ config IS_SIGNED_TYPE_KUNIT_TEST
+ 	tristate "Test is_signed_type() macro" if !KUNIT_ALL_TESTS
+ 	depends on KUNIT
+diff --git a/lib/tests/Makefile b/lib/tests/Makefile
+index 4ead57602eac..866b6006413d 100644
+--- a/lib/tests/Makefile
++++ b/lib/tests/Makefile
+@@ -25,6 +25,7 @@ obj-$(CONFIG_GLOB_KUNIT_TEST) += glob_kunit.o
+ obj-$(CONFIG_HASHTABLE_KUNIT_TEST) += hashtable_test.o
+ obj-$(CONFIG_HASH_KUNIT_TEST) += test_hash.o
+ obj-$(CONFIG_TEST_IOV_ITER) += kunit_iov_iter.o
++obj-$(CONFIG_IN_RANGE_INCLUSIVE_KUNIT_TEST) += in_range_inclusive_kunit.o
+ obj-$(CONFIG_IS_SIGNED_TYPE_KUNIT_TEST) += is_signed_type_kunit.o
+ obj-$(CONFIG_KPROBES_SANITY_TEST) += test_kprobes.o
+ obj-$(CONFIG_LIST_KUNIT_TEST) += list-test.o
+diff --git a/lib/tests/in_range_inclusive_kunit.c b/lib/tests/in_range_inclusive_kunit.c
+new file mode 100644
+index 000000000000..83e8d48684f2
+--- /dev/null
++++ b/lib/tests/in_range_inclusive_kunit.c
+@@ -0,0 +1,249 @@
++// SPDX-License-Identifier: GPL-2.0+
++/*
++ * Test cases for minmax in_range_inclusive() helpers.
++ */
++
++#define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
++
++#include <kunit/test.h>
++#include <linux/minmax.h>
++
++/*
++ * When @min <= @max is valid in:
++ *        Valid in reading   Example    'True' range is
++ * Case 1 Both readings      [5, 10]     interval as written in either reading
++ * Case 2 Signed only        [-10, 5]    signed interval
++ * Case 3 Unsigned only      [5, -10]    unsigned interval
++ * Case 4 Neither reading    [-5, -10]   neither; all values except [unsigned(-9), unsigned(-6)]
++ *
++ * Visualizing the wraparound-continuous unsigned number scale as a full circle with
++ * 0 at 12 o'clock and S32_MAX/S64_MAX at 6 o'clock, with ranges being calculated
++ * only clockwise starting from @min until @max might help greatly in understanding
++ * the following true and false ranges.
++ */
++static void u32_tests(struct kunit *test)
++{
++	/* Case 1 first true value */
++	KUNIT_EXPECT_TRUE(test, in_range_inclusive(5, 5, 10));
++	/* Case 1 last true value */
++	KUNIT_EXPECT_TRUE(test, in_range_inclusive(10, 5, 10));
++	/* Case 1 first false value */
++	KUNIT_EXPECT_FALSE(test, in_range_inclusive(11, 5, 10));
++	/* Case 1 last false value */
++	KUNIT_EXPECT_FALSE(test, in_range_inclusive(4, 5, 10));
++	/* Case 1 0 not in range */
++	KUNIT_EXPECT_FALSE(test, in_range_inclusive(0, 5, 10));
++	/* Case 1 U32_MAX not in range */
++	KUNIT_EXPECT_FALSE(test, in_range_inclusive(U32_MAX, 5, 10));
++
++	/* Case 2 first true value */
++	KUNIT_EXPECT_TRUE(test, in_range_inclusive(-10, -10, 5));
++	/* Case 2 last true value */
++	KUNIT_EXPECT_TRUE(test, in_range_inclusive(5, -10, 5));
++	/* Case 2 first false value */
++	KUNIT_EXPECT_FALSE(test, in_range_inclusive(6, -10, 5));
++	/* Case 2 last false value */
++	KUNIT_EXPECT_FALSE(test, in_range_inclusive(-11, -10, 5));
++	/* Case 2 0 in range */
++	KUNIT_EXPECT_TRUE(test, in_range_inclusive(0, -10, 5));
++	/* Case 2 U32_MAX in range */
++	KUNIT_EXPECT_TRUE(test, in_range_inclusive(U32_MAX, -10, 5));
++
++	/* Case 3 first true value */
++	KUNIT_EXPECT_TRUE(test, in_range_inclusive(5, 5, -10));
++	/* Case 3 last true value */
++	KUNIT_EXPECT_TRUE(test, in_range_inclusive(-10, 5, -10));
++	/* Case 3 first false value */
++	KUNIT_EXPECT_FALSE(test, in_range_inclusive(-9, 5, -10));
++	/* Case 3 last false value */
++	KUNIT_EXPECT_FALSE(test, in_range_inclusive(4, 5, -10));
++	/* Case 3 0 not in range */
++	KUNIT_EXPECT_FALSE(test, in_range_inclusive(0, 5, -10));
++	/* Case 3 U32_MAX not in range */
++	KUNIT_EXPECT_FALSE(test, in_range_inclusive(U32_MAX, 5, -10));
++
++	/* Case 4 first true value */
++	KUNIT_EXPECT_TRUE(test, in_range_inclusive(-5, -5, -10));
++	/* Case 4 last true value */
++	KUNIT_EXPECT_TRUE(test, in_range_inclusive(-10, -5, -10));
++	/* Case 4 first false value */
++	KUNIT_EXPECT_FALSE(test, in_range_inclusive(-9, -5, -10));
++	/* Case 4 last false value */
++	KUNIT_EXPECT_FALSE(test, in_range_inclusive(-6, -5, -10));
++	/* Case 4 0 in range */
++	KUNIT_EXPECT_TRUE(test, in_range_inclusive(0, -5, -10));
++	/* Case 4 U32_MAX in range */
++	KUNIT_EXPECT_TRUE(test, in_range_inclusive(U32_MAX, -5, -10));
++}
++
++static void u64_tests(struct kunit *test)
++{
++	/* Case 1 first true value */
++	KUNIT_EXPECT_TRUE(test, in_range_inclusive(5ULL, 5ULL, 10ULL));
++	/* Case 1 last true value */
++	KUNIT_EXPECT_TRUE(test, in_range_inclusive(10ULL, 5ULL, 10ULL));
++	/* Case 1 first false value */
++	KUNIT_EXPECT_FALSE(test, in_range_inclusive(11ULL, 5ULL, 10ULL));
++	/* Case 1 last false value */
++	KUNIT_EXPECT_FALSE(test, in_range_inclusive(4ULL, 5ULL, 10ULL));
++	/* Case 1 0 not in range */
++	KUNIT_EXPECT_FALSE(test, in_range_inclusive(0ULL, 5ULL, 10ULL));
++	/* Case 1 U64_MAX not in range */
++	KUNIT_EXPECT_FALSE(test, in_range_inclusive(U64_MAX, 5ULL, 10ULL));
++
++	/* Case 2 first true value */
++	KUNIT_EXPECT_TRUE(test, in_range_inclusive(-10ULL, -10ULL, 5ULL));
++	/* Case 2 last true value */
++	KUNIT_EXPECT_TRUE(test, in_range_inclusive(5ULL, -10ULL, 5ULL));
++	/* Case 2 first false value */
++	KUNIT_EXPECT_FALSE(test, in_range_inclusive(6ULL, -10ULL, 5ULL));
++	/* Case 2 last false value */
++	KUNIT_EXPECT_FALSE(test, in_range_inclusive(-11ULL, -10ULL, 5ULL));
++	/* Case 2 0 in range */
++	KUNIT_EXPECT_TRUE(test, in_range_inclusive(0ULL, -10ULL, 5ULL));
++	/* Case 2 U64_MAX in range */
++	KUNIT_EXPECT_TRUE(test, in_range_inclusive(U64_MAX, -10ULL, 5ULL));
++
++	/* Case 3 first true value */
++	KUNIT_EXPECT_TRUE(test, in_range_inclusive(5ULL, 5ULL, -10ULL));
++	/* Case 3 last true value */
++	KUNIT_EXPECT_TRUE(test, in_range_inclusive(-10ULL, 5ULL, -10ULL));
++	/* Case 3 first false value */
++	KUNIT_EXPECT_FALSE(test, in_range_inclusive(-9ULL, 5ULL, -10ULL));
++	/* Case 3 last false value */
++	KUNIT_EXPECT_FALSE(test, in_range_inclusive(4ULL, 5ULL, -10ULL));
++	/* Case 3 0 not in range */
++	KUNIT_EXPECT_FALSE(test, in_range_inclusive(0ULL, 5ULL, -10ULL));
++	/* Case 3 U64_MAX not in range */
++	KUNIT_EXPECT_FALSE(test, in_range_inclusive(U64_MAX, 5ULL, -10ULL));
++
++	/* Case 4 first true value */
++	KUNIT_EXPECT_TRUE(test, in_range_inclusive(-5ULL, -5ULL, -10ULL));
++	/* Case 4 last true value */
++	KUNIT_EXPECT_TRUE(test, in_range_inclusive(-10ULL, -5ULL, -10ULL));
++	/* Case 4 first false value */
++	KUNIT_EXPECT_FALSE(test, in_range_inclusive(-9ULL, -5ULL, -10ULL));
++	/* Case 4 last false value */
++	KUNIT_EXPECT_FALSE(test, in_range_inclusive(-6ULL, -5ULL, -10ULL));
++	/* Case 4 0 in range */
++	KUNIT_EXPECT_TRUE(test, in_range_inclusive(0ULL, -5ULL, -10ULL));
++	/* Case 4 U64_MAX in range */
++	KUNIT_EXPECT_TRUE(test, in_range_inclusive(U64_MAX, -5ULL, -10ULL));
++}
++
++/* Check whether sizeof logic to select 32- vs 64-bit comparisons works */
++static void sizeof_logic_tests(struct kunit *test)
++{
++	u64 u64_val    = BIT_ULL(32) | 7;
++	u64 u64_minval = BIT_ULL(32) | 5;
++	u64 u64_maxval = BIT_ULL(32) | 10;
++	u32 u32_minval = 5, u32_maxval = 10, u32_val = 100;
++
++	/* If sizeof trick does not work:
++	 * - u64_val will get truncated to 7
++	 * - 7 is in [5, 10] so test should pass.
++	 */
++	KUNIT_EXPECT_FALSE(test, in_range_inclusive(u64_val, u32_minval, u32_maxval));
++
++	/*
++	 * If sizeof trick does not work:
++	 * - u64_maxval will get truncated to 10
++	 * - 100 is not in [5, 10], so test should fail.
++	 */
++	KUNIT_EXPECT_TRUE(test, in_range_inclusive(u32_val, u32_minval, u64_maxval));
++
++	/*
++	 * If sizeof trick does not work:
++	 * - u64_minval gets truncated to 5
++	 * - 0 is not in [5, 10], so test should fail.
++	 * Otherwise:
++	 * - @min > @max here, so this is Case 4
++	 * - 0 should be in range and test should pass.
++	 */
++	KUNIT_EXPECT_TRUE(test, in_range_inclusive(0, u64_minval, u32_maxval));
++}
++
++/*
++ * Each argument is widened to the selected width according to its own type:
++ * signed arguments sign-extend, unsigned ones zero-extend. The same written
++ * values can therefore give opposite answers depending on the declared types.
++ */
++static void sign_extension_tests(struct kunit *test)
++{
++	u32 u32_val = -9;
++	s32 s32_val = -9;
++	s32 s32_minval = 5, s32_maxval = -10;
++	s64 s64_minval = 5, s64_maxval = -10;
++
++	/* Case 3 range. -9 is out of range in both readings */
++	KUNIT_EXPECT_FALSE(test, in_range_inclusive(u32_val, s32_minval, s32_maxval));
++	KUNIT_EXPECT_FALSE(test, in_range_inclusive(s32_val, s32_minval, s32_maxval));
++
++	/*
++	 * Sign extension kicks in due to sizeof logic. minval "stays in place"
++	 * because it is positive and maxval "moves" because it is negative and
++	 * signed, thereby increasing the True range.
++	 * Negative unsigned -9 "stays in place", so it becomes in range.
++	 * Negative signed -9 "moves", so it still remains out of range.
++	 */
++	KUNIT_EXPECT_TRUE(test, in_range_inclusive(u32_val, s64_minval, s64_maxval));
++	KUNIT_EXPECT_FALSE(test, in_range_inclusive(s32_val, s64_minval, s64_maxval));
++}
++
++#define TEST_RANGE_MIN 0
++#define TEST_RANGE_MAX 100
++static void misc_tests(struct kunit *test)
++{
++	s32 s32_val = -5;
++
++	/*
++	 * Test common device driver use case of rejecting negative input from
++	 * userspace.
++	 */
++	KUNIT_EXPECT_FALSE(test, in_range_inclusive(s32_val, TEST_RANGE_MIN, TEST_RANGE_MAX));
++
++	/* If min == max, only one true solution exists, val = min */
++	KUNIT_EXPECT_TRUE(test,  in_range_inclusive(5, 5, 5));
++	KUNIT_EXPECT_FALSE(test, in_range_inclusive(0, 5, 5));
++	KUNIT_EXPECT_FALSE(test, in_range_inclusive(U32_MAX, 5, 5));
++	KUNIT_EXPECT_FALSE(test, in_range_inclusive(U64_MAX, 5, 5));
++
++	/*
++	 * When max = (min - 1), Case 4 kicks in, and there is no 'false' range,
++	 * i.e. all values of val result in 'true'.
++	 */
++	KUNIT_EXPECT_TRUE(test,  in_range_inclusive(5, 5, 4));
++	KUNIT_EXPECT_TRUE(test,  in_range_inclusive(4, 5, 4));
++	KUNIT_EXPECT_TRUE(test,  in_range_inclusive(0, 5, 4));
++	KUNIT_EXPECT_TRUE(test,  in_range_inclusive(U32_MAX, 5, 4));
++	KUNIT_EXPECT_TRUE(test,  in_range_inclusive(U64_MAX, 5, 4));
++
++	/*
++	 * [0, U32_MAX] and [0, U64_MAX] are both the same case as above with
++	 * min = 0 and max = (min - 1)
++	 */
++	KUNIT_EXPECT_TRUE(test,  in_range_inclusive(0, 0, U32_MAX));
++	KUNIT_EXPECT_TRUE(test,  in_range_inclusive(U32_MAX, 0, U32_MAX));
++	KUNIT_EXPECT_TRUE(test,  in_range_inclusive(0, 0, U64_MAX));
++	KUNIT_EXPECT_TRUE(test,  in_range_inclusive(U64_MAX, 0, U64_MAX));
++}
++
++static struct kunit_case in_range_incl_test_cases[] = {
++	KUNIT_CASE(u32_tests),
++	KUNIT_CASE(u64_tests),
++	KUNIT_CASE(sizeof_logic_tests),
++	KUNIT_CASE(sign_extension_tests),
++	KUNIT_CASE(misc_tests),
++	{}
++};
++
++static struct kunit_suite in_range_incl_test_suite = {
++	.name = "in_range_inclusive",
++	.test_cases = in_range_incl_test_cases,
++};
++
++kunit_test_suites(&in_range_incl_test_suite);
++
++MODULE_AUTHOR("Guru Das Srinagesh <linux@gurudas.dev>");
++MODULE_DESCRIPTION("Test cases for in_range_inclusive()");
++MODULE_LICENSE("GPL");
 
 -- 
- i.
+2.55.0
 
-> Testing Context:
-> - ASUS K14PG-D24
-> - 2x EPYC 9354
-> - 8x Radeon AI PRO R9700 (Navi 48, 1002:7551)
-> - Broadcom PEX890xx switches
-> - Kernel base: 45c13f3f9e3b (tested with SEV-SNP passthrough=1)
-> 
-> Signed-off-by: Geramy Loveless <gloveless@jqluv.com>
-> ---
->  .../admin-guide/kernel-parameters.txt         |   8 ++
->  drivers/pci/pci.c                             |  10 ++
->  drivers/pci/pci.h                             |   1 +
->  drivers/pci/setup-bus.c                       | 118 ++++++++++++++++++
->  4 files changed, 137 insertions(+)
-> 
-> diff --git a/Documentation/admin-guide/kernel-parameters.txt
-> b/Documentation/admin-guide/kernel-parameters.txt
-> index 37006fc3eac3..82d2b340fb98 100644
-> --- a/Documentation/admin-guide/kernel-parameters.txt
-> +++ b/Documentation/admin-guide/kernel-parameters.txt
-> @@ -5246,6 +5246,14 @@ Kernel parameters
->  		hpbussize=nn	The minimum amount of additional bus numbers
->  				reserved for buses below a hotplug bridge.
->  				Default is 1.
-> +		no_rebar_reserve	Do not reserve prefetchable bridge-window
-> +				space for the maximum size of downstream Resizable
-> +				BARs. By default such space is reserved so a driver
-> +				can grow a BAR later (e.g. GPU VRAM BAR) even behind
-> +				fixed PCIe switch fabrics that firmware sized for the
-> +				boot-time BAR; the device BAR is left at its boot size
-> +				for the driver to resize and only bridge windows are
-> +				enlarged. Use this to restore the old behaviour.
->  		realloc=	Enable/disable reallocating PCI bridge resources
->  				if allocations done by BIOS are too small to
->  				accommodate resources required by all child
-> diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
-> index b2879a6be5f8..c9901b15432a 100644
-> --- a/drivers/pci/pci.c
-> +++ b/drivers/pci/pci.c
-> @@ -120,6 +120,14 @@ unsigned long pci_hotplug_mmio_pref_size =
-> DEFAULT_HOTPLUG_MMIO_PREF_SIZE;
->  #define DEFAULT_HOTPLUG_BUS_SIZE	1
->  unsigned long pci_hotplug_bus_size = DEFAULT_HOTPLUG_BUS_SIZE;
-> 
-> +/*
-> + * Prefetchable bridge-window headroom is reserved for the maximum size of
-> + * downstream Resizable BARs by default, so a driver can grow one later
-> + * (e.g. amdgpu VRAM BAR) even behind fixed PCIe switch fabrics.
-> + * pci=no_rebar_reserve disables this.
-> + */
-> +bool pci_rebar_no_reserve;
-> +
-> 
->  /* PCIe MPS/MRRS strategy; can be overridden by kernel command-line
-> param */
->  enum pcie_bus_config_types pcie_bus_config = PCIE_BUS_DEFAULT;
-> @@ -6840,6 +6848,8 @@ static int __init pci_setup(char *str)
->  					simple_strtoul(str + 10, &str, 0);
->  				if (pci_hotplug_bus_size > 0xff)
->  					pci_hotplug_bus_size = DEFAULT_HOTPLUG_BUS_SIZE;
-> +			} else if (!strncmp(str, "no_rebar_reserve", 16)) {
-> +				pci_rebar_no_reserve = true;
->  			} else if (!strncmp(str, "pcie_bus_tune_off", 17)) {
->  				pcie_bus_config = PCIE_BUS_TUNE_OFF;
->  			} else if (!strncmp(str, "pcie_bus_safe", 13)) {
-> diff --git a/drivers/pci/pci.h b/drivers/pci/pci.h
-> index ba3c3fddddc2..6eddcb492425 100644
-> --- a/drivers/pci/pci.h
-> +++ b/drivers/pci/pci.h
-> @@ -409,6 +409,7 @@ extern unsigned long pci_hotplug_io_size;
->  extern unsigned long pci_hotplug_mmio_size;
->  extern unsigned long pci_hotplug_mmio_pref_size;
->  extern unsigned long pci_hotplug_bus_size;
-> +extern bool pci_rebar_no_reserve;
-> 
->  static inline bool pci_is_cardbus_bridge(struct pci_dev *dev)
->  {
-> diff --git a/drivers/pci/setup-bus.c b/drivers/pci/setup-bus.c
-> index e8c94aa1d3c1..aa02b8454269 100644
-> --- a/drivers/pci/setup-bus.c
-> +++ b/drivers/pci/setup-bus.c
-> @@ -19,6 +19,7 @@
->  #include <linux/bug.h>
->  #include <linux/init.h>
->  #include <linux/kernel.h>
-> +#include <linux/log2.h>
->  #include <linux/minmax.h>
->  #include <linux/module.h>
->  #include <linux/pci.h>
-> @@ -1258,6 +1259,53 @@ static bool pbus_size_mem_optional(struct pci_dev
-> *dev, int resno,
->  	return true;
->  }
-> 
-> +/*
-> + * pci_rebar_reserve_size - prefetchable window headroom to reserve for
-> a BAR
-> + *
-> + * Reserve enough prefetchable window space to later grow @resno of @dev to
-> + * its maximum Resizable BAR size. This is done for every ReBAR-capable
-> device
-> + * by default (disable with pci=no_rebar_reserve). Only the optional
-> (add_size)
-> + * part of the enclosing window is inflated here; the device BAR
-> resource and
-> + * the hardware ReBAR are left at their boot size, so the driver still
-> performs
-> + * the actual resize into the reserved window. Reserving the window up
-> front
-> + * avoids -ENOSPC in pci_resize_resource() on fixed switch fabrics, where a
-> + * window shared with a sibling's still-assigned BAR cannot be released and
-> + * regrown at resize time.
-> + *
-> + * The reservation is strictly optional: __assign_resources_sorted()
-> satisfies
-> + * all required resources first and only then places add_size on leftover
-> + * space, so reserving by default cannot make a required BAR or window
-> fail.
-> + *
-> + * Return the extra bytes to reserve and raise *add_align to the BAR's
-> + * alignment so the reserved space can actually hold the grown BAR.
-> + */
-> +static resource_size_t pci_rebar_reserve_size(struct pci_dev *dev, int
-> resno,
-> +					      resource_size_t *add_align)
-> +{
-> +	struct resource *res = pci_resource_n(dev, resno);
-> +	resource_size_t max_size, cur_size;
-> +	int max;
-> +
-> +	if (pci_rebar_no_reserve || resno >= PCI_STD_NUM_BARS)
-> +		return 0;
-> +
-> +	if ((res->flags & (IORESOURCE_MEM_64 | IORESOURCE_PREFETCH)) !=
-> +	    (IORESOURCE_MEM_64 | IORESOURCE_PREFETCH))
-> +		return 0;
-> +
-> +	max = pci_rebar_get_max_size(dev, resno);
-> +	if (max < 0)
-> +		return 0;
-> +
-> +	max_size = pci_rebar_size_to_bytes(max);
-> +	cur_size = resource_size(res);
-> +	if (max_size <= cur_size)
-> +		return 0;
-> +
-> +	*add_align = max(*add_align, max_size);
-> +	return max_size - cur_size;
-> +}
-> +
->  /**
->   * pbus_size_mem() - Size the memory window of a given bus
->   *
-> @@ -1285,6 +1333,7 @@ static void pbus_size_mem(struct pci_bus *bus,
-> struct resource *b_res,
->  	int order, max_order;
->  	resource_size_t children_add_size = 0;
->  	resource_size_t add_align = 0;
-> +	resource_size_t rebar_align = 0;
-> 
->  	if (!b_res)
->  		return;
-> @@ -1343,15 +1392,29 @@ static void pbus_size_mem(struct pci_bus *bus,
-> struct resource *b_res,
->  				aligns[order] += align;
->  			if (order > max_order)
->  				max_order = order;
-> +
-> +			size += pci_rebar_reserve_size(dev, i, &rebar_align);
->  		}
->  	}
-> 
->  	win_align = pci_min_window_alignment(bus, b_res->flags);
->  	min_align = calculate_head_align(aligns, max_order);
->  	min_align = max(min_align, win_align);
-> +	min_align = max(min_align, rebar_align);
->  	size0 = calculate_memsize(size, realloc_head ? 0 : add_size,
->  				  0, win_align);
-> 
-> +	/*
-> +	 * A window that reserves ReBAR headroom is larger than its own
-> +	 * alignment (e.g. 32 GiB BAR + doorbell => 33 GiB > 32 GiB). The
-> +	 * parent only reserves alignment padding for a child window when
-> +	 * its size <= its alignment, so round such a window's alignment up
-> +	 * to a power of two >= its size; sibling 32 GiB BARs behind one
-> +	 * switch then each land in a properly aligned slot.
-> +	 */
-> +	if (rebar_align && size0)
-> +		min_align = max(min_align, roundup_pow_of_two(size0));
-> +
->  	if (size0) {
->  		resource_set_range(b_res, min_align, size0);
->  		b_res->flags &= ~IORESOURCE_DISABLED;
-> @@ -2179,6 +2242,52 @@ static void pci_prepare_next_assign_round(struct
-> list_head *fail_head,
->   * Second and later try will clear small leaf bridge res.
->   * Will stop till to the max depth if can not find good one.
->   */
-> +/*
-> + * Release the 64-bit prefetchable BARs of resizable-BAR display
-> devices so the
-> + * windows enclosing them empty out and can be re-sized. The BAR *size*
-> is left
-> + * untouched (only released and re-placed), so the hardware ReBAR is never
-> + * programmed here - the driver still owns the actual resize.
-> + */
-> +static int pci_release_rebar_bars_cb(struct pci_dev *dev, void *data)
-> +{
-> +	struct resource *r;
-> +	unsigned int i;
-> +
-> +	if ((dev->class >> 16) != PCI_BASE_CLASS_DISPLAY)
-> +		return 0;
-> +	if (pci_rebar_get_max_size(dev, 0) <= pci_rebar_get_current_size(dev, 0))
-> +		return 0;
-> +	pci_dev_for_each_resource(dev, r, i) {
-> +		if (i >= PCI_BRIDGE_RESOURCES)
-> +			break;
-> +		if (r->parent && (r->flags & IORESOURCE_MEM_64) &&
-> +		    (r->flags & IORESOURCE_PREFETCH))
-> +			pci_release_resource(dev, i);
-> +	}
-> +	return 0;
-> +}
-> +/*
-> + * Release the now-empty prefetchable bridge windows bottom-up so the
-> sizing
-> + * pass re-sizes them (with pci_rebar_pref_reserve() reservation) to
-> fit the
-> + * BARs a driver will later grow.
-> + */
-> +static void pci_release_rebar_windows(struct pci_bus *bus)
-> +{
-> +	struct pci_dev *dev;
-> +	struct resource *w;
-> +
-> +	list_for_each_entry(dev, &bus->devices, bus_list)
-> +		if (dev->subordinate)
-> +			pci_release_rebar_windows(dev->subordinate);
-> +
-> +	if (!bus->self)
-> +		return;
-> +	w = &bus->self->resource[PCI_BRIDGE_PREF_MEM_WINDOW];
-> +	if (w->parent && (w->flags & IORESOURCE_MEM_64) && !w->child)
-> +		pci_release_resource(bus->self, PCI_BRIDGE_PREF_MEM_WINDOW);
-> +}
-> +
->  void pci_assign_unassigned_root_bus_resources(struct pci_bus *bus)
->  {
->  	LIST_HEAD(realloc_head);
-> @@ -2190,6 +2299,15 @@ void
-> pci_assign_unassigned_root_bus_resources(struct pci_bus *bus)
->  	int pci_try_num = 1;
->  	enum enable_type enable_local;
-> 
-> +	/*
-> +	 * Release resizable device BARs and their prefetchable windows so the
-> +	 * sizing pass re-sizes those windows large enough
-> (pci_rebar_pref_reserve)
-> +	 * for the BARs a driver will later grow. Only released and re-placed
-> - the
-> +	 * BAR size is left untouched, so the hardware ReBAR is never programmed.
-> +	 */
-> +	pci_walk_bus(bus, pci_release_rebar_bars_cb, NULL);
-> +	pci_release_rebar_windows(bus);
-> +
->  	/* Don't realloc if asked to do so */
->  	enable_local = pci_realloc_detect(bus, pci_realloc_enable);
->  	if (pci_realloc_enabled(enable_local)) {
-> 
-> base-commit: 45c13f3f9e3bb15fd89ff2864c6f627a3b4b4229
-> 
