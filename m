@@ -1,89 +1,146 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6204D3DDAED
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 10:13:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93511241686;
+	Mon, 31 Aug 2026 10:15:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788171212; cv=none; b=LBPGzTzst/CT/85kzTHaSOggN/zTnwAGvvJHMzNw0dlbKAvALv9HqCI0o8JTVjVNC37O5Eh+j7InyPMZqYwjXHmle2K7M8LtWL/kommnMfxg5YY+/+d0KAK7BdOf0MKRn4Zvjh7BxSmdyNpPRWlsfa9La6kET/gjOc/a0wyID98=
+	t=1788171327; cv=none; b=W7/jgEjO+oxLUtMyxOBgAdBt7XbcXreTglgpT/sm8D+6L475o/kvgddMmTBuTFS5tWBYb3gatYSTMa9cXiGRydQLNMUCHpIwAvZW0yNbMS+5sqiZg+pMt90WN6jM7C6bWYFgrwDQGCOOoQafylMsuwUjsDgTssmInFXFidOzRv0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788171212; c=relaxed/simple;
-	bh=nAaI25J9nKaPHwn96ct79MsYlooxdS3n/qgazVKWIFg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=oyJ7YFdwa34k4sO/GCvcRzoUBtBKHP4Vcscc9+UUfN00GOE1DvIf7K88sB/kylZYxDVe6XgTYqGz+M7F4/VnLgEJT7KxE1GsPJAO6VXK7y2kqNlYj6nUX3rL2iezwl7cYXvZBYm3eIRPFhoH6uQIpJsAu8QwfA30CXNd0QrinR8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=cnZL2NY8; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1788171327; c=relaxed/simple;
+	bh=IXG+GKUyyJjrxe9twLgNYgPzeEFT4c+gyE7g5/OFmDw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=uWoWzg8oNuPKvHHai3Ukz7At0DYQJZGNFpqyxWrcFBZzwyT6m3qjgZLlW7do1WJdgVApwZ96ykqRj/cMxGvH5Hl9SPCyNmzSkTnxTxt2MhYNPd7j86emkRDN/CqyIlo+Lc01+30RohJLGfjBZspHqICcV8nHrnm+f5VYdo/n6Z4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=JhuP+gAq; arc=none smtp.client-ip=192.198.163.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="cnZL2NY8"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4D43014BF;
-	Mon, 31 Aug 2026 03:13:24 -0700 (PDT)
-Received: from a081061.blr.arm.com (a081061.arm.com [10.164.19.84])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 6EF5C3F85F;
-	Mon, 31 Aug 2026 03:13:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1788171208; bh=nAaI25J9nKaPHwn96ct79MsYlooxdS3n/qgazVKWIFg=;
-	h=From:To:Cc:Subject:Date:From;
-	b=cnZL2NY8ZWMhShcCvjAoi0MLZcRQmkdVeJgwBv8Gvu1K4wK4kM64Ja++SsdLjQYFM
-	 hu95J0iYKE4pZJ5ne9Ubn42z8ZdgMEXTPSZNDCUmrWMOnLHzPFgz+ETMZMMGHGcqYa
-	 SXy7h3sMOOUf+7Zrs6OyL8NMg44lN3cIg5w/AT6I=
-From: Sarthak Sharma <sarthak.sharma@arm.com>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>,
-	John Hubbard <jhubbard@nvidia.com>,
-	Peter Xu <peterx@redhat.com>,
-	Kiryl Shutsemau <kas@kernel.org>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	Sarthak Sharma <sarthak.sharma@arm.com>
-Subject: [PATCH v2] mm/gup_test: report actual pinned bytes
-Date: Mon, 31 Aug 2026 15:43:04 +0530
-Message-ID: <20260831101304.162867-1-sarthak.sharma@arm.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="JhuP+gAq"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788171325; x=1819707325;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=IXG+GKUyyJjrxe9twLgNYgPzeEFT4c+gyE7g5/OFmDw=;
+  b=JhuP+gAqMi83crVfRPjw1hn5BktkI9EQVoWVu9wawSbnH/NyDlhdyOb0
+   95ZGYEZp38QeSf4rY+afLL04PH4PHZKPZlebi+UPdGApHkkLfIYGkUkp0
+   Cxk0cEco2DrmsW8za8c64BSRFwkJCPQTBKxD6clKtI5zXIHzgDVBU8odo
+   oiz3x4fP6cCxxuqfN4MhqPlydNJBRz6DNr7EEwO9nKhb2Otcjhw7KD8Mg
+   QxyuBrfwekbaULGc0oeV+Mfk4nd2XlImb+1h52vmPQ3A7wpZIEdiMjXtJ
+   wGzluOYtucnpt3RmNFgb+TajmCxiSnepXbYExHZmp3tfwmHMwEmeFbh85
+   w==;
+X-CSE-ConnectionGUID: BGwg7DYbShmzOGdKc4coeA==
+X-CSE-MsgGUID: YFm8US73TU2WInn26lbALg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11891"; a="99238311"
+X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
+   d="scan'208";a="99238311"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 03:15:24 -0700
+X-CSE-ConnectionGUID: RuryocMyTQ6u3/7Updke9Q==
+X-CSE-MsgGUID: /tD+9s2cTDSJppAAFmHccQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
+   d="scan'208";a="292261761"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by fmviesa002.fm.intel.com with ESMTP; 31 Aug 2026 03:15:22 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1008)
+	id A00F499; Mon, 31 Aug 2026 12:15:21 +0200 (CEST)
+Date: Mon, 31 Aug 2026 12:15:21 +0200
+From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+To: Huang Wei <huangwei@kylinos.cn>
+Cc: gregkh@linuxfoundation.org, linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Alex Bartz <alex@alstergee.com>
+Subject: Re: [PATCH v2] usb: typec: ucsi: do not register UCSI on Lenovo
+ Legion Pro 7 16IAX10H
+Message-ID: <apVUOYIMOMBVpXWB@black.igk.intel.com>
+References: <20260826034658.2170407-1-huangwei@kylinos.cn>
+ <20260826133118.3327816-1-huangwei@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260826133118.3327816-1-huangwei@kylinos.cn>
 
-__gup_test_ioctl() advances addr to the end of the current batch before
-checking if GUP pinned the entire requested batch. If GUP pins more than
-0 pages but less than the requested batch size, addr still advances by
-the requested batch size.
+On Wed, Aug 26, 2026 at 09:31:18PM +0800, Huang Wei wrote:
+> The EC firmware of the Lenovo Legion Pro 7 16IAX10H (DMI product name
+> 83F5) has a broken UCSI implementation: GET_PDOS returns no source
+> capabilities, GET_CONNECTOR_STATUS reports an incomplete RDO, and any
+> UCSI traffic disturbs the EC's autonomous USB-C Power Delivery
+> negotiation. With ucsi_acpi bound, chargers connect only briefly and
+> then drop, and voltage_now reads 0; with the driver blacklisted, the
+> EC negotiates full PD contracts on its own and charging works normally.
+> 
+> The problem is unaffected by BIOS updates up to Q7CN78WW (2026-04).
+> The AMD sibling Legion Pro 7 16AFR10H (product name 83RU) reportedly
+> uses the same EC firmware, but it is left out of the quirk until the
+> failure is confirmed on that model.
+> 
+> Skip probe on this machine, which is equivalent to the blacklist
+> workaround the reporter verified to restore charging.
+> 
+> Reported-by: Alex Bartz <alex@alstergee.com>
+> Closes: https://bugzilla.kernel.org/show_bug.cgi?id=221142
+> Tested-by: Alex Bartz <alex@alstergee.com>
+> Signed-off-by: Huang Wei <huangwei@kylinos.cn>
 
-The next iteration detects the partial pinning and breaks out of the loop.
-Again gup->size is calculated using addr - gup->addr, so it also includes
-the unpinned pages of the requested batch.
+I'm not sure about the dev_info message. Otherwise this is good:
 
-Calculate gup->size using the actual number of pages pinned multiplied
-by PAGE_SIZE.
+Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
 
-Fixes: 64c349f4ae78 ("mm: add infrastructure for get_user_pages_fast() benchmarking")
-Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-Signed-off-by: Sarthak Sharma <sarthak.sharma@arm.com>
----
-Changes in v2:
-- Fix typo in the commit message
+> ---
+> Changes in v2:
+> - Add Tested-by tag from Alex Bartz, who verified the quirk on his
+>   machine (out-of-tree build, runtime module swap, PD charging held
+>   across the reload).
+> ---
+>  drivers/usb/typec/ucsi/ucsi_acpi.c | 21 +++++++++++++++++++++
+>  1 file changed, 21 insertions(+)
+> 
+> diff --git a/drivers/usb/typec/ucsi/ucsi_acpi.c b/drivers/usb/typec/ucsi/ucsi_acpi.c
+> index 18286d3e9cc5..9f36f8cfce4a 100644
+> --- a/drivers/usb/typec/ucsi/ucsi_acpi.c
+> +++ b/drivers/usb/typec/ucsi/ucsi_acpi.c
+> @@ -173,6 +173,21 @@ static const struct dmi_system_id ucsi_acpi_quirks[] = {
+>  	{ }
+>  };
+>  
+> +/*
+> + * Platforms with a completely broken UCSI implementation in firmware.
+> + * Do not register UCSI at all on these machines.
+> + */
+> +static const struct dmi_system_id ucsi_acpi_ignore[] = {
+> +	{
+> +		/* Lenovo Legion Pro 7 16IAX10H: broken EC UCSI firmware */
+> +		.matches = {
+> +			DMI_MATCH(DMI_SYS_VENDOR, "LENOVO"),
+> +			DMI_MATCH(DMI_PRODUCT_NAME, "83F5"),
+> +		},
+> +	},
+> +	{ }
+> +};
+> +
+>  static void ucsi_acpi_notify(acpi_handle handle, u32 event, void *data)
+>  {
+>  	struct ucsi_acpi *ua = data;
+> @@ -199,6 +214,12 @@ static int ucsi_acpi_probe(struct platform_device *pdev)
+>  	if (adev->dep_unmet)
+>  		return -EPROBE_DEFER;
+>  
+> +	if (dmi_check_system(ucsi_acpi_ignore)) {
+> +		dev_info(&pdev->dev,
+> +			 "UCSI implementation in firmware is broken, ignoring\n");
+> +		return -ENODEV;
+> +	}
+> +
+>  	ua = devm_kzalloc(&pdev->dev, sizeof(*ua), GFP_KERNEL);
+>  	if (!ua)
+>  		return -ENOMEM;
+> -- 
+> 2.25.1
 
-v1: lore.kernel.org/all/20260831064808.77768-1-sarthak.sharma@arm.com/
-
- mm/gup_test.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/mm/gup_test.c b/mm/gup_test.c
-index 44c1cdfb9c37..185ba3bb8ed1 100644
---- a/mm/gup_test.c
-+++ b/mm/gup_test.c
-@@ -188,7 +188,7 @@ static int __gup_test_ioctl(unsigned int cmd,
- 	nr_pages = i;
- 
- 	gup->get_delta_usec = ktime_us_delta(end_time, start_time);
--	gup->size = addr - gup->addr;
-+	gup->size = nr_pages * PAGE_SIZE;
- 
- 	/*
- 	 * Take an un-benchmark-timed moment to verify DMA pinned
 -- 
-2.53.0
-
+heikki
