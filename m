@@ -1,47 +1,48 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05231485CC4;
-	Mon, 31 Aug 2026 13:38:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3345444062C;
+	Mon, 31 Aug 2026 13:38:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183487; cv=none; b=CY836nD0LEZCawM9//9ZB8JZbv/m5HzVDTrNgQswLh/TLf+dc3a5wdLcJCCdxtTda9bAPRJRbQp5Vc9tBFLCKXuzQuTIgxBYJMyk3UBXkA2B+jilnr845ZOPQO+xqcVssAuHf+7XHqWUCEs5jHBhX0rVy9l7lGQtS8Jp7Mc+4QY=
+	t=1788183489; cv=none; b=K5X+Yo4JlciBEuFTn1atsDjiEM1t6NtustzL8ZS2rFwc1n5sH59cAa2NAOqiVukcq0uEWU/fIfFXWgQ9FjqM0N/axxWoOBOcbODGVg4tA0/FJNBdQqrsPtk/J+HlygRJhKOAxXucJd+7JqzLksCHG34rfxBt5cBnZodAFwJfae8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183487; c=relaxed/simple;
-	bh=StpQ1iPH5C1RTadg3qaMSm7ReaIYMlq1adkj2M/QTdM=;
+	s=arc-20240116; t=1788183489; c=relaxed/simple;
+	bh=xrnhguSKIg+Cztql5C7mmZw7koLKaWLcDIqriV2Ft3I=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=L13SMEqsWQIbbvda7tgcnC0mLpgn+juduWgiod7J73RcgjsSLrNPSU9YYcQJOfzdXIRyS1OURo/Kn4JoxAqta0nuEbrWqYTaYNvwi6kamRw9A7Iki/m2VDwyOIXxhMRSnp3nuEmy3XCPWT7VF9HsPtv20mdfXRyY1Sas4Jt+H58=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oFYwWXFS; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=i2quNR5qyeQyPBEin5tDAbgBWFQiw91rIHvc/AaIUGqkzyU8Wvy1jhtt7vArlngdNy/I6Lf3Rq1SBwb65ZyOIZAceGWi4SdmnFoCg0Ela7lmMpu/FxXMDPW3UL0DzLc4Mwiiyi7mcNT9SWMM6hr2UqCeccqSWxC1hVM8Uvlupxc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UuOZkee6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oFYwWXFS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50BC51F00A3D;
-	Mon, 31 Aug 2026 13:38:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UuOZkee6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D2AA1F00A3F;
+	Mon, 31 Aug 2026 13:38:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788183484;
-	bh=2GPnmN3E3Ldl1J2uBgjrNLFYb5skGIA23TTI8oRt1T0=;
+	s=k20260515; t=1788183486;
+	bh=fH1Ye0xirHU3yWSqBSYZpHZlv7lmBwICD1Q4n8jnmPY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=oFYwWXFSYUdpFBV+tbQBZjlcWsqsaXNzkhodx1ia3zKmDTw8aFmGLK2wtmwCpDs+A
-	 WzT7QTIXAPhGGo8E0TUPXq8QrbTRoYlLfCd0YSCDPu88+Ebavj3cSMUXmJW+/IdQUa
-	 98e57kW8ZCES0mclvTu6J/anfrLn36cLw5icTQcxU4NeUFqQYBePOnEhVjvKc8CG+H
-	 ZpjGOKvZ2ysBYxubxQNBFRhB13U/ikg6mpeBTuqxedLZTRdkh4a91/pnQHc4cYS/nO
-	 o31QbQv3e01+1INrownWgL/pOqN4Dol2CWq/6mnXi1u0lK2Xb9iHPVRnDd2Ou9NQ/A
-	 q3KO6Qz0qRv5g==
+	b=UuOZkee6AAIpqfKx1rOdEzgoKY64fVZ0/Ph0jKpbEdtZWZOgCQ3GlBvqkevU8dswX
+	 w4jRiO8nONkZQ0t2Dwtb+tNRjtwtEW3ZKqbVPKdKl5/IKOaE5V2dQU1uwv20P9UhnR
+	 nb41NSnkdyfwTHHO2h3E/h0+4bDGiwVmWe2OPfEhOZVM59syYH2yhG5iP7FFj0n0Cx
+	 2562dByP245KAJuevfvgNHgHbXCRBoBg+xTQODirntpKkyYgxja6jJFL45d+mRtvS2
+	 Ue4GmL0xbdZFSDh4oaJ42YQ/Uagm2tB74YCilZNCjvPbdPRPGBU04pJpeDq3VvZc0b
+	 zx5EGLF3pWXBA==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Lukasz Luba <lukasz.luba@arm.com>,
+Cc: Akashdeep Kaur <a-kaur@ti.com>,
+	Lee Jones <lee@kernel.org>,
 	Sasha Levin <sashal@kernel.org>,
-	rafael@kernel.org,
-	thierry.reding@kernel.org,
-	jonathanh@nvidia.com,
-	linux-pm@vger.kernel.org,
-	linux-tegra@vger.kernel.org,
+	aaro.koskinen@iki.fi,
+	andreas@kemnade.info,
+	khilman@baylibre.com,
+	rogerq@kernel.org,
+	tony@atomide.com,
+	linux-omap@vger.kernel.org,
+	mfd@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-5.10] thermal/drivers/tegra/soctherma: Switch to devm cooling device registration
-Date: Mon, 31 Aug 2026 09:22:32 -0400
-Message-ID: <20260831133314.4125787-124-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-6.6] mfd: tps65219: Make poweroff handler conditional on system-power-controller
+Date: Mon, 31 Aug 2026 09:22:33 -0400
+Message-ID: <20260831133314.4125787-125-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -57,385 +58,397 @@ X-stable-base: Linux 6.18.48
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+From: Akashdeep Kaur <a-kaur@ti.com>
 
-[ Upstream commit ee126267bc04bfb03816ae9d71ca24c5bf99e739 ]
+[ Upstream commit 104cd764a031bfe2ffe253adce9581384a78c16e ]
 
-Use devm_thermal_of_cooling_device_register() to simplify resource
-management and avoid manual cleanup in error paths.
+Currently, the TPS65219 driver unconditionally registers a poweroff
+handler. This causes issues on systems where a different component
+(such as TF-A firmware) should handle system poweroff instead.
 
-As a side effect this change has the benefit of solving an existing
-issue. Before, the function tegra_soctherm_remove() only called
-debugfs_remove_recursive() and never called thermal_cooling_device_unregister()
-for any of the cooling devices registered here.
+Make the poweroff handler registration conditional based on the
+"system-power-controller" device tree property. This follows the
+standard kernel pattern where only the designated power controller
+registers for system poweroff operations.
 
-After the driver removal, the thermal framework's cdev list would
-still hold references to thermal_cooling_device objects whose devdata
-pointer (ts) pointed to memory already freed by the platform device's
-devm cleanup.
+On systems where the property is absent, the PMIC will not register
+a poweroff handler, allowing other poweroff mechanisms to function.
 
-With this change, the cooling device is unregistered when the driver
-is removed, thus fixing the issue above.
-
-Signed-off-by: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
-Signed-off-by: Daniel Lezcano <daniel.lezcano@kernel.org>
-Reviewed-by: Lukasz Luba <lukasz.luba@arm.com>
-Link: https://patch.msgid.link/20260424160019.41710-2-daniel.lezcano@oss.qualcomm.com
+Signed-off-by: Akashdeep Kaur <a-kaur@ti.com>
+Link: https://patch.msgid.link/20260401112257.1248437-3-a-kaur@ti.com
+Signed-off-by: Lee Jones <lee@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-# Stable Backport Analysis: tegra/soctherm devm cooling device
-registration
+## Phase 1: Commit Message Forensics
 
-**Local tree:** `v6.18.44` (Linux 6.18.44)
+**Step 1.1 — Subject line**
 
----
+Record: `[mfd: tps65219]` `[Make]` — Make poweroff handler registration
+conditional on the `system-power-controller` device-tree property.
 
-## PHASE 1: COMMIT MESSAGE FORENSICS
+**Step 1.2 — Tags**
 
-### Step 1.1: Subject line
-**Record:** `[thermal/drivers/tegra/soctherma]` `[Switch]` — move
-throttle cooling-device registration to the devm thermal API.
+Record:
+- `Signed-off-by: Akashdeep Kaur <a-kaur@ti.com>` (author)
+- `Link:
+  https://patch.msgid.link/20260401112257.1248437-3-a-kaur@ti.com`
+  (patch submission; message-id suffix `-3` indicates patch 3 of a
+  series)
+- `Signed-off-by: Lee Jones <lee@kernel.org>` (MFD maintainer)
+- No `Fixes:`, `Reported-by:`, `Tested-by:`, `Reviewed-by:`, `Cc:
+  stable@vger.kernel.org`
 
-### Step 1.2: Tags
-**Record:**
-- **Signed-off-by:** Daniel Lezcano `<daniel.lezcano@oss.qualcomm.com>`,
-  Daniel Lezcano `<daniel.lezcano@kernel.org>`
-- **Reviewed-by:** Lukasz Luba `<lukasz.luba@arm.com>`
-- **Link:** https://patch.msgid.link/20260424160019.41710-2-
-  daniel.lezcano@oss.qualcomm.com
-- **Absent (expected):** Fixes:, Reported-by:, Tested-by:, Cc:
-  stable@vger.kernel.org
-- **Notable:** Part of a 2-patch series; no syzbot/fuzzer report.
+**Step 1.3 — Body analysis**
 
-### Step 1.3: Body analysis
-**Record:**
-- **Bug:** `tegra_soctherm_remove()` never calls
-  `thermal_cooling_device_unregister()` for throttle cooling devices
-  registered in `soctherm_init_hw_throt_cdev()`.
-- **Symptom:** After driver removal, the thermal core still holds
-  `thermal_cooling_device` entries whose `devdata` points at `struct
-  tegra_soctherm *ts`, but `ts` is freed by devm when the platform
-  device is torn down → use-after-free.
-- **Root cause:** Non-devm `thermal_of_cooling_device_register()` with
-  no matching unregister in `.remove`.
-- **Fix approach:** `devm_thermal_of_cooling_device_register(dev, ...)`
-  so unregister happens automatically on device release.
+Record:
+- **Bug:** TPS65219 driver unconditionally registers a system poweroff
+  handler even when another component (e.g. TF-A) should handle
+  shutdown.
+- **Symptom:** Wrong poweroff path is taken; TF-A/PSCI shutdown is
+  preempted or conflicted by PMIC I2C soft-shutdown.
+- **Root cause:** Driver ignores the existing `system-power-controller`
+  DT property documented in the binding.
+- **Fix:** Only call `devm_register_power_off_handler()` when
+  `of_device_is_system_power_controller()` is true.
 
-### Step 1.4: Hidden bug fix?
-**Record:** Yes. The commit is framed as resource-management cleanup,
-but it explicitly fixes a real UAF on driver removal.
+**Step 1.4 — Hidden bug fix?**
+
+Record: Yes. Despite “Make … conditional” wording, this is a real
+platform correctness bug: the driver registers a shutdown handler on
+boards where it should not, breaking the intended poweroff mechanism.
 
 ---
 
-## PHASE 2: DIFF ANALYSIS
+## Phase 2: Diff Analysis
 
-### Step 2.1: Inventory
-**Record:**
-- **Files:** `drivers/thermal/tegra/soctherm.c` only (+3 / −3 lines)
-- **Function modified:** `soctherm_init_hw_throt_cdev()`
-- **Scope:** Single-file, surgical change
+**Step 2.1 — Inventory**
 
-### Step 2.2: Code flow change
-**Record:**
-- **Before:** `thermal_of_cooling_device_register(np_stcc, name, ts,
-  &throt_cooling_ops)` — lifetime not tied to `pdev->dev`; survives past
-  `.remove`.
-- **After:** `devm_thermal_of_cooling_device_register(dev, np_stcc,
-  name, ts, &throt_cooling_ops)` — cooling device unregistered when
-  `dev` is released.
-- **Path affected:** Probe-time throttle cooling-device registration;
-  cleanup on driver remove/unbind.
+Record:
+- **File:** `drivers/mfd/tps65219.c` (+4/-4 net, ~10 lines touched)
+- **Function:** `tps65219_probe()`
+- **Scope:** Single-file, surgical driver fix
 
-### Step 2.3: Bug mechanism
-**Record:** **Category:** Use-after-free / missing resource cleanup on
-driver removal.
+**Step 2.2 — Code flow change**
 
-Mechanism verified in tree:
-1. `tegra` is allocated with `devm_kzalloc(&pdev->dev, ...)` (line
-   2101).
-2. Cooling devices store `ts` as `devdata` (line 1704).
-3. `throt_get_cdev_cur_state()` dereferences `cdev->devdata` as `ts` and
-   reads `ts->regs` (lines 1512–1515).
-4. `tegra_soctherm_remove()` only removes debugfs and disables clocks —
-   no cooling-device unregister (lines 2228–2235).
-5. After remove, thermal framework callbacks can touch freed `ts`
-   memory.
+Record:
+- **Before:** `devm_register_power_off_handler()` always runs during
+  probe.
+- **After:** Registration is wrapped in `if
+  (of_device_is_system_power_controller(tps->dev->of_node))`.
+- **Error handling:** Switches to `dev_err_probe()` (consistent with
+  nearby tps6594 code).
+- **Path affected:** Probe success path on all boards with a
+  TPS65214/15/19 PMIC.
 
-### Step 2.4: Fix quality
-**Record:** Obviously correct; matches the pattern already used in the
-same probe path for thermal zones (`devm_thermal_of_zone_register` at
-line 2197). Minimal regression risk; no new APIs.
+**Step 2.3 — Bug mechanism**
 
----
+Record:
+- **Category:** Logic / correctness fix (wrong shutdown handler
+  registration).
+- **Mechanism:** PMIC registers into the sys-off handler chain
+  unconditionally. On K3 platforms where TF-A/PSCI owns shutdown, the
+  PMIC handler sends an I2C OFF request via `tps65219_soft_shutdown()`,
+  conflicting with the firmware path. The DT binding already defines
+  `system-power-controller` as the gate for this behavior; the driver
+  simply did not honor it.
 
-## PHASE 3: GIT HISTORY INVESTIGATION
+**Step 2.4 — Fix quality**
 
-### Step 3.1: Blame
-**Record:** `git blame` on the registration lines attributes them to
-`7e22de67e545d` (“drm/amdgpu/gfx10: replace BUG_ON() with WARN_ON()”),
-which is clearly unrelated — this tree’s git history for `soctherm.c`
-appears squashed/corrupted. **Cannot reliably determine the introducing
-commit or kernel version from history in this checkout.**
-
-### Step 3.2: Fixes: tag
-**Record:** N/A — no Fixes: tag in the commit message.
-
-### Step 3.3: Related file history
-**Record:** `git log --oneline -- drivers/thermal/tegra/soctherm.c`
-returns only the unrelated amdgpu commit. History is not usable here.
-The buggy pattern is present in the current file content.
-
-### Step 3.4: Author context
-**Record:** Daniel Lezcano is a thermal maintainer. No other tegra
-thermal commits visible in this tree’s truncated history.
-
-### Step 3.5: Dependencies
-**Record:** Patch is **2/2** in a series with patch 1/2 (clock disable
-via `devm_add_action_or_reset`). **Patch 2/2 is standalone** — it only
-changes the cooling-device registration call and does not depend on
-patch 1. `devm_thermal_of_cooling_device_register()` already exists in
-this tree’s `thermal_core.c` (lines 1217–1240).
+Record:
+- Fix is obviously correct and matches established PMIC driver patterns
+  (`tps6594-core.c`, `rn5t618.c`, `max77620.c`, `tps6586x.c`).
+- Minimal diff, no API changes.
+- **Regression risk:** Low for boards that already have `system-power-
+  controller` in DT (no behavior change). One in-tree board
+  (`k3-am62-lp-sk.dts`) lacks the property and currently relies on
+  unconditional registration; it may need a companion DT patch adding
+  `system-power-controller` if PMIC shutdown is still required there.
+  Other AM62 tps65219 boards already have the property.
 
 ---
 
-## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
+## Phase 3: Git History Investigation
 
-### Step 4.1: Original discussion
-**Record:**
-- **URL:** https://patch.msgid.link/20260424160019.41710-2-
-  daniel.lezcano@oss.qualcomm.com
-- **Series:** 2 patches (clock devm cleanup + this cooling-device devm
-  fix)
-- **b4:** Reports patch applies clean to current tree
-- **Review:** `Reviewed-by: Lukasz Luba` on patch 1/2; no separate
-  replies found for patch 2/2 in thread grep
-- **Stable nomination:** None found in thread or stable@ search
+**Step 3.1 — Blame**
 
-### Step 4.2: Reviewers
-**Record:** CC’d: Rafael Wysocki, Daniel Lezcano, Thierry Reding,
-Jonathan Hunter; lists: linux-pm, linux-tegra.
+Record:
+- Unconditional `devm_register_power_off_handler()` introduced by commit
+  `3df4c63675203` (“mfd: tps65219: Add support for soft shutdown via
+  sys-off API”, 2023-06-15).
+- That code is present unchanged in the local tree at lines 544–550.
 
-### Step 4.3: Bug report
-**Record:** No external bug report, syzbot, or crash log — bug
-identified by code inspection during cleanup.
+**Step 3.2 — Fixes: tag**
 
-### Step 4.4: Series context
-**Record:** Patch 1/2 is independent (clock error-path cleanup). Not
-required for this fix to work.
+Record: Not applicable (no `Fixes:` tag). Bug introduced by
+`3df4c63675203`, which is in this tree.
 
-### Step 4.5: Stable list
-**Record:** No prior stable@ discussion found for this issue.
+**Step 3.3 — Related file history**
 
----
+Record:
+- Driver added in `74c17a0a49a6a` (first appeared in v6.10).
+- Poweroff support added 2023-06-15.
+- DT binding `system-power-controller` documented since `4d2aed6ee306c`
+  (2022-08-23), before poweroff handler was added.
+- Fix commit is not yet merged into this checkout (buggy code still
+  present).
+- Patch is 3/N of a series per message-id; standalone driver change is
+  self-contained.
 
-## PHASE 5: CODE SEMANTIC ANALYSIS
+**Step 3.4 — Author context**
 
-### Step 5.1: Key functions
-**Record:** `soctherm_init_hw_throt_cdev()`,
-`throt_get_cdev_cur_state()`, `tegra_soctherm_remove()`,
-`tegra_soctherm_probe()`.
+Record: Akashdeep Kaur is a TI contributor with K3 device-tree work. Lee
+Jones is the MFD maintainer who committed the original poweroff support.
 
-### Step 5.2: Callers
-**Record:**
-- `soctherm_init_hw_throt_cdev()` called from `tegra_soctherm_probe()`
-  (line 2180)
-- Driver registered via `module_platform_driver(tegra_soctherm_driver)`
-  (line 2288) — `.remove` runs on unbind/module unload
-- Thermal zone trip handling also references `ts->throt_cfgs[i].cdev`
-  (lines 617–628)
+**Step 3.5 — Dependencies**
 
-### Step 5.3: Callees
-**Record:** Registration goes through
-`devm_thermal_of_cooling_device_register()` →
-`__thermal_cooling_device_register()` with devm release via
-`thermal_cooling_device_release()`.
-
-### Step 5.4: Reachability
-**Record:**
-- Requires `CONFIG_TEGRA_SOCTHERM` (tristate, `ARCH_TEGRA ||
-  COMPILE_TEST`)
-- Requires DT `throttle-cfgs` child nodes with non-OC throttle entries
-  (`stc->id < THROTTLE_OC1`)
-- Trigger: platform driver remove/unbind after successful probe with
-  throttle cooling devices registered
-- Post-remove thermal activity (zone polling, trip handling, sysfs) can
-  invoke cooling-device ops → UAF
-
-### Step 5.5: Similar patterns
-**Record:** Same file already uses devm for zones
-(`devm_thermal_of_zone_register`), `tegra` struct, clocks, and other
-probe allocations. Cooling-device registration was the outlier.
+Record:
+- `of_device_is_system_power_controller()` exists in
+  `include/linux/of.h` (available via `#include <linux/i2c.h>` already
+  in the file).
+- No structural prerequisites; patch applies standalone to
+  `tps65219_probe()`.
 
 ---
 
-## PHASE 6: CROSS-REFERENCE AGAINST LOCAL TREE (v6.18.44)
+## Phase 4: Mailing List and External Research
 
-### Step 6.1: Buggy code present?
-**Record:** **Yes.** Lines 1703–1705 still use
-`thermal_of_cooling_device_register()`; `tegra_soctherm_remove()` has no
-unregister. The fix is not yet in this tree.
+**Step 4.1 — Original discussion**
 
-### Step 6.2: Backport complications
-**Record:** **Clean apply.** Verified with `git apply --check` — 3
-insertions, 3 deletions, no conflicts.
-`devm_thermal_of_cooling_device_register()` is declared in
-`include/linux/thermal.h` and implemented in
-`drivers/thermal/thermal_core.c`.
+Record: `b4 dig -c` could not match the fix commit (not merged in this
+tree). Direct lore fetch returned 403 Forbidden. Link points to patch 3
+of an April 2026 TI submission series.
 
-### Step 6.3: Related fixes already present?
-**Record:** No. `grep thermal_cooling_device_unregister
-drivers/thermal/tegra/` returns nothing. Bug remains unfixed.
+**Step 4.2 — Reviewers**
 
----
+Record: UNVERIFIED — could not retrieve thread via lore or b4.
 
-## PHASE 7: SUBSYSTEM CONTEXT
+**Step 4.3 — Bug report**
 
-### Step 7.1: Subsystem and criticality
-**Record:** `drivers/thermal/tegra/` — Tegra platform thermal driver.
-**PERIPHERAL** (Tegra/embedded only), but thermally safety-relevant on
-affected hardware.
+Record: No external bug report linked. Issue described in commit message
+(TF-A conflict).
 
-### Step 7.2: Activity
-**Record:** File history unavailable in this checkout; driver is mature
-and actively maintained upstream (April 2026 patch series).
+**Step 4.4 — Series context**
+
+Record: Message-id suffix `-3` suggests a multi-patch series; possible
+companion DT updates exist but were not analyzed (not in provided diff).
+
+**Step 4.5 — Stable list**
+
+Record: UNVERIFIED — stable list search not accessible.
 
 ---
 
-## PHASE 8: IMPACT AND RISK
+## Phase 5: Code Semantic Analysis
 
-### Step 8.1: Who is affected
-**Record:** Systems with `CONFIG_TEGRA_SOCTHERM` built-in or as a
-module, DT `throttle-cfgs` present, and throttle cooling devices
-registered (LIGHT/HEAVY, not OC-only configs).
+**Step 5.1 — Key functions**
 
-### Step 8.2: Trigger conditions
-**Record:** Driver removal/unbind/module unload — not every boot, but a
-real kernel code path. Any subsequent thermal-framework access to the
-stale cooling device can trigger the bug.
+Record: `tps65219_probe()`, `tps65219_power_off_handler()`,
+`tps65219_soft_shutdown()`.
 
-### Step 8.3: Failure mode severity
-**Record:** **Use-after-free** via `ts->regs` in
-`throt_get_cdev_cur_state()` → kernel oops/panic, unpredictable
-behavior. **Severity: HIGH.**
+**Step 5.2 — Callers**
 
-### Step 8.4: Risk-benefit
-**Record:**
-- **Benefit:** HIGH for affected Tegra systems — prevents UAF on
-  teardown
-- **Risk:** VERY LOW — 3-line change, established devm API, no
-  structural changes
-- **Ratio:** Strongly favors backport
+Record: `tps65219_probe()` called from I2C core during device
+enumeration on boards with `compatible = "ti,tps65214"`,
+`"ti,tps65215"`, or `"ti,tps65219"`. Ten in-tree TI K3 DTS files use
+tps65219.
+
+**Step 5.3 — Callees**
+
+Record: `devm_register_power_off_handler()` → sys-off notifier chain;
+handler calls `tps65219_soft_shutdown()` which writes PMIC registers
+over I2C.
+
+**Step 5.4 — Reachability**
+
+Record: Triggered on every `poweroff`/`halt`/`shutdown` on systems where
+the handler is registered. User-visible via standard shutdown syscalls.
+
+**Step 5.5 — Similar patterns**
+
+Record: Identical conditional pattern in `tps6594-core.c:788-792`,
+`rn5t618.c:217-222`, `max77620.c:576-580`, `tps6586x.c:585-599`.
 
 ---
 
-## PHASE 9: FINAL SYNTHESIS
+## Phase 6: Cross-Reference Against Local Tree (v6.18.44)
 
-### Step 9.1: Evidence summary
+**Step 6.1 — Buggy code present?**
 
-**FOR backport:**
-- Real UAF on driver removal, clearly described and verified in code
-- Dangling `devdata` (`ts`) dereferenced in `throt_get_cdev_cur_state()`
-- Small, surgical, obviously correct devm fix
-- `devm_thermal_of_cooling_device_register()` exists in v6.18.44
-- Patch applies cleanly
-- Reviewed in series by Arm thermal reviewer; thermal maintainer
-  authored
+Record: **Yes.** Local tree is `v6.18.44` (`git describe HEAD` =
+`v6.18.44-1-g2736c32da98b9`). Unconditional registration at
+`drivers/mfd/tps65219.c:544-550`. Bug present since v6.10 (driver
+introduction) for poweroff path since mid-2023.
 
-**AGAINST backport:**
-- Tegra-specific, not universal
-- Driver removal is less common than steady-state operation (often
-  built-in)
-- No fuzzer report or user crash log
-- Git history in this checkout cannot confirm how long the bug has
-  existed
+**Step 6.2 — Backport difficulty**
 
-**Unresolved:** Exact commit that introduced the bug (history unusable
-in this tree).
+Record: Clean apply expected — small hunk in `tps65219_probe()`, no
+conflicts visible. `of_device_is_system_power_controller` and DT binding
+property both exist in this tree.
 
-### Step 9.2: Stable rules checklist
-1. Obviously correct and tested? **PASS** — standard devm pattern;
-   series reviewed
-2. Fixes a real user-affecting bug? **PASS** — UAF on driver teardown
-3. Important issue? **PASS** — UAF / potential crash
-4. Small and contained? **PASS** — 3 lines, one function
-5. No new features/APIs? **PASS** — uses existing devm API
-6. Can apply to local tree? **PASS** — verified clean apply; API present
+**Step 6.3 — Related fixes already present?**
 
-### Step 9.3: Exception categories
-**Record:** None (not a quirk/DT-ID/docs fix) — standard bug fix.
+Record: No equivalent conditional registration found in current
+`tps65219.c`.
 
-### Step 9.4: Decision rationale
-For **Linux 6.18.44**, the buggy non-devm cooling-device registration
-exists, `tegra_soctherm_remove()` does not unregister those devices, and
-thermal callbacks dereference the freed `ts` pointer. The fix is
-minimal, self-contained, uses infrastructure already in this tree, and
-applies cleanly. This meets stable criteria for a real, important UAF
-fix.
+---
+
+## Phase 7: Subsystem Context
+
+**Step 7.1 — Subsystem**
+
+Record: `drivers/mfd/` — MFD/PMIC driver. **Criticality: IMPORTANT**
+(affects system shutdown on embedded TI K3 platforms, not universal but
+operationally critical on affected hardware).
+
+**Step 7.2 — Activity**
+
+Record: Active development — TPS65214/15 support added recently; driver
+actively maintained by TI and MFD maintainers.
+
+---
+
+## Phase 8: Impact and Risk Assessment
+
+**Step 8.1 — Who is affected**
+
+Record: Users of TI K3 SoCs (AM62 family and derivatives) with
+TPS65214/15/19 PMIC, especially boards where TF-A handles shutdown but
+the PMIC is present for regulators.
+
+**Step 8.2 — Trigger conditions**
+
+Record: Any system shutdown (`halt`, `poweroff`, `shutdown`). Common
+user/admin operation. Not security-sensitive but operationally
+important.
+
+**Step 8.3 — Failure mode severity**
+
+Record: Improper or failed system shutdown when PMIC handler conflicts
+with TF-A/PSCI path. **Severity: MEDIUM-HIGH** — system may hang instead
+of powering off, or take wrong shutdown path. Not a kernel oops, but a
+real operational failure on production embedded systems.
+
+**Step 8.4 — Risk vs benefit**
+
+Record:
+- **Benefit:** HIGH for affected TI K3 platforms — restores correct
+  shutdown delegation per DT contract.
+- **Risk:** LOW — 10-line change following established pattern; 9 of 10
+  in-tree tps65219 boards already declare `system-power-controller`.
+- **Ratio:** Benefit clearly outweighs risk.
+
+---
+
+## Phase 9: Final Synthesis
+
+**Evidence FOR backport:**
+- Fixes real shutdown correctness bug on TF-A-managed platforms
+- Aligns driver with DT binding documented since 2022
+- Matches established kernel PMIC pattern (tps6594, rn5t618, etc.)
+- Small, surgical, maintainer-reviewed
+- Buggy code confirmed present in v6.18.44 tree
+- Affects commonly deployed TI K3 embedded hardware
+
+**Evidence AGAINST:**
+- `k3-am62-lp-sk.dts` lacks `system-power-controller`; may need
+  companion DT patch (not in this commit)
+- Mailing list review details unverified
+- Not a crash/corruption bug — shutdown path correctness
+
+**Stable rules checklist:**
+1. Obviously correct and tested? **PASS** — standard pattern, maintainer
+   SOB; runtime testing claimed in original poweroff commit for related
+   hardware
+2. Fixes real bug affecting users? **PASS** — wrong shutdown handler on
+   TF-A platforms
+3. Important issue? **PASS** — shutdown failure/hang, MEDIUM-HIGH
+   severity
+4. Small and contained? **PASS** — single file, ~10 lines
+5. No new features/APIs? **PASS** — implements existing DT contract
+6. Can apply to local tree? **PASS** — code and prerequisites present
+
+**Exception category:** Hardware/platform quirk/workaround alignment
+(DT-driven behavior gate).
 
 ---
 
 ## Verification
 
-- **[Phase 1]** Parsed subject, tags, and body from provided commit
-  message
-- **[Phase 1]** Confirmed no Fixes:/Reported-by:/Cc: stable tags
-- **[Phase 2]** Read `soctherm.c` lines 1502–1534, 1655–1719, 2101,
-  2180, 2228–2235
-- **[Phase 2]** Confirmed `throt_get_cdev_cur_state()` dereferences
-  `cdev->devdata` as `ts`
-- **[Phase 2]** Confirmed `tegra_soctherm_remove()` has no
-  `thermal_cooling_device_unregister()`
-- **[Phase 3]** `git describe HEAD` → `v6.18.44`
-- **[Phase 3]** `git blame -L 1700,1710` → history unreliable (unrelated
-  amdgpu commit)
-- **[Phase 3]** `git log --oneline -- drivers/thermal/tegra/soctherm.c`
-  → single unrelated commit
-- **[Phase 3]** Verified `devm_thermal_of_cooling_device_register` in
-  `thermal_core.c:1217-1240` and `thermal.h:259`
-- **[Phase 4]** `b4 am 20260424160019.41710-2-...` → 2-patch series,
-  applies clean
-- **[Phase 4]** curl lore mbox → patch 2/2 content and series metadata;
-  Reviewed-by on patch 1/2 only
-- **[Phase 4]** curl stable@ search → no prior discussion found
-- **[Phase 5]** Traced call chain: `probe` →
-  `soctherm_init_hw_throt_cdev` → thermal callbacks on stale cdev
-- **[Phase 5]** `grep thermal_cooling_device_unregister
-  drivers/thermal/tegra/` → no matches
-- **[Phase 6]** Confirmed buggy `thermal_of_cooling_device_register()`
-  at lines 1703–1705
-- **[Phase 6]** `git apply --check` on provided diff → clean apply
-  (3+/3-)
-- **[Phase 6]** Read `Kconfig` → `CONFIG_TEGRA_SOCTHERM` tristate,
-  `ARCH_TEGRA || COMPILE_TEST`
-- **[Phase 8]** Failure mode: UAF via `ts->regs` → severity HIGH
-- **UNVERIFIED:** Exact kernel version/commit that introduced the non-
-  devm registration (git history in this checkout is not trustworthy)
+- [Phase 1] Parsed commit message and tags from user-provided diff
+- [Phase 2] Analyzed diff: conditional
+  `of_device_is_system_power_controller()` wrap in `tps65219_probe()`
+- [Phase 3] `git describe HEAD`: v6.18.44-1-g2736c32da98b9
+- [Phase 3] `git blame -L 544,550 drivers/mfd/tps65219.c`: lines from
+  `3df4c63675203` (2023-06-08)
+- [Phase 3] `git show 3df4c63675203`: introduced unconditional poweroff
+  handler
+- [Phase 3] `git log --oneline -20 -- drivers/mfd/tps65219.c`: confirmed
+  driver history
+- [Phase 3] `git tag --contains 74c17a0a49a6a`: driver first in v6.10
+- [Phase 4] `b4 dig -c 3df4c63675203`: found original poweroff patch
+  lore link
+- [Phase 4] `b4 dig -c <fix_commit>`: no match (fix not merged)
+- [Phase 4] lore fetch: 403 Forbidden — review thread UNVERIFIED
+- [Phase 5] Read `tps65219_power_off_handler()` and
+  `tps65219_soft_shutdown()` at lines 29-40
+- [Phase 5] Read `kernel/reboot.c:557-565`:
+  `devm_register_power_off_handler` API
+- [Phase 5] Compared with `tps6594-core.c:788-792`, `rn5t618.c:217-222`,
+  `max77620.c:576-580`
+- [Phase 6] Grep confirmed buggy unconditional registration at
+  `tps65219.c:544-550`
+- [Phase 6] Grep `system-power-controller` in 10 tps65219 DTS files: 9
+  have property, `k3-am62-lp-sk.dts` does not
+- [Phase 6] Read
+  `Documentation/devicetree/bindings/regulator/ti,tps65219.yaml:34-37`:
+  property documented
+- [Phase 6] Read `include/linux/of.h:1706-1708`:
+  `of_device_is_system_power_controller()` implementation
+- [Phase 6] Verified `#include <linux/i2c.h>` pulls in `<linux/of.h>` —
+  no new include needed
+- [Phase 7] K3 AM62 has PSCI (`k3-am62.dtsi:30-31`)
+- [Phase 8] UNVERIFIED: exact failure symptoms on specific TF-A platform
+  (no bug report accessible)
+
+This commit corrects a driver-DT contract violation that causes improper
+system shutdown on TI K3 platforms where TF-A should handle poweroff.
+The fix is small, follows an established PMIC pattern already used in
+this tree, and the buggy code is present in v6.18.44.
 
 **YES**
 
- drivers/thermal/tegra/soctherm.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/mfd/tps65219.c | 14 ++++++++------
+ 1 file changed, 8 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/thermal/tegra/soctherm.c b/drivers/thermal/tegra/soctherm.c
-index 5d26b52beaba7..9d3eb3be2db02 100644
---- a/drivers/thermal/tegra/soctherm.c
-+++ b/drivers/thermal/tegra/soctherm.c
-@@ -1700,9 +1700,9 @@ static void soctherm_init_hw_throt_cdev(struct platform_device *pdev)
- 			stc->init = true;
- 		} else {
+diff --git a/drivers/mfd/tps65219.c b/drivers/mfd/tps65219.c
+index 7275dcdb7c44f..e52fbf1481fef 100644
+--- a/drivers/mfd/tps65219.c
++++ b/drivers/mfd/tps65219.c
+@@ -541,13 +541,15 @@ static int tps65219_probe(struct i2c_client *client)
+ 		return ret;
+ 	}
  
--			tcd = thermal_of_cooling_device_register(np_stcc,
--							 (char *)name, ts,
--							 &throt_cooling_ops);
-+			tcd = devm_thermal_of_cooling_device_register(dev, np_stcc,
-+								      (char *)name, ts,
-+								      &throt_cooling_ops);
- 			if (IS_ERR_OR_NULL(tcd)) {
- 				dev_err(dev,
- 					"throttle-cfg: %s: failed to register cooling device\n",
+-	ret = devm_register_power_off_handler(tps->dev,
+-					      tps65219_power_off_handler,
+-					      tps);
+-	if (ret) {
+-		dev_err(tps->dev, "failed to register power-off handler: %d\n", ret);
+-		return ret;
++	if (of_device_is_system_power_controller(tps->dev->of_node)) {
++		ret = devm_register_power_off_handler(tps->dev,
++						      tps65219_power_off_handler,
++						      tps);
++		if (ret)
++			return dev_err_probe(tps->dev, ret,
++					     "Failed to register power-off handler\n");
+ 	}
++
+ 	return 0;
+ }
+ 
 -- 
 2.53.0
 
