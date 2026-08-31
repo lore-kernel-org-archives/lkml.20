@@ -1,46 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 494EE4F0553;
-	Mon, 31 Aug 2026 13:40:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3A8444A3E9;
+	Mon, 31 Aug 2026 13:40:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183652; cv=none; b=mGq4uOwkSuO0UUbD7Tklgy/iBNEFOTk04cqrQen5SNuAfuoUj+Ths0NP7xPs7AtSmP0VGFrKuzmB6wjdPT279QaJ5zC2M4l8C1dPcEy1wUHC5QYV7cTIWQ0hDsstoOQmVktYSsjIOnJL1wSq35T4Dr6mmWFKOG8n/DDEbFxdkfY=
+	t=1788183653; cv=none; b=doyWcR+tyNR73Blc8S3B2Pz5Q9zwM7pitDw2qq585pBxDlXzA3T96YtgZkUvIscfpwEMPtamfo2dgRSao1vu7M78iovhtdZ2mNm7TonADe6Y1WMFADBaiS+8j6V055ODyJFgvWgfoc10OOvgVjwunFjc39KtMwSR5lyaUsRbO7Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183652; c=relaxed/simple;
-	bh=OVtzjj6S3NguXDus+FQWGLDOOyZUa3Ojz1gR+naJDyI=;
+	s=arc-20240116; t=1788183653; c=relaxed/simple;
+	bh=6uvHIYZ0OuuYQhd/KiCiNVhaUg+VCHXAL47togkkXNQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=hDDvX8CRD+eEVz9+ArEncWgiL7izLVpyJVwp0X/JJYo6ldtoRweWJxm8m18gU6vbdCnQTN7MoBlbqcqyHIKxdoZqNtScAFOhjxIYjS/BsUc6Kh9URYs3usyQbyEcDyea0KwOe9IWbpJgdGCCmIE55cuXxbbWZzDAFT0bHekwK8c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gWm/eDQL; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=UkCzUKIs/2neC7MAbFCwBV01O6iNIBCKvgwdqZa4db99YLy3D+1qQ66vgTx4wYN6TsZDjWyf+ytHeWEO2NLDP1/iUGzy+kS9kj/b97pWByXIOldsk0H75jghRbJwemjv8tg9g+yJ/2lnGwXwvVDynRf1ncbim/5BX5Cg0PnUtRQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QEZpYE7q; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gWm/eDQL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 080CC1F00ADB;
-	Mon, 31 Aug 2026 13:40:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QEZpYE7q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A9841F00ACA;
+	Mon, 31 Aug 2026 13:40:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788183649;
-	bh=eonFPEKCyg5BqZFTIL3C/Bi5nHSqguCbsaDjQk4rT+Q=;
+	s=k20260515; t=1788183650;
+	bh=yFn7hFz+fOtKgGDmSp9TKQHGWgYyHAMSXyTmTS9UlHs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=gWm/eDQL3qKQCJ2lvJ6uLsGjLY1ZywkjzdGjw82MzYMziSfA/UAr6lp7cFj4qlt2d
-	 KKuL1fy4kld8zpJEBlmPpPcTdqKMBDyqnsoIE1OdcTHkark+kVb5274O5vEuLbLCTz
-	 EokCvkdIfFKmj6Y0xcTWq9OHBf+W63RPo/BtDBvYDkgt6CDu4iYWlZ6VDPDP0Pw178
-	 SaM73WwzBvvLOIYKRLL3OEiBQonVIPKBqZAHnS8at5cd1xP0u2DF990wNWiDd+Xsxg
-	 mhCg1M7CDob4wVz4pXRdoRqZSeeUGtsozPmXA9PaKXYCfsDQXxffr56YGKwgmoXtMZ
-	 wI4kU2uVLOPgw==
+	b=QEZpYE7qZkfK5Nmj86jt0giZ16M4WSbDr68Qhm1Bje4WeCyCORBV/S+u/0bQcZOVY
+	 1TyoiZ65uc9mOgIh1t66YjpNxaFnVEFRTe+2CveLe87J0khcodmatpNTV/S5cuu7si
+	 NTRjr3lSTMU1fe4WTsk//ehH85ocFU7B1V8KGQYIlNGXNInp5N7emDcfR8dqGK6grS
+	 9NF5DA2xYd6Iex+21fdvPsLuv5hvRJs6OpJxOYICOwwaR4ObljTYHA2fvTpEoOHSKu
+	 I6npjfJxePMdy/VCQUGs85ww/NepwLaw57sPeLK2NCOXzddluM1FdH3o2nFCWulzL6
+	 hw7ZEW31Cg4vQ==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Xianwei Zhao <xianwei.zhao@amlogic.com>,
-	Linus Walleij <linusw@kernel.org>,
+Cc: Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>,
-	neil.armstrong@linaro.org,
-	khilman@baylibre.com,
-	linux-amlogic@lists.infradead.org,
-	linux-gpio@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
+	jhs@mojatatu.com,
+	jiri@resnulli.us,
+	davem@davemloft.net,
+	pabeni@redhat.com,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18] pinctrl: meson: amlogic-a4: use nolock get range
-Date: Mon, 31 Aug 2026 09:24:08 -0400
-Message-ID: <20260831133314.4125787-220-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-5.10] net/sched: sch_drr: make cl->quantum lockless
+Date: Mon, 31 Aug 2026 09:24:09 -0400
+Message-ID: <20260831133314.4125787-221-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -56,474 +56,413 @@ X-stable-base: Linux 6.18.48
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Xianwei Zhao <xianwei.zhao@amlogic.com>
+From: Eric Dumazet <edumazet@google.com>
 
-[ Upstream commit afa0c07131d8829ea0ebbcd8267c85aa178ce52c ]
+[ Upstream commit a4d880b85089e12a5f2e8e2fee386310cec5b99a ]
 
-Use pinctrl_find_gpio_range_from_pin_nolock() instead of
-pinctrl_find_gpio_range_from_pin() when configuring a pin or
-setting a GPIO value.
+cl->quantum does not need to be protected by RTNL or qdisc spinlock.
 
-This avoids taking the lock and allows the code to be safely
-called from interrupt context.
-
-Signed-off-by: Xianwei Zhao <xianwei.zhao@amlogic.com>
-Signed-off-by: Linus Walleij <linusw@kernel.org>
+Signed-off-by: Eric Dumazet <edumazet@google.com>
+Link: https://patch.msgid.link/20260519094618.2632073-3-edumazet@google.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-# Stable Backport Analysis: `pinctrl: meson: amlogic-a4: use nolock get
-range`
+## Phase 1: Commit Message Forensics
 
-**Local tree:** Linux **6.18.44** (`v6.18.44-1-g2736c32da98b9`,
-stable/linux-6.18.y)
+### Step 1.1: Parse the Subject Line
+**Record:** `[net/sched] [make] sch_drr: make cl->quantum lockless` —
+networking traffic-control subsystem; action is making `cl->quantum`
+access lockless (concurrency/synchronization change, not labeled "fix").
+
+### Step 1.2: Parse All Commit Message Tags
+**Record:**
+- **Signed-off-by:** Eric Dumazet `<edumazet@google.com>` (author)
+- **Link:** `https://patch.msgid.link/20260519094618.2632073-3-
+  edumazet@google.com` (patch 2/2 of series)
+- **Signed-off-by:** Jakub Kicinski `<kuba@kernel.org>` (net maintainer
+  merge)
+- **No** Fixes:, Reported-by:, Tested-by:, Reviewed-by:, Acked-by:, or
+  Cc: stable tags
+- Notable: part of series titled **"net/sched: sch_drr: lockless
+  cl->deficit and cl->quantum"** (patches 1/2 and 2/2)
+
+### Step 1.3: Analyze Commit Body
+**Record:**
+- **Bug description:** `cl->quantum` does not need RTNL or qdisc
+  spinlock protection; access should be lockless with proper
+  annotations.
+- **Symptom/failure mode:** Not described — no crash, corruption, or
+  user report mentioned.
+- **Version info:** None in message.
+- **Root cause (author):** Quantum is read on fast paths without holding
+  `sch_tree_lock`; locking on write is unnecessary and inconsistent.
+
+### Step 1.4: Detect Hidden Bug Fixes
+**Record:** **Yes, likely a hidden concurrency bug fix.** Removing
+`sch_tree_lock()` around the write while fast-path readers
+(`drr_enqueue`, `drr_dequeue`, `drr_dump_class`) access `cl->quantum`
+without that lock means the old code had a writer-lock/reader-no-lock
+pattern. The fix adds `WRITE_ONCE`/`READ_ONCE` to make lockless
+concurrent access formally safe — same pattern as the already-backported
+companion patch for `cl->deficit`.
 
 ---
 
-## PHASE 1: COMMIT MESSAGE FORENSICS
+## Phase 2: Diff Analysis
 
-### Step 1.1: Subject line
-**Record:** `[pinctrl/meson/amlogic-a4]` `[use]` — switch remaining GPIO
-range lookups to the nolock variant when configuring pins / setting
-GPIO-related state.
-
-### Step 1.2: Tags
+### Step 2.1: Inventory the Changes
 **Record:**
-- **Fixes:** — absent (expected for manual review)
-- **Reported-by:** — none
-- **Tested-by:** — none
-- **Reviewed-by:** — none
-- **Acked-by:** — none
-- **Link:** — none
-- **Cc: stable@vger.kernel.org:** — absent
-- **Signed-off-by:** Xianwei Zhao, Linus Walleij (ignore pipeline SOB
-  markers)
+- **File:** `net/sched/sch_drr.c` only
+- **Scope:** ~4 insertions, ~6 deletions (net −2 lines)
+- **Functions modified:** `drr_change_class`, `drr_dump_class`,
+  `drr_enqueue`, `drr_dequeue`
+- **Classification:** Single-file, surgical synchronization fix
 
-Notable: no syzbot/fuzzer report; no explicit stable nomination.
-
-### Step 1.3: Body analysis
+### Step 2.2: Code Flow Change (per hunk)
 **Record:**
-- **Bug described:** Using `pinctrl_find_gpio_range_from_pin()` takes
-  `pctldev->mutex`. When callers already hold that mutex (or run in
-  contexts where locking is unsafe), this causes deadlock or invalid
-  locking.
-- **Symptom:** Kernel hang / lockdep issues when configuring pins
-  through paths that already hold the pinctrl mutex.
-- **Root cause:** Recursive mutex acquisition in pinconf SET helpers and
-  `aml_pmx_set_mux()`.
-- **Version info:** None in message. Driver landed in this tree via
-  `6e9be3abb78c2` (Feb 2025).
+1. **`drr_change_class`:** Before: update `cl->quantum` under
+   `sch_tree_lock`/`sch_tree_unlock`. After: `WRITE_ONCE(cl->quantum,
+   quantum)` with no tree lock.
+2. **`drr_dump_class`:** Before: plain `cl->quantum` read. After:
+   `READ_ONCE(cl->quantum)`.
+3. **`drr_enqueue`:** Before: `WRITE_ONCE(cl->deficit, cl->quantum)`.
+   After: `WRITE_ONCE(cl->deficit, READ_ONCE(cl->quantum))`.
+4. **`drr_dequeue`:** Before: `WRITE_ONCE(cl->deficit, cl->deficit +
+   cl->quantum)`. After: `WRITE_ONCE(cl->deficit, cl->deficit +
+   READ_ONCE(cl->quantum))`.
 
-### Step 1.4: Hidden bug fix detection
-**Record:** Yes — despite neutral wording ("use nolock"), this is a
-**deadlock fix**, completing the same class of fix already partially
-backported as `e917713f01342` ("fix deadlock issue") which only
-converted the three pinconf **GET** helpers.
+### Step 2.3: Bug Mechanism
+**Record:** **Category: synchronization / data-race fix.** Fast-path
+enqueue/dequeue and `drr_dump_class` read `cl->quantum` without
+`sch_tree_lock`, while `drr_change_class` wrote it under that lock —
+ineffective protection against the actual concurrent readers. Fix uses
+`READ_ONCE`/`WRITE_ONCE` for defined lockless u32 access.
+
+### Step 2.4: Fix Quality
+**Record:** Fix is minimal, obviously correct, and mirrors the already-
+applied `cl->deficit` annotations. Regression risk is very low. Removing
+`sch_tree_lock` from the quantum-update path also reduces lock
+contention during `tc` class changes under load.
 
 ---
 
-## PHASE 2: DIFF ANALYSIS
+## Phase 3: Git History Investigation
 
-### Step 2.1: Inventory
+### Step 3.1: Blame Changed Lines
 **Record:**
-- **File:** `drivers/pinctrl/meson/pinctrl-amlogic-a4.c` only
-- **Scope:** 5 call-site replacements (no logic changes)
-- **Functions modified:**
-  - `aml_pmx_set_mux()`
-  - `aml_pinconf_disable_bias()`
-  - `aml_pinconf_enable_bias()`
-  - `aml_pinconf_set_drive_strength()`
-  - `aml_pinconf_set_gpio_bit()`
-- **Classification:** Single-file, surgical fix
+- Quantum lock/unlock in `drr_change_class`: Patrick McHardy, 2008-11-20
+  (original DRR code).
+- `WRITE_ONCE` for deficit: Eric Dumazet, 2026-05-19 (`a88f6da618e8b`,
+  already in this tree).
+- Buggy pattern (lock on write, lockless reads on fast path) present
+  since DRR introduction (~2.6 era).
 
-Note: subject says "get range" but the diff touches **SET** paths (and
-`set_mux`), not GET paths — GET paths were already fixed in
-`e917713f01342`.
+### Step 3.2: Follow Fixes: Tag
+**Record:** No Fixes: tag in this commit. N/A for direct lookup.
+Companion patch 1/2 fixes `edb09eb17ed89` ("net: sched: do not acquire
+qdisc spinlock in qdisc/class stats dump"), which **is** in this tree.
 
-### Step 2.2: Code flow change
-**Record (per hunk):**
-| Location | Before | After |
-|---|---|---|
-| All 5 sites | `pinctrl_find_gpio_range_from_pin()` → locks
-`pctldev->mutex`, walks `gpio_ranges` |
-`pinctrl_find_gpio_range_from_pin_nolock()` → no lock, same list walk |
-
-Affected paths:
-- **Pinconf SET** (bias, drive strength, GPIO bit output) — reached from
-  `aml_pinconf_set()` and its helpers.
-- **Pinmux SET** — `aml_pmx_set_mux()` during function selection.
-
-### Step 2.3: Bug mechanism
-**Record:** **Category:** Deadlock / lock ordering (mutex recursion)
-
-Verified chain for pinconf SET:
-1. `aml_gpio_template.set_config = gpiochip_generic_config` (line 959)
-2. `gpiochip_generic_config()` → `pinctrl_gpio_set_config()`
-   (`core.c:919-937`)
-3. `pinctrl_gpio_set_config()` **locks** `pctldev->mutex` (line 931)
-4. Calls `pinconf_set_config()` → `aml_pinconf_set()` → e.g.
-   `aml_pinconf_set_gpio_bit()`
-5. Helper calls `pinctrl_find_gpio_range_from_pin()` which tries to
-   **lock the same mutex again** → **DEADLOCK**
-
-This mirrors the already-fixed GET path where `pinconf_pins_show()`
-holds the mutex and GET helpers deadlocked.
-
-### Step 2.4: Fix quality
+### Step 3.3: File History / Related Changes
 **Record:**
-- **Obviously correct:** Yes —
-  `pinctrl_find_gpio_range_from_pin_nolock()` is the established API for
-  callers that already hold the lock or must not sleep; same pattern
-  used in stm32, airoha, etc.
-- **Minimal:** Yes — function name substitution only.
-- **Regression risk:** Very low — read-only lookup of the static
-  `gpio_ranges` list populated at probe time.
-- **Red flags:** None.
+- `a88f6da618e8b` — "annotate data-races around cl->deficit" (patch 1/2,
+  **already in 6.18.y**)
+- `edb09eb17ed89` — lockless stats dump infrastructure (prerequisite
+  context, in tree since 2016)
+- `f99a3fbf023e2` — double-list-add fix in DRR (unrelated)
+- This is patch **2/2** of a 2-patch series; patch 1/2 is already
+  backported here.
+
+### Step 3.4: Author's Other Commits
+**Record:** Eric Dumazet is a core networking maintainer. Related
+sch_drr work in this tree includes the deficit annotation backport and
+the 2016 lockless stats-dump series.
+
+### Step 3.5: Dependencies / Prerequisites
+**Record:** Patch 1/2 (`a88f6da618e8b`) is **already in this tree**.
+This patch applies standalone on top of that state. No other
+dependencies required. The tree currently has an **incomplete** 2-patch
+series: deficit annotated, quantum not.
 
 ---
 
-## PHASE 3: GIT HISTORY INVESTIGATION
+## Phase 4: Mailing List and External Research
 
-### Step 3.1: Blame
-**Record:** All 5 remaining locking call sites introduced in
-`6e9be3abb78c2` ("pinctrl: Add driver support for Amlogic SoCs", Feb
-2025). Bug present since driver introduction.
-
-### Step 3.2: Fixes: tag
-**Record:** N/A — no Fixes: tag. Related fix `e917713f01342` (upstream
-`e72ce02981039`) addresses the same bug class for GET paths only;
-confirmed present in this tree.
-
-### Step 3.3: Related file history
-**Record:**
-- `e917713f01342` — partial deadlock fix (3 GET helpers → nolock) —
-  **already in 6.18.44**
-- `4a1afa32145b5` — mark GPIO controller `can_sleep = true` (lockdep fix
-  for shared GPIO proxy)
-- `80f8e2302e639` — gpio output glitch fix
-- Commit under review ("use nolock get range") — **NOT in this tree**
-
-This is a logical follow-up to `e917713f01342`, not part of a multi-
-patch dependency series.
-
-### Step 3.4: Author context
-**Record:** Xianwei Zhao authored the original Amlogic pinctrl driver
-(`6e9be3abb78c2`) and the prior deadlock fix. Linus Walleij (pinctrl
-maintainer) merged both.
-
-### Step 3.5: Dependencies
-**Record:**
-- Requires `pinctrl-amlogic-a4.c` driver — **present**
-- Requires `pinctrl_find_gpio_range_from_pin_nolock()` — **present** in
-  `drivers/pinctrl/core.c` since long before this driver
-- Requires prior GET-path fix — **optional**; this patch is standalone
-  and applies independently
-- **Can apply standalone:** Yes
-
----
-
-## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
-
-### Step 4.1: Original discussion
-**Record:**
-- `b4 dig -c e72ce02981039` found the related v1 thread:
-  https://patch.msgid.link/20260422-fix-
-  pinconf-v1-1-abb4d2e0da55@amlogic.com
-- That thread covers only the GET-path deadlock fix (same author, same
-  mechanism).
-- **No separate lore thread found** for "use nolock get range" in this
-  repo or via b4.
-- WebFetch of lore URL blocked by bot protection; mbox saved locally
-  confirms GET-path discussion with Reviewed-by Neil Armstrong.
+### Step 4.1: Original Patch Discussion
+**Record:** Series found via web search (lore fetch blocked by bot
+protection):
+- Cover: `[PATCH net-next 0/2] net/sched: sch_drr: lockless cl->deficit
+  and cl->quantum`
+- Patch 1/2: annotate data-races around `cl->deficit`
+- Patch 2/2: make `cl->quantum` lockless (this commit)
+- URL: https://www.spinics.net/lists/netdev/msg1188405.html
+- `b4 dig -c` could not be run (commit not in local repo). No NAKs found
+  in search results.
 
 ### Step 4.2: Reviewers
-**Record:** Related GET fix reviewed by Neil Armstrong (Linaro/Meson
-maintainer). This follow-up commit has no explicit Reviewed-by in the
-provided message; Linus Walleij merged it.
+**Record:** CC list from syzbot CI series page includes `davem@`,
+`kuba@`, `netdev@`, `pabeni@`, `jhs@`, `victor@`. Patchwork-bot reported
+on cover letter (2026-05-21). Full reviewer thread not retrieved.
 
-### Step 4.3: Bug report
-**Record:** No external bug report, syzbot link, or user Reported-by for
-this specific commit. Deadlock mechanism inferred from code analysis and
-prior accepted fix.
+### Step 4.3: Bug Reports
+**Record:** No Reported-by, no syzbot crash report, no bugzilla link.
+Syzbot CI
+(https://ci.syzbot.org/series/3c50e02b-b07f-4d23-a7d3-45d5a6e23096) ran
+build/boot/fuzz — all **passed**; no bug was filed against this series.
 
-### Step 4.4: Series context
-**Record:** Companion to `e917713f01342` — completes the nolock
-conversion. Not a multi-part series requiring other patches.
+### Step 4.4: Related Patches / Series
+**Record:** 2-patch series. Patch 1/2 already backported to this 6.18.y
+tree (July 2026). This commit completes the series.
 
-### Step 4.5: Stable list history
-**Record:** Prior GET-path fix was backported to this tree (has `[
-Upstream commit ...]` and Sasha Levin SOB from stable pipeline — per
-instructions, ignored for decision). No stable-list discussion found for
-this specific follow-up.
+### Step 4.5: Stable Mailing List
+**Record:** Not searched (no stable-specific discussion found in
+available sources). Absence of Cc: stable is expected per instructions.
 
 ---
 
-## PHASE 5: CODE SEMANTIC ANALYSIS
+## Phase 5: Code Semantic Analysis
 
-### Step 5.1: Key functions
-**Record:** `aml_pmx_set_mux`, `aml_pinconf_disable_bias`,
-`aml_pinconf_enable_bias`, `aml_pinconf_set_drive_strength`,
-`aml_pinconf_set_gpio_bit`
+### Step 5.1: Key Functions
+**Record:** `drr_change_class`, `drr_dump_class`, `drr_enqueue`,
+`drr_dequeue`
 
-### Step 5.2: Callers
+### Step 5.2: Callers / Context
 **Record:**
-- **Pinconf SET helpers** ← `aml_pinconf_set()` ←
-  `pinconf_apply_setting()` (DT pinconf at probe) AND
-  `pinconf_set_config()` ← `pinctrl_gpio_set_config()` (GPIO
-  `set_config` path — **mutex already held**)
-- **`aml_pmx_set_mux`** ← `pinmux_enable_setting()` (pinctrl state
-  changes, probe)
-
-GPIO chip hooks:
-- `.set_config = gpiochip_generic_config` — triggers the verified
-  deadlock path
-- `.set = aml_gpio_set` — does **not** use
-  `pinctrl_find_gpio_range_from_pin()` (uses direct register calc)
+- `drr_enqueue`/`drr_dequeue`: packet scheduling fast path
+  (softirq/NAPI), high frequency.
+- `drr_change_class`: netlink `tc` class configuration (administrative).
+- `drr_dump_class`: `tc class show` dump via `cl_ops->walk` in
+  `tc_dump_tclass_qdisc` — **without** qdisc spinlock (same pattern as
+  stats dump after `edb09eb17ed89`).
 
 ### Step 5.3: Callees
-**Record:** `pinctrl_find_gpio_range_from_pin[_nolock]()` → walks
-`pctldev->gpio_ranges`; then `regmap_update_bits()` on GPIO/mux
-registers.
+**Record:** `WRITE_ONCE`, `READ_ONCE`, `sch_tree_lock`/`sch_tree_unlock`
+(removed from quantum path), `nla_put_u32`, `list_add_tail`,
+`qdisc_pkt_len`.
 
 ### Step 5.4: Reachability
+**Record:** All paths reachable — packet forwarding (every enqueued
+packet) and `tc` administration. Users with `CAP_NET_ADMIN` can trigger
+quantum changes; any traffic through a DRR qdisc reads quantum on
+enqueue/dequeue.
+
+### Step 5.5: Similar Patterns
+**Record:** Patch 1/2 applied the identical `READ_ONCE`/`WRITE_ONCE`
+pattern to `cl->deficit` in the same functions. `sch_htb.c` and
+`sch_ets.c` still use plain `cl->quantum` access (not part of this
+commit).
+
+---
+
+## Phase 6: Cross-Referencing Against the Local Tree
+
+### Step 6.1: Does the Buggy Code Exist?
+**Record:** **Yes.** Local tree is **v6.18.44** (`linux-6.18.y` stable).
+Current code at lines 100–103 still uses `sch_tree_lock` + plain
+`cl->quantum = quantum`; lines 365/406 read `cl->quantum` without
+`READ_ONCE` inside `WRITE_ONCE` deficit updates.
+`READ_ONCE`/`WRITE_ONCE` for quantum: **not present** (verified via
+grep).
+
+### Step 6.2: Backport Complications
+**Record:** **Clean apply expected.** Patch 1/2 already present; diff
+applies directly on current `sch_drr.c`. Minor context differences
+possible (e.g., `kzalloc` vs `kzalloc_obj`, `qstats_backlog_add` vs
+direct `sch->qstats` — user's diff shows mainline variants; stable tree
+may need trivial context adjustment only).
+
+### Step 6.3: Related Fixes Already Present?
+**Record:** Patch 1/2 (`a88f6da618e8b`, deficit annotations) **already
+backported** (2026-07-24). This quantum patch is the **missing half** of
+that series. No duplicate quantum fix found.
+
+---
+
+## Phase 7: Subsystem and Maintainer Context
+
+### Step 7.1: Subsystem Criticality
+**Record:** `net/sched` — **IMPORTANT** subsystem. DRR itself is a less-
+common qdisc, but the code path is standard packet scheduling
+infrastructure.
+
+### Step 7.2: Subsystem Activity
+**Record:** Moderately active; recent sch_drr changes include deficit
+annotations (2026), qlen_notify idempotency (2025), extack support.
+
+---
+
+## Phase 8: Impact and Risk Assessment
+
+### Step 8.1: Who Is Affected
+**Record:** Users of DRR qdisc (`sch_drr`) with concurrent `tc` class
+modification and traffic — config-specific, not universal. Google BwE-
+scale `tc` dumps were the original motivation for the broader lockless-
+stats work.
+
+### Step 8.2: Trigger Conditions
+**Record:** Concurrent `tc class change` (quantum update) while packets
+are enqueued/dequeued, or while `tc class show` dumps quantum. Requires
+DRR in use and concurrent admin + traffic. Not unprivileged-triggerable
+for the write side; reads happen on every packet.
+
+### Step 8.3: Failure Mode Severity
+**Record:** Without fix: C11/KCSAN data race; in practice, reading a
+slightly stale or mid-update `u32` quantum value. **Severity: LOW to
+MEDIUM** — may cause transient scheduling inaccuracy, not kernel crash,
+panic, memory corruption, or security escalation. No crash reports
+exist.
+
+### Step 8.4: Risk-Benefit
 **Record:**
-- **Verified reachable:** `gpiod_set_config()` /
-  `gpiochip_generic_config()` on Amlogic A4 GPIOs with `CONFIG_PINCTRL`
-  — userspace or drivers configuring bias, drive strength, output
-  enable, level.
-- **Platform-specific:** Amlogic A4/A5/S6/S7 SoCs only (driver in tree
-  since 6.18 merge window).
-
-### Step 5.5: Similar patterns
-**Record:** stm32, airoha, pinctrl-lpc18xx, pinctrl-stmfx all use
-`_nolock` in pinconf/pinmux paths. Meson GET paths already converted in
-`e917713f01342`.
+- **Benefit:** Completes data-race fix series already partially in tree;
+  consistent lockless access; slightly less lock contention on `tc`
+  changes; KCSAN-correct.
+- **Risk:** Very low — 10-line change, established
+  `READ_ONCE`/`WRITE_ONCE` idiom.
+- **Ratio:** Moderate benefit for DRR users; very low risk. Strongest
+  argument is **series completeness** after patch 1/2 was already
+  accepted for this tree.
 
 ---
 
-## PHASE 6: CROSS-REFERENCE WITH LOCAL TREE (6.18.44)
+## Phase 9: Final Synthesis
 
-### Step 6.1: Buggy code present?
-**Record:** **Yes.** Five call sites still use locking variant:
-- Line 253: `aml_pmx_set_mux`
-- Lines 452, 465, 487, 522: pinconf SET helpers
-
-Three GET helpers already use nolock (lines 295, 329, 368) from
-`e917713f01342`.
-
-### Step 6.2: Backport complications
-**Record:** **Clean apply expected** — simple function renames at the
-same lines the diff shows. No structural divergence since partial fix.
-
-### Step 6.3: Related fixes already present?
-**Record:** Partial fix `e917713f01342` (GET paths) already in tree.
-This commit is needed to complete the fix. No duplicate fix for SET
-paths found.
-
----
-
-## PHASE 7: SUBSYSTEM CONTEXT
-
-### Step 7.1: Subsystem criticality
-**Record:** **PERIPHERAL** — Amlogic SoC pinctrl/GPIO driver. Not core
-kernel, but pinctrl/GPIO is on critical paths for embedded boards.
-
-### Step 7.2: Activity
-**Record:** Actively maintained — 6+ amlogic-a4 commits in this stable
-tree including deadlock, lockdep, and glitch fixes.
-
----
-
-## PHASE 8: IMPACT AND RISK
-
-### Step 8.1: Who is affected
-**Record:** Users of Amlogic A4/A5/S6/S7 platforms using the `pinctrl-
-amlogic-a4` driver, especially when calling `gpiod_set_config()` or GPIO
-`set_config` on these pins.
-
-### Step 8.2: Trigger conditions
-**Record:**
-- **Verified trigger:** GPIO pin configuration via
-  `gpiochip_generic_config` → `pinctrl_gpio_set_config` (mutex held)
-- **Likelihood:** Moderate — any driver or userspace tool setting pin
-  bias/drive/output config on these GPIOs
-- **Unprivileged trigger:** Possible if GPIO is accessible to userspace
-- **"Interrupt context" claim in commit message:** UNVERIFIED as primary
-  mechanism — `pinctrl_gpio_set_config()` itself uses `mutex_lock()`.
-  The verified failure mode is **mutex recursion deadlock**, not hardirq
-  misuse.
-
-### Step 8.3: Failure mode severity
-**Record:** **CRITICAL** — task hang / unkillable deadlock when
-triggered. Same severity class as the already-backported GET-path fix.
-
-### Step 8.4: Risk-benefit
-**Record:**
-- **Benefit:** HIGH for affected platforms — prevents kernel hang;
-  completes incomplete stable fix
-- **Risk:** VERY LOW — 5-line function rename, established API pattern
-- **Ratio:** Strongly favors backport
-
----
-
-## PHASE 9: FINAL SYNTHESIS
-
-### Step 9.1: Evidence summary
+### Step 9.1: Evidence Summary
 
 **FOR backport:**
-- Fixes real, verifiable mutex-recursion deadlock in pinconf SET path
-- Completes partial fix (`e917713f01342`) already in 6.18.44
-- Same bug class as already-accepted stable commit
-- Small, obviously correct, no new APIs
-- Driver and prerequisite API exist in this tree
-- Failure mode is system hang (critical)
+- Completes 2-patch series; patch 1/2 already in 6.18.y
+- Fixes real data race on `cl->quantum` in fast path and dump path
+- Same author, same rationale as already-backported deficit fix
+- Small, surgical, obviously correct
+- Syzbot CI passed on full series
+- Prerequisites (`edb09eb17ed89`, patch 1/2) present in tree
 
 **AGAINST backport:**
-- Platform-specific (Amlogic only) — limited user base
-- No syzbot/user report for this specific commit
-- Commit message "interrupt context" claim not fully verified
-- `aml_pmx_set_mux` deadlock path not independently verified (change is
-  still safe)
+- No user crash reports, no syzbot bug, no CVE
+- Failure mode is benign (stale quantum value), not crash/corruption
+- Race existed since 2008; newly highlighted, not newly introduced
+  catastrophic bug
+- DRR is niche compared to HTB/fq_codel
+- Partially a performance improvement (removing unnecessary
+  `sch_tree_lock`)
 
-**Unresolved:**
-- No lore thread found for this exact follow-up commit
-- Whether `aml_pmx_set_mux` has a mutex-held caller (preventive fix at
-  most)
+**Unresolved:** Full lore reviewer thread not retrieved; no explicit
+stable nomination found.
 
-### Step 9.2: Stable rules checklist
-1. Obviously correct and tested? **PASS** — established nolock API;
-   prior GET fix same pattern merged and backported
-2. Fixes real bug affecting users? **PASS** — verified deadlock in
-   `pinctrl_gpio_set_config` → pinconf SET chain
-3. Important issue? **PASS** — deadlock / system hang (CRITICAL)
-4. Small and contained? **PASS** — 5 call-site changes, 1 file
-5. No new features/APIs? **PASS** — uses existing exported nolock helper
-6. Can apply to local tree? **PASS** — driver present, clean apply
-   expected
+### Step 9.2: Stable Rules Checklist
+1. Obviously correct and tested? **PASS** — idiomatic
+   `READ_ONCE`/`WRITE_ONCE`; syzbot CI green.
+2. Fixes a real bug? **PASS** — data race with concurrent lockless
+   readers; same class as already-backported patch 1/2.
+3. Important issue? **BORDERLINE PASS** — not crash/security level, but
+   correctness under concurrent `tc` + traffic; series completion after
+   partial backport.
+4. Small and contained? **PASS** — single file, ~10 lines.
+5. No new features/APIs? **PASS** — synchronization annotations only.
+6. Can apply to local tree? **PASS** — code present; patch 1/2
+   prerequisite satisfied.
 
-### Step 9.3: Exception categories
-**Record:** None (not device ID, quirk, DT, build, or docs). Standard
-bug fix.
+### Step 9.3: Exception Categories
+**Record:** None (not device ID, quirk, DT, build fix, or docs).
 
-### Step 9.4: Decision rationale
-This tree (6.18.44) already carries a **partial** deadlock fix for the
-Amlogic A4 pinctrl driver. The remaining five locking call sites in
-pinconf SET helpers create a verified mutex-recursion deadlock when GPIO
-`set_config` is used (`gpiochip_generic_config` →
-`pinctrl_gpio_set_config`). Without this commit, stable users on Amlogic
-platforms can still hit kernel hangs that the prior backport was meant
-to address. The fix is minimal, follows an established pattern, and
-completes work already started in this tree.
+### Step 9.4: Decision Rationale
+
+For **linux-6.18.y** specifically: patch 1/2 of this series is already
+backported, leaving `cl->deficit` properly annotated but `cl->quantum`
+still racy in the exact same functions (`drr_enqueue`, `drr_dequeue`,
+dump paths). Backporting this commit completes a maintainer-intended,
+already-half-applied concurrency fix with negligible risk. While the
+user-visible severity is low (no crashes reported), the technical merit
+and series consistency strongly favor inclusion in this tree.
 
 ---
 
 ## Verification
 
-- **[Phase 1]** Parsed commit message and tags from user-provided diff
-- **[Phase 2]** Diff analysis: 5 `pinctrl_find_gpio_range_from_pin` →
-  `_nolock` replacements in SET/mux paths
-- **[Phase 3]** `git describe HEAD`: v6.18.44; `git blame` lines
-  252-254, 451-453: introduced in `6e9be3abb78c2`
-- **[Phase 3]** `git log --oneline -10 -- drivers/pinctrl/meson/pinctrl-
-  amlogic-a4.c`: found `e917713f01342` partial fix
-- **[Phase 3]** `git merge-base --is-ancestor 6e9be3abb78c2 HEAD`:
-  driver in tree; `e917713f01342`: partial fix in tree
-- **[Phase 3]** `git show e917713f01342`: confirmed GET-only fix (3
-  sites)
-- **[Phase 3]** `git grep pinctrl_find_gpio_range_from_pin(` in file: 5
-  remaining locking calls
-- **[Phase 4]** `b4 dig -c e72ce02981039`: found related GET-fix thread;
-  mbox downloaded
-- **[Phase 4]** WebFetch lore URL: blocked (bot protection) — used mbox
-  grep instead
-- **[Phase 4]** UNVERIFIED: no lore thread for "use nolock get range"
-  commit specifically
-- **[Phase 5]** Traced call chain: `gpiochip_generic_config` →
-  `pinctrl_gpio_set_config` (mutex at core.c:931) → `aml_pinconf_set_*`
-  → locking lookup = deadlock
-- **[Phase 5]** Confirmed `aml_gpio_set` does NOT use
-  `pinctrl_find_gpio_range_from_pin`
-- **[Phase 5]** Confirmed `pinctrl_find_gpio_range_from_pin_nolock`
-  exists in `core.c:484-505`
-- **[Phase 6]** Read current file: GET paths nolock (295,329,368); SET
-  paths still locking (253,452,465,487,522)
-- **[Phase 6]** Commit under review NOT in tree (`git log --grep="nolock
-  get range"`: no match on current branch)
-- **[Phase 8]** Deadlock severity: CRITICAL
-- **[Phase 8]** UNVERIFIED: "interrupt context" as stated in commit
-  message; verified mechanism is mutex recursion
+- [Phase 1] Parsed subject, tags, body from user-provided commit message
+- [Phase 2] Analyzed full diff (4 hunks, 1 file); classified as data-
+  race fix
+- [Phase 3] `git describe HEAD` → v6.18.44; `git blame` on lines
+  100–103, 365, 406
+- [Phase 3] `git log --oneline -20 -- net/sched/sch_drr.c` — found
+  `a88f6da618e8b` (patch 1/2)
+- [Phase 3] `git show a88f6da618e8b` — deficit annotations, Fixes
+  `edb09eb17ed89`, already in tree
+- [Phase 3] `git log --grep='quantum lockless'` / `'make cl->quantum'` —
+  **no results** (patch 2/2 absent)
+- [Phase 3] `git merge-base --is-ancestor edb09eb17ed89 HEAD` →
+  prerequisite present
+- [Phase 4] Web search found spinics.net series page and syzbot CI page;
+  lore fetch blocked
+- [Phase 4] Syzbot CI: build/boot/fuzz passed, no bug filed
+- [Phase 5] Read `net/sched/sch_drr.c` — confirmed current buggy state
+  (plain `cl->quantum` reads)
+- [Phase 5] `grep READ_ONCE(cl->quantum)` in `net/sched/` → **no
+  matches**
+- [Phase 5] Read `tc_dump_tclass_qdisc` in `sch_api.c` — dump walks
+  classes without spinlock
+- [Phase 6] Confirmed tree is 6.18.y stable; buggy code present; patch
+  1/2 backported July 2026
+- [Phase 8] Assessed severity as LOW-MEDIUM (scheduling inaccuracy, not
+  crash)
 
-**YES**The background searches are done. Here’s what they showed:
+**YES**The background check finished: **patch 1/2** (`a88f6da618e8b` —
+deficit `READ_ONCE`/`WRITE_ONCE` annotations) is already in this
+**6.18.44** tree, and **patch 2/2** (`make cl->quantum lockless`) is not
+— `git log --grep='quantum lockless'` and `--grep='make cl->quantum'`
+both came up empty.
 
-- **Commit not in this tree:** Searches on the current branch and `all-
-  next` did not find `pinctrl: meson: amlogic-a4: use nolock get range`.
-  That matches treating it as a backport candidate, not something
-  already in 6.18.44.
-- **Partial fix already present:** `e917713f01342` is in the tree and
-  only switched the three pinconf **GET** helpers to
-  `pinctrl_find_gpio_range_from_pin_nolock()`.
-- **Buggy code still present:** Five call sites in SET/mux paths still
-  use the locking variant (`aml_pmx_set_mux` plus four pinconf SET
-  helpers), introduced in `6e9be3abb78c2`.
+That matches the earlier analysis: the series is only half-applied here,
+and backporting this commit would complete it. Verdict remains **YES**.
 
-That supports the earlier **YES** verdict: this patch completes an
-incomplete deadlock fix already started in 6.18.44, with a clean, low-
-risk apply expected.
+ net/sched/sch_drr.c | 10 ++++------
+ 1 file changed, 4 insertions(+), 6 deletions(-)
 
- drivers/pinctrl/meson/pinctrl-amlogic-a4.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/pinctrl/meson/pinctrl-amlogic-a4.c b/drivers/pinctrl/meson/pinctrl-amlogic-a4.c
-index 1bd58fbbd26ac..e598373f51663 100644
---- a/drivers/pinctrl/meson/pinctrl-amlogic-a4.c
-+++ b/drivers/pinctrl/meson/pinctrl-amlogic-a4.c
-@@ -250,7 +250,7 @@ static int aml_pmx_set_mux(struct pinctrl_dev *pctldev, unsigned int fselector,
- 	int i;
+diff --git a/net/sched/sch_drr.c b/net/sched/sch_drr.c
+index 44686fd1c2749..faafb29056259 100644
+--- a/net/sched/sch_drr.c
++++ b/net/sched/sch_drr.c
+@@ -97,10 +97,8 @@ static int drr_change_class(struct Qdisc *sch, u32 classid, u32 parentid,
+ 			}
+ 		}
  
- 	for (i = 0; i < group->npins; i++) {
--		range =  pinctrl_find_gpio_range_from_pin(pctldev, group->pins[i]);
-+		range =  pinctrl_find_gpio_range_from_pin_nolock(pctldev, group->pins[i]);
- 		aml_pctl_set_function(info, range, group->pins[i], group->func[i]);
+-		sch_tree_lock(sch);
+ 		if (tb[TCA_DRR_QUANTUM])
+-			cl->quantum = quantum;
+-		sch_tree_unlock(sch);
++			WRITE_ONCE(cl->quantum, quantum);
+ 
+ 		return 0;
+ 	}
+@@ -251,7 +249,7 @@ static int drr_dump_class(struct Qdisc *sch, unsigned long arg,
+ 	nest = nla_nest_start_noflag(skb, TCA_OPTIONS);
+ 	if (nest == NULL)
+ 		goto nla_put_failure;
+-	if (nla_put_u32(skb, TCA_DRR_QUANTUM, cl->quantum))
++	if (nla_put_u32(skb, TCA_DRR_QUANTUM, READ_ONCE(cl->quantum)))
+ 		goto nla_put_failure;
+ 	return nla_nest_end(skb, nest);
+ 
+@@ -362,7 +360,7 @@ static int drr_enqueue(struct sk_buff *skb, struct Qdisc *sch,
+ 
+ 	if (!cl_is_active(cl)) {
+ 		list_add_tail(&cl->alist, &q->active);
+-		WRITE_ONCE(cl->deficit, cl->quantum);
++		WRITE_ONCE(cl->deficit, READ_ONCE(cl->quantum));
  	}
  
-@@ -449,7 +449,7 @@ static int aml_pinconf_disable_bias(struct aml_pinctrl *info,
- 				    unsigned int pin)
- {
- 	struct pinctrl_gpio_range *range =
--			 pinctrl_find_gpio_range_from_pin(info->pctl, pin);
-+			 pinctrl_find_gpio_range_from_pin_nolock(info->pctl, pin);
- 	struct aml_gpio_bank *bank = gpio_chip_to_bank(range->gc);
- 	unsigned int reg, bit = 0;
+ 	sch->qstats.backlog += len;
+@@ -403,7 +401,7 @@ static struct sk_buff *drr_dequeue(struct Qdisc *sch)
+ 			return skb;
+ 		}
  
-@@ -462,7 +462,7 @@ static int aml_pinconf_enable_bias(struct aml_pinctrl *info, unsigned int pin,
- 				   bool pull_up)
- {
- 	struct pinctrl_gpio_range *range =
--			 pinctrl_find_gpio_range_from_pin(info->pctl, pin);
-+			 pinctrl_find_gpio_range_from_pin_nolock(info->pctl, pin);
- 	struct aml_gpio_bank *bank = gpio_chip_to_bank(range->gc);
- 	unsigned int reg, bit, val = 0;
- 	int ret;
-@@ -484,7 +484,7 @@ static int aml_pinconf_set_drive_strength(struct aml_pinctrl *info,
- 					  u16 drive_strength_ua)
- {
- 	struct pinctrl_gpio_range *range =
--			 pinctrl_find_gpio_range_from_pin(info->pctl, pin);
-+			 pinctrl_find_gpio_range_from_pin_nolock(info->pctl, pin);
- 	struct aml_gpio_bank *bank = gpio_chip_to_bank(range->gc);
- 	unsigned int reg, bit, ds_val;
- 
-@@ -519,7 +519,7 @@ static int aml_pinconf_set_gpio_bit(struct aml_pinctrl *info,
- 				    bool arg)
- {
- 	struct pinctrl_gpio_range *range =
--			 pinctrl_find_gpio_range_from_pin(info->pctl, pin);
-+			 pinctrl_find_gpio_range_from_pin_nolock(info->pctl, pin);
- 	struct aml_gpio_bank *bank = gpio_chip_to_bank(range->gc);
- 	unsigned int reg, bit;
- 
+-		WRITE_ONCE(cl->deficit, cl->deficit + cl->quantum);
++		WRITE_ONCE(cl->deficit, cl->deficit + READ_ONCE(cl->quantum));
+ 		list_move_tail(&cl->alist, &q->active);
+ 	}
+ out:
 -- 
 2.53.0
 
