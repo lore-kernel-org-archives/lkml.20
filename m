@@ -1,260 +1,378 @@
-Received: from sonic307-16.consmr.mail.ne1.yahoo.com (sonic307-16.consmr.mail.ne1.yahoo.com [66.163.190.39])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010066.outbound.protection.outlook.com [52.101.61.66])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22ED03C1D43
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 22:58:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=66.163.190.39
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788217127; cv=none; b=QKzy23LnFGjsZgFKaE757hlbOfCh+PZ5WjgzuR1rVYMDz8RBGMQ5CJbCe3NkExg+6DM3hCr0ntzX1roxqFU3gOZniPKN013IfBNOTocjuyKzBm0BpK13znnoQYNSEdStHsdKuMSpvJ+rDD5i/VYhuCD7008BX8rNqCXVwRbwJyw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788217127; c=relaxed/simple;
-	bh=bcsih4BP082rlDrqXJcE7iTam1hxh1NuNkNWgcTrHLs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=RBAYAak0oPuIa+ed/b+q8o8740XFSiP628afzuqW2HUUTuKCnX/uDysFVB1r4m864+8ctVKS3j7NQBtPgK9trN3GIO+5C5SN0o2xBe6mhvDyretFrrYKObNEc+Yfs5LUxRLgklWlRGMwAFSqzRw24T6B9A4tuKiay7etfwWZH7I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=schaufler-ca.com; spf=none smtp.mailfrom=schaufler-ca.com; dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b=s7vPZPtI; arc=none smtp.client-ip=66.163.190.39
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=schaufler-ca.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=schaufler-ca.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A81838F64E;
+	Mon, 31 Aug 2026 22:59:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.61.66
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788217152; cv=fail; b=FifknKRsHvZ2+uCoZNq8pvnm3zGiEs3Qta3ayGZyAmE6YKagH943Ufa6k4xmnCQbN0ILYLOfxAja1nCGALZvrr+CQMibKWD+AM5u+DcX95PTxg6KI3j/PGPl2UVdgqEYXzzb03tXgHOxzcViJWWhpZ4GedNzml06phfj7lY07Og=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788217152; c=relaxed/simple;
+	bh=OVgjosZGuBIFykZjMw8bjOMvqOHz7ckWMAS7p5BvKSw=;
+	h=Message-ID:Date:From:Subject:To:Cc:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=kyVb/N7J/Lt9iClJSAyASlk4/uPajemdFZyy6YeNOs9yhnoiUhcMfbp9j4dHjOUHxed7LVUcfrPNsSzhAt5lcr2qf+MGrdtS5eWIdPCN2CmbfHF3VTF6ayCKccjjI0XXFAevEajttNztq9XdsayOwSuATTtJ0CazcB672Hb+j3c=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=Hmn8dt9j; arc=fail smtp.client-ip=52.101.61.66
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b="s7vPZPtI"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1788217125; bh=zAA4p9HWXZaBkM7aUTYtkxbtIbeYO06Idd07zx5BtSk=; h=From:To:Cc:Subject:Date:In-Reply-To:References:From:Subject:Reply-To; b=s7vPZPtI4GuPtgkBQjRtd+maKg0Uyh+WaqYdfggHAjrkIFE7pTLW8lto1gB3qAHgqvbQrg1jAOR1k+b2raBrzavXBppbj7V56+mup8sHugGpp0wZSYlccLiBk3XTy7z82zWCcvv8M7LMFoujnkKtoXIMOWYadzyFjI7LcONFnwmpnj30ni8QjAewjogoS9OJGWbEKoSDzEEg5nViCNO3R+Ka4utxtBynjilre/Syd0zD6LqAt/TrbZec69+5jurKZ0Kq64ALFWu/cZ3psjqzpqO7+Ew/TVnAQmyHVWCIOdfixbtk8mwLlTY+HIDEIHKZvEgGkwLxMr5diDTK4FWtQg==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1788217125; bh=eikqfOZJTia9IMtxM9M0+qAh8R7QoSScDxEB9tIHycU=; h=X-Sonic-MF:From:To:Subject:Date:From:Subject; b=Fa9yCEJ0LPMSmgTpcT53xwvEmOI/gBuqdu1jn80tXyqBvQFcSgjERKPwhb2EnKTx+qSjPbOIcgVtk02lDII3e2bKeCZUTHRSRw+v7QfnvG3YUXCzzHzS9e3Y3nFY3WdxoGgRVm8aR6ZQCkFb2369XN/Smlxu2OSd80rnMK/n9MwCOrBwqCwh8X8C0kJtqsc32siWKtSDi7enUKnWyIS1lmHdNRO7RGG92XJsLjqHERWAowrBLe4dYTX1PICgZ110jheih3msHEkeoNxlsiYOZ6wjWiUtp5AQby/zmL1a+9H9ocaFlGPXsmgipTTL+KAvxlwN2bRrrlo3cCqj8Lgwrw==
-X-YMail-OSG: QOx3Zw8VM1k.P0Yr4C9fK4ehm8UpkJfD.O1V7iassadsfNj2Aykv1hQfa05djml
- HBhTrimuZ9sdmuj1VNKE.tq7TybtuxYfRQqSN8l_sy7XHR9Zv2EJIuR1jfKJQIz_W8LqLzHpRs53
- ckEsVgMmDYn69oPtT1C0Fn8ETuNOs1HLYxWwO8lktY1Jb2JlrUOOeY1m9U_NULshRgECKQx74JJl
- nSRlcDUs9v_cug7S46sHLR6CT5JRYyD.5oVOjSus.144DHIJBMcQOIjpzD8191vtQuz1DB7rT80R
- 44t4tJ0UAvyB4bs9o8jpdh.1sHKnOOis826GTR1Ui0lKk3oYuPu5hSAZh_NSBoJRI8hGIHnDiS9q
- qczlOBtkvYRtG1WhFv9zFhvcjWhpUKxRJos3jLz5FuLXQ8J9_FYnpeXvQzZvT2HJW7tMbPx8fWhG
- bNmnVNyD88TQPzXrt9MQ_xe6Dt9zZEeBQbJe41.tFtMLYZ2yecQcwHzVGMKGyoiS6h29IDkeP4Rf
- gzhUo7v_skCrWK0E.acG293EeDeH0CBEt6kD4fky9RHTPJiHI2kklUxISFSyDSvKxEZCsMn39ucW
- 9fvjSYdgw0YxIC60r.aOPeHQ3ASnSc3rivliB_bTxeoEkSCYfnIHOjxcjpwaWQFvfuXKow.9kjcF
- ioGvvSK8MVQyPuXCXdEIRDTR88YHqj5n_2SFajA0Kbyi6nQ.BbBN5sb3o.GUXBIdeGCkbZnXKlzJ
- WJWGlRPDIFaeMs.5G2wwkDLiwD3a5AanMPGdRuuaRTIc.SRe8dLsr_knDTLTzf3Z1nCBIlwppqsP
- 2uXH4kgIIgwW0.ylzCdl9b8HhYf2WCaw.Dnhl09csqHdR.3o7s5DOce7WLW9Sis9aWSX1oQKco6.
- e3asJJBl3AHoObQ.VrWAJW9s00KOitBxrVCubdm4afaK2egLKRSVOmwF3v1egqXDYIHcM629t6gM
- 57pKD58UHkL9EZWNxusJeQFbS4S7lNlzi8Q7HahA7DZQzp2LDQF1G037GShquMrxXhvmz3Tx8Ip2
- osRNgrURQrGBI7vSwlgILjRZ1qLDuF5KOoC7qwjhiqZ9inm8.ltKob.67y.xYcMFhyVhAUY93TM9
- 9i42BFw5UuUWHKei_mwuEIgqrVi4SP.rddvo9LKvScgecZG2fggn4msx7D9HpTw21WJ8mg9WY0G2
- C3ER3fAJOWUk8OIEzOAc1LIcwsALukPL0yh3uah2oFfm2EsvE1R4EQpUBzAvm0sR3ShctBMPWMqk
- wIKE.UeOdGk3dnsIh_SsyWATC2XMZ0XowA9Le7Z5xZ8gumdw8cLby9eUq35vD2p99KqB4fiopxS5
- lNTx0YNta6.mIcLYAb.Mx8hzFct6vFml8rWezfeK87V1OgdQxcUzboBQtbPSf0yVytHJ6zI1t10_
- pTtCsxGFdxA9NznVE95PkQCw9w2po8hBLXtupUjCn6Z7H0Um724nFMldJ_uGv3nBIMAzSoXUoJgs
- Lg1Sg4vkvyvsnm32wnYqBhMY9Db2exwsHUawiB.ADYK15pXXG5KQSPKWDz0inf9.3WRyO2LARKNn
- Qw0KYmNc5ayMI5OS9Wqm93LNHBrMarIXw0p7UkYNHTt.eMEQiyVCwQ79oMVgrJmcyUhvIP3QgfrN
- Q7rnSh7sZ66P8c1x_8.Q4it9hJW05DpIfGAZqD2.OFD6p2h3c3DXev5hW.SIRih7pL0wUE.ayHiX
- ZmIek7agczv05770U4JEMTPzv6TbASm.X255N64nlzIva.8lQL8LJvthGPVaLO8lDgrHLsIJokPU
- z76aE3KK8sL8tyZcLffKE_sWktY6pKJ3AFQEysqez41l4ytq87fi5RX2zddAYXwREkmAV__aSJ9I
- G3aiWcCIjhBHuNSJp1J3Y1HZp7Axnw9Akpt8HLxyaLmq1ijcErJ7maXB3ipkRruH0o1xkBJBVf7O
- d134gV_yLR_6JD1pbv7WNhX2P1Z8yb2GPBRkF1Qg3auN1KN458.5bdEBFBv1_APlKcjBH5pRKrkG
- 2aR.gf3aFM5GBi6aodM5afNd6vAphcMwxI1yh3h2ZXC6udKuoFU1UCF_gpGLgwFIdGl7CzfFxJ16
- 5aaixVHYJR6B6Izj0aK_ooikCopjaYmtFQaVHyr6opWkbyiTBMkMkRqO635GnEe4YJiNbBn_GeND
- uZ0aTmwF2QJZJe2Q9yrng1Bb93dEu0_zoDJ7zuyzxsM0o4ufxX_grZ9Nis4Xq9wUS122Lpqbz7qJ
- UrnPl7ar437_UHsb4U_KuXtj1DhFfq9w4q3U7G2dKb2eLvtgOlzjPoTGBRx5vWh1RrbkIyKApYxa
- 9tshQUqWiGBO.E2T_Ihe_jb5_xII-
-X-Sonic-MF: <casey@schaufler-ca.com>
-X-Sonic-ID: 8c0ff2ea-88b5-4ec1-bcd0-193f0bc1706d
-Received: from sonic.gate.mail.ne1.yahoo.com by sonic307.consmr.mail.ne1.yahoo.com with HTTP; Mon, 31 Aug 2026 22:58:45 +0000
-Received: by hermes--production-gq1-678d9dd684-vr75x (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID 9afda7e456c775b6473ef75f34d3e2be;
-          Mon, 31 Aug 2026 22:38:03 +0000 (UTC)
-From: Casey Schaufler <casey@schaufler-ca.com>
-To: casey@schaufler-ca.com,
-	paul@paul-moore.com,
-	linux-security-module@vger.kernel.org,
-	pablo@netfilter.org,
-	fw@strlen.de,
-	phil@nwl.cc
-Cc: linux-kernel@vger.kernel.org,
-	netfilter-devel@vger.kernel.org,
-	coreteam@netfilter.org,
-	jmorris@namei.org,
-	serge@hallyn.com,
-	keescook@chromium.org,
-	john.johansen@canonical.com,
-	penguin-kernel@i-love.sakura.ne.jp,
-	stephen.smalley.work@gmail.com,
-	selinux@vger.kernel.org
-Subject: [PATCH 2/7] LSM: Implement x array functions for secmarks
-Date: Mon, 31 Aug 2026 15:37:43 -0700
-Message-ID: <20260831223748.4304-3-casey@schaufler-ca.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260831223748.4304-1-casey@schaufler-ca.com>
-References: <20260831223748.4304-1-casey@schaufler-ca.com>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="Hmn8dt9j"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=erhGTf+0W1QSpjobdQbD6RONUFkKU3hsAQDhOVW7BI8jqd6P9q7xj5lt4SWZj4QeHfg1wmKmWIQhbJuDtRU+GA6QU0AsjlX3GshFp3v15t4qyVoWJbT79YHI/lmbejjKZCZxV3Dhes1BgUsytqWgt2kDHJecbVoT7Ln6CtPCCs2B/qhqWPTE3eC2QU7vjRZy3ozzKFWWYFqB6zHwC3G1iUnMJIrzagpg5EKMxyTWwQjs9rWdQwdzCV1L2KUxFsPf5x67SkCj5vbcWZZtOBzrN3zQZXxOxsXYdo0hjR0aA1RvQbAD9vwu/hjonF/LUTRF2J33Lc1ZGNRtlY6PdHd2nw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=FQF/ZxsFfz1BLOkqXkyw9i4hO3qGKSFXTEGnRkppxug=;
+ b=CJkFhk3jQjC01pOFLHv09wYsY1KCBrDF3mlFRz0FWPkCgYrgfsdD/Y0MvFfEd190f9M9NVqyjYXpQ7S+El5J11FakWsYGWtv1Y8y0UJtK/5qSO1lamyjZiHZ+M4KVBhxPVtP9wtiRDdA/Hv/4GXFZVe4h8RQkKcsQDP616F3kLkUNnWTFzOlLwSgg11nHuDq+DLpkU5sWziWdomTfn724PvlpSlELOGWSVU39nyzrZeYcyIfgsUrKeR+ZxZCLDluYl058KH0gEZm1u1Pg9MDnaG+1D6UtGKAOahwKDjTcQHvNNAgY+xFoNY6zc2AqB25owY3dHQjhGCuh0f9Mxk6hw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=FQF/ZxsFfz1BLOkqXkyw9i4hO3qGKSFXTEGnRkppxug=;
+ b=Hmn8dt9jFIz+bWrLCiQntT7pAPyQfWthQ/vnb2xaCRN/zBP4xGyhcY7IZFarwrLnGHHpCAT7hsuDbt74pjUlmNJI2jdMkusL2j9GAeA5k3OEe/Nl/VtTdhEtgKomMUfceYWNyeRvIDUe0KCnbpF7T2O5HEGeWBenkW3Bw9VB+Js=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BL1PR12MB5320.namprd12.prod.outlook.com (2603:10b6:208:314::17)
+ by MW5PR12MB5621.namprd12.prod.outlook.com (2603:10b6:303:193::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Mon, 31 Aug
+ 2026 22:59:03 +0000
+Received: from BL1PR12MB5320.namprd12.prod.outlook.com
+ ([fe80::1876:4a6d:2cf5:b8d1]) by BL1PR12MB5320.namprd12.prod.outlook.com
+ ([fe80::1876:4a6d:2cf5:b8d1%5]) with mapi id 15.21.0360.008; Mon, 31 Aug 2026
+ 22:59:03 +0000
+Message-ID: <ad90a776-7be2-4d5d-88b4-280bc46b7387@amd.com>
+Date: Mon, 31 Aug 2026 17:59:02 -0500
+User-Agent: Mozilla Thunderbird
+From: Babu Moger <babu.moger@amd.com>
+Subject: Re: [PATCH 1/2] x86/resctrl, Documentation: Keep mbm_assign_mode
+ "default" on boot
+To: "Moger, Babu" <bmoger@amd.com>,
+ Reinette Chatre <reinette.chatre@intel.com>, Borislav Petkov <bp@alien8.de>
+Cc: "Luck, Tony" <tony.luck@intel.com>, "x86@kernel.org" <x86@kernel.org>,
+ "Dave.Martin@arm.com" <Dave.Martin@arm.com>,
+ "james.morse@arm.com" <james.morse@arm.com>, "corbet@lwn.net"
+ <corbet@lwn.net>, "skhan@linuxfoundation.org" <skhan@linuxfoundation.org>,
+ "tglx@kernel.org" <tglx@kernel.org>, "mingo@redhat.com" <mingo@redhat.com>,
+ "dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
+ "hpa@zytor.com" <hpa@zytor.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
+ "Eranian, Stephane" <eranian@google.com>,
+ "peternewman@google.com" <peternewman@google.com>
+References: <7d3dd384-9101-49cb-ada4-b8320198233e@amd.com>
+ <20260730194328.GEamupYLsURg6VvxBU@fat_crate.local>
+ <d364100d-45e4-458e-97d5-05416fbe5bef@amd.com>
+ <SJ1PR11MB6083F7EC6D533C4E183D5876FCC92@SJ1PR11MB6083.namprd11.prod.outlook.com>
+ <20260731003436.GKamvtnJlKydaEqstA@fat_crate.local>
+ <4bfafa1e-a7da-4c37-8da9-9fbba14106fd@intel.com>
+ <20260801012227.GEam1KUyMz601QOzrT@fat_crate.local>
+ <5f10ceab-5569-409b-8e78-c4a4f232489f@intel.com>
+ <20260804191608.GDanI6eK2Q07w6pNcb@fat_crate.local>
+ <98be93cc-f2d8-4bad-bbb0-f309e912054c@intel.com>
+ <20260804224703.GFanJr52UbKBrCOTij@fat_crate.local>
+ <112cebea-d455-4b75-847b-bb7d4aa4847d@intel.com>
+ <1fe5cb09-aa2e-4b3d-9fbd-293d8e9f33d7@amd.com>
+Content-Language: en-US
+In-Reply-To: <1fe5cb09-aa2e-4b3d-9fbd-293d8e9f33d7@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: SA9PR10CA0016.namprd10.prod.outlook.com
+ (2603:10b6:806:a7::21) To BL1PR12MB5320.namprd12.prod.outlook.com
+ (2603:10b6:208:314::17)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5320:EE_|MW5PR12MB5621:EE_
+X-MS-Office365-Filtering-Correlation-Id: 416b0470-c014-480f-eba3-08df07b373cd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|1800799024|366016|23010399003|6133799003|18002099003|22082099003|56012099006|3023799007|5023799004|11063799006|10067099003|4143699003;
+X-Microsoft-Antispam-Message-Info:
+	oNdQGyZhnadoWSLdo+4wzAHYUAx2isBWNEYuBaISEA/f/uRBF3Cv07Qu/9Qwz9aUcnuGFZrDQ7iHLDTh9bqYQhBOPTRZxYoR5lwEwN4FvuLuN2gbuOemrHJlI8VJNSHreliFuIlDf6J8TWf++KGWCFL8QiMale9pr5iEe6UeFttk/tF1I2vzYZzprmz1Sdula9rlc2Tj0cYRZadZwYFqAXrsVULeaMYqzbO1anhwZFM/c3GCoa4C+coH8AEroWAuz0CfwJ/gpMVUMDoQRIjDSFjEvaEk+voANz2kzjKl/hQOqr86O1QHmCiehxKlIoaDFuT61vVHcfqQG9tmRBSaP/yn/1IDfGxS1JcNfnxGvKq64asQyV8ooJpCIL3iydf6L4Wg79tEieWl7KuRDFVzdH/1/hzA+1goE9uflYYYsLhVeAAftorakEuFDMPKnSmGX3t/fgTe7B8nFMQE/981SvYLYksvG6Xld5sg7ht0skTYjdMI+kCeaFBK3jfII7SURbsjgQPW1aVlSwUOejYJIS4Yd4WsXpk+YO7bsp5iacI/X18NSOM0UuWL9mSloIYaihTN2ZtqpT7WsGKUyrmltFRDFbywRFh0JJC+/6Fddk5UbBTaAc6VgP1/M2soaRLxivz1lD6Dabag5RuTcACbfA33R5HjlgnQ5DBgokQB32c=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL1PR12MB5320.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(366016)(23010399003)(6133799003)(18002099003)(22082099003)(56012099006)(3023799007)(5023799004)(11063799006)(10067099003)(4143699003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?T01VV09yOUdSN2NRVit4eUhwTjRWb0ZjK1Jxck9sR1E4YXFtdG5FaFhRYVNo?=
+ =?utf-8?B?QWpvZWxUZmpPRE41a0FsOWltS29lTFZGWHd3cm5YRTkrVFByMDVjT2V2cE8w?=
+ =?utf-8?B?ZGE2Qm12RUpPdmE1elpUVEF0VXFSNzJWbk5jL216eXYxR1YxWC9wVExsbkJJ?=
+ =?utf-8?B?UUV2Q2Q0R1NmMW9MSjU5cTFjL3IrR3o0RHBFckYzYlJndEVtczlqV3dUdVo2?=
+ =?utf-8?B?ZFVjS3NzbkJBZVU2Wm9STmo1WG9sVDc5cmdJcnNVaGdxdSs5aXdoRVRxL3k2?=
+ =?utf-8?B?Z3duNVhNcEl1Q1VoSDVFbTI2cEVMZzVEU2tqWkk1UzVTR1R2bDZPTzdsVGpi?=
+ =?utf-8?B?SzZEZ00zTSt4S2xCQWFlZnpyc09aY1kyeDZXTkprVlYvZFdLS1cxUGNGbHhC?=
+ =?utf-8?B?cnYwRU9TS2pPdlpmN1VmZWxqUkx1WURDaWdwT2hNSFNwdjRWekZJU3BJVW4z?=
+ =?utf-8?B?b1F3dTFORnBQK3BTS1ZkWjVJOHlZYUdZWWlJQnR2Vm9DazlHWldqbldOa1hD?=
+ =?utf-8?B?SUVzVzVVU1FTWDkwYVhiK2U0MzJ2SnJpTU1LSWJURTRNcExra3RKajd1M0xM?=
+ =?utf-8?B?ZVU5Y2xXcjBQbkl0dXVHbVNBMDhKcjRBbnJHWHZRMUMzbndkZGtFRUlMN3lO?=
+ =?utf-8?B?UnIxRDBBQVVUb1hHSmJPUHZNYkFoOEdmOE1TUFYydVA5cVFWNmxqb0hlS2ww?=
+ =?utf-8?B?cFZ4R2Fvck1ZUUw3MjFIdm1oMGtrbWZhMGRwUGhnKzRua2JGTGltV0VTZ29E?=
+ =?utf-8?B?TVVxVDhPSVFBZmI5M09jMXQ3aXY0M1dVd1NSYk00K0hoTi9kYnhYUWh2M2pC?=
+ =?utf-8?B?Rm1OWWw1UEgzdU1nSWcyUWUrNGo0Wmh3c2ZJQ3JqOVFDRG9Ra2krVWk4ZHJZ?=
+ =?utf-8?B?aG5rbVR6T1NzNlgvZzJXQm1zSFpaZEpEYWVrOFAzOXVZM0hOSW9UeXdoTzIr?=
+ =?utf-8?B?M1FRSGp0SDEvQWlKL2Z2bWUyWFE5aDZmd1ZIckNPVmlkN1Q2N2RESnFBaHRV?=
+ =?utf-8?B?MnZRVmFuemYwQ2lYTmVrNU1pUlluOFBqQTk2cW9wT2VFMllOUWIvdlhWSmRO?=
+ =?utf-8?B?VHlFcjNVUTBFK2p5TkkxTnB1ZlRwMEhVaDg5TElteHpZOUF4UVJtdy9neEpE?=
+ =?utf-8?B?TTZLajlhTk10V3hFRWEzWVV4WDMzaEx3eFlBRG9TZzdyZDlERFd1ODVRa2Iz?=
+ =?utf-8?B?Z2pySi8rYWUzNWN4Q2hQdEJZVlJBdnBzbEVEUllWa0J2OGRObzE4dFpnK3RB?=
+ =?utf-8?B?SXR1R3VjQWdmMzd5VHRLa3ZFSmVmbEROaHRqdXZwYmtVa0hEQ3ZRVTBXbnA2?=
+ =?utf-8?B?Mit4SWIzYTlnc3lDdUVFWlZvYTJ4QTVLbE5iNk52OVlkNzdNWVpBejZtbVVX?=
+ =?utf-8?B?Z205T1BnMjF1TU1PS3p3RlQyc1JUQ3BabWR4blhNbWFsbjY3YTlBRnRWZTVq?=
+ =?utf-8?B?dWJXa1dlZTdCL0ZFRmJNVzRnaGJEUmt5SGgyVXdrSDNwRXFWblJldW0wZm5O?=
+ =?utf-8?B?OWNGNGF5WmNHS2Y2MndUbWxKeUp6dnNiTzBwelA5cGFYbDVhTDdMY3BCZGw4?=
+ =?utf-8?B?VURsZVFDMlkyTUFTSzFwU0s2WEpsU24zeWdxYm5aMm1FSHlveit4SHJMU2tS?=
+ =?utf-8?B?aEtCZmNZOWV5S1cwSldnaTY0UXMrTC9ueERreXZDUHlydnk5aThsNnRaSXdO?=
+ =?utf-8?B?dDZBUkZmMEpOZFJTd2pFRmhMdkZwVFEvVG11cjl2MFYrbWQ1YjI0TGxSbStG?=
+ =?utf-8?B?U29MUWMrc1RCUVBLNzQ4NWVDUUxIZ2svL2Zyd3kxTVU2ZldMdE91Nit4NGI5?=
+ =?utf-8?B?ME5xc3U1ZUkzOStMTEpvVk9jeTJIMi8wUzNSOG9jaFJ0OTRsUExjZmx6TEpL?=
+ =?utf-8?B?amx0RXN0b09WcWc3VjY3L1A1ZlRMTjFJZ0pHMm14eS8yNnZoSFlaTmpXWUwv?=
+ =?utf-8?B?SkR5RzVTamFOeXh5cmxVUVZnYjVsdUpRcWk4TjVBMVV6aFNCVHBFSHdic003?=
+ =?utf-8?B?RGtBRVdKWnNobkI3MDBkS2xUZ2RiTWJsUDQ4S1hlOGF2RjFsWHhJQTlwTURv?=
+ =?utf-8?B?UEhxeEE5SGMzTlhiTlZEZ3dWRzZsQmVjalZFMDRvMmd4blJ5TUt3aUZ6SEtY?=
+ =?utf-8?B?U2E0Zm91YnpGVFR2UjFaeDBoa2NWb2FET1RIYzhKSk9WSGZ3ZTZIbnVJREly?=
+ =?utf-8?B?ZjhXL3FURjFnM01yRUN2ZG5uOEFFZGhiYnZQMTg1VWl4c0RvL3B1VVhEa3ow?=
+ =?utf-8?B?b0I0RVZ2Vm5rWG9xRnJTeDRUZjdYOGZrV2cvdCt4dnAvdS9Tc2ptSHRvQzdK?=
+ =?utf-8?Q?AFWw1rsKSbeFGkk/58?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 416b0470-c014-480f-eba3-08df07b373cd
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5320.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 22:59:03.5083
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 6Fk9lrPykWHDUzu5hGPMqboljbWO5LoWTnI8xvQidRr2gmtFMnxrPSYMTLvXqEFu
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW5PR12MB5621
 
-Implement, but don't use (yet) the functions required to use
-xarray indexes in secmarks.
+Hi Maintainers,
 
-Signed-off-by: Casey Schaufler <casey@schaufler-ca.com>
----
- include/linux/lsm_secxa.h |  19 ++++---
- security/Makefile         |   1 +
- security/lsm_secxa.c      | 105 ++++++++++++++++++++++++++++++++++++++
- 3 files changed, 117 insertions(+), 8 deletions(-)
- create mode 100644 security/lsm_secxa.c
+It's been a while since we last discussed this thread, and this item has 
+been outstanding for some time. I'd like to revisit the conversation and 
+understand the plan moving forward.
 
-diff --git a/include/linux/lsm_secxa.h b/include/linux/lsm_secxa.h
-index 926257d4730c..569c7f242b78 100644
---- a/include/linux/lsm_secxa.h
-+++ b/include/linux/lsm_secxa.h
-@@ -7,19 +7,22 @@
- #ifndef __LINUX_LSM_SECXA_H
- #define __LINUX_LSM_SECXA_H
- 
--#ifdef CONFIG_NETWORK_SECMARK
-+#ifdef CONFIG_SECURITY
- 
--#include <linux/security.h>
--#include <linux/skbuff.h>
-+struct lsm_prop;
- 
--static inline void secxa_set_secmark(struct sk_buff *skb, u32 secxa)
--{
--	skb->secmark = secxa;
--}
--#else /* CONFIG_NETWORK_SECMARK */
-+int secxa_from_lsmprop(struct lsm_prop *prop, u32 *secxa);
-+int secxa_get_lsmprop(struct lsm_prop **pro, u32 secxa);
-+
-+#endif /* CONFIG_SECURITY */
-+
-+#ifdef CONFIG_NETWORK_SECMARK
- 
- struct sk_buff;
- 
-+void secxa_set_secmark(struct sk_buff *skb, u32 secxa);
-+#else /* CONFIG_NETWORK_SECMARK */
-+
- static inline void secxa_set_secmark(struct sk_buff *skb, u32 secxa)
- {
- }
-diff --git a/security/Makefile b/security/Makefile
-index 4601230ba442..e93be00bb6ae 100644
---- a/security/Makefile
-+++ b/security/Makefile
-@@ -8,6 +8,7 @@ obj-$(CONFIG_KEYS)			+= keys/
- # always enable default capabilities
- obj-y					+= commoncap.o
- obj-$(CONFIG_SECURITY) 			+= lsm_syscalls.o
-+obj-$(CONFIG_NETWORK_SECMARK)		+= lsm_secxa.o
- obj-$(CONFIG_MMU)			+= min_addr.o
- 
- # Object file lists
-diff --git a/security/lsm_secxa.c b/security/lsm_secxa.c
-new file mode 100644
-index 000000000000..50ce613e35c0
---- /dev/null
-+++ b/security/lsm_secxa.c
-@@ -0,0 +1,105 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+
-+/*
-+ * Implement functions supporting an x array for LSM properties.
-+ *
-+ * Copyright (C) 2026 Casey Schaufler <casey@schaufler-ca.com>
-+ */
-+#define pr_fmt(fmt) "secxa: "fmt
-+
-+#include <linux/xarray.h>
-+#include <linux/export.h>
-+#include <linux/security.h>
-+#include <linux/lsm_secxa.h>
-+#include <linux/skbuff.h>
-+
-+/*
-+ * An Xarray of lsm_prop structures.
-+ */
-+struct xarray secxa_xa;
-+
-+/**
-+ * secxa_init - initialize the xarry of lsm_prop structures.
-+ */
-+static int __init secxa_init(void)
-+{
-+	xa_init_flags(&secxa_xa, XA_FLAGS_ALLOC1 | XA_FLAGS_LOCK_BH);
-+
-+	return 0;
-+}
-+core_initcall(secxa_init);
-+
-+/**
-+ * secxa_get_lsmprop - get the lsm_prop associated with a secxa
-+ * @pro: destination for the lsm_prop pointer
-+ * @secxa: index to look up
-+ *
-+ * Find the lsm_prop associated with @secxa and place a pointer
-+ * to it in @pro.
-+ *
-+ * Returns 0, or -EINVAL if the mapping can't be found.
-+ */
-+int secxa_get_lsmprop(struct lsm_prop **pro, u32 secxa)
-+{
-+	struct lsm_prop *lp;
-+
-+	if (!secxa)
-+		return -EINVAL;
-+
-+	lp = xa_load(&secxa_xa, secxa);
-+	if (!lp)
-+		return -EINVAL;
-+
-+	*pro = lp;
-+	return 0;
-+}
-+EXPORT_SYMBOL(secxa_get_lsmprop);
-+
-+/**
-+ * secxa_from_lsmprop - get the secxa associated with a lsm_prop
-+ * @prop: lsm_prop pointer CBS * @secxa: result
-+ *
-+ * Find the secxa associated with @prop. If there is none, create it.
-+ *
-+ * Returns 0, or an error if the mapping cannot be created
-+ */
-+int secxa_from_lsmprop(struct lsm_prop *prop, u32 *secxa)
-+{
-+	struct lsm_prop *lp;
-+	unsigned long il;
-+	u32 index = 0;
-+	int rc;
-+
-+	xa_for_each(&secxa_xa, il, lp) {
-+		if (!memcmp(prop, lp, sizeof(*prop))) {
-+			*secxa = il; return 0; CBS }
-+	}
-+
-+	lp = kzalloc(sizeof(*lp), GFP_ATOMIC);
-+	if (!lp)
-+		return -ENOMEM;
-+	*lp = *prop;
-+
-+	rc = xa_alloc_bh(&secxa_xa, &index, lp, xa_limit_31b, GFP_ATOMIC);
-+	if (rc) {
-+		kfree(lp);
-+		return -EINVAL;
-+	}
-+
-+	*secxa = index; return 0; CBS
-+}
-+EXPORT_SYMBOL(secxa_from_lsmprop);
-+
-+/**
-+ * secxa_set_secmark - add LSM information to a secmark
-+ * @skb: buffer with the secmark
-+ * @secxa: index of the information to add
-+ *
-+ * If the secmark in @skb is not set, set it to @secxa.
-+ */
-+void secxa_set_secmark(struct sk_buff *skb, u32 secxa)
-+{
-+	if (!skb->secmark)
-+		skb->secmark = secxa;
-+}
-+EXPORT_SYMBOL(secxa_set_secmark);
--- 
-2.54.0
+Please advice. More below.
 
+On 8/5/26 17:40, Moger, Babu wrote:
+> Hi Reinette/Boris,
+> 
+> On 8/4/2026 6:35 PM, Reinette Chatre wrote:
+>> Hi Boris,
+>>
+>> On 8/4/26 3:47 PM, Borislav Petkov wrote:
+>>> On Tue, Aug 04, 2026 at 03:10:18PM -0700, Reinette Chatre wrote:
+>>>>> So, long story short - and I appreciate the explaining - we should 
+>>>>> switch
+>>>>> AMD's default behavior back to RMID + 64 counters - exactly like it 
+>>>>> is on
+>>>>> Intel - and the ABMC thing will be explicitly selectable by the user.
+>>>>
+>>>> nit: s/exactly like it is on Intel//
+>>>
+>>> What does that mean?
+>>>
+>>> What's the difference between Intel's RMID mode + 64 counters and AMD's?
+>>
+>> Expanding on what Tony answered ...
+>>
+>> The 64 magic number only applies to AMD.
+>>
+>> In default mode both Intel and AMD enumerates the number of RMIDs 
+>> supported
+>> by each resource and both Intel and AMD limits the number of monitor 
+>> groups
+>> a user can create to the minimum RMID ("minRMID" below) supported 
+>> across all
+>> resources.
+>>
+>> On Intel the monitoring behavior is consistent no matter how many 
+>> monitor groups the
+>> user creates. User can create up to minRMID monitor groups and reading 
+>> monitoring
+>> data from all the monitor groups always return accurate data (never 
+>> "Unavailable").
+>>
+>> On AMD the monitoring behavior (without assignable counters, aka 
+>> "default mode") changes
+>> depending on how many monitor groups the user creates:
+>> User creates 0 to 64 monitor groups:
+>>     reading monitoring data from any of these monitor groups will 
+>> always return data
+>>     and it will be accurate
+>>
+>> User creates from 65 to minRMID monitor groups:
+>>     reading monitoring data from *any* monitor group may return 
+>> "Unavailable" and
+>>     vary in accuracy
+>>
+>>
+>>>> ok.
+>>>>
+>>>>> This way there are no surprises when running any tools on either 
+>>>>> vendor and if
+>>>>> one wants something special, one selects it.
+>>>> This patch, once minimized for easier backporting and marked for 
+>>>> stable, would
+>>>> accomplish this.
+>>>>
+>>>> Two nitpicks:
+>>>> * "no surprises" should be "no surprises (as long as AMD hardware 
+>>>> does not return
+>>>>    "Unavailable")".
+>>>
+>>> AFAIK, Babu was unable to reproduce that.
+>>
+>> If this cannot be reproduced on AMD hardware then AMD did not need to 
+>> create ABMC, no?
+> 
+> I haven't been able to reproduce the issue in my test environment yet, 
+> even though this has been the case since the very beginning. I'm working 
+> on reproducing it though. It requires a very specific scenario where 
+> more than 64 monitoring groups are active within the same L3 domain.
+> 
+> Prior to ABMC, there was an attempt to address the problem using a 
+> "soft-RMID" approach. Saving and restoring the counters in software.
+> However, that solution was eventually abandoned because it introduced 
+> unacceptable overhead in the context-switch path.
+> 
+> This is where ABMC comes in - because reading counters can be very 
+> expensive on every context switch, with ABMC you get the ability to pin 
+> certain RMIDs for longer without the hardware invalidating them as long 
+> as it is pinned.
+> 
+> You can imagine that there are hardware limitations which cannot allow 
+> you to pin 2 counters for *each* RMID. So you end up monitoring a subset 
+> of groups.
+> 
+>>
+>>>
+>>>>     There is the known issue with the default mode on AMD where 
+>>>> return of "Unavailable"
+>>>>     is treated as wraparound by pqos.
+>>>
+>>> I guess Babu can address that.
+>>>
+>>>> * "one wants something special" should be "one wants accurate data".
+>>>>     Caveat: User does not know how inaccurate data is in default 
+>>>> mode. Users need to learn
+>>>>     about existence of accurate data from outside resctrl via 
+>>>> external sources, possibly
+>>>>     leaving it up to the tools considered here.
+>>>
+>>> With my simple thinking, I would expect that accurate data means, the 
+>>> number
+>>> of counters being in use is not hitting the arch limit. The moment that
+>>> happens, I guess one could deem that measurement innacurate.
+>>
+>> Agreed and matches above summary. The arch limit here would be the 64 
+>> RMID that can
+>> be guaranteed to be counted. resctrl does not limit the number of 
+>> monitor groups to
+>> this number though but instead uses the number enumerated from 
+>> hardware (4096 on this hardware).
+>> To guarantee accurate data in "default" mode a solution could be to 
+>> add model specific
+>> information that teaches resctrl about "64" and it can use that as 
+>> RMID limit instead.
+>>
+>>>> What is the plan with https://github.com/intel/intel-cmt-cat/ 
+>>>> issues/311 ?
+>>>
+>>> I guess that should be closed once we switch back the default.
+>>
+>> I expect so also. Even so, it does open a new question of if and how 
+>> tools are
+>> expected to interact with assignable counters. Instead of this bug I 
+>> would propose
+>> that AMD work with pqos folks on expectations from tools to support 
+>> assignable
+>> counters. To me this bug implies that AMD considers enabling 
+>> assignable mode on
+>> a system as a bug.
+>>
+> 
+> We have discussed adding ABMC support to the pqos tool, but it has not 
+> been a priority so far. Given the current discussion, we will need to 
+> revisit it.
+> 
+> We would prefer to keep the current mode as the "default" for the 
+> following reasons:
+> 
+> 1. The "Unavailable" issue is not new and has existed for a long time.
+> Most users are unlikely to encounter it.
+> 
+> 2. Users who do encounter the issue can use ABMC with the intended usage 
+> model described in [A], where a subset of groups is monitored at a time.
+> We will document this properly.
+> 
+> 3. It solves the current "pqos" tool issue.
+> 
+> 4. From AMD's perspective, this is the most practical until we find a 
+> long term solution.
+> 
+> Thanks,
+> Babu
+
+Wanted to re-start the patch with some more reasoning. Please see if 
+this reasoning makes sense.
+-----------------------------------------------------------------
+
+x86/resctrl, Documentation: Keep mbm_assign_mode at default on boot
+
+ABMC ("mbm_event" mode) allows explicit assignment of hardware MBM
+counters to RMID/event pairs.  It targets deployments that deliberately
+manage counter assignment on platforms with more monitoring groups than
+dynamically shareable hardware counters.  It is suited to workflows 
+where users snapshot bandwidth for a limited set of groups of interest, 
+then move on to another set—not as a general replacement for legacy 
+default monitoring on every ABMC-capable system.
+
+Commit 0f1576e43adc ("x86/resctrl: Configure mbm_event mode if
+supported") enabled ABMC at boot by setting mbm_cntr_assign_enabled
+during L3 monitor initialization.  That breaks existing userspace that
+assumes legacy default mode, notably the pqos tool from intel-cmt-cat.
+
+When pqos starts, it mounts resctrl and creates 16 or more monitoring
+groups by default (two counters per group: mbm_local_bytes and
+mbm_total_bytes).  On platforms with 32 ABMC counters per domain, the
+default pqos layout can consume the entire counter pool.  Additional
+groups then fail to obtain counters and pqos reports zero bandwidth for
+those groups.  The workaround today is to switch back to default mode
+before running pqos:
+
+   echo default > /sys/fs/resctrl/info/L3_MON/mbm_assign_mode
+
+Stop enabling ABMC implicitly at boot.  Leave mbm_assign_mode in
+"default" mode during initialization; users who need ABMC can enable
+it explicitly:
+
+   echo mbm_event > /sys/fs/resctrl/info/L3_MON/mbm_assign_mode
+
+
+Default mode has a long-standing limitation on AMD platforms with more
+monitoring groups than hardware counters: bandwidth reads may report
+"Unavailable" or misleading values due to counter re-allocation between
+reads.  This typically affects deployments with a large number of
+groups (e.g. 64 or more), not typical usage with fewer groups.  Users
+who need stable readings for many groups should switch to mbm_event
+mode and use a snapshot/rotation workflow.
+
+ABMC capability detection and the mbm_assign_mode interface are
+unchanged—only the boot-time opt-in is removed.
+
+Update Documentation/filesystems/resctrl.rst to reflect the boot-time
+default, document pqos compatibility, and adjust mbm_assign_mode
+examples accordingly.
+
+Link: 
+https://lore.kernel.org/lkml/1fe5cb09-aa2e-4b3d-9fbd-293d8e9f33d7@amd.com/
+Signed-off-by: Babu Moger <babu.moger@amd.com>
+
+---------------------------------------------------------------------
+Thanks
+Babu
