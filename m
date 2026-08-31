@@ -1,621 +1,390 @@
-Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013026.outbound.protection.outlook.com [40.93.201.26])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D880F463B8E
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 15:08:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.201.26
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788188882; cv=fail; b=tcXJtjKaLq+fY9L6n6GuyXT//7m5GUsknMYfJ2OGnIsdDJOGaQYTwzrLETyCn/FOIGObO1IUesZif6OlO6Dte0W3uiNbflFRInHG+FF8eiEJD+pE6MGIgrLqdpMjASCu+bb8x8G7xsoVx1ksCkhFkvszE17lKhGWxhZnkR2url4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788188882; c=relaxed/simple;
-	bh=vTD0ceMw4VjgJWBWGbFXVO6QFiX2Op5kgCZbVlGzxJY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=NxJec/iPBG9H7c0t8GrqP7FcF4l09TX+Sk3uMBhCK1r/U3It7Wv8UAta+KTTo3BI3PRIMkemulLuBEIlUPvRaET5XmwyeOCx4y4FcqZv1McAs7vV0xRfYGZDF5Kbap8u4OVR1zr/vyAr4tw8aisg0fBrryzNg0lPm4gRPjmyQ98=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=T5+ghQ+a; arc=fail smtp.client-ip=40.93.201.26
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0251641A50B
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 15:08:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788188898; cv=none; b=bWMQ+P9xIft4zJK4LhiZiS1CxjyMp0mqqdbC0OmRJOGkhgwDU8sryeP7NCi/Ln5Y1K3B+sKbt6AsAsbSNWl04qx3Te1X+Y24GtRMbEPosLPmjQ6JJniczze1BVYibYs4f6crJLg0mVytUklxJwR21McwF1XkQIAnumAbzeSaPyg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788188898; c=relaxed/simple;
+	bh=rCpC9Dwj5ujiSpDavJucdkRcsyXErHFhB3VN3pLX8BM=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=iCBJdxkiibahC3IvOmgm46EGiT3H2984OmN1DSwTNAj2dR2kPNQvKgV8EPSI75talWZ995+63sE6QZYUVjWyyuAhYh6quRImybjEn5p2su05FqlkBO7eiJCCvugUbY3qAOebHpgI1MTJWYY5NIQjLTKGuZ1PC2odvm3ZCaNZUP4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=LFP762yg; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="T5+ghQ+a"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=oZ7uvx6gEKsehl9aJr7Pb9UiYyVP+gUJh8e0AxASaWlmv1KbQUw4htKSUxzLdufpRIPh565wPjDk4FY3IWBfQp+Eiw2etJ/GYlv2zv3zGALdQ1Zi3ut7B0/smRoiBm+x95e8y4rD/Gwm9XfqJa1gPHx8SNrVHhVpuFGodV5kVutaEJfspDep+PG0pYzxq+bYgsdUhOdMq6Y2ZOwh6MCcltNZ05n9+VVFHHIDxSshCXiFoeAHJKwuDMOt+jPP/YPAYO92zDOvltyJgVzQRW3BG6xDbhOtjeDCeJ7Q2S+aKXYBkMCzCAi2QJCLbtMUBF87qZXw2Zszxn1f487sSNa+Gg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zvLiEhEsvlT9sEKzRybh+S4zhJmb4WMDr2s1wYyPSYI=;
- b=RksX0WXnuWaa/QaV0IaogF7iHRXUIjYDoIDnDZ7OLFJsGV5esFm5n8x1q+ZmGAKLAEvZdDJ3Aj7HLJNFMffS1N/d55CzdA24B0dLFkAGI0C9Mooiq4tbQbusHEqy+FFOjUK2qtlTNVKsjcjVcEhGIk76qHx3Xf/fyBhJHjJhTrQMM9z8xF6LHfjgv8+RkVB20nQZIPwGOOWjCEYD2H7LoQUMITdNRe6oFoTtf8k+j9yxUtWmlOi6BLfSJD9IN90ccDnPVxOhjl/S/pgzRw0I2XKYeQ5UHtPNG+a943QuIqlEtGx+GtL0EQyPJIntY86Aqo0Pl6vcv/NzWwbhm7tLpA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zvLiEhEsvlT9sEKzRybh+S4zhJmb4WMDr2s1wYyPSYI=;
- b=T5+ghQ+aIT3WgtADdmAHn9apSbFZwvV2M7MMMVMd6ebUupVkhQl2DpBT6uFLyofTfH0UQmGbu8hrauMlBqbxCEI/VUTxATXrgLlWqfRwy01O17gaEB4lyX/OtKuovEYVvEPrDsOWbKVJ15FMldUZck4JYk7e6GOZgzVZbvgfMz33TKBHrOSG28x/piTJbVx8tzMyWNvhBfn0wTTH49+HonfxqvmHPmI0dgknw7qQ1ihHG9Kz4CBnKX5vSsPiJpdZo5EqdIpcbjvZiUUjbwt128JSIUiC2BVVi/ZDuymPJbs+0DmkYku5lyjm0dlo7UbJgC5D/hvTHtOGP0JzTR0wsw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DM6PR12MB4827.namprd12.prod.outlook.com (2603:10b6:5:1d6::14)
- by DS0PR12MB7678.namprd12.prod.outlook.com (2603:10b6:8:135::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Mon, 31 Aug
- 2026 15:07:52 +0000
-Received: from DM6PR12MB4827.namprd12.prod.outlook.com
- ([fe80::6261:3040:864b:159c]) by DM6PR12MB4827.namprd12.prod.outlook.com
- ([fe80::6261:3040:864b:159c%5]) with mapi id 15.21.0360.008; Mon, 31 Aug 2026
- 15:07:52 +0000
-Date: Mon, 31 Aug 2026 17:07:43 +0200
-From: Andrea Righi <arighi@nvidia.com>
-To: K Prateek Nayak <kprateek.nayak@amd.com>
-Cc: Peter Zijlstra <peterz@infradead.org>, John Stultz <jstultz@google.com>,
-	Suleiman Souhlal <suleiman@google.com>,
-	Ingo Molnar <mingo@redhat.com>, Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Will Deacon <will@kernel.org>, Boqun Feng <boqun@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	Waiman Long <longman@redhat.com>
-Subject: Re: [RFC PATCH 04/16] sched/core: Activate blocked donor when no
- owner is found
-Message-ID: <apWYv6SdL0Ck-a5w@gpd4>
-References: <20260826062901.2137-1-kprateek.nayak@amd.com>
- <20260826062901.2137-5-kprateek.nayak@amd.com>
- <ao8Mlls40IG9Vp6g@gpd4>
- <74324f25-2e8c-4f90-8f22-c1788615b95e@amd.com>
- <fe1bef59-e047-4008-b498-0c0d49a2be76@amd.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <fe1bef59-e047-4008-b498-0c0d49a2be76@amd.com>
-X-ClientProxiedBy: MI1P293CA0023.ITAP293.PROD.OUTLOOK.COM (2603:10a6:290:3::9)
- To DM6PR12MB4827.namprd12.prod.outlook.com (2603:10b6:5:1d6::14)
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="LFP762yg"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 3A32F1A190E;
+	Mon, 31 Aug 2026 15:08:11 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 0560360231;
+	Mon, 31 Aug 2026 15:08:11 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 39F8B11C78A75;
+	Mon, 31 Aug 2026 17:08:00 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1788188885; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=sqiOiFdMJrkbxYSuM3+7ydV7NdUJCu5eq/N9GzPyYT8=;
+	b=LFP762yg7Bf3/oiL2TKSiwe3Tj2/qtPwTa/cB66Cun87afaUb5eqvmWMaVfnpsoiF+Tmo7
+	zr8ZIHSnZLWy8Tcre/B+NR2KMiCY1RCyRcOvRsrL42l70wu7WhhQTAK7i7XpvfponEx9Iq
+	NDNz9SPoci+JtMGSwpKBEKA/GaHtTxSekTyKvlvfN5WmJo7V7r47r9AuqYY2Q/tYRFSGoX
+	3FVnB4UcfxYuS2+7Sr+sIk4rBbZRmSElImx1DNri1mbNbeqfZDIKRKTUcZ0UFj3QLNY0gg
+	jZBG6u+xkEChkiOnBKcwHGwJ03KGobNM6WdDAlOYp5nkm/WjCng6Fz2Ah9dzBA==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: "Michael Walle" <mwalle@kernel.org>
+Cc: "Pratyush Yadav" <pratyush@kernel.org>,  "Takahiro Kuwano"
+ <takahiro.kuwano@infineon.com>,  "Richard Weinberger" <richard@nod.at>,
+  "Vignesh Raghavendra" <vigneshr@ti.com>,  "Nicolas Ferre"
+ <nicolas.ferre@microchip.com>,  "Alexandre Belloni"
+ <alexandre.belloni@bootlin.com>,  "Claudiu Beznea"
+ <claudiu.beznea@tuxon.dev>,  "Jonathan Corbet" <corbet@lwn.net>,  "Shuah
+ Khan" <skhan@linuxfoundation.org>,  "Steam Lin" <STLin2@winbond.com>,
+  "Hsin-Yi Wang" <hsinyi@chromium.org>,  "Thomas Petazzoni"
+ <thomas.petazzoni@bootlin.com>,  <linux-mtd@lists.infradead.org>,
+  <linux-arm-kernel@lists.infradead.org>,  <linux-kernel@vger.kernel.org>,
+  <linux-doc@vger.kernel.org>
+Subject: Re: [PATCH v3 05/23] mtd: spi-nor: Create the concept of fixup
+ table with match function
+In-Reply-To: <DL0H9KX4K3UI.145TKS5XKPFEI@kernel.org> (Michael Walle's message
+	of "Fri, 28 Aug 2026 11:43:06 +0200")
+References: <20260813-winbond-v7-1-spi-nor-rv-addition-v3-0-b637cf120d5c@bootlin.com>
+	<20260813-winbond-v7-1-spi-nor-rv-addition-v3-5-b637cf120d5c@bootlin.com>
+	<DKOKFU8AD2U6.151AX0VOBX67H@kernel.org> <87cxv3cy5j.fsf@bootlin.com>
+	<DL0H9KX4K3UI.145TKS5XKPFEI@kernel.org>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Mon, 31 Aug 2026 17:07:59 +0200
+Message-ID: <878q5m9vlc.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4827:EE_|DS0PR12MB7678:EE_
-X-MS-Office365-Filtering-Correlation-Id: a50ab5c7-b9ce-4ca6-fc58-08df0771a09d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|23010399003|376014|7416014|10067099003|6133799003|22082099003|4143699003|56012099006|11063799006|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	yNaAlraLUAJf++d9GF2cGvlnHcYp5j4fZUx3KGnGvdfTW6LzaIlqtpTmuCDouTKy7czq8YXU6qT0aFzi5hG2Dv2OAqQq02JZEGcGNL79M3noeQ0HvMm3npVwc0nYcLv1oN69s4ugA0rT6T2R+JU5zCB9S5/KxkK+R56tMYie8BuXzlT/+sVrkekG7GQOLa2dRCultfO4bNiR5FMnB+SutlhF6ulAOQs7y4j5FHTopgjX1VMLMgjj7RmUvppKDuS0FLvzojl629S1oZa0RIR47zgY9AmhEZFluP2PlSZg9p3h9owXZQ4yvzSXAJNbW191M6koS9DuOiU4jBMUIhdblTiEg913/OhlstLU4rsgkASaH8EGWtn0ysSdBMUB3vMSv+AkEvoy7TRcU7dlxm4MYIJSh9jdvPTVaH+HxGeo55rH1ClzwK4CRl9V84cVGsQoL+673MS/FMLz/WxDw/D2AR3q4PT8VTfEIlDqlet6cW1gUVQP8Y7PJ/yD0L5ZCiGhI3waSDWfIVssOQMxTnkkKLFpASyn7BjZZraEQ26Tdg1JWtQPc7U8r22CPf/6abHRklWqo793LO41scwTYDtn4cQ4in90fc3khg0snjfkzse99HKDpp3plUyIZJJsHYQzGJvZpA3mD4nE4BVCHZtNs0dCs87mYVI1vbg2bTY8PBo=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR12MB4827.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(7416014)(10067099003)(6133799003)(22082099003)(4143699003)(56012099006)(11063799006)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?4tRDTMnNrxnRwYFW3I/RMWJZWnl/L9UwfKwPiYcUCKlTCZlPKiVwYw+WfcMB?=
- =?us-ascii?Q?JKAVAjT2nq0yac/PwZgG6bU+l8sbaHdo9mxgr0fzrzflwragR8a6T1GzHB+e?=
- =?us-ascii?Q?aZCPxyZF0qCZWm1ll6bliVdrJWtSdpDdcvhNxN/ngG75Q4/h8//xpaC4F4GH?=
- =?us-ascii?Q?IggY9v4rH22+U40CDAlDA4sI8MHyRFUSjO5GekwDWKZSSUOdTgXdbHlVVcqW?=
- =?us-ascii?Q?V7pAEJJg/oJJ6qk5427YSTDJrfIvT53fnJ0Gv/P80i9ibbT0MRs+0EGF5as4?=
- =?us-ascii?Q?IrD7V1rJkPUSu8ZtgyI6h0gtouY7lVXel2OIBkzqV1m02EuRdW0x1RTYA1Wl?=
- =?us-ascii?Q?dDXa0MzG4arnaElldp0xOhEdu52Jf8CbsCLA1mytMls5pX0jd7c/Zg5y9C1K?=
- =?us-ascii?Q?QRWv1sRTkpbFh1bnrwIG3bjgiW8IrhYjVUC0ZxFvdg7qyVbmeA/jYk5JFoid?=
- =?us-ascii?Q?zFplZWUW08VqQmi10BIfQSvy+k7zQBBFx2kTwRu43oGyM5ZoPJMgNq+Tnrco?=
- =?us-ascii?Q?ogIH6Y2N7NmuzOmKq+axSnICmwuQSIkfW/VEWtLYNQvqJY88Cbbto/W+9j7x?=
- =?us-ascii?Q?h5Az0QZ0o019FjKZJM4W9xGSxY60d7wiEJd1GLmNpe6yIyFBGPgfQEoycy6J?=
- =?us-ascii?Q?BJ4MJOYYFM5ZXnUrYTA9l/snFXd+kS8swGfBlAyUX+3bFZEdTeLUkptC529O?=
- =?us-ascii?Q?/SR3UlsKGR9YJtFN9ad2f25byupfcQergsBkQOSIHdeIbqIDOznsfcqgRFXd?=
- =?us-ascii?Q?ru3Z8lEaffkAD2SCtGUSYbQcT+ysi/baB2ZjZYACjSDOZLr/8jzcC2dhHq3r?=
- =?us-ascii?Q?M92n6Dq1v87hXDmb5fuPkG/faEiKeuj4ZVM5uystnooI2Yhlc6eROeT7hsJt?=
- =?us-ascii?Q?hXmUucN58B4rhzlgsAkILQxemDFKI8JyASSZPkhXndFNM98rA27MTXoTF15S?=
- =?us-ascii?Q?+jyD7ZcpRc3akwk32HoQF0eiw9DFvNa2hTLF26z15KNm688fpkw/vxs3JghA?=
- =?us-ascii?Q?IxgGFkvSoDsowTugQKn9ZNko3hlvEPTTdYug5kl5yK0bXJGKbsq16fn2WzsN?=
- =?us-ascii?Q?DnijIXtMAdmhZO64ue43XE9LWvdLEVN5IJZ5S67g9SZOlbr7MBDBQQy1D8X/?=
- =?us-ascii?Q?cgdUCQ1v1xzLvWdjar6FAKo1cEc/FKpsFO8EFrMbnbqdn8hfTst9kEeB/tOX?=
- =?us-ascii?Q?+iUx8QJS1kmfVqiogxi8kG0DJPHQyHtUeYsDNcGAnPp1N1MrUX07jPvJqQq9?=
- =?us-ascii?Q?yL57Rao3qrvTGIoy/2yQxkee48SV6JaXVPLEi6drHm19ShIlrQlpHL/543O7?=
- =?us-ascii?Q?5HdfgOoZHXkrPdtkBYbzjR4+sOIIW68xU/dxUpDiqz/J662HhhXYHEp8Otgj?=
- =?us-ascii?Q?D5/d1nOlid89y+NnucqJs7Mtr8dGgQw55x85CVsh24AOU+yhZn20Uh6Z6vHe?=
- =?us-ascii?Q?OBHT1wSwGY0REeUM/MIbsAAPYwXJH9hs+TnAL5Umisd1H0EjOpjMDL24fDJp?=
- =?us-ascii?Q?JaZ9o0wtH9FdY9PZ6H8MuthPUa0vwLc8RgfrSClzgv3JsccVEsdrxNgC8y50?=
- =?us-ascii?Q?jewpzvy1/wNgS0rGqfUPMgsDp8DbYASUqIre3qcyjDUanemolmTh/I9TmPc8?=
- =?us-ascii?Q?hmiyQ2f9Kmq1961xcI+QN6Tgn7JuNg/+AVnae1iZDNQ67kjyvEXvGmS0j1Rq?=
- =?us-ascii?Q?uqIyjJNO9QdnqNEpz2lBoA/HmTxG4yp2disaziFX6Khy3PaE3fQOG4OasYP+?=
- =?us-ascii?Q?0O05MzXF5g=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a50ab5c7-b9ce-4ca6-fc58-08df0771a09d
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4827.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 15:07:52.0235
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: aNxmIoBH5vDKOJDse/KExrjzASzdVkvGBlCAyNdGXAAbBJH4OwwAijtbAm7CP7eSTtZbvCqcQASzmlkh3QYyJQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7678
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
-Hi Prateek,
+On 28/08/2026 at 11:43:06 +02, "Michael Walle" <mwalle@kernel.org> wrote:
 
-On Fri, Aug 28, 2026 at 11:34:45AM +0530, K Prateek Nayak wrote:
-> Hello Andrea,
-> 
-> On 8/26/2026 10:50 PM, K Prateek Nayak wrote:
-> >>> XXX: Is there a better way to handle this? If we can confirm a owner in
-> >>> find_proxy_task(), we don't need to do a spurious wakeup of every task
-> >>> observing !owner.
-> >>>
-> >>> proxy_resched_idle() until owner appears in an option but it will spin
-> >>> until next owner appears.
-> >>
-> >> IIUC, the owner can remain NULL until the waiter selected by mutex_unlock() gets
-> >> CPU time and acquires the mutex, so proxy_resched_idle() could spin for longer
-> >> than just the unlock critical section.
-> >>
-> >> Maybe we could instead force a handoff from mutex_unlock_slowpath() when proxy
-> >> execution is enabled and the mutex has waiters? This would keep the owner
-> >> identifiable and avoid waking every task that happens to observe !owner.
-> > 
-> > I think that negates some of the benefits of the optimistic spinning +
-> > mutex_try_lock(). I'll see if it makes any difference to the benchmark
-> > results if we always force a handoff for MUTEX_FLAG_WAITERS.
-> > 
-> > wait_lock should give enough guarantee that the waiter cannot simple
-> > disappear before the handoff after MUTEX_FLAG_PICKUP is set since
-> > waiter has to try at least one mutex_trylock() under wait_lock before
-> > checking for pending signals.
-> 
-> Below  are the results from few experiments. All diffs pasted below are
-> based on John's tree at:
-> 
->   https://github.com/johnstultz-work/linux-dev.git proxy-exec-v31-7.2-rc4
-> 
-> at commit 06ac43db4d8e ("[ANNOTATION] === Needs confirmation of
-> functionality past this point ===") with CONFIG_SCHED_PROXY_EXEC=y.
-> 
-> All diffs are very experimental: virtme-ng or testing with a disposable
-> environment is recommended.
-> 
-> ============================
-> Experiment 1: Simple Handoff
-> ============================
-> 
-> If I do a simple handoff like below, sched-messaging goes pretty bad:
-> 
-> diff --git a/kernel/locking/mutex.c b/kernel/locking/mutex.c
-> index 8a85912d7ee6..da14a49e4fa2 100644
-> --- a/kernel/locking/mutex.c
-> +++ b/kernel/locking/mutex.c
-> @@ -1009,7 +1009,7 @@ static noinline void __sched __mutex_unlock_slowpath(struct mutex *lock, unsigne
->  		MUTEX_WARN_ON(__owner_task(owner) != current);
->  		MUTEX_WARN_ON(owner & MUTEX_FLAG_PICKUP);
->  
-> -		if (sched_proxy_exec() && current->blocked_donor) {
-> +		if (sched_proxy_exec() && (current->blocked_donor || (owner & MUTEX_FLAG_WAITERS))) {
->  			/* force handoff if we have a blocked_donor */
->  			owner = MUTEX_FLAG_HANDOFF;
->  			break;
-> ---
-> 
-> With just a simple handoff on waiters, we have:
-> 
->     ==================================================================
->     Test          : sched-messaging
->     Units         : Normalized time in seconds
->     Interpretation: Lower is better
->     Statistic     : AMean
->     ==================================================================
->       Test:                   vanilla                 handoff
->        1-groups:         3.12 (0.00 pct)         3.47 (-11.21 pct)  *
->        2-groups:         3.43 (0.00 pct)         4.33 (-26.23 pct)  *
->        4-groups:         4.05 (0.00 pct)         5.95 (-46.91 pct)
->        8-groups:         4.29 (0.00 pct)         9.56 (-122.84 pct)
->       16-groups:         5.89 (0.00 pct)        12.29 (-108.65 pct)
-> 
->      * Data points have > 10% run to run variance on all versions
+> Hi,
+>
+> On Thu Aug 27, 2026 at 6:43 PM CEST, Miquel Raynal wrote:
+>> I took me a lot of time to go through all your requests, in the end I
+>> will not implement most of your feedback because either I do not
+>> understand what is the gain, or because the result is not better at all
+>> from my point of view. I try to explain that in my feedback
+>> below. Nevertheless, I truly appreciate the deep review you made. I
+>> think I mostly agree with the comments in the other messages.
+>>
+>> On 14/08/2026 at 11:40:21 +02, "Michael Walle" <mwalle@kernel.org> wrote:
+>>
+>>> On Thu Aug 13, 2026 at 5:19 PM CEST, Miquel Raynal wrote:
+>>>> Manufacturer ID tables increase and fixup() hooks proliferate. Having
+>>>> one possible structure per chip was fine until the fixups started being
+>>>> more and more common and needed, to some extend due to ID reuses. Mixi=
+ng
+>>>> fixups and chips becomes hard and requires extra helpers to sort which
+>>>> ones are needed for a given chip, which every time this happens requir=
+es
+>>>> a lot of rework.
+>>>
+>>> Thanks, this patch looks really promising!
+>>>
+>>>> Replace the two-level fixup association (a manufacturer wide hook and a
+>>>> per flash_info hook) with a per-manufacturer list of fixups that can be
+>>>> looked up by flash ID and/or match function.
+>>>>
+>>>> The match logic works as follows:
+>>>> - If there is an ID, it must match
+>>>> - If there is a match function, it must match (cumulative)
+>>>> - If there is no identifier (no ID nor any match function), it's a
+>>>>   catch-all entry typically used for flagging manufacturer fixups.
+>
+> I think this one is the crux. See more below.
+>
+>>> This mimics, how it's currently handled. But since the fixups are
+>>> now treated as a separate list, i.e. it has it's own SNOR_ID, we
+>>> shall move away from this manufacturer thingy too.
+>>
+>> Why shall we? See below, I don't get the point. I drafted something it
+>> took me two full days to work on that, to eventually realize I did not
+>> see *any* benefit.
+>
+> Then let me ask the other way around,=20
 
-Yeah, the results make it pretty clear that forcing a handoff whenever waiters
-are present is not viable, so my original suggestion doesn't look practical.
+Mm :) Generally we are asked to justify the changes, not the
+opposite. Nevertheless, I'll try to play this game ;)
 
-> 
-> 
-> ==================================================
-> Experiment 2: Allow steal until next task is found
-> ==================================================
-> 
-> If we open the opportunity to allow stealing of mutex until the next waiter
-> is found, the results are ever so slightly slightly better:
-> 
-> diff --git a/kernel/locking/mutex.c b/kernel/locking/mutex.c
-> index 8a85912d7ee6..5ebb2624b331 100644
-> --- a/kernel/locking/mutex.c
-> +++ b/kernel/locking/mutex.c
-> @@ -92,7 +92,16 @@ static inline struct task_struct *__mutex_trylock_common(struct mutex *lock, boo
->  		unsigned long task = owner & ~MUTEX_FLAGS;
->  
->  		if (task) {
-> -			if (flags & MUTEX_FLAG_PICKUP) {
-> +			if (sched_proxy_exec() && (flags & MUTEX_FLAG_STEAL)) {
-> +				/*
-> +				 * STEAL cannot be set after HANDOFF has been
-> +				 * initiated. If STEAL is set, clear it and
-> +				 * preserve other flags
-> +				 */
-> +				MUTEX_WARN_ON(flags & (MUTEX_FLAG_PICKUP));
-> +				flags &= ~MUTEX_FLAG_STEAL;
-> +				task = curr;
-> +			}else if (flags & MUTEX_FLAG_PICKUP) {
->  				if (task != curr)
->  					break;
->  				flags &= ~MUTEX_FLAG_PICKUP;
-> @@ -104,7 +113,7 @@ static inline struct task_struct *__mutex_trylock_common(struct mutex *lock, boo
->  				break;
->  			}
->  		} else {
-> -			MUTEX_WARN_ON(flags & (MUTEX_FLAG_HANDOFF | MUTEX_FLAG_PICKUP));
-> +			MUTEX_WARN_ON(flags & (MUTEX_FLAG_HANDOFF | MUTEX_FLAG_PICKUP | MUTEX_FLAG_STEAL));
->  			task = curr;
->  		}
->  
-> @@ -274,7 +283,29 @@ static void __mutex_handoff(struct mutex *lock, struct task_struct *task)
->  		new |= (unsigned long)task;
->  		if (task)
->  			new |= MUTEX_FLAG_PICKUP;
-> +		if (atomic_long_try_cmpxchg_release(&lock->owner, &owner, new))
-> +			break;
-> +	}
-> +}
-> +
-> +static void __mutex_steal(struct mutex *lock, struct task_struct *task)
-> +{
-> +	unsigned long owner = atomic_long_read(&lock->owner);
-> +
-> +	for (;;) {
-> +		unsigned long new;
->  
-> +		/* Lock was successfully stolen. */
-> +		if (__owner_task(owner) != current)
-> +			break;
-> +
-> +		MUTEX_WARN_ON(!(__owner_flags(owner) & MUTEX_FLAG_STEAL));
-> +		MUTEX_WARN_ON(owner & MUTEX_FLAG_PICKUP);
-> +
-> +		new = (owner & MUTEX_FLAG_WAITERS);
-> +		new |= (unsigned long)task;
-> +		if (task)
-> +			new |= MUTEX_FLAG_PICKUP;
->  		if (atomic_long_try_cmpxchg_release(&lock->owner, &owner, new))
->  			break;
->  	}
-> @@ -389,7 +420,17 @@ bool mutex_spin_on_owner(struct mutex *lock, struct task_struct *owner,
->  
->  	lockdep_assert_preemption_disabled();
->  
-> -	while (__mutex_owner(lock) == owner) {
-> +	for (;;) {
-> +		unsigned long __owner = atomic_long_read(&lock->owner);
-> +
-> +		/* If the owner changed, break out. */
-> +		if (__owner_task(__owner) != owner)
-> +			break;
-> +
-> +		/* If lock can be stolen, break out. */
-> +		if (sched_proxy_exec() && (__owner_flags(__owner) & MUTEX_FLAG_STEAL))
-> +			break;
-> +
->  		/*
->  		 * Ensure we emit the owner->on_cpu, dereference _after_
->  		 * checking lock->owner still matches owner. And we already
-> @@ -985,6 +1026,7 @@ static noinline void __sched __mutex_unlock_slowpath(struct mutex *lock, unsigne
->  	struct mutex_waiter *waiter;
->  	unsigned long owner;
->  	unsigned long flags;
-> +	bool steal;
->  
->  	mutex_release(&lock->dep_map, ip);
->  	__release(lock);
-> @@ -1006,19 +1048,31 @@ static noinline void __sched __mutex_unlock_slowpath(struct mutex *lock, unsigne
->  	 */
->  	owner = atomic_long_read(&lock->owner);
->  	for (;;) {
-> +		unsigned long owner_flags;
-> +
->  		MUTEX_WARN_ON(__owner_task(owner) != current);
->  		MUTEX_WARN_ON(owner & MUTEX_FLAG_PICKUP);
->  
-> -		if (sched_proxy_exec() && current->blocked_donor) {
-> -			/* force handoff if we have a blocked_donor */
-> -			owner = MUTEX_FLAG_HANDOFF;
-> -			break;
-> -		}
-> -
->  		if (owner & MUTEX_FLAG_HANDOFF)
->  			break;
->  
-> -		if (atomic_long_try_cmpxchg_release(&lock->owner, &owner, __owner_flags(owner))) {
-> +		owner_flags = __owner_flags(owner);
-> +		if (sched_proxy_exec()) {
-> +			if (current->blocked_donor) {
-> +				/* force handoff if we have a blocked_donor */
-> +				owner = MUTEX_FLAG_HANDOFF;
-> +				break;
-> +			}
-> +
-> +			if (owner & MUTEX_FLAG_WAITERS)
-> +				owner_flags = owner | MUTEX_FLAG_STEAL;
-> +		}
-> +
-> +		if (atomic_long_try_cmpxchg_release(&lock->owner, &owner, owner_flags)) {
-> +			if (owner_flags & MUTEX_FLAG_STEAL) {
-> +				steal = true;
-> +				break;
-> +			}
->  			if (owner & MUTEX_FLAG_WAITERS)
->  				break;
->  
-> @@ -1071,6 +1125,9 @@ static noinline void __sched __mutex_unlock_slowpath(struct mutex *lock, unsigne
->  	if (owner & MUTEX_FLAG_HANDOFF)
->  		__mutex_handoff(lock, next);
->  
-> +	if (sched_proxy_exec() && steal)
-> +		__mutex_steal(lock, next);
-> +
->  	raw_spin_unlock(&current->blocked_lock);
->  	raw_spin_unlock_irqrestore(&lock->wait_lock, flags);
->  	if (next) {
-> diff --git a/kernel/locking/mutex.h b/kernel/locking/mutex.h
-> index 3e263e98e5fc..eb4180745da0 100644
-> --- a/kernel/locking/mutex.h
-> +++ b/kernel/locking/mutex.h
-> @@ -33,8 +33,9 @@ struct mutex_waiter {
->  #define MUTEX_FLAG_WAITERS	0x01
->  #define MUTEX_FLAG_HANDOFF	0x02
->  #define MUTEX_FLAG_PICKUP	0x04
-> +#define MUTEX_FLAG_STEAL	0x08
->  
-> -#define MUTEX_FLAGS		0x07
-> +#define MUTEX_FLAGS		0x0F
->  
->  /*
->   * Internal helper function; C doesn't allow us to hide it :/
-> ---
-> 
-> With that small steal opportunity, we have:
-> 
->     ==================================================================
->     Test          : sched-messaging
->     Units         : Normalized time in seconds
->     Interpretation: Lower is better
->     Statistic     : AMean
->     ==================================================================
->       Test:                   vanilla                 handoff             steal + handoff
->        1-groups:         3.12 (0.00 pct)         3.47 (-11.21 pct)       3.63 (-16.34 pct)  *
->        2-groups:         3.43 (0.00 pct)         4.33 (-26.23 pct)       4.14 (-20.69 pct)  *
->        4-groups:         4.05 (0.00 pct)         5.95 (-46.91 pct)       5.45 (-34.56 pct)
->        8-groups:         4.29 (0.00 pct)         9.56 (-122.84 pct)      7.80 (-81.81 pct)
->       16-groups:         5.89 (0.00 pct)        12.29 (-108.65 pct)     11.89 (-101.86 pct)
-> 
->      * Data points have > 10% run to run variance on all versions
-> 
-> 
-> So, the opportunity must be extended to allow stealing until the the waiter
-> wakes up for !HANDOFF cases. Few complications with that are:
+> what is the benefit of having the manufacturer?
 
-Right, this only narrows the handoff window and still retains most of its cost.
+Grouping all chips following similar patterns, using similar helpers,
+etc. In general the scope of the manufacturer driver is pretty
+convenient to store static functions only usable inside. Unlike chip
+names, giving manufacturers a name is also handy and people like to see
+it, despite its actual use. Sometimes it is also useful to distinguish
+if you have version A of the HW with chip from manufacturer <foo> from
+version B using chip from manufacturer <bar>.
 
-> 
-> o We cannot continue to persist the old owner after mutex_unlock() since that
->   owner can die, block on other mutex, etc. and that breaks queuing on owner
->   since new waiters can go and block on a dead task / task blocked on an
->   incorrect owner.
-> 
-> o We cannot allow steal after handoff to new owner because __mutex_lock() will
->   resolve to new owner that hasn't woken up yet and waiters start queuing on
->   it but a concurrent task can come steal the lock and break proxy. Not very
->   intuitive; adds a lot of complexity.
-> 
-> 
-> ============================================
-> Experiment 3: STEAL + Temporary swap to idle
-> ============================================
-> 
-> the unlock will temporarily swap to rq->idle of the lock owner's CPU with
-> MUTEX_FLAG_STEAL set to allow grabbing the task until the the waiter wakes
-> up and manages to grab the task itself for !HANDOFF cases. With that,
-> numbers are very close:
-> 
-> diff --git a/kernel/locking/mutex.c b/kernel/locking/mutex.c
-> index 8a85912d7ee6..187f95544453 100644
-> --- a/kernel/locking/mutex.c
-> +++ b/kernel/locking/mutex.c
-> @@ -92,7 +92,16 @@ static inline struct task_struct *__mutex_trylock_common(struct mutex *lock, boo
->  		unsigned long task = owner & ~MUTEX_FLAGS;
->  
->  		if (task) {
-> -			if (flags & MUTEX_FLAG_PICKUP) {
-> +			if (sched_proxy_exec() && (flags & MUTEX_FLAG_STEAL)) {
-> +				/*
-> +				 * STEAL cannot be set after HANDOFF has been
-> +				 * initiated. If STEAL is set, clear it and
-> +				 * preserve other flags
-> +				 */
-> +				MUTEX_WARN_ON(flags & (MUTEX_FLAG_PICKUP));
-> +				flags &= ~MUTEX_FLAG_STEAL;
-> +				task = curr;
-> +			}else if (flags & MUTEX_FLAG_PICKUP) {
->  				if (task != curr)
->  					break;
->  				flags &= ~MUTEX_FLAG_PICKUP;
-> @@ -104,7 +113,7 @@ static inline struct task_struct *__mutex_trylock_common(struct mutex *lock, boo
->  				break;
->  			}
->  		} else {
-> -			MUTEX_WARN_ON(flags & (MUTEX_FLAG_HANDOFF | MUTEX_FLAG_PICKUP));
-> +			MUTEX_WARN_ON(flags & (MUTEX_FLAG_HANDOFF | MUTEX_FLAG_PICKUP | MUTEX_FLAG_STEAL));
->  			task = curr;
->  		}
->  
-> @@ -242,7 +251,41 @@ __mutex_remove_waiter(struct mutex *lock, struct mutex_waiter *waiter)
->  	__must_hold(&lock->wait_lock)
->  {
->  	if (list_empty(&waiter->list)) {
-> -		__mutex_clear_flag(lock, MUTEX_FLAGS);
-> +		/*
-> +		 * The last waiter can be interrupted before the full
-> +		 * unlock with STEAL is done.
-> +		 *
-> +		 *  LOCK lock->wait_lock
-> +		 *
-> +		 *  __mutex_trylock()
-> +		 *    // Sees old owner			__mutex_unlock_slowpath()
-> +		 *    return owner;			  atomic_long_cmpxchg_release(&owner, idle | STEAL)
-> +		 *					    // Succeeds
-> +		 *  if (signal_pending())
-> +		 *    goto err;
-> +		 *
-> +		 * err:
-> +		 *  __mutex_remove_waiter()
-> +		 *    __mutex_clear_flag(MUTEX_FLAGS)
-> +		 *    lock->first_waiter = NULL;
-> +		 *
-> +		 *  UNLOCK lock->wait_lock		  LOCK lock->wait_lock
-> +		 *					  waiter = lock->first_waiter; // NULL
-> +		 *					  // No wakeup
-> +		 *
-> +		 *  !!! lock->owner stuck as rq->idle without STEAL set !!!
-> +		 *
-> +		 * Persis the STEAL flag to prevent an idle task to
-> +		 * linger as lock owner. __mutex_trylock_fast() will
-> +		 * fail temporarily for first contender but following
-> +		 * __mutex_trylock_common() will do the right thing.
-> +		 *
-> +		 * XXX: This can also be solved by doing a
-> +		 * atomic_try_cmpxchg() or__mutex_clear_flag() in
-> +		 * __mutex_unlock_slowpath() if steal is set but no
-> +		 * waiter is found under lock->wait_lock.
-> +		 */
-> +		__mutex_clear_flag(lock, MUTEX_FLAGS & ~MUTEX_FLAG_STEAL);
->  		lock->first_waiter = NULL;
->  	} else {
->  		if (lock->first_waiter == waiter)
-> @@ -274,7 +317,6 @@ static void __mutex_handoff(struct mutex *lock, struct task_struct *task)
->  		new |= (unsigned long)task;
->  		if (task)
->  			new |= MUTEX_FLAG_PICKUP;
-> -
->  		if (atomic_long_try_cmpxchg_release(&lock->owner, &owner, new))
->  			break;
->  	}
-> @@ -389,7 +431,17 @@ bool mutex_spin_on_owner(struct mutex *lock, struct task_struct *owner,
->  
->  	lockdep_assert_preemption_disabled();
->  
-> -	while (__mutex_owner(lock) == owner) {
-> +	for (;;) {
-> +		unsigned long __owner = atomic_long_read(&lock->owner);
-> +
-> +		/* If the owner changed, break out. */
-> +		if (__owner_task(__owner) != owner)
-> +			break;
-> +
-> +		/* If lock can be stolen, break out. */
-> +		if (sched_proxy_exec() && (__owner_flags(__owner) & MUTEX_FLAG_STEAL))
-> +			break;
-> +
->  		/*
->  		 * Ensure we emit the owner->on_cpu, dereference _after_
->  		 * checking lock->owner still matches owner. And we already
-> @@ -1006,19 +1058,42 @@ static noinline void __sched __mutex_unlock_slowpath(struct mutex *lock, unsigne
->  	 */
->  	owner = atomic_long_read(&lock->owner);
->  	for (;;) {
-> +		unsigned long owner_flags;
-> +
->  		MUTEX_WARN_ON(__owner_task(owner) != current);
->  		MUTEX_WARN_ON(owner & MUTEX_FLAG_PICKUP);
->  
-> -		if (sched_proxy_exec() && current->blocked_donor) {
-> -			/* force handoff if we have a blocked_donor */
-> -			owner = MUTEX_FLAG_HANDOFF;
-> -			break;
-> -		}
-> -
->  		if (owner & MUTEX_FLAG_HANDOFF)
->  			break;
->  
-> -		if (atomic_long_try_cmpxchg_release(&lock->owner, &owner, __owner_flags(owner))) {
-> +		owner_flags = __owner_flags(owner);
-> +		if (sched_proxy_exec()) {
-> +			if (current->blocked_donor) {
-> +				/* force handoff if we have a blocked_donor */
-> +				owner = MUTEX_FLAG_HANDOFF;
-> +				break;
-> +			}
-> +
-> +			if (owner & MUTEX_FLAG_WAITERS) {
-> +				unsigned long idle;
-> +				/*
-> +				 * Swap the owner to current CPU's idle task
-> +				 * with a STEAL flag.
-> +				 *
-> +				 * The lock is free to be stolen and
-> +				 * __mutex_owner() will resolve to idle task
-> +				 * that is always ->on_rq on this CPU.
-> +				 *
-> +				 * Proxy donors will temporarily migrate here
-> +				 * before a wakeup or an optimistic spinner
-> +				 * can grab the lock.
-> +				 */
-> +				idle = (unsigned long)idle_task(raw_smp_processor_id());
-> +				owner_flags = idle | MUTEX_FLAG_STEAL | owner_flags;
-> +			}
-> +		}
-> +
-> +		if (atomic_long_try_cmpxchg_release(&lock->owner, &owner, owner_flags)) {
->  			if (owner & MUTEX_FLAG_WAITERS)
->  				break;
->  
-> diff --git a/kernel/locking/mutex.h b/kernel/locking/mutex.h
-> index 3e263e98e5fc..eb4180745da0 100644
-> --- a/kernel/locking/mutex.h
-> +++ b/kernel/locking/mutex.h
-> @@ -33,8 +33,9 @@ struct mutex_waiter {
->  #define MUTEX_FLAG_WAITERS	0x01
->  #define MUTEX_FLAG_HANDOFF	0x02
->  #define MUTEX_FLAG_PICKUP	0x04
-> +#define MUTEX_FLAG_STEAL	0x08
->  
-> -#define MUTEX_FLAGS		0x07
-> +#define MUTEX_FLAGS		0x0F
->  
->  /*
->   * Internal helper function; C doesn't allow us to hide it :/
-> ---
-> 
-> The results with temporary switch to idle + STEAL are:
-> 
->     ==================================================================
->     Test          : sched-messaging
->     Units         : Normalized time in seconds
->     Interpretation: Lower is better
->     Statistic     : AMean
->     ==================================================================
->       Test:                   vanilla                 handoff             STEAL + handoff          idle + STEAL
->        1-groups:         3.12 (0.00 pct)         3.47 (-11.21 pct)       3.63 (-16.34 pct)       3.59 (-15.06 pct)
->        2-groups:         3.43 (0.00 pct)         4.33 (-26.23 pct)       4.14 (-20.69 pct)       3.48 (-1.45 pct)
->        4-groups:         4.05 (0.00 pct)         5.95 (-46.91 pct)       5.45 (-34.56 pct)       4.00 (1.23 pct)
->        8-groups:         4.29 (0.00 pct)         9.56 (-122.84 pct)      7.80 (-81.81 pct)       4.31 (-0.46 pct)
->       16-groups:         5.89 (0.00 pct)        12.29 (-108.65 pct)     11.89 (-101.86 pct)      5.91 (-0.33 pct)
-> 
->       * Data points have > 10% run to run variance on all versions
-> 
-> 
-> My machine has held up for some time with Experiment 3 so I'm
-> fairly confident at the very least mutual exclusion is holding
-> up - I haven't seen any lockups / hung task either so hopefully
-> other bits are fine too :-)
+> There is now one central place for the fixups. Good. But now there
+> is that catch-all thing, which is the replacement for the former
+> manufacturer fixup if I read your code correctly.
 
-This looks much better from a performance perspective. IIUC, the idle task in
-this case is being used as a temporary owner marker, but find_proxy_task() would
-treat it as a real mutex owner and could set idle->blocked_donor, right?
+I think so, but what is the problem with that? I mean, maybe it wasn't
+so nice to set up in the first place, and we may want to limit the
+propagation of manufacturer wide fixups. I don't find that catch-all
+entry useless though. But at this stage we anyway need an equivalent,
+hence the manufacturer wide catch-all entry.
 
-Should we handle the STEAL state explicitly in find_proxy_task() to avoid
-creating a donor relationship with the idle task?
+> BUT. We don't have a concept of a 'manufacturer'. We don't match the
+> manufacturer id.
+
+This is very easy to do, maybe I should have done that instead of having
+a blind manufacturer-wide fixup. At this stage I do not see the
+difference, but I can easily add the first ID byte to match.
+
+> The manufacturer is just set as an additional
+> information if there is already  matching entry for a specific
+> flash, so we already know the exact part. Before the generic driver,
+> this might have made sense. The intention was to have a common place
+> for the default flags for all *known* flashes of a manufacturer
+> (which probably also was the result of the core rewrite). But now,
+> we might have flashes we do not know, that is, aren't in the
+> database. At least I would assume, that the manufacturer fixups are
+> still applied though. There were already a few different times I
+> proposed to have fixups for SNOR_ID(vendor_id).
+>
+> I mean, even you fell into the trap that you'll have to have that
+> catch-all/fallback entry in the flash db (can't find the mail
+> anymore though, so please correct me if I'm wrong).
+
+Yes, absolutely.
+
+> Also, having the fixups separate from the flash db, we can use the
+> generic flash driver and still have some fixups for given flashes.
+
+Nothing we cannot do with the current approach, no? You will anyway need
+some kind of identification in order to apply the fixups. I prefer
+having them in vendor drivers rather than in the core.
+
+> If - for example - one would be adding locking support later,
+> nothing but the new flashdb entry has to be added as the fixups are
+> still applied.
+
+Yes, but that's also possible with the approach carried here (using the
+Macronix and now Winbond catch all entries).
+
+>>> IMHO that really
+>>> clutters the code.
+>>
+>> Clearly an opinion I do not share. Maybe I am missing something.
+>>
+>>> As a fun fact, spi_nor_match_id() will have the
+>>> unexpected side effect of setting nor->manufacturer.
+>>
+>> Not sure I get why this is unexpected?
+>
+> The signature of the function is:
+> static const struct flash_info *spi_nor_match_id(struct spi_nor *nor,
+> 						 const u8 *id)
+>
+> Clearly it will return a pointer to the flash_info entry for a given
+> id. But as a side effect it also sets nor->manufacturer. What if I'd
+> call that twice with different ids? Maybe it's just me, but it looks
+> like a pure function but isn't. I probably got burnt by the generic
+> nor driver which hit that in the first place.
+
+Maybe the name can be improved, naming is never easy, but once there is
+a match, associating a manufacturer name to the device doesn't sound so
+silly to me :)
+
+>>> So here's how I'd do it:=20
+>>> (1) remove spi_nor_manufacturer.
+>>> (2) have a list of initcalls in the core to call into the individual
+>>>     vendor modules (that could later be replaced by something more
+>>>     sophiticated)
+>>> (3) that initcall will then call spi_nor_register_parts(const struct
+>>>     flash_info *parts, int nparts)
+>>> (4) (optionally) calls spi_nor_register_fixups(const struct
+>>>     spi_nor_fixup *fixups, int nfixups)
+>>
+>> I've been trying hard to follow your approach, but really, I don't get
+>> the point. Initcalls are not possible here, or it would prevent
+>> CONIFG_MTD_SPI_NOR=3Dm so I went for an alternative approach with an init
+>> registration which I believe matches your expectations. This is not
+>> an actual problem.
+>>
+>> But registering parts and fixups independently, maybe, but again, why?
+>> What is the intended benefit? We now need to go through 96 (spi-nor
+>> wide) fixups. But what do we get in exchange?
+>
+> I don't get that. You already have a (new) winbond_fixups[] for
+> example. What is the difference between having that set in
+> spi_nor_manufacturer vs having that in a
+>
+> winbond_init() {
+> 	spi_nor_register_flash_devices(&winbond_nor_parts);
+> 	spi_nor_register_fixups(&winbond_fixups);
+
+The difference is that you end up with a big list of parts (like before)
+and a big list of fixups as well, which are not related to the parts. So
+when you have a match with a part, for each of the 6 fixup cases, you
+will check every single fixup entry (96 at this stage) for a
+match. Before this was limited to a dozen at most. OTOH I do not see any
+benefit in registering the parts and fixups like that, compared to just
+exposing the (exported) manufacturer structures.=20
+
+> And probably setting the manufacturer name in winbond_nor_fixups().
+
+Here again: yes that's possible, but for what benefit?
+
+> I guess that all falls apart because of the empty match entry. That
+> could be replaced with the SNOR_ID(winbond_id), though. Then we have
+> *real* per manufacturer fixups.
+
+Ah ok, I believe we agree here, so in the end, do you prefer having a
+manufacturer wide fixup entry without SNOR_ID? Or do you prefer to
+always have an ID to match with, and use the manufacturer ID for that? I
+don't think there is a need for filling an SNOR_ID for this entry since
+the fixup list is associated to the parts list though.
+
+> That is basically what commit afe1ea1344bb ("mtd: spi-nor: add
+> support for Macronix Octal flash") made.
+>
+>> From my point of view:
+>> extra churn and boilerplate, nothing particularly better than before. I
+>> must admit, I do not understand your aversion for the manufacturer
+>> structure. So while I like the idea of a flash-info independent fixup
+>> list (which I implemented in v3), I do not understand the need for this
+>> extra step.
+>
+> See above.
+>
+>> Since I do not get the point of this request, I prefer to not implement
+>> it, because I will anyway do it the wrong way. If someone wants to make
+>> a proposal, I will have a look, but at this point I need to back
+>> off.
+>
+> I can do that myself, but I'd like to avoid any code churn. So I
+> don't know what you've already tried to come up with, but if there
+> is something which somewhat goes in the right direction of moving the
+> registration to a function inside of the vendor modules. That would
+> really be appreciated.
+
+Unfortunately after struggling hours with it, I dropped it entirely /o\
+I experimented using initcalls, creating those parts/fixup registration
+helpers, etc.
+
+>> There are already ~70 patches pending which I hope will be applied
+>> ASAP after -rc1 gets tagged and we agree on the remaining points (there
+>> are other comments from you and Takahiro which I need to address).
+>
+> Looks like I need to apply the patches to the tree, too. Honestly,
+> I've never done that, so I first need to actually see how it's done
+> and if I even have access to the tree.
+
+Thanks. I can help you with that. My setup has been overly simplified
+since I switched to b4. I will share the the details privately.
+
+[...]
+
+>>>> --- a/drivers/mtd/spi-nor/gigadevice.c
+>>>> +++ b/drivers/mtd/spi-nor/gigadevice.c
+>>>> @@ -64,7 +64,6 @@ static const struct flash_info gigadevice_nor_parts[=
+] =3D {
+>>>>  		.id =3D SNOR_ID(0xc8, 0x40, 0x19),
+>>>>  		.name =3D "gd25q256",
+>>>>  		.flags =3D SPI_NOR_HAS_LOCK | SPI_NOR_HAS_TB | SPI_NOR_TB_SR_BIT6,
+>>>> -		.fixups =3D &gd25q256_fixups,
+>>>>  		.fixup_flags =3D SPI_NOR_4B_OPCODES,
+>>>
+>>> The fixup_flags should also go into the fixups list.
+>>
+>> Yes, we can use a similar logic here. Actually if at some point we want
+>> to get rid of those flags, we could transform the flags into proper
+>> fixup functions, but I'm not going to do that now.
+>
+> The flags actually serve the purpose of *not* having a huge amount
+> of different fixup functions. So these should be kept for now. As an
+> alternative, with the new list it might be possible to have multiple
+> fixups for the same flash part. In any case, the fixup_flags have to
+> be removed from the flash_info struct.
+
+I've added a patch for that.
+
+>> [...]
+>>
+>>>> +/* PM25LV parts have no JEDEC ID and are likely matched by name */
+>>>> +static bool issi_pm25lv_match(const struct spi_nor *nor)
+>>>> +{
+>>>> +	const char *name =3D nor->info ? nor->info->name : NULL;
+>>>> +
+>>>> +	return name && !strncmp(name, "pm25lv", 6);
+>>>
+>>> Won't just strcmp("pm25lv", name) do it? Both arguments are
+>>> guaranteed to be NUL terminated. The above would also match
+>>> "pm25lvextrabytes", no, and we get rid of that redundant size
+>>> argument.
+>>
+>> No it won't, because that would no longer be a match, you would compare
+>> pm25lv against pm25lv010 or pm25lv512 -> no match if you don't limit to
+>> the first 6 bytes. Since names are part of the sysfs ABI, we cannot just
+>> modify the names for that. We also need two different entries (two
+>> different sizes) since we do not even match with an ID.
+>
+> Ah I see, you actually *want* that extra bytes, in that case, please
+> use strstarts().
+
+Yeah, no pb.
+
+>> [...]
+>>
+>>>> @@ -233,6 +230,17 @@ static int mt25qu512a_post_bfpt_fixup(struct spi_=
+nor *nor,
+>>>>  	return 0;
+>>>>  }
+>>>>=20=20
+>>>> +/*
+>>>> + * n25q00a parts share the first same 3 ID bytes with mt25qu01g.
+>>>> + * In order to not mix the fixups, further filter out using the part =
+name.
+>>>
+>>> How would that work? The part name is also set by the duplicated ID,
+>>> so the first one wins, no?
+>>
+>> - First part (mt25qu01g) is checked
+>>   -> ID match
+>> - There is a match function where we compare the name with n25q00a
+>>   -> no match, not applying the fixup
+>>
+>> - Second part (n25q00a) is checked
+>>   -> ID match
+>> - There is a match function where we compare the name with n25q00a
+>>   -> name match
+>>
+>> The fixup is only applied for n25q00a.
+>
+> Ah, I now get what you want to try to achieve. Only the first three
+> bytes (I missed that in the function doc) are shared. So no actual ID
+> collision.
+>
+>> For the other chip we can just give more ID bytes for the match.
+>
+> Giving there are more IDs for the n25q00a.
+>
+>> So I believe there is no problem here?
+>
+> Yes, no problem. But use strncmp() here, because this actually
+> matches just one particular flash.
+
+Ok.
+
+> FWIW I don't think this is sustainable, though. It's basically a
+> workaround for the different matching in spi_nor_match_id() (first
+> entry wins) and the fixups ID matching (any matching entry is
+> applied). Though, I can't think of a more generic solution for now.
 
 Thanks,
--Andrea
+Miqu=C3=A8l
