@@ -1,263 +1,267 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA68C377AAD;
-	Mon, 31 Aug 2026 20:25:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C770F1F3BA2;
+	Mon, 31 Aug 2026 20:29:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788207910; cv=none; b=lETL+ya1jHiXezhI69k2SBADVSC9rp8060Bwj8oVIxbN0oycBwK/bW5aOMPtr/lmgp/0V3a3Mfq6WJG/K6MMUkKuu/XWcfRiNOjG0Pswf/B/YE+Rqghx0q2yekphRpS9NWMycL+9uXHFB95jToajHsYC90D6niKa3b92rP5GldY=
+	t=1788208145; cv=none; b=hJLLLHCKsUer7kvYTV03yc278kFX4pfJee5/J/EqZ5jagTa1Z61xRQVmciIxBuwAbGCjQ1rJoYL5bvRFfgCjYnMfc8kbVWCYwzs1LWUTy0nmG0l2nB0xr5CHW3ADH3UahMklb/7wI+GsS7VqqwZp80DR0ATGCbCIPGE7zLTIDCw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788207910; c=relaxed/simple;
-	bh=1u5m0X4pQbLUl1Wtl8F8Vk/mWL0JZi4iPgSmQ+Ldy6g=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=H3qeS2ro9u9mYCUT4gwWogb/qQxwpGTIh2d3kKY0SdgeC4tQGoDxEn3/WLgOwqQPAMKlQeEP10iibtfEQh+S0GJRuuirvaVxIQaxSWG6PpMa1csVRXO0QBfdaoCswTfh86Z4Z4HITgC00Z1aFKJkS1Nz5gkPlSzqXeYmSk4L6uY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=kWqhP6vN; arc=none smtp.client-ip=192.198.163.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1788208145; c=relaxed/simple;
+	bh=a+GIM92rmgJeACBp1RoLsF/SPCU68ZuoZrXn/Nz71x8=;
+	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
+	 Subject:From:To:Cc:Date; b=VAAvzS7lD89qh+e+ExMLBGCHjXrfxsiZNVabhci0RgMD5ZStTMvjp9eJDxNa6eHruTzp8zjrgE+s3+6ZGRok9wXETFNNsyzaQ9Xq22VhFotER2AIyOp+UI3k3TsW9rHuZWCl6LubHuJ1Z5oBXRbpjUwyDzvkO+rh0Syk2orDlgo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hxPE8hRo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="kWqhP6vN"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788207908; x=1819743908;
-  h=message-id:subject:from:to:cc:date:in-reply-to:
-   references:content-transfer-encoding:mime-version;
-  bh=1u5m0X4pQbLUl1Wtl8F8Vk/mWL0JZi4iPgSmQ+Ldy6g=;
-  b=kWqhP6vN/bXopADc6BX3xtJl+svga5HUmo26a5AVbI4xqftWxOH5S9FY
-   B+h5EZw9iu2d7VyDiP+ZySnoQoHV35L8BkxghEV69JBZZLtH6JNaPbwgj
-   4tYWfcoMP+CoJCsdd4603bA2MqeA/h9rgmNYM47lk8cLoQwsKI0mCZ+YJ
-   F3XHklcMh5qLVCp9B4VhCpjd5Ia0AO/NHqQmm2C/t0hTkk289e8kHXrtw
-   ITjVmwUtr+rXtUtSjaKNMBBJSJckahb2+sqVO71BFDaFMsfY+f2TTXoZv
-   F08r4b9qJr3aPj/c0cRP8XhDpMu2njEfPDqs6U673IbpO1ZMe4UFnvX+x
-   A==;
-X-CSE-ConnectionGUID: gQuOx6F1TomQdD2lTcZWmw==
-X-CSE-MsgGUID: 79enw1/YTyKYZKEF1R4CuQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11892"; a="99286364"
-X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; 
-   d="scan'208";a="99286364"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 13:25:06 -0700
-X-CSE-ConnectionGUID: 5GrD7GWkTAu7hCsazB5v/w==
-X-CSE-MsgGUID: 2lEplv7pSEys9hOBZWssVw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; 
-   d="scan'208";a="273080572"
-Received: from unknown (HELO [10.241.243.185]) ([10.241.243.185])
-  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 13:25:06 -0700
-Message-ID: <a1a0bc24108e68656041dc17824d6b88b4120058.camel@linux.intel.com>
-Subject: Re: [PATCH] sched/cache: Fix use-after-free of the mm replaced by
- exec
-From: Tim Chen <tim.c.chen@linux.intel.com>
-To: Hyunwoo Kim <imv4bel@gmail.com>, "Chen, Yu C" <yu.c.chen@intel.com>
-Cc: Kees Cook <kees@kernel.org>, Christian Brauner <brauner@kernel.org>, 
- Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, Juri
- Lelli <juri.lelli@redhat.com>, Vincent Guittot
- <vincent.guittot@linaro.org>, Dietmar Eggemann <dietmar.eggemann@arm.com>,
- Steven Rostedt	 <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, Mel
- Gorman	 <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, K
- Prateek Nayak	 <kprateek.nayak@amd.com>, Shrikanth Hegde
- <sshegde@linux.ibm.com>, Qais Yousef	 <qyousef@layalina.io>, Aaron Lu
- <ziqianlu@bytedance.com>, Srikar Dronamraju	 <srikar@linux.ibm.com>,
- Vineeth Remanan Pillai <vineethr@linux.ibm.com>, 
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org,
- linux-fsdevel@vger.kernel.org,  Ingo Molnar <mingo@redhat.com>, Peter
- Zijlstra <peterz@infradead.org>, "chen.yu@linux.dev"	 <chen.yu@linux.dev>
-Date: Mon, 31 Aug 2026 13:25:06 -0700
-In-Reply-To: <apXV6t-7drLDf-lL@v4bel>
-References: <apPb-Dr4nPYuHQOK@v4bel>
-	 <825d9dcc-b052-4367-a9c7-15efc4b354f8@intel.com> <apXV6t-7drLDf-lL@v4bel>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.1 (3.58.1-1.fc43) 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hxPE8hRo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A23FD1F000E9;
+	Mon, 31 Aug 2026 20:29:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788208143;
+	bh=wW/xUMPshJh+BjnoH/KxQ2ctdTr8ercnNXnopyZGx30=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=hxPE8hRoJ2HsM/zvd6zs/2yhix+aWMoxDNTSsSp25NZkGy9/HMxeC26BsZNQrui1r
+	 k+78JSwPuFeUVHQzDbu3pAZX1GAkQQta+Wdrh1lVVCNa7OOmDdCe15vw8EbCw9vTxW
+	 +tuN362zr1n8ebVGC+0NL9/HxfUQt/gMikudy/TddVxSRq0Fh+86Tzu1IZrTL4kDyE
+	 QPtG3NTkMCs1TT+aGjEWOyVjihHPGFcsedBwesLEP1vIuuIrafaOl5xTizJD1zHYAf
+	 0AQLgrZwZn47JRAQcTQaVdPHcNLz/osnS3lGGU7eE0cBhYlahWw3qjqNz7YzMKtihg
+	 2aXZ4lD3NyuVg==
+Content-Type: multipart/mixed; boundary="===============1722735103380655568=="
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Message-Id: <f829962635d9d46dc01bea9d7777a8099af30f79068d978e8e8bb5cd85f014f1@mail.kernel.org>
+In-Reply-To: <20260831192139.94895-1-ebiggers@kernel.org>
+References: <20260831192139.94895-1-ebiggers@kernel.org>
+Subject: Re: [PATCH bpf-next] bpf: crypto: Use AES-CBC and AES-ECB libraries
+From: bot+bpf-ci@kernel.org
+To: ebiggers@kernel.org,bpf@vger.kernel.org,vadim.fedorenko@linux.dev,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com
+Cc: linux-crypto@vger.kernel.org,linux-kernel@vger.kernel.org,martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,emil@etsalapatis.com,ihor.solodrai@linux.dev,john.fastabend@gmail.com,kmehltretter@gmail.com,ebiggers@kernel.org,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Mon, 31 Aug 2026 20:29:02 +0000 (UTC)
 
-On Tue, 2026-09-01 at 04:28 +0900, Hyunwoo Kim wrote:
-> On Mon, Aug 31, 2026 at 12:22:45PM +0800, Chen, Yu C wrote:
-> > Hi Hyunwoo,
-> >=20
-> > On 8/30/2026 3:30 PM, Hyunwoo Kim wrote:
-> > > When the waker cannot use the wakelist, ttwu_queue() takes the target=
- rq
-> > > lock and goes down into update_curr(). If the target rq belongs to an=
-other
-> > > CPU, the task handed to account_mm_sched() is the one running on that=
- CPU,
-> > > not the task being woken.
-> > >=20
-> > > account_mm_sched() reads p->mm and updates mm->sc_stat. Nothing keeps=
- that
-> > > mm alive. The rq lock and rq->cpu_epoch_lock it holds have nothing to=
- do
-> > > with the lifetime of the mm.
-> > >=20
-> > > If that task happens to be in execve(), exec_mmap() points tsk->mm an=
-d
-> > > tsk->active_mm at the new mm, and exec_mm_put_old() from setup_new_ex=
-ec()
-> > > drops the old one. free_bprm() does the same when exec fails. On the =
-way
-> > > from mmput() down to __mmdrop(), mm_destroy_sched() calls free_percpu=
-() on
-> > > sc_stat.pcpu_sched and free_mm() returns the mm_struct.
-> > >=20
-> > > Whoever already read the old pointer keeps using it. It adds to runti=
-me in
-> > > the freed per-cpu area and reads sc_stat in the freed mm_struct. Depe=
-nding
-> > > on the condition it also writes sc_stat.cpu. That is a use-after-free=
-.
-> > >=20
-> > > Commit 9f23469401b0 ("sched/cache: Fix potential NULL mm pointer acce=
-ss")
-> > > changed the remaining p->mm dereference to the local variable, and sa=
-id the
-> > > active_mm reference keeps the structure allocated. That holds for the=
- other
-> > > paths that detach an mm, since they take an mmgrab_lazy_tlb() referen=
-ce.
-> > > exec reassigns active_mm to the new mm as well, so that reference is =
-gone.
-> > > What is left is the mm_users reference in bprm->old_mm, and dropping =
-it is
-> > > the free.
-> > >=20
-> > >               CPU0                                CPU1
-> > >=20
-> > >                                        write(pipe)
-> > >                                        try_to_wake_up()
-> > >                                          ttwu_queue()      // takes r=
-q0 lock
-> > >                                            enqueue_task_fair()
-> > >                                              update_curr()
-> > >                                                update_se()
-> > >                                                  account_mm_sched()
-> > >                                                    mm =3D rq0->curr->=
-mm
-> > >                                                          // old mm
-> > >    execve()
-> > >      exec_mmap()                       // tsk->mm =3D new mm
-> > >      setup_new_exec()
-> > >        exec_mm_put_old()
-> > >          mmput() -> ... -> __mmdrop()
-> > >            mm_destroy_sched()          // free_percpu()
-> > >            free_mm()
-> > >                                                    read mm->sc_stat.e=
-poch
-> > >                                                          // use-after=
--free
-> > >=20
-> >=20
-> > Ah, thanks for catching this.
-> >=20
-> > > ---
-> > >   fs/exec.c             |  1 +
-> > >   include/linux/sched.h |  4 ++++
-> > >   kernel/events/core.c  |  2 ++
-> > >   kernel/sched/fair.c   | 16 ++++++++++++++++
-> > >   4 files changed, 23 insertions(+)
-> > >=20
-> > > diff --git a/fs/exec.c b/fs/exec.c
-> > > index 745f6eb5279e6..6194c38807980 100644
-> > > --- a/fs/exec.c
-> > > +++ b/fs/exec.c
-> > > @@ -916,6 +916,7 @@ static void exec_mm_put_old(struct mm_struct *old=
-_mm)
-> > >   {
-> > >   	setmax_mm_hiwater_rss(&current->signal->maxrss, old_mm);
-> > >   	mm_update_next_owner(old_mm);
-> > > +	sched_cache_exec_done();
-> > >   	mmput(old_mm);
-> > >   }
-> > > diff --git a/include/linux/sched.h b/include/linux/sched.h
-> > > index 8b3d47a325cca..6ae31bffe049e 100644
-> > > --- a/include/linux/sched.h
-> > > +++ b/include/linux/sched.h
-> > > @@ -2415,10 +2415,14 @@ struct sched_cache_stat {
-> > >   	int cpu;
-> > >   } ____cacheline_aligned_in_smp;
-> > > +void sched_cache_exec_done(void);
-> > > +
-> > >   #else
-> > >   struct sched_cache_stat { };
-> > > +static inline void sched_cache_exec_done(void) { }
-> > > +
-> > >   #endif
-> > >   #ifndef MODULE
-> > > diff --git a/kernel/events/core.c b/kernel/events/core.c
-> > > index a6c8e38a31104..2f29cbccf03f1 100644
-> > > --- a/kernel/events/core.c
-> > > +++ b/kernel/events/core.c
-> > > @@ -5427,6 +5427,8 @@ attach_task_ctx_data(struct task_struct *task, =
-struct kmem_cache *ctx_cache,
-> > >   	if (!cd)
-> > >   		return -ENOMEM;
-> > > +	/* @old, loaded by the try_cmpxchg() below, is only stable under RC=
-U. */
-> > > +	guard(rcu)();
-> >=20
-> > Is this change related to this UAF issue?
->=20
-> Duh.. that one is unrelated. My mistake.
->=20
-> >=20
-> > > +/* exec() has switched to the new mm and is about to drop the old on=
-e. */
-> > > +void sched_cache_exec_done(void)
-> > > +{
-> > > +	struct rq_flags rf;
-> > > +	struct rq *rq;
-> > > +
-> > > +	/*
-> > > +	 * account_mm_sched() dereferences rq->curr->mm under this rq's loc=
-k,
-> > > +	 * so a remote CPU can still be using the old mm. The lock cycle wa=
-its
-> > > +	 * for it, and the store to tsk->mm cannot be reordered past the
-> > > +	 * release, so later acquirers see the new mm.
-> > > +	 */
-> > > +	rq =3D this_rq_lock_irq(&rf);
-> >=20
-> > A smart fix, learnt! It behaves like a synchronize_rcu() to protect aga=
-inst
-> > the read in account_mm_sched(). Small open: since the context of invoki=
-ng
-> > account_mm_sched() is preemption-disabled, I wonder if we can simply us=
-e
-> > synchronize_rcu() directly instead of this_rq_lock_irq() - just to avoi=
-d
-> > contention for rq-lock in heavy system?
+--===============1722735103380655568==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Thanks to Kyunwoo to show this potential use-after-free problem.
+> BPF crypto was implemented using the lskcipher API, which doesn't seem
+> to be going anywhere.  lskcipher supports only "arc4", "cbc(aes)",
+> "ecb(aes)", and only with unoptimized implementations.
 
-While synchronize_rcu() avoids rq lock, it could introduce a long delay
-of a full grace period that will be undesirable.
+The claim that lskcipher supports only these three specific algorithm
+names is not accurate. The cbc and ecb templates in crypto/cbc.c and
+crypto/ecb.c instantiate lskcipher interfaces for any plain cipher
+algorithm, not just AES:
+
+crypto/cbc.c:crypto_cbc_create() calls lskcipher_alloc_instance_simple()
+crypto/ecb.c:crypto_ecb_create() calls lskcipher_alloc_instance_simple()
+
+So cbc(<any-cipher>) and ecb(<any-cipher>) are valid lskcipher
+algorithms. The kernel includes about 14 plain cipher algorithms besides
+AES, including sm4, des, des3_ede, camellia, twofish, aria, blowfish,
+cast5, cast6, serpent, seed, khazad, anubis, tea, and xtea.
+
+The pre-patch code passed params->algo directly to
+crypto_alloc_lskcipher() with no whitelist, so a BPF program could use
+cbc(sm4), cbc(des3_ede), ecb(camellia), or ecb(twofish).
+
+After this patch, bpf_crypto_find_algo() only matches the two-entry
+table with cbc(aes) and ecb(aes), so all non-AES cbc/ecb modes now fail.
+
+The changelog justifies dropping ARC4 but does not mention that this
+also drops support for all non-AES block ciphers. Should the commit
+message explicitly state that non-AES cbc()/ecb() support is being
+removed, or should the characterization of lskcipher's scope be
+corrected?
+
+Additionally, the error code for an unsupported algorithm changes from
+-EOPNOTSUPP (old has_algo failure path) to -ENOENT (new
+bpf_crypto_find_algo() path), which is a visible behavior change for
+existing BPF programs that inspect errno.
+
+[ ... ]
+
+> diff --git a/kernel/bpf/Kconfig b/kernel/bpf/Kconfig
+> index eb3de35734f09..822599b42be2e 100644
+> --- a/kernel/bpf/Kconfig
+> +++ b/kernel/bpf/Kconfig
+> @@ -87,6 +87,15 @@ config BPF_UNPRIV_DEFAULT_OFF
+>
+>  	  If you are unsure how to answer this question, answer Y.
+>
+> +config BPF_CRYPTO
+> +	def_bool y
+> +	depends on BPF_SYSCALL
+> +	select CRYPTO_LIB_AES_CBC
+> +	select CRYPTO_LIB_AES_ECB
+> +	help
+> +	  Provide the kfuncs needed for BPF programs to encrypt and decrypt
+> +	  data. The supported algorithms are AES-CBC and AES-ECB.
+> +
+
+The def_bool y makes BPF_CRYPTO invisible and unconditionally enabled
+whenever CONFIG_BPF_SYSCALL=y, so the AES library code is always linked
+with no opt-out.
+
+Before this patch, kernel/bpf/Makefile gated crypto.o on:
+
+  ifneq ($(CONFIG_CRYPTO),)
+  obj-$(CONFIG_BPF_SYSCALL) += crypto.o
+  endif
+
+so a CONFIG_BPF_SYSCALL=y, CONFIG_CRYPTO=n kernel previously built
+neither the BPF crypto kfuncs nor any AES code. Now the AES
+key-schedule, CBC, and ECB library code is unconditionally present.
+
+This is particularly notable given that the commit message says AES-ECB
+"isn't appropriate in new systems and should be dropped" yet it is now
+unconditionally linked into every BPF_SYSCALL kernel.
+
+Should this be a user-selectable option with a prompt like "bool 'BPF
+crypto kfuncs'" so it can be disabled, or is the intent really to make
+it always-on?
+
+[ ... ]
+
+> diff --git a/crypto/bpf_crypto_skcipher.c b/crypto/bpf_crypto_skcipher.c
+> deleted file mode 100644
+> index a88798d3e8c87..0000000000000
+> --- a/crypto/bpf_crypto_skcipher.c
+> +++ /dev/null
+> @@ -1,83 +0,0 @@
+[ ... ]
+> -static void *bpf_crypto_lskcipher_alloc_tfm(const char *algo)
+> -{
+> -	return crypto_alloc_lskcipher(algo, 0, 0);
+> -}
+
+Deleting this file removes the last in-tree caller of
+crypto_alloc_lskcipher(). After this patch, the symbol only exists at
+its definition and export in crypto/lskcipher.c, with no remaining
+callers anywhere in the tree.
+
+Given the premise that the lskcipher API "doesn't seem to be going
+anywhere," should crypto_alloc_lskcipher() be removed in a follow-up, or
+left as an exported API with zero users?
+
+[ ... ]
+
+> diff --git a/kernel/bpf/crypto.c b/kernel/bpf/crypto.c
+> index 51f89cecefb4d..8cdc16f9b374a 100644
+> --- a/kernel/bpf/crypto.c
+> +++ b/kernel/bpf/crypto.c
+[ ... ]
+> @@ -146,7 +99,6 @@ __bpf_kfunc struct bpf_crypto_ctx *
+>  bpf_crypto_ctx_create(const struct bpf_crypto_params *params, u32 params__sz,
+>  		      int *err)
+>  {
+> -	const struct bpf_crypto_type *type;
+>  	struct bpf_crypto_ctx *ctx;
+>
+>  	if (!params || params->reserved[0] || params->reserved[1] ||
+> @@ -155,69 +107,40 @@ bpf_crypto_ctx_create(const struct bpf_crypto_params *params, u32 params__sz,
+>  		return NULL;
+>  	}
+>
+[ ... ]
+> +	ctx = kzalloc_obj(*ctx);
+> +	if (!ctx) {
+> +		*err = -ENOMEM;
+> +		return NULL;
+> +	}
+> +
+> +	if (!bpf_crypto_find_algo(params, &ctx->algo)) {
+> +		*err = -ENOENT;
+> +		goto out;
+> +	}
+> +
+> +	switch (ctx->algo) {
+> +	case BPF_ALGO_AES_CBC:
+> +	case BPF_ALGO_AES_ECB:
+> +		if (params->authsize)
+> +			*err = -EOPNOTSUPP;
+> +		else
+> +			*err = aes_preparekey(&ctx->key.aes, params->key,
+> +					      params->key_len);
+> +		break;
+> +	default:
+> +		WARN_ON(1);
+> +		*err = -ENOENT;
+> +		break;
+> +	}
+> +
+> +out:
+> +	if (*err) {
+> +		kfree_sensitive(ctx);
+> +		return NULL;
+> +	}
+> +
+>  	refcount_set(&ctx->usage, 1);
+> -
+>  	return ctx;
+>  }
+
+Does this code have a double-fetch issue? The function now uses the
+caller-supplied 'int *err' out-parameter as its own internal success
+flag: every failure path stores into *err, then the 'if (*err)' at the
+'out:' label re-reads it to decide whether to free ctx and fail.
+
+The 'err' parameter is classified by the verifier as KF_ARG_PTR_TO_MEM,
+so a BPF program can legally pass a pointer into a shared map value
+rather than its own stack. That makes the store followed by the reload a
+double fetch of concurrently-writable memory.
+
+The pre-patch version never read *err - it used distinct error labels
+and returned NULL unconditionally on error, so the failure decision
+could not be influenced by the caller.
+
+If the reload observes 0 because another CPU zeroed the map value
+between the store and the load, the function takes the success path for
+a create that actually failed. For instance, if aes_preparekey() returns
+-EINVAL from aes_check_keylen() before assigning enc_key->len and
+enc_key->nrounds, the kzalloc'ed key stays all-zero with nrounds == 0.
+
+A later bpf_crypto_encrypt()/bpf_crypto_decrypt() on that ctx reaches
+aes_encrypt_generic()/aes_decrypt_generic(), which compute 'int n =
+nrounds - 1' (= -1) and then run 'do { ... } while (--n);', reading 16
+bytes past the round-key pointer per iteration for roughly 2^32
+iterations - an unbounded out-of-bounds read and unrecoverable soft
+lockup.
+
+The reload can also mis-handle the -ENOENT path from
+bpf_crypto_find_algo(), returning a ctx whose algo is uninitialized
+(BPF_ALGO_AES_CBC == 0) with no key.
+
+Could this be fixed by using a local 'int ret' for the internal flow and
+assigning '*err = ret' exactly once?
+
+[ ... ]
+
+> @@ -86,23 +83,17 @@ struct bpf_crypto_ctx {
+>   * As crypto API functions use GFP_KERNEL allocations, this function can
+>   * only be used in sleepable BPF programs.
+
+The kernel-doc for bpf_crypto_ctx_create() still justifies the
+KF_SLEEPABLE requirement with "As crypto API functions use GFP_KERNEL
+allocations."
+
+This patch removes every crypto API call from the function
+(crypto_alloc_lskcipher()/crypto_lskcipher_setkey() are gone). The body
+now only does kzalloc_obj(), bpf_crypto_find_algo(), and
+aes_preparekey(), and the AES library is documented as usable in "Any
+context".
+
+The conclusion still holds because kzalloc_obj() uses GFP_KERNEL, not
+because of the crypto API. Could the comment be updated to reflect the
+actual reason for the sleepable restriction after this refactoring?
 
 
-I think a better fix is to decouple sc_stat from mm and make it its own str=
-ucture.
-Then we can do proper refcounting and rcu management on sc_stat itself.
-We will let task points to sc_stat with proper ref count and change the acc=
-ess
-as task->sc_stat directly nstead of via task->mm->sc_stat.
+---
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
 
-Then we will know sc_stat exists in account_mm_sched() execution
-as long as a task points to it and do not have to worry that sc_stat is
-released due to the mm life cycle.
-
-In the first 2 patches of the prctl control series for cache aware scheduli=
-ng
-we posted, we introduced the change I described above and should=C2=A0
-fix this issue without additional rq locking or synchronize_rcu() overhead.
- https://lore.kernel.org/lkml/cover.1787955777.git.tim.c.chen@linux.intel.c=
-om/
-
-We should probably prioritize to merge the first couple of patches from
-that series now in light of this issue.  It will make maintenance and futur=
-e
-modification of the cache aware scheduling code easier.
-
-Tim
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/33431341694
+--===============1722735103380655568==--
