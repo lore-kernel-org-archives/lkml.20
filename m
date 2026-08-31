@@ -1,145 +1,503 @@
-Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94C4E3A8758
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 22:05:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8DD73A257A
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 22:06:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788213942; cv=none; b=GIjuhR9ty3I/PO3OU6r2eUQ1KwsVZY6dJ0y+aaLHE6lIM/Bsu9N0R8vpsm21JI1X46jf9yM/FBBUxJEm8JxwCL92i8of772Hpl+Xhz4YRjFQcFd53o/Yg5xJ3mlPkzJKOou7wkmGBtKjCN5thJM71SQ1hDY3mYDOBTzIfbpuyFU=
+	t=1788213973; cv=none; b=ADe+fdzHNebTa4jNuvtgA16xm8c7OBszF7OZsGb41UYVWsd3fhi5wbm/tAZmsMYP8bCItkpvWufNtvhYj4OBz/2ca9r7umwKkc8uZD7eLwwPfIAoTZQkqGnkuanUGIeqadnCBg7YE08jfon5dQSwN0so85q3bCzJhqaCaREsnDo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788213942; c=relaxed/simple;
-	bh=XP6yj8rw6hG7bTSPi7oGkgkS+EJ6C8E4iteUrKh0Fh8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ozaxnupd78sEeO/O0IKehcMaCwOdx8OXcKkEqyRNgFqfdq7ucxitHBMyshswRtg2nh6I86wdjW1sYYmbpswDoaj6sC8NOLWPvnAfBqd2gmHWxyvQOIfXB1f2fWjdE3hM1qlvSc6J09UQMCvoxNifsfViK/CqVp/MrKkfU11WrKg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NLKSM6fD; arc=none smtp.client-ip=209.85.216.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788213973; c=relaxed/simple;
+	bh=RkRJv8Tm+SUDMEryf8FTUc5orj9iar9BmMgrC2N7sHk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=l3d8FHibNfO7qsSS1H+R3W2cfK5c4nKSugfCebapR0D+n455/1rCd9uePc1Gc5QbUc3DP0W+u2Fjyj7OegR7TCyZ9qpMRfvUbAP0O8ZSd9uUTQRat5VRPUb4gDfLMbges625hL9RnZ5qq2AyzwhuZzBq3xvkyGlgtWxhhF5b3Eo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LM41sZZY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NLKSM6fD"
-Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-39675172593so3570925a91.2
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 15:05:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788213940; x=1788818740; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1SU3rdh97lkeZJr+7CduyypOUNik8G+JmicPTmnCyvI=;
-        b=NLKSM6fDz8uBX4Mru4o9lXfZPYdf0jh8MKOO0aK7prfQFl5LKP8Oev4ynLP0yJqgYH
-         /8CyPAXji2RIIgnJAGdGn7f6qeofaiu/Fw4gVka2T2Uylprdieoio/eiik2pJU5XLPVm
-         qDHEWIDmpWyRpLyCSfDkUzaocoE0s2Hdl9e8C04vo+j94eHS3BGg+ZxJwt1jxu9nfyRM
-         R3/f9HYTcNtjLTwYaw/H4rVdUhmrUMs/w23ReaXTkQKXjP1/NAMeRJm6FXj6dMRghw3b
-         1azeZQkXn6aedkEDuOt4fohH5W8HN3bUw78/9IrrW5W3X8Wopk3ltGuN7YTyx+b049FH
-         eNIg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788213940; x=1788818740;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1SU3rdh97lkeZJr+7CduyypOUNik8G+JmicPTmnCyvI=;
-        b=pMJf1w2MDxWYb+NiPx6g3ffFPwLJIDx5ruVOOiP4xbnV21cs8QOVfTTOzSY5gfsJlg
-         KMuzIfmkipZb0bvPxwgZJXOda28kfbv6rKqEM916wPzH4vvh8q8mSqn2D0XY9Uioasav
-         RPkbVdIQVKlchwJuw3e7VoPROFUlQV/+80YHMV4BFBKcZW9mARZ0+Mky4b6oARsj8/Sl
-         +HrSHaS1kCjrVZ2Bk+SKLibx/rB2n2h0e77YfIOVUHV2buEokPghwCaBTN+duAnJ69Eo
-         d7ask4IxS/O+os0LglCLy5NwPWmEaXVHexim8rg/dF9PVRnXldP4+3rSSSENC1cyopTU
-         A/9g==
-X-Forwarded-Encrypted: i=1; AKwUvBwwl9mKSCAQR/D58u6EXHmQwnQ5a4IdfcRTVKRgdlB0Jo4HLrbTbJW9rAR/l4uPwUVIknRJfuuqYt8FL/U=@vger.kernel.org
-X-Gm-Message-State: AFuF++kGul53pmrEGpDqUbLd0ihxxAUc9+XCcj5prQXYE1s1w/mGIk05
-	cSuT1LjN6DtCb1xhkmGHaBBZvFpmkAs0JENlU9NBRmagnRwZJhRgCtzQfWultC+u
-X-Gm-Gg: AYBFou33Tbvsv45tGrew4WKUArsW93L3E6790jVGM7cGXN3u95BELG3Ju8Xbec6ZZHo
-	SbYBzq4oG7wo4JhEE+L0AsdOZv3tVl1zaZYJEH5GNF0oCGhh/Qdxp7iymzyrWt8OALsru7yXyCg
-	G0jqLOPHp7xsVzGns2m3JutCGoal6CS6YjBuf4fcclqnvBomLviTkHQX0Ld3pH8kg0RMtSPCP8c
-	9/LRcIHahXId4gk40YkRN1FoL45RyIWxb7+r+nlRiblv9BUxqiBT+oUrygew4fNIDavCo1OaP7S
-	9TXzPq4VfRidu6afJLYLwbQJ2DugWokgJIvCgeC94mP3s8EJ6d70KZ0NRhmnsRsO1UwSSzAUsZU
-	TPhvvuVrQ95uY6awLE6V3BBxU8RD+dAYqOkgPOyiH7UwUFB0UmK0WNaX2DdHVsZh53Mb19alQdY
-	6u0wucAjcpvTPf8Co9zy5V2SHJnfe63ANaW1p63sEm/7jOK665okMY77IgFZNH+Gng2MI=
-X-Received: by 2002:a17:90b:538c:b0:398:d6e6:4671 with SMTP id 98e67ed59e1d1-398d6e68870mr18634235a91.25.1788213939680;
-        Mon, 31 Aug 2026 15:05:39 -0700 (PDT)
-Received: from [127.0.1.1] ([2601:647:4184:b3f0:91a4:c2d8:1d54:21ad])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3990d499811sm1952863a91.10.2026.08.31.15.05.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 15:05:39 -0700 (PDT)
-From: Kelvin Zhang <zhangxp1998@gmail.com>
-To: linux-f2fs-devel@lists.sourceforge.net
-Cc: jaegeuk@kernel.org,
-	chao@kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v7 01/11] f2fs: initialize sb_info early in f2fs_fill_super
-Date: Mon, 31 Aug 2026 15:05:37 -0700
-Message-ID: <d3fa15836c409ac6028956c06dbe11a8e0149734.1788213716.git.zhangxp1998@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <cover.1788213716.git.zhangxp1998@gmail.com>
-References: <cover.1788213716.git.zhangxp1998@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LM41sZZY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EEA7E1F000E9;
+	Mon, 31 Aug 2026 22:06:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788213971;
+	bh=WmgVg8Izt43ei3v8cUEGP6CkNpM6pslLlwRe8DYAH2w=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=LM41sZZYR8xazb93gqdEjXv23erQ6DEPw0PItME1jCyV1kQRJPte5uJAFbNDG5si+
+	 o5UrS/Q04Ir0/E0n0iNzv2yaTET8cRAEJ9aEg4EUtTBIYdt/KpZ/yihYC9qQ7CKFmX
+	 ejof5DW4j4c/3M7EYiznwrcrt2NC2IWj5u3dAuvBC692PQoFGV0AKh1OOqFU7Q1sK+
+	 kCeaOfKRwWByoAOUiq6bLTwpV6M2/7Gz0cg4hP3ifa+G3FVwC6eoqKqAGl3Gbbnh2+
+	 XCtx7csQZu3U99PWeo5CDNT6KblExWjr7ERNg01oOdrxzhfkm8AMTUh7a7Ul4Zo0FM
+	 +Ls3fJxPaFxYg==
+Date: Mon, 31 Aug 2026 23:06:08 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Jisheng Zhang <jszhang@kernel.org>
+Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/3] riscv: remove RISCV_ALTERNATIVE Kconfig option
+Message-ID: <20260831-upfront-captivate-c10e6531851f@spud>
+References: <20260830170414.4505-1-jszhang@kernel.org>
+ <20260830170414.4505-2-jszhang@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="OxsrtNBkRz5Nlr1u"
+Content-Disposition: inline
+In-Reply-To: <20260830170414.4505-2-jszhang@kernel.org>
 
-Previously, init_sb_info() was invoked late in f2fs_fill_super(), after
-processing superblock error tracking, mount options, and sb->s_maxbytes.
+--OxsrtNBkRz5Nlr1u
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-However, read_raw_super_block() reads the superblock folio directly
-from the block device mapping using folio page offsets. This makes the
-initial static sb_set_blocksize(sb, F2FS_BLKSIZE) call redundant.
+On Mon, Aug 31, 2026 at 01:03:59AM +0800, Jisheng Zhang wrote:
+> riscv always selects RISCV_ALTERNATIVE now, so we can remove this
+> Kconfig option and enable RISCV_ALTERNATIVE code unconditionally.
 
-Move init_sb_info() to execute immediately after sbi->raw_super is
-attached, allowing the block device block size to be set dynamically via
-sb_set_blocksize(sb, sbi->blocksize).
+I think it'd be nice to add a minor note about what's changed to make
+this true, but this seems sane to me.
+Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
 
-This early initialization also prepares for upcoming patches that add
-dynamically computed filesystem geometry fields, such as
-sbi->addrs_per_block and sbi->nids_per_block, to init_sb_info(). These
-fields are required by earlier initialization steps, including mount option
-consistency checks and sb->s_maxbytes computation.
+Thanks,
+Conor.
 
-Signed-off-by: Kelvin Zhang <zhangxp1998@gmail.com>
----
- fs/f2fs/super.c | 16 ++++++++--------
- 1 file changed, 8 insertions(+), 8 deletions(-)
+>=20
+> Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
+> ---
+>  arch/riscv/Kconfig                          | 23 --------------------
+>  arch/riscv/Kconfig.errata                   |  5 +----
+>  arch/riscv/include/asm/alternative-macros.h | 24 ---------------------
+>  arch/riscv/include/asm/alternative.h        | 10 ---------
+>  arch/riscv/include/asm/cpufeature-macros.h  | 10 ++-------
+>  arch/riscv/include/asm/cpufeature.h         |  6 ++----
+>  arch/riscv/include/asm/vendor_extensions.h  | 18 ++++++----------
+>  arch/riscv/kernel/Makefile                  |  2 +-
+>  arch/riscv/kernel/cpufeature.c              |  2 --
+>  9 files changed, 12 insertions(+), 88 deletions(-)
+>=20
+> diff --git a/arch/riscv/Kconfig b/arch/riscv/Kconfig
+> index f8e26c4bed2b..13b7bb77087e 100644
+> --- a/arch/riscv/Kconfig
+> +++ b/arch/riscv/Kconfig
+> @@ -218,7 +218,6 @@ config RISCV
+>  	select PCI_ECAM if (ACPI && PCI)
+>  	select PCI_MSI if PCI
+>  	select RELOCATABLE if !MMU && !PHYS_RAM_BASE_FIXED
+> -	select RISCV_ALTERNATIVE
+>  	select RISCV_APLIC
+>  	select RISCV_IMSIC
+>  	select RISCV_INTC
+> @@ -539,17 +538,8 @@ config RISCV_COMBO_SPINLOCKS
+> =20
+>  endchoice
+> =20
+> -config RISCV_ALTERNATIVE
+> -	bool
+> -	help
+> -	  This Kconfig allows the kernel to automatically patch the
+> -	  erratum or cpufeature required by the execution platform at run
+> -	  time. The code patching overhead is minimal, as it's only done
+> -	  once at boot and once on each module load.
+> -
+>  config RISCV_ALTERNATIVE_EARLY
+>  	bool
+> -	depends on RISCV_ALTERNATIVE
+>  	help
+>  	  Allows early patching of the kernel for special errata
+> =20
+> @@ -578,7 +568,6 @@ config RISCV_ISA_SUPM
+>  config RISCV_ISA_SVNAPOT
+>  	bool "Svnapot extension support for supervisor mode NAPOT pages"
+>  	depends on 64BIT && MMU
+> -	depends on RISCV_ALTERNATIVE
+>  	default y
+>  	help
+>  	  Enable support for the Svnapot ISA-extension when it is detected
+> @@ -615,7 +604,6 @@ config RISCV_ISA_SSQOSID
+>  config RISCV_ISA_SVPBMT
+>  	bool "Svpbmt extension support for supervisor mode page-based memory ty=
+pes"
+>  	depends on 64BIT && MMU
+> -	depends on RISCV_ALTERNATIVE
+>  	default y
+>  	help
+>  	   Add support for the Svpbmt ISA-extension (Supervisor-mode:
+> @@ -685,7 +673,6 @@ config RISCV_ISA_V_PREEMPTIVE
+> =20
+>  config RISCV_ISA_ZAWRS
+>  	bool "Zawrs extension support for more efficient busy waiting"
+> -	depends on RISCV_ALTERNATIVE
+>  	default y
+>  	help
+>  	  The Zawrs extension defines instructions to be used in polling loops
+> @@ -704,7 +691,6 @@ config TOOLCHAIN_HAS_ZABHA
+>  config RISCV_ISA_ZABHA
+>  	bool "Zabha extension support for atomic byte/halfword operations"
+>  	depends on TOOLCHAIN_HAS_ZABHA
+> -	depends on RISCV_ALTERNATIVE
+>  	default y
+>  	help
+>  	  Enable the use of the Zabha ISA-extension to implement kernel
+> @@ -721,7 +707,6 @@ config TOOLCHAIN_HAS_ZACAS
+> =20
+>  config RISCV_ISA_ZACAS
+>  	bool "Zacas extension support for atomic CAS"
+> -	depends on RISCV_ALTERNATIVE
+>  	default y
+>  	help
+>  	  Enable the use of the Zacas ISA-extension to implement kernel atomic
+> @@ -766,7 +751,6 @@ config RISCV_ISA_ZBA
+> =20
+>  config RISCV_ISA_ZBB
+>  	bool "Zbb extension support for bit manipulation instructions"
+> -	depends on RISCV_ALTERNATIVE
+>  	default y
+>  	help
+>  	   Add support for enabling optimisations in the kernel when the
+> @@ -791,7 +775,6 @@ config RISCV_ISA_ZBC
+>  	bool "Zbc extension support for carry-less multiplication instructions"
+>  	depends on TOOLCHAIN_HAS_ZBC
+>  	depends on MMU
+> -	depends on RISCV_ALTERNATIVE
+>  	default y
+>  	help
+>  	   Adds support to dynamically detect the presence of the Zbc
+> @@ -813,7 +796,6 @@ config TOOLCHAIN_HAS_ZBKB
+>  config RISCV_ISA_ZBKB
+>  	bool "Zbkb extension support for bit manipulation instructions"
+>  	depends on TOOLCHAIN_HAS_ZBKB
+> -	depends on RISCV_ALTERNATIVE
+>  	default y
+>  	help
+>  	   Adds support to dynamically detect the presence of the ZBKB
+> @@ -827,7 +809,6 @@ config RISCV_ISA_ZBKB
+>  config RISCV_ISA_ZICBOM
+>  	bool "Zicbom extension support for non-coherent DMA operation"
+>  	depends on MMU
+> -	depends on RISCV_ALTERNATIVE
+>  	default y
+>  	select RISCV_DMA_NONCOHERENT
+>  	select DMA_DIRECT_REMAP
+> @@ -843,7 +824,6 @@ config RISCV_ISA_ZICBOM
+> =20
+>  config RISCV_ISA_ZICBOZ
+>  	bool "Zicboz extension support for faster zeroing of memory"
+> -	depends on RISCV_ALTERNATIVE
+>  	default y
+>  	help
+>  	   Enable the use of the Zicboz extension (cbo.zero instruction)
+> @@ -856,7 +836,6 @@ config RISCV_ISA_ZICBOZ
+>  config RISCV_ISA_ZICBOP
+>  	bool "Zicbop extension support for cache block prefetch"
+>  	depends on MMU
+> -	depends on RISCV_ALTERNATIVE
+>  	default y
+>  	help
+>  	  Adds support to dynamically detect the presence of the ZICBOP
+> @@ -871,7 +850,6 @@ config RISCV_ISA_ZICBOP
+>  config RISCV_ISA_SVRSW60T59B
+>  	bool "Svrsw60t59b extension support for using PTE bits 60 and 59"
+>  	depends on MMU && 64BIT
+> -	depends on RISCV_ALTERNATIVE
+>  	default y
+>  	help
+>  	  Adds support to dynamically detect the presence of the Svrsw60t59b
+> @@ -1204,7 +1182,6 @@ config RISCV_USER_CFI
+>  	bool "riscv userspace control flow integrity"
+>  	depends on 64BIT && MMU && \
+>  		$(cc-option,-mabi=3Dlp64 -march=3Drv64ima_zicfiss_zicfilp -fcf-protect=
+ion=3Dfull)
+> -	depends on RISCV_ALTERNATIVE
+>  	select RISCV_SBI
+>  	select ARCH_HAS_USER_SHADOW_STACK
+>  	select ARCH_USES_HIGH_VMA_FLAGS
+> diff --git a/arch/riscv/Kconfig.errata b/arch/riscv/Kconfig.errata
+> index 3c945d086c7d..1a66e5b6f7d1 100644
+> --- a/arch/riscv/Kconfig.errata
+> +++ b/arch/riscv/Kconfig.errata
+> @@ -2,7 +2,7 @@ menu "CPU errata selection"
+> =20
+>  config ERRATA_ANDES
+>  	bool "Andes AX45MP errata"
+> -	depends on RISCV_ALTERNATIVE && RISCV_SBI
+> +	depends on RISCV_SBI
+>  	help
+>  	  All Andes errata Kconfig depend on this Kconfig. Disabling
+>  	  this Kconfig will disable all Andes errata. Please say "Y"
+> @@ -23,7 +23,6 @@ config ERRATA_ANDES_CMO
+> =20
+>  config ERRATA_MIPS
+>  	bool "MIPS errata"
+> -	depends on RISCV_ALTERNATIVE
+>  	help
+>  	  All MIPS errata Kconfig depend on this Kconfig. Disabling
+>  	  this Kconfig will disable all MIPS errata. Please say "Y"
+> @@ -46,7 +45,6 @@ config ERRATA_MIPS_P8700_PAUSE_OPCODE
+> =20
+>  config ERRATA_SIFIVE
+>  	bool "SiFive errata"
+> -	depends on RISCV_ALTERNATIVE
+>  	help
+>  	  All SiFive errata Kconfig depend on this Kconfig. Disabling
+>  	  this Kconfig will disable all SiFive errata. Please say "Y"
+> @@ -98,7 +96,6 @@ config ERRATA_STARFIVE_JH7100
+> =20
+>  config ERRATA_THEAD
+>  	bool "T-HEAD errata"
+> -	depends on RISCV_ALTERNATIVE
+>  	help
+>  	  All T-HEAD errata Kconfig depend on this Kconfig. Disabling
+>  	  this Kconfig will disable all T-HEAD errata. Please say "Y"
+> diff --git a/arch/riscv/include/asm/alternative-macros.h b/arch/riscv/inc=
+lude/asm/alternative-macros.h
+> index 9619bd5c8eba..629d884578da 100644
+> --- a/arch/riscv/include/asm/alternative-macros.h
+> +++ b/arch/riscv/include/asm/alternative-macros.h
+> @@ -2,8 +2,6 @@
+>  #ifndef __ASM_ALTERNATIVE_MACROS_H
+>  #define __ASM_ALTERNATIVE_MACROS_H
+> =20
+> -#ifdef CONFIG_RISCV_ALTERNATIVE
+> -
+>  #ifdef __ASSEMBLER__
+> =20
+>  .macro ALT_ENTRY oldptr newptr vendor_id patch_id new_len
+> @@ -108,28 +106,6 @@
+>  	__ALTERNATIVE_CFG_2(old_c, new_c_1, vendor_id_1, patch_id_1, IS_ENABLED=
+(CONFIG_k_1),	\
+>  				   new_c_2, vendor_id_2, patch_id_2, IS_ENABLED(CONFIG_k_2))
+> =20
+> -#else /* CONFIG_RISCV_ALTERNATIVE */
+> -#ifdef __ASSEMBLER__
+> -
+> -.macro ALTERNATIVE_CFG old_c
+> -	\old_c
+> -.endm
+> -
+> -#define __ALTERNATIVE_CFG(old_c, ...)		ALTERNATIVE_CFG old_c
+> -#define __ALTERNATIVE_CFG_2(old_c, ...)		ALTERNATIVE_CFG old_c
+> -
+> -#else /* !__ASSEMBLER__ */
+> -
+> -#define __ALTERNATIVE_CFG(old_c, ...)		old_c "\n"
+> -#define __ALTERNATIVE_CFG_2(old_c, ...)		old_c "\n"
+> -
+> -#endif /* __ASSEMBLER__ */
+> -
+> -#define _ALTERNATIVE_CFG(old_c, ...)		__ALTERNATIVE_CFG(old_c)
+> -#define _ALTERNATIVE_CFG_2(old_c, ...)		__ALTERNATIVE_CFG_2(old_c)
+> -
+> -#endif /* CONFIG_RISCV_ALTERNATIVE */
+> -
+>  /*
+>   * Usage:
+>   *   ALTERNATIVE(old_content, new_content, vendor_id, patch_id, CONFIG_k)
+> diff --git a/arch/riscv/include/asm/alternative.h b/arch/riscv/include/as=
+m/alternative.h
+> index 8407d1d535b8..688c7d1a9ae3 100644
+> --- a/arch/riscv/include/asm/alternative.h
+> +++ b/arch/riscv/include/asm/alternative.h
+> @@ -10,8 +10,6 @@
+> =20
+>  #ifndef __ASSEMBLER__
+> =20
+> -#ifdef CONFIG_RISCV_ALTERNATIVE
+> -
+>  #include <linux/init.h>
+>  #include <linux/kernel.h>
+>  #include <linux/types.h>
+> @@ -61,13 +59,5 @@ void thead_errata_patch_func(struct alt_entry *begin, =
+struct alt_entry *end,
+>  void riscv_cpufeature_patch_func(struct alt_entry *begin, struct alt_ent=
+ry *end,
+>  				 unsigned int stage);
+> =20
+> -#else /* CONFIG_RISCV_ALTERNATIVE */
+> -
+> -static inline void apply_boot_alternatives(void) { }
+> -static inline void apply_early_boot_alternatives(void) { }
+> -static inline void apply_module_alternatives(void *start, size_t length)=
+ { }
+> -
+> -#endif /* CONFIG_RISCV_ALTERNATIVE */
+> -
+>  #endif
+>  #endif
+> diff --git a/arch/riscv/include/asm/cpufeature-macros.h b/arch/riscv/incl=
+ude/asm/cpufeature-macros.h
+> index a8103edbf51f..adaf9e3fb25c 100644
+> --- a/arch/riscv/include/asm/cpufeature-macros.h
+> +++ b/arch/riscv/include/asm/cpufeature-macros.h
+> @@ -47,20 +47,14 @@ static __always_inline bool riscv_has_extension_unlik=
+ely(const unsigned long ext
+>  {
+>  	compiletime_assert(ext < RISCV_ISA_EXT_MAX, "ext must be < RISCV_ISA_EX=
+T_MAX");
+> =20
+> -	if (IS_ENABLED(CONFIG_RISCV_ALTERNATIVE))
+> -		return __riscv_has_extension_unlikely(STANDARD_EXT, ext);
+> -
+> -	return __riscv_isa_extension_available(NULL, ext);
+> +	return __riscv_has_extension_unlikely(STANDARD_EXT, ext);
+>  }
+> =20
+>  static __always_inline bool riscv_has_extension_likely(const unsigned lo=
+ng ext)
+>  {
+>  	compiletime_assert(ext < RISCV_ISA_EXT_MAX, "ext must be < RISCV_ISA_EX=
+T_MAX");
+> =20
+> -	if (IS_ENABLED(CONFIG_RISCV_ALTERNATIVE))
+> -		return __riscv_has_extension_likely(STANDARD_EXT, ext);
+> -
+> -	return __riscv_isa_extension_available(NULL, ext);
+> +	return __riscv_has_extension_likely(STANDARD_EXT, ext);
+>  }
+> =20
+>  #endif /* _ASM_CPUFEATURE_MACROS_H */
+> diff --git a/arch/riscv/include/asm/cpufeature.h b/arch/riscv/include/asm=
+/cpufeature.h
+> index 739fcc84bf7b..37c9f2a0fb54 100644
+> --- a/arch/riscv/include/asm/cpufeature.h
+> +++ b/arch/riscv/include/asm/cpufeature.h
+> @@ -134,8 +134,7 @@ static __always_inline bool riscv_cpu_has_extension_l=
+ikely(int cpu, const unsign
+>  {
+>  	compiletime_assert(ext < RISCV_ISA_EXT_MAX, "ext must be < RISCV_ISA_EX=
+T_MAX");
+> =20
+> -	if (IS_ENABLED(CONFIG_RISCV_ALTERNATIVE) &&
+> -	    __riscv_has_extension_likely(STANDARD_EXT, ext))
+> +	if (__riscv_has_extension_likely(STANDARD_EXT, ext))
+>  		return true;
+> =20
+>  	return __riscv_isa_extension_available(hart_isa[cpu].isa, ext);
+> @@ -145,8 +144,7 @@ static __always_inline bool riscv_cpu_has_extension_u=
+nlikely(int cpu, const unsi
+>  {
+>  	compiletime_assert(ext < RISCV_ISA_EXT_MAX, "ext must be < RISCV_ISA_EX=
+T_MAX");
+> =20
+> -	if (IS_ENABLED(CONFIG_RISCV_ALTERNATIVE) &&
+> -	    __riscv_has_extension_unlikely(STANDARD_EXT, ext))
+> +	if (__riscv_has_extension_unlikely(STANDARD_EXT, ext))
+>  		return true;
+> =20
+>  	return __riscv_isa_extension_available(hart_isa[cpu].isa, ext);
+> diff --git a/arch/riscv/include/asm/vendor_extensions.h b/arch/riscv/incl=
+ude/asm/vendor_extensions.h
+> index 7437304a71b9..b00149be2627 100644
+> --- a/arch/riscv/include/asm/vendor_extensions.h
+> +++ b/arch/riscv/include/asm/vendor_extensions.h
+> @@ -54,11 +54,9 @@ static __always_inline bool riscv_has_vendor_extension=
+_likely(const unsigned lon
+>  	if (!IS_ENABLED(CONFIG_RISCV_ISA_VENDOR_EXT))
+>  		return false;
+> =20
+> -	if (IS_ENABLED(CONFIG_RISCV_ALTERNATIVE))
+> -		return __riscv_has_extension_likely(vendor,
+> -						    ext + RISCV_VENDOR_EXT_ALTERNATIVES_BASE);
+> +	return __riscv_has_extension_likely(vendor,
+> +					    ext + RISCV_VENDOR_EXT_ALTERNATIVES_BASE);
+> =20
+> -	return __riscv_isa_vendor_extension_available(VENDOR_EXT_ALL_CPUS, vend=
+or, ext);
+>  }
+> =20
+>  static __always_inline bool riscv_has_vendor_extension_unlikely(const un=
+signed long vendor,
+> @@ -67,11 +65,9 @@ static __always_inline bool riscv_has_vendor_extension=
+_unlikely(const unsigned l
+>  	if (!IS_ENABLED(CONFIG_RISCV_ISA_VENDOR_EXT))
+>  		return false;
+> =20
+> -	if (IS_ENABLED(CONFIG_RISCV_ALTERNATIVE))
+> -		return __riscv_has_extension_unlikely(vendor,
+> -						      ext + RISCV_VENDOR_EXT_ALTERNATIVES_BASE);
+> +	return __riscv_has_extension_unlikely(vendor,
+> +					      ext + RISCV_VENDOR_EXT_ALTERNATIVES_BASE);
+> =20
+> -	return __riscv_isa_vendor_extension_available(VENDOR_EXT_ALL_CPUS, vend=
+or, ext);
+>  }
+> =20
+>  static __always_inline bool riscv_cpu_has_vendor_extension_likely(const =
+unsigned long vendor,
+> @@ -80,8 +76,7 @@ static __always_inline bool riscv_cpu_has_vendor_extens=
+ion_likely(const unsigned
+>  	if (!IS_ENABLED(CONFIG_RISCV_ISA_VENDOR_EXT))
+>  		return false;
+> =20
+> -	if (IS_ENABLED(CONFIG_RISCV_ALTERNATIVE) &&
+> -	    __riscv_has_extension_likely(vendor, ext + RISCV_VENDOR_EXT_ALTERNA=
+TIVES_BASE))
+> +	if (__riscv_has_extension_likely(vendor, ext + RISCV_VENDOR_EXT_ALTERNA=
+TIVES_BASE))
+>  		return true;
+> =20
+>  	return __riscv_isa_vendor_extension_available(cpu, vendor, ext);
+> @@ -94,8 +89,7 @@ static __always_inline bool riscv_cpu_has_vendor_extens=
+ion_unlikely(const unsign
+>  	if (!IS_ENABLED(CONFIG_RISCV_ISA_VENDOR_EXT))
+>  		return false;
+> =20
+> -	if (IS_ENABLED(CONFIG_RISCV_ALTERNATIVE) &&
+> -	    __riscv_has_extension_unlikely(vendor, ext + RISCV_VENDOR_EXT_ALTER=
+NATIVES_BASE))
+> +	if (__riscv_has_extension_unlikely(vendor, ext + RISCV_VENDOR_EXT_ALTER=
+NATIVES_BASE))
+>  		return true;
+> =20
+>  	return __riscv_isa_vendor_extension_available(cpu, vendor, ext);
+> diff --git a/arch/riscv/kernel/Makefile b/arch/riscv/kernel/Makefile
+> index ebe1c3588177..91353c94bfab 100644
+> --- a/arch/riscv/kernel/Makefile
+> +++ b/arch/riscv/kernel/Makefile
+> @@ -48,7 +48,7 @@ always-$(KBUILD_BUILTIN) +=3D vmlinux.lds
+> =20
+>  obj-y	+=3D head.o
+>  obj-y	+=3D soc.o
+> -obj-$(CONFIG_RISCV_ALTERNATIVE) +=3D alternative.o
+> +obj-y	+=3D alternative.o
+>  obj-y	+=3D cpu.o
+>  obj-y	+=3D cpufeature.o
+>  obj-y	+=3D entry.o
+> diff --git a/arch/riscv/kernel/cpufeature.c b/arch/riscv/kernel/cpufeatur=
+e.c
+> index d2ec96843456..9915121e9438 100644
+> --- a/arch/riscv/kernel/cpufeature.c
+> +++ b/arch/riscv/kernel/cpufeature.c
+> @@ -1217,7 +1217,6 @@ void __init riscv_user_isa_enable(void)
+>  		pr_warn("Zicbop disabled as it is unavailable on some harts\n");
+>  }
+> =20
+> -#ifdef CONFIG_RISCV_ALTERNATIVE
+>  /*
+>   * Alternative patch sites consider 48 bits when determining when to pat=
+ch
+>   * the old instruction sequence with the new. These bits are broken into=
+ a
+> @@ -1306,4 +1305,3 @@ void __init_or_module riscv_cpufeature_patch_func(s=
+truct alt_entry *begin,
+>  		mutex_unlock(&text_mutex);
+>  	}
+>  }
+> -#endif
+> --=20
+> 2.53.0
+>=20
 
-diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
-index 253a579e9d5b..2d9f5b77f815 100644
---- a/fs/f2fs/super.c
-+++ b/fs/f2fs/super.c
-@@ -5125,12 +5125,6 @@ static int f2fs_fill_super(struct super_block *sb, struct fs_context *fc)
- 	}
- 	mutex_init(&sbi->flush_lock);
- 
--	/* set a block size */
--	if (unlikely(!sb_set_blocksize(sb, F2FS_BLKSIZE))) {
--		f2fs_err(sbi, "unable to set blocksize");
--		goto free_sbi;
--	}
--
- 	err = read_raw_super_block(sbi, &raw_super, &valid_super_block,
- 								&recovery);
- 	if (err)
-@@ -5138,6 +5132,14 @@ static int f2fs_fill_super(struct super_block *sb, struct fs_context *fc)
- 
- 	sb->s_fs_info = sbi;
- 	sbi->raw_super = raw_super;
-+	init_sb_info(sbi);
-+
-+	/* set a block size */
-+	if (!sb_set_blocksize(sb, sbi->blocksize)) {
-+		f2fs_err(sbi, "unable to set blocksize %u", sbi->blocksize);
-+		err = -EINVAL;
-+		goto free_sb_buf;
-+	}
- 	sbi->max_atc_write_bio_size = UINT_MAX;
- 
- 	INIT_WORK(&sbi->s_error_work, f2fs_record_error_work);
-@@ -5217,8 +5219,6 @@ static int f2fs_fill_super(struct super_block *sb, struct fs_context *fc)
- 	if (err)
- 		goto free_bio_info;
- 
--	init_sb_info(sbi);
--
- 	err = f2fs_init_iostat(sbi);
- 	if (err)
- 		goto free_bio_info;
--- 
-2.53.0
+--OxsrtNBkRz5Nlr1u
+Content-Type: application/pgp-signature; name=signature.asc
 
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCapX6zwAKCRB4tDGHoIJi
+0qR3AP9bcE0T7XrfBwuxtgzS5tqBkMVJ0yfyA1YGmGXM0SqwawEA+9NghGsi9glZ
+UFz63lzqm2ED8/d1I8aSFl0grrbKpQw=
+=dgHQ
+-----END PGP SIGNATURE-----
+
+--OxsrtNBkRz5Nlr1u--
