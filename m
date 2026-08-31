@@ -1,106 +1,65 @@
-Received: from 013.lax.mailroute.net (013.lax.mailroute.net [199.89.1.16])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79777480950;
-	Mon, 31 Aug 2026 16:11:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=199.89.1.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F9D843F4AB;
+	Mon, 31 Aug 2026 16:13:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788192710; cv=none; b=YQ/G7zwN+zxmnphBgNTM5RGgW9m//ffWA+6z+CIxkXw2XNc9QfwQJA5U4j/tBrYEHKxuBC/EygH3gQAZSkCoJE28trrGq/gLLWeTbIkMHk9VOdnb4u9CGi9DizSPYZ/b+oKN3+irdhiuQ8bkHRD4yKywScRKY0pfvIQKnryIGFk=
+	t=1788192794; cv=none; b=ow+xOuyoHP2Gmkhddd2WpKxr2VNvWiaDTPjSSP61soA9X5039ucYDeLClKXLgmjRhV9jE46tf9k+OcNqJPv2WdaMmKPQPyrnhO9W+ej35tZ3jwn6pyz1OfzHptyDHsQ5h9WoLLsQ55M3IaU5NglX9qvJ9BxY6CxRfcjdw2W1Ato=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788192710; c=relaxed/simple;
-	bh=sicnSWr3LLykL6VHJw4ru4rvykqfbQvophVJlU2VLeg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jotziZq7sN26hNCUWaAgrUNTa8RM1HELa+C3/HwRUKyCYwHMsM0/jY0qlPyHiwVNNGDMg+J6+O2rbT8L+6aBk0OnJeROh4Mutc2jos6gwyDs6uQ/gg8JQwdP0IYYIFi76ER2IEY6HBE+dIg7C3rYcDAQU8TKyjJUVntVcogyD8I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org; spf=pass smtp.mailfrom=acm.org; dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b=fT/f4BMM; arc=none smtp.client-ip=199.89.1.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
+	s=arc-20240116; t=1788192794; c=relaxed/simple;
+	bh=pnuV4DofHNIVQkX4uArFDlfXayHHgeEO1RGmvH8c54w=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BGP6bfhvwVi0IDr5IsvhMTeE3DUoVzU894oJpSTo8MKr75APbOuiZYGYx6wZeUUiOdd95KcjexvA1m5u4F6diMJea52OzXTfkNLZ1s7qdn9blqm6IClAXpZf2r+Sqckqn1Lt2WxEJemwV8dPdyOed4BSa6TUWDjcekSedYrp0oY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h6mpCpqS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b="fT/f4BMM"
-Received: from localhost (localhost [127.0.0.1])
-	by 013.lax.mailroute.net (Postfix) with ESMTP id 4hYYsB4rR1zlfvpM;
-	Mon, 31 Aug 2026 16:11:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
-	content-transfer-encoding:content-type:content-type:in-reply-to
-	:from:from:content-language:references:subject:subject
-	:user-agent:mime-version:date:date:message-id:received:received;
-	 s=mr01; t=1788192693; x=1790784694; bh=jhX26N7F0/Ed1ARbfB1NVNHs
-	qDMo83yFHzbfY9XMHws=; b=fT/f4BMMo5BXiBLtQgjm9PZDecej111CHumeT2BZ
-	Ft3Ifp51QQc8NClJV+swhFgJHT9HOMqLRJgGQv9x6WZDqYc/tiSq2WxOWO7P9kpR
-	hhMDgfQk49NRGlmUu1Yrxj8/hcElb5PsxP5k+DfOnv0qHqpLPI9f/E8LszkaShsT
-	wLpPB0KGPI2oYt/e0Vw/XCqCN4vL2hTqBSMRXNgZn1aR93XJbw2GKdpN1Zf/umFl
-	TnNYlRLcBM9Ye+axSJxOuNFb7QinJaiuXCiwNyiqjFcxgCyomZRpURzi+eXB/3IH
-	ZpZQe4OGh3PuUnP6OtsS1+eRNEIoBVMfOIYylZvskk8kFA==
-X-Virus-Scanned: by MailRoute
-Received: from 013.lax.mailroute.net ([127.0.0.1])
- by localhost (013.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
- id ld4mIkJqITHn; Mon, 31 Aug 2026 16:11:33 +0000 (UTC)
-Received: from [IPV6:2a00:79e0:2ed2:d:a104:ffdc:9983:687c] (unknown [104.135.182.40])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bvanassche@acm.org)
-	by 013.lax.mailroute.net (Postfix) with ESMTPSA id 4hYYrt4LzMzlfvqR;
-	Mon, 31 Aug 2026 16:11:26 +0000 (UTC)
-Message-ID: <bf774766-0613-4465-9f9b-62455ac0813b@acm.org>
-Date: Mon, 31 Aug 2026 09:11:25 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h6mpCpqS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDE061F000E9;
+	Mon, 31 Aug 2026 16:13:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788192792;
+	bh=vbBLSVpBzAajdVu36N3ZXXP0OVMGwY1r8j9t8qEMS+I=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=h6mpCpqSuPA8V0S7E+SU22uAoe15aCYfo8gtMQifDmwddKnK7yS/dzTRFZPf4HoP1
+	 53B4tgsMg02Q/xFw+IhyTaf6AlQSUVIZXreZUaIZdo9Qipne+TnR4esqUWuT0N2kAo
+	 iFzdTreqQdCVDUUgDHDKTQrxhhj7iJLtubvKI4a3znSbBdMzOF0fy8D80AM40LTFtJ
+	 7fgGf/IPu12YWbA/Trt16MyB9cqNU0JgdJgGMdrRnUUPOylVGrzcJTP5rZiGz3+6jf
+	 VBnk86dGAtXMYC1R7r91apWj5g8lS4DCR6cSBTCporuqWogdzyOvCmuLDiRQtfocS9
+	 hHkhqhuU5TIDw==
+Date: Mon, 31 Aug 2026 06:13:11 -1000
+From: Tejun Heo <tj@kernel.org>
+To: Qiurong Fang <fangqiurong@kylinos.cn>
+Cc: void@manifault.com, arighi@nvidia.com, changwoo@igalia.com,
+	sched-ext@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] sched_ext: Skip per-CPU data allocation for built-in DSQs
+Message-ID: <apWoF6Czswh-sO6V@slm.duckdns.org>
+References: <20260827082329.3368255-1-fangqiurong@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7] loop: Fix NULL pointer dereference in lo_rw_aio()
-To: Tao Cui <cui.tao@linux.dev>, penguin-kernel@i-love.sakura.ne.jp,
- brauner@kernel.org
-Cc: Markus.Elfring@web.de, axboe@kernel.dk, broonie@kernel.org,
- dlemoal@kernel.org, hch@infradead.org, hch@lst.de, hdanton@sina.com,
- linux-block@vger.kernel.org, linux-btrfs@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-next@vger.kernel.org, lkp@intel.com, oe-lkp@lists.linux.dev,
- oliver.sang@intel.com, torvalds@linux-foundation.org,
- viro@zeniv.linux.org.uk, Tao Cui <cuitao@kylinos.cn>
-References: <6a770a9c-2642-4392-9b9c-609836693f36@I-love.SAKURA.ne.jp>
- <20260831141143.704821-1-cui.tao@linux.dev>
-Content-Language: en-US
-From: Bart Van Assche <bvanassche@acm.org>
-In-Reply-To: <20260831141143.704821-1-cui.tao@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260827082329.3368255-1-fangqiurong@kylinos.cn>
 
-On 8/31/26 7:11 AM, Tao Cui wrote:
-> From: Tao Cui <cuitao@kylinos.cn>
-> 
-> Hi Tetsuo, Bart,
-> 
->> +	/* Step 1: Flush all outstanding I/O, without open_mutex held. */
->> +	/*
->> +	 * Now that loop_queue_rq() sees lo->lo_state != Lo_bound,
->> +	 * wait for already started loop_queue_rq() to complete.
->> +	 */
->> +	synchronize_rcu();
-> 
-> Your reply to Bart says loop_queue_rq() is called with RCU read
-> lock, but I don't see one.
-This is the code that protects .queue_rq() implementations like
-loop_queue_rq() with an rcu_read_lock() / rcu_read_unlock() pair:
+Hello,
 
-/* run the code block in @dispatch_ops with rcu/srcu read lock held */
-#define __blk_mq_run_dispatch_ops(q, check_sleep, dispatch_ops)	\
-do {								\
-	if ((q)->tag_set->flags & BLK_MQ_F_BLOCKING) {		\
-		struct blk_mq_tag_set *__tag_set = (q)->tag_set; \
-		int srcu_idx;					\
-								\
-		might_sleep_if(check_sleep);			\
-		srcu_idx = srcu_read_lock(__tag_set->srcu);	\
-		(dispatch_ops);					\
-		srcu_read_unlock(__tag_set->srcu, srcu_idx);	\
-	} else {						\
-		rcu_read_lock();				\
-		(dispatch_ops);					\
-		rcu_read_unlock();				\
-	}							\
-} while (0)
+On Thu, Aug 27, 2026 at 04:23:29PM +0800, Qiurong Fang wrote:
+> From: fangqiurong <fangqiurong@kylinos.cn>
+> 
+> Deferred reenqueue tracking is only supported for user DSQs:
+> schedule_dsq_reenq() serves the local DSQ through
+> sch->pcpu->deferred_reenq_local and rejects all other built-in DSQ
+> ids. Every built-in DSQ still carries nr_cpu_ids * sizeof(struct
+> scx_dsq_pcpu) bytes of dead per-CPU memory.
+> 
+> Skip the allocation for built-in DSQ ids.
 
-Bart.
+Let's rename it to dsq->pcpu_user while at it.
+
+Thanks.
+
+-- 
+tejun
