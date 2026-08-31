@@ -1,155 +1,133 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34F373115AF;
-	Mon, 31 Aug 2026 11:44:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0D962C0294;
+	Mon, 31 Aug 2026 11:45:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788176648; cv=none; b=Yrmj4cppcir9x7iMD4TvAsVf/Aa7MaO2lyqeIFM8hnJQqM1Sd4qsFtY+qdDZ3Cy1VhO0yofmSbA1Ieb7gTozYQltdFP8X3Ffz80IUsZPPw0Js/OcfGv0CPnc2XOGCn4xyPQd2Uxvzv1Io1UEtlpoXySLXS7SNkH8oeDE/7awv0k=
+	t=1788176710; cv=none; b=IMwQjRM2Zdu0ZxW5jiZHr/pzFWQWi0l7SX6RR7Ca6nJb38vJtQ4y6LVdyBQ1hMvxY2ZbZXxgq+FuWlugkzcagSjhlQW0JdLMz3db+HcUSVKH43kp6EeWkeRyV+onq06A/b1aC/6Fu84a6VnEFbRY3S9w/fZjmfZVmiR63lqnapk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788176648; c=relaxed/simple;
-	bh=bBlMeojJuqGzLYSgmcVeE+CDvHG6OHCDGr3A3WpxBs4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=s5ITW+iqY8mr6pj9J6Oq65kJ8/qiYuaqPsi+TO/hQ9OD9x2yjNaoo494gvm15tx5+XKO8ZUvg6n0C2ZQviVUtIhw9kSJ5CtoUimdjOOCzbNlp6loHa+7b4BX48j13C70SIRL5+55BAJ/S9/JMfZUjw+H6ukcJs8sgiYRT0BQVEY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=ZNO3Cmu5; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=EexUdg3q; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=qZo4PXYC; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=WMKrJopq; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1788176710; c=relaxed/simple;
+	bh=Pk2HuTXvrj04yvZHTloga/AzYqMYWnPBZNra2rviZCM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:In-Reply-To:
+	 MIME-Version:Content-Type:Content-Disposition; b=FtcKl0P4kULUPiX8jsXPOJy5JVD0B6a9GixWBVRYWcQi2EXQO5ZyUU4/ZvnJDaQj1xaIY2uRTXf2IGb+Kzo16ayHiyCcwNn1jA5BKgE/ycqejJ45FFvGn6tAivw3qHYvvk73uakEeTc9AS6YPqyxsOf9tyLjRkPYWhBbXo027SM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KdUsfKde; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="ZNO3Cmu5";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="EexUdg3q";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="qZo4PXYC";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="WMKrJopq"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id B38E31FB3C;
-	Mon, 31 Aug 2026 11:43:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1788176640; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=sKUz1RcRmIY8nC4tiEVUTstSXZ30OhbvFxIOCZ1dnoA=;
-	b=ZNO3Cmu5miO7QHxGQOznNMhw7Yx0PJfO+Cj6PkY7LBdzsDMyB3KjPXBworgux7G8pJXX4j
-	0jULNOxwC7apW9+s4C+4Us066GabKfKZU/GAoMpyJsQR26JUqJx66rr3Nyi10AIyK7mGte
-	ANylm1BZGhRCAhIqfhoOnJW8X19HTGo=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1788176640;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=sKUz1RcRmIY8nC4tiEVUTstSXZ30OhbvFxIOCZ1dnoA=;
-	b=EexUdg3qU76e3OpFRdXwZtMbATI9ci8q+kZWb/7140gjeZNsUWcaoLU/2o1XojVRPn8PJI
-	ScPNt/Xo+FKyY0DA==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=qZo4PXYC;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=WMKrJopq
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1788176636; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=sKUz1RcRmIY8nC4tiEVUTstSXZ30OhbvFxIOCZ1dnoA=;
-	b=qZo4PXYCMwcDbMmCiiguheUH9di288HfVJKboCZYYVx9t47RyQT3oP6mU+OUQElifw3smb
-	rZ7KKjXvKSao6A05V83XMfHBFQ1zlZ5pK1+WDODoVZEzHZqZihUdxDWhnDxvyN52S/s/Nw
-	Fm5pjLiFNFUrbZ0bh1wRfj1FL/cvlEg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1788176636;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=sKUz1RcRmIY8nC4tiEVUTstSXZ30OhbvFxIOCZ1dnoA=;
-	b=WMKrJopqt61VTulPivSuNN8Qk/7dB16e4emlEn3wr76LDHMO47HKoCFScmfwT5lI8lNNL9
-	W3APQt1/7M23zkDA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 0ACCA13515;
-	Mon, 31 Aug 2026 11:43:55 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 45R0OvtolWrSWAAAD6G6ig
-	(envelope-from <pfalcato@suse.de>); Mon, 31 Aug 2026 11:43:55 +0000
-From: Pedro Falcato <pfalcato@suse.de>
-To: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>,
-	Hans de Goede <hansg@kernel.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: Sanket Goswami <Sanket.Goswami@amd.com>,
-	platform-driver-x86@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Pedro Falcato <pfalcato@suse.de>,
-	Oleksandr Natalenko <oleksandr@natalenko.name>
-Subject: [PATCH] platform/x86/amd/pmf: fix build on !CONFIG_AMD_PMF_DEBUG
-Date: Mon, 31 Aug 2026 12:43:46 +0100
-Message-ID: <20260831114346.2041361-1-pfalcato@suse.de>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KdUsfKde"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 196E71F000E9;
+	Mon, 31 Aug 2026 11:45:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788176708;
+	bh=wGdIvMQDIWqxcyQAeKHe8ucGu5TZhv2BRT1ivpeEVSk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=KdUsfKdewDSrrbHIxK3Dnxh1M5Y0JSMeTR7RaY42i0KCGoye7ktLqLHrO3SDqrF7z
+	 LVtu2OqTlRSk5UPoflgkTV4el+A0DFPR4uwHENHf3wsXCg3kmJMBQ/h4/DIZHeD5CT
+	 ilxoQ5bbmf3XrnN6JV1tG+4EP0DETlsslwFyLaFfutB/tiJjRVLMgWgPlsQ8yISWwv
+	 BjT04QENHaW+yBCysjSx8Rm2hKvmq5pdIRKRQDZGVa9oKgkIjFki92RytPJskZC3+p
+	 nZu7mDZWoIlqvT/8flz3bX2akFWmg5YZ+KGsc6wLrxOaTN2lRfoWRfezo5W+KZw2hj
+	 JzDIK7W5MgPKg==
+Date: Mon, 31 Aug 2026 14:45:05 +0300
+From: Konstantin Sinyuk <ksinyuk@kernel.org>
+To: Jason Gunthorpe <jgg@nvidia.com>
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	Jiri Pirko <jiri@resnulli.us>,
+	dri-devel@lists.freedesktop.org,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Francois Dugast <francois.dugast@intel.com>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Donald Hunter <donald.hunter@gmail.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>, Ilia Levi <ilia.levi@intel.com>,
+	linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	jhs@mojatatu.com
+Subject: Re: [RFC PATCH 0/12] drm/fabric: vendor-neutral topology
+ infrastructure for scale-up accelerator interconnects
+Message-ID: <fabric-jason-reply.1788176463.ksinyuk@kernel.org>
+References: <cover.1787552412.git.ksinyuk@kernel.org>
+ <apAsfOowcG0cTvT8@FV6GYCPJ69>
+ <apG3Gsk1TeMD-oCc@intel.com>
+ <20260828170301.GA4157646@nvidia.com>
+In-Reply-To: <20260828170301.GA4157646@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: B38E31FB3C
-X-Spamd-Result: default: False [-3.01 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_MISSING_CHARSET(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-0.999];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	SUBJECT_HAS_EXCLAIM(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:dkim,suse.de:email,suse.de:mid];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Spam-Flag: NO
-X-Spam-Score: -3.01
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: 7bit
 
-amd_pmf_get_ta_custom_bios_inputs() is used by non-debug features.
+On Fri, Aug 28, 2026 at 02:03:01PM -0300, Jason Gunthorpe wrote:
+> For something complex like this, if you can't concretetly tie the HW
+> to a net namespace, and follow the net namespace rules for visibility,
+> then it is going to be a painful choice. I speak from alot of rdma
+> experiance where net namespaces have been consistently challenging.
 
-Fix the build on !CONFIG_AMD_PMF_DEBUG by moving
-amd_pmf_get_ta_custom_bios_inputs() outside the ifdef CONFIG_AMD_PMF_DEBUG.
+Agreed. The series does not provide meaningful namespace semantics; it
+is host-global and confined to init_net. I would rather make that scope
+explicit than invent per-netns fabric semantics that the hardware does
+not have.
 
-Fixes: 5bda82c797c9 ("platform/x86/amd/pmf: Implement util layer ioctl handler")
-Reported-by: Oleksandr Natalenko <oleksandr@natalenko.name>
-Link: https://lore.kernel.org/all/fS7s9V_xTaedaqEAaxwKnQ@natalenko.name/
-Signed-off-by: Pedro Falcato <pfalcato@suse.de>
----
- drivers/platform/x86/amd/pmf/spc.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Generic Netlink was a practical starting point, and drm_ras established
+the pattern in DRM, but that is a simpler problem and does not settle
+the choice here. A device-fd model like Jiri's may fit visibility and
+access control better, since a global family has no descriptor to check
+against. I would not switch transports based on an early pre-RFC, but I
+no longer consider the transport choice settled.
 
-diff --git a/drivers/platform/x86/amd/pmf/spc.c b/drivers/platform/x86/amd/pmf/spc.c
-index 94355b435a66..592ba4de4c7f 100644
---- a/drivers/platform/x86/amd/pmf/spc.c
-+++ b/drivers/platform/x86/amd/pmf/spc.c
-@@ -17,7 +17,6 @@
- #include <linux/units.h>
- #include "pmf.h"
- 
--#ifdef CONFIG_AMD_PMF_DEBUG
- u32 amd_pmf_get_ta_custom_bios_inputs(struct ta_pmf_enact_table *in, int index)
- {
- 	switch (index) {
-@@ -31,6 +30,7 @@ u32 amd_pmf_get_ta_custom_bios_inputs(struct ta_pmf_enact_table *in, int index)
- }
- EXPORT_SYMBOL(amd_pmf_get_ta_custom_bios_inputs);
- 
-+#ifdef CONFIG_AMD_PMF_DEBUG
- void amd_pmf_dump_ta_inputs(struct amd_pmf_dev *dev, struct ta_pmf_enact_table *in)
- {
- 	int i;
--- 
-2.55.0
+> net/ is mainly focused on IP networking, it is where you should be
+> putting the ethernet layer at the bottom of the ua link over ethernet,
+> SUE, or whatever.
 
+Agreed. Ethernet PHY, MAC, packet processing and switch routing belong
+in the networking stack, not in DRM or an accelerator driver.
+
+Scale-up can reuse those layers where they fit. What differs is the
+accelerator-facing semantics, even when the underlying transport reuses
+Ethernet. From the accelerator side, a scale-up endpoint behaves more
+like another core in a tightly coupled system than an ordinary NIC.
+
+This series does not duplicate the networking layers. It models
+endpoints, ports, direct adjacency, membership and local state: no
+netdev, packet processing, Ethernet PHY management, route computation
+or switch forwarding.
+
+> There are so many variations of these "scale up" fabrics now, it would
+> probably be appropriate to have one subsystem that aims to work with
+> all of them. It is almost rdma but different enough it probably
+> wouldn't fit well.
+
+Worth testing. I would rather approach that through the minimum common
+object model than start by defining a complete subsystem.
+
+DRM is the current location because the initial providers are DRM and
+accel drivers, not because DRM should own the transport or must be the
+final home. The objects do not depend on GEM, scheduling, display or DRM
+memory semantics.
+
+Switches are the difficult case. A UALink switch is not a DRM device,
+and complete Pod topology may involve information owned by the Pod
+Controller and switch-management plane, not only accelerator drivers.
+If that information has to be represented as first-class objects, DRM
+may not be the right final home.
+
+There is no established common Linux answer for this class of fabric
+yet. I would rather start with the minimum topology objects, test them
+against direct-link and switched implementations, and review the model
+with multiple vendors before deciding its final scope and home.
+
+The LPC BoF is where I want the accelerator, networking and RDMA sides
+in the same room:
+
+  https://lpc.events/event/20/contributions/2412/
+
+Thanks,
+Konstantin
