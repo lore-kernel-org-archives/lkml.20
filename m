@@ -1,35 +1,34 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2898C4A3D5A;
-	Mon, 31 Aug 2026 18:22:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F7F84A3F1F;
+	Mon, 31 Aug 2026 18:22:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788200531; cv=none; b=ghIn5q7Km/sin0jywtVXo6axJa9a0zhLu8JWOrAoN6DoRSaM0tJvCyEvgaJ3GycYVI1lk4rY0NveifAR7KRXVCwYBgS6jZachLgqYeoJU8P/9DQeXCCFh4Z2PsjICM2oKdxOUgflNSuCadGEePe1x/OGoO+G/3/kntWy+Xh0Lxk=
+	t=1788200533; cv=none; b=QVAHFyQNlVMjQuTeLQxI5CQZtukG/D978pimCGgaD5O55bEbhXOB372o+cLBM6GHj8Tn4T7i187FDhgr3jfZbvcNWvJz7c++iZlIqcQp9k9ZkvoNvBUgrssfKfBSKPDv9Ko+Kncny+V7sWm22ozcyFxtWdrdmsssxCy7puZyM2Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788200531; c=relaxed/simple;
-	bh=NMoveCuj/U3vFYbbxpy7pgcMhDCKjoWIC99DsA8Pox8=;
+	s=arc-20240116; t=1788200533; c=relaxed/simple;
+	bh=tSL0uX5WiMXqa9KcVZAW5G1vvE7oLcVy4eyodGJqHX8=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=FiU2cRtRI6g/OdV6sUcCvswE6+H3NYz0EoaaxkwxamckNFkSvg/Qsqe0yOTeoQ36uYblu5cqlQsl9ubzC9Hsz4odV/8Pr7BveBmIvf4jH+FbNEayFyv/IPMyKE4cMpQK3nzAZGIRcG+SgpdSbX/goa4n+mJ/HRSZH220ukjmwss=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=btEKD86j; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=OAl+8HxQ9O91lySoFyVgSsMXYaohhb1VxCDeQqmYTGCAU7ZannmkcIv9MrxgjAzQ7qLxFUUq43R66r1Kmq4WyHdc4yfNCE7+spHUe8HVTOnCXMErjpx9fsz5Sa+d6LLVouS75cjl3BY7rWCmcqxN+eyHSCPlENaYhFisvhWyyO4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PDP0n0BO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="btEKD86j"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69EB71F00ACA;
-	Mon, 31 Aug 2026 18:22:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PDP0n0BO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00D841F00A3F;
+	Mon, 31 Aug 2026 18:22:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788200530;
-	bh=Pu4GPT9xCofiWopDGkZSuP+4u3elKLBzQ0R5BEM+3Fg=;
+	s=k20260515; t=1788200531;
+	bh=/8h3ZyhxcBc9+MXGp+kCBkAD/N+CQiquY4vElNXs4Sg=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=btEKD86jgNOsJL0oKrub4fuY4KwHZw9+y5aQNynDhNnAwDVKq5pB5r8rA4WQP7fWw
-	 YIJ3mPXStwIUvuEMwK+5md4pvvytTBP8NinMwwy5w49tYazsxVWJMEU4sDOZtG2eSF
-	 TYRMYgR67dhU2eWzPSPx1gIDU18gGKmOzyr6yyYO1LvWtJTyMMgvEahm/wtZyuHJ9Y
-	 NPACmCSCd/MrZczU7NFhBUN9ahJHTEFkmqP7VYcKX2nDvLBmaU67Udot8O7cTY+3Ym
-	 CoDCyJ0IYq+rARxTx3IsWXB4ozAat9pjEX9Xm1rKsD3GmfmBsC8KtquSXl9abdB+JA
-	 PZKyTGj5gF5rA==
+	b=PDP0n0BOsT6lp9ONvnDCVMuRExMSo0EBlKmp20JVBFHkv88FsWgYGbJKQxf7x9aFC
+	 +kRlRxpSuTFoko0U8RdID4TPDQmWTA9HAl/F4/SipEKnwy0FEwrOwE6RuCjfzQtd0X
+	 jLVFnaHrKOjuCtR3utQYUckZaq0Q6rBGuW2MfLji3Pu0GszXWXvvUO0fyemCZm5fsz
+	 srumqCGSAqAq+ncYheOAg1G1TDA1FOR76phj9tLwOF9GQtniY9mRSaC4D4d4Cs5yVP
+	 a58kdqXIoTB2AIRVAELuTbV5P5hvwZZ2pA+yqwdwGFS5Vc/oeUvTN8cdNeIu+Kypiz
+	 ygCaKPW9CL+vg==
 From: Chuck Lever <cel@kernel.org>
-Date: Mon, 31 Aug 2026 14:21:58 -0400
-Subject: [PATCH RFC 2/8] SUNRPC: Execute initial async RPC states in
- caller's context
+Date: Mon, 31 Aug 2026 14:22:00 -0400
+Subject: [PATCH RFC 4/8] Set WQ_SYSFS on key NFS-related workqueues
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -38,7 +37,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260831-performance-v1-2-8d9fd9b67f96@kernel.org>
+Message-Id: <20260831-performance-v1-4-8d9fd9b67f96@kernel.org>
 References: <20260831-performance-v1-0-8d9fd9b67f96@kernel.org>
 In-Reply-To: <20260831-performance-v1-0-8d9fd9b67f96@kernel.org>
 To: Trond Myklebust <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>, 
@@ -46,81 +45,71 @@ To: Trond Myklebust <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>,
 Cc: Lai Jiangshan <jiangshanlai@gmail.com>, linux-nfs@vger.kernel.org, 
  open list <linux-kernel@vger.kernel.org>, Chuck Lever <cel@kernel.org>
 X-Mailer: b4 0.16-dev-da966
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2178; i=cel@kernel.org;
- h=from:subject:message-id; bh=NMoveCuj/U3vFYbbxpy7pgcMhDCKjoWIC99DsA8Pox8=;
- b=owEBbQKS/ZANAwAKATNqszNvZn+XAcsmYgBqlcZPOC0GWRQVNLqFBploRctZQAImd8K0Laag/
- SbEtcrdA1iJAjMEAAEKAB0WIQQosuWwEobfJDzyPv4zarMzb2Z/lwUCapXGTwAKCRAzarMzb2Z/
- l+spD/9mVO49lQZzoGwus61XbLGxoq5OZrEgMGEM1vdSGGtjN4/zD3ihSi0utsfD49cWoQIBk7L
- 6vzqdZhkPjA243jpnAbtbwjyLm2r7q3JwCtZvkJ/f4rI/tmV6cQPmFG+i+VRo+AtMytBEV5Qvc5
- Aisl6cN0bmgYYyQNXrS4jGD6Tr3reu7VgXJQ2Jy6C2zcpISUqQtZtpwBIEYahdo7NSkpYUUSNKb
- e74q9tnXIm4I9dt/L0jH94DL3BPoCFr3V/2RSinLSRLzurZKXO2668NtT7sHdFjg6xkIJdIEaE+
- P4zzmZ8MEKkin3klXi1wOGOvBy/5GqA+NEiHJMiyl8zqfIGHeTMPZ1bGMjDWV9NEZZgv/SgbWC7
- SLv7iT7L4aDUBNdbnAg4oq1Y/V6t1Cute5TtSiK3a8/Xx3IIdHv45oCxY+5zJ12uPFE9hPcSnQN
- 0CcrAiiaffZ4zhg09xrInEDaYr6YwbSkCjdf3ZTD3IT2wPZwOVAeoZVWmKls8SzbkmCDGZ4NGlo
- Y0MnaCK5bfpJJcXhIiO5A4ddZh14dlz3qh72RTiV4EWdb5cRG2zak59PPZ5vvABBLZCwJKW4est
- gnxfDJDjS/idV5FoxDE9+80mX6RljdMATQkIquxVjLfrVDjjcTyzwOynuwj93UkQVNaotC8sutu
- tis7w6m/z2aFObw==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1677; i=cel@kernel.org;
+ h=from:subject:message-id; bh=tSL0uX5WiMXqa9KcVZAW5G1vvE7oLcVy4eyodGJqHX8=;
+ b=owEBbQKS/ZANAwAKATNqszNvZn+XAcsmYgBqlcZPUk2WAUnwrhHYs0lkjHwtVJSUin5p4QXyZ
+ MaVjHYBURaJAjMEAAEKAB0WIQQosuWwEobfJDzyPv4zarMzb2Z/lwUCapXGTwAKCRAzarMzb2Z/
+ lwvSD/43BvorEcNglmPSncbfa79si+LpJ1OF+6XfuUqJPkfMTRojinLnugM/ePaOe79BYOuFWxW
+ lhkzXwT2ve74Geue08TTZzLrCUAv0tCFcTXkrhgeT4DlZ0PywZr5r9D2pwbf4aObU+pRi3n2GRa
+ YBRfDGWYPYrlONUEawGaAV6/Yz245zfkJniSPpVhmxitM08hWptoPUjea6X7pjqa2XFzoCPSfOw
+ 5qY0lmVo7AApzNKNlJfK60vwML5bT8jQgVgBJCXuvNVsnVH+1Sv1lM9axjr2rKSTTWywyheQyeX
+ cujnGIJKj0Me8ONzoX5OzPJyQB7JobD2/Y0cEAqIFgIOMljtu9WEbBHok2oT9v8kwUW/EXXFAX8
+ 6OSiS+WgyS+wtIaL308rchVKvS17Gyu/QGpTRYXsQnefJ++vUwWdBgL6zlLSYi/uIZckhtGzgga
+ U3R1OMXfl0LR0jXUe+Zf8KEaHPBE2BM9VF8gq0PGZPHi1t+Q8tqp5WXMuLO8YMHJmNIomV1ZQ1F
+ Mkn74NDi+2G2MWfAki3x1e85DzzT6UoLkFEhk5deXQmoSjjYSLW/5ZiBzBn9bC+v6p83Mob2YcI
+ 5AZBz1frnfU+5GJAUf0WzRcf/n5g+rL/2dAiu0d11t+rAVoIkv9Z5ZYHXY2dSXYYYQzRZ++H4dS
+ 6l4B9XBz3VrkKBw==
 X-Developer-Key: i=cel@kernel.org; a=openpgp;
  fpr=28B2E5B01286DF243CF23EFE336AB3336F667F97
 
-Each async RPC task is dispatched to the rpciod workqueue before its
-first FSM state runs, though the initial states (call_start through
-call_allocate) typically complete without blocking. Under high
-concurrency this adds a workqueue enqueue, dequeue, and context
-switch per RPC and contributes to rpciod pool lock contention.
-
-Have rpc_execute() call __rpc_execute() directly for async tasks as
-well. The initial states then run in the caller's context, and
-__rpc_execute() returns to the caller when the task first sleeps on
-a wait queue. Later wake-ups still dispatch to rpciod via
-rpc_make_runnable().
-
-Commit d6a1ed08c6ac ("SUNRPC: Reduce asynchronous RPC task stack
-usage") moved async dispatch onto rpciod to bound caller stack
-depth. Inline execution preserves that bound because __rpc_execute()
-still runs each state from the same stack frame.
+WQ_SYSFS exposes settable workqueue attributes under
+/sys/devices/virtual/workqueue/. For NFS workloads, this is useful
+for tuning affinity scope at runtime without reloading modules.
 
 Signed-off-by: Chuck Lever <cel@kernel.org>
 ---
- net/sunrpc/sched.c | 16 +++++++---------
- 1 file changed, 7 insertions(+), 9 deletions(-)
+ fs/nfs/inode.c     | 3 ++-
+ net/sunrpc/sched.c | 5 +++--
+ 2 files changed, 5 insertions(+), 3 deletions(-)
 
+diff --git a/fs/nfs/inode.c b/fs/nfs/inode.c
+index 3022454f7698..107a2135029d 100644
+--- a/fs/nfs/inode.c
++++ b/fs/nfs/inode.c
+@@ -2619,7 +2619,8 @@ static void nfsiod_stop(void)
+ static int nfsiod_start(void)
+ {
+ 	dprintk("RPC:       creating workqueue nfsiod\n");
+-	nfsiod_workqueue = alloc_workqueue("nfsiod", WQ_MEM_RECLAIM | WQ_UNBOUND, 0);
++	nfsiod_workqueue = alloc_workqueue("nfsiod",
++				WQ_MEM_RECLAIM | WQ_UNBOUND | WQ_SYSFS, 0);
+ 	if (nfsiod_workqueue == NULL)
+ 		return -ENOMEM;
+ #if IS_ENABLED(CONFIG_NFS_LOCALIO)
 diff --git a/net/sunrpc/sched.c b/net/sunrpc/sched.c
-index 016f16ca5779..9b2800f6bfc7 100644
+index 9b2800f6bfc7..c31cf55b933f 100644
 --- a/net/sunrpc/sched.c
 +++ b/net/sunrpc/sched.c
-@@ -1003,8 +1003,9 @@ static void __rpc_execute(struct rpc_task *task)
- 	current_restore_flags(pflags, PF_MEMALLOC);
- }
- 
--/*
-- * User-visible entry point to the scheduler.
-+/**
-+ * rpc_execute - Consumer entry point to the RPC scheduler
-+ * @task: RPC task to be scheduled
-  *
-  * This may be called recursively if e.g. an async NFS task updates
-  * the attributes and finds that dirty pages must be flushed.
-@@ -1014,15 +1015,12 @@ static void __rpc_execute(struct rpc_task *task)
+@@ -1271,16 +1271,17 @@ void rpciod_down(void)
   */
- void rpc_execute(struct rpc_task *task)
+ static int rpciod_start(void)
  {
--	bool is_async = RPC_IS_ASYNC(task);
-+	unsigned int pflags = memalloc_nofs_save();
++	const unsigned int wq_flags = WQ_MEM_RECLAIM | WQ_UNBOUND | WQ_SYSFS;
+ 	struct workqueue_struct *wq;
  
- 	rpc_set_active(task);
--	rpc_make_runnable(rpciod_workqueue, task);
--	if (!is_async) {
--		unsigned int pflags = memalloc_nofs_save();
--		__rpc_execute(task);
--		memalloc_nofs_restore(pflags);
--	}
-+	rpc_test_and_set_running(task);
-+	__rpc_execute(task);
-+	memalloc_nofs_restore(pflags);
- }
- 
- static void rpc_async_schedule(struct work_struct *work)
+ 	/*
+ 	 * Create the rpciod thread and wait for it to start.
+ 	 */
+-	wq = alloc_workqueue("rpciod", WQ_MEM_RECLAIM | WQ_UNBOUND, 0);
++	wq = alloc_workqueue("rpciod", wq_flags, 0);
+ 	if (!wq)
+ 		goto out_failed;
+ 	rpciod_workqueue = wq;
+-	wq = alloc_workqueue("xprtiod", WQ_UNBOUND | WQ_MEM_RECLAIM, 0);
++	wq = alloc_workqueue("xprtiod", wq_flags, 0);
+ 	if (!wq)
+ 		goto free_rpciod;
+ 	xprtiod_workqueue = wq;
 
 -- 
 2.55.0
