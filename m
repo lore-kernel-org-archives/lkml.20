@@ -1,35 +1,48 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from canpmsgout12.his.huawei.com (canpmsgout12.his.huawei.com [113.46.200.227])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06A483A3826;
-	Mon, 31 Aug 2026 09:11:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 103B13D1CC1;
+	Mon, 31 Aug 2026 09:11:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.227
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788167464; cv=none; b=OIgfEHdc2rp2XAsXbnuum8J8bhSUVQDD5afXQYCnBob1aTgR6b4cByzRASKH9Vt6DcwB02HvsMbty8qP9rXp4YHHEtRGG9vFq1vk80sdmp0X6GZfaKd1dPXWTioE4NfUTgyZ0tQn692fPs3HwdzWZjwwZ0BhCXaToMT9gGhP4TE=
+	t=1788167466; cv=none; b=T0fSafXZN31jDeCNBoBJcIH5oF9SbXlbMGnOcq1/Rz6QSNMcwQCt2ylGZHKFJHjztVXjTJbsoEWgTvy/xK8bGM3h13YlfHdjm/qQK5e8Ia2BNOMdbcQd34F3TTkUhG8dygHVofNXeltM0sCV6zM4ozIUqN7+DTBLmmNpuFdwRcI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788167464; c=relaxed/simple;
-	bh=SY4YikWVvQ6SCXsDVFu7kxZPLs48OZPoQ/Mjs9I0oIE=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=WKvrgllfg8dOFIM5Duyuhvp+6FYrnhAGaIElQ5Fw8UApJyKLwZTwMEHlr4zPKvSu/c2bvY5F7uFNbuQ+0LVv5sFrOtXOESLOxH0vFA2aDk1byQaG5sLiQW/S3vMWk6E+cfksqjNngyEljFOj9P1e2wMFiDdYIu7CDXYxAEGtER0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VHIE2X3/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788167466; c=relaxed/simple;
+	bh=bRVegjh7kqwOClGWRibP8qqYTfhvDyLQp1VK6459kYw=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=JZcxoRdFF1j44rbm/VLYfntYacdu8kQh7n6cnHLJXzfMAcP4LarTuM/XmJZ4lLjdndJk9p9H0bd73Q+dNZIJf5hc2eQfktjZs6OnaL+M/g0KE4zfHb+LqsxJf/rse4jA7oUJqVFd6qtu9l9SIxnbuAamGgSR/4vltTKYNOBoYjI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=UOIDmJYn; arc=none smtp.client-ip=113.46.200.227
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VHIE2X3/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93BD11F000E9;
-	Mon, 31 Aug 2026 09:11:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788167462;
-	bh=C9+3ntl6gDf30XDx2u7J2NbyAz1jSEmLDZfvwZVBLwU=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=VHIE2X3/y5s+RNmglpJcHTiFSgs9HwBOir2rTiNVIV21HX5ZWsn2yeqE/LRn8TVPw
-	 L2vCgnq0g9lGB4gsuHtQmBwzrBh0DQeRLl3p4iPvSBdT3jsoQJ8TLjXiZcSmOobxOU
-	 3+ylcLxemDJek8TTiur+D9QoV1zw8nfElSg9v9zK01OcFuEDM4jHaZB2LRXeDtS9HQ
-	 Q29p+8I0AaJvAxzXYBXs0peKENd63nYdAhGe1AOLIciFannbUDUQO80DaiUAGG+cfG
-	 DzCNSYvf5SZ4CymZe8PMoKhIEncYVfcK+E2TavawQ1E5vFLiXEjMcNNlyAGYtY05ck
-	 Dbq/QZpiMG8wA==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 19A69380DBE7;
-	Mon, 31 Aug 2026 09:10:07 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="UOIDmJYn"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=lBgo/uYQKxqMeB0V4fkOVRE0+0BUTuXRnE++cS8xRrE=;
+	b=UOIDmJYn5xG6cpu9afV4PbSEH8GP1x2dg5vqMDykII1SqPgnM0/25PgxYeIas0VwH2W6vC0Wq
+	tIA88IlghNp6/XjAhVoPP/vhjVQZyFbJqQ/Vv804OfLhsBsMDVtBiRHIb9Wx+hrLQ3cjgop71ge
+	BOTWl9WHMr166ZPun46AhwY=
+Received: from mail.maildlp.com (unknown [172.19.162.92])
+	by canpmsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4hYNGh6TGTznTVv;
+	Mon, 31 Aug 2026 16:59:40 +0800 (CST)
+Received: from dggpemf500015.china.huawei.com (unknown [7.185.36.143])
+	by mail.maildlp.com (Postfix) with ESMTPS id 4836640565;
+	Mon, 31 Aug 2026 17:10:55 +0800 (CST)
+Received: from huawei.com (10.50.163.32) by dggpemf500015.china.huawei.com
+ (7.185.36.143) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.11; Mon, 31 Aug
+ 2026 17:10:54 +0800
+From: Longfang Liu <liulongfang@huawei.com>
+To: <alex.williamson@redhat.com>, <jgg@nvidia.com>
+CC: <kvm@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<liulongfang@huawei.com>
+Subject: [PATCH v3 2/3] hisi_acc_vfio_pci: clear set_reset_flag after reset completed
+Date: Mon, 31 Aug 2026 17:09:50 +0800
+Message-ID: <20260831090951.844569-3-liulongfang@huawei.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260831090951.844569-1-liulongfang@huawei.com>
+References: <20260831090951.844569-1-liulongfang@huawei.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -37,42 +50,45 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net] octeontx2-af: fix CN20K default MCAM rule removal on
- port
- cleanup
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <178816740590.4159632.8782205699345652438.git-patchwork-notify@kernel.org>
-Date: Mon, 31 Aug 2026 09:10:05 +0000
-References: <20260825051725.3732440-1-rkannoth@marvell.com>
-In-Reply-To: <20260825051725.3732440-1-rkannoth@marvell.com>
-To: Ratheesh Kannoth <rkannoth@marvell.com>
-Cc: kuba@kernel.org, linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- pabeni@redhat.com, sgoutham@marvell.com, kirankumark@marvell.com
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
+ dggpemf500015.china.huawei.com (7.185.36.143)
 
-Hello:
+set_reset_flag is a sticky latch set in reset_prepare() when this driver
+acquires the QM_RESETTING lock, but it is never cleared. If a later reset
+attempt times out in reset_prepare() because another agent already holds
+the lock, aer_reset_done() sees the stale true flag and calls clear_bit()
+on QM_RESETTING, prematurely releasing a lock owned by the other agent.
 
-This patch was applied to netdev/net.git (main)
-by David S. Miller <davem@davemloft.net>:
+Clear set_reset_flag right after clearing the QM_RESETTING bit in
+aer_reset_done(), so every reset cycle is self-contained and a timed-out
+reset cannot release a foreign lock.
 
-On Tue, 25 Aug 2026 10:47:25 +0530 you wrote:
-> From: Kiran Kumar K <kirankumark@marvell.com>
-> 
-> npc_mcam_free_all_entries() disables every MCAM entry mapped to a
-> port before freeing it.  On CN20K, that also disables the default
-> broadcast, multicast, promiscuous, and unicast rules, which causes
-> packet drops when all rules are removed per port.
-> 
-> [...]
+Fixes: a22099ed7936f ("hisi_acc_vfio_pci: fix VF reset timeout issue")
+Signed-off-by: Longfang Liu <liulongfang@huawei.com>
+---
+ drivers/vfio/pci/hisilicon/hisi_acc_vfio_pci.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-Here is the summary with links:
-  - [net] octeontx2-af: fix CN20K default MCAM rule removal on port cleanup
-    https://git.kernel.org/netdev/net/c/1376afc7660b
-
-You are awesome, thank you!
+diff --git a/drivers/vfio/pci/hisilicon/hisi_acc_vfio_pci.c b/drivers/vfio/pci/hisilicon/hisi_acc_vfio_pci.c
+index e95d0ab0f11a..4abed2e49986 100644
+--- a/drivers/vfio/pci/hisilicon/hisi_acc_vfio_pci.c
++++ b/drivers/vfio/pci/hisilicon/hisi_acc_vfio_pci.c
+@@ -1180,10 +1180,12 @@ static void hisi_acc_vf_pci_aer_reset_done(struct pci_dev *pdev)
+ 	struct hisi_qm *qm = hisi_acc_vdev->pf_qm;
+ 
+ 	if (hisi_acc_vdev->set_reset_flag) {
+-		if (qm && qm->io_base)
++		if (qm && qm->io_base) {
+ 			clear_bit(QM_RESETTING, &qm->misc_ctl);
+-		else
++			hisi_acc_vdev->set_reset_flag = false;
++		} else {
+ 			dev_err(&pdev->dev, "PF QM not available for reset done\n");
++		}
+ 	}
+ 
+ 	if (!hisi_acc_vdev->core_device.vdev.mig_ops)
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+2.43.0
 
