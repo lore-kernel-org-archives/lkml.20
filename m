@@ -1,219 +1,270 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012015.outbound.protection.outlook.com [52.101.53.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE3EA41B362;
-	Mon, 31 Aug 2026 14:20:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788186019; cv=none; b=WkHJpPBjIPPCcpKas4JOYHDKCAFG0T5cNoy46lnDtULjcqIZz1Pl0ztW6e+fxCZ9u/XOHDyXnjozz8T7WEF6mQPPD1ePSOovHxods/6GoChe8RPM8XNKiQXhVKgxaxJuYJkmN+yFwbQno3IBn5I0OP3V4Pju4wSrTpHCdx8bUgc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788186019; c=relaxed/simple;
-	bh=biYVhkFtO28r+7j+reA+gcMEJeS5ra+83YJv/eUxk2M=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ahbV4nrS6S9zMZ63Mo5n7e6ZGIHacZhxSFdveyYMnWM+7vJnu9zTSip8pz8i9lycsu5/Qv7FaVchvFL8W2hnyeblShf+ZNhdeEu1EhtioJsqBz73lSzzYhrOC1jdo+5JJoSfwwu+u9QBFfIAE/ykrIapl6Mqvb1yACTdlR/+ugY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XVtXf3Ai; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08F15442396;
+	Mon, 31 Aug 2026 14:20:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.53.15
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788186043; cv=fail; b=gUKfIC0UOg908i1bJ+8itX1FYDRecOmz5m1Eay4RJQXfDH+l/v1puP2VwiJ9Y1P9QM55Gui7uzFKudHVnvfdZS5K+4RBapXS+mC6zg+An1aYBpkONKIyIw9hS6ebpa08+gADMNfbYzF3ppWSD6moPY0nNLJkNsg002xcch7+wiM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788186043; c=relaxed/simple;
+	bh=HiVYpFAbZlvm3T7HtuZiPStFtcqr+uHZRkDaAcLUKk8=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
+	 In-Reply-To:MIME-Version; b=oiTzqChTS58Tk/icCVh2zJgxip4jqx/dkOrf97GajFT6exFYdK/PDi5I92hZ7aArco5QESWLKzTLf9Eho4NrQQoIKvQJR1o/7v7iLLOKM655GmGkWyuwSiftRODbS1akcrmckrttutBEF5kx26Vr8Rj8ruJbDX+UcinCnUCioXg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=Yyid0WHq; arc=fail smtp.client-ip=52.101.53.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XVtXf3Ai"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E94A31F000E9;
-	Mon, 31 Aug 2026 14:20:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788186017;
-	bh=7+rdhKp2I28DH6fAQPVY9ON3ORgsCf4pgIBJNXPjRz8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=XVtXf3AixinZmDucIRgKxfMHu1Rm9IoCDEIyKBjKRORKb2a3zqOAAu1eFi8YQGbrt
-	 /8IT+Rw8IEF1+l8vjJX9EPYCXOB0rbtid2UCGPSjk1hC+zdW2A5Fu/ToATDeJwNVOu
-	 /HqOQ2wIN4DW1/KpuAH6sMme/kiP0DSnHiKwlvG5cXwqkCpbI4LqBjE/BtReEnCCyA
-	 3KKLBk23YTWMvWhtl5ayM1aMRDmQJfT+aleQJxMMCZSS8ZWGBE4VpHK9if7pwGNICt
-	 v5G3YnFQw/epbL/OSTBBT7q28iGWzWsWu0JG1pqclvOLQ56J1vI1TksNeOkgsmltti
-	 sEZ8QoOBZQALw==
-Date: Mon, 31 Aug 2026 09:20:14 -0500
-From: Bjorn Andersson <andersson@kernel.org>
-To: Stephan Gerhold <stephan.gerhold@linaro.org>
-Cc: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/3] arm64: dts: qcom: hamoa-crd: Add thermal control
-Message-ID: <apWIbtyQQ4mOjZKn@baldur>
-References: <20260830-hamoa-sys-therm-v1-0-27108c40fba5@oss.qualcomm.com>
- <20260830-hamoa-sys-therm-v1-2-27108c40fba5@oss.qualcomm.com>
- <apVCUObyxf8Akbsc@linaro.org>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="Yyid0WHq"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=i8unB8aS2WKkzWMSvO3bNyR299U5dWuQlTvCN/OrcV56x5nEIb0XMwO4H2L120GWj9jnLWwSWbFGPAI5dzhZyzXkQ0kPiOhldOLXBmJLSzHQmSrx6xJyZH4o/dWfprSGORReXMpQS2sdvIjLs+ffLXxetAwXNqRajjyeK+av4m4er85jFG4TP/rNgMjaUUCddeOi2tJfuEok3rjjCq12ZTxMkCvZbiqnraApv7fojthITG/wT7t4kuVdZ6JH4fDubWHKfNsC/5zLFaNoR7FDGbJdLkDCRQ9DBR7wsIAKUixUl42B/5uHDIGVT4E3bQKPxsPq8VFjlOTO55rNuNm+EQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=yX6KLQq36hLZ4hgFTD3vl9QbjRpgXWViJ0glMGm0BVo=;
+ b=DhedQZFonzQBkdzR3r+8ra5lrvE8F3jX5INZ5kR7BBHA0Bon3iY56GECInVlSr5zZIeFFceP28LgmvFi3BFBNXBu2q16hpT8eLD1P9I7VY+dIl+jQkecOVQVNaGhHI2eqprzFpRwYfz8wF2mNHVw0wMHJI3ied/9SdYNzTmJNoFuXkIfIIicxw6akYo8S+4nwGEqbHmVb40mTN3qSZJ9O5SokcNAJh6aTuJ629NVo9E6TdikM/hp45m9GrT/VqjFLzluiq983d62ZhaaiyTPS1iOx1jmBbFTJ4pkLGjwwdRHDaFLGmJlenOGAKo60kC1RuAnXlSZ9hcAH2Ty+P3fqQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=yX6KLQq36hLZ4hgFTD3vl9QbjRpgXWViJ0glMGm0BVo=;
+ b=Yyid0WHqgbfieFHDpJvYU7kPHBQk1sqtL6MrCg/cpxBvyeOmrFxlcyiARXOYRlm1+jYilDR7FqwOfqIDd0pea9xnifUkIqh09wfbp05T6qLOrJStSauH5rniSPq9lNE3DsOmUqOYzaLpyUmMNO+iFu1+Y2NUryIXMwY1Y12yEV7wIwtyqsO4CC4tz0ZJk0hT9y3oROh2jvX5aWc7w9tU4FKapBNLa2J69K0gXDLrG+bWsRSSTREOFI0yUy5+J7Yo2anHXV8Vrzn2FqxCfKmtQVV+J+NcJkrTrTMIPlnM0KfwSByDu3XeLbXKBIKauoKBXDpdezKoaAjbkpMxNq1W6Q==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
+ by CY8PR12MB8194.namprd12.prod.outlook.com (2603:10b6:930:76::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Mon, 31 Aug
+ 2026 14:20:28 +0000
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0360.008; Mon, 31 Aug 2026
+ 14:20:27 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 31 Aug 2026 23:20:24 +0900
+Message-Id: <DL371J23O7I1.2BFFHIEFED3D9@nvidia.com>
+Cc: <ojeda@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "John Hubbard"
+ <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi"
+ <ttabi@nvidia.com>, "Eliot Courtney" <ecourtney@nvidia.com>, "Zhi Wang"
+ <zhiw@nvidia.com>, <nova-gpu@lists.linux.dev>,
+ <dri-devel@lists.freedesktop.org>, <rust-for-linux@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 1/2] gpu: nova-core: use kernel lossless integer
+ conversion module
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Danilo Krummrich" <dakr@kernel.org>
+References: <20260828-nova_num-v1-0-e21f17ba4127@nvidia.com>
+ <20260828-nova_num-v1-1-e21f17ba4127@nvidia.com>
+ <DL0KDAXUZOXD.I8FBZZ51EIIF@kernel.org>
+ <DL142442KXHA.3VFWP2DHD7H2E@nvidia.com>
+ <DL1O1NFXUX6N.1LFASWF425I4Y@kernel.org>
+ <DL2Q6ZZ1EK68.2SARDMRGQ19X6@nvidia.com>
+ <DL354W1TVE2X.CVZ3GXX2O2JQ@kernel.org>
+In-Reply-To: <DL354W1TVE2X.CVZ3GXX2O2JQ@kernel.org>
+X-ClientProxiedBy: OS7PR01CA0169.jpnprd01.prod.outlook.com
+ (2603:1096:604:24c::14) To MW4PR12MB6873.namprd12.prod.outlook.com
+ (2603:10b6:303:20c::17)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <apVCUObyxf8Akbsc@linaro.org>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|CY8PR12MB8194:EE_
+X-MS-Office365-Filtering-Correlation-Id: fcaa2580-54aa-43f8-37f4-08df076b015b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|10070799003|366016|23010399003|376014|18002099003|22082099003|56012099006|3023799007|4143699003|11063799006|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	PfrUfPaHlhNL6i0nrJ7kF/UL3OGqI/am/Iz2LOad7ZodvpUFzM1H2f4z1lzzh6Wzruq272AcKCMxd0cdFpVLSOzp4Ussa8/C554D9FZ+OEJJoSPsQzN99hwDTjSK82v9KY8Z6BgBetmgBbRq0Dg9Yr2mx/jYjCBRaWISuCQZNCS9bfs9O65MrYr7BSRuPfXaNQ1WVUHZpMi9aWr/2GEqhWdGbvLytUIH+XoZ3f9j2rk+HzOVa/viOYz1op8S1zuI1QYPla3Rs6kUbdYTaFuSvPR0y3JlsKdDiIqIXaE8UWHcgcATu1lZs9yehj1OQ7rYcAHjEbipTaaefh4PzsOvmraxbwUtmCRxEQHDa81I/i9xTp+E4v9fKfqzdjoX6pFtbz2hvA7ai58lFvQypLCgKg1W+7SXy1f1PWVOpGlqbcQHw8NT+S11jQEdXRK/StVmm9jMX8gSvVt6mSE8XZz1QihBdMc9VY1rv/xcgfub4ORi8szcEtfazXvwWAlE8L+5AmqX5/ltHjDt7AM5YE5D5QJ9ziU8udQ5W47oUYrI6lVtP3gMhefONGEd3Pvr91F9xajWFUocApf+N4mST0eN4TBNQ5P6MV/xS8g6foKtqKn/WlkUu3mldgyknpmOpBWGGfoc/siXk7vH553uPAu8EEoVkRP+fydcQAcmc8bR/nA=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(10070799003)(366016)(23010399003)(376014)(18002099003)(22082099003)(56012099006)(3023799007)(4143699003)(11063799006)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?Vk9lVHJKWlhmaitwL3ZqRUhTYXJQT2EzaFhuZENnb29rclJIcm9vWTZIRlc5?=
+ =?utf-8?B?SmcvSG00Tm9vQU9aVjR0UmFHT0ozSUwvcVBGaWV0Q3kzNmdYb0c0WERyRTUr?=
+ =?utf-8?B?VzN5cW9hSDRVSVY4OGljOWpkYVZyTytjQTI0ZzlzY3lsNEZNUkdNejBTYW8w?=
+ =?utf-8?B?RkFuS1YvNndmcHdJSEh4dW1RTHJyQnlTcFl6TFY0blovV1FnajRVRzVYUTQr?=
+ =?utf-8?B?MmdMOEQ4a3FMZGc3eXRkdFkveko4UFNlbTd5UnpZaTltU0doM1JqV3pmYncv?=
+ =?utf-8?B?cjNLb2NaVUJkMlA3K1Y4TDBsTXJ1U01yTFd1Nm1vcVRuMXZRaXNKNlN6cXd4?=
+ =?utf-8?B?UjVjS1hZeUF6K2NXbFFwT0N3Q1haTjZFUmpsNjNSRHFxYVNQQWp0Qnd1eWNY?=
+ =?utf-8?B?VnhnQXpZZGJEYm5pYUVrTC9SVmlzY2VyRC9WMjQ1L0VqWDBQMjVJUTU4NUZN?=
+ =?utf-8?B?Wm1MSjYyRDNjQWIvV0lSYmxOS295TVlySnE4amxHUlJvSHE2VHpVY0p1bmtn?=
+ =?utf-8?B?VVhTWlFVZ3d3emNydmNIbVpHaU84ZEM0S0E5Um9IeWphcTNKa3pmT0dvZHFx?=
+ =?utf-8?B?UHplK1h1OWFHTWtqL0pyMituZlVlellCNUlqaWRSWUJjRnVYZm0vWTNJQU5H?=
+ =?utf-8?B?TkhlMUtzcHhmSUNnc1ZVNmMxMXB4SThkcDB5ZnZlaSszb2VLd1pkRXRqSzVY?=
+ =?utf-8?B?L1kvN0UybnZMWlpqWTlFMk5KcVJjK0xXeXdUUU8wUmRvTkl2TlNsNEZzZUNR?=
+ =?utf-8?B?c0F3Q2hOeVo4emZISzYzeEpvME43T1IvNlpOQmtaSFlzeXVaUnp1bDQyVkRp?=
+ =?utf-8?B?WHVYdGtUdEhmVmw0eFpxWjAyMzRwcDdxbVg2NENzS2VaSGMybE02K09jYUdK?=
+ =?utf-8?B?S3dQOE5nQkdIa2hYRGM1bGU0ZTRQSkdYeTFYbFpZLzRsUzFwa3ppd24vMUZt?=
+ =?utf-8?B?RFZCbjVsOXBPOHpseE9JdWprMXN3cC9MSHI3WExzRXNTSEdiRXVyKzRpZElJ?=
+ =?utf-8?B?N0xSZmZ6ZVZoL25LRVVaclJjbDkxUDZFOG5kS2R2RjFydUkxNWc2c1lack9H?=
+ =?utf-8?B?YlFKbFNSWVVxc1I4Z0ZTMDVNMFdUbnFJM3dWQkFlN1hhZWZldGRMLytuMEp4?=
+ =?utf-8?B?b3FwRTVna1RvUGlBeUtIK1hGVDg1RG5OTXlMZmJBSGNTdXVUWmUrdmFyckx2?=
+ =?utf-8?B?b1htSHRCM2ZEY0F2bTdsTE15QUNNOXlUQldEMXRFZjAxRk1FUWp1dFNKaHNH?=
+ =?utf-8?B?NUVZZlZHNG02SUQ3MTBSd0c4cjdnQmdOdXIyaGdYQ1hqaW5GMDJGeXVyL1FO?=
+ =?utf-8?B?K1F6em5RVkZGSFM5ZW1tdkhqbjB4VDBGZis3VkVpVkNLMGlVazVueDZjMUFy?=
+ =?utf-8?B?NjNsc2JGaXZJNU8remhJZ29TblJDdUJFVHJQVlhBc0VWaTkrSjE1cW1uZjVr?=
+ =?utf-8?B?RkdVWERvR1ZSVmkzbjl4dDhoZ2xUcCs4ZURrdFV4QnY1aFFqZSszWnlncmhh?=
+ =?utf-8?B?dzR3Tmh4TlFvbmh1Mks0d2RKdXQvK1RuOVQzemd2NkpXZWtOVmhTZzJ2ZXNo?=
+ =?utf-8?B?WTFVTVZmeEllZU1FTzVzaEdvbnRsNEJLakhkV1BPVm9FSVlpSmxaV3gycEcr?=
+ =?utf-8?B?bDg1V3lFQmFvK0kybDRGM1ZnMWtkMDFJbFpHNEN5QWR6YmV4Z2JzRGpmWVRM?=
+ =?utf-8?B?d3hzUmRmbzJOSzlTUlhqYmRSRlkwOVljSmZGM1FCWWhUa3lCUlhpOU9wV1dh?=
+ =?utf-8?B?UUs5WTZxcnRBYWRzZHBpZ0Z3NldSRnNZZ0M4c0g5bm5NVlM4OTBZNDBZUk5u?=
+ =?utf-8?B?VW8vaDVoYW5oR0dBb0tYWFFJZ3U4Slg3anNTTVV6RUpLbWdSQ2lBU1RZOTY4?=
+ =?utf-8?B?Y09yZm5kL0g4eGYzQW52eitEbU9UNkU4cWVFVkQvMDdkdUY2U1kvKzhuemVV?=
+ =?utf-8?B?T25jQXZZalM5d1ZkMjZrN3h4bnpja3V3OElUU1BBTFBVZlh0NFl1L3hUejdT?=
+ =?utf-8?B?cjJzOElTNHN6TlNEbHNxZTN4d3gvaGlYU1dHcTBEVG1rM2NrN2IyVFVWRlA3?=
+ =?utf-8?B?VU1EdHlIZmRncVhzRlUzeEVUUnhjYzJrZ2tieXpSd1F5Zk12b1F4YlFsb0xI?=
+ =?utf-8?B?TExqdHBDbGlqczZBazkvK2thWXErYzRxMXUyUGN3aHRDSkJmaTJJSEhQY0Fm?=
+ =?utf-8?B?U0JGVm81WFZmNEdDejRQbFp6UU42N2h2TXE2WGZHdS9vS1FZVytsZ1Q1Mlp1?=
+ =?utf-8?B?MFJwQVQ1Q3Bad2F6NXdiRlcxdWJjeENvRCtSVkRqMzNnVmRKRDN3WTB2QU5T?=
+ =?utf-8?B?RTdnejE4MUg5b296Z2lValJsa2xtcGtCL2tiWndqL0U1RFhTWWllVXhiWFUx?=
+ =?utf-8?Q?BM7xLy9PcuOWFHb3hz4kS8Vdm9j+JAdcR7N6a/m6Wlwpj?=
+X-MS-Exchange-AntiSpam-MessageData-1: FB+J1ZMuKIz29w==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fcaa2580-54aa-43f8-37f4-08df076b015b
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 14:20:27.8948
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: pMUXu8ibjPmMLLePoUFRhB9XMr7ZhrU59/GgxX73VA2WVxUt34dI6HEKUcNpP051nz/+essiQDhMV5IzZ4jRcg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB8194
 
-On Mon, Aug 31, 2026 at 10:58:56AM +0200, Stephan Gerhold wrote:
-> On Sun, Aug 30, 2026 at 09:02:03PM +0000, Bjorn Andersson wrote:
-> > The "limits" hardware performs rapid thermal management of the CPU
-> > cores, but during prolonged CPU usage the system's overall temperature
-> > need to be further managed by software.
-> > 
-> > The reference design provides seven "system thermistors", connected to
-> > the PMK8550 VADC. Particularly interesting is the "keyboard hotspot
-> > thermistor", which is wired up to sys_therm1.
-> > 
-> > Use this to throttle the CPUs, in the same way that we're throttling
-> > previous generation laptops based on "skin-temp". The trips are chosen
-> > from those existing examples, but are comparable with the ACPI thermal
-> > policy.
-> > 
-> 
-> In general, following the ACPI thermal policy as close as possible is
-> better than following existing examples. Most X1E-based devices use
-> hybrid active/passive cooling, with the fan controlled independently by
-> the EC. If you start throttling even just 1-2°C before the EC reaches
-> its highest fan trip point, it will result in bad performance. Linux
-> will try to keep the temperature below the specified temperature, and
-> the EC will never fully ramp up the fan.
-> 
+On Mon Aug 31, 2026 at 9:50 PM JST, Danilo Krummrich wrote:
+> On Mon Aug 31, 2026 at 3:08 AM CEST, Alexandre Courbot wrote:
+>> On Sun Aug 30, 2026 at 4:14 AM JST, Danilo Krummrich wrote:
+>>> On Sat Aug 29, 2026 at 5:34 AM CEST, Alexandre Courbot wrote:
+>>>> On Fri Aug 28, 2026 at 9:09 PM JST, Danilo Krummrich wrote:
+>>>>> (Cc: Miguel)
+>>>>>
+>>>>> On Fri Aug 28, 2026 at 7:33 AM CEST, Alexandre Courbot wrote:
+>>>>>> The `kernel` crate now features a replacement for our lossless integ=
+er
+>>>>>> conversion routines. Switch to the kernel version and remove our own=
+.
+>>>>>>
+>>>>>> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
+>>>>>> Reviewed-by: Danilo Krummrich <dakr@kernel.org>
+>>>>>> Reviewed-by: Eliot Courtney <ecourtney@nvidia.com>
+>>>>>> ---
+>>>>>>  drivers/gpu/nova-core/falcon.rs                    |  12 +-
+>>>>>>  drivers/gpu/nova-core/falcon/fsp.rs                |   4 +-
+>>>>>>  drivers/gpu/nova-core/fb.rs                        |   2 +-
+>>>>>>  drivers/gpu/nova-core/fb/hal/gb100.rs              |   6 +-
+>>>>>>  drivers/gpu/nova-core/firmware.rs                  |   4 +-
+>>>>>>  drivers/gpu/nova-core/firmware/booter.rs           |   4 +-
+>>>>>>  drivers/gpu/nova-core/firmware/fwsec.rs            |   2 +-
+>>>>>>  drivers/gpu/nova-core/firmware/fwsec/bootloader.rs |   4 +-
+>>>>>>  drivers/gpu/nova-core/firmware/gsp.rs              |   9 +-
+>>>>>>  drivers/gpu/nova-core/firmware/tlv.rs              |  11 +-
+>>>>>>  drivers/gpu/nova-core/fsp.rs                       |   8 +-
+>>>>>>  drivers/gpu/nova-core/gsp.rs                       |   4 +-
+>>>>>>  drivers/gpu/nova-core/gsp/cmdq.rs                  |  22 +--
+>>>>>>  drivers/gpu/nova-core/gsp/fw.rs                    |  42 ++--
+>>>>>>  drivers/gpu/nova-core/gsp/fw/commands.rs           |   4 +-
+>>>>>>  drivers/gpu/nova-core/gsp/sequencer.rs             |   2 +-
+>>>>>>  drivers/gpu/nova-core/mctp.rs                      |   8 +-
+>>>>>>  drivers/gpu/nova-core/num.rs                       | 211 ----------=
+-----------
+>>>>>>  drivers/gpu/nova-core/vbios.rs                     |   2 +-
+>>>>>>  19 files changed, 78 insertions(+), 283 deletions(-)
+>>>>>
+>>>>> Please see the discussion in [1].
+>>>>>
+>>>>> If we make this change, then the subsequent conversion to const_as!()=
+ would need
+>>>>> to go through the Rust tree next cycle, which could be a bit of a mes=
+s, as I'd
+>>>>> expect a bunch of conflicts.
+>>>>>
+>>>>> Alternatively, we could the the full three cycle dance, or have a sig=
+ned tag for
+>>>>> const_as!() and use it right away.
+>>>>>
+>>>>> But honestly, the former would just be unnecessary noise. If we don't=
+ do the
+>>>>> latter, let's just keep the nova-core num module until the dust has b=
+een
+>>>>> settled.
+>>>>>
+>>>>> [1] https://lore.kernel.org/all/CANiq72k+-fNWZCwGuQ=3DFTchxgm-X-f6WR=
+=3DtG=3DErcn19ic1edQg@mail.gmail.com/
+>>>>
+>>>> Maybe I am missing something, but wouldn't the following work?
+>>>>
+>>>> - rc1 gets tagged, `drm-rust-next` gets the `num::casts` module,
+>>>> - This series gets applied to `drm-rust-next`, then `cv!` (without the
+>>>>   nova-core conversion patch) in `rust-next`,
+>>>> - We wait one cycle for `cv!` to trickle down to `drm-rust-next` befor=
+e
+>>>>   converting nova-core to use `cv!`.
+>>>>
+>>>> Would that work? This series doesn't overlap with the const conversion=
+s
+>>>> that `cv!` covers on purpose, and it would have the benefit of getting
+>>>> rid of the local `num` module in nova-core quickly.
+>>>
+>>> Take casts::usize_into_u32() for instance, drm-rust-next replaces the u=
+sage of
+>>> it next cycle, but rust-next wants to remove the API from
+>>> rust/kernel/num/casts.rs.
+>>>
+>>> In this case rust-next would need to get rid of the users (including no=
+va-core),
+>>> but drm-rust-next will likely do different changes, so we'd get unneces=
+sary
+>>> merge conflicts.
+>>>
+>>> You can resolve this either by keeping casts::usize_into_u32 and friend=
+s around
+>>> for one additional cycle, so that all users we introduce now are gone. =
+Or, since
+>>> there's no rush anyways, we just wait one cycle and use the real thing =
+right
+>>> away.
+>>
+>> Sorry, I should have explicitly mentioned that `*_into_*` would remain
+>> alongside `cv!` for the next cycle.
+>
+> Maybe we have a different understanding of what "next cycle" means. As of=
+ today
+> we are in the v7.4 cycle, so I call this the current cycle.
+>
+> In the next cycle, as discussed in [1], rust-next will drop casts::*_into=
+_*(),
+> and so would drm-rust-next, if we start using casts::*_into_*() in nova-c=
+ore
+> this cycle.
+>
+> I don't want this situation, so we can either keep casts::*_into_*() arou=
+nd for
+> even longer, or just never start using it.
+>
+>> The reason why I think it's preferable to use `casts` in nova-core
+>> sooner is that some of the series currently under review (and that will
+>> likely be merged next cycle) add more uses of the local `num` methods,
+>> making the eentual conversion more painful. If we move to use `casts`
+>> early we can at least avoid the churn on those cases that do not use
+>> `cv!`.
+>
+> It would come at the price of adding cross tree dependencies and converti=
+ng the
+> cv! parts twice, which is much worse than one clean and independent conve=
+rsion.
 
-That's certainly true. On X13s it was a bit easier as it's passively
-cooled, but these things needs to be taken into consideration.
+Got it - let's keep nova-core's `num` for one more cycle then. This will
+make for a larger conversion, but the silver lining is that this means
+less rebasing for the patches currently in-flight.
 
-> This is what I determined from the CRD ACPI tables last year:
-> https://github.com/stephan-gh/linux/commit/24f053436ec2eaf70968803adfa8c17905e53cae.patch
-> 
-
-Why don't you post your patches!? Have I missed it?
-
-> The fact that GPU is only throttled based on back-thermal is a little
-> odd, but this is what the ACPI tables specified back then as far as
-> I could tell (maybe it was fixed since then).
-> 
-> Your changes seem close enough to not cause the performance problem
-> I mentioned above, although I think it would be worth setting a good
-> examples for others to follow.
-> 
-
-Sure, I'll compare with ACPI tables and adjust the numbers accordingly.
-
-> > While not used for cooling/throttling, also add the other thermal zones
-> > for temperature reporting purposes.
-> > 
-> > Enable thermal-monitor mode for all 7 channels in the ADC.
-> > 
-> > Signed-off-by: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
-> > ---
-> >  arch/arm64/boot/dts/qcom/x1e80100-crd.dts | 116 ++++++++++++++++++++++++++++++
-> >  1 file changed, 116 insertions(+)
-> > 
-> > diff --git a/arch/arm64/boot/dts/qcom/x1e80100-crd.dts b/arch/arm64/boot/dts/qcom/x1e80100-crd.dts
-> > index 429deffcf3e9..065af18357d7 100644
-> > --- a/arch/arm64/boot/dts/qcom/x1e80100-crd.dts
-> > +++ b/arch/arm64/boot/dts/qcom/x1e80100-crd.dts
-> > @@ -11,6 +11,92 @@
-> >  / {
-> >  	model = "Qualcomm Technologies, Inc. X1E80100 CRD";
-> >  	compatible = "qcom,x1e80100-crd", "qcom,x1e80100";
-> > +
-> > +	thermal-zones {
-> > +		soc-thermal {
-> > +			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX1_GPIO_100K_PU(1)>;
-> > +		};
-> > +
-> > +		keyboard-thermal {
-> > +			polling-delay-passive = <250>;
-> > +
-> > +			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX2_GPIO_100K_PU(1)>;
-> > +
-> > +			trips {
-> > +				skin_alert0: trip-point0 {
-> > +					temperature = <55000>;
-> > +					hysteresis = <1000>;
-> > +					type = "passive";
-> > +				};
-> > +
-> > +				skin_alert1: trip-point1 {
-> > +					temperature = <58000>;
-> > +					hysteresis = <1000>;
-> > +					type = "passive";
-> > +				};
-> 
-> What does this second trip point do differently than the first? It has
-> the same cooling devices. Will it try throttling "harder" than before?
-> 
-> I know sc8280xp-lenovo-thinkpad-x13s.dts has the same, but I'm not
-> entirely sure what it does there either.
-> 
-> My experience was if you specify 55°C as one passive trip point, then
-> Linux will try its best to keep it with the specified cooling devices.
-> 
-
-I didn't dive into this rabbit hole... I'll review and update
-accordingly.
-
-> > +
-> > +				skin-crit {
-> > +					temperature = <73000>;
-
-Your patch has 115C here. That may be what the ACPI tables are saying,
-but it seems a bit excessive.
-
-> > +					hysteresis = <1000>;
-> > +					type = "critical";
-> > +				};
-> > +			};
-> > +
-> > +			cooling-maps {
-> > +				map0 {
-> > +					trip = <&skin_alert0>;
-> > +					cooling-device = <&cpu0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-> > +							 <&cpu1 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-> > +							 <&cpu2 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-> > +							 <&cpu3 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-> > +							 <&cpu4 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-> > +							 <&cpu5 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-> > +							 <&cpu6 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-> > +							 <&cpu7 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-> > +							 <&cpu8 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-> > +							 <&cpu9 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-> > +							 <&cpu10 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-> > +							 <&cpu11 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
-> > +				};
-> > +
-> > +				map1 {
-> > +					trip = <&skin_alert1>;
-> > +					cooling-device = <&cpu0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-> > +							 <&cpu1 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-> > +							 <&cpu2 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-> > +							 <&cpu3 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-> > +							 <&cpu4 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-> > +							 <&cpu5 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-> > +							 <&cpu6 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-> > +							 <&cpu7 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-> > +							 <&cpu8 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-> > +							 <&cpu9 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-> > +							 <&cpu10 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-> > +							 <&cpu11 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
-> > +				};
-> > +			};
-> > +		};
-> > +
-> > +		backcover-thermal {
-> > +			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX1_THM_100K_PU(1)>;
-> > +		};
-> 
-> Should we add throttling here as well to match Windows?
-> 
-
-Then there are the reports that indicate that we should throttle things
-when the SMB temperatures reaches something like 80C, which doesn't seem
-to be something represented in the ACPI tables.
-
-I'll do a respin of this and then we can tweak it from there. The
-important thing for me is to get some reference in, so we can propagate
-this to the consumer devices (NB: which doesn't have the same sys_therm
-mapping).
-
-Thanks,
-Bjorn
-
-> Thanks,
-> Stephan
+I'll revisit this series for 7.5 (?), although I guess patch 2 is still
+relevant as long as it keeps using nova-core's `num` crate.
