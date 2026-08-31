@@ -1,157 +1,142 @@
-Received: from mail-oa2-f0.google.com (mail-oa2-f0.google.com [74.125.231.64])
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 006293AE706
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 04:35:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C042B3C09F9
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 04:38:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788150943; cv=none; b=O31TZplyiXCFokdqPcGVkINeBQVnxRnep/7GQNR9N0LrBQSumdRjwyodH45kiwKdFBxbmY6R+wtnjed2cDKGzQtXAdD/rTbqXutZhtg0YuXCz2GJB0dXa1gE7WvD5R37qstCmXjidSMqi5N1uynDXxFVj7O/3nvhQdhOS5zfxMs=
+	t=1788151087; cv=none; b=k65IBd95uY3/gmav3xuYh3mVQNZOzmVtkhWt4tYPq4SS8YwpcrJe0/bskM9i0E8qERE003C1cx8DoBVfsDWFq2W2XN9EmQw+P+0kj5EYe4GwB4189m33Dw2JVg5ZcYg9WP0WPlSWJH/hNICbvOCK7VLVpZsVNjJlAbqUOiDHfQY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788150943; c=relaxed/simple;
-	bh=mZudXeSm4wixxGmHzIJMNiPoCt3Yf058kY91/Dju/sE=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=afdb2ZjFdPzKk3gfjoGQzWaow4FPeuL3GaUcAT8VrvRK8eOYTYWcGmLrVKiamlRGVz4DMp60TWtTZ1OSldPVZ6mRcTDCOMCKr465YHCGOUOgzKmKjMlUp+tvtU60z/OTS1YnBfnW61YGgSBvi2LIWSAh0JCK7pdz12XlYCQiqhs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oa2-f0.google.com with SMTP id 586e51a60fabf-451e1066971so1231414fac.0
-        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 21:35:41 -0700 (PDT)
+	s=arc-20240116; t=1788151087; c=relaxed/simple;
+	bh=TSPukoHwuGOtlLSCKsfDe7vaSQqehsHcKRp+PP2zfx8=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=bKvdnK6D6bspskUkNMMcmxq1k+G8KxikFDQDQibAF1sADLzxmf/tsEVUVmSwgd6wJO0ib3wVbZU7eghD6sBUCbzk9RG//3IRxrijku0YZGR2xeYoQhtv9ekkHtdIdmAuXRnPXF7KjozwRRBsj1M4C7agPuVjMpR1VOTSUxzoqjM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Aq9BLN8k; arc=none smtp.client-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Aq9BLN8k"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-499ae1c6471so21386725e9.3
+        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 21:38:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788151084; x=1788755884; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=TGoBedQqRgsKG7wNi45We7BTQ5QQ5aS5jrqdXZyohA0=;
+        b=Aq9BLN8k6bsE4sId3E2D0ABNkFXHZiC3HNXKofNT33evMqYLykTK9GFxD2WCWiI2PB
+         MHnFmKFT0nIEvxN0kRpImutCmbe8kT9D8wz9uhCUlcwpan0jhcV2LZ7MlbTcB65FLtRt
+         vTDA50OwF8Fr7kVXBFAq3Tj8ivdRTENez2zX2YmCF61vg8gwKj23S8Iquvz8PwFZNu77
+         A6HoJ/53Krzhi1E9rZVBuDk4IynVtTdWpJaDn8QtB3ymLxzfFZ3dzfkOBx5nnjnEzURk
+         Pgkg0MsLA/Cijt1vCz8cvNFdYBf/xSSw76/flw02sS8zEFvlDNC0WCBxgnuHJmhSUxnz
+         zQQA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788150941; x=1788755741;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=DEOX5VODYUFxyjaa1tIkIASzzIdKDucmCLNhz41YVH0=;
-        b=fVTZ9bJgM0S0mUjjDwVXlO5ATrQRQf+SyXkWRt4h5ZMFIEr5PjeFamuhYQVoPnWULY
-         1NhWZHOwai2TrwUDfcVowsR5XsvyLQZPsw3bqMMPYZWaNeirCIyjLZfT5rwetGhUYYhc
-         YSzMsAS4h3Oiue3WGeOxev6+NeKx3WGVU1FzPsOTMT7InE1fh0JKMUdSBUIh2n7IbgL/
-         GWCnLSINzO1IZ3OP5CLqDgVJMgdbrbcBB73RMMvqMG3GbihPtkEXen3L0Lx6L27TOH+3
-         8RcYs61/0cHQohn+6hrISgGO9U08yuj4grWz0sguoPkIoqVAI5KSSbemfOR7TmEDRUNB
-         qfSg==
-X-Forwarded-Encrypted: i=1; AHgh+RrRc3sDfhaNCZPtMsIlo6c7YkUfYaLsfj/cN+erN3ba4iLQZq9io2cfl2zpUWFYWui5IMFq/dr94q65Uw4=@vger.kernel.org
-X-Gm-Message-State: AFuF++nufIXIu5XEqGZOQQet9/cjpJpMwmCARkHWJDZo5XeMJwGby7Pg
-	++l5IixpT+Sgytg0zOjenXBnBktVJnF90wQMX1ib8AYd1Q9s57+aGGRKKCL6/MwZgm9BELOaD1j
-	cf6rc+jU0AieKuy9LIo6ru9gNNjBkn9m0CGhaIgGfYnxOhGqj0fhg4aiXMM0=
+        d=1e100.net; s=20251104; t=1788151084; x=1788755884;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=TGoBedQqRgsKG7wNi45We7BTQ5QQ5aS5jrqdXZyohA0=;
+        b=eiquvzBkIJaOg/avJv2Vl7DVzJQECmxCv/i3yd/CtATXC20Cs8Y4qXyZiF3oAZm0qV
+         amDoFomFdknC4pvNeC3juLGrWtPfLbPdlarlxesOPXVGsqtaUqCmji1nls9AjKR8cQtb
+         8gNC0oub1qOhMLInKX1ruZO7lTMKDqE+3oTTqLET3nFgzu7lVlHKyQljDsDv2pV6VGYn
+         +h2c+bXWuBIUvWI/DQL/1GeIwy7SdGUjs+t3ttwHHC9AJtNE3/yYUjmBhrd8Ka0q6ChK
+         8mctUX761cB79rTgwD8j3ffEf8i5YD3nSybum0bhSW6t10impOm91iRFM8gp2HizQVTC
+         j8Tw==
+X-Forwarded-Encrypted: i=1; AHgh+RqkevKK8Ah8Tfv/LQ1jWMY6M8BYMjmMeg/g275EzdKzVVfapH3B01yGSQJiUwMCfIePeSuknu0nQoaAnYw=@vger.kernel.org
+X-Gm-Message-State: AFuF++lBmFukDZ2vlkMlmNVLW96A2C4biDQIt2+54/E9j3UN1mI3fJrV
+	0H2s7dFVffyhyiXkXvUYNLfPSaQsWxogQvAtTBRTGTztb98G9F0TjsEw
+X-Gm-Gg: AR+sD12Ub++PbFdAjQeEIe4hQW14E41NmpJoNmrQq+xD8Cr7knn3QkmAD7X0wfojj3H
+	GKVIntEfx0ms3iGnFWLK9sZAEbJzh9y01LmQL0PlfEKq2AY3w1AurZB+i9XH5j5RcIL9ZxgAgS8
+	+I/3/p52+frrce1JwQlu6l54iZZM5SpG/IQWXb5u2gptAKeO8auM316oP4iTw7v5rNAlcLAXuHn
+	sB0jJBeWflpmDw/1HsowW71b5SH3nzz7x6xQjKn2VKxzsgXeiwoeN5vRY9y0Atg/8lztBlrzh7u
+	Ks4TO4CTKx4HQwdwy5N+t7puiC1oGth1FTWqYO4fH9X2dvzOM0a4nHL/ipdOwCq1gIfQhoQlbQ5
+	aCc7by4r8Kfrroj90AOev5EXSqk/T/G0Y/SwtIWkzHcUh46GAlfCf0Zoxn+gQIbWFYd6rXEyS9g
+	JLFRzTmuatvPF66Bql9f+iGetvhCC8+BTEDPVl5JdG0FA0XxRH8fPQJO4Lds60sVWKkWqNZOt6F
+	H2bEdsRImgf9OsHve6NEviJPwPYWfKOhgk+788VmU27/EoPhhH8lfqQ9bP+0lTMKmenrKQlp1dX
+	0H5f544jwgZPu7owBb+Lu4SqUSv2YmG2by5v6WBscEWTcEWQFtQB5cizY4AwjNNNng==
+X-Received: by 2002:a05:600c:1c29:b0:499:b65d:1250 with SMTP id 5b1f17b1804b1-49cd940c70emr9007825e9.2.1788151083769;
+        Sun, 30 Aug 2026 21:38:03 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-2a02-3100-acb9-0201-68d0-34d2-ad1a-175a.310.pool.telefonica.de. [2a02:3100:acb9:201:68d0:34d2:ad1a:175a])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cd775dae8sm79057735e9.9.2026.08.30.21.38.01
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sun, 30 Aug 2026 21:38:02 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Pablo Neira Ayuso <pablo@netfilter.org>,
+	Jozsef Kadlecsik <kadlec@netfilter.org>,
+	Florian Westphal <fw@strlen.de>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	netfilter-devel@vger.kernel.org,
+	coreteam@netfilter.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Bin Lan <lanbincn@139.com>,
+	XiaoHua Wang <561399680@139.com>,
+	Karl Mehltretter <kmehltretter@gmail.com>
+Subject: [PATCH 6.1.y 6.6.y] netfilter: nft_set_pipapo: account mapping table allocation
+Date: Mon, 31 Aug 2026 06:37:55 +0200
+Message-Id: <20260831043755.29692-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:1c85:b0:6a1:77ce:1b09 with SMTP id
- 006d021491bc7-6b36cf0ed9bmr360004eaf.6.1788150940829; Sun, 30 Aug 2026
- 21:35:40 -0700 (PDT)
-Date: Sun, 30 Aug 2026 21:35:40 -0700
-In-Reply-To: <6a802643.9ebadd4d.20b15e.000b.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a95049c.7724083a.12295.0001.GAE@google.com>
-Subject: Re: [syzbot] [input?] [usb?] WARNING: ODEBUG bug in hid_device_remove
-From: syzbot <syzbot+f8fb5598924c7e645553@syzkaller.appspotmail.com>
-To: hdanton@sina.com, linux-input@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-syzbot has found a reproducer for the following issue on:
+[ Upstream commit 69e687cea79fc99a17dfb0116c8644b9391b915e ]
 
-HEAD commit:    a23cbb05744b Merge tag 'timers-urgent-2026-08-30' of git:/..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=14b0be25580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=b454dc6b1b7acd30
-dashboard link: https://syzkaller.appspot.com/bug?extid=f8fb5598924c7e645553
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=16538349580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=1569ec15580000
+The pipapo set backend data structure is one of the ruleset objects
+that upstream changed to use GFP_KERNEL_ACCOUNT for memory accounting.
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/3c5de4682137/disk-a23cbb05.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/f36f9cbaac4c/vmlinux-a23cbb05.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/44ee07331725/bzImage-a23cbb05.xz
+The 6.1.y and 6.6.y adaptations changed the other pipapo allocations,
+but omitted the mapping table allocation in pipapo_realloc_mt() because
+that helper does not exist in these branches.  The equivalent allocation
+is in pipapo_resize() and still uses GFP_KERNEL, so the persistent mapping
+table is not charged to the allocating memory cgroup.
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+f8fb5598924c7e645553@syzkaller.appspotmail.com
+Update this allocation to use GFP_KERNEL_ACCOUNT.
 
-corsair 0003:1B1C:1B02.0022: hidraw0: USB HID v0.00 Device [HID 1b1c:1b02] on usb-dummy_hcd.0-1/input0
-corsair 0003:1B1C:1B02.0022: Failed to get K90 initial state (error -71).
-usb 1-1: USB disconnect, device number 35
-------------[ cut here ]------------
-ODEBUG: free active (active state 0) object: ffff8880369b5ab8 object type: work_struct hint: k90_backlight_work+0x0/0x1c0 drivers/hid/hid-corsair.c:-1
-WARNING: lib/debugobjects.c:632 at debug_print_object+0xec/0x230 lib/debugobjects.c:629, CPU#0: kworker/0:3/5621
-Modules linked in:
-CPU: 0 UID: 0 PID: 5621 Comm: kworker/0:3 Not tainted syzkaller #0 PREEMPT_{RT,(full)} 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
-Workqueue: usb_hub_wq hub_event
-RIP: 0010:debug_print_object+0x18a/0x230 lib/debugobjects.c:629
-Code: f8 48 c1 e8 03 80 3c 18 00 74 08 4c 89 ff e8 ed ff 59 fd 4d 8b 0f 4c 89 ef 48 8b 74 24 08 48 89 ea 44 89 e1 4d 89 f0 ff 34 24 <67> 48 0f b9 3a 48 83 c4 08 ff 05 c3 ca d9 0a 48 83 c4 10 5b 41 5c
-RSP: 0018:ffffc90005507008 EFLAGS: 00010246
-RAX: 1ffffffff16d7268 RBX: dffffc0000000000 RCX: 0000000000000000
-RDX: ffffffff8bcc2c40 RSI: ffffffff8bcc26c0 RDI: ffffffff8fbc6db0
-RBP: ffffffff8bcc2c40 R08: ffff8880369b5ab8 R09: ffffffff8b6ba560
-R10: dffffc0000000000 R11: ffffffff818f4a70 R12: 0000000000000000
-R13: ffffffff8fbc6db0 R14: ffff8880369b5ab8 R15: ffffffff8b6b9340
-FS:  0000000000000000(0000) GS:ffff888125bd6000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007ffc6a1eafb8 CR3: 000000003e4e6000 CR4: 00000000003526f0
-Call Trace:
- <TASK>
- __debug_check_no_obj_freed lib/debugobjects.c:1171 [inline]
- debug_check_no_obj_freed+0x2e3/0x450 lib/debugobjects.c:1201
- slab_free_hook mm/slub.c:2679 [inline]
- slab_free mm/slub.c:6499 [inline]
- kfree+0x13e/0x6d0 mm/slub.c:6792
- hid_device_remove+0xc8/0x1d0 drivers/hid/hid-core.c:2897
- device_remove drivers/base/dd.c:616 [inline]
- __device_release_driver drivers/base/dd.c:1349 [inline]
- device_release_driver_internal+0x48b/0x880 drivers/base/dd.c:1372
- bus_remove_device+0x449/0x560 drivers/base/bus.c:664
- device_del+0x528/0x8f0 drivers/base/core.c:3965
- hid_remove_device drivers/hid/hid-core.c:3126 [inline]
- hid_destroy_device+0x6b/0x1b0 drivers/hid/hid-core.c:3148
- usbhid_disconnect+0x9f/0xc0 drivers/hid/usbhid/hid-core.c:1479
- usb_unbind_interface+0x295/0x9f0 drivers/usb/core/driver.c:461
- device_remove drivers/base/dd.c:618 [inline]
- __device_release_driver drivers/base/dd.c:1349 [inline]
- device_release_driver_internal+0x4f5/0x880 drivers/base/dd.c:1372
- bus_remove_device+0x449/0x560 drivers/base/bus.c:664
- device_del+0x528/0x8f0 drivers/base/core.c:3965
- usb_disable_device+0x3d4/0x8d0 drivers/usb/core/message.c:1478
- usb_disconnect+0x32d/0x990 drivers/usb/core/hub.c:2350
- hub_port_connect drivers/usb/core/hub.c:5420 [inline]
- hub_port_connect_change drivers/usb/core/hub.c:5720 [inline]
- port_event drivers/usb/core/hub.c:5884 [inline]
- hub_event+0x1bb7/0x4cf0 drivers/usb/core/hub.c:5966
- process_one_work kernel/workqueue.c:3387 [inline]
- process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3470
- worker_thread+0xa47/0xfb0 kernel/workqueue.c:3551
- kthread+0x38b/0x470 kernel/kthread.c:436
- ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
-----------------
-Code disassembly (best guess):
-   0:	f8                   	clc
-   1:	48 c1 e8 03          	shr    $0x3,%rax
-   5:	80 3c 18 00          	cmpb   $0x0,(%rax,%rbx,1)
-   9:	74 08                	je     0x13
-   b:	4c 89 ff             	mov    %r15,%rdi
-   e:	e8 ed ff 59 fd       	call   0xfd5a0000
-  13:	4d 8b 0f             	mov    (%r15),%r9
-  16:	4c 89 ef             	mov    %r13,%rdi
-  19:	48 8b 74 24 08       	mov    0x8(%rsp),%rsi
-  1e:	48 89 ea             	mov    %rbp,%rdx
-  21:	44 89 e1             	mov    %r12d,%ecx
-  24:	4d 89 f0             	mov    %r14,%r8
-  27:	ff 34 24             	push   (%rsp)
-* 2a:	67 48 0f b9 3a       	ud1    (%edx),%rdi <-- trapping instruction
-  2f:	48 83 c4 08          	add    $0x8,%rsp
-  33:	ff 05 c3 ca d9 0a    	incl   0xad9cac3(%rip)        # 0xad9cafc
-  39:	48 83 c4 10          	add    $0x10,%rsp
-  3d:	5b                   	pop    %rbx
-  3e:	41 5c                	pop    %r12
-
-
+Fixes: a0bb39980635 ("netfilter: nf_tables: missing objects with no memcg accounting")
+Fixes: 1c4f72fa9699 ("netfilter: nf_tables: missing objects with no memcg accounting")
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 ---
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
+This patch is based on 6.6.155 and applies unchanged to the tested 6.1.y
+tip.  The test configurations and full serial logs are retained in the
+audit dossier.
+
+A/B tests with a 32,768-element two-field concatenation set left two
+262,144-byte mapping tables.  The fixed kernels charged approximately
+512 KiB more kernel memory to the child cgroup:
+  6.1.186: +524,288 bytes
+  6.6.155: +516,096 bytes
+
+The two-page difference on 6.6.y is within memory.stat measurement
+variation.  Ruleset loading and element lookup succeeded before and after
+the change on both branches.
+
+Tested on:
+  6.1.y d64a499eea6b62b5121beceed9e8a1f57b00d863 (Linux 6.1.186)
+  6.6.y a4a971135a2ff64382ae4235b3ae60503bb1036a (Linux 6.6.155)
+
+ net/netfilter/nft_set_pipapo.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/net/netfilter/nft_set_pipapo.c b/net/netfilter/nft_set_pipapo.c
+index 7c8d28a031ad5..8ba76eea3eb18 100644
+--- a/net/netfilter/nft_set_pipapo.c
++++ b/net/netfilter/nft_set_pipapo.c
+@@ -705,7 +705,7 @@ static int pipapo_resize(struct nft_pipapo_field *f, int old_rules, int rules)
+ 		return -ENOMEM;
+ 	}
+ 
+-	new_mt = kvmalloc(rules * sizeof(*new_mt), GFP_KERNEL);
++	new_mt = kvmalloc(rules * sizeof(*new_mt), GFP_KERNEL_ACCOUNT);
+ 	if (!new_mt) {
+ 		kvfree(new_lt);
+ 		return -ENOMEM;
+-- 
+2.39.5 (Apple Git-154)
