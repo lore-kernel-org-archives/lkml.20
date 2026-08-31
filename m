@@ -1,195 +1,245 @@
-Received: from mail-oi2-f7.google.com (mail-oi2-f7.google.com [74.125.231.199])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33A8C352032
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 11:52:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA3963B14CE;
+	Mon, 31 Aug 2026 11:54:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788177163; cv=none; b=k6pnzq2UMZKj5+WZTzF/KfszHPdyks1UK/XyOIAD5GCTtMRaojAiLVc71bXu2CZaSK53gxOoa2V+kq9dIoj61v6TRljKNNVYPS7VyH1B7Om1Zv/yUkLshzgEVh1loaez0w6dHZyZSCPaTlTs2wjPrBcFEvrC3930o+uuVDYE9Zo=
+	t=1788177246; cv=none; b=enm5e1RHwOGxe96L8cWtplFntuWd0MfA9gXRxprfm/xb5vXJ7mtv5TgMfGtatDKtmP4yJQrIhku9J1Wmi56qYJOnHKgd8Z9N/0ecUP6Q0NWFr76/AJ3GYUu0s5xm38ieH1QNHWzN2VL/zaEJF3ZyC8AyCrn0qLVuQc8/IjTvM5g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788177163; c=relaxed/simple;
-	bh=9n+Mk4K0fIelCSLpqaZBGj1DZvjZ3ipNVua+6/YVvf4=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=HQX1Gf4mo4CXFnVGiPPKq7tGb47NTO8zeoIpZLa10aeHbgpyYkz28jSNQJf6k84AKIMyNWk2uH6QDYkZITxyse2UwRgemQmcP40p+f6b3K68mpayTU0ZGRQucSFal4YqvsmnKH+jBjCd3H5qf/POgNzGS/5i+wCaa+OgzD61Ljo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi2-f7.google.com with SMTP id 5614622812f47-4b38bf64bfcso1648758b6e.0
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 04:52:42 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788177161; x=1788781961;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bSj+FgCyTCFYNIVCb+6sDGUzWg+oDo2qopxDWPlT5eY=;
-        b=LmB/ZfHQs+Nz+cRjLkequQ5oCyaZpi/L7r204Wk4q6oroAHV9+OZbi1iCRv4BPp86P
-         JCJiJ5yg8aBsOT5QoHqkeUftxNy1F7AzgXqHRrcdEF6PvkgW+pAODKFqqPNip+k321hU
-         QldvaNBi9l1T+jgE3dfavXvZ5azKfLMfRA+twZ08sj9Oyv1IcMSVBgyoNXGPYrBETtGM
-         slMwGZNkAyRH/0wvYAfTO8tpzfSd9h3zkuI7fTQEhHR5/HuQmFvPot2jG1cz9xyf4v8V
-         lB1Ign5Bl/OYDIW3Cm+EcwpSji6l8eK/s00n/JiYeg5QWSzk/GwGCdh+sfU5miOdfYY5
-         f++g==
-X-Forwarded-Encrypted: i=1; AHgh+RpO6Q3947A8aizuxz622XrZwijSpOagyRfxX+Aw6M6XADIALR0y5J6Kj2LT2J022qtpqtdjWT6Qy21ATvU=@vger.kernel.org
-X-Gm-Message-State: AFuF++lPHxx0A25NeFE7VinZgfYdJ/anglFB/JKGDCu1oDdi+YU4NjXQ
-	jP6A4dx3t0pVINMuxl3itvAmfIyqjoe0qQsXPjIOYXBsQ0RfBLv9FLj3hgd41jN2jjKWjDdvOUN
-	9QBpsA20uXwG5x0KsmFR7pqUxJoPC9zzcsXGLyIyfRT9C/VYTxI/5DX8+uGQ=
+	s=arc-20240116; t=1788177246; c=relaxed/simple;
+	bh=+O8q1PFFVuZ04wk0IQ4Bd37i7S8NTmE+vIVAH0LPoo8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tK6yjzrOxSIvH1Zg86WuEjenDPFPhHJ0z6xQQV/78OpFPo53dR53Cg2mTKYGf+FC4nQ3A1EMj9lQ7+5tRmCXWnDRi1aWU2x8/UPpKPiLYKZTCvYAUoqd8oKk2dFiPGr1Z6pTI2YAchnNnJcXGXHe4BACUvsm7Nr0L9dsojZDLeQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=IMdQX0Rk; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=vtUsLCXv; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=195sPZLp; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=k20UFPZ9; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="IMdQX0Rk";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="vtUsLCXv";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="195sPZLp";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="k20UFPZ9"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 4FDC0224D0;
+	Mon, 31 Aug 2026 11:53:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1788177238; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+RKXp8acbmEZB92DNdU3vfC31X8afmpyUT6QYHPcLNU=;
+	b=IMdQX0Rknx81REbKQMLryWJUlv3le8cvNfq2jsljR3lyYozvKOMjLRhAco4Ho+eVnD/Y0I
+	2UhPtxTTF9QOveY9vAjfmoCV9GGK72D6PCtHLmdfNNk7QxT7TJbfqHhOC5+7wL8dx6069b
+	eVhrm147WdcP1E6Peqf9t8wtxHFy7X0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1788177238;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+RKXp8acbmEZB92DNdU3vfC31X8afmpyUT6QYHPcLNU=;
+	b=vtUsLCXv9zDoJW9hr/GXW1I1h3Mjpa53UNOz8J+8lpsTEjad3KmGdaJkNXRYEgURPFrTBZ
+	oAI+6OQ0YOsA/cCw==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1788177234; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+RKXp8acbmEZB92DNdU3vfC31X8afmpyUT6QYHPcLNU=;
+	b=195sPZLp5vxtLk6MPAl7ckwEWrkhoI+V8HAAma0AzFU3PLQZGSDKhWfvB0xWB2L6KPziW6
+	7l6nkMzvBCrVzSVEV1kblZv3jIdTbmWs4LX9Sa/xoHxOoiJbbAzaaYzqRekkAN4SiXQ0U6
+	n7M4ARNqAqSFFFf5RfET2yNjZSdJdW8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1788177234;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+RKXp8acbmEZB92DNdU3vfC31X8afmpyUT6QYHPcLNU=;
+	b=k20UFPZ928t7n4ASR8ntGEhWHQ/ljeHXihrjD0QxYUxk/WN0cZdApli1WA7oHjrEE35vXQ
+	p997v4OwWz1hR9DA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A42FD13515;
+	Mon, 31 Aug 2026 11:53:53 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id me8PKFFrlWrEYgAAD6G6ig
+	(envelope-from <jack@suse.cz>); Mon, 31 Aug 2026 11:53:53 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id EC102A13B5; Mon, 31 Aug 2026 13:53:52 +0200 (CEST)
+Date: Mon, 31 Aug 2026 13:53:52 +0200
+From: Jan Kara <jack@suse.cz>
+To: Jinjie Ruan <ruanjinjie@huawei.com>
+Cc: viro@zeniv.linux.org.uk, brauner@kernel.org, jack@suse.cz, 
+	bcrl@kvack.org, tytso@mit.edu, adilger.kernel@dilger.ca, 
+	libaokun@linux.alibaba.com, ojaswin@linux.ibm.com, ritesh.list@gmail.com, 
+	yi.zhang@huawei.com, pmladek@suse.com, rostedt@goodmis.org, 
+	andriy.shevchenko@linux.intel.com, linux@rasmusvillemoes.dk, senozhatsky@chromium.org, 
+	akpm@linux-foundation.org, davem@davemloft.net, edumazet@google.com, kuba@kernel.org, 
+	pabeni@redhat.com, horms@kernel.org, socketcan@hartkopp.net, mkl@pengutronix.de, 
+	kuniyu@google.com, willemb@google.com, jhs@mojatatu.com, jiri@resnulli.us, 
+	kees@kernel.org, cyphar@cyphar.com, tglx@kernel.org, liuhangbin@gmail.com, 
+	sdf@fomichev.me, nb@tipi-net.de, linux-fsdevel@vger.kernel.org, 
+	linux-aio@kvack.org, linux-kernel@vger.kernel.org, linux-ext4@vger.kernel.org, 
+	netdev@vger.kernel.org, linux-can@vger.kernel.org
+Subject: Re: [PATCH 07/11] ext4: Convert group-count barrier protocol to
+ acquire/release
+Message-ID: <vzwmgjfapapzrbwdo6nangrihpk4prlj7rlm3tipmmiumb3l7j@cffw5odvv6g5>
+References: <20260825095422.3166067-1-ruanjinjie@huawei.com>
+ <20260825095422.3166067-8-ruanjinjie@huawei.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:144d:b0:496:a36:b5e5 with SMTP id
- 5614622812f47-4b398320519mr29397343b6e.17.1788177161159; Mon, 31 Aug 2026
- 04:52:41 -0700 (PDT)
-Date: Mon, 31 Aug 2026 04:52:41 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a956b09.7724083a.12295.0008.GAE@google.com>
-Subject: [syzbot] [usb?] BUG: unable to handle kernel paging request in gs_close
-From: syzbot <syzbot+782b2f1063e38ba8fa6e@syzkaller.appspotmail.com>
-To: gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org, 
-	linux-usb@vger.kernel.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260825095422.3166067-8-ruanjinjie@huawei.com>
+X-Spam-Score: -2.30
+X-Spam-Level: 
+X-Spamd-Result: default: False [-2.30 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	TO_DN_SOME(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[40];
+	TAGGED_RCPT(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	R_RATELIMIT(0.00)[to_ip_from(RLmzfjx67n53eyz9asjm8u3pcw)];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[zeniv.linux.org.uk,kernel.org,suse.cz,kvack.org,mit.edu,dilger.ca,linux.alibaba.com,linux.ibm.com,gmail.com,huawei.com,suse.com,goodmis.org,linux.intel.com,rasmusvillemoes.dk,chromium.org,linux-foundation.org,davemloft.net,google.com,redhat.com,hartkopp.net,pengutronix.de,mojatatu.com,resnulli.us,cyphar.com,fomichev.me,tipi-net.de,vger.kernel.org];
+	RCVD_COUNT_THREE(0.00)[3];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:email,imap1.dmz-prg2.suse.org:helo,suse.com:email]
+X-Spam-Flag: NO
 
-Hello,
+On Tue 25-08-26 17:54:18, Jinjie Ruan wrote:
+> During an online resize, reading s_groups_count and s_blockfile_groups
+> requires strict ordering against subsequent initialized block group
+> metadata.
+> 
+> Replace the historical smp_wmb()/smp_rmb() pairs with smp_store_release()
+> and smp_load_acquire(). This formalizes the publish-subscribe pattern
+> and allows weakly-ordered architectures (e.g., arm64) to utilize native
+> STLR/LDAR instructions instead of full DMB fences.
+> 
+> Update the documentation in resize.c and ext4.h accordingly.
+> 
+> Assisted-by: Gemini:Gemini-3.1
+> Assisted-by: DeepSeek:DeepSeek-V3
+> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
 
-syzbot found the following issue on:
+Looks good. Feel free to add:
 
-HEAD commit:    21d6ac051080 Merge branch 'for-next/core' into for-kernelci
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux.git for-kernelci
-console output: https://syzkaller.appspot.com/x/log.txt?x=1128d279580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=d1128bc53f2ef7f3
-dashboard link: https://syzkaller.appspot.com/bug?extid=782b2f1063e38ba8fa6e
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-userspace arch: arm64
+Reviewed-by: Jan Kara <jack@suse.cz>
 
-Unfortunately, I don't have any reproducer for this issue yet.
+								Honza
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/88380e2ddcb9/disk-21d6ac05.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/5dba5c2896b7/vmlinux-21d6ac05.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/52ac739e37e0/Image-21d6ac05.gz.xz
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+782b2f1063e38ba8fa6e@syzkaller.appspotmail.com
-
- fail_dump lib/fault-inject.c:73 [inline]
- should_fail_ex+0x41c/0x590 lib/fault-inject.c:174
- should_failslab+0xc4/0x120 mm/failslab.c:46
- slab_pre_alloc_hook mm/slub.c:4539 [inline]
- slab_alloc_node mm/slub.c:4897 [inline]
- __do_kmalloc_node mm/slub.c:5333 [inline]
- __kmalloc_node_noprof+0x10c/0x6d8 mm/slub.c:5346
- _kmalloc_array_node_noprof include/linux/slab.h:1294 [inline]
- __kfifo_alloc_node+0x10c/0x208 lib/kfifo.c:44
- __kfifo_alloc include/linux/kfifo.h:932 [inline]
- gs_open+0x144/0x514 drivers/usb/gadget/function/u_serial.c:636
- tty_open+0x404/0x89c drivers/tty/tty_io.c:2137
- chrdev_open+0x398/0x3e8 fs/char_dev.c:411
- do_dentry_open+0x5c4/0xfc0 fs/open.c:947
- vfs_open+0x44/0x2dc fs/open.c:1052
- do_open fs/namei.c:4700 [inline]
- path_openat+0x21fc/0x2a60 fs/namei.c:4863
- do_file_open+0x1c8/0x2e8 fs/namei.c:4892
- do_sys_openat2+0x114/0x1e8 fs/open.c:1368
- do_sys_open+0xb0/0xe0 fs/open.c:1374
- __do_sys_openat fs/open.c:1390 [inline]
- __se_sys_openat fs/open.c:1385 [inline]
- __arm64_sys_openat+0xa8/0xc4 fs/open.c:1385
- __invoke_syscall arch/arm64/kernel/syscall.c:35 [inline]
- invoke_syscall+0x98/0x244 arch/arm64/kernel/syscall.c:49
- el0_svc_common+0xec/0x23c arch/arm64/kernel/syscall.c:121
- do_el0_svc+0x4c/0x5c arch/arm64/kernel/syscall.c:140
- el0_svc+0x64/0x260 arch/arm64/kernel/entry-common.c:758
- el0t_64_sync_handler+0x44/0x104 arch/arm64/kernel/entry-common.c:777
- el0t_64_sync+0x198/0x19c arch/arm64/kernel/entry.S:590
-Unable to handle kernel paging request at virtual address dfff800000000074
-KASAN: null-ptr-deref in range [0x00000000000003a0-0x00000000000003a7]
-Mem abort info:
-  ESR = 0x0000000096000005
-  EC = 0x25: DABT (current EL), IL = 32 bits
-  SET = 0, FnV = 0
-  EA = 0, S1PTW = 0
-  FSC = 0x05: level 1 translation fault
-Data abort info:
-  ISV = 0, ISS = 0x00000005, ISS2 = 0x00000000
-  CM = 0, WnR = 0, TnD = 0, TagAccess = 0
-  GCS = 0, Overlay = 0, DirtyBit = 0
-[dfff800000000074] address between user and kernel address ranges
-Internal error: Oops: 0000000096000005 [#1]  SMP
-Modules linked in:
-CPU: 0 UID: 0 PID: 7402 Comm: syz.3.667 Not tainted syzkaller #0 PREEMPT 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 08/07/2026
-pstate: 234000c5 (nzCv daIF +PAN -UAO +TCO +DIT -SSBS BTYPE=--)
-pc : kasan_byte_accessible+0xc/0x1c mm/kasan/generic.c:210
-lr : __kasan_check_byte+0x20/0x54 mm/kasan/common.c:573
-sp : ffff800095667300
-x29: ffff800095667300 x28: ffff800088b3a000 x27: ffff0000c9fed7c0
-x26: 1ded8000869306f0 x25: 0000000000000000 x24: 0000000000000001
-x23: 0000000000000000 x22: 00000000000003a0 x21: 00000000000003a0
-x20: 0000000000000000 x19: ffff8000869306f0 x18: 1fffe00034bb7428
-x17: 70202c31206c6176 x16: 0000000000000001 x15: 0000000000000000
-x14: 0000000000000000 x13: 0000000000000001 x12: 0000000000000000
-x11: ffff800080156070 x10: 0000000000000003 x9 : dfff800000000000
-x8 : 0000000000000074 x7 : 0000000000000000 x6 : ffff800083655754
-x5 : 0000000000000000 x4 : 0000000000000001 x3 : 0000000000000000
-x2 : 0000000000000000 x1 : ffff8000869306f0 x0 : 00000000000003a0
-Call trace:
- kasan_mem_to_shadow include/linux/kasan.h:65 [inline] (P)
- kasan_byte_accessible+0xc/0x1c mm/kasan/generic.c:210 (P)
- kasan_check_byte include/linux/kasan.h:402 [inline]
- lock_acquire+0xa4/0x364 kernel/locking/lockdep.c:5842
- __raw_spin_lock_irq include/linux/spinlock_api_smp.h:142 [inline]
- _raw_spin_lock_irq+0x58/0x70 kernel/locking/spinlock.c:174
- spin_lock_irq include/linux/spinlock.h:372 [inline]
- gs_close+0xac/0x65c drivers/usb/gadget/function/u_serial.c:698
- tty_release+0x2c4/0xffc drivers/tty/tty_io.c:1745
- tty_open+0x46c/0x89c drivers/tty/tty_io.c:2146
- chrdev_open+0x398/0x3e8 fs/char_dev.c:411
- do_dentry_open+0x5c4/0xfc0 fs/open.c:947
- vfs_open+0x44/0x2dc fs/open.c:1052
- do_open fs/namei.c:4700 [inline]
- path_openat+0x21fc/0x2a60 fs/namei.c:4863
- do_file_open+0x1c8/0x2e8 fs/namei.c:4892
- do_sys_openat2+0x114/0x1e8 fs/open.c:1368
- do_sys_open+0xb0/0xe0 fs/open.c:1374
- __do_sys_openat fs/open.c:1390 [inline]
- __se_sys_openat fs/open.c:1385 [inline]
- __arm64_sys_openat+0xa8/0xc4 fs/open.c:1385
- __invoke_syscall arch/arm64/kernel/syscall.c:35 [inline]
- invoke_syscall+0x98/0x244 arch/arm64/kernel/syscall.c:49
- el0_svc_common+0xec/0x23c arch/arm64/kernel/syscall.c:121
- do_el0_svc+0x4c/0x5c arch/arm64/kernel/syscall.c:140
- el0_svc+0x64/0x260 arch/arm64/kernel/entry-common.c:758
- el0t_64_sync_handler+0x44/0x104 arch/arm64/kernel/entry-common.c:777
- el0t_64_sync+0x198/0x19c arch/arm64/kernel/entry.S:590
-Code: 17ffffec d343fc08 d2d00009 f2fbffe9 (38696908) 
----[ end trace 0000000000000000 ]---
-----------------
-Code disassembly (best guess):
-   0:	17ffffec 	b	0xffffffffffffffb0
-   4:	d343fc08 	lsr	x8, x0, #3
-   8:	d2d00009 	mov	x9, #0x800000000000        	// #140737488355328
-   c:	f2fbffe9 	movk	x9, #0xdfff, lsl #48
-* 10:	38696908 	ldrb	w8, [x8, x9] <-- trapping instruction
-
-
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
+> ---
+>  fs/ext4/ext4.h    | 10 +++-------
+>  fs/ext4/mballoc.c |  6 ++----
+>  fs/ext4/resize.c  | 19 +++++++++++--------
+>  3 files changed, 16 insertions(+), 19 deletions(-)
+> 
+> diff --git a/fs/ext4/ext4.h b/fs/ext4/ext4.h
+> index 724a27e8be61..d70b9cb09155 100644
+> --- a/fs/ext4/ext4.h
+> +++ b/fs/ext4/ext4.h
+> @@ -3542,16 +3542,12 @@ static inline void ext4_isize_set(struct ext4_inode *raw_inode, loff_t i_size)
+>  }
+>  
+>  /*
+> - * Reading s_groups_count requires using smp_rmb() afterwards.  See
+> - * the locking protocol documented in the comments of ext4_group_add()
+> - * in resize.c
+> + * Reading s_groups_count uses acquire semantics.
+>   */
+>  static inline ext4_group_t ext4_get_groups_count(struct super_block *sb)
+>  {
+> -	ext4_group_t	ngroups = EXT4_SB(sb)->s_groups_count;
+> -
+> -	smp_rmb();
+> -	return ngroups;
+> +	/* Pairs with smp_store_release() in ext4_update_super() */
+> +	return smp_load_acquire(&EXT4_SB(sb)->s_groups_count);
+>  }
+>  
+>  static inline ext4_group_t ext4_flex_group(struct ext4_sb_info *sbi,
+> diff --git a/fs/ext4/mballoc.c b/fs/ext4/mballoc.c
+> index 06171a11db12..a15285224cdf 100644
+> --- a/fs/ext4/mballoc.c
+> +++ b/fs/ext4/mballoc.c
+> @@ -899,10 +899,8 @@ static ext4_group_t ext4_get_allocation_groups_count(
+>  
+>  	/* non-extent files are limited to low blocks/groups */
+>  	if (!(ext4_test_inode_flag(ac->ac_inode, EXT4_INODE_EXTENTS)))
+> -		ngroups = EXT4_SB(ac->ac_sb)->s_blockfile_groups;
+> -
+> -	/* Pairs with smp_wmb() in ext4_update_super() */
+> -	smp_rmb();
+> +		/* Pairs with smp_store_release() in ext4_update_super() */
+> +		ngroups = smp_load_acquire(&EXT4_SB(ac->ac_sb)->s_blockfile_groups);
+>  
+>  	return ngroups;
+>  }
+> diff --git a/fs/ext4/resize.c b/fs/ext4/resize.c
+> index 2c5b851c552a..5e3ad8393cf8 100644
+> --- a/fs/ext4/resize.c
+> +++ b/fs/ext4/resize.c
+> @@ -1462,11 +1462,11 @@ static void ext4_update_super(struct super_block *sb,
+>  	 *
+>  	 * The precise rules we use are:
+>  	 *
+> -	 * * Writers must perform a smp_wmb() after updating all
+> -	 *   dependent data and before modifying the groups count
+> +	 * * Writers must use a release store when updating the groups count
+> +	 *   after all dependent data has been updated
+>  	 *
+> -	 * * Readers must perform an smp_rmb() after reading the groups
+> -	 *   count and before reading any dependent data.
+> +	 * * Readers must use an acquire load when reading the groups
+> +	 *   count before reading any dependent data.
+>  	 *
+>  	 * NB. These rules can be relaxed when checking the group count
+>  	 * while freeing data, as we can only allocate from a block
+> @@ -1474,12 +1474,15 @@ static void ext4_update_super(struct super_block *sb,
+>  	 * only then free after serialising in turn against that
+>  	 * allocation.
+>  	 */
+> -	smp_wmb();
+>  
+>  	/* Update the global fs size fields */
+> -	sbi->s_groups_count += flex_gd->count;
+> -	sbi->s_blockfile_groups = min(sbi->s_groups_count,
+> -			(EXT4_MAX_BLOCK_FILE_PHYS / EXT4_BLOCKS_PER_GROUP(sb)));
+> +	/* Pairs with smp_load_acquire() in ext4_get_groups_count() */
+> +	smp_store_release(&sbi->s_groups_count,
+> +			  sbi->s_groups_count + flex_gd->count);
+> +	/* Pairs with smp_load_acquire() in ext4_get_allocation_groups_count() */
+> +	smp_store_release(&sbi->s_blockfile_groups,
+> +			  min(sbi->s_groups_count,
+> +			      (EXT4_MAX_BLOCK_FILE_PHYS / EXT4_BLOCKS_PER_GROUP(sb))));
+>  
+>  	/* Update the reserved block counts only once the new group is
+>  	 * active. */
+> -- 
+> 2.34.1
+> 
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
