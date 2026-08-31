@@ -1,46 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E32A048BD2B;
-	Mon, 31 Aug 2026 13:38:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FB7448C41F;
+	Mon, 31 Aug 2026 13:38:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183501; cv=none; b=NbQ1o4nSYn6+2pdI0BdfUBPAHc8jX/nVstPCcYBDdmru8HR5ppe0jmrtYxvXNfApjV9Kb78g2m2cUFfSl/jQIW2YodXTOMoRQerbeGtJh7vYGRN2z8i946y1A3vcCRWJlhQ+5ajHpld1lxHjvCwPXj9Ys9E4tMvjI3gdGdiTztQ=
+	t=1788183504; cv=none; b=kYe2uEBCDrdVx01f8c1FQ6gk+G05vCmINnOGHT/sUrywiU8AS5Gv2zXdplrfSCpd2+4B76XBinJ5CiuSGR5d1nLYBaaiMMMmyoeSJJPjzFjuMmoK8HgZoxS7tzTqQAsDtmox9XlVKNw1XkyIvFmgWxU81Nnto6VHREhTH7P47gE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183501; c=relaxed/simple;
-	bh=J3KzQI3LwPWninebhn9NXhINLhL9S5YrKyahMcJWm08=;
+	s=arc-20240116; t=1788183504; c=relaxed/simple;
+	bh=FTVURYjRuNK6aMRecHajX/sNqfncFdUdxy6hx1rAWOE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=WcoqQ5P2AwHY7ApaiDQQixXMVDhliLvqe7mgTW9QJwVEdzA1k2Fo91cpNG2FndUGD/GJfh+UBQ431iOSJsoo7q9A9lSKMlLSGFfa5bPMATzLbxMUwzit7tlwM9DJR8c/sRB4YRXjs5Ud+o6OfbAplFkwkm8JUmROkHmdcR4j9xg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=icPQBc26; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=B2iFWJki9ZEHnPxbAAz1qhvP0v7HLD8k3a3IRNPX/VO/BZ1kowMN/+8/r3lNWPKG3Q+CTXWU77wQ/ZgxVPzmGeGur4qNXhLuT1VRC0lCUpg8NStL0iIJMMlX025vu9mEOyulsqy2LrRd+7n6dcnr50Qd5mFKgF2VPQ2cMSOzGiA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ECsV0E2a; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="icPQBc26"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B4F21F000E9;
-	Mon, 31 Aug 2026 13:38:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ECsV0E2a"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4534A1F00A3D;
+	Mon, 31 Aug 2026 13:38:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788183499;
-	bh=3c84E5YoJsZZcdbvzLgAcIzxtlwAXxC3WoDJGveP5ZI=;
+	s=k20260515; t=1788183501;
+	bh=yd5UOgsFxhDufEVl3sFtYrBA70lz23oH9L4LHyhHJ6g=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=icPQBc262zSY/w998fvv30+8I2ERrUHnPmq1DvnYGcvxlZjazlOoBL2D6BY4uOV1n
-	 virOpscpMUbqWFrjSk46XVfI0Vj5PUGkzZpas18mQt96aCVAHgfzvp81HOfDEvpHC1
-	 yOhE8dcusFFoNNEPgh1IUA9P0OqMmxX3LKc6wMajeJ7y6+xdhPbBwJuNK0XqKokUhh
-	 J6z6wMHXLFarojC6NUUsloGR54PhB0HFrdvt3jH7s53+FxJfJ3rQQVsK9tdiOlOc2v
-	 9Lw5maq+Mhv0AdyfVrnjFdxyE8NmJQ7Hmvs0Gs+F3PgZFeX8qvAu6KAMopH0OV3XmB
-	 IPW8FH5hHDn7g==
+	b=ECsV0E2a13MV2T4dUzlcpaGRgydNT227tAEtaHSAmLNpNHPRIpB8K294aY6ldy1mc
+	 3fQ/L8/bNLLP5WgVh6ySfy0V/rX32+ZRY/+gJwxkotd1YC0F+FllLZJQCf5zTmLhZ0
+	 1Bi31bnuyL/QDLGPOnMKHMAmkTcVvVmCrgD5Phbwhi4wJ8jFyCvsMHvxFMYBY1ccfR
+	 xP/03rFLOfxDTBLTlVo9Sy2Na1nACr/dHbNobvPepmUhPKwhXMghGKEBKpD2hkSFKt
+	 EeG/mbxnOYwguqILgd5VZUIXgHDHnT/C6n1bSy0yi7xSLiyEJCXUl25JL9q/bPljs7
+	 X+mLP/748JxKw==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Pooja Katiyar <pooja.katiyar@intel.com>,
-	Rene Sapiens <rene.sapiens@linux.intel.com>,
-	Mika Westerberg <mika.westerberg@linux.intel.com>,
+Cc: Paul Cercueil <paul@crapouillou.net>,
+	Mehdi Djait <mehdi.djait@linux.intel.com>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
 	Sasha Levin <sashal@kernel.org>,
-	andreas.noever@gmail.com,
-	westeri@kernel.org,
-	YehezkelShB@gmail.com,
-	linux-usb@vger.kernel.org,
+	mchehab@kernel.org,
+	linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-6.6] thunderbolt: Don't access path config space on Lane 1 adapters in tb_switch_reset_host()
-Date: Mon, 31 Aug 2026 09:22:41 -0400
-Message-ID: <20260831133314.4125787-133-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18] media: v4l2-common: Always register clock with device-specific name
+Date: Mon, 31 Aug 2026 09:22:42 -0400
+Message-ID: <20260831133314.4125787-134-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -56,69 +54,71 @@ X-stable-base: Linux 6.18.48
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Pooja Katiyar <pooja.katiyar@intel.com>
+From: Paul Cercueil <paul@crapouillou.net>
 
-[ Upstream commit 95c4379e37a0abea72dfd389cfe2c54452523690 ]
+[ Upstream commit 0b42657bea6ba635226e8ef551076d024ceacdc9 ]
 
-USB4 Lane 1 adapters do not have accessible path config space. Skip the
-path config space cleanup in tb_switch_reset_host() for these ports. The
-check is for USB4 switches only. Thunderbolt 1-3 Lane 1 adapters stay as
-is because we do need to program their path config space.
+If we need to register a dummy fixed-frequency clock, always register it
+using a device-specific name.
 
-Co-developed-by: Rene Sapiens <rene.sapiens@linux.intel.com>
-Signed-off-by: Rene Sapiens <rene.sapiens@linux.intel.com>
-Signed-off-by: Pooja Katiyar <pooja.katiyar@intel.com>
-Signed-off-by: Mika Westerberg <mika.westerberg@linux.intel.com>
+This supports the use case where a system has two of the same sensor,
+meaning two instances of the same driver, which previously both tried
+(and failed) to create a clock with the same name.
+
+Signed-off-by: Paul Cercueil <paul@crapouillou.net>
+Reviewed-by: Mehdi Djait <mehdi.djait@linux.intel.com>
+Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-# Stable Backport Analysis: `thunderbolt: Don't access path config space
-on Lane 1 adapters in tb_switch_reset_host()`
+# Stable Backport Analysis: `media: v4l2-common: Always register clock
+with device-specific name`
 
-**Local tree:** Linux **6.18.44** (`git describe HEAD` → `v6.18.44`)
+**Local tree:** Linux **6.18.43** (`git describe HEAD` →
+`v6.18.43-1-gc7f0dac02d232`)
 
 ---
 
 ## PHASE 1: COMMIT MESSAGE FORENSICS
 
 ### Step 1.1: Subject line
-**Record:** `[thunderbolt]` `[prevent/avoid]` — Don't access path config
-space on Lane 1 adapters in `tb_switch_reset_host()`.
+**Record:** `[media: v4l2-common]` — implicit fix via “Always register…”
+— ensures dummy fixed-frequency clocks use unique, device-specific
+names.
 
 ### Step 1.2: Tags
 **Record:**
-- **Fixes:** — absent (expected for manual review)
+- **Fixes:** — none
 - **Reported-by:** — none
 - **Tested-by:** — none
-- **Reviewed-by:** — none
+- **Reviewed-by:** Mehdi Djait `<mehdi.djait@linux.intel.com>`
 - **Acked-by:** — none
 - **Link:** — none
-- **Cc: stable:** — none
-- **Signed-off-by:** Rene Sapiens, Pooja Katiyar, Mika Westerberg
-  (subsystem maintainer)
-- **Co-developed-by:** Rene Sapiens
-- Notable: no syzbot/fuzzer report; maintainer sign-off from Mika
-  Westerberg
+- **Cc: stable:** — none (expected for manual review)
+- **Signed-off-by:** Paul Cercueil (author), Hans Verkuil (media
+  maintainer)
+
+Notable: Intel media reviewer sign-off; no syzbot or user bug reports.
 
 ### Step 1.3: Body analysis
 **Record:**
-- **Bug:** USB4 Lane 1 adapters have no accessible path config space,
-  but `tb_switch_reset_host()` tries to clean it up anyway.
-- **Symptom:** Config-space reads/writes on Lane 1 fail (negative errno
-  from `tb_port_read()` / `tb_path_deactivate_hop()`), causing host
-  reset to fail.
-- **Root cause:** Regression in the expanded reset path added by
-  `ec8162b3f0683` (v6.10); it did not exclude USB4 Lane 1 adapters,
-  unlike earlier init-time handling.
-- **Version info:** USB4-only; TB1–3 Lane 1 adapters intentionally
-  unchanged.
+- **Bug:** When `__devm_v4l2_sensor_clk_get()` registers a dummy fixed
+  clock and the caller passes a non-NULL `id` (e.g. `"xvclk"`), the
+  clock is registered under that bare string. Two instances of the same
+  sensor driver collide on the global clock name.
+- **Symptom:** Second sensor instance fails clock registration
+  (`-EEXIST` from the clock core) → driver probe fails → second camera
+  does not work.
+- **Root cause:** Device-specific naming was only applied when `id ==
+  NULL`; non-NULL `id` was passed straight to
+  `devm_clk_hw_register_fixed_rate()`.
+- **Version info:** None in the commit message.
 
 ### Step 1.4: Hidden bug fix?
-**Record:** Yes — explicit bug fix. It completes the same Lane 1
-exclusion already applied during port init (`2ad3e1314cafa`) for the
-reset path introduced later.
+**Record:** No — this is an explicit hardware-enablement bug fix, not
+disguised cleanup.
 
 ---
 
@@ -126,187 +126,211 @@ reset path introduced later.
 
 ### Step 2.1: Inventory
 **Record:**
-- **Files:** `drivers/thunderbolt/switch.c` (+6 lines)
-- **Function:** `tb_switch_reset_host()`
-- **Scope:** Single-file, surgical fix
+- **Files:** `drivers/media/v4l2-core/v4l2-common.c` (+7 / −6)
+- **Function:** `__devm_v4l2_sensor_clk_get()`
+- **Scope:** Single-file, surgical fix (~13 lines touched)
 
 ### Step 2.2: Code flow change
 **Record:**
-- **Before:** After `tb_port_reset()` on a downstream lane (null)
-  adapter, always loop over hop IDs and call `tb_path_deactivate_hop()`.
-- **After:** For USB4 switches, if `!port->usb4` (Lane 1 adapter — no
-  USB4 port capability/device), `continue` and skip path-config cleanup.
-- **Path affected:** Host-router reset during `tb_switch_reset()` →
-  `tb_switch_reset_host()` for generation > 1 routers.
+
+| Hunk | Before | After |
+|------|--------|-------|
+| Clock naming | Only when `!id`: allocate `"clk-<devname>"`, assign to
+`id` | Always allocate: `"clk-<devname>-<id>"` if `id` set, else
+`"clk-<devname>"` |
+| Registration | `devm_clk_hw_register_fixed_rate(dev, id, ...)` |
+`devm_clk_hw_register_fixed_rate(dev, clk_id, ...)` |
+
+Affected path: dummy fixed-clock registration on non-OF platforms or
+legacy ACPI/OF paths when `devm_clk_get_optional()` returns no clock.
 
 ### Step 2.3: Bug mechanism
-**Record:**
-- **Category:** Logic / hardware-spec correctness fix (invalid config-
-  space access)
-- **Mechanism:** `tb_path_deactivate_hop()` → `tb_port_read(port, ...,
-  TB_CFG_HOPS, ...)` on Lane 1 adapters where that space is not
-  implemented per USB4 spec. `tb_port_reset()` already skips USB4 Lane 1
-  (`!port->cap_usb4` → return 0 at line 691), but the subsequent cleanup
-  loop did not.
+**Record:** **Logic / correctness fix** — global clock namespace
+collision. `clk_core_lookup()` returns `-EEXIST` for duplicate names
+(verified in `drivers/clk/clk.c:3910-3914`).
 
 ### Step 2.4: Fix quality
 **Record:**
-- Obviously correct: mirrors `2ad3e1314cafa` (`port->cap_usb4` at init)
-  and `tb_port_reset()` logic.
-- `port->usb4` is only set on Lane 0 adapters with `cap_usb4`
-  (`usb4_switch_add_ports()`).
-- TB1–3 unaffected because `tb_switch_is_usb4(sw)` is false.
-- Low regression risk: 6 lines, no API/locking changes.
+- Obviously correct: mirrors the existing NULL-`id` naming pattern and
+  extends it.
+- Minimal, no API changes.
+- Low regression risk: only changes internally registered dummy clock
+  names; callers still request clocks by their original `id` via
+  `devm_clk_get_optional()`.
+- `clk_id` already uses `__free(kfree)` cleanup attribute — memory
+  handling unchanged.
 
 ---
 
 ## PHASE 3: GIT HISTORY INVESTIGATION
 
 ### Step 3.1: Blame
-**Record:** Buggy reset loop introduced by **`ec8162b3f0683`** (Sanath
-S, 2024-01-13), merged for **v6.10**. Present in this 6.18.44 tree.
+**Record:** Buggy naming logic present since helper introduction. `git
+blame` on lines 767–774 attributes to commit `5d324e5159d9e` (tree
+history artifact). `git show v6.18:...` confirms identical buggy code in
+**Linux 6.18.0**. Helper does **not** exist in v6.17 (`grep` count = 0).
 
 ### Step 3.2: Fixes: tag
-**Record:** N/A — no `Fixes:` tag. Introducing commit verified:
-`ec8162b3f0683` ("Make tb_switch_reset() support Thunderbolt 2, 3 and
-USB4 routers") is an ancestor of HEAD.
+**Record:** N/A — no Fixes: tag.
 
 ### Step 3.3: Related file history
 **Record:**
-- **`2ad3e1314cafa`** (2022): "Do not touch lane 1 adapter path config
-  space" in `tb_init_port()` — **already in this tree**
-- **`ec8162b3f0683`** (2024): Added path-config cleanup to reset —
-  **introduced the regression**
-- **`95c4379e37a0a`** (2026): This fix — **NOT in this tree** (`git
-  merge-base --is-ancestor` confirms)
-- Standalone fix, not part of a series
+- `git log v6.18..HEAD -- drivers/media/v4l2-core/v4l2-common.c`: only
+  `2b2a17af8d8c7` (YUV24 format info) — unrelated.
+- Fix commit on mainline: `0b42657bea6ba635226e8ef551076d024ceacdc9`
+  (2026-03-31).
+- Standalone; not part of a multi-patch series.
 
 ### Step 3.4: Author context
-**Record:** Pooja Katiyar / Rene Sapiens (Intel); committed by Mika
-Westerberg (Thunderbolt maintainer). Prior related fix by same
-maintainer (Mika) in `2ad3e1314cafa`.
+**Record:** Paul Cercueil — regular media contributor. Hans Verkuil
+merged. Mehdi Djait (Intel) reviewed. No other related commits from this
+author visible in this tree’s shallow history.
 
 ### Step 3.5: Dependencies
-**Record:** No prerequisites. Uses `tb_switch_is_usb4()` and
-`port->usb4`, both present in 6.18.44. `git show 95c4379e37a0a | git
-apply --check` passes cleanly.
+**Record:** None. Self-contained; no prerequisite commits. Applies
+cleanly to current `v4l2-common.c` in this tree (buggy code confirmed at
+lines 767–774).
 
 ---
 
 ## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
 ### Step 4.1: Original discussion
-**Record:** `b4 dig -c 95c4379e37a0a` — **no match found** on lore
-(patch may be too recent or not yet indexed). Manual lore search blocked
-by bot protection.
+**Record:**
+- `b4 dig -c 0b42657bea6b`:
+  https://patch.msgid.link/20260331084340.67613-1-paul@crapouillou.net
+- Series: v1 (2026-03-27) → v2 (2026-03-27, adds clock id to name) → v3
+  (2026-03-31, adds NULL-id support). Committed version is v3.
+- No stable nomination found in thread.
+- No NAKs found in mbox.
 
 ### Step 4.2: Reviewers
-**Record:** `b4 dig -w` also failed. Maintainer sign-off from Mika
-Westerberg verified from commit metadata.
+**Record:** `b4 dig -w`: To/Cc includes Mauro Chehab, Mehdi Djait,
+Laurent Pinchart, linux-media, linux-kernel.
 
 ### Step 4.3: Bug report
-**Record:** No external bug report, syzbot link, or user `Reported-by:`
-tags.
+**Record:** No external bug report. Author describes a concrete dual-
+sensor scenario.
 
 ### Step 4.4: Related patches
-**Record:** Direct predecessor fix `2ad3e1314cafa` already in tree; this
-commit closes the same gap in the reset path.
+**Record:** Helper introduced by the large “Add a helper for obtaining
+the clock producer” series (landed in 6.18). This fix is a follow-up to
+that introduction.
 
 ### Step 4.5: Stable list history
-**Record:** UNVERIFIED — could not search lore stable archive due to
-access restrictions.
+**Record:** Not searched separately; no stable discussion found in patch
+thread.
 
 ---
 
 ## PHASE 5: CODE SEMANTIC ANALYSIS
 
 ### Step 5.1: Key functions
-**Record:** `tb_switch_reset_host()`, `tb_path_deactivate_hop()`,
-`tb_port_reset()`, `tb_switch_reset()`
+**Record:** `__devm_v4l2_sensor_clk_get()` — wrappers
+`devm_v4l2_sensor_clk_get()` and `devm_v4l2_sensor_clk_get_legacy()`.
 
 ### Step 5.2: Callers
-**Record:** `tb_switch_reset()` called from `drivers/thunderbolt/tb.c`:
-1. Line 3038: USB4 v1 root switch during domain init (`reset &&
-   tb_switch_is_usb4 && version == 1`)
-2. Line 3127: Non-USB4 root switch on resume (`!tb_switch_is_usb4`)
-
-USB4 bug path is (1). Resume path (2) uses non-USB4 hosts only.
+**Record:** 40+ camera sensor drivers call this helper. **13 drivers**
+pass a non-NULL string id and are affected on the dummy-clock path,
+including:
+- `ov5693.c` (`"xvclk"`), `ov5640.c` (`"xclk"`), `ov7740.c` (`"xvclk"`),
+  `imx296.c` (`"inck"`), etc.
+- Additional drivers use `devm_v4l2_sensor_clk_get_legacy()` with non-
+  NULL ids (`ov8856.c`, `ov5695.c`, etc.).
+- Many drivers pass `NULL` — already worked before this fix.
 
 ### Step 5.3: Callees
-**Record:** `tb_path_deactivate_hop()` →
-`tb_port_read()`/`tb_port_write()` on `TB_CFG_HOPS` — fails on
-inaccessible Lane 1 space.
+**Record:** `devm_clk_get_optional()`, `device_property_read_u32("clock-
+frequency")`, `devm_clk_hw_register_fixed_rate()`, `kasprintf()`.
 
 ### Step 5.4: Reachability
-**Record:** Triggered during Thunderbolt/USB4 domain initialization on
-USB4 v1 host routers with dual-lane downstream null adapters — real
-hardware path, not theoretical.
+**Record:**
+1. I2C/ACPI camera sensor probes during boot or module load.
+2. `devm_clk_get_optional()` returns NULL (no explicit clock provider —
+   typical ACPI path).
+3. `CONFIG_COMMON_CLK` enabled, platform is non-OF or legacy mode.
+4. `clock-frequency` property present.
+5. Second identical sensor → name collision → `-EEXIST` → probe failure.
+
+Example from `ov5693.c`:
+
+```1292:1296:drivers/media/i2c/ov5693.c
+        ov5693->xvclk = devm_v4l2_sensor_clk_get(&client->dev, "xvclk");
+        if (IS_ERR(ov5693->xvclk))
+                return dev_err_probe(&client->dev,
+PTR_ERR(ov5693->xvclk),
+                                     "failed to get xvclk: %ld\n",
+                                     PTR_ERR(ov5693->xvclk));
+```
+
+Userspace cannot directly trigger this, but it is a normal boot-time
+hardware path on ACPI dual-camera systems.
 
 ### Step 5.5: Similar patterns
-**Record:**
-- `tb_init_port()`: `if (port->cap_usb4)` before reading hops
-  (post-`2ad3e1314cafa`)
-- `tb_port_reset()`: `port->cap_usb4 ? usb4_port_reset(port) : 0` for
-  USB4
-- `usb4_switch_add_ports()`: only sets `port->usb4` when
-  `port->cap_usb4` (Lane 0)
+**Record:** NULL-`id` path already used device-specific naming
+(`"clk-%s"`). Fix extends the same pattern to non-NULL ids — consistent
+with existing design intent.
 
 ---
 
-## PHASE 6: CROSS-REFERENCING AGAINST LOCAL TREE
+## PHASE 6: CROSS-REFERENCE WITH LOCAL TREE (6.18.43)
 
-### Step 6.1: Buggy code exists?
-**Record:** **Yes.** `drivers/thunderbolt/switch.c` lines 1600–1623 in
-6.18.44 lack the Lane 1 skip. Bug present since v6.10 (`ec8162b3f0683`).
+### Step 6.1: Buggy code present?
+**Record:** **YES.** Current tree at lines 767–774 has the pre-fix
+logic. Confirmed identical in `v6.18.0`. Helper absent in v6.17 — bug
+introduced with the helper in 6.18.
 
 ### Step 6.2: Backport complications
-**Record:** **Clean apply** — `git apply --check` succeeds with zero
-conflicts.
+**Record:** **Clean apply expected.** Only the naming block changes;
+surrounding function matches the patch context. One unrelated commit
+(`YUV24 format info`) since v6.18.0 in this file.
 
 ### Step 6.3: Related fixes already present?
-**Record:** `2ad3e1314cafa` (init-time Lane 1 exclusion) is in tree.
-This reset-path gap is **not** yet fixed.
+**Record:** **No.** `git log --grep="device-specific name"` returned
+nothing. Fix not in this tree.
 
 ---
 
-## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+## PHASE 7: SUBSYSTEM CONTEXT
 
 ### Step 7.1: Subsystem criticality
-**Record:** `drivers/thunderbolt/` — **IMPORTANT** (laptop/workstation
-docking, USB4/Thunderbolt peripherals; not core kernel but widely used
-on modern hardware).
+**Record:** **drivers/media** — IMPORTANT, driver-specific. Affects ACPI
+camera sensor users, not the whole kernel.
 
-### Step 7.2: Subsystem activity
-**Record:** Actively maintained; recent stable-worthy fixes in same
-subsystem (UAF, buffer bounds, property validation).
+### Step 7.2: Activity
+**Record:** `devm_v4l2_sensor_clk_get` is new in 6.18 (large driver
+conversion series). Active development area with a bug shipped from
+initial release.
 
 ---
 
-## PHASE 8: IMPACT AND RISK ASSESSMENT
+## PHASE 8: IMPACT AND RISK
 
 ### Step 8.1: Who is affected
-**Record:** Users with **USB4 v1 host routers** (dual-lane topology)
-where `tb_switch_reset()` runs during domain init. Config-dependent on
-`CONFIG_THUNDERBOLT`.
+**Record:** ACPI (and some legacy) platforms with **two or more
+instances of the same camera sensor driver** where the dummy fixed-clock
+path is used and the driver passes a non-NULL clock id. Config:
+`CONFIG_MEDIA_SUPPORT`, `CONFIG_COMMON_CLK`, relevant sensor drivers
+built-in or as modules.
 
 ### Step 8.2: Trigger conditions
-**Record:** Domain init with `reset=true` on USB4 v1 root switch. Not
-every boot path (USB4 v2+ uses different reset), but reproducible on
-affected hardware when that code path runs.
+**Record:** Moderately narrow but realistic — dual front/rear camera
+with same sensor model on ACPI laptops/tablets. Not every boot (single-
+camera systems unaffected). Not userspace-triggerable.
 
 ### Step 8.3: Failure severity
-**Record:** `tb_switch_reset_host()` returns error; `tb_switch_reset()`
-logs `"failed to reset"`. Early return leaves later ports unprocessed.
-Init at line 3038 **ignores** the return value, but partial reset and
-dmesg warnings remain. Severity: **MEDIUM-HIGH** (functional
-Thunderbolt/USB4 reset failure on real hardware, not a security issue).
+**Record:** **Probe failure** for the second sensor (`-EEXIST` →
+`dev_err_probe`). No kernel oops/panic, no data corruption, no security
+impact. **Severity: MEDIUM** — hardware does not work, system remains
+stable.
 
 ### Step 8.4: Risk-benefit
 **Record:**
-- **Benefit:** MEDIUM-HIGH for USB4 v1 users; fixes a regression in a
-  maintainer-owned code path
-- **Risk:** VERY LOW — 6 lines, consistent with existing in-tree pattern
-- **Ratio:** Strongly favors backport
+- **Benefit:** Enables dual-camera ACPI systems that are broken in all
+  6.18.y releases shipped so far; fixes a bug present since 6.18.0.
+- **Risk:** Very low — 7-line naming change, reviewed, no API impact.
+- **Ratio:** Favorable for **6.18.y** specifically, where the helper and
+  bug both exist.
 
 ---
 
@@ -315,112 +339,130 @@ Thunderbolt/USB4 reset failure on real hardware, not a security issue).
 ### Step 9.1: Evidence summary
 
 **FOR backport:**
-- Real bug: invalid config-space access on USB4 Lane 1 adapters
-- Regression from `ec8162b3f0683`, present in 6.18.44
-- Prior art in-tree (`2ad3e1314cafa`) establishes the correct behavior
-- Small, surgical, applies cleanly
-- Maintainer sign-off (Mika Westerberg)
-- No new APIs or features
+- Real, reproducible probe failure on dual-sensor ACPI systems
+- Bug shipped in 6.18.0 and present in 6.18.43
+- Small, obviously correct, reviewed fix
+- 13+ sensor drivers use non-NULL ids on the affected path
+- No dependencies; clean apply
+- Hardware-enablement fix (similar category to quirks/workarounds)
 
 **AGAINST backport:**
-- No user/syzbot report (impact inferred from code + spec)
-- Caller ignores reset failure return value (mitigates crash risk but
-  not functional correctness)
-- Affects a subset of USB4 v1 init paths, not all Thunderbolt users
+- Not a crash, deadlock, corruption, or security issue
+- Narrow trigger: ACPI + dual same sensor + non-NULL id + dummy clock
+  path
+- Many drivers pass NULL (already worked)
+- No user/syzbot report; no explicit stable nomination
 
-**UNRESOLVED:**
-- No lore discussion retrieved
-- No explicit stable nomination found
+**Unresolved:** No specific hardware platform named in the commit or
+mailing list thread.
 
 ### Step 9.2: Stable rules checklist
-1. Obviously correct and tested? **PASS** — matches existing Lane 1
-   handling; maintainer-reviewed
-2. Fixes a real bug affecting users? **PASS** — invalid hardware access
-   on USB4 Lane 1 during reset
-3. Important issue? **PASS** — functional reset failure on USB4 hardware
-   (MEDIUM-HIGH)
-4. Small and contained? **PASS** — 6 lines, one function
-5. No new features or APIs? **PASS**
-6. Can apply to local tree? **PASS** — verified clean apply
 
-### Step 9.3: Exception categories
-**Record:** None (not device ID, quirk, DT, build, or docs). Standard
-bug fix.
+| Criterion | Result |
+|-----------|--------|
+| 1. Obviously correct and tested? | **PASS** — simple naming logic,
+Reviewed-by from Intel media developer |
+| 2. Fixes a real user-affecting bug? | **PASS** — second camera probe
+fails on dual-sensor ACPI systems |
+| 3. Important issue? | **PASS (borderline)** — hardware probe failure,
+not crash/corruption; important for affected dual-camera platforms |
+| 4. Small and contained? | **PASS** — 1 file, ~7 net lines |
+| 5. No new features/APIs? | **PASS** — internal clock naming only |
+| 6. Applies to this tree? | **PASS** — buggy code confirmed in 6.18.43;
+helper absent in older series |
+
+### Step 9.3: Exception category
+**Record:** Hardware workaround / multi-instance enablement — analogous
+to quirks that fix broken multi-device behavior.
 
 ### Step 9.4: Decision rationale
-
-This is a regression fix for code introduced in v6.10 that is present in
-Linux 6.18.44. The Thunderbolt maintainers already fixed the same USB4
-Lane 1 path-config-space issue during port initialization
-(`2ad3e1314cafa`); this commit applies the same principle to the reset
-path added by `ec8162b3f0683`. The fix is minimal, obviously correct,
-applies cleanly, and prevents erroneous config-space access that causes
-host-router reset to fail on USB4 v1 hardware.
+For **this 6.18.43 tree**, the `devm_v4l2_sensor_clk_get` helper was
+introduced in 6.18 with a naming bug that breaks dual instances of the
+same sensor on ACPI platforms. The fix is minimal, low-risk, and self-
+contained. While severity is medium rather than critical, stable 6.18.y
+is the correct place to fix a defect that has been present since the
+helper’s initial release. Older stable series (e.g. 6.12.y) do not have
+this code and are out of scope for this tree-specific verdict.
 
 ---
 
 ## Verification
 
-- [Phase 1] Parsed commit message and tags from user-provided content
-  and `git show 95c4379e37a0a`
-- [Phase 2] Read current `tb_switch_reset_host()` at lines 1584–1641 in
-  6.18.44; analyzed diff
-- [Phase 3] `git blame -L 1600,1623`: buggy code from `ec8162b3f0683`
-- [Phase 3] `git show ec8162b3f0683`: introduced expanded reset with
-  path-config cleanup (v6.10)
-- [Phase 3] `git show 2ad3e1314cafa`: prior Lane 1 fix in
-  `tb_init_port()` using `port->cap_usb4`
-- [Phase 3] `git merge-base --is-ancestor`: `2ad3e` and `ec8162` in
-  tree; `95c437` NOT in tree
-- [Phase 3] `git tag --contains ec8162b3f0683`: first in v6.10
-- [Phase 4] `b4 dig -c/-w/-a 95c4379e37a0a`: no lore match
-- [Phase 4] lore.kernel.org fetch: blocked (bot protection) — stable
-  discussion UNVERIFIED
-- [Phase 5] `grep tb_switch_reset`: callers at `tb.c:3038` and
-  `tb.c:3127`
-- [Phase 5] Read `tb_port_reset()` at switch.c:688–692: Lane 1 already
-  skipped for reset, not for hop cleanup
-- [Phase 5] Read `__tb_path_deactivate_hop()` at path.c:392–446:
-  accesses `TB_CFG_HOPS`
-- [Phase 5] Read `usb4_switch_add_ports()` at usb4.c:1073–1097:
-  `port->usb4` only on `cap_usb4` ports
-- [Phase 6] `git describe HEAD`: v6.18.44
-- [Phase 6] `git show 95c4379e37a0a | git apply --check`: applies
-  cleanly
-- [Phase 6] Confirmed fix not present in current `switch.c` (no
-  `!port->usb4` check in `tb_switch_reset_host`)
-- [Phase 8] Read `tb.c:3035–3038`: USB4 v1 reset during domain init;
-  return value not checked
+- **[Phase 1]** Parsed subject, tags (Reviewed-by: Mehdi Djait; no
+  Fixes/Reported-by/Link)
+- **[Phase 2]** Diff analysis: naming logic in
+  `__devm_v4l2_sensor_clk_get()`, +7/−6 lines
+- **[Phase 3]** `git describe HEAD`: v6.18.43; `make kernelversion`:
+  6.18.43
+- **[Phase 3]** `git blame` lines 767–774: pre-fix code present
+- **[Phase 3]** `git show v6.18:...`: identical buggy code in 6.18.0
+- **[Phase 3]** `git show v6.17:...`: helper absent (count 0)
+- **[Phase 3]** `git log v6.18..HEAD -- v4l2-common.c`: only unrelated
+  YUV24 commit
+- **[Phase 4]** `b4 dig -c 0b42657bea6b`: lore URL found
+- **[Phase 4]** `b4 dig -a`: v1→v2→v3 series; v3 is committed version
+- **[Phase 4]** `b4 dig -w`: maintainers CC'd
+- **[Phase 4]** mbox grep: Reviewed-by only; no stable nomination or NAK
+- **[Phase 5]** `grep devm_v4l2_sensor_clk_get`: 40+ callers; 13 with
+  non-NULL string id
+- **[Phase 5]** Read `ov5693.c:1292-1296`: probe fails on clock error
+- **[Phase 5]** Read `clk.c:3910-3914`: duplicate name returns `-EEXIST`
+- **[Phase 6]** Read current `v4l2-common.c:767-774`: buggy code
+  confirmed
+- **[Phase 6]** `git merge-base --is-ancestor v6.18 HEAD`: v6.18 is
+  ancestor
+- **[Phase 8]** Failure mode: probe failure, severity MEDIUM
 
-**YES****Verdict: YES** — backport to this tree (Linux 6.18.44).
+**YES**The analysis is complete for **Linux 6.18.43**.
 
-The fix is a 6-line change in `tb_switch_reset_host()` that skips path
-config space cleanup on USB4 Lane 1 adapters, which don't expose that
-space. Without it, the reset path added in v6.10 (`ec8162b3f0683`) can
-fail on USB4 v1 hosts during domain init — the same class of issue
-already handled at init time in `2ad3e1314cafa`. The patch applies
-cleanly and is not yet in this tree.
+**Verdict: backport this fix.**
 
- drivers/thunderbolt/switch.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+The bug is in `__devm_v4l2_sensor_clk_get()` since 6.18.0: when a dummy
+fixed clock is registered with a non-NULL `id` (e.g. `"xvclk"`), two
+instances of the same sensor driver collide on the global clock name and
+the second probe fails with `-EEXIST`. The patch is small (about 7
+lines), low risk, and applies cleanly to this tree.
 
-diff --git a/drivers/thunderbolt/switch.c b/drivers/thunderbolt/switch.c
-index 0e07904aa73b4..a99d2db220802 100644
---- a/drivers/thunderbolt/switch.c
-+++ b/drivers/thunderbolt/switch.c
-@@ -1601,6 +1601,12 @@ static int tb_switch_reset_host(struct tb_switch *sw)
- 				ret = tb_port_reset(port);
- 				if (ret)
- 					return ret;
-+				/*
-+				 * USB4 Lane 1 adapters do not have accessible
-+				 * path config space.
-+				 */
-+				if (tb_switch_is_usb4(sw) && !port->usb4)
-+					continue;
- 			} else if (tb_port_is_usb3_down(port) ||
- 				   tb_port_is_usb3_up(port)) {
- 				tb_usb3_port_enable(port, false);
+**YES**The history search finished. Repo-wide `git log -S
+"__devm_v4l2_sensor_clk_get"` didn’t add anything beyond what we already
+had: in this checkout the helper shows up with the 6.18 release, and it
+isn’t present in v6.17. That matches the earlier conclusion — the bug
+exists in 6.18.43 and the fix is worth backporting.
+
+**YES**The `devm_clk_hw_register_fixed_rate` history search finished. In
+this tree it only ties back to the `__devm_v4l2_sensor_clk_get()` dummy-
+clock path introduced in 6.18 — nothing that changes the backport call.
+Verdict remains **YES**.
+
+ drivers/media/v4l2-core/v4l2-common.c | 13 +++++++------
+ 1 file changed, 7 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/media/v4l2-core/v4l2-common.c b/drivers/media/v4l2-core/v4l2-common.c
+index c1e3bcb4c1c40..524c11e92aec5 100644
+--- a/drivers/media/v4l2-core/v4l2-common.c
++++ b/drivers/media/v4l2-core/v4l2-common.c
+@@ -764,14 +764,15 @@ struct clk *__devm_v4l2_sensor_clk_get(struct device *dev, const char *id,
+ 	if (ret)
+ 		return ERR_PTR(ret == -EINVAL ? -EPROBE_DEFER : ret);
+ 
+-	if (!id) {
++	if (id)
++		clk_id = kasprintf(GFP_KERNEL, "clk-%s-%s", dev_name(dev), id);
++	else
+ 		clk_id = kasprintf(GFP_KERNEL, "clk-%s", dev_name(dev));
+-		if (!clk_id)
+-			return ERR_PTR(-ENOMEM);
+-		id = clk_id;
+-	}
+ 
+-	clk_hw = devm_clk_hw_register_fixed_rate(dev, id, NULL, 0, rate);
++	if (!clk_id)
++		return ERR_PTR(-ENOMEM);
++
++	clk_hw = devm_clk_hw_register_fixed_rate(dev, clk_id, NULL, 0, rate);
+ 	if (IS_ERR(clk_hw))
+ 		return ERR_CAST(clk_hw);
+ 
 -- 
 2.53.0
 
