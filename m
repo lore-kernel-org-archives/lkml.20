@@ -1,47 +1,47 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC7C73DA5DB
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 09:07:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A48CC3D648F
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 09:07:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788167242; cv=none; b=CbVrAg4gf6WT+A6qnzPoERdAtDb616gUFKTogtGBBSJ9Akf9NdSA2UZapTmCbzEG4O6EFkSKpOHe7JbURlhU8canG5QXIpYIIJnqVb5Q1kvYfQUUnNHLEOyokuHXNVDIFljqMmwqe8XVrhp80rOrIi2a//l6OGEnT2mDukS9eaU=
+	t=1788167246; cv=none; b=SNZh/2fyM/iFIR6JhgwHELM0pkQRGp0p+aXBqooOa69Qcnl//VInGRj5haXZLqyVOrEiiaJ+QV0OIwtnBbRiUhCUoVXzLKjpwWwaF3A4zfNnfUJsfd7Sg3yGtUKlXJs2jY9NFDNE2O2ndwMISZiLOsgVpTFy+i0/uGfAJ70JxHM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788167242; c=relaxed/simple;
-	bh=sR4VZB6nBWpqoyNmrzumziJWaNPWT5Ta+6UmJ+pF3Pg=;
+	s=arc-20240116; t=1788167246; c=relaxed/simple;
+	bh=mjHNhB0GKsScSXsL5mV9BTT34DJUyPOPTHw7o+N3oqM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Bxi7okjFe8rCQ0FQpx+8etKNuvbFwtWUwfVBY6T+trG5XewqzyENcooya7TXr2MpKllO+8GQo4kI1IzZpsdzd5/4G5i0fx9NOwkDkeKEOBVVGbvj28G31jjYGCaBnmgCnXsCXmTKkVwYz5yi7FXkADrzltffBpcuhzF0nkW37Jo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=dLiYwJDU; arc=none smtp.client-ip=170.10.129.124
+	 MIME-Version; b=kGuFYjqk5QAoULUj8700HwJMZfFmg+hi9drzctuo8XNzKz91hEZlw7mgGSj0WxhNrzdj1PYlmWBTiw1Qsqa65uexzSvj4QDH8tCeNuO/jZBS4+xEeHNVG+4cDavOj1E15p6OUde8bPRFBz2XnBCPySEM7KUOCzT16h7H4u8NjL0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=SS4qYyhe; arc=none smtp.client-ip=170.10.133.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="dLiYwJDU"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="SS4qYyhe"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788167238;
+	s=mimecast20190719; t=1788167243;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=d/qS+nPc8j5i0RQhS+DSJfHNaI4k+rZzA7++z5urrbw=;
-	b=dLiYwJDUAIclQSauT8/eG3JVgCHCcUuwFlZg7CYh6Fb/V/4J2AXZQ7QCfU4RNm1U28E+PK
-	Zq8DKbweTuedMt54ZTqFHG7v0eAkMTtJkRyJ2OHDO/fCnXU0PwQgMYUAHs34we3LPPzs+W
-	SrM2L3J87/VsNmme2ufSjy8Ffvo5rGk=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+	bh=osC9YIvYCLoTIMz23HH8P7/BrPk8KQ6tK0BnBySim50=;
+	b=SS4qYyheaTIFkLy3YT/+gz87ki+RTviLwHXJU61U0gsP9sKyR3c3NnxtRjigof4r+JSJ5D
+	NWwLtCoxQirTV7wr3gpx/Tg03QHD3MojOArFPds5V5h5o9wIte2opTUtH2uUGkMCTmr50Z
+	4m88WfsdcPGQqUpCRPMVXhy+9Pl0Rqc=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
  (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-301-8FoS0nPAPu-kKNCjQSpZaA-1; Mon,
- 31 Aug 2026 05:07:12 -0400
-X-MC-Unique: 8FoS0nPAPu-kKNCjQSpZaA-1
-X-Mimecast-MFC-AGG-ID: 8FoS0nPAPu-kKNCjQSpZaA_1788167231
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-14-dQ_XbCmQM3KVg3QZ7779DQ-1; Mon,
+ 31 Aug 2026 05:07:21 -0400
+X-MC-Unique: dQ_XbCmQM3KVg3QZ7779DQ-1
+X-Mimecast-MFC-AGG-ID: dQ_XbCmQM3KVg3QZ7779DQ_1788167240
 Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 6A404193E88D;
-	Mon, 31 Aug 2026 09:07:11 +0000 (UTC)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 0E32A1977534;
+	Mon, 31 Aug 2026 09:07:20 +0000 (UTC)
 Received: from gmonaco-thinkpadt14gen3.redhat.corp (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
-	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 2536D18005BD;
-	Mon, 31 Aug 2026 09:07:07 +0000 (UTC)
+	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id E8CA5180034F;
+	Mon, 31 Aug 2026 09:07:16 +0000 (UTC)
 From: Gabriele Monaco <gmonaco@redhat.com>
 To: linux-kernel@vger.kernel.org,
 	linux-trace-kernel@vger.kernel.org,
@@ -53,9 +53,9 @@ Cc: Nam Cao <namcao@linutronix.de>,
 	Wen Yang <wen.yang@linux.dev>,
 	Tobias Schaffner <tobias.schaffner@siemens.com>,
 	Viktor Malik <vmalik@redhat.com>
-Subject: [RFC PATCH 04/20] rv: Use static arrays for rv_monitor name and description
-Date: Mon, 31 Aug 2026 11:05:08 +0200
-Message-ID: <20260831090524.106845-5-gmonaco@redhat.com>
+Subject: [RFC PATCH 06/20] rv: Add rv_get_monitor_by_name()
+Date: Mon, 31 Aug 2026 11:05:10 +0200
+Message-ID: <20260831090524.106845-7-gmonaco@redhat.com>
 In-Reply-To: <20260831090524.106845-1-gmonaco@redhat.com>
 References: <20260831090524.106845-1-gmonaco@redhat.com>
 Precedence: bulk
@@ -67,96 +67,102 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
 
-Name and description in struct rv_monitor are currently defined as
-pointers, which are assigned during initialisation. This means they are
-not clearly in the structure and this can be a problem if the struct
-needs to be reused in other contexts (like BPF's struct_opts).
-
-Make the fields static arrays with defined size, limit the description
-to 128 bytes (much longer than any current description). This slightly
-increases the kernel size as the full space for the strings is reserved,
-but that's a minor increase as each monitor has a single instance of
-struct rv_monitor, total increase around 100B per monitor, uncompressed.
+Add a helper function to get the rv_monitor pointer for a registered
+monitor given its name and add its first user in rv_register_monitor().
 
 Signed-off-by: Gabriele Monaco <gmonaco@redhat.com>
 ---
- include/linux/rv.h   |  9 ++++++---
- kernel/trace/rv/rv.c | 10 +++++-----
- kernel/trace/rv/rv.h |  3 ---
- 3 files changed, 11 insertions(+), 11 deletions(-)
+ kernel/trace/rv/rv.c | 28 +++++++++++++++++++---------
+ kernel/trace/rv/rv.h |  1 +
+ 2 files changed, 20 insertions(+), 9 deletions(-)
 
-diff --git a/include/linux/rv.h b/include/linux/rv.h
-index 541ba404926a..a3a332b49747 100644
---- a/include/linux/rv.h
-+++ b/include/linux/rv.h
-@@ -7,7 +7,10 @@
- #ifndef _LINUX_RV_H
- #define _LINUX_RV_H
- 
--#define MAX_DA_NAME_LEN			32
-+#define MAX_RV_MONITOR_NAME_SIZE	32
-+#define MAX_RV_REACTOR_NAME_SIZE	32
-+#define MAX_RV_DESCRIPTION_SIZE		128
-+
- #define MAX_DA_RETRY_RACING_EVENTS	3
- 
- #define RV_MON_GLOBAL   0
-@@ -137,8 +140,8 @@ struct rv_reactor {
- #endif
- 
- struct rv_monitor {
--	const char		*name;
--	const char		*description;
-+	char			name[MAX_RV_MONITOR_NAME_SIZE];
-+	char			description[MAX_RV_DESCRIPTION_SIZE];
- 	bool			enabled;
- 	int			(*enable)(void);
- 	void			(*disable)(void);
 diff --git a/kernel/trace/rv/rv.c b/kernel/trace/rv/rv.c
-index 29f155c6968b..f77c5865f41a 100644
+index f77c5865f41a..33919c5fbd6a 100644
 --- a/kernel/trace/rv/rv.c
 +++ b/kernel/trace/rv/rv.c
-@@ -392,11 +392,11 @@ static ssize_t monitor_desc_read_data(struct file *filp, char __user *user_buf,
- 				      loff_t *ppos)
- {
- 	struct rv_monitor *mon = filp->private_data;
--	char buff[256];
-+	char buff[MAX_RV_DESCRIPTION_SIZE + 2];
+@@ -142,6 +142,7 @@
+ #include <linux/module.h>
+ #include <linux/init.h>
+ #include <linux/slab.h>
++#include <linux/rculist.h>
  
- 	memset(buff, 0, sizeof(buff));
- 
--	snprintf(buff, sizeof(buff), "%s\n", mon->description);
-+	snprintf(buff, sizeof(buff), "%.*s\n", MAX_RV_DESCRIPTION_SIZE, mon->description);
- 
- 	return simple_read_from_buffer(user_buf, count, ppos, buff, strlen(buff) + 1);
+ #ifdef CONFIG_RV_MON_EVENTS
+ #define CREATE_TRACE_POINTS
+@@ -229,6 +230,18 @@ bool rv_is_container_monitor(struct rv_monitor *mon)
+ 	return next->parent == mon || !mon->enable;
  }
-@@ -756,9 +756,9 @@ int rv_register_monitor(struct rv_monitor *monitor, struct rv_monitor *parent)
- 	struct rv_monitor *r;
+ 
++struct rv_monitor *rv_get_monitor_by_name(const char *name)
++{
++	struct rv_monitor *m;
++
++	list_for_each_entry_rcu(m, &rv_monitors_list, list,
++				lockdep_is_held(&rv_interface_lock)) {
++		if (strcmp(name, m->name) == 0)
++			return m;
++	}
++	return NULL;
++}
++
+ /*
+  * This section collects the monitor/ files and folders.
+  */
+@@ -753,7 +766,6 @@ static void destroy_monitor_dir(struct rv_monitor *mon)
+  */
+ int rv_register_monitor(struct rv_monitor *monitor, struct rv_monitor *parent)
+ {
+-	struct rv_monitor *r;
  	int retval = 0;
  
--	if (strlen(monitor->name) >= MAX_RV_MONITOR_NAME_SIZE) {
--		pr_info("Monitor %s has a name longer than %d\n", monitor->name,
--			MAX_RV_MONITOR_NAME_SIZE);
-+	if (strnlen(monitor->name, MAX_RV_MONITOR_NAME_SIZE) == MAX_RV_MONITOR_NAME_SIZE) {
-+		pr_info("Monitor %.*s has a name longer than %d\n", MAX_RV_MONITOR_NAME_SIZE,
-+			monitor->name, MAX_RV_MONITOR_NAME_SIZE);
- 		return -EINVAL;
+ 	if (strnlen(monitor->name, MAX_RV_MONITOR_NAME_SIZE) == MAX_RV_MONITOR_NAME_SIZE) {
+@@ -764,11 +776,9 @@ int rv_register_monitor(struct rv_monitor *monitor, struct rv_monitor *parent)
+ 
+ 	guard(mutex)(&rv_interface_lock);
+ 
+-	list_for_each_entry(r, &rv_monitors_list, list) {
+-		if (strcmp(monitor->name, r->name) == 0) {
+-			pr_info("Monitor %s is already registered\n", monitor->name);
+-			return -EEXIST;
+-		}
++	if (rv_get_monitor_by_name(monitor->name)) {
++		pr_info("Monitor %s is already registered\n", monitor->name);
++		return -EEXIST;
  	}
  
+ 	if (parent && rv_is_nested_monitor(parent)) {
+@@ -785,9 +795,9 @@ int rv_register_monitor(struct rv_monitor *monitor, struct rv_monitor *parent)
+ 
+ 	/* keep children close to the parent for easier visualisation */
+ 	if (parent)
+-		list_add(&monitor->list, &parent->list);
++		list_add_rcu(&monitor->list, &parent->list);
+ 	else
+-		list_add_tail(&monitor->list, &rv_monitors_list);
++		list_add_tail_rcu(&monitor->list, &rv_monitors_list);
+ 
+ 	return 0;
+ }
+@@ -803,7 +813,7 @@ int rv_unregister_monitor(struct rv_monitor *monitor)
+ 	guard(mutex)(&rv_interface_lock);
+ 
+ 	rv_disable_monitor(monitor);
+-	list_del(&monitor->list);
++	list_del_rcu(&monitor->list);
+ 	destroy_monitor_dir(monitor);
+ 
+ 	return 0;
 diff --git a/kernel/trace/rv/rv.h b/kernel/trace/rv/rv.h
-index 2c0f51ff9d5c..07512046e5cc 100644
+index 07512046e5cc..4d2c9cb284c9 100644
 --- a/kernel/trace/rv/rv.h
 +++ b/kernel/trace/rv/rv.h
-@@ -19,9 +19,6 @@ struct rv_interface {
+@@ -27,6 +27,7 @@ int rv_disable_monitor(struct rv_monitor *mon);
+ int rv_enable_monitor(struct rv_monitor *mon);
+ bool rv_is_container_monitor(struct rv_monitor *mon);
+ bool rv_is_nested_monitor(struct rv_monitor *mon);
++struct rv_monitor *rv_get_monitor_by_name(const char *name);
  
- DEFINE_FREE(rv_remove, struct dentry *, if (_T) rv_remove(_T));
- 
--#define MAX_RV_MONITOR_NAME_SIZE	32
--#define MAX_RV_REACTOR_NAME_SIZE	32
--
- extern struct mutex rv_interface_lock;
- extern struct list_head rv_monitors_list;
- 
+ #ifdef CONFIG_RV_REACTORS
+ int reactor_populate_monitor(struct rv_monitor *mon, struct dentry *root);
 -- 
 2.55.0
 
