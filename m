@@ -1,47 +1,47 @@
-Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010061.outbound.protection.outlook.com [40.93.198.61])
+Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012041.outbound.protection.outlook.com [52.101.48.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D9124AA590
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 17:23:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.198.61
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74DC54AC150
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 17:23:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.41
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788197001; cv=fail; b=szXKrfTEu/9LSQhh9zBQYh4LJbd73Q4U20wPyAFFY13Z0hSAs7HmFhQC9p7uQQAMnZ9hIfaM8g5aLtVRm1/3mJonyHDSk2Aekz06f24eqR/s4fA6EoO1xGg1hjcSQuQ/T97N6LdhRRJcVP6ZaEF85KipZpQ+hX0HOS4R4OFlAFo=
+	t=1788197002; cv=fail; b=FnJDEiURPyaXe4Ig4ds+5nNt6u12lpKrVhnWaVTR6PQpS6DdCV8w7J4YyE1ZbRN5tvcAdvyU/NLpF9HWC/uBkaLeSxxAvaWvOLJpIjktoRgR+5ImsTlAcGAlTWtmAndOO1eqbw+oCk1XJDu6TvIIISfRgbOFSF8F9o3CMrrcOUg=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788197001; c=relaxed/simple;
-	bh=whejGFhonAKCDqO3nf8TygJ83IyeHbwDEcSpMJ+GOCs=;
+	s=arc-20240116; t=1788197002; c=relaxed/simple;
+	bh=DO94FK1stPXApq6CAVBbhysvch+rJtJkefsY/ovVfJQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=iyeAE8zAu+e5DgHfX7NLSUk0Ps3revGVn7Dy972CIb5h3+56VJJBXXfUlRNVF/F+ziUTctHgLIcCV6BKl0HIzsC+iedjvCS8B311u2tFyshiMPOiqY56sReezAps9k6vizwIzhifTTE1+BboFDKx3w36TzyKwK37E1uRWEItNNA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=TOfLG4fE; arc=fail smtp.client-ip=40.93.198.61
+	 Content-Type:MIME-Version; b=r8A8k6qlRfH3GZHvlZndQQajbcaXG9jK8tpl8zT9hoKLipy5yvKmElKzTc1vxfx164CTV/0vctJ8pyxKSXG2q6MdGSXcbKMouD+HvDOBt/X7SH7hBcEVQA1Q6aNA6WXd2XzQVQT33Va4/xtRKcnZO+fgGajp3spAgW09KNBxeZ0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=V2HqZ6bA; arc=fail smtp.client-ip=52.101.48.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="TOfLG4fE"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="V2HqZ6bA"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rirMyO94l9z6C+4Hfh4Q6uuSUx0pG7WKUJmBrat0sAlGba/vDZqalz3vWr3D3zOYkudZOo+Kbl276mQpWPdpTAmVCFFzu7QCIRqc8XnGal3ltMOnEAV4O6RavoAJUt2V0qLWYyOihqHBfFXzsfph0IZOEs0mVTwdsMXsMmKi4rB0RMKrV66kl1MA4+puZCWBIXUvy0sWMpChscTwMjWomq4JWZtYeqzv/T+JuY94V5TSR6vh5gnW3Phhj7NZTLxSsSbQfQUaMX7sLCey/3yKHdy1UoLd/o25mpZmXoYg5hgeQI6lLd34uh80owXKid2I2NKijXqOwUFNvx/g2xlxUg==
+ b=jp/YW7ukcpQEd4gnrnJG4BATLN/bSoRLGt2GeVWmGaWvcQsnHOcAEILidwAqBO2xHQO2BDgtBhnnRNcH9zZ15RZQSll1Q9aT+CHx7B/ponu7+mDhzz2WXXQMvQQUsbhDSHtkyO88lQ9Kq09UkQOwyI25xtoAaGnJ6PQ8B22TYDBeqEXr1OaqoD95mzrHfxD9ncbAyqjU/eiWQUy8t7cJ6QhhjBCLb7oHlZLHsUmrVtrS7BxSywIPbbTiJf4KlCe/2NFt651FfCj9QRID1khsiIefB/TLlcz2QcdmEf6H8ntHCkRDX/w4DQ4le0M5nF1xq0/thgbTehUJSLZUAUbckg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BhsqMa+lNu7dNO2rcpM8+Z4WapdaiempHBmzvDTNwxU=;
- b=DiSYwHPn6Oo/t2j2Ey6U0jBiJmYNIThPt6WVFZwHpSI6IsTfkM3XIZMGIZ6WH4qxgv3JD9LCwzaKHSO2DABr4UZCn1U8z8zL90Dagt1yDgeDwEpn6Ks98tVHPVWd5e4rcaLjpn0NKIN5BuVKNO2vgBvnNoe7n72IkswDz/bJ0MHnityfv63PLPKvPO6SA/dZ+qdCrgr8WBGdye4+FO7NUeclY4vNSVw+YrZTSTaLuMERaczbf2ALojDddRONnkAY1M5pQRdePeli0XUBXsFO7SIn6+tNkj6yQk8d8+li3bAz0dW7GdIX0f3lqHXh8HBvxLv9w69i0YyNzwq0oSAkjw==
+ bh=D6uMh06A67BgxabCNZqHmRHh+QCGcbyNVJGvo7r2QxI=;
+ b=pHxHWUq1ZFut1q7F9qdTCEoRJMgzQ9u4FJyrWBJiLDTs4NQlMGuazN6N9cZuj7uXCyNOfvVr42UFJPShxDIS5CEnAMTvD+3TFWHZ+vAFXOii8dyBM5le4xNWh255x1HIssNXqYcUG1AVJAeI36Ss9VBAF06S+8UXXIse9zJQMhSKgrGwEZlcKI7hV+pBQ27vqJnTBDVyb27Y65fuUOYLHpQwHf0wdmgzgOai25IE16mVX8Q7/uRgbXP+JWirQMLT/t6FL7JyGL8JFOFCuxujIQDn/dm/X+ieBiMxs3BVWXrTiAwRXXZRFPw71Poks7uk2n+mHy0b8QcsfpKer09e9g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BhsqMa+lNu7dNO2rcpM8+Z4WapdaiempHBmzvDTNwxU=;
- b=TOfLG4fEIzpLiFX6ptybfOG7mYsvbpUjwxQLOTZY2XV87XitbEEf8AF5ysKrUCqCplMNfUpHZGQIJCLfaM0svzOHM2YCn5dynUTedqlUyp7klEQKuTRzN8WZqYTEnItbZA/eQJDH5ZIynjWgfvXowdQyCgTeGvzp+6BJcksdZFEV64B5E7aKwcgvpXvT8L2w6q0aUoAyehYiO6EqiVSEpZ53qnq4Cmgu2NQg5wZgp3dXsU+FJudT7/6hFL8+pwPmGJxHLFZ0dCJEcUlp2wVwqJZlnRowrdOf4VybmxEXfJZv5SrbSKcDbgqBqDJ9sVzP0mDAJS3uFPri+5jQpAFdhw==
+ bh=D6uMh06A67BgxabCNZqHmRHh+QCGcbyNVJGvo7r2QxI=;
+ b=V2HqZ6bAD50r0KlEq9736TVIZ+Rn+G2YBA4gAZUNBF/JgnF8+rqChTzW4z8lAfz9ChMNzpKeHr2Dhpk4n8CAbBPQVdTJjeF5EMzDmq82ZYqNkoO4T84sI+DSnqRMYDpmxL4eVFvddjFnhjadPWlgeediXfTDpHvXP0iYaHcDZLOlJR2wCdnElMBZjsGb/pOeIheEmlY6wbXJo8RiIsup0XZAZrlDCWJonbmrDoBu6tyQMAU12yjzE4MGMKWQNKkawtDovnohZ16v1h3YXGpZdQmscnWxSLs2vrG8qNF9foF9DF1AzSR3we0+a01CvtoyJRFWpqOoO8EjT6axC2Rhlg==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from DM4PR12MB5230.namprd12.prod.outlook.com (2603:10b6:5:399::11)
- by MN2PR12MB4406.namprd12.prod.outlook.com (2603:10b6:208:268::23) with
+ by SJ5PPF0C60B25BF.namprd12.prod.outlook.com (2603:10b6:a0f:fc02::98a) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Mon, 31 Aug
- 2026 17:23:12 +0000
+ 2026 17:23:11 +0000
 Received: from DM4PR12MB5230.namprd12.prod.outlook.com
  ([fe80::6e87:1bde:1853:3b73]) by DM4PR12MB5230.namprd12.prod.outlook.com
  ([fe80::6e87:1bde:1853:3b73%5]) with mapi id 15.21.0360.008; Mon, 31 Aug 2026
- 17:23:12 +0000
+ 17:23:11 +0000
 From: Fenghua Yu <fenghuay@nvidia.com>
 To: Reinette Chatre <reinette.chatre@intel.com>,
 	Tony Luck <tony.luck@intel.com>,
@@ -61,16 +61,16 @@ To: Reinette Chatre <reinette.chatre@intel.com>,
 Cc: linux-kernel@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	Fenghua Yu <fenghuay@nvidia.com>
-Subject: [PATCH RFC v2 16/19] Documentation: resctrl: document NODE-scoped MBA domains and mon_NODE monitoring
-Date: Mon, 31 Aug 2026 10:22:42 -0700
-Message-ID: <20260831172245.42253-17-fenghuay@nvidia.com>
+Subject: [PATCH RFC v2 14/19] Documentation: resctrl: document mbm_assign_scope_mode
+Date: Mon, 31 Aug 2026 10:22:40 -0700
+Message-ID: <20260831172245.42253-15-fenghuay@nvidia.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260831172245.42253-1-fenghuay@nvidia.com>
 References: <20260831172245.42253-1-fenghuay@nvidia.com>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: SJ0PR03CA0331.namprd03.prod.outlook.com
- (2603:10b6:a03:39c::6) To DM4PR12MB5230.namprd12.prod.outlook.com
+X-ClientProxiedBy: SJ0PR03CA0186.namprd03.prod.outlook.com
+ (2603:10b6:a03:2ef::11) To DM4PR12MB5230.namprd12.prod.outlook.com
  (2603:10b6:5:399::11)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -79,145 +79,138 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB5230:EE_|MN2PR12MB4406:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0992682a-13f0-4588-c1fb-08df07848809
+X-MS-TrafficTypeDiagnostic: DM4PR12MB5230:EE_|SJ5PPF0C60B25BF:EE_
+X-MS-Office365-Filtering-Correlation-Id: fa5cdb2f-ab03-4844-a14d-08df07848656
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|23010399003|7416014|1800799024|366016|921020|10067099003|11063799006|22082099003|18002099003|3023799007|56012099006;
+	BCL:0;ARA:13230040|1800799024|366016|23010399003|7416014|376014|6133799003|18002099003|18092099006|22082099003|56012099006|11063799006|10067099003|921020;
 X-Microsoft-Antispam-Message-Info:
-	OQK2UTZfZZkwFE0idsR8gdFAWubuO7oLaweI/RWZrh/658qDnubuZBioMqAYPtGGToZicrsQ7GJ+9omFEIMqis7nNmXqdXYbdgyXUlddIyWwG0GpnkeGOdukikp+ClVsph0Bm23X1YdV1f1oCyFVT1+VscQEAxRSCnOznqf+q8/NTiGNseqmi6K3TLmkFFeGXmCUxP2omcczA4mW65AVP4lmxukdwC3j7ROH6ib70ebtz4/zcvofhbmeLc11dRtKmURw5IYOuTHjN6Y/7b0L/5jAKnREcGHcFOxQdGVMP8JIK9Gp+6TCmRnl2Xf6/YqevylD3jzDEhcMgqzvePk6xOiLOYZXwhNW5yJ9bLb8PCIcKBoJR3qwAtqlVg9kPl/2rTpm7M8TTbjTczLLS0U8P9xbJ2ZVCLYb5HxewWycvNlKEfp6VVAK9+aIbeXMBevL0WmBE192ipXZh5+AZKLXP0fy2RNJdPh2itaHyHbnfuKkacvzmMmadN8RdJgIgdDU0br1VBbPKueh02GMnlT9PXacJ3rFj6s8jb8iSvCZMT4dVuLaurFVGNr21a3MKeGmotT6NfumS/GyFOILEZ7tqYumWLt0ATf4Go01HJksDZFYQ//7C++WK3r3E6HRh/RXEzg3HCG2IhxAtpoXPA1ZHH1EDUmqSOuTKkI+Cb53XlCMAcQenxwokyv68IZ/6aulRCjT47JjI0tAGWPpWvvKMg==
+	XAZwu1uM36y77lNCnOqovPpqdcpyKLBohrPQ7WRIA+fbcu+TAWtkgQPQ/XKVMti0pWKqUJmSdNN1sxUbyc0xbFnJQ9WF1kRKm9wWLVDyILOTo5hgPAu3wQcpZ7YOpXZz8PD30i4Ng9jIuBrJ/N21e2Nv7S8RT7Mjq4+i39ej8Kv4RpeSi4OBPQsmCwLmUWI//06Bb8bKb8Bvxu4MMw2wog6M+Bd+x4268cq3JWVnkgrbThnXG/kC+LxBYcyNbqseFtss5BqE6ChOpUbMGC/CFiHszt9OnZTaXwHRZfMvvjXJEwe26kVvDV4HjGZF8S47nTJyr5zVCl3FAt0K7XMmsOVshToPX0mRyLmsYluErW57EHmil9RzVMDpBeXAbFGbquXgIghfwBVkoso2AuHJ2EO1koV2CKTrHcqaqCRRmGtWHJCY/1B5jrYHQEykx+ECHYDwEqDMo1UA6VOPX0iasXiIABJC2YEKw7hzVZ2NbwSsgrDhPGRGrEa6yU9ckGZu3gcvJsdUkJZWQXtjLmfFwpipAn7+nt4RZPQs8r8BNpiMrzyZwOJdWQLyoLn2W8iH7oph0UVLQIfaSK8g0OA33XqUKo15uH4toIcUaftqT0a6VRT71zC3Oq6r5RrXzNeCvb8lonabOruvzMBYR6aMlkWQQdn6zrTAWZPymBXx+111iH/L2Y2EhnUBob7RnkrlH+jn7ZNKCd58x+AjCmR13w==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR12MB5230.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(7416014)(1800799024)(366016)(921020)(10067099003)(11063799006)(22082099003)(18002099003)(3023799007)(56012099006);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR12MB5230.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(7416014)(376014)(6133799003)(18002099003)(18092099006)(22082099003)(56012099006)(11063799006)(10067099003)(921020);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?Tt3bY1/vp5MVEmbgmMZPG8rL7swcbVAqgwd3hyOuLINvzo2rsy2Vdf7B2bBP?=
- =?us-ascii?Q?wmcHksSPHKcBn6ICloBpuhIGLcMeWoWDBmOlTnO0pE/l/2dHVZR4yBkmJ3Ql?=
- =?us-ascii?Q?4sFutzJgcdg8Mvrrz7xdYc4yj/XU93qTluw5IKgYCNwFb4OyFR7SAMjY8XIU?=
- =?us-ascii?Q?1lBL4LjBpUQgbV1nv8VvRjazVnwMBLdf31Xp4otie1ZaZavp40N08yKst8jp?=
- =?us-ascii?Q?wh+MsUFdcRnnmvWyWGiTOXHDFDVuaVR9jKfJ8vK+bmWefOFYa4o4bmSYjvex?=
- =?us-ascii?Q?XJ4GkmfqIfb82wo+j7TPpRQVHvvBayfjPKngiWrySJbnip1VFqTI7f1uEC9q?=
- =?us-ascii?Q?UNARyQDNw01nNUHq2D1w13z61HIcsXrwoBR9fI+xDbJ856Wm5IdjfVG3K+/n?=
- =?us-ascii?Q?g3jrUN0z76e4zs4iyt62B7CLBENd9mDDLY83QqWBRD0v51q7+bR6yIqJC1zd?=
- =?us-ascii?Q?c5LJDlWnAG/oktwPfmLByxRP4qKct2gNETEmbFrHo09sQgOoUrG3sCXAxPfo?=
- =?us-ascii?Q?2wUZlMDjMYaofQ6PR2kTBnMMs2WfwWQUNZ732gxq4FJZqZ+IcmeyYPa2Xzl1?=
- =?us-ascii?Q?g+Ja00QRYoCOeW//1Cp0w01WXH+7XvI2KZdxaTLG2Pt7EBOSjlYVZ8xRei+e?=
- =?us-ascii?Q?Wy30wCMoOXHe5D/LKtJNPWr4o3nYhlQ8ikbmcIAkL4iJkW7TEFxAYKkvinTl?=
- =?us-ascii?Q?YFaFqp9aQmKiMHKE3IjPRVxWPuMbB2KiRbL57Um5yLmpdHGRUWJdkznAnbWZ?=
- =?us-ascii?Q?LlFHvhsRuE2GVb+2H2X8jL2EZxhmqcpY+G1O4BdouN6C9+tQiIoQ/6RPhxv5?=
- =?us-ascii?Q?aFoEHHe28P1/H62c1imQfQzaeBtgCcudOpnslMyHAk119pUuhAaZC+Fx8iU4?=
- =?us-ascii?Q?ig0G9az5vq0MS5+p5mxR+zS1sI837jc4M+LzKlLoifIN/fQNVZMBbfdYmq+d?=
- =?us-ascii?Q?GW4NZjDWBSG0siy2mlJ247KUi4vnChI4dILIVBugDcSjUaeXeESkAe3GgrQh?=
- =?us-ascii?Q?hDJilr5ABEvLjN+VDbll801hkt8e9DCRYZZ2Fx8ll2NoOoaNM+9ipS8hDBJP?=
- =?us-ascii?Q?Us3Yq8bcsye4TQI+VaeR906DFQF+6/Y6RhPDo7U0K2FcgxHGTB5KDAWNf12s?=
- =?us-ascii?Q?PBTne4GDOdfWvTrKTbtS0wGMd/eBBF1IWIT5x5KMr3Uc4LlIs4MFfsTRLF3o?=
- =?us-ascii?Q?7VTPukHl7m+9XLSzKnMhrkSZ/dY7Y5igWJNf58hIbZcnubvOd/SXSa4ftzG7?=
- =?us-ascii?Q?8bsD+KMHHskQZu4kvmvW4p7Vi17Vsstd8kf3NTQRbvw6OtSlXFPSXpS9PasZ?=
- =?us-ascii?Q?tx963VXp7OoGGzfD6c1sJnT8hSLnWkoAH3w5yvDSWmmvWRvf4/z+nkVem+0N?=
- =?us-ascii?Q?38v5saj1DWjUN5l1GNPb4MQu6I81IK0bRzqp99nmtUGemdolQ8xETe3Dnkml?=
- =?us-ascii?Q?e5mqAa3gsDqaBxhdcXuzkSMS4o1zYvhpgNXbnJAbbwWw5HcIg/6CIsRg7qsZ?=
- =?us-ascii?Q?EgIYp51KFCItTla47fYo3zl3Opq45woEHzoCuwCCAxC3UIYfaQqkeSyPJPH6?=
- =?us-ascii?Q?hYm0tjw5n7CSQji0NLGyweYGxM3QL9RW0t+YM/C6qBxxNkD+THWfyut1fkcu?=
- =?us-ascii?Q?82UcpKY6VQ8CX6OHFPcvSMLlymVW0vZgVgfREr36EtYn0igjP4GkycACxx4z?=
- =?us-ascii?Q?R3ojrAWxg/UyuDIt4n5/ziNDn2gUl3/1FjO5TOHLlrkgXdo5PyBp4D4wAXFk?=
- =?us-ascii?Q?1G7yXVzOMA=3D=3D?=
+	=?us-ascii?Q?W2NFA4SH1KBY4pDhejWhHjPJirKjax+VPE4pRl2H7pqKljpAroqZhNZxX6RX?=
+ =?us-ascii?Q?HG011Jc+MKPuzORUl+TOEWnNx02jb5cY5xWIQ66UM0PZtSz1xp4Ku55OOxMy?=
+ =?us-ascii?Q?BQAqJBYQ9QxgDBLcdPWre3j5bPDwx6xim3Ny+JAuiTQ6xhwybgmlmoaTY4pR?=
+ =?us-ascii?Q?WKdEWeIAxYrtValIHD2QeIx4BflERCUMNTY6bW9hmXHCBFu4zks50PHOoLTw?=
+ =?us-ascii?Q?2Eg6LZfhz1gpQQy3TldxAVbUdLVEf+I8VdWSUF+OMQrY3nVhIJiygqxU9b3m?=
+ =?us-ascii?Q?CblPUjTstN5NUK458KFqoySnrJ6x4CaFwgT7yYfonkXKceLdNKs02bhuhE8U?=
+ =?us-ascii?Q?rMSInY/yAeqO8YwExO9xSPoZaWNBc+QvTlbN7ItqlPiEmS+j1cvx3DopCcEj?=
+ =?us-ascii?Q?oGtBoTze0SJMuD59spEbY6hPLOFmY0BJK3dDRmRIwIvgQOCU3aC7A9JQQbOv?=
+ =?us-ascii?Q?YsJcVRHsmShfwblgGqpmPNfRncktw53DtzLZcrZYZpRMZzTx8duczQ/GwVFV?=
+ =?us-ascii?Q?56RZAj9CAXmuX1oXLMArC3T8DAl5lm1ZZUfXBV/O1oaA0ejVuPc7A/ltGDip?=
+ =?us-ascii?Q?STkqIxM1V70bCFvpBTGvsRDTccbFQbt64j/LvvxIfNixoiaaDajoQeXqTv4W?=
+ =?us-ascii?Q?UEQOe7hAjnqIWPeHiEK2+pzb3LYn3n21GSZRhpql7fPWmWFuRmYrADx+XlOh?=
+ =?us-ascii?Q?tQcguImYGZ3aaDQMg0WtNrcz4P+KSlfJIgfdnIlIhrP7myD54z3sU1fxSLEJ?=
+ =?us-ascii?Q?NanzLAe6suOK9jzfkqj51pe+aKvsEwD/9nmqPifh1k22lxseDRTPzdxaox3L?=
+ =?us-ascii?Q?3rQKty772us7O35NWB7kJnmCKt9owBX1ysp84rXmeTApt0Xwck4gkEW/tIcK?=
+ =?us-ascii?Q?f4g7bQeAWxMgwwaHO86bI8xBA8W9SMRiZLRzNTGpiGuJTp9KjP5UTvRvU78v?=
+ =?us-ascii?Q?g7ofUOyQDfDyHSBam6gHQW+p1nNT6FHyx9VtFySObWYas+eSDlRzlzJrqd3J?=
+ =?us-ascii?Q?WBDCL49DvK6+OT3riYWa8kxy+FKFkPG022vMIwzhmQiOm7AwXUQFuM4b34CE?=
+ =?us-ascii?Q?t22Kyc6z+6+TUDWlM4reqf8ut7HkYBXZjVuPiweKGxpkAcvE/HN23pbqUG2J?=
+ =?us-ascii?Q?TYESBtfncCrmUUoYEVCHUKplivdMpLf0f2YT+LD6/2MGbvE5Av2x/TQx1XFL?=
+ =?us-ascii?Q?atfUCx4GfjDsbr9R0R0cS89g5ZbvYj9PS61JiMGY5DrLPf7icHpGsJAseBtd?=
+ =?us-ascii?Q?+Q/IyhRH5aHU1bq5SMi/zTXXjhgodcZvnBSEulKQpZ8YmPbDh0fOHcZQJh5E?=
+ =?us-ascii?Q?xqyFqk8x0vDtycGoPT/1peIVoJtT0HkWrAZima2pITzHY+0o1VPqss+iVbNz?=
+ =?us-ascii?Q?fLzd31i4o3r8mNQkcojEXeLNQ+ljnOCSOo9spSHPNLXXpSA3JpG1wePiGhU2?=
+ =?us-ascii?Q?I+xxXLnjwKnuH/HgaQZA/wxzU0q9/oSlzGFZAP0k+2gmuo6v/vNIJr5YnV7c?=
+ =?us-ascii?Q?4W1Z5bYZrAXNaQLSPYUxR6DnnqSDyHpe0vJ7gIIaq3/GhjyAJsP45Ryk3oDg?=
+ =?us-ascii?Q?V9lUB2Nnoh1/Hk6MPFa2ERXWWe+/vOyR+FMQpL8ZWHPbSqwD5ieZ4Kbtc2FF?=
+ =?us-ascii?Q?TK7M6uiy/Cypo30mFuZT35S8P2iIqbR43RU04X0CFraEkQXLFyh8FEszSka5?=
+ =?us-ascii?Q?biCYsxGxik9SdZjZvKTyJS0NpX20WRbPDHa1LzEvcc8LjAOgCcEFar3GilQ1?=
+ =?us-ascii?Q?Z9z8LVl5yw=3D=3D?=
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0992682a-13f0-4588-c1fb-08df07848809
+X-MS-Exchange-CrossTenant-Network-Message-Id: fa5cdb2f-ab03-4844-a14d-08df07848656
 X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5230.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 17:23:11.0713
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 17:23:08.4852
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 6HiuxS9eU1rhTOzByZez18HNLOUi35a6n/8FQ3/4BefdSzKNglwP7S0NzuextjSVW7QT4zgerduTT3X9WLCdkQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4406
+X-MS-Exchange-CrossTenant-UserPrincipalName: nK9lJz97PWmbsqUbCi4X5bYQk99RD5L83zRNgZONHSvKgBCPU+UQI1+h6+ZibPuuQuEDLQ/BcmBrjfxYr7pu5A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ5PPF0C60B25BF
 
-On ARM MPAM platforms backed by a memory-level MSC, the MB control's
-scope reads NODE and schemata identifiers are NUMA node ids rather than
-L3 cache ids. Document the scope file values, mon_NODE_XX monitor
-directories, and how to interpret MB: lines for both L3-scoped and
-NODE-scoped MBA resources in Documentation/filesystems/resctrl.rst.
+Document info/MB_MON/mbm_assign_scope_mode and the legacy
+mbm_L3_assignments vs native mbm_NODE_assignments names.
 
 Signed-off-by: Fenghua Yu <fenghuay@nvidia.com>
 ---
- Documentation/filesystems/resctrl.rst | 40 ++++++++++++++++++++++++---
- 1 file changed, 36 insertions(+), 4 deletions(-)
+ Documentation/filesystems/resctrl.rst | 44 ++++++++++++++++++++++++---
+ 1 file changed, 40 insertions(+), 4 deletions(-)
 
 diff --git a/Documentation/filesystems/resctrl.rst b/Documentation/filesystems/resctrl.rst
-index 5dac9aa1da01..fbce6a1bd4c4 100644
+index 434e6f42db4a..5dac9aa1da01 100644
 --- a/Documentation/filesystems/resctrl.rst
 +++ b/Documentation/filesystems/resctrl.rst
-@@ -285,6 +285,11 @@ properties. The name of the control is used in the "schemata" where user space
- can view and modify control settings or portions allocated to the control group
- as the control's properties allow.
+@@ -550,8 +550,10 @@ with the following files:
+ 	the user. Each event within a resctrl group can be assigned independently.
  
-+Numeric identifiers in a control's schemata line follow the control's
-+scope. ``L3`` means the IDs are L3 cache IDs; ``NODE`` means they are
-+NUMA node IDs. The same identifier space is used by the matching
-+``mon_L3_XX`` or ``mon_NODE_XX`` directories under ``mon_data``.
-+
- For example, below shows MB, MB_MIN, and MB_MAX as controls for the "MB" resource.
+ 	In this mode, a monitoring event can only accumulate data while it is backed
+-	by a hardware counter. Use "mbm_L3_assignments" found in each CTRL_MON and MON
+-	group to specify which of the events should have a counter assigned. The number
++	by a hardware counter. Use the assignment file found in each CTRL_MON and MON
++	group ("mbm_L3_assignments", or "mbm_NODE_assignments" in native mode when
++	NUMA node MSCs provide MBM) to specify which of the events should have a
++	counter assigned. The number
+ 	of counters available is described in the "num_mbm_cntrs" file. Changing the
+ 	mode may cause all counters on the resource to reset.
  
- 	 info/
-@@ -847,6 +852,14 @@ When monitoring is enabled all MON groups will also contain:
- 	each instance of an L3 cache. Each directory contains files for the enabled
- 	L3 events (e.g. "llc_occupancy", "mbm_total_bytes", and "mbm_local_bytes").
+@@ -583,6 +585,37 @@ with the following files:
  
-+	On platforms where memory bandwidth monitoring is associated with the
-+	MB resource (for example ARM MPAM systems with a memory-level MSC),
-+	there will be a "mon_NODE_XX" directory for each MB monitor domain.
-+	"XX" is the NUMA node id that also appears in the "MB:" line of
-+	"schemata" when that control is node-scoped. Each "mon_NODE_XX"
-+	directory contains the MBM events enabled for that resource (for
-+	example "mbm_total_bytes").
-+
- 	If telemetry monitoring is enabled, there will be a "mon_PERF_PKG_YY"
- 	directory for each physical processor package. Each directory contains
- 	files for the enabled telemetry events (e.g. "core_energy". "activity",
-@@ -1183,19 +1196,38 @@ or
- Memory bandwidth Allocation (default mode)
- ------------------------------------------
+ 	    # echo "default" > /sys/fs/resctrl/info/L3_MON/mbm_assign_mode
  
--Memory b/w domain is L3 cache.
--::
-+On most platforms the memory bandwidth (MBA) domain is the L3 cache and
-+the numeric identifiers in the "MB:" line are L3 cache ids::
++"mbm_assign_scope_mode":
++	Exists in info/MB_MON when memory-bandwidth monitoring supports
++	assignable counters. Selects the name of the per-group assignment
++	file. The enclosed brackets indicate which mode is enabled. The
++	default is legacy.
++
++	::
++
++	  # cat /sys/fs/resctrl/info/MB_MON/mbm_assign_scope_mode
++	  [legacy] native
++
++	"legacy":
++		Always exposes "mbm_L3_assignments" in CTRL_MON and MON
++		groups. On platforms whose MBM counters are backed by NUMA
++		node MSCs the file still programs those node-scoped counters;
++		only the name is kept for compatibility.
++
++	"native":
++		Exposes "mbm_NODE_assignments" when NUMA node MSCs provide
++		MBM, otherwise "mbm_L3_assignments".
++
++	* To enable native assignment file names:
++	  ::
++
++	    # echo "native" > /sys/fs/resctrl/info/MB_MON/mbm_assign_scope_mode
++
++	* To restore the legacy name:
++	  ::
++
++	    # echo "legacy" > /sys/fs/resctrl/info/MB_MON/mbm_assign_scope_mode
++
+ "num_mbm_cntrs":
+ 	The maximum number of counters (total of available and assigned counters) in
+ 	each domain when the system supports mbm_event mode.
+@@ -859,9 +892,12 @@ When monitoring is enabled all MON groups will also contain:
  
- 	MB:<cache_id0>=bandwidth0;<cache_id1>=bandwidth1;...
+ When monitoring is enabled all MON groups may also contain:
  
-+On ARM MPAM platforms backed by a memory-level MSC, the MB control is
-+node-scoped and the identifiers are NUMA node ids instead::
-+
-+	MB:<node_id0>=bandwidth0;<node_id1>=bandwidth1;...
-+
-+Example on a system where MB domains are NUMA nodes::
-+
-+	# cat schemata
-+	MB:0=100;1=100;2=100;10=100
-+	L3:1=ffff;2=ffff
-+
-+The same NUMA node ids appear as "mon_NODE_XX" directories under
-+"mon_data". See "Resource controls" for how domain identifiers follow
-+control scope, and "Resource control mode" for how a native node-scoped
-+control can emulate the legacy ``MB:`` line.
-+
- Memory bandwidth Allocation specified in MiBps
- ----------------------------------------------
+-"mbm_L3_assignments":
++"mbm_L3_assignments" / "mbm_NODE_assignments":
+ 	Exists when "mbm_event" counter assignment mode is supported and lists the
+-	counter assignment states of the group.
++	counter assignment states of the group. "mbm_L3_assignments" is the
++	legacy name and the default. Writing "native" to
++	info/MB_MON/mbm_assign_scope_mode replaces it with "mbm_NODE_assignments"
++	when MBM is backed by NUMA node MSCs. The file format is the same.
  
--Memory bandwidth domain is L3 cache.
--::
-+When MBA domains are L3 caches::
+ 	The assignment list is displayed in the following format:
  
- 	MB:<cache_id0>=bw_MiBps0;<cache_id1>=bw_MiBps1;...
- 
-+When the MB control is node-scoped::
-+
-+	MB:<node_id0>=bw_MiBps0;<node_id1>=bw_MiBps1;...
-+
- Slow Memory Bandwidth Allocation (SMBA)
- ---------------------------------------
- AMD hardware supports Slow Memory Bandwidth Allocation (SMBA).
 -- 
 2.53.0
 
