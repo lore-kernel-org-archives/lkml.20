@@ -1,48 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6021443551C;
-	Mon, 31 Aug 2026 13:35:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85DD147A87F;
+	Mon, 31 Aug 2026 13:35:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183348; cv=none; b=IbsX4seMvB2UOLWvxNnXzEyi4yB3wBCDqVJZXQdb9Pl+HaShNL+GtqGgm3YHfdJCQk8MfvFnDMQoazxkOqLv8i+UxtFoLUzoWHZRvZA1V5LzXFcIz2ywmLAmYyc7EfwCxuqdg/rmwjRZihVzDfBXwpSueR6Stl7B5inbVti0H1k=
+	t=1788183351; cv=none; b=kJ0mzN4V3GxYy0S8oFVfPxR3sqcjEk8IA4sdKDK8jCWBjNR3Zm2VaXUUrxjbQa4C/x/DjoyVTAtpluK9FksLSae8ZmI3paEFV0H3xpsU3cxY2erCtr53jSfTwB56FSsg/ip3xQ9WeZhq2Tk+5BH3HiyBv3dFNgTpFBgVIgUBo/E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183348; c=relaxed/simple;
-	bh=7l7lvK+aB4gQ3iCDJTw6A7BYZzi5QX1wl84648JHtLA=;
+	s=arc-20240116; t=1788183351; c=relaxed/simple;
+	bh=SUrGa9hpVSxXWp6iGgLALxyqevl6hgtPM9V/wOpcCNw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=cZY3+F8vph/dZHhE/2f5X2lKm3tkHYvhf1bT9jHryQrCIRbljT/5qLU39/5wyk9Y4eUyl3gZhuXCyEwYCjmAXuXUER7O/7eKESJIeTe6NIdPi/ivZ2QeXwIlWefe7bA5LJyZXW1F4pb2XjvG3RPBELpGkdr2jtwN7S/baWUt4+c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k1DT18Og; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=YWywiXCtGYEg4HixiE69zAKZnH5EGDGYdUDzU2VFrbLFF8XqSSVoevmeRZIhxxHIAu6exoIMG1gsAMJbIZdUGsG0Xf5CY0VksZxRg4sfN7s+fxEgyKPdNnq9PGpCtWnUg/eI2tN0lhLSzULZs4dF+zLQueC5KhkoXGGA/iCLYUU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OnpkGrOs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k1DT18Og"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66D9E1F00A3E;
-	Mon, 31 Aug 2026 13:35:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OnpkGrOs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA6671F00A3F;
+	Mon, 31 Aug 2026 13:35:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788183346;
-	bh=9Ao9wT2ArHIe1NkALWV4+zl2w4fygwsr6gDpM2oa/W8=;
+	s=k20260515; t=1788183349;
+	bh=/STGmrD+OrQuVINnyV8r9fWm+EQyQVnJ7YvdmWdM7mM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=k1DT18Ogb7I1YOtLZNi2zkfo4x8tVfD43jKSgEROlW0oMN9AhCBBcUc1kp1HPNMFE
-	 FRqm7QjkhRhPjiE8kpkB+mJugqG6ewLUgItUT7PqqxZVhF6n6+Z43LCoRUEdcMP2Un
-	 H9z+JLHShuH4IiqG/wM0XUsNUyEdOvVRVU215guHCSz+LbrGTH/KC1iZ4sqtBWJgTG
-	 o00V97hiuxtbpJVfYUuOnh1CqlVO+UHy2yZHN44x6q975qOD1dISRU6bL6PqKD+LVx
-	 jf6HcpDj2KCb2/Sg9tH3QgqsLQzR5kx69/a7EQhgAwdfl4xpyJhLPw85k08jhmAIUB
-	 MjWweYsfo7p7w==
+	b=OnpkGrOs2B3kxK+Q9BYijd+6z2Yz5AZMxepcKSxCOQBeufQq4FBv2Tmo3zMJoHJrh
+	 T/Dl9GuhQ/39JD1v2P5TfziDf8cksQI8x8KtPKPMOSp8PDxNXAVyjMlZZIMb9ctIQm
+	 /YrK/k6HLlhfykQ8CLX4Z3+1KfXbU9Hx7BvWuQomIQ1eoEEoN9XhKCpKywvtaAd+Au
+	 +TvEdHx6ePMR+v94E5EB8jAoBkJbr/vjYujbTl5+PJwZQc3A7zwB7ZvWA7tUyzDZeB
+	 QA3c3dqNHyiNBoa2G/Wb3W03CgeGfrh9n4l+hjOqE/Lee4YcL3YqKqMnXo1GgLXcUl
+	 /5NpfJoJ60kxw==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Danielle Ratson <danieller@nvidia.com>,
-	Ido Schimmel <idosch@nvidia.com>,
-	Nikolay Aleksandrov <razor@blackwall.org>,
-	Jakub Kicinski <kuba@kernel.org>,
+Cc: Jiale Yao <yaojiale02@163.com>,
+	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
 	Sasha Levin <sashal@kernel.org>,
-	davem@davemloft.net,
-	edumazet@google.com,
-	pabeni@redhat.com,
-	bridge@lists.linux.dev,
-	netdev@vger.kernel.org,
+	marcel@holtmann.org,
+	luiz.dentz@gmail.com,
+	linux-bluetooth@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-5.10] bridge: Do not suppress ARP probes and DAD NS unconditionally
-Date: Mon, 31 Aug 2026 09:22:01 -0400
-Message-ID: <20260831133314.4125787-93-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-5.10] Bluetooth: RFCOMM: validate skb length in rfcomm_recv_frame
+Date: Mon, 31 Aug 2026 09:22:03 -0400
+Message-ID: <20260831133314.4125787-95-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -58,481 +54,402 @@ X-stable-base: Linux 6.18.48
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Danielle Ratson <danieller@nvidia.com>
+From: Jiale Yao <yaojiale02@163.com>
 
-[ Upstream commit fee1fc1d5a5475f5516d406a03e443348cd0f06c ]
+[ Upstream commit b230e5bf501c5edaf2eb0991cb862ac142031d4b ]
 
-When neighbor suppression is enabled on a VXLAN port, the bridge is
-expected to reply to ARP/NS messages on behalf of remote hosts when both
-FDB and neighbor entries exist. This allows the bridge to suppress
-flooding of these messages to the VXLAN overlay.
+rfcomm_recv_frame() casts skb->data to struct rfcomm_hdr and dereferences
+hdr->addr and hdr->ctrl without validating skb->len first. A truncated
+frame with skb->len less than the minimum header size causes an
+out-of-bounds read of uninitialized memory. Additionally, a zero-length
+frame causes skb->len-- to underflow to UINT_MAX, making
+skb_tail_pointer() read far past the buffer.
 
-According to RFC 9161 ("Operational Aspects of Proxy ARP/ND in Ethernet
-Virtual Private Networks"):
-"A PE SHOULD reply to broadcast/multicast address resolution messages,
-i.e., ARP Requests, ARP probes, NS messages, as well as DAD NS messages.
-An ARP probe is an ARP Request constructed with an all-zero sender IP
-address that may be used by hosts for IPv4 Address Conflict Detection as
-specified in [RFC5227]".
+Commit 23882b828c3c ("Bluetooth: RFCOMM: validate skb length in MCC
+handlers") fixed the same class of missing-length-check bugs in the MCC
+sub-handlers, but the top-level rfcomm_recv_frame() was left unfixed.
+KMSAN reports:
 
-However, the current implementation unconditionally suppresses ARP probes
-and DAD Neighbor Solicitations, which breaks Duplicate Address Detection
-(DAD) over EVPN.
+  BUG: KMSAN: uninit-value in rfcomm_run
+  ...
+  Uninit was created at:
+    __alloc_skb+0x474/0xb60
+    vhci_write+0xe9/0x870
 
-For DAD to work correctly over the VXLAN fabric:
-- When the bridge does not know the answer:
-  flood the probe/DAD packet to allow remote VTEPs to respond.
-- When the bridge knows the answer:
-  reply to indicate the address is in use.
+Fix this by rejecting frames smaller than sizeof(struct rfcomm_hdr) + 1
+(the minimum frame must have a 3-byte header and a 1-byte FCS).
 
-Fix by adjusting the early suppression checks to exclude ARP probes and
-DAD NS from unconditional suppression.
-
-When replying to a DAD NS, br_nd_send() is adjusted to set the NA
-destination to the all-nodes multicast address (ff02::1) and clear the
-Solicited flag, in accordance with RFC 4861 section 7.2.4.
-
-Reviewed-by: Ido Schimmel <idosch@nvidia.com>
-Signed-off-by: Danielle Ratson <danieller@nvidia.com>
-Acked-by: Nikolay Aleksandrov <razor@blackwall.org>
-Link: https://patch.msgid.link/20260429062405.1386417-2-danieller@nvidia.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Jiale Yao <yaojiale02@163.com>
+Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-# Stable Backport Analysis: bridge: Do not suppress ARP probes and DAD
-NS unconditionally
+## Phase 1: Commit Message Forensics
 
-**Local tree:** Linux **6.18.43** (`git describe HEAD` →
-`v6.18.43-1-gc7f0dac02d232`)
+### Step 1.1: Subject Line
+**Record:** `[Bluetooth: RFCOMM]` `[validate]` — Add skb length
+validation in `rfcomm_recv_frame()` before parsing RFCOMM frame headers.
+
+### Step 1.2: Commit Message Tags
+**Record:**
+- **Fixes:** — not present (expected for manual review)
+- **Reported-by:** — not present (KMSAN stack trace in body instead)
+- **Tested-by:** — not present
+- **Reviewed-by:** — not present
+- **Acked-by:** — not present
+- **Link:** — not present
+- **Cc: stable@vger.kernel.org** — not present (expected)
+- **Signed-off-by:** Jiale Yao `<yaojiale02@163.com>` (author)
+- **Signed-off-by:** Luiz Augusto von Dentz `<luiz.von.dentz@intel.com>`
+  (Bluetooth maintainer, committer)
+
+Notable: KMSAN report in body; references prior related fix
+`23882b828c3c` for MCC handlers.
+
+### Step 1.3: Commit Body Analysis
+**Record:**
+- **Bug:** `rfcomm_recv_frame()` casts `skb->data` to `struct
+  rfcomm_hdr` and reads `hdr->addr`/`hdr->ctrl` without checking
+  `skb->len`. Truncated frames cause out-of-bounds reads of
+  uninitialized memory. Zero-length frames cause `skb->len--` to
+  underflow to `UINT_MAX`, making `skb_tail_pointer()` read far past the
+  buffer.
+- **Symptom:** KMSAN `uninit-value` in `rfcomm_run`, stack through
+  `vhci_write` → `__alloc_skb`.
+- **Root cause:** Missing minimum-length check at the top-level frame
+  parser; same class of bug fixed in MCC sub-handlers by `23882b828c3c`
+  but `rfcomm_recv_frame()` was missed.
+- **Fix:** Reject frames with `skb->len < sizeof(struct rfcomm_hdr) + 1`
+  (3-byte header + 1-byte FCS minimum).
+
+### Step 1.4: Hidden Bug Fix Detection
+**Record:** Not disguised — this is an explicit memory-safety bug fix
+(OOB read + integer underflow), not cleanup or optimization.
 
 ---
 
-## PHASE 1: COMMIT MESSAGE FORENSICS
+## Phase 2: Diff Analysis
 
-### Step 1.1: PARSE THE SUBJECT LINE
-**Record:** `[bridge]` `[fix implicit: "Do not"]` — Stop unconditionally
-suppressing ARP probes and DAD Neighbor Solicitations when neighbor
-suppression is enabled on bridge/VXLAN ports.
-
-### Step 1.2: PARSE ALL COMMIT MESSAGE TAGS
+### Step 2.1: Change Inventory
 **Record:**
-- **Reviewed-by:** Ido Schimmel \<idosch@nvidia.com\> (bridge
-  maintainer)
-- **Acked-by:** Nikolay Aleksandrov \<razor@blackwall.org\> (bridge
-  maintainer)
-- **Signed-off-by:** Danielle Ratson \<danieller@nvidia.com\> (author)
-- **Signed-off-by:** Jakub Kicinski \<kuba@kernel.org\> (netdev
-  maintainer)
-- **Link:**
-  https://patch.msgid.link/20260429062405.1386417-2-danieller@nvidia.com
-  (patch 2/N in series)
-- No Fixes:, Reported-by:, Tested-by:, or Cc: stable tags
-- Notable: dual maintainer review (Ido Schimmel + Nikolay Aleksandrov
-  Ack)
+- **Files:** `net/bluetooth/rfcomm/core.c` (+5 lines, 0 removed)
+- **Functions modified:** `rfcomm_recv_frame()` only
+- **Scope:** Single-file, surgical fix in one function
 
-### Step 1.3: ANALYZE THE COMMIT BODY TEXT
+### Step 2.2: Code Flow Change
 **Record:**
-- **Bug:** With `BR_NEIGH_SUPPRESS` enabled on VXLAN ports, the bridge
-  unconditionally suppresses ARP probes (sender IP 0.0.0.0) and DAD NS
-  (source address ::), preventing them from being flooded or proxied.
-- **Symptom:** Duplicate Address Detection (DAD) fails over EVPN/VXLAN
-  fabrics; hosts cannot detect address conflicts across the overlay.
-- **RFC basis:** RFC 9161 says PEs SHOULD reply to (or forward) ARP
-  probes and DAD NS; RFC 4861 §7.2.4 governs DAD NA format.
-- **Expected behavior:** Flood probe/DAD when unknown; proxy-reply when
-  FDB+neighbor entry exist.
-- **Root cause:** Early-return suppression checks treat probe/DAD
-  packets the same as other suppressible traffic by matching
-  `ipv4_is_zeronet(sip)` and `ipv6_addr_any(saddr)`.
+- **Hunk (lines ~1792–1796):** Before: after the `!s` session check,
+  code immediately dereferenced `hdr->addr` and `hdr->ctrl`. After:
+  frames shorter than 4 bytes are dropped with `kfree_skb()` and the
+  session is returned unchanged. Normal frames proceed as before.
 
-### Step 1.4: DETECT HIDDEN BUG FIXES
-**Record:** Not disguised — this is an explicit protocol-correctness bug
-fix, not cleanup. The `br_nd_send()` changes fix incorrect NA
-destination (unicast to ::) and wrong Solicited flag for DAD replies.
+### Step 2.3: Bug Mechanism
+**Record:**
+- **Category:** Memory safety — out-of-bounds read + integer underflow
+- **Mechanism:**
+  1. `struct rfcomm_hdr` is 3 bytes (`addr`, `ctrl`, `len` in
+     `include/net/bluetooth/rfcomm.h`)
+  2. Without length check, `hdr->addr`/`hdr->ctrl` read past skb tail on
+     truncated frames
+  3. `skb->len--` on a zero-length skb wraps to `UINT_MAX`
+  4. `*(u8 *)skb_tail_pointer(skb)` then reads arbitrarily far past the
+     buffer
+
+### Step 2.4: Fix Quality
+**Record:** Obviously correct — mirrors the minimum-size logic described
+in the commit message and the pattern established by the MCC handler fix
+already in this tree. Minimal change on an error/drop path only. Very
+low regression risk.
 
 ---
 
-## PHASE 2: DIFF ANALYSIS
+## Phase 3: Git History Investigation
 
-### Step 2.1: INVENTORY THE CHANGES
+### Step 3.1: Blame
+**Record:** `rfcomm_recv_frame()` body dates to ancient RFCOMM code
+(blame shows merge commit `5d324e5159d9e` as last touch, but the
+function predates that). The MCC fix (`3eabc6d47a0ad`, upstream
+`23882b828c3c`) explicitly notes `Fixes: 1da177e4c3f4
+("Linux-2.6.12-rc2")` for the same class of missing validation — this
+top-level path has had the bug since RFCOMM existed.
+
+### Step 3.2: Fixes: Tag
+**Record:** No `Fixes:` tag on this commit. Related fix `23882b828c3c`
+("Bluetooth: RFCOMM: validate skb length in MCC handlers") is present in
+this tree as `3eabc6d47a0ad` and left `rfcomm_recv_frame()` unfixed.
+
+### Step 3.3: Related File History
+**Record:** Recent `net/bluetooth/rfcomm/` commits in this tree:
+- `780b04d09c941` — RFCOMM session UAF fix
+- `3eabc6d47a0ad` — MCC skb length validation (prerequisite/context)
+- `8802413ce6317` — listener socket hold fix
+
+Standalone one-patch fix; not part of a multi-patch series.
+
+### Step 3.4: Author Context
+**Record:** Jiale Yao also authored Bluetooth L2CAP UAF fix
+(`58e3c5289ad23`). Committer/maintainer Luiz Augusto von Dentz is the
+Bluetooth subsystem maintainer.
+
+### Step 3.5: Dependencies
+**Record:** References `23882b828c3c` for context only — does not
+require it to apply. The MCC fix is already an ancestor of HEAD in this
+tree. `git show b230e5bf501c5 | git apply --check` succeeds cleanly on
+current HEAD. Standalone backport.
+
+---
+
+## Phase 4: Mailing List and External Research
+
+### Step 4.1: Original Discussion
+**Record:** `b4 dig -c b230e5bf501c5` →
+https://patch.msgid.link/20260722092616.1122797-1-yaojiale02@163.com.
+Single v1 submission (no v2/v3). Patchwork bot and BlueZ test bot
+replies only; no NAKs. No explicit stable nomination in thread.
+
+### Step 4.2: Reviewers
+**Record:** `b4 dig -w` CC'd Marcel Holtmann, Luiz Augusto von Dentz,
+Kees Cook, Jakub Kicinski, linux-bluetooth@vger.kernel.org, linux-
+kernel@vger.kernel.org, and others. Committed by subsystem maintainer.
+
+### Step 4.3: Bug Report
+**Record:** KMSAN report embedded in commit message — `BUG: KMSAN:
+uninit-value in rfcomm_run`, allocation via `vhci_write`. No separate
+syzbot Link: tag, but KMSAN finding indicates a reproducible, reachable
+bug.
+
+### Step 4.4: Related Patches
+**Record:** Companion to MCC handler validation (`23882b828c3c` /
+`3eabc6d47a0ad`). That fix is already in this tree; this completes the
+same validation gap at the top-level entry point.
+
+### Step 4.5: Stable List History
+**Record:** Not searched separately on lore stable@; the related MCC fix
+was already backported to this tree (has upstream-commit marker and
+stable maintainer SOB), establishing precedent for this class of RFCOMM
+skb validation fixes.
+
+---
+
+## Phase 5: Code Semantic Analysis
+
+### Step 5.1: Key Functions
+**Record:** `rfcomm_recv_frame()` modified.
+
+### Step 5.2: Callers
+**Record:** `rfcomm_recv_frame()` is called only from
+`rfcomm_process_rx()` (line 1993), which dequeues skbs from the session
+socket receive queue.
+
+### Step 5.3: Callees
+**Record:** After parsing, calls `rfcomm_recv_sabm()`,
+`rfcomm_recv_disc()`, `rfcomm_recv_ua()`, `rfcomm_recv_mcc()`,
+`rfcomm_recv_data()`, etc. The bug occurs before any of those sub-
+handlers run.
+
+### Step 5.4: Call Chain / Reachability
 **Record:**
-- **Files:** `net/bridge/br_arp_nd_proxy.c` only (+14 / -8 lines net)
-- **Functions modified:** `br_do_proxy_suppress_arp()`, `br_nd_send()`,
-  `br_do_suppress_nd()`
-- **Scope:** Single-file surgical fix
-
-### Step 2.2: CODE FLOW CHANGE (per hunk)
-
-**Hunk 1 — `br_do_proxy_suppress_arp()`:**
-- **Before:** `(ipv4_is_zeronet(sip) || sip == tip)` → set
-  `proxyarp_replied=1`, return (drop from flooding).
-- **After:** Only `sip == tip` triggers early suppression; ARP probes
-  (sip=0.0.0.0) fall through to lookup/flood/proxy logic.
-
-**Hunk 2–4 — `br_nd_send()`:**
-- **Before:** Always unicast NA to requester; always set Solicited=1.
-- **After:** Detect DAD (`ipv6_addr_any(saddr)`); for DAD, multicast NA
-  to all-nodes (ff02::1), clear Solicited flag per RFC 4861.
-
-**Hunk 5 — `br_do_suppress_nd()`:**
-- **Before:** `ipv6_addr_any(saddr) || saddr==daddr` → suppress
-  unconditionally.
-- **After:** Only `saddr==daddr` suppressed; DAD NS (saddr=::) processed
-  normally.
-
-### Step 2.3: BUG MECHANISM
-**Record:** **Logic/correctness fix** in neighbor-suppression proxy
-path. Setting `proxyarp_replied=1` causes `br_forward.c` to skip
-flooding to `BR_NEIGH_SUPPRESS` ports:
-
-```233:236:net/bridge/br_forward.c
-                if (BR_INPUT_SKB_CB(skb)->proxyarp_replied &&
-                    ((p->flags & BR_PROXYARP_WIFI) ||
-                     br_is_neigh_suppress_enabled(p, vid)))
-                        continue;
 ```
+rfcomm_run() → rfcomm_process_sessions() → rfcomm_process_rx() →
+rfcomm_recv_frame()
+```
+`rfcomm_run()` is the `krfcommd` kernel thread (started at module init).
+Data arrives via L2CAP PSM RFCOMM (`L2CAP_PSM_RFCOMM` at lines 808,
+2116) from connected Bluetooth peers. **Reachable from a remote
+Bluetooth device** sending malformed RFCOMM frames over an established
+L2CAP connection. KMSAN reproducer used `vhci_write` (virtual HCI),
+which exercises the same receive path.
 
-Unconditional suppression of probes/DAD meant these packets never
-reached remote VTEPs, breaking cross-overlay DAD.
-
-### Step 2.4: FIX QUALITY
-**Record:** Fix is minimal, RFC-aligned, and obviously correct.
-Regression risk is low — only narrows the early-suppression condition;
-`sip==tip` and `saddr==daddr` cases retain prior behavior. No new locks
-or APIs.
-
----
-
-## PHASE 3: GIT HISTORY INVESTIGATION
-
-### Step 3.1: BLAME THE CHANGED LINES
-**Record:** Buggy suppression logic dates to **ed842faeb2bd** (Oct 2017,
-"bridge: suppress nd pkts on BR_NEIGH_SUPPRESS ports" by Roopa Prabhu).
-Original commit already had `ipv4_is_zeronet(sip)` and
-`ipv6_addr_any(saddr)` checks. Present in this 6.18.43 tree.
-
-### Step 3.2: FOLLOW THE FIXES: TAG
-**Record:** No Fixes: tag in commit message. Related stable fixes in
-same file reference `Fixes: ed842faeb2bd` (e.g. `837392a384457`,
-`9c55e41c73af5` for `br_nd_send()` hardening). The introducing commit
-**is** in this tree.
-
-### Step 3.3: FILE HISTORY FOR RELATED CHANGES
-**Record:** Recent changes to `br_arp_nd_proxy.c` in this tree:
-- `5424e678f9b30` — FDB dst snapshot (RCU)
-- `837392a384457` — ND option length validation (Cc: stable)
-- `9c55e41c73af5` — skb linearize before ND parsing (Cc: stable)
-- File introduced at Linux 6.18-rc7 (split from prior monolithic bridge
-  code; logic unchanged since 2017)
-
-### Step 3.4: AUTHOR'S OTHER COMMITS
-**Record:** Danielle Ratson has no other commits in `net/bridge/` in
-this checkout. Fix author is NVIDIA bridge contributor; reviewers are
-subsystem maintainers.
-
-### Step 3.5: DEPENDENT/PREREQUISITE COMMITS
-**Record:** Message-ID indicates patch **2/N** in a series. The diff is
-self-contained in one file with no new symbols or structures. `git apply
---check` succeeds cleanly against current tree. No code dependencies
-identified; patch 1 may be documentation/tests (unverified).
+### Step 5.5: Similar Patterns
+**Record:** MCC handlers in the same file were fixed by `3eabc6d47a0ad`
+using `skb_pull_data()` validation. This commit closes the same gap at
+the parent `rfcomm_recv_frame()` entry point that all frame types pass
+through first.
 
 ---
 
-## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
+## Phase 6: Cross-Reference Against Local Tree
 
-### Step 4.1: ORIGINAL PATCH DISCUSSION
-**Record:** UNVERIFIED — lore.kernel.org and patch.msgid.link blocked by
-bot protection. `b4 dig -c <commit>` not possible (commit not in local
-tree). Message-ID suffix `-2-` confirms multi-patch series.
+### Step 6.1: Buggy Code Present?
+**Record:** **YES.** Local tree is **6.18.44** (`git describe HEAD` →
+`v6.18.44-2-g1b9e1abadee04`). Current `rfcomm_recv_frame()` at lines
+1798–1803 still dereferences `hdr` and decrements `skb->len` without any
+length check. Commit `b230e5bf501c5` is **not** in this tree (`git
+merge-base --is-ancestor` confirms).
 
-### Step 4.2: REVIEWERS
-**Record:** UNVERIFIED via b4 dig -w. Commit message shows Reviewed-by
-Ido Schimmel and Acked-by Nikolay Aleksandrov (verified bridge
-maintainers from prior commits in tree).
+### Step 6.2: Backport Complications
+**Record:** **Clean apply.** `git show b230e5bf501c5 | git apply
+--check` passes with no conflicts. No rework needed.
 
-### Step 4.3: BUG REPORT
-**Record:** No Reported-by or bugzilla/syzbot links. Bug identified via
-RFC 9161 compliance analysis by author.
-
-### Step 4.4: RELATED PATCHES/SERIES
-**Record:** Part of Danielle Ratson series (patch 2). Same file recently
-received stable-nominated `br_nd_send()` fixes from different authors.
-This patch is logically independent.
-
-### Step 4.5: STABLE MAILING LIST
-**Record:** UNVERIFIED — could not access lore stable archive.
+### Step 6.3: Related Fixes Already Present?
+**Record:** MCC handler validation (`3eabc6d47a0ad`) is present. No
+duplicate fix for `rfcomm_recv_frame()` (`git log -S "skb->len <
+sizeof(*hdr)"` returns empty).
 
 ---
 
-## PHASE 5: CODE SEMANTIC ANALYSIS
+## Phase 7: Subsystem Context
 
-### Step 5.1: KEY FUNCTIONS
-**Record:** `br_do_proxy_suppress_arp()`, `br_nd_send()`,
-`br_do_suppress_nd()`
+### Step 7.1: Subsystem Criticality
+**Record:** `net/bluetooth/rfcomm/` — **IMPORTANT** subsystem. RFCOMM is
+widely used for Bluetooth serial profiles (SPP, HFP, etc.). Security-
+sensitive: processes untrusted input from remote Bluetooth devices.
 
-### Step 5.2: CALLERS
+### Step 7.2: Subsystem Activity
+**Record:** Active — multiple recent security/memory-safety fixes in
+RFCOMM and broader Bluetooth stack in this tree (UAF, skb validation,
+listener socket lifetime).
+
+---
+
+## Phase 8: Impact and Risk Assessment
+
+### Step 8.1: Who Is Affected
+**Record:** Users with `CONFIG_BT_RFCOMM` enabled and active Bluetooth
+connections — laptops, phones, embedded devices using RFCOMM-based
+profiles. Any system accepting inbound Bluetooth RFCOMM traffic.
+
+### Step 8.2: Trigger Conditions
+**Record:** Remote peer sends an RFCOMM frame with `skb->len < 4`
+(including zero-length). Requires an established Bluetooth L2CAP/RFCOMM
+session — not arbitrary internet exposure, but **a paired/connected or
+connecting malicious Bluetooth device can trigger it**. KMSAN confirms
+reachability.
+
+### Step 8.3: Failure Mode Severity
 **Record:**
-- `br_input.c:172` — ingress path for every ARP/RARP frame on bridge
-  ports
-- `br_input.c:183` — ingress path for IPv6 ND when neighbor suppress
-  enabled
-- `br_device.c:76,87` — bridge device xmit path
+- Truncated frames: **OOB read of uninitialized memory** (info leak
+  potential, KMSAN-detected)
+- Zero-length frames: **`skb->len` underflow to UINT_MAX** →
+  `skb_tail_pointer()` reads far past buffer (**HIGH** — potential
+  crash, further OOB access)
+- **Severity: HIGH** (memory safety, remotely triggerable over
+  Bluetooth)
 
-All are hot networking paths reachable during normal host traffic and
-address configuration.
-
-### Step 5.3: CALLEES
-**Record:** `neigh_lookup()`, `br_fdb_find_rcu()`, `br_arp_send()`,
-`br_nd_send()`, `br_is_neigh_suppress_enabled()`, `ipv6_eth_mc_map()`,
-`in6addr_linklocal_allnodes` (all present in tree).
-
-### Step 5.4: CALL CHAIN / REACHABILITY
-**Record:** Userspace/host DAD and ARP probe → bridge ingress
-(`br_handle_frame_finish`) →
-`br_do_proxy_suppress_arp`/`br_do_suppress_nd` → sets `proxyarp_replied`
-→ affects flooding in `__br_forward`. **Reachable from normal network
-traffic** on EVPN/VXLAN deployments with neighbor suppression.
-
-### Step 5.5: SIMILAR PATTERNS
-**Record:** Kernel's own `ndisc.c` already handles DAD NA with
-`in6addr_linklocal_allnodes` and Solicited=0 — the fix aligns bridge
-proxy behavior with core ND stack.
-
----
-
-## PHASE 6: CROSS-REFERENCING AGAINST LOCAL TREE
-
-### Step 6.1: DOES THE BUGGY CODE EXIST?
-**Record:** **YES.** Verified at:
-- `br_arp_nd_proxy.c:168` — `(ipv4_is_zeronet(sip) || sip == tip)`
-- `br_arp_nd_proxy.c:439` — `ipv6_addr_any(saddr) ||
-  !ipv6_addr_cmp(saddr, daddr)`
-- `br_nd_send()` lacks DAD handling (lines 305, 321, 334)
-
-Bug present since ed842faeb2bd (2017), well before 6.18 branch.
-
-### Step 6.2: BACKPORT COMPLICATIONS
-**Record:** **Clean apply** — `git apply --check
-/tmp/bridge_dad_fix.patch` succeeds with no conflicts. No refactoring
-churn in the changed hunks since the 6.18 file split.
-
-### Step 6.3: RELATED FIXES ALREADY PRESENT?
-**Record:** `git log --grep="Do not suppress ARP"` returns nothing. Fix
-**not** yet in this tree. Related `br_nd_send()` hardening commits are
-present but do not address DAD suppression.
-
----
-
-## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
-
-### Step 7.1: SUBSYSTEM CRITICALITY
-**Record:** **net/bridge** — IMPORTANT. Affects datacenter EVPN/VXLAN
-overlay networking; not universal but widely deployed in
-cloud/enterprise fabrics.
-
-### Step 7.2: SUBSYSTEM ACTIVITY
-**Record:** Active — multiple bridge commits in 6.18.y including UAF
-fixes, netfilter bridge fixes, and neighbor-suppress-related patches.
-
----
-
-## PHASE 8: IMPACT AND RISK ASSESSMENT
-
-### Step 8.1: WHO IS AFFECTED
-**Record:** Users running Linux bridges with **neighbor suppression**
-(`BR_NEIGH_SUPPRESS` / VLAN neigh suppress) over **VXLAN/EVPN**
-overlays. Config-specific, but targets production datacenter networking.
-
-### Step 8.2: TRIGGER CONDITIONS
-**Record:** Host performs IPv4 ACD (ARP probe) or IPv6 DAD (NS with ::
-source) on a VLAN behind a bridge with neighbor suppression toward VXLAN
-ports. **Common during interface bring-up and address assignment.**
-Unprivileged users can trigger DAD on their own interfaces.
-
-### Step 8.3: FAILURE MODE SEVERITY
-**Record:** DAD silently fails → duplicate IP addresses may go
-undetected across VTEPs → connectivity blackholes, flapping, or traffic
-hijacking. **Not a kernel oops**, but **HIGH operational severity** for
-affected deployments (silent network misconfiguration).
-
-### Step 8.4: RISK-BENEFIT
+### Step 8.4: Risk-Benefit
 **Record:**
-- **Benefit:** HIGH for EVPN/VXLAN users — restores RFC-compliant
-  DAD/ACD behavior
-- **Risk:** LOW — ~20 lines, narrow condition change, maintainer-
-  reviewed
-- **Ratio:** Strong benefit for affected users, minimal regression risk
+- **Benefit: HIGH** — closes a remotely reachable memory-safety hole in
+  a common Bluetooth code path; completes validation started by the
+  already-backported MCC fix
+- **Risk: VERY LOW** — 5 lines, drop-path only, no API/behavior change
+  for valid frames
+- **Ratio: Strongly favors backport**
 
 ---
 
-## PHASE 9: FINAL SYNTHESIS
+## Phase 9: Final Synthesis
 
-### Step 9.1: EVIDENCE COMPILED
+### Step 9.1: Evidence Summary
 
 **FOR backport:**
-- Real, long-standing bug (since 2017) present in 6.18.43
-- Breaks DAD/ACD over EVPN — concrete user impact
-- RFC 9161 / RFC 4861 compliance
-- Small, surgical, applies cleanly
-- Reviewed by bridge maintainers (Schimmel, Aleksandrov)
-- Same file recently had other fixes nominated to stable
-- Fixes incorrect DAD NA format in `br_nd_send()` (would send unicast NA
-  to ::)
+- Real memory-safety bug (OOB read + integer underflow)
+- Remotely triggerable via Bluetooth RFCOMM from connected peer
+- KMSAN-confirmed reproducible issue
+- Small (5 lines), obviously correct fix
+- Applies cleanly to this 6.18.44 tree
+- Prerequisite MCC fix already present in tree
+- Same bug class already deemed stable-worthy (MCC handler fix
+  backported)
+- Committed by Bluetooth maintainer
 
 **AGAINST backport:**
-- Not a kernel crash, security CVE, or memory corruption
-- Only affects neighbor-suppress + overlay configurations
-- No user bug reports or syzbot in commit message
-- Lore/stable discussion unverified
+- None significant
 
-**UNRESOLVED:**
-- Full mailing list thread and whether patch 1/N is required
-- Whether reviewers explicitly nominated for stable
+**Unresolved:**
+- Lore thread had no explicit `Cc: stable` nomination (not a negative
+  signal per instructions)
+- WebFetch of lore URL blocked by bot protection (b4 mbox download
+  succeeded instead)
 
-### Step 9.2: STABLE RULES CHECKLIST
-1. Obviously correct and tested? **PASS** — RFC-aligned logic;
-   maintainer-reviewed (no Tested-by)
-2. Fixes a real bug affecting users? **PASS** — DAD broken on EVPN/VXLAN
-   with neigh suppress
-3. Important issue? **PASS** — silent DAD failure → duplicate IPs /
-   overlay misconfiguration (HIGH operational impact for affected
-   configs)
-4. Small and contained? **PASS** — single file, ~20 lines
-5. No new features/APIs? **PASS** — behavior correction only
-6. Can apply to local tree? **PASS** — verified clean apply
+### Step 9.2: Stable Rules Checklist
+1. Obviously correct and tested? **PASS** — logic is straightforward;
+   BlueZ test bot ran on submission
+2. Fixes a real bug affecting users? **PASS** — KMSAN report, remote
+   Bluetooth input path
+3. Important issue? **PASS** — memory safety / potential crash / info
+   leak, remotely triggerable
+4. Small and contained? **PASS** — 5 lines, one function
+5. No new features or APIs? **PASS** — validation guard only
+6. Can apply to local tree? **PASS** — clean apply verified; buggy code
+   confirmed present
 
-### Step 9.3: EXCEPTION CATEGORIES
-**Record:** None (not device ID, quirk, DT, build, or docs). Standard
-protocol-correctness bug fix.
+### Step 9.3: Exception Categories
+**Record:** Not a device-ID/quirk/DT/docs exception — standard
+security/memory-safety bug fix.
 
-### Step 9.4: DECISION RATIONALE
-
-For **Linux 6.18.y**, this fix should be backported. The buggy code is
-present, has been there since the 2017 neighbor-suppression feature, and
-the patch restores essential DAD/ACD behavior required for correct EVPN
-operation per RFC 9161. While not a kernel panic, broken duplicate-
-address detection in overlay networks is a serious, user-visible
-correctness bug in a configuration pattern common in production
-datacenter deployments. The fix is minimal, applies cleanly, and carries
-maintainer endorsement.
+### Step 9.4: Decision Rationale
+This commit closes a gap left by the already-backported MCC skb
+validation fix. The buggy code is present in the local **6.18.44** tree,
+the patch applies cleanly, and the failure modes (OOB read of
+uninitialized memory, `UINT_MAX` length underflow leading to massive
+out-of-bounds access) are serious and reachable from a remote Bluetooth
+peer. This is exactly the kind of small, surgical, security-relevant fix
+stable trees need.
 
 ---
 
 ## Verification
 
-- **[Phase 1]** Parsed subject, tags (Reviewed-by, Acked-by, Link), and
-  body text from provided commit message
-- **[Phase 2]** Analyzed full diff: 3 functions, 1 file, logic-
-  classification as protocol correctness
-- **[Phase 3]** `git describe HEAD` → v6.18.43; Makefile → 6.18.43
-- **[Phase 3]** `git show ed842faeb2bd` → original 2017 commit with same
-  buggy conditions; commit exists in tree
-- **[Phase 3]** `git blame` / `git log --oneline ed842faeb2bd..HEAD --
-  net/bridge/br_arp_nd_proxy.c` → bug predates 6.18
-- **[Phase 3]** `git log --grep="Do not suppress ARP"` → empty; fix not
-  present
-- **[Phase 4]** WebFetch lore.kernel.org → blocked (bot protection);
-  **UNVERIFIED** mailing list discussion
-- **[Phase 4]** `b4 dig -c` → cannot use (commit not in tree);
-  **UNVERIFIED** series patch 1 content
-- **[Phase 5]** `grep br_do_proxy_suppress_arp/br_do_suppress_nd` →
-  callers in `br_input.c`, `br_device.c`
-- **[Phase 5]** `grep proxyarp_replied` → flooding gate in
-  `br_forward.c:233-236`
-- **[Phase 5]** `grep in6addr_linklocal_allnodes/ipv6_eth_mc_map` →
-  symbols exist in tree
-- **[Phase 6]** `grep` confirmed buggy lines at 168 and 439 in current
-  tree
-- **[Phase 6]** `git apply --check /tmp/bridge_dad_fix.patch` → **clean
-  apply**
-- **[Phase 6]** `git log --grep` → no duplicate fix already applied
-- **[Phase 7]** `git log --oneline -20 -- net/bridge/` → active
-  subsystem
-- **[Phase 8]** Failure mode assessed from code path: `proxyarp_replied`
-  blocks flooding to neigh-suppress ports
+- **[Phase 1]** Parsed commit `b230e5bf501c5`: subject, body, SOBs from
+  Jiale Yao and Luiz von Dentz; KMSAN stack in body
+- **[Phase 2]** Diff: +5 lines in `rfcomm_recv_frame()`, adds `skb->len
+  < sizeof(*hdr) + 1` guard
+- **[Phase 2]** `struct rfcomm_hdr` confirmed 3 bytes in
+  `include/net/bluetooth/rfcomm.h` (lines 104–108)
+- **[Phase 3]** `git blame -L 1786,1820`: function present since ancient
+  RFCOMM code
+- **[Phase 3]** `git show 23882b828c3c` / `3eabc6d47a0ad`: related MCC
+  fix confirmed, `Fixes: 1da177e4c3f4`
+- **[Phase 3]** `git merge-base --is-ancestor 3eabc6d47a0ad HEAD`: MCC
+  fix IS in tree
+- **[Phase 3]** `git merge-base --is-ancestor b230e5bf501c5 HEAD`: this
+  fix NOT in tree
+- **[Phase 3]** `git show b230e5bf501c5 | git apply --check`: clean
+  apply
+- **[Phase 4]** `b4 dig -c b230e5bf501c5`: lore URL found
+- **[Phase 4]** `b4 dig -a`: single v1, no revisions
+- **[Phase 4]** `b4 dig -w`: Marcel Holtmann, Luiz von Dentz, Kees Cook
+  CC'd
+- **[Phase 4]** `b4 dig -m /tmp/rfcomm_thread.mbx`: patchwork-bot +
+  bluez test bot, no NAKs
+- **[Phase 5]** `grep rfcomm_recv_frame`: single caller
+  `rfcomm_process_rx()` at line 1993
+- **[Phase 5]** Call chain: `rfcomm_run` → `rfcomm_process_sessions` →
+  `rfcomm_process_rx` → `rfcomm_recv_frame`
+- **[Phase 5]** L2CAP PSM RFCOMM at lines 808, 2116 confirms remote
+  Bluetooth input path
+- **[Phase 6]** `git describe HEAD`: v6.18.44-2-g1b9e1abadee04 / `make
+  kernelversion`: 6.18.44
+- **[Phase 6]** Read `core.c` lines 1786–1814: buggy code confirmed
+  present, no length check
+- **[Phase 6]** `git log -S "skb->len < sizeof(*hdr)"`: no existing fix
+  in tree
+- **[Phase 8]** Failure modes verified from code: OOB hdr dereference +
+  `skb->len` underflow on zero-length frame
 
-**YES**The background `git log -S "BR_NEIGH_SUPPRESS"` search timed out
-because it scanned the full repo history. I killed it and reran a scoped
-search under `net/bridge/` instead.
+**YES**
 
-That narrower search wasn’t very useful on its own (it only hit the
-tree-import commit), but the analysis already had the real answer from
-`git show ed842faeb2bd`: neighbor suppression and the buggy probe/DAD
-suppression logic were introduced in October 2017 and are present in
-this 6.18.43 tree.
+ net/bluetooth/rfcomm/core.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-The backport recommendation stands: **YES** — a small, RFC-aligned fix
-for broken DAD/ACD over EVPN/VXLAN when neighbor suppression is enabled.
-
- net/bridge/br_arp_nd_proxy.c | 16 +++++++++++-----
- 1 file changed, 11 insertions(+), 5 deletions(-)
-
-diff --git a/net/bridge/br_arp_nd_proxy.c b/net/bridge/br_arp_nd_proxy.c
-index 7ace0f4941bb6..4cd3470e5f56c 100644
---- a/net/bridge/br_arp_nd_proxy.c
-+++ b/net/bridge/br_arp_nd_proxy.c
-@@ -165,7 +165,7 @@ void br_do_proxy_suppress_arp(struct sk_buff *skb, struct net_bridge *br,
- 			return;
- 		if (parp->ar_op != htons(ARPOP_RREQUEST) &&
- 		    parp->ar_op != htons(ARPOP_RREPLY) &&
--		    (ipv4_is_zeronet(sip) || sip == tip)) {
-+		    sip == tip) {
- 			/* prevent flooding to neigh suppress ports */
- 			BR_INPUT_SKB_CB(skb)->proxyarp_replied = 1;
- 			return;
-@@ -263,6 +263,7 @@ static void br_nd_send(struct net_bridge *br, struct net_bridge_port *p,
- 	int ns_olen;
- 	int i, len;
- 	u8 *daddr;
-+	bool dad;
- 	u16 pvid;
- 
- 	if (!dev || skb_linearize(request))
-@@ -301,8 +302,13 @@ static void br_nd_send(struct net_bridge *br, struct net_bridge_port *p,
- 		}
+diff --git a/net/bluetooth/rfcomm/core.c b/net/bluetooth/rfcomm/core.c
+index d2c869e8286b2..7e91e31877987 100644
+--- a/net/bluetooth/rfcomm/core.c
++++ b/net/bluetooth/rfcomm/core.c
+@@ -1795,6 +1795,11 @@ static struct rfcomm_session *rfcomm_recv_frame(struct rfcomm_session *s,
+ 		return s;
  	}
  
-+	dad = ipv6_addr_any(&ipv6_hdr(request)->saddr);
++	if (skb->len < sizeof(*hdr) + 1) {
++		kfree_skb(skb);
++		return s;
++	}
 +
- 	/* Ethernet header */
--	ether_addr_copy(eth_hdr(reply)->h_dest, daddr);
-+	if (dad)
-+		ipv6_eth_mc_map(&in6addr_linklocal_allnodes, eth_hdr(reply)->h_dest);
-+	else
-+		ether_addr_copy(eth_hdr(reply)->h_dest, daddr);
- 	ether_addr_copy(eth_hdr(reply)->h_source, n->ha);
- 	eth_hdr(reply)->h_proto = htons(ETH_P_IPV6);
- 	reply->protocol = htons(ETH_P_IPV6);
-@@ -318,7 +324,7 @@ static void br_nd_send(struct net_bridge *br, struct net_bridge_port *p,
- 	pip6->priority = ipv6_hdr(request)->priority;
- 	pip6->nexthdr = IPPROTO_ICMPV6;
- 	pip6->hop_limit = 255;
--	pip6->daddr = ipv6_hdr(request)->saddr;
-+	pip6->daddr = dad ? in6addr_linklocal_allnodes : ipv6_hdr(request)->saddr;
- 	pip6->saddr = *(struct in6_addr *)n->primary_key;
+ 	dlci = __get_dlci(hdr->addr);
+ 	type = __get_type(hdr->ctrl);
  
- 	skb_pull(reply, sizeof(struct ipv6hdr));
-@@ -331,7 +337,7 @@ static void br_nd_send(struct net_bridge *br, struct net_bridge_port *p,
- 	na->icmph.icmp6_type = NDISC_NEIGHBOUR_ADVERTISEMENT;
- 	na->icmph.icmp6_router = (n->flags & NTF_ROUTER) ? 1 : 0;
- 	na->icmph.icmp6_override = 1;
--	na->icmph.icmp6_solicited = 1;
-+	na->icmph.icmp6_solicited = dad ? 0 : 1;
- 	na->target = ns->target;
- 	ether_addr_copy(&na->opt[2], n->ha);
- 	na->opt[0] = ND_OPT_TARGET_LL_ADDR;
-@@ -436,7 +442,7 @@ void br_do_suppress_nd(struct sk_buff *skb, struct net_bridge *br,
- 	saddr = &iphdr->saddr;
- 	daddr = &iphdr->daddr;
- 
--	if (ipv6_addr_any(saddr) || !ipv6_addr_cmp(saddr, daddr)) {
-+	if (!ipv6_addr_cmp(saddr, daddr)) {
- 		/* prevent flooding to neigh suppress ports */
- 		BR_INPUT_SKB_CB(skb)->proxyarp_replied = 1;
- 		return;
 -- 
 2.53.0
 
