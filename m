@@ -1,73 +1,124 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 058CD400987
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 10:08:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF0EB2FBDE0
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 10:09:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788170933; cv=none; b=IviJEUMMqGzZupYDd/eoyN25PGK26F0ebrrYdqX5YyBGTtDBcoccP6SjqZaZEbmyMXm9PRCzA5ja/gf8Yca1+YjDBpqnN/n7O5DKMupzx1rEnZXf6/YMdrT3qaiNzW3ta3iSzJqiy9zoMbNn/6d7nFtjnZEhBNibXd60y4281JE=
+	t=1788170958; cv=none; b=PXgEgNJVTNV4AWxssCoxE19VLC+AH45ZZU/Q58mHB293LIvqPrCJRTAZ5+qSyVT/6Ma690TvCalOlNbV9HI4TuCtJkxLZ2aq3IRF4WWXLP/BaJdzt3SjSMYTP2eu2QDaOvOoZBBlLrcFX3jyXCEMa0wOB3Q/3ZDsl4pGpWkXqf0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788170933; c=relaxed/simple;
-	bh=tLnReXmhVdRvFaQKJDAq8PXo4nJzzNLxzvfuSmZADnY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DR3JWkEPgO9DGd6UUiOOgGLEB/9GmuIk/2ZnhufcZnPN4pW0ayJjk3fZfWrngY1I3xTuu3zClzVNIieJ5NTn5EZaktbQFtvtn1+c1OxFONdXCHd39mzcCBwPSoPH044lKeq1cfBIzdDO/d64lQSG+jk0uSVRjYDFrvFvffBbS2k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Jk0tFo4R; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788170958; c=relaxed/simple;
+	bh=GETuGlx9YbsBvylfdCf1CXJH+H4woz4StNzG++rg8to=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=TJOSGCeWaPILxQ82I2XQJXtXHfVhVbuGwDFLh5w1wYBLrcMr8CcKoruk7s9dTZj/n2fuMin1j58Y8sQGtw8RzfsC7IZz5ropVyXQmxt3/J2hosTyho9lZVTVSECMZ3H44l6ITZoRQ9ZCufs7zr9lfq2Dx12KYHLR82kK2FXsgkQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=co8z/rZU; arc=none smtp.client-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Jk0tFo4R"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 083031F000E9;
-	Mon, 31 Aug 2026 10:08:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788170931;
-	bh=z/Cx6rxW4jszDkKMv1lPDOHzq0Kq6lt8KT1TIKFLaG8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Jk0tFo4RReOyXlIFcgroPA+8suCmv2Nba4g65fn0HkMxjGx1OyMBiEpom5lvDzxF/
-	 PtVSstnd31fRPZ1b0gxikrJxo+PWN8feTqfXz/cYf37GGXaHCKyuxzIQitgqBofbwP
-	 gJDv5PlJVBGHzHdTRnKzu72beXZhEKYvltMwFhV6GNOTOH0fvtO7Nicb5So/diZMOv
-	 JCvNHqtGXYe2w6Ii2dSkR03WGjQCsRwMrlmiCLtjsg2hpg0B44OK6CTjjtlKu3pC1L
-	 6KVlQ3Yq1HYREur3cBlWdNpqalPb7o+OGUVIpyAXKtT0WMsl5MIZynMQXe0OEG3MDs
-	 YmBby4J493vFA==
-Date: Mon, 31 Aug 2026 12:08:47 +0200
-From: Christian Brauner <brauner@kernel.org>
-To: Jan Kara <jack@suse.cz>
-Cc: Tao Cui <cui.tao@linux.dev>, kees@kernel.org, cyphar@cyphar.com, 
-	containers@vger.kernel.org, linux-kernel@vger.kernel.org, cuitao@kylinos.cn
-Subject: Re: [PATCH 2/2] userns: don't clear the install target map on
- map_write() failure
-Message-ID: <20260831-ammoniak-blaskapelle-abbitten-db32791d39b7@brauner>
-References: <20260828091659.358700-1-cui.tao@linux.dev>
- <20260828091659.358700-3-cui.tao@linux.dev>
- <37ur33kehusvq7scjflrr3df6d36xtaminoricp6ituocpapef@3we4ql6o2ozz>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="co8z/rZU"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-495590dde14so31624015e9.0
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 03:09:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788170955; x=1788775755; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=0b6snvUzL0C95PkbFwQuYpM+8m6QVzJMDdB66/XMz4k=;
+        b=co8z/rZUlNitYFeIMXSjiDB03hXpaRy/Z8ZfHZrUiEFDtsIRKl0n/CR0F2qMIo6do3
+         zmtvMDT6Qc6mnyrtxgimqT8WMIsdLq/cGRWGIbmYJbUVWyAoBDd3xRgNEqnyeME5tiDq
+         RaAOsDfGEPYek/yCrbcXDTdrIFC3AVQPdYtUgh9YVGf1Pim23F/L/Nt8bit38ZE1bZiL
+         K5VRvQFqk7ut9Ru7jF0D2MXVC9EbWfBEbFFfCYQHdkSyDoMzcaKql9h2D6i9vOQ1zhxS
+         iPNkB86sxl86nE3ZvNSsaHynZlLb8VcVLspJz4JI2ZXX2L0Swvpc9JZ7tuJ1nrUgk7iI
+         JvNw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788170955; x=1788775755;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=0b6snvUzL0C95PkbFwQuYpM+8m6QVzJMDdB66/XMz4k=;
+        b=pH9HqQ4LTql/OBc1tUF7We41azrR/BW/rAPznJWpkHGCi7PtpAxw3gq8sFjeYAnnHm
+         P6S15z93nzN8WLm+DHN7q85iDXuiSL3VxOvJ721vTV5nMYagSO14l/YWo7BG09Bvw/Eq
+         aurlsf1GTrOyrCYTvmaarNXeEgEUb8U6B9ZkFxRyw2RPb3CdaTHUKhc+g4N+A5H3UJQE
+         F15xnFYSwXF6LvN0+XTxhuwE2Rn+pUeawvpnU9LQFS/Z9kn5+BqDdntiTV1uAWe2QxxM
+         vuCPPSw0NybmF3G27HDc0s2W4liPx5dmQsXBFgxrzC2FfTBSUlLy4P3EFEh4TTHhQeFc
+         fVcA==
+X-Forwarded-Encrypted: i=1; AHgh+Ron1DtUPLs4bNM+tQ9N7kv3Y9QpWamN0jegB4vPOfqwkyqHlx7gLoaHGqr/xCk61goXWqdengb+VUPo8ZI=@vger.kernel.org
+X-Gm-Message-State: AFuF++l5HtJooKr6zYmKAu6jDhPF/GPNRGi+VwCzQGeZWmqt5iRodCES
+	RUDsiJvxeCQligQm4qxWAmOCdbXtDq01VOIlO0s9ROW5hGh6d8alyWld
+X-Gm-Gg: AR+sD136iLfH520byDBz2kCt8FxdgXyMFOLSNLy/vYW3cdOypBJ2iO0t+pDuhTknHBz
+	pSh/cdrNlghA6gLNsZOlSFLSexYEkmXD8hY/J/SaFhVUDqJiLzLyh3NQh2ffwD0qhAwVVxLTD9I
+	KAGY5vLEIC5t6VO42FxL+Ig1DOgMWU0i6LFkaK70LkbMgUpfFlbKIzoz0u2hSdAKGXOmDtivg8E
+	mO4d17yIlSqKIcoD/D+pXjbHJENQmGiQEZZyE/cfJ19EffmokTfdgi5qRKRU/zx8JuepwTK/box
+	VqqUfLNID5YLE64iqD1qBDBEGhXG/FjrX7Cx5+ZPnt9ekjjgTAZK+BOPs7XXoOgMuuplDDiYPHO
+	PxSxGky63UTAA/Y7yR6ednKv6UxxkI1Ud8Zts/HROFinWWVi2r429C3XlvU1RD0dtZnq7FY2Uzh
+	USeiRCVGw5jF7UjfLWxDQDlnd5DU1uMKHcajyA5Nh5XsB/oPYjWiXCbC9I/32F6GUkitJfVJW5i
+	4M=
+X-Received: by 2002:a05:600c:34cf:b0:499:593b:a15b with SMTP id 5b1f17b1804b1-49cd940c51fmr34622945e9.1.1788170954593;
+        Mon, 31 Aug 2026 03:09:14 -0700 (PDT)
+Received: from [127.0.1.1] ([2001:4bb8:128:b749:8793:c76d:302:4caa])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ccea87e1asm134097045e9.2.2026.08.31.03.09.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Aug 2026 03:09:13 -0700 (PDT)
+From: Javier Carrasco <javier.carrasco.cruz@gmail.com>
+Date: Mon, 31 Aug 2026 12:09:09 +0200
+Subject: [PATCH] iio: rename stale IIO_DEV_ACQUIRE_ERR reference to
+ IIO_DEV_ACQUIRE_FAILED
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <37ur33kehusvq7scjflrr3df6d36xtaminoricp6ituocpapef@3we4ql6o2ozz>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260831-doc_acquire_failed-v1-1-3c8e59c07d18@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAMRSlWoC/x3MQQqAIBBA0avErBPULKqrRITpWAOhpRRBdPek5
+ Vv8/0DCSJigLx6IeFGi4DNEWYBZtV+Qkc0GyWXD20owG8ykzXFSxMlp2tCy2XLXKSVqlA5yuEd
+ 0dP/TYXzfD5Jk6vBkAAAA
+To: Jonathan Cameron <jic23@kernel.org>, 
+ David Lechner <dlechner@baylibre.com>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>
+Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Javier Carrasco <javier.carrasco.cruz@gmail.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788170952; l=1209;
+ i=javier.carrasco.cruz@gmail.com; s=20260111; h=from:subject:message-id;
+ bh=GETuGlx9YbsBvylfdCf1CXJH+H4woz4StNzG++rg8to=;
+ b=HObEwJHbU0xLgmkAryyLWKuHTpJwywNuG9f4Do1zUVvwNqggOgew/7UeFzeBHPXVGv76r/3XM
+ fgIuVcj3tziBP5jAY4Im8fbuXXdwxvfvoEye80rowhTAc3nK0CzBFS/
+X-Developer-Key: i=javier.carrasco.cruz@gmail.com; a=ed25519;
+ pk=Lge8w8xidNSf/INy7JAIbAW+Hezkp3nsBh2OjKL7lLU=
 
-On Fri, Aug 28, 2026 at 11:51:10AM +0200, Jan Kara wrote:
-> On Fri 28-08-26 17:16:59, Tao Cui wrote:
-> > From: Tao Cui <cuitao@kylinos.cn>
-> > 
-> > At the out: label of map_write() the destination map is also cleared
-> > (map->forward = NULL; map->reverse = NULL; map->nr_extents = 0)
-> > whenever the write failed and the extent arrays had to be freed.
-> > 
-> > However, the destination map is written by the successful install
-> > block above, which has no failure exit; every error path reaches
-> > out: without having touched it.  A second write to a mapped
-> > namespace is also rejected with -EPERM before any parsing happens,
-> > so the clearing can never roll back a previously installed map
-> > either.
-> > 
-> > The three assignments just zero an already-zero map.  Remove them.
-> > 
-> > Signed-off-by: Tao Cui <cuitao@kylinos.cn>
-> 
-> I agree this is a dead code but it kind of makes it easier to argue about
-> the correctness of the error handling branch. I guess I'll leave it to for
-> Christian to decide whether he wants to take this or not.
+Update the kernel-doc reference left over from an earlier revision
+of the series, before the macro was renamed to IIO_DEV_ACQUIRE_FAILED().
 
-Nah, let's leave this as is. :)
+Signed-off-by: Javier Carrasco <javier.carrasco.cruz@gmail.com>
+---
+Trivial documentation stuff that I found while getting the next version
+of the veml6031x00 driver ready.
+---
+ include/linux/iio/iio.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/include/linux/iio/iio.h b/include/linux/iio/iio.h
+index 711c00f67371..989c1db8fb36 100644
+--- a/include/linux/iio/iio.h
++++ b/include/linux/iio/iio.h
+@@ -789,7 +789,7 @@ DEFINE_GUARD_COND(__priv__iio_dev_mode_lock, _try_direct,
+  *
+  * Tries to acquire the direct mode lock with cleanup ACQUIRE() semantics and
+  * automatically releases it at the end of the scope. It most be always paired
+- * with IIO_DEV_ACQUIRE_ERR(), for example (notice the scope braces)::
++ * with IIO_DEV_ACQUIRE_FAILED(), for example (notice the scope braces)::
+  *
+  *	switch() {
+  *	case IIO_CHAN_INFO_RAW: {
+
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20260831-doc_acquire_failed-bd0f94415e2f
+
+Best regards,
+-- 
+Javier Carrasco <javier.carrasco.cruz@gmail.com>
+
