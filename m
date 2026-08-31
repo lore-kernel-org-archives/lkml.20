@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D99B0322A1F;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8899B30FF31;
 	Mon, 31 Aug 2026 00:25:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788135921; cv=none; b=ACiUKZsaOQgs4BbXtPTMinI0/eSvHq5pEfaay15CTW4WvOnqrJ/3WBArD02r1hQKs50JZSgDN7AJDgZD6dgaDOVLW+xnV4fElQiX4QZfKGj05B552OgIMtFtYjxrJO8kYwZtk/I/IObhuxR/Nz8qNDoM/o2UyF1Fq2Wv9y5Ac4g=
+	t=1788135921; cv=none; b=qTLCLA+t+MiJ8MDJnl4Spbs5fcO22np1KT5pgp4ujkcXfzkCv5uMMdn4+9oww+5icjG2KSslJxLtr+Jhazh32oGWGx4A+em+t0CgrjS4DOmJ9dCX0sjFpL8iV76LKL/oRlaRHUyCqyqEOCO2CiYjWu8Bvwd54QkUtW2knEj9Qrk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788135921; c=relaxed/simple;
-	bh=8shTrhUaGv3fKB50otzvqy15VrpXV2k9eT7uzPpO87A=;
+	bh=INfl/U4MD7DiNVtE20rEnCF+KqGWKq4XKxW9ss03gIs=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=qC0k3cU/AWuBJUO2k1yJQjYxCPkf3Ie30s87N2/P1s/2cpKTWFGvkplJ2U+DZYxwel+3Fyt9glIdWdSJxefnA5PUYCB1c9PAzjlsYciiIPSA4xnvznI5drGyDgD9vQMmP7fLqfaMwCB2zBqJPSKZgKRkzyPX0XtJnwsZE1T9RW0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U2a+e3+F; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=emr8efGEK0YVISKVudmE/LZoYIOau5VisHdOHtBHkK8df0PSTIJH7hPPcHFOeaswEifStJfBjVXbcmJ4817j7UIiqxOYsktqEinePmouYhlxdtGA1v/TMjn2K1RcZmigNV6y040a4N4hFElH3FKjMnbKbOnW6qprfgPTCWxGAPE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J7ixRXTW; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U2a+e3+F"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id BA28BC2BCFD;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J7ixRXTW"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 69A39C2BCFB;
 	Mon, 31 Aug 2026 00:25:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1788135921;
-	bh=8shTrhUaGv3fKB50otzvqy15VrpXV2k9eT7uzPpO87A=;
+	bh=INfl/U4MD7DiNVtE20rEnCF+KqGWKq4XKxW9ss03gIs=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=U2a+e3+Fu3IkwA9ogIkqDjTokD5Ywx6OsEmQ2dtf62zdCoCUC+CShxrFeKOox7WVo
-	 QYUk1reCWg11G5xDMbfzGLtqejPe1f0T3f6GBI2dCzmzUczD9fDUf1nAb47E+FYffO
-	 GR17qgNZyuRjoN5W6tnFeLHKg4RsmT7oo1GhBtgDLaIc8xobHymV3xYEBxPs3UUy5P
-	 O8Z1WOItbP6G7q/T0LMvXLvPmPk2Cz4R30PJE7eNwvgiR3/3ujPgrTMUd/e0M4XUH7
-	 j56lUxumT+3xRHANST2nTojscXUD/YxQgwAY6OEWsOmMSD7lyciIEhU3cOiwIdN8MW
-	 ZgIE95nqdWNcQ==
+	b=J7ixRXTWSc5y6i4hxgZ+vagyxK1c4T1Q5OxM7n49KwqCLSdHU+Q5P1825KMWSNCCl
+	 6QzFq+JulXODd9QaYpj1JpQMbEE22BcGNDHQYBIRQX5CbCSKNoSn3V5xOjKiOcLHUp
+	 6474IBrpI9oaHry4lMCko9TWcsafgUUhylnSP5nbH/kgvo0d3w8QwIvp9jbRpkZkVg
+	 lZlMeE2m1WBompIa00FCrC1XZeLeO1Io9MQFNwts96/g7IDNevknCIHRf2RZaB+R1H
+	 RA8MLBO7bcV4d+S1AUDPRg9bAbU37BgsXyZBO3ocN3AX4XQfLKe/Y8lWWZFV9i55PL
+	 LV61OtRr3BBkw==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A0B39C61DFD;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 51E9BC61DFD;
 	Mon, 31 Aug 2026 00:25:21 +0000 (UTC)
 From: Ackerley Tng via B4 Relay <devnull+ackerleytng.google.com@kernel.org>
-Date: Sun, 30 Aug 2026 17:25:22 -0700
-Subject: [PATCH v12 21/45] KVM: TDX: Make source page optional for
- KVM_TDX_INIT_MEM_REGION
+Date: Sun, 30 Aug 2026 17:25:19 -0700
+Subject: [PATCH v12 18/45] KVM: guest_memfd: Handle lru_add fbatch
+ refcounts during conversion safety check
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260830-gmem-inplace-conversion-v12-21-85e5fd25252a@google.com>
+Message-Id: <20260830-gmem-inplace-conversion-v12-18-85e5fd25252a@google.com>
 References: <20260830-gmem-inplace-conversion-v12-0-85e5fd25252a@google.com>
 In-Reply-To: <20260830-gmem-inplace-conversion-v12-0-85e5fd25252a@google.com>
 To: aik@amd.com, andrew.jones@linux.dev, binbin.wu@linux.intel.com, 
@@ -79,13 +79,13 @@ Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-trace-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
  linux-kselftest@vger.kernel.org, linux-mm@kvack.org, 
  linux-coco@lists.linux.dev, Ackerley Tng <ackerleytng@google.com>, 
- Xiaoyao Li <xiaoyao.li@intel.com>
+ Fuad Tabba <fuad.tabba@linux.dev>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788135915; l=3571;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788135915; l=4735;
  i=ackerleytng@google.com; s=20260225; h=from:subject:message-id;
- bh=njc9wPSBjD6tmKwt2PhlMiU1O1S+4eQ2KtODaEWL4xY=;
- b=xet/UHJxW/icBX2JrNtGGU28LtYGzpL8u5/A2zHQu7TLEnsVz5ggJjGJpERO2fdfgD7Fxr51C
- ip40S/BlqIICNfbuaM0UoGpRZF7btZdQpGjyeJFTBr9EgNvYJ9H3K1t
+ bh=Ty5BgQhIGN1xkSlbhdIOV4bbPZLbusnibdr1eTvGdlc=;
+ b=91swEloDGQUbfYBsHAl/7syD81mtjIP2F0V0Ab45bJ3IEkR1Q5bwBtEL76LfwbU26GezrPCHL
+ XT0wJWHs3EeBheGTp9WnqG2e2q+vGU7johvpQZYqq79+7IhHv7ZWqRu
 X-Developer-Key: i=ackerleytng@google.com; a=ed25519;
  pk=sAZDYXdm6Iz8FHitpHeFlCMXwabodTm7p8/3/8xUxuU=
 X-Endpoint-Received: by B4 Relay for ackerleytng@google.com/20260225 with
@@ -95,83 +95,129 @@ Reply-To: ackerleytng@google.com
 
 From: Ackerley Tng <ackerleytng@google.com>
 
-Update tdx_gmem_post_populate() to handle cases where userspace requests
-"no source page". To handle "no source page", populate (perform
-TDH.MEM.PAGE.ADD) using memory in-place at the target PFN.
+A guest_memfd folio has no outstanding references if guest_memfd holds the
+only references on it. Any other references on the folio may indicate
+another user, and guest_memfd cannot convert it to private if there may be
+an existing host user.
 
-Allow "no source page" only when gmem_in_place_conversion is enabled,
-because retroactively adding support for out-of-place conversion would mean
-requiring a userspace update for a feature that's being deprecated.
+A folio will have outstanding references if it is present in a per-CPU
+lru_add fbatch. guest_memfd does not actually participate in LRU, but
+freshly-allocated folios are still added to the lru_add fbatch for batch
+LRU statistics processing.
 
-Also, KVM supporting "no source page" without in-place conversion would
-effectively be an obscure zero-page optimization that relies on the page
-being zeroed when it is allocated by guest_memfd.
+A folio may also have extra refcounts if it is on the mlock fbatch.
 
-Rejecting "no source page" without in-place conversion scenario is valuable
-for KVM developers since it helps newcomers understand what exactly is and
-isn't possible.
+These two known "usages" of the folio are handled by calling
+lru_cache_drain_for_folio, which drains both the lru_add and mlock
+fbatches. After draining, if the refcount is still elevated, then there are
+truly outstanding references.
 
-Co-developed-by: Sean Christopherson <seanjc@google.com>
-Signed-off-by: Sean Christopherson <seanjc@google.com>
-Tested-by: Shivank Garg <shivankg@amd.com>
+If the page may be dma pinned, DMA is using it and hence there are
+outstanding references. folio_maybe_dma_pinned() can have false positives,
+but that's only with a significant number of refcounts, at which point
+draining LRU is not going to move the needle - it can still be concluded
+that the folio has outstanding references.
+
+If the page is still mapped after guest_memfd tried to unmap it earlier in
+the conversion process, it also has outstanding references.
+
+Return true and exit early to avoid unnecessary draining in these 2 cases.
+
+Provide a drain status to only drain once ever while processing a batch of
+folios.
+
+Acked-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+Suggested-by: David Hildenbrand <david@kernel.org>
+Reviewed-by: Fuad Tabba <fuad.tabba@linux.dev>
 Reviewed-by: Binbin Wu <binbin.wu@linux.intel.com>
-Tested-by: Yan Zhao <yan.y.zhao@intel.com>
-Reviewed-by: Yan Zhao <yan.y.zhao@intel.com>
-Reviewed-by: Xiaoyao Li <xiaoyao.li@intel.com>
 Signed-off-by: Ackerley Tng <ackerleytng@google.com>
 ---
- Documentation/virt/kvm/x86/intel-tdx.rst | 4 ++++
- arch/x86/kvm/vmx/tdx.c                   | 8 +++++---
- 2 files changed, 9 insertions(+), 3 deletions(-)
+ mm/folio.c             |  2 ++
+ virt/kvm/guest_memfd.c | 30 ++++++++++++++++++++++--------
+ 2 files changed, 24 insertions(+), 8 deletions(-)
 
-diff --git a/Documentation/virt/kvm/x86/intel-tdx.rst b/Documentation/virt/kvm/x86/intel-tdx.rst
-index 6a222e9d09541..d8d9409120e61 100644
---- a/Documentation/virt/kvm/x86/intel-tdx.rst
-+++ b/Documentation/virt/kvm/x86/intel-tdx.rst
-@@ -158,6 +158,10 @@ KVM_TDX_INIT_MEM_REGION
- Initialize @nr_pages TDX guest private memory starting from @gpa with userspace
- provided data from @source_addr. @source_addr must be PAGE_SIZE-aligned.
+diff --git a/mm/folio.c b/mm/folio.c
+index c02dcea9c03c2..50a6dbe55998e 100644
+--- a/mm/folio.c
++++ b/mm/folio.c
+@@ -33,6 +33,7 @@
+ #include <linux/page_idle.h>
+ #include <linux/local_lock.h>
+ #include <linux/buffer_head.h>
++#include <linux/kvm_types.h>
  
-+If guest_memfd in-place conversion is enabled, pass 0 for @source_addr
-+to represent "no source page". A source page is required if in-place
-+conversion is not enabled or not supported.
+ #include "internal.h"
+ #include "page_alloc.h"
+@@ -926,6 +927,7 @@ void lru_cache_drain_for_folio(const struct folio *folio,
+ 			*drained = LRU_CACHE_DRAINED_ALL;
+ 	}
+ }
++EXPORT_SYMBOL_FOR_KVM(lru_cache_drain_for_folio);
+ 
+ atomic_t lru_disable_count = ATOMIC_INIT(0);
+ 
+diff --git a/virt/kvm/guest_memfd.c b/virt/kvm/guest_memfd.c
+index ac8e0c6d6e942..1fe935aaef36f 100644
+--- a/virt/kvm/guest_memfd.c
++++ b/virt/kvm/guest_memfd.c
+@@ -8,6 +8,7 @@
+ #include <linux/mempolicy.h>
+ #include <linux/pseudo_fs.h>
+ #include <linux/pagemap.h>
++#include <linux/swap.h>
+ 
+ #include "kvm_mm.h"
+ #include "guest_memfd.h"
+@@ -556,10 +557,28 @@ static int kvm_gmem_mas_preallocate(struct ma_state *mas, u64 attributes,
+ 	return mas_preallocate(mas, xa_mk_value(attributes), GFP_KERNEL);
+ }
+ 
++static bool __folio_has_outstanding_references(struct folio *folio,
++					       enum lru_cache_drained *drained)
++{
++	if (folio_maybe_dma_pinned(folio) || folio_mapped(folio))
++		return true;
 +
- Note, before calling this sub command, memory attribute of the range
- [gpa, gpa + nr_pages] needs to be private.  Userspace can use
- KVM_SET_MEMORY_ATTRIBUTES to set the attribute.
-diff --git a/arch/x86/kvm/vmx/tdx.c b/arch/x86/kvm/vmx/tdx.c
-index b272c20586a74..7654a9f5fa128 100644
---- a/arch/x86/kvm/vmx/tdx.c
-+++ b/arch/x86/kvm/vmx/tdx.c
-@@ -3189,7 +3189,7 @@ static int tdx_gmem_post_populate(struct kvm *kvm, gfn_t gfn, kvm_pfn_t pfn,
- 	if (KVM_BUG_ON(kvm_tdx->page_add_src, kvm))
- 		return -EIO;
++	/* 1 reference held by filemap_get_folios() in the folio batch. */
++	lru_cache_drain_for_folio(folio, 1, drained);
++
++	/*
++	 * Outstanding references are anything other than those from the page
++	 * cache, plus 1 temporary reference held by filemap_get_folios() in the
++	 * folio batch.
++	 */
++	return folio_ref_count(folio) != folio_nr_pages(folio) + 1;
++}
++
+ static bool kvm_gmem_has_outstanding_references(struct inode *inode,
+ 						pgoff_t start, size_t nr_pages,
+ 						pgoff_t *err_index)
+ {
++	enum lru_cache_drained drained = LRU_CACHE_NOT_DRAINED;
+ 	struct address_space *mapping = inode->i_mapping;
+ 	pgoff_t last = start + nr_pages - 1;
+ 	bool has_outstanding = false;
+@@ -570,17 +589,12 @@ static bool kvm_gmem_has_outstanding_references(struct inode *inode,
+ 	folio_batch_init(&fbatch);
  
--	kvm_tdx->page_add_src = src_page;
-+	kvm_tdx->page_add_src = src_page ?: pfn_to_page(pfn);
- 	ret = kvm_tdp_mmu_map_private_pfn(arg->vcpu, gfn, pfn);
- 	kvm_tdx->page_add_src = NULL;
+ 	next = start;
+-	while (has_outstanding && filemap_get_folios(mapping, &next, last, &fbatch)) {
++	while (!has_outstanding && filemap_get_folios(mapping, &next, last, &fbatch)) {
+ 		for (i = 0; i < folio_batch_count(&fbatch); ++i) {
+ 			struct folio *folio = fbatch.folios[i];
  
-@@ -3235,7 +3235,8 @@ static int tdx_vcpu_init_mem_region(struct kvm_vcpu *vcpu, struct kvm_tdx_cmd *c
- 	if (copy_from_user(&region, u64_to_user_ptr(cmd->data), sizeof(region)))
- 		return -EFAULT;
- 
--	if (!PAGE_ALIGNED(region.source_addr) || !region.source_addr ||
-+	if (!PAGE_ALIGNED(region.source_addr) ||
-+	    (!gmem_in_place_conversion && !region.source_addr) ||
- 	    !PAGE_ALIGNED(region.gpa) || !region.nr_pages ||
- 	    region.gpa + (region.nr_pages << PAGE_SHIFT) <= region.gpa ||
- 	    !vt_is_tdx_private_gpa(kvm, region.gpa) ||
-@@ -3266,7 +3267,8 @@ static int tdx_vcpu_init_mem_region(struct kvm_vcpu *vcpu, struct kvm_tdx_cmd *c
- 			break;
- 		}
- 
--		region.source_addr += PAGE_SIZE;
-+		if (region.source_addr)
-+			region.source_addr += PAGE_SIZE;
- 		region.gpa += PAGE_SIZE;
- 		region.nr_pages--;
- 
+-			/*
+-			 * Outstanding references are anything other than those
+-			 * from the page cache, plus 1 temporary reference held
+-			 * by filemap_get_folios() in the folio batch.
+-			 */
+-			if (folio_ref_count(folio) != folio_nr_pages(folio) + 1) {
+-				has_outstanding = true;
++			has_outstanding = __folio_has_outstanding_references(folio, &drained);
++			if (has_outstanding) {
+ 				*err_index = max(start, folio->index);
+ 				break;
+ 			}
 
 -- 
 2.55.0.897.gb25b4bd76c-goog
