@@ -1,372 +1,191 @@
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B32B32AAA0
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 13:03:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4516A2DC32C;
+	Mon, 31 Aug 2026 13:04:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788181439; cv=none; b=JvUQQFf7QhdZOria3TQhjBrZIuA2gDPV3eQxnF+CyJiHSPvagLdCuJx6gqA+bt2rMRACXTx02r7ZLOBDPt9ggi/3cBbimqZfFrU33ZZHOsTVj7Y+UKOGJ/QeCRQ5IPCpsBS/UOHtrd/+GUGbiz6ccsbh3mJWaXw9NtJeIQ5GsnA=
+	t=1788181452; cv=none; b=cIW8a+tE3kwI9Ynf80e5EVq+HpDiyXGLTHMvmcu+ba6fXrk0Gxysy0pyjK2i5aXXN6bgGAdqQJ9W3y1Q4fZpPBxgmYYN/as+v/xyk4b5LDKqj/3IVdxn81p/YW8+VMFhQPpwLMuK0vOeHdxxm8AM+Drc97XU3ZwIJ0HVsf3epRM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788181439; c=relaxed/simple;
-	bh=4Hin49XJlZ0lLoWqEMqdDZWbMuhWHVSDat0+ikbQ5Ng=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=MnyVAQDzwvEcwUeIqRyrIgNQcrz/TW6+sSKvtWCUCausVkA7j43cB2YYCwq8Xeo2dCC7VnKVj9wUivhhZl+GppUrIAiQLhUrHIVyoxBNU6Igd8Swswue+WD8BIvjudKyxcP5QP1plNC+xwRLfM01cH2LIEHlSJCpzzNtD3cJICM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fIvM9j6S; arc=none smtp.client-ip=209.85.214.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788181452; c=relaxed/simple;
+	bh=CEjBd6GFRDVnqtgZXJaSynvhFuMYjyanDluIehnM89k=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=u/iugpKQFtMCcoFhcwblwqxCGjTsdufZBFzt1BiKtdnJXlfqL50Vt7eoh76GtB4CvQIasYfz+7Z6l9A1kPYGyXHzgXbKhVLzsnLrCI0GRWAGp3wN58e6Fz5TiaRNmkci3T4nk8yMnoTBWfnLdglVbxQBAe7muA4siZX7jVY3GcM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=dJ0nJGEq; arc=none smtp.client-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fIvM9j6S"
-Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2cecdc24b1cso3145555ad.1
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 06:03:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788181436; x=1788786236; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=DYUzL/NOcSCyj5tsm/2slVASn+9KBY8PpawGtrxxCAE=;
-        b=fIvM9j6S8r51AYN8UxuDMnuNJi/V273Ywozx4zNocVyuQSqAJXowJPIdmkG2f95soe
-         e5dUYH4cDxnQDPPC8+NaHf0ktgGqil4k+xYp4niLN3SYhdqUPvW1fbtYknsTUgGftFjT
-         2He29L1BLmC4MZM0wDbGXqIjphM4sp22gk9wJfS0oAiFS9M6EFO0P5IhRCiKvgZUegUR
-         GC96PtSD6Cy8AgtaD11/stxSXuvMs3wbcX7UzNQdj5dmA6oCE5ULAllHrmZjK+r9W8gB
-         sJJK/ILEMHu7z2XeInppChxh6I21/IY/z3HI6Lz62B5sgFSeHyxT1rZjepDnLj/ZsKT1
-         59CA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788181436; x=1788786236;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DYUzL/NOcSCyj5tsm/2slVASn+9KBY8PpawGtrxxCAE=;
-        b=VZ+So1XmIo86SbCcW+O6ZD5TDJkolTSxf0kO3aRf48xRtz9LOBLsUURpzDkNi+bZlT
-         mCnWPgqEFeE/vIqS/3OJhEnx3iG0ao4wRWVEyI5ZW/WApueVxRTP0GfJk5ZAUfHXQ8PH
-         ds/M65Faw8iGMcJzUXVa8m9kg0Ho/mHi0A8sVp4/Seh/Qt7u15wrJReX0K0IcTE53wZA
-         QWjlZx3lUWchG4z7FLuzkkp7cGSuPXNKR3mmCAWXRxRomHFV2AR6Kj9xeMGDBoVjAidJ
-         k+/kwNVXMv4RtR+xpETZwk/EasEAFvp9WLyj/HCqauLNYGbOiuuE7LRFC0AOijkDRuXO
-         LJNw==
-X-Forwarded-Encrypted: i=1; AKwUvBx1tpTtU2DKEs0VtxShFNo/NbNuIN0kgsXRNx3Jd+LpMRKFd8Miy5NVnkEt6+pi3aGyPDRCUUP0KVrjJ3g=@vger.kernel.org
-X-Gm-Message-State: AFuF++lSTi8+ZwU98pK3/misUqDUK6/NuYm/6sd2WuQHp0zUW0RhzzOo
-	IG5B3UzRkzdqapc2GWRc19WrkJkoO22AXv7LNyL6z37Pi/u5+nZrSHZv
-X-Gm-Gg: AYBFou3DjEwEe1TGfe1cDlA+fVPA0JPRNCvkmwpGfJ8Yh7OaCJFQeGHI6GUpIPlRI2h
-	BIOgz7d/d8wtTBf3n/4kb4BADlYCfpjzMzfrQJmefnDK349DMXV4xFegwcDociypVOeA1nu/oqH
-	99MlZAMrT+K/rNnvzgWQERXp6fuS77EPMnfRDTvMO57Skb37fDOYgSWpXfeAZVo5ULGeojZnl1j
-	qVuk+2LOan9igzEceAOvpT1UPCYzIA3gBXbpZpXsQFY4XxhFn/3yCMP2PSe3GvcrsVb8WKchwbI
-	vBqmp8cU8EnGQFI4yeazjVQ9NYRHbuoVt+9oPjeNqfvzN7naB/S+IVHGq9HF2qim+1HaLsdqzz+
-	WN5z4yjom4rweDEJwDod3JNxWfHaCa1LzTX5e2gAMa5+gDsQPwiZuwVM+E9zpkPDIpiCGKIOauK
-	ARVyS4+KFFapLKQ39NshLlLWPlTqAQdohn+cIL4FT0UXFjewu2pgrqyzQXq2LXEBjSPOnAjeMWX
-	EpvbfpcY+J46zveYyjQac8uyaP9
-X-Received: by 2002:a17:902:d2d0:b0:2c7:ef84:c58e with SMTP id d9443c01a7336-2d74dc08a13mr234387445ad.1.1788181435321;
-        Mon, 31 Aug 2026 06:03:55 -0700 (PDT)
-Received: from cachyos-aura ([45.112.149.37])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3286f7bf283sm32567749eec.8.2026.08.31.06.03.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 06:03:54 -0700 (PDT)
-From: Navon John Lukose <navonjohnlukose@gmail.com>
-To: Miri Korenblit <miriam.rachel.korenblit@intel.com>,
-	linux-wireless@vger.kernel.org
-Cc: Johannes Berg <johannes@sipsolutions.net>,
-	Emmanuel Grumbach <emmanuel.grumbach@intel.com>,
-	Nika Krasnova <nika@nikableh.moe>,
-	Bjorn Helgaas <helgaas@kernel.org>,
-	Mark Pearson <mpearson-lenovo@squebb.ca>,
-	Mark Pearson <markpearson@lenovo.com>,
-	linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable+noautosel@kernel.org
-Subject: [PATCH wireless v2 3/3] wifi: iwlwifi: pcie: recover a device that lost power in D3cold
-Date: Mon, 31 Aug 2026 18:33:32 +0530
-Message-ID: <20260831130332.323549-4-navonjohnlukose@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260831130332.323549-1-navonjohnlukose@gmail.com>
-References: <20260831130332.323549-1-navonjohnlukose@gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="dJ0nJGEq"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788181451; x=1819717451;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=CEjBd6GFRDVnqtgZXJaSynvhFuMYjyanDluIehnM89k=;
+  b=dJ0nJGEqbaa7y2TwFd3fzwauqzFgQkh2AzaQxhnGlfL2nmCeSOd3Ndnm
+   kDghyvEJVUPaOGiWG2a4OhpPhOMi4kcoTL+InWEwFsbBeEGSBLXzYfmrT
+   hGF/Tbsi234mXmTD86NZE4NDzwSsY22WvZewMEHeiSC5ohpMtgWRj/RqR
+   dOTm1JoBNkhKH/tA2Kbpd1qe9OOVVxdSJI8EQlRADhnQSu56DmCvJCO8o
+   FjDfaIDsIhGNVjHVaf7UxCxQkUzQknSF6PiQc65dfP58uhTpuRKjbQiky
+   mIzxkKwXjPJMIBmXjZ1x0asjUqoQ92BFAuxkHbvpyE/vOnSK+DJFNbzaG
+   g==;
+X-CSE-ConnectionGUID: 2J5S8lFXTPyxqxIPUuFz2A==
+X-CSE-MsgGUID: zWJ6TYgJSae7fT0J7Kjz+A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11891"; a="88350137"
+X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; 
+   d="scan'208";a="88350137"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 06:04:10 -0700
+X-CSE-ConnectionGUID: HjhktWFGS2ajSoUbeh4RAg==
+X-CSE-MsgGUID: VHwBLPo7SlGcQVvO2CrCug==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; 
+   d="scan'208";a="267463512"
+Received: from slindbla-desk.ger.corp.intel.com (HELO [10.245.244.13]) ([10.245.244.13])
+  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 06:04:07 -0700
+Message-ID: <c3f69010-4263-4d71-bdfd-62f21989b639@linux.intel.com>
+Date: Mon, 31 Aug 2026 16:04:04 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 0/4] Add larger page size support for USB audio offload
+ path
+To: Wesley Cheng <wesley.cheng@oss.qualcomm.com>,
+ Mathias Nyman <mathias.nyman@intel.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Michal Pecio <michal.pecio@gmail.com>
+Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-sound@vger.kernel.org
+References: <20260828-16k_offload_v1_b4-v2-0-8a46369ebbb6@oss.qualcomm.com>
+Content-Language: en-US
+From: Mathias Nyman <mathias.nyman@linux.intel.com>
+In-Reply-To: <20260828-16k_offload_v1_b4-v2-0-8a46369ebbb6@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-On a Lenovo Yoga Pro 7 14IAH10 (Arrow Lake-H) with a discrete BE200
-(8086:272b), D3cold removes the module's power rail and the device does
-not restart when the rail and PERST# are restored. After _ON the
-power-enable and PERST# GPIO pad registers read correct and the link
-still never trains; config space reads all ones until reboot.
+On 8/29/26 00:37, Wesley Cheng wrote:
+> On some environments, 16kB pages can be enabled from the Linux subsystem,
+> which manages the IOMMU mappings for the audio DSP within the system.  In
+> the current design, the following assumptions break when 16k pages are
+> utilized:
+>    1. xHCI ring size is equal to PAGE_SIZE
+>    2. Ring addresses start at the beginning of a page
+> 
+> When the USB offload driver maps the rings (w/ the audio DSP SID), it is
+> set with a 16k granular, which is a problem, as several xHCI rings could
+> exist on the same page.  This is because the rings are currently allocated
+> from the segment_pool.  Hence, potentially mapping non USB audio related
+> rings into the region accessible by the audio DSP.
+> 
+> To mitigate this, this series introduces a separate segment_pool
+> associated to each sideband instance.  Before the USB audio offload path
+> is enabled, the USB audio data streams/endpoint are not active.  Only when
+> the class driver issues a usb_set_interface() call (done from
+> snd_usb_endpoint_prepare()), will the xHCI allocate the transfer ring
+> resources.  Which pool is selected is all based on if the sideband path
+> is being enabled, and if so, memory can be allocated from that pool,
+> which expects to be owned in conjunction with the audio DSP.  This
+> concept allows to keep the same model existing in xHCI, where multiple
+> 4k segments can reside on the same page, which reduces potentially over
+> allocating based on the page size.
+> 
+> Likewise this mechanism also allows for the offload client driver to
+> determine which SID is associated to the segment_pool if it decides to
+> map outside of the Linux subsystem.  The new ring allocation flow for
+> sideband/offload clients will be as follows:
+> 
+> qc_usb_audio_offload_probe()
+>    ├─ segment_pool = dma_pool_create(...)
+>    ▼
+> xhci_sideband_register(intf, XHCI_SIDEBAND_VENDOR, segment_pool, notify_client)
+>    │  sb->segment_pool = segment_pool
+>    ▼
+> uadev[card_num].sb = sb
+> 
+> handle_uaudio_stream_req()
+>    ▼
+> enable_audio_stream(subs, ..., pcm_card_num)
+>    ├─ data_ep = uaudio_find_host_endpoint(subs, subs->data_endpoint)
+>    ├─ xhci_sideband_add_endpoint(sb, data_ep) ← ep->sideband = sb; sb->eps[ep_index] = ep
+>    ├─ snd_usb_endpoint_prepare(chip, sync_endpoint) ─┐
+>    ├─ snd_usb_endpoint_prepare(chip, data_endpoint)  ├─→ xhci_check_bandwidth()
+>    │                                                 ▼
+>    │            xhci_endpoint_init(xhci, virt_dev, ep, ...)
+>    │            pool = sideband ? sideband->segment_pool : xhci->segment_pool
+>    │            new_ring = xhci_ring_alloc_from_pool(..., pool, ...)
+>    │            ▼
+>    │            xhci_ring_alloc_from_pool(..., pool, flags)
+>    │            ring->segment_pool = pool
+>    │            ▼
+>    │            xhci_alloc_segments_for_ring(xhci, ring, flags)
+>    │            xhci_segment_alloc(xhci, ring->segment_pool, max_packet, num, flags)
+>    │            ▼
+>    │            xhci_segment_alloc(xhci, pool, max_packet, num, flags)
+>    │            seg->trbs = dma_pool_zalloc(pool, flags, &dma)
+>    ▼
+> xhci_sideband_get_endpoint_buffer(sb, data_ep) → xhci_ring_to_sgtable()
+> 
+> qc_usb_audio_offload_disconnect() / unreg_xhci:
+>    ├─ segment_pool = sb->segment_pool
+>    ├─ xhci_sideband_unregister(sb)
+>    ▼
+>    dma_pool_destroy(segment_pool)
+> 
+> Similar logic is added for the secondary interrupter path as well.  The USB
+> offload class driver calls xhci_sideband_create_interrupter(), which will
+> be responsible for allocating the secondary event ring.
 
-The platform can recover it, with a WLAN-specific reset line driven by
-the object _PRR returns - which is exactly the product reset the driver
-already implements. The problem is ordering: AML only dispatches the
-vendor DSM that selects that mode after reading the device's PCI ID back
-out of config space,
+The custom dma pool looks like a good solution.
 
-    Method (WIST) { Switch (ToInteger (VDID)) { Case (0x272B8086) {...} } }
-    Method (_DSM) { ... If (WIST ()) { ... Return (IFUN (...)) } ... }
+I think we should tune this a bit and pass the custom pool pointer to
+xhci_sideband_add_endpoint() and xhci_sideband_create_interrupter() instead
+of xhci_sideband_register()
 
-so once the device is off the bus acpi_check_dsm() fails and the mode
-stays deselected. iwl_trans_pcie_removal_wk() is the only place that
-selects it today, and by then it is too late: _RST takes its other
-branch and issues a function level reset to a device that is not there.
+xhci.h:
+struct xhci_virt_ep {
+	...
+	struct dma_pool	*priv_seg_pool;
+}
 
-So arm the mode in .suspend, while the device still answers, and disarm
-it again in .resume. Treat the device as gone only when two independent
-signals agree: the mode we armed can no longer be disarmed (so the
-platform cannot see the device either) and CSR_HW_REV reads all ones (so
-neither can we). Either alone is not enough - a DSM can fail for
-transient ACPI reasons on a healthy adapter, and a false positive costs a
-remove, a platform reset and a rescan on every resume. The order of the
-terms is load bearing: a device in D3hot answers config cycles but does
-not decode its BARs, so the DSM would still work while CSR_HW_REV read
-all ones. The disarm has to short-circuit.
+xhci-mem.c:
+xhci_endpoint_init()
+{
+	struct dma_pool *pool;
+	struct xhci_virt_ep *ep;
+	...
+	
+	ep = &virt_dev->eps[ep_index]
 
-Recovery goes through the existing iwl_trans_pcie_reset() path, which
-only queues a work item, so the remove, the _RST and the rescan happen
-after .resume has returned and the PM core has dropped the device lock.
-The op_mode is not notified beyond the STATUS_TRANS_DEAD that
-iwl_trans_pcie_reset() sets; as today, it finds out by having its own
-resume fail against the dead device. Taking this path also skips the
-handshake timeouts and the bogus ADVANCED_SYSASSERT dump the driver
-otherwise produces against absent hardware, which on this machine cost
-about two seconds on every failed resume.
+	/* use ep->priv_seg_pool if set by sideband or .add_endpoint wrapper */
+	if (ep->priv_seg_pool)
+		pool = ep->priv_seg_pool;
+	else
+		pool = xhci->segment_pool;
 
-Arming is confined to discrete modules: on integrated CNVi parts
-iwl_trans_pcie_set_product_reset() sends EN_PROD_RESET on its own, which
-lands in \_SB.PC00.CNVW.RSTT and is what the CNVi _RST branches on before
-killing Bluetooth and issuing the PLDR. Arming that from .suspend on
-hardware I cannot test is not worth it, so the integrated mask stays as
-unexercised as it is today.
+	xhci_ring_alloc_from_pool(..., pool);}
 
-iwl_trans_pcie_set_product_reset() now reports whether the DSM took, and
-its error on failure becomes a debug message: .suspend would otherwise log
-an error on every suspend on every discrete machine without this DSM. So
-iwl_trans_pcie_removal_wk() no longer logs at error level when it cannot
-arm, which on the recovery path is every time, since the device is off the
-bus by then. The cost is that a genuine product reset on a live device
-with no DSM support is now silent at error level too.
+xhci-sideband.c:
 
-One known limitation: where me_present is not 0, iwl_trans_pcie_reset()
-downgrades the request to IWL_RESET_MODE_FUNC_RESET. The device still
-comes back, because the mode is already armed and _RST does the product
-reset regardless, but the Bluetooth function is not torn down first.
+xhci_sideband_add_endpoint(..., struct dma_pool *pool)
+{
+	...
+	if (pool)
+		ep->priv_seg_pool = pool;
+}
 
-Cc: stable+noautosel@kernel.org # new suspend/resume behaviour, one machine
-Link: https://bugzilla.kernel.org/show_bug.cgi?id=221695
-Link: https://lore.kernel.org/all/20260722021321.68902-1-nika@nikableh.moe/
-Link: https://lore.kernel.org/all/20260829093922.37103-1-navonjohnlukose@gmail.com/
-Signed-off-by: Navon John Lukose <navonjohnlukose@gmail.com>
----
-The bugzilla and the first lore Link: are other BE200/GL reports of the
-same 0xffffffff-until-reboot, on machines I do not have; neither is
-claimed as fixed, hence Link: and not Closes:. The assert in the bugzilla
-report is the dump against absent hardware this patch skips, not a
-firmware bug it fixes. The second lore Link: is my own analysis of this
-machine's AML.
+This allows finer granularity in selecting dma pools for endpoints.
 
-Lenovo Yoga Pro 7 14IAH10 (Arrow Lake-H, Core Ultra 9 285H), BIOS
-QGCN35WW, discrete BE200 SUBSYS_00F48086, Bluetooth on USB, no CSME,
-stock ACPI tables.
+It also keeps the xhci "core" sideband agnostic, avoids including xhci-sideband.h
+in xhci-mem.c
 
-This machine ships a udev rule forcing d3cold_allowed to 0, which would
-have made the test vacuous. It was moved aside for the whole run and
-d3cold_allowed written back to 1 before every cycle, so the device really
-did reach D3cold: detection fired on all five cycles, which cannot happen
-otherwise. Before the patch every cycle left the device dead until reboot;
-with it the device recovered on all five, four with wifi connected at
-suspend and one with the radio down, the case where .suspend runs with no
-op_mode. With the reset skipped and nothing else changed it stayed absent,
-so it is the reset that recovers it and not the remove/rescan.
+It also helps possible vtio support so it can set its own ep->priv_seg_pool in a
+possible .add_endpint wrapper.
 
-With debug=0x100 one cycle logs the intended path end to end:
-
-    iwl_trans_pcie_set_product_reset Enabled product reset via DSM
-    iwl_trans_pcie_check_product_reset_mode product reset mode is 0x1
-    iwl_trans_pcie_set_product_reset can't disable product reset via DSM (-19)
-    device not responding after resume
-    scheduling reset (mode=6)
-    iwl_trans_pcie_set_product_reset can't enable product reset via DSM (-19)
-    iwl_trans_pcie_call_reset called _RST on _PRR object
-
-mode=6 is IWL_RESET_MODE_PROD_RESET, so the request was not downgraded.
-The link trained in 64-76 ms and the interface was usable 5.00-5.05 s after
-.resume returned; end to end it is closer to 7 s, because the PCI core
-spends ~2 s retraining a link that cannot train before .resume is called.
-4.365 s of the rest is one _RST evaluation against a 4.320 s floor computed
-from the Sleep() operators in the AML, so essentially all of it is platform
-AML, and asking for a product reset is not what costs it: both arms of _RST
-fall through to the same two 2000 ms sleeps and the product arm adds only
-2 x RDLY (160 ms each here).
-
-What is untested or untestable with one machine:
-
-- .suspend and .resume are untouched on integrated/CNVi: the arming helper
-  returns early there, so prod_reset_set is never set. (The error-level
-  demotion does apply to integrated parts on the removal_wk() path.)
-  Getting the CNVi case working needs someone with the hardware.
-- Where me_present is non-zero - including the permanent -1 that
-  iwl_pcie_check_me_status() leaves on everything below
-  IWL_DEVICE_FAMILY_BZ, which is four of the five Intel IDs this AML
-  accepts - the request is downgraded to IWL_RESET_MODE_FUNC_RESET. The
-  device still comes back, because the mode is armed and _RST does the
-  product reset anyway, but Bluetooth is not torn down first. That is the
-  pre-existing hazard the previous patch describes, now reachable from
-  resume. me_present is a real 0 here, so this is reasoned, not observed.
-- If the disarm fails transiently on a live device, the code clears
-  prod_reset_set and carries on while the platform's mode stays selected
-  until the next probe, which re-opens that same hazard. Retrying the
-  disarm would narrow it; I did not, because a retry loop around an AML
-  method on the resume path needs a bound I cannot justify from one
-  machine.
-- Only s2idle was tested. The same callback is .freeze and .poweroff, so
-  hibernate arms too and the image is snapshotted while armed, meaning a
-  restore kernel disarms a mode a previous boot selected. Harmless as far
-  as I can reason it, but unexercised. A device that dies at runtime is
-  still unrecoverable; that needs the same thing on runtime PM, which
-  iwlwifi does not implement.
-- Only one BIOS. On mine the reset method branches solely on the mode
-  variable, never on WIST()/VDID, which is what makes the downgrade above
-  survivable. I cannot claim that for every implementation.
-- On a platform with the arming DSM but no usable _PRR,
-  iwl_trans_pcie_call_reset() falls back to pci_reset_function() against a
-  device that is gone, and pci_dev_wait() polls config space for up to
-  ~65 s per reset method with pci_lock_rescan_remove() held. That is the
-  cost of a true positive, not a false one: a false positive still answers
-  config cycles, so pci_dev_wait() returns on its first read.
-- iwl_trans_pcie_removal_wk() holds pci_lock_rescan_remove() across the
-  whole reset, so it is now held for ~4.3 s during system resume on a
-  machine that also has Thunderbolt wanting it. Pre-existing, but this
-  patch is what puts it on the resume path.
-
-The arming mask is heavier than the recovery needs - only EN_PROD_RESET
-drives the GPIO - but I kept it so the reset armed from .suspend is bit for
-bit the one iwl_trans_pcie_removal_wk() already arms. Narrowing it is an
-easy follow-up.
-
- drivers/net/wireless/intel/iwlwifi/pcie/drv.c | 24 +++++++++++++++++++
- .../intel/iwlwifi/pcie/gen1_2/internal.h      |  4 ++++
- .../intel/iwlwifi/pcie/gen1_2/trans.c         | 24 ++++++++++++++-----
- 3 files changed, 46 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/net/wireless/intel/iwlwifi/pcie/drv.c b/drivers/net/wireless/intel/iwlwifi/pcie/drv.c
-index 7a7b101..5d01a4d 100644
---- a/drivers/net/wireless/intel/iwlwifi/pcie/drv.c
-+++ b/drivers/net/wireless/intel/iwlwifi/pcie/drv.c
-@@ -1203,11 +1203,19 @@ static void iwl_pci_remove(struct pci_dev *pdev)
- 
- static int iwl_pci_suspend(struct device *device)
- {
-+	struct iwl_trans *trans = pci_get_drvdata(to_pci_dev(device));
-+
- 	/* Before you put code here, think about WoWLAN. You cannot check here
- 	 * whether WoWLAN is enabled or not, and your code will run even if
- 	 * WoWLAN is enabled - don't kill the NIC, someone may need it in Sx.
- 	 */
- 
-+	/* Has to be here, while the device still answers: AML gates this DSM
-+	 * on reading the device's PCI ID out of config space. It doesn't touch
-+	 * the NIC.
-+	 */
-+	iwl_trans_pcie_arm_product_reset(trans, true);
-+
- 	return 0;
- }
- 
-@@ -1229,6 +1237,22 @@ static int _iwl_pci_resume(struct device *device, bool restore)
- 	 */
- 	pci_write_config_byte(pdev, PCI_CFG_RETRY_TIMEOUT, 0x00);
- 
-+	/* Two signals that it didn't come back from D3cold: the platform can't
-+	 * deselect the mode armed in .suspend (so it can't see the device
-+	 * either), and the device doesn't answer. Before the op_mode test: the
-+	 * firmware may never have been loaded.
-+	 */
-+	if (trans_pcie->prod_reset_set) {
-+		iwl_trans_pcie_arm_product_reset(trans, false);
-+		if (trans_pcie->prod_reset_set &&
-+		    iwl_read32(trans, CSR_HW_REV) == ~0U) {
-+			IWL_ERR(trans, "device not responding after resume\n");
-+			iwl_trans_pcie_reset(trans, IWL_RESET_MODE_PROD_RESET);
-+			return 0;
-+		}
-+		trans_pcie->prod_reset_set = false;
-+	}
-+
- 	if (!trans->op_mode)
- 		return 0;
- 
-diff --git a/drivers/net/wireless/intel/iwlwifi/pcie/gen1_2/internal.h b/drivers/net/wireless/intel/iwlwifi/pcie/gen1_2/internal.h
-index d84c7c1..1caaff9 100644
---- a/drivers/net/wireless/intel/iwlwifi/pcie/gen1_2/internal.h
-+++ b/drivers/net/wireless/intel/iwlwifi/pcie/gen1_2/internal.h
-@@ -495,6 +495,8 @@ struct iwl_pcie_txqs {
-  * @isr_stats: interrupt statistics
-  * @napi_dev: (fake) netdev for NAPI registration
-  * @txqs: transport tx queues data.
-+ * @prod_reset_set: the product reset mode is selected in the platform;
-+ *	system suspend/resume only, so process context only
-  * @me_present: WiAMT/CSME is detected as present (1), not present (0)
-  *	or unknown (-1, so can still use it as a boolean safely)
-  * @me_recheck_wk: worker to recheck WiAMT/CSME presence
-@@ -605,6 +607,7 @@ struct iwl_trans_pcie {
- 
- 	struct iwl_pcie_txqs txqs;
- 
-+	bool prod_reset_set;
- 	s8 me_present;
- 	struct delayed_work me_recheck_wk;
- 
-@@ -657,6 +660,7 @@ bool _iwl_trans_pcie_grab_nic_access(struct iwl_trans *trans, bool silent);
- 
- void iwl_trans_pcie_check_product_reset_status(struct pci_dev *pdev);
- void iwl_trans_pcie_check_product_reset_mode(struct pci_dev *pdev);
-+void iwl_trans_pcie_arm_product_reset(struct iwl_trans *trans, bool arm);
- 
- /*****************************************************
- * RX
-diff --git a/drivers/net/wireless/intel/iwlwifi/pcie/gen1_2/trans.c b/drivers/net/wireless/intel/iwlwifi/pcie/gen1_2/trans.c
-index df89fb3..56eb35d 100644
---- a/drivers/net/wireless/intel/iwlwifi/pcie/gen1_2/trans.c
-+++ b/drivers/net/wireless/intel/iwlwifi/pcie/gen1_2/trans.c
-@@ -2075,7 +2075,7 @@ void iwl_trans_pcie_check_product_reset_mode(struct pci_dev *pdev)
- 	ACPI_FREE(res);
- }
- 
--static void iwl_trans_pcie_set_product_reset(struct pci_dev *pdev, bool enable,
-+static bool iwl_trans_pcie_set_product_reset(struct pci_dev *pdev, bool enable,
- 					     bool integrated)
- {
- 	union acpi_object *res;
-@@ -2089,17 +2089,29 @@ static void iwl_trans_pcie_set_product_reset(struct pci_dev *pdev, bool enable,
- 						 DSM_INTERNAL_PLDR_CMD_SET_MODE,
- 						 mode);
- 	if (IS_ERR(res)) {
--		if (enable)
--			IWL_ERR_DEV(&pdev->dev,
--				    "ACPI _DSM not available (%d), cannot do product reset\n",
--				    (int)PTR_ERR(res));
--		return;
-+		IWL_DEBUG_DEV_POWER(&pdev->dev,
-+				    "can't %sable product reset via DSM (%d)\n",
-+				    enable ? "en" : "dis", (int)PTR_ERR(res));
-+		return false;
- 	}
- 
- 	ACPI_FREE(res);
- 	IWL_DEBUG_DEV_POWER(&pdev->dev, "%sabled product reset via DSM\n",
- 			    enable ? "En" : "Dis");
- 	iwl_trans_pcie_check_product_reset_mode(pdev);
-+	return true;
-+}
-+
-+void iwl_trans_pcie_arm_product_reset(struct iwl_trans *trans, bool arm)
-+{
-+	struct iwl_trans_pcie *trans_pcie = IWL_TRANS_GET_PCIE_TRANS(trans);
-+
-+	/* discrete only: the integrated arming mask is untested */
-+	if (trans->mac_cfg->integrated)
-+		return;
-+
-+	if (iwl_trans_pcie_set_product_reset(trans_pcie->pci_dev, arm, false))
-+		trans_pcie->prod_reset_set = arm;
- }
- 
- void iwl_trans_pcie_check_product_reset_status(struct pci_dev *pdev)
--- 
-2.55.0
+Thanks
+Mathias
 
