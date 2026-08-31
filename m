@@ -1,41 +1,50 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EE6E433042;
-	Mon, 31 Aug 2026 13:25:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20214432BC2
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 13:25:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788182743; cv=none; b=nKGrVHITVAKJdtgbwsulF/xRAcL/3bjhQY+DlPabq01yhRJ57QwdL0cAsmp7u/FkbjoNpmd5yuTxvTOmCcTfaE/5Bjgmg+41Cs/YlaaV16iD5IdB5qvlLq86o10w8UZ4ci0BzXB8RsoiID5IygE0PRvSJUW2IHPEn1tska0xjZs=
+	t=1788182743; cv=none; b=AoNKf0SLTHO+oWf+tLNMRgbc1KuAbKSQtAZ1QqQYUKTWUoooBQ7/8hh6XbPIasNJGxn9VYG6mQUZFO9h3zd51NtiL4BpFhf1EPpBQPrYMDOJ3gchgAVU0Z5YyfK04+Kr25LmVDD3rjUa2yZqTKuRGbtXFbOEuLQ3EgeKQFtBGj8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788182743; c=relaxed/simple;
-	bh=vXKUgJKXsx7Kv49NZnrrFQ+yzUjOQ+zLrt/7kLCcoPE=;
+	bh=3+VoVKeZv3gsnQJua4pDGn0oOb/kZqlkTYmTWEKGOg4=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=TPU9sSrfpgBWipdSC6wZMuzd6dsjIosi7TzbTe3AZ5zYYeVK//SGjm18bQ79HpVSIYtADplUAYHyRluhm3ZRawMtooPH0loTKRjdmXd39+cc1UK+3Krh/6i7kZEkSK53msSlmSfFxCK9H2hE37Orhol9FlhEQEMBtYRDrLRDBhw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=R2ZzFZkO; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	 In-Reply-To:To:Cc; b=Ik0rdW++KqvpGirujBI2P9clfN1aOhO0lesrKnH4oSqo84huBXzY0UE9gFOhRYmJB49QCCpJAK27gWl1As0MTKpcN8J0jlbuCl98KvaLNngW/rFW/iTBMgvdQRff4QH3grRep15px9I14uayvJcOfL9ehFhxQk8zcoH8A9KmvFs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=A9ILomLB; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="R2ZzFZkO"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id F2C491A191E;
-	Mon, 31 Aug 2026 13:25:39 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id C6A1060231;
-	Mon, 31 Aug 2026 13:25:39 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 61F7111C78B96;
-	Mon, 31 Aug 2026 15:25:37 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788182738; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=mpkRRBCGYrpAM2XmasON5pHjjfU5MVVzSv16ATHoLl8=;
-	b=R2ZzFZkO/VXHIGSYC2f9pMrBVww1GNqjp8UzFn7/rDmv+0XjRKdmUG4QS0vA+c9ejS82kH
-	plxgxHpKea4lA/YB4hcIgwrrgsfcQettW9XH29E1fdGugoKEL9+KVgsk3szv4eY1YqO6pE
-	T+jYUDhKYs95ZkXwQp3t6nZXqCBNs0Z03iPdtTsBxv+/AYSaq8osT6MW0+0nRpPbO2KMaO
-	mdC6On5qe6My9VD/QjQKyVZvoPkmzO/JeE2uwMiB0NbJ/bA1EMG5SsrkEPd6UyedCw8mZe
-	bFD27s0nyQGWkotIvdK7R6fU4SeNURLGJ7TVxHay1XQrVXV56DSwfHDbUbcZNA==
-From: "Bastien Curutchet (Schneider Electric)" <bastien.curutchet@bootlin.com>
-Date: Mon, 31 Aug 2026 15:25:28 +0200
-Subject: [PATCH net-next 06/10] net: dsa: microchip: extract compute_width
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="A9ILomLB"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788182739;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=obgsA+wmkoM83ZDQQaFWaWOWiW1c97++AGpx79Oxzms=;
+	b=A9ILomLBmtO8DToLEbBnelvcnwlUSSa3i87w0NvWHLFsKyqEg2AgJbNW0Y63QWvRtm1NSO
+	CjD7WM0qhoLqF46Qfq00Uz8rpl7KDfDkJ88NsE317IeDQHAvn1zb3xDrSo0ej3mJhTHwzT
+	Uqek2mWWyMGkmcwoRZoEq2gMAO4ZADQ=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-97-bT7zN3AnMdqPTgtdrhG5Bw-1; Mon,
+ 31 Aug 2026 09:25:35 -0400
+X-MC-Unique: bT7zN3AnMdqPTgtdrhG5Bw-1
+X-Mimecast-MFC-AGG-ID: bT7zN3AnMdqPTgtdrhG5Bw_1788182734
+Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id E093D190B693;
+	Mon, 31 Aug 2026 13:25:19 +0000 (UTC)
+Received: from aesteve-thinkpadp1gen8.rmtes.csb (headnet03.pony-001.prod.iad2.dc.redhat.com [10.2.32.114])
+	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 3DFA440E;
+	Mon, 31 Aug 2026 13:25:18 +0000 (UTC)
+From: Albert Esteve <aesteve@redhat.com>
+Date: Mon, 31 Aug 2026 15:25:11 +0200
+Subject: [PATCH v6 1/3] selftests: cgroup: Add dmem_selftest helper module
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -44,126 +53,255 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260831-ksz-perout-v1-6-14202db763b3@bootlin.com>
-References: <20260831-ksz-perout-v1-0-14202db763b3@bootlin.com>
-In-Reply-To: <20260831-ksz-perout-v1-0-14202db763b3@bootlin.com>
-To: Woojung Huh <woojung.huh@microchip.com>, UNGLinuxDriver@microchip.com, 
- Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Richard Cochran <richardcochran@gmail.com>
-Cc: Pascal Eberhard <pascal.eberhard@se.com>, 
- =?utf-8?q?Miqu=C3=A8l_Raynal?= <miquel.raynal@bootlin.com>, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, netdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- "Bastien Curutchet (Schneider Electric)" <bastien.curutchet@bootlin.com>
-X-Mailer: b4 0.14.3
-X-Last-TLS-Session-Version: TLSv1.3
+Message-Id: <20260831-kunit_cgroups-v6-1-63b6c7695287@redhat.com>
+References: <20260831-kunit_cgroups-v6-0-63b6c7695287@redhat.com>
+In-Reply-To: <20260831-kunit_cgroups-v6-0-63b6c7695287@redhat.com>
+To: Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, 
+ =?utf-8?q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
+ Shuah Khan <shuah@kernel.org>
+Cc: linux-kernel@vger.kernel.org, cgroups@vger.kernel.org, 
+ linux-kselftest@vger.kernel.org, Albert Esteve <aesteve@redhat.com>
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788182715; l=7299;
+ i=aesteve@redhat.com; s=20260827; h=from:subject:message-id;
+ bh=3+VoVKeZv3gsnQJua4pDGn0oOb/kZqlkTYmTWEKGOg4=;
+ b=vzcM11inmXYQJkP5+sVqbEHqX+yOkuj7JFbrCgN1VQ40GNiWP1dcwgS+MsRWbvpQhk6yEeQP0
+ VUvNrwb8SYICR+1Zf98G68PvpIDkyeOQs/ssTUa7l9E33T/oGqjJM04
+X-Developer-Key: i=aesteve@redhat.com; a=ed25519;
+ pk=zI2RBeZgocwYm3AkJW4CtjoJnKoDZrfBl1xe5Ed6h+U=
+X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
 
-The KSZ8463 supports periodic outputs but doesn't handle them in the same
-way as the other KSZ switches. To add proper support for the KSZ8463, a
-dedicated ksz8463_ptp_enable_perout() function needs to be created. This
-function will use the same algorithm to compute the periodic cycles as
-the common ksz_ptp_enable_perout() function.
+Currently, dmem charging is driver-driven through direct
+calls to dmem_cgroup_try_charge() (for example TTM).
+That does not give cgroup selftests a generic way to
+trigger alloc/free paths from userspace in a chosen
+cgroup, so coverage of nested dmem.max still
+needs a synthetic region.
 
-Extract these algorithms into dedicated functions so they can be used
-later by the KSZ8463 support.
+Add tools/testing/selftests/cgroup/test_modules/dmem_selftest.c
+as an OOT helper, built like other test_modules (no extra
+Kconfig needed). Tests can insmod the .ko module to register a
+"dmem_selftest" region.
 
-Signed-off-by: Bastien Curutchet (Schneider Electric) <bastien.curutchet@bootlin.com>
+Module parameters drive a single outstanding allocation against
+the calling task's cgroup:
+
+  /sys/module/dmem_selftest/parameters/alloc
+  /sys/module/dmem_selftest/parameters/free
+
+Writing a size to alloc triggers dmem_cgroup_try_charge() for
+the calling task's cgroup. Writing to free with no argument
+releases the outstanding charge via dmem_cgroup_uncharge().
+Only a single outstanding charge is supported.
+
+This provides a deterministic, driver-independent mechanism
+for exercising dmem accounting paths in selftests.
+
+Signed-off-by: Albert Esteve <aesteve@redhat.com>
 ---
- drivers/net/dsa/microchip/ksz_ptp.c | 67 ++++++++++++++++++++++++-------------
- 1 file changed, 43 insertions(+), 24 deletions(-)
+ tools/testing/selftests/cgroup/Makefile            |   1 +
+ tools/testing/selftests/cgroup/config              |   1 +
+ .../testing/selftests/cgroup/test_modules/Makefile |  17 +++
+ .../selftests/cgroup/test_modules/dmem_selftest.c  | 146 +++++++++++++++++++++
+ 4 files changed, 165 insertions(+)
 
-diff --git a/drivers/net/dsa/microchip/ksz_ptp.c b/drivers/net/dsa/microchip/ksz_ptp.c
-index f97ea9d69ebc..2f141df65eb0 100644
---- a/drivers/net/dsa/microchip/ksz_ptp.c
-+++ b/drivers/net/dsa/microchip/ksz_ptp.c
-@@ -203,12 +203,49 @@ static int ksz_ptp_get_pin(struct ksz_device *dev,
- 	return pin;
- }
- 
-+static int ksz_ptp_compute_perout_cycle(struct ksz_device *dev,
-+					struct ptp_perout_request const *request,
-+					u64 *cycle_width_ns)
+diff --git a/tools/testing/selftests/cgroup/Makefile b/tools/testing/selftests/cgroup/Makefile
+index e01584c2189a..a08661320a07 100644
+--- a/tools/testing/selftests/cgroup/Makefile
++++ b/tools/testing/selftests/cgroup/Makefile
+@@ -6,6 +6,7 @@ all: ${HELPER_PROGS}
+ TEST_FILES     := with_stress.sh
+ TEST_PROGS     := test_stress.sh test_cpuset_prs.sh test_cpuset_v1_hp.sh
+ TEST_GEN_FILES := wait_inotify
++TEST_GEN_MODS_DIR := test_modules
+ # Keep the lists lexicographically sorted
+ TEST_GEN_PROGS  = test_core
+ TEST_GEN_PROGS += test_cpu
+diff --git a/tools/testing/selftests/cgroup/config b/tools/testing/selftests/cgroup/config
+index 39f979690dd3..2ee0488c3d65 100644
+--- a/tools/testing/selftests/cgroup/config
++++ b/tools/testing/selftests/cgroup/config
+@@ -1,5 +1,6 @@
+ CONFIG_CGROUPS=y
+ CONFIG_CGROUP_CPUACCT=y
++CONFIG_CGROUP_DMEM=y
+ CONFIG_CGROUP_FREEZER=y
+ CONFIG_CGROUP_SCHED=y
+ CONFIG_MEMCG=y
+diff --git a/tools/testing/selftests/cgroup/test_modules/Makefile b/tools/testing/selftests/cgroup/test_modules/Makefile
+new file mode 100644
+index 000000000000..dd8a17313cec
+--- /dev/null
++++ b/tools/testing/selftests/cgroup/test_modules/Makefile
+@@ -0,0 +1,17 @@
++# SPDX-License-Identifier: GPL-2.0
++TESTMODS_DIR := $(realpath $(dir $(abspath $(lastword $(MAKEFILE_LIST)))))
++KDIR ?= /lib/modules/$(shell uname -r)/build
++
++obj-m += dmem_selftest.o
++
++# Ensure that KDIR exists, otherwise skip the compilation
++modules:
++ifneq ("$(wildcard $(KDIR))", "")
++	$(Q)$(MAKE) -C $(KDIR) modules KBUILD_EXTMOD=$(TESTMODS_DIR)
++endif
++
++# Ensure that KDIR exists, otherwise skip the clean target
++clean:
++ifneq ("$(wildcard $(KDIR))", "")
++	$(Q)$(MAKE) -C $(KDIR) clean KBUILD_EXTMOD=$(TESTMODS_DIR)
++endif
+diff --git a/tools/testing/selftests/cgroup/test_modules/dmem_selftest.c b/tools/testing/selftests/cgroup/test_modules/dmem_selftest.c
+new file mode 100644
+index 000000000000..a763a156f13f
+--- /dev/null
++++ b/tools/testing/selftests/cgroup/test_modules/dmem_selftest.c
+@@ -0,0 +1,146 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Kselftest helper for the dmem cgroup controller.
++ *
++ * Registers a synthetic dmem region so tests can trigger allocations
++ * from the calling task's cgroup via module parameters:
++ *   /sys/module/dmem_selftest/parameters/alloc
++ *   /sys/module/dmem_selftest/parameters/free
++ */
++
++#define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
++
++#include <linux/cgroup_dmem.h>
++#include <linux/kernel.h>
++#include <linux/module.h>
++#include <linux/moduleparam.h>
++#include <linux/mutex.h>
++#include <linux/panic.h>
++#include <linux/sysfs.h>
++
++#define DM_SELFTEST_REGION_NAME	"dmem_selftest"
++#define DM_SELFTEST_REGION_SIZE	(256ULL * 1024 * 1024)
++
++static struct dmem_cgroup_region *selftest_region;
++static struct dmem_cgroup_pool_state *alloc_pool;
++static u64 alloc_size;
++static DEFINE_MUTEX(alloc_lock);
++
++static int param_set_alloc(const char *val, const struct kernel_param *kp)
 +{
-+	struct ksz_ptp_data *ptp_data = &dev->ptp_data;
++	struct dmem_cgroup_pool_state *pool = NULL, *limit = NULL;
++	u64 size;
++	int ret;
 +
-+	ptp_data->perout_target_time_first.tv_sec  = request->start.sec;
-+	ptp_data->perout_target_time_first.tv_nsec = request->start.nsec;
++	if (!selftest_region)
++		return -ENODEV;
 +
-+	ptp_data->perout_period.tv_sec = request->period.sec;
-+	ptp_data->perout_period.tv_nsec = request->period.nsec;
-+
-+	*cycle_width_ns = timespec64_to_ns(&ptp_data->perout_period);
-+	if ((*cycle_width_ns & TRIG_CYCLE_WIDTH_M) != *cycle_width_ns) {
-+		*cycle_width_ns = 0;
++	ret = kstrtou64(val, 0, &size);
++	if (ret)
++		return ret;
++	if (!size || size > DM_SELFTEST_REGION_SIZE)
 +		return -EINVAL;
++
++	mutex_lock(&alloc_lock);
++	if (alloc_pool) {
++		mutex_unlock(&alloc_lock);
++		return -EBUSY;
 +	}
 +
++	ret = dmem_cgroup_try_charge(selftest_region, size, &pool, &limit);
++	if (ret == -EAGAIN && limit)
++		dmem_cgroup_pool_state_put(limit);
++	if (ret) {
++		mutex_unlock(&alloc_lock);
++		return ret;
++	}
++
++	alloc_pool = pool;
++	alloc_size = size;
++	mutex_unlock(&alloc_lock);
 +	return 0;
 +}
 +
-+static u64 ksz_ptp_compute_perout_pulse(struct ksz_device *dev,
-+					struct ptp_perout_request const *request,
-+					u64 max_pulse_width)
++static int param_get_alloc(char *buffer, const struct kernel_param *kp)
 +{
-+	u64 req_pulse_width_ns;
++	u64 size;
 +
-+	if (request->flags & PTP_PEROUT_DUTY_CYCLE)
-+		return request->on.sec * NSEC_PER_SEC +	request->on.nsec;
-+
-+	/* Use a duty cycle of 50%. Maximum pulse width supported by the
-+	 * hardware is a little bit more than 125 ms.
-+	 */
-+	req_pulse_width_ns = (request->period.sec * NSEC_PER_SEC +
-+			      request->period.nsec) / 2;
-+	return min_t(u64, req_pulse_width_ns, max_pulse_width);
++	mutex_lock(&alloc_lock);
++	size = alloc_size;
++	mutex_unlock(&alloc_lock);
++	return sysfs_emit(buffer, "%llu\n", size);
 +}
 +
- static int ksz_ptp_enable_perout(struct ksz_device *dev,
- 				 struct ptp_perout_request const *request,
- 				 int on)
- {
- 	struct ksz_ptp_data *ptp_data = &dev->ptp_data;
--	u64 req_pulse_width_ns;
- 	u64 cycle_width_ns;
- 	u64 pulse_width_ns;
- 	int pin = 0;
-@@ -234,29 +271,11 @@ static int ksz_ptp_enable_perout(struct ksz_device *dev,
- 		ptp_data->tou_mode = KSZ_PTP_TOU_IDLE;
- 		return 0;
- 	}
--
--	ptp_data->perout_target_time_first.tv_sec  = request->start.sec;
--	ptp_data->perout_target_time_first.tv_nsec = request->start.nsec;
--
--	ptp_data->perout_period.tv_sec = request->period.sec;
--	ptp_data->perout_period.tv_nsec = request->period.nsec;
--
--	cycle_width_ns = timespec64_to_ns(&ptp_data->perout_period);
--	if ((cycle_width_ns & TRIG_CYCLE_WIDTH_M) != cycle_width_ns)
--		return -EINVAL;
--
--	if (request->flags & PTP_PEROUT_DUTY_CYCLE) {
--		pulse_width_ns = request->on.sec * NSEC_PER_SEC +
--			request->on.nsec;
--	} else {
--		/* Use a duty cycle of 50%. Maximum pulse width supported by the
--		 * hardware is a little bit more than 125 ms.
--		 */
--		req_pulse_width_ns = (request->period.sec * NSEC_PER_SEC +
--				      request->period.nsec) / 2;
--		pulse_width_ns = min_t(u64, req_pulse_width_ns,
--				       KSZ_MAX_PULSE_WIDTH);
--	}
-+	ret = ksz_ptp_compute_perout_cycle(dev, request, &cycle_width_ns);
-+	if (ret)
-+		return ret;
-+	pulse_width_ns = ksz_ptp_compute_perout_pulse(dev, request,
-+						      KSZ_MAX_PULSE_WIDTH);
- 
- 	ret = ksz_ptp_tou_pulse_verify(pulse_width_ns, TRIG_PULSE_WIDTH_M);
- 	if (ret)
++static const struct kernel_param_ops alloc_ops = {
++	.set = param_set_alloc,
++	.get = param_get_alloc,
++};
++
++module_param_cb(alloc, &alloc_ops, NULL, 0644);
++MODULE_PARM_DESC(alloc, "Allocate (charge) SIZE bytes against the calling task's dmem cgroup");
++
++static int param_set_free(const char *val, const struct kernel_param *kp)
++{
++	mutex_lock(&alloc_lock);
++	if (!alloc_pool) {
++		mutex_unlock(&alloc_lock);
++		return -EINVAL;
++	}
++
++	dmem_cgroup_uncharge(alloc_pool, alloc_size);
++	alloc_pool = NULL;
++	alloc_size = 0;
++	mutex_unlock(&alloc_lock);
++	return 0;
++}
++
++static const struct kernel_param_ops free_ops = {
++	.flags = KERNEL_PARAM_OPS_FL_NOARG,
++	.set = param_set_free,
++};
++
++module_param_cb(free, &free_ops, NULL, 0200);
++MODULE_PARM_DESC(free, "Free the outstanding dmem selftest allocation");
++
++static int __init dmem_selftest_init(void)
++{
++	static const struct dmem_cgroup_init init = {
++		.size = DM_SELFTEST_REGION_SIZE,
++	};
++
++	selftest_region = dmem_cgroup_register_region(&init, DM_SELFTEST_REGION_NAME);
++	if (IS_ERR(selftest_region))
++		return PTR_ERR(selftest_region);
++	if (!selftest_region)
++		return -EINVAL;
++
++	add_taint(TAINT_TEST, LOCKDEP_STILL_OK);
++	pr_info("region '%s' registered; parameters alloc/free\n",
++		DM_SELFTEST_REGION_NAME);
++	return 0;
++}
++
++static void __exit dmem_selftest_exit(void)
++{
++	mutex_lock(&alloc_lock);
++	if (alloc_pool) {
++		dmem_cgroup_uncharge(alloc_pool, alloc_size);
++		alloc_pool = NULL;
++		alloc_size = 0;
++	}
++	mutex_unlock(&alloc_lock);
++
++	if (selftest_region) {
++		dmem_cgroup_unregister_region(selftest_region);
++		selftest_region = NULL;
++	}
++	pr_info("unloaded.\n");
++}
++
++module_init(dmem_selftest_init);
++module_exit(dmem_selftest_exit);
++
++MODULE_AUTHOR("Albert Esteve <aesteve@redhat.com>");
++MODULE_DESCRIPTION("Kselftest helper for cgroup dmem controller");
++MODULE_LICENSE("GPL");
++MODULE_INFO(test, "Y");
 
 -- 
 2.55.0
