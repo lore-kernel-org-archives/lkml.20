@@ -1,77 +1,81 @@
-Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com [209.85.210.174])
+Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FA9C405C29
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 18:11:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F26BD415B8A
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 18:11:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788199878; cv=none; b=g5AlzLZRZXsT23DXHUBX7PPOyCibrxoXQLD/bKh7yJrRJ+jrlhCqmrD6dVVaQexEDLy4ItkhaSkdWv6JggSdODkvVDD9ZUShogG9vUzfnwinT93VblxRc+7Yz2lEdiNgkFYzNfRwq1Z5fJAqO8sejxOVXqMMzOvRvuGQUwabozw=
+	t=1788199881; cv=none; b=NnR8+BAhxOSRTFhHVmmlqnkUjTHKcmOvEi+4jloReXcAHcdJAf240VLmDOHEkgrc6LNK+jTbmWJgq0VoD1sl1iaD/Lc2xlYF787xs/B6tpr3pXy13h1Ebt2bb3pDW0BWIBmpEV3cq3pxcojax+JwKMkTaPWaCB0biN89U/rbP9g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788199878; c=relaxed/simple;
-	bh=bFwA0sriWkTlKXRDjn9IKo6h/KLj+VklQAPyEN2y9fw=;
-	h=From:To:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=L+Ix6fvsKiDmCiRySw2gFXFlZkBWEtMxbHrJZdG6FYOdvOHyJlVTTbUYk8d0PQ50TXZZ3Hj8TrK+9I7yxGyzT04Q2gklAO0QYlFdCphmymPb8dQzOWuFAee9LUqgYfHSAGAmWrYe/CGPazz7ZsmUU5JLmATBYoyFlGBmnXRX/2Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=YXX+AqM1; arc=none smtp.client-ip=209.85.210.174
+	s=arc-20240116; t=1788199881; c=relaxed/simple;
+	bh=degjQC+zjZgSfRxP9sOwOQK5Cf9llwpDDwc6foUp9Rw=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=mHJSBuNBh04BAWWhJ7uxhGqbU3K8h28wH1+76JhwWXqfoRKbU9Ke8WKKgIsMfTmUW4DGR4TExDv/x+P2OSpDmUfyvff/f9uvDR5sEBoKQsGT4rTLQnfrmWBSWQO86FMhQ9EMkixXbHFsZ/FCq6TBrQJtb8BqueFi/1kDFeA1B/0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=LozW1NON; arc=none smtp.client-ip=209.85.214.179
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="YXX+AqM1"
-Received: by mail-pf1-f174.google.com with SMTP id d2e1a72fcca58-8534d507f59so4213273b3a.0
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 11:11:17 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="LozW1NON"
+Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2d71a50caa9so48362385ad.0
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 11:11:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1788199877; x=1788804677; darn=vger.kernel.org;
+        d=baylibre.com; s=google; t=1788199879; x=1788804679; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:to:from:from:to:cc:subject:date
+         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=qPRLJsmBIOe0A/ppcX8+UUJeiiOHfTZv4IvoKZ5g4Q8=;
-        b=YXX+AqM1DIvN/VJGXXE+xbzosC/g9aU1PuKZFMZcqT5veZpSLaZDLma2P4IjEXsM4s
-         aSeojHdFdc21MIGB795dL9VLuXYXjzrpqwGTivic4J1ufbeBjaXQfVfnC3iThmX4rJYK
-         Xk+96FTfYz3WjpJxEB99Q0GTCtAwC9LMKpusJNug8MDMu4+V3QhKoQ1m/fPy6eL4ZwR0
-         xXs2YriHfyl3JsJARWvfMQiG9WHVYLJrc6UWF2oubjQFR5nMdEXbOhmNBpcgprGXiqdk
-         Ek7qyAI16VS+YaCqu1NfovXxzSNPIDWNXFD8SvT+OhAntxYitvcGNmGe6xAuXj/imijI
-         LJcQ==
+        bh=auz+mSkwNmUJblKIK/SlZzO4mv+o8fMJykvfsBMXi1U=;
+        b=LozW1NONM4DwW+QwagEX73asol810NEGPGl9L7R53qvFyqRksJeEMlLjwJF9xstCry
+         b2VgKfqyo8UqsMfzLNM58HLFfRj5rnzZYxp9RQvBCAssXH40FeGr/KoZTxtCzAF7gwrD
+         gBRxgDYwEyMP7Wa9BTa66ciCwsV1fuEcXWVLZIGIlq6ifeE4hBc9aLrHrOJV9kJQHUQQ
+         5eGVtDmdQdxkDMhT4fuPWFGtcTHcOgCSM9HyGqWVw/QPb6M8snzfOECeBDj8qYsBROna
+         Lg6FU2CIeCslLnUCd3FoIFm8+d+UTZOOlo+ys/RzKX34ap41iV4TC6CrmW5qckaYLNqk
+         bhIQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788199877; x=1788804677;
+        d=1e100.net; s=20251104; t=1788199879; x=1788804679;
         h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:to:from:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qPRLJsmBIOe0A/ppcX8+UUJeiiOHfTZv4IvoKZ5g4Q8=;
-        b=rBMB/CFLmxTXYHasixg9izLnVoYVr5dbvw7LcJvMwqngCz/jpXBwN3dP1vvBGGvtUt
-         /q2rh61Nqo6Gl3m158IRGZFfV6EF2mhoKARXQLvLZ9p20FQoiiZRAC9NFhPewIZElJT3
-         ci6Qanhv8JnTCkYjeH+VjUXZLmWC0PatCb3TiNN7JJDF7Btw7dFxv6vicrPHQU2DC/70
-         Qac0eilX05mhABrSZsfxyJGmC/zm7Cgaadyu74YE7eGbQKU0matoJ9XP3akaPkhhGQmY
-         QNWpzckfQImgFMU8phAKapQHW2oekJjyAneVmxeq0VlzUanAgsBLQSCN2K4axOIfAUr5
-         HZ+g==
-X-Forwarded-Encrypted: i=1; AHgh+RrXOBF4WbK3a9+BiNYDtv/kGIUTz92ZqtLeK2pHFr0UmnA+3tRU7bxBEaKXB5jVD8vXSUr3kRu6FmHO8+Y=@vger.kernel.org
-X-Gm-Message-State: AFuF++lETLawQnhSsw6a4OZjWt5v3/1xnIBJaAtISpoXUeOSn1QpjjeN
-	NZ3XhCzJG10mAAHl4WqWn7c9IxByvtS7E1gJsb4mp+Vm9ft/WFq+pTxjf1UxBfqhOHfaYYmGG1y
-	FUzN8
-X-Gm-Gg: AR+sD12nDi/qRhIIY1eH0INAPWS/SUhIN6ZnyMVgaVC7A6i7HrS5GPiBxwNbEmkgQC7
-	xdgquhDH49RCrkiHaer9lI0kBQMQNrqj8DUycn85m8uVdRiqMQ6+jljNlErYHIW8WveXke+5Ijx
-	Otwz05gCAaRoRsRd4o37rULX3y2svDOzK/wTZE6meXztXLd+tinruxtCSWCUOcy3t1E7WunYVVh
-	7oEKVE8VtBg7KwTRTWqidbP4GL2dup1LAxKqdO51OkhlU6j4APeMz7k8+3qy4aXDHewU+MXW5hA
-	Y0P4a7KLk78EcvhCbUQSFQuKURYAvzD5x5B5JP1N5HfW18Sg8sph8A27h1k2dBJBw3aC+oy924t
-	F4EtvAxTfjE+Ougd1yU1I411u13JLpIck6shxFksqJ+0AOV7CTuGuNqoxsUEDf89flAzb5Nyj+s
-	XxUOGiqpR3ZkwJba4D9fVd3gdEI8O9jU0QVYvNh7xt3a7Yy5YVYPiYEqPU1Q==
-X-Received: by 2002:a05:6a00:348d:b0:857:7337:5dbb with SMTP id d2e1a72fcca58-85773375f79mr30960283b3a.25.1788199876932;
-        Mon, 31 Aug 2026 11:11:16 -0700 (PDT)
+         :subject:references:in-reply-to:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=auz+mSkwNmUJblKIK/SlZzO4mv+o8fMJykvfsBMXi1U=;
+        b=ITFtgHl3Ihqtyc3CbvfGVeuuLQUIquGab7U0jwqqibJJQHZL4G4pPxyTHX4r4Phlhh
+         X5wdVG3VbtJBPfzUxPUZIjcjy47UrHh7X2OU1aIgr2O18B6c4FzR1srb7K9yT3U7su/U
+         YV1nMKOVc/dLdfRqZPgLNfdM5/3LG2JwIoXLvykXjJO0vYJsUTQt7cV0FLT87S7j5aMI
+         bScBb1mpeYyfaO9cJFt3O53PGNTocL5e71Y7Xt/hZef6GnNdbSLAdJFNNcSQ1oF/QcOx
+         GQssGnH4tiu/VXW+8fB6U243p6FPmU9d3NkrLJI7/Q0LX4CoDkxsSErQgQbinSghCSls
+         7J/Q==
+X-Forwarded-Encrypted: i=1; AKwUvByA44H3oDlxfre9kBa+m1PEqKoDNsi0eAPmc9whMyhCA2X1Xrj5NZBDCrgifvFOgkGJtXZskqHynHncxuo=@vger.kernel.org
+X-Gm-Message-State: AFuF++nHms07lGQqMMIScKeTf2pH0smaAXAezrzZ7jUKEYfus1kWnGYK
+	zPr0ae0TRYFNasJJGe/ytULtRtXTfZSPZN5vxek6WeyDz5t+mc8E03IqmEVBLYIx0s3/OGqyvSw
+	gLlnj
+X-Gm-Gg: AYBFou2JjsDfDhl2JE4cQcBTi9Mf0AKb6epdbHXvZXr+6sqqD6aAf00rHvYOBQXvsu7
+	kLv+Qtv5tP/vYRpl3s9t21gpueHguTnxCEDGNQb0+oKfJUGxrV5dC+/BJjChjP3LNJjo6esBQsv
+	8RJ5viSR9Sysj83q3E7OuVFul9E2xfumwXNYbolC+bxavjWNcE68XlC2IBPCQiPluNFqzjqT6Dd
+	sKgqJ7v6NeymfhN04gPBon0EGu6bqU2LDHAhl/R7HyucEHRJhpmIIJMF4AM0bWUWvuDy/t0xbPb
+	wfVJZBYFKz0vgjB0mcOvpc8gcpG8Tnhg/QVJNLvLDQm0WfCvJABiBAtI508zf742oKEIXSOnD+i
+	rS/9dlYcD4Y4WTe20P/QfbJeCaqPEtH44w78kBnFW2+AYspX6GzQ2gETYacYw78/qy4XYSUFUTY
+	JFXpXBUXdboLykEnm5xVSGdATNFDIulnVorjHJUMPst17rqOug8HtBqAtVJA==
+X-Received: by 2002:a17:902:e74c:b0:2d8:d4cc:5bb2 with SMTP id d9443c01a7336-2d8d4cc5dacmr273920805ad.18.1788199879349;
+        Mon, 31 Aug 2026 11:11:19 -0700 (PDT)
 Received: from localhost ([71.212.197.238])
-        by smtp.gmail.com with UTF8SMTPSA id d2e1a72fcca58-8569fa79d0asm4201641b3a.14.2026.08.31.11.11.16
+        by smtp.gmail.com with UTF8SMTPSA id d9443c01a7336-2d7594ffc94sm39417335ad.5.2026.08.31.11.11.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 11:11:16 -0700 (PDT)
+        Mon, 31 Aug 2026 11:11:18 -0700 (PDT)
 From: Kevin Hilman <khilman@baylibre.com>
 To: Aaro Koskinen <aaro.koskinen@iki.fi>, 
- Andreas Kemnade <andreas@kemnade.info>, Roger Quadros <rogerq@kernel.org>, 
- Tony Lindgren <tony@atomide.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, linux-omap@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-In-Reply-To: <20260806070306.40285-2-krzysztof.kozlowski@oss.qualcomm.com>
-References: <20260806070306.40285-2-krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH v3] ARM: dts: ti: omap: Correct white-space style
-Message-Id: <178819987124.2869653.12350593238892028766.b4-ty@b4>
-Date: Mon, 31 Aug 2026 11:11:11 -0700
+ Andreas Kemnade <andreas@kemnade.info>, Conor Dooley <conor+dt@kernel.org>, 
+ devicetree@vger.kernel.org, Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, linux-input@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-omap@vger.kernel.org, 
+ Rob Herring <robh@kernel.org>, Roger Quadros <rogerq@kernel.org>, 
+ Tony Lindgren <tony@atomide.com>, Eduard Bostina <egbostina@gmail.com>
+Cc: daniel.baluta@nxp.com, simona.toaca@nxp.com, goledhruva@gmail.com, 
+ m-chawdhry@ti.com
+In-Reply-To: <20260719133730.3551691-1-egbostina@gmail.com>
+References: <20260719133730.3551691-1-egbostina@gmail.com>
+Subject: Re: [PATCH v2 0/2] dt-bindings: input: Convert TI Keypad
+ Controller to DT schema
+Message-Id: <178819987834.2869653.4643547927480344616.b4-ty@b4>
+Date: Mon, 31 Aug 2026 11:11:18 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -83,15 +87,26 @@ Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.16-dev
 
 
-On Thu, 06 Aug 2026 09:03:07 +0200, Krzysztof Kozlowski wrote:
-> Correct a few white-space issues, like missing space before bracket '{'
-> character or spurious space, which will be flagged by dt-check-style
-> ("redundant-whitespace" warning).  No functional changes.
+On Sun, 19 Jul 2026 13:37:28 +0000, Eduard Bostina wrote:
+> The first patch converts the TI Keypad Controller binding to DT schema.
+> The second patch updates the OMAP4 and OMAP5 device trees, which is
+> needed because the schema requires the matrix properties.
+> 
+> Changes in v2:
+> - Added 'interrupts', 'keypad,num-rows', 'keypad,num-columns' and
+>   'linux,keymap' to the required list.
+> - Dropped the '|' from the description.
+> - Added the DTS patch, so the OMAP4 and OMAP5 boards still pass
+>   dtbs_check with the required properties in place.
+> 
+> [...]
 
 Applied, thanks!
 
-[1/1] ARM: dts: ti: omap: Correct white-space style
-      commit: 0fe80eafa36a20fec620ba16992016137bbf3d6a
+[1/2] dt-bindings: input: Convert TI Keypad Controller to DT schema
+      commit: 6980da9a69f59b3d061c317ed12d11fe4aa90386
+[2/2] ARM: dts: ti: omap: Disable keypad and enable it on the boards that use it
+      commit: 8d36324171f982c8e1d7f2df428faa5b05e7b1d4
 
 Best regards,
 -- 
