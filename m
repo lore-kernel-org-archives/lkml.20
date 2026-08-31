@@ -1,52 +1,52 @@
 Received: from bkemail.birger-koblitz.de (bkemail.birger-koblitz.de [23.88.97.239])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48EE93F12D0;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48F8F3F1656;
 	Mon, 31 Aug 2026 10:08:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=23.88.97.239
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788170891; cv=none; b=ieYZnR8taGtE+1Ogb1RUg1D43xcf/frAg+jt9Zf2YxfFlE3B2ldw3mWjGt0xfU2lmfMe1BXL/hYRSJxy3lb3aiuQZrkybR0yVGaqPWk7YfsqAmzbHHyZoPV9vddUhS/ykKUO3/znG8VN/YsinlmBXs2keQbbe8CqOTkJIxhHu1g=
+	t=1788170892; cv=none; b=aaeS/RwUlOun7HxYPz+lzTuUUN5oMH4ofOhC1/nYa52LYc22rnJD/jcXDfwE3GLMBYFe17PvmWfVQvQBB/NxAq431sJW1guFe6mHR+KOv6jGv+i9MASv93W58yQPv11SFG+Bana8vO3z7O51P0EcOjyBL2kTOt5H+mTfj9IIzW8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788170891; c=relaxed/simple;
-	bh=Xt+4mBtUkIrJ36ZCTKcJkucyLloqg9n7ap1XhHTfnJk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=MciMVOBz74/HD0c/IUNvxNIygziqeSxOBUPthc2R8iZLztk7y0gjFeMwWqJcilYPZ6bdpiKtnLWsTJft8Clt0ebHn5Cz3WFCXw/aYmncEFSFa4Rx/MEn5OL1aFgZOll9QajO/DAiepe9GUrv1DEqTWLyRH5wQJ9hjvS1ahJPCQw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=birger-koblitz.de; spf=pass smtp.mailfrom=birger-koblitz.de; dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b=aECcNOOn; dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b=Hw9WeGEY; arc=none smtp.client-ip=23.88.97.239
+	s=arc-20240116; t=1788170892; c=relaxed/simple;
+	bh=rrvu1D1uh6lhftC4Nqqp85VInlE6jcsyNcH8Oj1qMdA=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=FGePhYEpgAnSiz0oT5F1Qd22Xi6I/uYJJ/rEwBCeshWmD4MrPBXX1abFuJJdOWdNEatmT5f8gqTEekrf0aZU01YX3HFPVAfsIrG+/utYRT1gUJq6qUrVtlA7KnA73IYjrNCs9E/ybxDY/iKvVYJKKtqextUZZghOrMFo4yF639o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=birger-koblitz.de; spf=pass smtp.mailfrom=birger-koblitz.de; dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b=FjZvGscn; dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b=kIFxinwi; arc=none smtp.client-ip=23.88.97.239
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=birger-koblitz.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=birger-koblitz.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b="aECcNOOn";
-	dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b="Hw9WeGEY"
+	dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b="FjZvGscn";
+	dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b="kIFxinwi"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=birger-koblitz.de;
-	s=default; t=1788170340;
-	bh=Xt+4mBtUkIrJ36ZCTKcJkucyLloqg9n7ap1XhHTfnJk=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=aECcNOOnP29w0bCN8ziLcdGVSEJB8zgid0TSe8gRSzrUD81eH6JcJgVce1tAC9hXV
-	 CDVcn06M8kz+3fT4V/cmepLWQkP2dlhwz6KGfsXhMlEHCk7KQMdHbgByXKxgksp5Fw
-	 q11R61ShbcTtPukrpdQcbnFbRdYNwWEXzRSTsF9vGfCjIYJ4Urhpfm0CeZc+q3yjo/
-	 iT98eWlknICIuZnhZHeVwmsGhitifFdKECjqeJxZn25DQQ0nkHhVWYys04pSYpGeHw
-	 H0gjaDU0MnOigm2JjiCF2ZjexHsZOZ8qYrEzWvBVI9QAaNmdrHsH+tZ05CpcROjssF
-	 ftXJoF4WOLmQQ==
+	s=default; t=1788170338;
+	bh=rrvu1D1uh6lhftC4Nqqp85VInlE6jcsyNcH8Oj1qMdA=;
+	h=From:Subject:Date:To:Cc:From;
+	b=FjZvGscnm566tGA2t1r92MYr+tgk21eUUAR3uS9E8Mck8B5ZYqyZACqUbYvYotRgj
+	 EApaxTE2ktTPCFzQmfDwPrMGiejK6U9UMNTYATTWCrSy55smyQKne0K5eLYlUBKtJs
+	 H9r71P696iOSqLO/HMNCibLqaXqD+N1XrJg+vpKyEyV9GeZ9fSo3dEryRZUcQgSdlP
+	 FBX+biVwnM2JbWYzwNhuvZ2R23mFIHhj+J50EtxKc+Xzh3Jxv+QHKC3r1FDS1Gxp7g
+	 ftCIPRsddeiznsH9z/uDl86x/KOsmxlXb/kDlubspI/YkYxScGcM097ftaRe+9Tc7v
+	 BLNa3Q2VEKM7g==
 Received: by bkemail.birger-koblitz.de (Postfix, from userid 109)
-	id 31B463EC9D; Mon, 31 Aug 2026 09:59:00 +0000 (UTC)
+	id 40DAE3EC67; Mon, 31 Aug 2026 09:58:58 +0000 (UTC)
 X-Spam-Level: 
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=birger-koblitz.de;
-	s=default; t=1788170337;
-	bh=Xt+4mBtUkIrJ36ZCTKcJkucyLloqg9n7ap1XhHTfnJk=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=Hw9WeGEYp+igaJhO5Qa/c7uSVv5tuAbnKbufQxQofd6VEw3HpnbeU7hNLQz9t5GoU
-	 RbafKzRFrOEgidV80YTE5KgeIZcYC7zxinFOUtTvoHNYh6ElkHuD7aGzP6m9uz7f+I
-	 7CAx2HWy6LACosG/SAqulsfMl7t2sx7un19WXGEuWytpgR4VKzh0QWrAl3XLXYN/MS
-	 AIXwq4EV50rIMS88Y97z2S+Z8lZELfDs5HvqszuMdOTv1R3w9mvOAZfLuhwi9me+vG
-	 bjafojGZ6dddO3KalqQ0fGyfZs+8pphLAneyKil5thRsBPk1Ugd4gd5p7WA97uePjI
-	 hwpJ2i0MqqLBA==
+	s=default; t=1788170336;
+	bh=rrvu1D1uh6lhftC4Nqqp85VInlE6jcsyNcH8Oj1qMdA=;
+	h=From:Subject:Date:To:Cc:From;
+	b=kIFxinwiKc/FCeWxUX9FNPyo1jfbQc7mv6lvLVMtwWvkqZt4o58VH0KyzUT7Wctku
+	 bTCrpSm5bgWxFVH9BrV93BQBrIktCpQN9USPY10uKsnjH/vF40M+94bc7xDaarTrrm
+	 aV6Bxe3MiKvyg6YDvY1UgtCioABPSNmEJXCPf0ZoH4c17lYZwUi3CC1dz84AiSRdgH
+	 QXgG7+omCye0zmPf7Di7BMeDZjdefUO841oPSSBqJuKi8gHdfjW99L3c/rwOhnPzDY
+	 YpSJQzpJAR00YiXNnbIOVOxobvdmLmc7W6Z3a28pA4UiTjISMlNfCqOpXvijGGWDgL
+	 JkkIjx+VOXY1A==
 Received: from AMDDesktop.lan (unknown [IPv6:2a00:6020:47a3:e800:271c:c6c5:9fde:77cb])
-	by bkemail.birger-koblitz.de (Postfix) with ESMTPSA id 8DCFE3EC56;
-	Mon, 31 Aug 2026 09:58:57 +0000 (UTC)
+	by bkemail.birger-koblitz.de (Postfix) with ESMTPSA id 635123EC1C;
+	Mon, 31 Aug 2026 09:58:56 +0000 (UTC)
 From: Birger Koblitz <mail@birger-koblitz.de>
-Date: Mon, 31 Aug 2026 11:58:52 +0200
-Subject: [PATCH net-next v8 03/15] ax88179_178a: Fix endianness of pause
- watermark register
+Subject: [PATCH net-next v8 00/15] ax88179_178a: Add support for
+ AX88179A-based chips
+Date: Mon, 31 Aug 2026 11:58:49 +0200
+Message-Id: <20260831-ax88179a-v8-0-de905f2ee426@birger-koblitz.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -55,9 +55,13 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260831-ax88179a-v8-3-de905f2ee426@birger-koblitz.de>
-References: <20260831-ax88179a-v8-0-de905f2ee426@birger-koblitz.de>
-In-Reply-To: <20260831-ax88179a-v8-0-de905f2ee426@birger-koblitz.de>
+X-B4-Tracking: v=1; b=H4sIAFlQlWoC/3XRS07EMAwA0KuMsiYozj+suAdikdTOTARqUVpVh
+ VHvTuhmsqBLy9bz785mqoVm9nK5s0prmcs0tsA/Xdhwi+OVeMEWMymkFVYJHjfvwYXII6APmSQ
+ 4JVgr/6qUy3ZQb2ykhY+0Ley9ZW5lXqb6ffRY4cgfnBPw4FbggoOy3mC2zoB5TaVeqfKPKX2W5
+ ecZ6cBW2QO+A2QDhBciEyZJYM8A1QFSd4BqQEIknYMw3qszQHeA6lfQDZBDhuwgAaI8A8wD8EJ
+ 2gGkADqmdNeo4oD4DbA/YDrANyEhOg7YQ6PQGrgOge+rq/iaIVikIMIAM/wH7vv8CcLqJejgCA
+ AA=
+X-Change-ID: 20260630-ax88179a-a1d89fe21730
 To: Andrew Lunn <andrew+netdev@lunn.ch>, 
  "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
  Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
@@ -68,49 +72,136 @@ Cc: linux-usb@vger.kernel.org, netdev@vger.kernel.org,
  Jianhui Xu <neuromoments@gmail.com>
 X-Mailer: b4 0.14.2
 
-The 16-bit pause watermark register is little endian as
-described in the ASIX 4.1.0 out-of-tree driver. Correct the
-register byte sequence but also swap the configuration values
-used in the code in order to keep the current behaviour.
+This adds support for the current generation of ASIX network adapter chips,
+which are based on the AX88179A. This includes the AX88179A/B (1GBit-PHY),
+AX88772D/E (100MBit) and AX88279 (2.5GBit).
 
-The endianness is relevant for 16-bit writes to the register.
+The AX179A-based chips all provide both a CDC-NCM compatible USB interface,
+and a proprietary vendor interface with more features. By default, the
+proprietary vendor interface is not active and Linux will load the CDC-NCM
+driver to support the devices. If the ax88179_178a module is configured by
+the OS to have precedence over CDC-NCM, then this driver will switch the
+device to use the vendor interface, and the device will be controlled by
+the ax88179_178a driver when the device is probed again after an automatic
+reset of the device bringing up the vendor interface.
+
+The following hardware was tested:
+Delock 66046 2.5GBit adapter (AX88279, FW: 1.2.0.0)
+TP-Link UE306 1GBit adapter (AX88179B, FW: 1.3.0.0)
+Renkforce RF-4708614 1GBit adapter (AX88179A, FW: 1.0.4.0)
+UGREEN CR110 100MBit adapter (AX88722E, FW: 1.3.0.0)
+
+The driver supports the following features
+- EEE
+- TCP segmentation offload
+- VLAN filtering/tagging offload 
+  (NETIF_F_HW_VLAN_CTAG_FILTER, NETIF_F_HW_VLAN_CTAG_RX/TX)
+- RX/TX checksum offload
+- FC/Pause configuration
+- EEPROM read access
+
+The code is based on the ASIX 4.1.0 out-of-tree driver published under
+the GPL,, the aqc111 driver which provides support for the AX88279A,
+and some tracing of USB-transfers of the Windows-driver.
 
 Signed-off-by: Birger Koblitz <mail@birger-koblitz.de>
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+Tested-by: Jianhui Xu <neuromoments@gmail.com>
 ---
- drivers/net/usb/ax88179_178a.c | 9 ++++-----
- 1 file changed, 4 insertions(+), 5 deletions(-)
+Changes in v8:
+- Fix resume sequence as Suggested-by: Jianhui Xu <neuromoments@gmail.com>
+- Add handling of PHYs with broken forced mode in phylib to handle AX88279 PHY
+- Multple formatting fixes
+- Fix transiently unused functions ax88179a_mac_disable_tx_lpi() and
+  ax88179a_mac_enable_tx_lpi()
+- Removed unnecessary checks for dev initialized
+- Link to v7: https://lore.kernel.org/r/20260810-ax88179a-v7-0-da633191c129@birger-koblitz.de
 
-diff --git a/drivers/net/usb/ax88179_178a.c b/drivers/net/usb/ax88179_178a.c
-index 98f899ea2e9462f1ba99281a875385241745458b..945c071dfd1d2f0816c779e1a401ac158adc8d99 100644
---- a/drivers/net/usb/ax88179_178a.c
-+++ b/drivers/net/usb/ax88179_178a.c
-@@ -32,8 +32,8 @@
- #define AX_ACCESS_EEPROM			0x04
- #define AX_ACCESS_EFUS				0x05
- #define AX_RELOAD_EEPROM_EFUSE			0x06
--#define AX_PAUSE_WATERLVL_HIGH			0x54
--#define AX_PAUSE_WATERLVL_LOW			0x55
-+#define AX_PAUSE_WATERLVL_LOW			0x54
-+#define AX_PAUSE_WATERLVL_HIGH			0x55
- 
- #define PHYSICAL_LINK_STATUS			0x02
- 	#define	AX_USB_SS		0x04
-@@ -1617,11 +1617,10 @@ static int ax88179_reset(struct usbnet *dev)
- 	dev->rx_urb_size = 1024 * 20;
- 
- 	*tmp = 0x34;
--	ax88179_write_cmd(dev, AX_ACCESS_MAC, AX_PAUSE_WATERLVL_LOW, 1, 1, tmp);
-+	ax88179_write_cmd(dev, AX_ACCESS_MAC, AX_PAUSE_WATERLVL_HIGH, 1, 1, tmp);
- 
- 	*tmp = 0x52;
--	ax88179_write_cmd(dev, AX_ACCESS_MAC, AX_PAUSE_WATERLVL_HIGH,
--			  1, 1, tmp);
-+	ax88179_write_cmd(dev, AX_ACCESS_MAC, AX_PAUSE_WATERLVL_LOW, 1, 1, tmp);
- 
- 	/* Enable checksum offload */
- 	*tmp = AX_RXCOE_IP | AX_RXCOE_TCP | AX_RXCOE_UDP |
+Changes in v7:
+- Add phylink_mac_interrupt() function to phylink and stop
+  polling the PHY to prevent a race condition between the controller
+  and phylink when configuring a new link.
+- Fix typo in ax88179_read_cmd Reported-by: Jianhui Xu <neuromoments@gmail.com>
+- Return -EOPNOTSUPP in asix_ax88279_config_aneg when autoneg is being disabled
+- Link to v6: https://lore.kernel.org/r/20260806-ax88179a-v6-0-fde7414619e6@birger-koblitz.de
 
+Changes in v6:
+- Use genphy_read_status() in asix_ax88279_read_status()
+- Use SGMII and 2500BaseX interfaces for PHY
+- Fix speed determination of MAC/PHY link
+- Fix bulk transfer configuration to use enums for bulk configuration types
+- Link to v5: https://lore.kernel.org/r/20260802-ax88179a-v5-0-dcb9fea4acd4@birger-koblitz.de
+
+Changes in v5:
+- Fixed read_status() and config_aneg() in PHY driver
+- Introduced netdev2data() as convenience function
+- netdev_info instances and debugging relicts removed
+- Several instances of badly written/formatted code that was copy and pasted from
+  the original driver corrected
+- select PHYLINK added to Kconfig when phylib dependency added
+- PHYLINK selects PHYLIB, so not needed to specify separately
+- Link to v4: https://lore.kernel.org/r/20260731-ax88179a-v4-0-2cf1f71b1dd2@birger-koblitz.de
+
+Changes in v4:
+- Split driver into library part and part2 for AX88179 and AX88179A-based
+  controllers
+- Driver renamed ax88179
+- Improved phylink use: use phylink standard functions for speed and EEE-settings,
+  correct MAC capabilities, removed ax88179_status() irq-urb callback
+- Fixes in PHY driver for AX88179A integrated PHYs
+- Link to v3: https://lore.kernel.org/r/20260724-ax88179a-v3-0-bdde4f905883@birger-koblitz.de
+
+Changes in v3:
+- Add PHY drivers for the PHYs of the AX88179A-based controllers
+- Use phylink for the AX88179A-based chips
+- Link to v2: https://lore.kernel.org/r/20260708-ax88179a-v2-0-0800fedb2e16@birger-koblitz.de
+
+Changes in v2:
+- Correctly use net-next prefix
+- Fix compilation issue in HW support patch
+- Split MMD support patch into patches for EEE/new chip support
+- Do not use ADVERTISE_RESV but private flag definition
+- Fix pause configuration to keep track of settings when autoneg disabled
+- Fix issue with unitialized variable reported by kernel test robot <lkp@intel.com>
+- Avoid white-space changes
+
+- Link to v1: https://lore.kernel.org/r/20260701-ax88179a-v1-0-13685df67515@birger-koblitz.de
+
+---
+Birger Koblitz (15):
+      phylink: Add phylink_mac_interrupt
+      phylib: Add support for PHYs with broken forced mode
+      ax88179_178a: Fix endianness of pause watermark register
+      ax88179_178a: Split driver into library and device specific code
+      ax88179_178a: Add netdev2data() convenience function
+      ax88179_178a: Add HW support for AX179A-based chips
+      ax88179_178a: Add EEE configuration support for AX88179A MACs
+      ax88179_178a: Add EEE configuration support for AX88179A PHYs
+      ax88179_178a: Add VLAN offload support for AX88179A
+      ax88179_178a: Add AX179A/AX279 multicast configuration
+      ax88179_178a: Add Suspend/resume support for AX88179A/772D/279
+      ax88179_178a: Add ethtool get_drvinfo
+      ax88179_178a: Update driver name and information
+      ax88179_178a: Add support for AX88179A/772D/279 EEPROM access
+      ax88796b: Add support for AX88772D, AX88179A and AX88279
+
+ MAINTAINERS                        |    6 +
+ drivers/net/phy/ax88796b.c         |  180 ++++++
+ drivers/net/phy/phy.c              |    4 +
+ drivers/net/phy/phylink.c          |   16 +
+ drivers/net/usb/Kconfig            |   10 +-
+ drivers/net/usb/Makefile           |    3 +-
+ drivers/net/usb/ax88179_178a.c     |  664 ++------------------
+ drivers/net/usb/ax88179_lib.c      |  506 +++++++++++++++
+ drivers/net/usb/ax88179_lib.h      |  358 +++++++++++
+ drivers/net/usb/ax88179a_devices.c | 1222 ++++++++++++++++++++++++++++++++++++
+ include/linux/phy.h                |    1 +
+ include/linux/phylink.h            |    1 +
+ 12 files changed, 2347 insertions(+), 624 deletions(-)
+---
+base-commit: 1a9edf8be190decb17227e3cba540513d93ebb85
+change-id: 20260630-ax88179a-a1d89fe21730
+
+Best regards,
 -- 
-2.47.3
+Birger Koblitz <mail@birger-koblitz.de>
 
