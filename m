@@ -1,47 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 543194570EC;
-	Mon, 31 Aug 2026 13:34:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF3B64611CF;
+	Mon, 31 Aug 2026 13:34:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183283; cv=none; b=QBo4yy638b/gWhd4PP/FSTxpSNtnR2iaT/vjcjLK2/XIP6I2AOsYYO+u83WtBnWQcXJKRVVUlLn/Vk0QswHQdtsvrqQeoryGejVSDYH2cJZAYYAb1tLAhWTEdzAnDacqGakwxw7vpBAefua8Sz72XSGAI8nLdr5R2EGBaNb46DE=
+	t=1788183287; cv=none; b=N53WFixdC2fuPEI/viNQAyRQvV9BksoOTob1+YASe9/SkldIYgNyiPtaH9h5QIYTGD3E5FmxCSoEuoKEIsWiWJLB30B9bkzGThuXoTKFaw1doE56kIgJy4Gmz1XvzaYyzLo4Ct/70nZe4fdDYXxn/OmaSyplAjyZy4gwiQQCJMM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183283; c=relaxed/simple;
-	bh=nc905L7O2isCtGXYoIvxxMHbhZ8IjiW+2nWM37+TWEg=;
+	s=arc-20240116; t=1788183287; c=relaxed/simple;
+	bh=eFvisUckkNSmvFFq1pdTJLcfIoD8pK81JeS80VTcSBI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=jHaZMwKx6ShbWkPy5KZPFwmWo7gXoSKbEu/SQ2TzOJ3s1jlT5/vKa04casglfiTXNSdEf0rEZVygdNs73DxNAjXJj06MhqNW3YcrI3Sq9qzGQQAA3W+qt10Qvc0L+dfLsM1tUvWAaxV9EarrAGtWW/6ZfHan4rIkg7zadp8Mgc4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LkX6jknh; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=ELyLcyd4tCyYl+b3deXTPSeeajrpkTd2JN6LZdYWhHpe2K1yq3tXlIx+xOH+FbMvzlpIy94hPaiIAoO+Eo7YMA9AQQ09p/Ev2jZTeMtaPMotymkXFGY/r2pZF9N8D+7TOcPqisBOzJjaFSGnnMsp9kUPZ2h1rr6ccJaJEU1yUPA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Pd00OX5q; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LkX6jknh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 477771F00ADF;
-	Mon, 31 Aug 2026 13:34:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Pd00OX5q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1CA291F00ACA;
+	Mon, 31 Aug 2026 13:34:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788183280;
-	bh=suBB6sMnaRiFD/+vEeFBmjXPBsbA6V2QiMRWp064h8M=;
+	s=k20260515; t=1788183284;
+	bh=Xh5u8FuzUDj4ag9ogwHjp3d6RgJocWRprHO9U/lme/I=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=LkX6jknhSgKIfTdQ1vm9tpy+L9A+0qjlmV+Z8AanhpK55nFFvQQxyP45Al6LMAQR3
-	 cuBuDK3kC3LtjhX0wFk9fEV8kRrkWohELRnTfhPrMoq7o0wlhNAP+iarmUeXyNqm1T
-	 GF2JM4A32W/5+hQ3VoVHMyhU2xT6VcdDVy6RqCjTCCh0DsQyYJ50dcYNhOvHfXhf0U
-	 w6puUhkmxBJLneahWJdAMPXjVoF6d62xDk88hiQ+anW+K/aYYcdnidUnGy8Bq6kKlN
-	 XAgE4kpCKzVSo9CY+tDYpeQBoR+JPLjckNeKFh+KI3IPHCj/P5WifFelru04GrzLKV
-	 SZBccebv5s9Rw==
+	b=Pd00OX5qbs+K3jN/XZ8KfGqqDTSR9yile4RZN65oK0RCmvVhen2cJEETgfG4qOrXK
+	 LuZNuAYBF0pQiMWz69FNy0ihA+KKX1CSs52kepPApo3JeBpts3WV6nOFpNAq8dbZJ7
+	 cRCXcvluPUsMtu0NM1cyEccAWi5wFucvIP/st9ni/pyOcKsA9meaMnYzQeNGaqrmTJ
+	 RpJKiEKNvVM/WzFHkZjgcm0mV5gt0q7A+qPYjBPuoTQyDBEwucilSK4D/azfcI9vYv
+	 5kPgbJcgqwetGMLP+QltAMzqmbo+qxPpgvSPIZ58TrGsHYWNrEEasau97PBfQehHhU
+	 +eJe97WDBSdHA==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Aditya Kumar Singh <aditya.kumar.singh@oss.qualcomm.com>,
-	Maharaja Kennadyrajan <maharaja.kennadyrajan@oss.qualcomm.com>,
-	Baochen Qiang <baochen.qiang@oss.qualcomm.com>,
-	Rameshkumar Sundaram <rameshkumar.sundaram@oss.qualcomm.com>,
-	Jeff Johnson <jeff.johnson@oss.qualcomm.com>,
+Cc: Christoph Hellwig <hch@lst.de>,
+	"Christian Brauner (Amutable)" <brauner@kernel.org>,
 	Sasha Levin <sashal@kernel.org>,
-	jjohnson@kernel.org,
-	linux-wireless@vger.kernel.org,
-	ath12k@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18] wifi: ath12k: Prevent incorrect vif chanctx switch when handling multi-radio contexts
-Date: Mon, 31 Aug 2026 09:21:21 -0400
-Message-ID: <20260831133314.4125787-53-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-5.10] minix: handle set_blocksize failures
+Date: Mon, 31 Aug 2026 09:21:24 -0400
+Message-ID: <20260831133314.4125787-56-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -57,40 +51,20 @@ X-stable-base: Linux 6.18.48
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Aditya Kumar Singh <aditya.kumar.singh@oss.qualcomm.com>
+From: Christoph Hellwig <hch@lst.de>
 
-[ Upstream commit 675aa75bfc29fb18c6e4d58904a91c1d37228217 ]
+[ Upstream commit 38a03dc2bc71e7e0746cdb9ef5e9947f72470c67 ]
 
-When multiple links switch channel contexts around the same time, mac80211
-may complete CSA for several links together and invoke
-ath12k_mac_op_switch_vif_chanctx() with an array of vifs spanning more than
-one underlying radio in a single-wiphy configuration.
+minix uses buffer_heads, which don't handle block size > PAGE_SIZE well.
+Without this, mounting we will hit the
 
-The driver currently assumes that all entries in the vifs array belong to the
-same radio and derives the radio context from the first element. On multi-radio
-hardware, this can lead to incorrect vdev selection/updates and may corrupt
-driver state when the number of vifs exceeds what a single radio supports.
+        BUG_ON(offset >= folio_size(folio));
 
-Fix this by validating each vif's switch request and then processing vifs
-grouped by their associated radio. For each vif, ensure the band does not
-change across the switch and that both old/new channel contexts resolve to a
-valid ath12k device. Reject attempts to move a vif between radios (not
-supported for now) and return -EOPNOTSUPP to upper layers.
+in folio_set_bh on the first __bread_gfp call.
 
-Then, iterate through the input vifs, collect all unprocessed entries that map
-to the same radio, and invoke ath12k_mac_update_vif_chan() separately for each
-radio group. This removes any reliance on mac80211 providing the array grouped
-by radio or sharing old_ctx pointers across vifs.
-
-Tested-on: QCN9274 hw2.0 PCI WLAN.WBE.1.5-01651-QCAHKSWPL_SILICONZ-1
-
-Signed-off-by: Aditya Kumar Singh <aditya.kumar.singh@oss.qualcomm.com>
-Co-developed-by: Maharaja Kennadyrajan <maharaja.kennadyrajan@oss.qualcomm.com>
-Signed-off-by: Maharaja Kennadyrajan <maharaja.kennadyrajan@oss.qualcomm.com>
-Reviewed-by: Baochen Qiang <baochen.qiang@oss.qualcomm.com>
-Reviewed-by: Rameshkumar Sundaram <rameshkumar.sundaram@oss.qualcomm.com>
-Link: https://patch.msgid.link/20260522091828.3199584-1-maharaja.kennadyrajan@oss.qualcomm.com
-Signed-off-by: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
+Signed-off-by: Christoph Hellwig <hch@lst.de>
+Link: https://patch.msgid.link/20260511071701.2456211-9-hch@lst.de
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
@@ -99,45 +73,39 @@ LLM Generated explanations, may be completely bogus:
 ## Phase 1: Commit Message Forensics
 
 ### Step 1.1: Subject Line
-**Record:** `[wifi: ath12k]` `[Prevent]` — Prevent incorrect vif chanctx
-switch when handling multi-radio contexts.
+**Record:** `[minix] [handle] [check and propagate sb_set_blocksize()
+failure for MINIX V3 mount path]`
 
 ### Step 1.2: Tags
 **Record:**
-- **Tested-on:** QCN9274 hw2.0 PCI
-  WLAN.WBE.1.5-01651-QCAHKSWPL_SILICONZ-1
-- **Signed-off-by:** Aditya Kumar Singh, Maharaja Kennadyrajan, Jeff
-  Johnson
-- **Co-developed-by:** Maharaja Kennadyrajan
-- **Reviewed-by:** Baochen Qiang, Rameshkumar Sundaram (Qualcomm ath12k
-  developers)
-- **Link:** https://patch.msgid.link/20260522091828.3199584-1-
-  maharaja.kennadyrajan@oss.qualcomm.com
-- No Fixes:, Reported-by:, Cc: stable, or syzbot tags
-- Notable: Hardware-tested on real QCN9274; dual Reviewed-by from
-  subsystem developers
+- **Signed-off-by:** Christoph Hellwig `<hch@lst.de>` (author)
+- **Signed-off-by:** Christian Brauner (Amutable) `<brauner@kernel.org>`
+  (maintainer merge)
+- **Link:**
+  `https://patch.msgid.link/20260511071701.2456211-9-hch@lst.de` (patch
+  9 of an 11-patch series)
+- No Fixes:, Reported-by:, Tested-by:, Reviewed-by:, Acked-by:, or Cc:
+  stable tags
+- Notable: Part of series titled "fix crashes when mounting legacy file
+  system with sector size > PAGE_SIZE"
 
 ### Step 1.3: Body Analysis
 **Record:**
-- **Bug:** `ath12k_mac_op_switch_vif_chanctx()` assumes all entries in
-  the `vifs` array belong to the same radio, deriving the radio (`ar`)
-  from `vifs[0]` only. When mac80211 completes CSA for multiple links
-  simultaneously across radios in a single-wiphy multi-radio
-  configuration, vifs from different radios are passed in one array.
-- **Symptom:** Incorrect vdev selection/updates; driver state corruption
-  when vif count exceeds single-radio capacity.
-- **Root cause:** Reliance on mac80211 grouping vifs by radio or sharing
-  old_ctx pointers across vifs — neither is guaranteed.
-- **Fix approach:** Validate each vif individually, group by radio,
-  process each group with the correct `ar`. Reject unsupported band
-  changes and cross-radio moves with `-EOPNOTSUPP`.
+- **Bug:** MINIX V3 calls `sb_set_blocksize(s, m3s->s_blocksize)`
+  without checking the return value. When block size exceeds
+  `PAGE_SIZE`, `sb_set_blocksize()` fails (returns 0) but mount
+  continues.
+- **Symptom:** Kernel hits `BUG_ON(offset >= folio_size(folio))` in
+  `folio_set_bh()` on the first `__bread_gfp` call during mount.
+- **Root cause:** buffer_heads do not handle block size > `PAGE_SIZE`;
+  ignoring `sb_set_blocksize()` failure leaves the superblock in an
+  inconsistent state and mount proceeds into code that cannot work.
+- **Version info:** None explicit; MINIX V3 `s_blocksize` field has
+  existed since 2007.
 
 ### Step 1.4: Hidden Bug Fix Detection
-**Record:** Yes — explicitly a bug fix despite "Prevent" wording. Also
-adds `WARN_ON(!arvif)` in `ath12k_mac_update_vif_chan()` which prevents
-a NULL dereference before `arvif->vdev_id` is accessed (current code
-dereferences `arvif` at line 10893 before the `is_started` check at
-10899, with no NULL guard).
+**Record:** Not disguised — this is an explicit bug fix for a mount-time
+kernel crash, though the verb "handle" rather than "fix" is used.
 
 ---
 
@@ -145,210 +113,207 @@ dereferences `arvif` at line 10893 before the `is_started` check at
 
 ### Step 2.1: Inventory
 **Record:**
-- **File:** `drivers/net/wireless/ath/ath12k/mac.c` only
-- **Scope:** ~3 lines added in `ath12k_mac_update_vif_chan()`, ~70 lines
-  changed in `ath12k_mac_op_switch_vif_chanctx()`
-- **Functions modified:** `ath12k_mac_update_vif_chan()`,
-  `ath12k_mac_op_switch_vif_chanctx()`
-- **Classification:** Single-file, focused driver fix
+- **Files:** `fs/minix/inode.c` (+2 lines, -1 line)
+- **Function:** `minix_fill_super()`
+- **Scope:** Single-file, surgical fix (3-line hunk)
 
-### Step 2.2: Code Flow Changes
+### Step 2.2: Code Flow Change
 **Record:**
-- **Hunk 1 (`ath12k_mac_update_vif_chan`):** Before → dereferences
-  `arvif->vdev_id` in debug print without NULL check. After →
-  `WARN_ON(!arvif); continue;` added before dereference.
-- **Hunk 2 (`ath12k_mac_op_switch_vif_chanctx`):** Before → gets `ar`
-  from `vifs[0].old_ctx`, validates only first vif's old/new ctx match
-  same radio, calls `ath12k_mac_update_vif_chan(ar, vifs, n_vifs)` for
-  entire array. After → validates each vif's band/old/new ctx/radio,
-  builds `ar_map[]`, groups vifs by radio, calls
-  `ath12k_mac_update_vif_chan(group_ar, group_vifs, count)` per radio
-  group.
+- **Before:** `sb_set_blocksize(s, m3s->s_blocksize);` — return value
+  ignored; mount continues to `minix_check_superblock()` and
+  `sb_bread()` calls.
+- **After:** `if (!sb_set_blocksize(s, m3s->s_blocksize)) goto out;` —
+  mount aborts with `-EINVAL` on failure.
+- **Path affected:** MINIX V3 superblock detection branch only
+  (error/validation path during mount).
 
 ### Step 2.3: Bug Mechanism
-**Record:** **Category:** Logic/correctness bug + potential NULL pointer
-dereference. **Mechanism:** WMI vdev restart/stop/start commands are
-sent via the `ar` (radio) context. Using radio A's `ar` to process vifs
-belonging to radio B sends vdev operations to the wrong pdev/firmware,
-corrupting driver state. The `WARN_ON(!arvif)` addition fixes a
-secondary NULL deref when `arvif` lookup fails for a vif on the wrong
-radio.
+**Record:**
+- **Category:** Logic/correctness fix preventing kernel panic (missing
+  error-path handling).
+- **Mechanism:** `sb_set_blocksize()` in `block/bdev.c` returns 0 when
+  `size > PAGE_SIZE` for non-`FS_LBS` filesystems (minix has
+  `FS_REQUIRES_DEV` only). Mount continued with stale `s_blocksize`
+  (1024 from line 221), then `sb_bread()` → `bdev_getblk()` →
+  `folio_alloc_buffers()` → `folio_set_bh()` triggered `BUG_ON` when
+  buffer size exceeded folio size.
 
 ### Step 2.4: Fix Quality
-**Record:** Fix is obviously correct — mirrors the per-vif iteration
-pattern used by rtw89's `rtw89_ops_switch_vif_chanctx()`. Minimal
-regression risk: only affects the multi-vif chanctx switch path, adds
-proper validation, uses existing allocation patterns (`kzalloc_objs`,
-`__free(kfree)`) already present in ath12k. Early returns on error
-prevent partial corruption.
+**Record:**
+- **Quality:** Obviously correct — mirrors the existing pattern at line
+  221 (`if (!sb_set_blocksize(s, BLOCK_SIZE)) goto out_bad_hblock;`).
+- **Regression risk:** Very low. Only affects failed-mount path for
+  invalid/unsupported block sizes.
+- **Minor note:** `goto out` skips `brelse(bh)` (one buffer_head leak on
+  failed mount); pre-existing style in this function for early errors
+  after `bh` is read. Not a stability concern.
 
 ---
 
 ## Phase 3: Git History Investigation
 
 ### Step 3.1: Blame
-**Record:** `ath12k_mac_op_switch_vif_chanctx()` introduced in
-`d889913205cf7` (Kalle Valo, 2022-11-28, "wifi: ath12k: driver for
-Qualcomm Wi-Fi 7 devices"). Radio lookup from `vifs->old_ctx` added in
-`314876885bdcc3` (Sriram R, 2024-04-09, "wifi: ath12k: vdev statemachine
-changes for single wiphy") — this is when the bug was introduced. Both
-commits are ancestors of HEAD.
+**Record:**
+- Unchecked `sb_set_blocksize(s, m3s->s_blocksize)` introduced in commit
+  `939b00df0306` (Andries Brouwer, 2007-02-12) — MINIX V3 support.
+- `PAGE_SIZE` validation in `sb_set_blocksize()` re-added in
+  `a64e5a596067b` (Luis Chamberlain, 2025-03-06), present in this tree.
 
-### Step 3.2: Fixes Tag
-**Record:** N/A — no Fixes: tag in commit message.
+### Step 3.2: Fixes: Tag
+**Record:** No Fixes: tag present. N/A.
 
-### Step 3.3: Related File History
-**Record:** Recent ath12k/mac.c commits include other stable-worthy
-fixes (NULL deref, deadlock, scan state). No related chanctx fix already
-present. `git log -S "ar_map"` returns empty — fix not yet applied to
-this tree.
+### Step 3.3: File History
+**Record:**
+- Recent minix changes: superblock sanity checking (`31fefc18096cd`),
+  inode mode verification (`73861970938ad`).
+- This fix is standalone within the 11-patch series; each filesystem
+  patch is independent.
+- Fix is **not** yet merged in this tree (grep confirms unchecked call
+  still at line 275).
 
 ### Step 3.4: Author Context
-**Record:** Authors are active Qualcomm ath12k contributors (Aditya
-Kumar Singh, Maharaja Kennadyrajan). Multiple prior ath12k fixes in tree
-from same team. Reviewed by Baochen Qiang and Rameshkumar Sundaram.
+**Record:** Christoph Hellwig is a prolific VFS/block-layer contributor.
+Recent minix work from others (Biggers, Viro). Hellwig authored the
+broader series fixing the same pattern across legacy filesystems.
 
 ### Step 3.5: Dependencies
-**Record:** Uses `kzalloc_objs()` and `__free(kfree)` — both present in
-this tree (`3bf5e19c804d0` for kzalloc_objs; `__free(kfree)` already
-used extensively in ath12k/mac.c). Uses `ath12k_generic_dbg()` — present
-in debug.h. No series dependencies; standalone fix. Can apply
-standalone.
+**Record:** No dependencies. Self-contained 2-line change. Does not
+require other patches in the series.
 
 ---
 
 ## Phase 4: Mailing List and External Research
 
 ### Step 4.1: Original Discussion
-**Record:** `b4 dig -c <hash>` not possible — commit not merged into
-this tree. `b4 dig` with message-id failed (wrong invocation).
-lore.kernel.org and patch.msgid.link blocked by Anubis bot protection
-(curl and WebFetch both returned challenge page). **UNVERIFIED:** Full
-mailing list review thread content.
+**Record:**
+- Fetched cover letter from `https://lore.kernel.org/linux-
+  fsdevel/20260511071701.2456211-1-hch@lst.de/t.mbox.gz`
+- **Series:** "fix crashes when mounting legacy file system with sector
+  size > PAGE_SIZE" (11 patches)
+- **Author's scenario:** Test case on 64k block-size loop device
+  triggered filesystem probing of built-in filesystems, causing actual
+  crashes in roughly half the affected filesystems.
+- **b4 dig -c:** Failed — commit not yet in local tree (not merged).
+- No explicit stable nomination found in cover letter.
 
 ### Step 4.2: Reviewers
-**Record:** **UNVERIFIED** via b4 dig -w. Commit message shows Reviewed-
-by from two Qualcomm ath12k developers and Signed-off-by from Jeff
-Johnson (ath maintainer).
+**Record:** CC'd to Alexander Viro, Christian Brauner, Jan Kara, David
+Sterba, and multiple filesystem maintainers on linux-fsdevel. Brauner
+merged (Signed-off-by in commit message).
 
 ### Step 4.3: Bug Report
-**Record:** No external bug report or syzbot link. Bug identified
-through code analysis and hardware testing (Tested-on: QCN9274).
+**Record:** No external bug report. Author discovered via own testing
+(64k block device + filesystem probe). Reproducible, concrete trigger.
 
 ### Step 4.4: Related Patches
-**Record:** Standalone patch, not part of a series (no "patch X/Y" in
-subject). No dependencies on other patches.
+**Record:** Same pattern fixed in affs, befs, bfs, hpfs, isofs, jfs,
+ntfs3, omfs, qnx4 (series diffstat). Each is independently backportable.
 
 ### Step 4.5: Stable List History
-**Record:** **UNVERIFIED** — could not access lore.kernel.org/stable due
-to bot protection.
+**Record:** No stable-list discussion found (series is May 2026,
+recent).
 
 ---
 
 ## Phase 5: Code Semantic Analysis
 
 ### Step 5.1: Key Functions
-**Record:** `ath12k_mac_op_switch_vif_chanctx()` (mac80211 driver op),
-`ath12k_mac_update_vif_chan()` (internal helper),
-`ath12k_get_ar_by_ctx()` (radio lookup by channel context).
+**Record:** `minix_fill_super()`, `sb_set_blocksize()`, `sb_bread()`,
+`folio_alloc_buffers()`, `folio_set_bh()`
 
 ### Step 5.2: Callers
-**Record:** `ath12k_mac_op_switch_vif_chanctx` registered at mac.c:13056
-as `.switch_vif_chanctx` in `ieee80211_ops`. Called from mac80211 via
-`drv_switch_vif_chanctx()` in `net/mac80211/driver-ops.c:414`. mac80211
-invokes this during channel context switches in `net/mac80211/chan.c` —
-both single-vif (`ieee80211_chsw_switch_vif`, line 1389) and multi-vif
-(`ieee80211_chsw_switch_vifs`, line 1537) paths. Multi-vif path collects
-ALL links with in-place reservations across all replacing chanctxs.
+**Record:**
+- `minix_fill_super()` ← `minix_get_tree()` ← `get_tree_bdev()` ← mount
+  syscall path
+- Triggered during `mount -t minix` or automatic filesystem probing on
+  block devices
 
 ### Step 5.3: Callees
-**Record:** `ath12k_get_ar_by_ctx()` → `ath12k_mac_get_ar_by_chan()`
-(maps channel frequency to radio in multi-radio mode).
-`ath12k_mac_update_vif_chan()` → `ath12k_mac_vdev_restart()`,
-`ath12k_mac_vdev_stop()`, `ath12k_mac_vdev_start()` — all send WMI
-commands to firmware via the `ar` pdev.
+**Record:** On V3 path after superblock read: `sb_set_blocksize()` → (on
+failure, should abort) → `minix_check_superblock()` → `sb_bread()` for
+bitmap blocks
 
 ### Step 5.4: Reachability
-**Record:** Triggered during CSA (Channel Switch Announcement) when
-mac80211 swaps channel contexts. Reachable from AP channel switches, DFS
-events, and MLO multi-link simultaneous CSA. Requires `CONFIG_ATH12K`
-with multi-radio hardware (`ah->num_radio > 1`). Userspace triggers via
-normal WiFi operations (hostapd channel changes, etc.).
+**Record:**
+- Reachable from mount syscall (requires `CAP_SYS_ADMIN` typically)
+- Also reachable via built-in filesystem probing when kernel tries to
+  identify filesystem on a block device (author's actual trigger)
+- MINIX V3 with `s_blocksize > PAGE_SIZE` (e.g., 8K/16K/32K/64K on
+  4K-page systems) triggers the bug
 
 ### Step 5.5: Similar Patterns
-**Record:** rtw89's `rtw89_ops_switch_vif_chanctx()` (mac80211.c:1369)
-iterates each vif individually with per-vif link lookup — the correct
-pattern. ath12k's pre-fix code was an outlier assuming single-radio
-batch processing.
+**Record:** Same unchecked-call pattern exists in other legacy FS (hpfs,
+isofs, jfs, qnx4, omfs) — fixed in the same series. Within minix, line
+221 already checks `sb_set_blocksize()` for initial `BLOCK_SIZE`; only
+the V3 re-set at line 275 is missing the check.
 
 ---
 
-## Phase 6: Cross-Referencing Against Local Tree
+## Phase 6: Cross-Reference Against Local Tree (v6.18.44)
 
-### Step 6.1: Buggy Code Exists?
-**Record:** **YES.** Local tree is **v6.18.44** (`git describe HEAD`).
-Buggy code confirmed at mac.c:11635-11646 — uses `vifs->old_ctx` for
-single `ar`, processes all `n_vifs` with that `ar`. Bug introduced by
-`314876885bdcc3` (April 2024, present since ~v6.9). Multi-radio single-
-wiphy support fully present (`ah->num_radio`, `wiphy->n_radio`, MLO
-capable hardware registration at mac.c:14395+).
+### Step 6.1: Buggy Code Present?
+**Record:** **YES.** Local tree is `v6.18.44` (Makefile: 6.18.44).
+Unchecked call at line 275:
+
+```275:275:fs/minix/inode.c
+                sb_set_blocksize(s, m3s->s_blocksize);
+```
+
+MINIX V3 support and `struct minix3_super_block.s_blocksize` are
+present. `sb_set_blocksize()` PAGE_SIZE check (`a64e5a596067b`) is an
+ancestor of HEAD.
 
 ### Step 6.2: Backport Complications
-**Record:** Clean apply expected. File structure matches diff context.
-`kzalloc_objs`, `__free(kfree)`, `ath12k_generic_dbg` all available. No
-conflicting changes in recent history. Expected difficulty: **clean
-apply**.
+**Record:** Clean apply expected — 2-line change in a stable code region
+unchanged since 2007. No conflicts anticipated.
 
 ### Step 6.3: Related Fixes Already Present?
-**Record:** No — `git log -S "ar_map"` and `git grep "Prevent incorrect
-vif chanctx"` return nothing. Fix not yet in tree.
+**Record:** No. `git log --grep='handle set_blocksize'` and
+`--grep='sector size > PAGE_SIZE'` return empty. Fix not yet in tree.
 
 ---
 
-## Phase 7: Subsystem and Maintainer Context
+## Phase 7: Subsystem Context
 
 ### Step 7.1: Subsystem Criticality
-**Record:** **drivers/net/wireless/ath/ath12k** — IMPORTANT. WiFi 7
-driver for Qualcomm hardware (QCN9274, WCN7850, etc.). Not core kernel,
-but affects all users of supported WiFi 7 hardware.
+**Record:** `fs/minix` — filesystem driver. **IMPORTANT** (not core VFS,
+but mount path can panic kernel). Legacy/niche but built-in on many
+configs.
 
-### Step 7.2: Subsystem Activity
-**Record:** Actively developed — 20+ commits to ath12k/mac.c in recent
-history. ath12k is a relatively young but production driver in v6.18.
+### Step 7.2: Activity Level
+**Record:** Moderately active — recent superblock validation and
+timestamp accessor updates, but core mount path is mature.
 
 ---
 
 ## Phase 8: Impact and Risk Assessment
 
 ### Step 8.1: Who Is Affected
-**Record:** Users of multi-radio ath12k hardware in single-wiphy MLO
-configuration (`CONFIG_ATH12K=y/m`). Specifically QCN9274 and similar
-WiFi 7 chipsets with 2+ radios. Not universal, but growing hardware
-segment.
+**Record:** Users mounting or auto-probing MINIX V3 filesystems with
+`s_blocksize > PAGE_SIZE`, or with any block size rejected by
+`sb_set_blocksize()`. Config-dependent (`CONFIG_MINIX_FS`).
 
 ### Step 8.2: Trigger Conditions
-**Record:** Simultaneous CSA across multiple links spanning more than
-one radio. Occurs when mac80211 calls `ieee80211_chsw_switch_vifs()`
-with `n_vifs > 1` and vifs map to different radios. Realistic on MLO
-AP/STA setups during channel switches. Not timing-dependent race —
-deterministic logic bug. Unprivileged users can trigger indirectly via
-WiFi management (e.g., AP channel change affecting multiple MLO links).
+**Record:**
+- MINIX V3 image with blocksize > `PAGE_SIZE` (author used 64k on
+  4k-page system)
+- Filesystem probe on unsuitable block device (author's actual scenario)
+- Malicious/corrupt superblock with oversized blocksize
+- **Likelihood:** Low for typical users, but concrete and reproducible
+- **Unprivileged trigger:** Unlikely directly; probing requires block
+  device access
 
 ### Step 8.3: Failure Mode Severity
-**Record:** **HIGH** — Driver state corruption. Wrong vdev IDs sent to
-wrong radio's firmware via WMI. Can cause WiFi disconnects, firmware
-communication errors, potential kernel warnings/crashes. The added
-`WARN_ON(!arvif)` path prevents NULL dereference when vif doesn't
-resolve on the wrong radio. Not silent data corruption, but functional
-breakage of wireless connectivity.
+**Record:** `BUG_ON()` in `folio_set_bh()` → **kernel panic**.
+**Severity: CRITICAL** (system crash during mount/probe).
 
 ### Step 8.4: Risk-Benefit
 **Record:**
-- **Benefit:** HIGH for affected hardware — prevents state corruption
-  during CSA on multi-radio WiFi 7 devices
-- **Risk:** LOW — contained to one function's error handling path, uses
-  established patterns, adds validation before processing
-- **Ratio:** Strong benefit outweighs minimal risk
+- **Benefit:** Prevents kernel panic on mount/probe failure path;
+  converts crash to clean `-EINVAL` mount failure
+- **Risk:** Very low — 2 lines, matches existing in-file pattern, only
+  affects error path
+- **Ratio:** High benefit, minimal risk
 
 ---
 
@@ -356,223 +321,121 @@ breakage of wireless connectivity.
 
 ### Step 9.1: Evidence Summary
 
-**FOR backporting:**
-- Fixes real, reproducible logic bug in multi-radio chanctx switching
-- Can corrupt driver state / break WiFi on QCN9274-class hardware
-- Hardware-tested (Tested-on: QCN9274)
-- Reviewed by two Qualcomm ath12k developers
-- Small, single-file, self-contained fix
-- Bug present since April 2024 single-wiphy support (`314876885bdcc3`)
-- Buggy code confirmed in v6.18.44
-- Adds NULL safety guard preventing potential oops
-- Follows pattern used by other WiFi drivers (rtw89)
+**FOR backport:**
+- Real, reproducible kernel panic (`BUG_ON`) on mount
+- Small, obviously correct fix matching existing code pattern
+- Author verified crashes across multiple legacy filesystems
+- Filesystem probing can trigger without explicit minix mount
+- `sb_set_blocksize()` PAGE_SIZE validation is already in 6.18.y, making
+  the silent-failure path live today
 
-**AGAINST backporting:**
-- Only affects multi-radio ath12k hardware (not all users)
-- No syzbot report or user bug report (identified proactively)
-- CSA across multiple radios may be less common than single-radio
-  operations
+**AGAINST backport:**
+- MINIX is niche/rarely used
+- Requires specific blocksize condition
+- Minor buffer_head leak on new error path (`goto out` vs `goto
+  out_release`) — negligible
 
-**UNRESOLVED:**
-- Full lore.kernel.org review thread (bot protection blocked access)
-- Whether reviewers explicitly nominated for stable
+**Unresolved:** None material to the decision.
 
 ### Step 9.2: Stable Rules Checklist
-1. Obviously correct and tested? **PASS** — logic is sound, QCN9274
-   tested, dual Reviewed-by
-2. Fixes a real bug? **PASS** — incorrect radio selection with state
-   corruption
-3. Important issue? **PASS** — driver state corruption / connectivity
-   loss (HIGH severity)
-4. Small and contained? **PASS** — one file, ~75 lines, focused change
-5. No new features or APIs? **PASS** — bug fix only, returns existing
-   error codes
-6. Can apply to local tree? **PASS** — all dependencies present, clean
-   apply expected
+1. Obviously correct and tested? **PASS** — mirrors line 221; author
+   tested via 64k block device scenario
+2. Fixes a real bug affecting users? **PASS** — mount-time kernel panic
+3. Important issue? **PASS** — CRITICAL (BUG_ON/panic)
+4. Small and contained? **PASS** — 2 lines, one file
+5. No new features or APIs? **PASS** — error handling only
+6. Can apply to local tree? **PASS** — buggy code present, clean apply
+   expected
 
 ### Step 9.3: Exception Categories
-**Record:** N/A — standard driver bug fix, not a quirk/DT/build/doc
+**Record:** N/A — standard bug fix, not a device-ID/quirk/build/doc
 exception.
 
-### Step 9.4: Decision Rationale
+### Step 9.4: Problem Summary
 
-This commit fixes a deterministic bug in ath12k's channel context switch
-handler for multi-radio single-wiphy configurations. The local tree
-(v6.18.44) contains the buggy code introduced in April 2024 and lacks
-this fix. When mac80211 passes vifs spanning multiple radios during
-simultaneous CSA, the driver sends vdev WMI commands to the wrong radio,
-corrupting driver state. The fix correctly groups vifs by radio and
-validates each entry — a minimal, obviously correct change tested on
-real hardware. While the affected hardware population is narrower than a
-core kernel bug, WiFi 7 multi-radio devices are production hardware in
-v6.18, and driver state corruption during channel switches is a serious
-functional defect appropriate for stable.
+This commit fixes a mount-time kernel panic in the MINIX V3 code path.
+When a V3 superblock specifies a block size that `sb_set_blocksize()`
+rejects (notably > `PAGE_SIZE` on systems where minix lacks `FS_LBS`),
+the failure was silently ignored. Mount continued and the first
+`sb_bread()` call hit `BUG_ON(offset >= folio_size(folio))` in
+`folio_set_bh()`. The fix adds the same return-value check already used
+for the initial `BLOCK_SIZE` setup at the top of `minix_fill_super()`,
+causing mount to fail cleanly instead of panicking.
+
+For v6.18.44, the buggy code is present, the prerequisite
+`sb_set_blocksize()` PAGE_SIZE validation exists, and the fix applies
+cleanly as a standalone 2-line change.
 
 ---
 
 ## Verification
 
-- **[Phase 1]** Parsed commit message: subject, tags (Tested-on,
-  Reviewed-by x2, Link), body analysis
-- **[Phase 2]** Diff analysis: 2 functions in mac.c, logic bug + NULL
-  guard, ~75 lines
-- **[Phase 3]** `git blame -L 11625,11649`: function from d889913
-  (2022), radio lookup from 314876885bdcc3 (2024-04-09)
-- **[Phase 3]** `git show 314876885bdcc3`: confirmed single-wiphy commit
-  introduced the assumption
-- **[Phase 3]** `git merge-base --is-ancestor`: both d889913 and
-  314876885bdcc3 are in tree
-- **[Phase 3]** `git log -S "ar_map"`: empty — fix not applied
-- **[Phase 3]** `git log --oneline -20 --
-  drivers/net/wireless/ath/ath12k/mac.c`: recent active development
-- **[Phase 4]** `b4 dig -c HEAD`: failed (commit not in tree)
-- **[Phase 4]** lore.kernel.org/patch.msgid.link: blocked by Anubis
-  (UNVERIFIED: review thread)
-- **[Phase 5]** `grep switch_vif_chanctx`: mac80211 chan.c:1537 calls
-  with n_vifs spanning all reserved links
-- **[Phase 5]** Read rtw89 mac80211.c:1369-1414: per-vif iteration
-  pattern (comparison)
-- **[Phase 5]** Read ath12k mac.c:10878-10907: confirmed NULL deref risk
-  before fix
-- **[Phase 6]** `git describe HEAD`: v6.18.44
-- **[Phase 6]** Read mac.c:11625-11649: buggy code present (uses vifs[0]
-  only)
-- **[Phase 6]** `git merge-base --is-ancestor 3bf5e19c804d0 HEAD`:
-  kzalloc_objs available
-- **[Phase 6]** `grep __free(kfree)`: pattern already used in
-  ath12k/mac.c
-- **[Phase 6]** `grep ath12k_generic_dbg`: present in debug.h
-- **[Phase 8]** Failure mode: driver state corruption on multi-radio
-  CSA, severity HIGH
+- [Phase 1] Parsed subject, tags, body from provided commit message
+- [Phase 1] Identified patch 9/11 from Link message-ID
+- [Phase 2] Diff: 2 lines added in `minix_fill_super()` V3 branch
+- [Phase 2] Read `sb_set_blocksize()` at `block/bdev.c:220-230` —
+  returns 0 when `size > PAGE_SIZE` for non-FS_LBS
+- [Phase 2] Read `folio_set_bh()` at `fs/buffer.c:1578-1582` — confirmed
+  `BUG_ON(offset >= folio_size(folio))`
+- [Phase 2] Traced `sb_bread` → `bdev_getblk` → `folio_alloc_buffers` →
+  `folio_set_bh` at `fs/buffer.c:1075,946`
+- [Phase 3] `git describe HEAD`: v6.18.44
+- [Phase 3] `git blame -L 270,280 fs/minix/inode.c`: unchecked call from
+  2007 (939b00df0306)
+- [Phase 3] `git merge-base --is-ancestor a64e5a596067b HEAD`: PAGE_SIZE
+  check is in tree
+- [Phase 3] `git log --grep='handle set_blocksize'`: empty — fix not
+  merged
+- [Phase 3] `git log --oneline -20 -- fs/minix/inode.c`: recent
+  activity, no duplicate fix
+- [Phase 4] Fetched cover letter mbox from lore.kernel.org — confirmed
+  crash scenario and 11-patch series
+- [Phase 4] b4 dig -c: N/A — commit not in tree
+- [Phase 4] No stable nomination found in cover letter
+- [Phase 5] `minix_fill_super` called from `minix_get_tree` →
+  `get_tree_bdev` (mount path)
+- [Phase 5] minix `fs_flags = FS_REQUIRES_DEV` — no FS_LBS
+- [Phase 6] `grep sb_set_blocksize fs/minix/inode.c`: line 275
+  unchecked, line 221 checked
+- [Phase 6] `struct minix3_super_block.s_blocksize` in
+  `include/uapi/linux/minix_fs.h:94`
+- [Phase 6] Read `minix_check_superblock()` — does not validate
+  blocksize against PAGE_SIZE
+- [Phase 8] Failure mode: BUG_ON → kernel panic, severity CRITICAL
 
-**YES**The background search finished: the commit isn’t in this tree yet
-(no matches for “Prevent incorrect vif chanctx” or “multi-radio
-contexts”), which matches evaluating it as a new backport candidate.
+**YES**The background checks finished and match what the analysis
+already used:
 
-**Summary for v6.18.44:** **YES** — backport this fix.
+- **Hellwig/minix history:** Recent related work in this tree is mostly
+  older minix cleanups (error handling in `minix_set_link` /
+  `minix_delete_entry`, DIRSYNC behavior), not this `sb_set_blocksize`
+  fix.
+- **Merge check:** `git log --grep='handle set_blocksize'` and
+  `--grep='sector size > PAGE_SIZE'` both came back empty, so the fix is
+  still not in v6.18.44.
 
-The bug is real and present: on multi-radio ath12k hardware,
-`ath12k_mac_op_switch_vif_chanctx()` picks the radio from `vifs[0]` but
-processes the whole batch, so simultaneous CSA across radios can send
-vdev WMI commands to the wrong radio and corrupt driver state. The patch
-groups vifs by radio, validates each one, and adds a NULL guard in
-`ath12k_mac_update_vif_chan()`. It’s a small, single-file change, tested
-on QCN9274, and should apply cleanly here.
+That leaves the earlier conclusion unchanged: this is a small mount-time
+panic fix worth backporting to this tree.
 
- drivers/net/wireless/ath/ath12k/mac.c | 87 +++++++++++++++++++++++----
- 1 file changed, 76 insertions(+), 11 deletions(-)
+**YES**
 
-diff --git a/drivers/net/wireless/ath/ath12k/mac.c b/drivers/net/wireless/ath/ath12k/mac.c
-index 4bb4482e27343..2f47054efa44e 100644
---- a/drivers/net/wireless/ath/ath12k/mac.c
-+++ b/drivers/net/wireless/ath/ath12k/mac.c
-@@ -10888,6 +10888,9 @@ ath12k_mac_update_vif_chan(struct ath12k *ar,
- 			continue;
- 		}
- 
-+		if (WARN_ON(!arvif))
-+			continue;
-+
- 		ath12k_dbg(ab, ATH12K_DBG_MAC,
- 			   "mac chanctx switch vdev_id %i freq %u->%u width %d->%d\n",
- 			   arvif->vdev_id,
-@@ -11628,23 +11631,85 @@ ath12k_mac_op_switch_vif_chanctx(struct ieee80211_hw *hw,
- 				 int n_vifs,
- 				 enum ieee80211_chanctx_switch_mode mode)
- {
--	struct ath12k *ar;
-+	struct ath12k *curr_ar, *new_ar, *group_ar;
-+	struct ieee80211_vif_chanctx_switch *v;
-+	int i, j, count = 0;
- 
- 	lockdep_assert_wiphy(hw->wiphy);
- 
--	ar = ath12k_get_ar_by_ctx(hw, vifs->old_ctx);
--	if (!ar)
--		return -EINVAL;
-+	if (n_vifs == 0)
-+		return 0;
- 
--	/* Switching channels across radio is not allowed */
--	if (ar != ath12k_get_ar_by_ctx(hw, vifs->new_ctx))
--		return -EINVAL;
-+	struct ath12k **ar_map __free(kfree) = kzalloc_objs(*ar_map, n_vifs);
- 
--	ath12k_dbg(ar->ab, ATH12K_DBG_MAC,
--		   "mac chanctx switch n_vifs %d mode %d\n",
--		   n_vifs, mode);
--	ath12k_mac_update_vif_chan(ar, vifs, n_vifs);
-+	if (!ar_map)
-+		return -ENOMEM;
-+
-+	for (i = 0; i < n_vifs; i++) {
-+		v = &vifs[i];
-+
-+		if (v->old_ctx->def.chan->band != v->new_ctx->def.chan->band) {
-+			ath12k_generic_dbg(ATH12K_DBG_MAC,
-+					   "mac chanctx switch band change not supported\n");
-+			return -EOPNOTSUPP;
-+		}
-+
-+		curr_ar = ath12k_get_ar_by_ctx(hw, v->old_ctx);
-+		new_ar = ath12k_get_ar_by_ctx(hw, v->new_ctx);
-+
-+		if (!curr_ar || !new_ar) {
-+			ath12k_generic_dbg(ATH12K_DBG_MAC,
-+					   "unable to determine device for the passed channel ctx\n");
-+			ath12k_generic_dbg(ATH12K_DBG_MAC,
-+					   "Old freq %d MHz (device %s) to new freq %d MHz (device %s)\n",
-+					   v->old_ctx->def.chan->center_freq,
-+					   curr_ar ? "valid" : "invalid",
-+					   v->new_ctx->def.chan->center_freq,
-+					   new_ar ? "valid" : "invalid");
-+			return -EINVAL;
-+		}
- 
-+		/* Switching a vif between two radios is not allowed */
-+		if (curr_ar != new_ar) {
-+			ath12k_dbg(curr_ar->ab, ATH12K_DBG_MAC,
-+				   "mac chanctx switch to another radio not supported\n");
-+			return -EOPNOTSUPP;
-+		}
-+
-+		ar_map[i] = curr_ar;
-+	}
-+
-+	/* Group vifs by radio (ar) and process each group independently. */
-+	bool *processed __free(kfree) = kzalloc_objs(*processed, n_vifs);
-+
-+	if (!processed)
-+		return -ENOMEM;
-+
-+	struct ieee80211_vif_chanctx_switch *group_vifs __free(kfree) =
-+						kzalloc_objs(*group_vifs, n_vifs);
-+
-+	if (!group_vifs)
-+		return -ENOMEM;
-+
-+	for (i = 0; i < n_vifs; i++) {
-+		if (processed[i])
-+			continue;
-+
-+		group_ar = ar_map[i];
-+
-+		count = 0;
-+		for (j = 0; j < n_vifs; j++) {
-+			if (!processed[j] && ar_map[j] == group_ar) {
-+				group_vifs[count++] = vifs[j];
-+				processed[j] = true;
-+			}
-+		}
-+
-+		ath12k_dbg(group_ar->ab, ATH12K_DBG_MAC,
-+			   "mac chanctx switch n_vifs %d mode %d\n",
-+			   count, mode);
-+		ath12k_mac_update_vif_chan(group_ar, group_vifs, count);
-+	}
- 	return 0;
- }
- 
+ fs/minix/inode.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/fs/minix/inode.c b/fs/minix/inode.c
+index 7bdd240ea1584..5bfe42599a585 100644
+--- a/fs/minix/inode.c
++++ b/fs/minix/inode.c
+@@ -272,7 +272,8 @@ static int minix_fill_super(struct super_block *s, struct fs_context *fc)
+ 		sbi->s_namelen = 60;
+ 		sbi->s_version = MINIX_V3;
+ 		sbi->s_mount_state = MINIX_VALID_FS;
+-		sb_set_blocksize(s, m3s->s_blocksize);
++		if (!sb_set_blocksize(s, m3s->s_blocksize))
++			goto out;
+ 		s->s_max_links = MINIX2_LINK_MAX;
+ 	} else
+ 		goto out_no_fs;
 -- 
 2.53.0
 
