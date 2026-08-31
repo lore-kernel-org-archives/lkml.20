@@ -1,104 +1,146 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx.swemel.ru (mx.swemel.ru [95.143.211.150])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F5E43C9EF6;
-	Mon, 31 Aug 2026 07:55:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E834F27E1DC;
+	Mon, 31 Aug 2026 07:55:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.143.211.150
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788162914; cv=none; b=A37A6TCCNIeBorCR4Csk++LcSc0i9aMSeER/34U1yNOjta7Ce/cyCo3bE7jMIT/juojQutxINcatyNgCK5TW9nSkhs51nOk3awfQTsKStV/10V+uFU2bbzMTS608gSKlz+8or0jo0hWFKm3chFMDAmBzkWi4vXxoavwSHyhbDAQ=
+	t=1788162916; cv=none; b=mVG6LNEBeuAe3WnGGColk4Haxpi/hqUvCdsvMgCXjkfjTLWHiTzSrXnwRI8pBpmhz1udKf/QP+nh2Iqf1vmPC8cfCCj46d7WSdrAh3mVR+KnVfGFG8Ew0hlkU3mw89Ae8KeTLqn+XT1GnN3rL0Bfgeedai7d+eJW8KyeIIeBBU8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788162914; c=relaxed/simple;
-	bh=XS6MnXjdLgN+IYhhFCbdkHwuEbPjLdRgd8mBHzowrsA=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=al6XHs5fVzKhLfnNCFkzoc+91KwDoRC8v/7s5+1q9ThnLHZv3JVny2tfo5TpMg1Vj4eCCXJZ6kcHmv7iehKcIw4sF8oNvQZ8wMSfSyJkKuXBvJjY8W7Jko7mBc2/4EnQIhAScIAel2SikHlQjzI0BiMCD0D6K074N4giQWOrvTg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y4rqbM8Y; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788162916; c=relaxed/simple;
+	bh=3BWAK6Evoz16e0emRVdrO0Y1UlyWZz0rq4ElYHd/Bz8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=A06mm1sdwRr6S7I8CyJbtt7UCGoDdC3bX9lRTIJq0zvHni4jR2mvdguO4vW6orgt8m7+E8zc709QskXl3iKibVsJiK7p5umwNg0fKsRXQrE+YAHMr1h6UgXcFMXSbPtdSMvwqNrEZMSZgnXS46CNaagEKovQVJWoJ6UWNuqrJ9k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=swemel.ru; spf=pass smtp.mailfrom=swemel.ru; dkim=pass (1024-bit key) header.d=swemel.ru header.i=@swemel.ru header.b=q6rJEfgB; arc=none smtp.client-ip=95.143.211.150
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=swemel.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=swemel.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y4rqbM8Y"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0AF1F1F00ACF;
-	Mon, 31 Aug 2026 07:55:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788162912;
-	bh=1TPnEmDnniutV5HQvwxJTUXw2WVcmYP9OzXkFa4bSgg=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=Y4rqbM8YB6nCBdyUlbKEcz83EeJavjEKEBBRMR2B+C7ErWntMg+z3CmM322SjjLSn
-	 DA8fDWEBQ5wYwCThDMMDt+DosdzIyDSaQwR1+zDBvzj9XfmagYUW3/985rBoOWMRyq
-	 /qz+ESZitATPcdEaOcKx1vBaQoEDu7W4ZHeYe5YE0T/qmHANVxTft7pvBEwkWXo7X7
-	 /xf59VmTdPhh6QJymzMjgdliilE7+9yuIHtS+WH3sGRrJskpEEssyBSwAVOigzXjwN
-	 rSiXLMeexpgirZhC6AfqEUQ+V6nP4wmCPjBl/TJNVZFR/wsWPHI7Zu0aAwosaLjh6R
-	 SEJkbZ53rtGJw==
-From: Christian Brauner <brauner@kernel.org>
-To: Christian Brauner <brauner@kernel.org>, 
- David Howells <dhowells@redhat.com>
-Cc: Paulo Alcantara <pc@manguebit.org>, netfs@lists.linux.dev, 
- linux-afs@lists.infradead.org, linux-cifs@vger.kernel.org, 
- ceph-devel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20260827134304.2075713-1-dhowells@redhat.com>
-References: <20260827134304.2075713-1-dhowells@redhat.com>
-Subject: Re: [PATCH v4 00/10] netfs, cachefiles: Miscellaneous fixes
-Message-Id: <20260831-tabuisieren-flugobjekt-stangen-0dd7cf160bd3@brauner>
-Date: Mon, 31 Aug 2026 09:55:06 +0200
+	dkim=pass (1024-bit key) header.d=swemel.ru header.i=@swemel.ru header.b="q6rJEfgB"
+From: Denis Arefev <arefev@swemel.ru>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=swemel.ru; s=mail;
+	t=1788162901;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=DjjLFNmX/3fOBgo42kROds31DvH6tjSBbxlxYWmoLIE=;
+	b=q6rJEfgBeeA6xeLCF/qVZgA5U12XkuvnhtnztSSKW7oik9esBxQL5eODGlRr/AbXMhNFCT
+	HUBMUsUXugJSGgv/b849kFq/NU0+kuZC1AoT1inHP8OVNQH8DIg96226thoaKfFiHP0Rg8
+	aN3r32ulJU/kMzK6Ist7GAuRwwoejEU=
+To: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: "David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Hideaki YOSHIFUJI <yoshfuji@linux-ipv6.org>,
+	David Ahern <dsahern@kernel.org>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Zero Day Initiative <zdi-disclosures@trendmicro.com>,
+	Ido Schimmel <idosch@nvidia.com>
+Subject: [PATCH 5.10/5.15] ipv4: igmp: Fix potential UAF in igmp_gq_start_timer()
+Date: Mon, 31 Aug 2026 10:55:00 +0300
+Message-ID: <20260831075501.23006-1-arefev@swemel.ru>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev-362b8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2075; i=brauner@kernel.org;
- h=from:subject:message-id; bh=XS6MnXjdLgN+IYhhFCbdkHwuEbPjLdRgd8mBHzowrsA=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWRNNY7bJpSvk1b096VIscV85iNXdwV7cIjfrRLo2b5mh
- 7Dtlv3MHaUsDGJcDLJiiiwO7Sbhcst5KjYbZWrAzGFlAhnCwMUpABPZbcnwV1DnULdcyBTnjear
- eq4EzVRZsu6R4v8+e5PLq6YWz9/V/Yfhr7im1gm/vukeSR1ZJ+1ry1+dvTTtd8iq0L2bshba9a5
- NYQYA
-X-Developer-Key: i=brauner@kernel.org; a=openpgp;
- fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+Content-Transfer-Encoding: 8bit
 
-On Thu, 27 Aug 2026 14:42:53 +0100, David Howells wrote:
-> netfs, cachefiles: Miscellaneous fixes
-> 
-> Hi Christian,
-> 
-> Here are some miscellaneous fixes for netfslib and one for cachefiles, if
-> you could pick them up?
-> 
-> [...]
+From: Eric Dumazet <edumazet@google.com>
 
-Applied to the vfs.fixes branch of the vfs/vfs.git tree.
-Patches in the vfs.fixes branch should appear in linux-next soon.
+commit 7b19c0f81ed1fdaec6bc522569be367199a9edf3 upstream.
 
-Please report any outstanding bugs that were missed during review in a
-new review to the original patch series allowing us to drop it.
+A race condition exists between device teardown (inetdev_destroy) and
+incoming IGMP query processing (igmp_rcv), leading to a Use-After-Free
+in the IGMP timer callback.
 
-It's encouraged to provide Acked-bys and Reviewed-bys even though the
-patch has now been applied. If possible patch trailers will be updated.
+During device destruction, inetdev_destroy() drops the primary reference
+to in_device, which can drop its refcount to 0. The actual freeing of
+in_device memory is deferred via RCU (using call_rcu()).
 
-Note that commit hashes shown below are subject to change due to rebase,
-trailer updates or similar. If in doubt, please check the listed branch.
+Concurrently, igmp_rcv() runs under RCU read lock and obtains the
+in_device pointer. Because the memory is RCU-protected, CPU-0 can safely
+dereference in_device even if its refcount has hit 0.
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
-branch: vfs.fixes
+However, if CPU-0 calls igmp_gq_start_timer() and re-arms the timer, it
+attempts to acquire a reference using in_dev_hold(). This increments the
+refcount from 0 to 1, triggering a "refcount_t: addition on 0" warning.
+Since the in_device memory is still scheduled to be freed after the RCU
+grace period (as the free callback does not check the refcount again),
+the device is freed while the timer is still armed. When the timer
+expires, it accesses the freed memory, causing a kernel panic.
 
-[01/10] netfs: Fix uninitialized return value in netfs_unbuffered_write()
-        https://git.kernel.org/vfs/vfs/c/f18e8774f4d3
-[02/10] netfs: Fix unbuffered/DIO write partial transfer error return
-        https://git.kernel.org/vfs/vfs/c/c753a33664e4
-[03/10] netfs: Fix error vs transferred passed to ->ki_complete()
-        https://git.kernel.org/vfs/vfs/c/0bfe2571a6af
-[04/10] netfs: Fix i_size update for partial transfer
-        https://git.kernel.org/vfs/vfs/c/741416a8003b
-[05/10] netfs: Fix subreq ref leak
-        https://git.kernel.org/vfs/vfs/c/3c30087e2759
-[06/10] netfs: break unbuffered write when netfs_alloc_subrequest() fails
-        https://git.kernel.org/vfs/vfs/c/8fb45a934661
-[07/10] netfs: Fix readahead synchronisation issues by loading all folios upfront
-        https://git.kernel.org/vfs/vfs/c/fed0b33e6c58
-[08/10] netfs: Mark folios with COPY_TO_CACHE whilst issuing subreqs
-        https://git.kernel.org/vfs/vfs/c/533203c41831
-[09/10] netfs: Fix read progress reporting
-        https://git.kernel.org/vfs/vfs/c/e00827a4d0cf
-[10/10] cachefiles: Fix potential UAF/KASAN warning
-        https://git.kernel.org/vfs/vfs/c/a67632c8c268
+Fix this by using refcount_inc_not_zero() (via a new helper
+in_dev_hold_safe()) to prevent acquiring a reference if the device is
+already being destroyed. If the refcount is 0, we do not arm the timer.
+
+A similar issue in IPv6 MLD is fixed in a subsequent patch.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Reported-by: Zero Day Initiative <zdi-disclosures@trendmicro.com>
+Signed-off-by: Eric Dumazet <edumazet@google.com>
+Reviewed-by: Ido Schimmel <idosch@nvidia.com>
+Link: https://patch.msgid.link/20260705181756.963063-2-edumazet@google.com
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+[Denis Arefev: adapted for 5.10/5.15: keep prandom_u32(),
+get_random_u32_below() not used here]
+Signed-off-by: Denis Arefev <arefev@swemel.ru>
+---
+Backport fix for CVE-2026-72323 
+Link: https://nvd.nist.gov/vuln/detail/CVE-2026-72323 
+---
+ include/linux/inetdevice.h |  5 +++++
+ net/ipv4/igmp.c            | 14 +++++++++-----
+ 2 files changed, 14 insertions(+), 5 deletions(-)
+
+diff --git a/include/linux/inetdevice.h b/include/linux/inetdevice.h
+index 3088d94684c1..6174930ae654 100644
+--- a/include/linux/inetdevice.h
++++ b/include/linux/inetdevice.h
+@@ -277,6 +277,11 @@ static inline void in_dev_put(struct in_device *idev)
+ #define __in_dev_put(idev)  refcount_dec(&(idev)->refcnt)
+ #define in_dev_hold(idev)   refcount_inc(&(idev)->refcnt)
+ 
++static inline bool in_dev_hold_safe(struct in_device *idev)
++{
++	return refcount_inc_not_zero(&idev->refcnt);
++}
++
+ #endif /* __KERNEL__ */
+ 
+ static __inline__ __be32 inet_make_mask(int logmask)
+diff --git a/net/ipv4/igmp.c b/net/ipv4/igmp.c
+index d2ea0d8e7a2f..5d87e912e1f2 100644
+--- a/net/ipv4/igmp.c
++++ b/net/ipv4/igmp.c
+@@ -232,16 +232,20 @@ static void igmp_gq_start_timer(struct in_device *in_dev)
+ 		return;
+ 
+ 	in_dev->mr_gq_running = 1;
+-	if (!mod_timer(&in_dev->mr_gq_timer, exp))
+-		in_dev_hold(in_dev);
++	if (in_dev_hold_safe(in_dev)) {
++		if (mod_timer(&in_dev->mr_gq_timer, exp))
++			in_dev_put(in_dev);
++	}
+ }
+ 
+ static void igmp_ifc_start_timer(struct in_device *in_dev, int delay)
+ {
+-	int tv = prandom_u32() % delay;
++	if (in_dev_hold_safe(in_dev)) {
++		int tv = prandom_u32() % delay;
+ 
+-	if (!mod_timer(&in_dev->mr_ifc_timer, jiffies+tv+2))
+-		in_dev_hold(in_dev);
++		if (mod_timer(&in_dev->mr_ifc_timer, jiffies + tv + 2))
++			in_dev_put(in_dev);
++	}
+ }
+ 
+ static void igmp_mod_timer(struct ip_mc_list *im, int max_delay)
+-- 
+2.43.0
 
