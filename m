@@ -1,269 +1,179 @@
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013052.outbound.protection.outlook.com [40.93.201.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA44C44E67A
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 17:54:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788198880; cv=none; b=YzG6Cx19v2Xaj6lbu74QFXwodqsiGM9w64STAchsRe0+e3vOnt4TyzFP3pq9/WItm7rcvN1ntqOqAWfnimMBSSpSDO1fNTriFEE74TNU+xNHrHKJoG+Hdw+7HoUWwAXKhmVodWZ3DJSbqzpq8pUtFdQWCl6Sb2NQVmeLx642ZAU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788198880; c=relaxed/simple;
-	bh=5h4EQZuOgHV+MSphDIJrcKYtLiv2Xf+nQA9uyiTJ4g0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tLtmCShUuEWpiiYguJePgjb/x97mMQbxAYgxDEjZC7TimAUMtFqu+G0e1AlYPwAhTzXug+XTJZscDBxp0g/oQmdFzGMqivN6443UV5TCOcBUQfm1ptFiymj22+wZwGGZBbif5E2qiNZiK/iE2qTOAbM/c+mMaa16feKQmHy3xeI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JcBA7aLP; arc=none smtp.client-ip=209.85.216.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE84A49E5D2;
+	Mon, 31 Aug 2026 17:55:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.201.52
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788198911; cv=fail; b=TPaBonlP9UT2mAd4YzYxgI7isUm5Qzi1/PFQkI1ybbw3RPcsfUa6X5pWPYuAIKC+VVi0nHAV0I66xeA1vgdBvN8JpEkws8/H0+7OdDNOzRpp5rXkM7TkGUCH8I+pgAO1oMzxEixFXAjl46vRRg+5DINSQAuvKusNKGsMRWzcOio=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788198911; c=relaxed/simple;
+	bh=ykiLA7S5AKidzcve8NvHOvS/XETVcn/89npTTIwU1Uc=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=uG6lhcOYKKxm693m6kvLiHSoYk1dlbexY5BcTEA/SrVZlINCDzUrIES2XdRaDaCAKGaVpOLuTuwn6yYj8Ly03t1c8tAsisGesG8ebB2JGSgWgM8SCZb/B+ilE1j3TlhanstXcXFksPht2ZOHZzvbEZ2bMW2aKBSSnM0MHlNECdU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=MLt4NHmX; arc=fail smtp.client-ip=40.93.201.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JcBA7aLP"
-Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-381b831d535so111460a91.0
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 10:54:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788198878; x=1788803678; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=EqIx8ijt4hM95Y+cetezXZICQTZpN4/GGo2SvJmbUF4=;
-        b=JcBA7aLPDXtEA/rhxKaBF4air/tW0SspmyAwv7YUQaClu50KLPnSTQ6gk9cBvSAGvW
-         I3Jy7dr1zbZCdECjs7lQyBDVBeM8SHawRoY5WuCaBaCWvudyJzdikthfa4EXbg/Cej0r
-         nv0Eg9+knFQnSkfC3JyBSaHL5z40H9DewZr5UlzNn6lf8qpJUMdf+i4TFhXTsscEf4XQ
-         3pTfypGmdfnMIeyI4ohFVASzvhFhkZGnvjGBvmrf5TdkMZEOZIDAKTAA4N7r0zXyXOK9
-         KMwnKP5CDXSLbBGGqHLBQDr4tuipWQcxqvcWLtWioEP6nPPqRe2rIaFYy1DFSqPr2mfd
-         Ouaw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788198878; x=1788803678;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=EqIx8ijt4hM95Y+cetezXZICQTZpN4/GGo2SvJmbUF4=;
-        b=d1jNUwSxbfUDfTYDG+p2axV3Fqqq6pc8Vu4kyOzSPxAeeRIonUQ9GGDMffXtBvl6L9
-         QzueeFuOaEoE6Y17AWJQIzrsQgusOF6RhZRpkmh5iG+fMJDk8ln9OhKpE/KN6foY412Z
-         htibFhOJ3hEyaZiLVFMhS7PbmeII+btZby/0fYuGz4udJOU7/rQdnK68nArj2EU5Qqdh
-         3UKM0tjA0sMJUaL/iHQh7JFvauMN2ENeR+2eWBSr1MVjNH1yADURhSmvw4Ugcv5qMnls
-         GLP02BLBIP8ipBuhn1NffKtjsR0cW4lpYrUubWwx0RtGVIOIC94OQGR+ye1slnXAGmuK
-         tYPg==
-X-Forwarded-Encrypted: i=1; AKwUvBwgdAM71FYCmZQQqJ7Q6wBPpHb/3wrtoy4ILewA8PG3ttYsvRnDVBp5ltiv2aYSkyDmaaiSOgWCD+Fmrck=@vger.kernel.org
-X-Gm-Message-State: AFuF++mzkNK5D1mzMA+f3q36WtZ6p9BM6Jys6CSN6PaxSBiWjJJK9phC
-	qmh1SB+fW4zF7V6rKtrgPqLTjnO9s11v7qAWb5yvf1QJNq0o0S0xEWrq
-X-Gm-Gg: AYBFou19cY3dKB+Xcd3qMqJuACxvWgRnrQVqVDDesAEaV7xrgPvpeelbIi6xcBUGODd
-	PgxBPHdQYYpLUQ69Qayw5fcOZEvUoQe8RSrbbCGdU5xx/SWeUiH+iYzKo1kl3LU5FwPODaLfXao
-	P5TgD0Dp+Z6+jC0/O1w62Z+Lb6DD2OfgRhQ/H9n5G9TX2V9SveNDPjm+DlpUJIDjq/woVBpIBp4
-	t4QRVqUqYUaR2O5xDtvc2rFmK1anTuUYpB61CXJQGcvADj8ALWUG3m3xfaPyVoZ1lbwh63xoGcM
-	A5RiVJOndyE2s/M+uBg2KaEPTYkIFUPtMJeCusdWFrPHhd7hak30avhVF7VjBGJfXzo73D+AHvP
-	KAjmU03p5+/L+cv13zTW/8bQMEcWcI3XUaqF8bpei2s1kgsCs3R1FYXCGzluZ2/ITdgmJUbo0Mo
-	2m4VHRSNCihH2eWNSg8mvXzzelDB8t0Oz2J6PWsT7wEAkn30YI7/FUJzrJ4X0td2iYUTqrur+uJ
-	wTgT3fa63VhsgRS6Dfaun0l
-X-Received: by 2002:a17:90a:dfc8:b0:398:e1f4:bda1 with SMTP id 98e67ed59e1d1-398e1f4be7dmr13082589a91.21.1788198878072;
-        Mon, 31 Aug 2026 10:54:38 -0700 (PDT)
-Received: from KASONG-MC4 ([101.32.222.185])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-398aa331ad1sm5260154a91.2.2026.08.31.10.54.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 10:54:36 -0700 (PDT)
-Date: Tue, 1 Sep 2026 01:54:29 +0800
-From: Kairui Song <ryncsn@gmail.com>
-To: Baoquan He <hebaoquan@kylinos.cn>
-Cc: linux-mm@kvack.org, akpm@linux-foundation.org, chrisl@kernel.org, 
-	kasong@tencent.com, nphamcs@gmail.com, baohua@kernel.org, youngjun.park@lge.com, 
-	hannes@cmpxchg.org, yosry@kernel.org, shikemeng@huaweicloud.com, 
-	chengming.zhou@linux.dev, baoquan.he@linux.dev, david@kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 00/16] xswap: extendable swap device backed by zswap
-Message-ID: <apVNB2FRTFMDtvGP@KASONG-MC4>
-References: <20260827094509.1016740-1-hebaoquan@kylinos.cn>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="MLt4NHmX"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=KMTvTnPNiHrrG8cDmH4PWlqI7W9+HC4wREqeDYeq7/FB7DJ46KImc90zDIf9ndyfnNyxlzhbzhrsvwKykhYsm2eo4p5SjNjaejLnchY8csJJjow56GEZgsYFczL5TzgDc4UYO6P/G6LF4nMATKEMdcEG1ASuPjFoZ4zOZC5zlWEn/yEkxuPSczAd2XSrgu1kZp+tSOXnz5gTJer3JGQHTejw4JtV4W7czniFR5/IyOAgrvo0LNlaLukIkfltTzPkT7TciT7qbe9v/9lyCEsWZxsoh0WnYLbFw8TPgtilJmz9S5fihlr+GI7XWgGGG7yq9m71D/bSnp/0dGh3AuM5LQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=2UJDrtCO/KMHP28Myb2UatMD688qu+BkTN4Xu4rnNyI=;
+ b=vltSdcjmFbq0rUaLKKnikCypVVXdxeOL/gfo0MlF/6B1pdhFNeth3i9xKdNZkqyrFemXMmIB9ruQLqIkDzrKwuJktQPUHQgm9ynIlcUtbKZcquAUn/s8fYVNm8p8vZxMOrJXC5MJXs3hhnvWYg/y/v0666l4lgvEw0vNdWNAzmynDYlWUaAj1O9Vaj801jhV/FU+f8oXv8/XKftr9/s3/gW21A1kXZGHI223nyMMCEehJcmAvDLsXq070CKt40ZuBKiFd/HDUQvvPOgBBKGfVdRB4LnJ2/7WP+Cscv0Ewn4g+vxflzfcyXkVORAD6/04RWb0/2wjNhR7hHpupkFgyQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=2UJDrtCO/KMHP28Myb2UatMD688qu+BkTN4Xu4rnNyI=;
+ b=MLt4NHmXGOca2JRVtRombNhneiD9xPtRdFPcDBRj5s2n8dHXiS5787s1j8U254iJZLh8MmF/5zfPOx3ACqFRI45OYlb95RaKxJT5OcPrO8nxNU9dxnRjFauWuNhdNDPle2lhowDu81qixtZ02sPNonukCYVrzLSNMVsv4fVw2Yc=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH8PR12MB6914.namprd12.prod.outlook.com (2603:10b6:510:1cb::21)
+ by DS0PR12MB8504.namprd12.prod.outlook.com (2603:10b6:8:155::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Mon, 31 Aug
+ 2026 17:55:03 +0000
+Received: from PH8PR12MB6914.namprd12.prod.outlook.com
+ ([fe80::2893:177a:72b0:6000]) by PH8PR12MB6914.namprd12.prod.outlook.com
+ ([fe80::2893:177a:72b0:6000%7]) with mapi id 15.21.0360.008; Mon, 31 Aug 2026
+ 17:55:03 +0000
+Message-ID: <9d2e5f9f-1713-47a2-a5c3-d6385e691d2a@amd.com>
+Date: Mon, 31 Aug 2026 12:55:00 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] PCI: Reserve prefetchable window headroom for Resizable
+ BARs
+Content-Language: en-US
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: Geramy Loveless <gloveless@jqluv.com>, Bjorn Helgaas
+ <bhelgaas@google.com>, alexander.deucher@amd.com,
+ amd-gfx@lists.freedesktop.org, nra3088@gmail.com,
+ meiling.leung@embeddedllm.com, linux-pci@vger.kernel.org,
+ LKML <linux-kernel@vger.kernel.org>
+References: <39e09dd8-f73e-4dc2-ba36-8a9228516d26@jqluv.com>
+ <d4c3ea40-d92a-49c4-ab2c-925fc70c4bb9@amd.com>
+ <d6c56ff3-0b83-4d2e-7e6f-f3e65a284341@linux.intel.com>
+ <bb909250-14e3-4a0f-a017-44731ee0f5a1@amd.com>
+From: Mario Limonciello <mario.limonciello@amd.com>
+In-Reply-To: <bb909250-14e3-4a0f-a017-44731ee0f5a1@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: SA1P222CA0095.NAMP222.PROD.OUTLOOK.COM
+ (2603:10b6:806:35e::26) To PH8PR12MB6914.namprd12.prod.outlook.com
+ (2603:10b6:510:1cb::21)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260827094509.1016740-1-hebaoquan@kylinos.cn>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH8PR12MB6914:EE_|DS0PR12MB8504:EE_
+X-MS-Office365-Filtering-Correlation-Id: 90e9f5db-3503-4310-930e-08df0788fb98
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|23010399003|1800799024|366016|10067099003|4143699003|11063799006|18002099003|22082099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	QKxZ0i42aGVyeAbM2V4DB3cfSXlJSHH/VdoiDcL3xCkkqIqqyd+NKMQbWCQqP1hlq190BGpL2KOwCkBVDAYfV9934eNMVgaTxvdmeeAXo+pNEj/z6FIFZJWIerLEbLGBznw32J7258C2W8aPYA20mJzRC3XqBmjOh9klV03Xr7AH9znXBZPyBxMcewJKNrlbSHbtogtB9I4vkgZRiTS8SMwrsXEhb0DJWd3AR1XDUzcgn67TCW2YP7GqGKDJ1i8PjWgp0H64vYLUE2hl+3ODqqcd3N6zkDwwWt8fmMzEW5NX53xtGhJvayVk151zy8G6y3fs0DnED5uy4ewQjuVUK8Pg/t9fM5LZcPlPdY3AmYaDPYkvvjjZgSF0/nbcf1jDymTXMq+o15DRMqPROu/Gnz3eiSAsyBllR9KILyHL0hCMBeCuUc40coVqk2z16HM4AR6oqP7MxSR9bK7OSXKg6i95XHqAWfy386zgIlRF+tK4l79WcTknKu++yMpugPG8ZG69rr+h0oy5n7uxfp1GElIlw3DLZQbo2yj0QP2vraksFQDqEm0HX2X2hKyLujVpqE3tirwiGozQWUZSKnIchLobAOBTaYJXBaTtYAD+MMncAo5KPcWhN857Jf3u9h2sFQk4QD4CQTL4hcLppLZucl2+JKAigP5mofqL2fP7Xt8=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH8PR12MB6914.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(1800799024)(366016)(10067099003)(4143699003)(11063799006)(18002099003)(22082099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?RVU4a21aYjcyMFpBY1U4WjNnRUp6djBIWUV3U3J4ZDVaREpxUGIxdU13SkE5?=
+ =?utf-8?B?UFBTUk9OMzllRlZEa2duZGlyeEliZWhybUxVV2FEYUZ2N01VWG5ST1VFZVcx?=
+ =?utf-8?B?T0tkTUlDMGlhQ1V1ZDhzUnZKaElTOTF2SnhHS05rNjlkUEJCZnpKY0Z4Q1NG?=
+ =?utf-8?B?dVpPSjluclRvTHNzR3F2d0FNeWxxcEMyWmpCK0lZUENDSys3S2FFaDN5dHNU?=
+ =?utf-8?B?eHEzMTFCQkJyVmV6bkU1Z05zNGE2OFRIdCtWS3B2RVVmZmxsNWlxK0VhYlVT?=
+ =?utf-8?B?c0FvRkU1dG1iRHBtYXIzSWJocWM2d3QxamhqZG9zekpldUdmV2E1ZG4xeFRM?=
+ =?utf-8?B?bTN2VFFhV1dZaTN6ejUwN0pGcUhKcVk4TmNZTzdnaGd2eUFwZlN5QkQzL2pM?=
+ =?utf-8?B?dStoWWJKdWNjclc2a1JRQUhHWmlWLzdSeXU5UVFmcHhNVHh4NHVaMG1mZEE4?=
+ =?utf-8?B?S1dGbDdvMjlsd1hsdDM5NG1kYmxhQThtU1NWaDJFdlphK1Y5c1piMzg3d3Yr?=
+ =?utf-8?B?bHNaOEx6cUp1cG41aEtXbkpNQXJ1V1h4aVBHWm52YmNyTS9IQ0g0Q21NRG5C?=
+ =?utf-8?B?NUxnQnZ5THl4WUVtRThpalo4azdUZ0JhRXNYWXkyRWJUZ3lVV2huSWptUW5y?=
+ =?utf-8?B?U2hXN2FyN1hrMGswR3ZVRStkSjJkZjZWeG8zRVh1VVk2ZEJpUFFKNlhjMzMr?=
+ =?utf-8?B?OGZhOURqMjRWK3gveFkrbGZwek9BbXIvRitPRHI3NWJ1MHdIQjhzajJQUnhX?=
+ =?utf-8?B?S215VCtscmQxVjhjNDl4cFJ5MkJRc3dPRTg2MGJ1bXJBRGVJMmttTkZyWS9i?=
+ =?utf-8?B?eVBWZHZCcG9WZ01ULzBiQlBiWFI1TDVaOVFjUGxrRXZjSmg1RjhDN3ExQlRN?=
+ =?utf-8?B?ZjNuVGt2YlBTd2JPUnRlcCtOMmdLUkF3MTR5WEFSSEJEeWJXZUkxYVNMZW1m?=
+ =?utf-8?B?VHhxR004aW0vOWpEZ1hpamtXcEJQcDdaMFlFU3NkV0N2TkorVzR5TGxqd244?=
+ =?utf-8?B?QitINllkMU1uclNKNm9HMUtXZ1lSVkphcXp6Ync2RlQzZjI5YlNtNkR5WllB?=
+ =?utf-8?B?SXhUWDNWMUp6SGNma0Q3elFGSFdkMlVoOE1NdFdNT1NhaGdSS3IyT2ZOWmVQ?=
+ =?utf-8?B?T3VCWjBrcUlQM3QrWVFIRDAzWi9hWEcyTXE5RmxaaGZZeGthZUZpd3h5R3ls?=
+ =?utf-8?B?cjJMaGRHOVhIVVhoMHppZ0h3RHk1Uk1IUE5zY09VTDhpcDQvNStVYTFDL2NC?=
+ =?utf-8?B?aXQ2Rk9BZ3dkSWR4Y3VudE1TODNac2E5cmIzT2gvQmtVUWJGeEYwTXQzYWlw?=
+ =?utf-8?B?ZmtZaHFIdjNjOVBkSXZ1V1R6dnNRV2RnYkRqQ2VEQVJGK2k4bjlHK1dUdzdC?=
+ =?utf-8?B?bTdYayt2SllQTnFDWFF5QW5iU29SakZtS0p3cWZpbW8zbElad29GNVNkWndl?=
+ =?utf-8?B?V2JDTmdaTmI4WlBYaFZIYzUwMHAyZ1dad0M4cUtNWjlnUzdyeWh0QndPdXN0?=
+ =?utf-8?B?akt5K1NSS09DdW1ZYkR0THhRTGhySXdBL1RtMmFoY3R1YVpSUHY2aUw3dDdJ?=
+ =?utf-8?B?aDA2bWFrbzI3elR4QVhoMk05L1YxRlhLdzhGRm16bkE5RUV3V3lpWmNHWkpl?=
+ =?utf-8?B?YUNGcEcrQWhyZFVORUdFcXBzbUpjblFoWUF2SWRiRXpaNVoreEVkMCtiOWhC?=
+ =?utf-8?B?T1l2VXBxWjhDd1lkQVRVNUVBdkRBRmZ0Z0VXVDJpRXpKMUs3OHJzWnZpbkVi?=
+ =?utf-8?B?dnpDZHVhQlc2U2FaK1g2UU5QZkl0UDFoR0N1aXFnUVJPaTlrUlBMZElqOFRE?=
+ =?utf-8?B?dWI2SWpKVDFoZTZZTUpySjV2NnF3eVd0cnR6SUh0Q3RsZExZM0dCdU5RTi9x?=
+ =?utf-8?B?QTJCK0dvamdMaFVLbU5UVjFWOUZzUmNzc21JVlM4YWdtRXFpRThHdW5JaVp3?=
+ =?utf-8?B?cUo2enlZQWV0bjB3MU5OMnFUVTAvdXlob0xmVkJiT2JWaWd3bEtQQTFKM0hh?=
+ =?utf-8?B?U283SFRLdEc4ZU9EVHMzcGtscG9yd2FqZE42Q0hGUm0wbW5NSnlvd1pXZFlC?=
+ =?utf-8?B?Vk9tS2xmS01tZGhZNCs0NVVMNmsrYnpDc2dKSTljWFJqZ2RINEZXbGdSSkNw?=
+ =?utf-8?B?eTMvQ0RDTmJCUEMvTU5EWVdzaXdVc0ZHY0tJU0g5ZEZVY29KcHlRWVdOOHAz?=
+ =?utf-8?B?MTJkYTJZWlpoUFRZS0JlTFhwR1I4Wmhaa2pKOUpsaHhIYjNSUE9vbzhpUTZ5?=
+ =?utf-8?B?SGpHcGZScUNiVmFZNzhzMHNMMnV6bEZETytlL0ZUaHVqc2p3OEpTb0JZV0s4?=
+ =?utf-8?B?NDhJcGRsbTVzT1VIdzd0UUwxSG03NTBndnk3V2lZbmR3S0k4VnRXZz09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 90e9f5db-3503-4310-930e-08df0788fb98
+X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB6914.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 17:55:02.9305
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Q8yudwfyGnER665IoRm6emr45es/5IkQAKf0SPir/S9Jf5wArAqpnOYyi6uN8vhvdcaNSlCGCYMJahxWbwvhZQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8504
 
-On Thu, Aug 27, 2026 at 05:44:50PM +0800, Baoquan He wrote:
-> xswap is an extendable swap device with no backing storage. Swapped-out
-> pages live only in zswap, so the device wastes no disk space and its
-> size is independent of any physical device.
-> 
-> xswap decouples PTE swap entries from physical backing storage. The
-> cluster_info array is backed by a sparse vmalloc (VM_SPARSE) area that is
-> grown and shrunk on demand:
-> 
-> - Grow: when cluster allocation runs out of free clusters and the device
->   is below its ceiling, more physical pages are mapped into the VM_SPARSE
->   area and their clusters are added to the free list.
-> 
-> - Shrink: when contiguous free clusters accumulate at the tail of the
->   mapped range (tracked in O(1) via nr_free_tail), they are unmapped and
->   the backing pages freed.  Shrink is deferred to a workqueue to avoid
->   lock recursion.
-> 
 
-Hi Baoquan,
 
-I didn't check too many details on how the implementation in previous
-RFC until now, After looking at it, using VM_SPARSE to setup the cluster
-info area is a really smart idea, really good job!
-
-I think many info are missing in the cover letter though so I wasn't
-sure how this grow and shrink works from the description, after
-checking the code, it looks much cleaner to me now, correct me
-if I'm wrong:
-
-Every xswap device will have a huge and fixed "hard limit"
-(si->max and si->nr_clusters_max), and practically can be considered
-large enough to hold any workload, and won't change once swapon
-is done.
-
-The actually data (si->cluster_info) of xswap device is completely
-sparse and dynamic using VM_SPARSE, and so we don't need to change
-any existing routine. It grow/alloc and shrink/free automatically by
-the kernel, limited or driven by a "soft limit" (si->nr_clusters
-and si->pages) which you can modify using the interface below.
-
-Once concern is that the "hard limit" is now the total RAM size. Isn't
-that actually a bit small? Will be better if that one is tunable too?
-With a parameter, and before swap on, as the hard limit is hard to
-adjust once swapon is done. Any thing limiting this?
-
-And I think these details better be mentioned bit more too.
-
-> A per-device ceiling (nr_clusters) bounds growth and is adjustable at
-> runtime via debugfs.
+On 8/31/26 12:52, Christian König wrote:
 > 
-> Interface:
 > 
->   /sys/kernel/mm/xswap/create           write "<percent> [<prio>]" to
->                                         create a device; percent is a
->                                         percent of RAM (0 for the default),
->                                         prio is an optional swap priority
->                                         (default DEF_SWAP_PRIO)
+> On 8/31/26 18:58, Ilpo Järvinen wrote:
+>> On Mon, 31 Aug 2026, Christian König wrote:
+> ...
+>>>> 2. Pack Oversized Windows (BAR Demotion):
+>>>> The PCI-to-PCI Bridge spec (r1.2, sec 3.2.5) permits a prefetchable BAR
+>>>> to be assigned from the non-prefetchable window. By clearing the PREFETCH
+>>>> flag on small control BARs during enumeration, they are placed below 4 GiB.
+>>>> The prefetchable window is then cleanly sized to the large BAR alone.
+>>>
+>>> Interesting hack, shouldn't really matter for AMD GPUs but that is
+>>> something more on the heuristic side.
+>>>
+>>> A perfectly valid trick which is done by BIOS implementations but what
+>>> the Linux PCI subsystem still hasn't learned are back to back
+>>> allocations, e.g. something like this:
+>>>
+>>> BAR0 32 GiB of GPU #1
+>>> BAR1 2	MiB of GPU #1
+>>>
+>>> BAR1 2	MiB of GPU #2
+>>> BAR0 32 GiB of GPU #2
+>>
+>> Assuming you're oversimplifying the layout above, this was added by the commit
+>> 9036bd0efcb6 ("PCI: Align head space better").
+> 
+> Oh nice! Yeah we had quite a number of bug reports because of that.
+> 
+> Usually hot unplugging some PCIe HW and then re-plugging it caused surprises when the BIOS assigned the resources initially and then the Linux kernel on re-plug.
+> 
+> I need to dig up those bug reports and add a reference to the commit to let people retest.
+> 
+That's actually "part" of why we have a behavior in thunderbolt.ko that 
+we do a USB4 router reset at module load.
 
-With what I have read so far, the mandatory percent limit here is kind of
-strange, even with 0 as default. Why not make both args optional and just
-let it grow without any limit by default? It looks more "fully dynamic"
-that way.
+It gives you a clean break to let the resources get assigned by the kernel.
 
->   /sys/kernel/mm/xswap/destroy          write a swap type to tear down
->                                         a device
->   /sys/kernel/debug/xswap/type<N>_cluster_limit
->                                         read/write the per-device
->                                         cluster ceiling
-
-Having a lot of type<N>_cluster_limit in a seperate debug path
-looks a bit odd to me too, and the _cluster_limit doesn't look
-like a debug interface, we will be relying on debugfs for setting
-the limit, also see below.
-
-> 
-> Since xswap has no backing, swapped-out pages are stored compressed in
-> zswap: physical writeout is skipped, and zswap writeback is disabled when
-> every swapfile in the system is an xswap device.  xswap requires zswap, so
-> device creation is refused when zswap is unavailable.
-> 
-> Naming:
-> ======
-> I'm going with "xswap" (the "x" for extendable/extension) rather than "vswap".
-> Chris suggested this name, and this aligns with the "VFS-like swap layers"
-> direction Chris Li described in the first swap abstraction LPC talk
-> (co-hosted with Yosry) the swap ops and the xswap extension interfaces in
-> this series are moving toward exactly that. I don't have a strong preference
-> between xswap and vswap, so if reviewers object to the name, please comment.
-> 
-> Note:
-> =====
-> This patchset only build the base. On top of this, the subsequent core code
-> implementation of xswap writeback, rmap etc can be done more easily. E.g, we
-> only need add one field in struct swap_cluster_info to let xs_table point to
-> physical swap entry, or zswap entry etc. On top of this patchset, no need to
-> stir core data structure too much or introduce extra data structure.
-> 
-> --- a/mm/swap.h
-> +++ b/mm/swap.h
-> @@ -57,6 +57,9 @@ struct swap_cluster_info {
->         u8 order;
->         atomic_long_t __rcu *table;     /* Swap table entries, see mm/swap_table.h */
->         unsigned int *extend_table;     /* For large swap count, protected by ci->lock */
-> +#ifdef CONFIG_XSWAP
-> +       unsigned long *xs_table;
-> +#endif
-> 
-> Testing (taken on qemu kvm guest with 8G memory):
-> =========
-> 1. enable zswap and create/destroy xswap device
-> ~# echo 0 > /sys/kernel/mm/xswap/create
-> -bash: echo: write error: Operation not supported
-> ~# echo 1 > /sys/module/zswap/parameters/enabled
-> ~# echo 0 > /sys/kernel/mm/xswap/create
-
-Recent proposal have mentioned mm/xswap, and mm/swap/tiers, while we
-already have mm/swap and module/zswap. I think it's fine to use sysfs
-to organize things but will it be good to have it in unified way to
-put them all under mm/swap/? And will mkdir be prettier than
-echo > create? For these part, just an idea, no strong opinion here.
-
-> ~# swapon
-> NAME   TYPE  SIZE USED PRIO
-> xswap0 xswap 2.3G   0B   -1
-> ~# echo 0 > /sys/kernel/mm/xswap/destroy
-> ~# swapon
-> 
-> 2. create xswap device and tune the zswap size
-> 
-> ~# echo "50 10" > /sys/kernel/mm/xswap/create
-> ~# echo 0 > /sys/kernel/mm/xswap/create
-> ~# swapon
-> NAME   TYPE  SIZE USED PRIO
-> xswap0 xswap 3.9G   0B   10
-> xswap1 xswap 2.3G   0B   -1
-> 
-> ~# cat /sys/kernel/debug/xswap/type0_cluster_limit
-> 1990
-> ~# cat /sys/kernel/debug/xswap/type1_cluster_limit
-
-Can we just use size instead? Calculating the cluster number
-seems not neccessary, only making it harder to use, if this
-is suppose to be a formal interface and not debug only.
-
-> 1194
-> ~# echo 2048 > /sys/kernel/debug/xswap/type0_cluster_limit
-> ~# echo 2048 > /sys/kernel/debug/xswap/type1_cluster_limit
-> ~# swapon
-> NAME   TYPE  SIZE USED PRIO
-> xswap0 xswap   4G   0B   10
-> xswap1 xswap   4G   0B   -1
-> 
-> 3. under heavy memory pressure tune swap size or destroy xswap device
-> 
-> ~# stress-ng --vm 1 --vm-bytes 8G --vm-keep --timeout 120s &
-> 
-> ~# echo 1024 > /sys/kernel/debug/xswap/type0_cluster_limit
-> ~# swapon
-> NAME   TYPE  SIZE USED PRIO
-> xswap0 xswap   2G 2.6G   10
-> xswap1 xswap   4G 182M   -1
-> ~# echo 1024 > /sys/kernel/debug/xswap/type1_cluster_limit
-> ~# swapon
-> NAME   TYPE  SIZE   USED PRIO
-> xswap0 xswap   2G   1.4G   10
-> xswap1 xswap   2G 315.4M   -1
-> 
-> ~# echo 0 > /sys/kernel/mm/xswap/destroy
-> ~# swapon
-> NAME   TYPE  SIZE USED PRIO
-> xswap1 xswap   2G 1.1G   -1
-> 
-> I tried create/destroy and grow/shrink xswap device under heavy
-> memory pressure, all passed.
-
-Do you have some performance reading on this? I remember you had
-some in your previous RFC, better to at least keep a link, I spend
-quite some time to find the previous zswap test result from you.
-I noticed this series is different from what you sent before as it
-only contains the foundation so there could be no performance gain
-currently but still, might worth mentioning what this could achieve.
-
-Another thing is, maybe we can defer the implementation of shrink
-for easier understand and review? The memory consumption is totally
-acceptable even without shrink.
+The other part is consistency with other OSes.
