@@ -1,78 +1,44 @@
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60AD63A7833
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 05:50:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E18B3546D9;
+	Mon, 31 Aug 2026 05:51:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788155424; cv=none; b=db57LMWtPbr5e+0fOhFxTFs2WD92L1F6Xm1+MWioydDkZirQJ+OKOxJB4u6JZwlSneIyIHwpO6z5i7ASsyuqFF9QbCaYiWeXBq75uWsGw6yCXSKzja5UwzsIUPb+IxReBe3rrx99cVkZxvyjf9U9ihm0UwyCjV6TEN9f55ZGEh8=
+	t=1788155464; cv=none; b=MGiDRxsDdj7lstBXdyInS15C5qMgyJhoCs5td0k8LmotS6RcYID05eaVEYK4NgpO6vuzwVPo/jQ6Z4yyeFHZB9/j7hjfesrQ9FtACNQhUX/u92lUJL9GzA9sSrhQzYixB7T6itIC/Ybfmu+anpaOAN5XdvG/cKml7M0nu3jUQIE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788155424; c=relaxed/simple;
-	bh=WPzDy6QI0Cdle48zbtI72awG3e8e4k1qnYGpIZr5jR4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=odKEA98ygWZnYR0oqd8Ug6Y35v8NfABFtH0UPlnD2xbperLJ3bDYqQ+pObhHAUkcrnA4JMVOjRyHTPjgHdADnOxWV3evlka+EXu2ZU4k3n1tkSMH3XjIYIEf9gsIjs0YhftZXoXOyH4R+OGD6zuNb2vg0LFCicQRKAtZutnnUBk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ieU09dJK; arc=none smtp.client-ip=209.85.214.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788155464; c=relaxed/simple;
+	bh=6lw7yIXjEB9XMLRYymToL0vUPMVyoLOpiDilOKGmuC8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=U0VXd2qGY7OD5wa8nczE2oijYZvPgZNbFyieZ1swdUwkq+RgQZ0A7bzthImU2dm5oZPvq/9tkuGO0MoQv/i7svRSVDJBYwtTJcmZ8P6BPJyAfS1F9Pw2jqZ/SycZ+N/9bW/VcUz3/wG/wZKob1EbN48rS3NZzkV21YhjXanDd2o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=HrMn4tgG; arc=none smtp.client-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ieU09dJK"
-Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2d7200b2e15so32439165ad.3
-        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 22:50:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788155423; x=1788760223; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/4fY8flvk1Rf5VPFbST/ZHdyH507l/1gO7fTOQXgpBc=;
-        b=ieU09dJKGlWOpFhdni3p+RBojCEQJ26948+sYplhqXv41B3ONyyHexnzlNsZwUD9Eb
-         TWbJJDr73RPno7BY+u+Judpn7+qTJRBISiTEbZfBhnh/hN/csp8hrViE8rdBC5c9HGmz
-         Jt9DohUytzz5knWCMxH4dT7BGMO2MJ96G2mo53xlZ0c3KEcz9j3ruI0d7J1jbCvdXPVb
-         clgeZszopNOO0z0zNL0mbvNmk6gGt8DCsqcDQZPf/VE/q/K9l6dJPYSlZfk/Z2NKO7xY
-         EYcM+cH2gkpm+AiPCnzTgmnfSH8N/x/CMJYHhthnIbP9obiF+Y5GB7/43dJvQb6eOyhQ
-         kI7w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788155423; x=1788760223;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/4fY8flvk1Rf5VPFbST/ZHdyH507l/1gO7fTOQXgpBc=;
-        b=n2KyX35uwkC2EcnKzTE9zRAwb9XlJlLvmQNCLRKVWRU2rAyZsu6/tKxpgEF2ivLX/0
-         PwNzTMcHGZsXV2Tp1J/uzWqRtmy2nlEcKz4+pSvAzKvU4DCIHBQ1/1kr7dAgZnXHzz2p
-         BSOPBzmwGXsRNly7C36Ilch5La4l8iETEv6uU27sm10Xib9wszxxORIvDC8ypWf5vc8p
-         J1jCP0zy2JDiajTDYArqsR2FtEbMpC3DW0kOkPbuVq+9niGlQJ6BLKpMTs80uQX8o/CL
-         HL6b/AwLwm4rv41XXQ/nu6LbqIl0z0Qo5Wp9GP82gTLGBgkBGWszVLqKjztS0m9MkY2s
-         Z/Mg==
-X-Forwarded-Encrypted: i=1; AKwUvBx7zoo20K4TIWJiNqvZgOl2Uoikl/IyOoYtbFi9dt2nALHsf6KSJoQv+XTzNxzfDt0Q++Uy1/sZ4LIXacA=@vger.kernel.org
-X-Gm-Message-State: AFuF++mzbueOpL+wXLe5hzPJdNF/KR7u8Z62qo5yuZp0yUeE0Qv45ud/
-	dbAODnAz89HR56IDWUeI9c0wwUyLJd2O3yp5obeOt62mhxkQEKf1YHSd
-X-Gm-Gg: AYBFou1CE7RqE72wqUjbJkRLycLuS/1bmex58TLakIHaddpP4zq6IKAb4gtitClwZIx
-	XeecjFdJT0/9Rc4wTVsOMruvVdWi+5DiOir6OxqOAq3YYzV0FzjJ3EsAZdFPbxbrXSNlnSH0Jni
-	r+Zt0kkO6FdYCHuQYf1ovIcoLauQx8IuiaUJwmPkF6CgsuZmDEk70JemHwK5cWdxieyFPQpXwXe
-	m+JDcC+F1YpMrQpMVZ4K2cXo9CdjzJCM8P7cwrIKipRum6a2XBl6iOqSwsTksXmgPjohTCMgNHd
-	qj/C+nz0iMGT1YZZWIdWf6U84I86lih0+pZCZOUfESHG/ZqvBBuGotcmsICoN6BH+46VfQRBsmh
-	Pygp8CFj63b5Mrv/FGT/rEdeW4L7GaexGDEj2d/Hu5D9mZPaabL0kMQ9RauH7OCUssiY1D8UHIc
-	lh1WLUeoY9t39Z4Og2MZga2S3xi8sCrkD+9K4XI/qZ2vmOfPpJTxosC78Q9GVInCSgYlE=
-X-Received: by 2002:a17:903:38cf:b0:2d8:d4cc:be68 with SMTP id d9443c01a7336-2d93fa55ab8mr14713175ad.21.1788155422558;
-        Sun, 30 Aug 2026 22:50:22 -0700 (PDT)
-Received: from Default ([2409:40f4:1012:165f:9722:a5d1:aa46:da42])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-32b49c867f5sm12967862eec.2.2026.08.30.22.50.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 30 Aug 2026 22:50:22 -0700 (PDT)
-From: Jeffin Philip <jeffinphilip14@gmail.com>
-To: ccc194101@163.com
-Cc: bentiss@kernel.org,
-	chenchangcheng@kylinos.cn,
-	jeffinphilip14@gmail.com,
-	jikos@kernel.org,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	syzbot+0a031a76585d1c7e737d@syzkaller.appspotmail.com
-Subject: [PATCH] HID: corsair: do not re-schedule LED worker after it has been cancelled
-Date: Mon, 31 Aug 2026 11:20:05 +0530
-Message-ID: <20260831055005.18420-1-jeffinphilip14@gmail.com>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="HrMn4tgG"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:
+	Content-ID:Content-Description:In-Reply-To:References;
+	bh=+s8UFFEI4k+j2W+RjU9k7t6zkvbjof8FApxrtWjoX68=; b=HrMn4tgGIkmoiWQ+VOkK6RHbzk
+	MDLyXca03FpNMPc5Ee05QluS5J43BfzGBtWGsqrUZcs3/4FjnT0ukI8SNHUAvHK3SHSLsgaG3WZz0
+	y9Q5l7e2s0e/RDfx3tMUX6SeZ6yih/mhaqn7pukPBF3oaozFOYStBwSz0CJFW3UyiAILNlrpRI46q
+	WorghxLxL8kIu0ERsD13ixX4iH/R9D/srhpMnWLmz+dDSYsQzJxg7fHiqy+/pTyW8dY4KFDA9KxF6
+	NF1XFZCepal3GGb78b/uAe1WAbTBAxY8We4I7A1/82+PIGHeM675btYQVf52Tzt78cOKoLDxoMjx7
+	XUbc2jzA==;
+Received: from [50.53.43.113] (helo=bombadil.infradead.org)
+	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x0uv6-00000008Zdh-1Wom;
+	Mon, 31 Aug 2026 05:51:00 +0000
+From: Randy Dunlap <rdunlap@infradead.org>
+To: linux-kernel@vger.kernel.org
+Cc: Randy Dunlap <rdunlap@infradead.org>,
+	Nishanth Menon <nm@ti.com>,
+	Sebastian Reichel <sre@kernel.org>,
+	linux-pm@vger.kernel.org
+Subject: [PATCH v2] PM: SmartReflex: fix kernel-doc warnings in smartreflex.h
+Date: Sun, 30 Aug 2026 22:50:59 -0700
+Message-ID: <20260831055059.3456532-1-rdunlap@infradead.org>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260817072831.139954-1-ccc194101@163.com>
-References: <20260817072831.139954-1-ccc194101@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,32 +47,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Mon, 17 Aug 2026 15:28:31 +0800, Chen Changcheng wrote:
->Commit eb51c9f8cb4f0 ("HID: corsair: cancel worker before unregistering
->LED to fix use-after-free") moved cancel_work_sync() ahead of
->led_classdev_unregister() in k90_cleanup_backlight() and
->k90_cleanup_macro_functions().  led_classdev_unregister() internally
->calls led_set_brightness(LED_OFF), which reaches the driver's
->k90_brightness_set() callback.  Since that callback schedules the worker
->unconditionally, the worker was re-queued after cancel_work_sync() had
->drained it, and the subsequent kfree() freed a still-active work_struct:
->
->    ODEBUG: free active (active state 0) object type: work_struct
->            hint: k90_record_led_work
->
->The removed flag check inside the worker itself only stops it from
->dereferencing freed memory once it runs; it cannot prevent the re-queue.
->
->Fix this by making k90_brightness_set() a no-op once removed is set, so
->the LED_OFF update issued from led_classdev_unregister() can no longer
->re-schedule the worker after it has been cancelled.  Also apply the
->cancel-before-unregister ordering to the probe error path
->(k90_init_macro_functions() fail_sysfs) for consistency.
+Use the correct function name in a kernel-doc comment and
+use the correct kernel-doc format for struct members to avoid
+kernel-doc warnings:
 
-This UAF[1] can be prevented by your patch, would you consider adding that too
-in your patch?
+Warning: include/linux/power/smartreflex.h:187 expecting prototype for
+ test_cond_timeout(). Prototype was for sr_test_cond_timeout() instead
+Warning: include/linux/power/smartreflex.h:292 struct member 'err_weight'
+ not described in 'omap_sr_data'
+Warning: include/linux/power/smartreflex.h:292 struct member
+ 'err_maxlimit' not described in 'omap_sr_data'
+Warning: include/linux/power/smartreflex.h:292 struct member 'accum_data'
+ not described in 'omap_sr_data'
+Warning: include/linux/power/smartreflex.h:292 struct member
+ 'senn_avgweight' not described in 'omap_sr_data'
+Warning: include/linux/power/smartreflex.h:292 struct member
+ 'senp_avgweight' not described in 'omap_sr_data'
 
-[1]: https://lore.kernel.org/all/6a937393.1d9ded08.62e62.0113.GAE@google.com/#R
+Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
+---
+v2: rebase & resend
 
-Thanks,
-Jeffin.
+Cc: Nishanth Menon <nm@ti.com>
+Cc: Sebastian Reichel <sre@kernel.org>
+Cc: linux-pm@vger.kernel.org
+
+ include/linux/power/smartreflex.h |   12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
+
+--- linux-next-20260828.orig/include/linux/power/smartreflex.h
++++ linux-next-20260828/include/linux/power/smartreflex.h
+@@ -174,7 +174,7 @@ struct omap_sr {
+ };
+ 
+ /**
+- * test_cond_timeout - busy-loop, testing a condition
++ * sr_test_cond_timeout - busy-loop, testing a condition
+  * @cond: condition to test until it evaluates to true
+  * @timeout: maximum number of microseconds in the timeout
+  * @index: loop index (integer)
+@@ -267,11 +267,11 @@ struct omap_sr_nvalue_table {
+  * @ip_type:		Smartreflex IP type.
+  * @senp_mod:		SENPENABLE value of the sr CONFIG register
+  * @senn_mod:		SENNENABLE value for sr CONFIG register
+- * @err_weight		ERRWEIGHT value of the sr ERRCONFIG register
+- * @err_maxlimit	ERRMAXLIMIT value of the sr ERRCONFIG register
+- * @accum_data		ACCUMDATA value of the sr CONFIG register
+- * @senn_avgweight	SENNAVGWEIGHT value of the sr AVGWEIGHT register
+- * @senp_avgweight	SENPAVGWEIGHT value of the sr AVGWEIGHT register
++ * @err_weight:		ERRWEIGHT value of the sr ERRCONFIG register
++ * @err_maxlimit:	ERRMAXLIMIT value of the sr ERRCONFIG register
++ * @accum_data:		ACCUMDATA value of the sr CONFIG register
++ * @senn_avgweight:	SENNAVGWEIGHT value of the sr AVGWEIGHT register
++ * @senp_avgweight:	SENPAVGWEIGHT value of the sr AVGWEIGHT register
+  * @nvalue_count:	Number of distinct nvalues in the nvalue table
+  * @nvalue_table:	table containing the  efuse offsets and nvalues
+  *			corresponding to them.
