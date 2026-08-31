@@ -1,46 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7297519929;
-	Mon, 31 Aug 2026 13:43:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C576251A72F;
+	Mon, 31 Aug 2026 13:43:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183817; cv=none; b=kb4OaWDYdVyds+8npnznO+ljg2vz6TuDkvuqGEOGgRyFMshSbLR/Q8AiCuqfp5ndAHHUdVxfOQIjMsOocJq5hGHSXcr1mata3Q/sM1A5H5Y0ot0OWAsxbzf2pLBs7zVrGNLpHsL95Nfz4JKL8QLD6s08zgAiGy3OLK9BXaxpmlg=
+	t=1788183819; cv=none; b=ugxXYibMOoxsl+2uQ3bKf1Mc3aifwyHhuvodXdIRqXXZFl3SW6n93sGmD5UVie1ndewYVDwOKSZovd2JTZVc/+TF0et4S9J1bvluOTnaCK6xRG6Y+QZB4u31HPScB0u5uoYbCdEwhcdu1HyGVjpxBFK3rewN7LOT2OrHQcVOM4o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183817; c=relaxed/simple;
-	bh=WwMjHamjiEsxZ7Boy8cEZs55s+eVjcK9LXw2BYBEASQ=;
+	s=arc-20240116; t=1788183819; c=relaxed/simple;
+	bh=M++qnYEBIPrFMdHqb4uE5jaKhapioNs/brjdMNPjxzc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=d/n2fkx0mGAGT8fFHIAM7C7hwpdMmfxus+R98Wx6bSzK9U2sXxywccKoQG40C0FKDumY9b0P60h7DO9W3ssB/9ayq3qqFHK+H7Idkt581Bk29Xg2gryHTQPMqBpN+x8rG2Kzt04yW0tsBjw0cDbSHOLxP+Phmk5s8JXnbiRRqEA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VtQ7NMgl; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=QGjh0Xt3eQpoYJEOmdQF2AlY/rpqNTD+jFSqci/VfS2D3+vetktQoQtQX8dOtECSXpza4DiGs2NvAHrVxLm+jP89m6k6Q2tsLD7Y6Hyjpf0RQbMGRlIMAYHpFVUGyLJrm4Wt7/ryxa7QigHPS3VLwjJWiMPiELDparnTpHbll4U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VNzi6b8Y; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VtQ7NMgl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32C5F1F00ADB;
-	Mon, 31 Aug 2026 13:43:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VNzi6b8Y"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 137CB1F000E9;
+	Mon, 31 Aug 2026 13:43:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788183813;
-	bh=gRKWpOjnNlR3g0a6AJl3Qap9MmzVPXZrp8eBsnp/5Ig=;
+	s=k20260515; t=1788183816;
+	bh=GjxtKlsoeJlgmpkUYE75rwgbvZZYGBC24mHWY5N0GwQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=VtQ7NMgljj19FC8+7cgQSV5PegBVZ1SfKXQgHkPv8ToQ7wgpKJYoIQvUSEqtlkyt5
-	 QCRtZTmyMB3IiMOo3SxSNa5AdVAYtvBRVBDvCqSetz2101LhVl7xVhDKrrxuYCAlPB
-	 eQVJ2I2N1y+Bvrkrk4bua0L4Rd4EYkyr6yu8YDY6Jb2OoOc6x1jU7v+RxVqld75T70
-	 ZZs9gTkdwoGhb93YP/RC6tiKdVktVZISTRQ8ccMP6T0byy4unaAfP5eHOcDRVZ9Be+
-	 jSx1jeB1Bz5dCegyfjjz1xsu372s30wLOXibZmVdJBohJQFr5hTwCpIl9vbuCEspbA
-	 5yGNB8cR1IUug==
+	b=VNzi6b8Y2tQai1OrVxO1FNpvByme+ecunEk7UYVV3GVhjGbDfFJNMa9bwvYjhNBBn
+	 JmZ0Q+2QA9bRB6T8I0/CczoLxge2MtcaoraRKp1MATXvBUf/cyJUwwjz/0BzyBt44+
+	 yyKQADQDmt5GjChXOtbBfnnPRB+rZ4n5Ctn49Eb4HBetl0t6ITTiB+yR0qZjiHWqRy
+	 inLYEbVNkWPpHDXBm9/Kw1U0x5bS06oFaY1hFCY+qX0hqvbcpn3HCAKB8mNvPKeU4a
+	 yft9Y9Qnc/B4f4F2tIr39ANVOaCk0Z18TKL973DKmS/mr3sugnyNdoMhbl0sM05CpF
+	 oTWP9wR2xWK6A==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Brandon Brnich <b-brnich@ti.com>,
-	Jackson Lee <jackson.lee@chipsnmedia.com>,
-	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
+Cc: Venkat Rao Bagalkote <venkat88@linux.ibm.com>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Tellakula Yeswanth Krishna <yeswanth@linux.ibm.com>,
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>,
-	nas.chung@chipsnmedia.com,
-	mchehab@kernel.org,
-	linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-6.12] media: chips-media: wave5: Fix Reports from Kernel Lock Validator
-Date: Mon, 31 Aug 2026 09:25:48 -0400
-Message-ID: <20260831133314.4125787-320-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-5.10] char/nvram: Remove redundant nvram_mutex
+Date: Mon, 31 Aug 2026 09:25:50 -0400
+Message-ID: <20260831133314.4125787-322-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -56,490 +54,401 @@ X-stable-base: Linux 6.18.48
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Brandon Brnich <b-brnich@ti.com>
+From: Venkat Rao Bagalkote <venkat88@linux.ibm.com>
 
-[ Upstream commit 7d5d364f8b2dcc9b6b92456fb55632fde4a4d96f ]
+[ Upstream commit e8c715f3a7dae43fabae261493a26474fec11863 ]
 
-handle_dynamic_resolution change requires that the state_lock be acquired
-based on the lockdep_assert_held. However, the
-handle_dynamic_resolution_change call in initialize_sequence does not
-properly obtain the lock before calling.
+The global nvram_mutex in drivers/char/nvram.c is redundant and unused,
+and this triggers compiler warnings on some configurations.
 
-Since the v4l2_ctrl_find and s_ctrl can sleep, they should not be called
-while a lock is already held. Store off the fbc_buf_count then properly
-update control once lock has been freed.
+All platform-specific nvram operations already provide their own internal
+synchronization, meaning the wrapper-level mutex does not provide any
+additional safety.
 
-Signed-off-by: Brandon Brnich <b-brnich@ti.com>
-Tested-by: Jackson Lee <jackson.lee@chipsnmedia.com>
-Signed-off-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+Remove the nvram_mutex definition along with all remaining lock/unlock
+users across PPC32, x86, and m68k code paths, and rely entirely on the
+per-architecture nvram implementations for locking.
+
+Reviewed-by: Arnd Bergmann <arnd@arndb.de>
+Suggested-by: Arnd Bergmann <arnd@arndb.de>
+Tested-by: Tellakula Yeswanth Krishna <yeswanth@linux.ibm.com>
+Signed-off-by: Venkat Rao Bagalkote <venkat88@linux.ibm.com>
+Tested-by: yeswanth <yeswanth@linux.ibm.com>
+Reviewed-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+Link: https://patch.msgid.link/20260428061540.73668-1-venkat88@linux.ibm.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-# Stable Backport Analysis: `media: chips-media: wave5: Fix Reports from
-Kernel Lock Validator`
-
-**Local tree:** `linux-6.18.y` (`v6.18.43`, Makefile `6.18.43`)
-**Verdict scope:** This checkout only.
-
----
-
-## PHASE 1: COMMIT MESSAGE FORENSICS
+Connection lost, reconnecting to https://agentn.us.api5.cursor.sh
+(attempt 1)...
+Retry attempt 1...
+## Phase 1: Commit Message Forensics
 
 ### Step 1.1: Subject line
-**Record:** `[media: chips-media: wave5]` `[fix]` — Correct
-lockdep/locking violations in dynamic-resolution handling by deferring
-V4L2 control updates until after `state_spinlock` is released.
+**Record:** `[char/nvram]` `[Remove]` — Remove redundant `nvram_mutex`
+that is unused on some configs and unnecessary on others.
 
 ### Step 1.2: Tags
 **Record:**
-- **Signed-off-by:** Brandon Brnich `<b-brnich@ti.com>` (author)
-- **Tested-by:** Jackson Lee `<jackson.lee@chipsnmedia.com>`
-- **Signed-off-by:** Nicolas Dufresne `<nicolas.dufresne@collabora.com>`
-  (reviewer/maintainer chain)
-- **Signed-off-by:** Hans Verkuil `<hverkuil+cisco@kernel.org>` (media
-  maintainer)
-- **No** `Fixes:`, `Reported-by:`, `Link:`, `Cc:
-  stable@vger.kernel.org`, or `Reviewed-by:` tags
-- Notable: hardware vendor testing + subsystem maintainer sign-offs; no
-  syzbot/fuzzer report
+- **Reviewed-by:** Arnd Bergmann (original author of `nvram_mutex` in
+  2010)
+- **Suggested-by:** Arnd Bergmann
+- **Tested-by:** Tellakula Yeswanth Krishna (IBM), yeswanth
+- **Reviewed-by:** Ritesh Harjani (IBM)
+- **Link:**
+  https://patch.msgid.link/20260428061540.73668-1-venkat88@linux.ibm.com
+- **Signed-off-by:** Venkat Rao Bagalkote, Greg Kroah-Hartman
+- No `Fixes:`, no `Reported-by:`, no `Cc: stable@vger.kernel.org`
+- Notable: subsystem expert (Arnd) both suggested and reviewed; IBM
+  tested on Power
 
 ### Step 1.3: Body analysis
 **Record:**
-- **Bug:** `handle_dynamic_resolution_change()` must be called with
-  `state_spinlock` held (`lockdep_assert_held`), but it calls
-  `v4l2_ctrl_find()` and `v4l2_ctrl_s_ctrl()`, which acquire the
-  control-handler mutex and can sleep.
-- **Symptom:** Kernel Lock Validator (lockdep) reports; underlying issue
-  is mutex acquisition while holding a spinlock.
-- **Root cause:** Mixing spinlock-protected instance state with sleeping
-  V4L2 control framework calls in the same function.
-- **Fix approach:** Store `fbc_buf_count` under the spinlock; update the
-  control afterward via new helper `wave5_update_min_bufs_ctrl()`.
+- **Bug described:** Global `nvram_mutex` is redundant/unused; causes
+  compiler warnings on some configurations.
+- **Symptom:** `-Wunused` warning (unused static mutex) on configs where
+  no lock sites are compiled; redundant outer locking elsewhere.
+- **Root cause (author):** Mutex is leftover from BKL→mutex conversion;
+  per-arch NVRAM ops already synchronize internally.
 - **Version info:** None in message.
 
 ### Step 1.4: Hidden bug fix?
-**Record:** Yes. Despite the lockdep-focused title, this fixes a real
-**sleeping-while-holding-spinlock** / **lock inversion** bug, not
-cosmetic cleanup. The driver already documents this pattern in
-`wave5_vpu_dec_stop()` (lines 796–799): release `state_spinlock` before
-operations that may block on a mutex.
+**Record:** Not a hidden crash/corruption fix. This is **build hygiene +
+dead-code removal**. Removing redundant outer mutex does not fix a
+reported runtime failure; arch-level locks (`rtc_lock`, `nv_lock`)
+already protect hardware access.
 
 ---
 
-## PHASE 2: DIFF ANALYSIS
+## Phase 2: Diff Analysis
 
 ### Step 2.1: Inventory
 **Record:**
-- **File:** `drivers/media/platform/chips-media/wave5/wave5-vpu-dec.c`
-  (~+55 / -20 lines)
-- **Functions modified/added:**
-  - **New:** `wave5_update_min_bufs_ctrl()`
-  - **Modified:** `handle_dynamic_resolution_change()`,
-    `wave5_vpu_dec_finish_decode()`, `initialize_sequence()`,
-    `wave5_vpu_dec_device_run()`
-- **Scope:** Single-file, surgical locking fix
+- **File:** `drivers/char/nvram.c` only (~19 lines removed, 0 added)
+- **Functions touched:** `nvram_misc_ioctl()` ioctl cases only; removes
+  `DEFINE_MUTEX(nvram_mutex)`
+- **Scope:** Single-file surgical cleanup
 
-### Step 2.2: Code flow per hunk
+### Step 2.2: Code flow change
 **Record:**
-1. **`wave5_update_min_bufs_ctrl()` (new):** Runs without
-   `state_spinlock`; calls `v4l2_ctrl_find()` + `v4l2_ctrl_s_ctrl()`
-   only when buffer count changed.
-2. **`handle_dynamic_resolution_change()`:** Before → updates min-
-   buffers control while spinlock held. After → only updates instance
-   fields and queues source-change event under lock.
-3. **`wave5_vpu_dec_finish_decode()`:** Before → calls
-   `handle_dynamic_resolution_change()` under lock (including sleeping
-   ctrl ops). After → saves `fbc_buf_count` under lock, calls helper
-   after `spin_unlock_irqrestore()`.
-4. **`initialize_sequence()`:** Same deferral pattern after seq-init DRC
-   handling.
-5. **`wave5_vpu_dec_device_run()` error path:** Same deferral when
-   `initialize_sequence()` fails during drain/DRC.
+| Hunk | Before | After |
+|------|--------|-------|
+| Global | `DEFINE_MUTEX(nvram_mutex)` always defined | Mutex removed
+entirely |
+| `IOC_NVRAM_SYNC` (PPC32) | lock → `ppc_md.nvram_sync()` → unlock |
+Direct call |
+| `NVRAM_INIT` / `NVRAM_SETCKS` (x86/m68k) | lock → arch op → unlock |
+Direct arch op call |
+
+Read/write/open paths were **already** not using `nvram_mutex`.
 
 ### Step 2.3: Bug mechanism
-**Record:** **Category:** Synchronization / lock-ordering violation
-(spinlock + mutex inversion).
-**Mechanism:** `state_spinlock` is a spinlock; `v4l2_ctrl_find()` uses
-`mutex_lock(hdl->lock)` via `find_ref_lock()`, and `v4l2_ctrl_s_ctrl()`
-uses `v4l2_ctrl_lock()` → `mutex_lock()`. Calling these while holding a
-spinlock violates kernel locking rules and can trigger lockdep warnings,
-`scheduling while atomic` BUGs, or deadlocks under contention.
+**Record:**
+- **Category:** Build warning / redundant synchronization cleanup
+- **Mechanism:** On **ppc64** (CONFIG_PPC, no CONFIG_PPC32/X86/M68K),
+  mutex is defined but never referenced → `-Wunused-variable` under
+  default `-Wunused`. On x86/m68k/ppc32, mutex wrapped ioctl calls whose
+  callees already take `rtc_lock` or `nv_lock`.
 
 ### Step 2.4: Fix quality
-**Record:** Fix is obviously correct and minimal. It mirrors the
-existing `wave5_vpu_dec_stop()` pattern. Regression risk is low:
-`fbc_buf_count` is set under the lock before the deferred update; the
-helper re-checks whether an update is needed.
+**Record:** Fix is minimal and logically sound. Verified callees:
+- x86 `pc_nvram_initialize()` / `pc_nvram_set_checksum()` →
+  `spin_lock_irq(&rtc_lock)`
+- m68k `atari_nvram_initialize()` / `atari_nvram_set_checksum()` →
+  `spin_lock_irq(&rtc_lock)`
+- ppc `core99_nvram_sync()` → `raw_spin_lock_irqsave(&nv_lock, flags)`
+
+Removing outer mutex does not remove the only serialization; it removes
+duplicate serialization. **Regression risk: LOW** given Arnd’s review
+and existing inner locks.
 
 ---
 
-## PHASE 3: GIT HISTORY INVESTIGATION
+## Phase 3: Git History Investigation
 
-### Step 3.1: Blame / introduction
-**Record:** Buggy `v4l2_ctrl_s_ctrl()` inside
-`handle_dynamic_resolution_change()` present since driver introduction
-in `9707a6254a8a6` (“Add the v4l2 layer”, Nov 2023).
-`lockdep_assert_held(&inst->state_spinlock)` was there from the start.
-Related stable backport `ea28b33e1b15b` (May 2026) added missing
-spinlock around `initialize_sequence()`’s call — which makes the
-sleeping-under-spinlock path more consistently exercised on seq-init.
+### Step 3.1: Blame
+**Record:**
+- `nvram_mutex` introduced in `613655fa39ff6` (2010, Arnd Bergmann) —
+  BKL→mutex scripted conversion
+- Lock sites at ioctl paths from `95ac14b8a3281` / `2d58636e0af72`
+  (2019, Finn Thain refactor)
+- Mutex was removed from open/read/write long ago (`83cb16727085b`,
+  2009+)
 
 ### Step 3.2: Fixes: tag
-**Record:** N/A — no `Fixes:` tag in commit message.
+**Record:** N/A — no `Fixes:` tag.
 
 ### Step 3.3: Related file history
-**Record:** Recent stable wave5 commits on this file include multiple
-crash/panic/lockdep fixes (`ea28b33`, `d71fc687`, `ea316b78`,
-`27cb12b7`, etc.). This patch is a logical follow-up to the spinlock-
-protection backports. Standalone fix; not part of a numbered series.
+**Record:** `nvram.c` refactored in 2019 (`arch_nvram_ops`, PPC ioctl
+split). Mutex survived refactor as outer wrapper. Standalone patch, not
+part of a series.
 
 ### Step 3.4: Author context
-**Record:** Brandon Brnich has other wave5 commits in this tree
-(`b607b5e2`, `5e702ee8`, `f24ca8b5`). Patch signed by media maintainer
-Hans Verkuil and reviewed by Nicolas Dufresne.
+**Record:** Venkat Rao Bagalkote — IBM contributor; no prior `nvram.c`
+history in this tree. Arnd Bergmann is the relevant subsystem historian.
 
 ### Step 3.5: Dependencies
-**Record:** No external prerequisites. Benefits from `ea28b33` already
-being in 6.18.y (spinlock around `initialize_sequence()`). The candidate
-commit is not yet in this tree; upstream diff has minor context
-differences (`sent_eos`, `retry` paths absent in 6.18.y) but the core
-fix applies cleanly with at most small manual adjustment.
+**Record:** No prerequisites. Commit not yet in this tree; target code
+matches diff context exactly. Prerequisites `613655fa39ff6`,
+`95ac14b8a3281` are ancestors of HEAD.
 
 ---
 
-## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
+## Phase 4: Mailing List and External Research
 
 ### Step 4.1–4.5
-**Record:** Commit hash not found in local branches (`master`, `linux-
-next`, `media-next`, `graphics-next`). `b4 dig` could not be run without
-a commit hash. Lore.kernel.org fetch blocked (bot protection).
-**UNVERIFIED:** mailing-list thread, reviewer stable nominations, series
-revisions.
+**Record:**
+- `b4 dig -c <commit>`: **N/A** — commit not present in local tree; no
+  commitish available
+- Lore/patch.msgid.link fetch: **BLOCKED** (Anubis bot protection)
+- Could not verify mailing-list stable nominations or reviewer thread
+  content
+- Link in commit message confirms patch submission (2026-04-28) but
+  thread content unverified
 
 ---
 
-## PHASE 5: CODE SEMANTIC ANALYSIS
+## Phase 5: Code Semantic Analysis
 
 ### Step 5.1: Key functions
-**Record:** `wave5_update_min_bufs_ctrl()`,
-`handle_dynamic_resolution_change()`, `wave5_vpu_dec_finish_decode()`,
-`initialize_sequence()`, `wave5_vpu_dec_device_run()`.
+**Record:** `nvram_misc_ioctl()`, and arch ops: `pc_nvram_initialize()`,
+`pc_nvram_set_checksum()`, `core99_nvram_sync()`, atari equivalents.
 
 ### Step 5.2: Callers
-**Record:** `handle_dynamic_resolution_change()` called from:
-- `wave5_vpu_dec_finish_decode()` — decode completion / sequence-change
-  IRQ path
-- `initialize_sequence()` — stream startup seq-init
-- `wave5_vpu_dec_device_run()` — error recovery during
-  `VPU_INST_STATE_OPEN`
-
-All are normal V4L2 mem2mem decode paths reachable from userspace
-`ioctl()` streaming.
+**Record:** `nvram_misc_ioctl` registered as `.unlocked_ioctl` in
+`nvram_misc_fops` → `/dev/nvram` ioctl from userspace (CAP_SYS_ADMIN for
+INIT/SETCKS). Reachable but niche.
 
 ### Step 5.3: Callees
-**Record:** Deferred path calls `v4l2_ctrl_find()` and
-`v4l2_ctrl_s_ctrl()` (mutex-based). Under-lock path calls
-`v4l2_event_queue_fh()`, format updates, state changes.
+**Record:** Arch ops use `rtc_lock` (x86/m68k) or `nv_lock` (powermac).
+Only `core99_nvram_sync` implements `ppc_md.nvram_sync` in this tree.
 
 ### Step 5.4: Reachability
-**Record:** Triggered on dynamic resolution change during HEVC/H.264
-decode — common real-world scenario (resolution switches in a stream).
-Userspace-reachable via V4L2 M2M decode.
+**Record:** Userspace ioctl path; admin capability required for
+init/setcks. ppc64 builds still compile `nvram.c` (CONFIG_NVRAM defaults
+on PPC via `HAVE_ARCH_NVRAM_OPS`), but **no mutex use sites** are
+compiled on pure ppc64.
 
 ### Step 5.5: Similar patterns
-**Record:** `wave5_vpu_dec_stop()` already releases `state_spinlock`
-before mutex-capable firmware/control work (lines 796–805). This fix
-brings DRC handling in line with that established pattern.
+**Record:** Read/write paths never used wrapper mutex — only ioctl did.
+Consistent with “leftover from BKL era” narrative.
 
 ---
 
-## PHASE 6: CROSS-REFERENCE AGAINST LOCAL TREE
+## Phase 6: Cross-Reference Against Local Tree (6.18.44)
 
 ### Step 6.1: Buggy code present?
-**Record:** **Yes.** Current `wave5-vpu-dec.c` lines 295–301 call
-`v4l2_ctrl_find()` / `v4l2_ctrl_s_ctrl()` inside
-`handle_dynamic_resolution_change()` while
-`lockdep_assert_held(&inst->state_spinlock)` is in effect. All three
-callers hold the spinlock.
+**Record:** **YES.** Local tree is `v6.18.44` (`stable/linux-6.18.y`).
+`nvram_mutex` present at lines 56, 314–316, 328–330, 340–342 in
+`drivers/char/nvram.c`.
 
 ### Step 6.2: Backport complications
-**Record:** Expected **clean apply with minor context adjustment**.
-Upstream diff references `inst->sent_eos` and `inst->retry` code not
-present in 6.18.y; the essential hunks (new helper, ctrl removal from
-DRC handler, deferred update at three call sites) map directly to
-current code.
+**Record:** **Clean apply expected.** File structure matches diff; no
+conflicting recent churn.
 
 ### Step 6.3: Related fixes already present?
-**Record:** `ea28b33e1b15b` (spinlock around `initialize_sequence()` DRC
-call) and `d71fc6874fce3` (spinlock around `send_eos_event()`) are
-already in 6.18.y. This fix is **not** duplicated.
+**Record:** None found for this issue (`git log --grep="nvram_mutex"` /
+`--grep="redundant nvram"` empty).
 
 ---
 
-## PHASE 7: SUBSYSTEM CONTEXT
+## Phase 7: Subsystem Context
 
-### Step 7.1: Subsystem criticality
-**Record:** **PERIPHERAL** — `VIDEO_WAVE_VPU` driver (`ARCH_K3 ||
-COMPILE_TEST`). Affects K3 SoC users and compile-test builds, not all
-kernel users.
+### Step 7.1: Subsystem
+**Record:** `drivers/char` — legacy `/dev/nvram` driver. **IMPORTANT**
+for x86/m68k/ppc32 users of NVRAM; **PERIPHERAL** overall, but
+**relevant on Power** (IBM tested).
 
 ### Step 7.2: Activity
-**Record:** Actively maintained — multiple wave5 stable backports in
-2026 on this tree.
+**Record:** Low activity; last functional changes ~2019. Mature legacy
+driver.
 
 ---
 
-## PHASE 8: IMPACT AND RISK
+## Phase 8: Impact and Risk Assessment
 
 ### Step 8.1: Who is affected
-**Record:** Users of Chips&Media Wave5 VPU on TI K3 (and similar) doing
-mem2mem video decode with dynamic resolution changes.
+**Record:**
+- **ppc64 builders:** unused-variable warning on every default NVRAM
+  build (`-Wunused` always enabled per `scripts/Makefile.extrawarn`)
+- **x86/m68k/ppc32 users:** ioctl path loses redundant outer mutex
+  (effective serialization unchanged via inner locks)
 
 ### Step 8.2: Trigger conditions
-**Record:** Dynamic resolution change during decode (sequence change,
-seq-init, or init failure + drain path). Not rare for adaptive streams.
-Unprivileged users with V4L2 device access can trigger.
+**Record:** Warning: build `CONFIG_NVRAM=y` on ppc64 without
+PPC32/X86/M68K ioctl paths. Common on modern Power servers. Not a
+default build **error** unless `-Werror` is added by builder.
 
 ### Step 8.3: Failure mode severity
-**Record:** Lockdep warnings (debug kernels); potential `scheduling
-while atomic` BUG, deadlock, or oops on production kernels when ctrl
-path contends or sleeps. **Severity: HIGH** (can crash the kernel during
-decode).
+**Record:**
+- **Without patch:** Compiler warning (MEDIUM for builders; LOW for end
+  users)
+- **With patch:** No expected runtime behavior change; removes duplicate
+  locking
+- **Severity if backport skipped:** No crash/corruption; possible
+  warning noise / `-Werror` build failure in strict environments
 
 ### Step 8.4: Risk-benefit
 **Record:**
-- **Benefit:** HIGH for affected hardware — prevents real locking
-  violations on a common decode event
-- **Risk:** LOW — small, follows existing in-driver pattern, tested by
-  hardware vendor
-- **Ratio:** Strong benefit for targeted users, very low regression risk
+- **Benefit:** MEDIUM for ppc64 build hygiene; negligible runtime
+  benefit
+- **Risk:** LOW — small diff, expert-reviewed, inner locks verified
+- **Ratio:** Modest positive; not critical, but appropriate stable
+  material as a contained build/cleanup fix
 
 ---
 
-## PHASE 9: FINAL SYNTHESIS
+## Phase 9: Final Synthesis
 
 ### Step 9.1: Evidence summary
 
 **FOR backport:**
-- Real mutex-under-spinlock bug in production decode paths
-- Can cause kernel crash/deadlock, not just lockdep noise
-- Small, surgical, obviously correct fix
-- Driver and buggy code exist in 6.18.y
-- Related lockdep fixes already backported to this tree
-- `Tested-by` from Chips&Media; maintainer sign-offs
-- Matches established pattern already in the same file
+- Fixes real `-Wunused` warning on ppc64 (default NVRAM on Power)
+- Tiny, single-file, obviously correct cleanup
+- Reviewed/suggested by Arnd Bergmann (original mutex author)
+- IBM Tested-by on Power
+- Inner arch locking verified in-tree; mutex was duplicate
+- Applies cleanly to 6.18.44
 
 **AGAINST backport:**
-- Narrow hardware audience (`ARCH_K3 || COMPILE_TEST`)
-- Commit not yet in tree; minor context differences vs upstream diff
-- No syzbot/user crash report in commit message
+- Not a runtime crash/corruption/security fix
+- Default kernel build warns but does not fail (`-Wunused` without
+  `-Werror`)
+- Official stable rules emphasize “build error” more than warnings
+- Touches synchronization (even if redundant) in stable tree
 
-**UNRESOLVED:**
-- Mailing-list discussion and explicit stable nomination (lore
-  inaccessible; commit not in local branches)
+**Unresolved:** Mailing-list thread content unverified (lore blocked);
+could not run `b4 dig` without commit hash.
 
 ### Step 9.2: Stable rules checklist
-1. Obviously correct and tested? **PASS** — clear locking fix, `Tested-
-   by` present
-2. Fixes a real user-affecting bug? **PASS** — mutex while holding
-   spinlock on decode DRC path
-3. Important issue? **PASS** — kernel crash/deadlock potential (HIGH)
-4. Small and contained? **PASS** — one file, ~55 lines net
-5. No new features/APIs? **PASS** — refactor of existing control update
-   only
-6. Can apply to local tree? **PASS** — buggy code present; minor context
-   adjustment at most
+1. Obviously correct and tested? **PASS** — Arnd reviewed; IBM tested;
+   inner locks verified
+2. Fixes real bug affecting users? **PASS (marginal)** — real compiler
+   warning on ppc64; not end-user runtime bug
+3. Important issue? **PASS (low-medium)** — build warning; not
+   crash/corruption
+4. Small and contained? **PASS** — one file, ~20 lines
+5. No new features/APIs? **PASS**
+6. Can apply to local tree? **PASS** — code present, clean apply
+   expected
 
 ### Step 9.3: Exception category
-**Record:** None (standard locking bug fix, not device-
-ID/quirk/build/doc exception).
+**Record:** **BUILD FIX** — compiler warning on ppc64 configurations.
 
 ### Step 9.4: Decision rationale
-This is a genuine locking bug fix, not a lockdep-only cosmetic change.
-`v4l2_ctrl_find()` and `v4l2_ctrl_s_ctrl()` take mutexes and must not
-run under `state_spinlock`. The bug exists in 6.18.y, is reachable
-during normal decode with resolution changes, and the fix is small,
-tested, and consistent with code already in the driver. Stable
-maintainers have already backported related wave5 lockdep fixes to this
-tree; this completes that work.
+For **Linux 6.18.y**, this patch addresses a verified build warning on a
+common Power configuration, removes genuinely redundant locking with
+maintainer endorsement, and is low-risk. It is not urgent like a crash
+fix, but it meets stable criteria as a small, expert-reviewed build fix
+with clear technical merit for ppc64 builders and distributors using
+strict warning flags.
 
 ---
 
 ## Verification
 
-- **[Phase 1]** Parsed subject, tags, body from user-provided commit
-  message
-- **[Phase 2]** Analyzed full diff; confirmed ctrl ops moved outside
-  spinlock at 3 call sites
-- **[Phase 2]** Read `v4l2_ctrl_s_ctrl()` — locks handler mutex
-  (`include/media/v4l2-ctrls.h:1137-1145`)
-- **[Phase 2]** Read `v4l2_ctrl_find()` — uses `mutex_lock` via
-  `find_ref_lock()` (`v4l2-ctrls-core.c:1742-1750`)
-- **[Phase 3]** `git describe HEAD` → `v6.18.43` on `linux-6.18.y`
-- **[Phase 3]** `git log` on `wave5-vpu-dec.c` → related fixes
-  `ea28b33`, `d71fc687` present
-- **[Phase 3]** `git show 9707a6254a8a6b` → original driver had buggy
-  ctrl-under-spinlock pattern
-- **[Phase 3]** `git blame` lines 285-301 → bug present since driver
-  introduction
-- **[Phase 4]** Searched `master`, `linux-next`, `media-next`,
-  `graphics-next` for commit — not found
-- **[Phase 4]** UNVERIFIED: `b4 dig` (no commit hash), lore.kernel.org
-  (blocked)
-- **[Phase 5]** Grep: `handle_dynamic_resolution_change` has 3 callers,
-  all under spinlock
-- **[Phase 5]** Read `wave5_vpu_dec_stop()` lines 796-805 — existing
-  defer-mutex pattern
-- **[Phase 6]** Confirmed buggy code at `wave5-vpu-dec.c:295-301` in
-  local tree
-- **[Phase 6]** Confirmed `ea28b33` spinlock fix already applied at
-  lines 1569-1571
-- **[Phase 6]** Grep: `sent_eos`, `retry` absent in 6.18.y — minor
-  backport context difference noted
-- **[Phase 7]** Read `Kconfig` — `VIDEO_WAVE_VPU` depends on `ARCH_K3 ||
-  COMPILE_TEST`
-- **[Phase 8]** Traced trigger to DRC during V4L2 mem2mem decode —
-  userspace-reachable
+- [Phase 1] Parsed subject, tags, body from provided commit message
+- [Phase 1] Confirmed no `Fixes:`, syzbot, or stable Cc tags
+- [Phase 2] Read full `drivers/char/nvram.c`; confirmed diff targets
+  only `nvram_mutex` and ioctl wrappers
+- [Phase 2] Verified x86 ops use `rtc_lock` (lines 144–161, 206–214)
+- [Phase 2] Verified m68k ops use `rtc_lock` (`arch/m68k/atari/nvram.c`
+  lines 79–96)
+- [Phase 2] Verified `core99_nvram_sync()` uses `nv_lock`
+  (`arch/powerpc/platforms/powermac/nvram.c` lines 471–501)
+- [Phase 3] `git blame`: mutex from `613655fa39ff6` (2010); ioctl locks
+  from `95ac14b8a3281`/`2d58636e0af72` (2019)
+- [Phase 3] `git log --oneline -30 -- drivers/char/nvram.c`: no
+  duplicate fix present
+- [Phase 3] Confirmed prerequisite commits are ancestors of HEAD
+- [Phase 4] `b4 dig`: **UNVERIFIED** — commit not in tree, no commitish
+- [Phase 4] Lore/patch.msgid.link fetch: **BLOCKED** by bot protection
+- [Phase 5] Confirmed `nvram_misc_ioctl` is only ioctl entry; read/write
+  never used mutex
+- [Phase 5] `grep nvram_sync`: only `core99_nvram_sync` assigned in-tree
+- [Phase 6] `git describe HEAD` → `v6.18.44`; `make kernelversion` →
+  `6.18.44`
+- [Phase 6] `grep nvram_mutex drivers/char/nvram.c`: mutex present (6
+  matches)
+- [Phase 6] Kconfig: `NVRAM` depends on `X86 || HAVE_ARCH_NVRAM_OPS`,
+  default `M68K || PPC`; Power selects `HAVE_ARCH_NVRAM_OPS`
+- [Phase 6] Config analysis: ppc64 compiles mutex definition but no lock
+  sites (PPC32/X86/M68K paths absent)
+- [Phase 7] `scripts/Makefile.extrawarn` line 108: `-Wunused` always
+  enabled
+- [Phase 8] Confirmed warning is not default `-Werror`; strict builders
+  may treat it as failure
 
-**YES**The branch searches are done. The commit
-(`wave5_update_min_bufs_ctrl` / "Kernel Lock Validator") wasn't found on
-`master`, `linux-next`, `media-next`, or `graphics-next` in this
-checkout, so it looks like a newer upstream patch not present locally
-yet.
+**YES**The branch search finished: this checkout is
+**stable/linux-6.18.y** at **v6.18.44**, and the `nvram_mutex` removal
+commit is **not** in this tree yet — `nvram_mutex` is still present in
+`drivers/char/nvram.c`.
 
-That doesn't change the earlier **YES** verdict for 6.18.y: the buggy
-code is in the tree, and the fix should apply with only minor context
-tweaks.
+**Backport recommendation: YES** for 6.18.y.
 
- .../chips-media/wave5/wave5-vpu-dec.c         | 47 +++++++++++++------
- 1 file changed, 33 insertions(+), 14 deletions(-)
+It’s a small, low-risk build/cleanup fix: on ppc64 the mutex is unused
+(compiler warning under `-Wunused`), and on x86/m68k/ppc32 the wrapper
+mutex is redundant because the arch ops already use `rtc_lock` or
+`nv_lock`. Arnd Bergmann reviewed/suggested it, and it was IBM-tested.
+It should apply cleanly to 6.18.44.
 
-diff --git a/drivers/media/platform/chips-media/wave5/wave5-vpu-dec.c b/drivers/media/platform/chips-media/wave5/wave5-vpu-dec.c
-index 7a4625acc0478..189cd8bcdffd9 100644
---- a/drivers/media/platform/chips-media/wave5/wave5-vpu-dec.c
-+++ b/drivers/media/platform/chips-media/wave5/wave5-vpu-dec.c
-@@ -270,10 +270,23 @@ static void send_eos_event(struct vpu_instance *inst)
- 	inst->eos = false;
- }
+ drivers/char/nvram.c | 16 +++-------------
+ 1 file changed, 3 insertions(+), 13 deletions(-)
+
+diff --git a/drivers/char/nvram.c b/drivers/char/nvram.c
+index 9eff426a92865..e89cc1f1c89ea 100644
+--- a/drivers/char/nvram.c
++++ b/drivers/char/nvram.c
+@@ -53,7 +53,6 @@
+ #include <asm/nvram.h>
+ #endif
  
-+static void wave5_update_min_bufs_ctrl(struct vpu_instance *inst, u32 fbc_buf_count)
-+{
-+	struct v4l2_m2m_ctx *m2m_ctx = inst->v4l2_fh.m2m_ctx;
-+	struct v4l2_ctrl *ctrl;
-+
-+	if (!fbc_buf_count || fbc_buf_count == v4l2_m2m_num_dst_bufs_ready(m2m_ctx))
-+		return;
-+
-+	ctrl = v4l2_ctrl_find(&inst->v4l2_ctrl_hdl,
-+			      V4L2_CID_MIN_BUFFERS_FOR_CAPTURE);
-+	if (ctrl)
-+		v4l2_ctrl_s_ctrl(ctrl, fbc_buf_count);
-+}
-+
- static int handle_dynamic_resolution_change(struct vpu_instance *inst)
- {
- 	struct v4l2_fh *fh = &inst->v4l2_fh;
--	struct v4l2_m2m_ctx *m2m_ctx = inst->v4l2_fh.m2m_ctx;
+-static DEFINE_MUTEX(nvram_mutex);
+ static DEFINE_SPINLOCK(nvram_state_lock);
+ static int nvram_open_cnt;	/* #times opened */
+ static int nvram_open_mode;	/* special open modes */
+@@ -310,11 +309,8 @@ static long nvram_misc_ioctl(struct file *file, unsigned int cmd,
+ 		break;
+ #ifdef CONFIG_PPC32
+ 	case IOC_NVRAM_SYNC:
+-		if (ppc_md.nvram_sync != NULL) {
+-			mutex_lock(&nvram_mutex);
++		if (ppc_md.nvram_sync)
+ 			ppc_md.nvram_sync();
+-			mutex_unlock(&nvram_mutex);
+-		}
+ 		ret = 0;
+ 		break;
+ #endif
+@@ -324,11 +320,8 @@ static long nvram_misc_ioctl(struct file *file, unsigned int cmd,
+ 		if (!capable(CAP_SYS_ADMIN))
+ 			return -EACCES;
  
- 	static const struct v4l2_event vpu_event_src_ch = {
- 		.type = V4L2_EVENT_SOURCE_CHANGE,
-@@ -292,14 +305,6 @@ static int handle_dynamic_resolution_change(struct vpu_instance *inst)
+-		if (arch_nvram_ops.initialize != NULL) {
+-			mutex_lock(&nvram_mutex);
++		if (arch_nvram_ops.initialize)
+ 			ret = arch_nvram_ops.initialize();
+-			mutex_unlock(&nvram_mutex);
+-		}
+ 		break;
+ 	case NVRAM_SETCKS:
+ 		/* just set checksum, contents unchanged (maybe useful after
+@@ -336,11 +329,8 @@ static long nvram_misc_ioctl(struct file *file, unsigned int cmd,
+ 		if (!capable(CAP_SYS_ADMIN))
+ 			return -EACCES;
  
- 	inst->needs_reallocation = true;
- 	inst->fbc_buf_count = initial_info->min_frame_buffer_count + 1;
--	if (inst->fbc_buf_count != v4l2_m2m_num_dst_bufs_ready(m2m_ctx)) {
--		struct v4l2_ctrl *ctrl;
--
--		ctrl = v4l2_ctrl_find(&inst->v4l2_ctrl_hdl,
--				      V4L2_CID_MIN_BUFFERS_FOR_CAPTURE);
--		if (ctrl)
--			v4l2_ctrl_s_ctrl(ctrl, inst->fbc_buf_count);
--	}
- 
- 	if (p_dec_info->initial_info_obtained) {
- 		const struct vpu_format *vpu_fmt;
-@@ -427,19 +432,24 @@ static void wave5_vpu_dec_finish_decode(struct vpu_instance *inst)
- 	if ((dec_info.index_frame_display == DISPLAY_IDX_FLAG_SEQ_END ||
- 	     dec_info.sequence_changed)) {
- 		unsigned long flags;
-+		u32 fbc_buf_count = 0;
- 
- 		spin_lock_irqsave(&inst->state_spinlock, flags);
- 		if (!v4l2_m2m_has_stopped(m2m_ctx)) {
- 			switch_state(inst, VPU_INST_STATE_STOP);
- 
--			if (dec_info.sequence_changed)
-+			if (dec_info.sequence_changed) {
- 				handle_dynamic_resolution_change(inst);
--			else
-+				fbc_buf_count = inst->fbc_buf_count;
-+			} else {
- 				send_eos_event(inst);
-+			}
- 
- 			flag_last_buffer_done(inst);
- 		}
- 		spin_unlock_irqrestore(&inst->state_spinlock, flags);
-+
-+		wave5_update_min_bufs_ctrl(inst, fbc_buf_count);
+-		if (arch_nvram_ops.set_checksum != NULL) {
+-			mutex_lock(&nvram_mutex);
++		if (arch_nvram_ops.set_checksum)
+ 			ret = arch_nvram_ops.set_checksum();
+-			mutex_unlock(&nvram_mutex);
+-		}
+ 		break;
+ #endif /* CONFIG_X86 || CONFIG_M68K */
  	}
- 
- 	/*
-@@ -1543,8 +1553,9 @@ static const struct vpu_instance_ops wave5_vpu_dec_inst_ops = {
- static int initialize_sequence(struct vpu_instance *inst)
- {
- 	struct dec_initial_info initial_info;
--	int ret = 0;
- 	unsigned long flags;
-+	u32 fbc_buf_count;
-+	int ret = 0;
- 
- 	memset(&initial_info, 0, sizeof(struct dec_initial_info));
- 
-@@ -1568,8 +1579,11 @@ static int initialize_sequence(struct vpu_instance *inst)
- 
- 	spin_lock_irqsave(&inst->state_spinlock, flags);
- 	handle_dynamic_resolution_change(inst);
-+	fbc_buf_count = inst->fbc_buf_count;
- 	spin_unlock_irqrestore(&inst->state_spinlock, flags);
- 
-+	wave5_update_min_bufs_ctrl(inst, fbc_buf_count);
-+
- 	return 0;
- }
- 
-@@ -1602,6 +1616,7 @@ static void wave5_vpu_dec_device_run(void *priv)
- 		ret = initialize_sequence(inst);
- 		if (ret) {
- 			unsigned long flags;
-+			u32 fbc_buf_count = 0;
- 
- 			spin_lock_irqsave(&inst->state_spinlock, flags);
- 			if (wave5_is_draining_or_eos(inst) &&
-@@ -1610,14 +1625,18 @@ static void wave5_vpu_dec_device_run(void *priv)
- 
- 				switch_state(inst, VPU_INST_STATE_STOP);
- 
--				if (vb2_is_streaming(dst_vq))
-+				if (vb2_is_streaming(dst_vq)) {
- 					send_eos_event(inst);
--				else
-+				} else {
- 					handle_dynamic_resolution_change(inst);
-+					fbc_buf_count = inst->fbc_buf_count;
-+				}
- 
- 				flag_last_buffer_done(inst);
- 			}
- 			spin_unlock_irqrestore(&inst->state_spinlock, flags);
-+
-+			wave5_update_min_bufs_ctrl(inst, fbc_buf_count);
- 		} else {
- 			switch_state(inst, VPU_INST_STATE_INIT_SEQ);
- 		}
 -- 
 2.53.0
 
