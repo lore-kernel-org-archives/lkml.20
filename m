@@ -1,82 +1,78 @@
-Received: from mail-07.mail-europe.com (mail-07.mail-europe.com [37.187.220.204])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E621E3B9DA8
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 07:50:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=37.187.220.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C43082853E0;
+	Mon, 31 Aug 2026 07:52:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788162657; cv=none; b=S3hdWnlYpO3FQtZ/qsLmTfcIce7K4x3sMyAliBsK9TzHRyOksuIHN+2FEA+w4C7bX84Sjoh/aRGPNQIKFmxv82iFhNCkgXpOGG87P08BTQltbabGorI2rYkQs0G//50+2ci5kVACeTIc2kyMvIjSyfCRy7/GGwsQp0aqaq4JmJc=
+	t=1788162767; cv=none; b=FyMasRi+mKzVtQouxNUOzMY0t34l5lFxeic6SVvMdnpgftV2LaoNF/CX0bZ+Ug2cNKu/Ynz5y0+kSSyiSgIt3f6G5jE4TqayhRt8hCF3HdK8485l92KrjMpv6t+lQobIuxWTEIE5hw+gukhfVQX6hdXy4ogYwtSiPNSyNu8IQYs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788162657; c=relaxed/simple;
-	bh=0hvMDX5dGPzleb29l/9Tm3oC4w1pSlAh9xjq/jWar8g=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=We8JCql8a2W++L7K0Wqnx3ud2AlAAjLkIpGZnkGAakuoFAOpPahyqBZ1Ru3OSTo1LDz1HWdj3qAPGL2UnzlLEEpkcl1RdcU6P2kCPZT2KcFlWalU3TgNrmE44h7eL42/LraQYzEE1oBSGjIp1ryYz2WgAhgcKCX0fFFRvTG5xa8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=OJGuyAIl; arc=none smtp.client-ip=37.187.220.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	s=arc-20240116; t=1788162767; c=relaxed/simple;
+	bh=63gm8bn3zGe2TAPPOYo+AF5EfeETWpHh1/QdV0+f9UE=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=oVGoglO/sQTzwdgHRT60IbMgqu9f0JeKKxjZuF5I74TphTiquF7SR93rkXzxbFrPQ32ZDVMksPaxKndbJyItFMnmPBbSU+qQGaHNhj4WeshttrBcm1FhHFDyxiYU40XnCF5kFOgrMwZRZIJBVKcaTdQ1Teziom0E14l6KPNrkBw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I8wIuaj1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="OJGuyAIl"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1788162637; x=1788421837;
-	bh=0hvMDX5dGPzleb29l/9Tm3oC4w1pSlAh9xjq/jWar8g=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=OJGuyAIlm47ajtgc+fiTXn3M9eB5MDnZqa9gcy/79odwXVhWSRYAY016+89QTb7jo
-	 FD9kEhZw8hj+bKKWobLRc1PahLnAfmg8HDaT0W1D3ND4ib8cpYOec5L+sDeHYh06U2
-	 OLkDhaO0xLZJBNrJ3++ofuxw+TTns/Dk3QkUu77HhNhD1r+/wQqL3VLm+0+5zHNFAY
-	 Ky9wsC0IcoGt9k0WbIWI8aOwnSWyQRRGRtrLi0Kzkey2b0YbOHCslyjb7DKBvqUOW9
-	 1xBLrJWMhuN06oPUvbmW60cHEQ74wuxjz2oMeJ/6YBDhX/TrTuRBmGs5Q6ylguO0s2
-	 KMf9rSO6K3lbA==
-Date: Mon, 31 Aug 2026 07:50:30 +0000
-To: "Usyskin, Alexander" <alexander.usyskin@intel.com>
-From: nirbhayykumarr@proton.me
-Cc: "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>, "arnd@arndb.de" <arnd@arndb.de>, "w@1wt.eu" <w@1wt.eu>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "stable@vger.kernel.org" <stable@vger.kernel.org>
-Subject: RE: [PATCH v4] misc: mei: fix race condition between client teardown and read completion
-Message-ID: <TLwVYumErA8o-vTKsGdBjrbPEwbhWftX85vbrJl7YR3mf-q9PeneLVl-HY8-LDuCpuoM1Vak9d9-ysDfF5swgpRVb13ihncKDppjylpGV8E=@proton.me>
-In-Reply-To: <CY5PR11MB63661742670108288F61A179EDAA2@CY5PR11MB6366.namprd11.prod.outlook.com>
-References: <ftGV8Hp-LYTtUVnxctTg6RSMnglJf1Dkgx65y7bRorozRtAeBBPU3zTQNG8Bmj-wNjNl0hTO5m2hyGMw8TktWQ2bijbJzdmGsRmlv-XLk3A=@proton.me> <CY5PR11MB63661742670108288F61A179EDAA2@CY5PR11MB6366.namprd11.prod.outlook.com>
-Feedback-ID: 172828574:user:proton
-X-Pm-Message-ID: 10a0624fba3dbc07244430a451236c979a49d54b
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I8wIuaj1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BAC8A1F000E9;
+	Mon, 31 Aug 2026 07:52:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788162766;
+	bh=0R4DpM8jzvBHu4j3no4Nkvv7aHntr5kBWoO3KIxycKk=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=I8wIuaj1sYDj1RU/eR0Us1Q1RMFiTrPL9yRyRwD5HIFLMxN6LiUbHbOCAenfiiiD2
+	 qPUbUNkLvPJmhLE1XXwYJPvmFzUt8XYKVMv134sBa3YTi9jGPhfEuGUK+bl4w2olWn
+	 YyN9I/+UJIB1MSVNmZfTiei+wivvsv9UqfY69gb+HYf2o/g/Pa4t9ePf93LcRT27Ev
+	 O9ABUDr7jkhUgh+0oEXxIbOM/IaNoXnIHY1WY3PlNA8whHj6ZvajtggJ3+CZg7OPdP
+	 +KocrZ0e9tH0WDPZPAT/cffsaA6J8O/y9YEbqXHjKHGPXPZIt8TAAS51Q8OtuCiKwN
+	 RmNKoU7XWk65g==
+From: Christian Brauner <brauner@kernel.org>
+To: Benjamin LaHaise <bcrl@kvack.org>, linux-aio@kvack.org, 
+ Daehyeon Ko <4ncienth@gmail.com>
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, 
+ Jens Axboe <axboe@kernel.dk>, Eric Biggers <ebiggers@kernel.org>, 
+ linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20260813133843.2933127-1-4ncienth@gmail.com>
+References: <20260813133843.2933127-1-4ncienth@gmail.com>
+Subject: Re: [PATCH] aio: prevent eventfd/epoll recursion on poll
+Message-Id: <20260831-leise-strand-ehebett-6002c0e15756@brauner>
+Date: Mon, 31 Aug 2026 09:52:40 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev-362b8
+X-Developer-Signature: v=1; a=openpgp-sha256; l=872; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=63gm8bn3zGe2TAPPOYo+AF5EfeETWpHh1/QdV0+f9UE=;
+ b=kA0DAAoWkcYbwGV43KIByyZiAGqVMsyi+gyzHjLq0dY3BFC04S2PFeUuLrpqK/fm9AVMrz7nd
+ Ih1BAAWCgAdFiEEQIc0Vx6nDHizMmkokcYbwGV43KIFAmqVMswACgkQkcYbwGV43KIopgD6A1zI
+ iBxMLC95UUgHt+tfxR5m7/kQChJ41S+nbb7Sb14BAMJA9ZFWb+bNzeIkx1r9u55+cql9DebCIGZ
+ ZQdPEaLwC
+X-Developer-Key: i=brauner@kernel.org; a=openpgp;
+ fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-On Sunday, August 30th, 2026 at 2:06 PM, Usyskin, Alexander <alexander.usys=
-kin@intel.com> wrote:
->=20
-> This change look like no-op in this flow as you moved mei_cl_flush_queues=
-() inside the mei_cl_unlink(),
-> but mei_cl_unlink() is called here straight after mei_cl_flush_queues() w=
-ithout releasing device_lock.
->=20
-> Seems like the failure is real but analysis and patch is wrong.
-> I suppose there is another path that call mei_cl_unlink() without proper =
-queue cleanup.
->=20
+On Thu, 13 Aug 2026 22:38:43 +0900, Daehyeon Ko wrote:
+> aio: prevent eventfd/epoll recursion on poll
 
-Hi Sasha,
+Applied to the vfs-7.4.misc branch of the vfs/vfs.git tree.
+Patches in the vfs-7.4.misc branch should appear in linux-next soon.
 
-You were right. Moving mei_cl_flush_queues() into mei_cl_unlink()=20
-was a no-op because the lock is held across both calls.
+Please report any outstanding bugs that were missed during review in a
+new review to the original patch series allowing us to drop it.
 
-Your comment prompted me to look deeper, and I realized the issue=20
-wasn't the call location, but that mei_cl_flush_queues() itself was=20
-fundamentally broken. Specifically, mei_cl_free_pending() was using=20
-list_first_entry_or_null() and only freeing a maximum of one callback=20
-per flush leaving any other queued read callbacks stranded on the list=20
-to trigger the WARN_ON.
+It's encouraged to provide Acked-bys and Reviewed-bys even though the
+patch has now been applied. If possible patch trailers will be updated.
 
-I will send a v5 patch to the list which corrects this by properly=20
-iterating through the pending queues and allowing per-file descriptor=20
-filtering during teardown.
+Note that commit hashes shown below are subject to change due to rebase,
+trailer updates or similar. If in doubt, please check the listed branch.
 
-Thanks for the review and guidance.
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
+branch: vfs-7.4.misc
 
-Best regards,
-Nirbhay Kumar
+[1/1] aio: prevent eventfd/epoll recursion on poll
+      https://git.kernel.org/vfs/vfs/c/7d70a1eedeb4
+
