@@ -1,40 +1,32 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from out30-101.freemail.mail.aliyun.com (out30-101.freemail.mail.aliyun.com [115.124.30.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 701E03C9EF6
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 07:58:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67E023CAA49;
+	Mon, 31 Aug 2026 07:58:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788163097; cv=none; b=GJTMVyTHRvq0XGFc6dZ3VtMBHTIyZWebWmpuEdTqIWMZdUBsiiQlTyHecZopSRL8vbqM6CoAyjYz15C/Jijt5DSvI9dFtSoR+qMM/bzpLKqP8hnDoOxCe0EjEmIlhqUXKJi+kwCRMqlt31Dhgg14D6LAH6k/ZgD3nyHwpW9reBQ=
+	t=1788163108; cv=none; b=NGy/LiQgsl8gATLZ7Tya8G+2fBXwaOVsc/iRIeazSPRnZ+FmAvAU0iriVEL38tjYpV2utLpxam5H1gtLRGpt6mngK4Y7wnkf73WP3tXbxfXsBngEIhozakG3BBCX4tFsCNq7Ap2P607EdsXHLynERcKOTQOLjqiBPCpApPu+yHs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788163097; c=relaxed/simple;
-	bh=37YmUB7kCLpCQqZ3xhzBSW2BShNha+mVLfWiFHNoP9k=;
+	s=arc-20240116; t=1788163108; c=relaxed/simple;
+	bh=xBEVX2+Qh4ybGtNp1SMpmRGAQq/nXmtgerGGK950Pp8=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=k+lIsYBezlRP/mjtODbr1c/j7A7N9NSIy6X+QrnPRj0q3E1MEJWP+SiuCrWkZAoTDa4q6QOqld+Oe+moCbsh6pAYGLWIVORvrgsjLllmA9eXIzq4ydfjY7N/sw3EXvEQBv8aI19gZaBusM01rGC2yT1vj2qbH10s+YFkyce6yBg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=ENPj6KeO; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	 In-Reply-To:Content-Type; b=iKSc9aO2iHVDT1/mipo171rUavCm7v80UqKJtHcbyaybNY9cYUL4ZnvvF9lbyTexjgzjtyddx5V9eYONyj7qO10i1GD6iShuNSQpNWkiJPY8eBY+PS9Mk3zpV0yU0rCQnkAqzu9aMrnft/1caqM6wc2H+8ornRHRD29VSfkve/M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=cD3sn4at; arc=none smtp.client-ip=115.124.30.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="ENPj6KeO"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id BC9CC1A18E2;
-	Mon, 31 Aug 2026 07:58:13 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 8D64B601E1;
-	Mon, 31 Aug 2026 07:58:13 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 1340211C78A30;
-	Mon, 31 Aug 2026 09:58:00 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788163088; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=7RAemltuAV1gSJHQNed+UIyNm0UBNUbsZllSmtUWhy4=;
-	b=ENPj6KeO6SymV2EO6xJ0xoX0KTbU07fjsB3twLHH0yUT0He5ZLYp5LJ4YONQZZ4zQha5/R
-	h7yIntfBkz33nCsyNqZM+HbKQ6b8njiNroW92XDaA8ZJPtgmvdOQkLbAJO4fs7IskIyAMA
-	eOqT28cgcri+PK3uEGYs/O6yrdAEKoxbXuoSYPzQqDpwH+9iNpALaCgwBQQGhFuAbnQRVA
-	yhHEr/QUu3WnQuZqk+crCMFseNeO+0eJ76QH7YIoPeZyH9q9Jd7WhDy8zVOieFVMNMgMm9
-	7wKQelmiSq1O/tkAaB06X6VjQCk83HrUxJ1tjIM3f/As3CnO2OVD5eusq0tEgw==
-Message-ID: <9f6b5db7-b791-4a28-8ba8-fb2fd971ae7c@bootlin.com>
-Date: Mon, 31 Aug 2026 09:58:00 +0200
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="cD3sn4at"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1788163102; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=NpHd6qU1H/25OxIUyU+cfJ+VsF5+LmMRg2Jcq1Igf+k=;
+	b=cD3sn4atswvhq3L422+74TaxEyVW7GZit52XN37XL1S+INtw8DMD3cpYTA0ur4103WgKnE4NUKILdw0aqwL+9bZgqUW3jIFb1HGl8lpaBu8ZEKDJ6YuWTyWPygqtl9pUaVkM76w0GfioVK3O8naMqB2/a0Pq4j4PKi5gmZbJ41o=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R751e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037026112;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=21;SR=0;TI=SMTPD_---0X9vVHwo_1788163099;
+Received: from 30.74.144.115(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0X9vVHwo_1788163099 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Mon, 31 Aug 2026 15:58:20 +0800
+Message-ID: <f9ae614f-beef-4e83-b307-d4e743d7062c@linux.alibaba.com>
+Date: Mon, 31 Aug 2026 15:58:18 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -42,118 +34,52 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v5 1/6] net: phy: split phy_probe() error paths
-To: Xuanqiang Luo <xuanqiang.luo@linux.dev>, netdev@vger.kernel.org,
- andrew@lunn.ch, kuba@kernel.org
-Cc: hkallweit1@gmail.com, chleroy@kernel.org, qingfang.deng@siflower.com.cn,
- hao.guan@siflower.com.cn, linux@armlinux.org.uk, davem@davemloft.net,
- edumazet@google.com, pabeni@redhat.com, linux-kernel@vger.kernel.org,
- Xuanqiang Luo <luoxuanqiang@kylinos.cn>
-References: <20260823035600.188864-1-xuanqiang.luo@linux.dev>
- <20260823035600.188864-2-xuanqiang.luo@linux.dev>
-Content-Language: en-US
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-In-Reply-To: <20260823035600.188864-2-xuanqiang.luo@linux.dev>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Subject: Re: [PATCH v3 2/2] kselftest: mm: replace usage of /proc/self/smaps
+ for check_huge_xxx() helper
+To: Yeoreum Yun <yeoreum.yun@arm.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ Zi Yan <ziy@nvidia.com>, "Liam R. Howlett" <liam@infradead.org>,
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Shuah Khan <shuah@kernel.org>, Kevin Brodsky <kevin.brodsky@arm.com>
+Cc: linux-mm@kvack.org, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260828-fix_split-v3-0-374022586a4b@arm.com>
+ <20260828-fix_split-v3-2-374022586a4b@arm.com>
+From: Baolin Wang <baolin.wang@linux.alibaba.com>
+In-Reply-To: <20260828-fix_split-v3-2-374022586a4b@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Hi,
 
-On 8/23/26 05:55, Xuanqiang Luo wrote:
-> From: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
+
+On 8/28/26 4:11 PM, Yeoreum Yun wrote:
+> Since glibc commit 321e1fc73f (“malloc: Enable 2MB THP by default on AArch64”),
+> glibc may call madvise(MADV_HUGEPAGE) for sufficiently large allocations
+> made by memalign().
 > 
-> phy_probe() uses one cleanup path for failures at every initialization
-> stage. This runs cleanup for resources that have not been initialized.
+> The underlying VMA may start at a different address from the aligned
+> address returned by memalign(). Furthermore, a subsequent
+> madvise(MADV_HUGEPAGE) call does not split the VMA because the flag is
+> already set.
 > 
-> After a successful probe and remove, phy_led_triggers_unregister() can
-> leave phy_num_led_triggers non-zero after freeing the trigger array. If a
-> subsequent probe fails before LED trigger registration, the common error
-> path calls phy_led_triggers_unregister() with a NULL array and stale count,
-> causing a NULL dereference.
+> This causes split_huge_page_test to fail because the check_huge_xxx()
+> helpers incorrectly require the address returned by memalign() to
+> match the VMA start address reported in /proc/self/smaps.
 > 
-> Split the cleanup by initialization stage so each failure path unwinds only
-> the resources that may have been initialized. Unregister LED triggers
-> before releasing the SFP upstream and ports, because the LED triggers are
-> initialized after those resources and must be unwound first.
+> Fix this by using /proc/self/pagemap and /proc/kpageflags instead of
+> /proc/self/smaps to detect huge pages.
 > 
-> Fixes: c8dbdc6e380e ("net: phy: register phy led_triggers during probe to avoid AB-BA deadlock")
-> Signed-off-by: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
-
-Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
-
-Maxime
-
+> Reported-by: David Hildenbrand (Arm) <david@kernel.org>
+> Suggested-by: Zi Yan <ziy@nvidia.com>
+> Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
 > ---
->  drivers/net/phy/phy_device.c | 20 +++++++++++---------
->  1 file changed, 11 insertions(+), 9 deletions(-)
-> 
-> diff --git a/drivers/net/phy/phy_device.c b/drivers/net/phy/phy_device.c
-> index 94b2e85e00a37..2cf70471ae089 100644
-> --- a/drivers/net/phy/phy_device.c
-> +++ b/drivers/net/phy/phy_device.c
-> @@ -3706,7 +3706,7 @@ static int phy_probe(struct device *dev)
->  	if (phydev->drv->probe) {
->  		err = phydev->drv->probe(phydev);
->  		if (err)
-> -			goto out;
-> +			goto out_reset;
->  	}
->  
->  	phy_disable_interrupts(phydev);
-> @@ -3727,7 +3727,7 @@ static int phy_probe(struct device *dev)
->  		err = genphy_read_abilities(phydev);
->  
->  	if (err)
-> -		goto out;
-> +		goto out_reset;
->  
->  	if (!linkmode_test_bit(ETHTOOL_LINK_MODE_Autoneg_BIT,
->  			       phydev->supported))
-> @@ -3744,7 +3744,7 @@ static int phy_probe(struct device *dev)
->  
->  	err = phy_setup_ports(phydev);
->  	if (err)
-> -		goto out;
-> +		goto out_sfp_release;
->  
->  	phy_advertise_supported(phydev);
->  
-> @@ -3753,7 +3753,7 @@ static int phy_probe(struct device *dev)
->  	 */
->  	err = genphy_c45_read_eee_adv(phydev, phydev->advertising_eee);
->  	if (err)
-> -		goto out;
-> +		goto out_sfp_release;
->  
->  	/* Get the EEE modes we want to prohibit. */
->  	of_set_phy_eee_broken(phydev);
-> @@ -3806,20 +3806,22 @@ static int phy_probe(struct device *dev)
->  	if (IS_ENABLED(CONFIG_PHYLIB_LEDS) && !phy_driver_is_genphy(phydev)) {
->  		err = of_phy_leds(phydev);
->  		if (err)
-> -			goto out;
-> +			goto out_unreg_led_triggers;
->  	}
->  
->  	return 0;
->  
-> -out:
-> +out_unreg_led_triggers:
-> +	if (!phydev->is_on_sfp_module)
-> +		phy_led_triggers_unregister(phydev);
-> +
-> +out_sfp_release:
->  	sfp_bus_del_upstream(phydev->sfp_bus);
->  	phydev->sfp_bus = NULL;
->  
->  	phy_cleanup_ports(phydev);
->  
-> -	if (!phydev->is_on_sfp_module)
-> -		phy_led_triggers_unregister(phydev);
-> -
-> +out_reset:
->  	/* Re-assert the reset signal on error */
->  	phy_device_reset(phydev, 1);
->  
 
+LGTM, with comments from Lorenzo and Zi addressed.
+
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Tested-by: Baolin Wang <baolin.wang@linux.alibaba.com>
