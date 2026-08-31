@@ -1,49 +1,105 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E99EE2F363F
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 17:33:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D033F35DA4A
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 17:33:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788197636; cv=none; b=b0TE+VZQFchKCX3441qHrmMwygMyKqYdDfwjEBaPB7DGBPDj+7x+bVrAN5GWbkMBICAp+saH2BKuFBSemWG1P6kBjaP5eNWn8aKzYfccsG27ahFru/c7dihyl84Bq1g8tF00sWE9+BdfWZO/LnYhFrXPdFY/36bG92zQxZf2YCw=
+	t=1788197639; cv=none; b=MF0cr3OH/6B6LTK/X+ogdKv2m8Lbu65ir0pDGVHT01ZMzxTc9T46CdBJvPL8hkemGrQb7V89R1hsaUMG9klffxrIMsky1xbMBFVfr5COqQvqkZqQetKoTyKtD0XjnhVr8sZIMt9C+gzLBbEwSLwJG7huUDV9Ha8u7lrL6SJsNd4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788197636; c=relaxed/simple;
-	bh=zEqhspQnn1c6mH3XPpbLp1ww9/CFLXcb/gmcD9NQkrk=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References; b=JubeCO6cYAVniXP9+j3Wdt3VzSg0q2RTt8KNCI1aZri7kdEP6JYTn8xBkVxxwU91MCz/p6Wd78ox55VJvumDDIWN+S38pWAHWHeMiZ7AE00WYX3dQqtqsKfPQloGq4h5pzQ5lB/HeRSkeCN3Jp6MT+2W7yyoktT5BA3uZO0mc+k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dEHtCQLG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788197639; c=relaxed/simple;
+	bh=UD1jqPCNVlPaqQdr+07UDOt7P5/aXRrLOz8GqliRqR4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=N1LJPOBIaQbdGrsj2kURK8rB77L8p192maBHyZwWr2G3wLGDeazr0kGJYQazq5586je5Y3yn+XoBUSCSpnrFn7cuXisxgVASzjfRaC08W/dQqo9822JWoXmc0oMzIy173pU+rle0gbp2c/J9FNEHZ3cCMxM/D/vbEGurpcR8EbI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G9V21Wgz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dEHtCQLG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8CC171F00A3D;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G9V21Wgz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6982A1F000E9;
 	Mon, 31 Aug 2026 17:33:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788197635;
-	bh=zEqhspQnn1c6mH3XPpbLp1ww9/CFLXcb/gmcD9NQkrk=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=dEHtCQLG7YBUfuhRfyQ4XA5nb5XEPitAyIKfsxVSv1BMkhrjFHsbLR+zqBLuhvZ/a
-	 YAIVv6acaKppqO0/X8+PhLFkpyg9HAzT2OqTcJuD0Ze9ifRtEq/4Xcsp4fnmMtH3QD
-	 JNPbPsjEbsRTLyywIcZbrWYijx0QZrPoyshsMvJsNuRLiskg2lauKFBrfeljtJBxZB
-	 ZmLVzI7nI30JbXR6h2yy4ZEF/kw9Pejb08t/XaSG2SmQeBzi3z4nOXz/dFfsyFy09j
-	 0qINL3gOnjnAh38DzUNfsrnyXas4NBXTKcdy+0FkCIMCEnHbwf949xPvFD7PCiXbJd
-	 KG/JLY4ezqlfg==
-Date: Mon, 31 Aug 2026 07:33:54 -1000
-Message-ID: <e6434866c7d5bed7048d33c413f409ad@kernel.org>
-From: Tejun Heo <tj@kernel.org>
-To: Jiacheng Xu <stitch@zju.edu.cn>
-Cc: Lai Jiangshan <jiangshanlai@gmail.com>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH RESEND] workqueue: reject watchdog thresholds that overflow jiffies
-In-Reply-To: <20260825070315.75540-1-stitch@zju.edu.cn>
-References: <20260825064805.70744-1-stitch@zju.edu.cn> <20260825070315.75540-1-stitch@zju.edu.cn>
+	s=k20260515; t=1788197637;
+	bh=3rWoRkOf7zv0PCshbvqGEHS10L1P71BDIMS5e/cVVs8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=G9V21WgzmFLNQZSG2z0fQqP6cGbXpFkpjQ33pCHeW0JoUiwQk4jNLw4DG0qFobeJV
+	 SB25y9pHTmIgw6hrHkJqVXLqx4PxokSKd+6FnKExY5fUXUJCY1wbcw6poJIXsHgvU1
+	 f2/ksMYJ/KI6+hnaezkUmQ3m049g58J6402lUYK5HESvPSz0E5cH1q5qAWVGDQnVaK
+	 s/03FuqbRC1Ko5k7gBhGNv+uwjBDZGOCah1wzXzVZwG19OU+55Z/HE/r/iBYILtjMR
+	 Uj0BZGaMWb6APJCKfnn+2rHy2RAEHQBpgbLC6xREt+AZzgGwBvx/LDiM2Blb5FPKiF
+	 nOCRD7bfgP/Ng==
+Date: Mon, 31 Aug 2026 18:33:37 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: David Hildenbrand <david@kernel.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] mm/vmpressure: remove window size TODO
+Message-ID: <apW6fJZ-i_JdJejI@lucifer>
+References: <20260831-remove-vmpressure-todo-v1-1-498515e59cdf@kernel.org>
+ <20260831101636.a714f7171af108d520d4848c@linux-foundation.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260831101636.a714f7171af108d520d4848c@linux-foundation.org>
 
-The posted patch was whitespace-damaged (tabs expanded to spaces) and
-didn't apply as-is. Restored the tabs and applied to wq/for-7.3-fixes.
-Please fix up the email setup for future postings.
+On Mon, Aug 31, 2026 at 10:16:36AM -0700, Andrew Morton wrote:
+> On Mon, 31 Aug 2026 14:42:11 +0100 "Lorenzo Stoakes (ARM)" <ljs@kernel.org> wrote:
+>
+> > There has been a steady stream of patches that have been submitted by
+> > newcomers to core mm 'fixing' this TODO, with all but the original having
+> > very likely been generated by LLMs.
+> >
+> > It appears that TODOs to LLMs are like red rags to a bull.
+> >
+> > In addition, TODOs in code often bitrot and are distracting - those who
+> > understand the code know what could be improved in future.
+> >
+> > Therefore remove the TODO.
+> >
+> > The work required to actually fix this TODO requires somebody who both has
+> > understanding of the code and significant real-world data to back their
+> > changes.
+> >
+> > Such a person doesn't require a TODO prompt to implement this change, so
+> > nothing of value is being lost here.
+> >
+> > ...
+> >
+> > --- a/mm/vmpressure.c
+> > +++ b/mm/vmpressure.c
+> > @@ -30,9 +30,6 @@
+> >   *
+> >   * As the vmscan reclaimer logic works with chunks which are multiple of
+> >   * SWAP_CLUSTER_MAX, it makes sense to use it for the window size as well.
+> > - *
+> > - * TODO: Make the window size depend on machine size, as we do for vmstat
+> > - * thresholds. Currently we set it to 512 pages (2MB for 4KB pages).
+> >   */
+> >  const unsigned long vmpressure_win = SWAP_CLUSTER_MAX * 16;
+>
+> otoh, we could enhance the TODO to explain these considerations.  This
+> might result in the LLM warriors submitting more usable work.
+>
+> It would be a strange place to socialize these things but as you said,
+> red rags.
 
-Thanks.
+I don't think it'd help anything, I doubt the LLMs are going to read what
+amounts to 'experts only' and sit back, they're not known for their
+humility.
+
+I also think, in general, we really should try to avoid adding TODOs - it's
+bitrot bait and if it's important enough to do, that should be abundantly
+clear to smart developers.
+
+And if people REALLY want to signal that, put it in the commit msg (and
+yeah that risks LLM incursion too but we do have to stop somewhere :)
+
+>
 
 --
-tejun
+Cheers, Lorenzo
