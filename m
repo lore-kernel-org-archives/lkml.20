@@ -1,33 +1,32 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1EDA239E9BF
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 06:09:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 565F82BCF46;
+	Mon, 31 Aug 2026 06:11:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788156561; cv=none; b=jjp8N5gsGvYeA0+tpHLzob950dq+Wym/b9zxc8uWGMfgUazFj95CLNti4W13oKOOl9Wu2D5hD4Osqvfo8uFaAY9M2Q854uQmleETX1MlkgjUimtraDgblWokYzuRHrxIdrBVHo5oIYo5iPwl+s9rECY9PyEDAXMvnwvZ4A6Xtkw=
+	t=1788156705; cv=none; b=RlMINvjBTKTiqsVxHeanyWWS9q4YmempRWrMAxNU4FHsmMvOoqYgg6IokEjVhuJb6XN/ax0VzKU+sN3kj+/rgjeSQ0zA8GjWC2VyANTO1Y7+pCdkpJ3hf0XFLObeHfHqDKFnG6bkTs+q5k6BuE0dV9J/pWTEaG8V1hFxRTkQj9Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788156561; c=relaxed/simple;
-	bh=XMjiDlUWUD0lEd7uWazW4CIIYSMDuTnUsQicLckbR0U=;
+	s=arc-20240116; t=1788156705; c=relaxed/simple;
+	bh=9JLdV8usThthL1ek3EnlSHCTlqFK7z3/0yD5ndtx7vk=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=AIL+EOaEWGjiTY0FzgzXUY5v1BOfMROBP48Gwr8n8PC+qlDqcB4PNhrduP+JCZPiNi1YOFpqwOgwBmV5NGViAX2okwhi4Nx9MBzxD8gSiNGiuBb7XB+KwrU/TEo9D/S8hI67wAwjufaL2eXToqsYDp8HzGEfOlnNJpPUdsZGV0w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=NhYV4X83; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	 In-Reply-To:Content-Type; b=B/x4naiM4LiY05tBhmrXcNK893auAYg9jZic/hVPkqUJsN3SFDCtdhTmSfoUGReRD6ATrkoAeQXsGKufvRlsJPp/n72oL6vRnF3IEqxbllE2N8NyIbiEAbm8TweZ9XYns8yk4H50AAuqCoXF1Y5M1kWrGoJP+VaPKCAwlzNiiaY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=eISkPR4G; arc=none smtp.client-ip=220.197.31.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="NhYV4X83"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 53E8E14BF;
-	Sun, 30 Aug 2026 23:09:15 -0700 (PDT)
-Received: from [10.164.19.53] (unknown [10.164.19.53])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 6B26A3F8C6;
-	Sun, 30 Aug 2026 23:09:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1788156559; bh=XMjiDlUWUD0lEd7uWazW4CIIYSMDuTnUsQicLckbR0U=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=NhYV4X83xcSoXc3krWIy4c3Q+4GvV8j3Y57msAuhGticUjas+j+t63IiPIfMJvy5W
-	 KW+KG96C0prQYGADilYGIQGFNyltA9FGVa9sJow3Y2qfbNdqB0OZ0zGzlajZIdpI0k
-	 qXFVh4f93XkmBsi/ll3CHAAQCaG84ssRDmjaawC8=
-Message-ID: <bec5eaef-d084-467f-9bfd-43f7dedc1aa7@arm.com>
-Date: Mon, 31 Aug 2026 11:39:14 +0530
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="eISkPR4G"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
+	Content-Type; bh=ZhR6FuzNVxgcqJYZuskYZO6ImMKIuhG/QhuJiKWuRbw=;
+	b=eISkPR4GJhcFoLmfFc6ka5YKPSd3e2bWm/kqSkpc3w/EiZaFhICiipo/1sefM+
+	dvHgax8soRBhb9K+3PmvbMC/GHLFB8vnHGZ4l+bFpjXxwZ4vLc3fxwJerdc4RkD5
+	IyF5SlbqaZb3A7DujupcAXUYcq+FJ9vVc7DEo52lZdLU4=
+Received: from [10.42.12.49] (unknown [])
+	by gzga-smtp-mtada-g0-0 (Coremail) with SMTP id _____wCnD5IEG5VqG7xtRA--.59020S2;
+	Mon, 31 Aug 2026 14:11:17 +0800 (CST)
+Message-ID: <a4e969d7-4601-407e-a4ee-beb85846d711@163.com>
+Date: Mon, 31 Aug 2026 14:11:16 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,64 +34,77 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] mm: vmalloc: fix vmap_purge_lock livelock under memory
- pressure
-To: Andrew Morton <akpm@linux-foundation.org>, Ye Liu <ye.liu@linux.dev>
-Cc: Uladzislau Rezki <urezki@gmail.com>, Ye Liu <liuye@kylinos.cn>,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org
-References: <20260828091753.299295-1-ye.liu@linux.dev>
- <20260828110503.e1eff32a9b7df9a8b2ddd4d6@linux-foundation.org>
+Subject: Re: [PATCH] usb: host: sl811_cs: fix memory leak on probe failure
+To: Nikolay Kulikov <nikolayof23@gmail.com>
+Cc: gregkh@linuxfoundation.org, kees@kernel.org, david-b@pacbell.net,
+ linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Zongmin Zhou <zhouzongmin@kylinos.cn>
+References: <20260827074120.49006-1-min_halo@163.com>
+ <apHG0Pq3HagSo5BT@archlinux>
 Content-Language: en-US
-From: Dev Jain <dev.jain@arm.com>
-In-Reply-To: <20260828110503.e1eff32a9b7df9a8b2ddd4d6@linux-foundation.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+From: Zongmin Zhou <min_halo@163.com>
+In-Reply-To: <apHG0Pq3HagSo5BT@archlinux>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wCnD5IEG5VqG7xtRA--.59020S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7tF4DZF45uF4rGr45Zw4ruFg_yoW8CFWUpF
+	WkX3s8G34kKw4a93Z7Ar48Wasa9393JFyUJrn29w4Fyw15CFy0vFW2ya1YgFWUCrn5K3WU
+	X395XFW7ZrZ0yFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07USkskUUUUU=
+X-CM-SenderInfo: pplqsxxdorqiywtou0bp/xtbC0gXHc2qVGwWMegAA30
 
 
-
-On 28/08/26 11:35 pm, Andrew Morton wrote:
-> On Fri, 28 Aug 2026 17:17:53 +0800 Ye Liu <ye.liu@linux.dev> wrote:
-> 
->> From: Ye Liu <liuye@kylinos.cn>
+在 2026/8/29 01:36, Nikolay Kulikov 写道:
+> On Thu, Aug 27, 2026 at 03:41:20PM +0800, Zongmin Zhou wrote:
+>> From: Zongmin Zhou <zhouzongmin@kylinos.cn>
 >>
->> The vmap_purge_lock mutex can be held for an extended period by
->> __purge_vmap_area_lazy() which calls flush_work() to wait for
->> purge_vmap_node workers while holding the lock.  Under memory
->> pressure, those workers may themselves be blocked in direct
->> reclaim trying to acquire the same lock via the
->> vmap_node_shrink_scan() shrinker callback, creating a circular
->> dependency that deadlocks the entire system.
+>> sl811_cs_probe() leaks the local_info_t allocated into link->priv when
+>> sl811_cs_config() fails: the only kfree() lives in the remove callback
+>> sl811_cs_detach(), which the PCMCIA core never calls for a device whose
+>> probe failed.
 >>
->> Two places acquire vmap_purge_lock from paths that can be reached
->> during direct reclaim:
+>> Free the private data when sl811_cs_config() fails.
 >>
->> 1. vmap_node_shrink_scan(): replace blocking guard(mutex) with
->>    mutex_trylock().  This is a shrinker that only decays the vmap
->>    pool and returns SHRINK_STOP without freeing memory; skipping a
->>    decay cycle when the lock is contended is harmless and prevents
->>    tasks from piling up on the mutex in the direct reclaim path.
->>
->> 2. reclaim_and_purge_vmap_areas(): replace mutex_lock() with
->>    mutex_trylock().  This is called from the vmalloc allocation
->>    overflow path; if trylock fails, another thread is already
->>    purging and the allocator's retry will find freed space.  The
->>    notifier chain provides a fallback if the retry still fails.
->>
->> Both trylock failures break the circular dependency: the lock
->> holder's flush_work() can complete because workers are no longer
->> blocked on vmap_purge_lock in the direct reclaim path.
-> 
-> Thanks.  AI review expressed a couple of concerns:
-> 	https://sashiko.dev/#/patchset/20260828091753.299295-1-ye.liu@linux.dev
+>> Fixes: c6de2b64eb57 ("[PATCH] USB: add sl811_cs support")
+> The code looks good to me, but I have a question regarding the Fixes
+> tag.
+>
+> In the commit you cited, a failure triggered a call to
+> sl811_cs_detach(), which freed that memory. However, that behavior was
+> changed in commit
+>
+> f8cfa618dccb ("[PATCH] pcmcia: unify attach, EVENT_CARD_INSERTION handlers into one probe callback")
+>
+> where the call was removed, leaving the memory unfreed. Shouldn't that
+> be the commit referenced in the Fixes?
+Hi Nikolay,
 
+You're right that c6de2b64eb57 did not introduce the leak -- but neither 
+did f8cfa618dccb.
+The leak was introduced by 15b99ac17295 ("[PATCH] pcmcia: add return 
+value to _config() functions")
 
-Sounds legit to me. Now there is no guarantee of purge being successful, and we
-can get a spurious failure.
+f8cfa618dccb dropped the detach-on-failure path because registration
+moved into the core, and its probe ended with
+     sl811_cs_config(link);
+     return 0;
+A config failure was never propagated, so probe() always succeeded
+after the allocation and it remained paired with the kfree() in
+remove(). No leak either.
 
-How about using a WQ_RECLAIM workqueue:
+15b99ac17295 made sl811_cs_config() return -ENODEV and the probe return
+that value -- the first time probe could fail after the allocation.
+Since the core never calls ->remove() for a failed probe, link->priv
+leaked from then on.
 
-vmap_purge_wq = alloc_workqueue("vmap_purge",
-				WQ_MEM_RECLAIM | WQ_PERCPU, 0);
+If you agree, I'll send a v2 with
+     Fixes: 15b99ac17295 ("[PATCH] pcmcia: add return value to _config() 
+functions")
 
-I see the same pattern in __lru_add_drain_all() and kmem_cache_init_late().
+Thanks,
+Zongmin
+>
+>
+> Thanks,
+> Nikolay
 
