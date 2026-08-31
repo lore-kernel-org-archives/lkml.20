@@ -1,111 +1,221 @@
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 10883279DB6;
-	Mon, 31 Aug 2026 01:25:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
+Received: from out30-100.freemail.mail.aliyun.com (out30-100.freemail.mail.aliyun.com [115.124.30.100])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4A4B223DE5;
+	Mon, 31 Aug 2026 01:26:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.100
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788139542; cv=none; b=ge4y5hQbLIkUwGPVhlxCnkmlBHhjYSWz4THomET1Sq9CUgq2owMsy0VIXBFiaKAoJag8/Ti9iqJc1gn4l1V/yjWF00zBFDJlG/geEUYOMrm9myAAwS5XqLFtlfL8w85XdMO5nGI9ANcZVScIZnYJmoXtMeHDkHUxF/t81MZ711I=
+	t=1788139605; cv=none; b=sDISRi97n51QUJh0GIvoWngNzh1GjpDW2qKYXqeRK+9J+GKWhc9SUQ+2Acs+7oHKarBbRLgg2H1H/kovRh3eCvwXmsvQsKSvhfmpBQ6ZZCYlOwh68aN7olZP+hUbecv1zLyiiHB1jC3NFw3rSKOP2bbyyViC8RnTORjjlq3B6/o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788139542; c=relaxed/simple;
-	bh=XaqnCwdhgDmYD/S2No8eMMChvlbE82HANc0N3Le4skM=;
-	h=Subject:To:Cc:References:From:Message-ID:Date:MIME-Version:
-	 In-Reply-To:Content-Type; b=j0GB8+x3yefnvUw1Rp/4iL//ILKL7efInqe8SFhC9sJnsbrA6losZ//zwCqJ4qPo98HQLX2AC2bSdUeZOXvlHXzzqepsTmxFgZ/JRqVlKRDA4nr9iGbZ6yEsdZ9Ppg/i5C3E6KKyAbmxhMOvhyNMp/p/8vNrgD52hgT2bjbePGw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [10.20.42.62])
-	by gateway (Coremail) with SMTP id _____8CxvtIM2JRqZLoGAA--.18948S3;
-	Mon, 31 Aug 2026 09:25:32 +0800 (CST)
-Received: from [10.20.42.62] (unknown [10.20.42.62])
-	by front1 (Coremail) with SMTP id qMiowJAxX88K2JRq8+4XAA--.50431S2;
-	Mon, 31 Aug 2026 09:25:30 +0800 (CST)
-Subject: Re: [PATCH] LoongArch: KVM: Validate MSI data before routing it to
- EIOINTC
-To: Zeng Chi <zeng_chi911@163.com>, zhaotianrui@loongson.cn,
- chenhuacai@kernel.org
-Cc: yury.norov@gmail.com, kvm@vger.kernel.org, loongarch@lists.linux.dev,
- linux-kernel@vger.kernel.org, zengchi@kylinos.cn, stable@vger.kernel.org,
- Sashiko <sashiko-bot@kernel.org>
-References: <20260828093604.56622-1-zeng_chi911@163.com>
-From: Bibo Mao <maobibo@loongson.cn>
-Message-ID: <4acbeb32-ea18-19c6-5231-636604ab7e86@loongson.cn>
-Date: Mon, 31 Aug 2026 09:25:15 +0800
-User-Agent: Mozilla/5.0 (X11; Linux loongarch64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+	s=arc-20240116; t=1788139605; c=relaxed/simple;
+	bh=du8GyQrS7/hANrJTyp86X9opSz8IDykUQxukJnpzFF8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=sR6YxR8elOUfvDU1Bi8vt6eQyVC6z3a++80opI+c/pc5pr2qxXU8AMJkE02yYvIBZMZs+92IEk+uBlOSHE6FZtIUUkrsBm0zEqVVrTwLmQPr7fM4piM0ekSgEdazQUwIcm0sulKB4iJaZZMlCjrbyYoHg2AiYn7i19G7rrs2nmk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=kBpTucjH; arc=none smtp.client-ip=115.124.30.100
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="kBpTucjH"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1788139592; h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type;
+	bh=lEH0zLOO60hggjTASVmar4Yca+lpiq/rLQRgzK6veOE=;
+	b=kBpTucjHmxmbY+pYPmdY0Tw9AO261gj62ioohWyCPE6CnP5+AY4+5syuiufq5did3jG3aV6R/awkMWN9Xst26xSJXWMXmxkmuy+3xeql/kAsGhqOk27uEK0ODhlTPmSKZHblc/qCRSLJZ72lYRdvjXa/mPQIcXnTVck2G59E4zw=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R181e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037009110;MF=feng.tang@linux.alibaba.com;NM=1;PH=DS;RN=10;SR=0;TI=SMTPD_---0X9rgu47_1788138647;
+Received: from localhost(mailfrom:feng.tang@linux.alibaba.com fp:SMTPD_---0X9rgu47_1788138647 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Mon, 31 Aug 2026 09:10:48 +0800
+Date: Mon, 31 Aug 2026 09:10:47 +0800
+From: Feng Tang <feng.tang@linux.alibaba.com>
+To: "Johnny.Fan" <johnny.fan@cixtech.com>
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	linux-rtc@vger.kernel.org, Ard Biesheuvel <ardb@kernel.org>,
+	linux-efi@vger.kernel.org, linux-kernel@vger.kernel.org,
+	cix-kernel-upstream@cixtech.com, bob.zhang@cixtech.com,
+	jie.fu@cixtech.com
+Subject: Re: [PATCH] rtc: efi: restore alarm support with runtime capability
+ probe
+Message-ID: <apTUlyX9XWyo018i@U-2FWC9VHC-2323.local>
+References: <20260828031519.2749354-1-johnny.fan@cixtech.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <20260828093604.56622-1-zeng_chi911@163.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qMiowJAxX88K2JRq8+4XAA--.50431S2
-X-CM-SenderInfo: xpdruxter6z05rqj20fqof0/
-X-Coremail-Antispam: 1Uk129KBj93XoW7tr1UJr1rGrWfGFW7Aw4rXrc_yoW8Zr1fpF
-	W5uw4DtF1rGr17JrWkW34Ut3y5Aa1fXFsagF1a9a45Crn0yF15CF18ZFsrW3Z0k3y5Kr40
-	qFnIga4Yva4UJacCm3ZEXasCq-sJn29KB7ZKAUJUUUUr529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUBjb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
-	Gr0_Gr1UM2kKe7AKxVWUXVWUAwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07AIYI
-	kI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUXVWU
-	AwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JMx
-	k0xIA0c2IEe2xFo4CEbIxvr21l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_
-	Gr1l4IxYO2xFxVAFwI0_Jrv_JF1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67
-	AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8I
-	cVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI
-	8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v2
-	6r1j6r4UYxBIdaVFxhVjvjDU0xZFpf9x07jepB-UUUUU=
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260828031519.2749354-1-johnny.fan@cixtech.com>
 
+On Fri, Aug 28, 2026 at 11:15:19AM +0800, Johnny.Fan wrote:
+> From: "Johnny.Fan" <Johnny.Fan@cixtech.com>
+> 
+> Restore the EFI RTC alarm functionality (read_alarm/set_alarm and
+> procfs output) that was removed by commit 18a3510bc87d ("rtc: efi:
+> Remove wakeup functionality").
+> 
+> The removal was motivated by the observation that many EFI platforms
+> lack RTC wakeup support while also omitting the RT_PROP table, causing
+> the wakeup capability to be incorrectly advertised.  While that is
+> true, removing the feature entirely also breaks platforms where the
+> wakeup runtime service actually works.
+> 
+> On CIX SoCs with an I2C-connected RTC, the firmware owns the RTC and
+> exposes it via EFI runtime services.  Using the native I2C RTC driver
+> under Linux breaks Windows, which relies on EFI runtime services to
+> access the RTC.  rtc-efi is therefore the only viable option for
+> shared RTC access across operating systems, and it needs working
+> alarm/wakeup support.
+> 
+> To avoid exposing a broken alarm on firmware that does not implement
+> the wakeup runtime services, probe the capability at ->probe() time by
+> actually calling GetWakeupTime() -- if it fails, clear RTC_FEATURE_ALARM
+> and the device behaves as before the removal.
+> 
+> Also set RTC_FEATURE_ALARM_WAKEUP_ONLY since EFI wakeup time is a
+> wakeup-only alarm, not a periodic/update interrupt source.
 
+It covers the alarm selftest failure we met before, thanks!
 
-On 2026/8/28 下午5:36, Zeng Chi wrote:
-> From: Zeng Chi <zengchi@kylinos.cn>
+Reviewed-by: Feng Tang <feng.tang@linux.alibaba.com>
+
 > 
-> pch_msi_set_irq() passes e->msi.data straight into eiointc_set_irq() as
-> the irq number.  The MSI data comes from userspace, either via a
-> KVM_IRQ_ROUTING_MSI entry set with KVM_SET_GSI_ROUTING (used by irqfd
-> and KVM_IRQ_LINE) or directly via KVM_SIGNAL_MSI, and is never checked
-> against EIOINTC_IRQS.
-> 
-> eiointc_set_irq() uses the value with __set_bit()/__clear_bit() on the
-> 256-bit isr bitmap, eiointc_update_irq() then indexes sw_coremap[] and
-> the per-cpu coreisr/sw_coreisr bitmaps with it.  A data value >= 256
-> therefore reads and writes memory past the end of those arrays, i.e.
-> any process holding a VM fd can corrupt kernel memory beyond the
-> loongarch_eiointc allocation.
-> 
-> Reject MSI data that doesn't fit in the EIOINTC irq space.  The DMSINTC
-> path is unaffected as it decodes the vector from the address and masks
-> it.
-> 
-> Fixes: 1928254c5ccb ("LoongArch: KVM: Add irqfd support")
-> Cc: stable@vger.kernel.org
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Closes: https://lore.kernel.org/all/20260531140921.1B1181F00893@smtp.kernel.org/
-> Signed-off-by: Zeng Chi <zengchi@kylinos.cn>
+> Reviewed-by: Fugang Duan <fugang.duan@cixtech.com>
+> Tested-by: Johnny.Fan <Johnny.Fan@cixtech.com>
+> Signed-off-by: Johnny.Fan <Johnny.Fan@cixtech.com>
 > ---
->   arch/loongarch/kvm/intc/pch_pic.c | 3 +++
->   1 file changed, 3 insertions(+)
+>  drivers/rtc/rtc-efi.c | 78 +++++++++++++++++++++++++++++++++++++++++--
+>  1 file changed, 76 insertions(+), 2 deletions(-)
 > 
-> diff --git a/arch/loongarch/kvm/intc/pch_pic.c b/arch/loongarch/kvm/intc/pch_pic.c
-> index e7b77705c516..81fb534ce8dd 100644
-> --- a/arch/loongarch/kvm/intc/pch_pic.c
-> +++ b/arch/loongarch/kvm/intc/pch_pic.c
-> @@ -78,6 +78,9 @@ int pch_msi_set_irq(struct kvm *kvm, struct kvm_kernel_irq_routing_entry *e, int
->   		return dmsintc_set_irq(kvm, msg_addr, e->msi.data, level);
->   	}
->   
-> +	if (e->msi.data >= EIOINTC_IRQS)
+> diff --git a/drivers/rtc/rtc-efi.c b/drivers/rtc/rtc-efi.c
+> index b4f44999ef0f..708cba43435e 100644
+> --- a/drivers/rtc/rtc-efi.c
+> +++ b/drivers/rtc/rtc-efi.c
+> @@ -112,6 +112,34 @@ convert_from_efi_time(efi_time_t *eft, struct rtc_time *wtime)
+>  	return true;
+>  }
+>  
+> +static int efi_read_alarm(struct device *dev, struct rtc_wkalrm *wkalrm)
+> +{
+> +	efi_time_t eft;
+> +	efi_status_t status;
+> +
+> +	status = efi.get_wakeup_time((efi_bool_t *)&wkalrm->enabled,
+> +				     (efi_bool_t *)&wkalrm->pending, &eft);
+> +	if (status != EFI_SUCCESS)
 > +		return -EINVAL;
 > +
->   	eiointc_set_irq(kvm->arch.eiointc, e->msi.data, level);
->   
->   	return 0;
-> 
-Reviewed-by: Bibo Mao <maobibo@loongson.cn>
-
+> +	if (!convert_from_efi_time(&eft, &wkalrm->time))
+> +		return -EIO;
+> +
+> +	return rtc_valid_tm(&wkalrm->time);
+> +}
+> +
+> +static int efi_set_alarm(struct device *dev, struct rtc_wkalrm *wkalrm)
+> +{
+> +	efi_time_t eft;
+> +	efi_status_t status;
+> +
+> +	convert_to_efi_time(&wkalrm->time, &eft);
+> +
+> +	status = efi.set_wakeup_time((efi_bool_t)wkalrm->enabled, &eft);
+> +
+> +	return status == EFI_SUCCESS ? 0 : -EINVAL;
+> +}
+> +
+>  static int efi_read_time(struct device *dev, struct rtc_time *tm)
+>  {
+>  	efi_status_t status;
+> @@ -146,13 +174,21 @@ static int efi_set_time(struct device *dev, struct rtc_time *tm)
+>  
+>  static int efi_procfs(struct device *dev, struct seq_file *seq)
+>  {
+> -	efi_time_t        eft;
+> +	efi_time_t        eft, alm;
+>  	efi_time_cap_t    cap;
+> +	efi_bool_t        enabled, pending;
+> +	struct rtc_device *rtc = dev_get_drvdata(dev);
+>  
+>  	memset(&eft, 0, sizeof(eft));
+> +	memset(&alm, 0, sizeof(alm));
+>  	memset(&cap, 0, sizeof(cap));
+>  
+>  	efi.get_time(&eft, &cap);
+> +	if (test_bit(RTC_FEATURE_ALARM, rtc->features) &&
+> +	    efi.get_wakeup_time(&enabled, &pending, &alm) != EFI_SUCCESS) {
+> +		enabled = false;
+> +		pending = false;
+> +	}
+>  
+>  	seq_printf(seq,
+>  		   "Time\t\t: %u:%u:%u.%09u\n"
+> @@ -168,6 +204,25 @@ static int efi_procfs(struct device *dev, struct seq_file *seq)
+>  		/* XXX fixme: convert to string? */
+>  		seq_printf(seq, "Timezone\t: %u\n", eft.timezone);
+>  
+> +	if (test_bit(RTC_FEATURE_ALARM, rtc->features)) {
+> +		seq_printf(seq,
+> +			   "Alarm Time\t: %u:%u:%u.%09u\n"
+> +			   "Alarm Date\t: %u-%u-%u\n"
+> +			   "Alarm Daylight\t: %u\n"
+> +			   "Enabled\t\t: %s\n"
+> +			   "Pending\t\t: %s\n",
+> +			   alm.hour, alm.minute, alm.second, alm.nanosecond,
+> +			   alm.year, alm.month, alm.day,
+> +			   alm.daylight,
+> +			   enabled == 1 ? "yes" : "no",
+> +			   pending == 1 ? "yes" : "no");
+> +
+> +		if (alm.timezone == EFI_UNSPECIFIED_TIMEZONE)
+> +			seq_puts(seq, "Alarm Timezone\t: unspecified\n");
+> +		else
+> +			seq_printf(seq, "Alarm Timezone\t: %u\n", alm.timezone);
+> +	}
+> +
+>  	/*
+>  	 * now prints the capabilities
+>  	 */
+> @@ -183,6 +238,8 @@ static int efi_procfs(struct device *dev, struct seq_file *seq)
+>  static const struct rtc_class_ops efi_rtc_ops = {
+>  	.read_time	= efi_read_time,
+>  	.set_time	= efi_set_time,
+> +	.read_alarm	= efi_read_alarm,
+> +	.set_alarm	= efi_set_alarm,
+>  	.proc		= efi_procfs,
+>  };
+>  
+> @@ -191,6 +248,7 @@ static int __init efi_rtc_probe(struct platform_device *dev)
+>  	struct rtc_device *rtc;
+>  	efi_time_t eft;
+>  	efi_time_cap_t cap;
+> +	efi_bool_t enabled, pending;
+>  
+>  	/* First check if the RTC is usable */
+>  	if (efi.get_time(&eft, &cap) != EFI_SUCCESS)
+> @@ -203,7 +261,23 @@ static int __init efi_rtc_probe(struct platform_device *dev)
+>  	platform_set_drvdata(dev, rtc);
+>  
+>  	rtc->ops = &efi_rtc_ops;
+> -	clear_bit(RTC_FEATURE_ALARM, rtc->features);
+> +	clear_bit(RTC_FEATURE_UPDATE_INTERRUPT, rtc->features);
+> +
+> +	/*
+> +	 * The EFI_RT_SUPPORTED_WAKEUP_SERVICES bit defaults to enabled
+> +	 * and only gets cleared when the RT_PROP table explicitly says
+> +	 * wakeup is unsupported. Many platforms lack an RT_PROP table
+> +	 * even though they don't implement the wakeup runtime service,
+> +	 * so probe by actually calling GetWakeupTime() to avoid exposing
+> +	 * a broken alarm to userspace.
+> +	 */
+> +	if (efi_rt_services_supported(EFI_RT_SUPPORTED_WAKEUP_SERVICES) &&
+> +	    efi.get_wakeup_time(&enabled, &pending, &eft) == EFI_SUCCESS) {
+> +		set_bit(RTC_FEATURE_ALARM, rtc->features);
+> +		set_bit(RTC_FEATURE_ALARM_WAKEUP_ONLY, rtc->features);
+> +	} else {
+> +		clear_bit(RTC_FEATURE_ALARM, rtc->features);
+> +	}
+>  
+>  	device_init_wakeup(&dev->dev, true);
+>  
+> -- 
+> 2.55.0
