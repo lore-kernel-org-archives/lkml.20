@@ -1,49 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8EB3582B8D;
-	Mon, 31 Aug 2026 13:49:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49A9A58125B;
+	Mon, 31 Aug 2026 13:49:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788184199; cv=none; b=osaDZRKiyA2x2fbUTlQ/4fC30uHIEqHQLwFQIbQhtQzE3JKYHJfJ2LeNu6c0xi/SLqBDpoUd8oXt0rk12h8eLwwKSUuScCKbQ+lYrL+7kkaertCw5uvUDVCeSCF1ueDuXEILU7Dtoz7isvllS2Q70FWivxNDpPeIBJHJiBDpqQQ=
+	t=1788184201; cv=none; b=EVNXepNm14ILTuJU/K8s24Ke6apKQTsmmoZHc55K+G8FzKTmToHXDvOAfQMr6BzxbyKZs9M8i4+oE/4irOWqhQv5AuFdyqHhd0kq949N8PHirFpjdTy+nmXNol7gBB6X/whGqG5PFB8J69wWUjLcpUffT1ChpvpE2JNGNGoGp6g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788184199; c=relaxed/simple;
-	bh=8SYMDksE1DxQY8JuTiY2RejCiTm9Ev2iN/cZEe5mBc0=;
+	s=arc-20240116; t=1788184201; c=relaxed/simple;
+	bh=vGQiJ2+FxvfV2Xf6OT7ONCyn7m0kWvsKDjX4mSoNoSU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=pzZmVGSo+mTMxPQs5ULLUSSmxyJMimI+zF1xgKpN6rw6F3fvOISjfy0GYNZkufy0xVwh3zoflKa9yZ3kc91C0PAcBwtek+2Wx9oI1qrfMMIj59du9L5MvMqGQ+J/mJgZspvCv1hgVViXxZ8Wdwz6bfRFQ0uh/5s3DQ79YnpZSFU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jN/woYYO; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=Yx4hdedsuGf/IJLT0+nc0d3RDCC/ENY0J0x4knVH/5r8H4+KdUznYh0IoIRwje2H+wsdSCI6zpl1sbPrq34M0bswVvYFQOuEyPpjR2Rp5wkl3HYp5dvvQ5nWyj2UrD137QxpZYIeSdHZezEiKOFxstWUppNnXqp+p8XcEyxcclc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Bt/hHLzq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jN/woYYO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E734F1F00ACA;
-	Mon, 31 Aug 2026 13:49:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Bt/hHLzq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07A701F00A3D;
+	Mon, 31 Aug 2026 13:49:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788184197;
-	bh=YsiWhBDT+GunKvfhsAsf8vWwVOjjNgw+gRuWWzNkjSk=;
+	s=k20260515; t=1788184199;
+	bh=Qty0XSGjkL2jQVRkRq+xD7ruk6d4D6pb1K/ZTQbW448=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jN/woYYOEDj5+i2chnkFB854H8aGsyIcV3B08Z7Ds4kvYap8NWYPdZyL00dCaUDus
-	 pdWYqgvIkUZLk0Qxmq2zOslMiIRxBDYcV7GIZA6M4G0xqFWnl9Z/pfhW+VwQsJhAIB
-	 6GwV9Jcw+EQtUIsoIwNvDGCdGBG19b7eE2oNKeUHDY9sMZaTg+E7xUPKWmNDppGFKr
-	 cR0s8VLAp327TgzsRRtuCkuenZLMSANWdrC7w3FnV8O0rCl4VL3bWKuMzx2YB/Fzey
-	 VocAyb0+Lt5NXJfInW6YuRfGXssSp5BA41iTr3mNP3kq3mITY3C46av8HGOLughf1Q
-	 tIWCloXlKyMJg==
+	b=Bt/hHLzqrMcIu5yytubr2v6qRPz6/L8CIvXL0gEIupsL4ZQwC7I7hL6Zc3zdQOpqP
+	 C0AonPrSeVlMZt+s9KgZ3bnvljbUHrVW9EnDqQtgWQHAb0AUEkKuJ0BTiv62d2jXt8
+	 TwgluLszGbdaYHMJo85Dokft9kOMFP07+USsNFtobb3Hdu/W/Y9TNqxOqLBAAaze+7
+	 c6COrS7LPAtGa/jhqBxOGBfeLDdL0c+3kLMvjYfB/7ARTnrzuT75mpW6VHRDKtu3qW
+	 wcXuskNgzmitxaXCo6oezCUxw3nEQWUx2ZTd2s/ovwzSf36FJILMLa8yjs3i/wvU0y
+	 jhjmDcz9Cj/qA==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Chenguang Zhao <zhaochenguang@kylinos.cn>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Jiawen Wu <jiawenwu@trustnetic.com>,
-	Jakub Kicinski <kuba@kernel.org>,
+Cc: Namjae Jeon <linkinjeon@kernel.org>,
+	Steve French <stfrench@microsoft.com>,
 	Sasha Levin <sashal@kernel.org>,
-	mengyuanlou@net-swift.com,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	pabeni@redhat.com,
-	netdev@vger.kernel.org,
+	smfrench@gmail.com,
+	linux-cifs@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18] net: txgbe: fix phylink leak on AML init failure
-Date: Mon, 31 Aug 2026 09:29:37 -0400
-Message-ID: <20260831133314.4125787-549-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-6.6] ksmbd: fix lease break and ack state handling
+Date: Mon, 31 Aug 2026 09:29:38 -0400
+Message-ID: <20260831133314.4125787-550-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -59,62 +53,68 @@ X-stable-base: Linux 6.18.48
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Chenguang Zhao <zhaochenguang@kylinos.cn>
+From: Namjae Jeon <linkinjeon@kernel.org>
 
-[ Upstream commit 9c89f975e66922f346d92d60c9d51d07274a7f3b ]
+[ Upstream commit 5015191096db311759fef98769270336cd8b1324 ]
 
-Destroy the phylink instance when fixed-link setup fails.
+Do not skip valid lease states containing WRITE_CACHING when breaking
+level-II/read leases for writes and truncates.
 
-Signed-off-by: Chenguang Zhao <zhaochenguang@kylinos.cn>
-Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
-Reviewed-by: Jiawen Wu <jiawenwu@trustnetic.com>
-Link: https://patch.msgid.link/20260528013258.129146-1-zhaochenguang@kylinos.cn
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Handle lease break acknowledgments according to the SMB2 rule that the
+acknowledged state must be a subset of the server's break target. Apply
+the acknowledged state directly and keep the break pending on failed ACKs.
+
+Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
+Signed-off-by: Steve French <stfrench@microsoft.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-# Stable Backport Analysis: `net: txgbe: fix phylink leak on AML init
-failure`
+# Stable Backport Analysis: `ksmbd: fix lease break and ack state
+handling`
 
-## Local Tree Context
-
-- **Tree:** `v6.18.44` / `6.18.44`
-- **Fix commit in repo:** `9c89f975e669` exists but is **not** in HEAD
-- **Buggy code:** Present in `txgbe_phylink_init_aml()` at lines 381–384
-- **Introducing commit:** `6f8b4c01a8cd9` ("Implement PHYLINK for AML
-  25G/10G devices") is an ancestor of HEAD
+**Local tree:** `v6.18.44` (`VERSION = 6`, `PATCHLEVEL = 18`, `SUBLEVEL
+= 44`)
+**Commit under review:** `5015191096db3` (on `master`, not yet in this
+checkout)
 
 ---
 
 ## PHASE 1: COMMIT MESSAGE FORENSICS
 
-### Step 1.1: Subject Line
-**Record:** `[net: txgbe]` `[fix]` — destroy phylink on AML init failure
-when fixed-link setup fails.
+### Step 1.1: Subject line
+**Record:** `[ksmbd]` `[fix]` — Correct SMB2 lease-break dispatch and
+lease-break-ACK handling in the in-kernel SMB server.
 
 ### Step 1.2: Tags
 **Record:**
-- **Fixes:** `6f8b4c01a8cd` (in original patch submission; absent from
-  committed version in repo object)
-- **Reviewed-by:** Maxime Chevallier, Jiawen Wu
-- **Link:** https://patch.msgid.link/20260528013258.129146-1-
-  zhaochenguang@kylinos.cn
-- **Signed-off-by:** Chenguang Zhao, Jakub Kicinski
-- No Reported-by, Tested-by, Cc: stable, or syzbot tags
+- `Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>` — author
+- `Signed-off-by: Steve French <stfrench@microsoft.com>` — subsystem
+  maintainer
+- No `Fixes:`, `Reported-by:`, `Cc: stable@vger.kernel.org`, `Link:`,
+  `Tested-by:`, or `Reviewed-by:` tags
 
-### Step 1.3: Body Analysis
+Notable: maintainer sign-off only; no explicit reporter or stable
+nomination.
+
+### Step 1.3: Body analysis
 **Record:**
-- **Bug:** `phylink_create()` succeeds, but `phylink_set_fixed_link()`
-  failure returns without `phylink_destroy()`.
-- **Symptom:** Memory leak (~`sizeof(struct phylink)` + workqueue) on
-  probe failure.
-- **Root cause:** Missing cleanup on error path introduced with AML
-  phylink support.
+- **Bug:** Level-II/read lease breaks for writes/truncates incorrectly
+  skip leases that still have `WRITE_CACHING`. Lease-break ACK handling
+  does not follow the SMB2 rule that the acknowledged state must be a
+  subset of the server’s break target.
+- **Symptom:** Missed lease breaks and incorrect ACK completion; clients
+  can retain stale caches.
+- **Root cause (author):** Overly strict lease-state filter in
+  `smb_break_all_levII_oplock()`; ACK path applies wrong/complex state
+  transitions instead of validating subset and applying acknowledged
+  state directly; failed ACKs should leave the break pending.
+- **Version info:** None in message.
 
-### Step 1.4: Hidden Bug Fix?
-**Record:** No — explicitly labeled as a leak fix.
+### Step 1.4: Hidden bug fix?
+**Record:** No — explicitly described as a protocol-correctness bug fix,
+not disguised cleanup.
 
 ---
 
@@ -122,311 +122,511 @@ when fixed-link setup fails.
 
 ### Step 2.1: Inventory
 **Record:**
-- **File:** `drivers/net/ethernet/wangxun/txgbe/txgbe_aml.c` (+1 line)
-- **Function:** `txgbe_phylink_init_aml()`
-- **Scope:** Single-file, surgical fix
+| File | Change |
+|------|--------|
+| `fs/smb/server/oplock.c` | ~24 lines changed (net reduction) |
+| `fs/smb/server/smb2pdu.c` | ~106 lines changed (large net reduction) |
 
-### Step 2.2: Code Flow Change
+**Functions modified:**
+- `smb_break_all_levII_oplock()`
+- `smb2_map_lease_to_oplock()`
+- `check_lease_state()` (+ new `smb2_lease_state_valid()`)
+- `smb21_lease_break_ack()`
+
+**Scope:** Two-file, surgical SMB server oplock/lease fix.
+
+### Step 2.2: Code flow changes
+
+**Hunk 1 — `smb_break_all_levII_oplock()`**
+- **Before:** Rejects any lease whose state includes `WRITE_CACHING`
+  (treated as “unexpected”), then requires level-II oplock for non-
+  leases.
+- **After:** Only validates oplock level for non-lease entries; leases
+  with `WRITE_CACHING` are no longer skipped.
+- **Path:** Write/truncate/rename/create conflict paths that break
+  level-II/read leases.
+
+**Hunk 2 — `smb2_map_lease_to_oplock()`**
+- **Before:** Exact-match batch mapping; exclusive mapping fails when
+  `HANDLE` is set without `READ`.
+- **After:** Batch = `WRITE`+`HANDLE`; exclusive = any `WRITE`; level-II
+  = `READ` or `HANDLE`.
+- **Path:** Lease open and post-ACK level updates.
+
+**Hunk 3 — `smb21_lease_break_ack()` / `check_lease_state()`**
+- **Before:** Narrow ACK validation; large `lease_change_type` switch;
+  on many error paths falls through to success cleanup (`op_state =
+  NONE`, `breaking_cnt--`).
+- **After:** Validates `req_state` is legal and `req_state ⊆
+  lease->new_state`; applies `req->LeaseState` directly; success and
+  error paths are fully separated — failed ACKs keep break pending.
+- **Path:** Client SMB2 lease-break ACK handling.
+
+### Step 2.3: Bug mechanism
 **Record:**
-- **Before:** On `phylink_set_fixed_link()` error → log and return;
-  local `phylink` leaked.
-- **After:** Same path calls `phylink_destroy(phylink)` before return.
-- **Path:** Probe-time initialization error path only.
+- **Category:** Logic / protocol correctness (cache coherency)
+- **Mechanism 1:** `state & ~(READ|HANDLE)` flags `WRITE_CACHING` as
+  invalid → lease breaks skipped during writes/truncates → stale client
+  caches.
+- **Mechanism 2:** ACK handler does not implement subset semantics;
+  incorrect state transitions and wrong `opinfo->level`.
+- **Mechanism 3:** `goto err_out` in current tree still falls through to
+  unconditional break completion after `smb2_set_err_rsp()`.
 
-### Step 2.3: Bug Mechanism
-**Record:** **Resource leak on error path.** Category: memory/resource
-leak (probe failure).
-
-Probe flow when init fails:
-
-```892:894:drivers/net/ethernet/wangxun/txgbe/txgbe_main.c
-        err = txgbe_init_phy(txgbe);
-        if (err)
-                goto err_release_hw;
-```
-
-`err_release_hw` does **not** call `txgbe_remove_phy()`. Since
-`wx->phylink` is only assigned after successful init:
-
-```381:387:drivers/net/ethernet/wangxun/txgbe/txgbe_aml.c
-        err = phylink_set_fixed_link(phylink, &state);
-        if (err) {
-                wx_err(wx, "Failed to set fixed link\n");
-                return err;
-        }
-
-        wx->phylink = phylink;
-```
-
-…the leaked `phylink` has no other cleanup path.
-
-### Step 2.4: Fix Quality
-**Record:** Obviously correct. Mirrors the existing pattern in
-`txgbe_phylink_init()`:
-
-```300:303:drivers/net/ethernet/wangxun/txgbe/txgbe_phy.c
-                ret = phylink_connect_phy(phylink, wx->phydev);
-                if (ret) {
-                        phylink_destroy(phylink);
-                        return ret;
-```
-
-**Regression risk:** Very low — one line on a failure-only path.
+### Step 2.4: Fix quality
+**Record:**
+- Fix is obviously correct against SMB2 lease semantics.
+- Net -62 lines; removes overcomplicated ACK logic.
+- Low regression risk: narrower validation is more permissive only where
+  protocol allows (subset ACKs); stricter about illegal states via
+  `smb2_lease_state_valid()`.
+- No public API changes.
 
 ---
 
 ## PHASE 3: GIT HISTORY INVESTIGATION
 
 ### Step 3.1: Blame
-**Record:** Buggy error path introduced in `6f8b4c01a8cd9` (May 2025) by
-Jiawen Wu. Present in this 6.18.y tree.
+**Record:**
+- Buggy `smb_break_all_levII_oplock()` filter: `e2f34481b24db` (Namjae
+  Jeon, 2021-03-16) — original ksmbd server import.
+- Buggy `check_lease_state()`: same commit; RH special-case added in
+  `64b39f4a2fd293` (2021-03-30).
+- Bug present since ksmbd introduction in this form; long-lived in
+  6.18.y.
 
-### Step 3.2: Fixes: Tag
-**Record:** Original patch had `Fixes: 6f8b4c01a8cd9`. Verified that
-commit is in this tree and introduced `txgbe_phylink_init_aml()` without
-error-path cleanup.
+### Step 3.2: Fixes: tag
+**Record:** N/A — no `Fixes:` tag.
 
-### Step 3.3: Related Changes
-**Record:** Recent txgbe history includes AML phylink work (`6f8b4c01`,
-`7649ba2b`, `9157060f`). Standalone one-line fix; no series dependency.
-Similar leak fix already backported: `2d34421bfa261` ("fix FDIR filter
-leak on remove") by same author, committed by Greg K-H to this tree.
+### Step 3.3: Related file history
+**Record:** Many ksmbd oplock/lease commits on `master` since
+`v6.18.44`, including `cd80ce7e68f16` (“don't update ->op_state as
+OPLOCK_STATE_NONE on error”, 2023) — partial fix only; current tree
+still has fall-through bug on failed ACKs. This commit is patch 3/14 of
+a June 2026 series but is logically standalone.
 
-### Step 3.4: Author Context
-**Record:** Chenguang Zhao is an active txgbe contributor. Reviewed by
-driver reviewers (Chevallier, Wu).
+### Step 3.4: Author context
+**Record:** Namjae Jeon is primary ksmbd maintainer; Steve French is SMB
+maintainer. Both signed off.
 
 ### Step 3.5: Dependencies
-**Record:** None. Applies cleanly to this tree's simpler `txgbe_aml.c`
-(391 lines vs. mainline ~530 at fix time).
+**Record:** `git cherry-pick --no-commit 5015191096db3` applies cleanly
+to current `HEAD` (exit 0). No hard dependency on other series patches
+for this diff.
 
 ---
 
 ## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
-### Step 4.1: Original Discussion
-**Record:** Fetched from lore.kernel.org. Patch v3 applied to net-next
-as `9c89f975e669` by Jakub Kicinski (Jun 1, 2026). Went through v1→v3
-review. No stable nomination found in thread.
+### Step 4.1: Original discussion
+**Record:** `b4 dig -c 5015191096db3` →
+https://patch.msgid.link/20260618141739.9029-3-linkinjeon@kernel.org —
+`[PATCH 03/14] ksmbd: fix lease break and ack state handling`.
 
 ### Step 4.2: Reviewers
-**Record:** CC'd netdev maintainers (Kicinski, Abeni, Miller, etc.) plus
-Wangxun driver developers. Two Reviewed-by tags from subsystem
-reviewers.
+**Record:** `b4 dig -w` CC'd: `linux-cifs@vger.kernel.org`,
+`smfrench@gmail.com`, `senozhatsky@chromium.org`, `tom@talpey.com`,
+`metze@samba.org`, `atteh.mailbox@gmail.com`.
 
-### Step 4.3: Bug Report
-**Record:** No external bug report or syzbot link. Bug identified by
-code inspection / review.
+### Step 4.3: Bug reports
+**Record:** No external bug report in commit message. Prior related fix
+`cd80ce7e68f16` mentions `smb2.lease.breaking2` test failure for a
+narrower issue.
 
-### Step 4.4: Series Context
-**Record:** Standalone fix, not part of a multi-patch series.
+### Step 4.4: Series context
+**Record:** Part of 14-patch ksmbd lease series (starts with “validate
+SMB2 lease create contexts”). This patch applies standalone to 6.18.44;
+earlier series patches are not required for this diff to build/apply.
 
-### Step 4.5: Stable List History
-**Record:** No stable-list discussion found for this specific fix.
+### Step 4.5: Stable list
+**Record:** UNVERIFIED — lore.kernel.org blocked automated fetch (Anubis
+bot protection). No stable-list discussion found via other means.
 
 ---
 
 ## PHASE 5: CODE SEMANTIC ANALYSIS
 
-### Step 5.1: Key Functions
-**Record:** `txgbe_phylink_init_aml()`, `phylink_create()`,
-`phylink_set_fixed_link()`, `phylink_destroy()`
+### Step 5.1: Key functions
+**Record:** `smb_break_all_levII_oplock`, `smb2_map_lease_to_oplock`,
+`check_lease_state`, `smb21_lease_break_ack`, `smb2_oplock_break`.
 
-### Step 5.2: Callers
-**Record:** `txgbe_phylink_init_aml()` ← `txgbe_init_phy()` (for
-`wx_mac_aml`) ← `txgbe_probe()` in `txgbe_main.c`
+### Step 5.2: Callers of `smb_break_all_levII_oplock`
+**Record:**
+- `fs/smb/server/vfs.c` — write, truncate, setattr paths (e.g. line 535
+  on write)
+- `fs/smb/server/smb2pdu.c` — create, rename, set-info
+- `fs/smb/server/oplock.c` — `smb_break_all_oplock()`
+
+Common hot paths for multi-client file server workloads.
 
 ### Step 5.3: Callees
-**Record:** `phylink_create()` allocates via `kzalloc()`;
-`phylink_destroy()` frees via `kfree()` after `cancel_work_sync()`.
+**Record:** `oplock_break()` → `smb2_lease_break_noti()`; ACK path uses
+`lookup_lease_in_table()`, `ksmbd_iov_pin_rsp()`.
 
 ### Step 5.4: Reachability
-**Record:** Reachable during PCI probe of AML Wangxun NICs
-(`wx_mac_aml`). `phylink_set_fixed_link()` can return `-EINVAL` on
-validation failure (wrong mode, speed/duplex not in supported caps).
-With current hardcoded `SPEED_25000` + `MAC_25000FD`, failure is
-**unlikely in normal operation** but the error path is real and
-exercised if validation fails.
+**Record:** Triggered by remote SMB2 clients during writes, truncates,
+renames, and conflicting opens when `CONFIG_SMB_SERVER` and
+oplocks/leases are enabled. Network-reachable, normal file-server
+operations.
 
-### Step 5.5: Similar Patterns
-**Record:** `txgbe_phylink_init()` already destroys phylink on connect
-failure. AML path was missing the equivalent cleanup.
-
----
-
-## PHASE 6: CROSS-REFERENCING AGAINST LOCAL TREE
-
-### Step 6.1: Buggy Code Exists?
-**Record:** **YES.** Lines 381–384 lack `phylink_destroy()` on error.
-Bug present since `6f8b4c01a8cd9` landed in this tree.
-
-### Step 6.2: Backport Complications
-**Record:** **Clean apply expected.** Local file differs from mainline
-(no 40G/XLGMII branch in this tree), but the fix hunk applies
-identically to the error path.
-
-### Step 6.3: Fix Already Present?
-**Record:** **NO.** `9c89f975e669` is in the object database but not in
-HEAD (`6.18.44`).
+### Step 5.5: Similar patterns
+**Record:** Multiple prior ksmbd stable-worthy oplock/lease fixes in
+this tree (`50f930db22365` UAF in break ack, `e735dbd489e3e` NULL-deref
+in break notifiers, `cd80ce7e68f16` partial ACK error handling). Same
+subsystem, same concern area.
 
 ---
 
-## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+## PHASE 6: CROSS-REFERENCE WITH LOCAL TREE
 
-### Step 7.1: Subsystem
-**Record:** `drivers/net/ethernet/wangxun/txgbe` — network driver
-(IMPORTANT, driver-specific).
+### Step 6.1: Buggy code present?
+**Record:** YES. Current tree at `v6.18.44` contains all three buggy
+patterns:
+- `oplock.c:1407-1418` — WRITE_CACHING rejection
+- `oplock.c:1464-1477` — old `smb2_map_lease_to_oplock()` logic
+- `smb2pdu.c:8806-8950` — old ACK handling with fall-through cleanup
+
+### Step 6.2: Backport difficulty
+**Record:** Clean apply verified via test cherry-pick. No rework needed.
+
+### Step 6.3: Related fixes already present?
+**Record:** `cd80ce7e68f16` partially addressed ACK error handling but
+did not fix fall-through after `goto err_out`, subset ACK semantics,
+WRITE_CACHING skip, or lease-to-oplock mapping. This fix is not
+redundant.
+
+---
+
+## PHASE 7: SUBSYSTEM CONTEXT
+
+### Step 7.1: Subsystem and criticality
+**Record:** `fs/smb/server` (ksmbd in-kernel SMB server). **IMPORTANT**
+— affects all ksmbd users; not core kernel, but file-server data
+integrity is critical for deployments using it.
 
 ### Step 7.2: Activity
-**Record:** Actively maintained; AML support added in 2025; multiple
-stable backports already in this tree.
+**Record:** Actively maintained; many ksmbd commits between `v6.18.44`
+and `master`.
 
 ---
 
-## PHASE 8: IMPACT AND RISK ASSESSMENT
+## PHASE 8: IMPACT AND RISK
 
-### Step 8.1: Who Is Affected
-**Record:** Users of Wangxun txgbe AML 25G/10G NICs (`CONFIG_TXGBE`,
-`wx_mac_aml`). Not universal, but real hardware.
+### Step 8.1: Who is affected
+**Record:** Users of `CONFIG_SMB_SERVER` with oplocks/leases enabled —
+enterprise/embedded Samba-alternative file serving, multi-client SMB
+workloads.
 
-### Step 8.2: Trigger Conditions
-**Record:** `phylink_set_fixed_link()` returns error during probe.
-Uncommon with current hardcoded parameters, but possible on
-misconfiguration or future code changes. Each failed probe leaks one
-phylink allocation. Module reload / reprobe could accumulate leaks.
-
-### Step 8.3: Failure Mode Severity
-**Record:** Memory leak on probe error path. **Severity: MEDIUM** — no
-crash or corruption, but resource leak with no recovery on the probe
-failure path.
-
-### Step 8.4: Risk-Benefit
+### Step 8.2: Trigger conditions
 **Record:**
-- **Benefit:** Correct error-path resource management; aligns AML path
-  with non-AML phylink init; precedent exists (FDIR leak fix backported
-  to this same tree).
-- **Risk:** Very low (1 line, error path only).
-- **Ratio:** Favorable for backport.
+- Multiple clients with leases on the same file
+- Write, truncate, rename, or conflicting open
+- Client sends lease-break ACK (including partial/subset ACKs)
+- Common in real SMB deployments; not exotic
+
+### Step 8.3: Failure mode severity
+**Record:**
+- **Failure mode:** Stale client-side read/write caches; incorrect lease
+  state after ACK; break prematurely marked complete on failed ACK
+- **Severity:** **CRITICAL** for data coherency — can cause silent data
+  corruption across SMB clients (not a kernel oops, but a serious
+  correctness bug for a file server)
+
+### Step 8.4: Risk-benefit
+**Record:**
+- **Benefit:** HIGH — fixes long-standing protocol bugs on common multi-
+  client paths
+- **Risk:** LOW — small, localized, maintainer-authored, verified clean
+  apply
+- **Ratio:** Strongly favors backport
 
 ---
 
 ## PHASE 9: FINAL SYNTHESIS
 
-### Step 9.1: Evidence Summary
+### Step 9.1: Evidence summary
 
 **FOR backport:**
-- Real memory leak on probe error path
-- Obviously correct, 1-line fix matching existing driver pattern
-- Bug introduced by commit present in this tree
-- Reviewed by driver maintainers
-- Same driver already had a leak fix backported to 6.18.y
-  (`2d34421bfa261`)
-- Fix not yet in HEAD; applies cleanly
+- Fixes real SMB2 lease coherency bugs present since 2021
+- Can cause stale caches / data corruption with multiple clients
+- Small, surgical (-62 lines net), maintainer-reviewed
+- Applies cleanly to 6.18.44
+- No new APIs or features
+- Failed ACK handling properly keeps break pending
 
 **AGAINST backport:**
-- Affects niche hardware only
-- `phylink_set_fixed_link()` failure unlikely with current hardcoded
-  config
-- No user reports or fuzzer findings
-- Leak is per failed probe, not a hot-path leak
+- Only affects `CONFIG_SMB_SERVER` users (subset of kernel users)
+- Part of a 14-patch series (but standalone-applicable)
+- No syzbot/user bug report in commit message
 
-**Unresolved:** No runtime crash reports; trigger frequency in
-production is unverified.
+**Unresolved:** Lore thread content and stable-list discussion
+(UNVERIFIED).
 
-### Step 9.2: Stable Rules Checklist
-1. Obviously correct and tested? **PASS** — mirrors existing pattern;
-   two Reviewed-by
-2. Fixes a real bug? **PASS** — probe error-path memory leak
-3. Important issue? **PASS (MEDIUM)** — resource leak, not
-   crash/security
-4. Small and contained? **PASS** — 1 line, 1 file
-5. No new features/APIs? **PASS**
-6. Can apply to local tree? **PASS** — buggy code present, fix not
-   applied
+### Step 9.2: Stable rules checklist
+1. Obviously correct and tested? **PASS** — protocol-aligned logic,
+   maintainer SOBs; no explicit Tested-by
+2. Fixes a real bug affecting users? **PASS** — multi-client lease
+   coherency
+3. Important issue? **PASS** — data coherency / potential corruption
+   (CRITICAL for file server)
+4. Small and contained? **PASS** — 2 files, ~130 lines touched, -62 net
+5. No new features or APIs? **PASS**
+6. Can apply to local tree? **PASS** — clean cherry-pick verified
 
-### Step 9.3: Exception Categories
-**Record:** None (not a quirk, device ID, DT, build, or docs fix).
-Standard error-path resource leak fix.
+### Step 9.3: Exception categories
+**Record:** None (not device ID, quirk, DT, build, or docs).
 
-### Step 9.4: Decision Rationale
-
-This is a textbook probe error-path resource leak: `phylink_create()`
-allocates memory, failure returns without cleanup, and the probe error
-path (`err_release_hw`) never calls `txgbe_remove_phy()` because
-`wx->phylink` was never assigned. The fix is minimal, matches existing
-code in the same driver, and the same author's leak fix was already
-accepted into this 6.18.y tree. While the trigger is uncommon and
-hardware-specific, stable trees routinely take such surgical leak fixes.
+### Step 9.4: Decision rationale
+For **this** tree (`6.18.44`), the buggy code is present, the fix is
+self-contained, applies cleanly, and addresses important SMB2 lease
+coherency bugs that can lead to stale client caches and data corruption.
+This meets stable kernel criteria.
 
 ---
 
 ## Verification
 
-- **[Phase 1]** `git show 9c89f975e669`: parsed subject, tags, body
-- **[Phase 1]** Lore mbox fetch: confirmed v3 patch, Fixes tag,
-  reviewers
-- **[Phase 2]** Read `txgbe_aml.c:355-390`: confirmed missing
-  `phylink_destroy` on error
-- **[Phase 2]** Read `txgbe_phy.c:268-310`: confirmed sibling pattern
-  with `phylink_destroy`
-- **[Phase 2]** Read `txgbe_main.c:892-894,920-921`: probe goes to
-  `err_release_hw`, not `err_remove_phy`
-- **[Phase 2]** Read `phylink.c:1787-1800,1925-1941`:
-  `phylink_set_fixed_link` failure modes; `phylink_destroy` frees
-  allocation
-- **[Phase 3]** `git blame -L 381,385 txgbe_aml.c`: bug from
-  `6f8b4c01a8cd9`
-- **[Phase 3]** `git merge-base --is-ancestor 6f8b4c01a8cd9 HEAD`:
-  introducing commit in tree
-- **[Phase 3]** `git show 2d34421bfa261`: similar txgbe leak fix already
-  in 6.18.y
-- **[Phase 3]** `git log --oneline -20 -- txgbe_aml.c`: recent AML
-  driver history
-- **[Phase 4]** `curl lore.kernel.org/.../t.mbox.gz`: patch thread,
-  v1-v3, applied notification
-- **[Phase 4]** Lore stable search: no stable nomination found
-- **[Phase 5]** `grep txgbe_phylink_init_aml`: caller chain to
-  `txgbe_probe`
-- **[Phase 6]** `git describe HEAD` / `make kernelversion`: tree is
-  6.18.44
-- **[Phase 6]** `git cat-file -e 9c89f975e669` + merge-base check: fix
-  exists in repo, not in HEAD
-- **[Phase 6]** Read current `txgbe_aml.c`: buggy code confirmed at
-  lines 381-384
+- [Phase 1] Parsed subject, tags (Namjae Jeon + Steve French SOBs only),
+  body
+- [Phase 2] Read full diff from `git show 5015191096db3`; analyzed all 4
+  function changes
+- [Phase 2] Confirmed `goto err_out` fall-through bug in current
+  `smb2pdu.c:8859-8950`
+- [Phase 3] `git blame` on `oplock.c:1407-1418` and
+  `smb2pdu.c:8806-8818` → `e2f34481b24db` (2021)
+- [Phase 3] `git show cd80ce7e68f16` — partial prior fix, insufficient
+- [Phase 3] `git merge-base --is-ancestor 5015191096db3 HEAD` → exit 1
+  (not in tree)
+- [Phase 3] `git cherry-pick --no-commit 5015191096db3` → exit 0 (clean
+  apply)
+- [Phase 4] `b4 dig -c 5015191096db3` → lore URL found
+- [Phase 4] `b4 dig -a` → patch 03/14 of series
+- [Phase 4] `b4 dig -w` → linux-cifs, smfrench CC'd
+- [Phase 4] UNVERIFIED: lore thread content (Anubis blocked WebFetch)
+- [Phase 5] `grep smb_break_all_levII_oplock` → callers in vfs.c,
+  smb2pdu.c, oplock.c
+- [Phase 5] Read `oplock_break()` lease break logic in
+  `oplock.c:893-958`
+- [Phase 6] `git describe HEAD` → `v6.18.44`; buggy code confirmed
+  present
+- [Phase 6] `git log v6.18.44..master -- fs/smb/server/oplock.c` — many
+  intervening commits; patch still applies cleanly
+- [Phase 7] `fs/smb/server/Kconfig` — `CONFIG_SMB_SERVER` exists
+- [Phase 8] Failure mode: cache coherency / data corruption risk,
+  severity CRITICAL for SMB server use
 
-**YES**The analysis is done for **v6.18.44**.
+**YES**The background checks finished and match the earlier analysis:
 
-**Commit:** `net: txgbe: fix phylink leak on AML init failure`
+- **Master:** commit `5015191096db3` (`ksmbd: fix lease break and ack
+  state handling`) is on `master`.
+- **This tree (`v6.18.44`):** that commit is **not** present yet.
 
-**Finding:** On AML probe failure in `txgbe_phylink_init_aml()`, if
-`phylink_set_fixed_link()` fails, the phylink object is leaked because
-`wx->phylink` is never set and the probe path goes to `err_release_hw`
-without calling `txgbe_remove_phy()`. The fix adds a single
-`phylink_destroy(phylink)` on that error path, matching the pattern
-already used in `txgbe_phylink_init()`.
+So the lease-break/ACK bugs are still in your checkout, and the fix is
+available on `master` and applies cleanly here. The backport
+recommendation remains **YES**.
 
-**Local tree status:** The bug is present in this checkout; fix commit
-`9c89f975e669` exists in the repo but is not in HEAD. A similar txgbe
-leak fix (`2d34421bfa261`) was already backported to this tree.
+ fs/smb/server/oplock.c  |  24 +++------
+ fs/smb/server/smb2pdu.c | 106 ++++++++++------------------------------
+ 2 files changed, 34 insertions(+), 96 deletions(-)
 
-**Verdict:** **YES** — small, obviously correct probe error-path leak
-fix, low risk, applies cleanly.
-
- drivers/net/ethernet/wangxun/txgbe/txgbe_aml.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/net/ethernet/wangxun/txgbe/txgbe_aml.c b/drivers/net/ethernet/wangxun/txgbe/txgbe_aml.c
-index 07ae491e3bc9b..a919962b71605 100644
---- a/drivers/net/ethernet/wangxun/txgbe/txgbe_aml.c
-+++ b/drivers/net/ethernet/wangxun/txgbe/txgbe_aml.c
-@@ -381,6 +381,7 @@ int txgbe_phylink_init_aml(struct txgbe *txgbe)
- 	err = phylink_set_fixed_link(phylink, &state);
- 	if (err) {
- 		wx_err(wx, "Failed to set fixed link\n");
-+		phylink_destroy(phylink);
- 		return err;
+diff --git a/fs/smb/server/oplock.c b/fs/smb/server/oplock.c
+index ff0dbf3f8cbf4..d7ba8a01f2c68 100644
+--- a/fs/smb/server/oplock.c
++++ b/fs/smb/server/oplock.c
+@@ -1404,14 +1404,8 @@ void smb_break_all_levII_oplock(struct ksmbd_work *work, struct ksmbd_file *fp,
+ 			continue;
+ 		}
+ 
+-		if (brk_op->is_lease && (brk_op->o_lease->state &
+-		    (~(SMB2_LEASE_READ_CACHING_LE |
+-				SMB2_LEASE_HANDLE_CACHING_LE)))) {
+-			ksmbd_debug(OPLOCK, "unexpected lease state(0x%x)\n",
+-				    brk_op->o_lease->state);
+-			goto next;
+-		} else if (brk_op->level !=
+-				SMB2_OPLOCK_LEVEL_II) {
++		if (!brk_op->is_lease &&
++		    brk_op->level != SMB2_OPLOCK_LEVEL_II) {
+ 			ksmbd_debug(OPLOCK, "unexpected oplock(0x%x)\n",
+ 				    brk_op->level);
+ 			goto next;
+@@ -1463,15 +1457,13 @@ void smb_break_all_oplock(struct ksmbd_work *work, struct ksmbd_file *fp)
+  */
+ __u8 smb2_map_lease_to_oplock(__le32 lease_state)
+ {
+-	if (lease_state == (SMB2_LEASE_HANDLE_CACHING_LE |
+-			    SMB2_LEASE_READ_CACHING_LE |
+-			    SMB2_LEASE_WRITE_CACHING_LE)) {
++	if ((lease_state & SMB2_LEASE_WRITE_CACHING_LE) &&
++	    (lease_state & SMB2_LEASE_HANDLE_CACHING_LE)) {
+ 		return SMB2_OPLOCK_LEVEL_BATCH;
+-	} else if (lease_state != SMB2_LEASE_WRITE_CACHING_LE &&
+-		 lease_state & SMB2_LEASE_WRITE_CACHING_LE) {
+-		if (!(lease_state & SMB2_LEASE_HANDLE_CACHING_LE))
+-			return SMB2_OPLOCK_LEVEL_EXCLUSIVE;
+-	} else if (lease_state & SMB2_LEASE_READ_CACHING_LE) {
++	} else if (lease_state & SMB2_LEASE_WRITE_CACHING_LE) {
++		return SMB2_OPLOCK_LEVEL_EXCLUSIVE;
++	} else if (lease_state & (SMB2_LEASE_READ_CACHING_LE |
++				  SMB2_LEASE_HANDLE_CACHING_LE)) {
+ 		return SMB2_OPLOCK_LEVEL_II;
+ 	}
+ 	return 0;
+diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
+index b610cad470ea0..b16e1c156ee5f 100644
+--- a/fs/smb/server/smb2pdu.c
++++ b/fs/smb/server/smb2pdu.c
+@@ -8803,16 +8803,17 @@ static void smb20_oplock_break_ack(struct ksmbd_work *work)
+ 	ksmbd_fd_put(work, fp);
+ }
+ 
+-static int check_lease_state(struct lease *lease, __le32 req_state)
++static bool smb2_lease_state_valid(__le32 state)
+ {
+-	if ((lease->new_state ==
+-	     (SMB2_LEASE_READ_CACHING_LE | SMB2_LEASE_HANDLE_CACHING_LE)) &&
+-	    !(req_state & SMB2_LEASE_WRITE_CACHING_LE)) {
+-		lease->new_state = req_state;
+-		return 0;
+-	}
++	return !(state & ~(SMB2_LEASE_READ_CACHING_LE |
++			   SMB2_LEASE_HANDLE_CACHING_LE |
++			   SMB2_LEASE_WRITE_CACHING_LE));
++}
+ 
+-	if (lease->new_state == req_state)
++static int check_lease_state(struct lease *lease, __le32 req_state)
++{
++	if (smb2_lease_state_valid(req_state) &&
++	    !(req_state & ~lease->new_state))
+ 		return 0;
+ 
+ 	return 1;
+@@ -8830,9 +8831,7 @@ static void smb21_lease_break_ack(struct ksmbd_work *work)
+ 	struct smb2_lease_ack *req;
+ 	struct smb2_lease_ack *rsp;
+ 	struct oplock_info *opinfo;
+-	__le32 err = 0;
+ 	int ret = 0;
+-	unsigned int lease_change_type;
+ 	__le32 lease_state;
+ 	struct lease *lease;
+ 
+@@ -8856,80 +8855,23 @@ static void smb21_lease_break_ack(struct ksmbd_work *work)
+ 		goto err_out;
  	}
  
+-	if (check_lease_state(lease, req->LeaseState)) {
+-		rsp->hdr.Status = STATUS_REQUEST_NOT_ACCEPTED;
+-		ksmbd_debug(OPLOCK,
+-			    "req lease state: 0x%x, expected state: 0x%x\n",
+-			    req->LeaseState, lease->new_state);
+-		goto err_out;
+-	}
+-
+ 	if (!atomic_read(&opinfo->breaking_cnt)) {
+ 		rsp->hdr.Status = STATUS_UNSUCCESSFUL;
+ 		goto err_out;
+ 	}
+ 
+-	/* check for bad lease state */
+-	if (req->LeaseState &
+-	    (~(SMB2_LEASE_READ_CACHING_LE | SMB2_LEASE_HANDLE_CACHING_LE))) {
+-		err = STATUS_INVALID_OPLOCK_PROTOCOL;
+-		if (lease->state & SMB2_LEASE_WRITE_CACHING_LE)
+-			lease_change_type = OPLOCK_WRITE_TO_NONE;
+-		else
+-			lease_change_type = OPLOCK_READ_TO_NONE;
+-		ksmbd_debug(OPLOCK, "handle bad lease state 0x%x -> 0x%x\n",
+-			    le32_to_cpu(lease->state),
+-			    le32_to_cpu(req->LeaseState));
+-	} else if (lease->state == SMB2_LEASE_READ_CACHING_LE &&
+-		   req->LeaseState != SMB2_LEASE_NONE_LE) {
+-		err = STATUS_INVALID_OPLOCK_PROTOCOL;
+-		lease_change_type = OPLOCK_READ_TO_NONE;
+-		ksmbd_debug(OPLOCK, "handle bad lease state 0x%x -> 0x%x\n",
+-			    le32_to_cpu(lease->state),
+-			    le32_to_cpu(req->LeaseState));
+-	} else {
+-		/* valid lease state changes */
+-		err = STATUS_INVALID_DEVICE_STATE;
+-		if (req->LeaseState == SMB2_LEASE_NONE_LE) {
+-			if (lease->state & SMB2_LEASE_WRITE_CACHING_LE)
+-				lease_change_type = OPLOCK_WRITE_TO_NONE;
+-			else
+-				lease_change_type = OPLOCK_READ_TO_NONE;
+-		} else if (req->LeaseState & SMB2_LEASE_READ_CACHING_LE) {
+-			if (lease->state & SMB2_LEASE_WRITE_CACHING_LE)
+-				lease_change_type = OPLOCK_WRITE_TO_READ;
+-			else
+-				lease_change_type = OPLOCK_READ_HANDLE_TO_READ;
+-		} else {
+-			lease_change_type = 0;
+-		}
+-	}
+-
+-	switch (lease_change_type) {
+-	case OPLOCK_WRITE_TO_READ:
+-		ret = opinfo_write_to_read(opinfo);
+-		break;
+-	case OPLOCK_READ_HANDLE_TO_READ:
+-		ret = opinfo_read_handle_to_read(opinfo);
+-		break;
+-	case OPLOCK_WRITE_TO_NONE:
+-		ret = opinfo_write_to_none(opinfo);
+-		break;
+-	case OPLOCK_READ_TO_NONE:
+-		ret = opinfo_read_to_none(opinfo);
+-		break;
+-	default:
+-		ksmbd_debug(OPLOCK, "unknown lease change 0x%x -> 0x%x\n",
+-			    le32_to_cpu(lease->state),
+-			    le32_to_cpu(req->LeaseState));
+-	}
+-
+-	if (ret < 0) {
+-		rsp->hdr.Status = err;
++	if (check_lease_state(lease, req->LeaseState)) {
++		rsp->hdr.Status = STATUS_REQUEST_NOT_ACCEPTED;
++		ksmbd_debug(OPLOCK,
++			    "req lease state: 0x%x, expected state: 0x%x\n",
++			    req->LeaseState, lease->new_state);
+ 		goto err_out;
+ 	}
+ 
+-	lease_state = lease->state;
++	lease_state = req->LeaseState;
++	lease->state = lease_state;
++	lease->new_state = SMB2_LEASE_NONE_LE;
++	opinfo->level = smb2_map_lease_to_oplock(lease_state);
+ 
+ 	rsp->StructureSize = cpu_to_le16(36);
+ 	rsp->Reserved = 0;
+@@ -8938,16 +8880,20 @@ static void smb21_lease_break_ack(struct ksmbd_work *work)
+ 	rsp->LeaseState = lease_state;
+ 	rsp->LeaseDuration = 0;
+ 	ret = ksmbd_iov_pin_rsp(work, rsp, sizeof(struct smb2_lease_ack));
+-	if (ret) {
+-err_out:
+-		smb2_set_err_rsp(work);
+-	}
++	if (ret)
++		goto err_out;
+ 
+ 	opinfo->op_state = OPLOCK_STATE_NONE;
+ 	wake_up_interruptible_all(&opinfo->oplock_q);
+ 	atomic_dec(&opinfo->breaking_cnt);
+ 	wake_up_interruptible_all(&opinfo->oplock_brk);
+ 	opinfo_put(opinfo);
++	return;
++
++err_out:
++	smb2_set_err_rsp(work);
++	opinfo_put(opinfo);
++	return;
+ }
+ 
+ /**
 -- 
 2.53.0
 
