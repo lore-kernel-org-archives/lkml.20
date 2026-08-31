@@ -1,142 +1,163 @@
-Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f11.google.com (mail-wm2-f11.google.com [74.125.225.139])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9F0D468C28;
-	Mon, 31 Aug 2026 17:13:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A7754A49A4
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 17:14:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788196420; cv=none; b=LeWvlh94SXLjnmtVBY6/0rowmvSBrWIv3HPgBvdmZBmMmhkLeVAg7wd3WNwB/qt4ZUgXexG+rDnXhtoHL/tb+n46TlvTCfbz69dhY/ioFOajBYbv3ooQb9Px63Va4qtxzCBwvo59Njx8PZoChxp/IP6VCB8XrixEokPPCxjx9pA=
+	t=1788196462; cv=none; b=cpqJFJfG37ui33xnPzUnL3olIPOPi0adyhy6H5ZRiFnflOCqDDOeQvBDFpAp6o5x/pbVqxRWyvMUlrEVatx13dCewVpoBAbkOAPTfXWUmLRAdO8+jdhcA6Z2w0R1xcbDdFzfwIfkJBLcUCITGsK+Bd02cFTGcEZSgARsEru/nyI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788196420; c=relaxed/simple;
-	bh=KTJu/kjJxksqIgM6W7l40pfwtu9qTxLS8TUVQjcOX/U=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=RTrsH8gjeDh96uhllZckiYo/G19FZDpOdtXYZfHxVXEJrovp670f5ZSWdN3M5umQG86Tsh45Jgpxf9K0PqHiCeqPa1gf40xlDta7eMYoZxRjak8VdwuhjbZxum4TG3n3H60SIL1owvQzjHOqVMk6lYZ94BM1+g+1bnB2gdk3Hzk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=3ChZsEk2; arc=none smtp.client-ip=216.40.44.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	s=arc-20240116; t=1788196462; c=relaxed/simple;
+	bh=Rur/BHGTdJxyhCxiUGPHKMXcK+P8Dcu44u3Yj+AleE4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UHCfdH3ExVRjCLrTnzxtkUrrCYu2alzAN65ND278bSZSPGOcO/6s1AKWHHCxHODSZvHc18dwkeIiHlYCvoCpcfEH4ykTgTbXgMZ0TGxr2qchcUf/57rqxM3zIQJD9qc7eDo8NXPu71wt7CHeKjtaJDAeB9nKkh4xlFEtsUBur4s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EZS39+MW; arc=none smtp.client-ip=74.125.225.139
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="3ChZsEk2"
-Received: from omf10.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay01.hostedemail.com (Postfix) with ESMTP id 1E43C1C0AA5;
-	Mon, 31 Aug 2026 17:13:36 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf10.hostedemail.com (Postfix) with ESMTPA id DD2A630;
-	Mon, 31 Aug 2026 17:13:32 +0000 (UTC)
-Date: Mon, 31 Aug 2026 13:14:29 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
-Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@kernel.org>,
- x86@kernel.org, Jinchao Wang <wangjinchao600@gmail.com>, Mathieu Desnoyers
- <mathieu.desnoyers@efficios.com>, Thomas Gleixner <tglx@linutronix.de>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- "H . Peter Anvin" <hpa@zytor.com>, Alexander Shishkin
- <alexander.shishkin@linux.intel.com>, Ian Rogers <irogers@google.com>,
- linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-perf-users@vger.kernel.org
-Subject: Re: [PATCH 2/2] tracing/probes: Fix BTF kflag check for anonymous
- struct member access
-Message-ID: <20260831131429.0c949991@gandalf.local.home>
-In-Reply-To: <178818877624.104360.10938474138218043559.stgit@devnote2>
-References: <178818875393.104360.1469039168635349344.stgit@devnote2>
-	<178818877624.104360.10938474138218043559.stgit@devnote2>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EZS39+MW"
+Received: by mail-wm2-f11.google.com with SMTP id 5b1f17b1804b1-49ccea58fe3so10209185e9.1
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 10:14:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788196459; x=1788801259; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=DJlEpwegCedIufc0NXaQ8IywGIFVcGZVq/Vh3GQUlEA=;
+        b=EZS39+MWy0NnoQjK/rlgLNlstzdZqkvYvhRUneklJi5yoDpOK3k6oaEPQChdtNhf/q
+         tEK/E5zRZMY/qIOh/iuLlO6Ust7vCTCFCO/5aGuv5oFfcvJ+kwS1aFohwwmRYcku0lYs
+         BObUOtqDMZGPk66FC2VsP473T2H1VK173TwmFm7Ctck5dNM3iId4JWtusdxerGr2CxLL
+         LcLNGMJVPWZ672j39KjJtulwvnqxEbq5tIa3Upx1tfxqRxjKK+I5kv+L7Av9ks3bxEPl
+         9JSQaPr88aRIHfgXGf9C3GIO1bMlutGKG9C8HMFnhwZu9D8ma3MsdBHcrC+Ja34CB4sw
+         iiIg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788196459; x=1788801259;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=DJlEpwegCedIufc0NXaQ8IywGIFVcGZVq/Vh3GQUlEA=;
+        b=K7lJI+Uf5JNy4jnPNAJnmrHNs9ePqWFeRxxf5QczNfDXFlaBF9o+ebih6dXX+15GdT
+         1X0YK8AE2JJO+XTSdgxIgIon6e/VR6GJ6OIxitkrjmP+XmmWYv3AJUHKwY0l7ACOB6by
+         KsGtEju6ju8Ciraklrq0FpxQdlFbBBLELLEm4nKCcHCYmLsF54+dEFJLYxwy/QcQbJH2
+         7etkXUadSRNyUNX04w0dzPHuJ+FU0x4Et/k/gQabqb2t0jJ0gPybx8KRqSH2vseYumTP
+         A/VSFCR5gcMlN6s3kel3quhL0PbN0Zr8KjVvDnt5+1RG1En6DBvBu/+rqT8UOaWXdtax
+         61kg==
+X-Forwarded-Encrypted: i=1; AKwUvBx0YS2tyCDQoLN/eGYv4zMOTB3DuKVQOqm2TZa5/jf3DGhytHmP8cSM9l3bkdIeE5rk3UGQMWnVD4X1xbs=@vger.kernel.org
+X-Gm-Message-State: AFuF++lgJ+6sSQjQc1RJ4g+cNtVYrfCvkFrxqKX5R1aq/UN+7QkbowW4
+	Jp1EqODCSif5y+3vPy34/3K5EgjQ+SyZ6KCjCa27kymo3gYUz8nclX1j
+X-Gm-Gg: AYBFou1ZNg4f+23a8VLp7ntkDkLx98XytMq/zaqwzrJeTu3jIVjcyh4HVY7R8mjRcJ0
+	GarKMejVmjRgGnI9ObEWa94z8HcpJvtU7ZE0LHOGNauOjv7Gk4uVXJdEe5Lf7DkVOySN5zcTIuf
+	oY0KerZdI9wGt/dWe98TF0NRweV37tYYR2+XUyfn8wJS+vmVeH6tpBwKw55ce+LSfCPMlGct3qr
+	OoQVqtMyRx/aD10k/v9mRU/fMvpTnUTuRDRrcql8xY/gWuXENlwGThiMfseLg0FiXqL43OsDYBx
+	fMjbU0yhoPOijRMKR/ctTQY0bS+1ETdiqmyt1Rq186GlyCRS4TermJ8SsUXqOFjM9yQxVZgx1jH
+	QRqwK1QoZCqTbchO1pqiSsUlMlT6e1GMzNxAa2XzEswr/nY4dfkZy/g5t0hSyF8pVzyqcKEpw+V
+	uP/denVoeFOGjvzuFtCZ/OzP9m4O3mXTtWaipdWql53Yp0B/e9NAlSWCJOi4Ibp3esajz5a2vaw
+	ME6
+X-Received: by 2002:a05:6000:4910:b0:482:a8b1:aa6d with SMTP id ffacd0b85a97d-482f79c1923mr43129255f8f.10.1788196459060;
+        Mon, 31 Aug 2026 10:14:19 -0700 (PDT)
+Received: from serhat-ubuntu.home ([212.253.216.238])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482fbab3f16sm26357256f8f.1.2026.08.31.10.14.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Aug 2026 10:14:18 -0700 (PDT)
+From: Serhat Kumral <serhatkumral1@gmail.com>
+To: Jason Gunthorpe <jgg@ziepe.ca>,
+	Leon Romanovsky <leon@kernel.org>
+Cc: linux-rdma@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Serhat Kumral <serhatkumral1@gmail.com>
+Subject: [PATCH] RDMA/core: Reject CQE counts above max_cqe in ib_cq_pool_get()
+Date: Mon, 31 Aug 2026 20:13:54 +0300
+Message-ID: <20260831171354.72140-1-serhatkumral1@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Stat-Signature: qkcgswixxk1xf51ddgqwr5gctckf9ahf
-X-Rspamd-Server: rspamout02
-X-Rspamd-Queue-Id: DD2A630
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX1/UFD8goJsadzEunf2mjYFyH4I5BI2DOcc=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=dZikL9fK9cf5YVH6B4xPPjKZ0oFUBJT7ZPBvy1fSxLg=; b=3ChZsEk2lnPWSPYgqTGsnrwEZwA38MH4mCFJdSZ3/Ubbk4+CCQt4Nwe5+3DeWoqOr7Q6wqIMDUkLlCj59dCosMg5T91LcBeBh6VWDbeWv6059pwVULEcXRJc8Iejt8yjeTeOlSQHoKiWOTYwLZsTtvH1ckqkmyDfS/KDeci6R9o=
-X-HE-Tag: 1788196412-118431
-X-HE-Meta: U2FsdGVkX1/MOib4Vh0/nc0IypkRyowKuc6rBLPhUJPSJFN+i3pUPytbbdnPBORdjH/9ks8nrwpwVc4BXEd2OggCI6ebhIN2xfgMNObe+a13gvUSAjPn+Tw5386J96z6yiFHtKI8exqR2Cpo71SKTtGQh8SBgUhzONnppsa1N51dwADK+VqNTfeKxecUw9u/0FtF2j1tNr1i+IRLJMy/yvBJy9sAbrO8CPp/+n5RTW39TDLGvgwNjUQwGRA44ZWE3XpaF5IyjTmUZYrPZ224F2EhxkZsWp74aRId7dYixRQxVzv3hWNOsgDENXdimuWkwitoAP0EBQVFtiExZKdXP+3oO6xsP8/w
+Content-Transfer-Encoding: 8bit
 
-On Tue,  1 Sep 2026 00:06:16 +0900
-"Masami Hiramatsu (Google)" <mhiramat@kernel.org> wrote:
-> diff --git a/kernel/trace/trace_btf.h b/kernel/trace/trace_btf.h
-> index 4bc44bc261e6..4bd26bceae23 100644
-> --- a/kernel/trace/trace_btf.h
-> +++ b/kernel/trace/trace_btf.h
-> @@ -8,4 +8,5 @@ const struct btf_param *btf_get_func_param(const struct btf_type *func_proto,
->  const struct btf_member *btf_find_struct_member(struct btf *btf,
->  						const struct btf_type *type,
->  						const char *member_name,
-> -						u32 *anon_offset);
-> +						u32 *anon_offset,
-> +						const struct btf_type **member_type);
-> diff --git a/kernel/trace/trace_probe.c b/kernel/trace/trace_probe.c
-> index c4163904ba74..ce2a7bb00d28 100644
-> --- a/kernel/trace/trace_probe.c
-> +++ b/kernel/trace/trace_probe.c
-> @@ -625,6 +625,7 @@ static int get_bitoffset_of_field(char **pfieldname, const struct btf_type **pty
->  {
->  	const struct btf_type *type = *ptype;
->  	const struct btf_member *field;
-> +	const struct btf_type *mtype = NULL;
+ib_cq_pool_get() does not validate nr_cqe against the device limit,
+while ib_alloc_cqs() caps the size passed to ib_alloc_cq() at
+dev->attrs.max_cqe:
 
-Why initialize mtype to NULL?
+	nr_cqes = min(dev->attrs.max_cqe, max(nr_cqes, IB_MAX_SHARED_CQ_SZ));
 
->  	struct btf *btf = ctx_btf(ctx);
->  	char *fieldname = *pfieldname;
->  	int bitoffs = 0;
-> @@ -640,7 +641,7 @@ static int get_bitoffset_of_field(char **pfieldname, const struct btf_type **pty
->  
->  		anon_offs = 0;
->  		field = btf_find_struct_member(btf, type, fieldname,
-> -						&anon_offs);
-> +						&anon_offs, &mtype);
+If nr_cqe is larger than max_cqe, ib_alloc_cqs() cannot ask the device
+for that many entries. A device that reports the size it was asked for
+therefore returns a CQ smaller than nr_cqe, and the fit test skips
+every CQ in the pool:
 
-If mtype is not set here, then field would be either an error or NULL.
+	if (cq->cqe_used + nr_cqe > cq->cqe)
+		continue;
 
->  		if (IS_ERR(field)) {
->  			trace_probe_log_err(ctx->offset, BAD_BTF_TID);
->  			return PTR_ERR(field);
+'found' remains NULL and each iteration calls ib_alloc_cqs() again,
+adding another batch of CQs to dev->cq_pools[]. The CQs stay in the
+pool, so each walk under cq_pools_lock gets longer. The loop ends only
+when an allocation fails, i.e. once the device or the system has run
+out of resources.
 
-If field is an error or NULL, it exits out early.
+ib_srpt can reach this path when a privileged user configures
+srp_sq_size through configfs. ib_srpt accepts values up to 65535 and
+requests ch->rq_size + sq_size CQEs while establishing a connection. If
+that sum exceeds max_cqe, a valid connection request from a remote
+initiator can trigger the allocation loop.
 
-> @@ -653,7 +654,7 @@ static int get_bitoffset_of_field(char **pfieldname, const struct btf_type **pty
->  		bitoffs += anon_offs;
->  
->  		/* Accumulate the bit-offsets of the dot-connected fields */
-> -		if (btf_type_kflag(type)) {
-> +		if (btf_type_kflag(mtype)) {
+Reproduced with ib_srpt over rxe, which reports max_cqe = 32767, after
+setting srp_sq_size to 65535. In a 1 GB guest, a login attempt
+requesting 65663 CQEs caused 115 allocation rounds in 185 ms, followed
+by:
 
-mtype should be guaranteed as set here (maybe set to NULL, but set regardless)
+  Out of memory and no killable processes...
+  Kernel panic - not syncing: System is deadlocked on memory
+  Workqueue: ib_cm cm_work_handler
+  Call Trace:
+   __vmalloc_node_range_noprof
+   vmalloc_user_noprof
+   rxe_queue_init
+   rxe_cq_from_init
+   rxe_create_cq
+   __ib_alloc_cq
+   ib_cq_pool_get
+   srpt_cm_req_recv.cold
+   srpt_rdma_cm_req_recv
+   cma_cm_event_handler
+   cma_ib_req_handler
+   cm_process_work
+   cm_work_handler
 
-Now, if btf_find_struct_member() did not set mtype, because this is in a
-loop, in a second iteration, mtype would be stale.
+Reject oversized requests before entering the allocation loop. With the
+check in place, the same test allocates no CQs and ib_srpt rejects the
+login:
 
-So either set it to NULL at the top of the loop, or don't set it at all.
+  ib_srpt failed to create CQ cqe= 65663 ret= -EINVAL
 
-Or am I missing something?
+Requests for max_cqe entries or fewer behave as before.
 
--- Steve
+Fixes: c7ff819aefea ("RDMA/core: Introduce shared CQ pool API")
+Signed-off-by: Serhat Kumral <serhatkumral1@gmail.com>
+---
+ drivers/infiniband/core/cq.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
+diff --git a/drivers/infiniband/core/cq.c b/drivers/infiniband/core/cq.c
+index 12304c9a9403..1205e9b28897 100644
+--- a/drivers/infiniband/core/cq.c
++++ b/drivers/infiniband/core/cq.c
+@@ -449,6 +449,13 @@ struct ib_cq *ib_cq_pool_get(struct ib_device *dev, unsigned int nr_cqe,
+ 		return ERR_PTR(-EINVAL);
+ 	}
+ 
++	/*
++	 * ib_alloc_cqs() caps CQ size at max_cqe, so a larger request would
++	 * keep allocating CQs that never fit until allocation fails.
++	 */
++	if (nr_cqe > dev->attrs.max_cqe)
++		return ERR_PTR(-EINVAL);
++
+ 	num_comp_vectors =
+ 		min_t(unsigned int, dev->num_comp_vectors, num_online_cpus());
+ 	/* Project the affinty to the device completion vector range */
 
-
->  			bitoffs += BTF_MEMBER_BIT_OFFSET(field->offset);
->  			ctx->last_bitsize = BTF_MEMBER_BITFIELD_SIZE(field->offset);
->  		} else {
-> @@ -661,11 +662,11 @@ static int get_bitoffset_of_field(char **pfieldname, const struct btf_type **pty
->  			ctx->last_bitsize = 0;
->  		}
->  
-> -			type = btf_type_skip_modifiers(btf, field->type, NULL);
-> -			if (!type) {
-> -				trace_probe_log_err(ctx->offset, BAD_BTF_TID);
-> -				return -EINVAL;
-> -			}
-> +		type = btf_type_skip_modifiers(btf, field->type, NULL);
-> +		if (!type) {
-> +			trace_probe_log_err(ctx->offset, BAD_BTF_TID);
-> +			return -EINVAL;
-> +		}
->  
->  		if (next)
->  			ctx->offset += next - fieldname;
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+-- 
+2.53.0
 
