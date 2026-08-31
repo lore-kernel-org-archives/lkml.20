@@ -1,71 +1,95 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from mail-106112.protonmail.ch (mail-106112.protonmail.ch [79.135.106.112])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEA4C3EFFA9;
-	Mon, 31 Aug 2026 12:16:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C61EF346AF1
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 12:17:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.112
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788178623; cv=none; b=dv4RW9TM0u0Fpc2WJ9MQZSmmLbyqHbZyXqCbUS9Voo/wGNuRknQa4RPMRdTy2JhE/LQH7vVk6MUnF3UMD1W8EGKd+gqlGMUKRjK6S+uVTT+cBPZysGAwnQiRpEXtXqYDhOMWIAVUR6Ck+LDbllSeLeairLfiH/vUfUqv5JLSFtE=
+	t=1788178646; cv=none; b=LSl2OQ1w82HQ535cRveHWu+t3UqED15+qwDlQ7VGqsVsH7dAoI1kt7Gm9v5/G3sMzySnEbTpoWsgJZhmwzbhWa82RL6a4IjWUnafJbIxlQQjMRy6N55QWvbjGziqOuS+HQPSCYf4/zX/b62q9uo1btmbca7vk+zHF1XY9JIJav0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788178623; c=relaxed/simple;
-	bh=XtrC0PjMnCdQNrdpLDgwn+NGWd9ShjHjnXXJCOmprhA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=U/GO+OEQeq3lmsbIKqwk7POmvYjovbkZGXIjVHso10rHvE58lHu9DOUotR465dekS83QHE+2kHJu7z3CQZjdIU0EVrRTdKrgvIZnnIUPNN96O6tuZP9lUt+v5UftUn8NK+i4mwm2DNQbwnKFtmHKUVeD+F/EkRsdzqtCyJboZNg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=z7v2H/5e; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1788178646; c=relaxed/simple;
+	bh=Vy2kFGWf40LZZu/OrRKxOp27EqZPY3iYxkaZKLnSAbQ=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=Vo5vzXP7HmWJ+N6LYcuzNM304Y2P4qsFXFBeehAplLT/zoFi06pjCOKb9IOTnDYKl46Obq1aFXxrtv78cW9Ilc7FJ5b45eeIFSPh5gxXLJdUx8kZ0j8Nb+UBWlWwBklIdjpY18uvBXMLQkNLOh1wXAqLQbn09JumDrAxIgSyIhc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=nRhH9NSc; arc=none smtp.client-ip=79.135.106.112
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="z7v2H/5e"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=IR/IEWF8ElRUZ1JWMpEMQTyXnhSnAoIKLz2J91tzkkY=; b=z7v2H/5eWFUVHuj9tqzAojGbwn
-	u+z1InFsNfN9qbOBMqTB8j2vM7UdOM+AytTyXq+iYQ8m8lrtWLshcEHK7IvHc1iS3TIGNovnkkh8b
-	epTJjd9swpSxJITMgX6PVIRKPMUbjQOg/brzPznA2qLsnxHXtW6auxBB2kJ043E4TjMI=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x10wQ-002Afi-KQ; Mon, 31 Aug 2026 14:16:46 +0200
-Date: Mon, 31 Aug 2026 14:16:46 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Hangbin Liu <hangbin.liu@linux.dev>
-Cc: Jakub Kicinski <kuba@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>,
-	Shuah Khan <shuah@kernel.org>, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
-	Hangbin Liu <liuhangbin@kylinos.cn>
-Subject: Re: [PATCH net-next 1/2] netdevsim: add link speed support
-Message-ID: <53215678-05bb-4191-b5ff-aa236b16a96a@lunn.ch>
-References: <20260831-nsim_speed-v1-0-7a651ee65738@kylinos.cn>
- <20260831-nsim_speed-v1-1-7a651ee65738@kylinos.cn>
+	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="nRhH9NSc"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
+	s=protonmail; t=1788178633; x=1788437833;
+	bh=sNcmNScEhpmF/4cOJIi/n2ntDi0iE/3WYicZo1sq86I=;
+	h=From:Date:Subject:Message-Id:References:In-Reply-To:To:Cc:From:To:
+	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=nRhH9NSc92ZYMUwzdJNS5VpDM8f8YpR8oa4GmCzGRWDW3M53HIwPaWgzg5O/w4mbs
+	 pPs/VpP1+zDMILYBIe47Xe7fNJLS3EVsxcvWZ8lB1Nb8PAa1fvwvlSj944WR9f3dEp
+	 XDDCQbvTU3b+1dGdemaw3M/WSbYUGtTTMfZb2QZ6HmlsRZu55R8GVAgJLf88m0iE0r
+	 a66Z6h4XuPD/pOUsNnhPCn+C2MUpV4JMJCYp5jGGJyvic0Z7MBr9lG4qrc8Dkg3ZuL
+	 YrICFcF6xBnEfWDozI1n+CRwK7y/zGfXTasdiSPlkjDU+DP0sKOI8PG0n5W81tQe10
+	 UhJVBNyVEjsKw==
+X-Pm-Submission-Id: 4hYSfb5Snjz1DDXQ
+From: Esben Haabendal <esben@geanix.com>
+Date: Mon, 31 Aug 2026 14:17:04 +0200
+Subject: [PATCH v7 1/8] dt-bindings: iio: accel: mma8452: Add
+ drive-open-drain
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260831-nsim_speed-v1-1-7a651ee65738@kylinos.cn>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260831-mma8452-open-drain-v7-1-22946812c928@geanix.com>
+References: <20260831-mma8452-open-drain-v7-0-22946812c928@geanix.com>
+In-Reply-To: <20260831-mma8452-open-drain-v7-0-22946812c928@geanix.com>
+To: Jonathan Cameron <jic23@kernel.org>, 
+ Lars-Peter Clausen <lars@metafoo.de>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Martin Kepplinger <martink@posteo.de>, 
+ Sean Nyekjaer <sean@geanix.com>, David Lechner <dlechner@baylibre.com>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>, 
+ Martin Kepplinger <martin.kepplinger@theobroma-systems.com>, 
+ Christoph Muellner <christoph.muellner@theobroma-systems.com>
+Cc: Esben Haabendal <esben@geanix.com>, linux-iio@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788178627; l=1037;
+ i=esben@geanix.com; s=20240523; h=from:subject:message-id;
+ bh=Vy2kFGWf40LZZu/OrRKxOp27EqZPY3iYxkaZKLnSAbQ=;
+ b=DXHc+uKi/yR1s1twavDUxo/8lj9+VPiwA3+4dLZjlUP9Z1lYujYeKbhylHRdrZAOny3Ci3s8v
+ CsRceiBujocD64k4C7BMudxVUzJ7zl4AUfT8mhSZDCGuOPTZdX6lhWi
+X-Developer-Key: i=esben@geanix.com; a=ed25519;
+ pk=PbXoezm+CERhtgVeF/QAgXtEzSkDIahcWfC7RIXNdEk=
 
->  static void nsim_ethtool_ring_init(struct netdevsim *ns)
-> @@ -250,12 +276,16 @@ void nsim_ethtool_init(struct netdevsim *ns)
->  	ns->ethtool.fec.active_fec = ETHTOOL_FEC_NONE;
->  
->  	ns->ethtool.channels = ns->nsim_bus_dev->num_queues;
-> +	ns->ethtool.duplex = DUPLEX_FULL;
-> +	ns->ethtool.speed = SPEED_5000;
->  
->  	ethtool = debugfs_create_dir("ethtool", ns->nsim_dev_port->ddir);
->  	ns->ethtool_ddir = ethtool;
->  
->  	debugfs_create_u32("get_err", 0600, ethtool, &ns->ethtool.get_err);
->  	debugfs_create_u32("set_err", 0600, ethtool, &ns->ethtool.set_err);
-> +	debugfs_create_u32("speed", 0600, ethtool, &ns->ethtool.speed);
-> +	debugfs_create_u8("duplex", 0600, ethtool, &ns->ethtool.duplex);
+Add new boolean to configure selected interrupt pin to open drain instead
+of the default push-pull mode.
 
-debugfs_create_bool() ?
+Acked-by: Rob Herring (Arm) <robh@kernel.org>
+Signed-off-by: Esben Haabendal <esben@geanix.com>
+---
+ Documentation/devicetree/bindings/iio/accel/fsl,mma8452.yaml | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-	Andrew
+diff --git a/Documentation/devicetree/bindings/iio/accel/fsl,mma8452.yaml b/Documentation/devicetree/bindings/iio/accel/fsl,mma8452.yaml
+index b0dd2b4e116a..20701aa725d0 100644
+--- a/Documentation/devicetree/bindings/iio/accel/fsl,mma8452.yaml
++++ b/Documentation/devicetree/bindings/iio/accel/fsl,mma8452.yaml
+@@ -39,6 +39,12 @@ properties:
+     minItems: 1
+     maxItems: 2
+ 
++  drive-open-drain:
++    $ref: /schemas/types.yaml#/definitions/flag
++    description: the interrupt line will be configured as open drain, which is
++      useful if several sensors share the same interrupt line. (This binding is
++      taken from pinctrl.)
++
+   vdd-supply: true
+   vddio-supply: true
+ 
+
+-- 
+2.55.0
+
