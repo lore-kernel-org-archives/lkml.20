@@ -1,380 +1,441 @@
-Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012033.outbound.protection.outlook.com [52.101.48.33])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46661538D97
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 13:45:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.33
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183931; cv=fail; b=j6ww3M397temgif+893TwipKzfU9WskdPecARec7FQupahQMemHlxmA0n4J5oj43xpAIgovSotJ+uMiCNd2FiLjDCybpdg89rO+0/BDhhuG2H9ABncqgz0vmEVA5zsKdS1c2PMpzNrjsLncnaD6MXSEgTs4Rt6L/y8p28TzhHnc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183931; c=relaxed/simple;
-	bh=Qx34cOVYrwBbsJQCgVH/mSbXGKJ2MExstGB8vr+//wY=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8602E5398BD;
+	Mon, 31 Aug 2026 13:45:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788183932; cv=none; b=lCcHHJ2oAxJqCjV39WgH4pBmPDQFRJJq9IEc0Ajtvrw9Q14bcaZp35Z21IUEeDyI5v0YDTbfteFyYAslHuE1eXEA91fOi3pkIXPNgbcETRuNzV7USp6G4QI+Ukiy1gh/ej6ivkBHTwM8zjk14dxMO5k3uMVDHrUfIHm5p51ip10=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788183932; c=relaxed/simple;
+	bh=+nDScU1eHPo60mr2delHp+hvhWRAA+0kQm5o0DkMk0k=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=nB1IlrurTPR3FupHe9p6rJ3n0PgT9rdPTjN9JU/siZyTC12S/KYT6NHQeGmDYiNv80x563Iu1N3iRkuSolNh6QERepO89soYRjMUmw46nd9orfCd1DBbxWdu5xQ9jwSsVj0cyQn3Ruh1APsrH3/awFkvdEr9g1htjPeZrVTX9oI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=oczsnbNG; arc=fail smtp.client-ip=52.101.48.33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	 MIME-Version:Content-Type; b=Q2kzkdFr6+xZ0A8SgeF/6oQVa3rbIMYp8spdUi+kMaWrMkBW/8p/6rHy+LU/xUanth6KUISlwrU2Kfg2bcCYHbWgj/6GM+Rxrb6Uz4CqDzW7JOeGEABV4xSj6bb7rc+dwZClum8zlSV2o7HjUMppJyd++0vVKZVd2o1Ti47/MHY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m5KBTh4y; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="oczsnbNG"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=DfIyCYW8slZ3h0hC6ZVXiWvy0USSYr+XpKmSoJwUp9jn0hUOkVJQPpTZ3WyhFz4s+v5B/D5+0sTasjVI9a/ZQtm1dyTtAnHNO1yKW427fyKWKvuuK8UZ/dkuRB48GsA1dAo+YpHt7r4e4DUB+KOeFSo9+c3s+FBqxxBUYzGH+ZwkSz9SKXqEtJ4QfevidXgVsDrlVkccO4hwLLtnU4WciFwjzpiG9ATrY/UkcON0JCXogiDETaXaNs93h+sd8cnN7Zdyiai7GYEYDkIiIFw9djR/zOzuzv/WA2akdVuTOn5wKEalpyVM5+cV7eG30f3RoyKBg/GHGcEQ2ejZVt59OQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Xi5iCZrbb9ZZ4FlCnTK45Vc1+K5Ff8gssVz6GgMdzfI=;
- b=Fm0yrzQyG1T0RFFM9ppa/T1/hEDOOC/+wATV1N1JmwPMHDBqwZPF6OCZvQGlP1WjSzSvGpuOL9ShJxs9mb0w/P3sxDw7wUmbsaPhxl8sJnmfRsK0FrlM0Lsnr1zUF5gWOk350Hzol7mQwHVWAQAtc+gQWaB07kiY7PyA1gYMK5sxkOnPLMRr/yWUc8xrAGXA1J27KFPt1VYhqMiiN2PL4NSgTktETep8FqE/KZR/T6bDgdl1o8cg9RsIz26WpOPYHQz2zHBc+cxdLzTTeO1iDE9/2eCZ8vZX2Aj0p7m67RzAM4T8TtP7Jrw/aKxFZB4qdk8lQgn8fsmtvpqvcmm2Tg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Xi5iCZrbb9ZZ4FlCnTK45Vc1+K5Ff8gssVz6GgMdzfI=;
- b=oczsnbNGbajPOx9CWfThCBmgLbXEhFGalZrXQMxygykakLOPiTsD68VPMuIqKztEt8Iiti28BOnPgimgP+m1plbqfoGsS6IBm85I4AW7SymitloHxAJuuzaRZLCH//eeVJFRalZWZeYB99CfMpjY3+CvS/s8BrHAU7GWUAhHDIiHPzdKRDFlUA+Tr12RbYD0Ze995OWJoI5wK5u1ejWjaz/GrxQlcyxW9fwdZvkRq7sURvz9eKsAnTieDf9c97r/jNXBNWjwV+gj9jOxu0DjiEdowKnFiRGRyJKXsxejDxyjlJfXgYN3/jlsZ/L5Yop9AlZHXDTqdlv1OIRg4vRMAw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DM6PR12MB4827.namprd12.prod.outlook.com (2603:10b6:5:1d6::14)
- by MW4PR12MB6755.namprd12.prod.outlook.com (2603:10b6:303:1ea::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.12; Mon, 31 Aug
- 2026 13:45:17 +0000
-Received: from DM6PR12MB4827.namprd12.prod.outlook.com
- ([fe80::6261:3040:864b:159c]) by DM6PR12MB4827.namprd12.prod.outlook.com
- ([fe80::6261:3040:864b:159c%5]) with mapi id 15.21.0360.008; Mon, 31 Aug 2026
- 13:45:17 +0000
-From: Andrea Righi <arighi@nvidia.com>
-To: Tejun Heo <tj@kernel.org>,
-	David Vernet <void@manifault.com>,
-	Changwoo Min <changwoo@igalia.com>,
-	John Stultz <jstultz@google.com>
-Cc: Ingo Molnar <mingo@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>,
-	Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Christian Loehle <christian.loehle@arm.com>,
-	David Dai <david.dai@linux.dev>,
-	Emil Tsalapatis <etsal@meta.com>,
-	Lee Trager <ltrager@nvidia.com>,
-	Richard Cheng <icheng@nvidia.com>,
-	Koba Ko <kobak@nvidia.com>,
-	Aiqun Yu <aiqun.yu@oss.qualcomm.com>,
-	sched-ext@lists.linux.dev,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m5KBTh4y"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E68D1F00ADB;
+	Mon, 31 Aug 2026 13:45:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788183929;
+	bh=SR35+kLvZ+3Utg3Vi17q/I+FllLjkUg/cEsJJ/cXGFs=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=m5KBTh4yL/HAMU08y9h3y70sXzPg7F+DBzsivwnv4ds6dTBCnEnVlm3rIx/L2A6P6
+	 Nold3TJuEjzNSBRJYlxUAIISA34vcrhZYSYE8fWUWZiTAtgiFVdcayCixwTgxFBP9r
+	 TkDnJNPn7PorPtxUnaHJBuDBKwDRbw0OPSDllujQnm7OyMEersQaE6j9Qyud90y9jR
+	 Yt/6lKEL1GAWAAjCoKobV0ST46HAUbjio0qwJxsqIixE6UZYYHGU5tSjYq3+DZWzgK
+	 jBKnUEu774q9obJtvBRz7aJjfk5tfE+GV5QD6oAg55CzbqOrZhDdfNBH0gGj6mJ8WC
+	 1KFy3ZRwT/wwQ==
+From: Sasha Levin <sashal@kernel.org>
+To: patches@lists.linux.dev,
+	stable@vger.kernel.org
+Cc: Madhavender Singh <madhav@disroot.org>,
+	Takashi Iwai <tiwai@suse.de>,
+	Sasha Levin <sashal@kernel.org>,
+	perex@perex.cz,
+	tiwai@suse.com,
+	linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 12/18] sched_ext: Generalize the reject DSQ reenqueue path
-Date: Mon, 31 Aug 2026 15:42:22 +0200
-Message-ID: <20260831134338.1531664-13-arighi@nvidia.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260831134338.1531664-1-arighi@nvidia.com>
-References: <20260831134338.1531664-1-arighi@nvidia.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: ZR0P278CA0099.CHEP278.PROD.OUTLOOK.COM
- (2603:10a6:910:23::14) To DM6PR12MB4827.namprd12.prod.outlook.com
- (2603:10b6:5:1d6::14)
+Subject: [PATCH AUTOSEL 6.18-5.10] ALSA: hda/realtek: Add mute LED quirk for HP Laptop 14s-dr1xxx
+Date: Mon, 31 Aug 2026 09:26:55 -0400
+Message-ID: <20260831133314.4125787-387-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
+References: <20260831133314.4125787-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4827:EE_|MW4PR12MB6755:EE_
-X-MS-Office365-Filtering-Correlation-Id: 884c1e91-8282-4351-0f13-08df0766178d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|1800799024|23010399003|366016|6133799003|10067099003|56012099006|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	I3sJGzmvPhuiUbF5vQKTYKRUL1sWpBqbYN8JevBgVFcilGUYG+0DbXhp3yH3xegopjEzP6V9NZ+FcIQg88yhjBdX9bmR30nHWW2+Y35ARbVhVv8iwRWY3pm3jqyrcN8YBdoimbFDBIePTMVuJAzf4IrzLxJQhIwvESbgzp5QRE+Eo9rMHm4ZKl7wgim06z9owXeFAMvhDQ35tuEe/rO9tOGzcJuomRimv8Q4ZzC5fjwvHaGxaD/RzbOiYZHRi59cfPdsHkiqv/1aMJumAg4cjUzrdU0j8ddJTDXmKCaXT7Nebnp5eOjF7cV8b1MrzucEDaWRafgKU61Ud+Dm7Tn02yrFSNGkqdDnf3zmwAm2CVrCq7n9Ku5hXy1ohtVwuAQvvLn31MZdg36ZeQnCMhMSfwyD04m+lTUI9X2zl7g3E1NTDJDQR8oGEBN8GI/RFSyWrxhl72bLkVUa/XVVIKf2iReCrkSu4KEr5cKuy8LW9Bu2SWrIHST0wTWM3f5s1yLEJdXKg6WuYCGpyJdU7s7HpjbqcDZ877EtCScOGVBAQ2UZeX0o1lZK8dpK3uL2udt1+eSK21+BdnOFCGivmnydIffDLGLrGYI51NXd+tX8z3M76QIjcSE9H7q11bOkf+MGqDr+QUqepcFqbBh6crVeCdSeb+RJbfmJ5voz0c/bfJE=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR12MB4827.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(23010399003)(366016)(6133799003)(10067099003)(56012099006)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?CeLlL9RjAk8yt7ak+oaIaeu466ces2AHt2NNNZZDwfdT6DxxGZL1STd3fj0p?=
- =?us-ascii?Q?zCaJcgWRIOUAnAsFwj72R5UZTgBAwpsJHkEakpLh+l5miOVHhwLxy5abjPEF?=
- =?us-ascii?Q?K4WzZLr/VtCe+P8E8tGeN222mvX0d8kKwOUssUp2GZkzAY0WKj5M+wnr1BlQ?=
- =?us-ascii?Q?nD22xTiy+vDPA4kWWJ+tDT18Eujku1FC0fKuHOyABcdeDR48iA3qcoj6LexV?=
- =?us-ascii?Q?1DM3QtVkK9qqSUX2yhcjy25832kAauWppzux1qfGGGrInNFQ/0ygFpcjPvoX?=
- =?us-ascii?Q?seJbeUXfXVknJA0hdCejZRH7xwLkAZxxUcHVsYasc3CO6zUKuR98jPt54aYe?=
- =?us-ascii?Q?oKOmq2QEmvLZO6gPu7SSMmjNn+NQfKSgTTsDzf+0sy439WEPtef0rviYSkNv?=
- =?us-ascii?Q?eyL+41wR7QDACgW2O6AEG/llXFi8X1tLebTVJppqT8vP9X5vtM0AKy+59nZw?=
- =?us-ascii?Q?rHRuEDE2V3JoMbPbDVPxK1uUISUH8V+83+ll7U9PceRzSBqkxWrG8b5oc5C6?=
- =?us-ascii?Q?Xjtpl242sXz7F9IQrVfkhQ5ZBt70qd3NW1rIRmJC7ZBIQjFBYDctRYrnI8cE?=
- =?us-ascii?Q?TrYnXqZi25E+kTJhYUr/v2cdrRPrLIYFudDrmYqLhBj0HB4xoYl05rzN/L6m?=
- =?us-ascii?Q?r9jniib0wqcM3vq/3q1tGKPP/qZ5tVaMyq8D+45JDrUdKOEyIG8nVtLiEMGJ?=
- =?us-ascii?Q?NcZrdPyGtn0rc0SaiAWWAA/Fu6oKdBIkxqyG4cbO1Ffv8VNK5esQpr/qMsOV?=
- =?us-ascii?Q?LuJkFqEDaOHlb2/TysRiAmSCcYRLJQ8yQqq+e/SGz4SdOADWi0NkDiC0kU15?=
- =?us-ascii?Q?EGQdyDnDMU7jk8LSmB5sFj33hB28x3DTFbDNSrj1QFQrXRA5Hx2mT9t0OnHL?=
- =?us-ascii?Q?ApbnKGDamwI7f5Z00JR9CdZ+ImHvVhLe11BZZ/gHXxZXXYwM1EI+fowoVCsC?=
- =?us-ascii?Q?nIri6Kl4mPUMclcTGZ0O8OAIzBkQL4WEpIxLIccqTzawQfx0sM5+o7l1DDvu?=
- =?us-ascii?Q?WDWuKiEwEFiOJU1BegFnWf1bLAxLttDm8mmNQ0QdyJJBQyX2/sKCzYtiI519?=
- =?us-ascii?Q?PZTS3/EZQ7ZNh/LCrSDYrK8+GhHT+mNem7xs+xqURegHzG3dE9Nhk8RfrVts?=
- =?us-ascii?Q?SpcLVDLnJJ7QeqyEC1PYu0sP/lMj9YMhNAJHEl22a+uXkpH30GIVnnMLbsJH?=
- =?us-ascii?Q?o+IpoNRQh/qT7XvdIHEHu8VqAFnTuoORafU600tFop4CWViKil9woK+N1j0Z?=
- =?us-ascii?Q?q3UXw5sxo05q2XD4NUrxhOD+tt9Ln0rFcg7lfE8gghYcbQu7HcSMC5NgPY1C?=
- =?us-ascii?Q?ebzCuHfmQq99eHUdfE7Ygrd+uVp60iItpnFC9Kd7EsE9xkSA2Gq5JhYmjaOr?=
- =?us-ascii?Q?bXajV3ZISHHWK/vZ3sQp6RDW7/D1snJTqIxLSq4boRWVRnspNuv0yDoHPGSJ?=
- =?us-ascii?Q?YLEZkF9JUl6TPX8sCxwVP1yDNABVSvv1hKKTDnwxWJupoi/HuzB8Qh0tpahT?=
- =?us-ascii?Q?u6m8Bc/ijOs5dPIobu/tA3Pm/YJEGh5B9JSbDWzpXw1iNV3/oI1lH8WLj7p4?=
- =?us-ascii?Q?k0U3Mz/di74bG8QagwYyalznwuGncmde8gah2usHEGwpNsTMCW4lvnNzQx6c?=
- =?us-ascii?Q?/HHEzx/7SN17xuPKwLcnLtQN1dUuiA/TUYr6FeeVpKHGSCg8z/YrFYiajFSZ?=
- =?us-ascii?Q?MC4y5XeqTkwzSCFoz0a7f7X3EOLYrSq1l24A3sX/R8DBiQBY6YJeJc5Eb1nL?=
- =?us-ascii?Q?es7+pxYTjw=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 884c1e91-8282-4351-0f13-08df0766178d
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4827.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 13:45:17.5725
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: gXygyOYc0YGmvXIwoadCqT1Z6r1IBGEnUP+O2csnd0w+WXSdoKHGGyNO1T9X+azQp8G4pQrqdeA2NLeHXDJSpw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6755
+X-stable: review
+X-Patchwork-Hint: Ignore
+X-stable-base: Linux 6.18.48
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-The reject DSQ is currently specific to sub-scheduler cap failures. Its
-storage and initialization depend on CONFIG_EXT_SUB_SCHED, and the drain
-path assumes every rejected task was rejected for SCX_TASK_REENQ_CAP.
+From: Madhavender Singh <madhav@disroot.org>
 
-Other transient placement failures need the same ability to park a task
-on its source rq and return it to the owning BPF scheduler. Make the
-reject DSQ unconditional and carry the reenqueue reason directly in
-p->scx.flags from the rejection site.
+[ Upstream commit bf4fc9f33ec21595143132a3e7fb8b5d2c2261cd ]
 
-A reenqueue reason remains valid while ops.enqueue() runs so that BPF can
-inspect it. Clear it immediately after the callback returns and before
-resolving a direct dispatch. Paths which bypass ops.enqueue() clear the
-reason before the kernel-selected placement. A rejection from the new
-placement can therefore install its reason into a clear field.
+This laptop with an ALC236 codec requires the
+ALC236_FIXUP_HP_MUTE_LED_COEFBIT2
+fixup for its mute LED to function correctly.
 
-This is a preparatory change to support proxy execution with sched_ext.
+Add the subsystem ID 0x103c:0x86c8 to the quirk table to apply this
+fixup.
 
-Signed-off-by: Andrea Righi <arighi@nvidia.com>
+Signed-off-by: Madhavender Singh <madhav@disroot.org>
+Link: https://patch.msgid.link/20260723104736.23386-1-madhav@disroot.org
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/sched/ext/ext.c | 52 ++++++++++++++++++------------------------
- kernel/sched/ext/sub.c |  2 ++
- kernel/sched/sched.h   |  2 +-
- 3 files changed, 25 insertions(+), 31 deletions(-)
 
-diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
-index 967bf31a32754..2c5ae2811c77e 100644
---- a/kernel/sched/ext/ext.c
-+++ b/kernel/sched/ext/ext.c
-@@ -1599,11 +1599,10 @@ static void scx_dispatch_enqueue(struct scx_sched *sch, struct rq *rq,
- 				 struct scx_dispatch_q *dsq, struct task_struct *p,
- 				 u64 slice, u64 vtime, u64 enq_flags)
- {
--	bool is_rq_owned = false;
-+	bool is_rq_owned = dsq_is_rq_owned(dsq);
- 
- 	if (dsq->id == SCX_DSQ_LOCAL) {
- 		dsq = scx_resolve_local_dsq(sch, rq, p, &enq_flags);
--		is_rq_owned = true;
- 	}
- 
- 	WARN_ON_ONCE(p->scx.dsq || !list_empty(&p->scx.dsq_list.node));
-@@ -2017,6 +2016,7 @@ void scx_do_enqueue_task(struct rq *rq, struct task_struct *p, u64 enq_flags,
- 			__scx_exit(sch, SCX_EXIT_ERROR_REENQ, 0, cpu_of(rq),
- 				   "%s[%d] reenqueued %u times without running",
- 				   p->comm, p->pid, p->scx.reenq_cnt);
-+			p->scx.flags &= ~SCX_TASK_REENQ_REASON_MASK;
- 			return;
- 		}
- 	}
-@@ -2067,6 +2067,8 @@ void scx_do_enqueue_task(struct rq *rq, struct task_struct *p, u64 enq_flags,
- 
- 	SCX_CALL_OP_TASK(sch, enqueue, rq, p, enq_flags);
- 
-+	/* The reason is input to ops.enqueue(), not to the resulting placement. */
-+	p->scx.flags &= ~SCX_TASK_REENQ_REASON_MASK;
- 	*ddsp_taskp = NULL;
- 	if (p->scx.ddsp_dsq_id != SCX_DSQ_INVALID)
- 		goto direct;
-@@ -2085,9 +2087,11 @@ void scx_do_enqueue_task(struct rq *rq, struct task_struct *p, u64 enq_flags,
- 	return;
- 
- direct:
-+	p->scx.flags &= ~SCX_TASK_REENQ_REASON_MASK;
- 	direct_dispatch(sch, p, enq_flags);
- 	return;
- local_norefill:
-+	p->scx.flags &= ~SCX_TASK_REENQ_REASON_MASK;
- 	scx_dispatch_enqueue(sch, rq, &rq->scx.local_dsq, p, 0, 0, enq_flags);
- 	return;
- local:
-@@ -2101,6 +2105,7 @@ void scx_do_enqueue_task(struct rq *rq, struct task_struct *p, u64 enq_flags,
- 	goto enqueue;
- 
- enqueue:
-+	p->scx.flags &= ~SCX_TASK_REENQ_REASON_MASK;
- 	refill_task_slice_dfl(sch, p);
- 	clear_direct_dispatch(p);
- 	scx_dispatch_enqueue(sch, rq, dsq, p, 0, 0, enq_flags);
-@@ -2323,6 +2328,7 @@ static bool dequeue_task_scx(struct rq *rq, struct task_struct *p, int core_deq_
- 	sub_nr_running(rq, 1);
- 
- 	scx_dispatch_dequeue(rq, p);
-+	p->scx.flags &= ~SCX_TASK_REENQ_REASON_MASK;
- 
- 	/* see scx_task_slice_ended() for the save/restore exception */
- 	if (!((deq_flags & DEQUEUE_SAVE) && task_current(rq, p)))
-@@ -3034,6 +3040,7 @@ static void set_next_task_scx(struct rq *rq, struct task_struct *p, bool first)
- 		 */
- 		ops_dequeue(rq, p, SCX_DEQ_CORE_SCHED_EXEC);
- 		scx_dispatch_dequeue(rq, p);
-+		p->scx.flags &= ~SCX_TASK_REENQ_REASON_MASK;
- 	}
- 
- 	p->se.exec_start = rq_clock_task(rq);
-@@ -3208,7 +3215,6 @@ static void put_prev_task_scx(struct rq *rq, struct task_struct *p,
- 			if (p->scx.flags & SCX_TASK_IMMED) {
- 				p->scx.flags |= SCX_TASK_REENQ_PREEMPTED;
- 				scx_do_enqueue_task(rq, p, SCX_ENQ_REENQ, -1);
--				p->scx.flags &= ~SCX_TASK_REENQ_REASON_MASK;
- 			} else {
- 				u64 enq_flags = 0;
- 
-@@ -4481,8 +4487,7 @@ static u32 reenq_local(struct scx_sched *sch, struct rq *rq, u64 reenq_flags)
- 
- 		scx_dispatch_dequeue(rq, p);
- 
--		if (WARN_ON_ONCE(p->scx.flags & SCX_TASK_REENQ_REASON_MASK))
--			p->scx.flags &= ~SCX_TASK_REENQ_REASON_MASK;
-+		WARN_ON_ONCE(p->scx.flags & SCX_TASK_REENQ_REASON_MASK);
- 		p->scx.flags |= reason;
- 
- 		list_add_tail(&p->scx.dsq_list.node, &tasks);
-@@ -4493,7 +4498,6 @@ static u32 reenq_local(struct scx_sched *sch, struct rq *rq, u64 reenq_flags)
- 
- 		scx_do_enqueue_task(rq, p, SCX_ENQ_REENQ, -1);
- 
--		p->scx.flags &= ~SCX_TASK_REENQ_REASON_MASK;
- 		nr_enqueued++;
- 	}
- 
-@@ -4605,14 +4609,11 @@ static void reenq_user(struct rq *rq, struct scx_dispatch_q *dsq, u64 reenq_flag
- 		dispatch_dequeue_locked(p, dsq);
- 		raw_spin_unlock(&dsq->lock);
- 
--		if (WARN_ON_ONCE(p->scx.flags & SCX_TASK_REENQ_REASON_MASK))
--			p->scx.flags &= ~SCX_TASK_REENQ_REASON_MASK;
-+		WARN_ON_ONCE(p->scx.flags & SCX_TASK_REENQ_REASON_MASK);
- 		p->scx.flags |= reason;
- 
- 		scx_do_enqueue_task(task_rq, p, SCX_ENQ_REENQ, -1);
- 
--		p->scx.flags &= ~SCX_TASK_REENQ_REASON_MASK;
--
- 		if (!(++nr_enqueued % SCX_TASK_ITER_BATCH)) {
- 			scx_rq_lock_drop(locked_rq);
- 			raw_spin_rq_unlock(locked_rq);
-@@ -4674,14 +4675,14 @@ static void process_deferred_reenq_users(struct rq *rq)
- 	}
- }
- 
--#ifdef CONFIG_EXT_SUB_SCHED
- /*
-- * Drain @rq->scx.reject_dsq, reenqueueing each task so the BPF re-decides
-- * from p->scx.reenq_reason_*.
-+ * Drain @rq->scx.reject_dsq and reenqueue each task so that its owning BPF
-+ * scheduler chooses placement again.
-  *
-- * A task can be re-rejected repeatedly. The reenqueue is bounded per task in
-- * scx_do_enqueue_task(), which ejects the owning sub past SCX_REENQ_MAX_REPEAT.
-- * Rejection can't happen for root.
-+ * A task can be re-rejected repeatedly. Reenqueues are bounded per task by
-+ * SCX_REENQ_MAX_REPEAT in scx_do_enqueue_task(), which ejects the owning
-+ * scheduler. The private list below prevents a task from being revisited in
-+ * the same round.
-  */
- static void scx_reenq_reject(struct rq *rq)
- {
-@@ -4690,24 +4691,20 @@ static void scx_reenq_reject(struct rq *rq)
- 
- 	lockdep_assert_rq_held(rq);
- 
--	if (!scx_has_subs() || list_empty(&rq->scx.reject_dsq.list))
-+	if (list_empty(&rq->scx.reject_dsq.list))
- 		return;
- 
- 	/*
--	 * Move to a private list so a task re-rejected by the
-+	 * Move tasks to a private list so a task re-rejected by
- 	 * scx_do_enqueue_task() below isn't revisited this round.
- 	 */
- 	list_for_each_entry_safe(p, n, &rq->scx.reject_dsq.list, scx.dsq_list.node) {
- 		/* migration_pending tasks should have bypassed to local DSQ */
--		if (WARN_ON_ONCE(p->migration_pending))
--			continue;
-+		WARN_ON_ONCE(p->migration_pending);
-+		WARN_ON_ONCE(!(p->scx.flags & SCX_TASK_REENQ_REASON_MASK));
- 
- 		scx_dispatch_dequeue(rq, p);
- 
--		if (WARN_ON_ONCE(p->scx.flags & SCX_TASK_REENQ_REASON_MASK))
--			p->scx.flags &= ~SCX_TASK_REENQ_REASON_MASK;
--		p->scx.flags |= SCX_TASK_REENQ_CAP;
--
- 		list_add_tail(&p->scx.dsq_list.node, &tasks);
- 	}
- 
-@@ -4715,13 +4712,8 @@ static void scx_reenq_reject(struct rq *rq)
- 		list_del_init(&p->scx.dsq_list.node);
- 
- 		scx_do_enqueue_task(rq, p, SCX_ENQ_REENQ, -1);
--
--		p->scx.flags &= ~SCX_TASK_REENQ_REASON_MASK;
- 	}
- }
--#else
--static void scx_reenq_reject(struct rq *rq) {}
--#endif
- 
- static void run_deferred(struct rq *rq)
- {
-@@ -8780,8 +8772,8 @@ void __init init_sched_ext_class(void)
- 
- 		/* local_dsq's sch will be set during scx_root_enable() */
- 		BUG_ON(scx_init_dsq(&rq->scx.local_dsq, SCX_DSQ_LOCAL, NULL));
--#ifdef CONFIG_EXT_SUB_SCHED
- 		BUG_ON(scx_init_dsq(&rq->scx.reject_dsq, SCX_DSQ_REJECT, NULL));
-+#ifdef CONFIG_EXT_SUB_SCHED
- 		scx_rescue_init(rq);
- #endif
- 
-diff --git a/kernel/sched/ext/sub.c b/kernel/sched/ext/sub.c
-index a73593e828267..40a79028de8e6 100644
---- a/kernel/sched/ext/sub.c
-+++ b/kernel/sched/ext/sub.c
-@@ -752,6 +752,8 @@ struct scx_dispatch_q *scx_resolve_local_dsq(struct scx_sched *sch, struct rq *r
- 
- 	p->scx.reenq_reason_caps = missing;
- 	p->scx.reenq_reason_cid = cid;
-+	WARN_ON_ONCE(p->scx.flags & SCX_TASK_REENQ_REASON_MASK);
-+	p->scx.flags |= SCX_TASK_REENQ_CAP;
- 
- 	return &rq->scx.reject_dsq;
- }
-diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
-index f30d122909e7b..43f04989557b5 100644
---- a/kernel/sched/sched.h
-+++ b/kernel/sched/sched.h
-@@ -810,8 +810,8 @@ struct scx_rq_rescue {
- 
- struct scx_rq {
- 	struct scx_dispatch_q	local_dsq;
-+	struct scx_dispatch_q	reject_dsq;		/* staging for rejected tasks */
- #ifdef CONFIG_EXT_SUB_SCHED
--	struct scx_dispatch_q	reject_dsq;		/* staging for cap-rejected tasks */
- 	struct scx_rq_rescue	rescue;
- #endif
- 	struct list_head	runnable_list;		/* runnable tasks on this rq */
+LLM Generated explanations, may be completely bogus:
+
+# Stable Backport Analysis: ALSA HDA Realtek HP Laptop 14s-dr1xxx Mute
+LED Quirk
+
+**Local tree:** Linux **6.18.44** (`v6.18.44-2-g1b9e1abadee04`, detached
+from `stable/linux-6.18.y`)
+**Candidate commit:** `bf4fc9f33ec21595143132a3e7fb8b5d2c2261cd` (not
+yet in current HEAD)
+
+---
+
+## PHASE 1: COMMIT MESSAGE FORENSICS
+
+### Step 1.1: Parse the subject line
+**Record:** `[ALSA: hda/realtek]` `[Add]` — Add mute LED quirk for HP
+Laptop 14s-dr1xxx
+
+### Step 1.2: Parse all commit message tags
+**Record:**
+| Tag | Value |
+|-----|-------|
+| Signed-off-by | Madhavender Singh \<madhav@disroot.org\> (author) |
+| Link |
+https://patch.msgid.link/20260723104736.23386-1-madhav@disroot.org |
+| Signed-off-by | Takashi Iwai \<tiwai@suse.de\> (ALSA maintainer) |
+
+**Notable patterns:** No Fixes:, Reported-by:, Tested-by:, or Cc: stable
+tags. Maintainer (Takashi Iwai) signed off and applied the patch. No
+syzbot or sanitizer reports.
+
+### Step 1.3: Analyze commit body
+**Record:**
+- **Bug:** HP Laptop 14s-dr1xxx with ALC236 codec does not drive its
+  mute LED correctly without the `ALC236_FIXUP_HP_MUTE_LED_COEFBIT2`
+  fixup.
+- **Symptom:** Mute LED does not reflect microphone mute state (keyboard
+  LED indicator non-functional).
+- **Root cause:** Missing PCI subsystem ID (`0x103c:0x86c8`) in the
+  Realtek quirk table, so the codec probe never applies the known fixup.
+- **Version info:** None stated in the commit message.
+
+### Step 1.4: Detect hidden bug fixes
+**Record:** Not a hidden bug fix — this is an explicit hardware quirk
+table entry. It is not disguised cleanup; it is a straightforward
+DMI/SSID-to-fixup mapping for broken hardware behavior.
+
+---
+
+## PHASE 2: DIFF ANALYSIS
+
+### Step 2.1: Inventory the changes
+**Record:**
+- **Files:** `sound/hda/codecs/realtek/alc269.c` (+1 line, 0 removed)
+- **Function/table:** `alc269_fixup_tbl[]` (static quirk table)
+- **Scope:** Single-file, single-line surgical change
+
+### Step 2.2: Code flow change
+**Record:**
+- **Before:** HP Laptop 14s-dr1xxx (PCI SSID `0x103c:0x86c8`) probes
+  with no matching quirk; mute LED GPIO/coefficient setup is not
+  applied.
+- **After:** On probe, `snd_hda_pick_fixup()` matches SSID `0x86c8` and
+  applies `ALC236_FIXUP_HP_MUTE_LED_COEFBIT2`, which runs
+  `alc236_fixup_hp_mute_led_coefbit2()` during `HDA_FIXUP_ACT_PRE_PROBE`
+  to configure mute LED polarity and coefficient bit, then registers the
+  mute LED cdev.
+- **Path affected:** Codec probe/initialization (normal boot path for
+  matching hardware).
+
+### Step 2.3: Identify bug mechanism
+**Record:**
+- **Category:** Hardware workaround (audio codec quirk)
+- **Mechanism:** HP wires the ALC236 mute LED to coefficient bit 2;
+  without the fixup, the LED never toggles with mic mute. The fixup
+  already exists and is used by ~15 other HP models in this tree.
+
+### Step 2.4: Assess fix quality
+**Record:**
+- **Quality:** Obviously correct — identical pattern to existing entries
+  (e.g., `0x86c1`, `0x8706`, `0x8a1f`).
+- **Regression risk:** Very low — only affects machines with SSID
+  `0x103c:0x86c8`; no API, locking, or logic changes.
+- **Red flags:** None.
+
+---
+
+## PHASE 3: GIT HISTORY INVESTIGATION
+
+### Step 3.1: Blame the changed lines
+**Record:** Neighboring quirk entries at lines 6740–6741 were introduced
+in merge commit `5d324e5159d9e` (Linux 6.18-rc8 era, Nov 2025). The
+insertion point between `0x86c7` and `0x86e7` exists identically in
+current HEAD. The missing quirk is the bug — not recently introduced
+broken code, but a missing SSID for hardware that was never covered.
+
+### Step 3.2: Follow Fixes: tag
+**Record:** N/A — no Fixes: tag present.
+
+### Step 3.3: Check file history for related changes
+**Record:** Recent related commits on `stable/linux-6.18.y` for the same
+pattern:
+- `bee43f7b9bc62` — HP Laptop 14s-dr5xxx mute LED quirk
+  (`ALC236_FIXUP_HP_MUTE_LED_COEFBIT2`)
+- `7556bd5cd8ef3` — HP Laptop 15-fd0xxx mute LED quirk
+- `a424946e00f2e` — HP Pavilion Laptop 16-ag0xxx mute LED quirk (with
+  `Cc: stable@vger.kernel.org`)
+- Six total mute-LED-quirk commits on this branch for
+  `sound/hda/codecs/realtek/`
+
+**Standalone:** Yes — single patch, no series dependency.
+
+### Step 3.4: Check author's other commits
+**Record:** No other commits from Madhavender Singh found in this tree.
+Takashi Iwai is the ALSA/HDA maintainer who committed and signed off.
+
+### Step 3.5: Check for prerequisite commits
+**Record:** Requires `ALC236_FIXUP_HP_MUTE_LED_COEFBIT2` enum, fixup
+definition, and `alc236_fixup_hp_mute_led_coefbit2()` function — **all
+present** in Linux 6.18.44. No other dependencies. Cherry-pick to HEAD
+applies cleanly (verified).
+
+---
+
+## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
+
+### Step 4.1: Original patch discussion
+**Record:**
+- **URL:**
+  https://patch.msgid.link/20260723104736.23386-1-madhav@disroot.org
+  (via `b4 dig -c bf4fc9f33ec21`)
+- **Revisions:** v1 only (`b4 dig -a`)
+- **Reviewer feedback:** Takashi Iwai replied "Applied now. Thanks." —
+  no NAKs, no concerns raised.
+- **Stable nomination:** None in thread.
+
+### Step 4.2: Who reviewed the patch
+**Record (`b4 dig -w`):** CC'd to Jaroslav Kysela (ALSA lead), Takashi
+Iwai, linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org.
+Maintainer applied directly.
+
+### Step 4.3: Bug report search
+**Record:** No external bug report, syzbot link, or bugzilla reference.
+Hardware-specific user report implied by author testing on HP Laptop
+14s-dr1xxx.
+
+### Step 4.4: Related patches/series
+**Record:** Standalone 1/1 patch. Closely related sibling:
+`bee43f7b9bc62` for HP Laptop 14s-dr5xxx — same fixup, already
+backported to this tree.
+
+### Step 4.5: Stable mailing list history
+**Record:** Could not search lore.kernel.org/stable (Anubis bot
+protection). No stable discussion found in downloaded mbox thread.
+
+---
+
+## PHASE 5: CODE SEMANTIC ANALYSIS
+
+### Step 5.1: Key functions modified
+**Record:** `alc269_fixup_tbl[]` only (data table). Fixup invoked
+indirectly via `snd_hda_pick_fixup()` →
+`alc236_fixup_hp_mute_led_coefbit2()`.
+
+### Step 5.2: Trace callers
+**Record:** `snd_hda_pick_fixup()` called from Realtek codec probe path
+in `alc269.c` (~line 8471). Every Realtek HDA codec probe runs this;
+quirk match is SSID-specific.
+
+### Step 5.3: Trace callees
+**Record:** Fixup sets `spec->mute_led_*` fields and calls
+`snd_hda_gen_add_mute_led_cdev()` — standard HDA mute LED registration.
+
+### Step 5.4: Call chain / reachability
+**Record:** Triggered at audio codec probe during boot or module load on
+HP Laptop 14s-dr1xxx with `CONFIG_SND_HDA_CODEC_REALTEK`. Not userspace-
+triggerable directly, but affects all owners of this laptop model.
+
+### Step 5.5: Similar patterns
+**Record:** `ALC236_FIXUP_HP_MUTE_LED_COEFBIT2` used by 15+ HP SSIDs
+already in this tree (e.g., `0x86c1`, `0x8706`, `0x8a1f`). Identical
+one-line quirk pattern routinely backported.
+
+---
+
+## PHASE 6: CROSS-REFERENCING AGAINST LOCAL TREE (6.18.44)
+
+### Step 6.1: Does the buggy code exist?
+**Record:** **Yes.** The quirk table and
+`ALC236_FIXUP_HP_MUTE_LED_COEFBIT2` fixup exist; SSID `0x103c:0x86c8` is
+**absent** (grep confirms no `0x86c8` match). The laptop gets no mute
+LED fixup without this patch.
+
+### Step 6.2: Backport complications
+**Record:** **Clean apply** — `git cherry-pick --no-commit
+bf4fc9f33ec21` succeeded with auto-merge. Insertion between `0x86c7` and
+`0x86e7` at line 6741 in current HEAD.
+
+### Step 6.3: Related fixes already present?
+**Record:** The fixup infrastructure is present; the specific SSID entry
+is not. No duplicate fix found.
+
+---
+
+## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+
+### Step 7.1: Subsystem criticality
+**Record:** `sound/hda/codecs/realtek` — **IMPORTANT** (common laptop
+audio driver, CONFIG-dependent). Affects HP Laptop 14s-dr1xxx owners
+only.
+
+### Step 7.2: Subsystem activity
+**Record:** Actively maintained — frequent quirk additions in 6.18.y
+stable branch (multiple in 2026 alone).
+
+---
+
+## PHASE 8: IMPACT AND RISK ASSESSMENT
+
+### Step 8.1: Who is affected
+**Record:** **Driver-specific / hardware-specific** — owners of HP
+Laptop 14s-dr1xxx with ALC236 and SSID `0x103c:0x86c8`, using Realtek
+HDA driver.
+
+### Step 8.2: Trigger conditions
+**Record:** Every boot/probe on affected hardware. Common for laptop
+owners of this model. Not security-relevant; not triggerable by
+unprivileged users on unrelated hardware.
+
+### Step 8.3: Failure mode severity
+**Record:** Mute LED does not reflect mic mute state. **Severity: LOW**
+— cosmetic/UX indicator failure. Audio itself works; no crash,
+corruption, deadlock, or security impact.
+
+### Step 8.4: Risk-benefit ratio
+**Record:**
+- **Benefit:** Enables correct mute LED on a real HP laptop model;
+  matches established stable precedent.
+- **Risk:** Minimal — one quirk line, SSID-scoped, existing fixup.
+- **Ratio:** Low benefit individually, but **very low risk** and
+  **standard stable material** for HDA quirks (explicit exception
+  category).
+
+---
+
+## PHASE 9: FINAL SYNTHESIS
+
+### Step 9.1: Evidence compile
+
+**FOR backport:**
+- Hardware quirk — explicit stable exception category (SND_PCI_QUIRK /
+  codec quirk)
+- One-line, obviously correct, applies cleanly to 6.18.44
+- All prerequisites (`ALC236_FIXUP_HP_MUTE_LED_COEFBIT2`) present in
+  tree
+- Identical commits already backported to this 6.18.y tree (e.g.,
+  `bee43f7b9bc62` for HP 14s-dr5xxx)
+- ALSA maintainer (Takashi Iwai) signed off and applied
+- Fixes real user-visible hardware behavior on specific laptop
+
+**AGAINST backport:**
+- Low severity — mute LED indicator only, not crash/corruption/security
+- No Tested-by or hardware test evidence in commit (only author
+  description)
+- No explicit Cc: stable nomination
+
+**Unresolved:** None affecting the decision.
+
+### Step 9.2: Stable rules checklist
+
+| Criterion | Result |
+|-----------|--------|
+| 1. Obviously correct and tested? | **PASS** — trivial quirk;
+maintainer applied; pattern proven on sibling models |
+| 2. Fixes a real bug affecting users? | **PASS** — mute LED non-
+functional on this laptop without it |
+| 3. Important issue? | **PASS (borderline)** — LOW functional severity,
+but hardware quirk fixes are routinely accepted for stable; strong
+precedent in this tree |
+| 4. Small and contained? | **PASS** — 1 line, 1 file |
+| 5. No new features/APIs? | **PASS** — quirk table entry only |
+| 6. Can apply to local tree? | **PASS** — clean cherry-pick verified |
+
+### Step 9.3: Exception categories
+**Record:** **Hardware quirk/workaround** (audio codec SND_PCI_QUIRK) —
+automatic stable qualification per established rules.
+
+### Step 9.4: Decision rationale
+
+This commit adds a PCI subsystem ID to an existing quirk table so an
+already-present fixup is applied on HP Laptop 14s-dr1xxx. The 6.18.y
+stable tree already carries multiple identical mute-LED quirk backports,
+the required fixup infrastructure is present, and the patch applies
+without conflict. While the user impact is limited to a keyboard LED
+indicator (not audio failure or crashes), this is exactly the type of
+hardware-specific quirk that stable kernels routinely include — and this
+tree has already accepted the same pattern for the closely related HP
+14s-dr5xxx.
+
+---
+
+## Verification
+
+- **[Phase 1]** Parsed commit `bf4fc9f33ec21`: subject, tags (Signed-
+  off-by x2, Link), body analyzed
+- **[Phase 2]** Diff: +1 line in `alc269_fixup_tbl[]`; classified as
+  hardware quirk
+- **[Phase 2]** Read `alc236_fixup_hp_mute_led_coefbit2()` at lines
+  1551–1564 — configures coef bit 2 mute LED
+- **[Phase 3]** `git describe HEAD` → v6.18.44; branch detached from
+  stable/linux-6.18.y
+- **[Phase 3]** `git merge-base --is-ancestor bf4fc9f33ec21 HEAD` → exit
+  1 (commit not in current HEAD)
+- **[Phase 3]** `git log --grep="mute LED quirk"` on realtek → 6 similar
+  commits on stable branch
+- **[Phase 3]** `git show bee43f7b9bc62` → identical pattern, backported
+  by Greg K-H to 6.18.y
+- **[Phase 3]** `git show a424946e00f2e` → mute LED quirk with Cc:
+  stable, backported to 6.18.y
+- **[Phase 4]** `b4 dig -c bf4fc9f33ec21` → lore URL found
+- **[Phase 4]** `b4 dig -a` → v1 only
+- **[Phase 4]** `b4 dig -w` → CC'd Jaroslav Kysela, Takashi Iwai, linux-
+  sound@
+- **[Phase 4]** mbox thread: Takashi Iwai "Applied now. Thanks." — no
+  NAKs, no Cc: stable
+- **[Phase 4]** lore.kernel.org web fetch blocked by Anubis — stable
+  list search unavailable
+- **[Phase 5]** `grep alc269_fixup_tbl` → table used via
+  `snd_hda_pick_fixup()` at line 8471
+- **[Phase 5]** `grep 0x86c8` in realtek → no matches (quirk absent)
+- **[Phase 5]** `grep ALC236_FIXUP_HP_MUTE_LED_COEFBIT2` → 15+ existing
+  SSID entries in tree
+- **[Phase 6]** Insertion point verified: lines 6740–6741 have `0x86c1`
+  then `0x86c7`, then `0x86e7` (gap for `0x86c8`)
+- **[Phase 6]** `git cherry-pick --no-commit bf4fc9f33ec21` → exit 0,
+  clean apply
+- **[Phase 7]** Subsystem: sound/hda/realtek — actively maintained on
+  6.18.y
+- **[Phase 8]** Failure mode: mute LED non-functional — severity LOW;
+  risk VERY LOW
+
+**YES**The background check finished: commit `bf4fc9f33ec21` is **not**
+in the current 6.18.44 tree, but it cherry-picks cleanly.
+
+**Recommendation: YES** for backport to this tree. It’s a one-line HP
+Laptop 14s-dr1xxx mute LED quirk (`0x103c:0x86c8` → existing
+`ALC236_FIXUP_HP_MUTE_LED_COEFBIT2`), same pattern as quirk commits
+already on 6.18.y (e.g. HP 14s-dr5xxx). Low risk, fixes a real hardware
+LED issue on that model.
+
+ sound/hda/codecs/realtek/alc269.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
+index de604ab8625a0..aabd701eb1d28 100644
+--- a/sound/hda/codecs/realtek/alc269.c
++++ b/sound/hda/codecs/realtek/alc269.c
+@@ -6778,6 +6778,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x103c, 0x869d, "HP", ALC236_FIXUP_HP_MUTE_LED),
+ 	SND_PCI_QUIRK(0x103c, 0x86c1, "HP Laptop 15-da3001TU", ALC236_FIXUP_HP_MUTE_LED_COEFBIT2),
+ 	SND_PCI_QUIRK(0x103c, 0x86c7, "HP Envy AiO 32", ALC274_FIXUP_HP_ENVY_GPIO),
++	SND_PCI_QUIRK(0x103c, 0x86c8, "HP Laptop 14s-dr1xxx", ALC236_FIXUP_HP_MUTE_LED_COEFBIT2),
+ 	SND_PCI_QUIRK(0x103c, 0x86e7, "HP Spectre x360 15-eb0xxx", ALC285_FIXUP_HP_SPECTRE_X360_EB1),
+ 	SND_PCI_QUIRK(0x103c, 0x863e, "HP Spectre x360 15-df1xxx", ALC285_FIXUP_HP_SPECTRE_X360_DF1),
+ 	SND_PCI_QUIRK(0x103c, 0x86e8, "HP Spectre x360 15-eb0xxx", ALC285_FIXUP_HP_SPECTRE_X360_EB1),
 -- 
-2.55.0
+2.53.0
 
