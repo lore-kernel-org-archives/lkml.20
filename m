@@ -1,361 +1,115 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46401445ADA;
-	Mon, 31 Aug 2026 16:24:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D48D0446C1B
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 16:24:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788193457; cv=none; b=ruj+NkNN2lRjSF/CbdE/d/o25xA6ww83fnaP/Lz0qc6NIH+LU5ZvqJyd4M9DJk5GWue2edYXjwyadTAOCI/BRdHh+DfrN/LExKf9R+wXkN6Cfchq44d2pNvDQD3vU6CWb4j14lMrl1PHNnUNUNg8oo382+5ItMbb0Fc/aW3ZgiQ=
+	t=1788193492; cv=none; b=OAF6tvosY0Ak0XomBi+SCQ3lNeqChptA6IqziyKyYB9SG3vEVu4mHDDmIjTRhADT8racTNPDkImLTN0cTOwWVbExh8Ki1Ohdk3RhMcZ0RI0rBR+IaA73Fq5O+3qx7vN1TyIpEkIINutc2Gi1YQZOiph7lSeBfCVEQI7o1rHuJbk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788193457; c=relaxed/simple;
-	bh=74dHxJfsweg4iUcy7aPCU1/YidaonhIKezScJbxAnFA=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=XElAGyPTcOBb+Lvi+Ls8hk+5fFAo/fEIVy9uhGDoTAh7xq1LIODJ2yNhbaJbwobyfZRKBdBwwGHn5tq8RPnYhLJww/n9owYfYrfWHF4iVx0mEX94/H7Fz3nJchF6RWSsS4f9jPYU1kd+JYglcdWUpsbx/hNncdIw0gQoFJLpalY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DoILfDvu; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788193492; c=relaxed/simple;
+	bh=4wASPUEGd3KOv6Fdubi246q8cZj4P8D3ytyUATn9DWg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=hH7vbVQq8jDKLnDEn1KMSTtCbTRr7AGhEvpSivXt91t57vLlDd7qrjZ/UCeo7EfXtxhVkq0ZsnFLgvO/U2MIHmK1ZUfsgo0l7sXB7/sijgpz4kAqoRStVj2qjTLDszqVAhIFn70cC3lu5murNETyOBWizZXPniPIiFJOM+SXrVI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YJbobjNb; arc=none smtp.client-ip=209.85.216.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DoILfDvu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65E3D1F000E9;
-	Mon, 31 Aug 2026 16:24:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788193455;
-	bh=CkreGT3bdaJ/rT1/qTFxsB3jk6shNorB1uXIfw7bMyw=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=DoILfDvuiFrvNI62eBs8/3VDbDqdIdsFjh/qL+d98XISuVP6eJmihx+tVSZa0Rg2j
-	 8U1qpXSSHkMBLbVO85YLEcwKDmcyJJUO3jXBTGsefnvS9os6HhnOHHgapbV9wPMBLS
-	 iVPdrSsNg9HqbPiffuIyze50SnK877gM78cRXG5LRwO4JauhSZ28DGpfjjWC1cLAdf
-	 n5w4xMp8a82cPwmhNkHtYUKfoUloiHxn0taNphIqxYtLYlulGSCmIjdTvD9VLmaFpx
-	 Q47ev0p4Hs3LcZRxaeNKI/seiKqn6UKCuDJtlvm8d7DsVV7WsLld4zjG/ohTdhxJTY
-	 PLVSL5kLL/V8w==
-Message-ID: <83915f73efb509328a3d4963b093e2cffcf9af99.camel@kernel.org>
-Subject: Re: [PATCH v2 net] net/rds: fix out-of-bounds write in
- rds_conn_peer_gen_update()
-From: Allison Henderson <achender@kernel.org>
-To: Jakub Kicinski <kuba@kernel.org>, paula@bynar.io
-Cc: davem@davemloft.net, edumazet@google.com, pabeni@redhat.com,
- horms@kernel.org,  netdev@vger.kernel.org, linux-rdma@vger.kernel.org,
- rds-devel@oss.oracle.com,  linux-kernel@vger.kernel.org
-Date: Mon, 31 Aug 2026 09:24:14 -0700
-In-Reply-To: <514cfa94e605a2623a8850d1fd309d1c71cf5da6.camel@kernel.org>
-References: <20260825120132.51636-1-pamoutafpro@gmail.com>
-	 <20260828230506.385788-1-kuba@kernel.org>
-	 <514cfa94e605a2623a8850d1fd309d1c71cf5da6.camel@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.3-0ubuntu1.1 
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YJbobjNb"
+Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-398b3d66515so2319379a91.0
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 09:24:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788193490; x=1788798290; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=4wASPUEGd3KOv6Fdubi246q8cZj4P8D3ytyUATn9DWg=;
+        b=YJbobjNb3Ukj4V5tJTuHK+w7WGwoUDiMvWw7c4XJCuqgVBPbWshddHdpvDtrBmnyBF
+         t00VPZbawui3C2zno1hkcGS3mISLidrDNRYtz2EMjqM1bSZI44mdTzX09+06TPT71sVZ
+         c/MDDyZVbHkETQGqJyCFvVQu36SZ5kghhi+9wKTFb1Bj9ra5qrlS9dMnfSRyiQgZiB5w
+         aefCa/vL8ib0Agah2WFWsE4Ivm0Y8+laiF69xGN8wMURvo2uCPPkrVxqSEACgQDTDrMr
+         VF1gVn+Y8EeiBY9gfIdulIRQMJ/hmiuwqEg/S3xos2zE5VzuxDIUPv7tP953tj8WnVEv
+         bQCA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788193490; x=1788798290;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4wASPUEGd3KOv6Fdubi246q8cZj4P8D3ytyUATn9DWg=;
+        b=TTQEFkT0acS7fMZFrItpkdeX6iKaZX6lMhX3NktH5ZFfboq3ACE7kZQNz+KTGpMBFb
+         AcJlShTqUUXzmxeW/EVT9vXJhXcQG3Po8xUD0alZuKu+73ch6IVmhY9UNhA4cqMVlE5O
+         zKBl/exEkNrEmPMoZdn6mSSCUVD38Yn/Gh25n10+2ROK54dYFua9dwFeW7AUY5TXg/Ia
+         cYfJ8dHXh6DCm9wsuYbRHTEejyiyrbRhH0jY38Lcid8zx8OVdZV1wCpid5w49m+mG/6+
+         Scr0rc1267E1Iu9Tx3pHyZuwlai56JNJMa4oXwmJ0vzFYMBAVniNYnVPbfSqmQbukldM
+         Rbng==
+X-Forwarded-Encrypted: i=1; AKwUvBzVtLYMrSRRGRF5j5/eGvJVPcShcWSnUL26928YxjwU67JPbLQQkFxKrALQaJvrQfv5dNvGFqSNqq3sEIk=@vger.kernel.org
+X-Gm-Message-State: AFuF++ku19JKJORXqx3jOpLHYd3FBXBC6Nf+Dc14PmO+u20i2/4q1/vp
+	809G7F937g0Cdjsl84aKvpX2wUdchL+TQEWmVy3hMbmK09YcKIV4QdZB
+X-Gm-Gg: AYBFou2Vnmu0pavtSgATrHkciWUUZy/ad5ww0WDKVUGTBfouloE5Gr3Zw2A+lULE93o
+	NOlxalAGVrWVxZPvrxKzL2DXqdc/w34ysuXNXOaGUpEDTY48r4rO56NOi6m3FOgH4LiPOHtUwOp
+	DJT9yss3OEtitjbAdSt/dFK0C5r8K5RNBguLsIyAZdLD8lgHL2naDossb/WlzeMPwqmti0/rj73
+	Vv+45Oofya/zMH0UDUs/6zcSTCa7f9TM7mUxDikR5xsDQeNnX1fk5aE4Suo81LhJWbggRKyeXZm
+	uSJWmq9e090S6KUqxt3CpFgKK99RiqyONm71SdhGSoM81Uax2FbOsfUJbl/XtuNZXkf4EISL/iJ
+	s05nF/2sbGMA7EMO5ZY5LRNmKCMpKc0dMqZ2wbutDK8Lwe7zwLoUf7W8YDp5rvGIsoF0a8LSDWk
+	G3gYwVU0dhE4DqA82fXWg7fZziT4NHzZEY1aIE670J7Tj0mKo7vxyWwsfU6eIXpShXrmxBr7qYi
+	0eHx750
+X-Received: by 2002:a17:90a:e185:b0:37f:eafd:3505 with SMTP id 98e67ed59e1d1-396d0ecbdb9mr45635347a91.6.1788193490095;
+        Mon, 31 Aug 2026 09:24:50 -0700 (PDT)
+Received: from thangnn-ASUS.. ([2405:4802:21dc:72d0:a033:17f7:ad44:4f35])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3990c40d0c9sm311768a91.7.2026.08.31.09.24.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Aug 2026 09:24:49 -0700 (PDT)
+From: ThangNN99 <ngocthang2710.1999@gmail.com>
+To: Vlastimil Babka <vbabka@kernel.org>
+Cc: Harry Yoo <harry@kernel.org>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Clark Williams <clrkwllms@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Hao Li <hao.li@linux.dev>,
+	Christoph Lameter <cl@gentwo.org>,
+	David Rientjes <rientjes@google.com>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	linux-rt-devel@lists.linux.dev,
+	ThangNN99 <ngocthang2710.1999@gmail.com>
+Subject: Re: [PATCH] mm/slab: disallow kfree_rcu_sheaf() on PREEMPT_RT again
+Date: Mon, 31 Aug 2026 23:24:42 +0700
+Message-ID: <20260831162442.8176-1-ngocthang2710.1999@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260831-b4-kfree_rcu_hotfix-v1-1-4f0fb882638b@kernel.org>
+References: <20260831-b4-kfree_rcu_hotfix-v1-1-4f0fb882638b@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Sun, 2026-08-30 at 19:52 -0700, Allison Henderson wrote:
-> On Fri, 2026-08-28 at 16:05 -0700, Jakub Kicinski wrote:
-> > This is an AI-generated review of your patch. The human sending this
-> > email has considered the AI review valid, or at least plausible.
-> > ---
-> > net/rds: fix out-of-bounds write in rds_conn_peer_gen_update()
-> >=20
-> > This clamps the peer-supplied RDS_EXTHDR_NPATHS value in
-> > rds_recv_hs_exthdrs() to the number of rds_conn_path entries the transp=
-ort
-> > actually allocated, and gives the loop in rds_conn_peer_gen_update() th=
-e
-> > same bound instead of the fixed RDS_MPATH_WORKERS constant.
-> >=20
-> > Reference to the earlier posting:
-> > [v1] https://lore.kernel.org/netdev/213829b7380f1fe12aed2f2ae9ba33c2870=
-addd5.camel@kernel.org/T/#t
-> >=20
-> > > diff --git a/net/rds/recv.c b/net/rds/recv.c
-> > > index cf3884d879319..c7f575bad91c8 100644
-> > > --- a/net/rds/recv.c
-> > > +++ b/net/rds/recv.c
-> > > @@ -133,15 +133,16 @@ static void rds_recv_rcvbuf_delta(struct rds_so=
-ck *rs, struct sock *sk,
-> > >  static void rds_conn_peer_gen_update(struct rds_connection *conn,
-> > >  				     u32 peer_gen_num)
-> > >  {
-> > > -	int i;
-> > > +	int npaths =3D (conn->c_trans->t_mp_capable ? RDS_MPATH_WORKERS : 1=
-);
-> > >  	struct rds_message *rm, *tmp;
-> > >  	unsigned long flags;
-> > > +	int i;
-> >=20
-> > [Severity: High]
-> > This isn't a bug introduced by this patch, but is
-> > conn->c_trans->t_mp_capable really equivalent to the count used at the
-> > allocation site?
-> >=20
-> > __rds_conn_create() derives npaths from the incoming trans, allocates
-> > c_path plus one ordered workqueue per path, and only afterwards may rep=
-lace
-> > the transport:
-> >=20
-> > net/rds/connection.c:__rds_conn_create() {
-> > 	int npaths =3D (trans->t_mp_capable ? RDS_MPATH_WORKERS : 1);
-> > 	...
-> > 				trans =3D &rds_loop_transport;
-> > 	...
-> > 	conn->c_trans =3D trans;
-> > 	for (i =3D 0; i < npaths; i++) {
-> > 		...
-> > 		cp->cp_wq =3D alloc_ordered_workqueue(...);
-> >=20
-> > For an outgoing TCP connection to a local non-loopback address
-> > (rds_tcp_transport has t_prefer_loopback set) the conn therefore ends u=
-p
-> > with 8 paths and 8 workqueues while conn->c_trans is rds_loop_transport=
-,
-> > which has t_mp_capable clear.
-> >=20
-> > rds_conn_destroy() recomputes the count exactly the way this hunk does:
-> >=20
-> > net/rds/connection.c:rds_conn_destroy() {
-> > 	int npaths =3D (conn->c_trans->t_mp_capable ? RDS_MPATH_WORKERS : 1);
-> > 	...
-> > 	for (i =3D 0; i < npaths; i++) {
-> > 		cp =3D &conn->c_path[i];
-> > 		rds_conn_path_destroy(cp);
-> > 	...
-> > 	kfree(conn->c_path);
-> >=20
-> > Does that leak the cp_wq workqueues belonging to paths 1..7 in this cas=
-e?
-> > Note rds_conn_path_destroy() also returns early before destroy_workqueu=
-e():
-> >=20
-> > net/rds/connection.c:rds_conn_path_destroy() {
-> > 	if (!cp->cp_transport_data)
-> > 		return;
-> > 	...
-> > 	if (cp->cp_wq !=3D rds_wq) {
-> > 		destroy_workqueue(cp->cp_wq);
-> >=20
-> > so simply widening the destroy loop would not reach the workqueues eith=
-er.
-> > The failure path in __rds_conn_create() uses the pre-swap npaths to des=
-troy
-> > all the workqueues, which suggests npaths, not the post-swap transport,=
- is
-> > the real allocation count.
-> >=20
-> > The derivation is harmless in this patch (1 is always <=3D the allocati=
-on),
-> > but would recording the allocated path count in struct rds_connection a=
-nd
-> > using that here avoid duplicating the derivation in a third place?
-> >=20
-> > > =20
-> > >  	WARN_ON(conn->c_trans->t_type !=3D RDS_TRANS_TCP);
-> > >  	if (peer_gen_num !=3D 0) {
-> > >  		if (conn->c_peer_gen_num !=3D 0 &&
-> > >  		    peer_gen_num !=3D conn->c_peer_gen_num) {
-> > > -			for (i =3D 0; i < RDS_MPATH_WORKERS; i++) {
-> > > +			for (i =3D 0; i < npaths; i++) {
-> > >  				struct rds_conn_path *cp;
-> > > =20
-> > >  				cp =3D &conn->c_path[i];
-> >=20
-> > [Severity: High]
-> > The new bound stops the walk past the end of c_path[], but does the res=
-t of
-> > this function stay reachable from the same non-TCP peer described in th=
-e
-> > changelog?
-> >=20
-> > rds_recv_incoming() dispatches to the handshake parser purely on
-> > peer-supplied header fields, with no transport check:
-> >=20
-> > net/rds/recv.c:rds_recv_incoming() {
-> > 	if (be16_to_cpu(inc->i_hdr.h_dport) =3D=3D  RDS_FLAG_PROBE_PORT &&
-> > 	    inc->i_hdr.h_sport =3D=3D 0) {
-> > 		rds_recv_hs_exthdrs(&inc->i_hdr, cp->cp_conn);
-> >=20
-> > and rds_recv_hs_exthdrs() calls rds_conn_peer_gen_update() unconditiona=
-lly.
-> > rds_ib_process_recv() hands the wire header straight to rds_recv_incomi=
-ng(),
-> > and rds_ib_transport sets .t_type =3D RDS_TRANS_IB, so the WARN_ON abov=
-e is
-> > true for every crafted probe on an IB connection.
-> >=20
-> > Can that flood dmesg from a remote peer, or panic the box on
-> > panic_on_warn=3D1 kernels? Would ratelimiting it, or refusing handshake
-> > extension headers on non mp-capable transports, be preferable?
-> >=20
-> > With npaths =3D=3D 1 the i =3D=3D 0 iteration is still executed. Two pr=
-obes with
-> > differing non-zero RDS_EXTHDR_GEN_NUM let the same peer reset
-> > c_path[0].cp_next_tx_seq to 1 and cp_next_rx_seq to 0 and set RDS_MSG_F=
-LUSH
-> > on every message queued on c_path[0].cp_retrans of a live IB connection=
-.
-> >=20
-> > rds_send_probe() only ever emits these headers for t_mp_capable transpo=
-rts:
-> >=20
-> > net/rds/send.c:rds_send_probe() {
-> > 	if (RDS_HS_PROBE(be16_to_cpu(sport), be16_to_cpu(dport)) &&
-> > 	    cp->cp_conn->c_trans->t_mp_capable) {
-> >=20
-> > so on IB both NPATHS and GEN_NUM are always forged. Would an early retu=
-rn in
-> > rds_recv_hs_exthdrs() for transports without t_mp_capable remove both t=
-he
-> > WARN and the c_path[0] state mutation, and make the new bound here
-> > unnecessary?
->=20
-> I think this part can be corrected by porting the uek fix here:
->  https://github.com/oracle/linux-uek/commit/2fdeb0513f18
->=20
-> That will gate both rds_recv_hs_exthdrs() call sites in the receive path =
-on
-> conn->c_trans->t_mp_capable which should resolve the complaint.
->=20
-> Allison
+Thanks Vlastimil, this matches what I found and is functionally the
+same fix I had in my v3. I built this exact logic (skip
+kfree_rcu_sheaf() under CONFIG_PREEMPT_RT in kvfree_call_rcu(), same
+dead-code removal in kfree_rcu_sheaf()) against commit 08dbfad3f504
+with the syzbot .config and reproduced the original splat with
+syzbot's C repro (writing "off" to
+/sys/devices/system/cpu/smt/control to trigger the
+__balance_push_cpu_stop -> select_fallback_rq ->
+cpuset_cpus_allowed_fallback -> set_cpus_allowed_force ->
+kvfree_call_rcu chain) — confirmed the exact same lockdep report as
+syzbot, then rebuilt with the fix and confirmed the splat no longer
+appears while the same code path still executes.
 
-Actually, I think the port might be the complete fix.  With both call sight=
-s guarded,
-there's no need to check t_mp_capable again, since rds_recv_hs_exthdrs is o=
-nly
-reachable when all paths are allocated.  rds_conn_peer_gen_update is only r=
-eachable
-through rds_recv_hs_exthdrs, so that case is taken care of, and then the WA=
-RN and xmas
-tree complaints disappear with it.
+Feel free to add:
 
-I'd recommend a v3 that's just the port.  Since the upstream code here matc=
-hes UEK
-almost exactly. =C2=A0Keep the original authors, but drop the internal RVBs=
- and orabug
-tags, and add your SOB.  Keep your change log and the KASAN repro plus the =
-fixes tags
-and add another Fixes: 905dd4184e07 ("RDS: TCP: Track peer's connection gen=
-eration number")
-for the WARN.
+Tested-by: ThangNN99 <ngocthang2710.1999@gmail.com>
 
-The other pre-existing bugs are real, but I think they should be separate f=
-ollowups. The
-work queue leak will need a separate counter in struct rds_connection as th=
-e review
-suggests, but i dont think this fix should be held up over it since it's no=
-t directly
-related to the out-of-bounds bug here.
+Thanks for picking this up and for the pi_lock/waitlock explanation,
+that's a much more precise description than what I had.
 
-It's worth noting a lot of the pre-existing bugs having to do with the gene=
-ration number
-would disappear with the removal of the generation number:
-https://github.com/oracle/linux-uek/commit/1bf4a2a29c8e
-But that's a bigger effort that should probably go to next-next at a later =
-time.=20
-
-Thanks again for working on this! I wouldn't have initially prioritized tha=
-t port since
-the original commit makes no mention of an OOB, but your find made verifyin=
-g it much
-faster.
-
-Allison
-
->=20
-> >=20
-> > [Severity: Medium]
-> > This is a pre-existing issue, but the compare-then-store of
-> > conn->c_peer_gen_num in this function happens outside any lock =E2=80=
-=94 cp_lock
-> > only covers the per-path queue walk:
-> >=20
-> > 	if (peer_gen_num !=3D 0) {
-> > 		if (conn->c_peer_gen_num !=3D 0 &&
-> > 		    peer_gen_num !=3D conn->c_peer_gen_num) {
-> > 			...
-> > 		conn->c_peer_gen_num =3D peer_gen_num;
-> >=20
-> > For a t_mp_capable conn each path has its own cp_wq and receive worker,=
- so
-> > two lanes can run rds_recv_hs_exthdrs(cp->cp_conn) for the same conn at=
- the
-> > same time. Can two probes carrying different generation numbers then ei=
-ther
-> > double-flush or skip the RDS_MSG_FLUSH marking entirely, leaving stale
-> > cp_retrans messages after a peer restart?
-> >=20
-> > > @@ -210,6 +211,7 @@ static void rds_recv_hs_exthdrs(struct rds_header=
- *hdr,
-> > >  	u32 new_peer_gen_num =3D 0;
-> > >  	int new_npaths;
-> > >  	bool fan_out;
-> > > +	int npaths =3D (conn->c_trans->t_mp_capable ? RDS_MPATH_WORKERS : 1=
-);
-> >=20
-> > [Severity: Low]
-> > This isn't a bug, but the new declaration is the longest one in the blo=
-ck
-> > and is placed last, which does not follow the reverse xmas tree orderin=
-g
-> > netdev asks for. The first hunk of this patch moves int i; below
-> > unsigned long flags; for exactly that reason, so the two hunks disagree=
-.
-> >=20
-> > > =20
-> > >  	new_npaths =3D conn->c_npaths;
-> > > =20
-> > > @@ -221,7 +223,7 @@ static void rds_recv_hs_exthdrs(struct rds_header=
- *hdr,
-> > >  		/* Process extension header here */
-> > >  		switch (type) {
-> > >  		case RDS_EXTHDR_NPATHS:
-> > > -			new_npaths =3D min_t(int, RDS_MPATH_WORKERS,
-> > > +			new_npaths =3D min_t(int, npaths,
-> > >  					   be16_to_cpu(buffer.rds_npaths));
-> > >  			break;
-> > >  		case RDS_EXTHDR_GEN_NUM:
-> >=20
-> > [Severity: Medium]
-> > This is a pre-existing issue, but conn->c_npaths =E2=80=94 now the sing=
-le
-> > authoritative bound for rds_start_mprds() and rds_check_all_paths() =E2=
-=80=94 is
-> > read, tested and published here with no lock, no atomics and no
-> > READ_ONCE()/WRITE_ONCE():
-> >=20
-> > net/rds/recv.c:rds_recv_hs_exthdrs() {
-> > 	new_npaths =3D conn->c_npaths;
-> > 	...
-> > 	if (new_npaths > 1 && new_npaths !=3D conn->c_npaths) {
-> > 	...
-> > 	conn->c_npaths =3D max_t(int, new_npaths, 1);
-> >=20
-> > Since each path of an mp-capable conn has its own receive worker, two l=
-anes
-> > can be in this function for the same conn concurrently. Can one CPU pub=
-lish
-> > c_npaths =3D 8 and take the fan-out branch while a second CPU, processi=
-ng a
-> > probe with no NPATHS extension, writes c_npaths =3D 1 and silently reve=
-rts it
-> > while lanes are still coming up?
-> >=20
-> > The lane mapping in rds_sendmsg() reads the same field with no
-> > synchronisation:
-> >=20
-> > net/rds/send.c:rds_sendmsg() {
-> > 		cpath =3D &conn->c_path[RDS_MPATH_HASH(rs, conn->c_npaths ? : 1)];
-> >=20
-> > so the local and peer lane hashing could disagree. Every stored value s=
-till
-> > passes through max_t(int, new_npaths, 1) with new_npaths already clampe=
-d, so
-> > this looks like a consistency problem rather than an indexing one =E2=
-=80=94 is that
-> > the intended reading?
-> >=20
-> > The comment above rds_recv_hs_exthdrs() only promises serialisation aga=
-inst
-> > other receives on "this specific conn", which for mprds is per-path. Wo=
-uld
-> > WRITE_ONCE()/READ_ONCE() plus per-conn serialisation of handshake
-> > processing be the right follow-up?
-
+ThangNN99
