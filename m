@@ -1,51 +1,87 @@
-Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [46.38.247.119])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 611EE3E558A;
-	Mon, 31 Aug 2026 11:37:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.38.247.119
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0313D3E5A0B
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 11:38:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788176273; cv=none; b=YnRkOZV5mZDfB5EoPQcaFeeU1UekUYuTGXzmVzSNTpfi16+fsZgY7422tkkUCwlPZiqE6K8mCE/B9eq+gMn4fERoMepgb8PBs8gf0FYKyKDXhhps2g9rwX7lhCVw724ZoMUlPNwa722+v0Uq+Brms1/CZcQ0ZfHXMe4a7UXHaiw=
+	t=1788176319; cv=none; b=VI6N9MBBVSZ12oF5GzMVHY6WwCQsEGRF7DSa+k+xSd6F7h8UXIFIujTISQeN8NmDpel3Jd6+Z2mYEozYwqMz4PF+wz53SULh7v1njaZSDyV0RyZmdY2lsSk4O4IJWkVnnmeun8ZxdO2xYio2jlvUAPTrIk9I+/v4hVBa/jsjOBY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788176273; c=relaxed/simple;
-	bh=VD0d3ENv4SdHSRLR5Wrel9flUnCQBQhU5Db+lfkT4fE=;
+	s=arc-20240116; t=1788176319; c=relaxed/simple;
+	bh=bI6pqxmvXsoz1GpoGopgL4gc7IEL9Fvc8zk5dX4p0o4=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=g87zW+PsFIoc8OTgLt9O7gqMfJhq9NQ9guNKsmfEMh0FimuFvS1BCs8NYLx6f3rafZToko4xRLmMqzIVp194WhaLOTjwqfB72f1AElwaJaabtx9sNog38xOZo7guo6ua/siI5AoIdLG4IZQ86GmXKn7kyhSsRqlIE+yBNER/lms=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=leemhuis.info; spf=pass smtp.mailfrom=leemhuis.info; dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b=GV0C0x5+; arc=none smtp.client-ip=46.38.247.119
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=leemhuis.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
+	 In-Reply-To:Content-Type; b=YF/8tTJXlXA63AY7TvL4edDDinXbvCy5HedYCfcfs5fHVH2Pf1YhYeGOUSMimrcAjSO3o2+1pVBM5JVkmTH6BadZhYUjXslpLhP8NGtCPUXbAJdkXxW1etdfcp7AJm/e763dDZlRQBgkw2tKTx+rrg6uLlRRhX+RUyfX4qDipc4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Ipr/5N7S; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=gmDNU1SJ; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b="GV0C0x5+"
-Received: from mors-relay-8404.netcup.net (localhost [127.0.0.1])
-	by mors-relay-8404.netcup.net (Postfix) with ESMTPS id 4hYRb01TTCz8CD2;
-	Mon, 31 Aug 2026 13:29:00 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
-	s=key2; t=1788175740;
-	bh=VD0d3ENv4SdHSRLR5Wrel9flUnCQBQhU5Db+lfkT4fE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=GV0C0x5+ToaUDUU6ofTDHpYNgOk7OZTFn2K8E3B6+IurwW/FE+0/x/xW2awU0XziL
-	 /enRwBOLDaVcQak8LCOyvddF/3VkFqL7qUB9pPQN9Qi5s5mWMvrv18J9bc0IU3dSzu
-	 JN91hgDQQ8cyCLkexbnt9jygEdz3uO7p9hEMJcjYwss0r4In7IUXtlQkX4frHcVU+m
-	 piVc19RavqUgJ9aVP9nSV1PDov1ewUwvHPcJebdNn793o//hxpVqwbDvc1Rcw1P96r
-	 OCjevWDu04lje4UHBWc/BfyEbsPdPtNGjSgqK15BdsXI3QNwQuEuqyffcthkkrTzHR
-	 Jyy0qPc0jb6BQ==
-Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
-	by mors-relay-8404.netcup.net (Postfix) with ESMTPS id 4hYRb00n8kz4y4x;
-	Mon, 31 Aug 2026 13:29:00 +0200 (CEST)
-Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by policy02-mors.netcup.net (Postfix) with ESMTPS id 4hYRZy22n8z8svL;
-	Mon, 31 Aug 2026 13:28:58 +0200 (CEST)
-Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
-	by mxe9fb.netcup.net (Postfix) with ESMTPSA id 3322B5FAB4;
-	Mon, 31 Aug 2026 13:28:57 +0200 (CEST)
-Authentication-Results: mxe9fb;
-        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=regressions@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
-Received-SPF: pass (mxe9fb: connection is authenticated)
-Message-ID: <1c855bb3-2bac-4f25-b97f-3a7436a6291b@leemhuis.info>
-Date: Mon, 31 Aug 2026 13:28:55 +0200
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Ipr/5N7S";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="gmDNU1SJ"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67VBA1gL320632
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 11:38:37 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	jsPV/3bKARA8qESe4FwN4opNWzg76gRAUiSgjeBLCOI=; b=Ipr/5N7S7NeaU8Qo
+	e8vKAlwZcHYLgeIuop9bTGgmfOIUC3IOGUFzvYMQb+vmlAxt6RXmZamrx0BlFE24
+	KtwxYSTKdZK1R8G2N1zZZxwrYoJ2oPO6L0YiMqxxhEhoxiC5/Xfd6b9FPLxOdoAo
+	gjjaKxdYrk0z/+Xe+Y/E6BznC4L6zmqnxvLCcNpMBIcj5eEUYOwospceaNcajcsD
+	J14PwCw6eQEsqT5JCSuI9UXWpyRFsZdiLRHZUU0b5dBblw4oaDdwohNyvIK17CFe
+	Y3udyAsQBHOWmOrVhOFP05IUv7oZSu9iFArB/ZNpC8JKpoT0v02i48+DR9+M8k38
+	Iv1aiQ==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gd8cvr3ng-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 11:38:37 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93494b1e35cso58760885a.0
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 04:38:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788176316; x=1788781116; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=jsPV/3bKARA8qESe4FwN4opNWzg76gRAUiSgjeBLCOI=;
+        b=gmDNU1SJ0vic7EKl6v8qK84nrRNv66kQyw1zXCQzMnaz823SALVxZLkpub0o6tj6VT
+         MO8jr56ogxBlmI/HTR+jB+mMT+oE0hS/ZryKhswpsTBX1/M6TdlioXyZLjfeE4BPcDf/
+         5oYPIo9Ui9pdPuy7BPEdv9ANuhHrkCY3feg+a2IFacUF6l5aXPo1TU/Ojcbx69OGEvIK
+         MbDYQojQ+HKOPc7dPVnOp7XLWnxkD5s2x3puH4dwD4nZzDmMaaBdVYDptAVeych2TwZn
+         /ExD3tCCzWcVj1shv1svutQ7b8xDhskn29TT8p9sA49jGy5Ayuc/03TtNV1SxKXTCo/L
+         qZzA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788176316; x=1788781116;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=jsPV/3bKARA8qESe4FwN4opNWzg76gRAUiSgjeBLCOI=;
+        b=kSFR4elqVGtFdcxRgCJnKcCkXLbIhDfa1cOAMWSNN0hs5e2/Te3qCX09n56zS6Qxhs
+         sjcg4n9S2C1+KOPKh5v5IOHXKIk1daBnSMJPNHECT3qL1jcrvMv3Da9lN1iYR8sWqa5H
+         RSZAfgfVyOt4sAgKfoL/cPRVvOacV0RK7gT3Abv0MrfWt6p53M3S4czB1O0IzFS5AbRC
+         FfMnxWsUPlUXDXc4oAuS5cu9o2MiAsytuOPLr7rBwt6tU8laxSKW8rGwWwbMw4hjj4/r
+         t0EKzDfa2UuZGj8tdPC4Ji/ZTVBonavIK6jx8oGWeAz4m/RHsvshF2EbWb6UhPvy+HXV
+         mr+A==
+X-Forwarded-Encrypted: i=1; AHgh+Rq0V1FW4Rvnfcx748iy8h3EHqfUkjST0LHapoedoKdeUOEvglVwneJ0wLIh8wjplR3NFWGnN66849A0JI0=@vger.kernel.org
+X-Gm-Message-State: AFuF++mZifbOKXHUDIr4hQ+QVtspvNwMLtteQL8MKdooIEkBwpTkkh7d
+	UKSlifLCigqn8YCFbzSiTOyrh2Vwzt1OlVrT53HzTPw3lrfWCXAc0PhMiDrrSAyapXOHIqQP2jk
+	wW36NGi3wHeCIzd8MwB5XOPiabjSEqAo9lW6XEaoHGdRSqOl0v9tIlvIpJWzoDmeFvyg=
+X-Gm-Gg: AR+sD114JujJMd916JX0N0t23Qv1HtT51R+0f65zAeE+jLMZgjGF6IvGzGA+M5btvmN
+	lPh7Lv+M1HfzNQTwVFji/iG6Nly4cIQZsyYZGeQ+CvMBph6fdf5WMYn/eULRIL3M9nJLaa1FNwI
+	7NTzCYvKjiF42GCd24jLH5Qv015uvCxYUR/b9kR2C6pnENsPYGX6JGHn1kwszWO7x2c3FyGU1+4
+	VfW8tSy6Iitph5ARDY4kbCgFWYC7xfHZDWbG4ynLM74m/5NwuSyy7zwuf9+7E686jeubqSZ/E8o
+	e+S50wRpQkVhvC05szmM7nP6jQ6UidkWUSBzveFr7fXcyfq5NtfCGPGGiZH4RXG+xeQd+WGiqpA
+	Bwq/2rkpcW+DBghjsze+MXA==
+X-Received: by 2002:a05:620a:3183:b0:939:2880:21e6 with SMTP id af79cd13be357-93928802232mr860871485a.5.1788176315802;
+        Mon, 31 Aug 2026 04:38:35 -0700 (PDT)
+X-Received: by 2002:a05:620a:3183:b0:939:2880:21e6 with SMTP id af79cd13be357-93928802232mr860867385a.5.1788176315284;
+        Mon, 31 Aug 2026 04:38:35 -0700 (PDT)
+Received: from [192.168.202.12] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c25ab254f49sm57028066b.10.2026.08.31.04.38.33
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 31 Aug 2026 04:38:34 -0700 (PDT)
+Message-ID: <5bb31efb-3855-41e7-b011-1a5a94fee59f@oss.qualcomm.com>
+Date: Mon, 31 Aug 2026 13:38:32 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -53,62 +89,78 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] usb: xhci: fix maximum event ring segments calculation
-To: Mathias Nyman <mathias.nyman@linux.intel.com>,
- Pierre-David Belanger <pierredavidbelanger@gmail.com>,
- Shixiong Ou <oushixiong1025@163.com>
-Cc: Shixiong Ou <oushixiong@kylinos.cn>,
- Mathias Nyman <mathias.nyman@intel.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Niklas Neronin <niklas.neronin@linux.intel.com>, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org, regressions@lists.linux.dev
-References: <20260828105926.930033-1-oushixiong1025@163.com>
- <20260830031233.1810986-2-pierredavidbelanger@gmail.com>
- <64a7ce30-b346-4e94-974f-f30893d66829@leemhuis.info>
- <81ddd491-1ec3-4a0c-90b3-6a286ff1a908@linux.intel.com>
-From: Thorsten Leemhuis <regressions@leemhuis.info>
-Content-Language: de-DE, en-US
-In-Reply-To: <81ddd491-1ec3-4a0c-90b3-6a286ff1a908@linux.intel.com>
+Subject: Re: [PATCH v2] serial: qcom-geni: Fix port_ida handling for console
+ and probe errors
+To: Aniket Randive <aniket.randive@oss.qualcomm.com>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Jiri Slaby <jirislaby@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-serial@vger.kernel.org
+References: <20260831-master-v2-1-0032ec7fd1ca@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260831-master-v2-1-0032ec7fd1ca@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-PPP-Message-ID: <178817573763.3411727.9290102466049313861@mxe9fb.netcup.net>
-X-NC-CID: BacT/202HD0ewFbPir0OZEme2PY2meMvuRND3scEUDBv94a6si0=
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODMxMDEwMCBTYWx0ZWRfX3XxzZ3D39lSd
+ wFTHD6dRNWFzcUmUI2DNsT5jeJnlVDlLBL7lHYeSQaHnRCgro7rN7w6kRUE5F/rs1XMvpT5UJcv
+ LRhJxcfAaqD95jwajLChne+5+7ooi3M=
+X-Authority-Analysis: v=2.4 cv=JtnBas4C c=1 sm=1 tr=0 ts=6a9567bd cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=EUspDBNiAAAA:8 a=SusbOXjRFks2-79YJ0gA:9 a=QEXdDO2ut3YA:10
+ a=NFOGd7dJGGMPyQGDc5-O:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODMxMDEwMCBTYWx0ZWRfXy2X/tXVoH2cv
+ gbw3v717zst+ZO8cPg2jrZyvCsfPXckNMIhQNtWUb4G73YbmVeR+q+uFLClW55qExmw1KozOA0+
+ TdFjjwReI/kHQS27xwSvw2kUXSlXYpxVFYVo5pfJITWlcu/oPrPKsJ87TEOfrk5UryR4A61H7nd
+ BioKbMP+w97gS17CseGtBfmBm+0VQK8u4FkBipKEeqYpdaE6Du/gQNTEFeFlb/6FWoIjGJdYkK/
+ yI1s8EtK37ekWv7bmHUEKowmABblfDHsmQ25FyJIK0K8G/AyiE5qyzg4cFASGeHBWVwUcMcFiXy
+ 0qP1AU+CwopZActFyaBGH/5Zcsy8jNAPEZUXhXPbQdki3Gecs8t/roX+WITMkJcOuW+CU490QwC
+ aDIVka1uw7jUmisNQcT7ME7sTJgfMH/pmBPqCOeZakRKuvAeEE0PoxurJulyTvHGc+Apty1rtnv
+ +A3LnM9yoEjKT9h3ltA==
+X-Proofpoint-GUID: 9g4_Xqvbz_iVNYcEYIDR3oTe5Og8wEAk
+X-Proofpoint-ORIG-GUID: 9g4_Xqvbz_iVNYcEYIDR3oTe5Og8wEAk
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-31_04,2026-08-27_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 clxscore=1015 bulkscore=0 phishscore=0 priorityscore=1501
+ adultscore=0 spamscore=0 suspectscore=0 malwarescore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608310100
 
-On 8/31/26 11:21, Mathias Nyman wrote:
-> On 8/31/26 09:55, Thorsten Leemhuis wrote:
->> On 8/30/26 05:12, Pierre-David Belanger wrote:
->>> The failure on 08dbfad3f504:
->>>
->>>    xhci_hcd 0000:00:04.0: xHCI Host Controller
->>>    xhci_hcd 0000:00:04.0: new USB bus registered, assigned bus number 1
->>>    xhci_hcd 0000:00:04.0: Failed to allocate interrupter erst
->>>    xhci_hcd 0000:00:04.0: can't setup: -12
->>>    xhci_hcd 0000:00:04.0: USB bus 1 deregistered
->>>    xhci_hcd 0000:00:04.0: init 0000:00:04.0 fail, -12
->>>    xhci_hcd 0000:00:04.0: probe with driver xhci_hcd failed with
->>> error -12
->> Sadly this missed -rc1, wonder why it wasn't submitted for it to prevent
->> more people from running into this, but whatever, that's ship has sailed.
+On 8/31/26 1:12 PM, Aniket Randive wrote:
+> The console port uses a fixed line number and is not allocated from
+> port_ida. However, qcom_geni_serial_remove() unconditionally frees the
+> line number for all ports, including the console port.
 > 
-> Looks like at least QEMU and Mediatek users were hit by this issue.
+> Skip ida_free() for console ports so that only IDs allocated from
+> port_ida are returned.
+> 
+> Also release allocated IDs from the common probe error path. Currently,
+> IDs are freed only on the wake-IRQ failure path, causing leaks when
+> probe fails after a successful allocation. Move the ida_free() call to
+> the common error path and guard it for console ports.
+> 
+> Route resources_init() failures through the common error path so the
+> allocated line number is released correctly.
+> 
+> Allocate the port structure before calling ida_alloc_range() in
+> get_port_from_line(). This prevents IDs from being left allocated when
+> memory allocation fails.
+> 
+> Signed-off-by: Aniket Randive <aniket.randive@oss.qualcomm.com>
+> ---
+> Changes in v2:
+> - Route port->dev_data->resources_init() failures through the common
+> error path so allocated line numbers are not leaked.
 
-Ahh, good to known. And thx for sending one of the fixes to Greg
-meanwhile (saw that by chance).
-> Note that this is a v7.3-rc1 regression which was found during merge
-> window for v7.3-rc1.
-> v7.3-rc1 came out a few hours ago.
-> I can't resolve it much earlier than this.
-Out of curiosity: why?
+I asked GPT what it thinks again and this time it found that this
+will cause a double calling of dev_pm_domain_detach_list(), which
+will mess up the refcounting..
 
-Just ignore the question if it was something like "real life got in the
-way" or "it fell through the cracks" -- that's how it is sometimes, no
-worries. But in other cases I'd be glad if you could take a few minutes
-if you have them to satisfy my curiosity, as in preparation for a
-maintainer summit proposal I sent[1] I'm just trying to understand
-better why regression fixes sometimes take quite a while from submission
-to landing in mainline
+I think the fix here is to drop the manual detaches since the common
+helper uses a devres-managed version of attach.
 
-Ciao, Thorsten
-
-[1]
-https://lore.kernel.org/all/75dc0e2d-2deb-4776-977c-1de7c33465e1@leemhuis.info/
+Konrad
