@@ -1,155 +1,77 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2332933D4E5;
-	Mon, 31 Aug 2026 11:41:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FEF13546E4
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 11:43:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788176465; cv=none; b=rmWtjQYJ3T0owMAfUBAGPSPQ41m/vc0D6ykghqZRGt7ExAc/JYeNmfB7Ovw0b9NIAHGirdif50S7V+Ts64i4ZM8gJZFbB6YVHUePqhGCcJhhrREYmAo7wVG7KLLUtuU8ZGD9dLhcpeUqao1elnxk6AhbeN/rYXxzAbuZDdIREWI=
+	t=1788176586; cv=none; b=QVVWlm5W4is+yvCBYMRGKC4MBg9/stesMqa/Iq3IFubEwvdqUByV6bFku+RJjolwMiYluhrsJrKdYzGpsUvSm7XTxyvAB8M8lGjoStIPqD3HDTI/BT9k8lPataepiAvQ/HpmUkfniryNlq68Y2pgUl89PtTyk7JrHrufea1peD4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788176465; c=relaxed/simple;
-	bh=ZeT20xbb5bL7TplofppYhDK79ecsWSJb+W4FXpiOsvc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qlJAtJmRn7kp/Xh4CBTj6ZLmZThlk8ZDzSkizsAKes6gobriOPACjatqCaOY0R/aYj/r+lamNYs6rULDPXeKvLigqPymsSBxzMIy4xcSD0puGHq96jZNTqPK4zPVlaLEqtPKGCbfbJjOfg+r84+fohZZY6aEGgYVD1qb2+e+/9g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=DjZDrx3Z; arc=none smtp.client-ip=192.198.163.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="DjZDrx3Z"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788176464; x=1819712464;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=ZeT20xbb5bL7TplofppYhDK79ecsWSJb+W4FXpiOsvc=;
-  b=DjZDrx3ZaFAELPejL/sD+wKzeRX243K1NLZh0GuJ8YLS+w6l+TWycWkA
-   zUNYThyGxJUiEL+nz3ud2yDjXSe5RnIOi5NkigKbetqzV3PZ8JhOmTqH5
-   n0GIw6EZfGTThUNDwe2bSxXCpoxwfbCX9D4D0wUhrYnDV0AdLEuV9xomc
-   vuGaDti+ax1zVZBGSc5q17fokJbwdDbZc0MduPbfiODM18d3V1gsn5p/I
-   Sj6zX6oTyjfZ76aSyIko7k8U4jJVtsK9egQ+63ySJnsihYzmKaEFl3T32
-   pOXlEkiDQ+qSohYpZxTgyQB2MEo+2LBgbFN3uxFdnZH+26DhnqqdJJEWR
-   Q==;
-X-CSE-ConnectionGUID: wgSQpUvIRhmyhlvfg58YZQ==
-X-CSE-MsgGUID: /rmGub+VTTyWAuRZpRZ9KA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11891"; a="99932561"
-X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; 
-   d="scan'208";a="99932561"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 04:41:03 -0700
-X-CSE-ConnectionGUID: dshwJhBGRMqUMnjTrHn9oA==
-X-CSE-MsgGUID: iu7uMzrXSxq2MSQJmu5VMg==
-X-ExtLoop1: 1
-Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.244.21])
-  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 04:41:00 -0700
-Date: Mon, 31 Aug 2026 14:40:57 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Maurizio Casciano <mauriziocasciano7@gmail.com>
-Cc: linux-media@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Bingbu Cao <bingbu.cao@amd.com>,
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
-	Nicholas Roth <nicholas@rothemail.net>,
-	Andy Shevchenko <andy@kernel.org>, Hans de Goede <hansg@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jose Maria Martin <jmmartinf@hotmail.com>,
-	Uwe Kleine-Koenig <ukleinek@kernel.org>,
-	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 14/15] media: atomisp: allow raw Bayer capture
-Message-ID: <apVoSXcirnD2A7-d@ashevche-desk.local>
-References: <cover.1787933456.git.mauriziocasciano7@gmail.com>
- <749f33adb08c4b311aec241c0bdcc455fcdc0a3c.1787933456.git.mauriziocasciano7@gmail.com>
+	s=arc-20240116; t=1788176586; c=relaxed/simple;
+	bh=+WX7mQP25t2lxqDFB4cSfx5m9/A1ooQM8MrwPHsLMqE=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=YiFEfvHl7EeWHZ2N+sgyHd8ARnYmSYisBN+AjKiq4Ax8rmRSpx+Pi341f5X7FGrViARuGe/pJpBvwoVJc+3g8G4FbmWIGomhzstmmON5DEstfAAMCFNt3OYEkuiX5D8l4nz7bqTVv7KTHcxQ1oPm78OgZpli+ZN4aVwUEBW96g0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4b3962f71e7so5075579b6e.3
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 04:43:04 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788176583; x=1788781383;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=I5LM+0Pjsyiw43Y9OPRtVO7+pR519d5y9NI1syLmG3Y=;
+        b=ZHQooIefgr0uWA+Q2ReBynS37GRx+1mvz/u0M9rjQSd6t8CHpzUZ7a2LlyldbTLzcf
+         tJt7Ydwy1kXxVq2RZOHW+U4pB/c4865q3Og1BtvkGp+u/tDu36hHLDKG+nvM8Y2t+lII
+         OuUEbXmCUwX+1ngcJcGBuXdwhiXeYO5ABjGxwCECfKr06WCwgwPBEtGSNzdvB4say4ZY
+         kknum5H09FvFssdmF9KoYx8pR45D/Qy8WZu7/rpgrskCNBq3C85rva99Yv8eCXfFCIWf
+         vN1OfHSlhrr+8LbfzrnVNAfhmO85U36jFTLkEc9IdZOYDEXLANro2Tn4n2Dqb9esCtDr
+         7E3Q==
+X-Forwarded-Encrypted: i=1; AHgh+RqxmSuxAKtnQJOfv2gxKnfIlpoX+P2CR9SuypWgYDVf1h3RAJZeuvAR9tAwFNo/cQMHRwZVVPB49xWS6cI=@vger.kernel.org
+X-Gm-Message-State: AFuF++nQSMPXodm95X01EfTLcS9k+I4n1h6J+MYLoLCKbvDnkghm28RH
+	XmxGaJMxjtV0PHx27ADMGnI9xGSgLJVD/7zE+u4U9cfkJpgpNcymB/osDaQNK8HWh8Kch9Yv4B8
+	mau0UIKQPaBor11aWFSUexVjnHjP7bBXYAWRKPvNMV0DYY8OsOZ6M37M8QyU=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <749f33adb08c4b311aec241c0bdcc455fcdc0a3c.1787933456.git.mauriziocasciano7@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+X-Received: by 2002:a05:6808:251a:b0:4b3:7c33:456 with SMTP id
+ 5614622812f47-4b5b81720ddmr416388b6e.11.1788176583352; Mon, 31 Aug 2026
+ 04:43:03 -0700 (PDT)
+Date: Mon, 31 Aug 2026 04:43:03 -0700
+In-Reply-To: <20260831084159.410474-1-junjie.cao@intel.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a9568c7.a8e469d2.cbf3.5619.GAE@google.com>
+Subject: Re: [syzbot] [mm?] INFO: rcu detected stall in __mmap_complete
+From: syzbot <syzbot+e4aa91d7f20c34417d4e@syzkaller.appspotmail.com>
+To: akpm@linux-foundation.org, davem@davemloft.net, dvyukov@google.com, 
+	edumazet@google.com, elver@google.com, glider@google.com, horms@kernel.org, 
+	jannh@google.com, jhs@mojatatu.com, jiri@resnulli.us, junjie.cao@intel.com, 
+	kasan-dev@googlegroups.com, kuba@kernel.org, liam.howlett@oracle.com, 
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org, lorenzo.stoakes@oracle.com, 
+	netdev@vger.kernel.org, pabeni@redhat.com, pfalcato@suse.de, 
+	syzkaller-bugs@googlegroups.com, vbabka@suse.cz, vinicius.gomes@intel.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Fri, Aug 28, 2026 at 06:14:56PM +0200, Maurizio Casciano wrote:
-> AtomISP currently rejects all raw formats and silently substitutes
-> YUV420. This prevents userspace camera processing stacks from obtaining
-> unprocessed sensor frames.
-> 
-> Enumerate only the raw format matching the sensor media-bus code and
-> reconcile raw requests with the code selected by the sensor. Userspace
-> opts in by selecting that raw V4L2 pixel format with VIDIOC_S_FMT.
-> 
-> Raw formats expose the full sensor transport frame so ISP2401 can use
-> its copy pipeline. Processed formats retain the existing global padding
-> behavior; selecting a smaller receiver crop remains a userspace pipeline
-> decision.
+Hello,
 
-...
+syzbot has tested the proposed patch and the reproducer did not trigger any issue:
 
-> Link: https://lore.kernel.org/linux-media/apCc_pt5dDxGJrei@ashevche-desk.local/
-> Link: https://lore.kernel.org/linux-media/apF0Cds9fnqQ7XRg@kekkonen.localdomain/
+Reported-by: syzbot+e4aa91d7f20c34417d4e@syzkaller.appspotmail.com
+Tested-by: syzbot+e4aa91d7f20c34417d4e@syzkaller.appspotmail.com
 
-Drop these.
+Tested on:
 
-...
+commit:         1bb784eb Merge branch 'net-phy-fix-cleanup-after-probe..
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/netdev/net-next.git
+console output: https://syzkaller.appspot.com/x/log.txt?x=17e3be25580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=5e4e3a0e188a497e
+dashboard link: https://syzkaller.appspot.com/bug?extid=e4aa91d7f20c34417d4e
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=171ebe25580000
 
-> void atomisp_get_padding(struct atomisp_device *isp, struct v4l2_area size,
-
->  	u32 min_pad_w = ISP2400_MIN_PAD_W;
->  	u32 min_pad_h = ISP2400_MIN_PAD_H;
->  	struct v4l2_mbus_framefmt *sink;
-> -
->  	if (!input->crop_support) {
->  		pad->width = pad_w;
->  		pad->height = pad_h;
-
-Stray change.
-
-...
-
-> -	size.width = f->width;
-> -	size.height = f->height;
-> -	atomisp_get_padding(isp, size, &padding);
-> +	if (fmt->sh_fmt == IA_CSS_FRAME_FORMAT_RAW) {
-> +		padding = (struct v4l2_area) { };
-> +	} else {
-> +		size.width = f->width;
-> +		size.height = f->height;
-> +		atomisp_get_padding(isp, size, &padding);
-> +	}
-
-Compound literal is not needed here. With the previous suggestions this becomes
-
-	if (fmt->sh_fmt == IA_CSS_FRAME_FORMAT_RAW)
-		padding = {};
-	else
-		atomisp_get_padding(isp, f, &padding);
-
-...
-
->  			ffmt.code);
->  		return -EINVAL;
->  	}
-
-Not enough context, but I assume a blank line is good to have here.
-
-> +	if (fmt->sh_fmt == IA_CSS_FRAME_FORMAT_RAW &&
-> +	    fmt->mbus_code != snr_fmt->mbus_code) {
-> +		fmt = snr_fmt;
-> +		f->pixelformat = fmt->pixelformat;
-> +	}
-
-...
-
-> +	if (format->sh_fmt == IA_CSS_FRAME_FORMAT_RAW)
-> +		padding = (struct v4l2_area) { };
-
-		padding = {};
-
-should suffice.
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Note: testing is done by a robot and is best-effort only.
