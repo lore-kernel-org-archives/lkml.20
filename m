@@ -1,123 +1,132 @@
-Received: from mail-43172.protonmail.ch (mail-43172.protonmail.ch [185.70.43.172])
+Received: from pidgin.makrotopia.org (pidgin.makrotopia.org [185.142.180.65])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3ED13C65FD
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 15:43:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BD914B0C9C;
+	Mon, 31 Aug 2026 15:45:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.142.180.65
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788190997; cv=none; b=MSHn0LfPbjQ2is2lxaQMIEyWnnuXbUgwFhLV5dGUPVGaPY2kHZ8qJYD76pvuiK+IK6wZQwlrOp1ZvLPpPOg1QymOD6tP/xPbCYae6XWXX0yBWUVmRtnKtEwnYNqPO9RYxsk7pNIa57DOtUNyojg2Mo0+fOIFAgZe9C2LFXwdAus=
+	t=1788191108; cv=none; b=l295mROhEUk1YTVV9S7LlNLv0dqKWY8jiUWdBgErzqDLBZBEoatosh942/OEPTVylR715j5vbg2R0m+XgrnM4+fddV7z4lUDcxXBEjYgXBAY50oGhZ8zTUIRxqBKbtdTVhPyTY1tJ/WGkmle/Iro4P4V6iwYUwKk4Fy4yYEkDGc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788190997; c=relaxed/simple;
-	bh=4R02XWZQwQ6u8w6v21gxafSyuzg5q5a+jqxk6zqYGQs=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=CzHOE+AzLgsGVgxu0S0b22k6k8sYA6PbhLaRN+K9br9+TsCeQLPtdUMOU0d3YzG7zao5ZV+DFhs9TsKCnDwr6z7gP3WhnWUyA/ssQ3XW9P4o5Ak7Tyni0TabhmTZiuszxHx7L93Z8s2NjfruyRmIxbwwUjsHa0BtqFAd193hdlw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=ad7QNECN; arc=none smtp.client-ip=185.70.43.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="ad7QNECN"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
-	s=protonmail; t=1788190989; x=1788450189;
-	bh=gG1Jee+rqBZyPP8h6yxwduaDcelmPRtHceq5Rf5Lz64=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:From:To:
-	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=ad7QNECNEIJXZSTLvPX4Cd4P9c1KPRhQC5GklGYbaZf3Gk+LoQm47pRXiOuscFnCO
-	 fSfbHYs5W1TimCIxjJ6tPr470txW0gzMJUvdibUDAh6LAM1s3ht5jKMrbjKe/Dn1cB
-	 l8glK45f6cGMMVJufgc4ENYkkg/rQQNzedMc9FhAhPKqNFcba2+WgNcKS4fiA05t0z
-	 VoxKeNUzPexXTz6vMaevbRJA4vyE8uk9OdjoPonX2fEagqe30Eid31u1D3tyVrG4Y+
-	 /m0yITUqjaJYBBY/sPGoc74ww+U8DwfIkUt8hjkkuiq8Qi5w/rqb/BzX2XjnCkTgue
-	 ++N3r5F/ZiNTg==
-X-Pm-Submission-Id: 4hYYDC0LLKz2ScWg
-From: Esben Haabendal <esben@geanix.com>
-To: "Andy Shevchenko" <andriy.shevchenko@intel.com>
-Cc: "Jonathan Cameron" <jic23@kernel.org>,  "Lars-Peter Clausen"
- <lars@metafoo.de>,  "Rob Herring" <robh@kernel.org>,  "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>,  "Conor Dooley" <conor+dt@kernel.org>,
-  "Martin Kepplinger" <martink@posteo.de>,  "Sean Nyekjaer"
- <sean@geanix.com>,  "David Lechner" <dlechner@baylibre.com>,  Nuno
- =?utf-8?Q?S=C3=A1?=
- <nuno.sa@analog.com>,  "Andy Shevchenko" <andy@kernel.org>,  "Martin
- Kepplinger" <martin.kepplinger@theobroma-systems.com>,  "Christoph
- Muellner" <christoph.muellner@theobroma-systems.com>,
-  <linux-iio@vger.kernel.org>,  <devicetree@vger.kernel.org>,
-  <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v7 4/8] iio: accel: mma8452: Support interrupt sharing
-In-Reply-To: <apWIJfGoQLtDV4IB@ashevche-desk.local> (Andy Shevchenko's message
-	of "Mon, 31 Aug 2026 16:56:53 +0300")
-References: <20260831-mma8452-open-drain-v7-0-22946812c928@geanix.com>
-	<20260831-mma8452-open-drain-v7-4-22946812c928@geanix.com>
-	<Ncm871ICTmFO0dGlJCPws8DbZwRNawMZGh74FyRieKxOU9C35zNksyV7FWkx97CU50ky9hYms5spg6SF8rATTQ==@protonmail.internalid>
-	<apWIJfGoQLtDV4IB@ashevche-desk.local>
-Date: Mon, 31 Aug 2026 17:43:06 +0200
-Message-ID: <87ik4quwhh.fsf@geanix.com>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	s=arc-20240116; t=1788191108; c=relaxed/simple;
+	bh=uDD1Qf9E2k39uOikV5ad339e+tIacNu4p9DOvxTuqL8=;
+	h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=XQxB4qTSuEuy4oMt/iH2G4oBXzJkr0A9ek/Sk2XCKglQZvE7HRQyGNKEUHzfeBfEP5ajKNfJByA9fAJfBOb7WGEjOjHeZ30VhSoMUvZ1fWRhTiE8SpIVp2jjpZxF61Q4uU/C5D0TO4k+dYiQiIPmY4BiR+GCyJgcwY2GTddGPHc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org; spf=pass smtp.mailfrom=makrotopia.org; arc=none smtp.client-ip=185.142.180.65
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=makrotopia.org
+Received: from local
+	by pidgin.makrotopia.org with esmtpsa (TLS1.3:TLS_AES_256_GCM_SHA384:256)
+	 (Exim 4.99)
+	(envelope-from <daniel@makrotopia.org>)
+	id 1x144x-0000000078f-0rPf;
+	Mon, 31 Aug 2026 15:37:47 +0000
+Date: Mon, 31 Aug 2026 16:37:43 +0100
+From: Daniel Golle <daniel@makrotopia.org>
+To: "Chester A. Unal" <chester.a.unal@arinc9.com>,
+	Daniel Golle <daniel@makrotopia.org>, Andrew Lunn <andrew@lunn.ch>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Russell King <linux@armlinux.org.uk>, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org
+Subject: [PATCH net-next v5 0/9] net: dsa: mt7530: modernise register access
+ and add two DSA ops
+Message-ID: <cover.1788190568.git.daniel@makrotopia.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-"Andy Shevchenko" <andriy.shevchenko@intel.com> writes:
+The mt7530 driver carries its own register accessors that predate the
+regmap conversion and now largely duplicate what regmap already
+provides, including locking. Most of this series removes that layer.
 
-> On Mon, Aug 31, 2026 at 02:17:07PM +0200, Esben Haabendal wrote:
->> Adding handling of rutnime PM suspension in the interrupt handler allows
->> sharing interrupt with other devices.
->>
->> Keep in mind that the device by default is using push-pull for the irq pin,
->> which might require additional hardware design to allow interrupt sharing.
->>
->> The suspended flag is added together with synchronize_irq() in order to
->> protect against race conditions when doing runtime suspend and device
->> removal. This way we ensure that interrupt handler does not try to access
->> the device while regulators are disabled.
->
-> ...
->
->> static int mma8452_runtime_resume(struct device *dev)
->
->>  		return ret;
->>  	}
->>
->> +	WRITE_ONCE(data->suspended, false);
->> +
->>  	ret = mma8452_active(data);
->>  	if (ret < 0)
->>  		goto runtime_resume_failed;
->
->>  	return 0;
->>
->>  runtime_resume_failed:
->> +	WRITE_ONCE(data->suspended, true);
->>  	regulator_disable(data->vddio_reg);
->>  	regulator_disable(data->vdd_reg);
->
-> But with this, what's the point in having WRITE_ONCE()? It can be read
-> just in the middle as true and be immediately changed afterwards. It
-> may be that I am missing something, but I think WRITE_ONCE() should be
-> done once in this function.
+It first moves the MDIO bus locking into the switch regmap via
+.lock/.unlock callbacks, matching the PCS regmaps, so any path reaching
+the regmap is serialised automatically. With the wrappers no longer
+adding locking, the thin mt7530_mii_* indirection is folded away and the
+remaining accessors are replaced mechanically with the plain regmap API,
+using the coccinelle semantic patches included in the commit messages.
+The two remaining reset polls are converted to
+regmap_read_poll_timeout() and the then-unused dummy poll machinery is
+dropped. Open-coded register fields are converted to
+FIELD_GET/FIELD_PREP. None of this is intended to change behaviour.
 
-Yes, there does look like there is still a race condition after adding
-this data->suspended flag. An irq handler could just have read
-data->suspended, gotten false, and thereafter proceeeded with handling
-the irq, and then we write data->suspended=true and the irq handler
-would just continue with accessing the device, even though we are now
-(if possible) powering down the device.
+The last two patches implement .port_fast_age, which flushes dynamically
+learned MAC entries on topology changes, and .port_change_conduit, which
+moves a user port's CPU-port affinity at runtime.
 
-I did go through all the pre-existing runtime pm and other race
-condition issues raised by sashiko-bot during this review, and worked
-through it all. The result is a quite a bit larger than what I would
-like to add on top of this series. Among other things, it converts the
-driver to use regmap for accessing the i2c registers, and after various
-fixes the data->suspended flag is removed again.
+The swallowed MDIO errors Sashiko flagged on v4 5/8 have meanwhile been
+fixed in tree by "fix swallowed MDIO read errors" and "fix remaining
+swallowed MDIO access errors", both merged into net-next. This respin is
+rebased on top of them: regmap_* return values are no longer ignored,
+which is what most of the semantic patches had to be reworked for.
+---
+v5:
+ * rebase onto current net-next, on top of the two MDIO error handling
+   fix series merged since v4
+ * new patch 6/9 dropping the mt7530_dummy_poll machinery
+ * 1/9: also revert commit dd52b3df25ed ("net: dsa: mt7530: serialize
+   the regmap IRQ chip like every other user"), whose workaround the
+   regmap's own locking makes redundant
+ * 7/9: list STAG_VPID among the repaired macros, document the
+   VTCR_VID() masking
+ * 8/9: check the ATC command write and poll via
+   regmap_read_poll_timeout()
+ * 9/9: list EN7528 among the single-CPU-port switches
+v4:
+ * rebase onto current net-next
+ * 5/8: zero the read-back buffer in mt7530_regmap_read() instead of
+   initialising the result variables at every call site, as suggested
+   by Jakub
+ * 6/8: keep MT753X_CTRL_PHY_ADDR() as plain address arithmetic rather
+   than converting it to FIELD_PREP() as suggested in review: the macro
+   computes the MDIO bus address of the switch PHYs, used as the addr
+   argument of bus->read/write and as an iterator base in
+   mt7530_setup_mdio(), not a hardware register field
+v3:
+ * 5/8: initialise register read-back variables to 0 so a failed
+   regmap_read keeps the previous read-as-zero behaviour, and use u32
+   for the value in mt7530_setup_port5
+ * 6/8: name the age timer field AGE_TIMER_MASK and document the
+   corrected ATC_HASH/VTCR_VID field macros
+ * 7/8: serialise the port_fast_age ATC flush under reg_mutex and log
+   on timeout, align a define, and correct the commit message which
+   wrongly claimed per-port parity with b53/realtek
+ * 8/8: populate the netlink extack on rejection and refuse a conduit
+   that lives on a different switch
+v2:
+ * fix stray 'static void' left-over in 4/8 which had a fix accidentally
+   folded into 5/8 (byte-identical state at 8/8, but bisectability is
+   restored)
+ * extend port_change_conduit op commit message
 
-So I am a bit hesitant to pull all those changes into this series, the
-combined series would blow up quite a bit. But if required, I guess I
-can do that, although I fear that it will not make reviewing easier to
-mix things more than maybe needed.
+Daniel Golle (9):
+  net: dsa: mt7530: move MDIO bus locking into regmap
+  net: dsa: mt7530: fold mt7530_mii_write/read into mt7530_write/read
+  net: dsa: mt7530: replace mt7530_write with regmap_write
+  net: dsa: mt7530: replace mt7530_rmw/set/clear with regmap API
+  net: dsa: mt7530: replace mt7530_read with regmap_read
+  net: dsa: mt7530: drop the dummy poll machinery
+  net: dsa: mt7530: convert to use field accessor macros
+  net: dsa: mt7530: implement port_fast_age
+  net: dsa: mt7530: implement port_change_conduit op
 
-Could we find a way to merge this series first in some way, or should I
-post a new version with all the other fixes added on top?
+ drivers/net/dsa/mt7530-mdio.c |  12 +-
+ drivers/net/dsa/mt7530.c      | 834 ++++++++++++++++------------------
+ drivers/net/dsa/mt7530.h      | 221 ++++-----
+ 3 files changed, 530 insertions(+), 537 deletions(-)
 
-/Esben
+
+base-commit: 1bb784eb6e38fd73143f021608e4ef3095d0c0d7
+prerequisite-patch-id: 0000000000000000000000000000000000000000
+-- 
+2.55.0
