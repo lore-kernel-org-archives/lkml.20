@@ -1,143 +1,150 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from TYDPR03CU002.outbound.protection.outlook.com (mail-japaneastazon11023110.outbound.protection.outlook.com [52.101.127.110])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDBEE3E120C;
-	Mon, 31 Aug 2026 08:22:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788164576; cv=none; b=LSGavYLK2Z0MmoUqNQ/qxVbntJVrObcaF6xvctL+KbnMWCjRXJqkf7KnSNPAC2iWSMCeOeFvkhO01DedRSzoIaRAF5LypM2HU+6goLHzOCvZEyWq6gLLPPMWn+LaoHRxA2R6YU51XkJGo+D3iDWctXo4Suxhe3hX7RlnOAp4wRI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788164576; c=relaxed/simple;
-	bh=wnOb710GDzXvB78jABPqDFMRlLh8C3NnDR9JYFb6Gvo=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=n1bjO5deoVe1SfpRYRo6jbMcGaqQkYjmOuKa20eWV4oNP+7CHTy0sTewAS4bNFAJGMAbFoioI/MKND3N74wLy8SkKep3kbKJg+wWCjSuhlq9GYnpmPu2rvPAYUeuviD7Gn/HhEQuR6NlBiP9f1GntFp3c7dFCVAqyBsveARP70Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kDuLGYij; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kDuLGYij"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 734C01F000E9;
-	Mon, 31 Aug 2026 08:22:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788164574;
-	bh=lmGgmlxDbGLbhuLXzpdjg1bjgsmwZj4DcRmR+5yii2Q=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=kDuLGYijTZY4L/lJ/eKPEPZ79jZ7Xzmksn4BPj95fcn4/heyZX5sB2+cMA38oBDso
-	 6JiwxxbpqX3bnt+aDaYhdskRY0eL3Elp2ksONcUTyVNV1yDn40MOWzowF4/4iQkzpX
-	 FUSGofyobRO9WCZ7d7+xpLahTeq+0fu4OdkWhOsrufaSThIk5kbwJwdQ9YJ5Q1xDNA
-	 kR4jaXnYHcWCmBy+b7/VhvLvCK6Me5gvxHj/PJ1rGpI+P8epCwSyDdHQCO5RMKeTBV
-	 W52ImWhGYlJDU0FChhsUy6to3arDCcjLQYzjxxGO6D4zx/2cdFUAG4ATb69hZtdThq
-	 hgWE7GVrWnesQ==
-From: Christian Brauner <brauner@kernel.org>
-To: Jan Kara <jack@suse.cz>, Alexander Viro <viro@zeniv.linux.org.uk>, 
- Matthew Wilcox <willy@infradead.org>, linux-fsdevel@vger.kernel.org, 
- Chao Shi <coshi036@gmail.com>
-Cc: Theodore Ts'o <tytso@mit.edu>, 
- Andreas Dilger <adilger.kernel@dilger.ca>, 
- Baokun Li <libaokun@linux.alibaba.com>, 
- Ojaswin Mujoo <ojaswin@linux.ibm.com>, 
- Ritesh Harjani <ritesh.list@gmail.com>, Zhang Yi <yi.zhang@huawei.com>, 
- Zhang Yi <yi.zhang@huaweicloud.com>, Bob Copeland <me@bobcopeland.com>, 
- Namjae Jeon <linkinjeon@kernel.org>, Sungjong Seo <sj1557.seo@samsung.com>, 
- Yuezhang Mo <yuezhang.mo@sony.com>, 
- OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>, Mark Fasheh <mark@fasheh.com>, 
- Joel Becker <jlbec@evilplan.org>, Joseph Qi <joseph.qi@linux.alibaba.com>, 
- Andreas Gruenbacher <agruenba@redhat.com>, linux-ext4@vger.kernel.org, 
- ocfs2-devel@lists.linux.dev, gfs2@lists.linux.dev, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <cover.1785951556.git.coshi036@gmail.com>
-References: <cover.1785951556.git.coshi036@gmail.com>
-Subject: Re: [PATCH v2 00/21] buffer: stop clearing BH_Uptodate when a
- write fails
-Message-Id: <20260831-lauwarm-gedruckt-salzkartoffel-67b444e6977e@brauner>
-Date: Mon, 31 Aug 2026 10:20:39 +0200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57B073D34BB;
+	Mon, 31 Aug 2026 08:23:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.127.110
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788164599; cv=fail; b=bI21or1mrviYKf7w38j/Cy/KxCcHHcXYiwcOD8eHS47ml/4Po81rZkN1f7+6g7R/HWMmjDufwSkZi8dQ9Mq1zxltiGnWCa7PJQDg2/JHaK7O9uQ60iYaktEBNB4ZGF3HVYvQ1tniW2z0DJhXEFCA3uz5/o0xjrDnwCllC5Yqmw4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788164599; c=relaxed/simple;
+	bh=yBa6MAoFxvkpp3H98ftdDyxTihkSRcxRYHecOESRZLc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=fMq8HtVjpQ0aX/EAawq1wU/w8IHChXVnx/VrnvbMFOK9dWd9X16Z5ZYV86y33XzO5nYJ6ZJjtetiEi1bOxvmFUK7kSX30q2yYMCVezn7zD48ZxlrA6wliY+pQQkORm30UG+Me4mB0XTownDEW1tzzZ4kotEaYrMVJxYFtdr4v2w=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com; spf=pass smtp.mailfrom=cixtech.com; arc=fail smtp.client-ip=52.101.127.110
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=jmC8puW/JfYBLPObnet/qZF+jags219p0VEOTP/I7JUInr3go0QIpsJnkrQ8ixCPEmfFnbbp579hTguwAPXPINUDmZYPBf8PYynfmywepe6JiKNKgLVM1UBqtCHhWYw13zD2hgnqfB6Tdi9Lf+7rXXJyZ5HyyYS91IMRAilR42HO1TJaCZF2Pwex+jl+XxjI7BazZqdGtleWJ8V+Q/fimamy1rIV4Gfo0ttBFfOZEawvUqXc1wgDVJX27NXpUGSmXG+Vji6YKiKJta106wFkvTB6kziDvHpQVUwBDsBFex3DJssZoqtIpTKjz+qkdnmvcKZeajLy+f8VmnLch2fCXw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=f15CQ+mxjdjEHSCbKIISZHUTpdx5KtqbUP9sBQrU00I=;
+ b=d0kPqDbN8yNYVbnx1N1GTgxca6KDsDSifDRCY+3n7eHkeDBcsKJAWCyGgofFgdmDoPeXMxESuImIL9IkIlPTRHP9Xjhtiy1Z2MDFI+c784LGABtj93q34w/pysj0D+wt4SD20h3qRROqXQrjZlN2y4sHyBquOXyQUMHmhcWOX8CrRCSg8n3u0EMBhlSQXONh4yq0QyOc6ogx1Evpe3ep4fmDBS988NHUh5E99g4hlpuskxSlmPy8RpviFFkcxYGgsNzTdaayybeq9Aw2Bydu+GxnAUrCc1PElW3vCoiad9SJW7ASyA6Mo+XMY7qHf0vmpe2iuxhvI6f3ohy7XTrXww==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 222.71.101.198) smtp.rcpttodomain=cadence.com smtp.mailfrom=cixtech.com;
+ dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
+ not signed); arc=none (0)
+Received: from SG2PR04CA0206.apcprd04.prod.outlook.com (2603:1096:4:187::21)
+ by SG2PR06MB5240.apcprd06.prod.outlook.com (2603:1096:4:1da::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Mon, 31 Aug
+ 2026 08:23:12 +0000
+Received: from OSA0EPF000000C9.apcprd02.prod.outlook.com
+ (2603:1096:4:187:cafe::24) by SG2PR04CA0206.outlook.office365.com
+ (2603:1096:4:187::21) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.13 via Frontend Transport; Mon,
+ 31 Aug 2026 08:23:12 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 222.71.101.198)
+ smtp.mailfrom=cixtech.com; dkim=none (message not signed)
+ header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
+Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
+ 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
+ client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
+Received: from smtprelay.cixcomputing.com (222.71.101.198) by
+ OSA0EPF000000C9.mail.protection.outlook.com (10.167.240.55) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.382.8 via Frontend Transport; Mon, 31 Aug 2026 08:23:10 +0000
+Received: from hongliang-System-Product-Name (unknown [172.20.64.180])
+	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id 91EB84092108;
+	Mon, 31 Aug 2026 16:23:09 +0800 (CST)
+From: Hongliang Yang <hongliang.yang@cixtech.com>
+To: peter.chen@kernel.org,
+	pawell@cadence.com,
+	vkoul@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org
+Cc: gregkh@linuxfoundation.org,
+	rogerq@kernel.org,
+	neil.armstrong@linaro.org,
+	p.zabel@pengutronix.de,
+	fugang.duan@cixtech.com,
+	cix-kernel-upstream@cixtech.com,
+	linux-usb@vger.kernel.org,
+	linux-phy@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Hongliang Yang <hongliang.yang@cixtech.com>
+Subject: [PATCH v1 0/4] Add CIX Sky1 USB3/USBSSP support
+Date: Mon, 31 Aug 2026 16:23:04 +0800
+Message-ID: <20260831082309.3854507-1-hongliang.yang@cixtech.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev-362b8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3922; i=brauner@kernel.org;
- h=from:subject:message-id; bh=wnOb710GDzXvB78jABPqDFMRlLh8C3NnDR9JYFb6Gvo=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWRNtbzJ87J41a5rDh88SrxLj019wMf7ZdaNyWoRf36K7
- 5nGYlVR2VHKwiDGxSArpsji0G4SLrecp2KzUaYGzBxWJpAhDFycAjAR0V8M/7PsK/maZ50rW/Aw
- se7TNPM5UrPXVnCy82ZtVAs3EXx0LZKRYYvaOo7NJmWzWpcEBVrvZ7rOsdFfq4dnq69PApPHBjt
- fbgA=
-X-Developer-Key: i=brauner@kernel.org; a=openpgp;
- fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: OSA0EPF000000C9:EE_|SG2PR06MB5240:EE_
+Content-Type: text/plain
+X-MS-Office365-Filtering-Correlation-Id: fc47fbed-bbcf-4079-0bac-08df07391849
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|376014|1800799024|23010399003|7416014|82310400026|10067099003|18002099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	hctm7wrzbAGQ0h/iNJJpJ0oC3FCpkeSvR4WQX/ImcyLtavpfzP+p5H6eW9QYoSzFQBbV4SksLnEBxw6l4kIn5mFYnNKslTFpRFaJReQEk7AEwkaQtD/+/k7+HZJaRnfTv7l9klCjpK2pDc+PQiwhYMtn3Yu6G92Oyx3xK/dDyblEc32WCi456lJu27Tq5AvJBw1v/e9GymzsWTI+Dujyv5TTl3qhz66i/73LrTJB3JVjwmoamqNx+i2pSMMCmtm0Qj2OyEoR5YtSVl+mRn7T6YLrvwR7d4UFtoVJz8cwT2gSYIU6gAOZnXSd3mFr7rca5wxEjI311PxS7oOaBs2lDjlMDyoYU5fYHZ4ff638mOBetLZXpoXnfmQhIVRHV9m70ekKCv9LJi9vT9agZE3CHnrjj+dYeZYuvcZ8mpQ5LrRHCF4zA5e2SBR5fKSmOI7G1jdti5zcGi+oOQHJnHQiGnqRoRIzAL6dnalz0pYQBt/2XrXumKOe3k6UBMIz955bTK1BMLH5umyJkRqT1mjXL/QqCOxGre9Tc+49ZJMa3iqlEnDKW+jJ+WK0NzvK3KSIY/BDdf+EfBKAl4lMM+xFG3rz2eueYViYbJthdutGKNUpCYL4Uymi5x9Ls3XGWhXnQn0HvGey0dW53l1npXR5e64VwYiQ5komQ5oDXvU4cd+U9ysSUlbbOKAGSNsvYb95G6GiiwfWgcldWBEF0Zfgbw==
+X-Forefront-Antispam-Report:
+	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(376014)(1800799024)(23010399003)(7416014)(82310400026)(10067099003)(18002099003)(56012099006);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	jkqjEbYZPxZmVJ0QW8Uarp+zI+QYVbsemqF6V5EsbzC7+rhqr9zLF0R+vfM3gFXxn7cI3jbU+52KWbsBLEaRLLUxRVQuI34pte73Roqr2RokW1WqrxJDUvvppIZe0Y/hFgbdjjCFkX3Gz2iSYIuLmmABRKCtPMD6NZWToe3ZmxWk0HFmRQ4DGI+sDt4WPJKFC97HwPRB1yEySwOVlK3aeMvPv1gXQ7Z93mw0RamrlHZ1I2O2EySIxDfhTvJEbIZNosLVEuzj64aN6h5Ub4pB8UoWcw0/CKaVOrK4biuXqFlje0MV1AlouSHVshlYEJbHNdBnLse7s8Y2d5Gahnm0endNp/PaYNXFtTH1A7QC5ci9E+i+KJsAUCd7P2hjZEQWCxl3WQ+kWN+PvwOEs/kzNwcOrs6+AFuxDGqFQQTv8fzq9zfIyR91EO4nKqIX8Tgx
+X-OriginatorOrg: cixtech.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 08:23:10.9476
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: fc47fbed-bbcf-4079-0bac-08df07391849
+X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	OSA0EPF000000C9.apcprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SG2PR06MB5240
 
-On Thu, 06 Aug 2026 12:58:23 -0400, Chao Shi wrote:
-> buffer: stop clearing BH_Uptodate when a write fails
-> 
-> When a metadata write fails, the buffer_head completion handlers clear
-> BH_Uptodate.  The buffer still holds exactly the data the filesystem asked
-> to be written - it is the disk that is stale, not the buffer - and saying
-> otherwise has consequences:
-> 
-> [...]
+Add USB3 PHY driver, Cadence USBSSP glue driver, and USB4/USB5
+device tree nodes for the CIX Sky1 SoC.
 
-Tbh, the commit message reads a bit LLMy. It would be nice if people
-could take the time - provided they have sufficient language skills - to
-massage the artificial tone out of them.
+This series adds support for the USB4 and USB5 controllers (based on
+Cadence USBSSP DRD) found on the CIX Sky1 SoC, along with their
+associated multi-port USB3 PHY.
 
----
+Hongliang Yang (4):
+  dt-bindings: Add CIX Sky1 USB bindings
+  phy: cix: Add CIX Sky1 USB3 PHY driver
+  usb: cdns3: Add CIX Sky1 glue driver
+  arm64: dts: cix: Add USB4/USB5 nodes for Sky1
 
-Applied to the vfs-7.4.bh branch of the vfs/vfs.git tree.
-Patches in the vfs-7.4.bh branch should appear in linux-next soon.
+ .../bindings/phy/cix,sky1-usb3-phy.yaml       | 109 +++
+ .../bindings/usb/cix,sky1-usbssp.yaml         | 153 ++++
+ MAINTAINERS                                   |   3 +
+ arch/arm64/boot/dts/cix/sky1-orion-o6.dts     |  36 +
+ arch/arm64/boot/dts/cix/sky1.dtsi             | 133 ++++
+ drivers/phy/Kconfig                           |   1 +
+ drivers/phy/Makefile                          |   1 +
+ drivers/phy/cix/Kconfig                       |  20 +
+ drivers/phy/cix/Makefile                      |   6 +
+ drivers/phy/cix/phy-cix-usb3.c                | 410 +++++++++++
+ drivers/phy/cix/phy-cix-usbdp.h               | 310 ++++++++
+ drivers/usb/cdns3/Kconfig                     |  13 +
+ drivers/usb/cdns3/Makefile                    |   1 +
+ drivers/usb/cdns3/cdnsp-sky1.c                | 682 ++++++++++++++++++
+ drivers/usb/cdns3/cdnsp-sky1.h                | 127 ++++
+ 15 files changed, 2005 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/phy/cix,sky1-usb3-phy.yaml
+ create mode 100644 Documentation/devicetree/bindings/usb/cix,sky1-usbssp.yaml
+ create mode 100644 drivers/phy/cix/Kconfig
+ create mode 100644 drivers/phy/cix/Makefile
+ create mode 100644 drivers/phy/cix/phy-cix-usb3.c
+ create mode 100644 drivers/phy/cix/phy-cix-usbdp.h
+ create mode 100644 drivers/usb/cdns3/cdnsp-sky1.c
+ create mode 100644 drivers/usb/cdns3/cdnsp-sky1.h
 
-Please report any outstanding bugs that were missed during review in a
-new review to the original patch series allowing us to drop it.
 
-It's encouraged to provide Acked-bys and Reviewed-bys even though the
-patch has now been applied. If possible patch trailers will be updated.
-
-Note that commit hashes shown below are subject to change due to rebase,
-trailer updates or similar. If in doubt, please check the listed branch.
-
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
-branch: vfs-7.4.bh
-
-[01/21] buffer_head: Remove b_page
-        https://git.kernel.org/vfs/vfs/c/719ecb98ffe7
-[02/21] buffer: allow a buffer_head to point at memory outside the page cache
-        https://git.kernel.org/vfs/vfs/c/8deae2284976
-[03/21] jbd2: point the shadow buffer at the frozen data directly
-        https://git.kernel.org/vfs/vfs/c/5febcba29792
-[04/21] buffer: read the folio's mapping directly in buffer_set_crypto_ctx()
-        https://git.kernel.org/vfs/vfs/c/14cbade7d773
-[05/21] buffer: clear BH_Write_EIO when a buffer is forgotten
-        https://git.kernel.org/vfs/vfs/c/d59fe9111f4f
-[06/21] buffer: discard BH_Write_EIO along with the rest of the buffer state
-        https://git.kernel.org/vfs/vfs/c/bbcd6f7456b2
-[07/21] buffer: detect metadata write errors with buffer_write_io_error()
-        https://git.kernel.org/vfs/vfs/c/7032ded0a1fa
-[08/21] adfs: check for a directory write error with buffer_write_io_error()
-        https://git.kernel.org/vfs/vfs/c/613e12102111
-[09/21] ext2: check for an xattr block write error with buffer_write_io_error()
-        https://git.kernel.org/vfs/vfs/c/583913a40f2e
-[10/21] omfs: check for an inode write error with buffer_write_io_error()
-        https://git.kernel.org/vfs/vfs/c/a269f6fade99
-[11/21] exfat: check for a directory write error with buffer_write_io_error()
-        https://git.kernel.org/vfs/vfs/c/4a53ece574b5
-[12/21] fat: check for a metadata write error with buffer_write_io_error()
-        https://git.kernel.org/vfs/vfs/c/a93ff8e2e398
-[13/21] ext4: check for a metadata write error with buffer_write_io_error()
-        https://git.kernel.org/vfs/vfs/c/0f44b420e6c7
-[14/21] ocfs2: check for a metadata write error with buffer_write_io_error()
-        https://git.kernel.org/vfs/vfs/c/3f90f64f8187
-[15/21] ocfs2: check for a stale write error before reusing a metadata buffer
-        https://git.kernel.org/vfs/vfs/c/a87462d7b604
-[16/21] gfs2: check for a metadata write error with buffer_write_io_error()
-        https://git.kernel.org/vfs/vfs/c/47552ff5ebf9
-[17/21] jbd2: report journal write errors with BH_Write_EIO
-        https://git.kernel.org/vfs/vfs/c/0c6c46fbf4d8
-[18/21] jbd2: say what jbd2_freeze_jh_data()'s assertion is actually checking
-        https://git.kernel.org/vfs/vfs/c/50cf8c8e532c
-[19/21] ext4, jbd2: report fast commit write errors with BH_Write_EIO
-        https://git.kernel.org/vfs/vfs/c/a49d8a9d5d49
-[20/21] buffer: stop touching BH_Uptodate on write completion
-        https://git.kernel.org/vfs/vfs/c/1f2304e87b83
-[21/21] buffer: clear BH_Write_EIO when a write succeeds, not when one starts
-        https://git.kernel.org/vfs/vfs/c/e038f1016c6f
+base-commit: dc59e4fea9d83f03bad6bddf3fa2e52491777482
+-- 
+2.54.0
 
