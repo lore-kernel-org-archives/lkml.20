@@ -1,78 +1,73 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F12E3C5848;
-	Mon, 31 Aug 2026 07:32:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C24637B025;
+	Mon, 31 Aug 2026 07:33:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788161558; cv=none; b=tlW4SsllXKcBPdA4pUILW1UlWaZyzXHGWusVpUG3pUnIiZyTUuxiAS9GvjQ239HEfXeNXd3OtZwYR1kVlcQZH8ESS+laNf2UrHK6ig/ta91SQD/9opvyrA9k5ZrlljNke9C2uuzZPnIHhzig2HHztkw3SxnajojRTAHnfbn+K0o=
+	t=1788161595; cv=none; b=sMVBXeSvtQthjy8WFJSEQ82esRZpkBRorTgoFpy+pWT7xZiqryZfapw5ltphcZrS1M/EkJJsEbWtKzO2gOw60CHv30Txzmvy8DDtGHsQpjJ1QZwdM4OXZMOFXO+kjJepnUVEeUPskTrfXd99NUWCgoZpn9qumrZDiAfs365hRBw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788161558; c=relaxed/simple;
-	bh=0N1rgXgHf09DO9EAlnqYl9uNiSxR30hkyV3WKM02KU0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mq0xS8RtX2PITUVQ2SoZrXzYSNViH5fVm/kHUl4aVrtfDCgMndwNA487HiwoWbbBUSrEaH+LBMURoLCIlTu4Pvj0b6A7yxpvBZLdy/6jBBUBtm2tQp52SJrMJ6M8meV8UVVkq1BcyuMipk60oE1F6JOlCw4mVOh52T72KEDkESk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=IiiiQCf6; arc=none smtp.client-ip=192.198.163.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="IiiiQCf6"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788161557; x=1819697557;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=0N1rgXgHf09DO9EAlnqYl9uNiSxR30hkyV3WKM02KU0=;
-  b=IiiiQCf69QHAReS2RFcTMhs7EhG/nrfcLm+n9EksbSwmD+GkJbsikcJd
-   CgGNoUVPA7AfZ6mVEObywjfk2oezt8wuz4uNWFex/ChUjs4chKTEsNbG6
-   2FKozLRIGpAxKiM+ggaA+lepVtkc261ihKBGaI7pdCX70t90OiOMMHfNQ
-   lzBg4G3cIeWptp6ECxpRZ4Lgc3LhaaiJA6CcpP2dNnqsoso/MgK1L2GFN
-   04Y6IdL4ufWG3jBAfVWo3Zs+hUg0ZK+X1U1volx21fDlDGTANSBcMLZRP
-   dpd/XF7bQinLMWRnYlR6nQq7oU3TjM5qPQ3ISojvGs/2WIb8UGXdMVxaW
-   w==;
-X-CSE-ConnectionGUID: Uu2IKeDAQWKpmazizRQJ7g==
-X-CSE-MsgGUID: j2hGR6lASSGizskgDJ0/CQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11891"; a="88684729"
-X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
-   d="scan'208";a="88684729"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 00:32:36 -0700
-X-CSE-ConnectionGUID: lcE0xSgJQ52Hwm9yUN8hWg==
-X-CSE-MsgGUID: IC/Uq6JeRmGEotTVYwm0VA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
-   d="scan'208";a="264434673"
-Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.244.21])
-  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 00:32:34 -0700
-Date: Mon, 31 Aug 2026 10:32:32 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Tate Whiteberg <whiteberg@arista.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Andy Shevchenko <andy@kernel.org>, linux-kernel@vger.kernel.org,
-	linux-serial@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] serial: 8250: export and rename wait_for_xmitr()
-Message-ID: <apUuEHzKEBreO9JB@ashevche-desk.local>
-References: <20260828175733.1650267-1-whiteberg@arista.com>
- <20260828175733.1650267-2-whiteberg@arista.com>
+	s=arc-20240116; t=1788161595; c=relaxed/simple;
+	bh=SdkWQMLjnwcTgkXuc+oA2UTtBRmU7q4cAHIOn5ESgPQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=uxRpSWm2Rd7TSrNUrBQvWYJWm3x41rE+GUhT0MUMRsfFcmfeam2d/KNY9JSe8D12pQT2LY459Ii9lvC3qiwwdDJ5Ch9LfbUMiA3yPqHpGRsus8/hQNMYdH7YtJUy6BhEW6yhDZCqbPMLs79sHD8Xf5CfyOwraKDgYNayJq7uFCg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 35c05af4a50e11f19a56ed5b684f684d-20260831
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:a2526e71-c759-4c87-b335-91a9221d9f42,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:7db8b62,CLOUDID:b5a2f58e55721b4b0a0f53f257589e8d,BulkI
+	D:nil,BulkQuantity:0,SF:81|82|83|102|850|865|898,TC:nil,Content:0|15|50,ED
+	M:-3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:
+	0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 35c05af4a50e11f19a56ed5b684f684d-20260831
+X-User: chenchangcheng@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <chenchangcheng@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 1790824634; Mon, 31 Aug 2026 15:33:07 +0800
+From: Chen Changcheng <chenchangcheng@kylinos.cn>
+To: jeffinphilip14@gmail.com
+Cc: bentiss@kernel.org,
+	ccc194101@163.com,
+	chenchangcheng@kylinos.cn,
+	jikos@kernel.org,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/2] HID: corsair: fix two use-after-free bugs on device removal
+Date: Mon, 31 Aug 2026 15:33:04 +0800
+Message-Id: <20260831073304.70146-1-chenchangcheng@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260831055005.18420-1-jeffinphilip14@gmail.com>
+References: <20260831055005.18420-1-jeffinphilip14@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260828175733.1650267-2-whiteberg@arista.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
 
-On Fri, Aug 28, 2026 at 05:57:27PM +0000, Tate Whiteberg wrote:
-> Export wait_for_xmitr() and rename it to follow naming convention.
+Hi Jeffin,
 
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+Thanks for pointing this out.
 
--- 
-With Best Regards,
-Andy Shevchenko
+The first two patches of the series have already been merged into
+v7.3, while the follow-up fix (making k90_brightness_set() a no-op
+once removed is set) has not been merged yet.  Since the original
+thread is about the two merged patches, I think it is cleaner to start
+a new thread for the remaining fix rather than appending it as a fixup
+to this one.
 
+I will submit the patch as a separate submission shortly, with both
+syzbot reports tagged so syzbot can verify the fix.
 
+Thanks again for the report.
+Chen Changcheng
