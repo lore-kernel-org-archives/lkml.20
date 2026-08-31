@@ -1,251 +1,151 @@
-Received: from mx0a-0016f401.pphosted.com (mx0a-0016f401.pphosted.com [67.231.148.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f180.google.com (mail-yw1-f180.google.com [209.85.128.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8EB239FCCA;
-	Mon, 31 Aug 2026 02:42:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=67.231.148.174
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788144152; cv=none; b=uYQKuveyxAoOKnpbdvBM9QFHhZ0BqVeg/v9XgAFn62/bKqotsxiufhkkHZaHutBrMYqILall0595U0L09Do6febDrBVBfNCi9KgJuLGk/5SNOGu33VnLkFtm60NBgp5f6SEYr0lzkHWoNVOu60Bqf+exoUj5x9USIjEKsjIFILI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788144152; c=relaxed/simple;
-	bh=FW8/DsqKFFmOX7ebpO5LpSWmfki5hsDx5qU2SPAi4Fc=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=d5miHGYad7JIbiPKUE4GdJsVljbLbaG+FzIBch7QeLW/AGLXm5BTd9Iy+6uyUqg1IB7SmWvycmSM3t0vkxD7TL3nRmy7SjkSGyamk+bIGI06LqQzFLKVDuFFnvFH5zihlCgVgErZIHH/cK5F0W4mEwtxUvSxZ+FRAmLxOaG1MM0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com; spf=pass smtp.mailfrom=marvell.com; dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b=frXyrBut; arc=none smtp.client-ip=67.231.148.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marvell.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB6883ACA5F
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 02:43:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.180
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788144215; cv=pass; b=GXK/M9Lb78PNProiX+FYHDRvT2pScCpJ2+/0slmSEXRZoWLf+Xav09NqmnwAdInCvqOg9I6sHd324rN9NkZMARWuMQ2VfBg6LpUt+eRWPErGSb1gGJBFOGKEcPFA1hkXc70e9lYWoRESUFtW7pLblff921nXQHwIlgr6I2ZJfsk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788144215; c=relaxed/simple;
+	bh=6ahtd83ldSoDYRvF3THgth4QTO0pTAI9WpqI9ilo/OA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=KLeDk5tGEjugsz6w7HzhbiBUfZ+iP7958enYMDCuZWKzW3P+IfVjdT2N2CwVQk2MhfpcZEThj3+2/XbAIGgnxYSqc+zyNCmbWi8xzS1P1rEVX5K3MAtuiieyGI2Rv1GkiLKSiPdcZtjGA9WglI1D6/9TcO2mccfhxHXriunnnrs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fJfVLkwH; arc=pass smtp.client-ip=209.85.128.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b="frXyrBut"
-Received: from pps.filterd (m0431384.ppops.net [127.0.0.1])
-	by mx0a-0016f401.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67V1buLC3698144;
-	Sun, 30 Aug 2026 19:42:20 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marvell.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=pfpt0220; bh=IpEtLAuhQdynZllPbO6Fg+4
-	6wAnOwB2T58eUa87MZ5k=; b=frXyrBut+E0BpFBfVFmDodY4YSuPoISy6P8olhe
-	c5Kv2ITslRisV93aJSZlmKlvkrYqgUA+e9vrpu57Hgj0z8WFBAYrGo3+hRUW8qTi
-	ah22XLFL6jWdPTfsVH6lXXg6ykJTK88eKYM1QhMU6q5zIO/RH1v3ZlDC4ERmkh5i
-	u316AS9OAGBngzYVr33bUtg3GLJQUaTMoutoTu3m/Z48D9bjuKdtiGtyxBe7c78s
-	3lVbS3rE6FVZhmcjx5INHDn+5O0ss9Pw6QA6YdX7Zy8x035iBzfHCb4sMdlXtJ7Y
-	QFj37yqczHY/xEs7IadC9AogfT/T+3Pa4TFikpuaGpziJlQ==
-Received: from dc5-exch05.marvell.com ([199.233.59.128])
-	by mx0a-0016f401.pphosted.com (PPS) with ESMTPS id 4gckp8h271-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Sun, 30 Aug 2026 19:42:20 -0700 (PDT)
-Received: from DC5-EXCH05.marvell.com (10.69.176.209) by
- DC5-EXCH05.marvell.com (10.69.176.209) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.25; Sun, 30 Aug 2026 19:42:19 -0700
-Received: from maili.marvell.com (10.69.176.80) by DC5-EXCH05.marvell.com
- (10.69.176.209) with Microsoft SMTP Server id 15.2.1544.25 via Frontend
- Transport; Sun, 30 Aug 2026 19:42:19 -0700
-Received: from rkannoth-OptiPlex-7090.. (unknown [10.28.36.165])
-	by maili.marvell.com (Postfix) with ESMTP id 836B33F7089;
-	Sun, 30 Aug 2026 19:42:16 -0700 (PDT)
-From: Ratheesh Kannoth <rkannoth@marvell.com>
-To: <davem@davemloft.net>, <gakula@marvell.com>,
-        <linux-kernel@vger.kernel.org>, <netdev@vger.kernel.org>,
-        <sgoutham@marvell.com>
-CC: <andrew+netdev@lunn.ch>, <edumazet@google.com>, <kuba@kernel.org>,
-        <pabeni@redhat.com>, Ratheesh Kannoth <rkannoth@marvell.com>
-Subject: [PATCH v4 net] octeontx2-af: switch qmem from coherent DMA alloc to streaming DMA mapping
-Date: Mon, 31 Aug 2026 08:12:09 +0530
-Message-ID: <20260831024210.208447-1-rkannoth@marvell.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fJfVLkwH"
+Received: by mail-yw1-f180.google.com with SMTP id 00721157ae682-836ce6cbe1eso28959077b3.1
+        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 19:43:31 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788144210; cv=none;
+        d=google.com; s=arc-20260327;
+        b=XDTMrdJPTOYBwtZowk2bwE5I+RsSqOTAu6HuA5Cgq1qh1C2f67XF1Z+dH8Vs1ihstE
+         y7UdCWLuEtsfTmzSuCJkBjZ/Sk3sdg3ptcIoIes66fA7qYxD13xxCroZK91HrY+glW+E
+         cU0G6aD0tznHDD5Rf6/YbosXL+q242Y1xXDNzfV5YVDx+8oqIRjKmEl7MAzNlFF3iy8i
+         AMP3etYS4CpaJT6lEIFxi3+aYUDpnIchOAsZ0f1bi9+1OBerol/xa/2Ps491FBuk4yKG
+         +2bfAYtkgJUXq2U98/rMH5f4MP3NnfNE7Oto7pD7ew8Rvl5QpdnLDNDKVh0d7pjNs3RF
+         cfiQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=NbE6ygLElQTTYS/K7ZqBXF2buqZVjb40e1vBsSRV3Do=;
+        fh=7eAu/t5w03twmu0ElpfM8KBS6Tjv/3Z3MfH2QSU3qg4=;
+        b=PcNelKZHV7p1d9bQ3P9u69iDEvDi4jx9cO8/gkR1LPzhr6OQEtrEur4aObZUtrNjs0
+         aEkFlMQ/i77Z8sw/nnprBTwrqoEjAcFWMaJ5+A9pCJLBhE5EatFb6zqwrtt713+P+A6A
+         zuveKD4tPu/MvsuXi3Rbbs1+UOa5vewERkGGjxqmOCfGFxKa7P9rDFZAOJj9kHfOZ/VY
+         VA9pCiiArs23zReImeevSY0ZaoJbjR9PtIp9g0miopDGWPZ8DpV8RMUxjDHpVl5W1Rv5
+         a2rf2IhUqzR35vklFMcNruSpC/UHMv8Hf1erpOHgsqQXx3PBlarGFWynP4BkRTar8HA7
+         wpVg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788144210; x=1788749010; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=NbE6ygLElQTTYS/K7ZqBXF2buqZVjb40e1vBsSRV3Do=;
+        b=fJfVLkwHSc+g8tOzDdqFC1nxH+LO9L1/sLCjt6DAcUocboQwftZwvaXi3rugKyAaTp
+         UZcGouo1FdCpP0fF3zjNy3MgbWg1TEF419d6AYlrTUcucNmoDlR0xNmKwKrr1ScO0nSD
+         KoTE3voeQfmP3cRWA8AtUA0O4XRAFDmNojEAi/lf+QBb7bGOGPKW43BV4l8L6jdig/MA
+         foTGhboc5DNwP4w9me5YbPWZXo7+6COUAudupKUxHlsKRtb3apZKEWffybLueZcM3pAh
+         LsT3czJb0cqCRVCRn+WYmAwLnle96QOX2PDeueuh2ugEOrK+E6jH1jbnFSGJFUQ2G1Za
+         Nr8w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788144210; x=1788749010;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=NbE6ygLElQTTYS/K7ZqBXF2buqZVjb40e1vBsSRV3Do=;
+        b=fUSSVEuM4jzrakYtELgFgz1cNtmgHDB8jfj4VdcqknP8sGkooWOITap/T/V74Ek/qD
+         2HPFqie70VZv5Ak2j0IcjS86+cYMsMCmL8Oo9dAJYOTHhtR5NEfx7r59pI1RhmCiKal3
+         ICQBNN74wMjtegEuKey1zbzFNh7H/R47fGXm73btjOoKM2DgzQWR6AFhsh0oTBI0oIPh
+         gu5epHXdgXptBAUK/3t5xr//hXbn4FojiWcM2DYnAV9s6S5vUszNim/+k2fGDHqgy1cL
+         oz2Wv36i7PeuqDW/BK3slYKZzpgUbJgcZRVTl24eGNJvcxeApYgvBUDXUWIYDavek5aH
+         Fk4A==
+X-Forwarded-Encrypted: i=1; AKwUvBweV/HLvODEkCpNYprDS1aeTi/7a3x7H+A/XEJbx6XZayYT0do5XkFoTraipAkma6hh3wzUtrQ0p43Futk=@vger.kernel.org
+X-Gm-Message-State: AFuF++nkx1CiYvdVndYwOupHLaUKK3GT1z+fMBBkkkceECcABytHqsG3
+	A0FmZx2eCv7n5M7SymgJTrStlAEJRwxqKlVpXT7thVtQSFImJAffwi0XKk62iXqXMlx/UjmjaIi
+	g6lsMA4Aj8+5LhP+bfbNEE0MVLLvmSNE=
+X-Gm-Gg: AYBFou01soGLeJ745iRV3VxrL9l0QsEdv+R80KnD0XtkzCQQPb6VxlSTKZFNf38NcDD
+	TRpUi09J/02LOtZ/mm33u8bcbnpVjVbfpy3QvMkMFDkZpcfSfm/nXdocI8/RHNEoWV6LR1xrnrB
+	48vKm4NQ5aLg8Gl82X3sJ3IShzRif6ZK6UkLQ1cdSoXuTTFuohzyRnDRhlreNjErClGZ/p7OcIc
+	+NVLKdK7OLoB4bk9Gz9LpidbrlZGpDJmvLUI3K7lnQol+luFk0H1nOr6OEDJMUqntlx1ksPs6H1
+	O8ClOnfx0f2UgPRwyE/De7VoSPUXqI7aX9pURJgGcnFqaw==
+X-Received: by 2002:a05:690c:38a:b0:81e:695b:585c with SMTP id
+ 00721157ae682-8678f0c3792mr241247b3.4.1788144210009; Sun, 30 Aug 2026
+ 19:43:30 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODMxMDAyMSBTYWx0ZWRfX/Z3VxEpSogrw
- 5IqkStHJdtHGfcFLaZhsmt4iCmoVAJA/rppDmZyheDDEzm6WayMThABA0zw5mXB0I4xdQhKDslN
- ASX64YSe5X6GFC83KLgGDRfMt7fqNh5inxrAkCaf7TYCWHpfZsKR7aKWHio5WzY7SlamkWfkPJm
- bseHjWa7NCYff97WORg9r0ISLH9FBbCvg8Wz4+nxsGbJJgYJIvxNzW4RlT8HwYXpi4jDO1UxKIh
- mccuSewWgEiGMhR826taGEs9YxO/T/VzTPLNGcHfDkftmG/PF2RlA3KtwoTwvGjYwhPdGp6FNm3
- 73SciIuC2VKGFFFMXAgXPACQzo8keYjibKUIM0W9n+NYEHNaul8lva6VivNLLsZZLbTE4Z8D/pI
- +u5xsrTyeWfFVDrY372gYjjmiLXMC1zh9tg1XxQ/Aal6lQfscqnjsIOPxQvrjDuDUwXHf3GNEj9
- gqd9qpXIXh1aVSO+KGg==
-X-Proofpoint-GUID: DwjLxArxpoSaWjVTqbCYf2bRU99oQwnP
-X-Proofpoint-ORIG-GUID: DwjLxArxpoSaWjVTqbCYf2bRU99oQwnP
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODMxMDAyMSBTYWx0ZWRfXwl1oGAWxUjGe
- ik8/8Tuf6zqcFX1/9hDmieElqo6OMYfoPXU6/pKej1QvVidv4ft7J3ln4H1v1BYTEv5GAmwr3ux
- NjUHYUvFkH6gN49zcHsXmQgSozz5/sM=
-X-Authority-Analysis: v=2.4 cv=GLk41ONK c=1 sm=1 tr=0 ts=6a94ea0c cx=c_pps
- a=rEv8fa4AjpPjGxpoe8rlIQ==:117 a=rEv8fa4AjpPjGxpoe8rlIQ==:17
- a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=l0iWHRpgs5sLHlkKQ1IR:22
- a=TtqV-g6YmW1Jfm2GSLaY:22 a=VwQbUJbxAAAA:8 a=c92rfblmAAAA:8 a=M5GUcnROAAAA:8
- a=_H5WFHcS1g1bKW8oBMQA:9 a=GvGzcOZaWPEFPQC_NcjD:22 a=OBjm3rFKGHvpk9ecZwUJ:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-31_01,2026-08-27_02,2025-10-01_01
+References: <20260830182036.284736-1-prasanth.padarthi10@gmail.com> <d60f234e-1b9e-44cc-9bad-da79e794fe44@lunn.ch>
+In-Reply-To: <d60f234e-1b9e-44cc-9bad-da79e794fe44@lunn.ch>
+From: Prasanth <prasanth.padarthi10@gmail.com>
+Date: Mon, 31 Aug 2026 08:13:19 +0530
+X-Gm-Features: AcwNN1XmXTP91gt09bDas9PoVw9lX5EEpGOPuilZRVTJETaIpy2y2cTeB3EQiZQ
+Message-ID: <CAMFFDGi161c0a8CX4DAaRzc66xTG2oRZ7DOgsG7pNRo-YP9-cw@mail.gmail.com>
+Subject: Re: [PATCH v4 0/2] ARM: dts: aspeed: Add ASRock Rack B650D4U BMC
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Ryan Chen <ryan_chen@aspeedtech.com>, Billy Tsai <billy_tsai@aspeedtech.com>, 
+	Andrew Lunn <andrew+netdev@lunn.ch>, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-qmem_alloc() uses dma_alloc_attrs() with DMA_ATTR_FORCE_CONTIGUOUS, which
-allocates CPU-cache-coherent DMA memory and, with CMA enabled, draws from
-the CMA pool. qmem backs NIX/NPA queue contexts, admin queues, and LMTST
-regions (including CN10K LMTST areas that span page boundaries), so
-consumption grows with enabled interfaces and is hard to provision in CMA.
+Hi Andrew,
 
-Switch qmem to a streaming-DMA-style path: allocate physically contiguous
-compound pages from the buddy allocator via __get_free_pages(), then map
-them for device access with dma_map_phys() and dma_unmap_phys() using
-DMA_ATTR_REQUIRE_COHERENT. Add otx2_dma_alloc_coherent() and
-otx2_dma_free_coherent() helpers that enforce dev_is_dma_coherent(),
-retry with GFP_DMA32 when the physical range is outside the device DMA
-mask, and wire qmem_alloc()/qmem_free() through them instead of
-dma_alloc_attrs()/dma_free_attrs().
+I do not currently have the PCB layout or RGMII trace-length information,
+so I cannot confirm that the PCB provides approximately 2 ns of TX delay
+but no RX delay.
 
-This works on Octeon because the octeontx2 driver is written for
-DMA-coherent devices: Octeon platforms provide IO coherency (via SMMU), so
-the driver already uses streaming DMA APIs for packet data while
-deliberately skipping explicit CPU cache sync (DMA_ATTR_SKIP_CPU_SYNC).
-The same IO coherency lets qmem use a streaming map of buddy-allocated
-pages instead of a dedicated coherent allocator or CMA reservation. That
-is valid because the platform is DMA-coherent, not because omitting
-dma_sync_* magically makes memory coherent.
+My hardware results are:
 
-Allocations requiring more than MAX_PAGE_ORDER pages are still rejected,
-since the buddy allocator cannot serve them without CMA.
+rgmii negotiates 1000baseT/Full, but RX traffic fails with CRC errors.
+rgmii-rxid passes a 5000-packet test with no loss or RX CRC errors.
+rgmii-id also passes the same test.
 
-cc: Geetha sowjanya <gakula@marvell.com>
-Fixes: 73d33dbc0723 ("octeontx2-af: Use DMA_ATTR_FORCE_CONTIGUOUS attribute in DMA alloc")
-Signed-off-by: Ratheesh Kannoth <rkannoth@marvell.com>
+These results indicate that an RX delay is required, but they do not
+establish whether the TX delay is provided by the PCB, MAC, or PHY. I
+therefore agree that the traffic test alone is insufficient to justify
+rgmii-rxid.
 
----
-v3 -> v4: Fixed compilation issues.
-	https://lore.kernel.org/netdev/apTpKcN_S1xIwRbZ@rkannoth-OptiPlex-7090/
+I have contacted ASRock Rack requesting confirmation of the RGMII timing
+and PCB trace-delay configuration. I will wait for that information
+before selecting the phy-mode for the next revision or making a claim
+about where the TX delay is implemented.
 
-v2 -> v3: Addressed sashiko comments
-	https://sashiko.dev/#/patchset/20260825045616.3723078-1-rkannoth%40marvell.com
----
- .../ethernet/marvell/octeontx2/af/common.h    | 92 +++++++++++++++++--
- 1 file changed, 86 insertions(+), 6 deletions(-)
+Thanks,
+Prasanth
 
-diff --git a/drivers/net/ethernet/marvell/octeontx2/af/common.h b/drivers/net/ethernet/marvell/octeontx2/af/common.h
-index 779413a383b7..4dd6d5fc877c 100644
---- a/drivers/net/ethernet/marvell/octeontx2/af/common.h
-+++ b/drivers/net/ethernet/marvell/octeontx2/af/common.h
-@@ -7,6 +7,10 @@
- #ifndef COMMON_H
- #define COMMON_H
- 
-+#include <linux/dma-mapping.h>
-+#include <linux/gfp.h>
-+#include <linux/mm.h>
-+
- #include "rvu_struct.h"
- 
- #define OTX2_ALIGN			128  /* Align to cacheline */
-@@ -44,6 +48,83 @@ struct qmem {
- 	u32		qsize;
- };
- 
-+/* Buddy-backed coherent DMA alloc (Option 3): pages from __get_free_pages(),
-+ * DMA-reachable RAM via dma_coherent_ok(), and bus/SMMU mappings via
-+ * dma_map_phys() -> iommu_dma_map_phys() -> iommu_map() on SMMU systems.
-+ */
-+#define OTX2_DMA_COHERENT_ATTRS	DMA_ATTR_REQUIRE_COHERENT
-+
-+static inline bool otx2_dma_phys_in_mask(struct device *dev, phys_addr_t paddr,
-+                                        size_t size)
-+{
-+       u64 mask = dma_get_mask(dev);
-+
-+       return paddr + size - 1 <= mask;
-+}
-+
-+static inline void *otx2_dma_alloc_coherent(struct device *dev, size_t size,
-+					    dma_addr_t *dma_handle, gfp_t gfp)
-+{
-+	dma_addr_t dma_addr;
-+	unsigned int order;
-+	phys_addr_t paddr;
-+	void *vaddr;
-+	gfp_t alloc_gfp;
-+
-+	if (!dev || !dma_handle || !size)
-+		return NULL;
-+
-+	if (!dev_is_dma_coherent(dev))
-+		return NULL;
-+
-+	size = PAGE_ALIGN(size);
-+	order = get_order(size);
-+	if (order > MAX_PAGE_ORDER)
-+		return NULL;
-+
-+	alloc_gfp = (gfp & ~(__GFP_DMA | __GFP_DMA32 | __GFP_HIGHMEM)) |
-+		    __GFP_ZERO | __GFP_COMP | __GFP_RECLAIM;
-+
-+	vaddr = (void *)__get_free_pages(alloc_gfp, order);
-+	while (vaddr &&
-+	       !otx2_dma_phys_in_mask(dev, page_to_phys(virt_to_page(vaddr)), size)) {
-+		free_pages((unsigned long)vaddr, order);
-+		if (alloc_gfp & GFP_DMA32)
-+			return NULL;
-+		alloc_gfp |= GFP_DMA32;
-+		vaddr = (void *)__get_free_pages(alloc_gfp, order);
-+	}
-+	if (!vaddr)
-+		return NULL;
-+
-+	paddr = page_to_phys(virt_to_page(vaddr));
-+	dma_addr = dma_map_phys(dev, paddr, size, DMA_BIDIRECTIONAL,
-+				OTX2_DMA_COHERENT_ATTRS);
-+	if (dma_mapping_error(dev, dma_addr)) {
-+		free_pages((unsigned long)vaddr, order);
-+		return NULL;
-+	}
-+
-+	*dma_handle = dma_addr;
-+	return vaddr;
-+}
-+
-+static inline void otx2_dma_free_coherent(struct device *dev, size_t size,
-+					  void *vaddr, dma_addr_t dma_handle)
-+{
-+	unsigned int order;
-+
-+	if (!dev || !vaddr)
-+		return;
-+
-+	size = PAGE_ALIGN(size);
-+	order = get_order(size);
-+
-+	dma_unmap_phys(dev, dma_handle, size, DMA_BIDIRECTIONAL,
-+		       OTX2_DMA_COHERENT_ATTRS);
-+	free_pages((unsigned long)vaddr, order);
-+}
-+
- static inline int qmem_alloc(struct device *dev, struct qmem **q,
- 			     int qsize, int entry_sz)
- {
-@@ -60,8 +141,8 @@ static inline int qmem_alloc(struct device *dev, struct qmem **q,
- 
- 	qmem->entry_sz = entry_sz;
- 	qmem->alloc_sz = (qsize * entry_sz) + OTX2_ALIGN;
--	qmem->base = dma_alloc_attrs(dev, qmem->alloc_sz, &qmem->iova,
--				     GFP_KERNEL, DMA_ATTR_FORCE_CONTIGUOUS);
-+	qmem->base = otx2_dma_alloc_coherent(dev, qmem->alloc_sz, &qmem->iova,
-+					     GFP_KERNEL);
- 	if (!qmem->base)
- 		return -ENOMEM;
- 
-@@ -80,10 +161,9 @@ static inline void qmem_free(struct device *dev, struct qmem *qmem)
- 		return;
- 
- 	if (qmem->base)
--		dma_free_attrs(dev, qmem->alloc_sz,
--			       qmem->base - qmem->align,
--			       qmem->iova - qmem->align,
--			       DMA_ATTR_FORCE_CONTIGUOUS);
-+		otx2_dma_free_coherent(dev, qmem->alloc_sz,
-+				       qmem->base - qmem->align,
-+				       qmem->iova - qmem->align);
- 	devm_kfree(dev, qmem);
- }
- 
--- 
-2.43.0
-
+On Mon, Aug 31, 2026 at 1:53=E2=80=AFAM Andrew Lunn <andrew@lunn.ch> wrote:
+>
+> On Sun, Aug 30, 2026 at 11:50:34PM +0530, Prasanth Kumar Padarthi wrote:
+> > Add device tree support for the ASRock Rack B650D4U BMC, which is
+> > based on the ASPEED AST2600 SoC.
+> >
+> > The series adds the board compatible and describes the BMC memory,
+> > SPI NOR flash layout, UART console, and MAC0 connected to an
+> > RTL8211F Ethernet PHY.
+> >
+> > The MAC0 RGMII timing configuration was validated on B650D4U
+> > hardware. With plain "rgmii", the PHY negotiated 1000baseT/Full but
+> > received no valid packets and accumulated RX CRC errors. With
+> > "rgmii-rxid", a 5000-packet test completed with 0% packet loss and
+> > no RX CRC errors. "rgmii-id" was also tested successfully, but the
+> > additional TX delay is not required, so "rgmii-rxid" is retained.
+>
+> Please take a read of:
+>
+> https://elixir.bootlin.com/linux/v6.15/source/Documentation/devicetree/bi=
+ndings/net/ethernet-controller.yaml#L287
+>
+> Does the PCB have 2ns of delay for TX, but notR RX?
+>
+>      Andrew
