@@ -1,125 +1,101 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFEB1397925
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 05:26:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D931335C696
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 05:29:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788154015; cv=none; b=QSLdIbZJTd9o/NdoOdSR8D7y/FLRAES1x372AnxdaHae89EqUF9ejVComFhCT1TfDR5Kd0girp0Y1j1uglqY43m4565eYyljxw6vUD/LkAdf02ALmqV4qe2G5k4zB24BOVM5aeWc+F+9dPLyEgRsauKEg2GZ1kyyk79t6LOvC/4=
+	t=1788154154; cv=none; b=GJJyqEkaplfu2R8/LUkwi4errEWAoYv9QSVOw2G3bhQ9NwXPCg8jTKyfzbmkKtJdDOHIQqkwAo2Z768ptk0ANWY34MCd+k9soOuJLk9Tuzv1yxG8zaX2n53P/xUV0CH2scCt/3WIzbGZpM/llMOirXplE85x0b/t3xYdjPZGMo0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788154015; c=relaxed/simple;
-	bh=yaCPKmrS/9NPR5VEMkALI0bq8i+JN8UC58RcBpXumdk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VUsxmWxgjvpfgU26oXbZDMRKuH0qyHUzIFyzrdo3d+J11vY2ouwFw41nT53hycdbqbLvuvEw1TAeot/OGpBeSzKLpRY1QoH0DLmNM5SnE6rkR1JfrgTmljQ6NRjpxCyIEM/Dx7ncOjiVVejU8m2JdjuFfz7vNxgeFHgwtyZEq3M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VbIz/urS; arc=none smtp.client-ip=209.85.128.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788154154; c=relaxed/simple;
+	bh=f5j4hIxopVe9dqBkAdMBlPfS2+vnW55+OaBP5zbinTY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=o/mCSrhRnYW2asjrll/gr5e5nDYZwFdyLA6lS7z8xZ+HqGmOe0yNEHYT5e0oy1xo7OmAbji5sxyQUrL2y5o5ynplJeus/8NDDqvINwRW8otaJ2m88kX2NeRaSs4LZ8zMiQdDHGteLS6TjV8ojhOUDsz4aLWd55INd6XiWa80V7M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=RqKFnQMD; arc=none smtp.client-ip=209.85.214.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VbIz/urS"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-49b965570d7so27583805e9.0
-        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 22:26:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="RqKFnQMD"
+Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2d5335cf904so28933745ad.2
+        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 22:29:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788154012; x=1788758812; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=bn2YXo2p6aZBKHPFyNwPPOY+eiki/TgtZlctXUmhiOU=;
-        b=VbIz/urSFkAVFcyz9uskomSLrsRRa/J5sHqSu1AHMZQxmlJm/wCLw8NfrOTXs+LvvB
-         LI9v1/duGn/6VIGFckGyVG3jU/86d5jzXXEySe0iPH/Q1Antzel03vlxihahohPsr3aL
-         NljZiq6kNJNshqPE+h/g6zqLSmqo4UFJH4pkQQgEMDPAAanYsMT+eryR8aE+iAijaczi
-         QwKU1RRuCqdcVVx5xk3y2BWCt8qU9Gh28xbF/yas4wl9FTbYxH3AcbnQjoGkPOBLf4pj
-         JbPkfJd6e922ZqglQgZxXOVvVwKOhTfymhlTU2mhRNP9w4+t9P2vXFRiNfRzd5SjPEEQ
-         Ew/A==
+        d=linaro.org; s=google; t=1788154152; x=1788758952; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=QEL2VbN1y+PU3YvPygq8npMdJ9wl/ZS6P++bwrOJdII=;
+        b=RqKFnQMDBUrLFAC7LXTLhcu3boVbGASnB56TGQ8Pi653msxocylrVrJ11MQM/H2jIE
+         VA0Kt6EfCltuKGvT2J6grNW3eJW9qKTiXmw/Bc3N60hjZeHNYxzZHnq35Oj0zK7ZToQt
+         LGMFYLBsuRurwbiK0FgwFLU+orCTZ6hr/MHOnKz3Ifgl48EMMwwR/x19YgO7VkaltHG/
+         Orwvvb7ywp1Iv1Zj4TqV4Zlp0w+yo/eTF2Yme9/Nylf85O272pEKp1RENbU/d7GtsRAn
+         eiW2lZvu4s8jcHoRm9GtW2bY3JgIpXAkwLOY3IbmDlGmBtsga1YaG/WtVTFgP40Z+fSj
+         rRJA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788154012; x=1788758812;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=bn2YXo2p6aZBKHPFyNwPPOY+eiki/TgtZlctXUmhiOU=;
-        b=RgRIDFo3Yn4eDis6M9ZQSoyz6KRTJf+fYal/2h0wtJ4W+RdlkL51JU5ug0PI7I5T4C
-         +cJ0x9baIUKf0cgmxPxqDaBS1cuGXR5oGxI78xVTLweztFv97pRW37BgM50lycHm15j5
-         yBxrIkkYRcnCFE0A/B1V/CA62Yswsk0cAKNYB1j5kYjOpPZS3NptA+LH2b4vv2Q5RpDG
-         ezU7egMGrF4SajqIjSfbp5jRqUH7zh/mLlGZVsfiwwyuo0V4RdLBi6ormy8sVBkdKYRl
-         8kVNGRZ1fUS8EXw0l3yK3yNIw7buKgUQv0JsWjFGdUVusLjkV92JrtvQhsUXmVwCPAWu
-         lvjA==
-X-Forwarded-Encrypted: i=1; AHgh+RqSe28+oShXbrNhoQg2zEeik240wHX378k7dCLkD4a9o2H9QYHKR9hY4ygXu1f1xZGJuVlDZc9svVL4wso=@vger.kernel.org
-X-Gm-Message-State: AFuF++mZl+IZxREuEG+9X36Vl1C9m8UI0x+5BKfJJUax2uErpsjStF81
-	CdWxaJx4rzSAMFc8wviKFYbPsjRBadjcwNezD1eIIcGr4n7Mubr3Wfs4
-X-Gm-Gg: AR+sD12AeJxr7dqxfojl0+LtU7ZfGOGs/P1O7yAXZbCSzA0rqX9bV4WhuXOEylde0fN
-	lVr998F+wbileqiSMNag8GKa1SHRPxbTEHtpNcH/TEe+2ftv6f7vnmKwzvCWXSW/vl/zE81K6+u
-	NMsrgzZfVDQBKQngAE+wlVlsfQZb3SPnXKZzVX2BJF9OEO6+eschVULNRPG8jBQxEHfZ7XNE7gX
-	iAu+flhdp+RhnJhFYITVYeR6AYK2fjG6s1Nyv5mp+xgOqIwSpe5vuCUzvIwdpJ9kE1LsvQWPt/7
-	3zkBtFM9gqHVza6Can/bQBAwh9SlMLDh37uwYmcXtxsHrpmighnarechAzG/88dmIlc8nff3vd7
-	FP0O/xP8/tynf/GbdW1Xo5XesQ0h7+jruQ+b0ht2c44484tqjNiji09qrXYrmxhfswE4ZgLDWa2
-	k74HEFOR6TdCBvWfllI/t67j6SXOh4jULRoOy7sQv+9Qx9bLnvx0+xJcpSIhEj91RxZ4JG4TzKv
-	UsUI8tZkw==
-X-Received: by 2002:a05:600c:4443:b0:499:b3f0:ff05 with SMTP id 5b1f17b1804b1-49b91c56f41mr322660655e9.13.1788154011654;
-        Sun, 30 Aug 2026 22:26:51 -0700 (PDT)
-Received: from DESKTOP-OL07BOP.localdomain ([87.116.179.22])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ccae954f9sm193293185e9.13.2026.08.30.22.26.50
+        d=1e100.net; s=20251104; t=1788154152; x=1788758952;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=QEL2VbN1y+PU3YvPygq8npMdJ9wl/ZS6P++bwrOJdII=;
+        b=OKb4tPjrFJsU/dxjPUVVFE3OVypHRj88MP74NBvXPtuoWOWtCXbYztD2cAnWTV0790
+         qseirujNkJ5NUAtdBZ+q76wcHyAFVYu8mN3cK/avlz4FKGAbnLha+UujiyIVz2z+2UNU
+         3Tysj+hw03lxsMWR9iY6MwJzvShzcYylvxe7C1eagAFuC2rPZ1Z5tHVJBCKBfuOcbrU2
+         tkTcfl4f6ivvzspKRIe1NAXn4r4ko22IH4eFbDZcQwfq53p43u1xqovchPQTozDOAREy
+         cPYfIuBH62IHgEuQsQwUgV50pgErtlrzaWueZTWfAz8T4FBr7+YfVU3t2xIE+hVLxD7V
+         u6oA==
+X-Forwarded-Encrypted: i=1; AHgh+Rr41doBN6YsW5K8Rl37YXFJ9rRMiabEF2soJRKoJGN6e6RcZeJoC4GstKx96TBj/1ljPz2uPnNu/vviQBU=@vger.kernel.org
+X-Gm-Message-State: AFuF++l9+9kgNeaJd9wNJvtm+CldCrqv3xc4BCvFq/uJzVv2Xc6zVy0G
+	WtXDocImUEuaGAthz57Def8xHw0GWKBKR2R7vIo9UrDCHufxsK9y3kZHWCzqoGPZmA0=
+X-Gm-Gg: AR+sD13jhuyTqNoAqN+uuRMyW8Pj47kuiGPBvas4YE+0edigiziS5yM8vy94ZOMTq6B
+	Uu6G0KeUSi2YI0JmNm/eA85sBKPZBAFQCuOQ1nTP8mzWoc7zzqj0Jx+BoerKt2PHRaAy6uLcTDg
+	DlS56oCwyc5gAusU2ubTe4GRFFMIv0D+wCYu2qJe7I9s3croFqE+mul0wJnufsbhBqRYGwFPIO8
+	J295cqUUJWqsX8EO5LD/W1GipNuGgpBk5v1aR4UYcpeFbWK5DUcTdQZv6Su2xpbxF1tQNzxL9to
+	eA2GD0UJoFzrOiFzh+jC4fLsUS2bNe9jeDso4SdFJSX6rdT4Q0kswUJhbB55Y1+AtQGultbZc+M
+	0PqrBls/wRP8u0oijwBbmFoTdEimdcqUiIwrbuKfkLEKjkc2yjI1QrboChTQsokPOIW63Dw49fV
+	Ro26h1EUA8fnnvAg3XQZALth1TUdd2BWORNz2UiGqbLHAVKzN947Y5jPvengqmO7o=
+X-Received: by 2002:a17:903:11c9:b0:2d8:d4cc:be62 with SMTP id d9443c01a7336-2d93fa24005mr12660775ad.15.1788154152024;
+        Sun, 30 Aug 2026 22:29:12 -0700 (PDT)
+Received: from localhost ([122.172.87.224])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-32b5bef7683sm12379462eec.12.2026.08.30.22.29.10
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 30 Aug 2026 22:26:51 -0700 (PDT)
-From: nenkov2004@gmail.com
-To: rust-for-linux@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Alice Ryhl <aliceryhl@google.com>
-Cc: Miguel Ojeda <ojeda@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	ChrisX101010 <nenkov2004@gmail.com>
-Subject: [PATCH] rust: binder: Use lower bound for node debug lookup
-Date: Mon, 31 Aug 2026 07:26:35 +0200
-Message-ID: <20260831052635.42417-1-nenkov2004@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        Sun, 30 Aug 2026 22:29:11 -0700 (PDT)
+Date: Mon, 31 Aug 2026 10:59:08 +0530
+From: Viresh Kumar <viresh.kumar@linaro.org>
+To: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Cc: rafael@kernel.org, linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org, jianhao.xu@seu.edu.cn,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] cpufreq: initialize policy rwsem before sysfs publication
+Message-ID: <apURJD6v92pMNKbJ@vireshk-B250M-D3H>
+References: <20260830155301.2713780-1-runyu.xiao@seu.edu.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260830155301.2713780-1-runyu.xiao@seu.edu.cn>
 
-From: ChrisX101010 <nenkov2004@gmail.com>
+On 30-08-26, 23:53, Runyu Xiao wrote:
+> cpufreq_policy_alloc() initializes policy->rwsem after
+> kobject_init_and_add() has created the policy sysfs directory and its
+> default attributes. A sysfs access can therefore reach a policy callback
+> before the semaphore has been initialized.
+> 
+> Initialize policy->rwsem before publishing the policy kobject so sysfs
+> callbacks always see an initialized semaphore.
+> 
+> Fixes: ad7722dab729 ("cpufreq: create per policy rwsem instead of per CPU cpu_policy_rwsem")
+> Cc: stable@vger.kernel.org
+> Assisted-by: Codex:GPT-5
+> Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+> ---
+>  drivers/cpufreq/cpufreq.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
 
-The Binder node debug lookup currently walks the process node RBTree
-from the beginning until it finds the first node pointer greater than
-the requested pointer.
+Acked-by: Viresh Kumar <viresh.kumar@linaro.org>
 
-Use RBTree::cursor_lower_bound() to start the lookup at the relevant
-tree position instead. When the lower-bound key is equal to the
-requested pointer, inspect the next node to preserve the existing
-strictly-greater-than semantics.
-
-This changes the tree lookup from a linear scan to an O(log n) search
-without changing the returned node semantics.
-
-Suggested-by: Alice Ryhl <aliceryhl@google.com>
-Link: https://github.com/Rust-for-Linux/linux/issues/1249
-Signed-off-by: ChrisX101010 <nenkov2004@gmail.com>
----
- drivers/android/binder/process.rs | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/android/binder/process.rs b/drivers/android/binder/process.rs
-index 5372bfbd9..8e7218ee0 100644
---- a/drivers/android/binder/process.rs
-+++ b/drivers/android/binder/process.rs
-@@ -1208,10 +1208,14 @@ fn get_node_debug_info(&self, data: UserSlice) -> Result {
- 
-         {
-             let inner = self.inner.lock();
--            for (node_ptr, node) in &inner.nodes {
-+
-+            if let Some(cursor) = inner.nodes.cursor_lower_bound(&ptr) {
-+                let (node_ptr, node) = cursor.current();
-+
-                 if *node_ptr > ptr {
-                     node.populate_debug_info(&mut out, &inner);
--                    break;
-+                } else if let Some((_, node)) = cursor.peek_next() {
-+                    node.populate_debug_info(&mut out, &inner);
-                 }
-             }
-         }
-
-base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
 -- 
-2.43.0
-
+viresh
