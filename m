@@ -1,170 +1,193 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-244118.protonmail.ch (mail-244118.protonmail.ch [109.224.244.118])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FCC446A60A;
-	Mon, 31 Aug 2026 15:14:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEFFE4AA3E7
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 15:15:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.118
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788189245; cv=none; b=Tk76SwxVrkIvxqLI0NDDOY9T3Hc7b+ioE6deuLm0/aKfTmPuTQEKSBPwZ8Xtbm1a+sQjRGs9PF1GYlo7E53rDk8LCjG4pScLTdeiG74Hmoc6Zifq39WYNFVul0NSaKynVbuZbe40Gb8bPEAdjNFIMpl2Lw6sS5dO2ZUE2N61Nv0=
+	t=1788189326; cv=none; b=TmqxrWHxe46s/sYs94WWIjV51LYxcy14PH3Xc5kKWlgxymmzw69MeMU7xSmdOYt6T34143Ew0KoJ0kNVwPV9cbLsNW+7YISRsLiO6bPsSVHs1dtLivyZIFJbGABQXi5TFjWvRObBVdZQGiq94F8REhgXiD/fH5VDdCiZIPmddRo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788189245; c=relaxed/simple;
-	bh=DqrbEY0aXBR5tKhbk1QNVpPlLj3aLfv3Bc8ezWVHJYc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XInA7lflyCmfE7y5pnWFbr26544fSgCuBNXRkOREKGY/3lxBS92sg1FWjlwwYNK7SeyKfkbUTFDwwsQPkSNJYSIIyUqpgzgyKzBaCtcoOrwzT/TpklHq9XhIxDDOI//9jxijM47DVx73vXa/0ew29MqhoUuJl3vl/YHL+dKNhZg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FahFoa6Y; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788189326; c=relaxed/simple;
+	bh=LkLkWC5E/sHsMF0mhg4YjgzVBtD3KkWXovmGY6mosH0=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=TZYQb26ZszHlqBPimGW7RKzTHYCBQLLAQQzPJeSpad/z1DBh1SYXH7Q3ZMYk+a8HP/pCqWLDkjMbXlz1Z07r4hd5JiHREcvQLtMQrsEAmHDeeBRJtikG0P/1vPPvGRpCYSXNwRMJuAlbZ88lhSWxCEwKQS8cg9v9JUJli9o42P0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=berg.pm; spf=pass smtp.mailfrom=berg.pm; dkim=pass (2048-bit key) header.d=berg.pm header.i=@berg.pm header.b=TyRyDaZM; arc=none smtp.client-ip=109.224.244.118
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=berg.pm
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=berg.pm
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FahFoa6Y"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1156B1F000E9;
-	Mon, 31 Aug 2026 15:14:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788189244;
-	bh=coDomFzLKuW4divIIXOeaioZHCWmeB95+WLqyp/Yr0s=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=FahFoa6YA9EslxaVx1TgszBZvREJeICSFH3xJhuB3iI2aT74SVftGvj0QpBZi8ELQ
-	 XWwQs4wYmHECSkMbyb1BAShFv1Zyk6z9kCm4Ox4DMBxyK9k195eYypl67CDyjiYiRF
-	 pqnyagNCkZP7WPmOoIsuBvSsKaxY5PKr5EupMCWQ84dy9z7fnnm4GqohlRP/N63V0G
-	 F4CAx6cupfnXfAfuMM+xpmz2mnw9p58xGqyYz/kfRUiNGWhHGd61ViFSiT2hM3tCTi
-	 3WL6sYQV1RFsUN/QJ6reVmzp2uuNZeW1OFBdFv0rB1rOUgyn5GIQw0oCh4+S3oCnCY
-	 atewofPFRRU8w==
-Date: Mon, 31 Aug 2026 16:13:58 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Markus Schneider-Pargmann <msp@baylibre.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, Kendall Willis <k-willis@ti.com>,
-	Marc Kleine-Budde <mkl@pengutronix.de>,
-	Vincent Mailhol <mailhol@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Chandrasekar Ramakrishnan <rcsekar@samsung.com>,
-	s-kochidanadu@ti.com, a-kaur@ti.com, s-tripathi1@ti.com,
-	vishalm@ti.com, linux-can@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 1/2] dt-bindings: can: m_can: add out-band-wakeup
- property
-Message-ID: <20260831-guise-nastiness-23b5d1cbc25d@spud>
-References: <20260821-temp-v3-0-9ac1f8806929@ti.com>
- <20260821-temp-v3-1-9ac1f8806929@ti.com>
- <20260821-regulate-recharger-2e984e9591ef@spud>
- <20260821190511.jwdgox4uocbf4brd@uda0506412>
- <20260824-public-mashing-252473f928c3@spud>
- <20260828-antique-lumpy-donkey-51ff42@quoll>
- <20260828-ladle-hurry-d6f63c45fd19@spud>
- <DL0SRC0352S9.2VXHSPLXP6QZR@baylibre.com>
+	dkim=pass (2048-bit key) header.d=berg.pm header.i=@berg.pm header.b="TyRyDaZM"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=berg.pm;
+	s=protonmail; t=1788189318; x=1788448518;
+	bh=7oCwGkT42GO7LqvkoysDwfB7ADZ7QYUXw5/poBlgatI=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=TyRyDaZM4wdc7G6QEpxhj2G939X5Zh4/uO/gq6HPd1U2m7QTtX8osd1F9WcUUUwpJ
+	 UtvoZo1nMWOiPsDKpCkmqdskneMONewd8gm7vrEG8H2jcmBpEV6Pkx5NK5v+A0AKcK
+	 mC7prsQAkYVvJKrOi2hqgl88qsssLWxVFeMYQZJKuyet79PHaPoW0ePx5BKSxISdEm
+	 wY6YjFo2IrAmycIKNrH6x1eKrWOU0OJAWnr8bfmZgx3o3lZ0WsNaAbv9iNWcIjKtcK
+	 /rCQlG8u+NSU9ZnKfVu+JAJIWX3cYYIbDrYRuQa7XmPCp4aRVAmKG170QMdf1BmMP6
+	 e0I+OCaIoV+gg==
+Date: Mon, 31 Aug 2026 15:15:11 +0000
+To: "D. Manresa" <dmanresa@gmail.com>
+From: Jakob Berg Jespersen <dev@berg.pm>
+Cc: Daniel Scally <dan.scally@ideasonboard.com>, Sakari Ailus <sakari.ailus@linux.intel.com>, Hans de Goede <hansg@kernel.org>, =?utf-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, Hans de Goede <johannes.goede@oss.qualcomm.com>, platform-driver-x86@vger.kernel.org, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] platform/x86: int3472: map the ov7251 power enable GPIO to "vdda"
+Message-ID: <9bjLpqRXj6Hx0eSwnrfYfzQUL9rQwcxzb7uzDdMDhfQUkXmd8vUjOYrWOWHduP7IUZ8rtmnsUxIzX5E3CLVGfXCylvdrZYdmJhkX-O24aT4=@berg.pm>
+In-Reply-To: <20260831102306.36610-1-dmanresa@gmail.com>
+References: <20260831102306.36610-1-dmanresa@gmail.com>
+Feedback-ID: 210104851:user:proton
+X-Pm-Message-ID: 340426e165c5b6b9ebd6e84c8d9e176b94f2be70
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="0VrU3kkrQj9JtflS"
-Content-Disposition: inline
-In-Reply-To: <DL0SRC0352S9.2VXHSPLXP6QZR@baylibre.com>
-
---0VrU3kkrQj9JtflS
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, Aug 28, 2026 at 08:43:30PM +0200, Markus Schneider-Pargmann wrote:
-> Hi,
+
+Hi,
+
+Tested on a second Surface Pro 7+ (Tiger Lake, IPU6), on v7.3-rc1 with
+your patch as the only change, taint 0 and no out-of-tree modules.
+
+Before:
+
+  ov7251 i2c-INT347E:00: supply vdda not found, using dummy regulator
+  ov7251 i2c-INT347E:00: ov7251_write_reg: write reg error -121: reg=3D103,=
+ val=3D1
+  ov7251 i2c-INT347E:00: probe with driver ov7251 failed with error -121
+
+After:
+
+  ov7251 i2c-INT347E:00: supply vdddo not found, using dummy regulator
+  ov7251 i2c-INT347E:00: supply vddd not found, using dummy regulator
+  ov7251 i2c-INT347E:00: OV7251 revision 7 (1F) detected at address 0x60
+
+and the device binds. vddd and vdddo stay on dummy regulators as you
+describe.
+
+Tested-by: Jakob Berg Jespersen <dev@berg.pm>   # Surface Pro 7+, probe/pow=
+er-on
+
+I have only confirmed that the sensor powers up and probes.=20
+I could not get it streaming here, libcamera 0.7.1 refuses=20
+the sensor on this machine:
+
+  'ov7251 3-0060': Mandatory V4L2 control 0x009e0903 not available
+  Failed to create sensor for 'ov7251 3-0060': -22
+
+0x009e0903 is V4L2_CID_ANALOGUE_GAIN, and the in-tree ov7251 registers
+V4L2_CID_GAIN instead, so only the front and rear cameras get
+enumerated.=20
+
+I have a small unsubmitted patch that I had set aside to focus on=20
+the front and back cameras.  With this patch, on top of yours,=20
+libcamera lists the IR camera as well:
+
+  Available cameras:
+  1: Internal front camera (\_SB_.PC00.I2C2.CAMF)
+  2: 'ov7251' (\_SB_.PC00.I2C3.CAM3)
+  3: Internal back camera (\_SB_.PC00.I2C3.CAMR)
+
+Did you have something equivalent downstream? Happy to send it to you
+or to the list if it would help.=20
+
+I should say I have not got a usable image out of it here yet: Frames
+come through at the right size and rate, but the content is saturated
+white, and the sensor's own test pattern does not come through either.
+
+
+Regards,
+Jakob
+
+
+On Monday, August 31st, 2026 at 12:23, D. Manresa <dmanresa@gmail.com> wrot=
+e:
+
+> On IPU6 designs carrying an OV7251 IR sensor (ACPI HID INT347E) the INT34=
+72
+> describes the sensor's single gated rail as a power-enable GPIO, which th=
+e
+> driver registers as a regulator with con_id "avdd". The ov7251 driver and=
+ its
+> DT bindings name the sensor supplies vdda, vddd and vdddo, so the lookup =
+finds
+> nothing, the rail is never enabled, and probe fails on the first I2C acce=
+ss:
 >=20
-> On Fri Aug 28, 2026 at 5:46 PM CEST, Conor Dooley wrote:
-> > On Fri, Aug 28, 2026 at 11:07:29AM +0200, Krzysztof Kozlowski wrote:
-> >> On Mon, Aug 24, 2026 at 05:50:20PM +0100, Conor Dooley wrote:
-> >> > On Fri, Aug 21, 2026 at 02:05:11PM -0500, Kendall Willis wrote:
-> >> > > On 17:45-20260821, Conor Dooley wrote:
-> >> > > > On Fri, Aug 21, 2026 at 11:07:00AM -0500, Kendall Willis wrote:
-> >> > > > > Add the out-band-wakeup property as a possible property. The p=
-roperty
-> >> > > > > indicates that the device can wakeup the system even when its =
-power
-> >> > > > > domain is off.
-> >> > > > >=20
-> >> > > > > Signed-off-by: Kendall Willis <k-willis@ti.com>
-> >> > > > > ---
-> >> > > > >  Documentation/devicetree/bindings/net/can/bosch,m_can.yaml | =
-2 ++
-> >> > > > >  1 file changed, 2 insertions(+)
-> >> > > > >=20
-> >> > > > > diff --git a/Documentation/devicetree/bindings/net/can/bosch,m=
-_can.yaml b/Documentation/devicetree/bindings/net/can/bosch,m_can.yaml
-> >> > > > > index 2c9d37975bedd652b3060ab11ba75c37565edaad..0663beaa532bcc=
-4a71cd6ad01520a4dfea294d0c 100644
-> >> > > > > --- a/Documentation/devicetree/bindings/net/can/bosch,m_can.ya=
-ml
-> >> > > > > +++ b/Documentation/devicetree/bindings/net/can/bosch,m_can.ya=
-ml
-> >> > > > > @@ -150,6 +150,8 @@ properties:
-> >> > > > >      description:
-> >> > > > >        List of phandles to system idle states in which mcan ca=
-n wakeup the system.
-> >> > > > > =20
-> >> > > > > +  out-band-wakeup: true
-> >> > > >=20
-> >> > > > Where is "-wakeup" defined genericly, or out-band-wakeup defined=
- that
-> >> > > > you're getting the property definition from?
-> >> > >=20
-> >> > > I sent a PR to define out-band-wakeup in the wakeup-source.yaml bi=
-nding
-> >> > > in dt-schema repo. I figured it made more sense to be defined in t=
-he
-> >> > > wakeup-source.yaml binding to allow other drivers the option to us=
-e it.
-> >> > >=20
-> >> > > dt-schema PR:
-> >> > > https://github.com/devicetree-org/dt-schema/pull/205
-> >> >=20
-> >> > This sounds like something you should be able to determine from
-> >> > device specific compatibles for these platforms. Not sure why they a=
-re
-> >> > not used for this particular device, but this is an indication to me
-> >> > that that is a mistake.
-> >>=20
-> >> Yeah, it looks a bit too much replicating Linux PM detail. I can imagi=
-ne
-> >> that some devices on some board are capable of waking up the system ev=
-en
-> >> when power domain is off, but this does not look like a capability of
-> >> the actual device, but power domain. Device does not have different
-> >> wakeups. (by device I mean this individual schema - Bosch CAN)
-> >>=20
-> >> Happy to see some bigger picture through DTS or board layouts. Actually
-> >> DTS, showing same Bosch CAN devices which are different on a board -
-> >> some are wakeups and some out of band wakeups - would illustrate it
-> >> better.
-> >
-> > As far as I could make out when I looked at the patch, "Bosch CAN" is an
-> > IP that can be integrated on an SoC rather than a device on the board,
-> > so I'm doubting that there's any difference in capability to wake up the
-> > device caused by the board at all. If there is, it's between different
-> > power domains on the SoC, as you say.
+>   int3472-discrete INT3472:02: avdd  \_SB.GPI0 pin 131 active-high
+>   ov7251 i2c-INT347E:00: supply vdda not found, using dummy regulator
+>   ov7251 i2c-INT347E:00: probe with driver ov7251 failed with error -121
 >=20
-> m_can is an IP that can be integrated on an SoC. But it is also
-> built into external chips, like the TI tcan chips that connect via SPI.
-> There is also a PCI connected one. Also some SoC integrated m_can
-> devices are coupled to the mcu and not the main processor and can't be
-> fully accessed from the main processor, e.g. they are missing
-> interrupts.
-
-All of these things: soc integrations, each specific SPI connected SKU
-and the PCI connected device should have specific compatibles. Per the
-series adding these to devicetrees, it's all mcu connected instances
-that are growing the property, and not devices on boards that depend on
-how the specific board has been wired.
-
-
-https://lore.kernel.org/all/20260820-smth-v1-1-e1738a38d58e@ti.com/
-
---0VrU3kkrQj9JtflS
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCapWaNgAKCRB4tDGHoIJi
-0jkTAQCOUsS3T1tQxU+NW0CNMAgmu1+n0fnxdyVN0gZsY6k4aAD+PWgvo+ox/ois
-rsu9E0DdhgZ2fRBlIN6loUS1Uc26Kwo=
-=5aeG
------END PGP SIGNATURE-----
-
---0VrU3kkrQj9JtflS--
+> Map the power-enable GPIO to con_id "vdda" for INT347E, the same way the
+> existing entries map it to "vdd" for the mt9m114 and to "vana" for the im=
+x471.
+> The sensor's other two supplies keep falling back to the dummy regulator,
+> which is correct here: the firmware gates a single rail.
+>=20
+> The table already has an INT347E entry mapping the reset GPIO to "enable"=
+,
+> added when the ov7251 was brought up on these machines; this is the same =
+class
+> of firmware-vs-binding name mismatch for the remaining pin.
+>=20
+> Tested on a Microsoft Surface Pro 7+ (Tiger Lake, IPU6): with this change=
+ the
+> IR sensor probes, the illuminator strobes, and the camera streams 640x480=
+ at
+> 30 fps through libcamera. The same failure was reproduced independently o=
+n a
+> second Pro 7+ running stock firmware and a distro kernel, with no out-of-=
+tree
+> code, in [1].
+>=20
+> Developed with the assistance of an AI tool (Claude) and verified on hard=
+ware.
+>=20
+> Link: https://github.com/linux-surface/linux-surface/issues/1702 [1]
+> Reviewed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
+> Signed-off-by: D. Manresa <dmanresa@gmail.com>
+> ---
+> v2: no code changes. v1 never reached the lists (a mail tooling error on
+> my side dropped the Cc headers); resent with platform-driver-x86 on Cc as
+> Hans requested, with his Reviewed-by collected.
+>=20
+> diff --git a/drivers/platform/x86/intel/int3472/discrete.c b/drivers/plat=
+form/x86/intel/int3472/discrete.c
+> index 6c729fc..157345e 100644
+> --- a/drivers/platform/x86/intel/int3472/discrete.c
+> +++ b/drivers/platform/x86/intel/int3472/discrete.c
+> @@ -143,6 +143,11 @@ static const char * const power_enable_hids_enable[]=
+ =3D {
+>  =09NULL
+>  };
+>=20
+> +static const char * const power_enable_hids_vdda[] =3D {
+> +=09"INT347E", /* ov7251 */
+> +=09NULL
+> +};
+> +
+>  /**
+>   * struct int3472_gpio_map - Map GPIOs to whatever is expected by the
+>   * sensor driver (as in DT bindings)
+> @@ -185,6 +190,13 @@ static const struct int3472_gpio_map int3472_gpio_ma=
+p[] =3D {
+>  =09=09.con_id =3D "dvdd",
+>  =09=09.enable_time_us =3D 45 * USEC_PER_MSEC,
+>  =09},
+> +=09{=09/* Sensors which expect "vdda" as con_id for power enable */
+> +=09=09.hids =3D power_enable_hids_vdda,
+> +=09=09.type_from =3D INT3472_GPIO_TYPE_POWER_ENABLE,
+> +=09=09.type_to =3D INT3472_GPIO_TYPE_POWER_ENABLE,
+> +=09=09.con_id =3D "vdda",
+> +=09=09.enable_time_us =3D GPIO_REGULATOR_ENABLE_TIME,
+> +=09},
+>  =09{=09/* Sensors which expect "vana" as con_id for power enable */
+>  =09=09.hids =3D power_enable_hids_vana,
+>  =09=09.type_from =3D INT3472_GPIO_TYPE_POWER_ENABLE,
+> --
+> 2.43.0
+> 
