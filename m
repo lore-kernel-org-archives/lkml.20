@@ -1,151 +1,115 @@
-Received: from mail-ua1-f98.google.com (mail-ua1-f98.google.com [209.85.222.98])
+Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F295839CCE2
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 16:59:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.98
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788195589; cv=none; b=gUA7SAeztbgKPxawakXOTKzDLAaDa9JeNA6oNH0pfCpsAk4P3X1tqno3DJzPzwwxNwR1Ta7MUgvZse6yh98dcR0gIrEi70Sj7+tMFE90ap53DB/5/VFPXYucTL8xo9BjEwqAVFX5NwAXgMyR0BvriD4k2aIoOAVlwQbIjuoHALk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788195589; c=relaxed/simple;
-	bh=Zbvy1O++/pnSoStSV+8mco8OqlJIVst8FKQqHOa93UQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References; b=eHUkY0HhXHHZdAI6pYD3+LgLpRYIzL6DCapguZzL834hUzVPAafhUaQu+GCtXKCfQwVxRyxKNKuNCYZgr8Kq6vJQDvtdZtcy3Ua7wh2TTGK2Og/04iHURs6fivINx74pkmv1y3nWZnPjU4fcoCq7JfQSJqda+3n1JYzqUMwjrmU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=arista.com; spf=pass smtp.mailfrom=arista.com; dkim=pass (2048-bit key) header.d=arista.com header.i=@arista.com header.b=nPhs2M/b; arc=none smtp.client-ip=209.85.222.98
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=arista.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arista.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=arista.com header.i=@arista.com header.b="nPhs2M/b"
-Received: by mail-ua1-f98.google.com with SMTP id a1e0cc1a2514c-97bf91b2e6eso805502241.2
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 09:59:47 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B399D3A3E72
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 17:00:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.50
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788195635; cv=pass; b=I6qo3yrWZcyds/YbH8vXFWyqnthPdl9PaXBvK59Qj6FVSDQBNo7wPLd842AOscQZegWu87BxfrPwYEz1HEGbz6jIr7svV1aofgqdgDKKzwsXRWBmMpfPCAA7QC6JkVTBVyv2uc+NveGA9FQXiPtCfvHWmjX2Khhb2o3zxX2cj/Q=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788195635; c=relaxed/simple;
+	bh=vLKSGZop/RGG8SYzGMFyQDakC+1a5r9cdIsEn3XpgII=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=M0oo3hhQ3vp4iXCnQo9HJEV1Wj3t2MpeqlNWowya+L468eEZxpsaEC18CqeFMcCyxm1UTZhiKePQ7RF/6ZtW5Xa8oU5/uSk5CwV1UBLPDeg90iG9f4C9X32ilIf8UvFNeCesCDI1ymTG5V+dZUSyoph3hsjUxaWEgLfb2aL6VH4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=divinehawk.com; spf=pass smtp.mailfrom=divinehawk.com; arc=pass smtp.client-ip=209.85.218.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=divinehawk.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=divinehawk.com
+Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c25420fe973so98845266b.0
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 10:00:33 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788195632; cv=none;
+        d=google.com; s=arc-20260327;
+        b=S+HG9i3E97f4HdloyyhAV/9wumd7KUt+QF6Ahn+4+NNz3kNDRM+fJShKIG9A2jq335
+         9agmCZurv8t7+y9TD41J/uvPQBWqQfT5nc+soOjGi6CQK/U+q1IuubTOZYaSCi1BFPNi
+         7bqBG22DkvhiVVYcPkAJ2XtG0+Of01CBHaCRvw5qyjqv4JxD6YaV/meyeFdidCpA90wI
+         PEP/VEJ4VxUib1kcwSyYMdiDtLGsNQYz5m1fFJ9RQ09myRJ3vdb6/C4p2p5mrWMm4py4
+         wxgzy7/Dh6T5MTtPb6nXLJg7V9KoqI2XdaxhSCGjD/fh3IPWee13iiwjnwkJBzKT5xUs
+         diPw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version;
+        bh=vLKSGZop/RGG8SYzGMFyQDakC+1a5r9cdIsEn3XpgII=;
+        fh=uSA1p/0mH8mqqkUg/grsFTtCdeT8cedho9hm73fd/yA=;
+        b=gQem534n1x0lGEC4kXEJKMYyRb/KKdodzWf9Qw7ZABJXYGdestMb3VKir9iGZ/esgh
+         2FgUdzGhSNLUPtoWE559lIGmCEndSwg1HWLIkwOfxOlkOBTUZDWH04ynTDJQkw04PjHY
+         5PdukNlCVRQ7jZFlDPUHGuztp9mrbrga7Go3o2G+ZNSEcxWP4T5sXIhPZaaz6mNr699d
+         jVbw5E/tbKHuAxvaU3osTCu5VCnH9vRmZSkJAGRrQMTDVsNHHZdqZ/FtavRHEKRVOAPB
+         c6r8BJ5Nd77QN5y80MJpONJGViNyOFvX/6jBU4IgoaTORvGqSKwCtpjWfGV1JFZf+KLZ
+         plEw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788195587; x=1788800387;
-        h=content-transfer-encoding:references:in-reply-to:message-id:date
-         :subject:cc:to:from:dkim-signature:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Yz+SlEJxTrhVGNjozUlkHKCqwLCZLIFaEBLA1h4I/Gk=;
-        b=O8Q+Tt+xlwzWBGDKNq5qa4fi9XSx5JuOteQ+tAMdb94/QmdcCylLhmyxsfiunLWfYt
-         RToVQ/GbQr55he8XlX+PzDi+q4AJPJaynxlM36YhiNp3KpE+bUhKAJKtlFS11g12Mm3Q
-         /ha6HHOD1wZpRoKwZlJ2K4Wu47aHxdgvii+CGyd+xFTW8hLWKH9xue49HKhBdo7Jxke2
-         rtPEb9JmF+Qas3hdSmvM22WCwr2H5JxMv4CMnXjg3bJ9rpxaiwBSN20jqD7dP0sVxUWt
-         BW2Zr+hMvU5vWidsRX8Q9XY9SRb4SNCO9IxVPT86Yzpinr0ogZS9IbQDxQZ+DnamPSTK
-         2dCg==
-X-Forwarded-Encrypted: i=1; AHgh+RqDkKiHXyrHUWDxFPPUv7KdYALvAohipwRyYUz8OCTLUhnsRLjQLipeXWixOciIb5M+mbDis0dVMppkSpE=@vger.kernel.org
-X-Gm-Message-State: AFuF++kWqdvQXcbHiMrZoQDAnAHBRwBw5IDVwK0cTJz1oPw7u7O46fK4
-	M8zPWFa7TsV80oJHBibchuvZLPZ7EkFtl9uqfGr0JBME9coi08DDJuwewi811oFA/GWiDp56PbM
-	SHQPcuYfz7AfZRmdjE+6WJPMEP8DaS0+GoQ==
-X-Gm-Gg: AR+sD10947czxl5e7v6x9Vmh5zQdhB5wJosocnI5NYiyGvCQpS/67tuiUTmmCfiBOlo
-	P8icPBBsHc/ieOCK2/OEHJ30BpxTwK148zVXw+KAz4y1QScWel9uin/BDyOYydwJ4pdaenq19CJ
-	/eNilcixwVXyHPRpjCdZnqxZb+NwbRn3wmMsjGVcm655u1C10T46XaLNo+jJVO/7H2OLnPMJG4U
-	JLqccjlktUqCoXKCWQHirkcGW/dCh+30JMZggPuVff0pDRyQkH22Qxu1pFCBq5B4JPQ5kue0xPc
-	qw5Zixo4lhukswa6IQldyN3uLrA+m77rqscigLaaJq/SlldhJXWsdMfLZ5N4LRsIPB4r/pVQ4dF
-	l/2B5ka6SRHb2kXpw2klBNhNjEWcu0obzwKIP3He7EKbgUD38Ykniwd9x2ewPxg9yHuIX
-X-Received: by 2002:a05:6102:578b:b0:786:7a59:a313 with SMTP id ada2fe7eead31-789fc3e189fmr802913137.13.1788195586757;
-        Mon, 31 Aug 2026 09:59:46 -0700 (PDT)
-Received: from smtp.aristanetworks.com (ec2-52-52-135-65.us-west-1.compute.amazonaws.com. [52.52.135.65])
-        by smtp-relay.gmail.com with ESMTPS id ada2fe7eead31-785f842fd8bsm120358137.20.2026.08.31.09.59.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 09:59:46 -0700 (PDT)
-X-Relaying-Domain: arista.com
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arista.com;
-	s=Arista-A; t=1788195585;
-	bh=Yz+SlEJxTrhVGNjozUlkHKCqwLCZLIFaEBLA1h4I/Gk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=nPhs2M/bzemz0ItWvdh/FZjFAeg/p+GeT6gfMTYhmDscg2KkWW+2S+fH552NT9Ixp
-	 WetIbfv0UcJWqrOWfo+jZ2h4I7h+LjTrpnprd2HVm7Kd28KG061OaS8g5P89J5GrSw
-	 /HXojO7zgfso5D6RU/Ig85w1uakjy0JXwxNVxVuP6/EtfL5x9A11p2PVTswbFYOPDg
-	 vPQoBXb35vTIpk7CVnf1dCV4Atvxv3qvSv1Qh+5EwdSudZmZZXpGuj+YCOiEZmLN/8
-	 IuZs9+I4AXSaxUuZbK9MjCvJyQSY7E82BEzUKMMWdKqG1j4+S3NkHjO5gDkhxTYC3y
-	 fqKQrYUAppfqQ==
-Received: from vm-whiteberg-ubuntu.aristanetworks.com (dhcp-244-90-77.sjc.aristanetworks.com [10.244.90.77])
-	by smtp.aristanetworks.com (Postfix) with ESMTPS id 6E2C0C2E81;
-	Mon, 31 Aug 2026 16:59:45 +0000 (UTC)
-X-SMTP-Authentication: Allow-List-permitted
-X-SMTP-Authentication: Allow-List-permitted
-From: Tate Whiteberg <whiteberg@arista.com>
-To: Andy Shevchenko <andriy.shevchenko@intel.com>,
-	Jiri Slaby <jirislaby@kernel.org>
-Cc: Tate Whiteberg <whiteberg@arista.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Andy Shevchenko <andy@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	linux-serial@vger.kernel.org
-Subject: [PATCH v3 2/2] serial: 8250_mid: wait for LSR tx empty before setting termios
-Date: Mon, 31 Aug 2026 16:59:08 +0000
-Message-ID: <20260831165911.2029839-3-whiteberg@arista.com>
-In-Reply-To: <20260831165911.2029839-1-whiteberg@arista.com>
-References: <20260831165911.2029839-1-whiteberg@arista.com>
-Content-Transfer-Encoding: 8bit
+        d=1e100.net; s=20251104; t=1788195632; x=1788800432;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vLKSGZop/RGG8SYzGMFyQDakC+1a5r9cdIsEn3XpgII=;
+        b=rdLdrnCJSwJvwHijmtdwqQ1Tg1UNqg0mSp65M59EdHwDnWMuZ4JrOYL3mWpziSH6HN
+         5j5X+HArLD44YSc1s3jLHY+AkR5e59NoCAYElqWdW9GTY7hLDBe/59fy2XVeH2P1s1U+
+         B+dqB6gczZN/GfWbJo9F/vBIO+BfmevX71OAq/SP92KSxEiu5z+958uMZhuGogOPpneY
+         dWOqZouS+5MDg3JEOIulesMC8segGKsNlBFCR+l1shX+UZnSm3MlV/xXD4DqQMyONYD0
+         4DDFw/0/T8toOH+J0PqmGeaYFmckJPT9v6WWJsdPEndLxFF274htXVFTFij/SaAMW5uw
+         To+A==
+X-Forwarded-Encrypted: i=1; AHgh+RrFw4SHpmUyFcBEqAIlGfbR5rJxHdeUyo1snSrYfzzn2lVif6kB3jJmYWg7NE+JNb42X8EDsXNaMvEqLCg=@vger.kernel.org
+X-Gm-Message-State: AFuF++ms3UVXwwbYfr6d2/r8kDXdQbbu8FVpm4WKrSq3d1lw4Q602yja
+	yEH8ZjKvAHMhqS5pqyc90C6nWb385WpHlE4J32qufhngrh0brmcjmYyD05hM2R8wmXHTiFWBkff
+	LsEt83oVTCZJSoqvi4Ff1bu76jbZAi+rxQnxDczem
+X-Gm-Gg: AR+sD12D6ofckk4qmSyKXEH6yVhkk0P1CL+M8K4dDHXiSG8+sUAsdOJgFKQ+AWDJVT9
+	1CckscOV0GYd9UPc73xr4kAAA+XpCUFNti5HXLukRLiDs1MVY2AD89ctKLhaMXM8/pEKBZJeik1
+	1e8hDRzaRj+ivY4TMpvwg/1dr8kkxxVzF/lw8IauzUa10kUhdEJeRfgAIGkSTElzKcwVvB50rAu
+	ViHcBtA1JHUDC+nHosHXd0DmIATPc1GGhHw+KcJ6VGo+0zAh8tU576i576nJ3mRs5S0MvZX9kyX
+	NGH3zlLxvSvz+l+1Eed+3eeVQuyXTgpvPEjTS/T1CrnX1VbsgsRq0ezSga949w2lnpzvdP3e7xC
+	SGThrPoN51XWflM1qIzRVzMWXiPevbpTmFe6Nfd4XotgR
+X-Received: by 2002:a17:907:3e04:b0:c1c:2173:d412 with SMTP id
+ a640c23a62f3a-c2556fe9307mr1660123166b.1.1788195631588; Mon, 31 Aug 2026
+ 10:00:31 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260829-xhci-no-soft-retry-v2-0-0efe22f1c2f8@divinehawk.com>
+ <20260829-xhci-no-soft-retry-v2-1-0efe22f1c2f8@divinehawk.com>
+ <20260830165934.34e5b82f.michal.pecio@gmail.com> <CABUBpLf_mA8GmjAn8+-xgz8H5XOvBCr9DRWU8Eqc9=BW9m00Bg@mail.gmail.com>
+ <20260831053825.11f1007d.michal.pecio@gmail.com>
+In-Reply-To: <20260831053825.11f1007d.michal.pecio@gmail.com>
+From: Matt Eaton <linux@divinehawk.com>
+Date: Mon, 31 Aug 2026 19:00:19 +0200
+X-Gm-Features: AcwNN1XNg3dD7oaXf6xtHhi299wPsa-ycc5jfTUXGnyaxivHR6JJ0HBY77JeeB4
+Message-ID: <CABUBpLdLUbC6nj_tKKq4FFmoVNGJ7MnAhE5=O_S4_fnP69jHJA@mail.gmail.com>
+Subject: Re: [PATCH v2 1/3] usb: xhci-plat: add xhci-no-soft-retry-quirk
+ device property
+To: Michal Pecio <michal.pecio@gmail.com>
+Cc: Matt Eaton via B4 Relay <devnull+linux.divinehawk.com@kernel.org>, 
+	Mathias Nyman <mathias.nyman@intel.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Thinh Nguyen <Thinh.Nguyen@synopsys.com>, linux-usb@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-If mid8250_set_termios is called while data is still in transmission,
-the corresponding register updates will corrupt the transmission.
+On Mon, Aug 31, 2026 at 5:38=E2=80=AFAM Michal Pecio <michal.pecio@gmail.co=
+m> wrote:
+>
+> On Mon, 31 Aug 2026 02:58:55 +0200, Matt Eaton wrote:
+> > I applied these (from 7.3-rc1) to my 6.18 kernel and appears to fix
+> > the issue:
+> >
+> > commit e3d757dc9257
+> > commit 042aad8d0db6
+> > commit 7e0ef4332ed9
+> >
+> > There does not appear to be a need to apply this patchset now. Thanks!
+>
+> Great. Did you try disconnecting from external hubs? This code can't
+> detect that, but maybe it's not a problem case. It wasn't on Renesas.
+>
+> Out of curiosity, was it limited to USB 3 devices or also USB 1/2?
+> Disconnecting one device or a hub with devices behind it?
+>
+Tested both cases: directly and with a USB 2 hub (no external power).
+Disconnecting the phone from the USB 2 hub, it didn't appear to issue
+a stop endpoint command, so I don't think the condition was triggered.
 
-Fix this by locking the port and and waiting for the transmitter to
-empty before performing updates. It is necessary to wait for both
-UART_LSR_THRE and UART_LSR_TEMT to ensure the final character is sent.
-
-Fixes: f549e94effa1 ("serial: 8250_pci: add Intel Penwell ports")
-Signed-off-by: Tate Whiteberg <whiteberg@arista.com>
----
-
-Changes in v3:
-  - Update Fixes tag
-  - Apply formatting change from andriy.shevchenko@intel.com
-  - Use scoped_guard() as suggested by jirislaby@kernel.org
-
-Changes in v2:
-  - Separate changes to 8250.h and 8250_port.c into prerequisite patch,
-    as recommended by andriy.shevchenko@intel.com
-  - Apply feedback from andriy.shevchenko@intel.com to 8250_mid.c
-
- drivers/tty/serial/8250/8250_mid.c | 15 +++++++++++----
- 1 file changed, 11 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/tty/serial/8250/8250_mid.c b/drivers/tty/serial/8250/8250_mid.c
-index 82656645b8a6..9c5ef207bf8a 100644
---- a/drivers/tty/serial/8250/8250_mid.c
-+++ b/drivers/tty/serial/8250/8250_mid.c
-@@ -7,6 +7,7 @@
-  */
- 
- #include <linux/bitops.h>
-+#include <linux/cleanup.h>
- #include <linux/module.h>
- #include <linux/pci.h>
- #include <linux/rational.h>
-@@ -209,6 +210,7 @@ static void mid8250_set_termios(struct uart_port *p, struct ktermios *termios,
- 				const struct ktermios *old)
- {
- 	unsigned int baud = tty_termios_baud_rate(termios);
-+	struct uart_8250_port *up = up_to_u8250p(p);
- 	struct mid8250 *mid = p->private_data;
- 	unsigned short ps = 16;
- 	unsigned long fuart = baud * ps;
-@@ -231,11 +233,16 @@ static void mid8250_set_termios(struct uart_port *p, struct ktermios *termios,
- 	}
- 
- 	rational_best_approximation(fuart, mid->board->freq, w, w, &mul, &div);
--	p->uartclk = fuart * 16 / ps;		/* core uses ps = 16 always */
- 
--	writel(ps, p->membase + INTEL_MID_UART_PS);		/* set PS */
--	writel(mul, p->membase + INTEL_MID_UART_MUL);		/* set MUL */
--	writel(div, p->membase + INTEL_MID_UART_DIV);
-+	scoped_guard(spinlock_irq, &p->lock) {
-+		p->uartclk = fuart * 16 / ps;	/* core uses ps = 16 always */
-+
-+		serial8250_wait_for_xmitr(up, UART_LSR_BOTH_EMPTY);
-+
-+		writel(ps, p->membase + INTEL_MID_UART_PS);	/* set PS */
-+		writel(mul, p->membase + INTEL_MID_UART_MUL);	/* set MUL */
-+		writel(div, p->membase + INTEL_MID_UART_DIV);
-+	}
- 
- 	serial8250_do_set_termios(p, termios, old);
- }
--- 
-2.43.0
-
+Cheers,
+Matt
