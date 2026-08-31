@@ -1,47 +1,47 @@
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 850BD3CE0B4
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 09:07:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35C633DA5DA
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 09:07:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788167229; cv=none; b=KKD7iX44lkI4wHnTYMZIcKSVkarsviniDV347IxCUuqTwNkdN5OTtI7MnzDmXXahKvnyhKKOGxDhysj8N3igS4qMg/5HhqR/Sqxi/ir354FJeQOv3L7APNKSIzo2DH3XCM0rruIAf9WR7eRXbBs77QPpsb4EpGtVUYUPZ3MX7Fg=
+	t=1788167234; cv=none; b=dHTlPNtXujqe8fv6hm3pB5b7f+bmXIUNGIM2zoUosR3o43N6hEd3cEj9NbTDzGm1OxieK73zAKzNuY9DLy3v+9RnZJGXiTCfx0xiTHMhOcly20UmoPqTuSzgyjQKGHN2bXBklc/zpDfYlIpbkheJ9exAwKU28NtPS5ipPwFzYKk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788167229; c=relaxed/simple;
-	bh=3DM/K98fffruEH8/09LX1Unl1VL6OtdvW7P6hrxuI0s=;
+	s=arc-20240116; t=1788167234; c=relaxed/simple;
+	bh=xN80Pfs67HCbw+oDmc7ZViSyGz9ljql1b1gK0ht12no=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Z8CNpYc6ZshWsvwje244zmyy0F1CAxXWy2es3R8WxEOQBBhc0CVQtdjAcDr7bTpmDlAY2lBDkaesBBfCVaCHwa06UameG9wdzVwt6koopk4d9s8p+Y+elyVARlNzFHaF9CetJsQRgQ6B2pvX7qlOUE/RNgOpj9sRtw+UAn4n/rA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=bHbPwbHq; arc=none smtp.client-ip=170.10.133.124
+	 MIME-Version; b=qxVYDp2h9NmTZB8QMX8ay8ZnOlNC6tfGozhCnEiXHYjYxPK/lJLWxE+N1LmlotBVikWlYnDtscPcUQf/ifY6h2fJKJytuSlHkXGtR3oT0trMeYZHapt012wdOafAUHq5NRCzR12w1KI8NZwzBGyAHxjjMZVarCqETBMf+oGFYS4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=belE5inQ; arc=none smtp.client-ip=170.10.133.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="bHbPwbHq"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="belE5inQ"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788167226;
+	s=mimecast20190719; t=1788167232;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=x6xpONabfnSBWbWSB7Bl4iKA12vAnmh9pV4xx/IOXqI=;
-	b=bHbPwbHqpBbgDtW4op9NKaOavakrrMAfNo3tY4FNLmdMRnrqA4IRf1WQlkkUpBw5rQlIhV
-	LXdHEMM+Ux64YSgu3gSjuFLMEzizXD2mg0MbvUfWQ9bRP1VT3l1U4yVoEhKtPXalN48Jri
-	k/MoWZVzuWNarmKQjDcpJn1/4i1hu9M=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+	bh=D9nODF3ao4BoTMuSTnZHD2rQJuc0s627BBlq9bQmlc8=;
+	b=belE5inQYDcK7sbL2XPRJkb2jgR6SAztWpyqVTKXtRWStMIeYovdTYMHBPskBuWUn4Dagz
+	XXQ1DhWx/GGMYNHsrNshEUL8pIKUBsxrkaZfKoPzCC+CjLlHWQ45Sn13ghxT6sVWSVvW3A
+	J4d7PJyt7VZJ4Il8Lc3edYbrvp3ny/Q=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
  (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-436-3aVp4fTkMX6317d2y747XQ-1; Mon,
- 31 Aug 2026 05:07:04 -0400
-X-MC-Unique: 3aVp4fTkMX6317d2y747XQ-1
-X-Mimecast-MFC-AGG-ID: 3aVp4fTkMX6317d2y747XQ_1788167223
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-458-XgWx3pW2NR2sPHVbt1Fasg-1; Mon,
+ 31 Aug 2026 05:07:08 -0400
+X-MC-Unique: XgWx3pW2NR2sPHVbt1Fasg-1
+X-Mimecast-MFC-AGG-ID: XgWx3pW2NR2sPHVbt1Fasg_1788167226
 Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 215471944B23;
-	Mon, 31 Aug 2026 09:07:03 +0000 (UTC)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id D2D671977536;
+	Mon, 31 Aug 2026 09:07:06 +0000 (UTC)
 Received: from gmonaco-thinkpadt14gen3.redhat.corp (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
-	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id C45E118005BB;
-	Mon, 31 Aug 2026 09:06:59 +0000 (UTC)
+	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id EE602180034F;
+	Mon, 31 Aug 2026 09:07:03 +0000 (UTC)
 From: Gabriele Monaco <gmonaco@redhat.com>
 To: linux-kernel@vger.kernel.org,
 	linux-trace-kernel@vger.kernel.org,
@@ -52,9 +52,9 @@ Cc: Nam Cao <namcao@linutronix.de>,
 	Wen Yang <wen.yang@linux.dev>,
 	Tobias Schaffner <tobias.schaffner@siemens.com>,
 	Viktor Malik <vmalik@redhat.com>
-Subject: [RFC PATCH 02/20] tools/rv: Skip empty pid error in selftest if command failed
-Date: Mon, 31 Aug 2026 11:05:06 +0200
-Message-ID: <20260831090524.106845-3-gmonaco@redhat.com>
+Subject: [RFC PATCH 03/20] rv: Refactor da_trace() functions to get strings internally
+Date: Mon, 31 Aug 2026 11:05:07 +0200
+Message-ID: <20260831090524.106845-4-gmonaco@redhat.com>
 In-Reply-To: <20260831090524.106845-1-gmonaco@redhat.com>
 References: <20260831090524.106845-1-gmonaco@redhat.com>
 Precedence: bulk
@@ -66,36 +66,104 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
 
-Some rv userspace selftests rely on the pid of the rv process to match
-with the output and fail prematurely in case the pid was not found.
-If the rv process failed, however, it's likely it will terminate before
-catching the pid, and the test reports empty pid ignoring the error that
-caused the process to fail.
+The da_trace_event() and da_trace_error() functions are currently called
+with strings and the callers are converting the state/event enums to the
+corresponding string representation.
+This is unnecessary and is problematic if an alternative implementation
+is needed (e.g. BPF without using strings).
 
-Report empty pid only when the rv process succeeds (exit code not what
-was expected) and continue showing exit code and output otherwise.
+Change the functions to accept enums and pass the string representations
+to the tracepoints only internally.
 
 Signed-off-by: Gabriele Monaco <gmonaco@redhat.com>
 ---
- tools/verification/tests/engine.sh | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ include/rv/da_monitor.h | 40 ++++++++++++++++++++++------------------
+ 1 file changed, 22 insertions(+), 18 deletions(-)
 
-diff --git a/tools/verification/tests/engine.sh b/tools/verification/tests/engine.sh
-index cfdf2180aad8..4dad43b0b822 100644
---- a/tools/verification/tests/engine.sh
-+++ b/tools/verification/tests/engine.sh
-@@ -60,8 +60,9 @@ _check() {
- 	failbuf=''
- 	fail=0
+diff --git a/include/rv/da_monitor.h b/include/rv/da_monitor.h
+index 6fc5ef8142ac..7f0bdfd7cce3 100644
+--- a/include/rv/da_monitor.h
++++ b/include/rv/da_monitor.h
+@@ -633,19 +633,22 @@ static inline void da_monitor_destroy(void)
+  */
  
--	# Suppress any other error if a needed pid is empty
--	if [ -z "$pid" ] && grep -q "\$pid" <<< "$patterns"; then
-+	# Suppress any other error if a needed pid is empty and there was no other error
-+	if [ -z "$pid" ] && grep -q "\$pid" <<< "$patterns" \
-+		&& [ $exitcode -eq "$expected_exitcode" ]; then
- 		result=''
- 		failure "# Empty pid for $command"
- 		return 1
+ static inline void da_trace_event(struct da_monitor *da_mon,
+-				  char *curr_state, char *event,
+-				  char *next_state, bool is_final,
++				  enum states curr_state, enum events event,
++				  enum states next_state,
+ 				  da_id_type id)
+ {
+-	CONCATENATE(trace_event_, MONITOR_NAME)(curr_state, event, next_state,
+-						is_final);
++	CONCATENATE(trace_event_, MONITOR_NAME)(model_get_state_name(curr_state),
++						model_get_event_name(event),
++						model_get_state_name(next_state),
++						model_is_final_state(next_state));
+ }
+ 
+ static inline void da_trace_error(struct da_monitor *da_mon,
+-				  char *curr_state, char *event,
++				  enum states curr_state, enum events event,
+ 				  da_id_type id)
+ {
+-	CONCATENATE(trace_error_, MONITOR_NAME)(curr_state, event);
++	CONCATENATE(trace_error_, MONITOR_NAME)(model_get_state_name(curr_state),
++						model_get_event_name(event));
+ }
+ 
+ /*
+@@ -662,19 +665,24 @@ static inline da_id_type da_get_id(struct da_monitor *da_mon)
+  */
+ 
+ static inline void da_trace_event(struct da_monitor *da_mon,
+-				  char *curr_state, char *event,
+-				  char *next_state, bool is_final,
++				  enum states curr_state, enum events event,
++				  enum states next_state,
+ 				  da_id_type id)
+ {
+-	CONCATENATE(trace_event_, MONITOR_NAME)(id, curr_state, event,
+-						next_state, is_final);
++	CONCATENATE(trace_event_, MONITOR_NAME)(id,
++						model_get_state_name(curr_state),
++						model_get_event_name(event),
++						model_get_state_name(next_state),
++						model_is_final_state(next_state));
+ }
+ 
+ static inline void da_trace_error(struct da_monitor *da_mon,
+-				  char *curr_state, char *event,
++				  enum states curr_state, enum events event,
+ 				  da_id_type id)
+ {
+-	CONCATENATE(trace_error_, MONITOR_NAME)(id, curr_state, event);
++	CONCATENATE(trace_error_, MONITOR_NAME)(id,
++						model_get_state_name(curr_state),
++						model_get_event_name(event));
+ }
+ #endif /* RV_MON_TYPE */
+ 
+@@ -695,17 +703,13 @@ static inline bool da_event(struct da_monitor *da_mon, enum events event, da_id_
+ 		next_state = model_get_next_state(curr_state, event);
+ 		if (next_state == INVALID_STATE) {
+ 			react(curr_state, event);
+-			da_trace_error(da_mon, model_get_state_name(curr_state),
+-				       model_get_event_name(event), id);
++			da_trace_error(da_mon, curr_state, event, id);
+ 			return false;
+ 		}
+ 		if (likely(try_cmpxchg(&da_mon->curr_state, &curr_state, next_state))) {
+ 			if (!da_monitor_event_hook(da_mon, curr_state, event, next_state, id))
+ 				return false;
+-			da_trace_event(da_mon, model_get_state_name(curr_state),
+-				       model_get_event_name(event),
+-				       model_get_state_name(next_state),
+-				       model_is_final_state(next_state), id);
++			da_trace_event(da_mon, curr_state, event, next_state, id);
+ 			return true;
+ 		}
+ 	}
 -- 
 2.55.0
 
