@@ -1,132 +1,218 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 660A03F39DC;
-	Mon, 31 Aug 2026 11:38:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B43063F39EE
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 11:38:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788176326; cv=none; b=iU/a8zYL8bH3mx+wXQeLjBJkS6/p38S4TvbC/3rBs2UGQRs+rt2HxqjNWz5GYtkrRBxQ+LnwB1HkdSc00yrIXTET+sQTkf3kKn8t7wKotvoHToqBknyaKipNDDhxEhgv8+jXZjJkoo+Xjk3S1bawbus3hR7p7h99hB+uWhu+CxQ=
+	t=1788176326; cv=none; b=TASVN0sSBrpBqS338+ZuxGIeasptpybO5KZAJhtQwYkRlLf6rOBZyDDENM3mCdtZX/hhgW7X167+0ggFlklIaK7oC+G3POJHV1umlGGqAdiTfiaWkNrJdn/WQUTWTDLZU6yKrj6TsbDqfCSso5xbSXyL0EUEqBKcpNHoC+rRm1I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788176326; c=relaxed/simple;
-	bh=nwOFeWvsaBX4TElxo8BKbmKNns0DJdUW18m7d+uWhnc=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=ThCyoSg+dJiF5q5+ReciUPnNru2X/NV9zgyGAt2MjnlPKauJmydOnSG595rZsJvbqriMo+TH5lkxRFEG73+idldJtwKxT+zsb/saoyn7vJnP0+LA6tcgUSS+9A5DThKhxdNdj7YfWV9MEwiEl5DL9epJLgFjUPrV6aSVqpAIQOI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=dfFKL9ly; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=55bSVbf5; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	bh=G2wkGOHoI0v2yjNnkkXd5xcOv4EsesC6pU3GWngMgNQ=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=XH33v9vNOI0xIfeyYM8audheshvd5uDFjgos3uGYE3na9v09M22RGDpfAk+7ZpC2gmpRq8VrJc1UnyUFXhS+p9jlMCkkJtVAyWuo/7LYlBUmAiTkeej3gZjvr5smNZlUgo3l+zPkBJs88v/IxmQD8BFilqeua2tRPGXBqy+D7I0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=RwFGXqWj; arc=none smtp.client-ip=192.198.163.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="dfFKL9ly";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="55bSVbf5"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1788176287; bh=9HqZxXcOW1Xz+TeJ5NTeoxc
-	fysDQipXYrj2AUeLNun0=; b=dfFKL9lyz40RzeiWqHXXOCaIDqgwZ1htZdpeyMaBEy0PvVjJVu
-	O2C8rvt8ORsvG29BGnpKvkeXtTj5EfmADXyEm+lQwzlx9k6in1w6Zi9K25Oa44YfHOd20AMyQnz
-	2vmpKB7Xs4RuacxKM5cQf09axsoKhFz8Zkangyy8N2E3yhUBi1XFtTp0A7qcWqnziXps4jaAxEV
-	nXEqziHG7t6I1zepHtrJ+6zue8J9Siy/+dmCIyFC+rlmBLEo4QFVkazKeZFpHSTbrwcmcziEmJJ
-	wzrzfIKyVY5W7lOonPUnq5W2KEz6WBlkuMyzoyNp4LQGZMZv3Mr/1xr47biUIXcv4fw==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1788176287; bh=9HqZxXcOW1Xz+TeJ5NTeoxc
-	fysDQipXYrj2AUeLNun0=; b=55bSVbf5AvgQD63tjCm5Ti7kRPi24HGf/KR7iTn9Mnol/gUT8g
-	OzzaXlRRf/EfnCdf/4aPiANr0XnCdUJnlNCg==;
-Date: Mon, 31 Aug 2026 12:38:07 +0100
-From: Bradley Morgan <brads@mainlining.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-CC: Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>,
- Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>,
- Aaron Tomlin <atomlin@atomlin.com>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
- Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Aleksandr Nogikh <nogikh@google.com>, linux-modules@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-usb@vger.kernel.org, driver-core@lists.linux.dev,
- linux-trace-kernel@vger.kernel.org, Johan Hovold <johan@kernel.org>
-Subject: Re: [PATCH v2 1/2] module: pull out add_taint_module() to be public
-In-Reply-To: <2026083107-gently-leverage-7f97@gregkh>
-References: <20260831-bind_taint-v2-0-1082d631213b@linuxfoundation.org> <20260831-bind_taint-v2-1-1082d631213b@linuxfoundation.org> <2026083120-matrix-waffle-7ee7@gregkh> <A47FDF4A-DA90-4015-AFDB-61CA611F6311@mainlining.org> <2026083107-gently-leverage-7f97@gregkh>
-Message-ID: <F4CE5DE5-66B7-491C-B288-A5666A56FC0F@mainlining.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="RwFGXqWj"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788176325; x=1819712325;
+  h=from:date:subject:mime-version:content-transfer-encoding:
+   message-id:references:in-reply-to:to:cc;
+  bh=G2wkGOHoI0v2yjNnkkXd5xcOv4EsesC6pU3GWngMgNQ=;
+  b=RwFGXqWj4OyxE/nhLL24Mn9LiqZgLNJSbYfe+/WegAcvxlqWu0Ia08Yd
+   cwmRjQy/GAsGz7GuyYKlQWLhWZ+1FfE3W9q+VH/J9dZZjWhJ4b1/TvRDA
+   gYLiS8JbBltWfO4bo1/prgHhd6LOJnkK7Abr3Qtd7/PMjycS76iO22iuU
+   dMrAysZciA7CxIqEjhuGniY2w/RMHomihy42/h9S8RAK7VoWv70lVjK65
+   jJDit90ceuCWklg8UYy3yWcpBodmCPS1vfgnLDVRnfVfhVfucmFu3J4Fm
+   22us7UXpkD5Hu2NsuAyg8N0UwKdW2hM+iMDXK/q9fk3vl/OGxmWA/O+vw
+   Q==;
+X-CSE-ConnectionGUID: 2clFmcEjSe22ps+Oi20Kug==
+X-CSE-MsgGUID: mfEToKmYRjuc0dgLz4T2Eg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11891"; a="76129328"
+X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; 
+   d="scan'208";a="76129328"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 04:38:44 -0700
+X-CSE-ConnectionGUID: KuzqMe6cSmuTIfjlhiXH2w==
+X-CSE-MsgGUID: sfOAddfkSw29DUwnij687w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; 
+   d="scan'208";a="262645109"
+Received: from sannilnx-dsk.jer.intel.com (HELO [127.0.1.1]) ([10.12.231.107])
+  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 04:38:43 -0700
+From: Alexander Usyskin <alexander.usyskin@intel.com>
+Date: Mon, 31 Aug 2026 14:38:32 +0300
+Subject: [PATCH char-misc-next 2/4] mei: csc: add option for polling and
+ enable it
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260831-cri_polling-v1-2-d927315e6598@intel.com>
+References: <20260831-cri_polling-v1-0-d927315e6598@intel.com>
+In-Reply-To: <20260831-cri_polling-v1-0-d927315e6598@intel.com>
+To: Arnd Bergmann <arnd@arndb.de>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-kernel@vger.kernel.org, 
+ Alexander Usyskin <alexander.usyskin@intel.com>, 
+ Menachem Adin <menachem.adin@intel.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788176320; l=4439;
+ i=alexander.usyskin@intel.com; s=20260315; h=from:subject:message-id;
+ bh=G2wkGOHoI0v2yjNnkkXd5xcOv4EsesC6pU3GWngMgNQ=;
+ b=eS/DlOklX26covREgrskhc+4UfKyb6FVznXt6ioU5c+3jCUHLjeq2asVVT4LnGvnli00Ajc1p
+ M2QTf+G5FD6AVQhC0QOHQ0X+Nbnipmbp0WaWM9WXnow4KNco3GQI7VY
+X-Developer-Key: i=alexander.usyskin@intel.com; a=ed25519;
+ pk=X+qoF/nFCdDOV04IForWSxnkyoCAbUE10egZi6PSfcU=
 
-On 31 August 2026 12:28:48 BST, Greg Kroah-Hartman
-<gregkh@linuxfoundation.org> wrote:
->On Mon, Aug 31, 2026 at 12:14:17PM +0100, Bradley Morgan wrote:
->> On 31 August 2026 12:07:50 BST, Greg Kroah-Hartman
->> <gregkh@linuxfoundation.org> wrote:
->> >On Mon, Aug 31, 2026 at 12:51:46PM +0200, Greg Kroah-Hartman wrote:
->> >> Other kernel code might want to call add_taint_module() so pull it
->out
->> >> and make it global.  If modules are not enabled, this defaults to a
->call
->> >> to add_taint(), so all is fine.
->> >> 
->> >> Reviewed-by: Johan Hovold <johan@kernel.org>
->> >> Tested-by: Johan Hovold <johan@kernel.org>
->> >> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
->> >> ---
->> >>  include/linux/module.h | 10 ++++++++++
->> >>  kernel/module/main.c   | 16 +++++++++++++---
->> >>  2 files changed, 23 insertions(+), 3 deletions(-)
->> >> 
->> >> diff --git a/include/linux/module.h b/include/linux/module.h
->> >> index 96cc98568eea..0636e0f2728c 100644
->> >> --- a/include/linux/module.h
->> >> +++ b/include/linux/module.h
->> >> @@ -29,6 +29,7 @@
->> >>  #include <linux/srcu.h>
->> >>  #include <linux/static_call_types.h>
->> >>  #include <linux/dynamic_debug.h>
->> >> +#include <linux/panic.h>
->> >>  
->> >>  #include <linux/percpu.h>
->> >>  #include <asm/module.h>
->> >> @@ -770,6 +771,9 @@ static inline bool is_livepatch_module(struct
->module
->> >*mod)
->> >>  
->> >>  void module_for_each_mod(int(*func)(struct module *mod, void *data),
->> >void *data);
->> >>  
->> >> +void add_taint_module(struct module *mod, unsigned flag,
->> >> +		      enum lockdep_ok lockdep_ok);
->> >> +
->> >>  #else /* !CONFIG_MODULES... */
->> >>  
->> >>  static inline struct module *__module_address(unsigned long addr)
->> >> @@ -877,6 +881,12 @@ static inline bool module_is_coming(struct
->module
->> >*mod)
->> >>  static inline void module_for_each_mod(int(*func)(struct module
->*mod,
->> >void *data), void *data)
->> >>  {
->> >>  }
->> >> +
->> >> +static inline void add_taint_module(struct module *mod, unsigned
->flag,
->> >> +				    enum lockdep_ok, lockdep_ok)
->> >
->> >And this line is wrong, ugh.  I gotta go get sashiko running locally...
->> 
->> Cough cough, Claude code speaking 
->
->Nope, no claude running here at all, sorry to burst your bubble.  If I
->had, it would have caught this :)
->
->greg k-h
-Nooooo lol.
+Add option to poll instead of waiting for the interrupt
+to wallpaper over hardware not releasing the interrupt line.
 
-I mean asking Claudy to find bugs in the code submitted before submitting
-it.
+Enable this workaround and leave option to use interrupts when
+hardware is fixed.
 
-Saves me a ridiculous amount of time.
---- Thanks!
-https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
+Reviewed-by: Menachem Adin <menachem.adin@intel.com>
+Signed-off-by: Alexander Usyskin <alexander.usyskin@intel.com>
+---
+ drivers/misc/mei/pci-csc.c | 71 +++++++++++++++++++++++++++++++++++-----------
+ 1 file changed, 55 insertions(+), 16 deletions(-)
+
+diff --git a/drivers/misc/mei/pci-csc.c b/drivers/misc/mei/pci-csc.c
+index 6e1e8008f267..f50ef93e27dc 100644
+--- a/drivers/misc/mei/pci-csc.c
++++ b/drivers/misc/mei/pci-csc.c
+@@ -11,6 +11,7 @@
+ #include <linux/err.h>
+ #include <linux/errno.h>
+ #include <linux/interrupt.h>
++#include <linux/kthread.h>
+ #include <linux/module.h>
+ #include <linux/mutex.h>
+ #include <linux/pci.h>
+@@ -26,6 +27,10 @@
+ 
+ #define MEI_CSC_HECI2_OFFSET 0x1000
+ 
++static bool use_polling = true;
++module_param(use_polling, bool, 0600);
++MODULE_PARM_DESC(use_polling, "Use polling instead of interrupts");
++
+ static int mei_csc_read_fws(const struct mei_device *mdev, int where, const char *name, u32 *val)
+ {
+ 	struct mei_me_hw *hw = to_me_hw(mdev);
+@@ -87,20 +92,40 @@ static int mei_csc_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
+ 
+ 	pci_set_drvdata(pdev, mdev);
+ 
+-	err = pci_alloc_irq_vectors(pdev, 1, 1, PCI_IRQ_INTX | PCI_IRQ_MSI);
+-	if (err < 0) {
+-		dev_err_probe(dev, err, "Failed to allocate IRQ.\n");
+-		goto err_mei_unreg;
++	if (use_polling) {
++		dev_dbg(dev, "Using polling thread\n");
++		hw->irq = -1;
+ 	}
+ 
+-	hw->irq = pci_irq_vector(pdev, 0);
+-
+-	/* request and enable interrupt */
+-	err = request_threaded_irq(hw->irq,
+-				   mei_me_irq_quick_handler, mei_me_irq_thread_handler,
+-				   IRQF_SHARED | IRQF_ONESHOT, KBUILD_MODNAME, mdev);
+-	if (err)
+-		goto err_free_irq_vectors;
++	/* use polling */
++	if (mei_me_hw_use_polling(hw)) {
++		mei_disable_interrupts(mdev);
++		mei_clear_interrupts(mdev);
++		init_waitqueue_head(&hw->wait_active);
++		hw->is_active = true; /* start in active mode for initialization */
++		hw->polling_thread = kthread_run(mei_me_polling_thread, mdev,
++						 "kmecscirqd/%s", dev_name(dev));
++		if (IS_ERR(hw->polling_thread)) {
++			err = PTR_ERR(hw->polling_thread);
++			dev_err_probe(dev, err, "unable to create kernel thread.\n");
++			goto err_mei_unreg;
++		}
++	} else {
++		err = pci_alloc_irq_vectors(pdev, 1, 1, PCI_IRQ_INTX | PCI_IRQ_MSI);
++		if (err < 0) {
++			dev_err_probe(dev, err, "Failed to allocate IRQ.\n");
++			goto err_mei_unreg;
++		}
++
++		hw->irq = pci_irq_vector(pdev, 0);
++
++		/* request and enable interrupt */
++		err = request_threaded_irq(hw->irq,
++					   mei_me_irq_quick_handler, mei_me_irq_thread_handler,
++					   IRQF_SHARED | IRQF_ONESHOT, KBUILD_MODNAME, mdev);
++		if (err)
++			goto err_free_irq_vectors;
++	}
+ 
+ 	/*
+ 	 * Continue to char device setup in spite of firmware handshake failure.
+@@ -126,7 +151,8 @@ static int mei_csc_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
+ 	return 0;
+ 
+ err_free_irq_vectors:
+-	pci_free_irq_vectors(pdev);
++	if (!mei_me_hw_use_polling(hw))
++		pci_free_irq_vectors(pdev);
+ err_mei_unreg:
+ 	mei_deregister(mdev);
+ 	return err;
+@@ -141,9 +167,14 @@ static void mei_csc_shutdown(struct pci_dev *pdev)
+ 
+ 	mei_stop(mdev);
+ 
++	if (mei_me_hw_use_polling(hw))
++		kthread_stop(hw->polling_thread);
++
+ 	mei_disable_interrupts(mdev);
+-	free_irq(hw->irq, mdev);
+-	pci_free_irq_vectors(pdev);
++	if (!mei_me_hw_use_polling(hw)) {
++		free_irq(hw->irq, mdev);
++		pci_free_irq_vectors(pdev);
++	}
+ }
+ 
+ static void mei_csc_remove(struct pci_dev *pdev)
+@@ -210,6 +241,9 @@ static int mei_csc_pm_runtime_suspend(struct device *dev)
+ 		return -EAGAIN;
+ 
+ 	hw->pg_state = MEI_PG_ON;
++	if (mei_me_hw_use_polling(hw))
++		hw->is_active = false;
++
+ 	return 0;
+ }
+ 
+@@ -219,8 +253,13 @@ static int mei_csc_pm_runtime_resume(struct device *dev)
+ 	struct mei_me_hw *hw = to_me_hw(mdev);
+ 	irqreturn_t irq_ret;
+ 
+-	scoped_guard(mutex, &mdev->device_lock)
++	scoped_guard(mutex, &mdev->device_lock) {
+ 		hw->pg_state = MEI_PG_OFF;
++		if (mei_me_hw_use_polling(hw)) {
++			hw->is_active = true;
++			wake_up_interruptible(&hw->wait_active);
++		}
++	}
+ 
+ 	/* Process all queues that wait for resume */
+ 	irq_ret = mei_me_irq_thread_handler(1, mdev);
+
+-- 
+2.53.0
+
