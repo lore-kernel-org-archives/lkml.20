@@ -1,47 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47F0C4A2A55;
-	Mon, 31 Aug 2026 13:42:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4E7D4A2A7E;
+	Mon, 31 Aug 2026 13:42:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183741; cv=none; b=CW+HC8Yfex/FCeXvcfk4r46Q+HXWuBXdOpXNT1SLvUfA4lROww29r3ZASCIX9MpEwRqHxkTgZ3+y9hBdHk2PI5il3Pwuc9XP2P54dgssJjPGNSgeYKH6ZSqactiKPPtg2oG9hOYL+PUZUwLv2Rcrrhd4dN27WPv9PCEuPHGlXis=
+	t=1788183742; cv=none; b=nQSR3dtcVUUOwtR8mK5CBj9Y3IxTHbl5yOLwTgfzEALfhpVaaH+IIYqrDDrHpRC3ySPGNKabC5XNd9JSBkkj4rKDdhNF5w0NPhSjDmvwrroL/d6kyCNSsLyZ2CYwEqoywe2vKbOfliNjEM8PM/jkjum+2xMjQbSwkRiqxrqNFyk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183741; c=relaxed/simple;
-	bh=APNPkioo5bL09qGzsxhBDDX78tBFS95e6QLw68aY23c=;
+	s=arc-20240116; t=1788183742; c=relaxed/simple;
+	bh=QSlgWUHKFieonTqmTqX+8UloC5qEueWyfKw3H/cpFgE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=AblQLl+ruc2muiWIkrlKd4MD84yFlNpman/v39uCdXVKvS33tpIPawY9X0pPKlpst/SRfmQ9MmXR2PU6ZGNXeqi7w8eaR2wXytnirerfShzGn5bm1fdz4aGHucWpI5O15EZEkmPhug0wG/Z1WC2DYUEGy62R2CO9/2ufI9OAAW8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mY0IXbVR; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=ZN3mBv+UN8l0YZrQmLweusprX9aebyJolR/8Rv0ApMCZzqVGjWukaocz3M3CMPSWLlyoJl8ZfDZUBNlRsWZmG+/1Nloo9Kr1czzHekq9y5WGhk570b1Ocm4mXQBW2dOntQ7fvJX6l8BcOg3K2VsZWQ4uIr6j/gVN6ndrR/Z0+EQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AmYA8hfq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mY0IXbVR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D93E71F00ADB;
-	Mon, 31 Aug 2026 13:42:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AmYA8hfq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 905C51F000E9;
+	Mon, 31 Aug 2026 13:42:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788183738;
-	bh=hO5fpXgZeak/GWVwQhbEEiS8z/bv3eh4dMt91Ymz94A=;
+	s=k20260515; t=1788183739;
+	bh=zGjJjwPm4jSrA8LTBjKCFqr80P0Fkin04Tc6rM8MmrM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mY0IXbVR0zUm5kJ3b6/V78AhMEU9cOxuyWpTmY7KDX1qZtju7UPa55GiGTKj257ir
-	 TBl+gKchiNvjkIvj8VllYc65x6/tvxeA+jcx22NloJFflKqbEmIVmTFgfMytHGrOUf
-	 7Y5Elcd+sZ+WZdKpkngjgUBRNOinOYD3+It5Ze/QW8/C/s8ECqJ0RB22TM3xHNMfPd
-	 qFoFIXIbXservVVO4L3Hev2gLcswDmYLojFik5GcZ0Vpc69n6+75KfrrmwCUjkM2Bk
-	 yy9BFAxF37uI4L+4+QVaG0jc9Y7ZIvunBoXQPOnrtDXvcsj2S30LBlLcSoYBcnmJTU
-	 VFzeE6ltA+gSA==
+	b=AmYA8hfqGrDPsw4NOPRupIo+C/HCrslYZB+oy2hEVKqod0Hp5mP9eRGkI5eIqU6tj
+	 IoxzH3DIinxLWjC5AZ5SFZuUjUgz8X5U1lvX8Uk0bEqvUrob3SSFP8Kh8FSOEn5GOI
+	 P6aRAB6zFgujJAUG0ciScNlS08PQ5NpxdZ194I3lVjt3dw5DCBFxt/daaaP3M69QeV
+	 gHOKaR8bSTnkOxBR2U/S5w+hLCb6BzieoB1F4FGcisOtBkCT7wFl7DmmhdcmIOz4Ld
+	 AUp25VJNthKDy1xKG1U6vrTEA3l0urG+GLgogNk1Ly+Jz95yfZ8xtjq8DbO0+N6ioC
+	 9ZF18MXde7OLg==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Candice Li <candice.li@amd.com>,
-	Tao Zhou <tao.zhou1@amd.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
+Cc: Filipe Manana <fdmanana@suse.com>,
+	Boris Burkov <boris@bur.io>,
+	David Sterba <dsterba@suse.com>,
 	Sasha Levin <sashal@kernel.org>,
-	christian.koenig@amd.com,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
+	clm@fb.com,
+	linux-btrfs@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18] drm/amdgpu: cap ATOM command table nesting depth
-Date: Mon, 31 Aug 2026 09:25:02 -0400
-Message-ID: <20260831133314.4125787-274-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-5.10] btrfs: fix reloc root cleanup in merge_reloc_roots()
+Date: Mon, 31 Aug 2026 09:25:03 -0400
+Message-ID: <20260831133314.4125787-275-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -57,60 +54,74 @@ X-stable-base: Linux 6.18.48
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Candice Li <candice.li@amd.com>
+From: Filipe Manana <fdmanana@suse.com>
 
-[ Upstream commit 27ef1795bc4e47cae838e0a3ced531c549f9b23d ]
+[ Upstream commit b78fe9563e2d5ae47805f1e5dc722c91fd30e1f8 ]
 
-Cap nesting at 32 levels with execute_depth and
-return -ELOOP when exceeded.
+If the root we got has zero root refs in its root item, we are resetting
+the root's ->reloc_root without using barriers like we do everywhere else.
+Sashiko complained about this while reviewing another patch, and it's
+correct (see the Link tag below).
 
-Signed-off-by: Candice Li <candice.li@amd.com>
-Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Also, we should not clear BTRFS_ROOT_DEAD_RELOC_TREE from the root unless
+the root points to the reloc root we have.
+
+Fix this by using clear_reloc_root(), which issues the memory barrier
+after setting the root's ->reloc_root to NULL and before clearing the bit
+BTRFS_ROOT_DEAD_RELOC_TREE from the root.
+
+Link: https://sashiko.dev/#/patchset/cf84f1a217c719e25b6b69e4298dd7afd36c9427.1781194426.git.fdmanana%40suse.com
+Reviewed-by: Boris Burkov <boris@bur.io>
+Signed-off-by: Filipe Manana <fdmanana@suse.com>
+Signed-off-by: David Sterba <dsterba@suse.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-# Stable Backport Analysis: `drm/amdgpu: cap ATOM command table nesting
-depth`
+# Stable Backport Analysis: `btrfs: fix reloc root cleanup in
+merge_reloc_roots()`
 
-**Local tree:** `v6.18.44` (Makefile: 6.18.44)
+**Local tree:** Linux **6.18.44** (`v6.18.44-1-g2736c32da98b9`)
+
+**Commit analyzed:** `b78fe9563e2d5ae47805f1e5dc722c91fd30e1f8` (not yet
+merged into this checkout)
 
 ---
 
 ## PHASE 1: COMMIT MESSAGE FORENSICS
 
-### Step 1.1: Subject line
-**Record:** `[drm/amdgpu]` `[cap]` — Limit ATOM BIOS command-table
-recursion depth to prevent unbounded `ATOM_OP_CALLTABLE` nesting.
+### Step 1.1: Subject Line
+**Record:** `[btrfs]` `[fix]` — correct reloc-root cleanup in
+`merge_reloc_roots()` when a reloc root has zero root refs.
 
 ### Step 1.2: Tags
 **Record:**
-- **Signed-off-by:** Candice Li `<candice.li@amd.com>` (author)
-- **Reviewed-by:** Tao Zhou `<tao.zhou1@amd.com>` (AMD reviewer)
-- **Signed-off-by:** Alex Deucher `<alexander.deucher@amd.com>` (amdgpu
-  maintainer)
-- **No** Fixes:, Reported-by:, Tested-by:, Link:, or Cc: stable tags
-- **Notable:** Patch is labeled `[PATCH 2/4]` on amd-gfx (May 2026
-  security-hardening series); this hunk is self-contained in
-  `atom.c`/`atom.h`
+- **Link:** Sashiko automated review (https://sashiko.dev/...)
+- **Reviewed-by:** Boris Burkov `<boris@bur.io>`
+- **Signed-off-by:** Filipe Manana, David Sterba
+- No Fixes:, Reported-by:, Tested-by:, Cc: stable@vger.kernel.org
+- Notable: found during code review (Sashiko), not a syzbot/user crash
+  report for this specific path
 
-### Step 1.3: Body analysis
+### Step 1.3: Body Analysis
 **Record:**
-- **Bug:** Unbounded recursion via `ATOM_OP_CALLTABLE` →
-  `amdgpu_atom_execute_table_locked()` can exhaust the kernel stack.
-- **Symptom:** Kernel stack overflow (oops/panic) when VBIOS command
-  tables nest deeply or cycle.
-- **Fix:** Track `execute_depth` in `atom_context`, cap at 32, return
-  `-ELOOP` when exceeded.
-- **Root cause:** `atom_op_calltable()` recursively calls
-  `amdgpu_atom_execute_table_locked()` with no depth limit; present
-  since amdgpu’s initial atom interpreter (2015).
+- **Bug:** In the zero-ref reloc-root branch of `merge_reloc_roots()`,
+  `root->reloc_root` is cleared without the memory barrier used
+  elsewhere; `BTRFS_ROOT_DEAD_RELOC_TREE` is cleared unconditionally
+  even when `root->reloc_root != reloc_root`.
+- **Symptom:** Incorrect synchronization with `have_reloc_root()` /
+  `reloc_root_is_dead()`; can observe stale `reloc_root` pointers or
+  wrong dead-tree state during relocation/balance.
+- **Root cause:** Inconsistent barrier usage and misplaced `clear_bit()`
+  outside the matching-reloc-root guard.
+- **Fix approach:** Use `clear_reloc_root()` helper (sets NULL →
+  `smp_wmb()` → `clear_bit()`), only when `root->reloc_root ==
+  reloc_root`.
 
-### Step 1.4: Hidden bug fix?
-**Record:** Yes — despite “cap” wording, this is a defensive bug fix
-preventing kernel stack overflow, not a feature or refactor.
+### Step 1.4: Hidden Bug Fix?
+**Record:** No — explicitly described as a bug fix (barrier + logic
+error).
 
 ---
 
@@ -118,365 +129,342 @@ preventing kernel stack overflow, not a feature or refactor.
 
 ### Step 2.1: Inventory
 **Record:**
-- `drivers/gpu/drm/amd/amdgpu/atom.c`: +11 lines
-- `drivers/gpu/drm/amd/amdgpu/atom.h`: +3 lines
-- **Total:** 14 lines added, 0 removed
-- **Functions:** `amdgpu_atom_execute_table_locked()`; `struct
-  atom_context` extended
-- **Scope:** Single-subsystem, surgical, two-file fix
+- **Files:** `fs/btrfs/relocation.c` (+2 / -3)
+- **Function:** `merge_reloc_roots()`
+- **Scope:** Single-file, surgical fix in one error/cleanup branch
 
-### Step 2.2: Code flow change
+### Step 2.2: Code Flow Change
 **Record:**
-- **Hunk 1 (define):** Adds `ATOM_EXECUTE_MAX_DEPTH 32` with comment
-  explaining stack-overflow prevention.
-- **Hunk 2 (entry):** Before table execution, checks `ctx->execute_depth
-  >= 32`, logs `DRM_ERROR`, returns `-ELOOP`; otherwise increments
-  depth.
-- **Hunk 3 (exit):** On all normal/error exits through `free:`,
-  decrements `execute_depth`.
-- **Hunk 4 (struct):** Adds `unsigned int execute_depth` to
-  `atom_context`.
-- **Before:** Unlimited recursive `calltable` op → stack growth until
-  overflow.
-- **After:** Depth-limited recursion; excess nesting returns error that
-  propagates via existing `ctx->abort` handling.
 
-### Step 2.3: Bug mechanism
-**Record:**
-- **Category:** Memory safety / kernel crash prevention (unbounded stack
-  recursion)
-- **Mechanism:** `atom_op_calltable()` at line 642 calls
-  `amdgpu_atom_execute_table_locked()` recursively. A malicious,
-  corrupt, or cyclic VBIOS can nest arbitrarily deep. Each frame
-  allocates locals and may call further atom ops on the stack. No prior
-  limit existed (`debug_depth` is debug-print-only).
+| Hunk | Before | After |
+|------|--------|-------|
+| Zero-ref cleanup branch | `root->reloc_root = NULL;
+btrfs_put_root(reloc_root);` then unconditional
+`clear_bit(DEAD_RELOC_TREE)` | `clear_reloc_root(root);
+btrfs_put_root(reloc_root);` only inside `if (root->reloc_root ==
+reloc_root)` |
 
-### Step 2.4: Fix quality
+**Affected path:** Relocation merge when
+`btrfs_root_refs(&reloc_root->root_item) == 0` (dead/orphan reloc tree
+cleanup during balance).
+
+### Step 2.3: Bug Mechanism
 **Record:**
-- **Quality:** High — standard recursion-depth counter pattern;
-  increment on entry, decrement on all `free:` paths.
-- **Regression risk:** Very low. Real VBIOS tables do not nest anywhere
-  near 32 levels. On limit hit, `-ELOOP` → `ctx->abort = true` →
-  controlled `-EINVAL` exit (existing path), not panic.
-- **Note:** `execute_depth` is not reset in
-  `amdgpu_atom_execute_table()`, but mutex serialization and balanced
-  inc/dec within each execution keep it at 0 between top-level calls.
-  `atom_context` is `kzalloc()`’d, so field starts at 0.
+- **Category:** Synchronization / logic correctness
+- **Mechanism 1 (missing `smp_wmb()`):** Writers in
+  `clean_dirty_subvols()` (lines 1474–1480) and
+  `btrfs_update_reloc_root()` (lines 796–801) use `smp_wmb()` between
+  NULL-ing `reloc_root` and clearing `BTRFS_ROOT_DEAD_RELOC_TREE`.
+  `merge_reloc_roots()` did not, breaking pairing with
+  `reloc_root_is_dead()`'s `smp_rmb()`.
+- **Mechanism 2 (wrong `clear_bit` scope):** `clear_bit()` ran even when
+  `root->reloc_root != reloc_root`, corrupting state for a root still
+  associated with a different reloc root.
+
+### Step 2.4: Fix Quality
+**Record:** Fix is minimal and matches the established pattern in the
+same file. Low regression risk. **Caveat:** depends on
+`clear_reloc_root()` helper, which is **not present** in this tree (see
+Phase 6).
 
 ---
 
 ## PHASE 3: GIT HISTORY INVESTIGATION
 
 ### Step 3.1: Blame
+**Record:** Buggy lines (1873–1879) blamed to `5d324e5159d9e` (6.18-rc8
+era merge, Nov 2025). Barrier infrastructure (`reloc_root_is_dead`,
+`BTRFS_ROOT_DEAD_RELOC_TREE`) introduced in same timeframe — relatively
+new in 6.18.
+
+### Step 3.2: Fixes: Tag
+**Record:** N/A — no Fixes: tag.
+
+### Step 3.3: Related Changes
 **Record:**
-- `atom_op_calltable()` introduced in `d38ceaf99ed01` (“drm/amdgpu: add
-  core driver (v4)”, 2015-04-20).
-- Recursive call to `amdgpu_atom_execute_table_locked()` added in
-  `4630d5031cd87` (“drm/amdgpu: check PS, WS index”, 2024-01-11).
-- Unbounded recursion bug present throughout amdgpu’s lifetime in this
-  tree.
+- `60a23d4ea169e` — related fix in same function (root leak on
+  unexpected reloc_root); already in this tree.
+- Part of 2-patch series `[PATCH 0/2] btrfs: fix incorrect barrier usage
+  in relocation`:
+  - **1/2:** this commit
+  - **2/2:** `btrfs: fix memory barrier order in reloc_root_is_dead()`
+- `clear_reloc_root()` introduced in separate UAF-fix series (`[PATCH
+  v2] btrfs: fix use-after-free on reloc root after error in
+  insert_dirty_subvol()`); **not in this tree**.
 
-### Step 3.2: Fixes: tag
-**Record:** N/A — no Fixes: tag in commit message.
-
-### Step 3.3: Related file history
-**Record:** Recent `atom.c` fixes in this tree include:
-- `cc9a8e238e42c` — kcalloc NULL check for WS buffer (OOM path)
-- `e5f7e4e0a445f` — vbios NULL offset workaround
-- `7bfd16d0ec374` — `last_jump_jiffies` initialization
-- No prior nesting-depth or recursion-limit fix found.
-
-### Step 3.4: Author context
-**Record:** Candice Li is an active AMD amdgpu contributor. Alex Deucher
-(maintainer) signed off. Part of a 4-patch May 2026 hardening series
-(RAS bounds, atom depth cap, PSP fw validation).
+### Step 3.4: Author Context
+**Record:** Filipe Manana — active btrfs maintainer; multiple recent
+`merge_reloc_roots()` fixes in this tree.
 
 ### Step 3.5: Dependencies
-**Record:** Standalone — patch 2/4 needs no other series members. No new
-APIs, no prerequisite commits. `git apply --check` confirms clean apply
-to this tree.
+**Record:** Commit calls `clear_reloc_root()`, which does not exist in
+6.18.44. **Not standalone as-is**, but trivially adaptable using the
+inline pattern already in `clean_dirty_subvols()`:
+
+```c
+root->reloc_root = NULL;
+smp_wmb();
+clear_bit(BTRFS_ROOT_DEAD_RELOC_TREE, &root->state);
+```
 
 ---
 
 ## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
-### Step 4.1: Original discussion
+### Step 4.1: Original Discussion
 **Record:**
-- **URL:** https://lists.freedesktop.org/archives/amd-
-  gfx/2026-May/144646.html
-- **Series:** Patches 1/4 (RAS CPER bounds), 2/4 (this commit), 4/4 (PSP
-  fw_pri_buf validation); patches are independent.
-- **Review feedback:** No NAKs or stable nominations found in fetched
-  thread; patch is minimal with maintainer sign-off.
-- **b4 dig:** Failed to match commit `27ef1795bc4e` on lore (amd-gfx
-  list, not lore.kernel.org).
+- **b4 dig:** https://patch.msgid.link/50682caa6bbf69740c629a26ff6f19a72
+  ce55e03.1781263239.git.fdmanana@suse.com
+- **Series:** v1 only (2026-06-12)
+- **Reviewer feedback:** Boris Burkov Reviewed-by on cover letter; David
+  Sterba replied on patch 2/2; kernel test robot build-tested patch 2/2
+- **Stable nomination:** None found in thread
 
 ### Step 4.2: Reviewers
-**Record:** Reviewed-by Tao Zhou (AMD); Signed-off-by Alex Deucher
-(amdgpu maintainer). Submitted to amd-gfx@lists.freedesktop.org.
+**Record:** `linux-btrfs@vger.kernel.org`; Boris Burkov reviewed; David
+Sterba (btrfs maintainer) engaged on patch 2/2.
 
-### Step 4.3: Bug reports
-**Record:** No Reported-by:, syzbot, or bugzilla links. Issue identified
-proactively as part of security hardening (comment explicitly cites
-stack overflow).
+### Step 4.3: Bug Report
+**Record:** No syzbot/user crash report for this specific bug.
+Identified by Sashiko during review of a related patch. Related UAF in
+relocation (syzbot-reported) motivated the `clear_reloc_root()` helper
+in a separate series.
 
-### Step 4.4: Related patches
-**Record:** Sibling patches address separate bounds-check issues
-(userspace RAS ioctl, PSP firmware copy size). Not required for this
-fix.
+### Step 4.4: Related Patches
+**Record:** Patch 2/2 fixes read-side barrier ordering in
+`reloc_root_is_dead()`. Ideally backported together for complete barrier
+correctness, but patch 1/2 independently fixes a real write-side bug.
 
-### Step 4.5: Stable list
-**Record:** lore.kernel.org/stable search blocked (bot protection). No
-stable-list discussion verified.
+### Step 4.5: Stable List History
+**Record:** No stable-list discussion found.
 
 ---
 
 ## PHASE 5: CODE SEMANTIC ANALYSIS
 
-### Step 5.1: Key functions
-**Record:** `amdgpu_atom_execute_table_locked()`, `atom_op_calltable()`,
-`amdgpu_atom_execute_table()`.
+### Step 5.1: Key Functions
+**Record:** `merge_reloc_roots()`, `reloc_root_is_dead()`,
+`have_reloc_root()`, `clear_reloc_root()` (upstream only)
 
 ### Step 5.2: Callers
-**Record:** `amdgpu_atom_execute_table()` is widely used across amdgpu:
-- Display: `atombios_encoders.c`, `atombios_crtc.c`, `atombios_dp.c`,
-  `command_table.c`
-- PM: `ppatomctrl.c`, `ppatomfwctrl.c`, `smu_v11_0.c`, `smu_v12_0.c`
-- Init: `amdgpu_atombios.c`, `amdgpu_atomfirmware.c`, `atom.c`
-  (`ATOM_CMD_INIT`)
-- Called during GPU probe, mode set, power management, and display
-  hotplug — common operational paths.
+**Record:** `merge_reloc_roots()` called from:
+- `relocate_block_group()` (line 3653) — balance/relocation path
+- Another relocation path (line 4198)
+
+Both are btrfs balance/relocation operations, reachable via
+`BTRFS_IOC_BALANCE` ioctl (privileged).
 
 ### Step 5.3: Callees
-**Record:** Recursive path: `atom_op_calltable()` →
-`amdgpu_atom_execute_table_locked()`. Uses `kcalloc()` for workspace
-(heap), but each stack frame still carries locals and interpreter state.
+**Record:** `btrfs_get_fs_root()`, `btrfs_put_root()`, `clear_bit()`,
+barrier primitives; interacts with refcounted `btrfs_root` objects.
 
 ### Step 5.4: Reachability
-**Record:** Triggered when amdgpu parses/executes VBIOS ATOM command
-tables during normal driver operation (probe, display, PM). VBIOS
-content comes from GPU ROM; can also be attacker-influenced via VFIO GPU
-passthrough (guest-supplied VBIOS) or root-level VBIOS flashing. Not a
-direct unprivileged-syscall path, but runs in kernel context on widely
-used hardware.
+**Record:** Triggered during btrfs balance/relocation (admin/root
+operation). Not every boot, but real production use (rebalancing, device
+replacement). Unprivileged users cannot directly trigger, but corruption
+from a privileged balance affects the whole filesystem.
 
-### Step 5.5: Similar patterns
-**Record:** No equivalent `execute_depth` / `ATOM_EXECUTE_MAX_DEPTH` in
-radeon or other drm atom interpreters in this tree. `debug_depth` in
-`atom.c` is unrelated (SDEBUG formatting only).
+### Step 5.5: Similar Patterns
+**Record:** Correct barrier pattern exists in `clean_dirty_subvols()` at
+lines 1474–1480; `merge_reloc_roots()` is the inconsistent outlier.
 
 ---
 
-## PHASE 6: CROSS-REFERENCE AGAINST LOCAL TREE (v6.18.44)
+## PHASE 6: CROSS-REFERENCING AGAINST LOCAL TREE (6.18.44)
 
-### Step 6.1: Buggy code present?
-**Record:** **Yes.** `atom_op_calltable()` at lines 632–646 recursively
-calls `amdgpu_atom_execute_table_locked()` with no depth check.
-`execute_depth` / `ATOM_EXECUTE_MAX_DEPTH` absent (`grep` returns no
-matches).
+### Step 6.1: Buggy Code Present?
+**Record:** **YES** — confirmed at lines 1873–1879:
 
-### Step 6.2: Backport complications
-**Record:** **Clean apply expected.** `git apply --check` succeeded with
-no conflicts. File structure matches patch context.
+```1873:1880:fs/btrfs/relocation.c
+                        if (!IS_ERR(root)) {
+                                if (root->reloc_root == reloc_root) {
+                                        root->reloc_root = NULL;
+                                        btrfs_put_root(reloc_root);
+                                }
+                                clear_bit(BTRFS_ROOT_DEAD_RELOC_TREE,
+                                          &root->state);
+                                btrfs_put_root(root);
+```
 
-### Step 6.3: Related fixes already present?
-**Record:** **No.** `git log -S "execute_depth"` on amdgpu returns
-empty. Fix not already in tree.
+Barrier infrastructure (`BTRFS_ROOT_DEAD_RELOC_TREE`,
+`reloc_root_is_dead`) also present since 6.18.
+
+### Step 6.2: Backport Complications
+**Record:** **Minor adaptation needed.** `clear_reloc_root()` does not
+exist in this tree. Equivalent inline fix (matching
+`clean_dirty_subvols()`) is straightforward. No conflicting refactors in
+this area.
+
+### Step 6.3: Related Fixes Already Present?
+**Record:** `60a23d4ea169e` (root leak fix) is present. This
+barrier/logic fix is **not** present. No duplicate fix found.
 
 ---
 
-## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+## PHASE 7: SUBSYSTEM CONTEXT
 
-### Step 7.1: Subsystem criticality
-**Record:** **drivers/gpu/drm/amd/amdgpu** — IMPORTANT. Affects all
-amdgpu GPU users on probe, display, and PM paths.
+### Step 7.1: Subsystem
+**Record:** **fs/btrfs** — IMPORTANT (filesystem, data integrity)
 
-### Step 7.2: Subsystem activity
-**Record:** Actively maintained; recent atom.c fixes (2024–2025) show
-ongoing hardening of the interpreter.
+### Step 7.2: Activity
+**Record:** Active — multiple recent `merge_reloc_roots()` fixes in
+6.18.y.
 
 ---
 
 ## PHASE 8: IMPACT AND RISK ASSESSMENT
 
-### Step 8.1: Who is affected
-**Record:** All systems with `CONFIG_DRM_AMDGPU` and amdgpu-loaded AMD
-GPUs. Config-specific but affects a large user base (desktops, servers,
-laptops, cloud GPUs).
+### Step 8.1: Who Is Affected
+**Record:** Users running btrfs balance/relocation on 6.18.y kernels
+with the `BTRFS_ROOT_DEAD_RELOC_TREE` barrier mechanism.
 
-### Step 8.2: Trigger conditions
-**Record:** VBIOS ATOM command table with `calltable` nesting >32 (or
-infinite cycle). Uncommon with legitimate AMD VBIOS, but possible with
-corrupt ROM, malicious passthrough VBIOS, or pathological tables.
-Requires GPU present and atom table execution.
+### Step 8.2: Trigger Conditions
+**Record:** Balance/relocation reaching `merge_reloc_roots()` with a
+reloc root whose root item has zero refs. Uncommon relative to normal
+I/O, but standard admin workflow. Privileged trigger only.
 
-### Step 8.3: Failure mode severity
-**Record:** **CRITICAL** without fix — kernel stack overflow →
-oops/panic, potential security implications. **MEDIUM** with fix —
-controlled error return, display/PM operation may fail but system stays
-up.
-
-### Step 8.4: Risk-benefit
+### Step 8.3: Failure Mode Severity
 **Record:**
-- **Benefit:** HIGH — prevents kernel crash from unbounded recursion in
-  widely-used code path.
-- **Risk:** VERY LOW — 14-line defensive bound, maintainer-reviewed, no
-  API changes.
-- **Ratio:** Strongly favors backport.
+- Stale `reloc_root` pointer observed after bit cleared → potential
+  **UAF** or double-free (same class as syzbot-reported relocation UAF)
+- Wrong `clear_bit` when `reloc_root` doesn't match → incorrect
+  `have_reloc_root()` behavior
+- **Severity: HIGH** (filesystem corruption / crash potential)
+
+### Step 8.4: Risk-Benefit
+**Record:**
+- **Benefit:** HIGH — prevents barrier/logic bug in relocation cleanup
+- **Risk:** LOW — 3-line effective change, matches existing in-file
+  pattern
+- **Ratio:** Favorable
 
 ---
 
 ## PHASE 9: FINAL SYNTHESIS
 
-### Step 9.1: Evidence summary
+### Step 9.1: Evidence Summary
 
 **FOR backport:**
-- Fixes real unbounded-recursion bug present since amdgpu inception
-- Prevents kernel stack overflow (crash-class issue)
-- Small (14 lines), obviously correct, maintainer-signed
-- Applies cleanly to v6.18.44
-- Standalone — no series dependencies
-- Graceful degradation on limit hit (existing abort path)
+- Real, verifiable bug in this tree (missing barrier + unconditional
+  `clear_bit`)
+- Same file already documents correct pattern (`clean_dirty_subvols`)
+- Small, surgical fix reviewed by btrfs reviewers
+- Same bug class as syzbot-reported relocation UAF (barrier
+  inconsistency in reloc-root lifecycle)
+- Barrier infrastructure is present in 6.18.44 — bug is live
 
 **AGAINST backport:**
-- No user/syzbot report in commit message
-- Trigger requires pathological VBIOS (uncommon on bare metal)
-- Not directly reachable from unprivileged userspace without GPU
-  passthrough or root
+- No direct crash report for this exact path (review-found)
+- Depends on `clear_reloc_root()` not in tree (needs minor backport
+  adaptation)
+- Patch 2/2 ideally accompanies for complete read-side fix
+- Only affects balance/relocation (not hot path)
 
-**Unresolved:** Whether any legitimate production VBIOS exceeds 32
-nesting levels (unverified; considered very unlikely given AMD’s own
-32-level cap choice).
+**Unresolved:** No runtime reproduction confirmed for this exact path;
+impact inferred from code analysis and related UAF class.
 
-### Step 9.2: Stable rules checklist
-1. Obviously correct and tested? **PASS** — standard depth counter;
-   Reviewed-by + maintainer SOB; logic verifiable by inspection.
-2. Fixes a real bug? **PASS** — unbounded recursion can overflow kernel
-   stack.
-3. Important issue? **PASS** — kernel crash / potential security impact
-   (CRITICAL severity).
-4. Small and contained? **PASS** — 14 lines, 2 files.
-5. No new features/APIs? **PASS** — internal defensive bound only.
-6. Can apply to local tree? **PASS** — buggy code present, patch applies
-   cleanly.
+### Step 9.2: Stable Rules Checklist
+| Criterion | Result |
+|-----------|--------|
+| 1. Obviously correct and tested? | **PASS** — matches established in-
+file pattern; reviewed by Boris Burkov; build-tested in series |
+| 2. Fixes real bug affecting users? | **PASS** — barrier + logic error
+in relocation cleanup |
+| 3. Important issue? | **PASS** — potential UAF/corruption during
+balance |
+| 4. Small and contained? | **PASS** — 5 lines net in one function |
+| 5. No new features/APIs? | **PASS** — correctness fix only |
+| 6. Can apply to local tree? | **PASS** (with adaptation) — inline
+`smp_wmb()` pattern substitutes for missing `clear_reloc_root()` |
 
-### Step 9.3: Exception categories
-**Record:** N/A (not device ID, quirk, DT, build, or docs). Qualifies as
-a critical bug-fix.
+### Step 9.3: Exception Category
+**Record:** N/A — standard bug fix.
 
-### Step 9.4: Decision rationale
-For **v6.18.44**, the vulnerable unbounded-recursion code is present and
-the fix is absent. The patch is minimal, self-contained, maintainer-
-approved, and prevents a kernel stack overflow in a core amdgpu code
-path used during normal GPU operation. Trigger rarity does not outweigh
-crash severity for stable trees.
+### Step 9.4: Decision Rationale
+The buggy code exists in Linux 6.18.44. The fix corrects a memory-
+ordering inconsistency and a logic error (`clear_bit` outside the
+matching-reloc-root guard) in btrfs relocation cleanup — the same
+synchronization design used elsewhere in `relocation.c`. While the patch
+calls `clear_reloc_root()` which is not yet in this tree, the equivalent
+inline fix is trivial and already demonstrated in
+`clean_dirty_subvols()`. The fix is small, low-risk, and addresses a
+HIGH-severity failure mode in filesystem code.
 
 ---
 
 ## Verification
 
-- [Phase 1] Parsed subject, tags, body; identified as stack-overflow
-  prevention fix
-- [Phase 1] Confirmed patch is `[PATCH 2/4]` but self-contained
-- [Phase 2] Diff analysis: +14 lines in `atom.c`/`atom.h`; depth check
-  at entry, decrement at `free:`
-- [Phase 2] Verified `atom_op_calltable()` recursive call at line 642
-- [Phase 2] Verified `debug_depth` is debug-only (lines 95, 1259, 1282),
-  not a safety limit
-- [Phase 3] `git blame`: `atom_op_calltable` from 2015 (`d38ceaf99ed01`)
-- [Phase 3] `git log -S "execute_depth"`: empty — fix not in tree
-- [Phase 3] `git log --oneline -20 -- atom.c`: recent hardening commits,
-  no depth cap
-- [Phase 3] `git apply --check`: patch applies cleanly
-- [Phase 4] WebFetch amd-gfx/144646.html: original submission found
-- [Phase 4] WebFetch amd-gfx/144645.html: patch 1/4 is independent RAS
-  fix
-- [Phase 4] `b4 dig -c 27ef1795bc4e`: no lore match (amd-gfx list)
-- [Phase 4] lore.kernel.org/stable: blocked by bot protection —
-  UNVERIFIED
-- [Phase 5] `grep amdgpu_atom_execute_table`: 30+ call sites across
-  display/PM/init
-- [Phase 5] Traced recursion: `atom_op_calltable` →
-  `amdgpu_atom_execute_table_locked`
-- [Phase 5] Verified `-ELOOP` propagates via `ctx->abort = true` (lines
-  643–645)
-- [Phase 6] `git describe HEAD`: v6.18.44
-- [Phase 6] `grep execute_depth|ATOM_EXECUTE_MAX_DEPTH`: no matches —
-  bug present, fix absent
-- [Phase 6] `amdgpu_atom_parse` uses `kzalloc` (line 1527) —
-  `execute_depth` starts at 0
-- [Phase 6] `mutex_lock` in `amdgpu_atom_execute_table` (line 1295) —
-  serializes execution
-- [Phase 8] Failure mode: stack overflow without fix = CRITICAL; with
-  fix = controlled error
+- **[Phase 1]** Parsed subject, tags, body from provided commit message
+- **[Phase 1]** Confirmed no syzbot Reported-by; Sashiko Link tag
+  present
+- **[Phase 2]** Read diff: +2/-3 in `merge_reloc_roots()` zero-ref
+  branch
+- **[Phase 2]** Read current buggy code at lines 1873–1879 in
+  `fs/btrfs/relocation.c`
+- **[Phase 2]** Read correct barrier pattern at lines 1474–1480 and
+  796–801
+- **[Phase 3]** `git describe HEAD`: v6.18.44
+- **[Phase 3]** `git blame -L 1873,1880`: lines from 5d324e5159d9e (Nov
+  2025)
+- **[Phase 3]** `git log --grep="clear_reloc_root"`: no results in tree
+- **[Phase 3]** `grep clear_reloc_root fs/btrfs/`: no matches — helper
+  absent
+- **[Phase 3]** `60a23d4ea169e` confirmed related prior fix already in
+  tree
+- **[Phase 3]** `git merge-base --is-ancestor b78fe95 HEAD`: exit 1 —
+  commit not merged
+- **[Phase 4]** `b4 dig -c b78fe95`: found lore URL, patch 1/2 of
+  2-patch series
+- **[Phase 4]** `b4 dig -a`: v1 only
+- **[Phase 4]** `b4 dig -w`: linux-btrfs@vger.kernel.org CC'd
+- **[Phase 4]** Read `/tmp/b78fe95.mbox`: cover letter, patch 2/2
+  content, Boris Reviewed-by
+- **[Phase 4]** spinics.net msg166109: confirmed `clear_reloc_root()`
+  introduced in separate UAF series
+- **[Phase 5]** `grep merge_reloc_roots(`: 2 call sites (lines 3653,
+  4198)
+- **[Phase 5]** Read `reloc_root_is_dead()` / `have_reloc_root()` at
+  lines 246–274
+- **[Phase 6]** Confirmed buggy code present in 6.18.44 checkout
+- **[Phase 6]** Confirmed `clear_reloc_root()` absent; inline adaptation
+  viable
+- **[Phase 8]** Assessed severity from barrier pairing analysis and
+  related UAF class (not directly reproduced)
 
-**YES**The background checks finished and match the earlier analysis:
+**YES**The background search finished: **`clear_reloc_root` does not
+appear anywhere in this 6.18.44 tree** — no commits introduce it under
+`fs/btrfs/` or elsewhere.
 
-- **Related-commit search** — No amdgpu fix for ATOM nesting depth or
-  `ATOM_EXECUTE` in this tree; only unrelated “stack overflow” hits
-  elsewhere.
-- **Fix-already-present check** — `execute_depth` /
-  `ATOM_EXECUTE_MAX_DEPTH` never appear in amdgpu history here; the
-  vulnerable recursive `atom_op_calltable()` path is still present on
-  **v6.18.44**.
+That matches the earlier analysis: commit `b78fe95` calls a helper that
+isn’t here yet (it lands in a separate UAF-fix series). A backport would
+need a small adaptation — use the same inline pattern already in
+`clean_dirty_subvols()` (`reloc_root = NULL` → `smp_wmb()` →
+`clear_bit`) instead of calling `clear_reloc_root()`.
 
-That supports the **YES** backport verdict: the bug exists locally, the
-fix is missing, and the patch should apply cleanly.
+The verdict for this tree remains **YES**, with that minor backport
+tweak.
 
- drivers/gpu/drm/amd/amdgpu/atom.c | 11 +++++++++++
- drivers/gpu/drm/amd/amdgpu/atom.h |  3 +++
- 2 files changed, 14 insertions(+)
+ fs/btrfs/relocation.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/atom.c b/drivers/gpu/drm/amd/amdgpu/atom.c
-index 7a063e44d4298..639649ef6dd03 100644
---- a/drivers/gpu/drm/amd/amdgpu/atom.c
-+++ b/drivers/gpu/drm/amd/amdgpu/atom.c
-@@ -59,6 +59,9 @@
+diff --git a/fs/btrfs/relocation.c b/fs/btrfs/relocation.c
+index 851cef16d4017..6b0bf7eff9d3e 100644
+--- a/fs/btrfs/relocation.c
++++ b/fs/btrfs/relocation.c
+@@ -1910,11 +1910,10 @@ void merge_reloc_roots(struct reloc_control *rc)
+ 		} else {
+ 			if (!IS_ERR(root)) {
+ 				if (root->reloc_root == reloc_root) {
+-					root->reloc_root = NULL;
++					clear_reloc_root(root);
++					/* Drop the ref for root->reloc_root. */
+ 					btrfs_put_root(reloc_root);
+ 				}
+-				clear_bit(BTRFS_ROOT_DEAD_RELOC_TREE,
+-					  &root->state);
+ 				btrfs_put_root(root);
+ 			}
  
- #define ATOM_CMD_TIMEOUT_SEC	20
- 
-+/* Limit ATOM command table recursion (calltable) to avoid kernel stack overflow. */
-+#define ATOM_EXECUTE_MAX_DEPTH	32
-+
- typedef struct {
- 	struct atom_context *ctx;
- 	uint32_t *ps, *ws;
-@@ -1229,6 +1232,13 @@ static int amdgpu_atom_execute_table_locked(struct atom_context *ctx, int index,
- 	if (!base)
- 		return -EINVAL;
- 
-+	if (ctx->execute_depth >= ATOM_EXECUTE_MAX_DEPTH) {
-+		DRM_ERROR("atombios command table nesting exceeded limit (%u)\n",
-+			  ATOM_EXECUTE_MAX_DEPTH);
-+		return -ELOOP;
-+	}
-+	ctx->execute_depth++;
-+
- 	len = CU16(base + ATOM_CT_SIZE_PTR);
- 	ws = CU8(base + ATOM_CT_WS_PTR);
- 	ps = CU8(base + ATOM_CT_PS_PTR) & ATOM_CT_PS_MASK;
-@@ -1285,6 +1295,7 @@ static int amdgpu_atom_execute_table_locked(struct atom_context *ctx, int index,
- free:
- 	if (ws)
- 		kfree(ectx.ws);
-+	ctx->execute_depth--;
- 	return ret;
- }
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/atom.h b/drivers/gpu/drm/amd/amdgpu/atom.h
-index 825ff28731f52..bb3d9eb7eb6b5 100644
---- a/drivers/gpu/drm/amd/amdgpu/atom.h
-+++ b/drivers/gpu/drm/amd/amdgpu/atom.h
-@@ -153,6 +153,9 @@ struct atom_context {
- 	uint8_t vbios_ver_str[STRLEN_NORMAL];
- 	uint8_t date[STRLEN_NORMAL];
- 	uint8_t build_num[STRLEN_NORMAL];
-+
-+	/* Nesting depth for ATOM_OP_CALLTABLE */
-+	unsigned int execute_depth;
- };
- 
- extern int amdgpu_atom_debug;
 -- 
 2.53.0
 
