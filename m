@@ -1,863 +1,615 @@
-Received: from mta0.migadu.com (out-27.mta0.migadu.com [91.218.175.27])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A8B84A9D79
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 13:46:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.27
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0E9A54DAE7;
+	Mon, 31 Aug 2026 13:46:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788184002; cv=none; b=VEzeQ3qLXpXGC1/b3w9g6+IeB14uhsH+Dq/4Qh1ipMQWcDBcKEaAMJzcKbgy1ijoYYbLfVdxARjhwCQ27r4GWj3nEeno7qFUaoMPr3/QFQwyx0EgdW927ZN+dJcgsP5BhSdkgBoTiTC9m/RC5KHjWj2AdXT2E5sHId5ACgLihOY=
+	t=1788184005; cv=none; b=m5Qjy7Z0Rij6SUlZfrHkwaMTBzKUSoPhJIYFAtcPAoTCXuNQ/hnEKUBHdyNGqYaVQJ5y99g2D9XsryxnOzN2Ft6eOriiSqim/c0KQdo80NFy1gys8Udg7DnrRLNN1spSZPHXDTbf6VK15wVumnoH5iCU2Y9oeNi749df5bwAl1M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788184002; c=relaxed/simple;
-	bh=XpKneJ+SIzY6GU3zSESWpBAVtCFHPqRXsgTUbp42hEE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=rk3naFKZgcjJR8wmJ2HB4klCqotvlObFty9uaTg+yfuiKZ4HjAkOPLX53GPJM6kltkioURtz6YAFSX4lqL5m6NPrdewJ0aIN8zd+HGHkW3lSbli9zzjLbu0wnvO7k50GBSg2RyTFjoiuCUTRsDJ2oCPjPphxx1Qe9GVlM/VwwkA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=oDCO/xc/; arc=none smtp.client-ip=91.218.175.27
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788184005; c=relaxed/simple;
+	bh=2iAWs8qCol/chD+6YoW9/BtvKg6zSl5IQF4RltOx+Dk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ESnEcLf2k1jmcpzYHq6nFtGQ2xwZ/3e76fmJLqEIGxuImEV+mApU40Ss//6t1qEruHt+q/3pbI0RO3kziDpMsaqSZQXtND0hmKnw9HLlvRCCV3SAPDc0pBZEaUYI0cf6oedNVjfq0FyD0XP0H9A0DF8GJeh3gsYCZPtUuc9Wcwo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nJC/7C6t; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="oDCO/xc/"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=XpKneJ+SIzY6GU3zSESWpBAVtCFHPqRXsgTUbp42hEE=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788183994; v=1; x=1788788794;
- b=oDCO/xc/N8AdH36jVrdcKJKFtiB6xLMAuEB25pmHL1cwOqil5S3OnQnY8U6yRbD00vGgYANx
- X0etqGIaU0ZFtlnjUzfyLjp+1Zb1SMOXMeSx8aRcm2jTFgTEjjeRucAquW6qFXIgr+pd7UcaCui
- OshQOP9DtATu1O7wnijH2Lu8=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id 49261e718890d7b2;
-	Mon, 31 Aug 2026 13:46:33 +0000
-X-Mizu-Trace-ID: 49261e718890d7b2
-X-Migadu-Flow: FLOW_OUT
-From: Troy Mitchell <troy.mitchell@linux.dev>
-Date: Mon, 31 Aug 2026 21:45:38 +0800
-Subject: [PATCH v4 4/6] hwmon: (lm63) Add Sensylink CTF2301 support
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nJC/7C6t"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 996931F00ADB;
+	Mon, 31 Aug 2026 13:46:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788184000;
+	bh=x9z6R+bGLRyvAbJrsqZMgU4J0bW9Kw89de+7a516MMM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=nJC/7C6thG3XzhlNAu+f5FsgFOItnq8WGTi5lZOetApJwKIBtDtoX2/c7NcEvG7dR
+	 jYoM/ZQ9sCET/KmWeDu68TJOYDzcNrwMEeDiup9Bap6+QOX6u+F6ItvKxBCHYS6ztT
+	 CX8nYwByfYEOlK+U7EnHxIz4C9CfJ5FwRSYn+Ta7Da7zdQ68c2zeDZghEJh0gr8TKK
+	 PNk2j81DCZPXVQIg3NQ6iuVyULneXpG2c5EmP7X85LDTN9QMx2f9p9BwfOui3+/tqC
+	 JNDjefxd0v6inaXajpFcp5BrRKeKQtJBJ2vg/4N8OHqzvz5GrEBRE//+bl3U19dHoV
+	 qoHBEHkNXpuRQ==
+From: Sasha Levin <sashal@kernel.org>
+To: patches@lists.linux.dev,
+	stable@vger.kernel.org
+Cc: Greg Patrick <gregspatrick@hotmail.com>,
+	Manuel Stocker <mensi@mensi.ch>,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Sasha Levin <sashal@kernel.org>,
+	linux@armlinux.org.uk,
+	andrew@lunn.ch,
+	hkallweit1@gmail.com,
+	davem@davemloft.net,
+	edumazet@google.com,
+	pabeni@redhat.com,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 6.18] net: phy: sfp: detect presence via I2C when no MOD_DEF0 GPIO
+Date: Mon, 31 Aug 2026 09:27:38 -0400
+Message-ID: <20260831133314.4125787-430-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
+References: <20260831133314.4125787-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260831-ctl2301-v4-4-b335d52a0570@linux.dev>
-References: <20260831-ctl2301-v4-0-b335d52a0570@linux.dev>
-In-Reply-To: <20260831-ctl2301-v4-0-b335d52a0570@linux.dev>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Guenter Roeck <linux@roeck-us.net>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
- Yixun Lan <dlan@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>
-Cc: Troy Mitchell <troy.mitchell@linux.dev>, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org, 
- linux-riscv@lists.infradead.org, spacemit@lists.linux.dev, 
- linux-doc@vger.kernel.org, Jean Delvare <jdelvare@suse.de>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=26266;
- i=troy.mitchell@linux.dev; h=from:subject:message-id;
- bh=XpKneJ+SIzY6GU3zSESWpBAVtCFHPqRXsgTUbp42hEE=;
- b=owGbwMvMwCU2g/N9w09jE33G02pJDFlTW+eumjT9xC3fvkUfnxz44nBs0ZNvb7v2blzm83dP6
- fapF6/Wd3WUsjCIcTHIiimydD/g2VbgE2VbIFDoCzOHlQlkCAMXpwBMJJKX4b9Xaequmc8Nz6ga
- mkVPnNGn5mSfun3Vd4WpnYpJXT02fcaMDNv7z+tEnWK7nZPw2FT3iNdh1wjG70k2/y8l5D4+v/c
- kIyMA
-X-Developer-Key: i=troy.mitchell@linux.dev; a=openpgp;
- fpr=3FE5535CF1B0E658E57DB59BAE1C2FBEA7DB42E1
+X-stable: review
+X-Patchwork-Hint: Ignore
+X-stable-base: Linux 6.18.48
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Add Sensylink CTF2301 support to the LM63 driver. CTF2301 follows
-the LM63-style temperature, tachometer, and PWM register layout,
-while using a 12-bit local temperature register and requiring the
-ALERT/TACH pin to be configured for tachometer input.
+From: Greg Patrick <gregspatrick@hotmail.com>
 
-Register an optional thermal cooling device when the device tree
-node provides #cooling-cells, allowing thermal zones to control
-the fan through the existing PWM path without changing behavior
-for existing LM63-family users.
+[ Upstream commit 8ac44d24c3a148c4177bd3ad790c377279f4674f ]
 
-Signed-off-by: Troy Mitchell <troy.mitchell@linux.dev>
+An SFP cage (compatible "sff,sfp") whose MOD_DEF0 signal is not wired to a
+GPIO currently falls back to sff_gpio_get_state(), which unconditionally
+reports the module as present. An empty cage therefore fails its probe and
+is parked in SFP_MOD_ERROR forever; because SFP_F_PRESENT never deasserts
+there is no REMOVE event to recover the state machine, so a module inserted
+after boot is never detected, and empty cages spam -EIO at boot.
+
+This affects boards that route none of the cage presence signal to a
+software-readable input. On the NicGiga S100-0800S-M (RTL9303, 8x SFP+) the
+cage I2C bus is the switch's SMBus master; TX_DISABLE is driven via a
+PCA9534 I/O expander, but no MOD_ABS/MOD_DEF0 line reaches a readable GPIO
+(the RTL9303 gpio0 lines read stuck-low, the single PCA9534 is fully
+consumed by TX_DISABLE, and there is no RTL8231). The Horaco ZX-SW82TS-L2P
+(RTL9302D, 2x SFP+) is independently affected in the same way.
+
+For such an SFP cage, derive presence from a throttled single-byte I2C read
+of the module EEPROM instead: a successful read asserts SFP_F_PRESENT,
+R_PROBE_ABSENT consecutive failures clear it (to ride out a transient error
+on a live module). The existing poll then emits SFP_E_INSERT / SFP_E_REMOVE
+normally, giving working hot-plug and silencing the boot-time -EIO spam on
+empty cages. Presence is re-probed every T_PROBE_PRESENT, so insertion is
+detected within that interval and removal within
+T_PROBE_PRESENT * R_PROBE_ABSENT.
+
+A soldered-down module (compatible "sff,sff") has no presence signal and is
+genuinely always present, so it continues to use sff_gpio_get_state(); the
+new path is gated on the cage type advertising SFP_F_PRESENT.
+
+Signed-off-by: Greg Patrick <gregspatrick@hotmail.com>
+Tested-by: Manuel Stocker <mensi@mensi.ch>
+Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Tested-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Link: https://patch.msgid.link/20260611175341.2223184-1-gregspatrick@hotmail.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- Documentation/hwmon/lm63.rst |  22 +++
- drivers/hwmon/Kconfig        |   8 +-
- drivers/hwmon/lm63.c         | 426 +++++++++++++++++++++++++++++++++++--------
- 3 files changed, 377 insertions(+), 79 deletions(-)
 
-diff --git a/Documentation/hwmon/lm63.rst b/Documentation/hwmon/lm63.rst
-index 9e27367d7405..c40bd0dfe591 100644
---- a/Documentation/hwmon/lm63.rst
-+++ b/Documentation/hwmon/lm63.rst
-@@ -33,6 +33,16 @@ Supported chips:
+LLM Generated explanations, may be completely bogus:
+
+# Stable Backport Analysis: `net: phy: sfp: detect presence via I2C when
+no MOD_DEF0 GPIO`
+
+**Local tree:** `v6.18.44` (Makefile: 6.18.44)
+**Commit under review:** `8ac44d24c3a14` (on `master`, **not** in
+current HEAD)
+**Verdict target:** Should this be backported to **this** 6.18.y tree?
+
+---
+
+## PHASE 1: COMMIT MESSAGE FORENSICS
+
+### Step 1.1: Subject line
+**Record:** `[net: phy: sfp]` `[detect]` — SFP cage presence detection
+via I2C when MOD_DEF0 GPIO is unwired.
+
+### Step 1.2: Tags
+**Record:**
+- **Fixes:** — none (expected for manual review)
+- **Reported-by:** — none
+- **Tested-by:** Manuel Stocker `<mensi@mensi.ch>`, Maxime Chevallier
+  `<maxime.chevallier@bootlin.com>`
+- **Reviewed-by:** Maxime Chevallier `<maxime.chevallier@bootlin.com>`
+- **Link:** https://patch.msgid.link/20260611175341.2223184-1-
+  gregspatrick@hotmail.com
+- **Cc: stable:** — absent (expected, not a negative signal)
+- **Signed-off-by:** Greg Patrick (author), Jakub Kicinski (netdev
+  maintainer)
+- **Notable:** Two independent hardware testers; subsystem reviewer
+  endorsement; no syzbot/sanitizer involvement.
+
+### Step 1.3: Body analysis
+**Record:**
+- **Bug:** `sff,sfp` cages without MOD_DEF0 GPIO fall back to
+  `sff_gpio_get_state()`, which unconditionally sets `SFP_F_PRESENT`. An
+  empty cage probes EEPROM, fails, lands in `SFP_MOD_ERROR`, but
+  `SFP_F_PRESENT` never clears → no `SFP_E_REMOVE` → hot-insert after
+  boot never works; boot logs spam `-EIO`.
+- **Symptom:** SFP ports permanently broken on affected switches; boot
+  error noise on empty cages.
+- **Affected hardware:** NicGiga S100-0800S-M (RTL9303), Horaco ZX-
+  SW82TS-L2P (RTL9302D).
+- **Root cause:** Treating “no MOD_DEF0 GPIO” as “module always present”
+  is correct for soldered `sff,sff` modules but wrong for socketed
+  `sff,sfp` cages.
+
+### Step 1.4: Hidden bug fix?
+**Record:** Yes. Subject says “detect” rather than “fix”, but the
+mechanism is a functional bug fix: broken state machine + missing hot-
+plug on specific hardware. This is a hardware-workaround pattern (like
+quirks), not a new user-facing API.
+
+---
+
+## PHASE 2: DIFF ANALYSIS
+
+### Step 2.1: Inventory
+**Record:**
+- **File:** `drivers/net/phy/sfp.c` only (+80 / -3 lines)
+- **Functions added:** `sfp_module_present_i2c()`, `sfp_i2c_get_state()`
+- **Functions modified:** `sfp_probe()`
+- **Struct fields added:** `i2c_present`, `i2c_present_nak`,
+  `i2c_present_next`
+- **Constants added:** `T_PROBE_PRESENT` (500 ms), `R_PROBE_ABSENT` (3)
+- **Scope:** Single-file, surgical driver fix.
+
+### Step 2.2: Code flow changes
+**Record:**
+
+| Hunk | Before | After |
+|------|--------|-------|
+| Probe path | No MOD_DEF0 GPIO → always `sff_gpio_get_state()` (always
+present) | `sff,sfp` cage without MOD_DEF0 → `sfp_i2c_get_state()` with
+throttled I2C EEPROM probe; `sff,sff` soldered modules unchanged |
+| Presence source | Hardcoded `SFP_F_PRESENT` bit | I2C single-byte read
+at `SFP_PHYS_ID` (0); ACK = present, NAK = absent |
+| Polling | May not poll without GPIO IRQs | Sets `need_poll = true` so
+`sfp_poll()` drives INSERT/REMOVE events |
+| Removal detection | Never on empty cage | 3 consecutive I2C failures
+clear presence (1.5 s debounce) |
+
+### Step 2.3: Bug mechanism
+**Record:** **Category:** Logic/correctness fix + hardware workaround.
+
+Verified boot path in current tree:
+
+```3161:3190:drivers/net/phy/sfp.c
+        /* Modules that have no detect signal are always present */
+        if (!(sfp->gpio[GPIO_MODDEF0]))
+                sfp->get_state = sff_gpio_get_state;
+        // ...
+        sfp->state = sfp_get_state(sfp) | SFP_F_TX_DISABLE;
+        // ...
+        if (sfp->state & SFP_F_PRESENT) {
+                rtnl_lock();
+                sfp_sm_event(sfp, SFP_E_INSERT);
+                rtnl_unlock();
+        }
+```
+
+With `sff_gpio_get_state()` always OR-ing `SFP_F_PRESENT`, empty cages
+always get `SFP_E_INSERT` at probe. Probe fails → `SFP_MOD_ERROR` (line
+2602). `SFP_MOD_ERROR` is a terminal state with no recovery unless
+`SFP_F_PRESENT` deasserts (lines 2662–2664, 3020–3022).
+
+### Step 2.4: Fix quality
+**Record:**
+- **Correctness:** Sound. Gating on `sff->gpios & SFP_F_PRESENT`
+  distinguishes `sff,sfp` (has presence bit in `sfp_data`) from
+  `sff,sff` (no presence in `sff_data` at line 315).
+- **Minimal:** Uses existing `sfp_read()`, poll infrastructure, and
+  state machine.
+- **Regression risk:** Low — only affects `sff,sfp` + missing MOD_DEF0
+  GPIO; all other paths unchanged.
+- **Reviewer note:** Maxime Chevallier confirmed no regressions on
+  boards he tested.
+
+---
+
+## PHASE 3: GIT HISTORY INVESTIGATION
+
+### Step 3.1: Blame
+**Record:** Buggy always-present fallback introduced in `259c8618b0099b`
+(Russell King, 2017-12-14, “sfp: add sff module support”). Present since
+v4.15 era; long-lived generic SFP driver bug exposed by newer RTL930x
+switch boards.
+
+### Step 3.2: Fixes: tag
+**Record:** N/A — no Fixes: tag. Original intent (2017) was correct for
+soldered `sff,sff` but was over-applied to socketed `sff,sfp` cages
+without MOD_DEF0.
+
+### Step 3.3: Related file history
+**Record:**
+- Prerequisite `bef389a210e7d` (“initialize i2c_block_size at adapter
+  configure time”) **is already in this tree** — sets `i2c_block_size`
+  in `sfp_i2c_configure()` (line 823).
+- Patch is standalone (v3 final revision); not part of a multi-commit
+  series.
+- `git apply --check` on this tree: **applies cleanly**.
+
+### Step 3.4: Author context
+**Record:** Greg Patrick is a hardware-focused contributor for RTL930x
+switch platforms. netdev maintainers (Kicinski) and SFP reviewer
+(Chevallier) involved.
+
+### Step 3.5: Dependencies
+**Record:**
+- Depends on existing SFP driver, I2C/SMBus read path, and `SFP_PHYS_ID`
+  (defined in `include/linux/sfp.h` line 341) — all present in 6.18.44.
+- `bef389a` (i2c_block_size init) already merged; patch also seeds
+  `i2c_block_size` in probe as extra safety.
+- **Can apply standalone:** Yes.
+
+---
+
+## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
+
+### Step 4.1: Original discussion
+**Record:**
+- **URL:** https://patch.msgid.link/20260611175341.2223184-1-
+  gregspatrick@hotmail.com
+- **Revisions:** v1 (2026-06-02), v2 (2026-06-04), v3 (2026-06-11,
+  committed version)
+- **Key feedback:** Maxime Chevallier Reviewed-by + Tested-by; no NAKs;
+  suggested optional follow-up dmesg warning about broken HW design (not
+  blocking).
+- **Stable nomination:** No explicit “Cc: stable” in thread; not a
+  negative signal.
+
+### Step 4.2: Reviewers
+**Record:** Russell King, Andrew Lunn, Heiner Kallweit,
+netdev@vger.kernel.org CC'd. Maxime Chevallier (Bootlin, SFP reviewer)
+provided Reviewed-by and Tested-by.
+
+### Step 4.3: Bug reports
+**Record:** No syzbot/bugzilla. Real hardware reports from NicGiga and
+Horaco board users via author and testers.
+
+### Step 4.4: Series context
+**Record:** Standalone 1-patch series (v1→v3 refinements only).
+
+### Step 4.5: Stable list
+**Record:** No stable@vger.kernel.org discussion found for this specific
+fix. Not searched exhaustively due to lore bot protection; b4 mbox had
+no stable nomination.
+
+---
+
+## PHASE 5: CODE SEMANTIC ANALYSIS
+
+### Step 5.1: Key functions
+**Record:** `sfp_module_present_i2c()`, `sfp_i2c_get_state()`,
+`sfp_probe()`, plus existing `sfp_check_state()`, `sfp_poll()`,
+`sfp_gpio_get_state()`, `sff_gpio_get_state()`.
+
+### Step 5.2: Callers
+**Record:**
+- `sfp_i2c_get_state()` → via `sfp->get_state` from `sfp_get_state()` →
+  `sfp_check_state()` (poll/IRQ path, `st_mutex` held) and `sfp_probe()`
+  (init path, documented as safe without mutex).
+- `sfp_poll()` runs on `system_percpu_wq` every 100 ms when `need_poll`
+  is set.
+- Impact surface: SFP platform devices with `compatible = "sff,sfp"` and
+  no MOD_DEF0 GPIO only.
+
+### Step 5.3: Callees
+**Record:** `sfp_read()` → `sfp_i2c_read()` or `sfp_smbus_byte_read()`;
+on empty cage, I2C NAK returns negative errno,
+`sfp_module_present_i2c()` returns false.
+
+### Step 5.4: Reachability
+**Record:** Triggered at boot probe and ongoing poll for affected DT
+configurations. Not syscall-reachable directly, but affects network port
+availability — a primary function for switch/router users.
+
+### Step 5.5: Similar patterns
+**Record:** SFP subsystem already has extensive quirk/workaround
+patterns for broken hardware. I2C-based presence is consistent with that
+philosophy.
+
+---
+
+## PHASE 6: CROSS-REFERENCE AGAINST LOCAL TREE (6.18.44)
+
+### Step 6.1: Buggy code exists?
+**Record:** **Yes.** Lines 3161–3163 in current tree still use
+unconditional `sff_gpio_get_state()` when MOD_DEF0 GPIO is absent. Bug
+present since 2017 code landed in this tree.
+
+### Step 6.2: Backport complications
+**Record:** **Clean apply** verified via `git apply --check`. No
+structural conflicts with recent `sfp.c` changes in 6.18.44.
+
+### Step 6.3: Related fixes already present?
+**Record:** Prerequisite `bef389a` (i2c_block_size) is present. The I2C
+presence fix itself is **not** in HEAD (`git merge-base --is-ancestor
+8ac44d24c3a14 HEAD` → NOT IN HEAD).
+
+---
+
+## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+
+### Step 7.1: Subsystem criticality
+**Record:** `drivers/net/phy/sfp.c` — **IMPORTANT** (network driver
+infrastructure for SFP/SFF modules). Not core kernel, but affects
+primary connectivity on network appliances.
+
+### Step 7.2: Subsystem activity
+**Record:** Actively maintained — frequent quirk additions and SMBus
+support commits in 6.18.y history.
+
+---
+
+## PHASE 8: IMPACT AND RISK ASSESSMENT
+
+### Step 8.1: Who is affected
+**Record:** **Platform-specific** — boards with `sff,sfp` DT nodes where
+MOD_DEF0/MOD_ABS is not wired to a readable GPIO. Confirmed:
+RTL9302/9303-based managed switches. Unaffected: boards with MOD_DEF0
+GPIO, soldered `sff,sff` modules, or non-SFP configurations.
+
+### Step 8.2: Trigger conditions
+**Record:**
+- **Trigger:** Boot with empty SFP cage, or insert module after boot on
+  affected hardware.
+- **Likelihood:** 100% on affected board designs.
+- **Unprivileged trigger:** No direct security vector; requires specific
+  hardware.
+
+### Step 8.3: Failure mode severity
+**Record:**
+- **Failure mode:** SFP ports permanently non-functional; hot-plug
+  broken; boot `-EIO` spam on empty cages.
+- **Severity:** **HIGH** for affected users (complete loss of SFP
+  functionality), but **not CRITICAL** (no kernel panic, deadlock, data
+  corruption, or security exploit).
+
+### Step 8.4: Risk-benefit
+**Record:**
+- **Benefit:** Restores working SFP and hot-plug on real production
+  hardware; silences boot errors.
+- **Risk:** Very low — narrow activation conditions, throttled I2C
+  polling, reviewed and hardware-tested.
+- **Ratio:** Strong benefit for affected platforms; minimal risk to
+  others.
+
+---
+
+## PHASE 9: FINAL SYNTHESIS
+
+### Step 9.1: Evidence summary
+
+**FOR backport:**
+- Fixes a real, reproducible functional bug on shipping hardware
+  (NicGiga, Horaco).
+- Long-standing incorrect assumption since 2017, now exposed by newer
+  boards.
+- Small, single-file, applies cleanly to 6.18.44.
+- Reviewed-by + dual Tested-by on real hardware.
+- Hardware-workaround category (stable-appropriate).
+- Prerequisites already in tree.
+
+**AGAINST backport:**
+- Not a crash/security/data-corruption issue.
+- Affects a narrow hardware subset.
+- Adds I2C polling behavior (new code path), though gated and throttled.
+- No explicit stable nomination in mailing list.
+
+**Unresolved:** Whether older stable branches (e.g., 6.6.y) without
+RTL930x users would benefit — irrelevant here; decision is for **this**
+6.18.y tree only.
+
+### Step 9.2: Stable rules checklist
+1. Obviously correct and tested? **PASS** — Reviewed-by, two Tested-by,
+   clear mechanism.
+2. Fixes a real bug affecting users? **PASS** — SFP ports broken on
+   affected switches.
+3. Important issue? **PASS** — Complete functional failure on affected
+   hardware (HIGH, not CRITICAL).
+4. Small and contained? **PASS** — ~80 lines, one file.
+5. No new features/APIs? **PASS** — Fixes broken presence detection; no
+   userspace API changes.
+6. Can apply to local tree? **PASS** — Clean apply verified;
+   prerequisites present.
+
+### Step 9.3: Exception category
+**Record:** **Hardware quirk/workaround** — boards with broken/missing
+MOD_DEF0 presence wiring.
+
+### Step 9.4: Decision rationale
+
+For **linux 6.18.y** specifically: the buggy code is present, the fix
+applies cleanly, prerequisites are merged, and affected RTL930x switch
+platforms running 6.18 need this to get working SFP ports and hot-plug.
+The fix is conservative (only activates for `sff,sfp` without MOD_DEF0
+GPIO), well-reviewed, and hardware-tested. This is appropriate stable
+material as a driver hardware workaround fixing a real functional
+regression.
+
+---
+
+## Verification
+
+- [Phase 1] Parsed subject, tags, body; no Fixes:/Reported-by/syzbot;
+  found Tested-by ×2, Reviewed-by, Link.
+- [Phase 2] Analyzed full diff from `git show 8ac44d24c3a14`; confirmed
+  +80/-3 lines in `sfp.c`.
+- [Phase 2] Read `sff_gpio_get_state()` (lines 649–651): unconditionally
+  sets `SFP_F_PRESENT`.
+- [Phase 2] Read `sfp_data` vs `sff_data` gpios masks (lines 314–340):
+  gating logic verified.
+- [Phase 2] Read `SFP_MOD_ERROR` terminal behavior (lines 2601–2602,
+  2662–2664).
+- [Phase 2] Read `sfp_check_state()` INSERT/REMOVE dispatch (lines
+  3020–3022).
+- [Phase 3] `git blame` lines 3161–3163 → `259c8618b0099b` (2017-12-14).
+- [Phase 3] `git show 259c8618b0099b`: original sff module support
+  commit.
+- [Phase 3] `git merge-base --is-ancestor 8ac44d24c3a14 HEAD` → NOT IN
+  HEAD.
+- [Phase 3] `git apply --check` → APPLIES CLEANLY.
+- [Phase 3] Verified `bef389a210e7d` in tree (i2c_block_size init at
+  line 823).
+- [Phase 4] `b4 dig -c 8ac44d24c3a14` → lore URL found.
+- [Phase 4] `b4 dig -a` → v1/v2/v3 revisions; v3 is committed version.
+- [Phase 4] `b4 dig -w` → Russell King, Andrew Lunn,
+  netdev@vger.kernel.org CC'd.
+- [Phase 4] `b4 dig -m /tmp/sfp_i2c_presence.mbox` → Maxime Chevallier
+  Reviewed-by + Tested-by, no NAKs, no stable Cc.
+- [Phase 5] Traced `sfp_get_state()` → `sfp_check_state()` →
+  `sfp_poll()` call chain.
+- [Phase 5] Verified `SFP_PHYS_ID = 0` in `include/linux/sfp.h`.
+- [Phase 5] Verified `sfp_i2c_read()` returns negative on I2C failure
+  (lines 715–717).
+- [Phase 6] `git describe HEAD` → v6.18.44; Makefile 6.18.44.
+- [Phase 6] Confirmed buggy lines 3161–3163 exist in current tree.
+- [Phase 8] Failure mode: functional SFP failure + boot -EIO spam;
+  severity HIGH for affected hardware.
+
+**YES**The background search found the commit on `master` as
+`8ac44d24c3a14` (`net: phy: sfp: detect presence via I2C when no
+MOD_DEF0 GPIO`). It is not in the current 6.18.44 tree, but it applies
+cleanly there.
+
+**Recommendation for this 6.18.y tree: YES** — it fixes broken SFP/hot-
+plug on boards without a MOD_DEF0 GPIO (e.g. RTL9302/9303 switches), is
+small and well-tested, and matches stable’s hardware-workaround pattern.
+
+ drivers/net/phy/sfp.c | 83 +++++++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 80 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/net/phy/sfp.c b/drivers/net/phy/sfp.c
+index e242c1a1238f9..1c4340b3777f6 100644
+--- a/drivers/net/phy/sfp.c
++++ b/drivers/net/phy/sfp.c
+@@ -206,6 +206,16 @@ static const enum gpiod_flags gpio_flags[] = {
+ #define T_PROBE_RETRY_SLOW	msecs_to_jiffies(5000)
+ #define R_PROBE_RETRY_SLOW	12
  
- 	       http://www.national.com/pf/LM/LM96163.html
- 
-+  * Sensylink CTF2301
++/* Polling interval and consecutive-failure threshold for the I2C presence
++ * probe used on boards without a MOD_DEF0 GPIO (see sfp_i2c_get_state()).
++ * A single successful read asserts presence immediately; R_PROBE_ABSENT
++ * consecutive failures are required to declare a live module removed, to ride
++ * out a transient I2C error. Insertion is thus detected within
++ * T_PROBE_PRESENT and removal within T_PROBE_PRESENT * R_PROBE_ABSENT.
++ */
++#define T_PROBE_PRESENT		msecs_to_jiffies(500)
++#define R_PROBE_ABSENT		3
 +
-+    Prefix: 'ctf2301'
+ /* SFP modules appear to always have their PHY configured for bus address
+  * 0x56 (which with mdio-i2c, translates to a PHY address of 22).
+  * RollBall SFPs access phy via SFP Enhanced Digital Diagnostic Interface
+@@ -249,6 +259,13 @@ struct sfp {
+ 
+ 	bool need_poll;
+ 
++	/* I2C-probed presence, for boards without a MOD_DEF0 GPIO.
++	 * Access rules: st_mutex held (updated from the poll/state machine).
++	 */
++	bool i2c_present;
++	u8 i2c_present_nak;
++	unsigned long i2c_present_next;
 +
-+    Addresses scanned: none
+ 	/* Access rules:
+ 	 * state_hw_drive: st_mutex held
+ 	 * state_hw_mask: st_mutex held
+@@ -863,6 +880,45 @@ static int sfp_read(struct sfp *sfp, bool a2, u8 addr, void *buf, size_t len)
+ 	return sfp->read(sfp, a2, addr, buf, len);
+ }
+ 
++/* Probe whether a module is physically present by attempting a single-byte
++ * I2C read of the EEPROM identifier (an empty cage NAKs). Used as the presence
++ * source on boards that do not wire MOD_DEF0 to a GPIO.
++ */
++static bool sfp_module_present_i2c(struct sfp *sfp)
++{
++	u8 id;
 +
-+    Datasheet: https://www.sensylink.com/upload/1/net.sensylink.portal/1689557281035.pdf
++	return sfp_read(sfp, false, SFP_PHYS_ID, &id, sizeof(id)) == sizeof(id);
++}
 +
-+    Register description: https://github.com/TroyMitchell911/ctf2301-datasheet
++/* get_state variant for boards without a MOD_DEF0 GPIO. Instead of assuming
++ * the module is always present, derive SFP_F_PRESENT from a throttled I2C
++ * probe so that hot-insertion and removal are detected. A single ACK asserts
++ * presence; R_PROBE_ABSENT consecutive failures clear it, to ride out a
++ * transient I2C error on a live module.
++ */
++static unsigned int sfp_i2c_get_state(struct sfp *sfp)
++{
++	unsigned int state = sfp_gpio_get_state(sfp);
 +
- 
- Author: Jean Delvare <jdelvare@suse.de>
- 
-@@ -62,6 +72,8 @@ value have to be masked out. The value is still 16 bit in width.
- 
- All temperature values are given in degrees Celsius. Resolution is 1.0
- degree for the local temperature, 0.125 degree for the remote temperature.
-+The CTF2301 local temperature input and limit have a resolution of 0.0625
-+degree.
- 
- The fan speed is measured using a tachometer. Contrary to most chips which
- store the value in an 8-bit register and have a selectable clock divider
-@@ -93,3 +105,13 @@ support these GPIO lines at present.
- The LM96163 is an enhanced version of LM63 with improved temperature accuracy
- and better PWM resolution. For LM96163, the external temperature sensor type is
- configurable as CPU embedded diode(1) or 3904 transistor(2).
++	if (time_after_eq(jiffies, sfp->i2c_present_next)) {
++		if (sfp_module_present_i2c(sfp)) {
++			sfp->i2c_present = true;
++			sfp->i2c_present_nak = 0;
++		} else if (sfp->i2c_present &&
++			   ++sfp->i2c_present_nak >= R_PROBE_ABSENT) {
++			sfp->i2c_present = false;
++			sfp->i2c_present_nak = 0;
++		}
++		sfp->i2c_present_next = jiffies + T_PROBE_PRESENT;
++	}
 +
-+The CTF2301 is register-compatible with the LM63 family and provides 12 fan
-+control lookup table entries. It supports 8-bit PWM resolution when configured
-+for a 22.5 kHz PWM frequency.
++	if (sfp->i2c_present)
++		state |= SFP_F_PRESENT;
 +
-+Device tree nodes may declare ``#cooling-cells`` to register the fan controller
-+with the thermal framework. The cooling state is mapped to the existing
-+``pwm1`` range from 0 to 255. The driver keeps the current automatic or manual
-+fan control mode during probe and switches to manual control when the thermal
-+framework first requests a cooling state.
-diff --git a/drivers/hwmon/Kconfig b/drivers/hwmon/Kconfig
-index fecff8610ea8..5d87ad3e7a20 100644
---- a/drivers/hwmon/Kconfig
-+++ b/drivers/hwmon/Kconfig
-@@ -1521,10 +1521,10 @@ config SENSORS_LM63
- 	depends on I2C
- 	help
- 	  If you say yes here you get support for the National
--	  Semiconductor LM63, LM64, and LM96163 remote diode digital temperature
--	  sensors with integrated fan control.  Such chips are found
--	  on the Tyan S4882 (Thunder K8QS Pro) motherboard, among
--	  others.
-+	  Semiconductor LM63, LM64, LM96163, and Sensylink CTF2301
-+	  remote diode digital temperature sensors with integrated fan
-+	  control. Such chips are found on the Tyan S4882 (Thunder K8QS
-+	  Pro) motherboard, among others.
- 
- 	  This driver can also be built as a module. If so, the module
- 	  will be called lm63.
-diff --git a/drivers/hwmon/lm63.c b/drivers/hwmon/lm63.c
-index da09770c05e7..5a94895242ed 100644
---- a/drivers/hwmon/lm63.c
-+++ b/drivers/hwmon/lm63.c
-@@ -35,13 +35,14 @@
- #include <linux/mutex.h>
- #include <linux/of.h>
- #include <linux/sysfs.h>
-+#include <linux/thermal.h>
- #include <linux/types.h>
- 
- /*
-  * Addresses to scan
-  * Address is fully defined internally and cannot be changed except for
-  * LM64 which has one pin dedicated to address selection.
-- * LM63 and LM96163 have address 0x4c.
-+ * LM63, LM96163, and CTF2301 have address 0x4c.
-  * LM64 can have address 0x18 or 0x4e.
-  */
- 
-@@ -70,6 +71,9 @@ static const unsigned short normal_i2c[] = { 0x18, 0x4c, 0x4e, I2C_CLIENT_END };
- #define LM63_REG_LOCAL_TEMP		0x00
- #define LM63_REG_LOCAL_HIGH		0x05
- 
-+#define CTF2301_REG_LOCAL_TEMP_LSB	0x15
-+#define CTF2301_REG_LOCAL_HIGH_LSB	0x06
++	return state;
++}
 +
- #define LM63_REG_REMOTE_TEMP_MSB	0x01
- #define LM63_REG_REMOTE_TEMP_LSB	0x10
- #define LM63_REG_REMOTE_OFFSET_MSB	0x11
-@@ -94,6 +98,7 @@ static const unsigned short normal_i2c[] = { 0x18, 0x4c, 0x4e, I2C_CLIENT_END };
+ static int sfp_write(struct sfp *sfp, bool a2, u8 addr, void *buf, size_t len)
+ {
+ 	return sfp->write(sfp, a2, addr, buf, len);
+@@ -3168,9 +3224,30 @@ static int sfp_probe(struct platform_device *pdev)
+ 	sfp->get_state = sfp_gpio_get_state;
+ 	sfp->set_state = sfp_gpio_set_state;
  
- #define LM63_PWM_BASE_FAST_HZ		180000
- #define LM63_PWM_BASE_SLOW_HZ		700
-+#define LM63_MAX_PWM			255
- 
- #define LM63_MAX_CONVRATE		9
- 
-@@ -121,6 +126,9 @@ static const unsigned short normal_i2c[] = { 0x18, 0x4c, 0x4e, I2C_CLIENT_END };
- 							    127000), 1000)
- #define TEMP8U_TO_REG(val)	DIV_ROUND_CLOSEST(clamp_val((val), 0, \
- 							    255000), 1000)
-+#define TEMP12_FROM_REG(reg)	DIV_ROUND_CLOSEST((s16)(reg) * 1000, 256)
-+#define TEMP12_TO_REG(val)	DIV_ROUND_CLOSEST(clamp_val((val), -128000, \
-+							     127937) * 256, 1000)
- #define TEMP11_FROM_REG(reg)	((reg) / 32 * 125)
- #define TEMP11_TO_REG(val)	(DIV_ROUND_CLOSEST(clamp_val((val), -128000, \
- 							     127875), 125) * 32)
-@@ -132,7 +140,11 @@ static const unsigned short normal_i2c[] = { 0x18, 0x4c, 0x4e, I2C_CLIENT_END };
- #define UPDATE_INTERVAL(max, rate) \
- 			((1000 << (LM63_MAX_CONVRATE - (rate))) / (max))
- 
--enum chips { lm63, lm64, lm96163 };
-+enum chips { ctf2301, lm63, lm64, lm96163 };
-+
-+static const unsigned int ctf2301_update_intervals[] = {
-+	20000, 10000, 4902, 2463, 1000, 615, 307, 154, 107
-+};
- 
- /*
-  * Client data (each client gets its own)
-@@ -164,6 +176,8 @@ struct lm63_data {
- 			   1: local high limit
- 			   2: remote critical limit
- 			   3-14: lookup table */
-+	s16 temp1_input; /* local input for chips with extended resolution */
-+	s16 temp1_max; /* local limit for chips with extended resolution */
- 	s16 temp11[4];	/* 0: remote input
- 			   1: remote low limit
- 			   2: remote high limit
-@@ -229,6 +243,7 @@ static struct lm63_data *lm63_update_device(struct device *dev)
- 	struct lm63_data *data = dev_get_drvdata(dev);
- 	struct i2c_client *client = data->client;
- 	unsigned long next_update;
-+	int msb, lsb;
- 
- 	mutex_lock(&data->update_lock);
- 
-@@ -253,10 +268,26 @@ static struct lm63_data *lm63_update_device(struct device *dev)
- 		data->pwm1[0] = i2c_smbus_read_byte_data(client,
- 				LM63_REG_PWM_VALUE);
- 
--		data->temp8[0] = i2c_smbus_read_byte_data(client,
--				 LM63_REG_LOCAL_TEMP);
--		data->temp8[1] = i2c_smbus_read_byte_data(client,
--				 LM63_REG_LOCAL_HIGH);
-+		if (data->kind == ctf2301) {
-+			msb = i2c_smbus_read_byte_data(client,
-+						       LM63_REG_LOCAL_TEMP);
-+			lsb = i2c_smbus_read_byte_data(client,
-+						       CTF2301_REG_LOCAL_TEMP_LSB);
-+			if (msb >= 0 && lsb >= 0)
-+				data->temp1_input = ((u16)(u8)msb << 8) | lsb;
-+
-+			msb = i2c_smbus_read_byte_data(client,
-+						       LM63_REG_LOCAL_HIGH);
-+			lsb = i2c_smbus_read_byte_data(client,
-+						       CTF2301_REG_LOCAL_HIGH_LSB);
-+			if (msb >= 0 && lsb >= 0)
-+				data->temp1_max = ((u16)(u8)msb << 8) | lsb;
+-	/* Modules that have no detect signal are always present */
+-	if (!(sfp->gpio[GPIO_MODDEF0]))
+-		sfp->get_state = sff_gpio_get_state;
++	/* An SFP cage with no MOD_DEF0 GPIO has no hardware presence signal.
++	 * Assuming the module is always present traps an empty cage in
++	 * MOD_ERROR and never detects hot-insertion, so derive presence from a
++	 * throttled I2C probe and poll for changes instead. sfp_i2c_configure()
++	 * has already set i2c_max_block_size; seed i2c_block_size so the
++	 * presence read does not issue a zero-length transfer before the first
++	 * EEPROM read. Seed i2c_present_next to jiffies so the first probe
++	 * happens immediately (a zero value would be in the past relative to
++	 * the negative INITIAL_JIFFIES at boot and delay detection).
++	 *
++	 * A soldered-down module (sff,sff) has no presence signal and is
++	 * genuinely always present, so it keeps the always-present behaviour;
++	 * the I2C probe is gated on the cage type advertising SFP_F_PRESENT.
++	 */
++	if (!sfp->gpio[GPIO_MODDEF0]) {
++		if (sff->gpios & SFP_F_PRESENT) {
++			sfp->get_state = sfp_i2c_get_state;
++			sfp->i2c_block_size = sfp->i2c_max_block_size;
++			sfp->i2c_present_next = jiffies;
++			sfp->need_poll = true;
 +		} else {
-+			data->temp8[0] = i2c_smbus_read_byte_data(client,
-+								  LM63_REG_LOCAL_TEMP);
-+			data->temp8[1] = i2c_smbus_read_byte_data(client,
-+								  LM63_REG_LOCAL_HIGH);
++			sfp->get_state = sff_gpio_get_state;
 +		}
- 
- 		/* order matters for temp2_input */
- 		data->temp11[0] = i2c_smbus_read_byte_data(client,
-@@ -276,7 +307,7 @@ static struct lm63_data *lm63_update_device(struct device *dev)
- 				| i2c_smbus_read_byte_data(client,
- 				  LM63_REG_REMOTE_OFFSET_LSB);
- 
--		if (data->kind == lm96163)
-+		if (data->kind == lm96163 || data->kind == ctf2301)
- 			data->temp11u = (i2c_smbus_read_byte_data(client,
- 					LM96163_REG_REMOTE_TEMP_U_MSB) << 8)
- 				      | i2c_smbus_read_byte_data(client,
-@@ -366,6 +397,49 @@ static ssize_t set_fan(struct device *dev, struct device_attribute *dummy,
- 	return count;
- }
- 
-+static int lm63_pwm_from_reg(struct lm63_data *data, u8 reg)
-+{
-+	if (data->pwm_highres)
-+		return reg;
-+
-+	return reg >= 2 * data->pwm1_freq ?
-+	       LM63_MAX_PWM :
-+	       (reg * LM63_MAX_PWM + data->pwm1_freq) / (2 * data->pwm1_freq);
-+}
-+
-+static u8 lm63_pwm_to_reg(struct lm63_data *data, unsigned long val)
-+{
-+	val = clamp_val(val, 0, LM63_MAX_PWM);
-+
-+	if (data->pwm_highres)
-+		return val;
-+
-+	return (val * data->pwm1_freq * 2 + LM63_MAX_PWM / 2) / LM63_MAX_PWM;
-+}
-+
-+static void lm63_update_pwm_highres(struct lm63_data *data,
-+				    int config_enhanced)
-+{
-+	data->pwm_highres = !(data->config_fan & 0x08) &&
-+			     data->pwm1_freq == 8 &&
-+			     (config_enhanced & 0x10);
-+}
-+
-+static int lm63_write_pwm(struct lm63_data *data, int nr, unsigned long val)
-+{
-+	struct i2c_client *client = data->client;
-+	u8 reg = nr ? LM63_REG_LUT_PWM(nr - 1) : LM63_REG_PWM_VALUE;
-+	u8 regval = lm63_pwm_to_reg(data, val);
-+	int ret;
-+
-+	ret = i2c_smbus_write_byte_data(client, reg, regval);
-+	if (ret)
-+		return ret;
-+	data->pwm1[nr] = regval;
-+
-+	return 0;
-+}
-+
- static ssize_t show_pwm1(struct device *dev, struct device_attribute *devattr,
- 			 char *buf)
- {
-@@ -375,12 +449,7 @@ static ssize_t show_pwm1(struct device *dev, struct device_attribute *devattr,
- 	int pwm;
- 
- 	mutex_lock(&data->update_lock);
--	if (data->pwm_highres)
--		pwm = data->pwm1[nr];
--	else
--		pwm = data->pwm1[nr] >= 2 * data->pwm1_freq ?
--		       255 : (data->pwm1[nr] * 255 + data->pwm1_freq) /
--		       (2 * data->pwm1_freq);
-+	pwm = lm63_pwm_from_reg(data, data->pwm1[nr]);
- 	mutex_unlock(&data->update_lock);
- 
- 	return sprintf(buf, "%d\n", pwm);
-@@ -391,11 +460,9 @@ static ssize_t set_pwm1(struct device *dev, struct device_attribute *devattr,
- {
- 	struct sensor_device_attribute *attr = to_sensor_dev_attr(devattr);
- 	struct lm63_data *data = dev_get_drvdata(dev);
--	struct i2c_client *client = data->client;
- 	int nr = attr->index;
- 	unsigned long val;
- 	int err;
--	u8 reg;
- 
- 	if (!(data->config_fan & 0x20)) /* register is read-only */
- 		return -EPERM;
-@@ -404,15 +471,11 @@ static ssize_t set_pwm1(struct device *dev, struct device_attribute *devattr,
- 	if (err)
- 		return err;
- 
--	reg = nr ? LM63_REG_LUT_PWM(nr - 1) : LM63_REG_PWM_VALUE;
--	val = clamp_val(val, 0, 255);
--
- 	mutex_lock(&data->update_lock);
--	data->pwm1[nr] = data->pwm_highres ? val :
--			(val * data->pwm1_freq * 2 + 127) / 255;
--	i2c_smbus_write_byte_data(client, reg, data->pwm1[nr]);
-+	err = lm63_write_pwm(data, nr, val);
- 	mutex_unlock(&data->update_lock);
--	return count;
-+
-+	return err ? err : count;
- }
- 
- static ssize_t pwm1_enable_show(struct device *dev,
-@@ -485,7 +548,9 @@ static ssize_t pwm1_freq_store(struct device *dev,
- 	struct lm63_data *data = dev_get_drvdata(dev);
- 	struct i2c_client *client = data->client;
- 	unsigned long val, pfr_fast, pfr_slow, err_fast, err_slow, pfr;
-+	u8 config_fan;
- 	bool slow_clock;
-+	int config_enhanced = 0;
- 	int ret;
- 
- 	ret = kstrtoul(buf, 10, &val);
-@@ -511,35 +576,58 @@ static ssize_t pwm1_freq_store(struct device *dev,
- 
- 	mutex_lock(&data->update_lock);
- 	ret = i2c_smbus_read_byte_data(client, LM63_REG_CONFIG_FAN);
--	if (ret < 0) {
--		mutex_unlock(&data->update_lock);
--		return ret;
--	}
--	data->config_fan = ret;
-+	if (ret < 0)
-+		goto unlock;
-+	config_fan = ret;
-+	data->config_fan = config_fan;
- 
--	if (!(data->config_fan & 0x20)) { /* register is read-only */
--		mutex_unlock(&data->update_lock);
--		return -EPERM;
-+	if (!(config_fan & 0x20)) { /* register is read-only */
-+		ret = -EPERM;
-+		goto unlock;
- 	}
- 
--	if (data->kind == lm96163) {
--		ret = i2c_smbus_read_byte_data(client, LM96163_REG_CONFIG_ENHANCED);
--		if (ret < 0) {
--			mutex_unlock(&data->update_lock);
--			return ret;
-+	if (data->kind == lm96163 || data->kind == ctf2301) {
-+		ret = i2c_smbus_read_byte_data(client,
-+					       LM96163_REG_CONFIG_ENHANCED);
-+		if (ret < 0)
-+			goto unlock;
-+		config_enhanced = ret;
-+		lm63_update_pwm_highres(data, config_enhanced);
-+
-+		if (data->kind == ctf2301) {
-+			if (!slow_clock && pfr == 8)
-+				config_enhanced |= 0x10;
-+			else
-+				config_enhanced &= ~0x10;
-+			ret = i2c_smbus_write_byte_data(client,
-+							LM96163_REG_CONFIG_ENHANCED,
-+							config_enhanced);
-+			if (ret)
-+				goto unlock;
-+			lm63_update_pwm_highres(data, config_enhanced);
- 		}
--		data->pwm_highres = !slow_clock && pfr == 8 && (ret & 0x10);
- 	}
- 
- 	if (slow_clock)
--		data->config_fan |= 0x08;
-+		config_fan |= 0x08;
- 	else
--		data->config_fan &= ~0x08;
--	i2c_smbus_write_byte_data(client, LM63_REG_CONFIG_FAN, data->config_fan);
--	i2c_smbus_write_byte_data(client, LM63_REG_PWM_FREQ, pfr);
-+		config_fan &= ~0x08;
-+	ret = i2c_smbus_write_byte_data(client, LM63_REG_PWM_FREQ, pfr);
-+	if (ret)
-+		goto unlock;
- 	data->pwm1_freq = pfr;
-+	lm63_update_pwm_highres(data, config_enhanced);
-+	ret = i2c_smbus_write_byte_data(client, LM63_REG_CONFIG_FAN,
-+					config_fan);
-+	if (ret)
-+		goto unlock;
-+
-+	data->config_fan = config_fan;
-+	lm63_update_pwm_highres(data, config_enhanced);
-+unlock:
- 	mutex_unlock(&data->update_lock);
--	return count;
-+
-+	return ret ? ret : count;
- }
- 
- /*
-@@ -554,7 +642,17 @@ static ssize_t show_local_temp8(struct device *dev,
- {
- 	struct sensor_device_attribute *attr = to_sensor_dev_attr(devattr);
- 	struct lm63_data *data = lm63_update_device(dev);
--	return sprintf(buf, "%d\n", TEMP8_FROM_REG(data->temp8[attr->index]));
-+	int temp;
-+
-+	mutex_lock(&data->update_lock);
-+	if (data->kind == ctf2301)
-+		temp = TEMP12_FROM_REG(attr->index ? data->temp1_max :
-+				       data->temp1_input);
-+	else
-+		temp = TEMP8_FROM_REG(data->temp8[attr->index]);
-+	mutex_unlock(&data->update_lock);
-+
-+	return sprintf(buf, "%d\n", temp);
- }
- 
- static ssize_t show_remote_temp8(struct device *dev,
-@@ -594,6 +692,21 @@ static ssize_t set_temp8(struct device *dev, struct device_attribute *devattr,
- 		return err;
- 
- 	mutex_lock(&data->update_lock);
-+	if (data->kind == ctf2301 && nr == 1) {
-+		temp = TEMP12_TO_REG(val);
-+		err = i2c_smbus_write_byte_data(client, LM63_REG_LOCAL_HIGH,
-+						temp >> 8);
-+		if (!err)
-+			err = i2c_smbus_write_byte_data(client,
-+							CTF2301_REG_LOCAL_HIGH_LSB,
-+							temp & 0xf0);
-+		if (!err)
-+			data->temp1_max = temp;
-+		mutex_unlock(&data->update_lock);
-+
-+		return err ? err : count;
-+	}
-+
- 	switch (nr) {
- 	case 2:
- 		reg = LM63_REG_REMOTE_TCRIT;
-@@ -610,10 +723,12 @@ static ssize_t set_temp8(struct device *dev, struct device_attribute *devattr,
- 		reg = LM63_REG_LUT_TEMP(nr - 3);
- 		temp = lut_temp_to_reg(data, val);
- 	}
--	data->temp8[nr] = temp;
--	i2c_smbus_write_byte_data(client, reg, temp);
-+	err = i2c_smbus_write_byte_data(client, reg, temp);
-+	if (!err)
-+		data->temp8[nr] = temp;
- 	mutex_unlock(&data->update_lock);
--	return count;
-+
-+	return err ? err : count;
- }
- 
- static ssize_t show_temp11(struct device *dev, struct device_attribute *devattr,
-@@ -787,11 +902,40 @@ static ssize_t temp2_crit_hyst_store(struct device *dev,
-  * Set conversion rate.
-  * client->update_lock must be held when calling this function.
-  */
--static void lm63_set_convrate(struct lm63_data *data, unsigned int interval)
-+static unsigned int lm63_update_interval(struct lm63_data *data, u8 rate)
-+{
-+	if (data->kind == ctf2301)
-+		return ctf2301_update_intervals[min_t(unsigned int, rate,
-+					ARRAY_SIZE(ctf2301_update_intervals) - 1)];
-+
-+	return UPDATE_INTERVAL(data->max_convrate_hz, rate);
-+}
-+
-+static int lm63_set_convrate(struct lm63_data *data, unsigned int interval)
- {
- 	struct i2c_client *client = data->client;
--	unsigned int update_interval;
--	int i;
-+	unsigned int update_interval, error, best_error = ~0U;
-+	unsigned int best = 0;
-+	unsigned int i;
-+	int ret;
-+
-+	if (data->kind == ctf2301) {
-+		for (i = 0; i < ARRAY_SIZE(ctf2301_update_intervals); i++) {
-+			error = abs_diff(interval, ctf2301_update_intervals[i]);
-+			if (error < best_error) {
-+				best_error = error;
-+				best = i;
-+			}
-+		}
-+
-+		ret = i2c_smbus_write_byte_data(client, LM63_REG_CONVRATE,
-+						best);
-+		if (ret)
-+			return ret;
-+		data->update_interval = ctf2301_update_intervals[best];
-+
-+		return 0;
 +	}
  
- 	/* Shift calculations to avoid rounding errors */
- 	interval <<= 6;
-@@ -803,8 +947,12 @@ static void lm63_set_convrate(struct lm63_data *data, unsigned int interval)
- 		if (interval >= update_interval * 3 / 4)
- 			break;
- 
--	i2c_smbus_write_byte_data(client, LM63_REG_CONVRATE, i);
-+	ret = i2c_smbus_write_byte_data(client, LM63_REG_CONVRATE, i);
-+	if (ret)
-+		return ret;
- 	data->update_interval = UPDATE_INTERVAL(data->max_convrate_hz, i);
-+
-+	return 0;
- }
- 
- static ssize_t update_interval_show(struct device *dev,
-@@ -828,10 +976,10 @@ static ssize_t update_interval_store(struct device *dev,
- 		return err;
- 
- 	mutex_lock(&data->update_lock);
--	lm63_set_convrate(data, clamp_val(val, 0, 100000));
-+	err = lm63_set_convrate(data, clamp_val(val, 0, 100000));
- 	mutex_unlock(&data->update_lock);
- 
--	return count;
-+	return err ? err : count;
- }
- 
- static ssize_t temp2_type_show(struct device *dev,
-@@ -996,6 +1144,75 @@ static DEVICE_ATTR_RO(alarms);
- 
- static DEVICE_ATTR_RW(update_interval);
- 
-+static int lm63_get_max_state(struct thermal_cooling_device *cdev,
-+			      unsigned long *state)
-+{
-+	*state = LM63_MAX_PWM;
-+
-+	return 0;
-+}
-+
-+static int lm63_get_cur_state(struct thermal_cooling_device *cdev,
-+			      unsigned long *state)
-+{
-+	struct lm63_data *data = cdev->devdata;
-+	int ret;
-+
-+	mutex_lock(&data->update_lock);
-+	ret = i2c_smbus_read_byte_data(data->client, LM63_REG_PWM_VALUE);
-+	if (ret < 0)
-+		goto unlock;
-+
-+	data->pwm1[0] = ret;
-+	*state = lm63_pwm_from_reg(data, data->pwm1[0]);
-+unlock:
-+	mutex_unlock(&data->update_lock);
-+
-+	return ret < 0 ? ret : 0;
-+}
-+
-+static int lm63_set_cur_state(struct thermal_cooling_device *cdev,
-+			      unsigned long state)
-+{
-+	struct lm63_data *data = cdev->devdata;
-+	int config_fan;
-+	int ret;
-+
-+	if (state > LM63_MAX_PWM)
-+		return -EINVAL;
-+
-+	mutex_lock(&data->update_lock);
-+	config_fan = i2c_smbus_read_byte_data(data->client,
-+					      LM63_REG_CONFIG_FAN);
-+	if (config_fan < 0) {
-+		ret = config_fan;
-+		goto unlock;
-+	}
-+	data->config_fan = config_fan;
-+
-+	if (!(config_fan & 0x20)) {
-+		config_fan |= 0x20;
-+		ret = i2c_smbus_write_byte_data(data->client,
-+						LM63_REG_CONFIG_FAN,
-+						config_fan);
-+		if (ret)
-+			goto unlock;
-+		data->config_fan = config_fan;
-+	}
-+
-+	ret = lm63_write_pwm(data, 0, state);
-+unlock:
-+	mutex_unlock(&data->update_lock);
-+
-+	return ret;
-+}
-+
-+static const struct thermal_cooling_device_ops lm63_cooling_ops = {
-+	.get_max_state = lm63_get_max_state,
-+	.get_cur_state = lm63_get_cur_state,
-+	.set_cur_state = lm63_set_cur_state,
-+};
-+
- static struct attribute *lm63_attributes[] = {
- 	&sensor_dev_attr_pwm1.dev_attr.attr,
- 	&dev_attr_pwm1_enable.attr,
-@@ -1078,8 +1295,8 @@ static const struct attribute_group lm63_group_extra_lut = {
-  * On LM63, temp2_crit can be set only once, which should be job
-  * of the bootloader.
-  * On LM64, temp2_crit can always be set.
-- * On LM96163, temp2_crit can be set if bit 1 of the configuration
-- * register is true.
-+ * On LM96163 and CTF2301, temp2_crit can be set if bit 1 of the
-+ * configuration register is true.
-  */
- static umode_t lm63_attribute_mode(struct kobject *kobj,
- 				   struct attribute *attr, int index)
-@@ -1089,7 +1306,8 @@ static umode_t lm63_attribute_mode(struct kobject *kobj,
- 
- 	if (attr == &sensor_dev_attr_temp2_crit.dev_attr.attr
- 	    && (data->kind == lm64 ||
--		(data->kind == lm96163 && (data->config & 0x02))))
-+		((data->kind == lm96163 || data->kind == ctf2301) &&
-+		 (data->config & 0x02))))
- 		return attr->mode | S_IWUSR;
- 
- 	return attr->mode;
-@@ -1164,29 +1382,48 @@ static int lm63_detect(struct i2c_client *client,
-  * Ideally we shouldn't have to initialize anything, since the BIOS
-  * should have taken care of everything
-  */
--static void lm63_init_client(struct lm63_data *data)
-+static int lm63_init_client(struct lm63_data *data)
- {
- 	struct i2c_client *client = data->client;
- 	struct device *dev = &client->dev;
- 	u8 convrate;
-+	int ret;
- 
--	data->config = i2c_smbus_read_byte_data(client, LM63_REG_CONFIG1);
--	data->config_fan = i2c_smbus_read_byte_data(client,
--						    LM63_REG_CONFIG_FAN);
-+	ret = i2c_smbus_read_byte_data(client, LM63_REG_CONFIG1);
-+	if (ret < 0)
-+		return ret;
-+	data->config = ret;
-+	ret = i2c_smbus_read_byte_data(client, LM63_REG_CONFIG_FAN);
-+	if (ret < 0)
-+		return ret;
-+	data->config_fan = ret;
- 
- 	/* Start converting if needed */
- 	if (data->config & 0x40) { /* standby */
- 		dev_dbg(dev, "Switching to operational mode\n");
- 		data->config &= 0xA7;
--		i2c_smbus_write_byte_data(client, LM63_REG_CONFIG1,
--					  data->config);
-+		ret = i2c_smbus_write_byte_data(client, LM63_REG_CONFIG1,
-+						data->config);
-+		if (ret)
-+			return ret;
- 	}
- 	/* Tachometer is always enabled on LM64 */
- 	if (data->kind == lm64)
- 		data->config |= 0x04;
-+	if (data->kind == ctf2301 && !client->irq && !(data->config & 0x04)) {
-+		dev_dbg(dev, "Configuring ALERT/TACH pin for tachometer input\n");
-+		data->config |= 0x04;
-+		ret = i2c_smbus_write_byte_data(client, LM63_REG_CONFIG1,
-+						data->config);
-+		if (ret)
-+			return ret;
-+	}
- 
- 	/* We may need pwm1_freq before ever updating the client data */
--	data->pwm1_freq = i2c_smbus_read_byte_data(client, LM63_REG_PWM_FREQ) & 0x1f;
-+	ret = i2c_smbus_read_byte_data(client, LM63_REG_PWM_FREQ);
-+	if (ret < 0)
-+		return ret;
-+	data->pwm1_freq = ret & 0x1f;
- 	if (data->pwm1_freq == 0)
- 		data->pwm1_freq = 1;
- 
-@@ -1199,25 +1436,38 @@ static void lm63_init_client(struct lm63_data *data)
- 	case lm96163:
- 		data->max_convrate_hz = LM96163_MAX_CONVRATE_HZ;
- 		data->lut_size = 12;
--		data->trutherm
--		  = i2c_smbus_read_byte_data(client,
--					     LM96163_REG_TRUTHERM) & 0x02;
-+		ret = i2c_smbus_read_byte_data(client, LM96163_REG_TRUTHERM);
-+		if (ret < 0)
-+			return ret;
-+		data->trutherm = ret & 0x02;
-+		break;
-+	case ctf2301:
-+		data->lut_size = 12;
- 		break;
- 	}
--	convrate = i2c_smbus_read_byte_data(client, LM63_REG_CONVRATE);
--	if (unlikely(convrate > LM63_MAX_CONVRATE))
-+	ret = i2c_smbus_read_byte_data(client, LM63_REG_CONVRATE);
-+	if (ret < 0)
-+		return ret;
-+	convrate = ret;
-+	if (data->kind == ctf2301 &&
-+	    convrate >= ARRAY_SIZE(ctf2301_update_intervals))
-+		convrate = ARRAY_SIZE(ctf2301_update_intervals) - 1;
-+	else if (unlikely(convrate > LM63_MAX_CONVRATE))
- 		convrate = LM63_MAX_CONVRATE;
--	data->update_interval = UPDATE_INTERVAL(data->max_convrate_hz,
--						convrate);
-+	data->update_interval = lm63_update_interval(data, convrate);
- 
- 	/*
--	 * For LM96163, check if high resolution PWM
-+	 * For LM96163 and CTF2301, check if high resolution PWM
- 	 * and unsigned temperature format is enabled.
- 	 */
--	if (data->kind == lm96163) {
--		u8 config_enhanced
--		  = i2c_smbus_read_byte_data(client,
--					     LM96163_REG_CONFIG_ENHANCED);
-+	if (data->kind == lm96163 || data->kind == ctf2301) {
-+		u8 config_enhanced;
-+
-+		ret = i2c_smbus_read_byte_data(client,
-+					       LM96163_REG_CONFIG_ENHANCED);
-+		if (ret < 0)
-+			return ret;
-+		config_enhanced = ret;
- 		if (config_enhanced & 0x20)
- 			data->lut_temp_highres = true;
- 		if ((config_enhanced & 0x10)
-@@ -1238,6 +1488,8 @@ static void lm63_init_client(struct lm63_data *data)
- 	dev_dbg(dev, "PWM output active %s, %s mode\n",
- 		(data->config_fan & 0x10) ? "low" : "high",
- 		(data->config_fan & 0x20) ? "manual" : "auto");
-+
-+	return 0;
- }
- 
- static const struct i2c_device_id lm63_id[];
-@@ -1245,9 +1497,11 @@ static const struct i2c_device_id lm63_id[];
- static int lm63_probe(struct i2c_client *client)
- {
- 	struct device *dev = &client->dev;
-+	struct thermal_cooling_device *cdev;
- 	struct device *hwmon_dev;
- 	struct lm63_data *data;
- 	int groups = 0;
-+	int ret;
- 
- 	data = devm_kzalloc(dev, sizeof(struct lm63_data), GFP_KERNEL);
- 	if (!data)
-@@ -1262,7 +1516,9 @@ static int lm63_probe(struct i2c_client *client)
- 		data->temp2_offset = 16000;
- 
- 	/* Initialize chip */
--	lm63_init_client(data);
-+	ret = lm63_init_client(data);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to initialize device\n");
- 
- 	/* Register sysfs hooks */
- 	data->groups[groups++] = &lm63_group;
-@@ -1272,11 +1528,26 @@ static int lm63_probe(struct i2c_client *client)
- 	if (data->kind == lm96163) {
- 		data->groups[groups++] = &lm63_group_temp2_type;
- 		data->groups[groups++] = &lm63_group_extra_lut;
-+	} else if (data->kind == ctf2301) {
-+		data->groups[groups++] = &lm63_group_extra_lut;
- 	}
- 
- 	hwmon_dev = devm_hwmon_device_register_with_groups(dev, client->name,
- 							   data, data->groups);
--	return PTR_ERR_OR_ZERO(hwmon_dev);
-+	if (IS_ERR(hwmon_dev))
-+		return PTR_ERR(hwmon_dev);
-+
-+	if (IS_ENABLED(CONFIG_THERMAL_OF) &&
-+	    of_property_present(dev->of_node, "#cooling-cells")) {
-+		cdev = devm_thermal_of_cooling_device_register(dev, 0,
-+							       client->name,
-+							       data,
-+							       &lm63_cooling_ops);
-+		if (IS_ERR(cdev))
-+			return PTR_ERR(cdev);
-+	}
-+
-+	return 0;
- }
- 
- /*
-@@ -1287,6 +1558,7 @@ static const struct i2c_device_id lm63_id[] = {
- 	{ .name = "lm63", .driver_data = lm63 },
- 	{ .name = "lm64", .driver_data = lm64 },
- 	{ .name = "lm96163", .driver_data = lm96163 },
-+	{ .name = "ctf2301", .driver_data = ctf2301 },
- 	{ }
- };
- MODULE_DEVICE_TABLE(i2c, lm63_id);
-@@ -1304,6 +1576,10 @@ static const struct of_device_id __maybe_unused lm63_of_match[] = {
- 		.compatible = "national,lm96163",
- 		.data = (void *)lm96163
- 	},
-+	{
-+		.compatible = "sensylink,ctf2301",
-+		.data = (void *)ctf2301
-+	},
- 	{ },
- };
- MODULE_DEVICE_TABLE(of, lm63_of_match);
-
+ 	device_property_read_u32(&pdev->dev, "maximum-power-milliwatt",
+ 				 &sfp->max_power_mW);
 -- 
-2.55.0
+2.53.0
 
