@@ -1,48 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 767D049E5CB;
-	Mon, 31 Aug 2026 13:40:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53D9549E5F9;
+	Mon, 31 Aug 2026 13:40:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183640; cv=none; b=fNOAVxvjyHq162XoYU0fwdE7eMSNVPo2v6k8dmfiHeGmKCWdnyJtu7JqkQ3iM204QZAY9whl7vagp7zY4J4WNFUaPcdTi4BdPmirKtjjLXHCM9PK+aOuti3bv4M3RL/y0vhzp262IwLN1w4jULRG8sV8Z6YPbhfATNJZM6+9cN4=
+	t=1788183641; cv=none; b=QEjfxSMrmZt1ZErChf+v/CYYur752vlVSpO8t7m0tV8efgsHhy7o9VtcI/Fn8ssbVMHjZ7PO0ZtbHNxjjnsUtpBMLM6rX8EAOMrAgbsSVipcXQdHYfpHmSciNhTtFpxSndWL/NhflqIn+uTuFy/uTA+E506pFQNs8hXhSjMPSRw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183640; c=relaxed/simple;
-	bh=2H75Q5WTF1kCro2MfHiy5dOsmOgvGOwONkC21k1X3ME=;
+	s=arc-20240116; t=1788183641; c=relaxed/simple;
+	bh=yVdPVSkH6+vj17TwqiI9vyjEtAAoFiQEtA59sjzIzU8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=uxfX9DLT2at4183tW5DtiY2mEZQ8mw5OthGRvdMkQk+3lTptKWITvJ9WTUYksEzb6sHAeMAkvuS2+9XbMdHZwW7sVTLik4c015nUVxzV1MIXbZzmLGbb5iTEfgSQ2vC0SoO52aJ0i3oVGV2o4Lgp15sm7uHIedUoN/yZbLI5OHU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K63XpL49; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=qw6OL3ZDMCbRA+MPETMX1mFWF2IjLtC+duvpF9NmVHynWuV7l93lA9vDYzo8gYxjH1XzT3AbnS1prtIYgf+EHyf/ROYEptCoXwfeZw4qroOTeGhmCoUqD8nYeE3BjQMN4wbZFMsQ8HT6Z5m1BR0YIee7G8Dqmgs6AQujg/mASlw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a5n6lw+P; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K63XpL49"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F9461F00A3D;
-	Mon, 31 Aug 2026 13:40:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a5n6lw+P"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D5941F00A3F;
+	Mon, 31 Aug 2026 13:40:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788183637;
-	bh=mLH1mFgEoCag+jhcQrJJ6P7irHV75VnN7u7Kj0YD7V8=;
+	s=k20260515; t=1788183638;
+	bh=FhSqjgyWL0jEYi+GId97vcQAV/lXSVQt99tmDjDDfrU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=K63XpL49IRnNMvPAxxKxIDGM0eAGgsJYE/6nfX9sd7bIx7zTKkVN64HU5Wt7vCg+R
-	 urY7zynlHUuoI7kFaUwx3hNJW6lDf4G/3Dm5G4Dy5tesCuhRM4w51cxrAhJLG+g3qS
-	 0hhF+XyJIf6k9kqemhkajhjTV0eK1oladiKxI9SBMZZGPnwo/6c1mE7BniD7SRqZsL
-	 7I2HDkJErr2UzFeFHzdU8pl5qntbEaAeVv8YuGN6Y6cprgPh0W5lNjzSqGiqTHD05W
-	 TqPOESptjytJ3JxOy8V1IN0E/xbz6K5DgSX66jtvHtaPEA/W5+3pYJlKHsPN2PBSUg
-	 rqF+4pbchahLA==
+	b=a5n6lw+PUfJI86J4PcUmZHJXgx000Gt0ga98awxUkcRE80HCXTtzTSB1Xvp//ShLi
+	 OEVn/FN87V8r96R0JQCATgWLEufxvcNoelhYUsTYUbBW6Ol6SFM8uCq84tX7W2JrdQ
+	 1n3+vfbgqoJdGbU1VIT/dXlykfIeS1jUNlx9vASRwtrDm7rJbcTebixxCkkq3C6CpD
+	 HPAgWoZOGRpKYOlqrSgD+9jNgfQop+NU3fl11aVRSl7QHiH5cHMnQtJdnKMhcwBwY6
+	 H7CoIl+knAFEFUZYxXS92vfse6kc7dOMzMgIYqC0z+4E3v1l0uwXLaS+JP+qE34Wcw
+	 nY+WjkAFnvdsA==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Fernando Fernandez Mancera <fmancera@suse.de>,
-	=?UTF-8?q?=C5=81ukasz=20Stelmach?= <steelman@post.pl>,
-	Ido Schimmel <idosch@nvidia.com>,
-	Jakub Kicinski <kuba@kernel.org>,
+Cc: Troy Mitchell <troy.mitchell@linux.dev>,
+	Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>,
+	Drew Fustini <fustini@kernel.org>,
+	Paul Walmsley <pjw@kernel.org>,
 	Sasha Levin <sashal@kernel.org>,
-	dsahern@kernel.org,
-	davem@davemloft.net,
-	edumazet@google.com,
-	pabeni@redhat.com,
-	netdev@vger.kernel.org,
+	palmer@dabbelt.com,
+	aou@eecs.berkeley.edu,
+	linux-riscv@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-5.10] ipv6: addrconf: fix temp address generation after prefix deprecation
-Date: Mon, 31 Aug 2026 09:24:00 -0400
-Message-ID: <20260831133314.4125787-212-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18] riscv: mm: fix SWIOTLB initialization for systems with DRAM above 4GB
+Date: Mon, 31 Aug 2026 09:24:01 -0400
+Message-ID: <20260831133314.4125787-213-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -52,468 +50,421 @@ List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 6.18.48
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Fernando Fernandez Mancera <fmancera@suse.de>
+From: Troy Mitchell <troy.mitchell@linux.dev>
 
-[ Upstream commit e20d8922aa8fe441d291364c96c2179a005b79ea ]
+[ Upstream commit cfca5a48b03fbd33c8cb84cb73ee2e34467f3a33 ]
 
-When a router temporarily deprecates an IPv6 prefix (either by sending a
-Router Advertisement with Preferred Lifetime = 0 or by letting the
-lifetime expire) and later restores it, the kernel permanently loses its
-ability to generate temporary privacy addresses (RFC 8981) for that
-prefix.
+On RISC-V platforms where the entire physical memory (DRAM) resides
+above the 32-bit address space (i.e., above dma32_phys_limit), the
+current SWIOTLB initialization logic fails.
 
-This happens because the address worker attempts to generate a
-replacement temporary address when the current one nears expiration. As
-the base prefix is deprecated already, the generation fails after
-marking the temporary address as already having spawned a replacement
-(ifp->regen_count++).
+This patch addresses two interconnected issues on such platforms:
 
-When the router eventually restores the prefix, the temporary address
-becomes active again. However, once it naturally expires, the address
-worker sees this temporary address already tried to generate one and
-skips the regeneration.
+1. Incorrect 32-bit DMA bounce assumption:
+The existing condition `max_pfn > PFN_DOWN(dma32_phys_limit)` assumes
+that a 32-bit DMA bounce buffer is required simply because the maximum
+PFN exceeds the 32-bit limit. However, if all DRAM starts above 4GB,
+no memory exists below the limit to satisfy this allocation. Fix
+this by adding a check to ensure `memblock_start_of_DRAM()` is actually
+below the 32-bit limit before enforcing 32-bit SWIOTLB.
 
-Fix the issue by resetting the regen_count check of the latest temp
-address generated for the prefix updated by the incoming RA.
+2. kmalloc() bounce buffer allocation failure on non-coherent systems:
+For non-coherent DMA, kmalloc() buffers whose sizes are not
+cache-line-aligned still require bouncing, even if 32-bit DMA bouncing
+is skipped. Without the `SWIOTLB_ANY` flag, swiotlb_init() defaults to
+allocating from low memory, which fails completely when DRAM only exists
+in high memory. By appending `SWIOTLB_ANY` to swiotlb_flags, the allocator
+is permitted to allocate this bounce buffer from high memory.
 
-Reported-by: Łukasz Stelmach <steelman@post.pl>
-Closes: https://lore.kernel.org/netdev/87340td30q.fsf%25steelman@post.pl/
-Suggested-by: Ido Schimmel <idosch@nvidia.com>
-Signed-off-by: Fernando Fernandez Mancera <fmancera@suse.de>
-Reviewed-by: Ido Schimmel <idosch@nvidia.com>
-Link: https://patch.msgid.link/20260523103811.3790-1-fmancera@suse.de
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+With this patch, systems with non-coherent DMA and DRAM entirely above
+4GB can successfully map the software IO TLB in high memory and boot
+normally.
+
+Tested-by: Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>
+Signed-off-by: Troy Mitchell <troy.mitchell@linux.dev>
+Link: https://patch.msgid.link/20260727-fix-riscv-swiotlb-v3-1-59479b23736c@linux.dev
+Reviewed-by: Drew Fustini <fustini@kernel.org>
+Signed-off-by: Paul Walmsley <pjw@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-Connection lost, reconnecting to https://agentn.us.api5.cursor.sh
-(attempt 1)...
-Retry attempt 1...
-# Stable Backport Analysis: `ipv6: addrconf: fix temp address generation
-after prefix deprecation`
+## Phase 1: Commit Message Forensics
 
-**Local tree:** `v6.18.44` (`stable/linux-6.18.y`, detached HEAD)
-**Mainline commit:** `e20d8922aa8fe` (not yet in this tree; `git merge-
-base --is-ancestor` returned 1)
+**Step 1.1 — Subject line**
+Record: `[riscv: mm]` `[fix]` — SWIOTLB initialization fails on RISC-V
+systems whose DRAM is entirely above 4GB.
 
----
+**Step 1.2 — Tags**
+Record:
+- **Tested-by:** Anirudh Srinivasan `<asrinivasan@oss.tenstorrent.com>`
+  (real hardware validation)
+- **Reviewed-by:** Drew Fustini `<fustini@kernel.org>` (RISC-V
+  maintainer)
+- **Signed-off-by:** Troy Mitchell, Paul Walmsley
+- **Link:** https://patch.msgid.link/20260727-fix-riscv-
+  swiotlb-v3-1-59479b23736c@linux.dev
+- No `Fixes:`, `Cc: stable@vger.kernel.org`, or `Reported-by:` tags
+- Notable: hardware-tested on Tenstorrent; reviewed by maintainer
 
-## PHASE 1: COMMIT MESSAGE FORENSICS
+**Step 1.3 — Body analysis**
+Record:
+- **Bug:** `arch_mm_preinit()` SWIOTLB setup is wrong when all physical
+  DRAM sits above `dma32_phys_limit` (4GB).
+- **Symptom:** SWIOTLB init fails; affected systems cannot boot
+  normally.
+- **Root cause (two parts):**
+  1. `max_pfn > PFN_DOWN(dma32_phys_limit)` wrongly forces 32-bit bounce
+     SWIOTLB even when no memory exists below 4GB;
+     `memblock_alloc_low()` then fails.
+  2. On non-coherent DMA systems, kmalloc bounce still needs SWIOTLB,
+     but without `SWIOTLB_ANY` the allocator is restricted to low memory
+     and also fails when DRAM is only in high memory.
+- **Version info:** None explicit; reviewer ties regression to
+  `dcb2743d1e701`.
 
-### Step 1.1: Subject line
-**Record:** `[ipv6: addrconf]` `[fix]` — restores temporary IPv6 privacy
-address generation after a prefix is deprecated and later restored via
-Router Advertisement.
-
-### Step 1.2: Tags
-**Record:**
-| Tag | Value |
-|-----|-------|
-| Reported-by | Łukasz Stelmach \<steelman@post.pl\> |
-| Closes |
-https://lore.kernel.org/netdev/87340td30q.fsf%25steelman@post.pl/ |
-| Suggested-by | Ido Schimmel \<idosch@nvidia.com\> |
-| Reviewed-by | Ido Schimmel \<idosch@nvidia.com\> |
-| Link | https://patch.msgid.link/20260523103811.3790-1-fmancera@suse.de
-|
-| Signed-off-by | Fernando Fernandez Mancera, Jakub Kicinski |
-
-**Notable patterns:** Real user report; subsystem expert review; no
-`Fixes:` tag (expected for manual review); no `Cc: stable` (expected).
-
-### Step 1.3: Body analysis
-**Record:**
-- **Bug:** After a router temporarily deprecates an IPv6 prefix (RA with
-  Preferred Lifetime = 0, or natural expiry) and later restores it, the
-  kernel permanently stops generating RFC 8981 temporary privacy
-  addresses for that prefix.
-- **Symptom:** Privacy extensions silently stop working for the affected
-  prefix until reboot or manual intervention.
-- **Root cause:** `addrconf_verify_rtnl()` increments `regen_count` on
-  the temporary address before attempting replacement generation. While
-  the prefix is deprecated, `ipv6_create_tempaddr()` fails, but
-  `regen_count` stays non-zero. When the prefix is restored,
-  `manage_tempaddrs()` updates lifetimes but never clears `regen_count`,
-  so future regeneration is permanently skipped (`!ifp->regen_count`
-  guard).
-
-### Step 1.4: Hidden bug fix?
-**Record:** No — this is an explicit, well-described functional bug fix,
-not disguised cleanup.
+**Step 1.4 — Hidden bug fix?**
+Record: No — this is an explicit boot/DMA initialization bug fix, not
+disguised cleanup.
 
 ---
 
-## PHASE 2: DIFF ANALYSIS
+## Phase 2: Diff Analysis
 
-### Step 2.1: Inventory
-**Record:**
-- **File:** `net/ipv6/addrconf.c` (+9 / −1 lines)
-- **Functions:** `ipv6_add_addr()`, `manage_tempaddrs()`
-- **Scope:** Single-file surgical fix
+**Step 2.1 — Inventory**
+Record:
+- **Files:** `arch/riscv/mm/init.c` (+12 / −5)
+- **Function:** `arch_mm_preinit()`
+- **Scope:** Single-file, surgical fix
 
-### Step 2.2: Code flow per hunk
+**Step 2.2 — Code flow changes**
 
-**Hunk 1 (`ipv6_add_addr`, ~line 1182):**
-- **Before:** Temp addresses added to head of `tempaddr_list` with no
-  comment.
-- **After:** Documents that `manage_tempaddrs()` depends on head
-  insertion order.
-- **Path:** Address creation for temporary addresses.
+| Hunk | Before | After |
+|------|--------|-------|
+| SWIOTLB enable test | `swiotlb = max_pfn > PFN_DOWN(dma32_phys_limit)`
+| Also requires `memblock_start_of_DRAM() < dma32_phys_limit` |
+| Flags | Always `SWIOTLB_VERBOSE` | `swiotlb_flags` variable; adds
+`SWIOTLB_ANY` on kmalloc-bounce path |
+| `swiotlb_init()` call | `swiotlb_init(swiotlb, SWIOTLB_VERBOSE)` |
+`swiotlb_init(swiotlb, swiotlb_flags)` |
 
-**Hunk 2 (`manage_tempaddrs`, ~lines 2603–2648):**
-- **Before:** On RA lifetime update, temp address lifetimes/flags
-  updated; `regen_count` never reset.
-- **After:** Saves `orig_prefered_lft`; on first matching temp address
-  for the public prefix, if `orig_prefered_lft > 0`, resets
-  `ift->regen_count = 0`.
-- **Path:** Normal RA processing when prefix lifetimes are updated.
+Record: Normal boot path in early MM init; affects all boots on matching
+RISC-V configs.
 
-### Step 2.3: Bug mechanism
-**Record:** **Logic / correctness fix** — stale `regen_count` state on
-temporary addresses after a failed regeneration attempt during prefix
-deprecation blocks all future regeneration. The fix clears that one-shot
-flag when a positive preferred lifetime is received, indicating the
-prefix is preferred again.
+**Step 2.3 — Bug mechanism**
+Record:
+- **Category:** Logic/correctness + memory allocation failure on error-
+  free path
+- **Mechanism:** `swiotlb_memblock_alloc()` uses `memblock_alloc_low()`
+  unless `SWIOTLB_ANY` is set (verified in
+  `kernel/dma/swiotlb.c:331-334`). On high-memory-only platforms, low-
+  memory allocation fails; `swiotlb_init_remap()` eventually gives up at
+  `IO_TLB_MIN_SLABS` and returns without initializing SWIOTLB
+  (`kernel/dma/swiotlb.c:386-388`).
 
-### Step 2.4: Fix quality
-**Record:**
-- **Obviously correct:** Yes — resets stale state at the exact point
-  prefix restoration is signaled (incoming RA with `prefered_lft > 0`).
-- **Minimal:** Yes — 9 lines of functional change plus 1 comment.
-- **Regression risk:** Low — only resets `regen_count` on the most
-  recent temp address (list head, first `ifpub` match); new temp
-  addresses already have `regen_count == 0`; resetting `0 → 0` is a no-
-  op on normal RAs.
+**Step 2.4 — Fix quality**
+Record:
+- Minimal, obviously correct: only enable 32-bit bounce when DRAM
+  actually spans below 4GB; allow high-memory allocation when needed.
+- Same `SWIOTLB_ANY` pattern already used on x86 and PowerPC.
+- Low regression risk: narrow conditions, no API changes.
 
 ---
 
-## PHASE 3: GIT HISTORY INVESTIGATION
+## Phase 3: Git History Investigation
 
-### Step 3.1: Blame
-**Record:** `manage_tempaddrs()` introduced in `53bd674915379` (Dec
-2013, IFA_F_MANAGETEMPADDR). `regen_count` logic dates to
-`291d809ba5c8d` (2005). Buggy interaction between deprecation and
-`regen_count` is in long-standing SLAAC/privacy code present since
-privacy extensions were integrated.
+**Step 3.1 — Blame**
+Record: Current buggy lines in `arch_mm_preinit()` are present in this
+tree at lines 175–193. `swiotlb_adjust_size` kmalloc-bounce logic dates
+to `dcb2743d1e701` (Mar 2024). Original SWIOTLB init logic dates to
+`ce3aca0465e31` (2021). Bug present since at least v6.10 in equivalent
+code.
 
-### Step 3.2: Fixes: tag
-**Record:** N/A — no `Fixes:` tag. Bug is architectural (missing state
-reset), not introduced by a single recent commit.
+**Step 3.2 — Fixes: tag**
+Record: N/A in commit message. Reviewer suggested `Fixes: dcb2743d1e701`
+in lore thread.
 
-### Step 3.3: Related file history
-**Record:** Related prior fixes in this file:
-- `a11a7f71cac20` — fix generation of new temporary addresses (2017)
-- `778964f2fdf05` — fix timing bug in tempaddr regen
-- `69172f0bcb6a0` — fix mngtmpaddr deletion creating unwanted temp
-  addresses
+**Step 3.3 — Related file history**
+Record:
+- v6.12: same buggy logic lived in `mem_init()`
+- v6.18/HEAD: logic moved to `arch_mm_preinit()`
+- Fix commit `cfca5a48b03fb` is **not** in this tree (`merge-base --is-
+  ancestor` → not ancestor of HEAD)
+- Standalone one-patch fix; v1→v3 series on lore, v3 is final
 
-This fix is in the same problem domain and is standalone.
+**Step 3.4 — Author context**
+Record: Troy Mitchell; Tested-by from Tenstorrent. Paul Walmsley (RISC-V
+maintainer) committed. Drew Fustini reviewed.
 
-### Step 3.4: Author context
-**Record:** Fernando Fernandez Mancera is an active ipv6/addrconf
-contributor (multiple recent sysctl and addrconf fixes in this tree).
-Ido Schimmel (reviewer) is a networking expert at NVIDIA.
-
-### Step 3.5: Dependencies
-**Record:** Part of a 2-patch series (`[PATCH 1/2]` fix, `[PATCH 2/2]`
-selftest). **The kernel fix is self-contained**; patch 2/2 is a
-`fib_tests` selftest and is not required for the fix to work. No
-structural or API prerequisites.
+**Step 3.5 — Dependencies**
+Record: No prerequisites. Uses `memblock_start_of_DRAM()`,
+`dma32_phys_limit`, `SWIOTLB_ANY` — all present in this tree. `git apply
+--check` on upstream patch succeeds cleanly.
 
 ---
 
-## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
+## Phase 4: Mailing List and External Research
 
-### Step 4.1: Original discussion
-**Record:**
-- `b4 dig -c e20d8922aa8fe`:
-  https://patch.msgid.link/20260523103811.3790-1-fmancera@suse.de
-- Series went through v1–v5; committed version is latest (v5).
-- Applied to netdev/net-next by Jakub Kicinski (May 27, 2026).
-- Reporter Łukasz Stelmach replied with `Reviewed-by: Ido Schimmel`
-  confirmation in thread.
-- **No explicit `Cc: stable` nomination found** in thread.
-- **No NAKs found.**
+**Step 4.1 — Original discussion**
+Record:
+- **URL:** https://patch.msgid.link/20260727-fix-riscv-
+  swiotlb-v3-1-59479b23736c@linux.dev
+- **Series:** v1 (2026-03-31), v3 (2026-07-27); v3 is applied upstream
+- **Key feedback:** Drew Fustini: "LGTM and resolves the issue for Linux
+  running on the X280 clusters in the Tenstorrent Blackhole"; suggested
+  `Fixes: dcb2743d1e701`
+- Paul Walmsley: "Thanks, queued for v7.2-rc"
+- No NAKs; no explicit stable nomination
 
-### Step 4.2: Reviewers
-**Record:** CC'd: netdev, linux-kselftest, Paolo Abeni, Eric Dumazet,
-David Miller, Ido Schimmel, David Ahern — appropriate maintainer
-coverage. Reviewed-by from Ido Schimmel.
+**Step 4.2 — Reviewers**
+Record: CC'd Paul Walmsley, Palmer Dabbelt, Alexandre Ghiti, linux-
+riscv, linux-kernel, spacemit list.
 
-### Step 4.3: Bug report
-**Record:** Original report at `Closes:` URL (lore.kernel.org blocked by
-bot protection in WebFetch). Reporter is also in-thread confirming the
-fix. Severity from reporter's perspective: permanent loss of privacy
-address capability — functional regression with privacy impact.
+**Step 4.3 — Bug report**
+Record: No formal bugzilla/syzbot report. Real-world impact confirmed by
+Tenstorrent tester on Blackhole X280 clusters.
 
-### Step 4.4: Series context
-**Record:** Patch 2/2 adds selftest `fib_tests: add temporary IPv6
-address renewal test` — optional for stable; not a dependency.
+**Step 4.4 — Related patches**
+Record: Regression partially from `dcb2743d1e701` ("still create swiotlb
+buffer for kmalloc() bouncing if required"). Fix is self-contained.
 
-### Step 4.5: Stable list history
-**Record:** UNVERIFIED — could not search lore stable list (bot
-protection). No stable nomination found in saved mbox thread.
+**Step 4.5 — Stable list history**
+Record: Not searched separately; no stable nomination found in thread.
+Absence is not a negative signal per review rules.
 
 ---
 
-## PHASE 5: CODE SEMANTIC ANALYSIS
+## Phase 5: Code Semantic Analysis
 
-### Step 5.1: Key functions
-**Record:** `ipv6_add_addr()`, `manage_tempaddrs()`, (bug trigger in)
-`addrconf_verify_rtnl()`, `ipv6_create_tempaddr()`
+**Step 5.1 — Key functions**
+Record: `arch_mm_preinit()` modified.
 
-### Step 5.2: Callers of `manage_tempaddrs()`
-**Record:**
-- `addrconf_prefix_rcv_add_addr()` — RA prefix processing (primary fix
-  path, line 2779)
-- Manual address add with `IFA_F_MANAGETEMPADDR` (line 3085)
-- Address modification path (line 4953)
+**Step 5.2 — Callers**
+Record: Called from `mm/mm_init.c:2699` during `start_kernel()` →
+`mm_core_init()` → `arch_mm_preinit()`. Every boot on MMU-enabled
+kernels.
 
-All are normal networking/SLAAC paths triggered by RAs or admin
-configuration.
+**Step 5.3 — Callees**
+Record: `memblock_start_of_DRAM()`, `swiotlb_adjust_size()`,
+`swiotlb_init()` → `swiotlb_memblock_alloc()`.
 
-### Step 5.3: Key callees
-**Record:** `manage_tempaddrs()` may call `ipv6_create_tempaddr()`; uses
-`idev->lock`, per-address `ift->lock`; updates `valid_lft`,
-`prefered_lft`, `flags`.
+**Step 5.4 — Reachability**
+Record: Always executed at boot. Triggered on RISC-V 64-bit
+(`CONFIG_ZONE_DMA32`), especially with `CONFIG_RISCV_DMA_NONCOHERENT`
+(selected by T-Head/Andes errata Kconfig) and DRAM base ≥ 4GB.
 
-### Step 5.4: Reachability
-**Record:**
-```
-Router Advertisement → addrconf_prefix_rcv() →
-addrconf_prefix_rcv_add_addr()
-  → manage_tempaddrs()  [fix resets regen_count here]
-
-Periodic timer → addrconf_verify_work() → addrconf_verify_rtnl()
-  → checks !ifp->regen_count → ipv6_create_tempaddr()  [bug: skips if
-stale]
-```
-**Userspace trigger:** Any host receiving IPv6 RAs with changing prefix
-lifetimes — common on enterprise/Wi-Fi/mobile networks. Requires
-`use_tempaddr > 0` (privacy extensions enabled; default sysctl is 0, but
-widely enabled by distributions).
-
-### Step 5.5: Similar patterns
-**Record:** `ifpub->regen_count = 0` is already reset in
-`addrconf_verify_rtnl()` before calling `ipv6_create_tempaddr()` (line
-4673), but the **temporary address's** `regen_count` was not reset on
-prefix restoration — asymmetric handling that this patch corrects.
+**Step 5.5 — Similar patterns**
+Record: `arch/arm64/mm/init.c` has analogous kmalloc-bounce logic but
+different DMA limit handling. x86/PowerPC already use `SWIOTLB_ANY` for
+high-memory SWIOTLB allocation.
 
 ---
 
-## PHASE 6: CROSS-REFERENCE AGAINST LOCAL TREE (6.18.y)
+## Phase 6: Cross-Reference Against Local Tree
 
-### Step 6.1: Buggy code present?
-**Record:** **YES.** Current `manage_tempaddrs()` at lines 2608–2659 has
-no `regen_count` reset. `addrconf_verify_rtnl()` at line 4657 still
-gates on `!ifp->regen_count`. `list_add()` at line 1183 still adds to
-list head. Bug is present in v6.18.44.
+**Step 6.1 — Buggy code exists?**
+Record: **YES.** Local tree is **v6.18.44** (`git describe HEAD` →
+`v6.18.44-2-g1b9e1abadee04`). Buggy code confirmed at
+`arch/riscv/mm/init.c:175-193`. Fix is not present.
 
-### Step 6.2: Backport complications
-**Record:** **Clean apply expected.** Tested with `git cherry-pick --no-
-commit e20d8922aa8fe` → `Auto-merging net/ipv6/addrconf.c` (no
-conflicts).
+**Step 6.2 — Backport complications**
+Record: **Clean apply.** `git apply --check` on upstream patch passes.
+No conflicts expected.
 
-### Step 6.3: Related fixes already present?
-**Record:** No equivalent fix in this tree. `git log --grep="prefix
-deprecation"` on addrconf.c returned no match for this fix.
+**Step 6.3 — Related fixes already present?**
+Record: **No.** `cfca5a48b03fb` / `e6709c80ce3b8` not in HEAD.
 
 ---
 
-## PHASE 7: SUBSYSTEM CONTEXT
+## Phase 7: Subsystem and Maintainer Context
 
-### Step 7.1: Subsystem criticality
-**Record:** **net/ipv6/addrconf** — IMPORTANT (core IPv6 stack; affects
-all IPv6-capable systems with privacy extensions enabled).
+**Step 7.1 — Subsystem criticality**
+Record: `arch/riscv/mm` — **IMPORTANT** (platform-specific boot path,
+but boot-blocking for affected hardware).
 
-### Step 7.2: Activity
-**Record:** Actively maintained; multiple addrconf fixes in recent
-6.18.y history (sysctl error handling, UaF fixes, DAD fixes).
-
----
-
-## PHASE 8: IMPACT AND RISK ASSESSMENT
-
-### Step 8.1: Who is affected
-**Record:** Systems with IPv6 privacy extensions enabled (`use_tempaddr
-> 0`) using SLAAC-managed temporary addresses, on networks where routers
-temporarily deprecate prefixes (maintenance, RA reconfiguration,
-lifetime expiry). Not universal (requires privacy extensions), but
-affects a meaningful production population.
-
-### Step 8.2: Trigger conditions
-**Record:**
-1. Prefix deprecated (Preferred Lifetime = 0 or expires)
-2. Temp address nears expiration → worker tries regeneration → fails →
-   `regen_count` stuck
-3. Prefix restored via RA with positive preferred lifetime
-4. Temp address eventually expires → no new temp address generated
-
-**Likelihood:** Realistic on managed networks. Not timing-dependent
-race.
-
-### Step 8.3: Failure severity
-**Record:** **MEDIUM-HIGH** — no crash, panic, or data corruption, but
-**permanent functional regression** of RFC 8981 privacy address
-generation for the affected prefix. Privacy/security degradation;
-outbound connections using temp addresses may fail after old addresses
-expire. Workaround requires reboot or toggling `use_tempaddr`.
-
-### Step 8.4: Risk-benefit
-**Record:**
-- **Benefit:** HIGH for affected users — restores correct privacy
-  address behavior after a common network event
-- **Risk:** LOW — 9-line surgical change, expert-reviewed, applies
-  cleanly
-- **Ratio:** Strong benefit, minimal risk
+**Step 7.2 — Activity**
+Record: RISC-V MM actively developed; `arch_mm_preinit()` is a recent
+refactor from `mem_init()` between 6.12 and 6.18.
 
 ---
 
-## PHASE 9: FINAL SYNTHESIS
+## Phase 8: Impact and Risk Assessment
 
-### Step 9.1: Evidence summary
+**Step 8.1 — Who is affected**
+Record: RISC-V 64-bit systems with:
+- `CONFIG_SWIOTLB` + `CONFIG_DMA_BOUNCE_UNALIGNED_KMALLOC` (selected via
+  `RISCV_DMA_NONCOHERENT`)
+- All DRAM above 4GB
+- Examples: Tenstorrent Blackhole X280 clusters
+
+**Step 8.2 — Trigger conditions**
+Record: Every boot on matching hardware. Not userspace-triggered;
+platform configuration dependent. Uncommon globally, but deterministic
+on affected SoCs.
+
+**Step 8.3 — Failure mode severity**
+Record: SWIOTLB fails to initialize → boot failure or broken non-
+coherent DMA (data corruption risk). **Severity: CRITICAL** for affected
+platforms.
+
+**Step 8.4 — Risk/benefit**
+Record:
+- **Benefit:** HIGH for affected RISC-V hardware (enables boot)
+- **Risk:** LOW (17-line change, reviewed, tested, existing flags/APIs)
+- **Ratio:** Strongly favors backport
+
+---
+
+## Phase 9: Final Synthesis
+
+**Step 9.1 — Evidence summary**
 
 **FOR backport:**
-- Real user-reported bug with clear reproduction scenario
-- Expert-reviewed (`Reviewed-by: Ido Schimmel`)
-- Small, surgical, obviously correct fix
-- Buggy code present in 6.18.y; patch applies cleanly
-- Restores RFC 8981 compliance — privacy-relevant
-- Similar temp-address generation fixes have historically been accepted
-  for stable
-- Standalone (selftest patch not required)
+- Real boot blocker on production RISC-V hardware (Tenstorrent
+  Blackhole)
+- Small, surgical, reviewed, hardware-tested fix
+- Buggy code present in v6.18.44
+- Applies cleanly
+- Fixes logic error + allocation failure using existing `SWIOTLB_ANY`
+- Non-coherent DMA without SWIOTLB risks data corruption
 
 **AGAINST backport:**
-- Not a crash/Oops/deadlock/CVE — functional regression only
-- Requires privacy extensions enabled (`use_tempaddr > 0`)
-- Prefix deprecation/restoration cycle is not every-boot common (but
-  realistic)
+- Affects a narrow hardware subset (non-coherent RISC-V with DRAM > 4GB
+  only)
+- No syzbot/CVE report
 
-**Unresolved:** Original bug-report email body not readable (lore bot
-protection); no explicit stable nomination in thread.
+**Unresolved:** None material to the decision.
 
-### Step 9.2: Stable rules checklist
+**Step 9.2 — Stable rules checklist**
+1. Obviously correct and tested? **PASS** (reviewed, Tenstorrent Tested-
+   by)
+2. Fixes a real bug affecting users? **PASS** (boot failure on real
+   hardware)
+3. Important issue? **PASS** (boot blocker / broken DMA on affected
+   systems)
+4. Small and contained? **PASS** (1 file, ~17 lines)
+5. No new features or APIs? **PASS** (uses existing `SWIOTLB_ANY`,
+   `memblock_start_of_DRAM()`)
+6. Can apply to local tree? **PASS** (`git apply --check` succeeds)
 
-| Criterion | Result |
-|-----------|--------|
-| 1. Obviously correct and tested? | **PASS** — logic verified in code;
-selftest exists in mainline series (patch 2/2) |
-| 2. Fixes real bug affecting users? | **PASS** — user-reported,
-reproducible scenario |
-| 3. Important issue? | **PASS** — permanent privacy-address regression
-(functional + privacy impact) |
-| 4. Small and contained? | **PASS** — 10 lines, one file |
-| 5. No new features/APIs? | **PASS** — state-reset bug fix only |
-| 6. Can apply to local tree? | **PASS** — clean cherry-pick to v6.18.44
-|
+**Step 9.3 — Exception category**
+Record: N/A (hardware quirk/workaround exception does not apply; this is
+a boot-path bug fix).
 
-### Step 9.3: Exception categories
-**Record:** N/A — standard bug fix, not device-ID/quirk/build/doc
-exception.
-
-### Step 9.4: Decision rationale
-
-This commit fixes a longstanding logic error where a failed temporary-
-address regeneration during prefix deprecation leaves `regen_count` set,
-permanently blocking future regeneration after the prefix is restored.
-For 6.18.y users running IPv6 privacy extensions, this is a real, user-
-visible regression on a normal network event. The fix is minimal,
-reviewed, applies cleanly, and matches the pattern of prior accepted
-addrconf temp-address stable fixes.
+**Step 9.4 — Decision rationale**
+On this **6.18.y** tree, the buggy SWIOTLB initialization code is
+present and the fix is absent. For RISC-V platforms with non-coherent
+DMA and DRAM entirely above 4GB, the kernel cannot reliably initialize
+SWIOTLB, preventing normal boot on hardware such as Tenstorrent
+Blackhole. The fix is minimal, well-reviewed, hardware-tested, and
+applies cleanly. This is appropriate stable material despite the narrow
+hardware scope, because it is a deterministic boot blocker with no
+practical workaround.
 
 ---
 
 ## Verification
 
-- **[Phase 1]** `git describe HEAD` → `v6.18.44`; parsed all commit
-  message tags
-- **[Phase 2]** Read `manage_tempaddrs()`, `addrconf_verify_rtnl()`,
-  `ipv6_create_tempaddr()` in `/home/sasha/linux-
-  autosel-7.0/net/ipv6/addrconf.c`; confirmed diff matches described
-  behavior
-- **[Phase 3]** `git blame -L 2608,2679` → `manage_tempaddrs` from 2013;
-  `git log -S'regen_count'` → introduced 2005; related commits
-  `a11a7f71cac20`, `778964f2fdf05` found
-- **[Phase 3]** `git merge-base --is-ancestor e20d8922aa8fe HEAD` → exit
-  1 (commit not in tree)
-- **[Phase 4]** `b4 dig -c e20d8922aa8fe` → lore URL found; `-a` → v1–v5
-  series; `-w` → netdev maintainers CC'd; `-m` → thread saved; no stable
-  CC or NAK in mbox
-- **[Phase 4]** WebFetch lore URLs → blocked by Anubis bot protection
-  (UNVERIFIED for original bug-report body)
-- **[Phase 5]** `grep manage_tempaddrs` → 3 call sites; traced RA →
-  `addrconf_prefix_rcv_add_addr()` → `manage_tempaddrs()` path; verified
-  `!ifp->regen_count` guard at line 4657 and `ifp->regen_count++` at
-  line 4667
-- **[Phase 5]** Verified `list_add()` at line 1183 adds to head
-  (supports "first match = most recent" logic)
-- **[Phase 6]** Confirmed buggy code present (no
-  `reset_done`/`orig_prefered_lft` in current tree)
-- **[Phase 6]** `git cherry-pick --no-commit e20d8922aa8fe` → auto-
-  merges cleanly
-- **[Phase 7]** `git log --oneline -15 -- net/ipv6/addrconf.c` → active
-  subsystem
-- **[Phase 8]** Assessed severity as MEDIUM-HIGH functional/privacy
-  regression (not crash)
+- [Phase 1] Parsed subject, tags, body; identified Tenstorrent Tested-by
+  and Drew Fustini Reviewed-by
+- [Phase 2] Diff analysis: 1 file, `arch_mm_preinit()`, +12/−5;
+  `SWIOTLB_ANY` + `memblock_start_of_DRAM()` check
+- [Phase 3] `git describe HEAD`: v6.18.44; buggy code at
+  `arch/riscv/mm/init.c:175-193`
+- [Phase 3] `merge-base --is-ancestor cfca5a48b03fb HEAD`: not in tree
+  (exit 1)
+- [Phase 3] `swiotlb_adjust_size` present since v6.10; reviewer linked
+  regression to `dcb2743d1e701`
+- [Phase 4] `b4 dig -c e6709c80ce3b8`: found v3 thread; v1 and v3
+  revisions
+- [Phase 4] `b4 dig -w`: Paul Walmsley, Palmer Dabbelt, linux-riscv CC'd
+- [Phase 4] Mbox: Drew Fustini confirmed fix for Tenstorrent Blackhole
+  X280; suggested Fixes tag; no NAKs
+- [Phase 5] `arch_mm_preinit()` called from `mm/mm_init.c:2699` on every
+  boot
+- [Phase 5] `swiotlb_memblock_alloc()` uses `memblock_alloc_low()`
+  without `SWIOTLB_ANY` (`kernel/dma/swiotlb.c:331-334`)
+- [Phase 5] Failed allocation path returns without init
+  (`kernel/dma/swiotlb.c:386-388`)
+- [Phase 6] `git show v6.18:arch/riscv/mm/init.c`: same buggy code in
+  v6.18 base
+- [Phase 6] `git apply --check` on upstream patch: clean apply (exit 0)
+- [Phase 6] `memblock_start_of_DRAM()` and `SWIOTLB_ANY` exist in tree
+- [Phase 6] `CONFIG_DMA_BOUNCE_UNALIGNED_KMALLOC` selected for RISC-V
+  non-coherent (`arch/riscv/Kconfig:361`)
+- [Phase 8] Failure mode: SWIOTLB init failure → boot failure / broken
+  DMA; severity CRITICAL for affected platforms
 
-**YES**The background checks finished and line up with the earlier
+**YES**The background git searches finished and line up with the earlier
 analysis:
 
-- **Commit not in 6.18.y** — `e20d8922aa8fe` is on `master` but not an
-  ancestor of the current `v6.18.44` tree.
-- **Buggy code is present** — no matching fix in this tree; related
-  history only shows older temp-address work (`778964f2fdf05`,
-  `00b5b7aab9e42`, etc.).
-- **Verdict stands: YES** — small, reviewed fix for a real privacy-
-  address regression; cherry-picks cleanly onto 6.18.y.
+- The fix exists in the repo as `cfca5a48b03fb` / `e6709c80ce3b8`, but
+  it is **not** in this **6.18.44** tree.
+- The buggy SWIOTLB logic **is** present here (including the kmalloc-
+  bounce path from `dcb2743d1e701`).
+- The regression has been in place since at least **v6.10**; **v6.18**
+  still has the bug.
+- The upstream patch applies cleanly to the current tree.
 
- net/ipv6/addrconf.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+**Verdict for 6.18.y: YES** — this is a boot-blocking fix for non-
+coherent RISC-V systems with DRAM entirely above 4GB (e.g. Tenstorrent
+Blackhole), and it is appropriate for stable backport.The search for
+`memblock_start_of_DRAM() < dma32_phys_limit` found no matches in this
+tree, which confirms the fix is **not** already present in **6.18.44**.
+That supports the earlier **YES** backport recommendation.
 
-diff --git a/net/ipv6/addrconf.c b/net/ipv6/addrconf.c
-index c98b1b919f18c..80706368a303c 100644
---- a/net/ipv6/addrconf.c
-+++ b/net/ipv6/addrconf.c
-@@ -1180,6 +1180,7 @@ ipv6_add_addr(struct inet6_dev *idev, struct ifa6_config *cfg,
- 	ipv6_link_dev_addr(idev, ifa);
+ arch/riscv/mm/init.c | 17 ++++++++++++-----
+ 1 file changed, 12 insertions(+), 5 deletions(-)
+
+diff --git a/arch/riscv/mm/init.c b/arch/riscv/mm/init.c
+index 557bf160b503a..59f9bf2fdd300 100644
+--- a/arch/riscv/mm/init.c
++++ b/arch/riscv/mm/init.c
+@@ -172,7 +172,9 @@ static void print_vm_layout(void) { }
  
- 	if (ifa->flags&IFA_F_TEMPORARY) {
-+		/* manage_tempaddrs() relies on addresses being added to the head */
- 		list_add(&ifa->tmp_list, &idev->tempaddr_list);
- 		in6_ifa_hold(ifa);
- 	}
-@@ -2610,8 +2611,10 @@ static void manage_tempaddrs(struct inet6_dev *idev,
- 			     __u32 valid_lft, __u32 prefered_lft,
- 			     bool create, unsigned long now)
+ void __init arch_mm_preinit(void)
  {
--	u32 flags;
-+	u32 orig_prefered_lft = prefered_lft;
- 	struct inet6_ifaddr *ift;
-+	bool reset_done = false;
-+	u32 flags;
+-	bool swiotlb = max_pfn > PFN_DOWN(dma32_phys_limit);
++	bool swiotlb = max_pfn > PFN_DOWN(dma32_phys_limit) &&
++		       memblock_start_of_DRAM() < dma32_phys_limit;
++	unsigned int swiotlb_flags = SWIOTLB_VERBOSE;
+ #ifdef CONFIG_FLATMEM
+ 	BUG_ON(!mem_map);
+ #endif /* CONFIG_FLATMEM */
+@@ -180,17 +182,22 @@ void __init arch_mm_preinit(void)
+ 	if (IS_ENABLED(CONFIG_DMA_BOUNCE_UNALIGNED_KMALLOC) && !swiotlb &&
+ 	    dma_cache_alignment != 1) {
+ 		/*
+-		 * If no bouncing needed for ZONE_DMA, allocate 1MB swiotlb
+-		 * buffer per 1GB of RAM for kmalloc() bouncing on
+-		 * non-coherent platforms.
++		 * No 32-bit DMA bouncing needed (either all DRAM is within
++		 * the 32-bit limit, or it all starts above it), but
++		 * kmalloc() buffers whose sizes are not cache-line-aligned
++		 * still require bouncing for non-coherent DMA.  Use
++		 * SWIOTLB_ANY so that the buffer can be allocated from high
++		 * memory when DRAM starts above dma32_phys_limit.  Allocate
++		 * ~1 MB per 1 GB of RAM.
+ 		 */
+ 		unsigned long size =
+ 			DIV_ROUND_UP(memblock_phys_mem_size(), 1024);
+ 		swiotlb_adjust_size(min(swiotlb_size_or_default(), size));
+ 		swiotlb = true;
++		swiotlb_flags |= SWIOTLB_ANY;
+ 	}
  
- 	read_lock_bh(&idev->lock);
- 	/* update all temporary addresses in the list */
-@@ -2646,6 +2649,11 @@ static void manage_tempaddrs(struct inet6_dev *idev,
- 			prefered_lft = max_prefered;
+-	swiotlb_init(swiotlb, SWIOTLB_VERBOSE);
++	swiotlb_init(swiotlb, swiotlb_flags);
  
- 		spin_lock(&ift->lock);
-+		/* the first match is the most recent temp address */
-+		if (!reset_done && orig_prefered_lft > 0) {
-+			ift->regen_count = 0;
-+			reset_done = true;
-+		}
- 		flags = ift->flags;
- 		ift->valid_lft = valid_lft;
- 		ift->prefered_lft = prefered_lft;
+ 	print_vm_layout();
+ }
 -- 
 2.53.0
 
