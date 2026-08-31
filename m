@@ -1,295 +1,189 @@
-Received: from mail-10630.protonmail.ch (mail-10630.protonmail.ch [79.135.106.30])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46AC62236F0;
-	Mon, 31 Aug 2026 13:03:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.30
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 345E730AAA9
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 13:03:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788181413; cv=none; b=BhSKqYXGcd/AGPuXN3UkWMSiyNWNTSAkxOwmihO01s4OktSNMLYAwUzftAcTLZIBGcPMuLBlr3QTieHaOFn0hSNhWo4M5p73Fopsyull0nrgdvjqrrOwLYwP7Y0+FIR0UsprBuUh9ddZEf439B/klCM9bBpa+hAkRSAJbq/rsPc=
+	t=1788181425; cv=none; b=bXTyvIuvPn7BNMZub8MsdC9Z4szUuvj5D8vAmJEfpXMDOtHvQaq+/HM9ZweAmkERivyNrBi03NO1GK/sAohmhoWUimZmXUhevER5wmECmTJ2waSXzTPQhL/d1gVVCZGilhN2nzcgTylsU+AMVoG8l2Y/QG5cZs7dZMsK5CxsVWc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788181413; c=relaxed/simple;
-	bh=XtUPdsYFn1mOVOjCkjRMDZ03YBjEn7c+cy9iMPCUXdE=;
-	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=ILZAZo1Yo9l+6ReCDlhMUqpubvTSY3jxkY9XRgRBjkk5GP1h7LsKkQKtE1kPMtdue6aJMxh5qddEQIaF0mDnU4SbJmQQwu8F3filo9blfRwRGCKaDcMKEmknRiRMMxhpg4pdS8odgjKqiqtXAJ3959TfotWQAKusCpw/A/D78vU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=fGBqiDoX; arc=none smtp.client-ip=79.135.106.30
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	s=arc-20240116; t=1788181425; c=relaxed/simple;
+	bh=j0S3huPVhLYX+6eEemnWow0e6Y8m1+FMbbbN0Acjnno=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=uaE5nRlVAY84MbAFpV2jqsM2m1IkVzcdofgiPdg+XYb9HLO4kbu3bY65ISqEh0KfvZaAN56uVcQpx7PzHQO1QRg5+YSlFC3Wm+Qp9CVSGRhN3LGR5muS9VkqhurIoifWBo3GTjr9Y3df8QAgUKPMmfezDcM3mehdKLIis7gCg5M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Dr4G6lkH; arc=none smtp.client-ip=209.85.214.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="fGBqiDoX"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1788181408; x=1788440608;
-	bh=aPwxMk2rsYBjjxhE6Y8L1nF41LH0mUhj0dLpx9uVL24=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=fGBqiDoX/sxR4AlBMEwwKvEc3HNIZegtw2Uex+xtO9qSdv2vYhee1te7zsrHbbKck
-	 Zo75eQUqTjI/eTRlmwOoxglSXWSQkSZnV4wSE7rvlGQpoBre0XsVERnrNlMInhPacU
-	 AHSBICRW/1vY4nHsEddFMa6uuUls5690En4q1ON9DvF4LGNgMGGXCLK4vyF9EXBT6J
-	 XQA+fby/ABrv5IINVHoZINUMiiQBomnE6fkKaAn2IkiRPHLtW4L3gi0nqaQItYCoOn
-	 eSPWuXRm15wkj3dmsB7jONr7psSIyucm8mDb10f6nayy4pO0zYlju9p5YAOMcihURt
-	 YBa97CyP+aXGQ==
-Date: Mon, 31 Aug 2026 13:03:22 +0000
-To: Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Hans de Goede <hansg@kernel.org>
-From: Sergey Lebedev <lsa.uz@pm.me>
-Cc: Daniel Scally <dan.scally@ideasonboard.com>, Jakob Berg Jespersen <dev@berg.pm>, linux-media@vger.kernel.org, platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v3] media: i2c: ov13858: add regulator, clock and reset GPIO handling
-Message-ID: <20260831130312.26296-1-lsa.uz@pm.me>
-Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: 863ec5437a492b2053965f1de810d528b44bd3f9
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Dr4G6lkH"
+Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2d30c22b1eeso3767355ad.0
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 06:03:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788181421; x=1788786221; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1fA07Hbd4bDEg1rAYcywkXfcD2j8BUvAe0Ylrh9j/9k=;
+        b=Dr4G6lkHOG8ew5kzW2mKN0m4JCX34+vtZQy20q8MDDXiBIsFdn22A0Wl6y6icTTlsp
+         kV34y8YWj35kfdRphfA0hu1BXI+1Q9yKFr921Ms64gV2mRzhwTAU273aAA/2i+L5Du+s
+         xv5YFmrYG9c25eSgHd5vaP/md1C+lJwyokVdFaxdixCpVNcl1Qf+izOGW3bhuMxw/UaM
+         CzvUOx4gfsY+yVf4UvXg7Hhq9NuAmYHFP/GFPDMpKrJenVGgTE+sJaLgwtLflnTWJAzA
+         4uFjAPx1ovuMVk0ppGCgf0iZVgY86+LAt5IrmMYhNBcjYNDIE35WuDmfNVwHHVkd1d7c
+         KhrA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788181421; x=1788786221;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1fA07Hbd4bDEg1rAYcywkXfcD2j8BUvAe0Ylrh9j/9k=;
+        b=QRhQypV1+SElqy3Ksw7rgAVLkPu/vG34bL6qcJbPn92PZNuNd5s7SWiQrpAOUTlDp5
+         FlHZcx52Uz6ou6ztVETN6aBOLdmKopsWUCd/4ufpGqvhe0WMt9A1SXNyqfRQnaxHqm9s
+         1w3UoLd44TfKvRFkpIWdKhMLQqIZlM7Lh493BbA1dRQj+2WH/j4b1rJQbtH6FYws2Dpb
+         SAsJj0evEfE/M9a3MAOBNIchjo0j6Yl6zgjST48UTuCL243h/F/DNGP69L3usIlkzsQt
+         QX/4xo1APtJ5OgAdhCATS7aRCjQH96dKrOMurAm4vXFLGSLVFZbrSB+XJAHV414qQLCx
+         P72A==
+X-Forwarded-Encrypted: i=1; AKwUvBxSShIXjrbyAwDnlGpYdeT292tGmT852o6wR/S01LBOBq4tr/KEztrbmUO08Lig1j39vsUBqXhf+Hp6++c=@vger.kernel.org
+X-Gm-Message-State: AFuF++m6Va+RoZ8baQOYEcDcTuuFCiwr4JQ1X2leIGrYHQbYMOamtaTW
+	QFPaQPYFuxMzmbvXWxNZ+laCESVlx6czbTyZiCZlZFw2yY3SvBuIx3N1
+X-Gm-Gg: AYBFou3pOuRMX8aV5A511hSJVSlIsdkljxHkiJS4QVs/JT7gogHTVNLffj8e7DRZl1E
+	S323T+ls/x/wrWSg+UoRwp9JkGxEKjAtxAdng5rq28NTAdGpDQUamGpzQP5Vm1P/BmWCVOihDaD
+	TTBus0tETnIEiPD4kp7I2H5znGtOkH0P0sMeuZ6YqRIbNLErAB3PRU1gzDjZGoziKt/Xudkq4wc
+	axjouVJRZFNAFWDnPKOjVF7UTThED5snS/HRX479f/qtZHLxjGCp5VS2yB5oe3QUNCI2gBRo63z
+	lvQL8XrJ/GVOW9BzlcE86IrAli4nvG45av1AaUc+YNE3u/TJWNDJriIHR6I2WhsirgECza+d14z
+	VSzXWPrjNCK/HOxr8gwIxsjnUMEz/ap6gfAldHzXNaZmbAaO9hy7jmycGlO7Kz/zWIgvwbkVS5X
+	7eHzG5nVn/jdCFzOE4wwqL5iaiswOtssHNxb6HBYj9XbqRlBBa65DwGC51WxF1RXrHvU41HqLCc
+	vn7XCx4BOi/Jg7ocz1E3NoFex8G
+X-Received: by 2002:a17:903:2350:b0:2cc:f4d4:29a0 with SMTP id d9443c01a7336-2d74df5ef31mr232145955ad.3.1788181420171;
+        Mon, 31 Aug 2026 06:03:40 -0700 (PDT)
+Received: from cachyos-aura ([45.112.149.37])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3286f7bf283sm32567749eec.8.2026.08.31.06.03.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Aug 2026 06:03:39 -0700 (PDT)
+From: Navon John Lukose <navonjohnlukose@gmail.com>
+To: Miri Korenblit <miriam.rachel.korenblit@intel.com>,
+	linux-wireless@vger.kernel.org
+Cc: Johannes Berg <johannes@sipsolutions.net>,
+	Emmanuel Grumbach <emmanuel.grumbach@intel.com>,
+	Nika Krasnova <nika@nikableh.moe>,
+	Bjorn Helgaas <helgaas@kernel.org>,
+	Mark Pearson <mpearson-lenovo@squebb.ca>,
+	Mark Pearson <markpearson@lenovo.com>,
+	linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH wireless v2 0/3] wifi: iwlwifi: recover a device that lost power in D3cold
+Date: Mon, 31 Aug 2026 18:33:29 +0530
+Message-ID: <20260831130332.323549-1-navonjohnlukose@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-The driver assumes the sensor is already powered when probe() reads its chi=
-p
-ID. That holds where the rails and clock are ACPI power resources, but not
-where an INT3472 companion device registers them as regulators, a clock and=
- a
-reset GPIO for the sensor driver to consume, which this driver does not do.
+On a Lenovo Yoga Pro 7 14IAH10 (Arrow Lake-H) the Intel BE200 does not
+survive D3cold: _PR3 genuinely removes the M.2 module's rail and the card
+does not restart when the rail and PERST# come back. After _ON both the
+power-enable and PERST# GPIO pad registers read correct and the link still
+never trains; config space reads 0xffffffff until reboot.
 
-Request the three supplies and the reset GPIO, and sequence them along with
-the clock the driver already looks up, in runtime PM callbacks.
+iwlwifi already has everything needed to recover it: the platform-level
+device reset walks _PRR and evaluates _RST on what it returns, and the
+driver already speaks the vendor _DSM that selects the product reset mode.
+The problem is ordering. The mode is only ever selected from the removal
+path, by which point the device no longer answers, and AML gates that _DSM
+on reading the device's PCI ID back out of config space - so the selection
+can never succeed at the one moment it matters.
 
-Signed-off-by: Sergey Lebedev <lsa.uz@pm.me>
----
-Changes in v3, from Sakari Ailus's review of v2:
-- wrapped the one line over 80 columns
-- dropped an unrelated hunk in ov13858_id_table. It was not deliberate: v2 =
-was
-  regenerated against mainline from a tree based on a distribution kernel, =
-and
-  that difference came along with it.
-Link to v2: https://patch.msgid.link/20260831124352.86935-1-lsa.uz@pm.me
+  Patch 1  stop concluding "no CSME" (or "CSME present") from a register
+           read that never reached the device. An independent bug, with a
+           behaviour change of its own; see the patch.
+  Patch 2  deselect the mode at probe. The driver selects it and never
+           clears it on the product-reset path, and _RST does not clear it
+           either.
+  Patch 3  arm the mode in .suspend, disarm it in .resume, and if the
+           disarm fails *and* the device reads all ones, ask for a product
+           reset.
 
-Changes in v2, from the review of v1:
-- commit message cut down; the detail below
-- dropped the comment on the supply names; it is a KAPI with int3472
-- ARRAY_SIZE() directly instead of a local macro
-- fsleep() instead of usleep_range()
-- one function each for power on and off, used as the PM callbacks directly=
-,
-  instead of a pair of wrappers
-- removed the now-useless dev_err() in the probe error path
-- i declared inside its loop
-Link to v1: https://patch.msgid.link/20260831100404.40463-1-lsa.uz@pm.me
++57/-10 over three files. Patch 3's new arming is confined to discrete
+parts, but its demotion of a failure log to debug level applies to
+integrated parts too; patch 1 changes me_present handling on all BZ and
+later hardware, and patch 2 adds a DSM evaluation to every probe.
 
-Without the patch the first I2C transaction fails:
+Since v1:
+https://lore.kernel.org/all/20260829095437.44716-1-navonjohnlukose@gmail.com/
 
-  ov13858 i2c-OVTID858:00: failed to find sensor: -5
+- v1 selected the mode at probe and left it selected forever, which is a
+  permanent change to platform state for a reset that may never happen.
+  v2 arms in .suspend and disarms in .resume, and patch 2 clears what an
+  earlier driver instance left behind.
+- v2 requires two independent signals before it removes and resets
+  anything: the disarm failing and CSR_HW_REV reading ~0. A failed DSM
+  alone is not evidence of a dead device.
+- Patch 1 is new. It is the me_present bug I said I would send separately;
+  it is here because it is the reset ladder patch 3 reasons about, and it
+  is wider than I described then. It applies alone.
+- Corrections to v1 and to my analysis mail: this is Arrow Lake-H, not
+  "several Meteor Lake laptops", and it is one machine tested by me. I
+  also said twice that the test would key on config space
+  (pci_device_is_present(), "not answering config cycles"); it does not.
+  v2 makes no config access of its own, because a device in D3hot answers
+  config cycles while its BARs are dark. Config space is still in the loop
+  one layer down, in AML's own VDID read.
+- iwl_trans_pcie_reset() is left alone. A draft suppressed the CSME
+  downgrade while the mode was armed; that premise only holds for a device
+  already off the bus. The consequence is under the --- of patch 3.
 
-The power sequence follows ov02c10: supplies, then clock, then release rese=
-t,
-and the reverse on the way down.
+Notes for review:
 
-Measured on a Microsoft Surface Pro 11 for Business (Intel Lunar Lake, IPU7=
-),
-with the parts isolated one at a time:
+- .suspend does not reset anything and does not touch the NIC or the
+  firmware: it reads the PCI ID through AML and writes an integer into the
+  ACPI namespace. The reset only happens from .resume, through the existing
+  iwl_trans_pcie_reset() path, and only from the work item it queues.
+- This is recovery, not avoidance. The alternative on the list is the DMI
+  quirk patch 3 Links to, which disables D3cold for the affected machine
+  and costs nothing per resume, where this keeps D3cold and pays ~7 s on
+  the resumes that fail. I am not claiming this is the better trade; it is
+  the one that does not need a DMI entry per machine, and it shows the
+  hardware can recover. If you would rather take the quirk, patches 1 and
+  2 still stand on their own.
+- Arguably the better fix is in the PCI core: for a device with _PRR that
+  comes back from D3cold not answering, evaluate _RST in place of the
+  speculative retrain pcie_wait_for_link_delay() attempts. That would
+  leave the device alive before any driver .resume runs, taking the ~7 s
+  to ~4.5 s. But arming is a vendor DSM that has to be issued while the
+  device is still alive, so the driver is involved either way. I would
+  like to do the core half as a follow-up.
+- This is not the missing D3cold->D0 recovery delay from "PCI: Apply
+  mandatory recovery delay on return from D3cold":
+  https://lore.kernel.org/all/20260708152650.536604-2-mario.limonciello@amd.com/
+  That delay is real and this device is subject to it, but I left the card
+  in the failed state and polled it for 60 s across ten PCI rescans:
+  0xffffffff throughout, link never trained.
 
-  supplies enabled, clock enabled   sensor identifies, driver binds
-  supplies enabled, clock left off  -EIO
-  supplies left off, clock enabled  -EIO
+Testing: one machine, one BIOS, discrete only. Five s2idle cycles, four
+with wifi connected at suspend and one with the radio down, and the device
+recovered on all five; with the reset skipped and nothing else changed it
+stayed absent until reboot. Methodology and the untested surface are under
+the --- of patch 3.
 
-so both are needed; a longer settling delay alone is not enough. Verified
-across five module unload/load cycles with no probe failure, and again afte=
-r
-this rework, with the sensor streaming each time.
+Patches 1 and 2 carry Fixes: tags and Cc: stable. Patch 3 carries neither:
+the device dying in D3cold is not a regression from any commit, the driver
+simply never handled it, and I would rather not invent a SHA. It is still
+a fix in the sense that matters, since the machine loses its WiFi until
+reboot. Whether that belongs in wireless or wireless-next is your call.
 
-This needs POWER1 GPIO support in int3472 to be useful on that machine: the
-dvdd rail is described there as an INT3472 GPIO of type 0x08, and without t=
-hat
-patch the rail is never registered.
-Link: https://patch.msgid.link/20260829-sp7plus-int3472-v3-1-454b50485ce2@b=
-erg.pm
+Signed-off-by: Navon John Lukose <navonjohnlukose@gmail.com>
 
-The same sensor on the Surface Pro 10 was made to work downstream by forcin=
-g
-the regulators on for the driver's lifetime, which the people who did it
-called too broad for upstream. Runtime PM keeps them off while the sensor i=
-s
-idle instead.
-Link: https://github.com/linux-surface/linux-surface/issues/2153
+Navon John Lukose (3):
+  wifi: iwlwifi: pcie: don't infer CSME presence from a failed read
+  wifi: iwlwifi: pcie: deselect the product reset mode at probe
+  wifi: iwlwifi: pcie: recover a device that lost power in D3cold
 
-dovdd is not described on this machine and resolves to a dummy regulator. I=
-t
-is listed because it is one of the three supplies these sensors normally ta=
-ke.
+ drivers/net/wireless/intel/iwlwifi/pcie/drv.c | 24 ++++++++++++
+ .../intel/iwlwifi/pcie/gen1_2/internal.h      |  4 ++
+ .../intel/iwlwifi/pcie/gen1_2/trans.c         | 39 ++++++++++++++-----
+ 3 files changed, 57 insertions(+), 10 deletions(-)
 
-A working camera also needs an ipu-bridge entry for OVTID858, separately.
----
---- a/drivers/media/i2c/ov13858.c
-+++ b/drivers/media/i2c/ov13858.c
-@@ -3,9 +3,12 @@
-=20
- #include <linux/acpi.h>
- #include <linux/clk.h>
-+#include <linux/delay.h>
-+#include <linux/gpio/consumer.h>
- #include <linux/i2c.h>
- #include <linux/module.h>
- #include <linux/pm_runtime.h>
-+#include <linux/regulator/consumer.h>
- #include <media/v4l2-ctrls.h>
- #include <media/v4l2-device.h>
- #include <media/v4l2-event.h>
-@@ -1028,9 +1031,17 @@
- =09}
- };
-=20
-+static const char * const ov13858_supply_names[] =3D {
-+=09"dovdd",=09/* Digital I/O power */
-+=09"avdd",=09=09/* Analog power */
-+=09"dvdd",=09=09/* Digital core power */
-+};
-+
- struct ov13858 {
- =09struct device *dev;
- =09struct clk *clk;
-+=09struct regulator_bulk_data supplies[ARRAY_SIZE(ov13858_supply_names)];
-+=09struct gpio_desc *reset_gpio;
-=20
- =09struct v4l2_subdev sd;
- =09struct media_pad pad;
-@@ -1653,8 +1664,55 @@
- {
- =09v4l2_ctrl_handler_free(ov13858->sd.ctrl_handler);
- =09mutex_destroy(&ov13858->mutex);
-+}
-+
-+static int ov13858_power_on(struct device *dev)
-+{
-+=09struct v4l2_subdev *sd =3D dev_get_drvdata(dev);
-+=09struct ov13858 *ov13858 =3D to_ov13858(sd);
-+=09int ret;
-+
-+=09ret =3D regulator_bulk_enable(ARRAY_SIZE(ov13858_supply_names),
-+=09=09=09=09    ov13858->supplies);
-+=09if (ret) {
-+=09=09dev_err(ov13858->dev, "failed to enable regulators: %d\n", ret);
-+=09=09return ret;
-+=09}
-+
-+=09ret =3D clk_prepare_enable(ov13858->clk);
-+=09if (ret) {
-+=09=09dev_err(ov13858->dev, "failed to enable clock: %d\n", ret);
-+=09=09regulator_bulk_disable(ARRAY_SIZE(ov13858_supply_names), ov13858->su=
-pplies);
-+=09=09return ret;
-+=09}
-+
-+=09if (ov13858->reset_gpio) {
-+=09=09/* Hold reset for at least 1 ms on a back to back off-on */
-+=09=09fsleep(1000);
-+=09=09gpiod_set_value_cansleep(ov13858->reset_gpio, 0);
-+=09}
-+
-+=09/* t4: 8192 XVCLK cycles after reset is released, before the first I2C =
-*/
-+=09fsleep(5000);
-+
-+=09return 0;
- }
-=20
-+static int ov13858_power_off(struct device *dev)
-+{
-+=09struct v4l2_subdev *sd =3D dev_get_drvdata(dev);
-+=09struct ov13858 *ov13858 =3D to_ov13858(sd);
-+
-+=09gpiod_set_value_cansleep(ov13858->reset_gpio, 1);
-+=09regulator_bulk_disable(ARRAY_SIZE(ov13858_supply_names), ov13858->suppl=
-ies);
-+=09clk_disable_unprepare(ov13858->clk);
-+
-+=09return 0;
-+}
-+
-+static DEFINE_RUNTIME_DEV_PM_OPS(ov13858_pm_ops, ov13858_power_off,
-+=09=09=09=09 ov13858_power_on, NULL);
-+
- static int ov13858_probe(struct i2c_client *client)
- {
- =09struct ov13858 *ov13858;
-@@ -1678,14 +1736,34 @@
- =09=09=09=09     "external clock %lu is not supported\n",
- =09=09=09=09     freq);
-=20
-+=09for (unsigned int i =3D 0; i < ARRAY_SIZE(ov13858_supply_names); i++)
-+=09=09ov13858->supplies[i].supply =3D ov13858_supply_names[i];
-+
-+=09ret =3D devm_regulator_bulk_get(ov13858->dev, ARRAY_SIZE(ov13858_supply=
-_names),
-+=09=09=09=09      ov13858->supplies);
-+=09if (ret)
-+=09=09return dev_err_probe(ov13858->dev, ret,
-+=09=09=09=09     "failed to get regulators\n");
-+
-+=09ov13858->reset_gpio =3D devm_gpiod_get_optional(ov13858->dev, "reset",
-+=09=09=09=09=09=09      GPIOD_OUT_HIGH);
-+=09if (IS_ERR(ov13858->reset_gpio))
-+=09=09return dev_err_probe(ov13858->dev,
-+=09=09=09=09     PTR_ERR(ov13858->reset_gpio),
-+=09=09=09=09     "failed to get reset GPIO\n");
-+
- =09/* Initialize subdev */
- =09v4l2_i2c_subdev_init(&ov13858->sd, client, &ov13858_subdev_ops);
-=20
-+=09ret =3D ov13858_power_on(ov13858->dev);
-+=09if (ret)
-+=09=09return ret;
-+
- =09/* Check module identity */
- =09ret =3D ov13858_identify_module(ov13858);
- =09if (ret) {
- =09=09dev_err(ov13858->dev, "failed to find sensor: %d\n", ret);
--=09=09return ret;
-+=09=09goto error_power_off;
- =09}
-=20
- =09/* Set default mode to max resolution */
-@@ -1693,7 +1771,7 @@
-=20
- =09ret =3D ov13858_init_controls(ov13858);
- =09if (ret)
--=09=09return ret;
-+=09=09goto error_power_off;
-=20
- =09/* Initialize subdev */
- =09ov13858->sd.internal_ops =3D &ov13858_internal_ops;
-@@ -1729,8 +1807,10 @@
-=20
- error_handler_free:
- =09ov13858_free_controls(ov13858);
--=09dev_err(ov13858->dev, "%s failed:%d\n", __func__, ret);
-=20
-+error_power_off:
-+=09ov13858_power_off(ov13858->dev);
-+
- =09return ret;
- }
-=20
-@@ -1744,11 +1824,14 @@
- =09ov13858_free_controls(ov13858);
-=20
- =09pm_runtime_disable(ov13858->dev);
-+=09if (!pm_runtime_status_suspended(ov13858->dev))
-+=09=09ov13858_power_off(ov13858->dev);
-+=09pm_runtime_set_suspended(ov13858->dev);
- }
-=20
- static const struct i2c_device_id ov13858_id_table[] =3D {
- =09{ .name =3D "ov13858" },
- =09{ }
- };
-=20
- MODULE_DEVICE_TABLE(i2c, ov13858_id_table);
-@@ -1766,6 +1849,7 @@
- =09.driver =3D {
- =09=09.name =3D "ov13858",
- =09=09.acpi_match_table =3D ACPI_PTR(ov13858_acpi_ids),
-+=09=09.pm =3D pm_ptr(&ov13858_pm_ops),
- =09},
- =09.probe =3D ov13858_probe,
- =09.remove =3D ov13858_remove,
+-- 
+2.55.0
 
