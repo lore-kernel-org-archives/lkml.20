@@ -1,462 +1,211 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E88545293F8;
-	Mon, 31 Aug 2026 13:44:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 500B752A2D4;
+	Mon, 31 Aug 2026 13:44:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.77
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183877; cv=none; b=detrywcBmCQ8sYQ7xHSEEZQDgM5JwVqmxSTG7Sya/FADIUm/oVGRNYUtwTSXxHVmiQfSrazttEU31zV9k4plIwg4Dv+SZQxDmfu3TqhvGspcXhfwZLkJvpDRlo//GGEBvN6TPbM62jIDyOKlSY/jnnDPMwqEBmG0fUPVBNmzL8w=
+	t=1788183878; cv=none; b=GeEvgZUKdAvj8vs9oKlkAG9ueLQDU/stNqjfx91zZ0HbOsrbL8lkK+jCtKQm6OB//LP17EDHMeCjxjnwD5daYu0OvyglG8nMyPKUjn447Ow3tCDneOpf21L+RzlIq0ApxmbSEG7qvcCtXnd5E3aq7DjY27HeG6eu5w0jJ5ohfWs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183877; c=relaxed/simple;
-	bh=qpWI73L8vgTIHGSXios1j7XIvTyywj6zMvBzUjPcgew=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=L3SzgYKMKmGmJ8yZwxXQecUiQ33BanFKY3lIJxxXcibYQneVfBrlqPt3hXX4T4okFvQ8X/oTtXb8R6qiJ6Gzs4pojjaInudkAZ3faJH0gFsxcvlEAGLcHBTixfA5coa4upERepVKihvCKd804guqQHG+pGW/v9Xzmbpkuq9dgaM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ecSZE4T0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788183878; c=relaxed/simple;
+	bh=2YY5nUBo6wosIgIAedMlKLHnzw7f3f6khWNRkorRWDM=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=NtPtpe4SrBXz0ASZ9pG3YcrTZqDDDM9/LLTBbgT3mIfg6csG5E/KqXtUJtSioERwmkfGcGBFQyX45/lW+JjHXE4zjwquUKmaAOkkS8T9kAEZaU4jA9ObGzDwrx86ByljKXkx8E+pSmz4kr84kYCgyDeychpIJTWACdMzNKZFoAo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=Mdif4vvP; arc=none smtp.client-ip=148.163.135.77
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ecSZE4T0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D276A1F000E9;
-	Mon, 31 Aug 2026 13:44:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788183874;
-	bh=uzD/bvx2wfiQnNSbs6W6Vc/o8YOP6CDwTRIrMxm6Vvc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ecSZE4T0yIA/+uiMUq6s6uxwjnorPNhbFnOPsQkGCD0zziM3szpjruvDWTvgswSuI
-	 /4TtVGeMfPneUSOF0VC6GnQ45itXuWGpzpECWeg/y2P3xbN4z0U5KLU3kkm8/MCkRZ
-	 qPiE+B7Js6trrYd3YX7hw+NATysSRf/OwpYExs3ti5MHfIs+mz49bwyKoPyuVFWGQz
-	 /S2tMo7AghYxpx47Dc8emV1qPburTR5CBdgue88ErBfGQ11QLyY5U1QIS6vbP7KxYd
-	 jDm93LUJbB+Tqf0ds5ozOWtsa+9wJJVN11nbhMhr37CD9Fp8j/PmR4JltrOjINLdB3
-	 i6FSKMvIU0uZQ==
-From: Sasha Levin <sashal@kernel.org>
-To: patches@lists.linux.dev,
-	stable@vger.kernel.org
-Cc: Rosen Penev <rosenp@gmail.com>,
-	"Maciej W. Rozycki" <macro@orcam.me.uk>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	Sasha Levin <sashal@kernel.org>,
-	linux-mips@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-5.10] mips: cps: Assemble jr.hb with an R2 ISA level
-Date: Mon, 31 Aug 2026 09:26:23 -0400
-Message-ID: <20260831133314.4125787-355-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="Mdif4vvP"
+Received: from pps.filterd (m0167088.ppops.net [127.0.0.1])
+	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67VBA6KE1649889;
+	Mon, 31 Aug 2026 09:44:01 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=DKIM; bh=GTkdWhryhr/o3EvdlxV5WHBfByR
+	3Buv/bhE7lz/ZBHE=; b=Mdif4vvPIVNZWo3jUAzsuRnjuHUkK+YAUjJwreRMV9j
+	n8ZjupTCrP/z7/p/d3sWPwejfbO4v9030Z/qhoPDD0+uAiNq0ZL8V1BdPzqtQ/m3
+	kVEsoAXI1HxtRlNcY0cLGLRFtSQx8eO+xqJjUUE/UOpCG4Kdbw7L03JJqJS4cUzl
+	i+whBeOkPWTKcVlEq1omlyXkFwqAo+v1NR74tjKa3HG02xLKbDCPd+sr4RtW+Y1f
+	80QxbBxG7v0M5w1aNup/GR1IZL+GSjmiCwj4BzzNPoYXNcFkX9P9fTSxrcyRJ6wA
+	CvUbKcSrue5j/0FlOl0N9Z6B58LC1yJtT49PsRGaFAA==
+Received: from nwd2mta4.analog.com ([137.71.173.58])
+	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4gbs9104e5-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 31 Aug 2026 09:44:00 -0400 (EDT)
+Received: from ASHBMBX8.ad.analog.com (ASHBMBX8.ad.analog.com [10.64.17.5])
+	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 67VDhxd1054476
+	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Mon, 31 Aug 2026 09:43:59 -0400
+Received: from ASHBMBX8.ad.analog.com (10.64.17.5) by ASHBMBX8.ad.analog.com
+ (10.64.17.5) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.37; Mon, 31 Aug
+ 2026 09:43:59 -0400
+Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx8.ad.analog.com
+ (10.64.17.5) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
+ Transport; Mon, 31 Aug 2026 09:43:59 -0400
+Received: from HYB-JRXo5UEs61B.ad.analog.com ([10.66.6.193])
+	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 67VDhglM004987;
+	Mon, 31 Aug 2026 09:43:45 -0400
+From: Stefan Popa <stefan.popa@analog.com>
+To: <linux-iio@vger.kernel.org>
+CC: <jic23@kernel.org>, <lars@metafoo.de>, <Michael.Hennerich@analog.com>,
+        <robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
+        <andy@kernel.org>, <dlechner@baylibre.com>, <nuno.sa@analog.com>,
+        <siratul.islam@linux.dev>, <u.kleine-koenig@baylibre.com>,
+        <linux@roeck-us.net>, <joshua.crofts1@gmail.com>,
+        <ciprian.hegbeli@analog.com>, <krzysztof.kozlowski@oss.qualcomm.com>,
+        <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+        Stefan Popa
+	<stefan.popa@analog.com>
+Subject: [PATCH v9 0/2] iio: adc: add MAX40080 current-sense amplifier driver
+Date: Mon, 31 Aug 2026 16:43:32 +0300
+Message-ID: <20260831134334.196359-1-stefan.popa@analog.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
-References: <20260831133314.4125787-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.18.48
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-
-From: Rosen Penev <rosenp@gmail.com>
-
-[ Upstream commit e5d64f868e484da06f5c141c18c32c01c269625e ]
-
-A MIPS allmodconfig built with LLVM can select CPU_MIPS32_R1 together
-with MIPS_MT_SMP. In that configuration clang invokes the integrated
-assembler with -march=mips32, and the MIPS MT path in cps-vec.S fails
-to assemble two jr.hb instructions:
-
-  arch/mips/kernel/cps-vec.S:376:2: error: instruction requires
-  a CPU feature not currently enabled
-
-  arch/mips/kernel/cps-vec.S:490:4: error: instruction requires
-  a CPU feature not currently enabled
-
-The earlier jr.hb in the same file is already assembled inside a .set
-MIPS_ISA_LEVEL_RAW scope. The two failing sites are reached after
-popping back to the file's base ISA level, so LLVM correctly rejects
-them for an R1 target.
-
-Wrap those jr.hb instructions in the same ISA-level push/pop used by
-the working site. This keeps the MT code unchanged while making the
-required R2 hazard-branch encoding explicit to the assembler.
-
-Assisted-by: Codex:GPT-5.5
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
-Reviewed-by: Maciej W. Rozycki <macro@orcam.me.uk>
-Signed-off-by: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
-
-LLM Generated explanations, may be completely bogus:
-
-## Tree context
-
-**Local tree:** Linux **6.18.44** (`git describe HEAD` → `v6.18.44`,
-`make kernelversion` → `6.18.44`)
-
-**Commit under review:** `e5d64f868e484` — *mips: cps: Assemble jr.hb
-with an R2 ISA level* (mainline, 2026-05-26). **Not** an ancestor of
-this tree (`git merge-base --is-ancestor` → exit 1). The unfixed code is
-still present at lines 376 and 490 of `arch/mips/kernel/cps-vec.S`.
-
----
-
-## Phase 1: Commit message forensics
-
-**Step 1.1 — Subject parse**
-Record: `[mips: cps]` `[assemble/wrap]` — Wrap two `jr.hb` instructions
-in R2 ISA-level `.set push`/`.set pop` blocks so LLVM's integrated
-assembler accepts them.
-
-**Step 1.2 — Tags**
-Record:
-- `Assisted-by: Codex:GPT-5.5`
-- `Signed-off-by: Rosen Penev <rosenp@gmail.com>`
-- `Reviewed-by: Maciej W. Rozycki <macro@orcam.me.uk>`
-- `Signed-off-by: Thomas Bogendoerfer <tsbogend@alpha.franken.de>`
-- No `Fixes:`, `Reported-by:`, `Link:`, `Cc: stable@vger.kernel.org`,
-  `Tested-by:`
-
-Notable: reviewed by a MIPS maintainer; merged by Thomas Bogendoerfer
-(MIPS maintainer). LLVM toolchain folks were CC'd on the mailing list
-thread.
-
-**Step 1.3 — Body analysis**
-Record:
-- **Bug:** With `CPU_MIPS32_R1` + `MIPS_MT_SMP` (reachable via MIPS
-  `allmodconfig`) and **LLVM/clang**, integrated assembler runs with
-  `-march=mips32` (R1). Two `jr.hb` sites in `mips_cps_boot_vpes` fail
-  assembly with *"instruction requires a CPU feature not currently
-  enabled"* at lines 376 and 490.
-- **Symptom:** Kernel **build failure** (assembler error), not a runtime
-  crash.
-- **Root cause:** Those `jr.hb` instructions sit outside `.set
-  MIPS_ISA_LEVEL_RAW` scope after a `.set pop`; an earlier `jr.hb` in
-  the same file (line 212) is correctly inside such a scope.
-- **Fix approach:** Wrap each failing `jr.hb` in `.set push` / `.set
-  MIPS_ISA_LEVEL_RAW` / `.set pop`, matching the working site.
-
-**Step 1.4 — Hidden bug fix?**
-Record: **Yes** — described as an assembly fix, but it is a real
-**build-breaking bug** for a valid Kconfig combination with LLVM. Not
-cosmetic.
-
----
-
-## Phase 2: Diff analysis
-
-**Step 2.1 — Inventory**
-Record:
-- **File:** `arch/mips/kernel/cps-vec.S` (+6 lines, 0 removed)
-- **Function:** `mips_cps_boot_vpes` (inside `#elif
-  defined(CONFIG_MIPS_MT)` path)
-- **Scope:** Single-file, surgical (2 hunks, 3 lines each)
-
-**Step 2.2 — Code flow per hunk**
-
-| Hunk | Before | After |
-|------|--------|-------|
-| Site 1 (~line 375) | After `dvpe` block's `.set pop`, `jr.hb t1`
-assembled at file base ISA (R1 under LLVM) | `jr.hb` wrapped in
-temporary R2 ISA scope |
-| Site 2 (~line 489) | After VPE-exit `.set pop`, `jr.hb t0` at base ISA
-| Same R2 scope wrapper |
-
-Record: Both hunks affect the `CONFIG_MIPS_MT` boot-VPE path in
-`mips_cps_boot_vpes`, reached during CPS SMP boot when MT is enabled.
-
-**Step 2.3 — Bug mechanism**
-Record: **Build / assembler ISA-level mismatch.** `jr.hb` is a Release 2
-instruction. With `CPU_MIPS32_R1`, clang passes `-march=mips32` to the
-integrated assembler. Without `.set MIPS_ISA_LEVEL_RAW`, LLVM rejects
-`jr.hb`. This is not a runtime logic bug; emitted instructions are
-unchanged for hardware that already supports MT (which implies R2).
-
-**Step 2.4 — Fix quality**
-Record:
-- **Obviously correct:** Mirrors the existing working pattern at lines
-  202–212 in `mips_cps_core_init`.
-- **Minimal:** Only assembler directives added; no instruction sequence
-  changes.
-- **Regression risk:** Very low — scoped `.set push`/`.set pop` with no
-  lock or control-flow changes.
-
----
-
-## Phase 3: Git history investigation
-
-**Step 3.1 — Blame**
-Record: `git blame` in this stable checkout attributes all lines to an
-unrelated amdgpu cherry-pick root (`7e22de67e545d`), so per-line
-introduction dates are unreliable here. File header shows `cps-vec.S`
-dates to 2013 (Paul Burton). The unwrapped `jr.hb` sites are long-
-standing; the failure is exposed by LLVM's stricter ISA enforcement, not
-by a recent regression in this tree.
-
-**Step 3.2 — Fixes: tag**
-Record: N/A — no `Fixes:` tag present.
-
-**Step 3.3 — File history**
-Record: `git log --oneline -20 -- arch/mips/kernel/cps-vec.S` shows only
-the amdgpu commit (stable-tree history artifact). No prior fix for this
-issue in this tree.
-
-**Step 3.4 — Author context**
-Record: Rosen Penev (regular contributor, often build/toolchain fixes).
-Reviewed/merged by MIPS maintainers.
-
-**Step 3.5 — Dependencies**
-Record: **Standalone.** Single-patch series (v1 only). No prerequisite
-commits. Patch context matches current file (verified programmatically —
-both sites match).
-
----
-
-## Phase 4: Mailing list and external research
-
-**Step 4.1 — Original discussion**
-Record:
-- `b4 dig -c e5d64f868e484` →
-  https://patch.msgid.link/20260507232323.489383-1-rosenp@gmail.com
-- **Series:** v1 only (no later revisions)
-- Thomas Bogendoerfer: *"applied to mips-next"*
-- Maciej W. Rozycki: called the approach *"exceedingly pedantic"* but
-  concluded *"your patch is not incorrect and fixes a real problem"* →
-  `Reviewed-by:`
-- **No explicit `Cc: stable` nomination** in thread
-- **No NAKs**
-
-**Step 4.2 — Reviewers**
-Record: `b4 dig -w` — CC'd: `linux-mips@vger.kernel.org`, Thomas
-Bogendoerfer, Nathan Chancellor, Nick Desaulniers, LLVM list, LKML.
-
-**Step 4.3 — Bug report**
-Record: N/A — no external bug tracker link. Failure described concretely
-in commit message with assembler error text and line numbers.
-
-**Step 4.4 — Related patches**
-Record: Maciej noted a broader cleanup (wrap entire `CONFIG_MIPS_MT`
-block, redefine `MIPS_ISA_LEVEL_RAW` per word size) as future work —
-**not required** for this fix.
-
-**Step 4.5 — Stable list**
-Record: Not searched on lore stable list (no indication of prior stable
-discussion). Absence of stable nomination is not a negative signal per
-review instructions.
-
----
-
-## Phase 5: Code semantic analysis
-
-**Step 5.1 — Key functions**
-Record: `mips_cps_boot_vpes` (assembly leaf in `cps-vec.o`)
-
-**Step 5.2 — Callers**
-Record: `cps-vec.o` is linked when `CONFIG_MIPS_CPS=y`
-(`arch/mips/kernel/Makefile:61`). `mips_cps_boot_vpes` is part of CPS
-secondary-core/VPE boot vector code — early boot, not userspace-
-reachable, but required for SMP bring-up on CPS platforms.
-
-**Step 5.3 — Callees**
-Record: MT ASE coprocessor ops (`dvpe`, `evpe`, `mfc0`/`mtc0` on
-MVPCONTROL/VPECONTROL/TCHALT). Fix only changes assembler ISA scope
-around `jr.hb`.
-
-**Step 5.4 — Reachability**
-Record: Code is compiled when `CONFIG_MIPS_CPS` and `CONFIG_MIPS_MT`
-(selected by `CONFIG_MIPS_MT_SMP`) are both enabled. Trigger for the
-**bug** is at **compile time** with LLVM + `CPU_MIPS32_R1`, not at
-runtime.
-
-**Step 5.5 — Similar patterns**
-Record: Same file line 212 (`mips_cps_core_init`) already wraps `jr.hb`
-inside `.set MIPS_ISA_LEVEL_RAW`. `arch/mips/kernel/entry.S`
-(`mips_ihb`) uses the same pattern. The two failing sites were
-inconsistent with established local convention.
-
----
-
-## Phase 6: Cross-reference against local tree (6.18.44)
-
-**Step 6.1 — Buggy code present?**
-Record: **YES.** Lines 376 and 490 have bare `jr.hb` outside `.set
-MIPS_ISA_LEVEL_RAW` scope. Fix commit is **not** in this tree.
-
-**Step 6.2 — Backport complications**
-Record: **Clean apply expected.** Both patch contexts match current file
-content exactly. No conflicting changes detected.
-
-**Step 6.3 — Related fixes already present?**
-Record: **None found** in this tree for this issue.
-
----
-
-## Phase 7: Subsystem and maintainer context
-
-**Step 7.1 — Subsystem**
-Record: **arch/mips** — platform-specific boot/SMP assembly.
-Criticality: **IMPORTANT** for MIPS CPS+MT SMP platforms and for anyone
-building MIPS kernels; not universal like mm/net, but affects real
-builders and CI.
-
-**Step 7.2 — Activity**
-Record: MIPS CPS/MT code is mature; this is a toolchain compatibility
-fix on existing code.
-
----
-
-## Phase 8: Impact and risk assessment
-
-**Step 8.1 — Who is affected**
-Record: **Config-specific builders** — MIPS kernels with
-`CONFIG_MIPS_CPS` + `CONFIG_MIPS_MT_SMP` + `CPU_MIPS32_R1`, built with
-**LLVM/clang**. Typical trigger: `allmodconfig` CI builds; also any
-distro/toolchain vendor using clang for MIPS.
-
-**Step 8.2 — Trigger conditions**
-Record:
-- **When:** At kernel **build** time (assembler phase)
-- **How common:** Uncommon for production defconfigs (most CPS platforms
-  use R2+), but **common in kernel CI** (`allmodconfig`) and
-  increasingly relevant as LLVM MIPS support grows
-- **Userspace trigger:** No — not a runtime/security issue
-
-**Step 8.3 — Failure mode severity**
-Record: **Build failure** (hard assembler error) — severity **MEDIUM**
-for stable (blocks compilation; no runtime crash, no data corruption, no
-security exposure).
-
-**Step 8.4 — Risk/benefit**
-Record:
-- **Benefit:** Unblocks LLVM MIPS builds for valid configurations;
-  aligns with growing clang/LLVM kernel build support
-- **Risk:** Very low (6 assembler-directive lines, no logic change)
-- **Ratio:** Favorable — classic low-risk build fix
-
----
-
-## Phase 9: Final synthesis
-
-**Evidence FOR backport:**
-- Fixes a **real, reproducible build failure** (documented assembler
-  errors)
-- Falls under stable **BUILD FIX** exception category
-- Small, surgical, maintainer-reviewed
-- Buggy code exists in 6.18.44; patch applies cleanly
-- Standalone, no dependencies
-- Matches established pattern already used in the same file
-
-**Evidence AGAINST backport:**
-- Only affects a **niche Kconfig** (`allmodconfig` + R1 + MT_SMP + CPS +
-  LLVM)
-- **No runtime user impact** on already-built/deployed kernels
-- Reviewer noted a cleaner long-term approach exists (not blocking)
-
-**Stable rules checklist:**
-| Criterion | Result |
-|-----------|--------|
-| 1. Obviously correct and tested? | **PASS** — mirrors working site;
-Reviewed-by maintainer |
-| 2. Fixes real bug affecting users? | **PASS** — blocks kernel
-compilation for valid config |
-| 3. Important issue? | **PASS** (moderate) — build fix, not
-crash/corruption |
-| 4. Small and contained? | **PASS** — 6 lines, 1 file |
-| 5. No new features/APIs? | **PASS** — assembler directives only |
-| 6. Can apply to local tree? | **PASS** — context verified |
-
-**Exception category:** **BUILD FIX** (#4 in stable exceptions)
-
----
-
-## Verification
-
-- [Phase 1] `git show e5d64f868e484` — parsed full commit message and
-  tags
-- [Phase 1] Tags: Reviewed-by Maciej W. Rozycki; no Fixes/Reported-
-  by/Cc:stable
-- [Phase 2] Read `arch/mips/kernel/cps-vec.S` lines 198–495 — confirmed
-  two bare `jr.hb` vs wrapped site at 212
-- [Phase 2] Read `arch/mips/include/asm/compiler.h` —
-  `MIPS_ISA_LEVEL_RAW` defined as mips64r2/r5/r6 per CPU config
-- [Phase 3] `git blame` — unreliable in this stable tree (all lines →
-  unrelated root commit)
-- [Phase 3] `git merge-base --is-ancestor e5d64f868e484 HEAD` → exit 1
-  (fix not in 6.18.44)
-- [Phase 3] Python context match — both patch sites match current file
-- [Phase 4] `b4 dig -c e5d64f868e484` — lore URL found
-- [Phase 4] `b4 dig -a` — v1 only, no later revisions
-- [Phase 4] `b4 dig -w` — MIPS maintainer and LLVM folks CC'd
-- [Phase 4] `b4 dig -m /tmp/cps-jr-hb.mbx` — Thomas applied; Maciej
-  Reviewed-by, noted "fixes a real problem"
-- [Phase 5] `grep jr.hb arch/mips` — 3 sites in cps-vec.S; entry.S uses
-  same `.set MIPS_ISA_LEVEL_RAW` pattern
-- [Phase 5] `arch/mips/kernel/Makefile:61` — cps-vec.o built with
-  CONFIG_MIPS_CPS
-- [Phase 6] `git describe HEAD` / `make kernelversion` — tree is 6.18.44
-- [Phase 6] Buggy code confirmed present at lines 376, 490
-- [Phase 6] `arch/mips/Kconfig` — MIPS_MT_SMP and MIPS_CPS are
-  independently selectable options
-- [Phase 8] Failure mode: assembler error at build time, severity MEDIUM
-
----
-
-## Conclusion
-
-For **Linux 6.18.44**, this commit fixes a legitimate LLVM/clang build
-breakage in MIPS CPS+MT SMP assembly code. It is small, maintainer-
-reviewed, applies cleanly, and matches an established in-file pattern.
-While the affected configuration is niche and the failure is at build
-time rather than runtime, **build fixes are explicitly appropriate for
-stable trees**, and LLVM support is increasingly important for kernel
-builds.
-
-**YES**The analysis is done for **Linux 6.18.44**.
-
-**Commit:** `e5d64f868e484` — *mips: cps: Assemble jr.hb with an R2 ISA
-level*
-
-**Problem:** With LLVM/clang and `CPU_MIPS32_R1` + `MIPS_MT_SMP` (e.g.
-MIPS `allmodconfig`), two `jr.hb` instructions in `arch/mips/kernel/cps-
-vec.S` fail assembly because they sit outside a `.set
-MIPS_ISA_LEVEL_RAW` scope.
-
-**Fix:** Wrap those two sites in the same ISA-level push/pop used
-elsewhere in the file (+6 lines, one file). Reviewed by Maciej W.
-Rozycki; applies cleanly to this tree; the unfixed code is still present
-in 6.18.44.
-
-**Verdict:** **YES** — small, maintainer-reviewed build fix with very
-low risk.
-
- arch/mips/kernel/cps-vec.S | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/arch/mips/kernel/cps-vec.S b/arch/mips/kernel/cps-vec.S
-index 2ae7034a3d5c4..70413c816eb03 100644
---- a/arch/mips/kernel/cps-vec.S
-+++ b/arch/mips/kernel/cps-vec.S
-@@ -373,8 +373,11 @@ LEAF(mips_cps_boot_vpes)
- 	.set	pop
- 
- 	PTR_LA	t1, 1f
-+	.set	push
-+	.set	MIPS_ISA_LEVEL_RAW
- 	jr.hb	t1
- 	 nop
-+	.set	pop
- 1:	mfc0	t1, CP0_MVPCONTROL
- 	ori	t1, t1, MVPCONTROL_VPC
- 	mtc0	t1, CP0_MVPCONTROL
-@@ -487,8 +490,11 @@ LEAF(mips_cps_boot_vpes)
- 	li	t0, TCHALT_H
- 	mtc0	t0, CP0_TCHALT
- 	PTR_LA	t0, 1f
-+	.set	push
-+	.set	MIPS_ISA_LEVEL_RAW
- 1:	jr.hb	t0
- 	 nop
-+	.set	pop
- 
- 2:
- 
--- 
+Content-Type: text/plain
+X-ADIRuleOP-NewSCL: Rule Triggered
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODMxMDExOSBTYWx0ZWRfXxqETcQ+bkM3P
+ e2UD+olxY5V+94Hkmm4ygsES/HDdi1HnXKjQK6dmsMS0aGoz5EjgaHhwNTUgV35L8LgVCC50chL
+ gysYqxD3WlXPoWAiFHxGulgp6NDQCWqGiTTO4JYjeN7j8dHUriRo
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODMxMDExOSBTYWx0ZWRfX74vTEyAxFJ03
+ /QRViCrkdP+4PmClqFdemi3vx8RsEJu8zdjA0ugA0Bi+pkSmKpjVnA0ukUNrDswHwpoQ7bfk/6s
+ 2rJxKulMPWpLPFLcIcA2LmIZZqLm/M+ZNsO55NeybpGXnAge+xPD//mA915WB8utugkKQmLDkqE
+ dRRpcyMKNH41y6B/3VNsIhITpAINoioOLOCQVM1sJQrLZF+7/RddEs1EWLH+0c0UklKaVrX7TKk
+ TexTlPtXPvrWQ+NFYN6lSV83EGo2S6e4iwSF8+yYypxcC1PkymSvKNYlyAIBwrgpu79qt7RocSO
+ oxmO7FQ11FrfV1HNarPNSLuhNWKSJvoA/Z3FZ95nGw58s8E3/Da/1ESdVmp6xUZyDcUZMq/njhd
+ fPcve3LHyU4tjVNmGm3hx3OoEsBoCkmk0VhNtmjpeCgJigcW/KOqIQrv5TCUI2bKDreKL+rerlx
+ DeGnugq+hMi2EgChIcg==
+X-Proofpoint-GUID: AUQ3nfXxQ7qwGaAVz8u4pDaQWBkyDa72
+X-Proofpoint-ORIG-GUID: AUQ3nfXxQ7qwGaAVz8u4pDaQWBkyDa72
+X-Authority-Analysis: v=2.4 cv=c9Cbhx9l c=1 sm=1 tr=0 ts=6a958521 cx=c_pps
+ a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
+ a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22
+ a=uXIjobp8t2wMuQ0fPvqm:22 a=VwQbUJbxAAAA:8 a=gAnH3GRIAAAA:8
+ a=MpOJK7KPi5LqZtta67AA:9
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-31_04,2026-08-27_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 priorityscore=1501 impostorscore=0 malwarescore=0 phishscore=0
+ lowpriorityscore=0 clxscore=1015 bulkscore=0 adultscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608310119
+
+This series adds support for the MAX40080, a bidirectional current-sense
+amplifier with an integrated 12-bit ADC.
+
+The driver is placed in IIO rather than hwmon because:
+  - IIO's scale/raw model naturally exposes the selectable gain ranges and
+    lets userspace apply the correct scale per range.
+  - Buffered capture support is planned for a follow-up series -- each
+    conversion returns a matched current+voltage pair, which maps cleanly
+    to IIO's buffered/triggered model.
+
+Changes since v8:
+  - Add time.h include, use 50 * USEC_PER_MSEC instead of 50000 (Andy).
+  - Move types.h to correct alphabetical position (Andy).
+  - Initialize buf = 0 to silence static checkers (Jonathan).
+  - Check io_ret before ret -- IO error takes precedence over timeout;
+    don't propagate *iv on IO error (Andy).
+  - Use READ_ONCE/WRITE_ONCE for oversampling_ratio for consistency with
+    st->range (Sashiko).
+
+Changes since v7:
+  - Add array_size.h include (Andy).
+  - Add asm/byteorder.h include, use __le32 buf with le32_to_cpu()
+    instead of u8 buf[4] with get_unaligned_le32() (Andy).
+  - Use BIT_ULL() instead of 1ULL * BIT() (Andy).
+  - Use READ_ONCE/WRITE_ONCE for st->range access (Jonathan).
+  - Move propname declaration to function top, assignment near use (Andy).
+  - Remove unnecessary blank lines between variable assignments and
+    their use (Andy).
+  - Place dev_err_probe on single line (Andy).
+  - Fix Kconfig/Makefile alphabetical ordering -- MAX40080 between
+    MAX34408 and MAX77541 (Andy).
+
+Changes since v6:
+  - Add types.h include (Andy).
+  - Remove dead code: i2c_smbus_read_i2c_block_data can't return partial
+    reads, so remove the ret != sizeof(buf) check (David).
+  - Remove dead code: iv variable initialization not needed as
+    max40080_read_iv always writes to *iv before returning (David).
+
+Changes since v5:
+  - Fix datasheet URL format in binding -- use stable link without /en/
+    path component (Jonathan, Siratul).
+  - Use 'adi' compatible prefix instead of 'maxim' -- MAX40080 is an ADI
+    product (Conor).
+  - Split MAINTAINERS into binding and driver patches (Siratul).
+  - Add datasheet link in driver header comment (Siratul).
+  - Fix comment style: capital first letter + period (Siratul).
+  - Fix register defines: add register name prefix (CFG_, FIFO_CFG_, IV_)
+    and use designated initializers for csa_gain array (Jonathan).
+  - Define MAX40080_ADC_RES_BITS and use BIT() for shift (Jonathan).
+  - Use lowercase 'mV' in defines (Siratul).
+  - Use C99 loop variable declarations (Siratul).
+  - Remove braces from single-statement if blocks (Siratul).
+  - Declaration and initialization in same statement (Siratul).
+  - Use IIO_VAL_FRACTIONAL_LOG2 for voltage scale (Jonathan).
+  - Remove unused i2c_set_clientdata call (Jonathan).
+  - Use defines instead of magic numbers for range default (Jonathan).
+
+Changes since v4:
+  - Initialize tmp = 0 in max40080_read_iv() before read_poll_timeout to
+    avoid using potentially uninitialized value in the condition check
+    (Sashiko, Jonathan).
+  - Simplify max40080_get_oversampling_ratio() to use cached value instead
+    of reading from the device (Jonathan).
+  - Remove DMA-safe buffer from struct -- I2C layer already bounces data
+    internally for i2c_smbus_* calls (Jonathan).
+  - Make shunt-resistor-micro-ohms required in DT binding. The default
+    1 Ohm was arbitrary and rarely correct for real hardware (Jonathan).
+  - Remove PM ops entirely. Having only resume without suspend was flagged
+    as "papering over" possible power loss issues (Jonathan).
+  - Remove the {} scope around propname, declare it at function top (Andy).
+  - Remove mod_devicetable.h include -- i2c.h provides necessary types
+    (Jonathan).
+
+Changes since v3:
+  - Removed all regmap usage -- regmap doesn't support SMBus PEC or Quick
+    Command, both required by this device (Nuno).
+  - Fixed locking: max40080_update_bits() now takes the lock internally,
+    and callers update cached state after the call returns (Nuno).
+  - Consistent comment style: capital first letter + period (Andy).
+  - Use propname variable to deduplicate "shunt-resistor-micro-ohms" (Andy).
+  - Return IIO_VAL_* inline instead of break + return pattern (Nuno).
+
+Changes since v2:
+  - Added shunt-resistor-micro-ohms DT property with default value.
+  - Use single-shot mode with SMBus Quick Command trigger for correlated
+    current/voltage reads.
+  - Precompute current scale per range at probe time.
+
+Link: https://lore.kernel.org/linux-iio/20260828083119.54495-1-stefan.popa@analog.com/ [v8]
+Link: https://lore.kernel.org/linux-iio/20260818142928.8244-1-stefan.popa@analog.com/ [v7]
+Link: https://lore.kernel.org/linux-iio/20260730131738.822405-1-stefan.popa@analog.com/ [v6]
+Link: https://lore.kernel.org/linux-iio/20260723065036.2683075-1-stefan.popa@analog.com/ [v5]
+Link: https://lore.kernel.org/linux-iio/20260717123852.1140893-1-stefan.popa@analog.com/ [v4]
+Link: https://lore.kernel.org/linux-iio/20260715063652.368501-1-stefan.popa@analog.com/ [v3]
+Link: https://lore.kernel.org/linux-iio/20260713120226.90303-1-stefan.popa@analog.com/ [v2]
+Link: https://lore.kernel.org/linux-iio/20260703102941.1141341-1-stefan.popa@analog.com/ [v1]
+
+Stefan Popa (2):
+  dt-bindings: iio: adc: add adi,max40080
+  iio: adc: add MAX40080 current-sense amplifier driver
+
+ .../bindings/iio/adc/adi,max40080.yaml        |  65 ++
+ MAINTAINERS                                   |   9 +
+ drivers/iio/adc/Kconfig                       |  11 +
+ drivers/iio/adc/Makefile                      |   1 +
+ drivers/iio/adc/max40080.c                    | 574 ++++++++++++++++++
+ 5 files changed, 660 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/iio/adc/adi,max40080.yaml
+ create mode 100644 drivers/iio/adc/max40080.c
+
+--
 2.53.0
-
