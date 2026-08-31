@@ -1,138 +1,167 @@
-Received: from mail-yw1-f174.google.com (mail-yw1-f174.google.com [209.85.128.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAEC8456E00
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 14:56:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.174
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788188214; cv=pass; b=Ixoq0VOzq9H1oj1o61iAeovaMBSRZYaRUFm6Movv9mULRJXM95+OA/ERf1IsOBcjO0kBOCssZqgpBiAZ2ziPUk/fa+BVSPGV1xTz9ILhlosCbT+G5W/hmHXzo3QdiOJnQG+7tQ5xWg6CvjSewHMAQA/BLeWezyO21nGFsPXb/3w=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788188214; c=relaxed/simple;
-	bh=fQ1KczgVjn2OLco7PJvTjX7kIErM4YB9Db2mGLKYUkA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Wrov4L9IYlqZeo9E9RvqSFnlDHaIVPHzj45BSiA4z00mSJ4kPLjkvbnqQG2jKx9yI2QJyT8EtmzQD7HbIuBOdfEHr+unRchSyoJj88y5DJDKqHfoaYUIa6hY3t7BIYb3LIW0/twlSLgmB21YoNuJe6exaTcIVD6b0H1C3rjNeRQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Im3B8kB/; arc=pass smtp.client-ip=209.85.128.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27D5A4570C3;
+	Mon, 31 Aug 2026 14:56:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788188215; cv=none; b=DlGZA6Ol6AL5Tm2OCku0+RuNWREbc5WrFbAD9NX/iDcwMWjQGhmsIncv56IWxju1//5PWryVlknU/XvhMiDE0XcbHBZx5u9Mqql/eznfqqNjg/I6Lrx4isAJAAPdJOJFpsYchEJZVCuSwDTicDQZyVircH26nxSzrMSKfxHE7gY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788188215; c=relaxed/simple;
+	bh=0KyYcmzkgzZTTu21wghjyQyMjjUJgUgujf/cC2tsaXQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=WlCdkLcIqbzzBZ18gwOajnB2x9BikkX/fYtuA+ApSVlyvYuNLHYmCkhCpT4kDYR9dlz239Lg+oFIah0+HjT7a0jq/Z1GzRBW+LRS2fR2nwfRW/K13PiacYLfFlaES+rGyxm8tN1gCURAfbr3RXIsKWR+UQa1pAn8wMb9sGDGWMc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=aZOW/Z6d; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Im3B8kB/"
-Received: by mail-yw1-f174.google.com with SMTP id 00721157ae682-81ed2a06b9eso25982937b3.3
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 07:56:52 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788188212; cv=none;
-        d=google.com; s=arc-20260327;
-        b=em5/ZMYnziys/TPt2BsFrqNJDhVFOpfGgJ1p09BQ3e9B/uCpPrp7dDjLUm9gjcDkBq
-         YwEzQVly/1TMGzJOXHyVRO2PrcXHQ6dMMQsGhvJdE7Ep1KWMSfx3LEHRwuFiegq8q7qI
-         BtDiRfLk4fPqJgL6g2wiCot61TAQ3UODU9C93F7PClLGa+j4fXgbg+nn0HEG8pOjfEHS
-         F5miVvP9CIZkw8d6GuFFbOOGjRsEHxMGJG0c1m+AKPfThZ3X+14U7DRMwM4AFKoNXS4U
-         lZnIhm0GZi2RDxiEniuQinPsXoNtKHvHkd8heNoSBGKSTQ83JQw3TCtmE9BhW4n4BUes
-         zHQg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=K5+zq9GHEAhd7KerkGfPIO/cZTORFxbM5JF3XjkEQQ4=;
-        fh=Mb4LHmCFE3RbePu3/c/gCNhp1DPwklV/n3lYkdsNFtY=;
-        b=HmZkeoPxT3tk/WOUaE7TPp3YizJsGZNbVsHJh8mEOevqgLVQ/3EKYsHzlLrsln/XpX
-         310qb0CTUjwFmghpQF8l8tz+9cqZUWkScdE5RPV/+u+k/d7IoYFS39o9p1GHV3Q/SLR/
-         8zRrFRZGwxFZLzP8/gyg5hXfkN526Q4WeHDlEa6FQFHBz93WH0V8Lc0ZP/aMikPoXrOP
-         aYmWrWJMpfh5ji+C2KOlRmo1d6U7k6rQ/S6k5T13p3v+iE1CgZmG6Et3Y5vGr5IzZYIb
-         Eu4KSdrYezTzDyAzJxe1s5h4zKQUuTZx/Fny5wHr3B8PVdRUw0sqsdiubG2Xr3KDC6FJ
-         VhTA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788188212; x=1788793012; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=K5+zq9GHEAhd7KerkGfPIO/cZTORFxbM5JF3XjkEQQ4=;
-        b=Im3B8kB/Ifs+Tz201oTm/uMCFtCMcCgQ4zVysAKGTaH/Nyy1xARwAd7IrXh49ChG3v
-         hqN7XlShKQ/uHhbNLa/Yh4Qm6Sa71gzrcgH0c9niQlbAOWxxW4GdOGOFzLG7gtb/58Ue
-         eUrUG3HAAYsc+DCQbTEBQPItjtAkV9ppDd2L7O7qwNoQeAfr7nyRy9iYkoWGKvUIOqxo
-         FilZWW+e4Hb352N0rehIwp4jaaMcWneuUuGzqWieJQXPix7Dg2ziLvAQyWIVgfKLnhAM
-         5d08UnEPzdz0GHPb/vzivE+Bom0hKGfGwuqju5Bf/244Yy5zUTwNpq0u9m5lxt9ss5Ud
-         ELGQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788188212; x=1788793012;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=K5+zq9GHEAhd7KerkGfPIO/cZTORFxbM5JF3XjkEQQ4=;
-        b=JkJq3n6SQOZUj3K3XLP0Ty2PPbjSH0cvEtEqlHj3ZI5yWty8uvws1lcfcWIcJYxFR9
-         /Hr6jU3rYVFxz/EsvIQOcZno/w8rJHmtugEKZ8mkkYBUGB4kgWXGScLxeG2oQDFnU8gO
-         Hcoy2p2roJGaUATM9mYnv52gBKMMmPuvLdMOHeiV8nq6kEBwl7WCOQi9nJWrtVXESPYk
-         b583qBp7ODdlPGIDwIWJ0PPalqYUC+ZSs+Mi0JOhGZoHmJTq4pLp+gYCUwlvd0Dmggjp
-         iFXozZE1tiUzLgYMdEoB+2tSjDrqtiRzbnFji/K/Zn7s7psxBT5LOwy6pi0A0+q9AYfm
-         wOzA==
-X-Forwarded-Encrypted: i=1; AKwUvBwXWYy1UT6EKFp76LGDc513FgC/IZwZptdXOFPC1YQsi902ljrk7cgtLfsfNYJbBbr76aEEhH8HKTm9LF8=@vger.kernel.org
-X-Gm-Message-State: AFuF++k2/xDqrvJY/Gd6CAE+OFg05gRZcBF8ZMqijCMtsVz67Xrze9Gg
-	nyi3aoyeuWPz11Yynihf5G6QGQVtYXuqBXE+1cPadAmb5cDzjP0o4rcwLJk6GAZFd+ov/TsYjAB
-	RdwFuheIcRaZt3IC3bqQhD83ugRQr+YQ=
-X-Gm-Gg: AYBFou3yUbM9gFpUgQqKltPNTQYD4TfNCq2j5BIucEdBQUYMJxnT0mpLFRLV7Cge6kA
-	EXuzYaEvMtYef0wUX72MIcWYXBE9b5JUQ2XYHqdSYPPDVMyLm27TPdfCG8QhrQErLJ/slWAB69k
-	lmUQj2B85I4UFzH1eGvS3G/vOaEx+3zYga++0HPPalNWnDU81YEE9vcWJiDG7Fnfh4jJ3HpmNZM
-	XeuYCY8ogFLbyVW5qu0hs0wUCkEhoime7t1e6YajJ+bznQd+S5XD43gEhFlBcYpEAckXzH2oM6f
-	vJYimnjxLrBClfmrJf2qXuVZ7RMvUv0ckSvxIFj2yPpzH6a9yPMOaI1Zn6L4GHL99u9txjjc6qC
-	rt6ZA0pe/ny0jo9cMzyTJhj5/TSSKlQ==
-X-Received: by 2002:a05:690c:38b:b0:866:4769:d59a with SMTP id
- 00721157ae682-8664769db91mr24745417b3.2.1788188207079; Mon, 31 Aug 2026
- 07:56:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="aZOW/Z6d"
+Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67VEZEvl2414993;
+	Mon, 31 Aug 2026 14:55:53 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=pp1; bh=AgOdmKk0HGp2w6txJ
+	NQpE2tFc4GPDNhhNoLF19m8si8=; b=aZOW/Z6dT9eqkuf8zgxy8EdUlI8knzwYY
+	uW2ypbNaBCyVikctgWrOrKvIJUWO8sIRoXghKclGA8HbTt1wd/qGIZ+bSO06vljy
+	EvNwXvRTmtL94WQNemm5YrZGa0R9pZ2DchH1hAjzwQmyVZbe+D8yXWsC5hNv9Z5W
+	fg+bICXJbqhU24jbwsk8zcsjlvwOSN7M1Aruvkz1hUIm8q3IUiZ2FDvzu//X1enU
+	GivG7ZFwZ7niZ31Fp/ADIqOHsLG1L/JQQFG5xzT1qGIXNYFALRT4ybVimv29TbZD
+	zO87+NRVGb+nsYb0tuXquHvrqLdzSwhJMfzTK+GyusmlctmOGTvsw==
+Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gbmuhj66b-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 31 Aug 2026 14:55:52 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma11.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67VEfbmC029519;
+	Mon, 31 Aug 2026 14:55:51 GMT
+Received: from smtprelay01.fra02v.mail.ibm.com ([9.218.2.227])
+	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gccexx8v4-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 31 Aug 2026 14:55:51 +0000 (GMT)
+Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com [10.20.54.103])
+	by smtprelay01.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67VEtjWA31981880
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 31 Aug 2026 14:55:45 GMT
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 15E9E20040;
+	Mon, 31 Aug 2026 14:55:45 +0000 (GMT)
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 9694120043;
+	Mon, 31 Aug 2026 14:55:44 +0000 (GMT)
+Received: from tuxmaker.boeblingen.de.ibm.com (unknown [9.87.85.9])
+	by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Mon, 31 Aug 2026 14:55:44 +0000 (GMT)
+From: Steffen Eiden <seiden@linux.ibm.com>
+To: kvm@vger.kernel.org, kvmarm@lists.linux.dev,
+        linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+        linux-s390@vger.kernel.org
+Cc: Alexander Gordeev <agordeev@linux.ibm.com>,
+        Andreas Grapentin <gra@linux.ibm.com>, Arnd Bergmann <arnd@arndb.de>,
+        Catalin Marinas <catalin.marinas@arm.com>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        Claudio Imbrenda <imbrenda@linux.ibm.com>,
+        David Hildenbrand <david@kernel.org>,
+        Friedrich Welter <fritz@linux.ibm.com>, Fuad Tabba <tabba@google.com>,
+        Gautam Gala <ggala@linux.ibm.com>,
+        Hariharan Mari <hari55@linux.ibm.com>,
+        Heiko Carstens <hca@linux.ibm.com>,
+        Hendrik Brueckner <brueckner@linux.ibm.com>,
+        Ilya Leoshkevich <iii@linux.ibm.com>,
+        Janosch Frank <frankja@linux.ibm.com>, Joey Gouly <joey.gouly@arm.com>,
+        Marc Zyngier <maz@kernel.org>, Nico Boehr <nrb@linux.ibm.com>,
+        Nina Schoetterl-Glausch <oss@nina.schoetterlglausch.eu>,
+        Oliver Upton <oupton@kernel.org>, Paolo Bonzini <pbonzini@redhat.com>,
+        Suzuki K Poulose <suzuki.poulose@arm.com>,
+        Sven Schnelle <svens@linux.ibm.com>,
+        Ulrich Weigand <Ulrich.Weigand@de.ibm.com>,
+        Vasily Gorbik <gor@linux.ibm.com>, Will Deacon <will@kernel.org>,
+        Zenghui Yu <yuzenghui@huawei.com>
+Subject: [PATCH v2 15/20] KVM: s390: arm64: Use QAAF init save area
+Date: Mon, 31 Aug 2026 16:55:30 +0200
+Message-ID: <20260831145536.913567-16-seiden@linux.ibm.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260831145536.913567-1-seiden@linux.ibm.com>
+References: <20260831145536.913567-1-seiden@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260829100205.113655-1-paul@crapouillou.net>
-In-Reply-To: <20260829100205.113655-1-paul@crapouillou.net>
-From: Luiz Augusto von Dentz <luiz.dentz@gmail.com>
-Date: Mon, 31 Aug 2026 10:56:36 -0400
-X-Gm-Features: AcwNN1UGwPwFC7jqs3bkEilU0Bk-oM2hKNvPUBlkzQ7uK2iT30q9xmjCCkBzrPU
-Message-ID: <CABBYNZKNSbc7CNsJG3W2AgU_JLng7+Y2Jh4KUbKZQXOMGJ8ALw@mail.gmail.com>
-Subject: Re: [PATCH] Bluetooth: hci_bcm: Default to 4 Mbps
-To: Paul Cercueil <paul@crapouillou.net>
-Cc: Marcel Holtmann <marcel@holtmann.org>, linux-bluetooth@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-GUID: NBzZ3vNIKerg2wA0OsIPkgrhomuar2rM
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODMxMDEyNSBTYWx0ZWRfX9nekivU1Lxuu
+ BbHWp/4tdO+b8ZawBA6/xXovRBsZWLlI493Lp4n41Pt/cUAy1uhctoA7LuQXD/3fpj40xmkj5YM
+ ZOEAbGfhMr7siDEwIO6JeSlZ2noOLLADGGtpLuBZAFaGpuu+io2BknrQEOkwMBkXS1BVuK+Y9Rv
+ /SexI8pLtKpPaJm6OXV69lrAk0iT0pjeph8B1h71SYqzRruU7tD6pbyj1tZQenuEBeDNjFpYKQ7
+ KVavIP62XWxiACsQRb9WZTSSAu1IqtCwo9rjKmoRGZ15l5g3gNQpyXv3hXdOUzhd9USHq3x+iYD
+ J/rVltz1cV3u1xzxtlKA+yhMc1KC77l4+od5JSBIWPoYU049eeMNVtuZOAbNFhqZ/AaLvJeE+7t
+ ZJ4hT+EDO64fFE2LwvmmcG1hgoaRhHatuNuuvKg24+4rVh6Zu8hNFCJs5wrk7cvdvtk6Fbn5wMY
+ wtczudlMVVpbqmOesIA==
+X-Authority-Analysis: v=2.4 cv=Osl/DS/t c=1 sm=1 tr=0 ts=6a9595f9 cx=c_pps
+ a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+ a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=Y2IxJ9c9Rs8Kov3niI8_:22 a=VnNF1IyMAAAA:8 a=4v_MITeQBDqVJkbHs2kA:9
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODMxMDEyNSBTYWx0ZWRfX6500rR5VYJKJ
+ iVcLUSoRYPoiu4PxA+WRrYJzq9/KOnvJ84VfSq3+/i5THd+EZbE+Bq0+1jjjNNf/3la8n6RGfVx
+ p9qRg7Yfjyl55JaS/WP/oMVRQz/UVGI=
+X-Proofpoint-ORIG-GUID: PRi0ymHEIIdEKaZWe21iewkiw92C0-he
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-31_05,2026-08-27_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 malwarescore=0 suspectscore=0 bulkscore=0 lowpriorityscore=0
+ adultscore=0 impostorscore=0 phishscore=0 clxscore=1015 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608310125
 
-Hi Paul,
+Use the (cached) result of QAAF fc2 (Generate Initial
+System-Registers-Save Area) to initialize the Save Area.
 
-On Sat, Aug 29, 2026 at 6:02=E2=80=AFAM Paul Cercueil <paul@crapouillou.net=
-> wrote:
->
-> The ACPI path already did default to 4000000 baud, while the OF path did
-> not, for some reason. This meant that unless overridden with the
-> 'max-speed' OF property, the serial port would stay at the init speed of
-> 115200 bps, making it unsuitable with high-speed Bluetooth devices like
-> audio equipment.
->
-> Signed-off-by: Paul Cercueil <paul@crapouillou.net>
-> ---
->  drivers/bluetooth/hci_bcm.c | 1 +
->  1 file changed, 1 insertion(+)
->
-> diff --git a/drivers/bluetooth/hci_bcm.c b/drivers/bluetooth/hci_bcm.c
-> index 9a103db7e355..c44d552f9ad5 100644
-> --- a/drivers/bluetooth/hci_bcm.c
-> +++ b/drivers/bluetooth/hci_bcm.c
-> @@ -1224,6 +1224,7 @@ static int bcm_acpi_probe(struct bcm_device *dev)
->
->  static int bcm_of_probe(struct bcm_device *bdev)
->  {
-> +       bdev->oper_speed =3D 4000000;
->         bdev->use_autobaud_mode =3D device_property_read_bool(bdev->dev,
->                                                             "brcm,require=
-s-autobaud-mode");
->         device_property_read_u32(bdev->dev, "max-speed", &bdev->oper_spee=
-d);
-> --
-> 2.53.0
+Signed-off-by: Steffen Eiden <seiden@linux.ibm.com>
+---
+ arch/s390/kvm/arm64/arm.c   | 1 -
+ arch/s390/kvm/arm64/reset.c | 5 +++++
+ 2 files changed, 5 insertions(+), 1 deletion(-)
 
-Sashiko flagged a problem with this:
+diff --git a/arch/s390/kvm/arm64/arm.c b/arch/s390/kvm/arm64/arm.c
+index 3a0bba6e0a06..ab6e7d135435 100644
+--- a/arch/s390/kvm/arm64/arm.c
++++ b/arch/s390/kvm/arm64/arm.c
+@@ -360,7 +360,6 @@ static int kvm_arch_vcpu_ioctl_vcpu_init(struct kvm_vcpu *vcpu,
+ 	int ret;
+ 
+ 	sae_block->save_area = virt_to_phys(save_area);
+-	save_area->sdo = virt_to_phys(sae_block);
+ 
+ 	ret = kvm_vcpu_set_target(vcpu, init);
+ 	if (ret)
+diff --git a/arch/s390/kvm/arm64/reset.c b/arch/s390/kvm/arm64/reset.c
+index 74622ba6f081..bc7bcee75779 100644
+--- a/arch/s390/kvm/arm64/reset.c
++++ b/arch/s390/kvm/arm64/reset.c
+@@ -10,6 +10,8 @@
+ 
+ #include <clocksource/arm_arch_timer.h>
+ 
++#include "qaaf.h"
++
+ bool kvm_arm_vcpu_is_finalized(struct kvm_vcpu *vcpu)
+ {
+ 	return true;
+@@ -79,6 +81,9 @@ void kvm_reset_vcpu(struct kvm_vcpu *vcpu)
+ 	if (loaded)
+ 		vcpu_put(vcpu);
+ 
++	kvm_vcpu_init_save_area(&vcpu->arch.save_area);
++	vcpu->arch.save_area.sdo = virt_to_phys(&vcpu->arch.sae_block);
++
+ 	kvm_reset_vcpu_core(vcpu);
+ 	kvm_reset_sys_regs(vcpu);
+ 
+-- 
+2.53.0
 
-https://sashiko.dev/#/patchset/20260829100205.113655-1-paul%40crapouillou.n=
-et
-
---=20
-Luiz Augusto von Dentz
