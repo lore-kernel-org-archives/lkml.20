@@ -1,104 +1,66 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93D3649E5E4;
-	Mon, 31 Aug 2026 14:21:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8333B4B04AD;
+	Mon, 31 Aug 2026 14:21:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788186078; cv=none; b=q/5XPXpq4O7hgkJlmrKERoPxPafJQ/J3IrZtDW98CkyKNLhIjFiGjBSBH3MJqyohTYozNh7d7zge1huxsOWJH5HZWC68J9nEdmmJ7SqjwXflGqkUjiWU4c58Hw2eCB7j6X6WsvA6EIOiwCVQ4puMAFuYykowrpiSifXFdrLcBf4=
+	t=1788186097; cv=none; b=sWgQBLg/aPmbJbtaB1G/OPfwVE+zHfA5DqQCh0EbNagROOO373yqoBNw+KTqFl808El05o6IMxLhAp4Hqo5DjycNRHwtDI+i8BxLyC1OR8wZ6X5Loy7m1oLjo40heOXkSwA0c7dHe+hiVB650JBVhS1Qoqqp9zj3IVTyUzgYBJI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788186078; c=relaxed/simple;
-	bh=WW3bgWtvchm/ZVcwcd6Is+/46qWg55ayuKIPjH66+G4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=X/5AAqgyUtGDTx77Ulh4nLG18sirj9ar0dAiHM8euY9iLvEMmppFIHqaVNqZ2ELw/QmpmwmUKhvTk9hTU7GXFdg2PixYO/zK6LhSTclpC/05/8+8/KuX9fTLgI2ZRzKoeirkwCdaPT6Q29m/jvdsKzQPjXAsTsrL8BA51m2t8vQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=L0UoIPjB; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1788186097; c=relaxed/simple;
+	bh=Cbj4SmL/HmFlX0opMeV7rymmt8ClbofHkHft1OaL008=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=DY1QOb8p11baQHYLeiuV4/wE6cnl6dfFD5dpHvXIdbtCNcRsu41B+GJSWgoneEmPUqysmJeyuv7M5tHndjED5K/nt40DQMXq8Qzhf0qLCreU7Fn0JU3bEYuDq+0xgMPrIiMCyj/75iasohOso7f1mxN6Ws/U6+E/W/NJqxOLd+Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=5ENMEaZ3; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="L0UoIPjB"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1788186075;
-	bh=WW3bgWtvchm/ZVcwcd6Is+/46qWg55ayuKIPjH66+G4=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=L0UoIPjBpYbdEuMhT9kraRtVJaCNFwqE5rEmRWPpDiEnrcbvvvBAUrVhJntZwWUqe
-	 J3nFscVHYcGsfmnXl5p73eZFMLuVspW6t5EURykGlkRhFqxusYAvuxxSIOhpLKFfsm
-	 0JPfyrkNmHiMsydIBHmDURQHBDgfMHVadYvH8dGCAVSxFP+r8tirEUN4f6cZlqboL2
-	 ZOvF0Q9aGKgTlZXjgp3grs+LuH8l/9/oaJ3BtbQ6RrnJJ6bnn/j0W54qG5ijO2GETV
-	 VYRvYpux+MBzUY3OiakZI0WvR2UA7mGZkFoD0mmBQLgB5o8PO1J7PM95ws5QXFzv3g
-	 ScfaYtL5Jr4KQ==
-Received: from [192.168.0.15] (unknown [100.64.0.170])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: detlev)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id E4E1B17E0829;
-	Mon, 31 Aug 2026 16:21:13 +0200 (CEST)
-From: Detlev Casanova <detlev.casanova@collabora.com>
-Date: Mon, 31 Aug 2026 10:20:54 -0400
-Subject: [PATCH 7/7] arm64: dts: rockchip: Rename rk3588 HDMI audio cards
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="5ENMEaZ3"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=op2r4VuirEnMC3u7dv/vw63MGr9eicbsiUQlpuqsjoU=; b=5ENMEaZ36ehEG3/oe7nqGeYtpa
+	nVN4siXXnkXp9v6uaQId2Pg1SvjqdIzH46vj/hd/WE/iIFKB2FAQGu8c7jAJLDCB3T6rgxdNf+ogp
+	tRE2VRlT7i0o6Jso8FY9mmTbkjg+T1swbgQ8ybECF49A8bepHCBD7rJ6rQLHe8I4p7PU=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1x12t5-002C9P-NU; Mon, 31 Aug 2026 16:21:27 +0200
+Date: Mon, 31 Aug 2026 16:21:27 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Birger Koblitz <mail@birger-koblitz.de>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Heiner Kallweit <hkallweit1@gmail.com>, linux-usb@vger.kernel.org,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Jianhui Xu <neuromoments@gmail.com>
+Subject: Re: [PATCH net-next v8 02/15] phylib: Add support for PHYs with
+ broken forced mode
+Message-ID: <64b7b1b3-28a0-41bf-b32c-1d1ce3c75033@lunn.ch>
+References: <20260831-ax88179a-v8-0-de905f2ee426@birger-koblitz.de>
+ <20260831-ax88179a-v8-2-de905f2ee426@birger-koblitz.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260831-fix-rockchip-hdmi-audio-names-v1-7-5b155ae05293@collabora.com>
-References: <20260831-fix-rockchip-hdmi-audio-names-v1-0-5b155ae05293@collabora.com>
-In-Reply-To: <20260831-fix-rockchip-hdmi-audio-names-v1-0-5b155ae05293@collabora.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
- Johan Jonker <jbx6244@gmail.com>, Alex Bee <knaerzche@gmail.com>, 
- Christian Hewitt <christianshewitt@gmail.com>, 
- Robin Murphy <robin.murphy@arm.com>, 
- Nicolas Frattaroli <frattaroli.nicolas@gmail.com>, 
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Cc: kernel@collabora.com, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- linux-kernel@vger.kernel.org, 
- Detlev Casanova <detlev.casanova@collabora.com>
-X-Mailer: b4 0.15.2
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260831-ax88179a-v8-2-de905f2ee426@birger-koblitz.de>
 
-Rename the two cards from "hdmi0"/"hdmi1" to "RK3588 HDMI0"/"RK3588
-HDMI1" so they identify the SoC in user-visible ALSA fields and match
-the naming scheme used across the rest of the Rockchip family.
+On Mon, Aug 31, 2026 at 11:58:51AM +0200, Birger Koblitz wrote:
+> Add support for PHYs which only supported auto-negotiated
+> speed modes. This prevents a kernel warning and stack-trace within the
+> phy_state_machine when PHYs return -EOPNOTSUPP from config_aneg()
+> because they do not support forced modes.
+> 
+> Signed-off-by: Birger Koblitz <mail@birger-koblitz.de>
 
-Fixes: b8c6c136971c0 ("arm64: dts: rockchip: Add HDMI audio outputs for rk3588")
-Signed-off-by: Detlev Casanova <detlev.casanova@collabora.com>
----
- arch/arm64/boot/dts/rockchip/rk3588-base.dtsi  | 2 +-
- arch/arm64/boot/dts/rockchip/rk3588-extra.dtsi | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-index 376ad04e0786..7892e18a7835 100644
---- a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-+++ b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-@@ -376,7 +376,7 @@ hdmi0_sound: hdmi0-sound {
- 		compatible = "simple-audio-card";
- 		simple-audio-card,format = "i2s";
- 		simple-audio-card,mclk-fs = <128>;
--		simple-audio-card,name = "hdmi0";
-+		simple-audio-card,name = "RK3588 HDMI0";
- 		status = "disabled";
- 
- 		simple-audio-card,codec {
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588-extra.dtsi b/arch/arm64/boot/dts/rockchip/rk3588-extra.dtsi
-index b251bb129cdb..2bcf30d8a338 100644
---- a/arch/arm64/boot/dts/rockchip/rk3588-extra.dtsi
-+++ b/arch/arm64/boot/dts/rockchip/rk3588-extra.dtsi
-@@ -11,7 +11,7 @@ hdmi1_sound: hdmi1-sound {
- 		compatible = "simple-audio-card";
- 		simple-audio-card,format = "i2s";
- 		simple-audio-card,mclk-fs = <128>;
--		simple-audio-card,name = "hdmi1";
-+		simple-audio-card,name = "RK3588 HDMI1";
- 		status = "disabled";
- 
- 		simple-audio-card,codec {
-
--- 
-2.55.0
-
+    Andrew
