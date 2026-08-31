@@ -1,116 +1,254 @@
-Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout02.posteo.de (mout02.posteo.de [185.67.36.66])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1394419305
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B33441D20C
 	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 17:50:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.67.36.66
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788198641; cv=none; b=lULpq5uB78o3ASmWR5B1NV37ElQo8YaNN3b/rfkgDSfr604uD/f0GB+Z8AS5GsSfCC2IlWMezTkFnDaEt7GiZUTtBIHl6mTzLQr02KR9qIZOVkUMvwIQGrH8NRPmycNKyOqd7FB+/QlyG0EDZW81UWVzIoAGZJAjuJynXgO7l5s=
+	t=1788198642; cv=none; b=JxUjksSTtXf2ohLUpCM25c+CzW83Tke2JpetjokCsvtTB9HOnRZ8z5OVtqhN6D0Q49yNPAqyma+FgtWa4zNI0bFWO+lMSG/gfxbgbxUl3l1+r+GUOVwo9OefwLh8R2dvbiJPtpyZmn6wdPgPR89lacKBs7mW08ljFtyqVK+u6FI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788198641; c=relaxed/simple;
-	bh=nQ2OzwrZKHaYxYFAxN/IhfHiA9sv4Jp6iArmTITeQhw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Gq6VO4W9fBTgYTZaPZU9IWzEhB8p9X9tjtNiGFZksX2XqMJ96zlpF3RGSyX/vDDOkm8PJFxbXkIPtWDl8PH693izGx3eGZIVDQAYDhTMPC6Qbj7zx2KILpwpvqywHhrp6jkI3WFo45OFuaBiC3N8ATrDFeIw//eQniMnEXtNkBY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=S/oltlbC; arc=none smtp.client-ip=209.85.215.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788198642; c=relaxed/simple;
+	bh=GPcWCw34kyfkarzSrLj1Q4kRNMiNXVGbYogVGPPudqU=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=b8A0pJNthjAsqU+AssahA9kQFZzBXx3MK1HWjph2IoTgPwQFKj+OyrOkg3TeFNOrpJgOwGgJ51wILOZ7L6KkAYOhqLWEaNE5xqKoIEOM4+o8Pp7P/0ni8xXWgsPX+pbpJTapzVbNO084RVo4HNsjYEvdU6WjxqfxkF9nvwh/Dqg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de; spf=pass smtp.mailfrom=posteo.de; dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b=cIposwp5; arc=none smtp.client-ip=185.67.36.66
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=posteo.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="S/oltlbC"
-Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-cb5b8572b70so3920555a12.2
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 10:50:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788198639; x=1788803439; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=lbLc580QKHQB87a0tif0AwXX4z/fpS9vCcyNo+ew9kM=;
-        b=S/oltlbCt6lBZCxNqdstpDKnhvZAoLgxtKCxeUoeHULMTVU53Onck1foXJwSuDXATk
-         xnf41dM6syuuPiuvL3M8evj5pUcxcBUdhLgHZN7xvKeK1uUw33YdQm87JlcwVt8TTdAA
-         w0Uwerriqlzza0dhSVaW1VvcFE7SF8Bsy4OGrKE2ZGdygWApjS7vusbRphTFEZYHkzi3
-         DGZ3bbUyDiFGe0kqs2CXYk9AHCaRhxUFkW9yiadZBBGAtLACMO1T2UUst1eADiPdvHRC
-         8AaNa0giJszb6pom59Q17OYYmEKghwMuxaPAFcardAfvF4vWPbsn1KP/M4RTLXL8D36F
-         +TtQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788198639; x=1788803439;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=lbLc580QKHQB87a0tif0AwXX4z/fpS9vCcyNo+ew9kM=;
-        b=c0a/6qkU5bjz52Ajj5rySZgHSX4k7mhNFjlkFosZdtTJB/c4AbtGWp30L/3tUaXnpV
-         NkuMgBeDlsGQ/BHrgjSJ1kSgYaP7JiVuA05uMubCiqZ5TEc9sHl27JpYTgJx3XsiuvD5
-         mrnyRqUwIHWqvUnU4uBwv5nw9pYIJSEzomKxYg6jYrQKxZ3bR3qkTG8Xw1C6KLBsHgBe
-         0wLBYeDfOeeGyuOkR3JAD0w9Tn6DwDKDWV7hwEAwh8KXuTBZoMcD5vQmriivN3KDyW1I
-         3H+Vl4+RCAHl3qHt7kGWiWUqmQHBtFgxnD6riSXdeptwH68DZaBgTCZR266SPIieKFFM
-         Q8HA==
-X-Forwarded-Encrypted: i=1; AHgh+Ro+qo5LDwwbu6KJCepu+q3tV7IGa83MuD715AZT+b+fyzOPd1Is9lvT9OLA4UC4eNzDajpDCDykeUGC8hQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++knZrgK1dcZt0xct7Qy4pXpBbjLD33t9mUzrxcm3k2EqByysVNL
-	VIo1chB6MaA9pGDbNGl4B8vzpgBLSyNbEk6W+ZR8MkudMoDduNJSzjeT
-X-Gm-Gg: AR+sD10uJp1n2CYU4iOuHYpe1USnifNsXVssqXpa5gYZHS1m9zDK0mJQCh1NuEs++2x
-	AvBJxCq4G5tTSQmEyevVxElvAiKkk0tGbbnseV4IsQf68IK9K07KP4othss5+IoT4sAvgxIquny
-	HEIO/pdYxS0F7DTByh8Q3do208KxfyYMtq3LoJwBLHgheQzLFgrfwGt/6v2OCglkLZKdBoE6zE4
-	Ts194weXduqg7hED8/UvgLHUVezccFKVSVqlhnXz292MWONUNdv39sVri9moAaU4xJUfBFbi/QN
-	ENtp9enanePubsuJLOrH7HWuPh+B8bRFOPNlI8sVbs2LwciIMq60K4sXlQxoBRTf9RhKiyGBeXF
-	TXxqtD9y5Sy0JL4+QWulOcKcLvwrjgAAffCUV4GEFLQep1Jv0nNcCeK5mQyMzOX/YbbJWFXqyDO
-	VfdbMewb6IGAOBiuHCm77/tElDjMpUsbn1FJvCsE8IZDxobfQeU1Sv6yko9YOxLdNb5/yYkJCOl
-	GfPG3a8JXTFCKroX6UFXtQKW0qjCw==
-X-Received: by 2002:a05:6a20:9f92:b0:3d2:3e73:29eb with SMTP id adf61e73a8af0-3d7adec0469mr4503090637.1.1788198638790;
-        Mon, 31 Aug 2026 10:50:38 -0700 (PDT)
-Received: from [192.168.1.3] (ip68-4-215-93.oc.oc.cox.net. [68.4.215.93])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3286f95a160sm31383185eec.18.2026.08.31.10.50.37
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 31 Aug 2026 10:50:38 -0700 (PDT)
-Message-ID: <674bb3e7-e61a-4535-bdde-beff6bd1c2ea@gmail.com>
-Date: Mon, 31 Aug 2026 10:50:46 -0700
+	dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b="cIposwp5"
+Received: from submission (posteo.de [185.67.36.169]) 
+	by mout02.posteo.de (Postfix) with ESMTPS id D2C18240106
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 19:42:21 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.de;
+	s=1984.8680eb; t=1788198141;
+	bh=UENdJAJyahjHlzGhEf0s0mTLazWGcYweY6sOfP2eFPU=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:To:Cc:Autocrypt:OpenPGP:From;
+	b=cIposwp5YLLhj+dXEINXGjpa6YU+J6ypZzWnvgKqgPi1j90zNeYPsNaYmjtZ9SbLt
+	 d0yz5E67/Ks0E5bIa/bHpgooanLcA+ecH6n5pUswnOO1+AJ3RAz0H+cL9XHJL8Nj3x
+	 cU3homGscKMC9MWNCzcjElrRUe4mguQLD8ctOAglhv/4TWyO4ohhqD8Qd++KPqeDyf
+	 9zf+5HRxdgxAfZ/aio0k/hJvPbAUjTUnApX0LreeufJzimFBUp5ULrF5sp1xgEU3nb
+	 YuIkdy9bGm6MVCh1sYHs4bLqcW9xBC7dVnD2MP1bJRRKXA5bZeYc2R/nZ6Fn/BSHJQ
+	 byx3gVk33qPJg==
+Received: from customer (localhost [127.0.0.1])
+	by submission (posteo.de) with ESMTPSA id 4hYbsk2Q69z9rxF;
+	Mon, 31 Aug 2026 19:42:18 +0200 (CEST)
+From: Markus Probst <markus.probst@posteo.de>
+Subject: [PATCH v8 0/6] rtc: s35390a: Allow use of output pin for interrupt
+ signal 1 for wakealarm
+Date: Mon, 31 Aug 2026 17:42:21 +0000
+Message-Id: <20260831-rtc_s35390a_int1-v8-0-dac1dc86ce1f@posteo.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.1 00/92] 6.1.187-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
- hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
- sr@sladewatkins.com
-References: <20260831133359.482388899@linuxfoundation.org>
-Content-Language: en-US
-From: Florian Fainelli <f.fainelli@gmail.com>
-In-Reply-To: <20260831133359.482388899@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3XQ0WrDMAwF0F8pfp6LZcVu3Kf9xxjFduTVgyad7
+ YaN0n+fmw4WsuzxwtWR0JVlSpEy22+uLNEYcxz6GtqnDfNH278Rj13NTAqphUbBU/GHjAqNsIf
+ YF+BKae8dirbDwOrYOVGInxP58vrI+eLeyZe789NI9HGpu8qjxpzNxP1wOsWy34y7LfLkgd2nj
+ zGXIX1N940wlf8/ZQQuODgp0RBoR/L5PORCw7ajCRvlL9AKWAFkBQIIb4ztoNN+CeAcUCsAVoB
+ a1ME6iyTVEmhmAKwBTQUQEFEYj1qFJaBmgFz7gaqAItdQaJXX1iwBPQeaFUBXoAtGK20IG/jzx
+ N0cMCvA7g6Q8x0CNGhpDtxut2/LL1B7dAIAAA==
+X-Change-ID: 20260630-rtc_s35390a_int1-556ccb308d3f
+To: Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <uwe@kleine-koenig.org>, 
+ Andrew Lunn <andrew@lunn.ch>, Gregory Clement <gregory.clement@bootlin.com>, 
+ Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>, 
+ Michael Langer <michael.brainbug.langer@googlemail.com>, 
+ Andrew Morton <akpm@linux-foundation.org>, 
+ Linus Walleij <linusw@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, linux-rtc@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Markus Probst <markus.probst@posteo.de>
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5384;
+ i=markus.probst@posteo.de; h=from:subject:message-id;
+ bh=GPcWCw34kyfkarzSrLj1Q4kRNMiNXVGbYogVGPPudqU=;
+ b=owEBiQJ2/ZANAwAIATR2H/jnrUPSAcsmYgBqlbz4UKCHNj9pHy7GWorlg5xJLZYQ59i8r4lrx
+ a6i49I6YkOJAk8EAAEIADkWIQSCdBjE9KxY53IwxHM0dh/4561D0gUCapW8+BsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMiwyLDIACgkQNHYf+OetQ9L8cQ//bNsbVB6gcgCpVuqFjNBCAWSzkhCbS6K
+ 4Co8seimzQ9oLnSyo5QOIaoWT2621Bk1CPxxDIJpYEttt4BvQYIpah6RYXA0mM9kT/wrMFF4/u6
+ +Guepw5QVZQdLFrhUwAcXSbyAkCebMyObKtef4AVXowYZB/Swwkd4fWu3gs+emY/J8bpt4LVlS1
+ gaWLGvsPAJAJOvmQEpQcYIMSKxvriaKM3A67ElaBoAmjdzNEs0K2WNOR3cvKEm/AV3J6H9u2u7e
+ KhEtflijA6vfOSgKgh7hG9Jgs9cDkrUtZvUZkikxckLKu1sY9tK6q0FanEehdzC9k5lC6Ir5nJE
+ 8QfBh1JSs9/yjGuIKa706yEixDthpJb1GmxdrfvaoGAD0KoSdK5QKqKisKblJPtjMH5x2HM+6km
+ 0K4qGmTKABNlCeuSoX43UMkCHA3lRyY4eFJq/DOS7/IoAl9xH/DAuxgNfCBCQtsZv8XgffDpu+d
+ pS7SIAQOsTG1BqokRhUGofDpZorvATxayLfJmxHWIebinBJmtvSFDeytZ1xly/i2itqXuUFxT3E
+ n2EFdxi/WwTyTi8+G+3gSdhyPMQbvvXiJm+rIoaVHfh2jU4bf1Ft67tqEUfOz9rIaTIgmPU5Qs/
+ yx4Mv62LCMh1/dJ7iiZ7fKxG5XURNwzE4aHnQa1vupLjpfMaRoek=
+X-Developer-Key: i=markus.probst@posteo.de; a=openpgp;
+ fpr=827418C4F4AC58E77230C47334761FF8E7AD43D2
+Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
+  keydata=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
+  aBeNN4ijKZchBXHPgVx+YtWRHfcm4l8=
+OpenPGP: url=https://posteo.de/keys/markus.probst@posteo.de.asc; preference=encrypt
 
+Add pinctrl to allow the use of output pin for interrupt signal 1
+for wakealarm. This is needed for wakealarms to work on Synology NAS
+devices.
 
+I could only partially test the pinctrl patch. My testing system runs
+ACPI, which makes it impossible for me to configure pinctrl there. I did
+however verify that with missing pinctrl configuration in the devicetree,
+the register were correctly set. So there should be no regressions.
+Every other function than ignore, disable and wakeup should also be
+considered untested.
 
-On 8/31/2026 6:33 AM, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.1.187 release.
-> There are 92 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Wed, 02 Sep 2026 13:32:19 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.1.187-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.1.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
+Also If I am not mistaken, wake alarms on these systems are currently broken:
+(not tested, judged by looking at the devicetrees).
 
-On ARCH_BRCMSTB using 32-bit and 64-bit ARM kernels, build tested on 
-BMIPS_GENERIC:
+- arch/arm/boot/dts/marvell/armada-370-synology-ds213j.dts
+- arch/arm/boot/dts/marvell/armada-xp-synology-ds414.dts
+- arch/arm/boot/dts/marvell/kirkwood-synology.dtsi
+- arch/arm/boot/dts/marvell/kirkwood-ds110jv10.dts
+- arch/arm/boot/dts/marvell/kirkwood-ds111.dts
+- arch/arm/boot/dts/marvell/kirkwood-ds112.dts
+- arch/arm/boot/dts/marvell/kirkwood-ds210.dts
+- arch/arm/boot/dts/marvell/kirkwood-ds212.dts
+- arch/arm/boot/dts/marvell/kirkwood-ds212j.dts
+- arch/arm/boot/dts/marvell/kirkwood-ds411.dts
+- arch/arm/boot/dts/marvell/kirkwood-ds411j.dts
+- arch/arm/boot/dts/marvell/kirkwood-ds411slim.dts
+- arch/arm/boot/dts/marvell/kirkwood-rs212.dts
+- arch/arm/boot/dts/marvell/kirkwood-rs411.dts
 
-Tested-by: Florian Fainelli <florian.fainelli@broadcom.com>
--- 
-Florian
+If thats the case it can be fixed by using this patch series and adding
+the example in the devicetree to the s35390a devicetree.
+
+If somebody still runs one of these systems, please test.
+
+Thanks
+- Markus Probst
+
+Signed-off-by: Markus Probst <markus.probst@posteo.de>
+---
+Changes in v8:
+- fix issues reported by Sashiko
+  - avoid usage of cleanup helper and goto in one function
+- replace dt binding maintainer with self
+- use allOf instead of manually referencing the properties in
+  pinmux-node.yaml in dt binding
+- move additionalProperties up for readability
+- Link to v7: https://patch.msgid.link/20260829-rtc_s35390a_int1-v7-0-debcd31143ae@posteo.de
+
+Changes in v7:
+- fix issues reported by Sashiko
+  - check return value of `s35390a_read_status` for errors
+  - select PINCTRL instead of depend to avoid silently dropping the
+    driver on platforms without PINCTRL
+- Link to v6: https://patch.msgid.link/20260824-rtc_s35390a_int1-v6-0-df96569e3412@posteo.de
+
+Changes in v6:
+- instead of forcing 24-hour mode, check on rtc access
+- Link to v5: https://patch.msgid.link/20260820-rtc_s35390a_int1-v5-0-5eb4ef85c6a9@posteo.de
+
+Changes in v5:
+- fix issues reported by Sashiko
+  - fix time corruption on setting 24-hour mode
+  - fix setting 24-hour even if uninitialized
+- Link to v4: https://patch.msgid.link/20260815-rtc_s35390a_int1-v4-0-3133309c365f@posteo.de
+
+Changes in v4:
+- fix issues reported by Sashiko
+  - require "pins" property in dt
+  - remove maintainers entry for include/dt-bindings/rtc (which only
+    existed in previous iterations)
+  - fix multiple reads to status1, which clears interrupt flags
+  - fix not waiting for Power-On Circuit check
+  - fix missing pinctrl dt callbacks
+- enforce minimum length of "pins" property in dt
+- fix pmin2 on int2 affecting int1
+- force use of 24-hour mode
+- Link to v3: https://patch.msgid.link/20260805-rtc_s35390a_int1-v3-0-e836faba3e25@posteo.de
+
+Changes in v3:
+- fix issues reported by Sashiko
+  - fix use of uninitialized time data
+  - remove dependence on `CONFIG_OF`
+  - add missing `pinctrl_enable` call
+  - fix wrong index used in `s35390a_pinconf_set`
+  - fix interrupt not cleared
+  - fix `device_set_wakeup_capable` called to late in probe
+  - fix mode caching even on failure
+  - fix failure on synology quirk mode update ignored
+- only set irq in alarm_irq_enable callback
+- fix alarm time not set if set_alarm is called with alarm disabled
+- use pinmux instead of pinconf
+- move patternProperties below properties in dt
+- remove dt-bindings header
+- add '#clock-cells' dt property
+- merge 32768khz and user frequency mode into "clock"
+- remove alarm mode
+- refer to mode now as function in the code, to match phrasing in pinmux
+- resolve checkpatches --strict warnings
+- remove mode_init bool and instead set initial function to -1
+- remove err_read probe variable and reuse err
+- rebase onto v6.2-rc6
+- Link to v2: https://patch.msgid.link/20260801-rtc_s35390a_int1-v2-0-f10c99ad1d6c@posteo.de
+
+Changes in v2:
+- remove sii,wakealarm-output-pin property
+- add pinctrl
+- add fix to allow disabling of wake alarms
+- add synology quirk
+- Link to v1: https://patch.msgid.link/20260630-rtc_s35390a_int1-v1-0-1b2239e16be2@posteo.de
+
+---
+Markus Probst (6):
+      dt-bindings: rtc: Add pinctrl for S35390A
+      rtc: s35390a: Add missing newline to dev_err
+      rtc: s35390a: Fix alarm not disabling
+      rtc: s35390a: Read 24-hour mode on access
+      rtc: s35390a: Add pinctrl
+      rtc: s35390a: Add synology quirk
+
+ .../devicetree/bindings/rtc/sii,s35390a.yaml       | 117 +++++
+ .../devicetree/bindings/rtc/trivial-rtc.yaml       |   3 -
+ drivers/rtc/Kconfig                                |   2 +
+ drivers/rtc/rtc-s35390a.c                          | 473 ++++++++++++++++-----
+ 4 files changed, 497 insertions(+), 98 deletions(-)
+---
+base-commit: e5e04726cdd043e309677071ab1b65a4b18f422b
+change-id: 20260630-rtc_s35390a_int1-556ccb308d3f
 
