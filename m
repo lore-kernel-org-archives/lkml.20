@@ -1,258 +1,162 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE3FD3655E4;
-	Mon, 31 Aug 2026 16:41:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C469B367B67
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 16:41:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788194503; cv=none; b=dOU6DNhgKAKuwvxtx3aUkw50Ey6IXzRx7dZbhinZXsrTvflqmFZ/YwWttzE5t7dxzsQmFC7qpVH+9nfKLHC7f5/kd5CqxXpaxE3rR37LX0qlQEfaH77L4XyC2fgiHeTYHcgdtef/zUzFdfzA9WJIytarB3VO4tTp6xeaRU8ZDH8=
+	t=1788194519; cv=none; b=ZjIqkbEsgWolWSoYiPdL6srqRNu7NDquF2ySIt68T+W5f7zHAQtlycRU+geL7vweJOaC90tSnQlvbmaZd5zmRV/ng2CuNq2CHj0z/EbsopvGe8vZNSoxhBznigjZxDDZCAsEQSkkC1VHrDP7Ur0y5gNkyQUMvEm+/ODq9vw2dwk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788194503; c=relaxed/simple;
-	bh=1YHVgaIhVDUEhOG2pgPD2/BeAnB6kBQa9SFrIeJWuI4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pKRZoYkciUXyBOKahm8YxaYmYCPdFR+ZpqnBJXqvEmuRN8tsTYiF+ioYD0xLz2200hLbtFdcVMxGSuSEf/T0zP+AzSya/YoHUijUv02nQhLjDnmOaTQEVadPI0jVsMq9gEnpQMYxAXVq+hzQjo6ykzSEh3ewLnqyV2cFHEoKleA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Hlw5yJ+g; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788194519; c=relaxed/simple;
+	bh=LULiVBaw6hSvVUVgaozvc7c+6Gf7WHEv6ODyp56BOXQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=o8hriZeLeeikTAYCJXCbNezsw+mlXuO783RDKD/ymwY5ZguIsmgMQB8vN7Rc4TD5/v1Do2WP5gd+lB1IAWUFR84IovxtGxNrcqxUvdf0Ag0XIUHH0kzaqkOqNsnG5VLEkU7QSJIhKl72x18pGSluktqgcksWVi/DNzGEEbxQnXE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QgSk6AmL; arc=none smtp.client-ip=209.85.214.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Hlw5yJ+g"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85E3A1F000E9;
-	Mon, 31 Aug 2026 16:41:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788194501;
-	bh=KbeZZ7+hcGKd4km3JCmhGTKowXSg86VoMpeJipGz+MU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Hlw5yJ+gOXKIm+3VfgLM4h6EAJt3OwhEx2su6JcoATyMt4L9mxuCNXJsgWyeSwndr
-	 CnLi5FqM3xN3mUR3g7RjYuo+amUpC5cOz8fEedb6Am1cfI7jhSQ4tzX3DMOCYdXoT+
-	 c7eFPVQVrVm4r6YkLMsFmC1WLZbclY2APzYhkIyFQ7mULYNijiFJpGHrrj7vA/t4I/
-	 YJdrH9CHqOc6I0oef/xP24SgSupHClwszspUBmtvOorS8ZC8VFsyXb9f8UNjF4HvsY
-	 ISgmykVEOM+OHYZjNX2MgwOlVSgNLdYrNrrRTTnVQ+L0oMNaCaiDEYEmjTbBqGd8Jn
-	 SExECFwiNCP7Q==
-Date: Mon, 31 Aug 2026 17:41:36 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Joshua Yeong <joshua.yeong@starfivetech.com>
-Cc: rahul@summations.net, anup@brainfault.org, lftan.linux@gmail.com,
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	ulfh@kernel.org, pjw@kernel.org, palmer@dabbelt.com,
-	aou@eecs.berkeley.edu, alex@ghiti.fr,
-	linux-riscv@lists.infradead.org, linux-pm@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: power: Add RPMI device power service
- bindings
-Message-ID: <20260831-squeamish-pulverize-7e8334767707@spud>
-References: <20260829205520.1691-1-joshua.yeong@starfivetech.com>
- <20260829205520.1691-2-joshua.yeong@starfivetech.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QgSk6AmL"
+Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2d94c868ea5so2449295ad.3
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 09:41:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788194517; x=1788799317; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Jgcy4vhcuOFybIiqsdMpVsUmfvN2Slyg4glzbZ+onWU=;
+        b=QgSk6AmLwvkjDyK3Tpu2hbZCtk82I4HiBdblmyWoMsFs9Y7kdKDKkzqTudqBs3wlU9
+         17l77BrU9i0Kp0x4034f7YStG1ghWfwYo7p/t6LgdW87iFzgvsP1SAHAgEjdJ7Rk5uv7
+         DY38nZhj+4uXWxVm8Hg+m7eSTSvWxXBtbpxuE/6YtHLjF59H5a9+rE3NM3Dfyrpt4Vj+
+         WA7OJfsayuDeJxblCLQzwZmoVQ8dOns+uH6RBzMXMADOWHJcbW3yQ4kkqKw7TnK4qOhL
+         OP+lrETP9tvRhwin33GJyUXp1NyJ7dg0yjvZtp45Se5Kf2vKkSCa/tiP1xrhTfkr5Uop
+         FaQw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788194517; x=1788799317;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Jgcy4vhcuOFybIiqsdMpVsUmfvN2Slyg4glzbZ+onWU=;
+        b=EnPNMkpqpuUZp9cU0oX+lZpEE0DKjvIbsw6trs0237APX9WWSLfGCOtaonHEnjtY8C
+         fe1kCkH4UieGXkA6Z+J0MGv3gQZvg+mJDEyBXgG2RlP5sMAB0LcYez0Iz1PhlvE0Z81y
+         W4kUF1LvWLB7s09s2HV3AtTXiVTDlVSezr9Nd3Jjq5y+zsaWpeqRBZUMEydT7SKl9k61
+         53ztrzBnedU56lvrzZakYnCYKoX4wHa9M6akhOxDdKowY8lrut8GdJFucZiCl2lLAjmZ
+         AqFr6udpkC4SvHP+XeW8xKkIe/3XTmVXY5GTfut9TpF1Oue8NyHw14XamuOkMw00I3ed
+         6h9w==
+X-Forwarded-Encrypted: i=1; AKwUvBzPwUJselMhKYwR70eTtrYR1J9XSKeZc4p81BdBjidakzY4AA7TdiTBLrai6/WtRgM3t4coqt/sajaorow=@vger.kernel.org
+X-Gm-Message-State: AFuF++n5NE27UQzytRPAI3Kcx0dWdxhcK1BF/z2Ukw0aV+sSKWmyBcCw
+	wQDqpBZpdZu91WRKRaoNK9XxMUBP33kvUwX0t100OWlWOP4lcS50UMTH
+X-Gm-Gg: AYBFou0zoKhiAJe6oEa83kQWFM4+UoSkSyfEt66oxtyJUaZN7bARws9i2aq5XEHJch5
+	1UwUHb6CQpp82Q6dNcFFzEBk+yjGD/3zAk4zujkVMnfHhTxMinz188gSeGmxtaHKLJUi9T8gFgI
+	EsWJ64UPuAB11YrmeXFnduWQh4ehpbAmkZ3DmzWdr1Wf3QF/3vbgT6XOVkUODIq3mABD2WVN6cA
+	SDRrVT7/tMiS9vRAxt0nI+Mpyh8h294isIxHgStNx1hPQzaGLOQj36tVch8X+KxWZ10AuE8XeDs
+	PyDsestIlj1kCyGuiwSwOTb2E82NBYAx00hC8kQ30CY8d+XXGgyZmvHe6J/60X/aX951eNKeZGX
+	A5cTRlk05ckRCMdx8sxs0+tGAHB83+nwC1tjCs1W3MJLY/GQwIgAi5mvpgRIR0G/WcjwqTJ9HfE
+	FS8dnGq4sukoHy4VrO9v/NTsTDdpsLbXghMwb9tk0jeQ4sZv1geos+NwN7IeHIAUEy1BCS/g==
+X-Received: by 2002:a17:903:458b:b0:2d9:51bd:534f with SMTP id d9443c01a7336-2d951bd58e9mr1320725ad.10.1788194516382;
+        Mon, 31 Aug 2026 09:41:56 -0700 (PDT)
+Received: from gmail.com ([185.220.238.38])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d75988a1d6sm39974305ad.55.2026.08.31.09.41.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Aug 2026 09:41:55 -0700 (PDT)
+From: Kunwu Chan <kunwu.chan@gmail.com>
+X-Google-Original-From: Kunwu Chan <kunwu.chan@linux.dev>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Kunwu Chan <kunwu.chan@linux.dev>,
+	Kunwu Chan <kunwu.chan@gmail.com>,
+	Dev Jain <dev.jain@arm.com>,
+	akpm@linux-foundation.org,
+	david@kernel.org,
+	riel@surriel.com,
+	liam@infradead.org,
+	vbabka@kernel.org,
+	harry@kernel.org,
+	jannh@google.com,
+	lance.yang@linux.dev,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] mm/rmap: remove stale hugetlb check in try_to_unmap_one
+Date: Tue,  1 Sep 2026 00:41:42 +0800
+Message-ID: <20260831164143.2517715-1-kunwu.chan@linux.dev>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <apWlLTa3oZq1wwvR@lucifer>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="2QJMYTI2ERRE10FT"
-Content-Disposition: inline
-In-Reply-To: <20260829205520.1691-2-joshua.yeong@starfivetech.com>
+Content-Transfer-Encoding: 8bit
 
---2QJMYTI2ERRE10FT
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On Mon, 31 Aug 2026 17:00:56 +0100 "Lorenzo Stoakes (ARM)" <ljs@kernel.org> wrote:
 
-On Sun, Aug 30, 2026 at 04:55:18AM +0800, Joshua Yeong wrote:
-> Add device tree bindings for the RISC-V Platform Management Interface
-> (RPMI) device power service group, both for the supervisor-facing power
-> domain controller and for the SBI MPXY channel which the SBI
-> implementation uses to expose the service group.
->=20
-> Signed-off-by: Joshua Yeong <joshua.yeong@starfivetech.com>
+> On Mon, Aug 31, 2026 at 11:59:12PM +0800, Kunwu Chan wrote:
+> > On Mon, 31 Aug 2026 08:28:47 +0000 Dev Jain <dev.jain@arm.com> wrote:
+> >
+> > > Post commit d4ec5572825a ("mm/rmap: add try_to_unmap_poisoned_hugetlb_one")
+> > > try_to_unmap_one() cannot be called with a hugetlb folio. Therefore remove
+> > > the folio_test_hugetlb() check.
+> >
+> > Yes, the d4ec5572825 change shows that try_to_unmap() dispatches
+> > hugetlb folios to try_to_unmap_poisoned_hugetlb_one(),
+> > so try_to_unmap_one() cannot be called with a hugetlb folio.
+> >
+> >
+> > It would be better to add:
+> > Fixes: d4ec5572825 ("mm/rmap: add try_to_unmap_poisoned_hugetlb_one")
+> 
+> Nope, let's not thanks.
+> 
+> This isn't a bug.
+> 
 
-Carbon copy of the clock bindings, right?
+Got it, thanks for pointing that out. 
+I mistakenly treated the stale code as a bug.
 
-This stuff is past the stage of being frozen I assume? Github is
-currently being slow as molasses for me and I cannot load the links.
+Thanks,
+KunWu
 
-If so
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-pw-bot: not-applicable
+> >
+> > Reviewed-by: Kunwu Chan <kunwu.chan@gmail.com>
+> >
+> > Thanks,
+> > KunWu
+> >
+> > >
+> > > Signed-off-by: Dev Jain <dev.jain@arm.com>
+> > > ---
+> > > Rebase soup - my huge_ptep_get() fixes landed after the refactoring.
+> > >
+> > > This patch applies on Linux 7.3-rc1.
+> > >
+> > >  mm/rmap.c | 7 ++-----
+> > >  1 file changed, 2 insertions(+), 5 deletions(-)
+> > >
+> > > diff --git a/mm/rmap.c b/mm/rmap.c
+> > > index d1819fd699380..606c8ecf31302 100644
+> > > --- a/mm/rmap.c
+> > > +++ b/mm/rmap.c
+> > > @@ -2299,11 +2299,8 @@ static bool try_to_unmap_one(struct folio *folio, struct vm_area_struct *vma,
+> > >  		VM_BUG_ON_FOLIO(!pvmw.pte, folio);
+> > >
+> > >  		address = pvmw.address;
+> > > -		if (folio_test_hugetlb(folio)) {
+> > > -			pteval = huge_ptep_get(mm, address, pvmw.pte);
+> > > -		} else {
+> > > -			pteval = ptep_get(pvmw.pte);
+> > > -		}
+> > > +		pteval = ptep_get(pvmw.pte);
+> > > +
+> > >  		if (likely(pte_present(pteval))) {
+> > >  			pfn = pte_pfn(pteval);
+> > >  		} else {
+> > > --
+> > > 2.43.0
+> > >
+> > >
+> >
+> 
+> --
+> Cheers, Lorenzo
+> 
 
-Cheers,
-Conor.
-
-> ---
->  .../power/riscv,rpmi-device-power.yaml        | 65 +++++++++++++++++++
->  .../power/riscv,rpmi-mpxy-device-power.yaml   | 65 +++++++++++++++++++
->  2 files changed, 130 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/power/riscv,rpmi-de=
-vice-power.yaml
->  create mode 100644 Documentation/devicetree/bindings/power/riscv,rpmi-mp=
-xy-device-power.yaml
->=20
-> diff --git a/Documentation/devicetree/bindings/power/riscv,rpmi-device-po=
-wer.yaml b/Documentation/devicetree/bindings/power/riscv,rpmi-device-power.=
-yaml
-> new file mode 100644
-> index 000000000000..5afdc40df7e0
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/power/riscv,rpmi-device-power.yaml
-> @@ -0,0 +1,65 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/power/riscv,rpmi-device-power.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: RISC-V RPMI device power service group based power domain control=
-ler
-> +
-> +maintainers:
-> +  - Joshua Yeong <joshua.yeong@starfivetech.com>
-> +
-> +description: |
-> +  The RISC-V Platform Management Interface (RPMI) [1] defines a
-> +  messaging protocol which is modular and extensible. The supervisor
-> +  software can send/receive RPMI messages via SBI MPXY extension [2]
-> +  or some dedicated supervisor-mode RPMI transport.
-> +
-> +  The RPMI specification [1] defines device power service group for
-> +  accessing and controlling the power state of platform devices managed
-> +  by a platform microcontroller. The supervisor software can access RPMI
-> +  device power service group via SBI MPXY channel or some dedicated
-> +  supervisor-mode RPMI transport.
-> +
-> +  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> +  References
-> +  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> +
-> +  [1] RISC-V Platform Management Interface (RPMI) v1.0 (or higher)
-> +      https://github.com/riscv-non-isa/riscv-rpmi/releases
-> +
-> +  [2] RISC-V Supervisor Binary Interface (SBI) v3.0 (or higher)
-> +      https://github.com/riscv-non-isa/riscv-sbi-doc/releases
-> +
-> +properties:
-> +  compatible:
-> +    description:
-> +      Intended for use by the supervisor software.
-> +    const: riscv,rpmi-device-power
-> +
-> +  mboxes:
-> +    maxItems: 1
-> +    description:
-> +      Mailbox channel of the underlying RPMI transport or SBI message pr=
-oxy channel.
-> +
-> +  "#power-domain-cells":
-> +    const: 1
-> +    description:
-> +      Platform specific DOMAIN_ID as defined by the RISC-V Platform Mana=
-gement
-> +      Interface (RPMI) specification.
-> +
-> +required:
-> +  - compatible
-> +  - mboxes
-> +  - "#power-domain-cells"
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    power-controller {
-> +        compatible =3D "riscv,rpmi-device-power";
-> +        mboxes =3D <&mpxy_mbox 0x1002 0x0>;
-> +        #power-domain-cells =3D <1>;
-> +    };
-> +...
-> diff --git a/Documentation/devicetree/bindings/power/riscv,rpmi-mpxy-devi=
-ce-power.yaml b/Documentation/devicetree/bindings/power/riscv,rpmi-mpxy-dev=
-ice-power.yaml
-> new file mode 100644
-> index 000000000000..2b7df66ba172
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/power/riscv,rpmi-mpxy-device-powe=
-r.yaml
-> @@ -0,0 +1,65 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/power/riscv,rpmi-mpxy-device-power.ya=
-ml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: RISC-V RPMI device power service group based message proxy
-> +
-> +maintainers:
-> +  - Joshua Yeong <joshua.yeong@starfivetech.com>
-> +
-> +description: |
-> +  The RISC-V Platform Management Interface (RPMI) [1] defines a
-> +  messaging protocol which is modular and extensible. The supervisor
-> +  software can send/receive RPMI messages via SBI MPXY extension [2]
-> +  or some dedicated supervisor-mode RPMI transport.
-> +
-> +  The RPMI specification [1] defines device power service group for
-> +  accessing and controlling the power state of platform devices managed
-> +  by a platform microcontroller. The SBI implementation (machine mode
-> +  firmware or hypervisor) can implement an SBI MPXY channel to allow RPMI
-> +  device power service group access to the supervisor software.
-> +
-> +  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> +  References
-> +  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> +
-> +  [1] RISC-V Platform Management Interface (RPMI) v1.0 (or higher)
-> +      https://github.com/riscv-non-isa/riscv-rpmi/releases
-> +
-> +  [2] RISC-V Supervisor Binary Interface (SBI) v3.0 (or higher)
-> +      https://github.com/riscv-non-isa/riscv-sbi-doc/releases
-> +
-> +properties:
-> +  compatible:
-> +    description:
-> +      Intended for use by the SBI implementation.
-> +    const: riscv,rpmi-mpxy-device-power
-> +
-> +  mboxes:
-> +    maxItems: 1
-> +    description:
-> +      Mailbox channel of the underlying RPMI transport.
-> +
-> +  riscv,sbi-mpxy-channel-id:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    description:
-> +      The SBI MPXY channel id to be used for providing RPMI access to
-> +      the supervisor software.
-> +
-> +required:
-> +  - compatible
-> +  - mboxes
-> +  - riscv,sbi-mpxy-channel-id
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    device-power-service {
-> +        compatible =3D "riscv,rpmi-mpxy-device-power";
-> +        mboxes =3D <&rpmi_shmem_mbox 0x9>;
-> +        riscv,sbi-mpxy-channel-id =3D <0x1002>;
-> +    };
-> +...
-> --=20
-> 2.43.0
->=20
-
---2QJMYTI2ERRE10FT
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCapWuwAAKCRB4tDGHoIJi
-0qjTAP9LJfBoXWTp5spj+xWhnI1+nc0iTLQo47IGSxWkoIis7gEA662EtseuouP5
-8OlHNKK8t9DevUKH7F8NK/2HmABkLQI=
-=CLai
------END PGP SIGNATURE-----
-
---2QJMYTI2ERRE10FT--
