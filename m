@@ -1,137 +1,118 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com [209.85.210.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D668C3DCDB5;
-	Mon, 31 Aug 2026 09:38:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2FD83DD503
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 09:38:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788169093; cv=none; b=OZLlooq4BYH6gFpK+n7/E0A4pkTj1po6KIMhU283uPF0fS99rdkWjU3d29k7WQExKL+E6w3zTP3HU554E3OKPneKweBYw3lH7iEL5jIneajH4qFi6edOcVB3ji87vxg0PWbcNiUcp9B8QrnVC2AnikGE4DxPSdUDSqSMVWpkEu0=
+	t=1788169097; cv=none; b=DVNb8wxIMceI13UEMAnCFhLiIT04jwBo9sBeaSlZBAApjx8gd0inKF62U20m8h/G+UnDCRySOhiej0QMldr+JpXdhHDXf4jSjJzh33SIPLUgOQLn2sD4V+70uvWjB0SJ2qvLkPHmoEBlWORGKyAFu9msLWdzz4V20EUkBk/KDuU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788169093; c=relaxed/simple;
-	bh=mUsRJK0Zql2DnTj0RMUi1rKBcd2MSbiWbwrzZSJC/k0=;
+	s=arc-20240116; t=1788169097; c=relaxed/simple;
+	bh=8CU9lUBSr36Vnjtnh3nf3UPr4d8FKMwSks35Tl01xaU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HRaKU22OmUVKfmKC7nkfhGb2lJbrWO/TEh71tzT1Mg8L+vSG2hukcawuji7j8wqlgH1+Pt/9uSmL7JTskY9Vyt4pwjOKMO5GRP6xmMMaH8R5+/yjBE2x+FePJFimW7WLW9wmoJYGkcgYh9fSUa73HaQcP2XfSoy9GJPpfK/2Os8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XhydDlyo; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=PRMXW+5/OKHDZpBG1gHsqOiLhm/6GVayfIqfRZJrEbSabr7WYj/KL5ZagHRQb197D3ElYegRTBprh8b3iLXXg+t8x/LCUkUcWvBkJYBwG3O+rxZ/HZ8TT0noYqNCmOEDQc2/OnboaEtj5M3gEynd3q31Vg6zGdJDuqA+LOlVZWA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=Wd18PPwR; arc=none smtp.client-ip=209.85.210.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XhydDlyo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D7341F00A3D;
-	Mon, 31 Aug 2026 09:38:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788169091;
-	bh=3vrtIGdoWsbxbpDo+ZZza41ll94uskRK10AVMveyUHU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=XhydDlyoOA4iOhzTHB8rE9Z84E1B9IJxT5zfVQNsabiNJkGSb18k85PE1KV+wjtY2
-	 95nyLnVQQL4MmAzIUiW7BiBElv7GNoE3UdBCWtuKOOqYn/Uwf2+PCojtD4bJSgqO0H
-	 kJtYOohfie4ZU1HumC3gFLn5MYTXMuzFVDuajpbbJ/ljMLdRcDmKg89lWlIQgKAHcl
-	 ozewhCv2NxjS5CZC4tNntmRAfmKyFEWxaJe3iD7AlnoTQ2HSOdxXPo3qWs5Ema6m+g
-	 FWcBJ9GYolkxvFKAm8GUvcf3R8liBV8NBALfIQsinILXc+7ALBN8PWdM7Dqkul3xJG
-	 pCpniz3UnONHQ==
-Date: Mon, 31 Aug 2026 11:38:07 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Joshua Yeong <joshua.yeong@starfivetech.com>
-Cc: rahul@summations.net, anup@brainfault.org, lftan.linux@gmail.com, 
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, ulfh@kernel.org, 
-	pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr, 
-	linux-riscv@lists.infradead.org, linux-pm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] dt-bindings: power: Add RPMI device power service
- bindings
-Message-ID: <20260831-fluorescent-garrulous-kraken-74eecd@quoll>
-References: <20260830152812.312663-1-joshua.yeong@starfivetech.com>
- <20260830152812.312663-2-joshua.yeong@starfivetech.com>
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="Wd18PPwR"
+Received: by mail-pf1-f175.google.com with SMTP id d2e1a72fcca58-84f38f3b36eso2759779b3a.1
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 02:38:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1788169095; x=1788773895; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=d4945ExoKdc+YvBa/novL6lrWieQR91OCgBEeo72O9E=;
+        b=Wd18PPwR4XaqHg6klvQWxvmWR5iS0hdAFo+vhFQgVTIjTDyqi5SkkwMTicx2balH6c
+         AuZ9l44emh5yim/pLpXkelkhHPgwSYm7cvgB140ZGqgsF+gLuXUPnraYRywOxYi/CKNZ
+         ST3v9oKyczyjiytesUWG+IGxQ9OrX2Qu/zIXE=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788169095; x=1788773895;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=d4945ExoKdc+YvBa/novL6lrWieQR91OCgBEeo72O9E=;
+        b=Lf5oMOP1SHvpvwQmCOPiXpTGWQBbljtancx5SbwX75n252YIYxw5p/bixNRvXnlEne
+         eXZVoBqOg+e9+x6rl/i7u1uUR5qxCucRsRmyWvUB063VBealgrqHm5S7ykb5rMOIu31k
+         HKa/5yWNYN9D8pl2eLGC4ZD3baH2RMeIh4tiB/aBDVgypNfXJzYsNjqUTElu2gtpUIDW
+         YdsF23tncJ8VpUDHHXaqOYBZTwRR77kXgwxX5SNuJaPL/N4wFhFUNpuJy0GxVaAGkx20
+         JsDYsT0eg1DPHX1jIN8kOeaFhxdJCg4LYFfik2f6cpjJDSw3XBD4yS9X+nhqDAp7vsr3
+         a9UA==
+X-Forwarded-Encrypted: i=1; AHgh+Rp5zWhbLAYk5jGJ5M+egtWIQm3Um89trg6lBLyg09FdIy6ejGbcbCBLaJ2YVETZMa/1Zre00UE1zvsBY5E=@vger.kernel.org
+X-Gm-Message-State: AFuF++nkGj0z6raeo45JCGG6A8ZnyzeZamb8jpeHvH3sEwqMhDjYrIwD
+	u3KaaqCDsdW/htR1CXL1ulkpNnbWtVRiHwTb7UTay8kNv8w3mMMuXjjYNCLZ6DF02Q==
+X-Gm-Gg: AR+sD12AK579aqKVTBd83vC3tNMiWYRyKsLNH1YxgEjZ+qbEVmKdaL9q24ZEpM7teI1
+	UBwcbMXs5mXUvi05LicjMa9GqbAshDtVXetEWpA4ONS2w6viwljs450cCP6Id772DL3hIUvu9wZ
+	y+NbFV08uCG7Xc0QwtjRtsaZMcpx7KO2H5jt5ctYE2ezia9xhWNhDbjLu01PBWcBQwIxTrnGPTi
+	t0NDUbC1yfEoHZAjbn2vUsZ7k4CCISuxyhEddy/Hq/VFJyosRzkpAgStfKzFCUJxxlG1+eoT4zl
+	QLKPbc/vy81ODAUOzi9IYJ6gk+KRMaAKPQxWyVSO8T91v3BpMB4p8HQENE5O6ydZQipOcG0cFP/
+	vZvdNbxJpwUnOiiWoVuAzghkUYZxCLwfLjoLBEf+WQpGBOlh9oLRT/dngImo6jOEcYE+FWmM1uP
+	oxg5UiB6C28OKQvwQmN8kSA21zi3kVoPazDyWnW0wWMqSBd66+X1YwTrEPJypCyAw7n785J/kv+
+	cmKnW6JwQz1Ulxi+L/+n94OsMTC
+X-Received: by 2002:a05:6a00:9508:b0:857:74ae:ad76 with SMTP id d2e1a72fcca58-85774aeb840mr22077655b3a.26.1788169094792;
+        Mon, 31 Aug 2026 02:38:14 -0700 (PDT)
+Received: from google.com ([2a00:79e0:2031:6:8dd2:2971:8401:7686])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-856a3d689ccsm3376995b3a.58.2026.08.31.02.38.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Aug 2026 02:38:13 -0700 (PDT)
+Date: Mon, 31 Aug 2026 18:38:09 +0900
+From: Sergey Senozhatsky <senozhatsky@chromium.org>
+To: Hao Jia <jiahao.kernel@gmail.com>
+Cc: Sergey Senozhatsky <senozhatsky@chromium.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, minchan@kernel.org, axboe@kernel.dk, bgeffon@google.com, 
+	linux-kernel@vger.kernel.org, linux-block@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2] zram: fix idle age_sec underflow in idle_store()
+Message-ID: <apVK4g2ikVJe_Hcg@google.com>
+References: <20260828083149.45760-1-jiahao.kernel@gmail.com>
+ <20260828102446.3eb7f3dc779753b831e33fe6@linux-foundation.org>
+ <apT-ocFYDmU6iC-j@google.com>
+ <c961850c-09d0-3366-73e0-1932c1dc00e5@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260830152812.312663-2-joshua.yeong@starfivetech.com>
+In-Reply-To: <c961850c-09d0-3366-73e0-1932c1dc00e5@gmail.com>
 
-On Sun, Aug 30, 2026 at 11:28:11PM +0800, Joshua Yeong wrote:
-> diff --git a/Documentation/devicetree/bindings/power/riscv,rpmi-mpxy-device-power.yaml b/Documentation/devicetree/bindings/power/riscv,rpmi-mpxy-device-power.yaml
-> new file mode 100644
-> index 000000000000..2b7df66ba172
-
-A nit, subject: drop second/last, redundant "bindings". The
-"dt-bindings" prefix is already stating that these are bindings.
-See also:
-https://elixir.bootlin.com/linux/v7.1-rc7/source/Documentation/devicetree/bindings/submitting-patches.rst#L23
-
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/power/riscv,rpmi-mpxy-device-power.yaml
-> @@ -0,0 +1,65 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/power/riscv,rpmi-mpxy-device-power.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: RISC-V RPMI device power service group based message proxy
-> +
-> +maintainers:
-> +  - Joshua Yeong <joshua.yeong@starfivetech.com>
-> +
-> +description: |
-> +  The RISC-V Platform Management Interface (RPMI) [1] defines a
-> +  messaging protocol which is modular and extensible. The supervisor
-> +  software can send/receive RPMI messages via SBI MPXY extension [2]
-> +  or some dedicated supervisor-mode RPMI transport.
-> +
-> +  The RPMI specification [1] defines device power service group for
-> +  accessing and controlling the power state of platform devices managed
-> +  by a platform microcontroller. The SBI implementation (machine mode
-> +  firmware or hypervisor) can implement an SBI MPXY channel to allow RPMI
-> +  device power service group access to the supervisor software.
-> +
-> +  ===========================================
-> +  References
-> +  ===========================================
-> +
-> +  [1] RISC-V Platform Management Interface (RPMI) v1.0 (or higher)
-> +      https://github.com/riscv-non-isa/riscv-rpmi/releases
-> +
-> +  [2] RISC-V Supervisor Binary Interface (SBI) v3.0 (or higher)
-> +      https://github.com/riscv-non-isa/riscv-sbi-doc/releases
-> +
-> +properties:
-> +  compatible:
-> +    description:
-> +      Intended for use by the SBI implementation.
-> +    const: riscv,rpmi-mpxy-device-power
-> +
-> +  mboxes:
-> +    maxItems: 1
-> +    description:
-> +      Mailbox channel of the underlying RPMI transport.
-> +
-> +  riscv,sbi-mpxy-channel-id:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-
-Why isn't this just phandle to mbox? Or even implied by mbox channel? As
-your example shows, having same value in two places points that it is
-redundant.
-
-> +    description:
-> +      The SBI MPXY channel id to be used for providing RPMI access to
-> +      the supervisor software.
-> +
-> +required:
-> +  - compatible
-> +  - mboxes
-> +  - riscv,sbi-mpxy-channel-id
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    device-power-service {
-> +        compatible = "riscv,rpmi-mpxy-device-power";
-> +        mboxes = <&rpmi_shmem_mbox 0x9>;
-> +        riscv,sbi-mpxy-channel-id = <0x1002>;
-> +    };
-> +...
-> -- 
-> 2.43.0
+On (26/08/31 16:37), Hao Jia wrote:
+> On 2026/8/31 12:15, Sergey Senozhatsky wrote:
+> > On (26/08/28 10:24), Andrew Morton wrote:
+> > > On Fri, 28 Aug 2026 16:31:49 +0800 Hao Jia <jiahao.kernel@gmail.com> wrote:
+> > [..]
+> > > 
+> > > Thanks.  Sashiko asked a couple of questions about this change:
+> > > 	https://sashiko.dev/#/patchset/20260828083149.45760-1-jiahao.kernel@gmail.com
+> > 
+> > 
+> > > Does this early return prevent marking valid boot-time pages as idle?
+> > > When a page is accessed during the first second of system boot, its ac_time
+> > > would be 0.
+> > 
+> > There is no possibility for zram to hold pages during first second of
+> > system boot, regardless of whether zram was configured as a swap device
+> > or as a block device (mount-ed with real filesystem).
+> > 
+> > 
+> > > Can the early return above bypass this zram device initialization check?
+> > 
+> > We already do that, e.g. when kstrtouint(buf, 0, &age_sec) fails.  Apart
+> > from that, that's not how one checks if device was initialized.  We may
+> > want to consolidate those checks, just for symmetry.
 > 
+> Agreed on both points -- the early return is not a new "bypass", and
+> the write() return value was never a way to probe init state.
+> 
+> How about moving the init_done() check to the top, so all the early
+> returns sit behind the same device-state check?
+
+Yeah, I don't know...  Moving it under device lock doesn't buy us
+anything.  We don't need device lock to validate integer rangers,
+etc.  There are validations that we need to do under device lock
+because those require a consistent device state.  But things like
+"is system uptime less than supplied sysfs data" don't logically
+require a device lock.
