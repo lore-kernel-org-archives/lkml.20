@@ -1,130 +1,85 @@
-Received: from mail-lj1-f169.google.com (mail-lj1-f169.google.com [209.85.208.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 415823ACA5B
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 21:47:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B8FA3ACEED;
+	Mon, 31 Aug 2026 21:48:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788212873; cv=none; b=pOWUuQfpaqAekH7aesMHSRVZZ7jw9sWf2m6tQK3upbfEHdAERM0REnCL6auBpgU6Y3ZzKVk5GMEEwvXP1QTiMnEfU6ObjJZCuT0rIo9nsJaqFAosk4IkWM0iBMsChst8omDFh52ur6W7aChWDU5rm5uxfnIraxdtLHFfbe/nh9Y=
+	t=1788212905; cv=none; b=CaGmsgBaAYAj7EAqWMg8/e341cydRfUanGjWGkh7Y2wHZcNO4dfoHEXILrxQtFfPcHPpeOCTn4qpwHXUdvbGtOg/oDh7RMgik1ULCpp7XVrnOntIZO8LhQgPzuZHJGseLoQ3Y94nuTGe/A9f5hOTGhnYlRogn/g4hMLMxuoqLGs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788212873; c=relaxed/simple;
-	bh=ynypFeeMcVFHMmyNNm3Ko2CgLlcEE/Akeh1XxvChmQ8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=dJUkJU8IuwVPOauf9Epy5CAc44LGuvLQZPe/F0vhTvCDrdBTJb1MdnITMfTa8ooC6GFa39zXORneCGhkL8JZfq1H919tHxjx4auG3lhQAIgOVsh0Sx9Lark5uKCKu9bxdZAZyx382CjGwuiUJTb7TQU1DIIwYFmRKCOKOvkMNyQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nxdnpo+V; arc=none smtp.client-ip=209.85.208.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788212905; c=relaxed/simple;
+	bh=IWZR763NtbOE1NQu0QvmQqMNmj4DlP5ujyZ7TJOlJjQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=uPXsMRxmtdmvV/88Imm5DFqhngEuAr2vY69MnXwm6RE8T0j9LnErYQsbCUV1JUr+xs+5AScUa/oJkuv5tQhKfX0m1+bINcyOc9e57PXyOUt+1kMpmd+ZfiFLVbJMRMg+5U9J50yYW8JiNXmLFXv8XfIxpmoHLgNiCt2kfe5D6Vk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lCzX3lHd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nxdnpo+V"
-Received: by mail-lj1-f169.google.com with SMTP id 38308e7fff4ca-39faa67fab8so31648301fa.2
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 14:47:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788212867; x=1788817667; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=HR5w4wu2d/AdbodPVdlLXgyYzkKXoBfBxxBtTecxISQ=;
-        b=nxdnpo+Vjak8AQiAgFi4numunHqmLzcIH3ThaNDlmAuvcu6UpFx5Za6MaKngv24yaO
-         9/6P/Um1Qi9ZLxlxjIISUXTph6BdqZOZCFMNsvFf/4zBK5VSAj0ovmebbqCXLQ5j5S/D
-         pGt29061RqOuhShQaynnn+qmE6UwBLR5PeWoU9fdvUVnneziiHFVkyGvsZ7SgmIH4V+l
-         YHu36H/OmW63lOckPiEVBIPLmWjKw1Cm4WO2snhVIHH9q/W5mfRKX3Ke9Qu+OxUKoRBC
-         f6j9xSpZteWwVAcoSsM2bxAXm9Ym3VmDzvOzwLEpmtX2cxlTo+g0IIPVIUUZTyBK6hDK
-         +IbA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788212867; x=1788817667;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=HR5w4wu2d/AdbodPVdlLXgyYzkKXoBfBxxBtTecxISQ=;
-        b=O8Xhm08A5oHF9Q2IQu7i2/Hms5scneWkVFrodZerpsb12Orc7ySlAf4DkDfI0bl4lX
-         QSLy+vtAqtPTjoPubQu/k2TXsLRvwSZeKYPQsvgNrk+WVsN6jwSVAW79yheRJX4E52In
-         vJW+RJq7qZgEphHbZ4Pre6ofwiDf1m/9RWV2+IZ3ai0X1srsBvFnzX+z1r590lJuptL1
-         G+o6q/IN8/Vg7zhj4OmjGIMMbugtp8I6OP6dJ443Md8mEk4hSKsOVyZGhkw20gp2mbvC
-         uUPRN9djqotvKNsavmKxojo9XaJvVvcxbPWVvX8evF6E0V8lI4fbVDV68vq7P3dGDNeT
-         8aSw==
-X-Forwarded-Encrypted: i=1; AKwUvBxJ1mVaz6qYaCDN1oomtmjsCiXVhH1z9MET4ng7eEDnPDh0Ez5edk7zuhHaifPSdND+/gOB1EOZwFGJ50M=@vger.kernel.org
-X-Gm-Message-State: AFuF++lHz3pvOAyr9Loj4c9p6vK+HU5hTgHgxz9mCBC5W9a/D11UC+8X
-	UUNqQffXMaq7bWqlZVSzANkKPRG1oA/hu6Q/E/DDxZVz2dgFFZnFDZ8=
-X-Gm-Gg: AYBFou23z+lidchW6XJjkFyWjvCFJTJYbyiMoNTsWrhEFFadjc3IErhWQLS/JGcKs1+
-	3iM0kVtRHTHwdRixf9kurUZC6MHllzi88uwyPw5YyOMOnzsBgb2QQWMX29wVbWwJdkmj6cJvsWQ
-	04yW6eetb4Sox4Qf7Ewy3cz8Fl01ac6MkYJaUUO/4lUMxm8g4IQze2bA4DcwUTbPfXSjWUXfRXA
-	pgC4WExmUhtmvI+fDItdRDalEdh+LwT0LVyZdacCOmi8EvRaAG/rI6RstzJ0Th7BYx+vzlMhrAM
-	unsmRWvHIGLMXM9teDhxxFqctySUf3z3KGcMgL/ztNKF+k2DgS/7+iuao/Z3EICbYJpN5i0LrMo
-	hBj/ozDFQIXmwkUKrLkFQRHZ2WKsZsncAJTd65TxWrAGe8iBBUcKn7Yiug2+yojsuD+U9IsAAP6
-	8ObTJJq7QOeQwLZ8/xFmAUrB93TT7I8t2H4/Fk9NZq07HPMuBgug==
-X-Received: by 2002:a05:651c:30c9:b0:3a1:ab57:ea2c with SMTP id 38308e7fff4ca-3a33948c4e0mr10050771fa.2.1788212866759;
-        Mon, 31 Aug 2026 14:47:46 -0700 (PDT)
-Received: from fedora ([92.36.9.2])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a31550cefbsm18299201fa.9.2026.08.31.14.47.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 14:47:46 -0700 (PDT)
-From: Vitaliy Sochnev <sochnev.v.74@gmail.com>
-To: Lorenzo Bianconi <lorenzo@kernel.org>,
-	netdev@vger.kernel.org
-Cc: upstream@airoha.com,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	linux-mediatek@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Vitaliy Sochnev <sochnev.v.74@gmail.com>
-Subject: [PATCH net v2 3/3] net: airoha: grow the small RX rings
-Date: Tue,  1 Sep 2026 00:47:01 +0100
-Message-ID: <20260831234701.206021-4-sochnev.v.74@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260831234701.206021-1-sochnev.v.74@gmail.com>
-References: <20260830095717.37218-1-sochnev.v.74@gmail.com>
- <20260831234701.206021-1-sochnev.v.74@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lCzX3lHd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37F811F000E9;
+	Mon, 31 Aug 2026 21:48:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788212900;
+	bh=IGfw8HEg+7N3fS4p/fLFHLEX0PCBrDokzuki8PYqq/0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=lCzX3lHd5ECof2q73Woal4vSJiqCLJQ5imd8nVHN6C4PAmjNQ7tbERcRPC8pajN/S
+	 ZNhfOyUubZjkaRfjrDnScJzjWRChWOarntZgdRtSEjorUIJWTZHEWY3XPJTn7UFaXb
+	 FuQsbOpC780MAVApF1S5vrrp26epDsKFEQVCXp11ddD6/QmSAHVwpsLX10rn2gTs4w
+	 wZKWzHRqNGn/tAgcigFMQrro3QN0nykhDy/j/0MQVGOB2t1T/hBc/dH8I2aJHTTuAp
+	 knyUC0T96tNuN6alpzOX8R0ttlpxpKhOvuS3RNfxXFmHMPH2VOJPnx6VFYCVz9r+t5
+	 valQ0n03cUBsw==
+Date: Mon, 31 Aug 2026 14:48:18 -0700
+From: Eric Biggers <ebiggers@kernel.org>
+To: Karl Mehltretter <kmehltretter@gmail.com>
+Cc: bpf@vger.kernel.org, Vadim Fedorenko <vadim.fedorenko@linux.dev>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	John Fastabend <john.fastabend@gmail.com>
+Subject: Re: [PATCH bpf-next] bpf: crypto: Use AES-CBC and AES-ECB libraries
+Message-ID: <20260831214818.GF86114@quark>
+References: <20260831192139.94895-1-ebiggers@kernel.org>
+ <apXwXLRpBUIWQuC5@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <apXwXLRpBUIWQuC5@gmail.com>
 
-Raise the RX_DSCP_NUM() fallback from 16 to 32, the vendor SDK default,
-and give ring 4 the 128 descriptors already used for rings 2/11/15.
+On Mon, Aug 31, 2026 at 11:25:54PM +0200, Karl Mehltretter wrote:
+> On Mon, Aug 31, 2026 at 12:21:39PM +0100, Eric Biggers wrote:
+> > There are library APIs for both of these now, which are much easier to
+> > use and more efficient.  Reimplement BPF crypto on top of them, greatly
+> > simplifying the code.  As part of this, the bpf_crypto_type abstraction
+> > layer is removed, as it's not useful.
+> > 
+> 
+> This relates to my recent patch fixing state preservation in lskcipher's
+> unaligned path, which exercised ARC4 through BPF:
+> 
+> https://lore.kernel.org/r/20260829194314.42685-1-kmehltretter@gmail.com
+> 
+> While looking at your patch, I tested the actual BPF-visible algorithm
+> surface. The ECB and CBC templates allow considerably more than AES.
 
-Ring 4 is the shared "force to CPU" ring that airoha_fe_vip_setup()
-routes BOOTP, PPPoE Discovery, PPP LCP/IPCP/CHAP/PAP/IPv6CP, ISAKMP,
-DHCPv6, SIP and LLDP onto, so it sees the same bursty non-hashed traffic
-as the rings already on 128 while sitting on the smallest allowance.
+Right, apparently any "crypto_cipher" can be composed with "ecb" or
+"cbc" as an "lskcipher".  I think in this case it's only of theoretical
+interest and is a bug, not a feature, though.  Especially given the
+presence of ARC4, DES, TEA, etc. on that list.
 
-At 16 descriptors the completion stall handled by the previous patch is
-readily reachable: on a Nokia XG-040G-MF the recovery fires roughly every
-35 s under repeated PPPoE dial-up, and negotiation never completes. At
-128 it did not trigger once across 500 forced PPPoE reconnects over 20 h.
+We see this a lot with the "Crypto API", where a new kernel feature
+actually uses one or two algorithms, then unnecessarily allows every
+single algorithm to be theoretically reachable (including insecure,
+obsolete, or nonsense options) just because the API takes a string.
 
-Ring 4 and the VIP classification feeding it are shared driver-wide, with
-no DT or hardware property distinguishing one variant's ring 4 from
-another's, so this is not scoped to a particular SoC.
-
-Fixes: 23020f049327 ("net: airoha: Introduce ethernet support for EN7581 SoC")
-Signed-off-by: Vitaliy Sochnev <sochnev.v.74@gmail.com>
----
- drivers/net/ethernet/airoha/airoha_eth.h | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/net/ethernet/airoha/airoha_eth.h b/drivers/net/ethernet/airoha/airoha_eth.h
-index c195dad5ed58..0b7c90940272 100644
---- a/drivers/net/ethernet/airoha/airoha_eth.h
-+++ b/drivers/net/ethernet/airoha/airoha_eth.h
-@@ -41,9 +41,10 @@
- #define TX_DSCP_NUM			1024
- #define RX_DSCP_NUM(_n)			\
- 	((_n) ==  2 ? 128 :		\
-+	 (_n) ==  4 ? 128 :		\
- 	 (_n) == 11 ? 128 :		\
- 	 (_n) == 15 ? 128 :		\
--	 (_n) ==  0 ? 1024 : 16)
-+	 (_n) ==  0 ? 1024 : 32)
- 
- #define PSE_RSV_PAGES			128
- #define PSE_QUEUE_RSV_PAGES		64
--- 
-2.55.0
-
+- Eric
