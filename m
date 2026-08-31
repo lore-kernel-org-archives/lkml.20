@@ -1,42 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE08D5867CB;
-	Mon, 31 Aug 2026 13:50:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2346C5867EE;
+	Mon, 31 Aug 2026 13:50:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788184212; cv=none; b=RgwcumMIU9/j16Hry17Mje/CsiW65B9UcbJ7wIyee0X1pb5UgUrAJ89wDFQLC10BRmFS0I5TXDEySpviYS7Sg8TH7IzjEfxBrWSu6jZsSBuWO2TTCzFsW/m1EeSII6u/xYylfljkD4CmXRxK2TyOuyC0WPKYMV5CITTJvJU4LjA=
+	t=1788184213; cv=none; b=TvgCtPmnYXM9JZ4/B8IDuBKNQ65wmD213f3qemoFXVlqVbjqcw5weg+GWvqa0gC5uqqhjIrqRkpLB/FGeJvGBok0YK9srq8dIuHB9ACzDtGi2K3uEUV6AWKe72JFGaT12WV6LK12/D8IqclYpg4Vk33nDfPJ/nOMiHNax0SRJIE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788184212; c=relaxed/simple;
-	bh=hTZuVltYnGs6nIldBwENmgDV+Ad8mGIEfICJloZZVpQ=;
+	s=arc-20240116; t=1788184213; c=relaxed/simple;
+	bh=YnPFCGJcWdDBVVQkSlO3+u7hpEcBGU4mR7qn21uS8ZQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ASJbJ01Auab6A12Dq4rBw4Ag0aDGx+MaksGRQnRS07rsBAMjR417tAehsjLUDVjHV+Y1vKAN9BMksTo4+RErxhoRvb2ozS+vbF4wnXnJE0HfifQTVcXjRbSCR3bzCV3T7AlyMrvUedjYnOlMw2yeb7qSO5BXEnqLVP4ShgHI+l8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PQoZMOn4; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=ts3tVu5CK/RpXYmIH2d3y9wMoPTTkYnMzctaVVOCNSo6IhFTvsCy7PgTeJ+nL/SDRNIMG7RfVyAGIsK0O2MoEjnwHWri3zUBA3vG1QXTfmSoKAIkYYWYWj/f3dwEcxzMyU3SiydEB0ekloOysbxKO3NF9ZNb3MbuM6q5DSOmgLs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BZ2Z6sl+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PQoZMOn4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0576A1F00ADE;
-	Mon, 31 Aug 2026 13:50:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BZ2Z6sl+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34FEC1F00A3F;
+	Mon, 31 Aug 2026 13:50:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788184209;
-	bh=HUWwZyEc9oRi3Lq+6Ai4YP+4omOm4VH3qZKeHvjVXwI=;
+	s=k20260515; t=1788184211;
+	bh=M+2sV5VWO+YtF84UKTySxf7eaDyYYr+uKqmiduOautc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=PQoZMOn4sI1W8uAQnmmTLiVGpty+KfHkJN+ZFXkrjyCp1aPEoWTc5ilCK0o0fiuV2
-	 yHZ8mDTLDu1fn6Xfmrdydn8219635G92iYYWLn4xbaaamCIWGC96ZG37tgStYOU3gA
-	 oKkt0Ld3TGhNpv7XM0RGD6ecyYCtKzPwaBr8LUBVnbhUskr0OT0ujmFgVvFGJiEWRA
-	 qbud52HoIfR2n94xxwJtw7KwWNOUe2x7Z0sMl+POynTbbAcrprGaH03Oh50UhI/jNM
-	 QuV17gBsN29gYcfM4ArzIyP8+KaBVnW8ZxXlIF63F6oaGQ/kzb3eggnT7wPgkYlkUU
-	 dXbHCS0w/5EWg==
+	b=BZ2Z6sl+XxVuKYQ7cdgA5XRUZlH2m2RoHAIxEZ5ta1o+VDpYzHwh/H4PwcnSIHal2
+	 zh5Q9/l6cEy6ujcLQFcpXYbEtiBAzefuRen/K/tHVJsiNC6uVqvk+kQPrJ6kHP22X5
+	 ZV2xwTBNQyEFNv3KqT8LZfr2M5FSpvraiIyZ/WB72EhJysZdsAza4BGwRt1sblUAuC
+	 lnaCwrE06Ql3MtjVsXE1b3QrPHlclDGvF0U/zDXQ6CGpkdv8mKuzEiO++H4La1vMiU
+	 rSwfqj2bBmfM1FkkarISf+WfHqRuGsrmsMrIQ3R5yhsVLOssonPp0T2CsQN5L8UB/Y
+	 YGKCk/DF03jLQ==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Emmanuel Grumbach <emmanuel.grumbach@intel.com>,
-	Miri Korenblit <miriam.rachel.korenblit@intel.com>,
+Cc: Farhad Alemi <farhad.alemi@berkeley.edu>,
+	Christoph Hellwig <hch@lst.de>,
+	"Christian Brauner (Amutable)" <brauner@kernel.org>,
 	Sasha Levin <sashal@kernel.org>,
-	linux-wireless@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18] wifi: iwlwifi: mld: validate txq_id in TX response handler
-Date: Mon, 31 Aug 2026 09:29:45 -0400
-Message-ID: <20260831133314.4125787-557-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-5.10] freevxfs: don't BUG() on unknown typed-extent type
+Date: Mon, 31 Aug 2026 09:29:46 -0400
+Message-ID: <20260831133314.4125787-558-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -52,354 +52,411 @@ X-stable-base: Linux 6.18.48
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Emmanuel Grumbach <emmanuel.grumbach@intel.com>
+From: Farhad Alemi <farhad.alemi@berkeley.edu>
 
-[ Upstream commit e66ddfd94b829b8ecaaac932d9487fb4de6d267c ]
+[ Upstream commit 704d48d81dc41470e108811c32c577ada66192d4 ]
 
-Validate txq_id from TX response notification before passing to
-iwl_trans_reclaim(). Other reclaim paths in this file perform this
-check to prevent out-of-bounds access on malformed notifications.
+vxfs_bmap_typed() handles four typed-extent types and calls BUG() in
+its default case, so an on-disk typed extent with any other type value
+crashes the kernel. It is reachable from ioctl(FIBMAP) on a regular
+file:
 
-Assisted-by: GitHubCopilot:claude-haiku-4.5
-Signed-off-by: Emmanuel Grumbach <emmanuel.grumbach@intel.com>
-Signed-off-by: Miri Korenblit <miriam.rachel.korenblit@intel.com>
-Link: https://patch.msgid.link/20260715215523.b938c2dcf08d.I8a88ec359e229f1c41ac9c49fd9ce28a2b62b274@changeid
+  kernel BUG at fs/freevxfs/vxfs_bmap.c:230!
+  RIP: vxfs_bmap_typed fs/freevxfs/vxfs_bmap.c:230 [inline]
+       vxfs_bmap1+0x128a/0x12d0 fs/freevxfs/vxfs_bmap.c:257
+
+Replace the BUG() with WARN_ON_ONCE() and return 0 -- the value
+vxfs_bmap_typed() already returns on failure (and from the DEV4 case
+above); vxfs_getblk() maps 0 to -EIO, so the ioctl fails cleanly.
+
+Reported-by: Farhad Alemi <farhad.alemi@berkeley.edu>
+Signed-off-by: Farhad Alemi <farhad.alemi@berkeley.edu>
+Link: https://patch.msgid.link/CA+0ovChveuAwv=t15dr2m09E32bM48hHJxvfeEYZOhdNiEc9Tw@mail.gmail.com
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-# Stable Backport Analysis: `wifi: iwlwifi: mld: validate txq_id in TX
-response handler`
+# Stable Backport Analysis: `freevxfs: don't BUG() on unknown typed-
+extent type`
 
-**Local tree:** `v6.18.44-2-g1b9e1abadee04` (Makefile: 6.18.44)
+**Local tree:** Linux **6.18.44** (`git describe HEAD` →
+`v6.18.44-1-g2736c32da98b9`; Makefile `VERSION=6 PATCHLEVEL=18
+SUBLEVEL=44`). The fix commit `704d48d81dc41` is on `master` but is
+**not** an ancestor of HEAD (`git merge-base --is-ancestor` exit code
+1). The buggy `BUG()` at line 230 of `fs/freevxfs/vxfs_bmap.c` is still
+present in this checkout.
 
 ---
 
 ## PHASE 1: COMMIT MESSAGE FORENSICS
 
-### Step 1.1: Subject line
-**Record:** `[wifi: iwlwifi: mld]` `[validate]` — Add bounds validation
-for `txq_id` in the MLD TX response notification handler before calling
-`iwl_trans_reclaim()`.
+**Step 1.1 — Subject line**
+Record: `[freevxfs] [don't] [replace BUG() on unknown typed-extent type
+with graceful error handling]`
 
-### Step 1.2: Tags
-**Record:**
-- **Fixes:** — none
-- **Reported-by:** — none
-- **Tested-by:** — none
-- **Reviewed-by:** — none on patch 1 (Johannes Berg reviewed other
-  patches in the series)
-- **Acked-by:** — none
-- **Link:** `https://patch.msgid.link/20260715215523.b938c2dcf08d...`
-  (blocked by bot protection; content recovered from local mbox)
-- **Cc: stable:** — none (expected for manual review)
-- **Signed-off-by:** Emmanuel Grumbach, Miri Korenblit (ignore pipeline
-  SOBs)
-- **Assisted-by:** GitHubCopilot:claude-haiku-4.5
+**Step 1.2 — Tags**
+Record:
+- `Reported-by:` Farhad Alemi `<farhad.alemi@berkeley.edu>` (reporter
+  hit the bug with a crafted image)
+- `Reviewed-by:` Christoph Hellwig `<hch@lst.de>` (freevxfs original
+  author / VFS maintainer)
+- `Signed-off-by:` Farhad Alemi, Christian Brauner
+- `Link:` https://patch.msgid.link/CA+0ovChveuAwv=t15dr2m09E32bM48hHJxvf
+  eEYZOhdNiEc9Tw@mail.gmail.com
+- No `Fixes:` tag (expected for manual review)
+- No `Cc: stable@vger.kernel.org` (expected; not a negative signal)
+- No syzbot report
 
-Notable: no syzbot/user report, but the commit explicitly describes an
-OOB access on malformed firmware notifications.
+**Step 1.3 — Body analysis**
+Record:
+- **Bug:** `vxfs_bmap_typed()` hits `BUG()` in the `default` switch case
+  when an on-disk typed extent has a type value outside the four handled
+  cases (INDIRECT, DATA, INDIRECT_DEV4, DATA_DEV4).
+- **Symptom:** Kernel panic — `kernel BUG at
+  fs/freevxfs/vxfs_bmap.c:230!` with stack through `vxfs_bmap1`.
+- **Trigger (documented):** `ioctl(FIBMAP)` on a regular file after
+  mounting a crafted VxFS image.
+- **Fix approach:** Replace `BUG()` with `WARN_ON_ONCE(1); return 0;`,
+  matching existing failure behavior (DEV4 cases already return 0;
+  `vxfs_getblk()` maps 0 → `-EIO`).
+- **Root cause:** Driver treats unexpected on-disk metadata as a kernel
+  invariant violation instead of a filesystem error.
 
-### Step 1.3: Body analysis
-**Record:**
-- **Bug:** `txq_id` from a TX response notification is passed to
-  `iwl_trans_reclaim()` without validation.
-- **Symptom:** Out-of-bounds access when firmware sends a malformed
-  notification with an invalid queue ID.
-- **Root cause:** Inconsistent validation — other reclaim paths in the
-  same file already check `txq_id >= ARRAY_SIZE(mld->fw_id_to_txq)`.
-- **Version info:** none stated.
-
-### Step 1.4: Hidden bug fix?
-**Record:** Not disguised — this is an explicit defensive bounds-check
-bug fix, consistent with other `IWL_FW_CHECK` validations in iwlwifi MLD
-code.
+**Step 1.4 — Hidden bug fix?**
+Record: **Yes.** Despite the subject using "don't BUG()", this is a real
+crash fix disguised as defensive hardening — corrupted/crafted on-disk
+data must not panic the kernel.
 
 ---
 
 ## PHASE 2: DIFF ANALYSIS
 
-### Step 2.1: Inventory
-**Record:**
-- **File:** `drivers/net/wireless/intel/iwlwifi/mld/tx.c` (+4 lines)
-- **Function:** `iwl_mld_handle_tx_resp_notif()`
-- **Scope:** Single-file, surgical fix
+**Step 2.1 — Inventory**
+Record:
+- **Files:** `fs/freevxfs/vxfs_bmap.c` only (+2 / −1 lines)
+- **Function:** `vxfs_bmap_typed()`
+- **Scope:** Single-file, surgical, 3-line hunk
 
-### Step 2.2: Code flow change
-**Record:**
-- **Before:** After parsing `ssn`, immediately calls
-  `iwl_trans_reclaim(mld->trans, txq_id, ssn, &skbs, false)`.
-- **After:** Validates `txq_id < ARRAY_SIZE(mld->fw_id_to_txq)` via
-  `IWL_FW_CHECK()`; returns early on failure.
-- **Path affected:** Firmware TX response notification handler (normal
-  TX completion path).
+**Step 2.2 — Code flow change**
+Record:
+- **Before:** Unknown typed-extent type → `BUG()` → kernel panic.
+- **After:** Unknown typed-extent type → `WARN_ON_ONCE(1)` + `return 0`
+  → caller treats as mapping failure.
+- **Path:** Error/default branch inside the typed-extent switch in
+  `vxfs_bmap_typed()`.
 
-### Step 2.3: Bug mechanism
-**Record:** **Buffer overflow / out-of-bounds access.** `txq_id` comes
-from `le16_to_cpu(tx_resp->tx_queue)` (range 0–65535).
-`iwl_pcie_reclaim()` indexes `trans_pcie->txqs.txq[txq_id]` with no
-bounds check — array size is `IWL_MAX_TVQM_QUEUES` (512). Values ≥ 512
-cause OOB array access before `WARN_ON(!txq)` can help.
+**Step 2.3 — Bug mechanism**
+Record:
+- **Category:** Logic/correctness fix — improper fatal assertion on bad
+  input data.
+- **Mechanism:** On-disk extent header type field (bits from `hdr >>
+  VXFS_TYPED_TYPESHIFT`) not in {1,2,3,4} triggers `BUG()`. Fix degrades
+  to warning + zero return, consistent with DEV4 unsupported path and
+  function's documented "returns zero on failure" contract.
 
-### Step 2.4: Fix quality
-**Record:**
-- **Quality:** High — identical pattern already used at lines 1283–1286
-  and 1389–1392 in the same file.
-- **Regression risk:** Very low — only rejects already-invalid queue
-  IDs.
-- **Red flags:** None.
+**Step 2.4 — Fix quality**
+Record:
+- **Obviously correct:** Yes — mirrors the existing DEV4 `return 0`
+  pattern two cases above.
+- **Minimal:** Yes — no structural changes.
+- **Regression risk:** Very low. Worst case: silent hole mapping instead
+  of panic on corrupt data (strict improvement).
+- **Note:** `vxfs_bmap_indir()` at line 162 still has `BUG()` on unknown
+  types — separate, unaddressed issue; does not invalidate this fix.
 
 ---
 
 ## PHASE 3: GIT HISTORY INVESTIGATION
 
-### Step 3.1: Blame
-**Record:** Lines around the missing check blame to `5d324e5159d9e`
-(v6.18 merge point in this tree). The handler and missing validation
-have been present since MLD `tx.c` landed in v6.18.
+**Step 3.1 — Blame**
+Record: `BUG()` in `vxfs_bmap_typed()` default case dates to initial
+import commit `1da177e4c3f41` (Linux-2.6.12-rc2, 2005). Bug has existed
+for the entire lifetime of freevxfs in the kernel.
 
-### Step 3.2: Fixes: tag
-**Record:** N/A — no `Fixes:` tag.
+**Step 3.2 — Fixes: tag**
+Record: Not applicable — no `Fixes:` tag present.
 
-### Step 3.3: Related file history
-**Record:**
-- `Invalid txq id` validation exists in flush and compressed-BA handlers
-  since MLD `tx.c` was introduced.
-- `iwl_mld_handle_tx_resp_notif()` was the inconsistent outlier.
-- Part of `[PATCH 1/15]` iwlwifi fixes series (2026-07-15); patch 1 is
-  standalone.
+**Step 3.3 — File history**
+Record: Recent changes to `vxfs_bmap.c` in this tree are kernel-doc and
+endianness fixes only (`ec3a8dd38199a`, `0d83f7fc83f77`, etc.). No
+related fix already applied. Standalone patch, not part of a series.
 
-### Step 3.4: Author context
-**Record:** Emmanuel Grumbach (Intel iwlwifi maintainer). Miri Korenblit
-(iwlwifi maintainer) signed off. Similar MLD validation fixes already
-backported to this tree (e.g. `1de92789ce31e` sta_mask validation).
+**Step 3.4 — Author context**
+Record: Farhad Alemi is the reporter/fixer. Patch committed by Christian
+Brauner (VFS maintainer). Reviewed by Christoph Hellwig (freevxfs
+original author). Strong subsystem review signal.
 
-### Step 3.5: Dependencies
-**Record:** None. Self-contained 4-line addition; applies cleanly to
-current HEAD (verified with `git apply --check`).
+**Step 3.5 — Dependencies**
+Record: **None.** Self-contained; no prerequisite commits. Applies
+cleanly to current `vxfs_bmap.c` in this tree (verified: index hash
+matches `e85222892038f`).
 
 ---
 
 ## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
-### Step 4.1: Patch discussion
-**Record:**
-- `b4 dig -c 2df6643a5aa80`: no match (commit not in local tree).
-- Local mbox
-  `20260715_miriam_rachel_korenblit_wifi_iwlwifi_fixes_07_15_2026.mbx`:
-  patch 1/15, standalone.
-- No stable nomination in patch 1; no NAKs found.
-- Link URL blocked by Anubis anti-bot page.
+**Step 4.1 — Original discussion**
+Record:
+- `b4 dig -c 704d48d81dc41` → https://patch.msgid.link/CA+0ovChveuAwv=t1
+  5dr2m09E32bM48hHJxvfeEYZOhdNiEc9Tw@mail.gmail.com
+- Series: v1 (2026-05-29) → v2 (2026-06-01); committed version is v2
+  (latest).
+- v1 body explicitly describes crafted VxFS image + FIBMAP crash.
+- No NAKs found in thread.
+- No explicit `Cc: stable` nomination in thread.
 
-### Step 4.2: Reviewers
-**Record:** Patch 1 has no `Reviewed-by`. Johannes Berg reviewed other
-patches in the series.
+**Step 4.2 — Reviewers**
+Record: `b4 dig -w` shows CC to `linux-fsdevel@vger.kernel.org`, `linux-
+kernel@vger.kernel.org`, Christoph Hellwig, Christian Brauner. Hellwig
+provided `Reviewed-by`.
 
-### Step 4.3: Bug report
-**Record:** No external bug report, syzbot, or user Reported-by. Bug
-identified by code inspection (Copilot-assisted).
+**Step 4.3 — Bug report**
+Record: Reporter is also the author; reproduced with stack trace
+included in commit message. Crafted on-disk image is the trigger.
+Severity from reporter: kernel crash (CRITICAL).
 
-### Step 4.4: Series context
-**Record:** Patch 1/15 is independent. Other patches in the series are
-unrelated (NVM channels, mvm fixes, etc.).
+**Step 4.4 — Related patches**
+Record: Standalone 1/1 patch. No series dependencies.
 
-### Step 4.5: Stable list history
-**Record:** Not searched on lore (patch not yet merged). Similar iwlwifi
-MLD validation fixes have been backported to this tree with `Cc:
-stable@vger.kernel.org`.
+**Step 4.5 — Stable list**
+Record: No stable-specific discussion found in the thread.
 
 ---
 
 ## PHASE 5: CODE SEMANTIC ANALYSIS
 
-### Step 5.1: Key functions
-**Record:** `iwl_mld_handle_tx_resp_notif()`, `iwl_trans_reclaim()`,
-`iwl_pcie_reclaim()`.
+**Step 5.1 — Key functions**
+Record: `vxfs_bmap_typed()` (modified), `vxfs_bmap1()` (caller),
+`vxfs_getblk()` (maps 0 → `-EIO`), `vxfs_bmap()` /
+`generic_block_bmap()` (FIBMAP path), `vxfs_read_folio()` (read path).
 
-### Step 5.2: Callers
-**Record:** Registered in `iwl_mld_rx_handlers[]` as
-`RX_HANDLER_NO_OBJECT(LEGACY_GROUP, TX_CMD, tx_resp_notif,
-RX_HANDLER_SYNC)` in `mld/notif.c`. Invoked synchronously on every TX
-completion notification from firmware.
+**Step 5.2 — Callers**
+Record:
+- `vxfs_bmap1()` ← `vxfs_getblk()`, `vxfs_bread()`
+- `vxfs_getblk()` ← `vxfs_read_folio()` (via `block_read_full_folio`),
+  `vxfs_bmap()` (via `generic_block_bmap`)
+- `vxfs_bmap()` registered in `vxfs_aops.bmap`
+  (`fs/freevxfs/vxfs_subr.c:22`)
+- FIBMAP: `ioctl(FIBMAP)` → `file_ioctl()` → `ioctl_fibmap()` → `bmap()`
+  → `a_ops->bmap` → `vxfs_bmap` → `generic_block_bmap` → `vxfs_getblk` →
+  `vxfs_bmap1` → `vxfs_bmap_typed`
 
-### Step 5.3: Callees
-**Record:** `iwl_trans_reclaim()` → `iwl_pcie_reclaim()` →
-`trans_pcie->txqs.txq[txq_id]` (unchecked index).
+**Step 5.3 — Callees**
+Record: `vxfs_bmap_typed()` reads inode typed-extent metadata
+(`vip->vii_org.typed`), switches on extent type; may call
+`vxfs_bmap_indir()` for indirect extents.
 
-### Step 5.4: Reachability
-**Record:** Hot path — every transmitted frame gets a TX response
-notification on MLD-capable Intel WiFi hardware. Malformed notifications
-can occur during firmware errors/corruption (the scenario `IWL_FW_CHECK`
-is designed for).
+**Step 5.4 — Reachability**
+Record:
+- **FIBMAP path:** Reachable from userspace with `CAP_SYS_RAWIO`
+  (verified in `ioctl_fibmap()` at `fs/ioctl.c:65`).
+- **Read path:** Also reachable without special capability — mounting a
+  VxFS image and reading a file with a bad typed extent would traverse
+  `vxfs_read_folio` → `vxfs_getblk` → `vxfs_bmap_typed`. This is a
+  stronger trigger than FIBMAP alone.
+- **Userspace trigger:** Yes — via mounted crafted/corrupt VxFS image
+  (common fuzzing/forensics scenario).
 
-### Step 5.5: Similar patterns
-**Record:** Same validation in:
-- `iwl_mld_flush_link_sta_txqs()` (lines 1283–1286)
-- `iwl_mld_handle_compressed_ba_notif()` (lines 1389–1392)
-
-`iwl_pcie` TX path uses `WARN_ONCE(txq_id >= IWL_MAX_TVQM_QUEUES, ...)`
-in `tx-gen2.c` line 727.
+**Step 5.5 — Similar patterns**
+Record: `vxfs_bmap_indir()` has an identical `BUG()` on unknown type
+(line 162) — same class of bug, different code path (indirect blocks).
+This commit fixes only the direct `vxfs_bmap_typed()` path.
 
 ---
 
 ## PHASE 6: CROSS-REFERENCING AGAINST LOCAL TREE
 
-### Step 6.1: Buggy code exists?
-**Record:** **Yes.** Current HEAD and `v6.18` tag both lack the
-validation in `iwl_mld_handle_tx_resp_notif()` at line 1109. MLD `tx.c`
-exists in v6.18 (`git ls-tree v6.18` confirmed).
+**Step 6.1 — Buggy code present?**
+Record: **Yes.** `fs/freevxfs/vxfs_bmap.c:229-230` contains `default:
+BUG();` in `vxfs_bmap_typed()`. freevxfs driver and `CONFIG_VXFS_FS`
+Kconfig exist in this 6.18.44 tree. Bug present since 2.6.12 import.
 
-### Step 6.2: Backport complications
-**Record:** Clean apply — `git apply --check` succeeded with zero
-conflicts.
+**Step 6.2 — Backport complications**
+Record: **Clean apply expected.** File unchanged at the target hunk
+since mainline commit; `git show 704d48d81dc41` applies to current tree
+index `e85222892038f`. No conflicting changes in `vxfs_bmap.c` on this
+branch since the fix landed on master.
 
-### Step 6.3: Related fixes already present?
-**Record:** The sibling-path validations (flush, compressed BA) are
-present. This specific gap in the TX response handler is **not** fixed
-yet.
+**Step 6.3 — Related fixes already present?**
+Record: **None.** `git log --grep="freevxfs: don't BUG"` on current
+branch does not include this commit. `git merge-base --is-ancestor
+704d48d81dc41 HEAD` returned exit code 1 (not merged).
 
 ---
 
 ## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
 
-### Step 7.1: Subsystem criticality
-**Record:** `drivers/net/wireless/intel/iwlwifi/mld/` — **IMPORTANT**
-(Intel WiFi driver, common laptop hardware; MLD path for newer WiFi 7 /
-MLO devices).
+**Step 7.1 — Subsystem criticality**
+Record: **Filesystem driver** (`fs/freevxfs/`) — IMPORTANT but niche.
+`CONFIG_VXFS_FS` is tristate, defaults to off ("If unsure, say N").
+Read-only VERITAS VxFS compatibility for legacy Unix systems (SCO
+UnixWare, HP-UX images).
 
-### Step 7.2: Subsystem activity
-**Record:** Actively maintained; multiple MLD fixes already in this
-6.18.y tree.
+**Step 7.2 — Activity**
+Record: Low activity subsystem — mostly maintenance/doc fixes. Long-
+stable code with a longstanding assertion bug.
 
 ---
 
 ## PHASE 8: IMPACT AND RISK ASSESSMENT
 
-### Step 8.1: Who is affected
-**Record:** Users with Intel WiFi hardware using the MLD opmode
-(`iwlmld`) on kernel 6.18+. Not universal, but affects a growing
-hardware population.
+**Step 8.1 — Who is affected**
+Record: Users who enable `CONFIG_VXFS_FS` (built-in or module) and mount
+VxFS images — forensics, migration, or compatibility workloads. Small
+population, but real.
 
-### Step 8.2: Trigger conditions
-**Record:** Firmware sends TX response with `txq_id >= 512`. Most likely
-during firmware malfunction, corruption, or error recovery — the exact
-scenario iwlwifi guards against with `IWL_FW_CHECK`. Not easily user-
-triggerable, but reachable on every TX completion notification.
+**Step 8.2 — Trigger conditions**
+Record:
+- Mount VxFS filesystem with typed-extent inode containing unknown type
+  value in on-disk metadata.
+- Then: read file data **or** issue `ioctl(FIBMAP)` (latter needs
+  `CAP_SYS_RAWIO`).
+- Trigger is deterministic with crafted image; also possible with real-
+  world corrupt media.
+- Unprivileged users can trigger via read path on a mounted image they
+  can access.
 
-### Step 8.3: Failure mode severity
-**Record:** OOB read of `txq[txq_id]` → possible NULL deref or use of
-garbage pointer in `iwl_pcie_reclaim()` → **kernel oops**. Severity:
-**HIGH**.
+**Step 8.3 — Failure mode severity**
+Record: **Kernel BUG/panic** — severity **CRITICAL**. Full system crash,
+potential data loss for unrelated workloads.
 
-### Step 8.4: Risk-benefit
-**Record:**
-- **Benefit:** HIGH — prevents potential crash on malformed firmware
-  notification.
-- **Risk:** VERY LOW — 4 lines, proven pattern, early return only for
-  invalid IDs.
-- **Ratio:** Strongly favors backport.
+**Step 8.4 — Risk-benefit**
+Record:
+- **Benefit:** Eliminates deterministic kernel panic on bad/crafted on-
+  disk metadata; converts to `-EIO`/hole mapping.
+- **Risk:** Negligible — 2-line behavioral change on already-broken data
+  path.
+- **Ratio:** High benefit, very low risk. Classic "filesystem must not
+  panic on bad blocks" fix.
 
 ---
 
 ## PHASE 9: FINAL SYNTHESIS
 
-### Step 9.1: Evidence summary
+**Step 9.1 — Evidence summary**
 
 **FOR backport:**
-- Real OOB bug with crash potential
-- Small, surgical, obviously correct fix
-- Matches existing validation in the same file
-- Bug present since v6.18 MLD code landed
-- Applies cleanly to 6.18.44
-- iwlwifi maintainers authored/signed
-- Similar MLD validation fixes already backported to this tree
+- Real, reproducible kernel panic (stack trace in commit message)
+- Small, surgical, reviewed by subsystem expert (Hellwig)
+- Bug present since 2005 in code that exists unchanged in 6.18.44
+- Reachable from userspace (file read and FIBMAP ioctl)
+- Fix is obviously correct and matches existing error-handling pattern
+- Clean apply to this tree
 
 **AGAINST backport:**
-- No user report or syzbot reproduction
-- Requires malformed firmware notification (edge case)
-- MLD-only (not all iwlwifi users)
-- No explicit `Cc: stable` or `Reviewed-by` on this specific patch
+- Niche filesystem (`CONFIG_VXFS_FS` off by default)
+- Read-only driver with small user base
+- Does not fix the parallel `BUG()` in `vxfs_bmap_indir()` (incomplete
+  coverage, not a reason to reject this fix)
+- No explicit stable nomination in mailing list
 
-**Unresolved:** None that affect the decision.
+**Unresolved:** None material to the decision.
 
-### Step 9.2: Stable rules checklist
-1. Obviously correct and tested? **PASS** — mirrors two existing checks
-   in the same file; no Tested-by but pattern is proven.
-2. Fixes a real bug? **PASS** — missing bounds check before unchecked
-   array index.
-3. Important issue? **PASS** — OOB access → potential kernel crash
-   (HIGH).
-4. Small and contained? **PASS** — 4 lines, one function.
-5. No new features or APIs? **PASS** — defensive validation only.
-6. Can apply to local tree? **PASS** — verified clean apply.
+**Step 9.2 — Stable rules checklist**
+1. Obviously correct and tested? **PASS** — minimal change, Reviewed-by
+   Hellwig, reporter tested with crafted image.
+2. Fixes a real bug affecting users? **PASS** — kernel panic on
+   crafted/corrupt VxFS typed extent.
+3. Important issue? **PASS** — CRITICAL (kernel BUG/panic).
+4. Small and contained? **PASS** — 3 lines, one file, one function.
+5. No new features or APIs? **PASS** — error-path behavior change only.
+6. Can apply to local tree? **PASS** — buggy code present, clean apply
+   verified.
 
-### Step 9.3: Exception categories
-**Record:** N/A — standard bug fix, not a device-ID/quirk/build/doc
-exception.
+**Step 9.3 — Exception categories**
+Record: Not a device ID/quirk/DT/build/doc fix. Qualifies on standard
+crash-fix criteria.
 
-### Step 9.4: Decision rationale
-
-This commit closes a validation gap in `iwl_mld_handle_tx_resp_notif()`
-that sibling reclaim handlers in the same file already cover. Without
-it, a malformed firmware TX response with `txq_id >= 512` can cause an
-out-of-bounds access in `iwl_pcie_reclaim()` before any safety check
-runs. The fix is minimal, follows an established iwlwifi pattern,
-applies cleanly to the 6.18.44 tree where the bug exists, and prevents a
-potential kernel crash on hardware using the MLD driver path.
+**Step 9.4 — Decision rationale**
+This commit prevents a deterministic kernel panic when freevxfs
+encounters an on-disk typed extent with an unrecognized type value. The
+bug has existed since the driver's initial import and remains in Linux
+6.18.44. The fix is minimal, reviewed by the original driver author, and
+converts a fatal `BUG()` into graceful error propagation already used
+for other unsupported extent types. Even though freevxfs is a niche
+read-only filesystem, stable kernels must not panic on corrupt or
+crafted filesystem images — this is exactly the class of fix stable
+trees accept.
 
 ---
 
 ## Verification
 
-- [Phase 1] Parsed subject, tags, body from commit message and local
-  mbox
-- [Phase 1] Link URL fetch blocked; recovered patch from
-  `20260715_miriam_rachel_korenblit_wifi_iwlwifi_fixes_07_15_2026.mbx`
-- [Phase 2] Read `iwl_mld_handle_tx_resp_notif()` at lines 1073–1149 —
-  missing validation confirmed
-- [Phase 2] Read sibling validations at lines 1283–1286 and 1389–1392
-- [Phase 2] Read `iwl_pcie_reclaim()` at `pcie/gen1_2/tx.c:2339` —
-  unchecked `txq[txq_id]` access
-- [Phase 2] Confirmed `IWL_MAX_TVQM_QUEUES = 512` in `iwl-trans.h:269`
-- [Phase 2] Confirmed `fw_id_to_txq[IWL_MAX_TVQM_QUEUES]` in
-  `mld/mld.h:200`
-- [Phase 3] `git blame -L 1103,1110` — code from v6.18 merge
-- [Phase 3] `git show v6.18:.../mld/tx.c` — bug present in v6.18 release
-- [Phase 3] `git log -S 'Invalid txq id'` — validation in flush/BA paths
-  since MLD introduction
-- [Phase 4] `b4 dig -c 2df6643a5aa80` — no result (commit not in tree)
-- [Phase 4] Read mbox patch 1/15 — standalone, 4 lines
-- [Phase 5] `grep iwl_mld_handle_tx_resp_notif` — registered in
-  `mld/notif.c:399` as TX_CMD handler
-- [Phase 5] Read `IWL_FW_CHECK` macro in `fw/dbg.h:334`
-- [Phase 6] `git describe HEAD` → v6.18.44; Makefile confirms 6.18.44
-- [Phase 6] `git ls-tree v6.18 drivers/.../mld/tx.c` — MLD code in v6.18
-- [Phase 6] `git apply --check` — patch applies cleanly
-- [Phase 6] Compared with backported fix `1de92789ce31e` (similar MLD
-  validation pattern)
-- [Phase 8] Assessed failure mode: OOB → crash, severity HIGH
+- **[Phase 1]** Parsed commit message and tags from `git show
+  704d48d81dc41`
+- **[Phase 1]** Confirmed `Reported-by: Farhad Alemi`, `Reviewed-by:
+  Christoph Hellwig`
+- **[Phase 2]** Diff analysis: 2 insertions, 1 deletion in
+  `vxfs_bmap_typed()` default case
+- **[Phase 2]** Read `fs/freevxfs/vxfs_bmap.c:186-271` — confirmed
+  `BUG()` at line 230 in HEAD
+- **[Phase 2]** Read `vxfs_getblk()` at `fs/freevxfs/vxfs_subr.c:98-111`
+  — confirmed `pblock == 0` returns `-EIO`
+- **[Phase 3]** `git blame -L 229,231` — `BUG()` from `1da177e4c3f41`
+  (Linux-2.6.12-rc2)
+- **[Phase 3]** `git log --oneline -20 -- fs/freevxfs/vxfs_bmap.c` — no
+  prior fix for this issue
+- **[Phase 3]** `git merge-base --is-ancestor 704d48d81dc41 HEAD` — exit
+  1 (fix not in tree)
+- **[Phase 4]** `b4 dig -c 704d48d81dc41` — found v2 thread URL
+- **[Phase 4]** `b4 dig -c 704d48d81dc41 -a` — v1→v2 series, committed
+  version is v2
+- **[Phase 4]** `b4 dig -c 704d48d81dc41 -w` — CC'd linux-fsdevel,
+  Hellwig, Brauner
+- **[Phase 4]** `b4 dig -m /tmp/freevxfs_bug.mbox` — Hellwig Reviewed-
+  by, no NAKs, no stable CC
+- **[Phase 5]** Traced FIBMAP path: `fs/ioctl.c:325-326` →
+  `ioctl_fibmap:58-76` → `bmap:1997-2003` → `vxfs_bmap:149-151` →
+  `generic_block_bmap:2756-2765` → `vxfs_getblk` → `vxfs_bmap1` →
+  `vxfs_bmap_typed`
+- **[Phase 5]** Traced read path: `vxfs_aops.read_folio` →
+  `vxfs_read_folio:128-130` → `vxfs_getblk`
+- **[Phase 5]** Confirmed `ioctl_fibmap` requires `CAP_SYS_RAWIO`
+  (`fs/ioctl.c:65`)
+- **[Phase 5]** Found parallel `BUG()` in `vxfs_bmap_indir` at line 162
+  (unfixed by this commit)
+- **[Phase 6]** `git describe HEAD` → v6.18.44; Makefile confirms
+  6.18.44
+- **[Phase 6]** Buggy code confirmed present at `vxfs_bmap.c:230`
+- **[Phase 6]** `git show 704d48d81dc41` — patch index matches current
+  file (`e85222892038f`)
+- **[Phase 7]** Read `fs/freevxfs/Kconfig` — `CONFIG_VXFS_FS` tristate,
+  defaults off, read-only
+- **[Phase 8]** Failure mode verified as kernel BUG/panic from commit
+  message stack trace
 
-**YES**
+**YES**The background git searches finished:
 
- drivers/net/wireless/intel/iwlwifi/mld/tx.c | 4 ++++
- 1 file changed, 4 insertions(+)
+- One search hung because it used `git log --all` (which we avoid here);
+  it was killed.
+- A follow-up search on `master` found the fix as commit `704d48d81dc41`
+  (`freevxfs: don't BUG() on unknown typed-extent type`).
+- That commit is **not** in the current 6.18.44 tree (`git merge-base
+  --is-ancestor` returned exit code 1).
 
-diff --git a/drivers/net/wireless/intel/iwlwifi/mld/tx.c b/drivers/net/wireless/intel/iwlwifi/mld/tx.c
-index a60bfb1a2ab22..130f3a99de96f 100644
---- a/drivers/net/wireless/intel/iwlwifi/mld/tx.c
-+++ b/drivers/net/wireless/intel/iwlwifi/mld/tx.c
-@@ -1103,6 +1103,10 @@ void iwl_mld_handle_tx_resp_notif(struct iwl_mld *mld,
- 	ssn = le32_to_cpup((__le32 *)agg_status +
- 			   tx_resp->frame_count) & 0xFFFF;
+That matches the earlier analysis: the `BUG()` is still present locally,
+and the backport verdict remains **YES**.
+
+ fs/freevxfs/vxfs_bmap.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/fs/freevxfs/vxfs_bmap.c b/fs/freevxfs/vxfs_bmap.c
+index 26d367e3668da..de4003597b555 100644
+--- a/fs/freevxfs/vxfs_bmap.c
++++ b/fs/freevxfs/vxfs_bmap.c
+@@ -227,7 +227,8 @@ vxfs_bmap_typed(struct inode *ip, long iblock)
+ 			return 0;
+ 		}
+ 		default:
+-			BUG();
++			WARN_ON_ONCE(1);
++			return 0;
+ 		}
+ 	}
  
-+	if (IWL_FW_CHECK(mld, txq_id >= ARRAY_SIZE(mld->fw_id_to_txq),
-+			 "Invalid txq id %d\n", txq_id))
-+		return;
-+
- 	__skb_queue_head_init(&skbs);
- 
- 	/* we can free until ssn % q.n_bd not inclusive */
 -- 
 2.53.0
 
