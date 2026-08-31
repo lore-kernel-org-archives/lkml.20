@@ -1,166 +1,174 @@
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 044113FD96B
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 12:50:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCBA63EC838;
+	Mon, 31 Aug 2026 12:50:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788180656; cv=none; b=eYTTyMDUVoGYcJ8sStf7FmDY0QCWeAuQShygLtMlwaWi/Ld7n/xtJsiM5lNOWLH2KKUj+dN3wlXd0I/GqqcgON95HiR9oYGbv97z7rYwdeoCtq5Jv1IQNFO3l6/pF95fnpKADQmf3+Pzsh1PwQq8gb/UKl8PpAR92j+GgdVX1gs=
+	t=1788180657; cv=none; b=HD//Uk9sHKWh4lKwMkMkFQRbcWEBfuufkhk7mhmq6K1dR9M3Hbil0ZBQo2Cmm5VbN/wVOcE/j5ysUg/DO2dRSUTCds3iTO1EWw5LQepA5U0CfL3IhYZ7I3SOkBjoEXh17mnAGmSL0vevXtEaxTbPAYsoXz2cdGpOTGlAj7cINLA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788180656; c=relaxed/simple;
-	bh=UMMlAQQ+tHH37+OZWlXTPeJySJPPJtpz3IdXhTev4eQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Bqblxv4bNVQzFQa1XzcGU3dtVZ2U223/dFQxPXNWhcdrStLTGPPFCn53ogmzGMw2Dlxmgap4mCQxzkb8oKqLUdC3hzDQZsVohxjV//Mfi6L3Qd810hBMTznljpRoV3Feqd/Fxq+y6YOrfalnTutxiMF/nAPP/Ft4NaRo9zdYdvc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ICT9KWo1; arc=none smtp.client-ip=209.85.128.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788180657; c=relaxed/simple;
+	bh=BblqXBZ8zmDnJ0nRJmy0EgosyQytJp6t1yn1JGAMCaE=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
+	 References:In-Reply-To; b=gBCYE6Y6Y657B5iPawo5YA//e3h4464WOE3SLpXgGNqu2RPlBOYm+6HdVLV6jEtjig1KpVa8J7z9GqtFARQZOlEbpasYKgry24z1EPSE7XwUUqFTd6GiGAS7ngUfEG9VFIA7I8icF0tz6Bqhe/uH/vv0n/o2hD+M91Xtd5pvxIo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TCxO4Hou; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ICT9KWo1"
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4998b5a63e2so32654515e9.1
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 05:50:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788180650; x=1788785450; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=FgpUpwzhe3ICsnKIHyf7lVPTDsFbvK8kI90BAlWw5dE=;
-        b=ICT9KWo1jSna1EiWyjW4N8n29YMlZPc1nYVw3M4p4qJO72p5hhwjoaANcTniWell0p
-         rXzUyePCKa9IctFJkM9EESPyQn5CcVnXlhP0EeRijGm/58gh5zlzrM7AG0iexig0q2Ja
-         c1zMbeRxN6u3tz6DRmsK6B1SY+4QKQQswHdeC3N3sIFPeqGJKSD0cucIzwRLGUFGDnZi
-         ZZUzO5rBWS/bPfty+u+ewKbr++xjuvIiubj8HwFGS2oHXuh4e3+TqFYsXfEx0qg8H88Z
-         cNVjWBbHiC/zVbl8lkGJJueoj1V+Xf/1S7A9RE0Tdl/gZYeAm0ZZJs4joC7dADTxRFrd
-         NOmg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788180650; x=1788785450;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=FgpUpwzhe3ICsnKIHyf7lVPTDsFbvK8kI90BAlWw5dE=;
-        b=YF1P2p/tjVthvsWBjQbZWikDHcvdxuyEMOpCKqrzTXbcOZYqM9pcbX8Jl06o7zxnQo
-         5R1BLzIRtC/ybKx1lVypEV8pJWr1MdC8zY5kuUse1spJwCQ58iYeDze1JFpcjLTgjbNz
-         QK+FFV17KhMeLINbZOWWGTIfgigMTWq34byVTdLlrRHPD/8Z+v83szDq8CvCQ4HYbz7w
-         zV2pHTbCUoAm1XIYGCqFYohIy5YYeQSC+F2CJRKp5q0TCA/ADp3LhSsgRNK6uVJ/JoKX
-         N2OaeIJI3op4JfCxxymVGHTURcqodvtdVZMbaGRC9C/8/3itHsmVp14juTPo7OUOvAOT
-         8U7g==
-X-Forwarded-Encrypted: i=1; AHgh+RqkBO0I/QKxwAzQXqxp16oP64PfJRQI6HPKNW4yPScPzFyfj4iZT5XMFBIuVmYrPIx6yTzMunCky9fYaxI=@vger.kernel.org
-X-Gm-Message-State: AFuF++mHrKNeOkJlXQHMBE8dNR2oBdmQziAXuZ6wiKSZj+wrdsBSSuKA
-	ujNL05vbvXYUlkUzFaT4pKaXP/ra7PUS+eXcxw8jHAB06W4uSxkJ00rZ
-X-Gm-Gg: AR+sD13EGG3EWijOTDBkIzbrUYwWGeajxzbo7NrUJoZ8ZtAHpEHsaeUUOiegSPCOPMr
-	w1+rkGYOJRzaHPcMS0cWMW43aYwrd4EUEYjxAbOSU8NqpE9eBpB/KHp/CI1TafBb1yNXxKANtCs
-	5pfwJKTiK4ljsnFV9SUDa4oHBSKvkjdsM576XSEzLr+C0R6vdOWOGqF6OP5eaGRbVkpgTnf8kVt
-	DXOXPr6tfdg4y+cAF6P8/M1i28vqM0B/itEV9ZzEQCaNF/cCA/GXdbpD3XRcBFbcnSXlGXtfdg6
-	9FrVDkimQCoW46j2vJqo5N6mpzMFf9aSHfQZFAFk5JcQONPmgkMIwfFcXf6Oip0v1JZy7Eo2mZN
-	OrrdtPva7x0nJKVe5h+5x4zAdid7EEaVihi1OPGWdoVqZ3gRbn8bM++74F2gJNnWFqYX7Tai3EW
-	EymGKSQS5I0CNgVRHmnMvMcPdd+Tk5+Dpr2/2jwYSh6MJpPO98SolFiXEcbt1FqpWTqIEahNRVb
-	bygxDifVXtTZYRXYNA8XyNgefbYlfPO2j/u
-X-Received: by 2002:a05:600c:3145:b0:499:79b9:e220 with SMTP id 5b1f17b1804b1-49b91c44f6cmr384483205e9.10.1788180649895;
-        Mon, 31 Aug 2026 05:50:49 -0700 (PDT)
-Received: from GLaDOS.station ([187.14.102.85])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cd53a4678sm116571225e9.13.2026.08.31.05.50.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 05:50:49 -0700 (PDT)
-From: Stefano Radaelli <stefano.radaelli21@gmail.com>
-X-Google-Original-From: Stefano Radaelli <stefano.r@variscite.com>
-To: Frank Li <Frank.Li@nxp.com>,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org
-Cc: pierluigi.p@variscite.com,
-	Stefano Radaelli <stefano.r@variscite.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Shawn Guo <shawnguo@kernel.org>,
-	Daniel Baluta <daniel.baluta@nxp.com>,
-	Josua Mayer <josua@solid-run.com>,
-	Alexander Stein <alexander.stein@ew.tq-group.com>,
-	Ernest Van Hoecke <ernest.vanhoecke@toradex.com>,
-	Maud Spierings <maudspierings@gocontroll.com>,
-	Francesco Dolcini <francesco.dolcini@toradex.com>,
-	Markus Niebel <Markus.Niebel@ew.tq-group.com>,
-	Hugo Villeneuve <hvilleneuve@dimonoff.com>,
-	Marek Vasut <marex@nabladev.com>,
-	Conor Dooley <conor.dooley@microchip.com>
-Subject: [PATCH v7 1/3] dt-bindings: arm: fsl: add Variscite VAR-SOM-MX7 boards
-Date: Mon, 31 Aug 2026 14:50:23 +0200
-Message-ID: <7af24e53fc6dc0e84a7d2dce7090f5c465f470d2.1788180142.git.stefano.r@variscite.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <cover.1788180142.git.stefano.r@variscite.com>
-References: <cover.1788180142.git.stefano.r@variscite.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TCxO4Hou"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED6941F000E9;
+	Mon, 31 Aug 2026 12:50:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788180650;
+	bh=Inovtz74UVnffXMRGGA0BiEeub/zuwAj1xL70AVyNwc=;
+	h=Date:Subject:Cc:To:From:References:In-Reply-To;
+	b=TCxO4Hou9hJTqG87TXYEr1lJiPlzZSAmr9LLrTd+Yiddslbj2o0tFIjyOWiODscB/
+	 qlKeI39pvn09PqSPfkdpHt4ddH5O9kTDX9KZuBgT+Rr6vJYZ8eZra8L5YSlbVTxQIr
+	 OApRT0qVWPkJ49b/OUhTeMD4J7TgsG5PaZ3Nd0gvDzEp3YqK5Ms/f67D+7v1Y17U8h
+	 RJ3ZYd5Cqu9s7YCKymJBovk1SO9xC5tCNIOpQSa+CZ6zkNlJYtEOMhqyVbBg3KVgZN
+	 bZfucOFUwURuB5gYJc0OEuqhC+PuK1jKL9DIbL9jlsFzc1HHMFFjD9xkekD6I2Ave9
+	 r+tySRyoXP2uA==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 31 Aug 2026 14:50:45 +0200
+Message-Id: <DL354W1TVE2X.CVZ3GXX2O2JQ@kernel.org>
+Subject: Re: [PATCH 1/2] gpu: nova-core: use kernel lossless integer
+ conversion module
+Cc: <ojeda@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "John Hubbard"
+ <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi"
+ <ttabi@nvidia.com>, "Eliot Courtney" <ecourtney@nvidia.com>, "Zhi Wang"
+ <zhiw@nvidia.com>, <nova-gpu@lists.linux.dev>,
+ <dri-devel@lists.freedesktop.org>, <rust-for-linux@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+To: "Alexandre Courbot" <acourbot@nvidia.com>
+From: "Danilo Krummrich" <dakr@kernel.org>
+References: <20260828-nova_num-v1-0-e21f17ba4127@nvidia.com>
+ <20260828-nova_num-v1-1-e21f17ba4127@nvidia.com>
+ <DL0KDAXUZOXD.I8FBZZ51EIIF@kernel.org>
+ <DL142442KXHA.3VFWP2DHD7H2E@nvidia.com>
+ <DL1O1NFXUX6N.1LFASWF425I4Y@kernel.org>
+ <DL2Q6ZZ1EK68.2SARDMRGQ19X6@nvidia.com>
+In-Reply-To: <DL2Q6ZZ1EK68.2SARDMRGQ19X6@nvidia.com>
 
-From: Stefano Radaelli <stefano.r@variscite.com>
+On Mon Aug 31, 2026 at 3:08 AM CEST, Alexandre Courbot wrote:
+> On Sun Aug 30, 2026 at 4:14 AM JST, Danilo Krummrich wrote:
+>> On Sat Aug 29, 2026 at 5:34 AM CEST, Alexandre Courbot wrote:
+>>> On Fri Aug 28, 2026 at 9:09 PM JST, Danilo Krummrich wrote:
+>>>> (Cc: Miguel)
+>>>>
+>>>> On Fri Aug 28, 2026 at 7:33 AM CEST, Alexandre Courbot wrote:
+>>>>> The `kernel` crate now features a replacement for our lossless intege=
+r
+>>>>> conversion routines. Switch to the kernel version and remove our own.
+>>>>>
+>>>>> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
+>>>>> Reviewed-by: Danilo Krummrich <dakr@kernel.org>
+>>>>> Reviewed-by: Eliot Courtney <ecourtney@nvidia.com>
+>>>>> ---
+>>>>>  drivers/gpu/nova-core/falcon.rs                    |  12 +-
+>>>>>  drivers/gpu/nova-core/falcon/fsp.rs                |   4 +-
+>>>>>  drivers/gpu/nova-core/fb.rs                        |   2 +-
+>>>>>  drivers/gpu/nova-core/fb/hal/gb100.rs              |   6 +-
+>>>>>  drivers/gpu/nova-core/firmware.rs                  |   4 +-
+>>>>>  drivers/gpu/nova-core/firmware/booter.rs           |   4 +-
+>>>>>  drivers/gpu/nova-core/firmware/fwsec.rs            |   2 +-
+>>>>>  drivers/gpu/nova-core/firmware/fwsec/bootloader.rs |   4 +-
+>>>>>  drivers/gpu/nova-core/firmware/gsp.rs              |   9 +-
+>>>>>  drivers/gpu/nova-core/firmware/tlv.rs              |  11 +-
+>>>>>  drivers/gpu/nova-core/fsp.rs                       |   8 +-
+>>>>>  drivers/gpu/nova-core/gsp.rs                       |   4 +-
+>>>>>  drivers/gpu/nova-core/gsp/cmdq.rs                  |  22 +--
+>>>>>  drivers/gpu/nova-core/gsp/fw.rs                    |  42 ++--
+>>>>>  drivers/gpu/nova-core/gsp/fw/commands.rs           |   4 +-
+>>>>>  drivers/gpu/nova-core/gsp/sequencer.rs             |   2 +-
+>>>>>  drivers/gpu/nova-core/mctp.rs                      |   8 +-
+>>>>>  drivers/gpu/nova-core/num.rs                       | 211 -----------=
+----------
+>>>>>  drivers/gpu/nova-core/vbios.rs                     |   2 +-
+>>>>>  19 files changed, 78 insertions(+), 283 deletions(-)
+>>>>
+>>>> Please see the discussion in [1].
+>>>>
+>>>> If we make this change, then the subsequent conversion to const_as!() =
+would need
+>>>> to go through the Rust tree next cycle, which could be a bit of a mess=
+, as I'd
+>>>> expect a bunch of conflicts.
+>>>>
+>>>> Alternatively, we could the the full three cycle dance, or have a sign=
+ed tag for
+>>>> const_as!() and use it right away.
+>>>>
+>>>> But honestly, the former would just be unnecessary noise. If we don't =
+do the
+>>>> latter, let's just keep the nova-core num module until the dust has be=
+en
+>>>> settled.
+>>>>
+>>>> [1] https://lore.kernel.org/all/CANiq72k+-fNWZCwGuQ=3DFTchxgm-X-f6WR=
+=3DtG=3DErcn19ic1edQg@mail.gmail.com/
+>>>
+>>> Maybe I am missing something, but wouldn't the following work?
+>>>
+>>> - rc1 gets tagged, `drm-rust-next` gets the `num::casts` module,
+>>> - This series gets applied to `drm-rust-next`, then `cv!` (without the
+>>>   nova-core conversion patch) in `rust-next`,
+>>> - We wait one cycle for `cv!` to trickle down to `drm-rust-next` before
+>>>   converting nova-core to use `cv!`.
+>>>
+>>> Would that work? This series doesn't overlap with the const conversions
+>>> that `cv!` covers on purpose, and it would have the benefit of getting
+>>> rid of the local `num` module in nova-core quickly.
+>>
+>> Take casts::usize_into_u32() for instance, drm-rust-next replaces the us=
+age of
+>> it next cycle, but rust-next wants to remove the API from
+>> rust/kernel/num/casts.rs.
+>>
+>> In this case rust-next would need to get rid of the users (including nov=
+a-core),
+>> but drm-rust-next will likely do different changes, so we'd get unnecess=
+ary
+>> merge conflicts.
+>>
+>> You can resolve this either by keeping casts::usize_into_u32 and friends=
+ around
+>> for one additional cycle, so that all users we introduce now are gone. O=
+r, since
+>> there's no rush anyways, we just wait one cycle and use the real thing r=
+ight
+>> away.
+>
+> Sorry, I should have explicitly mentioned that `*_into_*` would remain
+> alongside `cv!` for the next cycle.
 
-Add DT compatible strings for the Variscite VAR-SOM-MX7 SoM variants
-used with the MX7CustomBoard carrier board.
+Maybe we have a different understanding of what "next cycle" means. As of t=
+oday
+we are in the v7.4 cycle, so I call this the current cycle.
 
-Both the first and second hardware revisions are supported, including
-eMMC and NAND configurations, with WM8731 variants available for the
-first hardware revision.
+In the next cycle, as discussed in [1], rust-next will drop casts::*_into_*=
+(),
+and so would drm-rust-next, if we start using casts::*_into_*() in nova-cor=
+e
+this cycle.
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-Signed-off-by: Stefano Radaelli <stefano.r@variscite.com>
----
-v6->v7:
- - 
+I don't want this situation, so we can either keep casts::*_into_*() around=
+ for
+even longer, or just never start using it.
 
-v5->v6:
- - 
+> The reason why I think it's preferable to use `casts` in nova-core
+> sooner is that some of the series currently under review (and that will
+> likely be merged next cycle) add more uses of the local `num` methods,
+> making the eentual conversion more painful. If we move to use `casts`
+> early we can at least avoid the churn on those cases that do not use
+> `cv!`.
 
-v4->v5:
- - 
-
-v3->v4:
- - 
-
-v2->v3:
- - 
-
-v1->v2:
- - Fixed commit message
- - Fixed spacing
-
- Documentation/devicetree/bindings/arm/fsl.yaml | 17 +++++++++++++++++
- 1 file changed, 17 insertions(+)
-
-diff --git a/Documentation/devicetree/bindings/arm/fsl.yaml b/Documentation/devicetree/bindings/arm/fsl.yaml
-index 656f2596e1d5..b732ff810265 100644
---- a/Documentation/devicetree/bindings/arm/fsl.yaml
-+++ b/Documentation/devicetree/bindings/arm/fsl.yaml
-@@ -950,6 +950,23 @@ properties:
-           - const: toradex,colibri-imx7d-emmc
-           - const: fsl,imx7d
- 
-+      - description: i.MX7D Variscite Boards based on VAR-SOM-MX7 Module
-+        oneOf:
-+          - items:
-+              - enum:
-+                  - variscite,var-som-imx7d-emmc-mx7customboard
-+                  - variscite,var-som-imx7d-emmc-wm8731-mx7customboard
-+                  - variscite,var-som-imx7d-nand-mx7customboard
-+                  - variscite,var-som-imx7d-nand-wm8731-mx7customboard
-+              - const: variscite,var-som-imx7d
-+              - const: fsl,imx7d
-+          - items:
-+              - enum:
-+                  - variscite,var-som-imx7d-v2-emmc-mx7customboard
-+                  - variscite,var-som-imx7d-v2-nand-mx7customboard
-+              - const: variscite,var-som-imx7d-v2
-+              - const: fsl,imx7d
-+
-       - description: i.MX7ULP based Boards
-         items:
-           - enum:
--- 
-2.47.3
-
+It would come at the price of adding cross tree dependencies and converting=
+ the
+cv! parts twice, which is much worse than one clean and independent convers=
+ion.
