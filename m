@@ -1,119 +1,311 @@
-Received: from mta0.migadu.com (out-249.mta0.migadu.com [91.218.175.249])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5527F345CCE
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 11:04:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.249
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DB883CF213;
+	Mon, 31 Aug 2026 11:05:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788174296; cv=none; b=PHYhV/LEPS8IBibFsPayZAF7hb85bGXcpREtchsAsPPWIn2lXaP9GsBDPr30Zawz2B1kusGIS9DPaFhMD4y8ZFdJBgNNupQ0u3ot9XJBrWVgRwgP5YG+DnpV0OXVsyAyPTDQYfymCo6Vw4erBy8a04UHcEWzmtMRMycr23KGdKM=
+	t=1788174304; cv=none; b=C1L3d6r0+xg+G4n49lR+Ps69V2FPwxhHkXfstBY15nKpSuRSreLjeQyolOeAOHDi/h2tx6B+juiqWmlpRY6fX6roNp2uaobjq5fWjppR5Qq7Rd2pyVCCz5KGPHht9cWupiCAdN9cLep+3h1WQT+ZB+5DqirPtVdA16niIrJpeA4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788174296; c=relaxed/simple;
-	bh=7IVZKYnERBZ3SOHrfGkdcEFGIt3uXESKgR5MqtCSsfI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ZNtjGCBYDQhy4x2n1QFwCPC6Hzt21MVRTXHeK4+Fu4W+B0Xo0JCcAP20S+f1iFGjYcLSriX7/Di4y3sceTPnYc0hdhq2rRByN0NtARf4U6nTchLMcrLh/MpFJqT78fQby0n2QVorD/7tnYyZYyUhaWHpXtZUOB0Iyl0SdbSDrZ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=B7Vnotce; arc=none smtp.client-ip=91.218.175.249
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788174304; c=relaxed/simple;
+	bh=YPMj4lSvftoy2mPSE2BoRYZKbnYiULh2Q6DhbTrJd2Y=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=u6DoB0wB8g5LnoCM+pD3sHj9sg8ySpLGex0yp7crTOpwtUtkia8djq8SH+ZR3Ob97T94Z3ZvXxnFkxskixXZ1680GCz5A8VNGd3BmscX4OmVpsX9jvgtmYWrzViEqEsrSeJ6nJJ7+zHaevq3ixR6oTo81MRNUgtgTOtnTlTvHX0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Vj6/xMDX; arc=none smtp.client-ip=198.175.65.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="B7Vnotce"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=7IVZKYnERBZ3SOHrfGkdcEFGIt3uXESKgR5MqtCSsfI=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788174293; v=1; x=1788779093;
- b=B7VnotceCQHqKt+GDUC7TI5Bj9LwMQGJ+wIaoI6f4DEwMKVz7Mwnn8w/CUYxGvK1V+4JuO/G
- ZXu8xcHhLjRAHMK/DpnvUCk2PU/9a3aBkaYQln457SILsT8qiwjZIT9KWI7v+nUa8osHEcFtE9+
- ufqPVnRxb1jJ2clLRjFfu3PM=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 46169a63f5267a32;
-	Mon, 31 Aug 2026 11:04:53 +0000
-X-Mizu-Trace-ID: 46169a63f5267a32
-X-Migadu-Flow: FLOW_OUT
-From: Jiayuan Chen <jiayuan.chen@linux.dev>
-To: bpf@vger.kernel.org
-Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	Shuah Khan <shuah@kernel.org>,
-	Mykyta Yatsenko <yatsenko@meta.com>,
-	Alan Maguire <alan.maguire@oracle.com>,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: [PATCH bpf v3 3/5] bpf: Fix NULL-ptr-deref in btf_var_show()
-Date: Mon, 31 Aug 2026 19:01:08 +0800
-Message-ID: <20260831110314.150870-4-jiayuan.chen@linux.dev>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260831110314.150870-1-jiayuan.chen@linux.dev>
-References: <20260831110314.150870-1-jiayuan.chen@linux.dev>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Vj6/xMDX"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788174303; x=1819710303;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=YPMj4lSvftoy2mPSE2BoRYZKbnYiULh2Q6DhbTrJd2Y=;
+  b=Vj6/xMDXTX6fI60/KP7+2aRjm0zcOjkzCuXdlbB/ZJtyNhuZn00BmN82
+   RtGil067/b6c+deY4WXp14+FrkB+3JNBSxgehvED9ZWmQw8BUXnUYSUgr
+   7HfeMb179mdAzcoMkxO0xc4AoOEUGq2Jdq++ki9z47En17Nbb+Ir11jQ3
+   HuKb9JD4syVLNgELiTBSo8xp63FJiUiei8xXlMJTpMQq1oMK89ray2X1l
+   UwZp/VH3zy6DoaX92Vgp+hfzbTDhV+e+xiMOhV0VIqoSZIOaGO2wp7EpA
+   k2oCtcqg9BdaIlYmzy7cdJiO4ykXi6L9tRJI0Fg7p5gjbSGfmpQMpL+pR
+   g==;
+X-CSE-ConnectionGUID: jwJ9aLXzQOS215CvmrG2WQ==
+X-CSE-MsgGUID: m+uBH/dhS32WDo5BgXbKgg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11891"; a="88431693"
+X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
+   d="scan'208";a="88431693"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 04:05:02 -0700
+X-CSE-ConnectionGUID: 7zOKNvibTQCwcwcmNeMpVA==
+X-CSE-MsgGUID: v38GUscTSeeAtaGg45E8sQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
+   d="scan'208";a="292272041"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by fmviesa002.fm.intel.com with ESMTP; 31 Aug 2026 04:04:58 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1008)
+	id F058E99; Mon, 31 Aug 2026 13:04:56 +0200 (CEST)
+Date: Mon, 31 Aug 2026 13:04:56 +0200
+From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Christian Bruel <christian.bruel@foss.st.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Srinivas Kandagatla <srini@kernel.org>,
+	Marek Vasut <marex@nabladev.com>, Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Pankaj Dev <pankaj.dev@st.com>, linux-usb@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org, linux-phy@lists.infradead.org
+Subject: Re: [PATCH 06/16] usb: typec: add FUSB340 SuperSpeed switch driver
+Message-ID: <apVf2GL-r0Cm8Q53@black.igk.intel.com>
+References: <20260821-ucpd-host-fusb340-v7-2-rfc-v1-0-c5e27cbc0795@foss.st.com>
+ <20260821-ucpd-host-fusb340-v7-2-rfc-v1-6-c5e27cbc0795@foss.st.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260821-ucpd-host-fusb340-v7-2-rfc-v1-6-c5e27cbc0795@foss.st.com>
 
-btf_var_show() calls btf_type_id_resolve() unconditionally, which
-dereferences btf->resolved_ids. That is NULL for a base BTF - e.g. the
-vmlinux BTF that bpf_snprintf_btf() renders against - since base BTF is
-not resolved during parsing. btf_modifier_show() guards this with
-'if (btf->resolved_ids)', but btf_var_show() does not.
+On Fri, Aug 21, 2026 at 06:23:17PM +0200, Fabrice Gasnier wrote:
+> Add a platform driver for the ON Semiconductor FUSB340 SuperSpeed switch.
+> The driver uses enable-gpios and select-gpios to control the switch and
+> registers Type-C switch and mux providers for Type-C applications where a
+> reversible cable requires a switch.
+> 
+> Assisted-by: GitHub-Copilot:GPT-5.4-mini
+> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+> ---
+>  drivers/usb/typec/mux/Kconfig   |   8 ++
+>  drivers/usb/typec/mux/Makefile  |   1 +
+>  drivers/usb/typec/mux/fusb340.c | 169 ++++++++++++++++++++++++++++++++++++++++
+>  3 files changed, 178 insertions(+)
 
-A BPF program that passes the type_id of a BTF_KIND_VAR from the vmlinux
-BTF to bpf_snprintf_btf() thus NULL-derefs:
+> diff --git a/drivers/usb/typec/mux/Kconfig b/drivers/usb/typec/mux/Kconfig
+> index 6dd8f961b593..6a1da48a2a8f 100644
+> --- a/drivers/usb/typec/mux/Kconfig
+> +++ b/drivers/usb/typec/mux/Kconfig
+> @@ -12,6 +12,14 @@ config TYPEC_MUX_FSA4480
+>  	  common USB Type-C connector.
+>  	  If compiled as a module, the module will be named fsa4480.
+>  
+> +config TYPEC_MUX_FUSB340
+> +	tristate "ON Semi FUSB340 SuperSpeed switch driver"
+> +	help
+> +	  Driver for the ON Semiconductor FUSB340 SuperSpeed switch, which
+> +	  provides support for routing SuperSpeed pairs in Type-C applications
+> +	  where a reversible cable requires a switch.
+> +	  If compiled as a module, the module will be named fusb340.
+> +
+>  config TYPEC_MUX_GPIO_SBU
+>  	tristate "Generic GPIO based SBU mux for USB Type-C applications"
+>  	help
 
-KASAN: probably user-memory-access in range [0x46638-0x4663f]
-RIP: 0010:btf_var_show (kernel/bpf/btf.c:2929)
-Call Trace:
- <TASK>
- btf_type_show (kernel/bpf/btf.c:8259)
- btf_type_snprintf_show (kernel/bpf/btf.c:8329)
- bpf_snprintf_btf (kernel/trace/bpf_trace.c:1047)
- bpf_prog_test_run_raw_tp (net/bpf/test_run.c:829)
- __sys_bpf (kernel/bpf/syscall.c:4804)
- do_syscall_64 (arch/x86/entry/syscall_64.c:84)
- entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
- </TASK>
+Why can't you just use MUX_GPIO_SBU (sorry if I've missed something)?
 
-Resolve the var's type directly with btf_type_skip_modifiers() when
-resolved_ids is NULL, mirroring btf_modifier_show().
+Thanks,
 
-Fixes: c4d0bfb45068 ("bpf: Add bpf_snprintf_btf helper")
-Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
----
- kernel/bpf/btf.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+> diff --git a/drivers/usb/typec/mux/Makefile b/drivers/usb/typec/mux/Makefile
+> index b4f599eb5053..ef8d2b05ff7f 100644
+> --- a/drivers/usb/typec/mux/Makefile
+> +++ b/drivers/usb/typec/mux/Makefile
+> @@ -1,6 +1,7 @@
+>  # SPDX-License-Identifier: GPL-2.0
+>  
+>  obj-$(CONFIG_TYPEC_MUX_FSA4480)		+= fsa4480.o
+> +obj-$(CONFIG_TYPEC_MUX_FUSB340)		+= fusb340.o
+>  obj-$(CONFIG_TYPEC_MUX_GPIO_SBU)	+= gpio-sbu-mux.o
+>  obj-$(CONFIG_TYPEC_MUX_PI3USB30532)	+= pi3usb30532.o
+>  obj-$(CONFIG_TYPEC_MUX_INTEL_PMC)	+= intel_pmc_mux.o
+> diff --git a/drivers/usb/typec/mux/fusb340.c b/drivers/usb/typec/mux/fusb340.c
+> new file mode 100644
+> index 000000000000..0f0e45743784
+> --- /dev/null
+> +++ b/drivers/usb/typec/mux/fusb340.c
+> @@ -0,0 +1,169 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * ON Semiconductor FUSB340 SuperSpeed switch driver
+> + *
+> + * Copyright (C) 2026 STMicroelectronics
+> + */
+> +
+> +#include <linux/device.h>
+> +#include <linux/gpio/consumer.h>
+> +#include <linux/kernel.h>
+> +#include <linux/module.h>
+> +#include <linux/mutex.h>
+> +#include <linux/of_device.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/usb/typec_altmode.h>
+> +#include <linux/usb/typec_mux.h>
+> +
+> +struct fusb340 {
+> +	struct gpio_desc *enable_gpio;
+> +	struct gpio_desc *select_gpio;
+> +	struct mutex lock; /* serialize orientation and mode updates */
+> +	struct typec_switch_dev *sw;
+> +	struct typec_mux_dev *mux;
+> +	enum typec_orientation orientation;
+> +	unsigned long mode;
+> +};
+> +
+> +static void fusb340_update_locked(struct fusb340 *fusb)
+> +{
+> +	bool enable = fusb->mode == TYPEC_STATE_USB &&
+> +		      fusb->orientation != TYPEC_ORIENTATION_NONE;
+> +	bool select = fusb->orientation == TYPEC_ORIENTATION_REVERSE;
+> +
+> +	gpiod_set_value_cansleep(fusb->enable_gpio, enable);
+> +	gpiod_set_value_cansleep(fusb->select_gpio, select);
+> +}
+> +
+> +static int fusb340_switch_set(struct typec_switch_dev *sw,
+> +			      enum typec_orientation orientation)
+> +{
+> +	struct fusb340 *fusb = typec_switch_get_drvdata(sw);
+> +
+> +	mutex_lock(&fusb->lock);
+> +
+> +	if (fusb->orientation != orientation) {
+> +		fusb->orientation = orientation;
+> +		fusb340_update_locked(fusb);
+> +	}
+> +
+> +	mutex_unlock(&fusb->lock);
+> +
+> +	return 0;
+> +}
+> +
+> +static int fusb340_mux_set(struct typec_mux_dev *mux,
+> +			   struct typec_mux_state *state)
+> +{
+> +	struct fusb340 *fusb = typec_mux_get_drvdata(mux);
+> +	int ret = 0;
+> +
+> +	mutex_lock(&fusb->lock);
+> +
+> +	if (state->mode != TYPEC_STATE_SAFE && state->mode != TYPEC_STATE_USB) {
+> +		ret = -EOPNOTSUPP;
+> +		goto out_unlock;
+> +	}
+> +
+> +	if (fusb->mode != state->mode) {
+> +		fusb->mode = state->mode;
+> +		fusb340_update_locked(fusb);
+> +	}
+> +
+> +out_unlock:
+> +	mutex_unlock(&fusb->lock);
+> +
+> +	return ret;
+> +}
+> +
+> +static int fusb340_probe(struct platform_device *pdev)
+> +{
+> +	struct device *dev = &pdev->dev;
+> +	struct typec_switch_desc sw_desc = { };
+> +	struct typec_mux_desc mux_desc = { };
+> +	struct fusb340 *fusb;
+> +	int ret;
+> +
+> +	fusb = devm_kzalloc(dev, sizeof(*fusb), GFP_KERNEL);
+> +	if (!fusb)
+> +		return -ENOMEM;
+> +
+> +	fusb->orientation = TYPEC_ORIENTATION_NONE;
+> +	fusb->mode = TYPEC_STATE_SAFE;
+> +
+> +	fusb->enable_gpio = devm_gpiod_get(dev, "enable", GPIOD_OUT_LOW);
+> +	if (IS_ERR(fusb->enable_gpio))
+> +		return dev_err_probe(dev, PTR_ERR(fusb->enable_gpio),
+> +				     "failed to get enable gpio\n");
+> +
+> +	fusb->select_gpio = devm_gpiod_get(dev, "select", GPIOD_OUT_LOW);
+> +	if (IS_ERR(fusb->select_gpio))
+> +		return dev_err_probe(dev, PTR_ERR(fusb->select_gpio),
+> +				     "failed to get select gpio\n");
+> +
+> +	mutex_init(&fusb->lock);
+> +
+> +	sw_desc.drvdata = fusb;
+> +	sw_desc.fwnode = dev_fwnode(dev);
+> +	sw_desc.set = fusb340_switch_set;
+> +
+> +	fusb->sw = typec_switch_register(dev, &sw_desc);
+> +	if (IS_ERR(fusb->sw)) {
+> +		ret = dev_err_probe(dev, PTR_ERR(fusb->sw),
+> +				    "failed to register typec switch\n");
+> +		goto err_mutex_destroy;
+> +	}
+> +
+> +	mux_desc.drvdata = fusb;
+> +	mux_desc.fwnode = dev_fwnode(dev);
+> +	mux_desc.set = fusb340_mux_set;
+> +
+> +	fusb->mux = typec_mux_register(dev, &mux_desc);
+> +	if (IS_ERR(fusb->mux)) {
+> +		ret = dev_err_probe(dev, PTR_ERR(fusb->mux),
+> +				    "failed to register typec mux\n");
+> +		goto err_unregister_switch;
+> +	}
+> +
+> +	platform_set_drvdata(pdev, fusb);
+> +
+> +	return 0;
+> +
+> +err_unregister_switch:
+> +	typec_switch_unregister(fusb->sw);
+> +err_mutex_destroy:
+> +	mutex_destroy(&fusb->lock);
+> +	return ret;
+> +}
+> +
+> +static void fusb340_remove(struct platform_device *pdev)
+> +{
+> +	struct fusb340 *fusb = platform_get_drvdata(pdev);
+> +
+> +	gpiod_set_value_cansleep(fusb->enable_gpio, 0);
+> +	gpiod_set_value_cansleep(fusb->select_gpio, 0);
+> +
+> +	typec_mux_unregister(fusb->mux);
+> +	typec_switch_unregister(fusb->sw);
+> +	mutex_destroy(&fusb->lock);
+> +}
+> +
+> +static const struct of_device_id fusb340_of_match[] = {
+> +	{ .compatible = "onnn,fusb340" },
+> +	{ }
+> +};
+> +MODULE_DEVICE_TABLE(of, fusb340_of_match);
+> +
+> +static struct platform_driver fusb340_driver = {
+> +	.probe = fusb340_probe,
+> +	.remove = fusb340_remove,
+> +	.driver = {
+> +		.name = "fusb340",
+> +		.of_match_table = fusb340_of_match,
+> +	},
+> +};
+> +module_platform_driver(fusb340_driver);
+> +
+> +MODULE_DESCRIPTION("ON Semiconductor FUSB340 SuperSpeed switch driver");
+> +MODULE_AUTHOR("Fabrice Gasnier <fabrice.gasnier@foss.st.com>");
+> +MODULE_LICENSE("GPL");
+> 
+> -- 
+> 2.43.0
 
-diff --git a/kernel/bpf/btf.c b/kernel/bpf/btf.c
-index 6e267c4c4e1f..3cf35ee49c10 100644
---- a/kernel/bpf/btf.c
-+++ b/kernel/bpf/btf.c
-@@ -2926,7 +2926,15 @@ static void btf_var_show(const struct btf *btf, const struct btf_type *t,
- 			 u32 type_id, void *data, u8 bits_offset,
- 			 struct btf_show *show)
- {
--	t = btf_type_id_resolve(btf, &type_id);
-+	/*
-+	 * btf_type_id_resolve() dereferences btf->resolved_ids, which is NULL
-+	 * for a base BTF (e.g. the vmlinux BTF that bpf_snprintf_btf() uses).
-+	 * Resolve the var's type directly in that case.
-+	 */
-+	if (btf->resolved_ids)
-+		t = btf_type_id_resolve(btf, &type_id);
-+	else
-+		t = btf_type_skip_modifiers(btf, t->type, &type_id);
- 
- 	btf_type_ops(t)->show(btf, t, type_id, data, bits_offset, show);
- }
 -- 
-2.43.0
-
+heikki
