@@ -1,141 +1,108 @@
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AA4839184B
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 11:45:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17F373B6366;
+	Mon, 31 Aug 2026 11:45:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788176743; cv=none; b=EY9NzvM4GfCc0+FUME4i7+01q0RvCJpPdn148rVBJG7SpMyVCgszlG30TBuJPhHpnzY3lpOAw+fTkGlwVjcakEGvjGrpP2Mp8M/7SOWieEMWM6TgrGyIn//NDmxjQnSJZ/2DHkywsrz2FMfHrrJtcNmye374y1SvqPtfiaw/abE=
+	t=1788176744; cv=none; b=eLcHn6U+er+6kQXcubn4VXXH19ycXEi3KqUx0Xqap3j+b5uxmA6GGASudXJbNId3/qg46WdEtjhDdCxE8K9xzpkqmtU+ijqBk9uiUzytW81DBfvBJrS8LCKFah4Ymtga2CMmf0KJXy4MG6YugWEYGfn0qs3WmraE82FQquqnW+c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788176743; c=relaxed/simple;
-	bh=BEeQAQ40I0LV0aGncVgyaQlkRdikCzo4unT8jnz0Nbk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=S9hklooPZtRvMgJeJuCyXsGQpItIuLzKmppsNw63GaaigZSbK33RgWvXWA8uZUmYzL8icpyfpWk9LwwZu1Ti0BQajUiSQuHIVVy/CXjB/rRu4q9Ke1Uza4KtOYLJhuZRZDWN04QZn/VB9nNa00EbxFv9i0eNzbs7UJGMiDBfN8U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=oEWF01Wv; arc=none smtp.client-ip=209.85.214.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1788176744; c=relaxed/simple;
+	bh=aD2I6hRAIkKKRiLhJCMWDF9AgppkULVbICs8o805ONk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:In-Reply-To:
+	 MIME-Version:Content-Type:Content-Disposition; b=Qlz4ayhJ/Cshnp0fxVGTqop3hvpQwEFEtxBCF1NsxhKzdbGX9FTRoRXTd8K9z0xVr8q7nbcC+sU8H+UUGrIGqWmbPL2plqck4bjl4ZKHGKPI/Ku1gHt9MPw2drnc6Kql7KlOkSKf0AljeSVR53Lw/wt+Pi4WfAGw5WLQsfN5jKQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PQBkfrBY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="oEWF01Wv"
-Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2d7195706f1so32455455ad.0
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 04:45:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1788176742; x=1788781542; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GIGBSwlzLQ3JNiD8igYqt5VspQFX9U8fXgxj4FZ+S/0=;
-        b=oEWF01WvD8Ovwmas7DXsVdkjpdlvp+zdCRUDy9G/YI8YeLTOkR2jNiLUozOaRUtKql
-         dSo/NBLVqMPaz09ONU5eyhhuh0kNCvD7uTsPQ6aPikGDwsI7x0H/+cbWezrRPhs8Ce+K
-         3ctkf8cZ4NT5pzBOCYKumK6zvl7NxHrFebO5Q=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788176742; x=1788781542;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=GIGBSwlzLQ3JNiD8igYqt5VspQFX9U8fXgxj4FZ+S/0=;
-        b=YQc5k24cckEV697PvjGhNWasAehaU7m9oRsOvXmKKFYdOoEyco6Sv2GRp5X6Et89Np
-         QcRPc9yZreJv1hMD7rpZpjATlU5+sQBNubj6JopxPyT8Dcr6XTCeNoyDGX8dKsJQRRId
-         lH07ej9I3x/DeNQJ2GbLfyekzP6tRE+WsRqu0/76+6n31vYhpU9RZu0R9XAN+UVAvVAI
-         DGX3Wla4QTk1uL+Iq5jEXN8KfEodh1HrkM7IGKn1zrRXDPwlO623+nMoMlqZS5yQrM2m
-         Tp5F2eoHE3lRBPWjQnT6ui6zwnAJ04afAq/XyyLzsmbmocTj0/q0uzbgfhm38My6adlm
-         t/JA==
-X-Forwarded-Encrypted: i=1; AKwUvBxuzEHXqKJ1xqB4og06gxaxkQ20zBjugTN+uYFWm94lHK2GKxfMUHWac0qqyHeQm/6AsqZ0SswH+SdCV5E=@vger.kernel.org
-X-Gm-Message-State: AFuF++nMwklthM7b9xSNt2pTlJl/E+mbIc9zbSHXa0XTlQ+Dp0nn95FH
-	zKgfBxqmOvImEa2YINW2k7wB7tfeIM4rBkzzYDftu/0lLU1NwuxKlDVGtQr9/kvVweQvfPFiWdw
-	yrg/fY3TS
-X-Gm-Gg: AYBFou2Wq3Jh32fiiv7u9qUltQe3D5OZ727QBRGhu5gsZH9Ql3Z7iQilh8CAVtMcTwX
-	wSKl3fllh3D5af0mEt3pt+5adGywQY9bXxltR14gL6Rrxg4u1ro8sX+pLScLaErCYuKG3eNUemE
-	QNcjgPRv9DkpSu3stbiQLQX1ibEr85K9j0KlbI2cl3GVQTYexFqHVzJLNTlYiV1IeSKL+8XbHmo
-	kkgDT24K2jNqHdfpffRl6EcCz9dQpyNw/zdqhNLkmqW4/WFsm69lcg5sQE0hc+Jbt9VpWENh+l5
-	Gsc2majfzEmDe0yT/Jjfm11Nvoz7vN5Tkn/PiR9u5hXK90I3sH1dW8l2VZNPIb0X7Ry51yJr0CS
-	yElCqKjCrHO4eyygvDKn61+WN6Qo8+cxEp30PTQlggHmuIn6fl4xpRv/FKSg1pZoH64kthChXuM
-	YH4qeOWDM83gPOxnJDZfPf07alGTzuIOn0u4IyUye62jk5RxLmTUykdEv5i37VWrpwot9/pHnYV
-	UhOGvDmzFhHzokC46XekaP5Vg==
-X-Received: by 2002:a17:902:d542:b0:2d8:d4cc:be67 with SMTP id d9443c01a7336-2d93fa4eaffmr38512435ad.20.1788176741746;
-        Mon, 31 Aug 2026 04:45:41 -0700 (PDT)
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com. [209.85.216.41])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d75986d3b7sm33944195ad.41.2026.08.31.04.45.40
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 31 Aug 2026 04:45:41 -0700 (PDT)
-Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-38d489b6b71so3792996a91.0
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 04:45:40 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzagBtRG/l2evnRTyVdZmkpYyqbbyTV/Y7caHNjn+FY1nys+x+q2eK9zHnCNHFQMclfaT5p61HSnNBtdmw=@vger.kernel.org
-X-Received: by 2002:a17:90a:d887:b0:392:b509:b1a5 with SMTP id
- 98e67ed59e1d1-39907e0f87bmr182688a91.14.1788176739296; Mon, 31 Aug 2026
- 04:45:39 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PQBkfrBY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45D0F1F00A3F;
+	Mon, 31 Aug 2026 11:45:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788176742;
+	bh=bC0M3u1C79l9mZxmj5fz1xjpZ2H2du7CqTBNxjYUL6E=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=PQBkfrBYrPDy7GY4tMT2xbCMVrCB1YoW5+2t7lkCi+/PXWgBjBK8dFy2a+Bl8heRL
+	 V3n48mZs5qlAlSs6IE4bAbYHKzwNa3blY1OW+muOXgy41yX504QKdN5Xq2chOn0m59
+	 Q9lPufYgEiULi+Qgpu5BKc8LNnlTQMcErbdKWdaDjRr0HQJfpbxccxTlMbUiyxLjRv
+	 WeYxNgQ+58kQkUM8rvaOlDsrhpjVj7RL3fN92lrUxuI8K4VWGKNyWf/kDaE6Xry3S4
+	 fXxRciCiSAj8NVxGBNZ+wfBunJtWbOg4wxt2MWrgNFUmNEUjVtoQc9bIwCrCWXrteX
+	 EbZ/D9y/zgqVA==
+Date: Mon, 31 Aug 2026 14:45:40 +0300
+From: Konstantin Sinyuk <ksinyuk@kernel.org>
+To: Leon Romanovsky <leon@kernel.org>
+Cc: dri-devel@lists.freedesktop.org,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Francois Dugast <francois.dugast@intel.com>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Donald Hunter <donald.hunter@gmail.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>, Ilia Levi <ilia.levi@intel.com>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>, linux-doc@vger.kernel.org,
+	linux-kselftest@vger.kernel.org, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH 0/12] drm/fabric: vendor-neutral topology
+ infrastructure for scale-up accelerator interconnects
+Message-ID: <fabric-leon-reply2.1788176465.ksinyuk@kernel.org>
+References: <cover.1787552412.git.ksinyuk@kernel.org>
+ <20260826093222.GC42790@unreal>
+ <fabric-leon-reply.1787844400.ksinyuk@kernel.org>
+ <20260827170911.GG42790@unreal>
+In-Reply-To: <20260827170911.GG42790@unreal>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260822112256.12346-1-jeffinphilip14@gmail.com> <20260827035155.10725-1-jeffinphilip14@gmail.com>
-In-Reply-To: <20260827035155.10725-1-jeffinphilip14@gmail.com>
-From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Mon, 31 Aug 2026 13:45:24 +0200
-X-Gmail-Original-Message-ID: <CANiDSCvPSF85ztR7XOvOmhRN_i52etjS36+jXmUAE1ci04mXgQ@mail.gmail.com>
-X-Gm-Features: AcwNN1WLAz6VN8qw8vpP77AnvuGLGadWRBZtJh28ci9mCBTda2OW0XvkaTo8pN0
-Message-ID: <CANiDSCvPSF85ztR7XOvOmhRN_i52etjS36+jXmUAE1ci04mXgQ@mail.gmail.com>
-Subject: Re: [PATCH] media: dvbdev: fix uaf in dvb_remove_device()
-To: Jeffin Philip <jeffinphilip14@gmail.com>
-Cc: hverkuil+cisco@kernel.org, kees@kernel.org, linma@zju.edu.cn, 
-	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, mchehab@kernel.org, 
-	sakari.ailus@linux.intel.com, stable@vger.kernel.org, 
-	syzbot+37578f730d38898f4b74@syzkaller.appspotmail.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: 7bit
 
-On Thu, 27 Aug 2026 at 05:52, Jeffin Philip <jeffinphilip14@gmail.com> wrote:
->
-> On Sat, 22 Aug 2026 16:52:56 +0530, Jeffin Philip wrote:
-> >In dvb_remove_device(), dvb_media_device_free(), device_destroy()
-> >and list_del() all dereference dvbdev regardless of its refcount.
-> >Thus, if refcount for dvbdev is 1, it can be freed and we
-> >operate on freed memory causing a UAF. Fix this by moving
-> >dvb_device_put() at the end of dvb_remove_device() so dvbdev
-> >members can be safely freed and assigned NULL when dvbdev is alive.
-> >
+On Thu, Aug 27, 2026 at 08:09:11PM +0300, Leon Romanovsky wrote:
+> The wording alone is not sufficient. Your proposal should be backed by
+> real devices representing different architectures from different
+> vendors.
 
-Reviewed-by: Ricardo Ribalda <ribalda@chromium.org>
+Agreed that discussion and simulation are not substitutes for hardware
+implementations. This RFC is meant to shape the model early, while it
+can still change, and to ask whether the objects hold for other scale-up
+protocols, including NVLink and SUE/ESUN, not only xGMI and UALink. It
+is not a merge proposal.
 
-> >Reported-by: syzbot+37578f730d38898f4b74@syzkaller.appspotmail.com
-> >Closes: https://syzkaller.appspot.com/bug?extid=37578f730d38898f4b74
-> >Fixes: 0fc044b2b5e2 ("media: dvbdev: adopts refcnt to avoid UAF")
-> >Cc: stable@vger.kernel.org
-> >Signed-off-by: Jeffin Philip <jeffinphilip14@gmail.com>
-> >---
-> > drivers/media/dvb-core/dvbdev.c | 3 ++-
-> > 1 file changed, 2 insertions(+), 1 deletion(-)
-> >
-> >diff --git a/drivers/media/dvb-core/dvbdev.c b/drivers/media/dvb-core/dvbdev.c
-> >index d753d329502a..9aa4b8fd7379 100644
-> >--- a/drivers/media/dvb-core/dvbdev.c
-> >+++ b/drivers/media/dvb-core/dvbdev.c
-> >@@ -598,7 +598,6 @@ void dvb_remove_device(struct dvb_device *dvbdev)
-> >
-> >       down_write(&minor_rwsem);
-> >       dvb_minors[dvbdev->minor] = NULL;
-> >-      dvb_device_put(dvbdev);
-> >       up_write(&minor_rwsem);
-> >
-> >       dvb_media_device_free(dvbdev);
-> >@@ -606,6 +605,8 @@ void dvb_remove_device(struct dvb_device *dvbdev)
-> >       device_destroy(dvb_class, MKDEV(DVB_MAJOR, dvbdev->minor));
-> >
-> >       list_del(&dvbdev->list_head);
-> >+
-> >+      dvb_device_put(dvbdev);
-> > }
-> > EXPORT_SYMBOL(dvb_remove_device);
-> >
-> >--
->
-> Friendly ping, let me know if you want me to fix anything.
->
-> Thanks,
-> Jeffin.
+> The amdgpu xGMI implementation already exposes the required UAPI through
+> sysfs and would need very strong incentives to abandon its "legacy"
+> users in favor of this new netlink interface.
 
+Nothing has to be abandoned. An amdgpu provider could publish topology
+through the common in-kernel API while the existing xGMI sysfs stays as
+it is.
 
+I agree that xGMI alone gives AMD little incentive to add another
+interface. The stronger motivation is UALink: it is a new cross-vendor
+ecosystem, and accelerator and switch components may be owned by
+different vendors and subsystems. Common userspace should not have to
+assemble one fabric from incompatible vendor interfaces.
 
--- 
-Ricardo Ribalda
+The cost of waiting until every vendor has a shipped interface is that
+the common model then has to preserve all of them. That is the position
+xGMI is already in today.
+
+> The last new subsystem I am aware of was introduced with implementations
+> from three different vendors to demonstrate its robustness. You should
+> probably aim for a similar level of coverage here.
+
+That is a reasonable robustness target, and I cannot claim it today.
+The next revision remains a design RFC. The object model and subsystem
+boundary still need review against different hardware architectures.
+
+The LPC BoF is the next step:
+
+  https://lpc.events/event/20/contributions/2412/
+
+Thanks,
+Konstantin
