@@ -1,51 +1,48 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05B684E084E;
-	Mon, 31 Aug 2026 13:39:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B6B84DF4A5;
+	Mon, 31 Aug 2026 13:39:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183583; cv=none; b=kMfMs0acl6o2zYrdYgK4BnhaAi0letVs3hlZhDGBQ+sT0T8aPH0CyTdnYctfvqRJmCJkjbZOJrvLsDZEJa+V5hAVqKOgFGqEeobtwUZBAYgE2OPQahDhuAHAErQJqJEEwrSva53oitK5M/FutnUsUdaH3n5UL5MmV1wEkpSn3cc=
+	t=1788183584; cv=none; b=eDtF0V0HswzOs4hxTTtLv1ORBVohrxhxIrubMEdRIwAsLm6M96yLu/0NIHh18+g5eina+Bhs4uxIKr+fZZHma06iLn/7pKbMx4TqbDGIYMqFgBmDtOstv1LzWh28KLsFVSjJShFhmQyB+8iQKqPAdFdDjphj7S+wmZgetmw1VLE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183583; c=relaxed/simple;
-	bh=dMwVcp8FBXhsGODO6KrlNhYd9dc9H1SiUP76wGM67Yg=;
+	s=arc-20240116; t=1788183584; c=relaxed/simple;
+	bh=NQNeAiCxThbAM87/kRb4hAAa0wmiok6S/jJut0bLhCs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=VivHM86B8f6hW7S+dWjr3Rnp6ld0d+k2Zow21rGImHEAWXAyQp2SU3mXK8AFy2pktCGpayG6OOwObyFdR02Hms9nzHc5CnX+YVVDnC1YWXBCc5LHwi+xLtq1ekQqt0IypyXF1bwfId+rhTHWMEaA4m1w5ighH47oxTeLi+YEHeY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iJn0GRdQ; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=KiqympbwVXwONQe1/k0LzWUZd0uit/kcG+NbE85Y2YJ2aU5pxmOY8BwjvXgLRgtrA21QG1Cm89Jj9umtmmKoLfGHYn0uH8XVucDK/9CJHTsFc4Pc6peE62jboHWqeBsrqNHV/b3NSl9MUEjFKRY1gXeGUAHhIL5ZJeSObooA38M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iSkA1a6y; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iJn0GRdQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B0FB1F00A3E;
-	Mon, 31 Aug 2026 13:39:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iSkA1a6y"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D6DB1F00ADB;
+	Mon, 31 Aug 2026 13:39:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788183580;
-	bh=HoB4g/rt9CqwjhhLJydbZlhFZuVjpMaZ8oMy9xa3FGQ=;
+	s=k20260515; t=1788183582;
+	bh=jR1/wuPn/1SFN5+Sk8Tes+Wj3LOxpbIQR0arzMeFJgA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=iJn0GRdQ/0pnDM/B63J/+VLi0rDX4dH0H+pIJvRYRI1oY9QyNmxfXPlxSNz9RPb5s
-	 jllJRqrADRwmtm75f/7sIlrGtZ50752zIikT6K+ad1YbW/jdVeOCsJrHqQgnrqrSYV
-	 ImQPCUHvG64veA2qMxvzT8WG9ku8Mqkh6vVZYaAkTqGVyhwxapSqOc+6R1pwxMsRNL
-	 kV9uBP0IBLuZwsL+VrJCBqUg3UXZHce14Aj+Rl3xsuq3G9Y05m8EGlubd6DPQPhcS0
-	 lhl2arWjFtAEwv6lKQxyxB/x3aA34rBz2Q4TRnW0DbqgTVhLeqA91E0mXvCuGw09J3
-	 tArUGGs0T0maw==
+	b=iSkA1a6yEAhf2v0txq0yUIHWAX3NsVYW4KqZzWTY+U5OGGcTrjXpGtnu0zblrMyzU
+	 NS/vUq2HgpTwI2Rf6Dh3GIs70WihhZLJbRDnyAQUhAn5XSs3nhYIYcZ5cI4Shdc3af
+	 GcGN0BKVcM73QISzaT8JnKUr9b7lntloMvzI7rtwFJzrJpcakY/njynRKQMN6v7JGX
+	 MjkEBTsXENPMCJjQlR2GDeopvbBnl4OHpkAfa9wYcqTHD+tYJ8V/QuuO/Sxdjaomyk
+	 ypHdyU4s6lveNuE2wkQ7ZWJonFE3Biy9poZqbtw2XvcVaIgrDCBqj+ROREdYrRN4Q5
+	 kR2eIj2grBHpw==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Bard Liao <yung-chuan.liao@linux.intel.com>,
-	=?UTF-8?q?P=C3=A9ter=20Ujfalusi?= <peter.ujfalusi@linux.intel.com>,
-	Liam Girdwood <liam.r.girdwood@intel.com>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
-	Vinod Koul <vkoul@kernel.org>,
-	Mark Brown <broonie@kernel.org>,
+Cc: Maoyi Xie <maoyixie.tju@gmail.com>,
+	Alan Stern <stern@rowland.harvard.edu>,
+	Andrew Jeffery <andrew@codeconstruct.com.au>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>,
-	perex@perex.cz,
-	tiwai@suse.com,
-	lgirdwood@gmail.com,
-	daniel.baluta@nxp.com,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	sound-open-firmware@alsa-project.org
-Subject: [PATCH AUTOSEL 6.18] ASoC/soundwire: Intel: reset the PCMSyCM registers in hda_sdw_bpt_close
-Date: Mon, 31 Aug 2026 09:23:28 -0400
-Message-ID: <20260831133314.4125787-180-sashal@kernel.org>
+	neal_liu@aspeedtech.com,
+	joel@jms.id.au,
+	linux-aspeed@lists.ozlabs.org,
+	linux-usb@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 6.18-6.1] usb: gadget: aspeed_udc: avoid past-the-end iterator in dequeue
+Date: Mon, 31 Aug 2026 09:23:29 -0400
+Message-ID: <20260831133314.4125787-181-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -55,77 +52,84 @@ List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 6.18.48
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Bard Liao <yung-chuan.liao@linux.intel.com>
+From: Maoyi Xie <maoyixie.tju@gmail.com>
 
-[ Upstream commit 992eb0dfbc4f594d60ae57974efa835bfac34d1e ]
+[ Upstream commit e2ffaac1884b921b8ec2b3a964c6a8b5d610bf4b ]
 
-Resetting the PCMSyCM registers is required for Intel SoundWire stream. The
-same procedure is done in sdw_hda_dai_hw_params() for the normal
-SoundWire stream, too.
+ast_udc_ep_dequeue() declares the loop cursor `req` outside the
+list_for_each_entry(). After the loop it tests `&req->req != _req`
+to decide whether the request was found. If the queue holds no
+match, `req` is past-the-end. It then aliases
+container_of(&ep->queue, struct ast_udc_request, queue) via offset
+cancellation. Whether that synthetic address equals `_req` depends
+on heap layout. The function can return 0 without dequeueing
+anything.
 
-Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Reviewed-by: Liam Girdwood <liam.r.girdwood@intel.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>
-Acked-by: Vinod Koul <vkoul@kernel.org>
-Link: https://patch.msgid.link/20260730012518.2180906-1-yung-chuan.liao@linux.intel.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
+Default `rc` to -EINVAL and set it to 0 only inside the match
+branch. `req` is no longer read after the loop, so the past-the-end
+dereference goes away. No extra cursor variable or post-loop test
+is needed.
+
+Suggested-by: Alan Stern <stern@rowland.harvard.edu>
+Suggested-by: Andrew Jeffery <andrew@codeconstruct.com.au>
+Signed-off-by: Maoyi Xie <maoyixie.tju@gmail.com>
+Link: https://patch.msgid.link/20260521065428.3261238-1-maoyixie.tju@gmail.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-# Stable Backport Analysis: Reset PCMSyCM Registers in
-`hda_sdw_bpt_close`
+# Stable Backport Analysis: `usb: gadget: aspeed_udc: avoid past-the-end
+iterator in dequeue`
 
-**Local tree:** `v6.18.44` (6.18.y stable)
-**Commit under review:** `992eb0dfbc4f5` — *ASoC/soundwire: Intel: reset
-the PCMSyCM registers in hda_sdw_bpt_close*
-**Status in this tree:** Not present (on `master` only)
+**Local tree:** `v6.18.44` (`stable/linux-6.18.y`, detached HEAD)
+**Fix commit on master:** `e2ffaac1884b9` (not present in this tree)
 
 ---
 
 ## PHASE 1: COMMIT MESSAGE FORENSICS
 
-### Step 1.1: Subject Line
-**Record:** `[ASoC/soundwire: Intel]` `[reset]` — Reset PCMSyCM
-registers during BPT stream close to match the open/setup path.
+### Step 1.1: Subject line
+**Record:** `[usb: gadget: aspeed_udc]` **`avoid`** — fix incorrect
+post-loop use of a `list_for_each_entry()` cursor in
+`ast_udc_ep_dequeue()`.
 
 ### Step 1.2: Tags
 **Record:**
-- **Signed-off-by:** Bard Liao, Mark Brown (ignore pipeline-added SOBs)
-- **Reviewed-by:** Péter Ujfalusi, Liam Girdwood, Pierre-Louis Bossart
-- **Acked-by:** Vinod Koul (SoundWire maintainer)
-- **Link:** https://patch.msgid.link/20260730012518.2180906-1-yung-
-  chuan.liao@linux.intel.com
-- **No** Fixes:, Reported-by:, Tested-by:, Cc: stable@vger.kernel.org
-- Notable: Three Intel audio maintainers reviewed; SoundWire maintainer
-  Acked.
+- **Suggested-by:** Alan Stern `<stern@rowland.harvard.edu>` (USB
+  maintainer)
+- **Suggested-by:** Andrew Jeffery `<andrew@codeconstruct.com.au>`
+  (Aspeed contributor)
+- **Signed-off-by:** Maoyi Xie, Greg Kroah-Hartman
+- **Link:** https://patch.msgid.link/20260521065428.3261238-1-
+  maoyixie.tju@gmail.com
+- No `Fixes:`, `Reported-by:`, `Cc: stable`, `Reviewed-by:`, or `Tested-
+  by:` tags
+- Notable: suggestions from core USB and Aspeed reviewers; patch went
+  through v1→v3 on list
 
-### Step 1.3: Body Analysis
+### Step 1.3: Body analysis
 **Record:**
-- **Bug:** `hda_sdw_bpt_close()` deprepared DMA buffers but did not
-  reset PCMSyCM hardware registers programmed during
-  `hda_sdw_bpt_open()`.
-- **Symptom:** Not explicitly stated (no crash trace or user report),
-  but stale PCMSyCM state can interfere with subsequent SoundWire audio
-  streams on the same link.
-- **Root cause:** Asymmetric open/close — open programs PCMSyCM via
-  `hdac_bus_eml_sdw_map_stream_ch()`, close omitted the inverse reset.
-- **Reference pattern:** Commit message cites `sdw_hda_dai_hw_params()`;
-  the actual reset pattern lives in `sdw_hda_dai_hw_free()` (commit
-  message typo, not a code issue).
+- **Bug:** After `list_for_each_entry()` finds no match, `req` is a
+  past-the-end sentinel. Post-loop `&req->req != _req` uses that invalid
+  cursor via `container_of()` offset arithmetic.
+- **Symptom:** `ast_udc_ep_dequeue()` can return `0` (success) without
+  dequeuing anything.
+- **Root cause:** `rc` defaults to `0`; the post-loop pointer comparison
+  is unreliable when the iterator is past-the-end.
+- **Version info:** None explicit; driver has been in-tree since 5.19.
 
-### Step 1.4: Hidden Bug Fix?
-**Record:** Yes. Despite the neutral "reset" wording, this is a real
-hardware cleanup bug — missing register teardown on a production code
-path, not cosmetic cleanup.
+### Step 1.4: Hidden bug fix?
+**Record:** Yes — clearly a logic/correctness bug in the USB gadget
+dequeue API, not cosmetic cleanup. Matches the established idiom in
+sibling `aspeed-vhub` and `pch_udc` drivers.
 
 ---
 
@@ -133,439 +137,318 @@ path, not cosmetic cleanup.
 
 ### Step 2.1: Inventory
 **Record:**
-| File | Change |
-|------|--------|
-| `sound/soc/sof/intel/hda-sdw-bpt.c` | +24 lines (core fix) |
-| `drivers/soundwire/intel_ace2x.c` | +3 lines (pass `link_id`) |
-| `include/sound/hda-sdw-bpt.h` | +2 lines (API signature) |
+- **File:** `drivers/usb/gadget/udc/aspeed_udc.c` (+2 / −5 lines)
+- **Function:** `ast_udc_ep_dequeue()`
+- **Scope:** Single-file, surgical fix
 
-**Functions modified:** `hda_sdw_bpt_close()`, `hda_sdw_bpt_open()`
-(error path), `intel_ace2x_bpt_open_stream()`,
-`intel_ace2x_bpt_close_stream()`
-**Scope:** Single-subsystem, surgical fix across 3 files.
-
-### Step 2.2: Code Flow Change
+### Step 2.2: Code flow change
 **Record:**
-- **Hunk 1 (`hda_sdw_bpt_close`):** Before: only DMA deprepare. After:
-  reset PDI0 (playback) and PDI1 (capture) PCMSyCM registers via
-  `hdac_bus_eml_sdw_map_stream_ch(..., 0, 0, stream)`, then deprepare
-  DMA regardless of reset errors.
-- **Hunk 2 (API):** Adds `int link_id` parameter to
-  `hda_sdw_bpt_close()` to identify the SoundWire sublink.
-- **Hunk 3 (callers):** `intel_ace2x.c` passes `sdw->instance`;
-  `hda_sdw_bpt_open()` error path passes existing `link_id`.
+- **Before:** `rc = 0`; on match, dequeue and `break`; after loop, if
+  `&req->req != _req` then `rc = -EINVAL` (reads past-the-end `req`).
+- **After:** `rc = -EINVAL`; on match, dequeue, set `rc = 0`, `break`;
+  no post-loop read of `req`.
+- **Path affected:** Error/normal dequeue path when the requested
+  `usb_request` is not on the endpoint queue.
 
-### Step 2.3: Bug Mechanism
-**Record:** **Category (g) — logic/correctness / hardware state
-cleanup.**
-`hda_sdw_bpt_open()` programs PCMSyCM for PDI0 and PDI1. Without reset
-on close, hardware retains stale channel/stream mappings. The normal
-SoundWire path already resets in `sdw_hda_dai_hw_free()`:
+### Step 2.3: Bug mechanism
+**Record:** **Category (g) logic/correctness fix** — violates
+`usb_ep_dequeue()` contract (must return negative error if request is
+not active on endpoint). The post-loop test uses an invalid list
+iterator, producing unreliable success/failure results.
 
-```631:638:sound/soc/sof/intel/hda-dai.c
-        /* in the case of SoundWire we need to reset the PCMSyCM
-registers */
-        ret = hdac_bus_eml_sdw_map_stream_ch(sof_to_bus(sdev), link_id,
-cpu_dai->id,
-                                             0, 0, substream->stream);
-```
-
-The fix applies the same reset pattern to the BPT path.
-
-### Step 2.4: Fix Quality
-**Record:** Obviously correct — mirrors established
-`sdw_hda_dai_hw_free()` behavior. Minimal, symmetric with `_open()`.
-Pierre-Louis Bossart confirmed: *"LGTM, this patch makes the _close()
-sequence and api mimic the _open() one."* Low regression risk; continues
-DMA cleanup even if register reset fails.
+### Step 2.4: Fix quality
+**Record:** Obviously correct; matches `pch_udc_pcd_dequeue()` and
+`ast_vhub_epn_dequeue()` patterns. Minimal regression risk — only
+changes return value for the not-found path to the correct `-EINVAL`.
 
 ---
 
 ## PHASE 3: GIT HISTORY INVESTIGATION
 
 ### Step 3.1: Blame
-**Record:** `hda_sdw_bpt_close()` introduced in `5d5cb86fb46ea`
-(2025-02-27, "add helpers for SoundWire BPT DMA") without PCMSyCM reset.
-Present since **v6.15**, including this tree at v6.18.44.
+**Record:** Buggy code introduced in `055276c132056` (“usb: gadget: add
+Aspeed ast2600 udc driver”, May 2022, landed in 5.19). Present unchanged
+in this tree at lines 697–713.
 
-### Step 3.2: Fixes: Tag
-**Record:** N/A — no Fixes: tag.
+### Step 3.2: Fixes: tag
+**Record:** N/A — no `Fixes:` tag. Introducing commit is
+`055276c132056`, confirmed ancestor of HEAD.
 
-### Step 3.3: Related File History
-**Record:** Recent related commits in this tree:
-- `67d0475e78b39` — release bpt_stream when close
-- `8b184c34806e5` — set persistent_buffer false
-- `5d5cb86fb46ea` — initial BPT helpers
+### Step 3.3: Related file history
+**Record:** Recent `aspeed_udc.c` changes are other small fixes
+(endpoint validation, DMA, spinlock). No duplicate fix for this issue.
+Standalone one-patch fix (v3 is final applied form).
 
-Standalone single-patch series (v1 only). No prerequisite commits
-required.
-
-### Step 3.4: Author Context
-**Record:** Bard Liao is a regular Intel SoundWire/SOF contributor.
-Related commits in this subsystem include BPT CHAIN_DMA support and
-stream lifecycle fixes.
+### Step 3.4: Author context
+**Record:** Maoyi Xie is not the driver author (Neal Liu) but submitted
+a focused fix with guidance from Alan Stern and Andrew Jeffery. Greg K-H
+committed to mainline.
 
 ### Step 3.5: Dependencies
-**Record:** No dependencies. Uses `hdac_bus_eml_sdw_map_stream_ch()`
-(present since 2023, `ccc2f0c1b6b61`) and `sdw->instance` (already used
-in `hda_sdw_bpt_open()` at line 167 of `intel_ace2x.c`). Applies
-standalone.
+**Record:** None. Self-contained; no prerequisite commits. Applies
+cleanly to current `6.18.y` file.
 
 ---
 
 ## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
-### Step 4.1: Original Discussion
-**Record:**
-- **URL:** https://patch.msgid.link/20260730012518.2180906-1-yung-
-  chuan.liao@linux.intel.com
-- **Series:** v1 only (no revisions)
-- **Key feedback:** Vinod Koul Acked; Pierre-Louis Bossart Reviewed with
-  LGTM
-- **No** stable nomination, NAKs, or explicit failure reports in thread
+### Step 4.1: Original discussion
+**Record:** `b4 dig -c e2ffaac1884b9` → [PATCH v3] thread at https://pat
+ch.msgid.link/20260521065428.3261238-1-maoyixie.tju@gmail.com. Series:
+v2 (2026-05-19), v3 (2026-05-21, applied version). Alan Stern reviewed
+v1 and suggested the correct loop/return-value idiom; Andrew Jeffery
+suggested v3’s `rc = -EINVAL` default shape.
 
 ### Step 4.2: Reviewers
-**Record:** CC'd: linux-sound, broonie, tiwai, vkoul, pierre-
-louis.bossart, peter.ujfalusi — appropriate subsystem maintainers and
-Intel audio team.
+**Record:** `b4 dig -w`: CC’d Greg Kroah-Hartman, Alan Stern, Andrew
+Jeffery, Neal Liu, linux-usb, linux-aspeed, linux-arm-kernel.
+Appropriate maintainer coverage.
 
-### Step 4.3: Bug Reports
-**Record:** No Reported-by:, syzbot, or bugzilla links. Impact inferred
-from code analysis and established PCMSyCM reset requirement.
+### Step 4.3: Bug report
+**Record:** No syzbot/bugzilla report. Bug identified via code review
+(Alan Stern). Severity: API contract violation with potential request-
+lifecycle confusion.
 
-### Step 4.4: Related Patches
-**Record:** Related stable-nominated PCMSyCM fix: `6e38a7e098d32`
-("Handle prepare without close for non-HDA DAI's") included `Cc:
-stable@vger.kernel.org # 6.10.x 6.11.x` for SDW PCMSyCM reset on
-prepare-after-drain. Same subsystem, same register family.
+### Step 4.4: Series context
+**Record:** Standalone fix; v3 is the committed version. No other
+patches required.
 
-### Step 4.5: Stable List History
-**Record:** No stable-list discussion found for this specific patch. Not
-a negative signal.
+### Step 4.5: Stable list history
+**Record:** No `Cc: stable` nominations found in thread (`grep -i
+stable` on saved mbox). Not a negative signal per instructions.
 
 ---
 
 ## PHASE 5: CODE SEMANTIC ANALYSIS
 
-### Step 5.1: Key Functions
-**Record:** `hda_sdw_bpt_close()`, `intel_ace2x_bpt_close_stream()`,
-`intel_ace2x_bpt_open_stream()`, `hdac_bus_eml_sdw_map_stream_ch()`
+### Step 5.1: Key functions
+**Record:** `ast_udc_ep_dequeue()` modified; registered in
+`ast_udc_ep_ops.dequeue`.
 
 ### Step 5.2: Callers
-**Record:**
-- `intel_ace2x_bpt_close_stream()` — called from BPT error paths and
-  after `intel_ace2x_bpt_wait()` completes
-- `hda_sdw_bpt_close()` — called from `intel_ace2x_bpt_open_stream()`
-  error path and `hda_sdw_bpt_open()` error path
-- BPT entry: `sdw_bpt_send_async()` / `sdw_bpt_wait()` in `bus.c` →
-  Intel `hw_ops` → `intel_ace2x_bpt_*`
-- Used for SoundWire register access (BRA/BPT), codec driver operations,
-  and debugfs BPT interface
+**Record:** Called via `usb_ep_dequeue()` in
+`drivers/usb/gadget/udc/core.c`, which dispatches to `ep->ops->dequeue`.
+Gadget function drivers call this from disconnect/cancel paths:
+`composite.c`, `f_fs.c`, `u_audio.c`, `f_mass_storage.c`, `f_ecm.c`,
+`u_serial.c`, `raw_gadget.c`, etc. Callable from process or interrupt
+context per `core.c` documentation.
 
 ### Step 5.3: Callees
-**Record:** `hdac_bus_eml_sdw_map_stream_ch()` programs/resets PCMSyCM
-shim registers; `hda_sdw_bpt_dma_deprepare()` tears down DMA.
+**Record:** On successful match: `list_del_init()`, `ast_udc_done()`
+(unmap + completion callback). Fix only changes behavior when no match
+is found.
 
 ### Step 5.4: Reachability
-**Record:** Triggered during SoundWire BPT transfers on Intel ACE2.x
-platforms with `CONFIG_SND_SOF_SOF_HDA_SDW_BPT` (auto-selected for Intel
-LNL+ with SoundWire). Reachable from kernel driver/codec operations and
-debugfs — not a dead path.
+**Record:** Reachable whenever a USB gadget function cancels an in-
+flight request on an Aspeed UDC endpoint — common during teardown, error
+recovery, or userspace interrupt (e.g. FunctionFS). Requires
+`CONFIG_USB_ASPEED_UDC` on `ARCH_ASPEED` (AST260x BMC SoCs).
 
-### Step 5.5: Similar Patterns
-**Record:** `sdw_hda_dai_hw_free()` uses identical reset
-(`channel_mask=0, stream_id=0`). Open side in `hda_sdw_bpt_open()`
-already programs PCMSyCM at lines 277–292. Fix completes the symmetry.
+### Step 5.5: Similar patterns
+**Record:** `aspeed-vhub` `ast_vhub_epn_dequeue()` already uses `rc =
+-EINVAL` + separate iterator (`epn.c:472–488`). `pch_udc_pcd_dequeue()`
+uses same pattern (`pch_udc.c:1862–1878`). `aspeed_udc` was the outlier.
 
 ---
 
 ## PHASE 6: CROSS-REFERENCING AGAINST LOCAL TREE
 
-### Step 6.1: Buggy Code Exists?
-**Record:** **Yes.** `hda_sdw_bpt_close()` in v6.18.44 only deprepares
-DMA (lines 425–438 of `hda-sdw-bpt.c`). Bug present since v6.15
-(`5d5cb86fb46ea`), well before 6.18 branched.
+### Step 6.1: Buggy code exists?
+**Record:** **Yes.** Current tree at
+`drivers/usb/gadget/udc/aspeed_udc.c:697–713` has `int rc = 0` and post-
+loop `if (&req->req != _req)`. Fix commit `e2ffaac1884b9` is **not** an
+ancestor of HEAD (`merge-base` check failed).
 
-### Step 6.2: Backport Complications
-**Record:** `.c` files apply cleanly (`git apply --check` passes).
-Header file fails automated apply because master added
-`hda_sdw_bpt_get_buf_size_alignment()` after `hda_sdw_bpt_close()` —
-that function is **not** in v6.18.44. The signature change itself is
-trivial and needs only dropping that extra context line. **Minor manual
-adjustment**, not a rework.
+### Step 6.2: Backport complications
+**Record:** Clean apply expected — 7-line hunk, no structural conflicts.
+File has had only minor unrelated changes since driver addition.
 
-### Step 6.3: Related Fixes Already Present?
-**Record:** No equivalent PCMSyCM reset in BPT close path. Other BPT
-fixes present (`67d0475e78b39`, `8b184c34806e5`) address different
-issues.
+### Step 6.3: Related fixes already present?
+**Record:** None found for this issue.
 
 ---
 
 ## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
 
-### Step 7.1: Subsystem Criticality
-**Record:** **sound/ASoC/SOF/Intel SoundWire** — IMPORTANT. Affects
-audio on modern Intel laptops (Meteor Lake, Lunar Lake, Panther Lake)
-with SoundWire codecs.
+### Step 7.1: Subsystem criticality
+**Record:** **drivers/usb/gadget** — IMPORTANT for Aspeed BMC/embedded
+platforms using USB gadget mode; peripheral globally but significant for
+OpenBMC/AST260x deployments.
 
-### Step 7.2: Subsystem Activity
-**Record:** Actively developed — BPT support added in 6.15, multiple
-follow-up fixes through 6.18.y.
+### Step 7.2: Subsystem activity
+**Record:** Driver actively maintained with several post-introduction
+fixes in this tree (DMA, spinlock, endpoint validation). Bug predates
+all of them.
 
 ---
 
 ## PHASE 8: IMPACT AND RISK ASSESSMENT
 
-### Step 8.1: Who Is Affected
-**Record:** Users of Intel SOF + SoundWire platforms with BPT enabled
-(`CONFIG_SND_SOF_SOF_HDA_SDW_BPT`). Growing population of modern Intel
-laptops.
+### Step 8.1: Who is affected
+**Record:** Users of AST260x SoCs with `CONFIG_USB_ASPEED_UDC` running
+USB gadget functions (mass storage, ECM, UAC, FunctionFS, etc.).
 
-### Step 8.2: Trigger Conditions
-**Record:** Any BPT transfer on a SoundWire link (register access, codec
-configuration, debugfs BPT operations) followed by normal audio use on
-the same link. Not timing-dependent; deterministic stale hardware state.
+### Step 8.2: Trigger conditions
+**Record:** `usb_ep_dequeue()` called with a `usb_request` not currently
+queued on that endpoint — happens during disconnect, I/O cancellation,
+or race between completion and cancel. Not every boot, but a normal
+operational path. Unprivileged users can trigger via gadget
+configfs/functionfs on systems exposing gadget to userspace.
 
-### Step 8.3: Failure Mode Severity
-**Record:** Stale PCMSyCM mappings can cause subsequent audio stream
-setup/playback failures on the affected link. **Severity: MEDIUM-HIGH**
-for affected hardware — functional audio breakage, not kernel
-crash/oops/corruption.
+### Step 8.3: Failure mode severity
+**Record:** False success (`0` returned, nothing dequeued) → callers
+assume request canceled. Example in `u_audio.c:455–463`: on success,
+request is not freed but pointer is cleared; completion may still fire
+later → request lifecycle confusion, potential use-after-free or double-
+free depending on caller. **Severity: HIGH** (correctness bug with
+memory-safety consequences possible); not a guaranteed crash on every
+call.
 
-### Step 8.4: Risk-Benefit
+### Step 8.4: Risk-benefit
 **Record:**
-- **Benefit:** Prevents audio malfunction after BPT operations;
-  completes missing hardware cleanup
-- **Risk:** Very low — ~30 lines, mirrors proven pattern, well-reviewed
-- **Ratio:** Clear benefit outweighs minimal risk
+- **Benefit:** HIGH for affected hardware — restores correct
+  `usb_ep_dequeue()` semantics
+- **Risk:** VERY LOW — 5-line idiom change, well-reviewed, matches
+  sibling drivers
+- **Ratio:** Strongly favors backport
 
 ---
 
 ## PHASE 9: FINAL SYNTHESIS
 
-### Step 9.1: Evidence Summary
+### Step 9.1: Evidence summary
 
 **FOR backport:**
-- Real bug: missing PCMSyCM register reset on BPT close
-- Bug present in v6.18.44 since BPT introduction (v6.15)
-- Mirrors `sdw_hda_dai_hw_free()` — same reset already deemed stable-
-  worthy in related commit
-- Small, surgical, obviously correct
-- Reviewed by 3 maintainers + Acked by SoundWire maintainer
-- Can break audio on production Intel SoundWire hardware
+- Real bug present since driver introduction (2022)
+- Buggy code confirmed in `v6.18.44`
+- Can return false success on dequeue failure — API contract violation
+- USB maintainers (Alan Stern) and Aspeed developers guided the fix
+- Tiny, surgical, obviously correct change
+- Sibling `aspeed-vhub` already uses correct pattern
+- Gadget callers depend on accurate dequeue return values
 
 **AGAINST backport:**
-- No explicit user crash report or syzbot finding
-- Commit message doesn't describe concrete failure symptoms
-- Header needs trivial manual adjustment for 6.18.y apply
+- Limited to `CONFIG_USB_ASPEED_UDC` platforms (not universal)
+- No syzbot/CVE report; false-success case may be uncommon in practice
+- No explicit stable nomination in mailing list
 
-**Unresolved:** No documented user-facing failure report; impact
-inferred from code analysis and hardware register semantics.
+**Unresolved:** Exact frequency of spurious success in production
+(address-coincidence scenario); not needed to justify fix given clear
+API bug.
 
-### Step 9.2: Stable Rules Checklist
-| Criterion | Result |
-|-----------|--------|
-| 1. Obviously correct and tested? | **PASS** — mirrors existing
-pattern; maintainer-reviewed |
-| 2. Fixes real bug? | **PASS** — missing hardware register cleanup |
-| 3. Important issue? | **PASS** — audio failure on affected Intel
-hardware |
-| 4. Small and contained? | **PASS** — ~30 lines, 3 files |
-| 5. No new features/APIs? | **PASS** — extends existing close with
-required cleanup; signature change is internal |
-| 6. Can apply to local tree? | **PASS** — clean apply on .c files;
-trivial header tweak |
+### Step 9.2: Stable rules checklist
+1. Obviously correct and tested? **PASS** — standard UDC idiom; reviewed
+   by Alan Stern and Andrew Jeffery; committed by Greg K-H
+2. Fixes a real bug affecting users? **PASS** — incorrect dequeue return
+   value on Aspeed UDC
+3. Important issue? **PASS** — request lifecycle / potential UAF;
+   severity HIGH for affected configs
+4. Small and contained? **PASS** — 1 file, net −3 lines
+5. No new features or APIs? **PASS**
+6. Can apply to local tree? **PASS** — driver and buggy code both
+   present; clean apply
 
-### Step 9.3: Exception Categories
-**Record:** N/A — standard bug fix, not device ID/quirk/DT/build/doc
-exception.
+### Step 9.3: Exception categories
+**Record:** N/A (not device ID, quirk, DT, build, or docs — standard
+driver bug fix).
 
-### Step 9.4: Decision Rationale
-
-This commit fixes a genuine omission in the SoundWire BPT teardown path.
-Since BPT was introduced in v6.15, `hda_sdw_bpt_open()` has programmed
-PCMSyCM registers while `hda_sdw_bpt_close()` left them programmed —
-unlike the normal SoundWire audio path, which explicitly resets them in
-`sdw_hda_dai_hw_free()`. On Intel SOF + SoundWire laptops, BPT
-operations (register access, codec configuration) are followed by normal
-audio use; stale PCMSyCM state can cause audio failures on that link.
-
-The fix is small, mirrors an established and previously stable-nominated
-pattern, and is endorsed by the SoundWire maintainer and Intel audio
-team. The missing user report is outweighed by the clear hardware
-semantics and code asymmetry.
+### Step 9.4: Decision rationale
+This tree (`6.18.y`) ships the Aspeed UDC driver with a dequeue bug that
+has existed since the driver was added. The fix restores correct
+`usb_ep_dequeue()` behavior using the same pattern as other UDC drivers
+in-tree. It is small, reviewed by USB subsystem experts, and prevents
+callers from mis-handling requests that were never dequeued. The
+hardware scope is narrow but the fix is trivial and the failure mode is
+serious enough for stable.
 
 ---
 
 ## Verification
 
-- **[Phase 1]** `git show 992eb0dfbc4f5`: parsed full commit message and
-  all tags
-- **[Phase 1]** Read `sdw_hda_dai_hw_free()` at lines 631–638 of `hda-
-  dai.c`: confirmed PCMSyCM reset pattern; commit message references
-  wrong function name (`hw_params` vs `hw_free`)
-- **[Phase 2]** Diff analysis: 3 files, ~30 net lines; core fix adds two
-  `hdac_bus_eml_sdw_map_stream_ch()` calls with `(0, 0)` reset
-- **[Phase 3]** `git describe HEAD`: v6.18.44; `make kernelversion`:
-  6.18.44
-- **[Phase 3]** `git blame` on `hda_sdw_bpt_close()`: introduced
-  `5d5cb86fb46ea` (2025-02-27)
-- **[Phase 3]** `git merge-base --is-ancestor 5d5cb86fb46ea v6.18.44`:
-  BPT code present in this tree
-- **[Phase 3]** `git merge-base --is-ancestor 992eb0dfbc4f5 HEAD`:
-  commit NOT in current tree
-- **[Phase 3]** `git tag --contains 5d5cb86fb46ea`: first in v6.15
-- **[Phase 3]** `git log --oneline -20` on affected files: no duplicate
-  fix found
-- **[Phase 4]** `b4 dig -c 992eb0dfbc4f5`: found thread at
-  patch.msgid.link URL
-- **[Phase 4]** `b4 dig -c 992eb0dfbc4f5 -w`: Vinod Koul, broonie,
-  vkoul, pierre-louis.bossart CC'd
-- **[Phase 4]** `b4 dig -c 992eb0dfbc4f5 -a`: single v1 patch, no
-  revisions
-- **[Phase 4]** `/tmp/bpt_thread.mbox`: Vinod Koul Acked; Pierre-Louis
-  Bossart LGTM; no stable nomination or NAKs
-- **[Phase 4]** WebFetch of patch URL: blocked by bot protection; used
-  mbox instead
-- **[Phase 5]** `grep hdac_bus_eml_sdw_map_stream_ch`: present in `hda-
-  mlink.c`, used in `hda-dai.c` and `hda-sdw-bpt.c`
-- **[Phase 5]** `grep bpt_` call chain: `bus.c` → `intel_ace2x.c` →
-  `hda_sdw_bpt_close()`
-- **[Phase 5]** `grep sdw->instance` in `intel_ace2x.c`: already used in
-  `hda_sdw_bpt_open()` at line 167
-- **[Phase 6]** Read current `hda_sdw_bpt_close()` at lines 425–438:
-  confirms buggy code (no PCMSyCM reset)
-- **[Phase 6]** `git show 992eb0dfbc4f5 -- sound/soc/sof/intel/hda-sdw-
-  bpt.c drivers/soundwire/intel_ace2x.c | git apply --check`: **passes**
-- **[Phase 6]** `git show 992eb0dfbc4f5 -- include/sound/hda-sdw-bpt.h |
-  git apply --check`: **fails** — master has
-  `hda_sdw_bpt_get_buf_size_alignment()` not in v6.18.44; trivial manual
-  fix
-- **[Phase 6]** `git diff v6.18.44 master -- include/sound/hda-sdw-
-  bpt.h`: confirmed divergence
-- **[Phase 7]** `grep CONFIG_SND_SOF_SOF_HDA_SDW_BPT` in Kconfig:
-  present, auto-selected for Intel LNL+
-- **[Phase 8]** Failure mode assessed from PCMSyCM register semantics
-  and parallel `sdw_hda_dai_hw_free()` behavior
+- **[Phase 1]** Parsed commit message and tags from user query and `git
+  show e2ffaac1884b9`
+- **[Phase 2]** Read diff; confirmed changes in `ast_udc_ep_dequeue()`
+  at lines 691–716
+- **[Phase 3]** `git blame`: buggy code from `055276c132056` (May 2022,
+  5.19)
+- **[Phase 3]** `git merge-base --is-ancestor 055276c132056 HEAD`:
+  driver present in tree
+- **[Phase 3]** `git merge-base --is-ancestor e2ffaac1884b9 HEAD`: fix
+  **not** in tree (exit 1)
+- **[Phase 3]** `git log --oneline -20 --
+  drivers/usb/gadget/udc/aspeed_udc.c`: no duplicate fix
+- **[Phase 4]** `b4 dig -c e2ffaac1884b9`: found v3 thread URL
+- **[Phase 4]** `b4 dig -a`: v2 and v3 revisions listed
+- **[Phase 4]** `b4 dig -w`: Greg K-H, Alan Stern, Andrew Jeffery CC'd
+- **[Phase 4]** Saved mbox; read Alan Stern review suggesting correct
+  idiom
+- **[Phase 4]** `grep -i stable` on mbox: no stable nomination
+- **[Phase 5]** `grep usb_ep_dequeue`: multiple gadget function driver
+  call sites
+- **[Phase 5]** Read `core.c:331–338`: dispatch wrapper
+- **[Phase 5]** Read `aspeed-vhub/epn.c:472–488`: correct sibling
+  pattern
+- **[Phase 5]** Read `pch_udc.c:1862–1878`: correct peer pattern
+- **[Phase 5]** Read `u_audio.c:455–463`: caller behavior on dequeue
+  return value
+- **[Phase 6]** `git describe HEAD`: `v6.18.44`
+- **[Phase 6]** `make -s kernelversion`: `6.18.44`
+- **[Phase 6]** Confirmed buggy code at `aspeed_udc.c:697–713` in
+  working tree
+- **[Phase 6]** `git log master --oneline --grep past-the-end`: fix
+  exists on master only
+- **[Phase 7]** Read `Kconfig:407–418`: `CONFIG_USB_ASPEED_UDC` depends
+  on `ARCH_ASPEED`
 
-**YES**Those background git searches finished successfully and match
-what the analysis already used:
+**YES**The commit should be backported to this tree (`v6.18.44` /
+`stable/linux-6.18.y`).
 
-- **BPT introduction:** SoundWire BPT support landed with
-  `5d5cb86fb46ea` ("add helpers for SoundWire BPT DMA"), first appearing
-  in **v6.15** and present in your **v6.18.44** tree.
-- **PCMSyCM history:** The register helper dates to `ccc2f0c1b6b61`
-  (2023); the normal SoundWire reset path is in `sdw_hda_dai_hw_free()`,
-  and a related stable-nominated fix is `6e38a7e098d32`.
+`ast_udc_ep_dequeue()` in `aspeed_udc.c` can return success without
+actually dequeuing a request when the target isn’t on the endpoint
+queue, because it reads a past-the-end `list_for_each_entry()` cursor
+after the loop. The fix is small (default `rc` to `-EINVAL`, set `0`
+only on match) and matches the pattern already used in `aspeed-vhub` and
+`pch_udc`.
 
-That confirms the bug has been in the BPT close path since BPT was
-added, and the backport recommendation remains **YES**.
+The buggy code is present here; the fix (`e2ffaac1884b9`) is on master
+but not in this stable branch. It affects AST260x BMC systems using
+`CONFIG_USB_ASPEED_UDC` and can confuse gadget callers that rely on
+`usb_ep_dequeue()` return values during cancel/teardown.
 
- drivers/soundwire/intel_ace2x.c   |  4 +++-
- include/sound/hda-sdw-bpt.h       |  5 +++--
- sound/soc/sof/intel/hda-sdw-bpt.c | 31 ++++++++++++++++++++++++++++---
- 3 files changed, 34 insertions(+), 6 deletions(-)
+**YES**
 
-diff --git a/drivers/soundwire/intel_ace2x.c b/drivers/soundwire/intel_ace2x.c
-index f0e0a79b30b0e..c1ea420bc11ff 100644
---- a/drivers/soundwire/intel_ace2x.c
-+++ b/drivers/soundwire/intel_ace2x.c
-@@ -192,6 +192,7 @@ static int intel_ace2x_bpt_open_stream(struct sdw_intel *sdw, struct sdw_slave *
- 		__func__, str_read_write(command), ret);
+ drivers/usb/gadget/udc/aspeed_udc.c | 7 ++-----
+ 1 file changed, 2 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/usb/gadget/udc/aspeed_udc.c b/drivers/usb/gadget/udc/aspeed_udc.c
+index 353bfb1ff0a12..0b994afab0478 100644
+--- a/drivers/usb/gadget/udc/aspeed_udc.c
++++ b/drivers/usb/gadget/udc/aspeed_udc.c
+@@ -694,7 +694,7 @@ static int ast_udc_ep_dequeue(struct usb_ep *_ep, struct usb_request *_req)
+ 	struct ast_udc_dev *udc = ep->udc;
+ 	struct ast_udc_request *req;
+ 	unsigned long flags;
+-	int rc = 0;
++	int rc = -EINVAL;
  
- 	ret1 = hda_sdw_bpt_close(cdns->dev->parent, /* PCI device */
-+				 sdw->instance,
- 				 sdw->bpt_ctx.bpt_tx_stream, &sdw->bpt_ctx.dmab_tx_bdl,
- 				 sdw->bpt_ctx.bpt_rx_stream, &sdw->bpt_ctx.dmab_rx_bdl);
- 	if (ret1 < 0)
-@@ -226,7 +227,8 @@ static void intel_ace2x_bpt_close_stream(struct sdw_intel *sdw, struct sdw_slave
- 	struct sdw_cdns *cdns = &sdw->cdns;
- 	int ret;
+ 	spin_lock_irqsave(&udc->lock, flags);
  
--	ret = hda_sdw_bpt_close(cdns->dev->parent /* PCI device */, sdw->bpt_ctx.bpt_tx_stream,
-+	ret = hda_sdw_bpt_close(cdns->dev->parent /* PCI device */, sdw->instance,
-+				sdw->bpt_ctx.bpt_tx_stream,
- 				&sdw->bpt_ctx.dmab_tx_bdl, sdw->bpt_ctx.bpt_rx_stream,
- 				&sdw->bpt_ctx.dmab_rx_bdl);
- 	if (ret < 0)
-diff --git a/include/sound/hda-sdw-bpt.h b/include/sound/hda-sdw-bpt.h
-index f649549b75d52..330cda50f100c 100644
---- a/include/sound/hda-sdw-bpt.h
-+++ b/include/sound/hda-sdw-bpt.h
-@@ -27,7 +27,7 @@ int hda_sdw_bpt_send_async(struct device *dev, struct hdac_ext_stream *bpt_tx_st
- int hda_sdw_bpt_wait(struct device *dev, struct hdac_ext_stream *bpt_tx_stream,
- 		     struct hdac_ext_stream *bpt_rx_stream);
+@@ -704,14 +704,11 @@ static int ast_udc_ep_dequeue(struct usb_ep *_ep, struct usb_request *_req)
+ 			list_del_init(&req->queue);
+ 			ast_udc_done(ep, req, -ESHUTDOWN);
+ 			_req->status = -ECONNRESET;
++			rc = 0;
+ 			break;
+ 		}
+ 	}
  
--int hda_sdw_bpt_close(struct device *dev, struct hdac_ext_stream *bpt_tx_stream,
-+int hda_sdw_bpt_close(struct device *dev, int link_id, struct hdac_ext_stream *bpt_tx_stream,
- 		      struct snd_dma_buffer *dmab_tx_bdl, struct hdac_ext_stream *bpt_rx_stream,
- 		      struct snd_dma_buffer *dmab_rx_bdl);
- #else
-@@ -56,7 +56,8 @@ static inline int hda_sdw_bpt_wait(struct device *dev, struct hdac_ext_stream *b
- 	return -EOPNOTSUPP;
- }
+-	/* dequeue request not found */
+-	if (&req->req != _req)
+-		rc = -EINVAL;
+-
+ 	spin_unlock_irqrestore(&udc->lock, flags);
  
--static inline int hda_sdw_bpt_close(struct device *dev, struct hdac_ext_stream *bpt_tx_stream,
-+static inline int hda_sdw_bpt_close(struct device *dev, int link_id,
-+				    struct hdac_ext_stream *bpt_tx_stream,
- 				    struct snd_dma_buffer *dmab_tx_bdl,
- 				    struct hdac_ext_stream *bpt_rx_stream,
- 				    struct snd_dma_buffer *dmab_rx_bdl)
-diff --git a/sound/soc/sof/intel/hda-sdw-bpt.c b/sound/soc/sof/intel/hda-sdw-bpt.c
-index ff5abccf0d88b..4e5c99413c750 100644
---- a/sound/soc/sof/intel/hda-sdw-bpt.c
-+++ b/sound/soc/sof/intel/hda-sdw-bpt.c
-@@ -297,7 +297,8 @@ int hda_sdw_bpt_open(struct device *dev, int link_id, struct hdac_ext_stream **b
- 		__func__, ret);
- 
- close:
--	ret1 = hda_sdw_bpt_close(dev, *bpt_tx_stream, dmab_tx_bdl, *bpt_rx_stream, dmab_rx_bdl);
-+	ret1 = hda_sdw_bpt_close(dev, link_id, *bpt_tx_stream, dmab_tx_bdl,
-+				 *bpt_rx_stream, dmab_rx_bdl);
- 	if (ret1 < 0)
- 		dev_err(dev, "%s: hda_sdw_bpt_close failed: %d\n",
- 			__func__, ret1);
-@@ -422,14 +423,38 @@ int hda_sdw_bpt_wait(struct device *dev, struct hdac_ext_stream *bpt_tx_stream,
- }
- EXPORT_SYMBOL_NS(hda_sdw_bpt_wait, "SND_SOC_SOF_INTEL_HDA_SDW_BPT");
- 
--int hda_sdw_bpt_close(struct device *dev, struct hdac_ext_stream *bpt_tx_stream,
-+int hda_sdw_bpt_close(struct device *dev, int link_id, struct hdac_ext_stream *bpt_tx_stream,
- 		      struct snd_dma_buffer *dmab_tx_bdl, struct hdac_ext_stream *bpt_rx_stream,
- 		      struct snd_dma_buffer *dmab_rx_bdl)
- {
-+	struct snd_sof_dev *sdev = dev_get_drvdata(dev);
- 	int ret;
- 	int ret1;
- 
--	ret = hda_sdw_bpt_dma_deprepare(dev, bpt_rx_stream, dmab_rx_bdl);
-+	/*
-+	 * In the case of SoundWire we need to reset the PCMSyCM registers.
-+	 * Need to continue depreparing the DMA buffers even if this fails.
-+	 */
-+	ret = hdac_bus_eml_sdw_map_stream_ch(sof_to_bus(sdev), link_id,
-+					     0, /* PDI0 */
-+					     0, 0, SNDRV_PCM_STREAM_PLAYBACK);
-+	if (ret < 0)
-+		dev_err(dev, "%s: hdac_bus_eml_sdw_map_stream_ch failed %d for PDI0\n",
-+			__func__, ret);
-+
-+	ret1 = hdac_bus_eml_sdw_map_stream_ch(sof_to_bus(sdev), link_id,
-+					      1, /* PDI1 */
-+					      0, 0, SNDRV_PCM_STREAM_CAPTURE);
-+	if (ret1 < 0) {
-+		dev_err(dev, "%s: hdac_bus_eml_sdw_map_stream_ch failed %d for PDI1\n",
-+			__func__, ret1);
-+		if (!ret)
-+			ret = ret1;
-+	}
-+
-+	ret1 = hda_sdw_bpt_dma_deprepare(dev, bpt_rx_stream, dmab_rx_bdl);
-+	if (!ret)
-+		ret = ret1;
- 
- 	ret1 = hda_sdw_bpt_dma_deprepare(dev, bpt_tx_stream, dmab_tx_bdl);
- 	if (!ret)
+ 	return rc;
 -- 
 2.53.0
 
