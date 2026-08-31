@@ -1,50 +1,53 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A27AB47207B;
-	Mon, 31 Aug 2026 14:57:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E574472092;
+	Mon, 31 Aug 2026 14:57:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788188236; cv=none; b=Hud02LnLVn4h5iicXOFNJg4EMf9Y5WXObn0TIvZiIfKGOEW9K0YssM4hqn32DTpnviX5AjJq/Fa9ByIok48ISUxbIf7Hmjvbm5KW/G+yQXsu7Y1dLa2FbO0A8miNjFaH2mfgGjjHt5HybE3bB6IGrMALAuKcA9rPf0GbCKQJM8o=
+	t=1788188238; cv=none; b=NDMweFiZpDSCoT31izor1ZaF00GB7vse9Trxc8lBTUBzg75hr2vgI39FfgRB9IlWqwDHs458ZyEEt00GmD0emVfRPhK8FyHIQ+kou50+xNDml0oEoJAbQXlmuiy5FTjTyuEGUkNbZ4iKVqYiILPngUSAtYC2hMWd28lpbRsNIDA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788188236; c=relaxed/simple;
-	bh=cKtt/qXzfNkR64EJuj8cydyuvo2B/WFA8rIgd5APtI4=;
+	s=arc-20240116; t=1788188238; c=relaxed/simple;
+	bh=FZ37zQuw6LjIz2uJ6LR1FnCjpZdTcWz5811W6kjMOzg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Cj/E4EHcNPkOQ/vZuZAEIY+3Szkg/tzjRUA1Dme7Tk2salH09j+7Z1FkYkZYtzyHx7OcwwwR7iPVHjSB7jEpQBesxZGYFWFws+Rlej78D+XmM3yMRFkJowVBaL/sW88N7MDheiMDDcAg0V1TJjuTt8VKUSJVipngQwjel50t0es=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Vhpzwoly; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=GA5wSlqSvmJedwcyo7oJApIasy9Xwl3vQXoLNTR4/6Ec5CF67VdpIH/Z07SFb2AKI4Vjlhu4PuFBFNRcQi60tvbs1tPetoen6kVkHxDj0qfSne9vgDagQwsdtNW9+joHZK7m4StTgTAAGCa/9bYAzXzXJMFh3+Q+eSFEgbibd5w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C45QgKJR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Vhpzwoly"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E717A1F000E9;
-	Mon, 31 Aug 2026 14:57:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C45QgKJR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77BB61F00A3D;
+	Mon, 31 Aug 2026 14:57:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788188235;
-	bh=8kn1sO0B2pApEMi4uAFueoHD3l30/tgmgtuTGqygbcs=;
+	s=k20260515; t=1788188236;
+	bh=efS67w8JBcfKepMSHIedAFFvdchsCgk3t+GdosBXlkk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=VhpzwolyHp9nnxNYB1cbBQJ0hNxBI+iFbYg6KLOvZQWpiM2xJdjCdKTwg4AggpTav
-	 Fnhdcv/roWXY2KXKv6lEjbBrMwZ+0d5lYvMXMWvdjA8lUXtgruOcorsfAILdVBm58h
-	 fJV3PvZokr+W2D5EOA6QR+zDIR3ebfiGa4L270pOuJ2yJcVP7mDHWItRULw75hpwBw
-	 Iwa9VbcJkcXA501eRWmDHES9UEjrN8PPC7uyrxZN2ENbKqc/KSX4SGRiw5uzYsYq0u
-	 yDiZ6x+wuzUnEzxGXTRZOH2b2OFKuHL+7uvF6ms/QfpiVM3DoTGfhH78QiVHkMPe0W
-	 DZSDg1i3Ts+8A==
+	b=C45QgKJRPwURmIpR0wBdsLOqBuE7eBc4QECh6Kk5zEuNUVUN5DmCmZSTf8L8m8+to
+	 1OORzu63hPxtrHZ3pS0hpRPg94JiVJfdBYaCe8YYdsU0oqZ7GaAVz09r6dqxfUszGh
+	 dmdc2xINLdjEuhyo8aTiWFhalgu7Ls9vbyvCb8XqjuCJQ/xvCqBeYJDUYCwAoRoQ0o
+	 J03dDGTI0c8sOefN62BAJxf0B/E+iAiVFg8aKX/lAQZYSDF32rj8Vu6rZq9V/0Cmb0
+	 st2xRYRUqdLSN918d6hU7waepIp+52cBmERetxoLuoBsaVVf2m3tJ/0XXN++Pq6ZvE
+	 61ya5t0hxmoHg==
 From: Bjorn Andersson <andersson@kernel.org>
 To: Konrad Dybcio <konradybcio@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Jyothi Kumar Seerapu <jyothi.seerapu@oss.qualcomm.com>,
-	Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Abel Vesa <abel.vesa@oss.qualcomm.com>
-Cc: Pankaj Patil <pankaj.patil@oss.qualcomm.com>,
-	linux-arm-msm@vger.kernel.org,
+	Jason Pettit <jason.pettit@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] arm64: dts: qcom: glymur-crd: Mark the EC reset gpio as reserved
-Date: Mon, 31 Aug 2026 09:57:08 -0500
-Message-ID: <178818822451.1120617.17208953172489408680.b4-ty@kernel.org>
+	linux-kernel@vger.kernel.org,
+	Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+	Mahadevan P <mahadevan.p@oss.qualcomm.com>,
+	Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
+	Jingyi Wang <jingyi.wang@oss.qualcomm.com>,
+	Ananthu C V <ananthu.cv@oss.qualcomm.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Subject: Re: (subset) [PATCH v5 0/3] X2 Elite HP EliteBook X G2q support
+Date: Mon, 31 Aug 2026 09:57:09 -0500
+Message-ID: <178818822455.1120617.6748433975122859175.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260831-dts-qcom-glymur-crd-reserve-ec-reset-gpio-v1-1-4a9da88755d4@oss.qualcomm.com>
-References: <20260831-dts-qcom-glymur-crd-reserve-ec-reset-gpio-v1-1-4a9da88755d4@oss.qualcomm.com>
+In-Reply-To: <20260829-glymur-send-v5-0-a11bdf6a4b66@oss.qualcomm.com>
+References: <20260829-glymur-send-v5-0-a11bdf6a4b66@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -55,16 +58,21 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Mon, 31 Aug 2026 12:11:36 +0300, Abel Vesa wrote:
-> GPIO 65 from TLMM is used by the Embedded Controller as its reset line.
-> Reserve it to prevent Linux from requesting or reconfiguring it.
+On Sat, 29 Aug 2026 12:08:07 -0700, Jason Pettit wrote:
+> This series adds initial device-tree support for the HP EliteBook X G2q 14"
+> Next Gen AI PC (product SKU C4JG0AV, board 8E91), a Snapdragon X2 Elite
+> (Glymur) laptop.
 > 
+> The board was brought up and validated on real hardware. The electrical
+> description (PMIC rails, PHY supplies) was verified against the live unit
+> rather than copied from a Glymur CRD.
 > 
+> [...]
 
 Applied, thanks!
 
-[1/1] arm64: dts: qcom: glymur-crd: Mark the EC reset gpio as reserved
-      commit: 8ab228ebf968fe43afa55630fb98f1069828988e
+[3/3] firmware: qcom: scm: Allow QSEECOM on HP EliteBook X G2q 14 AI
+      commit: 665d237915193b06d3026da367040e4a4f3356ba
 
 Best regards,
 -- 
