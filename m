@@ -1,81 +1,175 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E86F6344D9B
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 01:11:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A427F28488F;
+	Mon, 31 Aug 2026 01:14:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788138676; cv=none; b=Dt4Kau5rve3SHQRG4E9LT8QTNkNF9uAnIsKUmMbeIOpxhVxjnsjt7nWtLoSgzLNNyMEucNW44VhXl6ieAdtFz+hILI0ixopc5lzlXm8KYtoSAqHnUGFhBRM4Cq9hxen5HEmM869TbpELa4vGz57HXPW81qjUVlTtlLuGGOXpevY=
+	t=1788138899; cv=none; b=OmZztBv+h3w+VjbmUhfwzce2BoUuliO9tLFZV8K7H4NykkEZwk9nhYSSE9TSYbqupm80+xsGUPxvC9VwdQKi/a/wEYWlFxDA3XUHZQ1ieKljKx6HZl7k5wUmXUzxadck4IyfL/H8Mz80msPZGfoIxAUJbs915uj3jugdUXK8gdE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788138676; c=relaxed/simple;
-	bh=zRCl8UFo52UCUcfz7pBhtsayJFYRQ8hrYBMf5ypIY0U=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=N8VwIqnyH5ucmCge7AEGKz+xbpGCic2MgKIhb3PX1BVQrItwVfCjzKKKmAE1usSV35Tvdtv+QFykZS+TR3bRsoK+Op+Ew7qqtzSLrvhVeSl16udqRbj+c5IVhmG7FttK9jlYn3NwJVwDjM5qXGmzzmPRLAOeue47qYBlFt+9lnE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=lskqpYJZ; arc=none smtp.client-ip=117.135.210.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1788138899; c=relaxed/simple;
+	bh=cWBLqsUxbaqeI/ZEa6y2VPdUHZ8BopV6mZdJvS7PJkY=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=X4nG2e9u98/cg9ofv1SzVeYToAfio437LjrnzJSRp1Df/r1ybBckepWjdVI1vhkSna/5S5ylIXqRNNt9V0n2SMpd2jFXMa9plmfmOzw8Hkwb+4M3hPjuj6uN4gY7W/0rVfIuMPWZCqy3QHIFrFA0f7ZDZ7LH8UUC8B+FAFjJ8Gw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OTkAgUmv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="lskqpYJZ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
-	Content-Type; bh=3o9s13cVBSuR0ZrCiKNmgYn6U3efzqN57tyNUTmiW+g=;
-	b=lskqpYJZ6VYu2aNBsY86JrAhCDDLeDPGHUg89EeS32OO8M8fIg5iyifKRCPbMp
-	Mg5uqecVHIvSX+YI4rmlkYUpwxnX0jJS82vz7YT5aiP+T1eTbecz6rxZfB/YNolD
-	FKpkFLGXbh6XoI/R/84BGNJrUqXqceWJZBiqmJN4BcDGw=
-Received: from [10.42.0.64] (unknown [])
-	by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id _____wC3f5qJ1JRqNBLuSQ--.48685S2;
-	Mon, 31 Aug 2026 09:10:34 +0800 (CST)
-Message-ID: <cabf4253-1d07-410c-8714-062317c9967f@163.com>
-Date: Mon, 31 Aug 2026 09:10:32 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OTkAgUmv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46F4C1F000E9;
+	Mon, 31 Aug 2026 01:14:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788138898;
+	bh=0Y1vBNOeGVR/F0ttHRty2KzqByatI5I7w4JW81kXT6Q=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=OTkAgUmvuqLP6GPXFreM5S3cDf7fA87FCj6Grx/Wf1v7NBIxtHqmLTrBQcKB42Se0
+	 yHpa60VFr0GTfn0X5/htbpOaD7PNMhkDyEQCvwsQQlbxUoWnUJFqE1LJag8v9ZVpvp
+	 QLHoYHkiKGJJjU2N50XyGX6oLRbdA7e2ROLKpsNSjzyBD4b9W2Rh/tdx1nAedrLwYl
+	 RUElFZlpdmVjfKMYpmHwxWEFnj48yUsNufj/nndRrk6L3nefN6rOTv9/YB1XhEZf+Z
+	 ovcdwdrUd3EqqMVhoUDzh5uVIAFrwTxjFDclyPD+kGFHhr93SmPbWXf0gMS1oqnTDP
+	 84RASNpgJ6P3w==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] exfat: speed up file creation in large directories
-To: Yang Wen <anmuxixixi@gmail.com>, linkinjeon@kernel.org,
- sj1557.seo@samsung.com
-Cc: yuezhang.mo@sony.com, exfat@lists.linux.dev, linux-kernel@vger.kernel.org
-References: <20260828145838.1187356-1-anmuxixixi@gmail.com>
-From: Chi Zhiling <chizhiling@163.com>
-In-Reply-To: <20260828145838.1187356-1-anmuxixixi@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-CM-TRANSID:_____wC3f5qJ1JRqNBLuSQ--.48685S2
-X-Coremail-Antispam: 1Uf129KBjvdXoW7GFWxZrykJw15JFWrGr43GFg_yoWDWFg_Cr
-	W0qFWqyw4UZrn3CwsxCF4Yqr9rua18CrWYqr4xJr18JrZ3J3sIkF97XrnYyF1fG398tr98
-	Crn7tr1ftw18WjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IUj8sqtUUUUU==
-X-CM-SenderInfo: hfkl6xxlol0wi6rwjhhfrp/xtbC9woXtGqU1Ipy2AAA3U
+Subject: Re: [PATCH v6 4/6] iio: pressure: dps310: add triggered buffer
+ support
+From: Jonathan Cameron <jic23@kernel.org>
+To: Rupesh Majhi <zoone.rupert@gmail.com>
+Cc: Andy Shevchenko <andy@kernel.org>, Bill Wendling <morbo@google.com>, 
+ David Lechner <dlechner@baylibre.com>, Eddie James <eajames@linux.ibm.com>, 
+ Joel Stanley <joel@jms.id.au>, Jonathan Cameron <jic23@kernel.org>, 
+ Justin Stitt <justinstitt@google.com>, 
+ Nathan Chancellor <nathan@kernel.org>, 
+ Nick Desaulniers <nick.desaulniers+lkml@gmail.com>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, linux-iio@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, llvm@lists.linux.dev
+In-Reply-To: <20260824201203.396651-5-zoone.rupert@gmail.com>
+References: <20260824201203.396651-1-zoone.rupert@gmail.com>
+ <20260824201203.396651-5-zoone.rupert@gmail.com>
+Date: Mon, 31 Aug 2026 02:14:41 +0100
+Message-Id: <178813888150.2788519.17461592150162820073.b4-review@b4>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2829;
+ i=jonathan.cameron@oss.qualcomm.com; h=from:subject:message-id;
+ bh=cWBLqsUxbaqeI/ZEa6y2VPdUHZ8BopV6mZdJvS7PJkY=;
+ b=owEBfwKA/ZANAwAKAVSFNJnE9BaIAcsmYgBqlNWEdO1Xfa81MW0lRp7LU9ziPhIxZ76bGCEtM
+ QFwjyeU77WJAkUEAAEKAC8WIQRuKWazh4QGUpEmgbFUhTSZxPQWiAUCapTVhBEcamljMjNAa2Vy
+ bmVsLm9yZwAKCRBUhTSZxPQWiA8OEACG/BBX6mmwCMyHsFpOOQE4gOvVW+hyMjf2QXqzryOPAaE
+ +ZqN/D15sOIsvk//4kOf8pEeOU5X8jy3V1x/gz2x1pRyrH6KP/83tA6qaNV5JEsejmPsen5u6aL
+ Sim0aYQh4diChPUTLIFR4OKwfZnyqQxXfSuMczTdlQnVPODBgjjzZyTnkmYf8I4oMAWLDZGI4vy
+ 6OhtEqgiA8znd+o5MX8NxKE6RAfjY2s9EClEroRYLKhWIh0opRK3KLeKc0nkWgj1kl6l+hTwbRK
+ VWYdI+JccN1q6u3sMFeWkM7lbGUF3rQZv7ZYIdL8hrODnXbVYQ0w9traUsi5tgka3W0LS7wpoWN
+ itgKV1kRJpPnQ57Fldv8L+QvfEgWFV+AKQWph11pwoBdKF+WogE4fKj0c55TrLxBCqDoGjV2Avq
+ XPMuB7ppx0uJBJQbr0ZMDTUMH7JEK+plvGxieP6YAkBoY3QrYTK0pf24Jas3jw1I8w+5+igAOpQ
+ Lrrh1nxy2rK5AijA5xM+x/O6lnksMeHLPwHiHJG4ERoZgRAXpAQQHP+xKnYh0HgGGsv2yTJCkR8
+ r/yPhAx/Gx+5KXO1c7cT1YZzy/gzcKJtyagMjTwDjMMwsAKrNAs4QSQa8IvrOAr0WgeLIyelacC
+ q48Nks88yWs3WLr2v1IZMLpSGFyCaWQ1n10ggWA==
+X-Developer-Key: i=jonathan.cameron@oss.qualcomm.com; a=openpgp;
+ fpr=6E2966B387840652912681B154853499C4F41688
 
-Hi, Yang Wen
-
-
-On 8/28/26 10:58 PM, Yang Wen wrote:
-> Negative name lookups scan a directory from the beginning. Repeating
-> this scan before creating each file makes bulk file creation approach
-> O(N^2).
+> Add a triggered buffer in order to capture continuously on both channels
+> instead of one sysfs read at a time.
 > 
-> Add a 64 KiB per-directory Bloom filter and retain the next empty entry
-> found during directory scans. A definite Bloom filter miss skips the
-> directory scan, while a possible match falls back to the normal lookup
-> path, preserving correctness in the presence of hash collisions.
+> Raw register value is not useful on its own, pressure has to go through
+> the compensation polynomial and needs a temperature reading. Report raw
+> in Pa with 1/1000 scale to keep full resolution in the buffer without
+> changing what the existing processed attribute reports.
+> 
+> Raw and processed reads return -EBUSY while buffer is on, so does any
+> reconfiguration.
+> 
+> Assisted-by: Claude:claude-opus-5
+> Signed-off-by: Rupesh Majhi <zoone.rupert@gmail.com>
+>
 
-I think this is a nice optimization, and for large-directory workloads, 
-the 64 KB overhead is acceptable to me.
-
->   static void exfat_free_inode(struct inode *inode)
->   {
-> +	exfat_name_filter_free(inode);
-The exfat_free_inode() could be called in softirq context, see 
-destroy_inode() in fs/inode.c, which calls free_inode() via call_rcu(),
-
-so you can't call exfat_name_filter_free() from exfat_free_inode(). It 
-should be moved to exfat_evict_inode(), otherwise LOCKDEP will report a 
-warning.
+A few comments inline on how to simplify things by
+choosing carefully what parameters to pass around.
 
 
-Thanks,
+> diff --git a/drivers/iio/pressure/dps310.c b/drivers/iio/pressure/dps310.c
+> index 269a71ea3e7a..f122acd72b0c 100644
+> --- a/drivers/iio/pressure/dps310.c
+> +++ b/drivers/iio/pressure/dps310.c
 
+...
+
+> +
+> +struct dps310_scan {
+> +	s32 channels[2];
+> +	aligned_s64 ts;
+> +};
+
+See below - we normally define this locally where possible
+and I think that makes sense here.
+
+>  
+> +
+> +static int dps310_fill_scan(struct dps310_data *data,
+> +			    const unsigned long *scan_mask,
+> +			    struct dps310_scan *scan)
+
+As this isn't filling in the timestamp, I think you'd be better
+passing s32 channels[__at_least 2] as that final parameter.
+
+> +	__must_hold(&data->lock)
+> +{
+> +	int rc;
+> +	int i = 0;
+> +
+> +	/*
+> +	 * The pressure compensation needs a temperature reading, so temperature
+> +	 * is sampled even when only the pressure channel is enabled.
+> +	 */
+> +	rc = dps310_read_temp_raw_locked(data);
+> +	if (rc)
+> +		return rc;
+> +
+> +	if (test_bit(DPS310_SCAN_TEMP, scan_mask)) {
+> +		/* Millidegrees Celsius */
+> +		rc = dps310_calculate_temp(data, &scan->channels[i]);
+> +		if (rc)
+> +			return rc;
+> +
+> +		i++;
+> +	}
+> +
+> +	if (test_bit(DPS310_SCAN_PRESSURE, scan_mask)) {
+> +		rc = dps310_read_pres_raw_locked(data);
+> +		if (rc)
+> +			return rc;
+> +
+> +		/* Pascals, see the comment on the channel definition */
+> +		rc = dps310_calculate_pressure(data, &scan->channels[i]);
+> +		if (rc)
+> +			return rc;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static irqreturn_t dps310_trigger_handler(int irq, void *p)
+> +{
+> +	struct iio_poll_func *pf = p;
+> +	struct iio_dev *iio = pf->indio_dev;
+> +	struct dps310_data *data = iio_priv(iio);
+> +	struct dps310_scan scan = { };
+
+I'd pull the definition down here as
+	struct {
+		s32 channels[2];
+		aligned_s64 timestamp;
+	} scan;
+	
+> +	int rc;
+> +
+> +	mutex_lock(&data->lock);
+> +	rc = dps310_fill_scan(data, iio->active_scan_mask, &scan);
+
+Then make this *fill_channels() with only the relevant part of
+the structure passed in.
+
+-- 
+Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
