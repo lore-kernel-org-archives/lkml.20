@@ -1,176 +1,801 @@
-Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011037.outbound.protection.outlook.com [52.101.65.37])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B49464734D0;
-	Mon, 31 Aug 2026 15:49:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.37
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788191364; cv=fail; b=mN6wjReE409XjsMz6A/QXK+tHMGHxwBILychUOr7/GXhd8rmu5ieSA2L/eoDmZuxUSGgVsdumEbyLLG7X/kNVp5DF86N4E58295ldgI5g/JXWZkGPRRknAd7LSbgYj6kpN7+lv7t4FITHZhmi7e8NsWLZ8TcI8gQwKhhrwdNnWs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788191364; c=relaxed/simple;
-	bh=6RoKtfBGaVl+f87oBDolsQGAfHEF5F4MsW3sYf6ni/M=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=R1BssK2k2NIW7wgc4/acluTFwTFeh1uK47p0zYbm/Z7LvhOMEhBDcm54ci0RsGS7mQjAyyKNEVydMl/Dvq6CmcEqGytH/LQsHUT2hdY918WwdCAu6boxZu/Wz3hzoBBccB+EW0K0PbRZQPiM63x17xMLthP7PNXW6u/REhe57Fs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=G6fLBkiq; arc=fail smtp.client-ip=52.101.65.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1D2C471267
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 15:50:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788191442; cv=none; b=EgPOV8qMiknKinWM39ZssWFpKCyWz1ZmvH3R6BCR0k/jBhXAJfeSk5qEBiiC64xqIxMTKtYa8suHgaia0xPPJz9OzhQ9aFt6VneCvu1l71E31lecW0TWcqeJKqH5HZNOu+rvmHN0jHxU3yVURZ0lDVKHvFtTApScRd7tE6ke4mg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788191442; c=relaxed/simple;
+	bh=kuXfw4kyrJ5qyIojhypj6VyRfotQGNCTuXCBGqrsmj0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=bK0Tmcm/YYODri0E6nR3RPhGtFdqmyv+rBAj27lwZcYHBSg60/tbrkuR90h9ereOcPDMdrketXZBP85/nH04JaJzuWLdbiqolteyjd0t1KCZeoLDCqxTp2KKcwNMn0coYjGtaeHL61J5bhl3PYo2JPIu0H6qMSyTWg15Uh/jjJg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T+R3AL3v; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="G6fLBkiq"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rMkQkNGHVzqYfu0hiOdcjtx4Qmbez03xRBA+DMS0BNAvd39sK2S3SCrJ+3wy8qKE79ynvrE8x5EAajBbpvf/SgqqHm7Dx5PNe/CqdTDJvlXWnErVfrvn7/8vzb3ntfwar9mBJAkgKLofwbECu/wXt5Cxof8rAzyUUjufGE1cm1bNm3qBwCMIxCWge5e37X9Ewd2YNHNA5SLHHYnD4XvUS0HMScxT6/fZk5fBFJHCwXcw9lj7kVLFCOu/BxkFZofi58GLwOQgXiQh00nXBLJV8BQqG/upG8eL6fQW2OJ4fxKHaZSejSFaxrU6JurU5VOSLGFYXxgt1bu7YHyhid4Wnw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nd07ulLUhXNQUEAZCk3IRhxY2fK4nWO5Mv3sqOlEzls=;
- b=iMeVdcMLLEy/unrWpBnOA8YWNzvJvlIFydLSqrsYsh2DhKK//vUV37GF8++ep+QgE8hyKhMFPAUDLOnPp0mnNqYselSel2gJCWPsbihJWJ2YxX110YxxBjPJAAcC0wScMTAElOPeuVVKK7ZHC4XHSys3lUs9F/e6q4ej/o8UQaB25Y9MfgVuNaKUj5HRZ2WNxmcn/eEmzTD4l7QETJvlvZxQhbYw7B8MLDTe5uOcN0KIDNCbt6zKA0Z6fZkgWqRJ4WCSxg2U7gbBtY7YssSRtXjdzDpCYPZaaXLq9pa5CbyNPn40Kqo3pVLlVEjmkJQnbycRTnfx28lBae7lqe73/Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nd07ulLUhXNQUEAZCk3IRhxY2fK4nWO5Mv3sqOlEzls=;
- b=G6fLBkiqRt/pwqGMneImJQDARYSiLOEq1qlD8TiModlunpfH2Xm0DRDW8Jy7Z3In7xSL1gE7dEtZ4FyxtxtC1mergjS8paNDJdaorjX7MeMmnIm/XuT0sD7LdBmHXB+DOhQDXvBlfrzRoHJdyqMk+BGLcr65wqBFCjy4eh7JtqsB4l8Lpck26zdrnQ2CJfKrnP5f9UWlXuu07LNY2o6e4473GRv/vL/+lOQ6kIxBKdMxSLvJzW26c/MMA4Rsm2V1xHMq/e1JgBkHtfeBqd5Jd8Nmm6FWiTzpSfQt4WBktVwTJ3+OIoRuUVbndENxSZidXndJtkPnydPFAAKX88SNgw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by AM8PR04MB7284.eurprd04.prod.outlook.com (2603:10a6:20b:1dc::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Mon, 31 Aug
- 2026 15:49:18 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0360.008; Mon, 31 Aug 2026
- 15:49:18 +0000
-Date: Mon, 31 Aug 2026 10:49:09 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Pengpeng Hou <pengpeng@iscas.ac.cn>
-Cc: Olivia Mackall <olivia@selenic.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, linux-crypto@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] hwrng: imx-rngc: propagate clock enable errors
-Message-ID: <apWidZ2gLboed5Ug@SMW015318>
-References: <20260830131253.2718-1-pengpeng@iscas.ac.cn>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260830131253.2718-1-pengpeng@iscas.ac.cn>
-X-ClientProxiedBy: CY5PR15CA0097.namprd15.prod.outlook.com
- (2603:10b6:930:7::19) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T+R3AL3v"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6DD211F000E9;
+	Mon, 31 Aug 2026 15:50:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788191440;
+	bh=HxenJbCV4dFq4UjvqCI9fwACwH3W0FeYkdcjRioC5dI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=T+R3AL3vFHNrCq+xt2pfAXVR2CDLGmJLvkjAWusze6Kl1a8sOIIOxqfBHE+Q2/I9f
+	 ORy+v43LIy611cHw8lvME4WtMKsBOE/wHzchGFUFHbmd/c/2EJNbWORqseDvgNVODy
+	 xg7wUgxZXJM2d6XAPclhz6aTXc1F1XtVIS1TSVmWih5JFundL51i1haIZ6GRtSEg1X
+	 kTU8qNVrqpu5MsInxqME4s8ERDXbRw/ibc9YHd2PR2FItyc9iVtt9I7ccViIGlchKr
+	 Q8Hzv5uwupQxLDJY4zAZtS/xdDbWrC25ULwgLqobE3QcT9Un9eLMGBDe2OLu/oSDtR
+	 lZDHtmkN4zWYw==
+Date: Mon, 31 Aug 2026 16:50:20 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Andi Kleen <ak@kernel.org>
+Cc: akpm@linux-foundation.org, liam@infradead.org, jannh@google.com, 
+	pfalcato@suse.de, linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] RCU safety for vma maple tree walks
+Message-ID: <apWYZTfxxz6vpkOY@lucifer>
+References: <20260831143511.1133029-1-ak@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AM8PR04MB7284:EE_
-X-MS-Office365-Filtering-Correlation-Id: 07511bc8-7082-49a6-ab7d-08df07776a6d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|23010399003|1800799024|366016|19092799006|10067099003|56012099006|11063799006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	rjxADxEKfEwXBZ6Ue5+BWgSIyjQz3ZFSCkcQ7/SDntWVLem5BqRVUFeva5R6V7KLU46ofEKsP7boMqeXaV5Yj2j/ymEHLR8jLLaFCXB3/LdTBjlUrVITdKcGUsok84QB9uyUMmHi6pf7P6Be73WNSGYuWoZxkt+EpTvnpPhkBokEeKCTohikIeIQ0CCUfXimonLNQZcsdiT1v2WZxrIZpPyOfKgkV8T6HQNwrEbycEPuEIHTHZC6ajJWjKSTlvSbBqmTKkDD4UyzueuY0+LcSA0NfMt5iMrHAD4E8ncGN9jYf8HiGRbJHxbzvoCM1kpnAbhdexymNUDLNaq6AgaGe36s8FHEsjVCW7KO+Eb06wOFC4oHqaX0Lo8Gch8xBTVFILuLfN7Gmq/Ycq5ExigZP6HVTYenYv4nK0WXJ1Hd/0ha3VQhDyjAD1dAXc8sLeO0LdCbIyuIOeR7cM3cfq+Sqc/MwozLSS/pREiSggeHRFTQJqMiA+qsuttoYnvwuJInnJVVDCmkp11VTetDtcfcvAR8HfvRdsZuonVYQY20HqcFyb3uqhaT7bCHux1PRVgOFuh08sIauETafNW4pRHpxe+hN2SIvL6nAq48HwCzZuAMO/zmnPBzay3x728ZOnP7n6RSx3au9+uQa6+rFtZh7Q==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(1800799024)(366016)(19092799006)(10067099003)(56012099006)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?RNwMkhc6tPZXKtG1eNMPctDHmq1Rg8qZtKNvgy66bn2vQfvsffBP3nc9W8/Z?=
- =?us-ascii?Q?qPCXorEqgiy5OWG+YgE4rMTV/m4jUm5M1goamBB2omNB1ZQGc0dmDUKacuRG?=
- =?us-ascii?Q?Rbei+mtYf512tbe6wLs6VfaqWNXd8F5HYzdQkVH+tMgY1kQZ/lFcvh5fDgl4?=
- =?us-ascii?Q?9M4oObYNGVqo6dGoufoMBYAGUg4PfBJrjF9YTzIuzUHXoHDh/aji+UJJxDQz?=
- =?us-ascii?Q?rd43pQ9/TrL5AXnXkhMgfc23JmWbiPl7mYAVuDQ1RL7tsr3bfe6H++Av5TTy?=
- =?us-ascii?Q?eP6neuaZwc1iVfddJXQBIkc9CBx4DuIHAdrQzkHszkflckpPwd3u8NTAemfz?=
- =?us-ascii?Q?uEE9YyRouiG8i+S68YlZsTjOL4QC4nAj5XY41le8mpZ+mayoSGjq0wYW+4na?=
- =?us-ascii?Q?A0vKvfq4VLLN9QzVkPgZabzsIubMQzb8CiNr0wZJA+8P8/oHbFPC7k+9+LeN?=
- =?us-ascii?Q?hHzygHJ76laab14I5vvV7hPYwdmXemB86w1OAWdeaWutXDsQj3TxUotYAhyz?=
- =?us-ascii?Q?4EAMfuvkGUJ55Jr3Q2L6e+AoX4gPJQgKP9tFwV+l9YP+ThPSCC9GfWt6/EQF?=
- =?us-ascii?Q?JOYSBVvPtyZDOyIoE/E1klE27rNmnWkin3sMvgeDSgtm4p9Bs+GTgXLJiQ8M?=
- =?us-ascii?Q?+QAHlzCOo5D7I2I4Dc4iMz1ZjIwOjOmYI77B+D7UtIqDv+l2UuK0pkR8v1dJ?=
- =?us-ascii?Q?Px/EMI6SSYVRFVxkCcapoCLiyoWevciaY9W0L3Fvl9xDi/MW6ouTVSGLCWeu?=
- =?us-ascii?Q?MH3Iz+asOStaCTHzgaoQwU3Dybbp9+W+QtHv6r85+MVcw1hN9oFVTgbfJ+nd?=
- =?us-ascii?Q?WJtRVaSEAcBRSNEfR4SexCllzd9HlMwIJ4X447rtMJs4/rbvd1o30XxWTyM+?=
- =?us-ascii?Q?CDc+s6HZ23bG37zpB7dGIWfOxi/5Twnd0HGOgWfG2TNVQIXJDtD6tAj+OlTq?=
- =?us-ascii?Q?4gP6QVJFzIW5BUfFvs6WxWHOLHxXXK5MevOfZpcuIzk8L/yCBF/5UC90y0io?=
- =?us-ascii?Q?WD7l1xe74DLoJEwROn8I6QavB/xES4TA1qkjIx6DbBBHpMM7FIIK3Y3tJQhD?=
- =?us-ascii?Q?Gk/05ZiR4JAOEjLfRgza0CW9avY1X6Cfo3MkN5btqjeZxHOvW0D3T2HY7GY2?=
- =?us-ascii?Q?lDYgtWLImEAqu6cHONXeic8kUlr7Y2Z4+dChaXXCC7r/AsSVzbmAJcKfrUN5?=
- =?us-ascii?Q?GcGzvnCI3SmTu+l4LA0BNTI1Kkla6FY1DBCOm3KcnIct3nfnpfGnOWG1Z1/f?=
- =?us-ascii?Q?wMlKGhbbOWnMWOy4MSE87a3Krh0oLZDCn+KvHUViv86yx93mPT2/AxZY3lN9?=
- =?us-ascii?Q?9XsXldDoXszWo3uRP0DxjA7wdIxVICKtHJavpxvB8X7YNURkzzjyinPf1mFe?=
- =?us-ascii?Q?WhOYhfQFY47RtsxgkQ8ltuu7Gy82IVPhmYqVgoZevtpKZcEWf+MyaHDhEzt1?=
- =?us-ascii?Q?PL/yt2Z22nV0TSmrKo3q7SPxZgP2OcvnpEcM7ZOKb21/0mj95ldjaa4+ytmO?=
- =?us-ascii?Q?dnfINAMBfVYAxmbO6O4U1sx82tKMrAhktTY9P8655NjCxoOb8EV0YJFb5BLe?=
- =?us-ascii?Q?wWX17vIoOwF0dScmIbNNsfLKGXoyC0uTX+fSSOfewQsqR9ageCHdld4XKJCv?=
- =?us-ascii?Q?fMoWrCKv2JiKtVHzBCD7dxAEf0X64B90x/YYFn+PiDeiFie3XrJY1Srempc3?=
- =?us-ascii?Q?S8bNprY84HJ80Pupr85akPUozy48zfg+b00gbB0JWitRbDs91TkuSyVyhEW9?=
- =?us-ascii?Q?sI7KhKi2/QOyt/Gbi1qC8Jejhg1qXaclWN7IX1+I387igyez8y6A?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 07511bc8-7082-49a6-ab7d-08df07776a6d
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 15:49:18.0928
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: fRexBhWv8SHLiT2PnqRB74Zi93XjZKQ8ScSx1JDogMCeoR17ohfmRG5PS8WSbhCba60XyB7AhTwzLgBG4Qa99OCsVSOxET/PRgBbv1PHyhubGu7+LK4F85v8SbcQQwat
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM8PR04MB7284
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260831143511.1133029-1-ak@kernel.org>
 
-On Sun, Aug 30, 2026 at 09:12:53PM +0800, Pengpeng Hou wrote:
-> imx_rngc_probe() reads hardware registers after enabling its clock without
-> checking the result, and the runtime resume callback always reports success
-> after the same unchecked operation.
->
-> Propagate clock-enable errors before accessing the RNG and to the
-> runtime-PM
-> core on resume.
+you really should have sent this as an RFC or a discussion.
 
-Nit: wrap to first line
+On Mon, Aug 31, 2026 at 07:35:11AM -0700, Andi Kleen wrote:
+> I ran into the following scenario in a slightly modified kernel:
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
+I mean I could stop here :) you are reporting a bug for a kernel that isn't
+the one upstream.
+
+You say your change "can do VMA splits on exec mm teardown" - that sounds
+very much like the root of the problem :)
 
 >
-> Fixes: 1d5449445bd0 ("hwrng: mx-rngc - add a driver for Freescale RNGC")
-> Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
+>  1. vms_gather_munmap_vmas walks the unmap range and caches a maple node N
+>     in the maple iterator.
+>  2. It triggers a __split_vma to fix up a range and during that node N
+>     is queued for freeing with kfree_rcu
+
+This makes absolutely no sense, we are not allocating maple nodes then
+immediately freeing them while also retaining them in the same iterator.
+
+The mmap write lock serialises writes to the maple tree also so only the
+current task can do this except... if the kernel is patched :)
+
+If it's a store that invalidates the node, then that same operation also
+moves the same iterator forawrd.
+
+>  3. There is another __split_vma that allocates memory and sleeps due to
+>     memory pressure.
+>  4. During the sleep the grace period expires and node N gets freed for
+>     real.
+
+But... what exactly caused the node to be deleted and the iterator to
+somehow remain valid?
+
+>  5. The iterator still has node N cached
+>  6. When the iteration continues it accesses the freed node and KASAN
+>     trips:
+
+What you're describing simply isn't possible.
+
+The mm maple tree is locked under MT_FLAGS_LOCK_EXTERN |
+MT_FLAGS_USE_RCU. We use the VMA/mmap locks to serialise.
+
+The mmap write lock serialises the only possible writer to the current
+task.
+
+If there was some way of doing this we 100% would have hit this
+before. Hell, syzkaller and friends have hit the most outlandish stuff
+imaginable.
+
+In the patch you describe the only stores are being done by the called
+__split_vma() calls which... use the same iterator?
+
+As you can see from the sig:
+
+static __must_check int
+__split_vma(struct vma_iterator *vmi, struct vm_area_struct *vma,
+	    unsigned long addr, int new_below)
+
+So I think what's happening is that your patch that "can do VMA splits on
+exec mm teardown" is doing something wrong here.
+
+>
+> BUG: KASAN: slab-use-after-free in mas_next_slot+0x1e95/0x2860
+> Read of size 8 at addr ffff8881160bdc00 by task pool-e/5770
+> CPU: 1 UID: 0 PID: 5770 Comm: pool-e Not tainted 7.2.0-rc7-1-debug+ #106
+> Allocated by task 5770:
+>   mas_alloc_nodes <- mas_preallocate <- __split_vma <- vms_gather_munmap_vmas
+>     <- do_vmi_align_munmap <- do_vmi_munmap <- __vm_munmap <- elf_load
+>     <- load_elf_binary <- bprm_execve          (pool-e's exec)
+> Freed by task 25 (ksoftirqd):
+>   __rcu_free_sheaf_prepare <- rcu_free_sheaf_nobarn <- rcu_do_batch <- rcu_core
+> The buggy address ... cache maple_node of size 256
+> freed 256-byte region [ffff8881160bdc00, ffff8881160bdd00)
+
+This makes no sense, except... if something wrongly starts writing into
+mm_mt without proper locking, like... a custom patch in the kernel :)
+
+>
+> There was also a more complex scenario when the node was immediately
+> recycled for the next split VMA insert, modified, but the access by
+> the iterator for the previous walk saw corrupted state and triggered
+> KASAN too.
+>
+> Basically the problem is that any sleeping during VMA walks breaks the
+> RCU reader guarantees for the RCU Maple tree iterators. But sleeping
+
+What RCU reader guarantees?
+
+> is unavoidable for various reasons.
+>
+> I hit it with a kernel modification that makes this more likely
+> (It can do VMA splits on exec mm teardown)
+
+Smoking gun...
+
+> and also in a very memory constrained environment (4GB guest running a
+> stress test), but based on code review I believe it's a generic problem that
+> could happen in a unmodified kernel.
+>
+> That said I wasn't actually able to trigger it in a unmodified kernel
+> so far with stress testing.
+
+Yes because the bug almost certainly doesn't exist in mainline :)
+
+>
+> The following old unsolved syzkaller report has a similar signature,
+> so maybe it was already seen:
+> https://syzkaller.appspot.com/bug?id=4c5268fbb1d6d508a4c34dc425e2693d1ff9911a
+
+Hmm that is a very old report? That could have any number of causes?
+
+>
+> I guess in many cases where it happens for real you don't notice it
+> if you don't have KASAN active.
+>
+> The patch fixes up all callers to maintain the RCU reader lock
+> regions correctly during the VMA walk. If they cannot be maintained the
+> iterator is refreshed by a new VMA address lookup in a new region, unless
+> it is proven safe not to.
+>
+> In the cases where there is no sleeping it is strictly not needed
+> because this scenario could not happen due the existing VMA locking.
+>
+> But I fixed them too to not violate the maple tree iterator
+> "rcu read lock or write lock" contract.
+
+I'm not sure that's a contract that exists? RCU lock or external lock
+yes...
+
+>
+> The ones that do not strictly need it are: count_mm_mlocked_page_nr,
+> remap_file_pages, range_contains_unmapped.
+>
+> The ones that may sleep and clearly need it are: apply_vma_lock_flags,
+> do_mprotect_pkey, remap_move, mseal_apply, mbind_range, userfaultfd
+> register/unregister,
+> mwriteprotect_range (doesn't sleep in the walk itself, but uses iterator
+> after sleep)
+>
+> In principle it could be optimized more, e.g. for example only do the
+> re-lookups when actual sleeping happened. Some of it could be done
+> with a new cond resched variant. But I tried to keep it minimal
+> for now.
+>
+> The patch survived most of LTP, the kernel mm selftests and
+> my own stress tests. I didn't do any benchmarks.
+>
+> For when it was introduced it's a complex area, but I believe the patch
+> that originally added the problem was
+> commit b2b3b886738f ("mm: don't use __vma_adjust() in __split_vma()")
+> Then
+> commit 17f1ae9b40c6 ("mm/vma: change munmap to use vma_munmap_struct() for
+> accounting and surrounding vmas")
+> extended the pattern to more places, and then later it was copied
+> elsewhere too. I'm mentioning only the first below.
+
+This seems like absolute handwaving, sorry.
+
+>
+> No cc stable so far, needs some discussion first.
+
+I mean RFC is for that right? :)
+
+>
+> Fixes: b2b3b886738f ("mm: don't use __vma_adjust() in __split_vma()")
+> Assisted-by: omp:gpt-5.6-luna
+
+Yup, it shows. I think this isn't a great showcase for gpt...
+
+I have to say this isn't the way to engage on this stuff Andi - you're
+essentially workslopping us when you really you should have _opened_ with a
+discussion and copied the actual patch you've made to the kernel.
+
+> Signed-off-by: Andi Kleen <ak@kernel.org>
+
+This patch is wrong even if your theory is right, and the patch is utterly
+horrible from a maintenance point of view anyway.
+
 > ---
->  drivers/char/hw_random/imx-rngc.c | 8 ++++----
->  1 file changed, 4 insertions(+), 4 deletions(-)
+>  mm/mempolicy.c   | 13 ++++++++
+>  mm/mlock.c       | 13 +++++++-
+>  mm/mmap.c        |  1 +
+>  mm/mprotect.c    | 29 +++++++++++++---
+>  mm/mremap.c      | 16 +++++++--
+>  mm/mseal.c       | 15 +++++++++
+>  mm/userfaultfd.c | 86 ++++++++++++++++++++++++++++++++++++++++++------
+>  mm/vma.c         | 13 +++++---
+>  8 files changed, 163 insertions(+), 23 deletions(-)
+
+The changes are very horrible, even if we did need to do something like this, it
+really couldn't be in this form.
+
+This introduces assumptions about not sleeping all over, it breaks the
+abstraction, I mean it's pretty patently obviously not upstreamable.
+
+But you also do weird stuff like... assuming an rcu_read_lock() after a
+sleep somehow restores the node back from death...
+
+This could all have been cleared up and saved people time had you just
+kicked off a discussion thread or pinged us.
+
 >
-> diff --git a/drivers/char/hw_random/imx-rngc.c b/drivers/char/hw_random/imx-rngc.c
-> index 7693328f10564..00a21d62c79c3 100644
-> --- a/drivers/char/hw_random/imx-rngc.c
-> +++ b/drivers/char/hw_random/imx-rngc.c
-> @@ -266,7 +266,9 @@ static int __init imx_rngc_probe(struct platform_device *pdev)
->  	if (irq < 0)
->  		return irq;
+> diff --git a/mm/mempolicy.c b/mm/mempolicy.c
+> index 3498a5651d50..7ffdb930b60d 100644
+> --- a/mm/mempolicy.c
+> +++ b/mm/mempolicy.c
+> @@ -1062,7 +1062,20 @@ static int mbind_range(struct vma_iterator *vmi, struct vm_area_struct *vma,
+>  	if (IS_ERR(vma))
+>  		return PTR_ERR(vma);
 >
-> -	clk_prepare_enable(rngc->clk);
-> +	ret = clk_prepare_enable(rngc->clk);
-> +	if (ret)
-> +		return ret;
->
->  	ver_id = readl(rngc->base + RNGC_VER_ID);
->  	rng_type = FIELD_GET(RNG_TYPE, ver_id);
-> @@ -338,9 +340,7 @@ static int imx_rngc_resume(struct device *dev)
->  {
->  	struct imx_rngc *rngc = dev_get_drvdata(dev);
->
-> -	clk_prepare_enable(rngc->clk);
-> -
-> -	return 0;
-> +	return clk_prepare_enable(rngc->clk);
+> +	rcu_read_lock();
+> +	/*
+> +	 * The modify might have invalidated the iterators when
+> +	 * sleeping happened. Do another lookup
+> +	 */
+> +	vma_iter_set(vmi, vmstart);
+> +	vma = vma_find(vmi, vmend);
+> +	if (!vma) {
+> +		rcu_read_unlock();
+> +		return -ENOMEM;
+> +	}
+>  	*prev = vma;
+> +	rcu_read_unlock();
+
+If your RCU theory were true, then the iterator now has invalid nodes in it
+then when next you RCU lock -> walk you are going to UAF?
+
+You're also forcing a complete rewalk every single time and making the vmi
+pointless here.
+
+> +	/* Iterator still protected by write lock */
+>  	return vma_replace_policy(vma, new_pol);
 >  }
 >
->  static const struct dev_pm_ops imx_rngc_pm_ops = {
+> diff --git a/mm/mlock.c b/mm/mlock.c
+> index efa6716e4dfb..ee5c0347129d 100644
+> --- a/mm/mlock.c
+> +++ b/mm/mlock.c
+> @@ -540,12 +540,15 @@ static int apply_vma_lock_flags(unsigned long start, size_t len,
 >
-> base-commit: 08dbfad3f5040f5bdb6c529da20d6d4e81fefd72
+>  	nstart = start;
+>  	tmp = vma->vm_start;
+> +	rcu_read_lock();
+>  	for_each_vma_range(vmi, vma, end) {
+>  		int error;
+>  		vma_flags_t newflags;
+>
+> -		if (vma->vm_start != tmp)
+> +		if (vma->vm_start != tmp) {
+> +			rcu_read_unlock();
+>  			return -ENOMEM;
+> +		}
+>
+>  		newflags = vma->flags;
+>  		vma_flags_clear_mask(&newflags, VMA_LOCKED_MASK);
+> @@ -555,12 +558,19 @@ static int apply_vma_lock_flags(unsigned long start, size_t len,
+>  		tmp = vma->vm_end;
+>  		if (tmp > end)
+>  			tmp = end;
+> +		rcu_read_unlock();
+>  		error = mlock_fixup(&vmi, vma, &prev, nstart, tmp, &newflags);
+>  		if (error)
+>  			return error;
+> +		/*
+> +		 * The iterator is always left on a life node, so no
+
+live?
+
+> +		 * re-lookup needed after sleep.
+
+This makes no sense, your theory is that an RCU grace period can invalidate
+any node right, somehow?
+
+> +		 */
+>  		tmp = vma_iter_end(&vmi);
+>  		nstart = tmp;
+> +		rcu_read_lock();
+>  	}
+> +	rcu_read_unlock();
+
+Now nested rcu locks, to add to complexity...
+
+I mean I could go on but I think the LLM has got itself very confused here
+and a human should have intervened sooner.
+
+>
+>  	if (tmp < end)
+>  		return -ENOMEM;
+> @@ -589,6 +599,7 @@ static unsigned long count_mm_mlocked_page_nr(struct mm_struct *mm,
+>  	else
+>  		end = start + len;
+>
+> +	guard(rcu)();
+>  	for_each_vma_range(vmi, vma, end) {
+>  		if (vma_test(vma, VMA_LOCKED_BIT)) {
+>  			if (start > vma->vm_start)
+> diff --git a/mm/mmap.c b/mm/mmap.c
+> index e10412160b32..dfe5c51dee98 100644
+> --- a/mm/mmap.c
+> +++ b/mm/mmap.c
+> @@ -1184,6 +1184,7 @@ SYSCALL_DEFINE5(remap_file_pages, unsigned long, start, unsigned long, size,
+>  		VMA_ITERATOR(vmi, mm, vma->vm_end);
+>  		struct vm_area_struct *next, *prev = vma;
+>
+> +		guard(rcu)();
+>  		for_each_vma_range(vmi, next, start + size) {
+>  			/* hole between vmas ? */
+>  			if (next->vm_start != prev->vm_end)
+> diff --git a/mm/mprotect.c b/mm/mprotect.c
+> index 2888ee638d87..53e4fd45d39b 100644
+> --- a/mm/mprotect.c
+> +++ b/mm/mprotect.c
+> @@ -941,6 +941,7 @@ static int do_mprotect_pkey(unsigned long start, size_t len,
+>  	tlb_gather_mmu(&tlb, current->mm);
+>  	nstart = start;
+>  	tmp = vma->vm_start;
+> +	rcu_read_lock();
+>  	for_each_vma_range(vmi, vma, end) {
+>  		vm_flags_t mask_off_old_flags;
+>  		vma_flags_t new_vma_flags;
+> @@ -984,29 +985,49 @@ static int do_mprotect_pkey(unsigned long start, size_t len,
+>  			error = -EINVAL;
+>  			break;
+>  		}
+> +		rcu_read_unlock();
+>
+>  		error = security_file_mprotect(vma, reqprot, prot);
+> -		if (error)
+> +		if (error) {
+> +			rcu_read_lock();
+>  			break;
+> -
+> +		}
+> +		rcu_read_lock();
+> +		/*
+> +		 * The security hook may sleep; re-lookup instead of
+> +		 * trusting the pre-sleep pointer.
+> +		 */
+> +		vma_iter_set(&vmi, vma->vm_start);
+> +		vma = vma_find(&vmi, end);
+> +		if (!vma) {
+> +			error = -ENOMEM;
+> +			break;
+> +		}
+>  		tmp = vma->vm_end;
+>  		if (tmp > end)
+>  			tmp = end;
+> +		rcu_read_unlock();
+>
+>  		if (vma->vm_ops && vma->vm_ops->mprotect) {
+>  			error = vma->vm_ops->mprotect(vma, nstart, tmp, newflags);
+> -			if (error)
+> +			if (error) {
+> +				rcu_read_lock();
+>  				break;
+> +			}
+>  		}
+>
+>  		error = mprotect_fixup(&vmi, &tlb, vma, &prev, nstart, tmp, newflags);
+> -		if (error)
+> +		if (error) {
+> +			rcu_read_lock();
+>  			break;
+> +		}
+>
+>  		tmp = vma_iter_end(&vmi);
+>  		nstart = tmp;
+>  		prot = reqprot;
+> +		rcu_read_lock();
+>  	}
+> +	rcu_read_unlock();
+>  	tlb_finish_mmu(&tlb);
+>
+>  	if (!error && tmp < end)
+> diff --git a/mm/mremap.c b/mm/mremap.c
+> index e8df5cdb0ac9..c8589c699515 100644
+> --- a/mm/mremap.c
+> +++ b/mm/mremap.c
+> @@ -1903,6 +1903,7 @@ static unsigned long remap_move(struct vma_remap_struct *vrm)
+>  	 * with all VMAs in the input range [addr, addr + old_len) being moved
+>  	 * (and split as necessary).
+>  	 */
+> +	rcu_read_lock();
+>  	for_each_vma_range(vmi, vma, end) {
+>  		/* Account for start, end not aligned with VMA start, end. */
+>  		unsigned long addr = max(vma->vm_start, start);
+> @@ -1911,8 +1912,10 @@ static unsigned long remap_move(struct vma_remap_struct *vrm)
+>  		bool multi_allowed;
+>
+>  		/* No gap permitted at the start of the range. */
+> -		if (!seen_vma && start < vma->vm_start)
+> +		if (!seen_vma && start < vma->vm_start) {
+> +			rcu_read_unlock();
+>  			return -EFAULT;
+> +		}
+>
+>  		/*
+>  		 * To sensibly move multiple VMAs, accounting for the fact that
+> @@ -1940,12 +1943,17 @@ static unsigned long remap_move(struct vma_remap_struct *vrm)
+>  		multi_allowed = vma_multi_allowed(vma);
+>  		if (!multi_allowed) {
+>  			/* This is not the first VMA, abort immediately. */
+> -			if (seen_vma)
+> +			if (seen_vma) {
+> +				rcu_read_unlock();
+>  				return -EFAULT;
+> +			}
+>  			/* This is the first, but there are more, abort. */
+> -			if (vma->vm_end < end)
+> +			if (vma->vm_end < end) {
+> +				rcu_read_unlock();
+>  				return -EFAULT;
+> +			}
+>  		}
+> +		rcu_read_unlock();
+>
+>  		res_vma = check_prep_vma(vrm);
+>  		if (!res_vma)
+> @@ -1969,7 +1977,9 @@ static unsigned long remap_move(struct vma_remap_struct *vrm)
+>  		}
+>  		seen_vma = true;
+>  		target_addr = res_vma + vrm->new_len;
+> +		rcu_read_lock();
+>  	}
+> +	rcu_read_unlock();
+>
+>  	return res;
+>  }
+> diff --git a/mm/mseal.c b/mm/mseal.c
+> index 7a8ac66dc215..551b5ad52f4d 100644
+> --- a/mm/mseal.c
+> +++ b/mm/mseal.c
+> @@ -22,6 +22,7 @@ static bool range_contains_unmapped(unsigned long start, unsigned long end)
+>  	unsigned long prev_end = start;
+>  	struct vm_area_struct *vma;
+>
+> +	guard(rcu)();
+>  	for_each_vma_range(vmi, vma, end) {
+>  		if (vma->vm_start > prev_end)
+>  			return true;
+> @@ -43,6 +44,7 @@ static int __mseal_range(unsigned long start, unsigned long end)
+>  	if (start > vma->vm_start)
+>  		prev = vma;
+>
+> +	rcu_read_lock();
+>  	for_each_vma_range(vmi, vma, end) {
+>  		const unsigned long curr_start = max(vma->vm_start, start);
+>  		const unsigned long curr_end = min(vma->vm_end, end);
+> @@ -51,17 +53,30 @@ static int __mseal_range(unsigned long start, unsigned long end)
+>  			vma_flags_t vma_flags = vma->flags;
+>
+>  			vma_flags_set(&vma_flags, VMA_SEALED_BIT);
+> +			rcu_read_unlock();
+>
+>  			vma = vma_modify_flags(&vmi, prev, vma, curr_start,
+>  					       curr_end, &vma_flags);
+>  			if (IS_ERR(vma))
+>  				return PTR_ERR(vma);
+> +
+> +			rcu_read_lock();
+> +			/* The modify may have slept and merged, so re-lookup. */
+> +			vma_iter_set(&vmi, curr_start);
+> +			vma = vma_find(&vmi, curr_end);
+> +			if (!vma) {
+> +				rcu_read_unlock();
+> +				return -ENOMEM;
+> +			}
+> +			rcu_read_unlock();
+>  			vma_start_write(vma);
+>  			vma_set_flags(vma, VMA_SEALED_BIT);
+> +			rcu_read_lock();
+>  		}
+>
+>  		prev = vma;
+>  	}
+> +	rcu_read_unlock();
+>
+>  	return 0;
+>  }
+> diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
+> index 23fb68fce000..464570b15d4a 100644
+> --- a/mm/userfaultfd.c
+> +++ b/mm/userfaultfd.c
+> @@ -1134,6 +1134,7 @@ static int mwriteprotect_range(struct userfaultfd_ctx *ctx, unsigned long start,
+>  		goto out_unlock;
+>
+>  	err = -ENOENT;
+> +	rcu_read_lock();
+>  	for_each_vma_range(vmi, dst_vma, end) {
+>
+>  		if (!userfaultfd_wp(dst_vma)) {
+> @@ -1150,14 +1151,18 @@ static int mwriteprotect_range(struct userfaultfd_ctx *ctx, unsigned long start,
+>
+>  		_start = max(dst_vma->vm_start, start);
+>  		_end = min(dst_vma->vm_end, end);
+> +		rcu_read_unlock();
+>
+>  		err = uffd_wp_range(dst_vma, _start, _end - _start, enable_wp);
+> +		rcu_read_lock();
+> +		/* The iterator is still on a life node */
+>
+>  		/* Return 0 on success, <0 on failures */
+>  		if (err < 0)
+>  			break;
+>  		err = 0;
+>  	}
+> +	rcu_read_unlock();
+>  out_unlock:
+>  	up_read(&ctx->map_changing_lock);
+>  	mmap_read_unlock(dst_mm);
+> @@ -2324,9 +2329,17 @@ static int userfaultfd_register_range(struct userfaultfd_ctx *ctx,
+>  	if (vma->vm_start < start)
+>  		prev = vma;
+>
+> +	rcu_read_lock();
+>  	for_each_vma_range(vmi, vma, end) {
+> +		rcu_read_unlock();
+>  		cond_resched();
+>
+> +		rcu_read_lock();
+> +		/* The cond_resched above may have slept, so re-lookup. */
+> +		vma_iter_set(&vmi, vma->vm_start);
+> +		vma = vma_find(&vmi, end);
+> +		if (!vma)
+> +			break;
+>  		VM_WARN_ON_ONCE(!vma_can_userfault(vma, vm_flags, wp_async));
+>  		VM_WARN_ON_ONCE(vma->vm_userfaultfd_ctx.ctx &&
+>  				vma->vm_userfaultfd_ctx.ctx != ctx);
+> @@ -2355,6 +2368,7 @@ static int userfaultfd_register_range(struct userfaultfd_ctx *ctx,
+>  		new_vma_flags = vma->flags;
+>  		vma_flags_clear_mask(&new_vma_flags, __VMA_UFFD_FLAGS);
+>  		vma_flags_set_mask(&new_vma_flags, vma_flags);
+> +		rcu_read_unlock();
+>
+>  		vma = vma_modify_flags_uffd(&vmi, prev, vma, start, vma_end,
+>  					    &new_vma_flags,
+> @@ -2368,15 +2382,31 @@ static int userfaultfd_register_range(struct userfaultfd_ctx *ctx,
+>  		 * the next vma was merged into the current one and
+>  		 * the current one has not been updated yet.
+>  		 */
+> +		rcu_read_lock();
+> +		/* The modify may have slept and merged, so re-lookup. */
+> +		vma_iter_set(&vmi, start);
+> +		vma = vma_find(&vmi, end);
+> +		if (!vma)
+> +			break;
+> +		rcu_read_unlock();
+>  		userfaultfd_set_ctx(vma, ctx, vm_flags);
+> +		rcu_read_lock();
+>
+> -		if (is_vm_hugetlb_page(vma) && uffd_disable_huge_pmd_share(vma))
+> +		if (is_vm_hugetlb_page(vma) && uffd_disable_huge_pmd_share(vma)) {
+> +			rcu_read_unlock();
+>  			hugetlb_unshare_all_pmds(vma);
+> +			rcu_read_lock();
+> +			vma_iter_set(&vmi, start);
+> +			vma = vma_find(&vmi, end);
+> +			if (!vma)
+> +				break;
+> +		}
+>
+>  skip:
+>  		prev = vma;
+>  		start = vma->vm_end;
+>  	}
+> +	rcu_read_unlock();
+>
+>  	return 0;
+>  }
+> @@ -3808,16 +3838,26 @@ static int userfaultfd_register(struct userfaultfd_ctx *ctx,
+>  	found = false;
+>  	basic_ioctls = false;
+>  	cur = vma;
+> +	rcu_read_lock();
+>  	do {
+> +		rcu_read_unlock();
+>  		cond_resched();
+>
+> +		rcu_read_lock();
+> +		/* The cond_resched above may have slept, so re-lookup. */
+> +		vma_iter_set(&vmi, cur->vm_start);
+> +		cur = vma_find(&vmi, end);
+> +		if (!cur)
+> +			break;
+>  		VM_WARN_ON_ONCE(!!cur->vm_userfaultfd_ctx.ctx ^
+>  				!!(cur->vm_flags & __VM_UFFD_FLAGS));
+>
+>  		/* check not compatible vmas */
+>  		ret = -EINVAL;
+> -		if (!vma_can_userfault(cur, vm_flags, wp_async))
+> +		if (!vma_can_userfault(cur, vm_flags, wp_async)) {
+> +			rcu_read_unlock();
+>  			goto out_unlock;
+> +		}
+>
+>  		/*
+>  		 * RWP uses protnone as an access-tracking marker. PROT_NONE
+> @@ -3827,8 +3867,10 @@ static int userfaultfd_register(struct userfaultfd_ctx *ctx,
+>  		 * mprotect() must still be unregisterable, so this is not
+>  		 * part of vma_can_userfault().
+>  		 */
+> -		if ((vm_flags & VM_UFFD_RWP) && !vma_is_accessible(cur))
+> +		if ((vm_flags & VM_UFFD_RWP) && !vma_is_accessible(cur)) {
+> +			rcu_read_unlock();
+>  			goto out_unlock;
+> +		}
+>
+>  		/*
+>  		 * UFFDIO_COPY will fill file holes even without
+> @@ -3839,8 +3881,10 @@ static int userfaultfd_register(struct userfaultfd_ctx *ctx,
+>  		 * F_WRITE_SEAL can be taken until the vma is destroyed.
+>  		 */
+>  		ret = -EPERM;
+> -		if (unlikely(!(cur->vm_flags & VM_MAYWRITE)))
+> +		if (unlikely(!(cur->vm_flags & VM_MAYWRITE))) {
+> +			rcu_read_unlock();
+>  			goto out_unlock;
+> +		}
+>
+>  		/*
+>  		 * If this vma contains ending address, and huge pages
+> @@ -3852,11 +3896,15 @@ static int userfaultfd_register(struct userfaultfd_ctx *ctx,
+>
+>  			ret = -EINVAL;
+>
+> -			if (end & (vma_hpagesize - 1))
+> +			if (end & (vma_hpagesize - 1)) {
+> +				rcu_read_unlock();
+>  				goto out_unlock;
+> +			}
+>  		}
+> -		if ((vm_flags & VM_UFFD_WP) && !(cur->vm_flags & VM_MAYWRITE))
+> +		if ((vm_flags & VM_UFFD_WP) && !(cur->vm_flags & VM_MAYWRITE)) {
+> +			rcu_read_unlock();
+>  			goto out_unlock;
+> +		}
+>
+>  		/*
+>  		 * Check that this vma isn't already owned by a
+> @@ -3866,8 +3914,10 @@ static int userfaultfd_register(struct userfaultfd_ctx *ctx,
+>  		 */
+>  		ret = -EBUSY;
+>  		if (cur->vm_userfaultfd_ctx.ctx &&
+> -		    cur->vm_userfaultfd_ctx.ctx != ctx)
+> +		    cur->vm_userfaultfd_ctx.ctx != ctx) {
+> +			rcu_read_unlock();
+>  			goto out_unlock;
+> +		}
+>
+>  		/*
+>  		 * Mode switches that drop VM_UFFD_WP or VM_UFFD_RWP would
+> @@ -3876,8 +3926,10 @@ static int userfaultfd_register(struct userfaultfd_ctx *ctx,
+>  		 * into the other mode. Require an unregister first.
+>  		 */
+>  		if (cur->vm_userfaultfd_ctx.ctx == ctx &&
+> -		    cur->vm_flags & (VM_UFFD_WP | VM_UFFD_RWP) & ~vm_flags)
+> +		    cur->vm_flags & (VM_UFFD_WP | VM_UFFD_RWP) & ~vm_flags) {
+> +			rcu_read_unlock();
+>  			goto out_unlock;
+> +		}
+>
+>  		/*
+>  		 * Note vmas containing huge pages
+> @@ -3887,6 +3939,7 @@ static int userfaultfd_register(struct userfaultfd_ctx *ctx,
+>
+>  		found = true;
+>  	} for_each_vma_range(vmi, cur, end);
+> +	rcu_read_unlock();
+>  	VM_WARN_ON_ONCE(!found);
+>
+>  	ret = userfaultfd_register_range(ctx, vma, vm_flags, start, end,
+> @@ -3980,9 +4033,17 @@ static int userfaultfd_unregister(struct userfaultfd_ctx *ctx,
+>  	 */
+>  	found = false;
+>  	cur = vma;
+> +	rcu_read_lock();
+>  	do {
+> +		rcu_read_unlock();
+>  		cond_resched();
+>
+> +		rcu_read_lock();
+> +		/* The cond_resched above may have slept, so re-lookup. */
+> +		vma_iter_set(&vmi, cur->vm_start);
+> +		cur = vma_find(&vmi, end);
+> +		if (!cur)
+> +			break;
+>  		VM_WARN_ON_ONCE(!!cur->vm_userfaultfd_ctx.ctx ^
+>  				!!(cur->vm_flags & __VM_UFFD_FLAGS));
+>
+> @@ -3991,8 +4052,10 @@ static int userfaultfd_unregister(struct userfaultfd_ctx *ctx,
+>  		 * the one used for registration.
+>  		 */
+>  		if (cur->vm_userfaultfd_ctx.ctx &&
+> -		    cur->vm_userfaultfd_ctx.ctx != ctx)
+> +		    cur->vm_userfaultfd_ctx.ctx != ctx) {
+> +			rcu_read_unlock();
+>  			goto out_unlock;
+> +		}
+>
+>  		/*
+>  		 * Check not compatible vmas, not strictly required
+> @@ -4001,11 +4064,14 @@ static int userfaultfd_unregister(struct userfaultfd_ctx *ctx,
+>  		 * provides for more strict behavior to notice
+>  		 * unregistration errors.
+>  		 */
+> -		if (!vma_can_userfault(cur, cur->vm_flags, wp_async))
+> +		if (!vma_can_userfault(cur, cur->vm_flags, wp_async)) {
+> +			rcu_read_unlock();
+>  			goto out_unlock;
+> +		}
+>
+>  		found = true;
+>  	} for_each_vma_range(vmi, cur, end);
+> +	rcu_read_unlock();
+>  	VM_WARN_ON_ONCE(!found);
+>
+>  	vma_iter_set(&vmi, start);
+> diff --git a/mm/vma.c b/mm/vma.c
+> index 35e7a64855fa..e00b0cdc3d83 100644
+> --- a/mm/vma.c
+> +++ b/mm/vma.c
+> @@ -614,10 +614,8 @@ __split_vma(struct vma_iterator *vmi, struct vm_area_struct *vma,
+>  	validate_mm(vma->vm_mm);
+>
+>  	/* Success. */
+> -	if (new_below)
+> -		vma_next(vmi);
+> -	else
+> -		vma_prev(vmi);
+> +	vma_iter_set(vmi, vma->vm_start);
+> +	vma_find(vmi, ULONG_MAX);
+>
+>  	return 0;
+>
+> @@ -1573,7 +1571,12 @@ static int vms_gather_munmap_vmas(struct vma_munmap_struct *vms,
+>  #endif
+>  	}
+>
+> -	vms->next = vma_next(vms->vmi);
+> +	/*
+> +	 * The loop's cached node may be the one a split's store deferred.
+> +	 * Continue from the range end.
+> +	 */
+> +	vma_iter_set(vms->vmi, vms->end);
+> +	vms->next = vma_find(vms->vmi, ULONG_MAX);
+>  	if (vms->next)
+>  		vms->unmap_end = vms->next->vm_start;
+>
 > --
-> 2.50.1
+> 2.54.0
 >
->
+
+--
+Cheers, Lorenzo
