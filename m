@@ -1,49 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A4A459B691;
-	Mon, 31 Aug 2026 13:51:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A2994B2CD0;
+	Mon, 31 Aug 2026 13:51:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788184307; cv=none; b=UVPgrlpJDGX6SBdSJN0v8J2Ka45A6hVVeiU/kDafG7qw6hQC03SdHKruXIHTouBqftZT4IU6KI5/hUeOlmHVK50VKqLBtjkGsrYFkqtd0v8zCZyjdmKgPkLWW69IqrvELIjZOQFciRTCvWJZ53IBkPweq7EZKHcuef1lIcvZc6U=
+	t=1788184308; cv=none; b=HpHJ2cugTGmhau1ZMuO+NhZOdpNQV8hrwEB4WuuLMR3RArhVAccVkIhYTP7LwocmFXmnlQSCjTe/zdfNF3noizbqzLk/gLd8ccCMrvIPsAh3IeVh/a/OywB+LqpoS0Fm3D8YMgL9qxEfGOkGofBH2rFG+/VtxqRYULgXeo5IjKE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788184307; c=relaxed/simple;
-	bh=asx+tnajV6kiRQ5YLoueVZyB8w5IegjuGZzRs1QzdVs=;
+	s=arc-20240116; t=1788184308; c=relaxed/simple;
+	bh=+bgH+6fQdc0CDeEey0yKNHCaY9sWUoyXx5KIn1hcxqk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=nQrCpiA5G5aTMN9pikhchfvbytbXwmIxKTqeTtrbsmkckfpQvHBuQfGCAJO2QxZ3jgw4rseMxgipdequfIq/nD35jCODbBJevLFEKkzcKFeoi6a9DKWh26x4/bf1ul7kONcXOd++7CegIFF+efi6DExjYI7ThDRF5WZHxK6qIOA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YpEyyzzP; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=rJDnFG09oh+j4xB57+WMPw408lFf14mAH2y0aZ4h89cOUCIR4rpvHbWGQa9+aneTYJ7ES3I1yWXCFuqHK6vcXjZjzNONBZLd0daV2aXqVF9t0F1nB6Vd34FonShskSHOgdfYXhsTcjAOL8htrc0kbTvvuQgp1KSr4wcn5XbZWYk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PB5u/KGM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YpEyyzzP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 210BE1F00ADE;
-	Mon, 31 Aug 2026 13:51:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PB5u/KGM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF3631F00ACA;
+	Mon, 31 Aug 2026 13:51:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788184301;
-	bh=ie6oryPr3WoqCXD6Rq6VNEPbIMuHKh9ed4sfbx6lSJU=;
+	s=k20260515; t=1788184305;
+	bh=DYuIMm6sOTCZzKxDv31EBBEdn7Pb+U/nNZcyAaoStBs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=YpEyyzzPKIv9Ms7RicXi2HfSsrYtm8sAOLCRfdQxG0FjNJ24nf7Yl8/S16yyT6QLG
-	 1KfQW0Z+OZg8NidE41idua7FnayZmHv8DXpOdI48xIMoFIs9r5rYVTkE6966+ZJ9hk
-	 9JFkoXjP6qOVU+ElbyEncN6rDHpTklBVKaDRlGDkxzXcguMhqOE6MS8XiWGEfr9Y+U
-	 ixQTX2lnPtkqlek61VwzShOqRUKMFCxcY4R9Jc00O+V4Vps0uB0/sUWNSCffVYvy0d
-	 OvrvIbvhfqCWedvHEUviMz/FwBcDX3sgtovcr/zFjXYBrar8e4cvTCskcfFOZHlPxz
-	 tyPuwGWA0uJSw==
+	b=PB5u/KGMgMzBHQCKDydd5H3ovsYG5cLLeaM0bq0hN+MwTcAQtO6jqnBRHPQFy/jS7
+	 W91hbFs1tnoeGeviUoJDFIVk4Z/DJVNhdw4EUI4z5a7I5cDt5wKrltAls0Ul5EmbDx
+	 BKVhhCO48YdMLT1ogN7YW3PCi4jn4fs9QRAatXv8rY9BzUhz7bAEUXkW8Mm5qqb8f+
+	 yoHH+xc2z28vdhWyPEG7dBiyJ6OtfYzZqAkP+iKT1k3i8ywoOaMrUBJIP35+OmSAxp
+	 qj5+oCSrboBud5NypHwK06sKTie8sZf3b5DXooU8V2ldhWLToK1B2nm3GGEJCB3Rxe
+	 4/VcQuGkkYvNg==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Ion Agorria <ion@agorria.com>,
-	Svyatoslav Ryhel <clamor95@gmail.com>,
-	Thierry Reding <treding@nvidia.com>,
+Cc: Qiang Liu <liuqiang@kylinos.cn>,
+	ChenXiaoSong <chenxiaosong@kylinos.cn>,
+	Namjae Jeon <linkinjeon@kernel.org>,
+	Steve French <stfrench@microsoft.com>,
 	Sasha Levin <sashal@kernel.org>,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	thierry.reding@kernel.org,
-	jonathanh@nvidia.com,
-	devicetree@vger.kernel.org,
-	linux-tegra@vger.kernel.org,
+	smfrench@gmail.com,
+	linux-cifs@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-6.12] ARM: tegra: p880: Lower CPU thermal limit
-Date: Mon, 31 Aug 2026 09:30:39 -0400
-Message-ID: <20260831133314.4125787-611-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-5.15] ksmbd: fix n.data memory leak in ksmbd_vfs_set_dos_attrib_xattr
+Date: Mon, 31 Aug 2026 09:30:41 -0400
+Message-ID: <20260831133314.4125787-613-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -59,377 +55,399 @@ X-stable-base: Linux 6.18.48
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Ion Agorria <ion@agorria.com>
+From: Qiang Liu <liuqiang@kylinos.cn>
 
-[ Upstream commit ece4229e457de4ceeec80890c5c760f0c858eeea ]
+[ Upstream commit 7ac657bb9c5c1b0f7bdf1fa6d3ad532f969be5cf ]
 
-Lower the CPU thermal limit for the LG P880, since its chassis has less
-thermal dissipation capability than the P895.
+Free ndr buffer data when ndr_encode_dos_attr() returns error
+to avoid memory leak.
 
-Signed-off-by: Ion Agorria <ion@agorria.com>
-Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-Signed-off-by: Thierry Reding <treding@nvidia.com>
+Signed-off-by: Qiang Liu <liuqiang@kylinos.cn>
+Reviewed-by: ChenXiaoSong <chenxiaosong@kylinos.cn>
+Acked-by: Namjae Jeon <linkinjeon@kernel.org>
+Signed-off-by: Steve French <stfrench@microsoft.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-## Phase 1: Commit Message Forensics
+# Stable Backport Analysis: `ksmbd: fix n.data memory leak in
+ksmbd_vfs_set_dos_attrib_xattr`
 
-### Step 1.1: Subject Line
-**Record:** `[ARM: tegra: p880]` `[Lower]` — Lower the CPU thermal limit
-for the LG Optimus 4X HD (P880) device tree.
-
-### Step 1.2: Commit Message Tags
-**Record:**
-- **Fixes:** — none
-- **Reported-by:** — none
-- **Tested-by:** — none
-- **Reviewed-by:** — none
-- **Acked-by:** — none
-- **Link:** — none
-- **Cc: stable:** — none (expected for manual review)
-- **Signed-off-by:** Ion Agorria, Svyatoslav Ryhel, Thierry Reding
-  (ignore pipeline-added SOBs)
-
-Notable: Tegra maintainer Thierry Reding signed off and committed the
-patch. No syzbot, bugzilla, or user crash reports.
-
-### Step 1.3: Commit Body Analysis
-**Record:**
-- **Bug:** P880 inherits CPU thermal trip points from
-  `tegra30-lg-x3.dtsi` (shared with P895). P880's chassis has less
-  thermal dissipation than P895, so the inherited 75°C passive CPU
-  throttle is too high.
-- **Symptom:** CPU can run hotter than appropriate before passive
-  throttling engages on the CPU diode sensor.
-- **Version info:** None in message.
-- **Root cause:** Incorrect board-specific thermal description — P880
-  reuses P895/X3 thermal profile without board-specific override.
-
-### Step 1.4: Hidden Bug Fix Detection
-**Record:** Yes — described as a thermal limit adjustment, but it
-corrects an incorrect hardware description in the device tree. This is a
-hardware-tuning bug fix, not a cosmetic change.
+**Local tree:** `v6.18.44` (`stable/linux-6.18.y`, `make kernelversion`
+= 6.18.44)
+**Commit under review:** `7ac657bb9c5c1` (on `master`, **not yet** in
+this tree)
 
 ---
 
-## Phase 2: Diff Analysis
+## PHASE 1: COMMIT MESSAGE FORENSICS
 
-### Step 2.1: Change Inventory
+### Step 1.1: Subject line
+**Record:** `[ksmbd]` `[fix]` — memory leak of `n.data` in
+`ksmbd_vfs_set_dos_attrib_xattr` when `ndr_encode_dos_attr()` fails.
+
+### Step 1.2: Tags
 **Record:**
-- **Files:** `arch/arm/boot/dts/nvidia/tegra30-lg-p880.dts` (+13 / -0)
-- **Functions:** N/A (device tree nodes)
-- **Scope:** Single-file, board-specific surgical DT override
+- **Signed-off-by:** Qiang Liu `<liuqiang@kylinos.cn>` (author)
+- **Reviewed-by:** ChenXiaoSong `<chenxiaosong@kylinos.cn>`
+- **Acked-by:** Namjae Jeon `<linkinjeon@kernel.org>` (ksmbd maintainer)
+- **Signed-off-by:** Steve French `<stfrench@microsoft.com>` (committer)
+- No `Fixes:`, `Reported-by:`, `Link:`, `Cc: stable`, or `Tested-by:`
+  tags
+- Notable: maintainer **Acked-by** is a strong quality signal
 
-### Step 2.2: Code Flow Change
+### Step 1.3: Body analysis
 **Record:**
-- **Hunk (end of board DTS):** Before — P880 inherits `cpu-thermal`
-  trips from included `tegra30-lg-x3.dtsi` (`cpu-alert` passive trip at
-  75°C). After — board DTS overrides `cpu-alert` to 60°C passive with
-  200 m°C hysteresis.
-- **Path affected:** Thermal framework passive throttling on CPU diode
-  sensor for P880 only.
+- **Bug:** `ndr_encode_dos_attr()` allocates an NDR buffer (`n.data`);
+  on encoding error, `ksmbd_vfs_set_dos_attrib_xattr()` returned early
+  without `kfree(n.data)`.
+- **Symptom:** Memory leak (no crash/corruption described).
+- **Root cause:** Missing cleanup on the `ndr_encode_dos_attr()` error
+  path.
+- **Version info:** None in commit message.
 
-### Step 2.3: Bug Mechanism
-**Record:**
-- **Category:** Hardware workaround / DT correctness fix
-- **Mechanism:** P880 `#include`s `tegra30-lg-x3.dtsi`, which defines
-  `cpu-alert` at 75000 m°C (75°C). The board override lowers this to
-  60000 m°C (60°C) to match P880's poorer thermal dissipation. Skin-
-  thermal still throttles at 50°C and shuts down at 60°C on the skin
-  sensor, but the CPU diode can run hotter than skin temperature during
-  bursts; the inherited 75°C CPU trip was too permissive for this
-  chassis.
-
-### Step 2.4: Fix Quality
-**Record:** Fix is minimal, obviously correct, and follows established
-DT override patterns used on other Tegra boards. Zero impact on non-P880
-systems. Regression risk is very low — only makes throttling more
-conservative on one board.
+### Step 1.4: Hidden bug fix?
+**Record:** No — explicitly labeled as a memory leak fix, not disguised
+cleanup.
 
 ---
 
-## Phase 3: Git History Investigation
+## PHASE 2: DIFF ANALYSIS
 
-### Step 3.1: Blame / Introduction of Buggy Code
-**Record:** Inherited `cpu-alert` at 75°C introduced in `b68e6e0d50c5d`
-("ARM: tegra: Add device-tree for LG Optimus Vu (P895)", Feb 2024) in
-`tegra30-lg-x3.dtsi`. P880 DTS added in `ea5e97e9ce046` (Feb 2024)
-without a board-specific CPU thermal override. Both commits are
-ancestors of the current tree.
-
-### Step 3.2: Fixes: Tag
-**Record:** N/A — no Fixes: tag present.
-
-### Step 3.3: Related File History
+### Step 2.1: Inventory
 **Record:**
-- `ea5e97e9ce046` — initial P880 DTS
-- `b49a73a08100a` — prior P880 board fix (touchscreen clipping), already
-  in 6.18.44
-- `ece4229e457de` — this thermal fix (mainline, not yet in 6.18.44)
-- Part of series "ARM: tegra: complete a few Tegra30 device trees"
-  (patch 3/9), but this hunk only touches `tegra30-lg-p880.dts` and is
-  functionally standalone.
+- **Files:** `fs/smb/server/vfs.c` only (+3 / −2 lines)
+- **Function modified:** `ksmbd_vfs_set_dos_attrib_xattr()`
+- **Scope:** Single-file, surgical fix
 
-### Step 3.4: Author Context
-**Record:** Svyatoslav Ryhel is the primary P880/P895 DT author. Thierry
-Reding (Tegra maintainer) committed the fix. Ion Agorria is the hardware
-expert who identified the thermal issue.
+### Step 2.2: Code flow change
+**Record:**
+| Hunk | Before | After |
+|------|--------|-------|
+| Error from `ndr_encode_dos_attr()` | `return err;` (leaks `n.data`) |
+`goto out;` |
+| Success path cleanup | `kfree(n.data); return err;` | `out:
+kfree(n.data); return err;` |
 
-### Step 3.5: Dependencies
-**Record:** No code dependencies on other patches in the 3/9 series.
-Verified with `git apply --check` — applies cleanly to the current
-6.18.44 tree.
+Both success and error paths now converge at `out:` and always free
+`n.data` when it was allocated.
+
+### Step 2.3: Bug mechanism
+**Record:**
+- **Category:** Resource leak on error path
+- **Mechanism:** `ndr_encode_dos_attr()` calls `kzalloc(1024)` then may
+  fail in `ndr_write_string()` / `ndr_write_int*()` via
+  `try_to_realloc_ndr_blob()` returning `-ENOMEM`. The caller returned
+  without freeing the already-allocated buffer.
+
+Verified in `ndr.c`:
+
+```170:188:fs/smb/server/ndr.c
+int ndr_encode_dos_attr(struct ndr *n, struct xattr_dos_attrib *da)
+{
+        // ...
+        n->data = kzalloc(n->length, KSMBD_DEFAULT_GFP);
+        if (!n->data)
+                return -ENOMEM;
+        // ... ndr_write_* calls that can return -ENOMEM ...
+        if (ret)
+                return ret;
+```
+
+### Step 2.4: Fix quality
+**Record:**
+- **Quality:** Obviously correct; mirrors the `goto out` + `kfree`
+  pattern used elsewhere in the same file (e.g.
+  `ksmbd_vfs_set_sd_xattr`, `ksmbd_vfs_get_dos_attrib_xattr`).
+- **Regression risk:** Very low — only adds cleanup on a previously
+  leaked path.
+- **Red flags:** None.
 
 ---
 
-## Phase 4: Mailing List and External Research
+## PHASE 3: GIT HISTORY INVESTIGATION
 
-### Step 4.1: Original Patch Discussion
+### Step 3.1: Blame
+**Record:**
+- Buggy logic introduced in `f44158485826c` ("cifsd: add file
+  operations", 2021-05-10).
+- Function has been in ksmbd/cifsd since v5.13 era; present in this
+  6.18.y tree at `fs/smb/server/vfs.c:1651–1670`.
+
+### Step 3.2: Fixes: tag
+**Record:** N/A — no `Fixes:` tag present.
+
+### Step 3.3: Related file history
+**Record:**
+- Part of v2 series: `[PATCH v2 0/3] ksmbd: fix some memory leaks in
+  ksmbd_vfs_* functions`
+- Sibling commits on `master`:
+  - `d4d56b00c7df8` — `sd_ndr.data` leak in `ksmbd_vfs_set_sd_xattr`
+  - `d708a36634bb7` — `acl.sd_buf` leak in `ksmbd_vfs_get_sd_xattr`
+  - `7ac657bb9c5c1` — this commit (patch 3/3)
+- **This commit is standalone** — fixes a different function; no
+  dependency on siblings.
+
+### Step 3.4: Author context
+**Record:** Qiang Liu submitted the 3-patch leak-fix series. Namjae Jeon
+(maintainer) Acked all three. Steve French committed.
+
+### Step 3.5: Prerequisites
+**Record:** None. `git apply --check` against this tree succeeds
+cleanly. No structural/API assumptions beyond existing code.
+
+---
+
+## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
+
+### Step 4.1: Original discussion
 **Record:**
 - **b4 dig URL:**
-  https://patch.msgid.link/20260511074859.24930-4-clamor95@gmail.com
-- **Series revisions:** v1 original (Apr 2026) and v1 RESEND (May 2026)
-- **Reviewer feedback:** No NAKs found in available thread content;
-  patch merged by maintainer
-- **Stable nominations:** None found in thread
+  https://patch.msgid.link/20260624011320.9146-4-liuqiangneo@163.com
+- **Series revisions:** v1 (2026-06-23), v2 (2026-06-24); committed
+  version matches v2 patch 3/3
+- **Lore fetch:** Blocked by Anubis bot protection — could not read
+  thread body for stable nominations or NAKs
 
-### Step 4.2: Reviewers
-**Record:** CC'd: Rob Herring, Krzysztof Kozlowski, Conor Dooley,
-Thierry Reding, Jonathan Hunter, devicetree@, linux-tegra@, linux-
-kernel@. Appropriate maintainers were included.
+### Step 4.2: Reviewers (b4 dig -w)
+**Record:** CC'd to Steve French, Namjae Jeon, Ronnie Sahlberg, linux-
+cifs@vger.kernel.org, and other ksmbd maintainers/reviewers.
 
-### Step 4.3: Bug Reports
-**Record:** No external bug report, syzbot link, or user crash report.
-Issue identified through hardware comparison (P880 vs P895 chassis
-thermal characteristics).
+### Step 4.3: Bug report
+**Record:** N/A — no external bug report or syzbot link.
 
-### Step 4.4: Related Patches
-**Record:** Part of 9-patch Tegra30 DT completion series. This patch is
-self-contained. Prior P880 fix (`b49a73a08100a`, touchscreen clipping)
-is already in this stable tree.
+### Step 4.4: Related patches
+**Record:** 3-patch series fixing independent leaks in `vfs.c`. Other
+two patches are also absent from this tree but are not prerequisites for
+this one.
 
-### Step 4.5: Stable Mailing List
-**Record:** No stable-specific discussion found for this patch.
+### Step 4.5: Stable list history
+**Record:** UNVERIFIED — lore stable search blocked by bot protection.
 
 ---
 
-## Phase 5: Code Semantic Analysis
+## PHASE 5: CODE SEMANTIC ANALYSIS
 
-### Step 5.1: Key Nodes Modified
-**Record:** `thermal-zones/cpu-thermal/trips/cpu-alert` in board DTS
-root node.
+### Step 5.1: Key functions
+**Record:** `ksmbd_vfs_set_dos_attrib_xattr()` modified;
+`ndr_encode_dos_attr()` is the allocator whose errors were mishandled.
 
-### Step 5.2: Callers / Impact Surface
-**Record:** Consumed by kernel thermal framework (`drivers/thermal`) for
-P880 DTB only. Triggered when `nct72` sensor 1 (CPU diode) crosses trip
-temperature during normal operation.
+### Step 5.2: Callers
+**Record:** Three call sites in `smb2pdu.c`, all behind
+`KSMBD_SHARE_FLAG_STORE_DOS_ATTRS`:
+1. `smb2_new_xattrs()` — file creation (called from `smb2_open` path)
+2. `set_file_basic_info()` — SMB2 SET_INFO (file attribute/time updates)
+3. `fsctl_set_sparse()` — FSCTL_SET_SPARSE IOCTL
+
+All are SMB2 protocol handlers reachable by remote clients when the
+share stores DOS attributes in xattrs.
 
 ### Step 5.3: Callees
-**Record:** Standard DT thermal zone properties; no new kernel code
-paths.
+**Record:** `ndr_encode_dos_attr()` → `kzalloc` / `krealloc` /
+`ndr_write_*`; `ksmbd_vfs_setxattr()` on success path.
 
 ### Step 5.4: Reachability
-**Record:** Triggered during normal device use on LG P880 when running
-Linux with this DTB. Not userspace-syscall reachable, but affects all
-runtime thermal management on this hardware.
+**Record:** Reachable from network clients performing file create, set-
+info, or sparse-file FSCTL on shares with `STORE_DOS_ATTRS` enabled
+(`CONFIG_SMB_SERVER`). Trigger for the leak requires
+`ndr_encode_dos_attr()` to fail after allocation (typically `-ENOMEM`
+under memory pressure).
 
-### Step 5.5: Similar Patterns
-**Record:** Same override pattern exists on other Tegra boards. `arm64:
-dts: rockchip: reduce thermal limits on rk3399-pinephone-pro` (in this
-tree) is a directly analogous DT thermal-limit correction for a tightly-
-packaged mobile device.
-
----
-
-## Phase 6: Cross-Reference Against Local Tree (6.18.44)
-
-### Step 6.1: Does Buggy Code Exist?
-**Record:** **Yes.** Local tree is **v6.18.44**.
-`arch/arm/boot/dts/nvidia/tegra30-lg-p880.dts` exists (490 lines) and
-includes `tegra30-lg-x3.dtsi`, which defines `cpu-alert` at 75°C. No
-board-specific override is present. Bug present since P880 support
-landed (`ea5e97e9ce046`, Feb 2024).
-
-### Step 6.2: Backport Complications
-**Record:** **Clean apply.** `git format-patch -1 ece4229e457d | git
-apply --check` succeeded with no conflicts. File ends at the same
-structural point (`sound { ... };` then closing `};`).
-
-### Step 6.3: Related Fixes Already Present?
-**Record:** `b49a73a08100a` (P880 touchscreen clipping) is in tree. This
-thermal fix (`ece4229e457d`) is **not** in the current 6.18.44 branch
-(present on `master` only).
+### Step 5.5: Similar patterns
+**Record:** Same file already uses `goto out` + `kfree` for NDR buffers
+in `ksmbd_vfs_set_sd_xattr` and `ksmbd_vfs_get_sd_xattr`. Sibling commit
+`d4d56b00` applies the identical pattern fix to `sd_ndr.data` in
+`ksmbd_vfs_set_sd_xattr`. This tree already has a precedent backport:
+`d026f47db6863` ("ksmbd: Fix memory leak in get_file_all_info()").
 
 ---
 
-## Phase 7: Subsystem Context
+## PHASE 6: CROSS-REFERENCE AGAINST LOCAL TREE
 
-### Step 7.1: Subsystem and Criticality
-**Record:** **ARM device tree / Tegra30 mobile platform.** Criticality:
-**PERIPHERAL** — affects one specific 2012-era smartphone board.
+### Step 6.1: Buggy code present?
+**Record:** **YES.** Current tree at `vfs.c:1659–1661`:
 
-### Step 7.2: Subsystem Activity
-**Record:** Active — P880 received a board fix in 2025 (touchscreen
-clipping) already merged into this stable series.
+```1659:1661:fs/smb/server/vfs.c
+        err = ndr_encode_dos_attr(&n, da);
+        if (err)
+                return err;
+```
+
+Bug present since 2021; well predates 6.18.y branch.
+
+### Step 6.2: Backport complications
+**Record:** **Clean apply** — `git apply --check` passes with no
+conflicts. File layout matches mainline.
+
+### Step 6.3: Related fixes already present?
+**Record:** Fix commit `7ac657bb9c5c1` is **NOT** in HEAD. Sibling
+series commits `d4d56b00` and `d708a36634bb7` also **NOT** in HEAD. No
+duplicate fix for this specific leak found.
 
 ---
 
-## Phase 8: Impact and Risk Assessment
+## PHASE 7: SUBSYSTEM CONTEXT
 
-### Step 8.1: Who Is Affected
-**Record:** **Driver/board-specific** — only users running mainline
-Linux on LG Optimus 4X HD (P880) with `tegra30-lg-p880.dtb`.
+### Step 7.1: Subsystem criticality
+**Record:** `fs/smb/server` (ksmbd SMB3 server). **IMPORTANT** — affects
+users running in-kernel SMB server (`CONFIG_SMB_SERVER`), not universal
+but security/stability-sensitive for deployments using it.
 
-### Step 8.2: Trigger Conditions
-**Record:** Sustained or bursty CPU load causing CPU diode temperature
-to rise. Common during normal phone use. Not security-relevant;
-unprivileged workload heat is the trigger.
+### Step 7.2: Subsystem activity
+**Record:** Highly active in 6.18.y — recent backports include UAF
+fixes, integer overflow, ACL validation, transport leaks. Memory leak
+fixes are routinely accepted.
 
-### Step 8.3: Failure Mode Severity
-**Record:** Without fix: delayed CPU passive throttling (75°C vs 60°C).
-Skin sensor still provides 50°C passive / 60°C critical shutdown, but
-CPU diode can exceed skin temperature. Severity: **MEDIUM** — potential
-overheating, accelerated throttling only at higher temps, possible
-discomfort or thermal stress; not a kernel crash or data corruption.
+---
 
-### Step 8.4: Risk-Benefit
+## PHASE 8: IMPACT AND RISK ASSESSMENT
+
+### Step 8.1: Who is affected
+**Record:** Users with `CONFIG_SMB_SERVER` enabled and shares configured
+with `STORE_DOS_ATTRS`. Driver/server-specific, not all kernel users.
+
+### Step 8.2: Trigger conditions
+**Record:** SMB file create, SET_INFO, or sparse FSCTL that stores DOS
+attributes; `ndr_encode_dos_attr()` must fail after `kzalloc` (most
+likely `-ENOMEM` during NDR buffer growth). Unprivileged remote clients
+can trigger the code path; the leak itself requires the encoding error.
+
+### Step 8.3: Failure mode severity
+**Record:** Memory leak (~1 KB+ per failed encode, potentially more if
+reallocs occurred). **Severity: MEDIUM** — no direct crash/corruption,
+but under memory pressure the leak worsens OOM conditions in an active
+server path.
+
+### Step 8.4: Risk-benefit
 **Record:**
-- **Benefit:** Correct thermal protection for P880; prevents running
-  with P895-inappropriate limits. Matches maintainer and hardware-author
-  intent.
-- **Risk:** Very low — 13-line DT-only change, board-scoped, more
-  conservative throttling only.
-- **Ratio:** Modest benefit (small user base) vs very low risk. Fits DT
-  hardware-description correction category.
+- **Benefit:** Prevents per-operation leaks in a commonly-used ksmbd
+  path; aligns with existing stable backport policy for ksmbd leak
+  fixes.
+- **Risk:** Minimal — 5-line, obviously correct cleanup addition.
+- **Ratio:** Favorable.
 
 ---
 
-## Phase 9: Final Synthesis
+## PHASE 9: FINAL SYNTHESIS
 
-### Step 9.1: Evidence Summary
+### Step 9.1: Evidence summary
 
 **FOR backport:**
-- Corrects incorrect DT hardware description for board already supported
-  in 6.18.y
-- Small (13 lines), surgical, maintainer-approved
-- Applies cleanly to this tree
-- DT exception category: fix for incorrect hardware description
-- Precedent: similar P880 board fix already in this tree; analogous
-  pinephone-pro thermal DT fix exists
-- Prevents P880 from using P895 thermal profile inappropriate for its
-  chassis
+- Real, verified memory leak on error path (code inspection confirms)
+- Bug present since 2021, exists in this 6.18.44 tree
+- Surgical 5-line fix, applies cleanly
+- Acked-by subsystem maintainer (Namjae Jeon)
+- Reachable from SMB2 client operations on active server paths
+- Precedent: similar ksmbd leak fix already backported to this tree
+  (`d026f47db6863`)
+- Under memory pressure, leak compounds the failure mode
 
 **AGAINST backport:**
-- Very niche hardware (2012 phone, tiny mainline user base)
-- No crash, corruption, security issue, or user bug report
-- Skin thermal already provides some protection
-- More aggressive throttling is a behavior change (performance tradeoff)
-- Not in the "critical" severity categories stable rules emphasize most
+- Only triggers on `ndr_encode_dos_attr()` failure (typically ENOMEM),
+  not the common success path
+- No user crash reports, syzbot, or CVE
+- Lore thread content unverified (bot blocked)
 
-**Unresolved:** No quantitative data on how often P880 exceeds 60°C CPU
-temperature in practice without this fix.
+**Unresolved:** Whether reviewers explicitly nominated for stable on
+lore (could not fetch thread).
 
-### Step 9.2: Stable Rules Checklist
-1. **Obviously correct and tested?** **PASS** — maintainer-merged,
-   hardware-author identified issue, standard DT override pattern.
-2. **Fixes a real bug affecting users?** **PASS** — incorrect thermal
-   limits for supported hardware; real for P880 users.
-3. **Important issue?** **PASS (borderline)** — thermal safety /
-   hardware protection, not crash/corruption, but prevents running with
-   wrong thermal envelope.
-4. **Small and contained?** **PASS** — 13 lines, one file.
-5. **No new features or APIs?** **PASS** — board-specific DT property
-   override only.
-6. **Can apply to local tree?** **PASS** — verified clean apply to
-   6.18.44.
+### Step 9.2: Stable rules checklist
+| Criterion | Result |
+|-----------|--------|
+| 1. Obviously correct and tested? | **PASS** — standard `goto
+out`/`kfree` pattern; Reviewed-by + Acked-by; no Tested-by |
+| 2. Fixes a real bug affecting users? | **PASS** — verified leak on SMB
+server error path |
+| 3. Important issue? | **PASS (borderline)** — MEDIUM severity memory
+leak in active server code; not crash/corruption but worsens OOM |
+| 4. Small and contained? | **PASS** — 1 file, 5 lines |
+| 5. No new features/APIs? | **PASS** |
+| 6. Can apply to local tree? | **PASS** — clean apply verified |
 
-### Step 9.3: Exception Category
-**Record:** **Device tree update** — correction of incorrect hardware
-thermal description for existing supported board.
+### Step 9.3: Exception categories
+**Record:** None (not a device ID, quirk, DT, build, or docs fix).
+Qualifies as a standard bug fix.
 
-### Step 9.4: Decision Rationale
-
-This commit fixes a real device-tree bug: P880 inherits P895/X3 CPU
-thermal trip points that are too high for its chassis. The fix is
-minimal, board-scoped, maintainer-approved, applies cleanly to Linux
-6.18.44, and follows the same pattern as the P880 touchscreen clipping
-fix already present in this stable tree. While the user base is small
-and severity is thermal-tuning rather than kernel crash, stable rules
-explicitly include DT fixes for incorrect hardware descriptions, and the
-risk of backporting is negligible.
+### Step 9.4: Decision rationale
+This is a small, maintainer-acked fix for a long-standing resource leak
+in ksmbd's DOS-attribute xattr storage path. The leak is real and
+verified by reading `ndr_encode_dos_attr()` and the caller. While it
+only fires on encoding errors (typically under memory pressure), that is
+exactly when leaking memory is most harmful. The fix is trivial, applies
+cleanly to 6.18.44, and matches established precedent for ksmbd leak
+fixes already backported to this stable tree.
 
 ---
 
 ## Verification
 
-- **[Phase 1]** Parsed subject, tags, body from provided commit message
-  and `git show ece4229e457d`
-- **[Phase 2]** Diff analysis: +13 lines in `tegra30-lg-p880.dts`, adds
-  `thermal-zones/cpu-thermal/trips/cpu-alert` override
-- **[Phase 3]** `git describe HEAD`: v6.18.44 / kernel 6.18.44
-- **[Phase 3]** `git blame tegra30-lg-x3.dtsi:1777-1790`: inherited 75°C
-  trip from `b68e6e0d50c5d` (Feb 2024)
-- **[Phase 3]** `git merge-base --is-ancestor ea5e97e9ce046 HEAD`: P880
-  DTS present in tree
-- **[Phase 3]** `git merge-base --is-ancestor ece4229e457d HEAD`:
-  thermal fix NOT in 6.18.44
-- **[Phase 3]** `git apply --check`: patch applies cleanly to current
-  tree
-- **[Phase 4]** `b4 dig -c ece4229e457d`: lore URL found
-- **[Phase 4]** `b4 dig -a`: v1 and v1 RESEND revisions found, part of
-  9-patch series
-- **[Phase 4]** `b4 dig -w`: DT and Tegra maintainers CC'd
-- **[Phase 5]** Read `tegra30-lg-x3.dtsi:1727-1810`: confirmed inherited
-  trips (skin 50°C/60°C, CPU 75°C/90°C)
-- **[Phase 5]** Grep `tegra30-lg-p895.dts`: no board-specific thermal
-  override (uses shared dtsi)
-- **[Phase 6]** Read current `tegra30-lg-p880.dts`: no `thermal-zones`
-  override present (490 lines)
-- **[Phase 6]** `b49a73a08100a` confirmed in tree as prior P880 board
-  fix
-- **[Phase 7]** Subsystem: ARM Tegra30 DT, peripheral/niche
-- **[Phase 8]** Failure mode: delayed CPU thermal throttling, severity
-  MEDIUM
+- **[Phase 1]** Parsed commit `7ac657bb9c5c1` message and tags via `git
+  show`
+- **[Phase 2]** Read diff and current `vfs.c:1651–1670` and
+  `ndr.c:170–227` — confirmed leak mechanism
+- **[Phase 3]** `git blame -L 1651,1670` — bug since `f44158485826c`
+  (2021-05-10)
+- **[Phase 3]** `git merge-base --is-ancestor 7ac657bb9c5c1 HEAD` — fix
+  **NOT** in tree
+- **[Phase 3]** `git apply --check` — patch applies cleanly
+- **[Phase 3]** Identified 3-patch series on master; confirmed this
+  patch is independent
+- **[Phase 4]** `b4 dig -c 7ac657bb9c5c1` — found lore URL and v1/v2
+  revisions
+- **[Phase 4]** `b4 dig -c 7ac657bb9c5c1 -w` — maintainer CC list
+  confirmed
+- **[Phase 4]** WebFetch lore — blocked by Anubis (UNVERIFIED: thread
+  review comments)
+- **[Phase 5]** `grep ksmbd_vfs_set_dos_attrib_xattr` — 3 callers in
+  `smb2pdu.c` identified
+- **[Phase 5]** Read caller context: `smb2_new_xattrs`,
+  `set_file_basic_info`, `fsctl_set_sparse`
+- **[Phase 6]** `git describe HEAD` = v6.18.44; `make kernelversion` =
+  6.18.44
+- **[Phase 6]** Buggy code confirmed present at `vfs.c:1659–1661`
+- **[Phase 6]** `git log --grep='memory leak in get_file_all_info'` —
+  precedent backport `d026f47db6863` in tree
+- **[Phase 7]** `git log --oneline -20 -- fs/smb/server/` — active ksmbd
+  maintenance in 6.18.y
+- **[Phase 8]** Assessed trigger (ENOMEM on NDR encode) and severity
+  (MEDIUM leak)
 
-**YES**Those background searches finished and matched what the main
-analysis already used:
+**YES**The sibling-patch check finished successfully: neither
+`d4d56b00c7df8` (`sd_ndr.data` leak in `ksmbd_vfs_set_sd_xattr`) nor the
+other series commits are in this `6.18.44` tree. That doesn’t block this
+backport — `7ac657bb9c5c1` is a standalone fix for
+`ksmbd_vfs_set_dos_attrib_xattr`, applies cleanly, and the leak is still
+present here.
 
-- **Thermal limit commit search:** No `Lower CPU thermal limit` / `cpu-
-  alert` override is in the 6.18.44 tree yet; the fix exists only on
-  mainline as `ece4229e457d`.
-- **Ion Agorria commits:** Only unrelated `drm/tegra` probe/remove PM
-  work showed up locally — nothing overlapping this DTS change.
+**Verdict for this tree: YES** — small, maintainer-acked error-path
+memory leak fix in an active ksmbd SMB2 path.
 
-The backport recommendation stands: **YES** — a small, board-specific DT
-correction that applies cleanly to 6.18.44.
+ fs/smb/server/vfs.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
- arch/arm/boot/dts/nvidia/tegra30-lg-p880.dts | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
-
-diff --git a/arch/arm/boot/dts/nvidia/tegra30-lg-p880.dts b/arch/arm/boot/dts/nvidia/tegra30-lg-p880.dts
-index c6ef0a20c19f3..4f57e43af6428 100644
---- a/arch/arm/boot/dts/nvidia/tegra30-lg-p880.dts
-+++ b/arch/arm/boot/dts/nvidia/tegra30-lg-p880.dts
-@@ -486,4 +486,17 @@ sound {
+diff --git a/fs/smb/server/vfs.c b/fs/smb/server/vfs.c
+index 263032adf0cd8..859ca7c87bd4c 100644
+--- a/fs/smb/server/vfs.c
++++ b/fs/smb/server/vfs.c
+@@ -1664,14 +1664,15 @@ int ksmbd_vfs_set_dos_attrib_xattr(struct mnt_idmap *idmap,
  
- 		nvidia,int-mic-en-gpios = <&gpio TEGRA_GPIO(I, 6) GPIO_ACTIVE_HIGH>;
- 	};
-+
-+	thermal-zones {
-+		cpu-thermal {
-+			trips {
-+				cpu-alert {
-+					/* throttle at 60C until temperature drops to 59.8C */
-+					temperature = <60000>;
-+					hysteresis = <200>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+	};
- };
+ 	err = ndr_encode_dos_attr(&n, da);
+ 	if (err)
+-		return err;
++		goto out;
+ 
+ 	err = ksmbd_vfs_setxattr(idmap, path, XATTR_NAME_DOS_ATTRIBUTE,
+ 				 (void *)n.data, n.offset, 0, get_write);
+ 	if (err)
+ 		ksmbd_debug(SMB, "failed to store dos attribute in xattr\n");
+-	kfree(n.data);
+ 
++out:
++	kfree(n.data);
+ 	return err;
+ }
+ 
 -- 
 2.53.0
 
