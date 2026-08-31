@@ -1,41 +1,49 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4307492531;
-	Mon, 31 Aug 2026 13:38:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DB1749364E;
+	Mon, 31 Aug 2026 13:38:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183514; cv=none; b=M4g4+3/19S5915myxDbE5WfsOTifAtwRoIy4J8zg1xf00oNu3Al30WPZvWtDS6lOlr8q5D0kbBUyO/3NaqxCDMEx2oXc5R7QFQZRuwsmKSRd9MyiI2570C698M3JxT+o5HRiVC9I2x17XURyD6FBRt8uprZx6qBRFvm8qUVA6VU=
+	t=1788183517; cv=none; b=slrazVZ2xcZ+4uzB7f2OcIyV3drxFvvWWshPX8eL7TJ+rKVyBWCNOstmWvLn/p9trTChUASHfNL0NFjb/q1UwdJX54kJJQ7uWh+nV3STW2h3EvrWQCZ9iTnxiadZk6bYWxK84Ha68o3asApvXkQjRNlTaF+iE5ki1/BUVI1iGbs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183514; c=relaxed/simple;
-	bh=fLJLMeraz/9+eiqxQRHsQvXXQQCTTjaCm+C0Blki5zM=;
+	s=arc-20240116; t=1788183517; c=relaxed/simple;
+	bh=X0S9VJPYgomhuh6NDT9ui5Te4gjngORA+t8bRFTWkhw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=BM4ebZWcL3mq27As1x+2qZkJJGSQwE4KdHFh9Q0U+qYMZYHGu5EJ/XWahaoG7zkzLfXYsEwwCo0PBZpXkyYwnsRvkBNA/3gvrzQdjInuxncB/SxQW7lFWq96xYW821bHagdIK39nX2Eg5SKXdI3lFcMjpXzCnZV+8PX8YAMho2A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EE5Slf9n; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=dR3nyLZsAcOt8Zy1FiRHbGnh91a9eJmB+p+cMGa6QtL5NDYcYco8N2BaTpV9uAKZ4iUEyAdbiUl44HPtfNiPeg5nKs8uZsgz4q0oK0gi2OsT6k9Lt6mkPRc1WJMRdCrJ2mUJGBbNBIDdURWZ4U2BjCM8bsPrUtxAcMOYujND2Dg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QEUm8Hw2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EE5Slf9n"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 127F91F00A3D;
-	Mon, 31 Aug 2026 13:38:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QEUm8Hw2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3BDA11F00A3E;
+	Mon, 31 Aug 2026 13:38:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788183512;
-	bh=VW0zXeoVMDpVklc0AYJUhm2FnO1Cs46mUoMbZ5PioLY=;
+	s=k20260515; t=1788183514;
+	bh=5W1QbP1606Aoj/2vjYKdbhDUtcNQ3Przr2ELO5Ow46Y=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=EE5Slf9nZVEqfvAOJQVeoM4X6tDJ9Vdt5sgySDmh5BJwF3WOkgP1KoZh+jsCjvxqF
-	 MudMXGnDL3BBehPDorM7/BxcplgZqM3GAHacR+G1/Bpy14IyR5dL/HBFT3ZhEj4FmU
-	 p62f1bYN3fmUrlW58MOzdEm0DPKD8toBdx+IyzNL38bk8dqfs6X2LIX1ONnQqqs1wV
-	 yaUCl5J5fAoKlrEq8DEJ3tHwmgrkcPDwXnm+R/6qgnHOEK1p5UF463mdvpx90bb/MW
-	 vVqfTZw41xra/ZKOkf3XuRUfkL1ztS6hSpR5tpunaw3BLEIWl9ToWDc39Mle4EzqLm
-	 Ow4XwC84ph96A==
+	b=QEUm8Hw2RgZ0LWOaCB4W2M2oz1pjNOQi+ClBTejq/wu9dNhhEF+pvCs45aApTTGyN
+	 gjSr0Jwh57yZO+WrrHrBQDwMPX3eIdvdpOAlFHcXItKje5URvqW77UQc4+n/nmeNLC
+	 RTM/NwV6+0QjlHHmyPOaY+L4vJuKf/SZy2VnFXNvT2GJXFN3tpGlsPRZeRJXOuBRUt
+	 A5Di5JyVk2RWnH0yMLlC8DaFYvNKy/2XIE7j8XIrgYt1kKHpRjsk4s6+YHY4rGW5d2
+	 lCLCSFyy/7c3PL+gZMdgMk36PwL3LK2M9LhfdknJwHcJz8/MNvT629gep8Bsg6V3bG
+	 uTT6+C/5xII3Q==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: =?UTF-8?q?Thomas=20Wei=C3=9Fschuh?= <linux@weissschuh.net>,
-	Willy Tarreau <w@1wt.eu>,
+Cc: Guangshuo Li <lgs201920130244@gmail.com>,
+	David Carlier <devnexen@gmail.com>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>,
+	horatiu.vultur@microchip.com,
+	UNGLinuxDriver@microchip.com,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	pabeni@redhat.com,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-6.6] tools/nolibc: avoid call to wcslen() in _start_c() inserted by clang
-Date: Mon, 31 Aug 2026 09:22:49 -0400
-Message-ID: <20260831133314.4125787-141-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-6.12] net: lan966x: restore RX state on reload failure
+Date: Mon, 31 Aug 2026 09:22:50 -0400
+Message-ID: <20260831133314.4125787-142-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -45,26 +53,44 @@ List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 6.18.48
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Thomas Weißschuh <linux@weissschuh.net>
+From: Guangshuo Li <lgs201920130244@gmail.com>
 
-[ Upstream commit 4c6826ee7d04f489ad6fcf46ae6dd595fe9c6295 ]
+[ Upstream commit aa97f11a76e545ed73cc455bcdd1ece4b480b507 ]
 
-Clang may convert the loop to find _auxv into a call to wcslen() which
-is missing on nolibc. -fsanitize needs to be disabled for this to
-happen.
+lan966x_fdma_reload() backs up rx->page_pool and rx->fdma before
+reallocating the RX resources for the new MTU. If the allocation fails,
+the restore path puts these fields back before restarting RX.
 
-Use the same pattern as in the nolibc strlen() implementation to avoid
-the function call generation.
+However, the reload path also updates rx->page_order and rx->max_mtu
+before calling lan966x_fdma_rx_alloc(). These fields are not restored on
+failure, so RX can be restarted with the old pages, old FDMA state and
+old page pool, but with the page geometry from the failed new MTU.
 
-Signed-off-by: Thomas Weißschuh <linux@weissschuh.net>
-Acked-by: Willy Tarreau <w@1wt.eu>
-Link: https://patch.msgid.link/20260418-nolibc-wcslen-v1-1-671271b8ea63@weissschuh.net
+This can make the XDP path advertise a frame size derived from the new
+page_order while the actual RX pages still come from the old allocation.
+For example, after a failed reload to a jumbo MTU, xdp_init_buff() may be
+called with a frame size larger than the restored RX pages.
+
+lan966x_fdma_rx_alloc_page_pool() also registers the newly allocated page
+pool with each port's XDP RXQ before fdma_alloc_coherent() is called. If
+fdma_alloc_coherent() fails, the new page pool is destroyed, but the
+rollback path does not restore the per-port XDP RXQ mem model
+registration either.
+
+Save and restore rx->page_order and rx->max_mtu, and restore the old page
+pool registration for each port's XDP RXQ before RX is started again.
+This keeps the restored RX state consistent after a failed reload.
+
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+Reviewed-by: David Carlier <devnexen@gmail.com>
+Link: https://patch.msgid.link/20260607145747.1494514-1-lgs201920130244@gmail.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
@@ -72,309 +98,415 @@ LLM Generated explanations, may be completely bogus:
 
 ## Phase 1: Commit Message Forensics
 
-### Step 1.1: Subject Line
-**Record:** `[tools/nolibc]` `[avoid]` — Prevent clang from inserting a
-`wcslen()` call into the `_auxv` search loop in `_start_c()`.
+**Step 1.1 — Subject line**
 
-### Step 1.2: Commit Tags
-**Record:**
-- **Signed-off-by:** Thomas Weißschuh `<linux@weissschuh.net>` (author)
-- **Acked-by:** Willy Tarreau `<w@1wt.eu>` (nolibc co-maintainer)
-- **Link:** https://patch.msgid.link/20260418-nolibc-
-  wcslen-v1-1-671271b8ea63@weissschuh.net
-- No `Fixes:`, `Reported-by:`, `Tested-by:`, `Cc:
-  stable@vger.kernel.org`
-- Notable: maintainer Ack; no syzbot/user crash reports
+Record: `[net: lan966x] [restore] RX state on reload failure` —
+Microchip LAN966x Ethernet driver; restores incomplete RX state on
+failed buffer reload.
 
-### Step 1.3: Body Analysis
-**Record:**
-- **Bug:** Clang may turn the `_auxv` scan loop into a call to
-  `wcslen()`, which nolibc does not provide → link failure (`undefined
-  symbol: wcslen`).
-- **Symptom:** Link-time failure building nolibc programs with clang.
-- **Trigger:** The commit states this happens when function sanitizer
-  instrumentation is disabled on `_start_c()` (via
-  `no_sanitize("function")` when UBSan is enabled globally). The nolibc
-  test build enables `-fsanitize=undefined` by default in
-  `Makefile.include`.
-- **Root cause:** LLVM loop-idiom optimization (same class as the
-  kernel-wide `wcslen` issue addressed by `-fno-builtin-wcslen` in the
-  top-level `Makefile`).
-- **Fix approach:** Add `__asm__("")` in the loop body, matching the
-  existing `strlen()` pattern in `string.h`.
+**Step 1.2 — Tags**
 
-### Step 1.4: Hidden Bug Fix?
-**Record:** Yes — described as an optimization workaround, but it fixes
-a real link failure. Same category as the existing `strlen()`
-`__asm__("")` guard.
+Record:
+- **Signed-off-by:** Guangshuo Li `<lgs201920130244@gmail.com>` (author)
+- **Reviewed-by:** David Carlier `<devnexen@gmail.com>` (reviewed
+  related lan966x stable fixes in this tree)
+- **Link:** https://patch.msgid.link/20260607145747.1494514-1-
+  lgs201920130244@gmail.com
+- **Signed-off-by:** Jakub Kicinski `<kuba@kernel.org>` (netdev
+  maintainer)
+- No Fixes:, Reported-by:, Tested-by:, Cc: stable@vger.kernel.org
+  (absence expected per review pipeline)
+
+**Step 1.3 — Body analysis**
+
+Record:
+- **Bug:** `lan966x_fdma_reload()` updates `rx->page_order` and
+  `rx->max_mtu` before allocation, but the failure restore path only
+  restores `page_pool` and `fdma`.
+- **Symptom:** RX restarts with old pages/pool/FDMA but new page
+  geometry metadata.
+- **XDP impact:** `xdp_init_buff()` may use a frame size (`PAGE_SIZE <<
+  page_order`) larger than the restored RX pages → out-of-bounds access.
+- **Second bug:** `lan966x_fdma_rx_alloc_page_pool()` registers a new
+  page pool with each port's XDP RXQ before `fdma_alloc_coherent()`. On
+  coherent alloc failure, the new pool is destroyed but XDP RXQ still
+  references it.
+- **Root cause:** Incomplete rollback of all fields modified during
+  reload.
+- **Version info:** None in message.
+
+**Step 1.4 — Hidden bug fix?**
+
+Record: Yes. Despite "restore" wording, this fixes real memory-safety
+bugs: XDP buffer size mismatch (OOB) and stale XDP page-pool
+registration (UAF).
 
 ---
 
 ## Phase 2: Diff Analysis
 
-### Step 2.1: Change Inventory
-**Record:**
-- **Files:** `tools/include/nolibc/crt.h` (+1/−1)
-- **Function:** `_start_c()`
-- **Scope:** Single-file, one-line surgical fix
+**Step 2.1 — Inventory**
 
-### Step 2.2: Code Flow Change
-**Record:**
-- **Hunk (auxv loop):** Before: empty loop body `;` — clang may optimize
-  to `wcslen()`. After: `__asm__("")` blocks that optimization while
-  preserving loop semantics.
+Record:
+- **File:** `drivers/net/ethernet/microchip/lan966x/lan966x_fdma.c` (+20
+  lines, 0 removed)
+- **Function:** `lan966x_fdma_reload()`
+- **Scope:** Single-file, surgical error-path fix
 
-### Step 2.3: Bug Mechanism
-**Record:** **Category:** Build/compiler optimization bug.
-**Mechanism:** LLVM recognizes the null-terminated scan pattern and
-emits a `wcslen()` builtin call; nolibc has no `wcslen` implementation →
-undefined symbol at link time.
+**Step 2.2 — Code flow per hunk**
 
-### Step 2.4: Fix Quality
-**Record:** Obviously correct — identical to the established `strlen()`
-pattern at line 140 of `string.h`. Minimal scope, no API changes,
-negligible regression risk.
+Record:
+- **Hunk 1 (backup):** Before reload, save `page_order` and `max_mtu`
+  alongside existing `page_pool`/`fdma` backups.
+  - Before: only `page_pool` and `fdma` saved.
+  - After: all four fields saved.
+- **Hunk 2 (restore):** On `lan966x_fdma_rx_alloc()` failure:
+  - Before: restore `page_pool` + `fdma`, restart RX.
+  - After: also restore `page_order` + `max_mtu`, re-register old page
+    pool with each port's XDP RXQ via `xdp_rxq_info_unreg_mem_model()` /
+    `xdp_rxq_info_reg_mem_model()`, then restart RX.
+
+**Step 2.3 — Bug mechanism**
+
+Record:
+- **Category:** Memory safety / state consistency on error path.
+- **Mechanism 1:** Metadata mismatch — `page_order`/`max_mtu` reflect
+  failed (larger) MTU while hardware uses old (smaller) pages. XDP path
+  reads `page_order` directly in `lan966x_xdp_run()`.
+- **Mechanism 2:** Reference counting / UAF — XDP RXQ mem model points
+  to destroyed page pool after partial alloc failure.
+
+**Step 2.4 — Fix quality**
+
+Record:
+- Fix is minimal and mirrors existing backup/restore pattern.
+- Low regression risk: only runs on allocation failure, restores
+  previously valid state.
+- No API or behavioral changes on success path.
 
 ---
 
 ## Phase 3: Git History Investigation
 
-### Step 3.1: Blame
-**Record:** In this shallow checkout (`v6.18.43`), blame points to a
-single commit for `crt.h`; full introduction history is not reliably
-available here. The buggy loop is present at lines 73–74.
+**Step 3.1 — Blame**
 
-### Step 3.2: Fixes: Tag
-**Record:** N/A — no `Fixes:` tag.
+Record:
+- `lan966x_fdma_reload()` core logic from Horatiu Vultur (2022-04-08,
+  commit `2ea1cbac267e2a`).
+- `page_order`/`max_mtu` updates in reload from 2022 (`2ea1cbac`,
+  `11871aba`).
+- Recent UAF fix `92a6730199437` (David Carlier, Apr 2026) reworked
+  restore path but did not restore `page_order`/`max_mtu`.
+- Bug in reload restore has existed since 2022; XDP mem-model issue
+  since `77ddda44411c3` (Nov 2022).
 
-### Step 3.3: Related File History
-**Record:** `string.h` already uses `__asm__("")` in `strlen()` for the
-same compiler-optimization issue (lines 127–141). The top-level
-`Makefile` already has `KBUILD_CFLAGS += -fno-builtin-wcslen` (line
-1085), but nolibc standalone builds do not inherit `KBUILD_CFLAGS`.
+**Step 3.2 — Fixes: tag**
 
-### Step 3.4: Author Context
-**Record:** Thomas Weißschuh is a primary nolibc contributor/maintainer.
-Willy Tarreau Acked the patch.
+Record: No Fixes: tag. N/A.
 
-### Step 3.5: Dependencies
-**Record:** Standalone — no series dependency, no prerequisite commits
-required. Applies cleanly to this tree’s `crt.h`.
+**Step 3.3 — Related file history**
+
+Record:
+- `92a6730199437` — fix UAF/leak in `lan966x_fdma_reload()` — **already
+  in 6.18.44**
+- `22e1ee9f22b5c` — page pool leak in error paths — **in tree**
+- `b5dcb41ba891b` — page_pool IS_ERR check — **in tree**
+- `89ba464fcf548` — refactor buffer reload — **in tree**
+- This commit is a follow-up completing the restore path after the UAF
+  fix.
+
+**Step 3.4 — Author context**
+
+Record: Guangshuo Li is a contributor; David Carlier (reviewer) authored
+the three Apr 2026 lan966x stable fixes already in this tree.
+
+**Step 3.5 — Dependencies**
+
+Record: Standalone. Requires `xdp_rxq_info_reg_mem_model()` (from
+`77ddda44411c3`, in tree) and post-UAF reload structure (from
+`92a6730199437`, in tree). No series dependencies.
 
 ---
 
 ## Phase 4: Mailing List and External Research
 
-### Step 4.1: Patch Discussion
-**Record:** Patch posted 2026-04-18 to linux-kernel; spinics mirror at
-https://www.spinics.net/lists/kernel/msg6159937.html. Follow-up from
-Willy Tarreau listed. `b4 dig -c` failed (commit not in this shallow
-tree). Lore direct fetch blocked (403).
+**Step 4.1 — Original discussion**
 
-### Step 4.2: Reviewers
-**Record:** Acked-by Willy Tarreau (nolibc co-maintainer). CC’d linux-
-kernel.
+Record:
+- **URL:** https://patch.msgid.link/20260607145747.1494514-1-
+  lgs201920130244@gmail.com
+- **Series:** v2 only (b4 dig -a)
+- **Review:** David Carlier ACK'd code, provided Reviewed-by. No NAKs.
+- **Stable nomination:** None in thread.
 
-### Step 4.3: Bug Report
-**Record:** No external bug report or syzbot link. Issue is a
-reproducible build/link failure class, related to LLVM commit
-9694844d7e36 (kernel addressed via `-fno-builtin-wcslen`, backported to
-stable for kbuild).
+**Step 4.2 — Reviewers**
 
-### Step 4.4: Related Patches
-**Record:** Same author posted related nolibc sanitizer/stack-protector
-patches in April 2026. This patch is independent.
+Record: CC'd netdev/bpf maintainers (Kicinski, Abeni, Miller, Dumazet,
+Starovoitov, Borkmann, Brouer). David Carlier reviewed.
 
-### Step 4.5: Stable List History
-**Record:** Could not search lore stable list (blocked). The kernel-wide
-`-fno-builtin-wcslen` fix was queued for stable (spinics stable-commits
-reference).
+**Step 4.3 — Bug report**
+
+Record: No external bug report or syzbot link. Bug identified via code
+analysis of incomplete restore.
+
+**Step 4.4 — Related patches**
+
+Record: Follow-up to David Carlier's Apr 2026 lan966x reload fixes
+already backported to 6.18.y.
+
+**Step 4.5 — Stable list**
+
+Record: Not searched separately; no stable discussion found in patch
+thread.
 
 ---
 
 ## Phase 5: Code Semantic Analysis
 
-### Step 5.1: Key Functions
-**Record:** `_start_c()` — nolibc C runtime entry called from arch
-`_start` assembly.
+**Step 5.1 — Key functions**
 
-### Step 5.2: Callers
-**Record:** Called from every nolibc arch entry stub (e.g. `arch-x86.h`,
-`arch-arm64.h`, etc.) at program startup. Every nolibc binary executes
-this path once at boot.
+Record: `lan966x_fdma_reload()`, `lan966x_fdma_rx_alloc()`,
+`lan966x_fdma_rx_alloc_page_pool()`, `lan966x_xdp_run()`.
 
-### Step 5.3: Callees
-**Record:** After auxv scan: constructor arrays, `_nolibc_main()`
-(main), destructor arrays, `exit()`.
+**Step 5.2 — Callers**
 
-### Step 5.4: Reachability
-**Record:** Every nolibc program hits this path at startup. Failure is
-at link time (before execution), triggered when building with clang
-under conditions described above.
+Record:
+- `lan966x_fdma_reload()` ← `__lan966x_fdma_reload()` ←
+  `lan966x_fdma_change_mtu()` / `lan966x_fdma_reload_page_pool()`
+- `lan966x_fdma_change_mtu()` ← `lan966x_port_change_mtu()`
+  (`.ndo_change_mtu`)
+- `lan966x_fdma_reload_page_pool()` ← `lan966x_xdp_setup()` (XDP program
+  attach/detach)
+- `lan966x_xdp_run()` ← RX NAPI poll path when XDP program present
 
-### Step 5.5: Similar Patterns
-**Record:** `strlen()` in `string.h` uses the same `__asm__("")`
-pattern. Kernel `Makefile` uses `-fno-builtin-wcslen` for the same LLVM
-optimization.
+**Step 5.3 — Callees**
 
----
+Record: `lan966x_fdma_rx_alloc()` → `lan966x_fdma_rx_alloc_page_pool()`
+→ `page_pool_create()`, `xdp_rxq_info_reg_mem_model()`; then
+`fdma_alloc_coherent()`. On failure, `page_pool_destroy()`.
 
-## Phase 6: Cross-Reference Against Local Tree (v6.18.43)
+**Step 5.4 — Reachability**
 
-### Step 6.1: Buggy Code Present?
-**Record:** **Yes.** `tools/include/nolibc/crt.h` lines 73–74 have the
-empty loop body without `__asm__("")`. Tree is `v6.18.43` on
-`stable/linux-6.18.y`.
+Record:
+- Triggered by MTU change (`ip link set mtu`) or XDP program
+  load/unload.
+- Requires `CAP_NET_ADMIN`.
+- Failure path needs allocation failure (typically ENOMEM under memory
+  pressure during jumbo MTU or XDP reload).
+- XDP OOB requires XDP program loaded (`CONFIG_LAN966X` + BPF/XDP).
 
-### Step 6.2: Backport Complications
-**Record:** Clean apply expected — one-line change, no conflicts with
-surrounding code in this tree.
+**Step 5.5 — Similar patterns**
 
-### Step 6.3: Related Fixes Already Present?
-**Record:** `Makefile` has `-fno-builtin-wcslen` for kernel builds (line
-1085). `string.h` has the `strlen()` asm barrier. The `_start_c()` auxv
-loop fix is **not** present.
+Record: Same incomplete-restore pattern partially fixed by
+`92a6730199437` (pages/fdma/pool). This commit completes it for metadata
+and XDP registration.
 
 ---
 
-## Phase 7: Subsystem Context
+## Phase 6: Cross-Reference Against Local Tree
 
-### Step 7.1: Subsystem and Criticality
-**Record:** `tools/nolibc` — **PERIPHERAL** for runtime (not in kernel
-boot path), but **IMPORTANT** for kernel development/selftest
-infrastructure.
+**Step 6.1 — Buggy code present?**
 
-### Step 7.2: Activity
-**Record:** nolibc is actively maintained; used by multiple selftests
-(nolibc suite, vDSO, riscv vector, arm64 GCS/FP).
+Record: **Yes.** Local tree is **v6.18.44**. Current
+`lan966x_fdma_reload()` restore path (lines 856–865) lacks
+`page_order`/`max_mtu` restore and XDP mem-model re-registration. Commit
+`aa97f11a76e54` is on `master` but **not** an ancestor of HEAD.
+
+**Step 6.2 — Backport complications**
+
+Record: `git apply --check` passes cleanly against current tree. No
+conflicts expected.
+
+**Step 6.3 — Related fixes already present?**
+
+Record: UAF fix `92a6730199437` is present; this complementary fix is
+not. No duplicate fix found.
+
+---
+
+## Phase 7: Subsystem and Maintainer Context
+
+**Step 7.1 — Subsystem**
+
+Record: `drivers/net/ethernet/microchip/lan966x/` — network driver
+(IMPORTANT, driver-specific).
+
+**Step 7.2 — Activity**
+
+Record: Active; three lan966x stable fixes landed in Apr 2026, plus
+additional fixes in this tree.
 
 ---
 
 ## Phase 8: Impact and Risk Assessment
 
-### Step 8.1: Who Is Affected
-**Record:** Kernel developers and CI building nolibc programs with
-**clang** and **UBSan** (default in
-`tools/testing/selftests/nolibc/Makefile.include`). Not production
-kernel runtime.
+**Step 8.1 — Who is affected**
 
-### Step 8.2: Trigger Conditions
-**Record:** Build nolibc test binaries with clang +
-`-fsanitize=undefined`. Fairly specific, but nolibc’s own test Makefile
-enables sanitizers by default. Not userspace-exploitable.
+Record: LAN966x switch users with FDMA enabled; XDP users for the
+primary severity path; embedded/industrial networking deployments.
 
-### Step 8.3: Failure Severity
-**Record:** **Link failure** (build error) — severity **MEDIUM** for
-affected developers/CI; **LOW** for end users running kernels.
+**Step 8.2 — Trigger conditions**
 
-### Step 8.4: Risk-Benefit
-**Record:** **Benefit:** MEDIUM — unblocks nolibc+clang+UBSan builds,
-complements existing `-fno-builtin-wcslen` kbuild fix. **Risk:** VERY
-LOW — one-line asm barrier, proven pattern. **Ratio:** Favorable.
+Record:
+- Admin-initiated MTU increase (especially jumbo) or XDP program change.
+- Allocation must fail mid-reload.
+- Unprivileged users cannot trigger directly; requires `CAP_NET_ADMIN`.
+
+**Step 8.3 — Failure mode severity**
+
+Record:
+- **XDP page_order mismatch:** `xdp_init_buff()` with oversized frame vs
+  actual page → **HIGH** (OOB / memory corruption).
+- **Stale XDP page pool:** use-after-free when XDP processes packets →
+  **HIGH**.
+- Non-XDP skb path uses restored `fdma->db_size`, so less directly
+  affected.
+
+**Step 8.4 — Risk-benefit**
+
+Record:
+- **Benefit:** Prevents memory corruption and UAF on a real error-
+  recovery path; completes fix started by already-backported
+  `92a6730199437`.
+- **Risk:** Very low — 20 lines, error-path only, mirrors existing
+  restore logic.
+- **Ratio:** Strong benefit, minimal risk.
 
 ---
 
 ## Phase 9: Final Synthesis
 
-### Step 9.1: Evidence Summary
+**Step 9.1 — Evidence summary**
 
-**FOR backport:**
-- Real build/link failure with clang on nolibc programs
-- Explicit build-fix category per stable rules
-- One-line, obviously correct, maintainer-Acked
-- Same LLVM `wcslen` optimization class already addressed in this tree’s
-  `Makefile`
-- Established precedent in `string.h` `strlen()` implementation
-- Buggy code confirmed present in v6.18.43
+**FOR:**
+- Fixes real bugs (OOB in XDP, UAF from stale page pool registration).
+- Small, surgical, applies cleanly.
+- Reviewed by David Carlier (author of related stable fixes in this
+  tree).
+- Prerequisites present; buggy code confirmed in v6.18.44.
+- Complements already-backported `92a6730199437`.
 
-**AGAINST backport:**
-- Affects developer tooling/selftests, not kernel runtime
-- Narrow trigger (clang + UBSan on nolibc builds)
-- Workaround possible (use gcc, add `-fno-builtin-wcslen` to nolibc
-  CFLAGS)
-- Could not reproduce `wcslen` call locally on clang 21.1.8 (may need
-  newer clang or specific flags)
+**AGAINST:**
+- Driver-specific (LAN966x only).
+- Requires allocation failure + admin action to trigger.
+- No syzbot/user crash report.
+- XDP path needed for worst-case OOB scenario.
 
-**Unresolved:**
-- Exact clang version/flags that trigger the optimization
-  (author/maintainer report accepted; local reproduction failed)
+**Unresolved:** No runtime crash report; severity inferred from code
+analysis (credible given direct `page_order` use in
+`lan966x_xdp_run()`).
 
-### Step 9.2: Stable Rules Checklist
-1. Obviously correct and tested? **PASS** — proven pattern, maintainer
-   Ack
-2. Fixes real bug affecting users? **PASS** — link failure for
-   nolibc+clang builds (developer/CI users)
-3. Important issue? **PASS** — build error (stable-rules explicit
-   category), severity MEDIUM
-4. Small and contained? **PASS** — 1 line, 1 file
-5. No new features/APIs? **PASS**
-6. Can apply to local tree? **PASS** — buggy code present, clean apply
+**Step 9.2 — Stable rules checklist**
 
-### Step 9.3: Exception Category
-**Record:** **Build fix** — compilation/link error in kernel tree
-tooling.
+1. Obviously correct and tested? **PASS** — straightforward
+   save/restore; Reviewed-by from subsystem contributor.
+2. Fixes real bug? **PASS** — incomplete error-path rollback.
+3. Important issue? **PASS** — memory corruption / UAF (HIGH severity
+   for XDP users).
+4. Small and contained? **PASS** — 20 lines, one file.
+5. No new features/APIs? **PASS** — error-path state restoration only.
+6. Can apply to local tree? **PASS** — clean apply, all prerequisites
+   present.
 
-### Step 9.4: Decision Rationale
+**Step 9.3 — Exception categories**
 
-This is the nolibc counterpart to the kernel-wide `-fno-builtin-wcslen`
-fix already present in this 6.18.y tree. Nolibc standalone builds do not
-use `KBUILD_CFLAGS`, so the header-level asm barrier is the correct
-targeted fix. It is trivial, follows an in-tree precedent, is Acked by
-the nolibc maintainer, and fixes a real link failure in the kernel’s own
-nolibc test infrastructure when built with clang and UBSan (the default
-nolibc test configuration). Impact is limited to developers/CI, but
-stable rules explicitly include build errors, and the risk is
-essentially zero.
+Record: None (not device ID, quirk, DT, build, or docs). Standard bug
+fix.
+
+**Step 9.4 — Decision rationale**
+
+This commit completes the error-recovery path in `lan966x_fdma_reload()`
+for the 6.18.44 tree. After the already-backported UAF fix deferred page
+freeing on failure, the remaining gap — unreverted
+`page_order`/`max_mtu` and stale XDP page-pool registration — leaves RX
+running in an inconsistent state that can cause XDP buffer overflows and
+use-after-free. The fix is minimal, well-reviewed, and directly
+applicable.
 
 ---
 
 ## Verification
 
-- **[Phase 1]** Parsed subject, tags (Acked-by Willy Tarreau, Link to
-  patch msgid)
-- **[Phase 1]** Read commit body: clang `wcslen` insertion,
-  `__asm__("")` fix
-- **[Phase 2]** Diff: 1 line in `_start_c()` auxv loop in `crt.h`
-- **[Phase 2]** Read `string.h` lines 127–141: `strlen()` uses same
-  `__asm__("")` pattern
-- **[Phase 3]** `git blame` on crt.h lines 72–75: buggy loop present
-- **[Phase 3]** `git log -- tools/include/nolibc/crt.h`: limited history
-  (shallow clone)
-- **[Phase 4]** spinics.net patch mirror fetched; Willy Tarreau follow-
-  up listed
-- **[Phase 4]** `b4 dig -c`: failed — commit not in shallow tree
-- **[Phase 4]** lore.kernel.org / patch.msgid.link: blocked (403/Anubis)
-- **[Phase 5]** `grep _start_c`: called from all nolibc arch entry stubs
-- **[Phase 5]** Read `Makefile.include`: `_CFLAGS_SANITIZER` defaults to
-  `-fsanitize=undefined`
-- **[Phase 6]** `git describe HEAD`: `v6.18.43` on `stable/linux-6.18.y`
-- **[Phase 6]** Read `crt.h` lines 72–75: empty loop body (bug present,
-  fix absent)
-- **[Phase 6]** `grep fno-builtin-wcslen Makefile`: present at line 1085
-- **[Phase 8]** Attempted clang reproduction of `wcslen` call:
-  **UNVERIFIED** — not reproduced on clang 21.1.8 with test programs;
-  maintainer report and LLVM context accepted
-- **[Phase 8]** `make -f Makefile.nolibc nolibc-test` with clang: failed
-  on unrelated `__stack_chk_init` unused-function error, not this bug
+- [Phase 1] Parsed commit `aa97f11a76e54` message and tags via `git
+  show`
+- [Phase 2] Diff analysis: +20 lines in `lan966x_fdma_reload()` restore
+  path
+- [Phase 3] `git blame -L 814,866`: reload from 2022, UAF fix
+  `92a6730199437` in Apr 2026
+- [Phase 3] `git log --oneline -20 -- lan966x_fdma.c`: related stable
+  fixes present
+- [Phase 3] `git merge-base --is-ancestor`: `89ba464fcf548`,
+  `92a6730199437`, `77ddda44411c3` all in tree; `aa97f11a76e54` not in
+  tree
+- [Phase 4] `b4 dig -c aa97f11a76e54`: lore URL found
+- [Phase 4] `b4 dig -a`: v2 only
+- [Phase 4] `b4 dig -w`: netdev/bpf maintainers CC'd
+- [Phase 4] `/tmp/lan966x_restore.mbx`: David Carlier Reviewed-by, ACK
+  on code
+- [Phase 5] `grep lan966x_xdp_run`: called from RX poll path line 422
+- [Phase 5] Read `lan966x_xdp.c:82`: `xdp_init_buff()` uses
+  `lan966x->rx.page_order`
+- [Phase 5] Read `lan966x_fdma.c:75-110`: page pool registered before
+  `fdma_alloc_coherent()`
+- [Phase 5] Read `lan966x_main.c:402-423`: MTU change calls reload
+- [Phase 5] Read `lan966x_xdp.c:30`: XDP setup calls reload
+- [Phase 6] `git describe HEAD`: v6.18.44
+- [Phase 6] Read current restore path lines 856-865: missing fix
+- [Phase 6] `git apply --check`: patch applies cleanly
+- [Phase 8] Failure mode: OOB/UAF on failed reload with XDP — severity
+  HIGH
 
 **YES**
 
- tools/include/nolibc/crt.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ .../ethernet/microchip/lan966x/lan966x_fdma.c | 20 +++++++++++++++++++
+ 1 file changed, 20 insertions(+)
 
-diff --git a/tools/include/nolibc/crt.h b/tools/include/nolibc/crt.h
-index 961cfe777c356..d4e726ed80765 100644
---- a/tools/include/nolibc/crt.h
-+++ b/tools/include/nolibc/crt.h
-@@ -71,7 +71,7 @@ void _start_c(long *sp)
+diff --git a/drivers/net/ethernet/microchip/lan966x/lan966x_fdma.c b/drivers/net/ethernet/microchip/lan966x/lan966x_fdma.c
+index 646f3d65274e3..b13c60438b978 100644
+--- a/drivers/net/ethernet/microchip/lan966x/lan966x_fdma.c
++++ b/drivers/net/ethernet/microchip/lan966x/lan966x_fdma.c
+@@ -816,6 +816,7 @@ static int lan966x_fdma_reload(struct lan966x *lan966x, int new_mtu)
+ 	struct page *(*old_pages)[FDMA_RX_DCB_MAX_DBS];
+ 	struct page_pool *page_pool;
+ 	struct fdma fdma_rx_old;
++	int page_order, max_mtu;
+ 	int err, i, j;
  
- 	/* find _auxv */
- 	for (auxv = (void *)envp; *auxv++;)
--		;
-+		__asm__("");
- 	_auxv = auxv;
+ 	old_pages = kmemdup(lan966x->rx.page, sizeof(lan966x->rx.page),
+@@ -826,6 +827,8 @@ static int lan966x_fdma_reload(struct lan966x *lan966x, int new_mtu)
+ 	/* Store these for later to free them */
+ 	memcpy(&fdma_rx_old, &lan966x->rx.fdma, sizeof(struct fdma));
+ 	page_pool = lan966x->rx.page_pool;
++	page_order = lan966x->rx.page_order;
++	max_mtu = lan966x->rx.max_mtu;
  
- 	for (ctor_func = __preinit_array_start; ctor_func < __preinit_array_end; ctor_func++)
+ 	napi_synchronize(&lan966x->napi);
+ 	napi_disable(&lan966x->napi);
+@@ -855,7 +858,24 @@ static int lan966x_fdma_reload(struct lan966x *lan966x, int new_mtu)
+ 	return 0;
+ restore:
+ 	lan966x->rx.page_pool = page_pool;
++	lan966x->rx.page_order = page_order;
++	lan966x->rx.max_mtu = max_mtu;
+ 	memcpy(&lan966x->rx.fdma, &fdma_rx_old, sizeof(struct fdma));
++	/*
++	 * lan966x_fdma_rx_alloc_page_pool() registered the new pool with
++	 * each port's XDP RXQ before the allocation failed. The new pool is
++	 * destroyed by lan966x_fdma_rx_alloc(), so restore the old pool's
++	 * registration before restarting RX.
++	 */
++	for (i = 0; i < lan966x->num_phys_ports; i++) {
++		if (!lan966x->ports[i])
++			continue;
++
++		xdp_rxq_info_unreg_mem_model(&lan966x->ports[i]->xdp_rxq);
++		xdp_rxq_info_reg_mem_model(&lan966x->ports[i]->xdp_rxq,
++					   MEM_TYPE_PAGE_POOL, page_pool);
++	}
++
+ 	lan966x_fdma_rx_start(&lan966x->rx);
+ 
+ 	lan966x_fdma_wakeup_netdev(lan966x);
 -- 
 2.53.0
 
