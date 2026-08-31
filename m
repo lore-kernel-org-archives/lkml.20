@@ -1,152 +1,159 @@
-Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
+Received: from fout-b3-smtp.messagingengine.com (fout-b3-smtp.messagingengine.com [202.12.124.146])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDC8F3B14AB;
-	Mon, 31 Aug 2026 09:14:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A71883C65FD
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 09:15:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.146
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788167685; cv=none; b=UkXLMDGiKNWcpZuDa7a5XILcSWYsBIiV4H6n35KDcpYF3Qh0nScHMiioZ5IYSqrHEEJgVWvqMea64BOmEPUngObF2L4DmkjNX88WrypYwCRwsqUslQuv/LL1kqWH1HwHnSbDbTZhTG7Si90oYcS8i6Z/fmWdWIPmvLSjyzAt6s4=
+	t=1788167726; cv=none; b=e1Hg8hXmKxBFDLd2u4jQWvL8S3l7qbeAwjC0slSmtNmEs54mCA2483gt/wTux50tBSu4eewYi13nr8d5z6liCB1lh5bkVv0N+eA+2JROquX9buldn8NfOoQEUJz46ikQiKDG5NNDMxKvGicC4LGN/8W/kAU2uCmHhUdPnRoVjWU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788167685; c=relaxed/simple;
-	bh=Rb7IEpphvxg0/6xVGqcW+fw+CWtVYh4MJrD6H3m4gHM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
-	 Content-Type:References; b=SXX9Ovh71ALFb2jOkZ5qUQgXgmsWxhOt5s+73hen2DvwQYJwvFlX+ywcL434Lus2qtbilAehiYV03RP1hYKE/V7lN6iqlMdgcEh9j1GN6TA0igPKF71a9Nhnwt7l9fySfS+xxSgnoUaKkWP14ppf3pfFEX6oj7XeKNShnaIxK50=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=GZlabUyL; arc=none smtp.client-ip=210.118.77.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	s=arc-20240116; t=1788167726; c=relaxed/simple;
+	bh=rsMSUDCAC2VBnP4NiLItYBwCSExo8OgHSqeD7DoWETY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=X8KeI3KQqka3TrvbBPEpQYzAlAVwqe4OiTLm/7t1Ya15ci8o5iuIc9Q5o7FyZFsiddPK4VsC3f/mlDPDg+HhsukHFHXqJXVXmVn02iAmf8BfxTA/KtVFcO7sTla/D+kuyUjbEViEtU01zljelILn4tcjUbnprToEeKTk4l//oyA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name; spf=pass smtp.mailfrom=shutemov.name; dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b=krU9Kp1O; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=JaIZ4ZlZ; arc=none smtp.client-ip=202.12.124.146
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shutemov.name
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="GZlabUyL"
-Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
-	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20260831091434euoutp029e0b5101b7efbc915a7572eadc0d73b4~Q2QaCPr-v3238632386euoutp02Q;
-	Mon, 31 Aug 2026 09:14:34 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20260831091434euoutp029e0b5101b7efbc915a7572eadc0d73b4~Q2QaCPr-v3238632386euoutp02Q
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1788167674;
-	bh=iLiAq5/KXSZI20h/rvdNaMKqZ9O3JX0YW/+nEYN+91k=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=GZlabUyLsSW1C+25w+YhKO0MhPsPRtcYDMi07WTWCTQB3lpOuCDqFZXCQM14Ptsy7
-	 TQSbjifeKM68XGtE0BuiOvNLOGCIxiLi+05e3Qnw0OIEva0KuRDANQ/xLyBi4anlm5
-	 OmzbdjUJch0CuyvtbCd1SvGFINoXJllFhKXXVFfY=
-Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
-	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
-	20260831091433eucas1p2176fd27eb0eefa971ac954c8ee5c2bd2~Q2QZPHCRf1671916719eucas1p2r;
-	Mon, 31 Aug 2026 09:14:33 +0000 (GMT)
-Received: from [192.168.1.44] (unknown [106.210.136.40]) by
-	eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
-	20260831091431eusmtip24699d34b786382bf1394417845ac07c5~Q2QXht9KL2368923689eusmtip2b;
-	Mon, 31 Aug 2026 09:14:31 +0000 (GMT)
-Message-ID: <f93b13d4-d6f1-4e75-9fce-926fb0129dca@samsung.com>
-Date: Mon, 31 Aug 2026 11:14:31 +0200
+	dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b="krU9Kp1O";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="JaIZ4ZlZ"
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+	by mailfout.stl.internal (Postfix) with ESMTP id DD1BB1D0013B;
+	Mon, 31 Aug 2026 05:15:21 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-06.internal (MEProxy); Mon, 31 Aug 2026 05:15:22 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
+	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
+	:from:in-reply-to:message-id:mime-version:reply-to:subject
+	:subject:to:to; s=fm2; t=1788167721; x=1788254121; bh=47zEvEEejf
+	I6CkwDkb4HrVK98gd8CjGifPChtTFi0Gc=; b=krU9Kp1O+XsnhKnj0uMYAUDAYe
+	ltUdOTaKpjwOJ7fFyk5l5SMo1pjfBkCyi22HxeKU1Or9YlH/7g7oy1Qu07EcuJj7
+	gORts7nPSRq+lSihx89uGbL4HICzRTSeNzFWB3H8j8Q+je++jCJFkobDjrHiBFKl
+	Cbw0xGeAhj6rMSre+RuonffG2ZoVYZhQYj3VvTYSuhJoj1MEHcvQwRnTFtnngUnR
+	KqdDu2lvlUkvPleWk9UVePpRJJIwiurTt8hhMCSTL2vHd93j020QqtxU3a0L9GSa
+	QxXZ5QUUExgQDanpkhOHLEgwb81U8/ZvCTo3oNs2yIH8L4yX4MECzpDJ5iwg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+	1788167721; x=1788254121; bh=47zEvEEejfI6CkwDkb4HrVK98gd8CjGifPC
+	htTFi0Gc=; b=JaIZ4ZlZFRs+iz25xK6i3plYlwDb3wqwsIzWHXvhVYqcOojnA91
+	QvqzMK8Uod47E+5uogwLLKnB36XDXpf/hmgDqg5TnWTtpavk2yYqs9R3mNc+oxpj
+	BwC1PeHpJ5hdTA9R0nsAjAqGTtbxxcvrsVUipGhDCNz9PHak4/KHjpThECBiRZNU
+	UXwxhTETI5JfeP0RkXyawFcNxP6ZCjc4KEiFtS5y6PxVcpyf1rGznFOB0IWiFbOM
+	9rOcZClLczXCkm29web6+phzG6xlOPz3wIl/g0296hcBW8ISiamQcCDlUYDL/caX
+	rIeaUQbGmmblUqwS19K/3z+BP8LHmmeckEA==
+X-ME-Sender: <xms:KEaVapcqqqgiIScTP24N-Ya8c4Z_7C9bdi173kqE7IM1bwk-hAbz-A>
+    <xme:KEaVaoljBkp7TDfm3VD4L18_NFl-2tbpgBNr_E3MnF9Swmja6pU3Sg1m36YlytIhA
+    LTpFXig0oEe78e-iDW8nmK_b_Zu6nkMujq5ZMAVmAueKw-TfWMiGTs>
+X-ME-Received: <xmr:KEaVarw2KG6CEfgXwmSichqEldttFxwlsjnOkddyIKzNsWY0eBayuM-65GQ>
+X-ME-Proxy-Cause: dmFkZTEwmsnyprdy3iKVf9do7GG1Tdq7gTCVLlgh1ALuAyDZgoqCdetVYe8dJK8LfV9tmC
+    35+Lf3uNDBO1aC3hEH1D74pFyjreTzNcjNjpnhAomht74lz/5Jmp+sWsHBmINhaoLDVNzG
+    FkPRyHyy5kKBTXtsYzgrLIEBPT0ZOAIJJ+hjlad67SJPTUfA+NRg8f3BKJDvJTIhCCoXzx
+    ikWrduxrsS7ksf2kwrCrofZ27omH8pbRDSAi9/wue8aNOruQrHXZtZ+4bpqByQLuxMlOnf
+    yeILebFCMGA/wqWr01K7xeT5XaFs/srEFo4F4t76Gjja3jiO/mmZUBWIL4GStDCddjvknj
+    eJe8qOqrogQocLvrEmVOSqCGzyMomKDShLZ2eVje73Gb5henYbQXX6ni4k38mf+APtYGf4
+    f3Mv2UsM4asTuO5m/dPQidZK5iLUx7wszGKHaouh5R1UhErsx9n1DiLj7NiGitxNBVOms+
+    2DNpVuCW3QBkaRiqN6ch6ZIi0ngPxJoM62zypzNv0OkoqRuzU1+1fcLGwbVkUkx0w+RltP
+    lVUcoc9QahwzDwgvSeVisuijRMHHJUo5LVVW3LtPoaMp66Wi042BdDWxMs9ijPDz8VQ3L8
+    Nv+t39WrWU2IAcIhqsMD1MC5rCK78619xxF71XH9vnQndBzR73w1yOJZiW+A
+X-ME-Proxy: <xmx:KEaVarPskolEGc05gBNhclGSdc5G3QxPu25DQxdwuLrTnfwPPQpkvA>
+    <xmx:KEaVasij4RjkF4QL9KuJN61uoAu5_2zMBqLoURhsOOCybz6JKhAzRA>
+    <xmx:KEaVar_Je9KZ4Lte8KgLJDram6xWSpo5pdXkSC9uLcU9sfTavGhSUQ>
+    <xmx:KEaVapLS-SUNcBxMcgpF0s_9iNAqhMHaTZkmNWvxlVSfjYojVFtqpA>
+    <xmx:KUaVavha6gglV9F2Lldre_ahD5eEYlq-1QOFe2ySkWQF2V112UYwZa9l>
+Feedback-ID: ie3994620:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 31 Aug 2026 05:15:19 -0400 (EDT)
+From: Kiryl Shutsemau <kirill@shutemov.name>
+To: akpm@linux-foundation.org,
+	david@kernel.org,
+	ljs@kernel.org,
+	hannes@cmpxchg.org,
+	usama.arif@linux.dev
+Cc: lance.yang@linux.dev,
+	ziy@nvidia.com,
+	kasong@tencent.com,
+	hughd@google.com,
+	baolin.wang@linux.alibaba.com,
+	baohua@kernel.org,
+	liam@infradead.org,
+	nico.pache@linux.dev,
+	dev.jain@arm.com,
+	ryan.roberts@arm.com,
+	balbirs@nvidia.com,
+	kas@kernel.org,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 0/2] Fix deferred_split_isolate() and drop the split workaround
+Date: Mon, 31 Aug 2026 10:15:12 +0100
+Message-ID: <20260831091514.1879786-1-kirill@shutemov.name>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 15/15] MAINTAINERS: Add StarFive JH7110 display
- subsystem entry
-To: Icenowy Zheng <uwu@icenowy.me>, Vinod Koul <vkoul@kernel.org>, Neil
-	Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
-	<conor+dt@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss
-	<rfoss@kernel.org>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-	Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>, David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst
-	<maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>, Lee Jones <lee@kernel.org>, Andy
-	Yan <andy.yan@rock-chips.com>, Philipp Zabel <p.zabel@pengutronix.de>, Emil
-	Renner Berthing <kernel@esmil.dk>, Hal Feng <hal.feng@starfivetech.com>,
-	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
-	<sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, Heiko Stuebner
-	<heiko@sntech.de>, Conor Dooley <conor@kernel.org>, Paul Walmsley
-	<pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou
-	<aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Dominique
-	Belhachemi <db@domibel.de>
-Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
-	mfd@lists.linux.dev, linux-clk@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
-	linux-riscv@lists.infradead.org, Andy Yan <andyshrk@163.com>, Marek
-	Szyprowski <m.szyprowski@samsung.com>, Maud Spierings
-	<maudspierings@gocontroll.com>, Graham Markall <hello@big-grey.co.uk>
-Content-Language: en-US
-From: Michal Wilczynski <m.wilczynski@samsung.com>
-In-Reply-To: <d64ff3f2a03473e4263e2f68823c2cb0f7fd1599.camel@icenowy.me>
 Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20260831091433eucas1p2176fd27eb0eefa971ac954c8ee5c2bd2
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20260828134841eucas1p100590973cc6808103c41d0b0fc82573a
-X-EPHeader: CA
-X-CMS-RootMailID: 20260828134841eucas1p100590973cc6808103c41d0b0fc82573a
-References: <20260828-jh7110-clean-send-v2-0-331680c8b9d1@samsung.com>
-	<CGME20260828134841eucas1p100590973cc6808103c41d0b0fc82573a@eucas1p1.samsung.com>
-	<20260828-jh7110-clean-send-v2-15-331680c8b9d1@samsung.com>
-	<d64ff3f2a03473e4263e2f68823c2cb0f7fd1599.camel@icenowy.me>
+
+From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+
+deferred_split_isolate() probes each queued folio with folio_try_get().
+folio_try_get() failure is treated as a lost race with folio_put().
+
+It leads to wrong results when !folio_try_get() was not caused by
+folio_put(): for a frozen folio, PG_partially_mapped gets wrongfully
+cleared and the folio dropped from the queue.
+
+It came up in the review of my collapse RFC series:
+
+  https://lore.kernel.org/all/20260824131224.73344-1-lance.yang@linux.dev/
+
+The bug is inert in upstream code:
+
+  - __folio_split() works around it;
+  - __folio_migrate_mapping() freezes a folio it is about to replace;
+  - reclaim freezes only what try_to_unmap() already unmapped.
+
+No stable@ needed. But my collapse rework steps on it, so it is worth
+fixing.
+
+The branch the first patch removes also hid an inert, pre-existing bug in
+the zone device path:
+
+  https://lore.kernel.org/all/20260827163838.1813081-1-usama.arif@linux.dev/
+
+The first patch fixes deferred_split_isolate().
+
+The second patch removes the workaround for this deferred_split_isolate()
+behaviour from __folio_freeze_and_split_unmapped().
+
+Tested in a VM: split_huge_page_test, folio_split_race_test and cow pass.
+
+Also ran a test that leaves 16 partially mapped THPs on the deferred
+split queue and drives thp-deferred_split through debugfs, checking
+nr_anon_partially_mapped.
+
+v1: https://lore.kernel.org/all/20260826162101.1314941-1-kirill@shutemov.name/
+
+Changes since v1:
+  - Spell out in the first patch who clears PG_partially_mapped and the
+    stat once the shrinker stops doing it (David Hildenbrand).
+  - Add Fixes: and Closes: tags (David Hildenbrand, Zi Yan).
+  - Drop the three __folio_freeze_and_split_unmapped() cleanups: Kairui
+    Song's swap THP cleanup series already carries the same changes.
+  - Collect review tags.
+
+Kiryl Shutsemau (Meta) (2):
+  mm/huge_memory: do not touch frozen folios in deferred_split_isolate()
+  mm/huge_memory: dequeue the deferred split after the split freeze
+
+ mm/huge_memory.c | 63 +++++++++++++-----------------------------------
+ 1 file changed, 17 insertions(+), 46 deletions(-)
 
 
-
-On 8/28/26 16:01, Icenowy Zheng wrote:
-> 在 2026-08-28五的 15:47 +0200，Michal Wilczynski写道：
->> The JH7110 display subsystem spans a PHY driver, a DRM bridge driver,
->> a parent device and their bindings, and has no existing maintainer
->> entry.
->>
->> Add an entry covering them so patches reach someone who can review
->> them.
->>
->> Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
->> ---
->>  MAINTAINERS | 10 ++++++++++
->>  1 file changed, 10 insertions(+)
->>
->> diff --git a/MAINTAINERS b/MAINTAINERS
->> index
->> 8014b9f8253edf15231df215d1b14063a54a55ec..84ac5cfe61cdf775167cf903386
->> 2724c37946a5f 100644
->> --- a/MAINTAINERS
->> +++ b/MAINTAINERS
->> @@ -25778,6 +25778,16 @@ S:	Maintained
->>  F:	Documentation/devicetree/bindings/net/starfive,jh7110-
->> dwmac.yaml
->>  F:	drivers/net/ethernet/stmicro/stmmac/dwmac-starfive.c
->>  
->> +STARFIVE JH7110 DISPLAY SUBSYSTEM
->> +M:	Michal Wilczynski <m.wilczynski@samsung.com>
-> 
-> Feel free to add
-> 
-> ```
-> R: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-> ```
-> 
-> if you want. I am interested in this.
-
-Sure, all help is greatly appreciated !
-
-Best regards,
+base-commit: 33f61b12d297562321533c048e034b1fb21c1cf3
 -- 
-Michal Wilczynski <m.wilczynski@samsung.com>
-
-> 
-> Thanks,
-> Icenowy
-> 
->> +S:	Maintained
->> +F:	Documentation/devicetree/bindings/display/bridge/starfive,jh
->> 7110-inno-hdmi-controller.yaml
->> +F:	Documentation/devicetree/bindings/mfd/starfive,jh7110-hdmi-
->> subsystem.yaml
->> +F:	Documentation/devicetree/bindings/phy/starfive,jh7110-inno-
->> hdmi-phy.yaml
->> +F:	drivers/gpu/drm/bridge/jh7110-inno-hdmi.c
->> +F:	drivers/phy/starfive/phy-jh7110-inno-hdmi.c
->> +F:	drivers/soc/starfive/jh7110-hdmi-subsystem.c
->> +
->>  STARFIVE JH7110 DPHY RX DRIVER
->>  M:	Jack Zhu <jack.zhu@starfivetech.com>
->>  M:	Changhuang Liang <changhuang.liang@starfivetech.com>
-> 
+2.54.0
 
