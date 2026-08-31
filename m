@@ -1,139 +1,123 @@
-Received: from mta1.migadu.com (out-161.mta1.migadu.com [95.215.58.161])
+Received: from mta1.migadu.com (out-174.mta1.migadu.com [95.215.58.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A45C179A3
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 01:50:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.161
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FF5A1C6FF5
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 01:51:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788141024; cv=none; b=hvnACoSKDYiPxJbgCyEM8GA7OmmcH3iB/ZgrSMlfudQPmhGbIyesyZCVtvsLdE+CrDZOd4CJi/QhUcc6yIWI9TkgmAjSrEYElRErtD1FKfgwHN8HiP2ryXP7RFa2c7aVUDsGSF3vJwAS2ZtJPQ8DqMJkvBe+3s0WvYQBKW2PVEQ=
+	t=1788141073; cv=none; b=MmrZYxv7xVtx0iDkNGPz83EHz3vhco5fgPu9SSsKerv8+vuL7BIoWjYpkpGX/e9e2NH8230U+A9Se+j/F5uvjsZO+GpFNFFy9fJlZvFSfQkZxBLCM4H5VmWmhctTwRAj8wTT4A/dOFQd0QT6EZutxJtttzIEp5Ty0l7L3E3t6+0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788141024; c=relaxed/simple;
-	bh=FcvyL1cxg9jiIFc6PqfH9upLLBuIdCn+XO9mMwBInv8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=MT/hj5pa0Bab5ToAIdIB3agwIxnS4OoFr9BOnYjjVj9ZQl8HpJL8hE2bqHfk1FyHRBXcQ5BI+Ydo66X7lVS7WncKf77Ymy0YuVXjP9cGPia5MStV6kXEY2WoArUO/q7DPKe8HAawdamEQegej7zTk7T+hXHekzbjqLoZUqsXU3A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=KqZBdlvN; arc=none smtp.client-ip=95.215.58.161
+	s=arc-20240116; t=1788141073; c=relaxed/simple;
+	bh=o3jG3s/ZBRjIh/mnuaTmfuX6JWJtAs9w/d7YV3bxp9A=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=r58Xjfad9QlF/uAC4h3Y5xk9EH7vnHVjWLyeNQMCxEWoFkWtAIbh9Fgf/zwe+Z0BvjCKOgpV2Alb8ijI8auGe9SsRBhY7+vq1cws7s+iZOAnKBrygnFZfWJuef1MLodH/9gGANtZ8KGi8RY/jSABtxCN9m7dPYqya6dp6179DJ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=oEK1OY2r; arc=none smtp.client-ip=95.215.58.174
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="KqZBdlvN"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="oEK1OY2r"
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=FcvyL1cxg9jiIFc6PqfH9upLLBuIdCn+XO9mMwBInv8=;
+DKIM-Signature: a=rsa-sha256; bh=o3jG3s/ZBRjIh/mnuaTmfuX6JWJtAs9w/d7YV3bxp9A=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788141019; v=1; x=1788745819;
- b=KqZBdlvNp/zy0Gf0IR6kC9Crh1CQ5gXXRd5Sa3fARvOc+/zaVyquMZhAVV5JF1Rub72LrFSD
- Js/QrUTPuzLUiPrVtfVJvG1cWyRNZs0hXvaha04Tu39CTHa2nXYonu2sWxsF61KFI/jiKJOkqaN
- djY4nOUSl4tUex9F7CvLzgMg=
+ t=1788141068; v=1; x=1788745868;
+ b=oEK1OY2rpuExpPHnMNSpJWmylkt1jedRLK8NxXfHN913ewJq2DgkrG6LLUr4S+ff0qPr01+K
+ UdV0Ofyeryi08KV2hADWq1ZcDElTMQdj6n5qlGgHZxUcZCuwwEdts2rzTYWQBpTI2Age+AKeErU
+ PHV2l3n0LemDehT3Vn6dC1Mc=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 858a2bb64318c06d;
-	Mon, 31 Aug 2026 01:50:09 +0000
-X-Mizu-Trace-ID: 858a2bb64318c06d
+Received: by smtp.migadu.com with ESMTPS id f5ee061fcf6cf2c6;
+	Mon, 31 Aug 2026 01:51:08 +0000
+X-Mizu-Trace-ID: f5ee061fcf6cf2c6
 X-Migadu-Flow: FLOW_OUT
-Message-ID: <ba138f23-6972-44c8-8ce5-80de1f50891c@linux.dev>
-Date: Mon, 31 Aug 2026 09:50:02 +0800
+From: Hangbin Liu <hangbin.liu@linux.dev>
+Subject: [PATCH net v6 0/2] bonding: fix TLB load-tracking overflow on
+ high-speed NICs
+Date: Mon, 31 Aug 2026 09:50:58 +0800
+Message-Id: <20260831-bond_overflow-v6-0-ffb0ed1f7268@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] cgroup/cpuset: Handle cpu hotplug race in
- guarantee_active_cpus()
-To: Waiman Long <longman@redhat.com>, Tejun Heo <tj@kernel.org>,
- Johannes Weiner <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?=
- <mkoutny@suse.com>
-Cc: cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
- Farhad Alemi <farhad.alemi@berkeley.edu>
-References: <20260828180322.730419-1-longman@redhat.com>
-From: Ridong Chen <ridong.chen@linux.dev>
-In-Reply-To: <20260828180322.730419-1-longman@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/2XOTW7DIBAF4KtErEs1gPlJVr1HFVWYGRrUCCoc0
+ USR717kblx7+Wb0vZknm6gmmtjp8GSVWppSyT2YlwMLF58/iSfsmUmQBhwYPpaMH6VRjdfyw30
+ w3njr0Hhg3XxXium+9L2zTDd27sNLmm6lPpYbTSyrvzoBm7omuODhGKM8ojXWwtvX45pymV5DX
+ qqaXPNhy2XnqCJp5zwKY3dcrbnbcsWBE2gccAwyotvxYcXl7vmhcwd69ICK4mh2XK+53nLdufU
+ OAEkoFcU/Ps/zL8qQTlusAQAA
+X-Change-ID: 20260806-bond_overflow-ac6a6a78d6a0
+To: Jay Vosburgh <jv@jvosburgh.net>, Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Simon Horman <horms@kernel.org>, Nikolay Aleksandrov <razor@blackwall.org>
+Cc: Hangbin Liu <hangbin.liu@linux.dev>, netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Hangbin Liu <liuhangbin@kylinos.cn>
+X-Mailer: b4 0.14.3
 
+The bonding TLB (Transmit Load Balancing) mode tracks per-slave and
+per-client transmit byte counts in u32 fields. At sustained throughput
+above ~3.2 Gbit/s over the 10-second rebalance interval these counters
+wrap, causing compute_gap() to produce incorrect gap values and
+mis-select transmit slaves. Such speeds are routine on modern NICs
+under heavy traffic.
 
+This two-patch series fixes the overflow by widening the relevant
+fields to u64.
 
-On 8/29/2026 2:03 AM, Waiman Long wrote:
-> With commit 2125c0034c5d ("cgroup/cpuset: Make cpuset hotplug
-> processing synchronous"), the cpuset hotplug operation becomes
-> synchronous. That commit also removes the code that handles the race
-> between cpuset_hotplug_work and cpu hotplug notifier with the assumption
-> that race is now gone. Later commit 7a0aabd9ce69 ("cgroup/cpuset:
-> Always use cpu_active_mask") updates the cpuset code to always use
-> cpu_active_mask instead of cpu_ohline_mask in various places including
-> guarantee_online_cpus() which is also renamed to guarantee_active_cpus()
-> in that commit.
-> 
-> In the case of CPU offline operation, cpuset_active_mask is updated
-> first in sched_cpu_deactivate() to remove the offline CPU before
-> cpuset_handle_hotplug() is called to update the effective_cpus of the
-> affected cpusets. The cpu_online_mask is updated after that near the end
-> of the offline operation to remove the offline CPU. As a result, the race
-> comes back and the top cpuset may not have any active CPU leading to NULL
-> pointer dereference during the race window when guarantee_active_cpus()
-> is called after cpu_active_mask is updated to remove the CPU to be torn
-> down but before cpuset_handle_hotplug() is able to properly update the
-> effective_cpus of the top cpuset.
-> 
+Patch 1 converts the unbalanced_load counter to per-cpu state as a
+preparatory step. The counter sits in the transmit hot path, so
+converting it to per-cpu before widening avoids introducing cross-CPU
+synchronization overhead for a u64. Also use a prev_total_unbalanced
+to store the previous total load to avoid reset per-cpu data.
 
-Hi Longman,
+Patch 2 widens tx_bytes, load_history, load, and the per-cpu
+unbalanced_load tx_bytes from u32 to u64. It adds u64_stats_sync
+protection for the per-cpu counter to prevent tearing on 32-bit
+architectures, and reworks compute_gap() to use s64 arithmetic with
+READ_ONCE() on slave->speed.
 
-Thank you for the patch. I believe it should resolve the issue.
-Could Farhad please verify whether it works as expected?
+Signed-off-by: Hangbin Liu <liuhangbin@kylinos.cn>
+---
+Changes in v6:
+- Do not return fixed value for unknown speed logic, we need load balance
+  even NIC speed is UNKNOWN (sashiko)
+- Link to v5: https://lore.kernel.org/r/20260825-bond_overflow-v5-0-7a800de133f1@kylinos.cn
 
-> Fix this by adding back the NULL cs check to avoid this problem. However,
-> the output of guarantee_active_cpus() will be unreliable during that
-> race window.
-> 
+Changes in v5:
+- use s64 as the return value for compute_gap, so we can compute the
+  difference when NICs are overload. (Nikolay Aleksandrov)
+- Link to v4: https://lore.kernel.org/r/20260820-bond_overflow-v4-0-805ba0d3efb6@kylinos.cn
 
-If guarantee_active_cpus() can return unreliable results during that race 
-window, should it instead return an error when it cannot guarantee that the 
-active CPUs are usable? Otherwise, callers might use an incorrect 'pmask', which 
-could lead to other issues downstream.
+Changes in v4:
+- move per-cpu allocation to tlb_initialize/tlb_deinitialize (Nikolay Aleksandrov)
+- use an extra prev_total_unbalanced to avoid reset per-cpu data (Nikolay Aleksandrov)
+- Link to v3: https://lore.kernel.org/r/20260818-bond_overflow-v3-0-e05d4dbc2fd8@kylinos.cn
 
-> Fixes: 7a0aabd9ce69 ("cgroup/cpuset: Always use cpu_active_mask")
-> Reported-by: Farhad Alemi <farhad.alemi@berkeley.edu>
-> Link: https://lore.kernel.org/lkml/CA+0ovChh3VjsKN1g+ZGjwwY2fGTpP7uD+aCCByLj5Qbymw=bfQ@mail.gmail.com
-> Signed-off-by: Waiman Long <longman@redhat.com>
-> ---
->   kernel/cgroup/cpuset.c | 20 ++++++++++++++++++--
->   1 file changed, 18 insertions(+), 2 deletions(-)
-> 
-> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
-> index 0bad5bbec6bf..309478ab21ad 100644
-> --- a/kernel/cgroup/cpuset.c
-> +++ b/kernel/cgroup/cpuset.c
-> @@ -513,10 +513,26 @@ static void guarantee_active_cpus(struct task_struct *tsk,
->   	rcu_read_lock();
->   	cs = task_cs(tsk);
->   
-> -	while (!cpumask_intersects(cs->effective_cpus, pmask))
-> +	while (!cpumask_intersects(cs->effective_cpus, pmask)) {
->   		cs = parent_cs(cs);
-> -
-> +		if (unlikely(!cs)) {
-> +			/*
-> +			 * The top cpuset doesn't have any active cpu as a
-> +			 * consequence of a race between its caller and the cpu
-> +			 * hotplug operation where cpu_active_mask is updated
-> +			 * asynchronously before cpuset_handle_hotplug() is
-> +			 * being called to adjust the effective_cpus of the
-> +			 * affected cpusets. But we know the top cpuset's
-> +			 * effective_cpus is on its way to be identical to
-> +			 * cpu_active_mask minus the exclusive CPUs dedicated
-> +			 * to other valid cpuset partitions. Just pass back
-> +			 * the filtered cpu_active_mask in this case.
-> +			 */
-> +			goto out_unlock;
-> +		}
-> +	}
->   	cpumask_and(pmask, pmask, cs->effective_cpus);
-> +out_unlock:
->   	rcu_read_unlock();
->   }
->   
+Changes in v3:
+- Add a preparatory patch to convert unbalanced_load to per-cpu first
+- widens tlb counters to u64 and add helpers to prevent tearing on 32-bit
+- Link to v2: https://lore.kernel.org/r/20260814-bond_overflow-v2-1-d3fe588ad167@kylinos.cn
 
+Changes in v2:
+- update comment description, including AI-detected info.
+- fix tx_bytes/load type detected by sashiko
+- cast SPEED_UNKNOWN to 0 before shift, detected by sashiko
+- Link to v1: https://lore.kernel.org/r/20260810-bond_overflow-v1-1-c9ff29d76770@kylinos.cn
+
+---
+Hangbin Liu (2):
+      bonding: convert unbalanced_load to per-cpu state
+      bonding: fix u32 overflow in compute_gap()
+
+ drivers/net/bonding/bond_alb.c | 63 +++++++++++++++++++++++++++++++++++-------
+ include/net/bond_alb.h         | 14 +++++++---
+ 2 files changed, 63 insertions(+), 14 deletions(-)
+---
+base-commit: a8455260b2e9c024d1872ac1c094793d55a7e537
+change-id: 20260806-bond_overflow-ac6a6a78d6a0
+
+Best regards,
 -- 
-Best regards
-Ridong
+Hangbin Liu <liuhangbin@kylinos.cn>
 
