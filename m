@@ -1,197 +1,358 @@
-Received: from mail.lysator.liu.se (mail.lysator.liu.se [130.236.254.3])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82F823C1F45;
-	Mon, 31 Aug 2026 07:13:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=130.236.254.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B98933C0A00
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 07:14:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788160421; cv=none; b=IiPz8hxdgStkuJyI30T5W7UqwD3AeZSsWVe4MY04N+3dV70V2EOZQxhzVn9aWAfSxmqaB29JRirz35hG+h241CoruIj3apwk9gk4tKqMrm9rdo4p6H6CghsC1+Ly0W4/XoVHTZQ5BD7CZsPH5neeULIsTk3cuIFIFuiCDkHWQWM=
+	t=1788160448; cv=none; b=oYmkrvRhoJp8jLDp7A50TSwKgSYlLXSGiko4e6m/EvtF/0Lx7UWeu01K+h9adITnHIxOFkz5hdBpB/NLhsFUYZAD/uPBqjWxWDUHQROhbZnIO5XaHovnoswLDb8rNiFirWQkjQ8wa70GD3Sf8PA2JYCM8agTpp7VjkXxuVU61do=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788160421; c=relaxed/simple;
-	bh=81zt51gCWR1tyk2rnkv5sTc2enngcXrsEszby0tfe/c=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hMOfhekKbNmv5H7CZBmvuqU+hgzxyVxqw4BOAqZMxlbirphWtDbeZYKT/VCyXzuWJhlzYGlQiY9iumA2vvwVUX8SdzxBe4WvFRG49oANqBBLuRlGyWlADxhCbsVhNU9Z+QK561vUaRIRVjkbsx2mRsr8S/qclxk5qICAqOwob1E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lysator.liu.se; spf=pass smtp.mailfrom=lysator.liu.se; dkim=pass (2048-bit key) header.d=lysator.liu.se header.i=@lysator.liu.se header.b=WSV21sN/; dkim=pass (2048-bit key) header.d=lysator.liu.se header.i=@lysator.liu.se header.b=WSV21sN/; arc=none smtp.client-ip=130.236.254.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lysator.liu.se
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lysator.liu.se
+	s=arc-20240116; t=1788160448; c=relaxed/simple;
+	bh=cDe6t6uSU0qTbd5SXGCuHJkpjoXknmbDdfHMRVyqOZ0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NqO1MP62iKgNlKVUEjeVnHVrKx7W7BZYBbPX3bnlYmrhBhAQ0F/JZX/n5ZwvfTk3VXe0lwCkKNWsiiSGQi5eJFnGL42r/oOrj9+1pj1UiGwAth0fGCwIvI4TD/kSxp8sxPbASLi2Pi5UftGQgyH3BCQT8veHIB6MHr8qc2nnxA8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=TmCatwwp; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lysator.liu.se header.i=@lysator.liu.se header.b="WSV21sN/";
-	dkim=pass (2048-bit key) header.d=lysator.liu.se header.i=@lysator.liu.se header.b="WSV21sN/"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lysator.liu.se;
-	s=2026; t=1788160415;
-	bh=81zt51gCWR1tyk2rnkv5sTc2enngcXrsEszby0tfe/c=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=WSV21sN/JivHfsTG2BSAGE1hJnM/xM8FgxUB1xYhKIcItXatsZwGwg3a9oFvdBNgB
-	 Yg16lFrZW1LkC6/bL1DiGgWyHOMR+9+21ATbmudj06sLhUcl2W8YuFeeNl8TM1Fqwm
-	 t6ViST4lHQqAezq8gpXRh9K2mBRbOzwdSsoxQJhifeWtgEVqpam2RSQwoIbK23p9zn
-	 cYx4t0yLYsbyVPmA1Opwc8Cua5CNrD4+aQ/fRHf555QbdkEKpGQ57CW6WGwrugNreo
-	 AnmK8eH9Cnd9/yfdXflScOExixeNPvzvdyl8z82PT4xvsikO/6K1MI6WOqBZr4xxMd
-	 CxvwRDre0Ldzw==
-Received: from mail.lysator.liu.se (localhost [127.0.0.1])
-	by mail.lysator.liu.se (Postfix) with ESMTP id 93285E4DC;
-	Mon, 31 Aug 2026 09:13:35 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lysator.liu.se;
-	s=2026; t=1788160415;
-	bh=81zt51gCWR1tyk2rnkv5sTc2enngcXrsEszby0tfe/c=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=WSV21sN/JivHfsTG2BSAGE1hJnM/xM8FgxUB1xYhKIcItXatsZwGwg3a9oFvdBNgB
-	 Yg16lFrZW1LkC6/bL1DiGgWyHOMR+9+21ATbmudj06sLhUcl2W8YuFeeNl8TM1Fqwm
-	 t6ViST4lHQqAezq8gpXRh9K2mBRbOzwdSsoxQJhifeWtgEVqpam2RSQwoIbK23p9zn
-	 cYx4t0yLYsbyVPmA1Opwc8Cua5CNrD4+aQ/fRHf555QbdkEKpGQ57CW6WGwrugNreo
-	 AnmK8eH9Cnd9/yfdXflScOExixeNPvzvdyl8z82PT4xvsikO/6K1MI6WOqBZr4xxMd
-	 CxvwRDre0Ldzw==
-Received: from gryt (81-225-28-11-no2391.tbcn.telia.com [81.225.28.11])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by mail.lysator.liu.se (Postfix) with ESMTPSA id 3736AE599;
-	Mon, 31 Aug 2026 09:13:35 +0200 (CEST)
-Date: Mon, 31 Aug 2026 09:13:34 +0200
-From: Peter Rosin <peda@lysator.liu.se>
-To: Ahmad Byagowi <ahmadexp@gmail.com>
-Cc: Andy Shevchenko <andriy.shevchenko@intel.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, linux-i2c@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v7 3/3] i2c: mux: Propagate software nodes to channel
- adapters
-Message-ID: <apUpnqAQQfWaflS8@gryt>
-References: <cover.1787502619.git.ahmadexp@gmail.com>
- <a4abcd31c3a6758e219f5edcdd4acd307e674f18.1787502619.git.ahmadexp@gmail.com>
- <ao0tPhBvK1Er_Vs0@gryt>
- <CAOQiBWNVvHpO7X8yWyZEa3-nV76YJfRbkzo+_4U-upEj4VNfow@mail.gmail.com>
- <ao_VE0W-FohWqPPt@ashevche-desk.local>
- <apO31ydKoiqWCEKo@gryt>
- <CAOQiBWN5DgOcJ9Gg7s2GZmpQguJUh121Jn9yUzxxm=D530c8dA@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="TmCatwwp"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id CF88E4E4145B;
+	Mon, 31 Aug 2026 07:14:02 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 83F7B601E1;
+	Mon, 31 Aug 2026 07:14:02 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id B1C8511C783B9;
+	Mon, 31 Aug 2026 09:13:53 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1788160437; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding; bh=qlPqoJPgIkCWBESIwo+W3ZhE4k1gInL1GY5y/IW8siY=;
+	b=TmCatwwpCK0wEnmc9d6A64/0qZSh/VPxzvBcIjz+siqfP/XJpNS6qnl0dUaSAOPSGzxrek
+	y7gE0GBH+VoX5tfA+ZJBZ7nYrZf60TEF/oPiDTrE3wJ/uzyd38Xi4k9uchdXfm28iFz0dX
+	CxXk68wLLkj0rTtYR5/d2023JxNSuW0pki6ac98rPp5eZGNurmsGQRjB6vvZJhCyznKb7A
+	P6jc8MSpziEIOApOp8qrfQP3uDJ4UHcnIxmAY+6tHLmSoTlvQBUxYHBl5BnzWznZ8zHbDR
+	1whYRe0MB2fk3P01cipdH0DLz3ScetGwPCxbzWYtg6FtsvFCGD3jLmquD4HMQw==
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>,
+	Jakub Kicinski <kuba@kernel.org>,
+	davem@davemloft.net,
+	Eric Dumazet <edumazet@google.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Russell King <linux@armlinux.org.uk>
+Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	thomas.petazzoni@bootlin.com,
+	=?UTF-8?q?Alexis=20Lothor=C3=A9?= <alexis.lothore@bootlin.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-stm32@st-md-mailman.stormreply.com
+Subject: [PATCH net-next] net: stmmac: Remove ARP offload code
+Date: Mon, 31 Aug 2026 09:13:50 +0200
+Message-ID: <20260831071351.354255-1-maxime.chevallier@bootlin.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAOQiBWN5DgOcJ9Gg7s2GZmpQguJUh121Jn9yUzxxm=D530c8dA@mail.gmail.com>
-X-Virus-Scanned: ClamAV using ClamSMTP
+X-Last-TLS-Session-Version: TLSv1.3
 
-Den Sat, Aug 29, 2026 at 10:10:40PM -0700, skrev Ahmad Byagowi:
-> Peter, thanks for clarifying.
-> 
-> The check is intentional. Without it, the generic traversal would also
-> inspect ACPI firmware nodes and could match _DSD child nodes carrying
-> a "reg" property, while the existing ACPI path below uses
-> acpi_preset_companion() to associate the adapter by channel address.
+dwmac can do ARP offloading, where the HW replies to incoming ARP
+requests. This requires multiple steps to work well :
+ - Program the local IP address in a dedicated register
+ - Enable ARP offloading
 
-Yes, I got that. The question is if the precaution is really needed.
-Are "reg" properties common in ACPI nodes?
+This is halfway implemented in stmmac, as it's only ever used by
+selftests, and these selftests are failing on at least 2 platforms :
+stm32mp1, and jh7110.
 
-> I have not established that changing the ACPI lookup behavior is safe,
-> and that change is not needed for software-node support. With the
-> check retained, OF and software nodes use the generic lookup, while
-> ACPI continues to use the existing acpi_preset_companion() path
-> exclusively.
+There have been some attempts in the past to support this feature, but
+this never made it upstream. Let's just remove the test and that code,
+until someone actually wants that to work. We should likely have a
+proper API for that so that drivers can use it.
 
-Yes, I figured as much, which is why I directed the question at Andy.
+Let's also not mention ARP offload in the stmmac documentation.
 
-> That said, I will clarify this in the commit message for the next revision.
+Leave the defines in place and the capability detection, this doesn't
+hurt and gives some information about how the IP is synthesized.
 
-I'd rather tweak the check to exclude ACPI (instead of including OF and
-SW) with a code comment about why ACPI is excluded. That is, if it can
-be determined that ACPI actually needs to be excluded. If it is hard to
-get an answer to that question, I'm inclined to just attempt to not
-exclude ACPI, and then be prepared to exclude ACPI in a follow-up if
-there is any fallout.
+Signed-off-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+---
+ .../ethernet/stmicro/stmmac.rst               |   1 -
+ .../net/ethernet/stmicro/stmmac/dwmac4_core.c |  19 ---
+ .../ethernet/stmicro/stmmac/dwxgmac2_core.c   |  18 ---
+ drivers/net/ethernet/stmicro/stmmac/hwif.h    |   3 -
+ .../stmicro/stmmac/stmmac_selftests.c         | 112 ------------------
+ 5 files changed, 153 deletions(-)
 
-Cheers,
-Peter
+diff --git a/Documentation/networking/device_drivers/ethernet/stmicro/stmmac.rst b/Documentation/networking/device_drivers/ethernet/stmicro/stmmac.rst
+index 5d46e5036129..ea347b7e93a2 100644
+--- a/Documentation/networking/device_drivers/ethernet/stmicro/stmmac.rst
++++ b/Documentation/networking/device_drivers/ethernet/stmicro/stmmac.rst
+@@ -69,7 +69,6 @@ The following features are available in this driver:
+  - Pulse-Per-Second Output (PPS)
+  - MDIO Clause 22 / Clause 45 Interface
+  - MAC Loopback
+- - ARP Offloading
+  - Automatic CRC / PAD Insertion and Checking
+  - Checksum Offload for Received and Transmitted Packets
+  - Standard or Jumbo Ethernet Packets
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c b/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
+index fb5b96a43505..cd6c5d6f42b5 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
+@@ -819,22 +819,6 @@ static void dwmac4_sarc_configure(void __iomem *ioaddr, int val)
+ 	writel(value, ioaddr + GMAC_CONFIG);
+ }
+ 
+-static void dwmac4_set_arp_offload(struct mac_device_info *hw, bool en,
+-				   u32 addr)
+-{
+-	void __iomem *ioaddr = hw->pcsr;
+-	u32 value;
+-
+-	writel(addr, ioaddr + GMAC_ARP_ADDR);
+-
+-	value = readl(ioaddr + GMAC_CONFIG);
+-	if (en)
+-		value |= GMAC_CONFIG_ARPEN;
+-	else
+-		value &= ~GMAC_CONFIG_ARPEN;
+-	writel(value, ioaddr + GMAC_CONFIG);
+-}
+-
+ static int dwmac4_config_l3_filter(struct mac_device_info *hw, u32 filter_no,
+ 				   bool en, bool ipv6, bool sa, bool inv,
+ 				   u32 match)
+@@ -966,7 +950,6 @@ const struct stmmac_ops dwmac4_ops = {
+ 	.set_filter = dwmac4_set_filter,
+ 	.set_mac_loopback = dwmac4_set_mac_loopback,
+ 	.sarc_configure = dwmac4_sarc_configure,
+-	.set_arp_offload = dwmac4_set_arp_offload,
+ 	.config_l3_filter = dwmac4_config_l3_filter,
+ 	.config_l4_filter = dwmac4_config_l4_filter,
+ };
+@@ -1003,7 +986,6 @@ const struct stmmac_ops dwmac410_ops = {
+ 	.flex_pps_config = dwmac5_flex_pps_config,
+ 	.set_mac_loopback = dwmac4_set_mac_loopback,
+ 	.sarc_configure = dwmac4_sarc_configure,
+-	.set_arp_offload = dwmac4_set_arp_offload,
+ 	.config_l3_filter = dwmac4_config_l3_filter,
+ 	.config_l4_filter = dwmac4_config_l4_filter,
+ 	.fpe_map_preemption_class = dwmac5_fpe_map_preemption_class,
+@@ -1045,7 +1027,6 @@ const struct stmmac_ops dwmac510_ops = {
+ 	.flex_pps_config = dwmac5_flex_pps_config,
+ 	.set_mac_loopback = dwmac4_set_mac_loopback,
+ 	.sarc_configure = dwmac4_sarc_configure,
+-	.set_arp_offload = dwmac4_set_arp_offload,
+ 	.config_l3_filter = dwmac4_config_l3_filter,
+ 	.config_l4_filter = dwmac4_config_l4_filter,
+ 	.fpe_map_preemption_class = dwmac5_fpe_map_preemption_class,
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
+index fc6ddb51c682..1a88cbaed70c 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
+@@ -1410,22 +1410,6 @@ static int dwxgmac2_config_l4_filter(struct mac_device_info *hw, u32 filter_no,
+ 	return 0;
+ }
+ 
+-static void dwxgmac2_set_arp_offload(struct mac_device_info *hw, bool en,
+-				     u32 addr)
+-{
+-	void __iomem *ioaddr = hw->pcsr;
+-	u32 value;
+-
+-	writel(addr, ioaddr + XGMAC_ARP_ADDR);
+-
+-	value = readl(ioaddr + XGMAC_RX_CONFIG);
+-	if (en)
+-		value |= XGMAC_CONFIG_ARPEN;
+-	else
+-		value &= ~XGMAC_CONFIG_ARPEN;
+-	writel(value, ioaddr + XGMAC_RX_CONFIG);
+-}
+-
+ const struct stmmac_ops dwxgmac210_ops = {
+ 	.core_init = dwxgmac2_core_init,
+ 	.irq_modify = dwxgmac2_irq_modify,
+@@ -1464,7 +1448,6 @@ const struct stmmac_ops dwxgmac210_ops = {
+ 	.sarc_configure = dwxgmac2_sarc_configure,
+ 	.config_l3_filter = dwxgmac2_config_l3_filter,
+ 	.config_l4_filter = dwxgmac2_config_l4_filter,
+-	.set_arp_offload = dwxgmac2_set_arp_offload,
+ 	.fpe_map_preemption_class = dwxgmac3_fpe_map_preemption_class,
+ };
+ 
+@@ -1519,7 +1502,6 @@ const struct stmmac_ops dwxlgmac2_ops = {
+ 	.sarc_configure = dwxgmac2_sarc_configure,
+ 	.config_l3_filter = dwxgmac2_config_l3_filter,
+ 	.config_l4_filter = dwxgmac2_config_l4_filter,
+-	.set_arp_offload = dwxgmac2_set_arp_offload,
+ 	.fpe_map_preemption_class = dwxgmac3_fpe_map_preemption_class,
+ };
+ 
+diff --git a/drivers/net/ethernet/stmicro/stmmac/hwif.h b/drivers/net/ethernet/stmicro/stmmac/hwif.h
+index 04dafec021b4..fe18f98fae45 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/hwif.h
++++ b/drivers/net/ethernet/stmicro/stmmac/hwif.h
+@@ -407,7 +407,6 @@ struct stmmac_ops {
+ 	int (*config_l4_filter)(struct mac_device_info *hw, u32 filter_no,
+ 				bool en, bool udp, bool sa, bool inv,
+ 				u32 match);
+-	void (*set_arp_offload)(struct mac_device_info *hw, bool en, u32 addr);
+ 	int (*fpe_map_preemption_class)(struct net_device *ndev,
+ 					struct netlink_ext_ack *extack,
+ 					u32 pclass);
+@@ -491,8 +490,6 @@ struct stmmac_ops {
+ 	stmmac_do_callback(__priv, mac, config_l3_filter, __args)
+ #define stmmac_config_l4_filter(__priv, __args...) \
+ 	stmmac_do_callback(__priv, mac, config_l4_filter, __args)
+-#define stmmac_set_arp_offload(__priv, __args...) \
+-	stmmac_do_void_callback(__priv, mac, set_arp_offload, __args)
+ #define stmmac_fpe_map_preemption_class(__priv, __args...) \
+ 	stmmac_do_void_callback(__priv, mac, fpe_map_preemption_class, __args)
+ 
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c
+index 6372ec7c3f31..664d7cfde2f1 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c
+@@ -215,24 +215,6 @@ static struct sk_buff *stmmac_test_get_udp_skb(struct stmmac_priv *priv,
+ 	return skb;
+ }
+ 
+-static struct sk_buff *stmmac_test_get_arp_skb(struct stmmac_priv *priv,
+-					       struct stmmac_packet_attrs *attr)
+-{
+-	__be32 ip_src = htonl(attr->ip_src);
+-	__be32 ip_dst = htonl(attr->ip_dst);
+-	struct sk_buff *skb = NULL;
+-
+-	skb = arp_create(ARPOP_REQUEST, ETH_P_ARP, ip_dst, priv->dev, ip_src,
+-			 NULL, attr->src, attr->dst);
+-	if (!skb)
+-		return NULL;
+-
+-	skb->pkt_type = PACKET_HOST;
+-	skb->dev = priv->dev;
+-
+-	return skb;
+-}
+-
+ struct stmmac_test_priv {
+ 	struct stmmac_packet_attrs *packet;
+ 	struct packet_type pt;
+@@ -1603,97 +1585,6 @@ static int stmmac_test_l4filt_sa_udp(struct stmmac_priv *priv)
+ 	return __stmmac_test_l4filt(priv, 0, dummy_port, 0, ~0, true);
+ }
+ 
+-static int stmmac_test_arp_validate(struct sk_buff *skb,
+-				    struct net_device *ndev,
+-				    struct packet_type *pt,
+-				    struct net_device *orig_ndev)
+-{
+-	struct stmmac_test_priv *tpriv = pt->af_packet_priv;
+-	struct ethhdr *ehdr;
+-	struct arphdr *ahdr;
+-
+-	ehdr = (struct ethhdr *)skb_mac_header(skb);
+-	if (!ether_addr_equal_unaligned(ehdr->h_dest, tpriv->packet->src))
+-		goto out;
+-
+-	ahdr = arp_hdr(skb);
+-	if (ahdr->ar_op != htons(ARPOP_REPLY))
+-		goto out;
+-
+-	tpriv->ok = true;
+-	complete(&tpriv->comp);
+-out:
+-	kfree_skb(skb);
+-	return 0;
+-}
+-
+-static int stmmac_test_arpoffload(struct stmmac_priv *priv)
+-{
+-	unsigned char src[ETH_ALEN] = {0x01, 0x02, 0x03, 0x04, 0x05, 0x06};
+-	unsigned char dst[ETH_ALEN] = {0xff, 0xff, 0xff, 0xff, 0xff, 0xff};
+-	struct stmmac_packet_attrs attr = { };
+-	struct stmmac_test_priv *tpriv;
+-	struct sk_buff *skb = NULL;
+-	u32 ip_addr = 0xdeadcafe;
+-	u32 ip_src = 0xdeadbeef;
+-	int ret;
+-
+-	if (!priv->dma_cap.arpoffsel)
+-		return -EOPNOTSUPP;
+-
+-	tpriv = kzalloc_obj(*tpriv);
+-	if (!tpriv)
+-		return -ENOMEM;
+-
+-	tpriv->ok = false;
+-	init_completion(&tpriv->comp);
+-
+-	tpriv->pt.type = htons(ETH_P_ARP);
+-	tpriv->pt.func = stmmac_test_arp_validate;
+-	tpriv->pt.dev = priv->dev;
+-	tpriv->pt.af_packet_priv = tpriv;
+-	tpriv->packet = &attr;
+-	dev_add_pack(&tpriv->pt);
+-
+-	attr.src = src;
+-	attr.ip_src = ip_src;
+-	attr.dst = dst;
+-	attr.ip_dst = ip_addr;
+-
+-	skb = stmmac_test_get_arp_skb(priv, &attr);
+-	if (!skb) {
+-		ret = -ENOMEM;
+-		goto cleanup;
+-	}
+-
+-	ret = stmmac_set_arp_offload(priv, priv->hw, true, ip_addr);
+-	if (ret) {
+-		kfree_skb(skb);
+-		goto cleanup;
+-	}
+-
+-	ret = dev_set_promiscuity(priv->dev, 1);
+-	if (ret) {
+-		kfree_skb(skb);
+-		goto cleanup;
+-	}
+-
+-	ret = dev_direct_xmit(skb, 0);
+-	if (ret)
+-		goto cleanup_promisc;
+-
+-	wait_for_completion_timeout(&tpriv->comp, STMMAC_LB_TIMEOUT);
+-	ret = tpriv->ok ? 0 : -ETIMEDOUT;
+-
+-cleanup_promisc:
+-	dev_set_promiscuity(priv->dev, -1);
+-cleanup:
+-	stmmac_set_arp_offload(priv, priv->hw, false, 0x0);
+-	dev_remove_pack(&tpriv->pt);
+-	kfree(tpriv);
+-	return ret;
+-}
+-
+ static int __stmmac_test_jumbo(struct stmmac_priv *priv, u16 queue)
+ {
+ 	struct stmmac_packet_attrs attr = { };
+@@ -1911,9 +1802,6 @@ static const struct stmmac_test {
+ 	}, {
+ 		.name = "L4 SA UDP Filtering        ",
+ 		.fn = stmmac_test_l4filt_sa_udp,
+-	}, {
+-		.name = "ARP Offload                ",
+-		.fn = stmmac_test_arpoffload,
+ 	}, {
+ 		.name = "Jumbo Frame                ",
+ 		.fn = stmmac_test_jumbo,
+-- 
+2.55.0
 
-> 
-> Regards,
-> Ahmad
-> 
-> 
-> On Sat, Aug 29, 2026 at 9:55 PM Peter Rosin <peda@lysator.liu.se> wrote:
-> >
-> > Den Thu, Aug 27, 2026 at 09:11:31AM +0300, skrev Andy Shevchenko:
-> > > On Wed, Aug 26, 2026 at 08:29:47AM -0700, Ahmad Byagowi wrote:
-> > > > Hi Peter, Andy,
-> > > >
-> > > > Yes, software-node handling is needed for the ptp_ocp use case.
-> > >
-> > > That driver is a mess. I'm surprised nobody told to the authors of
-> > > the respective changes to look at the auxiliary implementation.
-> > >
-> > > > ptp_ocp is a PCI driver. It creates its board-specific I2C topology at
-> > > > runtime with software nodes: the mux, its channel nodes, sensors, and LED
-> > > > controller. Firmware does not provide ACPI nodes for this topology.
-> > > >
-> > > > The existing acpi_preset_companion() path only associates a mux adapter
-> > > > with an existing ACPI child. It does not associate the adapter with one of
-> > > > these dynamically created software-node channel nodes. Without that
-> > > > association, i2c_get_adapter_by_fwnode() cannot find the channel adapter by
-> > > > the channel software node, so ptp_ocp cannot instantiate the downstream I2C
-> > > > devices on the correct channel.
-> > > >
-> > > > Does this address the concern, or would you prefer a different way to
-> > > > represent this dynamically created topology?
-> > >
-> > > Wouldn't it be possible to use some kind of DT overlay to have that?
-> >
-> > For me, the above is a bit unrelated to this patch series, which is
-> > about converting i2c-mux from of-only properties to device properties.
-> > That seems like a change that stands on its own.
-> >
-> > I probably wasn't clear enough with my original question, but what I
-> > wondered about was what regression risk that conversion might have
-> > for the ACPI case. Specifically, there might be ACPI properties that
-> > match what the code is now looking for. It seems unlikely that such
-> > properties are actually deployed, but I know next to nothing about
-> > ACPI...
-> >
-> > TL;DR
-> >
-> > My original question should have been: Is it safe to simply remove
-> > these lines from the patch:
-> > > +     if (!is_of_node(dev_node) && !is_software_node(dev_node))
-> > > +             return NULL;
-> > and let the code trawl all kinds of device properties?
-> >
-> > Sorry for the confusion...
-> >
-> > Cheers,
-> > Peter
-> >
-> > > > Thanks, Andi, for taking the first patch into i2c/i2c-fixes. I will drop it
-> > > > from the next revision and rebase the remaining two patches once this
-> > > > question is resolved.
-> > >
-> > > > On Mon, Aug 24, 2026 at 10:50 PM Peter Rosin <peda@lysator.liu.se> wrote:
-> > > > > Den Sun, Aug 23, 2026 at 09:34:38AM -0700, skrev Ahmad Byagowi:
-> > > > > > Device Tree channel nodes are associated with the adapters created by
-> > > > > > i2c-mux, but equivalent software-node descriptions are not.
-> > > > > >
-> > > > > > Use generic firmware-node operations for the existing channel lookup and
-> > > > > > accept either an OF node or a software node. Associate the returned node
-> > > > > > with the adapter so child I2C devices can be instantiated from
-> > > > > > software-node properties.
-> > > > > >
-> > > > > > Save the adapter firmware node before adapter deletion and release the
-> > > > > > reference afterwards, following the lifetime pattern in i2c-atr.
-> > >
-> > > --
-> > > With Best Regards,
-> > > Andy Shevchenko
-> > >
-> > >
-> 
-> 
-> 
-> -- 
-> 73
-> With best wishes / Mit herzlichsten Grüßen
-> Ahmad Byagowi, Ph.D., Dr. Techn., P.Eng.
-> Phone: +1 (650) 924 6653
-> 
->  Please consider the environment before printing this e-mail.
