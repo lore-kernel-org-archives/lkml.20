@@ -1,42 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F45F5AB254;
-	Mon, 31 Aug 2026 13:52:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C06A5AC202;
+	Mon, 31 Aug 2026 13:52:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788184365; cv=none; b=uCv0Ut9y9eN6kYQEpHI4aZ+c8YCdLX7nbdz9UdDXsV0wTp7LufKOcxE2vZz2E1ijyQQeEJWlocs0imkxnSemnFH2wc1ZKdzHX1T9JLTMDHDufA5Ivu+uJltSNYuSdCUcS6LLWg9Q6mP1+cxgJ7kzlg2bjMP0KQpSBpJyntgYd10=
+	t=1788184368; cv=none; b=GBEMsrPdmMoMlpXA/px15EP0TLBTW9578JTCa+GUO5Uu4/XmmVmYEJ9OuX0Oe0nyT4nExjVvth0qpftrgs+qStJTU/CJXVp674+vjez15Wh1H2wK5xTJAurTeWZ6PTY23o+69DYUIBUULNNG839ZjM3OI8PJpKFnGo0u0ugzDj8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788184365; c=relaxed/simple;
-	bh=FUvGGQSrqapgwzOF5Lvn3299DaF6QeiaUfYOEyQoo5Y=;
+	s=arc-20240116; t=1788184368; c=relaxed/simple;
+	bh=fya5ovPIXdWGoo7GXPL7wh4frPbHmtlIq06TfhrZvCA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=LccCqcagDM5iKibyYrTI+LBjwxKLzSyToTDSOqyVAOQrXBqfu8CldeImWTY1Rqi22xvj7WXsb/6rnsT/7U9BnATq4/oIRqnWDpuj4VUH6AyxBQATr7ltrgkpwxuZzU7v6raHbGDa4KXcDqQcOmeYMyt8pWNEPQaXZHbzwAJ5fQ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IY4/DTA4; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=sU2v+xzIHWvI3nok3RiBE8Ejmr1x0wMclVMJeJi1NLsIKiS3naip5zHj0UyGMVZB54ai8xuk6cc1cNmTC1X7ziC3JNxz84J2rHhNEJCs4z2lbRlRxr4syENVAnta5sltbfYUqC7DTtvYsb8Xqd3/zgw2RLyfNxEnbjq3shYmLds=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PI9mxI0U; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IY4/DTA4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 492CB1F00A3D;
-	Mon, 31 Aug 2026 13:52:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PI9mxI0U"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C36081F000E9;
+	Mon, 31 Aug 2026 13:52:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788184363;
-	bh=ORZNPa7Z3pgPA0ZDMhqg+Le/qDl+ftpftynmGICbH6k=;
+	s=k20260515; t=1788184366;
+	bh=s178l3tkPg96XwYNrBInj4FHO81W0CKawlc0w3Q+fnI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=IY4/DTA482OOzkC/9rPSXD4m/eJQ2sHYIbYHHSZoABRRssTnSSH5nZL0JKtmqXgVF
-	 LounbNgWumaWK2O6DhhLHpu+6/wCyXzRxA3QgWgETSox+1p6HLXPo8uPzGPeyXkjvX
-	 QDKCEqROQpV6pChClOJwG6cKt2TR09ixYtH9q/OnY24EZuq7cqs/dYN1ZFRn+FPYXB
-	 g23bYKkV+T+Yw9FVSr1uiWPD+eZyoLqHKda5XO+xS8L996eA8eYlPwci2wgKMbN/JT
-	 Bof4wnLHV3vc5uZh0p0OVVuHrzDxPITVmGT+ziRi0HR36ZR3sU/+334anZLZ51LWel
-	 BKD26O738i3BQ==
+	b=PI9mxI0UvKqzvIme+os3W/SVVIZkfEnf/vGhjiXFlXGTlX776+garPLXaILtRPnMY
+	 V6Xjtpj3axQKYGe3KPuRNLjU//Tk4qeMubi17+jupV2VHzKszcetLL4hH/22BRuPPj
+	 yQp3KgEMZg5mMPNaEyBIho5ag7UvZrWmtJ6rR04K2t7pt40XxJqCWVv7KWdISWv9K/
+	 glhTlex2Q0T0c0JgcQ+xmS0DchVyvopEr1dlQxlLyp0qB6XGmMoG84YXlwZ6Q5dFcI
+	 ANMH63SsHZCs2QjbSmERahYX2eIx+nb3HyJupma1vbrgWKhGlgkV6KEQVLJ/+InmUT
+	 v+qIs1U8IDeIQ==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Avinash Bhatt <avinash.bhatt@intel.com>,
-	Miri Korenblit <miriam.rachel.korenblit@intel.com>,
+Cc: Gil Fine <gil.fine@linux.intel.com>,
+	Mika Westerberg <mika.westerberg@linux.intel.com>,
 	Sasha Levin <sashal@kernel.org>,
-	linux-wireless@vger.kernel.org,
+	andreas.noever@gmail.com,
+	westeri@kernel.org,
+	YehezkelShB@gmail.com,
+	linux-usb@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18] wifi: iwlwifi: mld: keep healthy link on EMLSR missed beacon exit
-Date: Mon, 31 Aug 2026 09:31:17 -0400
-Message-ID: <20260831133314.4125787-649-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-6.6] thunderbolt: Increase timeout for Configuration Ready bit
+Date: Mon, 31 Aug 2026 09:31:19 -0400
+Message-ID: <20260831133314.4125787-651-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -52,449 +55,403 @@ X-stable-base: Linux 6.18.48
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Avinash Bhatt <avinash.bhatt@intel.com>
+From: Gil Fine <gil.fine@linux.intel.com>
 
-[ Upstream commit 4b6d725ff01cb92becda6e805143e331fdf1d73e ]
+[ Upstream commit ba2cc385110129d03cd0f18a1b5969a430b67a18 ]
 
-When EMLSR exits due to beacon loss on the current link, the driver
-should keep the link that is still receiving beacons. The previous
-code always called get_primary_link(), keeping the primary link
-regardless of which link is actually losing beacons. If the primary
-link is the one losing beacons, the driver exits EMLSR onto the
-degraded link and the connection is lost eventually.
+After setting the Configuration Valid bit (ROUTER_CS_5.CV), the USB4
+Connection Manager guide specifies a 500 ms timeout for the router to
+set the Configuration Ready bit (ROUTER_CS_6.CR). The current timeout
+is shorter than specified. While there, fix the kernel-doc typo.
 
-When both links lose beacons, keep the primary link. When only the
-current link loses beacons -- whether due to signal loss or a BSS
-parameter change -- keep the other link.
+Increase the timeout to match the CM guide recommendation.
 
-Signed-off-by: Avinash Bhatt <avinash.bhatt@intel.com>
-Link: https://patch.msgid.link/20260517100550.b2d700f7775e.I8e9189ce6cf4388878beab14e56341becd5f427c@changeid
-Signed-off-by: Miri Korenblit <miriam.rachel.korenblit@intel.com>
+Signed-off-by: Gil Fine <gil.fine@linux.intel.com>
+Signed-off-by: Mika Westerberg <mika.westerberg@linux.intel.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-# Stable Backport Analysis: `wifi: iwlwifi: mld: keep healthy link on
-EMLSR missed beacon exit`
+## Phase 1: Commit Message Forensics
 
-**Local tree:** Linux **6.18.44** (`v6.18.44`, `VERSION=6 PATCHLEVEL=18
-SUBLEVEL=44`)
+**Step 1.1 — Subject line**
 
----
+Record: `[thunderbolt]` `[Increase]` — Increase timeout for
+Configuration Ready bit after setting Configuration Valid on USB4
+routers.
 
-## PHASE 1: COMMIT MESSAGE FORENSICS
+**Step 1.2 — Tags**
 
-### Step 1.1: Subject line
-**Record:** `[wifi: iwlwifi: mld]` `[keep]` — When exiting EMLSR due to
-missed beacons, keep the healthy link instead of always keeping the
-primary link.
+Record:
+- **Fixes:** none
+- **Reported-by:** none
+- **Tested-by:** none
+- **Reviewed-by:** none (in commit)
+- **Acked-by:** none
+- **Link:** none
+- **Cc: stable:** none (expected for manual review)
+- **Signed-off-by:** Gil Fine, Mika Westerberg (subsystem maintainer)
 
-### Step 1.2: Tags
-**Record:**
-- **Signed-off-by:** Avinash Bhatt `<avinash.bhatt@intel.com>` (author)
-- **Link:** `https://patch.msgid.link/20260517100550.b2d700f7775e...`
-  (patch submission reference)
-- **Signed-off-by:** Miri Korenblit
-  `<miriam.rachel.korenblit@intel.com>` (Intel iwlwifi maintainer)
-- **No** Fixes:, Reported-by:, Tested-by:, Reviewed-by:, Acked-by:, Cc:
-  stable@vger.kernel.org
+No syzbot, no user bug report tags.
 
-Notable: Intel maintainer sign-off; no syzbot or user bug reports in the
-message.
+**Step 1.3 — Body analysis**
 
-### Step 1.3: Body analysis
-**Record:**
-- **Bug:** On EMLSR missed-beacon exit, driver always called
-  `iwl_mld_get_primary_link()`, even when the primary link was the one
-  losing beacons.
-- **Symptom:** Driver exits EMLSR onto the degraded link → connection is
-  eventually lost.
-- **Intended behavior:** Both links lose beacons → keep primary; only
-  current link loses beacons → keep the other (healthy) link.
-- **Root cause:** Wrong link-selection logic in
-  `iwl_mld_handle_missed_beacon_notif()`.
+Record:
+- **Bug:** After setting `ROUTER_CS_5.CV`, the USB4 Connection Manager
+  guide requires up to **500 ms** for the router to set `ROUTER_CS_6.CR`
+  (Configuration Ready). The kernel waits only **50 ms**.
+- **Symptom:** Premature timeout waiting for Configuration Ready;
+  enumeration/tunnel setup may proceed before the router is actually
+  ready.
+- **Root cause:** Timeout value does not match the CM guide
+  specification (present since initial USB4 support).
+- **Also:** kernel-doc typo — “does nothing for the latter” should be
+  “former” (host router, where `tb_route(sw)` is zero).
 
-### Step 1.4: Hidden bug fix?
-**Record:** Not disguised — this is an explicit connectivity bug fix,
-though the subject uses "keep" rather than "fix".
+**Step 1.4 — Hidden bug fix?**
+
+Record: **Yes.** Although the subject says “Increase timeout,” this is a
+real correctness/timing bug, not cosmetic cleanup. The doc fix is
+incidental.
 
 ---
 
-## PHASE 2: DIFF ANALYSIS
+## Phase 2: Diff Analysis
 
-### Step 2.1: Inventory
-**Record:**
-- **File:** `drivers/net/wireless/intel/iwlwifi/mld/link.c` (+11 / -6
-  lines)
-- **Function:** `iwl_mld_handle_missed_beacon_notif()`
-- **Scope:** Single-file, surgical change in one EMLSR exit path
+**Step 2.1 — Inventory**
 
-### Step 2.2: Code flow change
-**Record:**
+Record:
+- **File:** `drivers/thunderbolt/usb4.c` (+2 / −2 lines)
+- **Functions:** `usb4_switch_configuration_valid()` (timeout change);
+  kernel-doc for same function (typo)
+- **Scope:** Single-file, surgical fix
 
-| Hunk | Before | After |
-|------|--------|-------|
-| EMLSR exit condition | Single `if` with three OR'd conditions; all
-paths exit with `iwl_mld_get_primary_link(vif)` | Split into two
-branches: (1) both links fail → primary; (2) only current link fails →
-`iwl_mld_get_other_link(vif, link_id)` |
-| Comments | Threshold description only | Adds explicit link-selection
-policy comments |
+**Step 2.2 — Code flow change**
 
-**Affected path:** Firmware missed-beacon notification handler during
-active EMLSR (multi-link WiFi).
+Record:
+- **Hunk 1 (doc):** “latter” → “former” — documents that the function is
+  a no-op on the **host** router (`!tb_route(sw)` early return).
+- **Hunk 2 (timeout):** `tb_switch_wait_for_bit(..., ROUTER_CS_6_CR,
+  ..., 50)` → `..., 500)`.
+- **Before:** Wait at most 50 ms for CR after writing CV.
+- **After:** Wait up to 500 ms per USB4 CM guide.
+- **Path:** USB4 device-router hotplug enumeration and resume restore
+  (via `tb_switch_configuration_valid()`).
 
-### Step 2.3: Bug mechanism
-**Record:** **Category:** Logic / correctness fix (wrong link retained
-on EMLSR exit).
+**Step 2.3 — Bug mechanism**
 
-When the notification's `link_id` is the sick link and only that link
-exceeds the beacon-loss threshold, the driver must exit EMLSR while
-keeping the *other* link. The old code always kept the primary, which is
-wrong when the primary is the degraded link.
+Record: **Logic / timing correctness fix.** The wait can expire at 50 ms
+while hardware is still within spec (up to 500 ms).
+`tb_switch_wait_for_bit()` then returns `-ETIMEDOUT`. Callers currently
+ignore that return value, but the function still returns to callers only
+after the (too-short) wait completes, so tunnel/retimer work may start
+before CR is set.
 
-### Step 2.4: Fix quality
-**Record:**
-- **Obviously correct:** Yes — mirrors existing patterns in the same
-  driver (see Phase 5).
-- **Minimal:** Yes — restructures one conditional, no API changes.
-- **Regression risk:** Very low — `iwl_mld_get_other_link()` already
-  exists and is used elsewhere; `iwl_mld_exit_emlsr()` already validates
-  `link_to_keep` against `vif->active_links`.
+**Step 2.4 — Fix quality**
+
+Record:
+- **Obviously correct:** Aligns with spec; other waits in the same file
+  already use 500 ms (e.g. `ROUTER_CS_26` at line 79).
+- **Minimal:** Two-line functional change.
+- **Regression risk:** Very low — only lengthens a poll loop; worst case
+  adds ~450 ms on genuine timeout paths.
 
 ---
 
-## PHASE 3: GIT HISTORY INVESTIGATION
+## Phase 3: Git History Investigation
 
-### Step 3.1: Blame
-**Record:** `git blame -L 604,612` on `link.c` attributes all buggy
-lines to the tree base in this shallow checkout (`^7e22de67e545d`). Repo
-is shallow (500 commits); full introduction commit cannot be determined
-here. Buggy code is present in 6.18.44.
+**Step 3.1 — Blame**
 
-### Step 3.2: Fixes: tag
-**Record:** N/A — no Fixes: tag in commit message.
+Record: 50 ms timeout introduced in `1639664fb74f30` (Dec 2021, “Move
+usb4_switch_wait_for_bit() to switch.c”); originally in `b04079837b209`
+(Dec 2019, “Add initial support for USB4”). Bug has existed since USB4
+support landed.
 
-### Step 3.3: File history
-**Record:** `git log --oneline -30 --
-drivers/net/wireless/intel/iwlwifi/mld/link.c` returns only the shallow-
-root commit due to shallow clone. Related iwlwifi mld fixes are being
-backported to 6.18 (e.g., ratatoskr references `[PATCH 6.18 313/377]
-wifi: iwlwifi: mld: dont dereference a pointer before NULL checking
-it`). **Standalone fix** — patch 05/15 in iwlwifi-fixes series, no
-series dependency for this hunk.
+**Step 3.2 — Fixes: tag**
 
-### Step 3.4: Author context
-**Record:** Avinash Bhatt (Intel); Signed-off-by Miri Korenblit (Intel
-iwlwifi maintainer). Part of `iwlwifi-fixes` updates series (v1 May 16,
-v2 May 17, v3 May 19, 2026).
+Record: N/A — no Fixes: tag.
 
-### Step 3.5: Dependencies
-**Record:** **No dependencies.** `iwl_mld_get_other_link()` is defined
-inline in `mlo.h` and already used in this tree (`stats.c`,
-`mac80211.c`). Fix applies standalone.
+**Step 3.3 — Related file history**
 
----
+Record:
+- Part of upstream 5-patch series “CM fixes to follow CM guide more
+  closely” (Jan 2026).
+- Related upstream-only commits on same files: `062023c4364ff` (Router
+  Ready wait in `usb4_switch_setup()`), `69a7b98770b7e` (PCIe adapter
+  detect check).
+- **This patch is standalone** — only changes CR timeout and doc; does
+  not depend on RR verification or other series patches.
 
-## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
+**Step 3.4 — Author context**
 
-### Step 4.1: Original discussion
-**Record:**
-- `b4 dig -c 1bdfba6279e21` — no output (blob hash, not a commit;
-  shallow tree).
-- **Ratatoskr:** [PATCH iwlwifi-fixes
-  05/15](https://ratatoskr.run/linux-wireless/2026/05/15794895) — Miri
-  Korenblit, May 16, 2026.
-- **Series revisions:** v1 (May 16), v2 (May 17), v3 (May 19).
-- Patch content matches the analyzed diff exactly.
-- lore.kernel.org direct fetch blocked (Anubis bot protection).
+Record: Gil Fine (Intel thunderbolt contributor); committed by Mika
+Westerberg (subsystem maintainer).
 
-### Step 4.2: Reviewers
-**Record:** `b4 dig -w` not run successfully (no valid commitish).
-Series is from Intel iwlwifi maintainer on linux-wireless. No explicit
-Reviewed-by in commit message.
+**Step 3.5 — Dependencies**
 
-### Step 4.3: Bug report
-**Record:** No external bug report, syzbot, or user Reported-by. Bug
-described via code-path analysis by Intel engineers.
-
-### Step 4.4: Related patches
-**Record:** Part of 15-patch iwlwifi-fixes series; this hunk is self-
-contained. Related prior art in legacy `iwl_mvm` driver had similar
-dual-link beacon-loss logic (spinics reference), showing this is a known
-EMLSR concern.
-
-### Step 4.5: Stable list history
-**Record:** Not searched on lore stable list (fetch blocked). Ratatoskr
-shows other iwlwifi mld patches already queued for 6.18 stable.
+Record: **None required.** `ROUTER_CS_6_CR` and
+`tb_switch_wait_for_bit()` exist in this tree. Patch applies cleanly
+(`git apply --check` passed). `ROUTER_CS_6_RR` from patch 3/5 is **not**
+in 6.18.y and is **not** needed for this change.
 
 ---
 
-## PHASE 5: CODE SEMANTIC ANALYSIS
+## Phase 4: Mailing List and External Research
 
-### Step 5.1: Key functions
-**Record:** `iwl_mld_handle_missed_beacon_notif()`,
-`iwl_mld_exit_emlsr()`, `iwl_mld_get_primary_link()`,
-`iwl_mld_get_other_link()`
+**Step 4.1 — Original discussion**
 
-### Step 5.2: Callers
-**Record:** `iwl_mld_handle_missed_beacon_notif()` is called from
-firmware notification handling (and KUnit tests). Triggered by firmware
-beacon-loss events on associated MLO interfaces — runtime path for Intel
-WiFi 7 MLO/EMLSR users.
+Record:
+- **b4 dig:** https://patch.msgid.link/20260126220606.3476657-5-
+  gil.fine@linux.intel.com
+- **Series:** v1 only (5 patches, Jan 27 2026)
+- **Stable nomination:** None found in thread
+- **NAKs:** None
 
-### Step 5.3: Callees
-**Record:** `iwl_mld_exit_emlsr()` → `_iwl_mld_exit_emlsr()` →
-`ieee80211_set_active_links_async()` to deactivate the sick link and
-keep `link_to_keep`.
+**Step 4.2 — Reviewers**
 
-### Step 5.4: Reachability
-**Record:** Reachable when:
-1. Interface is associated with 2+ active links (EMLSR),
-2. Firmware sends missed-beacon notification,
-3. Beacon-loss thresholds are exceeded.
+Record: **b4 dig -w:** Mika Westerberg, Andreas Noever, Yehezkel
+Shapira, linux-usb@vger.kernel.org, Lukas Wunner. Mika reviewed patches
+2/5 and 3/5; **no reply specifically on patch 4/5**.
 
-Users with Intel iwlwifi MLO/EMLSR hardware on supported APs can hit
-this during real-world signal degradation or BSS parameter changes.
+**Step 4.3 — Bug reports**
 
-### Step 5.5: Similar patterns
-**Record:** Same driver already uses `iwl_mld_get_other_link()` for
-EMLSR exit on the degraded link:
+Record: No Reported-by, syzbot, or bugzilla links. Spec-compliance fix
+without a public user report.
 
-```396:399:drivers/net/wireless/intel/iwlwifi/mld/stats.c
-        if (sig < exit_emlsr_thresh)
-                iwl_mld_exit_emlsr(mld, vif,
-IWL_MLD_EMLSR_EXIT_LOW_RSSI,
-                                   iwl_mld_get_other_link(vif,
-bss_conf->link_id));
-```
+**Step 4.4 — Series context**
 
-```2225:2229:drivers/net/wireless/intel/iwlwifi/mld/mac80211.c
-        if (chsw->link_id == primary && chsw->block_tx)
-                selected = iwl_mld_get_other_link(vif, primary);
-        else
-                selected = primary;
-```
+Record: Patch 4/5 of 5; independently valuable. Other patches address
+separate CM-guide gaps.
 
-The missed-beacon path was inconsistent with these — confirming this is
-a logic bug, not a new design choice.
+**Step 4.5 — Stable list**
+
+Record: Not searched separately; no stable@vger discussion found in mbox
+thread.
 
 ---
 
-## PHASE 6: CROSS-REFERENCING AGAINST LOCAL TREE (6.18.44)
+## Phase 5: Code Semantic Analysis
 
-### Step 6.1: Buggy code exists?
-**Record:** **YES.** Current tree at lines 604–612 still has the buggy
-unified `if` always calling `iwl_mld_get_primary_link(vif)`:
+**Step 5.1 — Key functions**
 
-```604:612:drivers/net/wireless/intel/iwlwifi/mld/link.c
-        if ((missed_bcon >= IWL_MLD_BCN_LOSS_EXIT_ESR_THRESH_2_LINKS &&
-             scnd_lnk_bcn_lost >=
-IWL_MLD_BCN_LOSS_EXIT_ESR_THRESH_2_LINKS) ||
-            missed_bcon >= IWL_MLD_BCN_LOSS_EXIT_ESR_THRESH ||
-            (bss_param_ch_cnt_link_id != link_id &&
-             missed_bcon >=
-             IWL_MLD_BCN_LOSS_EXIT_ESR_THRESH_BSS_PARAM_CHANGED)) {
-                iwl_mld_exit_emlsr(mld, vif,
-IWL_MLD_EMLSR_EXIT_MISSED_BEACON,
-                                   iwl_mld_get_primary_link(vif));
-        }
-```
+Record: `usb4_switch_configuration_valid()`,
+`tb_switch_configuration_valid()`, `tb_switch_wait_for_bit()`.
 
-Full EMLSR/missed-beacon infrastructure exists (`constants.h`
-thresholds, `iwl_mld_emlsr_active()`, notification handler).
+**Step 5.2 — Callers**
 
-### Step 6.2: Backport complications
-**Record:** **Clean apply expected.** Single hunk in one file;
-`iwl_mld_get_other_link()` already present in `mlo.h`. Line numbers in
-mainline diff (~663) vs stable tree (~604) differ slightly but context
-is identical.
+Record:
+- `tb_switch_configuration_valid()` →
+  `usb4_switch_configuration_valid()` for USB4 switches
+  (`switch.c:2673-2677`)
+- Called from `tb.c:1407` (hotplug/discovery path after TMU enable)
+- Called from `tb.c:3095` (`tb_restore_children()` on resume)
+- **Return value not checked** at either call site.
 
-### Step 6.3: Related fixes already present?
-**Record:** `git log --grep="keep healthy link"` — no matches. Fix is
-**not** already in this tree.
+**Step 5.3 — Callees**
 
----
+Record: `tb_sw_read()`, `tb_sw_write()`, `tb_switch_wait_for_bit()`
+(poll loop with `usleep_range(50,100)`).
 
-## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+**Step 5.4 — Reachability**
 
-### Step 7.1: Subsystem
-**Record:** `drivers/net/wireless/intel/iwlwifi/mld/` — Intel WiFi
-driver, MLO/EMLSR path. **Criticality: IMPORTANT** (network connectivity
-for Intel WiFi 7 hardware; not core kernel, but user-visible
-connectivity).
+Record: Triggered on USB4/Thunderbolt device-router hotplug and system
+resume — common paths for dock/peripheral users with
+`CONFIG_USB4`/`CONFIG_THUNDERBOLT`.
 
-### Step 7.2: Activity
-**Record:** iwlwifi mld is actively developed (2024–2025 Intel
-copyright, EMLSR support, ongoing iwlwifi-fixes series). MLD driver is
-relatively new but present and functional in 6.18.y.
+**Step 5.5 — Similar patterns**
+
+Record: Other thunderbolt timeout increases in this tree use 500 ms
+(`usb4.c:79`). Stable tree already contains `b6d572aeb58a5` (“Increase
+DisplayPort Connection Manager handshake timeout”) — precedent for
+backporting thunderbolt timing fixes.
 
 ---
 
-## PHASE 8: IMPACT AND RISK ASSESSMENT
+## Phase 6: Cross-Reference Against Local Tree (6.18.y)
 
-### Step 8.1: Who is affected
-**Record:** Intel iwlwifi users with MLO/EMLSR active (WiFi 7 multi-
-link). Config/hardware-specific, but growing install base. Not
-universal, but real production hardware.
+**Step 6.1 — Buggy code present?**
 
-### Step 8.2: Trigger conditions
-**Record:**
-- EMLSR active with 2 links
-- Primary link loses beacons (signal loss or BSS parameter change) while
-  secondary remains healthy
-- Fairly plausible in mobile/roaming scenarios
-- Not a syscall-exploitable security issue; connectivity bug
+Record: **Yes.** Local tree is **v6.18.44** (`stable/linux-6.18.y`).
+`usb4_switch_configuration_valid()` still uses **50 ms** at
+`usb4.c:329-330`. Upstream fix `ba2cc38511012` is **not** an ancestor of
+HEAD.
 
-### Step 8.3: Failure mode severity
-**Record:** **WiFi disconnection** — driver exits EMLSR onto the
-degraded link instead of the healthy one, connection eventually lost.
-**Severity: HIGH** for affected users (loss of network connectivity);
-not kernel panic/oops.
+**Step 6.2 — Backport complications**
 
-### Step 8.4: Risk-benefit
-**Record:**
-- **Benefit:** HIGH for EMLSR users — prevents unnecessary
-  disconnections
-- **Risk:** VERY LOW — ~15 lines, uses existing helper, consistent with
-  sibling code paths
-- **Ratio:** Strong benefit, minimal risk
+Record: **Clean apply** — `git format-patch -1 ba2cc38511012 | git apply
+--check` succeeded with no conflicts.
+
+**Step 6.3 — Related fixes already present?**
+
+Record: No equivalent timeout change in 6.18.y. Router Ready
+verification (`062023c4364ff`) is also absent — separate issue.
 
 ---
 
-## PHASE 9: FINAL SYNTHESIS
+## Phase 7: Subsystem and Maintainer Context
 
-### Step 9.1: Evidence summary
+**Step 7.1 — Subsystem**
 
-**FOR backport:**
-- Real logic bug causing WiFi connection loss
-- Buggy code confirmed in 6.18.44
-- Small, surgical, obviously correct fix
-- Uses existing `iwl_mld_get_other_link()` — no new APIs
-- Consistent with low-RSSI and CSA EMLSR exit paths in same driver
-- Intel maintainer-authored fix in iwlwifi-fixes series (v1→v3 reviewed)
-- Applies cleanly to this tree
-- Other iwlwifi mld fixes are already being backported to 6.18
+Record: **drivers/thunderbolt** — IMPORTANT (USB4/Thunderbolt docks,
+peripherals, resume).
 
-**AGAINST backport:**
-- Affects niche hardware subset (WiFi 7 MLO/EMLSR on Intel)
-- No syzbot report or explicit user bug report
-- No Tested-by in commit message
+**Step 7.2 — Activity**
 
-**Unresolved:**
-- Full git history of when buggy code was introduced (shallow repo)
-- Full lore.kernel.org review thread (bot-blocked)
-- Whether v3 revision changed anything beyond v1 for this specific hunk
+Record: Actively maintained; recent stable-relevant fixes include dock
+connection issues (`bd646c768a934`) and retimer enumeration timing
+(`75749d2c1d8ce`).
 
-None of the unresolved items weaken the technical case.
+---
 
-### Step 9.2: Stable rules checklist
-1. Obviously correct and tested? **PASS** — logic matches established
-   driver patterns; maintainer sign-off; no Tested-by
-2. Fixes a real bug? **PASS** — wrong link kept on EMLSR exit
-3. Important issue? **PASS** — connection loss (HIGH for affected users)
-4. Small and contained? **PASS** — 1 file, ~17 lines
-5. No new features/APIs? **PASS** — behavior correction only
-6. Can apply to local tree? **PASS** — code and helpers present; fix not
-   yet applied
+## Phase 8: Impact and Risk Assessment
 
-### Step 9.3: Exception categories
-**Record:** N/A — standard driver bug fix, not device-ID/quirk/build/doc
-exception.
+**Step 8.1 — Who is affected**
 
-### Step 9.4: Decision rationale
+Record: USB4/Thunderbolt users with downstream device routers that need
+>50 ms to assert Configuration Ready after Configuration Valid — docks,
+hubs, chained routers.
 
-For **Linux 6.18.44**, the iwlwifi MLD driver with EMLSR support is
-present, the buggy link-selection code is active, and the fix is a
-minimal correction that aligns the missed-beacon exit path with how the
-same driver already handles low-RSSI and CSA EMLSR exits. The failure
-mode is real WiFi disconnection for Intel WiFi 7 MLO users — important
-enough for stable despite the narrow hardware scope.
+**Step 8.2 — Trigger conditions**
+
+Record: Device connect or resume restore on USB4 topology. Not every
+router (only those slower than 50 ms). Not a security issue;
+unprivileged users cannot directly trigger this register sequence.
+
+**Step 8.3 — Failure mode severity**
+
+Record: **MEDIUM–HIGH** — intermittent enumeration failures, tunnels not
+established, peripherals/docks failing to work until replug/reboot. Not
+a kernel oops, but a real functional failure on affected hardware.
+
+**Step 8.4 — Risk vs benefit**
+
+Record:
+- **Benefit:** Prevents premature proceed-before-ready on slow-but-spec-
+  compliant routers; aligns with CM guide.
+- **Risk:** Very low (2-line change, longer wait only on this specific
+  bit poll).
+- **Ratio:** Favorable for stable.
+
+---
+
+## Phase 9: Final Synthesis
+
+**Evidence FOR backport:**
+- Real spec mismatch bug since USB4 support (2019/2021)
+- Buggy code confirmed in v6.18.44
+- Small, obviously correct, applies cleanly
+- Standalone (no series dependencies)
+- Maintainer-authored/committed
+- Precedent: other thunderbolt timeout increases are in 6.18.y
+- Can cause user-visible dock/peripheral failures
+
+**Evidence AGAINST:**
+- No explicit user bug report or syzbot report
+- Callers ignore return value (mitigates crash risk but not functional
+  impact)
+- Part of broader CM-guide compliance series (though this hunk is
+  independent)
+
+**Stable rules checklist:**
+1. Obviously correct and tested? **PASS** — spec-aligned; maintainer
+   SOB; no Tested-by but change is trivial
+2. Fixes a real bug? **PASS** — timeout too short vs USB4 CM guide
+3. Important issue? **PASS** — functional failures on USB4 hardware
+   (MEDIUM–HIGH)
+4. Small and contained? **PASS** — 2 lines functional change, 1 file
+5. No new features/APIs? **PASS**
+6. Can apply to local tree? **PASS** — verified clean apply
+
+**Exception category:** Hardware timing workaround / spec-compliance fix
+for existing USB4 driver (similar to prior thunderbolt timeout
+backports).
+
+---
+
+## Problem Summary for Stable Users
+
+On v6.18.44, after marking a USB4 device router’s configuration valid,
+the kernel waits only 50 ms for the Configuration Ready bit. The USB4
+Connection Manager guide allows up to 500 ms. Routers that need between
+50–500 ms can hit a premature timeout; enumeration then continues before
+the router is ready, which can manifest as flaky or failed
+Thunderbolt/USB4 dock and peripheral bring-up. The fix is a minimal
+timeout increase plus a documentation typo correction.
 
 ---
 
 ## Verification
 
-- **[Phase 1]** Parsed subject, tags, body from provided commit message
-- **[Phase 2]** Analyzed diff: split EMLSR exit conditional in
-  `iwl_mld_handle_missed_beacon_notif()`
-- **[Phase 3]** `git describe HEAD` → `v6.18.44`; `git rev-parse --is-
-  shallow-repository` → `true` (500 commits)
-- **[Phase 3]** `git blame -L 604,612 link.c` → buggy lines at tree base
-- **[Phase 3]** `git log --grep="keep healthy link"` → no matches (fix
-  not present)
-- **[Phase 3]** `git log -S "iwl_mld_handle_missed_beacon_notif"` → only
-  shallow root (history limited)
-- **[Phase 4]** `b4 dig -c 1bdfba6279e21` → no result (blob hash, not
-  commit)
-- **[Phase 4]** WebFetch patch.msgid.link → blocked by Anubis
-- **[Phase 4]** Ratatoskr iwlwifi-fixes 05/15 → confirmed patch content,
-  v1/v2/v3 revisions, Intel maintainer series
-- **[Phase 5]** `grep iwl_mld_get_other_link` → exists in `mlo.h`, used
-  in `stats.c:398`, `mac80211.c:2227`
-- **[Phase 5]** Read `iwl_mld_exit_emlsr()` in `mlo.c:195-247` →
-  validates `link_to_keep`
-- **[Phase 5]** Read `iwl_mld_get_other_link()` in `mlo.h:95-108`
-- **[Phase 6]** Read `link.c:522-614` → confirmed buggy code present in
-  6.18.44
-- **[Phase 6]** `grep IWL_MLD_BCN_LOSS_EXIT_ESR_THRESH` → thresholds in
-  `constants.h`, used in `link.c`
-- **[Phase 7]** Confirmed iwlwifi mld subsystem present with EMLSR
-  infrastructure
-- **[Phase 8]** Failure mode: connection loss on EMLSR beacon exit →
-  HIGH for affected users
-- **UNVERIFIED:** Full lore.kernel.org review discussion (fetch blocked)
-- **UNVERIFIED:** Exact mainline commit SHA and date bug was introduced
-  (shallow repo)
+- [Phase 1] Parsed commit `ba2cc38511012`: subject, body, tags (only
+  SOBs)
+- [Phase 2] Read diff: 50→500 ms in `usb4_switch_configuration_valid()`,
+  doc typo fix
+- [Phase 2] Read `tb_switch_wait_for_bit()` at `switch.c:1720-1739`
+- [Phase 3] `git blame` lines 329-330: introduced 2021, 50 ms since USB4
+  bring-up
+- [Phase 3] `git log -S "ROUTER_CS_6_CR, 50"`: original in
+  `b04079837b209`
+- [Phase 3] `git merge-base --is-ancestor b04079837b209 HEAD`: USB4 code
+  in tree
+- [Phase 3] `ba2cc38511012` not ancestor of HEAD: fix not yet in 6.18.44
+- [Phase 4] `b4 dig -c ba2cc38511012`: lore URL found
+- [Phase 4] `b4 dig -a`: v1 series, patch 4/5
+- [Phase 4] `b4 dig -w`: maintainers CC’d
+- [Phase 4] `b4 dig -m /tmp/tb_timeout.mbx`: no stable Cc, no NAKs, Mika
+  replied on patches 2–3 only
+- [Phase 5] `grep usb4_switch_configuration_valid`: callers in
+  `switch.c`, `tb.c`
+- [Phase 5] Read `tb.c:1407`, `tb.c:3095`: return value not checked
+- [Phase 5] Read `usb4.c:311-330`: early return for host
+  (`!tb_route(sw)`)
+- [Phase 5] `usb4.c:79`: other 500 ms timeout precedent in same file
+- [Phase 6] `git describe HEAD`: v6.18.44
+- [Phase 6] `git format-patch -1 ba2cc38511012 | git apply --check`:
+  clean apply
+- [Phase 6] `grep ROUTER_CS_6_RR tb_regs.h`: not in 6.18.y (unrelated to
+  this patch)
+- [Phase 7] `git log --grep="DisplayPort Connection Manager handshake
+  timeout" stable/linux-6.18.y`: precedent commit present
+- [Phase 8] Assessed severity: functional USB4 enumeration failures, not
+  kernel crash
 
-**YES**The background `git log -S` search finished, but it didn’t add
-much: this checkout is a shallow clone (500 commits), so history for
-`iwl_mld_handle_missed_beacon_notif` and
-`IWL_MLD_BCN_LOSS_EXIT_ESR_THRESH` only goes back to the tree root. We
-still can’t pin when the buggy code was introduced from git history
-here.
+**YES****Verdict: YES** — backport to this tree (v6.18.44 /
+`stable/linux-6.18.y`).
 
-That doesn’t change the backport call. On **6.18.44**, the buggy logic
-is present in `link.c`, the fix is small and self-contained, and it
-matches how the same driver already handles other EMLSR exits.
+The commit fixes a real USB4 timing bug: after setting Configuration
+Valid, the kernel waits only **50 ms** for Configuration Ready, but the
+USB4 CM guide allows **500 ms**. On slower routers, enumeration can
+proceed too early and cause flaky dock/peripheral bring-up. The change
+is two lines in `drivers/thunderbolt/usb4.c`, applies cleanly, is
+standalone (doesn't need the other patches in the series), and matches
+precedent for thunderbolt timeout fixes already in 6.18.y.
 
-**YES**
+ drivers/thunderbolt/usb4.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
- drivers/net/wireless/intel/iwlwifi/mld/link.c | 17 +++++++++++------
- 1 file changed, 11 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/net/wireless/intel/iwlwifi/mld/link.c b/drivers/net/wireless/intel/iwlwifi/mld/link.c
-index e67ba3a24d025..49e3d97f286f9 100644
---- a/drivers/net/wireless/intel/iwlwifi/mld/link.c
-+++ b/drivers/net/wireless/intel/iwlwifi/mld/link.c
-@@ -600,15 +600,20 @@ void iwl_mld_handle_missed_beacon_notif(struct iwl_mld *mld,
- 	 * OR more than IWL_MLD_BCN_LOSS_EXIT_ESR_THRESH_BSS_PARAM_CHANGED
- 	 * on current link and the link's bss_param_ch_count has changed on
- 	 * the other link's beacon.
-+	 *
-+	 * When both links lose beacons, keep the primary (symmetric failure).
-+	 * When only the current link is sick, keep the other link.
- 	 */
--	if ((missed_bcon >= IWL_MLD_BCN_LOSS_EXIT_ESR_THRESH_2_LINKS &&
--	     scnd_lnk_bcn_lost >= IWL_MLD_BCN_LOSS_EXIT_ESR_THRESH_2_LINKS) ||
--	    missed_bcon >= IWL_MLD_BCN_LOSS_EXIT_ESR_THRESH ||
--	    (bss_param_ch_cnt_link_id != link_id &&
--	     missed_bcon >=
--	     IWL_MLD_BCN_LOSS_EXIT_ESR_THRESH_BSS_PARAM_CHANGED)) {
-+	if (missed_bcon >= IWL_MLD_BCN_LOSS_EXIT_ESR_THRESH_2_LINKS &&
-+	    scnd_lnk_bcn_lost >= IWL_MLD_BCN_LOSS_EXIT_ESR_THRESH_2_LINKS) {
- 		iwl_mld_exit_emlsr(mld, vif, IWL_MLD_EMLSR_EXIT_MISSED_BEACON,
- 				   iwl_mld_get_primary_link(vif));
-+	} else if (missed_bcon >= IWL_MLD_BCN_LOSS_EXIT_ESR_THRESH ||
-+		   (bss_param_ch_cnt_link_id != link_id &&
-+		    missed_bcon >=
-+		    IWL_MLD_BCN_LOSS_EXIT_ESR_THRESH_BSS_PARAM_CHANGED)) {
-+		iwl_mld_exit_emlsr(mld, vif, IWL_MLD_EMLSR_EXIT_MISSED_BEACON,
-+				   iwl_mld_get_other_link(vif, link_id));
- 	}
+diff --git a/drivers/thunderbolt/usb4.c b/drivers/thunderbolt/usb4.c
+index 276c25c7d37e6..9430bed07c468 100644
+--- a/drivers/thunderbolt/usb4.c
++++ b/drivers/thunderbolt/usb4.c
+@@ -304,7 +304,7 @@ int usb4_switch_setup(struct tb_switch *sw)
+  * Sets configuration valid bit for the router. Must be called before
+  * any tunnels can be set through the router and after
+  * usb4_switch_setup() has been called. Can be called to host and device
+- * routers (does nothing for the latter).
++ * routers (does nothing for the former).
+  *
+  * Return: %0 on success, negative errno otherwise.
+  */
+@@ -327,7 +327,7 @@ int usb4_switch_configuration_valid(struct tb_switch *sw)
+ 		return ret;
+ 
+ 	return tb_switch_wait_for_bit(sw, ROUTER_CS_6, ROUTER_CS_6_CR,
+-				      ROUTER_CS_6_CR, 50);
++				      ROUTER_CS_6_CR, 500);
  }
- EXPORT_SYMBOL_IF_IWLWIFI_KUNIT(iwl_mld_handle_missed_beacon_notif);
+ 
+ /**
 -- 
 2.53.0
 
