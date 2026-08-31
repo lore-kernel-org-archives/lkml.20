@@ -1,37 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDFBA418A4E;
-	Mon, 31 Aug 2026 13:21:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13616419FD4;
+	Mon, 31 Aug 2026 13:21:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788182498; cv=none; b=YNANf75vpdNA7ylI7sq6iVf+CoLDp4wnFZhjIXwj52Vg55Eane/E7SuWyJezooH/fGtDMru7kuW6DuxF5qhOruFMckCOJB+y0XTH6/6fTcowI9L/sNdnsnvw2atfPq4IqfrbThWOGRT1O3VIjMHENSZHkHhM24JQHVMMOzLTFHo=
+	t=1788182499; cv=none; b=izLSl1Ze0ArKRB+7kgwxixr+5eLK5MCnWy+8HnnFP/6qFHwEvXRmdYrXxJkLdORlI2paMnno+Sgdke1/kcAjAk/5hkq5RIibQjy4RtjbyvC4uGFSISYDr7fIy2Aessv8lRmQ7qHP0G0m8HRKD8GQ8l7nTQcrR9UNApLES8p+S8k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788182498; c=relaxed/simple;
-	bh=m/Lw3D9Sn7b/iEdL6eTGT3K2tR/KZoA6l9gCS1mqNBI=;
+	s=arc-20240116; t=1788182499; c=relaxed/simple;
+	bh=oRQbdno+uMhuHFTbdmanYF8cim3BHh4wpJplXog8vQk=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Sefewgx9/rd8TTb/ajMAJIitGZTv7cQfRfl19wu7iq/ZXJGNsEp4YxYPScQBA0Og70A0NmLMLtYH4OJ0gx4ybasWSKL6fhXueqhepg3dGtpbh8We1huI3/euLijdbhaPoowfhaRgrY6ucIS3NqFiVoqAL16mgPSPrc51KyXlVgw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gwXjAklc; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=Y3WPcDCQmfFcPPUxXi4R8d7CVuFuAGFDPXgMpnJ4/cAhnzuN5v+V+SQL0shfYlVDR0Hb7MYpv0Xf/4UDa4zuvvCaKbS3QqCMsWq1cdKupEjtmtoRSA/bKTFD11Tcn3jJnfuizTQgAWp/+UwKGowM3S5nvZS1saLA8SpvaOo6T7c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fzIdqECp; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gwXjAklc"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 9962AC2BCFC;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fzIdqECp"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id E76E1C32782;
 	Mon, 31 Aug 2026 13:21:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1788182498;
-	bh=m/Lw3D9Sn7b/iEdL6eTGT3K2tR/KZoA6l9gCS1mqNBI=;
+	s=k20201202; t=1788182499;
+	bh=oRQbdno+uMhuHFTbdmanYF8cim3BHh4wpJplXog8vQk=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=gwXjAklc08e5FUupdsN0UPN75sJF2QUwglVSfXOG+es0itDWY85BKFuxbOi7DFuX7
-	 xd3US5SoUWPPCk5u2UJX68Z8a05IbNgAkg6COwHyEDor5AvwOOkk1wmQmydJhsP1QJ
-	 l6Yu3ypcAspxxi6r9c0VLMRccOIFP2A+FCGfFDqk4nmcp8oYSIfI8/zH46XF7Imc+B
-	 Wr2G/Rpj5oKFgPyRQxzS6GO0whawAfRSSkaUJJnhqrxLIUy9T4XrIaeKxD4vR283BE
-	 r7ZFjyoutdWk2Q06kFuhB7IuFIl5QJo+DAGKMOcwrbv+8GhYTT5QeT0ZqSLsazmRzp
-	 ih6DXCZSxQ4Cg==
+	b=fzIdqECpF8ZT3ypNyKnWO4rTfjy1YR+SSTDqBJ/FveZzbTxaE2yrcTwQE+mTzOvAg
+	 sddbqjKz//RJdcV4FgWqV9S+pJA6g5MpBYJ5YCCaNtpscrxcR7EU+h350g8Ecv0ZyE
+	 PS4dhKPWpE7hgDQYQSn5GXn/0SU2eXSwB9tdTK1BcC7oivUGM+9IBz7E9npBN5Kgdf
+	 O37sjfiXjjGvGEbTFpsctW9sT64aKA34CctXqpxgSOF3pRDds5zBSLRON5EKpziptD
+	 /qOKmDn2AfUUYnhhduRwvo+yMpQGUmMBax7Uphe9j0fopl/Ku/c/nn1HyoZzylYmki
+	 P2l1TwafUtnWA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7B21EC624C6;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D5458C624C6;
 	Mon, 31 Aug 2026 13:21:38 +0000 (UTC)
 From: Dumitru Ceclan via B4 Relay <devnull+dumitru.ceclan.analog.com@kernel.org>
-Date: Mon, 31 Aug 2026 16:21:21 +0300
-Subject: [PATCH v16 02/22] dt-bindings: media: i2c: max96717: add support
+Date: Mon, 31 Aug 2026 16:21:26 +0300
+Subject: [PATCH v16 07/22] dt-bindings: media: i2c: max96712: add support
  for I2C ATR
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260831-gmsl2-3_serdes-v16-2-4fa6e08bb514@analog.com>
+Message-Id: <20260831-gmsl2-3_serdes-v16-7-4fa6e08bb514@analog.com>
 References: <20260831-gmsl2-3_serdes-v16-0-4fa6e08bb514@analog.com>
 In-Reply-To: <20260831-gmsl2-3_serdes-v16-0-4fa6e08bb514@analog.com>
 To: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>, 
@@ -61,11 +61,11 @@ Cc: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
  Andrian Suciu <Adrian.Suciu@analog.com>, 
  Cosmin Tanislav <demonsingur@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788182495; l=1814;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788182495; l=1871;
  i=dumitru.ceclan@analog.com; s=20240313; h=from:subject:message-id;
- bh=OiYJqgg6XnogVXqu3cCeY60g1Qzx0eB+PgiVHCOJen4=;
- b=PlzhOi1fZfzGjan1M/xLpEOieIWyuJT5/7ju2z9GVL+5pbx7jb/wAzbspbwqmDS4B+ZUi1pZP
- nhcqNyRN5BnCkPR7asOxYwvaOxCOMv2Wcub9tSjmNm6KJibHyufuAdG
+ bh=Wtq87WP6HuN2ExCP/a1ucfnQWkLmzlzMjUynofXhUVc=;
+ b=45tu91SFMTKnPqcMnioHNruBt0iHzqIZvvEbu2RCttNgBVeir1G1GxB8RNIHjQsEbUKNWATdN
+ SkwzdKMYJvvAAmlh8OGKJYQD+8jgNu9wno6J40mNjQ27JnOlu7q4oXD
 X-Developer-Key: i=dumitru.ceclan@analog.com; a=ed25519;
  pk=HdqMlVyrcazwoiai7oN6ghU+Bj1pusGUFRl30jhS7Bo=
 X-Endpoint-Received: by B4 Relay for dumitru.ceclan@analog.com/20240313
@@ -75,27 +75,33 @@ Reply-To: dumitru.ceclan@analog.com
 
 From: Cosmin Tanislav <demonsingur@gmail.com>
 
-MAX96717 is capable of address translation for the connected I2C slaves.
+MAX96712 and MAX96724 have more than one GMSL2 link, and each link is
+capable of connecting to a separate serializer. If these serializers
+have the same CFG pins configuration, they will also have the same I2C
+address, causing conflicts unless the deserializer changes the address
+of the connected serializers.
 
-Add support for I2C ATR while keeping I2C gate for compatibility to
-support this usecase.
+The MAX96712 and MAX96724 support changing the I2C address of the
+connected serializers.
+
+Document this capability.
 
 Signed-off-by: Cosmin Tanislav <demonsingur@gmail.com>
 Acked-by: Rob Herring (Arm) <robh@kernel.org>
 ---
- .../bindings/media/i2c/maxim,max96717.yaml         | 39 ++++++++++++++++++++++
- 1 file changed, 39 insertions(+)
+ .../bindings/media/i2c/maxim,max96712.yaml         | 31 ++++++++++++++++++++++
+ 1 file changed, 31 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/media/i2c/maxim,max96717.yaml b/Documentation/devicetree/bindings/media/i2c/maxim,max96717.yaml
-index d1e8ba6e368e..976f6dd2c164 100644
---- a/Documentation/devicetree/bindings/media/i2c/maxim,max96717.yaml
-+++ b/Documentation/devicetree/bindings/media/i2c/maxim,max96717.yaml
-@@ -91,6 +91,30 @@ properties:
-       incoming GMSL2 link. Therefore, it supports an i2c-gate
-       subnode to configure a sensor.
+diff --git a/Documentation/devicetree/bindings/media/i2c/maxim,max96712.yaml b/Documentation/devicetree/bindings/media/i2c/maxim,max96712.yaml
+index 583bbd60157c..abacc3c874a9 100644
+--- a/Documentation/devicetree/bindings/media/i2c/maxim,max96712.yaml
++++ b/Documentation/devicetree/bindings/media/i2c/maxim,max96712.yaml
+@@ -36,6 +36,30 @@ properties:
+ 
+   enable-gpios: true
  
 +  i2c-alias-pool:
-+    maxItems: 2
++    maxItems: 4
 +
 +  i2c-atr:
 +    type: object
@@ -109,32 +115,24 @@ index d1e8ba6e368e..976f6dd2c164 100644
 +        const: 0
 +
 +    patternProperties:
-+      '^i2c@[01]$':
++      '^i2c@[0-3]$':
 +        $ref: /schemas/i2c/i2c-controller.yaml#
 +        unevaluatedProperties: false
 +        properties:
 +          reg:
 +            items:
 +              minimum: 0
-+              maximum: 1
++              maximum: 3
 +
- required:
-   - compatible
-   - reg
-@@ -98,6 +122,21 @@ required:
+   ports:
+     $ref: /schemas/graph.yaml#/properties/ports
+ 
+@@ -78,6 +102,13 @@ required:
  
  additionalProperties: false
  
 +allOf:
 +  - $ref: /schemas/i2c/i2c-atr.yaml#
-+
-+  - anyOf:
-+      - oneOf:
-+          - required: [i2c-atr]
-+          - required: [i2c-gate]
-+
-+      - not:
-+          required: [i2c-atr, i2c-gate]
 +
 +dependentRequired:
 +  i2c-atr: [i2c-alias-pool]
