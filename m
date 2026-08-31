@@ -1,38 +1,65 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA9663A7F7A;
-	Mon, 31 Aug 2026 09:39:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D2593DDB1C;
+	Mon, 31 Aug 2026 09:39:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788169144; cv=none; b=RpNiqiIRg9pPx8AaTvYsyX9iAz/OdkWNuoHqh9EPBNeZLecOr7306bskyR6oRCDO6iBOW7TMWlvj+jtOgOnFuIOmH94HEaTGN2kyixV1JzcLEZYczEeHbwceNJYfsg5jtHcy3682eHcBJjdrLMwYiYM979gaK5nhd5noH+nWqNw=
+	t=1788169162; cv=none; b=dpKiwmfpSZ1hdAoxTvaqktwaYE/Y1FQPAIRuC5pa/e22C3oaes3A5SohKy9wbjcFK7BYENBApPXtRQ59rDrH5tYhndmZudDJBij614VtW3BjMvy9XD92o80APQtpu/DDtV+NEceIurwqd9Q1sppJk4btbheg9gBHFJYFAbS/qEg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788169144; c=relaxed/simple;
-	bh=9KmyGHzwinfEUNeiMBVnkzgb0Ua3s5kQ58NqCf4GMw8=;
+	s=arc-20240116; t=1788169162; c=relaxed/simple;
+	bh=YVMrzXsIcQC9sceVcl9Un//g4fBKPLsuMDMdJ3boRY0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fbIfmUv5jx1IrEGpt2O/Y1A00t59bezcDGM09ZN34vTTFTQnYV3B12ZsG44EpLYoyq5rnDyWGhCrD/JSgP5N/rvzY1PdPxhaXOG5KPjmb6SwVypmNpn6W09DK5Q/kPgea0bIlC4meBcJ8foZaRPEbOtWc7eMM6MByWX8vrhZMyQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=U2wqwWTJ; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=tVvn3GRfaSnmTXqUv0miZ1SoCjFVPFuRjytuQlRho5QAnuJI2vBIQiGQKMkHZJfdqiCqqCdHWqlNmietLXEAExErhj+DYGuCEh2kR3NXzW4WZDfhcYw4AynvczuVfWaBUbeqTP3J89zjsFUbhu1deAsCJQIsLFmu1aujIvl0Z3U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=QduIDxtT; arc=none smtp.client-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="U2wqwWTJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9422D1F000E9;
-	Mon, 31 Aug 2026 09:39:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788169141;
-	bh=sA/qRBKGNMnWzE85d6xd4DGM0msY81q+Vk53bTWeL50=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=U2wqwWTJv06oZFouqGzzLi2Zm/MYUhjsK/m09baRGy2R1zDTuRMFEE/SY+71JaqKx
-	 TPhuOiyHvIsBoy/gZmQko32zDtCbAjaHsEtZ6mRw3tZnQjECMyuqY0+ifETyQ6hWlo
-	 gtvd3r1l1uO61vJCU/vHDTlhDI6CSMRhIyjD86gc=
-Date: Mon, 31 Aug 2026 11:38:56 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: ZW Tang <tangzw515@gmail.com>
-Cc: "Martin K. Petersen" <martin.petersen@oracle.com>,
-	linux-usb@vger.kernel.org, linux-scsi@vger.kernel.org,
-	target-devel@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [BUG] usb: gadget: f_tcm: possible circular locking dependency
- in usbg_make_tpg
-Message-ID: <2026083139-enamel-result-951b@gregkh>
-References: <CAA2SOT4Hok5xOtbviX4HkeqVK_u79NZjw3+0WKZMmUQb35jORw@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="QduIDxtT"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788169159; x=1819705159;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=YVMrzXsIcQC9sceVcl9Un//g4fBKPLsuMDMdJ3boRY0=;
+  b=QduIDxtTjFIz2183tr1obTkWctzFkzHiwYGeBm7vxmkAQ8Pn6DMHNKlc
+   l8fNvCoHs2xj+uvGYdpDo/P5jfugd7aNFajTaK1VZdWpgKR0fgZhebDgc
+   kizMx9NWlimo3nLtTLCUsPauI/A7JAJHgQZMHue2qiq5djWQQwlcen2Jx
+   V8P1FMPGOZjGL8oB3C+51q2NVceJWFT7o+ddWtWyxtQb2u/do+DZwX/yC
+   aex8+iOpWeTLcOZ7BXfN8ZGHJPEtqZasQE7+teIzH5cA3ftFazYATVwLm
+   v8JPZnaulic+vYVN7J6/pyjWL1R6QH/H02jBS2H/ZMyFm79y56kBV9UsH
+   g==;
+X-CSE-ConnectionGUID: aUwD7648SeKrKZ0rbmoHyw==
+X-CSE-MsgGUID: vhKUiV+7QlKr9JonAgDxHw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11891"; a="88333844"
+X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
+   d="scan'208";a="88333844"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 02:39:17 -0700
+X-CSE-ConnectionGUID: XsV23mneSXWX+1ROF2DT8Q==
+X-CSE-MsgGUID: MpwL1+WeR5uH8CBcm10XzA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
+   d="scan'208";a="274018769"
+Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.244.21])
+  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 02:39:13 -0700
+Date: Mon, 31 Aug 2026 12:39:11 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Maurizio Casciano <mauriziocasciano7@gmail.com>
+Cc: linux-media@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Bingbu Cao <bingbu.cao@amd.com>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+	Nicholas Roth <nicholas@rothemail.net>,
+	Andy Shevchenko <andy@kernel.org>, Hans de Goede <hansg@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jose Maria Martin <jmmartinf@hotmail.com>,
+	Uwe Kleine-Koenig <ukleinek@kernel.org>,
+	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 04/15] media: ov2740: Add OVTI2740 ACPI ID
+Message-ID: <apVLv4E542FenS30@ashevche-desk.local>
+References: <cover.1787933456.git.mauriziocasciano7@gmail.com>
+ <a04beb60575ccee57bf0a6079473df7bf735e145.1787933456.git.mauriziocasciano7@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,45 +68,18 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CAA2SOT4Hok5xOtbviX4HkeqVK_u79NZjw3+0WKZMmUQb35jORw@mail.gmail.com>
+In-Reply-To: <a04beb60575ccee57bf0a6079473df7bf735e145.1787933456.git.mauriziocasciano7@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Mon, Aug 31, 2026 at 05:26:19PM +0800, ZW Tang wrote:
-> Hi,
-> 
-> I am reporting a possible circular locking dependency triggered by a
-> syzkaller reproducer on Linux 7.2.0-rc3. Similar issues appear to have
-> been reported upstream before, but I can still reproduce this warning on
-> Linux 7.2.0-rc3 with HEAD commit
-> 1137d8b5df06137fb49513cc923b3b24d94cb809.
-> 
-> The reproducer mounts configfs, creates a USB gadget TCM function, creates
-> a target usb_gadget fabric TPG, and then links the TCM function into a USB
-> gadget configuration.
-> 
-> Lockdep reports a cycle involving the configfs inode mutex,
-> tpg_instances_lock, and the f_tcm opts->dep_lock. The current path is
-> creating a TPG through configfs_mkdir(). It reaches usbg_make_tpg(), holds
-> tpg_instances_lock and opts->dep_lock, and then calls
-> configfs_depend_item_unlocked(), which tries to acquire a configfs inode
-> mutex.
-> 
-> The existing reverse dependency is created by the USB gadget symlink path:
-> configfs_symlink() calls config_usb_cfg_link(), which calls
-> usb_get_function() and then tcm_alloc(), where tpg_instances_lock is
-> acquired.
-> 
-> This creates the following lock order cycle:
-> 
-> configfs inode mutex -> tpg_instances_lock -> opts->dep_lock
-> opts->dep_lock -> configfs inode mutex
-> 
-> This looks like a lock-ordering issue in the USB gadget TCM function /
-> target configfs integration. The kernel should avoid taking these locks in
-> opposite orders, because this can lead to an actual deadlock.
+On Fri, Aug 28, 2026 at 06:14:46PM +0200, Maurizio Casciano wrote:
+> Firmware may enumerate OV2740 image sensors using the OVTI2740 ACPI ID.
+> Add it to the existing ACPI match table.
 
-Great, care to send a patch to fix this as you have a reproducer for the
-issue?
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
 
-thanks,
+-- 
+With Best Regards,
+Andy Shevchenko
 
-greg k-h
+
