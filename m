@@ -1,99 +1,187 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 091EA39DBD3
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 07:24:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C4AC3C10B5;
+	Mon, 31 Aug 2026 07:25:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788161085; cv=none; b=YOIr8qKR9d5NW7SaQLc5MhKZd6YunyFf+vRpYsnSyGDcEq1q0eVRSHzUJLXxWqbx8E9WmoXSxFRcnNqlUkwYt3Q3mQQZbmjW9gWhEt16OeGSSlZUEWFtomatSXvBYc5Sd5z8JM/bxnUjrOOAvY2TmWCkA+gAbr6DDijCRRGvQxM=
+	t=1788161130; cv=none; b=gogkmmdYY4H5J+JYUZuOHyh1WYSP7NMmj4opP9UB/2uLHz+LQQqr0D5iGEp4zNBsP/fLmkGIld5sGaWLO1Sz5+VKxePqJEk0aCNvh7awIu5CPUdCjMux7ewQ0CTRhup8iCY3wqYiXDSD0PoQO8D9t7oRCWcIpwGrK9GkmVq8Li4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788161085; c=relaxed/simple;
-	bh=Dwak2X8ug1+O5w1ginv9rTPC6Vd6vCeMy0xItYVbPtQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=m4LfCwedfK2z/mHGF1UZxC6wgLQ2po+D6chfwURhO7ICRG0DieOtDH2LK7PxAM/gU6LzWtSX6hjmn/WycTZDCgQ1v984gMObNscy1L8XCJyRBlfwJx3AlF2vdYTlY5YiGIreXrKHSJZ4ncSWcsCQQQF91s/VefTASxT+cdjOEI8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WKz8Y7I/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788161130; c=relaxed/simple;
+	bh=kEHjqXXuUEoJXmucqWdm1GsfAKRreBLBMjYuVV9iNCY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=hmvrmCA0vkpWQttaSrugcqSQU93e8cLMgQsv2c3SY/F8XkseYnv6Bw0twbhgEpZrGVtMOevLs0GfHPd5dnewNw/3y17kBk5CqGbbKGLKrro03qa0SSi+i1LGfj1KDaM+qjZZg9W/c87/+4bv13uMTb3K1SSuN3MjsyY6kUA5Fn8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=OnddLzQS; arc=none smtp.client-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WKz8Y7I/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1AC01F00A3E
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 07:24:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788161083;
-	bh=V4tCMQDBO+Y0yv576KgJ9uC7rdHznojwiVTQ/LHcN8w=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=WKz8Y7I/WalnjVawpNSMCEZnu/Lwb3vOHK5eKkY96O8POEPww5fPPmNY/KStKBKKP
-	 P/Zbc+9LOYzp9WV2irVEBMgL9PNGr/Hf+5HwGE4E5zbUtrWJ1EC+joiTKWUShmat7Q
-	 2MxnivuN6fCOS2z2fe6P2lSH9fnwJL/eU0nyIZSwtW6qOBVhPPggeX4ZHkJA9RwiGD
-	 5I0Vi3eNj1AaIAEGBLD2xuzJ9YTB1RJhk4Nl1QtQMt0HJySnCVTR0L24bUHn9N+NKJ
-	 qbtBv3nGszl4kR4r4vf9eHM6/1/ONpa2KfqfGh8soOKgDhP5EWOUjdMQtDDgSxPIqY
-	 I2DUWqgJAQSCg==
-Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6a5ded53570so4420010a12.3
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 00:24:43 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBw+afJCBcTPM7QghzgnD97gc+rXE7ZUdEFHnU1HUiJf3W00NXWtrZaf2Ys25Bcnu+ofXLnKscV1iJ4TPM4=@vger.kernel.org
-X-Gm-Message-State: AFuF++kEiwZI5fVn4q52Xg4rsiMiClceLhe92V9UkMNd0XlPy8ikCLjS
-	DXrCTAec5mZ3GE/2RpzuZHeo1HhqClTIFTL2RHcVhK8DzwjG/BRSDlSevkAKuPTgh/mFDjqE7wR
-	3yLrkYsQARx4UM9LacmnygvHtThobhJA=
-X-Received: by 2002:a05:6402:c44:b0:6a6:32fa:1e9a with SMTP id
- 4fb4d7f45d1cf-6a632fa1f2bmr5986166a12.18.1788161082357; Mon, 31 Aug 2026
- 00:24:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="OnddLzQS"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788161128; x=1819697128;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=kEHjqXXuUEoJXmucqWdm1GsfAKRreBLBMjYuVV9iNCY=;
+  b=OnddLzQSkg2t75Tgln+0TV2kqxfyMg8Hyu9mNmRsE3uuA6Zfpoh+qn1Y
+   gb2XEWot3w+uASdOsZeXEUkDWCHb2hj80cI+PJInk4r66sY5aOfNb1/Yf
+   C8uMrgOKhgjb6PonCdiuLsNwRdJ3NftyQXf1AxD55+WDcOmoMNCBz7Apw
+   kelUY6y8lQmNVE50T0nCCehMgQl5p2oonGeGzGcvw6AxWup4hGIED+YtO
+   8Gic8j6vTfEAX6PhNvc5OVZ7+eyRXrn+wUx+VkcwH5AqpwoEqClikaa/F
+   mlaxhsDoUJ/9zVElgZFQaNJQExZSN/UY7cuK4vT3cCWYoG6jUud+SyFhx
+   A==;
+X-CSE-ConnectionGUID: tToSHqJET4mS3LdTZR5xQg==
+X-CSE-MsgGUID: +qmnGWHdQ72EsBsiQ6lwig==
+X-IronPort-AV: E=McAfee;i="6800,10657,11891"; a="99160103"
+X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
+   d="scan'208";a="99160103"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 00:25:27 -0700
+X-CSE-ConnectionGUID: iJ0aaLtrR9qmdUVlOOVs/w==
+X-CSE-MsgGUID: dHqfOLPHTsShz3S/D2cxfg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
+   d="scan'208";a="272236698"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by orviesa003.jf.intel.com with ESMTP; 31 Aug 2026 00:25:25 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1001)
+	id 6108999; Mon, 31 Aug 2026 09:25:24 +0200 (CEST)
+Date: Mon, 31 Aug 2026 09:25:24 +0200
+From: Mika Westerberg <mika.westerberg@linux.intel.com>
+To: tjakobsen84@protonmail.com
+Cc: Pratyush Yadav <pratyush@kernel.org>, Michael Walle <mwalle@kernel.org>,
+	Takahiro Kuwano <takahiro.kuwano@infineon.com>,
+	Miquel Raynal <miquel.raynal@bootlin.com>,
+	Richard Weinberger <richard@nod.at>,
+	Vignesh Raghavendra <vigneshr@ti.com>,
+	Mark Brown <broonie@kernel.org>, linux-mtd@lists.infradead.org,
+	linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org
+Subject: Re: [PATCH 2/2] spi: spi-intel: report controller enforced write
+ protection
+Message-ID: <20260831072524.GD124825@black.igk.intel.com>
+References: <20260829-spi-nor-platform-lock-v1-0-cd362d4914e2@protonmail.com>
+ <20260829-spi-nor-platform-lock-v1-2-cd362d4914e2@protonmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260828061607.240845-1-zenghongling@kylinos.cn> <20260828061607.240845-2-zenghongling@kylinos.cn>
-In-Reply-To: <20260828061607.240845-2-zenghongling@kylinos.cn>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Mon, 31 Aug 2026 16:24:29 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd_v3iw1N9PxDznpGRu4yE2atNG=7WPYM4Z2xNFq2tMx2g@mail.gmail.com>
-X-Gm-Features: AcwNN1UE3hrpbCfdKuNuk-KlWFB8oCsf6qM7Zhviul1R6n6HDA3WqghENaKoscc
-Message-ID: <CAKYAXd_v3iw1N9PxDznpGRu4yE2atNG=7WPYM4Z2xNFq2tMx2g@mail.gmail.com>
-Subject: Re: [PATCH 2/2] ntfs: take invalidate_lock in ntfs_filemap_page_mkwrite()
-To: Hongling Zeng <zenghongling@kylinos.cn>
-Cc: hyc.lee@gmail.com, ntfs@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	zhongling0719@126.com, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260829-spi-nor-platform-lock-v1-2-cd362d4914e2@protonmail.com>
 
->         if (NInoWofCompressed(NTFS_I(inode)))
-> @@ -684,7 +685,14 @@ static vm_fault_t ntfs_filemap_page_mkwrite(struct vm_fault *vmf)
->         sb_start_pagefault(inode->i_sb);
->         file_update_time(vmf->vma->vm_file);
->
-> +       /*
-> +        * Serialize against truncate/fallocate which hold the lock
-> +        * exclusively while invalidating pagecache and changing extents.
-> +        */
-> +       filemap_invalidate_lock_shared(mapping);
->         ret = iomap_page_mkwrite(vmf, &ntfs_page_mkwrite_iomap_ops, NULL);
-> +       filemap_invalidate_unlock_shared(mapping);
+Hi,
+
+On Sat, Aug 29, 2026 at 03:04:33AM +0200, Tobias Jakobsen via B4 Relay wrote:
+> From: Tobias Jakobsen <tjakobsen84@protonmail.com>
+> 
+> On Intel PCH platforms write protection is enforced by the controller's
+> protected range registers, not by the flash chip's block protection
+> bits, which are typically left clear. The SPI MEM conversion left
+> spi-intel without visibility of the MTD device, so it cannot supply MTD
+> locking operations directly.
+> 
+> Pass a write protection query through struct flash_platform_data, which
+> spi-intel already uses to hand the partition layout to spi-nor.
+> 
+> Note this asks the opposite question to intel_spi_is_protected(): rather
+> than whether a flash region contains a protected range, it asks whether
+> the queried range is itself entirely covered by one, which is what the
+> MTD layer means by locked.
+> 
+> Tested on a Coffee Lake i5 with PR0 covering 0x860000-0xffffff and
+> FLOCKDN set, querying MEMISLOCKED over four ranges:
+> 
+>                                PR0 range  whole chip  in PR0  below PR0
+>   unpatched                       -95        -95       -95      -95
+>   chip lock flags only              0          0         0        0
+>   patched, no chip lock flags       1          0         1        0
+>   patched + chip lock flags         1          0         1        0
+> 
+> The whole chip and below-PR0 columns stay unlocked because only
+> 0x860000-0xffffff is covered by a protected range.
+
+This looks pretty much that it got assistance by LLM, if this is the case
+please add Assisted-by tag as well.
+
+> Link: https://bugzilla.kernel.org/show_bug.cgi?id=221927
+> Signed-off-by: Tobias Jakobsen <tjakobsen84@protonmail.com>
+> ---
+>  drivers/spi/spi-intel.c | 46 ++++++++++++++++++++++++++++++++++++++++++++++
+>  1 file changed, 46 insertions(+)
+> 
+> diff --git a/drivers/spi/spi-intel.c b/drivers/spi/spi-intel.c
+> index 7494b921a..667291979 100644
+> --- a/drivers/spi/spi-intel.c
+> +++ b/drivers/spi/spi-intel.c
+> @@ -1223,6 +1223,46 @@ static bool intel_spi_is_protected(const struct intel_spi *ispi,
+>  	return false;
+>  }
+>  
+> +/*
+> + * Unlike intel_spi_is_protected(), which asks whether a flash region contains
+> + * any protected range, this asks the opposite: whether the given range is
+> + * itself entirely covered by a write protected range. That is what the MTD
+> + * layer means by "locked".
+> + */
+> +static bool intel_spi_is_range_protected(const struct intel_spi *ispi,
+> +					 unsigned int base, unsigned int limit)
+> +{
+> +	int i;
 > +
-Please move filemap_invalidate_unlock() after truncate_pagecache() and
-pagecache_isize_extended(). Otherwise, ntfs_filemap_page_mkwrite() can
-race with the page-cache cleanup after fallocate extends the file.
+> +	for (i = 0; i < ispi->pr_num; i++) {
+> +		u32 pr_base, pr_limit, pr_value;
+> +
+> +		pr_value = readl(ispi->pregs + PR(i));
+> +		if (!(pr_value & PR_WPE))
+> +			continue;
+> +
+> +		pr_limit = (pr_value & PR_LIMIT_MASK) >> PR_LIMIT_SHIFT;
+> +		pr_base = pr_value & PR_BASE_MASK;
+> +
+> +		if (base >= pr_base && limit <= pr_limit)
+> +			return true;
+> +	}
+> +
+> +	return false;
+> +}
 
-diff --git a/fs/ntfs/file.c b/fs/ntfs/file.c
-index 1969e4f444f7..a266105180a9 100644
---- a/fs/ntfs/file.c
-+++ b/fs/ntfs/file.c
-@@ -1178,13 +1178,15 @@ static long ntfs_fallocate(struct file *file,
-int mode, loff_t offset, loff_t le
+Can you use intel_spi_is_protected() or at least make a helper that reduces
+the code-duplication here?
 
-        err = file_modified(file);
- out:
-+       if (!err && mode == 0 && NInoNonResident(ni) &&
-+           offset > old_size) {
-+               truncate_pagecache(vi, old_size);
-+               pagecache_isize_extended(vi, old_size, offset);
-+       }
-+
-        filemap_invalidate_unlock(vi->i_mapping);
-+
-        if (!err) {
--               if (mode == 0 && NInoNonResident(ni) &&
--                   offset > old_size) {
--                       truncate_pagecache(vi, old_size);
--                       pagecache_isize_extended(vi, old_size, offset);
--               }
-                NInoSetFileNameDirty(ni);
-                inode_set_mtime_to_ts(vi, inode_set_ctime_current(vi));
-                mark_inode_dirty(vi);
+> +
+> +static int intel_spi_is_locked(struct spi_device *spi, loff_t ofs, u64 len)
+> +{
+> +	struct intel_spi *ispi = spi_controller_get_devdata(spi->controller);
+> +
+> +	if (!len)
+> +		return 0;
+> +
+> +	/* Protected range registers work in 4k units */
+
+This is not too useful comment, it should be obvious so I would drop this.
+
+> +	return intel_spi_is_range_protected(ispi, ofs >> 12,
+> +					    (ofs + len - 1) >> 12);
+> +}
+> +
+>  /*
+>   * There will be a single partition holding all enabled flash regions. We
+>   * call this "BIOS".
+> @@ -1395,6 +1435,12 @@ static int intel_spi_populate_chip(struct intel_spi *ispi)
+>  
+>  	intel_spi_fill_partition(ispi, pdata->parts);
+>  
+> +	/*
+> +	 * The protected range registers address the first chip, so only it can
+> +	 * be queried this way.
+> +	 */
+> +	pdata->is_locked = intel_spi_is_locked;
+> +
+>  	memset(&chip, 0, sizeof(chip));
+>  	snprintf(chip.modalias, 8, "spi-nor");
+>  	chip.platform_data = pdata;
+> 
+> -- 
+> 2.53.0
+> 
