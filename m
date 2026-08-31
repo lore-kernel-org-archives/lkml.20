@@ -1,109 +1,123 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F80D58E2B3;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5506958E2B0;
 	Mon, 31 Aug 2026 13:50:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788184245; cv=none; b=gjITHGC7sgOdALR/JPzLgH8dSOiTC7Qvm0wlkqvOdDturzif9vsir8zgwinSsuJu2KOvYKYeqA1aUFGq+O3EcN1OrdZRZEfxPJ2n6GRr79Oz4NrWPFcxzmC3/oQEzmBlstEUIpC7T6Gp9Ij3HqK2xeMyi3ysKpIKy8UrycxGmVQ=
+	t=1788184246; cv=none; b=gyhh/Z/+4balrJn/cMQvfVE4wtwkAs3cEhn0FBGHDv199T0Welu0mOJGaiynNyHLyRvWR80TqcuwTgl+s/kqF/fxIdI47LL1tA0OAR5j57Snlje2Rxah7ZQIMIBonLiQueJLKbRG9lVyl4m+6RgabeZd/b1wj0MGRY8+21mnuA0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788184245; c=relaxed/simple;
-	bh=OIc7ce+QijvhOEEghUd6vg0nBJ54xs+Ix/VpooIzTek=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=H2M7Fu9BgWBxUlshpkHtoTgI5wp6edtbzREM7At2capDsJcM43bs8zg5oaI9fMiOLvhtGf0Zo+GO1I8gc3EAocdwI4tho7VqBizWbEO3oDzhLmQEfFmOjVgITXBMurbD9UIxzLmHhN0ekjuZNUJJUz5SVcvixDbaTQ65Rd8VWLg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EAky4o+Y; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788184246; c=relaxed/simple;
+	bh=9QNW7Xng5+XGxRoxGgg+zNxQpyqGrtp96z2nbaxdnLc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=o7/3okKD/ONwhUjDPwViO9on+KGzSpYQBtqkbK5954zT2CtHsrTrpJ9VxmjJ1vtK6LcGsjb7Tak7w/09SUR6WksbTPze7Q4hTj3djOiVdgT1LVM6SAQT6RxyekDpWtyKIKGhwK4l5f8jZ37t/t/1bpqujh/bX1sZQ6coFnoWfNE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=B+11IJ83; arc=none smtp.client-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EAky4o+Y"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CCF11F00ADE;
-	Mon, 31 Aug 2026 13:50:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788184243;
-	bh=U0E64T3hJP4AE/m7rXCnZqVqgk4ckJPtMzLH6MWtkjI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=EAky4o+YYBfaSSR42j5fI4Lim+Lz5B0xWq8ELxGT+fsIJUntJEVcwO+cyeNeKMH3B
-	 fHQ1f4rhw34gwx9kC+5g5N2Op/HuA3DPZvDuPejKMRCSTO9gGEHDorMjclEx1nOiuz
-	 j2NaPr60vSNPebV+YtC/tTXsO7gFRemB9pCNv/heRPdWN1z2dP+srLKf5mZp+AFj3a
-	 0Crgir6/rM9nJHKzfGBFsro39m3nHN/aFoiDK8C/MEg1J/AmgbTAl+GM/g1OwWxRlP
-	 RlZZEBMhrrhSIgk8D7yyMCiCLQ3PUVqoBvpLww19wZcp2XXefYWRNicteh31yQXnhB
-	 bYDz7TPivIvbA==
-From: Sasha Levin <sashal@kernel.org>
-To: patches@lists.linux.dev,
-	stable@vger.kernel.org
-Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Riccardo Mereu <r.mereu@arduino.cc>,
-	Sasha Levin <sashal@kernel.org>,
-	jagan@edgeble.ai,
-	neil.armstrong@linaro.org,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	tzimmermann@suse.de,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-6.6] drm/panel: jadard-jd9365da-h3: set prepare_prev_first
-Date: Mon, 31 Aug 2026 09:30:05 -0400
-Message-ID: <20260831133314.4125787-577-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
-References: <20260831133314.4125787-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="B+11IJ83"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788184243; x=1819720243;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=9QNW7Xng5+XGxRoxGgg+zNxQpyqGrtp96z2nbaxdnLc=;
+  b=B+11IJ83EihxOwsj3OuVQZQb5XIBgkPok5tSicDG1ih95nRrdp6oA9P6
+   Ovl4vsUFsW71fuoe+5HWvCC2Yst5VYzb0x5Dkj4W4wdty8kORT85T0dgl
+   rXGxblU723jkdfoGLTRJpn2z+Tb8DnOrRTcrCnfe1alhz+4oeP3kPS+zs
+   QJaQiszrVpzMRSxnKWdN9b1t2fAMkO5TVSFZ3MVazq5J0wJ0KdVpW4yhq
+   NDX8kT+hIXu4S+68zwBpkcLK8//1X+D8Ap2/j4Y19ZW7xbWno5czzqieD
+   xRQmg79boZVdzNFyS23/DYbkZXDY5cSmBvOqKfe5C+j/tSn6NOss1Gksi
+   g==;
+X-CSE-ConnectionGUID: YpNKTyUkRWyyoE0bMEF2Aw==
+X-CSE-MsgGUID: 4IAXe2tBRsaMyI3bBFlxKw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11891"; a="99942229"
+X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; 
+   d="scan'208";a="99942229"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 06:50:41 -0700
+X-CSE-ConnectionGUID: FsmQNTR/Tim7lx99V8nD7Q==
+X-CSE-MsgGUID: TH6ZphDPTduHY64nSInkbA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; 
+   d="scan'208";a="269393170"
+Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.244.21])
+  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 06:50:36 -0700
+Date: Mon, 31 Aug 2026 16:50:33 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>
+Cc: linux-kernel@vger.kernel.org, dmaengine@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org, linux-iio@vger.kernel.org,
+	linux-sound@vger.kernel.org, linux-spi@vger.kernel.org,
+	Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
+	Lars-Peter Clausen <lars@metafoo.de>,
+	Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>,
+	=?iso-8859-1?Q?Am=E9lie?= Delaunay <amelie.delaunay@foss.st.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Andy Shevchenko <andy@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>, Mark Brown <broonie@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>,
+	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+Subject: Re: [PATCH v3 0/9] dmaengine: Support bus widths of 32 bytes and
+ above
+Message-ID: <apWGqZPhC6wCuakp@ashevche-desk.local>
+References: <20260831-dmaengine-support-wider-dma-masks-v3-0-507d97496f2d@analog.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.18.48
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260831-dmaengine-support-wider-dma-masks-v3-0-507d97496f2d@analog.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+On Mon, Aug 31, 2026 at 12:46:37PM +0100, Nuno S� wrote:
+> The DMA engine slave capabilities advertise the supported source and
+> destination bus widths through src_addr_widths / dst_addr_widths. These
+> are plain u32 bitmasks where a set bit's position equals the
+> corresponding enum dma_slave_buswidth value, e.g.
+> DMA_SLAVE_BUSWIDTH_4_BYTES sets bit 4.
+> 
+> The consequence is that widths of 32 bytes and above cannot be
+> represented at all: DMA_SLAVE_BUSWIDTH_32/64/128_BYTES would need bits
+> 32, 64 and 128, which do not fit in a u32. Hardware with wider data
+> paths is becoming common, so add a representation that can express these
+> widths while still using enum dma_slave_buswidth.
+> 
+> This series switches consumers and a small set of producers to the new
+> bus width capabilities, represented by a dma_buswidth_mask_t modeled
+> after dma_cap_mask_t. The legacy dma_device u32 fields are kept for now
+> so the remaining DMA controller drivers can be converted incrementally:
+> dma_async_device_register() folds a legacy-only producer's u32 into the
+> mask, so consumers only ever have to look at the mask.
+> 
+> The new interface lives in include/linux/dma/engine/{types,widthmask}.h
+> rather than in linux/dmaengine.h, so that only its users pay for the
+> linux/bitmap.h include. Every accessor takes a dma_buswidth_mask_t,
+> which means the interface will not change when the legacy fields are
+> eventually dropped.
+> 
+> Once the remaining producers are converted, the legacy dma_device
+> src/dst_addr_widths fields can be removed as a final cleanup.
+> 
+> This issue was discussed before here:
+> 
+> https://lore.kernel.org/dmaengine/abkoXXbaxaiqbBuX@vaman/
 
-[ Upstream commit b55a4b5d4769a650f52ea3f1ae680610169d125e ]
+Thanks, this version looks like the right approach. I have looked at a couple
+of patches and only the first one needs a bit of work, the rest looks nice!
 
-Sending DSI commands from the prepare() callback requires DSI link to be
-up at that point. For DSI hosts is guaranteed only if the panel driver
-sets the .prepare_prev_first flag. Set it to let these panels work with
-the DSI hosts which don't power on the link in their .mode_set callback.
-
-Reviewed-by: Linus Walleij <linusw@kernel.org>
-Tested-by: Riccardo Mereu <r.mereu@arduino.cc>
-Link: https://patch.msgid.link/20260413-waveshare-dsi-touch-v3-13-3aeb53022c32@oss.qualcomm.com
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
-
-LLM Generated explanations, may be completely bogus:
-
-The background `git log -S'panel-jadard-jd9365da-h3'` search finished
-(took ~3 minutes). It only surfaced merge commits — the first hit is
-`5d324e5159d9e` (usb-6.18-rc8 merge) — which matches what we saw
-earlier: this stable tree’s history doesn’t give a clean upstream
-“driver added in commit X” trail.
-
-That doesn’t change the backport assessment. The driver is present in
-6.18.43, the bug (missing `prepare_prev_first`) is confirmed, the patch
-applies cleanly, and the verdict remains **YES**.
-
- drivers/gpu/drm/panel/panel-jadard-jd9365da-h3.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/drivers/gpu/drm/panel/panel-jadard-jd9365da-h3.c b/drivers/gpu/drm/panel/panel-jadard-jd9365da-h3.c
-index 5c2530598ddb9..9e5287829b952 100644
---- a/drivers/gpu/drm/panel/panel-jadard-jd9365da-h3.c
-+++ b/drivers/gpu/drm/panel/panel-jadard-jd9365da-h3.c
-@@ -1157,6 +1157,8 @@ static int jadard_dsi_probe(struct mipi_dsi_device *dsi)
- 	if (ret)
- 		return ret;
- 
-+	jadard->panel.prepare_prev_first = true;
-+
- 	drm_panel_add(&jadard->panel);
- 
- 	mipi_dsi_set_drvdata(dsi, jadard);
 -- 
-2.53.0
+With Best Regards,
+Andy Shevchenko
+
 
