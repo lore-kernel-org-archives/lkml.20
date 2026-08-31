@@ -1,120 +1,88 @@
-Received: from mail-qt1-f172.google.com (mail-qt1-f172.google.com [209.85.160.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-244117.protonmail.ch (mail-244117.protonmail.ch [109.224.244.117])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EAEC3DB620
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 08:26:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.172
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788164783; cv=pass; b=EOKhcnbN4wBJC+DVSQS4ogVt8G6WnRaw2bmimi24dMM2yVorWIebK/byuNl2bzQVBRzGXskqz374bnIHz9fiblU5+P2KdmhiCwVotCQ5cdPlRGtGq4t0gT1wzgaKQSTmy74xcggcW6wvxacdSRGQKt+P+o4Ytdl0mTq/fEB/KCY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788164783; c=relaxed/simple;
-	bh=i7Pvgb3oiy1hq0LGOiit/djv7hiLdC62LcWzykGTNDg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=nzHgKB+SEziHXZjUGI/cjRI2PgXL3EH69wrCrQ1rNyHW7axJBALLX4iuHhZc9aXRjZmS+Q42rdItRbsEdT9zIc9UN4BG/XOwOBOOFWf+VfNs53ZoDGsERh+T/9BiHFPB7kNCaPORbe5JkmI/bA1dWQTQbsisjT7GLxH5h+luaLU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Arv2w2P3; arc=pass smtp.client-ip=209.85.160.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0AC33DA5C1
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 08:26:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.117
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788164768; cv=none; b=mVqoEjQvbojqgE8aHgH6JNNDymjUgUJg5X1M6XOTJfed8SjcXrgsAgCrKfgAz7xXiMzK8ky3DZM8uNG2og2jnNLV1jFo+0mYxIaCeKK7kwjOKeh+rjfMhVoFYuI54boklwZoKibBwYOrf2KUw070aEPkB6QZd2pDGfI+JwLcJt0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788164768; c=relaxed/simple;
+	bh=LC32bx4buY8+xqOpBc5EJnaO4rGmOf7j4BLQfXrglKg=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=YSjFdiQshgdTu511UYtejEJJBj1hxW3uSYedH5cSl+chtl9OtEcknTZtr97tVrxAW/p5+twVEUHGSv/CPeJWqUoV2dQNtS6erYpY8V0Rw9aW2eo7hgYCDUXG5Pr1qnexJmcJvXHt874WDJ2rKEarjybxQWbwH+4UjTkxFaKpiQc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=luites.com; spf=pass smtp.mailfrom=luites.com; dkim=pass (2048-bit key) header.d=luites.com header.i=@luites.com header.b=kGp1ZHIz; arc=none smtp.client-ip=109.224.244.117
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=luites.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=luites.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Arv2w2P3"
-Received: by mail-qt1-f172.google.com with SMTP id d75a77b69052e-52faa58bff5so324661cf.0
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 01:26:21 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788164780; cv=none;
-        d=google.com; s=arc-20260327;
-        b=D8s5rHPCMZAOQGvoS3g0MLKhFlEs7TlyUz7K5bZmX2F+9miHm2p3mwbSfdmxexL4f0
-         pmR5IpykMEfR7yFac6h14TLXU4/Pgn3n2u2SDVooxIxtbUsA+/PYIyuLK9WcsisT6Xe9
-         sCXzn9Cqz5iK2kP3l5RvNZJyb8IiQ0hyVhCG+zCw/GYyVEy20OuT7DCQBuLlSmH770Ob
-         devVp2A7J5A36fL6EnLrD/yP5YmeS12WfUSSIH6KVNPDi3te8OM6SoSQj2/z6G59NtxA
-         8wwA1WMt0fnNq4ts+daTNWQ/TKPHWSZpayR/7ljpNpBTa6PWoMd6fQ0gAxAyEJ51LT1O
-         ypPA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=i7Pvgb3oiy1hq0LGOiit/djv7hiLdC62LcWzykGTNDg=;
-        fh=HtQ/BET0Hwgpd4yPNV225SmPUDJlA2Gbt4jVBNA4SUU=;
-        b=ieIsRcn9QkHjnwgJXUxNCF/qLpXyjYpQBfPH2rxQFqj6z9L/l7rsJGNw1OOZOj8jKK
-         kzDUjki4UQxtEgxcKChlwdclTb4GqOmrE7XYhymEa2pxUEuo3tjj7QzuLMgnc42zghkE
-         9unIZwbWliGIA2g1byEMijQD9Byostl9tJyxlVK3+mZJzEKa9niE4x8v64FGKtARmOKa
-         tTP5oTYwMAbSX5bm3lKgGOkxd9vDGI5U0MQAFOIf4/KznHlmTypOsB3FniVoM9grkvKV
-         dVGe34hpMCC6XUV4JFNQJnc/F0HU8lSp5PY9osq8Kan9107xiKiXv4XLgrPkfd1tAhvq
-         Ndyg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788164780; x=1788769580; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=i7Pvgb3oiy1hq0LGOiit/djv7hiLdC62LcWzykGTNDg=;
-        b=Arv2w2P3TIZLnRD6C476tlrQY5qFr4a7yCxon8MfJGbh95sgrsIdZ0z/gbktbfV/Gl
-         YnWBtIzpiGvGFFn0t3goA3aPn0JAXVWJdHN5rApV934smTQnSO0UqbgGy4fWiHqLHdLj
-         EhNclZ+wGZIowEBKlkPoK23OR3tQUCKaPsa4Va0eYFOXdfseCFzn7m0C5kwR+XaNioRY
-         PuP3tictKr8g73Li+Lgo/sVDrBqEeWceQ1qnv5iOPC092xvSNaRNglda0setAOj9ttI0
-         nlUZKrNTtEknL+24kAWnyTmzII/8alk2dxO5wR12IV47qnvXX5/e5hlMHJKWGiRfoPPq
-         QGNQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788164780; x=1788769580;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=i7Pvgb3oiy1hq0LGOiit/djv7hiLdC62LcWzykGTNDg=;
-        b=Ujgh2pLrr72RsjJq+gF4o1rkzvBooJAIYcBsrI3w8YAo+AIIBSuGkBphk+jDdojKEQ
-         oWTGURKPrla6M3v7iQ6+6BH5CAIBJ1xS/8M/xrnhgZDIPg4HAKDxfHlGcb3tGP8OOSKS
-         6DtooA6vUg1rndA2e3RUUVzTjby+Ep9YkoZ4j8HSShzzDXXW5e9fhA17tkE50wEDW9HC
-         1yfWYGXQKdb9/L3Gp5xyrEId1+FDh/PnQjoXpQrs4DIOWsDJIeX11xllkjlYuk0Cfey+
-         FzyepUCWOmyo5KbqVai+RmzjEzKY0ppS6Kho7r8eKb99BtqeiAfrB0oQYOKSNoH2R2CP
-         6SKg==
-X-Forwarded-Encrypted: i=1; AHgh+Rr8AWk89jZBHs3n24LUUXTO3rGciPYMDgVdtD3b2lk/dI0BamkY8mpZ0Mwo4/OaBJf/UhmtUzpYHD3bHJ8=@vger.kernel.org
-X-Gm-Message-State: AFuF++l5VjsZD8bnh1ZtIw6A4molL+taRCXIOOayeqOCiA+cTbeIBWC1
-	PD8DYChDQUntIXjvuXQfig5hyYDwHyZkS+mmHNpfCeAsWRLsKpn4plW0DIDlC00yafMcMCgRUIh
-	IZsU22VH35xp4mO83SRkjor4uFvgQQ5jALQayZO0v
-X-Gm-Gg: AR+sD112IH0genUw/E2jnxZdFIVEn8Bk/4uYF6JG5KsHdZZCZ72b5aPiGuoO4Hdx+7p
-	uqHg4OczpVBjdXfiWmiS2GmCxFy4MsKOQRXyuTTB3V2F5KAMEU+XMm2w8QQ3HR7gn+RPbxUYjTX
-	/7cjoQ3s48KRWlugpQnehBDyOQh48T9rVDfVoO0OgYDgb78PkEu+lNgf7DqGpjf6C9qPfI6fcgS
-	UFnoMJrtyHVuu2y9d3aC3NmlR2USDeHUaaZwLjUvBUtb9JR0eI179d3dfqg1e1VyE3LRnh4xjc8
-	eAXHLJ7fCLWv8Dp9iPnXD2VSZBLrgRC16+aJjCN8iZJ2vl9c0Ct6xEWCnPNKIiHhgDC+yTuemej
-	KMw==
-X-Received: by 2002:a05:622a:64c:b0:519:b655:235 with SMTP id
- d75a77b69052e-52ff711704cmr26458811cf.3.1788164779732; Mon, 31 Aug 2026
- 01:26:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=luites.com header.i=@luites.com header.b="kGp1ZHIz"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=luites.com;
+	s=protonmail; t=1788164754; x=1788423954;
+	bh=LC32bx4buY8+xqOpBc5EJnaO4rGmOf7j4BLQfXrglKg=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=kGp1ZHIz22gESbubnvN1MOiO2P+JiF7ne39IfceQZiz9lh3/qqjGF4opQ01iyiT3I
+	 oTv42nmAiYy05RkjH/qTCxDxtlK2Ld39fv+yD/aY0FsFA0+hCbSJKA84AZDqBjX6nB
+	 3uR7yTgC0lL3pfn04fbUL7bYZaMwYCchqkvqjGJax+S5YvpDWxLCdlaEdQGnZvG8Gh
+	 Ds51wv5e167q3//nK2GBCBGnsDpmoYoTwa1jWvA6w+I7kWlxvoMn1f1K7/G8kFiqZO
+	 GFvarSLnZZeKtO1wBYW3GbMRNLTemkOWIr/M3O3hfDkpEcqWzxj47Ufq3esxDg4dHY
+	 R9TrkyHzhXvYQ==
+Date: Mon, 31 Aug 2026 08:25:47 +0000
+To: Vinod Koul <vkoul@kernel.org>
+From: Ian Luites <ian@luites.com>
+Cc: Bard Liao <yung-chuan.liao@linux.intel.com>, Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>, Charles Keepax <ckeepax@opensource.cirrus.com>, Mark Brown <broonie@kernel.org>, linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org, Ian Luites <ian@luites.com>
+Subject: [PATCH] soundwire: dmi-quirks: Disable ghost Realtek on Asus GX651AX
+Message-ID: <20260831082534.224716-1-ian@luites.com>
+Feedback-ID: 196833966:user:proton
+X-Pm-Message-ID: 63d591cc6fdcf620e988376798c5e88949e2347d
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260827070345.2853821-1-jorge.ramirez@oss.qualcomm.com> <20260827070345.2853821-3-jorge.ramirez@oss.qualcomm.com>
-In-Reply-To: <20260827070345.2853821-3-jorge.ramirez@oss.qualcomm.com>
-From: Stanley Jhu <stanleyjhu@google.com>
-Date: Mon, 31 Aug 2026 16:25:42 +0800
-X-Gm-Features: AcwNN1Wql6TjF2E32SMAe0niU5XIn-Fsgvx0mgJJYkagFD8DWijLMQS03XBChpU
-Message-ID: <CAE14pdczcD5zsOm57pBaDqb04btPY8abOncDgFwF0_E4LP9sKA@mail.gmail.com>
-Subject: Re: [PATCH v4 2/2] ufs: rpmb: use a fixed-length RPMB dev_id
-To: Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>, beanhuo@iokpp.de, 
-	James.Bottomley@hansenpartnership.com, martin.petersen@oracle.com, 
-	alim.akhtar@samsung.com, avri.altman@wdc.com, bvanassche@acm.org, 
-	beanhuo@micron.com, can.guo@oss.qualcomm.com, sumit.garg@oss.qualcomm.com, 
-	jenswi@kernel.org
-Cc: linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	op-tee@lists.trustedfirmware.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, 27 Aug 2026 09:03:36 +0200, Jorge Ramirez-Ortiz wrote:
-> The RPMB authentication key is derived from the dev_id handed to the
-> RPMB subsystem. OP-TEE implements the eMMC RPMB flow, where the dev_id
-> is the eMMC CID: a fixed 16-byte value the key derivation depends on.
->
-> The UFS RPMB id is "<device_id>-R<region>", which is variable length
-> and longer than 16 bytes. Handing it to the RPMB subsystem as-is would
-> tie the derived key to a length OP-TEE does not expect and diverge from
-> the fixed-CID eMMC ABI, forcing OP-TEE to be taught about
-> variable-length UFS ids.
->
-> A fixed 16-byte dev_id is needed so the derived key stays stable and
-> unique per region while matching the eMMC CID layout OP-TEE relies on,
-> keeping the key-derivation ABI identical with no OP-TEE change. The
-> reduction to a fixed 16 bytes must also be reproducible by the
-> bootloaders (such as U-Boot) that derive the same dev_id.
->
-> Signed-off-by: Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>
+The Asus ROG Zephyrus Duo GX651AX exposes a Realtek RT722 device in
+ACPI which does not exist in the physical hardware. The device remains
+unattached while the CS42L43 and both CS35L56 devices attach
+successfully.
 
-Reviewed-by: Stanley Jhu <stanleyjhu@google.com>
+This confuses the function topology machine driver into creating
+duplicate DAI links named SDW3-Playback-SimpleJack, and the sof_sdw
+probe fails with error -12. Add a model-specific quirk to remove the
+ghost RT722 device.
+
+Fixes: 45cf24da0a10 ("ASoC: Intel: soc-acpi-intel-ptl-match: Remove unneces=
+sary cs42l43 match")
+Cc: <stable@vger.kernel.org> # 7.2.x
+Assisted-by: LLM
+Signed-off-by: Ian Luites <ian@luites.com>
+---
+ drivers/soundwire/dmi-quirks.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/drivers/soundwire/dmi-quirks.c b/drivers/soundwire/dmi-quirks.=
+c
+index 768255dd12..62fa64b224 100644
+--- a/drivers/soundwire/dmi-quirks.c
++++ b/drivers/soundwire/dmi-quirks.c
+@@ -200,6 +200,13 @@ static const struct dmi_system_id adr_remap_quirk_tabl=
+e[] =3D {
+ =09=09},
+ =09=09.driver_data =3D (void *)ghost_realtek,
+ =09},
++=09{
++=09=09.matches =3D {
++=09=09=09DMI_MATCH(DMI_SYS_VENDOR, "ASUS"),
++=09=09=09DMI_MATCH(DMI_BOARD_NAME, "GX651AX"),
++=09=09},
++=09=09.driver_data =3D (void *)ghost_realtek,
++=09},
+ =09{
+ =09=09.matches =3D {
+ =09=09=09DMI_MATCH(DMI_SYS_VENDOR, "ASUS"),
+--=20
+2.55.0
+
+
