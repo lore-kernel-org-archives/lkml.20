@@ -1,49 +1,48 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99F414949F6;
-	Mon, 31 Aug 2026 13:38:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8666049483A;
+	Mon, 31 Aug 2026 13:38:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183521; cv=none; b=BQ0rSxll/z1QPFDcBVCtXPBqNnoA/bGtq10qkqDVZaOA55i8FyEeMrRquCTsF90cEySTudxMuB+sHMJZvvqeo1l1in95MUudkJfWN7c4dX+tPUYfnm/1sNjm+4og8LJl68YF3WzXDnaWwz4x52X9NeG6ad0qZqjDCB5mthCiIaw=
+	t=1788183522; cv=none; b=QwDfMgs5bOw1Qk6o6NISEGA43No2PI98rPidxaIBjmD3fIqnyf/MI+4gm7v7sCwJdcmdTLFSVlqbjDdAqMrlSYQEVltZlp1EmZ3M/meJZMkGWYm1soVx89+CH59PJdrRkURuLHf1O84Pw+3L4vPnV/8w65Hx+5Ai+ohEnEnfi10=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183521; c=relaxed/simple;
-	bh=t74y8aa8QALT2W0gIPlQC5NFgC0c+HZvEOge4iu8Sks=;
+	s=arc-20240116; t=1788183522; c=relaxed/simple;
+	bh=bvb1vYoHFhqP2VcEmDuAujeIx3RJWVaMILC+JHETH0Q=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=rlrvmee/1Qm32p5j4zdRX3B7H0EER7bpdVYjo4CEoTTP93kNC2GWLXfFotlQRmmdghGxc29A7EMcMmQ8xiKmKQVPxtXbuoPMrgqx9uG+gtY8VVGp24eVgMZ6uIU5X/V7CrIMwnkFVPZa7BWzby36A6UzbbvrQv7bP0TTJ+q1Uew=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ghe0hboe; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=YN/5Y7UizgWVYwAD0ztJcj7fOcAt95sMxHrWKNcOy+njXpcR2HiTtBR5EFMUJlI1pD1xNtfwg85c+jKu/+TTqt2NNFObBH32Q2RkviQXg7mnXmzJ1O497Cuenpbm6cT6lhgOjav6wUIA2/eIbnQ+GXcKtYAuJi95qjM+jDIoi6w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A4Tk7qT/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ghe0hboe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 131F31F00ACF;
-	Mon, 31 Aug 2026 13:38:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A4Tk7qT/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E40FE1F00A3E;
+	Mon, 31 Aug 2026 13:38:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788183518;
-	bh=zfzcXDm9TmxpRXccnfiV7B/t46lKO3BgYscXgmPgskc=;
+	s=k20260515; t=1788183520;
+	bh=xG2t2y2lKLQXDUfdvcxJHobwIOaB1uVKJu1HoXcWyes=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ghe0hboehe+ZHPCTZsIniB1NGortNfTP5jSpooxCtril4sBeZFkU8re7z3K1SeNUX
-	 yjo8NP1pw/asOKe3YY0yMq4jufgTGrHGZPdX2BIcaSw5+BK/5WiSX2KUwdtg4NHmf5
-	 KvpDhkq+fihA78/woEDk9Kih7V56MDw1VZFMzynuS85FSs6Hw8HKcE93aWBBH1Rf/s
-	 2nhh4mHYmbImdBqlbA8WkR/xtVj2tE+VC91t9uzgVN0riwvH/J0Yyu5Y6YsMxJQKsC
-	 DH/4H4qVJsGCVib2482l13y3Tzd02TA8wdYCL1D6UBUvElHr2FC4V7ACumHC08QV/Q
-	 Pm8l+gxCoxZNA==
+	b=A4Tk7qT/W9BYLhBZAo4JFJUDq9oD4147ZGoZ7tU3TacdSSo3qs6kTsgLTQXh6Xx9x
+	 41FTjliOOiS4As+vtRtfoELJgaUmMtvhd4/0hQ+Nf2uVT8NE7u7U6R950fqXzvkz9I
+	 ZaDlFJrfzqH3RA3S2uvw7NlhqrpKc+0IOypxS2/gxTgCDqmmY49+MzJe6t2E+E3FEG
+	 OPbS3/u14fd1eUQQGxMk47f6+rjQ45KuGXzx+LrPFR3ecAZhvIVj9CE7BeSZO5q4CA
+	 xKAyWVn3maNB/3CG3qMozpEX46xnucMr3iHb3gqf+pvR84n8z3PDywRzqZXZ+frN3B
+	 5ONnXEit+3mjw==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Dario Binacchi <dario.binacchi@amarulasolutions.com>,
-	Michael Trimarchi <michael@amarulasolutions.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
+Cc: Simon Xue <xxm@rock-chips.com>,
+	=?UTF-8?q?Sven=20P=C3=BCschel?= <s.pueschel@pengutronix.de>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Joerg Roedel <joerg.roedel@amd.com>,
 	Sasha Levin <sashal@kernel.org>,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	tzimmermann@suse.de,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	dri-devel@lists.freedesktop.org,
+	joro@8bytes.org,
+	will@kernel.org,
+	iommu@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-5.10] drm/panel: simple: Add AM-1280800W8TZQW-T00H
-Date: Mon, 31 Aug 2026 09:22:52 -0400
-Message-ID: <20260831133314.4125787-144-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-5.10] iommu/rockchip: disable fetch dte time limit
+Date: Mon, 31 Aug 2026 09:22:53 -0400
+Message-ID: <20260831133314.4125787-145-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -53,449 +52,451 @@ List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 6.18.48
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+From: Simon Xue <xxm@rock-chips.com>
 
-[ Upstream commit 6acb810ebc5d8dea5c250326c14dc44e32dc8e92 ]
+[ Upstream commit 8d4346ecd4950ae08cc76a6de327c264e846758c ]
 
-Add Ampire, AM-1280800W8TZQW-T00H 10.1" TFT LCD panel timings.
+Disable the Bit 31 of the AUTO_GATING iommu register, as it causes
+hangups with the RGA3 (Raster Graphics Acceleration 3) peripheral.
+The RGA3 register description of the TRM already states that the bit
+must be set to 1. The vendor kernel sets the bit unconditionally to
+1 to fix VOP (Video Output Processor) screen black issues. This patch
+squashes the 2 vendor kernel commits with the following commit messages:
 
-Co-developed-by: Michael Trimarchi <michael@amarulasolutions.com>
-Signed-off-by: Michael Trimarchi <michael@amarulasolutions.com>
-Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
-Link: https://patch.msgid.link/20260515082232.1766586-2-dario.binacchi@amarulasolutions.com
+Master fetch data and cpu update page table may work in parallel, may
+have the following procedure:
+
+	master                  cpu
+	fetch dte               update page tabl
+	        |                       |
+	(make dte invalid)  <-  zap iotlb entry
+	        |                       |
+	fetch dte again
+	(make dte invalid)  <-  zap iotlb entry
+	        |                       |
+	fetch dte again
+	(make dte invalid)  <-  zap iotlb entry
+	        |                       |
+	fetch dte again
+	(make iommu block)  <-  zap iotlb entry
+
+New iommu version has the above bug, if fetch dte consecutively four
+times, then it will be blocked. Fortunately, we can set bit 31 of
+register MMU_AUTO_GATING to 1 to make it work as old version which does
+not have this issue.
+
+This issue only appears on RV1126 so far, so make a workaround dedicated
+to "rockchip,rv1126" machine type.
+
+iommu/rockchip: fix vop blocked and screen black on RK356X and RK3588
+
+RK3568 and RK3588 has the same issue as RV1126/RV1109 that caused by
+dte fetch time limit, So we can set BIT(31) of register 0x24 default
+to 1 as a workaround.
+
+Signed-off-by: Simon Xue <xxm@rock-chips.com>
+Signed-off-by: Sven Püschel <s.pueschel@pengutronix.de>
+Acked-by: Heiko Stuebner <heiko@sntech.de>
+Signed-off-by: Joerg Roedel <joerg.roedel@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-# Stable Backport Analysis: drm/panel: simple: Add AM-1280800W8TZQW-T00H
-
-**Local tree:** Linux **6.18.44** (`v6.18.44`, `stable/linux-6.18.y`)
-
----
-
 ## PHASE 1: COMMIT MESSAGE FORENSICS
 
-### Step 1.1: Subject line
-**Record:** `[drm/panel: simple]` `[Add]` — Add Ampire
-AM-1280800W8TZQW-T00H 10.1" TFT LCD panel timings to the existing
-`panel-simple` driver.
+### Step 1.1: PARSE THE SUBJECT LINE
+**Record:** `[iommu/rockchip]` `[disable]` — Disable the fetch-DTE time-
+limit hardware behavior in the Rockchip IOMMU AUTO_GATING register
+(BIT(31)).
 
-### Step 1.2: Tags
+### Step 1.2: PARSE ALL COMMIT MESSAGE TAGS
 **Record:**
-- **Co-developed-by:** Michael Trimarchi
-  \<michael@amarulasolutions.com\>
-- **Signed-off-by:** Michael Trimarchi, Dario Binacchi
-- **Reviewed-by:** Dmitry Baryshkov
-  \<dmitry.baryshkov@oss.qualcomm.com\> (DRM/panel reviewer)
-- **Signed-off-by:** Neil Armstrong \<neil.armstrong@linaro.org\>
-  (maintainer ack)
-- **Link:** https://patch.msgid.link/20260515082232.1766586-2-
-  dario.binacchi@amarulasolutions.com
-- **No** Fixes:, Reported-by:, Tested-by:, Cc: stable@vger.kernel.org,
-  or syzbot tags
-- **Notable:** Part of a 2-patch v2 series (patch 2/2); patch 1/2 adds
-  the DT binding
+- **Fixes:** — not present (expected for manual review)
+- **Reported-by:** — none
+- **Tested-by:** — none
+- **Reviewed-by:** — none
+- **Acked-by:** Heiko Stuebner `<heiko@sntech.de>` (Rockchip maintainer)
+- **Link:** — none in commit (submission thread references vendor
+  commits and RGA3 driver series)
+- **Cc: stable:** — not present (expected)
+- **Signed-off-by:** Simon Xue, Sven Püschel, Joerg Roedel (ignore
+  pipeline-added SOBs)
+- **Notable:** Ack from subsystem maintainer; no syzbot/fuzzer
+  involvement
 
-### Step 1.3: Body analysis
+### Step 1.3: ANALYZE THE COMMIT BODY TEXT
 **Record:**
-- **Bug description:** None — this is hardware enablement, not a bug
-  fix.
-- **Symptom without patch:** A device tree node with `compatible =
-  "ampire,am-1280800w8tzqw-t00h"` will not match `panel-simple`, so the
-  display will not probe and no framebuffer will come up.
-- **Root cause:** Missing `panel_desc` / `drm_display_mode` entry and
-  missing OF compatible in `platform_of_match[]`.
-- **Version info:** None in the message.
+- **Bug description:** Newer Rockchip IOMMU hardware has a DTE-fetch
+  time limit. When a master re-fetches DTE four times while the CPU
+  concurrently zaps IOTLB entries (during page-table updates), the IOMMU
+  enters a blocked state.
+- **Symptom/failure mode:** IOMMU hang/block → RGA3 peripheral hangups,
+  VOP (display) blocked with black screen.
+- **Affected hardware:** RV1126/RV1109, RK3568, RK3588 (commit message
+  also mentions RK356X broadly).
+- **Root cause:** BIT(31) of `RK_MMU_AUTO_GATING` (offset 0x24) defaults
+  to 0 on affected silicon; TRM says it must be 1. Vendor kernel sets it
+  unconditionally.
+- **Version info:** Not tied to a specific kernel version; this is a
+  silicon/hardware behavior issue.
 
-### Step 1.4: Hidden bug fix?
-**Record:** No. This is a straightforward device-ID / panel-timing
-addition. It does not fix leaks, races, crashes, or corruption in
-existing code paths.
+### Step 1.4: DETECT HIDDEN BUG FIXES
+**Record:** Not disguised — this is an explicit hardware workaround.
+Despite "disable" wording in the subject, the fix **sets** BIT(31) to
+disable the faulty time-limit feature. This is a classic hardware
+quirk/workaround, not a cosmetic cleanup.
 
 ---
 
 ## PHASE 2: DIFF ANALYSIS
 
-### Step 2.1: Inventory
+### Step 2.1: INVENTORY THE CHANGES
 **Record:**
-- **File changed:** `drivers/gpu/drm/panel/panel-simple.c` only (+28
-  lines)
-- **Functions modified:** None (only static data and one
-  `platform_of_match[]` entry)
-- **Scope:** Single-file, surgical data addition
+- **Files:** `drivers/iommu/rockchip-iommu.c` (+8 lines, 0 removed)
+- **Functions modified:** `rk_iommu_enable()` only
+- **Scope:** Single-file, surgical fix
 
-### Step 2.2: Code flow change
+### Step 2.2: UNDERSTAND THE CODE FLOW CHANGE
 **Record:**
-- **Hunk 1 (after `ampire_am_1280800n3tzqw_t00h`):** Adds
-  `ampire_am_1280800w8tzqw_t00h_mode` (1280×800, 72.4 MHz pixel clock,
-  different vsync from the N3 sibling) and
-  `ampire_am_1280800w8tzqw_t00h` descriptor (8 bpc, LVDS, RGB888 SPWG).
-  - Before: only the N3 variant is known.
-  - After: W8 variant is also known.
-- **Hunk 2 (`platform_of_match[]`):** Adds `{ .compatible =
-  "ampire,am-1280800w8tzqw-t00h", .data = &ampire_am_1280800w8tzqw_t00h
-  }`.
-  - Before: probe fails for W8 compatible strings.
-  - After: probe succeeds and uses W8-specific timings.
+- **Hunk 1 (define):** Adds `#define DISABLE_FETCH_DTE_TIME_LIMIT
+  BIT(31)`.
+- **Hunk 2 (`rk_iommu_enable`):**
+  - **Before:** After writing DTE address, ZAP cache, and IRQ mask,
+    proceeds directly to enable paging.
+  - **After:** Reads `RK_MMU_AUTO_GATING`, ORs in BIT(31), writes it
+    back — for each MMU instance.
+  - **Affected path:** IOMMU enable during device attach and
+    system/runtime resume.
 
-### Step 2.3: Bug mechanism
-**Record:** **Category h) — hardware workarounds / device enablement.**
-Not a software bug fix; adds OF compatible + timings for a new panel
-variant on an existing driver.
-
-### Step 2.4: Fix quality
+### Step 2.3: IDENTIFY THE BUG MECHANISM
 **Record:**
-- **Quality:** High — mirrors the existing `am-1280800n3tzqw-t00h`
-  pattern exactly.
-- **Regression risk:** Very low — purely additive static data; no logic
-  or locking changes.
-- **Minor note:** W8 mode struct omits `.flags = DRM_MODE_FLAG_PHSYNC |
-  DRM_MODE_FLAG_PVSYNC` present on the N3 sibling; this matches the
-  submitted upstream patch and was reviewed as-is.
+- **Bug category:** Hardware workaround / logic correctness fix
+- **Mechanism:** Without BIT(31)=1, concurrent DTE fetch + IOTLB zap can
+  trigger a silicon bug after four consecutive DTE fetches, permanently
+  blocking the IOMMU. Setting BIT(31) restores legacy (non-buggy)
+  behavior.
+
+### Step 2.4: ASSESS THE FIX QUALITY
+**Record:**
+- **Quality:** Obviously correct — read-modify-write preserves other
+  AUTO_GATING bits; matches vendor kernel and TRM guidance.
+- **Regression risk:** Very low. Vendor sets unconditionally on all
+  affected platforms; bit is documented as should-be-1.
+- **Red flags:** Commit message still mentions RV1126-only workaround,
+  but code applies unconditionally (intentional per vendor practice and
+  RK3568/RK3588 need).
 
 ---
 
 ## PHASE 3: GIT HISTORY INVESTIGATION
 
-### Step 3.1: Blame
-**Record:** On `origin/master`, the W8 panel code is present at lines
-823–846 and in `platform_of_match`. In the local 6.18.44 tree, the
-insertion point after `ampire_am_1280800n3tzqw_t00h` (lines 797–821) and
-the matching `platform_of_match` entry (line 4966) already exist. The W8
-entry is absent — this is new mainline content not yet in 6.18.y.
+### Step 3.1: BLAME THE CHANGED LINES
+**Record:** `rk_iommu_enable()` core logic dates to 2014 (Daniel Kurtz).
+`RK_MMU_AUTO_GATING` defined since original driver (2014,
+`c68a292152d32`). The **missing workaround** has been present since the
+driver's introduction — not a recent regression.
 
-### Step 3.2: Fixes: tag
-**Record:** Not applicable — no Fixes: tag.
+### Step 3.2: FOLLOW THE FIXES: TAG
+**Record:** No `Fixes:` tag. Not applicable — this is a hardware silicon
+bug, not a commit-introduced regression.
 
-### Step 3.3: Related file history
+### Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES
 **Record:**
-- Sibling panel `am-1280800n3tzqw-t00h` is already in this tree and used
-  by in-tree DTS files (`imx6q-icore-ofcap10.dts`, `px30-engicam-
-  px30-core-ctouch2-of10.dts`, `stm32mp157a-icore-
-  stm32mp1-ctouch2-of10.dts`).
-- On `stable/linux-6.6.y`, the nearly identical sibling addition was
-  backported: `bca684e69c4ce` (+29 lines, same vendor/subject pattern).
-- `w8tzqw` appears only in `panel-simple.c` and `panel-simple.yaml` on
-  mainline — no in-tree DTS references anywhere.
+- Recent related fix already in tree: `62e062a29ad51` — "prevent iommus
+  dead loop when two masters share one IOMMU" (different bug, has `Cc:
+  stable`).
+- `rk3568-iommu` v2 support added in `c55356c534aa6` (2021), present in
+  this tree.
+- This fix is **standalone** — not part of a multi-patch series
+  requiring prerequisites.
+- On `master`, this commit (`8d4346ecd4950`) is ahead of
+  `stable/linux-6.18.y`.
 
-### Step 3.4: Author context
-**Record:** Amarula Solutions (same vendor ecosystem as Engicam boards
-using the N3 panel). Dmitry Baryshkov reviewed; Neil Armstrong signed
-off. Same maintainer chain as prior Ampire panel additions.
+### Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS
+**Record:** Simon Xue is an active Rockchip IOMMU contributor (multi-irq
+support, dead-loop fix, ISP reset handling). Sven Püschel (Pengutronix)
+submitted and tested on RK3588 RGA3.
 
-### Step 3.5: Dependencies
-**Record:** Part of a 2-patch series:
-1. `dt-bindings: display: simple: Add AM-1280800W8TZQW-T00H` (Acked-by:
-   Conor Dooley)
-2. `drm/panel: simple: Add AM-1280800W8TZQW-T00H` (this commit)
-
-This driver patch is self-contained and applies cleanly to 6.18.44. The
-binding patch is a companion but not a compile-time prerequisite for the
-driver itself.
+### Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS
+**Record:** No dependencies. Patch applies cleanly (`git apply --check`
+succeeded). No new structures, APIs, or helper functions required.
 
 ---
 
 ## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
-### Step 4.1: Original discussion
+### Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION
 **Record:**
-- **b4 am** on msgid
-  `20260515082232.1766586-2-dario.binacchi@amarulasolutions.com` found
-  the v2 series (2 patches).
-- **Link:** https://patch.msgid.link/20260515082232.1766586-1-
-  dario.binacchi@amarulasolutions.com
-- **b4 dig -c** on merge commit `0fd8b67e27ff7` failed (merge commit,
-  not the original patch).
-- **No Cc: stable** nominations found in the mbox thread.
-- **No NAKs** found in the retrieved mbox.
+- **Lore URL:** https://patch.msgid.link/20251126-spu-
+  iommudtefix-v1-1-f90003dbfcc4@pengutronix.de
+- **Series revisions:** v1 submitted 2025-11-26; author pinged
+  2026-04-28; Heiko Stuebner suggested resend/v2 due to age; committed
+  as-is on mainline 2026-06-02.
+- **Reviewer feedback:** Shawn Lin (Rockchip) noted TRM offset
+  clarification (RGA3-specific offset vs general IOMMU 0x24) — comment-
+  only, no code objection.
+- **Stable nominations:** None found in thread.
+- **NAKs:** None.
 
-### Step 4.2: Reviewers
-**Record:** Dmitry Baryshkov (Reviewed-by), Conor Dooley (Acked-by on
-bindings), Neil Armstrong (Signed-off-by). Appropriate DRM/DT reviewers
-involved.
+### Step 4.2: CHECK WHO REVIEWED THE PATCH
+**Record:** CC'd: Joerg Roedel, Will Deacon, Robin Murphy, Heiko
+Stuebner, iommu@, linux-arm-kernel@, linux-rockchip@. Heiko Stuebner
+Acked-by in final commit.
 
-### Step 4.3: Bug report
-**Record:** Not applicable — no bug report, syzbot link, or user crash
-report.
+### Step 4.3: SEARCH FOR THE BUG REPORT
+**Record:** Real-world trigger documented by Pengutronix — sporadic RGA3
+hangs on RK3588 during driver development. Vendor kernel commits [2][3]
+document VOP black-screen issues. No syzbot/bugzilla report.
 
-### Step 4.4: Series context
-**Record:** 2-patch v2 series. v2 changes were alphabetical ordering and
-correcting WQVGA → WXGA in the binding comment. No board DTS included in
-the series.
+### Step 4.4: CHECK FOR RELATED PATCHES AND SERIES
+**Record:** Related but independent: RGA3 upstream driver series (v5,
+2026-04-28) depends on this IOMMU fix. The IOMMU fix stands alone and is
+not a "preparation" commit.
 
-### Step 4.5: Stable list history
-**Record:** No stable-list discussion found for this specific panel.
-Sibling `AM-1280800N3TZQW-T00H` was previously backported to 6.6.y.
+### Step 4.5: CHECK STABLE MAILING LIST HISTORY
+**Record:** No stable-list discussion found for this specific fix. (Lore
+direct fetch blocked by bot protection; analysis via `b4 dig -m` mbox
+download.)
 
 ---
 
 ## PHASE 5: CODE SEMANTIC ANALYSIS
 
-### Step 5.1: Key functions
-**Record:** No functions modified. Data consumed by
-`panel_simple_get_desc()` → `of_device_get_match_data()` via
-`platform_of_match[]`.
+### Step 5.1: IDENTIFY KEY FUNCTIONS IN THE DIFF
+**Record:** `rk_iommu_enable()` — only function modified.
 
-### Step 5.2: Callers
-**Record:** `panel_simple_platform_probe()` and DSI probe paths call
-`panel_simple_probe()`, which calls `panel_simple_get_desc()`. Any
-platform device with `compatible = "ampire,am-1280800w8tzqw-t00h"` would
-use the new descriptor. Triggered at boot during DRM/display
-initialization on affected embedded boards.
+### Step 5.2: TRACE CALLERS
+**Record:**
+- `rk_iommu_attach_device()` → `rk_iommu_enable()` (line 1043) — called
+  when a device attaches to an IOMMU domain (e.g., VOP, RGA, NPU).
+- `rk_iommu_resume()` → `rk_iommu_enable()` (line 1330) — called on PM
+  resume.
+- Both are common, user-visible paths on Rockchip boards.
 
-### Step 5.3: Callees
-**Record:** Standard panel-simple probe path: mode/timing setup,
-connector registration. No new allocation or locking paths introduced.
+### Step 5.3: TRACE CALLEES
+**Record:** Uses existing `rk_iommu_read()` / `rk_iommu_write()`
+register accessors, plus existing stall/reset/paging enable sequence. No
+new dependencies.
 
-### Step 5.4: Reachability
-**Record:** Reachable on any system with a DT node using this compatible
-and `CONFIG_DRM_PANEL_SIMPLE`. Not userspace-triggered, but affects
-display bring-up on boot for matching hardware.
+### Step 5.4: FOLLOW THE CALL CHAIN
+**Record:** Device probe → `iommu_attach_device` →
+`rk_iommu_attach_device` → `rk_iommu_enable`. Triggered during normal
+graphics/media driver initialization and suspend/resume. **Reachable
+from userspace** indirectly via device usage (display, GPU, RGA
+workloads causing IOTLB zaps).
 
-### Step 5.5: Similar patterns
-**Record:** Identical pattern to `ampire_am_1280800n3tzqw_t00h` already
-in this tree (29-line sibling addition backported to 6.6.y as
-`bca684e69c4ce`).
+### Step 5.5: SEARCH FOR SIMILAR PATTERNS
+**Record:** No similar workaround elsewhere in `rockchip-iommu.c`.
+Vendor kernel sets this bit unconditionally — external confirmation of
+the pattern.
 
 ---
 
-## PHASE 6: CROSS-REFERENCING AGAINST LOCAL TREE (6.18.44)
+## PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
 
-### Step 6.1: Does the “buggy” code exist?
-**Record:** The `panel-simple` driver and the sibling N3 Ampire panel
-entry exist in 6.18.44. The W8 compatible is **missing** — boards using
-it cannot get display support. The gap was introduced when W8 support
-landed in mainline after the 6.18 branch point.
+### Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?
+**Record:** **YES.** Local tree is **Linux 6.18.44** (`git describe
+HEAD` → `v6.18.44-1-gef4bf62bccf3c`). `rk_iommu_enable()` at lines
+928–960 lacks the BIT(31) workaround. `RK_MMU_AUTO_GATING` is defined at
+line 42. `DISABLE_FETCH_DTE_TIME_LIMIT` is **not** present. Affected DT
+platforms exist: `rv1126.dtsi` (v1 `rockchip,iommu`), `rk356x-base.dtsi`
+and `rk3588-base.dtsi` (v2 `rockchip,rk3568-iommu`).
 
-### Step 6.2: Backport complications
-**Record:** **Clean apply expected.** Insertion point (`after
-ampire_am_1280800n3tzqw_t00h` and in `platform_of_match[]`) is present
-and unchanged. `git diff HEAD origin/master` shows exactly this 28-line
-addition among broader mainline drift.
+### Step 6.2: CHECK FOR BACKPORT COMPLICATIONS
+**Record:** **Clean apply** — `git format-patch` + `git apply --check`
+succeeded with no conflicts. No refactoring churn in `rk_iommu_enable()`
+since 6.18 branch.
 
-### Step 6.3: Related fixes already present?
-**Record:** No equivalent W8 entry in this tree. Sibling N3 panel is
-present. No duplicate fix found.
+### Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE
+**Record:** The dead-loop fix (`62e062a29ad51`) is present. This DTE
+time-limit workaround (`8d4346ecd4950`) is **not** present on
+`stable/linux-6.18.y`.
 
 ---
 
 ## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
 
-### Step 7.1: Subsystem criticality
-**Record:** **drivers/gpu/drm/panel** — IMPORTANT for embedded/display
-platforms; not universal core kernel, but critical for affected
-hardware.
+### Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY
+**Record:** `drivers/iommu/rockchip-iommu.c` — IOMMU driver for Rockchip
+SoCs. **IMPORTANT** for ARM/ARM64 embedded (display, media, NPU, ISP).
+`CONFIG_ROCKCHIP_IOMMU=y` in `arch/arm64/configs/defconfig`.
 
-### Step 7.2: Subsystem activity
-**Record:** `panel-simple.c` is mature with extensive static panel
-tables. This follows established conventions.
+### Step 7.2: ASSESS SUBSYSTEM ACTIVITY
+**Record:** Actively maintained — recent fixes in 6.17/6.18 merge window
+(dead-loop fix, iommu-pages migration). Rockchip platforms (RK3568,
+RK3588) are widely deployed.
 
 ---
 
 ## PHASE 8: IMPACT AND RISK ASSESSMENT
 
-### Step 8.1: Who is affected
-**Record:** **Platform-specific** — embedded boards (Engicam/Amarula
-ecosystem) using the Ampire AM-1280800W8TZQW-T00H 10.1" LVDS panel.
-Requires `CONFIG_DRM_PANEL_SIMPLE`.
+### Step 8.1: DETERMINE WHO IS AFFECTED
+**Record:** Users of Rockchip SoCs with IOMMU-enabled peripherals —
+**platform-specific** but covering popular boards (RK3568, RK3588,
+RV1126). Display (VOP), graphics acceleration (RGA3), and other IOMMU-
+backed masters.
 
-### Step 8.2: Trigger conditions
-**Record:** Boot on hardware with DT `compatible =
-"ampire,am-1280800w8tzqw-t00h"`. **No in-tree DTS currently uses this
-compatible** on mainline or 6.18.44. Impact is for downstream/custom DTS
-or future board additions.
+### Step 8.2: DETERMINE THE TRIGGER CONDITIONS
+**Record:** Concurrent IOMMU master DTE fetch + CPU IOTLB zap during
+page-table updates. Realistic during graphics/media workloads and driver
+activity. Not every boot, but reproducible under load (Pengutronix
+observed sporadic RGA3 hangs).
 
-### Step 8.3: Failure mode severity
-**Record:** Without the patch: panel probe failure → **no display**
-(MEDIUM functional impact for affected hardware; not a crash,
-corruption, or security issue).
+### Step 8.3: DETERMINE THE FAILURE MODE SEVERITY
+**Record:** IOMMU permanent block → **CRITICAL** system hang for
+affected peripherals; VOP black screen (display unusable); potential
+soft lockup of dependent subsystems.
 
-### Step 8.4: Risk-benefit
+### Step 8.4: CALCULATE RISK-BENEFIT RATIO
 **Record:**
-- **Benefit:** Enables display on W8-variant Ampire panels; follows
-  established stable exception for device-ID additions; direct precedent
-  from sibling N3 backport to 6.6.y.
-- **Risk:** Very low — 28 lines of static data, no behavioral change for
-  existing panels.
-- **Ratio:** Favorable for stable, under the explicit “add a device ID”
-  exception in `stable-kernel-rules.rst`.
+- **Benefit:** HIGH — prevents hardware IOMMU lockup and
+  display/peripheral hangs on widely used SoCs.
+- **Risk:** VERY LOW — 8-line register write matching vendor kernel and
+  TRM; read-modify-write preserves other bits.
+- **Ratio:** Strongly favors backport.
 
 ---
 
 ## PHASE 9: FINAL SYNTHESIS
 
-### Step 9.1: Evidence summary
+### Step 9.1: COMPILE THE EVIDENCE
 
-**FOR backport:**
-- Explicitly permitted by `Documentation/process/stable-kernel-
-  rules.rst`: *“It must either fix a real bug that bothers people or
-  just add a device ID.”*
-- Falls under the device-ID / DT-binding exception category in the
-  evaluation guidelines.
-- Small (28 lines), contained, obviously correct, reviewed.
-- `panel-simple` driver and sibling N3 panel already exist in 6.18.44.
-- Applies cleanly to this tree.
-- Already in mainline (prerequisite met).
-- Identical precedent: `bca684e69c4ce` backported the N3 sibling to
-  6.6.y (+29 lines).
+**FOR backporting:**
+- Real hardware bug with documented failure mode (IOMMU block, display
+  black, RGA3 hang)
+- Hardware quirk/workaround — explicitly allowed stable category
+- Small (8 lines), surgical, applies cleanly to 6.18.44
+- Vendor kernel already does this unconditionally
+- TRM documents BIT(31) should be 1
+- Acked-by Rockchip maintainer (Heiko Stuebner)
+- Affected SoC DT support present in this tree
+- Buggy code path exists and has existed since driver introduction
+- No prerequisite commits
 
-**AGAINST backport:**
-- Not a bug fix — pure hardware enablement.
-- No in-tree DTS uses this compatible yet (no demonstrated user impact
-  in 6.18.44 today).
-- Ideally paired with patch 1/2 (DT binding yaml update).
-- No stable nomination or user bug report.
+**AGAINST backporting:**
+- No `Cc: stable` or `Fixes:` tag (expected, not disqualifying)
+- Applies to all Rockchip IOMMU instances, not SoC-gated (but vendor
+  does same; low risk)
+- Stale RV1126-only wording in commit message (code is correctly
+  unconditional)
 
-**Unresolved:** Whether a specific shipping board on 6.18.y already uses
-this panel in downstream trees (not verifiable from this tree).
+**Unresolved:** None that affect the decision.
 
-### Step 9.2: Stable rules checklist
-1. Obviously correct and tested? **PASS** — reviewed by Dmitry
-   Baryshkov; mirrors existing N3 entry.
-2. Fixes a real bug affecting users? **PASS (via device-ID exception)**
-   — not a software bug, but enables hardware that otherwise cannot
-   work.
-3. Important issue? **PASS (moderate)** — display failure on affected
-   hardware; not crash/security.
-4. Small and contained? **PASS** — 28 lines, one file.
-5. No new features or APIs? **PASS** — new OF compatible on existing
-   driver; standard stable device-ID pattern.
-6. Can apply to local tree? **PASS** — clean apply to existing `panel-
-   simple.c`.
+### Step 9.2: STABLE RULES CHECKLIST
+1. Obviously correct and tested? **PASS** — TRM + vendor kernel +
+   Pengutronix RK3588 testing
+2. Fixes a real bug affecting users? **PASS** — IOMMU hang, black screen
+   on production hardware
+3. Important issue? **PASS** — CRITICAL (hang, display failure)
+4. Small and contained? **PASS** — 8 lines, one function
+5. No new features or APIs? **PASS** — register workaround only
+6. Can apply to local tree? **PASS** — clean apply verified
 
-### Step 9.3: Exception category
-**Record:** **NEW DEVICE ID / DT binding addition** to an existing
-driver (`panel-simple`). Same category as PCI/USB ID additions and prior
-Ampire panel additions backported to stable.
+### Step 9.3: EXCEPTION CATEGORIES
+**Record:** **Hardware quirk/workaround** — qualifies under stable
+exception rules.
 
-### Step 9.4: Decision rationale
+### Step 9.4: DECISION RATIONALE
 
-This commit does not fix a kernel bug, but it adds a device identifier
-(OF compatible + panel timings) to an existing, in-tree driver. That is
-explicitly allowed for stable trees per `stable-kernel-rules.rst` and
-matches the established pattern of backporting Ampire `panel-simple`
-additions (the N3 sibling was backported to 6.6.y in an essentially
-identical 29-line patch). The change is low-risk, applies cleanly to
-Linux 6.18.44, and is already in mainline. The companion DT binding
-patch should ideally be backported alongside it, but this driver commit
-alone is valid stable material.
+For **Linux 6.18.44**, Rockchip IOMMU users on RK3568, RK3588, and
+RV1126 platforms are exposed to a silicon bug where the IOMMU can enter
+a blocked state during normal page-table maintenance, causing peripheral
+hangs and display black screens. The fix is a minimal, vendor-validated
+register write that matches TRM documentation. It applies cleanly, has
+maintainer ack, and fixes a serious user-visible failure on hardware
+well-supported in this tree.
 
 ---
 
 ## Verification
 
-- **[Phase 1]** Parsed subject, tags, body from provided commit message
-  and mbox.
-- **[Phase 1]** `b4 am
-  20260515082232.1766586-2-dario.binacchi@amarulasolutions.com`:
-  confirmed v2 2-patch series; Reviewed-by Dmitry Baryshkov; Acked-by
-  Conor Dooley on patch 1/2.
-- **[Phase 2]** Diff analysis: +28 lines in `panel-simple.c`; static
-  data + one `platform_of_match` entry.
-- **[Phase 3]** `git describe HEAD`: v6.18.44 / 6.18.44 on
-  `stable/linux-6.18.y`.
-- **[Phase 3]** `git grep "am-1280800w8tzqw-t00h" origin/master`: only
-  in `panel-simple.c` and `panel-simple.yaml` on mainline; absent from
-  HEAD.
-- **[Phase 3]** `git show bca684e69c4ce --stat`: sibling N3 panel
-  backported to 6.6.y (+29 lines, same pattern).
-- **[Phase 3]** `git log stable/linux-6.6.y --grep="1280800"`: N3 panel
-  + binding + bpc fix backported to 6.6.y.
-- **[Phase 4]** `b4 dig -c 0fd8b67e27ff7`: no match (merge commit).
-- **[Phase 4]** Read mbox `v2_20260515_dario_binacchi_dt_bindings_displa
-  y_simple_add_am_1280800w8tzqw_t00h.mbx`: no Cc: stable; 2-patch series
-  confirmed.
-- **[Phase 5]** `grep panel_simple_probe/panel_simple_get_desc` in
-  `panel-simple.c`: standard probe path via
-  `of_device_get_match_data()`.
-- **[Phase 6]** `grep "am-1280800w8tzqw"`: zero matches in local tree.
-- **[Phase 6]** `grep "am-1280800n3tzqw"`: present in `panel-simple.c`
-  and three in-tree DTS files.
-- **[Phase 6]** `git diff HEAD origin/master --
-  drivers/gpu/drm/panel/panel-simple.c`: W8 addition is a clean 28-line
-  insert at expected location.
-- **[Phase 6]** `git show origin/master:panel-simple.c | rg
-  "1280800w8"`: confirmed mainline has full W8 definition.
-- **[Phase 7]** Read `Documentation/process/stable-kernel-rules.rst`:
-  confirms device-ID additions are valid stable material.
-- **[Phase 8]** `git grep "am-1280800w8tzqw-t00h" origin/master`: no DTS
-  references — no in-tree board uses this panel yet.
+- [Phase 1] Parsed commit `8d4346ecd4950`: subject, body, tags (Acked-by
+  Heiko Stuebner; no Fixes/stable/syzbot)
+- [Phase 2] Diff analysis: +8 lines in `rk_iommu_enable()`, adds BIT(31)
+  write to `RK_MMU_AUTO_GATING`
+- [Phase 3] `git blame`: `rk_iommu_enable()` from 2014;
+  `RK_MMU_AUTO_GATING` from original 2014 driver
+- [Phase 3] No Fixes: tag to follow
+- [Phase 3] Related commit `62e062a29ad51` (different bug) already in
+  tree; this fix is not
+- [Phase 3] `git format-patch` + `git apply --check`: applies cleanly
+- [Phase 3] Commit on `master` but not on current `stable/linux-6.18.y`
+  HEAD
+- [Phase 4] `b4 dig -c 8d4346ecd4950`: lore thread found
+- [Phase 4] `b4 dig -a`: v1 submission 2025-11-26; committed 2026-06-02
+- [Phase 4] `b4 dig -w`: Joerg Roedel, Heiko Stuebner, Robin Murphy CC'd
+- [Phase 4] Mbox: Pengutronix confirmed RK3588 RGA3 hangs; Shawn Lin
+  comment-only TRM note; Heiko suggested resend; no NAKs, no stable
+  nomination
+- [Phase 5] Callers: `rk_iommu_attach_device()` (line 1043),
+  `rk_iommu_resume()` (line 1330)
+- [Phase 5] IOTLB zap path: `rk_iommu_zap_iova()` used from map/unmap —
+  confirms concurrent zap mechanism
+- [Phase 6] `git describe HEAD`: v6.18.44; `make kernelversion`: 6.18.44
+- [Phase 6] Buggy code confirmed present: no
+  `DISABLE_FETCH_DTE_TIME_LIMIT` in tree
+- [Phase 6] DT: `rv1126.dtsi`, `rk356x-base.dtsi`, `rk3588-base.dtsi`
+  have IOMMU nodes
+- [Phase 6] `rk3568-iommu` support since 2021 (`c55356c534aa6`), in tree
+- [Phase 7] `CONFIG_ROCKCHIP_IOMMU=y` in arm64 defconfig
+- [Phase 8] Failure mode: IOMMU block → hang/black screen, severity
+  CRITICAL
 
-**YES**The background lookups finished and line up with the earlier
-analysis:
+**YES**The background search on `master` found the commit:
+**`8d4346ecd4950`** — `iommu/rockchip: disable fetch dte time limit`.
 
-- **Pickaxe search** (`am-1280800w8tzqw-t00h` on `origin/master`): only
-  surfaced merge commit `0fd8b67e27ff7`, not the original panel patch —
-  the change is buried in a merge, which is why a direct subject/hash
-  search was needed.
-- **Broader pickaxe search** (with `--all`): slow and similarly
-  unhelpful for finding the real introducing commit.
-- **`b4 dig -c 0fd8b67e27ff7`**: no lore match on that RDMA merge
-  commit.
+**Summary:** This is an 8-line hardware workaround for Rockchip IOMMU
+silicon (RK3568, RK3588, RV1126). Without setting BIT(31) of
+`RK_MMU_AUTO_GATING`, the IOMMU can block during concurrent DTE fetch
+and IOTLB zaps, causing peripheral hangs and VOP black screens. The
+patch applies cleanly to the local **6.18.44** tree, where the buggy
+code is still present.
 
-The useful trace came from **`b4 am`** on the patch msgid, which found
-the v2 2-patch series (DT binding + driver). That supports the **YES**
-verdict for 6.18.44: a small device-ID addition to an existing driver,
-with the companion binding patch ideally backported alongside it.
+**YES**
 
- drivers/gpu/drm/panel/panel-simple.c | 28 ++++++++++++++++++++++++++++
- 1 file changed, 28 insertions(+)
+ drivers/iommu/rockchip-iommu.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/drivers/gpu/drm/panel/panel-simple.c b/drivers/gpu/drm/panel/panel-simple.c
-index ef1c4b9299ee4..878a5dc7748fb 100644
---- a/drivers/gpu/drm/panel/panel-simple.c
-+++ b/drivers/gpu/drm/panel/panel-simple.c
-@@ -820,6 +820,31 @@ static const struct panel_desc ampire_am_1280800n3tzqw_t00h = {
- 	.connector_type = DRM_MODE_CONNECTOR_LVDS,
- };
+diff --git a/drivers/iommu/rockchip-iommu.c b/drivers/iommu/rockchip-iommu.c
+index 0861dd469bd86..2d0dabb0d101a 100644
+--- a/drivers/iommu/rockchip-iommu.c
++++ b/drivers/iommu/rockchip-iommu.c
+@@ -76,6 +76,8 @@
+ #define SPAGE_ORDER 12
+ #define SPAGE_SIZE (1 << SPAGE_ORDER)
  
-+static const struct drm_display_mode ampire_am_1280800w8tzqw_t00h_mode = {
-+	.clock = 72400,
-+	.hdisplay = 1280,
-+	.hsync_start = 1280 + 40,
-+	.hsync_end = 1280 + 40 + 80,
-+	.htotal = 1280 + 40 + 80 + 40,
-+	.vdisplay = 800,
-+	.vsync_start = 800 + 10,
-+	.vsync_end = 800 + 10 + 18,
-+	.vtotal = 800 + 10 + 18 + 10,
-+};
++#define DISABLE_FETCH_DTE_TIME_LIMIT BIT(31)
 +
-+static const struct panel_desc ampire_am_1280800w8tzqw_t00h = {
-+	.modes = &ampire_am_1280800w8tzqw_t00h_mode,
-+	.num_modes = 1,
-+	.bpc = 8,
-+	.size = {
-+		.width = 217,
-+		.height = 136,
-+	},
-+	.bus_flags = DRM_BUS_FLAG_DE_HIGH,
-+	.bus_format = MEDIA_BUS_FMT_RGB888_1X7X4_SPWG,
-+	.connector_type = DRM_MODE_CONNECTOR_LVDS,
-+};
+  /*
+   * Support mapping any size that fits in one page table:
+   *   4 KiB to 4 MiB
+@@ -930,6 +932,7 @@ static int rk_iommu_enable(struct rk_iommu *iommu)
+ 	struct iommu_domain *domain = iommu->domain;
+ 	struct rk_iommu_domain *rk_domain = to_rk_domain(domain);
+ 	int ret, i;
++	u32 auto_gate;
+ 
+ 	ret = clk_bulk_enable(iommu->num_clocks, iommu->clocks);
+ 	if (ret)
+@@ -948,6 +951,11 @@ static int rk_iommu_enable(struct rk_iommu *iommu)
+ 			       rk_ops->mk_dtentries(rk_domain->dt_dma));
+ 		rk_iommu_base_command(iommu->bases[i], RK_MMU_CMD_ZAP_CACHE);
+ 		rk_iommu_write(iommu->bases[i], RK_MMU_INT_MASK, RK_MMU_IRQ_MASK);
 +
- static const struct drm_display_mode ampire_am_480272h3tmqw_t01h_mode = {
- 	.clock = 9000,
- 	.hdisplay = 480,
-@@ -4965,6 +4990,9 @@ static const struct of_device_id platform_of_match[] = {
- 	{
- 		.compatible = "ampire,am-1280800n3tzqw-t00h",
- 		.data = &ampire_am_1280800n3tzqw_t00h,
-+	}, {
-+		.compatible = "ampire,am-1280800w8tzqw-t00h",
-+		.data = &ampire_am_1280800w8tzqw_t00h,
- 	}, {
- 		.compatible = "ampire,am-480272h3tmqw-t01h",
- 		.data = &ampire_am_480272h3tmqw_t01h,
++		/* Workaround for iommu blocked, BIT(31) default to 1 */
++		auto_gate = rk_iommu_read(iommu->bases[i], RK_MMU_AUTO_GATING);
++		auto_gate |= DISABLE_FETCH_DTE_TIME_LIMIT;
++		rk_iommu_write(iommu->bases[i], RK_MMU_AUTO_GATING, auto_gate);
+ 	}
+ 
+ 	ret = rk_iommu_enable_paging(iommu);
 -- 
 2.53.0
 
