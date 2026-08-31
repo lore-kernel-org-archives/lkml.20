@@ -1,140 +1,113 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com [209.85.215.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DB45207A32;
-	Mon, 31 Aug 2026 05:01:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79E50352016
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 05:02:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788152494; cv=none; b=b9Ft2zs0qhnIK7GbXUVqQZ93oK7Bs3WQ7bSCVGQjJCyTAPrhSo833gOym0AqTJSp1enU7IfK5014hSx4UcK/bdGAI1VuXinBHh+iEVgYf+eQBspRvzoAH8paveTAsTXcbTZpviMRVX8j8QtMs5AFh7YYP28PNrVcOrqYguRT+p4=
+	t=1788152571; cv=none; b=I/aayQSZXdjjLuQbBz32FvF3vJEFItvBYmUzAiOP0pjGtdut1ZdS4lAyVvYkvGI10xBUXENC3XIWkproW3h4vvqAYm6TcLMS3ibry/7LogaE0tQTdRRPLtiz6xjpAvGAOrQwRtytyij4X7GpKudQwyTBKjYP80w2J2s//2KOM+c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788152494; c=relaxed/simple;
-	bh=zMHU9Xj3SzM3xmHQSC2knuRRMmoVMv7BrIS9wMud8Xc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=LFegoim363N2JtaghSGXHmmki3re72e+adeNyxTY02O9yfKI02iGWw9IctJF3J+3tRYKMj0R4UQFpdxxX97ovHD9fTb89Jkjm0LDBufZukPy6J2m6hXugb3uSF/+dnsy5F0HJfCADROWlX/CaQIYLDmXqGJ6ZcHcdcAZgEHZFC4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=H+e4mRZq; arc=none smtp.client-ip=192.198.163.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1788152571; c=relaxed/simple;
+	bh=+IoUalunk6EBcTh9xGk4fB9x0NW21q/3n3sKS5ELLS8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=luzfjVUWCzDcS2ZxFu6WI+a5Q9si79mVFFgEbbDK2sbT+rhRZrqvo9B66Kfd2pvf78LL53nWXL3fXTShQ1xIj8RUomGR7L5ddPk/+PlQfEwrD1/LJIIiyViCom3ueeVidq94sBS38U0OYrEQl72ekJAvpPFCBg+WA+tjyCWWrlg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Tz0FborN; arc=none smtp.client-ip=209.85.215.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="H+e4mRZq"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788152492; x=1819688492;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=zMHU9Xj3SzM3xmHQSC2knuRRMmoVMv7BrIS9wMud8Xc=;
-  b=H+e4mRZqTsLMbTRl0+icIZysD8wEvhyG7+pIPrYYTXqm6lypbHg9DWQ1
-   yaMm9NJaQxsUxGeeUUyqbk5VQ6APpcpq06XaIBUIJarO8TXRXMAgE/j1L
-   nDGkzeATd+OTGcq6YKMCUyEo4mcO63jwH+CZllot3PzrrPn119dKOIxs8
-   EUB9SnBZBX4PmL7VkbMDjKTAz8eokACU/xqzOn+mh6hxWlSj1LxQjVRLP
-   2J/mj2QGDV8zU5gf3gNwlC2YBReqCE7GQQX832I8fMSK8/DXLiAPLo1w6
-   78A1zdd2pLL18dk+1kXCSkr4KGCzFXmHM9HIaeFaVtNhYJSvLQeDPvfNl
-   g==;
-X-CSE-ConnectionGUID: LEzlPGJWTAq2F9O0g4gj7Q==
-X-CSE-MsgGUID: rl4Q1lJ+T6+xeEPBNxDLkA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11891"; a="76094675"
-X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
-   d="scan'208";a="76094675"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Aug 2026 22:01:32 -0700
-X-CSE-ConnectionGUID: QmEgMgowTGSdqlG9xkxmlA==
-X-CSE-MsgGUID: P8+obPsxQ7e1jTK0LYsT9g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
-   d="scan'208";a="293500149"
-Received: from unknown (HELO [10.238.2.33]) ([10.238.2.33])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Aug 2026 22:01:29 -0700
-Message-ID: <f7a3b14b-d31c-4a46-99e0-055761d631a9@linux.intel.com>
-Date: Mon, 31 Aug 2026 13:01:26 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Tz0FborN"
+Received: by mail-pg1-f175.google.com with SMTP id 41be03b00d2f7-cc147d86bebso3458971a12.0
+        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 22:02:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788152570; x=1788757370; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=l4KeYjahQ7mXCY2qiFTNky7ut0uCfsaiu5clA8xyfKA=;
+        b=Tz0FborNtS0UE0FIaWkmYdb7a2kASSa5bTjGT2yg2wr78kYBwDjHCnjz00Qt07CDDQ
+         kSewHDpa2uEpl6uFwwRAuySp8OVMtCHyw95WB1JQ/wGqSXUhg1uZQg87ZS37hMJIoNT7
+         lc2GfwVvOxZl9TrsTC0mjr86sXLAnUi8qCqJHmg3k1CWLIWlJmYhYCl/JUK6y1G3EF/G
+         6ZcUDdGvhZDKVYRd034JqusY+0UwD4QTmhINLcNKzOy2JFxnBHBFcExluRPPaxisy0Zq
+         x+/h6wW0+/9GrtGGalRvZdbwWtUQ3aQetNQpUoWAvv6qSGLkmfSAV0gR+VmxIj7s6gjb
+         gl6A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788152570; x=1788757370;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=l4KeYjahQ7mXCY2qiFTNky7ut0uCfsaiu5clA8xyfKA=;
+        b=C/6iEWVeKxdFxdc80v1fHqWj0exYfE4FZaLEHfC9ZinqzRBhRdTUWZbBsf9xY7saHu
+         dnsqTDCH31pTxnwcY5l6Yq5wya/3UG1U4oxlHC3dR3iVl+YiaxHhl6qY7Sfso2k/a9Iy
+         xh4qJIQNxVtiX2wjBpGQUMWI89LyVBnrjDbAqcxD0l4m+d+zVXZS78RXYXpVQ4R8yWba
+         HWWaeQy0wgBzO6rO3cSBG4eiG1HbxpFGA6L077NXVjhbnu0BndtQ9vuvpXby4kxmAg+O
+         AahyuiYiz3xQmwangUOmrvNa1BSik87fZ3dgFwBudNfysqanoC3iI5ARvyT19SL5WDnb
+         DzOw==
+X-Forwarded-Encrypted: i=1; AKwUvBz+z7i0ACJuG8Oie/J4eWK+soEJWFHdggKxUJi47Sj2FAD0Xvs3wQmEx472RmN1ZIpiAn85cEPbnTaobPc=@vger.kernel.org
+X-Gm-Message-State: AFuF++lEKgWCO8gHgnIrEfZaTazmcPYL/WlXHdHashGyBA+g14yc2Dsd
+	dok28PTtVh95kW54yN7ohSO/EGr0aMUPUkmOxjffVvmX6G6SMYPbqo41
+X-Gm-Gg: AYBFou2GJtfshyPjU59bOX2u4EcprXEegUHmEbKSa27TCOcyjTci5zKMyLBaPpYPDFB
+	TojVoflg5ovPl2qrVUzrPXgWlnSVXwj6E2OfBmd6uRpGFbcXmHYzr/oGhxN0LhlMVoZzPiG0gor
+	clFsn9+GYJsWwe7ya6DOe6/ilSME8KuYJlzhYWdTqK2TMViczl/ArxT12aHP2Bkql+rjjgQilGj
+	8Gn6SpChACdMXkaW8/905RpUGyHqrWGojqFhFj4zt5Jq0qTief7Xpt3+TUmDreixUe9c9JVPHvl
+	7Wa8KbcxT+dYMXJ3sJSBIIN95+TFs97wAmqNHPvpYsUj/BK2r5WSmXbgi6GEcb6U7NpxZzTUZP5
+	VMJ0FRvSB8Y1NIgMGcbdCeoZHyGIdMzqAv5PDptyX5y7cJ07YatA/utY998VPn0PHbKYC8zT4mj
+	pwUWgAWYuHqVe8Bpckx8e+h4xGh1VZo6/E6I374L/jhlei8vn0+Zrh34Hi1HEDUnqX58Z5sxT5E
+	RieZjH6FUk=
+X-Received: by 2002:a17:90a:dfce:b0:369:7491:7b24 with SMTP id 98e67ed59e1d1-398da5e8899mr4849560a91.6.1788152569656;
+        Sun, 30 Aug 2026 22:02:49 -0700 (PDT)
+Received: from volcano9f8e-host.amd.com ([165.204.217.251])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-142e0dc854dsm24897806c88.10.2026.08.30.22.02.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 30 Aug 2026 22:02:49 -0700 (PDT)
+From: Hemanth Selam <hemanth.selam@gmail.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: djbw@kernel.org,
+	vishal.l.verma@intel.com,
+	dave.jiang@intel.com,
+	alison.schofield@intel.com,
+	iweiny@kernel.org,
+	nvdimm@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] nvdimm/pmem: Release gendisk on probe failure
+Date: Mon, 31 Aug 2026 10:32:41 +0530
+Message-ID: <20260831050241.1303288-1-hemanth.selam@gmail.com>
+X-Mailer: git-send-email 2.43.7
+In-Reply-To: <20260831044508.520351F000E9@smtp.kernel.org>
+References: <20260831043459.1298059-1-hemanth.selam@gmail.com> <20260831044508.520351F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 0/4] KVM: TDX: Validate directly configurable CPUID
- bits
-To: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>,
- "kvm@vger.kernel.org" <kvm@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Cc: "Gao, Chao" <chao.gao@intel.com>, "seanjc@google.com"
- <seanjc@google.com>,
- "dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
- "kas@kernel.org" <kas@kernel.org>, "Li, Xiaoyao" <xiaoyao.li@intel.com>,
- "pbonzini@redhat.com" <pbonzini@redhat.com>,
- "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>,
- "nik.borisov@suse.com" <nik.borisov@suse.com>
-References: <20260827031837.2863609-1-binbin.wu@linux.intel.com>
- <e2f8f7976ac6a54e0bbda0e65ed9990940d9fef3.camel@intel.com>
- <d2efe512-e4fe-407f-96a8-b274fef23382@linux.intel.com>
- <1deddc78d14326b378ddd62ad99c21d66da401e6.camel@intel.com>
-Content-Language: en-US
-From: Binbin Wu <binbin.wu@linux.intel.com>
-In-Reply-To: <1deddc78d14326b378ddd62ad99c21d66da401e6.camel@intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 8/29/2026 12:58 AM, Edgecombe, Rick P wrote:
-> On Fri, 2026-08-28 at 11:19 +0800, Binbin Wu wrote:
->>>
->>> But it isn't a kernel bug, so I'd think to punt on this and let TDX module
->>> figure out a solution if/when the time comes. Probably various opt-in knobs
->>> to allow for working around it.
->>
->> Do you mean on the old platforms, the according TDX module versions add opt-in
->> knobs to allow the "effective 1 -> directly configurable" change?
-> 
-> Yea. Or the other way. Forcing the old fixed-1 bits to 1 automatically. Could be
-> like a quirk like config thing. User/admin can decide if they want migration
-> flexible design, or backwards compatibility for existing TDs.
+On Mon, Aug 31, 2026 at 04:45:08AM +0000, sashiko-bot@kernel.org wrote:
+> This isn't a bug introduced by this patch, but I wanted to ask about the error
+> handling for alloc_dax() just below this code.
+>
+> In pmem_attach_disk(), if alloc_dax() fails with -EOPNOTSUPP, the code
+> gracefully falls back and leaves pmem->dax_dev as NULL:
+[...]
+> However, the write_cache sysfs attribute remains unconditionally visible as long
+> as CONFIG_ARCH_HAS_PMEM_API is enabled.
 
-It's all about the new created TDs on the old platforms. For existing TDs, the
-runtime TDX module update should not change the shape of the TDs.
+I do not think the two can meet.  alloc_dax() only returns -EOPNOTSUPP for
 
-> BUT, we could work
-> out the details later if we think we have options.
-> 
-> I think I've convinced myself we have options and can close this one. Agreed?
+	if (ops && cpu_dcache_is_aliasing())
+		return ERR_PTR(-EOPNOTSUPP);
 
-Agree.
+so pmem->dax_dev is left NULL only on architectures whose data caches are
+virtually aliased: csky, m68k, parisc and sh unconditionally, arm and mips
+depending on the CPU.
 
-> 
-> <snip>
->>
->>
->> If FRED support lands in KVM for non-TDX VMs before this
->> filtering/invalidation is in place, adding FRED to the hardcoded denylist
->> would work as a temporary solution.
-> 
-> This could easily happen.
-> 
->>
->> But that only holds for a well-behaved userspace VMM. QEMU, for example, only
->> enables features supported by both KVM and TDX, so if FRED isn't supported in
->> KVM for non-TDX VMs, QEMU won't enable it for TDX either.
->>
->> A malicious userspace VMM, however, can set a feature regardless of KVM's
->> reported CPU capabilities, and could still cause trouble.
-> 
-> Right. It the problem I thought we would need an opt-in to avoid.
-> 
->>
->>> Do we want it? Where would it get plugged in?
->>
->> So if the approach in this series is taken, I think we still need such an opt-
->> in interface to tell the TDX module that the VMM is now filtering the CPUID
->> bits so that the TDX module knows that it's safe to report new host state
->> clobbering features.
-> 
-> Yep. Can we think about what it would look like? Easiest would be a bit passed
-> in TDH_SYS_CONFIG. But then arch/x86 is saying how KVM will behave. Ok to me,
-> for the simplicity. Could come with a nice comment.
+write_cache is visible only when CONFIG_ARCH_HAS_PMEM_API is selected, and
+that is arm64, powerpc, riscv and x86_64 (X86_64 only), none of which have
+aliasing data caches.  So on every architecture where alloc_dax() can hand
+back -EOPNOTSUPP, dax_visible() returns 0 for write_cache and there is
+nothing to read.
 
-The TDX module is initialized before KVM is loaded. I guess the upstream kernel
-doesn't support out of tree KVM code, so we can assume if the kernel has the code to
-opt-in the new host state clobbering features, KVM must have implemented the TDX
-CPUID filtering and validation?
+Happy to be shown otherwise if there is a configuration I am missing, in
+which case the fix belongs in dax_visible() rather than in this patch.
 
-Also, do you think it's reasonable to backport this patch series to stable/LTS
-kernels as an alternative?
-
+Hemanth
