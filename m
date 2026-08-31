@@ -1,974 +1,249 @@
-Received: from mail-yw1-f178.google.com (mail-yw1-f178.google.com [209.85.128.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 087154A8A1C
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 15:35:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.178
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788190555; cv=pass; b=TBNc04Gxdbr90h/xBgF88RS5k2HAJ/rPkrHUg85WmzkRkekCZSD8UliQc9y3zkqFVfIVyfPskYNh0kt+wyEXTr/nG8pepj54OznSqGcsaJ03k7r5aL4CPNBvu7S+jSPAU+cme7IMYnXp3FwkNUvNj3oQFLRCCwqbLfkcctnOGEk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788190555; c=relaxed/simple;
-	bh=wfSBIfgClI5p35lI+ic9e/u/Lz9C9GDWQ9TG04DDxx4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=BMR9gKPSjGJbuXHXIEQqrBAlJXxJLE7n+tVSuIMNaJOObgQRI2c2390YMf6yM57ioUAInc+hOpvqR+MwA3k46+vzcQS5jAdinCkgYrOm5ORnLloDI+SJgMGYjffCiGWzkJA3UERHPho5SAgvR97KQ15iR+2qDuxWdxIusnQDIs0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LWg3BTkQ; arc=pass smtp.client-ip=209.85.128.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB772470EB5
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 15:36:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788190571; cv=none; b=YJiHZnGaacvGEV9Xgvgq3Rzxmhu1HFenpIp6ujqJJVBujIUL+g92XLTyLrxISwoTluTDQ38QuePH9h+G6X7rTg6iJ1f0o0r4oCDmjx3jN/HQQ0nHOz5oIszVqrsisl9WeqWP8JukNmvsQCjo7w4DEggfkONvjzIMKnWknmyb2Cs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788190571; c=relaxed/simple;
+	bh=DodOb5bu1oSMuLPsOxNFB8oK01GET+pyiMt7NsDyP0I=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=GLJHgHngeZ+yh4wzlqev0E8T+MmfG7YDuXCe5sdknLxI1YunLX8pKuR3RimeohwQigGhcPUQ2IZAmiaCP6MrGeh2QqYd6p2uphxxBzP3TweFw78SUlQitrlkRp+v9mx7KZH1d1w1OfU1UFyKCLJxGsaU2DaWxCEMlaC5ZHJhxFE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=dakA0lC1; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=ewCGphf9; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LWg3BTkQ"
-Received: by mail-yw1-f178.google.com with SMTP id 00721157ae682-8664769db58so10952017b3.3
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 08:35:52 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788190552; cv=none;
-        d=google.com; s=arc-20260327;
-        b=OWk/cZyske8Lo8anu/YGXKCm4hDCnJUuXKproIMkipAWQbDcu0DSz9ZsR0HSd2/U14
-         qwuFgkMrijjnQWwFBCkFGP0BV4W5Wr4i1kOv4iAtHQknLJQQIWDpjf69c6K6GmCyHlhN
-         fcwxWRODBG6iL8kBn7zTUVtYvKyXYKnJNAFsA/i2wXqjbM60bmwaoT+5HrS3/LTJqoIw
-         rOlm4KaaaQu2/i/PmQOYckf4VrH4NsOXDxb1ajdEr6FrDZdmOTGdE6mG/ACyJ3zc+Qlr
-         sfm8EKVhP2rdhw23Mqf4C3GDmb4A0asCr8fIO4uQldzbkLGMs2hlXem+gR/U7V+DiFJU
-         rhBA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=1RT//O5/BgV+BOkB+AeUow8G1x/wRGUP+UkvNfFgVkQ=;
-        fh=oV43bFrNXtq3nR3gufy5n734yavHt7WxlinHIUWCRyg=;
-        b=h3D6ahcJUcNWFellyqbkKSHIwcc1K3qUse4YebzyvbJCZjf6/WLtHvUgVmMxhkLwW6
-         ZH7yDALafS7XkKyOMiahnFB86eiPyyDM1q3j4IZ8jYYQ99eVrEnSa1NVmlyVC8+yVNSr
-         7Cuw2oQAaPaLmtOoHZJJKyum5wKuFyseXH7DxtZgkNP8RyBr906ziQ7E/KcCHFXU0zre
-         U/iACrhfVLFHcGL9xl5R3dPqlYhxsRmxvc/Rf3BPmWL/VcbRzgq8wP2aGL2+EE1zjSzU
-         lbMuM/fcgtSnwNMvZHSHSAGwW2NojmjKfcUoWvbywdJp8/hVON+NWlAMy04TkarOLAYV
-         87Tw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="dakA0lC1";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="ewCGphf9"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788190568;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=uVxBilOuJ3eJRjLFViKxIC+i5050iOvt2YALC/2UHq4=;
+	b=dakA0lC1O+Wx9Un543FmnQ6r29Xds96hGCtuQA0VAHdBGT4SYp21rIzYG6yTjUx4ehqvn9
+	c08hMuqN3YlfCLEhSC3xsVCpI50N3PWBXPbusYv/nz3G1+t0tRx0ybS8myVyb71FOJZZpU
+	JUSv2Oq8Nn0tNxtxjBy9F1QDAWhlfUU=
+Received: from mail-yx1-f71.google.com (mail-yx1-f71.google.com
+ [74.125.224.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-645-PWTwGBSHOTeBoaRY1rwlxg-1; Mon, 31 Aug 2026 11:36:06 -0400
+X-MC-Unique: PWTwGBSHOTeBoaRY1rwlxg-1
+X-Mimecast-MFC-AGG-ID: PWTwGBSHOTeBoaRY1rwlxg_1788190566
+Received: by mail-yx1-f71.google.com with SMTP id 956f58d0204a3-66c767e23f6so4913307d50.0
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 08:36:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788190552; x=1788795352; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=1RT//O5/BgV+BOkB+AeUow8G1x/wRGUP+UkvNfFgVkQ=;
-        b=LWg3BTkQozu1ZEqOsPwzJ2Jxcp5xdpAsnuzdHR8N0ve8FbsRCibUgdCQciEnPege1E
-         Tv5lIB5pv8P+JLXTKk7OLcL3alrsZ/wP3adiAM6YIVceuoxbB5WKBld+Rv9C/BplXz3E
-         GbHQmSm6Y9R0iaZ7XN+zIkWeB1URy5LnkpCIwHVCjZNNIGJi1705u3OTeUtmMBmtyAaO
-         LQX5/brB3cYz0lRRZ8r8gLswl/S9aBDhDrOnO8vVlfyllrz40T9nR56fYC4FHpaBCe/C
-         NpoUbddA/d+pOCPI9uuTSx2k1V0+iksorXSvAtvMmV4LvzmsHVLzDnqbGgqCHuuMwDMY
-         C4vA==
+        d=redhat.com; s=google; t=1788190566; x=1788795366; darn=vger.kernel.org;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=uVxBilOuJ3eJRjLFViKxIC+i5050iOvt2YALC/2UHq4=;
+        b=ewCGphf972PAR8+k1iRpbk/FrpS7EDIgvk+laCzpoq6oHTazz0nWGn7fL5eenQuHDk
+         pK2aaSI3LtieJ0EDNlGLizJxmHY0iLVNgpR44zNteMSAcIYW5YhngTXGMwf2f/KOfYjE
+         3Wk5rTfDGf6+0AVVaXTb607fcY0Tkm0dVZy4ewwm8z/CSn07cILYFA9QJVgIF2mVs3Yq
+         bL6kUYmFnIdGxIHuEHdJoWgrFVWmZnxufKzwK4wrmJK+1GvYVcam+ZpRI9dmjF0EGAom
+         uErZdLe7+hzkEInBPE1SfmmDrAchECt9RKygdhev30/AXwHZJrT/GwT2EwbNichjtDM9
+         O1Lg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788190552; x=1788795352;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20251104; t=1788190566; x=1788795366;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=1RT//O5/BgV+BOkB+AeUow8G1x/wRGUP+UkvNfFgVkQ=;
-        b=gnZ6NTvINoz0OGPAL970TQI3XzE/qyWZF18lbQw+qTgBflYjPuKEtWcM9PyC/U6ctj
-         kicBIRSSQt+/9+tSVA4XXR7VWFKCjcpnfRiakNaesfMp2qCtoqi7FTMe+eCizqcX1dY3
-         qXiRQa8DAyWd6jSZ0MAJEo0Aw8qkEHQAaz+fGKqBB+ftJTDnhBs1YPmBORI3AE210fRb
-         +PLKwrdeyD5XyUMS/2+JyFxz3vwyZ3d1FUhu7gkXOMSIbV9rjfYzflc+j59mXuA3ARWd
-         H/5AzU6zox+rq1cYNdm5AqqxoHwDOaCNWMIGMCJ/R67+BayCC3u8qpKcbIjuUDblAcRi
-         golA==
-X-Forwarded-Encrypted: i=1; AKwUvBxXG/1+M7uZgxpyHAarwrYGD2g+bB8F8ndgOsMB3tOPQ4eCWWxzsfY3C1OZcp3QqCwYZDu5Psh6RNgokTY=@vger.kernel.org
-X-Gm-Message-State: AFuF++mM4CH221hvBHC6K+hDLg35a2Y77KT6RbBZvSxkZh5ts7QYrqSa
-	8A/AuTudCdoHE3AqyCURNHDfGAY+G3tlBzwHlg1pOOZKln9SjxkNV47tUlSQYpGVSDElmpjGRx/
-	tBq/dI4bD49FjINqNnrPwa9kpnNkSC8cJ6sjwR0aM7Vzb
-X-Gm-Gg: AYBFou1JYPq9h+rWV8pBm7bSMEyuUUgNJgtqn/chBPSRnixqIMjU0e2djhRLUnsaSxM
-	ZCjy7Tg9B/hhi6TRTd7YbjiI8zRivlDAx8Rd/oWtUfKO7NR/FNoaUb+33A7CxixRG/JRCSOKvNC
-	KJFJq+dZhWWJFcgz+4mrVLS1mdye/o1piifOy7GsrBDefw+/Vc6qkONGy/QnIIDDsKsmhovF75v
-	2UxiZuHJ58xk4lpG3PHmXRrPe2up8owClcMLZbzzIU++9wBrXIr33O2oqY+hesxSyvfgl21bagN
-	eWwrrrFii9upinFiDEE/Icj+zqqs7Cm/WvB/Pp7oDL61cEpazTmMlZXPqqR+YDV/I4UmUhb6Oef
-	nbrZFCpXfrHPyOeQGAdMDxZUkyVWA
-X-Received: by 2002:a05:690c:4d0a:b0:858:d554:79e4 with SMTP id
- 00721157ae682-85d6b275e9fmr97350387b3.20.1788190551542; Mon, 31 Aug 2026
- 08:35:51 -0700 (PDT)
+        bh=uVxBilOuJ3eJRjLFViKxIC+i5050iOvt2YALC/2UHq4=;
+        b=DdYLgDlYeP8BAJD1by5CLzDuuzY5ZiGTkStErUwCdxKikgggdG+qIDyTNMs2+N/8jB
+         0Vzah7xAA7mnBYaXAO+D1xXGJlMjsv2s9lDFfgMS8QRklD3cMfqLmPjX7elRQIHeuuus
+         7Bwinzaur6XimdkgnBKmPkORJNYxUndOxZMqx1DE8SoaYbHSn2lM4rS2ezGLp+/wYETI
+         LMDv+p50vqkoWCdaNG/ZLJPfPAyXr5Y77G2PKHmLiDxgMHm39yGVp/M4kGASK9YuLTz6
+         3w0BKUc0VVUHff8k6OWPBLvogI2CnuNJo/KC1J0C8h+G1VKgxbfA0GOouFx1N9guuG2q
+         V53w==
+X-Forwarded-Encrypted: i=1; AKwUvBwBOS7yx4ofTHdMg6KKDWXd+S0MgS/0OJDh3TmLAec3Wvm+moUhE+GPpoMVUNsbSrtfdEVOewdM+/h0Lj4=@vger.kernel.org
+X-Gm-Message-State: AFuF++k0wg0lMUR/0qCZRkxJ8bfROJwrzTbjwAusa7neMoZnFrvoTi4Q
+	8foqFO2rrtkFZDQ7HXbpdOCQ96wTAoP2EmeIlhX28NjnE2z8PkDBY6tR/E+dppfUEa1QcYP8Wcl
+	54H9sCl6ekrgt7SePJOpFk5M/k9ZTucT+BFnQRE9Hgtws1WeUqSYLRkfmg2+KzQ9xlA==
+X-Gm-Gg: AYBFou1k0ewYCDJSr52SZjcz/7X11VGUxfLES2cSwRcFwZkev+MEvqkNWaIxLLbH0kC
+	AMn8JHyvIOoRLItLktZPaY/WPVpFjdoWo1Ym3q7BpL2ySymN3WS4oSmt1+d2J0DswDsEbkZYXIY
+	5ERwT5XozSrAZs7vFRLrednCH34qwf8i0jo8DILHCAn3VeKnrosZQwotuK1VQLc1S45heWxw+wC
+	IbCOGG0xVhjj17bMXmixvG/masiPAp15OFs8VohWb997+p1/uzLGgd5PLglS3K+Q49aIkOMO/t4
+	AR2ZWyD2SYSsesaqdnr1DykHFMHoDRArBqlgwZHyndZm4JWrUyLzCnVpMl4OaeDwWHEY3M3JJhI
+	=
+X-Received: by 2002:a05:690e:13c7:b0:66f:8255:9f3d with SMTP id 956f58d0204a3-66f873db9b1mr559439d50.7.1788190565256;
+        Mon, 31 Aug 2026 08:36:05 -0700 (PDT)
+X-Received: by 2002:a05:690e:13c7:b0:66f:8255:9f3d with SMTP id 956f58d0204a3-66f873db9b1mr559344d50.7.1788190564555;
+        Mon, 31 Aug 2026 08:36:04 -0700 (PDT)
+Received: from redhat.com ([2600:382:8519:3f74:ab6c:bb55:e9cb:f8d6])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-66f7efc9dbfsm2062227d50.9.2026.08.31.08.35.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Aug 2026 08:36:03 -0700 (PDT)
+Date: Mon, 31 Aug 2026 11:35:55 -0400
+From: Brian Masney <bmasney@redhat.com>
+To: Geert Uytterhoeven <geert+renesas@glider.be>
+Cc: Ryan Chen <ryan_chen@aspeedtech.com>, Joel Stanley <joel@jms.id.au>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Andrew Jeffery <andrew@codeconstruct.com.au>,
+	Billy Tsai <billy_tsai@aspeedtech.com>,
+	Nicolas Ferre <nicolas.ferre@microchip.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+	Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Taichi Sugaya <sugaya.taichi@socionext.com>,
+	Takao Orito <orito.takao@socionext.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Avi Fishman <avifishman70@gmail.com>,
+	Tomer Maimon <tmaimon77@gmail.com>,
+	Tali Perry <tali.perry1@gmail.com>,
+	Patrick Venture <venture@google.com>, Nancy Yuen <yuenn@google.com>,
+	Benjamin Fair <benjaminfair@google.com>,
+	Sudeep Holla <sudeep.holla@kernel.org>,
+	Cristian Marussi <cristian.marussi@arm.com>,
+	David Lechner <david@lechnology.com>,
+	Abel Vesa <abelvesa@kernel.org>, Peng Fan <peng.fan@nxp.com>,
+	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Paul Cercueil <paul@crapouillou.net>,
+	Santosh Shilimkar <ssantosh@kernel.org>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Gregory Clement <gregory.clement@bootlin.com>,
+	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+	Vladimir Zapolskiy <vz@mleia.com>, Heiko Stuebner <heiko@sntech.de>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Sylwester Nawrocki <s.nawrocki@samsung.com>,
+	Chanwoo Choi <cw00.choi@samsung.com>,
+	Peter Griffin <peter.griffin@linaro.org>,
+	Alim Akhtar <alim.akhtar@samsung.com>,
+	Dinh Nguyen <dinguyen@kernel.org>,
+	Viresh Kumar <vireshk@kernel.org>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Emilio =?iso-8859-1?Q?L=F3pez?= <emilio@elopez.com.ar>,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>,
+	Prashant Gaikwad <pgaikwad@nvidia.com>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Ulf Hansson <ulfh@kernel.org>, Liviu Dudau <liviu.dudau@arm.com>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Michal Simek <michal.simek@amd.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	linux-clk@vger.kernel.org, linux-aspeed@lists.ozlabs.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	openbmc@lists.ozlabs.org, arm-scmi@vger.kernel.org,
+	imx@lists.linux.dev, linux-mips@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	linux-samsung-soc@vger.kernel.org, soc@lists.linux.dev,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-sunxi@lists.linux.dev, linux-tegra@vger.kernel.org,
+	linux-mediatek@lists.infradead.org
+Subject: Re: [PATCH 00/45] clk: Make sure clk_init_data is fully initialized
+ (part two)
+Message-ID: <apWfW5ahiYagw0OR@redhat.com>
+References: <cover.1787239813.git.geert+renesas@glider.be>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260828022549.1721170-1-hnkz.64@gmail.com>
-In-Reply-To: <20260828022549.1721170-1-hnkz.64@gmail.com>
-From: Luiz Augusto von Dentz <luiz.dentz@gmail.com>
-Date: Mon, 31 Aug 2026 11:35:37 -0400
-X-Gm-Features: AcwNN1XQx-SG7fqoeaFuKhHkroYfTeaIUDlBopevEMRN67cE1xUlnBG_ZZBBCtQ
-Message-ID: <CABBYNZ+aHsY0Z5jpUmKNW=fS6Jubq5wx8S_jDUwNizRORBm=Kg@mail.gmail.com>
-Subject: Re: [PATCH] Bluetooth: hci_core: Fix IRK lookup lifetime races
-To: Kazuki Hanai <hnkz.64@gmail.com>
-Cc: marcel@holtmann.org, johan.hedberg@intel.com, 
-	linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <cover.1787239813.git.geert+renesas@glider.be>
+User-Agent: Mutt/2.4.0 (2026-06-19)
 
-Hi Kazuki,
+Hi Geert / all,
 
-On Thu, Aug 27, 2026 at 10:27=E2=80=AFPM Kazuki Hanai <hnkz.64@gmail.com> w=
-rote:
->
-> The IRK lookup helpers traverse the identity resolving key list under
-> RCU, but return a raw pointer after leaving the read-side critical
-> section. A concurrent management unpair or key reload can unlink and
-> free that entry while SMP key distribution still updates its value and
-> RPA through hci_add_irk().
->
-> RCU also does not serialize list mutations. SMP cleanup and key
-> distribution can update the IRK list without the hdev mutex while
-> management paths update it with that mutex held, allowing concurrent
-> list_add_rcu() and list_del_rcu() operations on the same list.
+On Fri, Aug 21, 2026 at 10:53:10AM +0200, Geert Uytterhoeven wrote:
+> 	Hi all,
+> 
+> The clk_init_data structure contains several mutually-exclusive members
+> for different methods to specify the possible parents of a clock,
+> prompting drivers to initialize only the members they need.  However,
+> not initializing all members may cause subtle issues, which are only
+> exposed when CONFIG_INIT_STACK_ALL_PATTERN or CONFIG_INIT_STACK_NONE is
+> enabled.
+> 
+> Hence this series aims to make sure all members are fully initialized,
+> to avoid such bugs, and to prevent future breakage when converting
+> drivers to a different method for specifying the parents.
+> 
+> Part One[1] fixed all cases that I identified to be real bugs, in
+> response to a crash I saw on BeagleBone Black.
+> 
+> This series is the clock subpart of Part Two, which fixes remaining
+> cases that are currently harmless.  These are still fragile, and may
+> cause future breakage when converting drivers to a different method for
+> specifying the parents.
+> 
+> Thanks for your comments!
+> 
+> [1] "[PATCH treewide 0/5] clk: Make sure clk_init_data is fully
+>      initialized (part 1)"
+>     https://lore.kernel.org/cover.1787165329.git.geert+renesas@glider.be
+> 
+> Geert Uytterhoeven (45):
+>   clk: aspeed: Make sure clk_init_data is fully initialized
+>   clk: at91: Make sure clk_init_data is fully initialized
+>   clk: bcm: iproc: Make sure clk_init_data is fully initialized
+>   clk: berlin: Make sure clk_init_data is fully initialized
+>   clk: cdce925: Make sure clk_init_data is fully initialized
+>   clk: clk-axi-clkgen: Make sure clk_init_data is fully initialized
+>   clk: cs2000-cp: Make sure clk_init_data is fully initialized
+>   clk: davinci: Make sure clk_init_data is fully initialized
+>   clk: fractional-divider: Make sure clk_init_data is fully initialized
+>   clk: gemini: Make sure clk_init_data is fully initialized
+>   clk: highbank: Make sure clk_init_data is fully initialized
+>   clk: hisilicon: Make sure clk_init_data is fully initialized
+>   clk: imx: Make sure clk_init_data is fully initialized
+>   clk: ingenic: Make sure clk_init_data is fully initialized
+>   clk: keystone: Make sure clk_init_data is fully initialized
+>   clk: lmk04832: Make sure clk_init_data is fully initialized
+>   clk: mediatek: Make sure clk_init_data is fully initialized
+>   clk: milbeaut: Make sure clk_init_data is fully initialized
+>   clk: mmp: Make sure clk_init_data is fully initialized
+>   clk: mvebu: Make sure clk_init_data is fully initialized
+>   clk: mxs: Make sure clk_init_data is fully initialized
+>   clk: nomadik: Make sure clk_init_data is fully initialized
+>   clk: npcm7xx: Make sure clk_init_data is fully initialized
+>   clk: nxp: Make sure clk_init_data is fully initialized
+>   clk: pistachio: Make sure clk_init_data is fully initialized
+>   clk: pwm: Make sure clk_init_data is fully initialized
+>   clk: renesas: Make sure clk_init_data is fully initialized
+>   clk: rockchip: Make sure clk_init_data is fully initialized
+>   clk: samsung: Make sure clk_init_data is fully initialized
+>   clk: scpi: Make sure clk_init_data is fully initialized
+>   clk: silabs: Make sure clk_init_data is fully initialized
+>   clk: socfpga: Make sure clk_init_data is fully initialized
+>   clk: spear: Make sure clk_init_data is fully initialized
+>   clk: stm32: Make sure clk_init_data is fully initialized
+>   clk: st: Make sure clk_init_data is fully initialized
+>   clk: sunxi: Make sure clk_init_data is fully initialized
+>   clk: tegra: Make sure clk_init_data is fully initialized
+>   clk: uniphier: Make sure clk_init_data is fully initialized
+>   clk: ux500: Make sure clk_init_data is fully initialized
+>   clk: versatile: Make sure clk_init_data is fully initialized
+>   clk: vt8500: Make sure clk_init_data is fully initialized
+>   clk: x86: Make sure clk_init_data is fully initialized
+>   clk: xgene: Make sure clk_init_data is fully initialized
+>   clk: xilinx: Make sure clk_init_data is fully initialized
+>   clk: zynqmp: Make sure clk_init_data is fully initialized
 
-So rather than using the hdev lock, is it better to introduce a lock
-specific to the IRK, why?
+44 / 45 patches have been added to clk-next. I took it all for simplicity
+rather than everyone trying to cherry pick just their parts.
 
-> Give each IRK a list-owned reference and return caller-owned references
-> from lookup and add helpers. Keep the SMP context reference until pairing
-> teardown, and drop the list reference only once when an entry is
-> unlinked. Add a dedicated spinlock for IRK list and payload updates, and
-> copy payload snapshots under that lock so readers do not race updates.
+Geert: The only patch that didn't apply was:
 
-I understand why we could need a reference, but the locking here just
-seems excessive, especially since many other lists are doing:
+  [PATCH 27/45] clk: renesas: Make sure clk_init_data is fully initialized
 
-list_del_rcu(&k->list);
-kfree_rcu(k, rcu);
+I didn't look into it too much.
 
-Which I thought would garantee there is not code attempting to access
-the entry under rcu_read_lock but perhaps we need to force it with
-synchronize_rcu before its freed.
+Brian
 
-> Initialize new entries completely before publishing them. Unlink an IRK
-> added during unpair before dropping the SMP context reference.
-
-Sounds like a different issue.
-
-> An exact KASAN interleaving that removes and drains the RCU entry after
-> lookup but before hci_add_irk() resumes now completes without a
-> use-after-free. A forced late-add/unpair interleaving leaves no linked IR=
-K
-> behind. A KASAN and lockdep enabled VHCI pairing/unpair test also
-> completes successfully.
-
-What test are you referring to? Was this a test generated by the AI to
-validate the change?
-
-> Fixes: a7ec73386ce2 ("Bluetooth: Fix removing any IRKs when unpairing dev=
-ices")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Kazuki Hanai <hnkz.64@gmail.com>
-> ---
->  include/net/bluetooth/hci_core.h |  19 ++-
->  net/bluetooth/hci_conn.c         |  34 ++++--
->  net/bluetooth/hci_core.c         | 202 +++++++++++++++++++++++++------
->  net/bluetooth/hci_debugfs.c      |   6 +-
->  net/bluetooth/hci_event.c        |  16 ++-
->  net/bluetooth/hci_sync.c         |  16 ++-
->  net/bluetooth/iso.c              |  18 ++-
->  net/bluetooth/mgmt.c             |  12 +-
->  net/bluetooth/smp.c              |  20 ++-
->  9 files changed, 274 insertions(+), 69 deletions(-)
->
-> diff --git a/include/net/bluetooth/hci_core.h b/include/net/bluetooth/hci=
-_core.h
-> index 4105c446ca98..75f3f26d9e31 100644
-> --- a/include/net/bluetooth/hci_core.h
-> +++ b/include/net/bluetooth/hci_core.h
-> @@ -24,6 +24,7 @@
->  #define __HCI_CORE_H
->
->  #include <linux/idr.h>
-> +#include <linux/kref.h>
->  #include <linux/leds.h>
->  #include <linux/rculist.h>
->  #include <linux/spinlock.h>
-> @@ -211,6 +212,15 @@ struct smp_ltk {
->  struct smp_irk {
->         struct list_head list;
->         struct rcu_head rcu;
-> +       struct kref ref;
-> +       unsigned long flags;
-> +       bdaddr_t rpa;
-> +       bdaddr_t bdaddr;
-> +       u8 addr_type;
-> +       u8 val[16];
-> +};
-> +
-> +struct smp_irk_data {
->         bdaddr_t rpa;
->         bdaddr_t bdaddr;
->         u8 addr_type;
-> @@ -561,6 +571,7 @@ struct hci_dev {
->         struct list_head        uuids;
->         struct list_head        link_keys;
->         struct list_head        long_term_keys;
-> +       spinlock_t              irk_lock; /* protects IRK list and data *=
-/
->         struct list_head        identity_resolving_keys;
->         struct list_head        remote_oob_data;
->         struct list_head        le_accept_list;
-> @@ -1885,11 +1896,16 @@ int hci_remove_ltk(struct hci_dev *hdev, bdaddr_t=
- *bdaddr, u8 bdaddr_type);
->  void hci_smp_ltks_clear(struct hci_dev *hdev);
->  int hci_remove_link_key(struct hci_dev *hdev, bdaddr_t *bdaddr);
->
-> +/* Returned IRKs hold a reference that must be released with hci_irk_put=
-(). */
->  struct smp_irk *hci_find_irk_by_rpa(struct hci_dev *hdev, bdaddr_t *rpa)=
-;
->  struct smp_irk *hci_find_irk_by_addr(struct hci_dev *hdev, bdaddr_t *bda=
-ddr,
->                                      u8 addr_type);
->  struct smp_irk *hci_add_irk(struct hci_dev *hdev, bdaddr_t *bdaddr,
->                             u8 addr_type, u8 val[16], bdaddr_t *rpa);
-> +void hci_irk_read(struct hci_dev *hdev, struct smp_irk *irk,
-> +                 struct smp_irk_data *data);
-> +void hci_irk_put(struct smp_irk *irk);
-> +void hci_irk_unlink(struct hci_dev *hdev, struct smp_irk *irk);
->  void hci_remove_irk(struct hci_dev *hdev, bdaddr_t *bdaddr, u8 addr_type=
-);
->  bool hci_is_blocked_key(struct hci_dev *hdev, u8 type, u8 val[16]);
->  void hci_blocked_keys_clear(struct hci_dev *hdev);
-> @@ -2505,7 +2521,8 @@ void mgmt_resuming(struct hci_dev *hdev, u8 reason,=
- bdaddr_t *bdaddr,
->                    u8 addr_type);
->  bool mgmt_powering_down(struct hci_dev *hdev);
->  void mgmt_new_ltk(struct hci_dev *hdev, struct smp_ltk *key, bool persis=
-tent);
-> -void mgmt_new_irk(struct hci_dev *hdev, struct smp_irk *irk, bool persis=
-tent);
-> +void mgmt_new_irk(struct hci_dev *hdev, const struct smp_irk_data *irk,
-> +                 bool persistent);
->  void mgmt_new_csrk(struct hci_dev *hdev, struct smp_csrk *csrk,
->                    bool persistent);
->  void mgmt_new_conn_param(struct hci_dev *hdev, bdaddr_t *bdaddr,
-> diff --git a/net/bluetooth/hci_conn.c b/net/bluetooth/hci_conn.c
-> index 8de98af2fb58..5e19fc6ef930 100644
-> --- a/net/bluetooth/hci_conn.c
-> +++ b/net/bluetooth/hci_conn.c
-> @@ -70,6 +70,8 @@ void hci_connect_le_scan_cleanup(struct hci_conn *conn,=
- u8 status)
->         struct hci_conn_params *params;
->         struct hci_dev *hdev =3D conn->hdev;
->         struct smp_irk *irk;
-> +       struct smp_irk_data irk_data;
-> +       bdaddr_t identity_addr;
->         bdaddr_t *bdaddr;
->         u8 bdaddr_type;
->
-> @@ -79,8 +81,11 @@ void hci_connect_le_scan_cleanup(struct hci_conn *conn=
-, u8 status)
->         /* Check if we need to convert to identity address */
->         irk =3D hci_get_irk(hdev, bdaddr, bdaddr_type);
->         if (irk) {
-> -               bdaddr =3D &irk->bdaddr;
-> -               bdaddr_type =3D irk->addr_type;
-> +               hci_irk_read(hdev, irk, &irk_data);
-> +               bacpy(&identity_addr, &irk_data.bdaddr);
-> +               bdaddr_type =3D irk_data.addr_type;
-> +               hci_irk_put(irk);
-> +               bdaddr =3D &identity_addr;
->         }
->
->         params =3D hci_pend_le_action_lookup(&hdev->pend_le_conns, bdaddr=
-,
-> @@ -1004,6 +1009,7 @@ static struct hci_conn *__hci_conn_add(struct hci_d=
-ev *hdev, int type,
->  {
->         struct hci_conn *conn;
->         struct smp_irk *irk =3D NULL;
-> +       struct smp_irk_data irk_data;
->
->         switch (type) {
->         case ACL_LINK:
-> @@ -1037,16 +1043,21 @@ static struct hci_conn *__hci_conn_add(struct hci=
-_dev *hdev, int type,
->         bt_dev_dbg(hdev, "dst %pMR handle 0x%4.4x", dst, handle);
->
->         conn =3D kzalloc_obj(*conn);
-> -       if (!conn)
-> +       if (!conn) {
-> +               if (irk)
-> +                       hci_irk_put(irk);
->                 return ERR_PTR(-ENOMEM);
-> +       }
->
->         /* If and IRK exists use its identity address */
->         if (!irk) {
->                 bacpy(&conn->dst, dst);
->                 conn->dst_type =3D dst_type;
->         } else {
-> -               bacpy(&conn->dst, &irk->bdaddr);
-> -               conn->dst_type =3D irk->addr_type;
-> +               hci_irk_read(hdev, irk, &irk_data);
-> +               bacpy(&conn->dst, &irk_data.bdaddr);
-> +               conn->dst_type =3D irk_data.addr_type;
-> +               hci_irk_put(irk);
->         }
->
->         bacpy(&conn->src, &hdev->bdaddr);
-> @@ -1458,6 +1469,8 @@ struct hci_conn *hci_connect_le(struct hci_dev *hde=
-v, bdaddr_t *dst,
->  {
->         struct hci_conn *conn;
->         struct smp_irk *irk;
-> +       struct smp_irk_data irk_data;
-> +       bdaddr_t rpa;
->         int err;
->
->         /* Let's make sure that le is enabled.*/
-> @@ -1498,9 +1511,14 @@ struct hci_conn *hci_connect_le(struct hci_dev *hd=
-ev, bdaddr_t *dst,
->                  * from the connect request.
->                  */
->                 irk =3D hci_find_irk_by_addr(hdev, dst, dst_type);
-> -               if (irk && bacmp(&irk->rpa, BDADDR_ANY)) {
-> -                       dst =3D &irk->rpa;
-> -                       dst_type =3D ADDR_LE_DEV_RANDOM;
-> +               if (irk) {
-> +                       hci_irk_read(hdev, irk, &irk_data);
-> +                       if (bacmp(&irk_data.rpa, BDADDR_ANY)) {
-> +                               bacpy(&rpa, &irk_data.rpa);
-> +                               dst =3D &rpa;
-> +                               dst_type =3D ADDR_LE_DEV_RANDOM;
-> +                       }
-> +                       hci_irk_put(irk);
->                 }
->         }
->
-> diff --git a/net/bluetooth/hci_core.c b/net/bluetooth/hci_core.c
-> index 35a1be57e386..4503e2afbb77 100644
-> --- a/net/bluetooth/hci_core.c
-> +++ b/net/bluetooth/hci_core.c
-> @@ -1031,13 +1031,36 @@ void hci_smp_ltks_clear(struct hci_dev *hdev)
->         }
->  }
->
-> +enum {
-> +       SMP_IRK_LINKED,
-> +};
-> +
-> +static bool __hci_irk_unlink(struct smp_irk *irk)
-> +{
-> +       if (!test_and_clear_bit(SMP_IRK_LINKED, &irk->flags))
-> +               return false;
-> +
-> +       list_del_rcu(&irk->list);
-> +       return true;
-> +}
-> +
->  void hci_smp_irks_clear(struct hci_dev *hdev)
->  {
-> -       struct smp_irk *k, *tmp;
-> +       struct smp_irk *k;
->
-> -       list_for_each_entry_safe(k, tmp, &hdev->identity_resolving_keys, =
-list) {
-> -               list_del_rcu(&k->list);
-> -               kfree_rcu(k, rcu);
-> +       for (;;) {
-> +               spin_lock_bh(&hdev->irk_lock);
-> +               if (list_empty(&hdev->identity_resolving_keys)) {
-> +                       spin_unlock_bh(&hdev->irk_lock);
-> +                       break;
-> +               }
-> +
-> +               k =3D list_first_entry(&hdev->identity_resolving_keys,
-> +                                    struct smp_irk, list);
-> +               __hci_irk_unlink(k);
-> +               spin_unlock_bh(&hdev->irk_lock);
-> +
-> +               hci_irk_put(k);
->         }
->  }
->
-> @@ -1171,37 +1194,73 @@ struct smp_ltk *hci_find_ltk(struct hci_dev *hdev=
-, bdaddr_t *bdaddr,
->         return NULL;
->  }
->
-> +void hci_irk_read(struct hci_dev *hdev, struct smp_irk *irk,
-> +                 struct smp_irk_data *data)
-> +{
-> +       spin_lock_bh(&hdev->irk_lock);
-> +       bacpy(&data->rpa, &irk->rpa);
-> +       bacpy(&data->bdaddr, &irk->bdaddr);
-> +       data->addr_type =3D irk->addr_type;
-> +       memcpy(data->val, irk->val, sizeof(data->val));
-> +       spin_unlock_bh(&hdev->irk_lock);
-> +}
-> +
-> +static bool hci_irk_get(struct smp_irk *irk)
-> +{
-> +       if (!test_bit(SMP_IRK_LINKED, &irk->flags))
-> +               return false;
-> +
-> +       if (!kref_get_unless_zero(&irk->ref))
-> +               return false;
-> +
-> +       if (test_bit(SMP_IRK_LINKED, &irk->flags))
-> +               return true;
-> +
-> +       hci_irk_put(irk);
-> +       return false;
-> +}
-> +
->  struct smp_irk *hci_find_irk_by_rpa(struct hci_dev *hdev, bdaddr_t *rpa)
->  {
->         struct smp_irk *irk_to_return =3D NULL;
-> +       struct smp_irk_data data;
->         struct smp_irk *irk;
->
->         rcu_read_lock();
->         list_for_each_entry_rcu(irk, &hdev->identity_resolving_keys, list=
-) {
-> -               if (!bacmp(&irk->rpa, rpa)) {
-> +               hci_irk_read(hdev, irk, &data);
-> +               if (!bacmp(&data.rpa, rpa) && hci_irk_get(irk)) {
->                         irk_to_return =3D irk;
->                         goto done;
->                 }
->         }
->
->         list_for_each_entry_rcu(irk, &hdev->identity_resolving_keys, list=
-) {
-> -               if (smp_irk_matches(hdev, irk->val, rpa)) {
-> -                       bacpy(&irk->rpa, rpa);
-> +               hci_irk_read(hdev, irk, &data);
-> +               if (smp_irk_matches(hdev, data.val, rpa) && hci_irk_get(i=
-rk)) {
-> +                       spin_lock_bh(&hdev->irk_lock);
-> +                       if (test_bit(SMP_IRK_LINKED, &irk->flags))
-> +                               bacpy(&irk->rpa, rpa);
-> +                       spin_unlock_bh(&hdev->irk_lock);
->                         irk_to_return =3D irk;
->                         goto done;
->                 }
->         }
->
->  done:
-> +       rcu_read_unlock();
-> +
-> +       if (irk_to_return)
-> +               hci_irk_read(hdev, irk_to_return, &data);
-> +
->         if (irk_to_return && hci_is_blocked_key(hdev, HCI_BLOCKED_KEY_TYP=
-E_IRK,
-> -                                               irk_to_return->val)) {
-> +                                               data.val)) {
->                 bt_dev_warn_ratelimited(hdev, "Identity key blocked for %=
-pMR",
-> -                                       &irk_to_return->bdaddr);
-> +                                       &data.bdaddr);
-> +               hci_irk_put(irk_to_return);
->                 irk_to_return =3D NULL;
->         }
->
-> -       rcu_read_unlock();
-> -
->         return irk_to_return;
->  }
->
-> @@ -1209,6 +1268,7 @@ struct smp_irk *hci_find_irk_by_addr(struct hci_dev=
- *hdev, bdaddr_t *bdaddr,
->                                      u8 addr_type)
->  {
->         struct smp_irk *irk_to_return =3D NULL;
-> +       struct smp_irk_data data;
->         struct smp_irk *irk;
->
->         /* Identity Address must be public or static random */
-> @@ -1217,25 +1277,53 @@ struct smp_irk *hci_find_irk_by_addr(struct hci_d=
-ev *hdev, bdaddr_t *bdaddr,
->
->         rcu_read_lock();
->         list_for_each_entry_rcu(irk, &hdev->identity_resolving_keys, list=
-) {
-> -               if (addr_type =3D=3D irk->addr_type &&
-> -                   bacmp(bdaddr, &irk->bdaddr) =3D=3D 0) {
-> +               hci_irk_read(hdev, irk, &data);
-> +               if (addr_type =3D=3D data.addr_type &&
-> +                   bacmp(bdaddr, &data.bdaddr) =3D=3D 0 && hci_irk_get(i=
-rk)) {
->                         irk_to_return =3D irk;
->                         break;
->                 }
->         }
-> +       rcu_read_unlock();
-> +
-> +       if (irk_to_return)
-> +               hci_irk_read(hdev, irk_to_return, &data);
->
->         if (irk_to_return && hci_is_blocked_key(hdev, HCI_BLOCKED_KEY_TYP=
-E_IRK,
-> -                                               irk_to_return->val)) {
-> +                                               data.val)) {
->                 bt_dev_warn_ratelimited(hdev, "Identity key blocked for %=
-pMR",
-> -                                       &irk_to_return->bdaddr);
-> +                                       &data.bdaddr);
-> +               hci_irk_put(irk_to_return);
->                 irk_to_return =3D NULL;
->         }
->
-> -       rcu_read_unlock();
-> -
->         return irk_to_return;
->  }
->
-> +static void hci_irk_release(struct kref *ref)
-> +{
-> +       struct smp_irk *irk =3D container_of(ref, struct smp_irk, ref);
-> +
-> +       kfree_rcu(irk, rcu);
-> +}
-> +
-> +void hci_irk_put(struct smp_irk *irk)
-> +{
-> +       kref_put(&irk->ref, hci_irk_release);
-> +}
-> +
-> +void hci_irk_unlink(struct hci_dev *hdev, struct smp_irk *irk)
-> +{
-> +       bool unlinked;
-> +
-> +       spin_lock_bh(&hdev->irk_lock);
-> +       unlinked =3D __hci_irk_unlink(irk);
-> +       spin_unlock_bh(&hdev->irk_lock);
-> +
-> +       if (unlinked)
-> +               hci_irk_put(irk);
-> +}
-> +
->  struct link_key *hci_add_link_key(struct hci_dev *hdev, struct hci_conn =
-*conn,
->                                   bdaddr_t *bdaddr, u8 *val, u8 type,
->                                   u8 pin_len, bool *persistent)
-> @@ -1315,24 +1403,47 @@ struct smp_ltk *hci_add_ltk(struct hci_dev *hdev,=
- bdaddr_t *bdaddr,
->  struct smp_irk *hci_add_irk(struct hci_dev *hdev, bdaddr_t *bdaddr,
->                             u8 addr_type, u8 val[16], bdaddr_t *rpa)
->  {
-> -       struct smp_irk *irk;
-> +       struct smp_irk *irk, *new_irk;
->
->         irk =3D hci_find_irk_by_addr(hdev, bdaddr, addr_type);
-> -       if (!irk) {
-> -               irk =3D kzalloc_obj(*irk);
-> -               if (!irk)
-> -                       return NULL;
-> +       if (irk) {
-> +               spin_lock_bh(&hdev->irk_lock);
-> +               memcpy(irk->val, val, sizeof(irk->val));
-> +               bacpy(&irk->rpa, rpa);
-> +               spin_unlock_bh(&hdev->irk_lock);
-> +               return irk;
-> +       }
-> +
-> +       new_irk =3D kzalloc_obj(*new_irk);
-> +       if (!new_irk)
-> +               return NULL;
->
-> -               bacpy(&irk->bdaddr, bdaddr);
-> -               irk->addr_type =3D addr_type;
-> +       bacpy(&new_irk->bdaddr, bdaddr);
-> +       new_irk->addr_type =3D addr_type;
-> +       memcpy(new_irk->val, val, sizeof(new_irk->val));
-> +       bacpy(&new_irk->rpa, rpa);
->
-> -               list_add_rcu(&irk->list, &hdev->identity_resolving_keys);
-> +       spin_lock_bh(&hdev->irk_lock);
-> +       list_for_each_entry(irk, &hdev->identity_resolving_keys, list) {
-> +               if (addr_type !=3D irk->addr_type ||
-> +                   bacmp(bdaddr, &irk->bdaddr))
-> +                       continue;
-> +
-> +               kref_get(&irk->ref);
-> +               memcpy(irk->val, val, sizeof(irk->val));
-> +               bacpy(&irk->rpa, rpa);
-> +               spin_unlock_bh(&hdev->irk_lock);
-> +               kfree(new_irk);
-> +               return irk;
->         }
->
-> -       memcpy(irk->val, val, 16);
-> -       bacpy(&irk->rpa, rpa);
-> +       kref_init(&new_irk->ref);
-> +       kref_get(&new_irk->ref);
-> +       set_bit(SMP_IRK_LINKED, &new_irk->flags);
-> +       list_add_rcu(&new_irk->list, &hdev->identity_resolving_keys);
-> +       spin_unlock_bh(&hdev->irk_lock);
->
-> -       return irk;
-> +       return new_irk;
->  }
->
->  int hci_remove_link_key(struct hci_dev *hdev, bdaddr_t *bdaddr)
-> @@ -1372,16 +1483,27 @@ int hci_remove_ltk(struct hci_dev *hdev, bdaddr_t=
- *bdaddr, u8 bdaddr_type)
->
->  void hci_remove_irk(struct hci_dev *hdev, bdaddr_t *bdaddr, u8 addr_type=
-)
->  {
-> -       struct smp_irk *k, *tmp;
-> +       struct smp_irk *k, *removed;
->
-> -       list_for_each_entry_safe(k, tmp, &hdev->identity_resolving_keys, =
-list) {
-> -               if (bacmp(bdaddr, &k->bdaddr) || k->addr_type !=3D addr_t=
-ype)
-> -                       continue;
-> +       for (;;) {
-> +               removed =3D NULL;
-> +               spin_lock_bh(&hdev->irk_lock);
-> +               list_for_each_entry(k, &hdev->identity_resolving_keys, li=
-st) {
-> +                       if (bacmp(bdaddr, &k->bdaddr) ||
-> +                           k->addr_type !=3D addr_type)
-> +                               continue;
->
-> -               BT_DBG("%s removing %pMR", hdev->name, bdaddr);
-> +                       __hci_irk_unlink(k);
-> +                       removed =3D k;
-> +                       break;
-> +               }
-> +               spin_unlock_bh(&hdev->irk_lock);
->
-> -               list_del_rcu(&k->list);
-> -               kfree_rcu(k, rcu);
-> +               if (!removed)
-> +                       break;
-> +
-> +               BT_DBG("%s removing %pMR", hdev->name, bdaddr);
-> +               hci_irk_put(removed);
->         }
->  }
->
-> @@ -1389,6 +1511,8 @@ bool hci_bdaddr_is_paired(struct hci_dev *hdev, bda=
-ddr_t *bdaddr, u8 type)
->  {
->         struct smp_ltk *k;
->         struct smp_irk *irk;
-> +       struct smp_irk_data irk_data;
-> +       bdaddr_t identity_addr;
->         u8 addr_type;
->
->         if (type =3D=3D BDADDR_BREDR) {
-> @@ -1405,8 +1529,11 @@ bool hci_bdaddr_is_paired(struct hci_dev *hdev, bd=
-addr_t *bdaddr, u8 type)
->
->         irk =3D hci_get_irk(hdev, bdaddr, addr_type);
->         if (irk) {
-> -               bdaddr =3D &irk->bdaddr;
-> -               addr_type =3D irk->addr_type;
-> +               hci_irk_read(hdev, irk, &irk_data);
-> +               bacpy(&identity_addr, &irk_data.bdaddr);
-> +               addr_type =3D irk_data.addr_type;
-> +               hci_irk_put(irk);
-> +               bdaddr =3D &identity_addr;
->         }
->
->         rcu_read_lock();
-> @@ -2495,6 +2622,7 @@ struct hci_dev *hci_alloc_dev_priv(int sizeof_priv)
->         INIT_LIST_HEAD(&hdev->uuids);
->         INIT_LIST_HEAD(&hdev->link_keys);
->         INIT_LIST_HEAD(&hdev->long_term_keys);
-> +       spin_lock_init(&hdev->irk_lock);
->         INIT_LIST_HEAD(&hdev->identity_resolving_keys);
->         INIT_LIST_HEAD(&hdev->remote_oob_data);
->         INIT_LIST_HEAD(&hdev->le_accept_list);
-> diff --git a/net/bluetooth/hci_debugfs.c b/net/bluetooth/hci_debugfs.c
-> index aadffaaff20e..3b3f7a481990 100644
-> --- a/net/bluetooth/hci_debugfs.c
-> +++ b/net/bluetooth/hci_debugfs.c
-> @@ -817,13 +817,15 @@ DEFINE_SHOW_ATTRIBUTE(resolv_list);
->  static int identity_resolving_keys_show(struct seq_file *f, void *ptr)
->  {
->         struct hci_dev *hdev =3D f->private;
-> +       struct smp_irk_data irk_data;
->         struct smp_irk *irk;
->
->         rcu_read_lock();
->         list_for_each_entry_rcu(irk, &hdev->identity_resolving_keys, list=
-) {
-> +               hci_irk_read(hdev, irk, &irk_data);
->                 seq_printf(f, "%pMR (type %u) %*phN %pMR\n",
-> -                          &irk->bdaddr, irk->addr_type,
-> -                          16, irk->val, &irk->rpa);
-> +                          &irk_data.bdaddr, irk_data.addr_type,
-> +                          16, irk_data.val, &irk_data.rpa);
->         }
->         rcu_read_unlock();
->
-> diff --git a/net/bluetooth/hci_event.c b/net/bluetooth/hci_event.c
-> index 2f5e21ff9752..f2971319410d 100644
-> --- a/net/bluetooth/hci_event.c
-> +++ b/net/bluetooth/hci_event.c
-> @@ -5757,6 +5757,7 @@ static void le_conn_complete_evt(struct hci_dev *hd=
-ev, u8 status,
->         struct hci_conn_params *params;
->         struct hci_conn *conn;
->         struct smp_irk *irk;
-> +       struct smp_irk_data irk_data;
->         u8 addr_type;
->         int err;
->
-> @@ -5842,8 +5843,10 @@ static void le_conn_complete_evt(struct hci_dev *h=
-dev, u8 status,
->          */
->         irk =3D hci_get_irk(hdev, &conn->dst, conn->dst_type);
->         if (irk) {
-> -               bacpy(&conn->dst, &irk->bdaddr);
-> -               conn->dst_type =3D irk->addr_type;
-> +               hci_irk_read(hdev, irk, &irk_data);
-> +               bacpy(&conn->dst, &irk_data.bdaddr);
-> +               conn->dst_type =3D irk_data.addr_type;
-> +               hci_irk_put(irk);
->         }
->
->         conn->dst_type =3D ev_bdaddr_type(hdev, conn->dst_type, NULL);
-> @@ -6234,7 +6237,9 @@ static void process_adv_report(struct hci_dev *hdev=
-, u8 type, bdaddr_t *bdaddr,
->  {
->         struct discovery_state *d =3D &hdev->discovery;
->         struct smp_irk *irk;
-> +       struct smp_irk_data irk_data;
->         struct hci_conn *conn;
-> +       bdaddr_t identity_addr;
->         bool match, bdaddr_resolved;
->         u32 flags;
->         u8 *ptr;
-> @@ -6309,8 +6314,11 @@ static void process_adv_report(struct hci_dev *hde=
-v, u8 type, bdaddr_t *bdaddr,
->         /* Check if we need to convert to identity address */
->         irk =3D hci_get_irk(hdev, bdaddr, bdaddr_type);
->         if (irk) {
-> -               bdaddr =3D &irk->bdaddr;
-> -               bdaddr_type =3D irk->addr_type;
-> +               hci_irk_read(hdev, irk, &irk_data);
-> +               bacpy(&identity_addr, &irk_data.bdaddr);
-> +               bdaddr_type =3D irk_data.addr_type;
-> +               hci_irk_put(irk);
-> +               bdaddr =3D &identity_addr;
->         }
->
->         bdaddr_type =3D ev_bdaddr_type(hdev, bdaddr_type, &bdaddr_resolve=
-d);
-> diff --git a/net/bluetooth/hci_sync.c b/net/bluetooth/hci_sync.c
-> index ffd7b37e7401..fcb96c4b0793 100644
-> --- a/net/bluetooth/hci_sync.c
-> +++ b/net/bluetooth/hci_sync.c
-> @@ -2469,6 +2469,7 @@ static int hci_le_add_resolve_list_sync(struct hci_=
-dev *hdev,
->  {
->         struct hci_cp_le_add_to_resolv_list cp;
->         struct smp_irk *irk;
-> +       struct smp_irk_data irk_data;
->         struct bdaddr_list_with_irk *entry;
->         struct hci_conn_params *p;
->
-> @@ -2496,12 +2497,16 @@ static int hci_le_add_resolve_list_sync(struct hc=
-i_dev *hdev,
->         entry =3D hci_bdaddr_list_lookup_with_irk(&hdev->le_resolv_list,
->                                                 &params->addr,
->                                                 params->addr_type);
-> -       if (entry)
-> +       if (entry) {
-> +               hci_irk_put(irk);
->                 return 0;
-> +       }
->
->         cp.bdaddr_type =3D params->addr_type;
->         bacpy(&cp.bdaddr, &params->addr);
-> -       memcpy(cp.peer_irk, irk->val, 16);
-> +       hci_irk_read(hdev, irk, &irk_data);
-> +       memcpy(cp.peer_irk, irk_data.val, sizeof(cp.peer_irk));
-> +       hci_irk_put(irk);
->
->         /* Default privacy mode is always Network */
->         params->privacy_mode =3D HCI_NETWORK_PRIVACY;
-> @@ -2532,6 +2537,7 @@ static int hci_le_set_privacy_mode_sync(struct hci_=
-dev *hdev,
->  {
->         struct hci_cp_le_set_privacy_mode cp;
->         struct smp_irk *irk;
-> +       struct smp_irk_data irk_data;
->
->         if (!ll_privacy_capable(hdev) ||
->             !(params->flags & HCI_CONN_FLAG_ADDRESS_RESOLUTION))
-> @@ -2552,10 +2558,12 @@ static int hci_le_set_privacy_mode_sync(struct hc=
-i_dev *hdev,
->         if (!irk)
->                 return 0;
->
-> +       hci_irk_read(hdev, irk, &irk_data);
->         memset(&cp, 0, sizeof(cp));
-> -       cp.bdaddr_type =3D irk->addr_type;
-> -       bacpy(&cp.bdaddr, &irk->bdaddr);
-> +       cp.bdaddr_type =3D irk_data.addr_type;
-> +       bacpy(&cp.bdaddr, &irk_data.bdaddr);
->         cp.mode =3D HCI_DEVICE_PRIVACY;
-> +       hci_irk_put(irk);
->
->         /* Note: params->privacy_mode is not updated since it is a copy *=
-/
->
-> diff --git a/net/bluetooth/iso.c b/net/bluetooth/iso.c
-> index 75bfd5938b2e..928b761453d6 100644
-> --- a/net/bluetooth/iso.c
-> +++ b/net/bluetooth/iso.c
-> @@ -723,22 +723,34 @@ static struct sock *iso_get_sock(struct hci_dev *hd=
-ev, bdaddr_t *src,
->                 /* Match Broadcast destination */
->                 if (bacmp(dst, BDADDR_ANY) && bacmp(&iso_pi(sk)->dst, dst=
-)) {
->                         struct smp_irk *irk1, *irk2;
-> +                       struct smp_irk_data irk_data;
-> +                       bool resolved =3D false;
->
->                         /* Check if destination is an RPA that we can res=
-olve */
->                         irk1 =3D hci_find_irk_by_rpa(hdev, dst);
->                         if (!irk1)
->                                 continue;
->
-> +                       hci_irk_read(hdev, irk1, &irk_data);
-> +
->                         /* Match with identity address */
-> -                       if (bacmp(&iso_pi(sk)->dst, &irk1->bdaddr)) {
-> +                       if (!bacmp(&iso_pi(sk)->dst, &irk_data.bdaddr)) {
-> +                               resolved =3D true;
-> +                       } else {
->                                 /* Check if socket destination address is=
- also
->                                  * an RPA and if the IRK matches.
->                                  */
->                                 irk2 =3D hci_find_irk_by_rpa(hdev,
->                                                            &iso_pi(sk)->d=
-st);
-> -                               if (!irk2 || irk1 !=3D irk2)
-> -                                       continue;
-> +                               if (irk2) {
-> +                                       resolved =3D irk1 =3D=3D irk2;
-> +                                       hci_irk_put(irk2);
-> +                               }
->                         }
-> +
-> +                       hci_irk_put(irk1);
-> +                       if (!resolved)
-> +                               continue;
->                 }
->
->                 /* Use Match function if provided */
-> diff --git a/net/bluetooth/mgmt.c b/net/bluetooth/mgmt.c
-> index ac4864e56ec7..841702cdf14e 100644
-> --- a/net/bluetooth/mgmt.c
-> +++ b/net/bluetooth/mgmt.c
-> @@ -7315,6 +7315,7 @@ static int load_irks(struct sock *sk, struct hci_de=
-v *hdev, void *cp_data,
->
->         for (i =3D 0; i < irk_count; i++) {
->                 struct mgmt_irk_info *irk =3D &cp->irks[i];
-> +               struct smp_irk *smp_irk;
->
->                 if (hci_is_blocked_key(hdev,
->                                        HCI_BLOCKED_KEY_TYPE_IRK,
-> @@ -7324,9 +7325,11 @@ static int load_irks(struct sock *sk, struct hci_d=
-ev *hdev, void *cp_data,
->                         continue;
->                 }
->
-> -               hci_add_irk(hdev, &irk->addr.bdaddr,
-> -                           le_addr_type(irk->addr.type), irk->val,
-> -                           BDADDR_ANY);
-> +               smp_irk =3D hci_add_irk(hdev, &irk->addr.bdaddr,
-> +                                     le_addr_type(irk->addr.type), irk->=
-val,
-> +                                     BDADDR_ANY);
-> +               if (smp_irk)
-> +                       hci_irk_put(smp_irk);
->         }
->
->         hci_dev_set_flag(hdev, HCI_RPA_RESOLVING);
-> @@ -9945,7 +9948,8 @@ void mgmt_new_ltk(struct hci_dev *hdev, struct smp_=
-ltk *key, bool persistent)
->         mgmt_event(MGMT_EV_NEW_LONG_TERM_KEY, hdev, &ev, sizeof(ev), NULL=
-);
->  }
->
-> -void mgmt_new_irk(struct hci_dev *hdev, struct smp_irk *irk, bool persis=
-tent)
-> +void mgmt_new_irk(struct hci_dev *hdev, const struct smp_irk_data *irk,
-> +                 bool persistent)
->  {
->         struct mgmt_ev_new_irk ev;
->
-> diff --git a/net/bluetooth/smp.c b/net/bluetooth/smp.c
-> index 6091c47cb002..37000495b987 100644
-> --- a/net/bluetooth/smp.c
-> +++ b/net/bluetooth/smp.c
-> @@ -761,11 +761,13 @@ static void smp_chan_destroy(struct l2cap_conn *con=
-n)
->                 }
->
->                 if (smp->remote_irk) {
-> -                       list_del_rcu(&smp->remote_irk->list);
-> -                       kfree_rcu(smp->remote_irk, rcu);
-> +                       hci_irk_unlink(hcon->hdev, smp->remote_irk);
->                 }
->         }
->
-> +       if (smp->remote_irk)
-> +               hci_irk_put(smp->remote_irk);
-> +
->         chan->data =3D NULL;
->         kfree_sensitive(smp);
->         hci_conn_drop(hcon);
-> @@ -1017,6 +1019,7 @@ static void smp_notify_keys(struct l2cap_conn *conn=
-)
->         struct hci_dev *hdev =3D hcon->hdev;
->         struct smp_cmd_pairing *req =3D (void *) &smp->preq[1];
->         struct smp_cmd_pairing *rsp =3D (void *) &smp->prsp[1];
-> +       struct smp_irk_data irk_data;
->         bool persistent;
->
->         if (hcon->type =3D=3D ACL_LINK) {
-> @@ -1035,15 +1038,16 @@ static void smp_notify_keys(struct l2cap_conn *co=
-nn)
->         }
->
->         if (smp->remote_irk) {
-> -               mgmt_new_irk(hdev, smp->remote_irk, persistent);
-> +               hci_irk_read(hdev, smp->remote_irk, &irk_data);
-> +               mgmt_new_irk(hdev, &irk_data, persistent);
->
->                 /* Now that user space can be considered to know the
->                  * identity address track the connection based on it
->                  * from now on (assuming this is an LE link).
->                  */
->                 if (hcon->type =3D=3D LE_LINK) {
-> -                       bacpy(&hcon->dst, &smp->remote_irk->bdaddr);
-> -                       hcon->dst_type =3D smp->remote_irk->addr_type;
-> +                       bacpy(&hcon->dst, &irk_data.bdaddr);
-> +                       hcon->dst_type =3D irk_data.addr_type;
->                         /* Use a short delay to make sure the new address=
- is
->                          * propagated _before_ the channels.
->                          */
-> @@ -2443,7 +2447,11 @@ int smp_cancel_and_remove_pairing(struct hci_dev *=
-hdev, bdaddr_t *bdaddr,
->                  * remove and free already invalidated rcu list entries. =
-*/
->                 smp->ltk =3D NULL;
->                 smp->responder_ltk =3D NULL;
-> -               smp->remote_irk =3D NULL;
-> +               if (smp->remote_irk) {
-> +                       hci_irk_unlink(hdev, smp->remote_irk);
-> +                       hci_irk_put(smp->remote_irk);
-> +                       smp->remote_irk =3D NULL;
-> +               }
->
->                 if (test_bit(SMP_FLAG_COMPLETE, &smp->flags))
->                         smp_failure(conn, 0);
-> --
-> 2.53.0
->
-
-
---=20
-Luiz Augusto von Dentz
