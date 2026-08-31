@@ -1,257 +1,161 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BEC03CAA5F
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 08:10:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 898503C1974;
+	Mon, 31 Aug 2026 08:11:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788163833; cv=none; b=Dv7IE2pMOetCJMWU1FFgJFptt7fxR9QwLfubpqUDN+vWrr+ODm3Nk3Kmca+m4TGNGmrSoUbmulmYOscvy/mD+l5QbPairV1KOLbESXPu8iyz4R4TfkECXbIWCuSF4vZjp/NboHvSqACbRO9duQ7BVfpMPmP9OpeNZd0ic4u/UDM=
+	t=1788163881; cv=none; b=lkhOwcSwkLh4YKZz2JA5NGNP9nRfkLoxKPx+vVb+EduqzGF5iNZ2lGpTmC1KGAnJF5cdE1t1XUnmB4ZKDFi9J00tYwt9qFzbXKvtv8A5NbbgNPTFpQNJRooFDYz5GuzQiah/eLoPTwH29x/LZ9LMWykIJHqwcLH6ZL+zjZ3xsRE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788163833; c=relaxed/simple;
-	bh=viAVRllkrsImHsNb1DnUub6XvU5jvIFJexyLibR+lA0=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=b2uKxkiEMhzMbBMCopDqgw58RE2I1clEWtPsZUAbHjizgJ4TjxpehrRE49a8ITY8yMSdRFVJSiSgOwizi95pAAJeOm2GOs0VwwVbO7FxryLSk2/Qw2+iHX3HB3I9ccEjz2r/5iggfwqrUj53Wyjp1gT0We3E9FySnyNfHj1fHOU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=D5qnKccv; arc=none smtp.client-ip=209.85.128.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788163881; c=relaxed/simple;
+	bh=Bmyq0qDOT7DxHyaxetz1ss5JfOWjJd1G2k9FC0+7nCk=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=oanLJKi0e0KbsFJKCb1+xcCdZCSBmCUFFKvd76agPpFeObdXNar48PG5b2wX6dd4OwWolpWwrvXLmZTrOlXWK+rkVsub9hu1vj7Fh3Yb2oTgahjWgVuiiZGanUQvDY9bYREOxsdpuYBMPoRpwjg/iYIt1e2wzpsn/EUZKQI1zT0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=I79Ymh0j; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=knD3xvzi; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=HlUqUR8g; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=j1ArBW5W; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="D5qnKccv"
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-49b96837ca3so17160155e9.3
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 01:10:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788163826; x=1788768626; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=zgxKhL7A1XKhNVrAX+Ck+KuNZ6TSYMACVM9Vad6BlYI=;
-        b=D5qnKccvlUUEYfq9eCuyuQpE9/ccpM9rz/bAcchhSGdL7mFeocch4miEiUrQDGXQBU
-         enuzFBdIp2aFtm9XoZxB5P0S/a7Vo6Ft4iDdJspNYtq1YU6+/TQ1K4QfaOM6/9FLusuY
-         v/aAqJU1yrN4kolDJBUbUu6idmYeQKFKzHQYzG0bU+9tyOJdgB7hlx5LiiwWxjxjqJj3
-         SY/69/mXTAO5+al0govVYo7pVmVmcxx79MKLpqw494PlG8vXc5DGMKw/PsRxPmu9wfuJ
-         q95yLbHfi1KqpKX58SIH5jGN7H5mnepoULJv6eChf7pBFR7iVf1Wp/8ZlBaUOuT6/yM2
-         fCRg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788163826; x=1788768626;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zgxKhL7A1XKhNVrAX+Ck+KuNZ6TSYMACVM9Vad6BlYI=;
-        b=iie3rKFJUlGrVmMBVPnMmiph9BVCteOMuqn203OrH6J50N9cY3KpmcyDEEa3xfkxQX
-         EOsuqAobbHaBi5xvkRTX3wYdZiog82Qpmk0m194+nyqiP10qFsOVBtYiEflMMTQSef53
-         KHETx4PCt/cBNm+GqX2tOEfYyrpK7stVglTdk1QeFPRAn8h+TkawrysqRNMbS8IFQe8F
-         o17jyLAqOr9ht0pGSdMRfupJDCb0YIYuioKox1lecm/1Wg5lobcLZSKwOk2iK4JmBP/x
-         W6tO8jZYfrO+fmx+twFZdTG5TkJVLrMEEjwZT1IgBHNOUmRDEV1XEs/rzUClKoJo8FQ8
-         Ml/A==
-X-Forwarded-Encrypted: i=1; AHgh+RowxqDexmcXugHOatcsuN8GlCvSM4l+97AhGJ+SaSY4XNCvuT/54M2bO4wl7SEiiloA+cgUD+Zo4lW++Vc=@vger.kernel.org
-X-Gm-Message-State: AFuF++mrd4zUQIwIJlvE8ZdqcWKhXyUsQ/HrtEnOzFNetBlNQTb2Ys4/
-	wJaQTtRuxgD+bMxNXGZB2xNDUQXqoLOy+Acgf7yUr49OyTcSuexZP9/n
-X-Gm-Gg: AR+sD13dQGJ9+dDYPEIjup/0P1OClaYL/IkF1mhlza69uRFycQxlV4Y5Wr0gZus9+9D
-	T0sRaz4qTfjpJU5PkJAvV/lwCmYP1FX2msmDbG/7yyEFoI/867t93Kt0xPqUfDTHdspyBnmO0Wn
-	o/4hUH9NBA7vuksS9aQQeoG8WewodXtFRs9RAe9iH78uR1omkwNDJ0HQfD5DwHPn0qR2+HdzvnL
-	O3YR758O5xOgPt7yQzaTd8Da2DJ+5tH/w0ZpBAii2muM1abKIXiqk09isPg6acCA8gIO5CKQSt6
-	4csC0YdAUq7+0zcCbV73jBu1WJ4697SnAs/EZUMmjiXRUkWiFvac2Hp6QnSL8I4UqgJ519M8S1C
-	MDVnrwEq32X1giKaDFaeUWtg7x+Tx7UMEw45YzU5z5g2kpTwC+QFgzz/MRQ52d0ihP3J9o/UTSh
-	R4K1tC5A6xcK/XjQkczox5Mf826a0TOAKL1u3OHAd0paZgoud1SpUpWrCGAcgwpVPKO7cFKANrO
-	ACwpwWXCNDoFchel9/ScxIv/IpONIJ07vcKu6+3gyv4lOhQGRPyx4dEH8jzQ0tSeviT8jL2M5Ia
-	9S5FtZXMwlPwyaPQOCiJRpK31jxJra2PJPB7XJH98SYpgcvH1gJPN59ed406JTugwWa69b0=
-X-Received: by 2002:a05:600c:3155:b0:49b:910c:7703 with SMTP id 5b1f17b1804b1-49b91c3dcb4mr350375865e9.9.1788163825607;
-        Mon, 31 Aug 2026 01:10:25 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-2a02-3100-acb9-0201-68d0-34d2-ad1a-175a.310.pool.telefonica.de. [2a02:3100:acb9:201:68d0:34d2:ad1a:175a])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b95013d06sm370393515e9.12.2026.08.31.01.10.24
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 31 Aug 2026 01:10:24 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Marc Zyngier <maz@kernel.org>,
-	Oliver Upton <oupton@kernel.org>,
-	kvmarm@lists.linux.dev
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Fuad Tabba <fuad.tabba@linux.dev>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Shuah Khan <shuah@kernel.org>,
-	Eric Auger <eric.auger@redhat.com>,
-	Christoffer Dall <christoffer.dall@arm.com>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	kvm@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: [PATCH v4 4/4] KVM: arm64: selftests: Test VGICv3 redistributor region retry
-Date: Mon, 31 Aug 2026 10:10:04 +0200
-Message-Id: <20260831081005.41346-5-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-In-Reply-To: <20260831081005.41346-1-kmehltretter@gmail.com>
-References: <20260831081005.41346-1-kmehltretter@gmail.com>
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="I79Ymh0j";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="knD3xvzi";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="HlUqUR8g";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="j1ArBW5W"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 41BE7224CB;
+	Mon, 31 Aug 2026 08:11:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1788163873; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=EX18xwSWw91y/0T4BOJt/V1QzJ0inCFeMn+lOvupHpU=;
+	b=I79Ymh0j2B+LpmI+mX5nYJZHxda36UX5OnioDZn+1UyatkmClf9r0eeM3eS3hOP/TCr2+i
+	yv6EOi8F1JYz895alWu6oXnzqMO+K/2To6q6tYF+5D3MUR6I9IUtI+bH66/EAncFupxPoA
+	PIUw5IR6PFsLMSndMgX5HVypgXSxnCk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1788163873;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=EX18xwSWw91y/0T4BOJt/V1QzJ0inCFeMn+lOvupHpU=;
+	b=knD3xvzidfqhdTSblQar5MHDNQnWYvg4y3MbwWkXbBGTN8GvcnPrxV6LE/Hjdy3uZaD0MH
+	5w5nYEMXtI9v8fCg==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=HlUqUR8g;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=j1ArBW5W
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1788163869; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=EX18xwSWw91y/0T4BOJt/V1QzJ0inCFeMn+lOvupHpU=;
+	b=HlUqUR8g9Ve/UhWSSSJDK5I9WHbSo1wdzfERngc8Bnzn5Gr8PpJ2UrdRUxKJxDX4HLX6hg
+	BWQybm/u+4sb32tvfITN0J//d7JNZHAB2qGkGTax5xwl1OtrMshXpFZiP8GGK+frg9hnsq
+	vGCxR8JsZHpvaK3FRzh58crdALH19Hg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1788163869;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=EX18xwSWw91y/0T4BOJt/V1QzJ0inCFeMn+lOvupHpU=;
+	b=j1ArBW5WJ/zjCWC7bQCo2y7bVOAaKXIMAywsYw0/eHyo8+SboXuEIPut2EMheAAj7RVRIg
+	nZ9QRYIbogaCOIBQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id ED97A13515;
+	Mon, 31 Aug 2026 08:11:08 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 1mvKOBw3lWrxAQAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Mon, 31 Aug 2026 08:11:08 +0000
+Date: Mon, 31 Aug 2026 10:11:08 +0200
+Message-ID: <87a4q2so9v.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: "Yilin Zhang" <yilinzhang@moonshot.ai>
+Cc: <tiwai@suse.com>,
+	<perex@perex.cz>,
+	<linux-sound@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>,
+	<stable@vger.kernel.org>,
+	"Kimi Security Team" <bug-report@moonshot.ai>
+Subject: Re: [PATCH] ALSA: pcm: Serialize PCM mmap with buffer reallocation to fix page UAF
+In-Reply-To: <20260831045506.889070-1-yilinzhang@moonshot.ai>
+References: <20260831045506.889070-1-yilinzhang@moonshot.ai>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spam-Score: -3.51
+X-Rspamd-Queue-Id: 41BE7224CB
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-3.51 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim,suse.de:mid];
+	DKIM_TRACE(0.00)[suse.de:+]
+X-Spam-Flag: NO
 
-A failed REDIST_REGION write can remove redistributor iodevs without
-clearing their cached vCPU assignments. A retry then skips those
-assignments and leaves the redistributors absent from the MMIO bus.
+On Mon, 31 Aug 2026 06:55:06 +0200,
+Yilin Zhang wrote:
+> 
+> snd_pcm_hw_params() and snd_pcm_hw_free() guard buffer reallocation
+> with an mmap_count check performed under the PCM stream lock, but the
+> lock is released long before the buffer is actually freed:
+> snd_pcm_sync_stop(), constraint refinement and do_free_pages() all
+> happen in between.  snd_pcm_mmap_data(), on the other hand, takes no
+> lock at all: it validates against the old buffer's state and
+> dma_bytes, remaps its pages into the VMA, and only then increments
+> mmap_count.
+> 
+> A concurrent mmap() can therefore slip in between the check and the
+> free.  remap_pfn_range() installs writable PTEs for the old buffer's
+> pages without taking page references, and the subsequent
+> do_free_pages() returns those pages to the page allocator while the
+> VMA still maps them.  This leaves a stale, writable mapping of freed
+> pages: a page-level use-after-free that can be leveraged for local
+> privilege escalation.
+> 
+> Make snd_pcm_mmap_data() participate in the buffer-access scheme
+> introduced for hw_params/hw_free: acquire runtime->buffer_accessing
+> before validating and remapping, and release it afterwards.  Buffer
+> reallocation already fails with -EBUSY while accessors are active,
+> and the mmap side now fails with -EBUSY while a reallocation is in
+> progress, so the validate/remap sequence and the check/free sequence
+> can no longer interleave.
+> 
+> A reproducer that turns this race into a stale writable mapping of
+> the freed DMA buffer pages is available on request.
+> 
+> Reported-by: Kimi Security Team <bug-report@moonshot.ai>
+> Fixes: 92ee3c60ec9f ("ALSA: pcm: Fix races among concurrent hw_params and hw_free calls")
+> Signed-off-by: Yilin Zhang <yilinzhang@moonshot.ai>
 
-Create two partial regions, reject a third region that overlaps the
-distributor, and retry at a valid address. After initializing the VGIC,
-have the guest read GICR_TYPER from all four redistributors and check their
-processor numbers. This verifies the final configuration without assuming
-that assignments survive the failed write.
+Applied now.  Thanks.
 
-Keep the redistributor IPAs outside the guest RAM memslot and install only
-the stage-1 mappings needed for the MMIO accesses. If an iodev is missing,
-KVM_RUN therefore exits with KVM_EXIT_MMIO. Without the fix, the first
-redistributor access exits at 0x8030008.
 
-Assisted-by: Codex:gpt-5.6-sol
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
-Reviewed-by: Fuad Tabba <fuad.tabba@linux.dev>
----
- tools/testing/selftests/kvm/arm64/vgic_init.c | 92 +++++++++++++++++++
- 1 file changed, 92 insertions(+)
-
-diff --git a/tools/testing/selftests/kvm/arm64/vgic_init.c b/tools/testing/selftests/kvm/arm64/vgic_init.c
-index 84aa97204b7f..5a30f3cb039b 100644
---- a/tools/testing/selftests/kvm/arm64/vgic_init.c
-+++ b/tools/testing/selftests/kvm/arm64/vgic_init.c
-@@ -5,6 +5,7 @@
-  * Copyright (C) 2020, Red Hat, Inc.
-  */
- #include <linux/kernel.h>
-+#include <linux/sizes.h>
- #include <sys/syscall.h>
- #include <asm/kvm.h>
- #include <asm/kvm_para.h>
-@@ -13,12 +14,21 @@
- 
- #include "test_util.h"
- #include "kvm_util.h"
-+#include "gic.h"
- #include "processor.h"
- #include "vgic.h"
- #include "gic_v3.h"
- 
- #define NR_VCPUS		4
- 
-+#define REDIST_RETRY_REGION0_BASE	GICR_BASE_GPA
-+#define REDIST_RETRY_REGION1_BASE	\
-+	(REDIST_RETRY_REGION0_BASE + 2 * KVM_VGIC_V3_REDIST_SIZE)
-+#define REDIST_RETRY_DIST_BASE		\
-+	(REDIST_RETRY_REGION1_BASE + KVM_VGIC_V3_REDIST_SIZE)
-+#define REDIST_RETRY_REGION2_BASE	\
-+	(REDIST_RETRY_DIST_BASE + KVM_VGIC_V3_DIST_SIZE)
-+
- #define REG_OFFSET(vcpu, offset) (((u64)vcpu << 32) | offset)
- 
- #define VGIC_DEV_IS_V2(_d) ((_d) == KVM_DEV_TYPE_ARM_VGIC_V2)
-@@ -65,6 +75,23 @@ static void guest_code(void)
- 	GUEST_DONE();
- }
- 
-+static void guest_check_redist_retry(void)
-+{
-+	unsigned int i;
-+
-+	/* The first three redistributors span adjacent regions 0 and 1. */
-+	for (i = 0; i < NR_VCPUS; i++) {
-+		u64 base = i < 3 ? REDIST_RETRY_REGION0_BASE +
-+				       i * KVM_VGIC_V3_REDIST_SIZE :
-+				       REDIST_RETRY_REGION2_BASE;
-+		u64 typer = readq((void *)(unsigned long)(base + GICR_TYPER));
-+
-+		GUEST_ASSERT_EQ(GICR_TYPER_CPU_NUMBER(typer), i);
-+	}
-+
-+	GUEST_DONE();
-+}
-+
- /* we don't want to assert on run execution, hence that helper */
- static int run_vcpu(struct kvm_vcpu *vcpu)
- {
-@@ -462,6 +489,70 @@ static void test_v3_new_redist_regions(void)
- 	vm_gic_destroy(&v);
- }
- 
-+static void test_v3_redist_region_retry(void)
-+{
-+	struct kvm_vcpu *vcpus[NR_VCPUS];
-+	struct vm_gic v;
-+	struct ucall uc;
-+	u64 addr;
-+	int ret;
-+
-+	v = vm_gic_create_with_vcpus(KVM_DEV_TYPE_ARM_VGIC_V3, NR_VCPUS,
-+				     guest_check_redist_retry, vcpus);
-+
-+	addr = REDIST_REGION_ATTR_ADDR(2, REDIST_RETRY_REGION0_BASE, 0, 0);
-+	kvm_device_attr_set(v.gic_fd, KVM_DEV_ARM_VGIC_GRP_ADDR,
-+			    KVM_VGIC_V3_ADDR_TYPE_REDIST_REGION, &addr);
-+
-+	addr = REDIST_REGION_ATTR_ADDR(1, REDIST_RETRY_REGION1_BASE, 0, 1);
-+	kvm_device_attr_set(v.gic_fd, KVM_DEV_ARM_VGIC_GRP_ADDR,
-+			    KVM_VGIC_V3_ADDR_TYPE_REDIST_REGION, &addr);
-+
-+	addr = REDIST_RETRY_DIST_BASE;
-+	kvm_device_attr_set(v.gic_fd, KVM_DEV_ARM_VGIC_GRP_ADDR,
-+			    KVM_VGIC_V3_ADDR_TYPE_DIST, &addr);
-+
-+	addr = REDIST_REGION_ATTR_ADDR(1, REDIST_RETRY_DIST_BASE, 0, 2);
-+	ret = __kvm_device_attr_set(v.gic_fd, KVM_DEV_ARM_VGIC_GRP_ADDR,
-+				    KVM_VGIC_V3_ADDR_TYPE_REDIST_REGION,
-+				    &addr);
-+	TEST_ASSERT(ret && errno == EINVAL,
-+		    "register redist region colliding with dist");
-+
-+	addr = REDIST_REGION_ATTR_ADDR(1, REDIST_RETRY_REGION2_BASE, 0, 2);
-+	kvm_device_attr_set(v.gic_fd, KVM_DEV_ARM_VGIC_GRP_ADDR,
-+			    KVM_VGIC_V3_ADDR_TYPE_REDIST_REGION, &addr);
-+
-+	virt_map(v.vm, REDIST_RETRY_REGION0_BASE, REDIST_RETRY_REGION0_BASE,
-+		 vm_calc_num_guest_pages(v.vm->mode,
-+					 3 * KVM_VGIC_V3_REDIST_SIZE));
-+	virt_map(v.vm, REDIST_RETRY_REGION2_BASE, REDIST_RETRY_REGION2_BASE,
-+		 vm_calc_num_guest_pages(v.vm->mode,
-+					 KVM_VGIC_V3_REDIST_SIZE));
-+
-+	kvm_device_attr_set(v.gic_fd, KVM_DEV_ARM_VGIC_GRP_CTRL,
-+			    KVM_DEV_ARM_VGIC_CTRL_INIT, NULL);
-+
-+	vcpu_run(vcpus[0]);
-+	switch (get_ucall(vcpus[0], &uc)) {
-+	case UCALL_DONE:
-+		break;
-+	case UCALL_ABORT:
-+		REPORT_GUEST_ASSERT(uc);
-+		break;
-+	case UCALL_NONE:
-+		if (vcpus[0]->run->exit_reason == KVM_EXIT_MMIO)
-+			TEST_FAIL("Unexpected MMIO exit at 0x%llx",
-+				  vcpus[0]->run->mmio.phys_addr);
-+		fallthrough;
-+	default:
-+		TEST_FAIL("Unexpected ucall %lu, exit_reason %u",
-+			  uc.cmd, vcpus[0]->run->exit_reason);
-+	}
-+
-+	vm_gic_destroy(&v);
-+}
-+
- static void test_v3_typer_accesses(void)
- {
- 	struct vm_gic v;
-@@ -986,6 +1077,7 @@ void run_tests(u32 gic_dev_type)
- 
- 	if (VGIC_DEV_IS_V3(gic_dev_type)) {
- 		test_v3_new_redist_regions();
-+		test_v3_redist_region_retry();
- 		test_v3_typer_accesses();
- 		test_v3_last_bit_redist_regions();
- 		test_v3_last_bit_single_rdist();
--- 
-2.39.5 (Apple Git-154)
+Takashi
