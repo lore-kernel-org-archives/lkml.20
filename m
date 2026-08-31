@@ -1,103 +1,128 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B219653D0A5;
-	Mon, 31 Aug 2026 13:49:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37CBA33936C;
+	Mon, 31 Aug 2026 13:49:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788184163; cv=none; b=elFY2tOnhJqBo8Mscg4ner4bXsuxBpTXdsG1YvetuCMhTGKwdjYI6YYt/NBxQ+VMOzyVGdFMlphATXaKUEwHgZRjadbubx7ftXgr0QBHb+LWSJ7y5yjLd480EXG4szRWZ9iDooz9qQePLxlHnMDWQdepPW1Xh9OsjoWX2xg2EZs=
+	t=1788184165; cv=none; b=Dff1y2I8sXvQSUyDa9bIqd4iCAaVI7EZRO0x6u3MmOljqvokFHUZSjhqEYbnC07YQEetAr83++h3SG+sdzKj85X6HSM4TbrOqEK+6paCMje+H2TT3dXmo2zgHNOWEbR/M4uOUHxiLi+P7iXkVGRXdupvufVU4pdw2cqXj2eh4I4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788184163; c=relaxed/simple;
-	bh=h6Ld0f1tqG+J98xm0TFaV3c9NYudrk1XB2K3F5fgbz0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CvdV53poB0iKrN9m/iQDEjud47ijtgV5WQXOGCQQ19zw6sjtAkoFXeWKpjmHUtArS2ZxFH9fvGzX9cyyDZm3JMdmbgVFkXHFYI36ULVsZMCo/ybFIgZL+KJNfZ0Cuja9tUxLE+6R0KbjZd4s6OBqtlQki7w0ITsmnbr6qLu5ZeQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ckeBmuAy; arc=none smtp.client-ip=192.198.163.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1788184165; c=relaxed/simple;
+	bh=P43ptgByxMJNvhdVYQD3OBuf+iwUNXF+nmLaDKab8go=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=eYXDY53q75Wyj/0iWXdgkwGLRS2rIK7ccg6O0CpLziIl9SifrRHHmyn9gjjhgZeUBGRoozw80svLBbpWp0++A1mqagU2LvHOxtMTOFfSSDhGDq0f8mZfwndYduVY1qpXZMNQQ3C7V98AZSbtMQC4nWvFGPBoqRVE6IaPNHbLvzU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M8EMEdTE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ckeBmuAy"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788184162; x=1819720162;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=h6Ld0f1tqG+J98xm0TFaV3c9NYudrk1XB2K3F5fgbz0=;
-  b=ckeBmuAyTPfV3eZqx9BTn9Thm+CB03KvqJ5rhCig4l5Py8wMSSm/JoTd
-   OQXEO59oYt+oc7Ln0VOsYxJgRR9E9Z5AriZBy7bTPEu4Qk9Fh8gZz/Obh
-   FWMMSvKKBI2fNYXlU8YikH39Pad33i5ePOCU5oLX6zqFluWX3SzyMtAro
-   klfDr3NLcChSBB+fu2a+01esdepSX75rsig8rVnBikv7gLYvlF41KKwFN
-   CWmHrIB6DZuEiN8bmMkkNDhhj5/Urukvd+uoQYOKgfWygt55eA5b01+Fb
-   znUDWlC691fxBoJfInXkSsPW/1B0G2lPE1baJwMFch7ryVGSkW0BStGBU
-   A==;
-X-CSE-ConnectionGUID: /gRO7v8ETDmI9CbgUjrhoA==
-X-CSE-MsgGUID: diZPaJIZT4ahR2S7/mh5LA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11891"; a="99192993"
-X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; 
-   d="scan'208";a="99192993"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 06:49:21 -0700
-X-CSE-ConnectionGUID: rPusQVupTySZrL7PVWQddg==
-X-CSE-MsgGUID: rol2X92aSNGypCZBpqZSJw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; 
-   d="scan'208";a="272600396"
-Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.244.21])
-  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 06:49:16 -0700
-Date: Mon, 31 Aug 2026 16:49:13 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>
-Cc: linux-kernel@vger.kernel.org, dmaengine@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org, linux-iio@vger.kernel.org,
-	linux-sound@vger.kernel.org, linux-spi@vger.kernel.org,
-	Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
-	Lars-Peter Clausen <lars@metafoo.de>,
-	Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>,
-	=?iso-8859-1?Q?Am=E9lie?= Delaunay <amelie.delaunay@foss.st.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Andy Shevchenko <andy@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>, Mark Brown <broonie@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>
-Subject: Re: [PATCH v3 9/9] dmaengine: Drop legacy bus width fields from
- dma_slave_caps
-Message-ID: <apWGWdLTmpRVGTWX@ashevche-desk.local>
-References: <20260831-dmaengine-support-wider-dma-masks-v3-0-507d97496f2d@analog.com>
- <20260831-dmaengine-support-wider-dma-masks-v3-9-507d97496f2d@analog.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M8EMEdTE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EF071F000E9;
+	Mon, 31 Aug 2026 13:49:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788184162;
+	bh=1nQyxmkp8tlhFDXVLiFpoKYrMGHF3fMThmSxilPpkeA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=M8EMEdTEXjZcLkKJCz1SSbGMlLrGhFNQXf/cdo0i30LWwSdCoBklH7GWhi3pdTLNO
+	 A7T2mf67OJXd7muC35vAbdj+1KR06TzW5FeN37K1inL9krLV07wH1wqObg1mpcwP+2
+	 bSCYVEKv+RjnpC3PSeejBR70HzeZwGmoQMJ/9bTBbo0CsqNbo2vJJiBWkYiEwRxyEp
+	 KZMPiLRcYRcH99KoaE39GKekXcYv4P5ixLm9kmQoZYrRjxj3C3kD9dl5lc6hNDoS9F
+	 307FKeBsEvbK+Qabcf2GcmM4gVBp3A60IxDtwm05Wb9IXqd1+9WG+9jAsN1VZ0ASTP
+	 M4oisIk3DPcwQ==
+From: Sasha Levin <sashal@kernel.org>
+To: patches@lists.linux.dev,
+	stable@vger.kernel.org
+Cc: Emmanuel Grumbach <emmanuel.grumbach@intel.com>,
+	GitHub Copilot <copilot@github.com>,
+	Miri Korenblit <miriam.rachel.korenblit@intel.com>,
+	Sasha Levin <sashal@kernel.org>,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 6.18] wifi: iwlwifi: mvm: d3: validate D3 resume notification payloads
+Date: Mon, 31 Aug 2026 09:29:16 -0400
+Message-ID: <20260831133314.4125787-528-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
+References: <20260831133314.4125787-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+X-stable: review
+X-Patchwork-Hint: Ignore
+X-stable-base: Linux 6.18.48
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260831-dmaengine-support-wider-dma-masks-v3-9-507d97496f2d@analog.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Mon, Aug 31, 2026 at 12:46:46PM +0100, Nuno Sá wrote:
-> All users of dma_get_slave_caps() that inspect bus width capabilities now
-> use the bitmap helpers.
-> 
-> Hence, remove the legacy u32 src_addr_widths and dst_addr_widths fields
-> from struct dma_slave_caps and stop copying the dma_device masks into
-> them.
-> 
-> Note the legacy u32 src_addr_widths and dst_addr_widths fields in struct
-> dma_device are kept for now as every DMA controller driver setting them
-> still has to be converted to the new helpers. dma_get_slave_caps() keeps
-> folding those masks into the bitmaps it returns so unconverted producers
-> continue to work during the transition.
+From: Emmanuel Grumbach <emmanuel.grumbach@intel.com>
 
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+[ Upstream commit c1a1dc162870a5447cb0fbcf81983473744772d2 ]
 
+D3 resume notification handlers read firmware notification fields
+before validating that the payload contains the complete fixed structure.
+This causes buffer underread on malformed or truncated notifications.
+
+Move payload length validation to occur before any field access in:
+- iwl_mvm_parse_wowlan_info_notif: validate before reading num_mlo_link_keys
+- iwl_mvm_wait_d3_notif D3_END handler: validate before reading flags
+
+Assisted-by: GitHub Copilot <copilot@github.com>
+Signed-off-by: Emmanuel Grumbach <emmanuel.grumbach@intel.com>
+Link: https://patch.msgid.link/20260714141909.762193753434.I148991b8136cc5042fa08b5faf7b57d38aa2fb47@changeid
+Signed-off-by: Miri Korenblit <miriam.rachel.korenblit@intel.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+
+LLM Generated explanations, may be completely bogus:
+
+The branch check finished: the fix commit `23939b1d1be` is only on the
+`autosel` branch, not on current HEAD (`v6.18.44-1-g2736c32da98b9`). The
+ancestry-path from that commit to HEAD is empty, so the buggy code is
+still present in the checked-out tree.
+
+That matches the earlier analysis: this is a prepared backport candidate
+that hasnâ€™t been applied to 6.18.y yet, and the **YES** recommendation
+still stands.
+
+ drivers/net/wireless/intel/iwlwifi/mvm/d3.c | 13 +++++++++----
+ 1 file changed, 9 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/net/wireless/intel/iwlwifi/mvm/d3.c b/drivers/net/wireless/intel/iwlwifi/mvm/d3.c
+index 46e95e25dcd44..dd1c21065bc33 100644
+--- a/drivers/net/wireless/intel/iwlwifi/mvm/d3.c
++++ b/drivers/net/wireless/intel/iwlwifi/mvm/d3.c
+@@ -2141,16 +2141,16 @@ static void iwl_mvm_parse_wowlan_info_notif(struct iwl_mvm *mvm,
+ 					    struct iwl_wowlan_status_data *status,
+ 					    u32 len)
+ {
+-	if (IWL_FW_CHECK(mvm, data->num_mlo_link_keys,
+-			 "MLO is not supported, shouldn't receive MLO keys\n"))
+-		return;
+-
+ 	if (len < sizeof(*data)) {
+ 		IWL_ERR(mvm, "Invalid WoWLAN info notification!\n");
+ 		status = NULL;
+ 		return;
+ 	}
+ 
++	if (IWL_FW_CHECK(mvm, data->num_mlo_link_keys,
++			 "MLO is not supported, shouldn't receive MLO keys\n"))
++		return;
++
+ 	if (mvm->fast_resume)
+ 		return;
+ 
+@@ -2970,6 +2970,11 @@ static bool iwl_mvm_wait_d3_notif(struct iwl_notif_wait_data *notif_wait,
+ 	case WIDE_ID(PROT_OFFLOAD_GROUP, D3_END_NOTIFICATION): {
+ 		struct iwl_d3_end_notif *notif = (void *)pkt->data;
+ 
++		if (len < sizeof(*notif)) {
++			IWL_ERR(mvm, "Invalid D3 end notification size\n");
++			break;
++		}
++
+ 		d3_data->d3_end_flags = __le32_to_cpu(notif->flags);
+ 		d3_data->notif_received |= IWL_D3_NOTIF_D3_END_NOTIF;
+ 
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.53.0
 
