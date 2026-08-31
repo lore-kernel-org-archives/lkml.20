@@ -1,145 +1,96 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAC604963B0
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 14:07:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3A5A4A2E27;
+	Mon, 31 Aug 2026 14:08:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788185246; cv=none; b=cHImQWtZS8C8M/q4I1HkGOrjpZxmMRZsEKqYg+iPyN8z0GyVU7GC6pmtoItt3FLdvDy3SGg0hp4L2SXdaVLgSSLoSxAEr/Uhm4xFrsCRpbGmKCPwnbehcxH1xrJYqNDWiS9mpRKszBSuC8hNcY9xxALNrb1OGroxfykUTmI6zjI=
+	t=1788185298; cv=none; b=gWGam8/6KrdUA9mM5l2Cmq0LGBlIU/d0k55SFBqhGz6FvMhBem70iROjlu3uAyUf4eE4TVEtRuDjknkoa5JKAR5+6lhaRQZz/55io5xql+RWyWByTwy9KBQ2dM+tHOXvp7gaSn8z88lZfJYhx0h7CFT0aXX7m2aa3POlFu7vLP0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788185246; c=relaxed/simple;
-	bh=S0BkvKg0kbO1HyxpAHYNGek++mUq5yaU97H4xYUkyT0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=rPYyT2gZ9QXeejZm+bGmmNvMQyhCKS141GQXgfvN/eT17+DF9bNULQQZolu3NvdswNQ9o/X3Mcn5Q5vyOhVFFRrEEmLTCEA48IeRdL3ZvtBqJX0p81hmpq/cVJ1DObZO4IsMauFBCfLB2l+uhRLDVQxssIy0KbcBYRdd9eIxNSw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TwRCZZMt; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788185298; c=relaxed/simple;
+	bh=nwA7qNpdElyaD/w4fbelPLYkA0W8/2DWZVnSoO3+QX8=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=gZ8DKTLDTCX7xBHbqNYw9+1NUURU7vdtgq/xeyBqjDg3H57XIjVxAJHt8TGTBtbXqes6Xa+/J3lHMBkKB9VEOzCmaXzZuEpxvAlgHK4f+mRM4Wou8IqKXuc9tycbq0a2OEI/9+hGintN7aR4P4YtXxf0Vmk76bTRu/0CrxIzt48=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=fy7B+QhW; arc=none smtp.client-ip=117.135.210.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TwRCZZMt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A64FF1F00ACF
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 14:07:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788185244;
-	bh=yAH1kAcmOp1Oc4wvgDM8TgcSQVhCKVp+yeDHlgM1nS0=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=TwRCZZMtjrYE1QJPqPvLx+GiFzdqJGcIy2+4oVio6hVc2QPn4a9Pqp8sT+Ux18jYe
-	 Uln0nIaZB8jTJ7R3YYf8yB9sbeQqJShena/eqMtBtgVOZ+251wrBkaRAx/r0ufU4so
-	 wF/utT4sjoBIcOMtBiq2F6PHCv9rWdd3gMBk1yYcGh4XJuyErwQ8YrNx59pXGeRa5t
-	 W3iDCd0xloNRHMFK3bGlKPR4/V8DucuPukTT+gX9Tmy7juy9EFS1d44/ve9gkX+OlH
-	 +6Df4F9c3Sd6NR2aj6yW7d/J+kJzf9W2iu+kPSoiqFv6gVjSTNveAa4XviKo1sRV3P
-	 JzNrvFo4fdLtQ==
-Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c2531f453eeso542544766b.3
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 07:07:24 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RoDicgD+W4fP56XJkXk5CmiBIg/fJcw9JBt82sSAU/zWb7xi/O3cGSu6nZ9kR6rrYWFvergiu9veK44Sf0=@vger.kernel.org
-X-Gm-Message-State: AFuF++lUs897DUybD9/1dhdvNMV0rTk4RF3jn21tChH9PdhJb7hiyM4Y
-	dSP2kBD2xDM2iJ4nmA37fhLw6YpVLszee+n+CslJhsYNMq9yXM8ENpblCmcakyjpHZw00jyrvV0
-	yJc3EO9ZATnTjJ8gw68207BGEzdxkWsA=
-X-Received: by 2002:a17:906:ba82:b0:c19:5572:d234 with SMTP id
- a640c23a62f3a-c25b3bb9038mr73788266b.1.1788185243242; Mon, 31 Aug 2026
- 07:07:23 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="fy7B+QhW"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=yg
+	NHUxDzTC/VV4Fi5XNpXg/tWCbnOntK/5+gLe80oeI=; b=fy7B+QhWkdi5mJAXN8
+	YzW3VLQOb/0yQWGDt3FhOgT33vRQHSv82bJ9NzjyENLrM98aN8WJwJ9J4Ju80Tnk
+	eDoRryV9aWMwlF7ERBWPV2uBX1vFBhnlOlkwzKLdGNNODpxNoX5ZBdTTJZmBfANM
+	ZmHWGJNPG4XXCc93H4zCqgzZA=
+Received: from pc.localdomain (unknown [])
+	by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id _____wBHjrqSipVqvp9iSg--.52939S2;
+	Mon, 31 Aug 2026 22:07:15 +0800 (CST)
+From: Jiale Yao <yaojiale02@163.com>
+To: Jay Vosburgh <jv@jvosburgh.net>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Alexander Aring <alex.aring@gmail.com>,
+	Marcel Holtmann <marcel@holtmann.org>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Jiale Yao <yaojiale02@163.com>,
+	Oliver Hartkopp <socketcan@hartkopp.net>
+Subject: [PATCH] bonding: reject IEEE 802.15.4 devices in bond_enslave
+Date: Mon, 31 Aug 2026 22:07:10 +0800
+Message-Id: <20260831140710.469576-1-yaojiale02@163.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260814094738.2552440-1-cui.tao@linux.dev>
-In-Reply-To: <20260814094738.2552440-1-cui.tao@linux.dev>
-From: Huacai Chen <chenhuacai@kernel.org>
-Date: Mon, 31 Aug 2026 22:07:11 +0800
-X-Gmail-Original-Message-ID: <CAAhV-H73i_hH75rNL_eKQWrxu3HTWhMgJpbkYqueoc4qb97TXQ@mail.gmail.com>
-X-Gm-Features: AcwNN1WKhCQRqFpOy9hh68FYTR1pzxYaK_SVNxDleYQh6woMV8BDrJ8ZU1L6SKY
-Message-ID: <CAAhV-H73i_hH75rNL_eKQWrxu3HTWhMgJpbkYqueoc4qb97TXQ@mail.gmail.com>
-Subject: Re: [PATCH v3] LoongArch: KVM: Fix TOCTOU race on pv_features
-To: Tao Cui <cui.tao@linux.dev>
-Cc: maobibo@loongson.cn, zhaotianrui@loongson.cn, kvm@vger.kernel.org, 
-	loongarch@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	Tao Cui <cuitao@kylinos.cn>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wBHjrqSipVqvp9iSg--.52939S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7Zr18urWkKw1ktF1rArWxCrg_yoW8Wry8pa
+	98CF1FgrnFyw1xW3W3AFs7ur93ursrZa4I9rWUJwn5ur4DXF95Cry2qryq9r1jyrWkCFya
+	vrWq9r4F934DG3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pREoGPUUUUU=
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC7xTHAmqVipTXTAAA3E
 
-Hi, Bibo,
+Bonding already refuses CAN devices because their protocol-specific state
+is incompatible with the bonding model. IEEE 802.15.4 devices have the
+same constraint: they keep protocol-specific state in
+dev->ieee802154_ptr and do not use Ethernet link-layer semantics.
 
-What do you think about this?
+Extend the existing check to reject ARPHRD_IEEE802154 and
+ARPHRD_IEEE802154_MONITOR devices before bonding changes their link-layer
+settings.
 
+Link: https://lore.kernel.org/netdev/aohMHTTH4VqqgZA7@fedora/
+Link: https://lore.kernel.org/netdev/6001bd73-ef68-4820-8371-a22775fb820a@hartkopp.net/
+Fixes: d5ae67bacd96 ("ieee802154: rework interface registration")
+Suggested-by: Oliver Hartkopp <socketcan@hartkopp.net>
+Signed-off-by: Jiale Yao <yaojiale02@163.com>
+---
+ drivers/net/bonding/bond_main.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-Huacai
+diff --git a/drivers/net/bonding/bond_main.c b/drivers/net/bonding/bond_main.c
+index 522eab060f9e..c716336c5172 100644
+--- a/drivers/net/bonding/bond_main.c
++++ b/drivers/net/bonding/bond_main.c
+@@ -1894,9 +1894,11 @@ int bond_enslave(struct net_device *bond_dev, struct net_device *slave_dev,
+ 	struct sockaddr_storage ss;
+ 	int res = 0, i;
+ 
+-	if (slave_dev->type == ARPHRD_CAN) {
++	if (slave_dev->type == ARPHRD_CAN ||
++	    slave_dev->type == ARPHRD_IEEE802154 ||
++	    slave_dev->type == ARPHRD_IEEE802154_MONITOR) {
+ 		BOND_NL_ERR(bond_dev, extack,
+-			    "CAN devices cannot be enslaved");
++			    "CAN and IEEE 802.15.4 devices cannot be enslaved");
+ 		return -EPERM;
+ 	}
+ 
+-- 
+2.34.1
 
-On Fri, Aug 14, 2026 at 5:47=E2=80=AFPM Tao Cui <cui.tao@linux.dev> wrote:
->
-> From: Tao Cui <cuitao@kylinos.cn>
->
-> The check-then-set on kvm->arch.pv_features in
-> kvm_loongarch_cpucfg_set_attr() is lockless, so two vCPUs can race
-> past the validation and set different values.  Add a spinlock to
-> serialize it.
->
-> Reviewed-by: Bibo Mao <maobibo@loongson.cn>
-> Signed-off-by: Tao Cui <cuitao@kylinos.cn>
-> ---
->
-> Changes in v2: use a spinlock instead of a cmpxchg loop (Bibo Mao).
-> Changes in v3: rename the lock to pv_setting_lock and place it next to
-> phyid_map_lock (Huacai Chen).
->
-> v1: https://lore.kernel.org/all/20260810081321.157258-1-cui.tao@linux.dev=
-/
-> v2: https://lore.kernel.org/all/20260813232542.2098930-1-cui.tao@linux.de=
-v/
->
->  arch/loongarch/include/asm/kvm_host.h | 1 +
->  arch/loongarch/kvm/vcpu.c             | 6 +++++-
->  arch/loongarch/kvm/vm.c               | 1 +
->  3 files changed, 7 insertions(+), 1 deletion(-)
->
-> diff --git a/arch/loongarch/include/asm/kvm_host.h b/arch/loongarch/inclu=
-de/asm/kvm_host.h
-> index 23cfbecebbd7..3538a199aac6 100644
-> --- a/arch/loongarch/include/asm/kvm_host.h
-> +++ b/arch/loongarch/include/asm/kvm_host.h
-> @@ -125,6 +125,7 @@ struct kvm_arch {
->         unsigned int  pte_shifts[MAX_PGTABLE_LEVELS];
->         unsigned int  root_level;
->         spinlock_t    phyid_map_lock;
-> +       spinlock_t    pv_setting_lock;
->         struct kvm_phyid_map  *phyid_map;
->         /* Enabled PV features */
->         unsigned long pv_features;
-> diff --git a/arch/loongarch/kvm/vcpu.c b/arch/loongarch/kvm/vcpu.c
-> index 20c207d80e31..e47fa463a8be 100644
-> --- a/arch/loongarch/kvm/vcpu.c
-> +++ b/arch/loongarch/kvm/vcpu.c
-> @@ -1165,10 +1165,14 @@ static int kvm_loongarch_cpucfg_set_attr(struct k=
-vm_vcpu *vcpu,
->                         return -EINVAL;
->
->                 /* All vCPUs need set the same PV features */
-> +               spin_lock(&kvm->arch.pv_setting_lock);
->                 if ((kvm->arch.pv_features & LOONGARCH_PV_FEAT_UPDATED)
-> -                               && ((kvm->arch.pv_features & valid) !=3D =
-val))
-> +                               && ((kvm->arch.pv_features & valid) !=3D =
-val)) {
-> +                       spin_unlock(&kvm->arch.pv_setting_lock);
->                         return -EINVAL;
-> +               }
->                 kvm->arch.pv_features =3D val | LOONGARCH_PV_FEAT_UPDATED=
-;
-> +               spin_unlock(&kvm->arch.pv_setting_lock);
->                 return 0;
->         default:
->                 return -ENXIO;
-> diff --git a/arch/loongarch/kvm/vm.c b/arch/loongarch/kvm/vm.c
-> index 1317c718f896..86ba7d54e81f 100644
-> --- a/arch/loongarch/kvm/vm.c
-> +++ b/arch/loongarch/kvm/vm.c
-> @@ -76,6 +76,7 @@ int kvm_arch_init_vm(struct kvm *kvm, unsigned long typ=
-e)
->                 return -ENOMEM;
->         }
->         spin_lock_init(&kvm->arch.phyid_map_lock);
-> +       spin_lock_init(&kvm->arch.pv_setting_lock);
->
->         kvm_init_vmcs(kvm);
->         kvm_vm_init_features(kvm);
-> --
-> 2.43.0
->
