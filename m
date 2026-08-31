@@ -1,189 +1,242 @@
-Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9150A3A8388
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 22:18:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22A92399D02
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 22:22:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788214739; cv=none; b=Ie13zJ9/qbuZaVottMLRsSoaA/FDmEcMjWEO12qvK8ubaTYawhSf5qDfUgw1tTexIh9bl8j+GCn19aukptuOvXcvM9yAO2c7KRmveThTVszds/JXI6NeqBQVZ4+fJe13pR1RXs1blKyDNsIfqRyz/WbR3PNtXADjsZE2la9HI9M=
+	t=1788214959; cv=none; b=UxyEgsIYpWbXqIqnYI3sQ504ofiTsH0qLHko2ZmZv7IstxQVj9WVdFS/ny1ClnMMruDeRBuraKf2XHzXk8vuT6dVZ4cpYTtT0RZAUxwGsRRKSG244nStNULlOQQ/z2Q8rCieBG43DmJHyGI76vhj0gZuY7jCW+iJkQ60PQR87Lo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788214739; c=relaxed/simple;
-	bh=WWEEZMNW23VgeiLrA0jkBRh+FqlaOZaIbG6KQNC9i3o=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=T9NSihrS7Uyfm9j7MyDxT6rNwPXyK98xKfh9JiIHFi9TbKcVuB/x5S0ehAS6o/QA3u5LZowxSOG+xVJYBGkOM57umrMS35cDM1t4h8x0sgSZ/uDci1+lBjkOLUiNGnB1BuakUiGDD3uGW4JOci8hBLD+VusOje9vDIT+z8ASAQA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=igDopN9B; arc=none smtp.client-ip=209.85.210.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	s=arc-20240116; t=1788214959; c=relaxed/simple;
+	bh=ljnjZMSn9UQEVZAaBfqHdBvvnkvZ04PV9d3uabECpp4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Mg6qOElgmauX99rv6xRndEPEcpcZv6OZBPonmVoJHkF/sEK6bLa/N+vE9g/tlM2kaX0IT/7CpbUV78uRkHarYpKbAN0kGRfxPCtrCt4tXBwbBVRbIhz9K/aUcWIJjTgolQiBFpw08GSQofTme10ol9tur9X4MGnffzNEPr1VbDc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=notkqRw5; arc=none smtp.client-ip=209.85.216.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="igDopN9B"
-Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-8534d507f59so4453935b3a.0
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 15:18:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="notkqRw5"
+Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-38ec1402b05so307389a91.2
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 15:22:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788214737; x=1788819537; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=XnNt0hP8YJjLsvezbznRGz62Lklpiz7+58ZQDmGUihY=;
-        b=igDopN9BmO44WcL5KkB8EZkn1sMNYaTnfHKrQb5ClcSjiKU+qvpp/e0WVnmyKPErgC
-         ZV7YDSwqMYlEFtW+YjjiaFCaBhSDWs28zcATvuKDagLJ7/SPylY8KK9Muf/vFiVHQpJs
-         ksLGmmidV0pdy1a2i5KulmdIwpPnl5Dzr8PCD+pyfx08cyLKUMeAoEmE9X5nQyYeXebS
-         dwNXxdFroYZK3c+uRxveZa4m2pXmPDzL5mYPdwtedGDG0KgqUor2eIMIADPQWthRbsEE
-         umG+SHdkdWb2ATMYWWUK3fajbLL1ciQTt3uPPcVbzzDB4ReOrU+qnSG2CsAzEmAr40Tg
-         zHVA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788214737; x=1788819537;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1788214957; x=1788819757; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=XnNt0hP8YJjLsvezbznRGz62Lklpiz7+58ZQDmGUihY=;
-        b=IX35DRdsHsZi4VCgA4OKhxCUgkn+szCGE6DqU+ENIUMyDI7ZQhGmaLKja4701zDx1Z
-         BBEx6E5rLBetB9+cMGS7u/2NKRu+gzdZR1cGGAsMewU0kQ+sXA+ETvRyBUQC2vh9WnPX
-         nq/BTg0KafBbJv2iMFLGGsXI57NbGU+F44y65ak3KWKK7iJHddzDvmmjHmmx/bp3awQJ
-         qTSzURC5xKNVbALUUkZHncNDxQQy2xXfpbNBIgCPVhT0nkHlMqVocOQC6Zjdph8ap1LG
-         kQo1vhta2JliBZT2VdDynfV5fLStugoMd64BRGs+whZ0cGuEsYQn5/tSPfsy+FM6ozLb
-         ppLA==
-X-Forwarded-Encrypted: i=1; AHgh+RrE8oTIuOPRY4pUv66mY+eVCsXbIvMugZAZBUTAOJq4rrPDwH+DDWF/cM72HA1fwCTr6OPz+bSPm7yE9YA=@vger.kernel.org
-X-Gm-Message-State: AFuF++n8QUeFnwnQGYcmlvQAmxC9Uw0e04XW/EV0PL9Z1ltQkfzOfjtj
-	fsoFZjtgGkNd9Onj2kCnvhNngd5zVtW5MUzLVBAjLm3xkxmERBv/5NSz
-X-Gm-Gg: AR+sD111GElSgItIksirSqW9Z7cLuNZ8Ny9nz494BlZ/s3p8u3Dwtt/UBAobAXKr52N
-	qonEWKQ1+EJb48cjKAyj/yYhEdyOBp1IiVTxmXL6HQPrnIJPqNneFoKVzP7doQon+Zh1RTr2dzq
-	Odjo6ljMujPCyo5vnPojYKrKV4Xw4jo86bDKJtXns+NDICB6gsoDp9PSu/B8ChpXUbbixuA1BYX
-	AY1j4g+U7h4n7/gB+u2iBIZOBbigBiTP7XnueWu+n9gtGiJoSd8XaaSpSeGW1q5d8cd2wdw3by1
-	gju67aDrlMpgY/rz/lmtBhngEEDCfSw7/qyyCaCk9HFO4lR5UsT0zDk9hP7zniP0VH73fvzwx4J
-	IovPypo94Llcat3o/O8aMonvXF8Fh+D21tARQ9pzTX9RANo7n5aBd4oVskfqF7p4kDyZRcqtZwm
-	XW2mahSXgSxgobGMlr1T8fHY7EgW4rCsKcdh4QhVk04GpxWopuC2SzKj0LmN+CJdLmdw4QTCcv2
-	L73qY1D
-X-Received: by 2002:a05:6a20:2586:b0:3d3:b02a:7252 with SMTP id adf61e73a8af0-3d3b02a76a6mr29131323637.28.1788214736859;
-        Mon, 31 Aug 2026 15:18:56 -0700 (PDT)
-Received: from devvm16600.scu0.facebook.com ([2a03:2880:9ff:44::])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3286f7be607sm33073832eec.10.2026.08.31.15.18.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 15:18:56 -0700 (PDT)
-Date: Mon, 31 Aug 2026 15:18:53 -0700
-From: Ziyang Men <ziyang.meme@gmail.com>
-To: Shuah Khan <shuah@kernel.org>, Tejun Heo <tj@kernel.org>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Michal =?iso-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>,
-	Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>,
-	David Vernet <void@manifault.com>,
-	Eduard Zingerman <eddyz87@gmail.com>
-Cc: Viktor Malik <vmalik@redhat.com>, Andrea Righi <arighi@nvidia.com>,
-	Changwoo Min <changwoo@igalia.com>,
-	Michal Hocko <mhocko@kernel.org>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Muchun Song <muchun.song@linux.dev>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	JP Kobryn <inwardvessel@gmail.com>,
-	Mykola Lysenko <mykolal@meta.com>,
-	Nathan Chancellor <nathan@kernel.org>, kernel-team@meta.com,
-	linux-kselftest@vger.kernel.org, cgroups@vger.kernel.org,
-	linux-input@vger.kernel.org, sched-ext@lists.linux.dev,
-	linux-mm@kvack.org, bpf@vger.kernel.org, llvm@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 0/4] selftests: shared lib.bpf.mk for building BPF
- progs and skeletons
-Message-ID: <apX9zb+3awc99Pfh@devvm16600.scu0.facebook.com>
-References: <20260814075054.507089-1-ziyang.meme@gmail.com>
+        bh=yB66osd3zdM1Z7DmAjc15br6sG2z09XFVhX4xOJfkwQ=;
+        b=notkqRw5XjYdzyA3Ra52hBb5Zi2y2pcgd1qR5AINbcTUdZTpKLlDsd4GczESt6glGi
+         VhtcI/gztry5l3P+bg5pr+ONJvEWWDwFJkML292sb5Bo9LMTlM2jrv23VxSXYZ6WUQzj
+         F+LUQQcfwFBjyapp2nszevH01dyKalt6POM1ubfuY6vMxGZemq5D4h/oYBxeHBLkOnhG
+         lUU9zp0igxTcUzy9sqdVHDZOkVraOXO+Zbpiqh/ienArl52J9CXTYv8pKV+XjZFSrFlT
+         UbYf8kvIDS6qFvYr6fCNCb6Jrkza4ABGsmFLo7ZuuUefkP1e8FUNrKbsxgD5thkpg5sh
+         As3Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788214957; x=1788819757;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=yB66osd3zdM1Z7DmAjc15br6sG2z09XFVhX4xOJfkwQ=;
+        b=CgTKAMqB55i7xGB3P0UsSk7LBLATWFCTUcc9oGE/GO5Gg6G+ocQPf7B88cfVRFFx2n
+         63acjAjA+KDoqgI9plBKd73vhPWfXJX/eT+VT4MCxbsynX/e1YvNr+WA7u4Tj4f9Ab8x
+         92cuALhaGRZ60wpLqF5PoX5frig19XoqF63SmThsjevtUkDkQp+8TPB0bqLm8jABEJwU
+         Dh+ThYbm2LzmBH1/b8+seDM8OA9cR7xYwywa//C+bM0zmpqM8vbpRL0HT52q6j9HgsVy
+         0Iqr6tWjpiMLaQ2z/PA5zgMMtFLu/HZR9fy6uC+enB4VGd61njH3jqgn5zcAymE1rCKl
+         RJzw==
+X-Forwarded-Encrypted: i=1; AKwUvBzeb0YOO/qPlLiPRAcZFENvElr4zDhJnOR4klqGRlEU0oPTx+Q7X4Eta4fPphyg0NZ5m23l4H2nMZjWP4Y=@vger.kernel.org
+X-Gm-Message-State: AFuF++kOQDotJxQBRNmXRCI4wgvjYLGPQdaCCkL3JWqusxBRRbvpHfa/
+	iKwrEFhuxNrIqJZMDnvLR6HoBivfUrMvdLK81hfdJYmJCx6za4dp9kRe
+X-Gm-Gg: AYBFou2G8W1UJIoRygS+VvfXd50xahyMFJWSgj0Apdgsw2DyKhAl0chQoCj5Msi/I5r
+	4voDHP4LDh0qMpyIRlqw871bO2z9syqFMSpdtz5B5oA/wg8ejTrgBOdjYuvzHINPl/mM6vv5Uzg
+	uXMJ4FSscrXn1qFknoUdMoG0vvVMrY0oh9C4GRstL4DSq7VxbTuliLK9tVTmWn+W/SpfWaoxVmX
+	14j+mavDtjysi65rsjJPsgOLkRu/Xgg5sYnqtQqtmlHJmO2eRP7n8RX3dUaoTlVZlMj1nOfx182
+	LMLVIYl75hlzZFOrsiExkafKmVI5XOq1T0jE0du1Ie5LpResg0FoZ8ZaMned7T4uep9SMd0nE8N
+	zEB+1vFIQ5hJEizwnmy5vNg1rf1B/7hO5o7XVjo2E1B9qrw9sumRkRkIX89W8Zf1X/9LB0ysYpt
+	/fPjPFAFnuSbjaFrhfBQCOvaDQ2UK0uDR8wTFjnRQebDYfHv0uoWAe/BHQxBdd4SoEMfAObTg9n
+	x4jMHZxPnjBhBRAsm18sr1dgWx/P/L/eOnFT3jd89bBlSRi
+X-Received: by 2002:a17:90b:2c88:b0:396:b98b:a3c2 with SMTP id 98e67ed59e1d1-396d0f52a0amr47177952a91.8.1788214957384;
+        Mon, 31 Aug 2026 15:22:37 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-142e0bf8a13sm46202975c88.0.2026.08.31.15.22.36
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 31 Aug 2026 15:22:36 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <555c7300-c742-4b91-a67e-5a4aa144bebe@roeck-us.net>
+Date: Mon, 31 Aug 2026 15:22:35 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <20260814075054.507089-1-ziyang.meme@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] hwmon: (spd5118) Select page 0 unconditionally during
+ probe
+To: Armin Wolf <W_Armin@gmx.de>
+Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org,
+ ggirouard@bungeetaco.com
+References: <20260831193424.95135-1-W_Armin@gmx.de>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <20260831193424.95135-1-W_Armin@gmx.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Reviewers,
+On 8/31/26 12:34, Armin Wolf wrote:
+> Some Intel i2c controllers can be configured by the BIOS to reject
+> writes to the SPD device. This often causes problems when the register
+> page needs to be changed, usually during resume.
+> 
+> Avoid probing on affected devices by unconditionally selecting page 0
+> by writing the SPD5118_REG_I2C_LEGACY_MODE register during probe.
+> This will fail on affected controllers and thus prevent the driver
+> from probing.
+> 
+> Signed-off-by: Armin Wolf <W_Armin@gmx.de>
+> ---
+> Changes since v2:
+> - restore original register content if i2c init fails
+> 
+> Changes since v1:
+> - Avoid zeroing reserved bits inside SPD5118_REG_I2C_LEGACY_MODE
+> ---
+>   drivers/hwmon/spd5118.c | 55 ++++++++++++++++-------------------------
+>   1 file changed, 21 insertions(+), 34 deletions(-)
+> 
+> diff --git a/drivers/hwmon/spd5118.c b/drivers/hwmon/spd5118.c
+> index 9724cf70b61d..038d9e6e6a73 100644
+> --- a/drivers/hwmon/spd5118.c
+> +++ b/drivers/hwmon/spd5118.c
+> @@ -637,44 +637,31 @@ static int spd5118_i2c_init(struct i2c_client *client)
+>   				     I2C_FUNC_SMBUS_WORD_DATA))
+>   		return -ENODEV;
+>   
+> -	regval = i2c_smbus_read_word_swapped(client, SPD5118_REG_TYPE);
+> -	if (regval < 0 || (regval && regval != 0x5118))
+> -		return -ENODEV;
+> -
 
-Just want to follow-up on this patch series. Please let me know the possible
-issues and I will fix them.
+Thinking about it, Sashiko has a point here. I think we should keep
+the above code to have an early exit point.
 
-Thanks very much!
+>   	/*
+> -	 * If the device type registers return 0, it is possible that the chip
+> -	 * has a non-zero page selected and takes the specification literally,
+> +	 * We must first select page 0 to ensure that we can reliably read
+> +	 * the volatile registers on chips that take the specification literally,
+>   	 * i.e. disables access to volatile registers besides the page register
+>   	 * if the page is not 0. The Renesas/ITD SPD5118 Hub Controller is known
+> -	 * to show this behavior. Try to identify such chips.
+> +	 * to show this behavior.
+> +	 *
+> +	 * We must also perform an unconditional register write to detect if
+> +	 * the i2c controller blocks write accesses to the SPD device. Some Intel
+> +	 * controllers might be configured by the BIOS to do this.
+>   	 */
+> -	if (!regval) {
+> -		/* Vendor ID registers must also be 0 */
+> -		regval = i2c_smbus_read_word_data(client, SPD5118_REG_VENDOR);
+> -		if (regval)
+> -			return -ENODEV;
+> -
+> -		/* The selected page in MR11 must not be 0 */
+> -		mode = i2c_smbus_read_byte_data(client, SPD5118_REG_I2C_LEGACY_MODE);
+> -		if (mode < 0 || (mode & ~SPD5118_LEGACY_MODE_MASK) ||
+> -		    !(mode & SPD5118_LEGACY_PAGE_MASK))
+> -			return -ENODEV;
+> -
+> -		err = i2c_smbus_write_byte_data(client, SPD5118_REG_I2C_LEGACY_MODE,
+> -						mode & SPD5118_LEGACY_MODE_ADDR);
+> -		if (err)
+> -			return -ENODEV;
+> -
+> -		/*
+> -		 * If the device type registers are still bad after selecting
+> -		 * page 0, this is not a SPD5118 device. Restore original
+> -		 * legacy mode register value and abort.
+> -		 */
+> -		regval = i2c_smbus_read_word_swapped(client, SPD5118_REG_TYPE);
+> -		if (regval != 0x5118) {
+> -			i2c_smbus_write_byte_data(client, SPD5118_REG_I2C_LEGACY_MODE, mode);
+> -			return -ENODEV;
+> -		}
+> +	mode = i2c_smbus_read_byte_data(client, SPD5118_REG_I2C_LEGACY_MODE);
+> +	if (mode < 0)
+> +		return mode;
+> +
 
-Best,
-Ziyang
+I also wonder if we should strengthen this and bail out if any of bit 3..7 is
+set. 2-byte addressing is known not to work in the first place, and bit 4..7
+are reserved in the supported version of the standard and should always be 0.
 
-On Fri, Aug 14, 2026 at 12:50:50AM -0700, Ziyang Men wrote:
->This series re-factors the bpf-related toolchain for selftests, which
->currently duplicated across selftests/{bpf,sched_ext,hid}/. Unify them
->into a single includable fragment, the tools/testing/selftests/lib.bpf.mk,
->and wires up three consumers. We believe this will simplify the work for
->configuring selftests with the bpf, for both the existing and future ones.
->
->Patch 1 adds lib.bpf.mk mentioned above.
->
->Patch 2 adds a new selftest, selftests/cgroup/test_memcg_stat_cross_cpu,
->which checks the cgroup flush happens correctly by comparing the bpf
->read value matches the file reading. Existing test
->bpf/cgroup_iter_memcg only ensures whether the number is non-zero, which
->is trivial in some cases.
->
->Patches 3 and 4 replace the duplicated parts in selftests/{hid,
->sched_ext} with the lib.bpf.mk
->
->===
->Changes since v2:
->For shared Makefile:
->- The lib.bpf.mk now use the USERCFLAGS (and USERLDFLAGS) to extend the
->  CFLAGS and LDFLAGS.
->- OPT_FLAGS/RELEASE and EXTRA_CFLAGS now reach the libbpf and bpftool
->  sub-makes as well.
->- One rule per BPF source instead of a vpath, which is global and also
->  applied to the caller's own %.c rules.
->- HOSTCC/HOSTLD come from lib.mk instead of including Makefile.include,
->  which also rewrote the caller's AR, LD and CFLAGS.
->- A missing vmlinux is reported by the recipe rather than at parse time,
->  so "make clean" still works without BTF.
->
->For cgroup selftest:
->- Only one cgroup tree is created, one flush is performed, follows by
->  bpf read and file read.
->- More common cgroup functions e.g., cg_read_key_long() and
->  value_close(), are used in the selftests.
->- Use cpu_set_t rather than manually allocated cpu lists.
->- Use test_memcontrol.c's anon allocator and moving it into cgroup_util.
->- Other suggestion from the review.
->
->Others:
->- Bot reviews are fixed.
->
->===
->Changes since v1:
->  - Generalized lib.bpf.mk (source layout/suffix, extra hdrs/cflags,
->    skeleton suffix, subskeletons, configurable output dirs) so it can
->    serve hid and sched_ext, not just cgroup.
->  - Added patch 3 (hid) and patch 4 (sched_ext), converting those folders
->    to the shared fragment.
->
->Ziyang Men (4):
->  selftests: add shared lib.bpf.mk to build BPF progs and skeletons
->  selftests/cgroup: add memcg_stat_cross_cpu correctness test for flush
->  selftests/hid: build the BPF program via the shared lib.bpf.mk
->  selftests/sched_ext: build BPF schedulers via the shared lib.bpf.mk
->
-> tools/testing/selftests/cgroup/.gitignore     |   8 +
-> tools/testing/selftests/cgroup/Makefile       |  52 ++
-> tools/testing/selftests/cgroup/config         |   5 +
-> .../selftests/cgroup/lib/cgroup_util.c        |  83 +++
-> .../cgroup/lib/include/cgroup_util.h          |   3 +
-> .../cgroup/memcg_stat_cross_cpu.bpf.c         |  86 +++
-> .../selftests/cgroup/memcg_stat_cross_cpu.h   |  21 +
-> .../cgroup/test_memcg_stat_cross_cpu.c        | 596 ++++++++++++++++++
-> .../selftests/cgroup/test_memcontrol.c        |  29 +-
-> tools/testing/selftests/hid/.gitignore        |   1 +
-> tools/testing/selftests/hid/Makefile          | 180 +-----
-> tools/testing/selftests/lib.bpf.mk            | 296 +++++++++
-> tools/testing/selftests/sched_ext/Makefile    | 146 +----
-> 13 files changed, 1204 insertions(+), 302 deletions(-)
-> create mode 100644 tools/testing/selftests/cgroup/memcg_stat_cross_cpu.bpf.c
-> create mode 100644 tools/testing/selftests/cgroup/memcg_stat_cross_cpu.h
-> create mode 100644 tools/testing/selftests/cgroup/test_memcg_stat_cross_cpu.c
-> create mode 100644 tools/testing/selftests/lib.bpf.mk
->
->-- 
->2.53.0-Meta
->
+Also, if we keep above check, we should only only get here if the page is != 0.
+That means the register value has to be 0x01..0x07. So we could bail out with
+
+	if (!mode || (mode & ~SPD5118_LEGACY_PAGE_MASK))
+		return -ENODEV;
+followed by
+	err = i2c_smbus_write_byte_data(client, SPD5118_REG_I2C_LEGACY_MODE, 0);
+
+Thoughts ?
+
+Thanks,
+Guenter
+
+> +	err = i2c_smbus_write_byte_data(client, SPD5118_REG_I2C_LEGACY_MODE,
+> +					mode & ~SPD5118_LEGACY_PAGE_MASK);
+> +	if (err < 0)
+> +		return err;
+> +
+> +	regval = i2c_smbus_read_word_swapped(client, SPD5118_REG_TYPE);
+> +	if (regval != 0x5118) {
+> +		/* Restore original register content */
+> +		i2c_smbus_write_byte_data(client, SPD5118_REG_I2C_LEGACY_MODE, mode);
+> +		return -ENODEV;
+>   	}
+>   
+>   	/* We are reasonably sure that this is really a SPD5118 hub controller */
+
