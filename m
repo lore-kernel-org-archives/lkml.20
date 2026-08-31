@@ -1,49 +1,53 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA53D49480F;
-	Mon, 31 Aug 2026 17:54:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57DBD49502D;
+	Mon, 31 Aug 2026 17:54:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788198857; cv=none; b=otS1d4TWtX+jJqPzMn0wkx+Elt26Gzog3dpRpFS6sIH1qeMDxCIyd6UIUYmSaMvhI83jv/zO1u2vsUj9d4gme43SIhsjAuCCoCI7ZSYJ67uRtxxZMQqe3YE6vSjyis3aTIUsLcQ8yXOQp9JhFrvBcPGOeVgiix5YFwQRIUa5d28=
+	t=1788198859; cv=none; b=A1FTEt8TS1wpQ8au9OPM5EDzYdaI0kI5oOHot0YCFzKxmy06TPie/blsTyOQtSCyi8gzUZfV1QRZet/sBgpPvrGlGTNm2d0AOorCB8716WLjsd84jviwrs1z4zBytrIveOu386TwRqVLDb1x2f2PnelnI5ih8iBA1VNhrPUKlsE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788198857; c=relaxed/simple;
-	bh=gwOK+8dKssunGgfHFAM7d9jiehkwj/decjx924Q6TH0=;
+	s=arc-20240116; t=1788198859; c=relaxed/simple;
+	bh=D2XwsJwUWkH4ZsX70D5LEFPI8vRkCXM7yPBS3/nzISU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=mu2vB7Yldm0QZcHLzU8mCLKwXeF2TNSDJHh8ZrF5fssaSAeYx0psTQWlS4LnSUxfmVRoXUVEEV7neHKCylIV2i0aXz4i/eIwxUThqHEx8xyQIkB92NxmX/1fAaWtnbyXF4GVimlSo5vqR57QZrLgfgJ/0B6ZrPgAa9Vra1AG7D8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d7wbLIZU; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=cm/1A0IvC8fJ7EPLgvK5N1AFpXUwiXEiw2ofHVYURfRL5/IkW3RQVCtNOe2mD/DM/hP9sCrh9IFjcVMkTFtTTtqnxxBUwJedmpH0gJHAUS+6n0lpya9qcP+CPnAg8C2sgDH8KpDJ3yT9ugM+aUdlJ44JOfwqF0fvhKtS/AohweE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G61CwDEJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d7wbLIZU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 031F41F00ACF;
-	Mon, 31 Aug 2026 17:54:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G61CwDEJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E9B3A1F00ADB;
+	Mon, 31 Aug 2026 17:54:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788198856;
-	bh=tXP5WR9pASo29OWPTldlfmFxsIdIV/SIBFFkPV1DZhc=;
+	s=k20260515; t=1788198857;
+	bh=xzXeQ+KYmDl1STI9Wrb6xOHJ/Z+bbGwdO6kq02zCP7o=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=d7wbLIZUagKZB7ipLqcrSm2+11SyJoxuBL0kdGoXhx7Do5as+Z8XRlLQ6hEvydT8N
-	 4YQA8a8XkbVbr7NWBLh3vZmRGG0W3c9dATVLUrB+5GRJizvtZSM8YW1Kgq6OLvYlLP
-	 409kUQ5gfzzL7U0xCA0i1ZG+MLu/iHjBETlFjyRqRaiIS9J1nlbztSGvP2//wJ4AWd
-	 mw3gbMyT+KspZOxGQ3Td45zGIc4bxeBZSuMJqWkb/Xe7Qr0+tkyVD12PuJLzU0dDnq
-	 T9/qM/5XTqGf1V4unYZD1Tsvzi+j6SA3LnsTDQga/ohkKOtX8PiVs6e3EiRGZJWWSS
-	 OOXnTpG6Bkbmw==
+	b=G61CwDEJaBzlRY5E+CVaCXXK2uETcmu+MpwqWItdU9cH1wVdZL7ipBAXizuLePB1M
+	 AGUtUYWMoB7HFrC9nQecZ7zGj6EY2rcdYUTrPg3wqE/0bDVA+3efNYsLmBBoP/clhy
+	 kvwAyTbdHNGYeLppbVZcnlufCXX6SDpLVumaINEBG5up9NTUwigvLYONIKyskci5w/
+	 L7gRMCxqNPmgwsAS9DxefolCn7W169REU6zlHegP2rz+JqjqxX4WKotqjyx3KHI5BK
+	 ZcyEp9qViE0QEGk/y28iJ6rF25TRy28RZoLP4eC17fAOfFv1TMOtcbDs0mhkEM/rwT
+	 6IEkq/g7ctSOg==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Konrad Dybcio <konradybcio@kernel.org>,
+To: Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
+	Taniya Das <taniya.das@oss.qualcomm.com>,
+	Konrad Dybcio <konradybcio@kernel.org>,
 	Qiang Yu <qiang.yu@oss.qualcomm.com>
 Cc: linux-arm-msm@vger.kernel.org,
+	linux-clk@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
 	Abel Vesa <abel.vesa@oss.qualcomm.com>
-Subject: Re: (subset) [PATCH v10 0/5] Add QMP PCIe Multi-PHY support
-Date: Mon, 31 Aug 2026 12:53:46 -0500
-Message-ID: <178819882985.1411250.10417297203313304130.b4-ty@kernel.org>
+Subject: Re: (subset) [PATCH v4 0/4] clk: qcom: Migrate x1e80100 TCSR to clk_ref helper
+Date: Mon, 31 Aug 2026 12:53:47 -0500
+Message-ID: <178819882975.1411250.14880639483367583448.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260825-glymur_linkmode_0826-v10-0-56ab597d77e4@oss.qualcomm.com>
-References: <20260825-glymur_linkmode_0826-v10-0-56ab597d77e4@oss.qualcomm.com>
+In-Reply-To: <20260827-hamoa_tcsr_qref_0826-v4-0-663c9d30468d@oss.qualcomm.com>
+References: <20260827-hamoa_tcsr_qref_0826-v4-0-663c9d30468d@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -54,29 +58,22 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Tue, 25 Aug 2026 19:59:19 -0700, Qiang Yu wrote:
-> Some QMP PCIe PHY hardware blocks can be configured through a link-mode
-> register into different link topologies, such as a single wide link, or
-> multiple independent narrower links (e.g. x8 or x4+x4 mode on the Glymur
-> PCIe3 PHY).
-> 
-> Earlier revisions tried to extend the existing single-instance
-> phy-qcom-qmp-pcie.c driver to cover this hardware. That added a large
-> amount of conditional, multi-PHY logic to a driver whose data model
-> assumes one PHY per node.
+On Thu, 27 Aug 2026 23:00:32 -0700, Qiang Yu wrote:
+> The QREF block on X1E80100 supplies reference clocks to PCIe/USB/UFS
+> PHYs and requires dedicated LDO supplies to operate. The digital
+> control interface for QREF (clkref_en registers) resides in TCSR on
+> X1E80100. This series migrates the x1e80100 TCSR driver to the common
+> clkref_en helper introduced for Glymur/Mahua, and wires up the
+> required regulator supplies.
 > 
 > [...]
 
 Applied, thanks!
 
-[1/5] arm64: dts: qcom: glymur: Add PCIe3 PHY and PCIe3a controller nodes
-      commit: 7a147b572a22efb1404249f74d982ea386f59774
-[2/5] arm64: dts: qcom: glymur-crd: Add PHY supplies for pcie3_phy
-      commit: 5d9046549e433257f7fcc5d59a9a449c8c11dd84
-[3/5] arm64: dts: qcom: mahua: Replace pcie3a/pcie3_phy with dedicated pcie3b_phy
-      commit: f4526f9ee3146224d94907b38c712177d9c74df7
-[4/5] arm64: dts: qcom: mahua-crd: Add PHY supplies for pcie3b_phy
-      commit: fd452641dfebc13da4a44ef5a0417e4480b0e0a3
+[1/4] dt-bindings: clock: qcom: Move x1e80100 TCSR to own binding
+      commit: fcbd3151c9beffca044ea7a085d7e595ebf34f74
+[2/4] clk: qcom: tcsrcc-x1e80100: Migrate to clk_ref helper
+      commit: 011ed2a61f44b352bda71a82213f621bbfdb40f9
 
 Best regards,
 -- 
