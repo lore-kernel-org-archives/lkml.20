@@ -1,48 +1,31 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40FB43BCD2F
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 06:40:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76EB43BBFC7;
+	Mon, 31 Aug 2026 06:40:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788158406; cv=none; b=oZI/RtL599YsXF+H1aMV4H/clcXutw8TXOvSndOFYWRCUIOqC3pWIpDkL67dET7NOSyUyTr2qmpxX3ZdNINdunu03ZBs1iyka9inLO+E9sm7M+7o5EnN3jnZW8zhphDpFOxy30q22gTw3FIufXgWuBSSGAhZLPewIEyG0KftBD0=
+	t=1788158413; cv=none; b=KeCK7q3De/lpgb3k6zNBEOIJK44oU6jOAP919kx+MtkXX1IAXOeIxsasdnPPSqjC/wgB5Nvj1AtsmPp7hBO+eFpRVeh4Voz+yWTqV9228XUQrM5hAllgXCzfseyKeVxFcGinOOHjVeG0lHgStdjl7F6L7vjSZb6Uqo7S6ejXaJ0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788158406; c=relaxed/simple;
-	bh=DDBqC2+qvM8/AKR78Ix9rvugnY9ok50Qs3a+h1pYWwc=;
+	s=arc-20240116; t=1788158413; c=relaxed/simple;
+	bh=xEYskKPPHRAzKQ2JxjPwFUvRJdNmKZNeq4QYv1cFtTw=;
 	h=Content-Type:MIME-Version:In-Reply-To:References:Subject:From:Cc:
-	 To:Date:Message-ID; b=U21CC4QpxVUFnTlLiZBj0MFAqpxBXUCRl06uSw6Wwyy4DlsCdSG/0l01l1XHm82FiNkVqkl53947xqZ9AuAbaT9Iafa37ZKZWFEbw7KysT1eRIgQ8e/T4gdbeN/ydbtN/j164DPdpn8CjibsUgZMcRe1qMMg+E6p29regA3xUGw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=D14GZ/Lu; arc=none smtp.client-ip=192.198.163.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	 To:Date:Message-ID; b=QDv1HfMIWM5mJ2d2TjFCOEvUVPBAzB/ecwALGzX2NY6sOO0uCv1PHHY5/lmBPqgrDLT2n3/WIogGz9cjHBQdeT60bYnWCVehjtB0zsDdUqTxE6ZltyR5MKwYKgEJhdWfmcLI6PmQSbJGPN9wSza60aAuCSuvSMl5T7A1r1V2KI0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=E4lX4t8J; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="D14GZ/Lu"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788158405; x=1819694405;
-  h=mime-version:content-transfer-encoding:in-reply-to:
-   references:subject:from:cc:to:date:message-id;
-  bh=DDBqC2+qvM8/AKR78Ix9rvugnY9ok50Qs3a+h1pYWwc=;
-  b=D14GZ/LuRHD2Vb03PUrIzBo3ivt4+jInUmSgD0zyH1CqJUfMX54rett3
-   o5e8z+Z9L2ZtLNhw1WAVH5+pnSTGo7awdPOFtCS6n0oFqdBSfagxwMGHU
-   R5KFz0F8d7c1fckS8VlBMPiAO0wD7wS4QrRUbOgcoYOeFf2Xpmp/50tWx
-   NG7fDGUShZZL/UzJ4TDAW5j5biwJAbH95B0gIc76ivxnIj+YZkaBb+9kW
-   UONpg182qHelf62p93y3MBbwpTSzlDqTXlhnRX/jF+Wf0Puj50jXPX+Jv
-   Ek8Qed++bK19+2kFYB6bzeicHAVt14Fj1wm09aoUFW04xHoKpTzXmJ/iA
-   A==;
-X-CSE-ConnectionGUID: BLak+M07StSrr0B599uS0A==
-X-CSE-MsgGUID: fv5Z49HATheSzxOpSfXbFQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11891"; a="87688737"
-X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
-   d="scan'208";a="87688737"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Aug 2026 23:40:04 -0700
-X-CSE-ConnectionGUID: VE1P2hIYR16HOFGVra4u0Q==
-X-CSE-MsgGUID: iSgmEIr+SBCrSHUgJHz1iA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
-   d="scan'208";a="269291904"
-Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.31])
-  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Aug 2026 23:40:01 -0700
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="E4lX4t8J"
+Received: from neptunite.rasen.tech (unknown [IPv6:2400:2411:160:2f00:a9ae:3688:6dfb:71b0])
+	by perceval.ideasonboard.com (Postfix) with UTF8SMTPSA id 53FF24BB;
+	Mon, 31 Aug 2026 08:38:38 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1788158319;
+	bh=xEYskKPPHRAzKQ2JxjPwFUvRJdNmKZNeq4QYv1cFtTw=;
+	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
+	b=E4lX4t8Jzc2hBnhHPSsWMUqlJmSYf7oLs885v2uc+s94o9WrFmgqRZDNPoFqvTkOm
+	 CqHTlkztwv/0O6DKy1VMD7bz1RxzRWZxca1zDiAeOCd09YdMQyZ4SAkki0VhkpnXRf
+	 DLzP3gJ0jHk+rIUu7VkWyL6iXmAHNLiqTBS0uqxU=
 Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -51,44 +34,56 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20260823205028.178597-2-thorsten.blum@linux.dev>
-References: <20260823205028.178597-2-thorsten.blum@linux.dev>
-Subject: Re: [PATCH] drm/i915: Fix memory leak in query_perf_config_list()
-From: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Cc: Thorsten Blum <thorsten.blum@linux.dev>, intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-To: Chris Wilson <chris@chris-wilson.co.uk>, David Airlie <airlied@gmail.com>, Jani Nikula <jani.nikula@linux.intel.com>, Lionel Landwerlin <lionel.g.landwerlin@intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>, Simona Vetter <simona@ffwll.ch>, Thorsten Blum <thorsten.blum@linux.dev>, Tvrtko Ursulin <tursulin@ursulin.net>
-Date: Mon, 31 Aug 2026 09:39:58 +0300
-Message-ID: <178815839811.55476.6042238739250760944@jlahtine-mobl>
-User-Agent: alot/0.13.dev2+g40c57d620
+In-Reply-To: <20260717-b4-vchiq-isp-v3-5-fb8235e15c68@ideasonboard.com>
+References: <20260717-b4-vchiq-isp-v3-0-fb8235e15c68@ideasonboard.com> <20260717-b4-vchiq-isp-v3-5-fb8235e15c68@ideasonboard.com>
+Subject: Re: [PATCH v3 5/9] platform/raspberrypi: vchiq: Add helpers for vchiq driver data
+From: Paul Elder <paul.elder@ideasonboard.com>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Kieran Bingham <kieran.bingham@ideasonboard.com>, Dave Stevenson <dave.stevenson@raspberrypi.com>, Naushir Patuck <naush@raspberrypi.com>, Stefan Wahren <wahrenst@gmx.net>, Jacopo Mondi <jacopo.mondi@ideasonboard.com>, Daniel Scally <dan.scally@ideasonboard.com>, linux-media@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, Jai Luthra <jai.luthra@ideasonboard.com>, Umang Jain <uajain@igalia.com>
+To: Florian Fainelli <florian.fainelli@broadcom.com>, Jai Luthra <jai.luthra@ideasonboard.com>, Marek Szyprowski <m.szyprowski@samsung.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, Tomasz Figa <tfiga@chromium.org>
+Date: Mon, 31 Aug 2026 15:40:02 +0900
+Message-ID: <178815840263.1005982.5693616363350713202@neptunite.rasen.tech>
+User-Agent: alot/0.0.0
 
-Quoting Thorsten Blum (2026-08-23 23:50:28)
-> When krealloc() fails, free the original oa_config_ids before returning
-> to avoid a memory leak.
+Quoting Jai Luthra (2026-07-17 20:04:20)
+> Add helpers to set and get vchiq driver data. vchiq_set_drvdata() and
+> vchiq_get_drvdata() wraps dev_set_drvdata() and dev_get_drvdata()
+> respectively.
 >=20
-> Fixes: 4f6ccc74a85c ("drm/i915: add support for perf configuration querie=
-s")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
+> Signed-off-by: Umang Jain <umang.jain@ideasonboard.com>
+> Signed-off-by: Jai Luthra <jai.luthra@ideasonboard.com>
+
+Reviewed-by: Paul Elder <paul.elder@ideasonboard.com>
+
 > ---
->  drivers/gpu/drm/i915/i915_query.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
+>  include/linux/raspberrypi/vchiq_bus.h | 10 ++++++++++
+>  1 file changed, 10 insertions(+)
 >=20
-> diff --git a/drivers/gpu/drm/i915/i915_query.c b/drivers/gpu/drm/i915/i91=
-5_query.c
-> index 0c55fb6e9727..11157fb14db3 100644
-> --- a/drivers/gpu/drm/i915/i915_query.c
-> +++ b/drivers/gpu/drm/i915/i915_query.c
-> @@ -403,8 +403,10 @@ static int query_perf_config_list(struct drm_i915_pr=
-ivate *i915,
->                 ids =3D krealloc(oa_config_ids,
->                                n_configs * sizeof(*oa_config_ids),
->                                GFP_KERNEL);
-> -               if (!ids)
-> +               if (!ids) {
-> +                       kfree(oa_config_ids);
->                         return -ENOMEM;
-
-Instead of duplicating the code once more, could we just refactor into
-"goto err_ids;" style to clean up the function?
-
-Regards, Joonas
+> diff --git a/include/linux/raspberrypi/vchiq_bus.h b/include/linux/raspbe=
+rrypi/vchiq_bus.h
+> index 9de179b39f85..6eff6b0bf599 100644
+> --- a/include/linux/raspberrypi/vchiq_bus.h
+> +++ b/include/linux/raspberrypi/vchiq_bus.h
+> @@ -37,6 +37,16 @@ static inline struct vchiq_driver *to_vchiq_driver(str=
+uct device_driver *d)
+>         return container_of(d, struct vchiq_driver, driver);
+>  }
+> =20
+> +static inline void *vchiq_get_drvdata(const struct vchiq_device *device)
+> +{
+> +       return dev_get_drvdata(&device->dev);
+> +}
+> +
+> +static inline void vchiq_set_drvdata(struct vchiq_device *device, void *=
+data)
+> +{
+> +       dev_set_drvdata(&device->dev, data);
+> +}
+> +
+>  extern const struct bus_type vchiq_bus_type;
+> =20
+>  struct vchiq_device *
+>=20
+> --=20
+> 2.54.0
+>=20
+>
