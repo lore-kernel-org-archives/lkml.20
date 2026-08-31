@@ -1,100 +1,154 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 584783624B8;
-	Mon, 31 Aug 2026 21:27:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D800137189C;
+	Mon, 31 Aug 2026 21:27:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788211643; cv=none; b=UJZLAysjn3yEsu8xROSZZlDFHYc+2LS6axtYWqCc3gxLdWXZFysknThzD3lMWhpC/SGabTu5hPS9olNd+zQRHgOly/YY3pdFz0S8Q3S01Gp/nOAKAOyh2QxoFMCzHURTWjfI1tcZf3R2MIQCtiX9PtiHEaYhqeNNz5fO8p9HwTE=
+	t=1788211660; cv=none; b=Ww6UHTuEV3TiSAVFtW8MK/f5BeSD+nycpu3K+0rcDyEJXK9Ums/uQjphh+MBhE7S9G8CnlM1yEnYqk9UyZCKpOAAfhHY8FwUf0qRZEvWo8U4JmVcQrLuhBM6JdRZnRk1LV57YG2RDqGAxQpzHeWELLNTe9/TeBWiJ6f6VvxHsvA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788211643; c=relaxed/simple;
-	bh=UWkAB/0UN0jAczMe5AfSqL0s1dlXiU0QWMONLCr0qvE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Wum9iAuT0peKd7s2ZWJek6/SWOIfwF7iZYkQIS3mJxXHNrwRnJ96wG0Hpi6ONMWV+aUx9o3iIVhsLjeGedMTLJLzvD0MVa2fkhubyITcqndS+vvVXaSeR/Frg31ehbI2vX7PtTbLRlpgvHdP3O/v79O6RdCxj6UhqNJDGIZxAQ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B5Wg3vRF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788211660; c=relaxed/simple;
+	bh=j/IL/Qt6kfJAF/KzPAMqe4zvR2J2gHo7Y7/J+EH+5qs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=jzthRG+DUyDYSJLllPitRFBNYmE4fWECTm1PC7iWZWt3uOwQjLXmGUX+BthCIDWu8NMxX93ASqOoRpBMETNlODgvbLQUifnaSJTnizPBvqdIJonggmLLaR4Ld1b47sJwaJX1NpE9ZkJQbzsc87+vSW/Yn847snrUDeB6F3slIPs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ij2dTxwz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B5Wg3vRF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93A7B1F000E9;
-	Mon, 31 Aug 2026 21:27:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ij2dTxwz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 170751F000E9;
+	Mon, 31 Aug 2026 21:27:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788211641;
-	bh=UWkAB/0UN0jAczMe5AfSqL0s1dlXiU0QWMONLCr0qvE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=B5Wg3vRFGUo/ZoMi0Kd9Mepopts3nZTxI9uo7amXP04TaiWeNf9eDNLC4CyNIlO01
-	 Jr883+5+GPQ9HhKM/TaroYUonHwy4Ok6GcinzJznQEeLkRlpewaXwfivVhiTW9U/Mq
-	 Il76JpGMDjl37kEOvVRN0uBpp46GqKnx0zAAv93tUSeGcpKlaOJcugX0zpJ+QhlElM
-	 s6p4S3wckoXM0VPhh5+tfCAOSuoiZ8OafEGWcbxg9EEzN6dlrTfGsboCwxX86argFz
-	 HRMTWQNva1hq2bjmlEl4q16uN5PGThW/1wMTTPnyrBZIRtQiZOHB3+lvU8kkfSVjwM
-	 qfiyp9r3K7J2w==
-Date: Mon, 31 Aug 2026 22:27:13 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Jia Wang <wangjia@ultrarisc.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Samuel Holland <samuel.holland@sifive.com>,
-	Anup Patel <anup@brainfault.org>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	Mika Westerberg <mika.westerberg@linux.intel.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Giuseppe Cavallaro <peppe.cavallaro@st.com>,
-	Jose Abreu <joabreu@synopsys.com>,
-	Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>,
-	Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
-	Paul Walmsley <paul.walmsley@sifive.com>,
-	Palmer Dabbelt <palmer@sifive.com>, Conor Dooley <conor@kernel.org>,
-	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org,
-	linux-i2c@vger.kernel.org, netdev@vger.kernel.org,
-	dmaengine@vger.kernel.org
-Subject: Re: [PATCH 06/12] spi: dt-bindings: snps,dw-apb-ssi: Add compatible
- for UltraRISC DP1000 SoC
-Message-ID: <9bd5a17a-43a8-4e3b-bd12-ddde9265c2f0@sirena.org.uk>
-References: <20260824-ultrarisc-dts-v1-0-61ab7aebe9e5@ultrarisc.com>
- <20260824-ultrarisc-dts-v1-6-61ab7aebe9e5@ultrarisc.com>
+	s=k20260515; t=1788211658;
+	bh=I7WDKw282IDUYm8QytKCMKjv27yy6DDhv7SSE6iTZCg=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Ij2dTxwzloLkAArxcTVpzOoY+P9bW/EToJ4GL3NNYN+PflBXqlENTi5suxq1q4Wrz
+	 5LJRTJ/e1kxPZmqAvF1VKaqoteUG9FV4Et7+3URyzpZQdGLF1ikHnL6flUbWT7ZO5y
+	 SA4lXI8shw/k5Vj8P3tqmoEo4O/T0h7PcrN0B0MxGQHsCxYvSC9QWxbJZHvqAQGLvm
+	 90a2Y/t6nS963L1Ip3banSFZkjywr52kCxEtG8BQQKREOqGJ6EG519BIhZVv04sz9n
+	 XDKBYDLVf3+btDtVhhCWJIpEEECPk/DNAth65obREUBIt2sRa0QRwIzWoWIRx31G9q
+	 FRIEoTkLPFswg==
+Message-ID: <9cbebb07-28a5-4491-b23d-bf4cb453ef11@kernel.org>
+Date: Mon, 31 Aug 2026 16:27:37 -0500
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="q+7g5Wbpwns/c8Jq"
-Content-Disposition: inline
-In-Reply-To: <20260824-ultrarisc-dts-v1-6-61ab7aebe9e5@ultrarisc.com>
-X-Cookie: Chocolate chip.
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] usb: pci-quirks: always assert xHCI OS ownership
+Content-Language: en-US
+To: Rishabh Jain <rishabh.jain1198@gmail.com>,
+ Mathias Nyman <mathias.nyman@intel.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Michal Pecio <michal.pecio@gmail.com>, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <2026083129-justice-egomaniac-01cd@gregkh>
+ <20260831211126.23745-1-rishabh.jain1198@gmail.com>
+From: Mario Limonciello <superm1@kernel.org>
+In-Reply-To: <20260831211126.23745-1-rishabh.jain1198@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
+On 8/31/26 16:11, Rishabh Jain wrote:
+> The xHCI ownership protocol requires the OS driver to assert the HC OS
+> Owned semaphore before using the host controller, then wait for HC BIOS
+> Owned to clear if firmware owns it.
+> 
+> quirk_usb_handoff_xhci() currently asserts OS Owned only when BIOS Owned
+> is already set. If firmware leaves BIOS Owned clear, Linux uses the xHC
+> while both ownership semaphores remain clear.
+> 
+> On an AMD PROM21 xHCI controller (1022:43fc), this caused every S3
+> resume to terminate Controller Restore State with USBSTS 0x401. Linux
+> then reset the host controller, both root hubs and the USB Bluetooth
+> adapter.
+> 
+> The controller entered resume ready and halted with USBSTS 0x1.
+> Endpoint state, 100 ms save/restore delays, scratchpads, the DCBAA,
+> device contexts and command, event and transfer rings were verified not
+> to cause the restore error.
+> 
+> Asserting only HC OS Owned changed USBLEGSUP from 0x00000801 to
+> 0x01000801 and eliminated the restore failure across four S3 cycles,
+> including a stock-kernel test. Clearing USBLEGCTLSTS was independently
+> verified to be unnecessary.
+> 
+> Always assert OS Owned when the xHCI Legacy Support capability is
+> present. Use the existing ownership masks with a single initial register
+> read/write. Keep the existing BIOS handoff recovery and legacy SMI
+> cleanup unchanged.
+> 
+> Fixes: 66d4eadd8d06 ("USB: xhci: BIOS handoff and HW initialization.")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Rishabh Jain <rishabh.jain1198@gmail.com>
+Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>> ---
+> Changes in v3:
+> - Drop the unnecessary BIOS ownership debug message.
+> - Drop the redundant self Tested-by tag.
+> 
+> Changes in v2:
+> - Use XHCI_HC_OS_OWNED instead of byte-offset access.
+> - Fold the TI/Renesas forced handoff into the ownership-register write.
+> - Make the BIOS handoff wait unconditional and gate recovery on the initial
+>    BIOS ownership state.
+> 
+> Additional context:
+> 
+> * Kernel Bugzilla #216470 documents the same USBSTS 0x401/reinitialize
+>    behavior and its impact on attached USB devices:
+>    https://bugzilla.kernel.org/show_bug.cgi?id=216470
+> 
+> * Commit a7d57abcc8a5 ("xhci: workaround CSS timeout on AMD SNPS 3.0
+>    xHC") is related workaround history: it tolerates a distinct AMD CSS
+>    timeout and resets the controller on resume:
+>    https://github.com/torvalds/linux/commit/a7d57abcc8a5bdeb53bbf8e87558e8e0a2c2a29d
+> 
+> The external reports do not record their ownership semaphore values but
+> are included as corroborating failure signatures that this might fix.
+> 
+>   drivers/usb/host/pci-quirks.c | 27 ++++++++++++---------------
+>   1 file changed, 12 insertions(+), 15 deletions(-)
+> 
+> diff --git a/drivers/usb/host/pci-quirks.c b/drivers/usb/host/pci-quirks.c
+> index 0404489c2f6a9..52d41ac5daa85 100644
+> --- a/drivers/usb/host/pci-quirks.c
+> +++ b/drivers/usb/host/pci-quirks.c
+> @@ -1191,25 +1191,22 @@ static void quirk_usb_handoff_xhci(struct pci_dev *pdev)
+>   	if ((pdev->vendor == PCI_VENDOR_ID_TI && pdev->device == 0x8241) ||
+>   			(pdev->vendor == PCI_VENDOR_ID_RENESAS
+>   			 && pdev->device == 0x0014)) {
+> -		val = (val | XHCI_HC_OS_OWNED) & ~XHCI_HC_BIOS_OWNED;
+> -		writel(val, base + ext_cap_offset);
+> +		val &= ~XHCI_HC_BIOS_OWNED;
+>   	}
+>   
+> -	/* If the BIOS owns the HC, signal that the OS wants it, and wait */
+> -	if (val & XHCI_HC_BIOS_OWNED) {
+> -		writel(val | XHCI_HC_OS_OWNED, base + ext_cap_offset);
+> +	val |= XHCI_HC_OS_OWNED;
+> +	writel(val, base + ext_cap_offset);
+>   
+> -		/* Wait for 1 second with 10 microsecond polling interval */
+> -		timeout = handshake(base + ext_cap_offset, XHCI_HC_BIOS_OWNED,
+> -				0, 1000000, 10);
+> +	/* Wait for 1 second with 10 microsecond polling interval */
+> +	timeout = handshake(base + ext_cap_offset, XHCI_HC_BIOS_OWNED,
+> +			    0, 1000000, 10);
+>   
+> -		/* Assume a buggy BIOS and take HC ownership anyway */
+> -		if (timeout) {
+> -			dev_warn(&pdev->dev,
+> -				 "xHCI BIOS handoff failed (BIOS bug ?) %08x\n",
+> -				 val);
+> -			writel(val & ~XHCI_HC_BIOS_OWNED, base + ext_cap_offset);
+> -		}
+> +	/* Assume a buggy BIOS and take HC ownership anyway */
+> +	if (timeout && (val & XHCI_HC_BIOS_OWNED)) {
+> +		dev_warn(&pdev->dev,
+> +			 "xHCI BIOS handoff failed (BIOS bug ?) %08x\n",
+> +			 val);
+> +		writel(val & ~XHCI_HC_BIOS_OWNED, base + ext_cap_offset);
+>   	}
+>   
+>   	val = readl(base + ext_cap_offset + XHCI_LEGACY_CONTROL_OFFSET);
 
---q+7g5Wbpwns/c8Jq
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-
-On Mon, Aug 24, 2026 at 01:54:19PM +0800, Jia Wang wrote:
-> Add the SoC-specific compatible string and use the generic one as fallback
-> for the UltraRISC DP1000 SPI controller.
-
-This doesn't apply against current code, please check and resend.
-
---q+7g5Wbpwns/c8Jq
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqV8bAACgkQJNaLcl1U
-h9DI8wf/eSvMfTYF0nSWOpBbx64lahzK6gdu0QfgliH0pyXLXPkDKM/MJk8BN5Mn
-h1/EIUG8xEEzzOTWbycIU1gyEVN1BSPELOL8mSJJg+5YS4SCKHjPLUvzHJUb+Tiv
-I41ubInBfOHEb15rEuP04UQovZYMvLCr/Grw4crXMM/hZW5RjdT48QhaltrjdbNT
-UOhg1ybDz4UzhD9ys7VACQ+U/cjjhbNezZZR4PaUST3pbURHoE9WFpohUbBhK5xT
-esoGPKe+DYO0LkRQ+SGGTekeE0q5hhwDGNp5F2rqqoz/8jUv5/iFlNsmUGvJQQAR
-0/8l/S9EqYMPbSKL1NQDqYdfFKPZQQ==
-=u+gt
------END PGP SIGNATURE-----
-
---q+7g5Wbpwns/c8Jq--
