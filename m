@@ -1,164 +1,134 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 462E73C0611;
-	Mon, 31 Aug 2026 07:21:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 521193C3F5B;
+	Mon, 31 Aug 2026 07:23:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788160879; cv=none; b=aFAP/Z9gsttLd9PxCQei5fXJW9XFsXjV6BTx2aqGlwmhHx9B2ksfUdtexlOjAjwmi30Zyxk0qN1TrsICvilzuP3TucVaIZc2ms4CxtYXoTKU14G/tnEtutVfj6GO0AdDTVSuinaUQVqx4P4qD+ZhrRg3w4DkmvBRhqbsGwJ09L4=
+	t=1788160981; cv=none; b=Bi2O+8L/1c39gd/UtoVb25ipp1rekZmZsKaTkI+DZNFOtb44E5R+69H2xFRLkIgfWtbA0guzKTqNU6kpAlDRFmspzzvHx0kVZFU8xE8RbYTBf6Jgtq1IWldC4+YOitjK6Y6zs28eawdQjBPQlqjJaWLYGVRJNMStC9jLqAPJq+A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788160879; c=relaxed/simple;
-	bh=XyoHHvsJA41SZYgs8/nta7xlAPK5pWTv6C7xxAqrDtQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=lN46QJ1fckycWLIIeo+blWv/lz+PVrRCVZ+GCSyWRW+253ZmFrsMCMfRJG5sKiJKfgsbKaHzTtjQnN7/b9iZfp6NTT3e6u5alB9WMZ0/+JexdTZ0+1NUc25f6dKfNPPdc4zNQ+dqsIIZbi9g5r3as0u+pLFacLsIU8pZAr4yT/Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=YzBuhZDV; arc=none smtp.client-ip=220.197.31.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1788160981; c=relaxed/simple;
+	bh=SP8uKDhSqFzjoxUA4LVWk+SQL0x7ZDHcGG98kPcrOFg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LgvN7gxFqwMxjr4pfBKtEpv91puf8EXX+fxE+Ao3y5QsNu0ZJnnuCtbp9WksVXj72/UqkSkeNONt872cXnAsKjpWvFuDf96zExqPfE49qdHaOhdKm1Xl4jjQfhL/cTusyQjqNB1fUI1vLct71Ncq22ysqs6DRu2Xda3Nr++2mdg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=M2qP1Ck0; arc=none smtp.client-ip=192.198.163.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="YzBuhZDV"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=FT
-	qzPuH+I54g2gIsoOIEDIxySICos/OCg8sIuuqGMts=; b=YzBuhZDVQsT4fzi4iM
-	9hZxJBpU+PXaAYdoXl2fRsbTpCPLp4UyBvRzgMR+rsOGlJC5A388dlo+rAsifvXZ
-	N+eqz6liKGgVQqrup57MJzoJZlmcyjn0QU/2G0EYG6uz7WbMh/3QB/PIWOahTwHC
-	r9g+IzGYg2jZgdU5+YzT8LLhc=
-Received: from sky.localdomain (unknown [])
-	by gzsmtp2 (Coremail) with SMTP id PSgvCgBHxPJCK5VqvJB+Nw--.10420S2;
-	Mon, 31 Aug 2026 15:20:35 +0800 (CST)
-From: Junnan Zhang <zhangjn_dev@163.com>
-To: Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: Simon Horman <horms@kernel.org>,
-	"Michael S . Tsirkin" <mst@redhat.com>,
-	Hangbin Liu <liuhangbin@gmail.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	zhangjn_dev@163.com,
-	Junnan Zhang <zhangjn11@chinatelecom.cn>,
-	Shouxin Sun <sunshx@chinatelecom.cn>
-Subject: [PATCH net v2] net/packet: fix network header offset for non-VLAN raw packets
-Date: Mon, 31 Aug 2026 15:20:34 +0800
-Message-ID: <20260831072034.40044-1-zhangjn_dev@163.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="M2qP1Ck0"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788160981; x=1819696981;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=SP8uKDhSqFzjoxUA4LVWk+SQL0x7ZDHcGG98kPcrOFg=;
+  b=M2qP1Ck0oIaGHOYoXLEP/5as+pSDGs4n/AYXPHcYyWzpgAf0Py4DSd8N
+   Pjrl7M+Ud++W6zzs7KUP/SXHvx1bqS8Ls80VfMuAxYhfILpb5EkqEwHdh
+   rionNH5sxFzT/4FhZ2svkjmqNI+WbaKWgHnKFUHTEdGjKofDpZvTs1P5k
+   oYQbIHwH815GpkOOg7ZAsGlMXJext3Pvc0Ny/lEImpukoft3k+IGas24x
+   1DZuFGnEAuYnjI/QfkWjeCmwPSInjQQVYOA2qL9utRc+IWWY4p1Ql6/+k
+   EjHbtrfOLlAmq5J1q5PyvMUcRWHbT3x/D2D+j3KbtTYFguV6Y5HpJrDuI
+   A==;
+X-CSE-ConnectionGUID: qXjpE+yZR1amk89Ne1sV+g==
+X-CSE-MsgGUID: Ydm6nf+4TqOfrbanK2Ek/Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11891"; a="114097203"
+X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
+   d="scan'208";a="114097203"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 00:23:00 -0700
+X-CSE-ConnectionGUID: fXdhKB+5RbuaN7lqU1bYXQ==
+X-CSE-MsgGUID: pL2Nq5nQS0WeSfO8yp0AIA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
+   d="scan'208";a="306964250"
+Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.244.21])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 00:22:58 -0700
+Date: Mon, 31 Aug 2026 10:22:55 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Peter Rosin <peda@lysator.liu.se>
+Cc: Ahmad Byagowi <ahmadexp@gmail.com>, Andy Shevchenko <andy@kernel.org>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, linux-i2c@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v7 3/3] i2c: mux: Propagate software nodes to channel
+ adapters
+Message-ID: <apUrz0iqOL5iEQuy@ashevche-desk.local>
+References: <cover.1787502619.git.ahmadexp@gmail.com>
+ <a4abcd31c3a6758e219f5edcdd4acd307e674f18.1787502619.git.ahmadexp@gmail.com>
+ <ao0tPhBvK1Er_Vs0@gryt>
+ <CAOQiBWNVvHpO7X8yWyZEa3-nV76YJfRbkzo+_4U-upEj4VNfow@mail.gmail.com>
+ <ao_VE0W-FohWqPPt@ashevche-desk.local>
+ <apO31ydKoiqWCEKo@gryt>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PSgvCgBHxPJCK5VqvJB+Nw--.10420S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW3AF13Kr4rKrWUCryfXr13Arb_yoW7XF4rp3
-	W2kF9xJw4DGr1akr4vqFsxJF4YvFs3G3W2gFWfX3409Fs8uFyrAFyxtF42gFyUKFWrW34U
-	Xr1qv3W5Ca1ktrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0piW89tUUUUU=
-X-CM-SenderInfo: x2kd0wxmqbvvry6rljoofrz/xtbCxQPacGqVK0N8hQAA3C
+In-Reply-To: <apO31ydKoiqWCEKo@gryt>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-AF_PACKET SOCK_RAW sets skb network_header to dev->hard_header_len in
-packet_snd(). For Ethernet devices whose hard_header_len exceeds the
-on-wire L2 header length (min_header_len = ETH_HLEN) -- e.g.
-software-offload VLAN subinterfaces, where hard_header_len = ETH_HLEN +
-VLAN_HLEN = 18 -- a non-VLAN SOCK_RAW frame still carries a standard
-14-byte Ethernet header, so its L3 header sits at min_header_len, not
-hard_header_len.
+On Sun, Aug 30, 2026 at 06:55:51AM +0200, Peter Rosin wrote:
+> Den Thu, Aug 27, 2026 at 09:11:31AM +0300, skrev Andy Shevchenko:
+> > On Wed, Aug 26, 2026 at 08:29:47AM -0700, Ahmad Byagowi wrote:
 
-packet_parse_headers() only corrects network_header for VLAN-tagged
-frames. For non-VLAN frames it leaves network_header at hard_header_len,
-so the IP header is found (hard_header_len - min_header_len) bytes too
-late and inet_gso_segment() fails with -EINVAL.
+> > > Yes, software-node handling is needed for the ptp_ocp use case.
+> > 
+> > That driver is a mess. I'm surprised nobody told to the authors of
+> > the respective changes to look at the auxiliary implementation.
+> > 
+> > > ptp_ocp is a PCI driver. It creates its board-specific I2C topology at
+> > > runtime with software nodes: the mux, its channel nodes, sensors, and LED
+> > > controller. Firmware does not provide ACPI nodes for this topology.
+> > > 
+> > > The existing acpi_preset_companion() path only associates a mux adapter
+> > > with an existing ACPI child. It does not associate the adapter with one of
+> > > these dynamically created software-node channel nodes. Without that
+> > > association, i2c_get_adapter_by_fwnode() cannot find the channel adapter by
+> > > the channel software node, so ptp_ocp cannot instantiate the downstream I2C
+> > > devices on the correct channel.
+> > > 
+> > > Does this address the concern, or would you prefer a different way to
+> > > represent this dynamically created topology?
+> > 
+> > Wouldn't it be possible to use some kind of DT overlay to have that?
+> 
+> For me, the above is a bit unrelated to this patch series, which is
+> about converting i2c-mux from of-only properties to device properties.
+> That seems like a change that stands on its own.
+> 
+> I probably wasn't clear enough with my original question, but what I
+> wondered about was what regression risk that conversion might have
+> for the ACPI case. Specifically, there might be ACPI properties that
+> match what the code is now looking for. It seems unlikely that such
+> properties are actually deployed, but I know next to nothing about
+> ACPI...
+> 
+> TL;DR
+> 
+> My original question should have been: Is it safe to simply remove
+> these lines from the patch:
+> > +	if (!is_of_node(dev_node) && !is_software_node(dev_node))
+> > +		return NULL;
+> and let the code trawl all kinds of device properties?
 
-Observed on a virtio_net NIC (KVM guest) that advertises
-NETIF_F_HW_VLAN_CTAG_FILTER but not NETIF_F_HW_VLAN_CTAG_TX, so VLAN
-subinterfaces use software tag insertion (hard_header_len = 18). An
-AF_PACKET SOCK_RAW socket bound to the VLAN subinterface with
-PACKET_VNET_HDR enabled sends a large IPv4/TCP frame exceeding the path
-MTU, with gso_type set in the virtio-net header. The user frame is a
-plain [ethhdr][IP...] layout without a VLAN tag; the VLAN subdevice
-inserts the 802.1Q tag in vlan_dev_hard_start_xmit(). With
-network_header stuck at 18 while the real IP header is at ETH_HLEN (14),
-inet_gso_segment() reads a misaligned ip_hdr(skb) and returns -EINVAL.
+Technically it's safe. Administratively, it might be some "creative" ACPI
+firmware author (who presumably hasn't seen anything than OF in their life
+before) may assume that it's fine to use OF approach (while ACPI has even
+documented "binding" for I²C muxes). So my answer "yes and no" :-) It all
+depends on the human factor. If we trust people enough to read documentation
+and follow, we are fine without these lines.
 
-Set network_header to min_header_len for non-VLAN SOCK_RAW frames on
-Ethernet devices whose hard_header_len exceeds min_header_len, so the
-L3/L4 header positions match the actual on-the-wire frame.
+> Sorry for the confusion...
 
-This fix is placed before skb_probe_transport_header() so that both the
-transport header probe (which uses skb_network_offset() as nhoff) and
-subsequent GSO see the right L3/L4 offsets. It complements
-commit 01fdecc0480d ("net: packet: fix wrong transport_header when sending VLAN-tagged frame")
-which only covers VLAN-tagged frames.
+NP, I'm glad to help with ACPI.
 
-Fixes: dfed913e8b55 ("net/af_packet: add VLAN support for AF_PACKET SOCK_RAW GSO")
-Signed-off-by: Junnan Zhang <zhangjn11@chinatelecom.cn>
-Signed-off-by: Shouxin Sun <sunshx@chinatelecom.cn>
-Signed-off-by: Junnan Zhang <zhangjn_dev@163.com>
----
-v2:
-- Drop "on VLAN subinterfaces" from the subject and reword the scope to
-  Ethernet devices whose hard_header_len exceeds the on-wire L2 header
-  length (min_header_len). The min_header_len < hard_header_len test is
-  not VLAN-specific; it also covers Ethernet drivers that reserve extra
-  hard_header_len space for driver-internal wrapping.
-- Restructure packet_parse_headers() to test dev->type once; replace
-  has_vlan, which mixed the device and packet tests, with the
-  packet-only is_vlan.
-- Describe the header offset error generically as (hard_header_len -
-  min_header_len) bytes instead of hard-coding the 4-byte VLAN case.
-- Document the reproducer: virtio_net advertising
-  NETIF_F_HW_VLAN_CTAG_FILTER but not NETIF_F_HW_VLAN_CTAG_TX, with
-  PACKET_VNET_HDR and GSO triggering the -EINVAL from
-  inet_gso_segment().
-
-v1: https://lore.kernel.org/all/20260821085722.24036-1-zhangjn_dev@163.com/#t
----
- net/packet/af_packet.c | 22 ++++++++++++++++++++--
- 1 file changed, 20 insertions(+), 2 deletions(-)
-
-diff --git a/net/packet/af_packet.c b/net/packet/af_packet.c
-index 1168bd6b09cd..be5bf9db7ea1 100644
---- a/net/packet/af_packet.c
-+++ b/net/packet/af_packet.c
-@@ -1935,6 +1935,7 @@ static int packet_rcv_spkt(struct sk_buff *skb, struct net_device *dev,
- static void packet_parse_headers(struct sk_buff *skb, struct socket *sock)
- {
- 	int depth;
-+	bool is_vlan = false;
- 
- 	/* On TX skb->data is the L2 header; anchor it for all socket types. */
- 	skb_reset_mac_header(skb);
-@@ -1943,11 +1944,28 @@ static void packet_parse_headers(struct sk_buff *skb, struct socket *sock)
- 	    sock->type == SOCK_RAW)
- 		skb->protocol = dev_parse_header_protocol(skb);
- 
-+	if (likely(skb->dev->type == ARPHRD_ETHER)) {
-+		is_vlan = eth_type_vlan(skb->protocol);
-+
-+		/* For non-VLAN SOCK_RAW frames on Ethernet devices whose
-+		 * hard_header_len exceeds the on-wire L2 header length
-+		 * (min_header_len) -- e.g. software-offload VLAN subinterfaces,
-+		 * or Ethernet drivers that reserve extra space in
-+		 * hard_header_len for driver-internal wrapping -- the SOCK_RAW
-+		 * send paths leave network_header at hard_header_len, while the
-+		 * user frame's L3 sits at min_header_len. Move network_header
-+		 * to the actual L2/L3 boundary so the transport header probe
-+		 * below and subsequent GSO see the right L3.
-+		 */
-+		if (!is_vlan && sock->type == SOCK_RAW &&
-+		    skb->dev->min_header_len < skb->dev->hard_header_len)
-+			skb_set_network_header(skb, skb->dev->min_header_len);
-+	}
-+
- 	skb_probe_transport_header(skb);
- 
- 	/* Move network header to the right position for VLAN tagged packets */
--	if (likely(skb->dev->type == ARPHRD_ETHER) &&
--	    eth_type_vlan(skb->protocol) &&
-+	if (is_vlan &&
- 	    vlan_get_protocol_and_depth(skb, skb->protocol, &depth) != 0)
- 		skb_set_network_header(skb, depth);
- }
 -- 
-2.43.0
+With Best Regards,
+Andy Shevchenko
+
 
