@@ -1,47 +1,47 @@
 Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012041.outbound.protection.outlook.com [52.101.48.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FB9046F4B8
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 17:23:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 461A6485CD5
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 17:23:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.41
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788196982; cv=fail; b=QhjgeW3EEEElNHm5k3EABJ21vAWgY/I97pXUH33mH/QbQef743eX2nbAYU/zWNtNiaFAX5GBSQzfzOJWIMnhOThZxg6WD/RQwdHRxr72ZgZ/aAa1sEJ1mPaQwgsBOaw6lnbTGcbAtwXSVvziN8KVQWp+eQ2LV8fs9v+1+YD4wkk=
+	t=1788196983; cv=fail; b=TYAJWyxF595pGJ4St3OUIqiC4nVdUKSgLgYbzcGsFClqW7gViNpaaNvlbnFDQixcBCeMAd/p/pXlEH6uUbzGLQX34C1t+npWyRSC0JWgY8rbIr8xXSFPsdeJSH42582cfBL8uv71nGHRAjJ/moEX5DFR7Br/wwZtefIuUyhT8Rw=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788196982; c=relaxed/simple;
-	bh=6xDTCUsOaKXIcnibAu2pdjtddYi5/1KnZk4NeOwSf9U=;
+	s=arc-20240116; t=1788196983; c=relaxed/simple;
+	bh=SJgXDDGQBoVmZq+sLn3+fhFv92YYTixI3BK4aSpWGuE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=EOtCuk7Lk1ia08BIycxAu6vcMGNGs+jBGNoeZr20zp/QNhNYqfmVF5JQP8aHys4ymPwAbNV+0hZbC7u7r32qY/Y+vVOOhQwH+aduDtjueg0T4mgFu90RT/sovhPDm5ccasr+qYPC3XNuWA3X9O6gAxyufxGReWsSybs0uUEM474=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=fINCsKlR; arc=fail smtp.client-ip=52.101.48.41
+	 Content-Type:MIME-Version; b=HpkN6VzuMUuEppySCXlJiWdg8/2910x+NwVrM8wRhGCkKXgf4ne1VmJAzihLOptB3O22jUeEsdw46WNEk15ztpu7Jn1zgI/HZvDC038aaWLgbdkdCqVg3AmiiYza2yz4LrsIXwL28ebgc98cxT7Ven0ZYliF8PudoMrPb7Oqe3s=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=YI77Z9PB; arc=fail smtp.client-ip=52.101.48.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="fINCsKlR"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="YI77Z9PB"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hstap7ldKwLPAyjsSM6lLo3pc396Mr007MaeR4VUy9u+noTBq7+zlpkA9kaFSq7MNMx2shlzFBoR7w0U1wBcYL1w5c4Z23mOVhWZ6mf08UHaBOqQKw++0XBMgK7ECNkB9ex3F4quAsBRh3R2k4jS1Iqte97DiyOIaJdyvauhZoT1RW9DWlY6cMK4zcwohOFAvv/BzXVLhoP3b5zUTxIRUTA1AiU/HmnR2E+ZvSIyHaKFgkLeE/iYhMCOQUHNDlfQgDksnjFrfAknZSDHe8BcrXUa9e/RgtQmJ9obbeA2kMItptB5Kgnrjo6ZbQHz9ZzGvsK6yDEsEDZAuT1gC/NTWQ==
+ b=RGe5nFVV8mIigl8GXaQesHSV6pAj3Hb7AEqT7FC7FTfA/aBbo3JNN8/MPD3Bv8ZK0rsNoCuvrwxwSIQjohAnXTmow1xIkD/Qik2phPhm6rjuPHFp+MoYoir7o46/ZZSPAZcG4cJifOf7966K7AumBuj0AYz5NGpxigWMaAqi+BqVHB+ecgNlegGrrx6lKXywVouwgp4s8k3Yb8yAETQi3UQ9Z8TQ+Ixc1XY7lMWqP737mz1gvNkf7kUC5/0g0qq2Y6HnZc8Mf9IQoDWFI//QcU8U61sBrPVYeJROq5pxb1Dra4kPvhUpeVz6H06Eej+8ZkhsCQwdaRcovQS5XKPwOw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+KgaJKaL0fS1dIVFu0rr1uU7UK5Z7gfzjoKXoKR5+o4=;
- b=pYUki/rNA5SF3vtZOri02dqNrJ0qmkH2LwNQgLYH8BDctmZ0DSKOFU0jwfqLOJJG9p7YULlZrkrHxMjiNoT5qOQxtJeUptTRggyMCBsNs4DgnbWUU3lv2KkQb//kmJYQmN2VTfm+Pksh6oxcPR8CkHhy2QmLue/6jj0y+0aAoyo0WMj5iT0WZfkiWeB8jvMgwOKQdrnllnJ+6xdNd9FNw+Q+gGMN16/JfQpIMa1/kDjcHrvurHFII0Cx3dwhemV9taXueUJBajw8ro0FmWcl84/bCoM6dNTiYObTU1X2Eb+As6aj9SusLjl00s8GxBr1qySIDBahxG0Vy1oNnVDOEA==
+ bh=xWCZi14bd6MqV2i+IPx+LFFB4DzXvBH16bu3FKsS5zY=;
+ b=oZLqsjDggn9YZkrTGLlI6IJCEb8obTMqUOuzWvm3XlMWTFhD8lUn42Ye3qzh9PFDHR1DQ3IOt8fhz+yPQcOHs2Sl8rRYTwhzKf+OEikn4BdxuUWDfilDogI5gi+Ca0TG9JFKSwtMPTHJ0zrhxAGVip3jGzhW+c7FtRQDe9cJmKzF4nT34lf2/pVJSMsTzvzZ/zVkuucC7coEAXdxAdat3ZWPe522700F05C6wsbZEOHnHRmyiWHiSrlmgs3M4UUSrSc+H+e+XNUxrsKxOfTOOu4bJj+1U+E2ZY+yvOHxgN+xBPkHfyX277tTnXGvkuHVgbP/SidlWR6OhVhn22ZiZw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+KgaJKaL0fS1dIVFu0rr1uU7UK5Z7gfzjoKXoKR5+o4=;
- b=fINCsKlRUn4CGcJ+S0wjhvHxDrksjIkfhqhwB6J21O+wQmdYGPJfLT4gtyEU0CYffg2wLMDhzB4zKpxcMUj8bkhCVWLo3+/n+Ib9Q2pmGy84rrSo2wBlmtH4DtxgzcT9MfCM8uQr+OY9HHrjo/D6pELHdYwaBd1Kb6DQOrd/eyfrOAZR7v7bNW/gL/zFDUPzcPrlOJEdioQ4+E+7k9G1O/4a5NUtvAeGxuJ7mzXNDWQaT3e6sz0F7FOuJd47JQQVhHhNGWaWHm/xAMM6LJ/OWEbejFN0SoJNFa5dGXhU1ghllrrM0QuLoKLCjt5qpvLFndlXhyv2iW+usPrwhsO+Dw==
+ bh=xWCZi14bd6MqV2i+IPx+LFFB4DzXvBH16bu3FKsS5zY=;
+ b=YI77Z9PBELl4WWdSHp1ANv1lveUDh7RsrViV04MLlKaxA3i9Hpgr3zEtWX6PXC9EJs1v5Nc4vgBm+JGNlFT8ZAqT3w2kkPQCSZmz3loDyL0E3UWHo6B0fTLeQuBT/fsZJEzjJgpix6pibCYxA5MEEQtjabLJzwIJsYsFjklZyJpx2RIhGf9nU5uQemaGwWO2eB+fCmtDbjY3ELINxiXeZjuvh0rnCsNz5dNSkrEl5p6HAl5f1rm40npI+CSkjYkhdh4UfllcuSFqRaFvtM5Sqpa9xKm2Zfi6t/vvjFDRXgm78JOVYcb7warErayxeEvXssH0wh190AvzDBCq4lR+4A==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from DM4PR12MB5230.namprd12.prod.outlook.com (2603:10b6:5:399::11)
  by SJ5PPF0C60B25BF.namprd12.prod.outlook.com (2603:10b6:a0f:fc02::98a) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Mon, 31 Aug
- 2026 17:22:54 +0000
+ 2026 17:22:55 +0000
 Received: from DM4PR12MB5230.namprd12.prod.outlook.com
  ([fe80::6e87:1bde:1853:3b73]) by DM4PR12MB5230.namprd12.prod.outlook.com
  ([fe80::6e87:1bde:1853:3b73%5]) with mapi id 15.21.0360.008; Mon, 31 Aug 2026
- 17:22:54 +0000
+ 17:22:55 +0000
 From: Fenghua Yu <fenghuay@nvidia.com>
 To: Reinette Chatre <reinette.chatre@intel.com>,
 	Tony Luck <tony.luck@intel.com>,
@@ -61,16 +61,16 @@ To: Reinette Chatre <reinette.chatre@intel.com>,
 Cc: linux-kernel@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	Fenghua Yu <fenghuay@nvidia.com>
-Subject: [PATCH RFC v2 02/19] resctrl: Expose MBA MBM counter assignment sysfs
-Date: Mon, 31 Aug 2026 10:22:28 -0700
-Message-ID: <20260831172245.42253-3-fenghuay@nvidia.com>
+Subject: [PATCH RFC v2 03/19] resctrl: name node-scoped monitor domains mon_NODE_<id>
+Date: Mon, 31 Aug 2026 10:22:29 -0700
+Message-ID: <20260831172245.42253-4-fenghuay@nvidia.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260831172245.42253-1-fenghuay@nvidia.com>
 References: <20260831172245.42253-1-fenghuay@nvidia.com>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: SJ0PR03CA0353.namprd03.prod.outlook.com
- (2603:10b6:a03:39c::28) To DM4PR12MB5230.namprd12.prod.outlook.com
+X-ClientProxiedBy: SJ0PR03CA0066.namprd03.prod.outlook.com
+ (2603:10b6:a03:331::11) To DM4PR12MB5230.namprd12.prod.outlook.com
  (2603:10b6:5:399::11)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -80,195 +80,147 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: DM4PR12MB5230:EE_|SJ5PPF0C60B25BF:EE_
-X-MS-Office365-Filtering-Correlation-Id: 71e99d03-3c34-44c7-ec40-08df07847e37
+X-MS-Office365-Filtering-Correlation-Id: 96525de5-9a20-4fad-3944-08df07847ee6
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|23010399003|7416014|376014|6133799003|18002099003|22082099003|56012099006|11063799006|5023799004|10067099003|921020;
+	BCL:0;ARA:13230040|1800799024|366016|23010399003|7416014|376014|18002099003|22082099003|56012099006|11063799006|10067099003|921020;
 X-Microsoft-Antispam-Message-Info:
-	TQxAKJxJ5lbVfdST9Lm2ZnJ5j8BSIetUnzrTwHI4RWVjMyFH9Wf3aF5tu0eNSxqlfXi0cKhCZpxunMAp+7ezPsbE8HoCVmdlVUnPVz7YbEdRsAcKvGuGUOnFVW0486o0hZgAAT+LocpY6VqFsmXGiVNCcy3Ey0aaYhzFVxVBCTwT7tNO2qHFU8vIUkbuzE3TU8aZeKnjuJ7QgMe9sotsuL87PO3aQvU+vFmnFkylgO5DIDb52jDQGGdL28lefZWThjNdhgkBh8klHwl4duGdtMSIJSswJ9looXB1s1Yfp6JKtBUMhYD78ZsY4HoHjvYW154WPzWiBclsNETohZkAkE3alXFzblRaNAS8mEBDYXzWOdWYG5iKScrBw12hb/4UgqFd3epZvko2xXpcQ24dbHoik4gHHzag4EprpaUcPePUkHXiWKLsr3PYNnQlvgddH7HD5sJhj7+oXHJ9Q7jLMt4vJN7YtnArM3HI/yHQbJkc9OijZ6x8oobZ5SNX2nDmpb1udftENUwIbfYv3lni5uNW6HX4fm6XHtuv/7/tY1UdUZvv0O3EN7bFQb7piQY6Js4LFxR29ic0/NkG0plVnlKZJj1eDNyM5h38jvs83eGU3LOAoY5gLN6UwN+JtCtN289Ek2kUc+yTKA3cktXXjU0jkaHed/OkqapFTVJ/JfH9+DQYT6Vgvf7M3yRlE67+jHZoVNCyKMlMNDjH9CBRmg==
+	ZFvBUojM57A8nP3gzy0J6NO5Vb+H9j51CBzV7atyfcFAZDOsUqYS1Tn/RE9U5QO7cRVYl70dHDXjzE4o4WZp0GzRNYVXUnny0FkvFjAvDS1YdwLQ5OpKT5Oj41/VCv1ZW8hv4dOBFNdOV181uSjJOWl6PXhWK3j8dtLLWAC9izpC3JnzljkMMNgun6+xoRhHq5GH7Xf71U5pau/N5AmodsB3oFZSQh9RK5RSsRYfGF6nuCc2J4iyYOJ3dFIlOv7QRPDaXcY0Ks12Tgohf9DcagAVt3NaVSXLsSkCTZO3+uv78Q0IFF/zYOH/Y+LuHdyD2q3IBowUZV9EQK0qiJWy6YiW1j9ALhhHk6miweQivrs1tZv+XTsdOlhqW72hFpRCfBblqraq3Z3OoKYKrVGLMqCZmGm2fQxIy5iJFH0AjHc7yW2CBBh79gGKHR32TxqkCfvrQCJxciFR5eljluoYOkLVK+P3EXgv1CCleBxvnuIoT5+91DE0EJdvyU5wwqPRXhcTLAR6Eoz9IPTx+jLqa3ql0IB4bbPNAqbCugZ2p/wYJfUsgjG/1WpKB60KzJzaeA4hyhA29Tl9rDigZblHigavVxMZClPdv9uTXN97PZlOPKIIg3GUV4exiseI6idP5TQJrAn50Lu/EBv7iSCNnofSzTWEdZPu/iU3HLEaPIPwdBMr9n++oyuy6nN4XsbceYPEPWyCm8GjcyW1Q7n2Ww==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR12MB5230.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(7416014)(376014)(6133799003)(18002099003)(22082099003)(56012099006)(11063799006)(5023799004)(10067099003)(921020);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR12MB5230.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(7416014)(376014)(18002099003)(22082099003)(56012099006)(11063799006)(10067099003)(921020);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?sOvaBaPaI7k02hjigwHlK4xErUrlwX9noatGMCuuoNt+YVm3k77Szd6jAjAo?=
- =?us-ascii?Q?b0Pg59zqPZpME5LG/7C8CMHE0W80NAoxh+9ep5NYAlTSKFH39EcUP/34Ic3G?=
- =?us-ascii?Q?4wcilceRHW8TehOsj2gOkV5aexnfnHPTTswmRv+OZF0ghJrslynC6FE9iEXB?=
- =?us-ascii?Q?6c+IN1WxJgfk/o42s6n7EGGN+j3b4h9Lmd3oPtHOuMX36dRpna6AibWXCxJ+?=
- =?us-ascii?Q?xsY/PVuJcNTVDyR4CXxj496tLZoOS9dK+YdQDZkhSL2czdmFojNs8O7W3pJ1?=
- =?us-ascii?Q?rOzN4ftBBLLy6rCDwVZCFsa7hhVq0fjczjKjWsW5vQTuQMdGLvh6mNyWGWTj?=
- =?us-ascii?Q?nA1BKxLUwi/sYFX93Dpio++gcRIZrlVqszMrgLxwAcSJbvw/zkwpnbVnmkfo?=
- =?us-ascii?Q?FlmWoDK0SNf+Y02q1RH8TNu8w8bw9kof8Mrs9GKbsCz4eEr6vQk+dSCnK4PG?=
- =?us-ascii?Q?segVwiISAhqPVtbSEjLnNV+9NyVgMZtzXPK0BpwClGxGZzpmEFLs72rSe2Dk?=
- =?us-ascii?Q?D12lJPPQnSoPrmKBBFEL/SpNCbdUkYwYTcS/79ZKCqVkTrNfQTG+nGA1AY76?=
- =?us-ascii?Q?TdNAtWn/sSqkmZL+KNhioNMJO5G1Z72O5o33gcH1Yzn969bNL6KGWa4KM09U?=
- =?us-ascii?Q?lPhwJlrGuzpGVD2NoAIAaZvO5emndi5yYwxorqPjdi+gWV4ZUbLDlpUyPpiA?=
- =?us-ascii?Q?P22SGbZ8Ai8Kgn3abTQDRK8HjSXYKUfWClrK0+JiW9MQUc/pjOx4/Qt1QHlG?=
- =?us-ascii?Q?tmEfuL1LHgnu2dV4OVEFTXTBnYkRynKYvEy68I+e8+Dx61h+iQutgvZiZ8Hs?=
- =?us-ascii?Q?Or9cg60qsq00a/cboijpxg1SZmlPtG8/6e61V7TLk658yFVCOl981xN93Hab?=
- =?us-ascii?Q?Aw6L5tz0Qch0Js+KV/gx3RYo1FYzrSp369uzFtqmeabc2XmyK5qGYBhBg6QB?=
- =?us-ascii?Q?WzCckWZHo9SC+rU4bJtLa5PCVxWAeI/86IwojdVsSbi8+CHQ6zad7fQuRWd+?=
- =?us-ascii?Q?BjfTLFwnlDPyfoX+mnEqR1IH0Tf+is7Umvd1KKd8ZoLBT6ifmHtxgWlbUv+s?=
- =?us-ascii?Q?HmR2PAXQxFFp0RT43K2e9KG0r9wo8+8zDu2mQbNsMu5qw9Vueo2XH7LkP9FR?=
- =?us-ascii?Q?Ac8d9POeK2UQ2VJcflNNgiFAfAPQjCyBtTxUL/YvtHVPD5TBbFkmNBKZt3cc?=
- =?us-ascii?Q?8rsil0sYA0sNxfdx3ywUnNy6mxSoZtm01KmYe1O4F5RevPrTYUCu2S4ZjQnZ?=
- =?us-ascii?Q?ho93exh9XjhStcQ+L7/fnnPz+/lwK5k20R2G/RL9WsAbuJAxIv+PRmrIxK1l?=
- =?us-ascii?Q?n4zFWqmndDu2Bq1kTvbWu8miEfC8kdTPrNEKw+8XsK5OMAS+jI2SlF4GZcIM?=
- =?us-ascii?Q?jPc6faNjzQlC2TZAjLTKNCpDsQFGq3DRJsrdUjRq1qBjHmyB7F4YnjJklwC3?=
- =?us-ascii?Q?RKyYw3RvO06Il+apM0Is1GI6XGJq2v8ffJAgoOWxdjIalTGeaqoyAKH6tbJw?=
- =?us-ascii?Q?gM+yOC60lKjgQv31bl/oiVDP0CrwqjVmL6mTa6T6dqrfBOTqqeE/HSh7Win1?=
- =?us-ascii?Q?bfN9PLFxr5ZXdhu4/m+Vm5Mam36taFdTMaannLsuBiiMdmB30xqFGzX0HgQb?=
- =?us-ascii?Q?gKuDLFuZSX3MbPH09YkxsvlMChWBe5OYPVC+QIMmO5eC8djBQyufmIkXu0II?=
- =?us-ascii?Q?uHdzgq7dJiGRGclGKgl1Crzgt8qBlCliIydxBqaqgHc7c66E5++7V2D0VlEP?=
- =?us-ascii?Q?NQOr4Bpa5w=3D=3D?=
+	=?us-ascii?Q?dpII3fI2rdf6884ZpAevhBmbjAxx/5w0ARr7UfkqkwUu5npDOoex1ACqTE45?=
+ =?us-ascii?Q?h3KPVnkXsWj7iBc0O5SQi1g4pp3pGr0pCaHyimdq5nMJQAqKCjCc3eApoC34?=
+ =?us-ascii?Q?mTs7boxtRrSwdevDG7Y2GDPeV0NhvhQGswirDSD/+gedCYQ5eoq0fONNXFOc?=
+ =?us-ascii?Q?lsbthj78vn0z3pgDfSQHlXsq9YvmSFp9/vJ1ZzKvIXu2CxZCvMnkQ4Il8RQe?=
+ =?us-ascii?Q?JLVGzEVHbzRYt5z3UKWqROt+yOtxpK3Z43nCDkoYfi1W1QUqQkVB+mV+hcOj?=
+ =?us-ascii?Q?6CINeS4bOfWJ7hBlboHhhe4jQUroYT5IWs3345/sM7iHBUNH//TB/pqlRuTE?=
+ =?us-ascii?Q?kydeIxC2S332eL1iQPU/kBEo64U4A4ZqVEGJ2ZbfTzD4drppNFiYrxtjW88N?=
+ =?us-ascii?Q?ZRGhiDMDkJcZZuEsY+IgW6MAqNB/LlPE2Zw9TmHhYwShw/B+ji9i0s+gloag?=
+ =?us-ascii?Q?Rb4Zy+MIHNVi8ZdO/mKF8dFzQ+GSDmGnCGjRWnDG89pT4uIp7QFCE0BVE5Az?=
+ =?us-ascii?Q?uJ8uqyGy06Ay7qHSmM5EqNtEJbfb0G9BTXnel5FKeRmVo9qQ0STPCoXxtCm6?=
+ =?us-ascii?Q?JNnohMyqWvV2m+8UdSAq69OQ2CQVioHV8FT0ayZYIdSozrOhkJo2ZpgJgABQ?=
+ =?us-ascii?Q?ItmMxzHYcHhUDymqSfvM6gyCGFZ/fjpoztAzhXMRnQUiZ8wiMQOMc5pE82+h?=
+ =?us-ascii?Q?GIDOi9aHrAn1XadcKcy77MKibdpZG0htMWQAoYeC9aVdglhBm/DDDL/B0Z6d?=
+ =?us-ascii?Q?t1vKu5hybzvMqw1e1hguFqJpFuEsW3sKpexrKsvfzGr68Gl/jLE8zHO1XLey?=
+ =?us-ascii?Q?/9Dy8wKPm5NuPrd/rc5uCsLKEZVcP/X5zX/CnNgtaRZCG7GWTMU1n+4vZG+V?=
+ =?us-ascii?Q?NNgn8c5I9fLrxtRcch1VlpJYv49Tz2RqpjZJOPn86XOba0EQsIXWX4AbK7vT?=
+ =?us-ascii?Q?WQqZQjSC886wpiZpq/0cKfXtOWWUgZc6Z/fQyIy1Gra7AOTQ4rUyhPxgYE+E?=
+ =?us-ascii?Q?8wcg65ihNjauIwFoJZpho9bVcc1MzYTf1WXvrRhu0SL48janrBOmuJaofqNN?=
+ =?us-ascii?Q?FPz7biiCUTBboHtCrhrRqC9fu3LItqxp9HA7Hu9lDU8z6UPYZFLCtNoC0ro2?=
+ =?us-ascii?Q?cTqNdy5FAHI/n3tDQF+0D2eztcM4VD/1IRffG1HGMImx2bBlMsqU0F90S7lZ?=
+ =?us-ascii?Q?wRIXwBKd5ZXpUczMrSr3aPDyGinduA3sNQW95zURfRog1iOsKv3Z08vpbZ8l?=
+ =?us-ascii?Q?MazTXj4G6Po+UMk58Bf5e0MLOCNnou+Y+l7eslPedK0IN8Pc+uptCSmHAktx?=
+ =?us-ascii?Q?u/5kNhHMN5HaLxEWfTgSj5fBFj/NJgluuzRdaj15kAztFHA3Ok9mO9EHDKKl?=
+ =?us-ascii?Q?+/TERvC4Utgv4evlekGF6/rcWjM84k2DziEpEpnNcJUXnXQRpz8725m2PHzA?=
+ =?us-ascii?Q?O1qdLoD2H6e+u83WTt42gmSDWaVhTLcAK+lwCl1ldXgqO1gWYm1BInpVJ5BC?=
+ =?us-ascii?Q?VoEannqEPHxP+G6XAgX5QTXuddnDIvtIfRmRsEpKVtFmNJywe35TFmDa3g2/?=
+ =?us-ascii?Q?Qm2rpIFHC3xFkUnZF2dMG5d4inw9KXapzcH+oSQGVoRZOEb0evLQtM2aqp0O?=
+ =?us-ascii?Q?zrmPKu+rwQL4MP+ZzCr5jUoWjoylgTXfUxxKbK9QKz71G7SFSXFUVn7MjdKe?=
+ =?us-ascii?Q?NnJu5+jjOm86OoYyEZVyB8NkMeGHTSz9DEc+/jx+ObTlrnwdf1gjFCNSSsHy?=
+ =?us-ascii?Q?3AUBELaIYA=3D=3D?=
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 71e99d03-3c34-44c7-ec40-08df07847e37
+X-MS-Exchange-CrossTenant-Network-Message-Id: 96525de5-9a20-4fad-3944-08df07847ee6
 X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5230.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 17:22:54.6195
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 17:22:55.7283
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Xh/yYpO4/pEjtLa821zIcpukOPeLdduoxMKlcV+PXic0osxkFOhDSRVBlxeOSeMM/SSET3UlKXFq5U9VUbL5Gg==
+X-MS-Exchange-CrossTenant-UserPrincipalName: 4Ek9vc6a+R2warcewppf2bt1oMlUF0/4WJPY9TR/8tkqy4HPiGKlTHSzAhPW17FSg5RnEUtZVrXq+CGTs/TWNQ==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ5PPF0C60B25BF
 
-When MBWU monitoring is backed by an MBA resource, userspace still
-needs the same counter-assignment interface as on L3, but keyed to MBA
-domains and exposed as mbm_NODE_assignments rather than
-mbm_L3_assignments.
+Monitor domain directories under mon_data are named mon_<name>_<id>,
+using the resource name as the label. For memory bandwidth monitoring on
+a memory-side MSC the domain id is a NUMA node id, so labelling those
+directories with the resource name ("MB") is misleading about what the
+id means.
 
-Add the MBA-side sysfs hooks and initialise MBA monitor metadata during
-resctrl_mon_init() so mbm_* file visibility follows the resource being
-configured.
+Add the RESCTRL_NODE monitor scope and a mon_domain_name() helper that
+returns "NODE" for node-scoped resources (and the resource name for all
+other scopes), then use it when building and removing monitor domain
+directories. Node-scoped monitor domains are now named mon_NODE_<id>,
+making it clear the id is a NUMA node id. L3 and telemetry naming
+(mon_L3_<id>, mon_PERF_PKG_<id>) is unchanged.
 
-Signed-off-by: Shanker Donthineni <sdonthineni@nvidia.com>
 Signed-off-by: Fenghua Yu <fenghuay@nvidia.com>
 ---
- fs/resctrl/internal.h |  5 +++++
- fs/resctrl/monitor.c  | 27 +++++++++++++++++++++++++--
- fs/resctrl/rdtgroup.c | 11 ++++++++---
- 3 files changed, 38 insertions(+), 5 deletions(-)
+ fs/resctrl/rdtgroup.c   | 25 +++++++++++++++++++++----
+ include/linux/resctrl.h |  1 +
+ 2 files changed, 22 insertions(+), 4 deletions(-)
 
-diff --git a/fs/resctrl/internal.h b/fs/resctrl/internal.h
-index af2e6e0b2af8..32c7d53790ec 100644
---- a/fs/resctrl/internal.h
-+++ b/fs/resctrl/internal.h
-@@ -480,6 +480,11 @@ struct resctrl_ctrl *resctrl_resource_ctrl_get_default(struct rdt_resource *r);
- const char *resctrl_ctrl_name_str(enum resctrl_ctrl_name name);
- bool resctrl_ctrl_is_default(struct resctrl_ctrl *ctrl);
- 
-+int mbm_NODE_assignments_show(struct kernfs_open_file *of, struct seq_file *s, void *v);
-+
-+ssize_t mbm_NODE_assignments_write(struct kernfs_open_file *of, char *buf,
-+				   size_t nbytes, loff_t off);
-+
- #ifdef CONFIG_RESCTRL_FS_PSEUDO_LOCK
- int rdtgroup_locksetup_enter(struct rdtgroup *rdtgrp);
- 
-diff --git a/fs/resctrl/monitor.c b/fs/resctrl/monitor.c
-index 2b5654f05480..5865a509174c 100644
---- a/fs/resctrl/monitor.c
-+++ b/fs/resctrl/monitor.c
-@@ -538,6 +538,7 @@ static int __mon_event_count(struct rdtgroup *rdtgrp, struct rmid_read *rr)
- {
- 	switch (rr->r->rid) {
- 	case RDT_RESOURCE_L3:
-+	case RDT_RESOURCE_MBA:
- 		WARN_ON_ONCE(rr->evt->any_cpu);
- 		if (rr->hdr)
- 			return __l3_mon_event_count(rdtgrp, rr);
-@@ -1741,6 +1742,12 @@ int mbm_L3_assignments_show(struct kernfs_open_file *of, struct seq_file *s, voi
- 				    resctrl_arch_get_resource(RDT_RESOURCE_L3));
+diff --git a/fs/resctrl/rdtgroup.c b/fs/resctrl/rdtgroup.c
+index a0635888a0a0..264666e54852 100644
+--- a/fs/resctrl/rdtgroup.c
++++ b/fs/resctrl/rdtgroup.c
+@@ -3967,6 +3967,20 @@ static void mon_rmdir_one_subdir(struct kernfs_node *pkn, char *name, char *subn
+ 		kernfs_remove_by_name(kn, subname);
  }
  
-+int mbm_NODE_assignments_show(struct kernfs_open_file *of, struct seq_file *s, void *v)
++/*
++ * Label used in the mon_<label>_<id> monitor domain directory names. Node
++ * scoped monitoring (for example MB on a memory MSC) uses "NODE" so the id
++ * is understood as a NUMA node id; other scopes keep the resource name
++ * (L3 -> "L3", telemetry -> "PERF_PKG").
++ */
++static const char *mon_domain_name(struct rdt_resource *r)
 +{
-+	return mbm_assignments_show(of, s, v,
-+				    resctrl_arch_get_resource(RDT_RESOURCE_MBA));
++	if (r->mon_scope == RESCTRL_NODE)
++		return "NODE";
++
++	return r->name;
 +}
 +
  /*
-  * mbm_get_mon_event_by_name() - Return the mon_evt entry for the matching
-  * event name.
-@@ -1890,6 +1897,13 @@ ssize_t mbm_L3_assignments_write(struct kernfs_open_file *of, char *buf,
- 			resctrl_arch_get_resource(RDT_RESOURCE_L3));
- }
- 
-+ssize_t mbm_NODE_assignments_write(struct kernfs_open_file *of, char *buf,
-+				   size_t nbytes, loff_t off)
-+{
-+	return mbm_assignments_write(of, buf, nbytes, off,
-+			resctrl_arch_get_resource(RDT_RESOURCE_MBA));
-+}
-+
- static int closid_num_dirty_rmid_alloc(struct rdt_resource *r)
- {
- 	if (IS_ENABLED(CONFIG_RESCTRL_RMID_DEPENDS_ON_CLOSID)) {
-@@ -1933,7 +1947,7 @@ static void resctrl_mon_resource_init(struct rdt_resource *r)
- {
- 	unsigned long fflags;
- 
--	fflags = RFTYPE_RES_CACHE;
-+	fflags = (r->rid == RDT_RESOURCE_MBA) ? RFTYPE_RES_MB : RFTYPE_RES_CACHE;
- 
- 	if (resctrl_arch_is_evt_configurable(QOS_L3_MBM_TOTAL_EVENT_ID)) {
- 		mon_event_all[QOS_L3_MBM_TOTAL_EVENT_ID].configurable = true;
-@@ -1969,7 +1983,10 @@ static void resctrl_mon_resource_init(struct rdt_resource *r)
- 			resctrl_file_mode_init("event_filter", 0644);
- 		resctrl_file_fflags_init("mbm_assign_on_mkdir", RFTYPE_MON_INFO |
- 					 fflags);
--		resctrl_file_fflags_init("mbm_L3_assignments", RFTYPE_MON_BASE);
-+		if (r->rid == RDT_RESOURCE_MBA)
-+			resctrl_file_fflags_init("mbm_NODE_assignments", RFTYPE_MON_BASE);
-+		else
-+			resctrl_file_fflags_init("mbm_L3_assignments", RFTYPE_MON_BASE);
- 		resctrl_file_fflags_init("mbm_assign_mode", RFTYPE_MON_INFO |
- 					 fflags);
+  * Remove files and directories for one SNC node. If it is the last node
+  * sharing an L3 cache, then remove the upper level directory containing
+@@ -4010,7 +4024,7 @@ static void rmdir_mondata_subdir_allrdtgrp(struct rdt_resource *r,
+ 		return;
  	}
-@@ -2002,6 +2019,12 @@ int resctrl_mon_init(void)
  
- 	resctrl_mon_resource_init(r);
+-	sprintf(name, "mon_%s_%02d", r->name, hdr->id);
++	sprintf(name, "mon_%s_%02d", mon_domain_name(r), hdr->id);
+ 	list_for_each_entry(prgrp, &rdt_all_groups, rdtgroup_list) {
+ 		kernfs_remove_by_name(prgrp->mon.mon_data_kn, name);
  
-+	r = resctrl_arch_get_resource(RDT_RESOURCE_MBA);
-+	if (!r->mon_capable)
-+		return 0;
-+
-+	resctrl_mon_resource_init(r);
-+
- 	return 0;
- }
+@@ -4114,7 +4128,7 @@ static int mkdir_mondata_subdir(struct kernfs_node *parent_kn,
+ 	if (r->rid == RDT_RESOURCE_L3 && r->mon_scope == RESCTRL_L3_NODE)
+ 		return mkdir_mondata_subdir_snc(parent_kn, hdr, r, prgrp);
  
-diff --git a/fs/resctrl/rdtgroup.c b/fs/resctrl/rdtgroup.c
-index a658e4958562..a0635888a0a0 100644
---- a/fs/resctrl/rdtgroup.c
-+++ b/fs/resctrl/rdtgroup.c
-@@ -2307,6 +2307,13 @@ static struct rftype res_common_files[] = {
- 		.seq_show	= mbm_L3_assignments_show,
- 		.write		= mbm_L3_assignments_write,
- 	},
-+	{
-+		.name		= "mbm_NODE_assignments",
-+		.mode		= 0644,
-+		.kf_ops		= &rdtgroup_kf_single_ops,
-+		.seq_show	= mbm_NODE_assignments_show,
-+		.write		= mbm_NODE_assignments_write,
-+	},
- 	{
- 		.name		= "mbm_assign_mode",
- 		.mode		= 0644,
-@@ -5199,10 +5206,8 @@ int resctrl_online_ctrl_domain(struct rdt_resource *r, struct resctrl_ctrl *ctrl
+-	sprintf(name, "mon_%s_%02d", r->name, hdr->id);
++	sprintf(name, "mon_%s_%02d", mon_domain_name(r), hdr->id);
+ 	kn = _mkdir_mondata_subdir(parent_kn, name, hdr, r, prgrp, hdr->id);
+ 	if (IS_ERR(kn))
+ 		return PTR_ERR(kn);
+@@ -4169,8 +4183,11 @@ static int mkdir_mondata_subdir_alldom(struct kernfs_node *parent_kn,
+  * This creates a directory mon_data which contains the monitored data.
+  *
+  * mon_data has one directory for each domain which are named
+- * in the format mon_<domain_name>_<domain_id>. For ex: A mon_data
+- * with L3 domain looks as below:
++ * in the format mon_<domain_name>_<domain_id>. The domain name is the
++ * resource name for cache and telemetry scopes (for example "L3") and
++ * "NODE" for node scoped monitoring (for example MB on a memory MSC,
++ * where <domain_id> is a NUMA node id). For ex: A mon_data with L3 domain
++ * looks as below:
+  * ./mon_data:
+  * mon_L3_00
+  * mon_L3_01
+diff --git a/include/linux/resctrl.h b/include/linux/resctrl.h
+index 54fec07bd173..f2c3621b006e 100644
+--- a/include/linux/resctrl.h
++++ b/include/linux/resctrl.h
+@@ -349,6 +349,7 @@ enum resctrl_scope {
+ 	RESCTRL_L3_CACHE = 3,
+ 	RESCTRL_L3_NODE,
+ 	RESCTRL_PACKAGE,
++	RESCTRL_NODE,
+ };
  
- 	mutex_lock(&rdtgroup_mutex);
- 
--	if (supports_mba_mbps(ctrl) && r->rid == RDT_RESOURCE_MBA) {
--		/* RDT_RESOURCE_MBA is never mon_capable */
-+	if (supports_mba_mbps(ctrl) && r->rid == RDT_RESOURCE_MBA)
- 		err = mba_sc_domain_allocate(r, d);
--	}
- 
- 	mutex_unlock(&rdtgroup_mutex);
- 
+ /**
 -- 
 2.53.0
 
