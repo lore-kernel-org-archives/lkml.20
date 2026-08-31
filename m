@@ -1,282 +1,168 @@
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AE722E8B83
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 16:40:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC1853603DD
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 16:41:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788194407; cv=none; b=cZYgdoFgii/zNY9cuPh39TXJfF4I/c6y0kEqMrnS8HFggY5HaYduNcXMe4g4Ie7nCB7mFlg+C+sdZmZNA33HS0K2AVg4Q4qq9YiEU7toM2doCpFV1jYQrujiyFio7tpUpSz9/r6Uo1tyXJWW1kEcZGZoUQN90TE28RUONQcuiWM=
+	t=1788194466; cv=none; b=poedxFZu1dC2aUqXQOSPeGtWMrWS2FtbVBIIeGa8xpVX4+ZH4vvVlN63ps1RL/rieZEO4VCrcYRwKPdcz9gVdtiySrPMzrydkR/AdEZKz68HBUDbYXwlat/8g98HEu28Im+WXP9syhf3uUjrvzJ5xyzc7M8nsyAc32+431wK/fI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788194407; c=relaxed/simple;
-	bh=kxaKpRrz4PyK9S02Q7PhxjZGgYb3ZSiqi3gVBc0RWvs=;
-	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HTX3OCcRoyvcfGAo+VT3uCnqE92G7/4vUqS+uIpkaWIJuGbQtDtRMbaayEhdCO2Y5iUW0ID9AbxzNvFswuEofWgHSa/05XOOJjkvQy/h9iEkn2p03gj8+tyMYMxrHPl2UKX088pOF+7R3ZD0mqknXHiPCoPxKi7fOE01Yx53cQA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Fdy7FDGi; arc=none smtp.client-ip=209.85.221.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788194466; c=relaxed/simple;
+	bh=HET/5PBzK3ZI9Xb5d0By242IOl2Ez7CPljB2CT6ZvfM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=qqqqWcuKCqdViTMVd9Tnv3YbpSUQ3rRNOSk1zigycCWM3IbwVnOhghpi/5Ek45sdx6beDoqnnMTtB96VowZgS6pMv3oXiJ+tc8kfN3gdNx2Y/WgAZD7M9Yu2XMcclLfutP3yHymwfhRMKoScksl0701EzwiVI0edSzzf1l4GVOM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=aUgEG5zH; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=NcZybo9L; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Fdy7FDGi"
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-484362f5c4aso1500288f8f.3
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 09:40:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="aUgEG5zH";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="NcZybo9L"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67VFq1OB2900861
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 16:41:04 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	5XCYPqQA2/de/ZdEUTzkwaR/TQwoMx1WEwb0RhWlBhc=; b=aUgEG5zH1OMt8PXk
+	zvjhjP7vjmiyD9mOykEvoqf9abH6aYPyPVOGusQXFU6DHcWRcHahgEmYcOFxt/Sz
+	iY4RWuZn/lhHvtDucofwfQ8j2mdeFETnPB/vZoxYMUtRYokPFTrso0l6YrDT0c6v
+	qedfXKgH/sN15iVb+GZOcmS1Ik7x48hY+6a3tikokcsclnjX/nUwGKLlULPqKBsu
+	g4lOALTfH94eDXh7qXqBGoQncz7pIBpysmvo6goxq02X9LeGHgEEeQiw69MyQrrl
+	C8QjsUgrwxCWJ13Zwe8RRnvuZD86yCE8Ij40yEfMCDjZ3c206qDCAoF/DX3wGKEj
+	hAJOng==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gd6vahwav-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 16:41:04 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93821883e26so72628785a.2
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 09:41:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788194403; x=1788799203; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=miS1UZFH4R+WnwgYePCeDyLowfeIT1GLv5/+U0iMKYw=;
-        b=Fdy7FDGivCVUE3LRh2/uFCJk8c04rOlPDM/cBsN3sqQVdB8EdSTo3iR2deHXwNKSzr
-         jtJaUqqj1NLxLbMBg5J070a6t6nz3r6FkDEdci4fkV0teW2XGgkDefqNC27189Kgxn4s
-         d5kTjENTNvTNJvCWV30iDl70fkXAapNmczbpFIQSZdhd7q2TznpnW/QmTyXxeXoST6sx
-         3wrktIuqcl4vAz9owYkMsJXlBRfwUo0Lh8LrGtFmtkl0FlPQWfaBfi1d3HNOuD3TZ2Fb
-         2jjFYgPdoRnLKLiZjSMp5tcGuORKnYNEVX8j5y615DfUlrxISp3b2MwUgLpAJZJIezb8
-         uA8A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788194403; x=1788799203;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1788194463; x=1788799263; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=miS1UZFH4R+WnwgYePCeDyLowfeIT1GLv5/+U0iMKYw=;
-        b=nNV5es1QY79O8WzoHlRSegYvKFYUNO9TtkkL0yh4gYu5wOUVX6AXz/dLR4LsNmuNNb
-         qg/gg2kYTZ7+dMPcgKLLCSizxVlfLXuSvvfiCHp+lvhlYJ9OPSGoTRqLnQDRa++c7se7
-         ooc6md4E+PLNPeY6Lf4fklBDWFfUPxir6oWQzVjmvLpzsNUZWBtfwiWdSTS63R1JKNBQ
-         Zu//5gz8KnqUTdxTJb3LxX9q09QmvwnTDP202U4MNmgcg4+9m1dCQyH2m+BVfS7AWIfv
-         W+3NWXJ0KYCeQfOSjR45bU16e9qc7sfB7MkS4Qrh+D4HYZQc177mhZO0S6zGtGrJq87z
-         gGFA==
-X-Forwarded-Encrypted: i=1; AKwUvBwb56DkNBAN1FUyQ0sXt1pgVC7UKIb8G8VNzgNA9d6RFwR9F/GGFZ3DMyHcusx0dDpbsBOfW+WJS941Fwk=@vger.kernel.org
-X-Gm-Message-State: AFuF++kRNi6LUmwFO4OU605L8bHahP9De/4IAJUEczF2RIHejTXx4XLb
-	tLalc8XpFRla30oTNfbzkKM75f5KKRvGUpwt64Ahtu7J8Ikrt1euK3kO
-X-Gm-Gg: AYBFou2fNiPEa4Hu6BwLgcE7L5+RkjCt4FsV7tN/vvVjProqCoYWNsaEvxzAug3iAfn
-	gCb9rZF0hDcCkxNygeS2QrQL8ilB893bJBgL3wgq37I7FaQcs55kf+O8iqW0KFMYESAAfDbpSYK
-	dxqMtmZBJcKpPt8fAkGtoDzetv7dDnqJc2EBlfF9R3Bv2q7f+XoTChX9UvfxWuNKNEC4pa2qwJg
-	EkPcolM9gEyH009sQupS8LWGMyU1s5RYECy3Tmq31xCgoJ22ogl1BL8z04IElp5/L7/pfuHLjaC
-	nM61J5AZ12O6Rk6v5/QWDs1MfUZahD7erzQXnWN2cwUv6O3BHx1WF52RBf7jDix5lVS2b1fnx+8
-	QRlM/Rz6S9M+3x2xQwHtaPlrH1b4CM0m93XWoKgiyvladerkM4Zkp6IqP6YeISt+qYPpbY0QZaO
-	z6YBGdVcE2CeQ+nND0ftgYc7yAaI3Lb36n9WNtyQqWv/+szX5arvKjGIkIVA==
-X-Received: by 2002:a05:6000:64a:b0:47f:6f9e:1e82 with SMTP id ffacd0b85a97d-48440fe2e15mr4159761f8f.9.1788194402891;
-        Mon, 31 Aug 2026 09:40:02 -0700 (PDT)
-Received: from krava ([176.74.159.170])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482fbb284cbsm23459460f8f.30.2026.08.31.09.40.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 09:40:02 -0700 (PDT)
-From: Jiri Olsa <olsajiri@gmail.com>
-X-Google-Original-From: Jiri Olsa <jolsa@kernel.org>
-Date: Mon, 31 Aug 2026 18:40:00 +0200
-To: "Florent Revest (Anthropic)" <florent.revest@linux.dev>
-Cc: bpf@vger.kernel.org, Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Song Liu <song@kernel.org>, Yonghong Song <yonghong.song@linux.dev>,
-	KP Singh <kpsingh@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	John Fastabend <john.fastabend@gmail.com>,
-	"Paul E. McKenney" <paulmck@kernel.org>,
-	Jose Fernandez <jose.fernandez@linux.dev>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH bpf] bpf: Keep progs alive until the trampoline image
- calling them is freed
-Message-ID: <apWuYPCVCvBeaCKr@krava>
-References: <20260819122252.1782790-1-florent.revest@linux.dev>
+        bh=5XCYPqQA2/de/ZdEUTzkwaR/TQwoMx1WEwb0RhWlBhc=;
+        b=NcZybo9LKmCSF4ZV3S4hEVkuCnhgTkd+UB0NPvhm94V4rjMvaLqm1W9XhqubZXyE+8
+         3Qaiwp6AiOCDS5D8nKBzJZLkEeTJGFhd+LOrbni8fQXAD+UtleB01YOKrSJgtulyf31F
+         y7VfZFdpaeJ1Z+pSdfFdOQLZcgniiYmaATo5xS7M7vvKz1fXDkACt31g2kTVRHSIGbZU
+         Y2psr3T4AphYQmFsi2OoftxHjiTIkRnT+rOc27j6PjKuqnNtociF89emGXI0W4nb75k+
+         HKfQZqr87YeJduemkdT+paDPq8qqasbfNc9WW9MMuDRCdS5PXa8gBUnvooYsHcHJa+uf
+         gecA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788194463; x=1788799263;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=5XCYPqQA2/de/ZdEUTzkwaR/TQwoMx1WEwb0RhWlBhc=;
+        b=fEob8irZYLotvMjomYcrXiaHfYL6cCGY6tOQpXzXA5ISEo9Dy1AXA62IBqMgkDbjew
+         ocuWiSO4DQPjq+P49DSQEBCZoioo1JB04eCyXxfLxioy3fH+WuQBzq9WGHetKQ7HOAWD
+         nBnm76GvU2eJbwxqWtVp0eIsyduj6vxIPdj9exuee+l98ltXw9rvfYBzblPBjO+3tgyy
+         V/nwqGfmUzJbCyEQGJpLsY/sPcZgiiNQpc7uUZUI6TrgmzeGpyA3PTo81HFa2pc2MtSZ
+         aKa+ZuiXPcuFhtadMm/c27z+YpnhVwrLWyMCyzqJhjQNrvBvXkMluhURYhnlNbqp2hMc
+         mnpg==
+X-Forwarded-Encrypted: i=1; AHgh+Rpz7zFd5a7FIRyD3FedkxUtb9EuAUYTiqf5ZGAXpIpbJVEwiqImC+eaKFVP2Pxr4EKMGWf/0dTEMICMUtI=@vger.kernel.org
+X-Gm-Message-State: AFuF++kcV4yRGmYp7WZlZ8uHcdY6i8LCErFsl3HyoKPlmT9IwKSPBy1M
+	pPNuoL7ta5l8wLmVySslgeZNCxqvQPo5FOzfPw8f3RP2mTznNdTTLgrXAt9Xigb++UKfbWqDwQ4
+	Oj5zr4ze5rU79psJoXk9MrrunKNdITzpXnMBV82AsPRhsrwIZ+SqT6s9AeJJIp+F95p0=
+X-Gm-Gg: AR+sD11LNApjqqmwVXfBbU8Hi+sVnakmVIPxmBj0dER6CP2ighAG4UljnqOfC+0+CUQ
+	HsnRskYo1FbjhnK73owBrNPUcGcylRY40FDZ7Zqbuwux3WSiljglNu+ZUILM/ePl5VEm4cdzd4H
+	FMP9GO0SSDT6g6oQR/uyAtsA7roCR+5lNCseEfAbhF/CpC+6IwDrafoijucH7Na3t8W0h/5Ib59
+	2zRYkoE3JZHJPVp0xhb014HBc06WUzdxBkKuDqyqC6Xhp4qOVFG5QVxmyNQoPNQt07GboJQ7+v9
+	vdwOvn/Jd9cZfG2bh50la8FaIknMp607wpN2Y2ID/5/3VKXnzxO26tqZKsZvn5lw/LcBOy8Krij
+	gH/ss4fVfS3FH50prMLC4gA==
+X-Received: by 2002:a05:620a:90c5:20b0:939:48c8:656 with SMTP id af79cd13be357-93948c81290mr128478485a.1.1788194462749;
+        Mon, 31 Aug 2026 09:41:02 -0700 (PDT)
+X-Received: by 2002:a05:620a:90c5:20b0:939:48c8:656 with SMTP id af79cd13be357-93948c81290mr128474585a.1.1788194462308;
+        Mon, 31 Aug 2026 09:41:02 -0700 (PDT)
+Received: from [192.168.202.12] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2563c74bd8sm432590166b.40.2026.08.31.09.40.59
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 31 Aug 2026 09:41:01 -0700 (PDT)
+Message-ID: <c1d13f41-e29e-41ee-b02a-b38013e4e7f2@oss.qualcomm.com>
+Date: Mon, 31 Aug 2026 18:40:58 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260819122252.1782790-1-florent.revest@linux.dev>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC/DO NOT MERGE 07/12] drm/msm/hdmi: Split PHY init from
+ power up
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        Rob Clark <robin.clark@oss.qualcomm.com>,
+        Dmitry Baryshkov
+ <lumag@kernel.org>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Manivannan Sadhasivam <mani@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+        freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+        devicetree@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>,
+        linux-phy@lists.infradead.org
+References: <20260828-drm-msm-hdmi-eliza-v1-0-67843277de17@oss.qualcomm.com>
+ <20260828-drm-msm-hdmi-eliza-v1-7-67843277de17@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260828-drm-msm-hdmi-eliza-v1-7-67843277de17@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODMxMDE0MyBTYWx0ZWRfX+NIcne0H8zNP
+ 3IQTJAbcnBXcl/WCW5SGtF4KWExtGfkv1UwEc7TDpMir1arVTfAlIn5okEy3ahivv4mhNsA9RVQ
+ euHmYy4o41L8+2cG0DvT7VfiXUILYFoD6vbx0htEWFBmeXlBh2Uow2QIKyi750fD6YpXv0uEFm9
+ xZX+qrG/thvSHBjESl4FrmHM5GdIbomIFKOplACHnnP6IPmyZU0utTrsWELGNbzYIrSVdTwnHxe
+ WfTvvkRcjoWGJzYiReTgzHLrp8/kOwhQy+CcaMN1N40DzXu3jeYSaTixR60581ekTfTC76y+6fu
+ TB5kXdYXkf8Kx6A/C9zS83OR0DKnmUCaDwMsdXN/vmeOfCAmq1tne4q8yQXFjKyDgCz05YK3fX+
+ ZrG3xt6wqy+OOwsW/AYHDE0pmL5g/y4C++Rs017iTuYqmWMYEI0D9Dbbd7+2NZiY+oBDujJWD+R
+ EGH6BxpLyTMLpBqtWBw==
+X-Authority-Analysis: v=2.4 cv=YYmNIQRf c=1 sm=1 tr=0 ts=6a95aea0 cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=nbnyxt4j9IoekFAbjR0A:9 a=QEXdDO2ut3YA:10 a=NFOGd7dJGGMPyQGDc5-O:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODMxMDE0MyBTYWx0ZWRfXwqfjoneXur++
+ 6gCiuNjAsHctuJ1edR87Rd2d1MwZWzBQryrJFJvUCIXS/pUs5foTr5IKywDX7Z9zcTEYomzs7Ci
+ 1jbUDs9Y7S21oQoITaONCZcNU2TKE0E=
+X-Proofpoint-GUID: _cNbw-s4fdbRHolBSvP1S6UGydfmLemg
+X-Proofpoint-ORIG-GUID: _cNbw-s4fdbRHolBSvP1S6UGydfmLemg
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-31_05,2026-08-31_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 spamscore=0 adultscore=0 priorityscore=1501 lowpriorityscore=0
+ bulkscore=0 impostorscore=0 malwarescore=0 clxscore=1015 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608310143
 
-On Wed, Aug 19, 2026 at 12:22:50PM +0000, Florent Revest (Anthropic) wrote:
-> bpf_tramp_image_put() makes sure a trampoline image is not freed while
-> a task may still be running in it (call_rcu_tasks() + im->pcref), but
-> nothing similar is done for the progs called by that image. Since
-> commit e21aa341785c ("bpf: Fix fexit trampoline."), detach patches the
-> return path so that a task still in the original function skips the
-> fexit progs when it comes back, and counts on the prog's own RCU flavor
-> to cover a task that is inside a prog. On that basis the last prog
-> reference is dropped right away and the prog is freed after a single
-> RCU / RCU tasks trace grace period.
-> 
-> That leaves out a task in the trampoline glue itself: between two
-> progs, or already past the patched jump but not yet in the first fexit
-> prog's enter helper. On !PREEMPT kernels this is a few instructions
-> that cannot be preempted, so it did not matter. With CONFIG_PREEMPTION
-> a task can sit there, in no RCU read section of any flavor and holding
-> only im->pcref, for longer than it takes to free the prog it is about
-> to call:
-> 
->   CPU 0                               CPU 1
->   in image I, orig_call() returned
->   [preempted before lsm.s prog A]
->                                       bpf_tracing_link_release()
->                                        -> bpf_tramp_image_put(I)
->                                       bpf_link_dealloc()
->                                        bpf_prog_put(A), last ref
->                                       tasks trace GP, A's text freed
->   __bpf_prog_enter_sleepable(A)
->   call A->bpf_func
+On 8/28/26 4:05 PM, Krzysztof Kozlowski wrote:
+> Future Eliza SoC HDMI PHY and HDMI block require certain clock
+> operations, like reparenting pixclok to HDMI PHY PLL, once PHY is
+> initialized.  Similarly to what is happening on Qualcomm MSM DSI blocks
+> since SM8750.
 
-hi,
-do you have a selftest or another reproducer for this?
+[...]
 
-thanks,
-jirak
-
-> 
-> On x86 this is an int3 in poisoned bpf_prog_pack memory:
-> 
->   Oops: int3: 0000 [#1] SMP NOPTI
->   CPU: 18 UID: 0 PID: 94573 Comm: x169 Not tainted 6.18.44 #1 PREEMPT(lazy)
->   RIP: 0010:0xffffffffc0601d8d
->   Call Trace:
->    <TASK>
->    ? bpf_trampoline_6442515411+0x1a4/0x21b
->    bpf_lsm_bprm_committed_creds+0x5/0x10
->    security_bprm_committed_creds+0x5f/0x70
->    begin_new_exec+0x2d6/0x410
->    ...
-> 
-> We hit this in production on preemptible kernels when progs attached
-> through trampolines got detached while their hooks were busy. Adding
-> grace periods before the prog free would not help with sleepable progs:
-> neither RCU tasks nor RCU tasks trace waits for a task that slept in a
-> prog and then got preempted in the gap after it.
-> 
-> Fix it by having the image take a reference on every prog it calls, in
-> bpf_tramp_image_alloc(), and drop them in bpf_tramp_image_free(). A
-> detached prog now stays loaded until the old image is gone, which
-> reverts a deliberate choice of commit e21aa341785c ("bpf: Fix fexit
-> trampoline."). Detached fexit progs still stop being called right away
-> since the return path is patched.
-> 
-> Fixes: e21aa341785c ("bpf: Fix fexit trampoline.")
-> Assisted-by: Claude:unspecified
-> Signed-off-by: Florent Revest (Anthropic) <florent.revest@linux.dev>
-> ---
-> This should also be queued for the stable trees, the same race exists
-> everywhere since struct bpf_tramp_image was introduced (v5.12+).
-> 
-> Tested on x86_64 with PREEMPT_DYNAMIC/preempt=lazy by attaching and
-> detaching a handful of sleepable and non-sleepable LSM progs in a loop
-> next to an exec storm: unpatched 6.18.44 hits the int3 oops above
-> within the hour, the patched kernel survived 10x that. The trampoline
-> related test_progs selftests (fentry/fexit/modify_return/lsm/
-> trampoline_count/tracing_multi...) pass with KASAN and lockdep on both
-> this commit and its parent.
-> 
->  include/linux/bpf.h     |  2 ++
->  kernel/bpf/trampoline.c | 28 ++++++++++++++++++++++------
->  2 files changed, 24 insertions(+), 6 deletions(-)
-> 
-> diff --git a/include/linux/bpf.h b/include/linux/bpf.h
-> index 7719f6528445..fc0949156a5c 100644
-> --- a/include/linux/bpf.h
-> +++ b/include/linux/bpf.h
-> @@ -1368,6 +1368,7 @@ enum bpf_tramp_prog_type {
->  struct bpf_tramp_image {
->  	void *image;
->  	int size;
-> +	int progs_cnt;
->  	struct bpf_ksym ksym;
->  	struct percpu_ref pcref;
->  	void *ip_after_call;
-> @@ -1376,6 +1377,7 @@ struct bpf_tramp_image {
->  		struct rcu_head rcu;
->  		struct work_struct work;
->  	};
-> +	struct bpf_prog *progs[] __counted_by(progs_cnt);
->  };
->  
->  struct bpf_trampoline {
-> diff --git a/kernel/bpf/trampoline.c b/kernel/bpf/trampoline.c
-> index 1a721fc4bef5..ca83ddd7cf37 100644
-> --- a/kernel/bpf/trampoline.c
-> +++ b/kernel/bpf/trampoline.c
-> @@ -531,10 +531,14 @@ bpf_trampoline_get_progs(const struct bpf_trampoline *tr, int *total, bool *ip_a
->  
->  static void bpf_tramp_image_free(struct bpf_tramp_image *im)
->  {
-> +	int i;
+>  static void msm_hdmi_power_on(struct drm_bridge *bridge)
+> +{
+> +	struct hdmi_bridge *hdmi_bridge = to_hdmi_bridge(bridge);
+> +	struct hdmi *hdmi = hdmi_bridge->hdmi;
 > +
->  	bpf_image_ksym_del(&im->ksym);
->  	arch_free_bpf_trampoline(im->image, im->size);
->  	bpf_jit_uncharge_modmem(im->size);
->  	percpu_ref_exit(&im->pcref);
-> +	for (i = 0; i < im->progs_cnt; i++)
-> +		bpf_prog_put(im->progs[i]);
->  	kfree_rcu(im, rcu);
->  }
->  
-> @@ -588,12 +592,11 @@ static void bpf_tramp_image_put(struct bpf_tramp_image *im)
->  	 * rcu tasks to protect trampoline asm not covered by percpu_ref
->  	 * (which are few asm insns before __bpf_tramp_enter and
->  	 *  after __bpf_tramp_exit)
-> +	 * im->progs refs to keep the progs alive as long as the image
->  	 *
->  	 * The trampoline is unreachable before bpf_tramp_image_put().
->  	 *
->  	 * First, patch the trampoline to avoid calling into fexit progs.
-> -	 * The progs will be freed even if the original function is still
-> -	 * executing or sleeping.
->  	 * In case of CONFIG_PREEMPT=y use call_rcu_tasks() to wait on
->  	 * first few asm instructions to execute and call into
->  	 * __bpf_tramp_enter->percpu_ref_get.
-> @@ -628,16 +631,20 @@ static void bpf_tramp_image_put(struct bpf_tramp_image *im)
->  	call_rcu_tasks_trace(&im->rcu, __bpf_tramp_image_put_rcu_tasks);
->  }
->  
-> -static struct bpf_tramp_image *bpf_tramp_image_alloc(u64 key, int size)
-> +static struct bpf_tramp_image *bpf_tramp_image_alloc(u64 key, int size,
-> +						     struct bpf_tramp_nodes *tnodes,
-> +						     int progs_cnt)
->  {
->  	struct bpf_tramp_image *im;
->  	struct bpf_ksym *ksym;
-> -	void *image;
-> +	int kind, i, n = 0;
->  	int err = -ENOMEM;
-> +	void *image;
->  
-> -	im = kzalloc_obj(*im);
-> +	im = kzalloc_flex(*im, progs, progs_cnt);
->  	if (!im)
->  		goto out;
-> +	im->progs_cnt = progs_cnt;
->  
->  	err = bpf_jit_charge_modmem(size);
->  	if (err)
-> @@ -658,6 +665,15 @@ static struct bpf_tramp_image *bpf_tramp_image_alloc(u64 key, int size)
->  	snprintf(ksym->name, KSYM_NAME_LEN, "bpf_trampoline_%llu", key);
->  	bpf_image_ksym_init(image, size, ksym);
->  	bpf_image_ksym_add(ksym);
-> +
-> +	for (kind = 0; kind < BPF_TRAMP_MAX; kind++) {
-> +		for (i = 0; i < tnodes[kind].nr_nodes; i++) {
-> +			struct bpf_prog *prog = tnodes[kind].nodes[i]->link->prog;
-> +
-> +			bpf_prog_inc(prog);
-> +			im->progs[n++] = prog;
-> +		}
-> +	}
->  	return im;
->  
->  out_free_image:
-> @@ -734,7 +750,7 @@ static int bpf_trampoline_update(struct bpf_trampoline *tr, bool lock_direct_mut
->  		goto out;
->  	}
->  
-> -	im = bpf_tramp_image_alloc(tr->key, size);
-> +	im = bpf_tramp_image_alloc(tr->key, size, tnodes, total);
->  	if (IS_ERR(im)) {
->  		err = PTR_ERR(im);
->  		goto out;
-> 
-> base-commit: a13307e97d5c54b65720bb71fa379960ded1e51a
-> -- 
-> 2.54.0
-> 
-> 
+> +	pm_runtime_resume_and_get(&hdmi->pdev->dev);
+> +}
+
+I know the caller is void and it's existing behavior, but we
+should definitely not continue if this fails
+
+Konrad
