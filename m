@@ -1,41 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B97E34DB560;
-	Mon, 31 Aug 2026 14:26:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 604C94DB57C;
+	Mon, 31 Aug 2026 14:26:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788186387; cv=none; b=LAEFrO1pNYltcszYaPgaqG1e6fBBMtMpMels1jHzX8kgR6ai16DZUmXa9RDlUbSB+Wpvi3ePny5XG9NbMvWdPucAzpVXkoa8se8/ys1taDMGldGhAtPDHJrKdMHkJ9u/3D1JmB6QeSENmy3KAGalIQPEt0cCzrknPUPxUZRJn60=
+	t=1788186387; cv=none; b=dOXMWuFp+nlb17wg5Qz8t4pNxZgKr9v7c+jFMazqnsQFUomVgwiGnG/mxggY6YdtzLFrii7Eylu6eNsPkO41eVh3aRP9jiZwHxLX8C+8FOtkXQ6nIuPtIbVK/OOkyJ+Eb0s/yb89z2jqDdnjSZvVQsk0f8c9eSyhS7Y+A23pRkE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788186387; c=relaxed/simple;
-	bh=LmPFijN0srbmeFBjVnA/wHwqxOTM8ysBoVE+a+30+iQ=;
+	bh=eydH6ZjzAqOngpgKfqYhz3xYjQQY7ugG8PooKaSRM+c=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nwryJUe0fNlwKK0gthm9kLUmNkOaqwvciA3waDOeo+pewBs24UBDC4KA/Il9+j2FKuR4RId7CgZ0MhHjvSFuAlAYlDT45LZ8SXKxbvQ44/C43V/3iMCGAP4qGYv/vztt6ITRkAcYhCFaz1FWqbSdETVnnWxd2UTXVNMnLyQjHMQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LKuV2UB2; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Uihii14zP5+8Kp3LMFaCddQDtypy3mLBgMGk+SBaXISMRx5U2RU5X4uiqd78D04uTaonCdPtFXrHb4KK7pE5b5zZuszZnPbMOeQKI8OlUb+Q/eCDZWD08B+RBSiX8l18Kx11JnuND/djSrSXd5ZbYodLk12ER7ky7+IMM+LbEJI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ofv89aVI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LKuV2UB2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 523A51F00A3F;
-	Mon, 31 Aug 2026 14:26:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ofv89aVI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18C751F00ADF;
+	Mon, 31 Aug 2026 14:26:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788186385;
-	bh=5b7EjDYfsY4UBVu5ajlJqmnOtSzQbzeAwcctf4S77Lw=;
+	s=k20260515; t=1788186386;
+	bh=++mDemjAm3frVYhBHw1yycvSVhXLn1wofYJdDWaaqD0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=LKuV2UB2InsWQ/SUpl3zP1k3HLngPLcg/I9+ug+j1Z8imWtS5NIK6UqEG+7FVmWFs
-	 kUqo4iwx63rdY7RrJMvwZ/cd0FcYXRZkGLcXDa1e2554bPWFBWPzvmiSZnm8TMhlm/
-	 6ocAQNk0Dh2GMEm0SkwGjsbn/1ktxNqJctJJAOp1DJ1FQnbAQ4OfxZefMYLowmwFqK
-	 N7yZD/jcEgKWX6Kkk7UmiEehGVqujNfFFJb90yry5MDLS4OOvj0sHnbNsG8ShVppqO
-	 ysdU/bYg+5txGldI5fLTiVv6uMue2Oo2XaOMatZlOaE1YJ8I2bF0ErwS2Ci9oQKsW/
-	 gJYPhKXiASITA==
+	b=ofv89aVIYd0IbAdoYRts6tCrlsW/biaOf5xmsUAwpzPSRpgIs9Li1GKDDfQWI14Yb
+	 nnk6MDzcjK6R/FR4tB182JY1qKk1vs1549StOht7tUz4YeFuUfI5tDZtBna2CypCHe
+	 DGaLH/qRgrcC9PFGGGqARc8lR9t/QlmRJIASssB3Q4dKhmEjK+uwKCnACmz1E2yH++
+	 mQFJWyWDCvdmRZbQgzbIFDjJxNzRl+TnuGvQClRTpbZDiNB4o8t6JDTkkuLDvvN+OE
+	 6NOeWUCD05UHfY5cw5lGV9UEYz4qDnESis6u7yBZ2djBgHEi3AObxBKRtyjD0SDu2j
+	 aWA/dW27t3FGA==
 From: SJ Park <sj@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Jaeyeon Lee <jaeyeon.lee.dev@gmail.com>,
+Cc: Enze Li <lienze@kylinos.cn>,
 	SJ Park <sj@kernel.org>,
 	damon@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	linux-mm@kvack.org
-Subject: [PATCH 5/7] mm/damon/tests: use scoped_guard() for damon_test_ops_registration
-Date: Mon, 31 Aug 2026 07:26:07 -0700
-Message-ID: <20260831142611.77572-6-sj@kernel.org>
+Subject: [PATCH 7/7] samples/damon/mtier: add comment for struct region_range
+Date: Mon, 31 Aug 2026 07:26:09 -0700
+Message-ID: <20260831142611.77572-8-sj@kernel.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260831142611.77572-1-sj@kernel.org>
 References: <20260831142611.77572-1-sj@kernel.org>
@@ -47,67 +47,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jaeyeon Lee <jaeyeon.lee.dev@gmail.com>
+From: Enze Li <lienze@kylinos.cn>
 
-Replace manual mutex_lock() and mutex_unlock() calls with the
-scoped_guard() macro. This simplifies the code, improves readability,
-and ensures that the lock is automatically released when the scope
-ends, preventing potential lock leaks in the future.
+The mtier sample defines a local struct region_range using phys_addr_t
+instead of damon_addr_range which uses unsigned long.  Add a comment
+explaining the rationale: on 32-bit systems with more than 4GiB memory,
+phys_addr_t will be 64-bit while unsigned long is 32-bit.
 
-Signed-off-by: Jaeyeon Lee <jaeyeon.lee.dev@gmail.com>
+Signed-off-by: Enze Li <lienze@kylinos.cn>
 Reviewed-by: SJ Park <sj@kernel.org>
 Signed-off-by: SJ Park <sj@kernel.org>
 ---
 Changes from v1
-- v1: https://lore.kernel.org/20260815143039.17291-1-jaeyeon.lee.dev@gmail.com
-- Collec R-b: from SJ.
+- v1: https://lore.kernel.org/20260721070756.54435-1-lienze@kylinos.cn
+- Collect R-b: from SJ.
 - Rebase to latest mm-new.
 
- mm/damon/tests/core-kunit.h | 21 ++++++++++-----------
- 1 file changed, 10 insertions(+), 11 deletions(-)
+ samples/damon/mtier.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/mm/damon/tests/core-kunit.h b/mm/damon/tests/core-kunit.h
-index 65443aba03300..ec7260a3bfea8 100644
---- a/mm/damon/tests/core-kunit.h
-+++ b/mm/damon/tests/core-kunit.h
-@@ -434,17 +434,17 @@ static void damon_test_ops_registration(struct kunit *test)
- 	KUNIT_EXPECT_EQ(test, damon_select_ops(c, NR_DAMON_OPS), -EINVAL);
+diff --git a/samples/damon/mtier.c b/samples/damon/mtier.c
+index d1123ebbfab90..bea45c87cc9be 100644
+--- a/samples/damon/mtier.c
++++ b/samples/damon/mtier.c
+@@ -52,6 +52,11 @@ module_param(detect_node_addresses, bool, 0600);
  
- 	/* Registration should success after unregistration */
--	mutex_lock(&damon_ops_lock);
--	bak = damon_registered_ops[DAMON_OPS_VADDR];
--	damon_registered_ops[DAMON_OPS_VADDR] = (struct damon_operations){};
--	mutex_unlock(&damon_ops_lock);
-+	scoped_guard(mutex, &damon_ops_lock) {
-+		bak = damon_registered_ops[DAMON_OPS_VADDR];
-+		damon_registered_ops[DAMON_OPS_VADDR] =
-+			(struct damon_operations){};
-+	}
+ static struct damon_ctx *ctxs[2];
  
- 	ops.id = DAMON_OPS_VADDR;
- 	KUNIT_EXPECT_EQ(test, damon_register_ops(&ops), 0);
- 
--	mutex_lock(&damon_ops_lock);
--	damon_registered_ops[DAMON_OPS_VADDR] = bak;
--	mutex_unlock(&damon_ops_lock);
-+	scoped_guard(mutex, &damon_ops_lock)
-+		damon_registered_ops[DAMON_OPS_VADDR] = bak;
- 
- 	/* Check double-registration failure again */
- 	KUNIT_EXPECT_EQ(test, damon_register_ops(&ops), -EINVAL);
-@@ -452,10 +452,9 @@ static void damon_test_ops_registration(struct kunit *test)
- 	damon_destroy_ctx(c);
- 
- 	if (need_cleanup) {
--		mutex_lock(&damon_ops_lock);
--		damon_registered_ops[DAMON_OPS_VADDR] =
--			(struct damon_operations){};
--		mutex_unlock(&damon_ops_lock);
-+		scoped_guard(mutex, &damon_ops_lock)
-+			damon_registered_ops[DAMON_OPS_VADDR] =
-+				(struct damon_operations){};
- 	}
- }
- 
++/*
++ * Use phys_addr_t instead of damon_addr_range (unsigned long) for physical
++ * addresses.  On 32-bit systems with more than 4GB memory, phys_addr_t will
++ * be 64-bit while unsigned long is 32-bit.
++ */
+ struct region_range {
+ 	phys_addr_t start;
+ 	phys_addr_t end;
 -- 
 2.47.3
