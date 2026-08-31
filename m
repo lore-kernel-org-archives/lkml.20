@@ -1,60 +1,77 @@
-Received: from ale.deltatee.com (ale.deltatee.com [204.191.154.188])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93D0E38DC5C;
-	Mon, 31 Aug 2026 19:14:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=204.191.154.188
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB3283769F5
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 19:15:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788203672; cv=none; b=QQy+WwSOvcrG9uJ/fqsX77sX5Nl7fblELQ6yS7SoZv78cLvXkftn0y0Pe6f1fNv640r3gBwSXG3LJwroh1ukVxH56GzkPmvWL9VMyQt/MJzWpKi+otd1vso/1nnzyxxsYZKfuCHfheTf9qthDrt+U3FD2lWHK+tieeqDGg+EeZQ=
+	t=1788203712; cv=none; b=gUo17Zkula4VD+RnvSg7Iua6k/gKd/6xK8Kr0wuPuyPJ6zwqqUtDNpXPMDYOEhRxrr4bX3eSlSkPBcfIBIYgd8I9RqZAs5Iy73A2Fs4X2mqIEfIYw84jGVjCxc//NFFbuOqrLMYJtuImKnoIkT4c3CEzs5b2xJi5dj/bpKvjCqc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788203672; c=relaxed/simple;
-	bh=J5Z+negq9t0hkOPhOevbAhPTgwWt6tQSntxeoP4sOG4=;
-	h=From:To:Cc:Date:Message-ID:In-Reply-To:References:MIME-Version:
-	 Subject; b=IwYbQmgss8rz4fEorTjJKLFMhbEc5f/S9S2WALpMOvHn0RdNOYCGzp6ZfRcx56YOILM4X21q+OMku2ZdY4K60mLFBZezZ9vcTcxTV3vJ4KuGqMwDwNSZaSucHrLjB7JvjadIVVKGmQnIP22c8lErAQdFGCCqeqVJsxYSdcx4xm4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=deltatee.com; spf=pass smtp.mailfrom=deltatee.com; dkim=pass (2048-bit key) header.d=deltatee.com header.i=@deltatee.com header.b=Yxk60JSH; arc=none smtp.client-ip=204.191.154.188
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=deltatee.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deltatee.com
+	s=arc-20240116; t=1788203712; c=relaxed/simple;
+	bh=Z7kFPgQ88Wv2Xf8E4x/R5vvxXua56XhG0Lj1CxJOuUQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HGZSU5CMKfOogMym3iMRVOk7mASb2xJl/T8stRtKXMhIV9gvL8LxRDRidUBj5O+fMSno0QrktCb/vfcr1+971byKbBHyGmF/xk+OcheUSyWDrKyDtUotqifx7C2m6tZcr+xgpFFF3a/XgnAVlB0BWXRIb1knOCyHfDV1l4e36LA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ea9HuC5P; arc=none smtp.client-ip=209.85.215.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=deltatee.com header.i=@deltatee.com header.b="Yxk60JSH"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=deltatee.com; s=20200525; h=Subject:MIME-Version:References:In-Reply-To:
-	Message-ID:Date:Cc:To:From:content-disposition;
-	bh=RnnO1NNcjLe9HNz+vfdGpNqTtaHUrE/25DnSIreOxdA=; b=Yxk60JSHW8Qzbn10IR5B1ZoEA5
-	pL2EtJqGqkgA//b7DbBZzzsFDMQoP20RZW+t9QTWhh0mu0qdW/LG1ZMCoN5kh7iWc6hqDEkoLjwdv
-	DoCt4PZqEhCFM1Zkl6Y2ENCTh4kCu4FXQjycvkfEyVZu9fRld07brSqfGfEVhxGZNimufB6CanZ3m
-	qKmwO0hK9VsG2Thd+UWhcqKR//1RNzSG6bKMxpMlEsZ/J2hxZNfbCtD53gDHVF6bZW0spbrlJe6QF
-	tFsdyRSfErKlYVez/oqmMttLKswlc6PYFZA+PmDvhrc5dXKhVgkTluu/Ww5ChIVJ9VakAVkGT0Gl0
-	52R+cO5A==;
-Received: from cgy1-donard.priv.deltatee.com ([172.16.1.31])
-	by ale.deltatee.com with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <gunthorp@deltatee.com>)
-	id 1x17Se-000000007Eg-4246;
-	Mon, 31 Aug 2026 13:14:29 -0600
-Received: from gunthorp by cgy1-donard.priv.deltatee.com with local (Exim 4.98.2)
-	(envelope-from <gunthorp@deltatee.com>)
-	id 1x17SJ-00000000s1r-0Ltr;
-	Mon, 31 Aug 2026 13:14:07 -0600
-From: Logan Gunthorpe <logang@deltatee.com>
-To: linux-kernel@vger.kernel.org,
-	linux-pci@vger.kernel.org,
-	dmaengine@vger.kernel.org,
-	Vinod Koul <vkoul@kernel.org>
-Cc: Frank Li <Frank.li@nxp.com>,
-	Kelvin Cao <kelvin.cao@microchip.com>,
-	=?UTF-8?q?Thomas=20Wei=C3=9Fschuh?= <linux@weissschuh.net>,
-	Dave Jiang <dave.jiang@intel.com>,
-	George Ge <george.ge@microchip.com>,
-	Jaeyoung Chung <jjy600901@snu.ac.kr>,
-	Logan Gunthorpe <logang@deltatee.com>,
-	Sangyun Kim <sangyun.kim@snu.ac.kr>,
-	Kyungwook Boo <bookyungwook@gmail.com>,
-	Frank Li <Frank.Li@nxp.com>
-Date: Mon, 31 Aug 2026 13:14:02 -0600
-Message-ID: <20260831191403.207631-13-logang@deltatee.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260831191403.207631-1-logang@deltatee.com>
-References: <20260831191403.207631-1-logang@deltatee.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ea9HuC5P"
+Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-cc1cc97b84bso3457856a12.1
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 12:15:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788203709; x=1788808509; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=U1yjLc9wE+XWjLLJII/RbL4oTPqzzDgXzF/PpO/HPdQ=;
+        b=Ea9HuC5PzmRwm5Nai15zSaxspwUNEZtcMtQ6ihkINKeZIn6BHLCVixZQ+Vywxhyg4G
+         D2EHvafQOXq5QcJ1aoKigD8fwWthAPvIr2IJCgmohPRf4LS6wJA1l3p6c70WHE1Z9yPl
+         VYc9sYTP8MExddqq8lLnJ2xDXQnoCXlPy83H+hW0ipEzNTlbioUTzSpnXAsQxjR6QuIe
+         VVW1bM6Ea69W7c6dz7c0ZiHjrTU/0TnhMprEBwWnhYWYESh/ZrpwSFti2fgh1orl1nHl
+         zDGyALKwRuPKarEeEm0fKYaUMIk/fBhOYrFAsGck/TqeRveJp0M2tmBHN1kK0OPj9QQ9
+         Mlig==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788203709; x=1788808509;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:sender:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=U1yjLc9wE+XWjLLJII/RbL4oTPqzzDgXzF/PpO/HPdQ=;
+        b=Uiq5i4WMXggXfvGRjw49nFYjRah8Ob5R9uj4v3/xFy1+G1hTonHEmV/8O7w1ES8OlY
+         pVzOcBavN6wcuoVvw9EadlAsogw69kwjJ26VfWNgJDPBlc1jZDkEG4RzyyqBYhScuVtk
+         wwt743NOZYJ7Dv48ocMRqWK3284a8RPYWTwDykokFBZzWe8U4oa5kaGJV6vro6K3VZCH
+         0BLJon1/LeZ8mrFag3eMQQM8MpJGVbF344QB2Oxd8CqhM0t9fOHvUClpMsMTJYoGbiL7
+         mG2VJl237RtPe0obkI2ZJsw7X/MMrH/PVR9rcX3FpNQ6EkdUDyFg5IOn3M6qvAT7gaFG
+         10Kw==
+X-Forwarded-Encrypted: i=1; AKwUvByqK1vBy1nM9BubiQpawzOze4C5IjcLrAAOzJ2SBeheDaxJGmA1kxudw5yHAmA4fuzGAkS3ea9P3FiqsAw=@vger.kernel.org
+X-Gm-Message-State: AFuF++mXCZQYmFeHAkJCew8eEDfAijwSCRxE3ZdcVKyrTSxRLYOg2S9a
+	qV4eUnzshe/0PSzYGHYUpYE1OsKQ0h6ViWpa1ylTfSVW72KJH2oesp1O
+X-Gm-Gg: AYBFou34z68HjvoxAGbONIkR1JOS3lF14nHx+bNVCs6/HQSNTaU29MIx4Y4n2ODmbE2
+	CP0pGIpN1eItQk9L1TKfVlyCxiP7S4XSI2SJHRRNmkWHGH8Zdh6APYQ0ilrENMC8RbTo2TdDqNq
+	W6TuqrEpyzkY4EZayFFqbQ6QdEBTptcuzqbE/T1n0RAuj7hWnY+BZR9JTsv5GzFNrHjPQk9qRbA
+	wn2/Y9w5cUDJo7qVBJfRB2PwaS0X8aghZ65gGUnfq/T/27t+tkkt61aHbwKNJdj+gifojkzXZPJ
+	bR6UOUFx0OnrqN71SAZoF88U1AUNBOyQJXklKgBzyf0JxonurvKFvTQLAmwDJVYQJQ9/EEurnie
+	tgTUKJ++MhLbf3LTBggFmMwmlKQvLy8eZW7I+Z3xFyGkHNNJ8jCOZPUp1kZHBeGzwu3lg/awms0
+	gHVhK181xrL9WUtejDiOg58CiFixZBisXCXniPvzG9+jPHdB42RV8VoS42dpYeaS+yzFPZBHzG/
+	f+ulJo1mTWstnBmw/Y5
+X-Received: by 2002:a17:90b:1d4c:b0:398:ea31:2474 with SMTP id 98e67ed59e1d1-39907b5cd26mr4101952a91.9.1788203708934;
+        Mon, 31 Aug 2026 12:15:08 -0700 (PDT)
+Received: from 192.168.50.3 ([183.193.115.0])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3990bd1dcfbsm1110665a91.2.2026.08.31.12.15.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Aug 2026 12:15:08 -0700 (PDT)
+Sender: Weiming Shi <thebestswings@gmail.com>
+From: Weiming Shi <bestswngs@gmail.com>
+To: Kalle Valo <kvalo@kernel.org>
+Cc: linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Pontus Fuchs <pontus.fuchs@gmail.com>,
+	"John W. Linville" <linville@tuxdriver.com>,
+	co+a27ae3497f0074da@bugs.sh,
+	Xiang Mei <xmei5@asu.edu>,
+	stable@vger.kernel.org
+Subject: [PATCH wireless] wifi: ar5523: reject negative reply lengths
+Date: Tue,  1 Sep 2026 03:15:02 +0800
+Message-ID: <20260831191502.3321906-1-bestswngs@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -62,58 +79,47 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-SA-Exim-Connect-IP: 172.16.1.31
-X-SA-Exim-Rcpt-To: linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org, dmaengine@vger.kernel.org, vkoul@kernel.org, linux@weissschuh.net, dave.jiang@intel.com, kelvin.cao@microchip.com, george.ge@microchip.com, logang@deltatee.com, jjy600901@snu.ac.kr, sangyun.kim@snu.ac.kr, bookyungwook@gmail.com, Frank.li@nxp.com, Frank.Li@nxp.com
-X-SA-Exim-Mail-From: gunthorp@deltatee.com
-X-Spam-Level: 
-Subject: [PATCH v5 12/12] dmaengine: plx_dma: fix NULL pointer deref in plx_dma_isr()
-X-SA-Exim-Version: 4.2.1 (built Sun, 23 Feb 2025 07:57:16 +0000)
-X-SA-Exim-Scanned: Yes (on ale.deltatee.com)
 
-plx_dma_create() registered the interrupt handler with request_irq()
-before initializing plxdev->bar. If the device raised an interrupt in
-that window, plx_dma_isr() would dereference the still-NULL bar.
+The reply length is supplied by the USB device as a 32-bit unsigned
+integer, but ar5523_read_reply() stores it in an int.  Values with bit 31
+set become negative and bypass the existing signed upper-bound check.
+memcpy() then converts the value to size_t and overruns the command's small
+stack output buffer.
 
-Move the bar assignment ahead of request_irq() so everything the
-handler can touch is initialized before it can run.
+  BUG: KASAN: out-of-bounds in ar5523_cmd_rx_cb
+  Read of size 18446744071562067968
+  Call Trace:
+   __asan_memcpy
+   ar5523_cmd_rx_cb
+   __usb_hcd_giveback_urb
+   usb_hcd_giveback_urb
+   dummy_timer
+  Kernel panic - not syncing: Fatal exception in interrupt
 
-Reported-by: Sangyun Kim <sangyun.kim@snu.ac.kr>
-Reported-by: Kyungwook Boo <bookyungwook@gmail.com>
-Link: https://lore.kernel.org/all/20260610112121.676561-1-jjy600901@snu.ac.kr
-Fixes: c2dbcaa8c672 ("dmaengine: plx-dma: Implement hardware initialization and cleanup")
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
-Signed-off-by: Logan Gunthorpe <logang@deltatee.com>
+Reject negative lengths through the existing overflow error path.
+
+Cc: stable@vger.kernel.org
+Fixes: b7d572e1871d ("ar5523: Add new driver")
+Reported-by: co+a27ae3497f0074da@bugs.sh
+Closes: https://lore.kernel.org/all/K9HvthWDvq4gyjBVMeGsnsvA26mYMZ9v4gW7%40bugs.sh/
+Assisted-by: Claude:gpt-5
+Signed-off-by: Weiming Shi <bestswngs@gmail.com>
 ---
- drivers/dma/plx_dma.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ drivers/net/wireless/ath/ar5523/ar5523.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/dma/plx_dma.c b/drivers/dma/plx_dma.c
-index 84941a918b01..409898e92c32 100644
---- a/drivers/dma/plx_dma.c
-+++ b/drivers/dma/plx_dma.c
-@@ -504,17 +504,17 @@ static int plx_dma_create(struct pci_dev *pdev)
- 	if (!plxdev)
- 		return -ENOMEM;
+diff --git a/drivers/net/wireless/ath/ar5523/ar5523.c b/drivers/net/wireless/ath/ar5523/ar5523.c
+index 66ac396858a5..176e5de6a64e 100644
+--- a/drivers/net/wireless/ath/ar5523/ar5523.c
++++ b/drivers/net/wireless/ath/ar5523/ar5523.c
+@@ -73,7 +73,7 @@ static void ar5523_read_reply(struct ar5523 *ar, struct ar5523_cmd_hdr *hdr,
+ 		olen = 0;
  
--	rc = request_irq(pci_irq_vector(pdev, 0), plx_dma_isr, 0,
--			 KBUILD_MODNAME, plxdev);
--	if (rc)
--		goto free_plx;
--
- 	spin_lock_init(&plxdev->ring_lock);
- 	tasklet_setup(&plxdev->desc_task, plx_dma_desc_task);
- 
- 	RCU_INIT_POINTER(plxdev->pdev, pdev);
- 	plxdev->bar = pcim_iomap_table(pdev)[0];
- 
-+	rc = request_irq(pci_irq_vector(pdev, 0), plx_dma_isr, 0,
-+			 KBUILD_MODNAME, plxdev);
-+	if (rc)
-+		goto free_plx;
-+
- 	dma = &plxdev->dma_dev;
- 	INIT_LIST_HEAD(&dma->channels);
- 	dma_cap_set(DMA_MEMCPY, dma->cap_mask);
+ 	if (cmd->odata) {
+-		if (cmd->olen < olen) {
++		if (olen < 0 || cmd->olen < olen) {
+ 			ar5523_err(ar, "olen too small %d < %d\n",
+ 				   cmd->olen, olen);
+ 			cmd->olen = 0;
 -- 
-2.47.3
-
+2.55.0
