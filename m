@@ -1,235 +1,115 @@
-Received: from mail-oa2-f1.google.com (mail-oa2-f1.google.com [74.125.231.65])
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B68441A4E4
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 14:16:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.65
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788185816; cv=none; b=GPyF9SvhxGRcqhedjh7orz1/n85iW0QbfG5OhoHhZhgmhs0yiZn9NKG+QWjcKAmHNyP/j4GjtjcuDYEKacaC5vDghcRW9ga183XuJcEKTaqQ0BK99C5N2m4Be5SWB611+A4qlo2JVCmzKSYrYDJTn3Pr22qXjXPKkPSNJ29N+3s=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788185816; c=relaxed/simple;
-	bh=5J8+h2X+UJ765NJnkaf379tWFSjm61zrbLkTZbYFUz0=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=Ku4yl0By7W4lpgwULx2P0dv7QHvnSGtBqqILhCWA1tnYeb4kB8fGhTkDu0wfR7I/s4YpV6xUmGlTBu5M3IovBZ5kP5Zrd7I8D7L8+WCTnmYLuIhhFYYGTl3wivTS8COHlyVCFnfaQ/gQ8x9p3rFbNf3jfqUpMwtMU+chPDggAzU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.65
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oa2-f1.google.com with SMTP id 586e51a60fabf-448a12ddfb4so2117437fac.1
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 07:16:53 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788185813; x=1788790613;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C2454483B7
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 14:18:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.216.54
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788185908; cv=pass; b=skX/u5khNA6K2kcDhsp8mThydBXsmrsx+S0uUEDdU849UXU42z49LcAary4QJTIGsVy7qfkU3+x9Fouloqw3bw1JhihZy/VUcDfzfq/816RIQ04MtvaQ54C6bpFcrv0ebpwvFWxeapil/oyyWvilR1Tt9uaS9GnDxXVcaxg/HCw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788185908; c=relaxed/simple;
+	bh=5ebukEa9X8TLK1zNOHZXcjEycVHzAZwRNrrqasYyvKc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=oQ26JhdotxsKHrSLs7GIEz6GqhfvDIOmcIDS5Uy98HEadKw4pf+ghE6V9TydM0w6DdvTx8VEopDwCAxmJof6roN+X+tR/mb8lBLEzzvL/Xnrsk5ZEipWd2nAXo/w8Io6h79gIpOjXpmby6gCvMmJ40KKeCAEttmf+Dz7NxuU0Bc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aLsbyPBN; arc=pass smtp.client-ip=209.85.216.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aLsbyPBN"
+Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-383b4a3755fso4043004a91.3
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 07:18:27 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788185907; cv=none;
+        d=google.com; s=arc-20260327;
+        b=W/rTY4w8nx7FOkngd6xQ7GxerP10dIcuipIlUqYnq7R1JWkKxaLvkrGaWb/n+f2sjP
+         7hX0G4aa98CLA7GOVdL91b0rFjC8mJ09vykPr5uDHPPwPZ3dOLGfsFFa8OIEqQkI7fj8
+         BlKL+wtlWT3REdGC4tn4MOQPPxHa7GEsgiFQeBxXaMNyHktF+opdDRoSE+aIz/81zzTB
+         30mD84TZ7ABQf9D+9a4TpotBIyeQ9bdh/0viz/lUy0ywCYdKv9kNFwKGMFLYZFfXeS4c
+         yQTRa8kyT0TvOQ6PUhRGrOK/teW9ggTpDP/J7SG9bCogSG6dC+lvf8C6E0TyLmgwYTC8
+         uSGA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=1ZOG88pTRBHH6b+RUYSoXdM5pS/61VuSbKJS1GDc7CU=;
+        fh=yLl0knLDhg1NlkGKOy3opvqyg86DsvBt3Oi64rew0+c=;
+        b=lNm1l1DZAjjk7Rmw3LT+R6kk2viRJmYuq7kwtwnyvTkfyk58YGsKVAVlc6dz7F6lvK
+         vfbroVrl89r+RPLzUT0wYDRPGDInPsvWfyP2RkB9ixdLV9wXkNyLI7XWjiNiaWq4QsFJ
+         eB4EbTpJhv7K/kmew1GunHfYM+X7QKgM6q8rNAFPzuFrmdy6FAExkcu00u5MhFKCbd7S
+         QDGymk3XdoZtWkbMe8iMixbmO/NAI9gYFIu6MwgK/mL6WZ1XtnVUNf6I/l046ohXn2JS
+         DUMVZJwy6B5xmtxlzM+SM/cInOPjky9cwDXrn1JIbdcbq4zgv5wotLVeByLQOfHx5Ojc
+         mXJQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788185907; x=1788790707; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=b1EW2CJOojbKHZ9ZhywIovdwExeL64GkrcTsZeJGyWM=;
-        b=TScB3qAWvk2ww6k8TGnyFMvzyGGFiJ6XEZ7SqIobu34qw0/KlUrEo7SRzExqxDG53w
-         T4gV7teSzzmjOGRABdTTrosQZrg1ggV/wr1oYK+uu7ALbI2nSO6O0kdqK29k38+LSL/m
-         zWz+u7h6etwBJC9WYqIRpTMhFcn+LsZ8FON3yBx91aTaWa/tPkXm9XPQhsPhAi8PdT0S
-         qohvg9OJVLAe5tqbYYl+UhyJupG305SYqAviBxoNdPMY0Jh10AtITri3KH3mVv5lrijC
-         XWvcZ904KQsYiZUwCxPXvPJlmpXlzTsCEKO/IofyP6xETr/Mz5li84UTpVhE4K4TyoS0
-         1rew==
-X-Forwarded-Encrypted: i=1; AHgh+RoHD+sPL0N/s2PmfjjNfvKcQ42FapIZL0+yFazxg0myN/x9OalB7sjOcqsD51xeaR6LPy1PrgIAI15rx18=@vger.kernel.org
-X-Gm-Message-State: AFuF++lnROGGS4JIPdkP2s7h96niiwhoq2kryjN4UrIK/47XKp6X9sSe
-	CRNNpAkUaeGpsLK++9E+CWPrBranaxqddc0vhmLjywzTy0qqCY9Mj+sM/0viXPwbwcNvFFBUw2X
-	yMIxFE3FheD3WmqYuO9DEDZ8KfjNUPTZBtpgGz5/ajvFJsEJll0nuZQjzrps=
+        bh=1ZOG88pTRBHH6b+RUYSoXdM5pS/61VuSbKJS1GDc7CU=;
+        b=aLsbyPBNeRqQU+KBefDS/iiNA3A19Xk+Xh8XWWtQvI/pc9k6E1UCvlvtakSXMb6xDu
+         /QemWCiuVO7Ah5lhhz5W1nafLXNxph3PLxyiQ625k8TpZbnhlWmEMMBBOoeNXcWj4HP6
+         /HOp2J60b00LgeB829rcXk0xTB4jnmq9pUPS0o5GqWwGrTyXKWIMw+a9DD0QkJDYZUEW
+         CSQRJNDyx4FlTyCw9fyshHbiwKjDvM3NS+DoyRz1UPV1WISs2HLyAJ2W62KASgBTbvjZ
+         I03aPYozG7IGRoY42zetGY3T7m2zAe1jNfSir6RHj12Jd1O/XE+mjMEQBydrk99ioBLe
+         HMXw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788185907; x=1788790707;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=1ZOG88pTRBHH6b+RUYSoXdM5pS/61VuSbKJS1GDc7CU=;
+        b=nqqrCkmN84T4b61jJHRqG0l3agv696nuO8pjf6093V/bukTWVpFc0RVTlVxgBE4+LS
+         W5VmYerEPkH3nl2TlbpKWSyr+dIsQ0uCvu+DknT/H8jxf3VCak4cHghwD3baLkqtXeMp
+         mVcKHEjUeELaJwd4Q4FflLLs9BOcId0a23gF69nQLJXgtTjcoXm79e9gsYF8vgQeznbQ
+         /DolMZBXE9IiRy1d2amaVrUWR1sYXaDrpGvb5+xAIOTudqrFuFhrsBGjd0h25mq8L+vA
+         uz8IwLgqO+/mAa6Pnw/AnaUlbXaRZJSl60YOguHjmTbdWnrUre3XYSEHTgqx0HbwjY3E
+         EZzQ==
+X-Forwarded-Encrypted: i=1; AHgh+RrCOI3N4tu4/QNxwEq7k0i3pcOhzjv1gg3ZvVhAWGfSajgjNfNB5PGhZ/+cbdAgN7Md2RCdu1MJI4BjWc0=@vger.kernel.org
+X-Gm-Message-State: AFuF++kv5jrm+VydxwuVlIvK1cgUp/nhV5R75Mh++WNtoCD2uDf/yyGc
+	1QMGtnN97iX7axYGpSb/QlwFmQ+CCb50iZPwZ3zcLITCPSzC26GK0HWqxbXeZpJrWXcv000Jg18
+	pahpMRwG94vQ3VEY1ui42zTa4cJlCKD0=
+X-Gm-Gg: AR+sD13WCruoH2w4oHSK5FBgkwh6yuBruCCGhyU0zYn9EoCC3lrEIi5jdC+P1Wkqcgi
+	s/3b0mxPN5va9fmorhWwdmvGeT+8t2slt/eCoqCIJd7EXIRQN6+d3Z3MXiBPObycSWXmv2UIAEr
+	oB/2pUCZWwZ+JkIEsJz8aJU5UMXCNC3gND8d+4hRrzBoLzRTe12Z9lFfKrv54zJDSdZOU8Wgr21
+	8l3TasbjrCpQBJeNu9HGEM+30EFFDpQs0sxPF+GLhvhn+yJtjyULQapWB/RP8DTndVngpXUpRld
+	11uJ3pwIfCoerQ8XZ3K05NVCEo9D7LtxxUW3F3Wu4eO9ICo0NwL6MVXHozGs/xQkZ2sMoFhKPwc
+	XneL5UmComA==
+X-Received: by 2002:a05:6a21:339c:b0:3c3:64cb:9b99 with SMTP id
+ adf61e73a8af0-3d265a3df5amr37173569637.6.1788185906618; Mon, 31 Aug 2026
+ 07:18:26 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:14c4:b0:4a3:fb6c:9adf with SMTP id
- 5614622812f47-4b5b8198937mr1343976b6e.12.1788185812994; Mon, 31 Aug 2026
- 07:16:52 -0700 (PDT)
-Date: Mon, 31 Aug 2026 07:16:52 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a958cd4.a8e469d2.cbf3.561d.GAE@google.com>
-Subject: [syzbot] [kvm?] INFO: task hung in kvm_gmem_release
-From: syzbot <syzbot+6895ff73d58c59e653ba@syzkaller.appspotmail.com>
-To: david@kernel.org, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	pbonzini@redhat.com, seanjc@google.com, syzkaller-bugs@googlegroups.com
+References: <20260830-asus-x670e-a-hwmon-fix-v1-1-cf0a680ccbe2@sne.moe>
+In-Reply-To: <20260830-asus-x670e-a-hwmon-fix-v1-1-cf0a680ccbe2@sne.moe>
+From: Eugene Shalygin <eugene.shalygin@gmail.com>
+Date: Mon, 31 Aug 2026 16:18:14 +0200
+X-Gm-Features: AcwNN1Xm-dHdx5qoEWmx-mK7azvrCKK8tNYI9QQLi_Q61e2CGu-085AeqI9F8U8
+Message-ID: <CAB95QASxkb0sFxBSSY5PA3QJQEs04rBaKke7Oh9fGo1-asyE4A@mail.gmail.com>
+Subject: Re: [PATCH] hwmon: (asus-ec-sensors) add ROG STRIX X670E-A GAMING WIFI
+To: sugar@sne.moe
+Cc: Guenter Roeck <linux@roeck-us.net>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, linux-hwmon@vger.kernel.org, 
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-Hello,
+Hi,
 
-syzbot found the following issue on:
+On Sun, 30 Aug 2026 at 15:03, Asai Neko via B4 Relay
+<devnull+sugar.sne.moe@kernel.org> wrote:
 
-HEAD commit:    08dbfad3f504 Merge tag 'for-linus' of git://git.kernel.org..
-git tree:       upstream
-console+strace: https://syzkaller.appspot.com/x/log.txt?x=12ee0349580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=5e4e3a0e188a497e
-dashboard link: https://syzkaller.appspot.com/bug?extid=6895ff73d58c59e653ba
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=1153ee25580000
+> +static const struct ec_board_info board_info_strix_x670e_a_gaming_wifi = {
+> +       .sensors = SENSOR_TEMP_CPU | SENSOR_TEMP_CPU_PACKAGE |
+> +               SENSOR_TEMP_MB | SENSOR_TEMP_VRM,
+> +       .mutex_path = ASUS_HW_ACCESS_MUTEX_SB_PCI0_SBRG_SIO1_MUT0,
+> +       .family = family_amd_600_series,
+> +};
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/ddff5719ec3b/disk-08dbfad3.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/4b5e39b20fa5/vmlinux-08dbfad3.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/eb1f70eed57f/bzImage-08dbfad3.xz
+The board_info_strix_x670e_a_gaming_wifi struct does not seem to
+differ from board_info_strix_x670e_e_gaming_wifi just below. Please
+reference the existing one in the DMI_EXACT_MATCH_ASUS_BOARD_NAME().
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+6895ff73d58c59e653ba@syzkaller.appspotmail.com
-
-INFO: task syz.0.17:6104 blocked for more than 143 seconds.
-      Not tainted syzkaller #0
-"echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
-task:syz.0.17        state:D stack:25544 pid:6104  tgid:6104  ppid:5900   task_flags:0x400040 flags:0x00080003
-Call Trace:
- <TASK>
- context_switch kernel/sched/core.c:5520 [inline]
- __schedule+0x17d4/0x5820 kernel/sched/core.c:7270
- __schedule_loop kernel/sched/core.c:7347 [inline]
- schedule+0x164/0x2b0 kernel/sched/core.c:7362
- schedule_preempt_disabled+0x13/0x30 kernel/sched/core.c:7419
- __mutex_lock+0
- __mutex_lock_common kernel/locking/mutex.c:726 [inline]
- __mutex_lock+0x7c1/0x1550 kernel/locking/mutex.c:821
- kvm_gmem_release+0xdf/0x3e0 virt/kvm/guest_memfd.c:310
- __fput+0x418/0xa50 fs/file_table.c:512
- task_work_run+0x1d9/0x270 kernel/task_work.c:233
- ptrace_notify+0x27c/0x2b0 kernel/signal.c:2524
- ptrace_report_syscall include/linux/ptrace.h:416 [inline]
- ptrace_report_syscall_exit+0x2d/0x50 include/linux/ptrace.h:477
- arch_ptrace_report_syscall_exit include/linux/entry-common.h:233 [inline]
- syscall_exit_work include/linux/entry-common.h:266 [inline]
- syscall_exit_to_user_mode_work include/linux/entry-common.h:297 [inline]
- syscall_exit_to_user_mode include/linux/entry-common.h:334 [inline]
- do_syscall_64+0x4a0/0x520 arch/x86/entry/syscall_64.c:89
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f625079e159
-RSP: 002b:00007ffd1d739348 EFLAGS: 00000246 ORIG_RAX: 00000000000001b4
-RAX: 0000000000000000 RBX: 00007f6250a27da0 RCX: 00007f625079e159
-RDX: 0000000000000000 RSI: 000000000000001e RDI: 0000000000000003
-RBP: 00007f6250a27da0 R08: 0000000000000006 R09: 0000000000000000
-R10: 00007f6250a27cb0 R11: 0000000000000246 R12: 00000000000277b3
-R13: 00007f6250a2609c R14: 0000000000027546 R15: 00007ffd1d739450
- </TASK>
-
-Showing all locks held in the system:
-locks held by pr/ttyS0/16: 2, last CPU#1:
- #0: ffffffff8ec362b8 (console_srcu){....}-{0:0}, at: rcu_try_lock_acquire include/linux/rcupdate.h:314 [inline]
- #0: ffffffff8ec362b8 (console_srcu){....}-{0:0}, at: srcu_read_lock_nmisafe include/linux/srcu.h:439 [inline]
- #0: ffffffff8ec362b8 (console_srcu){....}-{0:0}, at: console_srcu_read_lock+0x30/0x60 kernel/printk/printk.c:291
- #1: ffffffff9ad2f098 (&port_lock_key){-...}-{3:3}, at: __uart_port_lock_irqsave include/linux/serial_core.h:613 [inline]
- #1: ffffffff9ad2f098 (&port_lock_key){-...}-{3:3}, at: univ8250_console_device_lock+0x67/0xc0 drivers/tty/serial/8250/8250_core.c:413
-locks held by khungtaskd/32: 1, last CPU#0:
- #0: ffffffff8ed5c6e0 (rcu_read_lock){....}-{1:3}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
- #0: ffffffff8ed5c6e0 (rcu_read_lock){....}-{1:3}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
- #0: ffffffff8ed5c6e0 (rcu_read_lock){....}-{1:3}, at: debug_show_all_locks+0x2e/0x180 kernel/locking/lockdep.c:6837
-locks held by getty/5374: 2, on CPU#0:
- #0: ffff8880325cd0a0 (&tty->ldisc_sem){++++}-{0:0}, at: tty_ldisc_ref_wait+0x25/0x70 drivers/tty/tty_ldisc.c:243
- #1: ffffc900032332e8 (&ldata->atomic_read_lock){+.+.}-{4:4}, at: n_tty_read+0x45a/0x1360 drivers/tty/n_tty.c:2211
-locks held by syz.0.17/6104: 1, on CPU#1:
- #0: ffff88807bb840a0 (&kvm->slots_lock){+.+.}-{4:4}, at: kvm_gmem_release+0xdf/0x3e0 virt/kvm/guest_memfd.c:310
-locks held by syz.0.17/6106: 1, last CPU#0:
- #0: ffff88807bb840a0 (&kvm->slots_lock){+.+.}-{4:4}, at: kvm_vm_set_mem_attributes virt/kvm/kvm_main.c:2566 [inline]
- #0: ffff88807bb840a0 (&kvm->slots_lock){+.+.}-{4:4}, at: kvm_vm_ioctl_set_mem_attributes+0x33c/0x1600 virt/kvm/kvm_main.c:2625
-locks held by syz.1.18/6149: 1, on CPU#1:
- #0: ffff8880334a80a0 (&kvm->slots_lock){+.+.}-{4:4}, at: kvm_gmem_release+0xdf/0x3e0 virt/kvm/guest_memfd.c:310
-locks held by syz.1.18/6151: 3, last CPU#0:
- #0: ffff8880334a80a0 (&kvm->slots_lock){+.+.}-{4:4}, at: kvm_vm_set_mem_attributes virt/kvm/kvm_main.c:2566 [inline]
- #0: ffff8880334a80a0 (&kvm->slots_lock){+.+.}-{4:4}, at: kvm_vm_ioctl_set_mem_attributes+0x33c/0x1600 virt/kvm/kvm_main.c:2625
- #1: ffffffff8ee8f900 (fs_reclaim){+.+.}-{0:0}, at: might_alloc include/linux/sched/mm.h:316 [inline]
- #1: ffffffff8ee8f900 (fs_reclaim){+.+.}-{0:0}, at: xa_cmpxchg include/linux/xarray.h:697 [inline]
- #1: ffffffff8ee8f900 (fs_reclaim){+.+.}-{0:0}, at: xa_reserve include/linux/xarray.h:1088 [inline]
- #1: ffffffff8ee8f900 (fs_reclaim){+.+.}-{0:0}, at: kvm_vm_set_mem_attributes virt/kvm/kvm_main.c:2577 [inline]
- #1: ffffffff8ee8f900 (fs_reclaim){+.+.}-{0:0}, at: kvm_vm_ioctl_set_mem_attributes+0x3a1/0x1600 virt/kvm/kvm_main.c:2625
- #2: ffffffff8eea5560 (mmu_notifier_invalidate_range_start){+.+.}-{0:0}, at: fs_reclaim_acquire+0x7c/0x100 mm/page_alloc.c:4392
-locks held by syz.2.19/6189: 1, on CPU#0:
- #0: ffff88807f99c0a0 (&kvm->slots_lock){+.+.}-{4:4}, at: kvm_gmem_release+0xdf/0x3e0 virt/kvm/guest_memfd.c:310
-locks held by syz.2.19/6191: 1, last CPU#0:
- #0: ffff88807f99c0a0 (&kvm->slots_lock){+.+.}-{4:4}, at: kvm_vm_set_mem_attributes virt/kvm/kvm_main.c:2566 [inline]
- #0: ffff88807f99c0a0 (&kvm->slots_lock){+.+.}-{4:4}, at: kvm_vm_ioctl_set_mem_attributes+0x33c/0x1600 virt/kvm/kvm_main.c:2625
-locks held by syz.3.20/6228: 1, on CPU#1:
- #0: ffff888035a6c0a0 (&kvm->slots_lock){+.+.}-{4:4}, at: kvm_gmem_release+0xdf/0x3e0 virt/kvm/guest_memfd.c:310
-locks held by syz.3.20/6230: 1, last CPU#1:
- #0: ffff888035a6c0a0 (&kvm->slots_lock){+.+.}-{4:4}, at: kvm_vm_set_mem_attributes virt/kvm/kvm_main.c:2566 [inline]
- #0: ffff888035a6c0a0 (&kvm->slots_lock){+.+.}-{4:4}, at: kvm_vm_ioctl_set_mem_attributes+0x33c/0x1600 virt/kvm/kvm_main.c:2625
-locks held by syz.4.22/6283: 1, on CPU#0:
- #0: ffff8880781540a0 (&kvm->slots_lock){+.+.}-{4:4}, at: kvm_gmem_release+0xdf/0x3e0 virt/kvm/guest_memfd.c:310
-locks held by syz.4.22/6285: 1, last CPU#1:
- #0: ffff8880781540a0 (&kvm->slots_lock){+.+.}-{4:4}, at: kvm_vm_set_mem_attributes virt/kvm/kvm_main.c:2566 [inline]
- #0: ffff8880781540a0 (&kvm->slots_lock){+.+.}-{4:4}, at: kvm_vm_ioctl_set_mem_attributes+0x33c/0x1600 virt/kvm/kvm_main.c:2625
-locks held by syz.5.23/6331: 1, on CPU#0:
- #0: ffff88802c2340a0 (&kvm->slots_lock){+.+.}-{4:4}, at: kvm_gmem_release+0xdf/0x3e0 virt/kvm/guest_memfd.c:310
-locks held by syz.5.23/6333: 1, last CPU#1:
- #0: ffff88802c2340a0 (&kvm->slots_lock){+.+.}-{4:4}, at: kvm_vm_set_mem_attributes virt/kvm/kvm_main.c:2566 [inline]
- #0: ffff88802c2340a0 (&kvm->slots_lock){+.+.}-{4:4}, at: kvm_vm_ioctl_set_mem_attributes+0x33c/0x1600 virt/kvm/kvm_main.c:2625
-
-=============================================
-
-NMI backtrace for cpu 0
-CPU: 0 UID: 0 PID: 32 Comm: khungtaskd Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
-Call Trace:
- <TASK>
- dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
- nmi_cpu_backtrace+0x274/0x2d0 lib/nmi_backtrace.c:123
- nmi_trigger_cpumask_backtrace+0x17d/0x390 lib/nmi_backtrace.c:66
- trigger_all_cpu_backtrace include/linux/nmi.h:164 [inline]
- __sys_info lib/sys_info.c:157 [inline]
- sys_info+0x135/0x170 lib/sys_info.c:165
- check_hung_uninterruptible_tasks kernel/hung_task.c:353 [inline]
- watchdog+0xfd7/0x1030 kernel/hung_task.c:561
- kthread+0x38b/0x480 kernel/kthread.c:436
- ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
-Sending NMI from CPU 0 to CPUs 1:
-NMI backtrace for cpu 1
-CPU: 1 UID: 0 PID: 16 Comm: pr/ttyS0 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
-RIP: 0010:io_serial_in+0x77/0xc0 drivers/tty/serial/8250/8250_port.c:409
-Code: e8 4e e8 55 fc 44 89 f9 d3 e3 49 83 c6 40 4c 89 f0 48 c1 e8 03 42 80 3c 20 00 74 08 4c 89 f7 e8 1f b0 c5 fc 41 03 1e 89 da ec <0f> b6 c0 5b 41 5c 41 5e 41 5f e9 5a cc 74 06 cc 44 89 f9 80 e1 07
-RSP: 0018:ffffc900001578b8 EFLAGS: 00000002
-RAX: 1ffffffff35a5e00 RBX: 00000000000003fd RCX: 0000000000000000
-RDX: 00000000000003fd RSI: 0000000000000000 RDI: 0000000000000020
-RBP: dffffc0000000000 R08: 0000000000000003 R09: 0000000000000004
-R10: dffffc0000000000 R11: ffffffff8571cb00 R12: dffffc0000000000
-R13: 0000000000000000 R14: ffffffff9ad2f0c0 R15: 0000000000000000
-FS:  0000000000000000(0000) GS:ffff888124ddc000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 0000557adc994a38 CR3: 00000000772ec000 CR4: 00000000003526f0
-Call Trace:
- <TASK>
- serial_in drivers/tty/serial/8250/8250.h:128 [inline]
- serial_lsr_in drivers/tty/serial/8250/8250.h:150 [inline]
- wait_for_lsr+0x184/0x2f0 drivers/tty/serial/8250/8250_port.c:2013
- serial8250_fifo_wait_for_lsr_thre drivers/tty/serial/8250/8250_port.c:3270 [inline]
- __serial8250_console_fifo_write+0xcd/0x3e0 drivers/tty/serial/8250/8250_port.c:3345
- serial8250_console_fifo_write drivers/tty/serial/8250/8250_port.c:3378 [inline]
- __serial8250_console_write drivers/tty/serial/8250/8250_port.c:3429 [inline]
- serial8250_console_write+0xaa1/0x1200 drivers/tty/serial/8250/8250_port.c:3493
- nbcon_emit_next_record+0xef5/0x1a90 kernel/printk/nbcon.c:-1
- nbcon_emit_one kernel/printk/nbcon.c:1157 [inline]
- nbcon_kthread_func+0x679/0x880 kernel/printk/nbcon.c:1271
- kthread+0x38b/0x480 kernel/kthread.c:436
- ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
-
-
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
+Thank you,
+Eugene
