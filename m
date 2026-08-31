@@ -1,168 +1,83 @@
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 612833BED18
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 07:49:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BDA128488F;
+	Mon, 31 Aug 2026 07:50:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788162594; cv=none; b=qZkqAju1iKec2U2ApPWq9r8FOHq+G4R+iM5kfRmWR07+i1LKC5bhpVvbZeq5z6MrOoG6WaFuUUNY6MIZM3daKiK27yfYRe7nuohyKlXkgSrZI1csdh7nJDouG3dB1lPU0yzRoNzSX6CD2aLSq01uUh9I7kd0D6Up4zSMQmjRNg0=
+	t=1788162624; cv=none; b=ZPDevhwRK/PjcIZbckUV5+WiQhtHGBe/J/9KGvdbywtJn/8ySFekywF5PwSkZH5YBNbwtMWzo5oqArL+jBOWMgmeaQfiC10JcHcStMQcmd9JTcbd9Wjpx8fpYCZefRAD/8PmF/5FzNuwflXrcLc0QFgGvV1PAHjWXVBRWsOg4vw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788162594; c=relaxed/simple;
-	bh=BXkbLGwM9e3RJuJt2pa/P5gdLpxTj2pS4E1UpMktcko=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JK+nEzeV4uVK959RoRS7r1ltAw3vsDVYUeEKHDZ2Em4mTwpnn3oUMnda4tscc9MbcYiif3++t99zwaHnjU1cf+4uXT5qMAxQusrXsAkkUCJ7HwYAU1Pcr7si2MaO0sdZ+o+EmoJ0mnSNT4D4Tz5+miSHnxK9IvvmtfDVQxXKZGQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ucf6BgwG; arc=none smtp.client-ip=209.85.214.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788162624; c=relaxed/simple;
+	bh=5KGP3pDfd2oRfBsbLzYUjRICP7+g6Xk/mWw39Y0NrGw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=RsqmhEvEWN40lGfTzm8bsoshM+ORGQV/7EsfHsWlkStupfK49UXyntygOb3KecjU9S5W4qCVJq27pUd6MWqNIgweOie0yjK59uPs1AY7F5NjPUL5x6kFdP+rWhAN6lI3sjAL+h61gom8Z12SAwo/gAPiM5NGHhcjZ0jPpO2lPdA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lfbdARZD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ucf6BgwG"
-Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2ce7d2adef4so47259715ad.3
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 00:49:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788162592; x=1788767392; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6woGwI00ns4N8Eg+beukJR/mLo5Rut3WAQ70AzrcV6Q=;
-        b=Ucf6BgwGT5uYJzLLYB5ibUXyGyEE3W5goR4/iOiPTBr1hMnyTXuJOBHFdYOVQtkLZG
-         Qbqe54TMlBd7h/dI9KYi/O35G5ozhuSWadHKnZSlppOoiX0fuE/nqvsRYddqbS6+XVtL
-         KuwjWU5G3LCCExqXY/trCdG+AKtXkg7/o1BcjeqM5caPidO9vM4647PntvleAajfpuFe
-         B+RetegSzRxTjwJSOqKULUgNbNX+tedIJf67ORsmFY0WuWg+Clbxa/OpQrgFKFJvYW1a
-         CjUR6iVvk/3bg0wB0idzHXnQCv0xQXVztHT0KHj3Vyp84BQdl6JUfP0n/OcgTm1xPnjE
-         QNmA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788162592; x=1788767392;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6woGwI00ns4N8Eg+beukJR/mLo5Rut3WAQ70AzrcV6Q=;
-        b=D7AktnLULUFEltB3wRLAOSeD52Ky7FGfIRRwJf/nZavwkiKOxTvjZTsW1a81QInxWx
-         Unfmzl5zVbyp+hwf6bPi66UexYMmjhIwJW8OfE2mp3QJZMU2q4XMFLr51JCpXq8XEC0B
-         tB9nZnJGxJMId/+WJuhOzp5jkcuV9ZtHpyv7P9qKBsEKQ1AFJOLgsTbAzbBtyq1BsfMV
-         9GucSnvcMBz0OOLbChcb88LXlSuJYC8U8Ge5lpLsmsxY9XDt/OqqqJ19x2eh7dLiLlnr
-         EWY4/x5wzW16Grp0tCuN2tkbmb9h1i+cYPJdfTyuozkC4TSnEwASh1t2nSnd7oCRiG3W
-         +fkw==
-X-Forwarded-Encrypted: i=1; AKwUvBxQKru8D6HxMdGg+5dFu3TZIerfCK4AZoPt6P6I9cCVezoOqAcY+Ae/Z2qCv1p4ly0U4nQ9HSUAeDxKm6A=@vger.kernel.org
-X-Gm-Message-State: AFuF++lZiVCz8zpxFZr2klDp5Eh408GKBL1/HCYY5lAkrwn7fyzi61co
-	sjC3eIv8/3h55mp4lFc919TlQp0pjjlNiklzQA8mhdoOQzTK0feS2wnVklA6gQ==
-X-Gm-Gg: AYBFou06jwtNf1Xk0dWUrGBpGKtC0Ts0ZxQyuc6vO8uhUl8iagZdU6xlo5FeDZbR1Ss
-	nHp959IRvYF0km4ORjPEh8bkXUhRoVd7ifOnrfeP6/Zf6oSn01QK3bW+6XCjyf4GSB6fKH3WiDz
-	tEJbFhPM5aXu1wY6kVhMmQoAo13X/TjhiV6Qj+EOtNpVLYYUtqGnPqjYAnLU/VC9NSMM+MwXM3v
-	OWqBE50JPh+n4sVvTRmz0jhDUTdW64b8agbqSuFTMtqnJv6LzHGYA6241BYpoGrw99j2Ah+sQWW
-	9kqJFZDd5vdhUb0tbEu7NTlBUcA3YsBjQQcRi4x98xoRoY3ivXuxvcy9SnaG/I2S2w9MajHe+xl
-	rQiqtezorlN2f1QkcJu/wSby5N1BsFVzU2dRci/jPufQ3u7vlAgwzKn+dJyrgbhHfc52mIfNbUV
-	VhVh+vOiuc3NTy9gY7hnSc2R3XiyJ1wU7w2DnuV6EmmnyTJ7dKBiMa0lkwTl0GENJjSeETN7oTU
-	FwqhUinDGFvNNqqbw==
-X-Received: by 2002:a17:902:f709:b0:2d9:3fa3:6141 with SMTP id d9443c01a7336-2d93fa3621fmr22401995ad.9.1788162591241;
-        Mon, 31 Aug 2026 00:49:51 -0700 (PDT)
-Received: from kernel.tail6741c6.ts.net ([185.220.238.38])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d759869b05sm30386075ad.53.2026.08.31.00.49.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 00:49:50 -0700 (PDT)
-From: Kunwu Chan <kunwu.chan@gmail.com>
-X-Google-Original-From: Kunwu Chan <kunwu.chan@linux.dev>
-To: jiangshanlai@gmail.com,
-	paulmck@kernel.org,
-	josh@joshtriplett.org,
-	rostedt@goodmis.org,
-	mathieu.desnoyers@efficios.com
-Cc: rcu@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lfbdARZD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82C0D1F000E9;
+	Mon, 31 Aug 2026 07:50:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788162623;
+	bh=Tv7TETlQonuGOZoFgYmWm+06VrFWt+2TmiKJsqOV6R4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=lfbdARZDrDjmi8JbffZc7p10w97L6Cg8ERpf+ZAI9Sqig8vvsv+1uyBosEi/fHYOJ
+	 cavn60wxthLv4tDvWZhDzThBkcEv2E34zHwGmmC2aWmDFz3wd3GkOaWX+03p28vu4F
+	 wBE4l7mjB7pHPQX9RuB5raA+SfU6ziP4/gFV5rYmNFzeTGsSwzwK8jWTySwkycDLFb
+	 /JxKLu2J2GDJM5irsGhHdeCv2kGyIiV/6eVbA5+unP5tOdkIE+mU5TakR6Vf1A6+uP
+	 EYAErwATeaDPcAoPVCYgMxxTdk+8ej4qX616cvqolpqvioCLLs1tfxt9m2Fw/vhfKR
+	 jn2cyh7IBSYhg==
+From: Christian Brauner <brauner@kernel.org>
+To: shuah@kernel.org,
+	Disha Goel <disgoel@linux.ibm.com>
+Cc: Christian Brauner <brauner@kernel.org>,
+	linux-kselftest@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Kunwu Chan <kunwu.chan@gmail.com>
-Subject: [PATCH] srcutiny: Add atomic SRCU operation checks and state
-Date: Mon, 31 Aug 2026 15:49:37 +0800
-Message-ID: <20260831074937.2380914-1-kunwu.chan@linux.dev>
-X-Mailer: git-send-email 2.43.0
+	kernel test robot <lkp@intel.com>
+Subject: Re: [PATCH v2 1/2] selftests/filesystems: Move file_stressor to dedicated subdirectory
+Date: Mon, 31 Aug 2026 09:50:16 +0200
+Message-ID: <20260831-klopfen-gedenken-vorleben-54fd9d119a83@brauner>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260521101758.14639-1-disgoel@linux.ibm.com>
+References: <20260521101758.14639-1-disgoel@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1488; i=brauner@kernel.org; h=from:subject:message-id; bh=5KGP3pDfd2oRfBsbLzYUjRICP7+g6Xk/mWw39Y0NrGw=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWRNNbJa7jk9x2vJnKI1q/w95k85VJ31WeWwwLnoX628n 6/6yxVc7ChlYRDjYpAVU2RxaDcJl1vOU7HZKFMDZg4rE8gQBi5OAZiI+W2GP7ypE5wnXud85zBf tmAhg+nHZdIVvmpT9r/6rRZ8p1F47jeGf4ZzVl23mJpReL+r7Fv65vLc+79aU1mn/A/l/eH41dy 2kgkA
+X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 Content-Transfer-Encoding: 8bit
 
-From: Kunwu Chan <kunwu.chan@gmail.com>
+On Thu, 21 May 2026 15:47:56 +0530, Disha Goel wrote:
+> The file_stressor test requires a 30-minute timeout (1800 seconds) due to
+> its 15-minute runtime plus setup/teardown overhead. This is significantly
+> longer than the default 45-second timeout used by other filesystem tests.
+> 
+> Move file_stressor into its own subdirectory (filesystems/file_stressor/)
+> with a dedicated settings file to isolate its timeout configuration. This
+> prevents the long timeout from affecting other fast-running tests in the
+> filesystems/ directory.
+> 
+> [...]
 
-Add atomic SRCU operation checks and the associated state to Tiny
-SRCU.
+Applied to the vfs-7.4.misc branch of the vfs/vfs.git tree.
+Patches in the vfs-7.4.misc branch should appear in linux-next soon.
 
-An atomic SRCU domain does not use the normal SRCU callback and
-grace-period machinery.  In particular, a callback queued with
-call_srcu() would never be processed.  Use WARN_ON_ONCE() to reject
-call_srcu() and srcu_barrier() on atomic SRCU domains.
+Please report any outstanding bugs that were missed during review in a
+new review to the original patch series allowing us to drop it.
 
-For synchronize_srcu(), redirect atomic SRCU domains to
-synchronize_srcu_atomic().
+It's encouraged to provide Acked-bys and Reviewed-bys even though the
+patch has now been applied. If possible patch trailers will be updated.
 
-Add srcu_reader_flavor to the Tiny SRCU state for these checks.
-Tiny SRCU does not currently set the flavor for atomic SRCU domains,
-but keeping the flavor in the common state allows the operation
-checks to enforce the restriction once atomic flavor tracking is
-enabled.
+Note that commit hashes shown below are subject to change due to rebase,
+trailer updates or similar. If in doubt, please check the listed branch.
 
-Also initialize srcu_atomic_gp_flag, which was previously left
-uninitialized.
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
+branch: vfs-7.4.misc
 
-Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
----
- include/linux/srcutiny.h |  1 +
- kernel/rcu/srcutiny.c    | 12 ++++++++++++
- 2 files changed, 13 insertions(+)
-
-diff --git a/include/linux/srcutiny.h b/include/linux/srcutiny.h
-index 47a368f945e3..2b293336525a 100644
---- a/include/linux/srcutiny.h
-+++ b/include/linux/srcutiny.h
-@@ -20,6 +20,7 @@ struct srcu_struct {
- 	u8 srcu_gp_running;		/* GP workqueue running? */
- 	u8 srcu_gp_waiting;		/* GP waiting for readers? */
- 	u8 srcu_atomic_gp_flag;		/* Serialize atomic GP work.*/
-+	u8 srcu_reader_flavor;		/* Values: SRCU_READ_FLAVOR_.*  */
- 	unsigned long srcu_idx;		/* Current reader array element in bit 0x2. */
- 	unsigned long srcu_idx_max;	/* Furthest future srcu_idx request. */
- 	struct swait_queue_head srcu_wq;
-diff --git a/kernel/rcu/srcutiny.c b/kernel/rcu/srcutiny.c
-index 26ea4bfbeaf2..22f7716cbb0e 100644
---- a/kernel/rcu/srcutiny.c
-+++ b/kernel/rcu/srcutiny.c
-@@ -41,6 +41,7 @@ static int init_srcu_struct_fields(struct srcu_struct *ssp)
- 	ssp->srcu_cb_tail = &ssp->srcu_cb_head;
- 	ssp->srcu_gp_running = false;
- 	ssp->srcu_gp_waiting = false;
-+	ssp->srcu_atomic_gp_flag = 0;
- 	ssp->srcu_idx = 0;
- 	ssp->srcu_idx_max = 0;
- 	INIT_WORK(&ssp->srcu_work, srcu_drive_gp);
-@@ -289,6 +290,9 @@ EXPORT_SYMBOL_GPL(srcu_defer_drain);
- void call_srcu(struct srcu_struct *ssp, struct rcu_head *rhp,
- 	       rcu_callback_t func)
- {
-+	if (WARN_ON_ONCE(ssp->srcu_reader_flavor == SRCU_READ_FLAVOR_ATOMIC))
-+		return;
-+
- 	if (should_rcu_defer()) {
- 		/* A re-entrant call_srcu() during the drain would livelock it. */
- 		if (READ_ONCE(srcu_defer_draining) && !in_nmi()) {
-@@ -319,6 +323,11 @@ void synchronize_srcu(struct srcu_struct *ssp)
- {
- 	struct rcu_synchronize rs;
- 
-+	if (WARN_ON_ONCE(ssp->srcu_reader_flavor == SRCU_READ_FLAVOR_ATOMIC)) {
-+		synchronize_srcu_atomic(ssp);
-+		return;
-+	}
-+
- 	srcu_lock_sync(&ssp->dep_map);
- 
- 	RCU_LOCKDEP_WARN(lockdep_is_held(ssp) ||
-@@ -415,6 +424,9 @@ EXPORT_SYMBOL_GPL(synchronize_srcu_atomic);
- /* Register any deferred callbacks, then wait for all in-flight ones. */
- void srcu_barrier(struct srcu_struct *ssp)
- {
-+	if (WARN_ON_ONCE(ssp->srcu_reader_flavor == SRCU_READ_FLAVOR_ATOMIC))
-+		return;
-+
- 	__srcu_defer_drain(ssp);
- 	synchronize_srcu(ssp);
- }
--- 
-2.43.0
-
+[1/2] selftests/filesystems: Move file_stressor to dedicated subdirectory
+      https://git.kernel.org/vfs/vfs/c/5550456dad37
+[2/2] selftests/filesystems: allow security.selinux xattr in listxattr kernfs test
+      https://git.kernel.org/vfs/vfs/c/cc87d0a97bc0
