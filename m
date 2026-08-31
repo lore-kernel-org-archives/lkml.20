@@ -1,454 +1,226 @@
-Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn (mail-bjschn02on2134.outbound.protection.partner.outlook.cn [139.219.17.134])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC9A0357A25
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 06:34:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA2B037646E;
+	Mon, 31 Aug 2026 06:36:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.17.134
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788158092; cv=pass; b=HONEAXUUUWtVJpg4k/2sZI742Nq3j6Y6DQ+RPCvpyAPKZReKcMv8GZe+gx3jHYIB7ZBtG9JegQ5jP45fyK+NBhNRPrctj2flPqoqqWuk/r0Zv3Dek6g1a1W83FRefRuA+oENOJ8Um2nI3YmMnGG9Ts4Zh8keB2kMyLlCkhLwJaY=
+	t=1788158177; cv=fail; b=THY9n2nOMr9cNL0bXzXPIxfTBF2s4RjLwroJw+QunV5Av8RovRCl3z7Z0J+SA3lFgKCvZSO3BbMV0p9N1FMzeIEH7QjpgeRv5E+HycMcAK3dqfZYALLUON/83Oe9Eg2OjALCKLvmB9Y2VJQskVxrMiDNQJ4NEaPaLt/sYPPna5U=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788158092; c=relaxed/simple;
-	bh=a8jHlklF1gC20OVPgr0TNH+1C0wqwqVjnRU26kK3fck=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=uIafxxnhSRFk4sKcWj4oN/t18s2gd/kLuLLyXYDpa8V+LW2A7hhsqkSxnIiTu7lajelosnKcYDbJyVVARvtX9EauPmlGv6vi0GauZI4zN4YbNtUfMqhfQtL96AeupnQFocBjGe3sqcrf1OzXDMGH6txF+XMIr4PM2+lEXCSCRYE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=clyso.com; spf=pass smtp.mailfrom=clyso.com; dkim=pass (2048-bit key) header.d=clyso.com header.i=@clyso.com header.b=lOM0oyBl; arc=pass smtp.client-ip=209.85.218.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=clyso.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=clyso.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=clyso.com header.i=@clyso.com header.b="lOM0oyBl"
-Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c1c26d7e951so540511166b.0
-        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 23:34:49 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788158088; cv=none;
-        d=google.com; s=arc-20260327;
-        b=smhUcVRwRuxLx/LE5TswG3hCaNQqKLK9r5B0BTEptnk+vhVzwRfPqefQmr/RIa6OLc
-         lgEcxnYc1rsZSGWmf5LqjH9peigdnfqbioQaL0EFNmma/4GlwtM26+RZbUHL2KJk4OUl
-         YuJQNFrYW2ob/7JaQQ/ypFPvx/heAwVtgDw963RAm1OaJLmDFkmZOf/zr6hb8oQaeC8z
-         slT5Al9GRpng+4Hxk73P+K/NOhDbMPC7LfufV+8DPSgne7hBAaLlVNeysDtvpZNv3Ei+
-         /lUdn7by4ayZDRjgy2ZCtAvklxTvA+qMkh4jZ7TrqA0wqwDt7PEpemHbh5+LSLImqfIp
-         ga8g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=5xkbFh0fQe9Arfb2s6Rv2V6Kg0DTw0/4lqQu8KNODQ4=;
-        fh=HQMHQdClDMB2vvlrohLR3KdC9ugAsgxLfTLibO3gqQk=;
-        b=s1xwLlxSYiQTzGR7XxWxEM88SF/2/ht6YHe/HjxM9DNNU6BJPDlF9Y9GV+Npw6KIMg
-         VTTtMpH1u1tqEhDHDWq222Zip1EC7HoPOOFbC0k3ftfca1VfoyfjA0EwuNKqgibQNbQs
-         78bBhfpmzIkEl/s1D7MMJOxNM5j93rMHeT7SXVDeHWJkXIveiHLtrF5YT+QXcq1QuURI
-         A6+qgCgr8hBCo5qDo+VLrMreFfVi9kvHRtkv0XRTcCHt2k6Zvy9yDdhwxuGtkcIitJYQ
-         8XI2z3iK7+D1bKkedF3XL9CfnodjDH+8dg6q5reGUcGPbCkNb7FgL8dZK02JIuZUOleY
-         SpiA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=clyso.com; s=google; t=1788158088; x=1788762888; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5xkbFh0fQe9Arfb2s6Rv2V6Kg0DTw0/4lqQu8KNODQ4=;
-        b=lOM0oyBl6uYjREnd9M0JV7prmcyVATGBc8Mgj2OZfhThBTRscT9qbYezE5FGMEn7tF
-         wBC4dL74GzDNL3XckZBrN2DHhjXEttDUQI6NvbcerLxcJfg/r8u8HdY2sycXrv/xVzRd
-         cY1muYsO2JR8M0ltUrW0XvNKZX1xml5UtOX8FAT0+bpfABG446LBhm5UBHeaiXnaLCL4
-         xh8hs/TJPpkUCn8IcEtSpGpH0+oIdEy7+al/fopLc+TbRs8fNTzyIAgpkNL7LIS1hkat
-         RhcN7YdJt2EY2i5YsIJmIOkdR9CyTp5ni5jL0OSEMrZs9Z83bvSfIL76ildGVcepA4hr
-         1YWQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788158088; x=1788762888;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=5xkbFh0fQe9Arfb2s6Rv2V6Kg0DTw0/4lqQu8KNODQ4=;
-        b=tCt40HNMqKtj6Up/TvcquDFnrjUXitRfp6VcCqL2O3H+AVHmoKE2XX0ESu6XseVyck
-         DYhyKhkc2Mc+TdRHqU2plsBqgFJNQbEoaJSTUz+qZMeUq/82uPBstKb0Ipezds5z6Cm/
-         3wQY2xt760NLIQWms3585RlCGGIJKzGmoHMW537ElRNau9wxGuBr6n5HF9MSxJNvotNo
-         bLWZQxMXTa+SnrK3FYTbiykEM7DAwyy/CHwwtxsjsxXs2DuglqF02rr3k5xoq1TF7PwN
-         PM9OE+qKhLbtDBKXFhdba0qwigtetMI66E0YRhMXN8UdXBXkJx6twbIAEyVlpXNX2J3s
-         xxtA==
-X-Forwarded-Encrypted: i=1; AHgh+RpE7rIusXZh8ybC+9ZrRWbjMrMonA3zyA+LxIMbzFyxrdi7yI8n2M5e4rn4DLAZN60Y5qLKoJPARW3+o1g=@vger.kernel.org
-X-Gm-Message-State: AFuF++kgnqTvt8O/8F1COXR4CVtoGmfrVKhMPmhCgKqt2Tg4LPcMdTWq
-	tH1PfTwoGrdpz0IyFgDI/UXM2hX2aifa0uj7BDeBFRNDGXU7XWYFxRQ0K/pTeNWHl3N3g/gHv1e
-	vBZ/xvbQ5mJvsf1oRwvtWRP061REZfMZwd3M1dJE5rg==
-X-Gm-Gg: AR+sD13UsBOil8NKb+A7CHMYrMqOlf1aw0CACEBhW2/ppMxWrRHmxGM+I4CzOU7OBiF
-	cIIe3L+0xoB0hdR6grzfwtZmDeiOaHdewQ7KxPYuV3Fg5Sj47wmkIepo8j0iHy0IQvksAMwBwnj
-	9F9VFJ3htSmhg0PtDJ4cT6S489H6tw1K9ZsnzkgI6zwksGbM2dz+bmAzGCnw7ep/fwdU0XGd+mO
-	vvWZ3vv/jVDGdAkRuIaqghZjN6aF0JdTX6zdcDxeVSBJiCawXRJQjoTTtp0m1mhBUTtkdqEy1mE
-	zsrAIheUh9RZ27jes28KJU14YZ0+SF2bXdR8qOeBGx+Zrw==
-X-Received: by 2002:a17:907:960d:b0:c25:659:89ba with SMTP id
- a640c23a62f3a-c2556c4b566mr1384348366b.9.1788158087791; Sun, 30 Aug 2026
- 23:34:47 -0700 (PDT)
+	s=arc-20240116; t=1788158177; c=relaxed/simple;
+	bh=U4aSxFHpNp4HQogyDV2LM5YWtNdbAArOnNXiDkBOeKo=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=nUFJrMw7FTuh3HA0t2fzYCkcRj3zhzAoxKLIH4OdSWfH3nhze26eSC39OVLeAHIm9LbcQP8az3GjtyOhwkY7a6nixkdWqdyFxIpJP5hhpJ4sJgocdPykGpiTMPjEj3YCvQz3XFEzGaT1Rfmqm0zyxPzjvat3UQoMi5A9NnynIeQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.17.134
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=OMTZrvzXhquXcDwH+UkpoJ41qkiGBTPE4KRW4bX8UTxR/c0yFgRag0WEukCJc0HWkMBIzgfu8zHSKOy1ZlzqO5DD99C71bNAKF4nVZZbH51Uj9yjplHZzs4PFMpt+nPv1o+B3RZlZVt/zPD38YJybpmV+fZNMk27bInr/CR+zsr3Be0x1GuQS5z4CGC1akOreZVqMUTqyEQcOrdyh6UgVhVPhHMTCWjp8yNf4XD+uPiM8qv3FMoMz9np3CKwQwWpChun3hc2O3F5IOup4twsJUMEjXqS2zPIGcexihqkpLhKarbQItMM8813X7OdJG7Q+2Uy7Frzu0a10p57AXc+9A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=U4aSxFHpNp4HQogyDV2LM5YWtNdbAArOnNXiDkBOeKo=;
+ b=Z93ki1nc5fGiuZqoT/jLzVpJvle1wrz0Yu52Io4EUR36WXipGbHKl3qvzBTSroS6ah69GK563qAeyzykSTlKJ9us4yHCHP1FpYJ4WqdnbpV5zK7PmudgBUHsqDoo/rkFdjGE0HITrYirwd99/FugNSwGJXQDPZCOtNaFAuy3ypC6qtcWW1n1Kbl1YE1nt4c6oEKERLgcfw5I9ZJn3jpIe3Kh6cXGlCw5ANee0fz3FjLf7gYZv0H/TRgqt0ZEnaABKetQcmpjbzARz/oBes8WmRa5Q9BebrNBL8pOv/esaaenG3VcxW6GgFkmfO3/UUAS6RpsezAEB1UrmYHNZceM9g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=starfivetech.com; dmarc=pass action=none
+ header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
+Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:17::6) by ZQ4PR01MB1251.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:14::14) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.19; Mon, 31 Aug
+ 2026 06:01:44 +0000
+Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ ([fe80::e7d4:256c:b066:850d]) by
+ ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn ([fe80::e7d4:256c:b066:850d%4])
+ with mapi id 15.21.0315.011; Mon, 31 Aug 2026 06:01:43 +0000
+From: Changhuang Liang <changhuang.liang@starfivetech.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+CC: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>
+Subject: Re: [PATCH v1 2/2] soc: starfive: Add JHB100 UART Routing driver
+Thread-Topic: [PATCH v1 2/2] soc: starfive: Add JHB100 UART Routing driver
+Thread-Index: AQHdOEv9x2zENbRKZkCU2oev0UH3Y7a2RHqAgAEc0jCAAEiSAIAAAe4g
+Date: Mon, 31 Aug 2026 06:01:43 +0000
+Message-ID:
+ <ZQ4PR01MB1202FB18CF51DB252C393D0FF2A92@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
+References: <20260830065118.51551-1-changhuang.liang@starfivetech.com>
+ <20260830065118.51551-3-changhuang.liang@starfivetech.com>
+ <417251d0-c2cc-4e10-940d-b75ab20acdec@kernel.org>
+ <ZQ4PR01MB12022D97EFD74D5A80DBBE34F2A92@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
+ <5f99fc90-02e0-40ab-8d1f-c2e7bcce7a5e@kernel.org>
+In-Reply-To: <5f99fc90-02e0-40ab-8d1f-c2e7bcce7a5e@kernel.org>
+Accept-Language: zh-CN, en-US
+Content-Language: zh-CN
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=starfivetech.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: ZQ4PR01MB1202:EE_|ZQ4PR01MB1251:EE_
+x-ms-office365-filtering-correlation-id: 1acdc20c-9c60-4f49-e3c2-08df07255578
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|366016|23010399003|1800799024|376014|6133799003|38070700021|10067099003|4143699003|56012099006|18002099003|22082099003;
+x-microsoft-antispam-message-info:
+ vKQkiGd46uOYUcw4ShfzsDfz9AaUqxoDsLOMdWaTZh/Vwo1RbqztKExnVAMrLhwj1r8FSDxuba3QnovgjbmbJi4/95SruObSe7wEXQAlncDiFziBaEMkPWIF2BbqhjwnGFHligZ5nB+RokqS5C4TqNc8Bh6i/ludRovrxABqfcbVbJIORBq7ulvQsVW4w65nBlfp+ckat3bgFM6/18GQLJ4gyIlsAhrQKsmkOHvjipDLbTbnXA2/2oY6rDylWopdl9CmqOrK6IG5rrFp7HP20IPr8OS1wUDmCVmGRVA5ae9agV8eCvDQ33euxl/VWofK0OdYzeV+KLI5Mox+x02dX/DwXi2EI9dGg0yx3ZsytIFc4ZUZwtZiUNlOWQBr6QW29tcseppldyOOjJO0ixnUaaYJ/bNHqTcrsi2v6iqytLWRYDOLsZp/HBRMLvqxE6IqPbbpPTVGjFWvBvuKouNPPe46WJPuwkYc/d1jKS5jr8/J4djZ0UfaK+hLjbboARAwRnCyEtBqRVnqvYUM9zqwZBQmhOoD8uVMXPieLc8BfF/adDXvHH98nSdx16jiP+4K
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:zh-cn;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(376014)(6133799003)(38070700021)(10067099003)(4143699003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?emlha3l5L0x6T0s5Z0hpVlVDQkVnTEFuY29ud1RLUEtvY3lKbktwM0Y2Q3pJ?=
+ =?utf-8?B?NlFEVlEvQ1NrTmpOWGJ4ZDdpZUpocVV1TXVCN2VVak5PbUtYdTlWSEN6S2RL?=
+ =?utf-8?B?Z0JPOW9yWFc4aFd2aTdvZkY3alRWYnVGcVJFTndpUmZsMXFuUDR2WnA5M0dH?=
+ =?utf-8?B?WVgrOEE3bVJuNTJsR29MeTZ6YVBoUGg4ZktCcFpnTkNGZWc2WWNyanVHSG9P?=
+ =?utf-8?B?RjlqYlpuRi9QQklGeWgwVnAwNjJMLzZtbWVqdVVoQ0xZczNYajkrL1ZkYTcw?=
+ =?utf-8?B?RWJTeWFPQis0QjF2RUYyUGZ2bEw1RElEbzllaXVsWWpLdFZzS015YXBlVDNH?=
+ =?utf-8?B?YitFWisyaWZNZUUrbHErbkFybEY2YWgzWFZuWnRsS0ZmazNYYUlkVW1nUzh3?=
+ =?utf-8?B?Z04rVU9WY29FOG1nMHZDMWZyekcyNkY2T3l4UWI4SkJYVG9xZ3NBcytObHdJ?=
+ =?utf-8?B?aHJiVXFhMkc1QVU2a2ZTYmtVZCtxTUtBdktaZ1lDRkh3NExVTU5RVG11RG5F?=
+ =?utf-8?B?a2pzN2dkZ2trLytFeW9MOE5NMFRoa2lvUFpEZ3NLanZDVVBmckRkdGYxQjNn?=
+ =?utf-8?B?OTNPVmlLcXFzU2tyVWsvNHdRZDNMaXRmM0FqVFBmQlZqWE5PSTVmSjFpR2ky?=
+ =?utf-8?B?cmFRRGQvaWdxeGMyL3U1U20vWEpCWmR3R29FK2xWSWdCMjNHbWduYVkxVHkw?=
+ =?utf-8?B?UmRjOFhiYlJNUkFRNldQbUJxUVk2ZldQWlJaOUhuemdIQnJjN3VINWRiWEJr?=
+ =?utf-8?B?V1dhUVJwNmlEVGljand4RWsyd01tMDc3TFB0cWFmVTh3clJnanhXeDQrekha?=
+ =?utf-8?B?RmFuY2YvYUJpTk82QTgwSmwvSVB0eGxkM3dpRGd1ZUVnUTFUdUtjQW1ndEt6?=
+ =?utf-8?B?ZW01WVEvTTB2RkQyZ3o4UkdpLzRYd1BvMGRTNXNhQ1F6cURMb2ZNbVFTYXQ1?=
+ =?utf-8?B?Vkd0NEhIVFZHWGxpS1VkNFhPZDltakZVWG04MlB3L0dEMDRyM0dJV2d0M0Fq?=
+ =?utf-8?B?YzBVYng1UjMvcWhMdDdLZDRMdTlZYldBL2tkZUFTRk9pdDZrRzZVSnFmd21h?=
+ =?utf-8?B?eXF3Y3NQWjlVV2ZDSG1Objg3eEhrTjFub0RRSHF3ZS9vZGFySHdka3R4ZE14?=
+ =?utf-8?B?NlZVU1ZKV1ZJSFFLRXhkcHd4UXFDdHlIZjZIakNRQjFIcFpDN3QwclJWRDlp?=
+ =?utf-8?B?OUJJcFVudUlOOFp2MEt5YVl0TUwxbUFHangzTHZpanVsMy9xeHBwNHdtbFJl?=
+ =?utf-8?B?T0xZL3dxWCtaejk3VDJJK1o4RzRuUC81RGc0ZXozYXlDK1g5ZlFJbFJ0Y2R5?=
+ =?utf-8?B?ZmlaNnd1TDdtczBaaGVtS2pRODExZUZZTFNkYWFtaUx4bElZUkVQVzQrbm1Y?=
+ =?utf-8?B?bFVCZUpEQWVTblg1NU45aDZUWGhqYTRwUHVLL0dVRFRZd3VaSnZoOWNiOEtt?=
+ =?utf-8?B?cUdxWTd4WGM5SkMzWGZYeTMzOFltcDRQT3VTajhoYXVnL210NHJhM1NhVFNn?=
+ =?utf-8?B?ZGdzd01RalVTenRZbVZXandRclRyT0ZNMDdjY1Q0U1BRZnF4c0NOSHJUNFF2?=
+ =?utf-8?B?a0NNRFFvVFBhdTN4TlRDY1I3VmoxQWdmZTYvN0pZVkxHZmsrK0NzbERPV2sw?=
+ =?utf-8?B?RW4xWTJuaDJEaWdZQ0o3cVZFUmFOQWdBR1Q3aTBaRTlONHFtbWZFK0NsV2pO?=
+ =?utf-8?B?S1Y0OGJZZG1ZcTV5ZVhGS2dYc3B4MEZTK2FCaXZvYVB4Um1PcmRFdDJzaVpO?=
+ =?utf-8?B?cHI2d1NvRHJjV1BnSDk3aXRHNDNCczNUZ2grVmowUDIyYnl4M2ZqNGlrUFBN?=
+ =?utf-8?B?MU5zUVo3dm9jRWhUVkh3UVAyU1BkR2pwSVVyYXFUbC8vcXpDVHZOb2Qra1A5?=
+ =?utf-8?B?ZXJjUG9JNmxpU2h1N1ZwaWY2Q3BKaXA2cnJjd1RqVWhhZGU3aTdCM1ltZVRO?=
+ =?utf-8?B?VmpsTmxoY3d5d1VsTGc0Tk82U0h6c3FJdUxnbzArbXBFdFZJSjdNbUlkMVJa?=
+ =?utf-8?B?dzF6bzBSaHY3NHQzLzYzR0pxYjdCOGQ0QVg0SXhZL3lRZWlGTU9lM0NmWXly?=
+ =?utf-8?B?SEhUSTFsYUZrendjREFtRzhoZzBVTTFjZkRSZU15Qytzem8vcTYwT0UzNmJs?=
+ =?utf-8?B?eEg3ZlM3eXFhMnRtRnFBV3N2bmVnMU44a0hkeWFSQXRSYzVXdlczYkc1aHBs?=
+ =?utf-8?B?Z0toNDNlbmhGY3p2NHBhanZnTjExbkE1ZlRIQ1FjQ21xWnM3b1ViQnJ1R1NG?=
+ =?utf-8?B?R2pCV0E3QkZRRS9mSHlBRGdjQm9YT0VhbmNpL28zS3IzbTVLNERLbU9XWEI4?=
+ =?utf-8?B?a0RYNG81K01VWkZCYnMxQ3cxSm5iQnRXNjBJelhjdldndFd2a1F3aGMveFcy?=
+ =?utf-8?Q?34hyypVoU/6vWzMA=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260828174504.1247038-1-max.kellermann@ionos.com> <20260828174504.1247038-4-max.kellermann@ionos.com>
-In-Reply-To: <20260828174504.1247038-4-max.kellermann@ionos.com>
-From: Xiubo Li <xiubo.li@clyso.com>
-Date: Sun, 30 Aug 2026 23:34:36 -0700
-X-Gm-Features: AcwNN1WTI1xhAQKPyCaikqSqU7WO9dHoU71eM2apdekKJD61pFzwO4h9_cZvPnE
-Message-ID: <CAOJNxRL2UkiOTMkBTK1+trQk82RFHShAUNk5e8nmudTeSOoi+Q@mail.gmail.com>
-Subject: Re: [PATCH v3 3/3] ceph: don't unregister an MDS session before
- removing its caps
-To: Max Kellermann <max.kellermann@ionos.com>
-Cc: idryomov@gmail.com, amarkuze@redhat.com, ceph-devel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+X-OriginatorOrg: starfivetech.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1acdc20c-9c60-4f49-e3c2-08df07255578
+X-MS-Exchange-CrossTenant-originalarrivaltime: 31 Aug 2026 06:01:43.8575
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: QI9ArKFM084i4TUknCZyRGVPYeYxkTCoRXDTRQLAf6YUc7blPp4obAL90L9AhMUMO/pA4yYTyPrMCZiQFeM0eUu5LCUMlQRNQip0WEBr0/tJlnAKgnMdX485MiDjg4ak
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ4PR01MB1251
 
-Hi Max
-
-Patches 1 and 2 LGTM.
-
-But it seems the ceph_mdsc_reset_workfn() still unregisters before the
-teardown. The admin-reset teardown loop in ceph_mdsc_reset_workfn()
-still does:
-
-        sessions[i]->s_state = CEPH_MDS_SESSION_CLOSED;
-        __unregister_session(mdsc, sessions[i]);
-        __wake_requests(mdsc, &sessions[i]->s_waiting);
-        mutex_unlock(&mdsc->mutex);
-
-        mutex_lock(&sessions[i]->s_mutex);
-        cleanup_session_requests(mdsc, sessions[i]);
-        remove_session_caps(sessions[i]);
-
-That is exactly the pattern this series fixes: the rank is vacant while the old
-session still owns all its caps.  It is even more exposed here, because
-__wake_requests() synchronously re-dispatches parked requests and
-__do_request() will register a fresh session for the rank before
-remove_session_caps() has even started.  Once the new session opens,
-ceph_add_cap() finds the old caps by rank, moves them onto the new
-session's list without decrementing the old session's s_nr_caps, and the
-reset thread hits the same BUG_ON(session->s_nr_caps > 0).
-
-Please apply the same treatment as in mds_peer_reset(): keep the session
-registered in CLOSED state, do the verify-guarded unregister after
-remove_session_caps(), then wake_up_all(&mdsc->session_close_wq)
-before __wake_requests()/kick_requests().
-
-Thanks
-Xiubo
-
-On Fri, 28 Aug 2026 at 10:45, Max Kellermann <max.kellermann@ionos.com> wrote:
->
-> handle_session() removed the session from mdsc->sessions[] at the very
-> top of `CEPH_SESSION_CLOSE` handling, before taking `s_mutex`.
-> Between session unregistration and remove_session_caps(), the MDS rank
-> has no registered session while the old session still owns all caps it
-> was granted.
->
-> Any concurrent filesystem operation may walk into that and the next
-> __do_request() call registers a new session for this rank.  Once it is
-> open and the MDS issues caps, ceph_fill_inode() calls
-> ceph_add_cap(), which looks caps up by rank, not
-> by session identity, finding old caps linked to the old session.
->
-> The list_move_tail() call then moves the cap object to the new
-> session, which is already a bad thing to do.  Since it doesn't
-> decrement `old_session->s_nr_caps`, this will quickly run into a BUG()
-> instead of crashing:
->
->   kernel BUG at fs/ceph/mds_client.c:1959!
->   Internal error: Oops - BUG: 00000000f2000800 [#1]  SMP
->   [...]
->   Workqueue: ceph-msgr ceph_con_workfn
->   pstate: 20400009 (nzCv daif +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
->   pc : remove_session_caps+0x2bc/0x2d8
->   lr : remove_session_caps+0x74/0x2d8
->   [...]
->   Call trace:
->    remove_session_caps+0x2bc/0x2d8 (P)
->    mds_dispatch+0xf48/0x1b60
->    ceph_con_process_message+0x74/0xa0
->    ceph_con_v1_try_read+0x3a0/0x1510
->    ceph_con_workfn+0x260/0x460
->    process_one_work+0x168/0x3b8
->    worker_thread+0x1bc/0x3a0
->    kthread+0x118/0x1e0
->    ret_from_fork+0x10/0x20
->
-> That's BUG_ON(session->s_nr_caps > 0).
->
-> I was able to reproduce this reliably by delaying the close and
-> starting I/O during the delay.
->
-> This patch keeps the session registered with
-> `CEPH_MDS_SESSION_CLOSED`.  New requests will be put on the
-> `s_waiting` list where they will be resumed on the new session.
->
-> Signed-off-by: Max Kellermann <max.kellermann@ionos.com>
-> ---
-> v1->v2: skip CLOSED sessions in check_new_map()
-> v2->v3: split session pinning and stale-map guards into two preparatory
->     patches; rework CLOSED-session and export-target teardown handling
->
-> Signed-off-by: Max Kellermann <max.kellermann@ionos.com>
-> ---
->  fs/ceph/caps.c       |   3 +
->  fs/ceph/mds_client.c | 138 ++++++++++++++++++++++++++++++++++++++-----
->  2 files changed, 127 insertions(+), 14 deletions(-)
->
-> diff --git a/fs/ceph/caps.c b/fs/ceph/caps.c
-> index d7283fb54cec..b21d0a9ac324 100644
-> --- a/fs/ceph/caps.c
-> +++ b/fs/ceph/caps.c
-> @@ -4195,6 +4195,9 @@ static void handle_cap_export(struct inode *inode, struct ceph_mds_caps *ex,
->                 }
->                 new_cap = ceph_get_cap(mdsc, NULL);
->         } else {
-> +               if (tsession == ERR_PTR(-EAGAIN))
-> +                       return;
-> +
->                 WARN_ON(1);
->                 tsession = NULL;
->                 target = -1;
-> diff --git a/fs/ceph/mds_client.c b/fs/ceph/mds_client.c
-> index 03809328e4aa..ec8ee95cad6e 100644
-> --- a/fs/ceph/mds_client.c
-> +++ b/fs/ceph/mds_client.c
-> @@ -1733,6 +1733,30 @@ static int __open_session(struct ceph_mds_client *mdsc,
->         return 0;
->  }
->
-> +/* Is this rank still occupied by a session being torn down? */
-> +static bool __mds_rank_closing(struct ceph_mds_client *mdsc, int mds)
-> +{
-> +       return mds < mdsc->max_sessions && mdsc->sessions[mds] &&
-> +               mdsc->sessions[mds]->s_state == CEPH_MDS_SESSION_CLOSED;
-> +}
-> +
-> +/*
-> + * Wait until the rank is no longer occupied by a CLOSED session.
-> + *
-> + * The caller must hold mdsc->mutex.  The mutex is dropped while sleeping and
-> + * held again on return.  Another session may occupy the rank by then.  The
-> + * wait also ends when shutdown starts, so the caller must check
-> + * mdsc->stopping before proceeding.
-> + */
-> +static void wait_for_mds_rank_not_closing(struct ceph_mds_client *mdsc,
-> +                                         int mds)
-> +{
-> +       wait_event_cmd(mdsc->session_close_wq,
-> +                      !__mds_rank_closing(mdsc, mds) || mdsc->stopping,
-> +                      mutex_unlock(&mdsc->mutex),
-> +                      mutex_lock(&mdsc->mutex));
-> +}
-> +
->  /*
->   * open sessions for any export targets for the given mds
->   *
-> @@ -1750,6 +1774,16 @@ __open_export_target_session(struct ceph_mds_client *mdsc, int target)
->                 if (IS_ERR(session))
->                         return session;
->         }
-> +       if (session->s_state == CEPH_MDS_SESSION_CLOSED) {
-> +               /*
-> +                * handle_session() is currently closing this session;
-> +                * it stays registered until its caps are gone.  Do
-> +                * not return it to our caller because we don't want
-> +                * it to attach new caps to it.
-> +                */
-> +               ceph_put_mds_session(session);
-> +               return ERR_PTR(-EAGAIN);
-> +       }
->         if (session->s_state == CEPH_MDS_SESSION_NEW ||
->             session->s_state == CEPH_MDS_SESSION_CLOSING) {
->                 ret = __open_session(mdsc, session);
-> @@ -1769,7 +1803,19 @@ ceph_mdsc_open_export_target_session(struct ceph_mds_client *mdsc, int target)
->         doutc(cl, "to mds%d\n", target);
->
->         mutex_lock(&mdsc->mutex);
-> -       session = __open_export_target_session(mdsc, target);
-> +       for (;;) {
-> +               session = __open_export_target_session(mdsc, target);
-> +               if (session != ERR_PTR(-EAGAIN) || mdsc->stopping)
-> +                       break;
-> +
-> +               /*
-> +                * Keep the exported cap on its old session until the
-> +                * target rank is vacant.  Dropping it here can discard a
-> +                * dirty auth cap; handle_session() wakes us after removing
-> +                * the old target session's caps and unregistering it.
-> +                */
-> +               wait_for_mds_rank_not_closing(mdsc, target);
-> +       }
->         mutex_unlock(&mdsc->mutex);
->
->         return session;
-> @@ -4492,8 +4538,20 @@ static void handle_session(struct ceph_mds_session *session,
->                         ceph_metric_bind_session(mdsc, session);
->         }
->         if (op == CEPH_SESSION_CLOSE) {
-> +               /*
-> +                * Pin the session for the rest of this function.  The
-> +                * __unregister_session() call is deferred until after
-> +                * remove_session_caps() below, or else other
-> +                * processes may find caps still assigned to this
-> +                * session while working with a new session object.
-> +                */
->                 ceph_get_mds_session(session);
-> -               __unregister_session(mdsc, session);
-> +
-> +               if (session->s_state == CEPH_MDS_SESSION_RECONNECTING)
-> +                       pr_info_client(cl, "mds%d reconnect denied\n",
-> +                                      session->s_mds);
-> +
-> +               session->s_state = CEPH_MDS_SESSION_CLOSED;
->         }
->         /* FIXME: this ttl calculation is generous */
->         session->s_ttl = jiffies + HZ*mdsc->mdsmap->m_session_autoclose;
-> @@ -4551,12 +4609,24 @@ static void handle_session(struct ceph_mds_session *session,
->                 break;
->
->         case CEPH_SESSION_CLOSE:
-> -               if (session->s_state == CEPH_MDS_SESSION_RECONNECTING)
-> -                       pr_info_client(cl, "mds%d reconnect denied\n",
-> -                                      session->s_mds);
-> -               session->s_state = CEPH_MDS_SESSION_CLOSED;
->                 cleanup_session_requests(mdsc, session);
->                 remove_session_caps(session);
-> +
-> +               /*
-> +                * Now that all caps are removed, it is safe release
-> +                * the MDS rank and allow other processes to create a
-> +                * new session object.
-> +                *
-> +                * A concurrent ceph_mdsc_close_sessions() or
-> +                * check_new_map() may have unregistered the session
-> +                * already, so check __verify_registered_session()
-> +                * first.
-> +                */
-> +               mutex_lock(&mdsc->mutex);
-> +               if (!__verify_registered_session(mdsc, session))
-> +                       __unregister_session(mdsc, session);
-> +               mutex_unlock(&mdsc->mutex);
-> +
->                 wake = 2; /* for good measure */
->                 wake_up_all(&mdsc->session_close_wq);
->                 break;
-> @@ -5802,6 +5872,10 @@ static void check_new_map(struct ceph_mds_client *mdsc,
->                 s = __ceph_lookup_mds_session(mdsc, i);
->                 if (!s)
->                         continue;
-> +               if (s->s_state == CEPH_MDS_SESSION_CLOSED) {
-> +                       ceph_put_mds_session(s);
-> +                       continue;
-> +               }
->                 oldstate = ceph_mdsmap_get_state(oldmap, i);
->                 newstate = ceph_mdsmap_get_state(newmap, i);
->
-> @@ -5814,18 +5888,24 @@ static void check_new_map(struct ceph_mds_client *mdsc,
->
->                 if (i >= newmap->possible_max_rank) {
->                         /* force close session for stopped mds */
-> -                       __unregister_session(mdsc, s);
-> -                       __wake_requests(mdsc, &s->s_waiting);
-> +                       s->s_state = CEPH_MDS_SESSION_CLOSED;
->                         mutex_unlock(&mdsc->mutex);
->
->                         mutex_lock(&s->s_mutex);
->                         cleanup_session_requests(mdsc, s);
->                         remove_session_caps(s);
-> +
-> +                       mutex_lock(&mdsc->mutex);
-> +                       if (!__verify_registered_session(mdsc, s))
-> +                               __unregister_session(mdsc, s);
-> +                       mutex_unlock(&mdsc->mutex);
->                         mutex_unlock(&s->s_mutex);
->
-> -                       ceph_put_mds_session(s);
-> +                       wake_up_all(&mdsc->session_close_wq);
->
->                         mutex_lock(&mdsc->mutex);
-> +                       __wake_requests(mdsc, &s->s_waiting);
-> +                       ceph_put_mds_session(s);
->                         if (mdsc->mdsmap->m_epoch != map_epoch)
->                                 return;
->                         kick_requests(mdsc, i);
-> @@ -5844,6 +5924,16 @@ static void check_new_map(struct ceph_mds_client *mdsc,
->                                 ceph_put_mds_session(s);
->                                 return;
->                         }
-> +                       if (s->s_state == CEPH_MDS_SESSION_CLOSED) {
-> +                               /*
-> +                                * handle_session() set state=CLOSED
-> +                                * in the mutex gap above and is tearing it
-> +                                * down
-> +                                */
-> +                               mutex_unlock(&s->s_mutex);
-> +                               ceph_put_mds_session(s);
-> +                               continue;
-> +                       }
->                         ceph_con_close(&s->s_con);
->                         mutex_unlock(&s->s_mutex);
->                         s->s_state = CEPH_MDS_SESSION_RESTARTING;
-> @@ -5902,6 +5992,9 @@ static void check_new_map(struct ceph_mds_client *mdsc,
->          * Only open and reconnect sessions that don't exist yet.
->          */
->         for (i = 0; i < newmap->possible_max_rank; i++) {
-> +               if (mdsc->stopping)
-> +                       return;
-> +
->                 /*
->                  * In case the import MDS is crashed just after
->                  * the EImportStart journal is flushed, so when
-> @@ -5927,6 +6020,19 @@ static void check_new_map(struct ceph_mds_client *mdsc,
->                  * reconnection request in up:reconnect state.
->                  */
->                 s = __ceph_lookup_mds_session(mdsc, i);
-> +               if (s && s->s_state == CEPH_MDS_SESSION_CLOSED) {
-> +                       /*
-> +                        * Wait for handle_session() to remove the caps and
-> +                        * unregister this session, so the reconnect below
-> +                        * uses a fresh session on the now vacant rank
-> +                        */
-> +                       ceph_put_mds_session(s);
-> +                       wait_for_mds_rank_not_closing(mdsc, i);
-> +                       if (mdsc->stopping ||
-> +                           mdsc->mdsmap->m_epoch != map_epoch)
-> +                               return;
-> +                       s = NULL;
-> +               }
->                 if (likely(!s)) {
->                         s = __open_export_target_session(mdsc, i);
->                         if (IS_ERR(s)) {
-> @@ -7087,9 +7193,7 @@ static void mds_peer_reset(struct ceph_connection *con)
->          * Snapshot session state with READ_ONCE, then revalidate under
->          * mdsc->mutex before acting.  The subsequent mdsc->mutex
->          * section rechecks s_state to catch concurrent transitions, so
-> -        * the lockless snapshot here is safe.  s->s_mutex is taken
-> -        * separately for cleanup after unregistration, which avoids
-> -        * introducing a new s->s_mutex + mdsc->mutex nesting.
-> +        * the lockless snapshot here is safe.
->          */
->         session_state = READ_ONCE(s->s_state);
->
-> @@ -7114,18 +7218,24 @@ static void mds_peer_reset(struct ceph_connection *con)
->
->                 ceph_get_mds_session(s);
->                 s->s_state = CEPH_MDS_SESSION_CLOSED;
-> -               __unregister_session(mdsc, s);
-> -               __wake_requests(mdsc, &s->s_waiting);
->                 mutex_unlock(&mdsc->mutex);
->
->                 mutex_lock(&s->s_mutex);
->                 cleanup_session_requests(mdsc, s);
->                 remove_session_caps(s);
-> +
-> +               /* Keep the rank occupied until all old-session caps are gone. */
-> +               mutex_lock(&mdsc->mutex);
-> +               if (!__verify_registered_session(mdsc, s))
-> +                       __unregister_session(mdsc, s);
-> +               mutex_unlock(&mdsc->mutex);
-> +
->                 mutex_unlock(&s->s_mutex);
->
->                 wake_up_all(&mdsc->session_close_wq);
->
->                 mutex_lock(&mdsc->mutex);
-> +               __wake_requests(mdsc, &s->s_waiting);
->                 kick_requests(mdsc, s->s_mds);
->                 mutex_unlock(&mdsc->mutex);
->
-> --
-> 2.47.3
->
+SGksIEtyenlzenRvZg0KDQpUaGFua3MgZm9yIHRoZSByZXZpZXcuDQoNCj4gT24gMzEvMDgvMjAy
+NiAwMzozNSwgQ2hhbmdodWFuZyBMaWFuZyB3cm90ZToNCj4gPiBIaSwgS3J6eXN6dG9mDQo+ID4N
+Cj4gPiBUaGFua3MgZm9yIHRoZSByZXZpZXcuDQo+ID4NCj4gPj4gT24gMzAvMDgvMjAyNiAwODo1
+MSwgQ2hhbmdodWFuZyBMaWFuZyB3cm90ZToNCj4gPj4+IEFkZCBkcml2ZXIgc3VwcG9ydCBmb3Ig
+SkhCMTAwIFVBUlQgUm91dGluZyBjb250cm9sLCBhbGxvd2luZyBydW50aW1lDQo+ID4+PiBjb25m
+aWd1cmF0aW9uIG9mIFJYIG11eGVzIGJldHdlZW4gVUFSVCBjb250cm9sbGVycyBhbmQgSS9PIHBp
+bnMuDQo+ID4+Pg0KPiA+Pj4gQSBzeXNmcyBpbnRlcmZhY2UgaXMgcHJvdmlkZWQgZm9yIGVhc3kg
+Y2hlY2tpbmcgYW5kIHVwZGF0aW5nIG9mDQo+ID4+PiByb3V0aW5nIHBhdGhzLg0KPiA+Pj4NCj4g
+Pj4+IFNpZ25lZC1vZmYtYnk6IENoYW5naHVhbmcgTGlhbmcgPGNoYW5naHVhbmcubGlhbmdAc3Rh
+cmZpdmV0ZWNoLmNvbT4NCj4gPj4+IC0tLQ0KPiA+Pj4gIC4uLi9zeXNmcy1kcml2ZXItc3RhcmZp
+dmUtamhiMTAwLXVhcnQtcm91dGluZyB8ICA0NSArKysNCj4gPj4+ICBNQUlOVEFJTkVSUyAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfCAgIDcgKw0KPiA+Pj4gIGRyaXZlcnMvc29j
+L3N0YXJmaXZlL0tjb25maWcgICAgICAgICAgICAgICAgICB8ICAgMSArDQo+ID4+PiAgZHJpdmVy
+cy9zb2Mvc3RhcmZpdmUvTWFrZWZpbGUgICAgICAgICAgICAgICAgIHwgICAxICsNCj4gPj4+ICBk
+cml2ZXJzL3NvYy9zdGFyZml2ZS91YXJ0LXJvdXRpbmcvS2NvbmZpZyAgICAgfCAgMTQgKw0KPiA+
+Pj4gIGRyaXZlcnMvc29jL3N0YXJmaXZlL3VhcnQtcm91dGluZy9NYWtlZmlsZSAgICB8ICAgMiAr
+DQo+ID4+PiAgLi4uL3VhcnQtcm91dGluZy9qaGIxMDAtdWFydC1yb3V0aW5nLmMgICAgICAgIHwg
+MjYyDQo+ID4+ICsrKysrKysrKysrKysrKysrKw0KPiA+Pj4gIDcgZmlsZXMgY2hhbmdlZCwgMzMy
+IGluc2VydGlvbnMoKykNCj4gPj4+ICBjcmVhdGUgbW9kZSAxMDA2NDQNCj4gPj4+IERvY3VtZW50
+YXRpb24vQUJJL3Rlc3Rpbmcvc3lzZnMtZHJpdmVyLXN0YXJmaXZlLWpoYjEwMC11YXJ0LXJvdXRp
+bmcNCj4gPj4+ICBjcmVhdGUgbW9kZSAxMDA2NDQgZHJpdmVycy9zb2Mvc3RhcmZpdmUvdWFydC1y
+b3V0aW5nL0tjb25maWcNCj4gPj4+ICBjcmVhdGUgbW9kZSAxMDA2NDQgZHJpdmVycy9zb2Mvc3Rh
+cmZpdmUvdWFydC1yb3V0aW5nL01ha2VmaWxlDQo+ID4+PiAgY3JlYXRlIG1vZGUgMTAwNjQ0DQo+
+ID4+PiBkcml2ZXJzL3NvYy9zdGFyZml2ZS91YXJ0LXJvdXRpbmcvamhiMTAwLXVhcnQtcm91dGlu
+Zy5jDQo+ID4+Pg0KPiA+Pj4gZGlmZiAtLWdpdA0KPiA+Pj4gYS9Eb2N1bWVudGF0aW9uL0FCSS90
+ZXN0aW5nL3N5c2ZzLWRyaXZlci1zdGFyZml2ZS1qaGIxMDAtdWFydC1yb3V0aW4NCj4gPj4+IGcN
+Cj4gPj4+IGIvRG9jdW1lbnRhdGlvbi9BQkkvdGVzdGluZy9zeXNmcy1kcml2ZXItc3RhcmZpdmUt
+amhiMTAwLXVhcnQtcm91dGluDQo+ID4+PiBnDQo+ID4+PiBuZXcgZmlsZSBtb2RlIDEwMDY0NA0K
+PiA+Pj4gaW5kZXggMDAwMDAwMDAwMDAwLi4yODQ0MTMzYmVhMWINCj4gPj4+IC0tLSAvZGV2L251
+bGwNCj4gPj4+ICsrKyBiL0RvY3VtZW50YXRpb24vQUJJL3Rlc3Rpbmcvc3lzZnMtZHJpdmVyLXN0
+YXJmaXZlLWpoYjEwMC11YXJ0LXJvDQo+ID4+PiArKysgdXQNCj4gPj4+ICsrKyBpbmcNCj4gPj4+
+IEBAIC0wLDAgKzEsNDUgQEANCj4gPj4+ICtXaGF0Og0KPiA+PiAJL3N5cy9idXMvcGxhdGZvcm0v
+ZHJpdmVycy9zdGFyZml2ZS1qaGIxMDAtdWFydC1yb3V0aW5nL1wqL3VhcnRcKg0KPiA+Pj4gK0Rh
+dGU6CQlBdWd1c3QgMjAyNg0KPiA+Pj4gK0NvbnRhY3Q6CUNoYW5naHVhbmcgTGlhbmcgPGNoYW5n
+aHVhbmcubGlhbmdAc3RhcmZpdmV0ZWNoLmNvbT4NCj4gPj4+ICtEZXNjcmlwdGlvbjoJU2VsZWN0
+cyB0aGUgUlggc291cmNlIG9mIHRoZSBVQVJUeCBkZXZpY2UuDQo+ID4+PiArDQo+ID4+PiArCQlX
+aGVuIHJlYWQsIGVhY2ggZmlsZSBzaG93cyB0aGUgbGlzdCBvZiBhdmFpbGFibGUgb3B0aW9ucyB3
+aXRoDQo+ID4+IGN1cnJlbnRseQ0KPiA+Pj4gKwkJc2VsZWN0ZWQgb3B0aW9uIG1hcmtlZCBieSBi
+cmFja2V0cyAiW10iLiBUaGUgbGlzdCBvZiBhdmFpbGFibGUNCj4gb3B0aW9ucw0KPiA+Pj4gKwkJ
+ZGVwZW5kcyBvbiB0aGUgc2VsZWN0ZWQgZmlsZS4NCj4gPj4+ICsNCj4gPj4+ICsJCWUuZy4NCj4g
+Pj4+ICsJCWNhdA0KPiA+PiAvc3lzL2J1cy9wbGF0Zm9ybS9kcml2ZXJzL3N0YXJmaXZlLWpoYjEw
+MC11YXJ0LXJvdXRpbmcvXCoudWFydC1yb3V0aW4NCj4gPj4gZy91YXJ0MQ0KPiA+Pj4gKwkJaW8w
+IFtpbzFdIGlvMiBpbzMgaW80IGlvNSBpbzYgaW83IGlvOCBpbzkgaW8xMCBpbzExIGlvMTIgaW8x
+Mw0KPiA+Pj4gK2lvMTQgdWFydDANCj4gPj4gdWFydDENCj4gPj4+ICsJCXVhcnQyIHVhcnQzIHVh
+cnQ0IHVhcnQ1IHVhcnQ2IHVhcnQ3IHVhcnQ4IHVhcnQ5IHVhcnQxMCB1YXJ0MTENCj4gPj4+ICt1
+YXJ0MTIgdWFydDEzIHVhcnQxNA0KPiA+Pj4gKw0KPiA+Pj4gKwkJSW4gdGhpcyBjYXNlLCBVQVJU
+MSBnZXRzIGl0cyBpbnB1dCBmcm9tIElPMSAocGh5c2ljYWwgc2VyaWFsIHBvcnQNCj4gMSkuDQo+
+ID4+PiArDQo+ID4+PiArCQlUbyBzd2l0Y2ggdGhlIFJYIHNvdXJjZSBvZiBVQVJUMSB0byBVQVJU
+Miwgd3JpdGUgdGhlIGRlc2lyZWQNCj4gPj4gc291cmNlIHRvIHRoZSBmaWxlOg0KPiA+Pj4gKwkJ
+ZWNobyB1YXJ0MiA+DQo+ID4+PiArL3N5cy9idXMvcGxhdGZvcm0vZHJpdmVycy9zdGFyZml2ZS1q
+aGIxMDAtdWFydC1yb3V0aW5nLyoudWFydC1yb3V0aQ0KPiA+Pj4gK25nDQo+ID4+PiArL3VhcnQx
+DQo+ID4+PiArDQo+ID4+PiArCQlUaGlzIGluZGljYXRlcyB0aGF0IFVBUlQxIG5vdyByZWNlaXZl
+cyBpdHMgaW5wdXQgZnJvbSBVQVJUMi4NCj4gPj4+ICsNCj4gPj4+ICtVc2VyczoJCU9wZW5CTUMu
+ICBQcm9wb3NlZCBjaGFuZ2VzIHNob3VsZCBiZSBtYWlsZWQgdG8NCj4gPj4+ICsJCW9wZW5ibWNA
+bGlzdHMub3psYWJzLm9yZw0KPiA+Pj4gKw0KPiA+Pj4gK1doYXQ6DQo+IAkvc3lzL2J1cy9wbGF0
+Zm9ybS9kcml2ZXJzL3N0YXJmaXZlLWpoYjEwMC11YXJ0LXJvdXRpbmcvXCovaW9cKg0KPiA+Pj4g
+K0RhdGU6CQlBdWd1c3QgMjAyNg0KPiA+Pj4gK0NvbnRhY3Q6CUNoYW5naHVhbmcgTGlhbmcgPGNo
+YW5naHVhbmcubGlhbmdAc3RhcmZpdmV0ZWNoLmNvbT4NCj4gPj4+ICtEZXNjcmlwdGlvbjoJU2Vs
+ZWN0cyB0aGUgUlggc291cmNlIG9mIElPeCBzZXJpYWwgcG9ydC4gVGhlIGN1cnJlbnQNCj4gPj4g
+c2VsZWN0aW9uDQo+ID4+PiArCQl3aWxsIGJlIG1hcmtlZCBieSBicmFja2V0cyAiW10iLiBUaGUg
+bGlzdCBvZiBhdmFpbGFibGUgb3B0aW9ucw0KPiA+Pj4gKwkJZGVwZW5kcyBvbiB0aGUgc2VsZWN0
+ZWQgZmlsZS4NCj4gPj4+ICsNCj4gPj4+ICsJCWUuZy4NCj4gPj4+ICsJCWNhdA0KPiA+PiAvc3lz
+L2J1cy9wbGF0Zm9ybS9kcml2ZXJzL3N0YXJmaXZlLWpoYjEwMC11YXJ0LXJvdXRpbmcvXCoudWFy
+dC1yb3V0aW4NCj4gPj4gZy9pbzkNCj4gPj4+ICsJCXVhcnQwIHVhcnQxIHVhcnQyIHVhcnQzIHVh
+cnQ0IHVhcnQ1IHVhcnQ2IHVhcnQ3IHVhcnQ4IFt1YXJ0OV0NCj4gPj4+ICt1YXJ0MTANCj4gPj4g
+dWFydDExIHVhcnQxMg0KPiA+Pj4gKwkJdWFydDEzIHVhcnQxNCBpbzAgaW8xIGlvMiBpbzMgaW80
+IGlvNSBpbzYgaW83IGlvOCBpbzkgaW8xMCBpbzExDQo+ID4+PiAraW8xMiBpbzEzIGlvMTQNCj4g
+Pj4+ICsNCj4gPj4+ICsJCUluIHRoaXMgY2FzZSwgSU85IChwaHlzaWNhbCBzZXJpYWwgcG9ydCA5
+KSBnZXRzIGl0cyBpbnB1dCBmcm9tDQo+IFVBUlQ5Lg0KPiA+Pj4gKw0KPiA+Pj4gKwkJVG8gc3dp
+dGNoIHRoZSBSWCBzb3VyY2Ugb2YgSU85IHRvIFVBUlQxMCwgd3JpdGUgdGhlIGRlc2lyZWQNCj4g
+Pj4+ICtzb3VyY2UNCj4gPj4gdG8gdGhlIGZpbGU6DQo+ID4+PiArCQllY2hvIHVhcnQxMCA+DQo+
+ID4+PiArL3N5cy9idXMvcGxhdGZvcm0vZHJpdmVycy9zdGFyZml2ZS1qaGIxMDAtdWFydC1yb3V0
+aW5nLyoudWFydC1yb3V0aQ0KPiA+Pj4gK25nDQo+ID4+PiArL2lvOQ0KPiA+Pj4gKw0KPiA+Pj4g
+KwkJVGhpcyBpbmRpY2F0ZXMgdGhhdCBJTzkgbm93IHJlY2VpdmVzIGl0cyBpbnB1dCBmcm9tIFVB
+UlQxMC4NCj4gPj4+ICsNCj4gPj4+ICtVc2VyczoJCU9wZW5CTUMuICBQcm9wb3NlZCBjaGFuZ2Vz
+IHNob3VsZCBiZSBtYWlsZWQgdG8NCj4gPj4+ICsJCW9wZW5ibWNAbGlzdHMub3psYWJzLm9yZw0K
+PiA+Pg0KPiA+PiBkcml2ZXJzL3NvYy8gc2hvdWxkIG5vdCBkZWZpbmUgdXNlci1zcGFjZSBpbnRl
+cmZhY2VzLiBUaGlzIGlzIG5vdCB0aGUNCj4gPj4gcGxhY2UgZm9yIHRoZW0uIFlvdSBuZWVkIHRv
+IHJvdXRlIHVzZXItc3BhY2VzIGludGVyZmFjZXMgb25seSB0aHJvdWdoDQo+ID4+IG9uZSBvZiBv
+dGhlciBhcHByb3ZlZCBzdWJzeXN0ZW1zLCBhZnRlciB0aGVpciByZXZpZXcuDQo+ID4+DQo+ID4+
+IFRoaXMgbG9va3MgbGlrZSBwaW4gbXVsdGlwbGV4aW5nIGludGVyZmFjZS4NCj4gPg0KPiA+IEkg
+bWF5IGhhdmUgbWlzdW5kZXJzdG9vZCBzb21ldGhpbmfvvIxwbGVhc2UgY29ycmVjdCBtZSBpZiBJ
+J20gd3Jvbmc6DQo+ID4NCj4gPiBJIGhhdmUgZm91bmQgdHdvIHN1YnN5c3RlbXMgcmVsYXRlZCB0
+byBtdWx0aXBsZXhpbmcgc28gZmFyOg0KPiA+DQo+ID4gL2RyaXZlcnMvcGluY3RybCBhbmQgL2Ry
+aXZlcnMvbXV4LiBIb3dldmVyLCBuZWl0aGVyIG9mIHRoZW0gc2VlbXMgdG8NCj4gPiBwcm92aWRl
+IGEgdXNlci1zcGFjZSBpbnRlcmZhY2UgZm9yIHN3aXRjaGluZyBtdWx0aXBsZXhpbmcgdmFsdWVz
+Lg0KPiA+DQo+ID4gRG8geW91IGhhdmUgYW55IHN1Z2dlc3Rpb25zIG9uIHRoaXM/DQo+IA0KPiBw
+aW5jdHJsIGhhcyBzb21lIGludGVyZmFjZSwgbm90IHN1cmUgaWYgd3JpdGFibGUsIHRob3VnaC4g
+SWYgaW50ZXJmYWNlIGlzIG1pc3NpbmcsDQo+IGl0IHNob3VsZCBiZSBhZGRlZCB2aWEgc3VjaCBz
+dWJzeXN0ZW0uDQoNCk9rYXksIHRoaXMgbmVlZHMgYSBiaXQgbW9yZSB0aW1lIGZvciBkZWVwZXIg
+cmVzZWFyY2guDQoNCj4gDQo+ID4NCj4gPiBBbHNvLCBjb3VsZCB5b3UgY29uZmlybSB3aGV0aGVy
+IHRoZSBpbXBsZW1lbnRhdGlvbiBpbg0KPiA+IGRyaXZlcnMvc29jL2FzcGVlZC9hc3BlZWQtdWFy
+dC1yb3V0aW5nLmMNCj4gPiBpcyB0aGVyZSBmb3IgaGlzdG9yaWNhbCByZWFzb25zPw0KPiANCj4g
+SSBzdXBwb3NlZCBzbmVha2VkIGluIHdpdGhvdXQgU29DIG1haW50YWluZXJzIG5vdGljaW5nLg0K
+PiANCj4gPg0KPiA+IEJlc3QgUmVnYXJkcywNCj4gPiBDaGFuZ2h1YW5nDQo+IA0KPiANCj4gQmVz
+dCByZWdhcmRzLA0KPiBLcnp5c3p0b2YNCg0KQmVzdCBSZWdhcmRzLA0KQ2hhbmdodWFuZw0KDQo=
