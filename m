@@ -1,805 +1,231 @@
-Received: from one.firstfloor.org (one.firstfloor.org [65.21.254.221])
+Received: from mx0b-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1C0951E440;
-	Mon, 31 Aug 2026 15:07:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.21.254.221
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788188842; cv=none; b=EGlNqI7pKFYT0P0WUj5UQtysKO3iQFgu+Rf1LE2UJjULPAxboU7awGCO7Y1UHX072LSpW3E2P7uZJHIBqqwelrZxzcfefyf/8pmWBAaH0tyKqvahiyECrqsAq4PrqMeCblaTkT3sfNNkem/EUz0id5QAPH/LLP4xzfO8jWYyDn0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788188842; c=relaxed/simple;
-	bh=GQ71Z1QSCZrfvvv8u+z2upeOVqfJB/pfTC3scxu9fxw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=FJYhWyOJr/wVtR7Q+oXlHVizEuyh0bkU076NVTIuc8M3b7yHKY6xrUTeVaktJtThj29JVQ5y6PGIzGhO54uyO3C/I+oG80EhLYGzGnlGgJut2bHNZx8LvSpMI9q6cK0IRxJEELriSGS4MFZ+HbXAwu395O67HuCalJ0G8TM2Hbc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=kernel.org; spf=pass smtp.mailfrom=firstfloor.org; arc=none smtp.client-ip=65.21.254.221
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=kernel.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=firstfloor.org
-Received: from firstfloor.org (c-73-11-123-161.hsd1.or.comcast.net [73.11.123.161])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
-	(No client certificate requested)
-	by one.firstfloor.org (Postfix) with ESMTPSA id E92E263F8D;
-	Mon, 31 Aug 2026 17:07:08 +0200 (CEST)
-Received: by firstfloor.org (Postfix, from userid 1000)
-	id 2109216229B; Mon, 31 Aug 2026 08:07:03 -0700 (PDT)
-From: Andi Kleen <ak@kernel.org>
-To: linux-kernel@vger.kernel.org
-Cc: mhiramat@kernel.org,
-	oleg@redhat.com,
-	peterz@infradead.org,
-	tglx@kernel.org,
-	x86@kernel.org,
-	jolsa@kernel.org,
-	linux-perf-users@vger.kernel.org,
-	adrian.hunter@intel.com,
-	Andi Kleen <ak@kernel.org>
-Subject: [RFC v1 13/19] ptwrite uprobes: Support instruction puning
-Date: Mon, 31 Aug 2026 08:04:49 -0700
-Message-ID: <20260831150651.1134594-14-ak@kernel.org>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260831150651.1134594-1-ak@kernel.org>
-References: <20260831150651.1134594-1-ak@kernel.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA944525A91;
+	Mon, 31 Aug 2026 15:07:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.135.77
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788188849; cv=fail; b=BU1kwQcG5P4ZMhUR2SpSsJuh+Hg77w323W8D6BCD1Rh4ioSzjnXoQXdeHHeDd3+uYZMwV4J/jI9k2hcAlByNdRI4KEWetWU4wxZV5UaVF0r6x8rTrKskjEoa2+zHJHQeYlDhd8rFz+8lfTZDCGvlBGm/2bojv7ICvKArMM4mMiI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788188849; c=relaxed/simple;
+	bh=x/xUDRpfeDTQcKn/6BxmOYSGaD0JwJ0aby3dCb6r6I4=;
+	h=From:Date:Subject:Content-Type:Message-Id:References:In-Reply-To:
+	 To:Cc:MIME-Version; b=VqThGXGGZOdTVYaf/qijJywevc5lbjp9vznUMRkdvKIbLXqvk/rG4G3IWaSJmxuosH6245+cYfFnxQr8je41AtyXO3QTDS9lSlpGyTENA3ObxjmxYiZ5MTNkU3V/+nnrFwXa7aRnTox43kvqPIjQr6DmexlqU2e4RZF7CYXa6OQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=WOznDQhh; arc=fail smtp.client-ip=148.163.135.77
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="WOznDQhh"
+Received: from pps.filterd (m0375855.ppops.net [127.0.0.1])
+	by mx0b-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67VEVDoM889044;
+	Mon, 31 Aug 2026 11:06:16 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=DKIM; bh=ib4PE
+	4EjexcdnxfgiSyAK4wibIBbzY4hGKIBXM+ZZBA=; b=WOznDQhh5XRsevtaeuLPd
+	OlRPPBvr/l5voYLgbBrGwltzrUb7JlozhtpiQTRNKLQZqdBJ7sDvfERvNZ1nHg6r
+	kbXtQhGpsJNvtmRmZgeSkxkzBYM7+I0lFHAdM3GGEAe5Zhjej+6bDyU4lFKjyOgX
+	UleiNr5fXZh5eVdovXkv+1jpoIM2ie50j7uIEdFALlIKE2Ed5sgCWXkhVbR4jKgO
+	K/dblR24/eHjyyagKMmz/0jnII6No/Va2UkNZ2f/R0FsfmedccfodEBYC5PwQ/62
+	S3nuszH8E01ycssEwjqWyCeMYIO0OEtRiJrzt+syhEWb2zV68IoDG8gKMMbcv7zh
+	w==
+Received: from dm5pr21cu001.outbound.protection.outlook.com (mail-centralusazon11011067.outbound.protection.outlook.com [52.101.62.67])
+	by mx0b-00128a01.pphosted.com (PPS) with ESMTPS id 4gcdrdn6ck-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 31 Aug 2026 11:06:15 -0400 (EDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=MUTrg639SY6M2hMrM0tpM8f93bDsKFQj5xAHWkc0Qv17XOWvOvFKFlYMaywKDvy1GV2GRQns6LikI++z15pcadhvzRD7bTbvUzfBxai2pKqae+FXhKr6CZHdOIqk1+VteM7p3krp0w/5iH0vs60VHLwjRHioB0qTT+OJ24fVr7TtKuLLoSgjdFAuIM+Lf5xE4m8cmoVTF4FdhPvA6wUQ3/VVMymYrh797sjnnG5L8bBZx4Gy1G7uML7lRyTQhsiEqGPW4bFerK488PLJfB6ozXEo6tqL4GauIy1nD2Vx/LOLZ6WO7rJjaGqSRLKS2ZW/8Sfn0QrxgF+7HbGK83H43A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ib4PE4EjexcdnxfgiSyAK4wibIBbzY4hGKIBXM+ZZBA=;
+ b=Rx6Ps4m6hKrfxNOWFfB01HxIwkQp/G4s1FmdPExqFSzkIkXNq52sWJuUizuRDnpJO5NrRinXN4+84yAbL/iK3ZfBawhCXlsh28oqNjOa1yUGEzdw5cdqm9B2G9Uy4raiMSXsojPJPBVgcnXdO+MUHVkkJjSO/2lDGs34zwqRZXK6yckGKL7GqxczzhBWq3jr882CgBtHIgJ3lCEPCUDxuxTA3KSYJlGzgvSnqxWzwNMqrcrcVO3CTFo72Zm4nAV3JcB2Z+Gi52ATCaL4757pNwPBAza6bNEsASis1TFig4ZhpA1eOp7h3QmdoHRSA6NdPdi0VJbzCSU6B8iHvGJzYQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=analog.com; dmarc=pass action=none header.from=analog.com;
+ dkim=pass header.d=analog.com; arc=none
+Received: from SJ0PR03MB5469.namprd03.prod.outlook.com (2603:10b6:a03:28a::17)
+ by PH9PR03MB767167.namprd03.prod.outlook.com (2603:10b6:510:3e8::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Mon, 31 Aug
+ 2026 15:06:14 +0000
+Received: from SJ0PR03MB5469.namprd03.prod.outlook.com
+ ([fe80::2a19:76b2:e731:8c5a]) by SJ0PR03MB5469.namprd03.prod.outlook.com
+ ([fe80::2a19:76b2:e731:8c5a%6]) with mapi id 15.21.0360.008; Mon, 31 Aug 2026
+ 15:06:14 +0000
+From: =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>
+Date: Mon, 31 Aug 2026 16:07:18 +0100
+Subject: [PATCH 2/2] mtd: spinand: fix zero oobavail when no ECC engine is
+ used
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20260831-mtd-nand-no-ecc-fixes-v1-2-c2ec46641b90@analog.com>
+References: <20260831-mtd-nand-no-ecc-fixes-v1-0-c2ec46641b90@analog.com>
+In-Reply-To: <20260831-mtd-nand-no-ecc-fixes-v1-0-c2ec46641b90@analog.com>
+To: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org
+Cc: Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>,
+        Boris Brezillon <boris.brezillon@collabora.com>,
+        Miquel Raynal <miquel.raynal@bootlin.com>, stable@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788188838; l=1923;
+ i=nuno.sa@analog.com; s=20231116; h=from:subject:message-id;
+ bh=x/xUDRpfeDTQcKn/6BxmOYSGaD0JwJ0aby3dCb6r6I4=;
+ b=omOmYhLc8HqaHrQlBp6welGuSr8MtTp9c4Vg8alaooRXBF2Upwp/GeJKblQuuNcg4yP25BHHP
+ qaQXOzytBeoB6A6aTLnkCndKB8jCfGw1TLrrZxJD86/eriqzO8OBlTn
+X-Developer-Key: i=nuno.sa@analog.com; a=ed25519;
+ pk=3NQwYA013OUYZsmDFBf8rmyyr5iQlxV/9H4/Df83o1E=
+X-ClientProxiedBy: MA3P292CA0061.ESPP292.PROD.OUTLOOK.COM
+ (2603:10a6:250:49::14) To SJ0PR03MB5469.namprd03.prod.outlook.com
+ (2603:10b6:a03:28a::17)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ0PR03MB5469:EE_|PH9PR03MB767167:EE_
+X-MS-Office365-Filtering-Correlation-Id: 15f706f5-a8b8-4789-2fe4-08df07716678
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|366016|1800799024|23010399003|10067099003|18002099003|22082099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	SiyWDOHB7Dut7UbsrJG4e10T+A2IeSnu3uzTH42NI963sr9TVQ0BDiIJ5JATP+aHOoeKfkXavLnGrcR5QlocciqyXfY8ZvnO0Hn/GYDN2z79LRqEeWUEvAECmwBM9MeUy594OsCht+2AtI15VcE4DfULFBRALkRWMe3G+FeXJZtXrd6AFJIn5pWPtNmeTxOaTZre5YdvkmNsK2z1z4Hixtd8+VHZQqSOgFZ4ggcaXaAVlF9vWOiolE/RCBpQ0gQfuNQ6r1lkQ4WgBjCqLiDSVdniqydL5FlolbR1RBXO8Le3QImES1ZWTZrv/AUS/6wf73G6/QizQB7Po4Tdpy/r2/uW55dUmteuXsmuJ825wPGsaWahl4dKhL0nzy1WpHGaVikT3JWLzGK0oMync3Dh68/9GXk7WI/3v+4sflY55VOPoACi3gLxVW4kj96H82T+lAHNIKgOdbWKm/4qwntrDqZgyrMsDbxKqy58IiaY46oR6IFtKw3ShYV9LK/PZEJkFzRIXTKvRYkgOGvqp978twhhCG0gJjM2y9KqZnYNgECoefYcbS1/rl+CqzE7e8d493kmNGc6p6CRc9OiHS2mBMEleGSDmhlmhmOQisbQF6cYM1iwnoXiyw8XJI7kd2YSLoH7gtVRcK9IX0SBW4TM1guxvufcywdC6jzWUKgpWNY=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB5469.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(23010399003)(10067099003)(18002099003)(22082099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?a1QyYUVsRG14RTBtWldBbVY4cHp0cW5VVEpNaWdQTlIyRWowd0dFMWRibXNV?=
+ =?utf-8?B?bnIrUzZhc05IMldWYTFDOVlyOUxxcTJJQWc0K2tBbk5zZGVTeW1uZ2RsVFo2?=
+ =?utf-8?B?aHg2M1VQa2VpWmloSmdZN2kyN2dodGxCZS9RVjBYaVltOTZpTnUvOWJDbkU0?=
+ =?utf-8?B?TXU4YXhIbStRekRDTEpKd0I2N0p6dDNUMkRuVlhmK1M0RVllMzV1ZjRwMDd5?=
+ =?utf-8?B?eURycGpEbWk1Y0FjTjE3U3EzOXFEL3FybXArYnpyNU5jM3BGUUpRRCtaTnY0?=
+ =?utf-8?B?clkzdityVFpwL0hhYS9BYk5FRWFUZVZBd2dxUVgyYU9GSndrVm51TmQwZEts?=
+ =?utf-8?B?Y01EbDFpK3V4Y1h1V1o5ayt4SVNWQXljSXVsUmVNL21DU1RkU3VuU0hXVzND?=
+ =?utf-8?B?TlIxTjVTLzd0cXZsNWVTdXlBTXRZMGdHVDhVNnhqYnh3K2xlekxQdWJ2RTdp?=
+ =?utf-8?B?WjU5Znc4LzhXdmk2SHhBbER5cElJa204QVpTOEFLOUZ4cGZSa1hlcXZqcUpL?=
+ =?utf-8?B?S2hLL3NJQWlzc2g0V1hCQ2tlUUZ3b2Z6ditlYTd1dzNPM0Z4TGRIYjRLanYw?=
+ =?utf-8?B?czJoN1NnRFNJNlhzeXZpZXJUUy8rMVdsbEs4WlBOYkxVNE9kVzF4ZmtGWHlM?=
+ =?utf-8?B?d3FiWGlEdS9wVVp3MlJuMm0wa2JOSXI5emlYMjBsdFJ1UHBFSzJpbDlDS2FU?=
+ =?utf-8?B?bVIvbEd0WEVhNExwQzN5Rml2VHFUd3YyWlhrSFExaXRWV0JjbiszQkRXdnkv?=
+ =?utf-8?B?SXk4UmhzSGxxMDN1TDNvbU04SjBGNXVlTTdyU3pjbC8xd3dIYWVGU0lDQVpD?=
+ =?utf-8?B?dVVmcStYMGJXd2JnNzAwTkFnL0VQbk9OYUJwQTkyU2JPOURBZ01zdmZGMFlK?=
+ =?utf-8?B?UTZXbzI2d3pOQ1JiZDNmaG9TRE02NVp6ajlIamxLNTk1Wk40R24wRThjT1Yw?=
+ =?utf-8?B?VzNyeGNoaUxwVkhXRGRxWVlEa3JyNitTSkVtWUNRTDVPcmlYbGZTUEMycGtp?=
+ =?utf-8?B?VHA2bzFtN0tNVGJnUEVCZkpwSGxYVnZBUEY3Uy9iU3FzOUlVWWM4WDJzUkxW?=
+ =?utf-8?B?QXMwZEFJcSs3ckVYdkRiaDFzR29lZW9TNG52Rzh4NzNMcmhVeWJ2UXYxbklm?=
+ =?utf-8?B?QzBObFZYNW1kSmtNbmE3ZXR2N1hHbHBwK3pmU2FSTmdsYW03UHNvSzEvK3Jy?=
+ =?utf-8?B?bk56MnAvN0NJc1F5UXhwYmVtTmNjdm9XcjFaSUE2T2FLYWpMNXB6cmdxWG9F?=
+ =?utf-8?B?NFl3elo2clJFeC82Y3J6cDdMbnNBcDFGdmdYZWVTbUNnclo3VW5ORExPNzdZ?=
+ =?utf-8?B?amZGNTZMSWZlc0k0WDUrN01VcG9uUGFHemluOS9wSG00cUQ3cEhFUmRJdWlw?=
+ =?utf-8?B?ZGxMcklaK1BOOWFYbnY0STFRVjVINDY1Q0M1cytBWjZiRUVPcVlENFRFeDJJ?=
+ =?utf-8?B?RnNYY3V1aUhwbHo1Z1lhUXJvM3NUTnlzWEtRc0g3YXhBTG5aazM4NTdvNHNu?=
+ =?utf-8?B?TEtNTE54bThQSFhsWWpIVUhsOSthSkVseDRvaTlmQmRuQ1FNbHc4OEJJZmFB?=
+ =?utf-8?B?RE82UkxZdVdIZk8wZTFiRmJJa09ZSTIzSW9wbXkvcTdZdmszWWNDNllwMmFU?=
+ =?utf-8?B?TnpWSjRWajFXc0FXMnROSDlCTFF5Ym5CL3ZQRHlhbGVDeXpEbmZ4clBtZ3c1?=
+ =?utf-8?B?Q2VOZ2NKNW53SlpRNENEbmwyZzY2TU4rUHpwZWJ4ZzlZUWNtbGNYOUkxdWNn?=
+ =?utf-8?B?ZTcvS2RRbjFRdnlsU3p3Qng0bW5MeFMwNlRRK0NVLzExekVlM3ZZblhYT3Vx?=
+ =?utf-8?B?ZXNCd2NlV0hIUEtqUjBESWpGL0RIRmNjMXZHcm1lS2VrWUcwa0gxWCtGV3Z4?=
+ =?utf-8?B?bkV6d0l1bnZoc0RIMHpBbENJQVRVR3NXZUpzMHJjbERhNHhIUVh5amJCNThm?=
+ =?utf-8?B?dm1kQXdkV0QyQVppSlV2RzhyYzgvdWM5UW9xYVFUbXFPSmhDRHdrT1V5RStJ?=
+ =?utf-8?B?aXJwVXZpeVZZaUkwWjdiM2FQSkV2cG9wYXdxZHBLZHJUWTFDdEViNElDVm1m?=
+ =?utf-8?B?anJ2aG50QTZ3RGViMnNZang2dG5ZU21tMzI0YkI0SjFrdjk4RzFKTGZDU1lU?=
+ =?utf-8?B?aFNIZ1EzaGs3Yk9VSHFaNS9FODVwOWhRUEdMbmdoL2tvVHpoYzllamtMVE4x?=
+ =?utf-8?B?ZFVobFVkT1Zzd3FKZ0wwWVYyazZWZ0tJamMzNVJPNnF2amtIRGphNVpRcTBk?=
+ =?utf-8?B?UTJMTDNPWkIrM0pqalViR1BoalF1bU9XQ2NJdEVjWTkrTWVqSUhDaDlmNGI4?=
+ =?utf-8?B?RkZIdThFbkZlajJuUndqZk9RVlZ3MTR1dm1qK2krOEJXa0RQUzV6Zz09?=
+X-Exchange-RoutingPolicyChecked:
+	Nkvju3YUodzkJIBnXMmon36BS0yQkOcrMnH8tjsopl2df04kNVAIox7AqhhxRDUXKBzlSxzi6Z34VhPREbSTXfI66JkomT82/PvQFBdwaJ21P3JwFQNnti2wlK+zIB0z3Qy8FHdE2S/rKPx61jng27UObBSZ7lxJ2So0GIoXjYGurNqZ8OsGZc4jaIBOaiu4oRbA/buAxdlugNm7fV+ce4BOVIVHu9EUzf4dwmxaxKc7vo4tl+8qjkat1F0mDy9RwUOsyEUEuVwbhoxU/TX3rtQl6VrCe88A+P0OONC1+acUF8k4rBf8UyJ4JhB5pQ1NJuYgy/ONcJvgd3Do/OI21A==
+X-OriginatorOrg: analog.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 15f706f5-a8b8-4789-2fe4-08df07716678
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB5469.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 15:06:14.2470
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: eaa689b4-8f87-40e0-9c6f-7228de4d754a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Cf6kFjGXfeeytWhXo1Mf514W7xqX5Qqo7irqJXuJy2O15XStBwPFLzyAdlxhpIilo1ww8YNZLwhCwwJPuvymOg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH9PR03MB767167
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODMxMDEzMCBTYWx0ZWRfX2trGV+GR3SaS
+ /PfrEIKq97vaicnKqVhR4v49B3GTzV8XFtE/i+i5YyPSTY55UPx/jkTJhOjQzFbiHIm2LbYHSDb
+ LoOSGH5NGNOzALXYf3jVQt3y6ZWqIwuZhPDaP9daQIT1MYcTkduq
+X-Authority-Analysis: v=2.4 cv=feSdDUQF c=1 sm=1 tr=0 ts=6a959867 cx=c_pps
+ a=GcdpE1at2Es8HfJfZlkF2Q==:117 a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19
+ a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19 a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19
+ a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=M51BFTxLslgA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22 a=N--XFCr6TIEc_64PeIT2:22
+ a=VwQbUJbxAAAA:8 a=gAnH3GRIAAAA:8 a=pgLpeqkCuYE-37Z2sHMA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10
+X-Proofpoint-ORIG-GUID: 79b-lh6TnrFjR1wkjJTlGERIdVcr3VE2
+X-Proofpoint-GUID: 79b-lh6TnrFjR1wkjJTlGERIdVcr3VE2
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODMxMDEzMCBTYWx0ZWRfX2n3jvtJGUYJW
+ Ndp7DrygOoklEcXWM/qw8fzrsXixQFLN6SZ9IApTgOxF0PbST34D1H69TZAvyRsbYgMyjpkcwA7
+ mR9FXIqdLb5cDPBf+nDaTRf/7u2XrVbm345doyggfojLLTAMezlXWQ7/Cii63IjXV+zLd3TOokj
+ U6j5Am2IVDLqtvQt1u0rheb4tnkJ6GFZ0SCpJx/5abcMvRiTwrS7CKaD7eIOauYjvNWP3lqQUwm
+ Ew+h+NyH1AHC6VgoLW9J7GsEb/TWEM/ol2KNsOBXXC5Kq59Q7/uqMCP5aOLy/auzdD6ydycUmjf
+ lu6UnqK5F6eXG3mHeZ4dAzPrmv7NOjMjuqCBO6Sx1g1SSXvEmBdBKq3xMRnxb9QwVH8g/N4w6Cw
+ rdIMUiyxMkmGxTHq8XE1teVwOT3ENtQcHochO00qpDYoMh8DCQH5HAzNvPaxOSI+A1WZJgrjVrl
+ 7m9CcccPppoTarDTtIg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-31_05,2026-08-27_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 lowpriorityscore=0 phishscore=0 suspectscore=0 spamscore=0
+ adultscore=0 bulkscore=0 clxscore=1015 malwarescore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608310130
 
-The previous ptwrite instrumentation only worked on 5 byte+ nops because
-it needs to patch in a 5 byte branch. But the instruction may be shorter
-and the kernel cannot prove that nobody jumps to the next instruction.
+Commit 00c15b78b4b4 ("mtd: spinand: Allow the case where there is no
+ECC engine") made the OOB free bytes count conditional on having an
+ECC engine so that probing would not fail when none is requested.
+However mtd->oobavail is still assigned from ret just after that
+block, and ret is 0 there, so the device ends up advertising no
+available OOB bytes at all.
 
-However that is somewhat limiting because it means most code cannot
-be probed. This patch implements a simplified variant of the instruction
-puning technique from Chamith et.al. "Instruction Punning: Lightweight
-instrumentation for x86-64". The basic idea is to only patch in the
-one byte opcode for the branch and reuse the existing instruction
-bytes in the code as the branch target.
+mtd_oobavail() returns mtd->oobavail for MTD_OPS_AUTO_OOB, so a zero
+value makes every automatic OOB access fail with -EINVAL. JFFS2 fares
+worse: it keeps its cleanmarker in the OOB area on NAND and refuses to
+mount outright, reporting "inconsistent device description".
 
-If someone branches to the remaining bytes they are still executed
-in the original way because they didn't change.
+No ECC engine also means no ooblayout was ever installed, which would
+make the count return -ENOTSUPP, so install the same fallback layout
+the on-die path already uses before counting unconditionally.
 
-This requires placing a target trampoline page at the right address. If
-the area is not available or points to kernel space it doesn't work.
-
-In general it is somewhat unreliable for non PIE executables because
-the target is often negative and ends up in kernel space. However
-on modern Linux distributions near all binaries are PIE and high
-up in the address space with ample gaps around them, which makes
-puning have a high success rate.
-
-For example trying to probe every instruction in a PIE linked
-Debian 13 /bin/bash:
-
-bash has around 210k instructions, of which around 10k were directly
-patchable 5 byte nops. Running it for 100 times with ASLR 76.4% of
-the instructions were always pun probeable, with 23% of the instruction
-never being punnable (and the rest sometimes). So punning is not
-perfect, but still works most of the time, and is much better than just
-nops.
-
-The original paper used various fallback techniques to improve success,
-but I found things work well enough anyways with PIE and PIC.
-
-If the probing fails it's possible for the harness to move the probe
-around until it finds a better target. Sometimes you're just
-lucky on rerun with ASLR. Or alternatively just use a classic
-uprobe.
-
-I made sure to give all instruction error cases unique errnos so
-that the harness can make informed decisions.
-
-This patch adds the low level machinery for puning. Classify
-the instruction, poke the target and map trampolines to the right place.
-One difference to the nop probing is that the previous instruction
-needs to be copied and fixed up (analogous to classic uprobes)
-
-32bit relative ranches cannot be probed because their target is not
-available by definition. For 8bit relative branches there are also cases
-where it might need a second trampoline, or APX JMPABS support,
-to reach the true target, so these are rejected too for now.
-
-Assisted-by: omp:gpt-5.6-luna
-Signed-off-by: Andi Kleen <ak@kernel.org>
+Fixes: 00c15b78b4b4 ("mtd: spinand: Allow the case where there is no ECC engine")
+Cc: stable@vger.kernel.org
+Signed-off-by: Nuno Sá <nuno.sa@analog.com>
 ---
- arch/x86/include/asm/uprobes.h |  11 +-
- arch/x86/kernel/uprobes.c      | 480 ++++++++++++++++++++++++++++++---
- include/linux/uprobes.h        |   4 +-
- kernel/events/uprobes.c        |  18 +-
- 4 files changed, 470 insertions(+), 43 deletions(-)
+ drivers/mtd/nand/spi/core.c | 13 +++++++++----
+ 1 file changed, 9 insertions(+), 4 deletions(-)
 
-diff --git a/arch/x86/include/asm/uprobes.h b/arch/x86/include/asm/uprobes.h
-index 2800372b2f5a..ba751af4204b 100644
---- a/arch/x86/include/asm/uprobes.h
-+++ b/arch/x86/include/asm/uprobes.h
-@@ -49,14 +49,19 @@ struct uprobe_xol_ops;
- 
- /*
-  * ptwrite probe state. The stub template (code + data slots) is built
-- * once at registration (mm-independent except the final jmp's rel32, patched
-- * per-mm at install). Block layout:
-- *   [ptwriteq hdr(%rip)] [arg emissions] [jmp probe+5] [u64 slots: header, imms]
-+ * once at registration. Only the final jmp's rel32 and the copy's
-+ * disp/rel fields are patched per-mm at install. Block layout:
-+ *   [ptwriteq hdr(%rip)] [arg emissions] [orig-insn copy]
-+ *   [jmp probe+len] [u64 slots: header, imms]
-  */
- struct uprobe_ptwrite_arch {
- 	u8	stub[UPROBE_PTWRITE_STUB_SIZE];
- 	u16	stub_len;	/* code + data + fault table, whole block */
- 	u8	jmp_off;	/* offset of the final jmp's rel32 field */
-+	u8	copy_off;	/* offset of the out-of-line instruction copy */
-+	u8	len;		/* copy length (0 = drop); back-jmp = vaddr+len */
-+	u8	disp_off;	/* rip-relative disp32 offset in the copy (0 = none) */
-+	s32	disp;		/* original disp32 (delta-patched per-mm) */
- 	u8	ndata;		/* number of u64 data slots */
- 	u8	orig[MAX_UINSN_BYTES];	/* pristine file bytes, before generic analysis */
- 	u16	ft_off;	/* fault table offset within the block (0 if none) */
-diff --git a/arch/x86/kernel/uprobes.c b/arch/x86/kernel/uprobes.c
-index 20557423690f..806e40f7b0ab 100644
---- a/arch/x86/kernel/uprobes.c
-+++ b/arch/x86/kernel/uprobes.c
-@@ -958,8 +958,17 @@ static int verify_insn(struct page *page, unsigned long vaddr, uprobe_opcode_t *
- {
- 	struct write_opcode_ctx *ctx = data;
- 	uprobe_opcode_t old_opcode[OPT_INSN_SIZE];
-+	int len;
- 
--	uprobe_copy_from_page(page, ctx->base, old_opcode, OPT_INSN_SIZE);
-+	/*
-+	 * Byte-state checks need only the first byte. Optimized-state checks
-+	 * inspect the complete ten-byte instruction.
-+	 */
-+	len = ctx->expect == EXPECT_OPTIMIZED ||
-+		ctx->expect == EXPECT_SWBP_OPTIMIZED ? OPT_INSN_SIZE : 1;
-+	if (PAGE_SIZE - (ctx->base & ~PAGE_MASK) < len)
-+		return -1;
-+	uprobe_copy_from_page(page, ctx->base, old_opcode, len);
- 
- 	switch (ctx->expect) {
- 	case EXPECT_SWBP:
-@@ -1398,6 +1407,11 @@ static bool ptwrite_has_room(const u8 *base, const u8 *p, size_t len)
- 		       sizeof(((struct uprobe_ptwrite_arch *)0)->stub) - len;
- }
- 
-+static bool pun_site_is_nop(const u8 *orig, bool allow_nop_run);
-+static int pun_classify_insn(struct insn *insn, u8 *disp_off, s32 *disp);
-+static int pun_decode_site(struct inode *inode, struct file *file,
-+			       loff_t offset, u8 *copy,
-+			       u8 *disp_off, s32 *disp, bool allow_nop_run);
- 
- #define PTW_NEED(_len) do { \
- 		if (!ptwrite_has_room(code, p, (_len))) \
-@@ -1407,6 +1421,8 @@ static bool ptwrite_has_room(const u8 *base, const u8 *p, size_t len)
- 
- 
- int arch_uprobe_ptwrite_prepare(struct arch_uprobe *auprobe,
-+				struct inode *inode, struct file *file,
-+				loff_t offset,
- 				const struct uprobe_ptwrite_desc *desc)
- {
- 	struct uprobe_ptwrite_arch *ptw = &auprobe->ptwrite;
-@@ -1416,17 +1432,18 @@ int arch_uprobe_ptwrite_prepare(struct arch_uprobe *auprobe,
- 	struct { u16 start, end, fixup; } __packed mft[UPROBE_PTWRITE_MAX_ARGS];
- 	u16 mdisp[UPROBE_PTWRITE_MAX_ARGS];
- 	unsigned int data_off, flt_off, ft_off;
--	unsigned int hdr_off = 0;
- 	unsigned int imm_idx = 0, n_imm = 0, mem_idx = 0, n_mem = 0;
-+	unsigned int hdr_off = 0;
- 	bool paced = false;
- 	u64 hdr;
--	int i;
-+	int i, ret;
- 
- 	if (!desc || desc->nargs == 0)
- 		return -EINVAL;
- 	if (desc->nargs > UPROBE_PTWRITE_MAX_ARGS)
- 		return -E2BIG;
- 	if (desc->flags & ~(UPROBE_PTWRITE_FL_ALLOW_MEM |
-+			     UPROBE_PTWRITE_FL_NO_LEAD_PACE |
- 			     UPROBE_PTWRITE_FL_ALLOW_NOP_RUN))
- 		return -EINVAL;
- 
-@@ -1546,6 +1563,13 @@ int arch_uprobe_ptwrite_prepare(struct arch_uprobe *auprobe,
- 		}
+diff --git a/drivers/mtd/nand/spi/core.c b/drivers/mtd/nand/spi/core.c
+index 03ff43445693..8f3d12c5dd90 100644
+--- a/drivers/mtd/nand/spi/core.c
++++ b/drivers/mtd/nand/spi/core.c
+@@ -1978,12 +1978,17 @@ static int spinand_init(struct spinand_device *spinand)
+ 			goto err_cleanup_ecc_engine;
  	}
  
-+	/* the out-of-line original-instruction copy slot (patched per-mm) */
-+	PTW_NEED(UPROBE_PTWRITE_COPY_SIZE);
-+	if (p - code > U8_MAX)
-+		return -E2BIG;
-+	ptw->copy_off = p - code;
-+	p += UPROBE_PTWRITE_COPY_SIZE;
-+
- 	/* final jmp back to probe+len; rel32 patched per-mm at install */
- 	PTW_NEED(5);
- 	*p++ = 0xe9;
-@@ -1615,6 +1639,15 @@ int arch_uprobe_ptwrite_prepare(struct arch_uprobe *auprobe,
- 	ptw->ft_off = n_mem ? ft_off : 0;
- 	ptw->nft = n_mem;
- 	ptw->allow_nop_run = !!(desc->flags & UPROBE_PTWRITE_FL_ALLOW_NOP_RUN);
-+
-+	ret = pun_decode_site(inode, file, offset, code + ptw->copy_off,
-+				  &ptw->disp_off, &ptw->disp,
-+				  ptw->allow_nop_run);
-+	if (ret < 0)
-+		return ret;
-+	ptw->len = ret;
-+	memset(code + ptw->copy_off + ptw->len, 0x90,
-+	       UPROBE_PTWRITE_COPY_SIZE - ptw->len);
- 	return 0;
- }
- #undef PTW_NEED
-@@ -1711,15 +1744,10 @@ static unsigned long find_ptwrite_page_area(struct mm_struct *mm,
- }
- 
- static struct uprobe_ptwrite_page *
--create_uprobe_ptwrite_page(struct mm_struct *mm, unsigned long vaddr)
-+create_uprobe_ptwrite_page_at(struct mm_struct *mm, unsigned long area)
- {
- 	struct uprobe_ptwrite_page *ptw;
- 	struct vm_area_struct *vma;
--	unsigned long area;
--
--	area = find_ptwrite_page_area(mm, vaddr);
--	if (IS_ERR_VALUE(area))
--		return NULL;
- 
- 	mmap_assert_write_locked(mm);
- 
-@@ -1744,6 +1772,17 @@ create_uprobe_ptwrite_page(struct mm_struct *mm, unsigned long vaddr)
- 	}
- 	return ptw;
- }
-+
-+static struct uprobe_ptwrite_page *
-+create_uprobe_ptwrite_page(struct mm_struct *mm, unsigned long vaddr)
-+{
-+	unsigned long area = find_ptwrite_page_area(mm, vaddr);
-+
-+	if (IS_ERR_VALUE(area))
-+		return NULL;
-+	return create_uprobe_ptwrite_page_at(mm, area);
-+}
-+
- static struct uprobe_ptwrite_page *
- get_uprobe_ptwrite_page(struct mm_struct *mm, unsigned long vaddr,
- 			unsigned int len)
-@@ -1772,31 +1811,127 @@ get_uprobe_ptwrite_page(struct mm_struct *mm, unsigned long vaddr,
- 	return ptw;
- }
- 
--/* Probe site must be a 5-byte NOP that does not cross a page boundary. */
--static int ptwrite_validate_site(const u8 *orig, unsigned long vaddr)
-+/*
-+ * A run of short NOPs is accepted only when requested. This validation does
-+ * not make the three-phase poke safe for threads that already passed byte 0.
-+ */
-+static bool pun_site_is_nop(const u8 *orig, bool allow_nop_run)
- {
- 	struct insn insn;
- 	int ret;
--	int off = 0;
- 
--	/*
--	 * The 5 displaced bytes must be NOPs: either one 5-byte NOP
--	 * (nopl 0x0(%rax,%rax,1)) or a run of shorter NOPs summing to
--	 * exactly 5 (gcc -fpatchable-function-entry=5 emits 5 x 0x90 on
--	 * modern toolchains). Any non-NOP byte, or a NOP crossing the
--	 * 5-byte window, is rejected.
--	 */
--	while (off < 5) {
--		ret = insn_decode(&insn, orig + off, 5 - off, INSN_MODE_64);
+-	if (nand->ecc.engine) {
+-		ret = mtd_ooblayout_count_freebytes(mtd);
 -		if (ret < 0)
--			return -EINVAL;
--		if (insn.length < 1 || insn.length > 5 - off ||
--		    !insn_is_nop(&insn))
--			return -EINVAL;
--		off += insn.length;
-+	ret = insn_decode(&insn, orig, 5, INSN_MODE_64);
-+	if (ret < 0)
-+		return false;
-+	if (insn.length == 5 && insn_is_nop(&insn))
-+		return true;
-+	if (!allow_nop_run)
-+		return false;
-+	return orig[0] == 0x90 && orig[1] == 0x90 &&
-+		orig[2] == 0x90 && orig[3] == 0x90 && orig[4] == 0x90;
-+}
-+
-+/*
-+ * Classify the site's single instruction for out-of-line execution.
-+ * Returns the length, or 0 when it cannot run safely out of line.
-+ */
-+static int pun_classify_insn(struct insn *insn, u8 *disp_off, s32 *disp)
-+{
-+	u8 op = insn->opcode.bytes[0];
-+	switch (op) {
-+	case 0xcc:	/* int3 */
-+	case 0xcd:	/* int imm8 */
-+	case 0xce:	/* into */
-+	case 0xcf:	/* iret */
-+	case 0xf1:	/* int1 */
-+	case 0xea:	/* jmp far */
-+	case 0x9a:	/* call far */
-+	/* Could be handled with special case code. */
-+	case 0xe8:	/* call rel32 */
-+	case 0xe0:	/* loopne rel8: cannot run out of line */
-+	case 0xe1:	/* loope rel8 */
-+	case 0xe2:	/* loop rel8 */
-+	case 0xe3:	/* jecxz/jrcxz */
-+	/* These two could be handled if the offsets fit */
-+	case 0xe9:	/* jmp rel32 */
-+	case 0xeb:	/* jmp rel8 */
-+	case 0x70 ... 0x7f:	/* jcc rel8 */
-+		return -EOPNOTSUPP;
+-			goto err_cleanup_ecc_engine;
++	if (!nand->ecc.engine) {
++		if (spinand->eccinfo.ooblayout)
++			mtd_set_ooblayout(mtd, spinand->eccinfo.ooblayout);
++		else
++			mtd_set_ooblayout(mtd, &spinand_noecc_ooblayout);
  	}
--	if (off != 5)
-+	/* XBEGIN's rel32 abort target is IP-relative, not RIP-relative. */
-+	if (op == 0xc7 && insn->modrm.nbytes &&
-+	    X86_MODRM_MOD(insn->modrm.value) == 3 &&
-+	    X86_MODRM_REG(insn->modrm.value) == 7 &&
-+	    X86_MODRM_RM(insn->modrm.value) == 0)
-+		return -EOPNOTSUPP;
-+	if (op == 0x0f) {
-+		switch (insn->opcode.bytes[1]) {
-+		case 0x05:	/* syscall */
-+		case 0x34:	/* sysenter */
-+		case 0x35:	/* sysexit */
-+			return -EOPNOTSUPP;
-+		}
-+		/* jcc rel32: could be handled if offsets fit */
-+		if (insn->opcode.bytes[1] >= 0x80 &&
-+		    insn->opcode.bytes[1] <= 0x8f)
-+			return -EOPNOTSUPP;
-+		/* Allow endbranch because this is incompatible with CET anyways */
-+	}
-+	if (op == 0xff) {
-+		u8 reg = X86_MODRM_REG(insn->modrm.value);
-+
-+		/* call/lcall/jmp-far indirect */
-+		if (reg == 2 || reg == 3 || reg == 5)
-+			return -EOPNOTSUPP;
-+	}
-+
-+	if (insn_rip_relative(insn)) {
-+		*disp_off = insn_offset_displacement(insn);
-+		insn_get_displacement(insn);
-+		*disp = insn->displacement.value;
-+	}
-+	return insn->length;
-+}
-+
-+/*
-+ * Read the site's instruction bytes from the file and classify them.
-+ * The bytes are identical in every mm, so the copy is mm-independent.
-+ */
-+static int pun_decode_site(struct inode *inode, struct file *file,
-+			       loff_t offset, u8 *copy,
-+			       u8 *disp_off, s32 *disp, bool allow_nop_run)
-+{
-+	u8 buf[MAX_UINSN_BYTES];
-+	struct insn insn;
-+	int ret;
-+
-+	ret = uprobe_copy_from_file(inode, file, offset, buf,
-+				    MAX_UINSN_BYTES);
+ 
++	ret = mtd_ooblayout_count_freebytes(mtd);
 +	if (ret < 0)
-+		return ret;
-+	if (ret != MAX_UINSN_BYTES)
-+		return -EIO;
++		goto err_cleanup_ecc_engine;
 +
-+	if (pun_site_is_nop(buf, allow_nop_run))
-+		return 0;
-+
-+	/* Check single instruction */
-+	if (insn_decode(&insn, buf, MAX_UINSN_BYTES, INSN_MODE_64))
-+		return -EINVAL;
-+	if (insn.length < 1 || insn.length > MAX_UINSN_BYTES)
- 		return -EINVAL;
-+
-+	/* the original bytes verbatim; classify only validates them */
-+	memcpy(copy, buf, insn.length);
-+	return pun_classify_insn(&insn, disp_off, disp);
-+}
-+
-+static int ptwrite_validate_site(const u8 *orig, unsigned long vaddr)
-+{
-+	/*
-+	 * Site installation reads and patches five bytes from one user page.
-+	 * Do not let those page-relative copies cross into an unpinned page.
-+	 */
- 	if (PAGE_SIZE - (vaddr & ~PAGE_MASK) < 5)
- 		return -EINVAL;
- 	return 0;
-@@ -1866,10 +2001,210 @@ static int ptwrite_text_poke(struct arch_uprobe *auprobe,
- 	return err;
- }
+ 	mtd->oobavail = ret;
  
-+/*
-+ * Replace an aligned five-byte NOP run with a JMP in one eight-byte store.
-+ * The trailing three bytes are read from the existing text. We assume
-+ * nobody else is changing it. This is covered by the Intel/AMD "aligned store"
-+ * cross modifying guarantee.
-+ */
-+static int ptwrite_multinop_text_poke(struct arch_uprobe *auprobe,
-+				      struct vm_area_struct *vma,
-+				      unsigned long vaddr,
-+				      unsigned long stub_addr)
-+{
-+	struct mm_struct *mm = vma->vm_mm;
-+	struct write_opcode_ctx ctx = {
-+		.base = vaddr,
-+		.expect = EXPECT_BYTE,
-+		.expect_byte = 0x90,
-+	};
-+	u8 patch[8];
-+	s32 rel;
-+	int err;
-+
-+	if (vaddr & 7)
-+		return -EINVAL;
-+	if (!ptwrite_rel32(vaddr + 5, stub_addr, &rel))
-+		return -ERANGE;
-+	err = copy_from_vaddr(mm, vaddr, patch, sizeof(patch));
-+	if (err)
-+		return err;
-+	patch[0] = 0xe9;
-+	memcpy(&patch[1], &rel, sizeof(rel));
-+	err = uprobe_write(auprobe, vma, vaddr, patch, sizeof(patch),
-+			   verify_insn, true, false, &ctx);
-+	if (!err)
-+		smp_text_poke_sync_each_cpu();
-+	return err;
-+}
-+
-+static int pun_text_poke(struct arch_uprobe *auprobe,
-+				 struct vm_area_struct *vma,
-+				 unsigned long vaddr, u8 e9,
-+				 struct write_opcode_ctx *ctx)
-+{
-+	int err;
-+
-+	err = uprobe_write(auprobe, vma, vaddr, &e9, 1, verify_insn,
-+			   true, false, ctx);
-+	if (err)
-+		return err;
-+	smp_text_poke_sync_each_cpu();
-+	return 0;
-+}
-+
-+static int pun_install(struct arch_uprobe *auprobe,
-+			       struct vm_area_struct *vma, unsigned long vaddr,
-+			       const u8 *orig)
-+{
-+	struct mm_struct *mm = vma->vm_mm;
-+	struct uprobe_ptwrite_page *ptw;
-+	struct uprobe_ptwrite_arch *ptw_a = &auprobe->ptwrite;
-+	struct uprobes_state *state = &mm->uprobes_state;
-+	struct write_opcode_ctx ctx = {
-+		.base = vaddr,
-+		.expect = EXPECT_BYTE,
-+		.expect_byte = orig[0],
-+	};
-+	unsigned long t, page_base, block_off, stub_addr;
-+	s64 site_delta;
-+	s32 jump_rel, disp32, orig_rel;
-+	u8 site_len;
-+	bool found = false;
-+	bool nop_fallback = ptwrite_site_is_multinop(orig,
-+						     ptw_a->allow_nop_run) &&
-+			    (vaddr & 7);
-+	u8 *kaddr;
-+	int b, ret;
-+
-+	mmap_assert_write_locked(mm);
-+	if (nop_fallback) {
-+		hlist_for_each_entry(ptw, &state->head_ptwrite, node) {
-+			site_delta = (s64)vaddr - (s64)ptw->vaddr;
-+			if (site_delta < INT_MIN || site_delta > INT_MAX)
-+				continue;
-+			for (b = 0; b < smp_load_acquire(&ptw->nblocks); b++)
-+				if (!ptw->index[b].pun &&
-+				    ptw->index[b].site_off == (s32)site_delta &&
-+				    ptw->index[b].site_len == 5 &&
-+				    !memcmp(ptw->index[b].site_insn, orig, 5))
-+					break;
-+			if (b >= smp_load_acquire(&ptw->nblocks))
-+				continue;
-+			if (!__in_uprobe_ptwrite(mm, ptw->vaddr))
-+				continue;
-+			return ptwrite_text_poke(auprobe, vma, vaddr,
-+						 ptw->vaddr + ptw->index[b].off);
-+		}
-+		ptw = get_uprobe_ptwrite_page(mm, vaddr, ptw_a->stub_len);
-+		if (!ptw)
-+			return -ENOMEM;
-+		block_off = ptw->cursor;
-+	} else {
-+		memcpy(&orig_rel, orig + 1, sizeof(orig_rel));
-+		t = (unsigned long)((s64)vaddr + 5 + (s64)orig_rel);
-+		if ((s64)vaddr + 5 + (s64)orig_rel < PAGE_SIZE ||
-+		    (s64)vaddr + 5 + (s64)orig_rel >= TASK_SIZE_MAX)
-+			return -EADDRNOTAVAIL;
-+		page_base = t & PAGE_MASK;
-+		block_off = t & (PAGE_SIZE - 1);
-+		if (block_off + ptw_a->stub_len > PAGE_SIZE)
-+			return -ENOSPC;
-+
-+		/* reuse an existing ptwrite page at the target, else map a new one */
-+		hlist_for_each_entry(ptw, &state->head_ptwrite, node) {
-+			if (ptw->vaddr == page_base) {
-+				found = true;
-+				break;
-+			}
-+		}
-+		if (!found) {
-+			if (vma_lookup(mm, page_base))
-+				return -EADDRNOTAVAIL;	/* target page occupied */
-+			ptw = create_uprobe_ptwrite_page_at(mm, page_base);
-+			if (!ptw)
-+				return -ENOMEM;
-+			/* Order page initialization before publishing it to fault readers. */
-+			smp_wmb();
-+			hlist_add_head_rcu(&ptw->node, &state->head_ptwrite);
-+		}
-+	}
-+
-+	site_delta = (s64)vaddr - (s64)ptw->vaddr;
-+	if (site_delta < INT_MIN || site_delta > INT_MAX)
-+		return -ERANGE;
-+
-+	for (b = 0; b < ptw->nblocks; b++) {
-+		if (ptw->index[b].off != block_off || !ptw->index[b].pun)
-+			continue;
-+		if (ptw->index[b].site_off != (s32)site_delta ||
-+		    ptw->index[b].site_len != ptw_a->len ||
-+		    memcmp(ptw->index[b].site_insn, ptw_a->orig,
-+			   ptw_a->len))
-+			return -EADDRNOTAVAIL;
-+		return pun_text_poke(auprobe, vma, vaddr, 0xe9, &ctx);
-+	}
-+	if (block_off < ptw->cursor)
-+		return -ENOSPC;
-+	if (ptw->nblocks >= ARRAY_SIZE(ptw->index))
-+		return -ENOMEM;
-+
-+	stub_addr = ptw->vaddr + block_off;
-+	if (!ptwrite_rel32(stub_addr + ptw_a->jmp_off + 4,
-+			   vaddr + (ptw_a->len ? ptw_a->len : 5), &jump_rel))
-+		return -ERANGE;
-+	if (ptw_a->len && ptw_a->disp_off) {
-+		s64 d = (s64)ptw_a->disp + (s64)vaddr -
-+			(s64)(stub_addr + ptw_a->copy_off);
-+
-+		if (d < INT_MIN || d > INT_MAX)
-+			return -ERANGE;
-+		disp32 = (s32)d;
-+	}
-+
-+	/*
-+	 * A NOP fallback needs a synthetic rel32 at the site, so it uses
-+	 * the full five-byte poke and restore path rather than punning.
-+	 */
-+	site_len = nop_fallback ? 5 : ptw_a->len;
-+	ptw->index[ptw->nblocks].off = block_off;
-+	ptw->index[ptw->nblocks].len = ptw_a->stub_len;
-+	ptw->index[ptw->nblocks].ft_off = ptw_a->ft_off;
-+	ptw->index[ptw->nblocks].pun = !nop_fallback;
-+	ptw->index[ptw->nblocks].orig0 = orig[0];
-+	ptw->index[ptw->nblocks].site_len = site_len;
-+	ptw->index[ptw->nblocks].site_off = (s32)site_delta;
-+	memcpy(ptw->index[ptw->nblocks].site_insn, orig, site_len);
-+	smp_store_release(&ptw->nblocks, ptw->nblocks + 1);
-+
-+	kaddr = kmap_local_page(ptw->page);
-+	memcpy(kaddr + block_off, ptw_a->stub, ptw_a->stub_len);
-+	memcpy(kaddr + block_off + ptw_a->jmp_off, &jump_rel, sizeof(jump_rel));
-+	if (ptw_a->len && ptw_a->disp_off)
-+		memcpy(kaddr + block_off + ptw_a->copy_off + ptw_a->disp_off,
-+		       &disp32, sizeof(disp32));
-+	kunmap_local(kaddr);
-+
-+	if (nop_fallback)
-+		ret = ptwrite_text_poke(auprobe, vma, vaddr, stub_addr);
-+	else
-+		ret = pun_text_poke(auprobe, vma, vaddr, 0xe9, &ctx);
-+	if (ret) {
-+		/* Publish rollback before readers observe the reduced block count. */
-+		smp_store_release(&ptw->nblocks, ptw->nblocks - 1);
-+		return ret;
-+	}
-+
-+	set_bit(ARCH_UPROBE_FLAG_PTWRITE, &auprobe->flags);
-+	ptw->cursor = block_off + ptw_a->stub_len;
-+	return 0;
-+}
-+
- int arch_uprobe_install_ptwrite(struct arch_uprobe *auprobe,
- 		struct vm_area_struct *vma, unsigned long vaddr)
- {
- 	struct mm_struct *mm = vma->vm_mm;
-+	struct uprobes_state *state = &mm->uprobes_state;
- 	struct uprobe_ptwrite_page *ptw;
- 	struct uprobe_ptwrite_arch *ptw_a = &auprobe->ptwrite;
- 	unsigned long block_off, stub_addr;
-@@ -1877,6 +2212,7 @@ int arch_uprobe_install_ptwrite(struct arch_uprobe *auprobe,
- 	s64 site_delta;
- 	s32 rel;
- 	int ret;
-+	int b;
- 
- 	if (!is_64bit_mm(mm))
- 		return -EOPNOTSUPP;
-@@ -1894,7 +2230,29 @@ int arch_uprobe_install_ptwrite(struct arch_uprobe *auprobe,
- 	ret = ptwrite_validate_site(orig, vaddr);
- 	if (ret)
- 		return ret;
-+	if (!pun_site_is_nop(orig, ptw_a->allow_nop_run))
-+		return pun_install(auprobe, vma, vaddr, orig);
- 
-+	hlist_for_each_entry(ptw, &state->head_ptwrite, node) {
-+		site_delta = (s64)vaddr - (s64)ptw->vaddr;
-+		if (site_delta < INT_MIN || site_delta > INT_MAX)
-+			continue;
-+		/* Acquire the published count before reading block metadata. */
-+		for (b = 0; b < smp_load_acquire(&ptw->nblocks); b++)
-+			if (!ptw->index[b].pun &&
-+			    ptw->index[b].site_off == (s32)site_delta &&
-+			    ptw->index[b].site_len == sizeof(orig) &&
-+			    !memcmp(ptw->index[b].site_insn, orig, sizeof(orig)))
-+				break;
-+		/* Recheck the published count with acquire ordering. */
-+		if (b >= smp_load_acquire(&ptw->nblocks))
-+			continue;
-+		if (!__in_uprobe_ptwrite(mm, ptw->vaddr))
-+			continue;
-+		ret = ptwrite_text_poke(auprobe, vma, vaddr,
-+					ptw->vaddr + ptw->index[b].off);
-+		goto out;
-+	}
- 	ptw = get_uprobe_ptwrite_page(mm, vaddr, ptw_a->stub_len);
- 	if (!ptw)
- 		return -ENOMEM;
-@@ -1915,7 +2273,13 @@ int arch_uprobe_install_ptwrite(struct arch_uprobe *auprobe,
- 	ptw->index[ptw->nblocks].off = block_off;
- 	ptw->index[ptw->nblocks].len = ptw_a->stub_len;
- 	ptw->index[ptw->nblocks].ft_off = ptw_a->ft_off;
--	ptw->nblocks++;
-+	ptw->index[ptw->nblocks].pun = 0;
-+	ptw->index[ptw->nblocks].orig0 = orig[0];
-+	ptw->index[ptw->nblocks].site_len = sizeof(orig);
-+	ptw->index[ptw->nblocks].site_off = (s32)site_delta;
-+	memcpy(ptw->index[ptw->nblocks].site_insn, orig, sizeof(orig));
-+	/* Publish initialized metadata before exposing the probe jump. */
-+	smp_store_release(&ptw->nblocks, ptw->nblocks + 1);
- 
- 	kaddr = kmap_local_page(ptw->page);
- 	memcpy(kaddr + block_off, ptw_a->stub, ptw_a->stub_len);
-@@ -1937,15 +2301,63 @@ int arch_uprobe_uninstall_ptwrite(struct arch_uprobe *auprobe,
- 		struct vm_area_struct *vma, unsigned long vaddr)
- {
- 	struct mm_struct *mm = vma->vm_mm;
-+	struct uprobe_ptwrite_arch *ptw_a = &auprobe->ptwrite;
-+	struct uprobes_state *state = &mm->uprobes_state;
- 	u8 cur[5];
-+	int b;
-+	struct write_opcode_ctx ctx = {
-+		.base = vaddr,
-+		.expect = EXPECT_BYTE,
-+		.expect_byte = 0xe9,
-+	};
- 
- 	mmap_assert_write_locked(mm);
--	if (copy_from_vaddr(mm, vaddr, cur, sizeof(cur)) ||
--	    !ptwrite_is_installed(mm, vaddr, cur))
--		return;
-+	{
-+		struct uprobe_ptwrite_page *ptw;
-+		struct uprobe_ptwrite_page *fpw = NULL;
-+		s32 rel;
-+		s64 target;
-+		unsigned long page_base, boff;
-+		int ret;
-+
-+		ret = copy_from_vaddr(mm, vaddr, cur, sizeof(cur));
-+		if (ret)
-+			return ret;
-+		if (!ptwrite_is_installed(mm, vaddr, cur))
-+			return 0;
-+
-+		memcpy(&rel, cur + 1, sizeof(rel));
-+		target = (s64)vaddr + 5 + (s64)rel;
-+		if (target < PAGE_SIZE || target >= TASK_SIZE_MAX)
-+			return text_poke_5byte(auprobe, vma, vaddr, ptw_a->orig,
-+					0xe9, false, false, false, false, NULL);
-+		page_base = (unsigned long)target & PAGE_MASK;
-+		boff = (unsigned long)target & (PAGE_SIZE - 1);
-+		hlist_for_each_entry(ptw, &state->head_ptwrite, node)
-+			if (ptw->vaddr == page_base) {
-+				fpw = ptw;
-+				break;
-+			}
-+		if (fpw)
-+			/* Acquire the published count before reading pun metadata. */
-+			for (b = 0; b < smp_load_acquire(&fpw->nblocks); b++)
-+				if (fpw->index[b].off == boff)
-+					break;
-+		if (fpw && b < smp_load_acquire(&fpw->nblocks) &&
-+		    fpw->index[b].pun) {
-+			u8 orig0 = fpw->index[b].orig0;
-+
-+			ret = uprobe_write(auprobe, vma, vaddr, &orig0, 1,
-+					   verify_insn, false, false, &ctx);
-+			if (ret)
-+				return ret;
-+			smp_text_poke_sync_each_cpu();
-+			return 0;
-+		}
-+	}
- 
--	text_poke_5byte(auprobe, vma, vaddr, auprobe->ptwrite.orig,
--			UPROBE_SWBP_INSN, false, false, false, false, NULL);
-+	return text_poke_5byte(auprobe, vma, vaddr, ptw_a->orig, 0xe9,
-+			false, false, false, false, NULL);
- }
- 
- /*
-diff --git a/include/linux/uprobes.h b/include/linux/uprobes.h
-index b39abd1b057d..917989b018f3 100644
---- a/include/linux/uprobes.h
-+++ b/include/linux/uprobes.h
-@@ -250,7 +250,9 @@ extern struct uprobe *uprobe_register_ptwrite(struct inode *inode,
- 					      const struct uprobe_ptwrite_desc *desc);
- extern bool arch_uprobe_ptwrite_supported(void);
- extern int arch_uprobe_ptwrite_prepare(struct arch_uprobe *auprobe,
--				       const struct uprobe_ptwrite_desc *desc);
-+					       struct inode *inode, struct file *file,
-+					       loff_t offset,
-+					       const struct uprobe_ptwrite_desc *desc);
- extern int arch_uprobe_install_ptwrite(struct arch_uprobe *auprobe,
- 				       struct vm_area_struct *vma,
- 				       unsigned long vaddr);
-diff --git a/kernel/events/uprobes.c b/kernel/events/uprobes.c
-index 20fa16ed8519..c273ec2709e1 100644
---- a/kernel/events/uprobes.c
-+++ b/kernel/events/uprobes.c
-@@ -1515,6 +1515,8 @@ bool __weak arch_uprobe_ptwrite_supported(void)
- }
- 
- int __weak arch_uprobe_ptwrite_prepare(struct arch_uprobe *auprobe,
-+				       struct inode *inode, struct file *file,
-+				       loff_t offset,
- 				       const struct uprobe_ptwrite_desc *desc)
- {
- 	return -EOPNOTSUPP;
-@@ -1595,13 +1597,19 @@ struct uprobe *uprobe_register_ptwrite(struct inode *inode, struct file *file,
- 		ret = -EBUSY;
- 		goto out;
- 	}
--
--	/* Build the mm-independent stub template once, at registration. */
--	ret = arch_uprobe_ptwrite_prepare(&uprobe->arch, desc);
-+	/*
-+	 * Prepare the immutable PTWRITE stub before exposing the uprobe. The
-+	 * copy-instruction flag also keeps the normal XOL preparation path out.
-+	 */
-+	ret = copy_insn(uprobe, file);
- 	if (ret)
- 		goto out;
--
--
-+	ret = arch_uprobe_ptwrite_prepare(&uprobe->arch, inode, file, offset,
-+					  desc);
-+	if (ret)
-+		goto out;
-+	smp_wmb();
-+	set_bit(UPROBE_COPY_INSN, &uprobe->flags);
- 	set_bit(UPROBE_PTWRITE, &uprobe->flags);
- 	consumer_add(uprobe, uc);
- 	ret = register_for_each_vma(uprobe, uc);
+ 	/* Propagate ECC information to mtd_info */
+
 -- 
-2.54.0
+2.55.0
 
