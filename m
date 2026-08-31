@@ -1,155 +1,83 @@
-Received: from mail-oo1-f52.google.com (mail-oo1-f52.google.com [209.85.161.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from ms.lwn.net (ms.lwn.net [45.79.88.28])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD8381CD1E4
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 21:39:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB36139D6DA;
+	Mon, 31 Aug 2026 21:42:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.79.88.28
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788212347; cv=none; b=Av4VQnwxOZFwx64pzeWu0kU4AqQTt1P5/8DakqMZfd6oHUPaTwkULDa8FlQzFtVd5/1PHUb+tMUhKEKxn2HFTYHPhyLjtnXgSZwdRUexJxo5JxD7wUlxw86QgHwLmOS4eR13T0IMmnVGNfReHp4dRMuxz5eRwDXakkSJChWt//A=
+	t=1788212581; cv=none; b=svOe1+TcOHA75jWN/jKDYMVI50Lv2JWD26UYrdHDm1CU014mQk9nBf/2sZcyKNYvIvKF8mmg3NKN/sKgNcID+xViD9KHqowRl66zObZmkpRyPUGSjxdapb/QxBMmaGfPHXYO18VjkXIQyyQjkzoe4p0FvYYxNDipoyF6b69tCOw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788212347; c=relaxed/simple;
-	bh=zjlzbS2BJWiY6Eq17AuZUar8L1Yx02AnbD2wTcey/pA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=HpyTKLHkczrQD12gTLPsANruTLBYpWCOlitgfm1fjGvdtFbTqJQ67++1n1fXwTkCIX6k44DmYJryjIxTNxF9ajT0sRh6majDg4hGqfqqUuiPjxpCk7LXrYILoGwsE6OiP6gTbAZOUSL6ou9BT5FMAh2JHFIa/WvELJ9wXjJn6Es=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=BZgXZ+Y4; arc=none smtp.client-ip=209.85.161.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1788212581; c=relaxed/simple;
+	bh=junU1NXa65WYgAd0yhVrFqA2wEWWdwszY/WGgB/unLs=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=Y7H2hDog9dcAs+fsNOJVt5KW6VGQG6AXt9VKfGXW3BK2XfMlMDQ7b2Rt+z4UKFA2RrW18wH2wkXdspNEANbhLFE1Kewb5DHCToMI1KLwOJULVnOYihQtV8rFtZNjW45t3aksdHM+AQKtfhnerOm5Xj98rGDrCkNB5KLoJg1j8j0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net; spf=pass smtp.mailfrom=lwn.net; dkim=pass (2048-bit key) header.d=lwn.net header.i=@lwn.net header.b=Mv8E17vu; arc=none smtp.client-ip=45.79.88.28
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lwn.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="BZgXZ+Y4"
-Received: by mail-oo1-f52.google.com with SMTP id 006d021491bc7-6b128dd0cb1so185239eaf.3
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 14:39:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1788212343; x=1788817143; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XTar0GJgDTcaGfB5IlxsiO5nthIFPj6JkXO27Y1m4y8=;
-        b=BZgXZ+Y4r3czfHxXhZwDeSHhtlZ0jFTtnGq3Lzuso5AH1uwXI6dngJDegLfJ9pHpUc
-         wOoCazQI6sJ9pW19xK1nm5x8WZwfTa+OXlQWrhvgrWYghgcSTIdPN81k+VYwVAwq0jwv
-         amIvmnC+4obT3yQkYKti0DUZn7VfKz7R1VRyw14a2FtMg4sQGyNthEq2eJbUaabkg2mZ
-         jrBsgVhA7X0oP4zW/V/EAaNB7dQKcEOaqbDBSJ2/SQHj39N5OKsbHQeppXINU9AOSZqa
-         bST88d1P+MWZvk1w5NV2mQj9W1on3Ge+iONzH+SdkiqXQZI6ZcwW313UqBig31tSNZjH
-         dJXA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788212343; x=1788817143;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=XTar0GJgDTcaGfB5IlxsiO5nthIFPj6JkXO27Y1m4y8=;
-        b=cHV6e05HVy05vHcX27n/mYHXzKNR76umV1BRWPA+QCwcuI+hEIjFtIjHD+sdF2+MQA
-         uL0zPrmYsp+50Dby9t2FjcvkBP4v6YscuJsHzDYI1SLWp62Ty/qDRvQSePabdhcWQ4zK
-         +jIsBjfjWkOHCsM6Wp0ikL/qXWw704frQb+dFVZclKCUd0OIIAb64lBSXqW99hVHB/gT
-         OEwuOgAp+Q3DnibQ/jJG94eSYCEqY59SCUI5D8E/8op9ZJG9Aze+TM/BIjLgHfEBIDfM
-         cexxODtkfD4IbV9H7xz5SkwCvyD6UcYmhpURg+bkjvfWrWg1YycOxF0hf0o4fLAXWHNO
-         ysGg==
-X-Forwarded-Encrypted: i=1; AHgh+RqJnf2q3adpUkmM614WsubUH9dzZwd2xp0MQqQAiN1KS6sybjZC/fr9T0dJ76YQnynd1C14Px+MDaBFFY8=@vger.kernel.org
-X-Gm-Message-State: AFuF++mLyOnjtFjBtf3QY4DqneE3ziORRf5uZBTrsqr+4HenKsHNDGLm
-	2ROsc0J4xzKFsk3Jvg5JVjtD2FZdCrfs0kZa5+Gc7w2G+AwyrFJvXsI3HVqF5vg4G40=
-X-Gm-Gg: AR+sD12OB9DBHsLThNYkVtV4oB+En+c1+9xlJ8NH+HmzTqVUNB7VaPU2WXRJ/Fz0zd5
-	8FbFwUdwhDD3pJQ2TAtZVk4HZUqRvjBBGq5Evh7HQJ513Mve+GCw/hVSzjMPQFaVEN5LGoeIdsJ
-	S7Hk6TOIWqVEY+vIIWc6TUgI6LKgUgsgBClsTz6uUq/kpgIpmVISIwg7iB4dX/8h/gYzVJPUqSb
-	GJSEKtnowH1FRHBmBUEJzUrsx+1M1z0XaIHjNXLZ8lY6vfzCa/cmvonpIx5lp7rgvwzZ6dDJiR6
-	Ku/uWhgvbuLusoxA1gwMoxsxrn3f13eBGI5cEj1O6XUwY10y2lfNpAMM6agwJuLs7J799ITJs8N
-	QDmf8Dwm6l9tHiyjZ3H9zP5+I70I5RJP6761rgSAS09qFawZiklo2vKI8PpgKF7vrO8nXjr4OmW
-	ykdmKZYgh4Gkh1cUUViJz5AA8m1hH9mdFvEHFWukfrlEgUvY2cA55t9psGHPR+KiE2m2t9eduU8
-	nUJe6cVU0sZXoVNqrqYAQbNdOiiha1A+pAa
-X-Received: by 2002:a05:6820:200d:b0:6b3:752a:53c9 with SMTP id 006d021491bc7-6b3752a544fmr3291421eaf.2.1788212343577;
-        Mon, 31 Aug 2026 14:39:03 -0700 (PDT)
-Received: from ?IPV6:2600:8803:e7e4:500:778b:da9:a8a1:bc78? ([2600:8803:e7e4:500:778b:da9:a8a1:bc78])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-46ad2a8e3adsm6546087fac.13.2026.08.31.14.39.02
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 31 Aug 2026 14:39:02 -0700 (PDT)
-Message-ID: <a54a8a3a-188c-4487-bf90-557f1d027c39@baylibre.com>
-Date: Mon, 31 Aug 2026 16:39:01 -0500
+	dkim=pass (2048-bit key) header.d=lwn.net header.i=@lwn.net header.b="Mv8E17vu"
+DKIM-Filter: OpenDKIM Filter v2.11.0 ms.lwn.net DDEDC408DB
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lwn.net; s=20201203;
+	t=1788212579; bh=S+yL+5uqwMnCZKuz4QGgRrFXlTFKve9EFRhcn0UbdvU=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
+	b=Mv8E17vuSG81IwIF6bHbU2oL4w1RcEeM1g8BXCBjiUOVndMLlWryc79WNDr7uMu1d
+	 Me3waFnxk7893xaaTHQ9te+nCUis1SAbRCWYJB2ZTf/Ybn69rIIDLvbZx/Gf7xpFHZ
+	 hDBTXz4fbY85Ynyn2wPT9u6wSGE0I7OBZqaIk8/gKiIDTaHowjRL2lBl9qm03/hoJ8
+	 TvOcbI0xV4Khtj8h8U/8dwmSVqnbImGj6k4lW1Rj8czBy3lRzzO8bRBd72qAQShr5D
+	 R0ugNZEdzHwsIyDE8TR0a2YQer01GZo0g2QwjrGJ5E+v2ruF7/Xf6D5DG1aoc+6+HB
+	 nan0Q78e1JHAw==
+Received: from localhost (unknown [IPv6:2601:280:4600:814::1fe])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by ms.lwn.net (Postfix) with ESMTPSA id DDEDC408DB;
+	Mon, 31 Aug 2026 21:42:58 +0000 (UTC)
+From: Jonathan Corbet <corbet@lwn.net>
+To: Nguyen Duc Thinh <ducthinh100812@gmail.com>
+Cc: Weijie Yuan <wy@wyuan.org>, Shuah Khan <skhan@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>, workflows@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, Nguyen Duc Thinh
+ <ducthinh100812@gmail.com>
+Subject: Re: [PATCH v3] Documentation: process: Capitalize Git, Quilt, and
+ Mercurial consistently
+In-Reply-To: <20260824133826.13934-1-ducthinh100812@gmail.com>
+References: <20260824133826.13934-1-ducthinh100812@gmail.com>
+Date: Mon, 31 Aug 2026 15:42:58 -0600
+Message-ID: <871pbege59.fsf@trenco.lwn.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 3/3] iio: adc: ti-ads112c14: add continuous mode
- support
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, Chris Hall <c-hall@ti.com>,
- Patrick Edwards <pedwards@ti.com>, Kurt Borja <kuurtb@gmail.com>,
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260827-iio-adc-ti-ads112c14-continuous-mode-v4-0-1e51a6e20a69@baylibre.com>
- <20260827-iio-adc-ti-ads112c14-continuous-mode-v4-3-1e51a6e20a69@baylibre.com>
- <178812363490.2788519.7648614173312615575.b4-review@b4>
- <20260830232418.10f23462@jic23-huawei>
-Content-Language: en-US
-From: David Lechner <dlechner@baylibre.com>
-In-Reply-To: <20260830232418.10f23462@jic23-huawei>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
 
-On 8/30/26 5:24 PM, Jonathan Cameron wrote:
-> On Sun, 30 Aug 2026 22:00:34 +0100
-> Jonathan Cameron <jic23@kernel.org> wrote:
-> 
+Nguyen Duc Thinh <ducthinh100812@gmail.com> writes:
 
-...
+> Update various process documentation files to properly capitalize "Git",
+> "Quilt", and "Mercurial" as proper nouns when referring to the source
+> management tools themselves.
+>
+> Instances explicitly referring to literal command-line invocations
+> (such as "git log" or "git bisect") have been left lowercase.
+>
+> Signed-off-by: Nguyen Duc Thinh <ducthinh100812@gmail.com>
+> ---
+> v3:
+>   - Fixed the un-staged git commit state; the 'git switch' changes are now officially gone from the diff.
+>   - Disclosure regarding tools: I DID NOT USE ANY KIND OF AI AS AN ASSISTANT IN THIS CONTRIBUTION, the mistake occured because I don't frequently use Git to send patches, I use it to open pull requests so sometimes it feels unfamiliar to migrate.
+>   - Is there any mistakes that I'm still having in this patch because everyone make mistakes.
+>
+>  Documentation/process/1.Intro.rst             |  2 +-
+>  Documentation/process/2.Process.rst           | 18 ++++-----
+>  Documentation/process/3.Early-stage.rst       |  2 +-
+>  Documentation/process/5.Posting.rst           | 10 ++---
+>  Documentation/process/7.AdvancedTopics.rst    | 36 +++++++++---------
+>  Documentation/process/backporting.rst         | 18 ++++-----
+>  .../process/embargoed-hardware-issues.rst     |  2 +-
+>  .../process/maintainer-pgp-guide.rst          | 38 +++++++++----------
+>  8 files changed, 63 insertions(+), 63 deletions(-)
 
->>
->>> +static int ads112c14_buffer_postenable(struct iio_dev *indio_dev)
->>> +{
->>> +	struct ads112c14_data *data = iio_priv(indio_dev);
->>> +	const struct iio_chan_spec *chan;
->>> +	int ret;
->>> +
->>> +	if (!ads112c14_using_drdy_trigger(indio_dev))
->>> +		return 0;
->>> +
->>> +	chan = ads112c14_first_active_channel(indio_dev);
->>> +	if (!chan)
->>> +		return -EINVAL;
->>> +
->>> +	guard(mutex)(&data->lock);
->>> +
->>> +	ret = ads112c14_prepare_channel(data, chan);  
->>
->  | sashiko.dev <sashiko@sashiko.dev>:
->  |
->  | [Severity: High]
->  | Can a user bypass the single-channel limitation and push corrupted data
->  | to the ring buffer here?
->  |
->  | Since ads112c14_validate_scan_mask() allows multiple channels if a non-DRDY
->  | trigger is currently selected, a user could enable multiple channels via
->  | scan_elements, then switch current_trigger to the DRDY trigger before
->  | enabling the IIO buffer.
-> 
->>
->> Hmm. Indeed an interesting corner...  From a quick look it is correct.
->> I'm not sure if this is in practice an existing bug - do other
->> drivers change acceptable channels based on another change such as
->> which trigger is in use?   Either way we need to close this.
->>
->> We can't just go clearing the set bits on setting the trigger as
->> that might cause a regression.  So I think all we can do is add
->> a well commented additional check early in the buffer enable path.
->>
->> Given the behaviour that is causing problems is present in this
->> driver we could either add the protection in fix and rely on that
->> going upstream first, or add it as first patch in this series and
->> let it work its way upstream with this patch.
->>
->> Nice catch to sashiko!
->>
-> 
->  |
->  | Because this driver does not provide an available_scan_masks array, the
->  | mask isn't re-validated during buffer enablement. Since
->  | ads112c14_buffer_postenable() only configures the first active channel,
->  | will the trigger handler push uninitialized heap memory for the remaining
->  | channels when the full array is sent to userspace?
->  |
->  | via: https://sashiko.dev/#/message/20260827-iio-adc-ti-ads112c14-continuous-mode-v4-3-1e51a6e20a69@baylibre.com
-> 
-Ah, I had it mixed up in my mind with update_scan_mode(), which would be
-called at the appropriate time.
+Applied, thanks.
 
+jon
