@@ -1,45 +1,48 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EBB442E425;
-	Mon, 31 Aug 2026 13:33:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8117439F83;
+	Mon, 31 Aug 2026 13:33:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183217; cv=none; b=DBCWm4ZPdQdFQwWA9qA/fMQmby84n5vXiSIArM85SJZeQhIdn5fDWDW1ZegUg1Zi8nRUJ6dghYbSiFZ97cazNnkwcUKyybLryadxsJHW05aZlZx9ievaMUoCG4Ptq/6iLr4w/B1XnDkVV+adbnlFbYT8Gg7KwHnSOHbJht50kAA=
+	t=1788183219; cv=none; b=utmCBGYyuYe9g3lpiqBRwdT/BDq/L8GCFUJJaQXz+Ry/IjuKVUzf6ObHid90A8f1+UWEEXJCfljldeBoRUcmNJVoLrtCK7S8CA1zCp3dLe6dZv55U88QrxENohWA0D1DmYKJ0Q4Cq94qnIwvoGGo14yPMrBABPcorpMYYmGi8mA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183217; c=relaxed/simple;
-	bh=te9lBsObeD2HvG+eVSNqGwRxdEUCCwxOLWUiuE/QCkQ=;
+	s=arc-20240116; t=1788183219; c=relaxed/simple;
+	bh=AM8PKwI9A0Nx7pJTy2BhPnlvxqcGOVjc0qnmTKZ8RgI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=OIdeAn+9Bz7orPfNH60dCgYALuYiG2/ik/vCSjgx+57+CmyJseRsZOZUHD3r3UF0jcxIPm39VXQEIE8stOHbsL509Ht3NJksHWW/4BSCjwDwTVxaOkEsyconNJw+LF+O5ltfJU9uCcnHTujeLJ1DIUKGJz0KaHqBzKKwtHNBvJ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G8K2SMBy; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=eOaaH32ZRcduN90cAcuHaXLMzTonwAONve8ksWpoIm1hJkFnTcbEuVK3ox6xZG34vkF7f4HEkrz84LTkuUqviAwGSDHyAIIG5UJL/fCbY48HoE/VW0zEVQFSkt9WaCTVW4F5IgNJsa7QmAnfJqhwjC3s/ZtNh5i9ZspWiYxkH5E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WUy5UOY3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G8K2SMBy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C8B11F00A3D;
-	Mon, 31 Aug 2026 13:33:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WUy5UOY3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5773A1F000E9;
+	Mon, 31 Aug 2026 13:33:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788183214;
-	bh=pNF0DMU5ekme0mlE1jwe1Y2+gkGX3ce/3LSBh3uopR0=;
+	s=k20260515; t=1788183217;
+	bh=s2WzExxrbNaGa4Q4CVRnZE3JXWCu0m9Sj1QCKWehbB8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=G8K2SMByOS+WBVBAEFkc+VmcOgHnwxyCFZIWbSc6J8fOx1UrIjHecDWk+XeKaABoa
-	 fSEL+1SFth+TYwE4PmllcCcfer0eSbPCYcmS4jIfFChfyevKIpKr+Nrdi8++cL6De/
-	 /5rThEDaKkkGsELksB64nEZ2C/AjXzfjYPG6HSwoTmqawTQ1Lpk2EH7gXEPvSb2sAG
-	 tVMNVvdSS5mzlYtL7KcjF8afyt+QJl7QgaVEaWoIgEZl8eqEMS/72rlGhIF6355Xd1
-	 M0xcMexd451DCJPLLh+oqJF4Awdvz1pxLU8zwSGJLJhtnCYQ+czNgXkudylPx7lD9z
-	 pyo21ceOJWb2A==
+	b=WUy5UOY3h+1/ZdSD2JYEOQ5E3GnsevExIG3tmXuYYea5nUUnJc4RQZ+medCKI+hxB
+	 Fy4vj94zf1vZMJu0Sy/ZoYf7VsC4GVQ1YWi3lYMgfuoW7EK4zqC2WM1HoVV/S4zpiC
+	 EuCtOYW+D7EEj6QA5gDmzlcvpni4PSI77TMdkND2qRRioWhJ+Yn7q9FnOciJ/tY99a
+	 kHuVNY672ZkLjB1n5r1wM8kZeiN32D09FIhQoCuzJO8ThVhDnPnGIU2sYc6xaB4TTK
+	 pv760pg6+fa8U9UOV86zPyugvf9oIOTNwNv/54pC6egDJHdcLozz6xA+2RgmsMWNaT
+	 CEBA0m4DPCMTA==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Thomas Lin <thomas_lin@lecomputing.com>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Mark Brown <broonie@kernel.org>,
+Cc: Ido Schimmel <idosch@nvidia.com>,
+	Nikolay Aleksandrov <nikolay@nvidia.com>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>,
-	rafael@kernel.org,
-	linux-acpi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-spi@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-6.12] spi: dw-mmio: Add ACPI ID LECA0002 for LECARC SoCs
-Date: Mon, 31 Aug 2026 09:20:41 -0400
-Message-ID: <20260831133314.4125787-13-sashal@kernel.org>
+	razor@blackwall.org,
+	davem@davemloft.net,
+	edumazet@google.com,
+	pabeni@redhat.com,
+	bridge@lists.linux.dev,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 6.18-6.6] bridge: Add missing READ_ONCE() annotations around FDB destination port
+Date: Mon, 31 Aug 2026 09:20:43 -0400
+Message-ID: <20260831133314.4125787-15-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -55,419 +58,464 @@ X-stable-base: Linux 6.18.48
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Thomas Lin <thomas_lin@lecomputing.com>
+From: Ido Schimmel <idosch@nvidia.com>
 
-[ Upstream commit 019947c495850461242fdcc0780258805595036c ]
+[ Upstream commit bcdfd9fb109e0c9d76c345b2346b6b75ed1f476d ]
 
-This ID requires a custom initialization function
-dw_spi_hssi_no_dma_init() that sets dws->dws.ip to DW_HSSI_ID.
+When roaming, the FDB destination port can change without holding the
+bridge's hash lock. Therefore, add missing READ_ONCE() annotations in
+both RCU readers and readers that hold the lock. In the latter case, the
+annotation is not needed in places where the FDB entry was already
+validated to be a local entry since such entries cannot roam.
 
-Signed-off-by: Thomas Lin <thomas_lin@lecomputing.com>
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Link: https://patch.msgid.link/20260521-lecarc-acpi-ids-v1-2-ae0ae90b2817@lecomputing.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
+Acked-by: Nikolay Aleksandrov <nikolay@nvidia.com>
+Signed-off-by: Ido Schimmel <idosch@nvidia.com>
+Link: https://patch.msgid.link/20260517115009.175163-1-idosch@nvidia.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-Connection lost, reconnecting to https://agentn.us.api5.cursor.sh
-(attempt 1)...
-Retry attempt 1...
-# Stable Backport Analysis: `spi: dw-mmio: Add ACPI ID LECA0002 for
-LECARC SoCs`
+# Stable Backport Analysis: `bridge: Add missing READ_ONCE() annotations
+around FDB destination port`
 
-**Local tree:** `v6.18.44` (`stable/linux-6.18.y`, detached HEAD at
-`1efe5d048a391`)
+**Local tree:** `v6.18.44` (Makefile: 6.18.44)
 
 ---
 
 ## PHASE 1: COMMIT MESSAGE FORENSICS
 
-### Step 1.1: Subject line
-**Record:** `[spi: dw-mmio]` `[Add]` — Add ACPI ID `LECA0002` for LECARC
-SoCs SPI controller enablement on ACPI/ARM64 platforms.
+**Step 1.1 — Subject line**
 
-### Step 1.2: Tags
-**Record:**
-- **Signed-off-by:** Thomas Lin \<thomas_lin@lecomputing.com\> (author)
-- **Reviewed-by:** Andy Shevchenko \<andriy.shevchenko@linux.intel.com\>
-- **Link:** https://patch.msgid.link/20260521-lecarc-acpi-
-  ids-v1-2-ae0ae90b2817@lecomputing.com
-- **Signed-off-by:** Mark Brown \<broonie@kernel.org\> (SPI maintainer
-  merge tag in final commit)
-- **Acked-by:** Mark Brown (in v1 mbox submission)
-- No Fixes:, Reported-by:, Tested-by:, Cc: stable@
-- Notable: subsystem maintainer ack; no syzbot/user bug reports
+Record: `[bridge]` `[add]` missing `READ_ONCE()` annotations around FDB
+destination port during concurrent roaming updates.
 
-### Step 1.3: Body text
-**Record:**
-- **Bug description:** LECARC SoCs expose SPI via ACPI HID `LECA0002`;
-  without this ID the existing `dw_spi_mmio` driver does not bind.
-- **Symptom:** SPI controller non-functional on LECARC ACPI boots (no
-  driver probe).
-- **Root cause:** Missing ACPI ID in `acpi_apd.c` (clock/platform device
-  creation) and `spi-dw-mmio.c` (driver match + HSSI init).
-- **Init requirement:** Must use `dw_spi_hssi_no_dma_init()` to set
-  `dws->ip = DW_HSSI_ID` (HSSI register layout, no DMA).
-- **Version info:** None explicit; part of v5 series dated 2026-05-21.
+**Step 1.2 — Tags**
 
-### Step 1.4: Hidden bug fix?
-**Record:** No — this is hardware enablement (ACPI ID addition), not a
-regression fix. The function rename (`dw_spi_intel_init` →
-`dw_spi_hssi_no_dma_init`) is cosmetic; behavior is unchanged. Without
-the ACPI entry, hardware simply does not probe; there is no pre-existing
-broken path for current 6.18.y users.
+Record:
+- `Acked-by: Nikolay Aleksandrov <nikolay@nvidia.com>` — bridge
+  maintainer ack
+- `Signed-off-by: Ido Schimmel <idosch@nvidia.com>` — bridge
+  maintainer/author
+- `Signed-off-by: Jakub Kicinski <kuba@kernel.org>` — networking tree
+  maintainer
+- `Link:
+  https://patch.msgid.link/20260517115009.175163-1-idosch@nvidia.com`
+- No `Fixes:`, `Reported-by:`, `Cc: stable@vger.kernel.org`, `Tested-
+  by:`, or syzbot tags
+
+**Step 1.3 — Body analysis**
+
+Record:
+- **Bug:** `fdb->dst` can change during MAC roaming without holding
+  `br->hash_lock`.
+- **Symptom:** Readers can observe a changing destination port; without
+  `READ_ONCE()`, loads are not paired with existing `WRITE_ONCE()`
+  writers and may be inconsistent across a read/use sequence.
+- **Root cause:** `br_fdb_update()` updates `fdb->dst` locklessly on the
+  fast path (`WRITE_ONCE(fdb->dst, source)` at line 1030 in `br_fdb.c`),
+  while several readers still used plain `f->dst` / `dst->dst` loads.
+- **Version info:** None in the message.
+
+**Step 1.4 — Hidden bug fix?**
+
+Record: **Yes.** Although labeled as annotation work, this is a real
+concurrency correctness fix in the bridge forwarding and FDB management
+paths, completing an established `READ_ONCE`/`WRITE_ONCE` pattern for
+`fdb->dst`.
 
 ---
 
 ## PHASE 2: DIFF ANALYSIS
 
-### Step 2.1: Inventory
-**Record:**
-| File | Changes |
-|------|---------|
-| `drivers/acpi/acpi_apd.c` | +6 lines (new `leca_spi_desc`, table
-entry) |
-| `drivers/spi/spi-dw-mmio.c` | +2 lines net (rename + ACPI entry) |
-| **Total:** ~15 lines | **Functions:** none structurally changed;
-rename only |
-| **Scope:** Single-subsystem, surgical ACPI ID addition |
+**Step 2.1 — Inventory**
 
-### Step 2.2: Code flow per hunk
-**Record:**
-1. **`acpi_apd.c` — `leca_spi_desc`:** Adds APD descriptor with
-   `fixed_clk_rate = 400000000` so ACPI scan creates a platform device
-   with correct clock for `LECA0002`.
-2. **`acpi_apd.c` — device ID table:** Maps `"LECA0002"` →
-   `leca_spi_desc` under `CONFIG_ARM64`.
-3. **`spi-dw-mmio.c` — rename:** `dw_spi_intel_init` →
-   `dw_spi_hssi_no_dma_init`; identical body (sets `DW_HSSI_ID`, no DMA
-   setup).
-4. **`spi-dw-mmio.c` — OF table:** Updates `intel,keembay-ssi` to use
-   renamed init (no behavior change).
-5. **`spi-dw-mmio.c` — ACPI table:** Adds `{"LECA0002",
-   dw_spi_hssi_no_dma_init}` so driver probes and configures HSSI IP
-   correctly.
+Record:
+- `net/bridge/br_device.c`: 1 line changed (`br_dev_xmit`)
+- `net/bridge/br_input.c`: 1 line changed (`br_handle_frame_finish`)
+- `net/bridge/br_fdb.c`: 4 lines changed across 3 functions
+- **Total:** ~6 functional lines, 3 files, surgical scope
+- **Functions modified:** `br_dev_xmit`, `br_handle_frame_finish`,
+  `br_fdb_changeaddr`, `br_fdb_delete_by_port`, `br_fdb_clear_offload`
 
-**Before → After:** LECARC SPI ACPI node ignored → platform device
-created + `dw_spi_mmio` probes with HSSI register programming.
+**Step 2.2 — Code flow changes**
 
-### Step 2.3: Bug mechanism
-**Record:** **Category:** Hardware enablement / ACPI ID addition
-(exception category, not crash/leak/race fix). **Mechanism:** Without
-ACPI match, `dw_spi_mmio` never probes; with probe but wrong IP type
-(`dws->ip` defaults to 0 = PSSI via `devm_kzalloc`),
-`dw_spi_update_config()` would use PSSI register field masks instead of
-HSSI — incorrect SPI operation. The init function prevents that.
+Record:
+| Location | Before | After |
+|---|---|---|
+| `br_dev_xmit` | `br_forward(dst->dst, ...)` after RCU FDB lookup |
+`br_forward(READ_ONCE(dst->dst), ...)` — single stable snapshot of
+roaming port |
+| `br_handle_frame_finish` | same pattern on receive/forward path | same
+fix |
+| `br_fdb_changeaddr` | `f->dst == p` under `hash_lock` |
+`READ_ONCE(f->dst) == p` |
+| `br_fdb_delete_by_port` | `f->dst != p` under `hash_lock` |
+`READ_ONCE(f->dst) != p` |
+| `br_fdb_clear_offload` | `f->dst == p` under `hash_lock` |
+`READ_ONCE(f->dst) == p` |
 
-### Step 2.4: Fix quality
-**Record:** Obviously correct — follows existing `HISI0173` pattern in
-both `acpi_apd.c` and `spi-dw-mmio.c`. Reuses proven `dw_spi_intel_init`
-logic. Minimal risk; rename is zero functional change. No API changes.
+**Step 2.3 — Bug mechanism**
+
+Record: **Race condition / data-race correctness fix.** Category (b)
+synchronization. `br_fdb_update()` changes `fdb->dst` without
+`hash_lock`:
+
+```1026:1031:net/bridge/br_fdb.c
+                        /* fastpath: update of existing entry */
+                        if (unlikely(source != READ_ONCE(fdb->dst) &&
+                                     !test_bit(BR_FDB_STICKY,
+&fdb->flags))) {
+                                br_switchdev_fdb_notify(br, fdb,
+RTM_DELNEIGH);
+                                WRITE_ONCE(fdb->dst, source);
+```
+
+Readers on hot forwarding paths and FDB iterators could observe a
+changing `dst` pointer. `br_forward()` handles `NULL` (`if
+(unlikely(!to))`), but a stale non-NULL port causes mis-forwarding
+during roam; FDB iterators can miss or mishandle entries during
+concurrent updates.
+
+**Step 2.4 — Fix quality**
+
+Record: **High quality, minimal, obviously correct.** Matches the
+existing subsystem convention from `3e19ae7c6fd62` and follow-up
+`5424e678f9b30`. Regression risk is very low — only adds documented
+single-load snapshots.
 
 ---
 
 ## PHASE 3: GIT HISTORY INVESTIGATION
 
-### Step 3.1: Blame
-**Record:** `dw_spi_intel_init` introduced in `dc4e6d9fbf9a3`
-(2022-07-13, Intel Keem Bay). ACPI SPI support since `32215a6c6beb8`
-(2018-12-03, `HISI0173`). All prerequisite code long present in 6.18.y.
+**Step 3.1 — Blame**
 
-### Step 3.2: Fixes: tag
-**Record:** N/A — no Fixes: tag.
+Record:
+- `br_device.c:110` and `br_input.c:226`: original code from 2016
+  (Nikolay Aleksandrov), predating `READ_ONCE` annotations
+- `br_fdb.c:473`: from 2019, also predating full annotation coverage
+- Buggy plain loads have been present since before `3e19ae7c6fd62`
+  (2021)
 
-### Step 3.3: Related file history
-**Record:** Recent changes to `spi-dw-mmio.c` in 6.18.y include reset
-error handling (`18a5f1af596e6`), `remove` callback conversion —
-unrelated to this hunk. Standalone patch; companion GPIO patch
-(`LECA0001`) is separate subsystem.
+**Step 3.2 — Fixes: tag**
 
-### Step 3.4: Author history
-**Record:** No prior Thomas Lin commits in `drivers/spi/` or
-`drivers/acpi/` in this tree. First-time contributor for this platform;
-patch reviewed/acked by SPI maintainer.
+Record: Not applicable — no `Fixes:` tag.
 
-### Step 3.5: Dependencies
-**Record:** No code dependencies on other commits. Part of 2-patch
-series (GPIO + SPI) for full LECARC ACPI support, but SPI patch is self-
-contained. `DW_HSSI_ID`, `dw_spi_intel_init`, ACPI framework all
-present. Applies standalone.
+**Step 3.3 — Related file history**
+
+Record:
+- `3e19ae7c6fd62` — introduced `READ_ONCE`/`WRITE_ONCE` for `fdb->dst`
+  broadly (in tree)
+- `5424e678f9b30` — “use a stable FDB dst snapshot in RCU readers”;
+  fixed `br_fdb_fillbuf`, `fdb_delete_local` writers, etc.; `Cc:
+  stable@vger.kernel.org` (in tree)
+- `17071fb5cb9c2` — annotated `fdb->{updated,used}` races (in tree)
+- This commit fills remaining gaps after those fixes
+- **Standalone:** yes, no series dependency
+
+**Step 3.4 — Author context**
+
+Record: Ido Schimmel is an active bridge maintainer (`Reviewed-by` on
+related stable-bound fix `5424e678`). Nikolay Aleksandrov acked.
+
+**Step 3.5 — Prerequisites**
+
+Record:
+- Requires `WRITE_ONCE(fdb->dst, ...)` writers — present since
+  `3e19ae7c6fd62`
+- Requires roaming fast path in `br_fdb_update()` — present
+- No additional commits required; patch dry-run applies cleanly
 
 ---
 
 ## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
-### Step 4.1: Original discussion
-**Record:** `b4 am -l '20260521-lecarc-acpi-
-ids-v1-2-ae0ae90b2817@lecomputing.com'` — thread found (v5, 2 patches).
-Cover: `arm64: Add LECARC ACPI IDs for DesignWare GPIO, SPI`. SPI patch
-acked by Mark Brown, reviewed by Andy Shevchenko. No stable nomination
-found in cover or patch. No NAKs in retrieved thread.
+**Step 4.1 — Original discussion**
 
-### Step 4.2: Reviewers
-**Record:** Andy Shevchenko (Reviewed-by), Mark Brown (Acked-by/Signed-
-off-by), Bartosz Golaszewski reviewed GPIO patch. Appropriate subsystem
-coverage.
+Record: **UNVERIFIED** — `b4 dig -c <commit>` could not be run (commit
+not present locally); lore.kernel.org and patch.msgid.link blocked by
+bot protection (Anubis).
 
-### Step 4.3: Bug reports
-**Record:** None — no user/syzbot reports. Enablement for new LE
-Computing LECARC SoC platform.
+**Step 4.2 — Reviewers**
 
-### Step 4.4: Series context
-**Record:** Patch 2/2 of series. Patch 1 adds `LECA0001` to `gpio-
-dwapb.c` (not in 6.18.44 tree). Full platform needs both; SPI patch
-independently valuable.
+Record: **UNVERIFIED** via `b4 dig -w`. Commit message shows maintainer
+ack from Nikolay Aleksandrov and merge by Jakub Kicinski.
 
-### Step 4.5: Stable list
-**Record:** Could not search lore stable list (bot protection). No
-stable discussion found in retrieved mbox.
+**Step 4.3 — Bug report**
+
+Record: Not applicable — no `Reported-by:` or syzbot link.
+
+**Step 4.4 — Related patches**
+
+Record: Part of ongoing `fdb->dst` concurrency hardening; directly
+complements in-tree `5424e678f9b30`.
+
+**Step 4.5 — Stable list history**
+
+Record: **UNVERIFIED** — lore stable search inaccessible.
 
 ---
 
 ## PHASE 5: CODE SEMANTIC ANALYSIS
 
-### Step 5.1: Key functions
-**Record:** `dw_spi_hssi_no_dma_init()` (renamed from
-`dw_spi_intel_init`), `acpi_apd_create_device()`, `dw_spi_mmio_probe()`,
-`dw_spi_update_config()` (uses `dw_spi_ip_is()`).
+**Step 5.1 — Key functions**
 
-### Step 5.2: Callers
-**Record:** Init called from `dw_spi_mmio_probe()` via
-`device_get_match_data()` when ACPI/OF matches.
-`acpi_apd_create_device()` called during ACPI scan at boot. Boot-time
-device enumeration path.
+Record: `br_dev_xmit`, `br_handle_frame_finish`, `br_fdb_changeaddr`,
+`br_fdb_delete_by_port`, `br_fdb_clear_offload`
 
-### Step 5.3: Callees
-**Record:** Init only sets `dwsmmio->dws.ip = DW_HSSI_ID`. Probe
-continues to `dw_spi_add_host()`. `dw_spi_update_config()` branches on
-`dw_spi_ip_is(dws, PSSI)` vs HSSI paths.
+**Step 5.2 — Callers / reachability**
 
-### Step 5.4: Reachability
-**Record:** Triggered at boot on LECARC hardware with ACPI +
-`CONFIG_ARM64` + SPI enabled. Not userspace-triggered; affects platform
-bring-up only.
+Record:
+- `br_dev_xmit` — bridge device transmit hot path (every locally
+  originated unicast frame)
+- `br_handle_frame_finish` — bridge receive/forward hot path (every
+  forwarded unicast frame)
+- `br_fdb_delete_by_port` — port removal/teardown
+- `br_fdb_changeaddr` — MAC address change on port
+- `br_fdb_clear_offload` — switchdev offload cleanup
 
-### Step 5.5: Similar patterns
-**Record:** `HISI0173` uses identical dual-registration pattern
-(`acpi_apd.c` + `spi-dw-mmio.c`). `intel,keembay-ssi` already uses same
-init via OF. LECA0002 mirrors Keem Bay HSSI-no-DMA pattern.
+All are reachable in normal bridge operation; forwarding paths are among
+the hottest networking code paths.
 
----
+**Step 5.3 — Callees**
 
-## PHASE 6: CROSS-REFERENCING AGAINST LOCAL TREE (6.18.44)
+Record: `br_forward()` dereferences port and forwards skb;
+`br_fdb_find_rcu()` provides RCU-protected FDB entry; concurrent writer
+is `br_fdb_update()`.
 
-### Step 6.1: Buggy/missing code exists?
-**Record:** **YES — code is missing.** `LECA0002` absent from both
-`acpi_apd.c` and `spi-dw-mmio.c`. `dw_spi_intel_init` present (line
-231). `LECA0001` also absent from `gpio-dwapb.c`. Infrastructure fully
-present since 2018–2022.
+**Step 5.4 — User triggerability**
 
-### Step 6.2: Backport complications
-**Record:** **`git apply --check` PASS** — patch applies cleanly to
-6.18.44 without modification. Minor line-number offset only
-(`dw_spi_remove_host` vs mainline `dw_spi_remove_controller` not in
-hunks).
+Record: **Yes.** Any bridge with learned MACs that roam between ports
+triggers `br_fdb_update()` lockless `fdb->dst` changes while packets are
+being forwarded.
 
-### Step 6.3: Related fixes already present?
-**Record:** None. `git log --grep=LECA0002` and `git log --grep=lecarc`
-return no matches in this tree.
+**Step 5.5 — Similar patterns**
+
+Record: Most other `fdb->dst` readers in this tree already use
+`READ_ONCE()` — e.g. `br_fdb_fillbuf`, `br_fdb_test_addr`,
+`br_switchdev_fdb_notify`, `br_arp_nd_proxy.c`. The patched sites are
+the remaining outliers.
 
 ---
 
-## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+## PHASE 6: CROSS-REFERENCE AGAINST LOCAL TREE (v6.18.44)
 
-### Step 7.1: Subsystem criticality
-**Record:** `drivers/spi/` + `drivers/acpi/` — **IMPORTANT** (common
-infrastructure), but fix affects only LECARC ARM64 ACPI platform users.
+**Step 6.1 — Buggy code present?**
 
-### Step 7.2: Activity
-**Record:** `spi-dw-mmio` actively maintained; recent stable-relevant
-fixes (reset handling). Mature driver with established ACPI ID pattern.
+Record: **Yes.** Verified missing annotations at:
+- `br_device.c:110`: `br_forward(dst->dst, ...)`
+- `br_input.c:226`: `br_forward(dst->dst, ...)`
+- `br_fdb.c:473`, `881`, `1663`: plain `f->dst` comparisons
+
+Roaming writer path is present (`br_fdb.c:1030`).
+
+**Step 6.2 — Backport difficulty**
+
+Record: **Clean apply** — `patch --dry-run` succeeded with no conflicts.
+
+**Step 6.3 — Related fixes already present?**
+
+Record: Partial fix `5424e678f9b30` is already in this tree; this commit
+is the remaining coverage, not a duplicate.
 
 ---
 
-## PHASE 8: IMPACT AND RISK ASSESSMENT
+## PHASE 7: SUBSYSTEM CONTEXT
 
-### Step 8.1: Who is affected
-**Record:** LECARC SoC users booting 6.18.y with ACPI on ARM64. Very
-small, platform-specific population. No impact on existing hardware.
+**Step 7.1 — Subsystem / criticality**
 
-### Step 8.2: Trigger conditions
-**Record:** Boot on LECARC with `LECA0002` ACPI node. Deterministic for
-that hardware. Not triggerable by unprivileged users on other platforms.
+Record: `net/bridge` — **IMPORTANT** (widely deployed in servers, VMs,
+containers, embedded networking).
 
-### Step 8.3: Failure mode severity
-**Record:** Without patch: SPI does not work (hardware non-functional) —
-**MEDIUM** for affected users (platform bring-up blocked), **NONE** for
-everyone else. Not a crash/corruption on existing systems.
+**Step 7.2 — Activity**
 
-### Step 8.4: Risk-benefit
-**Record:**
-- **Benefit:** Enables SPI on LECARC for 6.18.y distributors shipping
-  that hardware — aligns with official stable rule allowing device ID
-  additions.
-- **Risk:** Very low — ~15 lines, table entries only, no logic changes
-  beyond rename.
-- **Ratio:** High benefit for LECARC users, negligible risk for all
-  others.
+Record: Actively maintained; recent stable-relevant bridge fixes in this
+tree (UAF, sleep-in-atomic, FDB snapshot).
+
+---
+
+## PHASE 8: IMPACT AND RISK
+
+**Step 8.1 — Who is affected**
+
+Record: All systems using Linux bridge forwarding with dynamic FDB
+learning and MAC roaming.
+
+**Step 8.2 — Trigger conditions**
+
+Record: Host moves between bridge ports; concurrent forwarding while
+`br_fdb_update()` roams `fdb->dst`. Common in Wi-Fi/Ethernet mobility,
+VM migration, and active L2 networks.
+
+**Step 8.3 — Failure mode / severity**
+
+Record:
+- **Forwarding paths:** packet delivered to wrong port (connectivity bug
+  / potential traffic leakage) — **MEDIUM-HIGH**
+- **FDB management paths:** missed or incorrect entry handling during
+  concurrent roam — **MEDIUM**
+- **Kernel crash:** unlikely on these specific hunks (`br_forward()`
+  handles `NULL`); sibling fix `5424e678` addressed a confirmed NULL-
+  deref in sysfs path
+- **KCSAN/data-race:** definite without fix — **MEDIUM** for
+  CI/sanitizer builds
+
+**Step 8.4 — Risk/benefit**
+
+Record:
+- **Benefit:** HIGH for bridge users with roaming; completes an already-
+  stable-nominated fix family
+- **Risk:** VERY LOW — 6-line annotation-only change matching
+  established pattern
+- **Ratio:** strongly favors backport
 
 ---
 
 ## PHASE 9: FINAL SYNTHESIS
 
-### Step 9.1: Evidence compile
+**Step 9.1 — Evidence summary**
 
-**FOR backport:**
-- Official `stable-kernel-rules.rst` line 15: *"must either fix a real
-  bug … or **just add a device ID**"*
-- ACPI ID addition to existing `dw_spi_mmio` and `acpi_apd` drivers —
-  textbook stable exception
-- Small (~15 lines), reviewed, maintainer-acked
-- Applies cleanly to 6.18.44
-- Follows established `HISI0173` pattern
-- Correct HSSI init prevents wrong register programming if probed
+**FOR:**
+- Real concurrency bug in hot forwarding path
+- Small, surgical, maintainer-acked
+- Prerequisites and related stable fix already in v6.18.44
+- Applies cleanly
+- Follows established subsystem convention since 2021
+- Complements already-backported `5424e678f9b30`
 
-**AGAINST backport:**
-- Not a bug fix for existing 6.18.y users
-- Very niche hardware (LECARC)
-- Companion GPIO patch (`LECA0001`) also needed for full platform
-- Must land in mainline first (procedural stable requirement)
-- No user bug reports or crash reports
+**AGAINST:**
+- No syzbot/crash report for these exact sites
+- Primary user impact is mis-forwarding rather than panic
+- Mailing list/stable discussion not verified
 
-**Unresolved:** Whether commit is merged to mainline yet (not in
-6.18.44); lore stable-list search blocked.
+**UNRESOLVED:**
+- Full lore review thread content
+- Whether reviewers explicitly nominated for stable
 
-### Step 9.2: Stable rules checklist
-1. Obviously correct and tested? **PASS** — maintainer ack, reviewer
-   sign-off, mirrors existing IDs
-2. Fixes real bug affecting users? **PASS** — via device-ID exception;
-   SPI non-functional without it on LECARC
-3. Important issue? **PASS (qualified)** — platform hardware enablement
-   for affected users; not crash/security
-4. Small and contained? **PASS** — ~15 lines, 2 files
-5. No new features/APIs? **PASS** — ACPI ID only; no new uapi
-6. Can apply to local tree? **PASS** — verified clean apply
+**Step 9.2 — Stable rules checklist**
 
-### Step 9.3: Exception category
-**Record:** **NEW DEVICE ID (ACPI ID)** — explicitly permitted by
-stable-kernel-rules.rst and analysis guidelines.
+| Criterion | Result |
+|---|---|
+| 1. Obviously correct and tested? | **PASS** — pattern proven in-tree;
+maintainer ack |
+| 2. Fixes a real user-affecting bug? | **PASS** — roaming race in
+forwarding/FDB paths |
+| 3. Important issue? | **PASS** — forwarding correctness on common
+bridge deployments |
+| 4. Small and contained? | **PASS** — 6 lines, 3 files |
+| 5. No new features/APIs? | **PASS** — annotation only |
+| 6. Can apply to local tree? | **PASS** — clean dry-run apply; code and
+writers present |
 
-### Step 9.4: Decision rationale
+**Step 9.3 — Exception category**
 
-For **Linux 6.18.y**, this commit adds an ACPI HID to two existing,
-mature drivers so LECARC SPI hardware can probe and operate correctly.
-It does not fix a regression affecting current users, but stable rules
-explicitly allow backports that *"just add a device ID."* The change is
-minimal, maintainer-reviewed, applies cleanly, and reuses existing init
-logic. Distributors shipping LECARC on 6.18.y need this patch.
+Record: Not a device-ID/quirk/DT/build/doc exception; qualifies as a
+standard concurrency correctness bug fix.
+
+**Step 9.4 — Problem statement for stable users**
+
+When a MAC address roams between bridge ports, `fdb->dst` is updated
+locklessly. The remaining unannotated readers in transmit/receive
+forwarding and FDB cleanup paths can observe a changing destination
+port, causing frames to be forwarded to the wrong port or FDB
+maintenance to behave incorrectly. This patch completes the
+`READ_ONCE`/`WRITE_ONCE` pairing already used throughout the rest of the
+bridge FDB code and in the recently backported `5424e678` fix.
 
 ---
 
 ## Verification
 
-- **[Phase 1]** Parsed subject, tags, body from user-provided commit and
-  mbox
-- **[Phase 2]** Diff analysis: 2 files, ~15 lines; rename verified
-  identical to `dw_spi_intel_init`
-- **[Phase 3]** `git describe HEAD` → v6.18.44; `git blame` on lines
-  231–237 → `dc4e6d9fbf9a3` (2022); ACPI support `32215a6c6beb8` (2018)
-- **[Phase 3]** `git log --oneline -15 -- drivers/spi/spi-dw-mmio.c
-  drivers/acpi/acpi_apd.c` — no LECA commits
-- **[Phase 3]** `git log --grep=LECA0002` / `--grep=lecarc` — no matches
-  in tree
-- **[Phase 4]** `b4 am -l` on msgid — v5 series, 2 patches, Mark Brown
-  Acked-by
-- **[Phase 4]** Read cover letter and mbox — platform enablement, no
-  stable Cc
-- **[Phase 4]** lore.kernel.org WebFetch — blocked by bot protection
-- **[Phase 5]** `grep dw_spi_ip_is` — IP type controls register
-  programming in `spi-dw-core.c`
-- **[Phase 5]** `dw_spi_mmio_probe` — init via `device_get_match_data()`
-  at line 376
-- **[Phase 6]** `grep LECA0002` — not present in tree
-- **[Phase 6]** `grep dw_spi_intel_init` — present at lines 231, 416
-- **[Phase 6]** `git apply --check` — **clean apply confirmed**
-- **[Phase 6]** `grep LECA0001` in gpio-dwapb — not present (companion
-  patch missing)
-- **[Phase 7]** Read `Documentation/process/stable-kernel-rules.rst`
-  line 15 — device ID exception confirmed
-- **[Phase 8]** Impact: platform-specific SPI enablement only
+- [Phase 1] Parsed commit message and tags from user-provided diff
+- [Phase 2] Diff analysis: 6 lines across `br_device.c`, `br_input.c`,
+  `br_fdb.c`
+- [Phase 3] `git describe HEAD` → `v6.18.44`
+- [Phase 3] `git blame` on lines 110/226/473 → pre-2021 code missing
+  annotations
+- [Phase 3] `git show 3e19ae7c6fd62` → original `READ_ONCE`/`WRITE_ONCE`
+  introduction
+- [Phase 3] `git show 5424e678f9b30` → related stable-nominated FDB dst
+  snapshot fix, already in tree
+- [Phase 3] `git merge-base --is-ancestor` → both `3e19ae7` and
+  `5424e678` are ancestors of HEAD
+- [Phase 4] **UNVERIFIED:** lore.kernel.org and patch.msgid.link
+  blocked; `b4 dig` not usable without local commit hash
+- [Phase 5] `grep READ_ONCE.*dst` → most readers annotated; patched
+  sites are outliers
+- [Phase 5] Read `br_fdb_update()` → confirmed lockless
+  `WRITE_ONCE(fdb->dst, source)` roaming path
+- [Phase 5] Read `br_forward()` → confirmed `NULL` port handled safely
+- [Phase 6] Read current sources → buggy plain loads confirmed present
+- [Phase 6] `patch --dry-run` → applies cleanly
+- [Phase 8] Assessed failure mode as mis-forwarding during roam, not
+  typical kernel oops
 
----
+**YES**
 
-**YES**The background git searches finished: there are **no commits** in
-this 6.18.44 tree matching `LECA0002`, `lecarc`, or `dw_spi_intel_init`
-in commit messages. That confirms the LECARC SPI ACPI support isn’t
-present yet and nothing equivalent was already backported.
+ net/bridge/br_device.c | 2 +-
+ net/bridge/br_fdb.c    | 7 ++++---
+ net/bridge/br_input.c  | 2 +-
+ 3 files changed, 6 insertions(+), 5 deletions(-)
 
-That lines up with the earlier analysis: the patch applies cleanly here
-and is a good stable candidate under the ACPI device-ID exception. The
-companion GPIO patch (`LECA0001`) is also still missing from this tree
-if full LECARC ACPI bring-up is needed.
-
- drivers/acpi/acpi_apd.c   | 7 +++++++
- drivers/spi/spi-dw-mmio.c | 7 ++++---
- 2 files changed, 11 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/acpi/acpi_apd.c b/drivers/acpi/acpi_apd.c
-index 49539f7528c64..cd0fcfaeafc75 100644
---- a/drivers/acpi/acpi_apd.c
-+++ b/drivers/acpi/acpi_apd.c
-@@ -181,6 +181,12 @@ static const struct apd_device_desc hip08_spi_desc = {
- 	.setup = acpi_apd_setup,
- 	.fixed_clk_rate = 250000000,
- };
-+
-+static const struct apd_device_desc leca_spi_desc = {
-+	.setup = acpi_apd_setup,
-+	.fixed_clk_rate = 400000000,
-+};
-+
- #endif /* CONFIG_ARM64 */
+diff --git a/net/bridge/br_device.c b/net/bridge/br_device.c
+index 525d4eccd194a..966fac7017225 100644
+--- a/net/bridge/br_device.c
++++ b/net/bridge/br_device.c
+@@ -107,7 +107,7 @@ netdev_tx_t br_dev_xmit(struct sk_buff *skb, struct net_device *dev)
+ 		else
+ 			br_flood(br, skb, BR_PKT_MULTICAST, false, true, vid);
+ 	} else if ((dst = br_fdb_find_rcu(br, dest, vid)) != NULL) {
+-		br_forward(dst->dst, skb, false, true);
++		br_forward(READ_ONCE(dst->dst), skb, false, true);
+ 	} else {
+ 		br_flood(br, skb, BR_PKT_UNICAST, false, true, vid);
+ 	}
+diff --git a/net/bridge/br_fdb.c b/net/bridge/br_fdb.c
+index 6eb3ab69a5140..fe85c8f197e67 100644
+--- a/net/bridge/br_fdb.c
++++ b/net/bridge/br_fdb.c
+@@ -470,7 +470,8 @@ void br_fdb_changeaddr(struct net_bridge_port *p, const unsigned char *newaddr)
+ 	spin_lock_bh(&br->hash_lock);
+ 	vg = nbp_vlan_group(p);
+ 	hlist_for_each_entry(f, &br->fdb_list, fdb_node) {
+-		if (f->dst == p && test_bit(BR_FDB_LOCAL, &f->flags) &&
++		if (READ_ONCE(f->dst) == p &&
++		    test_bit(BR_FDB_LOCAL, &f->flags) &&
+ 		    !test_bit(BR_FDB_ADDED_BY_USER, &f->flags)) {
+ 			/* delete old one */
+ 			fdb_delete_local(br, p, f);
+@@ -878,7 +879,7 @@ void br_fdb_delete_by_port(struct net_bridge *br,
  
- #endif
-@@ -251,6 +257,7 @@ static const struct acpi_device_id acpi_apd_device_ids[] = {
- 	{ "HISI02A2", APD_ADDR(hip08_i2c_desc) },
- 	{ "HISI02A3", APD_ADDR(hip08_lite_i2c_desc) },
- 	{ "HISI0173", APD_ADDR(hip08_spi_desc) },
-+	{ "LECA0002", APD_ADDR(leca_spi_desc) },
- 	{ "NXP0001", APD_ADDR(nxp_i2c_desc) },
- #endif
- 	{ }
-diff --git a/drivers/spi/spi-dw-mmio.c b/drivers/spi/spi-dw-mmio.c
-index 7a5197586919c..8f7afe0e49aea 100644
---- a/drivers/spi/spi-dw-mmio.c
-+++ b/drivers/spi/spi-dw-mmio.c
-@@ -228,8 +228,8 @@ static int dw_spi_hssi_init(struct platform_device *pdev,
- 	return 0;
- }
+ 	spin_lock_bh(&br->hash_lock);
+ 	hlist_for_each_entry_safe(f, tmp, &br->fdb_list, fdb_node) {
+-		if (f->dst != p)
++		if (READ_ONCE(f->dst) != p)
+ 			continue;
  
--static int dw_spi_intel_init(struct platform_device *pdev,
--			     struct dw_spi_mmio *dwsmmio)
-+static int dw_spi_hssi_no_dma_init(struct platform_device *pdev,
-+				   struct dw_spi_mmio *dwsmmio)
- {
- 	dwsmmio->dws.ip = DW_HSSI_ID;
+ 		if (!do_all)
+@@ -1660,7 +1661,7 @@ void br_fdb_clear_offload(const struct net_device *dev, u16 vid)
  
-@@ -413,7 +413,7 @@ static const struct of_device_id dw_spi_mmio_of_match[] = {
- 	{ .compatible = "amazon,alpine-dw-apb-ssi", .data = dw_spi_alpine_init},
- 	{ .compatible = "renesas,rzn1-spi", .data = dw_spi_pssi_init},
- 	{ .compatible = "snps,dwc-ssi-1.01a", .data = dw_spi_hssi_init},
--	{ .compatible = "intel,keembay-ssi", .data = dw_spi_intel_init},
-+	{ .compatible = "intel,keembay-ssi", .data = dw_spi_hssi_no_dma_init},
- 	{
- 		.compatible = "intel,mountevans-imc-ssi",
- 		.data = dw_spi_mountevans_imc_init,
-@@ -428,6 +428,7 @@ MODULE_DEVICE_TABLE(of, dw_spi_mmio_of_match);
- #ifdef CONFIG_ACPI
- static const struct acpi_device_id dw_spi_mmio_acpi_match[] = {
- 	{"HISI0173", (kernel_ulong_t)dw_spi_pssi_init},
-+	{"LECA0002", (kernel_ulong_t)dw_spi_hssi_no_dma_init},
- 	{},
- };
- MODULE_DEVICE_TABLE(acpi, dw_spi_mmio_acpi_match);
+ 	spin_lock_bh(&p->br->hash_lock);
+ 	hlist_for_each_entry(f, &p->br->fdb_list, fdb_node) {
+-		if (f->dst == p && f->key.vlan_id == vid)
++		if (READ_ONCE(f->dst) == p && f->key.vlan_id == vid)
+ 			clear_bit(BR_FDB_OFFLOADED, &f->flags);
+ 	}
+ 	spin_unlock_bh(&p->br->hash_lock);
+diff --git a/net/bridge/br_input.c b/net/bridge/br_input.c
+index 2cbae0f9ae1f0..470615675bdc0 100644
+--- a/net/bridge/br_input.c
++++ b/net/bridge/br_input.c
+@@ -223,7 +223,7 @@ int br_handle_frame_finish(struct net *net, struct sock *sk, struct sk_buff *skb
+ 
+ 		if (now != READ_ONCE(dst->used))
+ 			WRITE_ONCE(dst->used, now);
+-		br_forward(dst->dst, skb, local_rcv, false);
++		br_forward(READ_ONCE(dst->dst), skb, local_rcv, false);
+ 	} else {
+ 		if (!mcast_hit)
+ 			br_flood(br, skb, pkt_type, local_rcv, false, vid);
 -- 
 2.53.0
 
