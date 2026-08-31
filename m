@@ -1,71 +1,75 @@
 Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com [209.85.167.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FCCE44A403
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 14:24:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DC1F44A3F8
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 14:24:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788186249; cv=none; b=CHEWgnKnvyUX3viB1g7mjQj2LI1Gu88xhiZA4BEmtSaVIdNPNtaw3g2XiOjw9UpkqLZURZXbLDufQnkgxlTENDQMl0JCc/ihTPGJPUhtWtZ97uWPpBOkFF4C9mJOhDwmp8nyb/Z6oTJa/ahF6Ahiqla03UxtkkkXrmQLsS1WmAw=
+	t=1788186250; cv=none; b=iyeNT4hgKG6ebNJD9gCZdZaNjVhj7eU+pGVGPb136TXNim/3XlYhJgm7036K8DxJEfELMdM6OuMhcNCeFa6GLHqIyYEs3bdq9/gKrCgY3ST/3u22KDuCZqScaHVKFYna8LrQRgFQCarWWutuvgXO8gEdBNGYifQQovfXB9JEEJA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788186249; c=relaxed/simple;
-	bh=9mlgq9kswA383J6vVWIkDQP86PxyZMrEWKdREvtgIGw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Xh7eOt0at3Tvclam5fHTShflFOGmdzXFIbHiDdgzxiZBLg/yS0C/0kTfZDngJhvj0chg48vgncd00FXX/oCKW3hUJ5tGVMQ9PqlvTW+QNENzuB83dPnyh04e9NgE2zpvKitn1HnWal9upUSE3309xi3DqUpDsI6W/xH1pnzRgpI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ffjybD54; arc=none smtp.client-ip=209.85.167.51
+	s=arc-20240116; t=1788186250; c=relaxed/simple;
+	bh=O2SVbTHvj0WJUPLNYYsmSk7cCIYmPbczbK+T8dhHd0o=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=UAKLsiWGIXj6h9fZLdb/NjWALmR588ylYOad0mEjNpV45/amQedcW51Jo89vs/MxPYsHxFK2zLqL9s1vWAMo/+bPwXxFchr7IsTcU4sXLuFPUTEEsykDfhsu41rpfN8+2mQ34oxouW8aeiACiRTZkUGjyB5pHDoKqHA3FD+8oPQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qiX/c8zH; arc=none smtp.client-ip=209.85.167.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ffjybD54"
-Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5b4af730f8aso3758422e87.1
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 07:24:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qiX/c8zH"
+Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5b0115b9e17so3680909e87.0
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 07:24:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788186245; x=1788791045; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=JaVEwReoXhJ6W9rZ7l7CMc6ajDjovCb+0lJwxGj7ri8=;
-        b=ffjybD54nHnXlXN1sT2mX6p4xE0jveme0aKApRR/mYmau4Tevgv3txXcW/KQzL88He
-         xqvl78guR0blgcHBUWMdFf8BcELMeJ4fJbjY5ug1ljG6ps08N/fcZJBECcqqXpgSdzg2
-         PVGZcdPmfBHgmLnMiyxTPWXcKWx95Xh5kmPGnuFQMPGKrx7FVdiuPo8nWVnYTXO0V/BZ
-         +Ktp0gkQ/ayEAdqXb9hH4ymIb9WuG+lbGO6aiM0vkY84od6/o20LoAzKY/jiu8FLm7jA
-         i0n1QYNZ1wm3m+urBXhBFGviZ0+BGgMpwSqzcap2VyD5sfVLcVrzFhZO1Z5VaH9vX+ls
-         NPyQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788186245; x=1788791045;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1788186247; x=1788791047; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=JaVEwReoXhJ6W9rZ7l7CMc6ajDjovCb+0lJwxGj7ri8=;
-        b=oFuTsNn9EJ0AGpZelhfauccU/vq8mA+77OxGsrN+DspcMvWlip7oHddYqv27e2Gi/5
-         RvackE1VP1zlI8fYbTrp43FnH+4iSmYIMkLJOmpbZIS+0e+zxWUsDCQWYUQ+17DA0WWK
-         AXiEC92cnZ0zq3sLH1pJUKXk1wr9bIV683ZsEFsuZWJEaaX8RQKH1irlTdbEU4NJSENW
-         71PZ0xgdW1S0qCB89NqAqbU/OQuP39T6aeEjJOkZiwXW1cmSN8PTX4HaydKUYkJJYv7c
-         KpBTgtfDmpMPB3OHC+g72JEnMVg1MbxuG5PmDWHOmHBscsiQbRPd8gwC5vgS7QIwZ/lf
-         YDuA==
-X-Gm-Message-State: AFuF++mJzK+kb1jdQ54jLIo8fKYSnV3vSpgImLXvE73uDnzGNY0mHupm
-	ChzbhBjndDZyU+/ch5xYFIEMf6SArN8TawLihJvLtsNqQndv1bbPYBGo+x4cJAtc
-X-Gm-Gg: AYBFou3tAgK+2OSriogIG45fxGHkZMa47LoyiEQTul9tad5unSw9DxB49Ftso4oqqcQ
-	r4++Q2sFmKXbuohL0WDw3YznBd5qJ5VIQJav6bWiLWH5wGM72/H+9rbYlRejGoD7nh3ivg0pqqz
-	P6YshA63ZRMjNytal4PaYH7a6pjOUuiT9Kmp7EOsf37gUyPmXXADx3XHSpJrnYEfNDvbFMmeHt4
-	ZbR4MVEr6BIsc73O1B6PfBapjgASKQkJk3zHppHxwfhXCJVHbvX7fMZx1LZiLTEpzYrVdkWa0vK
-	9EpAbllUtlGDFQUAA/30By1BPQHVuEvI5uFo/mjko1PLUKwrFQ3PPFEerX10VQGNp8mhjytOMxL
-	wWZ2IE0eCzZb1RJoqb02EDEEfZ+zogvHAxNBd2YwrbgfHM9hJMYozPz3m+zFdG70oIYmxprQS6A
-	ro28w5UyGcOPfK4jXXkBruMtfO8CC687gZhmWCvleZJTLxpFelUszLLEAtzSWHWUdcug==
-X-Received: by 2002:a05:6512:244f:b0:5b4:9d34:eb7a with SMTP id 2adb3069b0e04-5b5e68ec8ddmr7131619e87.12.1788186245049;
-        Mon, 31 Aug 2026 07:24:05 -0700 (PDT)
+        bh=XUygTJjgNQhdqNUISUim/L+lF4+6MskNxbn6GUClEFw=;
+        b=qiX/c8zHFl0he9VhW1RAbcXmYQ/vRKc5vtwINgGOHk7hJTbz4LFN+WNlOFzzQdXGAI
+         hpD74OFvTtS2hltKI3j/AonhohqwqWpWl8i7Xoo+yzGMNKVu7EqKvhYtRA8gaWhKMbFp
+         mo3HrogZetSd7bnILj1ilKGM31Uru6rKJGH4MOq0TstQykFAVvfHIGjyfh5QWEGKUogt
+         StkSMDQs7LjTQQPxfQtxGwIkKC0bdg95PGYbF4W1QgE96oeN10slepRPmw+1rPsRAJbI
+         ho7U0N07eu6Oa1CQGIhOnnySBf2HEhL5xE/YEdvHi/vxgdesagUBRimB3ojl3DKVoIyr
+         7E+Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788186247; x=1788791047;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=XUygTJjgNQhdqNUISUim/L+lF4+6MskNxbn6GUClEFw=;
+        b=bZAyB2npnbAQa5CDRwsUbEIVsXvryIbnIZ81zPUB5FdhuTLQG7WLp+D9paKnsIy/Rk
+         IFIqauBFTLzlai+1ypG76oiyjOF4ajpb0dbRL2q3oGihn+94VKozqzTgDr+w9H1AruPb
+         0TgbQQMGoIYtStuNMCpbCGXle0IjBaY0NyJU5dQp0Hxmmt/bMPQZ6y+fq4vlI/S7qmn4
+         Jwl1zgXWfaaPMBDR5H+ROL4dvH/fY889rF7zBLrr+PGg2nK4ydZOmVMamWk8eUgnvAUE
+         Xw15gZR3BdoIL1egnmwJUONTR2enF9FdhlueoaHDf8R63lQLLtoNsEE5s1DyZczfRHDF
+         PSeQ==
+X-Gm-Message-State: AFuF++kPCMw3Bi3JO6iVwAIoRxaTR318tA5RTjoaS2jPMTRcUywcCxEL
+	wPwgTN5UefS8oLTdHJy9WhNt9t+VCvlBvvOhNhaBAqxpM8nUM55XzueA3Gk1CdoY
+X-Gm-Gg: AYBFou0G5TmNQnnxJ+1KM9JlI1In+0d2ZppFz604I/GGe5tPaEttjiETl0Oxw3uREtB
+	jrRIRkSADwImbl7MjcgodX9IiRDyA6eGWRGJeE3x/MssDgkGBei+EW+iUVshcLt0ZOTol4ajagU
+	dunbNv1e9n6si7OY3yQ4MnDtulsRlCcFN9+pAnPc+PdpcjDuvyggbrlIkcDlgzq8bH4t/JlGNp5
+	WmiJiboiiGhWB2iC+nyNgkTRIaigRJktEjV7OqlUSw+XGSCvBXBezd/NMnrVjfEIYjZIb8W17Z+
+	v/cpMKuoyisQLGohNnYP4Katv2625In7qxWWxSJ3RFSXGj5QsXuZv6f1Bfvi1Up61qIMkKGeyGm
+	H60xI4JHRdDsRT0VIZvtXW3X1LzW6h3yU8ldyP0uMWg1959lVdaDamTbMaoujUewXXKdQzQoYge
+	3Q8vE+zBDAwkGP4YS4vIljM7gCpw9Tj6yCziY2mlDmpbPsQqQoDWu+zXLOn252bpgIeQ==
+X-Received: by 2002:a05:6512:4605:b0:5b2:a6e6:8d83 with SMTP id 2adb3069b0e04-5b5e6b07d24mr8649241e87.23.1788186246778;
+        Mon, 31 Aug 2026 07:24:06 -0700 (PDT)
 Received: from kali ([37.114.129.26])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b5e89c5c8fsm2292919e87.9.2026.08.31.07.24.03
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b5e89c5c8fsm2292919e87.9.2026.08.31.07.24.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 07:24:04 -0700 (PDT)
+        Mon, 31 Aug 2026 07:24:06 -0700 (PDT)
 From: Tabriz Hasanli <cybersec467@gmail.com>
 To: linux-kernel@vger.kernel.org,
 	ntfs3@lists.linux.dev
 Cc: almaz.alexandrovich@paragon-software.com,
 	w@1wt.eu,
 	Tabriz Hasanli <cybersec467@gmail.com>
-Subject: [PATCH 0/1] fs/ntfs3: fix OOB writes in do_action() log replay via unvalidated trailing index entry
-Date: Mon, 31 Aug 2026 10:23:43 -0400
-Message-ID: <20260831142344.472594-1-cybersec467@gmail.com>
+Subject: [PATCH 1/1] fs/ntfs3: validate target index entry in check_if_alloc_index/check_if_root_index
+Date: Mon, 31 Aug 2026 10:23:44 -0400
+Message-ID: <20260831142344.472594-2-cybersec467@gmail.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260831142344.472594-1-cybersec467@gmail.com>
+References: <20260831142344.472594-1-cybersec467@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -75,49 +79,137 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Hi Willy, Konstantin,
+check_if_alloc_index() and check_if_root_index() walk the index entry
+chain to verify that lrh->attr_off lands on a valid entry boundary.
+However they have two gaps:
 
-Thank you for the quick and detailed feedback.
+(a) They do not stop at de_is_last() — they walk past the last real
+    entry into the trailing gap between the last entry's end and
+    hdr->used, which check_index_header() leaves unvalidated.
 
-First, apologies about the display name — it was a placeholder from
-when I first created the account.  I have since updated it to my real
-name: Tabriz Hasanli.
+(b) They do not validate the TARGET entry at attr_off — the walk exits
+    as soon as o == attr_off without checking the entry's size, flags,
+    or bounds.
 
-As requested, here is the fix as a proper git format-patch against
-mainline (cf72cbb39).  A single patch addresses both check_if_alloc_index()
-and check_if_root_index() since they share the same root cause and
-the same fix pattern.
+This allows attr_off to point to an attacker-controlled "fake entry"
+in the trailing gap of a crafted NTFS image's $LogFile.  Four do_action()
+cases then use the unvalidated entry:
 
-Per your note that crafted-FS issues are outside the private
-disclosure threat model, I am sending this to the public lists.
+  SetIndexEntryVcnAllocation / SetIndexEntryVcnRoot:
+    de_set_vbn_le() writes 8 bytes at e + e->size - 8.
+    Crafted e->size yields an 8-byte OOB write up to ~64KB past the
+    buffer.
 
-Summary of the bug:
+  UpdateFileNameAllocation / UpdateFileNameRoot:
+    memmove() writes 56 bytes at a fixed offset from e.  If e is near
+    the buffer end, this overflows by up to 0x50 bytes.
 
-check_if_alloc_index() and check_if_root_index() do not stop at
-de_is_last() and do not validate the target entry at attr_off.
-This allows a crafted NTFS image's $LogFile to direct four
-do_action() write operations to an attacker-controlled fake entry
-in the trailing gap, producing heap OOB writes of 8 or 56 bytes
-during mount.
+The sibling DeleteIndexEntryAllocation case (commit fc4626bb3656) and
+UpdateRecordData cases (commit 3e127829e57f) already carry per-site
+guards for the same class of attack; this patch closes the gap at the
+validator level so all current and future callers are protected.
 
-These are variant siblings of the view.data_off fix (3e127829e57f)
-and the DeleteIndexEntryAllocation fix (fc4626bb3656).
+Fix both functions to:
+  - stop walking at de_is_last()
+  - validate the target entry: size is 8-byte aligned, >= minimum
+    entry size, and does not extend past hdr->used
 
-Confirmed with userspace ASan harnesses using kernel-faithful
-512-byte INDEX_BUFFER geometry (fix_off=0x28, fix_num=2, full
-check_index_buffer gate chain).  Harness source files are
-available on request.
+Found by static source analysis and confirmed with userspace ASan
+harnesses transcribing the kernel's exact validation logic on a
+512-byte INDEX_BUFFER with faithful check_index_buffer() geometry.
 
-Thanks,
-Tabriz
-
-Tabriz Hasanli (1):
-  fs/ntfs3: validate target index entry in
-    check_if_alloc_index/check_if_root_index
-
+Signed-off-by: Tabriz Hasanli <cybersec467@gmail.com>
+---
  fs/ntfs3/fslog.c | 42 ++++++++++++++++++++++++++++++++++++------
  1 file changed, 36 insertions(+), 6 deletions(-)
 
---
+diff --git a/fs/ntfs3/fslog.c b/fs/ntfs3/fslog.c
+index ed50c1d0c..d73e3ff1e 100644
+--- a/fs/ntfs3/fslog.c
++++ b/fs/ntfs3/fslog.c
+@@ -2953,10 +2953,13 @@ static inline bool check_if_root_index(const struct ATTRIB *attr,
+ 	u32 o = PtrOffset(attr, hdr) + de_off;
+ 	const struct NTFS_DE *e = Add2Ptr(hdr, de_off);
+ 	u32 asize = le32_to_cpu(attr->size);
++	u32 used = le32_to_cpu(hdr->used);
++	bool has_subnode = hdr_has_subnode(hdr);
++	u32 min_de = has_subnode ? sizeof(struct NTFS_DE) + sizeof(u64)
++				: sizeof(struct NTFS_DE);
++	u16 esize;
+ 
+ 	while (o < ao) {
+-		u16 esize;
+-
+ 		if (o >= asize)
+ 			break;
+ 
+@@ -2964,11 +2967,24 @@ static inline bool check_if_root_index(const struct ATTRIB *attr,
+ 		if (!esize)
+ 			break;
+ 
++		if (de_is_last(e))
++			break;
++
+ 		o += esize;
++		de_off += esize;
+ 		e = Add2Ptr(e, esize);
+ 	}
+ 
+-	return o == ao;
++	if (o != ao)
++		return false;
++
++	/* Validate the target entry itself. */
++	esize = le16_to_cpu(e->size);
++	if (!IS_ALIGNED(esize, 8) || esize < min_de ||
++	    size_add(de_off, esize) > used)
++		return false;
++
++	return true;
+ }
+ 
+ static inline bool check_if_alloc_index(const struct INDEX_HDR *hdr,
+@@ -2978,10 +2994,12 @@ static inline bool check_if_alloc_index(const struct INDEX_HDR *hdr,
+ 	u32 o = offsetof(struct INDEX_BUFFER, ihdr) + de_off;
+ 	const struct NTFS_DE *e = Add2Ptr(hdr, de_off);
+ 	u32 used = le32_to_cpu(hdr->used);
++	bool has_subnode = hdr_has_subnode(hdr);
++	u32 min_de = has_subnode ? sizeof(struct NTFS_DE) + sizeof(u64)
++				: sizeof(struct NTFS_DE);
++	u16 esize;
+ 
+ 	while (o < attr_off) {
+-		u16 esize;
+-
+ 		if (de_off >= used)
+ 			break;
+ 
+@@ -2989,12 +3007,24 @@ static inline bool check_if_alloc_index(const struct INDEX_HDR *hdr,
+ 		if (!esize)
+ 			break;
+ 
++		if (de_is_last(e))
++			break;
++
+ 		o += esize;
+ 		de_off += esize;
+ 		e = Add2Ptr(e, esize);
+ 	}
+ 
+-	return o == attr_off;
++	if (o != attr_off)
++		return false;
++
++	/* Validate the target entry itself. */
++	esize = le16_to_cpu(e->size);
++	if (!IS_ALIGNED(esize, 8) || esize < min_de ||
++	    size_add(de_off, esize) > used)
++		return false;
++
++	return true;
+ }
+ 
+ static inline void change_attr_size(struct MFT_REC *rec, struct ATTRIB *attr,
+-- 
 2.53.0
 
