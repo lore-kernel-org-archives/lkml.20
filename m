@@ -1,112 +1,130 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1927DE571;
-	Mon, 31 Aug 2026 00:42:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFE41270575
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 00:47:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788136921; cv=none; b=ZFKd5CANgxDWueE5Dg4cP3QoHDbJbfShZuKqOEFYVE7J0syC1538QgOCS0lroAsqZ6mfYNJEprmvaBIGSh6cD3W0rQwx6cBkoLci19YO/X4XxwgtIJ8aEHPhcXu48q6f+tsTPt/el4cHFFBGNFuhdLcc7qulHhgNITKKz5HMcno=
+	t=1788137249; cv=none; b=j5/QcMBgiJ3ul7/ap8+KZmCTTjC8aWrxEHCYxLkdbpVlfJCxaTeIgeF41dAlW1vPjiM0ExvAZSxDTsXwPTqzOFwzpC3JCzRbQkMSEhyrW9jrLHxjnTwZd2UtPt3IgQbLf7mXufutN5Ejr2DynChuDTHcoIgfZZzBo2T1hrPpwBo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788136921; c=relaxed/simple;
-	bh=Va2nVMvF4tdrSfcTdmGWvv6ZdBLUhrd9nazicKWzj6o=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=stQKuwTSuqU2Jq6lw4AxKbR8Rql/BAco5zr2tvuuUrerCUPoBsHBMEW8CJcvbLqpFGzG1fi/f8oDjFNg2TWboIChy9NJiagAh15PhG5YYtDNmtOghYcO/f56B0hkRCJbWF9OsfGugF2Zcy9m2shfUYHBubLPgGK1MfaLu4JpD5c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M/ktwCnq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788137249; c=relaxed/simple;
+	bh=MQpEu3wDAHZbqdrzHyo2zLigoYyYqflCjqnCr9jAqkY=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=QvFOhwf7NqTfXZBJ+P7us6Li/U56nGNDo0csBCQc/4iSdd9jB3/+96v3sVgeimknMmbN6jdv3triaRPuHR0Gz++XAwDgVukeDYy1SDu/h+TocdofhPyuanrTfuCk9ee5yYp6oziaYkCsly6KCVOGN75mky4ERAA0EiKAt1qJ2gc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sTOl0lfW; arc=none smtp.client-ip=209.85.216.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M/ktwCnq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A86CF1F000E9;
-	Mon, 31 Aug 2026 00:41:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788136919;
-	bh=OLOC2S+02tg6JAR36TaW4fxJhC3mIL2wPvhEoBNhqvY=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=M/ktwCnq1UxuL7TL4qCoxqGLHXcCfguwsMXygm3xLLRDvB0O2ds5zrFVQV4iGRHaz
-	 Nhln/XTw7IhmUqW9saowdouhuGxKcdhdeCOeMAJrSgbH2TzFbSOBaNa9NyBdn0bKo1
-	 NTJ+sFQn7y6dOhlfnI5D0VV0Ez0kIgPflVWW0+N5OTcr7WtB9EHggg/vtTSLpoHsGn
-	 A466N9LKXS1daiQEUKEePDQ38JbGje0ZiumCUA8oyRdf21lKbomd8cHhDGJenyH3v1
-	 /WWKM9mD51w/M/1aQRROT7LS7YBL3lrhKKGhY6BtHtN7g1IJcqli+tAbq1W2IJAtDS
-	 2n/5ZuJj99a4A==
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sTOl0lfW"
+Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-398ba166ce3so959623a91.1
+        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 17:47:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788137247; x=1788742047; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=A+W4QAJjuVkYQEhPreimIx5fbHXfcE4i26hZPrxZmPw=;
+        b=sTOl0lfWB+j9Z1+HhiIzgWqta9eoVGPwE44bsv0bAAVGo5YOp3/I1/HdMwrMHmsR9T
+         Dwsflgf5gV5mMIWXtRzTcDqxY6d5G1zhZE3WaQM2KxEe6169OYLUNIoJQPbM4ZsyPdZu
+         JBHjWKIzxqtTU1ldExwzuXhlxT8c3DzJpK33b1stIPUKPfhPjQWNTtgT8TGR1vw2lzKD
+         rGYXujpudf6zrubAz6T9eQwVG+0u3+jrkRCzDL4jD+6CcdEbCCWE2gi1Zbhs+h9deJJV
+         TRzu19w9zIAH49WQjoDykoVMnYP6rARQqdXWBFfDPnKw29PpeFrUlnOQoTuUbZvac1qO
+         NpkA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788137247; x=1788742047;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=A+W4QAJjuVkYQEhPreimIx5fbHXfcE4i26hZPrxZmPw=;
+        b=UIpXQdmnUR2hJKviHe0x/i4iSR5Kb9eak1vxba8bXlpjoP6fZaBIFV5E+na3N4AmQ7
+         Qn1t8ruYXgDosH2Buum/D4ce/4hE+O59D6mLfc1NF4AX5UNaQnISjHlsKJy1h2PBTkcy
+         UQw2YJsDArx6WJQkq49lycQRwchj6MmDLRQ7clFoH2OpQGnmIX98cs6G5/PqSWCakXSM
+         Ud0zUmeRwCQfJunaH/YjeKPwHy1DdHckNlOW/sK3yij0c/u4L2RkWFSSfznZ1sNp6Tke
+         DyavPHUqaeGnj68B2OK88Px8ZC7U6ZIstPd4Gr/GPK6hQp7IH4wbvYKRUN7f36/DCDfe
+         p2ww==
+X-Forwarded-Encrypted: i=1; AKwUvBzpUtbAStNptHHt9PWxvuUzNxKymmvQJVjFYzzaR6jHTPvXArS4aS34qMqdQcGRL9aIDi+DwX1m7y8pdHk=@vger.kernel.org
+X-Gm-Message-State: AFuF++ksYepCyQiFh+RkC4z26ZfSBFQiLbbhJ5k9Uf48hELmxf3cEKpD
+	BSXR0lOEuZjZd8v5iOTGRot9OpugHGgdT1day3yFzPRshV61Xm9vF/vxYTLBuA==
+X-Gm-Gg: AYBFou36ZHcYrUh7v0MFa1lcbYRUy/PvmoQy/4teyoXoBEgE8AjGXuXWKFHwDF6hvMI
+	WEvooIaS90nqKwyYI81mUUFDyUAH6qThySSLowAKSfUax8L7AgrOY5xZZm2QqNIMHuLP3aNRLII
+	9vEWf+BAdxHsQeLI1glrTSjoYFuuA8F7loNOpzViyAJ1Y+FGEve7D6diKegi+QbaOPHYqZjzMYY
+	XC0arSWG82d1EfBUT3NCHt6ZHV4IwmpfSZErSOA0oBUWBG0yKtWdlei2IuRK3FBneIRoLzY3HES
+	DiqvE8kUjzgW+mXZsMzVJXaWrpY8ynk53yKmxb4yGfTrLejqz20v5V8WLXkYp0LlMEUThDIuur7
+	sXg/LY7Qei2WGP+ibxX+ZsMjsm8Qe1QyBV6sZYHH5vgJbjMAX5nW96v1awHfL6RTkybXg22DJXJ
+	ZmVZKYE3oJodMfbgr7en+1Id+l2cj7Z8SK4BpJ/eQxniXyoTxCHvz4NKXOvBeobh+ve0uhC0+1q
+	aAnHQuaOUzuZm6o39AG/C2APiuK1yvgzXozqTMqnAHq01xU6LsLa3w=
+X-Received: by 2002:a17:90b:3ec7:b0:38e:250b:122f with SMTP id 98e67ed59e1d1-396d1041324mr29242537a91.16.1788137246849;
+        Sun, 30 Aug 2026 17:47:26 -0700 (PDT)
+Received: from lima-xfs.. (174-126-236-85.cpe.sparklight.net. [174.126.236.85])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396dda36ed6sm13688653a91.2.2026.08.30.17.47.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 30 Aug 2026 17:47:26 -0700 (PDT)
+From: Eric Peterson <linuxinstalled@gmail.com>
+To: Dave Chinner <dgc@kernel.org>
+Cc: Eric Peterson <linuxinstalled@gmail.com>,
+	Carlos Maiolino <cem@kernel.org>,
+	linux-xfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Eric Peterson <eric.peterson@hpe.com>
+Subject: Re: [PATCH] xfs: add per-mount read/write I/O completion counters
+Date: Sun, 30 Aug 2026 18:47:00 -0600
+Message-Id: <20260831004700.4072037-1-linuxinstalled@gmail.com>
+X-Mailer: git-send-email 2.39.5
+In-Reply-To: <apSgHPl4er6Jy9xi@dread>
+References: <20260828033429.4070267-1-linuxinstalled@gmail.com> <apSgHPl4er6Jy9xi@dread>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v6 4/6] iio: pressure: dps310: add triggered buffer
- support
-From: Jonathan Cameron <jic23@kernel.org>
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Rupesh Majhi <zoone.rupert@gmail.com>, 
- Andy Shevchenko <andy@kernel.org>, Bill Wendling <morbo@google.com>, 
- David Lechner <dlechner@baylibre.com>, Eddie James <eajames@linux.ibm.com>, 
- Joel Stanley <joel@jms.id.au>, Jonathan Cameron <jic23@kernel.org>, 
- Justin Stitt <justinstitt@google.com>, 
- Nathan Chancellor <nathan@kernel.org>, 
- Nick Desaulniers <nick.desaulniers+lkml@gmail.com>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, linux-iio@vger.kernel.org, 
- linux-kernel@vger.kernel.org, llvm@lists.linux.dev
-In-Reply-To: <ao1bBFkLXIIgNl49@ashevche-desk.local>
-References: <20260824201203.396651-1-zoone.rupert@gmail.com>
- <20260824201203.396651-5-zoone.rupert@gmail.com>
- <ao1bBFkLXIIgNl49@ashevche-desk.local>
-Date: Mon, 31 Aug 2026 01:41:46 +0100
-Message-Id: <178813690647.2788519.5367342639957476343.b4-reply@b4>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1342;
- i=jonathan.cameron@oss.qualcomm.com; h=from:subject:message-id;
- bh=Va2nVMvF4tdrSfcTdmGWvv6ZdBLUhrd9nazicKWzj6o=;
- b=owEBfwKA/ZANAwAKAVSFNJnE9BaIAcsmYgBqlM3KnrVra9pc7LX4upS85Jp9VQQ/zTrvwfBSy
- L07L3nuKEaJAkUEAAEKAC8WIQRuKWazh4QGUpEmgbFUhTSZxPQWiAUCapTNyhEcamljMjNAa2Vy
- bmVsLm9yZwAKCRBUhTSZxPQWiI/kD/0UyHuKncW8WGzqfXSq1YmGqgew/WEyW4OclcFSO/cez4Z
- JX4m7jNf1XJviqh/MsQXqU70GQvZwuVY+C+4RGXcKOHFR17+PBjPdRKsqCOXLyyVMZlYyTElpmT
- apOcNrpMGT9Qq3yATqbswE4eqwLTNyAY62mRt6oGZYtiV4Tl9F+tnY6hLUfLVuzorqSD1sP+lgf
- Lm7xSSN5vJKdfa9vqD4kFuh9rBavL4aPlX4VkpMz50nkkfihdN5UUya2ezieTbgsVg4ulRiSH8N
- auqviDH7cvwzokLRZRFWh+uCuwVRuPvNVdZQJeDUIysA84Qyapy5Osf9iAttVwTXZJYVbehOIiT
- XjFEWPmilb+QXoGYLK2f3XamV3kOjtN6oLyJRDpOnVjJcs4AxLVCXIj2x+SYxxpECQj9P+EdiQh
- 70hEFQSCUsTF021qHJH2sh/BAgqRYvNi+77dcZu+Ax1DSY1Om71L5WpG1v2PUAzgsdLBUD/ZRgK
- e4rWjZteZTlgfxb1IwDGDveC5H8pnd8DAPFHKZoNbe9erUfBXYpl4PgR+GNA0hEm1iXcweyGRrL
- Qxo4wridei15pFU0GVlAiioLSnoSYPXUXPTJbtqlaVHCbgVJ3aEI1OS3aYQFjvjHm9M9MNEIjmL
- Dy6VX0tnw/4vwGOMdtwxrE+c4Prx+HC9RHlCnog==
-X-Developer-Key: i=jonathan.cameron@oss.qualcomm.com; a=openpgp;
- fpr=6E2966B387840652912681B154853499C4F41688
+Content-Transfer-Encoding: 8bit
 
-On 2026-08-25 12:06:12+03:00, Andy Shevchenko wrote:
-> On Mon, Aug 24, 2026 at 11:12:01PM +0300, Rupesh Majhi wrote:
-> 
-> > Add a triggered buffer in order to capture continuously on both channels
-> > instead of one sysfs read at a time.
-> > 
-> > Raw register value is not useful on its own, pressure has to go through
-> > the compensation polynomial and needs a temperature reading. Report raw
-> > in Pa with 1/1000 scale to keep full resolution in the buffer without
-> > changing what the existing processed attribute reports.
-> > 
-> > Raw and processed reads return -EBUSY while buffer is on, so does any
-> > reconfiguration.
-> 
-> ...
-> 
-> > +struct dps310_scan {
-> > +	s32 channels[2];
-> > +	aligned_s64 ts;
-> > +};
-> 
-> Wondering if using macro here would make sense...
-Hi Andy,
+On Mon, Aug 31, 2026 at 07:26:52AM +1000, Dave Chinner wrote:
+> Hence this really doesn't seem like something we should be trying to
+> infer from indirect filesystem stats. Why can't you use the bdev
+> stats to get the actual filesystem wide queue depth information?
 
-Do you mean introducing a new one or using the buffer ones?  I'd
-rather keep explicit structures where possible.  They are much easier
-to reead as they make the data layout explicit, including the holes
-(as long as folk remember their c structure alignments!)
-- no holes here obviously!
+The block device measures the device queue, which is a different
+quantity than filesystem outstanding I/O - not just a lower-layer view
+of the same thing.
 
-We only introduced the IIO_BUFFER macros to cover the cases we
-can't represent as a structure because the timestamp moves
-around as the number of channels enabled changes.  Necessary
-trick to reduce the size of the kfifos.
+Below are three cases where filesystem queue depth is not what the block
+layer sees:
 
-Jonathan
+1. Cache hits never reach the block layer. Under a heavy read workload
+   with a warm cache, a large share of ops are serviced from the page
+   cache and are never seen at the block level. Device queue depth can
+   sit near zero while the filesystem is servicing a very high op rate.
 
+2. Filesystem ops don't map 1:1 to block I/O. A single read or write can
+   produce one block I/O, several (metadata, readahead, writeback
+   coalescing), or none at all. So device queue depth isn't the
+   filesystem's outstanding-operation count.
 
+3. Work can be outstanding inside the filesystem before any block I/O is
+   issued - waiting on locks, log space/reservation, delalloc, etc.
+   Such I/O has entered the filesystem but is invisible at the bdev.
+
+The block-device queue depth answers "how deep is the device queue,"
+which is not the same as "how much work is outstanding in the
+filesystem." When the filesystem is just one layer an I/O passes
+through, the block stats fold the layers together and structurally
+cannot isolate the filesystem's own contribution.
+
+To be clear about scope: I'm not proposing a queue-depth feature in
+the kernel. The change just adds read/write completion counters to pair
+with the existing call (submission) counters, so userspace can compute
+outstanding I/O and derive a response-time estimate itself. The kernel
+side is only exposing the complementary raw signal that's currently
+missing - calls are counted, completions are not.
+
+Being upfront: what userspace derives from this is an instantaneous
+approximation, not a precise time-weighted queue length. It's meant as
+a cheap, always-on aggregate, not a replacement for accurate per-op
+tooling.
+
+Does exposing the completion side of the existing call counters seem
+reasonable on that basis?
+
+-Eric
