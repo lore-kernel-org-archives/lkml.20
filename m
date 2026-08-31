@@ -1,171 +1,85 @@
-Received: from smtpbgeu1.qq.com (smtpbgeu1.qq.com [52.59.177.22])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2E013B47C4
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 07:12:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.59.177.22
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FC993BE652;
+	Mon, 31 Aug 2026 07:13:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788160372; cv=none; b=C2V2BvaANYncy5qpPXlfhcLAATBiR/GTWvnYcztx8DF7NiBGxqsu4wla9UWvzgbevgUsnK75HEJ/i6SgrTvrKtP+VWHSIi0SFY1zbKGuzq0VMh6PV+Zc2nD9ZEhBrxSMO+fIhPDH4XiOfKeKXwQ50wxXYfxjQHNtTJkXh/KZ7Us=
+	t=1788160413; cv=none; b=mAluhnLJOwm9cQiRv2xDlSvHqg5LKhtOgm6xfJumRRl7sxf5pJV8DjiNcpz+ICVZ7Lt9t9sVvWZJbjf6knQhmO4AbniA2P7sKqzZUZvtTM9Ibw2DQd9jrZ2/skQfXqNVoRxlg/+2iCfUjOqL0pMSuCLZngUim1vpXAuCmi1yNr4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788160372; c=relaxed/simple;
-	bh=4CRDX1LWJpVWaFDqfWK7eMRv/MyXu8h5n/dReVzx75I=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=L3DBQq9W62p9HoYS7bPI222oT6DMMMREZ3KhajD/PDp6GZcY4JetOsqGQTPkupgaArhH1TVEgGsPnwqwI7N5DPltH6FX3ghXgwyENB3er2X0riqr1gXPD6Ld0u+OaX4c4J8I3Ocs2clpXE2u5sLdwQZ1dx4dfwmIEzIzdq73nuE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=Dj++rs6p; arc=none smtp.client-ip=52.59.177.22
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	s=arc-20240116; t=1788160413; c=relaxed/simple;
+	bh=DxqPqtzTp8mxa4pd1eQE88Yy6ixGznKpTnusIop8ubY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=StqFQV8X4JNmHjZLLIpOg4Ws7/aGcF8ZVx1jtB0r4+2Ksc4vPog29EmODQ2fn7T0yIkBFf/jcTkiQjdLDQkDXW9H3ers2C8BAwDdYgVnu0d8+wHWlRDWNDB4AnNr57G8LqoFvhJKUZRYGnT7z4slX03SMcqLLign5g8HTiE6tX0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dqr/4LOn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="Dj++rs6p"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1788160318;
-	bh=PcaU8lb3oJj5WuAfj6w4L5H3SWpj2dSt7KUf4MB3SiQ=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version;
-	b=Dj++rs6pzbvsQNmG3xWg5R3x+CDom0l6GJjuxPhmouw6yjTypRFgY4srETzHcuMa7
-	 aYeOAmaOQRcULpj4Rd0feXbK5+JWh2VWCZNzoBVCA3CBCuOlALqrAaj+iMNM5SDtc7
-	 am9akZR/ihaQZ1NzfrfgQr8AdhHLAc1wjJ62XslU=
-X-QQ-mid: zesmtpgz6t1788160300t215cf119
-X-QQ-Originating-IP: mimRkE15pwQbL131ohYG4c/XYUQeUbxmUBZI45Khlhc=
-Received: from PEN202512010004 ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Mon, 31 Aug 2026 15:11:39 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 9551787566103979334
-EX-QQ-RecipientCnt: 7
-From: raoxu <raoxu@uniontech.com>
-To: raoxu@uniontech.com
-Cc: axboe@kernel.dk,
-	hch@lst.de,
-	kbusch@kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-nvme@lists.infradead.org,
-	sagi@grimberg.me
-Subject: [PATCH nvme-7.3 v3 4/4] nvme-fabrics: add helper for DH-CHAP secret options
-Date: Mon, 31 Aug 2026 15:11:36 +0800
-Message-ID: <1E3563FE22B8A343+20260831071136.638787-1-raoxu@uniontech.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <B1A2864319EA3B6C+20260831070557.631487-1-raoxu@uniontech.com>
-References: <B1A2864319EA3B6C+20260831070557.631487-1-raoxu@uniontech.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dqr/4LOn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02F511F000E9;
+	Mon, 31 Aug 2026 07:13:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788160412;
+	bh=nzwDhMUaspxwPlR3epuNtDGJEcxkDmu+JR/CLbni2/U=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=dqr/4LOntZvMk1raKJwDPLs4PrbOimbFQe+cAb+Hoj/TrBZEWIWZrrc9hivVHtD1x
+	 ApUuRoJsZ/WJJRLArudCfWfQ3DWAIK0rXpSFJMls+Yi5tIQdx5V5GUJ1S1IzB9ppPi
+	 DP9y7sor6Q91pT6oBuI4ejk1g+yg3zjYZPwIrgDHpwJc80OU5AaeMwu3JOAIJK0Jeo
+	 foQPTRHAaFnJ6T3jhcUUNoWnnuA+dSW2eTVgDZKU8QzO0tjspubPDPhWFYbJJ7NjtT
+	 B3ZDPZqi01/VcurvvYfN9SSzUiDDShNm0bPdb6eyuRl/5zlbAN8B8yAmIMp8SxlFib
+	 XVbHQC86MUKkg==
+Date: Mon, 31 Aug 2026 09:13:27 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Conor Dooley <conor@kernel.org>
+Cc: Thierry Reding <thierry.reding@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
+	linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-tegra@vger.kernel.org, Thierry Reding <treding@nvidia.com>
+Subject: Re: [PATCH 2/4] dt-bindings: thermal: Add Tegra264 header
+Message-ID: <20260831-rainbow-terrier-of-flowers-3fd2fe@quoll>
+References: <20260827-tegra264-fan-v1-0-3c55f0c748b1@nvidia.com>
+ <20260827-tegra264-fan-v1-2-3c55f0c748b1@nvidia.com>
+ <20260827-riverbank-cinema-d898d4e5a522@spud>
+ <apBwZwOkctBETKVJ@orome>
+ <20260827-disband-retrain-ad995df47784@spud>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz6b-0
-X-QQ-XMAILINFO: MTGYztYhR5ET5H/R20ph7EtmGyJY00Ph6krl3NhEgcygu5UtHbuul/V7
-	W8s3nmH3zv/Oj2lqSsyDlk23t6lE3L70Q8UFgcUkmEvv/byMjRfenaB5JhumfVXDKI2tDec
-	Cmn9eAySh823EpJguLwgnL88IrlwS7Meh/tE3DI+xATrAVeUQwTFk3uHDysz+pk+atWMMl0
-	1079NYGnnhheUTnbH/X/nJg29NmiY9VVB9H/JNDBh5Fez6ZKLpP1JdFmhfjrHtnlOCJ0Bdv
-	dqKlyq24afXthR6N0wf5oOtVNmnwuxsU0AB7fmzOAQb7YbUfPlJIJrwnFWtloQQWttUKsZd
-	5JlDDnRbqMtj7vIKalh57AMUVQbfsV0jkkJ3+w921SZgh/xJL6Axud3YymyFEMuWJoLBsB7
-	ANkHfUsGISbgvZPZpneIwTtMKbdabLxaVK8vz70nqXZFDFoWxYerdPFJtGFUJ9mXLlqsVND
-	Ngk61vcZ4xcyuQN45RdGs4ci4/rBWHg9G/8R9OKEegPdwx7dHGrAsqL9C1hZArkjJr0TLJq
-	kl5/gA0ew6xxELMLuWfa8R6PtvUA8yprO5C6qi6978n+0tTy+dalXjLaMHa3y2pCa238MSl
-	pDr4mEQ517cVmYJ9bJeUobH9qJHwh1mwuHzLrYZXdw1LyD0DQPJWZeOIpFyhXBW9dKMcAvw
-	9ly21nL58piximwsdxUBFd/ioXzXZ2lneqwe2MwqOi85g5HJqfGjhFlRtDEzAW4AAwCQ4f5
-	h+8gqOpagdqnf7PSps1sSEYloirAXnly17XJEADZeoxeDdRpUPFk2BKsm+pkvU52mGf2Jy7
-	EqdqIASy8f8a6bEqtBh7oAVynGOvjNInCyiAXUM1VA6CO7OeoXRf49d4c3w0acF3vANgaGr
-	gr9O/WQzZiVP65sbVkKhrz3I433bgBtDre5oDb6ccC2/bRXuVpT+49WSlq+n8Gnk+QZLK3B
-	HdO1hVdMHxIG6fKAHAOSfYjDkddXecDosNQcYvub3Mc0ityCMRfnuHftM0zIPcOWzekoE73
-	fIzHDmbjJlxQPn6uPglAsV1ulU5U/8LiCQiNAR2RgOizmf33a44jNFRfn7e0NT3WnAdsp5N
-	Q==
-X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
-X-QQ-RECHKSPAM: 0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260827-disband-retrain-ad995df47784@spud>
 
-From: Xu Rao <raoxu@uniontech.com>
+On Thu, Aug 27, 2026 at 06:33:06PM +0100, Conor Dooley wrote:
+> On Thu, Aug 27, 2026 at 07:17:15PM +0200, Thierry Reding wrote:
+> > On Thu, Aug 27, 2026 at 05:35:28PM +0100, Conor Dooley wrote:
+> > > On Thu, Aug 27, 2026 at 05:07:51PM +0200, Thierry Reding wrote:
+> > > > From: Thierry Reding <treding@nvidia.com>
+> > > > 
+> > > > This header file defines the set of thermal zones exposed by the BPMP on
+> > > > Tegra264.
+> > > 
+> > > Does this need to be a binding, since you're just using it in the dts?
+> > > Can it just go into your dts directory insteaD?
+> > 
+> > I don't think we've ever used these headers outside of DTS files, so,
+> > yes, they could go into the DTS directory.
+> > 
+> > We've never done that before and there's a bunch of Tegra-specific files
+> > that would be in the same basket. What's your recommendation for any of
+> > the existing headers? Should I move those into the DTS directory, too?
+> > If they are not used outside, that is? Or not worth the churn?
+> 
+> Up to you re: churn I think, but were it my platform I'd probably move
+> them. 
 
-The dhchap_secret and dhchap_ctrl_secret options share the same string
-replacement and DHHC-1 validation rules.  The replacement step can reuse
-nvmf_parse_string_option(), leaving only the DH-CHAP-specific validation
-in a dedicated helper.
+For Samsung I moved all non-ABI related headers to DTS. I think one more
+platform followed. Moving needs to keep old header for some time anyway,
+so it's entirely up to you if you/others want to work on that. Like with
+every less-important cleanup, the benefit is that correcting old
+patterns stops encouraging repeating them.
 
-Add nvmf_parse_dhchap_secret() to reuse nvmf_parse_string_option() for the
-common allocation and ownership handling, then perform the DH-CHAP-specific
-validation.  If validation fails, discard the installed value with
-kfree_sensitive() and clear the field so the normal options cleanup can
-safely run after nvmf_parse_options() returns an error.
-
-Both secret options share this helper because their parsing and validation
-rules are identical.
-
-Suggested-by: Christoph Hellwig <hch@lst.de>
-Signed-off-by: Xu Rao <raoxu@uniontech.com>
----
- drivers/nvme/host/fabrics.c | 47 ++++++++++++++++++-------------------
- 1 file changed, 23 insertions(+), 24 deletions(-)
-
-diff --git a/drivers/nvme/host/fabrics.c b/drivers/nvme/host/fabrics.c
-index 24385e777307..207b05ade022 100644
---- a/drivers/nvme/host/fabrics.c
-+++ b/drivers/nvme/host/fabrics.c
-@@ -725,6 +725,24 @@ static int nvmf_parse_string_option(substring_t *args, char **dst)
- 	return 0;
- }
- 
-+static int nvmf_parse_dhchap_secret(substring_t *args, char **secret)
-+{
-+	int ret;
-+
-+	ret = nvmf_parse_string_option(args, secret);
-+	if (ret)
-+		return ret;
-+
-+	if (strlen(*secret) < 11 || strncmp(*secret, "DHHC-1:", 7)) {
-+		pr_err("Invalid DH-CHAP secret %s\n", *secret);
-+		kfree_sensitive(*secret);
-+		*secret = NULL;
-+		return -EINVAL;
-+	}
-+
-+	return 0;
-+}
-+
- static int nvmf_parse_options(struct nvmf_ctrl_options *opts,
- 		const char *buf)
- {
-@@ -1010,34 +1028,15 @@ static int nvmf_parse_options(struct nvmf_ctrl_options *opts,
- 			opts->discovery_nqn = true;
- 			break;
- 		case NVMF_OPT_DHCHAP_SECRET:
--			p = match_strdup(args);
--			if (!p) {
--				ret = -ENOMEM;
--				goto out;
--			}
--			if (strlen(p) < 11 || strncmp(p, "DHHC-1:", 7)) {
--				pr_err("Invalid DH-CHAP secret %s\n", p);
--				kfree_sensitive(p);
--				ret = -EINVAL;
-+			ret = nvmf_parse_dhchap_secret(args, &opts->dhchap_secret);
-+			if (ret)
- 				goto out;
--			}
--			kfree(opts->dhchap_secret);
--			opts->dhchap_secret = p;
- 			break;
- 		case NVMF_OPT_DHCHAP_CTRL_SECRET:
--			p = match_strdup(args);
--			if (!p) {
--				ret = -ENOMEM;
--				goto out;
--			}
--			if (strlen(p) < 11 || strncmp(p, "DHHC-1:", 7)) {
--				pr_err("Invalid DH-CHAP secret %s\n", p);
--				kfree_sensitive(p);
--				ret = -EINVAL;
-+			ret = nvmf_parse_dhchap_secret(args,
-+						       &opts->dhchap_ctrl_secret);
-+			if (ret)
- 				goto out;
--			}
--			kfree(opts->dhchap_ctrl_secret);
--			opts->dhchap_ctrl_secret = p;
- 			break;
- 		case NVMF_OPT_TLS:
- 			if (!IS_ENABLED(CONFIG_NVME_TCP_TLS)) {
--- 
-2.50.1
+Best regards,
+Krzysztof
 
