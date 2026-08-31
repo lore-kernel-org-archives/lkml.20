@@ -1,108 +1,78 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 292A03C3458
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 07:36:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D64153AF66E;
+	Mon, 31 Aug 2026 07:36:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788161784; cv=none; b=nkjnQOphtoRyowoHvcNztSktVIgqD3FKroo+fELlUsMpVMLGMlhKs7yGjJd3Y+xZ3DvtiPxPeTH13s/1xza9uQ6y+2jvcPCOOcWZWEnwLIJwNH1/ELKndGc8AsqXJluTWjuQBDSlTS0MvcbQAgAGM6XQzgeRYS9HvbOY/LmLzTQ=
+	t=1788161797; cv=none; b=Ch/UOEfI/gwcOlTqmbwrxE10kuyInfvh7xuyG22O5bjba9PQYZV7Oalf68EfvrNLQXqB6QVez2oIkKdis1eI/+WM0jKtnob48WtMtWabKaiHuNw58Gmo0DO3bJ6YdZxatYm1XbJcfm4IpMCx1cJZIKpwfVr5kWP5M6inMwemnJc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788161784; c=relaxed/simple;
-	bh=NBzwoNyefdSIH6rQCwuf5xORJ6xN6NWSfTYFyk0eN28=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OucIBoOoWVRjCZA3sca59r9XVLSKgoryE8N0AiREU7MgeSMQsPiZjmwZAZ2nsHQM0Dt6JjzuDdaXBniSKdKDJR5uTxMleH1bM7UAeOpv/zS+zmlbZnfTOR8chZ1L5HeRQ/bZqSl3KWBUHXbS72sLMyKK2V/EsGMos8l9V+xOUO0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=nq4JVzso; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=pk91fDTw; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1788161797; c=relaxed/simple;
+	bh=ElbhF3tyJA/Enm0JNhga0W5TLXrr9ilFgoBos/Jslc0=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=SHrj42g9eJVqKjmT+8klU//pPMMMKUlSRn5CxNS4MVgjjTOOlQFWXSw2OYzKxbeF++64JAwNqNyL2PwtxfHpTqaAbqOLBoKAo9NVN17qLN9F3kj2ckhCAwn7Hzn15LOsAyjE9bh7E4aZ/8x3LdwglCGK+TszlpxpS275olQGIHs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HEkb69+k; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="nq4JVzso";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="pk91fDTw"
-Date: Mon, 31 Aug 2026 09:36:19 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1788161781;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=0bbLn43OEfzJk6RijiG0hY9eLwY+qM7uVXluXMN+YSs=;
-	b=nq4JVzso6agIIEJPtT+hA2jj6xB08NNe45cLx3b3da5REQJup3Vb5gX/bgy+epwACYFOwh
-	4dmrOIEwuY26RvfhCQapR4BZRlTBYX8V9rIvVQdNqVZtO9KcX8cY2gPUAvu7eG1IUk4zWI
-	iGQf6n/EHr3gsDVe8aj2pFL/0A65eG2jbRDrih1dS473/GiZE0uyEJDNlC2egaMTnbXRGM
-	I0XJQ4EsLkyrO58e8EV7+vj7II5p+fmDJfFCHdFbMJyuZD3zYw5jR1Vz6jk6oExsjbzlZX
-	KRTFOrv9cQRhCIMu5h9rUFqvjPoLMdr2d2IYVQJDRkrwgFk+D6SvmF+ajLcFWA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1788161781;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=0bbLn43OEfzJk6RijiG0hY9eLwY+qM7uVXluXMN+YSs=;
-	b=pk91fDTwvh9wOOk+diFwBjcIFfkAtuIAvaITJVIRjHrxu/tDM8ZpStQUYGvAopCfp7Lifw
-	XzuXrIPEv7O0J2AA==
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-To: Matthew Wilcox <willy@infradead.org>
-Cc: Peter Zijlstra <peterz@infradead.org>,
-	David Stevens <stevensd@google.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H . Peter Anvin" <hpa@zytor.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Dave Chinner <david@fromorbit.com>, Qi Zheng <qi.zheng@linux.dev>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Muchun Song <muchun.song@linux.dev>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Uladzislau Rezki <urezki@gmail.com>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R . Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>,
-	Clark Williams <clrkwllms@kernel.org>, suleiman@google.com,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-mm@kvack.org, linux-rt-devel@lists.linux.dev
-Subject: Re: [RFC 06/10] Reclaim memory from blocked kernel stacks
-Message-ID: <20260831073619.Ssq-wt7s@linutronix.de>
-References: <20260827232948.2520558-1-stevensd@google.com>
- <20260827232948.2520558-7-stevensd@google.com>
- <20260828133620._x2XfJR_@linutronix.de>
- <20260828135947.GU776954@noisy.programming.kicks-ass.net>
- <CAOiLmNHrbXeTY7zoNodmaZUoMWf+NgvGvZ_LjfWD-1sKAoiLeQ@mail.gmail.com>
- <20260829084901.GA776954@noisy.programming.kicks-ass.net>
- <apLxcg3Lgy0-nXA4@casper.infradead.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HEkb69+k"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0F001F000E9;
+	Mon, 31 Aug 2026 07:36:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788161796;
+	bh=vZDPoYaB8Oy7udBGcU3iIcudfXYybo8D1KGNiQgyBRc=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=HEkb69+kgI52+rZUeaQkwkAGVOZb4ndF0Hge8dUGGj6BIAAEqKGnNQnkxYtBud3X2
+	 k09H0oVKqSm2nwSI4QFX/L4iXUsIX0mJnWThwjBchRWhakW+pQgQ0rxJKLvpWz9YPf
+	 RDMXZRvoCwvOlIA1mNPHuJ3gWSjgcdfd+APwKleBA2WuIQt3BBnj9CN6C8mqnGJSBJ
+	 FiP4J2PTYH856T0mggpdxvswRhnd/AACuZd6PHAEyRlwbGu+/JPtJsV8kBfG2elu6n
+	 K+Aevmh1aWpwaEgqwACZrv7IoeBN5OM+oVgS53NsDlVzujgU/Jc2o9mihLJFPQgtPn
+	 QOSB4/Zfk/uMg==
+From: Christian Brauner <brauner@kernel.org>
+To: akpm@linux-foundation.org, Ahmet Eray Karadag <eraykrdg1@gmail.com>
+Cc: viro@zeniv.linux.org.uk, linux-kernel@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, skhan@linuxfoundation.org, 
+ david.hunter.linux@gmail.com, 
+ syzbot+1c70732df5fd4f0e4fbb@syzkaller.appspotmail.com
+In-Reply-To: <20251215031433.182205-2-eraykrdg1@gmail.com>
+References: <20251215031433.182205-2-eraykrdg1@gmail.com>
+Subject: Re: [PATCH v3] adfs: fix memory leak in sb->s_fs_info
+Message-Id: <20260831-entmachten-erfanden-sausen-b80dd3f2e2d3@brauner>
+Date: Mon, 31 Aug 2026 09:36:30 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <apLxcg3Lgy0-nXA4@casper.infradead.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev-362b8
+X-Developer-Signature: v=1; a=openpgp-sha256; l=858; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=ElbhF3tyJA/Enm0JNhga0W5TLXrr9ilFgoBos/Jslc0=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWRN1Wfy+fHySXaNUm51w1IlSW2L+b2hPtmsjEuyHK9FK
+ R6/L/qxo5SFQYyLQVZMkcWh3SRcbjlPxWajTA2YOaxMIEMYuDgFYCIVtxgZZj+aYR2hUbhseUaT
+ gfpdpgArqXVB71hqz35g3TqtzCc5jZHh7obrR5uesPsINi/yZ7oj/KZ655zsgBLhmN7as/2Or4U
+ 4AA==
+X-Developer-Key: i=brauner@kernel.org; a=openpgp;
+ fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-On 2026-08-29 15:49:22 [+0100], Matthew Wilcox wrote:
-> On Sat, Aug 29, 2026 at 10:49:01AM +0200, Peter Zijlstra wrote:
-> > > On PREEMPT_RT, it is necessary to skip the call to
-> > > alloc_pages_nolock_noprof() from under pi_lock, since with that
-> > > configuration spin_trylock can end up needing to take pi_lock. But at
-> > > least on !PREEMPT_RT, there is no risk of deadlock.
-> > 
-> > Yeah, which puts the lie to that horrific hack Alexei did. We should
-> > probably teach lockdep about spin_trylock() not being safe and see the
-> > house of cards crumble.
-> 
-> Why is spin_trylock() unsafe on PREEMPT_RT?  It's not intuitive since
-> one can mutex_trylock() in interrupt context or under spinlock.
+On Mon, 15 Dec 2025 06:14:34 +0300, Ahmet Eray Karadag wrote:
+> adfs: fix memory leak in sb->s_fs_info
 
-no, you shouldn't do mutex_trylock() in IRQ. There was something, I
-don't remember but that is the reason people use semaphores because it
-is okay to do down_trylock() in IRQ. It might be unlock path. 
+Applied to the vfs.fixes branch of the vfs/vfs.git tree.
+Patches in the vfs.fixes branch should appear in linux-next soon.
 
-Sebastian
+Please report any outstanding bugs that were missed during review in a
+new review to the original patch series allowing us to drop it.
+
+It's encouraged to provide Acked-bys and Reviewed-bys even though the
+patch has now been applied. If possible patch trailers will be updated.
+
+Note that commit hashes shown below are subject to change due to rebase,
+trailer updates or similar. If in doubt, please check the listed branch.
+
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
+branch: vfs.fixes
+
+[1/1] adfs: fix memory leak in sb->s_fs_info
+      https://git.kernel.org/vfs/vfs/c/b12e20c6ac15
+
