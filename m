@@ -1,44 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E130432304;
-	Mon, 31 Aug 2026 13:38:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9597548CD47;
+	Mon, 31 Aug 2026 13:38:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183507; cv=none; b=M+7IN0CUcnJwwWVa2Ks4cXvBMFMzFpAHfbPWyqbTV6mEyPZnIP2WOnooHTtpfLn4JGW3bPW618BuWqZ/lejpVc2AdLVWKjy3ITc0kOkuzoaYHBUWnwloiqjPely2QZnUrFPW4lC7z+Y6MA1OiQqvyunLLqDrdxrXmp5zdK4KSCU=
+	t=1788183506; cv=none; b=YBRMHuYcv5SAOzNSvigmCuXoujYRaSL0GISl/wexDb+5XyQVNnCNZpzC3SGGXeKRVnVisOJbkIUuqjqawLuMeFIrFuJrKq166/8TI4lQBB/TAAX7wdQGkq1FFoL61f0hjtH/aHGsevwEPKCmlioyi5qGZ2BsvdcdtIbLOtutqkM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183507; c=relaxed/simple;
-	bh=TFk6IgBlINeZD5hcBYd0BFi7pUcQlJJIVFfEXuKMWMo=;
+	s=arc-20240116; t=1788183506; c=relaxed/simple;
+	bh=BZaqUhVwE9M9AvVI1ckdH04/KyPfZsht/RVSbm0/E5I=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=R1fulrUHVSlosD7ExG4klQBJqixh9TwRPzeJszBqEKbJ1IMy2dyHH3y67YB+gEFyP/D187KXqAyiCZvaaaZp9Ltjjwr4h400yzr2Gbp0RJX4ki7Ja18DDpukH54GuMo3eoDhvWc+tfMACI6+zGNEtlydt+lvElYxvUSnxdj5DDE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UWs4Dg9w; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=D7i4yJQfG/nY1dA23qos10prxnITaZ1XbC7gH9rj8B7s+mKnMzZKZBT6+LaMGmH2qQJeffKlZDQ/h3ZfT/y5fc6/BH0eOkNh3Ad5Ajjtuuyj8cZbS+tqJt3scT6kN2IIQQTClDPN8CmCFIzgoGShYU/+G0eQLx2b9k6cBzN6Fu8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FcKezk6S; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UWs4Dg9w"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E13971F00A3E;
-	Mon, 31 Aug 2026 13:38:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FcKezk6S"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63AF01F000E9;
+	Mon, 31 Aug 2026 13:38:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788183505;
-	bh=RiZ5Rq9O40CIw+PX0lyag+rbpp75xTzZWv0WhYpMaiM=;
+	s=k20260515; t=1788183503;
+	bh=zYjGexxpgR3gyp+1xzYD3nJSA80PSxg8RoXvPs2h2uU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=UWs4Dg9wzoqxw1Fp/ibk+l5LkZVcSzFmuHLZ5P/K88fj19cPpWkKM32/kS1BbDhGy
-	 GkA+LU8C4sKT2QedaLS86V0K4FzukEBPLpplWyzW2vrzMHEtZCtislzrTKjdRh1etQ
-	 iQ/Ms5v/CSVD737PSzSO4o5//9YVIjubg3cjWaL6L7kn16kvgSqTrRfA89PDVN+Ys7
-	 44aQ0COYji6csQSGzXD6Kx0hKLOGD5H8kIxm3z1UK+zYSw86fGy0ARczrHfXVBqoxD
-	 SLoI/vvQ9e3R41Hp+ZqZ7Q0vpd/J+vxmpawCWTiG3WEzedYmktd4lL3chF/LfDzysn
-	 zXP0d1ch+T5gg==
+	b=FcKezk6SuwCs27ZYSUeRWBHtk6vTnTHCyNcs4CKlYbv2QdbHPyjlT7nnHljvjCxHb
+	 RSrrCgwf95fO6DtiCb8NNxEhw6zwpIUxEiKuk5vUBnNMX26kNIPhqucCl6yPQWDuHi
+	 NIAFl39lK+gL8Fsq4zAKWh4Gctkeu0ml8QLucTz+3TUMezC3j6KSsDQrqpuOGtDnXK
+	 KsW91vvZ7rl6XumcOC+BcO3pDp3NeF1O25CzdkYA4bQZBTiBkJLnGl5QSYJwihQOiT
+	 NiIA84xpCYy+YO9k61+sr2AdTxmFGYxuORl+Iu/IUx5e4StKZxcE1QLHufSJDabShK
+	 +Xt7kGNykwCyA==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Takashi Iwai <tiwai@suse.de>,
-	Cezary Rojewski <cezary.rojewski@intel.com>,
+Cc: Emmanuel Grumbach <emmanuel.grumbach@intel.com>,
+	Miri Korenblit <miriam.rachel.korenblit@intel.com>,
 	Sasha Levin <sashal@kernel.org>,
-	perex@perex.cz,
-	tiwai@suse.com,
-	linux-sound@vger.kernel.org,
+	linux-wireless@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-6.6] ALSA: hda/realtek: Add quirk for HP Pavilion x360
-Date: Mon, 31 Aug 2026 09:22:44 -0400
-Message-ID: <20260831133314.4125787-136-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18] wifi: iwlwifi: adapt ND match notif sizing to fixed matches array
+Date: Mon, 31 Aug 2026 09:22:43 -0400
+Message-ID: <20260831133314.4125787-135-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -54,425 +52,464 @@ X-stable-base: Linux 6.18.48
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Takashi Iwai <tiwai@suse.de>
+From: Emmanuel Grumbach <emmanuel.grumbach@intel.com>
 
-[ Upstream commit 02bbbf05d19f49c5cc9f249dd8844b2a7f2a2b8c ]
+[ Upstream commit a426d3227c669ef0ad9855b311a68129f10ac8bf ]
 
-HP Pavilion x360 sets a bogus PCI SSID (103c:0000), hence the driver
-picks up a wrong quirk entry, resulting in an almost silent output.
-And yet, the existing quirk for x390 doesn't seem sufficing, and we
-need the extra setup for the amp.
+Switch iwl_scan_offload_match_info::matches to a fixed-size array and
+adjust D3 netdetect size handling accordingly.
 
-This patch adds the quirk entry for the codec SSID (103c:8486) to
-initialize the amp via COEF verbs and chains to the existing quirk for
-another x360 model to address the silent output.
+In MVM D3 paths, compute expected payload size as
+offsetof(struct iwl_scan_offload_match_info, matches) + matches_len to
+preserve previous behavior after the struct layout change.
 
-Closes: https://lore.kernel.org/CAF2ktaUW2oaWwGazGtJQ3o1JyE2R4O2xPd-Dchr=qqi7_QRruQ@mail.gmail.com
-Reviewed-by: Cezary Rojewski <cezary.rojewski@intel.com>
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
-Link: https://patch.msgid.link/20260716064916.540616-1-tiwai@suse.de
+In MLD D3 netdetect handling, keep the simple full-notification size
+assumption and validate against sizeof(*notif) before accessing data.
+
+This keeps scan offload / netdetect functionality unchanged while
+making length checks consistent with the new struct definition.
+
+Assisted-by: GitHubCopilot:gpt-5.3-codex
+Signed-off-by: Emmanuel Grumbach <emmanuel.grumbach@intel.com>
+Signed-off-by: Miri Korenblit <miriam.rachel.korenblit@intel.com>
+Link: https://patch.msgid.link/20260715215523.4c4346140bcc.I44313ac41daca352e6aecdba09a1c3570c3eea06@changeid
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-# Stable Backport Analysis: ALSA: hda/realtek: Add quirk for HP Pavilion
-x360
+## Phase 1: Commit Message Forensics
 
-**Local tree:** Linux **6.18.44** (`v6.18.44-2-g1b9e1abadee04`,
-`VERSION=6 PATCHLEVEL=18 SUBLEVEL=44`)
+### Step 1.1: Subject Line
+**Record:** `[wifi: iwlwifi]` `[adapt]` — adapt ND (netdetect) match-
+notification sizing after changing
+`iwl_scan_offload_match_info::matches` to a fixed-size array.
+
+### Step 1.2: Tags
+**Record:**
+- **Assisted-by:** GitHubCopilot:gpt-5.3-codex
+- **Signed-off-by:** Emmanuel Grumbach \<emmanuel.grumbach@intel.com\>
+- **Signed-off-by:** Miri Korenblit
+  \<miriam.rachel.korenblit@intel.com\>
+- **Link:** https://patch.msgid.link/20260715215523.4c4346140bcc.I44313a
+  c41daca352e6aecdba09a1c3570c3eea06@changeid
+
+No Fixes:, Reported-by:, Tested-by:, Reviewed-by:, Acked-by:, or Cc:
+stable tags. Absence of Cc: stable is expected per review instructions.
+
+Notable: authored/signed by Intel iwlwifi maintainers; patch 15/15 in
+the "wifi: iwlwifi: fixes - 07-15-2026" series (local mbox).
+
+### Step 1.3: Body Analysis
+**Record:**
+- **Bug described:** After switching `matches[]` (flexible array) to
+  `matches[IWL_SCAN_MAX_PROFILES_V2]` (fixed array), `sizeof(struct
+  iwl_scan_offload_match_info)` changes from header-only (24 bytes) to
+  header + 8 profile slots (144 bytes). Existing length checks that use
+  `sizeof()` become wrong.
+- **Symptom/failure mode:** Incorrect length validation can allow out-
+  of-bounds reads when copying match data in D3/WoWLAN netdetect paths,
+  or reject valid notifications if checks double-count match data.
+- **Root cause:** Flexible-array `sizeof()` semantics vs. fixed-array
+  `sizeof()` semantics; `iwl_mvm_netdetect_query_results()` only
+  validated the header size while copying `matches_len` bytes.
+- **Version info:** None in commit message.
+
+### Step 1.4: Hidden Bug Fix Detection
+**Record:** Yes — disguised as a struct-layout adaptation, but it fixes
+real out-of-bounds read conditions in WoWLAN netdetect handling. The MVM
+query path and MLD notification path both validate too few bytes
+relative to what `memcpy()` consumes.
 
 ---
 
-## PHASE 1: COMMIT MESSAGE FORENSICS
+## Phase 2: Diff Analysis
 
-### Step 1.1: Parse the subject line
-**Record:** `[ALSA: hda/realtek]` `[add]` — Add a hardware quirk for HP
-Pavilion x360 audio.
-
-### Step 1.2: Parse all commit message tags
+### Step 2.1: Inventory
 **Record:**
-- **Closes:**
-  `https://lore.kernel.org/CAF2ktaUW2oaWwGazGtJQ3o1JyE2R4O2xPd-
-  Dchr=qqi7_QRruQ@mail.gmail.com` (user bug report thread)
-- **Reviewed-by:** Cezary Rojewski `<cezary.rojewski@intel.com>`
-- **Signed-off-by:** Takashi Iwai `<tiwai@suse.de>` (ALSA/HDA
-  maintainer)
-- **Link:**
-  `https://patch.msgid.link/20260716064916.540616-1-tiwai@suse.de`
-- No `Fixes:`, `Reported-by:`, `Tested-by:`, `Cc:
-  stable@vger.kernel.org`
+| File | Changes |
+|------|---------|
+| `drivers/net/wireless/intel/iwlwifi/fw/api/scan.h` | Copyright year;
+`matches[]` → `matches[IWL_SCAN_MAX_PROFILES_V2]` |
+| `drivers/net/wireless/intel/iwlwifi/mvm/d3.c` | 3 hunks in
+`iwl_mvm_netdetect_query_results()` and
+`iwl_mvm_nd_match_info_handler()` |
 
-Notable: maintainer-authored, Intel-reviewed; no syzbot/sanitizer
-signals.
+**Functions modified:** `iwl_mvm_netdetect_query_results()`,
+`iwl_mvm_nd_match_info_handler()`
+**Scope:** Single-subsystem, surgical (~8 insertions, ~5 deletions
+across 2 files).
 
-### Step 1.3: Analyze commit body
-**Record:**
-- **Bug:** HP Pavilion x360 reports bogus PCI SSID `103c:0000`, so the
-  Realtek driver matches the wrong quirk. Existing
-  `ALC295_FIXUP_HP_X360` alone is insufficient; extra amplifier setup is
-  required.
-- **Symptom:** Almost silent speaker output.
-- **Root cause:** Wrong quirk selection due to bogus PCI SSID; missing
-  COEF-based amp initialization.
-- **Fix:** Add `HDA_CODEC_QUIRK(0x103c, 0x8486, ...)` matching codec
-  SSID, applying COEF verbs then chaining to `ALC295_FIXUP_HP_X360`.
+### Step 2.2: Code Flow Changes
 
-### Step 1.4: Detect hidden bug fixes
-**Record:** Not hidden — explicit hardware audio bug fix disguised as a
-quirk addition. Classic ALSA HDA laptop quirk pattern.
+**Hunk 1 — `scan.h` struct:**
+- **Before:** `matches[]` flex array; `sizeof(struct)` = 24 (header
+  only).
+- **After:** `matches[8]` fixed array; `sizeof(struct)` = 144 (header +
+  8 × 15-byte entries).
+
+**Hunk 2 — `iwl_mvm_netdetect_query_results()` V2 path:**
+- **Before:** `query_len = sizeof(struct iwl_scan_offload_match_info)`
+  (= 24); then `memcpy(..., matches_len)` where `matches_len` can be up
+  to 120 bytes.
+- **After:** `query_len = offsetof(..., matches) + matches_len` (= 24 +
+  matches_len). Validation now covers data actually copied.
+
+**Hunk 2 — V1 path:**
+- **Before:** `query_len = sizeof(v1 struct)` (= 24 header only).
+- **After:** `query_len = sizeof(v1 struct) + matches_len`.
+
+**Hunk 3 — `iwl_mvm_nd_match_info_handler()`:**
+- **Before:** `len < sizeof(struct) + matches_len` (= 24 + matches_len)
+  — correct with flex array (already fixed by dd90880 in this tree).
+- **After:** `len < offsetof(..., matches) + matches_len` (= 24 +
+  matches_len) — equivalent numerically, but required to avoid breaking
+  the check after the struct change (without it, `sizeof + matches_len`
+  would be 144 + matches_len, wrongly rejecting valid notifications).
+
+### Step 2.3: Bug Mechanism
+**Record:** **Category:** Memory safety / out-of-bounds read.
+
+**Specific mechanism:**
+1. `iwl_mvm_netdetect_query_results()` accepted responses as short as 24
+   bytes but copied up to `matches_len` bytes (up to 120 for V2, more
+   for V1).
+2. `iwl_mld_netdetect_match_info_handler()` (MLD, unchanged in diff)
+   checks `len < sizeof(*notif)` (= 24 with flex array) then
+   `memcpy(..., NETDETECT_QUERY_BUF_LEN)` (= 120 bytes). The struct
+   change makes `sizeof(*notif)` = 144, aligning validation with the
+   copy.
+3. The `offsetof` change in `iwl_mvm_nd_match_info_handler()` prevents a
+   regression from the struct layout change.
+
+### Step 2.4: Fix Quality
+**Record:** Fix is minimal and logically sound. Using `offsetof +
+matches_len` is the standard pattern for variable-length trailing data
+with a fixed-maximum struct. Regression risk is low: MVM paths preserve
+prior effective thresholds; MLD gets stricter validation matching what
+`memcpy` already required. No public API changes.
 
 ---
 
-## PHASE 2: DIFF ANALYSIS
+## Phase 3: Git History Investigation
 
-### Step 2.1: Inventory the changes
-**Record:**
-- **File:** `sound/hda/codecs/realtek/alc269.c` only
-- **Scope:** ~14 lines added, 0 removed
-- **Functions/structures modified:**
-  - Fixup enum (adds `ALC295_FIXUP_HP_PAVILION_X360`)
-  - `alc269_fixups[]` (new fixup entry)
-  - `alc269_fixup_tbl[]` (new quirk table entry)
-- **Classification:** Single-file, surgical hardware quirk
+### Step 3.1: Blame
+**Record:** `matches[]` at `scan.h:1277` comes from merge
+`5d324e5159d9e` (6.18-rc8 era). The flex-array layout and insufficient
+query-path validation have been present since this code landed in the
+6.18.y lineage.
 
-### Step 2.2: Code flow change
-**Record:**
-- **Hunk 1 (enum):** Adds new fixup ID before
-  `ALC221_FIXUP_HP_HEADSET_MIC`.
-- **Hunk 2 (fixups table):** New `ALC295_FIXUP_HP_PAVILION_X360` entry:
-  - **Before:** No codec-SSID-specific handling for `103c:8486`.
-  - **After:** On probe, sends COEF verbs to node `0x20` (indices
-    `0x07`/`0x0d`, values `0x7770`/`0x3000`) to force amp
-    gain/processing, then chains to `ALC295_FIXUP_HP_X360` →
-    `alc295_fixup_hp_top_speakers` → `ALC269_FIXUP_HP_MUTE_LED_MIC3`.
-- **Hunk 3 (quirk table):** Adds `HDA_CODEC_QUIRK(0x103c, 0x8486, "HP
-  Pavilion x360", ALC295_FIXUP_HP_PAVILION_X360)` between existing
-  `0x841c` and `0x8497` HP entries.
-- **Path affected:** HDA codec probe / fixup application at driver load.
+### Step 3.2: Fixes: Tag
+**Record:** Not applicable — no Fixes: tag in this commit.
 
-### Step 2.3: Bug mechanism
-**Record:** **Category:** Hardware quirk / logic correctness.
-- Bogus PCI SSID (`103c:0000`) prevents correct `SND_PCI_QUIRK`
-  matching.
-- `HDA_CODEC_QUIRK` matches on codec subsystem ID (`103c:8486`) instead.
-- Missing amp COEF initialization leaves speakers nearly silent even if
-  partial x360 fixup is reached.
+Related prior fix in this tree: `dd90880eb5ec5` (stable backport of
+upstream `744fabc338e87`) fixed the same class of OOB read in
+`iwl_mvm_nd_match_info_handler()` only. It did **not** fix
+`iwl_mvm_netdetect_query_results()` or MLD netdetect validation.
 
-### Step 2.4: Fix quality assessment
-**Record:**
-- Fix is minimal and follows established patterns (`HDA_FIXUP_VERBS` +
-  chained fixups).
-- Precedent in-tree: `ALC294_FIXUP_ASUS_SPK` uses the same COEF-verb
-  pattern.
-- **Regression risk:** Very low — only affects machines with codec SSID
-  `103c:8486`.
-- No API, locking, or structural changes.
+### Step 3.3: File History
+**Record:** Recent iwlwifi D3 changes in this tree include `dd90880`
+(nd_match_info_handler OOB) and `2d5dec5` (wake packet handler). This
+commit is the logical follow-up for adjacent netdetect paths. It is
+patch 15/15 in a series but only touches `scan.h` and `mvm/d3.c` — no
+dependency on patches 1–14 for these hunks.
 
----
-
-## PHASE 3: GIT HISTORY INVESTIGATION
-
-### Step 3.1: Blame changed lines
-**Record:**
-- `ALC295_FIXUP_HP_X360` and its fixup entry blame to `5d324e5159d9e`
-  (v6.18 merge, Nov 2025) — present in this tree.
-- `hp_x360.c` helper included at line 3276 — present.
-- The candidate commit itself is **not** in this tree (`0x8486`,
-  `ALC295_FIXUP_HP_PAVILION_X360` absent).
-
-### Step 3.2: Follow Fixes: tag
-**Record:** N/A — no `Fixes:` tag. This is a hardware/firmware SSID
-quirk issue, not a regression from a specific kernel commit.
-
-### Step 3.3: Related file history
-**Record:**
-- Recent related stable commits in this tree:
-  - `6b2c0cd5f9689` — Legion Pro 7 codec SSID quirk for silent speakers
-    (`HDA_CODEC_QUIRK`, `Cc: stable`)
-  - `ded801af28a99` — different HP Pavilion x360 mute-LED quirk
-    (`0x103c:0x8a34`, ALC245)
-- **Standalone:** Yes — no series dependency; self-contained quirk
-  addition.
-
-### Step 3.4: Author context
-**Record:** Takashi Iwai is the ALSA/HDA maintainer. `Reviewed-by:
-Cezary Rojewski` (Intel audio).
+### Step 3.4: Author Context
+**Record:** Emmanuel Grumbach is a long-standing Intel iwlwifi
+maintainer (11 of 15 patches in the series). Miri Korenblit is the
+series submitter. High subsystem credibility.
 
 ### Step 3.5: Prerequisites
-**Record:**
-- `ALC295_FIXUP_HP_X360` — **present** (line 3824, fixup at 5124–5129)
-- `alc295_fixup_hp_top_speakers` via `hp_x360.c` — **present**
-- `ALC269_FIXUP_HP_MUTE_LED_MIC3` — **present** (chain target)
-- `HDA_CODEC_QUIRK` macro — **present** in `hda_local.h`, used 11 times
-  in `alc269.c`
-- `match_codec_ssid` logic in `auto_parser.c` — **present**
-- **Can apply standalone:** Yes
+**Record:** Self-contained. Verified with `git apply --check` — applies
+cleanly to this tree (minor line offsets only). No prerequisite commits
+required.
 
 ---
 
-## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
+## Phase 4: Mailing List and External Research
 
-### Step 4.1: Original patch discussion
-**Record:** UNVERIFIED — `b4 dig -c <commit>` not possible (commit not
-in local repo). `patch.msgid.link` and `lore.kernel.org` returned
-403/Anubis bot protection. Could not read thread content.
+### Step 4.1: Original Discussion
+**Record:** `b4 dig -c <commit>` unavailable (commit not yet in git).
+Local mbox
+`20260715_miriam_rachel_korenblit_wifi_iwlwifi_fixes_07_15_2026.mbx`
+contains the patch. Lore/patch.msgid.link fetches blocked by bot
+protection. Cover letter describes series as "bugfixes" with no per-
+patch stable nominations.
 
 ### Step 4.2: Reviewers
-**Record:** `Reviewed-by: Cezary Rojewski <cezary.rojewski@intel.com>`
-from commit message (unverified against lore thread).
+**Record:** UNVERIFIED for patch 15 specifically — no Reviewed-by on
+this individual patch. Series patch 2 has Reviewed-by: Johannes Berg.
+Maintainers Grumbach/Korenblit are authors.
 
-### Step 4.3: Bug report
-**Record:** `Closes:` links to a Gmail lore thread (user report).
-UNVERIFIED — could not fetch. Commit message describes reproducible
-silent-audio symptom on specific hardware.
+### Step 4.3: Bug Reports
+**Record:** No Reported-by or syzbot link. Same bug class as SVACE-found
+dd90880 (already in 6.18.y). Mechanism verified by code inspection.
 
-### Step 4.4: Related patches/series
-**Record:** Standalone 1/1 patch. Related but distinct: `ded801af28a99`
-(HP Pavilion x360 14-ek0xxx mute LED, different SSID/codec).
+### Step 4.4: Series Context
+**Record:** Part of 15-patch iwlwifi validation-hardening series. This
+patch is independently applicable; it does not require other series
+patches.
 
-### Step 4.5: Stable list history
-**Record:** UNVERIFIED — lore stable search blocked. Similar Legion Pro
-silent-speaker quirk (`6b2c0cd5f9689`) was explicitly nominated with
-`Cc: stable` and is already in this 6.18.y tree.
+### Step 4.5: Stable List History
+**Record:** UNVERIFIED — lore.kernel.org/stable search blocked. Related
+fix dd90880 was explicitly Cc: stable and is already in this 6.18.y
+tree.
 
 ---
 
-## PHASE 5: CODE SEMANTIC ANALYSIS
+## Phase 5: Code Semantic Analysis
 
-### Step 5.1: Key functions modified
-**Record:** No functions modified. Data tables only: fixup enum,
-`alc269_fixups[]`, `alc269_fixup_tbl[]`.
+### Step 5.1: Key Functions
+**Record:** `iwl_mvm_netdetect_query_results()`,
+`iwl_mvm_nd_match_info_handler()`, and (indirectly via struct change)
+`iwl_mld_netdetect_match_info_handler()`.
 
 ### Step 5.2: Callers
-**Record:** Quirk tables consumed during HDA codec probe in
-`sound/hda/common/auto_parser.c`:
-- `snd_hda_pick_fixup()` iterates `alc269_fixup_tbl[]`
-- For `HDA_CODEC_QUIRK` entries (`match_codec_ssid = true`), matches
-  codec vendor/device ID
-- Matched fixup applied during codec initialization on every boot for
-  matching hardware
+**Record:**
+- `iwl_mvm_netdetect_query_results()` — called from D3 resume/WoWLAN
+  netdetect reporting path (`d3.c:~2610`) when firmware uses query-based
+  ND results.
+- `iwl_mvm_nd_match_info_handler()` — called from D3 notification
+  handler on `OFFLOAD_MATCH_INFO_NOTIF` (`d3.c:~2967`).
+- `iwl_mld_netdetect_match_info_handler()` — called from MLD D3 resume
+  notification dispatch (`mld/d3.c:~1322`).
+
+All are WoWLAN suspend/resume (D3) paths on Intel wireless hardware.
 
 ### Step 5.3: Callees
-**Record:** New fixup sends standard HDA verbs
-(`AC_VERB_SET_COEF_INDEX`, `AC_VERB_SET_PROC_COEF`), then chains to
-`alc295_fixup_hp_top_speakers` and `alc269_fixup_hp_mute_led_mic3`.
+**Record:** `iwl_mvm_send_cmd()`, `iwl_rx_packet_payload_len()`,
+`memcpy()`, `le32_to_cpu()`, `IWL_ERR()`, `IWL_FW_CHECK()`.
 
-### Step 5.4: Call chain / reachability
-**Record:** Triggered automatically at HDA codec probe on affected HP
-Pavilion x360 hardware. Not userspace-triggerable; affects all users of
-that laptop model at boot.
+### Step 5.4: Reachability
+**Record:** Triggered during system suspend with WoWLAN netdetect
+configured — common laptop use case. Requires
+`CONFIG_IWLMVM`/`CONFIG_IWLMVM` module and compatible Intel firmware.
+Reachable from normal userspace power-management (suspend), not a root-
+only obscure ioctl.
 
-### Step 5.5: Similar patterns
+### Step 5.5: Similar Patterns
+**Record:** Same `sizeof(flex_array_struct) + trailing_data` under-
+validation pattern that dd90880 fixed in
+`iwl_mvm_nd_match_info_handler()`. The query path
+(`iwl_mvm_netdetect_query_results`) was left unfixed. MLD path has the
+identical pattern with `sizeof(*notif)`.
+
+---
+
+## Phase 6: Cross-Reference Against Local Tree
+
+### Step 6.1: Buggy Code Present?
+**Record:** **Yes.** Local tree is `stable/linux-6.18.y` at v6.18.44
+(`git describe HEAD` → `v6.18.44-2-g1b9e1abadee04`). Confirmed:
+- `matches[]` flex array at `scan.h:1277`
+- `query_len = sizeof(struct iwl_scan_offload_match_info)` without
+  `matches_len` at `mvm/d3.c:2473`
+- MLD `len < sizeof(*notif)` (= 24) before 120-byte `memcpy` at
+  `mld/d3.c:1134-1152`
+
+### Step 6.2: Backport Complications
+**Record:** Clean apply expected — `git apply --check` succeeded with
+only line-offset adjustments. No conflicting refactors in these
+functions on 6.18.y.
+
+### Step 6.3: Related Fixes Already Present?
+**Record:** `dd90880eb5ec5` fixed `iwl_mvm_nd_match_info_handler()`
+length check (flex-array era). The query-path and MLD-path bugs remain
+unfixed. This commit's `offsetof` change in `nd_match_info_handler`
+preserves dd90880's effective threshold after the struct change.
+
+---
+
+## Phase 7: Subsystem and Maintainer Context
+
+### Step 7.1: Subsystem Criticality
+**Record:** **Subsystem:** `drivers/net/wireless/intel/iwlwifi` — WiFi
+driver (IMPORTANT). Affects Intel laptop/desktop WiFi users using WoWLAN
+netdetect.
+
+### Step 7.2: Subsystem Activity
+**Record:** Actively maintained; recent stable backports include dd90880
+and wake-packet fixes in the same D3 code.
+
+---
+
+## Phase 8: Impact and Risk Assessment
+
+### Step 8.1: Who Is Affected
+**Record:** Users of Intel iwlwifi (MVM and MLD) with WoWLAN network-
+detection enabled during suspend. Config-dependent (`CONFIG_IWLWIFI`,
+`CONFIG_IWLMVM`/`CONFIG_IWLMLO`), but affects a large installed base of
+Intel WiFi laptops.
+
+### Step 8.2: Trigger Conditions
+**Record:** System suspend with netdetect profiles configured; firmware
+returns a scan-offload match query response or notification shorter than
+header + match data. Unprivileged users trigger suspend via normal power
+management. If firmware always sends full payloads, the bug is latent;
+if firmware sends truncated/malformed data, OOB read occurs.
+
+### Step 8.3: Failure Mode Severity
+**Record:** Out-of-bounds kernel read from firmware notification buffer
+→ potential kernel oops, info leak, or corrupted netdetect results.
+**Severity: HIGH** (memory safety in kernel, WoWLAN resume path).
+
+### Step 8.4: Risk-Benefit
 **Record:**
-- `ALC294_FIXUP_ASUS_SPK` — COEF verb amp init, chained fixup (lines
-  5195–5207)
-- `6b2c0cd5f9689` — `HDA_CODEC_QUIRK` for silent speakers when PCI SSID
-  is wrong
-- `ALC285_FIXUP_HP_GPIO_AMP_INIT` — HP amp-init fixup family
+- **Benefit:** HIGH — closes OOB reads in netdetect query and
+  notification paths; aligns validation with actual `memcpy` sizes;
+  complements dd90880 already in tree.
+- **Risk:** LOW — ~13 lines, 2 files, no behavior change for correctly-
+  sized firmware payloads; MLD gets stricter validation that matches
+  existing `memcpy` requirements.
+- **Ratio:** Strong benefit, low risk.
 
 ---
 
-## PHASE 6: CROSS-REFERENCING AGAINST LOCAL TREE
+## Phase 9: Final Synthesis
 
-### Step 6.1: Does the buggy code exist?
-**Record:** **Yes.** The tree has `ALC295_FIXUP_HP_X360` and HP x360 PCI
-quirks (`0x820d`, `0x827e`) but **no** `HDA_CODEC_QUIRK(0x103c, 0x8486,
-...)`. Machines with bogus PCI SSID `103c:0000` and codec SSID
-`103c:8486` are affected in this tree today.
-
-### Step 6.2: Backport complications
-**Record:** **Clean apply expected.** Insertion points verified in
-current tree:
-- Enum: `ALC295_FIXUP_HP_X360` at 3824, followed by
-  `ALC221_FIXUP_HP_HEADSET_MIC`
-- Fixups: `ALC295_FIXUP_HP_X360` at 5124–5129
-- Quirk table: `0x841c` at 6723, `0x8497` at 6724 — matches diff context
-  exactly
-
-### Step 6.3: Related fixes already present?
-**Record:** No equivalent fix for `103c:8486`. Different Pavilion x360
-quirk (`0x8a34`, ALC245 mute LED) exists but addresses a different
-machine/codec.
-
----
-
-## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
-
-### Step 7.1: Subsystem criticality
-**Record:** `sound/hda` — Realtek codec driver. **IMPORTANT** for
-affected laptop users; peripheral globally but critical for those with
-broken audio.
-
-### Step 7.2: Subsystem activity
-**Record:** Actively maintained — multiple HP/Lenovo quirk commits in
-recent 6.18.y history.
-
----
-
-## PHASE 8: IMPACT AND RISK ASSESSMENT
-
-### Step 8.1: Who is affected
-**Record:** **Hardware-specific** — HP Pavilion x360 laptops reporting
-codec SSID `103c:8486` with bogus PCI SSID `103c:0000`.
-
-### Step 8.2: Trigger conditions
-**Record:** Every boot / codec probe on affected hardware. Common path
-for those machines. Not security-relevant; not user-triggerable beyond
-owning the hardware.
-
-### Step 8.3: Failure mode severity
-**Record:** Near-silent speaker output — primary audio function broken.
-**Severity: MEDIUM** (functional breakage, not
-crash/corruption/security). For affected users, impact is severe.
-
-### Step 8.4: Risk-benefit ratio
-**Record:**
-- **Benefit:** Restores usable speaker audio on affected HP Pavilion
-  x360 laptops
-- **Risk:** Very low — ~14 lines, codec-SSID-specific match, established
-  quirk mechanism
-- **Ratio:** Strongly favorable
-
----
-
-## PHASE 9: FINAL SYNTHESIS
-
-### Step 9.1: Evidence compiled
+### Step 9.1: Evidence Summary
 
 **FOR backport:**
-- Real hardware bug: near-silent speakers on specific HP Pavilion x360
-- Classic stable exception: hardware quirk/workaround
-- Small, surgical, maintainer-authored, Intel-reviewed
-- All prerequisites present in Linux 6.18.44
-- Clean apply to current tree
-- Direct precedent: `6b2c0cd5f9689` (codec SSID quirk for silent
-  speakers, already in 6.18.y with `Cc: stable`)
-- Low regression risk (SSID-specific matching)
+- Fixes real out-of-bounds read in `iwl_mvm_netdetect_query_results()`
+  (both V1 and V2 API branches) — only 24-byte header validated, up to
+  120+ bytes copied.
+- Fixes MLD netdetect under-validation via struct `sizeof` correction
+  (24 → 144 bytes required before 120-byte `memcpy`).
+- Same bug class as dd90880, already backported to this 6.18.y tree.
+- WoWLAN/D3 suspend path — user-visible laptop functionality.
+- Small, surgical, from Intel iwlwifi maintainers.
+- Applies cleanly to this tree.
+- No new features or APIs.
 
 **AGAINST backport:**
-- Not a crash, security, or data-corruption issue
-- Affects only one hardware variant
-- No `Tested-by:` or `Cc: stable` in commit message (not disqualifying)
-- Mailing list discussion unverified
+- Struct layout change (flex → fixed array) is slightly broader than a
+  one-line check fix, but necessary and internal to firmware API
+  headers.
+- No explicit Reported-by or Cc: stable (not a negative signal per
+  instructions).
+- Part of a 15-patch series (but this patch is standalone).
 
-**UNRESOLVED:**
-- Could not verify lore thread or user bug report details (403 bot
-  protection)
+**Unresolved:** Lore discussion and stable-list history could not be
+fetched (bot protection).
 
-### Step 9.2: Stable rules checklist
-1. Obviously correct and tested? **PASS** — standard HDA quirk pattern;
-   Reviewed-by from Intel; maintainer SOB
-2. Fixes a real bug affecting users? **PASS** — silent/near-silent audio
-   on specific laptop
-3. Important issue? **PASS** — broken primary audio on affected hardware
-   (hardware quirk exception)
-4. Small and contained? **PASS** — ~14 lines, one file
-5. No new features or APIs? **PASS** — quirk table entry only
-6. Can apply to local tree? **PASS** — prerequisites present, clean
-   apply expected
+### Step 9.2: Stable Rules Checklist
+1. Obviously correct and tested? **PASS** — logic verified by size
+   arithmetic; Intel maintainer authorship.
+2. Fixes a real bug affecting users? **PASS** — OOB read in WoWLAN
+   netdetect paths.
+3. Important issue? **PASS** — memory safety / potential crash on
+   suspend resume.
+4. Small and contained? **PASS** — 2 files, ~13 lines.
+5. No new features or APIs? **PASS** — correctness/validation fix only.
+6. Can apply to local tree? **PASS** — `git apply --check` succeeded.
 
-### Step 9.3: Exception category
-**Record:** **Hardware quirk/workaround** — codec SSID quirk with COEF
-amp initialization for broken/misreported PCI SSID.
+### Step 9.3: Exception Categories
+**Record:** Not applicable (not a device ID, quirk, DT, build, or docs-
+only change). Qualifies as a memory-safety bug fix.
 
-### Step 9.4: Decision rationale
-This commit fixes a real, user-visible audio failure on HP Pavilion x360
-hardware where a bogus PCI SSID causes incorrect quirk matching. The fix
-is a small, well-established HDA codec quirk that matches codec SSID
-`103c:8486`, initializes the amplifier via COEF verbs, and chains to
-existing x360 fixups already present in Linux 6.18.44. It fits the
-stable kernel hardware-quirk exception category with minimal risk and
-clear benefit for affected laptop owners.
+### Step 9.4: Problem Summary for Stable Users
+
+This commit addresses insufficient payload-length validation in Intel
+iwlwifi WoWLAN network-detection (netdetect) handling during D3
+suspend/resume. The MVM query-results path validates only the 24-byte
+notification header but then copies up to 120 bytes of match data; the
+MLD path has the same under-validation. A short or malformed firmware
+response can cause an out-of-bounds kernel read. The patch also changes
+the firmware API struct from a flexible to a fixed-size matches array (8
+entries, matching `IWL_SCAN_MAX_PROFILES_V2`) and adjusts MVM length
+calculations with `offsetof()` so checks remain correct.
+
+This is a natural companion to dd90880 (already in 6.18.y), which fixed
+the same under-validation pattern in the MVM notification handler but
+left the query path and MLD path unfixed.
 
 ---
 
 ## Verification
 
-- [Phase 1] Parsed commit message: subsystem ALSA/hda/realtek, action
-  "add quirk", tags Closes/Reviewed-by/Link/Signed-off-by
-- [Phase 1] No Fixes:/Reported-by:/Cc: stable tags
-- [Phase 2] Diff: 1 file, ~14 lines added, enum + fixup + quirk table
-- [Phase 2] New fixup chains: PAVILION_X360 → HP_X360 → MUTE_LED_MIC3
-- [Phase 2] COEF verbs: index 0x07/val 0x7770, index 0x0d/val 0x3000
-- [Phase 3] `git describe HEAD`: v6.18.44-2-g1b9e1abadee04
-- [Phase 3] `git blame` ALC295_FIXUP_HP_X360: present since
-  5d324e5159d9e
-- [Phase 3] `grep ALC295_FIXUP_HP_PAVILION_X360` / `0x8486` in alc269.c:
-  not found — commit absent from tree
-- [Phase 3] `6b2c0cd5f9689`: similar HDA_CODEC_QUIRK silent-speaker fix
-  already in tree
-- [Phase 3] `ded801af28a99`: different HP Pavilion x360 quirk (0x8a34,
-  mute LED)
-- [Phase 4] `b4 dig -c`: not run — commit not in local repo
-- [Phase 4] lore.kernel.org / patch.msgid.link fetch: 403 Forbidden —
-  UNVERIFIED
-- [Phase 5] `grep match_codec_ssid` in auto_parser.c: codec SSID
-  matching logic confirmed at lines 1067–1079
-- [Phase 5] `HDA_CODEC_QUIRK` macro in hda_local.h: confirmed at lines
-  314–320
-- [Phase 5] `hp_x360.c` included at alc269.c:3276;
-  `alc295_fixup_hp_top_speakers` exists
-- [Phase 6] Insertion context verified: 0x841c/0x8497 neighbors at lines
-  6723–6724
-- [Phase 6] 11 existing `HDA_CODEC_QUIRK` entries in alc269.c
-  (ASUS/Lenovo, no HP yet)
-- [Phase 8] Failure mode: near-silent speakers, severity MEDIUM for
-  affected hardware
+- [Phase 1] Parsed subject, tags, body from user-provided commit message
+  and local mbox patch 15/15.
+- [Phase 2] Diff analysis: 2 files, functions
+  `iwl_mvm_netdetect_query_results` and `iwl_mvm_nd_match_info_handler`;
+  computed sizes (header=24, profile_match=15, fixed struct=144,
+  matches_len up to 120 for V2).
+- [Phase 3] `git blame scan.h:1277` → merge 5d324e5159d9e; `git log`
+  shows dd90880 already in tree for nd_match_info_handler; upstream
+  744fabc338e87 present.
+- [Phase 3] `git apply --check` on patch hunks → applies cleanly to
+  6.18.44 tree.
+- [Phase 4] Local mbox cover letter read; lore/patch.msgid.link blocked
+  by bot protection — UNVERIFIED for list discussion.
+- [Phase 4] `b4 dig -c` not usable (commit not in git history).
+- [Phase 5] `grep` call chains: netdetect_query from d3.c:2610;
+  nd_match_info_handler from d3.c:2967; mld handler from mld/d3.c:1322.
+- [Phase 5] Read current `mvm/d3.c:2471-2492`, `mvm/d3.c:2838`,
+  `mld/d3.c:1134-1152` — confirmed under-validation before memcpy.
+- [Phase 6] `git describe HEAD` → v6.18.44 on `stable/linux-6.18.y`;
+  buggy code confirmed present.
+- [Phase 6] No duplicate fix for query path found in tree.
+- [Phase 8] Failure mode: OOB read, severity HIGH; trigger: WoWLAN
+  netdetect during suspend.
 
-**YES**The background search for `0x8486` finished: that codec SSID
-quirk is **not** in this **6.18.44** tree yet, which matches the earlier
-analysis.
+**YES**
 
-**Verdict: YES** — backport this commit. It’s a small HP Pavilion x360
-hardware quirk (`103c:8486`) that fixes near-silent speakers when the
-machine reports a bogus PCI SSID (`103c:0000`). All prerequisites
-(`ALC295_FIXUP_HP_X360`, `HDA_CODEC_QUIRK`, amp init chain) are already
-present, and the patch should apply cleanly.
+ drivers/net/wireless/intel/iwlwifi/fw/api/scan.h | 4 ++--
+ drivers/net/wireless/intel/iwlwifi/mvm/d3.c      | 9 ++++++---
+ 2 files changed, 8 insertions(+), 5 deletions(-)
 
- sound/hda/codecs/realtek/alc269.c | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
-
-diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
-index b7dad90ac9cd4..f1e6557847a85 100644
---- a/sound/hda/codecs/realtek/alc269.c
-+++ b/sound/hda/codecs/realtek/alc269.c
-@@ -3823,6 +3823,7 @@ enum {
- 	ALC256_FIXUP_HUAWEI_MACH_WX9_PINS,
- 	ALC298_FIXUP_HUAWEI_MBX_STEREO,
- 	ALC295_FIXUP_HP_X360,
-+	ALC295_FIXUP_HP_PAVILION_X360,
- 	ALC221_FIXUP_HP_HEADSET_MIC,
- 	ALC285_FIXUP_LENOVO_HEADPHONE_NOISE,
- 	ALC295_FIXUP_HP_AUTO_MUTE,
-@@ -5137,6 +5138,19 @@ static const struct hda_fixup alc269_fixups[] = {
- 		.chained = true,
- 		.chain_id = ALC269_FIXUP_HP_MUTE_LED_MIC3
- 	},
-+	[ALC295_FIXUP_HP_PAVILION_X360] = {
-+		.type = HDA_FIXUP_VERBS,
-+		.v.verbs = (const struct hda_verb[]) {
-+			/* force amp gain and processing state */
-+			{ 0x20, AC_VERB_SET_COEF_INDEX, 0x07 },
-+			{ 0x20, AC_VERB_SET_PROC_COEF, 0x7770 },
-+			{ 0x20, AC_VERB_SET_COEF_INDEX, 0x0d },
-+			{ 0x20, AC_VERB_SET_PROC_COEF, 0x3000 },
-+			{}
-+		},
-+		.chained = true,
-+		.chain_id = ALC295_FIXUP_HP_X360
-+	},
- 	[ALC221_FIXUP_HP_HEADSET_MIC] = {
- 		.type = HDA_FIXUP_PINS,
- 		.v.pins = (const struct hda_pintbl[]) {
-@@ -6744,6 +6758,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x103c, 0x82c0, "HP G3 mini premium", ALC221_FIXUP_HP_MIC_NO_PRESENCE),
- 	SND_PCI_QUIRK(0x103c, 0x83b9, "HP Spectre x360", ALC269_FIXUP_HP_MUTE_LED_MIC3),
- 	SND_PCI_QUIRK(0x103c, 0x841c, "HP Pavilion 15-CK0xx", ALC269_FIXUP_HP_MUTE_LED_MIC3),
-+	HDA_CODEC_QUIRK(0x103c, 0x8486, "HP Pavilion x360", ALC295_FIXUP_HP_PAVILION_X360),
- 	SND_PCI_QUIRK(0x103c, 0x8497, "HP Envy x360", ALC269_FIXUP_HP_MUTE_LED_MIC3),
- 	SND_PCI_QUIRK(0x103c, 0x84a6, "HP 250 G7 Notebook PC", ALC269_FIXUP_HP_LINE1_MIC1_LED),
- 	SND_PCI_QUIRK(0x103c, 0x84ae, "HP 15-db0403ng", ALC236_FIXUP_HP_MUTE_LED_COEFBIT2),
+diff --git a/drivers/net/wireless/intel/iwlwifi/fw/api/scan.h b/drivers/net/wireless/intel/iwlwifi/fw/api/scan.h
+index 46fcc32608e34..b05948fbb2a37 100644
+--- a/drivers/net/wireless/intel/iwlwifi/fw/api/scan.h
++++ b/drivers/net/wireless/intel/iwlwifi/fw/api/scan.h
+@@ -1,6 +1,6 @@
+ /* SPDX-License-Identifier: GPL-2.0 OR BSD-3-Clause */
+ /*
+- * Copyright (C) 2012-2014, 2018-2025 Intel Corporation
++ * Copyright (C) 2012-2014, 2018-2026 Intel Corporation
+  * Copyright (C) 2013-2015 Intel Mobile Communications GmbH
+  * Copyright (C) 2016-2017 Intel Deutschland GmbH
+  */
+@@ -1274,7 +1274,7 @@ struct iwl_scan_offload_match_info {
+ 	u8 resume_while_scanning;
+ 	u8 self_recovery;
+ 	__le16 reserved;
+-	struct iwl_scan_offload_profile_match matches[];
++	struct iwl_scan_offload_profile_match matches[IWL_SCAN_MAX_PROFILES_V2];
+ } __packed; /* SCAN_OFFLOAD_PROFILES_QUERY_RSP_S_VER_3 and
+ 	     * SCAN_OFFLOAD_MATCH_INFO_NOTIFICATION_S_VER_1
+ 	     */
+diff --git a/drivers/net/wireless/intel/iwlwifi/mvm/d3.c b/drivers/net/wireless/intel/iwlwifi/mvm/d3.c
+index 82dca6ba56c7f..58384d7e7cd35 100644
+--- a/drivers/net/wireless/intel/iwlwifi/mvm/d3.c
++++ b/drivers/net/wireless/intel/iwlwifi/mvm/d3.c
+@@ -2481,13 +2481,15 @@ iwl_mvm_netdetect_query_results(struct iwl_mvm *mvm,
+ 
+ 	if (fw_has_api(&mvm->fw->ucode_capa,
+ 		       IWL_UCODE_TLV_API_SCAN_OFFLOAD_CHANS)) {
+-		query_len = sizeof(struct iwl_scan_offload_match_info);
+ 		matches_len = sizeof(struct iwl_scan_offload_profile_match) *
+ 			max_profiles;
++		query_len = offsetof(struct iwl_scan_offload_match_info,
++				     matches) + matches_len;
+ 	} else {
+-		query_len = sizeof(struct iwl_scan_offload_profiles_query_v1);
+ 		matches_len = sizeof(struct iwl_scan_offload_profile_match_v1) *
+ 			max_profiles;
++		query_len = sizeof(struct iwl_scan_offload_profiles_query_v1) +
++			matches_len;
+ 	}
+ 
+ 	len = iwl_rx_packet_payload_len(cmd.resp_pkt);
+@@ -2846,7 +2848,8 @@ static void iwl_mvm_nd_match_info_handler(struct iwl_mvm *mvm,
+ 	if (IS_ERR_OR_NULL(vif))
+ 		return;
+ 
+-	if (len < sizeof(struct iwl_scan_offload_match_info) + matches_len) {
++	if (len < offsetof(struct iwl_scan_offload_match_info, matches) +
++		    matches_len) {
+ 		IWL_ERR(mvm, "Invalid scan match info notification\n");
+ 		return;
+ 	}
 -- 
 2.53.0
 
