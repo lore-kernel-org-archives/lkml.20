@@ -1,96 +1,169 @@
-Received: from sonic307-15.consmr.mail.ne1.yahoo.com (sonic307-15.consmr.mail.ne1.yahoo.com [66.163.190.38])
+Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com [209.85.208.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2F4E46AED1
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 17:17:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=66.163.190.38
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788196680; cv=none; b=RHZQXzKa5rp8nALfPLxmH2KAaNBJCDywC+UbaaiqzdWnaRKPnKMUrcPAzcHLfgHTcKYBzAmcCyk2EFQtvVuZhA+EoBvlfDQ4C61+u05I4cm9IG2/W01rvuxRm+84khuy4NzJujYJPSqDKNUdmk9T/gTBlMd5gDcZG000gtq9o0s=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788196680; c=relaxed/simple;
-	bh=FTwFSgGp7B0oMcAD4FjqadY/I7FONTHuVvMlJ2D8huw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=iEnLQIX/sjbx+C6ZsY1vYPY+ZjNaa4YjzPJn+T7a/SkeN/WEKj23zyaraUGynYy6r5HlhowgioOipyD4Igx5oZc4yX92Hon5bF95xdwcK21Quz1phdD8EgDgiBhb6Fj/BhD0etoKRwLuxfTnWnmMZQO2WB9oEti8hFZpL0UL86s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=schaufler-ca.com; spf=none smtp.mailfrom=schaufler-ca.com; dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b=arlCgvwv; arc=none smtp.client-ip=66.163.190.38
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=schaufler-ca.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=schaufler-ca.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74DDF2E62A9
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 17:18:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.43
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788196731; cv=pass; b=gbm1zBnzSXPgC5YTSEpSTfPfj2VA3G/vQr9QgJbH/RvhroUiSgVSRaxNFIVmJjFpGl8ftTpzPKZE6R98nmrWwjXgmjK7qgc2JApEtU4ng1+Abvp6I2IVfIYM7+qZvPfqG9FJfX5JLnEVSe6ZirLjNujPw68l56xR8QLUnCvc2YE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788196731; c=relaxed/simple;
+	bh=MXFqWr7Uky0TUxYJJ7ciGR+LjTO2h6aLcYNxNAXrW0o=;
+	h=From:In-Reply-To:References:MIME-Version:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=NzjYZML1SUNSSutoSR7qMivhLcYbGi+hXPYftNF295IwgZOoiGuo8lFGeUcVaqBGQYRRaIz0TVm+FnuSSPjJsbKYJmPdj9KDGjb3XRMzA9KydADVt0KT2oweKuN3gLvILaLagoLzq6TDBrpa3QbfRDqBm5kknSHrm71P3oAsWnU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oT/s+vSb; arc=pass smtp.client-ip=209.85.208.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b="arlCgvwv"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1788196672; bh=FTwFSgGp7B0oMcAD4FjqadY/I7FONTHuVvMlJ2D8huw=; h=Date:Subject:To:Cc:References:From:In-Reply-To:From:Subject:Reply-To; b=arlCgvwvLm8Qb7Nbjh550SeFjIV5in6tm1BOa8NudEZoI42czzBifZzOz7DtY0CTiMtAm/qxInGtcear2DqLQACxKaji8Nr96FK7h/lLKo8bhE6aITm93wN5tzcQ7hB/edVD8ogfHgWI7tz948thXqUCKrF8/IcR7aBboecX1STYtULSqgF5l3TnXNjJGR1Eg+Vg4dTu1ZOqwEsplBN6mttB4iGUwQEKOkd+y7ibUWVXohCpGEeBF+gwdKmLWh8RUNsJ+T6BWvZaMavVv/ivaJ1KMAcVqkHjJfvqrYv0diZovORFoa78gfSyJwp8vibrvcGP4EPmsZea8WnROzuXmQ==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1788196672; bh=6mmQWRLcrgRtVdpHRvtmZHOvnh8HLTcZ++5pFhqLU+G=; h=X-Sonic-MF:Date:Subject:To:From:From:Subject; b=g6exJgxWioI0LRrCIbeMrOIa+epz3VMHYkEGntIzRHnOfoZSDHzfO63kxo7f1b8qmIaw9MmwVhxPE8j1XOuAb040kqYlrt0xEqWGaNev4gEp3Wvv+MYmdfE/Hk2xuAjZy2VLy43NC+bB940n4AHnB4I/yfBkG4hgGb5dy0WwBjp4/SqN4Hk2dregB+tocH+REMGL/OtNOs3ZRymYs/ZVOllZZgbBkly1nwJ3zD6JYTmzmxrPwJvXhYo5pdLbeVtSaonZNd2tr2oZBN6FibRunneLOfkHsmnyCJRfDtun6kEhCpkTJGFDZbhUYuQ7380er9CgN2DJ1tqkjVNDP3PgyA==
-X-YMail-OSG: kPAetDYVM1mWKOgZJCvUWv2wQ60g205jl8VA8mnfSu5dDspmFK4i3NFBkBQcXBi
- CJJbTW6FzhivEvMS0FO4OHSc8GKL6yaeNOvd6yOHQSjFjYUCqAn_1CAjxHOwUbJDuvng8YlW05Mp
- gmPsBPuwjvs88l0XQxLnpGfKDKNfmKlMERSzhABFZKvkuRvAavt_OhArDFe6hzbAX5G359yWg775
- PlYLHRau2j.W1OcestXCxk8MdJuRqWGWOfmOilcB2kwoyAGDRCtjIxEhJkzzhKTt42SbXuzHTXqq
- xhA7GT_I1ENBE6el0VXFLzYD9038UwdnpBudEVL5CVYmie.ZTw9lUBhdf_AZivzxGtKp4HQHTbsr
- wRIj0LBIyILd3cnplGDbHQIdmbuYQgKcV3UaytrQi9483SfmnArPJu_q5nBlTcUkSfX_k4NVrCBn
- Ymltlxc3lV.xu9k0_UW.O1FPH9zwYc0jG0CBGr23fWdT2B6Mcbj4jnBOT2nAizxyNSp6JfUim18K
- Pa1r776AkGjumesFPbuGROrLqXufjKGsXtM0E7y5WUfhVnN7Jt8tPpnXUA.w4MhMrP40dAkAPsgu
- .8mayL4wDjzrmU6aewG_O7QGIuWW3WVNRJ3VHTVtJ08_TSk4oyXNdJHcvX8M04iA8MCbKZtFz8q6
- iL7tCooy1dPPqi94tb62fJCqM60UpA1gEUc7iMYsc6qKvRWuh4nl5Lo3yBIG7TXl2J_5POLIOUBb
- rovkj0E313x6yR8v4Oaplufp8O9L4FbBHE7OxtpJnO02Cvlzb43sqop3dtpBXC871jTbQenxHzJ_
- .k5bpSZQbavKS7D0FWkvciA1sK.zUmkKh0gjVvb90PBWZwf6ug3UdlLuYdUUrW.5dXhimNJmRZ5a
- d4SMOw6_Tj54_u_C3W62DU.wSlTyi4vz3dLBzY5vYoc8oW0QBYkBpZIDaBt6a8oDbtuNO7aUCO5p
- WOw4SQ8yF9zxc0AoXaanTcm0hjZeRGrYeso0HMrSDQ14DP38Fub59evDGO9JgKmOCLt4uXWIytUw
- MR9H7QiOdDeazZP7rpMejoD_iiQvvFNlSA_mie9mezkdZDGQxDELh_.BNUL_ONE5vxfnrZRuWFGa
- 4rik09lbw0.BA9VrQrg4nFU_wm78B83bx5lHMGEYxRlmPf6Qjiad1m5FukFhsGN.aBG.3kIsXzsY
- WLtXzFQY0l9dYM9eyLfRSKSKCa9BS2rs4r3Fp6SMk8twag5SNRAf9StdSI15y5oyLdfwor9qBS79
- 2bP8qczCB5ekl4rAwaCbJa4_UzsF2.9JPbNuRObsYAsEzoKxmB.AiH2DrgihUZa00SinPt4Gch7E
- TIyEK5VZjWIN4iwtuITvbyXkTXek254f1dsPQpG4J.DcYuomTwdNctzbL6mrIfagSZgZ_DCnSqvE
- lGFWGAlwk3I9xeBGS_rGCg435Dex4O7oWdbSw_Gz1kWAL14ud7P_I7J3psvqYXAoj50ALCBIqgZH
- 3awUmldP.0Vjk9RT0PW7dT5NCDhtLBTz_2vjKS6OzDtbglNCs1Galol3ctMm436QLa4vTBCGHROf
- II86vlEDlaTxDqrYzPYaxuiVyUGwd8Imi3d3jibJaXNhRMMkmjeowFv6JgcdaYaL2Im7vN4nWdWP
- iaNlAdcuTaU6QJWsnOC4FmMw7R3RPdPeDwROTaj6D6YBeh53EOczR3IkL04vW2uB3SnwIv4swO.u
- 8fTEvo2oqv22zxGwk7wFGaanFxjHmhw7jHHA_NFv3UEidtcnNYV7pu.mDX_F1Mly0qKM1iTtOv2F
- CnoAy_4HBKFrkanxpXIndIME6kdENfxAZxysjDRcH1rboMKDq1cSIdplCymRXFrRRm3pE5Z_ZOMe
- kk8XwotGGdSKtoeId84wDLS3l9Lra8qk.cjQwd.twKJb4_y7OGUSiFBfHI6bRUgSgtCPzr7NT.Ld
- xmkjY4SMRDo9rGF1Y.ZwEPTRQEgvkAmKguqHnG62m42Q4za8lYsXgVA2CMcimVNzM0u8LkT5IFD3
- _LjoZ5SG3.tw0QJ8H4BFLFZAg3Pd1uVKeCU82pvPzsS7aTfj1vvFxnc7HM59tUW3pz0wBsUEH2gx
- JlUDQx9lOCrVycVpp74V9bHI1wGmfmV91T_QEYQhiXYHle7iaabFeL0jM75ARySzK8DPeMQqlcjH
- 1l2CuEuSV9M5ApaMqWrY_rFUEXfyWuuNtgrxDOXNa1uyoxZXAk.GH8_J_P_OAfbgsUYld2ZTHAjc
- VMQJspEN7L4BV311WpxsiJli5MUpOSPAePOaT4TIoRiQsgU7Ay6IsI6N9BsZLxTO2onRPDmE-
-X-Sonic-MF: <casey@schaufler-ca.com>
-X-Sonic-ID: 786667d0-d8a6-4fa6-8e93-77cf5c761ecf
-Received: from sonic.gate.mail.ne1.yahoo.com by sonic307.consmr.mail.ne1.yahoo.com with HTTP; Mon, 31 Aug 2026 17:17:52 +0000
-Received: by hermes--production-gq1-678d9dd684-hq55n (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID 4f7c313e920f4db629c8c9abe1721bbb;
-          Mon, 31 Aug 2026 17:17:48 +0000 (UTC)
-Message-ID: <fb9ee5e1-dfc1-460a-85db-1f31f2f6ed17@schaufler-ca.com>
-Date: Mon, 31 Aug 2026 10:17:43 -0700
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oT/s+vSb"
+Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-6a0c8283146so5872077a12.0
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 10:18:49 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788196727; cv=none;
+        d=google.com; s=arc-20260327;
+        b=lk8JB+sYp926elhZmc0UY1lz6hEd5scflq9ZTT1Ys29Qv9jZvzTWzpBL1c0s09QsTX
+         WOG5SHZGnECAIjc60jgWoPyXtSNW4Wj+88Y0qiDNF9fUqZgc3ny2eJm5RZ0jbRS7Tc2O
+         oZ7IwCGOHHpOhwElLVxQ9yIaWN33BUvBkmcl5DOaEs4s7+6us0xx8EWBOwU8rIhxUFBE
+         EhbVmNB6HDNAxJXXxoJIIfwRzEnFux+KittN2u0ADIgKB02A5bNFQkUwH3F8UQtU3/GV
+         NBFnNJ3zkLBkNJulECzPCMq9Q1sNAwAWHIDczAP0aZO3TgFX4qupgOD2qgkAq143tlli
+         TtcA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:mime-version:references:in-reply-to
+         :from:dkim-signature;
+        bh=C/Ut8igNUUEDDCrdtbCLiaGMVpNyyvqtTQshGja4fhw=;
+        fh=EVI2Edo20QQpAQNWnwqSxLNHN0yBsdAq4y4eusD6s9k=;
+        b=FTK3F/aONqqFgh/Mvpx25PwGE8aST70RrxmMtqoLCxoFr7DcEukLSj1YZlZIa0SpQX
+         ExrU+wcMcJ231Al+dfwzExg/qhcm0Ez2V74hFsm1L77Zv1icvIuJCC/qe3pye1bwfrgr
+         MXOto10gJPaQGXYAG2elggxKQdc6vRgXsizaVyXYFvOC5DokMnuzDFZScs/XAkVimp+v
+         8vuAvjBlGAVeK/qpwSgDfdKNkCd0WAgINc3qNbIx/47hEwmKWpNwUqfT9yk2mfDUEFHN
+         /F59rg6d1FYMLLDU2E+pAVybcbfw6hnRbw95P7vVh8poLfKguhJVhMyhuOnNN7PVEnB4
+         f0jA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788196727; x=1788801527; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:mime-version:references
+         :in-reply-to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=C/Ut8igNUUEDDCrdtbCLiaGMVpNyyvqtTQshGja4fhw=;
+        b=oT/s+vSbYUZFV9wsMCYWtZ8n3t/mpC/3PkTJL+ANIPHurj9vPpCvuFytNXDs/fvk79
+         +DpnhA8zIBSNbVmsNsF6T/zZgSsMRcEo9OYrqdTIK/NXlpx+YCTkYQHuAPPfw/9lNy63
+         8aif5dO6WiAXrionMfWddBxSDzsX5lxnFbj9cyhan/6AUO3KUgL1x2+RAM43Bsn9WBnR
+         fmHTsw+sM7rtKjpsj+jmC2Ljk4T65VjMXd6tp0tnmlLHvJvmhhpqjIHgifxyv2oITRlI
+         teUA5JJO3KE3H7O+fYpsVd6zIUzx10/6IDAY2davKkR6llvxB06sOlO4qwAD8KmJLkk1
+         TLEQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788196727; x=1788801527;
+        h=content-type:cc:to:subject:message-id:date:mime-version:references
+         :in-reply-to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=C/Ut8igNUUEDDCrdtbCLiaGMVpNyyvqtTQshGja4fhw=;
+        b=KSdrUP5K2rK2Wpp8YL/joFzT+Sggp+FJwpCHqR5hcB6Kj8lNCdlVGO3vBx+c6GP9Ed
+         L0ZdjVlC5dM6sHCG7ioMBro4W0O0SBaADXqTqRrFE7PvcSOkitvbXEoD3tEjvdPQbRjl
+         plLSUAA9ImW32YDAjH0fVIme+8YBZK3rB2LHI9tw6BaKh02jWcNXQFnRTdsl3XKP0xzK
+         R4KTLX7Cmjv8Z5EEQwG/YnOrq4o+8usyHFJoVtxe+FpMeBjFSXCtacvuRULIbhj2ep0H
+         b5k6xl6xQHG5VcUOaF0rhigGy+PtxbZewUixLFZWKgJNVAjClHgg4SniK5Oilmx8vGhs
+         f/7w==
+X-Forwarded-Encrypted: i=1; AKwUvBzA9f5b/He5Oqv4IHuj8PRgYWF34/IcPrwNYjQc2GMKRa0pGHUhFH+198OYWp+uwuyBXWycWKUouRrgqFs=@vger.kernel.org
+X-Gm-Message-State: AFuF++nXO2+47dPWwRbGb9wUpC1nAL31CpW9D+dA4YefXj9rtLAK8rpA
+	NarDqDPj5DC8fUvuBiFAi5q2PIXFk4hB2C2zRgu0u8nIhCOBLRr2YLcvbsiyuBBRtd/6H64JnwP
+	sXBAGcEyBrm2zHxIi810k3Syx9L7jJyY=
+X-Gm-Gg: AYBFou0SdaZqkSpK9j8oZDt2r1lr6UA9BTQbd1HaQBxNzZkqSXyNkIMToQf1EEhYs8p
+	/MTOFP9w4Hh9Cg2Mfkfk67WLfSGgaIeKhA34ULxTayCD8iBrcvQjtGKbUvrZcJG2ePF1Kdy7yc8
+	vMHvwx2o6siFs47ZNKH9ICHehX98Jm22IyCPlEV4jj8IFTYfYjERfX947vm7doRxI4rVn8Ns6LW
+	ztjZOo76NEB8w3ghmnci/LTmj4NepKNSZfowenSOApBhc8q6jT0jyaKlaW20z1llAXmF0B3EN0U
+	HuPAU+jiTiMvABSw8hcCc6hFddW06SpVwZAGM0s/ZNTNPDlBUorgK2F7vzPN8nE2VapAhXsL9Zc
+	4H5G7HmBnNnjB
+X-Received: by 2002:a05:6402:2483:b0:6a3:8652:a373 with SMTP id
+ 4fb4d7f45d1cf-6a663a61f85mr2069275a12.3.1788196727393; Mon, 31 Aug 2026
+ 10:18:47 -0700 (PDT)
+Received: from 637551599889 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 31 Aug 2026 12:18:46 -0500
+Received: from 637551599889 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 31 Aug 2026 12:18:46 -0500
+From: Kelvin Zhang <zhangxp1998@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <CAH=xXfH7TPGt-zKXvJRNTgGDZKa1Xoq_sF3-WGs5kdsQLuYn4g@mail.gmail.com>
+References: <CAH=xXfH7TPGt-zKXvJRNTgGDZKa1Xoq_sF3-WGs5kdsQLuYn4g@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 01/15] lsm: Add the LSM policy object lifetime hooks
-To: Justin Suess <utilityemal77@gmail.com>, ast@kernel.org,
- daniel@iogearbox.net, andrii@kernel.org, kpsingh@kernel.org,
- paul@paul-moore.com, mic@digikod.net, viro@zeniv.linux.org.uk,
- brauner@kernel.org, kees@kernel.org
-Cc: gnoack@google.com, jack@suse.cz, song@kernel.org,
- yonghong.song@linux.dev, martin.lau@linux.dev, m@maowtm.org,
- bpf@vger.kernel.org, linux-security-module@vger.kernel.org,
- linux-kernel@vger.kernel.org, Casey Schaufler <casey@schaufler-ca.com>
-References: <20260831145858.3869191-1-utilityemal77@gmail.com>
- <20260831145858.3869191-2-utilityemal77@gmail.com>
-Content-Language: en-US
-From: Casey Schaufler <casey@schaufler-ca.com>
-In-Reply-To: <20260831145858.3869191-2-utilityemal77@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Mailer: WebService/1.1.26380 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
+Date: Mon, 31 Aug 2026 12:18:46 -0500
+X-Gm-Features: AcwNN1XECKmKu1GxTPVkn99OW4KkbkvHxEsTNP08mCZaiXBBRgOrQ9k6FodzJbI
+Message-ID: <CAH=xXfHU6McbWkYRreT_1=Fh9g+ONkSd8J7TYvqMQtQLboncLQ@mail.gmail.com>
+Subject: [PATCH v5 01/11] f2fs: initialize sb_info early in f2fs_fill_super
+To: linux-f2fs-devel@lists.sourceforge.net
+Cc: jaegeuk@kernel.org, chao@kernel.org, linux-kernel@vger.kernel.org, 
+	Kelvin Zhang <zhangxp1998@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On 8/31/2026 7:58 AM, Justin Suess wrote:
-> Add struct lsm_policy_object, the identity an LSM embeds in a policy
-> object it shares with BPF programs, and the three hooks managing such
-> an object's lifetime:
+Previously, init_sb_info() was invoked late in f2fs_fill_super(), after
+processing superblock error tracking, mount options, and sb->s_maxbytes.
 
-I am not seeing the cover letter for this patch set. Are you sending
-it to the LSM list? Without that I do not have sufficient context to
-comment on the patches (1,2,3 and 8) that you have sent.
+However, read_raw_super_block() reads the superblock folio directly
+from the block device mapping using folio page offsets. This makes the
+initial static sb_set_blocksize(sb, F2FS_BLKSIZE) call redundant.
 
-What I do see has me quite concerned. It's possible the cover letter
-will addresses my issues. If nothing else, I assume it describes what
-a "policy object" is, and what it's for.
+Move init_sb_info() to execute immediately after sbi->raw_super is
+attached, allowing the block device block size to be set dynamically via
+sb_set_blocksize(sb, sbi->blocksize).
 
+This early initialization also prepares for upcoming patches that add
+dynamically computed filesystem geometry fields, such as
+sbi->addrs_per_block and sbi->nids_per_block, to init_sb_info(). These
+fields are required by earlier initialization steps, including mount option
+consistency checks and sb->s_maxbytes computation.
+
+Signed-off-by: Kelvin Zhang <zhangxp1998@gmail.com>
+---
+ fs/f2fs/super.c | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
+
+diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
+index 253a579e9d5b..2d9f5b77f815 100644
+--- a/fs/f2fs/super.c
++++ b/fs/f2fs/super.c
+@@ -5125,12 +5125,6 @@ static int f2fs_fill_super(struct super_block
+*sb, struct fs_context *fc)
+ 	}
+ 	mutex_init(&sbi->flush_lock);
+
+-	/* set a block size */
+-	if (unlikely(!sb_set_blocksize(sb, F2FS_BLKSIZE))) {
+-		f2fs_err(sbi, "unable to set blocksize");
+-		goto free_sbi;
+-	}
+-
+ 	err = read_raw_super_block(sbi, &raw_super, &valid_super_block,
+ 								&recovery);
+ 	if (err)
+@@ -5138,6 +5132,14 @@ static int f2fs_fill_super(struct super_block
+*sb, struct fs_context *fc)
+
+ 	sb->s_fs_info = sbi;
+ 	sbi->raw_super = raw_super;
++	init_sb_info(sbi);
++
++	/* set a block size */
++	if (!sb_set_blocksize(sb, sbi->blocksize)) {
++		f2fs_err(sbi, "unable to set blocksize %u", sbi->blocksize);
++		err = -EINVAL;
++		goto free_sb_buf;
++	}
+ 	sbi->max_atc_write_bio_size = UINT_MAX;
+
+ 	INIT_WORK(&sbi->s_error_work, f2fs_record_error_work);
+@@ -5217,8 +5219,6 @@ static int f2fs_fill_super(struct super_block
+*sb, struct fs_context *fc)
+ 	if (err)
+ 		goto free_bio_info;
+
+-	init_sb_info(sbi);
+-
+ 	err = f2fs_init_iostat(sbi);
+ 	if (err)
+ 		goto free_bio_info;
+-- 
+2.53.0
