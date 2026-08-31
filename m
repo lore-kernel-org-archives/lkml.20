@@ -1,63 +1,65 @@
-Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
+Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56D184A1E17
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 14:31:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 158104E3EF9
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 14:31:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788186676; cv=none; b=D4HZMVkunNVHh94E37LSDLIetNIaCd/o+7/OuXIxYMMb0+Rtn2S14Lu4nQ6AmKOa1aXXgDIzMjZeWYO9E5l/zlvfS6HEW9VYWt2O4U5Xq8gksIUy3PnPtrOajERPjSh9asFj2bymLBOd4XqS8MmjhKs5fbkNs8HxeRjA7uyhrAA=
+	t=1788186680; cv=none; b=Bo/A2GO+R9bGGOaNCK0wk/Cb9qLMAOcfvaaFaSiGlTV1bmzv7J+yP9/nL0/SRUqDIkQCTjdTXsbejW8rUZkC1iC490nBZ9cQIit/scZr/+GbOzBiQihIa6ukmIzMxQLL+Mm6BLxY14zuuOQAGciOataOlnFunyZG51xz/obnqFQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788186676; c=relaxed/simple;
-	bh=PThzMVl2U41G4FjC0inai7cd44WtMWOI/RqkRs3nPEE=;
+	s=arc-20240116; t=1788186680; c=relaxed/simple;
+	bh=aLoolg9BImnEQ49TD09/HL3uCXIv/k8JpAFXk4tdccU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VsL26XF6a1qT2fbh+LwbaFaDQVAhbn2dczCryyFux5RKLynp6p3UNr24K+x3y9Wiy3xcRqpf0Zy2LzDhViwwYsLT0hchDbDmT7uVD9qSpH6J644xG0QLg+xI6FtJQaybEueDKDTV+JE/H3y85JidamZC9av2QDFb3rxRPZCzw18=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lxFdOi65; arc=none smtp.client-ip=209.85.210.169
+	 MIME-Version:Content-Type; b=baT4DzshfoNrapEbkxa1PWiVCX6bQ2XSh9lknZuAEXiHxXTASLDO/WS1b6B7wU7VnMKqF8JR3ok1VMThPfVnNc0QaWxBNdtkctNERF/uhd81NPv/9DcE3pLotvsGM5+xHwsEbxNRPJ0IPYOcvStpO/u5LwDXybKUMpOwRnwWjQc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oPbeSrNK; arc=none smtp.client-ip=209.85.210.181
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lxFdOi65"
-Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-8541875f596so1813141b3a.0
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 07:31:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oPbeSrNK"
+Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-852c481415fso4345867b3a.3
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 07:31:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788186674; x=1788791474; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vRRqCGww2uS5V9UIyyHddQUq8oZYYmx0ANna9lCcZh4=;
-        b=lxFdOi65JJOg9IcKJJ93WwkU6byUiia71X484TUZCwSKBPiLbNwH1MvqaItUFLAMnM
-         yP7k5lT7Vi7oYbGi3z9KK+HoSi3pTCgadIz04xJf2sDxlUYXcp0QoA7Fciy0P4aOB1Lj
-         DubOevpLrvefuVhqq3Leh69Yv0+pu6Y4B6YfWpgQqbPfBmtxXYrhaDcrtUyANCs1yJo1
-         ztFmSTm1nMNUwFjYlJfoZyESe0/f4lLnHRoggVFZowKlB2jKO5qIAfVh+n9yiN/pLBbl
-         bd2gCoA9eXPuHtgTCBSJSexX8MM08cbfdS0WnA0+gkhnYv+MPMb7+ZYIs3Ur0CLX1Pn6
-         gWHw==
+        d=gmail.com; s=20251104; t=1788186678; x=1788791478; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=tKzMSSG4dm+SqnSwk6c//CITfTw3SfOuV9ad48Ml/m0=;
+        b=oPbeSrNKZLAcWfcMjX0P1Ltavs1/qDniSE8hDDoxs5EjkDti7Lyl4NR1q6xbMtot4L
+         9E0+DKTceargfIKdRzdDoryR4PPe/5XFVsvU4jdcDPC6DMR8h0boCiLcpWtMVrkCTZQg
+         wsOkmSwZDW3xkYph9HYrEFmvMnmCduBfahr7Q0pgdkxjgs01HJbvxn5ZFIRrQB5MnYOi
+         Bup7TzOyviZ0cstnmP2cEghnn9iEizsr+ktyIlYcQk4Vv5/a3JQRqdVhcwxO8Uq8hTvy
+         6WGlHuEX5jyHwMsQjmy6X/qBdOXkNa8wJfNRM22+SeWnYu938sefbUgwtP+9sIq2CDbN
+         vy6w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788186674; x=1788791474;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vRRqCGww2uS5V9UIyyHddQUq8oZYYmx0ANna9lCcZh4=;
-        b=pBdylVcpProu7Lpmgt8F9QurBv09hwJpsvAASEQpdJGOV4X1w5cIpOJeDi+CdTZeI7
-         BCSf4L56RKVglx3mlIhbUvluaz5Bs9PYxtpJYBqN0dhMinZwfOCsMMbb+TMI06a1p0Sy
-         msiZs1WGzldYe5QxX2Io5EDJqOf27AmZ5ZoYU7w8nACpHx+TJ+Glke5YSRLP/doNpvTr
-         5sNHEXdvx4X20yR+y2Y4aBHHGpVIlQMCwJJHkH2H1EUH5msbZd0GhmrSC1ugdLeW9m1i
-         igmeWVmj4Xvf/z3CfsL0xzMJ7CNG6dHJZw+FkUk9XudhgW9TVVXWtXdhjaQfsfKw1l3V
-         6S/g==
-X-Forwarded-Encrypted: i=1; AHgh+Rr0460kyTKVxipeFRqEmXtaevQcUkFPGyV6XRkFEpC19RfviKkr24n3hOhHo1UGQKLCkcUMvXCJWPUcuoE=@vger.kernel.org
-X-Gm-Message-State: AFuF++mCMYZVDIELHKPIwajCovuJJPm5s//+0S+MUouXEeVXGumOrszN
-	bh4QoavL5xjRIhcyjs8ZtT0eJPHxC7oIiKphyGNgiftpzsmL9P5UHxNo6IbBdA==
-X-Gm-Gg: AR+sD11jxukw0uoSNjtd5QUBywF+X+S9KHjuJNlYKTVhzoDmsLYA9Xo9be6jEvIRv/W
-	HElxXhv9uqR9Utn7aSOraAAxtJpcw5YhaH0xv89BzvJHJkB7i5kJ32EpLPy1R0LoJZyb9EuOx7d
-	erXRlP1kBUfaBRt+ZUggiDnXyYtHZEdginVeukM7DjXKRGS6KIhwtabktpQR1NPiPFfWWYvssAC
-	bQYSFgHIX5iKh1VxvtIG2XrbNhSF1qOe4UOEZE3kEA19zSZOjlUpd3/Xf3b+IV9roifPB6xX8xe
-	8zceNUOmFtGA6SMrHARN8dXuhUw81WMoDF0XKXwejEl9LRDjdHb/GoJZW0q3/m7g81IdJQQc8MX
-	GS5HvIQQTetRGhc1JunS+zptYFnR9vYiv5hyZ7DKWcR2V56wgzvjSgMw8buw9ytOUHSvzh1I7Ju
-	NpmcgzoIb2lpRnnuLQetDvu70iLst9nnTMklKSGmbKyN3rlYIENw+Uy+0f/Ds28UnlSfdqQMSI
-X-Received: by 2002:a05:6a00:a118:b0:847:8449:2bb6 with SMTP id d2e1a72fcca58-8562953d5e9mr41605379b3a.4.1788186674309;
-        Mon, 31 Aug 2026 07:31:14 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788186678; x=1788791478;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=tKzMSSG4dm+SqnSwk6c//CITfTw3SfOuV9ad48Ml/m0=;
+        b=fiyNlr8nIrdaHFy17BXRhcIbpAU1gF+dWVb12RlZpEEt6T+dXxn/6jiBrPL1hot4Xt
+         SR9ZuDVH8l4qHsb1Sf2ERimfS9Og20g3nYQWBBAGVPJEVHruoa3AWPYpZE80siC3kLz7
+         3VvwyCcDLome4i4X3OXdS38Nz95+QF34QUXUaDa6hJruWrUCaqDOwQWSDaGWUvZyiG9D
+         Ld9SxoABTkKRPiYyP0uTwM7FqlXAtwrssjhgbxrZUlO07K+WTp1qpuEK5+ZLzqHUYgD3
+         0v68eLt3zGYZlE3I8uzCoKJWNQ0bmC9LFwtKmoE4NUYwJtVRLdOdUEMf22CRK5BBagYc
+         GIRg==
+X-Forwarded-Encrypted: i=1; AHgh+RoEoXTpGVbqAOJpN+YmOrG5Hw8tSQ6ESZuD5G9+GwsMV4amb8djbdnAFECBPvqi/EyRyyLCqZ04SkluevE=@vger.kernel.org
+X-Gm-Message-State: AFuF++n75ckkcBoCKwY07T/0bq5k89K2/9PdO7zECFH2zedf8ru6dy5h
+	JRB8RVFLaxfQtmm+BsltqfFAGRKaCw5pikuh3m0j1nK6uK4J+uphPUx1TemNxQ==
+X-Gm-Gg: AR+sD11ijrx59352Y7R9sDlOZLFmTK+nof8nZw1Mxaoyt68Da0xCD7At6ZE5qbNK81k
+	GlI/jJImEvHiTEeTRoi2WG0zgnO/TbK8CejqYsQJ4zM9QKvEiFE2TQRay6+W/1LnYbQyTJhJZGa
+	Cd+a5fEflyYnLf+wIgxGnuSWzg3VYVV+w8yeERX7sIsvVh2SIJ0zfvTwzG0MwruUk7bah4eiLdq
+	bWz0INhS6tI5SYzdqcMIPyyFnXjk/6ECw/w9C6FPpsKRbu8Li2hOhQFIHC7mrmzVjRlSppS4u1A
+	7HyxWRKRRslxwqHjEmXHpGrnozYdmrYIRHqoomCNCRierXDEu1+RHyzv4A3IzKD4op+TjI2sgRk
+	aDDrbPg+Kn848H0x4YN8aHGIPuBNX/3mBtQfEJKmC0V5mESF0ZSD1pHhajRNkk7a3nFkAmctjGF
+	yR0fCN4CzJOmUkiqkLDylliyPLLmChPEsAmVoKwWyA1v9K9I7q80GpozP5YaN98La5J2OwBbLH+
+	zD5IUvK9rXc
+X-Received: by 2002:a05:6a20:43a2:b0:3cc:f008:8125 with SMTP id adf61e73a8af0-3d265a3d2a2mr38918395637.1.1788186678297;
+        Mon, 31 Aug 2026 07:31:18 -0700 (PDT)
 Received: from osman.mioffice.cn ([43.224.245.178])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc1f330f88csm4248961a12.10.2026.08.31.07.31.12
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc1f330f88csm4248961a12.10.2026.08.31.07.31.16
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 07:31:14 -0700 (PDT)
+        Mon, 31 Aug 2026 07:31:17 -0700 (PDT)
 From: Zhan Xusheng <zhanxusheng1024@gmail.com>
 X-Google-Original-From: Zhan Xusheng <zhanxusheng@xiaomi.com>
 To: tglx@kernel.org,
@@ -66,9 +68,9 @@ To: tglx@kernel.org,
 Cc: thomas.weissschuh@linutronix.de,
 	linux-kernel@vger.kernel.org,
 	zhanxusheng@xiaomi.com
-Subject: [PATCH v2 2/3] vdso/vsyscall: Keep the CLOCK_AUX base scaled
-Date: Mon, 31 Aug 2026 22:30:58 +0800
-Message-ID: <20260831143059.1592875-3-zhanxusheng@xiaomi.com>
+Subject: [PATCH v2 3/3] vdso/gettimeofday: Assert that the clock id fits the dispatch mask
+Date: Mon, 31 Aug 2026 22:30:59 +0800
+Message-ID: <20260831143059.1592875-4-zhanxusheng@xiaomi.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260831143059.1592875-1-zhanxusheng@xiaomi.com>
 References: <20260831143059.1592875-1-zhanxusheng@xiaomi.com>
@@ -78,62 +80,55 @@ List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The vDSO basetime of a clock is stored in the scaled nanoseconds of
-tkr_mono, so that the reader can floor the base and the cycle delta
-together in vdso_calc_ns().
+The clock id dispatch turns the id into a bit in a u32:
 
-vdso_time_update_aux() instead shifts the base down to nanoseconds, adds
-the offset, and shifts it back up, which zeroes the fractional nanoseconds
-of xtime_nsec.  The reader then floors the base and the delta separately:
+  if (!vdso_clockid_valid(clock))
+      return false;
+  msk = 1U << clock;
 
-  ktime_get_aux():  base + ((delta * mult + xtime_nsec) >> shift)
-  vdso:             base + (xtime_nsec >> shift)
-                         + ((delta * mult) >> shift)
+vdso_clockid_valid() admits everything up to CLOCK_AUX_LAST, which is 23,
+so the shift is in range.  Nothing states the dependency though, and
+raising MAX_AUX_CLOCKS past 16 would take CLOCK_AUX_LAST to 32 or beyond
+and make the shift undefined.
 
-Since floor(a) + floor(b) <= floor(a + b), the vDSO reports 0 or 1 ns
-below the syscall for the same clock.  clock_getres() reports 1 ns for
-auxiliary clocks, so that is the full advertised granularity.  It is not a
-monotonicity problem: across an update the step is
-floor(a + d) - floor(a) - floor(d), which is 0 or 1, never negative.
+Assert it at both dispatch sites.  The condition is on a parameter rather
+than a constant, so it relies on the compiler deriving the range from the
+vdso_clockid_valid() bail-out above it.  gcc 13 and clang 18 both do: x86
+vdso64 and vdso32 build clean, and raising MAX_AUX_CLOCKS to 17 fails the
+assert as intended.
 
-Add the offset in scaled nanoseconds as the other high resolution clocks
-do, and normalise with __iter_div64_u64_rem() so that the stored base
-stays below one second and the userspace fast-path does not iterate more
-in __iter_div_u64_rem().
-
-monotonic_to_aux.tv_nsec is a normalised timespec64 fraction, so it stays
-below NSEC_PER_SEC even for a negative offset, and the sum stays below
-2 * (NSEC_PER_SEC << shift).  The largest shift clocks_calc_mult_shift()
-can pick is 32, which makes that 8.6e18 against a u64 limit of 1.8e19.
-
+Suggested-by: Thomas Weißschuh <thomas.weissschuh@linutronix.de>
+Reviewed-by: Thomas Weißschuh <thomas.weissschuh@linutronix.de>
 Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
 ---
- kernel/time/vsyscall.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+No change since v1.
 
-diff --git a/kernel/time/vsyscall.c b/kernel/time/vsyscall.c
-index 993258d5f1e7..697adc44eebf 100644
---- a/kernel/time/vsyscall.c
-+++ b/kernel/time/vsyscall.c
-@@ -157,11 +157,11 @@ void vdso_time_update_aux(struct timekeeper *tk)
- 
- 		vdso_ts->sec = tk->xtime_sec + tk->monotonic_to_aux.tv_sec;
- 
--		nsec = tk->tkr_mono.xtime_nsec >> tk->tkr_mono.shift;
--		nsec += tk->monotonic_to_aux.tv_nsec;
--		vdso_ts->sec += __iter_div_u64_rem(nsec, NSEC_PER_SEC, &nsec);
--		nsec = nsec << tk->tkr_mono.shift;
--		vdso_ts->nsec = nsec;
-+		nsec = tk->tkr_mono.xtime_nsec;
-+		nsec += (u64)tk->monotonic_to_aux.tv_nsec << tk->tkr_mono.shift;
-+		vdso_ts->sec += __iter_div64_u64_rem(nsec,
-+					(u64)NSEC_PER_SEC << tk->tkr_mono.shift,
-+					&vdso_ts->nsec);
- 	}
- 
- 	__arch_update_vdso_clock(vc);
+ lib/vdso/gettimeofday.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/lib/vdso/gettimeofday.c b/lib/vdso/gettimeofday.c
+index f7a591aba59f..ef4dcc614489 100644
+--- a/lib/vdso/gettimeofday.c
++++ b/lib/vdso/gettimeofday.c
+@@ -285,6 +285,7 @@ __cvdso_clock_gettime_common(const struct vdso_time_data *vd, clockid_t clock,
+ 	 * Convert the clockid to a bitmask and use it to check which
+ 	 * clocks are handled in the VDSO directly.
+ 	 */
++	BUILD_BUG_ON(clock >= BITS_PER_TYPE(msk));
+ 	msk = 1U << clock;
+ 	if (likely(msk & VDSO_HRES))
+ 		vc = &vc[CS_HRES_COARSE];
+@@ -438,6 +439,7 @@ bool __cvdso_clock_getres_common(const struct vdso_time_data *vd, clockid_t cloc
+ 	 * Convert the clockid to a bitmask and use it to check which
+ 	 * clocks are handled in the VDSO directly.
+ 	 */
++	BUILD_BUG_ON(clock >= BITS_PER_TYPE(msk));
+ 	msk = 1U << clock;
+ 	if (msk & (VDSO_HRES | VDSO_RAW)) {
+ 		/*
 -- 
 2.43.0
 
