@@ -1,175 +1,126 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f1.google.com (mail-pj2-f1.google.com [74.125.227.129])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEC994CCDEC;
-	Mon, 31 Aug 2026 18:32:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3030C41D118
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 18:35:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.129
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788201181; cv=none; b=BWB9nrn4XPQbLIoGZh4uOJbMFW01SS1B/BcdALk5gFJZ4/p99ownPF9M1VYQ2PO/k/OI6/h1JPb6RFm+k4TeYHN+HRPZJat2fMGkLeCT7z3Fseg+/bkXrRaHZdrdOktH8yZ423L3/hmevzA5xEKC651tkMyzwSZk2j4i5+wRiNc=
+	t=1788201333; cv=none; b=GqQ17gaOH2v+auiV5I9OSm6hVD463ZnFOrGle0+SNXs51eMTHsDV6c2JMUyQ7DozqZhj4FggLSfeoHEutF7jphVNM4W2uuze85P9CXJ3edbEpq3cGB6XEOkqHDD9xASkVkom/T1aUhKRrDmDXb7pnmFEaB2sn/bFFOPbWErvv0s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788201181; c=relaxed/simple;
-	bh=qhsge+/69E4jNcWl7mZmEyCtLeMfahz3yWtH0cXD0tc=;
-	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=o//n+1Z9j8HM1WVfS4vMlXBsDfsW0EzHgGPgE5MVujszaQCsBDVEgykzu8xqe44KWXorq2aQyCLyQayQsCkVW0VNPLowpABs1NRVov+rVlUyUIJpolVXyL17KkVqPMbCkpePlSrqxz5niZE10XmC7mRpRMYyb4BQ1xSuJPtHm3E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=cDbAYu5k; arc=none smtp.client-ip=198.175.65.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1788201333; c=relaxed/simple;
+	bh=yXobrol6sR2sbusi9bYa9G/jNKiCk/EvDifEqMwFXQI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=otK67pQ6PrBa/7K62zzTSn12/LJHAwivvaXgeG7N4L4R2rVSzGGA2XtUY6KSVpCN8/NTkXQ6okLZXzjCTLlAvCxEdmzSs395NKwguLolhh5aHQFTdoP4gEcsni0ZJ70J6K34/ZGxze23hoeXVLlWedfpFn78Mj4OPDPILh02yc4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XNSaI73z; arc=none smtp.client-ip=74.125.227.129
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="cDbAYu5k"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788201181; x=1819737181;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=qhsge+/69E4jNcWl7mZmEyCtLeMfahz3yWtH0cXD0tc=;
-  b=cDbAYu5kPhU7GbRbPZa+YpLj5EcfT6RetAM6Eae6GZAsDC0UmGk2BCfH
-   WI7sk6vZa5cibXiR98GYINH/MddqgA0wBT7Eq0ySLkzSMx00ogkHPoCdq
-   2QsBGkXiPiJw9dLTmiF2jV2E3AGOEtBuoIJyhzJSm3ZkycBuPLVBNKiSC
-   q2UUCii7GIth15wb5wtRvY5wq37/N9ZqFIQQGBnZ+6Jaet+hlVUQVZ7LJ
-   o2koIU1B1+YLBpB7XeNwl+/7Mma4WULHA8BXrHmFQ7iAPAUGNJ6HAy41U
-   jdXIOAssECF7VhvLvUQSeV1cWEtPmzaRW80gpzu7OVLZc2PRRIunrfUgT
-   A==;
-X-CSE-ConnectionGUID: dEc+X/ovQbyPP2WPCoDhGQ==
-X-CSE-MsgGUID: /svSJPkqTSeruCc9xkUg1w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11892"; a="88667388"
-X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; 
-   d="scan'208";a="88667388"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 11:33:00 -0700
-X-CSE-ConnectionGUID: Vkz1x03HQ5+hjPCvMPu67g==
-X-CSE-MsgGUID: f6oTpFKnRCqEacANzmAPrQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; 
-   d="scan'208";a="293708209"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.121])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 11:32:54 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Mon, 31 Aug 2026 21:32:51 +0300 (EEST)
-To: Geramy Loveless <gloveless@jqluv.com>
-cc: =?ISO-8859-15?Q?Christian_K=F6nig?= <christian.koenig@amd.com>, 
-    Bjorn Helgaas <bhelgaas@google.com>, alexander.deucher@amd.com, 
-    amd-gfx@lists.freedesktop.org, mario.limonciello@amd.com, 
-    nra3088@gmail.com, meiling.leung@embeddedllm.com, 
-    linux-pci@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] PCI: Reserve prefetchable window headroom for Resizable
- BARs
-In-Reply-To: <1eb85efc-43f4-4929-8390-467308522236@jqluv.com>
-Message-ID: <7366a0bc-360b-0667-ee94-af839374dfed@linux.intel.com>
-References: <39e09dd8-f73e-4dc2-ba36-8a9228516d26@jqluv.com> <d4c3ea40-d92a-49c4-ab2c-925fc70c4bb9@amd.com> <d6c56ff3-0b83-4d2e-7e6f-f3e65a284341@linux.intel.com> <1eb85efc-43f4-4929-8390-467308522236@jqluv.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XNSaI73z"
+Received: by mail-pj2-f1.google.com with SMTP id 98e67ed59e1d1-383390e7584so242047a91.0
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 11:35:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788201331; x=1788806131; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=MrhHUGt9PYOpeIFjjhYfmqQTda2e8V2Z82RwTN9welM=;
+        b=XNSaI73zc1xZWmgrW+lDZQwF722LCbQ/WsP8jfQ1U/1mJ78L2/hTI2qAE6/xH+Uet5
+         NJTMqRI6KWBOCrpWHYjg8xaThvG51zVimtFdM0eqQ9cI/qilB7aEnUCezaDmiCdjV75l
+         p+VWb/e7EavKXI8fy0+6NVfpLgwGFuhDD9LqELot6oKI4nubDmkWFjpHGQT171EcVL+s
+         GtsNIG1QDbDMN6O5MTw2LEqW2REhojSOd5HzH7Elumpaw7L5Dw68HAm+xmHbbTapmN7w
+         NGuVXNHSNR0dSlIIH8LxmZxs9HCDzvFnCfmWOG8uqrG1qCwWxYQhAGqr6tmhfQE2xv4H
+         Z72A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788201331; x=1788806131;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=MrhHUGt9PYOpeIFjjhYfmqQTda2e8V2Z82RwTN9welM=;
+        b=njf2EQqj+xWH+IRiSUiYj2IuUfz+zAUvOVlWe6379LVmP9UMC8qkflu5Sx9sL+SgDx
+         /Z+ooxBWoR4i/4yp24YyUlST6ydl6HmXcIPbiC2igFPG0sisFVQcEhMZTMK1HpWFQ+xk
+         7g8NBSmznLEhP2vnf+jv47VI7bavldruNJWhZRjVA+QdEbglMKfW/inm5F1DbBy8vVkd
+         vBiyJTVa3CDkMxR+iOIKlJXATCq+XNAi9UzZsD5SXlq/nF37q8mxD8ogyXrNGnmsWM/S
+         PVoYtzsgs4SaYOMbLaAdRC3OJp0/1SlmLF7vLvW4n8Z1QvzrMkcbjMpt680zjABRKdVM
+         ZcyQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxgUSlKtC1c0FJVNsnAbuZyelDywlxtX2VYCisgNeBr/SifxikZ0LjElgjJaBOv/XPV/4Zr9TkmZhos2Og=@vger.kernel.org
+X-Gm-Message-State: AFuF++lpr2PgoGfXODutLUN0Z/zgx5C6vP2cRYau5cQauKPPGO5lfv0A
+	Kubpb4vAL0ZxM4paUYKAxBx3AMmbFCVZs2GU7OKTcFR14uNC0HEzG09O
+X-Gm-Gg: AYBFou3JU8DRqSje5aFNDAd4yUCK27yZHvsolC0c+ug4gEb3ozji3FYhllPTFp3oWBm
+	nkuhqry41RxFj6om97w6jwAuRoioKi5tAn0KoenDuCASWMXOUOTnwOfr/wdMVHjGEEBjxEMk0sm
+	LEUfWBRDnKhEBV/drqloUKKytxAV+iFlcYGGFMFtiCf9RlLsQpz8p6vp0h26HHV1BhqPOB3Tnev
+	4WTzyNQGGoAf92kE3wF5UrxPq6P2DF5MY/og++aKumqCChLH+OsRVoumvwW5npa/0OPyynFolTm
+	GNmro+aj9kMtIWX9KBlR8e3rDIeE6KUW7vLQxj6JOzAc1eKSWMB1haewEWtjuPT0dx7e9d969lh
+	PTnB32rWLYGjcGZOVmxTWVd/ZMGaTA/4gVboNpM/sKKH0EFSlrh2xM+auIzlL79e4aBl+derD9o
+	u269OTqOsmPnkFE/wipWGRxD/14VseDBnuOM+5CdsZAUvwaZ8vtYM3Lw==
+X-Received: by 2002:a17:90b:3a50:b0:398:ceef:edde with SMTP id 98e67ed59e1d1-3990f8d06a7mr165876a91.15.1788201331012;
+        Mon, 31 Aug 2026 11:35:31 -0700 (PDT)
+Received: from localhost ([2a03:2880:2ff:41::])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3990d62b807sm883311a91.16.2026.08.31.11.35.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Aug 2026 11:35:30 -0700 (PDT)
+From: Stanislav Fomichev <sdf.kernel@gmail.com>
+X-Google-Original-From: Stanislav Fomichev <sdf@fomichev.me>
+To: netdev@vger.kernel.org
+Cc: davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	sdf@fomichev.me,
+	bobbyeshleman@meta.com,
+	almasrymina@google.com,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net-next 0/2] net: devmem: remove gen_pool from dma-buf allocations
+Date: Mon, 31 Aug 2026 11:35:27 -0700
+Message-ID: <20260831183529.2517322-1-sdf@fomichev.me>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323328-633456053-1788201171=:2637"
+Content-Transfer-Encoding: 8bit
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+Replace devmem's gen_pool based fixed-size allocator with a binding-level
+freelist similar to the one used by io_uring zero-copy receive.
 
---8323328-633456053-1788201171=:2637
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: QUOTED-PRINTABLE
+This is motivated by allocation latency observed in the NAPI receive path:
 
-On Mon, 31 Aug 2026, Geramy Loveless wrote:
-> On 8/31/26 9:58 AM, Ilpo J=C3=A4rvinen wrote:
-> > On Mon, 31 Aug 2026, Christian K=C3=B6nig wrote:
-> >
-> >> On 8/28/26 23:37, Geramy Loveless wrote:
-> >>> Firmware typically sizes prefetchable bridge windows for the boot-tim=
-e
-> >>> BAR size. Behind a fixed (non-hotplug) PCIe switch fabric, there is t=
-hen
-> >>> no room for a driver to grow a Resizable BAR afterwards: every window
-> >>> from the leaf up to the root is sized for the small BAR, so
-> >>> pci_resize_resource() fails with -ENOSPC.=20
-> >>>
-> >>> Furthermore, a small prefetchable BAR (e.g., a 2 MiB doorbell) sharin=
-g a=20
-> >>> bridge's single prefetchable window with a much larger one (e.g., a 3=
-2 GiB=20
-> >>> VRAM BAR) pushes the required window size past the large BAR's alignm=
-ent.=20
-> >>> Because bridge windows round up to a power of two, this forces a mass=
-ive=20
-> >>> alignment waste (e.g., 32 GiB + 2 MiB rounds up to a 64 GiB window,=
-=20
-> >>> wasting ~32 GiB per GPU).
-> >>>
-> >>> This patch solves both issues to enable ReBAR on cascaded switch fabr=
-ics:
-> >>>
-> >>> 1. Reserve Headroom:=20
-> >>> Reserve prefetchable window headroom for the maximum size of each=20
-> >>> downstream Resizable BAR during the bridge sizing pass. The device BA=
-R=20
-> >>> and hardware ReBAR are left at their boot size to prevent tearing dow=
-n=20
-> >>> firmware-loaded state (e.g., AMD R9700 PSP) before the driver binds.
-> >> Yeah that was suggested before but that is clearly not something you c=
-an=20
-> >> do in common code.
-> >>
-> >> The ReBAR fields often doesn't reflect the actual needed space but=20
-> >> rather the maximum the HW address logic can resolve.
-> >>
-> >> So what you end up with is allocating multiple TiB for a window which=
-=20
-> >> just needs few GiB, sometimes even completely overflowing the 64bit=20
-> >> address space made available by the root complex.
->=20
-> Yeah I could imagine that would be bad, hence I tried to compact the=20
-> 64-bit space as well. As far as I understand PCI/PCIe standards its=20
-> making this patch difficult.=20
+  [ 1036.228913]  ? gen_pool_create+0x90/0x90
+  [ 1036.228915]  net_devmem_alloc_dmabuf+0x1f/0x60
+  [ 1036.228918]  mp_dmabuf_devmem_alloc_netmems+0x17/0x80
+  [ 1036.228920]  mlx5e_post_rx_mpwqes+0xdbe/0xdd0
+  [ 1036.228926]  mlx5e_napi_poll+0x113/0x830
+  [ 1036.228928]  ? sched_clock+0x5/0x10
+  [ 1036.228931]  ? wake_up_process+0x778/0x14b0
+  [ 1036.228933]  net_rx_action+0x15d/0x570
+  [ 1036.228934]  ? update_rq_clock+0x31/0x240
+  [ 1036.228937]  ? __napi_schedule+0x55/0xa0
+  [ 1036.228938]  ? mlx5_eq_comp_int+0x137/0x230
+  [ 1036.228940]  ? atomic_notifier_call_chain+0x36/0x90
+  [ 1036.228943]  ? sched_clock+0x5/0x10
+  [ 1036.228944]  ? sched_clock_cpu+0xc/0x170
+  [ 1036.228947]  irq_exit_rcu+0x12b/0x370
+  [ 1036.228950]  common_interrupt+0x85/0x90
 
-No compacting will save you in some cases. There are setups with many GPUs=
-=20
-and with VF BARs, the space requirement to fit full-sized ReBARs is way=20
-beyond what the root bus resource can hold. Where's your fallback for such=
-=20
-cases? What are the failure modes of that fallback?
+udmabuf can create a very large number of SG entries. In the worst case,
+devmem ends up adding one gen_pool chunk for each net_iov allocation
+unit backed by those entries. The gen_pool allocation path then has to
+traverse a linked list that can become too long for this hot path.
 
-> Christian I'm not sure if you could share these reference documents but=
-=20
-> that probably would be a better start for me to look at before I update=
-=20
-> the patch or make changes, also I need to wait for a review on the last=
-=20
-> patch I submitted too, so that leaves me with some time to review some=20
-> standards if you know specifically where to look, if not thats fine too.
->=20
-> > Yes. A naive approach to (only) go to the max ReBAR allows just doesn't=
-=20
-> > work well enough to be usable in general case.
->
-> I did not know the max would report above the amount is actually needed=
-=20
-> because of vendors decisions in the cards, that's interesting.=20
+Patch 1 removes the gen_pool and replaces it with a simple freelist of
+net_iov pointers protected by the same spin_lock_bh() pattern used by
+io_uring zcrx. Patch 2 removes the now-unnecessary chunk owner wrapper by
+embedding the net_iov_area directly in the dma-buf binding.
 
-Not just that, using too large size has ripple effects on other resources=
-=20
-in the system, and those failures are hard to correct (your code doesn't=20
-even try to do that).
+Stanislav Fomichev (2):
+  net: devmem: replace gen_pool with freelist
+  net: devmem: embed net_iov_area in binding
 
-> > A general algorithm to pick the largests fitting sizes for ReBARs is st=
-ill=20
-> > under works, a few steps away still, and more if I discover more=20
-> > challenges I need address before I can take that final step.
->
-> So then I would assume instead of doing the "hack" i'm having to use I=20
-> would change it to your new algorithm?
+ net/Kconfig       |   1 -
+ net/core/devmem.c | 158 ++++++++++++++++++----------------------------
+ net/core/devmem.h |  38 ++++-------
+ 3 files changed, 72 insertions(+), 125 deletions(-)
 
-Assuming you meant we apply this kind of naive approach first and later=20
-changing to the new algorithm, the problem with that approach is this
-"hack" must not break working setups either, but it surely would. If it=20
-does break things, the change will just end up reverted. And that end=20
-result is same as not doing the "hack" at all.
+-- 
+2.53.0-Meta
 
-It's not enough it doesn't break your setup. It generally must not break=20
-any setup, which is unfortunately very very high bar.
-
-
---=20
- i.
-
---8323328-633456053-1788201171=:2637--
