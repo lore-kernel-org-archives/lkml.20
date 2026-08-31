@@ -1,181 +1,112 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA6673815DD;
-	Mon, 31 Aug 2026 05:50:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60AD63A7833
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 05:50:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788155410; cv=none; b=ryMjVhAkGEEisRJSWNM+9dJ76Kgqfy28pZe/VareGww5Z6ko1dMPni6n6YWYAMmGN3xcGgJy3j0nklRYspA/Byen7BG6L5kqzxUFMaAthMSvsERbbYNmLkpby3/uNdqcE6iyAbLJJNnI99r6uqRcx1IF7k8nNNtpzk3Bsx31STk=
+	t=1788155424; cv=none; b=db57LMWtPbr5e+0fOhFxTFs2WD92L1F6Xm1+MWioydDkZirQJ+OKOxJB4u6JZwlSneIyIHwpO6z5i7ASsyuqFF9QbCaYiWeXBq75uWsGw6yCXSKzja5UwzsIUPb+IxReBe3rrx99cVkZxvyjf9U9ihm0UwyCjV6TEN9f55ZGEh8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788155410; c=relaxed/simple;
-	bh=y2PyUy9h+eP2pcUnYvUMOwGBoegoqHYDKYIgLlrHlcs=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=EZa7QFylQk0bOzJHFEHI9h3U8U6VyqUdnZIKlfynrxaCvp2XBn9IaOx9NYbL0DftUZvWyVqj5XO39axfeSZ7kuDV2tuz2QyW4fM8fb6th1OYMF/Q48IvAwtIGkxVwnfraY5dlrvZhK17y0P3fOhHHSfv0EPzHwX18XujxsjdiYk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OwmT5FF6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788155424; c=relaxed/simple;
+	bh=WPzDy6QI0Cdle48zbtI72awG3e8e4k1qnYGpIZr5jR4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=odKEA98ygWZnYR0oqd8Ug6Y35v8NfABFtH0UPlnD2xbperLJ3bDYqQ+pObhHAUkcrnA4JMVOjRyHTPjgHdADnOxWV3evlka+EXu2ZU4k3n1tkSMH3XjIYIEf9gsIjs0YhftZXoXOyH4R+OGD6zuNb2vg0LFCicQRKAtZutnnUBk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ieU09dJK; arc=none smtp.client-ip=209.85.214.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OwmT5FF6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 340D51F000E9;
-	Mon, 31 Aug 2026 05:50:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788155409;
-	bh=3uYL9Uos+8SAq21BjilWSH8PWP7Nw5ON685Ijt6iN5U=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=OwmT5FF6FZ8avz8OyanJXl/F/1QdSFoREdoV7xBYiNnO5zrYE+hlB8LzT6zWFluoq
-	 s5XpniqeVOniKUtjTWvkuUHRr+z+fT9KTRjhPbL5LtA2IgPY3zLs56L+OUXnYfeJKC
-	 FK1aUHiGbIBO/DjPItkfX2UW6MJZYjtK8zUqDgWt3weW/6TFCcxbrloizClAi98TZY
-	 w9cG9culpXvBnHccXDT+6RbbAew4zAhwTmu5r/7dAieZK4UHwQ6SB/2tW3dbj3v6Tt
-	 mQYyQ/0Oh3MR31+X0Jgi0+66UtFyuhym6aw6t9fPQwLph8uebh90bXIEHDuQYPFMSq
-	 6U2wG07RqAM2A==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] mm/slab: don't use kfree_rcu sheaves on PREEMPT_RT in
- kvfree_call_rcu()
-Reply-To: sashiko-reviews@lists.linux.dev
-To: ThangNN99 <ngocthang2710.1999@gmail.com>
-Cc: linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev
-In-Reply-To: <20260831053846.107974-1-ngocthang2710.1999@gmail.com>
-References: <20260831053846.107974-1-ngocthang2710.1999@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 31 Aug 2026 05:50:08 +0000
-Message-Id: <20260831055009.340D51F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ieU09dJK"
+Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2d7200b2e15so32439165ad.3
+        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 22:50:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788155423; x=1788760223; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/4fY8flvk1Rf5VPFbST/ZHdyH507l/1gO7fTOQXgpBc=;
+        b=ieU09dJKGlWOpFhdni3p+RBojCEQJ26948+sYplhqXv41B3ONyyHexnzlNsZwUD9Eb
+         TWbJJDr73RPno7BY+u+Judpn7+qTJRBISiTEbZfBhnh/hN/csp8hrViE8rdBC5c9HGmz
+         Jt9DohUytzz5knWCMxH4dT7BGMO2MJ96G2mo53xlZ0c3KEcz9j3ruI0d7J1jbCvdXPVb
+         clgeZszopNOO0z0zNL0mbvNmk6gGt8DCsqcDQZPf/VE/q/K9l6dJPYSlZfk/Z2NKO7xY
+         EYcM+cH2gkpm+AiPCnzTgmnfSH8N/x/CMJYHhthnIbP9obiF+Y5GB7/43dJvQb6eOyhQ
+         kI7w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788155423; x=1788760223;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/4fY8flvk1Rf5VPFbST/ZHdyH507l/1gO7fTOQXgpBc=;
+        b=n2KyX35uwkC2EcnKzTE9zRAwb9XlJlLvmQNCLRKVWRU2rAyZsu6/tKxpgEF2ivLX/0
+         PwNzTMcHGZsXV2Tp1J/uzWqRtmy2nlEcKz4+pSvAzKvU4DCIHBQ1/1kr7dAgZnXHzz2p
+         BSOPBzmwGXsRNly7C36Ilch5La4l8iETEv6uU27sm10Xib9wszxxORIvDC8ypWf5vc8p
+         J1jCP0zy2JDiajTDYArqsR2FtEbMpC3DW0kOkPbuVq+9niGlQJ6BLKpMTs80uQX8o/CL
+         HL6b/AwLwm4rv41XXQ/nu6LbqIl0z0Qo5Wp9GP82gTLGBgkBGWszVLqKjztS0m9MkY2s
+         Z/Mg==
+X-Forwarded-Encrypted: i=1; AKwUvBx7zoo20K4TIWJiNqvZgOl2Uoikl/IyOoYtbFi9dt2nALHsf6KSJoQv+XTzNxzfDt0Q++Uy1/sZ4LIXacA=@vger.kernel.org
+X-Gm-Message-State: AFuF++mzbueOpL+wXLe5hzPJdNF/KR7u8Z62qo5yuZp0yUeE0Qv45ud/
+	dbAODnAz89HR56IDWUeI9c0wwUyLJd2O3yp5obeOt62mhxkQEKf1YHSd
+X-Gm-Gg: AYBFou1CE7RqE72wqUjbJkRLycLuS/1bmex58TLakIHaddpP4zq6IKAb4gtitClwZIx
+	XeecjFdJT0/9Rc4wTVsOMruvVdWi+5DiOir6OxqOAq3YYzV0FzjJ3EsAZdFPbxbrXSNlnSH0Jni
+	r+Zt0kkO6FdYCHuQYf1ovIcoLauQx8IuiaUJwmPkF6CgsuZmDEk70JemHwK5cWdxieyFPQpXwXe
+	m+JDcC+F1YpMrQpMVZ4K2cXo9CdjzJCM8P7cwrIKipRum6a2XBl6iOqSwsTksXmgPjohTCMgNHd
+	qj/C+nz0iMGT1YZZWIdWf6U84I86lih0+pZCZOUfESHG/ZqvBBuGotcmsICoN6BH+46VfQRBsmh
+	Pygp8CFj63b5Mrv/FGT/rEdeW4L7GaexGDEj2d/Hu5D9mZPaabL0kMQ9RauH7OCUssiY1D8UHIc
+	lh1WLUeoY9t39Z4Og2MZga2S3xi8sCrkD+9K4XI/qZ2vmOfPpJTxosC78Q9GVInCSgYlE=
+X-Received: by 2002:a17:903:38cf:b0:2d8:d4cc:be68 with SMTP id d9443c01a7336-2d93fa55ab8mr14713175ad.21.1788155422558;
+        Sun, 30 Aug 2026 22:50:22 -0700 (PDT)
+Received: from Default ([2409:40f4:1012:165f:9722:a5d1:aa46:da42])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-32b49c867f5sm12967862eec.2.2026.08.30.22.50.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 30 Aug 2026 22:50:22 -0700 (PDT)
+From: Jeffin Philip <jeffinphilip14@gmail.com>
+To: ccc194101@163.com
+Cc: bentiss@kernel.org,
+	chenchangcheng@kylinos.cn,
+	jeffinphilip14@gmail.com,
+	jikos@kernel.org,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	syzbot+0a031a76585d1c7e737d@syzkaller.appspotmail.com
+Subject: [PATCH] HID: corsair: do not re-schedule LED worker after it has been cancelled
+Date: Mon, 31 Aug 2026 11:20:05 +0530
+Message-ID: <20260831055005.18420-1-jeffinphilip14@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260817072831.139954-1-ccc194101@163.com>
+References: <20260817072831.139954-1-ccc194101@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
+On Mon, 17 Aug 2026 15:28:31 +0800, Chen Changcheng wrote:
+>Commit eb51c9f8cb4f0 ("HID: corsair: cancel worker before unregistering
+>LED to fix use-after-free") moved cancel_work_sync() ahead of
+>led_classdev_unregister() in k90_cleanup_backlight() and
+>k90_cleanup_macro_functions().  led_classdev_unregister() internally
+>calls led_set_brightness(LED_OFF), which reaches the driver's
+>k90_brightness_set() callback.  Since that callback schedules the worker
+>unconditionally, the worker was re-queued after cancel_work_sync() had
+>drained it, and the subsequent kfree() freed a still-active work_struct:
+>
+>    ODEBUG: free active (active state 0) object type: work_struct
+>            hint: k90_record_led_work
+>
+>The removed flag check inside the worker itself only stops it from
+>dereferencing freed memory once it runs; it cannot prevent the re-queue.
+>
+>Fix this by making k90_brightness_set() a no-op once removed is set, so
+>the LED_OFF update issued from led_classdev_unregister() can no longer
+>re-schedule the worker after it has been cancelled.  Also apply the
+>cancel-before-unregister ordering to the probe error path
+>(k90_init_macro_functions() fail_sysfs) for consistency.
 
-New issues:
-- [Medium] The commit message and comments incorrectly recommend using kfre=
-e_call_rcu_nolock() under a raw spinlock on PREEMPT_RT, but doing so will t=
-rigger the exact same lockdep violation.
-- [Low] The patch introduces unreachable dead code inside `kfree_rcu_sheaf(=
-)`.
+This UAF[1] can be prevented by your patch, would you consider adding that too
+in your patch?
 
-Pre-existing issues:
-- [High] Headless kfree_rcu() calls might_sleep() and synchronize_rcu(), ma=
-king it unsafe to call under a raw spinlock.
---
+[1]: https://lore.kernel.org/all/6a937393.1d9ded08.62e62.0113.GAE@google.com/#R
 
-commit 766d83bf3f72fb4bed74c42f068169aae388d06f
-Author: ThangNN99 <ngocthang2710.1999@gmail.com>
-mm/slab: don't use kfree_rcu sheaves on PREEMPT_RT in kvfree_call_rcu()
-
-This patch skips the sheaves fast path on PREEMPT_RT in kvfree_call_rcu()
-to avoid a lockdep circular dependency when the caller holds a raw
-spinlock. It modifies kvfree_call_rcu() to avoid calling into the sheaf
-machinery when PREEMPT_RT is enabled, falling back to the krcp list. The
-commit message and comments also suggest raw spinlock callers needing
-the fast path should migrate to kfree_call_rcu_nolock() instead.
-
-Reported-by: syzbot+acf142088e0182172e58@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=3Dacf142088e0182172e58
-Fixes: 2a8bb29ec9b2 ("mm/slab: allow kfree_rcu_sheaf() on PREEMPT_RT")
-
-> diff --git a/mm/slab_common.c b/mm/slab_common.c
-> index b19ba1b31484c..6d6cd78d00c4b 100644
-> --- a/mm/slab_common.c
-> +++ b/mm/slab_common.c
-> @@ -2034,7 +2034,14 @@ void kvfree_call_rcu(struct kvfree_rcu_head *head,=
- void *ptr)
->  	if (!head)
->  		might_sleep();
-> =20
-
-[Severity: High]
-This is a pre-existing issue, but does using headless kfree_rcu() under a r=
-aw
-spinlock actually avoid sleeping?
-
-The commit message states that set_cpus_allowed_force() uses kfree_rcu()
-because it holds the raw p->pi_lock and cannot sleep. However, if head is
-NULL (which is the case for the single-argument kfree_rcu() macro), this
-might_sleep() is unconditionally called. Does this mean set_cpus_allowed_fo=
-rce()
-is actually triggering a "sleeping function called from invalid context" bu=
-g?
-
-> -	if (kfree_rcu_sheaf(ptr))
-> +	/*
-> +	 * Callers may hold a raw spinlock here on PREEMPT_RT (e.g.
-> +	 * set_cpus_allowed_force() with p->pi_lock held), and the sheaf/barn
-> +	 * locks are also taken as blocking locks elsewhere, so trying them
-> +	 * here creates a lockdep-visible ordering conflict. Skip sheaves on
-> +	 * PREEMPT_RT; use kfree_rcu_nolock() instead if this doesn't apply.
-> +	 */
-> +	if (!IS_ENABLED(CONFIG_PREEMPT_RT) && kfree_rcu_sheaf(ptr))
-
-[Severity: Medium]
-Will callers migrating to kfree_call_rcu_nolock() on PREEMPT_RT hit the same
-issue this patch is trying to fix?
-
-Looking at kfree_call_rcu_nolock(), it unconditionally calls
-__kfree_rcu_sheaf() with SLAB_FREE_NOLOCK:
-
-bool kfree_call_rcu_nolock(void *ptr)
-{
-    ...
-    if (unlikely(!__kfree_rcu_sheaf(slab->slab_cache, ptr, SLAB_FREE_NOLOCK=
-)))
-    ...
-}
-
-This in turn calls local_trylock(&s->cpu_sheaves->lock). On PREEMPT_RT, this
-lock is a sleepable spinlock_t. Doesn't acquiring a sleepable lock under a =
-raw
-spinlock violate lock nesting rules, even with a trylock?
-
-[Severity: Low]
-Does skipping kfree_rcu_sheaf() when PREEMPT_RT is enabled turn the early
-check inside kfree_rcu_sheaf() into unreachable dead code?
-
-kfree_rcu_sheaf() has an early check:
-
-static bool kfree_rcu_sheaf(void *obj)
-{
-    ...
-    if (IS_ENABLED(CONFIG_PREEMPT_RT))
-        free_flags =3D SLAB_FREE_NOLOCK;
-    ...
-}
-
-Since kvfree_call_rcu() is the only caller of kfree_rcu_sheaf(), that code
-appears to be completely unreachable now.
-
->  		return;
-> =20
-
-[ ... ]
-
-> diff --git a/mm/slub.c b/mm/slub.c
-> index f9b56cb439e70..83bc322557f89 100644
-> --- a/mm/slub.c
-> +++ b/mm/slub.c
-> @@ -6088,10 +6088,11 @@ static void rcu_free_sheaf(struct rcu_head *head)
->  /*
->   * kvfree_call_rcu() can be called while holding a raw_spinlock_t. Since
->   * __kfree_rcu_sheaf() may acquire a spinlock_t (sleeping lock on PREEMP=
-T_RT),
-> - * this would violate lock nesting rules. Therefore, kvfree_call_rcu() a=
-voids
-> - * this problem by passing SLAB_FREE_NOLOCK on PREEMPT_RT.
-> + * this would violate lock nesting rules. kvfree_call_rcu() avoids this =
-by
-> + * bypassing the sheaves layer on PREEMPT_RT; use kfree_call_rcu_nolock()
-> + * instead for atomic/unknown-context callers that need the sheaves path.
->   *
-> - * However, lockdep still complains that it is invalid to acquire spinlo=
-ck_t
-> + * lockdep still complains that it is invalid to acquire spinlock_t
-
-[Severity: Medium]
-As mentioned above, if callers follow this comment and use
-kfree_call_rcu_nolock() under a raw spinlock on PREEMPT_RT, won't lockdep
-still complain because kfree_call_rcu_nolock() will call __kfree_rcu_sheaf()
-which attempts to acquire the sleepable spinlock_t?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831053846.1079=
-74-1-ngocthang2710.1999@gmail.com?part=3D1
+Thanks,
+Jeffin.
