@@ -1,72 +1,116 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-47.mta1.migadu.com [95.215.58.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6B0639A7E0;
-	Mon, 31 Aug 2026 21:08:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C79839524B
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 21:08:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788210485; cv=none; b=O9aDZokVlVlLibSIwd7SebnfpcobAWbGvAH/aCIlHvhcYBZEuwdE6eGIz9jnrQ+d0zfSZSD20i0bbArum6vryz13k+fnPSxgshdRdjswFk1z4T6tEwUam64BlUzV4LtrLElyRotJQMyeXoHX7T5VM4ANOjMCZASCMgbUOhiavSk=
+	t=1788210490; cv=none; b=iJUpxdHKVu5ZbamUayrU1FSnSaDfBLoUalTN6bwBMsLy22q5Yb/W8gR+j3EMkaiuSR03f0cVcqCAHtv3dnORrJWjLcChBdiyDkq3RajU/4jKc6dWcm4bOf/mgrH3saLTrer+BIraIShOfhlMljdHCX1w5BRY2wrXoKHA9eA2ndw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788210485; c=relaxed/simple;
-	bh=gvC3ju/HglQkrViKAOWT2imoCWUjJmIa21VpRNi0YMw=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References; b=Xcq1chaepf8hjG2kZVMZ4eeS6gPk7RqaLHKvx4klehR/JdciGsTxI7jL5h01tdfTIo0MK1AcvooWs3wfQ5gNYlXZq4ROYuqyvzuNuuFWeGp0mmCk1a+1Gihg8Ctzn7EANx0OyhBf3ZiGB5/sFDUikql2cMIcVfDI58PSmZ41/B8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QFq+Dx1A; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788210490; c=relaxed/simple;
+	bh=K8NahBEYh1brxnrkMP4IG+rge/2nFoiPUVjj3MLym/I=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=YVPV5V+Eznyczt3rAFTAWUMuvGY/tSnl9BljgzbtlUY9K58Uq4BrsSm/nfFcfyFEx2bQb/UUzoxwohtRKDKu5FrcmjUOzSEkFnTkv8TiByDDdzYPhQGohHEcb6dO+2+f4zKYvC1K3IUhZOpJ18nI4tXa4zmQkgSXcLmVBjhvl2o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=VWpQ412f; arc=none smtp.client-ip=95.215.58.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QFq+Dx1A"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 526AD1F00A3D;
-	Mon, 31 Aug 2026 21:08:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788210483;
-	bh=4+em0ZEdjHu4ShaBifn99b5fw4zGxldy7vlQoFRY6+0=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=QFq+Dx1AcUrcJe6kRtR/xQ6mw8BW+MVhJ54B1eyd7GdKaT66AGYDwZFVA6uAv8d7U
-	 3LXFa27AyLTuuoiB7ZQbdIcjZ2TYBavqCq4aWYnxpwnhfO9Jl7GkYOa/hIma6amLnh
-	 XGcm2Wg/GUb/7TlkoVBYyMfM2EyoEEPOW7h/ftO2b+Sn0dsJ67OGLVOB3lsKtcKmUX
-	 ZX3YKjLByDII4odnLdaOshdjpyrKXvQWMUACPk6SffDuPRMGpo51EaJzegbjpYU5mx
-	 3nmg4KGuP64rEPMG0Z2TYSe4JPBZMMNJQiV33Kia+H6bvyaBwPZCbb7Qbj6Pb+gPsR
-	 tiJG5RcXNYHwQ==
-Date: Mon, 31 Aug 2026 11:08:02 -1000
-Message-ID: <652a415f83f59c4f13716367e7081523@kernel.org>
-From: Tejun Heo <tj@kernel.org>
-To: Aaron Tomlin <atomlin@atomlin.com>
-Cc: jiangshanlai@gmail.com, rostedt@goodmis.org, mhiramat@kernel.org,
- osandov@osandov.com, neelx@suse.com, sean@ashe.io,
- linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/3] workqueue: Add telemetry tracepoints for CPU
- hogs, distress, and BH budget yields
-In-Reply-To: <20260829230517.42468-1-atomlin@atomlin.com>
-References: <20260829230517.42468-1-atomlin@atomlin.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="VWpQ412f"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=K8NahBEYh1brxnrkMP4IG+rge/2nFoiPUVjj3MLym/I=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788210485; v=1; x=1788815285;
+ b=VWpQ412fJRK1MjQbVgA12g+tI5+McxaXj1wPlwojNTH0NAtkFqv8Ru8q6iEYO1RmUede+XHE
+ KE/8aWZnp1fbnq+hVbW6Y6Ab0fhh3h60zemkfJZUDdfpUC0B7RvhxQOixcDxcDOFSF/vt8Ck/jO
+ bcOCd6kRwdevQFLFyCWzqM7o=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 668783f646d3672b;
+	Mon, 31 Aug 2026 21:08:05 +0000
+X-Mizu-Trace-ID: 668783f646d3672b
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <79ee722c-fbb3-4a28-bdba-65e74f2239f2@linux.dev>
+Date: Mon, 31 Aug 2026 14:08:00 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH bpf v3 3/5] bpf: Fix NULL-ptr-deref in btf_var_show()
+To: Jiayuan Chen <jiayuan.chen@linux.dev>, bpf@vger.kernel.org
+Cc: Alexei Starovoitov <ast@kernel.org>,
+ Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>,
+ Eduard Zingerman <eddyz87@gmail.com>,
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+ Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
+ Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>,
+ Emil Tsalapatis <emil@etsalapatis.com>, Shuah Khan <shuah@kernel.org>,
+ Mykyta Yatsenko <yatsenko@meta.com>, Alan Maguire <alan.maguire@oracle.com>,
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
+References: <20260831110314.150870-1-jiayuan.chen@linux.dev>
+ <20260831110314.150870-4-jiayuan.chen@linux.dev>
+Content-Language: en-US
+From: Ihor Solodrai <ihor.solodrai@linux.dev>
+In-Reply-To: <20260831110314.150870-4-jiayuan.chen@linux.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hello, Aaron.
+On 8/31/26 4:01 AM, Jiayuan Chen wrote:
+> btf_var_show() calls btf_type_id_resolve() unconditionally, which
+> dereferences btf->resolved_ids. That is NULL for a base BTF - e.g. the
+> vmlinux BTF that bpf_snprintf_btf() renders against - since base BTF is
+> not resolved during parsing. btf_modifier_show() guards this with
+> 'if (btf->resolved_ids)', but btf_var_show() does not.
+> 
+> A BPF program that passes the type_id of a BTF_KIND_VAR from the vmlinux
+> BTF to bpf_snprintf_btf() thus NULL-derefs:
+> 
+> KASAN: probably user-memory-access in range [0x46638-0x4663f]
+> RIP: 0010:btf_var_show (kernel/bpf/btf.c:2929)
+> Call Trace:
+>  <TASK>
+>  btf_type_show (kernel/bpf/btf.c:8259)
+>  btf_type_snprintf_show (kernel/bpf/btf.c:8329)
+>  bpf_snprintf_btf (kernel/trace/bpf_trace.c:1047)
+>  bpf_prog_test_run_raw_tp (net/bpf/test_run.c:829)
+>  __sys_bpf (kernel/bpf/syscall.c:4804)
+>  do_syscall_64 (arch/x86/entry/syscall_64.c:84)
+>  entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
+>  </TASK>
+> 
+> Resolve the var's type directly with btf_type_skip_modifiers() when
+> resolved_ids is NULL, mirroring btf_modifier_show().
+> 
+> Fixes: c4d0bfb45068 ("bpf: Add bpf_snprintf_btf helper")
+> Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
+> ---
+>  kernel/bpf/btf.c | 10 +++++++++-
+>  1 file changed, 9 insertions(+), 1 deletion(-)
+> 
+> diff --git a/kernel/bpf/btf.c b/kernel/bpf/btf.c
+> index 6e267c4c4e1f..3cf35ee49c10 100644
+> --- a/kernel/bpf/btf.c
+> +++ b/kernel/bpf/btf.c
+> @@ -2926,7 +2926,15 @@ static void btf_var_show(const struct btf *btf, const struct btf_type *t,
+>  			 u32 type_id, void *data, u8 bits_offset,
+>  			 struct btf_show *show)
+>  {
+> -	t = btf_type_id_resolve(btf, &type_id);
+> +	/*
+> +	 * btf_type_id_resolve() dereferences btf->resolved_ids, which is NULL
+> +	 * for a base BTF (e.g. the vmlinux BTF that bpf_snprintf_btf() uses).
+> +	 * Resolve the var's type directly in that case.
+> +	 */
+> +	if (btf->resolved_ids)
+> +		t = btf_type_id_resolve(btf, &type_id);
+> +	else
+> +		t = btf_type_skip_modifiers(btf, t->type, &type_id);
 
-On Sat, Aug 29, 2026 at 07:05:14PM -0400, Aaron Tomlin wrote:
-> This patch series introduces lightweight tracepoints for these key
-> operational boundaries:
+Acked-by: Ihor Solodrai <ihor.solodrai@linux.dev>
 
-Lai's address was mangled in the cc list. Corrected to
-jiangshanlai@gmail.com.
+>  
+>  	btf_type_ops(t)->show(btf, t, type_id, data, bits_offset, show);
+>  }
 
-Generally looks fine to me. Some comments:
-
-- As the test robot reported, the open-coded u64 division in the first
-  patch breaks 32bit builds. Rather than restructuring the comparison,
-  it'd be better to keep it as-is and calculate the duration only after
-  the worker is marked CPU_INTENSIVE. That also keeps the division out
-  of the every-tick path.
-
-- In the third patch, the timeout flag is determined by re-reading
-  jiffies after the loop. If the loop exited because nr_restarts ran
-  out, time_before() was never tested and a tick in that window would
-  misattribute the yield to timeout. Please derive the reason from the
-  condition that actually terminated the loop. Also, BH_WORKER_RESTARTS
-  - nr_restarts counts loop iterations, not restarts.
-
-Thanks.
-
--- 
-tejun
