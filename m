@@ -1,208 +1,138 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail.ispras.ru (mail.ispras.ru [83.149.199.84])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86B183AC0FC;
-	Mon, 31 Aug 2026 07:58:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CDD13CEB99;
+	Mon, 31 Aug 2026 07:58:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=83.149.199.84
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788163134; cv=none; b=IOxBi4wRAMTEOdTNz0O0741WIFZA2wVyRU2mNU7vJKrsmn/DnF89kW3rTZgVrTdRe4npHjisshTTny+RsAjPeqp6OiS5l8I/CGNAWj9VrpezCh0vhVP9SWYisd3Ba9vusCmK3UjyS8F+M8aj4EaJUu/H9K0fS7ykwm6PdUWNBUI=
+	t=1788163135; cv=none; b=nyVqStdAWG44lQ5V8VVy/JJT7J1d8dGNptPrVPobQBCvpzw3NPn5YUg7Vwx8uDjeDEt81AR6PrSMh4NKXtdC1o5xpzEaBRG4aZyM8hVP9no96E0g7AFEg8vqlXecI4771ePtLUkbKTcKrEO72YHLTD2fMtaRjaFRygMrAvYz1fo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788163134; c=relaxed/simple;
-	bh=ihu27po+MSYTkCfgNeihbJuHt37fI8PUzCU6EmX1XnM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=bvWHteYBAlx8YJ62fZ+oRyJMua3rj0cLtGZ3Kwoqq2BV3yGfAMgDxFdsjLS08hzLUPkVlqM9WlaARNfvZfceaWkwxxP3ASo2z/2o46oPlgOYJ7Qj3MUz8RUxJz3/1yIwB03MwmhlYTv9XG5LmLJk/NqRNmw7Cn8mDUZsKm8zHbc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=zmyopjxG; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1788163135; c=relaxed/simple;
+	bh=lsZwcvFJ6DYatuuXsPT8MW0GHN2pbYxU6wvTG0VjDFQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Ah/nA5Y+QELYneTT58XK/Rct0V5gKCVqsM/aoJgUbDpTyj20Y2/THoeZukdn2WtYpcew1ywBMeyah3ICH3GPluB8IMt53maDm8R5KB0YRwfKBkdyX39PswiRD4uw0rwAWILKEzlCoA1LPU9zxNXj4WX5N3RU4WCr92VplQOSEog=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ispras.ru; spf=pass smtp.mailfrom=ispras.ru; dkim=pass (1024-bit key) header.d=ispras.ru header.i=@ispras.ru header.b=ObiRXBs8; arc=none smtp.client-ip=83.149.199.84
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ispras.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ispras.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="zmyopjxG"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 379F24E41463;
-	Mon, 31 Aug 2026 07:58:51 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 09F88601E1;
-	Mon, 31 Aug 2026 07:58:51 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 270B811C783B9;
-	Mon, 31 Aug 2026 09:58:42 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788163126; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=tyQu/2/Mg8KmAYomHE0uTCEdQlUlumYeDgFTTXDPZW0=;
-	b=zmyopjxGE3DfwUOnguKowfJywKGPlnIHXFsgNlj8e/AerT3dgZx0+LfAjjiSPHLJCH69eS
-	oLR6o3S/2CO+f3rGq7eNkTgOplksmOodCD7iHvSQASgqzcou4leOLy59TTI2WaAn4YuM0c
-	IRs/aB03RotQ2FvzYYR3r9dZDp9VKvNbgeBiIaPL7LH6j+5+UlF4NbYrapMf+kg31nVXDM
-	vfRtGunesFKcKa8urt577LUAyUx2h76A7HP7l8xcKIoe5/z9OE+r9BO5DPEdfmAwIzVPM2
-	gayHrsHc4Ji34xsJlvMPkf9AZ2nBUMyvtDkhqufzyptGFG9ncIr6EaX7nc+yvA==
-Message-ID: <b5680417-53e6-4a87-861e-40765a6ccada@bootlin.com>
-Date: Mon, 31 Aug 2026 09:58:42 +0200
+	dkim=pass (1024-bit key) header.d=ispras.ru header.i=@ispras.ru header.b="ObiRXBs8"
+Received: from fedora (unknown [79.139.241.61])
+	by mail.ispras.ru (Postfix) with ESMTPSA id DCC2E407672E;
+	Mon, 31 Aug 2026 07:58:47 +0000 (UTC)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.ispras.ru DCC2E407672E
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ispras.ru;
+	s=default; t=1788163128;
+	bh=JUgrRmOxgoqrS39FwlG/0IiuRy0INCd2KDkj4TL48UI=;
+	h=From:To:Cc:Subject:Date:From;
+	b=ObiRXBs8BoGwWZyvjOySncqfJDPPX4u5W2fzCqaYOuEklg292BnANLNcxgnZBBTuh
+	 h7QCujDuR/fw/TMAg1B/SYlBqls2RPXeyzAMNniHvQlHDRroiQgHhei4+9gXHGuCgF
+	 qNvqFebgCNEGAcnenEsaVw0+g9PgACMsSm/f4uRM=
+From: Fedor Pchelkin <pchelkin@ispras.ru>
+To: Mika Westerberg <westeri@kernel.org>,
+	linux-usb@vger.kernel.org
+Cc: Fedor Pchelkin <pchelkin@ispras.ru>,
+	Andreas Noever <andreas.noever@gmail.com>,
+	Yehezkel Bernat <YehezkelShB@gmail.com>,
+	linux-kernel@vger.kernel.org,
+	lvc-project@linuxtesting.org,
+	stable@vger.kernel.org
+Subject: [PATCH] thunderbolt: fix NULL dereference in tb_remove_work()
+Date: Mon, 31 Aug 2026 10:58:09 +0300
+Message-ID: <20260831075836.16038-1-pchelkin@ispras.ru>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v5 2/6] net: phy: unregister SFP upstream before port
- cleanup
-To: Xuanqiang Luo <xuanqiang.luo@linux.dev>, netdev@vger.kernel.org,
- andrew@lunn.ch, kuba@kernel.org
-Cc: hkallweit1@gmail.com, chleroy@kernel.org, qingfang.deng@siflower.com.cn,
- hao.guan@siflower.com.cn, linux@armlinux.org.uk, davem@davemloft.net,
- edumazet@google.com, pabeni@redhat.com, linux-kernel@vger.kernel.org,
- Xuanqiang Luo <luoxuanqiang@kylinos.cn>
-References: <20260823035600.188864-1-xuanqiang.luo@linux.dev>
- <20260823035600.188864-3-xuanqiang.luo@linux.dev>
-Content-Language: en-US
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-In-Reply-To: <20260823035600.188864-3-xuanqiang.luo@linux.dev>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
 
-Hi,
+There is a slight race between tb_remove_work() and tb_domain_remove()
+which leads to dereferencing a NULL tb->root_switch pointer inside
+tb_free_unplugged_xdomains():
 
-On 8/23/26 05:55, Xuanqiang Luo wrote:
-> From: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
-> 
-> Commit 4497f5028675 ("net: phy: Clean the phy_ports after unregistering
-> the downstream SFP bus") established that an SFP upstream must be
-> unregistered before its phy_ports are destroyed because SFP callbacks
-> may access these ports.
-> 
-> phy_setup_ports() does not follow this order when a later port setup
-> step fails after phy_sfp_probe() succeeds. It destroys the SFP phy_port
-> and leaves phy_probe() to unregister the upstream later, creating a race
-> between port destruction and SFP upstream callbacks.
-> 
-> The error unwind is also split across three functions. If
-> phy_setup_sfp_port() fails, phy_sfp_probe() leaves the upstream
-> registered and relies on phy_probe() to remove it after
-> phy_setup_ports() returns.
-> 
-> Make each layer unwind the resources it successfully set up. Unregister
-> only the upstream in phy_sfp_probe() when SFP port setup fails, since
-> the failed port has already been destroyed. Add phy_sfp_release() for a
-> successful SFP probe, and make phy_setup_ports() use it before cleaning
-> up the remaining ports. Once phy_setup_ports() has rolled back all port
-> setup, make phy_probe() skip this cleanup.
-> 
-> Fixes: 589e934d2735 ("net: phy: Introduce PHY ports representation")
-> Reviewed-by: Andrew Lunn <andrew@lunn.ch>
-> Signed-off-by: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
+        Thread A                            Thread B
 
-Thanks for this cleanup,
+  tb_remove_work()
+                                    tb_domain_remove()
+                                      mutex_lock(&tb->lock)
+                                      tb_stop()
+                                        /* doesn't cancel a running callback */
+                                        cancel_delayed_work(&tcm->remove_work)
+                                        ...
+                                        tb_switch_remove(tb->root_switch)
+                                        tb->root_switch = NULL
+                                      mutex_unlock(&tb->lock)
+    mutex_lock(&tb->lock)
+    ...
+    /* without checking ->root_switch */
+    tb_free_unplugged_xdomains(tb->root_switch)
+    mutex_unlock(&tb->lock)
 
-Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Commit a8937f35cf39 ("thunderbolt: Remove XDomain from the bus without
+holding tb->lock") doesn't seem right to move tb_free_unplugged_xdomains()
+out of the &tb->lock section and the check for tb->root_switch, in
+particular.  It states:
 
-Maxime
+  For this reason separate removing the XDomain from the topology data
+  structures (where we need the lock) from unregistering the device from
+  the bus (where remove callbacks of the drivers are being called).
 
-> ---
->  drivers/net/phy/phy_device.c | 49 ++++++++++++++++++++++++++++--------
->  1 file changed, 38 insertions(+), 11 deletions(-)
-> 
-> diff --git a/drivers/net/phy/phy_device.c b/drivers/net/phy/phy_device.c
-> index 2cf70471ae089..4b9b2300422fb 100644
-> --- a/drivers/net/phy/phy_device.c
-> +++ b/drivers/net/phy/phy_device.c
-> @@ -1723,12 +1723,41 @@ static int phy_sfp_probe(struct phy_device *phydev)
->  			phydev->sfp_bus = NULL;
->  	}
->  
-> -	if (!ret && phydev->sfp_bus)
-> +	if (!ret && phydev->sfp_bus) {
->  		ret = phy_setup_sfp_port(phydev);
-> +		if (ret) {
-> +			sfp_bus_del_upstream(phydev->sfp_bus);
-> +			phydev->sfp_bus = NULL;
-> +		}
-> +	}
->  
->  	return ret;
->  }
->  
-> +/**
-> + * phy_sfp_release - release resources set up by phy_sfp_probe()
-> + * @phydev: the PHY device
-> + *
-> + * Release the SFP resources set up by a successful phy_sfp_probe(). Unregister
-> + * the upstream before destroying its phy_port, so SFP upstream callbacks cannot
-> + * race with port destruction.
-> + */
-> +static void phy_sfp_release(struct phy_device *phydev)
-> +{
-> +	struct phy_port *port, *tmp;
-> +
-> +	sfp_bus_del_upstream(phydev->sfp_bus);
-> +	phydev->sfp_bus = NULL;
-> +
-> +	list_for_each_entry_safe(port, tmp, &phydev->ports, head) {
-> +		if (!port->is_sfp)
-> +			continue;
-> +
-> +		phy_del_port(phydev, port);
-> +		phy_port_destroy(port);
-> +	}
-> +}
-> +
->  static bool phy_drv_supports_irq(const struct phy_driver *phydrv)
->  {
->  	return phydrv->config_intr && phydrv->handle_interrupt;
-> @@ -3547,13 +3576,13 @@ static int phy_setup_ports(struct phy_device *phydev)
->  	if (!phydev->is_genphy_driven) {
->  		ret = phy_sfp_probe(phydev);
->  		if (ret)
-> -			goto out;
-> +			goto err_ports;
->  	}
->  
->  	if (phydev->n_ports < phydev->max_n_ports) {
->  		ret = phy_default_setup_single_port(phydev);
->  		if (ret)
-> -			goto out;
-> +			goto err_sfp;
->  	}
->  
->  	linkmode_zero(ports_supported);
-> @@ -3580,7 +3609,9 @@ static int phy_setup_ports(struct phy_device *phydev)
->  
->  	return 0;
->  
-> -out:
-> +err_sfp:
-> +	phy_sfp_release(phydev);
-> +err_ports:
->  	phy_cleanup_ports(phydev);
->  	return ret;
->  }
-> @@ -3744,7 +3775,7 @@ static int phy_probe(struct device *dev)
->  
->  	err = phy_setup_ports(phydev);
->  	if (err)
-> -		goto out_sfp_release;
-> +		goto out_reset;
->  
->  	phy_advertise_supported(phydev);
->  
-> @@ -3816,9 +3847,7 @@ static int phy_probe(struct device *dev)
->  		phy_led_triggers_unregister(phydev);
->  
->  out_sfp_release:
-> -	sfp_bus_del_upstream(phydev->sfp_bus);
-> -	phydev->sfp_bus = NULL;
-> -
-> +	phy_sfp_release(phydev);
->  	phy_cleanup_ports(phydev);
->  
->  out_reset:
-> @@ -3842,9 +3871,7 @@ static int phy_remove(struct device *dev)
->  
->  	phydev->state = PHY_DOWN;
->  
-> -	sfp_bus_del_upstream(phydev->sfp_bus);
-> -	phydev->sfp_bus = NULL;
-> -
-> +	phy_sfp_release(phydev);
->  	phy_cleanup_ports(phydev);
->  
->  	if (phydev->drv && phydev->drv->remove)
+tb_free_unplugged_xdomains() belongs to the former group of functions
+requiring the lock.  And it also calls tb_xdomain_remove() which should
+only be called with &tb->lock held.
+
+Found by Linux Verification Center (linuxtesting.org) with Svace static
+analysis tool.
+
+Fixes: a8937f35cf39 ("thunderbolt: Remove XDomain from the bus without holding tb->lock")
+Cc: stable@vger.kernel.org
+Signed-off-by: Fedor Pchelkin <pchelkin@ispras.ru>
+---
+
+Reproducedd under QEMU with a passthrough'ed USB4/Thunderbolt NHI
+controller.  Not sure if this trace gives something extra-helpful for the
+commit message, I'll just place it here for now.
+
+Oops: general protection fault, probably for non-canonical address 0xdffffc000000009b: 0000 [#1] SMP KASAN NOPTI
+KASAN: null-ptr-deref in range [0x00000000000004d8-0x00000000000004df]
+CPU: 7 UID: 0 PID: 866 Comm: kworker/u32:50 Not tainted 7.2.0+ #16 PREEMPT(full)
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.17.0-9.fc43 06/10/2025
+Workqueue: thunderbolt0 tb_remove_work
+RIP: 0010:tb_free_unplugged_xdomains+0x39/0x4e0
+Call Trace:
+ <TASK>
+ process_one_work+0xa3e/0x1a10
+ worker_thread+0x70c/0x1040
+ kthread+0x3de/0x4e0
+ ret_from_fork+0x6c2/0xb00
+ ret_from_fork_asm+0x1a/0x30
+ </TASK>
+Modules linked in:
+RIP: 0010:tb_free_unplugged_xdomains+0x39/0x4e0
+
+ drivers/thunderbolt/tb.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/thunderbolt/tb.c b/drivers/thunderbolt/tb.c
+index 47753a5c0f2e..f2e53feff5a6 100644
+--- a/drivers/thunderbolt/tb.c
++++ b/drivers/thunderbolt/tb.c
+@@ -3274,11 +3274,11 @@ static void tb_remove_work(struct work_struct *work)
+ 	struct tb *tb = tcm_to_tb(tcm);
+ 
+ 	mutex_lock(&tb->lock);
+-	if (tb->root_switch)
++	if (tb->root_switch) {
+ 		tb_free_unplugged_children(tb->root_switch);
++		tb_free_unplugged_xdomains(tb->root_switch);
++	}
+ 	mutex_unlock(&tb->lock);
+-
+-	tb_free_unplugged_xdomains(tb->root_switch);
+ }
+ 
+ static int tb_runtime_resume(struct tb *tb)
+-- 
+2.55.0
 
