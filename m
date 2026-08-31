@@ -1,152 +1,116 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E198470E8A
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 18:20:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 134F042376A
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 18:21:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788200459; cv=none; b=qadfF3alimN2bdkTitJrrhSVIL5eQjE5BXp3UoYQR9SakiEIzKBNGGFpcUN1B3BDKO9HT3xFb8GrL4DpTjCicVI8p06dImvlkn4HPbyod0bEsOJR9EWNyzBV0Ujpde/UONIRHPhBv/ljIX95Z7wqWKOzfKV/do4IOCslYhoND4E=
+	t=1788200475; cv=none; b=cI3vvsAO/rbee/vadgzeSk9eKkUBAW/reBLabJIukY3htGNoxHkO8qw11CB+FTs1iTaC3qbaW7yT1gzflr2WkzQfHCJ8yUmcu51sPGa247/7VV/7+s5rGsNGZYR+Pn3AODA09xxP2aIflQX/9xuDCUhLBxVtHN7iEz6XGmlpJYA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788200459; c=relaxed/simple;
-	bh=rb3HKaLLxJzwcBkHRVKkVwDnPxrRHTfCEOty9h/3Dj4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Onzzp7/oxTTJRjBheSz20WiyvtXaF5D5fADXTkfCzNJ/vJ0OIPYlCXWoGPsTMpsPww1XGqG/dde9z9B7Wm8Gpylm5Ty0W9sDTYNgBBBtpYu3klJ0vZbP5L2LXGas5NfH/LrGhtZd26aAtpNDsgwJZd60aOaXmz1XfendSsnekdg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gfFA0NNC; arc=none smtp.client-ip=209.85.128.41
+	s=arc-20240116; t=1788200475; c=relaxed/simple;
+	bh=CTe7x0uus5Jyh61aGiyKsb0esjA18qPPL2GDz+sMqHg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=PDwGAi0KTQAzhnNFE6JvdwQzvIOSxbdc13UtI4M9F9RiYRyxlUfhjehKqJOeGNCzQqWnNlWgqMKaC7P360F/hYUfJ4nGsO5Ymj9O4u/GUtjTmxFiswsaujea+jUzGZJO0DOn4+porYnOj2AwCeqkyFPbKfag74eb15TyquCL1A8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Bu7OG3Em; arc=none smtp.client-ip=209.85.216.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gfFA0NNC"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-49b8687630fso27908945e9.3
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 11:20:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Bu7OG3Em"
+Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-39682983a0fso4888328a91.3
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 11:21:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788200456; x=1788805256; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=OQu21g+jvYzg+hR8nIxI4Zsc1brzVFs3c2vxWfEZwO8=;
-        b=gfFA0NNClt535kbQ/Xd9ftznrAlSMXcdp2NW824ufMZp78w9HO3iafhEBE1AwH7ao4
-         b1oPVNS08Ef85EcgF1xuvAxiLH9O6AK9ZVTfqW4SLX5q6AV1iMduJ9DuvzDWZmLHkBQY
-         Npk8GYlRZo6ST1RjAIjUfaF3fKfa/M3Po5scpDi7YxF1hCRXl1x8zm3jxMQvvtsZd3wv
-         y19QSX6t4aGmL6RXQNaNcjH1UCgB/0fxvsdH+iaDvnikc7eUM2EIKQVVGQjWdxjUDZho
-         zLaggydGcqoSqBPXwgiooqjX2/CapgKPiPT4g+EIfFw2LPqE6XxY1888DtUnks9/blpG
-         3fRQ==
+        d=gmail.com; s=20251104; t=1788200473; x=1788805273; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2C8d9Mw5d8wycdXLHEiB7Z81VhrXXtSb8zZr7GQsQHI=;
+        b=Bu7OG3EmLNxUgEc1ZAZ6Yz2G2lLiJvtGbQUEDiSYmYsEALwOVeJvPB7P7Hd7NuSEDz
+         Tp0K9BMdmEXFeFL2qQzk9RCGyd43cy7PhiIsc8VX157NobeVrmgytmAsFdRg45F9UOzk
+         FNfQbTRSIA6BL8LF4a1BunrrST8gwwSlgejZnhQAtqXTZejhOfzVJwD28VcZkd70YCLp
+         CFNIuonkqjagzKj4BJIkKb7cRd74+mSU4op+XFYENlQncCgPmvm4SAIn2HTzD4bmoaCn
+         DoTMjAXbmwSBSsxrGSYfTMMB6hjHUFLN2kpNU4o6y6vQyXMDhZqwiBnnfZY/nazB6JQg
+         xnkg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788200456; x=1788805256;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=OQu21g+jvYzg+hR8nIxI4Zsc1brzVFs3c2vxWfEZwO8=;
-        b=oQDC6vszn3YARvs+ecE5G67JkXYomfhMUdKHzTVjuG/oNrHzhiNSOBFzUQ01YkHv73
-         Yn2ugVO6hJhar+BMV7NtyhK1UGGjwTYHMEnVTnA+VvZKfCpnD5W3q9LNcULiON4oKb6D
-         k1OSdQrmGAJdmhuICYbSygXfkpN2iuD1VlP0/GTLs3oLIHop90ozktGbqyrVqT/rD/V8
-         0WhsKYDeC1yY4CkcSZgdRZGQHuav+6NH/MgYqXMqN8s7Do/Woc1f4bM+0DILhd+tfxQj
-         EWZsMNacOv+ufbhEQpwDaFBMPFOSnLULVuNrBVM28aR0vAinx2EjYwxiumQlGTyyMuNf
-         jGxQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rrr2ulhuG6+kTXQn+GPS7MduOKfWRgv7azP5tKFxcqaghGC8W7EhMn/uJu8QKtMU8S5bxw9OgWbzS+Zbuk=@vger.kernel.org
-X-Gm-Message-State: AFuF++mfNDCoJM3BbtwWLF+IUGw7pEl5SESkBVVY2+i7DTZxYENnQAJe
-	ECu20J8SiHN9klsY+JHM40RWlE75ReBuDkFUANC/RypCDXN3ay8OHK8r
-X-Gm-Gg: AR+sD11sviiQL5kFTTHo2TAcd0Q8m6Gen2y8+o+36Acq/o8frDyZQNJOeMCpQL9JO66
-	OXY50ulETYhYK/Om1NMS4vtqY2bsPTKzb865m1z/A2ZTEoEiceIcRWQY88OHU3rItyvnodAuSx1
-	BbVwVpLRLQMJHeOCBHAbC5ECeUUQVkYmJMXIvTwkDtBiVSaVsqRxBkMHagYBfYO3PFicTjBFgxc
-	e9pfTC7WsEWlzko3DqCzKlxuk7pX3+pLks3KIB16TsTlN2mHMM0waOfPQsWaQ3E9XT1CWSbDaY8
-	GjTnFTYxOyNjA5576tOqhPKwftuuHnXVzAO/Tn6mDP93ytD7zwimJ4fWxHZ+MzTRvIvbKA+dxrR
-	bVTQwOgK6v97pLG6ZFNDpyrY8RCBoUs0REFmb4Q/pzsqO3KAju8JAH9kpNjN0I6iCeNFohz17qW
-	n0p/mJNrtbrZhJB0v0YSnksEiULoN16h2XBuGBGWMvRWc0K5RvLWA+aCTv2y5jEO6ERavtOokIG
-	Dv1tjt5ChgKFygRvQ==
-X-Received: by 2002:a05:600c:1906:b0:499:9240:9a1c with SMTP id 5b1f17b1804b1-49cdc555496mr39483805e9.15.1788200456098;
-        Mon, 31 Aug 2026 11:20:56 -0700 (PDT)
-Received: from [192.168.1.9] ([148.252.128.8])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cdce08862sm10721955e9.1.2026.08.31.11.20.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 11:20:55 -0700 (PDT)
-From: Dale Whinham <daleyo@gmail.com>
-Date: Mon, 31 Aug 2026 19:20:48 +0100
-Subject: [PATCH] arm64: dts: qcom: x1-denali: Add audio playback over
- DisplayPort
+        d=1e100.net; s=20251104; t=1788200473; x=1788805273;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=2C8d9Mw5d8wycdXLHEiB7Z81VhrXXtSb8zZr7GQsQHI=;
+        b=f0Hz0yU3FWCk4N1cI+LmbIckYlxtD3rShAzmxuLLg+dFcWlXqDbVRtVp4IqjbCVV7q
+         xddqturOOilsoxsD5E9gUdAAL7HaSCR5BO9vgnFcnbyrIhj0wOeVrNsQD/3iJD72wQ3V
+         DIbtpIcdvb90krd7C+vaRxFjVb3Xlh5BlQrrfVLF9ZX6BHbelCfE3G3Bd9fMudr4Y/vG
+         IxFJLKIaM0JVPbuM9cRhbmEwrniE/culgmfolYAHDFIotcOt+gMPc8WbnjWVq3Bju6L4
+         1AgRB2/OWLgNOMg2lgeMIsxd3I5sPYN/sYbY0L0tGBbNb86QaDPsM0p59tSvuaQQIySp
+         EYtA==
+X-Forwarded-Encrypted: i=1; AKwUvBwakijEmNw44ieUpJpFaTZKcOC37sUzH9L/t1AzAAkJzhg8uhpnIyWQLKDvREUeBJ33DIXqdqZddNGnEmc=@vger.kernel.org
+X-Gm-Message-State: AFuF++maQnBLlWYKQa8XRk+BuCVoSeGjoRdWFoWlDl2u8I7SSUMQn+m0
+	Px8fizAni2gu6xjOoaMxKsQMrdLCuN4TOrGzJDNHaQfwfJ3Ad+q4uGZG
+X-Gm-Gg: AYBFou1CT+oAZVe1vXCMo5j1kMnsuy+IiKh7zb2cD7yBK5YBFtvwMsIku7PDGTTGknm
+	3zKkrU5C5CfD3N3KfIgsjgQD7UASEKa/oH/QgqTGHKrrCYB+GXgD7Xd6kDKl4x4jlIwWkOwv0cG
+	wQMLWrWbENN5NkSuuffiPrbY/ZI7o3OKacLS0fVt9M0AYKiqMoNL9qu2rJZnjJJgASsJWfuZBIf
+	R2Dh3LfCPQQFsKAq6ziI9T4zEAEdrW4uur22DM8cRzX8G2xahmxShHpnCQk+Og2mSV2ZzPd4Bve
+	SB0h5PfpSZhfvn6rh6HbPaMvD9n2Bq3U/ygFOcGvxWhBuXmxWhpMMEneZGEbfyQc4nRcCwY05xh
+	WWuZDRzVgFEjBCw6A+dIVMmxexOjzTS11lyLFaFESnuzNT/7onDwPCl+DbWRQ2EM0Jxa06KplrR
+	PNsX6lQRHDa5i5/vKNZJvNotUPU43fNm45D1ZxB4ZvTdwJSr5tgPVmhwybNa0KvMhHMfrBhIUBl
+	paib3VKYumQWDDB3d2yP+npZlYc+g==
+X-Received: by 2002:a17:90b:5890:b0:392:e5b1:d833 with SMTP id 98e67ed59e1d1-396d0f1a83fmr43783255a91.13.1788200473351;
+        Mon, 31 Aug 2026 11:21:13 -0700 (PDT)
+Received: from [192.168.1.3] (ip68-4-215-93.oc.oc.cox.net. [68.4.215.93])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-142e0de4d92sm27298588c88.13.2026.08.31.11.21.12
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 31 Aug 2026 11:21:12 -0700 (PDT)
+Message-ID: <e741bab6-782e-4e82-a7fb-7bcf526a93ec@gmail.com>
+Date: Mon, 31 Aug 2026 11:21:20 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.6 00/91] 6.6.156-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+ hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+ sr@sladewatkins.com
+References: <20260831133359.468089036@linuxfoundation.org>
+Content-Language: en-US
+From: Florian Fainelli <f.fainelli@gmail.com>
+In-Reply-To: <20260831133359.468089036@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260831-surface-pro-11-dp-audio-v1-1-fb9c0d3216b7@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMMQ7CMAxA0atUnrGUNICAqyAGN3HADE1kE4RU9
- e4NML7h/wWMVdjgMiyg/BaTMnf43QDxQfOdUVI3jG48ulPwaE0zRcaqBb3HVJFakoLhvD+4kB1
- xJOh1Vc7y+Z2vt7+tTU+Or+8O1nUDVFJ6DXsAAAA=
-X-Change-ID: 20260831-surface-pro-11-dp-audio-394503f0aeca
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Dale Whinham <daleyo@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788200454; l=1386;
- i=daleyo@gmail.com; s=20251214; h=from:subject:message-id;
- bh=rb3HKaLLxJzwcBkHRVKkVwDnPxrRHTfCEOty9h/3Dj4=;
- b=0m34U2jSQLU+yNJSgYdPHWwTU3Re1UwGoq0Ng92diwb5aZgzY1W/jRL26WqpaCM9abGwq3uOF
- AyIlcCFxtPMAqxFNJre90wdlT2F0oj45p7nbB4XmDXN6oU1x7OZth64
-X-Developer-Key: i=daleyo@gmail.com; a=ed25519;
- pk=M4mvgx1TB2TniKaedTDsO3PbLKgFosJuegXRXPbn2Ds=
 
-Add the DAI links needed to enable audio playback over the two
-USB/DisplayPort outputs.
 
-Signed-off-by: Dale Whinham <daleyo@gmail.com>
----
- arch/arm64/boot/dts/qcom/x1-microsoft-denali.dtsi | 32 +++++++++++++++++++++++
- 1 file changed, 32 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/qcom/x1-microsoft-denali.dtsi b/arch/arm64/boot/dts/qcom/x1-microsoft-denali.dtsi
-index 7559557610ed..bc8e00e59dc9 100644
---- a/arch/arm64/boot/dts/qcom/x1-microsoft-denali.dtsi
-+++ b/arch/arm64/boot/dts/qcom/x1-microsoft-denali.dtsi
-@@ -314,6 +314,38 @@ sound {
- 				"VA DMIC0", "vdd-micb",
- 				"VA DMIC1", "vdd-micb";
- 
-+		displayport-0-dai-link {
-+			link-name = "DisplayPort0 Playback";
-+
-+			codec {
-+				sound-dai = <&mdss_dp0>;
-+			};
-+
-+			cpu {
-+				sound-dai = <&q6apmbedai DISPLAY_PORT_RX_0>;
-+			};
-+
-+			platform {
-+				sound-dai = <&q6apm>;
-+			};
-+		};
-+
-+		displayport-1-dai-link {
-+			link-name = "DisplayPort1 Playback";
-+
-+			codec {
-+				sound-dai = <&mdss_dp1>;
-+			};
-+
-+			cpu {
-+				sound-dai = <&q6apmbedai DISPLAY_PORT_RX_1>;
-+			};
-+
-+			platform {
-+				sound-dai = <&q6apm>;
-+			};
-+		};
-+
- 		wsa-dai-link {
- 			link-name = "WSA Playback";
- 
+On 8/31/2026 6:33 AM, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.6.156 release.
+> There are 91 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+> 
+> Responses should be made by Wed, 02 Sep 2026 13:32:19 +0000.
+> Anything received after that time might be too late.
+> 
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.6.156-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.6.y
+> and the diffstat can be found below.
+> 
+> thanks,
+> 
+> greg k-h
 
----
-base-commit: 8d3ae59288f1e7d58d76558a6ee96d533bc5019f
-change-id: 20260831-surface-pro-11-dp-audio-394503f0aeca
+On ARCH_BRCMSTB using 32-bit and 64-bit ARM kernels, build tested on 
+BMIPS_GENERIC:
 
-Best regards,
---  
-Dale Whinham <daleyo@gmail.com>
+Tested-by: Florian Fainelli <florian.fainelli@broadcom.com>
+-- 
+Florian
 
