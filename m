@@ -1,465 +1,296 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from fhigh-a6-smtp.messagingengine.com (fhigh-a6-smtp.messagingengine.com [103.168.172.157])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1075F4AA014;
-	Mon, 31 Aug 2026 13:46:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A00D354B1B7;
+	Mon, 31 Aug 2026 13:46:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.157
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183997; cv=none; b=GtHuFgKKZfwKRx0b0VDZivmHKBZFFK1Ub+wD1fWikDe7FvBaDOiHR8yoET0NKQvy3VHjPyHWfB/U/ZU4/++g8wBgaLifctPhDWCVOD5QfPuNpX0hA4EOU0QsDFHk98GDiZULMHL8KjGVNFu6FuPCKXkLOZMpbSbQRF8SoGf93Us=
+	t=1788183995; cv=none; b=nCTQ/RTtWKKiGYAhhzhFBEJsNlmv7bMbPMXMNNAEJTR44aUcf7hwYUkE8voYxc5TrSUxkCEgr4jbcQt2LVbSU93UtvAMU+6CINjl51sbU+7C5qQD6sVIilnlTHXbkPAB8+32YWOS9y6mjxag88DrXajU6aCsBjAbLkHZJYB3+ro=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183997; c=relaxed/simple;
-	bh=Ns+7hwuRK8re8UExsbKJtmTSwPrahS+iexun9sGpazE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=aj1VuHgnV3myuMIMANCW8fAK+VI+GxgjN+ymsyU/PZMCE1m0DLuaEo/mgFDqqdjkQtjCmEE1R4Cj5yKYDx3Yv+xhSnNqPXyJtZjsPGo336coNX8PaCY+5PwbZP2suPzBVG09qsslEwcjd+9Fd16fM2m3CUiGw1+81CC2ekbjHLg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GlDav2T6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788183995; c=relaxed/simple;
+	bh=W0l5gsiaGlNx1eXeXcuBJF6lf9NaAtRUFj6LLSrbp68=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=T24M/jomHV2UidcpPsQLSX92HBfpiAnaX/4xyjXdMOYpb6V29jjBmB/r569Id2fk4GJLdQfgr340cWcuv3/ccdbcihl+f7GZOX/etNlnMUOvuE1uj0QocKEWeVHo31C6shil4I+9YQ+SOGx7t7CskCXMsVoFd+9kye3GzQbMeTo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jannau.net; spf=pass smtp.mailfrom=jannau.net; dkim=pass (2048-bit key) header.d=jannau.net header.i=@jannau.net header.b=d4rdScxO; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=Gtbxhfq3; arc=none smtp.client-ip=103.168.172.157
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jannau.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jannau.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GlDav2T6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9F321F00A3D;
-	Mon, 31 Aug 2026 13:46:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788183991;
-	bh=U6Hur/urQ7GEifMNcaT3dW4KCx7dnvzKVtBY2c3zVZk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=GlDav2T6QuCYiUPRbjaJZq9tTnELLcdSc+VRQO/+8zdAAnVzU8cmgf7CzpwklAM9R
-	 95feWNMLSvTsqCvtOBtSe+a8jk20Kk1WkSrWJVb96mTzwk6mXCnD5/cQxm8K0+oMAs
-	 5wGuqW9/W3wdA/i2vrKE0e6uJSvU3ZfW1SxUN0/uDSZHlkhq1X6n/my64rir3ZjoTQ
-	 kF0LXApMZn591ukQvj3sQiqqpkeGXJMo9DoTRwbcEWahY1laSKj3rCEss7dXOaFCKH
-	 BjDU+loUvL1K3dzKaVXwKmbo0ZoKeYAgbKJfFxmrqhiX+s7dAr3xSFiqjPw/Ben1LK
-	 MgQ7Ka4LB0cmQ==
-From: Sasha Levin <sashal@kernel.org>
-To: patches@lists.linux.dev,
-	stable@vger.kernel.org
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
-	Mark Brown <broonie@kernel.org>,
-	Sasha Levin <sashal@kernel.org>,
-	shenghao-ding@ti.com,
-	kevin-lu@ti.com,
-	baojun.xu@ti.com,
-	sen@ti.com,
-	lgirdwood@gmail.com,
-	perex@perex.cz,
-	tiwai@suse.com,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18] ASoC: codecs: pcm3168a: Prevent regulator double-disable in S4
-Date: Mon, 31 Aug 2026 09:27:33 -0400
-Message-ID: <20260831133314.4125787-425-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
-References: <20260831133314.4125787-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=jannau.net header.i=@jannau.net header.b="d4rdScxO";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="Gtbxhfq3"
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id 3A344140014E;
+	Mon, 31 Aug 2026 09:46:28 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-05.internal (MEProxy); Mon, 31 Aug 2026 09:46:28 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jannau.net; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1788183988;
+	 x=1788270388; bh=WtrrhnQSSWCgmz9kHkcuSRnA5Geu3BtwOZsT/4SdJ2A=; b=
+	d4rdScxONmnwn6IcVcRHof9/75TP92DzF+/RcJduE1GwyklanzXvJr8g59JOclXd
+	DQ3LcWuV4yM8CupXGzurHV/PUX1NXcWg8NsMlt9O3U1SQ27y9TIrtFimj1sre8BL
+	zXfw2QWcr6y0WXkNwePDlRETAhjlg7K7jDnhuwKEKukg3HlkML+jMCSWLBR9SM6K
+	+BceoC21DlKHlLgbfecK/qoC/Q87UKVwExaX1ae35zWA3lxQoeXpwsG54EJivt08
+	t919Wt5aSUubOWqSUzuNHGolADBqLZoTM+mBKoxEAHJWbTGvkm+cEovox8zWNcJx
+	/KIdWKZeJuZ+3eNJEn3Mig==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1788183988; x=
+	1788270388; bh=WtrrhnQSSWCgmz9kHkcuSRnA5Geu3BtwOZsT/4SdJ2A=; b=G
+	tbxhfq3PGdaS7CExexV3Ovm/fQ60zMJ2zS8Fbf4FTMddze0na6qGRiXtKceTDull
+	JqaDBSUSNdQVnNcpeR65Jn6hM9Ta97lwDzH+V6AWZpqFsUAalbLSh19L0xQwrHMD
+	DzhP/2IjtsENdUqVIFpB/2Pld+HXIE0waCHIoEhLCNiJtlSl4F43KGHGfXBAZsQA
+	EF9EsXJf4qN1c0JmfyJnoZYT6IziPEwwM7hzg/tXwgB//VAhpVH++SRuE35R/E/a
+	8PMxHIAdfYiHwzQSuJq+NJ3A6bRrKcp2yXG33oq6K1OicjmVull6pbE6UoMzWJOE
+	eumxHS8t2kkKvWpQEpjdg==
+X-ME-Sender: <xms:tIWVajDiT17yhxdYNi1JPfV0NpWOuHb-JbTDd-gyrk1KkcnpUX71oQ>
+    <xme:tIWVahE-DGjQf2tuuYH0u61tMumnfyFoPTidTb7Em2JDiec2jRbgzKwNCrKxdlJBk
+    8KJF27F2ihkQIxaixUkWnmOQlTNgRlgbWQ3drcL1Kbg3qhWiB-50ko>
+X-ME-Received: <xmr:tIWVauO9UF3a6DZiwAXM20SrhmcgVa1ygYY8bwxrLSV0YvEwdvMOb_JXpDfmK7d3VwamfSG4MxpezPD27fx89BSD20vPoWKjRfqo6A>
+X-ME-Proxy-Cause: dmFkZTEZP4OZ9jXNZOcRDBDxlZNGFCwjOCpnyInwxKH9r2Kdyhq5QmdE82JUknhgvsM37R
+    C0IAoqvjf8uGcjR2jCdNfZmbbaLCnS/uC3qqe1M8bD/SraXJJcu5ed5xdUnCe6zJ2Rgwdu
+    I7ipoFiIxfAtUtsLZi4fkMWcUFOUmY9ef8+uxfXQtzkR6QdN0nvBdw/8V4exh82cuf1gCY
+    QoDXGiT2Hp4fNn45SHDl8f7XwoQ/4hlglswQqlA7EV4FM4DHoyO21Tq2uBpm8AqJkj038V
+    kDxpN0Y13MjDNqZjewMamNifmQcj80AnggebFcCQawXKuxmiWJv3fJm6XBKTVx0XoRa6CD
+    RekIYNHlVUjsAxKTZISdJJp09TYIyoWOJgn/Ya5pjCwhlO6nY7PvIusHu8bN5t2HqvhReH
+    /WkMJ9CzmKqP5LqX3pIwZbt4bitvQ8HYD/Txw1f0b2qpHBajdz5lZYuWslHoVEDPsx5rgn
+    0VlWSxTwoa6kGH68hGiEKMbN5t38zwxb3svxTLERTTcd9knI4CrxH1sMHxL9x1j7S+Xfb5
+    F2AkriGb2W/osghnq51XAAsBaoJcBF7gVxiX5TujqOgPwRAXKsyhueyzT+PN/mVMVk813H
+    xl5JWhh3zJDTvYVO5xObhWZ7iY4f0P9/nuXsaePatdUhhimLsyTMBXjZbQqA
+X-ME-Proxy: <xmx:tIWVaigr8uC7l37QK2-SsIQncztUHpuGorbqA0PIclf-xMq318RRvw>
+    <xmx:tIWVau3XE-djMFRRbeiyjVoXnlnjwnc9fplGcpMe-BuJPXLgbb9kew>
+    <xmx:tIWVavkbdKs3MAUliHzVR-7J_xziml3X79EiJLZmC_JbjJxjUUDTPQ>
+    <xmx:tIWVatu6GX_HuZT9-7PcrIWAPvfHDO3U9Fu8wUYnejRhoWEPuzaogA>
+    <xmx:tIWVakFwnOjYI9gopM4-FVWmFnEpUnv00e62tzwwDGAfV1XrFy2f2rKJ>
+Feedback-ID: i47b949f6:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 31 Aug 2026 09:46:27 -0400 (EDT)
+From: Janne Grunau <j@jannau.net>
+Date: Mon, 31 Aug 2026 15:46:09 +0200
+Subject: [PATCH v2 2/2] iommu: apple-dart: Support specifying the DMA
+ aperture in the DT
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.18.48
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260831-iommu-apple-dart-aperture-v2-2-d16ce3770299@jannau.net>
+References: <20260831-iommu-apple-dart-aperture-v2-0-d16ce3770299@jannau.net>
+In-Reply-To: <20260831-iommu-apple-dart-aperture-v2-0-d16ce3770299@jannau.net>
+To: Sven Peter <sven@kernel.org>, Neal Gompa <neal@gompa.dev>, 
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
+ Robin Murphy <robin.murphy@arm.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+ iommu@lists.linux.dev, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Janne Grunau <j@jannau.net>, 
+ Hector Martin <marcan@marcan.st>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6603; i=j@jannau.net;
+ s=yk2025; h=from:subject:message-id;
+ bh=W0l5gsiaGlNx1eXeXcuBJF6lf9NaAtRUFj6LLSrbp68=;
+ b=owGbwMvMwCW2UNrmdq9+ahrjabUkhqyprWt+xfOdeLD/yZY/nJrP8+SblGY6Vml9Zbb9fKl4m
+ tpdqWk7OkpZGMS4GGTFFFmStF92MKyuUYypfRAGM4eVCWQIAxenAExk2VNGhlOL/0a73Vw6r545
+ 1rdW4NfK1CsaTxbNjPx7w9x136dvdcIM/zQLw6b9Uz63/afdFp7P+5v/aXy+/zPFwLApZY3U6Yf
+ 3pdkB
+X-Developer-Key: i=j@jannau.net; a=openpgp;
+ fpr=8B336A6BE4E5695E89B8532B81E806F586338419
 
-From: Cezary Rojewski <cezary.rojewski@intel.com>
+Apple DARTs are often connected directly to devices that expect only a
+portion of their address space to be used for DMA (for example, because
+other ranges are mapped directly to something else). Devices can specify
+the start and end of the aperture via "iommus" args if the DART device
+node specifies "#iommu-cells = <5>. Aperture start and length are 64-bit
+values as apertures above and larger than 4GB are used.
+Limit compile testing to 64-bit architectures to avoid warnings in the
+calculation of 64-bit dma_addr_t values.
 
-[ Upstream commit bb3c847523f951315f212047ab26363f9928d569 ]
+This range *can* be outside of the DART's IAS. In that case, it is
+assumed that the hardware truncates addresses and the page tables will
+only map the lower bits of the address. However, the specified range
+cannot straddle an IAS boundary (you cannot cover more than IAS worth
+of address space nor wrap).
 
-The SLEEP_PM_OPS are unset for the driver. Hibernation (S4) causes no
-resume (skipped thanks to smart_suspend=true) yet still performs the
-suspend sequence unconditionally, see device_complete() in
-drivers/base/power/main.c.
+This corresponds to the vm-base and vm-size properties on the Apple
+device tree side of things.
 
-If S4 runs for already suspended pcm3168a device, we end up with
-"unbalanced disables" warning from the regulators. Assigning the
-operations fixes the problem.
-
-Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
-Link: https://patch.msgid.link/20260525201801.1336936-2-cezary.rojewski@intel.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Co-developed-by: Hector Martin <marcan@marcan.st>
+Signed-off-by: Hector Martin <marcan@marcan.st>
+Signed-off-by: Janne Grunau <j@jannau.net>
 ---
-
-LLM Generated explanations, may be completely bogus:
-
-# Stable Backport Analysis: ASoC pcm3168a S4 Regulator Double-Disable
-Fix
-
-**Local tree:** `v6.18.44` (Makefile: 6.18.44)
-
----
-
-## PHASE 1: COMMIT MESSAGE FORENSICS
-
-### Step 1.1: Subject Line
-**Record:** `[ASoC: codecs: pcm3168a]` `[Prevent]` — Prevent regulator
-double-disable during system hibernation (S4) when the codec is already
-runtime-suspended.
-
-### Step 1.2: Commit Tags
-**Record:**
-| Tag | Value |
-|-----|-------|
-| Signed-off-by | Cezary Rojewski \<cezary.rojewski@intel.com\> (author)
-|
-| Signed-off-by | Mark Brown \<broonie@kernel.org\> (ASoC maintainer) |
-| Link | https://patch.msgid.link/20260525201801.1336936-2-
-cezary.rojewski@intel.com |
-
-**Notable patterns:** Message-ID suffix `-2-` suggests patch 2 of a
-series. No Reported-by, Fixes:, Cc: stable, or syzbot tags. Maintainer
-(Mark Brown) committed the patch.
-
-### Step 1.3: Body Analysis
-**Record:**
-- **Bug:** Without `SYSTEM_SLEEP_PM_OPS`, hibernation (S4) runs the
-  suspend path even when resume is skipped (`smart_suspend=true`),
-  causing regulators to be disabled twice on an already runtime-
-  suspended pcm3168a device.
-- **Symptom:** Kernel warning: `"unbalanced disables for <regulator>"`
-  from the regulator core.
-- **Root cause (author):** Missing system-sleep PM ops; hibernation
-  suspend sequence runs unconditionally while resume is optimized away.
-- **Version info:** None explicit; references generic PM behavior in
-  `device_complete()` / `drivers/base/power/main.c`.
-
-### Step 1.4: Hidden Bug Fix?
-**Record:** No — this is an explicit bug fix, not disguised cleanup.
-Adding `SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend,
-pm_runtime_force_resume)` is the standard kernel pattern for bridging
-runtime PM and system sleep PM.
-
----
-
-## PHASE 2: DIFF ANALYSIS
-
-### Step 2.1: Change Inventory
-**Record:**
-| File | Change |
-|------|--------|
-| `sound/soc/codecs/pcm3168a.c` | +1 line |
-
-**Functions modified:** `pcm3168a_pm_ops` structure initialization only.
-
-**Scope:** Single-file, surgical (1 line added).
-
-### Step 2.2: Code Flow Change
-**Record:**
-- **Before:** `pcm3168a_pm_ops` had only
-  `RUNTIME_PM_OPS(pcm3168a_rt_suspend, pcm3168a_rt_resume, NULL)`.
-  System sleep callbacks (`suspend`, `freeze`, `poweroff`, etc.) were
-  all NULL.
-- **After:** Adds `SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend,
-  pm_runtime_force_resume)`, wiring all system-sleep transitions to the
-  PM core's force-suspend/resume helpers.
-- **Affected path:** System hibernation (S4) / freeze / suspend when
-  device is already runtime-suspended.
-
-### Step 2.3: Bug Mechanism
-**Record:**
-- **Category:** Reference counting / double-operation bug in PM path
-  (regulator enable_count).
-- **Mechanism:** `pcm3168a_rt_suspend()` → `pcm3168a_disable()` →
-  `regulator_bulk_disable()`. When the device is already runtime-
-  suspended (regulators already disabled), a second system-sleep suspend
-  attempt calls disable again. `pm_runtime_force_suspend()` guards this:
-
-```2016:2018:drivers/base/power/runtime.c
-        pm_runtime_disable(dev);
-        if (pm_runtime_status_suspended(dev) ||
-dev->power.needs_force_resume)
-                return 0;
-```
-
-If already suspended, it returns without invoking `runtime_suspend`
-again.
-
-### Step 2.4: Fix Quality
-**Record:** Obviously correct; identical pattern used in sibling ASoC
-codecs (`ak4458.c`, `cs42xx8.c`, `wm8962.c`) and other subsystems (e.g.
-`spi-rockchip.c` backported with `Cc: stable`). Minimal regression risk
-— one line, well-understood PM-core API.
-
----
-
-## PHASE 3: GIT HISTORY INVESTIGATION
-
-### Step 3.1: Blame
-**Record:**
-- PM ops structure last changed in `15559cdeb9be5` (Mar 2025): "ASoC:
-  pcm3168a: Convert to EXPORT_GPL_DEV_PM_OPS()" — cosmetic refactor
-  only; did not add system sleep ops.
-- Driver introduced `a9b17a638af5a` (Dec 2015) with only
-  `SET_RUNTIME_PM_OPS` — missing system sleep ops since birth.
-- **Bug present since:** v4.4 era (driver introduction); not a recent
-  regression.
-
-### Step 3.2: Fixes: Tag
-**Record:** N/A — no Fixes: tag present.
-
-### Step 3.3: Related File History
-**Record:**
-- Intel AVS pcm3168a machine board added `79ebb596201c8` (Feb 2025) by
-  same author — likely where bug was discovered during hibernation
-  testing.
-- Recent pcm3168a changes are feature/format work, not PM fixes.
-- **Standalone:** Yes — no other commits required for this one-line fix.
-
-### Step 3.4: Author Context
-**Record:** Cezary Rojewski (Intel) — author of Intel AVS pcm3168a board
-support; active contributor to `sound/soc/codecs/` and Intel AVS boards.
-
-### Step 3.5: Dependencies
-**Record:** Requires `EXPORT_GPL_DEV_PM_OPS` / `RUNTIME_PM_OPS` macros
-(present since `15559cdeb` in this tree). Requires
-`pm_runtime_force_suspend/resume` (present under `CONFIG_PM_SLEEP`).
-**Can apply standalone.**
-
----
-
-## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
-
-### Step 4.1: Original Discussion
-**Record:** `b4 dig -c <commit>` could not run — commit not in local
-tree. Link fetch to patch.msgid.link blocked (Anubis bot protection).
-**Lore discussion URL: UNVERIFIED.**
-
-### Step 4.2: Reviewers
-**Record:** UNVERIFIED via b4 dig -w. Mark Brown committed the patch
-(ASoC maintainer acceptance).
-
-### Step 4.3: Bug Report
-**Record:** No external bug report linked. Bug found during Intel AVS
-pcm3168a development/testing (inferred from author and timing).
-
-### Step 4.4: Series Context
-**Record:** Message-ID `1336936-2` implies a 2-patch series; this fix is
-self-contained in `pcm3168a.c` and does not depend on patch 1 for
-correctness (UNVERIFIED: patch 1 content not inspected).
-
-### Step 4.5: Stable List History
-**Record:** UNVERIFIED — lore.kernel.org inaccessible. Analogous `spi:
-rockchip` fix was explicitly `Cc: stable@vger.kernel.org` for the same
-class of runtime/system PM imbalance.
-
----
-
-## PHASE 5: CODE SEMANTIC ANALYSIS
-
-### Step 5.1: Key Functions
-**Record:** `pcm3168a_pm_ops` (modified), `pcm3168a_rt_suspend()`
-(indirectly protected), `pcm3168a_disable()` (contains the double-
-disable), `pm_runtime_force_suspend()` / `pm_runtime_force_resume()`
-(added callbacks).
-
-### Step 5.2: Callers
-**Record:**
-- `pcm3168a_pm_ops` referenced from `pcm3168a-i2c.c` and
-  `pcm3168a-spi.c` via `.pm = pm_ptr(&pcm3168a_pm_ops)`.
-- System PM core calls sleep ops during `dpm_suspend` / hibernation
-  freeze/poweroff phases.
-- `pcm3168a_rt_suspend` also called via runtime PM idle/autosuspend
-  during normal operation.
-
-### Step 5.3: Callees
-**Record:** `pcm3168a_disable()` → `regulator_bulk_disable()` +
-`clk_disable_unprepare()`. Warning originates in `_regulator_disable()`
-when `enable_count == 0`.
-
-### Step 5.4: Reachability
-**Record:** Triggered during hibernation (S4) on systems with
-`CONFIG_SND_SOC_PCM3168A` and `CONFIG_HIBERNATION`. Intel AVS pcm3168a
-boards, TI K3 EVMs, Renesas boards using this codec. Requires user-
-initiated hibernate while codec is runtime-suspended (common idle
-scenario).
-
-### Step 5.5: Similar Patterns
-**Record:** ~60 codecs have only `RUNTIME_PM_OPS` without
-`SYSTEM_SLEEP_PM_OPS`; pcm3168a is vulnerable because its
-`runtime_suspend` disables physical regulators. Codecs like `ak4458.c`
-already use the force-suspend pattern:
-
-```731:734:sound/soc/codecs/ak4458.c
-static const struct dev_pm_ops ak4458_pm = {
-        RUNTIME_PM_OPS(ak4458_runtime_suspend, ak4458_runtime_resume,
-NULL)
-        SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend,
-pm_runtime_force_resume)
-};
-```
-
----
-
-## PHASE 6: CROSS-REFERENCE AGAINST LOCAL TREE (6.18.44)
-
-### Step 6.1: Buggy Code Present?
-**Record:** **YES.** Current tree at
-`sound/soc/codecs/pcm3168a.c:908-910`:
-
-```908:910:sound/soc/codecs/pcm3168a.c
-EXPORT_GPL_DEV_PM_OPS(pcm3168a_pm_ops) = {
-        RUNTIME_PM_OPS(pcm3168a_rt_suspend, pcm3168a_rt_resume, NULL)
-};
-```
-
-No `SYSTEM_SLEEP_PM_OPS` — fix not yet applied.
-
-### Step 6.2: Backport Complications
-**Record:** **Clean apply expected.** One line insertion after
-`RUNTIME_PM_OPS` line. `EXPORT_GPL_DEV_PM_OPS` conversion already in
-tree (`15559cdeb`). No conflicts anticipated.
-
-### Step 6.3: Related Fixes Already Present?
-**Record:** No equivalent fix found in tree history (`git log --grep`
-for "double-disable" / "pcm3168a.*S4" returned nothing).
-
----
-
-## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
-
-### Step 7.1: Subsystem Criticality
-**Record:** `sound/soc/codecs/` — **PERIPHERAL** (driver-specific), but
-hibernation is a core system feature; regulator warnings indicate broken
-power state.
-
-### Step 7.2: Subsystem Activity
-**Record:** Actively developed — Intel AVS pcm3168a board added Feb
-2025; recent card-name updates. Driver mature (since 2015) with ongoing
-platform enablement.
-
----
-
-## PHASE 8: IMPACT AND RISK ASSESSMENT
-
-### Step 8.1: Who Is Affected
-**Record:** Users of pcm3168a codec (I2C/SPI) who hibernate — Intel AVS
-platforms, embedded TI/Renesas boards. Config-dependent:
-`CONFIG_SND_SOC_PCM3168A`.
-
-### Step 8.2: Trigger Conditions
-**Record:** Hibernation (S4) while pcm3168a is already runtime-suspended
-(idle audio). Not timing-dependent race; deterministic PM sequencing
-bug. Unprivileged users can trigger via `echo disk > /sys/power/state`.
-
-### Step 8.3: Failure Mode Severity
-**Record:** `WARN` from regulator core (`"unbalanced disables for %s"`).
-**Severity: MEDIUM** — does not panic, but indicates broken regulator
-refcount state that can leave hardware/PM in inconsistent state. Similar
-class of bugs backported to stable (rockchip SPI clock double-disable).
-
-### Step 8.4: Risk-Benefit
-**Record:**
-- **Benefit:** MEDIUM — fixes real hibernation warning on affected
-  hardware; correct PM integration.
-- **Risk:** VERY LOW — 1-line addition of established kernel pattern.
-- **Ratio:** Strong benefit-to-risk ratio.
-
----
-
-## PHASE 9: FINAL SYNTHESIS
-
-### Step 9.1: Evidence Summary
-
-**FOR backport:**
-- Real, reproducible bug during hibernation (author-verified on Intel
-  AVS pcm3168a)
-- Standard, proven fix pattern (`pm_runtime_force_suspend/resume`)
-- Maintainer-committed (Mark Brown)
-- Surgical 1-line change
-- Bug present since driver introduction (2015); driver and Intel AVS
-  board exist in 6.18.44
-- Analogous fixes backported to stable in other subsystems
-
-**AGAINST backport:**
-- Affects only pcm3168a users who hibernate (niche but real)
-- Failure is WARN, not crash/oops
-- Intel AVS pcm3168a board is relatively new (but core driver is old and
-  widely used on embedded)
-
-**UNRESOLVED:**
-- Full lore review thread (blocked)
-- Patch 1 of series content (likely independent)
-
-### Step 9.2: Stable Rules Checklist
-| Criterion | Result |
-|-----------|--------|
-| 1. Obviously correct and tested? | **PASS** — standard PM pattern;
-Intel developer found during board bring-up |
-| 2. Fixes a real bug? | **PASS** — regulator unbalanced-disable WARN
-during S4 |
-| 3. Important issue? | **PASS** — MEDIUM: incorrect PM state during
-hibernation |
-| 4. Small and contained? | **PASS** — 1 line, 1 file |
-| 5. No new features/APIs? | **PASS** — wires existing PM-core helpers |
-| 6. Can apply to local tree? | **PASS** — driver and prerequisites
-present in 6.18.44 |
-
-### Step 9.3: Exception Categories
-**Record:** None (not device ID, quirk, DT, build, or docs). Standard PM
-bug fix.
-
-### Step 9.4: Decision Rationale
-This fix addresses a real hibernation PM bug in a long-standing codec
-driver that is now used on Intel AVS platforms in this tree. The change
-is minimal, follows an established pattern already used in multiple ASoC
-codecs, and prevents regulator refcount corruption during S4. It meets
-all stable kernel criteria for this 6.18.y tree.
-
----
-
-## Verification
-
-- [Phase 1] Parsed commit message and tags from user-provided diff
-- [Phase 2] Diff analysis: +1 line to `pcm3168a_pm_ops` in
-  `sound/soc/codecs/pcm3168a.c`
-- [Phase 3] `git describe HEAD`: v6.18.44
-- [Phase 3] `git blame -L 908,910`: PM ops from `15559cdeb` (Mar 2025);
-  closing brace from `a9b17a638af5a` (Dec 2015)
-- [Phase 3] `git log --oneline -10 -- sound/soc/codecs/pcm3168a.c`:
-  driver history confirmed
-- [Phase 3] `git log -S "pcm3168a_rt_suspend"`: runtime PM since driver
-  introduction
-- [Phase 3] `git show be721b451affb`: analogous rockchip SPI fix with
-  Cc: stable confirmed
-- [Phase 3] `git show b429ca4940650`: cs42xx8 force-suspend pattern
-  confirmed
-- [Phase 4] WebFetch patch.msgid.link: **FAILED** (bot protection)
-- [Phase 4] `b4 dig`: commit not in tree; could not match
-- [Phase 5] Read `pcm3168a_disable()`, `pcm3168a_rt_suspend()`,
-  `pm_runtime_force_suspend()` in local tree
-- [Phase 5] Read `_regulator_disable()` WARN at
-  `drivers/regulator/core.c:3032-3033`
-- [Phase 5] Grep: `ak4458.c`, `cs42xx8.c`, `wm8962.c` use same
-  `SYSTEM_SLEEP_PM_OPS` pattern
-- [Phase 5] Grep: `pcm3168a_pm_ops` used in `pcm3168a-i2c.c`,
-  `pcm3168a-spi.c`
-- [Phase 6] Confirmed buggy code present at lines 908-910 without fix
-- [Phase 6] Confirmed `EXPORT_GPL_DEV_PM_OPS` prerequisite (`15559cdeb`)
-  in tree
-- [Phase 6] Confirmed Intel AVS pcm3168a board (`79ebb596201c8`) in tree
-- [Phase 7] Kconfig: `CONFIG_SND_SOC_PCM3168A` exists in
-  `sound/soc/codecs/Kconfig`
-- [Phase 8] Read `dev_pm_skip_suspend()` / `dev_pm_skip_resume()` in
-  `drivers/base/power/main.c`
-- [UNVERIFIED] Lore review discussion and patch 1 of series
-- [UNVERIFIED] Whether author explicitly nominated for stable on mailing
-  list
-
-**YES**
-
- sound/soc/codecs/pcm3168a.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/sound/soc/codecs/pcm3168a.c b/sound/soc/codecs/pcm3168a.c
-index c8617a488b11c..7f8d64fb0e57f 100644
---- a/sound/soc/codecs/pcm3168a.c
-+++ b/sound/soc/codecs/pcm3168a.c
-@@ -907,6 +907,7 @@ static int pcm3168a_rt_suspend(struct device *dev)
+ drivers/iommu/apple-dart.c | 74 ++++++++++++++++++++++++++++++++++++++++------
+ 1 file changed, 65 insertions(+), 9 deletions(-)
+
+diff --git a/drivers/iommu/apple-dart.c b/drivers/iommu/apple-dart.c
+index b160fb464c5f..ebf4547d32b4 100644
+--- a/drivers/iommu/apple-dart.c
++++ b/drivers/iommu/apple-dart.c
+@@ -21,6 +21,7 @@
+ #include <linux/io-pgtable.h>
+ #include <linux/iommu.h>
+ #include <linux/iopoll.h>
++#include <linux/minmax.h>
+ #include <linux/module.h>
+ #include <linux/of.h>
+ #include <linux/of_address.h>
+@@ -267,6 +268,7 @@ struct apple_dart_domain {
+ 	struct io_pgtable_ops *pgtbl_ops;
  
- EXPORT_GPL_DEV_PM_OPS(pcm3168a_pm_ops) = {
- 	RUNTIME_PM_OPS(pcm3168a_rt_suspend, pcm3168a_rt_resume, NULL)
-+	SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend, pm_runtime_force_resume)
+ 	bool finalized;
++	u64 mask;
+ 	struct mutex init_lock;
+ 	struct apple_dart_atomic_stream_map stream_maps[MAX_DARTS_PER_DEVICE];
+ 
+@@ -285,6 +287,13 @@ struct apple_dart_master_cfg {
+ 	/* Intersection of DART capabilitles */
+ 	u32 supports_bypass : 1;
+ 
++	/*
++	 * DMA aperture start and end to be overridden by "iommus"' phandle
++	 * args. By default determined by DART's ias but may be outside of it.
++	 */
++	dma_addr_t dma_min;
++	dma_addr_t dma_max;
++
+ 	struct apple_dart_stream_map stream_maps[MAX_DARTS_PER_DEVICE];
  };
  
- MODULE_DESCRIPTION("PCM3168A codec driver");
+@@ -537,7 +546,7 @@ static phys_addr_t apple_dart_iova_to_phys(struct iommu_domain *domain,
+ 	if (!ops)
+ 		return 0;
+ 
+-	return ops->iova_to_phys(ops, iova);
++	return ops->iova_to_phys(ops, iova & dart_domain->mask);
+ }
+ 
+ static int apple_dart_map_pages(struct iommu_domain *domain, unsigned long iova,
+@@ -551,8 +560,8 @@ static int apple_dart_map_pages(struct iommu_domain *domain, unsigned long iova,
+ 	if (!ops)
+ 		return -ENODEV;
+ 
+-	return ops->map_pages(ops, iova, paddr, pgsize, pgcount, prot, gfp,
+-			      mapped);
++	return ops->map_pages(ops, iova & dart_domain->mask, paddr, pgsize,
++			      pgcount, prot, gfp, mapped);
+ }
+ 
+ static size_t apple_dart_unmap_pages(struct iommu_domain *domain,
+@@ -563,7 +572,8 @@ static size_t apple_dart_unmap_pages(struct iommu_domain *domain,
+ 	struct apple_dart_domain *dart_domain = to_dart_domain(domain);
+ 	struct io_pgtable_ops *ops = dart_domain->pgtbl_ops;
+ 
+-	return ops->unmap_pages(ops, iova, pgsize, pgcount, gather);
++	return ops->unmap_pages(ops, iova & dart_domain->mask, pgsize, pgcount,
++				gather);
+ }
+ 
+ static void
+@@ -590,6 +600,7 @@ static int apple_dart_finalize_domain(struct apple_dart_domain *dart_domain,
+ {
+ 	struct apple_dart *dart = cfg->stream_maps[0].dart;
+ 	struct io_pgtable_cfg pgtbl_cfg;
++	u32 ias = min_t(u32, dart->ias, fls64(cfg->dma_max));
+ 	int ret = 0;
+ 	int i, j;
+ 
+@@ -610,7 +621,7 @@ static int apple_dart_finalize_domain(struct apple_dart_domain *dart_domain,
+ 
+ 	pgtbl_cfg = (struct io_pgtable_cfg){
+ 		.pgsize_bitmap = dart->pgsize,
+-		.ias = dart->ias,
++		.ias = ias,
+ 		.oas = dart->oas,
+ 		.coherent_walk = 1,
+ 		.iommu_dev = dart->dev,
+@@ -623,10 +634,10 @@ static int apple_dart_finalize_domain(struct apple_dart_domain *dart_domain,
+ 		goto done;
+ 	}
+ 
++	dart_domain->mask = DMA_BIT_MASK(pgtbl_cfg.ias);
+ 	dart_domain->domain.pgsize_bitmap = pgtbl_cfg.pgsize_bitmap;
+-	dart_domain->domain.geometry.aperture_start = 0;
+-	dart_domain->domain.geometry.aperture_end =
+-		(dma_addr_t)DMA_BIT_MASK(pgtbl_cfg.ias);
++	dart_domain->domain.geometry.aperture_start = cfg->dma_min;
++	dart_domain->domain.geometry.aperture_end = cfg->dma_max;
+ 	dart_domain->domain.geometry.force_aperture = true;
+ 
+ 	dart_domain->finalized = true;
+@@ -803,20 +814,65 @@ static int apple_dart_of_xlate(struct device *dev,
+ 	struct platform_device *iommu_pdev = of_find_device_by_node(args->np);
+ 	struct apple_dart *dart = platform_get_drvdata(iommu_pdev);
+ 	struct apple_dart *cfg_dart;
++	dma_addr_t dma_max = DMA_BIT_MASK(dart->ias);
++	dma_addr_t dma_min = 0;
+ 	int i, sid;
+ 
+ 	put_device(&iommu_pdev->dev);
+ 
+-	if (args->args_count != 1)
++	if (args->args_count != 1 && args->args_count != 5)
+ 		return -EINVAL;
++
+ 	sid = args->args[0];
+ 
++	if (args->args_count == 5) {
++		dma_addr_t length = ((dma_addr_t)args->args[3] << 32) | args->args[4];
++
++		if (!length)
++			return -EINVAL;
++
++		dma_min = ((dma_addr_t)args->args[1] << 32) | args->args[2];
++
++		if (!IS_ALIGNED(dma_min, dart->pgsize) ||
++		    !IS_ALIGNED(length, dart->pgsize)) {
++			dev_err(dev, "Unaligned DMA window %pad, %pad (0x%x)\n",
++				&dma_min, &length, dart->pgsize);
++			return -EINVAL;
++		}
++		if (check_add_overflow(dma_min, length - 1, &dma_max)) {
++			dev_err(dev, "DMA window length (%pad) overflows range for start %pad\n",
++				&length, &dma_min);
++			return -EINVAL;
++		}
++
++		/*
++		 * Ensure that the DMA window does not exceed the DART's ias.
++		 */
++		if ((dma_min ^ dma_max) & ~DMA_BIT_MASK(dart->ias)) {
++			dev_err(dev, "Invalid DMA window for ias=%d\n",
++				dart->ias);
++			return -EINVAL;
++		}
++	}
++
+ 	if (!cfg) {
+ 		cfg = kzalloc_obj(*cfg);
+ 		if (!cfg)
+ 			return -ENOMEM;
+ 		/* Will be ANDed with DART capabilities */
+ 		cfg->supports_bypass = true;
++		/* Will be merged with other DARTs to the common range. */
++		cfg->dma_min = dma_min;
++		cfg->dma_max = dma_max;
++	} else {
++		if (dma_min >= cfg->dma_max || cfg->dma_min >= dma_max) {
++			dev_err(dev, "non-overlapping DMA windows: %pad..%pad, %pad..%pad\n",
++				&dma_min, &dma_max,
++				&cfg->dma_min, &cfg->dma_max);
++			return -EINVAL;
++		}
++		cfg->dma_min = max(dma_min, cfg->dma_min);
++		cfg->dma_max = min(dma_max, cfg->dma_max);
+ 	}
+ 	dev_iommu_priv_set(dev, cfg);
+ 
+
 -- 
-2.53.0
+2.55.0
 
