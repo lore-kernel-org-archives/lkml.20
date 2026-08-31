@@ -1,100 +1,135 @@
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
+Received: from mail-ua1-f51.google.com (mail-ua1-f51.google.com [209.85.222.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C957518AE3
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 02:02:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 398B6357CF3
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 02:06:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788141728; cv=none; b=XtIyzsIkzyJ7Os1LOO+ik7kG0bkPF8FgurBaHMgrFpo/g7Hjj2jLcACzLz0jkRGmDE/nHrRf1Mx+XzP+i63V0ogMTqkSPFO/4/fapBGz6Hvg9R2jMH+oQaqU6HLJrObVfmZjAUsXNc47l+H8wGVqrQ32dAQl8NtrWCN4C+0PGEQ=
+	t=1788141972; cv=none; b=HubSxtCzJGzD8jIO3v8G1ES7j3Bx/z3FMUUc/+ZC3caByPj3hHkatO5zC+K5jgBwy8CpP/zHMKq1EoxbD1MAax8l1fhWL96AUXSf9oaEA0M1eF9Yx4VQ3EQx8Fm8fNxM8N1O278bUljFNORp+kaZY/CuPBLxoqaj3xyW8oFER/c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788141728; c=relaxed/simple;
-	bh=padt0Xd+wAnFmLw2LV5s39KmRIa/5sA1Zfp/aBNmFCA=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=kHSxSFxCHOT9mcj9csUH4Gos2etYBjQLmCPskn9G8/80XTqIZpD33PgOstwEIAvnaQnJaLmrEJYJF7yDaa224LE9DmJqnEreRSwdadB84DsROZVBNeijarfwSU1MOlVuQ31Vt0RJQfckHPHl+DjvtsMpBZbb4FJVb1eX5BDhpNU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-49d4cb3ca23so5107639b6e.3
-        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 19:02:06 -0700 (PDT)
+	s=arc-20240116; t=1788141972; c=relaxed/simple;
+	bh=VpXWm5ulIHFlOpRF0JdshgXcoSIZ3g3Xr07omjN/dro=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=VLcjmN2ix2aKv+q7F9qnYGBE78iDbV5QBH7u2m7WwoD9IjzreAaw6KaHn29okKFTHNGDRhbUCdpMwtKMsGXjS/XM0qlIIj6NPRsoQoHCyy9VL5KYX1YqoKnzAI2Pkhm6nnapgxgPSVgIeEFXS2tcz+KaDPmbWTPINO9C0A6ZJAw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ObBHAYXx; arc=none smtp.client-ip=209.85.222.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ObBHAYXx"
+Received: by mail-ua1-f51.google.com with SMTP id a1e0cc1a2514c-97ca72f2cd9so1561739241.2
+        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 19:06:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788141970; x=1788746770; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Ez4tXk3+nHtH64QDv7vPUDcEC3LRkEzDgfB6M+1BVNI=;
+        b=ObBHAYXx1hy5LA5mfxlLRlLGfAgduWs1vRU8yPdhK9H4G2o1Z4CKGpaVH7TOa0elRd
+         304gjXxYWlRojRmV7z765crVXaCZOI/x4xpL5OUp61xNqOeDCgAKi6I+dkuc1xO7x5vJ
+         03Wr09YrmaEMDIAiElfmkqxJ9IEvWBkZUvtBMSq0go/QlXwB3rUOLuqK+pn9sKRS03j5
+         EkRfdjaZlXYWixA4HcGJ7HcdnKYU5mbzbR1dh+gRtnP2XYiN9Q7aBGy2hLiAC159Opsv
+         q7xL6X2bSGGSefaEhbcvYbOEUjwVwPCafqrNHNFJXx2NaZ+Eo2e3c6xlVEpzODu94vzc
+         Z3GA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788141725; x=1788746525;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=zIqEfiX4d4HuoWo3JB5PZR1QlDu2Z2xdQkSP06CZ2PM=;
-        b=rgJOXLYkxo9mnqDaJ86eR2SGG1zFSUbuac8NnEwp4ABZ7mzFydFi93JPEt11Ptau7K
-         TZmc0l7CK2avPDXCFb3nc7n2aUQd4BsAGKhIUyssWdoEwfjqfvQgY/RYSz79cbAbw+Ye
-         iOYQDT26xhkRvc2ZEapHhrmFnvlg34oujGBdS4Pg4moQ369Msr2M0wYYy8HdHeboCLzD
-         iL1JFXVwwa4CmS/O1QrvfPEqoZhlnvUgu2CTcXE4vEnyGaOrLHqywO9RV2RlNJzPh0An
-         DjuamyBOfI8/0vgGVBhIOwsFI6LnwtT7j07cEDA5eMjL/NG/RS0Lkskn3sqG/jjucehr
-         0jow==
-X-Forwarded-Encrypted: i=1; AHgh+RpWtAfHr11KvU2ly6R31zw98jTIXXyzV6Pp7hSIeqRFM3A+VjwwFNXXNMpBncGtxe/qD/YoQCq8j2OMb/o=@vger.kernel.org
-X-Gm-Message-State: AFuF++lqh0fo7jmvpToGz5bY7EdtfPT69UbxaGv+2jLZgAXPM9QQbB5K
-	GPtqIP3USzDkLnZcBZS96Zx6eYy75LNUe9D1zDhbXzlo/Lzq07/QVpDK0Tmmd7xxND4Nk79WRCx
-	tPRa5ZQ2cC0hz63r05pq/fG5CUOXQoV2dDNKHAzlIYigX1Fcw9VzbpkbBk7I=
+        d=1e100.net; s=20251104; t=1788141970; x=1788746770;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Ez4tXk3+nHtH64QDv7vPUDcEC3LRkEzDgfB6M+1BVNI=;
+        b=kstC9Mlwaa4zY7fj+2pe/QAE1SjHXjxTQLDYF89hTpmu18bFF5Dyk4j1MCSm9gU1Y6
+         s2UksDFBFgVreO9E0oWfS+Tjm9lgoEgpE8kjAkkixXxTaorEISE5aPOgDU/sB2Ck269T
+         d4cHiJe5b+xJO7U7DgCCL2vzgU4fsWUt9DwxgDNlHp5M5cmcPWNgRoq1FFtwJnRdUEwJ
+         rjuP3pjRGMryY0pohRexg/IvPoeKo6RR87VqecFemtMzrkddClTOL+SDiXxJwQkoPaYo
+         JSvbexJprYadS3wKk3C0WJyYhoF2V4r3mh1Xdx8zhGvpz+wxKO5NeVRtoq5n4UQBj9kc
+         zIhw==
+X-Forwarded-Encrypted: i=1; AHgh+RpvdSjWHSyFQAQMtZMSrQqw2PS41EgGrx7dpohkBNklowXdquEeyC/7UUsvZ0ozNR5OzXL3koTMzYRblJI=@vger.kernel.org
+X-Gm-Message-State: AFuF++mKkhjxQzXawnd8en59dQcM6FQrr9VYmYue1ChdFaKlx4xXMtRf
+	OSEspWPwWdt6YOBHVzZFlajbYD+8613PkxHNVPxrw8UT2b/7V4I22pOT
+X-Gm-Gg: AR+sD10U0Ew0Wp2PkNiG5JW75Kb+jhyMLk2/j2xsHt7gs8bxUrjNapiPHelb+dviVMo
+	LMuu+10H56Nc+f3ODZoPfCJ9kW3gS56tgHnnK/3vw1RDH++URmUh4P1s/lwgp+PwdZMrPAGSNtH
+	tDD2UqbUITC1wzpaevt0qTdZuRAxTtEGq3uoPyWZdjb8MtnOPeyFWP7YEJWN+2jUzJNQqqb0ZKv
+	Kn1+4vdhKyveNDtcYIwQ2oTrrHv15/4+y3w9Bs+wUm2jp+3FUJG+syvmwYMDBQ5Bmsc1lpYaIEt
+	rAr8lxn82C26ja4p1llwz/42XggdnT1HY4e+7B9QfNRqXY4oFYpNegkcGOPkf7c7s4xHb7Z1796
+	OwExKKw8SWRllvAndc37tWM0AANKvihZ/0y6NfqOR4M6qtAmynvrfjEbWDSY4sY94Ad0hZTKD5H
+	6YEYdD0WZJF1lfj42sP2/RLIkwTbCvYpNWkeieM1ds022cbyb21uL2
+X-Received: by 2002:a05:6102:374a:b0:786:fb19:d5d6 with SMTP id ada2fe7eead31-789ef5a42a0mr311983137.1.1788141969977;
+        Sun, 30 Aug 2026 19:06:09 -0700 (PDT)
+Received: from adriano ([190.215.95.120])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-785f532aafcsm5875214137.1.2026.08.30.19.06.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 30 Aug 2026 19:06:09 -0700 (PDT)
+From: Adriano Cordova <adrianox@gmail.com>
+To: gregkh@linuxfoundation.org
+Cc: linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Adriano Cordova <adrianox@gmail.com>
+Subject: [PATCH 1/2] staging: rtl8723bs: remove dead beamforming code
+Date: Sun, 30 Aug 2026 22:05:56 -0400
+Message-ID: <20260831020557.1235504-2-adrianox@gmail.com>
+X-Mailer: git-send-email 2.51.0
+In-Reply-To: <20260831020557.1235504-1-adrianox@gmail.com>
+References: <20260831020557.1235504-1-adrianox@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:4f4f:b0:4a3:f4b7:cbdf with SMTP id
- 5614622812f47-4b5b16ee2demr49263b6e.15.1788141725707; Sun, 30 Aug 2026
- 19:02:05 -0700 (PDT)
-Date: Sun, 30 Aug 2026 19:02:05 -0700
-In-Reply-To: <20260830225812.1943-1-hdanton@sina.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a94e09d.a8e469d2.cbf3.5611.GAE@google.com>
-Subject: Re: [syzbot] [bluetooth?] kernel panic: kernel: panic_on_warn set ... (3)
-From: syzbot <syzbot+fe5ea83cdd7fc263f452@syzkaller.appspotmail.com>
-To: hdanton@sina.com, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hello,
+The beamforming declarations are guarded by
 
-syzbot has tested the proposed patch but the reproducer is still triggering an issue:
-WARNING in hci_conn_drop
+        #if (BEAMFORMING_SUPPORT == 1)
 
-------------[ cut here ]------------
-cnt < 0
-WARNING: ./include/net/bluetooth/hci_core.h:1709 at hci_conn_drop+0x1c5/0x2d0 include/net/bluetooth/hci_core.h:1709, CPU#1: kworker/u9:1/4935
-Modules linked in:
-CPU: 1 UID: 0 PID: 4935 Comm: kworker/u9:1 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
-Workqueue: hci3 hci_cmd_sync_work
-RIP: 0010:hci_conn_drop+0x1c5/0x2d0 include/net/bluetooth/hci_core.h:1709
-Code: e7 e8 9f 49 4f f7 49 8b 34 24 bf 08 00 00 00 4c 89 fa 4c 89 f1 5b 41 5c 41 5d 41 5e 41 5f 5d e9 c1 08 a6 f6 e8 0c 80 df f6 90 <0f> 0b 90 e9 91 fe ff ff 44 89 f1 80 e1 07 38 c1 0f 8c b5 fe ff ff
-RSP: 0018:ffffc9000f9f7a10 EFLAGS: 00010293
-RAX: ffffffff8ae836a4 RBX: ffff88807fd9c000 RCX: ffff888033f63e80
-RDX: 0000000000000000 RSI: 00000000ffffffff RDI: 0000000000000000
-RBP: 00000000ffffff92 R08: ffff88807fd9c013 R09: 1ffff1100ffb3802
-R10: dffffc0000000000 R11: ffffed100ffb3803 R12: ffff88803255ea18
-R13: 1ffff110064abd43 R14: 00000000ffffffff R15: dffffc0000000000
-FS:  0000000000000000(0000) GS:ffff888124dda000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007f3acee37008 CR3: 000000007b2ae000 CR4: 00000000003526f0
-Call Trace:
- <TASK>
- le_read_features_complete+0x24/0xd0 net/bluetooth/hci_sync.c:7873
- hci_cmd_sync_work+0x25a/0x3f0 net/bluetooth/hci_sync.c:334
- process_one_work kernel/workqueue.c:3387 [inline]
- process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3470
- worker_thread+0xa47/0xfb0 kernel/workqueue.c:3551
- kthread+0x38b/0x480 kernel/kthread.c:436
- ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
+but BEAMFORMING_SUPPORT is defined to 0, so they are never compiled.
+The types they use (RT_BEAMFORMING_INFO, BEAMFORMING_CAP, PMGNT_INFO)
+are not defined anywhere either. Remove the dead declarations and the
+now unused macro.
 
+Signed-off-by: Adriano Cordova <adrianox@gmail.com>
+---
+ drivers/staging/rtl8723bs/hal/odm.h         | 8 --------
+ drivers/staging/rtl8723bs/hal/odm_precomp.h | 1 -
+ 2 files changed, 9 deletions(-)
 
-Tested on:
-
-commit:         cee9395a Linux 7.3-rc1
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=12f2ec15580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=5e4e3a0e188a497e
-dashboard link: https://syzkaller.appspot.com/bug?extid=fe5ea83cdd7fc263f452
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=145a5379580000
+diff --git a/drivers/staging/rtl8723bs/hal/odm.h b/drivers/staging/rtl8723bs/hal/odm.h
+index a20b48660e..d29eaba41d 100644
+--- a/drivers/staging/rtl8723bs/hal/odm.h
++++ b/drivers/staging/rtl8723bs/hal/odm.h
+@@ -936,10 +936,6 @@ struct dm_odm_t { /* DM_Out_Source_Dynamic_Mechanism_Structure */
+ 	struct timer_list FastAntTrainingTimer;
+ 
+ 	/*  ODM relative workitem. */
+-
+-	#if (BEAMFORMING_SUPPORT == 1)
+-	RT_BEAMFORMING_INFO BeamformingInfo;
+-	#endif
+ };
+ 
+ enum ODM_BB_Config_Type {
+@@ -1068,10 +1064,6 @@ u32 ODM_Get_Rate_Bitmap(
+ 	u8 rssi_level
+ );
+ 
+-#if (BEAMFORMING_SUPPORT == 1)
+-BEAMFORMING_CAP Beamforming_GetEntryBeamCapByMacId(PMGNT_INFO pMgntInfo, u8 MacId);
+-#endif
+-
+ void odm_TXPowerTrackingInit(struct dm_odm_t *pDM_Odm);
+ 
+ void ODM_DMInit(struct dm_odm_t *pDM_Odm);
+diff --git a/drivers/staging/rtl8723bs/hal/odm_precomp.h b/drivers/staging/rtl8723bs/hal/odm_precomp.h
+index 2987857a87..d4390fd203 100644
+--- a/drivers/staging/rtl8723bs/hal/odm_precomp.h
++++ b/drivers/staging/rtl8723bs/hal/odm_precomp.h
+@@ -19,7 +19,6 @@
+ 	/* include <drv_types.h> */
+ 	/* include <rtw_byteorder.h> */
+ 	/* include <hal_intf.h> */
+-#define BEAMFORMING_SUPPORT 0
+ 
+ /* 2 Hardware Parameter Files */
+ 
+-- 
+2.51.0
 
