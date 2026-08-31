@@ -1,74 +1,41 @@
-Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00EB33515E9
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 09:38:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 951AB3DAAB1;
+	Mon, 31 Aug 2026 09:38:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788169105; cv=none; b=m5WCLEtSk+vUTaNulyKMkmxgjkgetcbKCdIeNbFbO909qkg64vzGb/GOVwT5d403woBUU3dDcf/FXaaYAx6o9clJxYhLKyN0pq3iRhes4ROJTB9koDcL+zirM0dlgv/xO4EUp4pqwAuYN4OZsoMNtQlaietJxN/0jCLbRkCIBhA=
+	t=1788169105; cv=none; b=rgYBGJ9Xe/pxEpXBTyjhcMPvv1ofJKfyM8MTZax/JZ1BrMUjhLJjZ338HMR4OZB3Q5K2FmS2dAm1OcV5vcHuWzutHy/BOJH1X4o8aFvLkr11FgK0NsZiOusSlMJJZTYOBilLw7ic6YDUrFoPlT/mZd69bWiepTy4NtDlQTKbcr8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788169105; c=relaxed/simple;
-	bh=vTLeb2dANt+uqoDhcmB3qy+iNJr68ED+PMnVlEuYXPo=;
+	bh=GKs972raUa9R83lda5wU3KsEd1d9qQMaVryjObJSkbk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bppXiou2e6FViJNUm8QVBC+UGym6qk4qm8A9wZXR4nAqlm6Msly/CCI1J1EfpSquFeZT7lWAI+6GWu8PFgXEXo8yBSsqYC2P/kAnn/qbU1M3YEP8y+kCVuzS8E3HPUf9QGYPCcIgXZ+pjbN+36XijJTG5oyr93rbQdpJhkU93qo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=izrbNq43; arc=none smtp.client-ip=209.85.215.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	 Content-Type:Content-Disposition:In-Reply-To; b=Ed8F4kTIwDsPrxJu5hyoE+TsYrqIQO68Ncl+lirvJJDdB+qFJ03wc0L+grYqposTHIUrRRfxNxu7Fc4ZI1O0/mzwi/qJLZ8BkaXu0d6rhHjmIxxAP6gSdWOSK9nkHfzQGIzGi/1UCvGhvMxc51QYMlrx+2jU9EtWUxw99p9H4EA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mKs+kdq5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="izrbNq43"
-Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-cc1c73645a1so2534445a12.1
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 02:38:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1788169103; x=1788773903; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=CW23LQEB4WoxPcN9t72NgpaNRCQygSurIOdrvN/ogho=;
-        b=izrbNq4386i7U7SQkhDTHRQec9DSipC56N4jA8bslNLjb9Eb959hapiSFfzn4snHmz
-         D95tj6Ru4nkFhR1fukvxLFq4pDLHSxqpT1F/dknIFpPN6z/j1iIyHzkvgUr/L1sEX8qB
-         4ziyJxGJNJpcw17d85Rpuq+GaaEGVs/Hf/yJylswLBmMvAALOFadTfbFlSEkbsXUcyDp
-         TZoManHQWZoX0ecjO791FobtNRP5cc1CUjoIH+2zjhqMPrJNSOdJyYEgJ2gmoHwv4d5p
-         kBXxlSWs0OuNftwqJqWGryBW1qNr/WwAZhFIk/QHLmrkYL3ILyeNecZDv/FZtFy5EvjU
-         Oifw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788169103; x=1788773903;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=CW23LQEB4WoxPcN9t72NgpaNRCQygSurIOdrvN/ogho=;
-        b=ZN6ZGVJCY/Dlzvl23qHiZY5vGh+gxHs9m63v7T86pr6XQqe33BjMp1uES5zXU2l/Gt
-         I7e8QdoeU41uGPrWS9vfDSWmYCrQeThrCt3WjxjE+/Bgi+rjkB/FUC9Mlam1LMbLtRz8
-         BgMqu0gGLaHStw+udHCR3kK7tzE3WrGan3Ur/YE2DLilCEp2Ik3M0u8rZ0piflkkWw9Z
-         7s0JNlSe31rmG8YidkYQvg2dqUAjlTfYdQ6/UuQaVY3BqmL8IqSHh8YtJyfWGnYgWnTU
-         cDuY+LeQEGenI8+c6KYmz4yv69FdVD347CkE4vG1h9fdG1ZSRvRzTmcbv6R7+Uxzjy2o
-         2asQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx+eMX6cNxKXYH25s4NajgOJVUOeJEuYTPzqQc5busBw3nvAhY+X9+K43L1dMvFriwqmjm3igmlix4bHRo=@vger.kernel.org
-X-Gm-Message-State: AFuF++kmTdLwPLm2aXU/MpS/fsF9cUX+a7CvWOAeOcbcECm4qxA5bcCN
-	5anj9GM460mY3Ky/bP7Ha+yCxQ4Cg1cP9x4AlJiaY030MMyIStrZvyWpCJ4k0aFMd/Q8JzShTa2
-	uk0WR
-X-Gm-Gg: AYBFou23u8tmQne7b6WFfOEZoqNGMu7eXevmi/puPuurMHmyKBsRhtxnRbObXtBx8Fg
-	/eNYF7zTswNMrHjNQKcWcuVyUQzz72zsMR284mcP0Q81racKMkIBQUQ+V7dWgLSYUFLrOZr/ctR
-	j1ym8SaUob91fgu+TfrH7mycgGG4/yeOI+AdNTnoA3cAPxP7m90g8817k1EWlAc1NuegSoU9Jax
-	mdhICt2LBPSROGl8gklL8SCuwWgZinQ+mUw0KBvfQJ+QEmp26c89kYJ+2WsKi5RtvIDHnFgfVBD
-	5xay4I7Km3Yjy5tVNdRN4JK7eF0aqgv2le953BP68Yec0tCAu7nQ6QNCBiUeEC1qUd9r0gYuQAO
-	uKjxFQ8jQvqp5jA5JZag3A0WVUI0+w7u/5I7LSZGVGaNLbPMvY/gJ2W0CFLBvb8gUCmP2FybA5y
-	91pTQ7mGMBdAebAPpV+o7bhVAQ4heSIvitMtWzxJkaLZe6jefH2JKWAIkyry64aMs=
-X-Received: by 2002:a17:90b:5287:b0:398:9c07:8907 with SMTP id 98e67ed59e1d1-3989c0797c7mr26090507a91.24.1788169103218;
-        Mon, 31 Aug 2026 02:38:23 -0700 (PDT)
-Received: from localhost ([122.172.87.224])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3286f7be440sm32786117eec.7.2026.08.31.02.38.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 02:38:22 -0700 (PDT)
-Date: Mon, 31 Aug 2026 15:08:19 +0530
-From: Viresh Kumar <viresh.kumar@linaro.org>
-To: Xueqin Luo <luoxueqin@kylinos.cn>
-Cc: patrice.chotard@foss.st.com, rafael@kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] cpufreq: sti: avoid NULL dereference in dev_err()
-Message-ID: <apVLi1Lej-5lwkqd@vireshk-B250M-D3H>
-References: <20260831091159.3906287-1-luoxueqin@kylinos.cn>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mKs+kdq5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 034901F000E9;
+	Mon, 31 Aug 2026 09:38:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788169104;
+	bh=RKqPhAZ9xw3NdRQ5uWMTUCn71fcMmY5LEXL0pLWjVzU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=mKs+kdq5UHGfH4ZrlI/c5W/Ge68k7a67c4PVUttuKr3swhPohtWn6VeXEygJUHTVL
+	 g6/zW8/16KfSZMoCVxFx0G1FfY5V/yEdumYBGLSJSZNymDxm0AmOQx2J/CEJZz4F65
+	 O+l0+w2aqUXipzp6zD59NOIwgJOcg8iwTceVOm8wMJycCaatrvGDVQVeQlMbU9J9Fj
+	 fG8vmm1OozawqHJwSXTSgvIx+MbFDKrYq44HNi2jPRt0NizIs4uFlEVFA4WFoOvZgy
+	 CS8gVi6DC6OolDbuobZbV9qVL59Rml4RRUUyUCVVHaN9kR9HRCnVNhCarPQaC8URR3
+	 I1vuXvCsUXgOQ==
+Date: Mon, 31 Aug 2026 19:38:15 +1000
+From: Dave Chinner <dgc@kernel.org>
+To: Eric Peterson <linuxinstalled@gmail.com>
+Cc: Carlos Maiolino <cem@kernel.org>, linux-xfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Eric Peterson <eric.peterson@hpe.com>
+Subject: Re: [PATCH] xfs: add per-mount read/write I/O completion counters
+Message-ID: <apVLh7cJ3Zf_aLcd@dread>
+References: <20260828033429.4070267-1-linuxinstalled@gmail.com>
+ <apSgHPl4er6Jy9xi@dread>
+ <20260831004700.4072037-1-linuxinstalled@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -77,19 +44,145 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260831091159.3906287-1-luoxueqin@kylinos.cn>
+In-Reply-To: <20260831004700.4072037-1-linuxinstalled@gmail.com>
 
-On 31-08-26, 17:11, Xueqin Luo wrote:
-> ddata.cpu is NULL-checked, then immediately passed to dev_err().
-> Replace with pr_err() to avoid dereferencing NULL.
+On Sun, Aug 30, 2026 at 06:47:00PM -0600, Eric Peterson wrote:
+> On Mon, Aug 31, 2026 at 07:26:52AM +1000, Dave Chinner wrote:
+> > Hence this really doesn't seem like something we should be trying to
+> > infer from indirect filesystem stats. Why can't you use the bdev
+> > stats to get the actual filesystem wide queue depth information?
 > 
-> Fixes: ab0ea257fc58 ("cpufreq: st: Provide runtime initialised driver for ST's platforms")
-> Signed-off-by: Xueqin Luo <luoxueqin@kylinos.cn>
-> ---
->  drivers/cpufreq/sti-cpufreq.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+> The block device measures the device queue, which is a different
+> quantity than filesystem outstanding I/O - not just a lower-layer view
+> of the same thing.
+> 
+> Below are three cases where filesystem queue depth is not what the block
+> layer sees:
 
-Applied. Thanks.
+I do know the difference. Assume I understand what you are saying,
+and that you don't need to explain how the IO stack works to me...
 
+> To be clear about scope: I'm not proposing a queue-depth feature in
+> the kernel. The change just adds read/write completion counters to pair
+> with the existing call (submission) counters, so userspace can compute
+> outstanding I/O and derive a response-time estimate itself. The kernel
+> side is only exposing the complementary raw signal that's currently
+> missing - calls are counted, completions are not.
+
+I know, I just don't see how it can be used for a response time
+metric that any way useful for behavioural correlation because of
+the sampling method.
+
+> Being upfront: what userspace derives from this is an instantaneous
+> approximation, not a precise time-weighted queue length. It's meant as
+> a cheap, always-on aggregate, not a replacement for accurate per-op
+> tooling.
+
+And that's exactly why I'm having trouble understanding how this
+new metric means anything useful. Ignoring temporal sampling jitter
+of multiple per-cpu counters, if you sample read + completions
+it at some instant, all it tells you is what is happening at that
+instant.
+
+What happens the other 999.9ms of that second is not captured by
+this new "in-flight" metric?  For example, if I sample read
+submissions at 10Hz (annotated manually with rough deltas between
+samples):
+
+$ pmval -r -t 0.1 xfs.read
+
+metric:    xfs.read
+host:      devoid
+semantics: cumulative counter
+units:     count
+samples:   all
+  294454912
+  294454912		S (0 IO in flight)
+  294454912
+  294454912
+  294454912
+  294454912
+  294454912
+  294454912
+  294454912
+  294454912
+  294455553	+650
+  294455553		S (0 IO in flight)
+  294455555	+2
+  294455555
+  294455555
+  294455555
+  294455555
+  294455555
+  294455555
+  294455555
+  294455559	+4
+  294455559		S (0 IO in flight)
+  294455559
+  294455559
+  294455559
+  294455559
+  294455559
+  294455559
+  294455559
+  294455559
+  294455559
+  294455559		S (0 IO in flight)
+  294455561	+2
+  294455561
+  294455561
+  294455564
+  294455564
+  294456360	+800
+  294457344	+1000
+  294457344
+  294457346	+2
+  294457352	+6	S (at most 6 IO in flight)
+  294457352
+  294458065	+700
+  294458285
+  294458285
+  294458285
+  294458285
+  294458285
+  294458285
+  294458285
+  294458285		S (0 IO in flight)
+
+You can see that there are some 100ms periods where nothing happens,
+whilst others have 650-1000 buffered reads. In all the cases where
+there are periods with no submission, the in-flight calculation will
+be zero. In the busy periods, it will likely be some non-zero
+number, but it won't give any indication of IO behaviour in that
+entire period.
+
+If we pick a 1s sample time (marked with "S" above), only one of
+those sample points had any chance of there being IO in flight.
+If I pick a sampling pattern that hits one of those high
+IO periods, it gives an unrealisticly high in flight value for the
+sampling period, given that for most of the rest of the second
+around that burst there was almost no read activity.
+
+Hence I don't see how sampling a point in time "in-flight" metric
+slowly provides reliable insight into application behaviour. To
+address that, one would need to sample and calculate the inflight
+metric at high resolution to be able to catch the concurrency of IO
+in those high IOPS bursts.
+
+However, the faster you sample to catch bursts, the closer the read
+submission rate approaches the in-flight IO rate. i.e. if I sample
+at 1000Hz instead of 10Hz, it'll capture the fact that there are
+bursts much faster bursts than 8-10 read IOs per millisecond, yet
+the in-flight counter still won't reflect that - it might still not
+register any IO being in flight at all because at the sample instant
+there was no IO in flight....
+
+Hence I'm asking how this new metric is supposed to be used and
+correlated to observed/measured application behaviour. i.e. what
+insight does it give you into application performance that can only
+be derived from this point in time snapshot?
+
+-Dave.
 -- 
-viresh
+Dave Chinner
+dgc@kernel.org
