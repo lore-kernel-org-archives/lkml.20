@@ -1,110 +1,87 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D02A353EDF;
-	Mon, 31 Aug 2026 06:43:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A55E23ACA7C;
+	Mon, 31 Aug 2026 06:46:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788158631; cv=none; b=pnOGcdtKtr9MRkPgG21ufjJxAL2fK7SAbmQK54+xr296GaFDsa1DUfgnBAeielHZcMGc0pvdBeDPOIdZDlHfPSnGxslH2bCrBfYXbxZs9qsLBc2Et8jhFHtGbUN+yZMO4bw+7V34RAh/g7x+1DiKxHJa4lIvH9Mh+Lfxvmijk4I=
+	t=1788158794; cv=none; b=GaU4AGgKYMwUA6t9FfLcdI+g1bMmkRdHRRQzHpXeq6ZAMRxetdD884E++A2c4/j30RtJnfLEPQqU0HJEAny4fsl6Vw8xNyysuaCKtaptYPa/jEWpTPjplHvk/skAqEIjj6/pm3cyRMAWxrPC8OIUnKlDpFvqL5ArzGFpG20aKZE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788158631; c=relaxed/simple;
-	bh=eqK6ON7fK6bI3ZcCQQ8td+DTHlUzPTbOxgiXw58sYEc=;
+	s=arc-20240116; t=1788158794; c=relaxed/simple;
+	bh=8j2UPxHbsbQKUt31JjMUVLrrajGaX1n7vJtbyO5pNrc=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gHa4u2q9H2PlLF1js9D8gYUe0IPnhH5F8TV1cke19hEa8jZcaXFv54g9Fc9ABP4QIAkq4lh6DmAVF26F/qubwIrAVSBy0xJnYseNRdLaFzOYdbaT8oipraeKDKgncgWFotc1ViV2Vmr2s9bg2xe0rsxWeMkDYKX3ilikPMsZxSw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nkGuArwj; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=gkqEycyIxBFbNB5U8Vr4eZY3PJ1/9C0J+f5q3CMjoxpu/IhBJVFJSkrigyHpnOQ1FPVjpnXgdz7u1hL5fuQEb/xeIMcNoO7SXT7sglyDt9wlLqwefJvp8iV/KQRGGJuSdbnPh/7/OeQNrEhj2zrhnFRU1ga0FgMtEklC6tOon1o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dFWKOF5J; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nkGuArwj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CAC691F000E9;
-	Mon, 31 Aug 2026 06:43:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dFWKOF5J"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EC501F000E9;
+	Mon, 31 Aug 2026 06:46:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788158629;
-	bh=hxtid+k1GbsKMn7sH9/NJOZw53qw5u57dZrsml2Btos=;
+	s=k20260515; t=1788158793;
+	bh=yiCZQi/KsfPhos3m9UPBMLZ/6VRkatgenlxPmXeCU1s=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=nkGuArwjSttVIui6c/FQRwqqrqSCzzr/FmD4+05TC4ybogEEb6iqQVMyQAfuw21ii
-	 LgOVLfwx0yPv9qjf0l6zGRPw4RF5vDGDq7oG79f3224cQTQaOtzmvIPCuEjb6dhtC6
-	 3nPGTE6578cC8ckfmOcJ5rwZMOgn2+Y3n0oX51P8qI0YnVs5GB89hqKfZSW7s94cAn
-	 rbdGftNsgBZKPjTXB38343f0L55bGgSYNJvlWrNaMavP0rcNJx4jzJgLz4mnGojxCf
-	 ddjGKYr+KQ9D96MwUIdqQ94lRGU7CD1E8+CI0YN7kY8WVH/j/IZ+Ctqb/Nuapj93cI
-	 wzjVCvJCW9csw==
-Date: Mon, 31 Aug 2026 08:43:44 +0200
-From: Carlos Maiolino <cem@kernel.org>
-To: Eric Peterson <linuxinstalled@gmail.com>
-Cc: Dave Chinner <dgc@kernel.org>, linux-xfs@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Eric Peterson <eric.peterson@hpe.com>
-Subject: Re: [PATCH] xfs: add per-mount read/write I/O completion counters
-Message-ID: <apUh22V-i99HtgGN@andromeda.toxiclabs.cc>
-References: <20260828033429.4070267-1-linuxinstalled@gmail.com>
- <apSgHPl4er6Jy9xi@dread>
- <20260831004700.4072037-1-linuxinstalled@gmail.com>
+	b=dFWKOF5JBsWRW0Ut0BH3FOS33DP30hPeVz+jynqpgAwHvHvEdyprLdM30wiiUPo/y
+	 Wxr6BIyBzbL3bO31f86ZFFPq6rwAUN1Fx5gaGE84JwtpTtRbIztEm8r33Jgx1V7Ixa
+	 ifulcECamQVwaC62/36RIFF0Q2OCmmyZzGCnM5SuExtFaDITDipDtGnWITU7urPabU
+	 ip2IoqgjnAlnUmyoR1gPNKLWEkWCyLZbgSqNfp+Cpqr/zzwFdrbVSMBsQtZuoiuR8B
+	 uYXNr2TbOr5JvUPrs6SW+IBoYbH7aFIuD2MKEiu2V5M5qxmtP/Y0FImDIX5K8oyNHs
+	 aDiezMykhuueQ==
+Date: Mon, 31 Aug 2026 08:46:29 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
+Cc: Vinod Koul <vkoul@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Thinh Nguyen <Thinh.Nguyen@synopsys.com>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org
+Subject: Re: [PATCH v6 1/5] dt-bindings: phy: Add PHY_TYPE_EUSB2 definition
+Message-ID: <20260831-visionary-capable-termite-3dae2a@quoll>
+References: <20260826-eusb2-interrupt-v6-v6-0-ae2601cfa80c@oss.qualcomm.com>
+ <20260826-eusb2-interrupt-v6-v6-1-ae2601cfa80c@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260831004700.4072037-1-linuxinstalled@gmail.com>
+In-Reply-To: <20260826-eusb2-interrupt-v6-v6-1-ae2601cfa80c@oss.qualcomm.com>
 
-On Sun, Aug 30, 2026 at 06:47:00PM -0600, Eric Peterson wrote:
-> On Mon, Aug 31, 2026 at 07:26:52AM +1000, Dave Chinner wrote:
-> > Hence this really doesn't seem like something we should be trying to
-> > infer from indirect filesystem stats. Why can't you use the bdev
-> > stats to get the actual filesystem wide queue depth information?
+On Wed, Aug 26, 2026 at 10:32:51PM +0530, Krishna Kurapati wrote:
+> eUSB2 (Embedded USB2) is a MIPI Alliance standard for chip-to-chip USB2
+> signaling. Unlike standard USB2, which uses 3.3V signaling, eUSB2 uses
+> low-voltage differential signaling (~0.4V) and requires a repeater to
+> interface with external USB2 ports. Because of these differences, eUSB2
+> PHY initialization sequences, voltage tuning, and register configuration
+> are distinct from USB2.
 > 
-> The block device measures the device queue, which is a different
-> quantity than filesystem outstanding I/O - not just a lower-layer view
-> of the same thing.
+> Additionally, eUSB2 targets handle wakeup interrupts differently
+> depending on device speed when operating in host mode. According to the
+> eUSB2 specification, remote wakeup signaling in host mode is detected
+> via different data-line assertions based on the connected device speed:
 > 
-> Below are three cases where filesystem queue depth is not what the block
-> layer sees:
+> - Low-speed devices: the host repeater drives eD+ to logic '1' upon
+>   detecting a K-state on the USB lines during remote wakeup (eUSB2
+>   spec, Section 5.5.14).
+> - Full-speed/high-speed devices: the host repeater drives eD- to
+>   logic '1' upon detecting a K-state during remote wakeup (eUSB2 spec,
+>    Sections 5.5.15 and 5.5.18).
 > 
-> 1. Cache hits never reach the block layer. Under a heavy read workload
->    with a warm cache, a large share of ops are serviced from the page
->    cache and are never seen at the block level. Device queue depth can
->    sit near zero while the filesystem is servicing a very high op rate.
+> Since the eUSB2 PHY's DP and DM lines need to be configured differently
+> from USB2 PHYs, controllers should be able to query the PHY type and
+> configure wakeup interrupts accordingly.
 > 
-> 2. Filesystem ops don't map 1:1 to block I/O. A single read or write can
->    produce one block I/O, several (metadata, readahead, writeback
->    coalescing), or none at all. So device queue depth isn't the
->    filesystem's outstanding-operation count.
+> Add PHY_TYPE_EUSB2 to distinguish eUSB2 PHYs from standard USB2 PHYs.
 > 
-> 3. Work can be outstanding inside the filesystem before any block I/O is
->    issued - waiting on locks, log space/reservation, delalloc, etc.
->    Such I/O has entered the filesystem but is invisible at the bdev.
+> Signed-off-by: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
+> ---
+>  include/dt-bindings/phy/phy.h | 1 +
+>  1 file changed, 1 insertion(+)
 
-Could you please put those in the commit description? For historic
-purposes would be good to keep track why this has been added (or not).
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
+Best regards,
+Krzysztof
 
-> 
-> The block-device queue depth answers "how deep is the device queue,"
-> which is not the same as "how much work is outstanding in the
-> filesystem." When the filesystem is just one layer an I/O passes
-> through, the block stats fold the layers together and structurally
-> cannot isolate the filesystem's own contribution.
-> 
-> To be clear about scope: I'm not proposing a queue-depth feature in
-> the kernel. The change just adds read/write completion counters to pair
-> with the existing call (submission) counters, so userspace can compute
-> outstanding I/O and derive a response-time estimate itself. The kernel
-> side is only exposing the complementary raw signal that's currently
-> missing - calls are counted, completions are not.
-> 
-> Being upfront: what userspace derives from this is an instantaneous
-> approximation, not a precise time-weighted queue length. It's meant as
-> a cheap, always-on aggregate, not a replacement for accurate per-op
-> tooling.
-> 
-> Does exposing the completion side of the existing call counters seem
-> reasonable on that basis?
-> 
-
-Particularly I liked the idea and the justification seems fair although
-I'd want to see the justification for the counter in the patch
-description.
-
-Carlos
-
-> -Eric
-> 
