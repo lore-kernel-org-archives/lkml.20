@@ -1,325 +1,462 @@
-Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013022.outbound.protection.outlook.com [40.93.196.22])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E817529415
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 13:44:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.22
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183876; cv=fail; b=BiJ/OwKjEUTy1Kk7tt/0rUFKtREaxqKpuvkxC1KjZ9msBXAsd9PO/viMEq8eO+0NMTS7tH3RfGJ9pwp1lTEJf0/7eJ8bOJFUPKMn9X4KFxup08y1a/lHWwfA668nZbLkDij1JBMaBW28uhJiPu4CzkvrCyXEHei7PnT3+VfyOzI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183876; c=relaxed/simple;
-	bh=/tZxOJ1pI6L/Jw5ME3cxwwC2D8nhMCOxd2cKYgj+eCQ=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E88545293F8;
+	Mon, 31 Aug 2026 13:44:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788183877; cv=none; b=detrywcBmCQ8sYQ7xHSEEZQDgM5JwVqmxSTG7Sya/FADIUm/oVGRNYUtwTSXxHVmiQfSrazttEU31zV9k4plIwg4Dv+SZQxDmfu3TqhvGspcXhfwZLkJvpDRlo//GGEBvN6TPbM62jIDyOKlSY/jnnDPMwqEBmG0fUPVBNmzL8w=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788183877; c=relaxed/simple;
+	bh=qpWI73L8vgTIHGSXios1j7XIvTyywj6zMvBzUjPcgew=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Lu3vIzw7iTAmOIZ0HLUDLuFnSQyj2Lef8qXLUDdiSWUi0jklh/7OYAglBVhnfuWHVPL7AZCbPz8+P+Sxy9Igv6obJAfj3VF7usUUaYnLLUFRVsKS6LQw3VjHHL0bQF1/ZeJ/r3+0OTa7FYQXfBBtfKBjRptuKXdWec9Jsd/LtqQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=WyWCcc3H; arc=fail smtp.client-ip=40.93.196.22
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	 MIME-Version:Content-Type; b=L3SzgYKMKmGmJ8yZwxXQecUiQ33BanFKY3lIJxxXcibYQneVfBrlqPt3hXX4T4okFvQ8X/oTtXb8R6qiJ6Gzs4pojjaInudkAZ3faJH0gFsxcvlEAGLcHBTixfA5coa4upERepVKihvCKd804guqQHG+pGW/v9Xzmbpkuq9dgaM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ecSZE4T0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="WyWCcc3H"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=aC2bTnUWYE5COng60Q15yX6NPBSLg1tualNKQBRLuNWQkHUlOI20DO8cAo2q3DkyxEfoUTVWFNEW2jgW+3BE9Zboec18D70AK5SseWzIM5tj6hDz5P5N9d1kodPLo2NaGSfWswZFT1n5NC+5zOoA4ljLPnr5oAyCijUX2MKybtusTZ/1P4RGQjqyQxHM3dbVSb4nLPGGhGo95eh6r32ij5exHRYP9DX1jCOaHg7rxZKl/cugt0jw6jZxYiajiTCHWj0w8k5yGO9fRUyuX1KrlY1LnN86OsuXwJ9IVPOzVmfF93CUJfhX02YBEermHWwi1wfbO+i9S1Wt6XsmzH5MJg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uG6e8PCVljnYMooSMxSzGNMu7Xo9+qywTphurOe8yUw=;
- b=yFOaelt70rJjhcGfCdrt3uCLvm0PLlnET9S3lWkJe1jMRFIbeZNdyiHoPPOlFRvO6vX175njkiZ4IHJ/krwm6veykI9uuQ4lqb88wn/lHd5T03WlCcxi5z/WwyTLVE186Aqoq97DBYnAR6QCSh3kln8NpiyCkXViLjYM/RE78FTUvm8+QJK23TlMEc8TMH3YJZxDddNdOLDgoUomJhgAOvxXgMPeRuwgMI4WTQmBMxFbbzLNwTv41PO6sUwhcs8XHv2ZQp5woyzcNganCys0uIydx+wNJjFRYWHAuWvWSRpws28BBPMsb8bhQUcdxaYbP+XHV470L1H9QdaKGLDplw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uG6e8PCVljnYMooSMxSzGNMu7Xo9+qywTphurOe8yUw=;
- b=WyWCcc3HGDhgb4DWKdjV8WFceAEJMFEzbpjTAHlJ43wRbSB31HaEfxh8Wkem/POd4arHkhZ7uEdiiC2XnORH8jHnRuOsPU2QZ02BJzS6Itw7fphS8uNc8IYVkYyZeYCVV5a6xQLlTlQJb19Vbdt4ltIn/MMSBJElR+XpnA8E2jMiax4cL2td7y2+HwZm3g6HqF0GIufsnn+yhqsbK3n/MmhpfAg6W4eeauBG1oCnlVHqleeHjR7YPUgwe+MSexcSImsfhIophuwrd81P5qojzmBCMoE0VCK1vf9YuytOK/k+cmSSjf9iqZdiy0ECAMveEiFkg8RRqDeslDKQkNXsZQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DM6PR12MB4827.namprd12.prod.outlook.com (2603:10b6:5:1d6::14)
- by MW4PR12MB6755.namprd12.prod.outlook.com (2603:10b6:303:1ea::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.12; Mon, 31 Aug
- 2026 13:44:29 +0000
-Received: from DM6PR12MB4827.namprd12.prod.outlook.com
- ([fe80::6261:3040:864b:159c]) by DM6PR12MB4827.namprd12.prod.outlook.com
- ([fe80::6261:3040:864b:159c%5]) with mapi id 15.21.0360.008; Mon, 31 Aug 2026
- 13:44:28 +0000
-From: Andrea Righi <arighi@nvidia.com>
-To: Tejun Heo <tj@kernel.org>,
-	David Vernet <void@manifault.com>,
-	Changwoo Min <changwoo@igalia.com>,
-	John Stultz <jstultz@google.com>
-Cc: Ingo Molnar <mingo@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>,
-	Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Christian Loehle <christian.loehle@arm.com>,
-	David Dai <david.dai@linux.dev>,
-	Emil Tsalapatis <etsal@meta.com>,
-	Lee Trager <ltrager@nvidia.com>,
-	Richard Cheng <icheng@nvidia.com>,
-	Koba Ko <kobak@nvidia.com>,
-	Aiqun Yu <aiqun.yu@oss.qualcomm.com>,
-	sched-ext@lists.linux.dev,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ecSZE4T0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D276A1F000E9;
+	Mon, 31 Aug 2026 13:44:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788183874;
+	bh=uzD/bvx2wfiQnNSbs6W6Vc/o8YOP6CDwTRIrMxm6Vvc=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=ecSZE4T0yIA/+uiMUq6s6uxwjnorPNhbFnOPsQkGCD0zziM3szpjruvDWTvgswSuI
+	 /4TtVGeMfPneUSOF0VC6GnQ45itXuWGpzpECWeg/y2P3xbN4z0U5KLU3kkm8/MCkRZ
+	 qPiE+B7Js6trrYd3YX7hw+NATysSRf/OwpYExs3ti5MHfIs+mz49bwyKoPyuVFWGQz
+	 /S2tMo7AghYxpx47Dc8emV1qPburTR5CBdgue88ErBfGQ11QLyY5U1QIS6vbP7KxYd
+	 jDm93LUJbB+Tqf0ds5ozOWtsa+9wJJVN11nbhMhr37CD9Fp8j/PmR4JltrOjINLdB3
+	 i6FSKMvIU0uZQ==
+From: Sasha Levin <sashal@kernel.org>
+To: patches@lists.linux.dev,
+	stable@vger.kernel.org
+Cc: Rosen Penev <rosenp@gmail.com>,
+	"Maciej W. Rozycki" <macro@orcam.me.uk>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	Sasha Levin <sashal@kernel.org>,
+	linux-mips@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 05/18] sched: Pass next class to sched_change_begin()
-Date: Mon, 31 Aug 2026 15:42:15 +0200
-Message-ID: <20260831134338.1531664-6-arighi@nvidia.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260831134338.1531664-1-arighi@nvidia.com>
-References: <20260831134338.1531664-1-arighi@nvidia.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: BY3PR05CA0043.namprd05.prod.outlook.com
- (2603:10b6:a03:39b::18) To DM6PR12MB4827.namprd12.prod.outlook.com
- (2603:10b6:5:1d6::14)
+Subject: [PATCH AUTOSEL 6.18-5.10] mips: cps: Assemble jr.hb with an R2 ISA level
+Date: Mon, 31 Aug 2026 09:26:23 -0400
+Message-ID: <20260831133314.4125787-355-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
+References: <20260831133314.4125787-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4827:EE_|MW4PR12MB6755:EE_
-X-MS-Office365-Filtering-Correlation-Id: 244a813c-12b1-48fc-3bac-08df0765fa02
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|1800799024|23010399003|366016|10067099003|56012099006|11063799006|5023799004|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	U73xZ376NNUq4AGEoUlX4f9c9nZJ4iqUDv0O8qYA98ZL8vmmU0wqBWlW9LV9gw94cq0oz7QZ5F/q45OgHej9t+i57GDkA3XrtE8+ebdUQmG1203vFE/5tUJ9S2SjhfcXMDPuofr/2bDO5q1Vd/R7XNi59acwaqNpP7uGhzIr8s7VIll2OzLOliENcM5Y9xiF73wx+3E1rBx3BiqjqCf1Ni3GC6dm6GRJpD/egO4IZgvs3JU11uEyX80K4KbTR1xtAo+dZQfsVTRkhFgJ8mW9VvsRb+eijOk2YuPobgjkNyCCQ4gP4sHPsjH4vtZ/A/qXacaI46YAfxMAecX91tqFwz8ArCz6RdCmz8+tp6wu+FpieDh603vAeoPKTxM0/6Hzc7U5EI3/aArazB4h5t74OmRW/b5jAgGpPTVc4AvzBUA2Ga04D/XRWlSMtSaepZNpq09cW6OuTryOYxREbS3gYKQzzbecKqNmvuK0ofaHeikEv3FMhNWU3kCG1nLgxH58ZgVbuSHyi8fewFxwE7rSfUn/c1MvAhIeMzpQc0GASdCiPpnX06hIhVlc1NsFENQFqA1h/DelUcSslw/g5SX+UWtvkFeafdGMFeqZHw/Bpw4XP4hFmHa9kPGqW+zLVMJ8MLBcoJfK/4OhBtm+6FQL/j9YcuFN0syAepWpmnOGlbk=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR12MB4827.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(23010399003)(366016)(10067099003)(56012099006)(11063799006)(5023799004)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?OWL3W2TGvzqyqmKcZTouYYxgIaFQBh7W2pFPseKRPSOCZ5uVnmSSIT/3S6J2?=
- =?us-ascii?Q?lGw5Lh6lc6qKiIm+QfIm/JKgW9l/13Ciyk9mhmUmo+K7+ra1hFH2Rkq4aVFW?=
- =?us-ascii?Q?mZbhBdv+omW9KpxpDm+whukifZmjgkGcUfwXv9tqKN7OHge6Qd6qWytr112o?=
- =?us-ascii?Q?aP1E34avBIOCyTB577C4OPSEbA37v4ugd6B7IXn/WxQIYt48XKaBMxpWwBPh?=
- =?us-ascii?Q?5+ArRkI2PwbyjTlykvKCYMzB1nqzCgGGOHc8wG1vwsNnvOqwhybvk7V/j2hG?=
- =?us-ascii?Q?a+V/6x7lgGrH09JAd7icejkulrO0FcGEcqIT+IM5XbO8a01oyaEzmdxsaebm?=
- =?us-ascii?Q?+nZu+OPItRIApExKiATtbrstjgCxOIOzGhprpWRCOduV6tb+WtiK25cJ3p5s?=
- =?us-ascii?Q?JPSuIYdVI0jLi+uPf0+ALqzmRMIJr6m4dMU4ulCqLWP97UR667gciT094f5u?=
- =?us-ascii?Q?7hQgpmuIXVpgJFuGIollH/VRsambNVUtzW9vTYuqfewfSEquMtypUBA1Vks6?=
- =?us-ascii?Q?MEEKyowzfoooUX5sUllIo+QdymKAhsDpJqra+EI+7kkEDKeCX+fXjrJMnr/I?=
- =?us-ascii?Q?2zqTDdipyFov9XxnbctTWiAz8eg/8YcUlgHgjk1LdvkGYUFPp46L1yBQiyL1?=
- =?us-ascii?Q?u6KpLT1/iguYx4UYjZuPDfPiXsIEBm7OOTceqABGcONmnZgGNztTTeVfK/IB?=
- =?us-ascii?Q?yoS4XByWUlN/HBozXO2Kvm7MYVkX35TQ8mHj+JNgi/BAZXYtz9lruI76j/Yc?=
- =?us-ascii?Q?9z/kUmFo2t6UaKgN4PqixMYtMQmkWPRRC2rdCVCwt8G08dXiMC96dHy10SDe?=
- =?us-ascii?Q?9FruSLyR08ofXcvgCQYEdUISSOaoWYOeJ16Q2ksTmHr2ScQJ6Y6JV6qEA7M7?=
- =?us-ascii?Q?z75x8tv2ykakFvG/ib5y7+l7kHLeJhAnvFNNdWbwzTJR4V7hZ6RReeHgtMJN?=
- =?us-ascii?Q?48ipzb8zyUsYQUAvLun36VpJdOdsfqXFKMiYaLSsFYmlTemI4Lh8vrMMU3iS?=
- =?us-ascii?Q?1TvGcYfEq/R++WsXpeZQfdBeXSHOEvNV8b5thVQ3HSf3llyzeOWMMI9+Zkbx?=
- =?us-ascii?Q?kJq87alQMMp3/AY+NrWjRfPd+39Fyqe5Kgd3wZsqc/LrgTgthsLs31LwIFI5?=
- =?us-ascii?Q?VFVUsMMiBL08/pHazXH+kHoG6F62FpPiaridlF46j7+LgLncqQanBpbpIKxQ?=
- =?us-ascii?Q?QkzoOpSJg18tIWKLVmX6jrJaACQ60eAXK6KUBeIS0qHSVMLmUZivAdvnv/0b?=
- =?us-ascii?Q?FC21jLQHWycZmIoXnkLyA5g4zVz8Q0YWPDv2WL/kKne9cV18airCarROfj+Z?=
- =?us-ascii?Q?ogUj5LaXgtbLRBhKljjzWggr4yEdCZHlqkeXA6xGKnP2sbfwAGQiz2yRN8DB?=
- =?us-ascii?Q?A3tgKAso8W8xApgRlwU7g3Xyh6wWPuVx+837S92c3fTcdVAUJDcntpMXswSm?=
- =?us-ascii?Q?6W50n6j7HDSyU2PYhYx3FIVuWuxQ9e/ETn1VOG5HeNx0BL/LmDqHPSpXZgGV?=
- =?us-ascii?Q?i9AkPcJj7/brGGkUkG5yHFySOmqV6UtERFr87xbp59HUIUsEfbLSO32OKNlf?=
- =?us-ascii?Q?wzl9454l+6hvgKZbhX07zoezH3HLJcEV8ZjdbfhG0fQGT00UDBNbMIlV7EeV?=
- =?us-ascii?Q?sdLSX9MRL5vEIEnmRRZCkUGbaGc+7QMXX/6FR/5wCtG9DDkhAZD3dnpOol6w?=
- =?us-ascii?Q?4+wBnpZvoj9SnpZt6TB8YweOTF58GT0/LzpF1vuHC3zv+YZlpaX0XW+aeKZF?=
- =?us-ascii?Q?bEqGEiETDw=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 244a813c-12b1-48fc-3bac-08df0765fa02
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4827.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 13:44:28.1384
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: srPJd9KftlivBAAk3RHkzhRCRcSmpORagcHssAUwAz8Mfn8lZnPIfsa4G6t/aUntlhk2lUBvBXeTwZP7GQIdlw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6755
+X-stable: review
+X-Patchwork-Hint: Ignore
+X-stable-base: Linux 6.18.48
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-sched_change_begin() currently only receives the task whose scheduling
-state is being changed. It cannot distinguish a class transition from a
-same-class update before recording the task queueing state.
+From: Rosen Penev <rosenp@gmail.com>
 
-Pass the incoming scheduling class to sched_change_begin() and update all
-callers. This allows transition handling to run before the normal dequeue
-and class change.
+[ Upstream commit e5d64f868e484da06f5c141c18c32c01c269625e ]
 
-This is a preparatory change to support proxy execution with sched_ext.
+A MIPS allmodconfig built with LLVM can select CPU_MIPS32_R1 together
+with MIPS_MT_SMP. In that configuration clang invokes the integrated
+assembler with -march=mips32, and the MIPS MT path in cps-vec.S fails
+to assemble two jr.hb instructions:
 
-Signed-off-by: Andrea Righi <arighi@nvidia.com>
+  arch/mips/kernel/cps-vec.S:376:2: error: instruction requires
+  a CPU feature not currently enabled
+
+  arch/mips/kernel/cps-vec.S:490:4: error: instruction requires
+  a CPU feature not currently enabled
+
+The earlier jr.hb in the same file is already assembled inside a .set
+MIPS_ISA_LEVEL_RAW scope. The two failing sites are reached after
+popping back to the file's base ISA level, so LLVM correctly rejects
+them for an R1 target.
+
+Wrap those jr.hb instructions in the same ISA-level push/pop used by
+the working site. This keeps the MT code unchanged while making the
+required R2 hazard-branch encoding explicit to the assembler.
+
+Assisted-by: Codex:GPT-5.5
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+Reviewed-by: Maciej W. Rozycki <macro@orcam.me.uk>
+Signed-off-by: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/sched/core.c     | 12 +++++++-----
- kernel/sched/ext/ext.c  |  7 ++++---
- kernel/sched/ext/sub.c  |  9 ++++++---
- kernel/sched/sched.h    |  9 ++++++---
- kernel/sched/syscalls.c |  4 ++--
- 5 files changed, 25 insertions(+), 16 deletions(-)
 
-diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-index 0a2eabadfee02..26b8da8c8a2c5 100644
---- a/kernel/sched/core.c
-+++ b/kernel/sched/core.c
-@@ -2802,7 +2802,7 @@ void set_cpus_allowed_common(struct task_struct *p, struct affinity_context *ctx
- static void
- do_set_cpus_allowed(struct task_struct *p, struct affinity_context *ctx)
- {
--	scoped_guard (sched_change, p, DEQUEUE_SAVE)
-+	scoped_guard (sched_change, p, p->sched_class, DEQUEUE_SAVE)
- 		p->sched_class->set_cpus_allowed(p, ctx);
- }
+LLM Generated explanations, may be completely bogus:
+
+## Tree context
+
+**Local tree:** Linux **6.18.44** (`git describe HEAD` → `v6.18.44`,
+`make kernelversion` → `6.18.44`)
+
+**Commit under review:** `e5d64f868e484` — *mips: cps: Assemble jr.hb
+with an R2 ISA level* (mainline, 2026-05-26). **Not** an ancestor of
+this tree (`git merge-base --is-ancestor` → exit 1). The unfixed code is
+still present at lines 376 and 490 of `arch/mips/kernel/cps-vec.S`.
+
+---
+
+## Phase 1: Commit message forensics
+
+**Step 1.1 — Subject parse**
+Record: `[mips: cps]` `[assemble/wrap]` — Wrap two `jr.hb` instructions
+in R2 ISA-level `.set push`/`.set pop` blocks so LLVM's integrated
+assembler accepts them.
+
+**Step 1.2 — Tags**
+Record:
+- `Assisted-by: Codex:GPT-5.5`
+- `Signed-off-by: Rosen Penev <rosenp@gmail.com>`
+- `Reviewed-by: Maciej W. Rozycki <macro@orcam.me.uk>`
+- `Signed-off-by: Thomas Bogendoerfer <tsbogend@alpha.franken.de>`
+- No `Fixes:`, `Reported-by:`, `Link:`, `Cc: stable@vger.kernel.org`,
+  `Tested-by:`
+
+Notable: reviewed by a MIPS maintainer; merged by Thomas Bogendoerfer
+(MIPS maintainer). LLVM toolchain folks were CC'd on the mailing list
+thread.
+
+**Step 1.3 — Body analysis**
+Record:
+- **Bug:** With `CPU_MIPS32_R1` + `MIPS_MT_SMP` (reachable via MIPS
+  `allmodconfig`) and **LLVM/clang**, integrated assembler runs with
+  `-march=mips32` (R1). Two `jr.hb` sites in `mips_cps_boot_vpes` fail
+  assembly with *"instruction requires a CPU feature not currently
+  enabled"* at lines 376 and 490.
+- **Symptom:** Kernel **build failure** (assembler error), not a runtime
+  crash.
+- **Root cause:** Those `jr.hb` instructions sit outside `.set
+  MIPS_ISA_LEVEL_RAW` scope after a `.set pop`; an earlier `jr.hb` in
+  the same file (line 212) is correctly inside such a scope.
+- **Fix approach:** Wrap each failing `jr.hb` in `.set push` / `.set
+  MIPS_ISA_LEVEL_RAW` / `.set pop`, matching the working site.
+
+**Step 1.4 — Hidden bug fix?**
+Record: **Yes** — described as an assembly fix, but it is a real
+**build-breaking bug** for a valid Kconfig combination with LLVM. Not
+cosmetic.
+
+---
+
+## Phase 2: Diff analysis
+
+**Step 2.1 — Inventory**
+Record:
+- **File:** `arch/mips/kernel/cps-vec.S` (+6 lines, 0 removed)
+- **Function:** `mips_cps_boot_vpes` (inside `#elif
+  defined(CONFIG_MIPS_MT)` path)
+- **Scope:** Single-file, surgical (2 hunks, 3 lines each)
+
+**Step 2.2 — Code flow per hunk**
+
+| Hunk | Before | After |
+|------|--------|-------|
+| Site 1 (~line 375) | After `dvpe` block's `.set pop`, `jr.hb t1`
+assembled at file base ISA (R1 under LLVM) | `jr.hb` wrapped in
+temporary R2 ISA scope |
+| Site 2 (~line 489) | After VPE-exit `.set pop`, `jr.hb t0` at base ISA
+| Same R2 scope wrapper |
+
+Record: Both hunks affect the `CONFIG_MIPS_MT` boot-VPE path in
+`mips_cps_boot_vpes`, reached during CPS SMP boot when MT is enabled.
+
+**Step 2.3 — Bug mechanism**
+Record: **Build / assembler ISA-level mismatch.** `jr.hb` is a Release 2
+instruction. With `CPU_MIPS32_R1`, clang passes `-march=mips32` to the
+integrated assembler. Without `.set MIPS_ISA_LEVEL_RAW`, LLVM rejects
+`jr.hb`. This is not a runtime logic bug; emitted instructions are
+unchanged for hardware that already supports MT (which implies R2).
+
+**Step 2.4 — Fix quality**
+Record:
+- **Obviously correct:** Mirrors the existing working pattern at lines
+  202–212 in `mips_cps_core_init`.
+- **Minimal:** Only assembler directives added; no instruction sequence
+  changes.
+- **Regression risk:** Very low — scoped `.set push`/`.set pop` with no
+  lock or control-flow changes.
+
+---
+
+## Phase 3: Git history investigation
+
+**Step 3.1 — Blame**
+Record: `git blame` in this stable checkout attributes all lines to an
+unrelated amdgpu cherry-pick root (`7e22de67e545d`), so per-line
+introduction dates are unreliable here. File header shows `cps-vec.S`
+dates to 2013 (Paul Burton). The unwrapped `jr.hb` sites are long-
+standing; the failure is exposed by LLVM's stricter ISA enforcement, not
+by a recent regression in this tree.
+
+**Step 3.2 — Fixes: tag**
+Record: N/A — no `Fixes:` tag present.
+
+**Step 3.3 — File history**
+Record: `git log --oneline -20 -- arch/mips/kernel/cps-vec.S` shows only
+the amdgpu commit (stable-tree history artifact). No prior fix for this
+issue in this tree.
+
+**Step 3.4 — Author context**
+Record: Rosen Penev (regular contributor, often build/toolchain fixes).
+Reviewed/merged by MIPS maintainers.
+
+**Step 3.5 — Dependencies**
+Record: **Standalone.** Single-patch series (v1 only). No prerequisite
+commits. Patch context matches current file (verified programmatically —
+both sites match).
+
+---
+
+## Phase 4: Mailing list and external research
+
+**Step 4.1 — Original discussion**
+Record:
+- `b4 dig -c e5d64f868e484` →
+  https://patch.msgid.link/20260507232323.489383-1-rosenp@gmail.com
+- **Series:** v1 only (no later revisions)
+- Thomas Bogendoerfer: *"applied to mips-next"*
+- Maciej W. Rozycki: called the approach *"exceedingly pedantic"* but
+  concluded *"your patch is not incorrect and fixes a real problem"* →
+  `Reviewed-by:`
+- **No explicit `Cc: stable` nomination** in thread
+- **No NAKs**
+
+**Step 4.2 — Reviewers**
+Record: `b4 dig -w` — CC'd: `linux-mips@vger.kernel.org`, Thomas
+Bogendoerfer, Nathan Chancellor, Nick Desaulniers, LLVM list, LKML.
+
+**Step 4.3 — Bug report**
+Record: N/A — no external bug tracker link. Failure described concretely
+in commit message with assembler error text and line numbers.
+
+**Step 4.4 — Related patches**
+Record: Maciej noted a broader cleanup (wrap entire `CONFIG_MIPS_MT`
+block, redefine `MIPS_ISA_LEVEL_RAW` per word size) as future work —
+**not required** for this fix.
+
+**Step 4.5 — Stable list**
+Record: Not searched on lore stable list (no indication of prior stable
+discussion). Absence of stable nomination is not a negative signal per
+review instructions.
+
+---
+
+## Phase 5: Code semantic analysis
+
+**Step 5.1 — Key functions**
+Record: `mips_cps_boot_vpes` (assembly leaf in `cps-vec.o`)
+
+**Step 5.2 — Callers**
+Record: `cps-vec.o` is linked when `CONFIG_MIPS_CPS=y`
+(`arch/mips/kernel/Makefile:61`). `mips_cps_boot_vpes` is part of CPS
+secondary-core/VPE boot vector code — early boot, not userspace-
+reachable, but required for SMP bring-up on CPS platforms.
+
+**Step 5.3 — Callees**
+Record: MT ASE coprocessor ops (`dvpe`, `evpe`, `mfc0`/`mtc0` on
+MVPCONTROL/VPECONTROL/TCHALT). Fix only changes assembler ISA scope
+around `jr.hb`.
+
+**Step 5.4 — Reachability**
+Record: Code is compiled when `CONFIG_MIPS_CPS` and `CONFIG_MIPS_MT`
+(selected by `CONFIG_MIPS_MT_SMP`) are both enabled. Trigger for the
+**bug** is at **compile time** with LLVM + `CPU_MIPS32_R1`, not at
+runtime.
+
+**Step 5.5 — Similar patterns**
+Record: Same file line 212 (`mips_cps_core_init`) already wraps `jr.hb`
+inside `.set MIPS_ISA_LEVEL_RAW`. `arch/mips/kernel/entry.S`
+(`mips_ihb`) uses the same pattern. The two failing sites were
+inconsistent with established local convention.
+
+---
+
+## Phase 6: Cross-reference against local tree (6.18.44)
+
+**Step 6.1 — Buggy code present?**
+Record: **YES.** Lines 376 and 490 have bare `jr.hb` outside `.set
+MIPS_ISA_LEVEL_RAW` scope. Fix commit is **not** in this tree.
+
+**Step 6.2 — Backport complications**
+Record: **Clean apply expected.** Both patch contexts match current file
+content exactly. No conflicting changes detected.
+
+**Step 6.3 — Related fixes already present?**
+Record: **None found** in this tree for this issue.
+
+---
+
+## Phase 7: Subsystem and maintainer context
+
+**Step 7.1 — Subsystem**
+Record: **arch/mips** — platform-specific boot/SMP assembly.
+Criticality: **IMPORTANT** for MIPS CPS+MT SMP platforms and for anyone
+building MIPS kernels; not universal like mm/net, but affects real
+builders and CI.
+
+**Step 7.2 — Activity**
+Record: MIPS CPS/MT code is mature; this is a toolchain compatibility
+fix on existing code.
+
+---
+
+## Phase 8: Impact and risk assessment
+
+**Step 8.1 — Who is affected**
+Record: **Config-specific builders** — MIPS kernels with
+`CONFIG_MIPS_CPS` + `CONFIG_MIPS_MT_SMP` + `CPU_MIPS32_R1`, built with
+**LLVM/clang**. Typical trigger: `allmodconfig` CI builds; also any
+distro/toolchain vendor using clang for MIPS.
+
+**Step 8.2 — Trigger conditions**
+Record:
+- **When:** At kernel **build** time (assembler phase)
+- **How common:** Uncommon for production defconfigs (most CPS platforms
+  use R2+), but **common in kernel CI** (`allmodconfig`) and
+  increasingly relevant as LLVM MIPS support grows
+- **Userspace trigger:** No — not a runtime/security issue
+
+**Step 8.3 — Failure mode severity**
+Record: **Build failure** (hard assembler error) — severity **MEDIUM**
+for stable (blocks compilation; no runtime crash, no data corruption, no
+security exposure).
+
+**Step 8.4 — Risk/benefit**
+Record:
+- **Benefit:** Unblocks LLVM MIPS builds for valid configurations;
+  aligns with growing clang/LLVM kernel build support
+- **Risk:** Very low (6 assembler-directive lines, no logic change)
+- **Ratio:** Favorable — classic low-risk build fix
+
+---
+
+## Phase 9: Final synthesis
+
+**Evidence FOR backport:**
+- Fixes a **real, reproducible build failure** (documented assembler
+  errors)
+- Falls under stable **BUILD FIX** exception category
+- Small, surgical, maintainer-reviewed
+- Buggy code exists in 6.18.44; patch applies cleanly
+- Standalone, no dependencies
+- Matches established pattern already used in the same file
+
+**Evidence AGAINST backport:**
+- Only affects a **niche Kconfig** (`allmodconfig` + R1 + MT_SMP + CPS +
+  LLVM)
+- **No runtime user impact** on already-built/deployed kernels
+- Reviewer noted a cleaner long-term approach exists (not blocking)
+
+**Stable rules checklist:**
+| Criterion | Result |
+|-----------|--------|
+| 1. Obviously correct and tested? | **PASS** — mirrors working site;
+Reviewed-by maintainer |
+| 2. Fixes real bug affecting users? | **PASS** — blocks kernel
+compilation for valid config |
+| 3. Important issue? | **PASS** (moderate) — build fix, not
+crash/corruption |
+| 4. Small and contained? | **PASS** — 6 lines, 1 file |
+| 5. No new features/APIs? | **PASS** — assembler directives only |
+| 6. Can apply to local tree? | **PASS** — context verified |
+
+**Exception category:** **BUILD FIX** (#4 in stable exceptions)
+
+---
+
+## Verification
+
+- [Phase 1] `git show e5d64f868e484` — parsed full commit message and
+  tags
+- [Phase 1] Tags: Reviewed-by Maciej W. Rozycki; no Fixes/Reported-
+  by/Cc:stable
+- [Phase 2] Read `arch/mips/kernel/cps-vec.S` lines 198–495 — confirmed
+  two bare `jr.hb` vs wrapped site at 212
+- [Phase 2] Read `arch/mips/include/asm/compiler.h` —
+  `MIPS_ISA_LEVEL_RAW` defined as mips64r2/r5/r6 per CPU config
+- [Phase 3] `git blame` — unreliable in this stable tree (all lines →
+  unrelated root commit)
+- [Phase 3] `git merge-base --is-ancestor e5d64f868e484 HEAD` → exit 1
+  (fix not in 6.18.44)
+- [Phase 3] Python context match — both patch sites match current file
+- [Phase 4] `b4 dig -c e5d64f868e484` — lore URL found
+- [Phase 4] `b4 dig -a` — v1 only, no later revisions
+- [Phase 4] `b4 dig -w` — MIPS maintainer and LLVM folks CC'd
+- [Phase 4] `b4 dig -m /tmp/cps-jr-hb.mbx` — Thomas applied; Maciej
+  Reviewed-by, noted "fixes a real problem"
+- [Phase 5] `grep jr.hb arch/mips` — 3 sites in cps-vec.S; entry.S uses
+  same `.set MIPS_ISA_LEVEL_RAW` pattern
+- [Phase 5] `arch/mips/kernel/Makefile:61` — cps-vec.o built with
+  CONFIG_MIPS_CPS
+- [Phase 6] `git describe HEAD` / `make kernelversion` — tree is 6.18.44
+- [Phase 6] Buggy code confirmed present at lines 376, 490
+- [Phase 6] `arch/mips/Kconfig` — MIPS_MT_SMP and MIPS_CPS are
+  independently selectable options
+- [Phase 8] Failure mode: assembler error at build time, severity MEDIUM
+
+---
+
+## Conclusion
+
+For **Linux 6.18.44**, this commit fixes a legitimate LLVM/clang build
+breakage in MIPS CPS+MT SMP assembly code. It is small, maintainer-
+reviewed, applies cleanly, and matches an established in-file pattern.
+While the affected configuration is niche and the failure is at build
+time rather than runtime, **build fixes are explicitly appropriate for
+stable trees**, and LLVM support is increasingly important for kernel
+builds.
+
+**YES**The analysis is done for **Linux 6.18.44**.
+
+**Commit:** `e5d64f868e484` — *mips: cps: Assemble jr.hb with an R2 ISA
+level*
+
+**Problem:** With LLVM/clang and `CPU_MIPS32_R1` + `MIPS_MT_SMP` (e.g.
+MIPS `allmodconfig`), two `jr.hb` instructions in `arch/mips/kernel/cps-
+vec.S` fail assembly because they sit outside a `.set
+MIPS_ISA_LEVEL_RAW` scope.
+
+**Fix:** Wrap those two sites in the same ISA-level push/pop used
+elsewhere in the file (+6 lines, one file). Reviewed by Maciej W.
+Rozycki; applies cleanly to this tree; the unfixed code is still present
+in 6.18.44.
+
+**Verdict:** **YES** — small, maintainer-reviewed build fix with very
+low risk.
+
+ arch/mips/kernel/cps-vec.S | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/arch/mips/kernel/cps-vec.S b/arch/mips/kernel/cps-vec.S
+index 2ae7034a3d5c4..70413c816eb03 100644
+--- a/arch/mips/kernel/cps-vec.S
++++ b/arch/mips/kernel/cps-vec.S
+@@ -373,8 +373,11 @@ LEAF(mips_cps_boot_vpes)
+ 	.set	pop
  
-@@ -7753,7 +7753,7 @@ void rt_mutex_setprio(struct task_struct *p, struct task_struct *pi_task)
- 	if (prev_class != next_class)
- 		queue_flag |= DEQUEUE_CLASS;
+ 	PTR_LA	t1, 1f
++	.set	push
++	.set	MIPS_ISA_LEVEL_RAW
+ 	jr.hb	t1
+ 	 nop
++	.set	pop
+ 1:	mfc0	t1, CP0_MVPCONTROL
+ 	ori	t1, t1, MVPCONTROL_VPC
+ 	mtc0	t1, CP0_MVPCONTROL
+@@ -487,8 +490,11 @@ LEAF(mips_cps_boot_vpes)
+ 	li	t0, TCHALT_H
+ 	mtc0	t0, CP0_TCHALT
+ 	PTR_LA	t0, 1f
++	.set	push
++	.set	MIPS_ISA_LEVEL_RAW
+ 1:	jr.hb	t0
+ 	 nop
++	.set	pop
  
--	scoped_guard (sched_change, p, queue_flag) {
-+	scoped_guard (sched_change, p, next_class, queue_flag) {
- 		/*
- 		 * Boosting condition are:
- 		 * 1. -rt task is running and holds mutex A
-@@ -8430,7 +8430,7 @@ int migrate_task_to(struct task_struct *p, int target_cpu)
- void sched_setnuma(struct task_struct *p, int nid)
- {
- 	guard(task_rq_lock)(p);
--	scoped_guard (sched_change, p, DEQUEUE_SAVE)
-+	scoped_guard (sched_change, p, p->sched_class, DEQUEUE_SAVE)
- 		p->numa_preferred_nid = nid;
- }
- #endif /* CONFIG_NUMA_BALANCING */
-@@ -9548,7 +9548,7 @@ void sched_move_task(struct task_struct *tsk, bool for_autogroup)
- 	CLASS(task_rq_lock, rq_guard)(tsk);
- 	rq = rq_guard.rq;
+ 2:
  
--	scoped_guard (sched_change, tsk, queue_flags) {
-+	scoped_guard (sched_change, tsk, tsk->sched_class, queue_flags) {
- 		sched_change_group(tsk);
- 		if (!for_autogroup)
- 			scx_cgroup_move_task(tsk);
-@@ -11252,7 +11252,9 @@ static inline void sched_mm_cid_fork(struct task_struct *t) { }
- 
- static DEFINE_PER_CPU(struct sched_change_ctx, sched_change_ctx);
- 
--struct sched_change_ctx *sched_change_begin(struct task_struct *p, unsigned int flags)
-+struct sched_change_ctx *
-+sched_change_begin(struct task_struct *p, const struct sched_class *next_class,
-+		   unsigned int flags)
- {
- 	struct sched_change_ctx *ctx = this_cpu_ptr(&sched_change_ctx);
- 	struct rq *rq = task_rq(p);
-diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
-index 10af28a9f2c0c..00c368e2fc82d 100644
---- a/kernel/sched/ext/ext.c
-+++ b/kernel/sched/ext/ext.c
-@@ -6159,7 +6159,8 @@ void scx_bypass(struct scx_sched *sch, bool bypass)
- 				scx_task_slice_ended(rq, p);
- 
- 			/* cycling deq/enq is enough, see the function comment */
--			scoped_guard (sched_change, p, DEQUEUE_SAVE | DEQUEUE_MOVE) {
-+			scoped_guard (sched_change, p, p->sched_class,
-+				      DEQUEUE_SAVE | DEQUEUE_MOVE) {
- 				/* nothing */ ;
- 			}
- 		}
-@@ -6441,7 +6442,7 @@ static void scx_root_disable(struct scx_sched *sch)
- 		if (old_class != new_class)
- 			queue_flags |= DEQUEUE_CLASS;
- 
--		scoped_guard (sched_change, p, queue_flags) {
-+		scoped_guard (sched_change, p, new_class, queue_flags) {
- 			p->sched_class = new_class;
- 		}
- 
-@@ -7802,7 +7803,7 @@ static void scx_root_enable_workfn(struct kthread_work *work)
- 		if (old_class != new_class)
- 			queue_flags |= DEQUEUE_CLASS;
- 
--		scoped_guard (sched_change, p, queue_flags) {
-+		scoped_guard (sched_change, p, new_class, queue_flags) {
- 			scx_set_task_slice(p, READ_ONCE(sch->slice_dfl));
- 			p->sched_class = new_class;
- 		}
-diff --git a/kernel/sched/ext/sub.c b/kernel/sched/ext/sub.c
-index 0554448835bd0..c3955c8163a03 100644
---- a/kernel/sched/ext/sub.c
-+++ b/kernel/sched/ext/sub.c
-@@ -1255,7 +1255,8 @@ static void scx_rehome_task(struct scx_sched *to, struct task_struct *p)
- 	lockdep_assert_held(&p->pi_lock);
- 	lockdep_assert_rq_held(task_rq(p));
- 
--	scoped_guard (sched_change, p, DEQUEUE_SAVE | DEQUEUE_MOVE) {
-+	scoped_guard (sched_change, p, p->sched_class,
-+		      DEQUEUE_SAVE | DEQUEUE_MOVE) {
- 		scx_disable_and_exit_task(scx_task_sched(p), p);
- 		scx_set_task_state(p, SCX_TASK_INIT_BEGIN);
- 		scx_set_task_state(p, SCX_TASK_INIT);
-@@ -1285,7 +1286,8 @@ static void scx_punt_task(struct scx_sched *to, struct task_struct *p)
- 	lockdep_assert_rq_held(task_rq(p));
- 	WARN_ON_ONCE(!READ_ONCE(to->bypass_depth));
- 
--	scoped_guard (sched_change, p, DEQUEUE_SAVE | DEQUEUE_MOVE) {
-+	scoped_guard (sched_change, p, p->sched_class,
-+		      DEQUEUE_SAVE | DEQUEUE_MOVE) {
- 		scx_disable_and_exit_task(scx_task_sched(p), p);
- 		scx_set_task_sched(p, to);
- 	}
-@@ -1939,7 +1941,8 @@ void scx_sub_enable_workfn(struct kthread_work *work)
- 		if (!(p->scx.flags & SCX_TASK_SUB_INIT))
- 			continue;
- 
--		scoped_guard (sched_change, p, DEQUEUE_SAVE | DEQUEUE_MOVE) {
-+		scoped_guard (sched_change, p, p->sched_class,
-+			      DEQUEUE_SAVE | DEQUEUE_MOVE) {
- 			/*
- 			 * $p must be either READY or ENABLED. If ENABLED,
- 			 * __scx_disabled_and_exit_task() first disables and
-diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
-index e656c7059bf86..6bba1f3b5d4cd 100644
---- a/kernel/sched/sched.h
-+++ b/kernel/sched/sched.h
-@@ -4240,13 +4240,16 @@ struct sched_change_ctx {
- 	bool			running;
- };
- 
--struct sched_change_ctx *sched_change_begin(struct task_struct *p, unsigned int flags);
-+struct sched_change_ctx *
-+sched_change_begin(struct task_struct *p, const struct sched_class *next_class,
-+		   unsigned int flags);
- void sched_change_end(struct sched_change_ctx *ctx);
- 
- DEFINE_CLASS(sched_change, struct sched_change_ctx *,
- 	     sched_change_end(_T),
--	     sched_change_begin(p, flags),
--	     struct task_struct *p, unsigned int flags)
-+	     sched_change_begin(p, next_class, flags),
-+	     struct task_struct *p, const struct sched_class *next_class,
-+	     unsigned int flags)
- 
- DEFINE_CLASS_IS_UNCONDITIONAL(sched_change)
- 
-diff --git a/kernel/sched/syscalls.c b/kernel/sched/syscalls.c
-index b215b0ead9a60..bc32ce76ff4fe 100644
---- a/kernel/sched/syscalls.c
-+++ b/kernel/sched/syscalls.c
-@@ -85,7 +85,7 @@ void set_user_nice(struct task_struct *p, long nice)
- 		return;
- 	}
- 
--	scoped_guard (sched_change, p, DEQUEUE_SAVE) {
-+	scoped_guard (sched_change, p, p->sched_class, DEQUEUE_SAVE) {
- 		p->static_prio = NICE_TO_PRIO(nice);
- 		set_load_weight(p, true);
- 		old_prio = p->prio;
-@@ -678,7 +678,7 @@ int __sched_setscheduler(struct task_struct *p,
- 	if (prev_class != next_class)
- 		queue_flags |= DEQUEUE_CLASS;
- 
--	scoped_guard (sched_change, p, queue_flags) {
-+	scoped_guard (sched_change, p, next_class, queue_flags) {
- 
- 		if (!(attr->sched_flags & SCHED_FLAG_KEEP_PARAMS)) {
- 			__setscheduler_params(p, attr);
 -- 
-2.55.0
+2.53.0
 
