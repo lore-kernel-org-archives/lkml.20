@@ -1,40 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 604B737B3F2;
-	Mon, 31 Aug 2026 19:43:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C3F9377AAE;
+	Mon, 31 Aug 2026 19:44:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788205394; cv=none; b=ZnUMOllPM6pF0cWqlbItAfCROmGEQ4tZ7funxBj0VJq/76ko+5rRSuiAPvaEvtO6gYiV23r47pQMl0Nrz3OfSNMb53bPKC27/IelwFaL4eSRuKhv0EvZlGfWkPUdlb74rWrnV+7x9FflOB3blTTw0g+6qjNkbAvQ8IYLN9JRIU8=
+	t=1788205468; cv=none; b=mseXwxY5GElwf/ZVwSlXGhTp4YObjIDwxD3nRUd/NUumZnK1LMWV01NuZ0ohhHPOyfZc+dNPc6VkQRU3q1aO3AllxY88l/1dzk6p7IcTR1597UCH7KzQwwh3U8WautQAJYWGI+WnrpRU+tXE3CpLsVqN3UU2EnZA2KvpIcKokRQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788205394; c=relaxed/simple;
-	bh=HSOzL9f3fJbBUWZTjEoErPW5oKElSQARMiuLctOP2Nw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Tv0kboSHDH1bpJunl91dOeKsJ/0qMMcF/eF/TjSpAtJWNlawvO6iasZhkKW+XQB7FPROJ1lsFanXsb1zXybKT4e7TecZTcs9Y4QXpt3VYr3vdrrmkJFXHgmYLYmhdtOxz+fvh4pyYhY0EjoX5oKrWIYNx4jPofjiIPL589nnXbw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WyGaFkE+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788205468; c=relaxed/simple;
+	bh=WaI+eKV4DR5mUmT1E+fqoerjniSdCFN3Rd3imyHMaa8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BSvDPrAQopdBqANEkFqwCrYUx9zCpHFLrRGxPpgnkz6G23LZiHI+X+1YxSL48hx6WszVVZgleEvvH6WWsqlPMbRpkozygt8XN+R4vpg76ai8LB37jU4l9xxYH0AJmams836pN2VCmS3Xzri77gVaAzgcTu9uwa3rBsCgJ/WA/DM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=krgxc2lP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WyGaFkE+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A62A1F000E9;
-	Mon, 31 Aug 2026 19:43:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="krgxc2lP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9BAFA1F00ACF;
+	Mon, 31 Aug 2026 19:44:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788205392;
-	bh=Q4S/Ao/HKfFy6Z/FkTaXBxHMPcpWN9SR5Guu9JVSIGc=;
+	s=k20260515; t=1788205466;
+	bh=wW4zXjGobP6AEfFVB/lI37dPwurLEMgPURkMjoyY0is=;
 	h=From:To:Cc:Subject:Date;
-	b=WyGaFkE+nolkG4PBl99o5zXld0Cvk/Bg3iwrQ6z/vudHU/SAFUrcG597o+OCmh4qP
-	 EROQ8VVFwg+Ebore1wrvr9gUHJ1G8DsA4Ny9+KLxN0bjAEXFdSMUxl4YWV0wP7pn7b
-	 gup8ZWP3BnM8ldW00tQJt7IQvo1YUB6W5vWc1313MahESgQR/HcEfZZNoKS166QcwV
-	 Khs63vDiWnaAzOFjgStLoQT5y2R+iDMPTO2q7JABjgl6+tQ5lVMtVibZPXWSiqcY4C
-	 3BPUS+TgmrEhfoii8Sw7wH1teEt7JII1BW4u+/bb3bMP9grrnme1/JzfkvFnwjNbJY
-	 UgdGjbo0rhk0w==
+	b=krgxc2lPL4XsVh2ZFvFGC3CtxQ8oQ9MSZr4Rjh5cUjgINwsMbyGfQobhJHWE/ePSI
+	 8dQBXvl3cfCyNmLLFdXlFRslhtvHqvHMJnLh5AbZQLqULAD9Te6ykXtrmO+sUEhGJ/
+	 Xi1YgTX3vBNwOMhpGYSVBlwAjm3OG91Plp9CBnFEGDkRpB11BpuPPPHJKxPUNFrKQp
+	 Np+HLIwTOK3mb25sBCMywAhVOEayP06n8ySi1Ha+7MNnkL27nDa8kVMUEetfTcrlmL
+	 wuu6d0rSAqfGIezrB8KP6hZO2OQkEXjpClS30GyhU7NEfd1vb8NqCJQWK25qsbLzIE
+	 mV6Y1lJaFD2oA==
 From: "Rob Herring (Arm)" <robh@kernel.org>
-To: "Rafael J. Wysocki" <rafael@kernel.org>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Zhang Rui <rui.zhang@intel.com>,
-	Lukasz Luba <lukasz.luba@arm.com>
-Cc: linux-pm@vger.kernel.org,
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: linux-input@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [RESEND PATCH] thermal: of: Match trip property helper types
-Date: Mon, 31 Aug 2026 14:42:35 -0500
-Message-ID: <20260831194235.1182138-1-robh@kernel.org>
+Subject: [RESEND PATCH] Input: tsc2007 - Read "ti,poll-period" as u32
+Date: Mon, 31 Aug 2026 14:43:51 -0500
+Message-ID: <20260831194352.1185860-1-robh@kernel.org>
 X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -44,54 +41,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The thermal-zone binding defines "temperature" as a signed int32
-value and "hysteresis" as an unsigned int32 value. Using helpers with
-matching types avoids dt_property_check mismatches and preserves the
-signed interpretation needed for trips below zero.
+The "ti,poll-period" property is documented as a normal uint32 cell.
+The driver used a u64 helper, which makes the helper type disagree with
+the schema even though the stored value is still small.
 
-Read "temperature" with the signed helper and keep "hysteresis" on the
-unsigned helper using separate typed temporaries before storing them in
-the trip structure.
+Read "ti,poll-period" with the u32 helper matching the documented DT
+cell size.
 
 Assisted-by: Codex:gpt-5-5
 Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
 ---
- drivers/thermal/thermal_of.c | 11 ++++++-----
- 1 file changed, 6 insertions(+), 5 deletions(-)
+ drivers/input/touchscreen/tsc2007_core.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/thermal/thermal_of.c b/drivers/thermal/thermal_of.c
-index 0217a49b08ae..deaae7a995c5 100644
---- a/drivers/thermal/thermal_of.c
-+++ b/drivers/thermal/thermal_of.c
-@@ -63,22 +63,23 @@ static int thermal_of_get_trip_type(struct device_node *np,
- static int thermal_of_populate_trip(struct device_node *np,
- 				    struct thermal_trip *trip)
+diff --git a/drivers/input/touchscreen/tsc2007_core.c b/drivers/input/touchscreen/tsc2007_core.c
+index e4d7da0f4434..e2f49b37e18c 100644
+--- a/drivers/input/touchscreen/tsc2007_core.c
++++ b/drivers/input/touchscreen/tsc2007_core.c
+@@ -221,7 +221,6 @@ static int tsc2007_get_pendown_state_gpio(struct device *dev)
+ static int tsc2007_probe_properties(struct device *dev, struct tsc2007 *ts)
  {
--	int prop;
-+	u32 hysteresis;
-+	s32 temperature;
- 	int ret;
+ 	u32 val32;
+-	u64 val64;
  
--	ret = of_property_read_u32(np, "temperature", &prop);
-+	ret = of_property_read_s32(np, "temperature", &temperature);
- 	if (ret < 0) {
- 		pr_err("missing temperature property\n");
- 		return ret;
- 	}
--	trip->temperature = prop;
-+	trip->temperature = temperature;
+ 	if (!device_property_read_u32(dev, "ti,max-rt", &val32))
+ 		ts->max_rt = val32;
+@@ -237,8 +236,8 @@ static int tsc2007_probe_properties(struct device *dev, struct tsc2007 *ts)
+ 	if (!device_property_read_u32(dev, "ti,fuzzz", &val32))
+ 		ts->fuzzz = val32;
  
--	ret = of_property_read_u32(np, "hysteresis", &prop);
-+	ret = of_property_read_u32(np, "hysteresis", &hysteresis);
- 	if (ret < 0) {
- 		pr_err("missing hysteresis property\n");
- 		return ret;
- 	}
--	trip->hysteresis = prop;
-+	trip->hysteresis = hysteresis;
+-	if (!device_property_read_u64(dev, "ti,poll-period", &val64))
+-		ts->poll_period = msecs_to_jiffies(val64);
++	if (!device_property_read_u32(dev, "ti,poll-period", &val32))
++		ts->poll_period = msecs_to_jiffies(val32);
+ 	else
+ 		ts->poll_period = msecs_to_jiffies(1);
  
- 	ret = thermal_of_get_trip_type(np, &trip->type);
- 	if (ret < 0) {
 -- 
 2.53.0
 
