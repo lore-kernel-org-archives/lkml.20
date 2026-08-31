@@ -1,101 +1,160 @@
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D931335C696
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 05:29:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D0B132AD16;
+	Mon, 31 Aug 2026 05:31:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788154154; cv=none; b=GJJyqEkaplfu2R8/LUkwi4errEWAoYv9QSVOw2G3bhQ9NwXPCg8jTKyfzbmkKtJdDOHIQqkwAo2Z768ptk0ANWY34MCd+k9soOuJLk9Tuzv1yxG8zaX2n53P/xUV0CH2scCt/3WIzbGZpM/llMOirXplE85x0b/t3xYdjPZGMo0=
+	t=1788154278; cv=none; b=lJ+rEbVEHq/WaMy4bwdiHBYccOoJz2pkmm5BIHa2RBlKzGk45sgGW9DB93o6iXx1eOMUDgG2i2V9v33ntiSKXnBfYtpWr7ci5It5hkLGuSA+2GM7IygaHsC7ZKPazCEI03aurj77jjyznMjQ8oRUvyWu5KC7uJcnhUJzQg3imo0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788154154; c=relaxed/simple;
-	bh=f5j4hIxopVe9dqBkAdMBlPfS2+vnW55+OaBP5zbinTY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=o/mCSrhRnYW2asjrll/gr5e5nDYZwFdyLA6lS7z8xZ+HqGmOe0yNEHYT5e0oy1xo7OmAbji5sxyQUrL2y5o5ynplJeus/8NDDqvINwRW8otaJ2m88kX2NeRaSs4LZ8zMiQdDHGteLS6TjV8ojhOUDsz4aLWd55INd6XiWa80V7M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=RqKFnQMD; arc=none smtp.client-ip=209.85.214.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1788154278; c=relaxed/simple;
+	bh=LCsSCuuOPY1pn3BqTdBch58ysMowYY/iG3gsfJSXPkc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=u7j48y5dBTBAl2RHoli8sGEFZPx7qpJLYhXuT0tBeSFxIg7KCAPpFcOOMyujqBo8CYjV9CrHxFbPEq4MGNayB2X1vLROioXKLpcZ2Vz0dSgLbKjqrcU6pevTzT3NEWhVtxyZaUbfKD55htwUGwccc+bQUH561pk/uNQMyPeu5B0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=qjqZ77Ix; arc=none smtp.client-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="RqKFnQMD"
-Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2d5335cf904so28933745ad.2
-        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 22:29:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1788154152; x=1788758952; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=QEL2VbN1y+PU3YvPygq8npMdJ9wl/ZS6P++bwrOJdII=;
-        b=RqKFnQMDBUrLFAC7LXTLhcu3boVbGASnB56TGQ8Pi653msxocylrVrJ11MQM/H2jIE
-         VA0Kt6EfCltuKGvT2J6grNW3eJW9qKTiXmw/Bc3N60hjZeHNYxzZHnq35Oj0zK7ZToQt
-         LGMFYLBsuRurwbiK0FgwFLU+orCTZ6hr/MHOnKz3Ifgl48EMMwwR/x19YgO7VkaltHG/
-         Orwvvb7ywp1Iv1Zj4TqV4Zlp0w+yo/eTF2Yme9/Nylf85O272pEKp1RENbU/d7GtsRAn
-         eiW2lZvu4s8jcHoRm9GtW2bY3JgIpXAkwLOY3IbmDlGmBtsga1YaG/WtVTFgP40Z+fSj
-         rRJA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788154152; x=1788758952;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=QEL2VbN1y+PU3YvPygq8npMdJ9wl/ZS6P++bwrOJdII=;
-        b=OKb4tPjrFJsU/dxjPUVVFE3OVypHRj88MP74NBvXPtuoWOWtCXbYztD2cAnWTV0790
-         qseirujNkJ5NUAtdBZ+q76wcHyAFVYu8mN3cK/avlz4FKGAbnLha+UujiyIVz2z+2UNU
-         3Tysj+hw03lxsMWR9iY6MwJzvShzcYylvxe7C1eagAFuC2rPZ1Z5tHVJBCKBfuOcbrU2
-         tkTcfl4f6ivvzspKRIe1NAXn4r4ko22IH4eFbDZcQwfq53p43u1xqovchPQTozDOAREy
-         cPYfIuBH62IHgEuQsQwUgV50pgErtlrzaWueZTWfAz8T4FBr7+YfVU3t2xIE+hVLxD7V
-         u6oA==
-X-Forwarded-Encrypted: i=1; AHgh+Rr41doBN6YsW5K8Rl37YXFJ9rRMiabEF2soJRKoJGN6e6RcZeJoC4GstKx96TBj/1ljPz2uPnNu/vviQBU=@vger.kernel.org
-X-Gm-Message-State: AFuF++l9+9kgNeaJd9wNJvtm+CldCrqv3xc4BCvFq/uJzVv2Xc6zVy0G
-	WtXDocImUEuaGAthz57Def8xHw0GWKBKR2R7vIo9UrDCHufxsK9y3kZHWCzqoGPZmA0=
-X-Gm-Gg: AR+sD13jhuyTqNoAqN+uuRMyW8Pj47kuiGPBvas4YE+0edigiziS5yM8vy94ZOMTq6B
-	Uu6G0KeUSi2YI0JmNm/eA85sBKPZBAFQCuOQ1nTP8mzWoc7zzqj0Jx+BoerKt2PHRaAy6uLcTDg
-	DlS56oCwyc5gAusU2ubTe4GRFFMIv0D+wCYu2qJe7I9s3croFqE+mul0wJnufsbhBqRYGwFPIO8
-	J295cqUUJWqsX8EO5LD/W1GipNuGgpBk5v1aR4UYcpeFbWK5DUcTdQZv6Su2xpbxF1tQNzxL9to
-	eA2GD0UJoFzrOiFzh+jC4fLsUS2bNe9jeDso4SdFJSX6rdT4Q0kswUJhbB55Y1+AtQGultbZc+M
-	0PqrBls/wRP8u0oijwBbmFoTdEimdcqUiIwrbuKfkLEKjkc2yjI1QrboChTQsokPOIW63Dw49fV
-	Ro26h1EUA8fnnvAg3XQZALth1TUdd2BWORNz2UiGqbLHAVKzN947Y5jPvengqmO7o=
-X-Received: by 2002:a17:903:11c9:b0:2d8:d4cc:be62 with SMTP id d9443c01a7336-2d93fa24005mr12660775ad.15.1788154152024;
-        Sun, 30 Aug 2026 22:29:12 -0700 (PDT)
-Received: from localhost ([122.172.87.224])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-32b5bef7683sm12379462eec.12.2026.08.30.22.29.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 30 Aug 2026 22:29:11 -0700 (PDT)
-Date: Mon, 31 Aug 2026 10:59:08 +0530
-From: Viresh Kumar <viresh.kumar@linaro.org>
-To: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Cc: rafael@kernel.org, linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org, jianhao.xu@seu.edu.cn,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] cpufreq: initialize policy rwsem before sysfs publication
-Message-ID: <apURJD6v92pMNKbJ@vireshk-B250M-D3H>
-References: <20260830155301.2713780-1-runyu.xiao@seu.edu.cn>
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="qjqZ77Ix"
+Received: from [10.95.65.30] (unknown [52.172.102.253])
+	by linux.microsoft.com (Postfix) with ESMTPSA id B271220B7168;
+	Sun, 30 Aug 2026 22:30:31 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com B271220B7168
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1788154234;
+	bh=rfO41nkJiRiqETYIHaR71M3ZSyMwQzOASX5L1tk/MB8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=qjqZ77IxPum1qzTgmXyYgJH1GlzaTbqty2npwQDHwPNe1dzfSulxF4xskZU5Mr/0R
+	 qKa4UE9mafvgW2gJ5kBj0rq5ouxwS8V+SfECBG3ztny3dLkicz76Ner2PVdmJYXt74
+	 tX25KYWAbhmrdE6E2fT7RNsv2vM+WjNzmitLWezQ=
+Message-ID: <fa1b65fb-3f77-4089-8928-e4b8c656759f@linux.microsoft.com>
+Date: Mon, 31 Aug 2026 11:01:03 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260830155301.2713780-1-runyu.xiao@seu.edu.cn>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] lib/group_cpus: rotate extra groups to avoid IRQ
+ stacking
+To: Michael Kelley <mhklinux@outlook.com>,
+ Andrew Morton <akpm@linux-foundation.org>, Thomas Gleixner
+ <tglx@kernel.org>, Ming Lei <tom.leiming@gmail.com>,
+ Ming Lei <ming.lei@redhat.com>
+Cc: Wangyang Guo <wangyang.guo@intel.com>, Tianyou Li <tianyou.li@intel.com>,
+ Tim Chen <tim.c.chen@linux.intel.com>, Long Li <longli@microsoft.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>
+References: <20260810062144.2108758-1-namjain@linux.microsoft.com>
+ <SN6PR02MB415735EB56D0EBEAC606282DD4AE2@SN6PR02MB4157.namprd02.prod.outlook.com>
+ <ffd568dc-8292-43c4-b425-a68047a40c8e@linux.microsoft.com>
+ <SN6PR02MB4157F84374BFA68158E0D85AD4AA2@SN6PR02MB4157.namprd02.prod.outlook.com>
+Content-Language: en-US
+From: Naman Jain <namjain@linux.microsoft.com>
+In-Reply-To: <SN6PR02MB4157F84374BFA68158E0D85AD4AA2@SN6PR02MB4157.namprd02.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 30-08-26, 23:53, Runyu Xiao wrote:
-> cpufreq_policy_alloc() initializes policy->rwsem after
-> kobject_init_and_add() has created the policy sysfs directory and its
-> default attributes. A sysfs access can therefore reach a policy callback
-> before the semaphore has been initialized.
+
+
+On 8/31/2026 5:27 AM, Michael Kelley wrote:
+> From: Naman Jain <namjain@linux.microsoft.com> Sent: Thursday, August 27, 2026 2:11 AM
+>>
+>> On 8/26/2026 7:31 AM, Michael Kelley wrote:
+>>> From: Naman Jain <namjain@linux.microsoft.com> Sent: Sunday, August 9, 2026 11:22 PM
+>>>
+>>> [snip]
+>>>
+>>>> @@ -510,6 +633,8 @@ struct cpumask *group_cpus_evenly(unsigned int numgrps, unsigned int *nummasks)
+>>>>    	if (!masks)
+>>>>    		goto fail_node_to_cpumask;
+>>>>
+>>>> +	spread_offset = (unsigned int)atomic_fetch_inc(&group_spread_cnt);
+>>>> +
+>>>>    	build_node_to_cpumask(node_to_cpumask);
+>>>>
+>>>
+>>> One additional observation:  In my testing, group_cpus_evenly() is
+>>> often called with numgrps set to 1. This happens in the block "loop"
+>>> devices (drivers/block/loop.c) and for the NVMe admin queue. In
+>>> these cases, the spread_offset is never used, but group_spread_cnt
+>>> gets incremented anyway. Incrementing for NVMe admin queues
+>>> tends to dirty the spreading for multiple NVMe devices with the
+>>> same configuration because it is usually interleaved with the
+>>> spreading of the main NVMe I/O queues.
+>>>
+>>> To improve this, I changed the above code to this:
+>>>
+>>> +       if (numgrps == 1)
+>>> +               spread_offset = 0;
+>>> +       else
+>>> +               spread_offset = (unsigned int)atomic_fetch_inc(&group_spread_cnt);
+>>>
+>>> With this change, my configuration #1 (Azure L48s v2 VM) is noticeably
+>>> better.  All CPUs in NUMA node 1 have either 3 or 4 IRQs assigned. NUMA
+>>> node 0 ranges from 3 to 5 IRQs, but that's partly because the NUMA
+>>> nodes themselves aren't balanced, as previously discussed. With your
+>>> change to apply group_spread_cnt to the NUMA nodes, and my change
+>>> above, my config #1 is likely to work out very near optimal. Of course,
+>>> there's no guarantee that some other device won't increment
+>>> group_spread_cnt and dirty things, but for the typical case it probably
+>>> works very well.
+>>>
+>>
+>> Thanks for the suggestion, I tried this and it works fine.
+>>
+>>> This change to skip incrementing group_spread_cnt when numgrps == 1
+>>> doesn't help my arm64 configs. I'm still thinking about ways to do better
+>>> when there aren't any clusters. I have an idea that I'm experimenting
+>>> with, but it may be a few more days before I reach any conclusions.
+>>>
 > 
-> Initialize policy->rwsem before publishing the policy kobject so sysfs
-> callbacks always see an initialized semaphore.
+> I finally figured out why arm64 is different from x86. By adding a
+> kernel boot line parameter for controlling the number of NVMe queues
+> per controller (for experimentation only), I could construct identical
+> configs on x86 and arm64.  And even though the clustering is
+> different, group_cpus_evenly() returns exactly the same set of
+> cpumasks on the two architectures. So the clustering difference
+> isn't the reason for the poor spreading on arm64.
 > 
-> Fixes: ad7722dab729 ("cpufreq: create per policy rwsem instead of per CPU cpu_policy_rwsem")
-> Cc: stable@vger.kernel.org
-> Assisted-by: Codex:GPT-5
-> Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
-> ---
->  drivers/cpufreq/cpufreq.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+> My experiments have been mostly cases where the number of NVMe
+> queues is small compared with the number of CPUs -- e.g., 6 NVMe
+> queues on each controller in a VM with 96 CPUs. In this example,
+> there are 16 CPUs in the cpumask for each queue. That set of 16
+> CPUs is the smp_affinity for the IRQ and is the same for both
+> architectures. But determining the single CPU that is the
+> effective_affinity is different. The x86 APIC vector code must load
+> balance assignments across CPUs because each x86 CPU has a
+> limited number of vectors available. At a result, x86 spreads out
+> which CPU in the set of 16 becomes the effective_affinity. But arm64
+> does not. The GICv3 function gic_set_affinity() always picks the
+> 1st CPU in the set of 16 CPUs. So the NVMe IRQs get stacked on
+> the same 6 CPUs and the other 90 CPUs get none.
+> 
+> If the number of queues doesn't evenly divide into the number of
+> CPUs, then your patch provides a modest amount of spreading in
+> how the cpumasks are constructed, and the interrupt load gets
+> slightly more spread on the arm64 CPUs, but not nearly as well
+> as on x86.
+> 
+> I was previously aware of the vector load balancing done by
+> x86, but had never compared with what arm64 does. I had
+> to run a few experiments to have the light bulb come on in my
+> head. :-)  But I learned something so it was time well spent.
+> 
+> In any case, improving the spreading in such configurations
+> on arm64 probably isn't the job of group_cpus_evenly(). The
+> arm64 GIC code would need to do some spreading when
+> picking the effective_affinity from the CPUs in the affinity mask.
+> 
+> Michael
 
-Acked-by: Viresh Kumar <viresh.kumar@linaro.org>
+Thank you for looking into this and sharing this valuable information 
+Michael, it means a lot.
 
--- 
-viresh
+So for now, we have two enhancements - NUMA node level balancing and 
+additional (numgrps == 1) check.
+
+I'll make these changes, evaluate them and send them in next version.
+
+Regards,
+Naman
