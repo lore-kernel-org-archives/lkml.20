@@ -1,111 +1,135 @@
-Received: from mta0.migadu.com (out-77.mta0.migadu.com [91.218.175.77])
+Received: from mta1.migadu.com (out-230.mta1.migadu.com [95.215.58.230])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15F2B38E106
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 20:58:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.77
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7ADFF3803E8
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 21:01:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.230
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788209916; cv=none; b=ImKt+YiN4CgZNsk7nPNM6/nCHI9bBVt25T+SFr9inJoSbYnEOxLm6NxP6bwdRhI31ZSenPjMjNyxGLZECWFjFJeRQ8i/QKmCGBp8DeL9EESGFnUtbd25eU9bDHqUYHWFzdxgRJL1A3P1zD5OJMN0ovl3eVtOeM0KEkgweE6TETE=
+	t=1788210087; cv=none; b=Top2iq3hR9k+x5d/EIVmJtjJ6JSZcugKfvVCAOFWLVUcc9ncGKFthl5MaL2wcQnl0eNH2h6A1lYXYBFS/H23oyTY//08tCb7nF7cyq83Q1f5fMtWbUcxrcqXxV/vgqkfdfC1eQAr5AM3ruuboi4lGvTr5neO8yjBxK2MtLBUfmc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788209916; c=relaxed/simple;
-	bh=P4ssAPIr93jDaP0gK8av1LC/knMPc/5tVkS1Bfhdqgg=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=scMYeJJ4oQg2hxw7rZ9YxyL3qrnu7LfcvGR/I3lrFO/p+amSMwKKNG69iHhJxPPauQLkgxutO1XGmYeEWidbOCBio0NZUny065W/DqEnPP9P9/Vr78Mj7KUsnYTXrvlDCRnlHl4yjkSJDeXjRRpZJBdRqYyp2x/j38qJtU0a/68=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=gWqM+OAF; arc=none smtp.client-ip=91.218.175.77
+	s=arc-20240116; t=1788210087; c=relaxed/simple;
+	bh=GWmCf+O61tAOQqtKY80TtsOd0RzoToenooRbBEaWh10=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=RjyUycBjEBGKtGX8HvgAUOSYpgse7mL/gkHQy73McrwTXAuIVFt69Iam9EVw264d/Sf6E39ehDvuTSWLBkoAgltXZX53C1/GM3BwTAesTmDS1NZuCCiSt3NylYi2a298doyQGlVaj+7C3vAJs/a8a6XQSRdR5kHNtT1FdDDVpag=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=K4bU5rPm; arc=none smtp.client-ip=95.215.58.230
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="gWqM+OAF"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="K4bU5rPm"
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=P4ssAPIr93jDaP0gK8av1LC/knMPc/5tVkS1Bfhdqgg=;
+DKIM-Signature: a=rsa-sha256; bh=GWmCf+O61tAOQqtKY80TtsOd0RzoToenooRbBEaWh10=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788209911; v=1; x=1788814711;
- b=gWqM+OAFy7RMCJOjzN3L6BqHgCsTEuntO5mMKlQnDRf19G/HGanQOpvgq4J/Al6MSyF/kGTR
- q6ORFrnE2GCNJkTIgyOrzD/EYGzZ5dgUXXlRbiRUaxMPH1mSoQKzCIx4adFrVg82b2MFaxOWXJq
- JUpnVYc6BitQFnZSsSg2vCv8=
+ t=1788210082; v=1; x=1788814882;
+ b=K4bU5rPmVZvAK0VoQ8lFevM/E0qpJ7lWAK6myjYCBGzhisJcj33Ez/3lG//g7e7KgL5X13vo
+ T0fdCBlC8dS8r/f62UbuACRGAubjCdVVt09grDbc3jkCmwD50e9P1X8a+NLvyVQAMdEs1CjMriK
+ yL0/dYjIPMhHLYBYhV6X+5xU=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 704f2c154292a1ed;
-	Mon, 31 Aug 2026 20:58:30 +0000
-X-Mizu-Trace-ID: 704f2c154292a1ed
+Received: by smtp.migadu.com with ESMTPS id cf44543441aa24a4;
+	Mon, 31 Aug 2026 21:01:22 +0000
+X-Mizu-Trace-ID: cf44543441aa24a4
 X-Migadu-Flow: FLOW_OUT
+Message-ID: <1896f171-ec63-48f2-9ef8-cb82d52f2c25@linux.dev>
+Date: Mon, 31 Aug 2026 14:01:12 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH bpf v3 1/5] bpf: Reject key-less BTF for hash maps
+To: Jiayuan Chen <jiayuan.chen@linux.dev>, bpf@vger.kernel.org
+Cc: syzbot+37b56485bbbf90ad8489@syzkaller.appspotmail.com,
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+ Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
+ Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>,
+ Emil Tsalapatis <emil@etsalapatis.com>, Shuah Khan <shuah@kernel.org>,
+ Mykyta Yatsenko <yatsenko@meta.com>, Alan Maguire <alan.maguire@oracle.com>,
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
+References: <20260831110314.150870-1-jiayuan.chen@linux.dev>
+ <20260831110314.150870-2-jiayuan.chen@linux.dev>
+Content-Language: en-US
+From: Ihor Solodrai <ihor.solodrai@linux.dev>
+In-Reply-To: <20260831110314.150870-2-jiayuan.chen@linux.dev>
 Content-Type: text/plain; charset=UTF-8
-Date: Mon, 31 Aug 2026 20:58:29 +0000
-Message-Id: <DL3FIBQNP6AU.1HO08FMI292UX@linux.dev>
-Cc: "bpf" <bpf@vger.kernel.org>, "Alexei Starovoitov" <ast@kernel.org>,
- "Daniel Borkmann" <daniel@iogearbox.net>, "Andrii Nakryiko"
- <andrii@kernel.org>, "Martin KaFai Lau" <martin.lau@linux.dev>, "Eduard
- Zingerman" <eddyz87@gmail.com>, "Song Liu" <song@kernel.org>, "Yonghong
- Song" <yonghong.song@linux.dev>, "Jiri Olsa" <jolsa@kernel.org>, "KP Singh"
- <kpsingh@kernel.org>, "Emil Tsalapatis" <emil@etsalapatis.com>, "John
- Fastabend" <john.fastabend@gmail.com>, "Paul E. McKenney"
- <paulmck@kernel.org>, "Jose Fernandez" <jose.fernandez@linux.dev>, "LKML"
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH bpf] bpf: Keep progs alive until the trampoline image
- calling them is freed
-From: "Florent Revest" <florent.revest@linux.dev>
-To: "Kumar Kartikeya Dwivedi" <memxor@gmail.com>, "Alexei Starovoitov"
- <alexei.starovoitov@gmail.com>
-X-Mailer: aerc 0.17.0
-References: <20260819122252.1782790-1-florent.revest@linux.dev>
- <DL27QZ6SEZKT.1CV2HAX4A3WI4@gmail.com>
- <CAADnVQLxi-R1KDUXJJjpq69SpV8UcNJVqBi7uicO=V0WhAvyQA@mail.gmail.com>
- <DL2S878KSOI5.1SZMLIAWMCNUJ@gmail.com>
-In-Reply-To: <DL2S878KSOI5.1SZMLIAWMCNUJ@gmail.com>
+Content-Transfer-Encoding: 7bit
 
-On Mon Aug 31, 2026 at 2:43 AM UTC, Kumar Kartikeya Dwivedi wrote:
-> On Sun Aug 30, 2026 at 3:21 PM CEST, Alexei Starovoitov wrote:
-> > On Sun, Aug 30, 2026 at 3:41=E2=80=AFAM Kumar Kartikeya Dwivedi
-> > <memxor@gmail.com> wrote:
-> >>
-> >> Overall, looks good to me. Thanks for the fix!
-> >>
-> >> Acked-by: Kumar Kartikeya Dwivedi <memxor@gmail.com>
-> >>
-> >> Note for whoever applies this: please add Reported-by: tag for Sechang=
- as well.
-> >> Optionally, wordsmith the commit log with the suggestion above.
-> >
-> > Hold on. I don't think we can proceed with this fix.
-> > It defeats the point of fexit jmp patching and keeps progs
-> > pinned until a sleepable kernel function that were attached to
-> > will return. Which means that the tracing prog attached to "unlucky" ke=
-rnel
-> > function that sleeps for an hour will stay pinned for an hour.
-> > Let's think of a different way of fixing the race.
->
-> I don't have background on the original commit being fixed, but is that r=
-eally
-> realistic? Or worrisome even if it happens in practice, since worst case =
-the
-> program refcounts remains raised for that duration?
->
-> We have similar worst case for programs too (e.g. using bpf_copy_from_use=
-r on
-> user controlled buffer in, say, LSM progs). At least here we won't be ext=
-ending
-> any RCU flavored GP.
->
-> That said I will think about alternative fixes in the meantime, if we acc=
-ept the
-> premise that we don't want to pin program references in the image and kee=
-p their
-> lifetimes decoupled.
+On 8/31/26 4:01 AM, Jiayuan Chen wrote:
+> map_check_btf() allows a key-less BTF (btf_key_type_id == 0) only for
+> maps that have a ->map_check_btf callback, and leaves the actual
+> decision to that callback. Hash maps used to have no ->map_check_btf,
+> so a key-less BTF was rejected outright.
+> 
+> That changed when htab and rhtab gained a ->map_check_btf to register a
+> dtor - htab in commit 1df97a7453ee ("bpf: Register dtor for freeing
+> special fields") and rhtab in commit 6905f8601298 ("bpf: Allow special
+> fields in resizable hashtab"). Neither looks at the key, so a key-less
+> hash map now passes map_check_btf() and gets created. Reading it back
+> through bpffs feeds the key type_id 0 into btf_type_seq_show();
+> btf_type_by_id() returns the void type, kind_ops[BTF_KIND_UNKN] is NULL,
+> and btf_type_show() dereferences it:
+> 
+> KASAN: null-ptr-deref in range [0x0000000000000028-0x000000000000002f]
+> RIP: 0010:btf_type_show+0x223/0x2e0 kernel/bpf/btf.c:8232
+> Call Trace:
+>  <TASK>
+>  btf_type_seq_show_flags+0xca/0x120 kernel/bpf/btf.c:8250
+>  htab_map_seq_show_elem+0x12e/0x350 kernel/bpf/hashtab.c:1669
+>  map_seq_show+0x13d/0x1e0 kernel/bpf/inode.c:293
+>  seq_read_iter+0x93f/0x1270 fs/seq_file.c:196
+>  seq_read+0x344/0x4d0 fs/seq_file.c:163
+>  vfs_read+0x1e4/0xb40 fs/read_write.c:572
+>  __x64_sys_pread64+0x1eb/0x250 fs/read_write.c:769
+>  do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+>  entry_SYSCALL_64_after_hwframe+0x77/0x7f
+>  </TASK>
+> 
+> Reject a key-less BTF in htab_map_check_btf() and rhtab_map_check_btf(),
+> restoring the previous behavior.
+> 
+> Fixes: 1df97a7453ee ("bpf: Register dtor for freeing special fields")
+> Fixes: 6905f8601298 ("bpf: Allow special fields in resizable hashtab")
+> Reported-by: syzbot+37b56485bbbf90ad8489@syzkaller.appspotmail.com
+> Closes: https://lore.kernel.org/all/6a8f4e88.27659fcc.2ceef7.0008.GAE@google.com/T/
+> Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
+> ---
+>  kernel/bpf/hashtab.c | 8 ++++++++
+>  1 file changed, 8 insertions(+)
+> 
+> diff --git a/kernel/bpf/hashtab.c b/kernel/bpf/hashtab.c
+> index d40cb5dd446c..43123424183c 100644
+> --- a/kernel/bpf/hashtab.c
+> +++ b/kernel/bpf/hashtab.c
+> @@ -530,6 +530,10 @@ static int htab_map_check_btf(struct bpf_map *map, const struct btf *btf,
+>  {
+>  	struct bpf_htab *htab = container_of(map, struct bpf_htab, map);
+>  
+> +	/* Hash maps have no use for a key-less BTF. */
 
-How about having old trampolines skip freed programs instead of keeping
-them alive ?
+nit: I think this comment is unnecessary in both places.
 
-For example, bpf_tramp_image could hold one RCU managed prog pointer per
-prog it calls and we could JIT trampolines that'd pass that slot to
-__bpf_prog_enter*() instead of the prog itself.
+Other than that the fix makes sense to me, thanks.
 
-The enter helpers could rcu_dereference() the prog under their
-rcu_read_lock()/rcu_read_lock_trace() and return 0 when it is NULL.
-Would that work ?
+Acked-by: Ihor Solodrai <ihor.solodrai@linux.dev>
+
+> +	if (btf_type_is_void(key_type))
+> +		return -EINVAL;
+> +
+>  	if (htab_is_prealloc(htab))
+>  		return 0;
+>  	/*
+> @@ -3110,6 +3114,10 @@ static int rhtab_map_check_btf(struct bpf_map *map, const struct btf *btf,
+>  {
+>  	struct bpf_rhtab *rhtab = container_of(map, struct bpf_rhtab, map);
+>  
+> +	/* Hash maps have no use for a key-less BTF. */
+> +	if (btf_type_is_void(key_type))
+> +		return -EINVAL;
+> +
+>  	return bpf_ma_set_dtor(map, &rhtab->ma, rhtab_mem_dtor);
+>  }
+>  
+
