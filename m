@@ -1,47 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAD7250AC07;
-	Mon, 31 Aug 2026 13:42:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACA8550AC0F;
+	Mon, 31 Aug 2026 13:42:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183756; cv=none; b=lKoRUOxdHtaZrHPhWLp6pu3jUZSoCuuCXRKDuQPjcWGYcGcE06HhvPbHZpocMkbPn/AK4GXB/tSuXvp4KU5fZpqUwWLfKzdSBoWFkxDzqyVRY57F8gBeswfUk4UrjWvSmeoavZKhfvX5rX9Tl4Ee3vj2bElsJ/tcKnObltHjjsY=
+	t=1788183759; cv=none; b=NU98PHBAoIOuXCgcxE7y0/w1NOErsGPW/bVh+PSI5MnMnj6ezO27fh9nZIp9uRPBInZZ2LyA3ntl+5xVeLRrvSoG1kKSLu1q3G29iXZ2+wwr4+oUk4R4Li4G1jGtxmw4K4Vyus6ArGPgQuEOkNEF0nUXs1BeUn4Dt8qsAHgwbB4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183756; c=relaxed/simple;
-	bh=Nv1clVkTbwhmS1TNHrU9czEmQZYpscNee5+cCKWARTQ=;
+	s=arc-20240116; t=1788183759; c=relaxed/simple;
+	bh=ip3uqP6LdGCeo6Ef+SAp7a5Ks1NkrQKUZz+6IiTEs80=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=LseMLN6d41Z+ohxBY/XRsx0W5kxCV8PMnP4UztDpqqWKqWed22LXd7IYbR3RtAGQWyPhdDihiB/xmd5wSZwE8CKaHTb8Pqvg9bXVhEvFstmFG2JJTTtYHygXH53TvKmTRdYisVgd6+eoxkVGaB+CnOwAC2acaljBvxhTBt0eVjM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FcKc2ODv; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=pn8rGn0OtPLV/pXMeIb7gXH+uTdNoXyaK19j6NrMSg18tyt0wC4PWPbdJ8Y06CCKvE18Mw0z6fnUxQC3g3uXeu/YxFGqbCAtXYwedY0VbSZxqc7+55UbD/hkr0H3GzClHdQvvIcUzgdClTke9jloNvCRqhG0j8Y0rvdAGfMtYcM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ThDBZjMe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FcKc2ODv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13E001F00A3D;
-	Mon, 31 Aug 2026 13:42:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ThDBZjMe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D4E51F00A3E;
+	Mon, 31 Aug 2026 13:42:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788183753;
-	bh=UW5bx7oAdwutq6GKQNZ/Rv1t+ZX0mLZ7g6+04SdcEzA=;
+	s=k20260515; t=1788183756;
+	bh=1+5YrTWgODKYZ05UNQTznSRi30GcJMSjctnTqswf/wE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=FcKc2ODvchpj1Jn4SUSHf+YaVccnb1VKNXKvFyvV4sNZo8H+Zh7XVtkr6LHQcUFaK
-	 JAVB2BswhcnnAXW0tIZ4XuUcojCVdH+k4OymVogrofu1i9qDbBLrHbRbXLQdM26Aeu
-	 IyVrNqZlA1mqWkRInSZf+MpbCELw1yz78yMZkpZnX8BjhPL35cLf8YGzpaDOrgMBLa
-	 hsXWe3v1s4ge1OTsJBQ36KgdSETWivRoDYfQvN4mmx4Px2L+SA8EwfDjhNBl9BP/vP
-	 ro1TeY/Z+UHPIPdWf6XE9y3b76uKKGRfggKntxqeFhvggocz+7OQxP94XjExlofwlh
-	 vdMW/RJNVz35Q==
+	b=ThDBZjMe64Ji/2vZ//PlB5GSymlmJsPl0RBPCrzrB0zNIvd7fOWAmAICFgxWUZSuE
+	 DXjYJwWIyFGCr4gk2jbKGX1uy4Erro4vFBZPtvfQjivMz4SaGdLtyqnYNQo+Yrcxlw
+	 cT24gO37O+60OsJIKLDjjelxCFXtMOp6ww3sdPqKTaTOBobYPd2F6V5kqeIB/02P4d
+	 tkeXNWdRx+MjmqFp5V+NK4fTk1FWU5/ms37QfbRd7tskUgnhZ3pdaiFvD/LYds/Mn9
+	 XQT5Qb6mBsBeOVyJNfVBq+5hn/r+JAQ4oVcQH4c4uvkfO2NKZb8DUXKIo3f38zKqfV
+	 xbR3kTIT4KN6A==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: "Nikhil P. Rao" <nikhil.rao@amd.com>,
-	Jakub Kicinski <kuba@kernel.org>,
+Cc: Zhang Tianci <zhangtianci.1997@bytedance.com>,
+	Li Yichao <liyichao.1@bytedance.com>,
+	Miklos Szeredi <mszeredi@redhat.com>,
 	Sasha Levin <sashal@kernel.org>,
-	brett.creeley@amd.com,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	pabeni@redhat.com,
-	netdev@vger.kernel.org,
+	miklos@szeredi.hu,
+	fuse-devel@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-6.12] pds_core: quiesce DMA before freeing resources
-Date: Mon, 31 Aug 2026 09:25:11 -0400
-Message-ID: <20260831133314.4125787-283-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-5.10] fuse: set ff->flock only on success
+Date: Mon, 31 Aug 2026 09:25:13 -0400
+Message-ID: <20260831133314.4125787-285-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -57,392 +54,391 @@ X-stable-base: Linux 6.18.48
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: "Nikhil P. Rao" <nikhil.rao@amd.com>
+From: Zhang Tianci <zhangtianci.1997@bytedance.com>
 
-[ Upstream commit 6443f4f20bdae726fe01cf5946fba9742a0ffda6 ]
+[ Upstream commit 71947173cef279be5eed209ec28f8c11f9d73159 ]
 
-pdsc_teardown() frees DMA buffers but does not disable bus mastering,
-leaving the device able to perform DMA after the buffers are freed.
-This can lead to use-after-free if the device writes to freed memory.
+If FUSE_SETLK fails (e.g., due to EWOULDBLOCK), we shall not set
+FUSE_RELEASE_FLOCK_UNLOCK in fuse_file_release().
 
-Add pci_clear_master() to pdsc_teardown() to disable bus mastering
-before freeing resources, ensuring all DMA is quiesced.
-
-Add pci_set_master() to pdsc_setup() to re-enable bus mastering,
-which is needed for the firmware recovery path since pdsc_teardown()
-now disables it.
-
-Signed-off-by: Nikhil P. Rao <nikhil.rao@amd.com>
-Link: https://patch.msgid.link/20260604213637.3844317-1-nikhil.rao@amd.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Reported-by: Li Yichao <liyichao.1@bytedance.com>
+Signed-off-by: Zhang Tianci <zhangtianci.1997@bytedance.com>
+Signed-off-by: Miklos Szeredi <mszeredi@redhat.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-## Phase 1: Commit Message Forensics
+# Stable Backport Analysis: `fuse: set ff->flock only on success`
 
-**Step 1.1 — Subject line**
-- Record: `[pds_core] [quiesce] DMA before freeing resources` —
-  explicitly a DMA quiesce/safety fix in the AMD Pensando core driver.
-
-**Step 1.2 — Tags**
-- Record:
-  - `Signed-off-by: Nikhil P. Rao <nikhil.rao@amd.com>` (author)
-  - `Link: https://patch.msgid.link/20260604213637.3844317-1-
-    nikhil.rao@amd.com`
-  - `Signed-off-by: Jakub Kicinski <kuba@kernel.org>` (netdev
-    maintainer)
-  - No `Fixes:`, `Reported-by:`, `Tested-by:`, `Reviewed-by:`, `Cc:
-    stable@vger.kernel.org`
-  - Notable: netdev maintainer merge; no syzbot/fuzzer report
-
-**Step 1.3 — Body analysis**
-- Record:
-  - **Bug:** `pdsc_teardown()` frees DMA buffers without disabling PCI
-    bus mastering; device can still DMA into freed memory.
-  - **Symptom:** Use-after-free (device writes to freed DMA buffers).
-  - **Fix:** `pci_clear_master()` in `pdsc_teardown()` before resource
-    free; `pci_set_master()` in `pdsc_setup()` to restore bus mastering
-    for firmware recovery.
-  - **Root cause:** Teardown frees coherent DMA (`dma_free_coherent`)
-    while the PCI function remains bus-master enabled.
-
-**Step 1.4 — Hidden bug fix?**
-- Record: **No** — this is an explicit DMA UAF fix, not disguised
-  cleanup.
+**Local tree:** `v6.18.44-1-g2736c32da98b9` (6.18.44 stable, detached
+from `stable/linux-6.18.y`)
+**Commit under review:** `71947173cef279be5eed209ec28f8c11f9d73159`
+(mainline; **not yet in this tree**)
 
 ---
 
-## Phase 2: Diff Analysis
+## PHASE 1: COMMIT MESSAGE FORENSICS
 
-**Step 2.1 — Inventory**
-- Record:
-  - 1 file: `drivers/net/ethernet/amd/pds_core/core.c` (+4 net lines in
-    the provided diff; upstream diff also shows `cancel_work_sync`
-    context)
-  - Functions modified: `pdsc_setup()`, `pdsc_teardown()`
-  - Scope: single-file, surgical (2 functional lines: `pci_set_master`,
-    `pci_clear_master`)
+### Step 1.1: Parse the subject line
+**Record:** `[fuse]` `[set]` — set `ff->flock` only when `fuse_setlk()`
+succeeds, so failed flock attempts do not trigger unlock on file
+release.
 
-**Step 2.2 — Code flow per hunk**
+### Step 1.2: Parse all commit message tags
+**Record:**
+- **Reported-by:** Li Yichao `<liyichao.1@bytedance.com>` — real-world
+  reporter (ByteDance)
+- **Signed-off-by:** Zhang Tianci `<zhangtianci.1997@bytedance.com>`
+  (author)
+- **Signed-off-by:** Miklos Szeredi `<mszeredi@redhat.com>` (FUSE
+  maintainer, committer)
+- No Fixes:, Cc: stable, Link:, Tested-by:, Reviewed-by:, Acked-by:
 
-*Hunk 1 — `pdsc_setup()`*
-- Before: setup proceeds with bus master state unchanged.
-- After: explicitly re-enables bus mastering at start of setup.
-- Path: init error recovery (`pdsc_fw_up()` →
-  `pdsc_setup(PDSC_SETUP_RECOVERY)`), and normal setup after teardown
-  cleared master.
+Notable: maintainer committed the patch; reporter from production FUSE
+user.
 
-*Hunk 2 — `pdsc_teardown()`*
-- Before: reset → free queues/DMA (`pdsc_core_uninit`) → uninit device
-  resources.
-- After: reset → **disable bus mastering** → free queues/DMA.
-- Path: driver remove, setup error paths, firmware-down recovery.
+### Step 1.3: Analyze commit body
+**Record:**
+- **Bug:** `ff->flock = true` is set before `fuse_setlk()`. If
+  `FUSE_SETLK` fails (e.g. `-EWOULDBLOCK` for non-blocking flock),
+  `ff->flock` remains set.
+- **Symptom:** On `close()`, `fuse_file_release()` sets
+  `FUSE_RELEASE_FLOCK_UNLOCK` even though no flock was acquired.
+- **Failure mode:** Spurious flock unlock sent to the FUSE userspace
+  daemon on file release.
+- **Root cause:** Flag tracks intent to lock, not actual lock success.
+- No kernel version range mentioned in the message.
 
-**Step 2.3 — Bug mechanism**
-- Record: **Memory safety / DMA UAF**
-  - `pdsc_core_uninit()` → `pdsc_qcq_free()` → `dma_free_coherent()` on
-    admin/notify queue buffers.
-  - Without `pci_clear_master()`, hardware may still perform DMA after
-    buffers are returned to the DMA pool.
-  - Especially critical on firmware recovery: `pdsc_fw_down()` calls
-    `pdsc_teardown(PDSC_TEARDOWN_RECOVERY)` while `pci_disable_device()`
-    is never called until full driver remove.
-
-**Step 2.4 — Fix quality**
-- Record:
-  - Fix is standard PCI driver practice (many netdev drivers call
-    `pci_clear_master()` before freeing DMA resources).
-  - Minimal, obviously correct pairing: clear on teardown, restore on
-    setup.
-  - Low regression risk; `pci_set_master()` in setup is needed
-    specifically because teardown now clears it (recovery path).
-  - On first probe, `pci_set_master()` is already called in
-    `pdsc_probe()` — duplicate call in setup is harmless.
+### Step 1.4: Detect hidden bug fixes
+**Record:** Not disguised — this is an explicit correctness fix for
+flock release handling. The commit message clearly describes incorrect
+unlock behavior on the error path.
 
 ---
 
-## Phase 3: Git History Investigation
+## PHASE 2: DIFF ANALYSIS
 
-**Step 3.1 — Blame**
-- Record:
-  - `pdsc_teardown()` introduced in `523847df1b371` (Shannon Nelson,
-    2023-04-19) — has never cleared bus master before freeing DMA.
-  - `pdsc_setup()` same vintage.
-  - Bug present since driver introduction in this tree (~2023).
+### Step 2.1: Inventory the changes
+**Record:**
+- **Files:** `fs/fuse/file.c` (+2 / -1, net +1 line)
+- **Function modified:** `fuse_file_flock()`
+- **Scope:** Single-file, surgical fix (3-line hunk)
 
-**Step 3.2 — Fixes: tag**
-- Record: N/A — no `Fixes:` tag in commit message.
+### Step 2.2: Code flow change
+**Record:**
+- **Hunk (fuse_file_flock):**
+  - **Before:** `ff->flock = true` unconditionally, then `err =
+    fuse_setlk(file, fl, 1)`
+  - **After:** `err = fuse_setlk(file, fl, 1)` first; `ff->flock = true`
+    only if `!err`
+- **Path affected:** FUSE flock path when `fc->no_flock` is false (flock
+  delegated to userspace via `FUSE_SETLK`)
 
-**Step 3.3 — Related file history**
-- Record:
-  - `2f48b1d854e85` (2023): removed `pci_clear_master()` from
-    `pdsc_remove()` error/cleanup paths, arguing `pci_disable_device()`
-    already clears bus master.
-  - That removal did **not** address `pdsc_teardown()`, which runs
-    **before** `pci_disable_device()` in remove, and runs without
-    `pci_disable_device()` during FW recovery.
-  - Recent stable fixes in same driver: UAF (`9e0f80fac50ab`), deadlock
-    (`19ef775c91c6b`) — same maintainer/author pattern of backporting
-    pds_core stability fixes.
-  - Standalone fix; not part of a multi-patch series.
+### Step 2.3: Bug mechanism
+**Record:**
+- **Category:** Logic / correctness fix (lock state tracking)
+- **Mechanism:** `ff->flock` gates `FUSE_RELEASE_FLOCK_UNLOCK` in
+  `fuse_file_release()`:
 
-**Step 3.4 — Author context**
-- Record: Nikhil P. Rao (AMD) — active pds_core contributor; multiple
-  recent stability fixes already in v6.18.44.
+```358:361:fs/fuse/file.c
+        if (ra && ff->flock) {
+                ra->inarg.release_flags |= FUSE_RELEASE_FLOCK_UNLOCK;
+                ra->inarg.lock_owner = fuse_lock_owner_id(ff->fm->fc,
+id);
+        }
+```
 
-**Step 3.5 — Dependencies**
-- Record: No prerequisites. Uses standard `pci_clear_master()` /
-  `pci_set_master()` from `linux/pci.h`, both present in this tree.
-  Applies standalone.
+Setting the flag before confirming lock success causes a spurious unlock
+request on `close()` after a failed `flock(2)`.
 
----
-
-## Phase 4: Mailing List and External Research
-
-**Step 4.1 — Original discussion**
-- Record: `b4 dig -c <commit>` could not be run — commit is not in this
-  checkout. Link fetch to patch.msgid.link and lore.kernel.org blocked
-  by bot protection. **UNVERIFIED:** full review thread content.
-
-**Step 4.2 — Reviewers**
-- Record: **UNVERIFIED** via b4 dig -w. Commit message shows Jakub
-  Kicinski merge only.
-
-**Step 4.3 — Bug report**
-- Record: No external bug report or syzbot link in commit message. Bug
-  identified by code analysis (DMA after free).
-
-**Step 4.4 — Related series**
-- Record: Standalone 1-commit fix; no series dependency identified.
-
-**Step 4.5 — Stable list history**
-- Record: **UNVERIFIED** — lore stable search inaccessible.
+### Step 2.4: Fix quality assessment
+**Record:**
+- Fix is obviously correct: the flag should reflect a successfully
+  acquired flock, not an attempted one.
+- Minimal change; mirrors standard “set state only on success” pattern.
+- **Regression risk:** Very low. A successful flock still sets the flag;
+  failed attempts no longer poison release behavior.
+- No API, locking, or structural changes.
 
 ---
 
-## Phase 5: Code Semantic Analysis
+## PHASE 3: GIT HISTORY INVESTIGATION
 
-**Step 5.1 — Key functions**
-- Record: `pdsc_setup()`, `pdsc_teardown()`, `pdsc_core_uninit()`,
-  `pdsc_qcq_free()`, `pdsc_fw_down()`, `pdsc_fw_up()`
+### Step 3.1: Blame the changed lines
+**Record:**
+- `fuse_file_flock()` dates to 2007 (`a9ff4f87056cd`)
+- `ff->flock = true` before `fuse_setlk()` introduced in
+  `37fb3a30b46237` (“fuse: fix flock”, Aug 2011, Miklos Szeredi)
+- Bug has existed since v3.0 era; long-present in stable trees including
+  6.18.y
 
-**Step 5.2 — Callers of affected code**
+### Step 3.2: Follow Fixes: tag
+**Record:** No Fixes: tag. The introducing commit is `37fb3a30b46237`,
+which is certainly in this tree.
 
-`pdsc_teardown()` called from:
-- `pdsc_setup()` error path
-- `pdsc_remove()` / init error path (`main.c`)
-- `pdsc_fw_down()` — firmware failure recovery
-- `pdsc_fw_up()` error path
-- `pdsc_reset_prepare()` → `pdsc_fw_down()` — PCI reset
+### Step 3.3: File history for related changes
+**Record:**
+- Standalone one-patch fix (v1 only on lore)
+- Recent FUSE stable activity in this tree includes writeback, virtiofs,
+  and fuse-uring fixes — unrelated to this flock issue
+- Commit `71947173cef27` is in `origin/master` but **not** in
+  `stable/linux-6.18.y` (confirmed via `git log
+  stable/linux-6.18.y..origin/master`)
 
-`pdsc_setup()` called from:
-- Driver init (`main.c`)
-- `pdsc_fw_up()` — firmware recovery
+### Step 3.4: Author's other commits
+**Record:** Zhang Tianci has other FUSE contributions (e.g. attribute
+staleness checks). Miklos Szeredi is the FUSE maintainer and applied the
+patch.
 
-**Step 5.3 — Key callees**
-- `pdsc_teardown()` → `pdsc_devcmd_reset()` (MMIO admin commands),
-  `pdsc_core_uninit()` → `dma_free_coherent()`, `pdsc_dev_uninit()` →
-  `pci_free_irq_vectors()`
-- `pdsc_setup()` → `pdsc_dev_init()` (allocates IRQ vectors, may need
-  DMA), `pdsc_core_init()` (allocates coherent DMA)
-
-**Step 5.4 — Reachability**
-- Record:
-  - **Userspace-reachable** via normal driver lifecycle (module
-    load/unload, PCI hotplug) and **firmware health events**
-    (`pdsc_health_thread` watchdog detects bad FW → `pdsc_fw_down()`).
-  - Recovery path is the clearest trigger: teardown frees DMA while PCI
-    device stays enabled and bus-master capable indefinitely until
-    `pdsc_fw_up()` succeeds.
-
-**Step 5.5 — Similar patterns**
-- Record: Widespread pattern in this tree — `igc`, `ice`, `bnxt`,
-  `e1000e`, etc. all call `pci_clear_master()` before teardown/free.
-  Prior `pds_core` removal of `pci_clear_master()` from remove path
-  (`2f48b1d854e85`) left the teardown/recovery gap unaddressed.
+### Step 3.5: Dependencies / prerequisites
+**Record:** No dependencies. Uses existing `ff->flock`, `fuse_setlk()`,
+and `FUSE_RELEASE_FLOCK_UNLOCK` — all present in 6.18.44. `git show
+71947173cef27 | git apply --check` succeeds cleanly.
 
 ---
 
-## Phase 6: Cross-Reference Against Local Tree (v6.18.44)
+## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
-**Step 6.1 — Buggy code present?**
-- Record: **YES.** Local tree is `v6.18.44` / `6.18.44`.
-  `pdsc_teardown()` at lines 485–500 has no `pci_clear_master()`.
-  `pdsc_setup()` at lines 454–483 has no `pci_set_master()`. DMA is
-  freed in `pdsc_qcq_free()` via `dma_free_coherent()`. Fix not yet
-  applied.
+### Step 4.1: Original patch discussion
+**Record:**
+- **URL:** https://patch.msgid.link/20251225111156.47987-1-
+  zhangtianci.1997@bytedance.com
+- **Series:** v1 only (no v2/v3)
+- **Maintainer response:** Miklos Szeredi: “Applied, thanks.”
+- No NAKs or objections found in thread
+- No explicit stable nomination in thread
 
-**Step 6.2 — Backport complications**
-- Record: **Clean apply expected.** Insert `pci_clear_master()` after
-  `pdsc_devcmd_reset()` and before `pdsc_core_uninit()` in
-  `pdsc_teardown()`; insert `pci_set_master()` at start of
-  `pdsc_setup()`.
-- Note: upstream diff shows `cancel_work_sync(&pdsc->adminqcq.work)` in
-  `pdsc_teardown()`; this tree already drains work inside
-  `pdsc_qcq_free()` (commit `9e0f80fac50ab`). Backport needs only the
-  two PCI master lines, not the work-cancel hunk.
+### Step 4.2: Reviewers from b4 dig -w
+**Record:** CC'd: `miklos@szeredi.hu`, `linux-fsdevel@vger.kernel.org`,
+`linux-kernel@vger.kernel.org`, reporter Li Yichao, co-worker
+xieyongji@bytedance.com. FUSE maintainer reviewed and applied.
 
-**Step 6.3 — Related fixes already present?**
-- Record: No existing fix for DMA quiesce on teardown. Related UAF fix
-  `9e0f80fac50ab` addresses workqueue ordering, not bus mastering.
+### Step 4.3: Bug report
+**Record:** Reported-by from ByteDance engineer; no syzbot/bugzilla
+link. Production FUSE user hit the issue with failed non-blocking flock
++ file close.
 
----
+### Step 4.4: Related patches / series
+**Record:** Standalone patch; no series dependencies.
 
-## Phase 7: Subsystem and Maintainer Context
-
-**Step 7.1 — Subsystem**
-- Record: `drivers/net/ethernet/amd/pds_core` — AMD Pensando network
-  device core driver (`CONFIG_PDS_CORE`). Criticality: **IMPORTANT**
-  (hardware-specific, but stability bugs can cause memory corruption on
-  affected servers).
-
-**Step 7.2 — Activity**
-- Record: Actively maintained; multiple stability fixes landed in
-  v6.18.44 in 2026 from same author.
+### Step 4.5: Stable mailing list history
+**Record:** Not searched on lore stable list (Anubis bot blocked direct
+lore fetch). No stable discussion found via b4.
 
 ---
 
-## Phase 8: Impact and Risk Assessment
+## PHASE 5: CODE SEMANTIC ANALYSIS
 
-**Step 8.1 — Who is affected**
-- Record: Users with `CONFIG_PDS_CORE` and AMD Pensando/PDS hardware
-  (PF/VF, fwctl, vDPA dependents). Not universal, but real production
-  hardware.
+### Step 5.1: Key functions
+**Record:** `fuse_file_flock()` (modified), `fuse_setlk()` (called),
+`fuse_file_release()` (affected downstream)
 
-**Step 8.2 — Trigger conditions**
-- Record:
-  - Firmware failure/recovery (`pdsc_fw_down`/`pdsc_fw_up`) — **most
-    likely and severe** (no `pci_disable_device` on this path).
-  - Driver remove (gap between `pdsc_teardown` and
-    `pci_disable_device`).
-  - Setup error during probe.
-  - PCI reset prepare path.
-  - Requires device with active bus mastering — normal after
-    `pci_set_master()` in probe.
+### Step 5.2: Callers
+**Record:**
+- `fuse_file_flock` is the `.flock` handler in `fuse_file_operations`
+  (line 3137)
+- Reached from `SYSCALL_DEFINE2(flock)` in `fs/locks.c` when
+  `file->f_op->flock` is set and `LOCK_NB` is used (`F_SETLK` vs
+  `F_SETLKW`)
+- Callable by any unprivileged process with a FUSE file descriptor
 
-**Step 8.3 — Failure mode severity**
-- Record: **HIGH** — DMA write to freed kernel memory → memory
-  corruption, possible crash, potential security impact. Classic DMA-
-  after-free.
+### Step 5.3: Callees
+**Record:** `fuse_setlk()` → `fuse_simple_request()` with
+`FUSE_SETLK`/`FUSE_SETLKW` and `FUSE_LK_FLOCK` flag. Returns errors
+including `-EWOULDBLOCK` (mapped from userspace daemon response).
 
-**Step 8.4 — Risk vs benefit**
-- Record:
-  - **Benefit: HIGH** for affected hardware — prevents real DMA UAF on
-    common recovery/remove paths.
-  - **Risk: LOW** — 2-line standard PCI API usage, symmetric restore in
-    setup.
-  - Ratio: strongly favors backport.
+### Step 5.4: Call chain / reachability
+**Record:**
+```
+userspace flock(2) → SYSCALL_DEFINE2(flock) → file->f_op->flock
+(fuse_file_flock)
+  → fuse_setlk() → [on failure] return error
+  → [on close] fuse_release → fuse_file_release →
+FUSE_RELEASE_FLOCK_UNLOCK if ff->flock
+```
+**Reachable from userspace:** Yes, via `flock(2)` on FUSE-mounted files
+when `fc->no_flock` is false.
+
+### Step 5.5: Similar patterns
+**Record:** The `no_flock` fallback path uses `locks_lock_file_wait()`
+and does not set `ff->flock` — only the userspace-delegated flock path
+is affected. No sibling functions with the same pre-set pattern found.
 
 ---
 
-## Phase 9: Final Synthesis
+## PHASE 6: CROSS-REFERENCING AGAINST LOCAL TREE
 
-**Step 9.1 — Evidence summary**
+### Step 6.1: Does the buggy code exist?
+**Record:** **Yes.** Current tree at `fs/fuse/file.c:2531` still has
+unconditional `ff->flock = true` before `fuse_setlk()`. Bug present
+since 2011 (`37fb3a30b46237`).
 
-*FOR backport:*
-- Fixes real DMA use-after-free (memory corruption class bug)
-- Small, surgical, standard PCI driver pattern
-- Bug exists in v6.18.44 since driver introduction
-- Firmware recovery path never disables bus master before freeing DMA
-- Same driver already receives stable UAF/deadlock fixes
-- `pci_set_master()` restore is required for recovery path correctness
+### Step 6.2: Backport complications
+**Record:** Patch applies cleanly (`git apply --check` passed). No
+refactoring conflicts expected. Trivial backport.
 
-*AGAINST backport:*
-- Driver is hardware-specific (limited audience) — but stable rules
-  allow driver bug fixes
-- No syzbot/user report in commit message
-- Mailing list review details unverified
+### Step 6.3: Related fixes already present?
+**Record:** No equivalent fix in `stable/linux-6.18.y`. Commit
+`71947173cef27` is only in mainline (post-6.18.y branch point).
 
-*UNRESOLVED:*
-- Full lore review thread content
-- Whether reviewers explicitly nominated for stable
+---
 
-**Step 9.2 — Stable rules checklist**
-1. Obviously correct and tested? **PASS** — standard API usage;
-   maintainer-merged; no Tested-by but mechanism is clear.
-2. Fixes real bug affecting users? **PASS** — DMA UAF on
-   teardown/recovery.
-3. Important issue? **PASS** — memory corruption / potential crash (HIGH
-   severity).
-4. Small and contained? **PASS** — 2 functional lines.
-5. No new features/APIs? **PASS** — uses existing PCI helpers only.
-6. Can apply to local tree? **PASS** — code exists; clean apply.
+## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
 
-**Step 9.3 — Exception category**
-- Record: Hardware driver bug fix (DMA quiesce workaround) — qualifies
-  under stable driver fix criteria.
+### Step 7.1: Subsystem criticality
+**Record:** **fs/fuse** — IMPORTANT. FUSE is widely used (virtio-fs,
+cloud storage mounts, container/shared filesystems). File locking
+correctness affects data integrity for multi-process workloads.
 
-**Step 9.4 — Decision rationale**
+### Step 7.2: Subsystem activity
+**Record:** FUSE subsystem actively maintained in 6.18.y with multiple
+recent stable-relevant fixes (writeback, virtiofs UAF, fuse-uring
+races).
 
-For **v6.18.44**, `pdsc_teardown()` frees coherent DMA buffers while the
-PCI function can still act as a bus master. On the firmware recovery
-path (`pdsc_fw_down()` → `pdsc_teardown()`), the device is never
-`pci_disable_device()`'d, so bus mastering stays enabled across
-teardown/setup cycles. The prior removal of `pci_clear_master()` from
-`pdsc_remove()` (`2f48b1d854e85`) only addressed the final remove path
-and did not fix the teardown/recovery gap. Adding `pci_clear_master()`
-before DMA free and `pci_set_master()` on setup is the correct, minimal
-fix.
+---
+
+## PHASE 8: IMPACT AND RISK ASSESSMENT
+
+### Step 8.1: Who is affected
+**Record:** Users of FUSE filesystems that support flock (i.e.
+`FUSE_FLOCK_LOCKS` negotiated, `fc->no_flock == 0`). Includes virtio-fs
+and custom FUSE implementations using BSD-style flock.
+
+### Step 8.2: Trigger conditions
+**Record:**
+1. Open file on FUSE mount with flock support
+2. Call `flock(fd, LOCK_EX | LOCK_NB)` (or `LOCK_SH | LOCK_NB`) when
+   lock cannot be acquired
+3. Close the file descriptor
+**Likelihood:** Moderate — non-blocking flock failure is a normal,
+documented API path. **Unprivileged users can trigger.**
+
+### Step 8.3: Failure mode severity
+**Record:** Spurious `FUSE_RELEASE_FLOCK_UNLOCK` on close after a failed
+lock attempt. This can corrupt flock state in the userspace filesystem
+daemon — potentially releasing locks held by other processes or breaking
+mutual exclusion guarantees. **Severity: HIGH** (data integrity /
+locking correctness; not a kernel oops, but serious application-visible
+bug).
+
+### Step 8.4: Risk-benefit ratio
+**Record:**
+- **Benefit:** HIGH — fixes real lock-handling bug on a common error
+  path
+- **Risk:** VERY LOW — 3-line, obviously correct change
+- **Ratio:** Strongly favors backport
+
+---
+
+## PHASE 9: FINAL SYNTHESIS
+
+### Step 9.1: Evidence summary
+
+**FOR backport:**
+- Real bug with production reporter (ByteDance)
+- FUSE maintainer applied and signed off
+- Long-standing bug (since 2011) present in 6.18.44
+- Incorrect spurious unlock on failed `flock(LOCK_NB)` + `close()`
+- Lock correctness / potential data corruption
+- Tiny, surgical, applies cleanly
+- No dependencies
+
+**AGAINST backport:**
+- No kernel crash or oops (correctness bug, not memory safety)
+- Affects only FUSE mounts with flock support enabled (not universal)
+- No explicit stable nomination in mailing list
+
+**Unresolved:** None material to the decision.
+
+### Step 9.2: Stable rules checklist
+1. Obviously correct and tested? **PASS** — logic is self-evident;
+   maintainer applied; reporter verified the scenario
+2. Fixes a real bug affecting users? **PASS** — spurious unlock after
+   failed flock
+3. Important issue? **PASS** — lock state corruption / data integrity
+   (HIGH)
+4. Small and contained? **PASS** — 3 lines, one function
+5. No new features or APIs? **PASS**
+6. Can apply to local tree? **PASS** — clean apply verified
+
+### Step 9.3: Exception categories
+**Record:** None (not a device ID, quirk, DT, build, or docs fix).
+Qualifies on merit as a correctness bug fix.
+
+### Step 9.4: Decision rationale
+This commit fixes a real, long-standing logic bug in FUSE flock
+handling. When a non-blocking flock fails, the kernel incorrectly marks
+the file as flock-held and sends `FUSE_RELEASE_FLOCK_UNLOCK` on close,
+potentially corrupting lock state in the userspace filesystem. The fix
+is minimal, maintainer-approved, applies cleanly to 6.18.44, and the
+buggy code is present in this tree. Stable users running FUSE with flock
+support benefit directly.
 
 ---
 
 ## Verification
 
-- [Phase 1] Parsed commit message: subsystem pds_core, explicit DMA UAF
-  fix, tags listed
-- [Phase 2] Diff analysis: `pci_clear_master` in teardown,
-  `pci_set_master` in setup; `pdsc_core_uninit` → `dma_free_coherent`
-  confirmed in `core.c:310-316`, `core.c:153-159`
-- [Phase 3] `git describe HEAD`: v6.18.44; `make kernelversion`: 6.18.44
-- [Phase 3] `git blame` on `pdsc_teardown`: introduced 2023-04-19
-  (`523847df1b371`), no bus-master clear ever present
-- [Phase 3] `git show 2f48b1d854e85`: removed `pci_clear_master` only
-  from `main.c` probe/remove, not teardown
-- [Phase 3] Recent pds_core stable fixes present: `9e0f80fac50ab` (UAF),
-  `19ef775c91c6b` (deadlock)
-- [Phase 4] UNVERIFIED: b4 dig and lore fetch blocked (commit not in
-  tree; Anubis bot protection)
-- [Phase 5] Callers traced via grep: `pdsc_teardown` from remove, setup
-  errors, `pdsc_fw_down/up`, `pdsc_reset_prepare`
-- [Phase 5] `pdsc_fw_down` at `core.c:543-567` calls teardown without
-  `pci_disable_device`
-- [Phase 5] `pdsc_probe` calls `pci_set_master` at `main.c:381`;
-  `pci_disable_device` only at `main.c:461` after teardown
-- [Phase 6] Buggy code confirmed present; fix not applied
-- [Phase 6] Backport note: work draining already in `pdsc_qcq_free`
-  (`core.c:147-149`); only PCI master lines needed
-- [Phase 7] `CONFIG_PDS_CORE` in `drivers/net/ethernet/amd/Kconfig:189`
-- [Phase 8] Failure mode: DMA UAF → memory corruption, severity HIGH
+- [Phase 1] `git show 71947173cef27`: parsed subject, tags (Reported-by,
+  SOBs), body
+- [Phase 2] Read `fs/fuse/file.c` lines 2519–2536, 349–361; confirmed
+  diff mechanics
+- [Phase 2] Read `fuse_setlk()` at lines 2470–2494; confirmed error
+  return path
+- [Phase 3] `git describe HEAD`: v6.18.44 stable tree
+- [Phase 3] `git blame -L 2519,2536 fs/fuse/file.c`: bug introduced
+  `37fb3a30b46237` (2011)
+- [Phase 3] `git show 37fb3a30b46237`: original `ff->flock = true`
+  placement
+- [Phase 3] `git log stable/linux-6.18.y..origin/master --
+  fs/fuse/file.c`: fix only in mainline
+- [Phase 3] `git show 71947173cef27 | git apply --check`: clean apply
+- [Phase 4] `b4 dig -c 71947173cef27`: lore URL found
+- [Phase 4] `b4 dig -c 71947173cef27 -a`: v1 only
+- [Phase 4] `b4 dig -c 71947173cef27 -w`: miklos@szeredi.hu CC'd
+- [Phase 4] `b4 dig -m /tmp/fuse_flock_thread.mbox`: Miklos “Applied,
+  thanks”
+- [Phase 5] Read `fs/locks.c` SYSCALL_DEFINE2(flock): confirms VFS →
+  `.flock` path
+- [Phase 5] Read `fuse_file_operations`: `.flock = fuse_file_flock`
+- [Phase 5] `fuse_file_alloc()` uses `kzalloc`: `ff->flock` starts false
+- [Phase 6] Grep confirmed buggy code at line 2531 in current tree
+- [Phase 6] `git branch --contains 71947173cef27`: not in
+  stable/linux-6.18.y
+- [Phase 8] Read `include/uapi/linux/fuse.h`:
+  `FUSE_RELEASE_FLOCK_UNLOCK` definition
 
-**YES**
+**YES**The background searches finished and match what the earlier
+analysis used:
 
- drivers/net/ethernet/amd/pds_core/core.c | 4 ++++
- 1 file changed, 4 insertions(+)
+- **Tree:** detached HEAD on `stable/linux-6.18.y` (6.18.44)
+- **Commit:** `71947173cef27` on `origin/master` — `fuse: set ff->flock
+  only on success`
+- **Status in this tree:** not present yet; patch applies cleanly
 
-diff --git a/drivers/net/ethernet/amd/pds_core/core.c b/drivers/net/ethernet/amd/pds_core/core.c
-index d02e096a2c5fb..c8b64c79fde58 100644
---- a/drivers/net/ethernet/amd/pds_core/core.c
-+++ b/drivers/net/ethernet/amd/pds_core/core.c
-@@ -455,6 +455,8 @@ int pdsc_setup(struct pdsc *pdsc, bool init)
- {
- 	int err;
+**Verdict remains YES** — backport to 6.18.y is warranted. It fixes a
+real FUSE flock bug where a failed non-blocking `flock()` still triggers
+`FUSE_RELEASE_FLOCK_UNLOCK` on close, which can corrupt lock state in
+the userspace daemon.
+
+ fs/fuse/file.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/fs/fuse/file.c b/fs/fuse/file.c
+index 585dd90361b65..9f3501a5c6c12 100644
+--- a/fs/fuse/file.c
++++ b/fs/fuse/file.c
+@@ -2528,8 +2528,9 @@ static int fuse_file_flock(struct file *file, int cmd, struct file_lock *fl)
+ 		struct fuse_file *ff = file->private_data;
  
-+	pci_set_master(pdsc->pdev);
-+
- 	err = pdsc_dev_init(pdsc);
- 	if (err)
- 		return err;
-@@ -487,6 +489,8 @@ void pdsc_teardown(struct pdsc *pdsc, bool removing)
- 	if (!pdsc->pdev->is_virtfn)
- 		pdsc_devcmd_reset(pdsc);
+ 		/* emulate flock with POSIX locks */
+-		ff->flock = true;
+ 		err = fuse_setlk(file, fl, 1);
++		if (!err)
++			ff->flock = true;
+ 	}
  
-+	pci_clear_master(pdsc->pdev);
-+
- 	pdsc_core_uninit(pdsc);
- 
- 	if (removing) {
+ 	return err;
 -- 
 2.53.0
 
