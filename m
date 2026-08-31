@@ -1,194 +1,78 @@
-Received: from mail-oo1-f47.google.com (mail-oo1-f47.google.com [209.85.161.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E29D39021D
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 21:14:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AF1C38E10C;
+	Mon, 31 Aug 2026 21:16:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788210893; cv=none; b=Ps6em95QEaoL9YGQ1NMmnX3g4l7mEQ339tDBKmDxxAt+3WsAk6PiWagyVe4KN7QGr9m/cTecOp9acr2E+FgU/qCYCDlc3apES5iLbkpP/TUT2jQFoz8yaLi/0AxBzoQPnAiyvYmQdXmEnX0q74xZNMidoOJUsmqKmqgUNL0co44=
+	t=1788211010; cv=none; b=PwbPv0R8QefXvGHCmBejAE6G829ynHygKfOI19y9ilDI6b5Uw4oSyY398kOfxJUHurL+/LVsFOaKWP57bijXsuIr9UbuN6Bat2b5SpZAIsP/QrdW8GyMObVdTrVj8kSzeLVRyoHdvfT61PCZOGCHSgwgmAqxDu2N5EbbHU//9ZE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788210893; c=relaxed/simple;
-	bh=YzpKoQW99G68H0qcC40y9puYmjvhf3vzMtbUcTFF8i0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=X3DxMkLkD2kkuL3PNoxF0XjAAFOJilrUJMpOcdsCEkDDXcjn0BdXslROGNlJ1QPZed4jOeqHmYiwVgVlvULAiZhwg1taJNiCMRxBCS6bfIKhsd0xpK78KqAmbTXwig+WvbPLlyIUpH1ZLnHKjUXo9b+C6qWbRcfu+jhUzm4amhU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=UmXPdJqN; arc=none smtp.client-ip=209.85.161.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1788211010; c=relaxed/simple;
+	bh=oz2iYW11PJCarVGxxvigdGDmNXonQff7obHjaFc1C2Q=;
+	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
+	 Subject:From:To:Cc:Date; b=LHs8ERpz8p/2noV4VlfnSqEJF05CTp8tBSOP+m9OmYvC6SmY7WGyaM6OPnDowJO8B7ciGyZSxoK3Z0/lfaQQpz8yhmdtiDSXpyYFGXYdq+p+L5MwPVqXRhEkEE87hayfd+IfL3elYmwppSuolazetcWofKIM75AsAdkLsIaGUZE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZNFtUoIk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="UmXPdJqN"
-Received: by mail-oo1-f47.google.com with SMTP id 006d021491bc7-6b1b233ca8dso874695eaf.2
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 14:14:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1788210890; x=1788815690; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jV0sv79eNbFApaShsO+PeFVHf+MED7vCaTLK1pA5Lk8=;
-        b=UmXPdJqNK3Dqm2ZUemu8Badl+D2F8Kbo28L7VPYLYzwfC7GgFjFg7PaNaYlHrmuQmS
-         UZkBipQJpXR3Fo8SIlvrgg4JTKzVvWAf2Gick/SnX6Z5nha6j1obedzOl7YJ10VD9j+O
-         4FIlz+XzWxfN/4v2v7D+ASfrIXwz4jIC7BJyItxH8jvAet/yVvu0DYL7R+1x3fzQNIJ6
-         dvreFSRszxcbG2tQCxAidWmUPScCV7VmhTAoZS0BMqWvfvV0c+v/0+x3paI0wlhMldZ8
-         jC0qeMXt//0PCWx08j8W6pkiro7amPe3Im6FGY4b2EE8SE6jl11cUjKtutJlJM9qW7Zu
-         gc4g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788210890; x=1788815690;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=jV0sv79eNbFApaShsO+PeFVHf+MED7vCaTLK1pA5Lk8=;
-        b=cVIGrSgKFCMsdkkvlKSFgL3OcYw+30rkSFTRaeHOH7ksZxTHSSUnSflZ7aYe3vy/qd
-         eoVLfkaL7xJ04/mNlBf8mwbfmLgfSwVmhTknW7FDCa8vASlNXmz1yYtyZ3rbRkFUL0Y6
-         RMKCZQ3epI1TkbmfksIIpCMMDgrKOR+Cr5tJ1jgDGhQh5cWjIJlG0MQXQINkyP821cjA
-         rrLClWqfQ/CeprU17mvS/wRUdlclxb6EqkNV/yApWecH7sBQrSECBtuxfKsxe5KksOpP
-         EBsH5FyD5KpbJWw7LaXsHovUpMI9iIhh8J7zbMPts14UhZ3p9sKN7bv0RS5hL6SVwojM
-         5eJQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrP9z+7m4wHa7Cms5XAicnJ48mGQ6q8mbMM/3Uem9a0AKJgaYrZSIW9vgERkhOyQoNnjM4unTj8IhYqfKk=@vger.kernel.org
-X-Gm-Message-State: AFuF++m3WNzucFYy2JZquV8wx3dsuukNg3V6CHcWdmrbZPiiSMbNxaDY
-	nh2qC63UuPLGb2IeK6RkJ/eR24c58BLrw7gz3x6BebOhmdurDN/yp5wyFpRDgiSSNAs=
-X-Gm-Gg: AR+sD12FYLN+1yhFOp49lrE13LLx0LsBCQCeOnXqW3KXcY4Ik1mz54Id3I+Yolhk2hs
-	/FTd0Q1nebzvtMswzcqfi/JOJvrQbWMNfKhshk7+ISCMharEjk4vajHs36eo54rg+EMOGcc424Q
-	0oPstj0f6L9o+wK9rNQmBXkMG8GrZuWOMeOSmgTA+DMy00upXATo7wl24ZzMmXNagAXjZ6GfxY0
-	k51q7X2BKrCIzQivrBW/eObfNJLnfJvkxHMO1V6cUAlQBW8WLHLhCgTFfaF7PgYyClyAU+h+PX8
-	X9w+K0VLAwKFA3n/R3s0HTDkQ7pUQfPBEjH2BnqMoYXKw27nN2cpluQQHsmNe2FwQ1P81gxwr4z
-	lTcG/+DIKeYePN/7Flf7FSCQbFJMy4hAs/Of5TBhjtGXXo/IxFltfdWxbj3MRC+TESxH1gRl9Pd
-	1TLS6wb80NTWIq9Z0i6eLh4yItts1AnVlbZ7yRqwIEBDxx45jLEYI3pcecoMdO+H9SOO9cH4Rvt
-	MZFq/eh5DAQci3n7ZUloy/Bq/sTbJtftGdIqA==
-X-Received: by 2002:a05:6820:1888:b0:6b3:5c73:2188 with SMTP id 006d021491bc7-6b35c732bfbmr10920197eaf.5.1788210889646;
-        Mon, 31 Aug 2026 14:14:49 -0700 (PDT)
-Received: from ?IPV6:2600:8803:e7e4:500:778b:da9:a8a1:bc78? ([2600:8803:e7e4:500:778b:da9:a8a1:bc78])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-468a2fedbcasm11113514fac.2.2026.08.31.14.14.48
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 31 Aug 2026 14:14:48 -0700 (PDT)
-Message-ID: <70c2d36d-b079-411f-a454-a62061e395cf@baylibre.com>
-Date: Mon, 31 Aug 2026 16:14:47 -0500
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZNFtUoIk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B30521F000E9;
+	Mon, 31 Aug 2026 21:16:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788211009;
+	bh=oz2iYW11PJCarVGxxvigdGDmNXonQff7obHjaFc1C2Q=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=ZNFtUoIkaJG9P6nVESZEqo0cw8CCz5EJVPRvJs8ZVXNKdKz4IJjg1camWm197RZlz
+	 MDR7hlatcAzYrTWAvZrWX2yCuCTAZwSoxDPbLDSBfcz3q8oIeJLVEsttZTKtP46CB6
+	 pRqT/Av541c2nbRGp0TfQRdCWSslD3K6TXhzBIDFq47Mg7VpP2HgKLzrjsi0P9r7ps
+	 1nQO0jBWSQ3zxKCO8OmwCisJDJirzVb5DDtbDD5omEK+CgsDZsYJeCkqcElO08XB/P
+	 bICqL3GGTmPdvi1Zm9dhVN3pPoDw/UbQ/B4pZsEg8UVAQC6FzHavrz/9kDSOoN3SFY
+	 E/FLiLwVknf7w==
+Content-Type: multipart/mixed; boundary="===============7237600942549384120=="
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] iio: adc: ti-ads112c14: add burnout current
- support
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, =?UTF-8?Q?Nuno_S=C3=A1?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- Chris Hall <c-hall@ti.com>, Patrick Edwards <pedwards@ti.com>,
- Kurt Borja <kuurtb@gmail.com>, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260827-iio-adc-ti-ads112c14-burnout-v2-0-00a1fab9e2d1@baylibre.com>
- <20260827-iio-adc-ti-ads112c14-burnout-v2-1-00a1fab9e2d1@baylibre.com>
- <apE7BEGrIzJd1_zx@ashevche-desk.local>
-Content-Language: en-US
-From: David Lechner <dlechner@baylibre.com>
-In-Reply-To: <apE7BEGrIzJd1_zx@ashevche-desk.local>
-Content-Type: text/plain; charset=UTF-8
+Message-Id: <91b81ddb118dbeab295077ade10f2fdc9a6d4f09e5c5b07aff05a086215c7f90@mail.kernel.org>
+In-Reply-To: <20260831202251.305046-8-ankur.a.arora@oracle.com>
+References: <20260831202251.305046-8-ankur.a.arora@oracle.com>
+Subject: Re: [PATCH v15 07/16] atomic: Add atomic_cond_read_*_timeout()
+From: bot+bpf-ci@kernel.org
+To: ankur.a.arora@oracle.com,linux-kernel@vger.kernel.org,linux-arch@vger.kernel.org,linux-arm-kernel@lists.infradead.org,linux-pm@vger.kernel.org,bpf@vger.kernel.org
+Cc: arnd@arndb.de,catalin.marinas@arm.com,will@kernel.org,peterz@infradead.org,akpm@linux-foundation.org,mark.rutland@arm.com,harisokn@amazon.com,cl@gentwo.org,ast@kernel.org,rafael@kernel.org,daniel.lezcano@linaro.org,memxor@gmail.com,zhenglifeng1@huawei.com,xueshuai@linux.alibaba.com,rdunlap@infradead.org,david.laight.linux@gmail.com,broonie@kernel.org,joao.m.martins@oracle.com,boris.ostrovsky@oracle.com,konrad.wilk@oracle.com,ashok.bhat@arm.com,ankur.a.arora@oracle.com,boqun.feng@gmail.com,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Mon, 31 Aug 2026 21:16:47 +0000 (UTC)
+
+--===============7237600942549384120==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 
-On 8/28/26 2:38 AM, Andy Shevchenko wrote:
-> On Thu, Aug 27, 2026 at 05:27:02PM -0500, David Lechner (TI) wrote:
->> Add a custom attribute via ext_info when a channel has a burnout current
->> specified in the devicetree. This adds an in_{voltageY,resistanceY,
->> voltageY-voltageX}_burnoutraw sysfs attribute for the channel that
->> performs a single conversion (same as _raw attribute) except that it
->> enables the burnout current. The chip also has a restriction that input
->> chopping cannot be enabled when burnout current is enabled, so we also
->> disable input chopping when burnout current is active.
-> 
+> atomic: Add atomic_cond_read_*_timeout()
+>
+> Add atomic load wrappers, atomic_cond_read_*_timeout() and
+> atomic64_cond_read_*_timeout() for the cond-load timeout interfaces.
+>
+> Also add a short description for the atomic_cond_read_{relaxed,acquire}(),
+> and the atomic_cond_read_{relaxed,acquire}_timeout() interfaces.
 
-...
+The changelog states it will "add a short description" for these interfaces,
+but looking at the actual changes, the documentation hunks only list the
+function names under a new heading and insert the words "or conditional" into
+an existing sentence.
 
->> +	if (!measurement->burnout)
->> +		return -EINVAL;
->> +
->> +	IIO_DEV_ACQUIRE_DIRECT_MODE(indio_dev, claim);
->> +	if (IIO_DEV_ACQUIRE_FAILED(claim))
->> +		return -EBUSY;
->> +
->> +	ret = regmap_update_bits(data->regmap, ADS112C14_REG_DEVICE_CFG,
->> +				 ADS112C14_DEVICE_CFG_BOCS,
->> +				 FIELD_PREP(ADS112C14_DEVICE_CFG_BOCS,
->> +					    measurement->burnout));
->> +	if (ret)
->> +		return ret;
->> +
->> +	ret = ads112c14_single_conversion(data, chan, raw_buf, true, false);
->> +
->> +	/*
->> +	 * Important to always turn off burnout current even if the conversion
->> +	 * fails so that it does not affect subsequent measurements. This error
->> +	 * also takes precedence over the conversion error since the device may
->> +	 * be left in a bad state.
->> +	 */
->> +	ret2 = regmap_update_bits(data->regmap, ADS112C14_REG_DEVICE_CFG,
->> +				  ADS112C14_DEVICE_CFG_BOCS,
->> +				  FIELD_PREP(ADS112C14_DEVICE_CFG_BOCS,
->> +					     ADS112C14_DEVICE_CFG_BOCS_DISABLED));
->> +	if (ret2)
->> +		return ret2;
-> 
-> What we will get of sharing this error code instead of 'ret' in case of single
-> conversion failure? I think there is no recovery mechanism involved, right?
+Nothing in the patch explains what these operations do (spin-wait on a pointer
+until a condition is true), what the timeout parameters mean, that the timeout
+variants can return with the condition still false, or what ordering guarantees
+the _relaxed vs _acquire variants provide.
 
-I think returning ret here is better.
+Should the changelog be updated to say it lists the new operations in the API
+section, or should a description matching what the changelog promises be added
+to the SEMANTICS section of Documentation/atomic_t.txt?
 
-> 
->> +	if (ret < 0)
->> +		return ret;
-> 
->> +	switch (data->chip_info->resolution_bits) {
->> +	case 16:
->> +		val = get_unaligned_be16(raw_buf);
->> +		break;
->> +	case 24:
->> +		val = get_unaligned_be24(raw_buf);
->> +		break;
->> +	default:
->> +		return -EINVAL;
->> +	}
->> +
->> +	if (measurement->bipolar)
->> +		val = sign_extend32(val, data->chip_info->resolution_bits - 1);
->> +
->> +	return sysfs_emit(buf, "%d\n", val);
->> +}
-> 
-> And this is after all a user space interaction, so whatever error code is
-> returned, user space will know it. I assume you are telling that the restoring
-> the "burnout current" setting is important, but how will user space distinguish
-> that case from the single conversion failure?
-> 
 
-This is not expected to ever fail, so any error just tells userspace that
-hardware is broken. Any error here is not really recoverable without
-resetting the hardware.
+---
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
 
->> +			switch (burnout_nA) {
->> +			case 200:
->> +				measurement->burnout = ADS112C14_DEVICE_CFG_BOCS_200_nA;
->> +				break;
->> +			case 1000:
->> +				measurement->burnout = ADS112C14_DEVICE_CFG_BOCS_1_uA;
->> +				break;
->> +			case 10000:
->> +				measurement->burnout = ADS112C14_DEVICE_CFG_BOCS_10_uA;
->> +				break;
->> +			default:
->> +				return dev_err_probe(dev, -EINVAL,
-> 
-> I would use different error code, EINVAL is abused and overloaded a lot in the
-> kernel, and basically errors like ENODEV and EINVAL are synonyms to "*an* error"
-> happened. Unfortunately, reading the errno*.h I haven't found anything better.
-
-There is an error message to disambiguate.
-> 
->> +						     "invalid burn-out-current-nanoamp value\n");
->> +			}
->> +
->> +			if (measurement->burnout)
->> +				spec->ext_info = ads112c14_ext_info_burnout;
->> +		}
-> 
-
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/33438155296
+--===============7237600942549384120==--
