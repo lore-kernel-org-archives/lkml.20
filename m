@@ -1,157 +1,89 @@
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FA464B5155
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 16:08:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3806E4B515D
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 16:08:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788192492; cv=none; b=CgVxT/lp7mxCqUuw6+LjWwQHpP/9osBXTR506+qMrkYzrBM0EsfSvbYAf+zR4tAdNFGeztjzp3vqkE6jFeS8m9TrEA3IPnPomj88pFn6KnpXHpeWU35KJNgKkv/eOfvBphaSA3+KflpUqrkVlzwpxclcE+0MsSQzBjtRYKRxaq0=
+	t=1788192495; cv=none; b=vGFa2LYv+3+FrKvuCnJDegC67P0CVYVBvtuDTVafXLh8kTwFg/xvAbZbtWZHAfPAtpS+G/Ia000x6gGukejDQW3YfEjrB9Kmc6AJuP4OKhsqK4mE4/OBQNfu2GyBR5fHkMtlUiGv8VQOj8ESmiPWi7P7RU7yJd9uNq2NSHRPuDg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788192492; c=relaxed/simple;
-	bh=JaYYc/MebRQQvnPhb6g6B2V4uIViyu5GZFRD0yqRn88=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=AbusTmrQqhs0XPH7asrPSz6KPVm+gzkHz3MssEh5l/bgN7eS8jDG9hSg1uKS5QhThvIfkMh+n/75boAX5MZr+VX1fFu7ptqYm3OpUHUPaJtoCOVu+g7EfXyaDIR61kTaz7hGTcpoh+w8/YRkLiNnvHvUkSCGwfoPrjJOR+FqVQg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SkafsuVk; arc=none smtp.client-ip=209.85.128.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788192495; c=relaxed/simple;
+	bh=WHOQNZF3WUFg0mYJDCKbEeNUeeXEiQebbyFdkqK7PBU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ctAf0X6kFXFSr+AoYUxiLAlNE7rZfvpVSasD7EJ03jslSekhBEIMHpVgJM90mggTy0OPZDhCqPe5MO4ea1qKt5jAqcHraumnAs82up2OJLE6cGp0tvvYO1Th2T9lJXxyIu1V97+OKFGC5ON3P8IHuARb1dyk2N36eGnZCbZPcts=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=tyFKKIfZ; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SkafsuVk"
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-49b0d8bc2aaso36782695e9.0
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 09:08:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788192489; x=1788797289; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xxKjjaswIqYpJP4gFTjG5f76wpVmS82nrOI8R56lUWA=;
-        b=SkafsuVkNSzoPTrPEbZBTik6d1rsqaDqezKWcHYQt8qQmTLt198mzJD86cjFG5xNgF
-         B5l6S3+hcq+nHtlk5stBks7gIBQ0B3r374UOfs3sayaf9ReTyAN10HA8V4sueOt2vZKE
-         TUpVn5aeQM4K1LeoUE12wASGTMaJgFB+FdYSKca2Vkf2SVhxDUNNIC+yW/OSLqpH59sE
-         b3bU5o18kl8eVMxiHNZT2GgwzCe/0BvZhumoYpSDqHB2wl6rGGaAYdFme2fTC6WU1E3F
-         dLXYQlNwtyjaiVlWbcFB3Z/Gusj7qx3xFOtg0Qy4krknPpKGfEAXSgLO2nnbOjWcWns1
-         TeLw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788192489; x=1788797289;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xxKjjaswIqYpJP4gFTjG5f76wpVmS82nrOI8R56lUWA=;
-        b=oDQty5X7r3Mpo/hgZ3tqfq8Lj+RxHWv2Jsp0YviF4hNUQl6aBZiw8ovET9Eq5v4zF4
-         VZjilj9DoF6oEGkXOTlk8r77Z3EYpvS/VwKl5yzt0M7REX0wk0f3TnV0l6+VjJeFnu67
-         9FcB+dLXJEM+7DHLhmBrgl+DbEb/8lz6tWLvV2oCwGG8cOWG56bB3a5op/DhcKeLBjbO
-         TkOCWqLBYa/kRTo+Zp/VqHKKK0xgL2EPafSQZY2WnM8THfFNmz+A9x6UqD6oIiy915XA
-         9qkxCDy5Wz/ASY4Ge7rVWirEzvoIqyziKfoc01xF7G8y9OFfVrCZJ2aOf4LtMMezp1Bj
-         /UgQ==
-X-Gm-Message-State: AFuF++n9KRsuWX1AXGba9TC6+eegqSa6vctzgEK4zQncTc+3cCR7/vDn
-	noZEzAJNBnmiyGb7EIk2adH+ELrngrnAz70jGg5yqrNfKDbSYJQDMHCWieTitrDTT0Vm0g==
-X-Gm-Gg: AR+sD102TbiOXMOiWZWimXsFifs7TahXj3hgrEsOEC/vvosSTBZSEf/9egqe0gWp4GF
-	tWfcT+4EpjPtnkYmY1s1Kxg06ZNoxsLOiEJ/zD8Cvf51yMMijQ9uyoUvKlZVkF0A7H9bD0/huXW
-	gCbHg6sJ2BkGeAqLWAZ6W26cmHwusV5n/w7wYIJKQr8XvfeJTGg1/Xyp12EA00z5vKDVYL+xE2t
-	HaoW1P3ZKjx6GPJkcHx0qVDiQIfqt0SRLvKZ5YZM6LdjGPucQ29K8EYPUKA8eiL0df6jj6JVxfV
-	YhD1jYveqiRaf5CWxz+1I49JKcp6eETFv4iDoSvp0BgXJ/ohHCTiBQFl+ZMBGH+4IAHs5p92FSp
-	RFCcu+8y8hGEBz3t+P25+8jXPkYiPl70SO+ao7K3W+nF0T0T/64tcMGnA8dhgnBBq53nBce8Gh2
-	sMPtHOUF9iD3aVakBb3GnndLH+ewVbYB8gYZSHuUmY2DeDBdVHoOPib0fW3vGtsLzzads=
-X-Received: by 2002:a05:600c:1c0a:b0:499:51f0:a9b2 with SMTP id 5b1f17b1804b1-49b91c1dd3fmr440541835e9.1.1788192488967;
-        Mon, 31 Aug 2026 09:08:08 -0700 (PDT)
-Received: from TC-LAPTOP ([2a01:e0a:b8a:2610:ccbd:b529:37d3:c1b8])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482fbab3f3asm23849760f8f.3.2026.08.31.09.08.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 09:08:08 -0700 (PDT)
-From: Thierry Chatard <tchatard@gmail.com>
-To: linux-kernel@vger.kernel.org
-Cc: hansg@kernel.org,
-	lee@kernel.org,
-	platform-driver-x86@vger.kernel.org,
-	ilpo.jarvinen@linux.intel.com,
-	djrscally@gmail.com,
-	linux-media@vger.kernel.org,
-	mchehab@kernel.org,
-	sakari.ailus@linux.intel.com,
-	jacopo.mondi@ideasonboard.com,
-	nicholas@rothemail.net,
-	andriy.shevchenko@intel.com,
-	v.vitovt@gmail.com,
-	Thierry Chatard <tchatard@gmail.com>
-Subject: [PATCH v10 5/8] platform/x86: int3472: tps68470: use a common always-on VIO regulator init_data
-Date: Mon, 31 Aug 2026 18:07:51 +0200
-Message-ID: <20260831160754.9857-6-tchatard@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260831160754.9857-1-tchatard@gmail.com>
-References: <20260831160754.9857-1-tchatard@gmail.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="tyFKKIfZ"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 517E24E41471;
+	Mon, 31 Aug 2026 16:08:11 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 266D360231;
+	Mon, 31 Aug 2026 16:08:11 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 04B7411C791E9;
+	Mon, 31 Aug 2026 18:08:05 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1788192489; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=+8ZebgPAjuIHcgT3bCLdV3LtzjyA0gL3LmHxoQrhx+A=;
+	b=tyFKKIfZYtSmHbB6SRGVddmbIWu4KlkYfzUm/ZI2B1ma+cge5AYk8BUQSvQWjBihB06cKO
+	7w9p/nW3GyfTL36vc0dF/x0Y/y/K6m5UASja3v+Ocja8lCvnUd5i2nCo3J3O0Sk77gTIVQ
+	7gsN6+Y/oPsj1I+xfUyupgxFglmDjR87mDEQCc6SqymXfSTleH/de6puRt329aaYHFs0dF
+	J2SqYyhjyhE6S5TiFBFTtfDNl2fFOxv+jdbB9zftCyuIjqjE4tyHvG+yC1f1eansSxt0ex
+	NAezWFPnePq8tVUGtkvoZDYUHZ+NUDPc9nRhY4jSynn3zDZpfUm+7ayqfzSqXg==
+Message-ID: <2d335ef9-baeb-4672-bcb3-c00bd988c83a@bootlin.com>
+Date: Mon, 31 Aug 2026 18:08:05 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6.1.y 4/4] ipv4: start using dst_dev_rcu()
+To: Greg KH <greg@kroah.com>
+Cc: stable@vger.kernel.org, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Wei Wang <weiwan@google.com>,
+ Martin KaFai Lau <kafai@fb.com>, Hideaki YOSHIFUJI
+ <yoshfuji@linux-ipv6.org>, David Ahern <dsahern@kernel.org>,
+ Steffen Klassert <steffen.klassert@secunet.com>,
+ Herbert Xu <herbert@gondor.apana.org.au>,
+ Pablo Neira Ayuso <pablo@netfilter.org>,
+ Jozsef Kadlecsik <kadlec@netfilter.org>, Florian Westphal <fw@strlen.de>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, netfilter-devel@vger.kernel.org,
+ coreteam@netfilter.org
+References: <20260821-cve-2025-40074-6-1-v1-0-cad5cf499b76@bootlin.com>
+ <20260821-cve-2025-40074-6-1-v1-4-cad5cf499b76@bootlin.com>
+ <2026082454-jacket-gravity-6ddc@gregkh>
+Content-Language: en-US
+From: Miguel Gazquez <miguel.gazquez@bootlin.com>
+In-Reply-To: <2026082454-jacket-gravity-6ddc@gregkh>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-The surface_go and intel_nvl board data define byte-identical VIO
-regulator init_data (1.8006 V, apply_uV, always_on). Replace both with a
-single shared common_tps68470_vio_reg_init_data so new boards with the
-same requirement can reuse it instead of duplicating the definition.
+Hi.
 
-No functional change.
+Le 24/08/2026 à 15:47, Greg KH a écrit :
+> 
+> We need a working 6.6.y version first, before we can take this one.
 
-Assisted-by: Claude Code:claude-opus-4-8
-Signed-off-by: Thierry Chatard <tchatard@gmail.com>
----
- .../x86/intel/int3472/tps68470_board_data.c   | 21 +++++++------------
- 1 file changed, 8 insertions(+), 13 deletions(-)
+I sent the backport for the 6.6.y version
 
-diff --git a/drivers/platform/x86/intel/int3472/tps68470_board_data.c b/drivers/platform/x86/intel/int3472/tps68470_board_data.c
-index c53542465..c2ec802fc 100644
---- a/drivers/platform/x86/intel/int3472/tps68470_board_data.c
-+++ b/drivers/platform/x86/intel/int3472/tps68470_board_data.c
-@@ -75,8 +75,12 @@ static const struct regulator_init_data surface_go_tps68470_vcm_reg_init_data =
- 	.consumer_supplies = int347a_vcm_consumer_supplies,
- };
- 
--/* Ensure the always-on VIO regulator has the same voltage as VSIO */
--static const struct regulator_init_data surface_go_tps68470_vio_reg_init_data = {
-+/*
-+ * Common always-on VIO regulator init_data. Its voltage must match VSIO;
-+ * boards using the TPS68470 I2C pass-through that need this exact setting
-+ * can share this instead of defining their own.
-+ */
-+static const struct regulator_init_data common_tps68470_vio_reg_init_data = {
- 	.constraints = {
- 		.min_uV = 1800600,
- 		.max_uV = 1800600,
-@@ -123,7 +127,7 @@ static const struct tps68470_regulator_platform_data surface_go_tps68470_pdata =
- 		[TPS68470_CORE] = &surface_go_tps68470_core_reg_init_data,
- 		[TPS68470_ANA]  = &surface_go_tps68470_ana_reg_init_data,
- 		[TPS68470_VCM]  = &surface_go_tps68470_vcm_reg_init_data,
--		[TPS68470_VIO] = &surface_go_tps68470_vio_reg_init_data,
-+		[TPS68470_VIO] = &common_tps68470_vio_reg_init_data,
- 		[TPS68470_VSIO] = &surface_go_tps68470_vsio_reg_init_data,
- 		[TPS68470_AUX1] = &surface_go_tps68470_aux1_reg_init_data,
- 		[TPS68470_AUX2] = &surface_go_tps68470_aux2_reg_init_data,
-@@ -339,15 +343,6 @@ static const struct regulator_init_data intel_nvl_tps68470_vcm_reg_init_data = {
- 	.consumer_supplies = ovti13b1_vcm_consumer_supplies,
- };
- 
--/* Ensure the always-on VIO regulator has the same voltage as VSIO */
--static const struct regulator_init_data intel_nvl_tps68470_vio_reg_init_data = {
--	.constraints = {
--		.min_uV = 1800600,
--		.max_uV = 1800600,
--		.apply_uV = true,
--		.always_on = true,
--	},
--};
- static const struct regulator_init_data intel_nvl_tps68470_vsio_reg_init_data = {
- 	.constraints = {
- 		.min_uV = 1800600,
-@@ -364,7 +359,7 @@ static const struct tps68470_regulator_platform_data intel_nvl_tps68470_pdata =
- 		[TPS68470_CORE] = &intel_nvl_tps68470_core_reg_init_data,
- 		[TPS68470_ANA]  = &intel_nvl_tps68470_ana_reg_init_data,
- 		[TPS68470_VCM]  = &intel_nvl_tps68470_vcm_reg_init_data,
--		[TPS68470_VIO] = &intel_nvl_tps68470_vio_reg_init_data,
-+		[TPS68470_VIO] = &common_tps68470_vio_reg_init_data,
- 		[TPS68470_VSIO] = &intel_nvl_tps68470_vsio_reg_init_data,
- 	},
- };
+> 
+> thanks,
+> 
+> greg k-h
+
+
+Thanks,
+Miguel Gazquez
 -- 
-2.53.0
+Miguel Gazquez, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
 
