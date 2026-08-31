@@ -1,283 +1,542 @@
-Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11021085.outbound.protection.outlook.com [52.101.65.85])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f8.google.com (mail-pj2-f8.google.com [74.125.227.136])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF88635C1A6;
-	Mon, 31 Aug 2026 18:46:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.85
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788202020; cv=fail; b=B8oGe/q0NpvOUxu8HZ2ou6oi9zkzXoUqp36F3qNpGGUX0uFvzPENNcuy/mL8lXohA2uelasfonOdwfW6fzHbc5yR+rwtE05LJfWrxJb+6qY6VoU3vGUmeTFobEFXB6rIEg4X2snCmB+/XEVOLT0EDdvP/XQK26H71UOzeYL1RcE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788202020; c=relaxed/simple;
-	bh=0dULBfZvkxpGktmFukl4GwcQFTn7eZxiBE3TPNeF4Zk=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=sMgmIhBMLFf1ig0QuMV2zz26ax+ImQdzXfoYAeO0ZdiLdEJ22tbQr0m+3WLSTng7x1nsOzFxr3i2Zd7p7VCTHT7ti36oRk4CI1xWuZRZvY4dvmQOgNXjGtCU+j01aik4ZRIUN+2gHj17hIPYza0fPMGgqCvyz1dj7Hdkzt2jMM0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=genexis.eu; spf=pass smtp.mailfrom=genexis.eu; dkim=pass (2048-bit key) header.d=genexis.eu header.i=@genexis.eu header.b=rMuXmxG8; arc=fail smtp.client-ip=52.101.65.85
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=genexis.eu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=genexis.eu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4974E37C0F6
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 18:47:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.136
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788202033; cv=none; b=u7ATvrMnUptvup/4bvq7Z9D6n/3w6KS/CHTTjyoQ27sPalyNDofJ0pHS6f8OonyaPLqPyewoqmP35TDjhU9jmkJLhrEBH9CeeSNue14uTmoi8Vd6Wq/6iG97MMV2T2bJp1kRobToAD03+fg6TUHpvMshF5gz0CgFsTNxwCF7wIs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788202033; c=relaxed/simple;
+	bh=0YlE6cJLfILSdZce+43bxbJ0SE8HpVovxfqoxR7adec=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=O77YKZMxXv9fVIqqo1iZaJbQ4vZknvdTqtsCSMKo0IJiiiP0v7BdlzxNYFtX78a3IocV3wcreBrfnth55u9rof6jtwdSLG5U+fHQTPFv6FzwWUhfBUBrmzGHfRPgpoXbVO0nXDLVgkxROoyghkue+8d2N+caFXOUd/wW2PjyQuE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SGvZLHaX; arc=none smtp.client-ip=74.125.227.136
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=genexis.eu header.i=@genexis.eu header.b="rMuXmxG8"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vQ6vnjPG/u8XHbOeBgZEXX093Pts7CN9rNiD0nikq7f0vLctVQN5z3NdCygLvFECqE1mxRqkLH2POsHbRiyrMjYlN3w5MpbvzxnTrjHAItqWsU5AgS/C5EyfP2/tWPslRAEwds1iiJudj/ZYcn0rXgWX+kiifKZ00yFFOmcC0jpBk6HIkh/bQhWGDrkmFhuDRyQXdxINLjUX4qXTiHh2KmnQDnPMY00uu/n0okG44oImTGFg5Rc/lUtFna76E8KiShy5Ss5qb0Sn1zL8p9aiHx+qtbNqFrYPjzjOxE/I3udGRqM8qz3Z7jm3UBTEv7yrpKwbvEHJHK+iefAp7mcLuQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=O7InJar/qWNocfvyLH6vwbDAH0RSmnc1/tl95Rd2ICg=;
- b=ei7uEWQ1HqfKAUCapZkly+L4H5CscjZp27D+JjlMEQeKpR31m8OGiunrgG5VGikG6BpTSZkzVoinsSk26lBVd8sEBGQDi/lYc2Dr6iyuLWS5xf45EZq8qcGj3lVfmf1wd7/huz92yApd91TUQe6Yh9AaQgL7W0Bm+5F5GbDP/hMyRQjrdfrZ6+WM0k8XySRq2cyMtxvRE/ODG12+gRCRB/m0327cJ4VSdYZFsbQNbOBMpJAwsKwJTcMyqLBkzYd0D4l4T/nnrNbgWtCJuE2RFnVvz4B4pUxlE5qvSban73rQjmW/xUIdKpg0kTo2tFsYVQ1XiCnxNJYxj9j2zDd80g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=genexis.eu; dmarc=pass action=none header.from=genexis.eu;
- dkim=pass header.d=genexis.eu; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=genexis.eu;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=O7InJar/qWNocfvyLH6vwbDAH0RSmnc1/tl95Rd2ICg=;
- b=rMuXmxG80AI2StfdNcvM87EbLNrTIs/8ZbZGFzYmmcwsK00nru3Feis4AyGNmBkuc8r7JTjnzWe1dFwvfzLWOI6bP0gDupfqir/uQ3AY/fi+x/slBDvn6V6jB6gqq6s5qusbnu/O6fHbye8Laz3X+zgJVlhMDZyPPn/oJI0iIthA86672mVEnG9fiEpVUHpv9aQmFahcwveJnpFEhtCzi6jYXICHegXVqsXZ5ZFPmDqTfOIJyXVHWD4oEjBXVz8W7Y4EJbg6701Yq7J5XibiMKmcbfCCgkUS3Zzt/rQVZYSl2++QWQFP8RvPb1Lq96kh34haeSz9OOVHUN8LpLvpdA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=genexis.eu;
-Received: from DB9PR08MB6697.eurprd08.prod.outlook.com (2603:10a6:10:2ad::14)
- by DU0PR08MB8303.eurprd08.prod.outlook.com (2603:10a6:10:40d::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.9; Mon, 31 Aug
- 2026 18:46:54 +0000
-Received: from DB9PR08MB6697.eurprd08.prod.outlook.com
- ([fe80::bdec:3e95:6614:441f]) by DB9PR08MB6697.eurprd08.prod.outlook.com
- ([fe80::bdec:3e95:6614:441f%6]) with mapi id 15.21.0382.007; Mon, 31 Aug 2026
- 18:46:54 +0000
-Message-ID: <679db287-3cf2-4d29-b690-d87196402378@genexis.eu>
-Date: Mon, 31 Aug 2026 20:46:52 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/3] dt-bindings: pinctrl: Add EcoNet EN7528 pin
- controller
-To: Conor Dooley <conor@kernel.org>, Ahmed Naseef <naseefkm@gmail.com>
-Cc: linux-gpio@vger.kernel.org, Christian Marangi <ansuelsmth@gmail.com>,
- Conor Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Linus Walleij <linusw@kernel.org>,
- Lorenzo Bianconi <lorenzo@kernel.org>,
- Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>,
- Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-mediatek@lists.infradead.org
-References: <cover.1787931313.git.naseefkm@gmail.com>
- <c20005a81b4069f3ff68311629ff7d4678fa92dd.1787931313.git.naseefkm@gmail.com>
- <20260828-chaos-recovery-c99d547ee1b6@spud>
- <apLGtCRjCP1j0u5i@DESKTOP-TIT0J8O.localdomain>
- <20260831-sibling-isolation-3849a5e4845f@spud>
-Content-Language: en-US
-From: Benjamin Larsson <benjamin.larsson@genexis.eu>
-In-Reply-To: <20260831-sibling-isolation-3849a5e4845f@spud>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: GV2PEPF0001A327.SWEP280.PROD.OUTLOOK.COM
- (2603:10a6:158:401::690) To DB9PR08MB6697.eurprd08.prod.outlook.com
- (2603:10a6:10:2ad::14)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SGvZLHaX"
+Received: by mail-pj2-f8.google.com with SMTP id 98e67ed59e1d1-398b9f722abso708521a91.0
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 11:47:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788202030; x=1788806830; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=lWHgwZjI8PJHAdOh0hOZPcNPrnvuZLiyr/mlCNOBOjU=;
+        b=SGvZLHaX5DNZzM522kKdlxEUeQvDIoBHpMF7W5D0oYeZL1mMvHLYpy0sCWoVNrpHo+
+         blKxBTu0qN2FhQLu30whRxeJsXipOKmsDD+v7vT3bXYa+qj9WmbiJL/Rxi/T3iNjJjU9
+         21V/SLuL8Dz46uYqSSaj/DO6swSvAx+7IexnLAm9qnP0x+aFm6ZuvRt3TP0xHvbjJN6o
+         bwpF42XzND0dTNdTAb9ZTHPuWOwRNN5jFt9BBex2f/UsyeJktLNa36L/vlqgNxsp8xkt
+         7vvBupExfvgbBHOXPVZP+PTrlLgp65GVFaki5mgB4cuXR2xKEmgDEDbli0ROftjVO27K
+         Ia0g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788202030; x=1788806830;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=lWHgwZjI8PJHAdOh0hOZPcNPrnvuZLiyr/mlCNOBOjU=;
+        b=TCyuzvVHaELk1bWsENln6tCZ0fOIPi9p6I+B5yjkTKeENlXCDqpeXUpx4+0TGjUUCo
+         4/8zweJzfTDnrufLOvE8pZB5tjV/+PxTGYpcVcULKjNaece/hRl7tfBeJV/Kp/CCKr/h
+         e+HYN+wk0XKb6V5DmuhAOqKxbDspCxbl+QO6wHf5RlPPdz8BPJlj03P3cMSimY1jHUUv
+         puVXGEEiG8cZ8qYofVRHH8ruys53EQbXTE+RIkGexVUhBpcJfQQR0bRUlaogQJclkN+6
+         hQQTubE5MZw49dUylNG4U0XsvJcArRm9oPw4uHHi4SVkKBs19pe+vTUjcIl3mvs2oM4w
+         AUaQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzUSbXJjOR2NY09xt+C1ZxJ4hdaTOBYH9/Xw95otVVsvY2qzruAEFYOz8kTZXNm/3VKmhQGTs3yAzy3wJ0=@vger.kernel.org
+X-Gm-Message-State: AFuF++kSvwRilX3AgSweDAO1OppbzFpOnstmeH8Kh3T5rKgmEDlefZYG
+	jQA9Wwb2ezgYuc3sdHyg4eAzJGVozyBwnWvoWPPh+ahpOSpoUk0QGtz+
+X-Gm-Gg: AYBFou1dJu28WpXmCOO7s3pZ+eL94fG93jiniy1oLCCQZPlIs+ZO9a8oVjy7B1Zpl8F
+	NtdHofOY1dJg6nkQckLrr7pCVFVxPIAgkiYM6vIwagQEhRkuk4qtWmfEVzynM/WIKnWCLlUsZ0W
+	oaF2uoULN6iy5FWvqsXDgMsKQN8NrLCOC3r7FdDdb/GAT6VkPk6JkShDXSdSh7xCdRfFDTfwP+Z
+	tkuwfgPaTHOXHkrjf9rNrpNFAnfstpxxsmKIxTV7Qenpd4d5uCMPDdg4/GU+MGw7qmQ3VtX1in9
+	cmwNAzD7iBfYkxKA9H6fCK5ynADnxuRmhJqsckwqn/J+oPXyYsyGXzHnSWG8OV3VS2fwMUdOiup
+	RKk2EzEqUhRS5UllGco8Co631VzKGefkeaaZ4bb8Stimo6abioHnZLMMvWOaSInCLamBzfnfIz7
+	xrJFukWSLTP58oKz/govMkrHVcYagfFzNYZ/gLZ6byVL1+Lqfju0y4NljPsuS6UEsgpEq1+96hm
+	Ckrj2F/
+X-Received: by 2002:a17:90a:a81:b0:398:d6f4:c61a with SMTP id 98e67ed59e1d1-398d6f4c86dmr12291951a91.17.1788202030379;
+        Mon, 31 Aug 2026 11:47:10 -0700 (PDT)
+Received: from DESKTOP-M0MLFVC.localdomain ([165.99.41.159])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-142e0dc854dsm29459223c88.10.2026.08.31.11.46.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Aug 2026 11:47:09 -0700 (PDT)
+From: Shehryar Ahmad <shehryar.amd@gmail.com>
+To: jic23@kernel.org
+Cc: nuno.sa@analog.com,
+	Michael.Hennerich@analog.com,
+	dlechner@baylibre.com,
+	andy@kernel.org,
+	gregkh@linuxfoundation.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	linux@analog.com,
+	linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	devicetree@vger.kernel.org,
+	marcelo.schmitt1@gmail.com,
+	danascape@gmail.com,
+	Shehryar Ahmad <shehryar.amd@gmail.com>
+Subject: [PATCH 1/3] iio: accel: adis16201: merge adis16203 support from staging
+Date: Mon, 31 Aug 2026 23:41:59 +0500
+Message-ID: <20260831184201.34416-2-shehryar.amd@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260831184201.34416-1-shehryar.amd@gmail.com>
+References: <20260831184201.34416-1-shehryar.amd@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DB9PR08MB6697:EE_|DU0PR08MB8303:EE_
-X-MS-Office365-Filtering-Correlation-Id: 31bdc009-bff8-42d8-e840-08df07903a2e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|7416014|366016|23010399003|376014|56012099006|10067099003|5023799004|11063799006|4143699003|6133799003|3023799007|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	G5ZWeAmflqS46UT4IQkplzHitay0zc6NF6bVbTBHczQy1oTbrTU0TpHL5hkGv57T4L9a6ztBMa0JsJZkw5MOOxg1qCZPWz32rOqOLhoUHiS0ofcoeyaVmDcVRT5uXSH7fLHR+/VMw5b/BRbHuvzLMase2s8lKWkqd+Mdtdg2SN7PUEhv/pw00h8JZA4+dTUItFKMmEx0AB6Tx0769qB1iozPEeEEPmkOYfUjc8763oIbi36Kw9xhUmlLw1abZpuxrkbRUoz3T/DyanAqq1OFlcxXDilZferqd9y8+Of/ew47l7eP9IeM1/KNXLx5G7vkKskqH12OUMjM2QBFxLrrEUI/lz298hNEithREkC+bFtMUJPVf7U63JNJtGynQxCer2CY+1d37MuZo7ToEi/aB6cQBiZV1mvuFjHtOJMPoc31NAAMTGBUuKWpnACBeDVazKFxt9fQYWAQbfForoO3xMhMkKJUAYI2PHuGMVRRHtakc42uhfR0dfzkpsJhbfNdSeRSjXk+mWB+cx6pxt0mNBUXJ/6AVMIUun6HI3eYBzMCUNwI1ZrNS1khP0PybriVl+4rgdDjAyrwDeZ3FRBTMYDbNoIcmbpGQgvpnDjX020=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB9PR08MB6697.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(366016)(23010399003)(376014)(56012099006)(10067099003)(5023799004)(11063799006)(4143699003)(6133799003)(3023799007)(18002099003)(22082099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?TVAxNjAzV1pRYjIyVDVKbm5KY3B0YWZySkw2dGp5KzBlZ1Q5R1dsVXFQTHZQ?=
- =?utf-8?B?VTBDczllMXNmbXg5dk1seHZBM096Ynh0dDE2ZWxNQVNqUmZQUDhXTTJ5dTNx?=
- =?utf-8?B?WDJtUXFhaWtBM1VRZGpKWm1TTTllK1pXTXVVdkQvS2NFTU16MXN2NUJ3b0lK?=
- =?utf-8?B?SkdWdUJZRVlkNU5rMEZzejFZVmVyUXhhci9pbUVQQlZyYzF0VXlTR1BSZ2M3?=
- =?utf-8?B?Ri9QMGt3LzN3WFViNnJxeFBJaGZxVzNxN0hRWU1rZlBVUGpJS0ZGZUNOYTQ0?=
- =?utf-8?B?OS9zNUxtY2lyQVpiNmx2SHJPdE1UUzRuemlhOWdIUTgyQWQxQXZNZTFqUHVz?=
- =?utf-8?B?ZStld0ZNZFJoUitXR0tHNDJrSUVaTFBhNVJqdlFMQ3RvdzF3dnNYYldKalp4?=
- =?utf-8?B?MnlFSlJYUzFZUGZzT2ZZY0thcStTc0FiSGE5bUNjd3pVVzg0bFJFT1dsdGJm?=
- =?utf-8?B?eEJROTMxSEt1MVhEWWl2aUxWWVNwazYxYWF2cStEOE93SjFzeFBvY1JtbFIr?=
- =?utf-8?B?cWxNclgwZGl4VFlMblgxQXdmSXNTMTNqT2tLT296b2V5WkJXV1FiMnJYRXlJ?=
- =?utf-8?B?cmFnVkVJVmpYb0pnd3dWQTBKZXRZRElKUmtlSXA1ZitXVy9MdlhEL3J5MkY1?=
- =?utf-8?B?ZUR6NHQ2LzVhekVhOXc5SHBZa2wxNTlaWFVHV2lQY2wyTngzL0ZRYzhIeDVs?=
- =?utf-8?B?SDV1RWVGSkdVQXNVV3pEWE9vcGNEWEs3V3lBa3Y5b2pmVWViUllVWWpURFhL?=
- =?utf-8?B?ZXpoZnlPY1R3TE1ISG1WMGExOFdFWHRwUjc1WCtZSlYyNlhwbndlaWRJNEpx?=
- =?utf-8?B?NDUzYnp2bDZxVGxMMjBsaGI5SzlaTW1ITzVyYjNXTldIdHc2U1FmNkFZa1VJ?=
- =?utf-8?B?aUw4ekhZdFArbnJvQTIyYjBRQ2JIZjVUTWNxUk9oS0YrdjJ2TEhSRjlBY1kz?=
- =?utf-8?B?aEdlTWJFMHJmTWhMUTBYajdUQVVBU3BKbmh2bUhDTjBHS3JqeGIwMWk2TGlp?=
- =?utf-8?B?cXpwSktUSmhSd0xabVVIcUY2NTlCbGliaDMvSUtmMDhXakRza1JBblYxWERB?=
- =?utf-8?B?RWMvWjN3Nlg2dGhMRVJIRjJjd1k1QjhIcStHRHB5Z2I1cTRXR1hPRFFHb0Ji?=
- =?utf-8?B?c1VGQStuUkh0dzZiNmsxMFgxY0MralF3cFVtVzR1aW83UUo4cTlRdjl0dC9L?=
- =?utf-8?B?Q3ZXKzlaa08xa09KWEFkUzFtMkhuQ1VYOWVCZ1lMWGpOZUkwMXhIZzIyQllQ?=
- =?utf-8?B?MWE0eVRqejB4c2s1anByQWtJOFNRNm1ONzl5RWRpN2hHT3B1NkN6WU9OQ0sx?=
- =?utf-8?B?UmJsZ1VZY2hXNFdzekxxMXhycnkrbmpFcFRob3VmUzhGcmhJSnNLdFZoUElP?=
- =?utf-8?B?S2tud0lXY2U5dlJDN0NwcmRXM2VKOVdhN2FvZFlmQVpQdGNpdC9INUZ1R09B?=
- =?utf-8?B?VVM4MXc1eDZ2eTUvMExVZGJRRThXNXVxMnoxS1UxeEpvSkNyL0JCSFRTcitr?=
- =?utf-8?B?N1V4a3hGVVpydHl3bzVPb1Rqb3lNc3ZZVHVoVkwxb2s1dVh6bkJ4THFsN0Ro?=
- =?utf-8?B?MkRzd1RsZFdJOWJ4V240S3VBdFR3UVhEdXozM3JldTV3ak1vZ1dWQ21oN0tu?=
- =?utf-8?B?d1h5eXZsMldyd2xVL0dMcW9uNHRaTzJleDFFUEFWSlR0NldpRFk3dWtzZlRn?=
- =?utf-8?B?RGtGeENKR2Z0bDVsSUtwczlPRjNiT2RpUWFTQWE0eEdudndXU3YzNDVPNjFk?=
- =?utf-8?B?S1l0SmhHSXE5K2JmQi82cDAzallhc2tmd1JFcGZjaStwRkFQYXJyMUk3dStP?=
- =?utf-8?B?SEpDS08yanAyL0xoOFJoNjJSSnZMWUdHRG4yRWI1RE41bFBCQ25DejZKUWZN?=
- =?utf-8?B?b0ZzYU9ZZ0t0N3dqNHZTWUVwWG9TNlIycnFjT0NUd015eU1kd3hzS1hxRER2?=
- =?utf-8?B?UVV4SkNSSXFhQ3NwNk5nTE0vclNiTUxxL28reUFBSTgwdzl0eW1RY2pLU1Fk?=
- =?utf-8?B?WmJjM2J3TGtuMWZZM2R0cERmUFVrK0prbGE4S2xlc2w5bjhtZkRSa1EyN1Q2?=
- =?utf-8?B?Z3BKV2I2Z0U2alhJWVlsakJ5QmcrOTNWUFNqVW96TklxUnFBK2JSaXhyY1dx?=
- =?utf-8?B?UDZoTTRwaTZaQmkzeklMUldSZFpBOVEzc3BXMmlsY3BnOXBpWkpXUUZNV0g3?=
- =?utf-8?B?QlIyUmQ4STNEWFd5MTJqTUdWdEhLOENCb3VsK2lsekcvWHpGSkY1VWw3ZlRV?=
- =?utf-8?B?UjdsMUYxNnRZR01QdHJLNGo4U3JrQ3ErUVYvTThsS2lNTGw2VUR5WnNJRDhO?=
- =?utf-8?B?QWNoY2xVaFFGd2tpZHd6ZXV2a2dZOG9GNnNWcFlDaUp5RlVJaGVVV3paV2pN?=
- =?utf-8?Q?iVh7GIvzx7kiZsQM=3D?=
-X-OriginatorOrg: genexis.eu
-X-MS-Exchange-CrossTenant-Network-Message-Id: 31bdc009-bff8-42d8-e840-08df07903a2e
-X-MS-Exchange-CrossTenant-AuthSource: DB9PR08MB6697.eurprd08.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 18:46:54.5601
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 8d891be1-7bce-4216-9a99-bee9de02ba58
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: s9e/8cK3qiBxLd3LsqCjrYS00UKqZkDDh0ugSSMvWfjPYQkc68FyU+nWtWPBFMm2mWwvjIyW8BERyW4vq/4cYMZNq9qMIRyMFuxvC8jl1Es=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR08MB8303
+Content-Transfer-Encoding: 8bit
 
-On 31/08/2026 18:57, Conor Dooley wrote:
-> On Sat, Aug 29, 2026 at 03:47:00PM +0400, Ahmed Naseef wrote:
->> On Fri, Aug 28, 2026 at 04:51:27PM +0100, Conor Dooley wrote:
->>> On Fri, Aug 28, 2026 at 07:35:14PM +0400, Ahmed Naseef wrote:
->>>> Add the binding for the pin controller found on the EcoNet EN7528 MIPS
->>>> SoC. It shares the IP with the Airoha pin controllers, but its IOMUX and
->>>> pin configuration registers have a different layout, so it gets its own
->>>> compatible.
->>>>
->>>> The CHIP SCU holding those registers is referenced by the airoha,chip-scu
->>>> phandle.
->>>>
->>>> Signed-off-by: Ahmed Naseef <naseefkm@gmail.com>
->>>> ---
->>>>   .../pinctrl/econet,en7528-pinctrl.yaml        | 190 ++++++++++++++++++
->>>>   1 file changed, 190 insertions(+)
->>>>   create mode 100644 Documentation/devicetree/bindings/pinctrl/econet,en7528-pinctrl.yaml
->>>>
->>>> diff --git a/Documentation/devicetree/bindings/pinctrl/econet,en7528-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/econet,en7528-pinctrl.yaml
->>>> new file mode 100644
->>>> index 000000000000..3ce1a5309d09
->>>> --- /dev/null
->>>> +++ b/Documentation/devicetree/bindings/pinctrl/econet,en7528-pinctrl.yaml
->>>> @@ -0,0 +1,190 @@
->>>> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
->>>> +%YAML 1.2
->>>> +---
->>>> +$id: http://devicetree.org/schemas/pinctrl/econet,en7528-pinctrl.yaml#
->>>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->>>> +
->>>> +title: EcoNet EN7528 Pin Controller
->>>> +
->>>> +maintainers:
->>>> +  - Lorenzo Bianconi <lorenzo@kernel.org>
->>>> +
->>>> +description:
->>>> +  The EcoNet EN7528 pin controller is used to control SoC pins. It shares the
->>>> +  IP with the Airoha pin controllers, but its IOMUX and pin configuration
->>>> +  registers have a different layout.
->>>> +
->>>> +properties:
->>>> +  compatible:
->>>> +    const: econet,en7528-pinctrl
->>>> +
->>>> +  airoha,chip-scu:
->>>> +    description: phandle to the chip SCU syscon
->>>> +    $ref: /schemas/types.yaml#/definitions/phandle
->>>> +
->>>> +  interrupts:
->>>> +    maxItems: 1
->>>> +
->>>> +  gpio-controller: true
->>>> +
->>>> +  '#gpio-cells':
->>>> +    const: 2
->>>> +
->>>> +  gpio-ranges:
->>>> +    maxItems: 1
->>>> +
->>>> +  interrupt-controller: true
->>>> +
->>>> +  '#interrupt-cells':
->>>> +    const: 2
->>>> +
->>>> +patternProperties:
->>>> +  '-pins$':
->>>> +    type: object
->>>> +
->>>> +    patternProperties:
->>>> +      '^mux(-|$)':
->>>> +        type: object
->>>> +
->>>> +        description:
->>>> +          pinmux configuration nodes.
->>>> +
->>>> +        $ref: /schemas/pinctrl/pinmux-node.yaml
->>>> +
->>>> +        properties:
->>>> +          function:
->>>> +            description:
->>>> +              A string containing the name of the function to mux to the group.
->>>> +            enum: [gpio, jtag, pcie_reset, pcm, pcm_spi, phy1_led0,
->>>> +                   phy1_led1, phy2_led0, phy2_led1, phy3_led0, phy3_led1,
->>>> +                   phy4_led0, phy4_led1, pnand, pon, pwm, sipo, spi, uart]
->>>> +
->>>> +          groups:
->>>> +            description:
->>>> +              An array of strings. Each string contains the name of a group.
->>>> +            items:
->>>> +              enum: [pon, sipo, sipo_rclk, uart2, uart2_cts_rts, uart3,
->>>> +                     ejtag, pcm1, pcm2, spi_quad, spi_cs1, pcm_spi,
->>>> +                     pcm_spi_int, pcm_spi_rst, pcm_spi_cs1, pcm_spi_cs2,
->>>> +                     pcm_spi_cs3, pcm_spi_cs4, pcm_spi_cs5, pcm_spi_cs6,
->>>> +                     pcm_spi_cs7, pnand, gpio0, gpio1, gpio2, gpio3, gpio4,
->>>> +                     gpio5, gpio6, gpio7, gpio8, gpio9, gpio10, gpio11,
->>>> +                     gpio12, gpio13, gpio14, gpio15, gpio16, gpio17,
->>>> +                     gpio18, gpio19, gpio20, gpio21, gpio22, gpio23,
->>>> +                     gpio24, gpio25, gpio26, gpio27, gpio28, gpio29,
->>>> +                     gpio30, gpio31, gpio32, gpio33, gpio34, gpio35,
->>>> +                     gpio36, gpio37, gpio38, gpio39, gpio40, gpio41,
->>>> +                     pcie_reset0, pcie_reset1]
->>>> +
->>>> +        required:
->>>> +          - function
->>>> +          - groups
->>>> +
->>>> +        additionalProperties: false
->>>> +
->>>> +      '^conf(-|$)':
->>>
->>> Why is this needed? Why can you not tell from the group which pins the
->>> config applies to?
->>
->> Not for all of them: i2c_sda, i2c_scl, uart_txd and uart_rxd are in no
->> group at all.
-> 
-> Why's that? Are they just fixed output pins?
-> 
->> The spi_cs0/clk/mosi/miso pads are only in pnand, which is
->> 17 pins wide, so no group names them individually either.
-> 
-> That's easily resolved by breaking up pnand though.
-> 
-> Devils advocate thing here might be to say that the dedicated
-> configuration node should only be for the things that are fixed outputs,
-> and the muxable ones should get their config from a combined
-> pinmux/pincfg node. Personally I think that presents a nicer interface,
-> where someone doesn't have to go figure out what pins are in the group
-> they just assigned a function to to also set the config properties for
-> it.
-> 
-> Cheers,
-> Conor.
-> 
-Hi, I dont fully understand the exact implications but there are at 
-least 2 more Econet pinctrl drivers coming. I would prefer it if we 
-could keep them looking exactly like the other Airoha drivers that are 
-already merged. All the SoCs share the same structure and logic just 
-different pins and addresses.
+Merge the ADIS16203 360 degree inclinometer driver from staging to
+mainline ADIS16201 driver. Register addresses and external SPI interface
+are identical between both. Some things that differ like write mask, and
+calibbias bit width are handled by per chip struct differ_info, handled
+by of_device_id match data in probe, following the same pattern used in
+adis16475 which selects per-chip data directly via of_device_id.data and
+spi_get_device_match_data(), adis16480 does similar but via a different
+mechanism (index into an array via the SPI ID table).
 
-MvH
-Benjamin Larsson
+Channels arrays are kept separate to avoid dropping const and kmemdup
+would be extra failure point if memory allocation fails and is memory
+inefficient.
+
+GENMASK is still same instead of range check to keep adis16201 behaviour
+unchanged
+
+Signed-off-by: Shehryar Ahmad <shehryar.amd@gmail.com>
+---
+ drivers/iio/accel/adis16201.c | 289 ++++++++++++++++++++--------------
+ 1 file changed, 174 insertions(+), 115 deletions(-)
+
+diff --git a/drivers/iio/accel/adis16201.c b/drivers/iio/accel/adis16201.c
+index ba0f97944..ee8efeed2 100644
+--- a/drivers/iio/accel/adis16201.c
++++ b/drivers/iio/accel/adis16201.c
+@@ -1,6 +1,6 @@
+ // SPDX-License-Identifier: GPL-2.0-or-later
+ /*
+- * ADIS16201 Dual-Axis Digital Inclinometer and Accelerometer
++ * Analog Devices ADIS16201 Inclinometer/Accelerometer and ADIS16203 Inclinometer Driver
+  *
+  * Copyright 2010 Analog Devices Inc.
+  */
+@@ -13,93 +13,187 @@
+ #include <linux/iio/iio.h>
+ #include <linux/iio/imu/adis.h>
+ 
+-#define ADIS16201_STARTUP_DELAY_MS			220
+-#define ADIS16201_FLASH_CNT				0x00
++#define ADIS16201_STARTUP_DELAY_MS			        220
++#define ADIS16201_FLASH_CNT					        0x00
+ 
+ /* Data Output Register Information */
+-#define ADIS16201_SUPPLY_OUT_REG			0x02
+-#define ADIS16201_XACCL_OUT_REG				0x04
+-#define ADIS16201_YACCL_OUT_REG				0x06
+-#define ADIS16201_AUX_ADC_REG				0x08
+-#define ADIS16201_TEMP_OUT_REG				0x0A
+-#define ADIS16201_XINCL_OUT_REG				0x0C
+-#define ADIS16201_YINCL_OUT_REG				0x0E
++#define ADIS16201_SUPPLY_OUT_REG					0x02
++#define ADIS16201_XACCL_OUT_REG				        0x04
++#define ADIS16201_YACCL_OUT_REG				        0x06
++#define ADIS16201_AUX_ADC_REG				        0x08
++#define ADIS16201_TEMP_OUT_REG				        0x0A
++#define ADIS16201_INCL_OUT_REG		                0x0C
++#define ADIS16201_YINCL_OUT_REG				        0x0E
+ 
+ /* Calibration Register Definition */
+-#define ADIS16201_XACCL_OFFS_REG			0x10
+-#define ADIS16201_YACCL_OFFS_REG			0x12
+-#define ADIS16201_XACCL_SCALE_REG			0x14
+-#define ADIS16201_YACCL_SCALE_REG			0x16
+-#define ADIS16201_XINCL_OFFS_REG			0x18
+-#define ADIS16201_YINCL_OFFS_REG			0x1A
+-#define ADIS16201_XINCL_SCALE_REG			0x1C
+-#define ADIS16201_YINCL_SCALE_REG			0x1E
++#define ADIS16201_XACCL_OFFS_REG			        0x10
++#define ADIS16201_YACCL_OFFS_REG			        0x12
++#define ADIS16201_XACCL_SCALE_REG			        0x14
++#define ADIS16201_YACCL_SCALE_REG			        0x16
++#define ADIS16201_INCL_OFFS_REG			            0x18
++#define ADIS16201_YINCL_OFFS_REG			        0x1A
++#define ADIS16201_XINCL_SCALE_REG			        0x1C
++#define ADIS16201_YINCL_SCALE_REG			        0x1E
+ 
+ /* Alarm Register Definition */
+-#define ADIS16201_ALM_MAG1_REG				0x20
+-#define ADIS16201_ALM_MAG2_REG				0x22
+-#define ADIS16201_ALM_SMPL1_REG				0x24
+-#define ADIS16201_ALM_SMPL2_REG				0x26
+-#define ADIS16201_ALM_CTRL_REG				0x28
+-
+-#define ADIS16201_AUX_DAC_REG				0x30
+-#define ADIS16201_GPIO_CTRL_REG				0x32
+-#define ADIS16201_SMPL_PRD_REG				0x36
++#define ADIS16201_ALM_MAG1_REG				        0x20
++#define ADIS16201_ALM_MAG2_REG				        0x22
++#define ADIS16201_ALM_SMPL1_REG				        0x24
++#define ADIS16201_ALM_SMPL2_REG				        0x26
++#define ADIS16201_ALM_CTRL_REG				        0x28
++
++#define ADIS16201_AUX_DAC_REG						0x30
++#define ADIS16201_GPIO_CTRL_REG						0x32
++#define ADIS16201_SMPL_PRD_REG						0x36
++
+ /* Operation, filter configuration */
+-#define ADIS16201_AVG_CNT_REG				0x38
+-#define ADIS16201_SLP_CNT_REG				0x3A
++#define ADIS16201_AVG_CNT_REG				        0x38
++#define ADIS16201_SLP_CNT_REG				        0x3A
+ 
+ /* Miscellaneous Control Register Definition */
+-#define ADIS16201_MSC_CTRL_REG				0x34
+-#define  ADIS16201_MSC_CTRL_SELF_TEST_EN		BIT(8)
++#define  ADIS16201_MSC_CTRL_REG				        0x34
++#define  ADIS16201_MSC_CTRL_SELF_TEST_EN		    BIT(8)
+ /* Data-ready enable: 1 = enabled, 0 = disabled */
+-#define  ADIS16201_MSC_CTRL_DATA_RDY_EN			BIT(2)
++#define  ADIS16201_MSC_CTRL_DATA_RDY_EN			    BIT(2)
+ /* Data-ready polarity: 1 = active high, 0 = active low */
+ #define  ADIS16201_MSC_CTRL_ACTIVE_DATA_RDY_HIGH	BIT(1)
+ /* Data-ready line selection: 1 = DIO1, 0 = DIO0 */
+-#define  ADIS16201_MSC_CTRL_DATA_RDY_DIO1		BIT(0)
++#define  ADIS16201_MSC_CTRL_DATA_RDY_DIO1		    BIT(0)
+ 
+ /* Diagnostics System Status Register Definition */
+-#define ADIS16201_DIAG_STAT_REG				0x3C
+-#define  ADIS16201_DIAG_STAT_ALARM2			BIT(9)
+-#define  ADIS16201_DIAG_STAT_ALARM1			BIT(8)
+-#define  ADIS16201_DIAG_STAT_SPI_FAIL_BIT		3
++#define  ADIS16201_DIAG_STAT_REG				    0x3C
++#define  ADIS16201_DIAG_STAT_ALARM2			        BIT(9)
++#define  ADIS16201_DIAG_STAT_ALARM1			        BIT(8)
++#define  ADIS16203_DIAG_STAT_SELFTEST_FAIL_BIT      5
++#define  ADIS16201_DIAG_STAT_SPI_FAIL_BIT			3
+ #define  ADIS16201_DIAG_STAT_FLASH_UPT_FAIL_BIT		2
+ /* Power supply above 3.625 V */
+-#define  ADIS16201_DIAG_STAT_POWER_HIGH_BIT		1
++#define  ADIS16201_DIAG_STAT_POWER_HIGH_BIT		    1
+ /* Power supply below 2.975 V */
+-#define  ADIS16201_DIAG_STAT_POWER_LOW_BIT		0
++#define  ADIS16201_DIAG_STAT_POWER_LOW_BIT		    0
+ 
+ /* System Command Register Definition */
+-#define ADIS16201_GLOB_CMD_REG				0x3E
+-#define  ADIS16201_GLOB_CMD_SW_RESET			BIT(7)
+-#define  ADIS16201_GLOB_CMD_FACTORY_RESET		BIT(1)
++#define ADIS16201_GLOB_CMD_REG				        0x3E
++#define ADIS16201_GLOB_CMD_SW_RESET			        BIT(7)
++#define ADIS16203_GLOB_CMD_CLEAR_STAT               BIT(4)
++#define ADIS16201_GLOB_CMD_FACTORY_RESET		    BIT(1)
+ 
+-#define ADIS16201_ERROR_ACTIVE				BIT(14)
++#define ADIS16201_ERROR_ACTIVE				        BIT(14)
+ 
+ enum adis16201_scan {
+-	ADIS16201_SCAN_ACC_X,
+-	ADIS16201_SCAN_ACC_Y,
+-	ADIS16201_SCAN_INCLI_X,
+-	ADIS16201_SCAN_INCLI_Y,
+ 	ADIS16201_SCAN_SUPPLY,
+-	ADIS16201_SCAN_AUX_ADC,
+ 	ADIS16201_SCAN_TEMP,
++	ADIS16201_SCAN_AUX_ADC,
++	ADIS16201_SCAN_INCLI,
++	ADIS16201_SCAN_INCLI_Y,
++	ADIS16201_SCAN_ACC_X,
++	ADIS16201_SCAN_ACC_Y,
+ };
+ 
+ static const u8 adis16201_addresses[] = {
+ 	[ADIS16201_SCAN_ACC_X] = ADIS16201_XACCL_OFFS_REG,
+ 	[ADIS16201_SCAN_ACC_Y] = ADIS16201_YACCL_OFFS_REG,
+-	[ADIS16201_SCAN_INCLI_X] = ADIS16201_XINCL_OFFS_REG,
++	[ADIS16201_SCAN_INCLI] = ADIS16201_INCL_OFFS_REG,
+ 	[ADIS16201_SCAN_INCLI_Y] = ADIS16201_YINCL_OFFS_REG,
+ };
+ 
++static const struct iio_chan_spec adis16201_channels[] = {
++	ADIS_SUPPLY_CHAN(ADIS16201_SUPPLY_OUT_REG, ADIS16201_SCAN_SUPPLY,
++	0, 12),
++	ADIS_TEMP_CHAN(ADIS16201_TEMP_OUT_REG, ADIS16201_SCAN_TEMP, 0, 12),
++	ADIS_ACCEL_CHAN(X, ADIS16201_XACCL_OUT_REG, ADIS16201_SCAN_ACC_X,
++		BIT(IIO_CHAN_INFO_CALIBBIAS), 0, 14),
++	ADIS_ACCEL_CHAN(Y, ADIS16201_YACCL_OUT_REG, ADIS16201_SCAN_ACC_Y,
++		BIT(IIO_CHAN_INFO_CALIBBIAS), 0, 14),
++	ADIS_AUX_ADC_CHAN(ADIS16201_AUX_ADC_REG, ADIS16201_SCAN_AUX_ADC, 0, 12),
++	ADIS_INCLI_CHAN(X, ADIS16201_INCL_OUT_REG, ADIS16201_SCAN_INCLI,
++	BIT(IIO_CHAN_INFO_CALIBBIAS), 0, 12),
++	ADIS_INCLI_CHAN(Y, ADIS16201_YINCL_OUT_REG, ADIS16201_SCAN_INCLI_Y,
++		BIT(IIO_CHAN_INFO_CALIBBIAS), 0, 12),
++	IIO_CHAN_SOFT_TIMESTAMP(7)
++};
++
++static const struct iio_chan_spec adis16203_channels[] = {
++	ADIS_SUPPLY_CHAN(ADIS16201_SUPPLY_OUT_REG, ADIS16201_SCAN_SUPPLY, 0, 12),
++	ADIS_AUX_ADC_CHAN(ADIS16201_AUX_ADC_REG, ADIS16201_SCAN_AUX_ADC, 0, 12),
++	ADIS_INCLI_CHAN(X, ADIS16201_INCL_OUT_REG, ADIS16201_SCAN_INCLI,
++		BIT(IIO_CHAN_INFO_CALIBBIAS), 0, 14),
++	ADIS_TEMP_CHAN(ADIS16201_TEMP_OUT_REG, ADIS16201_SCAN_TEMP, 0, 12),
++	IIO_CHAN_SOFT_TIMESTAMP(4)
++};
++
++struct differ_info {
++	u16 write_mask_incli;
++	unsigned int incli_scale_val2;
++	unsigned int read_bits_incli;
++	const struct iio_chan_spec *arr_chans;
++	u16 diag_stat_mask;
++	unsigned int num_chans;
++};
++
++static const struct differ_info adis16201_diff = {
++	.write_mask_incli = GENMASK(8, 0),
++	.incli_scale_val2 = 100000,
++	.read_bits_incli = 9,
++	.arr_chans = adis16201_channels,
++	.diag_stat_mask = BIT(ADIS16201_DIAG_STAT_SPI_FAIL_BIT) |
++		BIT(ADIS16201_DIAG_STAT_FLASH_UPT_FAIL_BIT) |
++		BIT(ADIS16201_DIAG_STAT_POWER_HIGH_BIT) |
++		BIT(ADIS16201_DIAG_STAT_POWER_LOW_BIT),
++	.num_chans = ARRAY_SIZE(adis16201_channels)
++};
++
++static const struct differ_info adis16203_diff = {
++	.write_mask_incli = GENMASK(13, 0),
++	.incli_scale_val2 = 25000,
++	.read_bits_incli = 14,
++	.arr_chans = adis16203_channels,
++	.diag_stat_mask = BIT(ADIS16203_DIAG_STAT_SELFTEST_FAIL_BIT) |
++		BIT(ADIS16201_DIAG_STAT_SPI_FAIL_BIT) |
++		BIT(ADIS16201_DIAG_STAT_FLASH_UPT_FAIL_BIT) |
++		BIT(ADIS16201_DIAG_STAT_POWER_HIGH_BIT) |
++		BIT(ADIS16201_DIAG_STAT_POWER_LOW_BIT),
++	.num_chans = ARRAY_SIZE(adis16203_channels)
++};
++
++struct adis16201_state {
++	struct adis adis;
++	const struct differ_info *info;
++};
++
++static int adis16201_write_raw(struct iio_dev *indio_dev,
++			       struct iio_chan_spec const *chan,
++			       int val,
++			       int val2,
++			       long mask)
++{
++	struct adis16201_state *st = iio_priv(indio_dev);
++	int m;
++
++	if (mask != IIO_CHAN_INFO_CALIBBIAS)
++		return -EINVAL;
++
++	switch (chan->type) {
++	case IIO_ACCEL:
++		m = GENMASK(11, 0);
++		break;
++	case IIO_INCLI:
++		m = st->info->write_mask_incli;
++		break;
++	default:
++		return -EINVAL;
++	}
++
++	return adis_write_reg_16(&st->adis, adis16201_addresses[chan->scan_index],
++				 val & m);
++}
++
+ static int adis16201_read_raw(struct iio_dev *indio_dev,
+ 			      struct iio_chan_spec const *chan,
+-			      int *val, int *val2,
+-			      long mask)
++			      int *val,
++			      int *val2, long mask)
+ {
+-	struct adis *st = iio_priv(indio_dev);
++	struct adis16201_state *st = iio_priv(indio_dev);
+ 	int ret;
+ 	int bits;
+ 	u8 addr;
+@@ -126,6 +220,11 @@ static int adis16201_read_raw(struct iio_dev *indio_dev,
+ 			*val = -470;
+ 			*val2 = 0;
+ 			return IIO_VAL_INT_PLUS_MICRO;
++
++		case IIO_INCLI:
++			*val = 0;
++			*val2 = st->info->incli_scale_val2;
++			return IIO_VAL_INT_PLUS_MICRO;
+ 		case IIO_ACCEL:
+ 			/*
+ 			 * IIO base unit for sensitivity of accelerometer
+@@ -135,10 +234,6 @@ static int adis16201_read_raw(struct iio_dev *indio_dev,
+ 			*val = 0;
+ 			*val2 = IIO_G_TO_M_S_2(462400);
+ 			return IIO_VAL_INT_PLUS_NANO;
+-		case IIO_INCLI:
+-			*val = 0;
+-			*val2 = 100000;
+-			return IIO_VAL_INT_PLUS_MICRO;
+ 		default:
+ 			return -EINVAL;
+ 		}
+@@ -157,13 +252,13 @@ static int adis16201_read_raw(struct iio_dev *indio_dev,
+ 			bits = 12;
+ 			break;
+ 		case IIO_INCLI:
+-			bits = 9;
++			bits = st->info->read_bits_incli;
+ 			break;
+ 		default:
+ 			return -EINVAL;
+ 		}
+ 		addr = adis16201_addresses[chan->scan_index];
+-		ret = adis_read_reg_16(st, addr, &val16);
++		ret = adis_read_reg_16(&st->adis, addr, &val16);
+ 		if (ret)
+ 			return ret;
+ 
+@@ -174,49 +269,6 @@ static int adis16201_read_raw(struct iio_dev *indio_dev,
+ 	return -EINVAL;
+ }
+ 
+-static int adis16201_write_raw(struct iio_dev *indio_dev,
+-			       struct iio_chan_spec const *chan,
+-			       int val,
+-			       int val2,
+-			       long mask)
+-{
+-	struct adis *st = iio_priv(indio_dev);
+-	int m;
+-
+-	if (mask != IIO_CHAN_INFO_CALIBBIAS)
+-		return -EINVAL;
+-
+-	switch (chan->type) {
+-	case IIO_ACCEL:
+-		m = GENMASK(11, 0);
+-		break;
+-	case IIO_INCLI:
+-		m = GENMASK(8, 0);
+-		break;
+-	default:
+-		return -EINVAL;
+-	}
+-
+-	return adis_write_reg_16(st, adis16201_addresses[chan->scan_index],
+-				 val & m);
+-}
+-
+-static const struct iio_chan_spec adis16201_channels[] = {
+-	ADIS_SUPPLY_CHAN(ADIS16201_SUPPLY_OUT_REG, ADIS16201_SCAN_SUPPLY, 0,
+-			 12),
+-	ADIS_TEMP_CHAN(ADIS16201_TEMP_OUT_REG, ADIS16201_SCAN_TEMP, 0, 12),
+-	ADIS_ACCEL_CHAN(X, ADIS16201_XACCL_OUT_REG, ADIS16201_SCAN_ACC_X,
+-			BIT(IIO_CHAN_INFO_CALIBBIAS), 0, 14),
+-	ADIS_ACCEL_CHAN(Y, ADIS16201_YACCL_OUT_REG, ADIS16201_SCAN_ACC_Y,
+-			BIT(IIO_CHAN_INFO_CALIBBIAS), 0, 14),
+-	ADIS_AUX_ADC_CHAN(ADIS16201_AUX_ADC_REG, ADIS16201_SCAN_AUX_ADC, 0, 12),
+-	ADIS_INCLI_CHAN(X, ADIS16201_XINCL_OUT_REG, ADIS16201_SCAN_INCLI_X,
+-			BIT(IIO_CHAN_INFO_CALIBBIAS), 0, 12),
+-	ADIS_INCLI_CHAN(Y, ADIS16201_YINCL_OUT_REG, ADIS16201_SCAN_INCLI_Y,
+-			BIT(IIO_CHAN_INFO_CALIBBIAS), 0, 12),
+-	IIO_CHAN_SOFT_TIMESTAMP(7)
+-};
+-
+ static const struct iio_info adis16201_info = {
+ 	.read_raw = adis16201_read_raw,
+ 	.write_raw = adis16201_write_raw,
+@@ -224,6 +276,7 @@ static const struct iio_info adis16201_info = {
+ };
+ 
+ static const char * const adis16201_status_error_msgs[] = {
++	[ADIS16203_DIAG_STAT_SELFTEST_FAIL_BIT] = "Self test failure",
+ 	[ADIS16201_DIAG_STAT_SPI_FAIL_BIT] = "SPI failure",
+ 	[ADIS16201_DIAG_STAT_FLASH_UPT_FAIL_BIT] = "Flash update failed",
+ 	[ADIS16201_DIAG_STAT_POWER_HIGH_BIT] = "Power supply above 3.625V",
+@@ -248,56 +301,62 @@ static const struct adis_data adis16201_data = {
+ 	.timeouts = &adis16201_timeouts,
+ 
+ 	.status_error_msgs = adis16201_status_error_msgs,
+-	.status_error_mask = BIT(ADIS16201_DIAG_STAT_SPI_FAIL_BIT) |
+-		BIT(ADIS16201_DIAG_STAT_FLASH_UPT_FAIL_BIT) |
+-		BIT(ADIS16201_DIAG_STAT_POWER_HIGH_BIT) |
+-		BIT(ADIS16201_DIAG_STAT_POWER_LOW_BIT),
+ };
+ 
+ static int adis16201_probe(struct spi_device *spi)
+ {
+ 	struct iio_dev *indio_dev;
+-	struct adis *st;
++	struct adis16201_state *st;
++	struct adis_data data = adis16201_data;
+ 	int ret;
+ 
+-	indio_dev = devm_iio_device_alloc(&spi->dev, sizeof(*st));
++	indio_dev = devm_iio_device_alloc(&spi->dev, sizeof(struct adis16201_state));
+ 	if (!indio_dev)
+ 		return -ENOMEM;
+ 
+ 	st = iio_priv(indio_dev);
++	st->info = spi_get_device_match_data(spi);
+ 
+ 	indio_dev->name = spi->dev.driver->name;
+ 	indio_dev->info = &adis16201_info;
+-
+-	indio_dev->channels = adis16201_channels;
+-	indio_dev->num_channels = ARRAY_SIZE(adis16201_channels);
++	indio_dev->channels = st->info->arr_chans;
++	indio_dev->num_channels = st->info->num_chans;
+ 	indio_dev->modes = INDIO_DIRECT_MODE;
+ 
+-	ret = adis_init(st, indio_dev, spi, &adis16201_data);
++	data.status_error_mask = st->info->diag_stat_mask;
++	ret = adis_init(&st->adis, indio_dev, spi, &data);
+ 	if (ret)
+ 		return ret;
+ 
+-	ret = devm_adis_setup_buffer_and_trigger(st, indio_dev, NULL);
++	ret = devm_adis_setup_buffer_and_trigger(&st->adis, indio_dev, NULL);
+ 	if (ret)
+ 		return ret;
+ 
+-	ret = __adis_initial_startup(st);
++	ret = __adis_initial_startup(&st->adis);
+ 	if (ret)
+ 		return ret;
+ 
+ 	return devm_iio_device_register(&spi->dev, indio_dev);
+ }
+ 
++static const struct of_device_id adis16201_of_match[] = {
++	{ .compatible = "adi,adis16201", .data = &adis16201_diff },
++	{ .compatible = "adi,adis16203", .data = &adis16203_diff },
++	{ }
++};
++
+ static struct spi_driver adis16201_driver = {
+ 	.driver = {
+-		.name = "adis16201",
++		.name = "adis16201_adis16203",
++		.of_match_table = adis16201_of_match,
+ 	},
+ 	.probe = adis16201_probe,
+ };
+ module_spi_driver(adis16201_driver);
+ 
+ MODULE_AUTHOR("Barry Song <21cnbao@gmail.com>");
+-MODULE_DESCRIPTION("Analog Devices ADIS16201 Dual-Axis Digital Inclinometer and Accelerometer");
++MODULE_DESCRIPTION("Analog Devices ADIS16201 Inclinometer/Accelerometer and ADIS16203 Inclinometer Driver");
+ MODULE_LICENSE("GPL v2");
+ MODULE_ALIAS("spi:adis16201");
++MODULE_ALIAS("spi:adis16203");
+ MODULE_IMPORT_NS("IIO_ADISLIB");
+-- 
+2.43.0
+
