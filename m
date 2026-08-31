@@ -1,46 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BE194E141B;
-	Mon, 31 Aug 2026 13:39:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEDD9446074;
+	Mon, 31 Aug 2026 13:39:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183597; cv=none; b=ZMvsrtYvNbAFntsfrcFjdEIyaNTiCgKgqBJwCOq1xXibP5VypE6WKC1tFqGSi74eYp+kJoRECAypuApdUTqWid8rMC00GW2eBLtEY8RF7QHhK0XvXoX7h0V9C2e5XA3arQWm1Ti0bDL+VwJ4ZR/MUQp/32zwEUNh8k9DPYf3D1o=
+	t=1788183601; cv=none; b=tihJ9+X0qQz3/sHToRUkcrceIR7LWYG9ULC9GBKHLZKSGDgawLojKaehb+IgORMIMpmuoFdxXMTUzM5lM2b67tEW8J/pCGY4t6LcIinLCZ4xH7c9YE4QuS5dIu9et512JYx5thGt7GylHvpkHopAD6pD5us3O1pSmp+oKByU2Go=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183597; c=relaxed/simple;
-	bh=4HBuT0m+OuWtdW3B/lNZ3qAi+Cey7F4xPY7aqRclvRE=;
+	s=arc-20240116; t=1788183601; c=relaxed/simple;
+	bh=r8dkcLNr5q9v4O/kFqzMa0nfADSurC5aXyTF/Z5tkH8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=e9LiQ3GYlv+/YDYXllgSHP+6XSgBswrO6/PgBJLFRVdjbs50rU41/dL+77CWivG+Mlu2mDdn037CdOIdI5Es0WXgJE3ZO7IpC4eI5zcCc94onewGUVoCPiKVtGHjUjw2H2nz5R5dK/5ujLJo5BadrirctQ9Wlh+ofeTNfriY6Po=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IW6pLgr9; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=qf2jrbEk19Kje0xI2JIJhXwNnVZax6hS/boW5wyEErPbWb/AkdCxKj9gzx1c7TrdZ2MYM5C1QkDpG1qALyN3uYx3ZsewDwItbC/9A0wVod1WeLWFdQh/PsFF96PpZJxaVWjQ6GGpfRBObZrVG9/pl7hyeruJsS9IGm9TEs8Vfpc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HgKJ8abu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IW6pLgr9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 803B51F00A3E;
-	Mon, 31 Aug 2026 13:39:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HgKJ8abu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A4A41F00ACA;
+	Mon, 31 Aug 2026 13:39:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788183595;
-	bh=nlCQIUoWbG2Xc+D5e9bO/5vr2cXjHLtz5iTeimalskk=;
+	s=k20260515; t=1788183598;
+	bh=rwB2YCCBSkSa7ALLQYruPF6qOCUg1uuofODiN2yR2qg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=IW6pLgr97JoK/DB2ELJnTGXUkpxFhwb0SrBraCNuCe1mI7CnO9P5TFT4trJAyc7vx
-	 GpRvXYN987m+LkfDf/bHvQUyUdyGstfOAsziEA9hMKOSe8wUBbQm49uxbnHj+6Wb5e
-	 JkysJ4iwIhij42qTisIBEcaxv9+xMVQhDlNJ7jCwCTLvJQjmqDSKTctF+goewljQsT
-	 /Ggw29ySOGWrOyAXO+j+xkF2s/Nu3jjnEXxC+QF1cprpOMwILFlPSeRdoskEmkbkLx
-	 zWE//+Qva4kwOjWZo6HKDt+h/nmxwLz39jclR1s+9lMcv7uaDPrAXVDGaFs2jrHsBo
-	 j7iL6kBfJMHlQ==
+	b=HgKJ8abuCIeo26N0C0ygBqJWsSkxT6nQK9+oHLHVVO64se7epwcB+vF5FkE3DtOdH
+	 52m1+MdDCs5tlgtrzPBkSs9bH7YqML+wGZAkueq5E6UwIGMVjPz3Mp0AanTsOKP4jY
+	 mOVNmqW+8BtMSgXnQGn2sXcrxjb9oKeYsmTJlRQYVLjw2MapZY/2Qpdz801r5RnqXR
+	 baenAoVr+vN71jXvZVVZFYZ3e/eUI3K3M2jBf3T7yjF1L661rhXkX5zsKZF9uYT7SM
+	 JxNLaC7rbqStDjsXuG5VLO/5pwqxtt8cG5vm989jq3yVLwqiCqhVmi+WhdO3xjrQ4f
+	 +Vh3wwlQ7TRxA==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Ricardo Ribalda <ribalda@chromium.org>,
-	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
+Cc: ikaros <void0red@gmail.com>,
+	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
 	Sasha Levin <sashal@kernel.org>,
-	nas.chung@chipsnmedia.com,
-	jackson.lee@chipsnmedia.com,
-	mchehab@kernel.org,
-	linux-media@vger.kernel.org,
+	rafael@kernel.org,
+	maciej.wieczor-retman@intel.com,
+	pawel.chmielewski@intel.com,
+	linux-acpi@vger.kernel.org,
+	acpica-devel@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-6.12] media: chips-media: wave5: Add range checks for dec_output_info
-Date: Mon, 31 Aug 2026 09:23:36 -0400
-Message-ID: <20260831133314.4125787-188-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-5.10] ACPICA: Fix condition check in acpi_ps_parse_loop()
+Date: Mon, 31 Aug 2026 09:23:38 -0400
+Message-ID: <20260831133314.4125787-190-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -56,254 +56,256 @@ X-stable-base: Linux 6.18.48
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Ricardo Ribalda <ribalda@chromium.org>
+From: ikaros <void0red@gmail.com>
 
-[ Upstream commit 79aef69bb0903616f4867f0168aea717a11c439c ]
+[ Upstream commit 8de27e2d83c0d07ae9443c6304575b0609394bfd ]
 
-If the driver's dec_output_info contains invalid data the driver can
-write in invalid memory. Add a range check for that.
+Fix condition check for AML_ELSE_OP in acpi_ps_parse_loop() to prevent
+out-of-bounds access.
 
-This fixes this smatch error:
-drivers/media/platform/chips-media/wave5/wave5-vpuapi.c:588 wave5_vpu_dec_get_output_info() error: buffer overflow 'inst->frame_buf' 64 <= 127
-
-Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
-Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+Link: https://github.com/acpica/acpica/commit/3b537b92336e
+Signed-off-by: ikaros <void0red@gmail.com>
+Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+Link: https://patch.msgid.link/1959692.tdWV9SEqCh@rafael.j.wysocki
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-# Stable Backport Analysis: `media: chips-media: wave5: Add range checks
-for dec_output_info`
+# Stable Backport Analysis: ACPICA Fix condition check in
+acpi_ps_parse_loop()
 
-**Local tree:** Linux **6.18.43** (`v6.18.43-1-gc7f0dac02d232`, branch
-`stable/linux-6.18.y`)
+**Local tree:** `stable/linux-6.18.y` at `v6.18.44` (Makefile: 6.18.44)
 
 ---
 
 ## PHASE 1: COMMIT MESSAGE FORENSICS
 
 ### Step 1.1: Subject Line
-**Record:** `[media: chips-media: wave5]` `[Add]` — Add range checks for
-`dec_output_info` in the Wave5 VPU decoder driver.
+**Record:** `[ACPICA]` `[Fix]` — correct the `AML_ELSE_OP` condition
+check in `acpi_ps_parse_loop()` to prevent out-of-bounds access.
 
-### Step 1.2: Tags
+### Step 1.2: Commit Message Tags
 **Record:**
-- **Signed-off-by:** Ricardo Ribalda `<ribalda@chromium.org>` (author)
-- **Reviewed-by:** Nicolas Dufresne `<nicolas.dufresne@collabora.com>`
-  (media subsystem reviewer)
-- **Signed-off-by:** Hans Verkuil `<hverkuil+cisco@kernel.org>` (media
-  maintainer)
-- **No** Fixes:, Reported-by:, Tested-by:, Link:, or Cc: stable@ in the
-  commit message itself
-- Part of series `[PATCH v4 4/6] media: Fix new smatch warnings`; cover
-  letter CC'd `stable@vger.kernel.org` and Greg Kroah-Hartman
+- **Link:** https://github.com/acpica/acpica/commit/3b537b92336e
+  (upstream ACPICA commit)
+- **Signed-off-by:** ikaros <void0red@gmail.com> (author)
+- **Signed-off-by:** Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+  (ACPI maintainer)
+- **Link:** https://patch.msgid.link/1959692.tdWV9SEqCh@rafael.j.wysocki
+  (kernel submission; could not fetch — Anubis bot protection)
+- No `Fixes:`, `Reported-by:`, `Cc: stable@vger.kernel.org`, `Tested-
+  by:`, or `Reviewed-by:` tags
+- Notable: Rafael Wysocki sign-off indicates ACPI maintainer acceptance
+  for kernel integration
 
-### Step 1.3: Body Analysis
+### Step 1.3: Commit Body Analysis
 **Record:**
-- **Bug:** `dec_output_info` can contain invalid index data; driver
-  indexes `inst->frame_buf[]` without validating the computed index.
-- **Symptom:** Out-of-bounds access on `inst->frame_buf` (smatch:
-  `buffer overflow 'inst->frame_buf' 64 <= 127`).
-- **Root cause:** Existing check bounds `index_frame_display` against
-  `max_dec_index`, but the actual index is `num_of_decoding_fbs +
-  index_frame_display` (fb_offset), which can exceed `MAX_REG_FRAME`
-  (64).
+- **Bug:** After skipping a failed If/While block, the code checks
+  `*walk_state->aml == AML_ELSE_OP` without verifying `walk_state->aml`
+  is within the AML buffer.
+- **Symptom:** Out-of-bounds read (1 byte past buffer end).
+- **Root cause:** `acpi_ps_get_next_package_end()` can advance the AML
+  pointer to or past `parser_state->aml_end` on malformed/truncated AML;
+  the subsequent dereference is unchecked.
+- **Version info:** None in commit message; upstream ACPICA issue #1078
+  documents ASan reproduction.
 
-### Step 1.4: Hidden Bug Fix?
-**Record:** Yes — despite smatch-driven origin, this is a real bounds-
-check bug fix, not cosmetic cleanup. The commit message explicitly
-states invalid data can cause invalid memory access.
+### Step 1.4: Hidden Bug Fix Detection
+**Record:** Not disguised — explicitly labeled a fix for an out-of-
+bounds access. Genuine memory-safety bug fix.
 
 ---
 
 ## PHASE 2: DIFF ANALYSIS
 
-### Step 2.1: Inventory
+### Step 2.1: Change Inventory
 **Record:**
-- **File:** `drivers/media/platform/chips-media/wave5/wave5-vpuapi.c`
-  (+9 / -2 lines)
-- **Function:** `wave5_vpu_dec_get_output_info()`
-- **Scope:** Single-file, surgical fix
+- **File:** `drivers/acpi/acpica/psloop.c` (+3 / -1 lines)
+- **Function:** `acpi_ps_parse_loop()`
+- **Scope:** Single-file, surgical fix in an error-recovery path
 
 ### Step 2.2: Code Flow Change
 **Record:**
-- **Before:** `info->disp_frame = inst->frame_buf[val +
-  info->index_frame_display]` when `index_frame_display <
-  max_dec_index`.
-- **After:** Computes `idx = val + info->index_frame_display`, validates
-  `idx < MAX_REG_FRAME`, returns `-EINVAL` on failure, then assigns
-  `inst->frame_buf[idx]`.
-- **Path:** Normal decode output-info retrieval after firmware query.
+- **Before:** After skipping a failed If/While body, unconditionally
+  dereferenced `*walk_state->aml` to test for `AML_ELSE_OP`.
+- **After:** Only dereferences if `walk_state->aml <
+  parser_state->aml_end` AND the byte equals `AML_ELSE_OP`.
+- **Path affected:** Error recovery when `acpi_ps_get_arguments()` fails
+  inside an If/While control structure during module-level ACPI table
+  parsing.
 
 ### Step 2.3: Bug Mechanism
-**Record:** **Buffer overflow / out-of-bounds access (memory safety).**
-`frame_buf` has `MAX_REG_FRAME` (64) elements. Index uses fb_offset
-(`num_of_decoding_fbs`) plus display index from firmware, but only the
-display index was bounded — not the sum. Smatch correctly identified
-index up to 127.
+**Record:**
+- **Category:** Buffer overflow / out-of-bounds read (memory safety)
+- **Mechanism:** `acpi_ps_get_next_package_end()` returns a pointer past
+  the package end. On malformed AML at the buffer boundary,
+  `walk_state->aml` can equal or exceed `parser_state->aml_end`. The old
+  code read one byte past the allocated AML buffer. The fix adds the
+  same bounds guard used by the main parse loop at line 300.
 
 ### Step 2.4: Fix Quality
-**Record:** Obviously correct; matches existing patterns in the same
-file (`reset_auxiliary_buffers()` line 189,
-`wave5_vpu_dec_reset_framebuffer()` line 626). Minimal, uses existing
-`err_out` path. Low regression risk.
+**Record:**
+- **Quality:** Obviously correct; mirrors the existing
+  `parser_state->aml < parser_state->aml_end` pattern at line 300.
+- **Regression risk:** Very low — only skips the Else-block skip when
+  already past the buffer end (correct behavior).
+- **Red flags:** None.
 
 ---
 
 ## PHASE 3: GIT HISTORY INVESTIGATION
 
 ### Step 3.1: Blame
-**Record:** Buggy line introduced when `wave5-vpuapi.c` entered this
-tree (commit `5d324e5159d9e`, Nov 2025). Present since Wave5 driver
-landed in 6.18.
+**Record:** Buggy line introduced in `5088814a6e931` ("ACPICA: AML
+parser: attempt to continue loading table after error") by Erik Kaneda,
+2018-06-01. Confirmed ancestor of HEAD. Present in `v6.18.44`.
 
 ### Step 3.2: Fixes: Tag
-**Record:** N/A — no Fixes: tag in commit message.
+**Record:** N/A — no `Fixes:` tag. Upstream ACPICA issue #1078
+references the bug; the introducing commit is `5088814a6e931` (2018).
 
-### Step 3.3: File History
-**Record:** Wave5 driver has had multiple stable-worthy fixes in 6.18.y
-(panics, memory leaks, spinlock issues). This fix is not yet in the
-tree. Part of a 6-patch smatch series, but each patch touches a
-different file — **standalone**.
+### Step 3.3: Related File History
+**Record:** Recent `psloop.c` history is copyright updates and unrelated
+parser cleanups. No prior fix for this issue in this tree. The Else-skip
+logic has been unchanged since 2018.
 
 ### Step 3.4: Author Context
-**Record:** Ricardo Ribalda is an active media contributor (Chromium).
-Hans Verkuil merged; Nicolas Dufresne reviewed.
+**Record:** Author ikaros (void0red) reported the bug via ACPICA
+fuzzing. Rafael Wysocki (ACPI maintainer) signed off. ACPICA maintainer
+SaketADumbre merged upstream PR #1087 with positive review ("minimal but
+the right changes").
 
 ### Step 3.5: Dependencies
-**Record:** None. Patch 4/6 is self-contained; `MAX_REG_FRAME` and
-`err_out` already exist in this tree. No prerequisite commits required.
+**Record:** No dependencies. Standalone 3-line fix. No patch series.
+Applies cleanly to current `psloop.c` in this tree.
 
 ---
 
 ## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
 ### Step 4.1: Original Discussion
-**Record:** Series cover at https://lists.openwall.net/linux-
-kernel/2026/05/07/2079. Patch v4 submitted May 7, 2026; evolved v1→v4.
-v2 note: removed `WARN_ON()` from user-triggerable paths; this patch
-retains `WARN_ON()` because invalid data comes from firmware/hardware
-registers, not direct userspace input.
+**Record:** `b4 dig -c 3b537b92336e` failed — commit not in Linux git
+history (ACPICA-only commit). Upstream discussion found at:
+- ACPICA issue #1078: ASan heap-buffer-overflow at `psloop.c:569`
+  (fuzzed AML via `acpiexec`)
+- ACPICA PR #1087: merged 2026-02-21
+- Kernel lore/patch.msgid.link blocked by Anubis — could not read thread
 
 ### Step 4.2: Reviewers
-**Record:** Cover CC'd Mauro Chehab, Hans Verkuil, Greg Kroah-Hartman,
-linux-media@, stable@. Reviewed-by from Nicolas Dufresne; merged by Hans
-Verkuil.
+**Record:** Rafael Wysocki signed off (kernel ACPI maintainer).
+SaketADumbre (ACPICA maintainer) reviewed and merged upstream. No NAKs
+found.
 
 ### Step 4.3: Bug Report
-**Record:** Smatch static analysis finding; no syzbot or user crash
-report. Cover letter classifies some warnings as "inoffensive" but
-includes fixes for user-triggerable errors; this wave5 issue is a
-genuine missing bounds check.
+**Record:** ACPICA issue #1078 — ASan READ of size 1 at address 0 bytes
+past a 1293-byte heap region. Reproducible with fuzzed AML
+(`fuzz_178.aml`). Severity: confirmed memory safety bug via sanitizer.
 
 ### Step 4.4: Related Patches
-**Record:** Series has 5 other independent patches (v4l2-dev, mt9p031,
-adv7604, ipu3-imgu, amlogic-c3). None required for this fix.
+**Record:** Standalone fix. Not part of a multi-patch series.
 
-### Step 4.5: Stable List
-**Record:** Cover letter explicitly CC'd `stable@vger.kernel.org`. No
-objection found in available thread excerpts.
+### Step 4.5: Stable Mailing List
+**Record:** Could not search lore (Anubis protection). No stable-
+specific discussion found via other sources.
 
 ---
 
 ## PHASE 5: CODE SEMANTIC ANALYSIS
 
 ### Step 5.1: Key Functions
-**Record:** `wave5_vpu_dec_get_output_info()` modified.
+**Record:** `acpi_ps_parse_loop()` — modified.
+`acpi_ps_get_next_package_end()` — called just before the buggy check.
 
 ### Step 5.2: Callers
-**Record:**
-- `wave5-vpu-dec.c:354` — `wave5_vpu_dec_finish_decode()` (normal decode
-  completion)
-- `wave5-vpu-dec.c:1407` — flush/stop path
-- `wave5-vpu-dec.c:1499` — another decode path
-- `wave5-vpuapi.c:82` — busy-retry during instance flush
-
-All are active V4L2 mem2mem decode paths.
+**Record:** `acpi_ps_parse_loop()` called from `acpi_ps_parse_aml()` in
+`psparse.c:475`. Reachable during ACPI table loading and method
+execution.
 
 ### Step 5.3: Callees
-**Record:** Calls `wave5_vpu_dec_get_result()` which reads
-`W5_RET_DEC_DISPLAY_INDEX` from VPU hardware (line 1059–1060 in
-`wave5-hw.c`). `index_frame_display` is firmware-provided.
+**Record:** `acpi_ps_get_arguments()`, `acpi_ps_complete_op()`,
+`acpi_ps_get_next_package_end()`, `acpi_ut_pop_generic_state()`.
 
-### Step 5.4: Reachability
-**Record:** Reachable during video decode on systems with
-`CONFIG_VIDEO_WAVE_VPU` (ARCH_K3 or COMPILE_TEST). Users with access to
-`/dev/video*` can trigger decode operations; malformed streams or
-firmware edge cases can produce bad indices.
+### Step 5.4: Call Chain (Reachability)
+**Record:**
+```
+Boot: acpi_ns_load_table() → acpi_ns_parse_table() →
+acpi_ns_execute_table()
+  → acpi_ps_execute_table() [sets ACPI_METHOD_MODULE_LEVEL]
+  → acpi_ps_parse_aml() → acpi_ps_parse_loop()
+```
+Module-level ACPI table parsing (DSDT/SSDT) uses this error-recovery
+path. Malformed firmware AML that fails If/While argument parsing can
+reach the buggy dereference. **Reachable during boot on all ACPI-enabled
+systems.**
 
 ### Step 5.5: Similar Patterns
-**Record:** Same file already bounds-checks `index >= MAX_REG_FRAME` in
-`reset_auxiliary_buffers()` and `wave5_vpu_dec_reset_framebuffer()`.
-This fix closes a gap in `wave5_vpu_dec_get_output_info()`.
+**Record:** Main parse loop at line 300 uses `parser_state->aml <
+parser_state->aml_end`. The Else check at line 428 was the only
+unguarded dereference in this error path. No similar fix already present
+in this tree (`git log -S 'walk_state->aml <'` returned nothing).
 
 ---
 
-## PHASE 6: CROSS-REFERENCE WITH LOCAL TREE
+## PHASE 6: CROSS-REFERENCING AGAINST LOCAL TREE
 
-### Step 6.1: Buggy Code Present?
-**Record:** **Yes.** At lines 561–563 in this tree:
-
-```561:563:drivers/media/platform/chips-media/wave5/wave5-vpuapi.c
-        if (info->index_frame_display >= 0 &&
-            info->index_frame_display < (int)max_dec_index)
-                info->disp_frame = inst->frame_buf[val +
-info->index_frame_display];
-```
-
-Fix is **not** yet applied. Wave5 driver present since 6.18.
+### Step 6.1: Buggy Code Exists?
+**Record:** **YES.** Line 428 in `drivers/acpi/acpica/psloop.c` has the
+unguarded `if (*walk_state->aml == AML_ELSE_OP)`. Confirmed in
+`v6.18.44` tag. Bug present since 2018 (commit `5088814a6e931`).
 
 ### Step 6.2: Backport Complications
-**Record:** Clean apply expected — 9-line hunk, no structural conflicts.
-`MAX_REG_FRAME` defined as `WAVE5_MAX_FBS * 2` (= 64) in
-`wave5-vpuapi.h:47`.
+**Record:** **Clean apply expected.** File structure unchanged around
+the hunk. No conflicting recent changes in this area.
 
 ### Step 6.3: Related Fixes Already Present?
-**Record:** No equivalent bounds check for this access path. Other wave5
-stable fixes exist but not this one.
+**Record:** **No.** Fix not in this tree. `grep` for the bounds-check
+pattern returns no matches.
 
 ---
 
-## PHASE 7: SUBSYSTEM CONTEXT
+## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
 
-### Step 7.1: Subsystem
-**Record:** `drivers/media/platform/chips-media/wave5/` — V4L2 hardware
-video codec driver. **Criticality: IMPORTANT** (peripheral driver, but
-memory-safety bugs in kernel drivers are serious).
+### Step 7.1: Subsystem Criticality
+**Record:** **ACPI / ACPICA** — **CORE**. ACPI table parsing runs at
+boot on essentially all x86 and many ARM systems. Affects firmware table
+loading.
 
-### Step 7.2: Activity
-**Record:** Actively maintained in 6.18.y with multiple bugfix commits
-since initial merge.
+### Step 7.2: Subsystem Activity
+**Record:** Active — regular ACPICA syncs and copyright updates, but
+this code path has been stable since 2018.
 
 ---
 
-## PHASE 8: IMPACT AND RISK
+## PHASE 8: IMPACT AND RISK ASSESSMENT
 
 ### Step 8.1: Who Is Affected
-**Record:** Users of TI K3 (and COMPILE_TEST) systems with Chips&Media
-Wave5 VPU (`CONFIG_VIDEO_WAVE_VPU`). Not universal, but real production
-hardware.
+**Record:** All systems with ACPI enabled that load AML tables
+containing If/While constructs. Trigger requires malformed ACPI AML
+(common in buggy firmware) combined with a parse failure in the If/While
+predicate.
 
 ### Step 8.2: Trigger Conditions
-**Record:** During decode when firmware returns display index data that
-passes the incomplete `max_dec_index` check but produces `idx >=
-MAX_REG_FRAME`. Possible with firmware edge cases, resolution changes,
-or error recovery. Not every boot, but reachable in normal decode
-operation.
+**Record:**
+- If/While argument parsing fails during module-level table load
+- `acpi_ps_get_next_package_end()` advances AML pointer to or past
+  buffer end
+- Unprivileged users cannot directly inject ACPI tables, but **malicious
+  or buggy firmware ACPI tables** can trigger this at boot
+- Likelihood: Low in practice, but the error-recovery path exists
+  specifically for malformed AML
 
-### Step 8.3: Failure Mode
-**Record:** Out-of-bounds read of `struct frame_buffer` from kernel
-stack/static data → kernel oops/panic or memory corruption. **Severity:
-HIGH** (memory safety in kernel context).
+### Step 8.3: Failure Mode Severity
+**Record:** Out-of-bounds read of 1 byte past AML buffer. **Severity:
+HIGH** — potential kernel oops/crash or information leak. ASan-confirmed
+heap-buffer-overflow.
 
 ### Step 8.4: Risk-Benefit
 **Record:**
-- **Benefit:** HIGH for affected hardware — prevents OOB kernel memory
-  access
-- **Risk:** VERY LOW — 7-line bounds check, consistent with existing
-  code, reviewed by subsystem maintainer
+- **Benefit:** HIGH — prevents OOB read in core ACPI parser on malformed
+  firmware tables
+- **Risk:** VERY LOW — 3-line bounds check matching existing code
+  pattern
 - **Ratio:** Strongly favors backport
 
 ---
@@ -313,111 +315,115 @@ HIGH** (memory safety in kernel context).
 ### Step 9.1: Evidence Summary
 
 **FOR backport:**
-- Real out-of-bounds array access bug (smatch-verified)
-- Fixes potential kernel crash/memory corruption
-- Small, surgical, obviously correct
-- Reviewed by Nicolas Dufresne; merged by Hans Verkuil
-- Standalone — no series dependencies
-- Buggy code exists in this 6.18.43 tree; fix not yet applied
-- Cover letter CC'd stable@
-- Consistent with existing `MAX_REG_FRAME` checks in same driver
+- Real, ASan-confirmed out-of-bounds read
+- Small (3 lines), obviously correct fix
+- Bug present in this tree since 2018
+- Affects core ACPI table loading at boot
+- ACPI maintainer (Rafael Wysocki) signed off
+- No dependencies; clean apply
+- Error-recovery path designed for malformed AML — exactly when this bug
+  triggers
 
 **AGAINST backport:**
-- Driver is platform-specific (K3), not all users affected
-- Trigger requires firmware returning bad index data (not directly
-  proven in field)
-- Smatch-driven, not syzbot/user-reported crash
-- Retains `WARN_ON()` (acceptable for firmware-provided data per series
-  rationale)
+- Found via acpiexec fuzzing, not a reported production kernel crash
+- Requires malformed ACPI + specific parse failure (narrow trigger)
+- ACPI tables come from firmware, not direct userspace input (reduced
+  attack surface, but buggy firmware is common)
 
-**Unresolved:** No runtime crash report verified; impact inferred from
-static analysis and code review.
+**UNRESOLVED:**
+- Kernel lore thread content (Anubis blocked)
+- Whether any production kernel crash has been attributed to this
+  specific bug
 
 ### Step 9.2: Stable Rules Checklist
-1. Obviously correct and tested? **PASS** — logic is clear; Reviewed-by
-   present; smatch warning resolved
-2. Fixes a real bug? **PASS** — missing bounds check on kernel array
-   access
-3. Important issue? **PASS** — OOB kernel memory access (HIGH severity)
-4. Small and contained? **PASS** — 1 file, ~9 lines
-5. No new features/APIs? **PASS** — defensive bounds check only
-6. Can apply to local tree? **PASS** — driver and all symbols exist;
+1. Obviously correct and tested? **PASS** — matches existing bounds-
+   check pattern; ASan-verified fix upstream
+2. Fixes a real bug? **PASS** — confirmed OOB read
+3. Important issue? **PASS** — memory safety in core boot path (HIGH)
+4. Small and contained? **PASS** — 3 lines, one function
+5. No new features/APIs? **PASS**
+6. Can apply to local tree? **PASS** — buggy code confirmed present,
    clean apply expected
 
-### Step 9.3: Exception Category
-**Record:** Not a device ID/quirk/DT/build/docs exception — standard
-memory-safety bug fix.
+### Step 9.3: Exception Categories
+**Record:** N/A — standard bug fix, not a device ID/quirk/DT/build/doc
+exception.
 
 ### Step 9.4: Decision Rationale
-This commit closes a genuine bounds-check gap in
-`wave5_vpu_dec_get_output_info()`. The Wave5 driver exists in Linux
-6.18.y, the buggy code is present, and the fix is minimal, reviewed, and
-standalone. For users decoding video on K3 hardware with the Wave5 VPU,
-an out-of-bounds access on `inst->frame_buf[]` can cause kernel crashes
-or memory corruption. The fix aligns with existing `MAX_REG_FRAME`
-checks elsewhere in the driver and carries negligible regression risk.
+
+This commit fixes a genuine out-of-bounds read in the ACPI AML parser's
+error-recovery path. The bug has existed since 2018 and is present in
+the local `6.18.44` tree. While the trigger requires malformed ACPI AML
+with a failed If/While parse, that is precisely the scenario the 2018
+error-recovery code was written to handle — and buggy ACPI firmware is a
+known real-world problem. The fix is minimal, mirrors an existing bounds
+check in the same function, and carries negligible regression risk.
+Memory-safety fixes in core boot-path code are appropriate for stable
+trees.
 
 ---
 
 ## Verification
 
-- [Phase 1] Parsed subject, tags: Reviewed-by Nicolas Dufresne, SOB Hans
-  Verkuil; no Fixes/Reported-by
-- [Phase 1] Commit body: smatch OOB on `inst->frame_buf` 64 <= 127
-- [Phase 2] Diff: +9/-2 in `wave5_vpu_dec_get_output_info()`, adds `idx`
-  bounds check against `MAX_REG_FRAME`
-- [Phase 3] `git describe HEAD`: v6.18.43-1-gc7f0dac02d232 (6.18.43)
-- [Phase 3] `git blame`: buggy line from driver introduction in this
-  tree
-- [Phase 3] No Fixes: tag; no prerequisite commits identified
-- [Phase 3] `git log --oneline -20 -- wave5-vpuapi.c`: multiple wave5
-  fixes; this one not present
-- [Phase 4] Cover letter at lists.openwall.net/2026/05/07/2079: series
-  v4, CC stable@, 6 independent patches
-- [Phase 4] b4 dig failed (commit not in local repo); used web
-  search/lkml archives instead
-- [Phase 4] v2 series note: WARN_ON kept for non-user-triggerable paths
-- [Phase 5] Callers verified via grep: `wave5-vpu-dec.c:354,1407,1499`,
-  `wave5-vpuapi.c:82`
-- [Phase 5] `wave5_vpu_dec_get_result()`: `index_frame_display` from
-  `W5_RET_DEC_DISPLAY_INDEX` hardware register
-- [Phase 5] `MAX_REG_FRAME` = 64 (`WAVE5_MAX_FBS * 2`),
-  `frame_buf[MAX_REG_FRAME]` at `wave5-vpuapi.h:808`
-- [Phase 6] Buggy code confirmed at lines 561–563; fix not applied
-- [Phase 6] `CONFIG_VIDEO_WAVE_VPU` depends on `ARCH_K3 || COMPILE_TEST`
-  per Kconfig
-- [Phase 6] `num_of_decoding_fbs` validated `< WAVE5_MAX_FBS` at
-  registration (line 305), but OOB path doesn't validate sum
-- [Phase 8] Failure mode: OOB read → kernel memory safety issue,
-  severity HIGH
+- **[Phase 1]** Parsed commit message: subsystem ACPICA, action "Fix",
+  OOB access described; Rafael Wysocki SOB confirmed
+- **[Phase 1]** No Reported-by/syzbot; upstream ACPICA issue #1078
+  provides bug report
+- **[Phase 2]** Diff: +3/-1 in `psloop.c`, adds `walk_state->aml <
+  parser_state->aml_end` guard before `AML_ELSE_OP` check
+- **[Phase 3]** `git blame -L 428,428`: buggy line from `5088814a6e931`
+  (2018-06-01)
+- **[Phase 3]** `git show 5088814a6e931`: introduced Else-skip logic
+  without bounds check
+- **[Phase 3]** `git merge-base --is-ancestor 5088814a6e931 HEAD`:
+  confirmed buggy commit in tree
+- **[Phase 3]** `git log --oneline -20 -- drivers/acpi/acpica/psloop.c`:
+  no prior fix for this issue
+- **[Phase 3]** `git log -S 'walk_state->aml <' --
+  drivers/acpi/acpica/`: no similar fix already applied
+- **[Phase 4]** `b4 dig -c 3b537b92336e`: FAILED — commit not in Linux
+  git
+- **[Phase 4]** ACPICA issue #1078: ASan heap-buffer-overflow confirmed
+  at psloop.c
+- **[Phase 4]** ACPICA PR #1087: merged, maintainer approved minimal fix
+- **[Phase 4]** lore.kernel.org / patch.msgid.link: BLOCKED by Anubis —
+  UNVERIFIED for kernel list discussion
+- **[Phase 5]** `acpi_ps_parse_loop` callers: `psparse.c:475` via
+  `acpi_ps_parse_aml`
+- **[Phase 5]** Call chain: `acpi_ns_parse_table` →
+  `acpi_ns_execute_table` → `acpi_ps_execute_table` (sets
+  `ACPI_METHOD_MODULE_LEVEL`) → `acpi_ps_parse_loop`
+- **[Phase 5]** `nsparse.c:98`: `ACPI_METHOD_MODULE_LEVEL` set during
+  table execution
+- **[Phase 6]** `git describe HEAD`: v6.18.44 on `stable/linux-6.18.y`
+- **[Phase 6]** `git show v6.18.44:drivers/acpi/acpica/psloop.c` lines
+  426-432: buggy unguarded check confirmed
+- **[Phase 6]** `grep` for fix pattern in tree: no matches — fix not
+  present
+- **[Phase 8]** Failure mode: OOB read, severity HIGH; trigger on
+  malformed ACPI during boot table load
 
 **YES**
 
- .../media/platform/chips-media/wave5/wave5-vpuapi.c   | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
+ drivers/acpi/acpica/psloop.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/media/platform/chips-media/wave5/wave5-vpuapi.c b/drivers/media/platform/chips-media/wave5/wave5-vpuapi.c
-index e94d6ebc9f816..e7ea2f6a99d5b 100644
---- a/drivers/media/platform/chips-media/wave5/wave5-vpuapi.c
-+++ b/drivers/media/platform/chips-media/wave5/wave5-vpuapi.c
-@@ -559,8 +559,15 @@ int wave5_vpu_dec_get_output_info(struct vpu_instance *inst, struct dec_output_i
- 		p_dec_info->num_of_decoding_fbs : p_dec_info->num_of_display_fbs;
+diff --git a/drivers/acpi/acpica/psloop.c b/drivers/acpi/acpica/psloop.c
+index c989cadf271ce..35111ff2526b1 100644
+--- a/drivers/acpi/acpica/psloop.c
++++ b/drivers/acpi/acpica/psloop.c
+@@ -425,7 +425,10 @@ acpi_status acpi_ps_parse_loop(struct acpi_walk_state *walk_state)
  
- 	if (info->index_frame_display >= 0 &&
--	    info->index_frame_display < (int)max_dec_index)
--		info->disp_frame = inst->frame_buf[val + info->index_frame_display];
-+	    info->index_frame_display < (int)max_dec_index) {
-+		u32 idx = val + info->index_frame_display;
-+
-+		if (WARN_ON(idx >= MAX_REG_FRAME)) {
-+			ret = -EINVAL;
-+			goto err_out;
-+		}
-+		info->disp_frame = inst->frame_buf[idx];
-+	}
- 
- 	info->rd_ptr = p_dec_info->stream_rd_ptr;
- 	info->wr_ptr = p_dec_info->stream_wr_ptr;
+ 					ACPI_ERROR((AE_INFO,
+ 						    "Skipping While/If block"));
+-					if (*walk_state->aml == AML_ELSE_OP) {
++					if ((walk_state->aml <
++					     parser_state->aml_end)
++					    && (*walk_state->aml ==
++						AML_ELSE_OP)) {
+ 						ACPI_ERROR((AE_INFO,
+ 							    "Skipping Else block"));
+ 						walk_state->parser_state.aml =
 -- 
 2.53.0
 
