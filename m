@@ -1,44 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 866675AA67A;
-	Mon, 31 Aug 2026 13:52:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FBF35AA69B;
+	Mon, 31 Aug 2026 13:52:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788184360; cv=none; b=oVLawjQNIsds4iTV866+idILWJWBkV/j1FiGhG5ZgnFL9s0UKbADcqBK4hyo3+kQ4LWmiwcj8d2iX78Y/kR4r7hDqyh+A+hYadbeIFr39kB4K8IcQpjp3IztMPK0Sg/YVMtuIWwNAB5POtzLXZiUNCyoHJ3mYADC6diDChQXJWU=
+	t=1788184362; cv=none; b=JM25OHd9pHVO+DQ37Cfma8+FvNkh4wyCCArinW8XLQAgjjn0fMKix8n0nVbdXx/rZkf3cJJcfY/ZfrOdFkpk50lzTkv3HEFCAxW9wcRiJ3ILp0wHo3/vajqmeY7lsz/t4+3Xnz1jlZEO24xkd6FIMz3LbjwHgGXG0b+PocLO+20=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788184360; c=relaxed/simple;
-	bh=AFn9bC8Os6jWC3HSEWWWBcrgHp1xBy6uB2ZFyqpjx4U=;
+	s=arc-20240116; t=1788184362; c=relaxed/simple;
+	bh=P7GWI4QqTyfKeMIcOp/wfgw+pvLSHaZ81/lMOGaRcoM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=VTjNvw4zeqSg495eBOGiwtThJt4fjOXZkS3OaJv8A0rfNSUXvE2XH8S6OU0Z2mwyT73HB+QqAgyPfdHdXvavzDWDO/ta8WQ3b7H7mBwJEqbLF3tRsu8LMJZPIXRuKLu2Q4sAA3Y7/1vs1Cvod1J3kVPAjfjfb5GqYXNhl1GO5FA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CkzC6SuG; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=huuquR7aE0e7+/8yv1GeKmjoTR1n9SapF5VET/KdljP1k8JY3RMlM2LR+cAKdNBs0YpcBzEd8w6qcpWZZN+VJSLsLXyW1Wy53CfdXY16jbBeuYY7Z5ohU8eK6cIyWpVaWrsl66LExf6UzoO1edW0FvBwi3BxRXeyg8Y4j7fY56U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZdCuWFCX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CkzC6SuG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A3BC1F00A3E;
-	Mon, 31 Aug 2026 13:52:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZdCuWFCX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D30FB1F00ADF;
+	Mon, 31 Aug 2026 13:52:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788184358;
-	bh=wraiAU+Zeuec8evtgO3PwiEKpvLKzU7dNuEP1ckW7fY=;
+	s=k20260515; t=1788184360;
+	bh=gn/x46AcCcCqDneJy+pgdlKQ+Wml9FPVINTnDu7omW4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=CkzC6SuGI967Y7XT786LCzhxur0MXjgRf05WRW7z+6i6j0AFyZJKHTkgGxPPmBB1o
-	 6xB2UoWxx+UDu02B1QwFyBoPz9ycNV0STPVfsfHbnxbYoFCfDMaaikDa9XcMrtpXXY
-	 gBVV6OH5AhFIaUPUW2gsl0CdoV8H7SvJ/VhF2x9L9citgIaDnmZJavPdGalfkKXHb5
-	 CZF/Atzvpcy89dgmPITtFNSEATxrdldeWP0SGwNx/4mi6yIb/E/2IWzsWfeY0zMi/S
-	 vLHPRCe4o94PKFRK+goOJoFYsokPpjRFweqDSNXVOJXxLTU3KV3Yx59bBN8MUG6Por
-	 TsMqLHALCdP6g==
+	b=ZdCuWFCXLnum0OR0fxNVjjU2gh6h/TxZPIDTrrpmNdNblnDOWIbVP7xilAGhLejAS
+	 6GPNrYs6O9oEoqc1i7BT5UANw6vFeiPlM2Eawt7uvA69xNfhTIuChevbbhAPrdDHVy
+	 V044cOkuWct+HL1cSHLVTu4RNBootywF/FPdP8RMItZPbkacH8Y4QTUDuT0t0nlY5f
+	 zj7i34ZpwWQzYzsqW4wruSnUlBJCvqZFJiOqMgxD2r9IXv9s8ZNm/hT51+zkCs9EBI
+	 jbOHhYV7WbobXL3S6swoUvygQWAVRTYmML3TC3UYJlvrSCRpU4Fc8J57AkAukeH7J2
+	 AwbW+5gHfbuIQ==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Mika Westerberg <mika.westerberg@linux.intel.com>,
+Cc: Stanley Chu <yschu@nuvoton.com>,
+	Frank Li <Frank.Li@nxp.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
 	Sasha Levin <sashal@kernel.org>,
-	andreas.noever@gmail.com,
-	westeri@kernel.org,
-	YehezkelShB@gmail.com,
-	linux-usb@vger.kernel.org,
+	miquel.raynal@bootlin.com,
+	linux-i3c@lists.infradead.org,
+	imx@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-5.10] thunderbolt: Keep the domain reference while processing hotplug
-Date: Mon, 31 Aug 2026 09:31:14 -0400
-Message-ID: <20260831133314.4125787-646-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18] i3c: master: svc: Prevent IRQ storm from false SLVSTART on NPCM845
+Date: Mon, 31 Aug 2026 09:31:15 -0400
+Message-ID: <20260831133314.4125787-647-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -54,381 +55,413 @@ X-stable-base: Linux 6.18.48
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Mika Westerberg <mika.westerberg@linux.intel.com>
+From: Stanley Chu <yschu@nuvoton.com>
 
-[ Upstream commit 138ec65b2c761f065b19d115aed2b8246fc272f5 ]
+[ Upstream commit 1effa3adfe53cb2bb28bf5640a676b791d5ab405 ]
 
-We process hotplug events in a workqueue that may run after the domain
-has been removed by tb_domain_remove(). For example if user unloads the
-driver while at the same time plugging  a device router we may have
-scheduled tb_handle_hotplug() to run. Avoid possible UAF in this case by
-taking the domain reference before scheduling the hotplug handler in
-tb_queue_hotplug().
+On NPCM845, when a target on the I3C bus gets stuck holding SDA low,
+the controller reports a false Master Request (MR) in-band interrupt
+event. The driver handles this by emitting a STOP condition to restore
+the bus.
 
-Signed-off-by: Mika Westerberg <mika.westerberg@linux.intel.com>
+However, the hardware quirk SVC_I3C_QUIRK_FALSE_SLVSTART indicates that
+emitting a STOP condition may spuriously set the SLVSTART interrupt
+status bit. In the Master Request case, this creates a feedback loop:
+the STOP triggers a new SLVSTART event, the IRQ handler fires again,
+the controller still reports an MR type, another STOP is emitted, and
+the cycle repeats indefinitely, resulting in an IRQ storm that can lock
+up the CPU.
+
+Clear the SLVSTART status bit explicitly after emitting the STOP in the
+Master Request IBI handler when the SVC_I3C_QUIRK_FALSE_SLVSTART quirk
+is set. This breaks the feedback loop without affecting normal SLVSTART
+processing, which is already guarded in the top-level IRQ handler by
+checking that MSTATUS is in SLVREQ state.
+
+Signed-off-by: Stanley Chu <yschu@nuvoton.com>
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Link: https://patch.msgid.link/20260413005040.1211107-3-yschu@nuvoton.com
+Signed-off-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-## Phase 1: Commit Message Forensics
+# Stable Backport Analysis: i3c: master: svc: Prevent IRQ storm from
+false SLVSTART on NPCM845
 
-**Step 1.1 — Subject line**
-
-Record: `[thunderbolt] [keep] Keep the domain reference while processing
-hotplug` — holds a domain reference during deferred hotplug handling.
-
-**Step 1.2 — Tags**
-
-Record:
-- `Signed-off-by: Mika Westerberg <mika.westerberg@linux.intel.com>`
-  (author)
-- No `Fixes:`, `Reported-by:`, `Tested-by:`, `Reviewed-by:`, `Acked-
-  by:`, `Link:`, or `Cc: stable@vger.kernel.org`
-
-Notable: author is the Thunderbolt subsystem maintainer. No syzbot or
-user reports in the message.
-
-**Step 1.3 — Body**
-
-Record:
-- **Bug:** Hotplug runs on `tb->wq` via `tb_handle_hotplug()`; that work
-  can still run after `tb_domain_remove()` if the driver is unloaded
-  while a device is plugged.
-- **Symptom:** Possible use-after-free on the `struct tb` domain object.
-- **Root cause:** `tb_queue_hotplug()` stores a raw `tb` pointer with no
-  refcount; removal can free the domain before the work item finishes.
-- **Fix:** Take `tb_domain_get()` when queueing; release with
-  `tb_domain_put()` when the handler completes.
-
-**Step 1.4 — Hidden bug fix?**
-
-Record: **Yes** — explicit UAF fix, not cosmetic cleanup.
+**Local tree:** Linux 6.18.43 (`v6.18.43-1-gc7f0dac02d232`)
 
 ---
 
-## Phase 2: Diff Analysis
+## PHASE 1: COMMIT MESSAGE FORENSICS
 
-**Step 2.1 — Inventory**
+### Step 1.1: Subject Line
+**Record:** `[i3c: master: svc]` `[Prevent]` — Prevent IRQ storm from
+false SLVSTART on NPCM845 (Nuvoton BMC I3C master driver hardware quirk
+workaround).
 
-Record:
-- **File:** `drivers/thunderbolt/tb.c` only
-- **Scope:** ~4 net lines (1 changed, 3 added)
-- **Functions:** `tb_queue_hotplug()`, `tb_handle_hotplug()`
-- **Classification:** Single-file, surgical fix
+### Step 1.2: Tags
+**Record:**
+- **Signed-off-by:** Stanley Chu `<yschu@nuvoton.com>` (author)
+- **Reviewed-by:** Frank Li `<Frank.Li@nxp.com>` (NXP I3C reviewer)
+- **Link:**
+  https://patch.msgid.link/20260413005040.1211107-3-yschu@nuvoton.com
+- **Signed-off-by:** Alexandre Belloni `<alexandre.belloni@bootlin.com>`
+  (I3C maintainer)
+- No Fixes:, Reported-by:, Tested-by:, Cc: stable@vger.kernel.org
+- Notable: Reviewed by subsystem reviewer; maintainer applied the
+  series. No syzbot report (hardware-specific quirk).
 
-**Step 2.2 — Code flow**
+### Step 1.3: Body Analysis
+**Record:**
+- **Bug:** On NPCM845, when an I3C target holds SDA low (bus stuck), the
+  controller reports a false Master Request (MR) IBI. The driver emits
+  STOP to recover the bus, but STOP spuriously sets the SLVSTART status
+  bit (known `SVC_I3C_QUIRK_FALSE_SLVSTART` behavior).
+- **Symptom:** Feedback loop — STOP → spurious SLVSTART → IRQ handler →
+  MR again → STOP → … → **IRQ storm that can lock up the CPU**.
+- **Root cause:** MR handler emits STOP without clearing the spurious
+  SLVSTART bit afterward; top-level quirk guard (SLVREQ state check)
+  does not break this specific MR+stuck-SDA loop.
+- **Fix:** After STOP in the `MASTER_REQUEST` IBI path, explicitly clear
+  SLVSTART when the quirk is set.
+- **Version info:** NPCM845-specific; no kernel version range stated.
 
-Record:
-- **Hunk 1 (`tb_queue_hotplug`):** `ev->tb = tb` → `ev->tb =
-  tb_domain_get(tb)` — bumps device refcount before scheduling work.
-- **Hunk 2 (`tb_handle_hotplug`):** Adds `tb_domain_put(tb)` on all exit
-  paths through `out:` before `kfree(ev)` — balances the refcount from
-  queue time.
-
-**Step 2.3 — Bug mechanism**
-
-Record:
-- **Category:** Use-after-free / reference-counting bug
-- **Mechanism:** Async hotplug work can outlive domain teardown.
-  `tb_domain_remove()` calls `flush_workqueue()`, but a race remains:
-  `tb_queue_hotplug()` can run after `flush_workqueue()` returns (e.g.
-  concurrent unload + plug event). Without a refcount,
-  `device_unregister()` → `tb_domain_release()` can `kfree(tb)` while
-  `tb_handle_hotplug()` still dereferences `ev->tb`.
-
-**Step 2.4 — Fix quality**
-
-Record:
-- Matches the existing pattern in `xdomain.c`
-  (`tb_xdp_schedule_request()` uses `tb_domain_get()` /
-  `tb_domain_put()`).
-- Minimal, obviously correct refcount pairing.
-- **Regression risk:** Very low — only extends domain lifetime for in-
-  flight hotplug work.
+### Step 1.4: Hidden Bug Fix Detection
+**Record:** Not disguised — explicitly a bug fix for IRQ storm / CPU
+lockup. Falls under hardware quirk/workaround exception category.
 
 ---
 
-## Phase 3: Git History Investigation
+## PHASE 2: DIFF ANALYSIS
 
-**Step 3.1 — Blame**
+### Step 2.1: Inventory
+**Record:**
+- **File:** `drivers/i3c/master/svc-i3c-master.c` (+9 lines, 0 removed)
+- **Function modified:** `svc_i3c_master_ibi_isr()`
+- **Scope:** Single-file, surgical fix in one `switch` case
+  (`SVC_I3C_MSTATUS_IBITYPE_MASTER_REQUEST`)
 
-Record: In this tree, `tb_queue_hotplug()` and `tb_handle_hotplug()`
-blame to `19eef1d98eeda` (squashed import). The hotplug workqueue design
-is long-standing Thunderbolt infrastructure.
+### Step 2.2: Code Flow Change
+**Record:**
+- **Hunk (MASTER_REQUEST case):**
+  - **Before:** `svc_i3c_master_emit_stop(master); break;`
+  - **After:** Same STOP, then if `SVC_I3C_QUIRK_FALSE_SLVSTART` quirk
+    is set, `writel(SVC_I3C_MINT_SLVSTART, master->regs +
+    SVC_I3C_MSTATUS)` to clear spurious SLVSTART.
+- **Path affected:** IRQ-driven IBI handler, non-critical task section,
+  MR event only, only when quirk bit is set (NPCM845).
 
-**Step 3.2 — Fixes: tag**
+### Step 2.3: Bug Mechanism
+**Record:** **Category:** Hardware quirk workaround / IRQ storm
+prevention (synchronization with hardware interrupt status).
+- STOP on NPCM845 spuriously sets SLVSTART interrupt status.
+- In MR+stuck-SDA scenario, top-level handler's SLVREQ guard does not
+  prevent re-entry into MR handling.
+- Explicit status clear after STOP breaks the feedback loop.
 
-Record: N/A — no `Fixes:` tag.
-
-**Step 3.3 — Related file history**
-
-Record: Recent stable thunderbolt fixes on `stable/linux-6.18.y` include
-XDomain validation and debugfs leaks; no duplicate fix for this UAF
-found.
-
-**Step 3.4 — Author context**
-
-Record: Mika Westerberg is the Thunderbolt maintainer. No other commits
-from this author found in this checkout’s history (squashed tree).
-
-**Step 3.5 — Dependencies**
-
-Record:
-- Requires `tb_domain_get()` / `tb_domain_put()` — **present** in
-  `drivers/thunderbolt/tb.h` (lines 796–806).
-- Standalone; no series dependency.
-- Backport note: mainline diff uses `kmalloc_obj(*ev)`; this tree uses
-  `kmalloc(sizeof(*ev), GFP_KERNEL)` — trivial context adjustment only.
-
----
-
-## Phase 4: Mailing List and External Research
-
-**Step 4.1 — Original discussion**
-
-Record: `b4 dig -c <commit>` not run — commit hash not present in this
-checkout. Lore search blocked (Anubis bot protection). Web search did
-not locate this specific patch thread.
-
-**Step 4.2 — Reviewers**
-
-Record: UNVERIFIED — could not retrieve thread via b4 or lore.
-
-**Step 4.3 — Bug report**
-
-Record: N/A — no `Reported-by:` or `Link:` tags.
-
-**Step 4.4 — Series context**
-
-Record: Standalone one-commit fix; no multi-patch series indicated.
-
-**Step 4.5 — Stable list**
-
-Record: UNVERIFIED — stable@ discussion not searched (lore blocked).
+### Step 2.4: Fix Quality
+**Record:**
+- **Obviously correct:** Uses the same `writel(SVC_I3C_MINT_SLVSTART,
+  ...)` pattern already used in `svc_i3c_master_irq_handler()` at line
+  626.
+- **Minimal:** Quirk-gated, only in MR path.
+- **Regression risk:** Very low — only affects NPCM845
+  (`npcm845_drvdata` sets `SVC_I3C_QUIRK_FALSE_SLVSTART`). Normal
+  SLVSTART processing remains guarded by SLVREQ check in the top-level
+  IRQ handler.
 
 ---
 
-## Phase 5: Code Semantic Analysis
+## PHASE 3: GIT HISTORY INVESTIGATION
 
-**Step 5.1 — Key functions**
+### Step 3.1: Blame
+**Record:** Lines 609–611 (`MASTER_REQUEST` STOP without clear) blamed
+to `19eef1d98eeda` (kernel import). The MR+STOP path predates this
+series; the missing clear is a gap in the original
+`SVC_I3C_QUIRK_FALSE_SLVSTART` handling from March 2025.
 
-Record: `tb_queue_hotplug()`, `tb_handle_hotplug()`, plus callers
-`tb_handle_event()`, `tb_scan_port()`.
+### Step 3.2: Fixes: Tag
+**Record:** No Fixes: tag. N/A.
 
-**Step 5.2 — Callers**
+### Step 3.3: Related File History
+**Record:** Related commits in this tree on `svc-i3c-master.c`:
+- `466c7f87de52d` — Fix missed IBI after false SLVSTART (series patch
+  1/2, **present**)
+- `98ddff8a90f82` — Initialize `dev` to NULL in
+  `svc_i3c_master_ibi_isr()`
+- `8ddff9989f06a` — Prevent incomplete IBI transaction
+- Quirk introduced via code present since kernel import;
+  `SVC_I3C_QUIRK_FALSE_SLVSTART` and `npcm845_drvdata` confirmed in
+  tree.
 
-Record:
-- `tb_handle_event()` — control-channel plug events (`handle_event`
-  callback at line 3291)
-- `tb_scan_port()` — DP HPD path (line 1302)
+### Step 3.4: Author Context
+**Record:** Stanley Chu (Nuvoton) authored NPCM845 I3C fixes. Frank Li
+(NXP) reviewed. Alexandre Belloni (I3C maintainer) committed. Author has
+multiple related svc-i3c-master fixes in this tree.
 
-Both are reachable during normal Thunderbolt operation and driver
-unload.
-
-**Step 5.3 — Callees**
-
-Record: `tb_handle_hotplug()` uses `pm_runtime_get_sync()`,
-`mutex_lock(&tb->lock)`, switch/port lookups, `tb_scan_port()`,
-tunnel/DP handling, `kfree(ev)`.
-
-**Step 5.4 — Reachability**
-
-Record: Triggerable by hardware hotplug and by `rmmod`/PCI remove during
-concurrent plug — realistic on laptops/workstations with Thunderbolt.
-
-**Step 5.5 — Similar patterns**
-
-Record: `xdomain.c` already uses `tb_domain_get()` for deferred work.
-`tb_queue_dp_bandwidth_request()` still uses a raw `ev->tb = tb` (line
-2869) — same class of bug, but out of scope for this commit.
+### Step 3.5: Dependencies
+**Record:**
+- **Prerequisite:** Patch 1/2 (`466c7f87de52d` — re-read MSTATUS in IRQ
+  handler) is **already in this tree**.
+- **Required infrastructure:** `SVC_I3C_QUIRK_FALSE_SLVSTART`,
+  `svc_has_quirk()`, `npcm845_drvdata` — all **present**.
+- **Standalone:** This patch (2/2) is self-contained; applies cleanly on
+  top of current tree (`git apply --check` passed).
+- Upstream commit: `1effa3adfe53c`; **not yet in this 6.18.43 tree**.
 
 ---
 
-## Phase 6: Cross-Reference Against Local Tree
+## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
-**Step 6.1 — Buggy code present?**
+### Step 4.1: Original Discussion
+**Record:**
+- **b4 dig -c 1effa3adfe53c:**
+  https://patch.msgid.link/20260413005040.1211107-3-yschu@nuvoton.com
+- **Series:** v1, 2 patches: (1) Fix missed IBI, (2) Prevent IRQ storm
+- **Maintainer response:** Alexandre Belloni: "Applied, thanks!" — both
+  patches applied to i3c tree.
+- **Stable nomination:** None found in thread.
+- **NAKs/concerns:** None found.
 
-Record: **Yes.** Local tree is **6.18.43** (`git describe HEAD` →
-`v6.18.43-1-gc7f0dac02d232`). Current code:
+### Step 4.2: Reviewers
+**Record:** CC'd: frank.li@nxp.com, miquel.raynal@bootlin.com,
+alexandre.belloni@bootlin.com, linux-i3c@lists.infradead.org, Nuvoton
+engineers. Reviewed-by: Frank Li.
 
-```101:106:drivers/thunderbolt/tb.c
-        ev->tb = tb;
-        ev->route = route;
-        ev->port = port;
-        ev->unplug = unplug;
-        INIT_DELAYED_WORK(&ev->work, tb_handle_hotplug);
-        queue_delayed_work(tb->wq, &ev->work, 0);
+### Step 4.3: Bug Report
+**Record:** No external bug report or syzbot link. Hardware quirk
+described by Nuvoton driver author; credible for embedded BMC platform.
+
+### Step 4.4: Series Context
+**Record:** 2-patch series addressing false SLVSTART quirk. Patch 1
+fixes missed IBI (race); patch 2 fixes IRQ storm (feedback loop). Both
+are complementary; patch 1 already in this tree; patch 2 is still
+missing.
+
+### Step 4.5: Stable List History
+**Record:** Not searched on lore stable list; no stable nomination found
+in patch thread. Absence is not a negative signal per instructions.
+
+---
+
+## PHASE 5: CODE SEMANTIC ANALYSIS
+
+### Step 5.1: Key Functions
+**Record:** `svc_i3c_master_ibi_isr()` (modified),
+`svc_i3c_master_irq_handler()` (caller, unmodified).
+
+### Step 5.2: Callers
+**Record:**
+- `svc_i3c_master_irq_handler()` → `svc_i3c_master_ibi_isr()` (line 646)
+- IRQ registered via `devm_request_irq()` at line 1944
+- **Context:** Hard IRQ context on I3C SLVSTART interrupt — hot path for
+  all IBI events on NPCM845.
+
+### Step 5.3: Callees
+**Record:** `svc_i3c_master_emit_stop()`, `svc_has_quirk()`, `writel()`
+to hardware MSTATUS register.
+
+### Step 5.4: Reachability
+**Record:**
+- Triggered when I3C bus target holds SDA low (hardware fault or
+  misbehaving device).
+- IRQ-driven, runs on every spurious SLVSTART in the MR feedback loop.
+- Not directly userspace-triggerable, but bus faults on BMC/server
+  platforms are realistic production scenarios.
+- **Impact when triggered:** Continuous IRQ processing → CPU lockup.
+
+### Step 5.5: Similar Patterns
+**Record:** Top-level IRQ handler already clears SLVSTART and has quirk
+guard. IBI and HOT_JOIN cases also emit STOP but do not need this extra
+clear (commit explains MR-specific loop). Same
+`writel(SVC_I3C_MINT_SLVSTART, ...)` idiom used elsewhere in file.
+
+---
+
+## PHASE 6: CROSS-REFERENCING AGAINST LOCAL TREE
+
+### Step 6.1: Buggy Code Exists?
+**Record:** **YES.** Current tree at lines 609–611:
+
+```609:611:drivers/i3c/master/svc-i3c-master.c
+        case SVC_I3C_MSTATUS_IBITYPE_MASTER_REQUEST:
+                svc_i3c_master_emit_stop(master);
+                break;
 ```
 
-`tb_handle_hotplug()` ends with `kfree(ev)` and no `tb_domain_put()`.
+No SLVSTART clear after STOP. `SVC_I3C_QUIRK_FALSE_SLVSTART` and
+`npcm845_drvdata` are present (lines 154, 2056–2059). Prerequisite patch
+`466c7f87de52d` is present. Upstream fix `1effa3adfe53c` is **not** in
+this tree.
 
-**Step 6.2 — Backport difficulty**
+### Step 6.2: Backport Complications
+**Record:** **Clean apply** — `git apply --check` against upstream diff
+succeeded with no conflicts. No rework needed.
 
-Record: **Clean apply** with at most `kmalloc` vs `kmalloc_obj` context
-difference.
-
-**Step 6.3 — Fix already present?**
-
-Record: **No** — fix not in this checkout.
-
----
-
-## Phase 7: Subsystem and Maintainer Context
-
-**Step 7.1 — Subsystem**
-
-Record: `drivers/thunderbolt/` — **IMPORTANT** (PCI driver; common on
-Intel/Apple laptops, docks, displays).
-
-**Step 7.2 — Activity**
-
-Record: Active maintenance on 6.18.y (recent thunderbolt
-security/validation fixes in stable history).
+### Step 6.3: Related Fixes Already Present?
+**Record:** Patch 1/2 (`466c7f87de52d`) present. IRQ storm fix
+(`1effa3adfe53c`) absent. No alternate fix for this issue found.
 
 ---
 
-## Phase 8: Impact and Risk Assessment
+## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
 
-**Step 8.1 — Who is affected**
+### Step 7.1: Subsystem Criticality
+**Record:** **Subsystem:** `drivers/i3c/master/` — I3C bus master driver
+(Silvaco/Vayavya Labs SVC IP, Nuvoton NPCM845). **Criticality:**
+IMPORTANT/PERIPHERAL — affects NPCM845 BMC platforms specifically, but
+IRQ storm is a system-wide CPU lockup.
 
-Record: Systems with `CONFIG_THUNDERBOLT` and the in-tree NHI driver —
-Thunderbolt laptop/workstation users.
+### Step 7.2: Subsystem Activity
+**Record:** I3C subsystem actively maintained in 6.18.y with recent svc
+and mipi-i3c-hci fixes. NPCM845 support and quirk infrastructure are
+established in this tree.
 
-**Step 8.2 — Trigger conditions**
+---
 
-Record: Driver unload (`nhi_remove()` → `tb_domain_remove()`) concurrent
-with device plug/hotplug event. Unprivileged users can unload modules if
-permitted; root can always trigger via `rmmod`.
+## PHASE 8: IMPACT AND RISK ASSESSMENT
 
-**Step 8.3 — Failure mode**
+### Step 8.1: Who Is Affected
+**Record:** Users of Nuvoton NPCM845 I3C controller
+(`"nuvoton,npcm845-i3c"` DT compatible). Primarily embedded BMC/server
+platforms. Config-specific (driver + hardware present).
 
-Record: **UAF on `struct tb`** → kernel oops/panic or memory corruption.
-**Severity: CRITICAL/HIGH.**
+### Step 8.2: Trigger Conditions
+**Record:** I3C target stuck holding SDA low → false MR IBI → STOP
+recovery loop. Requires bus fault or misbehaving device — uncommon but
+realistic. Not unprivileged-userspace-direct, but can freeze the system
+when it occurs.
 
-**Step 8.4 — Risk vs benefit**
+### Step 8.3: Failure Mode Severity
+**Record:** **IRQ storm → CPU lockup.** Severity: **CRITICAL** (system
+becomes unresponsive).
 
-Record:
-- **Benefit:** High — prevents crash/corruption on a realistic
-  unload+hotplug race.
-- **Risk:** Very low — 3-line refcount fix following an established in-
-  driver pattern.
+### Step 8.4: Risk-Benefit
+**Record:**
+- **Benefit:** HIGH for NPCM845 users — prevents system lockup on bus
+  fault.
+- **Risk:** VERY LOW — 9 lines, quirk-gated, same register write pattern
+  as existing code, zero impact on non-NPCM845 platforms.
 - **Ratio:** Strongly favors backport.
 
 ---
 
-## Phase 9: Final Synthesis
+## PHASE 9: FINAL SYNTHESIS
 
-**Step 9.1 — Evidence**
+### Step 9.1: Evidence Summary
 
-**FOR:**
-- Real, well-described UAF race
-- Subsystem maintainer fix
-- Small, surgical, matches existing `xdomain.c` pattern
-- Buggy code confirmed in 6.18.43
-- `tb_domain_get/put` infrastructure already in tree
-- Crash/corruption severity
+**FOR backporting:**
+- Fixes real IRQ storm causing CPU lockup (CRITICAL severity)
+- Small, surgical, quirk-gated hardware workaround
+- Reviewed by NXP reviewer; applied by I3C maintainer
+- Prerequisites present in 6.18.43 tree; applies cleanly
+- Complements already-backported patch 1/2 in the series
+- Matches stable exception category: hardware quirk/workaround
 
-**AGAINST:**
-- No external reproducer (syzbot/user) in commit message
-- Mailing-list review not verified
-- Mainline merge not verified (torvalds/linux `tb.c` on GitHub still
-  shows buggy `ev->tb = tb`)
-- Related `tb_queue_dp_bandwidth_request()` has the same pattern
-  (separate issue)
+**AGAINST backporting:**
+- NPCM845-specific (limited audience) — but stable routinely takes
+  hardware quirk fixes
+- Requires bus fault to trigger — but consequence is system lockup
+- No syzbot/user bug report — but hardware quirk from silicon vendor is
+  credible
 
-**UNRESOLVED:**
-- Commit hash and lore review thread
-- Whether fix is already in upstream mainline
+**Unresolved:** None affecting the decision.
 
-**Step 9.2 — Stable rules checklist**
+### Step 9.2: Stable Rules Checklist
+1. Obviously correct and tested? **PASS** — minimal register clear,
+   reviewed, maintainer-applied
+2. Fixes a real bug? **PASS** — IRQ storm on NPCM845
+3. Important issue? **PASS** — CPU lockup (CRITICAL)
+4. Small and contained? **PASS** — 9 lines, one case branch
+5. No new features/APIs? **PASS** — quirk workaround only
+6. Can apply to local tree? **PASS** — clean apply, prerequisites
+   present
 
-| Criterion | Result |
-|-----------|--------|
-| 1. Obviously correct and tested? | **PASS** — refcount pairing is
-standard; no `Tested-by` in message |
-| 2. Fixes a real user-affecting bug? | **PASS** — UAF on driver unload
-+ hotplug |
-| 3. Important issue? | **PASS** — crash/corruption (CRITICAL/HIGH) |
-| 4. Small and contained? | **PASS** — ~4 lines, one file |
-| 5. No new features/APIs? | **PASS** — refcount only |
-| 6. Can apply to local tree? | **PASS** — infrastructure present, clean
-apply |
+### Step 9.3: Exception Category
+**Record:** Hardware quirk/workaround for NPCM845 I3C controller.
 
-**Step 9.3 — Exception category**
-
-Record: N/A — not a quirk/DT/build/docs fix; standard bug fix.
-
-**Step 9.4 — Decision rationale**
-
-This is a textbook stable backport: a real UAF in deferred work during
-driver teardown, fixed with a minimal refcount hold/release matching
-code already used elsewhere in the same driver. The bug exists in the
-local 6.18.43 tree, prerequisites are present, and the change is low
-risk with high stability benefit.
+### Step 9.4: Decision Rationale
+This commit closes a gap in the existing `SVC_I3C_QUIRK_FALSE_SLVSTART`
+handling. The 6.18.43 tree already has NPCM845 support, the quirk flag,
+and series patch 1/2, but lacks this IRQ storm fix. When an I3C bus
+fault causes a target to hold SDA low, the driver can enter an infinite
+IRQ loop that locks the CPU. The fix is minimal, quirk-gated, reviewed,
+and applies cleanly. This is appropriate stable material.
 
 ---
 
 ## Verification
 
-- [Phase 1] Parsed subject, body, tags from user-provided commit message
-- [Phase 2] Analyzed provided diff: `tb_domain_get()` in
-  `tb_queue_hotplug()`, `tb_domain_put()` in `tb_handle_hotplug()`
-- [Phase 3] `git describe HEAD` → v6.18.43; `git blame` on
-  `tb_queue_hotplug`/`tb_handle_hotplug`
-- [Phase 3] `git log stable/linux-6.18.y --grep=thunderbolt` — no
-  duplicate fix found
-- [Phase 4] `b4 dig` — not run (no commit hash in tree)
-- [Phase 4] Lore fetch — blocked by Anubis
-- [Phase 4] Web search — no matching patch thread found
-- [Phase 5] `grep tb_queue_hotplug` — callers at lines 1302, 2930
-- [Phase 5] Read `tb_handle_event()`, `tb_domain_remove()`,
-  `tb_domain_release()`
-- [Phase 5] Verified `xdomain.c` refcount pattern (lines 879, 859)
-- [Phase 6] Read current `tb.c` — buggy code present, fix absent
-- [Phase 6] Verified `tb_domain_get/put` in `tb.h` lines 796–806
-- [Phase 7] Confirmed thunderbolt driver path and recent stable activity
-- [Phase 8] Traced `nhi_remove()` → `tb_domain_remove()` →
-  `device_unregister()` → `tb_domain_release()` → `kfree(tb)`
-- [UNVERIFIED] Mainline merge status
-- [UNVERIFIED] Mailing-list review / stable@ nomination
-- [UNVERIFIED] User or syzbot reproduction
+- [Phase 1] Parsed subject, tags, body from provided commit message
+- [Phase 1] Identified as explicit hardware quirk IRQ storm fix, not
+  hidden cleanup
+- [Phase 2] Diff: +9 lines in `svc_i3c_master_ibi_isr()`, MASTER_REQUEST
+  case only
+- [Phase 2] Verified `writel(SVC_I3C_MINT_SLVSTART, ...)` pattern
+  matches line 626 in same file
+- [Phase 3] `git describe HEAD` / `make kernelversion`: 6.18.43
+- [Phase 3] `git blame -L 609,611`: MR STOP path present without
+  SLVSTART clear
+- [Phase 3] `git merge-base --is-ancestor 466c7f87de52d HEAD`: patch 1/2
+  present
+- [Phase 3] `git merge-base --is-ancestor 1effa3adfe53c HEAD`: IRQ storm
+  fix NOT present
+- [Phase 3] `git log --oneline 4dd12e944f07^..HEAD --
+  drivers/i3c/master/svc-i3c-master.c`: related history confirmed
+- [Phase 3] `git apply --check` on upstream diff: applies cleanly
+- [Phase 4] `b4 dig -c 1effa3adfe53c -a`: v1 2/2 series found
+- [Phase 4] `b4 dig -c 1effa3adfe53c -w`: maintainers CC'd, Frank Li
+  reviewed
+- [Phase 4] `b4 dig -c 1effa3adfe53c -m /tmp/i3c_irq_storm.mbox`:
+  Belloni applied both patches; no stable tag, no NAKs
+- [Phase 5] `grep svc_i3c_master_irq_handler`: caller at line 646; IRQ
+  registered at line 1944
+- [Phase 5] `grep SVC_I3C_QUIRK_FALSE_SLVSTART`: quirk defined line 154,
+  used lines 628 and 2058
+- [Phase 6] `grep npcm845`: `npcm845_drvdata` with quirk at lines
+  2056–2065
+- [Phase 6] Read current file lines 609–611, 617–648: buggy code
+  confirmed, prerequisite quirk guard present
+- [Phase 7] `git log --oneline -20 -- drivers/i3c/`: active subsystem
+- [Phase 8] Failure mode IRQ storm → CPU lockup assessed as CRITICAL
 
-**YES**The two background git searches (`build/master` and `fixes-next`)
-didn’t finish — they hung and were killed, so they didn’t turn up a
-commit hash or confirm mainline merge status.
+**YES**The background check finished: the IRQ storm fix (`1effa3adfe53c`
+/ `5e33b8c19e5b2`) is **not** in your current **6.18.43** tree.
 
-That doesn’t change the earlier conclusion: the UAF is present in your
-6.18.43 tree, the fix is small and correct, and it should be backported.
+That matches the earlier analysis: NPCM845 support and the related
+false-SLVSTART quirk are present, patch 1/2 (`466c7f87de52d`) is already
+applied, but the MR-handler SLVSTART clear is still missing — and the
+upstream patch applies cleanly.
 
-**YES**
+**Backport recommendation: YES** — it’s a small, quirk-gated fix for an
+IRQ storm that can lock up the CPU on NPCM845 when the I3C bus gets
+stuck.
 
- drivers/thunderbolt/tb.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ drivers/i3c/master/svc-i3c-master.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-diff --git a/drivers/thunderbolt/tb.c b/drivers/thunderbolt/tb.c
-index 4a94cb406bdfb..041a4c8e10fb9 100644
---- a/drivers/thunderbolt/tb.c
-+++ b/drivers/thunderbolt/tb.c
-@@ -98,7 +98,7 @@ static void tb_queue_hotplug(struct tb *tb, u64 route, u8 port, bool unplug)
- 	if (!ev)
- 		return;
- 
--	ev->tb = tb;
-+	ev->tb = tb_domain_get(tb);
- 	ev->route = route;
- 	ev->port = port;
- 	ev->unplug = unplug;
-@@ -2527,6 +2527,9 @@ static void tb_handle_hotplug(struct work_struct *work)
- 	pm_runtime_mark_last_busy(&tb->dev);
- 	pm_runtime_put_autosuspend(&tb->dev);
- 
-+	/* Undo the refcount increased in tb_queue_hotplug() */
-+	tb_domain_put(tb);
+diff --git a/drivers/i3c/master/svc-i3c-master.c b/drivers/i3c/master/svc-i3c-master.c
+index d33f4c7654974..70365a550ad29 100644
+--- a/drivers/i3c/master/svc-i3c-master.c
++++ b/drivers/i3c/master/svc-i3c-master.c
+@@ -608,6 +608,15 @@ static void svc_i3c_master_ibi_isr(struct svc_i3c_master *master)
+ 		break;
+ 	case SVC_I3C_MSTATUS_IBITYPE_MASTER_REQUEST:
+ 		svc_i3c_master_emit_stop(master);
 +
- 	kfree(ev);
- }
- 
++		/*
++		 * If a target gets stuck holding SDA low, the controller reports a MR.
++		 * On NPCM845, emitting STOP may spuriously set SLVSTART, retriggering
++		 * the interrupt and re-entering MR handling, leading to an IRQ storm.
++		 * Clear SLVSTART after STOP to break the loop.
++		 */
++		if (svc_has_quirk(master, SVC_I3C_QUIRK_FALSE_SLVSTART))
++			writel(SVC_I3C_MINT_SLVSTART, master->regs + SVC_I3C_MSTATUS);
+ 		break;
+ 	default:
+ 		break;
 -- 
 2.53.0
 
