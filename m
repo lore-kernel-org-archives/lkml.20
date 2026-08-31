@@ -1,151 +1,211 @@
-Received: from mail-yw1-f180.google.com (mail-yw1-f180.google.com [209.85.128.180])
+Received: from mail-wm2-f11.google.com (mail-wm2-f11.google.com [74.125.225.139])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB6883ACA5F
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 02:43:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.180
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788144215; cv=pass; b=GXK/M9Lb78PNProiX+FYHDRvT2pScCpJ2+/0slmSEXRZoWLf+Xav09NqmnwAdInCvqOg9I6sHd324rN9NkZMARWuMQ2VfBg6LpUt+eRWPErGSb1gGJBFOGKEcPFA1hkXc70e9lYWoRESUFtW7pLblff921nXQHwIlgr6I2ZJfsk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788144215; c=relaxed/simple;
-	bh=6ahtd83ldSoDYRvF3THgth4QTO0pTAI9WpqI9ilo/OA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=KLeDk5tGEjugsz6w7HzhbiBUfZ+iP7958enYMDCuZWKzW3P+IfVjdT2N2CwVQk2MhfpcZEThj3+2/XbAIGgnxYSqc+zyNCmbWi8xzS1P1rEVX5K3MAtuiieyGI2Rv1GkiLKSiPdcZtjGA9WglI1D6/9TcO2mccfhxHXriunnnrs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fJfVLkwH; arc=pass smtp.client-ip=209.85.128.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F586348445
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 02:43:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.139
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788144238; cv=none; b=aoWooKQEoelDRtgJaWjUraQtQyD0hc90SBK8Y3Z/fNF+oPw7fVCrXQvB9+1fnyANdlYw1bPX3g05A6blpWTV4+8rUJnl2/t2ZyfNeVhInLV0FJR4V9/HHz/10g7KPxJPc1016f9gESuB7EjDdLzcrWfbf90jEGwV4ra4ljamjmg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788144238; c=relaxed/simple;
+	bh=MsdmLVRegQiwqggtnxMkuCIHzVN4jOC7xy523DaRM50=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=lCdpBwGAaS0ePlLw+Ml2aZRSHhFQR1AWQPzWJg/SPih6s9uhPalAtEkL8m684ATGxp+PRuAFHRrDLbxo+iFGgJBr9+Fa2+whHAVah/MbaoGkbBbfgXYIZ3lGK2CNgUtiKt4wBf4WXYkCg6BBg/Bp6Tvf//7fyQKAeRMM7vsRiMQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gxzG66uV; arc=none smtp.client-ip=74.125.225.139
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fJfVLkwH"
-Received: by mail-yw1-f180.google.com with SMTP id 00721157ae682-836ce6cbe1eso28959077b3.1
-        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 19:43:31 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788144210; cv=none;
-        d=google.com; s=arc-20260327;
-        b=XDTMrdJPTOYBwtZowk2bwE5I+RsSqOTAu6HuA5Cgq1qh1C2f67XF1Z+dH8Vs1ihstE
-         y7UdCWLuEtsfTmzSuCJkBjZ/Sk3sdg3ptcIoIes66fA7qYxD13xxCroZK91HrY+glW+E
-         cU0G6aD0tznHDD5Rf6/YbosXL+q242Y1xXDNzfV5YVDx+8oqIRjKmEl7MAzNlFF3iy8i
-         AMP3etYS4CpaJT6lEIFxi3+aYUDpnIchOAsZ0f1bi9+1OBerol/xa/2Ps491FBuk4yKG
-         +2bfAYtkgJUXq2U98/rMH5f4MP3NnfNE7Oto7pD7ew8Rvl5QpdnLDNDKVh0d7pjNs3RF
-         cfiQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=NbE6ygLElQTTYS/K7ZqBXF2buqZVjb40e1vBsSRV3Do=;
-        fh=7eAu/t5w03twmu0ElpfM8KBS6Tjv/3Z3MfH2QSU3qg4=;
-        b=PcNelKZHV7p1d9bQ3P9u69iDEvDi4jx9cO8/gkR1LPzhr6OQEtrEur4aObZUtrNjs0
-         aEkFlMQ/i77Z8sw/nnprBTwrqoEjAcFWMaJ5+A9pCJLBhE5EatFb6zqwrtt713+P+A6A
-         zuveKD4tPu/MvsuXi3Rbbs1+UOa5vewERkGGjxqmOCfGFxKa7P9rDFZAOJj9kHfOZ/VY
-         VA9pCiiArs23zReImeevSY0ZaoJbjR9PtIp9g0miopDGWPZ8DpV8RMUxjDHpVl5W1Rv5
-         a2rf2IhUqzR35vklFMcNruSpC/UHMv8Hf1erpOHgsqQXx3PBlarGFWynP4BkRTar8HA7
-         wpVg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gxzG66uV"
+Received: by mail-wm2-f11.google.com with SMTP id 5b1f17b1804b1-49ccea58fe3so6808835e9.1
+        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 19:43:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788144210; x=1788749010; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=NbE6ygLElQTTYS/K7ZqBXF2buqZVjb40e1vBsSRV3Do=;
-        b=fJfVLkwHSc+g8tOzDdqFC1nxH+LO9L1/sLCjt6DAcUocboQwftZwvaXi3rugKyAaTp
-         UZcGouo1FdCpP0fF3zjNy3MgbWg1TEF419d6AYlrTUcucNmoDlR0xNmKwKrr1ScO0nSD
-         KoTE3voeQfmP3cRWA8AtUA0O4XRAFDmNojEAi/lf+QBb7bGOGPKW43BV4l8L6jdig/MA
-         foTGhboc5DNwP4w9me5YbPWZXo7+6COUAudupKUxHlsKRtb3apZKEWffybLueZcM3pAh
-         LsT3czJb0cqCRVCRn+WYmAwLnle96QOX2PDeueuh2ugEOrK+E6jH1jbnFSGJFUQ2G1Za
-         Nr8w==
+        d=gmail.com; s=20251104; t=1788144232; x=1788749032; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Ymc/NdJXhMPL+BOqGNmfc6XPTw7UulT/4bPOKgW49BQ=;
+        b=gxzG66uVpaYteYedDIeU58PpYVxZZI1lUxYXTvk2b6mn/5peyBi19S5WaIKkXytpcP
+         IhLBL2p1Qt2v5CMPNiiBoG6WHV5AE7m40yybsaR479Urku7fr+lA12Tdgq/yEDmfwbUR
+         Ft9tUzvl/HDFbxvFuiBbsHp74S0l0E7wg5u3DDObPArypuhYtIpNYB6gIMEMdv3iJ3d0
+         JILPYFgF3KmInQVDrau3I4VPjJrahmifiSA+n8y/C2ksK6uze0V5kOnqaSkEDyR20YLA
+         rMliR92uXe2AmCIYTGzIqILvMp4U7BhQkSPRY/fjGGX7WKBxqSIhXksbNHhMFHfEsvT+
+         We9g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788144210; x=1788749010;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20251104; t=1788144232; x=1788749032;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=NbE6ygLElQTTYS/K7ZqBXF2buqZVjb40e1vBsSRV3Do=;
-        b=fUSSVEuM4jzrakYtELgFgz1cNtmgHDB8jfj4VdcqknP8sGkooWOITap/T/V74Ek/qD
-         2HPFqie70VZv5Ak2j0IcjS86+cYMsMCmL8Oo9dAJYOTHhtR5NEfx7r59pI1RhmCiKal3
-         ICQBNN74wMjtegEuKey1zbzFNh7H/R47fGXm73btjOoKM2DgzQWR6AFhsh0oTBI0oIPh
-         gu5epHXdgXptBAUK/3t5xr//hXbn4FojiWcM2DYnAV9s6S5vUszNim/+k2fGDHqgy1cL
-         oz2Wv36i7PeuqDW/BK3slYKZzpgUbJgcZRVTl24eGNJvcxeApYgvBUDXUWIYDavek5aH
-         Fk4A==
-X-Forwarded-Encrypted: i=1; AKwUvBweV/HLvODEkCpNYprDS1aeTi/7a3x7H+A/XEJbx6XZayYT0do5XkFoTraipAkma6hh3wzUtrQ0p43Futk=@vger.kernel.org
-X-Gm-Message-State: AFuF++nkx1CiYvdVndYwOupHLaUKK3GT1z+fMBBkkkceECcABytHqsG3
-	A0FmZx2eCv7n5M7SymgJTrStlAEJRwxqKlVpXT7thVtQSFImJAffwi0XKk62iXqXMlx/UjmjaIi
-	g6lsMA4Aj8+5LhP+bfbNEE0MVLLvmSNE=
-X-Gm-Gg: AYBFou01soGLeJ745iRV3VxrL9l0QsEdv+R80KnD0XtkzCQQPb6VxlSTKZFNf38NcDD
-	TRpUi09J/02LOtZ/mm33u8bcbnpVjVbfpy3QvMkMFDkZpcfSfm/nXdocI8/RHNEoWV6LR1xrnrB
-	48vKm4NQ5aLg8Gl82X3sJ3IShzRif6ZK6UkLQ1cdSoXuTTFuohzyRnDRhlreNjErClGZ/p7OcIc
-	+NVLKdK7OLoB4bk9Gz9LpidbrlZGpDJmvLUI3K7lnQol+luFk0H1nOr6OEDJMUqntlx1ksPs6H1
-	O8ClOnfx0f2UgPRwyE/De7VoSPUXqI7aX9pURJgGcnFqaw==
-X-Received: by 2002:a05:690c:38a:b0:81e:695b:585c with SMTP id
- 00721157ae682-8678f0c3792mr241247b3.4.1788144210009; Sun, 30 Aug 2026
- 19:43:30 -0700 (PDT)
+        bh=Ymc/NdJXhMPL+BOqGNmfc6XPTw7UulT/4bPOKgW49BQ=;
+        b=LKFOjWY22W4qeaxWt5WnRCjNhGKHQ2HOaBYdO1v1UvNYudXCidvMV/cFNuh4Zvl9u3
+         oWPUCP/SXmCyfZhEBYn7V3hkFoyiX9PX3SG8ki3xWcGGng9dJFd8459QMkG80sJlcvTq
+         Ppile8hoLUHG2twfkXyJ7SLIVbcK6M0SUzRjoro/E3SUtDcuE86AxLzcSIyPhWIdtOlg
+         FG7yINcPUbvhdDPhxbNY4tQwEvyXiX/UMf4iGR0aceluEU5x+A9weH3Gh7l7D3Y0DiOa
+         /3SHdhbUpZLPXAw+FBsB0svYqGJAuIVT/G7qELiX4VDSmiDR9OUhQwxczcvbqD+aWJEn
+         RKyg==
+X-Forwarded-Encrypted: i=1; AHgh+Rq6v+EA6KePeRjVxMKtCK/blDNxpC5CRQy6LvZyAyHp8tTXRWyG07UeNy/9g7jlRrkqhVcbn5yc0NH3f38=@vger.kernel.org
+X-Gm-Message-State: AFuF++kYVkraeRF1ovKGBD/kt7gOc0cc2Zexkq+hp9PqemOxIF1tP198
+	auoQD5cFdJcEQWQJK/lg9kRzh8m0uLwmDRARNmmaGEcMZ0SH5J3s/nvM
+X-Gm-Gg: AR+sD10FHL0+C2ujokA88pO3Wyl4oMKYKhkaRpbcba6QOuOVt3rwbFaWvmZkQCqu4tC
+	jv4OBd3ttDITzCPvyQnFR7naXOD5JRwMXlyvCAYgX0e+77Yidl6F8ywnZ4SgZKDjFykoUUnpKBH
+	wrWAal9mud1p7KzOqaaKgaeJEGABeAHxgb6TWH5wIrlOCoPuSkOa09Fb30T5AHN14IElvhR+Rd5
+	g7yitb5buIimVUGcUrX3hTi5tdEWdtl1CelVpxc/x6KHFEGW3LmhLi7LlTAiGxiG4iiqoMuSjGb
+	k33rOH1bCgOq9EbqlVcFuz9n89FMMzeSiK2sZAxKCFM8Ip1V0nGjHejvSwd0CmlHalTAHFdNFh9
+	n0hkNLZTtlevGf1H+LGZZRYRpwSXUDWOmDh/mpuACc1EJUF2AJPhIvRdNDniiz+hn3LQ/MjunHL
+	z27D1tPj7oYTr8fw41mKHlRXQ0uLgsNPcUWd63hzwX3hF7C4I54kfLMxNFokIQgULrNfl3Xlq6d
+	+9lcm26kD35SoOwzBHdxdFtKnBFF7zz/thGlOlLDcO+X10DLd9tUVvqqNEY02kR+Wkq4iUzx1F6
+	so86R0lb5kpVjrCVDu8wJjUCVSE=
+X-Received: by 2002:a05:600c:8b27:b0:49c:d27f:ed81 with SMTP id 5b1f17b1804b1-49cd27fee09mr141280485e9.11.1788144231971;
+        Sun, 30 Aug 2026 19:43:51 -0700 (PDT)
+Received: from localhost (nat-icclus-192-26-29-3.epfl.ch. [192.26.29.3])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cd8b9a2efsm13744795e9.3.2026.08.30.19.43.51
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 30 Aug 2026 19:43:51 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260830182036.284736-1-prasanth.padarthi10@gmail.com> <d60f234e-1b9e-44cc-9bad-da79e794fe44@lunn.ch>
-In-Reply-To: <d60f234e-1b9e-44cc-9bad-da79e794fe44@lunn.ch>
-From: Prasanth <prasanth.padarthi10@gmail.com>
-Date: Mon, 31 Aug 2026 08:13:19 +0530
-X-Gm-Features: AcwNN1XmXTP91gt09bDas9PoVw9lX5EEpGOPuilZRVTJETaIpy2y2cTeB3EQiZQ
-Message-ID: <CAMFFDGi161c0a8CX4DAaRzc66xTG2oRZ7DOgsG7pNRo-YP9-cw@mail.gmail.com>
-Subject: Re: [PATCH v4 0/2] ARM: dts: aspeed: Add ASRock Rack B650D4U BMC
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Ryan Chen <ryan_chen@aspeedtech.com>, Billy Tsai <billy_tsai@aspeedtech.com>, 
-	Andrew Lunn <andrew+netdev@lunn.ch>, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 31 Aug 2026 04:43:50 +0200
+Message-Id: <DL2S878KSOI5.1SZMLIAWMCNUJ@gmail.com>
+Cc: "Florent Revest (Anthropic)" <florent.revest@linux.dev>, "bpf"
+ <bpf@vger.kernel.org>, "Alexei Starovoitov" <ast@kernel.org>, "Daniel
+ Borkmann" <daniel@iogearbox.net>, "Andrii Nakryiko" <andrii@kernel.org>,
+ "Martin KaFai Lau" <martin.lau@linux.dev>, "Eduard Zingerman"
+ <eddyz87@gmail.com>, "Song Liu" <song@kernel.org>, "Yonghong Song"
+ <yonghong.song@linux.dev>, "Jiri Olsa" <jolsa@kernel.org>, "KP Singh"
+ <kpsingh@kernel.org>, "Emil Tsalapatis" <emil@etsalapatis.com>, "John
+ Fastabend" <john.fastabend@gmail.com>, "Paul E. McKenney"
+ <paulmck@kernel.org>, "Jose Fernandez" <jose.fernandez@linux.dev>, "LKML"
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH bpf] bpf: Keep progs alive until the trampoline image
+ calling them is freed
+From: "Kumar Kartikeya Dwivedi" <memxor@gmail.com>
+To: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
+X-Mailer: aerc 0.21.0
+References: <20260819122252.1782790-1-florent.revest@linux.dev>
+ <DL27QZ6SEZKT.1CV2HAX4A3WI4@gmail.com>
+ <CAADnVQLxi-R1KDUXJJjpq69SpV8UcNJVqBi7uicO=V0WhAvyQA@mail.gmail.com>
+In-Reply-To: <CAADnVQLxi-R1KDUXJJjpq69SpV8UcNJVqBi7uicO=V0WhAvyQA@mail.gmail.com>
 
-Hi Andrew,
-
-I do not currently have the PCB layout or RGMII trace-length information,
-so I cannot confirm that the PCB provides approximately 2 ns of TX delay
-but no RX delay.
-
-My hardware results are:
-
-rgmii negotiates 1000baseT/Full, but RX traffic fails with CRC errors.
-rgmii-rxid passes a 5000-packet test with no loss or RX CRC errors.
-rgmii-id also passes the same test.
-
-These results indicate that an RX delay is required, but they do not
-establish whether the TX delay is provided by the PCB, MAC, or PHY. I
-therefore agree that the traffic test alone is insufficient to justify
-rgmii-rxid.
-
-I have contacted ASRock Rack requesting confirmation of the RGMII timing
-and PCB trace-delay configuration. I will wait for that information
-before selecting the phy-mode for the next revision or making a claim
-about where the TX delay is implemented.
-
-Thanks,
-Prasanth
-
-On Mon, Aug 31, 2026 at 1:53=E2=80=AFAM Andrew Lunn <andrew@lunn.ch> wrote:
+On Sun Aug 30, 2026 at 3:21 PM CEST, Alexei Starovoitov wrote:
+> On Sun, Aug 30, 2026 at 3:41=E2=80=AFAM Kumar Kartikeya Dwivedi
+> <memxor@gmail.com> wrote:
+>>
+>> On Wed Aug 19, 2026 at 2:22 PM CEST, Florent Revest (Anthropic) wrote:
+>> > bpf_tramp_image_put() makes sure a trampoline image is not freed while
+>> > a task may still be running in it (call_rcu_tasks() + im->pcref), but
+>> > nothing similar is done for the progs called by that image. Since
+>> > commit e21aa341785c ("bpf: Fix fexit trampoline."), detach patches the
+>> > return path so that a task still in the original function skips the
+>> > fexit progs when it comes back, and counts on the prog's own RCU flavo=
+r
+>> > to cover a task that is inside a prog. On that basis the last prog
+>> > reference is dropped right away and the prog is freed after a single
+>> > RCU / RCU tasks trace grace period.
+>> >
+>> > That leaves out a task in the trampoline glue itself: between two
+>> > progs, or already past the patched jump but not yet in the first fexit
+>> > prog's enter helper. On !PREEMPT kernels this is a few instructions
+>> > that cannot be preempted, so it did not matter. With CONFIG_PREEMPTION
+>>
+>> I guess it would make sense to highlight why it may not have mattered. I=
+ think
+>> the real reason was that on !PREEMPT kernels, the execution in the tramp=
+oline
+>> image counted as (implicit) RCU read section which caused program free p=
+ath to
+>> wait for someone executing the trampoline image? For non-sleepable progs=
+, they
+>> wait for RCU grace period already, for sleepable, RCU tasks trace has im=
+plicit
+>> RCU grace period wait as well, hence this never showed up on !PREEMPT.
+>>
+>> > a task can sit there, in no RCU read section of any flavor and holding
+>> > only im->pcref, for longer than it takes to free the prog it is about
+>> > to call:
+>> >
+>> >   CPU 0                               CPU 1
+>> >   in image I, orig_call() returned
+>> >   [preempted before lsm.s prog A]
+>> >                                       bpf_tracing_link_release()
+>> >                                        -> bpf_tramp_image_put(I)
+>> >                                       bpf_link_dealloc()
+>> >                                        bpf_prog_put(A), last ref
+>> >                                       tasks trace GP, A's text freed
+>> >   __bpf_prog_enter_sleepable(A)
+>> >   call A->bpf_func
+>> >
+>> > On x86 this is an int3 in poisoned bpf_prog_pack memory:
+>> >
+>> >   Oops: int3: 0000 [#1] SMP NOPTI
+>> >   CPU: 18 UID: 0 PID: 94573 Comm: x169 Not tainted 6.18.44 #1 PREEMPT(=
+lazy)
+>> >   RIP: 0010:0xffffffffc0601d8d
+>> >   Call Trace:
+>> >    <TASK>
+>> >    ? bpf_trampoline_6442515411+0x1a4/0x21b
+>> >    bpf_lsm_bprm_committed_creds+0x5/0x10
+>> >    security_bprm_committed_creds+0x5f/0x70
+>> >    begin_new_exec+0x2d6/0x410
+>> >    ...
+>> >
+>> > We hit this in production on preemptible kernels when progs attached
+>> > through trampolines got detached while their hooks were busy. Adding
+>> > grace periods before the prog free would not help with sleepable progs=
+:
+>> > neither RCU tasks nor RCU tasks trace waits for a task that slept in a
+>> > prog and then got preempted in the gap after it.
+>> >
+>> > Fix it by having the image take a reference on every prog it calls, in
+>> > bpf_tramp_image_alloc(), and drop them in bpf_tramp_image_free(). A
+>> > detached prog now stays loaded until the old image is gone, which
+>> > reverts a deliberate choice of commit e21aa341785c ("bpf: Fix fexit
+>> > trampoline."). Detached fexit progs still stop being called right away
+>> > since the return path is patched.
+>> >
+>> > Fixes: e21aa341785c ("bpf: Fix fexit trampoline.")
+>> > Assisted-by: Claude:unspecified
+>> > Signed-off-by: Florent Revest (Anthropic) <florent.revest@linux.dev>
+>> > ---
+>>
+>> Overall, looks good to me. Thanks for the fix!
+>>
+>> Acked-by: Kumar Kartikeya Dwivedi <memxor@gmail.com>
+>>
+>> Note for whoever applies this: please add Reported-by: tag for Sechang a=
+s well.
+>> Optionally, wordsmith the commit log with the suggestion above.
 >
-> On Sun, Aug 30, 2026 at 11:50:34PM +0530, Prasanth Kumar Padarthi wrote:
-> > Add device tree support for the ASRock Rack B650D4U BMC, which is
-> > based on the ASPEED AST2600 SoC.
-> >
-> > The series adds the board compatible and describes the BMC memory,
-> > SPI NOR flash layout, UART console, and MAC0 connected to an
-> > RTL8211F Ethernet PHY.
-> >
-> > The MAC0 RGMII timing configuration was validated on B650D4U
-> > hardware. With plain "rgmii", the PHY negotiated 1000baseT/Full but
-> > received no valid packets and accumulated RX CRC errors. With
-> > "rgmii-rxid", a 5000-packet test completed with 0% packet loss and
-> > no RX CRC errors. "rgmii-id" was also tested successfully, but the
-> > additional TX delay is not required, so "rgmii-rxid" is retained.
+> Hold on. I don't think we can proceed with this fix.
+> It defeats the point of fexit jmp patching and keeps progs
+> pinned until a sleepable kernel function that were attached to
+> will return. Which means that the tracing prog attached to "unlucky" kern=
+el
+> function that sleeps for an hour will stay pinned for an hour.
+> Let's think of a different way of fixing the race.
+
+I don't have background on the original commit being fixed, but is that rea=
+lly
+realistic? Or worrisome even if it happens in practice, since worst case th=
+e
+program refcounts remains raised for that duration?
+
+We have similar worst case for programs too (e.g. using bpf_copy_from_user =
+on
+user controlled buffer in, say, LSM progs). At least here we won't be exten=
+ding
+any RCU flavored GP.
+
+That said I will think about alternative fixes in the meantime, if we accep=
+t the
+premise that we don't want to pin program references in the image and keep =
+their
+lifetimes decoupled.
+
 >
-> Please take a read of:
->
-> https://elixir.bootlin.com/linux/v6.15/source/Documentation/devicetree/bi=
-ndings/net/ethernet-controller.yaml#L287
->
-> Does the PCB have 2ns of delay for TX, but notR RX?
->
->      Andrew
+> pw-bot: cr
+
