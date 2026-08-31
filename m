@@ -1,74 +1,129 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD78F3EFFC3;
-	Mon, 31 Aug 2026 12:04:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3D6F3ED5B6;
+	Mon, 31 Aug 2026 12:05:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788177897; cv=none; b=ZENtneFPwQ2l6ZUAeIMLBMWnGjVDsyHALbyKOLJy0SpDd3/LTdkHSFVu7ySx7WYWatiZwccbnQlIclZJVu06LTlZVkhdVrEesKnwaRclLjKqXn2AwaQGWsoI9qqUYN6IZC9Tlup19ukEtQFCaw5qqmjCP326YUU4K9C4uI4x1YE=
+	t=1788177904; cv=none; b=dxYyPWjd0asTI19XAMC7sV+zHi1uL/fSbr3dn2jQfQt3gyzjDUSM33tvotcYbozuAWNb4nRQL/PTqghAdc/bckYPX1cSwry/NSL3Xk52ai7mStUSxMgvE+NbNJ4NeOljLci283BshSwum3F8dZ9+l2VYkXp7zdXAdFrw24Sga1Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788177897; c=relaxed/simple;
-	bh=tIY7dQlb5Gk1CYhMKAlVMVje6PtTs02t2V3U72HYgPc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GxRmyQ78NLhg4W8SI2ZfzxCWza6VtCJ8raM4AL6fJcF/dmJgUIMya6+nLgs1/E3azW1JFFfTKaSS92V2iS7uwpFHpfRn9xbSarhAJU+vG0f7+rvzY+Oi2/qymzA1S+NC1OWow702DsrdCaG0JT/d9XdkSNbkBX8IwbZVxq2geiU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=fc2sPOJX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788177904; c=relaxed/simple;
+	bh=D+aRmPS7eULHVWFJU2yaBVIeZhyBobHA6YV0Fu327WA=;
+	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
+	 Subject:From:To:Cc:Date; b=oWAy0irEntwhPpg7YyLJn0rY9DRm4exe8HEDgGxBA7TPErmaPSwlRn63rxHpQKc4uXzpvQc1o8JM0BfWSvEGHxUsW+zI+jt18RiEG9BAoJ/4fH8O8T76F6PIYOiw6uujKliMyIrQHGhpDNLU3VMJNPMkiE1B4Y3PrJsVtXolpMY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gIxgB8VG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="fc2sPOJX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F07081F000E9;
-	Mon, 31 Aug 2026 12:04:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788177896;
-	bh=Bx49ICq7xa3C7JAp/BquHUAtLRu6OTUjCDKTPjc3Xco=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=fc2sPOJXSvSl7qA5GBl/IkLS1O054pQCMIj1OamgpFjEuqAzhSaKT2hsnmUm7xaV2
-	 dYtPLmRa1XgHY+3STHmjYUGOVJFSmcnu+g7pAf3Vwm1ZyUtgJlHdeXdhb3fQE3ZXAL
-	 sSt5xQPRfwkkajZf7E98fnf/mH8eqteE1+OVxp+I=
-Date: Mon, 31 Aug 2026 14:04:53 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Karl Mehltretter <kmehltretter@gmail.com>
-Cc: stable@vger.kernel.org, Pablo Neira Ayuso <pablo@netfilter.org>,
-	Jozsef Kadlecsik <kadlec@netfilter.org>,
-	Florian Westphal <fw@strlen.de>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	netfilter-devel@vger.kernel.org, coreteam@netfilter.org,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Bin Lan <lanbincn@139.com>, XiaoHua Wang <561399680@139.com>
-Subject: Re: [PATCH 6.1.y 6.6.y] netfilter: nft_set_pipapo: account mapping
- table allocation
-Message-ID: <2026083125-bronze-stability-8fba@gregkh>
-References: <20260831043755.29692-1-kmehltretter@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gIxgB8VG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A2471F000E9;
+	Mon, 31 Aug 2026 12:05:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788177902;
+	bh=UxyOGkkYP+fmVU/277QcNz3Ra6vbEkFHnsjgcDx5R10=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=gIxgB8VGhUMitcDtGg8DonCDcEKBa3qA9p7eTqYDFA2j//XIVuoAXRHbEzFOCtB+z
+	 6Z9AkfkKklpHcNE/Kmuu6IXGOM28/2/SgpU8XbrRnLhZljJjU80mLuHspPUqaSNIBj
+	 c3uchmio+Ibfs6F5ojHK+nc9X+gKp7fZxpG026lryunkWEr4YVktJnDhyUNtOsdgbJ
+	 FZY7g3iHqjsfBFjcPVmLqZHC8jt3zOrJYhQatV5D39kx2ESfnlE7mQq0Cewp96BfSF
+	 DE1cmlU6fAsdXeGtzPn+J8cvNXTEW6Db/GM8/lEy/zXrJp3Dt5c+kmbxECU4CkmL7J
+	 ucJ6+Td4aI4hw==
+Content-Type: multipart/mixed; boundary="===============4050481947324525488=="
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260831043755.29692-1-kmehltretter@gmail.com>
+Message-Id: <9ed4c84cc7d723627f10b9b5d1dafb9b72d3e0bcff6db149d7605f5d9ad8c7b1@mail.kernel.org>
+In-Reply-To: <20260831110314.150870-2-jiayuan.chen@linux.dev>
+References: <20260831110314.150870-2-jiayuan.chen@linux.dev>
+Subject: Re: [PATCH bpf v3 1/5] bpf: Reject key-less BTF for hash maps
+From: bot+bpf-ci@kernel.org
+To: jiayuan.chen@linux.dev,bpf@vger.kernel.org
+Cc: jiayuan.chen@linux.dev,syzbot+37b56485bbbf90ad8489@syzkaller.appspotmail.com,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com,martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,emil@etsalapatis.com,ihor.solodrai@linux.dev,shuah@kernel.org,yatsenko@meta.com,alan.maguire@oracle.com,linux-kernel@vger.kernel.org,linux-kselftest@vger.kernel.org,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Mon, 31 Aug 2026 12:05:01 +0000 (UTC)
 
-On Mon, Aug 31, 2026 at 06:37:55AM +0200, Karl Mehltretter wrote:
-> [ Upstream commit 69e687cea79fc99a17dfb0116c8644b9391b915e ]
-> 
-> The pipapo set backend data structure is one of the ruleset objects
-> that upstream changed to use GFP_KERNEL_ACCOUNT for memory accounting.
-> 
-> The 6.1.y and 6.6.y adaptations changed the other pipapo allocations,
-> but omitted the mapping table allocation in pipapo_realloc_mt() because
-> that helper does not exist in these branches.  The equivalent allocation
-> is in pipapo_resize() and still uses GFP_KERNEL, so the persistent mapping
-> table is not charged to the allocating memory cgroup.
-> 
-> Update this allocation to use GFP_KERNEL_ACCOUNT.
-> 
-> Fixes: a0bb39980635 ("netfilter: nf_tables: missing objects with no memcg accounting")
-> Fixes: 1c4f72fa9699 ("netfilter: nf_tables: missing objects with no memcg accounting")
-> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+--===============4050481947324525488==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-You lost the original authorship and signed-off-by :(
+> map_check_btf() allows a key-less BTF (btf_key_type_id == 0) only for
+> maps that have a ->map_check_btf callback, and leaves the actual
+> decision to that callback. Hash maps used to have no ->map_check_btf,
+> so a key-less BTF was rejected outright.
+>
+> That changed when htab and rhtab gained a ->map_check_btf to register a
+> dtor - htab in commit 1df97a7453ee ("bpf: Register dtor for freeing
+> special fields") and rhtab in commit 6905f8601298 ("bpf: Allow special
+> fields in resizable hashtab"). Neither looks at the key, so a key-less
+> hash map now passes map_check_btf() and gets created. Reading it back
+> through bpffs feeds the key type_id 0 into btf_type_seq_show();
+> btf_type_by_id() returns the void type, kind_ops[BTF_KIND_UNKN] is NULL,
+> and btf_type_show() dereferences it:
+>
+> KASAN: null-ptr-deref in range [0x0000000000000028-0x000000000000002f]
+> RIP: 0010:btf_type_show+0x223/0x2e0 kernel/bpf/btf.c:8232
+> Call Trace:
+>  <TASK>
+>  btf_type_seq_show_flags+0xca/0x120 kernel/bpf/btf.c:8250
+>  htab_map_seq_show_elem+0x12e/0x350 kernel/bpf/hashtab.c:1669
+>  map_seq_show+0x13d/0x1e0 kernel/bpf/inode.c:293
+>  seq_read_iter+0x93f/0x1270 fs/seq_file.c:196
+>  seq_read+0x344/0x4d0 fs/seq_file.c:163
+>  vfs_read+0x1e4/0xb40 fs/read_write.c:572
+>  __x64_sys_pread64+0x1eb/0x250 fs/read_write.c:769
+>  do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+>  entry_SYSCALL_64_after_hwframe+0x77/0x7f
+>  </TASK>
 
-And it is very different from the original.
+The call trace appears to be edited from the original syzbot report.
+The original report (6a8f4e88.27659fcc.2ceef7.0008.GAE@google.com)
+includes these additional frames between map_seq_show and seq_read_iter:
 
-Also, why is this needed at all?
+  traverse.part.0.constprop.0+0x107/0x650 fs/seq_file.c:112
+  traverse fs/seq_file.c:99 [inline]
+
+and also includes the inline frames for the pread64 syscall path:
+
+  ksys_pread64 fs/read_write.c:760 [inline]
+  __do_sys_pread64 fs/read_write.c:769 [inline]
+  __se_sys_pread64 fs/read_write.c:766 [inline]
+
+The trace shows the crash happened during seq_file traverse() (the pread64
+offset walk) rather than a plain forward read. Could the commit message
+either restore these frames or mark the trace as trimmed?
+
+> diff --git a/kernel/bpf/hashtab.c b/kernel/bpf/hashtab.c
+> index d8db1cebc1936..855cab4e1bd7d 100644
+> --- a/kernel/bpf/hashtab.c
+> +++ b/kernel/bpf/hashtab.c
+> @@ -530,6 +530,10 @@ static int htab_map_check_btf(struct bpf_map *map, const struct btf *btf,
+>  {
+>  	struct bpf_htab *htab = container_of(map, struct bpf_htab, map);
+>
+> +	/* Hash maps have no use for a key-less BTF. */
+> +	if (btf_type_is_void(key_type))
+> +		return -EINVAL;
+> +
+>  	if (htab_is_prealloc(htab))
+>  		return 0;
+>  	/*
+> @@ -3111,6 +3115,10 @@ static int rhtab_map_check_btf(struct bpf_map *map, const struct btf *btf,
+>  {
+>  	struct bpf_rhtab *rhtab = container_of(map, struct bpf_rhtab, map);
+>
+> +	/* Hash maps have no use for a key-less BTF. */
+> +	if (btf_type_is_void(key_type))
+> +		return -EINVAL;
+> +
+>  	return bpf_ma_set_dtor(map, &rhtab->ma, rhtab_mem_dtor);
+>  }
+>
+
+
+---
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/33385673160
+--===============4050481947324525488==--
