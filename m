@@ -1,105 +1,212 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABE3C418371
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 13:27:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 800FD3F1ADA
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 13:27:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788182833; cv=none; b=rdTx4Sk1j/i3vmbtUlhXAvvrK+eS4jfHJ++E34raviaK2cONhDN9VXgUYKkkk9p9rkboIu4YYJagOCGM2t60brrTWk6Sibp4VQfY5hZ7IhQ8Ell3d0DaRuv4WkWB90b8Awm/qNHBUBr4J3+mpd9GAjSyRwVTKK2HQKMBOzZwPQk=
+	t=1788182873; cv=none; b=Ei2iz8g/4NVPctD98qHPDaVdrK4isMoXaTeYgtf8oeiI8JJA8ACvQnh/oOBeZQTpsfdaKNa8rpjovaQZCgY4Bxodnw+UFn8kU/48RMJxGYTNBdAPeuYtnMfbUnXHF7OmZk+YadWFT4GssDDZVBGcEP68n3NLTpRzTmlqkJu71W8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788182833; c=relaxed/simple;
-	bh=IL49NG86hmpfz8FoyuNmWr2L4LF6fI/1jpdmfWoBgdQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Nfx4zXbn7tB6UrmyHz+gX7vD9hZdyo7rOhxqKnOBpqKWHpg/1KVa2hTPeS8IROhjm4nzamcPUnjaD8P6X7JIxX8ZP1OxMzXy/TfwQLBBH7cDdVQUQ//FLXbO+zbroaHl0J+Brk1MUxhhgMC1LRRvKrWz9vx6xEJIpNv/H85bnLI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=LQ8/cE6O; arc=none smtp.client-ip=209.85.128.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1788182873; c=relaxed/simple;
+	bh=86Is2Lnqdt2mJh7KJh/1HjNBIV/BzWYekW3uEVCFH7Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fPSYjSoajbEQGzGuwviP0C4Gw8VmUsaFonZTSmwnEp9RjRXVm6jtOSO3yJJCJlXJp3UnZgMB1l1yLULoyb6cIzncbSD+Kn4T7hqCGSCMJh6tDVlzW9nqB39Oa6ue5WpTMUQziYpMoAiOb/ShCd3dBYcVU79uQsbOWhdJopSAcg4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T4/B18RG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="LQ8/cE6O"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4957eefd361so28128005e9.1
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 06:27:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1788182830; x=1788787630; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=9dJl19p/pVq6YV4fVMLMZrL500AfikOykyPbafsX3fM=;
-        b=LQ8/cE6ODIOl50xgcmqVQbiXieHe63vFArtlgOw0ODWqbotYupC+39rjCZvnS0PkPK
-         TUf3/rgD+qpgOqkD5a6s2kKs8OHPpaaEady3TO6cPu636201k9ox0wwpiVTxS9Iah6Df
-         JaW9KpeiAUF94Qk9EjS1jxYoKKcG7pktWsh81RgJsoTiPnXqIHX4XAxraydaOR5O+zdO
-         2Pkoc61yEPPFc905PLq43x5ay+8VNBpG6uRLMr6eobMGRRxWw1c5jLDpTxCFM4xHm1yx
-         QNTpeu0p92QsynUxvZDlZ+3CZhfemZkoxbd6Zx3uyHlz9wuBXmkeQT6ljqR9heYGQUaD
-         jatw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788182830; x=1788787630;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9dJl19p/pVq6YV4fVMLMZrL500AfikOykyPbafsX3fM=;
-        b=GLMbgXjG7dwG1ix0+n0b14ua3ULoaypRBXGP0evIpnrgc0GfterrH8dP581Br1ysnp
-         mVaTvgpBgDFUtmNtN7Tw+MXfh7npDXsJBng8k9Euf3opWEUdtOwQj6SkAdffWFMXVutv
-         /8tUXAO7MnoRNIMNW+kO7ZaLKfKgjkXxBQsAnTvL5KJZ55eL34DhrAgPyS4gMtgJ9dDa
-         sLKZ7eeWnib0eQ52mAhOOsfMLch8+oZTBuoKKW1FdDyqgvv9kKBeVIzPeugLQkLewADU
-         03n1nqeSysLaXKelBta9GNPbvrXuFsuOr8uQXilY7ZkvfwTBg7juklqRUnlu9wv24LBs
-         3q9Q==
-X-Forwarded-Encrypted: i=1; AHgh+RoPNTNK0qVOeq97fE7jOdeycLSTMF2Qx+/EsHbgGvDVl+x4NKfw4HeCbo78J6sockrHix5xNJ447SEu7fY=@vger.kernel.org
-X-Gm-Message-State: AFuF++lYoB0uB9HUidrIJ3Ty1DwIat4cyMtvsdLwR6zlqxkF0Pv4wpb4
-	0+7FxYUMC6ztwV3suG4ePGelAIoGMIuTu2TqR0//IUqOM+ED7/DG0DpF3EUgk/OApaA=
-X-Gm-Gg: AR+sD134VdOaiG0oHFGTZ1z0iXNZlzufS2B/CMM5JX/exaH3jHVVu9GoXPtq97uipPA
-	aUZ+Ll79IpBm0h1c5AxhN1I/YR2Pr9zc2MIjln5Pw7KV4LVGmC2V1JuMkV/mc65xeXJWMh0VE0i
-	n0kJvPAKgq/vAYL5WKmyklyl7pPmk10/Rm86Yiy5piDuKrsWmGZHdYBAIB66mQAM+h64pv05v0b
-	0LfGZFI1SKYDimGCvxv+3cGnuNKDZVa3RXvoWfje0bSuQVCkIneUnz5oqqVaoPPfp8M5nCbxal7
-	Io8HbKPzs+ewah8tx/sL+KD2zcB6q69UpR3H1m8G2ZQFAMsdO4dhrujueX1bBAkYiQoVl5LQfTb
-	NeVapDJ9wtxt4zKm8a8MqRNX7VCPQ261q6DUtV7YJKnyEPk9f9h0wKFGS77eVnrE1Rx1PqMf+Xr
-	91GemTtDkr28YXOg+zA1nCCU3cf6vgTH/wuKJ2NZ51zbn1L/gv8j+6aKbK5VhuH7FY1meM4DePI
-	vZcjB4iX8iy5xigc52thg75Ti40WbY=
-X-Received: by 2002:a05:600c:3511:b0:499:adb4:a922 with SMTP id 5b1f17b1804b1-49b91c4bab5mr295369375e9.12.1788182829769;
-        Mon, 31 Aug 2026 06:27:09 -0700 (PDT)
-Received: from ?IPV6:2a02:3033:283:b9b7:bec2:3dce:f757:ce06? ([2a02:3033:283:b9b7:bec2:3dce:f757:ce06])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ccea6b814sm176057695e9.0.2026.08.31.06.27.08
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 31 Aug 2026 06:27:09 -0700 (PDT)
-Message-ID: <ea165ff8-cda2-4fed-9354-1d14ac2d87ca@suse.com>
-Date: Mon, 31 Aug 2026 15:27:07 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T4/B18RG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 644B61F000E9;
+	Mon, 31 Aug 2026 13:27:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788182872;
+	bh=agjsrWF0V9C9oS5Bhar4854ibGBp1WvgI5DDxyJUu/k=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=T4/B18RGcw1gFmQ6ryKfrRMJuSbinyHhovZm8pAQGvsyB/bhxRk0Z5uDd3S3y8oZR
+	 4SowP+GnzVaUUsRoDVubMeSkb3irQk4bKu9IPGkvTq2YA+SZ7vCkkPAhOaNdAR1FzI
+	 lbfc3qsEDTvY/VaL3KIl+jQq7hjmosOAX9GpGnjgV9+PMM5m01qxNFrDg7SZQ0ep5k
+	 eDNom+hQuZqwVhnOI1H7jOR2maGVZ09stImlLIA8RVm2K0+kRxmP6RE0O0Wlu8mWJ1
+	 aGMQp+NoTK9vG+7fcybtyt9OPGYgpvvv8AfudqcLE6JbYfUVpSRiIOisFo9pNy+hoe
+	 MoCX4vsoY5nXg==
+Date: Mon, 31 Aug 2026 14:27:32 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Taha Sezer <tahasezer.is@gmail.com>
+Cc: akpm@linux-foundation.org, david@kernel.org, vbabka@kernel.org, 
+	mhocko@suse.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] mm: vmpressure: scale window size based on machine memory
+Message-ID: <apV_VwQx-7qXks_a@lucifer>
+References: <20260831130316.448-1-tahasezer.is@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/4] USB: usbfs: replace __get_free_page() with kmalloc()
-To: "Mike Rapoport (Microsoft)" <rppt@kernel.org>,
- Chas Williams <3chas3@gmail.com>, Duncan Sands <duncan.sands@free.fr>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Johan Hovold <johan@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>, Matthew Wilcox <willy@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>,
- accessrunner-general@lists.sourceforge.net,
- linux-atm-general@lists.sourceforge.net, linux-kernel@vger.kernel.org,
- linux-mm@kvack.org, linux-usb@vger.kernel.org, netdev@vger.kernel.org
-References: <20260830-usb-v1-0-aa349c302246@kernel.org>
- <20260830-usb-v1-1-aa349c302246@kernel.org>
-Content-Language: en-US
-From: Oliver Neukum <oneukum@suse.com>
-In-Reply-To: <20260830-usb-v1-1-aa349c302246@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260831130316.448-1-tahasezer.is@gmail.com>
 
-On 30.08.26 10:10, Mike Rapoport (Microsoft) wrote:
-> do_proc_control() allocates a temporary buffer for the data stage of a
-> control transfer issued from userspace.
-> 
-> This buffer can be allocated with kmalloc() as there's nothing special
-> about it to go directly to the page allocator.
 
-You are breaking the calculation. A page has a size of exactly
-PAGE_SIZE. A kmalloced object of PAGE_SIZE is larger. That is
-a bad idea.
 
-	Regards
-		Oliver
+On Mon, Aug 31, 2026 at 04:03:16PM +0300, Taha Sezer wrote:
+> The vmpressure window size is currently a compile-time constant of
+> 512 pages (2 MB with 4 KB pages), regardless of the machine size.
+> On large machines with hundreds of gigabytes of RAM, this small window
+> leads to excessive false-positive pressure notifications due to the
+> higher absolute reclaim activity.  Conversely, the fixed size is
+> already appropriate for small machines.
+>
+> Scale the window size logarithmically with total memory at boot time,
+> following the same approach used by calculate_normal_threshold() in
+> mm/vmstat.c.  Total memory is converted to 128 MB units and fls() is
+> used for cheap logarithmic scaling.  The multiplier is clamped between
+> 4 and 64, yielding a window range of 128 pages (512 KB) to 2048 pages
+> (8 MB).
+>
+> This resolves the TODO that has been in the code since the original
+> vmpressure implementation.
+>
+> Signed-off-by: Taha Sezer <tahasezer.is@gmail.com>
 
+Hi,
+
+Since you seem to be relatively new here and you're making a fiddly change to
+core mm, I do have to ask if you're using an LLM here?
+
+If so please follow kernel process and disclose:
+
+https://docs.kernel.org/process/coding-assistants.html
+https://docs.kernel.org/process/generated-content.html
+
+Note especially:
+
+	"You are expected to understand and to be able to defend everything
+	you submit. If you are unable to do so, then do not submit the
+	resulting changes."
+
+In general we recommend new contributors to do smaller changes first
+without the use of LLMs to gain understanding.
+
+And if one of your very first patches, it should really be to
+drivers/staging/ where you can learn the basics safely.
+
+In general, we aren't really interested in wholly generated patches except
+from those with established understanding of the subsystem.
+
+Thanks, Lorenzo
+
+I also note that this is the 4th patch I've seen trying to do the same
+thing from a new person.
+
+It seems LLMs are honing in on TODOs like this, so I may send a patch to
+just delete the TODO to prevent this from happening:
+
+https://lore.kernel.org/linux-mm/20260724054305.516126-1-cui.tao@linux.dev/
+https://lore.kernel.org/linux-mm/20260715143646.15828-1-gaikwad.dcg@gmail.com/
+https://lore.kernel.org/all/20260227221555.29969-1-mcq@disroot.org/
+
+In any case, LLM-generated or not, this is a vital heuristic that would
+need significant real-world data and justification from somebody with
+intimate understanding of this code, which I'm afraid isn't the case here.
+
+> ---
+>  include/linux/vmpressure.h |  2 +-
+>  mm/vmpressure.c            | 60 ++++++++++++++++++++++++++++++++++++--
+>  2 files changed, 58 insertions(+), 4 deletions(-)
+>
+> diff --git a/include/linux/vmpressure.h b/include/linux/vmpressure.h
+> index b4d13457b..09111f5bd 100644
+> --- a/include/linux/vmpressure.h
+> +++ b/include/linux/vmpressure.h
+> @@ -51,7 +51,7 @@ extern struct vmpressure *memcg_to_vmpressure(struct mem_cgroup *memcg);
+>  extern struct mem_cgroup *vmpressure_to_memcg(struct vmpressure *vmpr);
+>
+>  /* Shared with the v1 vmpressure block in mm/memcontrol-v1.c. */
+> -extern const unsigned long vmpressure_win;
+> +extern unsigned long vmpressure_win;
+>  extern enum vmpressure_levels vmpressure_calc_level(unsigned long scanned,
+>  						    unsigned long reclaimed);
+>
+> diff --git a/mm/vmpressure.c b/mm/vmpressure.c
+> index 9629240d7..f88bafb71 100644
+> --- a/mm/vmpressure.c
+> +++ b/mm/vmpressure.c
+> @@ -13,6 +13,7 @@
+>   * (tree=false) socket-pressure path that runs on cgroup v2.
+>   */
+>
+> +#include <linux/bitops.h>
+>  #include <linux/cgroup.h>
+>  #include <linux/log2.h>
+>  #include <linux/mm.h>
+> @@ -31,10 +32,63 @@
+>   * As the vmscan reclaimer logic works with chunks which are multiple of
+>   * SWAP_CLUSTER_MAX, it makes sense to use it for the window size as well.
+>   *
+> - * TODO: Make the window size depend on machine size, as we do for vmstat
+> - * thresholds. Currently we set it to 512 pages (2MB for 4KB pages).
+> + * The window size scales logarithmically with total memory, following the
+> + * same approach as calculate_normal_threshold() in mm/vmstat.c.  On small
+> + * machines the window stays small for responsiveness; on large machines it
+> + * grows to reduce false positives from the higher absolute reclaim activity.
+> + *
+> + * Sample window sizes (SWAP_CLUSTER_MAX = 32, PAGE_SIZE = 4K):
+> + *
+> + *   RAM          fls(mem)   multiplier   window (pages)   window (bytes)
+> + *   -----------------------------------------------------------------
+> + *   <= 4 GB      0-4        4            128              512 KB
+> + *   8 GB         6          6            192              768 KB
+> + *   16 GB        7          7            224              896 KB
+> + *   32 GB        8          8            256              1 MB
+> + *   64 GB        9          9            288              1.1 MB
+> + *   128 GB       10         10           320              1.3 MB
+> + *   256 GB       11         11           352              1.4 MB
+> + *   512 GB       12         12           384              1.5 MB
+> + *   1 TB         13         13           416              1.6 MB
+>   */
+> -const unsigned long vmpressure_win = SWAP_CLUSTER_MAX * 16;
+> +unsigned long __read_mostly vmpressure_win = SWAP_CLUSTER_MAX * 16;
+> +
+> +/*
+> + * Initialize vmpressure window size based on machine memory.
+> + *
+> + * Use fls() for cheap logarithmic scaling, following the same approach
+> + * as calculate_normal_threshold() in mm/vmstat.c.  Memory is measured
+> + * in 128 MB units so that the window starts growing once total RAM
+> + * exceeds a few GB.
+> + */
+> +static int __init vmpressure_win_init(void)
+> +{
+> +	unsigned long mem;
+> +	int multiplier;
+> +
+> +	/*
+> +	 * Convert total pages to 128 MB units, matching the vmstat
+> +	 * convention: mem = totalram >> (27 - PAGE_SHIFT).
+> +	 */
+> +	mem = totalram_pages() >> (27 - PAGE_SHIFT);
+> +
+> +	/*
+> +	 * fls(0) == 0, so for machines with < 128 MB the multiplier
+> +	 * is clamped to 4, preserving the original 128-page minimum
+> +	 * (SWAP_CLUSTER_MAX * 4).  The maximum multiplier is clamped
+> +	 * to 64, yielding a 2048-page (8 MB) ceiling which prevents
+> +	 * excessively delayed notifications on very large machines.
+> +	 */
+> +	multiplier = clamp(fls(mem), 4, 64);
+> +
+> +	vmpressure_win = SWAP_CLUSTER_MAX * (unsigned long)multiplier;
+> +
+> +	pr_info("vmpressure: window size set to %lu pages (%lu KB)\n",
+> +		vmpressure_win, vmpressure_win << (PAGE_SHIFT - 10));
+> +
+> +	return 0;
+> +}
+> +core_initcall(vmpressure_win_init);
+>
+>  /*
+>   * These thresholds are used when we account memory pressure through
+> --
+> 2.53.0
+>
+
+--
+Cheers, Lorenzo
