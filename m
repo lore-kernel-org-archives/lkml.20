@@ -1,69 +1,32 @@
-Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out30-131.freemail.mail.aliyun.com (out30-131.freemail.mail.aliyun.com [115.124.30.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AB583CB2F0
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 08:15:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 049813CB578;
+	Mon, 31 Aug 2026 08:15:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788164132; cv=none; b=rDZzTyKSfS5bbFqjXiaDLDpHY7p14p3r6OmVziCE2wVWglqph9/zHgMbI8MfXoB0gV8v5sFtuar9dPpOEVpeT8dLE8Nb1ihpz5gon9hBDT/ya9hkI7gXmrLbDWertmZvZMOYV6VUfnROdRMhjf9H/ejoWEmPcA0HyZevALCCBHc=
+	t=1788164157; cv=none; b=KvjODD+7qk7UMkZWzTT8o2MK9/+GrQx+ebTjZfIilVpRTS4Qc7uhh1KKIWntRhb/1NZgcI1844QYT6p1DL0oXNksVFRg41hDu7MpOie0PZ8ifFW2nw9flCV86GSyFHgzcMW82beBSJJHvpzDMOaTaleKr+t3lTa8DeRkG0uG3sU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788164132; c=relaxed/simple;
-	bh=Buhbz898X+Zwy+ACjKQMw5UgJ8wruz4B6fZ3hHsGJRc=;
+	s=arc-20240116; t=1788164157; c=relaxed/simple;
+	bh=dO1PhbbuapCDdecX8FQLDCFikf/EZ4QABFv1142fTGk=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QTmJbbslAHvmJ1lSmDgfVFJopl+HnuRcBEACGM+ui3XRJ3eOvXt/gncvJMNEOITEegzkBqateSZJw9QmPsJkAjMw0rziU+6z0D2Joo/t9iZu5+PyNh16sj2Ht8LG9MXvILqnQk6Xq3XxRGklxQVeJrv6Aym2N015KU9dcX5WdOQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=monstr.eu; spf=none smtp.mailfrom=monstr.eu; dkim=pass (2048-bit key) header.d=monstr-eu.20251104.gappssmtp.com header.i=@monstr-eu.20251104.gappssmtp.com header.b=Ji96pOZ9; arc=none smtp.client-ip=209.85.218.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=monstr.eu
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=monstr.eu
+	 In-Reply-To:Content-Type; b=uDysd4J/rnwCBb+QUlaycqvwjZGnmh13drX+Wcr6Ufw5IVim4PJqbl+lG8P4pOusBh67qn/1PiQpr1cFdJ4t/1XxR+sLSzK1EVFHJmq7vsKhjy3P5b3MN1GSILO2ZO+jZs54s/nWFgj0bM9qWQa6CiBdSBVT+Zhw8ZA9m/27ZMg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=YhcOYYWh; arc=none smtp.client-ip=115.124.30.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=monstr-eu.20251104.gappssmtp.com header.i=@monstr-eu.20251104.gappssmtp.com header.b="Ji96pOZ9"
-Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c25099bb1fbso414154466b.3
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 01:15:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=monstr-eu.20251104.gappssmtp.com; s=20251104; t=1788164129; x=1788768929; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=07XOke8MZcakwnBV1pfCWoo5tuEKqxVaUuHzsnaos6w=;
-        b=Ji96pOZ9dXBUU9Aeu5+mrG9Sl6VQ+ALpzv5Bs2PEjYZ+wLmvxoYLOptJi6d5Aut2Ee
-         rCF0s8dvzoHHOWP+o11veM3g6OsShUB79QIcqDfRvagY5AvnBHWPnEJHS83j+k5og49U
-         z3FbNWCAsBgwQeIAaf3FKTkSkYCmQ3/GdESb+54tXHAjTAB3Gljm+wVk7O84fDmbTsPl
-         s7RqZGzYZlnbw+0UvhSylXIRT49doUKz/25Epv0hI1glPcBt/aT9TRyvC9OLnn8rdS5S
-         SNrOCimFEA13BjFz4GtOVdfD8SLxrqYPixlgbchh6jFj/kXpYuIc0psLEHAY/uviKfYq
-         ODww==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788164129; x=1788768929;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=07XOke8MZcakwnBV1pfCWoo5tuEKqxVaUuHzsnaos6w=;
-        b=ewrz4bNdfo16zl3VT1xnLOgJYUxnuwMbHXG4UIe+J4tc+tlXmufyBYr0uoZBPgbNiW
-         o/Ui6rdxqY5TsvzcM71JxFao4dK8W9qbxrH3ix6dIp0EgnnlWjYJxe/5r/WuKFAyNs/L
-         yCFhnyPzfG1x45tXnVyPWzaV7uqmxy5LhQhsuFZCX/12si7yI5qHlV9m43InD3eI8psj
-         DvUzNavUdGdqUKoPtYQ21tr1r7tkWuguikJMO9McjwVV+tYD4DT9IuGUj5lf3PFOQfiY
-         QCLT5xkxY1BwoHwmwkA/CZFtk98WVWN9C8aucYJ2l3MpyRwd6QhJLXar9JCyJP68Wx+i
-         Uoig==
-X-Forwarded-Encrypted: i=1; AHgh+RrFy5qLdAy/pdG4bHW9Mzi0nonmcRAzJ6IZzrzvltAzfpYY2jCRZVjqFB0/apy9X/eLzmTxb/oQNsmDXkw=@vger.kernel.org
-X-Gm-Message-State: AFuF++nxKey/2O5nKLsP+t0zyEfG+6jNKYUhemI3oHv+LmNDfpF9wP04
-	l3gcnrI3w+DvcSuDyUDXjwcXBodH3VbY+m2ZhJWWoEMKu37L3ATfuSuaQr/UER0yU+Mk6LcrAfv
-	DaW0+BqoD
-X-Gm-Gg: AR+sD11V03eZJGmlLvrMlzyK2RvOQps9ao1uXhm7cFkYByZtsiZVBEzJlTcK0W54Mzg
-	4tC97nkTYycLf5S2K9OVUbl1iEolyAkudCZ6xfJPPW19K3ObjAt27BRub3NsbjCJF9NDg6QSQ73
-	WF+xl+cgLqyFIyhZvNRkBi5WsF3NqU4MEw/+5/Du5NnzYtHUToCeX8bAn8Eg52HhRHjY/MB0Tl2
-	8IEHZoPeecdt8f3Fo6HWKxRrPxWFGg+u7YZsbdrGrLdYHVCrD3mpr9b5Tsp4xKndCpR93Bz1RGh
-	4eZWCph45qS26Itup/vm2fp80rcrOxf6Zfdo0ogZlg1B4uSsk7tZEF7hS4vA7bM1HuzV8mGVj/9
-	lZvN+qh1/gfySp8i1J8sYMQH99mN/Y9PMUlwCEV1bEwoAurDfOb88drSXOkfypPLkDVvMnLsze6
-	qjt+BtmnBIvWD5UbcPnho9/spQFbsVk5xtF25GBbVl7JFbC3esWA0W16P/Cay5cd5RPHLLs6vcd
-	v5GfgTpb1xNexZOo9MHIaDdJAK1PXPDIfux
-X-Received: by 2002:a17:906:fe4a:b0:c25:5d2:acf0 with SMTP id a640c23a62f3a-c2556c4611fmr1467365166b.8.1788164129415;
-        Mon, 31 Aug 2026 01:15:29 -0700 (PDT)
-Received: from [192.168.0.105] (nat-108f.starnet.cz. [109.164.53.108])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c255ee28677sm408971966b.21.2026.08.31.01.15.28
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 31 Aug 2026 01:15:28 -0700 (PDT)
-Message-ID: <ed8f89c9-ef2c-4566-b296-974f73bd1b54@monstr.eu>
-Date: Mon, 31 Aug 2026 10:15:28 +0200
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="YhcOYYWh"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1788164151; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=tt0yHsbfJEZ1+ZZbrMLoRaILCdqS9+900vtSCcW9og4=;
+	b=YhcOYYWhhUoS/qMw/h4airDhg5iWAPRj31tZn884Okb/7d9P2ploVnwHmeVK+KCySkQ2wco+ufh3AEkQtFZBeBx3BUtBH/4nd0e7lYRe8JVjpW7A49xTtPlKWfSHGZ50EwFxCHhJ5Cl/nhza5oCcsANCNH09HzIUyJH/QdDixM8=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R681e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037033178;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=18;SR=0;TI=SMTPD_---0X9v1.h._1788164149;
+Received: from 30.74.144.115(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0X9v1.h._1788164149 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Mon, 31 Aug 2026 16:15:49 +0800
+Message-ID: <80b86bdb-9ef7-4eb8-95db-695fdae551d6@linux.alibaba.com>
+Date: Mon, 31 Aug 2026 16:15:48 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -71,63 +34,73 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/4] kunit: qemu_configs: Add microblaze configuration
-To: =?UTF-8?Q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>,
- David Gow <david@davidgow.net>
-Cc: Brendan Higgins <brendan.higgins@linux.dev>,
- Rae Moar <raemoar63@gmail.com>, linux-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org, kunit-dev@googlegroups.com
-References: <20260804-kunit-microblaze-v1-0-6dcdfe12eb40@weissschuh.net>
- <20260804-kunit-microblaze-v1-4-6dcdfe12eb40@weissschuh.net>
- <42dfe558-f75b-4d7c-a560-449101bae4f5@davidgow.net>
- <e11bc960-b31c-408a-a57e-631e76806bb5@t-8ch.de>
-Content-Language: en-US
-From: Michal Simek <monstr@monstr.eu>
-In-Reply-To: <e11bc960-b31c-408a-a57e-631e76806bb5@t-8ch.de>
+Subject: Re: [PATCH] mm/huge_memory: bypass THP tuneables for huge pfnmap
+ mappings
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>,
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ Usama Arif <usama.arif@linux.dev>, Peter Xu <peterx@redhat.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Cedric Le Goater <clg@redhat.com>, Saravanan D <saravanand@crusoe.ai>,
+ stable@vger.kernel.org
+References: <20260827-hugepfn-allowable-orders-v1-1-94819c8807c8@kernel.org>
+From: Baolin Wang <baolin.wang@linux.alibaba.com>
+In-Reply-To: <20260827-hugepfn-allowable-orders-v1-1-94819c8807c8@kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
 
 
-On 8/5/26 21:18, Thomas Weißschuh wrote:
-> On 2026-08-05 21:59:16+0800, David Gow wrote:
->> Le 04/08/2026 à 13:32, Thomas Weißschuh a écrit :
->>> Add a basic configuration to run kunit tests on microblaze.
->>>
->>> Signed-off-by: Thomas Weißschuh <linux@weissschuh.net>
->>> ---
->>
->> Works well here, though there are still a couple of test failures (and a
->> longer timeout is needed to get through them all on my machine):
->>
->>> Testing complete. Ran 965 tests: passed: 866, failed: 3, skipped: 96
->>> Failures: blake2s.test_hash_alignment_consistency,
->> memcpy.memmove_overlap_test, printf.dentry
+On 8/28/26 3:55 AM, Lorenzo Stoakes (ARM) wrote:
+> The sysfs THP tuneables at /sys/kernel/mm/transparent_huge_pages/ rather
+> confusingly only control the behaviour of THP in some instances.
 > 
-> These are all due to the broken memmove() implementation.
+> They are not applicable to MADV_COLLAPSE operations, nor to DAX mappings.
 > 
-> It should be fixed by *either*:
-> - Disabling CONFIG_OPT_LIB_FUNCTION
-> - Enabling CONFIG_OPT_LIB_ASM
-
-Let me comment this in the patch directly.
-
+> Long-term, THP is predicated upon compaction being able to obtain large
+> folios to populate THP ranges.
 > 
->> I'm okay with this going in via either the microblaze or KUnit trees. Any
->> preferences?
+> However, vm_normal_folio() returns NULL for PFN map mappings, thus their
+> reference count is maintained by the driver, not core mm.
 > 
-> None from me. I would have expected it to go through microblaze, though.
+> As a consequence, the folios are not subject to reclaim nor compaction, so
+> are not truly part of the THP mechanism at all.
+> 
+> However, since commit 5dd40721f147 ("mm: allow THP orders for PFNMAPs")
+> introduced the ability to establish huge PFN maps, they have been subject
+> to THP tuneables.
+> 
+> This is incorrect - if a huge PFN map is available (defined by
+> vma->vm_ops->huge_fault being non-NULL for a VMA_PFNMAP_BIT VMA), then it
+> should be mapped huge upon fault-in.
+> 
+> Correct this by explicitly checking for this while ensuring that smaps
+> continues to accurately report THPeligible statistics.
+> 
+> While here, abstract the entire file-backed THP check in
+> vma_can_map_huge_file(), with sensible separation of logic into helper
+> functions.
+> 
+> Note that drm_gem_shmem_mmap() and panthor_gem_mmap() establish huge PFN
+> maps of shmem folios, however they are marked unevictable in
+> drm_gem_get_pages(), and in any case would fail the reference check in
+> __remove_mapping() even if they weren't.
+> 
+> Failing to map huge PFN maps has resulted in significant real-world
+> performance degradation, see links for details.
+> 
+> Reported-by: Cedric Le Goater <clg@redhat.com>
+> Closes: https://lore.kernel.org/linux-mm/20260805055544.1568534-1-clg@redhat.com/
+> Reported-by: Saravanan D <saravanand@crusoe.ai>
+> Closes: https://lore.kernel.org/linux-mm/20260821070520.25759-1-saravanand@crusoe.ai/
+> Fixes: 5dd40721f147 ("mm: allow THP orders for PFNMAPs")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> ---
 
-Not an issue to go this through Microblaze tree.
-
-Thanks,
-Michal
-
--- 
-Michal Simek, Ing. (M.Eng), OpenPGP -> KeyID: FE3D1F91
-w: www.monstr.eu p: +42-0-721842854
-Maintainer of Linux kernel - Xilinx Microblaze
-Maintainer of Linux kernel - Xilinx Zynq ARM and ZynqMP/Versal ARM64 SoCs
-U-Boot custodian - Xilinx Microblaze/Zynq/ZynqMP/Versal/Versal NET SoCs
-TF-A maintainer - Xilinx ZynqMP/Versal/Versal NET SoCs
-
+LGTM. Logic looks clearer now. Thanks.
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
