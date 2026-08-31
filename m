@@ -1,112 +1,124 @@
-Received: from mail-yx1-f53.google.com (mail-yx1-f53.google.com [74.125.224.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B9ED395AD8
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 18:55:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77297399360
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 18:57:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788202533; cv=none; b=Ht2upgGFZVtZv4MWwhuSD7yFy+kELpf4a6SV0N20+lgtA1EpX9UFPNDxQ0o6QKSzyQ0enA+kdu0xGDHMJavJ6+gHOt1JYtbvRlyFhGJyO0mJ4WuLYp17+xfJ956pcxGSOmRxSmsECv5e6iT/Shu3xVLOUlk894XGPi/ZKqzcoBo=
+	t=1788202667; cv=none; b=STNFlKpFBm95z/gz1ZNqdaOWGlPQkDXjy1X2y53tHX6OsvEZ7oQK54XR2gx81SGAoxmD/l9U9cgC24GJFIptUwFmOF371KYQCNL9t46FumF3/h2ssGMCXDmLa66sSEUbSdVDdm6JPChx0BWLdjfJklHhepv98Za5RwqkUAIdC5M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788202533; c=relaxed/simple;
-	bh=FwC8XOV0B4kgwlLtD5BtYRBgGcM+gD2egCbMwwjh78c=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WKOXfgwHWk9RMqU55+7uj7EJdKlVcDBfztzqZv/jY/Gv112cK59iwB6cC139YnMF2lSj8Ovec+p+HRl7cW/vgUa/cQCyeRrZdCDUYt2xcm42GBerBuHfkCY0fcwnGqDfpGoM4MUL6lCH8q5O6NKhI6ubdED0y/RjFnhgi1yb+9k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qJ1AnoQs; arc=none smtp.client-ip=74.125.224.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788202667; c=relaxed/simple;
+	bh=b7fW2ptF4Ja4YQqNEm+ydFij1NWertP95Z3eVpUJklY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GNS1zU9ZsFxtG+eYdGfC3WGifwmz6cV3y1SXws+/zVmnic6hInfgngCniADG+WBukzzxK2VWIvwMW3tgJclsAApPMflYHfQTxX/vWFn8DMMOjCl6NC2RDndhE+xZWI5rdr1sDaYLS/hblAmZIytjGS7NOsKVzIoJPyl0Ub4RyFM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HIXvIzWX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qJ1AnoQs"
-Received: by mail-yx1-f53.google.com with SMTP id 956f58d0204a3-66c9995ca60so300843d50.1
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 11:55:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788202531; x=1788807331; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=RhaWswkQxW+7On/cBV4TuoPoc9NhNmh0fp369raKMHM=;
-        b=qJ1AnoQsENY1k9m18tl4XLALtfzX7TL91Om1zOvmx3n79i96PQ/eyvyWN6OfkXvixJ
-         MVmBnkhoarHhGH5EUW7a4M2JNHLWFuFrjy8G3VxvK4s5Zp+wRcKPr53ldxoswqiMfMp8
-         Q0vcZGcIj3TJLU0VyJymVRodvoeUUS24IqQazK1eSrwklkvIB2oDa0Mfb2xNqDFphd1L
-         jBFskXjokCfozvwPvQFjFJxl9n6u10bNCcYGykCbledUOhJk+9q809YlkDLKNGuqeT5a
-         QGrfwqzkhlAjy5iLNMmi78jaibvkPdiItI3S7pr8ohNsuw4EUxWBGT3ZTprPwIqL+Vry
-         ib4A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788202531; x=1788807331;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=RhaWswkQxW+7On/cBV4TuoPoc9NhNmh0fp369raKMHM=;
-        b=RYoIMu99KfRVAHOqKYRpX/rwCLL+Y/9h0TvNUT/SdrAN1zH4wsi3GFA+P9NrgnIj9g
-         xPFOGAklFDPTgMNe28votDsX52ZZwvt4nuAAxonA6Eim005O5HbNFAJOxMY8ZabtrCWn
-         E0j0vKf2pvYZDr9o06bSscXdjBrucVhiwTAQqTwR9wEWL3K6MnMuDFSMOw6iN7zDPIkZ
-         uG9m8/JZwKmvMBILzS21sGXj84Tqti5mACRQyj+tmH5O4wTDBnKGa/bCCHyRBT7nDkZD
-         kn3pU8pZFMDv7755bqpmmfml/ZEoQLKLQAcFn269rImRwNQO1ezvzKooOC8DYk8vNV9+
-         MchA==
-X-Forwarded-Encrypted: i=1; AKwUvBwNVzK1HIV9pVkArx701KLZIWfmngMWKmFUVJaRPzCdIUmtRJkVSptz6KW3XXZwMM6w6S8bCR5/HvKBO1Y=@vger.kernel.org
-X-Gm-Message-State: AFuF++njgybd1LSqmY5IYf1vnQcccpUKs+n2gLVu+DKQRrayWZA6ycSC
-	bq4UpS2oW7uIA1A5Dnh6mxqhiEFV94+HD9HFnW8hE1Ofz1f0GrZauhT/
-X-Gm-Gg: AYBFou2Pz9arfqhY/Oy0d62kFWcB9FQWB3QuKmLfx5SsX+A9nTqRBsVAGYorE5YCJlw
-	bRvbIpEl2EMml4PkfvHe8waxnlXUNDU9y6NbHjriLooDXLK2eg+Lvk3/ok02i2WLd64yFnByvHw
-	U+TvUQd9lUlA8vxPeXy9OQ+BNJZUOlpQORd8QF0NJOcgZA8CR1HfGrYHg19XUqAfanRyfJ0WuNe
-	041mcoeCb/d0v38ibd4WcSB8vJdxEtbK/VRVC+qNEMLkn585H1D4cRXfay+GmmK+jjmvDKTq9W9
-	AiMP6TItk5eYWTu0UEhRH9exh5yav/sdC/A1vmC4PDNmue81mt3nEKG/NJ9eSQCm+zu1Ns7FEwQ
-	onJHpJI4c4BVDoErS7Vw+cB6SLyr59jOXMzTUh1hTlnqj9nQpUqdXz7pVVlkeu9dCcVp2868AX8
-	hRJZRhXAwtGZR2GI9eK6iGL9DUrZHJslooOq/MHWriRMCgJ66qoYPiE5zHNENPaBgPDihXAXHKu
-	+B0Vrbr7DEbsZcpS3f8v1uZ
-X-Received: by 2002:a53:e904:0:b0:66f:8a2b:b693 with SMTP id 956f58d0204a3-66f8a509c19mr89306d50.17.1788202526777;
-        Mon, 31 Aug 2026 11:55:26 -0700 (PDT)
-Received: from fedora ([2804:30c:1f03:a800:30b7:8d7b:fa5e:4825])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-66e4ed2986csm6636227d50.18.2026.08.31.11.55.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 11:55:26 -0700 (PDT)
-Date: Mon, 31 Aug 2026 15:53:34 -0300
-From: Pedro Demarchi Gomes <pedrodemargomes@gmail.com>
-To: Kiryl Shutsemau <kirill@shutemov.name>
-Cc: Lance Yang <lance.yang@linux.dev>, david@kernel.org, 
-	baolin.wang@linux.alibaba.com, akpm@linux-foundation.org, ljs@kernel.org, ziy@nvidia.com, 
-	liam@infradead.org, nico.pache@linux.dev, ryan.roberts@arm.com, dev.jain@arm.com, 
-	baohua@kernel.org, usama.arif@linux.dev, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH mm-stable] mm/khugepaged: avoid unnecessary checking for
- swap entries when collapsing a mTHP
-Message-ID: <apXHC7uYXE99ZgPp@fedora>
-References: <d02405a5-1d0d-49d5-9056-1a34ccdeef10@kernel.org>
- <20260827121151.7837-1-lance.yang@linux.dev>
- <apBB01VBbmV28gWP@thinkstation>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HIXvIzWX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A61BF1F000E9;
+	Mon, 31 Aug 2026 18:57:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788202666;
+	bh=577+IXA9ZtkleQNyTEpEVnO5R3b1dye2OPtU9RMfV2Y=;
+	h=From:To:Cc:Subject:Date;
+	b=HIXvIzWX++p59EctdbNcUEDZ8CvlZzPoglxt46WJvJuhDtz6Od6OAMv1cK9RbQWNm
+	 rpG63Heje5fZLypK4AUsyKhpt32vI05x5uhy/2LYb2jxElHsq9mBeubbVSkAoJ603B
+	 euXOJn+QYTdR6HDIgoD+Z0nFt/wsGDEwTecbguwl7UoJKdqC85NoDc0MNtJ8TOYmCt
+	 hrBHzdynPCoCBtQMv6hLWsC614h9cyD8nyyLISLNxTUOqbJAFd6+X+jHHlNsbPrLf+
+	 W09aTAMY3bSVflXk8HKHcQvjD4xXEozvSw5x56ilM5uKca54V6G2c2/jvoxMwvWIEV
+	 oQOYJrjN8Hq0w==
+From: Eric Biggers <ebiggers@kernel.org>
+To: x86@kernel.org,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>
+Cc: linux-kernel@vger.kernel.org,
+	"H . Peter Anvin" <hpa@zytor.com>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Eric Biggers <ebiggers@kernel.org>
+Subject: [PATCH] x86/fpu: Remove unnecessary checks for X86_FEATURE_FPU
+Date: Mon, 31 Aug 2026 11:57:06 -0700
+Message-ID: <20260831185706.90103-1-ebiggers@kernel.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <apBB01VBbmV28gWP@thinkstation>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Aug 27, 2026 at 03:07:10PM +0100, Kiryl Shutsemau wrote:
-> On Thu, Aug 27, 2026 at 08:11:51PM +0800, Lance Yang wrote:
-> > For the candidate above, the loop only reads its PTEs and returns
-> > SCAN_SUCCEED. Pedro's bitmap lets mthp_collapse() determine that upfront
-> > and skip the walk.
-> > 
-> > Emm ... as I asked before[1], any numbers showing how much the extra scan
-> > costs?
-> 
-> With the win being only some scan cost, I don't think it is going to be
-> measurable.
-> 
-> It can open a path to future work. For example, we could find fully
-> populated mTHP windows in a PMD that is not eligible for collapse
-> because unmapped > max_ptes_swap. Right now we just give up on the whole
-> PMD in such cases.
-> 
-> But there are more wins to gain there. Just saying :P
+Since commit ab05214025ee ("x86/fpu: Remove MATH_EMULATION and related
+glue code"), X86_FEATURE_FPU is mandatory.  If it's absent, the kernel
+halts execution in fpu__init_system_early_generic().  Remove unnecessary
+checks for X86_FEATURE_FPU that occur later in core x86 code.
 
-Hi Kiryl,
+Signed-off-by: Eric Biggers <ebiggers@kernel.org>
+---
+ arch/x86/kernel/fpu/bugs.c   | 4 ----
+ arch/x86/kernel/fpu/core.c   | 2 +-
+ arch/x86/kernel/fpu/init.c   | 2 --
+ arch/x86/kernel/fpu/xstate.c | 5 -----
+ 4 files changed, 1 insertion(+), 12 deletions(-)
 
-I devised a patch based on your proposed future work idea. If you think it
-makes sense, I can send it to the mailing list with a Suggested-by: tag.
+diff --git a/arch/x86/kernel/fpu/bugs.c b/arch/x86/kernel/fpu/bugs.c
+index edbafc5940e3..4b84cd0a9d24 100644
+--- a/arch/x86/kernel/fpu/bugs.c
++++ b/arch/x86/kernel/fpu/bugs.c
+@@ -29,10 +29,6 @@ void __init fpu__init_check_bugs(void)
+ {
+ 	s32 fdiv_bug;
+ 
+-	/* kernel_fpu_begin/end() relies on patched alternative instructions. */
+-	if (!boot_cpu_has(X86_FEATURE_FPU))
+-		return;
+-
+ 	kernel_fpu_begin();
+ 
+ 	/*
+diff --git a/arch/x86/kernel/fpu/core.c b/arch/x86/kernel/fpu/core.c
+index d1aeecd57f5e..100bfe7336dd 100644
+--- a/arch/x86/kernel/fpu/core.c
++++ b/arch/x86/kernel/fpu/core.c
+@@ -491,7 +491,7 @@ void kernel_fpu_begin_mask(unsigned int kfpu_mask)
+ 	if (likely(kfpu_mask & KFPU_MXCSR) && boot_cpu_has(X86_FEATURE_XMM))
+ 		ldmxcsr(MXCSR_DEFAULT);
+ 
+-	if (unlikely(kfpu_mask & KFPU_387) && boot_cpu_has(X86_FEATURE_FPU))
++	if (unlikely(kfpu_mask & KFPU_387))
+ 		asm volatile ("fninit");
+ }
+ EXPORT_SYMBOL_GPL(kernel_fpu_begin_mask);
+diff --git a/arch/x86/kernel/fpu/init.c b/arch/x86/kernel/fpu/init.c
+index 0d33c217b71c..8804ef0295dc 100644
+--- a/arch/x86/kernel/fpu/init.c
++++ b/arch/x86/kernel/fpu/init.c
+@@ -31,8 +31,6 @@ static void fpu__init_cpu_generic(void)
+ 
+ 	cr0 = read_cr0();
+ 	cr0 &= ~(X86_CR0_TS|X86_CR0_EM); /* clear TS and EM */
+-	if (!boot_cpu_has(X86_FEATURE_FPU))
+-		cr0 |= X86_CR0_EM;
+ 	write_cr0(cr0);
+ 
+ 	/* Flush out any pending x87 state: */
+diff --git a/arch/x86/kernel/fpu/xstate.c b/arch/x86/kernel/fpu/xstate.c
+index a7b6524a9dea..029a9b896997 100644
+--- a/arch/x86/kernel/fpu/xstate.c
++++ b/arch/x86/kernel/fpu/xstate.c
+@@ -810,11 +810,6 @@ void __init fpu__init_system_xstate(unsigned int legacy_size)
+ 	int err;
+ 	int i;
+ 
+-	if (!boot_cpu_has(X86_FEATURE_FPU)) {
+-		pr_info("x86/fpu: No FPU detected\n");
+-		return;
+-	}
+-
+ 	if (!boot_cpu_has(X86_FEATURE_XSAVE)) {
+ 		pr_info("x86/fpu: x87 FPU will use %s\n",
+ 			boot_cpu_has(X86_FEATURE_FXSR) ? "FXSAVE" : "FSAVE");
 
-Thanks!
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+-- 
+2.55.0
 
