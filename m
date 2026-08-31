@@ -1,162 +1,150 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D3A34BCAA6
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 14:10:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=170.10.129.124
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788185407; cv=pass; b=lHVU7ikUDGeM/U1zSgRdtNvbQTgQb8rMBSSsaIdZet5nFpJGEZ3h3njcwxc0wl0903RY3HWH9PSqj9wdvtePLbiBcRubdNqbUAT+bk7fouYGMsveMkO0O51cJci3nRU/D48ry0JnmnIoadt3Aigd0V06JaB2cApfh3k88N+Rt8c=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788185407; c=relaxed/simple;
-	bh=2OTa5vFHZiOCswlLATKSWXrmSzZ3LfR3p7eYLycqjCA=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02DC34BB80A
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 14:09:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788185387; cv=none; b=nU+nm16cYpRlaTgsxryFUP7wpmvQj543O+qL2AmpznhrEagVZtxHovbjbVswk5wZaWg5jxrV+4sPE9fJh78Kt8QEjMiJxTxUYKj4RMrgnBbvzauondwukrFwwX3ukP+0spyNMjds8sBZwwfg5SteRj4S0zCyc8iHPrZ9/YbiTrs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788185387; c=relaxed/simple;
+	bh=n2vDyzoqnYTdN7qvNSKvhhmz2eGNrLmm7KweZ182LXs=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=I4RTipNiknlOdbI7/9Uwi+6Zgno3914SSCSS4FHtNZ2TdV08AtGCEexJixtM201G/O6vndAgitGqdSkr0jjn6qCGVTQfIZ4noQs1mB4LXo1dO/0NbpZEFGquvYvGsv9AgVr98Qc2XY/JHUNvyYRUzql7YXSliMEJ9pLhykQZSmw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Z7KxFtNs; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=UrTuRF98; arc=pass smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	 To:Cc:Content-Type; b=tGSoQcKIfe1xgvGsY6OFnYRBj9yzcHx2+qYUnCi1QButtj9L/g/tA4rlTbnMdrsINXpurSy7YPj7GhkD0JUVhpeAZV7yKFT1f5CrFT25lntuboPA1tqiYuaS8AYaOreHrElaf1+pHNeLrZiKjx4j7y4J/iFs5hf35V2vdKYi/8I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Vxa9oF/s; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Z7KxFtNs";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="UrTuRF98"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788185405;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=/RD6fAg9Gc9vKAefpCTRM0Xuo2vXeMUEPiIg8uFFGyM=;
-	b=Z7KxFtNswv3Cl0vUjH43hY3NaDhLSD9hcOnwY8L6UqMxm/jUoAPSpt0VoXs1ntLiXZdw47
-	s41DPUOc9o5ZDk3Vc4hbXqYx9xtpNx1v7oOXtS1CXl+5yrOoY0audthIQdAthmV5i2j5cg
-	AtJFVsiTavejP9vpqb7fPPfG230LzSY=
-Received: from mail-yw1-f198.google.com (mail-yw1-f198.google.com
- [209.85.128.198]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-511-z_QaYiHgNXa6BO8_mOr-mw-1; Mon, 31 Aug 2026 10:10:03 -0400
-X-MC-Unique: z_QaYiHgNXa6BO8_mOr-mw-1
-X-Mimecast-MFC-AGG-ID: z_QaYiHgNXa6BO8_mOr-mw_1788185403
-Received: by mail-yw1-f198.google.com with SMTP id 00721157ae682-8615bb9d4c2so20479307b3.3
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 07:10:03 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788185403; cv=none;
-        d=google.com; s=arc-20260327;
-        b=SVqgY8jdBwulO1YNBeiucqdK0pZGbIBGvmTDDCQBX7vbu45ylDy4fdxUU/rFe0otdU
-         KtuYa2ktZApN6CPv31bMGjIPW9mSmfwzRSWcnDpH7YkxO4XEakZ3W4/QP2UxfHieGMkR
-         99t9VSbodVtfsCV4UBhjX4w7B6pxAd1osFJlAtFVS6GKofM7sZdzpZdxwBe8zVwTJQ5v
-         fVKbytVyWGnwXgAmKPDh1G4qA2xBG1nOdNs1svsF5Ivn3bM5+R34liXtWWnHXtx9/SW2
-         FIk2DT8CJp51na+PV13YOHtKCvuz8LhCRSkL5+V6JeFJ5LPu5C0DYIBriBtIZL89Eb7H
-         JLoQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=/RD6fAg9Gc9vKAefpCTRM0Xuo2vXeMUEPiIg8uFFGyM=;
-        fh=ea3OW7xVy4MeBJQS4alp3cO8BvoDa9z6eDJ9i/3cjGI=;
-        b=WTy8VqixRISzykRsO+8AYwqPfraAkHISBtpJHQADqi2i/C/QBxoaTK2q6+axM13n7e
-         nEahZ9GguRwJTG1eBctumHL2syt1nIRMTSCubip8RT3Sr7vK6GBWM11v5mYZVH92KYxL
-         9sbv1k39ZFmXZvCn789REWPU78UWWJzvEcp+tTtEtHwXRYDCIKzU94S1cvvhwcuc/JRe
-         HrWUn+lu2PaRzwKO7LnCPrgE8vp4UmswW6hwKmjauoYQ0XTI7Rd9uEMsbZHkfmBq6LMD
-         2bRYjAIwSLBj4oeQHLMmjZtYlre274PnuhdqMIe1yzvqYn/qZYVdC2yb+E064k6xr0lN
-         u+fA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1788185403; x=1788790203; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=/RD6fAg9Gc9vKAefpCTRM0Xuo2vXeMUEPiIg8uFFGyM=;
-        b=UrTuRF98aXrAzh9DfJroXJZmjDFbx52th3DG2WbyIyibkvIEG++rOYsp2i5in9aQ+N
-         pLbZzRI5pa+e3LB42Zccys98gIcw6VU/l30VYPVWS6J3qLIhlnimFYlsjNWC8yT1ab/w
-         YCadsoOzL+ZAwgHpnV6AesxtcVBjAQiKvZAD1LxCcQ/5htzkaycpBUNbzkkivRwtfo2J
-         sI8CWAQuEhrrbwJFM0cLOHMnQRuiQmlZIRwHkSC4a2VGY3rDCeOsotIDIP/8dvUynPHG
-         o21BcxMqs052DLMeCsnWCGeO+F6Rc5RHLjeIlAWEPVotfSWrEy3cEmu+thh6FgCu+7NM
-         Kz6g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788185403; x=1788790203;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/RD6fAg9Gc9vKAefpCTRM0Xuo2vXeMUEPiIg8uFFGyM=;
-        b=Ck/Bnmiw6QpRdaLiA0AdpLr4MWRRVkqqONi+kN6MW2by4FLCRMucIYJncZ7KjnJaJP
-         vJ1aHQyABIpdehcEpd/xoC6W/49aHYQpRNZovtvMRfcBpzPnFzAS5XNLJBsB/ZG7dgyu
-         Ls1rnE5LYBOxzTZWBMVn4nhIcvZm1o9uD5BumyH3r/NR7odEk6wBb7dtqjo/UdmHnk9J
-         qoO+yyUGlsRZhMnio8PHEoAmWNGK0JTeQB1LFoXLXHedg/4eO/CvismV6SS842GlDT4m
-         Dv0du5SDjjnWDXGrs5rkcvwnjci9FP9dfSbuSNw+5+6fwu7aq06TbiD6PFuH7QZia4El
-         V+9w==
-X-Forwarded-Encrypted: i=1; AKwUvByt/FvR3QFFFP3bLRYP5/NtizEDs83czdCofce6xYo4pcHegYOPjOsORjsI3rA4rbnS/xUhpXVwwzIYSXw=@vger.kernel.org
-X-Gm-Message-State: AFuF++nK72l1cx6mYqaRqlVoQ/psffP/49rsxiK6Gw3tEfbOspwz2Wqh
-	tsPVQWkVVUiU0DRCsLVR+RqdJsZvwT1IjzDAOM3a+uIVieh+TszLtLaFli/EnhfCwxIWqxpl5Zt
-	Uhj6K1aVnYWbcDDaz9bu+WWWCojgBS1WE+KOKRTKH85+oGFjZ+57pcsR/JQPUE9EmY66mv5yx0J
-	CYExYpmQNQhrV7IdM2BH5MLuSL3yKIIOzRRGgXM0dK
-X-Gm-Gg: AYBFou0kOuTo9WRS8su0XYnHKaJy0OU11hec4xmrI+Drw+ZE1nyTAhgf+LMvYF19c0W
-	tMALW5J0kFeFHAscRtNJeg5ebKvNbwzx6jsJDWbCY6dP/4wPpsLkoJfaDPi/8pJ8yZOqNpLwJT3
-	VWbAxscnhtTYh/uPLyTtFVy9mPdLNLPzjaK6th3l4jCtr2gfJb0mSbWgLC0XBYeKLyJOUW6E2m+
-	syEg2+4jKgpyHhhI8eJ4kpC596FaJJ2We5cz5+Sw3S7
-X-Received: by 2002:a05:690e:244a:b0:66f:8255:9f4b with SMTP id 956f58d0204a3-66f8745a1a0mr286931d50.8.1788185403043;
-        Mon, 31 Aug 2026 07:10:03 -0700 (PDT)
-X-Received: by 2002:a05:690e:244a:b0:66f:8255:9f4b with SMTP id
- 956f58d0204a3-66f8745a1a0mr286906d50.8.1788185402359; Mon, 31 Aug 2026
- 07:10:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Vxa9oF/s"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A45611F00A3D
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 14:09:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788185384;
+	bh=L1mNt+t9t3Mp1gIJn7MX5n0Mz44VISN4VLwL6b799Bs=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=Vxa9oF/soWfIGx7X9eBymk6tUBTtSiGceTld0BHTg54XTE1uWopGPbiR5qAiDdjda
+	 iaJ3uvNfpOPmsRf222g18ht0Km7pm/98QZ3tlJNQjiOp3SaGMmyhyw9p/XFbPew558
+	 7tVYTzHuDm97oKg0HjVguFpsU2H9obvZ9W+/j6RGvcDs5jyZtgUqmkq8ESPWdMekxV
+	 d3j0zvnb5rRn9HJxwu8ZTDe6GNqARHZsq8wRDUFaq7Cjd+jP3t4AjfNlQD+ricbfQY
+	 t6b8GVYS/5XDQNQ+BqQfQROnn9n7hMkhuJImHAKQavStYE25THku2v1yfK8B7efNmp
+	 4dNZYg3inseBw==
+Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c2533d83e3bso582434866b.2
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 07:09:44 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RpR2+qsDs0cxqAHu+QwEbjOgTv/87b+dxUulpUTONJO7mHk2gv8ijKfvKxx4yiFvVokkepZUKeV5i2u71g=@vger.kernel.org
+X-Gm-Message-State: AFuF++nxC0pulLBXvV2CSuhIKVcLwG8LFpTe5+foIjIZFLc9TMdGSsip
+	TqWe6q5jSArzuip4xPo2C+t7PFRoqq7IcvHjMwN3mXsPIcPi3pF2gKoiavmf08U8ElIm5snxNM0
+	QjXCdLdBXT8qk/Sno35SbWWw8XSen7AU=
+X-Received: by 2002:a17:906:4ed4:b0:c25:6c9a:88bc with SMTP id
+ a640c23a62f3a-c25b3d8a1d8mr44713366b.19.1788185382598; Mon, 31 Aug 2026
+ 07:09:42 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260505223319.5661-1-shofiqtest@gmail.com>
-In-Reply-To: <20260505223319.5661-1-shofiqtest@gmail.com>
-From: Andreas Gruenbacher <agruenba@redhat.com>
-Date: Mon, 31 Aug 2026 16:09:51 +0200
-X-Gm-Features: AcwNN1V7E0fQbuEwbFljk0Gdwb07ZyOSF7BaQw4kP-0aSTU-pu0QlfUzibp1_h8
-Message-ID: <CAHc6FU7E4xiM7HZFBiv_i47iOhwFLg+0AYRaDU70tPFt7NB2Mw@mail.gmail.com>
-Subject: Re: [PATCH] fs: gfs2: Fix typos in comments
-To: Md Shofiqul Islam <shofiqtest@gmail.com>
-Cc: gfs2@lists.linux.dev, linux-kernel@vger.kernel.org
+References: <20260826092541.3905933-1-ruanjinjie@huawei.com> <20260826092541.3905933-6-ruanjinjie@huawei.com>
+In-Reply-To: <20260826092541.3905933-6-ruanjinjie@huawei.com>
+From: Huacai Chen <chenhuacai@kernel.org>
+Date: Mon, 31 Aug 2026 22:09:30 +0800
+X-Gmail-Original-Message-ID: <CAAhV-H7+dO2rnb4KxRvVo1w_Mx8Vfsdq7LAbkzPfNYrwUhEtfg@mail.gmail.com>
+X-Gm-Features: AcwNN1UnFQ4mMXEBOHuSLr0Mu3pUPtp_q9Do6p0Tl3kncID1TuZivoGd1AqJPW4
+Message-ID: <CAAhV-H7+dO2rnb4KxRvVo1w_Mx8Vfsdq7LAbkzPfNYrwUhEtfg@mail.gmail.com>
+Subject: Re: [PATCH v3 05/17] LoongArch: kexec: Fix CMA page leaks in segment
+ placement retry loops
+To: Jinjie Ruan <ruanjinjie@huawei.com>
+Cc: catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com, 
+	kernel@xen0n.name, maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com, 
+	chleroy@kernel.org, tglx@kernel.org, mingo@redhat.com, bp@alien8.de, 
+	dave.hansen@linux.intel.com, hpa@zytor.com, akpm@linux-foundation.org, 
+	baoquan.he@linux.dev, rppt@kernel.org, pasha.tatashin@soleen.com, 
+	pratyush@kernel.org, ruirui.yang@linux.dev, kees@kernel.org, thuth@redhat.com, 
+	gshan@redhat.com, jic23@kernel.org, james.morse@arm.com, ardb@kernel.org, 
+	leitao@debian.org, yeoreum.yun@arm.com, sourabhjain@linux.ibm.com, 
+	coxu@redhat.com, tangyouling@kylinos.cn, hbathini@linux.ibm.com, 
+	adityag@linux.ibm.com, ionut.nechita@windriver.com, liaoyuanhong@vivo.com, 
+	seanjc@google.com, fuqiang.wang@easystack.cn, makb@juniper.net, 
+	piliu@redhat.com, ebiggers@kernel.org, jbouron@amazon.com, 
+	mclapinski@google.com, me@linux.beauty, graf@amazon.com, bgwin@google.com, 
+	robh@kernel.org, takahiro.akashi@linaro.org, palmer@rivosinc.com, 
+	x86@kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, loongarch@lists.linux.dev, 
+	linuxppc-dev@lists.ozlabs.org, kexec@lists.infradead.org, 
+	linux-fsdevel@vger.kernel.org, linux-mm@kvack.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, May 6, 2026 at 12:33=E2=80=AFAM Md Shofiqul Islam <shofiqtest@gmail=
-.com> wrote:
-> Fix spelling mistake in comments:
->  - occured -> occurred (twice)
+Hi, Jinjie,
 
-Thanks for the patch. Could you resend with a signed-off-by header?
+Why does the ARM64 version of this patch use "kexec_file" in the
+subject line but the LoongArch version uses "kexec"? It is better to
+keep consistency.
 
-Andreas
+Huacai
 
+On Wed, Aug 26, 2026 at 5:25=E2=80=AFPM Jinjie Ruan <ruanjinjie@huawei.com>=
+ wrote:
+>
+> During kexec image placement retry loops, any midway failure causes
+> the loader to truncate `image->nr_segments` back to its initial state
+> to purge the failed segments.
+>
+> However, this truncation introduces a memory leak. The CMA pages
+> allocated via kexec_add_buffer() during the failed attempt are tracked
+> in the `image->segment_cma` array. Because the subsequent cleanup paths
+> only iterate up to the truncated `nr_segments` boundary, these allocated
+> CMA pages outside the new boundary are permanently leaked.
+>
+> Fix this by explicitly releasing the associated CMA buffers in
+> the failure paths before `image->nr_segments` is reduced.
+>
+> Cc: Huacai Chen <chenhuacai@kernel.org>
+> Cc: WANG Xuerui <kernel@xen0n.name>
+> Cc: Youling Tang <tangyouling@kylinos.cn>
+> Cc: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
+> Cc: Sourabh Jain <sourabhjain@linux.ibm.com>
+> Cc: Kees Cook <kees@kernel.org>
+> Cc: stable@vger.kernel.org
+> Link: https://sashiko.dev/#/patchset/20260729031235.2840255-1-ruanjinjie%=
+40huawei.com
+> Fixes: 55d990f0084c ("LoongArch: Add EFI binary support for kexec_file")
+> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
 > ---
->  fs/gfs2/lock_dlm.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+>  arch/loongarch/kernel/kexec_efi.c          | 1 +
+>  arch/loongarch/kernel/machine_kexec_file.c | 6 +++++-
+>  2 files changed, 6 insertions(+), 1 deletion(-)
 >
-> diff --git a/fs/gfs2/lock_dlm.c b/fs/gfs2/lock_dlm.c
-> index 7828ad0b6..563bb90a3 100644
-> --- a/fs/gfs2/lock_dlm.c
-> +++ b/fs/gfs2/lock_dlm.c
-> @@ -434,7 +434,7 @@ static void gdlm_cancel(struct gfs2_glock *gl)
->   * 10. gfs2_control sets control_lock lvb =3D new gen + bits for failed =
-jids
->   * 12. gfs2_recover does journal recoveries for failed jids identified a=
-bove
->   * 14. gfs2_control clears control_lock lvb bits for recovered jids
-> - * 15. gfs2_control checks if recover_block =3D=3D recover_start (step 3=
- occured
-> + * 15. gfs2_control checks if recover_block =3D=3D recover_start (step 3=
- occurred
->   *     again) then do nothing, otherwise if recover_start > recover_bloc=
-k
->   *     then clear BLOCK_LOCKS.
->   *
-> @@ -812,7 +812,7 @@ static void gfs2_control_func(struct work_struct *wor=
-k)
+> diff --git a/arch/loongarch/kernel/kexec_efi.c b/arch/loongarch/kernel/ke=
+xec_efi.c
+> index 5ee78ebb1546..15fd797ff3de 100644
+> --- a/arch/loongarch/kernel/kexec_efi.c
+> +++ b/arch/loongarch/kernel/kexec_efi.c
+> @@ -86,6 +86,7 @@ static void *efi_kexec_load(struct kimage *image,
+>                  * We couldn't find space for the other segments; erase t=
+he
+>                  * kernel segment and try the next available hole.
+>                  */
+> +               kexec_free_segment_cma(image, kernel_segment_number);
+>                 image->nr_segments -=3D 1;
+>                 kbuf.buf_min =3D kernel_segment->mem + kernel_segment->me=
+msz;
+>                 kbuf.mem =3D KEXEC_BUF_MEM_UNKNOWN;
+> diff --git a/arch/loongarch/kernel/machine_kexec_file.c b/arch/loongarch/=
+kernel/machine_kexec_file.c
+> index 5412aa9f3568..62a5be102065 100644
+> --- a/arch/loongarch/kernel/machine_kexec_file.c
+> +++ b/arch/loongarch/kernel/machine_kexec_file.c
+> @@ -217,7 +217,11 @@ int load_other_segments(struct kimage *image,
+>         return 0;
 >
->         /*
->          * No more jid bits set in lvb, all recovery is done, unblock loc=
-ks
-> -        * (unless a new recover_prep callback has occured blocking locks
-> +        * (unless a new recover_prep callback has occurred blocking lock=
-s
->          * again while working above)
->          */
->
+>  out_err:
+> -       image->nr_segments =3D orig_segments;
+> +       while (image->nr_segments > orig_segments) {
+> +               kexec_free_segment_cma(image, image->nr_segments - 1);
+> +               image->nr_segments--;
+> +       }
+> +
+>         kfree(modified_cmdline);
+>         return ret;
+>  }
 > --
-> 2.51.1
+> 2.34.1
 >
-
