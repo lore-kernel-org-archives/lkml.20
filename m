@@ -1,192 +1,427 @@
-Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013056.outbound.protection.outlook.com [40.93.201.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54C8F4A5EDF
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 13:44:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.201.56
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183871; cv=fail; b=dzO6PhTrzAwRetvQoj9cx1e/R/8XOvIHyuuXA8tR1D9I0Q7VFz4LsHPMOZYMTm2lWl5zkd91TLThQu41MffjJUdMmw658bT/C2jY6R9n4AZi7CzJx6dFPsinkahWrlFFceVPWBAjn/vJHQrocSQ8rVbWz8Chp6xBKLjUyWV8Zss=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94ADC45BD4B;
+	Mon, 31 Aug 2026 13:44:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788183871; cv=none; b=q1AMydEgNo5TgFzOhNafaZ0hamG8Arrofp1Pm/OGsQjUrcuSuGr8XV1F9s87ecTsSqtbqiqg5WYy/g/D3YxXF5fegUv0h6aB8FnMQKtVQjYYDSxXiYM5Y4TSri9xifI6vrp2fc3JeD7g2eLb4gKtIHJj4h5rVqIkB89aqAmEDxc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788183871; c=relaxed/simple;
-	bh=/RSZHIo/RtqYE62ho3S2MH8J7bWCfFEXJx3DvUVF93c=;
+	bh=Ao37EIblClKsI64UZh4Rf9c3dxPcaTaWgJgo2jQolik=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Uh8d/glSD5q43qH96ybA5USCmnqxnLmsdABcBZLZ9GmxSDylASImLzYsbBfROwe0lq69JruQfad7X3KvvC10zZ1IUn7kql4+ZBf32i7Hf8gU4nVCbzKwulv7CxAbtV6UO82aHRjiuk/h2l+7k9vw0BIuPZuOJ1PT0e9EPPiQ+FU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=NK2O1KF2; arc=fail smtp.client-ip=40.93.201.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	 MIME-Version:Content-Type; b=QVlZS4Od721W7M+oPfdb4aWsagVTERXttk6sHIzin6nydDnBbPo59kTH+XM7fIgtnSAvoE0qTsHJDpTVYiHZ58Lx0qlNN/C/bWY4nyaZ0X7bqlPgUc55cdy3r5cQmrbB6mqMyW6VKGjU8UwHn3h3fSc5Naay8x6ZZ2wd4Tr35uI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Bx+aaz9n; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="NK2O1KF2"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=p1JsIynzP9UFZ/14JaVTBYKJj8/8irRBia8XlHELJ84hMCBM2gKOnQBJAlgFug1tb/OD3jyCt32xRj4QdTVqCe7NexJzuqILXK2AJDg4HcVVEYf/nNqu74l5iubBk50h9EQW66i0G6HgFko3SNfJ2DaiLgskpADhW1ZFU/zk4pqaY4xvd3nWuKNpkY4+karzHWDhi1Tc1e3mgLUI+kzFqKo3PTmHOjbttM2gTI+12gkoSoADdNUQt0FZ7ExFaNamtDPtT8qtJ59lISUlgksPJyf3Rt3oIZn9IsmR4UJVJSAiVbMP422QeDF+7fYe26yYO1Ym5RKKAn4jB24XJlVEaA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zZI00+kAWlm0T92BsF/GYrGuOWTiXC5qTzTuXQS7jKY=;
- b=XfUQBpG5Oq7B2fW5EQEf3FBrB6uo0J0meQhfaks+muNU7s/kY0JsNqDS6H3zqPouKta+U2F/RWrN98Y2PpViUQ0UFjPSJ6fhiObmCA+qp8ti2WAN4WHnSbqT3AbCqqYL6RY8ASxsVHsgzoi8XTrSXPIWzjggwQK+OJbXme+VQh2v+1QWzINgzcJ8/yy5HRJIqiFvyUIjMebsEzO+gazIgGGwKaedren29rqFvAGHFHgPkwuRCcMbIIYTQL/lTyMR2s0eABVLDrGHt1cOjePBYY3EyTWdu6hbxZSe1tAZhKq0vWhz72sApdlhkm9lq9CDuV2dn/qImxNTjdygWkQ+Gw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zZI00+kAWlm0T92BsF/GYrGuOWTiXC5qTzTuXQS7jKY=;
- b=NK2O1KF2vEXotqSZ6UbzCIzPFstZLNHFtd2uWX7BsE32yO3EBMGQK9sXRryjLEDBBftk7oMqqCNcHgVZqbpsM5lKM2zg1mdQFvz9YZHiICPY63fv1MamAGf9ugIKdnMSwoctjdVrImJnhYdLaeTN3dCHB5nOvm+HmiH5n0z+rktjOL5OZDJbzDfh6Rmns/vHlOiDid+kxU1AdSEbnziRnWAgf6ks4e0hMHAf2UE8NepXNFuRMrRQ2w6Aq7Vb20995GcETqt7DspBm8mnq5eRhKmCuMUuEEm1x2WzqlOL8/x+yqZbhyDRDZBJ+4/fqRK7av1wQVdCnrw5HwXSc3dq0g==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DM6PR12MB4827.namprd12.prod.outlook.com (2603:10b6:5:1d6::14)
- by MW4PR12MB6755.namprd12.prod.outlook.com (2603:10b6:303:1ea::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.12; Mon, 31 Aug
- 2026 13:44:23 +0000
-Received: from DM6PR12MB4827.namprd12.prod.outlook.com
- ([fe80::6261:3040:864b:159c]) by DM6PR12MB4827.namprd12.prod.outlook.com
- ([fe80::6261:3040:864b:159c%5]) with mapi id 15.21.0360.008; Mon, 31 Aug 2026
- 13:44:23 +0000
-From: Andrea Righi <arighi@nvidia.com>
-To: Tejun Heo <tj@kernel.org>,
-	David Vernet <void@manifault.com>,
-	Changwoo Min <changwoo@igalia.com>,
-	John Stultz <jstultz@google.com>
-Cc: Ingo Molnar <mingo@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>,
-	Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Christian Loehle <christian.loehle@arm.com>,
-	David Dai <david.dai@linux.dev>,
-	Emil Tsalapatis <etsal@meta.com>,
-	Lee Trager <ltrager@nvidia.com>,
-	Richard Cheng <icheng@nvidia.com>,
-	Koba Ko <kobak@nvidia.com>,
-	Aiqun Yu <aiqun.yu@oss.qualcomm.com>,
-	sched-ext@lists.linux.dev,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Bx+aaz9n"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1CCC1F00ADE;
+	Mon, 31 Aug 2026 13:44:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788183868;
+	bh=pf4ekvd+NEY5JRo6Eblbsd81JMP2cKd6vW/zi5iBGsQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Bx+aaz9nHhkBpGa5xWfv3n7LQ7ysIEkP0sOVQagFKPcxUNiAXHJSWoZvBCZ/cEqe7
+	 N5ebTjqc3ODCICDFVpp+D8Wc/Ktqzzp3XgHUFU5A54rlSLvSSuhWyYs5w6ZSPA3B31
+	 SLWQs4LXM2ZRq9vRUzcPM+q/QE+7v8Cv3qD0Mpo4FRti3TrTLJmvBydu3A6RFSb6Og
+	 ff78H6GmJLhKuP397owtGivchW753jAIiyWwwfxCtI6a2/vhltSCurnGSiLodh5NfI
+	 UzIJtLc07vJhgLg4LAhnwbJyORK1JJeGajJy8j9kZKjToiTx6ZrCNBkB+lO/IjFCt5
+	 2UwGg1zWOlI5g==
+From: Sasha Levin <sashal@kernel.org>
+To: patches@lists.linux.dev,
+	stable@vger.kernel.org
+Cc: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
+	Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	Sasha Levin <sashal@kernel.org>,
+	christian.koenig@amd.com,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 04/18] sched/core: Avoid false migration warning for proxy donors
-Date: Mon, 31 Aug 2026 15:42:14 +0200
-Message-ID: <20260831134338.1531664-5-arighi@nvidia.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260831134338.1531664-1-arighi@nvidia.com>
-References: <20260831134338.1531664-1-arighi@nvidia.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: ZR0P278CA0056.CHEP278.PROD.OUTLOOK.COM
- (2603:10a6:910:21::7) To DM6PR12MB4827.namprd12.prod.outlook.com
- (2603:10b6:5:1d6::14)
+Subject: [PATCH AUTOSEL 6.18-6.6] drm/amdgpu: Use system unbound workqueue for soft IH ring
+Date: Mon, 31 Aug 2026 09:26:19 -0400
+Message-ID: <20260831133314.4125787-351-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
+References: <20260831133314.4125787-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4827:EE_|MW4PR12MB6755:EE_
-X-MS-Office365-Filtering-Correlation-Id: 15186f5d-9f8a-42e6-fa85-08df0765f763
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|1800799024|23010399003|366016|6133799003|10067099003|56012099006|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	9eKr7UxbFcNFWl8Jwfk4SLJUppaaY8DKOeZ+6jKFXmm/YG5Qn2wZBbmTaVrPBMa22zsZT+R1L8fsda8qn8KkKO7A+/0KUwQq79PaunVLU4+a6vIRew2QU+kMoBs/2wOgsBxFRqV4735PHpF8Id8wcQzN9M46u4mAOAkXuHCecPw3s3Pq8PvisMwhxOLIuLfHW4EsWNP0WHCIA5yg8v8u9/0SwZfRk08ykMDURaHmvFgYrvDVtY00sg2VRAng+KKy0bCo8isEnqAHQa4Sj57wIgH2PhFWw7Nrdwb6FkiwEkg3hELKAeQ5/pLG4oqpqU/gHrEyKCU3zqKvJGyVKRtxhAZ1aF1dZH2Lz5+Qh0aqWpRTq8IyoYNXPStVPzUydFDr1DiKR5JG5usiZgYzAbd7985J9dTCBKoCWOhbDkiBZ70eA9fWmAwQaJnzFnIRMOLz7DiRloMGUdJq/DMYFP6M6jDQxdqvxCQAj9uZh57lEUgN9RvVNvll63qJw5qAZ+WtXrigoAUF3PYHcXmP8C8LuuzP6Zx4PMSJZ47IX4ys22xVhgIyU40XtA1SutTPh/GedXXa2P0e1MIxsGLb4eCyzHS4uNSK0puwHEOpL+btukcqZMNDINPk6EFKmjBCUU+T3tVQ+gC92Ul4oJ03imZ+KY9umYqw+LetYWp2v0VGRQo=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR12MB4827.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(23010399003)(366016)(6133799003)(10067099003)(56012099006)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?dHNduoBVahIo6SCh/hzBD9VpmQdBHgHg8NpRulDVRhlNflm/I55fXajzYce7?=
- =?us-ascii?Q?4lwtbiN6BiEiFIsb4r+In+RQSEh+9jjAYZd3AAHU6ig1N2CIgWnNfdU5Vr2w?=
- =?us-ascii?Q?wWWydJgfDXiPTc69yxSR2riQ5QUbHjH0bTy67ZRSUkHgbDT0NOfXKXt4MYxU?=
- =?us-ascii?Q?yKmm0wK5MuG+s9ZxS9CKDM+CbCH+J5kFP8homFGYeqtkrBgJxV+AGQ0gaGqd?=
- =?us-ascii?Q?4dEyPnJm77cRKRCKWNDiClrxaqoyIEBvp5JCgXNr/7fSkt/OPdTiTYIM76PS?=
- =?us-ascii?Q?8gNqzUT4AveCvhpNjmxLz1lEyGhG0bKnaAhbp0qBttp9ngdOxiqRM0KNC9GE?=
- =?us-ascii?Q?+fD2aYp2C9VIuAWGUNDTp+WFSpTLp8HEriw9OdiX5ObzOj8IP6myIlq0OK0/?=
- =?us-ascii?Q?2xkx6Z5jARInE3dUC5XWNhdWT34jxiLa4IqaraldelhSDf28uprQSrWNlooM?=
- =?us-ascii?Q?1DC7Fmz68E9JF5UfC65Zz0/U6U+PthKYPuewnIg9R8k0SI1w57OawoHaTP0B?=
- =?us-ascii?Q?ABO3Xk7AjRFAOKZSSB6DDdU26VmzZoGN6RVTnnMKp3hYPUsBEfWaHBSa50r/?=
- =?us-ascii?Q?9J17t8LEkJ4YOqriTrIRYNQ8ojVZtoSs52hake8IVxQXwQFsDpf1ibrsW/5n?=
- =?us-ascii?Q?oxHKCDaiMYOHzaX969npgPIttb7tWt68H2+HGDUrWw9wpreU5LVm1ip5FCof?=
- =?us-ascii?Q?87H9Qrx12K9xwe458VWUHtVXxwfp/3lxgv3UhqHxr5ihvXoGHWDnZE30ZdcR?=
- =?us-ascii?Q?S4l76WUNfzH97hifWyxxqQvArYludpcxVJpuD0C48q3W+fP1XarhwCpRUGu8?=
- =?us-ascii?Q?Di4DZdx75/jIv598il/u0XKyfwSGq7z3n2W2LpjpNfGnlmYjb2CmowmlfITN?=
- =?us-ascii?Q?9cSrv5AypDpZ9gzdkSNezfUk7qCJExSDv1PUkQ9EWUxuWgzWUhGzeS6jMSEF?=
- =?us-ascii?Q?7Cwy1v9eOd5pHrGqumoxMQvMiin9L4EXjnsgoMHRdS3Y6kT8svTLRWd5Y6qo?=
- =?us-ascii?Q?Sr+bcCu/wyzYhWG53MfRIZ9znSWbSPs3IFGb1I9D54UVFFJnhyqSZ8gRgl84?=
- =?us-ascii?Q?meCF/HRnPG8r5c2Z51eNhdddY8wJfDv0m+OG/mAq3/55i+LwoRuzmmIX8VEA?=
- =?us-ascii?Q?HN80JQPUZmMsRam2/9cPDopfg0udG4qy0B7C9d6E26HeLh2GzZ2KradkUqyw?=
- =?us-ascii?Q?1+SkS45Bcx6zsy/slLeHxfulj8sFlQknkSmIcO7ObOmZH5gG0plm8Jlm/E0L?=
- =?us-ascii?Q?moIOqT9c58uc0vE/rLi9Z2GWdSKcSdJWtWu/i+aoCeOW6f0ivSkpttOnAtgq?=
- =?us-ascii?Q?oLJfzIF6q0YNf26b1GgTCsNc0u+WCL/ZUufJ3NkeBq7wqDRkYoQOwKGuA2I1?=
- =?us-ascii?Q?o5hYrW42SlV9m7j2949NMQS2sA5fJ7mNUKNn0w5j9uC/q6Dg81ujFRsQfbjG?=
- =?us-ascii?Q?bJM/liuA4QeDASkq1hXO0jNCp7akzTNsksvuUODehOB7EDHeN1oqo45VHwr/?=
- =?us-ascii?Q?3tRpNhNfmcDEC9GpcmurV+CD82BzpaY4hL98q6+DR5S22wqhl6YdYNmN6Qca?=
- =?us-ascii?Q?Ilux7T962p5a3DI+J3LI3TFe5DXaA5uOuOTJ5cg1uhpVba46BoW0QRxck0Fc?=
- =?us-ascii?Q?SvMejc4whitpvR2TP9YI3RxjR4CgLHCtflowO1fRJ5+Cdym94TRM36IZLcep?=
- =?us-ascii?Q?o35FGqs0Fn5jrSP+G0bBFx8UwPr4r4o20pLLkLzttypAdU/M9ELLv8UHlGQ2?=
- =?us-ascii?Q?Gt8JeEkz+w=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 15186f5d-9f8a-42e6-fa85-08df0765f763
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4827.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 13:44:23.4951
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: s6/jtxOWn/mkL9CoWqpOM/Lk0sHO0InqLd6SELbocCZ33XuC6hKaFy8xaB8eybvVg22JQPDu27OeiCNngCZsRA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6755
+Content-Type: text/plain; charset=UTF-8
+X-stable: review
+X-Patchwork-Hint: Ignore
+X-stable-base: Linux 6.18.48
+Content-Transfer-Encoding: 8bit
 
-Proxy execution can move a blocked donor's scheduling context to the
-lock owner's CPU even when the donor is migration-disabled. The donor
-does not execute there, and its original execution CPU remains recorded
-in wake_cpu.
+From: Timur Kristóf <timur.kristof@gmail.com>
 
-set_task_cpu() warns unconditionally for migration-disabled tasks, so a
-subsequent proxy migration or the wakeup path returning the donor home
-triggers a false positive. Moving a blocked scheduling context does not
-violate the migration-disabled execution context.
+[ Upstream commit ba2977dcce72127986fbad76c4c67f134e2f69ae ]
 
-Exclude blocked proxy donors from the warning. The proxy wakeup path
-restores an executable placement before clearing the blocked state.
+Allow the kernel to dispatch the soft IH work on other CPUs.
 
-This is a preparatory fix for enabling proxy execution together with
-sched_ext.
+Otherwise it can happen that the soft IH ring fills up
+before it actually starts processing anything, which
+can easily happen with retry page faults, in which case
+the CP repeatedly spams the CPU with a lot of interrupts.
 
-Acked-by: John Stultz <jstultz@google.com>
-Signed-off-by: Andrea Righi <arighi@nvidia.com>
+This significantly improves retry page fault handling on
+GPUs that don't have the filter CAM and must rely on
+software based filtering.
+
+Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit 3cdff3c8b93c2834977224d9c2b201fc334dd184)
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/sched/core.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
 
-diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-index 14d0d5c884393..0a2eabadfee02 100644
---- a/kernel/sched/core.c
-+++ b/kernel/sched/core.c
-@@ -3351,6 +3351,8 @@ void relax_compatible_cpus_allowed_ptr(struct task_struct *p)
- void set_task_cpu(struct task_struct *p, unsigned int new_cpu)
+LLM Generated explanations, may be completely bogus:
+
+# Stable Backport Analysis: drm/amdgpu: Use system unbound workqueue for
+soft IH ring
+
+**Local tree:** `v6.18.44` (Makefile: 6.18.44)
+**Fix commit:** `3cdff3c8b93c` (on `linux-next/master`, **not** an
+ancestor of current HEAD — bug still present locally)
+
+---
+
+## PHASE 1: COMMIT MESSAGE FORENSICS
+
+### Step 1.1: Parse subject line
+**Record:** `[drm/amdgpu]` — no explicit verb; implied **fix/improve** —
+**Use system unbound workqueue for soft IH ring**
+
+### Step 1.2: Parse commit message tags
+**Record:**
+- **Reviewed-by:** Tvrtko Ursulin \<tvrtko.ursulin@igalia.com\>
+- **Signed-off-by:** Timur Kristóf, Alex Deucher
+- **No** Fixes:, Reported-by:, Tested-by:, Acked-by:, Link:, Cc:
+  stable@vger.kernel.org
+- Notable: Reviewed-by from Igalia amdgpu contributor; no syzbot/user
+  bug report
+
+### Step 1.3: Analyze commit body
+**Record:**
+- **Bug:** Soft IH ring can fill before its work item runs; CP floods
+  the CPU with interrupts during retry page faults.
+- **Symptom:** Soft IH ring overflow / interrupt storm; degraded or
+  broken retry page fault handling on GPUs without hardware filter CAM
+  (software filtering only).
+- **Root cause (author):** `schedule_work()` dispatches on a CPU-bound
+  workqueue; work stays pinned on the IRQ CPU and cannot run while that
+  CPU is saturated with interrupts.
+- **Fix:** `queue_work(system_unbound_wq, ...)` allows processing on
+  another CPU.
+- **Version info:** None in message.
+
+### Step 1.4: Detect hidden bug fixes
+**Record:** **Yes — functional bug fix disguised as scheduling
+improvement.** Ring fill-up before processing means dropped interrupt
+vectors and failed page-fault handling, not merely slower performance.
+
+---
+
+## PHASE 2: DIFF ANALYSIS
+
+### Step 2.1: Inventory changes
+**Record:**
+- **Files:** `drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c` (+1 / −1)
+- **Function:** `amdgpu_irq_delegate()`
+- **Scope:** Single-file, single-line surgical fix
+
+### Step 2.2: Code flow change
+**Record:**
+- **Before:** `schedule_work(&adev->irq.ih_soft_work)` → queues on
+  `system_wq` (CPU-bound).
+- **After:** `queue_work(system_unbound_wq, &adev->irq.ih_soft_work)` →
+  can run on any CPU.
+- **Path:** Called from `amdgpu_irq_delegate()` after writing an IV to
+  the soft IH ring; triggered during retry page faults on GPUs using
+  software filtering (gmc_v9/v10/v11/v12).
+
+### Step 2.3: Bug mechanism
+**Record:**
+- **Category:** Logic / scheduling deadlock (interrupt storm + work
+  starvation).
+- **Mechanism:** IRQ handler delegates to soft IH ring and schedules
+  bound work on the same CPU. Under retry page-fault storms, IRQs keep
+  arriving before work runs; `amdgpu_ih_ring_write()` can reach `wptr ==
+  rptr` and stop advancing the write pointer — IVs are written but not
+  committed/processed.
+
+### Step 2.4: Fix quality
+**Record:**
+- **Quality:** Obviously correct; mirrors existing amdgpu usage of
+  `system_unbound_wq` in `amdgpu_reset.c`, `amdgpu_device.c`,
+  `aldebaran.c`.
+- **Regression risk:** Very low. `queue_work()` deduplicates already-
+  queued work; same `work_struct` and handler unchanged.
+- **No API, lock-order, or structural changes.**
+
+---
+
+## PHASE 3: GIT HISTORY INVESTIGATION
+
+### Step 3.1: Blame changed lines
+**Record:**
+- `amdgpu_irq_delegate()` introduced in `26f32a377eedd` (Oct 2020,
+  Christian König) — soft IH infrastructure.
+- `schedule_work()` line dates to that same commit; present in this tree
+  since 6.18 base.
+- Bug has existed since soft IH ring was added (~5.10+ era).
+
+### Step 3.2: Follow Fixes: tag
+**Record:** N/A — no Fixes: tag.
+
+### Step 3.3: Related file history
+**Record:**
+- Related: `bf80d34b6c58a` "Increase soft IH ring size" (symptom
+  mitigation, not root cause).
+- `318e431b306e9` "Enable IH retry CAM on GFX9" — hardware path; this
+  fix targets GPUs **without** retry CAM.
+- Part of series `[PATCH 3/3]` but **standalone** — patches 1/3 and 2/3
+  touch different concerns (ih6.1 version, HW register access).
+
+### Step 3.4: Author context
+**Record:** Timur Kristóf — active amdgpu contributor; Alex Deucher
+merged. Tvrtko Ursulin reviewed.
+
+### Step 3.5: Dependencies
+**Record:** **No dependencies.** One-line change; `system_unbound_wq` is
+a core kernel symbol. Applies cleanly to current `amdgpu_irq.c`.
+
+---
+
+## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
+
+### Step 4.1: Original discussion
+**Record:**
+- **b4 dig URL:** https://patch.msgid.link/20260513170849.27061-4-
+  timur.kristof@gmail.com
+- **Series:** v1 only (May 13, 2026); committed version matches
+  submission.
+- **Review:** Reviewed-by: Tvrtko Ursulin in thread.
+- **No** stable@vger nomination, NAKs, or objections found in mbox.
+
+### Step 4.2: Reviewers
+**Record:** CC'd: amd-gfx, Alex Deucher, Christian König, Marek Olšák,
+Natalie Vock, Melissa Wen, amir.shetaia@amd.com.
+
+### Step 4.3: Bug report
+**Record:** No external bug report or syzbot link. Issue identified by
+developer from retry page-fault behavior.
+
+### Step 4.4: Related patches
+**Record:** Same series includes patch 2/3 "Don't perturb HW registers
+when accessing soft IH ring" — separate fix, not required for this one.
+
+### Step 4.5: Stable list history
+**Record:** Not searched separately; no stable nomination in patch
+thread. Not a negative signal per instructions.
+
+---
+
+## PHASE 5: CODE SEMANTIC ANALYSIS
+
+### Step 5.1: Key functions
+**Record:** `amdgpu_irq_delegate()`, `amdgpu_irq_handle_ih_soft()`,
+`amdgpu_ih_ring_write()`, `amdgpu_ih_process()`
+
+### Step 5.2: Callers of `amdgpu_irq_delegate()`
+**Record:** Called from retry-fault paths in:
+- `gmc_v9_0.c` (lines 589, 611)
+- `gmc_v10_0.c` (line 128)
+- `gmc_v11_0.c` (line 127)
+- `gmc_v12_0.c` (line 120)
+
+Triggered when `entry->ih == &adev->irq.ih` during retry page faults.
+
+### Step 5.3: Callees
+**Record:** `amdgpu_ih_ring_write()` writes IV to soft ring; work
+handler calls `amdgpu_ih_process()` → `amdgpu_irq_dispatch()` → GMC
+fault handler → `amdgpu_vm_handle_fault()`.
+
+### Step 5.4: Reachability
+**Record:**
+- **Call chain:** HW IRQ → `amdgpu_irq_handler` → IH processing → GMC
+  fault handler → `amdgpu_irq_delegate` → work scheduling.
+- **Reachable:** Yes — normal GPU compute/HMM/SVM page-fault path on
+  Navi/Vega/GFX9+ without hardware retry CAM.
+- Only `vega20_ih.c` sets `retry_cam_enabled = true`; all other soft-IH
+  GPUs use software filtering path.
+
+### Step 5.5: Similar patterns
+**Record:** amdgpu already uses `queue_work(system_unbound_wq, ...)` for
+reset/XGMI work to avoid CPU pinning — same rationale.
+
+---
+
+## PHASE 6: CROSS-REFERENCE AGAINST LOCAL TREE
+
+### Step 6.1: Buggy code in tree?
+**Record:** **Yes.** `amdgpu_irq.c:515` still has
+`schedule_work(&adev->irq.ih_soft_work)`. Soft IH infrastructure present
+since 2020; retry page-fault delegation paths present in
+gmc_v9/v10/v11/v12.
+
+### Step 6.2: Backport complications
+**Record:** **Clean apply expected** — identical one-line substitution
+at same location. No structural divergence in this function vs. linux-
+next.
+
+### Step 6.3: Related fixes already present?
+**Record:** `bf80d34b6c58a` (increase soft IH ring size) is present —
+mitigates but does not fix scheduling starvation. This fix is **not**
+yet in 6.18.44.
+
+---
+
+## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+
+### Step 7.1: Subsystem criticality
+**Record:** **drivers/gpu/drm/amd/amdgpu** — IMPORTANT. Affects AMD GPU
+users on compute and graphics workloads with recoverable page faults.
+
+### Step 7.2: Subsystem activity
+**Record:** Actively developed; interrupt and page-fault paths receive
+frequent fixes in this tree.
+
+---
+
+## PHASE 8: IMPACT AND RISK ASSESSMENT
+
+### Step 8.1: Who is affected
+**Record:** AMD GPU users on ASICs with soft IH ring and **without**
+hardware retry CAM (most Navi, Vega10, GFX9, etc. — everything except
+Vega20 in this tree). Config: `CONFIG_DRM_AMDGPU`.
+
+### Step 8.2: Trigger conditions
+**Record:**
+- **When:** Retry page-fault storms (GPU compute, HMM, large sparse
+  mappings).
+- **Likelihood:** Can occur under normal heavy GPU workloads, not exotic
+  edge case.
+- **Unprivileged trigger:** Indirectly yes — userspace GPU workloads
+  trigger page faults.
+
+### Step 8.3: Failure mode severity
+**Record:**
+- Soft IH ring overflow → dropped interrupt vectors → page faults not
+  handled.
+- Interrupt storm → CPU saturation, possible soft lockup.
+- GPU hang / application failure on affected workloads.
+- **Severity: HIGH** (functional breakage + system responsiveness
+  impact; not proven kernel panic but can cause hangs).
+
+### Step 8.4: Risk-benefit
+**Record:**
+- **Benefit:** HIGH for affected AMD GPU users — restores correct retry
+  page-fault handling.
+- **Risk:** VERY LOW — one-line, established pattern, reviewed.
+- **Ratio:** Strong benefit, minimal risk.
+
+---
+
+## PHASE 9: FINAL SYNTHESIS
+
+### Step 9.1: Evidence summary
+
+**FOR backport:**
+- Fixes real scheduling starvation bug causing soft IH ring overflow.
+- Affects common AMD GPUs (Navi, Vega10, GFX9, etc.) on retry page
+  faults.
+- Can cause interrupt storms and broken page-fault recovery.
+- One-line, obviously correct, reviewed.
+- Bug present since 2020; code exists in 6.18.44.
+- Standalone, no dependencies.
+
+**AGAINST backport:**
+- No user bug report or syzbot confirmation (developer-found).
+- Patch 3/3 of a series (but functionally independent).
+- Framed as "improves" handling — but mechanism is ring overflow /
+  dropped IVs.
+
+**Unresolved:** No quantitative data on how often users hit this in
+production.
+
+### Step 9.2: Stable rules checklist
+1. Obviously correct and tested? **PASS** — reviewed, logical fix,
+   established amdgpu pattern.
+2. Fixes real bug affecting users? **PASS** — ring overflow and
+   interrupt storm on retry page faults.
+3. Important issue? **PASS** — HIGH: GPU hangs, CPU saturation, dropped
+   fault handling.
+4. Small and contained? **PASS** — 1 line, 1 file.
+5. No new features/APIs? **PASS**.
+6. Can apply to local tree? **PASS** — buggy code present; clean apply.
+
+### Step 9.3: Exception categories
+**Record:** None (not device ID, quirk, DT, build, or docs). Standard
+bug fix.
+
+### Step 9.4: Decision rationale
+
+For **6.18.y**, the soft IH ring and retry page-fault delegation code
+are present and still use CPU-bound `schedule_work()`. Under retry page-
+fault load on GPUs without hardware filter CAM, the soft IH work cannot
+run on the IRQ-saturated CPU, the ring fills, IVs are dropped, and the
+system can be flooded with interrupts. Switching to `system_unbound_wq`
+is a minimal, reviewed fix already used elsewhere in amdgpu. This meets
+stable criteria: real bug, important user impact, tiny contained change,
+no new APIs.
+
+---
+
+## Verification
+
+- **[Phase 1]** Parsed subject, tags, body; no Fixes:/Reported-
+  by:/syzbot.
+- **[Phase 2]** Diff: 1-line change in `amdgpu_irq_delegate()`; read
+  `amdgpu_ih_ring_write()` overflow behavior (lines 162–169).
+- **[Phase 3]** `git describe HEAD` → v6.18.44; `git blame` →
+  `26f32a377eedd` (2020); `git merge-base --is-ancestor` → fix NOT in
+  HEAD.
+- **[Phase 3]** Related commits: `bf80d34b6c58a`, `318e431b306e9`,
+  `26f32a377eedd`.
+- **[Phase 4]** `b4 dig -c 3cdff3c` → lore URL; `b4 dig -a` → v1 series;
+  `b4 dig -w` → maintainers CC'd; mbox → Reviewed-by Tvrtko Ursulin, no
+  stable/NAK.
+- **[Phase 5]** `grep amdgpu_irq_delegate` → 4 GMC files; `grep
+  retry_cam_enabled` → only `vega20_ih.c` sets true.
+- **[Phase 5]** Read `gmc_v9_0.c:583–621`, `gmc_v10_0.c:115–137`,
+  `amdgpu_ih.c:150–169`, `amdgpu_irq.c:510–516`.
+- **[Phase 5]** `grep system_unbound_wq` in amdgpu → prior usage in
+  reset/device code.
+- **[Phase 6]** Confirmed `schedule_work` at `amdgpu_irq.c:515` in
+  current tree.
+- **[Phase 6]** Fix commit only on `linux-next/master`, not ancestor of
+  HEAD.
+- **[Phase 8]** Assessed severity from ring-overflow + interrupt-storm
+  mechanism in code.
+
+**YES**
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
+index 8d7f97eed5a90..ccc378233bc5a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
+@@ -512,7 +512,7 @@ void amdgpu_irq_delegate(struct amdgpu_device *adev,
+ 			 unsigned int num_dw)
  {
- 	unsigned int state = READ_ONCE(p->__state);
-+	bool proxy_migrated = sched_proxy_exec() && p->is_blocked &&
-+			      task_cpu(p) != p->wake_cpu;
+ 	amdgpu_ih_ring_write(adev, &adev->irq.ih_soft, entry->iv_entry, num_dw);
+-	schedule_work(&adev->irq.ih_soft_work);
++	queue_work(system_unbound_wq, &adev->irq.ih_soft_work);
+ }
  
- 	/*
- 	 * We should never call set_task_cpu() on a blocked task,
-@@ -3386,7 +3388,12 @@ void set_task_cpu(struct task_struct *p, unsigned int new_cpu)
- 	 */
- 	WARN_ON_ONCE(!cpu_online(new_cpu));
- 
--	WARN_ON_ONCE(is_migration_disabled(p));
-+	/*
-+	 * Proxy execution can move a blocked task's scheduling context to any
-+	 * CPU without moving its migration-disabled execution context. The
-+	 * wakeup path will return the task to a CPU where it can execute.
-+	 */
-+	WARN_ON_ONCE(is_migration_disabled(p) && !proxy_migrated);
- 
- 	trace_sched_migrate_task(p, new_cpu);
- 
+ /**
 -- 
-2.55.0
+2.53.0
 
