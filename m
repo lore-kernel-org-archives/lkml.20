@@ -1,61 +1,81 @@
-Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
+Received: from mta1.migadu.com (out-228.mta1.migadu.com [95.215.58.228])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA1603E4C75
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 161933F58C9
 	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 10:03:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.228
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788170606; cv=none; b=Unmg6NmaOUQ5yvZks77ZWsssRFz4NF4x67MVxOFqaX9325CLRwmPDWzwrwUAasZv2HxyYIiLCaotVpLRYXEPs7b0SAmaQNJu7Z3KLUuM2oupVKNn/KcGZfLwFQIA9n2mEFPfCglZcgJqRdD0G+/Gd7SGFko0LOMS/FwRzj97sK4=
+	t=1788170606; cv=none; b=ZikIQSLcDGTiUau6crg6oHQ0/KiTCw0M4MpxTfb8h1fS15N+V0CLdqtz2XQpwGnWlG2D35VjdDN0OrMWTBqfRpwamh326yq+FedDgPi1WkfO79xb+Lep+MSRirzuokD70LQqRzvYdpaLDKmQKSF9HyWrtrEeZP6IswMlcRerVQ0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788170606; c=relaxed/simple;
-	bh=HJUjgjLKUltqJLaAP/yQhI3qZzDW+UMFeZDrgrwXyfw=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=agguLnH5dX1IKCof60f451TuDyaPKg8krb5l9BVKe20eXzwPS6QspIsLu53bCYeOIGkIQr+YQiE1B+sBjh+Ys+1h16Hy0yecw0n6bkb7J44VTpDLllOMX4OIiRF1lokoyTV0FoaJvrMXmtlprBWJ/zaB2YV/O3HOlQ62ZcTrjnQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4959c49e054so2495631b6e.3
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 03:03:24 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788170603; x=1788775403;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=UG5M/MVKJaGzFJC9XpM6F86kond21uIR+mxWTgAcwIs=;
-        b=D0WvVv7pAeR0/L6xDjOvLpLNYGyVdQzsqSIsX3BkQfer/4cOeS+vSmOoL2bRYKWZaq
-         ruFgHtx/hArPa2JjsNNF0caZbfIqeL1FcRa3JhyRW4P4vfOkUKSqnlbUlQGsDw2Wj0dA
-         9ZnlbnrJTT766YQ3p6iuzHezAtP890z6RQv3Ebcj88w9qfkTbweV824Eg9XT9tKsDRoc
-         zpmaVfmyQgsREbeKX5EypE5vkXpHmjrAG1ugnMMfn7T/Lk9ohpWL9bw1Guhbu0PCtHFr
-         y6+Iyfi2vmVZ/m+iPdy3UVfOrUjCb6Q3vKckehlW8Ed9KJ2UqMY7RtPK9fUDzzWR6P+8
-         bFKg==
-X-Gm-Message-State: AFuF++kk0q4BKbFNOdoSmf7imsEwa3quHhwEgqB3bMnh/1zQCcFY+9aL
-	Iz//tZaFUCsaTs950toANgicixP24yDNTLeVCLCEsI3lLRdRQzny+enVKcOTzA0rx3MKOwDfZ9A
-	aZkgqrIEaG825lPUlfydcZ70zPoKKQNeHWlVb8ibtyKoSXP6mbBr56lHv5+U=
+	bh=RiIRS3AGgKPweaTKmH4xu7DiGkDeBMPjRujDGqmDXTs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=UpK5zGB5+aDvDAX4d+4tJ1+MEZT2JGuPX4hWnulg9gx2MGNjfBXAdjBBdfBlXvpS081HMMzdKoj+tgxxxnYmvsxdNq7HSbR9V7nV70p5QvWccLd03G9tdK7eAucUxLxMqrBWZr9H9LhdAoIPot3YAHJfcNOZra5QQaDRdsZMe60=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=WvW+57Sg; arc=none smtp.client-ip=95.215.58.228
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="WvW+57Sg"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=RiIRS3AGgKPweaTKmH4xu7DiGkDeBMPjRujDGqmDXTs=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788170603; v=1; x=1788775403;
+ b=WvW+57SgegAA9+J38VQFz1ilQ50662cD4G+BqmL4tLfOVeh8G5XxsAsDUDjiz6vv9dfwyhzE
+ iL3QGqVIIQ6mAi/dZ9M9k73z2gCxaYgMGoaLSCkZE4bJKM5KiWQrmenW7xQakndxC5KZ+8QDdOr
+ ml0mDUtraLM/q6+qFA9ewlSo=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 61d31954bccd392a;
+	Mon, 31 Aug 2026 10:03:23 +0000
+X-Mizu-Trace-ID: 61d31954bccd392a
+X-Migadu-Flow: FLOW_OUT
+From: Tao Cui <cui.tao@linux.dev>
+To: bvanassche@acm.org,
+	axboe@kernel.dk
+Cc: hch@lst.de,
+	linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	cui.tao@linux.dev,
+	Tao Cui <cuitao@kylinos.cn>
+Subject: [PATCH v2 1/3] loop: drop a stale reference to loop_validate_size()
+Date: Mon, 31 Aug 2026 18:03:03 +0800
+Message-ID: <20260831100305.695116-2-cui.tao@linux.dev>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260831100305.695116-1-cui.tao@linux.dev>
+References: <20260831100305.695116-1-cui.tao@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:f0b:b0:4ab:318c:6b38 with SMTP id
- 5614622812f47-4b397f71712mr25359688b6e.1.1788170603731; Mon, 31 Aug 2026
- 03:03:23 -0700 (PDT)
-Date: Mon, 31 Aug 2026 03:03:23 -0700
-In-Reply-To: <6a8edc9c.4d659fcc.734b4.0002.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a95516b.a8e469d2.cbf3.5616.GAE@google.com>
-Subject: Forwarded: 
-From: syzbot <syzbot+59d5e6a8ed04e6a000c8@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-For archival purposes, forwarding an incoming command email to
-linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
+From: Tao Cui <cuitao@kylinos.cn>
 
-***
+The kerneldoc of loop_set_size() points readers at loop_validate_size(),
+which does not exist in the tree.  Drop the reference.
 
-Subject: 
-Author: joshua.crofts1@gmail.com
+Signed-off-by: Tao Cui <cuitao@kylinos.cn>
+Reviewed-by: Bart Van Assche <bvanassche@acm.org>
+---
+ drivers/block/loop.c | 3 ---
+ 1 file changed, 3 deletions(-)
 
-#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/ master
+diff --git a/drivers/block/loop.c b/drivers/block/loop.c
+index 6f12976035b0..68a9cc7aeb13 100644
+--- a/drivers/block/loop.c
++++ b/drivers/block/loop.c
+@@ -212,9 +212,6 @@ static inline void loop_update_dio(struct loop_device *lo)
+  * loop_set_size() - sets device size and notifies userspace
+  * @lo: struct loop_device to set the size for
+  * @size: new size of the loop device
+- *
+- * Callers must validate that the size passed into this function fits into
+- * a sector_t, eg using loop_validate_size()
+  */
+ static void loop_set_size(struct loop_device *lo, loff_t size)
+ {
+-- 
+2.43.0
+
