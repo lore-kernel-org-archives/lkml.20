@@ -1,296 +1,213 @@
-Received: from mail-lj1-f171.google.com (mail-lj1-f171.google.com [209.85.208.171])
+Received: from smtp.forwardemail.net (smtp.forwardemail.net [121.127.44.66])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3455248423A
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 17:44:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.171
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788198301; cv=pass; b=L4/0Bq18jvlvAxyU86E3Ut1sSgCrCPaBp2tJiwarCK+CQRWinHvgXCKKh8AHVQzFt5O7bnPiLX0jmP6TCYm8phA7vyL2g6gmxav3qrGggmUTveSNV/X1YYt7fZ2BwJsd5NJHviUOgV7AVk2OS2u5Owz06e7xayJqsLfX7bXLUX4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788198301; c=relaxed/simple;
-	bh=R1+lsCB2Wrz/u50lZLT9P/dlsHUrNtJ4TxBAxyaaxKY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=jvIHvMmV4U7ZFv/noertTMV22mfrfjEPrJH0wgLsrLTjiuCWDDvUbIVFPEhqdHlawyhMKWSWeCxU7hqBAQVxmVC7OgCqIQyHXODCU1GtHcmmHjHCquzei2D7Eh+aZyb3vA5AgSV6b0LZtdNFWmjttXmRHsJ7UPc8/BQPNSMgpMY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QPE8wOLs; arc=pass smtp.client-ip=209.85.208.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7F7A48551E
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 17:45:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=121.127.44.66
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788198306; cv=none; b=hLcZavOCBUyK8NEFw9BmUwMt5x27MHVnUWlUCgVz1OEGazsvsXdRNURWw4ai3Zby6wPC6wpD8+EGnJmRSHUTOieRA/0mpELYOd5xlGYzCS9MlIR+tJj/YWu+Rr5M/nEQG5DYw9Ad48z6yXlPBTcqTBYpTukiGXMcYHHdN+Zzx00=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788198306; c=relaxed/simple;
+	bh=Du3sHiV5uyPCPtgPS4hklUKNWm+9aOuBrAZ4+mS9080=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=BAQ4npihK2Rw9wq1D3oYUt+upjTEwfJZwbvFD3XVPKyFj3ExO8t3qmHXIgvWjGZ2t7Yu/BRroVNMhXHcdIvj2T2E/M8nvFNldibZkCap4cDzefzubPd6BgSQ8Q4fGPaSfYRt7m9sit7VVfWO5Ri8YtTIUiZfhqpcTFLAXMET/UE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ubuntu.com; spf=pass smtp.mailfrom=fe-bounces.ubuntu.com; dkim=pass (2048-bit key) header.d=ubuntu.com header.i=@ubuntu.com header.b=Muxvk4CL; arc=none smtp.client-ip=121.127.44.66
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ubuntu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fe-bounces.ubuntu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QPE8wOLs"
-Received: by mail-lj1-f171.google.com with SMTP id 38308e7fff4ca-3a1585728b5so29653281fa.0
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 10:44:58 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788198297; cv=none;
-        d=google.com; s=arc-20260327;
-        b=P5Ow1w+nO9GH7ZZ0RCxUCzfmwK9gMOvgUmsln/HW28hZbwNPCXa7hDTvBUgZvyWSHs
-         FOAgp89vtJMDNHtNrsvx+f9Avl/Vdrmsf3oeH1oN+Z595xwkyFJCVdV4LGkTTF5UKUvW
-         RSb6BX8gzU0uvlZtIGbZgvev89d3OdJ+9aSHXzh1d7KBIxKNqhV7nnvmINAbcn3c00LN
-         H5Iuu0LcGnTpP9WykjrZw8Mpa9vT0R04uYspKBPL/gD2UDI3s1G+/h1eSKnTRDMFSSv7
-         cGZkvvAUVCposnAG4oFZXh843k7sbD/Ydj8gS2ebV4k8pvK476q9aTihr8Wdo3wKrEk/
-         DOCQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=2otIRoaAN1F9jcqsLH2Lx25EHK0tDk2QjhaewEvWAds=;
-        fh=kYVKcLkgDgn9v93rWSpwjBrlWVokfy6kyxC+Qc6eL4A=;
-        b=c8WZSP1+s+BSPTwg9V0IdDtnr6XUN/lACP5JRi0/RmKGzd6qxyiB0kpjYzA2QYLSsm
-         wmtFVuZT1joc8UEpH19qAkyApndV7LRrhQq4Ca+mmv1km8yghzdtJMZnDhUAag6ewnIS
-         o7g3UgLMw4MWz/dQEjPzBuRYdaMVyEOf60xfmqAketOt/XzIlCln6lD6/XxHQiRR2VLr
-         Ntz+yTKLiRm2xzgPMrRNldkWZZfabXcCEEIXV8W7ewXmljTqN4LktX8Hx8D7GMtonbA6
-         IIxEa5LgKBHvwcBzP/NvtTGhxr3w2ZukVOlVGgPdsNgPyNnB3t3qAfPm3MsagnVbw5aF
-         IfPg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788198297; x=1788803097; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=2otIRoaAN1F9jcqsLH2Lx25EHK0tDk2QjhaewEvWAds=;
-        b=QPE8wOLsS/xHOpQ+4HJWBC0vGBFhlviY5fWCpct/DJPvqbAoHUNqK9EWXdC7dsa7nE
-         uydeeKOb0kapbYx3ivJIVu7RXSJZI/TyPn8NeXla/ySF+UisPhXZPxJK9UkqeiOUZ/0t
-         Cy0NVDTYheLkM+kH0sdKLV+aF7fR6eVEVvqDmtiCQ5pAZc6B/trfl/0e5CXxWxie7XqP
-         DhM7f/yf0aZn3OsclEl7V4qtXeQpI3PJdumNaGjdnXsL9CAWYGqBEWeRpNiOpNZ2czt7
-         t4PYSuG0m4uGjLiChYaDEwRfyH3gcPCqmpTxcBtvZdBAArfLoYbcyFrY34MWVta81MZG
-         SqOQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788198297; x=1788803097;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2otIRoaAN1F9jcqsLH2Lx25EHK0tDk2QjhaewEvWAds=;
-        b=TU0DReuXpEQBFjpK2C2qlGq13AgsdRmuYUuhWFQudydvvzArxR18NCKFEdAGm3e3sp
-         W4eiZygCXWXyavHOC8AjPZdkMXBJ6ts4/hP8Q5sF6Biw4rR2NQ7pp51wzdmegrzU0bGV
-         BZTFTvZ3Z0JVkB6uZ+MkLulMFu8xHeX8DTcKBDn60GGxV3BPycHD8LEXAEveoA7qrnc2
-         9UjMJnVDO9OQQWP8jPAD/qwcHybHY0a3h2LSrjE72d8bFvtxK0yQAlZZFGDwA44+OS66
-         846RJaHndrOfDhoSsYqMdn05BHaRcPuDHBEuvwBWq+Be4feh8jTZtm/diLULyqng6L9i
-         MuSw==
-X-Forwarded-Encrypted: i=1; AKwUvBwS3yYo6isJRcfaLVREGlYU8kTIYqFZiYXVRzVf+ia2vCayT+vQFVMVQTwghwaDLUF0gXpP7WbN36Pq6Wk=@vger.kernel.org
-X-Gm-Message-State: AFuF++mbVROAMPxf1psx9z9cEw/Ro5l5Tq5cQySWIfFbzdpvo2A++IfQ
-	1yGXRYq6ea5FgwJ0zK5oRGvTfUz3LxKM93410D/WcVjpamrKEaa2Q1iagBBS39cUO7+HyRfo7Jv
-	EmHQtpT1TJDTXxqA4nRUxYpftoajLfMg=
-X-Gm-Gg: AYBFou0Fv/3ZH4lxk56TizVTHmGt0PYIAtt/85QEScszfpG9ha99TH1gVat+01HWPiU
-	5lRH1a0jo3tBH4XPrmcZzS6+NNyJ4M54VD0jrF+gv1bPDYphIGPTUDiwOaCe2CysrTj6HZHwZ/S
-	aBirQX+1Cd/EWskOMxYcGr/lRC5m3YGCPsdt2WfoIcQrNY2Ua8Q6qThWYPwaudulOrgQUcFcKqY
-	qgkxvjWbOMxIvy7aP8xkM1HpM/7Xlp7p/xUkg3/wIFpx71haDfb2iGxUzwSvuEL4oJxkg4zWDqC
-	3+5nqXyr9xDFBEhEent2wnFCp/4OkVRdeuNgsqJGTFzkngVYIK3Tu17AvQQM7tJp/2rnyFKQ57Q
-	xUVPjPYzCMbeevxswF4qjA5FVQI+b5qR+MQ==
-X-Received: by 2002:a2e:be20:0:b0:39b:3e32:4a58 with SMTP id
- 38308e7fff4ca-3a3395ff1f6mr7268061fa.10.1788198296685; Mon, 31 Aug 2026
- 10:44:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ubuntu.com header.i=@ubuntu.com header.b="Muxvk4CL"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ubuntu.com;
+ h=In-Reply-To: References: To: From: Subject: Cc: Message-Id: Date:
+ Content-Type: Content-Transfer-Encoding: Mime-Version; q=dns/txt;
+ s=fe-953a8a3ca9; t=1788198298;
+ bh=TsNs9dlzIsPw1n+dGjUVmTdA3V8aHtepoq7JGw3Pc2Q=;
+ b=Muxvk4CLjzq8tZsiIge2AwjCgbpPYFvdxERG7UNQoj+uVGz2zZDxTDw7NDTJIi5m5vwZAERJt
+ 6MYj6oxnfj4/j+u7AxTXx0rNzQe+fiH42pmEEzuC9AjL7QZRz+sG0xDercVU9UX4GqOMYnMxKXF
+ 1gveeaJHzR8t0K5K4MYbOh63qgNi1TabzjAGXqxBUGWHHF9x2ooZGHtX7JrvEPZaZqeC3nkDtzu
+ l+fZ9H5XakrtfhGq3MGj5a8l6us6QGJyEln+e4s/KmoDOCTbB4mJsVCallGT+3TkJ32aXcwWTUw
+ aAMN7o4QIRQjz7TCWnLjiVBPiehXoBvrdPhoGUpWj90A==
+X-Forward-Email-ID: 6a95bd922e35a4d29984247e
+X-Forward-Email-Sender: rfc822; jpeisach@ubuntu.com, smtp.forwardemail.net,
+ 121.127.44.66
+X-Forward-Email-Version: 2.14.0
+X-Forward-Email-Website: https://forwardemail.net
+X-Complaints-To: abuse@forwardemail.net
+X-Report-Abuse: abuse@forwardemail.net
+X-Report-Abuse-To: abuse@forwardemail.net
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260829060524.2656620-1-qiwenjie@xiaomi.com> <20260829060524.2656620-3-qiwenjie@xiaomi.com>
-In-Reply-To: <20260829060524.2656620-3-qiwenjie@xiaomi.com>
-From: Daeho Jeong <daeho43@gmail.com>
-Date: Mon, 31 Aug 2026 10:44:44 -0700
-X-Gm-Features: AcwNN1WVogtz2BDZ19XTLp20o3rrWnn2R24TEqroa3RcLburK3RkCqO8C0u6EQU
-Message-ID: <CACOAw_z1UUG0e+LSGmer_mPv+YcYVcjFiMLZ6RwhmYtmrObKXA@mail.gmail.com>
-Subject: Re: [PATCH v2 2/2] f2fs: refresh pinned allocation boundary after resize
-To: Wenjie Qi <qwjhust@gmail.com>
-Cc: jaegeuk@kernel.org, chao@kernel.org, sunqiuyang@huawei.com, 
-	daehojeong@google.com, linux-f2fs-devel@lists.sourceforge.net, 
-	linux-kernel@vger.kernel.org, qiwenjie@xiaomi.com
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8; format=Flowed
+Date: Mon, 31 Aug 2026 13:44:49 -0400
+Message-Id: <DL3BE19I49N4.3AZNJMC0LVG6R@ubuntu.com>
+Cc: "Konrad Dybcio" <konradybcio@kernel.org>, <linux-usb@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <asahi@lists.linux.dev>, <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [PATCH 00/19] Initial USB4/Thunderbolt support for Apple
+ M1/M2/M3 SoCs
+From: "Joshua Peisach" <jpeisach@ubuntu.com>
+To: "Sven Peter" <sven@kernel.org>, "Greg Kroah-Hartman"
+ <gregkh@linuxfoundation.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
+ "Heikki Krogerus" <heikki.krogerus@linux.intel.com>, "Janne Grunau"
+ <j@jannau.net>, "Neal Gompa" <neal@gompa.dev>, "Andreas Noever"
+ <andreas.noever@gmail.com>, "Mika Westerberg" <westeri@kernel.org>,
+ "Yehezkel Bernat" <YehezkelShB@gmail.com>, "Philipp Zabel"
+ <p.zabel@pengutronix.de>
+X-Mailer: aerc 0.21.0
+References: <20260830-b4-apple-soc-tbt-v1-0-44bc9348683c@kernel.org>
+In-Reply-To: <20260830-b4-apple-soc-tbt-v1-0-44bc9348683c@kernel.org>
 
-On Fri, Aug 28, 2026 at 11:05=E2=80=AFPM Wenjie Qi <qwjhust@gmail.com> wrot=
-e:
+On Sun Aug 30, 2026 at 4:19 PM EDT, Sven Peter wrote:
+> Hi,
 >
-> pinned_area_max_secno is derived from MAIN_SECS(), the zoned device
-> boundary, and resizable_tail_secno. It is currently recalculated only
-> at mount and remount, so online resize leaves the pre-resize value
-> active after MAIN_SECS() changes.
+> This series adds initial USB4/Thunderbolt support for Apple Silicon
+> M1, M2 and M3 SoCs. Each USB4 capable Type-C port comes with an ACIO
+> ("Apple Converged I/O") block which contains a Cortex-M3 co-processor
+> and the hardware implementing the USB4 router.
 >
-> A stale value can allow pinned allocations in sections outside the
-> new main-area boundary.
+> The NHI and DART IOMMU are part of this ACIO block as well. Instead of
+> being exposed as independent always-accessible devices the main SoC bus
+> only gets a 16 MiB window into ACIO's MMIO space while its co-processor
+> is running. It is not entirely clear whether this is ACIO's own address
+> space or a window into the co-processor's address space.
 >
-> Move the calculation to segment.h and call it whenever
-> update_fs_metadata() changes MAIN_SECS(). This also restores the
-> previous boundary when a final checkpoint error rolls the resize
-> metadata back.
+> This is why the device tree represents the NHI and DART as children of
+> ACIO with addresses relative to that window. The driver only populates
+> these children after booting the co-processor and removes them again
+> before powering ACIO down. This setup is slightly unusual but matches
+> both the MMIO layout and the lifetime of the devices.
 >
-> Mount option validation compares the tail count with the pre-resize
-> section count. Recalculating after a shrink below that tail would make
-> the unsigned subtraction wrap. Reject such a shrink with -EINVAL and
-> report the geometry before acquiring a mount write reference.
+> ACIO also has rather strict ordering requirements: it can only be
+> started after the Type-C PHY has been configured for USB4/Thunderbolt
+> and has to be stopped again before the PHY is powered down. It also
+> needs cable details which are only known to the Type-C port controller.
+> The existing Type-C mode switch cannot express the required reverse
+> teardown order, so the first three patches add a separate Thunderbolt
+> switch and hook it up to the CD321x port controller.
 >
-> A concurrent remount can change the tail after that early check.
-> Recheck it after freezing the filesystem and taking the resize locks,
-> before changing block counts or filesystem geometry.
+> The next two patches add the bindings for the NHI and ACIO. The
+> following patches then prepare the Thunderbolt core for the slightly
+> different NHI register layout and interrupt handling, read the USB4
+> router DROM from the device tree and add quirks for functionality not
+> implemented by the Apple hardware.
 >
-> Fixes: c966d29e01bb ("f2fs: support resizable tail section and unify pinn=
-ed allocation")
-> Signed-off-by: Wenjie Qi <qiwenjie@xiaomi.com>
+> The main driver powers up ACIO, boots the co-processor, populates
+> the DART and NHI children once their MMIO regions are accessible and
+> registers the NHI with the software connection manager. The last three
+> patches add the device tree nodes for the M1 and M2. M3 nodes will follow
+> once the rest of the stack is upstream, but the current Thunderbolt/USB4
+> code has already been successfully tested on those.
+>
+> Right now only XDomain connections and USB3-via-USB4 tunnels are
+> supported. Both PCIe and DisplayPort tunnels will come later since those
+> require additional work and reverse engineering that is not done yet.
+> Suspend is also not supported yet and we actually have to prevent
+> suspending whenever an active connection is present because we would
+> otherwise resume into an SError.
+>
+> This series depends on the Apple CIO reset controller [1], the ATCPHY
+> USB3-via-4 pipehandler support [2] and support for specifying the DART DM=
+A
+> aperture in the device tree [3], a fix for CD321x Thunderbolt
+> altmode VDOs [4], and fixes for making the DPTX capabilities read fail
+> gracefully [5]. I couldn't split it any further since the remaining
+> patches now directly depend upon each other.
+> Except for the dts changes the series applies cleanly without these
+> dependencies though.
+>
+> For merging it probably makes most sense if all of this (except for the
+> DTS changes) is taken through the thunderbolt tree once everything's been
+> reviewed.
+>
+> Best,
+>
+> Sven
+>
+> [1] https://patch.msgid.link/20260821-b4-cio-reset-v2-0-2d045f80a424@kern=
+el.org
+> [2] https://patch.msgid.link/20260821-b4-atcphy-usb4-v1-0-45c0b741e0c0@ke=
+rnel.org
+> [3] https://patch.msgid.link/20260819-iommu-apple-dart-aperture-v1-0-2527=
+03f381aa@jannau.net
+> [4] https://patch.msgid.link/20260813-b4-tipd-vdo-fix-v1-1-70317f2cd554@k=
+ernel.org
+> [5] https://patch.msgid.link/20260829-b4-tbt-fixes-v3-0-e1fab6ac54fe@kern=
+el.org
+>
+> Signed-off-by: Sven Peter <sven@kernel.org>
 > ---
-> Changes since v1:
-> - Simplify the incompatible-tail condition.
-> - Log the main, shrink, and tail section counts on rejection.
-> - Validate before acquiring the mount write reference.
-> - Restore compact formatting in the shared boundary helper.
-> - Recheck after freeze to cover a concurrent remount option change.
+> Sven Peter (19):
+>       dt-bindings: usb: Add thunderbolt-switch property
+>       usb: typec: Add thunderbolt switch
+>       usb: typec: tipd: Hook up Thunderbolt switch for CD321x
+>       dt-bindings: thunderbolt: Add Apple USB4/Thunderbolt NHI
+>       dt-bindings: thunderbolt: Add Apple USB4/Thunderbolt ACIO block
+>       thunderbolt: Try reading host DROM from device tree first
+>       thunderbolt: Don't read the UID if we already know it
+>       thunderbolt: Allocate ring HopID before requesting the ring interru=
+pt
+>       thunderbolt: Add ring_interrupt_active to tb_nhi_ops
+>       thunderbolt: Make the ring register layout configurable
+>       thunderbolt: Add ring_interrupt_mask to tb_nhi_ops
+>       thunderbolt: Add ring_configure to tb_nhi_ops
+>       thunderbolt: Add QUIRK_NO_DMA_PORT
+>       thunderbolt: Add QUIRK_NO_USB3_BW_ALLOC
+>       thunderbolt: Export symbols required by the Apple Silicon driver
+>       thunderbolt: Add Apple Silicon support
+>       arm64: dts: apple: t8103: Add USB4 ACIO and NHI
+>       arm64: dts: apple: t8112: Add USB4 ACIO and NHI
+>       arm64: dts: apple: t60xx: Add USB4 ACIO and NHI
 >
->  fs/f2fs/gc.c      | 27 ++++++++++++++++++++++++---
->  fs/f2fs/segment.h | 13 +++++++++++++
->  fs/f2fs/super.c   | 15 ++-------------
->  3 files changed, 39 insertions(+), 16 deletions(-)
+>  .../thunderbolt/apple,t8103-usb4-acio.yaml         |  218 +++++
+>  .../bindings/thunderbolt/apple,t8103-usb4-nhi.yaml |  151 +++
+>  .../devicetree/bindings/usb/usb-switch.yaml        |    6 +
+>  MAINTAINERS                                        |    4 +
+>  arch/arm64/boot/dts/apple/t6002-j375d.dts          |   67 ++
+>  arch/arm64/boot/dts/apple/t600x-dieX.dtsi          |  384 ++++++++
+>  arch/arm64/boot/dts/apple/t600x-j314-j316.dtsi     |  107 ++
+>  arch/arm64/boot/dts/apple/t600x-j375.dtsi          |  137 +++
+>  arch/arm64/boot/dts/apple/t6022-j180d.dts          |  202 ++++
+>  arch/arm64/boot/dts/apple/t6022-j475d.dts          |   10 +
+>  arch/arm64/boot/dts/apple/t6022-jxxxd.dtsi         |   57 ++
+>  arch/arm64/boot/dts/apple/t602x-dieX.dtsi          |  384 ++++++++
+>  arch/arm64/boot/dts/apple/t8103-jxxx.dtsi          |   61 ++
+>  arch/arm64/boot/dts/apple/t8103.dtsi               |  188 ++++
+>  arch/arm64/boot/dts/apple/t8112-jxxx.dtsi          |   61 ++
+>  arch/arm64/boot/dts/apple/t8112.dtsi               |  190 ++++
+>  drivers/thunderbolt/Kconfig                        |   13 +
+>  drivers/thunderbolt/Makefile                       |    3 +
+>  drivers/thunderbolt/apple.c                        | 1028 ++++++++++++++=
+++++++
+>  drivers/thunderbolt/cap.c                          |    2 +
+>  drivers/thunderbolt/ctl.c                          |    2 +
+>  drivers/thunderbolt/domain.c                       |    2 +
+>  drivers/thunderbolt/eeprom.c                       |   32 +-
+>  drivers/thunderbolt/nhi.c                          |  132 ++-
+>  drivers/thunderbolt/nhi.h                          |   32 +
+>  drivers/thunderbolt/switch.c                       |   19 +-
+>  drivers/thunderbolt/tb.c                           |   18 +
+>  drivers/thunderbolt/tb.h                           |    5 +
+>  drivers/thunderbolt/tunnel.c                       |   59 +-
+>  drivers/usb/typec/mux.c                            |  201 ++++
+>  drivers/usb/typec/mux.h                            |   12 +
+>  drivers/usb/typec/tipd/core.c                      |   37 +
+>  include/linux/thunderbolt.h                        |    3 +
+>  include/linux/usb/typec_mux.h                      |  114 +++
+>  34 files changed, 3872 insertions(+), 69 deletions(-)
+> ---
+> base-commit: 78bb208b99e7d3314f670710fa9ee0a793682bca
+> change-id: 20260829-b4-apple-soc-tbt-a00e873a52db
 >
-> diff --git a/fs/f2fs/gc.c b/fs/f2fs/gc.c
-> index 0a00180c21dc..3c61bf675afa 100644
-> --- a/fs/f2fs/gc.c
-> +++ b/fs/f2fs/gc.c
-> @@ -2326,6 +2326,7 @@ static void update_fs_metadata(struct f2fs_sb_info =
-*sbi, int secs)
->         SM_I(sbi)->segment_count =3D (int)SM_I(sbi)->segment_count + segs=
-;
->         MAIN_SEGS(sbi) =3D (int)MAIN_SEGS(sbi) + segs;
->         MAIN_SECS(sbi) +=3D secs;
-> +       f2fs_adjust_pinned_area_boundary(sbi);
->         if (sbi->allocate_section_hint > MAIN_SECS(sbi))
->                 sbi->allocate_section_hint =3D MAIN_SECS(sbi);
->         FREE_I(sbi)->free_sections =3D (int)FREE_I(sbi)->free_sections + =
-secs;
-> @@ -2349,6 +2350,19 @@ static void update_fs_metadata(struct f2fs_sb_info=
- *sbi, int secs)
->         }
->  }
->
-> +static bool f2fs_resize_tail_invalid(struct f2fs_sb_info *sbi,
-> +                                    unsigned int secs)
-> +{
-> +       if (MAIN_SECS(sbi) >
-> +                       secs + F2FS_OPTION(sbi).resizable_tail_secno)
-> +               return false;
-> +
-> +       f2fs_err(sbi, "Invalid resize: main %u, shrink %u, tail %u",
-> +                MAIN_SECS(sbi), secs,
-> +                F2FS_OPTION(sbi).resizable_tail_secno);
-> +       return true;
-> +}
-> +
->  int f2fs_resize_fs(struct file *filp, __u64 block_count)
->  {
->         struct f2fs_sb_info *sbi =3D F2FS_I_SB(file_inode(filp));
-> @@ -2392,13 +2406,15 @@ int f2fs_resize_fs(struct file *filp, __u64 block=
-_count)
->                 return -EINVAL;
->         }
->
-> +       shrunk_blocks =3D old_block_count - block_count;
-> +       secs =3D div_u64(shrunk_blocks, BLKS_PER_SEC(sbi));
-> +       if (f2fs_resize_tail_invalid(sbi, secs))
-> +               return -EINVAL;
-> +
->         err =3D mnt_want_write_file(filp);
->         if (err)
->                 return err;
->
-> -       shrunk_blocks =3D old_block_count - block_count;
-> -       secs =3D div_u64(shrunk_blocks, BLKS_PER_SEC(sbi));
-> -
->         /* stop other GC */
->         if (!f2fs_down_write_trylock_trace(&sbi->gc_lock, &glc)) {
->                 err =3D -EAGAIN;
-> @@ -2442,6 +2458,11 @@ int f2fs_resize_fs(struct file *filp, __u64 block_=
-count)
->         f2fs_down_write_trace(&sbi->gc_lock, &glc);
->         f2fs_down_write_trace(&sbi->cp_global_sem, &clc);
->
-> +       if (f2fs_resize_tail_invalid(sbi, secs)) {
-> +               err =3D -EINVAL;
-> +               goto out_err;
-> +       }
+> Best regards,
+> -- =20
+> Sven Peter <sven@kernel.org>
 
-redundant check?
+I unfortunately cannot test (afaik I do not have the devices) but a
+glance over everything seems reasonable :)
 
-Thanks,
-
-> +
->         spin_lock(&sbi->stat_lock);
->         if (shrunk_blocks + valid_user_blocks(sbi) +
->                 sbi->current_reserved_blocks + sbi->unusable_block_count =
-+
-> diff --git a/fs/f2fs/segment.h b/fs/f2fs/segment.h
-> index 5949aa5200ac..a31d3a6ca756 100644
-> --- a/fs/f2fs/segment.h
-> +++ b/fs/f2fs/segment.h
-> @@ -91,6 +91,19 @@ static inline void sanity_check_seg_type(struct f2fs_s=
-b_info *sbi,
->  #define GET_ZONE_FROM_SEG(sbi, segno)                          \
->         GET_ZONE_FROM_SEC(sbi, GET_SEC_FROM_SEG(sbi, segno))
->
-> +static inline void f2fs_adjust_pinned_area_boundary(struct f2fs_sb_info =
-*sbi)
-> +{
-> +       sbi->pinned_area_max_secno =3D MAIN_SECS(sbi);
-> +       if (f2fs_sb_has_blkzoned(sbi) &&
-> +           sbi->first_seq_zone_segno !=3D NULL_SEGNO)
-> +               sbi->pinned_area_max_secno =3D min(sbi->pinned_area_max_s=
-ecno,
-> +                                                GET_SEC_FROM_SEG(sbi, sb=
-i->first_seq_zone_segno));
-> +       if (F2FS_OPTION(sbi).resizable_tail_secno)
-> +               sbi->pinned_area_max_secno =3D min(sbi->pinned_area_max_s=
-ecno,
-> +                                                MAIN_SECS(sbi) -
-> +                                                F2FS_OPTION(sbi).resizab=
-le_tail_secno);
-> +}
-> +
->  #define GET_SUM_BLOCK(sbi, segno)      \
->         (SM_I(sbi)->ssa_blkaddr + (segno / (sbi)->sums_per_block))
->  #define GET_SUM_BLKOFF(sbi, segno) (segno % (sbi)->sums_per_block)
-> diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
-> index 253a579e9d5b..c8f8ecf49635 100644
-> --- a/fs/f2fs/super.c
-> +++ b/fs/f2fs/super.c
-> @@ -554,17 +554,6 @@ static inline void adjust_unusable_cap_perc(struct f=
-2fs_sb_info *sbi)
->                         F2FS_OPTION(sbi).unusable_cap_perc);
->  }
->
-> -static inline void adjust_pinned_area_boundary(struct f2fs_sb_info *sbi)
-> -{
-> -       sbi->pinned_area_max_secno =3D MAIN_SECS(sbi);
-> -       if (f2fs_sb_has_blkzoned(sbi) && sbi->first_seq_zone_segno !=3D N=
-ULL_SEGNO)
-> -               sbi->pinned_area_max_secno =3D min(sbi->pinned_area_max_s=
-ecno,
-> -                               GET_SEC_FROM_SEG(sbi, sbi->first_seq_zone=
-_segno));
-> -       if (F2FS_OPTION(sbi).resizable_tail_secno)
-> -               sbi->pinned_area_max_secno =3D min(sbi->pinned_area_max_s=
-ecno,
-> -                               MAIN_SECS(sbi) - F2FS_OPTION(sbi).resizab=
-le_tail_secno);
-> -}
-> -
->  static void init_once(void *foo)
->  {
->         struct f2fs_inode_info *fi =3D (struct f2fs_inode_info *) foo;
-> @@ -3078,7 +3067,7 @@ static int __f2fs_remount(struct fs_context *fc, st=
-ruct super_block *sb)
->         sb->s_flags =3D (sb->s_flags & ~SB_POSIXACL) |
->                 (test_opt(sbi, POSIX_ACL) ? SB_POSIXACL : 0);
->
-> -       adjust_pinned_area_boundary(sbi);
-> +       f2fs_adjust_pinned_area_boundary(sbi);
->         limit_reserve_root(sbi);
->         fc->sb_flags =3D (flags & ~SB_LAZYTIME) | (sb->s_flags & SB_LAZYT=
-IME);
->
-> @@ -5321,7 +5310,7 @@ static int f2fs_fill_super(struct super_block *sb, =
-struct fs_context *fc)
->         /* get segno of first zoned block device */
->         sbi->first_seq_zone_segno =3D get_first_seq_zone_segno(sbi);
->
-> -       adjust_pinned_area_boundary(sbi);
-> +       f2fs_adjust_pinned_area_boundary(sbi);
->
->         sbi->reserved_pin_section =3D f2fs_sb_has_blkzoned(sbi) ?
->                         ZONED_PIN_SEC_REQUIRED_COUNT :
-> --
-> 2.43.0
+Reviewed-by: Joshua Peisach <jpeisach@ubuntu.com>
