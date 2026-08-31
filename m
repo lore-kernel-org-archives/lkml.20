@@ -1,189 +1,132 @@
-Received: from va-2-111.ptr.blmpb.com (va-2-111.ptr.blmpb.com [209.127.231.111])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE6D5282F16
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 11:20:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.111
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0387F39EF0A;
+	Mon, 31 Aug 2026 11:21:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788175232; cv=none; b=mbhpuFdLQX1m70wVBUnyP8gh4i86fZB55DlMLwpy2ozF6TzZQSueu4cw531QH2kPixsV4GuHqho95M18hxGUlybDJWXlvfnU9Z+nCI4UsGzpf3zjLHPRu0PviECo0sL4wK+adJjYOrjTFqsIR2kDqyp8Tu3XPGwD0iPux1qv5bk=
+	t=1788175288; cv=none; b=jVT8i3PRB4U4RMGfHa5tLs53KaTqdILq5AlW7BCSytMrXpjBj6ESM0giewwD+4rQp6OA9xo/VRfkWRe3KMxe6Gy77MJ+uOVj7JJD4sbN7MUW4wMQUBs+i+JoaFOW9fJzxpYcFamxBn/k+6bjedD8lqjw3rGw3uPAHNeYhPIdSPw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788175232; c=relaxed/simple;
-	bh=xKWhxymsxv6nIhmLcK0gws/TUia/Ic5UXr9PVYBY7/s=;
-	h=In-Reply-To:Content-Type:To:From:Subject:Mime-Version:Cc:
-	 Message-Id:Date:References; b=DoO1GDFWW75wNFWFtiT6Js5nGEk/gQax0JwxfGZBp+IWkVOSMSMgFlIKSxcRPbzAHmeAQT0hWZZ0pXagfp297lpZtPfmdEEVamQzS2eynfkjCvY8IkZOnUTtsb1NPdcyujruYOSJ2N317q0G3ThHD/PPh1WofQZXZaklmRgZNTw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=qWbZE25+; arc=none smtp.client-ip=209.127.231.111
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	s=arc-20240116; t=1788175288; c=relaxed/simple;
+	bh=XJW+4wN639tZ0O/cHPCM0FmwkLsGrOrQ7NWSTg6T48o=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=UWg8UlfqIvDoEDDU+ODHslhTY8emLTCUtlLS7GHzRc5gBVGRodtX41niBkpZim4OuxlDC80MFQxHpN8I9iiG+W2wNaJYf+eSGo90QhZj1PSU9V+dUchihxhvO3CcKFfq8TTJoHdiGTx8O5a54KnEvtCbH7qF0ylhE++UqdyKjwM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BLHYPF8W; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="qWbZE25+"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1788175224; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=W3mTk0uO3fJ8loj8Vy9eCiD36YUSNCrm55bF0bJb8Z0=;
- b=qWbZE25+Fl/NO3nw9RCvnXO4dihmAdjyq8obIx9OzGhqChQoZCJxhpFItIo7yZKOHm8Dqp
- hn5MsrQa6e1Dn1qbScw3plQ6afOWl3995LkplFaD32gJ7kaBZP3vXXaiw3dlOaoRboNJot
- zzZxOH9zgKiUO5RU86qHZ/d0jaA/FyR3j1FiEfl/9qcZ7u9F3tmuCmTpttEONG6ftWx2y1
- /MjVpCSQg5dKcXUTuyIkDuf/vHItBM08K5AofmSqCAD3M+T9ZLIKUu1GJogzSztN3H/aMZ
- UnehlEqzfbyOLbimAK44vg9maKpRQXiJbhTLCLVG/srG/BloRX725Ad9XXfyxw==
-In-Reply-To: <20260831111638.76012-1-lizhe.67@bytedance.com>
-Content-Type: text/plain; charset=UTF-8
-To: <akpm@linux-foundation.org>, <apopple@nvidia.com>, <arnd@arndb.de>, 
-	<balbirs@nvidia.com>, <bp@alien8.de>, <dave.hansen@linux.intel.com>, 
-	<david@kernel.org>, <kees@kernel.org>, <mingo@redhat.com>, 
-	<muchun.song@linux.dev>, <rppt@kernel.org>, <tglx@kernel.org>
-From: "Li Zhe" <lizhe.67@bytedance.com>
-Subject: [PATCH v11 7/7] x86/string: extend memcpy_flushcache() fixed-size fastpaths
-X-Original-From: Li Zhe <lizhe.67@bytedance.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BLHYPF8W"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 906701F000E9;
+	Mon, 31 Aug 2026 11:21:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788175286;
+	bh=xcRJQqkbbjssWqrS0+xsz4j8CMY2DHt3MSX34j0LBYw=;
+	h=From:Subject:Date:To:Cc;
+	b=BLHYPF8WGMp/1ivAuuDsr15JULQde9c3TcXvaaDb/n7h1xIlTocn8Y0F90Liaahi4
+	 vOPrqOLWuI3r2hIE6ct1QvW8ar6rzIBXKyMQ5hwP7ciHe7LjHWbBhe8ArMBzQIcr+A
+	 DhxGMA5OC/N1C7RSczfkAuwp84xXl9LmR9Nscq+ukftZgAK9wn/NSqesTnZqeSGA6P
+	 5qCbo1PHFZ5GbulYcIIu9UYdlAVAKjqGQNN/O7aX12kzycjhZLjVmK9O0ckasB6YYY
+	 Wk37kPqe/uVkPgy7gkR2f+LNLiB9SkhOQtpM8LgvivMqfoiGeVg/FNwcPWvEvT6bjJ
+	 vWzlf8JpzbqRw==
+From: Christian Brauner <brauner@kernel.org>
+Subject: [PATCH 00/10] net: support thread-specific pidfds for send and
+ connect
+Date: Mon, 31 Aug 2026 13:21:12 +0200
+Message-Id: <20260831-work-unix-passpidfd-v1-0-70cbfda0c7ba@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.45.2
-Cc: <linux-arch@vger.kernel.org>, <linux-hardening@vger.kernel.org>, 
-	<linux-kernel@vger.kernel.org>, <linux-mm@kvack.org>, <x86@kernel.org>, 
-	<lizhe.67@bytedance.com>
-Message-Id: <20260831111638.76012-8-lizhe.67@bytedance.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Date: Mon, 31 Aug 2026 19:16:38 +0800
-References: <20260831111638.76012-1-lizhe.67@bytedance.com>
-X-Lms-Return-Path: <lba+26a956377+1b0b11+vger.kernel.org+lizhe.67@bytedance.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/z3M3QrCMAyG4VsZOTalKziqtyIe9CdzUehK43Qwd
+ u+2Ch6+4cuzgVBhEjh3GxR6sfCcavSHDsLk0o2QY20w2gzamiO+5/LAJfGK2YlkjmNEbQfXU9A
+ nsg7qZy408vpVL9dfy+LvFJ6NagvvhNAXl8LUTg1VDVV/VLUJ7PsH/eazBqIAAAA=
+X-Change-ID: 20260825-work-unix-passpidfd-086a1ec09e8a
+To: Jakub Kicinski <kuba@kernel.org>, Kuniyuki Iwashima <kuniyu@google.com>, 
+ Oleg Nesterov <oleg@redhat.com>
+Cc: "David S. Miller" <davem@davemloft.net>, 
+ Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, 
+ Simon Horman <horms@kernel.org>, Willem de Bruijn <willemb@google.com>, 
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, 
+ linux-fsdevel@vger.kernel.org, 
+ Alexander Mikhalitsyn <alexander@mihalicyn.com>, 
+ "Christian Brauner (Amutable)" <brauner@kernel.org>
+X-Mailer: b4 0.17-dev-db0b7
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3602; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=XJW+4wN639tZ0O/cHPCM0FmwkLsGrOrQ7NWSTg6T48o=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWRNTd7wJklr01GluYcDctYuW71yy64HNTLP3/quvbdKL
+ 3/bh1Id/Y5SFgYxLgZZMUUWh3aTcLnlPBWbjTI1YOawMoEMYeDiFICJ8GswMlyM7734P9/x9QWp
+ n9vPfXN60ORocvz6paYC9vKqeMag7+kMf6XlJWRCkxVll2kGPfppqb7HycbQ9ZBuoEvjl7SFie9
+ fcwMA
+X-Developer-Key: i=brauner@kernel.org; a=openpgp;
+ fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-The x86 memcpy_nontemporal() helper maps to memcpy_flushcache(), and the
-ZONE_DEVICE template-copy path uses it to copy one struct page at a
-time.
+SO_PASSPIDFD/SCM_PIDFD and SO_PEERPIDFD allow to retrieve a pidfd for
+the thread-group leader. The coredump server using the coredump socket
+cannot get a handle on the task that took the signal and is writing the
+coredump easily. Workloads interested in per-thread authentification
+have similar problems.
 
-The relevant copy size is sizeof(struct page). On x86_64, the base struct
-page layout is 64 bytes. Adding either the KMSAN metadata pointers or an
-out-of-flags last_cpupid field can make it 80 bytes after alignment, and
-enabling both can make it 96 bytes.
+Add SO_PASSPIDFD_THREAD and SO_PEERPIDFD_THREAD. We record the sending
+and the connecting thread in addition to the thread-group leader.
 
-memcpy_flushcache() currently only has inline fixed-size cases for 4, 8,
-and 16 bytes. As a result, these constant-sized struct page copies fall
-through to __memcpy_flushcache() even though the compiler knows the copy
-size at the call site.
+SO_PASSPIDFD_THREAD functions like SO_PASSPIDFD but instead of an
+SCM_PIDFD message for the thread-group leader, SCM_PIDFD sends a pidfd
+for the specific thread. SO_PASSPIDFD_THREAD is mutually exclusive with
+SO_PASSPIDFD. The last one set takes precedence and disables the other
+one. Both SO_PASSCRED and SO_PASSPIDFD receivers see one writer per
+process as before.
 
-Add fixed-size MOVNTI cases up to 96 bytes so the ZONE_DEVICE
-template-copy path can keep these struct page copies in the inline
-memcpy_flushcache() path.
+SO_PEERPIDFD_THREAD allows to retrieve a pidfd for the specific thread
+that called connect(), listen(), or socketpair().
 
-This matters for ZONE_DEVICE memmap initialization because the copy
-happens once per initialized struct page. For a 100 GB fsdax namespace
-with map=dev, this is about 25 million struct page copies during nd_pmem
-binding or rebinding.
+pidfs_coredump() now also stamps the dumping thread's struct pid so a
+pidfd for that thread reports the coredump like the pidfd of the
+thread-group leader does.
 
-Tested in a VM with a 100 GB fsdax namespace device configured with
-map=dev and a 100 GB devdax namespace (align=2097152) on Intel Ice Lake
-server.
-
-Test procedure:
-Rebind the nd_pmem and dax_pmem drivers 30 times and collect the memmap
-initialization time from the pr_debug() output of
-memmap_init_zone_device().
-
-With memcpy_nontemporal() used by the ZONE_DEVICE template-copy path:
-  Average of rebinds for nd_pmem driver: 150.40 ms
-  Average of rebinds for dax_pmem driver: 161.83 ms
-
-With this x86 fixed-size fastpath patch applied:
-  Average of rebinds for nd_pmem driver: 71.93 ms
-  Average of rebinds for dax_pmem driver: 87.37 ms
-
-This further reduces the average memmap initialization time measured
-during rebind by about 52.2% for nd_pmem and 46.0% for dax_pmem.
-
-Suggested-by: Borislav Petkov <bp@alien8.de>
-Signed-off-by: Li Zhe <lizhe.67@bytedance.com>
-Acked-by: Borislav Petkov (AMD) <bp@alien8.de>
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
- arch/x86/include/asm/string_64.h | 71 +++++++++++++++++++++++++-------
- 1 file changed, 56 insertions(+), 15 deletions(-)
+Christian Brauner (10):
+      pid: add helpers to operate on a struct pid array
+      af_unix: record the pid of the sending thread
+      net: add SO_PASSPIDFD_THREAD to get a thread-specific SCM_PIDFD
+      selftests/net: SO_PASSPIDFD_THREAD
+      net: turn sk_peer_pid into an array indexed by pid type
+      af_unix: record the pid of the connecting thread
+      net: add SO_PEERPIDFD_THREAD to get a thread-specific pidfd
+      selftests/net: SO_PEERPIDFD_THREAD
+      pidfs: record the coredump on the dumping thread's pid too
+      selftests/coredump: check the dumping thread's pidfd
 
-diff --git a/arch/x86/include/asm/string_64.h b/arch/x86/include/asm/string_64.h
-index 21ae515ae35a..831d3dda3b38 100644
---- a/arch/x86/include/asm/string_64.h
-+++ b/arch/x86/include/asm/string_64.h
-@@ -82,23 +82,64 @@ int strcmp(const char *cs, const char *ct);
- #ifdef CONFIG_ARCH_HAS_UACCESS_FLUSHCACHE
- #define __HAVE_ARCH_MEMCPY_FLUSHCACHE 1
- void __memcpy_flushcache(void *dst, const void *src, size_t cnt);
--static __always_inline void memcpy_flushcache(void *dst, const void *src, size_t cnt)
-+
-+static __always_inline void movnti_4(void *dst, const void *src)
-+{
-+	asm volatile("movntil %1, %0"
-+		     : "=m"(*(u32 *)dst)
-+		     : "r"(*(const u32 *)src)
-+		     : "memory");
-+}
-+
-+static __always_inline void movnti_8(void *dst, const void *src)
-+{
-+	asm volatile("movntiq %1, %0"
-+		     : "=m"(*(u64 *)dst)
-+		     : "r"(*(const u64 *)src)
-+		     : "memory");
-+}
-+
-+static __always_inline void movnti_16(void *dst, const void *src)
-+{
-+	movnti_8(dst, src);
-+	movnti_8(dst + 8, src + 8);
-+}
-+
-+static __always_inline void movnti_32(void *dst, const void *src)
-+{
-+	movnti_16(dst, src);
-+	movnti_16(dst + 16, src + 16);
-+}
-+
-+static __always_inline void movnti_64(void *dst, const void *src)
-+{
-+	movnti_32(dst, src);
-+	movnti_32(dst + 32, src + 32);
-+}
-+
-+static __always_inline void memcpy_flushcache(void *dst, const void *src,
-+					      size_t cnt)
- {
--	if (__builtin_constant_p(cnt)) {
--		switch (cnt) {
--			case 4:
--				asm ("movntil %1, %0" : "=m"(*(u32 *)dst) : "r"(*(u32 *)src));
--				return;
--			case 8:
--				asm ("movntiq %1, %0" : "=m"(*(u64 *)dst) : "r"(*(u64 *)src));
--				return;
--			case 16:
--				asm ("movntiq %1, %0" : "=m"(*(u64 *)dst) : "r"(*(u64 *)src));
--				asm ("movntiq %1, %0" : "=m"(*(u64 *)(dst + 8)) : "r"(*(u64 *)(src + 8)));
--				return;
--		}
-+	if (!__builtin_constant_p(cnt))
-+		return __memcpy_flushcache(dst, src, cnt);
-+
-+	/*
-+	 * The relevant fixed-size copies here are the x86_64 struct page sizes:
-+	 * 64, 80, and 96 bytes. Keep 32-byte and 48-byte copies inline as well
-+	 * instead of sending those nearby fixed-size cases back to
-+	 * __memcpy_flushcache().
-+	 */
-+	switch (cnt) {
-+	case 4:  movnti_4(dst, src); break;
-+	case 8:  movnti_8(dst, src); break;
-+	case 16: movnti_16(dst, src); break;
-+	case 32: movnti_32(dst, src); break;
-+	case 48: movnti_32(dst, src); movnti_16(dst + 32, src + 32); break;
-+	case 64: movnti_64(dst, src); break;
-+	case 80: movnti_64(dst, src); movnti_16(dst + 64, src + 64); break;
-+	case 96: movnti_64(dst, src); movnti_32(dst + 64, src + 64); break;
-+	default: __memcpy_flushcache(dst, src, cnt); break;
- 	}
--	__memcpy_flushcache(dst, src, cnt);
- }
- 
- #define memcpy_nontemporal memcpy_nontemporal
--- 
-2.20.1
+ arch/alpha/include/uapi/asm/socket.h               |   4 +
+ arch/mips/include/uapi/asm/socket.h                |   4 +
+ arch/parisc/include/uapi/asm/socket.h              |   4 +
+ arch/sparc/include/uapi/asm/socket.h               |   4 +
+ fs/coredump.c                                      |  22 +-
+ fs/pidfs.c                                         |  27 +-
+ include/linux/coredump.h                           |   4 +-
+ include/linux/pid.h                                |  53 +++
+ include/linux/pid_types.h                          |   8 +
+ include/linux/pidfs.h                              |   5 +
+ include/linux/sched/signal.h                       |  18 +
+ include/net/scm.h                                  |   7 +-
+ include/net/sock.h                                 |  14 +-
+ include/uapi/asm-generic/socket.h                  |   4 +
+ net/bluetooth/af_bluetooth.c                       |   6 +-
+ net/bluetooth/hci_sock.c                           |   8 +-
+ net/bluetooth/l2cap_sock.c                         |   2 +-
+ net/core/scm.c                                     |  36 +-
+ net/core/sock.c                                    | 120 ++++---
+ net/unix/af_unix.c                                 |  67 ++--
+ net/unix/af_unix.h                                 |   3 +-
+ .../selftests/coredump/coredump_socket_test.c      | 175 ++++++++++
+ tools/testing/selftests/coredump/coredump_test.h   |   2 +
+ .../selftests/coredump/coredump_test_helpers.c     |  49 +++
+ tools/testing/selftests/net/af_unix/Makefile       |   2 +
+ tools/testing/selftests/net/af_unix/scm_pidfd.c    | 366 +++++++++++++++++++++
+ 26 files changed, 905 insertions(+), 109 deletions(-)
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20260825-work-unix-passpidfd-086a1ec09e8a
+
