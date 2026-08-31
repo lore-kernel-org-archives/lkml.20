@@ -1,45 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 169CF57AF4E;
-	Mon, 31 Aug 2026 13:49:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03A2757AF50;
+	Mon, 31 Aug 2026 13:49:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788184166; cv=none; b=aFKDpHAa0LBA/6UdOUZ7/vwgEp2oD9iDtSieOMGxUYvo8FYjUKnps1+3u3MAiYf20X7oL2NIqxa7DfRc1s6sPawdmRyfc4DiUrERBJ+B7kSpdxcfMkNZpSIjlRrEVDal4Q8C4PzYPfL5tIm59Ml7yoN/5HYIn05/3WbWGD0AmoM=
+	t=1788184168; cv=none; b=cHBLGl8PiYKRqESA7cYsM767R+sTUM62SsbkkM1KrNPnjTS5FvkRV1Z0h8PocvkhfCRNZjV2ND3WZjY1bFY6yDt3aYlC570nfK+FrA27FtQ08GADoTsVPQSyJkU7Z7un6H+wtQnvVUV2zXwtPgIlNGw15NUtiLokZMbjtDCUBCs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788184166; c=relaxed/simple;
-	bh=siNDq8U9Y94jeeWCiLQz5TclaZvcIbyTOdymaUH9XlI=;
+	s=arc-20240116; t=1788184168; c=relaxed/simple;
+	bh=OaI6AHdSbNYol0qxXd9g/mrwedOpm1WSxGEQ9WocUPE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=QqqaShfdr6rasTCEn3rBWl+BWl2VGp9M7vHiMy4VYfxZR0KY+z0e1t1LVzvIJSJfWUb/m7CWW8aciABGlNPhfEfqJ5XRCZAfcDm8WPAjOVKSVPiKBHoefk79rOCKNgPW37m45XvTAVroqFWN4YMbiJLc9SGZvPoYjgoMZRMU0AY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eVeItwJd; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=JSG5i5FioMIn+8PreL1/zT8Nb4bKLm/a7yQZ9SHjLQvEB3b5TI+ocddDnn8n0vc0oUD54Cdv9FGDbIxiPv8MVtElAlBEiTz6qIJM0K5Ap0jPuS9oVDw7ZT2I04qr6FYxAJQcju0PkLXr4cqfwKtELC3BIVfYC53l75SCTbD80Lw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oDB0CjZW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eVeItwJd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 803BA1F00ACA;
-	Mon, 31 Aug 2026 13:49:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oDB0CjZW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5DE4C1F00A3F;
+	Mon, 31 Aug 2026 13:49:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788184164;
-	bh=0Q1y66WfB+Ah+19IjrF3LGQAdiAiYv1WRhXpM89rYFM=;
+	s=k20260515; t=1788184165;
+	bh=l5bO7/FV2QTdlgRTU8o2zG/6Csv1poRfJdScgOkwW3I=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=eVeItwJd35lLDNW7edD6jNs1vkA0O2GNMjCZ6PmCuSy0BI6DN2cgEAPpnrWCiEtFM
-	 h9qDewt81mIYXSvS9A3oqVIZ309OucgZ+N7Jwb1OqcPsW5HPBS15WqgUqvvVPhGZ5O
-	 KsWQFWbw/JefcIWrUNdeQPnIK5YYBUiWRUPFYCWa+QKwzEryc6auW0doWjwgbvwEmw
-	 zr+MaS0IqK2jsJtm9KyHroCHGPyXiU5ZLbU9HRne01fHqcBFEGPAtqOGqBWH7FsV3J
-	 BZuFYJrbedzx00Y9EwpMg2hZqCkL69vgM3tdP6rN+fYDl+GTJxs/+9GI+hysTpor9l
-	 EWg7b6WQM9hmw==
+	b=oDB0CjZWW6onw4IFy90EprLjf5xFmLLHPkfeVEbEzF2Q3oT71zcjQZtm0wCo0FUR2
+	 eKT/36C4fIjv6Hf3fpTx86YFWuys+wpuad8JlPzVxT92mmrKGGJgy5qypxusw7cMZB
+	 X7fzo76wn/oUrbNgKuXmwxAONgxfOu24DMaz13Q8qKtuj8tTQfQz0CF9/9fSb+6nAz
+	 FKVrKT11mAXV2wlwmBeq/X4/nEHzdO2+iUQcujQkRZzhDOY7XOoxz0QVuHVd6F9Bz5
+	 Rj1higvzn1140L6dDYCO+H3VElvvvXWU5UiGKr2NCZs9hRuIb7yVhVGl0kJ7+ZMek9
+	 5EupcbkgbbPxA==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Arnd Bergmann <arnd@arndb.de>,
-	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-	Bryan O'Donoghue <bod@kernel.org>,
+Cc: Gangliang Xie <ganglxie@amd.com>,
+	Tao Zhou <tao.zhou1@amd.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
 	Sasha Levin <sashal@kernel.org>,
-	mchehab@kernel.org,
-	linux-media@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
+	christian.koenig@amd.com,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-6.12] media: qcom: camss: avoid format string warning
-Date: Mon, 31 Aug 2026 09:29:17 -0400
-Message-ID: <20260831133314.4125787-529-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18] drm/amdgpu: add first record offset check
+Date: Mon, 31 Aug 2026 09:29:18 -0400
+Message-ID: <20260831133314.4125787-530-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -55,323 +57,390 @@ X-stable-base: Linux 6.18.48
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Arnd Bergmann <arnd@arndb.de>
+From: Gangliang Xie <ganglxie@amd.com>
 
-[ Upstream commit 797c1cbf672f372d6a464df0dcedf476fc715969 ]
+[ Upstream commit 4073cdf6713b7c170e35bf055354580cc52085d6 ]
 
-clang-22 warns about csiphy_match_clock_name() taking a variable format
-string that is not checked against the 'int index' argument:
+check the upper and lower limits of first record offset
 
-drivers/media/platform/qcom/camss/camss-csiphy.c:566:44: error: diagnostic behavior may be improved by
-      adding the 'format(printf, 2, 3)' attribute to the declaration of 'csiphy_match_clock_name'
-      [-Werror,-Wmissing-format-attribute]
-  561 | static bool csiphy_match_clock_name(const char *clock_name, const char *format,
-      | __attribute__((format(printf, 2, 3)))
-  562 |                                     int index)
-  563 | {
-  564 |         char name[16]; /* csiphyXXX_timer\0 */
-  565 |
-  566 |         snprintf(name, sizeof(name), format, index);
-      |                                                   ^
-drivers/media/platform/qcom/camss/camss-csiphy.c:561:13: note: 'csiphy_match_clock_name' declared here
-  561 | static bool csiphy_match_clock_name(const char *clock_name, const char *format,
-      |             ^
-
-Change the function to use a snprintf() style format string that allows this
-to be checked at the call site.
-
-Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Signed-off-by: Bryan O'Donoghue <bod@kernel.org>
+Signed-off-by: Gangliang Xie <ganglxie@amd.com>
+Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-## Phase 1: Commit Message Forensics
+# Stable Backport Analysis: `drm/amdgpu: add first record offset check`
 
-**Step 1.1 Record:** Subsystem `media: qcom: camss`; action verb
-`avoid`; claimed intent is to silence/fix a clang-22 `-Wmissing-format-
-attribute` diagnostic in `csiphy_match_clock_name()`.
-
-**Step 1.2 Record:** Tags present in the submission (verified via lore):
-- `Fixes: 0727615fb975 ("media: qcom: camss: Functionally decompose
-  CSIPHY clock lookups")`
-- `Signed-off-by: Arnd Bergmann <arnd@arndb.de>`
-- `Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>`
-- `Signed-off-by: Bryan O'Donoghue <bod@kernel.org>`
-- No `Reported-by`, `Tested-by`, `Cc: stable`, or bug-report `Link`
-  tags.
-
-**Step 1.3 Record:** Bug is a **build failure**, not a runtime defect.
-With clang-22 and `-Werror,-Wmissing-format-attribute`,
-`csiphy_match_clock_name()` passes a variable `format` to `snprintf()`
-without a printf-style attribute, so the compiler errors out. Symptom:
-kernel build fails when `CONFIG_VIDEO_QCOM_CAMSS` is enabled under those
-compiler flags. Root cause: helper takes `const char *format, int index`
-and uses `snprintf(name, ..., format, index)` without `__printf(2, 3)`.
-
-**Step 1.4 Record:** Not a hidden runtime bug fix. This is an explicit
-compiler-warning/build fix disguised as "avoid warning," but it does
-prevent real build breakage in clang-22 + Werror configurations.
+**Local tree:** `v6.18.44` (`stable/linux-6.18.y`, `VERSION = 6`,
+`PATCHLEVEL = 18`, `SUBLEVEL = 44`)
 
 ---
 
-## Phase 2: Diff Analysis
+## PHASE 1: COMMIT MESSAGE FORENSICS
 
-**Step 2.1 Record:** One file changed:
-`drivers/media/platform/qcom/camss/camss-csiphy.c` (+7/-3). Function
-modified: `csiphy_match_clock_name()`. Scope: single-file, surgical.
+### Step 1.1: Subject line
+**Record:** `[drm/amdgpu]` `[add]` — validate `first_rec_offset` bounds
+in RAS EEPROM header parsing during init.
 
-**Step 2.2 Record:**
-- **Before:** `csiphy_match_clock_name(clock_name, format, index)` calls
-  `snprintf(name, sizeof(name), format, index)`.
-- **After:** Function becomes `__printf(2, 3)
-  csiphy_match_clock_name(clock_name, format, ...)` using `va_list` +
-  `vsnprintf()`. Call sites are unchanged and still pass literal format
-  strings plus `csiphy->id`.
+### Step 1.2: Tags
+**Record:**
+- `Signed-off-by: Gangliang Xie <ganglxie@amd.com>` — author
+- `Reviewed-by: Tao Zhou <tao.zhou1@amd.com>` — AMD reviewer
+- `Signed-off-by: Alex Deucher <alexander.deucher@amd.com>` — amdgpu
+  maintainer
+- No `Fixes:`, `Reported-by:`, `Link:`, `Cc: stable`, or `Tested-by:`
+  tags
+- Notable: maintainer sign-off and internal AMD review, but no external
+  bug report
 
-**Step 2.3 Record:** Bug category: **build fix / compiler diagnostic
-fix**. Mechanism: adding `__printf(2, 3)` lets clang verify format
-strings at call sites; variadic args preserve existing behavior.
+### Step 1.3: Body analysis
+**Record:**
+- **Bug described:** `first_rec_offset` from the RAS EEPROM header is
+  not bounds-checked.
+- **Symptom/failure mode:** Not spelled out in the message; code
+  analysis shows invalid `first_rec_offset` yields an invalid `ras_fri`
+  (first record index), breaking circular-buffer read logic.
+- **Version info:** None in message.
+- **Root cause (from code):** `RAS_OFFSET_TO_INDEX()` does unsigned
+  arithmetic; a `first_rec_offset` below `ras_record_offset` wraps to a
+  huge index, and values above the record region produce `ras_fri >=
+  ras_max_record_count`.
 
-**Step 2.4 Record:** Fix is obviously correct and minimal. Call sites at
-lines 678–692 still pass `"csiphy%d_timer"`, `"csi%d_phy"`, and
-`"csiphy%d"` with `csiphy->id` — compatible with variadic calling.
-Regression risk is very low; behavior is equivalent to the old
-`snprintf()` path. `linux/kernel.h` (already included) provides
-`va_list` support, matching the pattern used in the already-backported
-`clk: qoriq` fix in this tree.
-
----
-
-## Phase 3: Git History Investigation
-
-**Step 3.1 Record:** Current tree at `camss-csiphy.c:561–567` still has
-the pre-fix code. `git blame` attributes those lines to merge commit
-`5d324e5159d9e`. The `csiphy_match_clock_name()` helper pattern dates to
-commit `0727615fb975` (Oct 2023, "Functionally decompose CSIPHY clock
-lookups").
-
-**Step 3.2 Record:** `Fixes: 0727615fb975` exists in the object database
-and introduced the helper. The buggy pattern is present in the checked-
-out `6.18.43` tree. The fix commit itself is **not** yet in this tree.
-
-**Step 3.3 Record:** Related recent camss commits in this tree are
-runtime fixes (RDI streaming, VFE lite clocks). No duplicate fix for
-this warning. **Precedent:** `558b2eb623f2f` (`clk: qoriq: avoid format
-string warning`) — same author, same clang-22 issue, same
-variadic/`__printf` pattern — was already backported to this `6.18.y`
-tree by Greg Kroah-Hartman.
-
-**Step 3.4 Record:** Arnd Bergmann is a frequent contributor of clang
-build-warning fixes across the kernel. Bryan O'Donoghue is the camss
-subsystem author/maintainer and reviewed the patch.
-
-**Step 3.5 Record:** No series dependencies. Standalone, self-contained.
-Call sites require no changes.
+### Step 1.4: Hidden bug fix detection
+**Record:** Yes — despite the neutral “add check” wording, this is a
+defensive bug fix completing RAS header validation started by
+`5df0d6addb7e9` (“Add basic validation for RAS header”). Invalid
+`ras_fri` can cause out-of-bounds EEPROM reads and bad arithmetic in
+`amdgpu_ras_eeprom_read()`.
 
 ---
 
-## Phase 4: Mailing List and External Research
+## PHASE 2: DIFF ANALYSIS
 
-**Step 4.1 Record:** Original submission at [lore.kernel.org patch
-thread](https://lkml.iu.edu/2603.2/11306.html) (2026-03-20). Bryan
-O'Donoghue replied with `Reviewed-by` ([spinics
-thread](https://www.spinics.net/lists/kernel/msg6110456.html)). No NAKs
-found. No explicit stable nomination in the thread. `b4 dig -c <hash>`
-failed (commit not present locally); lore fetch used instead.
+### Step 2.1: Inventory
+**Record:**
+- **File:** `drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c` (+8 lines)
+- **Function:** `amdgpu_ras_eeprom_init()`
+- **Scope:** Single-file, surgical validation on an error path
 
-**Step 4.2 Record:** CC list included linux-media, linux-arm-msm, llvm@,
-and subsystem maintainers (Hans Verkuil, Bryan O'Donoghue, etc.).
-Appropriate reviewers were involved.
+### Step 2.2: Code flow change
+**Record:**
+- **Before:** After validating `ras_num_recs`, code unconditionally sets
+  `control->ras_fri = RAS_OFFSET_TO_INDEX(control,
+  hdr->first_rec_offset)` and returns success.
+- **After:** Rejects headers where `first_rec_offset <
+  ras_record_offset` or `ras_fri >= ras_max_record_count`, logging an
+  error and returning `-EINVAL`.
+- **Path affected:** GPU probe / RAS EEPROM init (error-handling path
+  for corrupt EEPROM data).
 
-**Step 4.3 Record:** No user bug report or syzbot report. Failure mode
-documented only via clang compiler output in the commit message.
+### Step 2.3: Bug mechanism
+**Record:** **Memory safety / logic correctness fix**
+- `RAS_OFFSET_TO_INDEX` is `((offset - ras_record_offset) / 24)` using
+  unsigned math.
+- Corrupt `first_rec_offset` below `ras_record_offset` (e.g. `0` when
+  minimum is `20`) wraps to a huge `ras_fri`.
+- `ras_fri` drives circular-buffer indexing in
+  `amdgpu_ras_eeprom_read()`; with invalid `ras_fri`, `g0`/`g1`
+  arithmetic can produce read counts far larger than the allocated
+  buffer (e.g. buffer sized for `ras_num_recs` but
+  `__amdgpu_ras_eeprom_read()` asked to read underflow-derived huge
+  counts).
+- No validation existed for this field; only `ras_num_recs` was checked
+  (since `5df0d6addb7e9`).
 
-**Step 4.4 Record:** Standalone patch, not part of a multi-patch series.
-Autosel pipeline has nominated a variant for `6.12.y` (seen in web
-search), indicating automated stable consideration of this class of fix.
-
-**Step 4.5 Record:** No stable-list discussion found beyond autosel
-nomination. Not applicable otherwise.
-
----
-
-## Phase 5: Code Semantic Analysis
-
-**Step 5.1 Record:** Modified function: `csiphy_match_clock_name()`.
-Caller context: `msm_csiphy_subdev_init()` clock-setup loop.
-
-**Step 5.2 Record:** Three call sites in `msm_csiphy_subdev_init()`
-(lines 678, 685, 692), all during CSIPHY probe/initialization when
-`CONFIG_VIDEO_QCOM_CAMSS` is enabled on Qualcomm platforms.
-
-**Step 5.3 Record:** Callees: `va_start`, `vsnprintf`, `va_end`,
-`strcmp`. No allocation, no locking.
-
-**Step 5.4 Record:** Reachable during device probe for Qualcomm camera
-hardware. Not syscall-reachable directly, but affects kernel
-buildability for that driver — not a runtime user-triggerable crash.
-
-**Step 5.5 Record:** Identical pattern fixed in `drivers/clk/clk-
-qoriq.c` in this same tree (`558b2eb623f2f`). Part of a broader clang-22
-`-Wmissing-format-attribute` cleanup effort by Arnd Bergmann.
+### Step 2.4: Fix quality
+**Record:**
+- **Quality:** Obviously correct — mirrors existing header validation
+  style.
+- **Minimal:** 8 lines, no API changes.
+- **Regression risk:** Very low; only rejects already-invalid headers.
+  On failure, `amdgpu_ras_init_badpage_info()` already sets
+  `is_eeprom_valid = false` and skips EEPROM loading.
 
 ---
 
-## Phase 6: Cross-Referencing Against the Local Tree
+## PHASE 3: GIT HISTORY INVESTIGATION
 
-**Step 6.1 Record:** Local tree is **Linux 6.18.43** (`git describe
-HEAD` → `v6.18.43-1-gc7f0dac02d232`, `Makefile` VERSION 6.18.43). Buggy
-code **is present** at `camss-csiphy.c:561–567`. Fix is **not** yet
-applied.
+### Step 3.1: Blame
+**Record:**
+- `ras_fri` assignment and `ras_num_recs` check introduced together in
+  `5df0d6addb7e9` (Lijo Lazar, 2025-03-26) — “Add basic validation for
+  RAS header”.
+- That commit validated record count but not `first_rec_offset`.
+- Bug present since `5df0d6addb7e9` in this tree; `ras_fri` usage is
+  much older.
 
-**Step 6.2 Record:** Expected backport difficulty: **clean apply**. File
-structure matches the upstream diff index (`62623393f414` parent in lore
-matches current content pattern).
+### Step 3.2: Fixes: tag
+**Record:** N/A — no `Fixes:` tag. Natural follow-up to `5df0d6addb7e9`,
+which is already in this tree.
 
-**Step 6.3 Record:** No equivalent fix already in tree. Sibling fix
-`clk: qoriq: avoid format string warning` is present; camss variant is
-not.
+### Step 3.3: Related file history
+**Record:**
+- `5df0d6addb7e9` — basic RAS header validation (in tree)
+- `660261df61fb7` — checksum validation on unload (in tree)
+- `89232d0db3ca9` — return on checksum error (in tree)
+- `4073cdf6713b7` — this fix (on `master`, **not** in `6.18.y`)
+- `c83e4a45ff9a0` — `tbl_size` validation (on `master`, not in tree;
+  separate issue)
+- Standalone one-commit fix, not part of a multi-patch series.
 
----
+### Step 3.4: Author context
+**Record:** Gangliang Xie is an active amdgpu contributor (RAS EEPROM
+work: checksum checks, bad-page loading, threshold handling). Alex
+Deucher is amdgpu maintainer.
 
-## Phase 7: Subsystem and Maintainer Context
-
-**Step 7.1 Record:** Subsystem: `drivers/media/platform/qcom/camss` —
-media platform driver for Qualcomm camera ISP. Criticality:
-**PERIPHERAL** (hardware-specific, `CONFIG_VIDEO_QCOM_CAMSS`, ARM QCOM +
-IOMMU).
-
-**Step 7.2 Record:** camss is actively maintained in stable with recent
-runtime fixes (RDI streaming, VFE lite). This patch is orthogonal to
-those.
-
----
-
-## Phase 8: Impact and Risk Assessment
-
-**Step 8.1 Record:** Affected population: kernel **builders** compiling
-`CONFIG_VIDEO_QCOM_CAMSS=y/m` with clang-22 and extra warnings (`W=1`
-enables `-Wmissing-format-attribute` per
-`scripts/Makefile.extrawarn:115`; `W=e` or `CONFIG_WERROR` promotes
-warnings to errors per `scripts/Makefile.extrawarn:217–219`). Not
-universal end-user runtime impact.
-
-**Step 8.2 Record:** Trigger: build with clang-22 + `-Wmissing-format-
-attribute` as error (e.g. `make W=1` or `W=e`, or `CONFIG_WERROR=y`).
-Default builds without extra warnings are unaffected. Unprivileged users
-cannot trigger this at runtime.
-
-**Step 8.3 Record:** Failure mode: **compile-time error** — build abort.
-Severity: **LOW** for deployed systems (no runtime crash/corruption);
-**MEDIUM** for developers/distributions using clang CI with Werror.
-
-**Step 8.4 Record:** Benefit: restores buildability under clang-22
-Werror CI; aligns with already-accepted precedent in this tree. Risk:
-very low (7-line localized change, maintainer-reviewed, no behavior
-change). Risk-benefit: favorable for stable given build-fix policy and
-existing qoriq backport.
+### Step 3.5: Dependencies
+**Record:**
+- Depends on `amdgpu_ras_eeprom_init()` and fields from `5df0d6addb7e9`
+  — all present in `6.18.y`.
+- `git apply --check` on `4073cdf6713b7` succeeds cleanly against
+  current tree.
+- Applies standalone.
 
 ---
 
-## Phase 9: Final Synthesis
+## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
-**Evidence FOR backport:**
-- Qualifies as a **build fix** under stable-kernel-rules exceptions.
-- Buggy code exists in this `6.18.43` tree; fix not yet applied.
-- Small, surgical, maintainer-reviewed (`Reviewed-by: Bryan
-  O'Donoghue`).
-- **Direct precedent in this tree:** `558b2eb623f2f clk: qoriq: avoid
-  format string warning` — identical issue class, same author, already
-  backported to `6.18.y`.
-- Prevents llvm/clang allmodconfig or `W=1`/`W=e` build failures.
+### Step 4.1: Original discussion
+**Record:** `b4 dig -c 4073cdf6713b7` returned no match. Lore search
+blocked (Anubis bot protection). Commit is on `master` as
+`4073cdf6713b7` (committed 2026-05-19).
 
-**Evidence AGAINST backport:**
-- Zero runtime user impact.
-- Only affects non-default build configurations (extra warnings/Werror).
-- Narrow scope: one optional driver on Qualcomm platforms.
+### Step 4.2: Reviewers
+**Record:** `b4 dig -w` also failed. From commit metadata: Reviewed-by
+Tao Zhou (AMD), Signed-off-by Alex Deucher (maintainer).
 
-**Stable rules checklist:**
-1. Obviously correct and tested? **PASS** — straightforward
-   variadic/`__printf` pattern; reviewed by subsystem maintainer.
-2. Fixes a real bug affecting users? **PASS** — real build failure for
-   clang-22 + Werror builders (not theoretical).
-3. Important issue? **PASS (low severity)** — build breakage, not
-   crash/corruption/security.
-4. Small and contained? **PASS** — 1 file, ~10 lines.
-5. No new features or APIs? **PASS** — internal static helper only.
-6. Can apply to local tree? **PASS** — code present, clean apply
-   expected.
+### Step 4.3: Bug reports
+**Record:** No `Reported-by:` or `Link:` tags. No syzbot/fuzzer report.
+Bug inferred from code path and prior validation commit rationale
+(“corrupted EEPROM header”).
 
-**Exception category:** Build fix.
+### Step 4.4: Related patches
+**Record:** Related mainline follow-up `c83e4a45ff9a0` (tbl_size guard)
+is separate; not required for this patch.
 
-**Decision rationale for Linux 6.18.y:** The tree already accepts this
-exact class of clang-22 format-attribute build fix (qoriq clk driver).
-The camss variant is the same technical issue, same fix pattern, same
-author, and the pre-fix code is present here. While runtime impact is
-nil, stable policy explicitly includes build fixes, and this tree has
-established precedent for backporting them.
+### Step 4.5: Stable list discussion
+**Record:** Could not search lore stable list (bot protection). No
+evidence found that this was explicitly rejected for stable.
+
+---
+
+## PHASE 5: CODE SEMANTIC ANALYSIS
+
+### Step 5.1: Key functions
+**Record:** `amdgpu_ras_eeprom_init()` (modified); downstream consumers
+of `ras_fri`: `amdgpu_ras_eeprom_read()`, `__amdgpu_ras_eeprom_read()`,
+EEPROM write paths.
+
+### Step 5.2: Callers
+**Record:**
+- `amdgpu_ras_eeprom_init()` ← `amdgpu_ras_init_badpage_info()` ←
+  `amdgpu_ras_recovery_init()` / `amdgpu_xgmi.c`
+- Called during GPU probe/RAS init on AMD hardware with RAS EEPROM
+  support (not VF, not SR-IOV guest).
+
+### Step 5.3: Callees
+**Record:** `amdgpu_eeprom_read()`, `__decode_table_header_from_buf()`,
+`RAS_OFFSET_TO_INDEX` macro.
+
+### Step 5.4: Reachability
+**Record:**
+- Triggered at boot/probe when reading physical GPU EEPROM over I2C.
+- Not directly userspace-triggerable, but affects every boot on affected
+  AMD GPUs with corrupted EEPROM.
+- Corruption can arise from hardware wear, firmware bugs, or prior bad
+  writes.
+
+### Step 5.5: Similar patterns
+**Record:** Same validation pattern as `ras_num_recs >
+ras_max_record_count` check added in `5df0d6addb7e9`. Part of a series
+of RAS EEPROM hardening commits already present in `6.18.y`.
+
+---
+
+## PHASE 6: CROSS-REFERENCE AGAINST LOCAL TREE
+
+### Step 6.1: Buggy code in tree?
+**Record:** **Yes.** At line 1441 in `amdgpu_ras_eeprom.c`, `ras_fri` is
+set without bounds checking. Fix commit `4073cdf6713b7` is not an
+ancestor of HEAD (`git merge-base --is-ancestor` exit 1). Gap introduced
+when `5df0d6addb7e9` landed in this tree (2025-03).
+
+### Step 6.2: Backport complications
+**Record:** Clean apply confirmed (`git apply --check` passes). No
+conflicts expected.
+
+### Step 6.3: Related fixes already present?
+**Record:** Prior validation (`5df0d6addb7e9`, `660261df61fb7`,
+`89232d0db3ca9`) is in tree, but not this `first_rec_offset` check. No
+duplicate fix found (`git log --grep="first record offset" HEAD` empty).
+
+---
+
+## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+
+### Step 7.1: Subsystem criticality
+**Record:** `drivers/gpu/drm/amd/amdgpu` — **IMPORTANT** (AMD GPU
+driver, RAS reliability/memory-error tracking). Not core-kernel-wide,
+but affects production AMD GPU deployments (datacenter, workstation).
+
+### Step 7.2: Subsystem activity
+**Record:** Actively maintained; multiple RAS EEPROM validation commits
+in 2025–2026 in this file.
+
+---
+
+## PHASE 8: IMPACT AND RISK ASSESSMENT
+
+### Step 8.1: Who is affected
+**Record:** AMD GPUs with RAS EEPROM support and corrupted/invalid
+`first_rec_offset` in EEPROM header. Config/driver-specific, not
+universal.
+
+### Step 8.2: Trigger conditions
+**Record:** Corrupt EEPROM header on boot/RAS init. Uncommon but
+realistic (EEPROM corruption is exactly why `5df0d6addb7e9` was added).
+Not userspace-exploitable in the usual sense.
+
+### Step 8.3: Failure mode severity
+**Record:** Invalid `ras_fri` breaks circular-buffer arithmetic in
+`amdgpu_ras_eeprom_read()`:
+- Unsigned underflow when `ras_fri > ras_max_record_count` → `g0 =
+  ras_max_record_count - ras_fri` wraps to a huge value
+- `__amdgpu_ras_eeprom_read()` may attempt reads far exceeding the
+  `kcalloc(num, ...)` buffer
+- **Severity: HIGH** — potential buffer overrun, I2C read errors, driver
+  malfunction; graceful `-EINVAL` path exists with the fix
+
+### Step 8.4: Risk-benefit
+**Record:**
+- **Benefit:** HIGH for affected hardware — prevents invalid EEPROM
+  parsing and dangerous downstream reads
+- **Risk:** VERY LOW — 8-line bounds check, same style as existing
+  validation
+- **Ratio:** Strongly favors backport
+
+---
+
+## PHASE 9: FINAL SYNTHESIS
+
+### Step 9.1: Evidence summary
+
+**FOR backport:**
+- Fixes real gap in RAS EEPROM header validation left by `5df0d6addb7e9`
+- Invalid `ras_fri` can cause dangerous read arithmetic / buffer sizing
+  mismatch
+- Small, surgical, maintainer-reviewed
+- Applies cleanly to `6.18.y`
+- Prerequisites already in tree
+- Consistent with other RAS EEPROM hardening already backported to this
+  tree
+
+**AGAINST backport:**
+- Commit message lacks explicit crash/reproducer description
+- Requires corrupted EEPROM (hardware-specific edge case)
+- No syzbot or user bug report
+
+**Unresolved:** Lore discussion and stable-list nomination could not be
+verified (b4/lore unavailable).
+
+### Step 9.2: Stable rules checklist
+1. Obviously correct and tested? **PASS** — straightforward bounds
+   check; AMD-reviewed, maintainer-acked (no runtime test cited).
+2. Fixes a real bug? **PASS** — unvalidated `first_rec_offset` yields
+   invalid `ras_fri`.
+3. Important issue? **PASS** — HIGH severity: potential buffer overrun /
+   driver malfunction on corrupt EEPROM.
+4. Small and contained? **PASS** — 8 lines, one function.
+5. No new features/APIs? **PASS** — validation only.
+6. Can apply to local tree? **PASS** — clean apply, prerequisites
+   present.
+
+### Step 9.3: Exception categories
+**Record:** None (not device ID, quirk, DT, build, or docs). Standard
+bug fix.
+
+### Step 9.4: Decision rationale
+This completes RAS EEPROM header validation already started in this
+`6.18.y` tree. Without it, a corrupt `first_rec_offset` can slip past
+existing checks and produce an invalid `ras_fri`, leading to broken
+circular-buffer read logic and potential memory safety issues during
+bad-page loading. The fix is minimal, obviously correct, low-risk, and
+directly addresses a real failure mode on AMD RAS-capable hardware.
 
 ---
 
 ## Verification
 
-- [Phase 1] Parsed commit message and lore submission; tags recorded; no
-  syzbot/user reports.
-- [Phase 2] Read `camss-csiphy.c:561–692`; confirmed diff changes only
-  `csiphy_match_clock_name()`; call sites unchanged.
-- [Phase 3] `git describe HEAD` → v6.18.43; `git blame -L 561,570` →
-  pre-fix code present; `git show 0727615fb975` → introduced helper Oct
-  2023; `git show 558b2eb623f2f` → sibling fix already in tree.
-- [Phase 3] `git log --grep="avoid format string warning"` → only qoriq
-  fix present, not camss.
-- [Phase 4] WebFetch lore submission and Bryan O'Donoghue review; `b4
-  dig -c` failed (commit not in local repo).
-- [Phase 5] `grep csiphy_match_clock_name` → 3 call sites in
-  `msm_csiphy_subdev_init()`.
-- [Phase 6] Confirmed tree version 6.18.43; buggy code at lines 561–567;
-  fix absent.
-- [Phase 6] Read `scripts/Makefile.extrawarn:113–115,217–219` →
-  `-Wmissing-format-attribute` requires `W=1`; Werror requires `W=e` or
-  `CONFIG_WERROR`.
-- [Phase 6] Read `drivers/media/platform/qcom/camss/Kconfig` →
-  `CONFIG_VIDEO_QCOM_CAMSS` depends on `ARCH_QCOM && IOMMU_DMA`.
-- [Phase 7] `git log --oneline -5 -- drivers/media/platform/qcom/camss/`
-  → active subsystem maintenance.
-- [Phase 8] Assessed severity as compile-time only, LOW runtime / MEDIUM
-  for clang CI builders.
+- **[Phase 1]** Parsed commit message and tags from user-provided diff
+  and `git show 4073cdf6713b7`
+- **[Phase 2]** Read `amdgpu_ras_eeprom_init()` at lines 1373–1444;
+  analyzed `RAS_OFFSET_TO_INDEX` macro (lines 135–136) and
+  `amdgpu_ras_eeprom_read()` (lines 962–1028)
+- **[Phase 2]** Traced buffer overflow scenario: invalid `ras_fri` → bad
+  `g0`/`g1` in `amdgpu_ras_eeprom_read()`
+- **[Phase 3]** `git blame -L 1434,1444`: `5df0d6addb7e9` introduced
+  unchecked `ras_fri` assignment
+- **[Phase 3]** `git show 5df0d6addb7e9`: prior validation commit
+  rationale (corrupt EEPROM → huge allocation)
+- **[Phase 3]** `git merge-base --is-ancestor 4073cdf6713b7 HEAD` → exit
+  1 (fix not in tree)
+- **[Phase 3]** `git merge-base --is-ancestor 5df0d6addb7e9 HEAD` → in
+  tree; `660261df61fb7` → in tree
+- **[Phase 3]** `git apply --check` on `4073cdf6713b7` → applies cleanly
+- **[Phase 4]** `b4 dig -c 4073cdf6713b7` → no result (exit 1)
+- **[Phase 4]** Lore.kernel.org fetch → blocked by Anubis
+- **[Phase 5]** `grep amdgpu_ras_eeprom_init`: callers in
+  `amdgpu_ras.c:3590`, `amdgpu_xgmi.c:1674`
+- **[Phase 5]** `amdgpu_ras_init_badpage_info()` sets `is_eeprom_valid =
+  !ret` on init failure (line 3591)
+- **[Phase 6]** `git describe HEAD` → `v6.18.44`; tree is
+  `stable/linux-6.18.y`
+- **[Phase 6]** Buggy code confirmed at line 1441 without bounds check
+- **[Phase 6]** `git log --grep="first record offset" HEAD` → empty (fix
+  absent)
+- **[Phase 8]** Constants verified: `RAS_TABLE_HEADER_SIZE=20`,
+  `RAS_RECORD_START=20`, `RAS_TABLE_RECORD_SIZE=24`,
+  `RAS_MAX_RECORD_COUNT≈10922`
 
-**YES**
+---
 
- drivers/media/platform/qcom/camss/camss-csiphy.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+**YES**The background check on `stable/linux-6.18.y` confirmed:
 
-diff --git a/drivers/media/platform/qcom/camss/camss-csiphy.c b/drivers/media/platform/qcom/camss/camss-csiphy.c
-index 2de97f58f9ae4..74c77969db7ef 100644
---- a/drivers/media/platform/qcom/camss/camss-csiphy.c
-+++ b/drivers/media/platform/qcom/camss/camss-csiphy.c
-@@ -558,12 +558,16 @@ static int csiphy_init_formats(struct v4l2_subdev *sd,
- 	return csiphy_set_format(sd, fh ? fh->state : NULL, &format);
- }
+- **Related validation is present:** `5df0d6addb7e9` ("Add basic
+  validation for RAS header") is in the tree.
+- **This fix is not:** no commit matching "first record offset" was
+  found on the stable branch.
+
+That matches the earlier analysis: the gap remains in `6.18.y`, the
+patch applies cleanly, and the backport recommendation stands at
+**YES**.
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
+index dafa46a9656ca..652aa085b6263 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
+@@ -1439,6 +1439,14 @@ int amdgpu_ras_eeprom_init(struct amdgpu_ras_eeprom_control *control)
+ 	}
  
--static bool csiphy_match_clock_name(const char *clock_name, const char *format,
--				    int index)
-+static bool __printf(2, 3)
-+csiphy_match_clock_name(const char *clock_name, const char *format, ...)
- {
- 	char name[16]; /* csiphyXXX_timer\0 */
-+	va_list args;
+ 	control->ras_fri = RAS_OFFSET_TO_INDEX(control, hdr->first_rec_offset);
++	if (hdr->first_rec_offset < control->ras_record_offset ||
++	    control->ras_fri >= control->ras_max_record_count) {
++		dev_err(adev->dev,
++			"RAS header invalid, ras_fri: %u, first_rec_offset:0x%x",
++			control->ras_fri, hdr->first_rec_offset);
++		return -EINVAL;
++	}
 +
-+	va_start(args, format);
-+	vsnprintf(name, sizeof(name), format, args);
-+	va_end(args);
- 
--	snprintf(name, sizeof(name), format, index);
- 	return !strcmp(clock_name, name);
- }
- 
+ 	control->ras_num_mca_recs = 0;
+ 	control->ras_num_pa_recs = 0;
+ 	return 0;
 -- 
 2.53.0
 
