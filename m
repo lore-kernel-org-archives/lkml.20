@@ -1,103 +1,79 @@
-Received: from mta0.migadu.com (out-36.mta0.migadu.com [91.218.175.36])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7990C54DAFE
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 13:46:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.36
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F413B54EEA6;
+	Mon, 31 Aug 2026 13:46:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788184004; cv=none; b=sHBeA8ylaL7zc1r0Ylcgn4AqHjVncOhwGzPCX8K2N/9ldEb8x6fvNZp1neTM19hMmvDNXuTsyv3KgS3NzIzXsgujcGNy2k7U1q6RCHkF3EsxCPynGTIhN4ncn7xFh0XROKUr6b2ikYQ0MyKqsJJFFnEskWKW7VaBlMKazaEP+Ss=
+	t=1788184006; cv=none; b=bHLW1PT206qsgv6rYbuacQ0Axja6BS0TGT5kZH+fCX6dH/noQZO9qds2cuOZw/7/vEAXxuPzqtctFLii4kyGqTsFAlHTVGZ9G7bnmdHw5dajnbY82mSWzwHmFLwk/Ukfg/UzM8ygY2asSjInAepk9kfC/LN4XBjLqEz7sUopgtE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788184004; c=relaxed/simple;
-	bh=oPyPhpeTyLPcNCtmwSXuGQluq3E1noUV5NUuvWuVnOg=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ERsoxe+oXWvy4mB7iG+nXmeYrm+6VQzXaQx6+NpYZ//+6SRkUUNtAz+i9wX0KHHfJDOXZt7UsBQOrHTXa+8AB1c3Yz31cZEPRs6dkIAtjWy0g4vWwdM0WGnsT+1zkson/aX8iwRjBTopUT3qY5CwCFx3C8hJZ0KRMPcn7ZDySCM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=etGHANe7; arc=none smtp.client-ip=91.218.175.36
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788184006; c=relaxed/simple;
+	bh=2hvUmCUeczZoDp0Wb17DcBhCwCeyXPHgaiSzkZow97w=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qdOGU/BP9OiiP/uP149yyejVvqzaSXNu3xnmX9ZMCnNK/JiRKN769rNJbL60lfdQ3PholkfYhe2tI16m/dB7rd0iY9YY8YnmE5RNA6vHQV/Onb40Dz4jWXsTcfngTW3ZqOlt9UMXYMbaU3upDSafTQnicr6iKRe10KEYJjFc+1I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gBoz5sCv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="etGHANe7"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=oPyPhpeTyLPcNCtmwSXuGQluq3E1noUV5NUuvWuVnOg=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788183999; v=1; x=1788788799;
- b=etGHANe7dwCumJGjrXQ11nusN6sCNZK2kn441T9zx/K/zoXTy9Kt27ZoK9PJ3fYON5K02bI7
- tqAqomxfIz0nizmt/zSzvZR0MEhDXrC/LGTVQpybzr0537wZvUikJJ2tsK8FWXE8Jwmuj0sa9cI
- uQPSU/0Q/v6sE17xQg2ZjO2k=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id 78d01d025d72b5ab;
-	Mon, 31 Aug 2026 13:46:38 +0000
-X-Mizu-Trace-ID: 78d01d025d72b5ab
-X-Migadu-Flow: FLOW_OUT
-From: Troy Mitchell <troy.mitchell@linux.dev>
-Date: Mon, 31 Aug 2026 21:45:39 +0800
-Subject: [PATCH v4 5/6] riscv: dts: spacemit: Add K3 I2C6 pinctrl state
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gBoz5sCv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF5531F000E9;
+	Mon, 31 Aug 2026 13:46:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788184003;
+	bh=WuuL/Qia19Bav98lglkQeSacGNdudIifkXA5RTiAvGM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=gBoz5sCvkTv+IpxgCjINmfQLI/+nsk3JGndSv/TnO017Aow/q0iVSC4mAbHpfGpx/
+	 bPpsW51y9o7HUjUpNrswwauwEqUuOJx4UAfz+5LiGD/LgbuMBHFp7UG8d2mG5ARuZq
+	 V+WMI4E2L78Skuz+5Lt4UsXQtxM60qEtvU1jchU35LFuicOTCT0C20hNDhMIutv4F1
+	 NcjNhrwXVaZ2U/ZZVfXHZ4wSXZw1q+xrPGlPuRJrY/T/rZLCXegOBcHhgXSJF+R4k0
+	 oyziJoxgDW8+BPV3Lx4X0WJecnCVhB8En8KzMh4gU64E+eUDN4ipQXmXPexxgTxSfn
+	 x2z76c9gTa4MQ==
+Date: Mon, 31 Aug 2026 08:46:43 -0500
+From: Rob Herring <robh@kernel.org>
+To: Bhargav Joshi <j.bhargav.u@gmail.com>
+Cc: Vignesh Raghavendra <vigneshr@ti.com>, Vinod Koul <vkoul@kernel.org>,
+	Frank Li <Frank.Li@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Andrzej Siewior <bigeasy@linutronix.de>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Aaro Koskinen <aaro.koskinen@iki.fi>,
+	Andreas Kemnade <andreas@kemnade.info>,
+	Kevin Hilman <khilman@baylibre.com>,
+	Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>,
+	Ravi B <ravibabu@ti.com>, Kumar Gupta <ajay.gupta@ti.com>,
+	Sergei Shtylyov <sshtylyov@ru.mvista.com>,
+	dmaengine@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
+	linux-phy@lists.infradead.org, linux-omap@vger.kernel.org,
+	goledhruva@gmail.com, m-chawdhry@ti.com, daniel.baluta@gmail.com,
+	simona.toaca@nxp.com
+Subject: Re: [PATCH v2 3/7] ARM: dts: ti: am335x: Fix redundant interrupts
+ property in USB nodes
+Message-ID: <20260831134643.GA733140-robh@kernel.org>
+References: <20260818-ti-am33-usb-v2-0-66fd44d66824@gmail.com>
+ <20260818-ti-am33-usb-v2-3-66fd44d66824@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260831-ctl2301-v4-5-b335d52a0570@linux.dev>
-References: <20260831-ctl2301-v4-0-b335d52a0570@linux.dev>
-In-Reply-To: <20260831-ctl2301-v4-0-b335d52a0570@linux.dev>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Guenter Roeck <linux@roeck-us.net>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
- Yixun Lan <dlan@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>
-Cc: Troy Mitchell <troy.mitchell@linux.dev>, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org, 
- linux-riscv@lists.infradead.org, spacemit@lists.linux.dev, 
- linux-doc@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=994;
- i=troy.mitchell@linux.dev; h=from:subject:message-id;
- bh=oPyPhpeTyLPcNCtmwSXuGQluq3E1noUV5NUuvWuVnOg=;
- b=owGbwMvMwCU2g/N9w09jE33G02pJDFlTW+e9tQ3Oef/55bOeGYtnC1hm1Lw06r5/06Ug+QeL6
- 7O+lUFBHaUsDGJcDLJiiizdD3i2FfhE2RYIFPrCzGFlAhnCwMUpABMx2sPI0G7wYPdJl7poh42X
- lnBFvcs8rPchyFruW8lz02tbF/zWFWL4H9ab9n7v8YYMzs/+Yc57///uC/BbPqfI+c7rglk3Nxs
- HsAEA
-X-Developer-Key: i=troy.mitchell@linux.dev; a=openpgp;
- fpr=3FE5535CF1B0E658E57DB59BAE1C2FBEA7DB42E1
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260818-ti-am33-usb-v2-3-66fd44d66824@gmail.com>
 
-Add the K3 I2C6 pinctrl state used by boards that route I2C6 to pads 7
-and 8. Use a 25 mA drive strength, which is supported for both K3 IO
-voltage domains, and leave board-specific IO voltage selection to board
-files.
+On Tue, Aug 18, 2026 at 07:58:45PM +0530, Bhargav Joshi wrote:
+> The am33xx.dtsi defines a single interrupts property for the MUSB nodes.
+> Several board-level files override the usb0 node to use
+> interrupts-extended instead to include vbus interrupt.
+> 
+> Since both interrupts and interrupts-extended cannot be used
+> simultaneously, Add /delete-property/ interrupts to the overriding
+> nodes to resolve the schema warnings.
 
-Signed-off-by: Troy Mitchell <troy.mitchell@linux.dev>
----
- arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+Actually, both should be allowed. In theory, an OS version not support 
+'interrupts-extended' and 'interrupts' is also needed for compatibility. 
+Though in reality, we've now had 'interrupts-extended' defined for a 
+long time. I'll look into what's causing this warning.
 
-diff --git a/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi b/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi
-index 6482d24be139..cb4f4f4e33af 100644
---- a/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi
-+++ b/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi
-@@ -101,6 +101,17 @@ i2c2-1-pins {
- 		};
- 	};
- 
-+	/omit-if-no-ref/
-+	i2c6_1_cfg: i2c6-1-cfg {
-+		i2c6-1-pins {
-+			pinmux = <K3_PADCONF(7, 6)>,	/* i2c6 scl */
-+				 <K3_PADCONF(8, 6)>;	/* i2c6 sda */
-+
-+			bias-pull-up = <0>;
-+			drive-strength = <25>;
-+		};
-+	};
-+
- 	/omit-if-no-ref/
- 	i2c8_cfg: i2c8-cfg {
- 		i2c8-pins {
-
--- 
-2.55.0
-
+Rob
