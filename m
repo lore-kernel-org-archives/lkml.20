@@ -1,126 +1,68 @@
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7713E3C0A13
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 22:41:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DCA4395AD8;
+	Mon, 31 Aug 2026 22:43:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788216116; cv=none; b=TZ888UHnItpgzfWYfoDGRQmK++HKtvNQXolc0AL6ac7QrI5zP+Nq4bTmq+cMdA3KU2Cv/1jiFcHTS3MYR6xheBHX3slF/Q1mkuMpshWwYhtcWC6rkwansg6UghIMyUdp6RIok3S2z0YhAeGSPhRhT6OAw/d2C5maW5rsLhA1qg4=
+	t=1788216192; cv=none; b=XQRB8bmE38u/BNGPsyWmfb7eH5pbZR2jE2Yy+1pC5dMXKKaW2Y/gGzP09kmt3UVRg2TfaQftMAFigVeDuFUA5P94kqLYL17P6eDTaWS4lhDvS5I7aw+CtWEmUACNwkcs0U1Zb0GcvQOTG53QVuVjgKt8HO13FTfHaPm/zBU2PaU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788216116; c=relaxed/simple;
-	bh=8KcSgffxAkB1OeS3/kdkp5OoiPWVBES6SdR64YQAb54=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=IsWQdVnpPgRB3Rqgghp1K02Q9Zide52MBxbaAcYMWWQs1YLk/9OoxekEQhIiez6WRRLamEz+X3Jwp53oeQRQAiMbIl+JT0eJ9+Vxt4OoLWDJArA0MGqRG6NzpY4720aCtbUVAP3/nU1YV0MXVm5EFQZjVRq3bEnWY288UlHV5/Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--cmllamas.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=jiyY/yvL; arc=none smtp.client-ip=209.85.216.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--cmllamas.bounces.google.com
+	s=arc-20240116; t=1788216192; c=relaxed/simple;
+	bh=5L8VT3J+9iT9uLbzpgrd7jvf0rkLMBXOWhuzeT9aopE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tfB31fAj3aEuv6VWPoHDXfaNGbqH8qgXkDTeFmMyu0+dH/EK/MnFAzcTwj8OuNi8+Cc7JrxAYEhjPwXrTBs+o48Z+NiFYWVeoVWa1HoaWss7dqzeQRXsD/t64bjGcDC8haqifdjGzDwhX8uMbvjZ7pO4+MUP4CqLFXWvk9Ap0aI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ToVcSuEg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="jiyY/yvL"
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-398d0010cfaso3679813a91.3
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 15:41:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788216114; x=1788820914; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=wgNVfGlbCEyq8MC5JaRKbxi7I9+N7W9TiHIhv9t8nRg=;
-        b=jiyY/yvLq8zk3oUJC3zOdbHSqm+FdrxR+ukT4OdfNd4xjG2FVzB9p+g8DlkulPIlHS
-         1wWWSJrIVCtWjVx7aCU5SXaR7Kf/7fTFuUpd2oL5/uf4ZDlAN2zoa51mxfcLoK89YcKF
-         s5dRicloBc8VOfGf18dofHObNKoN/1F4vAijTWQXvIsw2UpD1kBGEfCEH8QB/qW62mt/
-         ywhWb46RhSkUQDFHl6mpHYJ0rBmFhMULbpo46T4i7rzc8Bm66bLha2ZWUn+pvccsl6Mv
-         pHFf5zWtEqKiyeHtYMSm/hd2RPxkkFmBAyiT6/C1n1f+ho0VBTL40k+7MRQ9B/VVpNG7
-         1+sw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788216114; x=1788820914;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=wgNVfGlbCEyq8MC5JaRKbxi7I9+N7W9TiHIhv9t8nRg=;
-        b=PS2yfhjh6yN4AcMAjoibuKsObO3jFQOsxVbkKgugsHvvHKdJDA+xPlVlgddgTVBj5F
-         UuQN9VP9EzBTFnExL51+Pk7cjZBkoA1G/QFcquqbMO0PrFXiXXi29FNyN4XFZARVPRk4
-         gd11r+EdzV3fUi5bXgHfMCfxwBsbSNX4/mw5nC3K5h7gyGp9wNpBX7msMJd84VZaEnI8
-         WFe4uytaEB3fpKv7xsh2FJ8Mg6zhXR6HjfC9iFE/H7/KSUJnGHg/a2/L0UExzPZDIoBr
-         wRGNTyamR8jPyvT6/QSoroYaMJie+6A+5MGIFXc2s4cTcB7Cv4QZLdiipOjIhwANA3zI
-         K+6w==
-X-Forwarded-Encrypted: i=1; AKwUvBwNoIt2lICoRUBSPT7PYJAJ3jtUw2SOQNHNuQQnwX/r8iDdhvMIRXRPgF7VHwWJl+um/t50UQ1Yggx9MXQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++mbFy233dC2wsCtOkW8JbDoOs/OSyplq4XqOLBiPGyqsyYjq89z
-	7nIvL3fGJ3i0/6Cge/243Wqi3pwk0iE53yFVPEaVImNf5euiX+OfiPn5YHtzIP3s0/SRvNtwq+L
-	i/jfg9j6ShrpdSg==
-X-Received: from dybgt40.prod.google.com ([2002:a05:7301:2228:b0:327:adfa:8682])
- (user=cmllamas job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:90b:4cd2:b0:38d:fda6:4873 with SMTP id 98e67ed59e1d1-39907d0970fmr5248962a91.10.1788216113543;
- Mon, 31 Aug 2026 15:41:53 -0700 (PDT)
-Date: Mon, 31 Aug 2026 22:41:43 +0000
-In-Reply-To: <20260831224145.169403-1-cmllamas@google.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ToVcSuEg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 284521F000E9;
+	Mon, 31 Aug 2026 22:43:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788216190;
+	bh=DQ9xMynieA/dYYeIOeQvK4F87GunPdW1W/6hOBtPP5o=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ToVcSuEgeqLV8BlxayWCHyw35aq/17Opxf0aA2pmuWA5SmTazMYIjoFCJLSFUJCG1
+	 aWUq8sPpoGYcqOxccxVurClwNkYe+orvLEu7OtY5KntF8JOwqqnQHc+s686aFK6mh6
+	 ljcdU+/eHoLYUzW6uJSb+Nx8z5GUx/BbLnqDRh7/lmxOn5Zdns5qb5KCa9gzMHbpoR
+	 HJnkSEW794+MTZJoue9D4RRk0bNRAaNW5QMv8Ox0mmXl13NIGvtDC1wnyVsShE1j2U
+	 IPe8LGC5u/inJr7PvnKv+VStcqPTjIn5yHHJ3rVgAewTEfEmHUknbbZMbL8fVcB0hW
+	 8J5r5MbsPjTsQ==
+Date: Mon, 31 Aug 2026 15:43:08 -0700
+From: Eric Biggers <ebiggers@kernel.org>
+To: bot+bpf-ci@kernel.org
+Cc: bpf@vger.kernel.org, vadim.fedorenko@linux.dev, ast@kernel.org,
+	daniel@iogearbox.net, andrii@kernel.org, eddyz87@gmail.com,
+	memxor@gmail.com, linux-crypto@vger.kernel.org,
+	linux-kernel@vger.kernel.org, martin.lau@linux.dev, song@kernel.org,
+	yonghong.song@linux.dev, jolsa@kernel.org, emil@etsalapatis.com,
+	ihor.solodrai@linux.dev, john.fastabend@gmail.com,
+	kmehltretter@gmail.com, martin.lau@kernel.org, mason@kernel.org
+Subject: Re: [PATCH bpf-next] bpf: crypto: Use AES-CBC and AES-ECB libraries
+Message-ID: <20260831224308.GJ86114@quark>
+References: <20260831192139.94895-1-ebiggers@kernel.org>
+ <f829962635d9d46dc01bea9d7777a8099af30f79068d978e8e8bb5cd85f014f1@mail.kernel.org>
+ <20260831215937.GG86114@quark>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260831224145.169403-1-cmllamas@google.com>
-X-Mailer: git-send-email 2.55.0.897.gb25b4bd76c-goog
-Message-ID: <20260831224145.169403-2-cmllamas@google.com>
-Subject: [PATCH 2/2] rust_binder: reject mremap()
-From: Carlos Llamas <cmllamas@google.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	"=?UTF-8?q?Arve=20Hj=C3=B8nnev=C3=A5g?=" <arve@android.com>, Todd Kjos <tkjos@android.com>, 
-	Christian Brauner <brauner@kernel.org>, Carlos Llamas <cmllamas@google.com>, 
-	Alice Ryhl <aliceryhl@google.com>, Benno Lossin <lossin@kernel.org>, Gary Guo <gary@garyguo.net>
-Cc: kernel-team@android.com, linux-kernel@vger.kernel.org, 
-	Suren Baghdasaryan <surenb@google.com>, stable@vger.kernel.org, 
-	Sashiko <sashiko-bot@kernel.org>, 
-	"open list:RUST [PIN-INIT]:Keyword:bpin-initb|pin_initb|PinInit" <rust-for-linux@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260831215937.GG86114@quark>
 
-Binder does not support mremap() as it caches the mapping address in
-Inner::vma_addr. Moving the mapping breaks the IPC communication for the
-process and can temporarily leak pages during a shrinker reclaim.
+On Mon, Aug 31, 2026 at 02:59:39PM -0700, Eric Biggers wrote:
+> Almost every kernel has CRYPTO and CRYPTO_SKCIPHER2 enabled anyway, and
+> CRYPTO_SKCIPHER2 also enables ECB support.  So the change isn't actually
+> as drastic as the bot implies, but I'd be glad to give BPF_CRYPTO a
+> prompt if the BPF folks are okay with that.
 
-Fix this by explicitly rejecting the .mremap() operation.
+I don't see other examples of kfuncs with visible kconfig options.  The
+convention is to automatically enable them when the parent subsystem is
+enabled.
 
-Cc: stable@vger.kernel.org
-Fixes: eafedbc7c050 ("rust_binder: add Rust Binder driver")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/20260813193433.3318288-1-surenb%40google.com?part=2
-Signed-off-by: Carlos Llamas <cmllamas@google.com>
----
- drivers/android/binder/page_range.rs | 15 ++++++++++++---
- 1 file changed, 12 insertions(+), 3 deletions(-)
+It feels like bpf crypto is a de facto standalone feature, so I'm not
+sure how well that applies here.  Regardless, for now I'll use "depends
+on CRYPTO_LIB_AES_CBC" and "depends on CRYPTO_LIB_AES_ECB".
 
-diff --git a/drivers/android/binder/page_range.rs b/drivers/android/binder/page_range.rs
-index 52ffbf3504e7..411efcc2116f 100644
---- a/drivers/android/binder/page_range.rs
-+++ b/drivers/android/binder/page_range.rs
-@@ -24,7 +24,7 @@
- use kernel::{
-     bindings,
-     error::Result,
--    ffi::{c_ulong, c_void},
-+    ffi::{c_int, c_ulong, c_void},
-     mm::{virt, Mm, MmWithUser},
-     new_mutex, new_spinlock,
-     page::{Page, PAGE_SHIFT, PAGE_SIZE},
-@@ -144,8 +144,17 @@ pub(crate) struct ShrinkablePageRange {
-     _pin: PhantomPinned,
- }
- 
--// We do not define any ops. For now, used only to check identity of vmas.
--static BINDER_VM_OPS: AssertSync<bindings::vm_operations_struct> = AssertSync(pin_init::zeroed());
-+unsafe extern "C" fn binder_mremap(_: *mut bindings::vm_area_struct) -> c_int {
-+    EINVAL.to_errno()
-+}
-+
-+static BINDER_VM_OPS: AssertSync<bindings::vm_operations_struct> = {
-+    let ops = bindings::vm_operations_struct {
-+        mremap: Some(binder_mremap),
-+        ..pin_init::zeroed()
-+    };
-+    AssertSync(ops)
-+};
- 
- // To ensure that we do not accidentally install pages into or zap pages from the wrong vma, we
- // check its vm_ops and private data before using it.
--- 
-2.55.0.897.gb25b4bd76c-goog
-
+- Eric
