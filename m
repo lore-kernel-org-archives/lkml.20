@@ -1,167 +1,193 @@
-Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011058.outbound.protection.outlook.com [52.101.65.58])
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09E6653A8B3;
-	Mon, 31 Aug 2026 15:23:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.58
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788189824; cv=fail; b=U3nGnDIRhZVpBAhkIIGZSDhyJUn3YzegNkdxcF4RoKlCQnOvy9g1aMFcioGKhioGAm3Jq64K7YDf5DSv2sDGQEzc7bE1eL4c51rNxDBCgDv995D2o/vZS7Xv+A8ylNFPK8T9LSEiA6w/zTXj1Tj9gGoWveKyuQRa7IIJriXtTBQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788189824; c=relaxed/simple;
-	bh=6qcaAFHx6FIM5DIJsp4GwvigN4PcSbJCZKXd5W5cLQc=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C1A053A8B3;
+	Mon, 31 Aug 2026 15:23:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.151
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788189831; cv=none; b=ef0+k2zkc21M7bFP5t6J35forcFpZvKnesSt+rXFVS17B2yXaIENz5pM6WxZgjLksrPeULausSnaBq1cTu2KK2OcaaS863asUwQWwFEb6W0qw+YvOb2ULOFwLML13X7Heu43SueIiJQaDdZ4ajlCzhAzTQY4JxOzNOrAUFeuJtM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788189831; c=relaxed/simple;
+	bh=l97lPo2vh7YTVsQ0tdPCJDGD61Vb7aU41sbmHApYtyE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=pYaeksjY4n3WLMAezI08aFfwOeztf8Epd50Cs3PVSAoHKBmJVwDAkxla4XndjqHiszJKbrY5vnL5yBtI06iDc4ARDvLYLsX5SmjIksj0ceUpwb+23UiMcAMQunM3dQe5AkUwR/o//Ygr82hOexn9mhok9GnnGy9jq8Za8yL5QCI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=mZEW6ucJ; arc=fail smtp.client-ip=52.101.65.58
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	 MIME-Version:Content-Type; b=OVM4KZiAe5qFCeSlT/pK+Lo9bM04W4n4qa6yHP9iHxX9nleuBcyrkZbQRFF4qTAJF7EN1D33pK1X0TrMALY6hmRxdfxhNEA/iTuFLa24dAZ3sw29BKb35jPVoObYlySvD+qs8lM5u/4P/nNY8b0IOXzOn6yxhn1+XtIFCsp/d04=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=LKfZqw1t; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=EUa2eJ95; arc=none smtp.client-ip=80.241.56.151
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="mZEW6ucJ"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=iMWwSR9rSS1AWsUQUtRMOVJPhINIffzm+4VkGa55azbwfVeHuIQ9yEXK1vvy0PEBy2jjnQQ1reGiFDWm+/TohmBppXMvaaAtQNzQLNGZFvaerc8pyaqEkdpjM34q8dcdKFslE8Hq2KeSZzyQxhVylMB67eUgKVs6+QLHZ0pkAtwA8cI8MTuMcfEdrHqICG/53bL/gZ6Y9mYowTkvqx7PCl3X3xR7Sz3XFvmfpWI9PIW9F+Dxrbwg/Lmu6vPKdQaXkzfXL4TpIdUXz+uMRvovlXFS1lqthTFOJroq3B+1WgMTXifZ5rI8EPsehsiRx4/azOT4dkASIJpTZLd1E3Pa2g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=dI5zqa3QUfGjk3xHUPYCh+h6c8PtU2T51Gb0ZmybECQ=;
- b=mvgYKznJDtuz6KvtNK5free2ImucS0j3SFkCbv6F5CiGpZ/TtNIuuGJ5ra/2KcfadXBEdfxX3kBYB7Ii7sHFbGvNEYwjt3Cxb15Hm6UPR1S75HyVkh3gj2A0/F9z6ft7NAZQGc2oWzWEfVcVtKZ8ho1tn+FPe1sPIumuGPweKsOtZ8N36XTeHdgRJOGvnjwy9gjV59r13cDCOh+0RU1rU4aEe34IN/IilRdWT9GjcgQuFa6s9SuxRe0aqXSi6PkL0h/u5cQUlc1aQG+Gvg36psaWRzYqnGzvEGoBPxsx8D1YU6MWzXwVHbN/4E7iK6AoIsQaX4POk2kiDPVM29xqNw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dI5zqa3QUfGjk3xHUPYCh+h6c8PtU2T51Gb0ZmybECQ=;
- b=mZEW6ucJLGZyBtzv+btxT+K1F8qM/riBbYWZAJDf7ibuQI4I8Rwwi12pdnKQTEdrnlJ4mKLdLojAZGsXXn3TKXVotkB4RvbTNiPvH4Gp1nhx2XHlE0YfQT5IddtSjueX7KJ2iAWau5zceXVPhdQOTllEg+ge0fbQyWG7l+2B4lUbBnU97M0DhrBhKnpqxwr6m4VR3iHtgwcyGLOArYWlm7K/Jo9fbEAegtNDAYI7dZJcHznloJAVUS1PpHnwsiJmij2iiwLbKyhSXHBQKeBni+BUBeVpXbaJ+RJMSpuqJzPmGsRMLT975xwypdnpwNMgRAnSoZSh/0AphiwFLN0aYw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by DU0PR04MB9496.eurprd04.prod.outlook.com (2603:10a6:10:32d::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.11; Mon, 31 Aug
- 2026 15:23:39 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0360.008; Mon, 31 Aug 2026
- 15:23:39 +0000
-From: Frank.Li@oss.nxp.com
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Peng Fan <peng.fan@nxp.com>,
-	Yannic Moog <y.moog@phytec.de>,
-	Shawn Guo <shawnguo@kernel.org>,
-	Primoz Fiser <primoz.fiser@norik.com>
-Cc: Frank Li <Frank.Li@nxp.com>,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	upstream@lists.phytec.de
-Subject: Re: [PATCH v2] arm64: dts: imx8mp-phyboard-pollux-peb-av-10: Fix SAI master assignment
-Date: Mon, 31 Aug 2026 11:23:31 -0400
-Message-ID: <178818980337.4013675.3305153518593546005.b4-ty@b4>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260831051222.3298730-1-primoz.fiser@norik.com>
-References: <20260831051222.3298730-1-primoz.fiser@norik.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: CY8PR12CA0063.namprd12.prod.outlook.com
- (2603:10b6:930:4c::26) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="LKfZqw1t";
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="EUa2eJ95"
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [10.196.197.102])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4hYXnl4T6wz8twy;
+	Mon, 31 Aug 2026 17:23:39 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1788189819;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=GcReytiFHSfgAL9vHEFDd7IHvg5fhlNXFFhcmJ/wdpo=;
+	b=LKfZqw1ts7u3RECwN9nWCSNDzgMEiNFy/pabwwrmkRdTDisTr6/BBkNL0/zAcTTaTikUka
+	clxrZaO7TTEaZxVp93jZEGkS2mQirtFHEUe5ZstiK4jKLTJ0exQUZW/l+X9Hs5XJwGZP6T
+	l3C6Wo60I2f50KeC0/AUy5QzeQpgt/IXYzfPpxsFOHyLjE/lIcCIg2hudvyEoZtYODRVMr
+	HmvTk8QwGvd/wIOo4AeS0ZMZSpgUN3E+4Q91rtIZCd9AlNljkQIXimO7WE+Plx3Cl8Dm6b
+	KSpI+IE0os94Supj4NKdExAGNc54yFRkWLrkiBsFeaI7q6rMPlC6Peagy6MrkQ==
+From: Manuel Ebner <manuelebnerli@mailbox.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1788189817;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=GcReytiFHSfgAL9vHEFDd7IHvg5fhlNXFFhcmJ/wdpo=;
+	b=EUa2eJ95tfUe96Y/fc91Du7Fgs5IwxQbe//5oyS+Z9Q8WopklAEjiGNzeLGgCGv7ZKBkE9
+	qZLaES3fy2UjD2Oqu7LZ92UJIJpt2VoFybsyZveBdMo6V9NLauVBR0xigcM68oHhvjxcos
+	mrHEwUrKA/KmB7qboIQWcj+c/zKYAIvdzYLX/gjReyfL3ktTs2GJjEW/hohb8pF24lqy48
+	3Fg9nHP7/uYVnYlRUspnPr9ZUEGRXmW4SZjqCm6lePaG5NxVANh93z53hwYeicatTYJibI
+	Zz/QbaBEuJmKaecMNB3lDRbeKa3cVie8lIAmC68Xvd/VvZ9lQYkCiQEI7AVzyg==
+To: Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>
+Cc: Manuel Ebner <manuelebnerli@mailbox.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	workflows@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 2/4] Docs: changes.rst, ver_linux: add tools
+Date: Mon, 31 Aug 2026 17:22:55 +0200
+Message-ID: <20260831152256.638615-2-manuelebnerli@mailbox.org>
+In-Reply-To: <20260831151605.638172-2-manuelebnerli@mailbox.org>
+References: <20260831151605.638172-2-manuelebnerli@mailbox.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|DU0PR04MB9496:EE_
-X-MS-Office365-Filtering-Correlation-Id: d96d0fe1-6daf-421c-b79b-08df0773d507
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|19092799006|23010399003|7416014|376014|18002099003|22082099003|56012099006|10067099003|11063799006|921020;
-X-Microsoft-Antispam-Message-Info:
-	r6Ooh3E4/SGu2nzMQWQeboLgfedSdDwz/tJUJwAd9I9+22BjChX67Ujy21mKKt27y1UtlpIzxaeYhSLOwwaIYnzWP++gCSVcmDuqWph6C9rTQPYeBbRE/Tevdktip/2oRgyCb13XfeEC5RiRKimH7fDLxoxuyK10eUPHYSdPghvphuALApMxO43maXkjVt4iiw42ix2YHPNgVWQ0t0Dk/s1TQtrmueCgloJ/Cdu/muDwsVDr/FjWjdAFdO2RKkuYrWkpR52xy0kC0tyERrSY6T33tOcAgzr7UDWC+xgvoTLNtBxjZPQ2BaSSMJrFngg2DapdadDtxs49TeRApdPcwVouP67OPLX3/xFPdqqIj/4uFsr5z2eE+P6K0CoRAQh3OVWB1WtPWrg/A0oU+tgex2sNesExw/QYi2T6CUIlnKxMZMYKOOQoA6xhblbGJpnUN8lNL3EMV4e/wcv5DjiBnFUvmzm5dFPtySLzZNZxHL+dHkATbm9ZWKLOsinRwPkm21elaeg6ktShMDzsH7KPkzPcJseu5eZxvvIvoLxNRtdk8/qerhPBtouOJ1bN6BcU56sK68WkrSa0lwvW/YZSoLlDZkmwBmgXeStgzhzpMHfQDRh2DP6EzcBTVpH1TXaTnnnsVQj6kALRYu8fc71sYrATQQ0k0jSw768Gam/UEQEKA9BelOk57Hf1UzNahy+sFigzOwwgAYB+maVxc2ABlQ==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(19092799006)(23010399003)(7416014)(376014)(18002099003)(22082099003)(56012099006)(10067099003)(11063799006)(921020);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?VGtwT25Sa2s3Z1BEdDRDanh0MHBhVFpCeFFjQ2s2REt0VG5YbFptTVRJd05j?=
- =?utf-8?B?MWRoaVVReG53b0RSTXNQMW1udjRvakVrZFlHYjgxVnZ1ZCtraWwxTzBLeUFP?=
- =?utf-8?B?T0g1U1hWc0RIOWY2VE95ZlpuaEJ5dWJHTEZjdXFsSGpqVC9laTA0ZDVEMi9z?=
- =?utf-8?B?TjhLWGYrVm1ZbHJXZ0R0ajBhSGpKYnlIUnlIRDBBMnBySVdDR1lXa1hsNmc0?=
- =?utf-8?B?SjZYbzBaNStIY3RDS1RWNFJxUFVQdUUzWUJXV05KNzJQNURQTGhRdmFLSzdt?=
- =?utf-8?B?K0ZHV1pZMmkwdlMraU5zQVp3dHhIMnliMitpZ0tzZXNEUWxjMC9vdlo2OFRl?=
- =?utf-8?B?cGNndWVlbGFwNkJNaERIQVBrVysyT1F0SVNyak9qVXBuMUZmYSszVnUvWXpw?=
- =?utf-8?B?MUQ5WExvR25UdGtoMDNIMmhwUXRMZXJaQjM1OEc3WEcwYUZXcGpBT0hTSVhY?=
- =?utf-8?B?dmpEb1RObnltM2d3bzN2eFNnK2F5a0VNMWh3WG1LcEthbmxwQWpXZ1crYU43?=
- =?utf-8?B?b0h6ZXJZWVo1aU1kSTdqREp0c21ZdkZpVVdzV2NnTFhzQmE4UHdaaHBYczls?=
- =?utf-8?B?cjZTcUhwV2dWS2dnREtqZGtjU1RzZU9xTWJzcmxOMVE4RnlXR3hXbnZsaVhn?=
- =?utf-8?B?NGVxRmdRVXJWSVJ0SFVFRFg4T1ozZHRoRTRkTHVkN3NDT1UxMlNLNGl5KzJi?=
- =?utf-8?B?U29QbldXbUhZTXp3QWxTY3grdjlOaVlIMGViMk1WcmVPS3Exd0JhZnVSVjZC?=
- =?utf-8?B?aEtxQk9RYVMvd2lMaHozVkE2RWlTd0hNbU5XUWg3OFFvZnNTc3lGdmM5OG5D?=
- =?utf-8?B?aldUSHQ3V0NXc3NFNWhmVnd2Y0tHbE5uWDNadzNOWW5oSmxua3NpQzRrY2Yx?=
- =?utf-8?B?Y0xHZVovMmRKT2xLbnVMSVhOcFdwWXg0eW9DUHhrV2hmcEFHdEpncjU3Q2kx?=
- =?utf-8?B?Zjc3aXpUWHJYNWZCL21WSXJ0ZXZMbEc1R1FOL3NGTFdUckxNQ3kxT3QrMmc3?=
- =?utf-8?B?RGo5QVAxYkp1WVFZNEFwb2RKOVdkVEZHeHNuZ1FIbU5qZGsydXkyeFgzaTJp?=
- =?utf-8?B?UlBVYStKL1V4Tk1vQmpHSUs0aXZPUHRmendGcTJtVjBRaGFkcXZNM09taTgw?=
- =?utf-8?B?eTcySEdoa3ZBVTR2bEU0OXBZZ1FzYVlUVUl4Uk1XT0UrdEd5WFJVd3Bqcm1l?=
- =?utf-8?B?UzJHNmVjWjJTcDNPanhRWEthV0tXb0VuSVN2SG0wQWpqY2JHbk1mV1Nxem5j?=
- =?utf-8?B?TTdva0NZS2pMNnlYTXA2RlUwM3NMUzd1MHhOc2JBYTFlSnlGdU9EVjI5cmw2?=
- =?utf-8?B?QUpOSC9iZHQwVXp4V3RHUTErSVFTWm1JNjNVN3RQM2Jncm5RVHdNUVFOSWpz?=
- =?utf-8?B?YXFhVnB3M2xXTmZEalM4WXRjeFlxUTluaFowdFJ4WFduNkNiYW0rc3NrL084?=
- =?utf-8?B?S1JqOC9Bd2crM2V5Zi9JeEJVZXd6V3hiOG5uRDA1SVVBL2dVdFdNL2VMVVh5?=
- =?utf-8?B?eFBxRWdJZFVtY3ZXaElCdjdqMGN1NFhCOUc3alJFMGJ3YzFpMGtnWE5BVERp?=
- =?utf-8?B?bEQ3K0pPZmVsalZ3eFZiRWhWSktFYkkwWUZsU3YvVEJuMHRDdlhBZUxmd1lo?=
- =?utf-8?B?ODFnSnZMbWRNVVZONWd2bEZzQ3FtTFpwUWtvRmFpUlhhdWthc0ZuN2d2SzBK?=
- =?utf-8?B?NFdwNHI3U1RRMmJmRGxTdDJPc0p6ZHF0ajluSFFLclZaWXRDbnlvNmtVdGE2?=
- =?utf-8?B?TUNQRXZmM3Nmc1U1Qkx2VGtRTXljVjM4a2lnWU1mSXQrRTB5cE1aTTNzMkxw?=
- =?utf-8?B?a1lGNVJPZkl3bnpESXdvUWVEQUM5OHBWUnVJS0JZYmthNTd4YUJqcUczS2pY?=
- =?utf-8?B?c1MxTGE2eHVBb2JZTDYwcEpWWXpldnJOcE15TEJiMXRwdngyTHdzL24zZWQ0?=
- =?utf-8?B?UjFWWmhSTDlITWVPazMwOC94VFVGNkE3Z1pVNTJxbXJ2aDUzWWJ0bk0rRVQ0?=
- =?utf-8?B?UXp1eDFmaUZTUlF3Qnh5RGZ0Sm1FZ2ovMFZzNThidnp3bVdtL1dFZzlibmM2?=
- =?utf-8?B?UFRGdEtJNktscmpBNXpiSnh0NlRUbXNOcGZvenhMa0FiOUhnRkNyUTByK2Zl?=
- =?utf-8?B?MjBQNmlldllHOEl4a1c4WmhDU2RhVWJCZnUrQitEeFh3MWFMNUpBUHhjeHg3?=
- =?utf-8?B?dXV3OXZZMUV4ZFJTR3MzcWMrQXZRWXB2cmhsOHh2L3hNTUlVTGc4NS94ZDdq?=
- =?utf-8?B?d0kxOXZEMW5qQklEYlpLUkRsSHpHY0tnbSthTmttSlNYWVVEKy9DVmsvejlz?=
- =?utf-8?B?VWZ5VGhTckg4ajRIYmtqNUdvOGl5UVZTc1JGTGtvT1hsVlNreUhkckthZURr?=
- =?utf-8?Q?7QdMUscP11yg/Yv1dslaQa7zecLH+NNFXKxWQ?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d96d0fe1-6daf-421c-b79b-08df0773d507
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 15:23:39.0564
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: rLXqzn/JPSIuSS4vgq7fFroCw8DK/bkOf5IrsxR3IrgDnoaQPbTNgNuygCvusZY1uoju6F38YojP1a0wEb4nInnPzm0kX6IstJxNGHPvo+eP/UWgTCXiCa+hBJxKMXXT
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR04MB9496
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-META: py67gbufmu8u94mip3f4pf9red1r9sgh
+X-MBO-RS-ID: 0ec0d5d3a8d1d66a6e4
 
-From: Frank Li <Frank.Li@nxp.com>
+lzma is required with HAVE_KERNEL_LZMA set to y
+lzop is required with CRYPTO_LZO set to y
+iproute2 is mentioned in changes below.
+"ip-route2" -> "iproute2"
+syslinux is and genisoimage needed for ´make isoimag´
+mtools is required for genimage.sh
 
+add tools to
+ changes.rst and ver_linux
 
-On Mon, 31 Aug 2026 07:12:22 +0200, Primoz Fiser wrote:
-> The dailink_master label was placed on the codec sub-node instead of
-> the CPU sub-node, configuring the codec as I2S bitclock/frame master
-> with SAI2 as slave. On this board, BCLK and LRCLK are wired the other
-> way around: SAI2 must be bus master, with the codec as I2S slave.
-> 
-> Move dailink_master to the CPU sub-node so SAI2 drives BCLK and LRCLK,
-> fixing broken audio on the PHYTEC phyBOARD-Pollux-i.MX8MP board with
-> PEB-AV-10 Audio/Video expansion board. Also remove the spurious clocks
-> property from the codec sub-node, which had no effect in this topology.
-> 
-> [...]
+Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
+Acked-by: Randy Dunlap <rdunlap@infradead.org>
+---
+should edk2/OVMF be added aswell?
+it would be for arch/x86/boot/genimage.sh
+---
+ Documentation/process/changes.rst | 10 ++++++++--
+ scripts/ver_linux                 |  6 ++++++
+ 2 files changed, 14 insertions(+), 2 deletions(-)
 
-Applied, thanks!
-
-[1/1] arm64: dts: imx8mp-phyboard-pollux-peb-av-10: Fix SAI master assignment
-      commit: 1c3f5701bc0ff5cbe56bdae76157047d47051d44
-
-Best regards,
+diff --git a/Documentation/process/changes.rst b/Documentation/process/changes.rst
+index fb5ef7d743ba..b3fa980b63e3 100644
+--- a/Documentation/process/changes.rst
++++ b/Documentation/process/changes.rst
+@@ -41,17 +41,22 @@ Clang/LLVM (optional)  17.0.1           clang --version
+ e2fsprogs              1.41.4           e2fsck -V
+ flex                   2.5.35           flex --version
+ gdb                    7.2              gdb --version
++genisoimage            1.1.11           genisoimage --version
+ GNU awk (optional)     5.1.0            gawk --version
+ GNU C                  8.1              gcc --version
+ GNU make               4.0              make --version
+ GNU tar                1.28             tar --version
+ GRUB                   0.93             grub --version || grub-install --version
+ gtags (optional)       6.6.5            gtags --version
++iproute2               6.14.0           ip -V
+ iptables               1.4.2            iptables -V
+ jfsutils               1.1.3            fsck.jfs -V
+ kmod                   13               kmod -V
++liblzma                5.8.1            lzma -V
++lzop                   1.04             lzop -V
+ mcelog                 0.6              mcelog --version
+ mkimage (optional)     2017.01          mkimage --version
++mtools                 4.0.49           mtools -V
+ nfs-utils              1.0.5            showmount --version
+ openssl & libcrypto    1.0.0            openssl version
+ pahole                 1.26             pahole --version
+@@ -63,6 +68,7 @@ quota-tools            3.09             quota -V
+ Rust (optional)        1.85.0           rustc --version
+ Sphinx\ [#f1]_         3.4.3            sphinx-build --version
+ squashfs-tools         4.0              mksquashfs -version
++syslinux               6.04             syslinux --version
+ udev                   081              udevadm --version
+ util-linux             2.10o            mount --version
+ xfsprogs               2.6.0            xfs_db -V
+@@ -336,7 +342,7 @@ General changes
+ ---------------
+ 
+ If you have advanced network configuration needs, you should probably
+-consider using the network tools from ip-route2.
++consider using the network tools from iproute2.
+ 
+ Packet Filter / NAT
+ -------------------
+@@ -557,7 +563,7 @@ Iptables
+ 
+ - <https://netfilter.org/projects/iptables/index.html>
+ 
+-Ip-route2
++Iproute2
+ ---------
+ 
+ - <https://www.kernel.org/pub/linux/utils/net/iproute2/>
+diff --git a/scripts/ver_linux b/scripts/ver_linux
+index 00bdaf30d590..7495177843e5 100755
+--- a/scripts/ver_linux
++++ b/scripts/ver_linux
+@@ -29,6 +29,7 @@ BEGIN {
+ 	printversion("e2fsprogs", version("e2fsck -V"))
+ 	printversion("flex", version("flex --version"))
+ 	printversion("gdb", version("gdb -version"))
++	printversion("genisoimage", version("genisoimage --version"))
+ 	printversion("GNU awk", version("gawk --version"))
+ 	printversion("GNU C", version("gcc -dumpversion"))
+ 	printversion("GNU make", version("make --version"))
+@@ -36,19 +37,23 @@ BEGIN {
+ 	printversion("GRUB2", version("grub2-install --version"))
+ 	printversion("GRUB", version("grub-install --version"))
+ 	printversion("gtags", version("gtags --version"))
++	printversion("iptroute2", version("ip -V"))
+ 	printversion("iptables", version("iptables -V"))
+ 	printversion("Isdn4k-utils", version("isdnctrl"))
+ 	printversion("jfsutils", version("fsck.jfs -V"))
+ 	printversion("Kbd", version("loadkeys -V"))
+ 	printversion("kmod", version("kmod -V"))
++	printversion("liblzma", version("lzma -V"))
+ 
+ 	while ("ldconfig -p 2>/dev/null" | getline > 0)
+ 		if ($NF ~ libc || $NF ~ libcpp)
+ 			if (!seen[ver = version("readlink " $NF)]++)
+ 				printversion("Linux C" ($NF ~ libcpp? "++" : "") " Library", ver)
+ 
++	printversion("lzop", version("lzop -V"))
+ 	printversion("mcelog", version("mcelog --version"))
+ 	printversion("mkimage", version("mkimage --version"))
++	printversion("mtools", version("mtools -V"))
+ 	printversion("Module-init-tools", version("depmod -V"))
+ 	printversion("Mount", version("mount --version"))
+ 	printversion("Net-tools", version("ifconfig --version"))
+@@ -65,6 +70,7 @@ BEGIN {
+ 	printversion("Sh-utils", version("expr --v"))
+ 	printversion("Sphinx", version("sphinx-build --version"))
+ 	printversion("squashfs-tools", version("mksquashfs -version"))
++	printversion("systlinux", version("syslinux --version"))
+ 	printversion("udev", version("udevadm --version"))
+ 	printversion("util-linux", version("mount --version"))
+ 	printversion("Wireless-tools", version("iwconfig --version"))
 -- 
-Frank Li <Frank.Li@nxp.com>
+2.54.0
+
