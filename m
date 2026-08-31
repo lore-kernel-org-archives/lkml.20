@@ -1,96 +1,96 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 000754119E5;
-	Mon, 31 Aug 2026 13:00:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F9F41A3160;
+	Mon, 31 Aug 2026 13:00:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788181244; cv=none; b=m0pO/L3Upb6s8JVKnTTeb+F/0lPPQW/9ctfx3mj/vNH2/2pM3Vg2ciEC6eQpDcw5PNt9HYhyE/7jFepbYuelEPG324ECU78DB8nknozUsJUvn1ydYssHkSDu0yT0hZhK7y5PpNOn18n8uKQOOjF96k6A1PP99ljYimtCm3eAr4I=
+	t=1788181252; cv=none; b=LQRL7sgIVM+8IKB43djc1zhTUN4q3c1YDBnThzqHXxjjrN9sgYVUkHtb1x5SZvLAcjy3VYWBDBM8p3r+xd4bEExZ05TVWjsh12sRBJqZsrjb1ozmgeaVgBL39ouJuGWqub7O1S09DncOUjfeCBQ9uRWSl0QnCNwTLlKmzSEYlgM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788181244; c=relaxed/simple;
-	bh=LccMWHwKeNmBt5/n07sCdFGBtusyOXIFYHFflnDLqvA=;
-	h=Mime-Version:Content-Type:Date:Message-Id:From:To:Subject:Cc:
-	 References:In-Reply-To; b=W0HAPgy3ILy0+57enwDg1HBriZ1MpNCCWZlssDmt4P3gIl5G4ux0o0Xg/SX+UQ8UIY8FWaaV3uCZZsJkkEZRhkhxfv4sOCz1cgW3XkbMRYJ7ALATAWiscsH0kATQ3Bp04s/p+4tQdfcjSDZ8hA+wqxmeh5fPWyCfXu+sjIHuDTk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FLgHCqzx; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788181252; c=relaxed/simple;
+	bh=A9dPeq+3N5xzYFB/qfLVNtZJIe9CTDOzlAjk4ehBvIg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Anecv1waHJIIpLZG52lUC85b0LiTXZvYO3GDsV64b6Yo2K7ngHUra2rStgFFHi4y2Ddmt5Z4/2Fb0+WSd7AGw8CCXqcM59nn5ELoTa3anPjZJshaIAKp5bKqc+uLrLzJzkhGnjAA2/g4wyR4n/rQ+X4xlUN3tQ3zqYN2fkAjX2U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hiPWxM3R; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FLgHCqzx"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 287931F000E9;
-	Mon, 31 Aug 2026 13:00:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hiPWxM3R"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C06681F000E9;
+	Mon, 31 Aug 2026 13:00:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788181240;
-	bh=LccMWHwKeNmBt5/n07sCdFGBtusyOXIFYHFflnDLqvA=;
-	h=Date:From:To:Subject:Cc:References:In-Reply-To;
-	b=FLgHCqzxbqKrYSvv1tmT3a5UKLzs9NUdK9AKQiHCw9o36tzIr/dV7TVZGPUdE2Dy8
-	 r5ZpBM5Hsb4Ce7UJZJ8c0qM6d8SrsUZWgio4jttTy89LjZHNmtZMfJJdFNqw8Z8i27
-	 s08tF/cBL8p2VIdqcXcnBQY8NgaXrM7epnlyJzs0p+gxtDycOf+nUG9Zp7bSXA/bst
-	 v6+iqd+M9t8Aa7CiSzzZDQ+xpVRk/CymchL1V1SMadSMPopPmzrHO4r1v86qMUllTV
-	 pLVySKfEPCp31YnRw8m5p9KoVBSle3qhEdUeWZVRVoQZrbR2N4vr17gxJW4evQuZAS
-	 HRBU8vx5lDzXw==
+	s=k20260515; t=1788181248;
+	bh=p9LxSMeH/ko7BUlXPC7Exyhjkk1AqMDJ8yUsctx5W/8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=hiPWxM3RKlOVlD2jL6e02XR2dajTt86etJYY3FPaNnn498di42S9eG3xXmcsw39nP
+	 9TnteGIUBFfrIXfhSNAznNNBO/5QZ9DxvP0ViTh1mWu8OBsCri1BtABgorGEsfkCdN
+	 QcZbTsjreb3Gx2NTgLkpN50OggHE3HOoIoCBNZQ9in5uiKCiJkkRRdU3OQx57HYvwM
+	 eqkBWca2y7CegJqD3dZD9tdFtlV9PurT+K6K7fzBLb5OCvGukbVy1Ge3DE/rUBvEeH
+	 eOxdLfLpnPIWQD0M0nP+SURTMp2cBmi8ZO4aIq18vzoUCP0FmkOf3lMZQs8eTWw0dx
+	 yxCy6maY1Ue5w==
+Date: Mon, 31 Aug 2026 15:00:45 +0200
+From: Frederic Weisbecker <frederic@kernel.org>
+To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Cc: Marco Crivellari <marco.crivellari@suse.com>,
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+	Anna-Maria Behnsen <anna-maria@linutronix.de>,
+	Thomas Gleixner <tglx@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Michal Hocko <mhocko@suse.com>,
+	Valentin Schneider <vschneid@redhat.com>,
+	Waiman Long <longman@redhat.com>,
+	"Paul E. McKenney" <paulmck@kernel.org>
+Subject: Re: [PATCH 1/2] doc: Change dynticks-testing repository name
+Message-ID: <apV6_TKpQZOHKpCB@localhost.localdomain>
+References: <20260831081823.67972-1-marco.crivellari@suse.com>
+ <20260831081823.67972-2-marco.crivellari@suse.com>
+ <20260831085432.HdW_Nrqi@linutronix.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: multipart/signed;
- boundary=d55e914e04fb4ece455ae1e1571756b36266d056b52f931a1c322b7d976b;
- micalg=pgp-sha384; protocol="application/pgp-signature"
-Date: Mon, 31 Aug 2026 15:00:36 +0200
-Message-Id: <DL35CFJ3BXZ1.2RE00JYDZKXXU@kernel.org>
-From: "Michael Walle" <mwalle@kernel.org>
-To: "Mika Westerberg" <mika.westerberg@linux.intel.com>
-Subject: Re: [PATCH v2 0/2] Report platform enforced SPI flash write
- protection
-Cc: <tjakobsen84@protonmail.com>, "Pratyush Yadav" <pratyush@kernel.org>,
- "Takahiro Kuwano" <takahiro.kuwano@infineon.com>, "Miquel Raynal"
- <miquel.raynal@bootlin.com>, "Richard Weinberger" <richard@nod.at>,
- "Vignesh Raghavendra" <vigneshr@ti.com>, "Mark Brown" <broonie@kernel.org>,
- <linux-mtd@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
- <linux-spi@vger.kernel.org>
-X-Mailer: aerc 0.20.0
-References: <20260831-spi-nor-platform-lock-v2-0-6cc75b909241@protonmail.com> <DL34V3WU5UY1.3FYYB7UPWYY83@kernel.org> <20260831125526.GJ124825@black.igk.intel.com>
-In-Reply-To: <20260831125526.GJ124825@black.igk.intel.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260831085432.HdW_Nrqi@linutronix.de>
 
---d55e914e04fb4ece455ae1e1571756b36266d056b52f931a1c322b7d976b
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
+Le Mon, Aug 31, 2026 at 10:54:32AM +0200, Sebastian Andrzej Siewior a écrit :
+> On 2026-08-31 10:18:08 [+0200], Marco Crivellari wrote:
+> > Currently the documentation still mention dynticks-testing.
+> > 
+> > Recently the repository name and the tool have been renamed
+> > to cpunoise, so fix the URL.
+> 
+> (as of https://lore.kernel.org/all/20260815083728.15470-1-marco.crivellari@suse.com/)
+> 
+> > Cc: Valentin Schneider <vschneid@redhat.com>
+> > Cc: Waiman Long <longman@redhat.com>
+> > Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+> > Cc: "Paul E. McKenney" <paulmck@kernel.org>
+> > Signed-off-by: Marco Crivellari <marco.crivellari@suse.com>
+> > ---
+> >  Documentation/admin-guide/cpu-isolation.rst | 2 +-
+> >  1 file changed, 1 insertion(+), 1 deletion(-)
+> > 
+> > diff --git a/Documentation/admin-guide/cpu-isolation.rst b/Documentation/admin-guide/cpu-isolation.rst
+> > index 8c65d03fd28c..6d8f91d2d761 100644
+> > --- a/Documentation/admin-guide/cpu-isolation.rst
+> > +++ b/Documentation/admin-guide/cpu-isolation.rst
+> > @@ -354,4 +354,4 @@ Some tools may also be useful for higher level analysis:
+> >    runs a kernel tracer that analyzes and output a summary of the noises.
+> >  
+> >  - dynticks-testing does something similar to rtla-osnoise but in userspace. It is available
+> Shouldn't this "dynticks-testing" be renamed to cpunoise, too?
 
-Hi,
+Bah, I should read other's reviews before posting :o)
 
-On Mon Aug 31, 2026 at 2:55 PM CEST, Mika Westerberg wrote:
-> Hi,
->
-> On Mon, Aug 31, 2026 at 02:37:59PM +0200, Michael Walle wrote:
->> Hi,
->>=20
->> On Mon Aug 31, 2026 at 2:05 PM CEST, Tobias Jakobsen via B4 Relay wrote:
->> > Patch 2 adds the only user, spi-intel, which already computes protecte=
-d
->> > range state at probe but has had no way to expose it since the SPI MEM
->> > conversion removed its visibility of the MTD device.
->>=20
->> Where was it removed, though?
->
-> After the SPI MEM conversion the driver is a regular SPI driver so it can
-> only use spi_new_device() to add and configure the SPI-NOR chip (via
-> platform data, struct flash_platform_data). Prior this it was creating th=
-e
-> MTD device itself.
+> 
+> > -  at git://git.kernel.org/pub/scm/linux/kernel/git/frederic/dynticks-testing.git
+> > +  at git://git.kernel.org/pub/scm/linux/kernel/git/frederic/cpunoise.git
+> 
+> Sebastian
 
-Yeah, but it never exposed the _is_locked() op, right?
-
--michael
-
---d55e914e04fb4ece455ae1e1571756b36266d056b52f931a1c322b7d976b
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iKgEABMJADAWIQTIVZIcOo5wfU/AngkSJzzuPgIf+AUCapV69RIcbXdhbGxlQGtl
-cm5lbC5vcmcACgkQEic87j4CH/jAFgGAiFgQYm7EIaJ9tj+3pgn9H/Kd3nsSinNu
-gxLBHL8eYoUknmaw/7ZZ+4RD3WlGpKZTAX9IcgVNg/qj0kKts6FgERhU7YiR6PH4
-db+oZKWRvC0XXedaqzqD69aXQQhY5p+rC7c=
-=IYD5
------END PGP SIGNATURE-----
-
---d55e914e04fb4ece455ae1e1571756b36266d056b52f931a1c322b7d976b--
+-- 
+Frederic Weisbecker
+SUSE Labs
