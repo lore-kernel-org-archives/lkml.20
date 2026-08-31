@@ -1,311 +1,77 @@
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 361813E7BBF
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 23:25:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CADD24052AC;
+	Mon, 31 Aug 2026 23:26:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788218744; cv=none; b=kuRZ9B/30W2rLFhAh3btinMrjhKHVqCfyu5psD6rHisFOOGM/vfSiUe9qLlTjJLYOYNKjLx8CfUgGHQw4k6YXgNGdzCDtAcFo2P6ZwNCIqL3tS38w8SFNV2kv5YW1WsZwE+dN6tolDFbW3WbJ9U9VH94+a1mZ9QXaeVBj2+fPfQ=
+	t=1788218798; cv=none; b=dJZd5FABf2fFlkKK9YL7Cs8fpsyT5qiuw3c9r+6NF1PsyT9FUsEW+oflDm6iF6PPTKojht1n2CLqEyQaZ42+Zt74XGABhiJp0dl09Z9ncj4UI89ljkVSEh4nnlwbqq/2Hp7wgVgSc3FDUlw0lAoE5/RlisnsKDOKaBRbvKZYYP8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788218744; c=relaxed/simple;
-	bh=uM708j09j6nSOP7IiMsV0ytTgwnrzIZATjME+J7mX5E=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=KVb/7j/hj8FrlatY+hR88ykBGnps+4j4VsVgpLWwKrHG+uOY/WFvFK6QaQoq1Gyn9rWGpbsSddFatfJPKW269pV1/G7X+LhtKB7wsLA68R897U8Vp7JbhqnCp3qfmFVBg9e7N/fcTx8ZGT3NWkiksJrbvS1KcM16d3SFAGfKIQ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YCzMOjMl; arc=none smtp.client-ip=209.85.216.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788218798; c=relaxed/simple;
+	bh=HazZv9uRXn2zDEZ/VNQ6mnD7ecREtVQ840yGapev2aY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=d9cbg4NQhP18NMiIV3sR/ZTUqRICDE2J3E6k63YeH9tJ44SIHEzMSqhcbBMe//xtpj8abzo+CEfaDBDhoggwHEuiDtpi1rLPFYQA1uffa6y9YXfLXkp8yYcU0AAA3KjjQyis7ld727OgkEMqDDgzESmxJqOr9zFvRfQJQd9w9x4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f+lkcle7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YCzMOjMl"
-Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-38f57e312ecso935586a91.1
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 16:25:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788218742; x=1788823542; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=l6om3FeFy+vwSp6+A3N9tIRqD8PcybsChQtR5r/26Do=;
-        b=YCzMOjMlKIBbxKGQfyIXJL0wDV3XHrwSaJm9IsE9msTMi+1ComUtL3RMPHg8jblMsS
-         i9SZFQqPSv2T47iC9xdTy4z9S2WnwK3pTOzzWIEUnAxMvxyeOYrxrQ/HsoQQj09MjX6T
-         gFiJtMWERQ9/rdQ85YVJtJAyqW84k6QJkPl00Q1d7n1fBpnNRt/ggOd2ALxTQWTTz7jY
-         sEYR686A341tVY3Qb0JPYj60mgn+RDvZH9EYYCyieqWyS6dW4J487WpmKHAWBpt4wEUc
-         Oku5ADBYL1K6CREiqURAV+415iweRG3GJlQ4bX1sS6TDtQttbuEHYbKYuYc0QF6EFYrl
-         ImjQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788218742; x=1788823542;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=l6om3FeFy+vwSp6+A3N9tIRqD8PcybsChQtR5r/26Do=;
-        b=T3c3sUNRfgpj3u9hEmGiQ4iVZxWZJwrM968zRIhOGAtu+l1mZ6Fgc5Uzq9+87tImrH
-         K/wTPqttFNZXUZT0//MMTokSG+dPem/WNXUUZkKpOq15Z+opLFwGZAKBeqxWJC1CaDzg
-         R4nI5cgoaZjn69R846qLwCl8IPOtAVkNQi1qd9/2pL0TubCDxIhfoqKgD3hM2g/O3SGv
-         lifjwqT2LKrcSLNpvFzGAHMNuCtQBpdlyaRWmRfUye4zEMiZRD3fhV2XwLDLMhIQSbmA
-         V3GiFtkKVubfsFPgHTHTXIzb6RaoCHV0XcigkyG99cRnE1tflp3gKskjrOwVwX59deYg
-         TGNA==
-X-Forwarded-Encrypted: i=1; AKwUvBwGhfyilF541qQGgaS1cKFllg7tzi5umeslMP7cKAhoNWozLe8NdDsUrf2p9v2VS8uldANmQrwfj5x95jc=@vger.kernel.org
-X-Gm-Message-State: AFuF++mAcR7XgJPuKzAkLfd8hQkRTlTY1e4hAbh/bSojfn3q5QHBLEn9
-	wmBJOkKCo8SKFnhprHQHTKEA2vdre1cQI57NgXfxr2nzVxRTbRhONWHzdYYQNg==
-X-Gm-Gg: AYBFou2M+7fM26vBu76aDpXUeGFSYMJSPt+NVJgxMJiXDZ2vE2kFNa5eqThAE+8jjFV
-	O738A4BmXrU8jUPu7qS0bEf3TxNK/wc7YRd1FIFIM+bCpEPOSpdz+7sViqjZ764SpWtyPXaCoKv
-	067cr/o3O+XLhYEnkLs86kUcGVFSOQfZRD1iiliKT9Bs9JIYJJdhfvTSYuzWvc0fmtoy2wtFMTJ
-	hqzuror51pzuqWtb4KXEkrHxDMdd4Nyt+n3dDW8+d6JggUfa9RDD+0okKov80w6vAQPZ1P6thhH
-	5B7xcmgpp4WKJ1TRDcaioE6UajW4fPVl+HJbBbTxf9LuUmhtRXELLGJCywVLYXEjxGF215smIos
-	PUZDdfq/BwM7Q1qJyjfFcSwrFppxm0Jy2CnBN3UEgfCifleGBI3h6c43ZtYTh4vO3Q9cmFpIZ5/
-	OySiDQOlupc52zxBjfXCZH2Ai6WYYDUkI1XSQbKx0yTIbeAXOLIr9lVJ6QcJnYw/2/m6Ir1VQ=
-X-Received: by 2002:a17:90a:e7cb:b0:398:bac0:238e with SMTP id 98e67ed59e1d1-398bac026b0mr15204624a91.6.1788218741556;
-        Mon, 31 Aug 2026 16:25:41 -0700 (PDT)
-Received: from [10.60.78.252] ([2409:40c2:5002:4362:354a:8f21:7ceb:c8a6])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3990d75fc49sm1963213a91.12.2026.08.31.16.25.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 16:25:41 -0700 (PDT)
-From: Bhargav Joshi <j.bhargav.u@gmail.com>
-Date: Tue, 01 Sep 2026 04:53:10 +0530
-Subject: [PATCH v3 6/6] dt-bindings: usb: ti,da830-musb: Convert to DT
- schema
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f+lkcle7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7CAF41F00A3D;
+	Mon, 31 Aug 2026 23:26:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788218796;
+	bh=jiqRW3Eq9poPOC9pat4jZSNSoS4ay2TFyWKMbTiZyfA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=f+lkcle7OS+KSeoRbbaxsYBWlKYTPYjUt4szEC4U9bRIBAtw9aQb3sVZ/J6klKPPf
+	 eAR5cTjRhQTN8PgH/zaT8rTUGTONvA2suOx7022JtkwCISFFm/1rMlahD6+DwTF9jI
+	 zMjpyWRzCSQ44AgLTpJ+lOquh7vrea21d1rEks9CBkQjU9MFJAUDFW244BlEqDNFdL
+	 6vwCK8pUTcXyko/SdhgLhGiLrYu3rwAGnFoQu/Mm+ogqnK+CN7KXF6YFn9W1TBLA0x
+	 CBRk+niaaZTuOAD/i/vwCC480PzecIrBdix54hNFbE6PUvNyRCPGcEGJ5Jsfs862tM
+	 z1hTOt/ysK9Fw==
+Date: Mon, 31 Aug 2026 18:26:32 -0500
+From: Bjorn Andersson <andersson@kernel.org>
+To: Sreeshankar K <sreeshankar0910@gmail.com>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	mturquette@baylibre.com, sboyd@kernel.org, rafael@kernel.org, viresh.kumar@linaro.org, 
+	konradybcio@kernel.org, tglx@kernel.org, ulfh@kernel.org, bmasney@redhat.com, 
+	radu@rendec.net, abel.vesa@oss.qualcomm.com, lpieralisi@kernel.org, 
+	taniya.das@oss.qualcomm.com, danila@mainlining.org, davidwronek@gmail.com, mani@kernel.org, 
+	robimarko@gmail.com, linux@gurudas.dev, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, 
+	linux-pm@vger.kernel.org
+Subject: Re: [PATCH v6 04/13] clk: qcom: Add Global Clock Controller (GCC)
+ driver for SM7250
+Message-ID: <apYNXZ9TJEC6rVVf@baldur>
+References: <20260824150156.1310-1-sreeshankar0910@gmail.com>
+ <20260824150156.1310-5-sreeshankar0910@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260901-ti-am33-usb-v3-6-5e15c617d2e9@gmail.com>
-References: <20260901-ti-am33-usb-v3-0-5e15c617d2e9@gmail.com>
-In-Reply-To: <20260901-ti-am33-usb-v3-0-5e15c617d2e9@gmail.com>
-To: Vignesh Raghavendra <vigneshr@ti.com>, Vinod Koul <vkoul@kernel.org>, 
- Frank Li <Frank.Li@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Andrzej Siewior <bigeasy@linutronix.de>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Aaro Koskinen <aaro.koskinen@iki.fi>, 
- Andreas Kemnade <andreas@kemnade.info>, Kevin Hilman <khilman@baylibre.com>, 
- Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>, 
- Ravi B <ravibabu@ti.com>, Kumar Gupta <ajay.gupta@ti.com>, 
- Manivannan Sadhasivam <mani@kernel.org>, Bin Liu <b-liu@ti.com>
-Cc: dmaengine@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org, 
- linux-phy@lists.infradead.org, linux-omap@vger.kernel.org, 
- goledhruva@gmail.com, m-chawdhry@ti.com, daniel.baluta@gmail.com, 
- simona.toaca@nxp.com, j.bhargav.u@gmail.com
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788218595; l=5263;
- i=j.bhargav.u@gmail.com; h=from:subject:message-id;
- bh=uM708j09j6nSOP7IiMsV0ytTgwnrzIZATjME+J7mX5E=;
- b=3rKnxP+0ubnqPfB1KGJfmvBJbDtMtM57d7hApu3Tc/BQkJgnnS2cvdQ9c2FKRUcp3mct7jCXb
- bSBnPJPSyxvANvstRgX8Nl2s+b9M+nb2iECTqjA9qQdy6JJ//qSvH5L
-X-Developer-Key: i=j.bhargav.u@gmail.com; a=ed25519;
- pk=IqNDwUZKECEA+n8wXctFLBbYL9NhFstZNbOznm/nX1k=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260824150156.1310-5-sreeshankar0910@gmail.com>
 
-Convert the TI DA8xx/OMAP-L1x MUSB text bindings to DT schema. Since
-DA8xx MUSB node acts as a parent bus for the CPPI41 DMA controller add
-required #address-cells, #size-cells, and ranges properties.
+On Mon, Aug 24, 2026 at 03:01:47PM +0000, Sreeshankar K wrote:
+> Add support for the global clock controller found on SM7250
+> based devices. This should allow most non-multimedia device
+> drivers to probe and control their clocks.
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
-Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
----
- .../devicetree/bindings/usb/da8xx-usb.txt          |  69 -------------
- .../devicetree/bindings/usb/ti,da830-musb.yaml     | 113 +++++++++++++++++++++
- 2 files changed, 113 insertions(+), 69 deletions(-)
+"This should"?
 
-diff --git a/Documentation/devicetree/bindings/usb/da8xx-usb.txt b/Documentation/devicetree/bindings/usb/da8xx-usb.txt
-deleted file mode 100644
-index 00320d92d3bb..000000000000
---- a/Documentation/devicetree/bindings/usb/da8xx-usb.txt
-+++ /dev/null
-@@ -1,69 +0,0 @@
--TI DA8xx MUSB
--~~~~~~~~~~~~~
--For DA8xx/OMAP-L1x/AM17xx/AM18xx platforms.
--
--Required properties:
--~~~~~~~~~~~~~~~~~~~~
-- - compatible : Should be set to "ti,da830-musb".
--
-- - reg: Offset and length of the USB controller register set.
--
-- - interrupts: The USB interrupt number.
--
-- - interrupt-names: Should be set to "mc".
--
-- - dr_mode: The USB operation mode. Should be one of "host", "peripheral" or "otg".
--
-- - phys: Phandle for the PHY device
--
-- - phy-names: Should be "usb-phy"
--
-- - dmas: specifies the dma channels
--
-- - dma-names: specifies the names of the channels. Use "rxN" for receive
--   and "txN" for transmit endpoints. N specifies the endpoint number.
--
--Optional properties:
--~~~~~~~~~~~~~~~~~~~~
-- - vbus-supply: Phandle to a regulator providing the USB bus power.
--
--Example:
--	usb_phy: usb-phy {
--		compatible = "ti,da830-usb-phy";
--		#phy-cells = <0>;
--	};
--	usb0: usb@200000 {
--		compatible = "ti,da830-musb";
--		reg = <0x00200000 0x1000>;
--		ranges;
--		#address-cells = <1>;
--		#size-cells = <1>;
--		interrupts = <58>;
--		interrupt-names = "mc";
--
--		dr_mode = "host";
--		vbus-supply = <&usb_vbus>;
--		phys = <&usb_phy 0>;
--		phy-names = "usb-phy";
--
--		dmas = <&cppi41dma 0 0 &cppi41dma 1 0
--			&cppi41dma 2 0 &cppi41dma 3 0
--			&cppi41dma 0 1 &cppi41dma 1 1
--			&cppi41dma 2 1 &cppi41dma 3 1>;
--		dma-names =
--			"rx1", "rx2", "rx3", "rx4",
--			"tx1", "tx2", "tx3", "tx4";
--
--
--		cppi41dma: dma-controller@201000 {
--			compatible = "ti,da830-cppi41";
--			reg =  <0x201000 0x1000
--				0x202000 0x1000
--				0x204000 0x4000>;
--			reg-names = "controller", "scheduler", "queuemgr";
--			interrupts = <58>;
--			#dma-cells = <2>;
--			dma-channels = <4>;
--		};
--
--	};
-diff --git a/Documentation/devicetree/bindings/usb/ti,da830-musb.yaml b/Documentation/devicetree/bindings/usb/ti,da830-musb.yaml
-new file mode 100644
-index 000000000000..fefae735b34d
---- /dev/null
-+++ b/Documentation/devicetree/bindings/usb/ti,da830-musb.yaml
-@@ -0,0 +1,113 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/usb/ti,da830-musb.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: TI DA8xx MUSB
-+
-+maintainers:
-+  - Bin Liu <b-liu@ti.com>
-+
-+allOf:
-+  - $ref: /schemas/usb/usb-drd.yaml#
-+
-+properties:
-+  compatible:
-+    const: ti,da830-musb
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  interrupt-names:
-+    const: mc
-+
-+  phys:
-+    maxItems: 1
-+
-+  phy-names:
-+    const: usb-phy
-+
-+  dmas:
-+    minItems: 1
-+    maxItems: 8
-+
-+  dma-names:
-+    minItems: 1
-+    maxItems: 8
-+    items:
-+      pattern: "^(rx|tx)[1-4]$"
-+
-+  vbus-supply:
-+    description: Phandle to a regulator providing the USB bus power.
-+
-+  clocks:
-+    maxItems: 1
-+
-+  clock-ranges: true
-+
-+  ranges: true
-+
-+  "#address-cells":
-+    const: 1
-+
-+  "#size-cells":
-+    const: 1
-+
-+patternProperties:
-+  "^dma-controller@[0-9a-f]+$":
-+    $ref: /schemas/dma/ti/ti,cppi41.yaml#
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - interrupt-names
-+  - phys
-+  - phy-names
-+  - ranges
-+  - "#address-cells"
-+  - "#size-cells"
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    usb@200000 {
-+        compatible = "ti,da830-musb";
-+        reg = <0x00200000 0x1000>;
-+        ranges;
-+        #address-cells = <1>;
-+        #size-cells = <1>;
-+        interrupts = <58>;
-+        interrupt-names = "mc";
-+
-+        dr_mode = "host";
-+        vbus-supply = <&usb_vbus>;
-+        phys = <&usb_phy 0>;
-+        phy-names = "usb-phy";
-+
-+        clocks = <&psc1 1>;
-+        clock-ranges;
-+
-+        dmas = <&cppi41dma 0 0>, <&cppi41dma 1 0>,
-+               <&cppi41dma 2 0>, <&cppi41dma 3 0>,
-+               <&cppi41dma 0 1>, <&cppi41dma 1 1>,
-+               <&cppi41dma 2 1>, <&cppi41dma 3 1>;
-+        dma-names = "rx1", "rx2", "rx3", "rx4",
-+                    "tx1", "tx2", "tx3", "tx4";
-+
-+        dma-controller@201000 {
-+            compatible = "ti,da830-cppi41";
-+            reg = <0x201000 0x1000>,
-+                  <0x202000 0x1000>,
-+                  <0x204000 0x4000>;
-+            reg-names = "controller", "scheduler", "queuemgr";
-+            interrupts = <58>;
-+            #dma-cells = <2>;
-+            dma-channels = <4>;
-+        };
-+    };
+> 
+> Signed-off-by: Sreeshankar K <sreeshankar0910@gmail.com>
+[..]
+> diff --git a/drivers/clk/qcom/gcc-sm7250.c b/drivers/clk/qcom/gcc-sm7250.c
+[..]
+> +	.clk_regs_configure = gcc_sm7250_clk_regs_configure,
 
--- 
-2.55.0
+/home/bjorn/sandbox/kernel/workspace/drivers/clk/qcom/gcc-sm7250.c:2228:24: error: incompatible function pointer types initializing 'void (*)(struct device *, struct regmap *)' with an expression of type 'void (struct regmap *)' [-Wincompatible-function-pointer-types]
+ 2228 |         .clk_regs_configure = gcc_sm7250_clk_regs_configure,
+      |                               ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
 
+Thank you,
+Bjorn
+
+> +};
