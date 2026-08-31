@@ -1,64 +1,50 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CEE9348C70;
-	Mon, 31 Aug 2026 12:12:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D531E3F39C8;
+	Mon, 31 Aug 2026 12:13:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788178355; cv=none; b=am56Y+EmEyDlwnbMlMQP4QvwVig6AmRQIS4tHv2XTHmYgm7I7uotZc28OuRl+Y2AUxhm0YUn/9pbxJHZQxKc+CPyXXMLLmL7PZCVtevnogJjOj+cJms/s2AQUozCK09yndIaZwuS5s+cFRPod3A1oCfXZlT+KcQsKXiVdV+trxo=
+	t=1788178394; cv=none; b=YdC9UduUpqcRLf/+qhczS5y2Z077Smp/KGaCrhyKzJbaInefMuMLyhs/ZICswtvhRn228jDB8ZjNHVbo+tYEIJOHaUj5OE4+pm18kCX0NGfZPFeDZQ8PHt72xuiaFQTsFnRtJHHZ10yCQtH8AvKqCS0O2VHfljVUsFvSepdVO7M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788178355; c=relaxed/simple;
-	bh=U8EVMnxv83kL6cvauMKQhcfhGM1b7G2bSohUqrcQNmw=;
+	s=arc-20240116; t=1788178394; c=relaxed/simple;
+	bh=vqOjC3fWsVy+2Ro/BMSCffsVqfasg0sxqjTTsjgOm54=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jdf7mQwERaZb5ABdqK8qjdGaUlO5UwE917yJNL9WEDMSsxyrSzHKkKb648hpxS+uLquhS3/Q//QSr2WqYlXHCERLu/RSJCmxHwnzQlJytkiKlKHkfzbc5J4aETD+kDIhs5qfePY3LaNDQ+F/JdfzGRvKcWZr37wcoMjtPus1roc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=INWwh+8o; arc=none smtp.client-ip=198.175.65.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=BXNtg9vcJcymivf+8rALqt3L+DLpagQdnBQtQdZnHFWQJOY+rTUWpCUysioS6w/jkqu4t5wMbB7ixrkOkmvxf1/m0WxliXqj0pdkrSl4Uwfl3tGgjIfgxzW+8GuS2W51fI1sUsMxLeLTr5Aab7bfV3rXHmcoPmsc+Zzz3hbYN60=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=ZRFide8o; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="INWwh+8o"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788178353; x=1819714353;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=U8EVMnxv83kL6cvauMKQhcfhGM1b7G2bSohUqrcQNmw=;
-  b=INWwh+8opvnDbHdAAkvdWwg6w5Gpt0SyhgkmoRtK6k8j7FCNFDWVzMyy
-   5iaoc467Q9SP70LyFKDb/iOjrcvcfVR6i7t9EF5+s9UXlNs6UApxap5zC
-   nW+5E4jGelDitpUO48L9KFx767MWqt2ba+BsppJxi9gyKYdkMoR4U+60R
-   k6FTAqdm464QjpPFbVfLNxHCSELKk1/kusBHtgF4fmPWg0CqrtyQpawKU
-   sQO86gkdGVmZP8ciqG0RcxUa+bEdpvHTDZ2drrlTx7nl6etPQnCmNT2Gq
-   U14loTx4HlX1DQWl2T43cw+K4zsgLfG/dkzQKH0Ebr35myO/+XTlQPspw
-   Q==;
-X-CSE-ConnectionGUID: 3lLQASoYQ0W+JHrnSkePFw==
-X-CSE-MsgGUID: +RCW2KLTR3a+qNLgROjQuA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11891"; a="88607427"
-X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; 
-   d="scan'208";a="88607427"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 05:12:32 -0700
-X-CSE-ConnectionGUID: 13QC92q6TDWbPLHAy2xw9g==
-X-CSE-MsgGUID: 3vKqWdYTT6OKkbtFlo9lIg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; 
-   d="scan'208";a="274046685"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.140])
-  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 05:12:31 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 29D1E11F7F5;
-	Mon, 31 Aug 2026 15:11:37 +0300 (EEST)
-Date: Mon, 31 Aug 2026 15:11:37 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: "D. Manresa" <dmanresa@gmail.com>
-Cc: Hans de Goede <johannes.goede@oss.qualcomm.com>,
-	Daniel Scally <dan.scally@ideasonboard.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] media: ipu-bridge: reuse the software nodes on rebind
-Message-ID: <apVveTVtPTGZ15J7@kekkonen.localdomain>
-References: <20260827232636.93145-1-dmanresa@gmail.com>
- <20260831094257.29398-1-dmanresa@gmail.com>
- <20260831094257.29398-3-dmanresa@gmail.com>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="ZRFide8o"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=F5FZuqvEUAT2/PGcwzm4Qov9gm3yBMDweP9yb9iR+HU=; b=ZRFide8oJiPpu9hZmbIkYaN0+4
+	4XtdFgm/EkgzNhTbt5eEEiWaD3+OifNF8lBC/8J/GpnGa+xucYWpnCdPUjyXBZdq4NwjIqUWIeNH5
+	GW6b4s7GJcXVohYd4clgmE47LMQPpdA70XUiyjLed1CKfrRDOU5HcaAQHutx8i5wxhng=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1x10se-002Acg-Kj; Mon, 31 Aug 2026 14:12:52 +0200
+Date: Mon, 31 Aug 2026 14:12:52 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Prasanth <prasanth.padarthi10@gmail.com>
+Cc: Joel Stanley <joel@jms.id.au>,
+	Andrew Jeffery <andrew@codeconstruct.com.au>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Ryan Chen <ryan_chen@aspeedtech.com>,
+	Billy Tsai <billy_tsai@aspeedtech.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 0/2] ARM: dts: aspeed: Add ASRock Rack B650D4U BMC
+Message-ID: <daf98fe8-70f9-410e-8a2a-042a671086c2@lunn.ch>
+References: <20260830182036.284736-1-prasanth.padarthi10@gmail.com>
+ <d60f234e-1b9e-44cc-9bad-da79e794fe44@lunn.ch>
+ <CAMFFDGgTnNouukst3V1rEg0NCNMW-BZ6tM6+fbQc0zeXaOb72w@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -67,121 +53,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260831094257.29398-3-dmanresa@gmail.com>
+In-Reply-To: <CAMFFDGgTnNouukst3V1rEg0NCNMW-BZ6tM6+fbQc0zeXaOb72w@mail.gmail.com>
 
-Hi D.,
-
-On Mon, Aug 31, 2026 at 11:42:56AM +0200, D. Manresa wrote:
-> The software nodes registered by ipu_bridge_init() are deliberately
-> never unregistered, and the intended design is for a rebind to reuse
-> the already registered nodes. That reuse path however only exists for
-> the case where the IPU device kept its secondary fwnode link, which the
-> fwnode graph check at the top of ipu_bridge_init() detects: then the
-> function returns early. When the link is gone, ipu_bridge_init()
-> unconditionally registers the IPU HID software node again, which fails
-> with -EEXIST on the sysfs name (the node from the previous bind is
-> still registered) and the IPU driver fails to probe.
+On Mon, Aug 31, 2026 at 06:43:46AM +0530, Prasanth wrote:
+> Hi Andrew,
 > 
-> That is exactly what happens when the IPU PCI device is removed and
-> re-scanned: device_del() unsets the ACPI companion, and
-> set_primary_fwnode(dev, NULL) then clears the ACPI fwnode's ->secondary
-> pointer, so the fwnode graph check on the next probe finds no endpoints
-> and falls through to registration. Observed on a Surface Pro 7+ (IPU6):
+> I do not currently have the PCB layout or trace-length information, so I cannot
+> prove that the board provides the TX delay externally.
 > 
->   echo 1 > /sys/bus/pci/devices/0000:00:05.0/remove
->   modprobe -r intel_ipu6_isys intel_ipu6   # ipu-bridge unloads too
->   echo 1 > /sys/bus/pci/rescan
->   modprobe intel_ipu6
+> What I have validated on hardware is:
 > 
->   sysfs: cannot create duplicate filename '/kernel/software_nodes/INT343E'
->   intel-ipu6 0000:00:05.0: Failed to register the IPU HID node
->   intel-ipu6: probe of 0000:00:05.0 failed with error -17
+> rgmii: fails, with RX CRC errors and no valid RX traffic
+> rgmii-rxid: passes, 5000/5000 packets, 0% loss, no RX CRC errors
+> rgmii-id: also passes with the same traffic test
 > 
-> after which the cameras are unusable until reboot.
+> This shows that the RTL8211F RX internal delay is required, but it does not
+> establish where the TX delay is provided.
 > 
-> Add the missing reuse path: if the IPU software node is already
-> registered, look it up with software_node_find_by_name(), point the
-> device's secondary fwnode at it and return success. Restoring the IPU's
-> secondary fwnode is all a rebind needs: the sensors' ACPI fwnodes still
-> carry their secondary fwnode pointers from the first bind (the sensor
-> devices are not removed by an IPU unbind, so nothing clears those), and
-> the IVSC and VCM links likewise live on devices that survive an IPU
-> rebind. The previous commit made the registered nodes self-contained in
+> Given that I cannot provide PCB-level evidence for the TX delay, would you
+> prefer that I use rgmii-id for the next revision?
 
-I'd refer to the patch by a name, but I don't think you really need that
-reference here.
+There has been a number of threads about the Aspeed SoC. It typically
+has delays enabled in its MAC, by the bootloader. The Linux MAC driver
+does not disable this, nor does it mask the value passed to the
+PHY. So you see many Aspeed .dts files incorrectly using 'rgmii'. Over
+the last couple of years i have been pointing out this problem, but
+nobody has stepped up to fix the issue. Most DT developers just leave
+the Ethernet node out, in order to get something merged.
 
-> the never freed bridge allocation, so their properties are still valid
-> here. The IVSC readiness check is intentionally skipped on this path,
-> as the IVSC links were already established by the first bind.
+You case is interesting, because you are not suggesting 'rgmii'. So it
+could be there is more going on.
 
-I'd say this is a bit too elaborate for a commit message. Please shorten
-it.
+If you look in the email archives you should find the information
+about where to configure the delay in the hardware. You might want to
+read it out to understand how the bootloader has configured the
+hardware.
 
-> 
-> software_node_find_by_name() takes a reference on the node it returns;
-> drop it right away since the node is kept alive by its never dropped
-> registration, matching the reference handling of the initial-bind path.
-> 
-> Developed with the assistance of an AI tool (Claude)
-
-Please use Assisted-by: tag, see
-Documentation/process/coding-assistants.rst .
-
-> 
-> Fixes: 803abec64ef9 ("media: ipu3-cio2: Add cio2-bridge to ipu3-cio2 driver")
-> Signed-off-by: D. Manresa <dmanresa@gmail.com>
-> ---
->  drivers/media/pci/intel/ipu-bridge.c | 24 ++++++++++++++++++++++++
->  1 file changed, 24 insertions(+)
-> 
-> diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel/ipu-bridge.c
-> index 4de42ed..6fa1c3c 100644
-> --- a/drivers/media/pci/intel/ipu-bridge.c
-> +++ b/drivers/media/pci/intel/ipu-bridge.c
-> @@ -930,6 +930,7 @@ static DEFINE_MUTEX(ipu_bridge_mutex);
->  int ipu_bridge_init(struct device *dev,
->  		    ipu_parse_sensor_fwnode_t parse_sensor_fwnode)
->  {
-> +	const struct software_node *ipu_node;
->  	struct fwnode_handle *fwnode;
->  	struct ipu_bridge *bridge;
->  	unsigned int i;
-> @@ -940,6 +941,29 @@ int ipu_bridge_init(struct device *dev,
->  	if (!ipu_bridge_check_fwnode_graph(dev_fwnode(dev)))
->  		return 0;
->  
-> +	/*
-> +	 * The software nodes registered by a previous ipu_bridge_init() call
-> +	 * are deliberately kept registered when the module is unloaded, and
-> +	 * the sensors' ACPI fwnodes still have them as their secondary
-> +	 * fwnodes. If the IPU software node is already registered this is a
-> +	 * rebind, e.g. after the PCI device was removed and re-scanned,
-> +	 * which drops the IPU's secondary fwnode link. Registering the nodes
-> +	 * again would fail with -EEXIST, so instead reuse them and just
-> +	 * restore the IPU's secondary fwnode link.
-> +	 */
-> +	ipu_node = software_node_find_by_name(NULL, IPU_HID);
-> +	if (ipu_node) {
-> +		fwnode = software_node_fwnode(ipu_node);
-> +		set_secondary_fwnode(dev, fwnode);
-> +		/*
-> +		 * The node stays registered, it does not need the reference
-> +		 * software_node_find_by_name() took to stay alive.
-> +		 */
-> +		fwnode_handle_put(fwnode);
-> +		dev_info(dev, "Reusing the previously registered software nodes\n");
-
-I think dev_dbg() should suffice here.
-
-> +		return 0;
-> +	}
-> +
->  	if (!ipu_bridge_ivsc_is_ready())
->  		return dev_err_probe(dev, -EPROBE_DEFER,
->  				     "waiting for IVSC to become ready\n");
-
--- 
-Regards,
-
-Sakari Ailus
+    Andrew
