@@ -1,101 +1,111 @@
-Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com [209.85.160.176])
+Received: from mta0.migadu.com (out-77.mta0.migadu.com [91.218.175.77])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 010D42931D9
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 20:57:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15F2B38E106
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 20:58:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.77
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788209877; cv=none; b=lB7WgM9r/dpgh4B19jp0gq2u3zeSyXB2hdNNWLZflu70mL73nrn8D74xC/9askvBk2ZqFrtN03SZCIyGR0Aq8Tmd/r2RbYPWrAvi5A66KO2OG2yeNzUgGnBlsJTAXIsD0VJ7w/9OM7GojjeXYlG1/xPk76FCgPTrkKLWH90828w=
+	t=1788209916; cv=none; b=ImKt+YiN4CgZNsk7nPNM6/nCHI9bBVt25T+SFr9inJoSbYnEOxLm6NxP6bwdRhI31ZSenPjMjNyxGLZECWFjFJeRQ8i/QKmCGBp8DeL9EESGFnUtbd25eU9bDHqUYHWFzdxgRJL1A3P1zD5OJMN0ovl3eVtOeM0KEkgweE6TETE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788209877; c=relaxed/simple;
-	bh=7XhoZc+d+Npz+Cabc3A0TtQ6BwVo5jOIjEe/ClwtPew=;
-	h=Subject:To:Cc:References:From:Message-ID:Date:MIME-Version:
-	 In-Reply-To:Content-Type; b=M9wK/NLVxwXGqtkSprP1sSOXxMCDnlVjQioyZNzHlO/q5pv9rfhuz7ZcTFki7Kh+3OFDyD4tS6XaSHFzFuHJavVZwdEiPiJLD4/kBM20yzY3dD1zSCeBDeTDmC8nrnNWZTAl/4C+b/28YmJ9b9kSCWWdG2WW6d4+vGP4dPkUA3o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mplP3KI5; arc=none smtp.client-ip=209.85.160.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788209916; c=relaxed/simple;
+	bh=P4ssAPIr93jDaP0gK8av1LC/knMPc/5tVkS1Bfhdqgg=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=scMYeJJ4oQg2hxw7rZ9YxyL3qrnu7LfcvGR/I3lrFO/p+amSMwKKNG69iHhJxPPauQLkgxutO1XGmYeEWidbOCBio0NZUny065W/DqEnPP9P9/Vr78Mj7KUsnYTXrvlDCRnlHl4yjkSJDeXjRRpZJBdRqYyp2x/j38qJtU0a/68=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=gWqM+OAF; arc=none smtp.client-ip=91.218.175.77
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mplP3KI5"
-Received: by mail-qt1-f176.google.com with SMTP id d75a77b69052e-51c2a818fc4so39335011cf.2
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 13:57:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788209874; x=1788814674; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:mime-version
-         :user-agent:date:message-id:from:references:cc:to:subject:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Ro9e2jTWieCFdtrEqKTJDij7AqVySynjSHA79dJ5Oyo=;
-        b=mplP3KI5aFgm2VPsWp7C5ZG3trNzKyAbqVnp5rloavmp6w3JLmC9BtC4nuJ/lF6rX7
-         VH4z627Fme4e18dtHI8u3FWA+uiTqDznw434oFRbrAjk1YTovBE27m76j7a3ecUP8/2a
-         FndtccCjeYvc9KSYdReDKRDvq6DN9YhWPKt2+i9/KrRnjYtCO7wXb6XT457JAQDYQtfu
-         TIzFnWDKJkq4sXpkcpfIoT0EpLY4Xadrz3ou5sXFcglG2EwV/BPd3O7OW1n0RpBRIrCF
-         YrS+u+afGxRbz4LDBZCysbB/gwkymmMj5juATJ6aMtxUVNTGtmgsLDqqJ8wLaySXH+oy
-         fxtA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788209874; x=1788814674;
-        h=content-transfer-encoding:content-type:in-reply-to:mime-version
-         :user-agent:date:message-id:from:references:cc:to:subject:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Ro9e2jTWieCFdtrEqKTJDij7AqVySynjSHA79dJ5Oyo=;
-        b=Bd1x5jU/Yw6/G3bWOeeIOcG3zHNiD9kOtYxuyKb+DghMahxcit9xwp3nN6aGFLb0Ez
-         HxXaq94LMvzIbVUuylDMf5gusFDvpmiV7A/sWchW2JHtjOTNcJ/QYmeS5trLbDUNYaUW
-         bKFKqlaFDTOUnFCSR24C8SzP8mL+3D+wYgLxlWcJCvHwwn2QT6iCtvvunYyJxxJluegI
-         2SJinT4NKalxVHPiC8yRnM7eqZem2WcFmJKEDsaT/IZKdczuMm9ar99wdvpaJP3NWP7Q
-         I/TupDzVVOcx9rzbiiGvaqQVIo1JftXlbCGpEyqo702ffMKKT+532pHgn6Vj8FkL9aMn
-         naLA==
-X-Forwarded-Encrypted: i=1; AHgh+RoUJmgPFn4vxJwyKZuiMPQ6R3MBa64F7KrrPWDjiusVs+xTFR9PSvIrmd558bj5ZwOTqe3fns0+3DrwdGg=@vger.kernel.org
-X-Gm-Message-State: AFuF++m28l8ciI1r1Nd+CpFJR/c0laWyfsJ5+H+B7//Efyo2UsF0Ojqp
-	7fGgcGWwBLphQP2OkiVo1n4RtNOHhchjWK2qsKPO3EjL/3kPWJNBlcY=
-X-Gm-Gg: AR+sD10vMDcVETrzfphgWaPzoLJeGJ/th9BM53gr8uE5omlGEq1+eFulltrGcU7GkFJ
-	7Ztf+TpxDiau52M3hl7mi6zgAH9EXKWu/zzfMoehBw1WUTZ3dOMLdpB3JX1HfaYyr/2GGB6r9gF
-	0Kb0DBN+lYu8t0CC6pCOOqOtSxrjCWDNMw7CFICv5GJKg7aW2woX11E2M6cut3KnM/OB2WdWQff
-	n05hpsUbVxSpYJu5/3uLMXQc9wT+T+gLLstJEKnaVjHOZYT+qaSfuhmRUs+CCH2rh7E/PSbgCOx
-	qUcRA+bf+jFHMsJROse4QuBMRHIivYBoPAI3nfgCkRwl+nktYktgg31+hy+dQAXsls8DYHealYV
-	HCg1aPCvOGZnKKb5u8bf0axLC7sd1Y0o7ht98X7V1cgbvn5IL73kqZSkRDHTZ3l2eyVMowMCZ3K
-	arJ9/jfTqhBAQSP1K702IZ8KeQHfFwuYPbjn96QCnyTVBiiYTmiOYqIjk1hbClqaUIx+0lVltyG
-	EoVcNee9g+mL60E4N82UJv49g==
-X-Received: by 2002:a05:622a:e3ce:20b0:52f:c0b8:b619 with SMTP id d75a77b69052e-52fc0b928b5mr168125111cf.29.1788209873697;
-        Mon, 31 Aug 2026 13:57:53 -0700 (PDT)
-Received: from [120.7.1.23] (135-23-94-154.cpe.pppoe.ca. [135.23.94.154])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-90ce4515072sm91956876d6.36.2026.08.31.13.57.50
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 31 Aug 2026 13:57:53 -0700 (PDT)
-Subject: Re: [PATCH 5.10 00/43] 5.10.269-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20260831133358.571886287@linuxfoundation.org>
-From: Woody Suwalski <terraluna977@gmail.com>
-Message-ID: <ffd3fcee-cb98-0821-3544-4da490e546a8@gmail.com>
-Date: Mon, 31 Aug 2026 16:58:11 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:140.0) Gecko/20100101
- Firefox/140.0 SeaMonkey/2.53.24
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="gWqM+OAF"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=P4ssAPIr93jDaP0gK8av1LC/knMPc/5tVkS1Bfhdqgg=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788209911; v=1; x=1788814711;
+ b=gWqM+OAFy7RMCJOjzN3L6BqHgCsTEuntO5mMKlQnDRf19G/HGanQOpvgq4J/Al6MSyF/kGTR
+ q6ORFrnE2GCNJkTIgyOrzD/EYGzZ5dgUXXlRbiRUaxMPH1mSoQKzCIx4adFrVg82b2MFaxOWXJq
+ JUpnVYc6BitQFnZSsSg2vCv8=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 704f2c154292a1ed;
+	Mon, 31 Aug 2026 20:58:30 +0000
+X-Mizu-Trace-ID: 704f2c154292a1ed
+X-Migadu-Flow: FLOW_OUT
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-In-Reply-To: <20260831133358.571886287@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 31 Aug 2026 20:58:29 +0000
+Message-Id: <DL3FIBQNP6AU.1HO08FMI292UX@linux.dev>
+Cc: "bpf" <bpf@vger.kernel.org>, "Alexei Starovoitov" <ast@kernel.org>,
+ "Daniel Borkmann" <daniel@iogearbox.net>, "Andrii Nakryiko"
+ <andrii@kernel.org>, "Martin KaFai Lau" <martin.lau@linux.dev>, "Eduard
+ Zingerman" <eddyz87@gmail.com>, "Song Liu" <song@kernel.org>, "Yonghong
+ Song" <yonghong.song@linux.dev>, "Jiri Olsa" <jolsa@kernel.org>, "KP Singh"
+ <kpsingh@kernel.org>, "Emil Tsalapatis" <emil@etsalapatis.com>, "John
+ Fastabend" <john.fastabend@gmail.com>, "Paul E. McKenney"
+ <paulmck@kernel.org>, "Jose Fernandez" <jose.fernandez@linux.dev>, "LKML"
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH bpf] bpf: Keep progs alive until the trampoline image
+ calling them is freed
+From: "Florent Revest" <florent.revest@linux.dev>
+To: "Kumar Kartikeya Dwivedi" <memxor@gmail.com>, "Alexei Starovoitov"
+ <alexei.starovoitov@gmail.com>
+X-Mailer: aerc 0.17.0
+References: <20260819122252.1782790-1-florent.revest@linux.dev>
+ <DL27QZ6SEZKT.1CV2HAX4A3WI4@gmail.com>
+ <CAADnVQLxi-R1KDUXJJjpq69SpV8UcNJVqBi7uicO=V0WhAvyQA@mail.gmail.com>
+ <DL2S878KSOI5.1SZMLIAWMCNUJ@gmail.com>
+In-Reply-To: <DL2S878KSOI5.1SZMLIAWMCNUJ@gmail.com>
 
-Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 5.10.269 release.
-> There are 43 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-Compiled an i386 kernel, installed and booted OK on a 32-bit EeePC.
-No problems noticed.
+On Mon Aug 31, 2026 at 2:43 AM UTC, Kumar Kartikeya Dwivedi wrote:
+> On Sun Aug 30, 2026 at 3:21 PM CEST, Alexei Starovoitov wrote:
+> > On Sun, Aug 30, 2026 at 3:41=E2=80=AFAM Kumar Kartikeya Dwivedi
+> > <memxor@gmail.com> wrote:
+> >>
+> >> Overall, looks good to me. Thanks for the fix!
+> >>
+> >> Acked-by: Kumar Kartikeya Dwivedi <memxor@gmail.com>
+> >>
+> >> Note for whoever applies this: please add Reported-by: tag for Sechang=
+ as well.
+> >> Optionally, wordsmith the commit log with the suggestion above.
+> >
+> > Hold on. I don't think we can proceed with this fix.
+> > It defeats the point of fexit jmp patching and keeps progs
+> > pinned until a sleepable kernel function that were attached to
+> > will return. Which means that the tracing prog attached to "unlucky" ke=
+rnel
+> > function that sleeps for an hour will stay pinned for an hour.
+> > Let's think of a different way of fixing the race.
+>
+> I don't have background on the original commit being fixed, but is that r=
+eally
+> realistic? Or worrisome even if it happens in practice, since worst case =
+the
+> program refcounts remains raised for that duration?
+>
+> We have similar worst case for programs too (e.g. using bpf_copy_from_use=
+r on
+> user controlled buffer in, say, LSM progs). At least here we won't be ext=
+ending
+> any RCU flavored GP.
+>
+> That said I will think about alternative fixes in the meantime, if we acc=
+ept the
+> premise that we don't want to pin program references in the image and kee=
+p their
+> lifetimes decoupled.
 
-Tested-by: Woody Suwalski <terraluna977@gmail.com>
+How about having old trampolines skip freed programs instead of keeping
+them alive ?
 
-PS. Should the 5.10.269 patch include the fix from pchelkin@ispras.ru
-[PATCH 5.10] Revert "USB: serial: keyspan_pda: fix information leak" ?
+For example, bpf_tramp_image could hold one RCU managed prog pointer per
+prog it calls and we could JIT trampolines that'd pass that slot to
+__bpf_prog_enter*() instead of the prog itself.
 
-
+The enter helpers could rcu_dereference() the prog under their
+rcu_read_lock()/rcu_read_lock_trace() and return 0 when it is NULL.
+Would that work ?
