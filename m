@@ -1,121 +1,272 @@
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D26B353CA61
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 15:23:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BA6E46D550;
+	Mon, 31 Aug 2026 15:25:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.161
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788189840; cv=none; b=gLhXIHk5VGqbFtYgrnEah0ibwqq+MOAVcfw0VHR8Q9Q++8+88BGWZS7Kwa4LeuMrc091I8zISsqHwqnn8f3f/nLMpW5KG6a04rdlDl9Qtdntdwv+A08+bxW3jiHzoieeHgh7a0+zGX+9nbkXwAV7DfGNY+xHln6/hbe9tThOdEw=
+	t=1788189904; cv=none; b=mUXRB7ypjk7c0DuXPN9ghZq0VHOW/zepKghhq7jaWUvhX0LmcKAz+WzIElvcS1n1L+1YbElr4z27sSF/PLvfsydPUpN50zHCiUb8CkQdn6hwHXVn5ofCFJXg/eTt/Bz9OK/fZuXCF4d+LY9gDUz9D5aYPW6utPl3Ul6j79i38cI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788189840; c=relaxed/simple;
-	bh=lK+WjgYKOmiQpd41H6DamAs2XPSk2nxGNLfuWcUvOZM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=N9aUOCex4vpkrenc05z+a3nHeQZqtx2p0LMORExw7R6xnMdIjBo4EK7sSsJXx43f9lhn1SpLowRn3tkMC0/rr/YU5Ie/SyqzuvzhaOapLAchaQvGgrpBNsEE2szgfZ3Adk+OOZF+cZFhSyDvgTW0LTrXTmdhVL9yXBRF8kibnnQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=M1wJs4GN; arc=none smtp.client-ip=209.85.128.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1788189904; c=relaxed/simple;
+	bh=TA/Vs2qwTMKDnOjhQFwNGPnYNC7GKSpHdlgjySdJQJc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=o//Fp0gppnFee0uRBE7YQDRtFkgsGS4F6aOZDhpgUFr0SK9N8m/6nbmvcQXAzIUfqxhQRVi8jhRvbz2R8RYSwsZt8MIpItbTDIE+3J7Z91hevzkRIx3zRwTztRfgsUIDh+hZY+3nhuW14Z5/yymdgGL4YJ7mufTJrdn02p4AsbM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=iuXapIgr; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=k5uRqxJK; arc=none smtp.client-ip=80.241.56.161
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="M1wJs4GN"
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-49b8e527d63so35303605e9.2
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 08:23:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1788189837; x=1788794637; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=cBxrB3Hi/S4n9Zm3fzIKjMzQqgS1ovGA5rzSORByASQ=;
-        b=M1wJs4GNKmF5NxbDO6YN4A0MtpvANeb51TGETujCk79Q011uMXRnkKRMlO6BuosGem
-         mZbQblO7iEkrnbiMH54BK3AYwV9TGSU2KhB+GTHG0Yg+/H/qGnt87kxyqs7ZQUHTp3jl
-         vGIaH4kItv+E9+b9YT2uoJBGpPsAP1+WY7/7xEgyp7vQL3cVOvl1emLLM2fDXTGHIo5z
-         aKC21roMLZpsgvlYlUGgiQT0Y++PCxNe+fHSOzgJGUca9nd4toZz5gIBXfRz4eZZUdXy
-         fmfLaJry98bCeflFTGneTiYnx5xOt5rqm8G6U9DNsO5zh2kRqGMFdJbmK9CXi4qSOpS8
-         cIiA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788189837; x=1788794637;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=cBxrB3Hi/S4n9Zm3fzIKjMzQqgS1ovGA5rzSORByASQ=;
-        b=aNsg8IrXR2U/AGLf5duBY5cqyDPVdlkLIO4A6y7P6a0vgNeWVUVvxJNq/dr29sktTz
-         AnohXYBbE4fnbvnVsNjm9jPrpRpzwnLt64u0fdFCFeoG4avO+DyTZjYzs/ufR6/0eYX3
-         R8AbQivQ5aGzVXSVFGFBcWi53LNUe0sXDjiFzFWjjUFAzgThEBhSvpcLdLvsVw4GoLj/
-         B24tKtErwAIjca+mpQO0vZH9tj/MWVvrtNmSdW/41PH2FG6MhtIPha3kSEX7am8aIdab
-         S0g8NTo0UZyllEt2rpbhQNxElzYt5wYruzS3/jRtq0Tx9P2G5xnN8pSd8dCqt2+ALAlb
-         QXUw==
-X-Forwarded-Encrypted: i=1; AHgh+RpC19dMfNQWyTwoTsJZ4FkHtD/G5093CXGNONulqf00h15i5lNA4tXx/ZaCCujZm+vqI2eVJHjir76HNu8=@vger.kernel.org
-X-Gm-Message-State: AFuF++mscapY1oZVH+jTXq+6IRtugMSJkfpUDJhhgr+CABJJlLDts8gg
-	0asccLqf6QjN6H6S63Qspb2vqE1R3B6bWRrxNKQfink69m8Ys6/TcmRwTTMpQkvc8f0=
-X-Gm-Gg: AR+sD12IMBdIwNITVxKFrvoh12aawlAkR4MfmMslL1IHzp5l77YHpvVQoIa22JtfrsV
-	MYz6hTCoL8NQ9C/yKXCnZTkhcjLUYbKSQ2pEtP2SZwo8u+Tr+hCigngMVk3iNL6fF9Pui49klsk
-	9Gqw+Kn1BCcPT2oTDz1FBouLELld2o2qVR4zq+rXac00QogRfZ9l3t5kIUvouhtOpOqD5NbpCHl
-	sBensbRPNiNmRfRx/qhwuwFlvQ5KM9oTBOTBPa7jUYYvXlwYPB1JnGKtR1AWOg2TjSCTZxCLxvL
-	66oavxaNQ4WabW2GYnCYByDHd19InPaog1KOpoShsjcmhjEucUE3uP+kVyaALFKfjxasc6Pdxun
-	Fh1QdkmcQb/5S2NQjX8dID8kQyRGgouW05RmqJ//QDAmG6mdNQK3CvOjmMlzuyb/iHSZz2/+JiZ
-	TuwE+hf8Nh/6NoiBx0WhP/cDIen1zblht2DWGF3BTHO7IN9WE6/hJd+4PKib8tCA==
-X-Received: by 2002:a05:600c:8b6b:b0:49b:c8e:8e6 with SMTP id 5b1f17b1804b1-49b91bd99b7mr454334485e9.0.1788189836942;
-        Mon, 31 Aug 2026 08:23:56 -0700 (PDT)
-Received: from pathway.suse.cz ([176.114.240.130])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48432022ab8sm16453982f8f.28.2026.08.31.08.23.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 08:23:56 -0700 (PDT)
-Date: Mon, 31 Aug 2026 17:23:54 +0200
-From: Petr Mladek <pmladek@suse.com>
-To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Cc: John Ogness <john.ogness@linutronix.de>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Andy Shevchenko <andy.shevchenko@gmail.com>,
-	Jon Hunter <jonathanh@nvidia.com>,
-	Thierry Reding <thierry.reding@kernel.org>,
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="iuXapIgr";
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="k5uRqxJK"
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4hYXq94hg9zKmVC;
+	Mon, 31 Aug 2026 17:24:53 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1788189893;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=UfjuG2qAthtCnMVYrxj8mz2Mw3+wfSa/hH4/tb7lqGI=;
+	b=iuXapIgr0MvYWukPl1WMYY9FzkynGjuz876MY7mDrMH9WRffR8kxl1ZlW03/6DB/EZm3d3
+	MKmeOxS7HPbYbii6faBrV9Az3vG/QQJq4Gv28HKMueCjew/t5Bv+CAjZQn4WmST8/IUKyc
+	4tgyposF2guFNolB9mw/XaD3+ZnfGjFDrasYo09st+XaHBplMQpfWaJKW/agccqBzPxwRp
+	rebqGyGoFzUxMsXTRqr4iAY1xthxAoZLOS7FzRNJRK1EhHaCS7t7kQp4sArOaUXUtRkd0j
+	Wg/tnH6nK0r3Kz90NIe7Zju4K27PJbLL7W+uL10W82bhzFPwU/IDKeFnjxfVxA==
+Authentication-Results: outgoing_mbo_mout;
+	dkim=pass header.d=mailbox.org header.s=mail20150812 header.b=k5uRqxJK;
+	spf=pass (outgoing_mbo_mout: domain of manuelebnerli@mailbox.org designates 2001:67c:2050:b231:465::102 as permitted sender) smtp.mailfrom=manuelebnerli@mailbox.org
+From: Manuel Ebner <manuelebnerli@mailbox.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1788189891;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=UfjuG2qAthtCnMVYrxj8mz2Mw3+wfSa/hH4/tb7lqGI=;
+	b=k5uRqxJKfJt+oWff1REnSvwqOwhbPnD9c1GCysc9+WiuGFjNxyO3JHLJkhSyPEoot/hVzl
+	eS1/9M2SrHKx9+QlbhuKgKKRje2/M7j+X7k/B9JC3xKnRglDSykw83HUSSyxnmVrIY+gyx
+	HlsWDOQMK2KIFfnJp+XnPNBb9Aa2yRTWUsJcGVNXu4/VoQF1HyY6oV7M8ZCy+IaRelHbbj
+	CXuQlL0eISbfwU5nEEaWRHtkjd47aQZhZEm8V6ctUvniiGy9LhPw+lTSaqIjdl6J8QjFbZ
+	CE56HWC2drfVAzZF6tWbFX/5G/jD8AUrWI3/WmiSgq/OFmT7Pl93q9nl4LkUIg==
+To: Federico Vaga <federico.vaga@vaga.pv.it>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Daniel Pereira <danielmaraboo@gmail.com>,
+	Miguel Ojeda <ojeda@kernel.org>,
+	Boqun Feng <boqun@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>
+Cc: Manuel Ebner <manuelebnerli@mailbox.org>,
+	linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Crescent Hsieh <crescentcy.hsieh@moxa.com>,
-	Hugo Villeneuve <hvilleneuve@dimonoff.com>,
-	linux-serial@vger.kernel.org
-Subject: Re: [PATCH tty 1/1] serial: 8250: Change console_msr_work to
- IRQ_WORK_LAZY
-Message-ID: <apWcikIof_6CRNNU@pathway.suse.cz>
-References: <20260828155811.270462-1-john.ogness@linutronix.de>
- <20260828155811.270462-2-john.ogness@linutronix.de>
- <20260828160652.TQBsi8oO@linutronix.de>
+	rust-for-linux@vger.kernel.org,
+	llvm@lists.linux.dev
+Subject: [PATCH 3/4] Docs: pt_BR, it_IT: changes.rst: copy table from english source
+Date: Mon, 31 Aug 2026 17:24:01 +0200
+Message-ID: <20260831152405.638749-2-manuelebnerli@mailbox.org>
+In-Reply-To: <20260831151605.638172-2-manuelebnerli@mailbox.org>
+References: <20260831151605.638172-2-manuelebnerli@mailbox.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260828160652.TQBsi8oO@linutronix.de>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-META: noco9e75nyu3qusk3abs9zjd718purs3
+X-MBO-RS-ID: 6025d342924a42287be
+X-Rspamd-Queue-Id: 4hYXq94hg9zKmVC
 
-On Fri 2026-08-28 18:06:52, Sebastian Andrzej Siewior wrote:
-> On 2026-08-28 18:04:08 [+0206], John Ogness wrote:
-> > For some platforms it is a problem to queue irq_work when entering
-> > cpuidle states. Since irq_work is used for deferred MSR handling,
-> > any atomic console printing when entering cpuidle states can lead
-> > to the affected hardware hanging. Tegra20 and Tegra30 are examples
-> > of such platforms. Avoiding raising the irq_work IRQ has shown to
-> > circumvent the problem.
-> 
-> > Change the console_msr_work to be IRQ_WORK_LAZY, thus not raising
-> > an IRQ upon irq_work queuing. The irq_work is then handled on the
-> > next interrupt (worst case, kernel tick).
->
-> Not on the next interrupt, on the next jiffies tick. Should you run
-> tickless and should the CPU have the tick switch off then it will raise
-> the irq-work interrupt anyway.
+Copy the list from Documentation/process/changes.rst to /it_IT/
+and /pt_BR/ with the purpose to update and sort the lists in the translations.
 
-This seems to be more precise. There is one more scenario. It would
-run in a dedicated kthread with PREEMPT_RT.
+Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
+---
+ .../translations/it_IT/process/changes.rst    | 75 ++++++++++---------
+ .../translations/pt_BR/process/changes.rst    | 58 +++++++-------
+ 2 files changed, 73 insertions(+), 60 deletions(-)
 
-I hope that nobody would run tickless system on the old
-Tegra hardware. So, this change should be good enough in reality.
+diff --git a/Documentation/translations/it_IT/process/changes.rst b/Documentation/translations/it_IT/process/changes.rst
+index 7ee54c972418..2f813bfebde8 100644
+--- a/Documentation/translations/it_IT/process/changes.rst
++++ b/Documentation/translations/it_IT/process/changes.rst
+@@ -32,40 +32,47 @@ PC Card, per esempio, probabilmente non dovreste preoccuparvi di pcmciautils.
+ ====================== =================  ========================================
+         Programma       Versione minima       Comando per verificare la versione
+ ====================== =================  ========================================
+-GNU C                  8.1                gcc --version
+-Clang/LLVM (optional)  17.0.1             clang --version
+-Rust (opzionale)       1.78.0             rustc --version
+-bindgen (opzionale)    0.65.1             bindgen --version
+-GNU make               4.0                make --version
+-bash                   4.2                bash --version
+-binutils               2.30               ld -v
+-flex                   2.5.35             flex --version
+-bison                  2.0                bison --version
+-pahole                 1.16               pahole --version
+-util-linux             2.10o              mount --version
+-kmod                   13                 depmod -V
+-e2fsprogs              1.41.4             e2fsck -V
+-jfsutils               1.1.3              fsck.jfs -V
+-xfsprogs               2.6.0              xfs_db -V
+-squashfs-tools         4.0                mksquashfs -version
+-btrfs-progs            0.18               btrfsck
+-pcmciautils            004                pccardctl -V
+-quota-tools            3.09               quota -V
+-PPP                    2.4.0              pppd --version
+-nfs-utils              1.0.5              showmount --version
+-procps                 3.2.0              ps --version
+-udev                   081                udevd --version
+-grub                   0.93               grub --version || grub-install --version
+-mcelog                 0.6                mcelog --version
+-iptables               1.4.2              iptables -V
+-openssl & libcrypto    1.0.0              openssl version
+-bc                     1.06.95            bc --version
+-Sphinx\ [#f1]_         2.4.4              sphinx-build --version
+-cpio                   any                cpio --version
+-GNU tar                1.28               tar --version
+-gtags (opzionale)      6.6.5              gtags --version
+-mkimage (opzionale)    2017.01            mkimage --version
+-Python (opzionale)     3.5.x              python3 --version
++bash                   4.2              bash --version
++bc                     1.06.95          bc --version
++bindgen (optional)     0.71.1           bindgen --version
++binutils               2.30             ld -v
++bison                  2.0              bison --version
++btrfs-progs            0.18             btrfs --version
++Clang/LLVM (optional)  17.0.1           clang --version
++e2fsprogs              1.41.4           e2fsck -V
++flex                   2.5.35           flex --version
++gdb                    7.2              gdb --version
++genisoimage            1.1.11           genisoimage --version
++GNU awk (optional)     5.1.0            gawk --version
++GNU C                  8.1              gcc --version
++GNU make               4.0              make --version
++GNU tar                1.28             tar --version
++GRUB                   0.93             grub --version || grub-install --version
++gtags (optional)       6.6.5            gtags --version
++iproute2               6.14.0           ip -V
++iptables               1.4.2            iptables -V
++jfsutils               1.1.3            fsck.jfs -V
++kmod                   13               kmod -V
++liblzma                5.8.1            lzma -V
++lzop                   1.04             lzop -V
++mcelog                 0.6              mcelog --version
++mkimage (optional)     2017.01          mkimage --version
++mtools                 4.0.49           mtools -V
++nfs-utils              1.0.5            showmount --version
++openssl & libcrypto    1.0.0            openssl version
++pahole                 1.26             pahole --version
++pcmciautils            004              pccardctl -V
++PPP                    2.4.0            pppd --version
++procps                 3.2.0            ps --version
++Python                 3.9.x            python3 --version
++quota-tools            3.09             quota -V
++Rust (optional)        1.85.0           rustc --version
++Sphinx\ [#f1]_         3.4.3            sphinx-build --version
++squashfs-tools         4.0              mksquashfs -version
++syslinux               6.04             syslinux --version
++udev                   081              udevadm --version
++util-linux             2.10o            mount --version
++xfsprogs               2.6.0            xfs_db -V
+ ====================== =================  ========================================
+ 
+ .. [#f1] Sphinx è necessario solo per produrre la documentazione del Kernel
+diff --git a/Documentation/translations/pt_BR/process/changes.rst b/Documentation/translations/pt_BR/process/changes.rst
+index 51c7fe41663e..86eb7375abe2 100644
+--- a/Documentation/translations/pt_BR/process/changes.rst
++++ b/Documentation/translations/pt_BR/process/changes.rst
+@@ -31,41 +31,47 @@ PC Card por exemplo, provavelmente não precisará se preocupar com o pcmciautil
+ ====================== ===============  ========================================
+ Programa               Versão mínima    Comando para verificar a versão
+ ====================== ===============  ========================================
+-GNU C                  8.1              gcc --version
+-Clang/LLVM (optional)  17.0.1           clang --version
+-Rust (optional)        1.85.0           rustc --version
+-bindgen (optional)     0.71.1           bindgen --version
+-GNU make               4.0              make --version
+ bash                   4.2              bash --version
++bc                     1.06.95          bc --version
++bindgen (optional)     0.71.1           bindgen --version
+ binutils               2.30             ld -v
+-flex                   2.5.35           flex --version
+-gdb                    7.2              gdb --version
+ bison                  2.0              bison --version
+-pahole                 1.22             pahole --version
+-util-linux             2.10o            mount --version
+-kmod                   13               kmod -V
++btrfs-progs            0.18             btrfs --version
++Clang/LLVM (optional)  17.0.1           clang --version
+ e2fsprogs              1.41.4           e2fsck -V
++flex                   2.5.35           flex --version
++gdb                    7.2              gdb --version
++genisoimage            1.1.11           genisoimage --version
++GNU awk (optional)     5.1.0            gawk --version
++GNU C                  8.1              gcc --version
++GNU make               4.0              make --version
++GNU tar                1.28             tar --version
++GRUB                   0.93             grub --version || grub-install --version
++gtags (optional)       6.6.5            gtags --version
++iproute2               6.14.0           ip -V
++iptables               1.4.2            iptables -V
+ jfsutils               1.1.3            fsck.jfs -V
+-xfsprogs               2.6.0            xfs_db -V
+-squashfs-tools         4.0              mksquashfs -version
+-btrfs-progs            0.18             btrfs --version
++kmod                   13               kmod -V
++liblzma                5.8.1            lzma -V
++lzop                   1.04             lzop -V
++mcelog                 0.6              mcelog --version
++mkimage (optional)     2017.01          mkimage --version
++mtools                 4.0.49           mtools -V
++nfs-utils              1.0.5            showmount --version
++openssl & libcrypto    1.0.0            openssl version
++pahole                 1.26             pahole --version
+ pcmciautils            004              pccardctl -V
+-quota-tools            3.09             quota -V
+ PPP                    2.4.0            pppd --version
+-nfs-utils              1.0.5            showmount --version
+ procps                 3.2.0            ps --version
+-udev                   081              udevadm --version
+-grub                   0.93             grub --version || grub-install --version
+-mcelog                 0.6              mcelog --version
+-iptables               1.4.2            iptables -V
+-openssl & libcrypto    1.0.0            openssl version
+-bc                     1.06.95          bc --version
+-Sphinx [#f1]_          3.4.3            sphinx-build --version
+-GNU tar                1.28             tar --version
+-gtags (opcional)       6.6.5            gtags --version
+-mkimage (opcional)     2017.01          mkimage --version
+ Python                 3.9.x            python3 --version
+-GNU AWK (opcional)     5.1.0            gawk --version
++quota-tools            3.09             quota -V
++Rust (optional)        1.85.0           rustc --version
++Sphinx\ [#f1]_         3.4.3            sphinx-build --version
++squashfs-tools         4.0              mksquashfs -version
++syslinux               6.04             syslinux --version
++udev                   081              udevadm --version
++util-linux             2.10o            mount --version
++xfsprogs               2.6.0            xfs_db -V
+ ====================== ===============  ========================================
+ 
+ .. [#f1] O Sphinx é necessário apenas para gerar a documentação do Kernel.
+-- 
+2.54.0
 
-Anyway, I would prefer to get this "workaround" in for 7.3.
-In each case, I would not want to revert the uart 8250 conversion
-to nbcon because it did break the Tegra hardware.
-
-Best Regards,
-Petr
