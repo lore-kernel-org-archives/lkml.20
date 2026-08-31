@@ -1,382 +1,288 @@
-Received: from out198-2.us.a.mail.aliyun.com (out198-2.us.a.mail.aliyun.com [47.90.198.2])
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67B1E356754;
-	Mon, 31 Aug 2026 02:19:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=47.90.198.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98BFC35E925;
+	Mon, 31 Aug 2026 02:19:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788142790; cv=none; b=q801/5mqVfOPXj8Tw1VeyTctYrvmVea2KjJA1guKDsHvRs6Muz7oQU/5NoteGs6/sWaenaq8Nh/YGJgeOb9kOHFdWq4kXe6BBxH6Q1TsyY+jcYsGvIy4xLJf1gbs5oPAx0/9KVmQb29UkyCCdp5b0MwjLVd48Oy7rZ+Wt8MSQ6Q=
+	t=1788142797; cv=none; b=VcA9RvRrrIfZx7xIO39vxsU1rmERd5P8FI0XmDgOdR6Sj6L+5RW9WRahY58YekWAYMpbC50qg1uPHAeXkXX54Bg8IUW1apEwmH5Z19so3UtZfSFkRKrC8yJyVKXaNTBGujtVoWxxOQQ8GjYdiMJVSy4kbQd3GAiJzw9j6SMKiiM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788142790; c=relaxed/simple;
-	bh=8X845z1Tq4pmWOJYXxFI50uAyB/ZneALwqYURPUF1pY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=luBNbqssvUjgpgwIGeXk4G7i7/jZKoFxEMHhgRSuMMvzSWOCk5btDx7qI1sfVohGN15UyIZXNmx0uEye3+xHaA0roCEybjsostsK5cUw7rdjIrOD7AbK1yt7emHIMcw3bLiZNv7nHxCTd2lPtkPB3ITEno8Dpruf1uIPqGGcJVU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=nebula-matrix.com; spf=pass smtp.mailfrom=nebula-matrix.com; arc=none smtp.client-ip=47.90.198.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=nebula-matrix.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebula-matrix.com
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.0678256|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.0331837-0.00316563-0.963651;FP=17173382588434751154|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033045220102;MF=illusion.wang@nebula-matrix.com;NM=1;PH=DS;RN=18;RT=18;SR=0;TI=SMTPD_---.j0lvzRy_1788142451;
-Received: from localhost.localdomain(mailfrom:illusion.wang@nebula-matrix.com fp:SMTPD_---.j0lvzRy_1788142451 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Mon, 31 Aug 2026 10:14:12 +0800
-From: "illusion.wang" <illusion.wang@nebula-matrix.com>
-To: dimon.zhao@nebula-matrix.com,
-	illusion.wang@nebula-matrix.com,
-	alvin.wang@nebula-matrix.com,
-	sam.chen@nebula-matrix.com,
-	netdev@vger.kernel.org
-Cc: andrew+netdev@lunn.ch,
-	corbet@lwn.net,
-	kuba@kernel.org,
-	horms@kernel.org,
-	linux-doc@vger.kernel.org,
-	pabeni@redhat.com,
-	vadim.fedorenko@linux.dev,
-	lukas.bulwahn@redhat.com,
-	edumazet@google.com,
-	enelsonmoore@gmail.com,
-	skhan@linuxfoundation.org,
-	hkallweit1@gmail.com,
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH v26 net-next 01/10] net/nebula-matrix: add minimum nbl build framework
-Date: Mon, 31 Aug 2026 10:13:52 +0800
-Message-ID: <20260831021408.2325-2-illusion.wang@nebula-matrix.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260831021408.2325-1-illusion.wang@nebula-matrix.com>
-References: <20260831021408.2325-1-illusion.wang@nebula-matrix.com>
+	s=arc-20240116; t=1788142797; c=relaxed/simple;
+	bh=8wyENaWSpYI08S5MtR3aCZVTtD+p1XXQWJAWLX2kr6M=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Dvb5ggymcC15HeK3OkB/fj+kDPK3F2gYjCYM2Oj3d1E0eIcsieJumVsJAa+YCvEEn4IJtviDJWwM4Muq62nO4u1xSokyLyWCX8aj8yF0CTxaDUyE+PQfElTDC8yWWi0YkL3sfx3Qo5qBe2nt/ZoJSlRYbocQaYidy1dd3d4EdMY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=E++q3NTl; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="E++q3NTl"
+Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67V21qR13969966;
+	Mon, 31 Aug 2026 02:19:00 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=KUiHKf
+	FocjBPvbaOP8gXPdYyNHezfeowG5V5JhmB4Y4=; b=E++q3NTlY4nGs+EQ9Ikiq/
+	k0gCkkCfQtLlGJHmjf9QqxZdFjuyTqo54iG8dmKwxmke7TlEmB0A0AQ4tU/c3N4M
+	pb3DEEpET6qTOIuLmmIcDGN9NZeuo7ffME/XaWmKU5OG7BxuLthAnL4wL6oDAVTS
+	lo5vWkFZbAPZVPvMzpvUqW9XpIYMEhhXzAtBXfX2prtKUZMP+36JuLqK41YkjMTe
+	+kosSbQjP/BIPHA42Gc1QXnjSlfDfg2CDuuNzfh2zlTix79Aq3mmBx0LhL+D7/jk
+	qFU8gQxqNTFfXuKNXGfX5T984p73Hx52L9yykJKefCsg+d+UH7C64c3RaIyz9Ktw
+	==
+Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gbnudem85-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 31 Aug 2026 02:18:59 +0000 (GMT)
+Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma23.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67V1uOQM028550;
+	Mon, 31 Aug 2026 02:18:58 GMT
+Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
+	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gcb8h3bwc-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 31 Aug 2026 02:18:58 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
+	by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67V2Is8M42074408
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 31 Aug 2026 02:18:54 GMT
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 6CBE82004E;
+	Mon, 31 Aug 2026 02:18:54 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 830BD20040;
+	Mon, 31 Aug 2026 02:18:46 +0000 (GMT)
+Received: from [9.124.216.182] (unknown [9.124.216.182])
+	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Mon, 31 Aug 2026 02:18:46 +0000 (GMT)
+Message-ID: <53035ba4-53ec-4907-93b8-c8b957d1fa61@linux.ibm.com>
+Date: Mon, 31 Aug 2026 07:48:45 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v11 05/12] sched/core: Try to use a preferred CPU in
+ is_cpu_allowed
+To: Yury Norov <ynorov@nvidia.com>,
+        Dietmar Eggemann <dietmar.eggemann@arm.com>,
+        vincent.guittot@linaro.org
+Cc: linux-kernel@vger.kernel.org, mingo@kernel.org, peterz@infradead.org,
+        juri.lelli@redhat.com, yury.norov@gmail.com, kprateek.nayak@amd.com,
+        iii@linux.ibm.com, corbet@lwn.net, meted@linux.ibm.com,
+        tglx@kernel.org, gregkh@linuxfoundation.org, pbonzini@redhat.com,
+        seanjc@google.com, vschneid@redhat.com, huschle@linux.ibm.com,
+        rostedt@goodmis.org, maddy@linux.ibm.com, srikar@linux.ibm.com,
+        hdanton@sina.com, chleroy@kernel.org, vineeth@bitbyteword.org,
+        frederic@kernel.org, arighi@nvidia.com, pauld@redhat.com,
+        christian.loehle@arm.com, tj@kernel.org, tommaso.cucinotta@gmail.com,
+        maz@kernel.org, rafael@kernel.org, rdunlap@infradead.org,
+        kernellwp@gmail.com, linux-doc@vger.kernel.org, jgross@suse.com,
+        virtualization@lists.linux.dev, sunlightlinux@gmail.com
+References: <20260825103855.721013-1-sshegde@linux.ibm.com>
+ <20260825103855.721013-6-sshegde@linux.ibm.com>
+ <8262d2f9-9f2f-4821-8497-991d7c8448a3@arm.com> <apMziCV_8y0xeIBT@yury>
+Content-Language: en-US
+From: Shrikanth Hegde <sshegde@linux.ibm.com>
+In-Reply-To: <apMziCV_8y0xeIBT@yury>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-GUID: nxi8kzaB1HTzC9ejFsocYVYtN5rg9wla
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODMxMDAxNSBTYWx0ZWRfX4cHK2z+Jk4Bv
+ 2Axf1Gqw/u458y5vtwqq8chOIuojhvNx/qnTnSp58BSpQK0WTbtB2B4D+QGtZWWTD2fwS+jJ3XI
+ DShMMqAmmedN/4HxAXfxE+1sK/yX9YUffCujtS7WbTE9PHY1+NHZLgWkGZOuyvI9xvQJp2xwNTt
+ ScG5WnLWVcm/GdO1BZeI/NpjqvEE5RErbK21bK0GEAF5MXahMYS/2IbekjHkQMb3ZYVI1n5V9mN
+ KLQCuAPUhk9ojKz8FsufAAGbJipkT670SHBbl79XAztoYchbZolrpTLCawXfsOkIPXdytJ7Kfp4
+ UWZbbtn956fT8qkndn9USJEKNjy+VpL5zuIiRUHj9+0D06JIcSU1Eu95HxN7QhpCR8fYw26Dc95
+ +/AJxhJuLRY7zcO7Ldy5rhlb4gn9acDk9ZHG53a8+tUJPNO50ShavRZxnGBDMi9MsZI0op4r+5g
+ dXXTjM2AQku9Ecs+1Vw==
+X-Proofpoint-ORIG-GUID: HOh8yDAZBSpciK9eL02HwO_3DCeMbxqY
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODMxMDAxNSBTYWx0ZWRfX6gXvH3ofdf6q
+ 0/MJyK2ToqAbjxkLJs6BrR0t6pk77sh8CENv8GiwzmMs7Vid9SxGM32N/UacoIoCKrOUBJo5EKi
+ O2S9624PD3nl21Hfj9dWCkI8RVnQKhY=
+X-Authority-Analysis: v=2.4 cv=B92JFutM c=1 sm=1 tr=0 ts=6a94e493 cx=c_pps
+ a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=VnNF1IyMAAAA:8
+ a=e7p6DMnVRXWE9DMeyOcA:9 a=QEXdDO2ut3YA:10 a=O8hF6Hzn-FEA:10
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-31_01,2026-08-27_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 spamscore=0 clxscore=1015 suspectscore=0 phishscore=0
+ lowpriorityscore=0 bulkscore=0 priorityscore=1501 impostorscore=0
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2608310015
 
-From: illusion wang <illusion.wang@nebula-matrix.com>
+Hi Yury,
+Thanks for going through and your suggestions!.
 
-This patch adds the minimum build infrastructure:
-1. Add Kconfig, Makefile and MAINTAINERS entries;
-2. Add corresponding driver documentation;
-3. Add PCI driver skeleton with empty stubs for nbl driver.
+On 8/30/26 1:01 AM, Yury Norov wrote:
+> On Fri, Aug 28, 2026 at 09:51:47AM +0200, Dietmar Eggemann wrote:
+>> On 25.08.26 12:38, Shrikanth Hegde wrote:
+>>> When possible, try to choose a preferred CPU.
+>>>
+>>> This is essential to maintain user affinities when preferred
+>>> CPUs change. A task pinned on a non-preferred CPU should continue
+>>> to run there, since this is a non-user triggered event.
+>>>
+>>> If a CPU is non-preferred and the task can run on other CPUs which are
+>>> currently preferred, then choose a preferred CPU instead.
+>>> This is decided by checking if cpus_ptr and cpu_preferred_mask
+>>> intersect or not. If yes, then the task has other preferred CPUs.
+>>>
+>>> The push task mechanism uses a stopper thread which calls
+>>> select_fallback_rq() and uses this mechanism to pick a preferred CPU.
+>>>
+>>> This takes care of the wakeup path for FAIR tasks too.
+>>> is_cpu_allowed() is called to ensure wakeups happen on preferred CPUs.
+>>> With that, additional checks in available_idle_cpu() are not necessary.
+>>>
+>>> Ignore the preferred CPU state if a task's affinity is changing and
+>>> its new mask no longer includes the CPU it is currently running on.
+>>> This ensures migration_cpu_stop() does not abort, preventing the task
+>>> from being stranded outside its allowed affinity.
+>>>
+>>> Account for tasks with architecture-specific CPU masks
+>>> (e.g., 32-bit tasks on arm64). For such tasks, explicitly check against
+>>> the arch-allowed CPUs to determine if any of the preferred CPUs are
+>>> actually valid.
+>>>
+>>> For the majority of cases, this would still keep select_fallback_rq()
+>>> as O(N). cpumask_intersects(), which is O(N), is called only if
+>>> !cpu_preferred. The task running there is expected to move out.
+>>> Subsequently, it should run on a preferred CPU. This becomes O(N**2)
+>>> only for tasks pinned solely to non-preferred CPUs. That is a rare case.
+>>>
+>>> Overhead is minimal when the CPU is preferred.
+>>>
+>>> Signed-off-by: Shrikanth Hegde <sshegde@linux.ibm.com>
+>>> ---
+>>>   kernel/sched/core.c | 41 +++++++++++++++++++++++++++++++++++++++--
+>>>   1 file changed, 39 insertions(+), 2 deletions(-)
+>>>
+>>> diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+>>> index a45f7c308329..f71317fe281d 100644
+>>> --- a/kernel/sched/core.c
+>>> +++ b/kernel/sched/core.c
+>>> @@ -2494,6 +2494,35 @@ static inline bool rq_has_pinned_tasks(struct rq *rq)
+>>>   	return rq->nr_pinned;
+>>>   }
+>>>   
+>>> +static inline bool task_can_sched_on_preferred(int cpu, struct task_struct *p)
+>>> +{
+>>> +	const struct cpumask *valid_mask;
+>>> +	int i;
+>>> +
+>>> +	if (cpu_preferred(cpu))
+>>> +		return false;
+>>> +
+>>> +	/* Only FAIR tasks honor preferred CPU state */
+>>> +	if (unlikely(p->sched_class != &fair_sched_class))
+>>> +		return false;
+>>> +
+>>> +	/* Ignore preferred state if task affinity is changing */
+>>> +	if (unlikely(!cpumask_test_cpu(task_cpu(p), p->cpus_ptr)))
+>>> +		return false;
+>>> +
+>>> +	valid_mask = task_cpu_possible_mask(p);
+>>> +	if (likely(valid_mask == cpu_possible_mask))
+>>> +		return cpumask_intersects(p->cpus_ptr, cpu_preferred_mask);
+>>> +
+>>> +	/* Tasks with arch-specific CPU masks. e.g. 32-bit tasks on arm64. */
+>>> +	for_each_cpu_and(i, p->cpus_ptr, cpu_preferred_mask) {
+>>> +		if (cpumask_test_cpu(i, valid_mask))
+>>> +			return true;
+>>> +	}
+>>
+>> Looking more into this, there might be a window in 64-32-bit execve()
+>> for 32bit EL0 tasks on Arm64 (w/ allow_mismatched_32bit_el0 command line
+>> option).
+>>
+>> The time before arch_setup_new_exec() calls
+>> force_compatible_cpus_allowed_ptr() to restrict CPU affinity for those
+>> tasks.
+>>
+>> Let me run more test on this ...
+>>
+>> Why not simply:
+>>
+>> - return cpumask_intersects(p->cpus_ptr, cpu_preferred_mask);
+>> + return cpumask_first_and_and(p->cpus_ptr, cpu_preferred_mask,
+>> +                              task_cpu_possible_mask(p)) < nr_cpu_ids;
+>>
+>> IMHO, you want to know whether there is at least one CPU that belongs to
+>> all three CPU masks?
+>   
+> Yeah, the cpumask_first_and_and() would replace the for-loop more
+> effectively, but I'd suggest introducing the new helper:
+> 
+> 
+>          return cpumask_intersects_and(p->cpus_ptr, cpu_preferred_mask,
+>                                        task_cpu_possible_mask(p));
+> 
 
-Signed-off-by: illusion wang <illusion.wang@nebula-matrix.com>
----
- .../device_drivers/ethernet/index.rst         |   1 +
- .../ethernet/nebula-matrix/nbl.rst            |  28 +++++
- MAINTAINERS                                   |  10 ++
- drivers/net/ethernet/Kconfig                  |   1 +
- drivers/net/ethernet/Makefile                 |   1 +
- drivers/net/ethernet/nebula-matrix/Kconfig    |  31 ++++++
- drivers/net/ethernet/nebula-matrix/Makefile   |   6 ++
- .../net/ethernet/nebula-matrix/nbl/Makefile   |   6 ++
- .../net/ethernet/nebula-matrix/nbl/nbl_core.h |  13 +++
- .../nbl/nbl_include/nbl_include.h             |  14 +++
- .../net/ethernet/nebula-matrix/nbl/nbl_main.c | 100 ++++++++++++++++++
- 11 files changed, 211 insertions(+)
- create mode 100644 Documentation/networking/device_drivers/ethernet/nebula-matrix/nbl.rst
- create mode 100644 drivers/net/ethernet/nebula-matrix/Kconfig
- create mode 100644 drivers/net/ethernet/nebula-matrix/Makefile
- create mode 100644 drivers/net/ethernet/nebula-matrix/nbl/Makefile
- create mode 100644 drivers/net/ethernet/nebula-matrix/nbl/nbl_core.h
- create mode 100644 drivers/net/ethernet/nebula-matrix/nbl/nbl_include/nbl_include.h
- create mode 100644 drivers/net/ethernet/nebula-matrix/nbl/nbl_main.c
 
-diff --git a/Documentation/networking/device_drivers/ethernet/index.rst b/Documentation/networking/device_drivers/ethernet/index.rst
-index d9980c84487a..403ae9c2b06a 100644
---- a/Documentation/networking/device_drivers/ethernet/index.rst
-+++ b/Documentation/networking/device_drivers/ethernet/index.rst
-@@ -48,6 +48,7 @@ Contents:
-    meta/fbnic
-    microsoft/netvsc
-    mucse/rnpgbe
-+   nebula-matrix/nbl
-    netronome/nfp
-    pensando/ionic
-    pensando/ionic_rdma
-diff --git a/Documentation/networking/device_drivers/ethernet/nebula-matrix/nbl.rst b/Documentation/networking/device_drivers/ethernet/nebula-matrix/nbl.rst
-new file mode 100644
-index 000000000000..ff38302968c5
---- /dev/null
-+++ b/Documentation/networking/device_drivers/ethernet/nebula-matrix/nbl.rst
-@@ -0,0 +1,28 @@
-+.. SPDX-License-Identifier: GPL-2.0
-+
-+================================================================
-+Linux Base Driver for Nebula-matrix m18110-NIC/m18000-NIC family
-+================================================================
-+
-+Overview:
-+=========
-+The m18110-NIC/m18000-NIC is a series of network interface cards for the Data
-+Center Area.
-+
-+The driver supports link-speed 100GbE/25GE/10GE.
-+
-+m18110-NIC/m18000-NIC devices support MSI-X interrupt vector for each Tx/Rx
-+queue and interrupt moderation.
-+
-+m18110-NIC/m18000-NIC devices support also various offload features such as
-+checksum offload, Receive-Side Scaling(RSS).
-+
-+Support
-+=======
-+
-+For more information about m18110-NIC/m18000-NIC, please visit the following URL:
-+https://www.nebula-matrix.com/snic_s1000_en
-+
-+If an issue is identified with the released source code on the supported kernel
-+with a supported adapter, email the specific information related to the issue to
-+open@nebula-matrix.com.
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 460cb7268845..ab55ba0da0a2 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -18654,6 +18654,16 @@ F:	Documentation/devicetree/bindings/hwmon/nuvoton,nct7363.yaml
- F:	Documentation/hwmon/nct7363.rst
- F:	drivers/hwmon/nct7363.c
- 
-+NEBULA-MATRIX ETHERNET DRIVER (nebula-matrix)
-+M:	Illusion Wang <illusion.wang@nebula-matrix.com>
-+M:	Dimon Zhao <dimon.zhao@nebula-matrix.com>
-+M:	Alvin Wang <alvin.wang@nebula-matrix.com>
-+M:	Sam Chen <sam.chen@nebula-matrix.com>
-+L:	netdev@vger.kernel.org
-+S:	Maintained
-+F:	Documentation/networking/device_drivers/ethernet/nebula-matrix/
-+F:	drivers/net/ethernet/nebula-matrix/
-+
- NETCONSOLE
- M:	Breno Leitao <leitao@debian.org>
- S:	Maintained
-diff --git a/drivers/net/ethernet/Kconfig b/drivers/net/ethernet/Kconfig
-index 8581ccba1505..c2b0161d0bec 100644
---- a/drivers/net/ethernet/Kconfig
-+++ b/drivers/net/ethernet/Kconfig
-@@ -130,6 +130,7 @@ config FEALNX
- 
- source "drivers/net/ethernet/ni/Kconfig"
- source "drivers/net/ethernet/natsemi/Kconfig"
-+source "drivers/net/ethernet/nebula-matrix/Kconfig"
- source "drivers/net/ethernet/netronome/Kconfig"
- source "drivers/net/ethernet/8390/Kconfig"
- source "drivers/net/ethernet/nvidia/Kconfig"
-diff --git a/drivers/net/ethernet/Makefile b/drivers/net/ethernet/Makefile
-index 2b1153d35b52..a306dae23bcb 100644
---- a/drivers/net/ethernet/Makefile
-+++ b/drivers/net/ethernet/Makefile
-@@ -67,6 +67,7 @@ obj-$(CONFIG_NET_VENDOR_MUCSE) += mucse/
- obj-$(CONFIG_NET_VENDOR_MYRI) += myricom/
- obj-$(CONFIG_FEALNX) += fealnx.o
- obj-$(CONFIG_NET_VENDOR_NATSEMI) += natsemi/
-+obj-$(CONFIG_NET_VENDOR_NEBULA_MATRIX) += nebula-matrix/
- obj-$(CONFIG_NET_VENDOR_NETRONOME) += netronome/
- obj-$(CONFIG_NET_VENDOR_NI) += ni/
- obj-$(CONFIG_NET_VENDOR_NVIDIA) += nvidia/
-diff --git a/drivers/net/ethernet/nebula-matrix/Kconfig b/drivers/net/ethernet/nebula-matrix/Kconfig
-new file mode 100644
-index 000000000000..f16e9663eaed
---- /dev/null
-+++ b/drivers/net/ethernet/nebula-matrix/Kconfig
-@@ -0,0 +1,31 @@
-+# SPDX-License-Identifier: GPL-2.0
-+#
-+# Nebula-matrix network device configuration
-+#
-+
-+config NET_VENDOR_NEBULA_MATRIX
-+	bool "Nebula-matrix devices"
-+	default y
-+	help
-+	  If you have a network (Ethernet) card belonging to this class, say Y.
-+	  Note that the answer to this question doesn't directly affect the
-+	  kernel: saying N will just cause the configurator to skip all
-+	  the questions about Nebula-matrix cards. If you say Y, you will be asked
-+	  for your specific card in the following questions.
-+
-+if NET_VENDOR_NEBULA_MATRIX
-+
-+config NBL
-+	tristate "Nebula-matrix Ethernet Controller m18110/m18000 support"
-+	depends on PCI && (64BIT || COMPILE_TEST) && !CPU_BIG_ENDIAN
-+	help
-+	  This driver supports Nebula-matrix Ethernet Controller m18110/m18000
-+	  Family of devices.
-+
-+	  More specific information on configuring the driver is in
-+	  <file:Documentation/networking/device_drivers/ethernet/nebula-matrix/nbl.rst>.
-+
-+	  To compile this driver as a module, choose M here. The module
-+	  will be called nbl.
-+
-+endif # NET_VENDOR_NEBULA_MATRIX
-diff --git a/drivers/net/ethernet/nebula-matrix/Makefile b/drivers/net/ethernet/nebula-matrix/Makefile
-new file mode 100644
-index 000000000000..42cdf2db8f0c
---- /dev/null
-+++ b/drivers/net/ethernet/nebula-matrix/Makefile
-@@ -0,0 +1,6 @@
-+# SPDX-License-Identifier: GPL-2.0
-+#
-+# Makefile for the Nebula-matrix network device drivers.
-+#
-+
-+obj-$(CONFIG_NBL) += nbl/
-diff --git a/drivers/net/ethernet/nebula-matrix/nbl/Makefile b/drivers/net/ethernet/nebula-matrix/nbl/Makefile
-new file mode 100644
-index 000000000000..6c14d1071c0c
---- /dev/null
-+++ b/drivers/net/ethernet/nebula-matrix/nbl/Makefile
-@@ -0,0 +1,6 @@
-+# SPDX-License-Identifier: GPL-2.0
-+# Copyright (c) 2026 Nebula Matrix Limited.
-+
-+obj-$(CONFIG_NBL) := nbl.o
-+
-+nbl-objs +=	nbl_main.o
-diff --git a/drivers/net/ethernet/nebula-matrix/nbl/nbl_core.h b/drivers/net/ethernet/nebula-matrix/nbl/nbl_core.h
-new file mode 100644
-index 000000000000..a3d63c698aea
---- /dev/null
-+++ b/drivers/net/ethernet/nebula-matrix/nbl/nbl_core.h
-@@ -0,0 +1,13 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+/*
-+ * Copyright (c) 2026 Nebula Matrix Limited.
-+ */
-+
-+#ifndef _NBL_CORE_H_
-+#define _NBL_CORE_H_
-+
-+enum {
-+	NBL_CAP_HAS_NET_BIT,
-+};
-+
-+#endif
-diff --git a/drivers/net/ethernet/nebula-matrix/nbl/nbl_include/nbl_include.h b/drivers/net/ethernet/nebula-matrix/nbl/nbl_include/nbl_include.h
-new file mode 100644
-index 000000000000..16b10bcf1d36
---- /dev/null
-+++ b/drivers/net/ethernet/nebula-matrix/nbl/nbl_include/nbl_include.h
-@@ -0,0 +1,14 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+/*
-+ * Copyright (c) 2026 Nebula Matrix Limited.
-+ */
-+
-+#ifndef _NBL_INCLUDE_H_
-+#define _NBL_INCLUDE_H_
-+
-+#include <linux/types.h>
-+
-+/*  ------  Basic definitions  -------  */
-+#define NBL_DRIVER_NAME					"nbl"
-+
-+#endif
-diff --git a/drivers/net/ethernet/nebula-matrix/nbl/nbl_main.c b/drivers/net/ethernet/nebula-matrix/nbl/nbl_main.c
-new file mode 100644
-index 000000000000..199626159a4c
---- /dev/null
-+++ b/drivers/net/ethernet/nebula-matrix/nbl/nbl_main.c
-@@ -0,0 +1,100 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright (c) 2026 Nebula Matrix Limited.
-+ */
-+
-+#include <linux/device.h>
-+#include <linux/pci.h>
-+#include <linux/module.h>
-+#include <linux/bits.h>
-+#include "nbl_include/nbl_include.h"
-+#include "nbl_core.h"
-+
-+static int nbl_probe(struct pci_dev *pdev,
-+		     const struct pci_device_id *id)
-+{
-+	return -ENODEV;
-+}
-+
-+static void nbl_remove(struct pci_dev *pdev)
-+{
-+}
-+
-+/*
-+ * PCI Device IDs for Leonis/NBL Network Controllers
-+ *
-+ * Vendor ID: 0x1F0F
-+ * SNIC v3r1 product Device IDs range: 0x3403-0x3412
-+ */
-+#define NBL_VENDOR_ID				0x1F0F
-+
-+#define NBL_DEVICE_ID_M18110			0x3403
-+#define NBL_DEVICE_ID_M18110_LX			0x3404
-+#define NBL_DEVICE_ID_M18110_BASE_T		0x3405
-+#define NBL_DEVICE_ID_M18110_LX_BASE_T		0x3406
-+#define NBL_DEVICE_ID_M18110_OCP		0x3407
-+#define NBL_DEVICE_ID_M18110_LX_OCP		0x3408
-+#define NBL_DEVICE_ID_M18110_BASE_T_OCP		0x3409
-+#define NBL_DEVICE_ID_M18110_LX_BASE_T_OCP	0x340a
-+#define NBL_DEVICE_ID_M18000			0x340b
-+#define NBL_DEVICE_ID_M18000_LX			0x340c
-+#define NBL_DEVICE_ID_M18000_BASE_T		0x340d
-+#define NBL_DEVICE_ID_M18000_LX_BASE_T		0x340e
-+#define NBL_DEVICE_ID_M18000_OCP		0x340f
-+#define NBL_DEVICE_ID_M18000_LX_OCP		0x3410
-+#define NBL_DEVICE_ID_M18000_BASE_T_OCP		0x3411
-+#define NBL_DEVICE_ID_M18000_LX_BASE_T_OCP	0x3412
-+
-+/* All below IDs belong to Leonis ASIC family, different form-factor variants,
-+ * share the same hardware initialization flow without differentiated ops.
-+ */
-+static const struct pci_device_id nbl_id_table[] = {
-+	{ PCI_DEVICE(NBL_VENDOR_ID, NBL_DEVICE_ID_M18110),
-+	  .driver_data = BIT(NBL_CAP_HAS_NET_BIT) },
-+	{ PCI_DEVICE(NBL_VENDOR_ID, NBL_DEVICE_ID_M18110_LX),
-+	  .driver_data = BIT(NBL_CAP_HAS_NET_BIT) },
-+	{ PCI_DEVICE(NBL_VENDOR_ID, NBL_DEVICE_ID_M18110_BASE_T),
-+	  .driver_data = BIT(NBL_CAP_HAS_NET_BIT) },
-+	{ PCI_DEVICE(NBL_VENDOR_ID, NBL_DEVICE_ID_M18110_LX_BASE_T),
-+	  .driver_data = BIT(NBL_CAP_HAS_NET_BIT) },
-+	{ PCI_DEVICE(NBL_VENDOR_ID, NBL_DEVICE_ID_M18110_OCP),
-+	  .driver_data = BIT(NBL_CAP_HAS_NET_BIT) },
-+	{ PCI_DEVICE(NBL_VENDOR_ID, NBL_DEVICE_ID_M18110_LX_OCP),
-+	  .driver_data = BIT(NBL_CAP_HAS_NET_BIT) },
-+	{ PCI_DEVICE(NBL_VENDOR_ID, NBL_DEVICE_ID_M18110_BASE_T_OCP),
-+	  .driver_data = BIT(NBL_CAP_HAS_NET_BIT) },
-+	{ PCI_DEVICE(NBL_VENDOR_ID, NBL_DEVICE_ID_M18110_LX_BASE_T_OCP),
-+	  .driver_data = BIT(NBL_CAP_HAS_NET_BIT) },
-+	{ PCI_DEVICE(NBL_VENDOR_ID, NBL_DEVICE_ID_M18000),
-+	  .driver_data = BIT(NBL_CAP_HAS_NET_BIT) },
-+	{ PCI_DEVICE(NBL_VENDOR_ID, NBL_DEVICE_ID_M18000_LX),
-+	  .driver_data = BIT(NBL_CAP_HAS_NET_BIT) },
-+	{ PCI_DEVICE(NBL_VENDOR_ID, NBL_DEVICE_ID_M18000_BASE_T),
-+	  .driver_data = BIT(NBL_CAP_HAS_NET_BIT) },
-+	{ PCI_DEVICE(NBL_VENDOR_ID, NBL_DEVICE_ID_M18000_LX_BASE_T),
-+	  .driver_data = BIT(NBL_CAP_HAS_NET_BIT) },
-+	{ PCI_DEVICE(NBL_VENDOR_ID, NBL_DEVICE_ID_M18000_OCP),
-+	  .driver_data = BIT(NBL_CAP_HAS_NET_BIT) },
-+	{ PCI_DEVICE(NBL_VENDOR_ID, NBL_DEVICE_ID_M18000_LX_OCP),
-+	  .driver_data = BIT(NBL_CAP_HAS_NET_BIT) },
-+	{ PCI_DEVICE(NBL_VENDOR_ID, NBL_DEVICE_ID_M18000_BASE_T_OCP),
-+	  .driver_data = BIT(NBL_CAP_HAS_NET_BIT) },
-+	{ PCI_DEVICE(NBL_VENDOR_ID, NBL_DEVICE_ID_M18000_LX_BASE_T_OCP),
-+	  .driver_data = BIT(NBL_CAP_HAS_NET_BIT) },
-+	/* required as sentinel */
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(pci, nbl_id_table);
-+
-+static struct pci_driver nbl_driver = {
-+	.name = NBL_DRIVER_NAME,
-+	.id_table = nbl_id_table,
-+	.probe = nbl_probe,
-+	.remove = nbl_remove,
-+};
-+
-+module_pci_driver(nbl_driver);
-+
-+MODULE_LICENSE("GPL");
-+MODULE_DESCRIPTION("Nebula Matrix Network Driver");
-+MODULE_AUTHOR("Illusion Wang <illusion.wang@nebula-matrix.com>");
--- 
-2.47.3
+Ack. However, we will only need this change if ARM64 wants to enable
+this driver right now. If not, we can go back to the earlier
+cpumask_intersects(), and the 3-way intersection can be added
+later when the ARM ecosystem enables the feature.
 
+
+Dietmar/Vincent,
+Do you think it makes sense to enable the driver on ARM64 now?
+Or you think it is better to delay it and once the feature is stable
+ARM ecosystem can enable it?
+
+> This would also highlight the intention better - we're looking for
+> intersection, and call the 'intersects' function.
+> 
+> I don't like how this patch plays with likely() macro.
+> Possible == task_possible condition is surely likely for x86, but is
+> always unlikely for aarch64/el0-32 tasks. This would lead to suboptimal
+> code generation on aarch64.
+> 
+> The approach I've suggested also worsen performance because of a
+> possibly unnecessary traversing of the cpu_possible_mask.
+> 
+> If task_can_sched_on_preferred() is really a performance critical piece
+> of code, we can invent arch_task_can_sched_on_preferred() to avoid it.
+> 
+
+It is called only on non-preferred CPU and unless pinned, tasks would have moved
+out of it. So we are okay here I guess. If it really pops up, then we can do the
+above idea.
+
+> --
+> 
+> On general side, the governor is really tested in 2 configurations:
+> PPC+powervm and x86+kvm; and there's clearly an interest from XEN and
+> ARM engineers.
+> 
+> Maybe, to stay on safe side, we'd enable the feature where it's actually
+> tested? I suggested it when DOM0 case was revealed, and now we've got
+> the 2nd corner case from arm64 compat tasks.
+
+Indeed. It would safer and that way it would get more testing before arch/hypervisor
+enables it.
+
+The design is intended to work on architectures that provide steal-time
+accounting, but each architecture and hypervisor combination should be validated
+before enabling it.
+
+> 
+> The advantages of this approach are:
+> 
+>   - faster adoption of the existing code for the tested architectures;
+>   - delegate arch/vm support to the domain professionals;
+>   - delay arch/vm support decisions to the later phase of adoption, when
+>     the API is better stabilized.
+> 
+> Thanks,
+> Yury
+
+So far, I have PPC_SPLPAR, S390, X86_64 in the Kconfig list.
+I will wait to hear from Dietmar/Vincent about ARM.
