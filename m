@@ -1,46 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98C63468C3B;
-	Mon, 31 Aug 2026 13:34:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19C8946AA8C;
+	Mon, 31 Aug 2026 13:34:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183293; cv=none; b=u1fMrYEwcZMxhY/LV3x55bM+c9sUgYMc1Cx3UVac5ll3SN3MTp99XXG0Bk7UC3adsTwgb+xdw9HuJ18k9sKqrLbsXr+QVlJWNzh0AQ4toazN6vvLDajO8vvH0HobRMObjI0ztjy5r1bfDyh6DviKKe66UQc89VKcMj01/ZhrhLQ=
+	t=1788183296; cv=none; b=HnLL2pI+ezZOXGjcmffm2W4lrmvkMMj0LwlJnEFfbQJtM6KEfJ03N8rm0tMaFR8+3QK09nF0Id3slGwwwgWIFh51MWP1Jqce2rzWAdjbM+jwx64/ufjUNKmgK8pV6UzDG1j4byjV+Vjf34pkdCyfwVYuEdnkAMxDRwNLpPTaGDw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183293; c=relaxed/simple;
-	bh=HLiBdYmCQfRbz9b62Ku8mQ6d4hMrifr3NdIv7TWd/BQ=;
+	s=arc-20240116; t=1788183296; c=relaxed/simple;
+	bh=Q1Om9O+tYLXKWIi+j8yPF31cJiWKxx3aSZjzffXMolo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=A9gxxyMRJST/S2wA8FJsbpzEPDRXUQTNdC4BqUJCTHz4mbV3xCgZdYY0HfNRvM7ZqCJJjewGzvqkE/YNgCzSfzPZdygbVy9QRrPoFNj1DNWAvzXByXQemX+tWsOdt8M3qwu9DKE3xhJpymcc/0Kp6uUM52vRqJSDos8q6jr1g0o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f8+ltzgM; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=sML294T3MDbr+ijSUpr3IkA698Vkhvbb3IHjUdWHIoBpxugsqzbs7qnWxOJpHLQwEfbE9jOVRvNo01UWTcnnXsakoHSA5263HKlmrien/z8MT9z0VIbzfsHyzPpuR3AwlOmO17EIhXUcriT4sq9///PrTh1oPQctjkM8ruP01KE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RqhYv2Qx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f8+ltzgM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4859F1F00A3E;
-	Mon, 31 Aug 2026 13:34:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RqhYv2Qx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A53561F000E9;
+	Mon, 31 Aug 2026 13:34:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788183290;
-	bh=PSa/J42ad4e/7Ts2G0oDuoktwXfLZfk+vMouwLvcDzs=;
+	s=k20260515; t=1788183294;
+	bh=Rto4Ld4oxE/HhgmXsII1Ti65TWprBdnsCAbbrWMsjls=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=f8+ltzgMzBfujXW8+8ImZdOqkt6hYxcM78Vnj8Lk7tnCmuIHnnmnxuLNWitPuT8HI
-	 YX1bC9hWc89pu+OI0tsoseWGR9tuX2ynYpYvctyMYNGhme9F+M738A5+EUzf88jk8o
-	 UmgNnvy3+l5hHk5vPOYp0ApKUJYI2CVCCbzPmHx6Ld+AHc5AC/6jI9+7mInRcKWX0v
-	 uPXLJGKOgLUFdPwCaZg3wPFsLlI8rkK5ouHAZH9Lr6Z1RN3v1aF5DaX+l06kvi40Xo
-	 X3j/EaJPMyqAy2gtGz0rEwUUJ/BybqGKVsEerR6GnXg+SXzLEC9eIOgkrExWQufjNN
-	 sdo30c8MVTCHw==
+	b=RqhYv2QxTzIE+8deByASzMvXQsT/a++I56fwRKK74yF2denpC89KeQkj5mT9Q8+8L
+	 TjjV6hqeUTh/mLrPpiGdl/dB/6QdhrNVhAO9yOGv4ggtV1PyWSpEu1qgI8tnvDBBSE
+	 gleM2L0x9k9tpuYz6bEr6tz1fwzsF4aQrutaRlEk7tClfJlJM1wQrCMWZBFqt7N4Gx
+	 XXSlzJoPZdHCPnOZ3iaZ0NbDnIrBniBTs05xtmFWfkEtq6bK2FnbrzMvC8fysU8eQ8
+	 ffN5M+zPhTAVloxnWBJFzYLCl4eMZsLrZ0Bd4K1R6JgeK0R2lNahZHtxI4yM5PjM2h
+	 8ox4vWXuGQBMw==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: ikaros <void0red@gmail.com>,
-	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+Cc: Florian Eckert <fe@dev.tdt.de>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
 	Sasha Levin <sashal@kernel.org>,
-	rafael@kernel.org,
-	maciej.wieczor-retman@intel.com,
-	pawel.chmielewski@intel.com,
-	linux-acpi@vger.kernel.org,
-	acpica-devel@lists.linux.dev,
+	lpieralisi@kernel.org,
+	kwilczynski@kernel.org,
+	linux-pci@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-5.10] ACPICA: Improve argument parsing in acpi_ps_get_next_simple_arg()
-Date: Mon, 31 Aug 2026 09:21:28 -0400
-Message-ID: <20260831133314.4125787-60-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-6.1] PCI: intel-gw: Enable clock before PHY init
+Date: Mon, 31 Aug 2026 09:21:31 -0400
+Message-ID: <20260831133314.4125787-63-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -50,523 +49,121 @@ List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 6.18.48
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: ikaros <void0red@gmail.com>
+From: Florian Eckert <fe@dev.tdt.de>
 
-[ Upstream commit 27d27e75ecb752a0b4da848c440bb3a88396ecba ]
+[ Upstream commit febf9ed3c35e5eec7ea384ebbd55a5296e3ca5e9 ]
 
-Improve argument parsing in acpi_ps_get_next_simple_arg() to handle
-remaining AML data safely.
+To ensure that the boot sequence is correct, the DWC PCIe core clock must
+be switched on before PHY init call [1]. This changes are based on patched
+kernel sources of the MaxLinear SDK.
 
-Link: https://github.com/acpica/acpica/commit/ecbb8bcfe301
-Signed-off-by: ikaros <void0red@gmail.com>
-Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
-Link: https://patch.msgid.link/2008043.taCxCBeP46@rafael.j.wysocki
+The reason why the MaxLinear SDK is used as a reference here is, that this
+PCIe DWC IP is used in the URX851 and URX850 SoC. This SoC was originally
+developed by Intel when they acquired Lantiq’s home networking division in
+2015 [2]. In 2020 the home network division was sold to MaxLinear [3].
+Since then, this SoC belongs to MaxLinear. They use their own SDK, which
+runs on kernel version '5.15.x'.
+
+[1] https://github.com/maxlinear/linux/blob/updk_9.1.90/drivers/pci/controller/dwc/pcie-intel-gw.c#L544
+[2] https://www.intc.com/news-events/press-releases/detail/364/intel-to-acquire-lantiq-advancing-the-connected-home
+[3] https://investors.maxlinear.com/press-releases/detail/395/maxlinear-to-acquire-intels-home-gateway-platform
+
+Signed-off-by: Florian Eckert <fe@dev.tdt.de>
+Signed-off-by: Manivannan Sadhasivam <mani@kernel.org>
+Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
+Link: https://patch.msgid.link/20260417-pcie-intel-gw-v5-4-0a2b933fe04f@dev.tdt.de
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-## Phase 1: Commit Message Forensics
-
-**Step 1.1 — Subject line**
-
-Record: **[ACPICA] [Improve] argument parsing in
-`acpi_ps_get_next_simple_arg()` to handle remaining AML data safely**
-
-**Step 1.2 — Tags**
-
-Record:
-- **Link:** https://github.com/acpica/acpica/commit/ecbb8bcfe301
-- **Link:** https://patch.msgid.link/2008043.taCxCBeP46@rafael.j.wysocki
-  (blocked by bot protection; lkml.iu.edu mirror used instead)
-- **Signed-off-by:** ikaros \<void0red@gmail.com\> (author)
-- **Signed-off-by:** Rafael J. Wysocki \<rafael.j.wysocki@intel.com\>
-  (ACPI maintainer)
-- No **Fixes:**, **Reported-by:**, **Cc: stable**, **Tested-by:**, or
-  **Reviewed-by:** tags in the message
-- Notable: patch is **[PATCH v1 17/27]** in Rafael’s ACPICA sync series
-  (May 2026); upstream ACPICA commit fixes GitHub issues **#1073** and
-  **#1131**
-
-**Step 1.3 — Body analysis**
-
-Record:
-- **Bug:** `acpi_ps_get_next_simple_arg()` reads integer and string AML
-  arguments without checking how many bytes remain before
-  `parser_state->aml_end`.
-- **Symptoms:** Out-of-bounds reads when AML is truncated or a string
-  lacks a null terminator within the buffer; downstream code (e.g.
-  `strlen()` on the string pointer) can also OOB-read.
-- **Root cause:** Unbounded `*aml` / `ACPI_MOVE_*` reads and unbounded
-  `while (aml[length])` loop.
-- **Fix approach:** Compute `remaining = aml_end - aml`, bounds-check
-  all reads, bound the string scan, warn and force a null terminator at
-  the buffer edge when needed.
-
-**Step 1.4 — Hidden bug fix?**
-
-Record: **Yes.** “Improve argument parsing” is defensive hardening
-against real memory-safety bugs (heap-buffer-overflow confirmed in
-upstream ACPICA via ASAN).
-
----
-
-## Phase 2: Diff Analysis
-
-**Step 2.1 — Inventory**
-
-Record:
-- **File:** `drivers/acpi/acpica/psargs.c` (+68 / −10 per lkml; net ~58
-  lines)
-- **Function:** `acpi_ps_get_next_simple_arg()` only
-- **Scope:** Single-file, single-function surgical fix
-
-**Step 2.2 — Code flow per hunk**
-
-Record:
-- **ARGP_BYTEDATA:** Before: always read 1 byte. After: read only if
-  `remaining >= 1`, else return 0 with `length = 0`.
-- **ARGP_WORD/DWORD/QWORDDATA:** Before: always read 2/4/8 bytes. After:
-  full read if enough bytes; else zero-init and `memcpy()` partial bytes
-  if any remain.
-- **ARGP_CHARLIST:** Before: unbounded scan for `'\0'`. After: scan only
-  within `remaining`; if no terminator, `ACPI_WARNING`, write `'\0'` at
-  `aml[remaining-1]`, set `length = remaining`.
-- **Normal path:** `parser_state->aml += length` unchanged.
-
-**Step 2.3 — Bug mechanism**
-
-Record: **Memory safety / buffer overflow (OOB read).** Integer cases
-read past `aml_end`; string case can scan past `aml_end` and pass a non-
-terminated pointer to later `strlen()`-based code (upstream issue
-#1131).
-
-**Step 2.4 — Fix quality**
-
-Record: Fix is minimal, uses existing `aml_end` and `ACPI_PTR_DIFF`
-(already used elsewhere in ACPICA). Low regression risk on valid AML.
-Minor concern: in-place mutation of AML bytes for malformed strings
-(`aml[remaining-1] = 0`), but this only triggers on invalid AML and is
-the upstream-chosen mitigation to prevent downstream OOB.
-
----
-
-## Phase 3: Git History Investigation
-
-**Step 3.1 — Blame**
-
-Record: Buggy logic dates to original ACPICA import (~2005, Bob Moore /
-Len Brown). Present in this tree at lines 364–443 of `psargs.c`. Not a
-recently introduced regression.
-
-**Step 3.2 — Fixes: tag**
-
-Record: N/A — no `Fixes:` tag in commit message.
-
-**Step 3.3 — Related file history**
-
-Record: Recent `psargs.c` changes in v6.18.44 are copyright updates and
-separate memory-leak fixes (`acpi_ps_get_next_field`,
-`acpi_ps_get_next_namepath`). No prior fix for this bounds-check issue.
-
-**Step 3.4 — Author commits**
-
-Record: Author ikaros/void0red is an ACPICA contributor (fuzzing-driven
-fixes). Rafael Wysocki is ACPI subsystem maintainer; patch submitted as
-part of ACPICA v1 27-patch series.
-
-**Step 3.5 — Dependencies**
-
-Record: Listed as patch 17/27 in an ACPICA bulk sync, but the diff is
-self-contained — uses only existing `struct acpi_parse_state` fields
-(`aml`, `aml_end`, `aml_start`) and `ACPI_PTR_DIFF`. No structural
-prerequisites from other series patches identified. **Can apply
-standalone.**
-
----
-
-## Phase 4: Mailing List and External Research
-
-**Step 4.1 — Original discussion**
-
-Record:
-- **b4 dig -c ecbb8bcfe301:** Failed (ACPICA SHA not in Linux git)
-- **lkml mirror:** https://lkml.iu.edu/2605.3/06252.html — Rafael’s
-  [PATCH v1 17/27], May 27 2026
-- **Series revisions:** Part of v1 27-patch ACPICA update; no evidence
-  of a newer conflicting version for this hunk
-- **Stable nomination in thread:** Not found in available sources
-- **NAKs:** None found
-
-**Step 4.2 — Reviewers**
-
-Record: Rafael J. Wysocki (maintainer) signed off and submitted. Full
-recipient list unavailable (b4/lore blocked).
-
-**Step 4.3 — Bug reports**
-
-Record:
-- **GitHub acpica#1073:** ASAN heap-buffer-overflow in
-  `AcpiPsGetNextSimpleArg` at integer read (iasl fuzzing)
-- **GitHub acpica#1131:** ASAN heap-buffer-overflow via `strlen()` on
-  malformed AML string without null terminator (acpiexec); fixed by this
-  commit
-- Both closed after ecbb8bc
-
-**Step 4.4 — Series context**
-
-Record: One patch in a 27-patch ACPICA sync; this hunk is independent
-and does not require the other 26 patches.
-
-**Step 4.5 — Stable list**
-
-Record: Could not search lore stable list (bot protection). No stable-
-specific discussion found via web search.
-
----
-
-## Phase 5: Code Semantic Analysis
-
-**Step 5.1 — Key functions**
-
-Record: `acpi_ps_get_next_simple_arg()` modified.
-
-**Step 5.2 — Callers**
-
-Record:
-- `acpi_ps_get_arguments()` in `psloop.c` (constant/string opcode
-  arguments during parse loop)
-- `acpi_ps_get_next_arg()` in `psargs.c` (general argument fetching)
-
-Both are on the ACPI AML parse path used during table load and method
-execution.
-
-**Step 5.3 — Callees**
-
-Record: `acpi_ps_init_op()`, `acpi_ps_get_next_namestring()` (unchanged
-paths), `ACPI_MOVE_*` macros, `memcpy()`, `ACPI_WARNING()`.
-
-**Step 5.4 — Reachability**
-
-Record:
-- Boot: `acpi_ns_one_complete_parse()` →
-  `acpi_ds_init_aml_walk(aml_start, aml_length)` → `acpi_ps_parse_aml()`
-  → parse loop → `acpi_ps_get_next_simple_arg()`
-- Runtime: ACPI method evaluation uses the same walk/parse path via
-  `acpi_ds_init_aml_walk()`
-- **Reachable on every ACPI-enabled system** when parsing tables or
-  evaluating methods. Trigger requires malformed/truncated AML (buggy
-  firmware, corrupted tables, or injected SSDT).
-
-**Step 5.5 — Similar patterns**
-
-Record: No existing bounds-check pattern for this function in v6.18.44.
-`parser_state->aml_end` is set in `acpi_ds_init_aml_walk()`
-(`dswstate.c:578-586`) for all AML walks. `psloop.c` already uses
-`parser_state->aml < parser_state->aml_end` at the loop level, but
-individual argument parsing lacked per-field bounds checks.
-
----
-
-## Phase 6: Cross-Reference Against Local Tree (v6.18.44)
-
-**Step 6.1 — Buggy code present?**
-
-Record: **Yes.** Local tree is `v6.18.44` (Makefile 6.18.44).
-`acpi_ps_get_next_simple_arg()` at `psargs.c:364-443` has the unbounded
-reads. Commit ecbb8bc is **not** in this tree.
-
-**Step 6.2 — Backport complications**
-
-Record: **Clean apply expected.** lkml diff index (`3526ea109414`)
-matches current file structure; only line-offset difference. `aml_end`
-field exists in `aclocal.h:912`. `ACPI_PTR_DIFF` used elsewhere in
-ACPICA.
-
-**Step 6.3 — Related fixes already present?**
-
-Record: **No.** `git log --grep` found no prior fix for this function’s
-bounds checking in `psargs.c`.
-
----
-
-## Phase 7: Subsystem Context
-
-**Step 7.1 — Subsystem / criticality**
-
-Record: **ACPI / ACPICA parser** — **CORE** for all `CONFIG_ACPI`
-systems (essentially all x86 PCs and many ARM servers).
-
-**Step 7.2 — Activity**
-
-Record: ACPICA receives regular maintenance; this is a targeted safety
-fix within a periodic upstream sync.
-
----
-
-## Phase 8: Impact and Risk Assessment
-
-**Step 8.1 — Who is affected**
-
-Record: All ACPI-enabled systems parsing AML at boot or during method
-evaluation. Driver-specific only in the sense that it requires ACPI,
-which is near-universal on supported platforms.
-
-**Step 8.2 — Trigger conditions**
-
-Record: Malformed or truncated AML bytecode (truncated integer args,
-string without `'\0'` within buffer). Uncommon in practice from
-legitimate firmware, but confirmed reproducible with fuzzed AML. ACPI
-table override/SSDT loading requires elevated privileges; primary
-production risk is buggy OEM firmware.
-
-**Step 8.3 — Failure mode severity**
-
-Record: **OOB read** → potential kernel oops, info leak, or further
-cascading OOB in `strlen()`. **Severity: HIGH** (boot-time or runtime
-crash on ACPI parse path).
-
-**Step 8.4 — Risk vs benefit**
-
-Record:
-- **Benefit: HIGH** — prevents memory-safety bug on a core boot path
-- **Risk: LOW** — single function, defensive checks, no API change;
-  valid AML behavior unchanged
-- **Ratio:** Strong benefit, low risk → backport warranted
-
----
-
-## Phase 9: Final Synthesis
-
-**Evidence FOR backport:**
-- Confirmed heap-buffer-overflow (ASAN) in upstream ACPICA for this
-  exact function
-- Same vulnerable code present in v6.18.44 since ~2005
-- `aml_end` infrastructure already exists and is set on all parse paths
-- Small, self-contained, maintainer-signed fix
-- Prevents OOB reads during ACPI table parsing and method evaluation
-- Fits stable criteria: real bug, important (crash/security-class memory
-  safety), no new APIs
-
-**Evidence AGAINST backport:**
-- Part of a 27-patch ACPICA series (cosmetic concern only; patch is
-  standalone)
-- In-place AML mutation for malformed strings (edge case; upstream-
-  accepted)
-- Bugs found via iasl/acpiexec fuzzing, not a field user report (but
-  kernel shares the code)
-
-**Stable rules checklist:**
-1. Obviously correct and tested? **PASS** — straightforward bounds
-   checks; ASAN-verified upstream
-2. Fixes a real bug affecting users? **PASS** — OOB read on ACPI parse
-   path
-3. Important issue? **PASS** — HIGH severity (memory safety / potential
-   crash)
-4. Small and contained? **PASS** — one function, ~58 net lines
-5. No new features or APIs? **PASS** — defensive parsing only
-6. Can apply to local tree? **PASS** — buggy code present, dependencies
-   satisfied
-
-**Exception category:** N/A (not device ID, quirk, DT, build, or docs)
-
-**Conclusion:** This commit fixes a long-standing memory-safety hole in
-core ACPI AML parsing that is present in the v6.18.44 tree. The fix is
-surgical, uses existing parser state, and prevents out-of-bounds reads
-that can crash the kernel when malformed AML is encountered.
-
----
-
-## Verification
-
-- [Phase 1] Parsed subject, tags, body from user-provided commit message
-  and lkml mirror
-- [Phase 1] Confirmed upstream fixes acpica#1073 and #1131 via GitHub
-  issue pages
-- [Phase 2] Diff analysis: single-function bounds-check fix in
-  `acpi_ps_get_next_simple_arg()`
-- [Phase 3] `git describe HEAD`: v6.18.44
-- [Phase 3] `git blame -L 364,443 drivers/acpi/acpica/psargs.c`: code
-  from ~2005
-- [Phase 3] `git log --oneline -20 -- drivers/acpi/acpica/psargs.c`: no
-  prior bounds-check fix
-- [Phase 3] `git log -1 ecbb8bcfe301`: commit not in local tree
-- [Phase 4] `b4 dig -c ecbb8bcfe301`: no match (ACPICA-only SHA)
-- [Phase 4] lkml.iu.edu/2605.3/06252.html: found [PATCH v1 17/27] with
-  identical diff
-- [Phase 4] GitHub acpica#1073: ASAN heap-buffer-overflow at integer
-  read
-- [Phase 4] GitHub acpica#1131: ASAN heap-buffer-overflow via strlen on
-  malformed string
-- [Phase 5] `grep acpi_ps_get_next_simple_arg`: callers in
-  `psloop.c:71`, `psargs.c:769`
-- [Phase 5] Read `nsparse.c:173-198`: table parse sets
-  `aml_start`/`aml_length` via `acpi_ds_init_aml_walk()`
-- [Phase 5] Read `dswstate.c:578-586`: `aml_end` set from `aml_start +
-  aml_length`
-- [Phase 6] Read `psargs.c:364-443`: confirmed vulnerable code in
-  v6.18.44
-- [Phase 6] Read `aclocal.h:909-920`: `aml_end` field exists in `struct
-  acpi_parse_state`
-- [Phase 8] Assessed severity as HIGH based on verified OOB read
-  mechanism
-- [UNVERIFIED] Full lore.kernel.org review thread (Anubis bot blocked
-  direct fetch)
-- [UNVERIFIED] Whether any reviewer explicitly nominated for stable (not
-  needed for decision)
-
-**YES**The background history searches finished and matched what the
-main analysis already used.
-
-**Task 264644** (`git log` on `psargs.c`): Recent changes are copyright
-updates and separate leak fixes in `acpi_ps_get_next_field()` /
-`acpi_ps_get_next_namepath()`. Nothing related to bounds checking in
-`acpi_ps_get_next_simple_arg()`.
-
-**Task 264645** (author/search): No Linux-kernel commits from
-ikaros/void0red on this fix; the patch came through Rafael Wysocki’s
-ACPICA sync. Recent ACPI work in this tree includes other parser/safety
-fixes, but not this one.
-
-That confirms the vulnerable code is still present in **v6.18.44** and
-this fix isn’t already here. Verdict remains **YES** for stable
-backport.
-
- drivers/acpi/acpica/psargs.c | 78 +++++++++++++++++++++++++++++++-----
- 1 file changed, 68 insertions(+), 10 deletions(-)
-
-diff --git a/drivers/acpi/acpica/psargs.c b/drivers/acpi/acpica/psargs.c
-index 3526ea1094146..064652d11d9aa 100644
---- a/drivers/acpi/acpica/psargs.c
-+++ b/drivers/acpi/acpica/psargs.c
-@@ -384,6 +384,8 @@ acpi_ps_get_next_simple_arg(struct acpi_parse_state *parser_state,
- 	u32 length;
- 	u16 opcode;
- 	u8 *aml = parser_state->aml;
-+	u32 remaining = (u32)ACPI_PTR_DIFF(parser_state->aml_end, aml);
-+	u64 partial_value;
+The background search for `intel,lgm-pcie` in this stable checkout only
+turned up merge commits — the tree’s history is too shallow to show the
+original introduction. From `v5.15` history, the driver dates to
+`ed22aaaede44f` (“PCI: dwc: intel: PCIe RC controller driver”, 2019),
+and the wrong clock/PHY ordering has been there since then.
+
+**Verdict for linux-6.18.y: YES** — enable the core clock before
+`phy_init()` in `intel_pcie_host_setup()`. It’s a small, vendor-
+validated hardware sequencing fix for MaxLinear/Intel Gateway SoCs, and
+it applies with a minor tweak (6.18.y still uses inline interrupt enable
+instead of `intel_pcie_core_irq_enable()`).
+
+Note: this is patch 4/7 of a larger intel-gw series; full driver
+restoration on current dwc may also need the `.start_link()` and ATU
+patches from the same series.
+
+ drivers/pci/controller/dwc/pcie-intel-gw.c | 19 ++++++++++---------
+ 1 file changed, 10 insertions(+), 9 deletions(-)
+
+diff --git a/drivers/pci/controller/dwc/pcie-intel-gw.c b/drivers/pci/controller/dwc/pcie-intel-gw.c
+index c21906eced618..8b51eb30112d9 100644
+--- a/drivers/pci/controller/dwc/pcie-intel-gw.c
++++ b/drivers/pci/controller/dwc/pcie-intel-gw.c
+@@ -285,13 +285,9 @@ static int intel_pcie_host_setup(struct intel_pcie *pcie)
  
- 	ACPI_FUNCTION_TRACE_U32(ps_get_next_simple_arg, arg_type);
+ 	intel_pcie_core_rst_assert(pcie);
+ 	intel_pcie_device_rst_assert(pcie);
+-
+-	ret = phy_init(pcie->phy);
+-	if (ret)
+-		return ret;
+-
+ 	intel_pcie_core_rst_deassert(pcie);
  
-@@ -393,8 +395,13 @@ acpi_ps_get_next_simple_arg(struct acpi_parse_state *parser_state,
- 		/* Get 1 byte from the AML stream */
++	/* Controller clock must be provided earlier than PHY */
+ 	ret = clk_prepare_enable(pcie->core_clk);
+ 	if (ret) {
+ 		dev_err(pcie->pci.dev, "Core clock enable failed: %d\n", ret);
+@@ -300,13 +296,17 @@ static int intel_pcie_host_setup(struct intel_pcie *pcie)
  
- 		opcode = AML_BYTE_OP;
--		arg->common.value.integer = (u64) *aml;
--		length = 1;
-+		if (remaining >= 1) {
-+			arg->common.value.integer = (u64)*aml;
-+			length = 1;
-+		} else {
-+			arg->common.value.integer = 0;
-+			length = 0;
-+		}
- 		break;
+ 	pci->atu_base = pci->dbi_base + 0xC0000;
  
- 	case ARGP_WORDDATA:
-@@ -402,8 +409,19 @@ acpi_ps_get_next_simple_arg(struct acpi_parse_state *parser_state,
- 		/* Get 2 bytes from the AML stream */
- 
- 		opcode = AML_WORD_OP;
--		ACPI_MOVE_16_TO_64(&arg->common.value.integer, aml);
--		length = 2;
-+		if (remaining >= 2) {
-+			ACPI_MOVE_16_TO_64(&arg->common.value.integer, aml);
-+			length = 2;
-+		} else {
-+			arg->common.value.integer = 0;
-+			length = 0;
-+			if (remaining > 0) {
-+				partial_value = 0;
-+				memcpy(&partial_value, aml, remaining);
-+				arg->common.value.integer = partial_value;
-+				length = remaining;
-+			}
-+		}
- 		break;
- 
- 	case ARGP_DWORDDATA:
-@@ -411,8 +429,19 @@ acpi_ps_get_next_simple_arg(struct acpi_parse_state *parser_state,
- 		/* Get 4 bytes from the AML stream */
- 
- 		opcode = AML_DWORD_OP;
--		ACPI_MOVE_32_TO_64(&arg->common.value.integer, aml);
--		length = 4;
-+		if (remaining >= 4) {
-+			ACPI_MOVE_32_TO_64(&arg->common.value.integer, aml);
-+			length = 4;
-+		} else {
-+			arg->common.value.integer = 0;
-+			length = 0;
-+			if (remaining > 0) {
-+				partial_value = 0;
-+				memcpy(&partial_value, aml, remaining);
-+				arg->common.value.integer = partial_value;
-+				length = remaining;
-+			}
-+		}
- 		break;
- 
- 	case ARGP_QWORDDATA:
-@@ -420,8 +449,19 @@ acpi_ps_get_next_simple_arg(struct acpi_parse_state *parser_state,
- 		/* Get 8 bytes from the AML stream */
- 
- 		opcode = AML_QWORD_OP;
--		ACPI_MOVE_64_TO_64(&arg->common.value.integer, aml);
--		length = 8;
-+		if (remaining >= 8) {
-+			ACPI_MOVE_64_TO_64(&arg->common.value.integer, aml);
-+			length = 8;
-+		} else {
-+			arg->common.value.integer = 0;
-+			length = 0;
-+			if (remaining > 0) {
-+				partial_value = 0;
-+				memcpy(&partial_value, aml, remaining);
-+				arg->common.value.integer = partial_value;
-+				length = remaining;
-+			}
-+		}
- 		break;
- 
- 	case ARGP_CHARLIST:
-@@ -434,10 +474,28 @@ acpi_ps_get_next_simple_arg(struct acpi_parse_state *parser_state,
- 		/* Find the null terminator */
- 
- 		length = 0;
--		while (aml[length]) {
-+		while ((length < remaining) && aml[length]) {
-+			length++;
-+		}
-+		if (length < remaining) {
++	ret = phy_init(pcie->phy);
++	if (ret)
++		goto phy_err;
 +
-+			/* Account for the terminating null */
- 			length++;
-+		} else {
-+			/*
-+			 * No terminator found - add null at buffer boundary
-+			 * and report a warning
-+			 */
-+			ACPI_WARNING((AE_INFO,
-+				      "Invalid AML string: no null terminator, truncating at offset %u",
-+				      (u32)(aml - parser_state->aml)));
-+
-+			/* Add null terminator at the boundary */
-+			if (remaining > 0) {
-+				aml[remaining - 1] = 0;
-+				length = remaining;
-+			}
- 		}
--		length++;
- 		break;
+ 	intel_pcie_ltssm_disable(pcie);
+ 	intel_pcie_link_setup(pcie);
+ 	intel_pcie_init_n_fts(pci);
  
- 	case ARGP_NAME:
+ 	ret = dw_pcie_setup_rc(&pci->pp);
+ 	if (ret)
+-		goto app_init_err;
++		goto err;
+ 
+ 	dw_pcie_upconfig_setup(pci);
+ 
+@@ -315,7 +315,7 @@ static int intel_pcie_host_setup(struct intel_pcie *pcie)
+ 
+ 	ret = dw_pcie_wait_for_link(pci);
+ 	if (ret)
+-		goto app_init_err;
++		goto err;
+ 
+ 	/* Enable integrated interrupts */
+ 	pcie_app_wr_mask(pcie, PCIE_APP_IRNEN, PCIE_APP_IRN_INT,
+@@ -323,11 +323,12 @@ static int intel_pcie_host_setup(struct intel_pcie *pcie)
+ 
+ 	return 0;
+ 
+-app_init_err:
++err:
++	phy_exit(pcie->phy);
++phy_err:
+ 	clk_disable_unprepare(pcie->core_clk);
+ clk_err:
+ 	intel_pcie_core_rst_assert(pcie);
+-	phy_exit(pcie->phy);
+ 
+ 	return ret;
+ }
 -- 
 2.53.0
 
