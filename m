@@ -1,123 +1,207 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FE433F1AAD;
-	Mon, 31 Aug 2026 17:35:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788197739; cv=none; b=XVoReEV3AIAoFhnv4nBKO3RT1oGph9TI5NmOCu/9dxxOvYoqrgFWzcx06b9D3V1dTgMFHsO4Lvp2e+fXcVUHWUilxvrsOzUcJ78IcbOVNf0SEYstjpLa7/0oRzHax5Jp4uai2Pp3MT3nRanaQgplRY3goQXo8Baroz1HrU54hwg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788197739; c=relaxed/simple;
-	bh=2qVC5yoQBquWe6LLwPrlx9oakMBqorOlsrR2KF1e3Jc=;
-	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
-	 Message-ID:Content-Type; b=dvFlnbV3MGsOVum3rEpciZR0EIDxzvFbmxi761nSxRYk8kl8yLEDoXI8AjTh/XlGIym/Q/hvAZ/MTKmaMYsf8P8qnXa7dB+YhWRWhnfKQ0ObAxMbGpv6DwwNcvQfXREe4xKhbyvOdClXheuy0XhOdEfFCqR53RnrcijwDAJMCkU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=qJPoO2d9; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=uAUN7GQ2; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CF0C47798A
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 17:35:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.48
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788197747; cv=pass; b=BD7H+hCtcxhdMGwzf5ZbmisPjyabx6nv79RqNZR+Fo4uw6SPsc8UqVV1uPuyqVlMGHk5ZttLoqDhDDY5olrpSODQo2kTG7rkEBhnsF4uOFCOmpZMWXFSTwgiZgGxuWTI/K/t2e7hy+twAe61yZ99MJLwT8dwaZHvBrfXoHkCZLg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788197747; c=relaxed/simple;
+	bh=knxdwHwU3vtDFCWMa82XQX3S02q39w5bB3rwsdSJi9I=;
+	h=From:MIME-Version:Date:Message-ID:Subject:To:Cc:Content-Type; b=E7V2WZrm4BBiIBxYuLd3Y/yN7PODqqXjLtGRAPsOR4te89v84VTvvlHmNQsyAOS19eqg+zw2Nyl0fV0FrrTh4LTyMXi3rT/DexzfgwGSLLoD8uxRwe3wEkAyy1uFonuh2M9j/NgF6eorEgm51bi/GAMMwqPsmxsBoChVia9HCh8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jQIW4o+R; arc=pass smtp.client-ip=209.85.208.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="qJPoO2d9";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="uAUN7GQ2"
-Date: Mon, 31 Aug 2026 17:35:34 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1788197736;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=n8Dx2ZMejgOo8yw+tVY8+elR2md2Nj5Pg4EyNxccHG4=;
-	b=qJPoO2d9w32upNZrOE2RiXOgBnPcCm7UNJaAi+9b8Go4sNy4kSwMVZso1Jtu+GHf7ZAxcY
-	zSaVC2OUNIfeWomu5keX48ALGxrU26+XW06f56FmPUTxT76EJbKBDh+v4Cs6au7EgwrR+Q
-	xQY/qGjH/vg5hSFajzNsc030NLvATsSgN7ywGT0J2PbH9OWjVkxFLYGaBFq/Gr3p5/6EDv
-	VdSwdirqj4Qn5kfywWh1wFr5chv/iaKjSi1v9kGDyyHIOo9Q8iji0vuyBBv0uX6zK7AF87
-	l32Ct508DonjtTHN4HUhqckVw2uZF83qJkn2fXB6Ptf1XVsWFQ8iCxvIEXYlcg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1788197736;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=n8Dx2ZMejgOo8yw+tVY8+elR2md2Nj5Pg4EyNxccHG4=;
-	b=uAUN7GQ25ascWtQPuFVfw5GNklnNgydUcbK6hT5r30yvgbXUPW7ZdbCAa5+3V90E9Ckyc8
-	zILzpYba4I0NqEBA==
-From: "tip-bot2 for Jason Andryuk" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject:
- [tip: x86/urgent] x86/amd_node: Avoid divide by zero on virtualized systems
-Cc: Borislav Petkov <bp@alien8.de>, Jason Andryuk <jason.andryuk@amd.com>,
- Yazen Ghannam <yazen.ghannam@amd.com>, stable@vger.kernel.org, x86@kernel.org,
- linux-kernel@vger.kernel.org
-In-Reply-To: <20260825214805.39148-2-jason.andryuk@amd.com>
-References: <20260825214805.39148-2-jason.andryuk@amd.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jQIW4o+R"
+Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-69c108fee7fso4894723a12.3
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 10:35:45 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788197744; cv=none;
+        d=google.com; s=arc-20260327;
+        b=WcGtB7wyKJrKrjf1eY2HcjacSKTH7Vs8ba2LbLJ+5U/KljF8jzUR2KkLIkE9SP1vDW
+         RYfG0qhKujk3yA3V2ZOXrulxMoMWHi84yPtMa2kXY9lFi/d/6KYadRk27lAS6ChoPByI
+         WTZwQCgxeuUDh4P/lWq5ItmszK+DtuiGmdgAiMZ8x7ZzUDAEln3oydkCXt16lGZh9hEb
+         DJg4uitcmJ4ufO/frOQ9JvMc21cpPjxjt51nCGz4qea6aEzV8w0a77zoMKRbwBUWEAi9
+         RqB4IhJVfER8wwdTWTFeS3wf+SXt6OXHpcDRoNrUpRzSy7Fydg4JMgRj7OyXotgbQ2v6
+         1dYw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:mime-version:from:dkim-signature;
+        bh=NrLEV+P2I7sA236ztoqXL6dgwfLc2PQ26Z83hstTuik=;
+        fh=thhxhwTq7nSM0y8ypu4px1BNjYb8j/fsIlno/D0OxUE=;
+        b=mCrvbkOk9VQI0iniNiLb6ZPpxc95moBjZA+02nrbJFzj7XQdnChq8zCu03awtehrvV
+         eRSItvB6iBz84FeckbhZ/N8yh3puQb0uWZqYaAZDTXJY964R1xWbZfnG2JcBqwH/uIyu
+         EVLGyG7DReN7pTZooHahVi0UXkHWHojvYk7srBL2yh4m6Zj0aA5EMiq7rsxoa88RyOtd
+         DjUKc+1h79Vla4bHVMezsihI0X/FnsVTBYEdocMDFpo1TbMDPCtF+NAFSVB8XITajIDm
+         +0ZrcQvnkSCK7sDuPwmsK7b5yMVXs7WKhFyyaA1GNJIpi7eXcdGLqd7mRDigzN1j7Yxo
+         mXdQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788197744; x=1788802544; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:mime-version:from:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=NrLEV+P2I7sA236ztoqXL6dgwfLc2PQ26Z83hstTuik=;
+        b=jQIW4o+R+75deFZGt18qVRYd8RDQxGBzZiyr+wgCNKFOL1t0Z9XnI7VMgyrefNA+dW
+         zU0dNykfuDIrtfHG4OkrP25ceLLEEyhidi8IZcvvgZohw4+FzE6oZIuQzEFEaEy+VmHJ
+         vEWwa1XTlsnP0X7BLB8kGar2J1R1ky7T3UZCUwTtSUtpYS49BKR/01CDFHEv4ebYga90
+         iWCOPHgUkEKN6wTdlUyO7R55/c9nrfAAsi7kIqMmLhDAlZkTsk7nfL7NSmCgFvToSZrz
+         czVSHd9LhQUnaXSXKJDbyv6jpq4McvPu9jW3B1s/L62WszXYVH2lzpPNYpvpYowCO409
+         eamQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788197744; x=1788802544;
+        h=content-type:cc:to:subject:message-id:date:mime-version:from
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=NrLEV+P2I7sA236ztoqXL6dgwfLc2PQ26Z83hstTuik=;
+        b=l8hegpay3T5JVB/3MF7lkdtpyq/6dtia6IdaHavJh71CNkgiXnbmu8X0hOcgK4Q5I5
+         xs7VovGm5VW6hxwgVWh6UAUTq5JyigDui1UZS2bX8+oi3BwoSLe1wvxWwViYPVBF1QAN
+         lBI0Xa5qiDEeCNpPA5/ihvFnbbj2cpojJdwzvCdn+F28GtWvniYk+BCr5r12A04MxiDn
+         fsqgvXBtuP9YKktq8SBFEWTZQz35aW/HuE/oPZ8FKP1OynTiABtZcqlXH3MNjEVzcDO1
+         MsEXLXfMa80vWHx6zOO16PBzwBQx/C++kevYw2+6GQqXiP1cqJ+dq3tHhH+BcWdrlfnN
+         qIvQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzto/3xIJptbyqAsJdmb+9FY4N7VROMf+7/rBQNjzUSyqGFc4xcxC3OQaBCP5kuUqaHBCBgjW5cAwgGCVI=@vger.kernel.org
+X-Gm-Message-State: AFuF++kekoAzu5NDCQR/ql5F8Ac79YJnvmCvF0ApX4DhJvigN90zWKr9
+	u8hLk1FyyN7ZyrJcVkCXL4BasjCvz5FjnusAKFA7N57GQQ2z59DtDZdhDZPmZmvsWUR6HVRciSG
+	6PaHg5Lzy/cNqtdp8/eIpBWYngiW3vxM=
+X-Gm-Gg: AYBFou1gCt3HTK3nVTYU9T+igm4ElZV66S9jD8+oD6c4YsJab+xEBS6rZtw7oPeDQsM
+	dnCZsto3bNPYY+dg0zoOQcgGdUG818iT3ZajtPkMsxkslD5DWfXnu2N2b0151TODgPLD1dx+f2z
+	RWVP6zVeryq71bBYNMLiZuhFnn0ZRzPUoQt9QJyXxNiffPj42n6d7zYZD/s+z16vIquQMMoEiv4
+	ns/iSQD1xfTUVXzEBf2pFhEY6+sbz5OJYNfuPezbL7FMQZIbKXK7e8tQKXVQKQksKJU/To5ouAo
+	kUnQerQQ3+nwGEJfJL7zlG0wbaJAFnaufxMBMnELL9iC8lnn6NNFFsW3DoRwU1MYxS0EaqrpDcW
+	lylXhwc8Cvor9
+X-Received: by 2002:a05:6402:1f49:b0:6a6:cda:1c9f with SMTP id
+ 4fb4d7f45d1cf-6a60d3a9c9cmr16793695a12.9.1788197743340; Mon, 31 Aug 2026
+ 10:35:43 -0700 (PDT)
+Received: from 637551599889 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 31 Aug 2026 19:35:42 +0200
+Received: from 637551599889 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 31 Aug 2026 19:35:42 +0200
+From: Kelvin Zhang <zhangxp1998@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <178819773427.3717435.17649146675219220348.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Date: Mon, 31 Aug 2026 19:35:42 +0200
+X-Gm-Features: AcwNN1Wjkh5ICuspxoVciXOfblGjJOCL4nZYjxXDlIu24xNvA-SUFp-jzGh96OQ
+Message-ID: <CAH=xXfE6o2sLwcYdoH9cayZpbf389y8PeJ_aDRty61i7q4QKow@mail.gmail.com>
+Subject: [PATCH v6 00/11] f2fs: prepare metadata layouts for runtime block sizes
+To: linux-f2fs-devel@lists.sourceforge.net
+Cc: jaegeuk@kernel.org, chao@kernel.org, linux-kernel@vger.kernel.org, 
+	Kelvin Zhang <zhangxp1998@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 
-The following commit has been merged into the x86/urgent branch of tip:
+F2FS currently describes several on-disk metadata layouts and filesystem
+geometry values with constants derived from PAGE_SIZE or a fixed 4KB block
+size. This series derives those values from the mounted filesystem's block
+size instead, as preparation for supporting filesystem blocks smaller than
+PAGE_SIZE.
 
-Commit-ID:     72bd92bd8190d7869ecb462649ca40f297822a33
-Gitweb:        https://git.kernel.org/tip/72bd92bd8190d7869ecb462649ca40f2978=
-22a33
-Author:        Jason Andryuk <jason.andryuk@amd.com>
-AuthorDate:    Tue, 25 Aug 2026 17:48:02 -04:00
-Committer:     Borislav Petkov (AMD) <bp@alien8.de>
-CommitterDate: Sun, 30 Aug 2026 18:25:42 -07:00
+The patches initialize sb_info early, describe the SIT, NAT, orphan, dentry,
+node, and xattr layouts dynamically, parameterize sector/byte/block
+conversion helpers, and derive node-tree geometry at runtime.
 
-x86/amd_node: Avoid divide by zero on virtualized systems
+This series does not relax the block-size mount check or enable subpage I/O.
+It is intended to be a behavior-preserving refactoring for currently
+supported 4KB-block filesystems.
 
-On a virtualized system, the number of nodes does not have a relationship to
-the number of roots.  A Xen PVH dom0 can calculate roots_per_node as 0, which
-crashes with a divide by zero in:
+Changes since v5:
+- no code changes
+- send each diff as a base64-encoded text/x-patch attachment because Gmail's
+  outgoing transport reflowed long lines in inline text/plain bodies
+- verified that an actual received raw message applies with git am and
+  produces the expected tree; the list-side copy of patch 01/11 will be
+  checked before completing the series
 
-  if (count++ % roots_per_node)
+v5:
+https://lore.kernel.org/linux-f2fs-devel/CAH=xXfH7TPGt-zKXvJRNTgGDZKa1Xoq_sF3-WGs5kdsQLuYn4g@mail.gmail.com/
 
-because the underlying topology code on Xen ends up making num_nodes
-2 and num_roots 1 and the integer division result is 0.
+Changes since v4:
+- no code changes
+- resend with CRLF-canonicalized RFC822 messages; the delivered inline patch
+  was still reflowed by Gmail's outgoing transport
 
-The issue is seen with Xen, but it could affect other systems.
+v4:
+https://lore.kernel.org/linux-f2fs-devel/CAH=xXfHWPg6qRwW+N2ziH1cvG3OD3wJc1z_Tm04MtFCpqYmQFg@mail.gmail.com/
 
-Set roots_per_node to 1 in this case. Print a firmware bug when this is
-performed for non-virtualized systems.
+Changes since v3:
+- no code changes
+- resend with git send-email because the previous mail-sending path produced
+  hard-wrapped hunk headers in the delivered messages
 
-  [ bp: Massage commit message. ]
+v3:
+https://lore.kernel.org/linux-f2fs-devel/CAH=xXfEFL7w7nsU3xjNubKJ1soYMqT-DbJBuyzfEX4Rv3rdFEA@mail.gmail.com/
 
-Fixes: 0a4b61d9c2e4 ("x86/amd_node: Fix AMD root device caching")
-Suggested-by: Borislav Petkov <bp@alien8.de>
-Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
-Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
-Reviewed-by: Yazen Ghannam <yazen.ghannam@amd.com>
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260825214805.39148-2-jason.andryuk@amd.com
----
- arch/x86/kernel/amd_node.c | 5 +++++
- 1 file changed, 5 insertions(+)
+Changes since v2:
+- use DECLARE_FLEX_ARRAY() for flexible arrays that are alone in a struct or
+  used in a union, fixing the reported m68k GCC build failures
+- use F2FS_BLK_ALIGN() in f2fs_sec_trim_file() to avoid a runtime 64-bit
+  division and an unresolved __divdi3 reference on 32-bit SH
+- no other code changes
 
-diff --git a/arch/x86/kernel/amd_node.c b/arch/x86/kernel/amd_node.c
-index 0be0172..408b9fd 100644
---- a/arch/x86/kernel/amd_node.c
-+++ b/arch/x86/kernel/amd_node.c
-@@ -287,6 +287,11 @@ static int __init amd_smn_init(void)
- 		return -ENOMEM;
-=20
- 	roots_per_node =3D num_roots / num_nodes;
-+	if (!roots_per_node) {
-+		if (!cpu_feature_enabled(X86_FEATURE_HYPERVISOR))
-+			pr_warn(FW_BUG "Error detecting roots per node.\n");
-+		roots_per_node =3D 1;
-+	}
-=20
- 	count =3D 0;
- 	node =3D 0;
+Changes since v1:
+- rebase onto f2fs/dev at c966d29e01bb
+- drop the unrelated free-NID underflow fix from this series
+- split the preparatory changes into 11 focused patches
+- initialize sb_info earlier and describe the xattr layout explicitly
+- separate sector, byte/block, and block-size macro parameterization
+- update commit messages and address checkpatch warnings
+
+v2:
+https://lore.kernel.org/linux-f2fs-devel/CAH=xXfHWW_J92z3YgvoLSx8+z6rekq=p2kiP15KE9=2+Ju2RjQ@mail.gmail.com/
+v1:
+https://lore.kernel.org/linux-f2fs-devel/CAH=xXfFVAwQ3r_NdUDtmXhtg6Lw8kDWoNTzGL5oy4mwHMsJLJw@mail.gmail.com/
+
+Tested with:
+- x86_64 W=1 F2FS build at every patch
+- arm64 16KB-page W=1 F2FS build at the series tip
+- m68k W=1 F2FS builds with the two reported randconfigs at the affected
+  patch points
+- SH W=1 F2FS build with the reported randconfig at the affected patch;
+  fs/f2fs/file.o has no __divdi3 reference
+- scripts/checkpatch.pl --strict (no errors or warnings)
+
+Kelvin Zhang (11):
+  f2fs: initialize sb_info early in f2fs_fill_super
+  f2fs: describe SIT block layout dynamically
+  f2fs: describe NAT block layout dynamically
+  f2fs: describe orphan block layout dynamically
+  f2fs: describe dentry block layout dynamically
+  f2fs: describe {i,d,id}node block layout dynamically
+  f2fs: describe xattr block layout dynamically
+  f2fs: parameterize sector conversion macros
+  f2fs: parameterize byte and block conversion macros
+  f2fs: parameterize block size and mask macros
+  f2fs: describe node tree geometry dynamically
+
+ fs/f2fs/checkpoint.c    |  75 ++++++++++--------
+ fs/f2fs/data.c          |  85 +++++++++++---------
+ fs/f2fs/debug.c         |   4 +-
+ fs/f2fs/dir.c           |  51 ++++++------
+ fs/f2fs/extent_cache.c  |   6 +-
+ fs/f2fs/f2fs.h          | 122 +++++++++++++++++++++-------
+ fs/f2fs/file.c          |  84 +++++++++++---------
+ fs/f2fs/gc.c            |  27 ++++---
+ fs/f2fs/inline.c        |  11 ++-
+ fs/f2fs/inode.c         |  22 +++---
+ fs/f2fs/node.c          | 171 +++++++++++++++++++++-------------------
+ fs/f2fs/node.h          |  89 +++++++++++----------
+ fs/f2fs/recovery.c      |   4 +-
+ fs/f2fs/segment.c       |  60 +++++++-------
+ fs/f2fs/segment.h       |  32 ++++----
+ fs/f2fs/shrinker.c      |   2 +-
+ fs/f2fs/super.c         |  83 +++++++++++++------
+ fs/f2fs/sysfs.c         |  10 +--
+ fs/f2fs/verity.c        |   6 +-
+ fs/f2fs/xattr.c         |  10 ++-
+ fs/f2fs/xattr.h         |  15 ++--
+ include/linux/f2fs_fs.h | 131 ++++++++++++++++--------------
+ 22 files changed, 636 insertions(+), 464 deletions(-)
+
+
+base-commit: c966d29e01bbf829f8bb4a39a49811c56cdb49c3
+-- 
+2.53.0
