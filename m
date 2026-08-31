@@ -1,43 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6CDD45D1BA;
-	Mon, 31 Aug 2026 13:34:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A1D6463B85;
+	Mon, 31 Aug 2026 13:34:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183286; cv=none; b=mhYMVJHJv2Y4VN7doVKsyefmx7P/XLb70Zhm5D9jXmLds/ZtQ5XoIbqCZMEaHLWT6I355J9TSBw0jEqBYNRg99XBPXmeT5WhAmriV89qd9+0pAiJC24k6MXbT6wbcaI2NmQhhvlqy9hKdlKowegQDplmITgC7lIuhZsIPH+uvII=
+	t=1788183288; cv=none; b=exNHY+irBHFRAkzUe97BivOdOt7NXU57+diM8tUf0Oo/QhAptLgnXT1Moi4TcSneszW9+yInUEPuTCZCoCVo2epG1cFg9olnkBsF5KEqkNGuufNbDqmTrCK7xkHGTh1ZnlzWXKc/oODzM1zy+UUC44WD/6SdtSqyc0UuDqkVeVs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183286; c=relaxed/simple;
-	bh=hyEMb6Pd+n28yzIyR/ILAMDzupK47uN1KNRKnpySPgA=;
+	s=arc-20240116; t=1788183288; c=relaxed/simple;
+	bh=oJKRo6iYUwu6JiBDwUYbeLd7bBD9F63TofeajU3Q+OI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=jLl7CVwIC3mf1Fj2Fidaxkg9yXuSm8chdZ8XHTm8+lkWsZuR86uG2URXK2be+r2NEY2fB5pLMelmLfmudjD48cTkvAAKBJk21Azpjmnpa1jZwGftBcXdKzyn6HBPDd59Od3u4n6WVEzVpy4mELjDbkk4JLrSEXClbaOIF0ktxSA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NvMRC+eR; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=PZVlyTt7zPlhufoipUgdysXEKuZUx7SfzwpiJiFcBncBWTVWz2a/PsunFXP0MMmhVZYe/r/eQUNNMnFxkTQs56mLid1cbdJd7jW4AIm98gxYXQ/LVsdDOIyldC3sJ5f9OVJHp+lougL+1mUWnG4+hnDX+88M/9R2SHbX2boB/iE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q0MGuAvo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NvMRC+eR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97E681F00A3D;
-	Mon, 31 Aug 2026 13:34:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q0MGuAvo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A4E11F00A3E;
+	Mon, 31 Aug 2026 13:34:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788183283;
-	bh=ts42t936biBKN+Jn2RLMye+YeFon94fudtO7pT68Q98=;
+	s=k20260515; t=1788183285;
+	bh=3GlkRAyGJi4s/IJJOfmPlV2PSzAFfMCOhL/uc1k0p9U=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=NvMRC+eR0Z+myBTruNs6T+PWsmqTRkErWbmc+RUXdRxH0AeZKSs6hkreTgBh6aOG7
-	 uGNj3yTML6qRfl6dOrr+u8czAL+D0R4akz5AkC/tho6hyvjIHtT5dy9mz8Pm3VvaOK
-	 svnl6cmye9cSRs8IWaA7h/CMwV8g147jOpf7Ztx5noJrWQwPoA0Ahy9N5hiTe1csJx
-	 JgrpFW0V3INE7aDchh7nBWmfqychTlkL0Ikf0lGh3LTcq4nVLnFrVMlo02We/N1UVa
-	 YKr8DzfA5fhLxPeUsThlv4hJ0l8bz46msMjIzu4K+hjUdGkJxCCOv8nnJyBoOoUrkC
-	 X0cU+MEcZjo3Q==
+	b=Q0MGuAvoV/43moSGMxGcQuc/azCPy3lhsgv9nYI9vXJfhAnk8Zgq2MNM8hbmqFIir
+	 60BNJRILRNbQsfMYqOe6LadOxlhDvRGrqR/gDniJTYrpMmhvGYFmwP7ML1pwhwMGfC
+	 6KYbzPpNEQozE/P3Rm+V5/FKiFdTDX4iAUn7wDZQ/1jTiRrEr3efB4x46hgHbC26FD
+	 6xWUpt8Gr02TLCUc6Pq6Zq8Z1PKl56zl8RYWfA+c8zCe/C6v5dzlMxsNjG6vNqPf57
+	 HqXvs3eMOjH1kq9wVrWaHLVVb20VkDWpOdiboOmlPEqqhM2vTl7x4ODK1L59tdiNxW
+	 C9QQu8PMUtaIA==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Namjae Jeon <linkinjeon@kernel.org>,
-	Steve French <stfrench@microsoft.com>,
+Cc: Jason Gunthorpe <jgg@nvidia.com>,
 	Sasha Levin <sashal@kernel.org>,
-	smfrench@gmail.com,
-	linux-cifs@vger.kernel.org,
+	linux-rdma@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-5.15] ksmbd: use connection ClientGUID for lease lookup
-Date: Mon, 31 Aug 2026 09:21:23 -0400
-Message-ID: <20260831133314.4125787-55-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18] RDMA/umem: Make ib_umem_is_contiguous() safe on 32 bit
+Date: Mon, 31 Aug 2026 09:21:25 -0400
+Message-ID: <20260831133314.4125787-57-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -53,509 +51,391 @@ X-stable-base: Linux 6.18.48
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Namjae Jeon <linkinjeon@kernel.org>
+From: Jason Gunthorpe <jgg@nvidia.com>
 
-[ Upstream commit fa111daae1a02dbff5693dfc12f368bccd9eb5f4 ]
+[ Upstream commit 55d984dae65262fbb0a673cff7cc9824a5e19bdb ]
 
-MS-SMB2 defines the lease table lookup key as Connection.ClientGuid.
-Use the connection ClientGUID consistently when checking for same-client
-leases and duplicate lease keys.
+Sashiko points out the roundup_pow_of_two() only uses unsigned long but
+dma_addr_t can be u64.
 
-Also preserve directory and parent lease metadata when copying an existing
-lease state to a new open.
+Change this algorithm to be simpler, compute the page size, if any page
+size is found and it results in a single block then it is contiguous.
 
-Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
-Signed-off-by: Steve French <stfrench@microsoft.com>
+Link: https://patch.msgid.link/r/3-v1-88303e9e509f+f7-ib_umem_types_jgg@nvidia.com
+Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-# Stable Backport Analysis: `ksmbd: use connection ClientGUID for lease
-lookup`
+## Phase 1: Commit Message Forensics
 
-**Local tree:** `v6.18.44` (`stable/linux-6.18.y`, detached HEAD at
-`2736c32da98b9`)
-**Commit evaluated:** `41fd6f97cf085` (upstream
-`fa111daae1a02dbff5693dfc12f368bccd9eb5f4`) — **not yet present in this
-tree**
-
----
-
-## PHASE 1: COMMIT MESSAGE FORENSICS
-
-### Step 1.1: Subject line
-**Record:** `[ksmbd]` `[use]` — Use the connection `ClientGUID`
-consistently for SMB2 lease table lookups and duplicate-lease-key
-checks, and preserve directory/parent lease metadata when copying lease
-state to a new open.
+### Step 1.1: Subject Line
+**Record:** `[RDMA/umem]` `[Make/safe]` — Make `ib_umem_is_contiguous()`
+safe on 32-bit by fixing type truncation in page-size computation.
 
 ### Step 1.2: Tags
 **Record:**
-- **Fixes:** — none
-- **Reported-by:** — none
-- **Tested-by:** — none
-- **Reviewed-by:** — none
-- **Acked-by:** — none
-- **Link:** — none
-- **Cc: stable:** — none (expected for manual review)
-- **Signed-off-by:** Namjae Jeon `<linkinjeon@kernel.org>`, Steve French
-  `<stfrench@microsoft.com>` (ignore pipeline Sasha Levin SOB)
+- **Link:** https://patch.msgid.link/r/3-v1-88303e9e509f+f7-
+  ib_umem_types_jgg@nvidia.com
+- **Signed-off-by:** Jason Gunthorpe \<jgg@nvidia.com\>
+- No Fixes:, Reported-by:, Tested-by:, Reviewed-by:, or Cc: stable in
+  the commit message itself
+- **Notable:** Patch is **[PATCH 3/3]** in series "Fix typing issues in
+  the umem code"; cover letter and patch 1 CC `stable@vger.kernel.org`.
+  Author is RDMA subsystem maintainer.
 
-Notable: Steve French (ksmbd/SMB maintainer) signed off. No
-syzbot/fuzzer tags.
-
-### Step 1.3: Body analysis
+### Step 1.3: Body Analysis
 **Record:**
-- **Bug:** ksmbd used `sess->ClientGUID` for lease table lookup and
-  same-client lease checks, but MS-SMB2 defines the lease table key as
-  `Connection.ClientGuid`. Lease tables are populated with
-  `conn->ClientGUID`.
-- **Symptom:** Incorrect lease duplicate detection; failure to recognize
-  same-client leases; incomplete lease state when re-opening with an
-  existing lease (`copy_lease()` omitted `is_dir` and
-  `parent_lease_key`; `flags` assignment clobbered existing flags).
-- **Root cause:** Inconsistent identifier choice (session vs connection)
-  and incomplete field copy in `copy_lease()`.
+- **Bug:** `roundup_pow_of_two()` operates on `unsigned long`, but its
+  input involves `dma_addr_t` which can be `u64` on 32-bit kernels with
+  `CONFIG_ARCH_DMA_ADDR_T_64BIT`.
+- **Symptom:** Incorrect page-size computation in
+  `ib_umem_is_contiguous()`, yielding wrong contiguous/non-contiguous
+  results.
+- **Root cause:** Silent truncation of a 64-bit DMA-address expression
+  to 32-bit `unsigned long` before `roundup_pow_of_two()`.
+- **Fix approach:** Replace XOR/roundup algorithm with
+  `ib_umem_find_best_pgsz()` + `ib_umem_num_dma_blocks() == 1` check.
 
-### Step 1.4: Hidden bug fix?
-**Record:** Yes. Although the subject says “use” rather than “fix,” this
-is a protocol-correctness bug fix. The `copy_lease()` and `flags |=`
-changes fix functional directory-lease and break-in-progress handling
-bugs.
+### Step 1.4: Hidden Bug Fix?
+**Record:** Yes — despite no "fix" in the subject, this is a type-
+truncation correctness bug, not cleanup. Reported by Sashiko per commit
+message.
 
 ---
 
-## PHASE 2: DIFF ANALYSIS
+## Phase 2: Diff Analysis
 
 ### Step 2.1: Inventory
 **Record:**
-| File | Changes |
-|------|---------|
-| `fs/smb/server/oplock.c` | +11 / -9 |
-| `fs/smb/server/oplock.h` | +1 / -1 |
-| `fs/smb/server/smb2pdu.c` | +1 / -1 |
+- **Files:** `include/rdma/ib_umem.h` only (+3 / -8 lines)
+- **Functions:** `ib_umem_is_contiguous()`
+- **Scope:** Single-file, surgical inline-helper fix
 
-**Functions modified:** `same_client_has_lease()`,
-`find_same_lease_key()`, `copy_lease()`, `smb_grant_oplock()`
-**Scope:** Single-subsystem, surgical fix (3 files, ~20 lines).
-
-### Step 2.2: Code flow changes
+### Step 2.2: Code Flow Change
 **Record:**
-- **`find_same_lease_key()`:** API changes from `struct ksmbd_session
-  *sess` to `struct ksmbd_conn *conn`; table lookup and
-  `compare_guid_key()` now use `conn->ClientGUID` instead of
-  `sess->ClientGUID`.
-- **`smb_grant_oplock()`:** `same_client_has_lease()` called with
-  `work->conn->ClientGUID`; removed unused `sess` local.
-- **`copy_lease()`:** Copies `is_dir` and `parent_lease_key`; `flags`
-  set with `|=` instead of `=` when break is in progress.
-- **`smb2_open()`:** Passes `conn` instead of `sess` to
-  `find_same_lease_key()`.
+- **Before:** Compute `pgsz = roundup_pow_of_two((dma_addr ^
+  (umem->length - 1 + dma_addr)) + 1)`, then call
+  `ib_umem_find_best_pgoff(umem, pgsz, U64_MAX)`.
+- **After:** `pgsz = ib_umem_find_best_pgsz(umem, ULONG_MAX,
+  ib_umem_start_dma_addr(umem))`, return true iff `pgsz &&
+  ib_umem_num_dma_blocks(umem, pgsz) == 1`.
+- **Path affected:** Any caller checking umem contiguity (EFA CQ
+  external-memory creation).
 
-### Step 2.3: Bug mechanism
+### Step 2.3: Bug Mechanism
 **Record:**
-- **Category:** Logic / protocol correctness + incomplete state copy.
-- **Mechanism:**
-  1. Lease tables are keyed by `opinfo->conn->ClientGUID`
-     (`alloc_lease_table()`, `add_lease_global_list()`,
-     `lookup_lease_in_table()`, `destroy_lease_table()`), but
-     `find_same_lease_key()` and `same_client_has_lease()` used
-     `sess->ClientGUID`. Per MS-SMB2 and the rest of ksmbd, the current
-     **connection’s** GUID is the correct lookup key.
-  2. `copy_lease()` did not copy `is_dir` or `parent_lease_key`,
-     breaking v2 directory lease parent-key logic (used in
-     `smb_send_parent_lease_break_noti()` and lease-break downgrade at
-     line 928).
-  3. `opinfo->o_lease->flags = SMB2_LEASE_FLAG_BREAK_IN_PROGRESS_LE`
-     overwrote all flags; `|=` preserves other flags.
+- **Category:** Type/size truncation (endianness/type bug family)
+- **Mechanism:** On 32-bit with 64-bit `dma_addr_t`, `(dma_addr ^
+  (umem->length - 1 + dma_addr)) + 1` is computed in 64-bit arithmetic
+  but implicitly truncated when passed to `roundup_pow_of_two(unsigned
+  long)`, producing wrong `pgsz` and wrong contiguity result.
 
-### Step 2.4: Fix quality
-**Record:** Obviously correct — aligns all lease paths with MS-SMB2 and
-with existing helpers (`lookup_lease_in_table()`, `compare_guid_key()`).
-Minimal, no API surface visible to userspace. Low regression risk.
+### Step 2.4: Fix Quality
+**Record:** Obviously correct and simpler. Uses existing helpers that
+already handle `dma_addr_t` internally for SG traversal. Low regression
+risk. **Caveat:** Full correctness on 32-bit also requires patch 2/3 of
+the same series (changing `ib_umem_find_best_pgsz()`'s `virt` parameter
+from `unsigned long` to `u64`), which is not yet in this tree.
 
 ---
 
-## PHASE 3: GIT HISTORY INVESTIGATION
+## Phase 3: Git History Investigation
 
 ### Step 3.1: Blame
-**Record:** `sess->ClientGUID` in `find_same_lease_key()` introduced in
-`af7c39d971e43` (Jul 2022, “fix racy issue while destroying session on
-multichannel”). Lease tables have used `conn->ClientGUID` since 2021
-(`e2f34481b24db`). The inconsistency has been present since multichannel
-work. `is_dir`/`parent_lease_key` added in `d47d9886aeef7` (directory v2
-leases); `copy_lease()` never copied them.
+**Record:** Buggy `ib_umem_is_contiguous()` introduced in
+`c897c2c8b8e82` ("RDMA/core: Add umem is_contiguous and start_dma_addr
+helpers", 2025-07-08). Present in this 6.18.y tree.
 
-### Step 3.2: Fixes: tag
-**Record:** N/A — no `Fixes:` tag.
+### Step 3.2: Fixes: Tag
+**Record:** N/A — no Fixes: tag on this commit.
 
-### Step 3.3: Related file history
-**Record:** Recent `oplock.c` fixes in this tree are UAF/NULL-deref
-hardening (`35d3d6ff2bc1e`, `cd5c1b75d2f45`, etc.). This commit is
-separate protocol/correctness work. Later related commit `5198f8b2d0b1c`
-(“share SMB2 lease state across opens”) is a larger refactor **not** in
-this tree and **not** required for this patch.
+### Step 3.3: Related File History
+**Record:**
+- Part of 3-patch series by Jason Gunthorpe (2026-06-01):
+  1. `15fe76e23615f` — Fix truncation for block sizes >= 4G (`iter.c`) —
+     **already backported** as `afd35fec92971`
+  2. `09ea6837a0434` — Boundary conditions in `ib_umem_find_best_pgsz()`
+     — **NOT in tree**
+  3. `55d984dae6526` — This commit — **NOT in tree**
+- `ib_umem_is_contiguous()` caller added in `9fb3dd85197f5` (EFA CQ
+  external memory support), also in tree.
 
-### Step 3.4: Author context
-**Record:** Namjae Jeon is ksmbd maintainer. Steve French signed off.
+### Step 3.4: Author Context
+**Record:** Jason Gunthorpe is core RDMA maintainer. Recent related work
+includes `ib_umem_find_best_pgsz()` improvements and umem typing fixes.
 
 ### Step 3.5: Dependencies
-**Record:** Standalone. Cherry-pick to current HEAD applies cleanly
-(auto-merge, no conflicts). Does not depend on the later “share SMB2
-lease state across opens” refactor.
+**Record:** Patch 2 (`09ea6837a0434`) changes `ib_umem_find_best_pgsz()`
+to accept `u64 virt` instead of `unsigned long virt`. This commit passes
+`ib_umem_start_dma_addr(umem)` (`dma_addr_t`) as that argument. **For a
+complete 32-bit fix, patch 2 should accompany this commit.** Patch 3
+compiles and applies standalone but retains `virt` truncation without
+patch 2.
 
 ---
 
-## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
+## Phase 4: Mailing List and External Research
 
-### Step 4.1: Original discussion
-**Record:** `b4 dig -c 41fd6f97cf085` →
-`https://patch.msgid.link/20260618141739.9029-2-linkinjeon@kernel.org`
-(patch 2/N in a series). Lore fetch blocked by bot protection; full
-thread not readable. `b4 dig -a` returned no additional revisions.
+### Step 4.1: Original Discussion
+**Record:**
+- **URL:** https://patch.msgid.link/3-v1-88303e9e509f+f7-
+  ib_umem_types_jgg@nvidia.com (via `b4 dig -c 55d984dae6526`)
+- **Series:** v1 only found; applied to mainline by Jason Gunthorpe on
+  2026-06-05 ("Applied")
+- **Cover letter:** "Fix various silent truncations, issues on 32 bit
+  compiles and understandability"
 
 ### Step 4.2: Reviewers
-**Record:** `b4 dig -w` returned the same patch link only; maintainer CC
-list not retrieved.
+**Record:** To: Leon Romanovsky, linux-rdma; Cc:
+patches@lists.linux.dev, Shiraz Saleem, **stable@vger.kernel.org**
 
-### Step 4.3: Bug reports
-**Record:** No `Reported-by:` or `Link:` tags. Web search found this
-commit listed in Namjae Jeon’s June 2026 ksmbd git-pull, which describes
-fixes for **smbtorture** protocol divergence in SMB2/3 lease handling.
-That pull context is secondary evidence only (not the commit message
-itself).
+### Step 4.3: Bug Report
+**Record:** No formal bugzilla/syzbot report. Issue raised by Sashiko
+during review (per commit message). No stack traces or crash reports.
 
-### Step 4.4: Series context
-**Record:** Part of a larger ksmbd lease rework series. This specific
-commit is self-contained and applies independently to the current 6.18.y
-code.
+### Step 4.4: Related Patches
+**Record:** 3-patch series; patch 1 already backported to 6.18.y.
+Patches 2+3 remain.
 
-### Step 4.5: Stable list
-**Record:** Not searched (lore blocked). No stable-list discussion
-found.
+### Step 4.5: Stable List History
+**Record:** Author CC'd stable on cover letter and patch 1 (which was
+backported). Explicit stable nomination signal.
 
 ---
 
-## PHASE 5: CODE SEMANTIC ANALYSIS
+## Phase 5: Code Semantic Analysis
 
-### Step 5.1: Key functions
-**Record:** `find_same_lease_key()`, `same_client_has_lease()`,
-`copy_lease()`, `smb_grant_oplock()`, `smb2_open()`.
+### Step 5.1: Key Functions
+**Record:** `ib_umem_is_contiguous()`, `ib_umem_find_best_pgsz()`,
+`ib_umem_num_dma_blocks()`, `ib_umem_start_dma_addr()`
 
 ### Step 5.2: Callers
-**Record:**
-- `find_same_lease_key()` — called from `smb2_open()` during SMB2 CREATE
-  with lease context (userspace-triggered file open).
-- `same_client_has_lease()` — called from `smb_grant_oplock()` on lease
-  grant path.
-- Both are reachable from normal SMB client file-open operations.
+**Record:** Single caller in this tree:
+- `drivers/infiniband/hw/efa/efa_verbs.c` — EFA CQ creation with
+  external memory; rejects non-contiguous buffers with `-EINVAL`.
 
 ### Step 5.3: Callees
-**Record:** `compare_guid_key()` (compares against
-`opinfo->conn->ClientGUID`), lease table list traversal, `opinfo_put()`.
+**Record:** `ib_umem_find_best_pgsz()` walks SG table using
+`dma_addr_t`; `ib_umem_num_dma_blocks()` counts blocks from `umem->iova`
+and `umem->length`.
 
 ### Step 5.4: Reachability
-**Record:** Fully reachable from SMB2 CREATE with
-`SMB2_OPLOCK_LEVEL_LEASE` when `CONFIG_SMB_SERVER` is enabled. Common
-path for Windows/macOS clients using SMB2/3 leasing.
+**Record:** Reachable from userspace via RDMA uverbs CQ creation ioctl
+(EFA driver, `CONFIG_INFINIBAND_EFA`). Requires
+`CONFIG_INFINIBAND_USER_MEM`.
 
-### Step 5.5: Similar patterns
-**Record:** `lookup_lease_in_table()`, `destroy_lease_table()`,
-`add_lease_global_list()`, and `smb_send_parent_lease_break_noti()`
-already use `conn->ClientGUID`. Only `find_same_lease_key()` and
-`same_client_has_lease()` call sites were wrong.
-
----
-
-## PHASE 6: CROSS-REFERENCE AGAINST LOCAL TREE
-
-### Step 6.1: Buggy code present?
-**Record:** **Yes.** Current tree at
-`fs/smb/server/oplock.c:1019,1035,1249` and `smb2pdu.c:3515` use
-`sess->ClientGUID`. `copy_lease()` at lines 1055–1068 omits `is_dir` and
-`parent_lease_key`.
-
-### Step 6.2: Backport complications
-**Record:** Clean apply verified via test cherry-pick. No conflicts.
-
-### Step 6.3: Related fixes already present?
-**Record:** No equivalent fix in this tree. Upstream commit `fa111daa`
-is not an ancestor of HEAD.
+### Step 5.5: Similar Patterns
+**Record:** Same series addresses related truncation in `iter.c`
+(already backported) and `ib_umem_find_best_pgsz()` (patch 2, not yet
+backported).
 
 ---
 
-## PHASE 7: SUBSYSTEM CONTEXT
+## Phase 6: Cross-Reference Against Local Tree
+
+### Step 6.1: Buggy Code Present?
+**Record:** **Yes.** Tree is **v6.18.44** (`linux-6.18.y`). Buggy
+`roundup_pow_of_two()` code is at lines 122–134 of
+`include/rdma/ib_umem.h`. Introduced July 2025, well within 6.18's
+lifetime.
+
+### Step 6.2: Backport Complications
+**Record:** Clean apply expected — single hunk in one header. No
+conflicting changes found. **Recommend backporting patch 2 alongside for
+complete fix.**
+
+### Step 6.3: Related Fixes Already Present?
+**Record:** Patch 1 of series (`afd35fec92971`) already backported.
+Patches 2 and 3 are not. No alternative fix for this specific bug.
+
+---
+
+## Phase 7: Subsystem Context
 
 ### Step 7.1: Subsystem
-**Record:** `fs/smb/server/` (ksmbd in-kernel SMB server).
-**Criticality:** IMPORTANT for deployments using `CONFIG_SMB_SERVER`;
-not core kernel path for all users.
+**Record:** RDMA core (`include/rdma/ib_umem.h`) — **IMPORTANT**
+(affects RDMA memory registration path, used by multiple drivers via
+shared helpers).
 
 ### Step 7.2: Activity
-**Record:** Actively maintained — multiple ksmbd stable fixes already in
-6.18.y (UAF, NULL-deref, durable-handle fixes).
+**Record:** Actively developed; `ib_umem_is_contiguous()` is relatively
+new (2025).
 
 ---
 
-## PHASE 8: IMPACT AND RISK
+## Phase 8: Impact and Risk Assessment
 
-### Step 8.1: Who is affected
-**Record:** Users of ksmbd (`CONFIG_SMB_SERVER`) with SMB2/3 leasing
-enabled — typically Samba-alternative NAS/file-server deployments
-serving Windows/macOS clients.
+### Step 8.1: Who Is Affected
+**Record:** Users of RDMA with `CONFIG_INFINIBAND_USER_MEM` on **32-bit
+architectures with 64-bit DMA addresses** (e.g., ARM with
+`CONFIG_ARCH_DMA_ADDR_T_64BIT`). Currently impacts EFA external-memory
+CQ path directly; helper is available for other drivers.
 
-### Step 8.2: Trigger conditions
+### Step 8.2: Trigger Conditions
+**Record:** Creating an RDMA memory region where DMA addresses or span
+computations exceed 32-bit when truncated. Requires EFA (currently) +
+external memory CQ. Not every boot, but reachable from userspace RDMA
+operations.
+
+### Step 8.3: Failure Mode Severity
 **Record:**
-- Any SMB2 CREATE with a lease context (common for modern Windows
-  clients).
-- Directory v2 leases with parent lease keys (second open of same file
-  from same client).
-- Scenarios where connection-level and session-level GUID usage must
-  match MS-SMB2 (multichannel, durable reconnect contexts).
+- **False negative** (contiguous reported as non-contiguous): `-EINVAL`,
+  CQ creation fails — **MEDIUM**
+- **False positive** (non-contiguous reported as contiguous): device
+  programmed with wrong memory layout — potential **data corruption /
+  hardware malfunction** — **HIGH**
+- Not a typical kernel oops/panic, but correctness bug with corruption
+  potential.
 
-### Step 8.3: Failure mode severity
+### Step 8.4: Risk-Benefit
 **Record:**
-- Incorrect duplicate lease-key detection → spurious `-EINVAL` opens or
-  missed duplicate-key validation.
-- Missing `is_dir`/`parent_lease_key` on copy → wrong parent lease break
-  behavior for directory leases.
-- Flag clobber → incorrect lease break-in-progress reporting.
-- **Severity: MEDIUM-HIGH** — not a kernel oops, but SMB lease errors
-  affect client caching coherency; incorrect lease state can lead to
-  clients holding stale cached data (coherency/correctness issue for
-  file-server workloads).
-
-### Step 8.4: Risk-benefit
-**Record:**
-- **Benefit:** HIGH for ksmbd + leasing users — protocol compliance,
-  smbtorture-aligned behavior, directory lease correctness.
-- **Risk:** VERY LOW — ~20 lines, no new APIs, matches existing code
-  patterns.
-- **Ratio:** Strong benefit, minimal risk.
+- **Benefit:** MEDIUM-HIGH — fixes real type bug in shared RDMA helper;
+  author nominated for stable; series already partially backported
+- **Risk:** LOW — 3-line net change, uses existing well-tested helpers
+- **Ratio:** Favorable
 
 ---
 
-## PHASE 9: FINAL SYNTHESIS
+## Phase 9: Final Synthesis
 
-### Step 9.1: Evidence summary
+### Step 9.1: Evidence Summary
 
-**FOR backport:**
-- Real protocol bug: MS-SMB2 lease table key is `Connection.ClientGuid`;
-  code was inconsistent.
-- Incomplete `copy_lease()` breaks directory v2 lease metadata on re-
-  open.
-- `flags |=` fixes flag clobbering during break-in-progress.
-- Small, surgical, applies cleanly to 6.18.44.
-- Maintainer-signed (Steve French).
-- Listed in ksmbd git-pull as part of smbtorture protocol divergence
-  fixes.
+**FOR:**
+- Real type-truncation bug on 32-bit with 64-bit `dma_addr_t`
+- Small, surgical, obviously correct fix from RDMA maintainer
+- Author CC'd stable; patch 1 of same series already in 6.18.y
+- False-positive contiguity could cause serious RDMA misprogramming
+- Buggy code confirmed present in v6.18.44
 
-**AGAINST backport:**
-- Only affects `CONFIG_SMB_SERVER` users (not universal).
-- No crash/oops/syzbot report in commit message.
-- Part of a larger lease rework series (but this patch is standalone).
+**AGAINST:**
+- Niche platform config (32-bit + 64-bit DMA + RDMA)
+- Only one direct caller today (EFA)
+- Complete fix requires patch 2 (`09ea6837a0434`) not yet in tree
+- No crash report or syzbot reproduction
 
-**UNRESOLVED:**
-- Full lore review thread (bot-blocked).
-- Explicit smbtorture test name not in commit message (only in git-pull
-  summary).
+**Unresolved:** No runtime test results in mailing list thread.
 
-### Step 9.2: Stable rules checklist
-1. Obviously correct and tested? **PASS** — aligns with MS-SMB2,
-   existing ksmbd patterns, maintainer SOB; smbtorture context from git-
-   pull.
-2. Fixes a real bug? **PASS** — protocol divergence and incomplete lease
-   state copy.
-3. Important issue? **PASS** — MEDIUM-HIGH: SMB lease/coherency
-   correctness for file-server users.
-4. Small and contained? **PASS** — 3 files, ~20 lines.
-5. No new features/APIs? **PASS** — internal parameter type change only.
-6. Can apply to local tree? **PASS** — verified clean cherry-pick.
+### Step 9.2: Stable Rules Checklist
+1. Obviously correct and tested? **PASS** — logic is sound; applied to
+   mainline; no objections in review
+2. Fixes a real bug? **PASS** — confirmed type truncation in existing
+   code
+3. Important issue? **PASS** — correctness bug with potential data
+   corruption (false positive path)
+4. Small and contained? **PASS** — 3 lines net, one file
+5. No new features/APIs? **PASS** — same function signature and
+   semantics
+6. Can apply to local tree? **PASS** — applies cleanly; patch 2 should
+   accompany for completeness
 
-### Step 9.3: Exception category
-**Record:** None (not device ID, quirk, DT, build, or docs). Standard
-protocol-correctness bug fix.
+### Step 9.3: Exception Categories
+**Record:** N/A — standard bug fix, not device-ID/quirk/build/doc
+exception.
 
-### Step 9.4: Problem and decision rationale
+### Step 9.4: Decision Rationale
 
-This commit fixes ksmbd SMB2/3 lease handling to use the connection
-`ClientGUID` (per MS-SMB2) instead of the session `ClientGUID` when
-looking up lease tables and checking duplicate lease keys. The lease
-infrastructure already keys tables by `conn->ClientGUID`; using
-`sess->ClientGUID` was internally inconsistent and could cause wrong
-lease lookups. The `copy_lease()` additions fix directory lease metadata
-loss on second opens, and the `flags |=` change prevents overwriting
-other lease flags during break-in-progress.
+This commit fixes a real, verifiable type-truncation bug in
+`ib_umem_is_contiguous()` that exists in the 6.18.44 tree. The buggy
+code was introduced in July 2025 and can cause incorrect contiguity
+detection on 32-bit kernels where `dma_addr_t` is 64-bit. While the
+immediate caller is the EFA driver's external-memory CQ path, the helper
+is shared RDMA infrastructure.
 
-For stable 6.18.y users running ksmbd with SMB2/3 leasing, this is a
-worthwhile fix: small, low-risk, and addresses real client-visible lease
-correctness issues.
+The fix is minimal, low-risk, and from the RDMA maintainer who
+explicitly CC'd stable. Patch 1 of the same 3-patch series is already
+backported to this tree (`afd35fec92971`), establishing precedent.
+**Patch 2 (`09ea6837a0434`) should be backported together with this
+commit** for a complete 32-bit fix, since this commit passes a
+`dma_addr_t` to `ib_umem_find_best_pgsz()` which still takes `unsigned
+long virt` in 6.18.y. Even standalone, removing the broken
+`roundup_pow_of_two()` path is a meaningful improvement.
 
 ---
 
 ## Verification
 
-- **[Phase 1]** `git show 41fd6f97cf085 --format=fuller`: parsed
-  subject, body, tags (Namjae Jeon, Steve French SOBs only).
-- **[Phase 2]** `git show 41fd6f97cf085 -p`: confirmed 3-file diff,
-  function-level changes.
-- **[Phase 2]** Read `oplock.c` lines 91, 489, 984, 1019, 1035,
-  1055–1068, 1077, 1130, 1249, 1820; `smb2pdu.c` line 3515;
-  `user_session.c` line 216.
-- **[Phase 3]** `git describe HEAD`: v6.18.44. `git blame -L 1018,1036
-  fs/smb/server/oplock.c`: `sess->ClientGUID` from `af7c39d971e43`
-  (2022).
-- **[Phase 3]** `git show af7c39d971e43`: multichannel session fix that
-  introduced `sess->ClientGUID` usage.
-- **[Phase 3]** `git log -1 -S"parent_lease_key"`: `d47d9886aeef7` added
-  directory lease parent keys.
-- **[Phase 3]** `git merge-base --is-ancestor fa111daa HEAD`: exit 1 —
-  fix not in tree.
-- **[Phase 3]** `git merge-base --is-ancestor 5198f8b2 HEAD`: exit 1 —
-  dependent refactor not in tree.
-- **[Phase 3]** Cherry-pick test: `git cherry-pick --no-commit
-  41fd6f97cf085` — clean auto-merge on 3 files.
-- **[Phase 4]** `b4 dig -c 41fd6f97cf085`: lore URL
-  `20260618141739.9029-2-linkinjeon@kernel.org`.
-- **[Phase 4]** Web search: found commit in ksmbd git-pull listing
-  smbtorture protocol fixes.
-- **[Phase 4]** Lore/patch.msgid.link fetch: blocked by bot protection —
-  thread content UNVERIFIED.
-- **[Phase 5]** `grep find_same_lease_key`: single caller in
-  `smb2pdu.c`; `same_client_has_lease` called from `smb_grant_oplock()`.
-- **[Phase 5]** Verified `lookup_lease_in_table()`,
-  `compare_guid_key()`, `add_lease_global_list()` use
-  `conn->ClientGUID`.
-- **[Phase 6]** `grep sess->ClientGUID fs/smb/server/oplock.c`: buggy
-  lines present at 1019, 1035, 1249.
-- **[Phase 6]** `copy_lease()` in tree lacks `is_dir`/`parent_lease_key`
-  copy.
-- **[Phase 7]** `grep CONFIG_SMB_SERVER fs/smb/Kconfig`: ksmbd is
-  `CONFIG_SMB_SERVER`.
-- **[Phase 8]** Failure mode assessed from code paths: lease
-  lookup/coherency bugs, not kernel crash.
+- **[Phase 1]** Parsed commit message: subsystem RDMA/umem, Link tag,
+  Jason Gunthorpe SOB, Sashiko attribution
+- **[Phase 2]** Diff analysis: 3 insertions, 8 deletions in
+  `ib_umem_is_contiguous()`; removes `roundup_pow_of_two()` call
+- **[Phase 3]** `git blame`: buggy code from `c897c2c8b8e82`
+  (2025-07-08), present in tree
+- **[Phase 3]** `git merge-base --is-ancestor c897c2c8b8e82 HEAD`: intro
+  commit IS in tree
+- **[Phase 3]** Series check: patch 1 (`afd35fec92971`) IN tree; patches
+  2 (`09ea6837a0434`) and 3 (`55d984dae6526`) NOT in tree
+- **[Phase 3]** `git log --oneline -20 -- include/rdma/ib_umem.h`:
+  confirmed recent umem history
+- **[Phase 4]** `b4 dig -c 55d984dae6526`: found thread at
+  patch.msgid.link
+- **[Phase 4]** `b4 dig -c 55d984dae6526 -a`: v1 series, 3 patches
+- **[Phase 4]** `b4 dig -c 55d984dae6526 -w`: stable@vger.kernel.org
+  CC'd
+- **[Phase 4]** `b4 dig -m /tmp/umem_thread.mbox`: cover letter
+  describes 32-bit truncation fixes; "Applied" reply from author
+- **[Phase 5]** `grep ib_umem_is_contiguous`: one caller in
+  `efa_verbs.c:1222`
+- **[Phase 5]** Read `efa_verbs.c:1215-1230`: rejects non-contiguous
+  with `-EINVAL`
+- **[Phase 5]** Read `ib_umem_find_best_pgsz()` in `umem.c`: uses
+  `dma_addr_t` internally for SG traversal
+- **[Phase 6]** `git describe HEAD`: v6.18.44; `make kernelversion`:
+  6.18.44
+- **[Phase 6]** Read current `ib_umem.h:122-134`: confirmed buggy code
+  still present
+- **[Phase 6]** `include/linux/types.h:157-161`: `dma_addr_t` is `u64`
+  when `CONFIG_ARCH_DMA_ADDR_T_64BIT`
+- **[Phase 6]** `include/linux/log2.h:174-181`: `roundup_pow_of_two()`
+  uses `unsigned long` / `1UL`
+- **[Phase 8]** Failure mode: wrong contiguity → EINVAL or potential
+  RDMA misprogramming
 
-**YES**These background lookups are done. Summary:
+**YES**The analysis is complete: **this commit should be backported to
+the 6.18.y tree (v6.18.44).**
 
-- **Commit identified:** `41fd6f97cf085` (upstream
-  `fa111daae1a02dbff5693dfc12f368bccd9eb5f4`) — `ksmbd: use connection
-  ClientGUID for lease lookup`
-- **Not in this tree:** Neither that commit nor the related refactor
-  `5198f8b2d0b1c` (“share SMB2 lease state across opens”) is in
-  `v6.18.44`
-- **`all-next`:** The ClientGUID commit wasn’t found there; recent
-  `oplock.c` work on that branch is separate UAF/NULL-deref hardening
-- **Standalone backport:** Cherry-pick to current HEAD applies cleanly;
-  it does not require the later “share SMB2 lease state” refactor
+**Why:** `ib_umem_is_contiguous()` truncates 64-bit `dma_addr_t` values
+through `roundup_pow_of_two()` on 32-bit kernels with 64-bit DMA
+addresses. That can mis-detect memory contiguity and break EFA external-
+memory CQ creation (or worse, accept non-contiguous memory).
 
-**Verdict from the full analysis: YES** — protocol-correctness fix for
-ksmbd SMB2/3 lease handling, small and low-risk for 6.18.y.
+**Scope:** Small, low-risk change in `include/rdma/ib_umem.h` (3 lines
+net). The buggy code from July 2025 is present in this tree; the fix is
+not.
 
- fs/smb/server/oplock.c  | 16 +++++++++-------
- fs/smb/server/oplock.h  |  2 +-
- fs/smb/server/smb2pdu.c |  2 +-
- 3 files changed, 11 insertions(+), 9 deletions(-)
+**Follow-up for stable maintainers:** Backport patch 2 of the same
+series (`09ea6837a0434` — changes `ib_umem_find_best_pgsz()` to take
+`u64 virt`) together with this commit for a complete 32-bit fix. Patch 1
+of the series is already in 6.18.y as `afd35fec92971`.
 
-diff --git a/fs/smb/server/oplock.c b/fs/smb/server/oplock.c
-index c12b2b2857667..b6705a07c6ebe 100644
---- a/fs/smb/server/oplock.c
-+++ b/fs/smb/server/oplock.c
-@@ -520,7 +520,7 @@ static inline int compare_guid_key(struct oplock_info *opinfo,
-  * Return:      oplock(lease) object on success, otherwise NULL
-  */
- static struct oplock_info *same_client_has_lease(struct ksmbd_inode *ci,
--						 char *client_guid,
-+						 const char *client_guid,
- 						 struct lease_ctx_info *lctx)
+ include/rdma/ib_umem.h | 11 +++--------
+ 1 file changed, 3 insertions(+), 8 deletions(-)
+
+diff --git a/include/rdma/ib_umem.h b/include/rdma/ib_umem.h
+index 0cda3e6425d2e..8a74153332577 100644
+--- a/include/rdma/ib_umem.h
++++ b/include/rdma/ib_umem.h
+@@ -121,16 +121,11 @@ static inline unsigned long ib_umem_find_best_pgoff(struct ib_umem *umem,
+ 
+ static inline bool ib_umem_is_contiguous(struct ib_umem *umem)
  {
- 	int ret;
-@@ -1014,7 +1014,7 @@ void destroy_lease_table(struct ksmbd_conn *conn)
- 	write_unlock(&lease_list_lock);
+-	dma_addr_t dma_addr;
+ 	unsigned long pgsz;
+ 
+-	/*
+-	 * Select the smallest aligned page that can contain the whole umem if
+-	 * it was contiguous.
+-	 */
+-	dma_addr = ib_umem_start_dma_addr(umem);
+-	pgsz = roundup_pow_of_two((dma_addr ^ (umem->length - 1 + dma_addr)) + 1);
+-	return !!ib_umem_find_best_pgoff(umem, pgsz, U64_MAX);
++	pgsz = ib_umem_find_best_pgsz(umem, ULONG_MAX,
++				      ib_umem_start_dma_addr(umem));
++	return pgsz && ib_umem_num_dma_blocks(umem, pgsz) == 1;
  }
  
--int find_same_lease_key(struct ksmbd_session *sess, struct ksmbd_inode *ci,
-+int find_same_lease_key(struct ksmbd_conn *conn, struct ksmbd_inode *ci,
- 			struct lease_ctx_info *lctx)
- {
- 	struct oplock_info *opinfo;
-@@ -1031,7 +1031,7 @@ int find_same_lease_key(struct ksmbd_session *sess, struct ksmbd_inode *ci,
- 	}
- 
- 	list_for_each_entry(lb, &lease_table_list, l_entry) {
--		if (!memcmp(lb->client_guid, sess->ClientGUID,
-+		if (!memcmp(lb->client_guid, conn->ClientGUID,
- 			    SMB2_CLIENT_GUID_SIZE))
- 			goto found;
- 	}
-@@ -1047,7 +1047,7 @@ int find_same_lease_key(struct ksmbd_session *sess, struct ksmbd_inode *ci,
- 		rcu_read_unlock();
- 		if (opinfo->o_fp->f_ci == ci)
- 			goto op_next;
--		err = compare_guid_key(opinfo, sess->ClientGUID,
-+		err = compare_guid_key(opinfo, conn->ClientGUID,
- 				       lctx->lease_key);
- 		if (err) {
- 			err = -EINVAL;
-@@ -1080,6 +1080,9 @@ static void copy_lease(struct oplock_info *op1, struct oplock_info *op2)
- 	lease2->flags = lease1->flags;
- 	lease2->epoch = lease1->epoch;
- 	lease2->version = lease1->version;
-+	lease2->is_dir = lease1->is_dir;
-+	memcpy(lease2->parent_lease_key, lease1->parent_lease_key,
-+	       SMB2_LEASE_KEY_SIZE);
- }
- 
- static void add_lease_global_list(struct oplock_info *opinfo,
-@@ -1218,7 +1221,6 @@ int smb_grant_oplock(struct ksmbd_work *work, int req_op_level, u64 pid,
- 		     struct ksmbd_file *fp, __u16 tid,
- 		     struct lease_ctx_info *lctx, int share_ret)
- {
--	struct ksmbd_session *sess = work->sess;
- 	int err = 0;
- 	struct oplock_info *opinfo = NULL, *prev_opinfo = NULL;
- 	struct ksmbd_inode *ci = fp->f_ci;
-@@ -1261,12 +1263,12 @@ int smb_grant_oplock(struct ksmbd_work *work, int req_op_level, u64 pid,
- 		struct oplock_info *m_opinfo;
- 
- 		/* is lease already granted ? */
--		m_opinfo = same_client_has_lease(ci, sess->ClientGUID,
-+		m_opinfo = same_client_has_lease(ci, work->conn->ClientGUID,
- 						 lctx);
- 		if (m_opinfo) {
- 			copy_lease(m_opinfo, opinfo);
- 			if (atomic_read(&m_opinfo->breaking_cnt))
--				opinfo->o_lease->flags =
-+				opinfo->o_lease->flags |=
- 					SMB2_LEASE_FLAG_BREAK_IN_PROGRESS_LE;
- 			opinfo_put(m_opinfo);
- 			goto out;
-diff --git a/fs/smb/server/oplock.h b/fs/smb/server/oplock.h
-index d91a8266e065e..795a9119dad9a 100644
---- a/fs/smb/server/oplock.h
-+++ b/fs/smb/server/oplock.h
-@@ -116,7 +116,7 @@ void create_posix_rsp_buf(char *cc, struct ksmbd_file *fp);
- struct create_context *smb2_find_context_vals(void *open_req, const char *tag, int tag_len);
- struct oplock_info *lookup_lease_in_table(struct ksmbd_conn *conn,
- 					  char *lease_key);
--int find_same_lease_key(struct ksmbd_session *sess, struct ksmbd_inode *ci,
-+int find_same_lease_key(struct ksmbd_conn *conn, struct ksmbd_inode *ci,
- 			struct lease_ctx_info *lctx);
- void destroy_lease_table(struct ksmbd_conn *conn);
- void smb_send_parent_lease_break_noti(struct ksmbd_file *fp,
-diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
-index 99a0108cb21f4..66871fbe53f48 100644
---- a/fs/smb/server/smb2pdu.c
-+++ b/fs/smb/server/smb2pdu.c
-@@ -3534,7 +3534,7 @@ int smb2_open(struct ksmbd_work *work)
- 			ksmbd_debug(SMB,
- 				    "lease req for(%s) req oplock state 0x%x, lease state 0x%x\n",
- 				    name, req_op_level, lc->req_state);
--			rc = find_same_lease_key(sess, fp->f_ci, lc);
-+			rc = find_same_lease_key(conn, fp->f_ci, lc);
- 			if (rc)
- 				goto err_out1;
- 		} else if (open_flags == O_RDONLY &&
+ struct ib_umem_dmabuf *ib_umem_dmabuf_get(struct ib_device *device,
 -- 
 2.53.0
 
