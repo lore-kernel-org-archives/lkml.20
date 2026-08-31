@@ -1,118 +1,110 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BA383C10B3;
-	Mon, 31 Aug 2026 09:00:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C70F33D45D4
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 09:01:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788166853; cv=none; b=RlhijLdJc7DVEl+S4K+ScNQPgI3ejfNfVnTAiyWgGPUYrQvxlR9yXO0fwkc6++rW6AnnYy2BFnhKlzwGYugZSSkqH/+ooQvkAuwnntmXB4v3Z01kkjGDani8POWSc9dVsKHh5PvlgcfYNbqhPpZrQJ8rqyHBLSMsJra7saMI818=
+	t=1788166878; cv=none; b=tChmT2kyYYWYLJf4caqD8geOFXbWXBdanqd+/V7uy0CLb5zAAvIxKx0hywJah/4wd024sQBLhvmMiYiLSaBvnSVZKDYV/df+AZhtkuv+qlPt80ZyrwP1hX7p0w17+ilLvzs3JZH3XDKgI3aekEspQWlaS1aAhkhxXjxavmPxxn4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788166853; c=relaxed/simple;
-	bh=jcu+8ufVL47mUg05jx7ea6qjnMnoapwrzQwm8wdOuhs=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=NQASgckEhe0qyipCzW0bpF/8FNw4pPI0HG0eK4TJ8K0Zpxj3+ZcX43qGWkMi9yQLf1+SXs4zvVPTlWyVo0417jzrfwnBh6qUw+Xw7o8/w4Xl1Z1jmTBbK3qfJi8Z/I9ltz7JvWNKF8w7hlEuzspcpmaJJqQflQMlRnZp4k6UtGE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j0tXH/Ak; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788166878; c=relaxed/simple;
+	bh=T6oxC/12nbIyG/hWKvWHljzUeneLjy2WW6xRew8IQUw=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
+	 References:In-Reply-To; b=aDyPmZuZq0mHB9MpDO23x5QB554BIPU68X4AIYVA4X14pN4OpXAlEKiSn5aZwgGxMORf+z0mBHtNJpSVwMR1U1yZqaTLtjxPk0IehcVfRehY7IkByRtbMMMl8fl8jd/mOeDpDQ3r0d39gvpjKoM2mSBHGSTdhn5fu3PxB8dpmzo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=y8DDw05V; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j0tXH/Ak"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 808641F000E9;
-	Mon, 31 Aug 2026 09:00:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788166852;
-	bh=quNezLHR2IKFpDtEFUCHXKCPMZ8w0hGAj2X1GmPJhoI=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To;
-	b=j0tXH/AkxlFQa/4a/qLpeadNNjDkKXc2fTXLV98Zw/JP7QA4/gFFH7g71zmYnycbO
-	 ibmtjM6HB8sGwMaFH9/HLrwx9wNMbJwFVTARjTHGpA8WOGuvmvUV4PLvk7/MQ6U5bk
-	 QNHvH0cebZsNKhDfy7lVcw4YWlYNC56lCdPWJpGm5ynXnpk3HFYJ5lTmIJB9F3e8u5
-	 ztFmVWAKznRh/x0vpW0p5BaLUTi3WGAFA/GvAmE8I5kIoOP8bm9G7WC4G3mS0MTNSG
-	 jQuAZfmj2yl7vlVm65dnse0pvyUlQoSetahQnnRhUjUWH79JgO1a/unaTtpnohiBVM
-	 zN5gWdL3ASltg==
-Message-ID: <756463ff-f2ef-4aa5-add1-73490686475d@kernel.org>
-Date: Mon, 31 Aug 2026 11:00:44 +0200
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="y8DDw05V"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 049A64E41464;
+	Mon, 31 Aug 2026 09:01:14 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id C1D2A60231;
+	Mon, 31 Aug 2026 09:01:13 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 6B0C311C78388;
+	Mon, 31 Aug 2026 11:01:00 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1788166868; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=T6oxC/12nbIyG/hWKvWHljzUeneLjy2WW6xRew8IQUw=;
+	b=y8DDw05VRpqx6+EBYe8Kh0paGC4OlXEQn85iwNSnK6ozkBH8WL71eThmTB1aYF1yaZQ5az
+	kde5NzGrZ9ZbFiP3PUTT40AAJlnEcuK8sX08rnulqazFr3bKAiuy7jUZcCV0/cu8znSHH0
+	QUMv0uMuFhMNvWVLttVcDIpkjgRHkC6bF7J6bG7W7melvug4gfcB65hQHgVyQ9ArN498qE
+	cCrdK6ofajyojrYumICdfGukAz55XBLYsklNukBtBdrlXbXWAJfX0Kn2pgXmhSzRGFJdQA
+	j8Gso1ao1Fos2IGJym5rizTP9Fy6dYdsqyw1BQsuFEXuPOpAgfh5gxVWT5nE5w==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] dt-bindings: usb: generic-ohci: Document ST STM32MP1
- SoC compatibles
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Marek Vasut <marex@nabladev.com>
-Cc: linux-arm-kernel@lists.infradead.org,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Conor Dooley <conor+dt@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Rob Herring <robh@kernel.org>,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-usb@vger.kernel.org
-References: <20260828150202.173109-1-marex@nabladev.com>
- <20260831-gay-colorful-cat-edf6c7@quoll>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260831-gay-colorful-cat-edf6c7@quoll>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Date: Mon, 31 Aug 2026 11:01:00 +0200
+Message-Id: <DL308Z0JXJ31.2V3H29DTG4MSM@bootlin.com>
+Subject: Re: [PATCH v2 08/12] drm/bridge: parade-ps8640: select
+ DRM_PANEL_BRIDGE
+Cc: "Andrzej Hajda" <andrzej.hajda@intel.com>, "Neil Armstrong"
+ <neil.armstrong@linaro.org>, "Robert Foss" <rfoss@kernel.org>, "Laurent
+ Pinchart" <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman"
+ <jonas@kwiboo.se>, "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Maarten
+ Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime Ripard"
+ <mripard@kernel.org>, "Thomas Zimmermann" <tzimmermann@suse.de>, "David
+ Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Matthias
+ Brugger" <matthias.bgg@gmail.com>, "AngeloGioacchino Del Regno"
+ <angelogioacchino.delregno@collabora.com>, "Hui Pu"
+ <Hui.Pu@gehealthcare.com>, "Ian Ray" <ian.ray@gehealthcare.com>, "Thomas
+ Petazzoni" <thomas.petazzoni@bootlin.com>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <linux-arm-kernel@lists.infradead.org>,
+ <linux-mediatek@lists.infradead.org>, "Jitao Shi" <jitao.shi@mediatek.com>,
+ "CK Hu" <ck.hu@mediatek.com>, "Pin-yen Lin" <treapking@chromium.org>,
+ "Enric Balletbo i Serra" <eballetbo@kernel.org>
+To: "Doug Anderson" <dianders@chromium.org>, "Luca Ceresoli"
+ <luca.ceresoli@bootlin.com>
+From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+X-Mailer: aerc 0.22.0
+References: <20260825-drm-bridge-drm_panel-cleanup-v2-0-c6c88ba7ffd2@bootlin.com> <20260825-drm-bridge-drm_panel-cleanup-v2-8-c6c88ba7ffd2@bootlin.com> <CAD=FV=Xdj_foBqt9A9EVVoCA2BxAV3UZNz3SuVPu2ZoNXgnS=w@mail.gmail.com>
+In-Reply-To: <CAD=FV=Xdj_foBqt9A9EVVoCA2BxAV3UZNz3SuVPu2ZoNXgnS=w@mail.gmail.com>
+X-Last-TLS-Session-Version: TLSv1.3
 
-On 31/08/2026 10:51, Krzysztof Kozlowski wrote:
-> On Fri, Aug 28, 2026 at 05:01:26PM +0200, Marek Vasut wrote:
->> Document SoC compatibles for ST STM32MP13xx and STM32MP15xx series of
->> SoC, so they can be used as more accurate compatible in SoC DTSI. The
->> SoC DTSI currently use plain "generic-ohci" which is not future proof.
+Hi,
+
+On Thu Aug 27, 2026 at 6:23 PM CEST, Doug Anderson wrote:
+> Hi,
+>
+> On Tue, Aug 25, 2026 at 3:11=E2=80=AFAM Luca Ceresoli <luca.ceresoli@boot=
+lin.com> wrote:
 >>
->> Signed-off-by: Marek Vasut <marex@nabladev.com>
->> ---
-> 
-> This should go also with your access controllers property. What
-> happened to it?
-> 
+>> This driver uses the drm_panel_bridge API and not the drm_panel API so i=
+t
+>> should select DRM_PANEL_BRIDGE and not DRM_PANEL.
+>
+> Which exact "drm_panel_bridge" API does it use? I don't see any...
 
-Ah, I mixed patchsets/devices.
+It calls devm_drm_of_get_bridge() [0], which is in bridge/panel.c [1],
+which is enabled by CONFIG_DRM_PANEL_BRIDGE [2].
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+[0] https://elixir.bootlin.com/linux/v7.2.2/source/drivers/gpu/drm/bridge/p=
+arade-ps8640.c#L636
+[1] https://elixir.bootlin.com/linux/v7.2.2/source/drivers/gpu/drm/bridge/p=
+anel.c#L483-L515
+[2] https://elixir.bootlin.com/linux/v7.2.2/source/drivers/gpu/drm/Makefile=
+#L159
 
-Best regards,
-Krzysztof
+> Certainly it's highly likely that the next bridge in the chain is a
+> panel, but there are no API calls that I see. Maybe the scripts got
+> confused because the variable name didn't get updated in commit
+
+No script, just this humble human got confused X-)
+
+> 5486eac81004 ("drm/bridge: parade-ps8640: switch to
+> devm_drm_of_get_bridge") ?
+
+Luca
+
+--
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
