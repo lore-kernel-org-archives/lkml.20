@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 793E130F533;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D99B0322A1F;
 	Mon, 31 Aug 2026 00:25:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788135921; cv=none; b=VjEpQ/H528Rl87F7LNmie9RquYSOvykdwB5RJ7u513ywkcpqmJDRPj9SKnJKZRapJ+p7+aYj7fQr7A+/hUSN34Uscyth05HIAzFawiB7GenSZr1NQUXp8cda7EDVD02jD0CiTLbuyDJEL3XsAbbHvSXULQiINOXu4B8Ovhxv8u4=
+	t=1788135921; cv=none; b=ACiUKZsaOQgs4BbXtPTMinI0/eSvHq5pEfaay15CTW4WvOnqrJ/3WBArD02r1hQKs50JZSgDN7AJDgZD6dgaDOVLW+xnV4fElQiX4QZfKGj05B552OgIMtFtYjxrJO8kYwZtk/I/IObhuxR/Nz8qNDoM/o2UyF1Fq2Wv9y5Ac4g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788135921; c=relaxed/simple;
-	bh=0u7TejSHMad9bYL2p6sJmzMrRCXcgVnE5lch746jIL0=;
+	bh=8shTrhUaGv3fKB50otzvqy15VrpXV2k9eT7uzPpO87A=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=KV7vkG7xM8t7r2kWsQZCUUz2agw5MTSRGN/QFv1vBUwfSOU7dPfQTteiGrA3cNgcLsRFbVUpa/8djCJohLvTt6Jt8C7ElGZ7aRfUuchkwx3FO2/sXBKJm/PlAKQPD+l4RJdCKPex0oEAr550Pqiq/H0mX+oDWz/FZyBxPfiPdEA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q4XDKKI9; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=qC0k3cU/AWuBJUO2k1yJQjYxCPkf3Ie30s87N2/P1s/2cpKTWFGvkplJ2U+DZYxwel+3Fyt9glIdWdSJxefnA5PUYCB1c9PAzjlsYciiIPSA4xnvznI5drGyDgD9vQMmP7fLqfaMwCB2zBqJPSKZgKRkzyPX0XtJnwsZE1T9RW0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U2a+e3+F; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q4XDKKI9"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 5A0A7C2BD01;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U2a+e3+F"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id BA28BC2BCFD;
 	Mon, 31 Aug 2026 00:25:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1788135921;
-	bh=0u7TejSHMad9bYL2p6sJmzMrRCXcgVnE5lch746jIL0=;
+	bh=8shTrhUaGv3fKB50otzvqy15VrpXV2k9eT7uzPpO87A=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=Q4XDKKI970cDwrlLeOUyPXzL41fHU8ixKdjKvqGjaArmtm3P47QWIbAtRhaNOzqyb
-	 +1i/fJnnXYIf3u/mZ8lMtWzBTvlYBxs9+ErohCEzzYLLMjA/3yE66N1ASko4Gq81dG
-	 pndUl+FiJaAZRQTFsTP7SBd7DYFlV48y28KYOklloq6f51TTC+9J2A3EmaY6+s4AWv
-	 60p1/q0rVQTJQn8RTpTCqKxMrJZc/MCnwzHODOapdLD+Fg3Vrg5zvFwPxLP7NMKIeN
-	 h1TH9DbipEWqk0soO5LzCrkaHmA6OmlViW/Ze8+jBEntG4wkOCmDMddn5bnkIfTXFY
-	 MXvuZUpRMzEQw==
+	b=U2a+e3+Fu3IkwA9ogIkqDjTokD5Ywx6OsEmQ2dtf62zdCoCUC+CShxrFeKOox7WVo
+	 QYUk1reCWg11G5xDMbfzGLtqejPe1f0T3f6GBI2dCzmzUczD9fDUf1nAb47E+FYffO
+	 GR17qgNZyuRjoN5W6tnFeLHKg4RsmT7oo1GhBtgDLaIc8xobHymV3xYEBxPs3UUy5P
+	 O8Z1WOItbP6G7q/T0LMvXLvPmPk2Cz4R30PJE7eNwvgiR3/3ujPgrTMUd/e0M4XUH7
+	 j56lUxumT+3xRHANST2nTojscXUD/YxQgwAY6OEWsOmMSD7lyciIEhU3cOiwIdN8MW
+	 ZgIE95nqdWNcQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 38934C61DE4;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A0B39C61DFD;
 	Mon, 31 Aug 2026 00:25:21 +0000 (UTC)
 From: Ackerley Tng via B4 Relay <devnull+ackerleytng.google.com@kernel.org>
-Date: Sun, 30 Aug 2026 17:25:18 -0700
-Subject: [PATCH v12 17/45] KVM: guest_memfd: Return early if range already
- has requested attributes
+Date: Sun, 30 Aug 2026 17:25:22 -0700
+Subject: [PATCH v12 21/45] KVM: TDX: Make source page optional for
+ KVM_TDX_INIT_MEM_REGION
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260830-gmem-inplace-conversion-v12-17-85e5fd25252a@google.com>
+Message-Id: <20260830-gmem-inplace-conversion-v12-21-85e5fd25252a@google.com>
 References: <20260830-gmem-inplace-conversion-v12-0-85e5fd25252a@google.com>
 In-Reply-To: <20260830-gmem-inplace-conversion-v12-0-85e5fd25252a@google.com>
 To: aik@amd.com, andrew.jones@linux.dev, binbin.wu@linux.intel.com, 
@@ -81,11 +81,11 @@ Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-coco@lists.linux.dev, Ackerley Tng <ackerleytng@google.com>, 
  Xiaoyao Li <xiaoyao.li@intel.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788135915; l=1963;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788135915; l=3571;
  i=ackerleytng@google.com; s=20260225; h=from:subject:message-id;
- bh=9VNi9pEuvRkZvdOHV26sDWiemmZK8/yVnQLh7gIYUDA=;
- b=CFxkPT3CEVpS6OYk5q/nJQbCjkiuG38jxjI0AEn8ybxQssVnDPdSR4CXvx5zB8nUH7yz3IHXZ
- FIdLJl85tJiBVhY6bcB+H02CGuqGFpIwiDvHRM0IWlde4lr2+MEuRAp
+ bh=njc9wPSBjD6tmKwt2PhlMiU1O1S+4eQ2KtODaEWL4xY=;
+ b=xet/UHJxW/icBX2JrNtGGU28LtYGzpL8u5/A2zHQu7TLEnsVz5ggJjGJpERO2fdfgD7Fxr51C
+ ip40S/BlqIICNfbuaM0UoGpRZF7btZdQpGjyeJFTBr9EgNvYJ9H3K1t
 X-Developer-Key: i=ackerleytng@google.com; a=ed25519;
  pk=sAZDYXdm6Iz8FHitpHeFlCMXwabodTm7p8/3/8xUxuU=
 X-Endpoint-Received: by B4 Relay for ackerleytng@google.com/20260225 with
@@ -95,66 +95,83 @@ Reply-To: ackerleytng@google.com
 
 From: Ackerley Tng <ackerleytng@google.com>
 
-Provide a function to check that a range has given attributes.
+Update tdx_gmem_post_populate() to handle cases where userspace requests
+"no source page". To handle "no source page", populate (perform
+TDH.MEM.PAGE.ADD) using memory in-place at the target PFN.
 
-Optimize setting memory attributes by returning early if all pages in the
-requested range already have the requested attributes.
+Allow "no source page" only when gmem_in_place_conversion is enabled,
+because retroactively adding support for out-of-place conversion would mean
+requiring a userspace update for a feature that's being deprecated.
 
-Reviewed-by: Fuad Tabba <tabba@google.com>
+Also, KVM supporting "no source page" without in-place conversion would
+effectively be an obscure zero-page optimization that relies on the page
+being zeroed when it is allocated by guest_memfd.
+
+Rejecting "no source page" without in-place conversion scenario is valuable
+for KVM developers since it helps newcomers understand what exactly is and
+isn't possible.
+
+Co-developed-by: Sean Christopherson <seanjc@google.com>
+Signed-off-by: Sean Christopherson <seanjc@google.com>
 Tested-by: Shivank Garg <shivankg@amd.com>
 Reviewed-by: Binbin Wu <binbin.wu@linux.intel.com>
+Tested-by: Yan Zhao <yan.y.zhao@intel.com>
+Reviewed-by: Yan Zhao <yan.y.zhao@intel.com>
 Reviewed-by: Xiaoyao Li <xiaoyao.li@intel.com>
 Signed-off-by: Ackerley Tng <ackerleytng@google.com>
 ---
- virt/kvm/guest_memfd.c | 23 ++++++++++++++++++++++-
- 1 file changed, 22 insertions(+), 1 deletion(-)
+ Documentation/virt/kvm/x86/intel-tdx.rst | 4 ++++
+ arch/x86/kvm/vmx/tdx.c                   | 8 +++++---
+ 2 files changed, 9 insertions(+), 3 deletions(-)
 
-diff --git a/virt/kvm/guest_memfd.c b/virt/kvm/guest_memfd.c
-index d14a7024bdc7b..ac8e0c6d6e942 100644
---- a/virt/kvm/guest_memfd.c
-+++ b/virt/kvm/guest_memfd.c
-@@ -98,6 +98,24 @@ static bool kvm_gmem_is_shared_mem(struct inode *inode, pgoff_t index)
- 	return !kvm_gmem_is_private_mem(inode, index);
- }
+diff --git a/Documentation/virt/kvm/x86/intel-tdx.rst b/Documentation/virt/kvm/x86/intel-tdx.rst
+index 6a222e9d09541..d8d9409120e61 100644
+--- a/Documentation/virt/kvm/x86/intel-tdx.rst
++++ b/Documentation/virt/kvm/x86/intel-tdx.rst
+@@ -158,6 +158,10 @@ KVM_TDX_INIT_MEM_REGION
+ Initialize @nr_pages TDX guest private memory starting from @gpa with userspace
+ provided data from @source_addr. @source_addr must be PAGE_SIZE-aligned.
  
-+static bool kvm_gmem_range_has_attributes(struct inode *inode,
-+					  pgoff_t index, size_t nr_pages,
-+					  u64 attributes)
-+{
-+	struct maple_tree *mt = &GMEM_I(inode)->attributes;
-+	pgoff_t end = index + nr_pages - 1;
-+	void *entry;
++If guest_memfd in-place conversion is enabled, pass 0 for @source_addr
++to represent "no source page". A source page is required if in-place
++conversion is not enabled or not supported.
 +
-+	lockdep_assert(mt_lock_is_held(mt));
-+
-+	mt_for_each(mt, entry, index, end) {
-+		if (kvm_gmem_get_attributes(inode, entry) != attributes)
-+			return false;
-+	}
-+
-+	return true;
-+}
-+
- /*
-  * Returns a locked folio on success.  The caller is responsible for
-  * setting the up-to-date flag before the memory is mapped into the guest.
-@@ -623,12 +641,15 @@ static int __kvm_gmem_set_attributes(struct inode *inode, pgoff_t start,
- 	pgoff_t end = start + nr_pages;
- 	struct maple_tree *mt;
- 	struct ma_state mas;
--	int r;
-+	int r = 0;
+ Note, before calling this sub command, memory attribute of the range
+ [gpa, gpa + nr_pages] needs to be private.  Userspace can use
+ KVM_SET_MEMORY_ATTRIBUTES to set the attribute.
+diff --git a/arch/x86/kvm/vmx/tdx.c b/arch/x86/kvm/vmx/tdx.c
+index b272c20586a74..7654a9f5fa128 100644
+--- a/arch/x86/kvm/vmx/tdx.c
++++ b/arch/x86/kvm/vmx/tdx.c
+@@ -3189,7 +3189,7 @@ static int tdx_gmem_post_populate(struct kvm *kvm, gfn_t gfn, kvm_pfn_t pfn,
+ 	if (KVM_BUG_ON(kvm_tdx->page_add_src, kvm))
+ 		return -EIO;
  
- 	mt = &gi->attributes;
+-	kvm_tdx->page_add_src = src_page;
++	kvm_tdx->page_add_src = src_page ?: pfn_to_page(pfn);
+ 	ret = kvm_tdp_mmu_map_private_pfn(arg->vcpu, gfn, pfn);
+ 	kvm_tdx->page_add_src = NULL;
  
- 	filemap_invalidate_lock(mapping);
+@@ -3235,7 +3235,8 @@ static int tdx_vcpu_init_mem_region(struct kvm_vcpu *vcpu, struct kvm_tdx_cmd *c
+ 	if (copy_from_user(&region, u64_to_user_ptr(cmd->data), sizeof(region)))
+ 		return -EFAULT;
  
-+	if (kvm_gmem_range_has_attributes(inode, start, nr_pages, attrs))
-+		goto out;
-+
- 	mas_init(&mas, mt, start);
- 	r = kvm_gmem_mas_preallocate(&mas, attrs, start, nr_pages);
- 	if (r) {
+-	if (!PAGE_ALIGNED(region.source_addr) || !region.source_addr ||
++	if (!PAGE_ALIGNED(region.source_addr) ||
++	    (!gmem_in_place_conversion && !region.source_addr) ||
+ 	    !PAGE_ALIGNED(region.gpa) || !region.nr_pages ||
+ 	    region.gpa + (region.nr_pages << PAGE_SHIFT) <= region.gpa ||
+ 	    !vt_is_tdx_private_gpa(kvm, region.gpa) ||
+@@ -3266,7 +3267,8 @@ static int tdx_vcpu_init_mem_region(struct kvm_vcpu *vcpu, struct kvm_tdx_cmd *c
+ 			break;
+ 		}
+ 
+-		region.source_addr += PAGE_SIZE;
++		if (region.source_addr)
++			region.source_addr += PAGE_SIZE;
+ 		region.gpa += PAGE_SIZE;
+ 		region.nr_pages--;
+ 
 
 -- 
 2.55.0.897.gb25b4bd76c-goog
