@@ -1,317 +1,177 @@
-Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013043.outbound.protection.outlook.com [52.101.72.43])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 507F93E5A2C;
-	Mon, 31 Aug 2026 08:19:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.72.43
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788164399; cv=fail; b=l3zWMFMjYRX/kdy6FxyHeyRZljEec5qOvkoNPtd2HhvTwOK0h75381tEmwplxi6+AkmGwBEdcJmZTeCq2JLUTxaxkIRkGeqrbf2ZovAcEOMo1HdTeO6fqJKVm1EVAIVUck44UrPKHDHEZ8zY+xLiJWpGq++q0LlkPyCrI/IboJk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788164399; c=relaxed/simple;
-	bh=uuit+aI4M6CwmnSuMu0QDsloWQqtvmwdfd+Z59G+xeA=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=JNTuZZ9xetZRRdeJuwm3TL5ifLBWCSiYz6JZYhOnzJqW1iBx1Oowb4pYrC+WGSHzUljxnTH193nCVwJftipri9ssSOFmbMM845WxuswAik8mqgvBPR3iwzE23+pwZqvl/1Ts+sjm7iYy4WGYrPhyGLgZCVETKecnvlGfwyDTsCU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=sh4OdM4w; arc=fail smtp.client-ip=52.101.72.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24BFA3D9691
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 08:19:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788164401; cv=none; b=ElUdGMqZIIqyC1nAtdrqgeGQ0/3LNrQCgNkZbPcJUD6tgFNXuLeRST47pcZcJEAv74v4/yCbRoWfUmOnQNZDiX7zfIAE9JnXhz1VJ3H9CDOvDvz0NP6cuqiNqqHn/lWmProsXJQB37r0r0Krww+I55nur9ng1eCrZB5lf8wIRDc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788164401; c=relaxed/simple;
+	bh=ocYv35q1TRg7soWZ/7cu/E3KmsUNVSAZoT5YAe9yWHg=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=Fr+5ycI7Rmkkzsm3rHMyHGb6YFlSjbWwaiBYWaxqNBkUcmJlPm3sEPdDl5uwDLFZ/M92IWT6m4+Ra1x5ys1BvlEakOQmgpxl6VamIlNgSdcuQIlJ5k+eryGBw21DBYre513j/02LC5h3WsgE3gxuNpoLh06R0HrdfVlgtBYm0CY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Q53QtLwl; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Q8kt5JRJ; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="sh4OdM4w"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qe28MlAbAdcT4TII0+g11K1q5BTKNtJ5Y9t70n6bYIfl3uZs8GPyy/TCQMATib8rWfsGsd+kJG6SbxahGZRHAXZVE+o6JT+aSEG7kIn0PkTwYpbiHl8txtIBLnB4cTFnVuAqT8mEq6jL9nWS4zej6IGjpTWbwJI8o4eJZn3j+WZRtffGbj7N6zMpbXhaOVUCjksGkKTH0rSGgML0g7FbW7LLJ5Qzc3vmwkHoPy6UbwBj6NjsQ6AylrM8HncDbEOGPwiE/cUjUFVOZQT5yOcF4GXQ5RlnJik+Jpi+GiBeHJF5xw7Gwds23F4y+z0MAG0c97ng2WpZCZri3arIhE/5YA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6O+wswqrHcHRFnLAbs5sUdISK1XWYXYWnLyuqneGK0Y=;
- b=mDpFUaJXesETWUChT0f74AewxU0C+LvrNqMIMJj8thrP6Gs7VfkqH4950ZllVO1n68EmD9Qw7w9n1Ubl1Aa7NpTiOliCkmXvGiMj81SnoOUyi+xl7sXDwP+EujwV3SIuAP+2gNHr8G8BjGZaLPDhS2ufGfxcWijkX2HJXXekRr1VXHwioLMPCh+pCpkt0YMwRYDXEXFvJ7rNtDafncGNrQcOPoSa24LEI6slSG6ahAowRcoLT0HlRd7uN32oUg3E4MDszWy6i72PX0s1op/h3MJMguYZYTSbCfN7ro7kY+ae016cqBlUL4kw/VP5taNJLZDoNTNAW6nZOaLspzAfQw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6O+wswqrHcHRFnLAbs5sUdISK1XWYXYWnLyuqneGK0Y=;
- b=sh4OdM4whjJ617hTcErV3bQylDiO3EgYEEzPFqWIw54SyecnobxNRxH7iostzX2h7SQ3paCSFAyVRuTuRN5anGPMnff0XJz6hSFxVjHGp8KyIrbb4C0q3dWPPLhC+35gxrk7BaMR+4TJagdCblrt8Qvh7BY52bdJzTBcFrUrPIZ0Drsb8v8LZzm6QGTx6ouFi/fskJWBUu0d+dKwNS83KtfKNkRpwWb0dZEG3nvGZbnLgcGfLK2TausJVTu6xPtSV6CGnJjfRDjAWyUdvF+kyj9YDMZRz8HYJxRScRutkIf9+CM6Qo4JYdmOtODVKq4ELCLkPWjtVSMWax7KImf0TQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from VE1PR04MB7216.eurprd04.prod.outlook.com (2603:10a6:800:1b0::22)
- by AM9PR04MB8440.eurprd04.prod.outlook.com (2603:10a6:20b:3df::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Mon, 31 Aug
- 2026 08:19:55 +0000
-Received: from VE1PR04MB7216.eurprd04.prod.outlook.com
- ([fe80::a9a5:cf83:dbe8:1f74]) by VE1PR04MB7216.eurprd04.prod.outlook.com
- ([fe80::a9a5:cf83:dbe8:1f74%3]) with mapi id 15.21.0360.008; Mon, 31 Aug 2026
- 08:19:55 +0000
-From: wei.fang@oss.nxp.com
-To: xiaoning.wang@nxp.com,
-	andrew@lunn.ch,
-	olteanv@gmail.com,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	richardcochran@gmail.com
-Cc: wei.fang@nxp.com,
-	imx@lists.linux.dev,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org,
-	linux-arm-kernel@lists.infradead.org
-Subject: [PATCH v3 net-next 4/8] net: dsa: netc: use entry ID instead of pointer to track host flood rule
-Date: Mon, 31 Aug 2026 16:23:31 +0800
-Message-Id: <20260831082335.1184605-5-wei.fang@oss.nxp.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260831082335.1184605-1-wei.fang@oss.nxp.com>
-References: <20260831082335.1184605-1-wei.fang@oss.nxp.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SI2PR01CA0053.apcprd01.prod.exchangelabs.com
- (2603:1096:4:193::7) To VE1PR04MB7216.eurprd04.prod.outlook.com
- (2603:10a6:800:1b0::22)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Q53QtLwl";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Q8kt5JRJ"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67V7xNXA4081787
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 08:19:59 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	sZCZYdxulAt+REaXNWP3pgTyEN5GhF1cMFMAFW7SEs8=; b=Q53QtLwln5sj/mGi
+	Lrb3HkyZZaP52n3vxdS5mNBam1R0WHHjY148nMAa4ZV+EUTjKSNsbmd2Sd4nVjLD
+	sA5H+XqjpM9btH1a2S4OGGRx/Zvryfhv3cxCDoZOOQ1X1jiWChsAXecTWR221x9r
+	30BprRmt5U6KpiQC5/ori/n3BpR5ab5+sTq7gw9152N6y9EJq4g4EbixVzmW/HNW
+	9Q1El3JpaO9xUk7DNxEhAChY5zIxLKy46+/r2E7zLMdlrhZrIPwP6DUbn9EkCRv3
+	xwPgQVLClXvhcUMPJKx+tQD3sactrMPrEyP00GIJpUTPrUFoVfGBrfla/J6Krtrs
+	Eufkxg==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gcv8h1ng4-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 08:19:59 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-92ec3146553so772784085a.1
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 01:19:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788164398; x=1788769198; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=sZCZYdxulAt+REaXNWP3pgTyEN5GhF1cMFMAFW7SEs8=;
+        b=Q8kt5JRJZwJBeVvgUhj0axufeDkcnd22tXdg27gys43DH0nrNHQmvbgc/SbfDtHiIl
+         nrV3AUqrlvujgkB2CtF43NWnSrQoaqauCj+OOlxZ9p1YALflQr9ojxmhFQMgoTD72Cls
+         V00CDsxnmpADLgFDjxeNkqD2BsMKnuXRYbkLnzzKlArsZKaVrOkD4i3icDDE++a6UNl5
+         Y7CE2yYitBVtcwg1vLzfjMhp/u1IvTRwQabcPC3sKmxg07HPXd3wj4GRWm0mrqrorSlc
+         ejdNiod4nZDsViG9okCCs/HTnbBzNQepbBNQOwq41/ecv+JP0/W4zSn2VY2tbXD6Lmm9
+         0Q2Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788164398; x=1788769198;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=sZCZYdxulAt+REaXNWP3pgTyEN5GhF1cMFMAFW7SEs8=;
+        b=ZOwWNOVRiU99A0yg43PnH/vVFeFtbccoP7VJNQe7KV6t0DPLVF0v4XBy4U7cS+hgp7
+         6JaCG9UZE0Cp6PHSvy4gBuDKeXyzRgi6MhFsPXS+5P94+AIwZTNqY9KaSNy6i83BKGXl
+         qKPEW+aRgN9UqxWVmSqrlA9byerEGPqF1SqcNA/8IYuNgICO+GUwvRiLoZm7tD23ILvv
+         BHRi6r8QgYSg0PYjEnRjWZ6k8R7Nnl8db7hgie4yl4VSar6dBdt4X9DdU9UNGYuUoxEF
+         CGjuxq3oFoieoeE7Qs3oFU3NmKqEfWTKl28aynW4uyfXLp8qSh9e68/tsYrVB62PKh5A
+         RdOg==
+X-Forwarded-Encrypted: i=1; AHgh+RrXnd5qqmGcYDINMV05WmoJKOYmGfMkzcUIQCAAOtD3HxVDx3ITfBpVHeEt93RSVlwBm1BrfoBj+TtLPqc=@vger.kernel.org
+X-Gm-Message-State: AFuF++mhidQIdfqMSMDG4DJk8pO0xfDg2b8k0rf1ADQK7lssB7ha/GI2
+	iaL5INiMm972TcWlsPaErEo/vi7ild9bVGUwwgeIuBmfPMg8HNeWfHKHN4VtBcHZgsB+KDlI3H+
+	h7oKYHlI9E5jM+i7ldrPkKIrKUZQQFnnoVwkqKnD9ClboRVUy5pj71ii0QnQpwQVi+T4=
+X-Gm-Gg: AR+sD128MlY68wAXZcON0/3xhdKG/vjObI375PD2/HeyVV4n0zOHJHrWZpp84t7snjg
+	12qoEM8EAr8lG0JstDApLiSxunnU5Ez3exjW+OkBypv0VoQWI/cmUM3RvCxoJGMhmOoNP6DB/X5
+	LgJj4cvZqbHL496pM/70E6wIg8Rn0N515J1oJ+FDJ4+NdkUdnUOdQQEis8rlKvI7fv+dnJX73V+
+	JSs8mGHeVKPqXW2FNjsGGV6FMryuPb2+mee9FsmxJiWhWK1HJ0DyI1xn4xf+m7vONUhhMhLQlNO
+	Q9xrWEm+uZZ4BxlOSllej63Im1qa5dZwQAOn9yZiIEHclq2vpYTV/4shbCzkUyjAUqaUKUiYujt
+	KhjekQBiIHxn/OZQyR9qRAf6sg+iT2+tTMMstz4JKKt3yU0h9j8LZu19t68NOgk4=
+X-Received: by 2002:a05:620a:6886:b0:92e:9d63:a6f6 with SMTP id af79cd13be357-93913808713mr2845147985a.17.1788164398444;
+        Mon, 31 Aug 2026 01:19:58 -0700 (PDT)
+X-Received: by 2002:a05:620a:6886:b0:92e:9d63:a6f6 with SMTP id af79cd13be357-93913808713mr2845142785a.17.1788164397979;
+        Mon, 31 Aug 2026 01:19:57 -0700 (PDT)
+Received: from yongmou2.ap.qualcomm.com (Global_NAT1_IAD_FW.qualcomm.com. [129.46.232.65])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93917236b86sm735974285a.13.2026.08.31.01.19.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Aug 2026 01:19:57 -0700 (PDT)
+From: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+Date: Mon, 31 Aug 2026 16:17:43 +0800
+Subject: [PATCH v6 26/29] drm/msm/dp: mark the SST bridge disconnected when
+ mst is active
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB7216:EE_|AM9PR04MB8440:EE_
-X-MS-Office365-Filtering-Correlation-Id: a461e979-d848-4824-1863-08df0738a381
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|1800799024|19092799006|366016|23010399003|376014|18002099003|22082099003|11063799006|6133799003|56012099006|10067099003|921020;
-X-Microsoft-Antispam-Message-Info:
-	yZsUIgmu1AluXsbiacC9mtaZu9QfnIWKjeVEJMfTEFIxRqoJi83KI+FJem2f1WYySab3mGOP5/HkGtDNhGK0dkuD/Hf6BNuQScytVypxZOSw97R1Wk+jCCiQAnwzTezM3e6mdStg7M1lSgWC3XiSGoPiW/HoBjDXBiejVpt1SP999u8H68f+znUTspMcK7hchd89wmgG4XsDWlNeAujyBQjIM1NOxgW2MQ0q1s0zlDjn34rmZkovsQP1LaNqZARJQ97QV5puZCYLJo2XWSTdQcdpHx9n26KorHh0Cq9VwhvFngLv+lWl4oPsHnStIYQ3/O5TWxbRTZXaFtE/0plXzAVINg+hQ5a7b7OMVKV5AZUSnBbaSJwhCEs9b2OtWUeK8X4AKTQLQMjUk5mX+uh+gluwU6zm0bxl1u8KS09oANZ+6KumE+CXmiVjPLn623RAWNauT2tjKU4PeOIJiAEkjeCwSEDlu5PWrfmZsdhGcQXOWMvhUtu+t9POFdO2uls/hk5C0loNjBxNMscIx041ISVD2eI2urmT7y/Lk6HoZE4uAT3ibCerm9NAknTdJWKMkXskDE8pqogL08OW96EeXHgLoh00tV9hd2K8HCaA9eqmo6rS8Lhw8WNeQTQyZYLUVoDrH+tyM+GBfC+emEqWrrI2klVsVBRkxfVXqIqD9vwVhpBPrmD67YCeyvMpfDmHd6jLukbY19C6uytAxmTRWg==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB7216.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(1800799024)(19092799006)(366016)(23010399003)(376014)(18002099003)(22082099003)(11063799006)(6133799003)(56012099006)(10067099003)(921020);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?cZAEahdlPcQO7rtSRg2ypspigT55YTNViGNh7fyIMCC8yW+pn5QfclYSJu3f?=
- =?us-ascii?Q?sI3lGZA93t3bRMo4zXMVH60edIcuYENh0GlvuKCv2knWEFZZcE4CdE6dfCZ/?=
- =?us-ascii?Q?pzbaPoi00jyK6noVUR46QajziGft1mqKFNk9+bBVbTJ3oef0/YC/QiV9L/IK?=
- =?us-ascii?Q?U1lbpCrfPaTgo28m/U3tjuyTT+OsQ39qTdIWq5oWQG6Y32y2p/uRMnBZIdsM?=
- =?us-ascii?Q?7r2TPM62N5MHtjTqiLy1gkZwDMKyVLFEETxFxW6/0MhsBPZlafsVTyiRcymu?=
- =?us-ascii?Q?inTk2uXHtq44pT7IFapc89qoi9ccrm+sdi1HscG+kpgFX1RemMafJVsnJXxF?=
- =?us-ascii?Q?XWv4w7+lJ6ea2CD8/W+JWPfqctE9pxY6jfRuH64ueUthkTw9YBo7RhhO3KmJ?=
- =?us-ascii?Q?1FkZ21b1ickO13U/nGcLv4pkB6DCjjwmxhOEqpKjZQJ/qjd1mDDj4Rg9BIVE?=
- =?us-ascii?Q?82vHe1C7TqNqYNlSkalI41WVWJ+nlJsxlbtPecTtaB9ArvCyEIyZMq5JryvT?=
- =?us-ascii?Q?2PVocvk0BiESdvy/1LNm3smSdSuaQLKXhnBjKFkO+zLabuoI/RsU4AmJSIbM?=
- =?us-ascii?Q?ejWJdD3FtKCjYqbzCXu3vlr2B5aaU4xvqGbHD1vOywdMDu1DVbwjrKdxrzQX?=
- =?us-ascii?Q?Unr5xwprH3uAlxjg1l1kb2kYd1JnDsYGLpqyj6VOVtQOvueadRKrYAdyd/Me?=
- =?us-ascii?Q?O0bkKDc4LcCNzpp90zLzsraKWagIdXvvgTNaVXT5YWkP4QX/0oENmGTfxp2E?=
- =?us-ascii?Q?SAgCdosk1Hd3Nz58B3k8CaVht8XJlqXefmg4OZRBk9fg5qhXz/NIVTJVDyAt?=
- =?us-ascii?Q?ek9uuFMB1SGLzsDSnC6uZKAXiI6LCWOjUtPJLLwN/KBFmL5B8vTLX8HJnrpc?=
- =?us-ascii?Q?sxRo7Uu5qquQIhbEKapfZynfQgYZvHAsqr3j/osBAOFRVpcx/dXPt+Q1q/gC?=
- =?us-ascii?Q?NsuEs8YRN/v0CfaLrpH5MqOIko6JEI+jhEUI7wZbR/kgR2rLgPPGDkG8ahjE?=
- =?us-ascii?Q?F6VxxKjYxZ6JWYbyN1BDVWk00uDIHcDUUdIPaYuSS/mNiHTPdrqvTA8DtGUR?=
- =?us-ascii?Q?6DhqOFQPpqE8WJ2vG6AYWdqNPR8SjB4w7s6HbVAefdIbICD0tFUIiY0MT3Qp?=
- =?us-ascii?Q?Gd9SF4wnfoWNnTycWTEfeUcGkCFtbKyfHHX//ADblRufNiaeCwzDOzsmTN7L?=
- =?us-ascii?Q?LXgvMbDDFLgOSh/GRKHIvC1Uo52YCll3uAWPBxu6dMTggUYCK6iUyQV7iJqK?=
- =?us-ascii?Q?yxD65st2bwc3F/TjCnfLfWXjqI12cIl6PPDB2QTs/N3u3zgr35ohVFeBVTPs?=
- =?us-ascii?Q?nyeU2j5fATPjQPj/vNd8eZQjdMtz/zo97A1efzse11JkAwTkycXHYJeoQi4B?=
- =?us-ascii?Q?VFcSjwq/WEiQRf+wImfMLDBSghuBAU43XD5lZAkWZynX/ep9yVzZ3dqUyT1i?=
- =?us-ascii?Q?oWO8M/7SkWceJic/fUuu1R+L69V5MlqstQ0G2UlJlOPnJtz58bZizpQHcMsy?=
- =?us-ascii?Q?ARCt1F0AjsMo/3VML0/0e2Ur3PVeiSk+k3w1lH8fYB9ren+paVOm/FDsPS8P?=
- =?us-ascii?Q?i4DtnslY5SXYOQzGZGrmvosXnv8fIq1vmaGwUuuQ8TF/j9SiX/dSj8zF7ZXU?=
- =?us-ascii?Q?CJoZKxtlBJ3WIlTlLAhVCNkQBpyRHJCvIjPRETPSNF9PkfPluNk+DJ19AXnH?=
- =?us-ascii?Q?zOvP2fAh74lJHwVyMY0iwQVFWy8ekxWZtzfKJojAxLXZklsUr+HbUjwMYhUk?=
- =?us-ascii?Q?iWuRp5YnPsaCKl1v2moxwxWO3+Hb5537Vbxh/Aqx9g5WmdYlHAH2?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a461e979-d848-4824-1863-08df0738a381
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB7216.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 08:19:55.5881
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ZOWxxCQeCJTk/Fo14pLTFx/tZNq8MmWA8lqszx+PKA6ZsT+s7A+YxygzC/vjmEvIw8jjZ6peyLZrT7xnJGwamEj5JsHNBp+jjN0RYwon8Ohc4LFsB/ztV4Kg7XVAt0hY
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8440
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260831-msm-dp-mst-v6-26-c91d35d6fb9e@oss.qualcomm.com>
+References: <20260831-msm-dp-mst-v6-0-c91d35d6fb9e@oss.qualcomm.com>
+In-Reply-To: <20260831-msm-dp-mst-v6-0-c91d35d6fb9e@oss.qualcomm.com>
+To: Rob Clark <robin.clark@oss.qualcomm.com>,
+        Dmitry Baryshkov <lumag@kernel.org>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>, Sean Paul <sean@poorly.run>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Jessica Zhang <jesszhan0024@gmail.com>,
+        Jessica Zhang <jesszhan0024@gmail.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+        freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+        Yongxing Mou <yongxing.mou@oss.qualcomm.com>,
+        Abhinav Kumar <quic_abhinavk@quicinc.com>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788164246; l=1108;
+ i=yongxing.mou@oss.qualcomm.com; s=20250910; h=from:subject:message-id;
+ bh=b73mCP5ZBsxlgkNfg3qBRcFP4q1t83IPYmEGlCDuRyU=;
+ b=UGx9/qKyXIjm9cwePvp/w9ztl7xoA2V+jY6pysn1wTUFaxUjitPwpFA+hUJ9wg0bVBiK8LW81
+ kxHoNR7ZyTKDUoduaqZ66Kn1I7SV2rhl6oNElMz1W+EUXm2TYO+WBmr
+X-Developer-Key: i=yongxing.mou@oss.qualcomm.com; a=ed25519;
+ pk=rAy5J1eP+V7OXqH5FJ7ngMCtUrnHhut30ZTldOj52UM=
+X-Authority-Analysis: v=2.4 cv=DY0nbPtW c=1 sm=1 tr=0 ts=6a95392f cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=C3Dk8TwHQYyIj7nOf9RCJw==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=COk6AnOGAAAA:8 a=EUspDBNiAAAA:8 a=ao9NmXljvuVdf-BuN7wA:9 a=QEXdDO2ut3YA:10
+ a=IoWCM6iH3mJn3m4BftBB:22 a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODMxMDA3MCBTYWx0ZWRfX3DdDhmvyNsgr
+ DD8E5FKYJvSsX0DlsZ7FicorVI/UmSwt2jGa0a69eF/lGXFGqNkYDJuGxxbwFJ39/92VWMkNLxj
+ 2mrydpg1jKWp/ElO0nujWi3JfE8SgQ5AlrOWK5NLvHdydzBoPbcaQ5CFYauoUrRacFLGoP3jwcn
+ F+kG4Wr688bGD2xCCvBYvsOsmLlKnEZIJ7ainMCBCdZyG9IcJc8A1Zyjrab4HpWmF6hwcB+qagN
+ eXzfcCno6DbgxYv7dI3Ae5chGn0r2JIrKdJfpN5BMKM0dQ7LISEYoKpEJxEUTZFeS3VvN3crkaf
+ 79NqlTNoN/IE5eME0jcObm7+/yPexKxWvo+ol8cuFjPGKfm9TLgBXNCSELuPlUpfzsBYIjTK7Al
+ R70H6/UVAZac2jUrOYoNnHuFxaPuqPimy48BUXWKMdk/bYvkeqGfwBODC9aenDXs42IyKjKEfeP
+ hoEnSteee8mKFVIUJxA==
+X-Proofpoint-ORIG-GUID: S16kPiep8NH9G8ecfrJl-CTGH6eAAlHJ
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODMxMDA3MCBTYWx0ZWRfX7eZEJHhGUyDd
+ wCfqMy1taRiIh1gxmSZ+vp3i7MHvBlsxxMFUEx7yQpsnpGpEyq4wFrz0HM20iKsZwQxaDWUGic9
+ KASHPumPntOWO2pagLyuRJmM6G8nuOs=
+X-Proofpoint-GUID: S16kPiep8NH9G8ecfrJl-CTGH6eAAlHJ
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-31_03,2026-08-27_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 adultscore=0 clxscore=1015 priorityscore=1501 spamscore=0
+ suspectscore=0 malwarescore=0 bulkscore=0 lowpriorityscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608310070
 
-From: Wei Fang <wei.fang@nxp.com>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
 
-Replace the struct ipft_entry_data pointer in struct netc_port with a
-plain u32 entry ID (ipft_hf_eid), using NTMP_NULL_ENTRY_ID as the
-sentinel value. The ipft_entry_data allocation is now freed immediately
-inside netc_port_add_host_flood_rule() after the hardware entry is
-committed, so no heap memory survives beyond that function. As a result,
-netc_free_host_flood_rules() is no longer needed and can be removed.
+The bridge detect function is only applicable for SST. In MST mode,
+connector detection is handled by MST bridges. Skip detection for the
+SST bridge when MST is active, matching the behavior of other DP MST
+implementations.
 
-Signed-off-by: Wei Fang <wei.fang@nxp.com>
+Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 ---
- drivers/net/dsa/netc/netc_main.c   | 63 ++++++++++++------------------
- drivers/net/dsa/netc/netc_switch.h |  6 ++-
- 2 files changed, 29 insertions(+), 40 deletions(-)
+ drivers/gpu/drm/msm/dp/dp_display.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/net/dsa/netc/netc_main.c b/drivers/net/dsa/netc/netc_main.c
-index 77077352c1a5..d326a00104e1 100644
---- a/drivers/net/dsa/netc/netc_main.c
-+++ b/drivers/net/dsa/netc/netc_main.c
-@@ -286,6 +286,12 @@ static int netc_init_all_ports(struct netc_switch *priv)
- 				dev_err(dev, "Failed to create MDIO bus\n");
- 				return err;
- 			}
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+index 22b925277462..f350c1d03b06 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.c
++++ b/drivers/gpu/drm/msm/dp/dp_display.c
+@@ -959,6 +959,10 @@ enum drm_connector_status msm_dp_bridge_detect(struct drm_bridge *bridge,
+ 	priv = container_of(dp, struct msm_dp_display_private, msm_dp_display);
+ 
+ 	guard(mutex)(&priv->plugged_lock);
 +
-+			/* The ipft_hf_eid is initialized to an invalid entry
-+			 * ID because the host flood rule (IPFT entry) has not
-+			 * been created.
-+			 */
-+			np->ipft_hf_eid = NTMP_NULL_ENTRY_ID;
- 		}
- 	}
- 
-@@ -938,30 +944,12 @@ static void netc_destroy_all_lists(struct netc_switch *priv)
- 	mutex_destroy(&priv->vft_lock);
- }
- 
--static void netc_free_host_flood_rules(struct netc_switch *priv)
--{
--	struct dsa_port *dp;
--
--	dsa_switch_for_each_user_port(dp, priv->ds) {
--		struct netc_port *np = priv->ports[dp->index];
--
--		/* No need to clear the hardware IPFT entry. Because PCIe
--		 * FLR will be performed when the switch is re-registered,
--		 * it will reset hardware state. So only need to free the
--		 * memory to avoid memory leak.
--		 */
--		kfree(np->host_flood);
--		np->host_flood = NULL;
--	}
--}
--
- static void netc_teardown(struct dsa_switch *ds)
- {
- 	struct netc_switch *priv = ds->priv;
- 
- 	disable_delayed_work_sync(&priv->fdbt_ageing_work);
- 	netc_destroy_all_lists(priv);
--	netc_free_host_flood_rules(priv);
- 	netc_free_ntmp_user(priv);
- }
- 
-@@ -1759,37 +1747,36 @@ static int netc_port_add_host_flood_rule(struct netc_port *np,
- 	cfge->cfg = cpu_to_le32(cfg);
- 
- 	err = ntmp_ipft_add_entry(&priv->ntmp, host_flood);
--	if (err) {
--		kfree(host_flood);
--		return err;
--	}
-+	if (err)
-+		goto free_host_flood;
- 
- 	np->uc = uc;
- 	np->mc = mc;
--	np->host_flood = host_flood;
-+	np->ipft_hf_eid = host_flood->entry_id;
- 	/* Enable ingress port filter table lookup */
- 	netc_port_wr(np, NETC_PIPFCR, PIPFCR_EN);
- 
--	return 0;
-+free_host_flood:
-+	kfree(host_flood);
++	if (dp->mst_active)
++		return status;
 +
-+	return err;
- }
- 
--static void netc_port_remove_host_flood(struct netc_port *np,
--					struct ipft_entry_data *host_flood)
-+static void netc_port_remove_host_flood(struct netc_port *np, u32 entry_id)
- {
- 	struct netc_switch *priv = np->switch_priv;
- 	bool disable_host_flood = false;
- 
--	if (!host_flood)
-+	if (entry_id == NTMP_NULL_ENTRY_ID)
- 		return;
- 
--	if (np->host_flood == host_flood)
-+	if (np->ipft_hf_eid == entry_id)
- 		disable_host_flood = true;
- 
--	ntmp_ipft_delete_entry(&priv->ntmp, host_flood->entry_id);
--	kfree(host_flood);
-+	ntmp_ipft_delete_entry(&priv->ntmp, entry_id);
- 
- 	if (disable_host_flood) {
--		np->host_flood = NULL;
-+		np->ipft_hf_eid = NTMP_NULL_ENTRY_ID;
- 		np->uc = false;
- 		np->mc = false;
- 		netc_port_wr(np, NETC_PIPFCR, 0);
-@@ -1800,7 +1787,7 @@ static void netc_port_set_host_flood(struct dsa_switch *ds, int port,
- 				     bool uc, bool mc)
- {
- 	struct netc_port *np = NETC_PORT(ds, port);
--	struct ipft_entry_data *old_host_flood;
-+	u32 old_entry_id;
- 
- 	/* Do not add host flood rule to ingress port filter table when
- 	 * the port has joined a bridge. Otherwise, the ingress frames
-@@ -1808,7 +1795,7 @@ static void netc_port_set_host_flood(struct dsa_switch *ds, int port,
- 	 * will be redirected directly to the CPU port.
- 	 */
- 	if (dsa_port_bridge_dev_get(np->dp)) {
--		netc_port_remove_host_flood(np, np->host_flood);
-+		netc_port_remove_host_flood(np, np->ipft_hf_eid);
- 
- 		return;
- 	}
-@@ -1818,20 +1805,18 @@ static void netc_port_set_host_flood(struct dsa_switch *ds, int port,
- 
- 	/* IPFT does not support in-place updates to the KEYE element,
- 	 * we need to add a new entry and then delete the old one. So
--	 * save the old entry first.
-+	 * save the old entry ID first.
- 	 */
--	old_host_flood = np->host_flood;
--	np->host_flood = NULL;
-+	old_entry_id = np->ipft_hf_eid;
- 
- 	if (netc_port_add_host_flood_rule(np, uc, mc)) {
--		np->host_flood = old_host_flood;
- 		dev_err(ds->dev, "Failed to add host flood rule on port %d\n",
- 			port);
- 		return;
- 	}
- 
- 	/* Remove the old host flood entry */
--	netc_port_remove_host_flood(np, old_host_flood);
-+	netc_port_remove_host_flood(np, old_entry_id);
- }
- 
- static int netc_single_vlan_aware_bridge(struct dsa_switch *ds,
-@@ -2020,7 +2005,7 @@ static int netc_port_bridge_join(struct dsa_switch *ds, int port,
- 	netc_port_set_pvid(np, vlan_unaware_pvid);
- 
- out:
--	netc_port_remove_host_flood(np, np->host_flood);
-+	netc_port_remove_host_flood(np, np->ipft_hf_eid);
- 
- 	if (atomic_inc_return(&priv->br_cnt) == 1)
- 		schedule_delayed_work(&priv->fdbt_ageing_work,
-diff --git a/drivers/net/dsa/netc/netc_switch.h b/drivers/net/dsa/netc/netc_switch.h
-index 305f2a92e2f9..020e3661b866 100644
---- a/drivers/net/dsa/netc/netc_switch.h
-+++ b/drivers/net/dsa/netc/netc_switch.h
-@@ -84,7 +84,11 @@ struct netc_port {
- 	u16 uc:1;
- 	u16 mc:1;
- 	u16 pvid;
--	struct ipft_entry_data *host_flood;
-+	/* ipft_hf_eid applies only to user ports and should be initialized
-+	 * to NTMP_NULL_ENTRY_ID. Other ports (such as CPU ports) do not
-+	 * require initialization.
-+	 */
-+	u32 ipft_hf_eid;
- };
- 
- struct netc_switch_regs {
+ 	ret = pm_runtime_resume_and_get(&dp->pdev->dev);
+ 	if (ret) {
+ 		DRM_ERROR("failed to pm_runtime_resume\n");
+
 -- 
-2.34.1
+2.43.0
 
