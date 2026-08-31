@@ -1,66 +1,37 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADC2C3D092E;
-	Mon, 31 Aug 2026 09:41:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9E0726B2CE;
+	Mon, 31 Aug 2026 09:41:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788169263; cv=none; b=QAbFp/83dfM7DXR+uGTkHE6TP00+/0Hi0PhfrEQiIhuCm6NQMC2mSWv3qY9HzYkSqYrRXVE8Bvqws5AiSnRhsqUz0hh9wWsV8hEklSl3QlvsQSQ+XCBP4oMwlD1DHTsoWwuS/MYhyphhBqteiufD6YXYO+fXw94C6mHLag9naMs=
+	t=1788169293; cv=none; b=EhaENpzdkRlDcSA98MvxaYx14+FnybnjQH/wfNMRXBfY6DD1tvKBTAE6rrDb2qr1H0KGBqT8SEpotaOJWLRV9oMMXNk2MsPqV0s+mvyAf6ai4GbDuhBXyaqoQrQvLWZMxEnAUaKSFT7MLMmzP+B3MK35q248+iDrKowLsvVd5B8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788169263; c=relaxed/simple;
-	bh=A+1AuWH5q4++i7fiJolixzCdgay7Ft04qAqgv4KHHes=;
+	s=arc-20240116; t=1788169293; c=relaxed/simple;
+	bh=lUed+Pcqvu/J6gvYpsHlH6J2lp7O1Z9U6eDL9xxq5Mg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fe0WQ50t4siYL0ZjhzR6HJDxZ8hX0WdeLVJT/fXeTiSoJyAzxen8knZlEBjy9JBagdodZW/ZeEGqLTfoyKED7P4FUuQPoOcE9xbK+S5TG8hensKmBHjXKNFACSl4F/bxxVq3dV3LgMovlNLZ3YJoExIMHvBz13u0jT1pfnZy1Aw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=XplwX/O/; arc=none smtp.client-ip=198.175.65.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=i1qosVrR3rHUZ0fM7xZOgJkErSiSj6Qm2w/RSQrv/iDTQhqQ+iYyRKfx2kwvxpCp8kylPANnFGy+4d9ACFJxsE8hQxhbIgZ8Wjdlz6Yw5qOgcVIf9ozhJSXPSinvcUlBm3gj5PFId34cQyF2hgdYimv/9Gw8zdxV4owh/YwVjUU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=iRRuDiLS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="XplwX/O/"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788169262; x=1819705262;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=A+1AuWH5q4++i7fiJolixzCdgay7Ft04qAqgv4KHHes=;
-  b=XplwX/O/oofRa5VpsVZ9TvEXkyrGfaf+3aaqIx1hfQ+I88jIo40PB698
-   DR1ys1qiEPu0XX88aQhDYrg+VU5PuZEx+1/cizYIpYqQbVxjs+V0gXKGj
-   gL04K0qmolbofo3gBpPx1xBrcqbrHXBD/KDNy3qKE/l6hYH9kHWSY1RRZ
-   VJhlq+VPyP8q9Pjy5VvyPBW6JWD/rVkaBlT7A1zmdDKwyw6/ecrO16Qn1
-   M+Mc6d6uUrwZd8Fw0Y4ikazlF4dR4Rj/icx8lCP7rheBEUoXMEdilnKdv
-   Nc164PlCvQKWVQX+UH1yEMcjaUKyDDE+A4PY7Q1jqYnw7ITi4yGPt6FX1
-   Q==;
-X-CSE-ConnectionGUID: JCKlFrvdT76GrY+T4koo6Q==
-X-CSE-MsgGUID: aH4VaaFxQmaL4CfSQA6A+w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11891"; a="92437289"
-X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
-   d="scan'208";a="92437289"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 02:41:01 -0700
-X-CSE-ConnectionGUID: 3y8zlOlBSeWDNS1l9+g6tw==
-X-CSE-MsgGUID: qjjYhMTGR0OOgYngYInIZQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
-   d="scan'208";a="270676365"
-Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.244.21])
-  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 02:40:56 -0700
-Date: Mon, 31 Aug 2026 12:40:54 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Maurizio Casciano <mauriziocasciano7@gmail.com>
-Cc: linux-media@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Bingbu Cao <bingbu.cao@amd.com>,
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
-	Nicholas Roth <nicholas@rothemail.net>,
-	Andy Shevchenko <andy@kernel.org>, Hans de Goede <hansg@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jose Maria Martin <jmmartinf@hotmail.com>,
-	Uwe Kleine-Koenig <ukleinek@kernel.org>,
-	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 06/15] media: intel: ipu-bridge: Add Yoga Book camera
- sensors
-Message-ID: <apVMJkJCO__onNqV@ashevche-desk.local>
-References: <cover.1787933456.git.mauriziocasciano7@gmail.com>
- <9b618d8076337f8129e235313cce90d86f95fc4c.1787933456.git.mauriziocasciano7@gmail.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="iRRuDiLS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B86821F000E9;
+	Mon, 31 Aug 2026 09:41:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1788169291;
+	bh=1RCvV47ZIovskQwwJ2Cf5orHzYQ8NDUYy3Pq+RF5hp4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=iRRuDiLS/NA0Mr0rAmBwZwKvh6sI7rbxIj6M95q3nsI5kwFrTpYUCiGQgHa//Q5br
+	 yslx2MbcI25nwhDu9Jdq9mxW8RT3qiRZopnRYaBhsHoJEsq1K4xwedn89Q8Qd4phvU
+	 VCeflxX0wph27yoiJsgh2VkmBzicyfTssdPQfPg0=
+Date: Mon, 31 Aug 2026 11:41:27 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Xianying Wang <wangxianying546@gmail.com>
+Cc: linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
+	kees@kernel.org
+Subject: Re: [BUG] usb: gadget: dummy_hcd: general protection fault in
+ dummy_set_selfpowered after unbinding dummy_hcd.0
+Message-ID: <2026083113-krypton-ultra-49ae@gregkh>
+References: <CAOU40uBQG6_o+wU7UbWgRzZq4865QmLfJBdK0RP+iqLNy7Q8ew@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -69,22 +40,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <9b618d8076337f8129e235313cce90d86f95fc4c.1787933456.git.mauriziocasciano7@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <CAOU40uBQG6_o+wU7UbWgRzZq4865QmLfJBdK0RP+iqLNy7Q8ew@mail.gmail.com>
 
-On Fri, Aug 28, 2026 at 06:14:48PM +0200, Maurizio Casciano wrote:
-> The Yoga Book YB1-X91 uses INT3477 for its OV8858 rear sensor and
-> OVTI2740 for its OV2740 front sensor. Add link frequencies consumed by
-> the sensor drivers when the IPU bridge constructs software endpoints.
+On Mon, Aug 31, 2026 at 05:02:28PM +0800, Xianying Wang wrote:
+> Hi,
 > 
-> This supplies endpoint data only; it does not establish that either
-> sensor can stream on the Yoga Book hardware.
+> I would like to report that a previously observed
+> syzkaller-triggerable crash is still reproducible on Linux 7.2-rc3.
+> 
+> The reproducer first unbinds `dummy_hcd.0` through sysfs, after which
+> the kernel logs show that the dummy HCD/UDC instance is removed and
+> the emulated USB bus is deregistered. It then writes `dummy_udc.0` to
+> the gadget's `UDC` attribute through configfs, which triggers gadget
+> binding.
 
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+Fun, but you do know that "unbind" will taint the kernel in the near
+future :)
 
--- 
-With Best Regards,
-Andy Shevchenko
+And the dummy_hcd code is just for testing, it's not a "normal" driver
+that any user will ever hit.
 
+> During the bind path, `configfs_composite_bind()` calls into
+> `composite_dev_prepare()`, which in turn invokes
+> `usb_gadget_set_selfpowered()`. This reaches `dummy_set_selfpowered()`
+> in `drivers/usb/gadget/udc/dummy_hcd.c`, where the driver obtains the
+> backing dummy HCD from `gadget_to_dummy_hcd(_gadget)` and dereferences
+> it. At that point, the associated HCD pointer appears to be NULL or no
+> longer valid after the earlier unbind/remove sequence, leading to the
+> reported KASAN null-ptr-deref / general protection fault.
+> 
+> Based on the call trace and the reproducer flow, this seems to be a
+> lifetime/state validation issue in the dummy UDC path: after
+> `dummy_hcd.0` has been removed, binding `dummy_udc.0` is still able to
+> proceed far enough to call gadget operations that assume a live
+> associated HCD.
+> 
+> This appears to match the previously reported `general protection
+> fault in dummy_set_selfpowered` issue, and I am sending this report
+> because it is still reproducible on 7.2-rc3.
 
+Patches are gladly accepted to resolve issues like this.  Why not make
+one as you have a reproducer for it?
+
+thanks,
+
+greg k-h
