@@ -1,117 +1,138 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 811F1370AD4;
-	Mon, 31 Aug 2026 06:33:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AE113A4F58
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 06:34:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788158038; cv=none; b=fQ3iYteHOvxxYzWEusRvRIVq3Zf5qoXMAOjUnkHyLOnyKhTXtfHOEuN7vPjsEbOwXM2t3HoOg1dXr69VCMhXq1cYS3aTvRmsSHZmpZDhZHiy97uXyNAB+WWcWrnobjqyHQu0Sty0oIOmuxwmho5sdLl8KYPkHLhbY+CsNdqJKlU=
+	t=1788158048; cv=none; b=EJN5ezZ4g+2l/OlVatDrI/QJytlAEXIWYcJ5GI6EjeZLE6cnL4ow3enD1SU7HCdgy37lKls7Ce76g8yoFxrlXIdMNTRix9TuTF0WTGHzyh7l8rFDFMBgTq6yX3Cy2jCBkLhGNOrpuiigHEdTG1uN7OZQLqstd9a5q5pbDa/gwps=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788158038; c=relaxed/simple;
-	bh=K342pN9R5l9Amf3yIne5jhRsFkAPNtSws5F1C1XTfYM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tRLZo2H4oylf9thYGKqHGeaK26qxp6bkEX5i4c2oU3THSg4Y/hX9kqydYvCCKuBr7jzu9nX87doO+tlFzyehQK44Z4i7npbI4OvuX3PX1QxEf5sDucrCT7jm/3gGRtyvDB98Dn/zEvlscQ0svjSnpshDjzjSE20z9EwdOyXNzrA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HXBHbr8Q; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788158048; c=relaxed/simple;
+	bh=/lmQshMnH697F9QSeSeHWD2u64V+LTtfoazb/YyBF9c=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ET1zO+IGnXtUV22aXfDXaWqFFoBVn6kgpIsZo1OauRZnJvJVoSBVSgfjS2Oxu+HCtk73mdvo4LAzPKlPHloHG3ZCyJx0CblIGmrG+hgiAnBFGPCRkdkgVuABc5McgjY2b0/ZBuSlPegW4JSvpS4jWXB7x4kqqDuMSJHhO8Ih+jk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ejMc4HS4; arc=none smtp.client-ip=209.85.216.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HXBHbr8Q"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20F3E1F000E9;
-	Mon, 31 Aug 2026 06:33:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788158037;
-	bh=GP2C2mZreAalLgcgv4kH52hh++chyCXbyU5k8g3nVAw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=HXBHbr8QuA/1GL+lcq09OgnCqRhxC7HarHVZt/raxamgMrw2e/zqzfkIlcy3bv+KJ
-	 +Or0czqXZnS5CX2a+GUc4ML5WTnln7D6oxSskL07rpWlvKSUa3b2QEnLSIY692Eiz9
-	 88tPzxGya7NYZsPMYjSH9BH0rsmGEO3HvO+RbLn+lYbRhMmLkhVrFw9ra3u/KX7NHX
-	 WGxSwq9U+JOgXwI6X5NEV9ZTUyuieBsY8O5DAQkoJ8BLYv7yqiL1jmWi00MqBz/P8w
-	 sly7jgqAaZqlTiKeHwrKGk+Fg2Ob8XqO3aQE3B3at+5xDUbKLI8tlVXz6trPZh7KSt
-	 B+9Lg9jsuKpfw==
-Date: Mon, 31 Aug 2026 08:33:52 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Biju <biju.das.au@gmail.com>
-Cc: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>, 
-	Bjorn Helgaas <bhelgaas@google.com>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
-	Biju Das <biju.das.jz@bp.renesas.com>, Rob Herring <robh@kernel.org>, linux-pci@vger.kernel.org, 
-	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: Re: [PATCH 1/4] dt-bindings: PCI: renesas,r9a08g045s33-pcie:
- Document RZ/G3L SoC
-Message-ID: <20260831-neon-responsible-ape-e0cd02@quoll>
-References: <20260825095047.9971-1-biju.das.jz@bp.renesas.com>
- <20260825095047.9971-2-biju.das.jz@bp.renesas.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ejMc4HS4"
+Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-398a4dcf289so2225309a91.2
+        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 23:34:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788158046; x=1788762846; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ptsOsHU/6/aB7s/AaOx0+tOkggKvvNrqLs8HPEye82U=;
+        b=ejMc4HS4JbsXzvY6BYCyU7AA3DfJae+gKC86LejTtPhSg8rH35M5ANVSLgvFGrdoOt
+         wIdeX4kzTADZeUF5qoOVSPsMuUVKbTnJgJqCBS6YjwNVfvTCOdmxh6VPpTF7aGDRDy3a
+         tdX61pBUw2ot6A4BAzPreNoJGjf1cxMqYjr34/STyDDcvWkkl2QSaykTa4m/1T1eAfAM
+         VrcvUFQ6xXEc+S/lB+a3xjIxNZRDAFlKEDAHcgk/ubZbmd0JdAWNtDoTobMKanbEoHOe
+         RlaVvZLq+i6Y0Xb4wW0oFZzcE3Q0wTU3XiFhSU2QFVj4uduE1ofx7dAhcuwSw0Lp0WTA
+         i++g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788158046; x=1788762846;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ptsOsHU/6/aB7s/AaOx0+tOkggKvvNrqLs8HPEye82U=;
+        b=oSlOk9j1BReP/m55kiGFKS2LHfUyOyYnKD4tZvssbNIctDaxzTBqAvS9c5q8eSAAI2
+         WU9SIRZ2/8vP7BMMZy8L9V9GOLVbzMf2Efy8tLPirNvc7aVdlZvL+Le1yyh2ZXYTreNm
+         AqQxujQoYaNPXhTZUMzlKY4P2xb9+7b1wOzcrh9A2JmrA3D0xqXabZ2I0e0cxM5EIrDw
+         oAXNG0E/+GtqYL8tsg9BI56HlC9gUm8dtE/vnnqt7hFMUXbMF3QcClSvhyFjvF6xFlXI
+         lVXzKxx4jrUSrCjrOmSqYCDTfzfEUHhC3C5XYjV3YNK6QaufL8MKodAzaOJ8E+K88i6c
+         463g==
+X-Forwarded-Encrypted: i=1; AKwUvBz5G6LouU292VBExijLjmn+0ncDWz+dSa7q3FyN957LX7yimASOAoGQVwrOOA9rletIwk4AslGLZBIhbWE=@vger.kernel.org
+X-Gm-Message-State: AFuF++nFMkJ1f0+QxQny2XOVg6gzCWuU4Qpzm1PJ16sKXVhaGrCxWpjG
+	U8lvbDsTD06nIjaQT8kIj7LS/nb1YisdRJqQspiQmzfAUxxdnOoaYFIH
+X-Gm-Gg: AYBFou3/TpAFBS431wGCpRUDUW8unlmhS4riIQMPnGRUU1FgPYwIy1CAgJDSpSFTAMK
+	lXCYTJJB+9KSR30qWkcfJhEWGIPhQCmKajXc4HzcpJGJUfPHvSdZKE2TSflLWuD3ZJ7FCqcHIZV
+	wbq8ffhcBFh5lohK/R9zkjanzlOuaHjDO0VCtDSLT5e5/raIMzMKuJUHAXXL559biv9I57UpNTw
+	uv1IcPyhRUTQT4HN9Xl/kawBqOZZY0QPwY7sWTgNeN9GcnpYIiPsuptJW7DJiDgGesdkAj/yHep
+	l5JA6LPa8x6ufy4zWGhz2FTYehxnyt6IHLXawn7/HEGa0mTFrw/mM8caC66dAix817G4YGXww9T
+	8P0yCVQsEmADKlUZK69Q0McXQaKl0a1wJFAD516RWyGRsFTf9nixN2mNOAQ57PnTwFLgdPM+YHi
+	fQtkxgfl6RP84VVadykKqGLubcbulSHYhCKeLcC/nt9nfxD2oxz+wboS2NlmLdKuSbzR1d7meQe
+	HWQWiuSWPTX3QI=
+X-Received: by 2002:a17:90b:4b92:b0:396:40e6:f631 with SMTP id 98e67ed59e1d1-398f8203c37mr1788304a91.3.1788158046328;
+        Sun, 30 Aug 2026 23:34:06 -0700 (PDT)
+Received: from [10.25.162.18] ([165.85.1.43])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-142e0d18eaasm27743090c88.1.2026.08.30.23.33.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 30 Aug 2026 23:34:05 -0700 (PDT)
+Message-ID: <4dafc090-4e2d-4f05-85ce-cba993e93575@gmail.com>
+Date: Mon, 31 Aug 2026 14:33:57 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260825095047.9971-2-biju.das.jz@bp.renesas.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] arm64: dts: imx8mp-phyboard-pollux-peb-av-10: Fix SAI
+ master assignment
+To: Primoz Fiser <primoz.fiser@norik.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Peng Fan <peng.fan@nxp.com>,
+ Yannic Moog <y.moog@phytec.de>, Shawn Guo <shawnguo@kernel.org>
+Cc: devicetree@vger.kernel.org, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ upstream@lists.phytec.de
+References: <20260831051222.3298730-1-primoz.fiser@norik.com>
+Content-Language: en-US
+From: Chancel Liu <chancel.liu@gmail.com>
+In-Reply-To: <20260831051222.3298730-1-primoz.fiser@norik.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Aug 25, 2026 at 10:50:40AM +0100, Biju wrote:
-> From: Biju Das <biju.das.jz@bp.renesas.com>
+> The dailink_master label was placed on the codec sub-node instead of
+> the CPU sub-node, configuring the codec as I2S bitclock/frame master
+> with SAI2 as slave. On this board, BCLK and LRCLK are wired the other
+> way around: SAI2 must be bus master, with the codec as I2S slave.
 > 
-> Extend the existing device tree bindings for Renesas RZ/G3S PCIe
-> controller to include support for the RZ/G3L (renesas,r9a08g046-pcie)
-> PCIe controller. The RZ/G3L PCIe controller is similar to RZ/G3S but has
-> some key differences:
->      - Has 3 clocks compared to 2 on other SoCs.
->      - Has a different set of reset signals
+> Move dailink_master to the CPU sub-node so SAI2 drives BCLK and LRCLK,
+> fixing broken audio on the PHYTEC phyBOARD-Pollux-i.MX8MP board with
+> PEB-AV-10 Audio/Video expansion board. Also remove the spurious clocks
+> property from the codec sub-node, which had no effect in this topology.
 > 
-> Add device tree bindings for renesas,r9a08g046-pcie compatible IPs.
-> 
-> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
+> Fixes: 7012f551081f ("arm64: dts: imx8mp pollux: add expansion board overlay")
+> Signed-off-by: Primoz Fiser <primoz.fiser@norik.com>
+
+Reviewed-by: Chancel Liu <chancel.liu@gmail.com>
+
+Regards,
+Chancel Liu
+
 > ---
->  .../bindings/pci/renesas,r9a08g045-pcie.yaml  | 33 ++++++++++++++++++-
->  1 file changed, 32 insertions(+), 1 deletion(-)
+> Changes in v2:
+> - reword commit message to avoid topology confusion
 > 
-> diff --git a/Documentation/devicetree/bindings/pci/renesas,r9a08g045-pcie.yaml b/Documentation/devicetree/bindings/pci/renesas,r9a08g045-pcie.yaml
-> index 09d78bd1a577..911b1976bf53 100644
-> --- a/Documentation/devicetree/bindings/pci/renesas,r9a08g045-pcie.yaml
-> +++ b/Documentation/devicetree/bindings/pci/renesas,r9a08g045-pcie.yaml
-> @@ -13,7 +13,7 @@ description: |
->    PCIe host controller found in Renesas RZ/G3S and similar SoCs complies
->    with PCIe Base Specification 4.0 and supports different link speeds
->    depending on the SoC variant:
-> -    - Gen2 (5 GT/s): RZ/G3S
-> +    - Gen2 (5 GT/s): RZ/G3{L,S}
->      - Gen3 (8 GT/s): RZ/G3E, RZ/V2H(P), RZ/V2N
+> Link to v1: https://lore.kernel.org/all/20260827065556.2326079-1-primoz.fiser@norik.com/
+> 
+>  .../boot/dts/freescale/imx8mp-phyboard-pollux-peb-av-10.dtsi | 5 ++---
+>  1 file changed, 2 insertions(+), 3 deletions(-)
+> 
+> diff --git a/arch/arm64/boot/dts/freescale/imx8mp-phyboard-pollux-peb-av-10.dtsi b/arch/arm64/boot/dts/freescale/imx8mp-phyboard-pollux-peb-av-10.dtsi
+> index bb740f845855..8957b24a7ad2 100644
+> --- a/arch/arm64/boot/dts/freescale/imx8mp-phyboard-pollux-peb-av-10.dtsi
+> +++ b/arch/arm64/boot/dts/freescale/imx8mp-phyboard-pollux-peb-av-10.dtsi
+> @@ -77,13 +77,12 @@ sound {
+>  			"MIC3R", "Microphone Jack",
+>  			"Microphone Jack", "Mic Bias";
 >  
->  properties:
-> @@ -21,6 +21,7 @@ properties:
->      oneOf:
->        - enum:
->            - renesas,r9a08g045-pcie # RZ/G3S
-> +          - renesas,r9a08g046-pcie # RZ/G3L
->            - renesas,r9a09g047-pcie # RZ/G3E
->            - renesas,r9a09g057-pcie # RZ/V2H(P)
->        - items:
-> @@ -87,14 +88,18 @@ properties:
->    interrupt-controller: true
+> -		simple-audio-card,cpu {
+> +		dailink_master: simple-audio-card,cpu {
+>  			sound-dai = <&sai2>;
+>  		};
 >  
->    clocks:
-> +    minItems: 2
->      items:
->        - description: System clock
->        - description: PM control clock or clock for L1 substate handling
-> +      - description: PM control clock or clock for L1 substate handling
-
-PMU? You list both clocks, but is there any different between them?
-
->  
->    clock-names:
-> +    minItems: 2
->      items:
->        - const: aclk
->        - enum: [pm, pmu]
-> +      - enum: [pm, pmu]
-
-This should be "const: pmu" in such case.
-
-Best regards,
-Krzysztof
-
+> -		dailink_master: simple-audio-card,codec {
+> +		simple-audio-card,codec {
+>  			sound-dai = <&codec>;
+> -			clocks = <&clk IMX8MP_CLK_SAI2>;
+>  		};
+>  	};
+>  };
