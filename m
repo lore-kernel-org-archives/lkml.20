@@ -1,44 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DC714A49A1;
-	Mon, 31 Aug 2026 13:43:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7297519929;
+	Mon, 31 Aug 2026 13:43:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183814; cv=none; b=hxpfpa3dMG0Pm7XdIQKX4r2w+hxtZ7Wx+8PzdmZl9bHThDebioujbHl+Iejo0cmSyNVnYwlg/5O9iBhpuKRc2l+PUdMgCyV3kEcx7prlIbPChF5q5hZBusAwWQgOOiitc55A+nxMPniiIivh0+iK8PAx+i5kWI4R9BOVNqoR/2I=
+	t=1788183817; cv=none; b=kb4OaWDYdVyds+8npnznO+ljg2vz6TuDkvuqGEOGgRyFMshSbLR/Q8AiCuqfp5ndAHHUdVxfOQIjMsOocJq5hGHSXcr1mata3Q/sM1A5H5Y0ot0OWAsxbzf2pLBs7zVrGNLpHsL95Nfz4JKL8QLD6s08zgAiGy3OLK9BXaxpmlg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183814; c=relaxed/simple;
-	bh=sVyr8foC6HYCvrx8Cque7mZDWQkB3fi3pNelniF0yfU=;
+	s=arc-20240116; t=1788183817; c=relaxed/simple;
+	bh=WwMjHamjiEsxZ7Boy8cEZs55s+eVjcK9LXw2BYBEASQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=GhNZpXgT1hx/gtqQ6Iv+YDuyaZSys0SkjlRg6QIg+7+gKPbRZmW7Ggx8fTRUF0xEJyzFAq2oLh9k42qlbgz52l8fcoOp2A2BDXU0XSvDPfpF2jVGQqqGNQruRZhh8R6nNyeuYjQpmr7pyuhepEP6wdEtQHcHyh/uTuoFy1eW3N0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cHcWbP2R; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=d/n2fkx0mGAGT8fFHIAM7C7hwpdMmfxus+R98Wx6bSzK9U2sXxywccKoQG40C0FKDumY9b0P60h7DO9W3ssB/9ayq3qqFHK+H7Idkt581Bk29Xg2gryHTQPMqBpN+x8rG2Kzt04yW0tsBjw0cDbSHOLxP+Phmk5s8JXnbiRRqEA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VtQ7NMgl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cHcWbP2R"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 174D51F000E9;
-	Mon, 31 Aug 2026 13:43:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VtQ7NMgl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32C5F1F00ADB;
+	Mon, 31 Aug 2026 13:43:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788183810;
-	bh=rOKKgiKls+fMCU+mwXra6P3qUafxkT02LD6xOduHgow=;
+	s=k20260515; t=1788183813;
+	bh=gRKWpOjnNlR3g0a6AJl3Qap9MmzVPXZrp8eBsnp/5Ig=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=cHcWbP2RKD4r7kOfLHXlktKuMg6JH09cvIXd7/Ln0Asnlne4gwRO0fFdFi5JMOkLB
-	 Z0WD1V99wN2aaJNNiTQAgP783YYqPrNSDL4A2U+Cnp9mUJstJJl+I/Q3fwwGWt3YZV
-	 4Sgk6+ei9o19ndq5JzLbAuhJe9cfN4RGna0uq7IGfeLPq8freCSufJ2OU1Py4DU6Ya
-	 KB+plFussJl0xcS2P8x8JZwXlVpDzgQUX7VxqW+FbAKvkq15NwPKZBlUbKCbpYCGMp
-	 tAr8u27/x/Eb5/TntWjuLroAIn5+ZlCl0XFIvm+qfhb4iE7dBYuCNAs8TsRrKRbRE6
-	 zN1lujZx4fPXA==
+	b=VtQ7NMgljj19FC8+7cgQSV5PegBVZ1SfKXQgHkPv8ToQ7wgpKJYoIQvUSEqtlkyt5
+	 QCRtZTmyMB3IiMOo3SxSNa5AdVAYtvBRVBDvCqSetz2101LhVl7xVhDKrrxuYCAlPB
+	 eQVJ2I2N1y+Bvrkrk4bua0L4Rd4EYkyr6yu8YDY6Jb2OoOc6x1jU7v+RxVqld75T70
+	 ZZs9gTkdwoGhb93YP/RC6tiKdVktVZISTRQ8ccMP6T0byy4unaAfP5eHOcDRVZ9Be+
+	 jSx1jeB1Bz5dCegyfjjz1xsu372s30wLOXibZmVdJBohJQFr5hTwCpIl9vbuCEspbA
+	 5yGNB8cR1IUug==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Xu Rao <raoxu@uniontech.com>,
-	Takashi Iwai <tiwai@suse.de>,
+Cc: Brandon Brnich <b-brnich@ti.com>,
+	Jackson Lee <jackson.lee@chipsnmedia.com>,
+	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
 	Sasha Levin <sashal@kernel.org>,
-	perex@perex.cz,
-	tiwai@suse.com,
-	linux-sound@vger.kernel.org,
+	nas.chung@chipsnmedia.com,
+	mchehab@kernel.org,
+	linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18] ALSA: usb-audio: qcom: Free QMI handle
-Date: Mon, 31 Aug 2026 09:25:46 -0400
-Message-ID: <20260831133314.4125787-318-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-6.12] media: chips-media: wave5: Fix Reports from Kernel Lock Validator
+Date: Mon, 31 Aug 2026 09:25:48 -0400
+Message-ID: <20260831133314.4125787-320-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -54,71 +56,76 @@ X-stable-base: Linux 6.18.48
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Xu Rao <raoxu@uniontech.com>
+From: Brandon Brnich <b-brnich@ti.com>
 
-[ Upstream commit b8ff1f3578f83dedf5feb796d97a3f67c1bea58f ]
+[ Upstream commit 7d5d364f8b2dcc9b6b92456fb55632fde4a4d96f ]
 
-qc_usb_audio_probe() allocates svc->uaudio_svc_hdl separately from the
-uaudio_qmi_svc object.
+handle_dynamic_resolution change requires that the state_lock be acquired
+based on the lockdep_assert_held. However, the
+handle_dynamic_resolution_change call in initialize_sequence does not
+properly obtain the lock before calling.
 
-qmi_handle_release() releases the resources owned by an initialized QMI
-handle, but does not free the memory containing the struct qmi_handle
-itself. The probe error path and the remove path currently release the
-handle and then free svc, losing the last pointer to the separately
-allocated handle.
+Since the v4l2_ctrl_find and s_ctrl can sleep, they should not be called
+while a lock is already held. Store off the fbc_buf_count then properly
+update control once lock has been freed.
 
-This leaks one struct qmi_handle on each affected probe unwind and on
-each successful probe/remove cycle.
-
-Free the handle after qmi_handle_release() in both paths.
-
-Signed-off-by: Xu Rao <raoxu@uniontech.com>
-Link: https://patch.msgid.link/9108EC860F3F87DF+20260623071308.2549182-1-raoxu@uniontech.com
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Signed-off-by: Brandon Brnich <b-brnich@ti.com>
+Tested-by: Jackson Lee <jackson.lee@chipsnmedia.com>
+Signed-off-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-# Stable Backport Analysis: ALSA: usb-audio: qcom: Free QMI handle
+# Stable Backport Analysis: `media: chips-media: wave5: Fix Reports from
+Kernel Lock Validator`
 
-**Local tree:** `v6.18.44` (Linux 6.18.y stable)
-**Upstream fix:** `b8ff1f3578f83` (on `master`, not yet in this tree)
+**Local tree:** `linux-6.18.y` (`v6.18.43`, Makefile `6.18.43`)
+**Verdict scope:** This checkout only.
 
 ---
 
 ## PHASE 1: COMMIT MESSAGE FORENSICS
 
 ### Step 1.1: Subject line
-**Record:** `[ALSA: usb-audio: qcom]` `[Free]` — free a separately
-allocated QMI handle that was leaked on probe error and remove paths.
+**Record:** `[media: chips-media: wave5]` `[fix]` — Correct
+lockdep/locking violations in dynamic-resolution handling by deferring
+V4L2 control updates until after `state_spinlock` is released.
 
 ### Step 1.2: Tags
 **Record:**
-- **Signed-off-by:** Xu Rao `<raoxu@uniontech.com>` (author)
-- **Signed-off-by:** Takashi Iwai `<tiwai@suse.de>` (ALSA maintainer,
-  committer)
-- **Link:** https://patch.msgid.link/9108EC860F3F87DF+20260623071308.254
-  9182-1-raoxu@uniontech.com
-- No `Fixes:`, `Reported-by:`, `Tested-by:`, `Reviewed-by:`, `Cc:
-  stable@vger.kernel.org`
-- Notable: maintainer (Takashi Iwai) applied and committed the patch
+- **Signed-off-by:** Brandon Brnich `<b-brnich@ti.com>` (author)
+- **Tested-by:** Jackson Lee `<jackson.lee@chipsnmedia.com>`
+- **Signed-off-by:** Nicolas Dufresne `<nicolas.dufresne@collabora.com>`
+  (reviewer/maintainer chain)
+- **Signed-off-by:** Hans Verkuil `<hverkuil+cisco@kernel.org>` (media
+  maintainer)
+- **No** `Fixes:`, `Reported-by:`, `Link:`, `Cc:
+  stable@vger.kernel.org`, or `Reviewed-by:` tags
+- Notable: hardware vendor testing + subsystem maintainer sign-offs; no
+  syzbot/fuzzer report
 
 ### Step 1.3: Body analysis
 **Record:**
-- **Bug:** `svc->uaudio_svc_hdl` is `kzalloc()`'d separately from
-  `struct uaudio_qmi_svc`. `qmi_handle_release()` tears down handle
-  resources but does not free the `struct qmi_handle` memory. After
-  `kfree(svc)`, the handle allocation is orphaned.
-- **Symptom:** One `struct qmi_handle` leaked per probe unwind (error
-  path) and per successful probe/remove cycle.
-- **Root cause:** Mismatch between separate allocation and release API
-  semantics (`qmi_handle_release()` vs. `kfree()`).
-- **Version info:** None stated; bug present since driver introduction.
+- **Bug:** `handle_dynamic_resolution_change()` must be called with
+  `state_spinlock` held (`lockdep_assert_held`), but it calls
+  `v4l2_ctrl_find()` and `v4l2_ctrl_s_ctrl()`, which acquire the
+  control-handler mutex and can sleep.
+- **Symptom:** Kernel Lock Validator (lockdep) reports; underlying issue
+  is mutex acquisition while holding a spinlock.
+- **Root cause:** Mixing spinlock-protected instance state with sleeping
+  V4L2 control framework calls in the same function.
+- **Fix approach:** Store `fbc_buf_count` under the spinlock; update the
+  control afterward via new helper `wave5_update_min_bufs_ctrl()`.
+- **Version info:** None in message.
 
 ### Step 1.4: Hidden bug fix?
-**Record:** No — this is an explicit, straightforward memory-leak fix,
-not disguised cleanup.
+**Record:** Yes. Despite the lockdep-focused title, this fixes a real
+**sleeping-while-holding-spinlock** / **lock inversion** bug, not
+cosmetic cleanup. The driver already documents this pattern in
+`wave5_vpu_dec_stop()` (lines 796–799): release `state_spinlock` before
+operations that may block on a mutex.
 
 ---
 
@@ -126,204 +133,189 @@ not disguised cleanup.
 
 ### Step 2.1: Inventory
 **Record:**
-- **File:** `sound/usb/qcom/qc_audio_offload.c` (+2 / -0)
-- **Functions:** `qc_usb_audio_probe()`, `qc_usb_audio_remove()`
-- **Scope:** Single-file, surgical fix (2 lines)
+- **File:** `drivers/media/platform/chips-media/wave5/wave5-vpu-dec.c`
+  (~+55 / -20 lines)
+- **Functions modified/added:**
+  - **New:** `wave5_update_min_bufs_ctrl()`
+  - **Modified:** `handle_dynamic_resolution_change()`,
+    `wave5_vpu_dec_finish_decode()`, `initialize_sequence()`,
+    `wave5_vpu_dec_device_run()`
+- **Scope:** Single-file, surgical locking fix
 
 ### Step 2.2: Code flow per hunk
-
-**Hunk 1 — `release_qmi` error path in `qc_usb_audio_probe()`:**
-- **Before:** `qmi_handle_release(svc->uaudio_svc_hdl);` → `kfree(svc);`
-  — handle struct leaked
-- **After:** `qmi_handle_release()` then `kfree(svc->uaudio_svc_hdl)`
-  then `kfree(svc)`
-
-**Hunk 2 — `qc_usb_audio_remove()`:**
-- **Before:** Same leak on every module remove
-- **After:** `kfree(svc->uaudio_svc_hdl)` added after
-  `qmi_handle_release()`
+**Record:**
+1. **`wave5_update_min_bufs_ctrl()` (new):** Runs without
+   `state_spinlock`; calls `v4l2_ctrl_find()` + `v4l2_ctrl_s_ctrl()`
+   only when buffer count changed.
+2. **`handle_dynamic_resolution_change()`:** Before → updates min-
+   buffers control while spinlock held. After → only updates instance
+   fields and queues source-change event under lock.
+3. **`wave5_vpu_dec_finish_decode()`:** Before → calls
+   `handle_dynamic_resolution_change()` under lock (including sleeping
+   ctrl ops). After → saves `fbc_buf_count` under lock, calls helper
+   after `spin_unlock_irqrestore()`.
+4. **`initialize_sequence()`:** Same deferral pattern after seq-init DRC
+   handling.
+5. **`wave5_vpu_dec_device_run()` error path:** Same deferral when
+   `initialize_sequence()` fails during drain/DRC.
 
 ### Step 2.3: Bug mechanism
-**Record:** **Category:** Error-path / resource leak (missing `kfree` on
-separately allocated object).
-**Mechanism:** `uaudio_svc_hdl` is a pointer field in `struct
-uaudio_qmi_svc` pointing to a separately `kzalloc()`'d `struct
-qmi_handle`. `qmi_handle_release()` (documented and implemented in
-`drivers/soc/qcom/qmi_interface.c`) frees internal resources
-(`recv_buf`, service list entries, etc.) but explicitly does not free
-the handle struct itself — callers must do that, as
-`drivers/slimbus/qcom-ngd-ctrl.c` does with `devm_kfree()` after
-`qmi_handle_release()`.
+**Record:** **Category:** Synchronization / lock-ordering violation
+(spinlock + mutex inversion).
+**Mechanism:** `state_spinlock` is a spinlock; `v4l2_ctrl_find()` uses
+`mutex_lock(hdl->lock)` via `find_ref_lock()`, and `v4l2_ctrl_s_ctrl()`
+uses `v4l2_ctrl_lock()` → `mutex_lock()`. Calling these while holding a
+spinlock violates kernel locking rules and can trigger lockdep warnings,
+`scheduling while atomic` BUGs, or deadlocks under contention.
 
 ### Step 2.4: Fix quality
-**Record:** Obviously correct; mirrors established QMI caller pattern.
-Minimal, no API changes. No meaningful regression risk — `kfree()` is
-called after full `qmi_handle_release()` and before `kfree(svc)`.
+**Record:** Fix is obviously correct and minimal. It mirrors the
+existing `wave5_vpu_dec_stop()` pattern. Regression risk is low:
+`fbc_buf_count` is set under the lock before the deferred update; the
+helper re-checks whether an update is needed.
 
 ---
 
 ## PHASE 3: GIT HISTORY INVESTIGATION
 
-### Step 3.1: Blame
-**Record:** Buggy allocation introduced in `326bbc348298a` ("ALSA: usb-
-audio: qcom: Introduce QC USB SND offloading support", 2025-04-11).
-Driver is an ancestor of `v6.18` — bug has been present since the driver
-landed in this release series.
+### Step 3.1: Blame / introduction
+**Record:** Buggy `v4l2_ctrl_s_ctrl()` inside
+`handle_dynamic_resolution_change()` present since driver introduction
+in `9707a6254a8a6` (“Add the v4l2 layer”, Nov 2023).
+`lockdep_assert_held(&inst->state_spinlock)` was there from the start.
+Related stable backport `ea28b33e1b15b` (May 2026) added missing
+spinlock around `initialize_sequence()`’s call — which makes the
+sleeping-under-spinlock path more consistently exercised on seq-init.
 
 ### Step 3.2: Fixes: tag
-**Record:** N/A — no `Fixes:` tag present.
+**Record:** N/A — no `Fixes:` tag in commit message.
 
 ### Step 3.3: Related file history
-**Record:** Recent related fixes in this file from the same
-author/subsystem:
-- `1467ca02ddac4` — "Free sideband sg_table objects" (same leak pattern,
-  already in this 6.18.y tree)
-- `e7144a2b3ac8d` — error-path cleanup in `qc_usb_audio_probe()`
-- `5c7ef5001292d` — xfer_buf leak fix
-
-Standalone fix; original submission was `[PATCH 1/3]` but v2 was applied
-as a single patch by Takashi Iwai with no series dependencies.
+**Record:** Recent stable wave5 commits on this file include multiple
+crash/panic/lockdep fixes (`ea28b33`, `d71fc687`, `ea316b78`,
+`27cb12b7`, etc.). This patch is a logical follow-up to the spinlock-
+protection backports. Standalone fix; not part of a numbered series.
 
 ### Step 3.4: Author context
-**Record:** Xu Rao (Uniontech) — active contributor to Qualcomm USB
-audio offload leak fixes. Takashi Iwai (ALSA maintainer) committed the
-fix.
+**Record:** Brandon Brnich has other wave5 commits in this tree
+(`b607b5e2`, `5e702ee8`, `f24ca8b5`). Patch signed by media maintainer
+Hans Verkuil and reviewed by Nicolas Dufresne.
 
 ### Step 3.5: Dependencies
-**Record:** None. Applies standalone; no prerequisite commits or
-structural assumptions beyond code already in this tree.
+**Record:** No external prerequisites. Benefits from `ea28b33` already
+being in 6.18.y (spinlock around `initialize_sequence()`). The candidate
+commit is not yet in this tree; upstream diff has minor context
+differences (`sent_eos`, `retry` paths absent in 6.18.y) but the core
+fix applies cleanly with at most small manual adjustment.
 
 ---
 
 ## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
-### Step 4.1: Original discussion
-**Record:**
-- **URL:** https://lists.openwall.net/linux-kernel/2026/06/23/512
-- **Series:** Originally `[PATCH 1/3]`; v2 submitted as single patch
-- **Maintainer response:** Takashi Iwai: "Applied now. Thanks."
-  (https://lists.openwall.net/linux-kernel/2026/06/25/1001)
-- No NAKs, no stable nomination in thread
-- `b4 dig -c` could not be used (commit not in current HEAD); lore found
-  via openwall mirror
-
-### Step 4.2: Reviewers
-**Record:** CC'd: Jaroslav Kysela, Takashi Iwai, Greg Kroah-Hartman,
-Kees Cook, linux-sound, linux-kernel. Appropriate subsystem maintainers
-included.
-
-### Step 4.3: Bug report
-**Record:** No syzbot, kmemleak, or user bug report. Found via code
-review.
-
-### Step 4.4: Related patches
-**Record:** Patches 2/3 of the original series were not committed with
-this fix; the applied upstream commit is self-contained.
-
-### Step 4.5: Stable list
-**Record:** No stable-specific discussion found for this exact patch.
+### Step 4.1–4.5
+**Record:** Commit hash not found in local branches (`master`, `linux-
+next`, `media-next`, `graphics-next`). `b4 dig` could not be run without
+a commit hash. Lore.kernel.org fetch blocked (bot protection).
+**UNVERIFIED:** mailing-list thread, reviewer stable nominations, series
+revisions.
 
 ---
 
 ## PHASE 5: CODE SEMANTIC ANALYSIS
 
 ### Step 5.1: Key functions
-**Record:** `qc_usb_audio_probe()`, `qc_usb_audio_remove()`
+**Record:** `wave5_update_min_bufs_ctrl()`,
+`handle_dynamic_resolution_change()`, `wave5_vpu_dec_finish_decode()`,
+`initialize_sequence()`, `wave5_vpu_dec_device_run()`.
 
 ### Step 5.2: Callers
-**Record:** Registered as `.probe`/`.remove` in
-`qc_usb_audio_offload_drv` auxiliary driver table. Invoked during
-auxiliary device probe/remove on Qualcomm platforms with
-`CONFIG_SND_USB_AUDIO_QMI`.
+**Record:** `handle_dynamic_resolution_change()` called from:
+- `wave5_vpu_dec_finish_decode()` — decode completion / sequence-change
+  IRQ path
+- `initialize_sequence()` — stream startup seq-init
+- `wave5_vpu_dec_device_run()` — error recovery during
+  `VPU_INST_STATE_OPEN`
+
+All are normal V4L2 mem2mem decode paths reachable from userspace
+`ioctl()` streaming.
 
 ### Step 5.3: Callees
-**Record:** `kzalloc()`, `qmi_handle_init()`, `qmi_add_server()`,
-`qmi_handle_release()`, `kfree()`, `qc_usb_audio_cleanup_qmi_dev()`,
-`snd_usb_register_platform_ops()`
+**Record:** Deferred path calls `v4l2_ctrl_find()` and
+`v4l2_ctrl_s_ctrl()` (mutex-based). Under-lock path calls
+`v4l2_event_queue_fh()`, format updates, state changes.
 
 ### Step 5.4: Reachability
-**Record:** Triggered at module/auxiliary-device load and unload on
-systems with Qualcomm USB audio offload enabled
-(`CONFIG_SND_USB_AUDIO_QMI=y/m`, requires `QCOM_QMI_HELPERS`,
-`USB_XHCI_SIDEBAND`). Not userspace-triggerable directly, but hits every
-probe error and every clean module remove.
+**Record:** Triggered on dynamic resolution change during HEVC/H.264
+decode — common real-world scenario (resolution switches in a stream).
+Userspace-reachable via V4L2 M2M decode.
 
 ### Step 5.5: Similar patterns
-**Record:** `drivers/slimbus/qcom-ngd-ctrl.c` correctly calls
-`qfree`/`devm_kfree` after `qmi_handle_release()`. Same author's
-`1467ca02ddac4` fixed an analogous separate-allocation leak in this same
-driver.
+**Record:** `wave5_vpu_dec_stop()` already releases `state_spinlock`
+before mutex-capable firmware/control work (lines 796–805). This fix
+brings DRC handling in line with that established pattern.
 
 ---
 
-## PHASE 6: CROSS-REFERENCING AGAINST LOCAL TREE
+## PHASE 6: CROSS-REFERENCE AGAINST LOCAL TREE
 
 ### Step 6.1: Buggy code present?
-**Record:** **YES.** Current tree at
-`sound/usb/qcom/qc_audio_offload.c`:
-- Line 1968: separate `kzalloc(sizeof(*svc->uaudio_svc_hdl))`
-- Lines 1996–1998: `release_qmi` path missing
-  `kfree(svc->uaudio_svc_hdl)`
-- Lines 2020–2021: `remove` path missing `kfree(svc->uaudio_svc_hdl)`
-- Upstream fix `b8ff1f3578f83` is **not** an ancestor of HEAD (`git
-  merge-base --is-ancestor` exit 1)
+**Record:** **Yes.** Current `wave5-vpu-dec.c` lines 295–301 call
+`v4l2_ctrl_find()` / `v4l2_ctrl_s_ctrl()` inside
+`handle_dynamic_resolution_change()` while
+`lockdep_assert_held(&inst->state_spinlock)` is in effect. All three
+callers hold the spinlock.
 
-### Step 6.2: Backport difficulty
-**Record:** Clean apply expected — the `release_qmi` and `remove` paths
-match upstream context exactly.
+### Step 6.2: Backport complications
+**Record:** Expected **clean apply with minor context adjustment**.
+Upstream diff references `inst->sent_eos` and `inst->retry` code not
+present in 6.18.y; the essential hunks (new helper, ctrl removal from
+DRC handler, deferred update at three call sites) map directly to
+current code.
 
 ### Step 6.3: Related fixes already present?
-**Record:** `1467ca02ddac4` (sg_table leak, same driver/author) is
-already in this tree — strong precedent that this class of leak fix is
-accepted for 6.18.y.
+**Record:** `ea28b33e1b15b` (spinlock around `initialize_sequence()` DRC
+call) and `d71fc6874fce3` (spinlock around `send_eos_event()`) are
+already in 6.18.y. This fix is **not** duplicated.
 
 ---
 
 ## PHASE 7: SUBSYSTEM CONTEXT
 
 ### Step 7.1: Subsystem criticality
-**Record:** **IMPORTANT** — ALSA USB audio driver, Qualcomm-specific
-offload path. Not core kernel, but affects real hardware (Snapdragon
-laptops/tablets with USB XHCI sideband audio offload).
+**Record:** **PERIPHERAL** — `VIDEO_WAVE_VPU` driver (`ARCH_K3 ||
+COMPILE_TEST`). Affects K3 SoC users and compile-test builds, not all
+kernel users.
 
 ### Step 7.2: Activity
-**Record:** Actively maintained; multiple bug fixes in 2025–2026
-including several leak fixes backported to stable.
+**Record:** Actively maintained — multiple wave5 stable backports in
+2026 on this tree.
 
 ---
 
-## PHASE 8: IMPACT AND RISK ASSESSMENT
+## PHASE 8: IMPACT AND RISK
 
 ### Step 8.1: Who is affected
-**Record:** Users with `CONFIG_SND_USB_AUDIO_QMI` on Qualcomm platforms
-using USB audio offload. Config-specific, platform-specific — not
-universal.
+**Record:** Users of Chips&Media Wave5 VPU on TI K3 (and similar) doing
+mem2mem video decode with dynamic resolution changes.
 
 ### Step 8.2: Trigger conditions
-**Record:**
-- Every successful driver remove (module unload, device unbind)
-- Probe error after QMI init when `snd_usb_register_platform_ops()`
-  fails
-- Unprivileged users cannot directly trigger; requires platform hardware
-  and driver loaded
-- **Likelihood:** Once per boot cycle on affected systems (remove path);
-  probe error path is rarer
+**Record:** Dynamic resolution change during decode (sequence change,
+seq-init, or init failure + drain path). Not rare for adaptive streams.
+Unprivileged users with V4L2 device access can trigger.
 
 ### Step 8.3: Failure mode severity
-**Record:** **LOW** — small memory leak (~one `struct qmi_handle` per
-cycle, roughly a few hundred bytes including embedded lists already
-freed by `qmi_handle_release()`). No crash, corruption, deadlock, or
-security exposure. Would require repeated load/unload to accumulate
-meaningfully.
+**Record:** Lockdep warnings (debug kernels); potential `scheduling
+while atomic` BUG, deadlock, or oops on production kernels when ctrl
+path contends or sleeps. **Severity: HIGH** (can crash the kernel during
+decode).
 
 ### Step 8.4: Risk-benefit
 **Record:**
-- **Benefit:** Eliminates a real, confirmed leak on an established code
-  path; aligns with prior stable backports in this exact driver
-- **Risk:** Very low — 2-line addition, established QMI pattern, no
-  behavior change beyond freeing leaked memory
-- **Ratio:** Moderate benefit for niche users, very low risk; precedent
-  in this tree tips toward inclusion
+- **Benefit:** HIGH for affected hardware — prevents real locking
+  violations on a common decode event
+- **Risk:** LOW — small, follows existing in-driver pattern, tested by
+  hardware vendor
+- **Ratio:** Strong benefit for targeted users, very low regression risk
 
 ---
 
@@ -332,131 +324,222 @@ meaningfully.
 ### Step 9.1: Evidence summary
 
 **FOR backport:**
-- Real, verified memory leak in code present since driver introduction
-- Obviously correct 2-line fix matching QMI subsystem conventions
-- Driver exists in v6.18; bug affects this tree
-- Same author fixed an analogous leak (`1467ca02ddac4`) already
-  backported to this 6.18.y tree by Greg Kroah-Hartman
-- ALSA maintainer reviewed and applied upstream
-- Clean apply, no dependencies
+- Real mutex-under-spinlock bug in production decode paths
+- Can cause kernel crash/deadlock, not just lockdep noise
+- Small, surgical, obviously correct fix
+- Driver and buggy code exist in 6.18.y
+- Related lockdep fixes already backported to this tree
+- `Tested-by` from Chips&Media; maintainer sign-offs
+- Matches established pattern already in the same file
 
 **AGAINST backport:**
-- Low severity (small leak, not crash/corruption/security)
-- Niche hardware/config (`CONFIG_SND_USB_AUDIO_QMI`)
-- No fuzzer or user reports
-- Strict reading of "important issue" criterion is borderline for pure
-  leaks
+- Narrow hardware audience (`ARCH_K3 || COMPILE_TEST`)
+- Commit not yet in tree; minor context differences vs upstream diff
+- No syzbot/user crash report in commit message
 
-**Unresolved:** Whether patches 2/3 of the original `[PATCH 1/3]` series
-were ever needed — upstream committed only this standalone fix.
+**UNRESOLVED:**
+- Mailing-list discussion and explicit stable nomination (lore
+  inaccessible; commit not in local branches)
 
 ### Step 9.2: Stable rules checklist
-1. Obviously correct and tested? **PASS** — correct by inspection;
-   maintainer-applied upstream
-2. Fixes a real bug? **PASS** — confirmed memory leak
-3. Important issue? **PASS (borderline)** — not crash/security, but real
-   leak on remove path; same class already accepted in this tree
-4. Small and contained? **PASS** — 2 lines, 1 file
-5. No new features/APIs? **PASS**
-6. Can apply to local tree? **PASS** — buggy code present, clean apply
-   expected
+1. Obviously correct and tested? **PASS** — clear locking fix, `Tested-
+   by` present
+2. Fixes a real user-affecting bug? **PASS** — mutex while holding
+   spinlock on decode DRC path
+3. Important issue? **PASS** — kernel crash/deadlock potential (HIGH)
+4. Small and contained? **PASS** — one file, ~55 lines net
+5. No new features/APIs? **PASS** — refactor of existing control update
+   only
+6. Can apply to local tree? **PASS** — buggy code present; minor context
+   adjustment at most
 
-### Step 9.3: Exception categories
-**Record:** None directly (not device ID, quirk, DT, build, or docs).
-Standard resource-leak fix.
+### Step 9.3: Exception category
+**Record:** None (standard locking bug fix, not device-
+ID/quirk/build/doc exception).
 
 ### Step 9.4: Decision rationale
-
-This is a genuine memory leak on the driver remove path and probe error
-path in `sound/usb/qcom/qc_audio_offload.c`, present in Linux 6.18 since
-the Qualcomm USB audio offload driver was introduced. The fix is
-minimal, obviously correct, and follows the established QMI handle
-lifecycle pattern used elsewhere in the Qualcomm subsystem.
-
-While the leak severity is low (one small allocation per module cycle on
-niche hardware), this 6.18.y tree has already accepted a nearly
-identical class of fix from the same author in the same file
-(`1467ca02ddac4` — "Free sideband sg_table objects"). That establishes
-clear precedent that resource-leak fixes in this driver are appropriate
-for 6.18.y stable. The fix is not yet in the local tree (`b8ff1f3578f83`
-is on `master` only) and should be backported.
+This is a genuine locking bug fix, not a lockdep-only cosmetic change.
+`v4l2_ctrl_find()` and `v4l2_ctrl_s_ctrl()` take mutexes and must not
+run under `state_spinlock`. The bug exists in 6.18.y, is reachable
+during normal decode with resolution changes, and the fix is small,
+tested, and consistent with code already in the driver. Stable
+maintainers have already backported related wave5 lockdep fixes to this
+tree; this completes that work.
 
 ---
 
 ## Verification
 
-- **[Phase 1]** Parsed subject, tags, body from provided commit message
-- **[Phase 1]** Confirmed no syzbot/Reported-by; Takashi Iwai Signed-
-  off-by present
-- **[Phase 2]** Read current `qc_audio_offload.c` lines 1957–2023: leak
-  confirmed on both paths
-- **[Phase 2]** Read `qmi_handle_release()` at
-  `drivers/soc/qcom/qmi_interface.c:687-719`: does not free `struct
-  qmi_handle` itself
-- **[Phase 2]** Read `drivers/slimbus/qcom-ngd-ctrl.c:496-508`:
-  precedent for caller freeing handle after release
-- **[Phase 3]** `git describe HEAD`: `v6.18.44`
-- **[Phase 3]** `git blame` lines 1968–2021: introduced in
-  `326bbc348298a` (2025-04-11)
-- **[Phase 3]** `git merge-base --is-ancestor 326bbc348298ab v6.18`:
-  driver in v6.18 release
-- **[Phase 3]** `git merge-base --is-ancestor b8ff1f3578f83 HEAD`: exit
-  1 — fix NOT in current tree
-- **[Phase 3]** `git show 1467ca02ddac4`: analogous leak fix already in
-  this tree (committed by Greg K-H)
-- **[Phase 4]** Fetched https://lists.openwall.net/linux-
-  kernel/2026/06/23/512: original patch submission
-- **[Phase 4]** Fetched https://lists.openwall.net/linux-
-  kernel/2026/06/25/1001: Takashi Iwai "Applied now"
-- **[Phase 4]** `b4 dig -c HEAD`: not applicable (commit not in HEAD);
-  lore accessed via openwall
-- **[Phase 5]** `grep qc_usb_audio_probe`: only auxiliary driver probe
-  entry
-- **[Phase 5]** Read `include/linux/soc/qcom/qmi.h:216-238`: `struct
-  qmi_handle` definition
-- **[Phase 6]** Confirmed buggy code at lines 1996–1998 and 2020–2021 in
+- **[Phase 1]** Parsed subject, tags, body from user-provided commit
+  message
+- **[Phase 2]** Analyzed full diff; confirmed ctrl ops moved outside
+  spinlock at 3 call sites
+- **[Phase 2]** Read `v4l2_ctrl_s_ctrl()` — locks handler mutex
+  (`include/media/v4l2-ctrls.h:1137-1145`)
+- **[Phase 2]** Read `v4l2_ctrl_find()` — uses `mutex_lock` via
+  `find_ref_lock()` (`v4l2-ctrls-core.c:1742-1750`)
+- **[Phase 3]** `git describe HEAD` → `v6.18.43` on `linux-6.18.y`
+- **[Phase 3]** `git log` on `wave5-vpu-dec.c` → related fixes
+  `ea28b33`, `d71fc687` present
+- **[Phase 3]** `git show 9707a6254a8a6b` → original driver had buggy
+  ctrl-under-spinlock pattern
+- **[Phase 3]** `git blame` lines 285-301 → bug present since driver
+  introduction
+- **[Phase 4]** Searched `master`, `linux-next`, `media-next`,
+  `graphics-next` for commit — not found
+- **[Phase 4]** UNVERIFIED: `b4 dig` (no commit hash), lore.kernel.org
+  (blocked)
+- **[Phase 5]** Grep: `handle_dynamic_resolution_change` has 3 callers,
+  all under spinlock
+- **[Phase 5]** Read `wave5_vpu_dec_stop()` lines 796-805 — existing
+  defer-mutex pattern
+- **[Phase 6]** Confirmed buggy code at `wave5-vpu-dec.c:295-301` in
   local tree
-- **[Phase 6]** `grep kfree.*uaudio_svc_hdl` in tree: no matches — fix
-  absent
-- **[Phase 6]** Read `sound/usb/Kconfig:191-197`:
-  `CONFIG_SND_USB_AUDIO_QMI` dependencies
-- **[Phase 8]** Assessed severity as LOW leak, not crash/security
+- **[Phase 6]** Confirmed `ea28b33` spinlock fix already applied at
+  lines 1569-1571
+- **[Phase 6]** Grep: `sent_eos`, `retry` absent in 6.18.y — minor
+  backport context difference noted
+- **[Phase 7]** Read `Kconfig` — `VIDEO_WAVE_VPU` depends on `ARCH_K3 ||
+  COMPILE_TEST`
+- **[Phase 8]** Traced trigger to DRC during V4L2 mem2mem decode —
+  userspace-reachable
 
-**YES**The background checks finished and match the earlier analysis:
+**YES**The branch searches are done. The commit
+(`wave5_update_min_bufs_ctrl` / "Kernel Lock Validator") wasn't found on
+`master`, `linux-next`, `media-next`, or `graphics-next` in this
+checkout, so it looks like a newer upstream patch not present locally
+yet.
 
-- **Fix location:** `b8ff1f3578f83` ("ALSA: usb-audio: qcom: Free QMI
-  handle") is on `master` but **not** in the current `v6.18.44` tree —
-  so the leak is still present locally.
-- **Author context:** Xu Rao has several similar QMI/resource-leak fixes
-  in this area, including `1467ca02ddac4` (sideband `sg_table` leak),
-  which is already in this 6.18.y tree.
+That doesn't change the earlier **YES** verdict for 6.18.y: the buggy
+code is in the tree, and the fix should apply with only minor context
+tweaks.
 
-That supports the **YES** backport recommendation: real leak, trivial
-fix, and precedent for the same driver in this stable series.
+ .../chips-media/wave5/wave5-vpu-dec.c         | 47 +++++++++++++------
+ 1 file changed, 33 insertions(+), 14 deletions(-)
 
- sound/usb/qcom/qc_audio_offload.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/sound/usb/qcom/qc_audio_offload.c b/sound/usb/qcom/qc_audio_offload.c
-index da2759f2ee866..62a57b8d171b8 100644
---- a/sound/usb/qcom/qc_audio_offload.c
-+++ b/sound/usb/qcom/qc_audio_offload.c
-@@ -1994,6 +1994,7 @@ static int qc_usb_audio_probe(struct auxiliary_device *auxdev,
- release_qmi:
- 	qc_usb_audio_cleanup_qmi_dev();
- 	qmi_handle_release(svc->uaudio_svc_hdl);
-+	kfree(svc->uaudio_svc_hdl);
- free_svc:
- 	kfree(svc);
- 
-@@ -2018,6 +2019,7 @@ static void qc_usb_audio_remove(struct auxiliary_device *auxdev)
- 	qc_usb_audio_cleanup_qmi_dev();
- 
- 	qmi_handle_release(svc->uaudio_svc_hdl);
-+	kfree(svc->uaudio_svc_hdl);
- 	kfree(svc);
- 	uaudio_svc = NULL;
+diff --git a/drivers/media/platform/chips-media/wave5/wave5-vpu-dec.c b/drivers/media/platform/chips-media/wave5/wave5-vpu-dec.c
+index 7a4625acc0478..189cd8bcdffd9 100644
+--- a/drivers/media/platform/chips-media/wave5/wave5-vpu-dec.c
++++ b/drivers/media/platform/chips-media/wave5/wave5-vpu-dec.c
+@@ -270,10 +270,23 @@ static void send_eos_event(struct vpu_instance *inst)
+ 	inst->eos = false;
  }
+ 
++static void wave5_update_min_bufs_ctrl(struct vpu_instance *inst, u32 fbc_buf_count)
++{
++	struct v4l2_m2m_ctx *m2m_ctx = inst->v4l2_fh.m2m_ctx;
++	struct v4l2_ctrl *ctrl;
++
++	if (!fbc_buf_count || fbc_buf_count == v4l2_m2m_num_dst_bufs_ready(m2m_ctx))
++		return;
++
++	ctrl = v4l2_ctrl_find(&inst->v4l2_ctrl_hdl,
++			      V4L2_CID_MIN_BUFFERS_FOR_CAPTURE);
++	if (ctrl)
++		v4l2_ctrl_s_ctrl(ctrl, fbc_buf_count);
++}
++
+ static int handle_dynamic_resolution_change(struct vpu_instance *inst)
+ {
+ 	struct v4l2_fh *fh = &inst->v4l2_fh;
+-	struct v4l2_m2m_ctx *m2m_ctx = inst->v4l2_fh.m2m_ctx;
+ 
+ 	static const struct v4l2_event vpu_event_src_ch = {
+ 		.type = V4L2_EVENT_SOURCE_CHANGE,
+@@ -292,14 +305,6 @@ static int handle_dynamic_resolution_change(struct vpu_instance *inst)
+ 
+ 	inst->needs_reallocation = true;
+ 	inst->fbc_buf_count = initial_info->min_frame_buffer_count + 1;
+-	if (inst->fbc_buf_count != v4l2_m2m_num_dst_bufs_ready(m2m_ctx)) {
+-		struct v4l2_ctrl *ctrl;
+-
+-		ctrl = v4l2_ctrl_find(&inst->v4l2_ctrl_hdl,
+-				      V4L2_CID_MIN_BUFFERS_FOR_CAPTURE);
+-		if (ctrl)
+-			v4l2_ctrl_s_ctrl(ctrl, inst->fbc_buf_count);
+-	}
+ 
+ 	if (p_dec_info->initial_info_obtained) {
+ 		const struct vpu_format *vpu_fmt;
+@@ -427,19 +432,24 @@ static void wave5_vpu_dec_finish_decode(struct vpu_instance *inst)
+ 	if ((dec_info.index_frame_display == DISPLAY_IDX_FLAG_SEQ_END ||
+ 	     dec_info.sequence_changed)) {
+ 		unsigned long flags;
++		u32 fbc_buf_count = 0;
+ 
+ 		spin_lock_irqsave(&inst->state_spinlock, flags);
+ 		if (!v4l2_m2m_has_stopped(m2m_ctx)) {
+ 			switch_state(inst, VPU_INST_STATE_STOP);
+ 
+-			if (dec_info.sequence_changed)
++			if (dec_info.sequence_changed) {
+ 				handle_dynamic_resolution_change(inst);
+-			else
++				fbc_buf_count = inst->fbc_buf_count;
++			} else {
+ 				send_eos_event(inst);
++			}
+ 
+ 			flag_last_buffer_done(inst);
+ 		}
+ 		spin_unlock_irqrestore(&inst->state_spinlock, flags);
++
++		wave5_update_min_bufs_ctrl(inst, fbc_buf_count);
+ 	}
+ 
+ 	/*
+@@ -1543,8 +1553,9 @@ static const struct vpu_instance_ops wave5_vpu_dec_inst_ops = {
+ static int initialize_sequence(struct vpu_instance *inst)
+ {
+ 	struct dec_initial_info initial_info;
+-	int ret = 0;
+ 	unsigned long flags;
++	u32 fbc_buf_count;
++	int ret = 0;
+ 
+ 	memset(&initial_info, 0, sizeof(struct dec_initial_info));
+ 
+@@ -1568,8 +1579,11 @@ static int initialize_sequence(struct vpu_instance *inst)
+ 
+ 	spin_lock_irqsave(&inst->state_spinlock, flags);
+ 	handle_dynamic_resolution_change(inst);
++	fbc_buf_count = inst->fbc_buf_count;
+ 	spin_unlock_irqrestore(&inst->state_spinlock, flags);
+ 
++	wave5_update_min_bufs_ctrl(inst, fbc_buf_count);
++
+ 	return 0;
+ }
+ 
+@@ -1602,6 +1616,7 @@ static void wave5_vpu_dec_device_run(void *priv)
+ 		ret = initialize_sequence(inst);
+ 		if (ret) {
+ 			unsigned long flags;
++			u32 fbc_buf_count = 0;
+ 
+ 			spin_lock_irqsave(&inst->state_spinlock, flags);
+ 			if (wave5_is_draining_or_eos(inst) &&
+@@ -1610,14 +1625,18 @@ static void wave5_vpu_dec_device_run(void *priv)
+ 
+ 				switch_state(inst, VPU_INST_STATE_STOP);
+ 
+-				if (vb2_is_streaming(dst_vq))
++				if (vb2_is_streaming(dst_vq)) {
+ 					send_eos_event(inst);
+-				else
++				} else {
+ 					handle_dynamic_resolution_change(inst);
++					fbc_buf_count = inst->fbc_buf_count;
++				}
+ 
+ 				flag_last_buffer_done(inst);
+ 			}
+ 			spin_unlock_irqrestore(&inst->state_spinlock, flags);
++
++			wave5_update_min_bufs_ctrl(inst, fbc_buf_count);
+ 		} else {
+ 			switch_state(inst, VPU_INST_STATE_INIT_SEQ);
+ 		}
 -- 
 2.53.0
 
