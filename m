@@ -1,47 +1,94 @@
-Received: from mta0.migadu.com (out-28.mta0.migadu.com [91.218.175.28])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE92D3CBE6D
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 08:35:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.28
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9264F3D9672
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 08:35:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788165339; cv=none; b=FCKPmyzmzlBjFLcAF1PD3NRNndozMjee9tiAWY7APywyIEhg9zJwAP8b20n0hnfj4YPZynwjjtv9HzmaSHA6Olz++gtZWDSqT7rZ8JfKC6es7n2wJrUHAldrrY7jNJN/dXigLeTB8MyGXJH28ASUQ3kZs2+R9OYtfCaZBzK/yC0=
+	t=1788165346; cv=none; b=QkuezAD8Stnkd8IriWEtuF0XNPqG9poezD/tSu20CljpJ8c+K7E17k6SKIXZnpkwR07Z00p6TAlwnnerw/S0Twpwnn0WKmW7W4VXbm7BEzSwh5z8t04yqmJwDN5QwVd9+3YDtI1jPxduL2r2KaEPiAlXPOO8t9CuUSrgW8idP3Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788165339; c=relaxed/simple;
-	bh=VJN4rFaD8Ew5PT9JS1wnJsOOiI3/U4jd5AyVRSJ82OM=;
+	s=arc-20240116; t=1788165346; c=relaxed/simple;
+	bh=SjZ4EK/3zT1ba/gtDzHBJmT830R1l6042MseZmhzl48=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=d/qSAn+7TqKyeOp2CEHXZ8IEJ5o+a3JBRTaO5RNyQBkUTLfoPtYiQ+V7engeCt7pPIZk9uRui76xClTj/giGQEo/ysMqQgw7p/tTDHL5OsN1lXzm4tUlMAeDLRhmzD6+9rnYYYSvnuVPWFWtXAViP4f8DGzNDunPys7TSeR5xtI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=K5HJAEFt; arc=none smtp.client-ip=91.218.175.28
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	 Content-Type:Content-Disposition:In-Reply-To; b=TZeSfkeGXNBBJXxq5fRVQYyRsnKqlC8IoI/WHZOjOxRUjNN1Yv08jkFhH+0OSn4v+NUCHm8Sj2U+A9qoW7fKbh0r1N0KZBJjWtXSfg35VvcLgzsSPbylqbrQ1R8f6CjnTKkc2Xeb2iTE77AkRtmQpZjztz/9c6xUhrnf9ONW2uI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=KjY+A5cw; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Q0pdT9Vn; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="K5HJAEFt"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=VJN4rFaD8Ew5PT9JS1wnJsOOiI3/U4jd5AyVRSJ82OM=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788165330; v=1; x=1788770130;
- b=K5HJAEFt1ay7r7HecT2T4pcAW7t9XRDBMRpjRWTBtS95m4mXc5DNjqDlX1gYh4dAO7+Y9uzy
- 5a9F0BEMSJmhGdBRAp89iiyZZ/dquakxWR0PaxR1lHAzhjfedcBFIft+Zaq9jIuNWNzdnMOfeOE
- w7npcqZP9NIFEqGcNED+jnkw=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id 228ab3adc18c6c25;
-	Mon, 31 Aug 2026 08:35:30 +0000
-X-Mizu-Trace-ID: 228ab3adc18c6c25
-X-Migadu-Flow: FLOW_OUT
-Date: Mon, 31 Aug 2026 16:35:22 +0800
-From: Baoquan He <baoquan.he@linux.dev>
-To: syzbot ci <syzbot+cibdf28e878344e870@syzkaller.appspotmail.com>
-Cc: akpm@linux-foundation.org, baohua@kernel.org, chengming.zhou@linux.dev,
-	chrisl@kernel.org, david@kernel.org, hannes@cmpxchg.org,
-	hebaoquan@kylinos.cn, kasong@tencent.com,
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org, nphamcs@gmail.com,
-	shikemeng@huaweicloud.com, yosry@kernel.org, youngjun.park@lge.com,
-	syzbot@lists.linux.dev, syzkaller-bugs@googlegroups.com
-Subject: Re: [syzbot ci] Re: xswap: extendable swap device backed by zswap
-Message-ID: <apU8yhxWhvB2IxLm@fedora>
-References: <20260827094509.1016740-1-hebaoquan@kylinos.cn>
- <6a9042cd.50659fcc.60cd.0014.GAE@google.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="KjY+A5cw";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Q0pdT9Vn"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67V7xFus2332428
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 08:35:39 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=tr5LOcwcw4n0UOYNCfknwwxf
+	xAS2b6tJnboga2qZv6I=; b=KjY+A5cwr/KsLQODf0A23aG6XA7MLt9pe/5qaiQk
+	RTPEajtlDCFe7wRc39uxbOUQggXBYn9IWsGyj4rXykoeE1d6Nb6w+pYHP9+kxlu/
+	osOtOkcJNO7xSbQLjq53PKmXgZQ/XKPWAuOU4Nv3zx+aMm4MC74ftBguC125l76D
+	IY6SYPY1QixUKCMGttWWYBO4iWbOCn7TjoFxJ5FUsjLEbf8oztawlUanTg1IALai
+	YtGnRqf7dDuN6FA4mkFdonSwzhw++Bxq05p93VhmcaBTFrinmPH91x0vvjHMtgFT
+	PE4pGhGWJ20QEepUNH+sNHzW3m2oKW3jTu2lGv56aRKQjQ==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gbrq859vx-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 08:35:39 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93903622880so641804685a.0
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 01:35:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788165338; x=1788770138; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=tr5LOcwcw4n0UOYNCfknwwxfxAS2b6tJnboga2qZv6I=;
+        b=Q0pdT9VnArJ5LvwGaO/WZNCVneadHS0V3Q/MHuFua5Ba8XI+xs6tMfNGj45SdzTPLi
+         7kN7VR08dbBTDXvH6fzozuqiPvmOo3S+1V1ApZm6kdF7j2TWORhuYb2Z+42t6AL1o16O
+         Q09XKIyWfq1kwwmRxRr9cSpRX6Gs37GM4sUL+f1UxVEU2pjSKezLbVfuGA5zi14Lbwph
+         uaPbOWn2POQ9LKZj4TQjGvQEaMUukEMpG6UaooZwM0agDkx3L5bc0z4y8giwWZqh6+ie
+         l1+k4AWcZYy2mqCU3n35Tb9k7z7JNm/bO78BugJOaTVR5mgi8q8NEG1JHHyOMjwSVmpb
+         gBkQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788165338; x=1788770138;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=tr5LOcwcw4n0UOYNCfknwwxfxAS2b6tJnboga2qZv6I=;
+        b=FKT+LVEDUmsEfZQI14ppGWFCmMeCNOIc1sCiSlc4RfWzIM2YZ905Z2aGihF97jczH7
+         QHA7eQgTZDcL3z6T/r+uLA7LNB1qmH8ubyIweh92GVPqi9yaBpJsPvb3snHTomijaBIQ
+         edufivVDqkI8wX9UMAlV9gvbXM+jHJvqVmcCFo//aQ9n8CYjO9Oaj3ateAg7ANsT+pcn
+         miiv/R018ajpZb52mKl+stctktcpwGlzHkdTHEKj11NNNG2gech3Sqz447lYhadBC2cB
+         p+6EhIBfxjuzxCRzyuS4dqbHoBW90yxof5j1l3i8cOk1/w7hT1+w6epENSnmFrhurt8m
+         5QZA==
+X-Forwarded-Encrypted: i=1; AHgh+Rqa7OrmnyOW1gabv8SU0J0PhuZc2upLOeTug4gQeFv+1owQnY1fnJTVMyHr7jRempozGWTPmrE5k+j3Zfc=@vger.kernel.org
+X-Gm-Message-State: AFuF++n0nJrsFthfExMZrQzCdLgBg4ctUKLgI+fbamJQum+4Y6f4Cnjh
+	c/arqSNgg7NvTDR/1V9iymWRk2A8g7XmsQq79yWP2QUJJW5aBdZzRj+S01jXaNKJvuf0velzVgH
+	E7z+WNU8BmsjTk8xfiQPS8EOfFT8MMar73qNU+yHplZNnYFWDEnZBuc4hffF9q0YlGB8=
+X-Gm-Gg: AR+sD13wAjkNc7TwRDn7p+L28dlkpCQKFovTIK7QbuoxHvkPSb1DFnVtTBpXEVFHKtu
+	QuiW2gvKBVwqxQT5yH3WjojKThF7E5TvEc7gC/H4Lx6vxclSOeILFtRIp8wJiiVeBzoDZH+i6+m
+	RrFBuGMNzsJgGP8WR9UiQjkmPaSO9qJMumF1pG+AdIhxB02ac3l35yEwx3ubDLp6Ns5M1SD1Hn2
+	WKwt3Nv3CWi490IHFp483GN7Euj/xRIn+0oxvOD1wFqddIRm/yxhlOM/Ylw/y20ADYpYfdnM5JX
+	0VAVMg6Rj98ABDQBe/0gl0alWFWEN6jNiQTHo5YzRvgP/VidJmSoj7aJMj7iYKehi0JSQvQxpst
+	H/fqE4ebDfY+EcA==
+X-Received: by 2002:a05:620a:230a:10b0:939:3f4f:7254 with SMTP id af79cd13be357-9393f4f807fmr200877685a.14.1788165338464;
+        Mon, 31 Aug 2026 01:35:38 -0700 (PDT)
+X-Received: by 2002:a05:620a:230a:10b0:939:3f4f:7254 with SMTP id af79cd13be357-9393f4f807fmr200875585a.14.1788165337942;
+        Mon, 31 Aug 2026 01:35:37 -0700 (PDT)
+Received: from oss.qualcomm.com ([86.121.170.13])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482fbb2005esm21269065f8f.24.2026.08.31.01.35.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Aug 2026 01:35:37 -0700 (PDT)
+Date: Mon, 31 Aug 2026 11:35:35 +0300
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Dale Whinham <daleyo@gmail.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] arm64: dts: qcom: x1-denali: Fix microphone distortion
+Message-ID: <ys5ikvuohab53qiir22ivycaoxg2crlwf4ujm3w6ghz6auggt7@wdibjny3bevi>
+References: <20260830-surface-pro-11-mic-fix-v1-1-36a53140373b@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -50,384 +97,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <6a9042cd.50659fcc.60cd.0014.GAE@google.com>
+In-Reply-To: <20260830-surface-pro-11-mic-fix-v1-1-36a53140373b@gmail.com>
+X-Proofpoint-GUID: 4El9XMWCXkIcKEzrISCzq_V0-eB_nqCo
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODMxMDA3MiBTYWx0ZWRfX6+Kf4rAlasFC
+ r8NDU8eQeRnYNp0Ws8AOzYl7Pzfv0aFRoguDbR2Citxhjn30IYxE1Tls3h3kfZumJ2pX3MB3CZv
+ c/CwC2H827sMytrGdltk8+iPaT+KF80=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODMxMDA3MiBTYWx0ZWRfX7EAQKLd2T0wu
+ pyrHGjdKWpHObqNlRwoNEXUf6BE9s2x1Lz9Hc55b29vZDeq4mxiqKGgsTSuWdOY8oEocZoBXaBp
+ rNYNfgr2VdN+zXDQpJ0O9RuOTaZnS3KHk05OSKoZeWYljwcqKcfgTZbT0P7an3yw9zAJDIxVd9t
+ g49YXfdlrDk++ka4SKyBo77Y499WhoYkWwMO1K3AFdT228TDv9BVo0Fgx2y4JYjPd2HdovniD+X
+ 4ps9gCB2rBYpvmAnq4c4yWGMMVY0TUuNhNGwrtUuKz3Bqz4VMH1kICuix0GSgM7NVODLSKMrdtK
+ +h1WIHdfy7OpQ3FMoopfXR+P88nfzbHyp9nXt5WpqpslczmWdORabAXO/cuHxVczT6/WgPZAP2K
+ wWZz/3lYrZUiXH27mQ0KsQv9NFbkW9aTeXVeRYFADXwDOM0LsIqtGB2TSHstwYOYXiccj4Kufox
+ EMVTW7EAsyJKHvM1xVA==
+X-Authority-Analysis: v=2.4 cv=ZOPnX37b c=1 sm=1 tr=0 ts=6a953cdb cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=clBUptZa5v5FR042Ey+sjA==:17
+ a=kj9zAlcOel0A:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8 a=1xpzCHDPxV4s1b1w7qUA:9 a=CjuIK1q_8ugA:10
+ a=NFOGd7dJGGMPyQGDc5-O:22
+X-Proofpoint-ORIG-GUID: 4El9XMWCXkIcKEzrISCzq_V0-eB_nqCo
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-31_03,2026-08-27_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 spamscore=0 malwarescore=0 lowpriorityscore=0
+ priorityscore=1501 adultscore=0 bulkscore=0 impostorscore=0 phishscore=0
+ clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2608310072
 
-On 08/27/26 at 06:59am, syzbot ci wrote:
-> syzbot ci has tested the following series
+On 26-08-30 18:40:07, Dale Whinham wrote:
+> The microphones (2x) on Surface Pro 11 are currently ususable due to a
+> misconfigured sample rate, which results in a very distorted recording
+> with the voice barely audible.
 > 
-> [v1] xswap: extendable swap device backed by zswap
-> https://lore.kernel.org/all/20260827094509.1016740-1-hebaoquan@kylinos.cn
-> * [PATCH 01/16] mm: zswap: return -ENOENT when the swap device is gone
-> * [PATCH 02/16] mm: xswap support for zswap
-> * [PATCH 03/16] mm, swap: add CONFIG_XSWAP and xswap fields to swap_info_struct
-> * [PATCH 04/16] mm, swap: refactor free_swap_cluster_info to take swap_info_struct
-> * [PATCH 05/16] mm, swap: add xswap cluster grow via VM_SPARSE vmalloc
-> * [PATCH 06/16] mm, swap: add sysfs create interface for xswap
-> * [PATCH 07/16] mm, swap: add xswap grow trigger on cluster allocation
-> * [PATCH 08/16] mm, swap: add xswap_try_shrink and shrink trigger on cluster free
-> * [PATCH 09/16] mm, swap: free backing pages in xswap_unmap_clusters
-> * [PATCH 10/16] mm, swap: add nr_free_tail for O(1) xswap shrink detection
-> * [PATCH 11/16] mm, swap: add adjustable runtime ceiling (nr_clusters) for xswap
-> * [PATCH 12/16] mm, swap: add debugfs knob for xswap per-device cluster limit
-> * [PATCH 13/16] mm, swap: defer xswap shrink to workqueue to avoid lock recursion
-> * [PATCH 14/16] mm, swap: refactor swapoff + add xswap_destroy
-> * [PATCH 15/16] mm, swap: require zswap for xswap devices
-> * [PATCH 16/16] mm, swap: allow setting xswap device priority at creation
+> Under Windows, the DMIC0_CTL register is set to 0x00000005 while
+> recording:
 > 
-> and found the following issue:
-> possible deadlock in console_flush_all
+>    bit 0 = 1 --> DMIC0 enabled
+> bits 3:1 = 2 --> DMIC clock divider = /4
 > 
-> Full report is available here:
-> https://ci.syzbot.org/series/6e23a918-7d02-47ba-a61f-bcad82aebf14
+> The current dmic-sample-rate of 4800000 corresponds to the default DMIC
+> clock divider of /2.
 > 
-> ***
+> Dropping dmic-sample-rate to 2400000 sets the divider to /4, matching
+> the working Windows configuration and resulting in perfect audio.
 > 
-> possible deadlock in console_flush_all
+> While we're at it, remove the reference to dmic23_default, as we only
+> have two microphones and don't need to configure the pins for a 3rd/4th
+> microphone.
 > 
-> tree:      linux-next
-> URL:       https://kernel.googlesource.com/pub/scm/linux/kernel/git/next/linux-next
-> base:      169393fff5d1ec2690934067eeb95544ff5ebdd7
-> arch:      amd64
-> compiler:  Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-> config:    https://ci.syzbot.org/builds/633d2731-0a5e-45d2-96bf-bd29305475b9/config
-> syz repro: https://ci.syzbot.org/findings/b9106c23-79f3-457d-bb14-c0cf63e4bed2/syz_repro
-> 
-> ------------[ cut here ]------------
-> ======================================================
-> WARNING: possible circular locking dependency detected
-> syzkaller #0 Not tainted
-> ------------------------------------------------------
-> syz.1.20/5854 is trying to acquire lock:
-> ffffffff8eb4bf40 (console_owner){..-.}-{0:0}, at: rcu_try_lock_acquire include/linux/rcupdate.h:305 [inline]
-> ffffffff8eb4bf40 (console_owner){..-.}-{0:0}, at: srcu_read_lock_nmisafe include/linux/srcu.h:428 [inline]
-> ffffffff8eb4bf40 (console_owner){..-.}-{0:0}, at: console_srcu_read_lock kernel/printk/printk.c:291 [inline]
-> ffffffff8eb4bf40 (console_owner){..-.}-{0:0}, at: console_flush_one_record kernel/printk/printk.c:3246 [inline]
-> ffffffff8eb4bf40 (console_owner){..-.}-{0:0}, at: console_flush_all+0x123/0xaf0 kernel/printk/printk.c:3343
-> 
-> but task is already holding lock:
-> ffff88823c63a898 (&pool->lock){-.-.}-{2:2}, at: __queue_work+0x7fe/0x10a0 kernel/workqueue.c:2358
-> 
-> which lock already depends on the new lock.
-> 
-> 
-> the existing dependency chain (in reverse order) is:
+> Signed-off-by: Dale Whinham <daleyo@gmail.com>
 
-Thanks for testing the series.
-
-Sashiko also reported this issue. The root cuase is the
-!list_empty(&work->entry) WARN at __queue_work is triggered by
-schedule_work(&si->xswap_shrink_work) being called for a non-xswap
-swap device in __free_cluster(), where the work_struct is never
-initialized (zeroed by kvzalloc). The "possible deadlock in
-console_flush_all" report is a secondary lockdep artifact: the WARN
-handler prints while holding the workqueue pool lock.
-
-The fix is already included in v2. Now __free_cluster() schedules the
-shrink work only for xswap devices while the device is active, guarded
-by si->flags & SWP_XSWAP and SWP_WRITEOK, so the uninitialized work is
-never queued for normal swap devices.
-
-Thanks
-Baoquan
-
-> 
-> -> #3 (&pool->lock){-.-.}-{2:2}:
->        __raw_spin_lock include/linux/spinlock_api_smp.h:158 [inline]
->        _raw_spin_lock+0x2e/0x40 kernel/locking/spinlock.c:158
->        __queue_work+0x72f/0x10a0 kernel/workqueue.c:2361
->        queue_work_on+0x106/0x1d0 kernel/workqueue.c:2452
->        queue_work include/linux/workqueue.h:699 [inline]
->        rpm_suspend+0xeca/0x17b0 drivers/base/power/runtime.c:688
->        __pm_runtime_idle+0x12f/0x1a0 drivers/base/power/runtime.c:1129
->        pm_runtime_put include/linux/pm_runtime.h:551 [inline]
->        __device_attach+0x355/0x450 drivers/base/dd.c:1116
->        device_initial_probe+0xa1/0xd0 drivers/base/dd.c:1153
->        bus_probe_device+0x12a/0x220 drivers/base/bus.c:620
->        device_add+0x7d7/0xb80 drivers/base/core.c:3772
->        serial_base_port_add+0x18f/0x270 drivers/tty/serial/serial_base_bus.c:186
->        serial_core_port_device_add drivers/tty/serial/serial_core.c:3275 [inline]
->        serial_core_register_port+0x37f/0x2840 drivers/tty/serial/serial_core.c:3314
->        serial8250_register_8250_port+0x16b4/0x2090 drivers/tty/serial/8250/8250_core.c:828
->        serial_pnp_probe+0x56a/0x7f0 drivers/tty/serial/8250/8250_pnp.c:480
->        pnp_device_probe+0x30b/0x4c0 drivers/pnp/driver.c:111
->        call_driver_probe drivers/base/dd.c:-1 [inline]
->        really_probe+0x254/0xae0 drivers/base/dd.c:706
->        __driver_probe_device+0x1e8/0x360 drivers/base/dd.c:868
->        driver_probe_device+0x4f/0x240 drivers/base/dd.c:898
->        __driver_attach+0x339/0x600 drivers/base/dd.c:1292
->        bus_for_each_dev+0x23b/0x2c0 drivers/base/bus.c:383
->        bus_add_driver+0x345/0x670 drivers/base/bus.c:763
->        driver_register+0x23a/0x320 drivers/base/driver.c:174
->        serial8250_init+0x8f/0x160 drivers/tty/serial/8250/8250_platform.c:317
->        do_one_initcall+0x250/0x870 init/main.c:1347
->        do_initcall_level+0x10a/0x1a0 init/main.c:1409
->        do_initcalls+0x59/0xa0 init/main.c:1425
->        kernel_init_freeable+0x29d/0x3e0 init/main.c:1658
->        kernel_init+0x1d/0x1d0 init/main.c:1548
->        ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
->        ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-> 
-> -> #2 (&dev->power.lock){-...}-{3:3}:
->        __raw_spin_lock_irqsave include/linux/spinlock_api_smp.h:132 [inline]
->        _raw_spin_lock_irqsave+0x40/0x60 kernel/locking/spinlock.c:166
->        __pm_runtime_resume+0x10f/0x180 drivers/base/power/runtime.c:1196
->        pm_runtime_get include/linux/pm_runtime.h:494 [inline]
->        __uart_start+0x171/0x460 drivers/tty/serial/serial_core.c:149
->        uart_write+0x251/0x9f0 drivers/tty/serial/serial_core.c:629
->        process_output_block drivers/tty/n_tty.c:557 [inline]
->        n_tty_write+0xd49/0x11e0 drivers/tty/n_tty.c:2366
->        iterate_tty_write drivers/tty/tty_io.c:1006 [inline]
->        file_tty_write+0x509/0x9c0 drivers/tty/tty_io.c:1081
->        new_sync_write fs/read_write.c:595 [inline]
->        vfs_write+0x612/0xba0 fs/read_write.c:687
->        ksys_write+0x150/0x270 fs/read_write.c:739
->        do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
->        do_syscall_64+0x174/0x580 arch/x86/entry/syscall_64.c:94
->        entry_SYSCALL_64_after_hwframe+0x77/0x7f
-> 
-> -> #1 (&port_lock_key){-.-.}-{3:3}:
->        __raw_spin_lock_irqsave include/linux/spinlock_api_smp.h:132 [inline]
->        _raw_spin_lock_irqsave+0x40/0x60 kernel/locking/spinlock.c:166
->        uart_port_lock_irqsave include/linux/serial_core.h:719 [inline]
->        serial8250_console_write+0x153/0x1ba0 drivers/tty/serial/8250/8250_port.c:3344
->        console_emit_next_record kernel/printk/printk.c:3183 [inline]
->        console_flush_one_record kernel/printk/printk.c:3269 [inline]
->        console_flush_all+0x6ea/0xaf0 kernel/printk/printk.c:3343
->        __console_flush_and_unlock kernel/printk/printk.c:3373 [inline]
->        console_unlock+0xd1/0x1c0 kernel/printk/printk.c:3413
->        vprintk_emit+0x485/0x560 kernel/printk/printk.c:2479
->        _printk+0xdd/0x130 kernel/printk/printk.c:2504
->        register_console+0xbc3/0xfc0 kernel/printk/printk.c:4208
->        univ8250_console_init+0x3a/0x70 drivers/tty/serial/8250/8250_core.c:515
->        console_init+0x10b/0x4a0 kernel/printk/printk.c:4407
->        start_kernel+0x238/0x3e0 init/main.c:1112
->        x86_64_start_reservations+0x24/0x30 arch/x86/kernel/head64.c:310
->        x86_64_start_kernel+0x137/0x1b0 arch/x86/kernel/head64.c:291
->        common_startup_64+0x13e/0x157
-> 
-> -> #0 (console_owner){..-.}-{0:0}:
->        check_prev_add kernel/locking/lockdep.c:3165 [inline]
->        check_prevs_add kernel/locking/lockdep.c:3284 [inline]
->        validate_chain kernel/locking/lockdep.c:3908 [inline]
->        __lock_acquire+0x15ff/0x2e50 kernel/locking/lockdep.c:5238
->        lock_acquire+0x115/0x350 kernel/locking/lockdep.c:5890
->        console_lock_spinning_enable kernel/printk/printk.c:1902 [inline]
->        console_emit_next_record kernel/printk/printk.c:3177 [inline]
->        console_flush_one_record kernel/printk/printk.c:3269 [inline]
->        console_flush_all+0x693/0xaf0 kernel/printk/printk.c:3343
->        __console_flush_and_unlock kernel/printk/printk.c:3373 [inline]
->        console_unlock+0xd1/0x1c0 kernel/printk/printk.c:3413
->        vprintk_emit+0x485/0x560 kernel/printk/printk.c:2479
->        _printk+0xdd/0x130 kernel/printk/printk.c:2504
->        __report_bug+0x349/0x570 lib/bug.c:248
->        report_bug+0x16a/0x220 lib/bug.c:286
->        handle_bug+0x9c/0x200 arch/x86/kernel/traps.c:436
->        exc_invalid_op+0x1a/0x50 arch/x86/kernel/traps.c:490
->        asm_exc_invalid_op+0x1a/0x20 arch/x86/include/asm/idtentry.h:593
->        __queue_work+0xd18/0x10a0 kernel/workqueue.c:2385
->        queue_work_on+0x106/0x1d0 kernel/workqueue.c:2452
->        swap_put_entries_cluster+0x3b1/0x4b0 mm/swapfile.c:1893
->        swap_put_entries_direct+0x94/0x100 mm/swapfile.c:2403
->        zap_nonpresent_ptes mm/memory.c:1900 [inline]
->        do_zap_pte_range mm/memory.c:1967 [inline]
->        zap_pte_range mm/memory.c:2065 [inline]
->        zap_pmd_range mm/memory.c:2151 [inline]
->        zap_pud_range mm/memory.c:2179 [inline]
->        zap_p4d_range mm/memory.c:2200 [inline]
->        __zap_vma_range+0x1da0/0x4f70 mm/memory.c:2240
->        unmap_vmas+0x390/0x550 mm/memory.c:2309
->        exit_mmap+0x293/0x9f0 mm/mmap.c:1315
->        __mmput+0x118/0x420 kernel/fork.c:1187
->        exit_mm+0x221/0x2d0 kernel/exit.c:615
->        do_exit+0x6cd/0x2360 kernel/exit.c:997
->        do_group_exit+0x22d/0x2f0 kernel/exit.c:1152
->        get_signal+0x121b/0x12c0 kernel/signal.c:3046
->        arch_do_signal_or_restart+0xbb/0x860 arch/x86/kernel/signal.c:337
->        __exit_to_user_mode_loop kernel/entry/common.c:66 [inline]
->        exit_to_user_mode_loop+0x104/0x730 kernel/entry/common.c:101
->        __exit_to_user_mode_prepare include/linux/irq-entry-common.h:207 [inline]
->        syscall_exit_to_user_mode_prepare include/linux/irq-entry-common.h:230 [inline]
->        syscall_exit_to_user_mode include/linux/entry-common.h:318 [inline]
->        do_syscall_64+0x353/0x580 arch/x86/entry/syscall_64.c:100
->        entry_SYSCALL_64_after_hwframe+0x77/0x7f
-> 
-> other info that might help us debug this:
-> 
-> Chain exists of:
->   console_owner --> &dev->power.lock --> &pool->lock
-> 
->  Possible unsafe locking scenario:
-> 
->        CPU0                    CPU1
->        ----                    ----
->   lock(&pool->lock);
->                                lock(&dev->power.lock);
->                                lock(&pool->lock);
->   lock(console_owner);
-> 
->  *** DEADLOCK ***
-> 
-> 8 locks held by syz.1.20/5854:
->  #0: ffff8881bb3703b8 (&mm->mmap_lock){++++}-{4:4}, at: mmap_read_lock include/linux/mmap_lock.h:600 [inline]
->  #0: ffff8881bb3703b8 (&mm->mmap_lock){++++}-{4:4}, at: exit_mmap+0x1a4/0x9f0 mm/mmap.c:1299
->  #1: ffffffff8eb59c60 (rcu_read_lock){....}-{1:3}, at: rcu_lock_acquire include/linux/rcupdate.h:300 [inline]
->  #1: ffffffff8eb59c60 (rcu_read_lock){....}-{1:3}, at: rcu_read_lock include/linux/rcupdate.h:840 [inline]
->  #1: ffffffff8eb59c60 (rcu_read_lock){....}-{1:3}, at: __pte_offset_map+0x29/0x240 mm/pgtable-generic.c:290
->  #2: ffff88816d267f18 (ptlock_ptr(ptdesc)#2){+.+.}-{3:3}, at: spin_lock include/linux/spinlock.h:342 [inline]
->  #2: ffff88816d267f18 (ptlock_ptr(ptdesc)#2){+.+.}-{3:3}, at: pte_offset_map_lock+0x13d/0x210 mm/pgtable-generic.c:404
->  #3: ffff8881102a40f8 (&cluster_info[i].lock){+.+.}-{3:3}, at: spin_lock include/linux/spinlock.h:342 [inline]
->  #3: ffff8881102a40f8 (&cluster_info[i].lock){+.+.}-{3:3}, at: __swap_cluster_lock mm/swap.h:155 [inline]
->  #3: ffff8881102a40f8 (&cluster_info[i].lock){+.+.}-{3:3}, at: swap_cluster_lock mm/swap.h:170 [inline]
->  #3: ffff8881102a40f8 (&cluster_info[i].lock){+.+.}-{3:3}, at: swap_put_entries_cluster+0x109/0x4b0 mm/swapfile.c:1864
->  #4: ffffffff8eb59c60 (rcu_read_lock){....}-{1:3}, at: rcu_lock_acquire include/linux/rcupdate.h:300 [inline]
->  #4: ffffffff8eb59c60 (rcu_read_lock){....}-{1:3}, at: rcu_read_lock include/linux/rcupdate.h:840 [inline]
->  #4: ffffffff8eb59c60 (rcu_read_lock){....}-{1:3}, at: __queue_work+0x1ea/0x10a0 kernel/workqueue.c:2321
->  #5: ffff88823c63a898 (&pool->lock){-.-.}-{2:2}, at: __queue_work+0x7fe/0x10a0 kernel/workqueue.c:2358
->  #6: ffffffff8eb4bfa0 (console_lock){+.+.}-{0:0}, at: _printk+0xdd/0x130 kernel/printk/printk.c:2504
->  #7: ffffffff8ea33838 (console_srcu){....}-{0:0}, at: rcu_try_lock_acquire include/linux/rcupdate.h:305 [inline]
->  #7: ffffffff8ea33838 (console_srcu){....}-{0:0}, at: srcu_read_lock_nmisafe include/linux/srcu.h:428 [inline]
->  #7: ffffffff8ea33838 (console_srcu){....}-{0:0}, at: console_srcu_read_lock kernel/printk/printk.c:291 [inline]
->  #7: ffffffff8ea33838 (console_srcu){....}-{0:0}, at: console_flush_one_record kernel/printk/printk.c:3246 [inline]
->  #7: ffffffff8ea33838 (console_srcu){....}-{0:0}, at: console_flush_all+0x123/0xaf0 kernel/printk/printk.c:3343
-> 
-> stack backtrace:
-> CPU: 1 UID: 0 PID: 5854 Comm: syz.1.20 Not tainted syzkaller #0 PREEMPT(full) 
-> Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.2-debian-1.16.2-1 04/01/2014
-> Call Trace:
->  <TASK>
->  dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
->  print_circular_bug+0x2e2/0x300 kernel/locking/lockdep.c:2043
->  check_noncircular+0x12f/0x150 kernel/locking/lockdep.c:2175
->  check_prev_add kernel/locking/lockdep.c:3165 [inline]
->  check_prevs_add kernel/locking/lockdep.c:3284 [inline]
->  validate_chain kernel/locking/lockdep.c:3908 [inline]
->  __lock_acquire+0x15ff/0x2e50 kernel/locking/lockdep.c:5238
->  lock_acquire+0x115/0x350 kernel/locking/lockdep.c:5890
->  console_lock_spinning_enable kernel/printk/printk.c:1902 [inline]
->  console_emit_next_record kernel/printk/printk.c:3177 [inline]
->  console_flush_one_record kernel/printk/printk.c:3269 [inline]
->  console_flush_all+0x693/0xaf0 kernel/printk/printk.c:3343
->  __console_flush_and_unlock kernel/printk/printk.c:3373 [inline]
->  console_unlock+0xd1/0x1c0 kernel/printk/printk.c:3413
->  vprintk_emit+0x485/0x560 kernel/printk/printk.c:2479
->  _printk+0xdd/0x130 kernel/printk/printk.c:2504
->  __report_bug+0x349/0x570 lib/bug.c:248
->  report_bug+0x16a/0x220 lib/bug.c:286
->  handle_bug+0x9c/0x200 arch/x86/kernel/traps.c:436
->  exc_invalid_op+0x1a/0x50 arch/x86/kernel/traps.c:490
->  asm_exc_invalid_op+0x1a/0x20 arch/x86/include/asm/idtentry.h:593
-> RIP: 0010:__queue_work+0xd18/0x10a0 kernel/workqueue.c:2385
-> Code: 3d 7e ec b2 0e 01 0f 85 35 02 00 00 e8 a1 28 39 00 e9 82 f3 ff ff e8 97 28 39 00 90 0f 0b 90 e9 21 fd ff ff e8 89 28 39 00 90 <0f> 0b 90 e9 80 fe ff ff e8 7b 28 39 00 eb 11 e8 74 28 39 00 4c 8b
-> RSP: 0018:ffffc90003cdf1d8 EFLAGS: 00010093
-> RAX: ffffffff818dc2d7 RBX: dffffc0000000000 RCX: ffff888113955a00
-> RDX: 0000000000000000 RSI: ffffffff8c4bca60 RDI: ffffffff8c4bca20
-> RBP: 0000000000000001 R08: ffffffff90572d37 R09: 1ffffffff20ae5a6
-> R10: dffffc0000000000 R11: fffffbfff20ae5a7 R12: ffff888160408400
-> R13: ffff88810fdd7088 R14: 0000000000000001 R15: ffff88810fdd7090
->  queue_work_on+0x106/0x1d0 kernel/workqueue.c:2452
->  swap_put_entries_cluster+0x3b1/0x4b0 mm/swapfile.c:1893
->  swap_put_entries_direct+0x94/0x100 mm/swapfile.c:2403
->  zap_nonpresent_ptes mm/memory.c:1900 [inline]
->  do_zap_pte_range mm/memory.c:1967 [inline]
->  zap_pte_range mm/memory.c:2065 [inline]
->  zap_pmd_range mm/memory.c:2151 [inline]
->  zap_pud_range mm/memory.c:2179 [inline]
->  zap_p4d_range mm/memory.c:2200 [inline]
->  __zap_vma_range+0x1da0/0x4f70 mm/memory.c:2240
->  unmap_vmas+0x390/0x550 mm/memory.c:2309
->  exit_mmap+0x293/0x9f0 mm/mmap.c:1315
->  __mmput+0x118/0x420 kernel/fork.c:1187
->  exit_mm+0x221/0x2d0 kernel/exit.c:615
->  do_exit+0x6cd/0x2360 kernel/exit.c:997
->  do_group_exit+0x22d/0x2f0 kernel/exit.c:1152
->  get_signal+0x121b/0x12c0 kernel/signal.c:3046
->  arch_do_signal_or_restart+0xbb/0x860 arch/x86/kernel/signal.c:337
->  __exit_to_user_mode_loop kernel/entry/common.c:66 [inline]
->  exit_to_user_mode_loop+0x104/0x730 kernel/entry/common.c:101
->  __exit_to_user_mode_prepare include/linux/irq-entry-common.h:207 [inline]
->  syscall_exit_to_user_mode_prepare include/linux/irq-entry-common.h:230 [inline]
->  syscall_exit_to_user_mode include/linux/entry-common.h:318 [inline]
->  do_syscall_64+0x353/0x580 arch/x86/entry/syscall_64.c:100
->  entry_SYSCALL_64_after_hwframe+0x77/0x7f
-> RIP: 0033:0x7f46ce79e0d9
-> Code: Unable to access opcode bytes at 0x7f46ce79e0af.
-> RSP: 002b:00007f46cf6fc028 EFLAGS: 00000246 ORIG_RAX: 000000000000001c
-> RAX: 0000000000000000 RBX: 00007f46cea26090 RCX: 00007f46ce79e0d9
-> RDX: 0000000000000015 RSI: 0000000000600003 RDI: 0000200000000000
-> RBP: 00007f46ce835024 R08: 0000000000000000 R09: 0000000000000000
-> R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-> R13: 00007f46cea26128 R14: 00007f46cea26090 R15: 00007ffefd86c578
->  </TASK>
-> !list_empty(&work->entry)
-> WARNING: kernel/workqueue.c:2385 at __queue_work+0xd18/0x10a0 kernel/workqueue.c:2385, CPU#1: syz.1.20/5854
-> Modules linked in:
-> CPU: 1 UID: 0 PID: 5854 Comm: syz.1.20 Not tainted syzkaller #0 PREEMPT(full) 
-> Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.2-debian-1.16.2-1 04/01/2014
-> RIP: 0010:__queue_work+0xd18/0x10a0 kernel/workqueue.c:2385
-> Code: 3d 7e ec b2 0e 01 0f 85 35 02 00 00 e8 a1 28 39 00 e9 82 f3 ff ff e8 97 28 39 00 90 0f 0b 90 e9 21 fd ff ff e8 89 28 39 00 90 <0f> 0b 90 e9 80 fe ff ff e8 7b 28 39 00 eb 11 e8 74 28 39 00 4c 8b
-> RSP: 0018:ffffc90003cdf1d8 EFLAGS: 00010093
-> RAX: ffffffff818dc2d7 RBX: dffffc0000000000 RCX: ffff888113955a00
-> RDX: 0000000000000000 RSI: ffffffff8c4bca60 RDI: ffffffff8c4bca20
-> RBP: 0000000000000001 R08: ffffffff90572d37 R09: 1ffffffff20ae5a6
-> R10: dffffc0000000000 R11: fffffbfff20ae5a7 R12: ffff888160408400
-> R13: ffff88810fdd7088 R14: 0000000000000001 R15: ffff88810fdd7090
-> FS:  00007f46cf6fc6c0(0000) GS:ffff8882a8f5a000(0000) knlGS:0000000000000000
-> CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> CR2: 0000200000e6c000 CR3: 000000010a5a2000 CR4: 00000000000006f0
-> Call Trace:
->  <TASK>
->  queue_work_on+0x106/0x1d0 kernel/workqueue.c:2452
->  swap_put_entries_cluster+0x3b1/0x4b0 mm/swapfile.c:1893
->  swap_put_entries_direct+0x94/0x100 mm/swapfile.c:2403
->  zap_nonpresent_ptes mm/memory.c:1900 [inline]
->  do_zap_pte_range mm/memory.c:1967 [inline]
->  zap_pte_range mm/memory.c:2065 [inline]
->  zap_pmd_range mm/memory.c:2151 [inline]
->  zap_pud_range mm/memory.c:2179 [inline]
->  zap_p4d_range mm/memory.c:2200 [inline]
->  __zap_vma_range+0x1da0/0x4f70 mm/memory.c:2240
->  unmap_vmas+0x390/0x550 mm/memory.c:2309
->  exit_mmap+0x293/0x9f0 mm/mmap.c:1315
->  __mmput+0x118/0x420 kernel/fork.c:1187
->  exit_mm+0x221/0x2d0 kernel/exit.c:615
->  do_exit+0x6cd/0x2360 kernel/exit.c:997
->  do_group_exit+0x22d/0x2f0 kernel/exit.c:1152
->  get_signal+0x121b/0x12c0 kernel/signal.c:3046
->  arch_do_signal_or_restart+0xbb/0x860 arch/x86/kernel/signal.c:337
->  __exit_to_user_mode_loop kernel/entry/common.c:66 [inline]
->  exit_to_user_mode_loop+0x104/0x730 kernel/entry/common.c:101
->  __exit_to_user_mode_prepare include/linux/irq-entry-common.h:207 [inline]
->  syscall_exit_to_user_mode_prepare include/linux/irq-entry-common.h:230 [inline]
->  syscall_exit_to_user_mode include/linux/entry-common.h:318 [inline]
->  do_syscall_64+0x353/0x580 arch/x86/entry/syscall_64.c:100
->  entry_SYSCALL_64_after_hwframe+0x77/0x7f
-> RIP: 0033:0x7f46ce79e0d9
-> Code: Unable to access opcode bytes at 0x7f46ce79e0af.
-> RSP: 002b:00007f46cf6fc028 EFLAGS: 00000246 ORIG_RAX: 000000000000001c
-> RAX: 0000000000000000 RBX: 00007f46cea26090 RCX: 00007f46ce79e0d9
-> RDX: 0000000000000015 RSI: 0000000000600003 RDI: 0000200000000000
-> RBP: 00007f46ce835024 R08: 0000000000000000 R09: 0000000000000000
-> R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-> R13: 00007f46cea26128 R14: 00007f46cea26090 R15: 00007ffefd86c578
->  </TASK>
-> 
-> 
-> ***
-> 
-> If these findings have caused you to resend the series or submit a
-> separate fix, please add the following tag to your commit message:
->   Tested-by: syzbot@syzkaller.appspotmail.com
-> 
-> ---
-> This report is generated by a bot. It may contain errors.
-> syzbot ci engineers can be reached at syzkaller@googlegroups.com.
-> 
-> To test a fix for this bug, please reply with `#syz test`
-> (on a separate line) and attach the patch to the email.
-> 
-> Notes:
-> - The patch will be applied on top of the tested series (as an
->   incremental fix).
-> - To test a new version of the whole series, please send it directly
->   to syzbot@lists.linux.dev.
-> - Arguments like custom git repos and branches are not supported.
+Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
