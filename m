@@ -1,246 +1,91 @@
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail1.fiberby.net (mail1.fiberby.net [193.104.135.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C76AE3DA5AE
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 09:36:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B90903CF21D;
+	Mon, 31 Aug 2026 09:36:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.104.135.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788168964; cv=none; b=ueB4zusXrf3nK4+e7RvjX4V5nsT8ESVuWhFe5wcWgBX6MxewNx1O5jSTF+StKr0KokTOUeCIZb6dGBRlj0QN9xwT7Ee2Z2mC1Gt4zz0j7GCOMO4QBxGez+/ZQJZmuKBWW8+zECd364DY3aR5SZMmBpaD7oabSFRqhOBV125lTnI=
+	t=1788168980; cv=none; b=jWdhBB64EhNnOJIEX69IjC7WrmpeLFGlGgBb+Q9wApa2E5WZOwnwg5ru3UpIGPpo1TO6nWRkvy9mX1tA2okNQGttruKFPy1K6o/ujCS7lfVb/4xLFhL6lPAIRd5RGTzX3DXeNE2Fkb/xFDBROh/FVxPxUUe4z7VPWqkkqYAz4xw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788168964; c=relaxed/simple;
-	bh=7Mb+q6N+WQ81Oqcs4xdKYoCQuYOk9+K+7xb3AxjM1mw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=irRJfROlZx/y2bKdwOURsSEjcDQ2CNN8YXzInW6bAESXv4B/X6XRXeHa4rzeO96RSPupimdQr+FNHkK1q7T0mZ9/zGvVBtfT4fMncZ8z7U2u81fVp5IP0pE0HE5q5hMTanog6K3dSmqsWWt8SJBxi0Px2XredxESxWXm5Wgvz64=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=mZxpOwb5; arc=none smtp.client-ip=209.85.216.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1788168980; c=relaxed/simple;
+	bh=0y9SYeJbQS6ps3heZr3eahrgdU0qiRAeZE0dDp2kUfM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=cwAhalo/JdMRQjjcX9tb7L485dTkfqZY0WcogZZWCUQUOpzes/mt5xhAkaV24/NeUQFEI+k0aup9twewGaJwCdowGdr0V9grBt9xSqMQX7cKYNYPjaUQdbRyp06Jz5b8BniinYxREYr4Pws8hIQS6GxYDVK3QCUTBVuffFcOcps=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fiberby.net; spf=pass smtp.mailfrom=fiberby.net; dkim=pass (2048-bit key) header.d=fiberby.net header.i=@fiberby.net header.b=jv2M2GhQ; arc=none smtp.client-ip=193.104.135.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fiberby.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fiberby.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="mZxpOwb5"
-Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-38ec1402b05so2620756a91.2
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 02:36:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1788168962; x=1788773762; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=FN1nAbCl0iWx1Jrj/gmdbaIbN4coW5aF8DCQuC7TC90=;
-        b=mZxpOwb57z0ZQCis9Xax0JrtF0G6ZEc59kRDs8TsvbmGQbseKUa4CoZXO8xUjfPaNW
-         EMbVSmurKMMNHe+Xy8WkuQfsJev9uFGo+Rv2xIBj8X+bXjrvbLdgCTKU8nKBdpLA2RNT
-         SZHurQCrpmn9ObVq9SoCwLzeUkbnBInvshwto=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788168962; x=1788773762;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=FN1nAbCl0iWx1Jrj/gmdbaIbN4coW5aF8DCQuC7TC90=;
-        b=pHeDexfwc3T2fOvA8Kut0f1hqASMban/JuHF9cHCziDrhPrCdCKC79rh2Iz/bYqMLM
-         rUPW/jzWwcbsQNTUX8is/rXeJJFccsYTwAhiCBrJHsNZ7f86ral/svlxXqi3irpUY/9l
-         jbLsX1AFuKZmtHFcrMkGcHI3jzLNMRSVsdC8xL3wbwJxG3OKUHayx7oIILk9FVr2FJ5/
-         PkboVIf2z1UjKRN7oNibCiGDb+ubSGOuakLN3jlWpxifp4DiXytZ2egPXtomaS8qg0Ot
-         ChyBW259uxFfbbZk8GWePfSUTG8zilhrAz09NCPgRskI7NPGowdtTVVLoy1GkYYjRbx2
-         72Fw==
-X-Forwarded-Encrypted: i=1; AKwUvBxF8QANFQ0TLMA0ByLI4g5t3rI9sD61p8nyMhKXSflOStol8qetEhiS1ArIFOIAUxuzjS0z4sxxdJ3PWmg=@vger.kernel.org
-X-Gm-Message-State: AFuF++ksv/SlNSEyBJnBLwV4+rSEd93v8qcQ6vvBoP4dfyflPG5iR+rz
-	4f4tbpjRJD3tts3omFCiU/LCfd61dhXU5NtT77lD59Ca5eyON6NOHPhk87e//9Ct09bOT1VES2m
-	aR35YnB8D
-X-Gm-Gg: AYBFou2BY/WiBlVrhGvYSUhUYInTFWCjytKirH4TD77COtleYLhEZS5KivOIOHdMhni
-	l+0CPs0u5beLTuHBy4OFq+gY2XfrhGTyHDVXM7tz0/ZaFht51xIjZC1ZG34DaFd7NTk2TQ4us9Y
-	n07X3cjnBeu3xqu3H3AvACKbaPGQ/zhbGEEbdyL4c4VCy2jZ+hoQul3MbX0eiCD10B26Xs4xmyh
-	iLyFPnF37oGLAPUjUrjB7DFhzYY1f+TMqEvH9ltKwU/c0DYb2ak3OgOPJ3wdEDVkTko9yMMrbJ8
-	1l2WmeIjwUtCppMD/INKQUt3FIShCqWuvRjY76QI/O1AZc1uKLLFZxswWP2lfPngKhV4EB4xIX7
-	IcWyT8wm8nsYcBoPgwVUA5YHzw56G2ckxBpJbzMAGMBD4eW2lK/hPj7j/SSXmYCAJY3dYMkHshy
-	EZwNbFK+sj5B3oCQKg/wnJ0i7yh+JtP3rkanVM1zwIB6snl5hbdtZVdsQqsI8NSbgxCO/o2bp+l
-	OdL9eD/2ZPVxzmh4KpdcS8VV05m1w==
-X-Received: by 2002:a17:90b:3c8a:b0:38e:524:8797 with SMTP id 98e67ed59e1d1-396d10076e9mr38160605a91.13.1788168961794;
-        Mon, 31 Aug 2026 02:36:01 -0700 (PDT)
-Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com. [209.85.210.172])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396dda7aaaasm15762223a91.6.2026.08.31.02.36.00
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 31 Aug 2026 02:36:01 -0700 (PDT)
-Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-84eb992a881so2864959b3a.2
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 02:36:00 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RqD4TOGtXvyB0yYP72InCuDDsLqHqDxKPFeySm2d+4FJK5WOVtcVT43KwFoEeUnGmQ2MhnmBfiloxYHA+4=@vger.kernel.org
-X-Received: by 2002:a05:6a21:3a93:b0:3cc:eea9:f757 with SMTP id
- adf61e73a8af0-3d268f0155amr42887925637.16.1788168959895; Mon, 31 Aug 2026
- 02:35:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=fiberby.net header.i=@fiberby.net header.b="jv2M2GhQ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=fiberby.net;
+	s=202008; t=1788168969;
+	bh=0y9SYeJbQS6ps3heZr3eahrgdU0qiRAeZE0dDp2kUfM=;
+	h=From:To:Cc:Subject:Date:From;
+	b=jv2M2GhQSgrThEx3K+IJFxa8sj9ubeXNcEVGSplUuGgVaLf/8fiIAgDIuIb99Vb8L
+	 nSCwES0wbbE68KrEQioAPMdViPkoeW24b5Qs9J6Bnw6+m7RAThLNZMla0r3Zcxg/tR
+	 TKe8W7XLVSJ+BW2FnNsw9HjmDyaLRrTJbbAApe8xFIQlYIz7J69utUtI4cRAVrzuGh
+	 oDGaT6m/K/CItC2t/8H+igijPTQvUKuzjgw2VmJWaUIc8O1wVt74L9StQRdre1Z9p9
+	 6Rlaze6ps95jJzidOBwB2REnCSL5TjzSYrNASfiWUEegucukErNk1VhyN1/+H9GjMg
+	 r61uwqzzFgfAQ==
+Received: from x201s (193-104-135-243.ip4.fiberby.net [193.104.135.243])
+	by mail1.fiberby.net (Postfix) with ESMTPSA id B0068600C1;
+	Mon, 31 Aug 2026 09:35:56 +0000 (UTC)
+Received: by x201s (Postfix, from userid 1000)
+	id C62072014E6; Mon, 31 Aug 2026 09:35:07 +0000 (UTC)
+From: =?UTF-8?q?Asbj=C3=B8rn=20Sloth=20T=C3=B8nnesen?= <ast@fiberby.net>
+To: Donald Hunter <donald.hunter@gmail.com>,
+	Jakub Kicinski <kuba@kernel.org>
+Cc: =?UTF-8?q?Asbj=C3=B8rn=20Sloth=20T=C3=B8nnesen?= <ast@fiberby.net>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Felix Maurer <fmaurer@redhat.com>,
+	Danielle Ratson <danieller@nvidia.com>,
+	Fernando Fernandez Mancera <fmancera@suse.de>,
+	Gabriel Goller <g.goller@proxmox.com>,
+	Patrick Rohr <prohr@google.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net-next v2 0/3] netlink: specs: rt-link: ipv6 devconf updates
+Date: Mon, 31 Aug 2026 09:34:52 +0000
+Message-ID: <20260831093458.472180-1-ast@fiberby.net>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260828152557.653475-1-jordan.mymail@gmail.com> <20260828152557.653475-3-jordan.mymail@gmail.com>
-In-Reply-To: <20260828152557.653475-3-jordan.mymail@gmail.com>
-From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Mon, 31 Aug 2026 11:35:46 +0200
-X-Gmail-Original-Message-ID: <CANiDSCuBjSBaFn+_tU0_mJJPmYS22hYDtKkQPdA-hdyoYyAx2Q@mail.gmail.com>
-X-Gm-Features: AcwNN1XgkLCjecn-xMPBFQ2S99WV76kJbhuKbPVXzKnNTlVDVd-mHsiSIZiuY6g
-Message-ID: <CANiDSCuBjSBaFn+_tU0_mJJPmYS22hYDtKkQPdA-hdyoYyAx2Q@mail.gmail.com>
-Subject: Re: [PATCH 2/3] media: uvcvideo: generalise the XU flags fixup to all controls
-To: Michael Jordan <jordan.mymail@gmail.com>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Hans Verkuil <hverkuil+cisco@kernel.org>, 
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Michael
+This series updates the doc-string for ifla-inet6-conf, and adds
+two missing ipv6-devconf enum values as identified by Sashiko
+during review of v1.
 
-Thanks for your patch
+Changes:
+v2:
+ - Update commit message for net-next, and renamed from
+   "netlink: specs: rt-link: fix ipv6 devconf doc"
+ - Add Reviewed-by from Fernando (Thanks).
+ - Sashiko comments:
+   - Added missing enum members accept-ra-min-lft and force-forwarding
+     as patch #2 and #3.
+   - Re: data types: as Jakub wrote in the original commit 720447bd0b24
+     ("netlink: specs: rt-link: remove implicit structs from devconf"):
+     "u32 is probably best we can do right now", as the reality is that
+     the sub-type varies per value.
+v1: https://lore.kernel.org/20260824103816.40040-1-ast@fiberby.net
 
-On Fri, 28 Aug 2026 at 17:26, Michael Jordan <jordan.mymail@gmail.com> wrote:
->
-> uvc_ctrl_fixup_xu_info() holds a per-device table of controls whose
-> GET_INFO reply is wrong, and overrides the flags for them. It only runs
-> from uvc_ctrl_fill_xu_info(), so it can only correct extension unit
-> controls, but standard controls suffer from the same class of firmware
-> bug: a device can report a wrong capability byte for a Camera Terminal
-> or Processing Unit control just as easily.
->
-> Rename it to uvc_ctrl_fixup_flags() and call it from
-> uvc_ctrl_get_flags(), where the flags are derived from GET_INFO for every
-> control, standard and XU alike. Call it whether or not the GET_INFO
-> request succeeded, so the table has the last word in both cases. The
-> call in uvc_ctrl_fill_xu_info() is dropped, as it now runs from
-> uvc_ctrl_get_flags() which that function calls.
->
-> No functional change for the devices already in the table: their
-> entries are XU controls, and were matched by entity and selector before
-> as they are now.
->
-> Suggested-by: Ricardo Ribalda <ribalda@chromium.org>
-> Signed-off-by: Michael Jordan <jordan.mymail@gmail.com>
-> ---
->  drivers/media/usb/uvc/uvc_ctrl.c | 87 +++++++++++++++++---------------
->  1 file changed, 46 insertions(+), 41 deletions(-)
->
-> diff --git a/drivers/media/usb/uvc/uvc_ctrl.c b/drivers/media/usb/uvc/uvc_ctrl.c
-> index aceb26310..b16a5cc0d 100644
-> --- a/drivers/media/usb/uvc/uvc_ctrl.c
-> +++ b/drivers/media/usb/uvc/uvc_ctrl.c
-> @@ -2852,6 +2852,46 @@ int uvc_ctrl_set(struct uvc_fh *handle, struct v4l2_ext_control *xctrl)
->   * Dynamic controls
->   */
->
-What about making uvc_ctrl_fixup_flags return bool:
-true if it applied a patch.
+Asbjørn Sloth Tønnesen (3):
+  netlink: specs: rt-link: update ipv6 devconf doc
+  netlink: specs: rt-link: add accept-ra-min-lft
+  netlink: specs: rt-link: add force-forwarding
 
-That way we can move it to the beggining of uvc_ctrl_flags, even
-before the kmalloc and return early.
+ Documentation/netlink/specs/rt-link.yaml | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
 
-> +static void uvc_ctrl_fixup_flags(struct uvc_device *dev,
-> +                                const struct uvc_control *ctrl,
-> +                                struct uvc_control_info *info)
-> +{
-> +       struct uvc_ctrl_fixup {
-> +               struct usb_device_id id;
-> +               u8 entity;
-> +               u8 selector;
-> +               u8 flags;
-> +       };
-> +
-> +       static const struct uvc_ctrl_fixup fixups[] = {
-> +               { { USB_DEVICE(0x046d, 0x08c2) }, 9, 1,
-> +                       UVC_CTRL_FLAG_GET_MIN | UVC_CTRL_FLAG_GET_MAX |
-> +                       UVC_CTRL_FLAG_GET_DEF | UVC_CTRL_FLAG_SET_CUR |
-> +                       UVC_CTRL_FLAG_AUTO_UPDATE },
-> +               { { USB_DEVICE(0x046d, 0x08cc) }, 9, 1,
-> +                       UVC_CTRL_FLAG_GET_MIN | UVC_CTRL_FLAG_GET_MAX |
-> +                       UVC_CTRL_FLAG_GET_DEF | UVC_CTRL_FLAG_SET_CUR |
-> +                       UVC_CTRL_FLAG_AUTO_UPDATE },
-> +               { { USB_DEVICE(0x046d, 0x0994) }, 9, 1,
-> +                       UVC_CTRL_FLAG_GET_MIN | UVC_CTRL_FLAG_GET_MAX |
-> +                       UVC_CTRL_FLAG_GET_DEF | UVC_CTRL_FLAG_SET_CUR |
-> +                       UVC_CTRL_FLAG_AUTO_UPDATE },
-> +       };
-> +
-> +       unsigned int i;
-> +
-> +       for (i = 0; i < ARRAY_SIZE(fixups); ++i) {
-> +               if (!usb_match_one_id(dev->intf, &fixups[i].id))
-> +                       continue;
-> +
-> +               if (fixups[i].entity == ctrl->entity->id &&
-> +                   fixups[i].selector == info->selector) {
-> +                       info->flags = fixups[i].flags;
-> +                       return;
-> +               }
-> +       }
-> +}
-> +
->  /*
->   * Retrieve flags for a given control
->   */
-> @@ -2889,49 +2929,16 @@ static int uvc_ctrl_get_flags(struct uvc_device *dev,
->                                 UVC_CTRL_FLAG_ASYNCHRONOUS : 0);
->         }
->
-> +       /*
-> +        * Some devices report bogus capabilities through GET_INFO. Let the
-> +        * fixup table have the last word, whether or not GET_INFO succeeded.
-> +        */
-> +       uvc_ctrl_fixup_flags(dev, ctrl, info);
-> +
->         kfree(data);
->         return ret;
->  }
->
-> -static void uvc_ctrl_fixup_xu_info(struct uvc_device *dev,
-> -       const struct uvc_control *ctrl, struct uvc_control_info *info)
-> -{
-> -       struct uvc_ctrl_fixup {
-> -               struct usb_device_id id;
-> -               u8 entity;
-> -               u8 selector;
-> -               u8 flags;
-> -       };
-> -
-> -       static const struct uvc_ctrl_fixup fixups[] = {
-> -               { { USB_DEVICE(0x046d, 0x08c2) }, 9, 1,
-> -                       UVC_CTRL_FLAG_GET_MIN | UVC_CTRL_FLAG_GET_MAX |
-> -                       UVC_CTRL_FLAG_GET_DEF | UVC_CTRL_FLAG_SET_CUR |
-> -                       UVC_CTRL_FLAG_AUTO_UPDATE },
-> -               { { USB_DEVICE(0x046d, 0x08cc) }, 9, 1,
-> -                       UVC_CTRL_FLAG_GET_MIN | UVC_CTRL_FLAG_GET_MAX |
-> -                       UVC_CTRL_FLAG_GET_DEF | UVC_CTRL_FLAG_SET_CUR |
-> -                       UVC_CTRL_FLAG_AUTO_UPDATE },
-> -               { { USB_DEVICE(0x046d, 0x0994) }, 9, 1,
-> -                       UVC_CTRL_FLAG_GET_MIN | UVC_CTRL_FLAG_GET_MAX |
-> -                       UVC_CTRL_FLAG_GET_DEF | UVC_CTRL_FLAG_SET_CUR |
-> -                       UVC_CTRL_FLAG_AUTO_UPDATE },
-> -       };
-> -
-> -       unsigned int i;
-> -
-> -       for (i = 0; i < ARRAY_SIZE(fixups); ++i) {
-> -               if (!usb_match_one_id(dev->intf, &fixups[i].id))
-> -                       continue;
-> -
-> -               if (fixups[i].entity == ctrl->entity->id &&
-> -                   fixups[i].selector == info->selector) {
-> -                       info->flags = fixups[i].flags;
-> -                       return;
-> -               }
-> -       }
-> -}
-> -
->  /*
->   * Query control information (size and flags) for XU controls.
->   */
-> @@ -2972,8 +2979,6 @@ static int uvc_ctrl_fill_xu_info(struct uvc_device *dev,
->                 goto done;
->         }
->
-> -       uvc_ctrl_fixup_xu_info(dev, ctrl, info);
-> -
->         uvc_dbg(dev, CONTROL,
->                 "XU control %pUl/%u queried: len %u, flags { get %u set %u auto %u }\n",
->                 info->entity, info->selector, info->size,
-> --
-> 2.43.0
->
-
-
+base-commit: 1bb784eb6e38fd73143f021608e4ef3095d0c0d7
 -- 
-Ricardo Ribalda
+2.55.0
+
