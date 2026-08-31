@@ -1,104 +1,103 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 290D64C67ED
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 14:04:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EB88492520;
+	Mon, 31 Aug 2026 14:05:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788185092; cv=none; b=fHNHjSXz7we1SsUpskameulNPnuePOopXNhsPqvuwZfl435H6eVh8oC6a2KEVTFi5se7jlpKNDU+x3SbUws99khVfmepNaVR5dvI7UBq/rS94Sp7Pmtvo8PBBBWInR1l6fn58AnWX7OiENowwMPd8N2N63PyzNfpIa+sji0ULAc=
+	t=1788185135; cv=none; b=QlP8TTVm8jbBcv/3KiZkO1uOdMd6Ni0qGWXaEgB74/10ExA2akSTifn5UftRRBNkOlvkXhu5pkpilMe6ZVh249lP28ORdWXXlTOgTaq5L4Pa6/Ivpw++OQvNpdPWg1gcKok8tR6Ou18EqYVHBakcQJb92ZR4WLLoCXrRkP3V0k0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788185092; c=relaxed/simple;
-	bh=xLPhcn633UxUUaKC4vzFrP/xR7wwEy8KtFue6KjCb3U=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=LRU1544CZqrkNUpOfc33RXcf57aIg76fCPk/wBUfj6E1iiPQADVbmqIL9lhod/5DjOuMvOJRPckrXBkTwBSjhBuugedqt/fCSEK1MRB9A3z91Ms3/IBu9PF/e2S20QhaCInCfV0sZrbAJNHsWZ+JkziF1nCc1XY8GSt67Fl83wY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ihUF8/PM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788185135; c=relaxed/simple;
+	bh=oAaZfGE0LIHaxXfesnXqiw1eLC+pyih9L152sojN/6M=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=XnGcxtD49uKVyyGlyoqp8I6hsyVDNy/ptftot4f2mxNETrBkw4ZogL66V/A6fY25j6UBWWLQgLeEzcWOJuYSAy+/dhmM/fduTlBHeTR/4otHlDt6yTZI+xoA4HBKuf5azhNukPcIHG183hBY2xlb/+rAj8tVKBC10YEJ9PIsec8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=HZ5I3bPi; arc=none smtp.client-ip=192.198.163.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ihUF8/PM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D75951F00ACF
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 14:04:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788185089;
-	bh=FzX+10cDhmW0hwDmYTE7152l7j2EZIR1C4UvMnU53IQ=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=ihUF8/PMhzJeYrYbYKKZ3CfldjIAWfS3HvzsSf8nZ+5ZJjiOMfRXL7l1UL7Tm5iG9
-	 KAcGlkommNiNTV8j2LwC30aNS9gTJgxIws+2EkaRj2H4gEMQBYNccMi29R+7wOK6t/
-	 exg2oyr/uiQTLGz075cO8aOKcw94kMi6swAJtmwGNg71cZ+ANghZu+XRtG6rH7lQ8e
-	 Bl6v/U1GE7Kl5yfKB8qS/PB63f7piUoz+byXfI1H434K33nJn9t4ctIDLLKm2aSZ9A
-	 ltj0zDcAq6PKhVWrw7tBZOlA0hITVoVD7qRwU9vJgsBK8J7baN40sXmH7LecPvsAyk
-	 3nYsJgpwgka3A==
-Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c247f6687dcso577644066b.2
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 07:04:49 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RpFhx1ChUAECvNuOHonck53+HLcVpuNBn6fQXx9Y8aQqwXG7hncVRz2LaWbJCu3Kd/bAm+rnWnLiIpOblA=@vger.kernel.org
-X-Gm-Message-State: AFuF++nggsrt9R8s1MFsQWRKYYoK49iqQurLxudd/7JeN3aGrEaifGw5
-	IMNcr8pquLrP0JIUKB1FDdNzPtQzvDLngjcBYRxKnsMVL5/EuMX5eOxabcErcxZjCyBrIw3GwN8
-	3QISmFYXnYkl4YPyHJ+A5f+dXY+JLlaA=
-X-Received: by 2002:a17:906:fd84:b0:c25:9102:fa with SMTP id
- a640c23a62f3a-c25b3bcf4b6mr53883166b.8.1788185088429; Mon, 31 Aug 2026
- 07:04:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="HZ5I3bPi"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788185133; x=1819721133;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=oAaZfGE0LIHaxXfesnXqiw1eLC+pyih9L152sojN/6M=;
+  b=HZ5I3bPid572ErEWH1P2vY5eTZPlfMoGccBuPIWIAfqATNtgWYJDAAHj
+   mNCwOXZRiGCHrYBh6EVrB1evCpHNM7M/gt5AUzHclFrelrxTmOUuJe0bM
+   XPnbHEzS1kfLgy3om//r1XXe21z1fqwyoGQtNspJ8oeCz+cdcES+aLiff
+   9biDovgUND/jFY9lXMzUrs55XjlFI6fEnq0Oyhk4+PlCZ6zRlaktj3ejP
+   NvkAtV6QiL/0sNllcp0JEvxe+k4hurbNlx42tKc+xHd7eIxS62roXzfJe
+   Mp3WlfzdYsOg/2RySvGZhlexuhOF74ZF8Dl5IcUSyFGzZMtj9wZm12VrD
+   Q==;
+X-CSE-ConnectionGUID: rXDTv4fbQzyPBuJ6nDa41A==
+X-CSE-MsgGUID: o/kRP+ksSIOGM8uHC0eBXg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11891"; a="88469550"
+X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; 
+   d="scan'208";a="88469550"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 07:05:22 -0700
+X-CSE-ConnectionGUID: T0R3EfDeTYW6/E9ENg7iSw==
+X-CSE-MsgGUID: XJteXT1URma2VSypDslLYA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; 
+   d="scan'208";a="307032910"
+Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.244.21])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 07:05:17 -0700
+Date: Mon, 31 Aug 2026 17:05:15 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Stefan Popa <stefan.popa@analog.com>
+Cc: linux-iio@vger.kernel.org, jic23@kernel.org, lars@metafoo.de,
+	Michael.Hennerich@analog.com, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, andy@kernel.org, dlechner@baylibre.com,
+	nuno.sa@analog.com, siratul.islam@linux.dev,
+	u.kleine-koenig@baylibre.com, linux@roeck-us.net,
+	joshua.crofts1@gmail.com, ciprian.hegbeli@analog.com,
+	krzysztof.kozlowski@oss.qualcomm.com, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v9 2/2] iio: adc: add MAX40080 current-sense amplifier
+ driver
+Message-ID: <apWKGyFYmmJLe-Wx@ashevche-desk.local>
+References: <20260831134334.196359-1-stefan.popa@analog.com>
+ <20260831134334.196359-3-stefan.popa@analog.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260817123918.2738447-1-nagachaithanya9911@gmail.com>
-In-Reply-To: <20260817123918.2738447-1-nagachaithanya9911@gmail.com>
-From: Huacai Chen <chenhuacai@kernel.org>
-Date: Mon, 31 Aug 2026 22:04:35 +0800
-X-Gmail-Original-Message-ID: <CAAhV-H5eaFd9t5CikZA0Lhy6eVbnUBvvLV5cV7rvo42M47yeWQ@mail.gmail.com>
-X-Gm-Features: AcwNN1VDSGpC4QI19ueXEEvghR72mgVgMiabqgpi1oIqT6rLIE-ia0qxu3ODzvI
-Message-ID: <CAAhV-H5eaFd9t5CikZA0Lhy6eVbnUBvvLV5cV7rvo42M47yeWQ@mail.gmail.com>
-Subject: Re: [PATCH] LoongArch: KVM: Free init resources if kvm_init() fails
-To: Chaithanya Lagisetty <nagachaithanya9911@gmail.com>
-Cc: zhaotianrui@loongson.cn, maobibo@loongson.cn, kernel@xen0n.name, 
-	kvm@vger.kernel.org, loongarch@lists.linux.dev, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260831134334.196359-3-stefan.popa@analog.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Hi, Bibo,
+On Mon, Aug 31, 2026 at 04:43:34PM +0300, Stefan Popa wrote:
+> The MAX40080 is a bidirectional current-sense amplifier with an
+> integrated 12-bit ADC and an I2C/SMBus interface. It measures the
+> voltage across an external shunt resistor and the input bus voltage,
+> storing the results in an internal FIFO.
+> 
+> Add a direct-mode IIO driver exposing the current and voltage channels
+> with raw, scale and hardware-gain attributes, a configurable
+> oversampling (digital averaging) ratio, and PEC-protected register
+> access. The current scale is derived from the shunt resistor value
+> described in the device tree.
+> 
+> The driver operates in single-measurement mode: each raw read triggers
+> an on-demand conversion via SMBus Quick Command and returns a matched
+> current/voltage pair. This avoids the latency and complexity of the
+> continuous FIFO mode while ensuring each read reflects the current
+> state. The two selectable current-sense ranges are exposed through
+> scale/scale_available.
+> 
+> Continuous FIFO buffering, threshold events and the alert interrupt are
+> intentionally left out of this initial submission and may be added
+> later.
 
-What do you think about this?
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+
+-- 
+With Best Regards,
+Andy Shevchenko
 
 
-Huacai
-
-On Mon, Aug 17, 2026 at 8:39=E2=80=AFPM Chaithanya Lagisetty
-<nagachaithanya9911@gmail.com> wrote:
->
-> kvm_loongarch_init() calls kvm_loongarch_env_init() to allocate the
-> per-CPU kvm_context (vmcs) and kvm_loongarch_ops and to register the
-> perf callbacks, and then calls kvm_init(). If kvm_init() fails its
-> result is returned directly, but since module_init() does not run
-> module_exit() on failure, kvm_loongarch_env_exit() is never called and
-> those resources are leaked.
->
-> Call kvm_loongarch_env_exit() when kvm_init() fails, matching the
-> teardown-on-failure pattern used by riscv_kvm_init().
->
-> Fixes: 2bd6ac687261 ("LoongArch: KVM: Implement kvm module related interf=
-ace")
-> Signed-off-by: Chaithanya Lagisetty <nagachaithanya9911@gmail.com>
-> ---
->  arch/loongarch/kvm/main.c | 6 +++++-
->  1 file changed, 5 insertions(+), 1 deletion(-)
->
-> diff --git a/arch/loongarch/kvm/main.c b/arch/loongarch/kvm/main.c
-> index 3e1005526f4b..b6ddf5827c03 100644
-> --- a/arch/loongarch/kvm/main.c
-> +++ b/arch/loongarch/kvm/main.c
-> @@ -428,7 +428,11 @@ static int kvm_loongarch_init(void)
->         if (r)
->                 return r;
->
-> -       return kvm_init(sizeof(struct kvm_vcpu), 0, THIS_MODULE);
-> +       r =3D kvm_init(sizeof(struct kvm_vcpu), 0, THIS_MODULE);
-> +       if (r)
-> +               kvm_loongarch_env_exit();
-> +
-> +       return r;
->  }
->
->  static void kvm_loongarch_exit(void)
-> --
-> 2.43.0
->
