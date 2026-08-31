@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 818913C1D48
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 07:04:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB5A33C1D4B
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 07:04:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788159864; cv=none; b=Qv9+BdrOQOQnTJBnKHBhX150AitTlHYInnFw+4E1kWst/8wPKbDqp0jjQ21/aC8sN8nXFy8bLztHIpVSo91QwsumjU4HjnsLxcwNpuaY06lFW+GEYHgUH3oNExgiXBQYhGbJt/Fo1+GDBz6oNeCnPeX0rvnIedXRmjP3n5BlowY=
+	t=1788159866; cv=none; b=a7nfpRLqbHkWVbF+YULm0Kl5UhBNaUS88qmyb92uNMXCWgHKB/zANHnfC6uNcxyLRMPrTwGXlX0CBwDEplqmGPfu3YYBGyo0e4Zp3I9WB+KIa265j46dPgTlzgEGsGx4sRP73a59SyjpkywjwlFz8U0yO0djPhygzwW4irx1UfM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788159864; c=relaxed/simple;
-	bh=M43cnpBymSCKMsCZFG2tX0uJTeC8mhh6vcO4ugsUQiE=;
+	s=arc-20240116; t=1788159866; c=relaxed/simple;
+	bh=mAD24BuE8vaGJ0loXycbTB7KWlsBNvDzMvt7q56tEgs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gRNUlho6yDnJMylrzU3xSKWErGU5ttYs6BAx3hs3FqpRTZr+MuYjXXMdQEjo02q4Sb07r9niNz+qkrSjlDucz6nAKO4CvZno37QA4TS9/W7MC3AkMAj63UYxM8vSoxjvpkgo8HNZHNOmrKBU5uNrQKKwbQmAbzh6YXkmz7zwhJY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z7+2RE+N; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=eMMmhHeUcYAlMwP0LzliKWMBrQ7sGlPk8qWBkQdn37LSWUFChkyfJcrPjgTI7WhFWa3RD/FrDLe2shYjyhs7dCed+7cUH3VCOAsll5Wt+xcYO9MwfTLqtB44l5soK35ENdyeklK3qbncMb2BgH12VBm6wG15GuQjSr9QK88kzoQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZN3QoZKm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z7+2RE+N"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 503741F00A3E;
-	Mon, 31 Aug 2026 07:04:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZN3QoZKm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80C0C1F000E9;
+	Mon, 31 Aug 2026 07:04:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788159863;
-	bh=v4fCl+LDvzJc+WHGg4yHN0f53K4cDgIw8xSEt3PLJuw=;
+	s=k20260515; t=1788159865;
+	bh=UgoNySTG1VkGzv8m2Lu7qXZrUu7csPOej6EJf2W9004=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Z7+2RE+NRI5tCXRBAhNrOxg6Dz1TZb0KrLE4+rPAftxtwjPCjURVT3BovaeKgFSbY
-	 buw5//P5GcHxZAJJ2i+y8aHb8Y2Biljvcv5ERA7RO68GFj2hGZRK+GJb9vMDZLMNlx
-	 ZmY0C0EhaypewluSvdfWJw6ZVxFlhT1Qy+2zz1kqOeMiOMEyrn2ukd7LYabJguGo3Y
-	 QtSFxph50sYL3xSYsbEoEtHNTy4lmR5XJ3SB+mTOrFbn9TPfSZWbjbKHQ7HOmYJByw
-	 +yuTkDG/jWhuPJ+WwFgSlpnHJQj/u+jJGCRdLQcNrvYJGIFwajTTO8zeB48RGQL3EL
-	 5VtbvldCWoHow==
+	b=ZN3QoZKmZhEFSj/Tx/fN4HRh9tRmgf86GRTFhT8Fy+s7tvi7jDFzvrbSB37Fgf5OV
+	 1Bt/Ry3MsQ3ssoudnmrk3mGiHwrq9ceDqrDgxb1x7491tztN6gNzhSr4RPPpVWWZBZ
+	 zPbEdVo6ha+nkLwXaRS52V/7oUbOikax4mWPwgmxglvVzZsELxKHQzpeAwC9GIcQ2O
+	 WTsbLaTW6p2fdmPEWHR71pQTOyuAqvKPags+g/Wm5/44FDQl5xVk2cKdet7UUzK8uF
+	 6WrToy5TGU0cdFRsTtgK0WVTHi/Z/dCBWjYNMGUcbDwo5Hp4ZPqpmJjTKy0eK9ZijK
+	 1CYOoXX1tc9PA==
 From: Tzung-Bi Shih <tzungbi@kernel.org>
 To: Kees Cook <kees@kernel.org>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
@@ -38,9 +38,9 @@ Cc: Tony Luck <tony.luck@intel.com>,
 	tzungbi@kernel.org,
 	tfiga@chromium.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 1/2] printk: Introduce CON_BYPASS_LOGLEVEL flag
-Date: Mon, 31 Aug 2026 07:03:45 +0000
-Message-ID: <20260831070346.3490745-2-tzungbi@kernel.org>
+Subject: [PATCH 2/2] pstore: Bypass loglevel suppression for pstore console
+Date: Mon, 31 Aug 2026 07:03:46 +0000
+Message-ID: <20260831070346.3490745-3-tzungbi@kernel.org>
 X-Mailer: git-send-email 2.55.0.897.gb25b4bd76c-goog
 In-Reply-To: <20260831070346.3490745-1-tzungbi@kernel.org>
 References: <20260831070346.3490745-1-tzungbi@kernel.org>
@@ -52,93 +52,70 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Currently, offline consoles (e.g., pstore_console backed by ramoops)
-inherently rely on the global `console_loglevel` setting.  If a system
-is configured with a quiet serial console, the pstore console is
-silenced as well.  Consequently, during a panic or lockup, relevant
-verbose logs leading up to the crash are lost.
+The pstore console largely serves to continuously dump kernel messages
+to persistent backends (e.g., ramoops).  Currently, it inherits the
+global `console_loglevel` constraints.  Relevant verbose logs could be
+omitted from a crash dump if the system uses a strict log level to
+prevent spam and bottlenecks.
 
-Introduce the `CON_BYPASS_LOGLEVEL` flag to allow consoles to bypass log
-level suppression.
+Unlike physical consoles, writing records to RAM (ramoops) is extremely
+fast.  Applying loglevel limits to pstore provides no system performance
+benefit, but sometimes costs engineers the crucial verbose debugging
+context leading up to a kernel panic or lockup.
+
+Introduce `PSTORE_FLAGS_CONSOLE_BYPASS_LOGLEVEL` to allow fast pstore
+backends to capture full and unsuppressed logs directly regardless of
+the system's global loglevel setting.  Opt-in for `ramoops`.
 
 Signed-off-by: Tzung-Bi Shih <tzungbi@kernel.org>
 ---
- include/linux/console.h | 4 ++++
- kernel/printk/nbcon.c   | 7 +++++--
- kernel/printk/printk.c  | 6 ++++--
- 3 files changed, 13 insertions(+), 4 deletions(-)
+ fs/pstore/platform.c   | 4 ++++
+ fs/pstore/ram.c        | 3 ++-
+ include/linux/pstore.h | 2 ++
+ 3 files changed, 8 insertions(+), 1 deletion(-)
 
-diff --git a/include/linux/console.h b/include/linux/console.h
-index d624200cfc17..00ce21d73256 100644
---- a/include/linux/console.h
-+++ b/include/linux/console.h
-@@ -180,6 +180,9 @@ static inline void con_debug_leave(void) { }
-  *			constraints.
-  * @CON_NBCON_ATOMIC_UNSAFE: The write_atomic() callback is not safe and is
-  *			therefore only used by nbcon_atomic_flush_unsafe().
-+ * @CON_BYPASS_LOGLEVEL	The console bypasses loglevel filtering. Every message
-+ *			in the ringbuffer is emitted, regardless of the global
-+ *			console_loglevel setting.
-  */
- enum cons_flags {
- 	CON_PRINTBUFFER		= BIT(0),
-@@ -192,6 +195,7 @@ enum cons_flags {
- 	CON_SUSPENDED		= BIT(7),
- 	CON_NBCON		= BIT(8),
- 	CON_NBCON_ATOMIC_UNSAFE	= BIT(9),
-+	CON_BYPASS_LOGLEVEL	= BIT(10),
- };
+diff --git a/fs/pstore/platform.c b/fs/pstore/platform.c
+index 1d76c9d92056..88b894163b25 100644
+--- a/fs/pstore/platform.c
++++ b/fs/pstore/platform.c
+@@ -421,6 +421,10 @@ static void pstore_register_console(void)
+ 	 * calls may have changed settings (specifically CON_ENABLED).
+ 	 */
+ 	pstore_console.flags = CON_PRINTBUFFER | CON_ENABLED | CON_ANYTIME;
++
++	if (psinfo->flags & PSTORE_FLAGS_CONSOLE_BYPASS_LOGLEVEL)
++		pstore_console.flags |= CON_BYPASS_LOGLEVEL;
++
+ 	register_console(&pstore_console);
+ }
  
- /**
-diff --git a/kernel/printk/nbcon.c b/kernel/printk/nbcon.c
-index 4b03b019cd5e..bb5669cbf51b 100644
---- a/kernel/printk/nbcon.c
-+++ b/kernel/printk/nbcon.c
-@@ -981,7 +981,9 @@ static bool nbcon_emit_next_record(struct nbcon_write_context *wctxt, bool use_a
- {
- 	struct nbcon_context *ctxt = &ACCESS_PRIVATE(wctxt, ctxt);
- 	struct console *con = ctxt->console;
--	bool is_extended = console_srcu_read_flags(con) & CON_EXTENDED;
-+	short console_flags = console_srcu_read_flags(con);
-+	bool is_extended = console_flags & CON_EXTENDED;
-+	bool may_suppress = !(console_flags & CON_BYPASS_LOGLEVEL);
- 	struct printk_message pmsg = {
- 		.pbufs = ctxt->pbufs,
- 	};
-@@ -1014,7 +1016,8 @@ static bool nbcon_emit_next_record(struct nbcon_write_context *wctxt, bool use_a
- 	if (!nbcon_context_enter_unsafe(ctxt))
- 		return false;
+diff --git a/fs/pstore/ram.c b/fs/pstore/ram.c
+index 2eb0d4fa2186..945dd55be97a 100644
+--- a/fs/pstore/ram.c
++++ b/fs/pstore/ram.c
+@@ -825,7 +825,8 @@ static int ramoops_probe(struct platform_device *pdev)
+ 		cxt->pstore.max_reason = pdata->max_reason;
+ 	}
+ 	if (cxt->console_size)
+-		cxt->pstore.flags |= PSTORE_FLAGS_CONSOLE;
++		cxt->pstore.flags |= PSTORE_FLAGS_CONSOLE |
++				     PSTORE_FLAGS_CONSOLE_BYPASS_LOGLEVEL;
+ 	if (cxt->max_ftrace_cnt)
+ 		cxt->pstore.flags |= PSTORE_FLAGS_FTRACE;
+ 	if (cxt->pmsg_size)
+diff --git a/include/linux/pstore.h b/include/linux/pstore.h
+index fed601053c51..34b4acfa21ce 100644
+--- a/include/linux/pstore.h
++++ b/include/linux/pstore.h
+@@ -206,6 +206,8 @@ struct pstore_info {
+ #define PSTORE_FLAGS_CONSOLE	BIT(1)
+ #define PSTORE_FLAGS_FTRACE	BIT(2)
+ #define PSTORE_FLAGS_PMSG	BIT(3)
++/* Bypass loglevel for fast consoles */
++#define PSTORE_FLAGS_CONSOLE_BYPASS_LOGLEVEL BIT(4)
  
--	ctxt->backlog = printk_get_next_message(&pmsg, ctxt->seq, is_extended, true);
-+	ctxt->backlog = printk_get_next_message(&pmsg, ctxt->seq, is_extended,
-+						may_suppress);
- 	if (!ctxt->backlog)
- 		return nbcon_context_exit_unsafe(ctxt);
- 
-diff --git a/kernel/printk/printk.c b/kernel/printk/printk.c
-index 3fcdf4b4e2e5..b8a7a8b69af7 100644
---- a/kernel/printk/printk.c
-+++ b/kernel/printk/printk.c
-@@ -3125,7 +3125,9 @@ struct printk_buffers printk_shared_pbufs;
-  */
- static bool console_emit_next_record(struct console *con, bool *handover, int cookie)
- {
--	bool is_extended = console_srcu_read_flags(con) & CON_EXTENDED;
-+	short console_flags = console_srcu_read_flags(con);
-+	bool is_extended = console_flags & CON_EXTENDED;
-+	bool may_suppress = !(console_flags & CON_BYPASS_LOGLEVEL);
- 	char *outbuf = &printk_shared_pbufs.outbuf[0];
- 	struct printk_message pmsg = {
- 		.pbufs = &printk_shared_pbufs,
-@@ -3134,7 +3136,7 @@ static bool console_emit_next_record(struct console *con, bool *handover, int co
- 
- 	*handover = false;
- 
--	if (!printk_get_next_message(&pmsg, con->seq, is_extended, true))
-+	if (!printk_get_next_message(&pmsg, con->seq, is_extended, may_suppress))
- 		return false;
- 
- 	con->dropped += pmsg.dropped;
+ extern int pstore_register(struct pstore_info *);
+ extern void pstore_unregister(struct pstore_info *);
 -- 
 2.55.0.897.gb25b4bd76c-goog
 
