@@ -1,261 +1,414 @@
-Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com [209.85.222.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010005.outbound.protection.outlook.com [52.101.193.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD2FD29408
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 07:20:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.222.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DB1E3B4E8B;
+	Mon, 31 Aug 2026 07:20:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.5
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788160824; cv=pass; b=b+ajhr0NVlmcRVhklq4U4WPbvQvetEpn6KLOURB8FPp0TOn6RtqP7iNmylSLcWRde7DqLEcZNo+zjb5hrfodvOFuZe3IwIp2tFWol99QNGfo4TRerKVkbxf4yPLB7I7PSVOrgHIgzW/ZNbw6bQNnw6U/0h94YyixDospQ5O0+mQ=
+	t=1788160825; cv=fail; b=kCavbwbTU2nPRh12z7+uNCAaPVFLs7ZuOij2AjjGaGwjPc7srE5b+DAkmKhuG+4uVBrOYJQzIjTR4jklv0La8EsJxhUkLGPklhksl8LhRffriepQbuwwP+EldoNREGhHk/mPZ4Zq/rR7Xb+a+QCAb3AuI3lKyhRTgX94o4has1s=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788160824; c=relaxed/simple;
-	bh=n9o2swquvhR29jn4mFjOtM91XSnruoxkyihW01u7frE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Ib49CW/IwLfRJnsvJjzvFtgl4u6QaCQqaDWA2pAijjcAgQr7JBvUNeBTtqKm06kq65jcsPLXGCMY6I8+ioqnU62oaRW1AdDpApxSn+Kx6BXr59YAFOkxUrGuKxTMPCKBF+ZhAWh+RiIGgrxLxLuzJKjqGTn/SnQ8iAy/wUYY1og=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tomeuvizoso.net; spf=pass smtp.mailfrom=tomeuvizoso.net; dkim=pass (2048-bit key) header.d=tomeuvizoso-net.20251104.gappssmtp.com header.i=@tomeuvizoso-net.20251104.gappssmtp.com header.b=oKkDKIrp; arc=pass smtp.client-ip=209.85.222.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tomeuvizoso.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tomeuvizoso.net
+	s=arc-20240116; t=1788160825; c=relaxed/simple;
+	bh=+j7DXtW5s0U6x6sHmmL/fMMKrP5exvXgl8fvmXvFfUk=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
+	 In-Reply-To:MIME-Version; b=a9mFaatDFf2auccxDnfmLqjWx5yJN4ESNhGMYLtCbJHbw3+snTRqARBmEhe9n9EkQIMY9cSEvzNeHPniCiwYtE7qP32y8sWIo9Sdz0CwAqRd75QigaUFQkx0hjUHPjPQx98yEbQNfgYVen2ND6RN7zJf+eXamEerp2yXJI56l4o=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=M80CzBc3; arc=fail smtp.client-ip=52.101.193.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tomeuvizoso-net.20251104.gappssmtp.com header.i=@tomeuvizoso-net.20251104.gappssmtp.com header.b="oKkDKIrp"
-Received: by mail-qk1-f182.google.com with SMTP id af79cd13be357-938cd95b06eso257295485a.1
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 00:20:21 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788160820; cv=none;
-        d=google.com; s=arc-20260327;
-        b=XkAREleqiMjxj8dOXspOL5SsrBvie205tfQe8vMHuA5enS3GpIzIpkxCIwc7EZID3+
-         unArtUg7bKLYhsrF3ApeKl9dvcC/vwFvscabX7fQt6VA9YkL4DCdKZDJWHSf8xC5cOZC
-         YOE66RtjELhu7GuDJQUMfnnqacPL4BRnnN29eUGiR/Uz6kaIlaDoipexm24J4HD/WuaS
-         Q8l/MQaJjS84wJ5cAwtZTuLf7HZt3CUAELYpKoty6t7GmrNitA+z0fVmZi10Na1cH+37
-         JLm2fqTCIxrqfP2bARGp+O0ObZUdWMF6As1wGgGP80iccojdl8LP/04OZUTHv8bZ/UH2
-         V5Aw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=bFWfbb/gIctZHoo0CDVoZsBSY4wt/NAsN/U4bJzB5KM=;
-        fh=LFOFC7Bpn111Io7qA1O7EwwroR5fYLUmYsm0jLKLdF0=;
-        b=CNAK88UAGiCh+lUn3zHNK8J0bLFxpfdJLl3Z9fYnE6VBLWKsOIhzU+oCHcaJ4/UxON
-         dNGrMKPAs3/MoKE0ESC9ArjpgMWwXzp8GZWH2FyyTw/KzDdOg0cdyjbfflsqBumbLTpR
-         Ve6Wm+63YMSOIsbczGEtNPt9nKNIFVUOFx8AO8c2D2Sgsn43TS18DM9Ozhv6B/q9RzYu
-         VySmoElW8WWL2AK4CipXRnVGbRxUpy1vi0TmLgKuXZuhwbdsBxuIZ8tG+vRqW+PfNPew
-         btvkeVaYDPn+jP5oA7rgBz1tdXyMy2idNvL3pIR2kw3Zth6jNjtAzNMh1plR8QvX4g7C
-         bO0w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=tomeuvizoso-net.20251104.gappssmtp.com; s=20251104; t=1788160820; x=1788765620; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=bFWfbb/gIctZHoo0CDVoZsBSY4wt/NAsN/U4bJzB5KM=;
-        b=oKkDKIrp3dd1z/MFoWMPTe92a7sYHI0OriCkfqNLgRX3fwZHkPBNKTcMznXcJjkL9K
-         wMJEtNGO8lbxlMPrh/8IRYu60TTsZxxekMMRgzZpzMcfj5g8V1tiNmHhumSehIpPK9CX
-         4QJwW/KbQgZfIZbQh4HDHG5JVq0j4umLIfx9WLA/n2VJA795VWThsG7ydtQyWgS/Fg5A
-         QMjBRjlIZ+gNvZE4XphqIntjccUq/stBsE+F13cZ6fP/UwykeTYM46BoirNZ8V9mZhSM
-         AfVZes2zycLMeNOsjbMDIyREnmFTowIpgyuk5lHpPUJzbjT1UEAyexVCNGqIARYvsRNI
-         3Cuw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788160820; x=1788765620;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bFWfbb/gIctZHoo0CDVoZsBSY4wt/NAsN/U4bJzB5KM=;
-        b=NBMYx/F7L1FqFvH9ycw3H0z3VVoKocYT1jleehZ2r8gFez67QSx6o5FTVZJSWWeZ4H
-         6f/p2tK6pQKNecfDxurDuNqpdru799AZmeYoeyBH99UHar0UUXywLW4oJUfLoPES+JSI
-         aqV1y7X7Hu1Mb6aPKeokT8VgP0dehD24WMNIBaqaUAAKcAzLtw/VcN7W0QqPn7gu1FOc
-         e3+qV0uXPhrXni4DjqQiFdozqBBiSQ5FMjyPj+pGX48Z7g4duSELcf2Qk7UbY2y/XnLs
-         Gyl4xw/j62tH6bhWd3Bt0k9sHjx1qQJubrJU2+OT04atkScVnPVYfv0PlYeE1s8bEwAR
-         Jl3Q==
-X-Forwarded-Encrypted: i=1; AHgh+RpkO5uFLwwXAQMgv8Vl/JadXp7VR7oA3TN4ZSNyfd2m2n7COnajhMTPSr+sYTK2lL1ziKm4BJLoSc56Iak=@vger.kernel.org
-X-Gm-Message-State: AFuF++nzkA5+/nDrA/Ef5QxM7Ecp8KQM97gc5UXIZRJ8Da9AJkHaU0wB
-	77hB14pW6csAZ66R8IWvS0l+f2ayE7FKNNgvALzajqKKaboc+eEmV7k6k2qjdyp4S3hR5ByWPaK
-	7buFl1aNqB7jRryW74GTwjaMMd4S9QgJKJWA0eIrGJg==
-X-Gm-Gg: AR+sD11gdPyIW198lX8ir9LlIYUabB2TF34V7DZtJRtlDWUIUjL26723BIPEPe7HLL+
-	GcCRybkInAJAWVkBsxc7xq2QBn6RIvYJDgngkiQgIYn1oPmqyt3XkWrSLOUUzOUDEGijKkCcPAM
-	35lcC+Vriqk2pB2j7NjEoUgHV4nfPoIskSckDxJ/fiLmdVVWQP8SWNlXj9cEBJV4fI80MOv3EDI
-	YaLLqCnlM4q70Ze5gDZMNZABiK8OxMLFWmoqBS2JmH2Mhzyde6DI7eB/uTibCYxnLachRf2EZGC
-	KjXhTxRCnVxKvUCV05ctyuWnyjJnX6+OtUE4Ot7m66zX
-X-Received: by 2002:a05:620a:1d02:b0:939:619:c6eb with SMTP id
- af79cd13be357-93936c7a141mr714176285a.8.1788160820472; Mon, 31 Aug 2026
- 00:20:20 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="M80CzBc3"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=zPUFSkhmo/73pu5P6lShcgLN5cad5QCVxFDo/pVLJfucCTtFVh2+3Gp6JpYbLX8sd4mst3W75lzPuCzKBNWRq2xLPRDrHgHP1J8xjX2Z7yFTSjdimKc1UWGB9zGOhjCQdtmxr+krtGkZ4qRC2XmYX0YEgIfShJxKbQHK35oN0ur2mOSAIKClF1BpTkyFjzKy/vm4/RYcN5jJ+px1nRPhSciswmalTmtWastpRptsiOVywI7vuQcpDhvUtMgCsKrnWKhf9cq1krS4oCAW3iAqXSdnkQ+QW4xHNwPbQNh4yZQywCZMBXkKpZM2IVXNgyveibmrUvt7llXkIJ9qNERMyQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=gTqc4aFOXbquPIUihoTIvXwNxWOe9RQ5K9XWkkk9U8w=;
+ b=YJYyQ5+jgXOQg4IpPmZpUBYn2r3o7U3uyNaDo5NG+xDxC6SYDfklEuvkoT3+GBuUCNsLM6O74dng1ux25XKskB2Wt4R8RYeqPA/Mxn05yeYnXP91+InRUFYfdojU8NB3QKLUerQAJXonZZAUR1wH1XDa7EOz6uxkMiRfueQ84sIjKfBZDRyEmCZxT4bglN8E6Z/GcTF6HPYNVCDyoW8spuHGD5EfclpVOez+JMgLmo4nnRL8unVq5n1b4qSqZnAD4mStSK/6l8QJW5Yn5YPGlyxauqi6edVcrtTqc0egi0HYasXsdzgW8Q3FBxz8/Ay3eIaq2QFSiFDlsD/GrGbKaQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=gTqc4aFOXbquPIUihoTIvXwNxWOe9RQ5K9XWkkk9U8w=;
+ b=M80CzBc3lAwpzi2qpYuQ8oEEzkTeSmcnbrdIox/jAj4iUWWvRcA44VJb6ozOo8SCAnJK2GyhVZfqllZwIrKtsuiaEPBudHfqWjy+Uo1PdnYUdmaD6cTH7jytr762nMVg3/xsEf1IZS/toMl95JYIVCmRpw+1ZL5cE13s87Tqukrifvm+d14ODLwVcZ+CgrnvjBAcxoQR7i9z9A1YKOyp94U/yB9+jS7ctYtM6Oe9tqA7svjjazDfvcd+1/O9/+6T1PNaLWNZ98tGskCbtI4bb2Z/y028bBaFfCOPC+iwPZmQ+DWLTRwi2moYT/ed+uCUeTC/jHpKr5CoRXnxcXoFiA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
+ IA1PR12MB7616.namprd12.prod.outlook.com (2603:10b6:208:427::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Mon, 31 Aug
+ 2026 07:20:20 +0000
+Received: from DS0PR12MB6413.namprd12.prod.outlook.com
+ ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
+ ([fe80::e82a:6673:4142:37fa%5]) with mapi id 15.21.0360.008; Mon, 31 Aug 2026
+ 07:20:20 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 31 Aug 2026 16:20:13 +0900
+Message-Id: <DL2Y3TBTXYA0.25GP7MGS9UN31@nvidia.com>
+Cc: <linux-kernel@vger.kernel.org>, <rust-for-linux@vger.kernel.org>
+Subject: Re: [PATCH 2/2] rust: num: add `cv!` macro to create values from
+ constant expressions
+From: "Eliot Courtney" <ecourtney@nvidia.com>
+To: "Gary Guo" <gary@garyguo.net>, "Alexandre Courbot"
+ <acourbot@nvidia.com>, "Eliot Courtney" <ecourtney@nvidia.com>, "Yury
+ Norov" <yury.norov@gmail.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun
+ Feng" <boqun@kernel.org>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
+ "Trevor Gross" <tmgross@umich.edu>, "Danilo Krummrich" <dakr@kernel.org>,
+ "Daniel Almeida" <daniel.almeida@collabora.com>, "Tamir Duberstein"
+ <tamird@kernel.org>, =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260828-cv-v1-0-694a695ff17f@garyguo.net>
+ <20260828-cv-v1-2-694a695ff17f@garyguo.net>
+In-Reply-To: <20260828-cv-v1-2-694a695ff17f@garyguo.net>
+X-ClientProxiedBy: PAYP264CA0014.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:102:11e::19) To DS0PR12MB6413.namprd12.prod.outlook.com
+ (2603:10b6:8:ce::10)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260831040804.24111-1-gahing@gahingwoo.com>
-In-Reply-To: <20260831040804.24111-1-gahing@gahingwoo.com>
-From: Tomeu Vizoso <tomeu@tomeuvizoso.net>
-Date: Mon, 31 Aug 2026 09:20:09 +0200
-X-Gm-Features: AcwNN1Uwr5NzEhJ7J-T4GkpAbcQEn3hzAH0qQngAbR_wX7Qh73vwn6zU-qNzhjg
-Message-ID: <CAPsqS2TGXOCOL8BzaJ4NaJqtuKid7vhRdJq-80ngGxhNN_UWCw@mail.gmail.com>
-Subject: Re: [PATCH v10 00/13] accel/rocket: RK3576 NPU (RKNN) enablement
-To: Jiaxing Hu <gahing@gahingwoo.com>
-Cc: heiko@sntech.de, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	joro@8bytes.org, will@kernel.org, robin.murphy@arm.com, ulfh@kernel.org, 
-	p.zabel@pengutronix.de, ogabbay@kernel.org, zhangqing@rock-chips.com, 
-	royalnet026@gmail.com, u.kleine-koenig@baylibre.com, 
-	chaoyi.chen@rock-chips.com, diederik@cknow-tech.com, alchark@flipper.net, 
-	dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org, 
-	iommu@lists.linux.dev, linux-pm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|IA1PR12MB7616:EE_
+X-MS-Office365-Filtering-Correlation-Id: 25da4d49-5621-47f8-4d4a-08df07305029
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|10070799003|376014|7416014|366016|23010399003|3023799007|10067099003|4143699003|56012099006|5023799004|11063799006|921020|6133799003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	CG1BMKtNoPrRBd+/k48uTVP7sAopX/cjSgAzzZvk+wUxp9pXcXQpNH5aHbkoWxDlmJ7jZm7x/OGpXBPsay4cJ5x48cteoisUsu5i5a52Vk6tlKwYY4fSH8Uzbav/WksW86J38fQXWxV4Sp2bhwIHfeyLHY/PgFpXi30bPBlI2+brxPzdoE1bF2Wua/F6GeGETpIvoC3ZJFUgOBuR/NeFPJxV5eRsuTpqo9IhJCYmGwTk4h42/lRk9wJn496ruglgWQfn9ZeI7oL8k0dUFu+cUJzxCaad2wsGZWDw5MfN0BalZFmF8Ta49jaL49biH2aqyTB0ktZDp6JHBvQSjH7qOl7pMSqAy8Y4ZM1hdYUvaZcJJSkibcnlChstwgssB4yZ72VcEYhR0MBbofz7pDiCoN5eBhGboY0q13Qlu/hx9lrEtSxwaAlgTzwIqtmGHlCnYM6v+ePwmC3KMuNdyGX/8BAgJxLmuqfVVp7DHmT1h6SUfkRR+j0xuam3LMWSz70kOfdve+YqoiWE9REf/cMvnw1LnWnfbp0Xx6ppXUWo7MXrycOIeEPNcFb/9LLn+w+p7wIKLJNDKET+AK2636FUSWom4NXZNToeKyu0UL7oRUWGbO5iFp0w8Ch93QGRDcLqxJM8+7rX3AtwtvxmD807umlJu0yKC+JATTwcDNJ60GGEB0QnOJAwNmvPgTRsEba2OJMWeGKAQpC+GpTEG0yeaQ==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB6413.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(10070799003)(376014)(7416014)(366016)(23010399003)(3023799007)(10067099003)(4143699003)(56012099006)(5023799004)(11063799006)(921020)(6133799003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?L282d2ZmUytlYXBNRnNUMk5Rbk9qcW9IbS9zK2xLbEVZbThlckRLYldRUmN4?=
+ =?utf-8?B?WnByZWQ4SzExRnpYQUVXMXN4ZXE4c0pWZ2wxQTd1eVl5cVd4SG9HS1I5UEo0?=
+ =?utf-8?B?MUozVHI0ZmJ3dVNsTkY0YldPQXZreG43T3dmVHNuMFQzWHNldVNRalZ2N1BD?=
+ =?utf-8?B?aUp1OHd5ajJVRTBibW5HK00vZUZ2Q2JFMDlhT1RzNEoxd1lRU2ozZ1doYm1i?=
+ =?utf-8?B?ZTdYM3laR2lXOVNobGJDL21mZHpIMSs5bWZSUnNuQmRGMG5lYnNDWWhnRk1p?=
+ =?utf-8?B?VjVhQklicWErS3RrTGlnMUgzOTF3ckRIcHV6aTNwbXdJUzY4ZUR1VlpLTkdj?=
+ =?utf-8?B?c3VWOXBDcTBQSHVjTkUwbERQUFVBeG5MSDdsMmZvc0xVMnBnN2RNWDN5QlFB?=
+ =?utf-8?B?eUhobDQzTlFZWjZVQ0NtNTBreTZNd0l6RFlab1FUNTE2ZlBlRUNKbkRXTDc2?=
+ =?utf-8?B?ZGY5OTJ1VVBQcGh6MHFTeXFWU0FXN1lzazhPR2REc0tsaWd4dGxFVmtzT1pJ?=
+ =?utf-8?B?UVo1UGhNNGIvQVJTTG0rU0wra0ljbWJGaWVxSy93Snp4RE1ndFF2VWhXY3Bv?=
+ =?utf-8?B?bGQxMlRIQld3aW5xM0swa2NuR3FxeGlFQnhkS1M0MUNPNXdnZ1NsN2d0V2g1?=
+ =?utf-8?B?QkozL1B3b1NyeU1CNkdqVFBTdUV4M2ZrWWttMHJ6VUNHSStWMlZ1Nncrcmp2?=
+ =?utf-8?B?TEFsbWVzTXM4dFdtc2l0UHk3cFg3cTA1c1BFb0w4cVpmcWRObmJGVVFuc1Nl?=
+ =?utf-8?B?Y1d6RklEOVk1MWdUaWF6cDlCVTFueW9pNmdYQldHWUNOS2Y1ZVFjcnpSOXJq?=
+ =?utf-8?B?MnBVbXdqMlVmNU5hQkhlTTYyT01PR0JlalVGVVY0aVZxNy9FeFA4eWFHWE5s?=
+ =?utf-8?B?MkwzZHZOcWFKRDViQnovNzU5aW1XbTRYU01ETldWVTIrN0tkVmFPNWhDVUxy?=
+ =?utf-8?B?eFJNazJLQnAzV2JjOUF0Ty9zOER5S2V0cGpwclpXRmVuMnB5a0FMRlhBUmc1?=
+ =?utf-8?B?YVBwejJZSCtJYTVJVkxYcm1KbHdLRTFWQ2tQTjAzaTd0OGthSmZwdWxkVnRt?=
+ =?utf-8?B?Q3R3SmVIbGFmWDFVMjcvNHhJeHk0SmxqRzF1aTVrVEk4REFzaDhpMGdDVllC?=
+ =?utf-8?B?K1J0UnhZVER5aEE0RUZxUzF4ZXRpRnBnTTY5OUNsT2VCZDZXTUZleTVWOW1E?=
+ =?utf-8?B?NVYyZkcvR3ZQQUx2RHp4d0VsTXRScHhkMjZsSU40NTZ1YTNlQm5UUGlsVUl6?=
+ =?utf-8?B?Z2tUQlJrU21qMVp0cXVIWDNEUjBuNUxGVm1lRUYxanBYNmtVeSt3bCtEV0hE?=
+ =?utf-8?B?dWtLdnJtYUh3TDB6NUFkSm1TUVFEUzF3ZVZZZmhuWWtOd2c3cjMrSkNibUJz?=
+ =?utf-8?B?cTVkd0RpbFF0OUxleVNsWUlwYjNCR2lMMGdMWUJhVzFCVllXZGQ1MitOd3R6?=
+ =?utf-8?B?cGtjY3JuODlIR3hOU1lPWExXc01SaE1YUjRQaDV4azJ5bjA1d3p2TFNlbjdP?=
+ =?utf-8?B?VjdUYVZTNHZWWlAvdE9TYWxkZS81QXFXdVQxNTRZaDA5M08vYmw2L0hKMmti?=
+ =?utf-8?B?K2RBd0xSVXBWbVNHWmo5aFVyWDBCTjc3ejBnWFp4N2U3OFlUMG00eUtkZFpQ?=
+ =?utf-8?B?dDdzQkRkRTY0cTBhQ0V3YTRRdDhYaGhSVTVJMVhBRTE1N3VEVE5qNnNWcGVV?=
+ =?utf-8?B?K3Z1TDBsNExjT0xiUGN6aGk5SmhHWWxpNjhSSU1HdXlmdnJzZFFZcitpNWY3?=
+ =?utf-8?B?TE0wOG1UM3Q4NXRpb3R0UEF5RkVGZXE0WUpSKzc3aTkzay80RWdYSmU3S1p2?=
+ =?utf-8?B?Smp6NjRocXoxYnRwSWdyNHhPaldUQy9zcHV3bTZ6TE1OeGlEUHhsajhnU0E0?=
+ =?utf-8?B?b0IrbGF3V0FPcWEwaDc2bWNwR3lnNWFGblpYNzR4WXpnNnR3UlBPU20zNTA5?=
+ =?utf-8?B?WWViaFNLTFN5VHpENXJWN1R1R3VrYUxMRncwOFdPdmhkNDViSWZLQy8vajR1?=
+ =?utf-8?B?NmVmRzV6UXdUQURNVWcxaTJPOU9JWkpPSzNMU3JmQ3JhT3hSM2xMT2VvUTZw?=
+ =?utf-8?B?OEVuY3ZNbmJFRmdvbFhSRS8xaTJKVEcrTFdnNEpnUWdtNW9RL3R4dW1rTWpl?=
+ =?utf-8?B?VGx5RnQ4MVU5cjR5MXJRRU9ySURkcUZLbENsd3ZlbGVkUnhxQ2o2eGp2a1R1?=
+ =?utf-8?B?M3dtQndyZWwxbytrWmhFUWdTT3dMeHJIQzgyZ3crRWlvK0tBM0F3blhTZURz?=
+ =?utf-8?B?elVCMzNrVHFYMnRhbkhZb3dqb1N1T1RoTHMrOEN0Y0ZtSHJ1LzNjQUVUR3N4?=
+ =?utf-8?B?enp4K29COExpR0lsc3J1cVB2YUpBeTVqSHBjVEk2WVJ5SW5abnVlcjlEVVlI?=
+ =?utf-8?Q?icuUh+vVRi678WBpyL4A8LnHZBH1gI5EfKTgWT3nfPZnA?=
+X-MS-Exchange-AntiSpam-MessageData-1: 2+GxHwrXg4YbZg==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 25da4d49-5621-47f8-4d4a-08df07305029
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 07:20:19.9279
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: eKEg6pXZCJoLDHKeHKqW4lZQXJmMQdL/YdPuZkYFtNY0zEb0GzAc95XZfuYdytpbTqpTGKuhr9qRlqsVtVqjEw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB7616
 
-On Mon, Aug 31, 2026 at 6:08=E2=80=AFAM Jiaxing Hu <gahing@gahingwoo.com> w=
-rote:
+On Fri Aug 28, 2026 at 9:03 PM JST, Gary Guo wrote:
+> Currently, constructing a `NonZero` or `Bounded` from a constant is
+> verbose. The former would require `const { NonZero::new(...).unwrap() }`
+> and the latter require turbofish. Similarly, the `num::casts` exposes
+> methods that cast numbers using turbofish syntax, which is unergonomic an=
+d
+> unnecessarily causes the value to flow into the type system, which is ver=
+y
+> restrictive without `generic_const_exprs`.
 >
-> Based on Igor Paunovic's "[PATCH v2] accel/rocket: request the core
-> clocks by name", as v6 through v9 were.
+> Implement a macro `cv!` (short for constant value) which converts a const
+> integer to types that implements `FromConst` trait and validate them duri=
+ng
+> const evaluation.
 >
->   https://lore.kernel.org/linux-rockchip/20260729130743.128876-1-royalnet=
-026@gmail.com/
+> The usage is of form
 >
-> Tested on a Radxa ROCK 4D, on next-20260814. The tree is byte identical
-> to v9, so that is the same test rather than a new one.
+>     cv!(<expression>)
 >
-> This adds the RK3576 NPU to accel/rocket, which today supports RK3588
-> only. The RK3576 carries two cores of the same RKNN block, wired up
-> differently. Two extra convolution buffer clocks, two power domains per
-> core, one reset rather than two, no NPU SRAM rail, and a PC_TASK_CON
-> that packs the task number into sixteen bits rather than twelve.
+> for inferred type and
 >
-> What changed since v9
+>     cv!(<expression> =3D> <type>)
 >
-> No code. Every patch's diff is byte identical to its v9 counterpart, and
-> below the --- the only change anywhere is 5/13's git note. Above it, six
-> commit messages each gained one trailer line and nothing else. Six tags,
-> that note, and the base-commit trailers back where v8 had them.
+> for explicit type specification.
 >
-> The note first, because v9's cover letter said 5/13 carried it and the
-> posted mail did not. Rob Herring's bot asked on v8 for the dependency to
-> be recorded in the patch rather than only in the letter, v9 said it was
-> there, and it was not: my send script never passed --notes. Igor
-> Paunovic noticed while applying the series and said so before v10 rather
-> than after, and he had the cause right. Nothing was lost in a rebase;
-> the flag was missing. The script now regenerates with --notes and
-> refuses to send unless exactly one patch carries a Notes block.
+> As we do not have const trait implementation yet, dark magic is used. The
+> dark magic is documented in the code, but in essence it defines inherent
+> `__from_const` impls on types, which can be marked const, and rely on
+> Rust's method resolution algorithm to pick the correct function. Multiple
+> helpers are defined to aid type inference to work properly.
 >
-> Igor also ran the 19 August protocol again on v9 as posted, on RK3588,
-> an Orange Pi 5 Plus with all three cores bound, PROVE_LOCKING=3Dy and
-> DEBUG_ATOMIC_SLEEP=3Dy, and a local test-only patch lowering
-> JOB_TIMEOUT_MS to 2 ms so healthy jobs cross the timeout. Two passes per
-> kernel at console loglevel 8 and 4, serial captured on a second machine.
+> As a result, this allows construction of primitive integers, `NonZero`,
+> `Bounded`, `Alignment` using a single `cv!` macro. This macro does not ha=
+ve
+> `generic_const_exprs` restrictions (e.g. in a function with `const N: u32=
+`
+> generic parameter, you may use `cv!(N + 1)`), it supports full type
+> inference and it has nice error messages in some common error scenario:
 >
->   v9, two passes         12 and 11 induced resets, all recovered,
->                          48 of 48 within 1 on both, including the
->                          inference after a forced autosuspend and
->                          resume. No MMU faults, no lockdep hits,
->                          nothing on the console.
+>     error[E0080]: evaluation panicked: constant is zero
+>        --> example.rs:22:25
+>         |
+>      22 | const X: NonZero<u32> =3D cv!(0);
+>         |                         ^^^^^^ evaluation of `X::{constant#0}` =
+failed inside this call
 >
->   without 1 and 2/13,    8, 10, 12, 8 and 15 induced resets, all
->   five runs in the       recovered. Four runs clean. In the
->   same session           remaining one the inference after autosuspend
->                          reported success and returned a constant
->                          buffer, all 48 output channels at 0x80,
->                          which is not this model's output zero
->                          point, while the CPU reference varied
->                          normally. Zero kernel messages, zero
->                          lockdep hits, nothing on the console.
+>     error[E0277]: `kernel::page::Page` cannot be converted from constant
+>        --> example.rs:22:17
+>         |
+>      22 | const X: Page =3D cv!(0);
+>         |                 ^^^^^^ the trait `kernel::num::FromConst` is no=
+t implemented for `kernel::page::Page`
 >
->   1, 2 and 3/13 only,    13 and 13 induced resets, all recovered,
->   two passes             oracle 48 of 48 throughout, including after a
->                          forced autosuspend and resume. On the 1+2 arm
->                          a round that ends in a timeout leaves the
->                          affected core runtime-active even through a
->                          forced autosuspend; with 3/13 applied the same
->                          sequence leaves all three cores suspended.
->                          That arm is where 3/13's Tested-by comes from.
+> Of course, this trick is not full const trait impl. So the following code=
+ cannot work properly:
 >
-> A job that signals completion while its output buffer is never written
-> is the silent form of the race 1/13 and 2/13 close, and across 102
-> induced resets in nine runs that day it appeared only on the arm without
-> them. It is a better statement of what those two patches are for than
-> anything my own logs have caught, which has always been the loud form:
-> a message, a wrong answer, something to look at.
+>     fn generic<T: FromConst>() -> T {
+>         cv!(0)
+>     }
 >
-> The tags, and where each came from:
+> That said, useful error message is still produced in this context.
 >
->   02/13  Tested-by: Igor Paunovic   # RK3588, three cores, induced
->                                     # reset, differential base,
->                                     # JOB_TIMEOUT_MS=3D2
->   03/13  Tested-by: Igor Paunovic   # RK3588, three cores, induced
->                                     # reset, JOB_TIMEOUT_MS=3D2
->   06/13  Acked-by: Conor Dooley
->   07/13  Acked-by: Conor Dooley
->   08/13  Reviewed-by: Abel Vesa
->   09/13  Reviewed-by: Abel Vesa
+>     error[E0080]: evaluation panicked: `cv!()` cannot be used with generi=
+c types yet
+>        --> example.rs:23:5
+>         |
+>      22 |     cv!(0)
+>         |     ^^^^^^ evaluation of `generic::<u32>::{constant#0}` failed =
+inside this call
 >
-> The two Tested-by comments are not the same string, and that is how they
-> were given. 1/13, 4/13 and 5/13 keep the tags they had; Igor checked befo=
-re
-> testing that 1/13 is byte identical to v8 1/12 up to the base-commit
-> trailer and 4/13 identical to v8 3/12, so those tags still describe what
-> was tested.
->
-> The bindings are unchanged since v9, where dt_binding_check was clean on
-> all three with dtschema 2026.6 and yamllint 1.38.0, and CHECK_DTBS was
-> clean on all 13 rk3576 and all 48 rk3588 dtbs.
->
-> Two things I raised in v9 and would still rather hear about than guess
-> at. 8/13 does three things: it adds the settle delay, renames a macro,
-> and gives RK3576_PD_NPU a regulator, which also makes every RK3576 board
-> force that domain off at probe. I asked whether it wants splitting;
-> Abel Vesa's Reviewed-by may be the answer, but nobody has said so, and I
-> would rather split it than have it merged on my silence. And 12/13 gives
-> each core both NPU domains, which is the description that has been
-> tested here rather than the topology; if it should be one domain per
-> core, 5/13's minItems has to change with it. That one has had no reply
-> at all.
->
-> Nothing else moved.
->
-> Jiaxing Hu (13):
->   accel/rocket: take the completion register writes under job_lock
->   accel/rocket: wait for a running IRQ handler before resetting a core
->   accel/rocket: let the core suspend after a reset
->   accel/rocket: factor the completion tail out of the IRQ handler
->   dt-bindings: npu: rockchip: add rockchip,rk3576-rknn-core
->   dt-bindings: power: rockchip: allow resets in a power domain node
->   dt-bindings: iommu: rockchip: describe the RK3576 NPU MMU
->   pmdomain/rockchip: add optional per-domain power-on settle delay
->   pmdomain/rockchip: cycle optional power-domain resets on power-on
->   accel/rocket: select the per-core clock and reset counts from match
->     data
->   accel/rocket: add RK3576 NPU (RKNN) support
->   arm64: dts: rockchip: rk3576: add NPU (RKNN) nodes
->   arm64: dts: rockchip: rk3576-rock-4d: enable NPU
->
->  .../bindings/iommu/rockchip,iommu.yaml        |  28 +++++
->  .../npu/rockchip,rk3588-rknn-core.yaml        |  47 ++++++-
->  .../power/rockchip,power-controller.yaml      |   8 ++
->  .../boot/dts/rockchip/rk3576-rock-4d.dts      |  13 ++
->  arch/arm64/boot/dts/rockchip/rk3576.dtsi      |  82 +++++++++++-
->  drivers/accel/rocket/rocket_core.c            |  28 ++++-
->  drivers/accel/rocket/rocket_core.h            |  11 +-
->  drivers/accel/rocket/rocket_device.c          |   7 +-
->  drivers/accel/rocket/rocket_drv.c             |  28 ++++-
->  drivers/accel/rocket/rocket_drv.h             |   2 +
->  drivers/accel/rocket/rocket_job.c             | 119 ++++++++++++++----
->  drivers/pmdomain/rockchip/pm-domains.c        |  75 +++++++----
->  12 files changed, 385 insertions(+), 63 deletions(-)
->
->
-> base-commit: 4477a78374a57c3809b172ad30cceabda48c47c6
-> prerequisite-patch-id: 46ebb679e93d3d25393e8cbf8fc3c955bcc01bd4
+> Co-developed-by: Eliot Courtney <ecourtney@nvidia.com>
+> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
+> Signed-off-by: Gary Guo <gary@garyguo.net>
+> ---
+> I used part of
+> https://lore.kernel.org/rust-for-linux/20260827-chid-v8-3-bc74c77d0214@nv=
+idia.com
+> so I added Co-developed-by tags of Eliot. Eliot, please let me know if th=
+is
+> is okay.
+> ---
 
-Hi Jiaxing,
+Yes, co-developed-by/signed-off-by lgtm, no worries.
 
-I want to get soon to review this and the other pending rocket series,
-and in the meantime something that could help this moving would be to
-get a review from Sashiko.
+I had also considered using auto deref method resolution to solve this,
+but I think it's a little overcomplicated, so I just posted the
+associated const version instead. AFAICT this gives us the ability to
+use const generic expressions on non-primitive types and type aliases of
+primitive types, over associated const cv!. Currently there are no
+(prospective) users for that ability.
 
-As you can see in [0], Sashiko is not reviewing this series because it
-doesn't not understand yet prerequisite-patch-id. Can you please
-resubmit the series with Igor's (presumably) patches bundled in it?
+I think also that this version is not a strict superset of the
+functionality of the associated const based cv!. For example, associated
+const cv! has better errors in some cases and can do things like this,
+in the T: Trait case you noted (plus some edge cases around i128/u128
+handling):
 
-[0] https://sashiko.dev/#/patchset/20260831040804.24111-1-gahing%40gahingwo=
-o.com
+```fn zero<T: FromConst<0>>() -> T { cv!(0) }```
 
-Thanks,
+For the above reasons, plus what Alex mentioned, I prefer the simpler
+associated const version for now, particularly since we could
+transparently switch them later.
 
-Tomeu
+FWIW the version I was considering works a bit differently and uses a
+functional list of types like (T, (List)) to define a method resolution
+chain. It avoids needing the SFINAE like type probe machinery (I checked
+and this approach works on your version too, which simplifies it). It
+looks like this (adds Bounded::try_new_const), although I think the type
+list idea is worse than yours with the wrapping type:
+
+```
+macro_rules! chain_of {
+    () =3D> { () };
+    ($h:ty $(, $r:ty)*) =3D> { ($h, chain_of!($($r),*)) };
+}
+
+pub type Chain =3D chain_of!(u8, u16, u32, u64, usize, i8, i16, i32, i64, i=
+size);
+
+pub struct Probe<T, L>(PhantomData<(T, L)>);
+
+impl<T, L> Clone for Probe<T, L> {
+    fn clone(&self) -> Self {
+        *self
+    }
+}
+impl<T, L> Copy for Probe<T, L> {}
+
+impl<T, H, R> Deref for Probe<T, (H, R)> {
+    type Target =3D Probe<T, R>;
+    fn deref(&self) -> &Self::Target {
+        build_error!("for candidate lookup only");
+    }
+}
+
+impl<T> Deref for Probe<T, ()> {
+    type Target =3D T;
+    fn deref(&self) -> &T {
+        build_error!("for candidate lookup only");
+    }
+}
+
+#[diagnostic::on_unimplemented(message =3D "`{Self}` cannot be converted fr=
+om a constant")]
+pub trait FromConstProbe: Sized {}
+
+pub const fn pin<T, L>(_: &Probe<T, L>, v: T) -> T {
+    v
+}
+
+pub const fn probe_for<T: FromConstProbe>() -> Probe<T, Chain> {
+    Probe(PhantomData)
+}
+
+impl<T> Probe<T, ()> {
+    pub const fn __fc(self: &Probe<T, Chain>, _v: i128) -> T {
+        panic!("`cvp!` cannot be used with generic types yet");
+    }
+}
+
+macro_rules! impl_prims {
+    () =3D> {};
+    ($ty:ty $(, $rest:ty)*) =3D> {
+        impl FromConstProbe for $ty {}
+
+        impl Probe<$ty, chain_of!($ty $(, $rest)*)> {
+            pub const fn __fc(self: Probe<$ty, Chain>, v: i128) -> $ty {
+                assert!(
+                    v >=3D <$ty>::MIN as i128 && v <=3D <$ty>::MAX as i128,
+                    concat!("constant cannot be represented by `", stringif=
+y!($ty), "`"),
+                );
+
+                v as $ty
+            }
+        }
+
+        impl FromConstProbe for NonZero<$ty> {}
+
+        impl Probe<NonZero<$ty>, chain_of!($ty $(, $rest)*)> {
+            pub const fn __fc(self: Probe<NonZero<$ty>, Chain>, v: i128) ->=
+ NonZero<$ty> {
+                assert!(
+                    v >=3D <$ty>::MIN as i128 && v <=3D <$ty>::MAX as i128,
+                    concat!("constant cannot be represented by `", stringif=
+y!($ty), "`"),
+                );
+
+                match NonZero::new(v as $ty) {
+                    Some(x) =3D> x,
+                    None =3D> panic!("constant is zero"),
+                }
+            }
+        }
+
+        impl<const N: u32> FromConstProbe for Bounded<$ty, N> {}
+
+        impl<const N: u32> Probe<Bounded<$ty, N>, chain_of!($ty $(, $rest)*=
+)> {
+            pub const fn __fc(self: Probe<Bounded<$ty, N>, Chain>, v: i128)=
+ -> Bounded<$ty, N> {
+                assert!(
+                    v >=3D <$ty>::MIN as i128 && v <=3D <$ty>::MAX as i128,
+                    concat!("constant cannot be represented by `", stringif=
+y!($ty), "`"),
+                );
+
+                match Bounded::<$ty, N>::try_new_const(v as $ty) {
+                    Some(b) =3D> b,
+                    None =3D> panic!("constant cannot be represented within=
+ the given bits"),
+                }
+            }
+        }
+
+        impl_prims!($($rest),*);
+    };
+}
+impl_prims!(u8, u16, u32, u64, usize, i8, i16, i32, i64, isize);
+
+impl FromConstProbe for Alignment {}
+
+impl Alignment {
+    pub const fn __fc(self: Probe<Alignment, Chain>, v: i128) -> Alignment =
+{
+        assert!(
+            v > 0 && v <=3D usize::MAX as i128,
+            "constant cannot be represented as an `Alignment`",
+        );
+
+        match Alignment::new_checked(v as usize) {
+            Some(a) =3D> a,
+            None =3D> panic!("constant is not a power of two"),
+        }
+    }
+}
+
+#[macro_export]
+#[doc(hidden)]
+macro_rules! cvp {
+    (@widen $v:expr) =3D> {{
+        #[allow(
+            unused_comparisons,
+            unused_assignments,
+            clippy::as_underscore,
+            clippy::unnecessary_cast
+        )]
+        {
+            let v =3D $v;
+            let r =3D v as i128;
+            let mut back =3D v;
+            back =3D r as _;
+
+            ::core::assert!(
+                back =3D=3D v && (v < 0) =3D=3D (r < 0),
+                "value cannot be losslessly widened to `i128`"
+            );
+
+            r
+        }
+    }};
+    ($v:expr =3D> $ty:ty) =3D> {
+        const { $crate::num::cvp::probe_for::<$ty>().__fc($crate::cvp!(@wid=
+en $v)) }
+    };
+    ($v:expr) =3D> {
+        const {
+            let probe =3D $crate::num::cvp::probe_for();
+            $crate::num::cvp::pin(&probe, probe.__fc($crate::cvp!(@widen $v=
+)))
+        }
+    };
+}
+```
