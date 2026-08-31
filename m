@@ -1,164 +1,146 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB65D29408;
-	Mon, 31 Aug 2026 06:20:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E8271419A4
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 06:21:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788157255; cv=none; b=gW/PImN38e5pL0ikwO67XRQmgypJRBQeUuTb3Gh67mJ4Y4at+qaA7X00i2xYfgsNL9eZeDs7aJXZu9Yn+6h7qNu0Fs9mDgdMO8yx417HP2lL01FNtW60FqkbwV7spHZGLIngP0yUQ+oTc4ApAQCmj/y3GozJ6fPIhWJkmWy3THY=
+	t=1788157296; cv=none; b=rc6jH7USq/kn1IvNZvjVeqd3BFrCbVNuQ0NTFKnf+VVeN1DOlIfSHGDOfzeyQS2VZIbRkLWZeES3LuevmCQ7Z8DK169ciTgajYzE83cUSbAqre2zoJpfKQW0GsSH8OVUa0NwkFrJE9ShW+2C3tFGNv+iVakoaQtBk8Qx91eZJo4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788157255; c=relaxed/simple;
-	bh=rwr1AxAfwSaLuyxoVAiITU9qmPaQWHYBLJfM3wzb1yQ=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=KYezOYRmXj3YXXPTxivKBsu6YQ3Uu1EKfNQcNOc2SRW2ixLsMT1ExcIbkq0AzX1wLPl+5PPiSzDeaU+svvfdEyrfj4RCb8txj7ZFsZvpg5XBAgs6pw5pA6hhzWqTwuOMuXrEgeHkRDnbOphebsyichkhUFQSejHTfATzEIVqR8k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lPOTRWlL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788157296; c=relaxed/simple;
+	bh=RO8BBqJnXoP3LOp/aiEWTIMapxx/ZjyQNyG4/wIlN5U=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=n7X3pwTxFdzZSp7eFir0AxX0134sb0gSGmHJNZGHmQx7uLXq5OyXouYrDFIwGWQJbFQV/RWONfF8OME2FwkD4aHrtKj8Hglkth1UM9g86KQEPE48+yOOuF5LEYKWVxEDpUq3NX6cijDVQG+QGY+NeYWBQEKkipbsKBDK7XL+/uo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=AxFAen8Y; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=ezG74+zK; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lPOTRWlL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 319EA1F000E9;
-	Mon, 31 Aug 2026 06:20:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788157254;
-	bh=RccuAwUjjYQS8UYQ+DNxS0f7Ytxkz9Lfp1Z2NrXtpvw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=lPOTRWlLFBTGbx8cRsnoYIIZV/iE8Bjph03VnRNZdRKq3mKCK355t9L2SpauYioiH
-	 i+e3png4VQHDDxyTTSKfRoHhC8h+UQMBi6esy0YDWXZx/d4CGqDItfgwwcEBJwATlP
-	 OtTLAiWghxR23hN6FiaMemWD+15lZSbLKmrYTc7E6L4fFv3lxW+3q602o/F7Ht/cqY
-	 +BIbmJh/8bVXdMI3KwPojJKZx9DBKMNXhQOFL/DBbrMdG76YazUIKnrFLK2HENFiBg
-	 MHbMh1w5bR8WLqc/a7y//fCxS6MhpT2uQrAvI5sbG4TbidCCIO5kvKF0fUCzNcNA/H
-	 28LuO3PrHF/8A==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2] mm/slab: don't use kfree_rcu sheaves on PREEMPT_RT
- in kvfree_call_rcu()
-Reply-To: sashiko-reviews@lists.linux.dev
-To: ThangNN99 <ngocthang2710.1999@gmail.com>
-Cc: linux-rt-devel@lists.linux.dev, linux-kernel@vger.kernel.org
-In-Reply-To: <20260831060633.6831-1-ngocthang2710.1999@gmail.com>
-References: <20260831053846.107974-1-ngocthang2710.1999@gmail.com>
- <20260831060633.6831-1-ngocthang2710.1999@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 31 Aug 2026 06:20:53 +0000
-Message-Id: <20260831062054.319EA1F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="AxFAen8Y";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="ezG74+zK"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788157293;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=VzgjundSHcr7LPjtj27GYXaMSFGktJ4pDKFyBrOg/JA=;
+	b=AxFAen8YDOGCfrIj3p/iAHvi1CQQBXRFz7CysI23bs/K8YkPB29JMY1XcmAz/LMRDEHes/
+	qwBpQubqbEs+M/vkk1VNKgsK0rHIiVqXZTpPdmAAcvoMKIRJk+B7mvWlsRL9z7yVBZr9sM
+	5VHS1MGLhXiI/ksUKkUH7o7i5fnPXvs=
+Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
+ [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-613-H8epuyG-PJCt9-l_0KSI5Q-1; Mon, 31 Aug 2026 02:21:32 -0400
+X-MC-Unique: H8epuyG-PJCt9-l_0KSI5Q-1
+X-Mimecast-MFC-AGG-ID: H8epuyG-PJCt9-l_0KSI5Q_1788157291
+Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-482f763db88so1578797f8f.2
+        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 23:21:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1788157291; x=1788762091; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=VzgjundSHcr7LPjtj27GYXaMSFGktJ4pDKFyBrOg/JA=;
+        b=ezG74+zKt0tpr14iaUBF6OoI0sQL8XeajTzMf7rXIYwyI6SAKqUKAXEC4pex7Ot9F9
+         QUvpaGt0nr3YgCDujrW9zjVuYMmEcsKcFx3Hjr0JpVyUF/iIifYBRL1gRs+2unwqM5DU
+         3EusccRTwLqqavcCB28GGlrbMZNfqj5i68acqg/7V7XlZ/ZU5RoJy9weP6qHucXtgSaV
+         vfTE6ziOAYPI/P22EfncYBRXo/vcjocWhHDgAzw+yq1IGyV/Hdk5+FcboyREa+A8ICTo
+         GsfEeAwOKHPk4bWC0aY9b4/w4j7zaaEHWeaU98mjlT6POaxqavwMUtKcYB5k1A+Cl8F2
+         ZQmQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788157291; x=1788762091;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=VzgjundSHcr7LPjtj27GYXaMSFGktJ4pDKFyBrOg/JA=;
+        b=bsza00plFIhLpQq+PbY7LwHJeEbpHmv+GhwZdOHQHNNbjOoHFp2ea4Qf4J8JFWTVtg
+         f5AXyvvaqTxAZLe6avl82ESIsItDEUPTIAIkjk2nl+GiXPNsUnsjqHWXbKrtN4BWZkR9
+         q++xSM+jb3963NkfwYlFikgKAWrat/8Van2uk09GdE81Tgaimj1Ru0zZqs7bFU8T3tH7
+         l9z//SPZ5WcfzE1D5Q0OMFXBlXkYZ0HsDCxZ8w7Lyj36eXuj94hmjyVXRRFilyTS+WO8
+         DgF0q5wMfRVE182F183lQqKZPc6/GwMmM3ustZKkfDB4beLodmjfAhcGpWhui5hgYZt6
+         WEdQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxD/OTdBoOez0qP+5tmEjfXe9KeGKYessCCmGTh3jxMg230elxvT1YwzL4USJeKE89+WTaclY+i34T7bNE=@vger.kernel.org
+X-Gm-Message-State: AFuF++k9eDQgQgBD06GTofvkWiDvCVcQu0pc6rcpqtNuUAlo6k9ZNfXy
+	qyw2Di7LrCRI672V0doLc4WY86D3rFQ+Lm4T/wfJm5vzpWb85Nmyso22hIEX/QLtUbnTXpWPlif
+	DRMPO3sBQ2+TVKj6J9gRo8vNxgX8CeXuGEHefJly6mPKHYSy6MiUoD6Fcl90SZ8WF/A==
+X-Gm-Gg: AYBFou0hGmZz/7vWswlJVHCXOwYjHyB/6pU7/8fxSpCbpqvGfg8EElK0dqf3I+nmoJg
+	Q4tTQSOHSWbDd/K8XZaaQOlZGUiEYnn72rEBSdBRwOIBBdOOO9wAxmyMyBf3C3hua/StSyTWEAZ
+	aWoKtRU7daoZyrkbFeRwCslailRuXAS1TxsWp/iAIbvpc27QiFGh9cA1NrQncrnqKcQyfd0kvQW
+	XZN3nIwyP0nb7ny2UhD4NBG40N/40+WLb8FulFY8NUfGut+5sAGoT4WuASGfsFgwuD64fXt6J4D
+	sdKPunGetAgxr33zKer12j4y2bWN0saStXHWl3vpv7QqbwROnHvMKhgZlkHlJHVwWadcvfuIg6i
+	CvDzSPJB4Ok4Jfomi98qgEcE=
+X-Received: by 2002:a5d:5f03:0:b0:484:3cbf:f254 with SMTP id ffacd0b85a97d-4843cbff31cmr4749476f8f.21.1788157290745;
+        Sun, 30 Aug 2026 23:21:30 -0700 (PDT)
+X-Received: by 2002:a5d:5f03:0:b0:484:3cbf:f254 with SMTP id ffacd0b85a97d-4843cbff31cmr4749418f8f.21.1788157290219;
+        Sun, 30 Aug 2026 23:21:30 -0700 (PDT)
+Received: from redhat.com (IGLD-80-230-79-236.inter.net.il. [80.230.79.236])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482fbb20122sm20363022f8f.20.2026.08.30.23.21.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 30 Aug 2026 23:21:29 -0700 (PDT)
+Date: Mon, 31 Aug 2026 02:21:26 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Eugenio Perez Martin <eperezma@redhat.com>
+Cc: Alexander Graf <graf@amazon.com>, Jason Wang <jasowangio@gmail.com>,
+	nh-open-source@amazon.com, Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+	Halil Pasic <pasic@linux.ibm.com>, virtualization@lists.linux.dev,
+	linux-kernel@vger.kernel.org, Stefan Hajnoczi <stefanha@redhat.com>,
+	Paolo Bonzini <pbonzini@redhat.com>
+Subject: Re: [PATCH v2 04/12] virtio_ring: return -ENOMEM when a packed ring
+ mapping fails
+Message-ID: <20260831022012-mutt-send-email-mst@kernel.org>
+References: <20260818211425.91009-1-graf@amazon.com>
+ <20260818211425.91009-5-graf@amazon.com>
+ <CAJaqyWeGaoamHzYRd1ZVUJ+6fx_4RWDim+jLO964qKtgZ=zogQ@mail.gmail.com>
+ <CAJaqyWe1fKBwBXXxHqDV676Uw03Pvr0uLizPmHKqm+sqmY_LgA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAJaqyWe1fKBwBXXxHqDV676Uw03Pvr0uLizPmHKqm+sqmY_LgA@mail.gmail.com>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+On Mon, Aug 31, 2026 at 08:00:00AM +0200, Eugenio Perez Martin wrote:
+> On Wed, Aug 26, 2026 at 2:47 PM Eugenio Perez Martin
+> <eperezma@redhat.com> wrote:
+> >
+> > On Tue, Aug 18, 2026 at 11:15 PM Alexander Graf <graf@amazon.com> wrote:
+> > >
+> > > Commit f7728002c1c7 ("virtio_ring: fix return code on DMA mapping
+> > > fails") moved virtqueue_add_split() and virtqueue_add_indirect_packed()
+> > > to -ENOMEM, because virtio_queue_rq() maps -EIO to BLK_STS_IOERR and
+> > > the request fails. We still return -EIO from virtqueue_add_packed(),
+> > > and virtqueue_add_packed_in_order() copied that when it was added later.
+> > >
+> > > Guests that bounce their I/O through swiotlb (SEV-SNP, TDX, s390 secure
+> > > execution) run the pool out with enough I/O in flight. On a split ring
+> > > virtio_queue_rq() reports BLK_STS_RESOURCE and the block layer requeues
+> > > the request. On a packed ring virtio_queue_rq() reports BLK_STS_IOERR
+> > > instead and the error reaches the filesystem.
+> > >
+> > > Return -ENOMEM from the packed unmap_release paths too. Both are reached
+> > > from a single goto on a failed mapping, which is where
+> > > vring_map_one_sg() already produces -ENOMEM.
+> > >
+> > > That way every ring layout reports the same errno, and the block layer
+> > > requeues the request instead of failing it.
+> > >
+> > > Fixes: f7728002c1c7 ("virtio_ring: fix return code on DMA mapping fails")
+> > > Fixes: f6a15d854986 ("virtio_ring: add in order support")
+> >
+> > Acked-by: Eugenio Pérez <eperezma@redhat.com>
+> >
+> 
+> Even if I'd like to see this merged, I'm having second thoughts
+> because it introduces userland visible changes in some drivers. Are
+> them acceptable?
 
-Pre-existing issues:
-- [High] Lock recursion deadlock in kfree_rcu() on !PREEMPT_RT when caller =
-holds scheduler locks
-- [High] kfree_call_rcu_nolock() violates its 'any context' API guarantee o=
-n PREEMPT_RT, leading to Invalid Wait Context
---
+I mean, fixing the kernel for the userspace is kinda what we do, right?
 
-commit 405a1ecd91cd7581e29421663a94a33714163104
-Author: ThangNN99 <ngocthang2710.1999@gmail.com>
+-- 
+MST
 
-mm/slab: don't use kfree_rcu sheaves on PREEMPT_RT in kvfree_call_rcu()
-
-This commit addresses a lockdep warning by skipping the sheaf fast path
-in kvfree_call_rcu() on PREEMPT_RT, avoiding a local_trylock() under a
-raw spinlock. It also notes that kfree_call_rcu_nolock() has a similar
-problem but leaves it untouched.
-
-Closes: https://syzkaller.appspot.com/bug?extid=3Dacf142088e0182172e58
-
-> kfree_call_rcu_nolock(), added later in commit 3bc999d944b3
-> ("mm/slab: introduce kfree_rcu_nolock()"), is untouched by this
-> patch. Note it would not be a safe substitute here either: it still
-> reaches __kfree_rcu_sheaf()'s local_trylock() on &s->cpu_sheaves->lock
-> unconditionally, so a caller already holding a raw spinlock would hit
-> the same lockdep ordering cycle through that path too.
-
-[Severity: High]
-This is a pre-existing issue, but does leaving this unaddressed violate
-the API guarantee of kfree_call_rcu_nolock() in mm/slab_common.c?
-
-The documentation for kfree_call_rcu_nolock() states it is safe for any
-context. However, on PREEMPT_RT it leads to this call chain:
-
-kfree_call_rcu_nolock()
-  __kfree_rcu_sheaf(..., SLAB_FREE_NOLOCK)
-    local_trylock(&s->cpu_sheaves->lock)
-
-Since local_lock maps to a sleepable rt_mutex on PREEMPT_RT, executing
-this trylock from a raw spinlock or hardirq context violates wait-type
-rules.
-
-Won't any subsystem using kfree_call_rcu_nolock() in these contexts still
-trigger an Invalid wait context lockdep splat on PREEMPT_RT?
-
-> diff --git a/mm/slab_common.c b/mm/slab_common.c
-> index b19ba1b31484c..3de1eabe6c770 100644
-> --- a/mm/slab_common.c
-> +++ b/mm/slab_common.c
-> @@ -1667,15 +1667,8 @@ static bool kfree_rcu_sheaf(void *obj)
->  {
->  	struct kmem_cache *s;
->  	struct slab *slab;
-> -	unsigned int free_flags =3D SLAB_FREE_DEFAULT;
-> -
-> -	/*
-> -	 * It is not safe to spin on PREEMPT_RT because the kernel might be
-> -	 * holding a raw spinlock and slab acquires sleeping locks.
-> -	 */
-> -	if (IS_ENABLED(CONFIG_PREEMPT_RT))
-> -		free_flags =3D SLAB_FREE_NOLOCK;
-> =20
-> +	/* Callers on PREEMPT_RT never reach here, see kvfree_call_rcu(). */
->  	if (is_vmalloc_addr(obj))
->  		return false;
-> =20
-> @@ -1685,7 +1678,7 @@ static bool kfree_rcu_sheaf(void *obj)
-> =20
->  	s =3D slab->slab_cache;
->  	if (likely(!IS_ENABLED(CONFIG_NUMA) || slab_nid(slab) =3D=3D numa_mem_i=
-d()))
-> -		return __kfree_rcu_sheaf(s, obj, free_flags);
-> +		return __kfree_rcu_sheaf(s, obj, SLAB_FREE_DEFAULT);
-> =20
->  	return false;
->  }
-> @@ -2034,7 +2027,14 @@ void kvfree_call_rcu(struct kvfree_rcu_head *head,=
- void *ptr)
->  	if (!head)
->  		might_sleep();
-> =20
-> -	if (kfree_rcu_sheaf(ptr))
-> +	/*
-> +	 * Callers may hold a raw spinlock here on PREEMPT_RT (e.g.
-> +	 * set_cpus_allowed_force() with p->pi_lock held), and the sheaf/barn
-> +	 * locks are also taken as blocking locks elsewhere, so trying them
-> +	 * here creates a lockdep-visible ordering conflict. Skip sheaves on
-> +	 * PREEMPT_RT.
-> +	 */
-> +	if (!IS_ENABLED(CONFIG_PREEMPT_RT) && kfree_rcu_sheaf(ptr))
->  		return;
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does this lead to a lock
-recursion deadlock on !PREEMPT_RT?
-
-On !PREEMPT_RT, this can result in the following call chain:
-
-kvfree_call_rcu()
-  kfree_rcu_sheaf()
-    __kfree_rcu_sheaf(s, obj, SLAB_FREE_DEFAULT)
-      alloc_empty_sheaf() with GFP_NOWAIT
-        wakeup_kswapd()
-          try_to_wake_up()
-
-Since GFP_NOWAIT includes __GFP_KSWAPD_RECLAIM, the page allocator can call
-wakeup_kswapd() if the zone watermark is low.
-
-This enters the scheduler and attempts to acquire scheduler locks. If the
-caller, like set_cpus_allowed_force() in the trace above, already holds a
-scheduler raw spinlock, won't this result in a hard deadlock?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831060633.6831=
--1-ngocthang2710.1999@gmail.com?part=3D1
