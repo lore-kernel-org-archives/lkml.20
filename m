@@ -1,48 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B99F1483819;
-	Mon, 31 Aug 2026 13:37:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 264D9483BEE;
+	Mon, 31 Aug 2026 13:38:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183481; cv=none; b=W9xkrsiHq3lKmPpvZJV3KK9P3zOOG0aAtQmCXqwiDq4ZNarjkiCcbYTEdilHp54xhdjEEZRGZFwXGAoztfSHmKIp0tA38lavZUnROhgVRnY9B3MTyAP14kJQYH8jbXEZJXhfiit7yt9kCXqBRTWkB6cCZD5QdJcxBDOK0TmUx0U=
+	t=1788183482; cv=none; b=dOrP7XDSeUlHu75MBrhjeso+atcfO3xdEzKP1zaBcN4e9i3eZ2sHXpYybKJgRM4yD5R1WaxyYqurN3PPWAUZqNlZ/9Sx4dZfmIGkGB++PgcP2y8FbIEo9WccHZnpAMVBxlrzzpWMLehYWt8XipVUsDkW85WfsfX4Tw8JXtc5qy4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183481; c=relaxed/simple;
-	bh=+AaUSYS4rM+XeJ00SBEZldwTEaVjBX7ueB2GCU5nJek=;
+	s=arc-20240116; t=1788183482; c=relaxed/simple;
+	bh=WbESUFpehW6NsQQOLP5btAcYc1a0bZ2UoZavzrv69gs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=DpFc+EDYsoCNwobK2QMtrYwdyXKGw82o2iGD5etsjCh033y2X0tFhKg1XOfTt8uvFXuPzieuG34AA83cD8VI1SPb6VGdI9IIAxSewehVGxriw8R1XLNRmTJL0BVMI3rxLFpE1v89XGjWbh4obnYrNRxtmAoiAPuj5acvFIhLrF8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lvIO4CSu; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=p5vFhtp1kZHROTJfzXVZ1ymk1Px/q1QM6qRaIJPtv0CfO9Y0m/DlSN1LYLSBAyvnRwRzo52b0eB7UZOJ1aKPt/I8FB+KnKgZjQUJmqeP+IBjok9spFvL8hYvzNuQRAjFWR28dO7DKxJjlFwYRVRgJRpMdhED1FtblQgrYW2/uag=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ePI39RlD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lvIO4CSu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D78CD1F00ACF;
-	Mon, 31 Aug 2026 13:37:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ePI39RlD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AFF5C1F00A3D;
+	Mon, 31 Aug 2026 13:37:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788183478;
-	bh=1wCQEcFpl/B+wO/Qkouxwj4AAi2rZhGCxN2sojejBKI=;
+	s=k20260515; t=1788183480;
+	bh=veYRmZykR+yH9kIOVWkGX95kuGIKb9R0oZk6wmMxbuQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=lvIO4CSuo4B3PnsQ3qEKF1b3WzUAaUe0DaCGdRBIkslF+qVmhrz56yEc3/y4+ajIR
-	 twjt8ClOZxYUM7NaCbXBgHgxobbAMJMLAijWEOS9Ybp1R9GOyWTanwHyvNJhRbyZQL
-	 TNS6t59s5SXy8MVJ7x5dKS74ZBFeYZxrns6NVClXwxSwXCJwORiBy5N3ThE+GaUIP3
-	 EMTqWPrCuyFMMedgBqEby2GhKevI4Qe7yjH7iwKf5laMhXqz5R7WPvcfycMJJXfcOc
-	 WvP/1NH62MUVbAtmrecYsxuUB383tNDqab+m9j+HbFj4kKugMqRl5DaEr45NxYDE9u
-	 rdbKIiOFgFeRw==
+	b=ePI39RlDwnuNJK/VXEoGgiTCMpYm9Le9TZ1qXJ1E0yTT8E9EjQXJKDCfcw71GO1GP
+	 LY/LGh48JSI1egS5zBvT5PwwH9n+TfXpKLnF75f5I+twizFsWQH/D7S3xrLaqnC97Z
+	 1vMqcWX2WjRWf52Mi9dVo43wmHifLxonaRNDUdHMEr/oM7LKUBDCzP3D6461dCNEFL
+	 knrXBQbGBLgqMpVR96HQo3hcQ1+OkKCTUuFtroBOu9ZWzYUQfyi7qDO1i+jtwPARgV
+	 DmtrRpwvLxT6+mD4NbZfhbyT70rVDdJfCokzFP4w11TPOzZCgvVAVGBIPcoL8hJh+A
+	 7L2SDJDyZkgbg==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Chen-Yu Tsai <wenst@chromium.org>,
-	Douglas Anderson <dianders@chromium.org>,
+Cc: =?UTF-8?q?Maxime=20B=C3=A9lair?= <maxime.belair@canonical.com>,
+	Georgia Garcia <georgia.garcia@canonical.com>,
+	John Johansen <john.johansen@canonical.com>,
 	Sasha Levin <sashal@kernel.org>,
-	neil.armstrong@linaro.org,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	tzimmermann@suse.de,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	dri-devel@lists.freedesktop.org,
+	paul@paul-moore.com,
+	jmorris@namei.org,
+	serge@hallyn.com,
+	apparmor@lists.ubuntu.com,
+	linux-security-module@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18] drm/panel-edp: Add AUO B133HAN06.6 and BOE NV133FHM-N4F V8.0
-Date: Mon, 31 Aug 2026 09:22:28 -0400
-Message-ID: <20260831133314.4125787-120-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-6.12] apparmor: propagate -ENOMEM correctly in unpack_table
+Date: Mon, 31 Aug 2026 09:22:29 -0400
+Message-ID: <20260831133314.4125787-121-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -52,295 +51,279 @@ List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 6.18.48
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Chen-Yu Tsai <wenst@chromium.org>
+From: Maxime Bélair <maxime.belair@canonical.com>
 
-[ Upstream commit 5dd1ff95c623b8118ccaae3242119b8552f7b98f ]
+[ Upstream commit 1c8a839442823ce5c627d645730d8c61d828aafa ]
 
-These two panels are found in MT8195 Dojo, a.k.a. the HP Chromebook
-x360 13b-ca0xxx laptop.
+Currently, if the `kvzalloc` in `unpack_table` fails, it returns NULL.
+This is masked by `aa_dfa_unpack` which interprets NULL as a -EPROTO,
+leading to confusing error messages in `apparmor_parser` [1].
 
-Only the BOE entry was tested on an actual device. The AUO entry is
-solely based on the provided datasheet.
+The fixed behavior correctly propagates -ENOMEM on allocation failure.
 
-raw EDIDs:
-
-AUO B133HAN06.6 (from the datasheet)
-
-00 ff ff ff ff ff ff 00 06 af 8f cb 00 00 00 00
-2f 1d 01 04 95 1d 11 78 03 93 05 92 58 59 90 29
-1d 50 54 00 00 00 01 01 01 01 01 01 01 01 01 01
-01 01 01 01 01 01 14 37 80 b8 70 38 24 40 10 10
-3e 00 25 a5 10 00 00 18 b8 24 80 b8 70 38 24 40
-10 10 3e 00 25 a5 10 00 00 18 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 02
-00 10 48 ff 0f 3c 7d 14 0e 1d 7d 20 20 20 00 77
-
-BOE NV133FHM-N4F V8.0 (from an actual panel)
-
-00 ff ff ff ff ff ff 00 09 e5 25 0a 00 00 00 00
-2c 1f 01 04 95 1d 11 78 03 28 65 97 59 54 8e 27
-1e 50 54 00 00 00 01 01 01 01 01 01 01 01 01 01
-01 01 01 01 01 01 a4 39 80 c8 70 38 50 40 30 20
-36 00 26 a5 10 00 00 1a 6d 26 80 c8 70 38 50 40
-30 20 36 00 26 a5 10 00 00 1a 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 02
-00 0d 40 ff 0a 3c 7d 0f 0f 1f 7d 00 00 00 00 d2
-
-Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
-Reviewed-by: Douglas Anderson <dianders@chromium.org>
-Signed-off-by: Douglas Anderson <dianders@chromium.org>
-Link: https://patch.msgid.link/20260512045454.1505733-1-wenst@chromium.org
+Link: https://gitlab.com/apparmor/apparmor/-/issues/592
+Reviewed-by: Georgia Garcia <georgia.garcia@canonical.com>
+Signed-off-by: Maxime Bélair <maxime.belair@canonical.com>
+Signed-off-by: John Johansen <john.johansen@canonical.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-Connection lost, reconnecting to https://agentn.us.api5.cursor.sh
-(attempt 1)...
-Retry attempt 1...
-# Stable Backport Analysis: drm/panel-edp panel ID additions
+# Stable Backport Analysis: `apparmor: propagate -ENOMEM correctly in
+unpack_table`
 
-**Local tree:** `v6.18.43-1-gc7f0dac02d232` (kernel version **6.18.43**)
+**Local tree:** `v6.18.44-1-g2736c32da98b9` (kernel version **6.18.44**)
 
 ---
 
 ## PHASE 1: COMMIT MESSAGE FORENSICS
 
-### Step 1.1: Subject line
-**Record:** `[drm/panel-edp]` **`Add`** — Add AUO B133HAN06.6 and BOE
-NV133FHM-N4F V8.0 panel entries to the EDID-based panel timing table.
+### Step 1.1: Parse the subject line
+**Record:** `[apparmor]` `[propagate]` — Fix incorrect error-code
+propagation in `unpack_table()` when DFA table allocation fails.
 
-### Step 1.2: Tags
+### Step 1.2: Parse all commit message tags
 **Record:**
-- **Signed-off-by:** Chen-Yu Tsai `<wenst@chromium.org>` (author)
-- **Reviewed-by:** Douglas Anderson `<dianders@chromium.org>`
-- **Signed-off-by:** Douglas Anderson `<dianders@chromium.org>`
-- **Link:**
-  https://patch.msgid.link/20260512045454.1505733-1-wenst@chromium.org
-- No Fixes:, Reported-by:, Tested-by:, Cc: stable@vger.kernel.org, or
-  syzbot tags
+| Tag | Value |
+|-----|-------|
+| Link | https://gitlab.com/apparmor/apparmor/-/issues/592 |
+| Reviewed-by | Georgia Garcia \<georgia.garcia@canonical.com\> |
+| Signed-off-by | Maxime Bélair \<maxime.belair@canonical.com\> |
+| Signed-off-by | John Johansen \<john.johansen@canonical.com\> |
+| Fixes: | absent (expected for manual review) |
+| Cc: stable | absent (expected) |
+| Reported-by | absent |
+| Tested-by | absent |
 
-Notable: Reviewed-by from a Chromium DRM developer; BOE panel tested on
-hardware per commit body.
+Notable: Reviewed by Canonical AppArmor developer; signed off by
+subsystem maintainer (John Johansen). No syzbot report.
 
-### Step 1.3: Body analysis
+### Step 1.3: Analyze commit body
 **Record:**
-- **Bug/problem:** Panels on HP Chromebook x360 13b-ca0xxx (MT8195 Dojo)
-  are not in the `edp_panels[]` table, so the driver cannot apply
-  correct eDP power-sequencing delays.
-- **Symptom:** Without a table match, `generic_edp_panel_probe()`
-  triggers `WARN_ON(!panel->detected_panel)` and falls back to
-  conservative timings (`unprepare=2000ms`, `enable=200ms`), which can
-  cause display initialization/resume problems.
-- **Hardware:** MT8195 Dojo platform; BOE NV133FHM-N4F V8.0 tested on
-  device; AUO B133HAN06.6 from datasheet only.
-- **Root cause:** Missing EDID panel-ID → delay-profile mapping for
-  these two product IDs (`0xcb8f` AUO, `0x0a25` BOE).
+- **Bug:** `kvzalloc()` failure in `unpack_table()` returns `NULL`;
+  `aa_dfa_unpack()` treats any `NULL` as protocol failure and returns
+  `-EPROTO`.
+- **Symptom:** Misleading "profile does not conform to protocol" errors
+  in `apparmor_parser` when the real failure is OOM.
+- **Root cause:** `unpack_table()` conflates allocation failure (`NULL`)
+  with protocol/validation failure (`NULL` from `goto out`).
+- **Version info:** None stated in commit message.
 
-### Step 1.4: Hidden bug fix?
-**Record:** Yes. Although labeled "Add", this is a hardware-timing quirk
-fix. Unknown panels get wrong power-sequencing delays and a `WARN_ON` on
-every probe. Adding the entries supplies panel-specific delays needed
-for reliable display operation.
+### Step 1.4: Detect hidden bug fixes
+**Record:** Yes — described as error propagation, but it is a real
+correctness bug in error handling. Policy load still fails, but with the
+wrong errno, which misleads operators and can cause incorrect
+retry/debug behavior under memory pressure.
 
 ---
 
 ## PHASE 2: DIFF ANALYSIS
 
-### Step 2.1: Inventory
+### Step 2.1: Inventory the changes
 **Record:**
-- **File:** `drivers/gpu/drm/panel/panel-edp.c` (+2 lines)
-- **Functions modified:** None directly; changes are in static
-  `edp_panels[]` table
-- **Scope:** Single-file, surgical panel-ID addition
+- **File:** `security/apparmor/match.c` only (~20 lines changed)
+- **Functions:** `unpack_table()`, `aa_dfa_unpack()`
+- **Scope:** Single-file surgical fix
 
-### Step 2.2: Code flow change
-**Record:**
-- **Hunk 1 (AUO):** Inserts `EDP_PANEL_ENTRY('A','U','O', 0xcb8f,
-  &delay_200_500_e50, "B133HAN06.6")` after `0xc9a8`.
-  - Before: AUO `0xcb8f` unmatched → conservative fallback.
-  - After: Matched → `desc->delay = *panel->detected_panel->delay` with
-    standard AUO delay profile.
-- **Hunk 2 (BOE):** Inserts `EDP_PANEL_ENTRY('B','O','E', 0x0a25,
-  &delay_200_500_e50_po2e200, "NV133FHM-N4F V8.0")` after `0x0a1b`.
-  - Before: BOE `0x0a25` unmatched → conservative fallback.
-  - After: Matched → delay profile including
-    `powered_on_to_enable=200ms` (same profile as existing NV133FHM-N42
-    at `0x0717`).
+### Step 2.2: Code flow change per hunk
+
+**Hunk 1 — `unpack_table()`:**
+- **Before:** Returns `NULL` for all failures (protocol validation and
+  `kvzalloc` failure).
+- **After:** Initializes to `ERR_PTR(-EPROTO)`; validation failures
+  return `-EPROTO`; `kvzalloc` failure returns `ERR_PTR(-ENOMEM)`;
+  internal `fail` label removed in favor of explicit `ERR_PTR` returns.
+
+**Hunk 2 — `aa_dfa_unpack()`:**
+- **Before:** `if (!table) goto fail;` with `error` already set to
+  `-EPROTO` at line 326.
+- **After:** `if (IS_ERR(table)) { error = PTR_ERR(table); table = NULL;
+  goto fail; }` — propagates the specific error from `unpack_table()`.
 
 ### Step 2.3: Bug mechanism
-**Record:** **Hardware quirk / panel timing table entry** (allowed
-stable exception). `find_edp_panel()` returns NULL for unknown IDs;
-probe path then uses overly conservative delays unsuitable for these
-panels' eDP power sequencing.
+**Record:** **Error-path / logic correctness fix.** Allocation failure
+was indistinguishable from protocol errors. The fix uses the kernel
+`ERR_PTR`/`IS_ERR`/`PTR_ERR` pattern already used elsewhere in AppArmor
+(e.g. `aa_dfa_unpack` itself returns `ERR_PTR(error)`).
 
 ### Step 2.4: Fix quality
-**Record:** Fix is minimal and follows established patterns in the same
-table. BOE uses the same `delay_200_500_e50_po2e200` profile as a
-related NV133FHM panel already in-tree. AUO uses the common
-`delay_200_500_e50` profile used by many AUO entries. Regression risk is
-very low.
+**Record:** Obviously correct; minimal; uses established kernel idioms.
+Low regression risk — only affects failure paths. One gap:
+`remap_data16_to_data32()` still returns `NULL` on alloc failure and is
+still treated as `-EPROTO` in `aa_dfa_unpack()` (lines 409–411); this
+commit does not address that separate path.
 
 ---
 
 ## PHASE 3: GIT HISTORY INVESTIGATION
 
-### Step 3.1: Blame
-**Record:** Insertion-point lines in current tree date to
-`6bda50f4333fa` (Nov 29, 2025), which added the entire `panel-edp.c`
-driver to 6.18. The missing panel entries are absent because this commit
-has not been applied yet—not because the code is structurally different.
+### Step 3.1: Blame changed lines
+**Record:** `unpack_table()` introduced in `e06f75a6a2b43b` (John
+Johansen, 2010). `kvzalloc` added in `a7c3e901a46ff5` (Michal Hocko, May
+2017, "mm: introduce kv[mz]alloc helpers"). The ENOMEM-as-NULL bug has
+existed since **v4.12** era when `kvzalloc` replaced prior allocation in
+this function.
 
-### Step 3.2: Fixes: tag
-**Record:** N/A — no Fixes: tag present.
+### Step 3.2: Follow Fixes: tag
+**Record:** Not applicable — no `Fixes:` tag in commit message.
 
-### Step 3.3: Related file history
-**Record:** Recent panel-edp additions already in this 6.18.y tree:
-- `0bd968c04acfb` — Add AUO B140QAX01.H panel
-- `6ca4647a74155` — Add AUO B140HAN06.4
-- `b173ba3365ff0` — Add BOE NV140WUM-T08 panel
+### Step 3.3: File history for related changes
+**Record:** Recent related fixes in this tree:
+- `ac8f179e5c9ee` — "return -ENOMEM in unpack_perms_table upon alloc
+  failure" (identical bug class, already backported to this 6.18.y tree)
+- `22dc9433d458c` — accept2 allocation failure returning success path
+  (more severe, already backported)
+Standalone fix; not part of a numbered series.
 
-Same pattern of single-line `EDP_PANEL_ENTRY` additions. Standalone; not
-part of a multi-patch series.
+### Step 3.4: Author's other commits
+**Record:** Maxime Bélair has at least one other AppArmor fix in tree
+(`57b1bd4486d56` UAF fix). John Johansen is the AppArmor maintainer and
+original author of `unpack_table()`.
 
-### Step 3.4: Author context
-**Record:** Chen-Yu Tsai (Chromium) is a regular MT8195/Chromebook
-contributor. Douglas Anderson (Chromium DRM) reviewed. No other commits
-from this author in `panel-edp.c` in this tree, but the subsystem
-maintainership pattern matches other Chromium panel additions.
-
-### Step 3.5: Dependencies
-**Record:** No dependencies. Requires only:
-- `panel-edp.c` driver (present since 6.18)
-- `delay_200_500_e50` and `delay_200_500_e50_po2e200` delay structs
-  (both present at lines 1818+ in current tree)
-- `EDP_PANEL_ENTRY` macro (present)
-
-Patch applies cleanly at verified insertion points (after
-`0xc9a8`/`0xcdba` and `0x0a1b`/`0x0a36`).
+### Step 3.5: Prerequisites
+**Record:** No dependencies. Uses `<linux/err.h>` already included at
+line 16. Applies to existing code in this tree. Standalone.
 
 ---
 
 ## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
-### Step 4.1: Original discussion
-**Record:** Link tag points to patch.msgid.link thread. **Could not
-fetch** — lore.kernel.org and patch.msgid.link blocked by Anubis bot
-protection. `b4 dig -c` could not run because the upstream commit hash
-is not in this checkout.
+### Step 4.1: Original patch discussion
+**Record:** `b4 dig -c <commit>` failed — commit not yet in this
+checkout. Web search found Ubuntu AppArmor list submission at
+https://www.mail-archive.com/apparmor@lists.ubuntu.com/msg12204.html
+(fetch timed out). Patch content from search matches provided diff.
 
 ### Step 4.2: Reviewers
-**Record:** Reviewed-by and Signed-off-by from Douglas Anderson
-(Chromium DRM developer). UNVERIFIED: full recipient list via `b4 dig
--w`.
+**Record:** Reviewed-by Georgia Garcia (Canonical). Signed-off-by John
+Johansen (maintainer). Submitted to Ubuntu AppArmor list per mail-
+archive.
 
 ### Step 4.3: Bug report
-**Record:** No external bug report or syzbot link. Hardware enablement
-driven by Chromebook platform need (MT8195 Dojo).
+**Record:** GitLab issue #592 describes Qubes OS users seeing "Profile
+does not conform to protocol" on `aa-enforce`, sometimes resolving after
+multiple retries — consistent with transient failures (including OOM)
+being misreported as protocol errors. Maintainer comment on related
+issue #265 notes protocol errors can indicate kernel/parser bugs or
+mismatched policy. Severity from reporter: operational confusion, not a
+confirmed security issue.
 
 ### Step 4.4: Related patches
-**Record:** Same author/subsystem pattern as Terry Hsiao's May 2026
-batch of panel-edp additions (separate series in workspace mbox files).
-This commit is standalone (1/1).
+**Record:** `ac8f179e5c9ee` (unpack_perms_table ENOMEM fix) was
+backported to stable (visible in spinics stable list for 6.19.y). Same
+subsystem, same bug pattern, accepted for stable.
 
-### Step 4.5: Stable list discussion
-**Record:** UNVERIFIED — could not search lore stable list due to access
-restrictions.
+### Step 4.5: Stable mailing list
+**Record:** No specific stable-list discussion found for this exact
+patch. The sibling `unpack_perms_table` fix was included in stable
+releases.
 
 ---
 
 ## PHASE 5: CODE SEMANTIC ANALYSIS
 
 ### Step 5.1: Key functions
-**Record:** Affected lookup path: `find_edp_panel()` → called from
-`generic_edp_panel_probe()`.
+**Record:** `unpack_table()` (static), `aa_dfa_unpack()` (exported via
+`match.h`)
 
 ### Step 5.2: Callers
-**Record:** `generic_edp_panel_probe()` is invoked during `panel_edp`
-device probe on platforms using `compatible = "edp-panel"`. MT8195
-Cherry/Dojo DTS in this tree uses this compatible string.
+**Record:**
+- `aa_dfa_unpack()` called from:
+  - `unpack_dfa()` in `policy_unpack.c` — policy load path
+  - `aa_setup_dfa_engine()` in `lsm.c` — built-in nulldfa/stacksplitdfa
+    at init (static blobs, unlikely to OOM)
+- `unpack_dfa()` → `unpack_pdb()` → policy unpack →
+  `aa_replace_profiles()` via `apparmorfs.c`
+
+Primary user-visible path: **policy load**
+(`/sys/kernel/security/apparmor/` write or equivalent).
 
 ### Step 5.3: Callees
-**Record:** `find_edp_panel()` uses `drm_edid_match()` and panel-ID
-comparison against `edp_panels[]`. On match, `desc->delay =
-*panel->detected_panel->delay` sets power-sequencing parameters used by
-`panel_edp_prepare()`, `panel_edp_enable()`, and suspend/resume paths.
+**Record:** `kvzalloc()`, `kvfree()`, `get_unaligned_be*()`,
+`vm_unmap_aliases()`, `verify_table_headers()`, `verify_dfa()`
 
-### Step 5.4: Reachability
-**Record:** Triggered at boot on every MT8195 Dojo machine with these
-panels — common Chromebook laptop path, not an obscure config option.
+### Step 5.4: Call chain / reachability
+**Record:** `write(apparmorfs)` → `aa_replace_profiles()` →
+`aa_unpack()` → `unpack_pdb()` → `unpack_dfa()` → `aa_dfa_unpack()` →
+`unpack_table()`. Reachable from **privileged userspace** loading
+AppArmor policy. Trigger requires memory pressure during DFA table
+unpacking.
 
 ### Step 5.5: Similar patterns
-**Record:** BOE NV133FHM-N4F V8.0 uses identical delay profile to
-existing `NV133FHM-N42` (`0x0717`). Many AUO entries use
-`delay_200_500_e50`. Consistent with table conventions.
+**Record:** Same NULL-on-OOM → `-EPROTO` pattern existed in
+`unpack_perms_table()` (fixed by `ac8f179e5c9ee`).
+`remap_data16_to_data32()` in the same file still has the unfixed
+pattern.
 
 ---
 
-## PHASE 6: CROSS-REFERENCING AGAINST LOCAL TREE
+## PHASE 6: CROSS-REFERENCE AGAINST LOCAL TREE (6.18.44)
 
 ### Step 6.1: Does buggy code exist?
-**Record:** **Yes.** `panel-edp.c` exists; `edp_panels[]` table exists;
-`0xcb8f` and `0x0a25` entries are **absent** (grep confirmed no
-matches). MT8195 Dojo platform support exists
-(`arch/arm64/boot/dts/mediatek/mt8195-cherry-dojo-r1.dts`,
-`mt8195-cherry.dtsi` with `compatible = "edp-panel"`).
+**Record:** **Yes.** Current `security/apparmor/match.c` lines 34–91
+return `NULL` on `kvzalloc` failure; `aa_dfa_unpack()` at lines 361–363
+treats `!table` as `-EPROTO`. Bug present since kvzalloc adoption
+(~2017).
 
 ### Step 6.2: Backport complications
-**Record:** **Clean apply expected.** Insertion anchor lines (`0xc9a8`,
-`0x0a1b`) match exactly between patch context and current tree.
+**Record:** Expected **clean apply** — tree matches the "before" state
+in the provided diff. No conflicting recent changes to these functions.
+`git apply --check` with truncated test patch failed due to patch
+formatting, not code mismatch; file content verified identical to pre-
+patch state.
 
 ### Step 6.3: Related fixes already present?
-**Record:** No — panel IDs not present. Similar panel additions
-(B140QAX01.H, B140HAN06.4, NV140WUM-T08) are already in this 6.18.y
-tree, establishing precedent.
+**Record:** `ac8f179e5c9ee` (ENOMEM in `unpack_perms_table`) already in
+tree. This specific `unpack_table` fix is **not** yet present.
 
 ---
 
-## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+## PHASE 7: SUBSYSTEM CONTEXT
 
-### Step 7.1: Subsystem
-**Record:** `drivers/gpu/drm/panel/` — DRM panel driver. **Criticality:
-IMPORTANT** (display subsystem; affects laptop users on supported
-platform, not universal core kernel).
+### Step 7.1: Subsystem and criticality
+**Record:** **security/apparmor** — LSM security module. **IMPORTANT**
+for Ubuntu, Debian, openSUSE, and other AppArmor-enabled distributions.
 
-### Step 7.2: Activity
-**Record:** `panel-edp.c` is new in 6.18 (added Nov 2025); actively
-receiving panel-ID additions in this stable series.
+### Step 7.2: Subsystem activity
+**Record:** Actively maintained — multiple AppArmor stable backports
+already in this 6.18.y tree (UAF, refcount, ENOMEM fixes in 2026).
 
 ---
 
 ## PHASE 8: IMPACT AND RISK ASSESSMENT
 
 ### Step 8.1: Who is affected
-**Record:** Users of HP Chromebook x360 13b-ca0xxx (MT8195 Dojo) and any
-other systems shipping AUO B133HAN06.6 or BOE NV133FHM-N4F V8.0 panels
-with the generic `edp-panel` driver. Platform-specific, driver-specific.
+**Record:** AppArmor-enabled systems where administrators load or
+replace policy. Config-specific (`CONFIG_SECURITY_APPARMOR`).
 
 ### Step 8.2: Trigger conditions
-**Record:** Every boot and resume when EDID reports panel IDs `0xcb8f`
-or `0x0a25`. Highly likely on affected hardware — not a rare race.
+**Record:** Memory pressure during `kvzalloc()` in `unpack_table()`
+while unpacking a policy DFA. Uncommon but realistic on constrained
+systems or under heavy memory load. Privileged operation (policy load),
+not unprivileged attack surface for escalation.
 
 ### Step 8.3: Failure mode severity
-**Record:** Without fix: `WARN_ON` on probe + wrong power-sequencing
-delays (2000ms unprepare vs. 500ms; missing `powered_on_to_enable` for
-BOE). Can cause black screen, flicker, or failed resume. **Severity:
-MEDIUM-HIGH** for affected users (display reliability, not kernel
-crash/security).
+**Record:** Policy load fails with **`-EPROTO`** instead of
+**`-ENOMEM`**. Users see misleading protocol-conformance errors. Policy
+is **not** loaded in either case — no silent security bypass. Severity:
+**MEDIUM** (operational/diagnostic), not CRITICAL (no crash, corruption,
+or UAF).
 
 ### Step 8.4: Risk-benefit
 **Record:**
-- **Benefit:** Enables correct display power sequencing on real shipping
-  Chromebook hardware already supported in this tree.
-- **Risk:** Very low — two table entries, no logic changes, delay
-  profiles already used by other panels.
-- **Ratio:** Strong benefit, minimal risk.
+- **Benefit:** Correct errno under OOM; better diagnostics; consistent
+  with already-backported `unpack_perms_table` fix; helps admins
+  distinguish transient OOM from corrupt policy.
+- **Risk:** Very low — ~20 lines, failure-path only, established ERR_PTR
+  pattern.
+- **Ratio:** Favorable, especially given subsystem precedent.
 
 ---
 
@@ -349,117 +332,178 @@ crash/security).
 ### Step 9.1: Evidence summary
 
 **FOR backport:**
-- Fixes real display issue on HP Chromebook x360 13b (MT8195 Dojo) —
-  platform in this tree
-- BOE entry tested on hardware
-- Tiny, surgical change (2 lines)
-- Follows established pattern; similar commits already in 6.18.y
-- Hardware quirk / panel-ID exception category
-- Clean apply to current tree
-- Reviewed-by from Chromium DRM developer
+- Real bug in error handling (ENOMEM masked as EPROTO)
+- Bug present in this 6.18.44 tree since ~2017
+- Small, surgical, maintainer-reviewed fix
+- Identical bug class already backported in this tree (`ac8f179e5c9ee`)
+- Affects policy-load path on AppArmor systems
+- Canonical team fix with maintainer sign-off
 
 **AGAINST backport:**
-- AUO entry untested (datasheet only) — minor concern, standard practice
-  for this table
-- Not a crash/security/data-corruption fix — display reliability issue
-- Lore discussion unverified
+- No crash, corruption, deadlock, or security vulnerability
+- Policy load fails either way — functional outcome unchanged
+- GitLab #592 is not a direct ENOMEM reproducer
+- `remap_data16_to_data32()` has the same unfixed pattern (incomplete
+  coverage)
+- Commit not yet in tree; lore fetch incomplete
 
-**Unresolved:** Mailing list thread content; whether stable was
-explicitly nominated in review.
+**Unresolved:** Full mail-archive thread content; whether stable
+maintainers will treat this identically to `unpack_perms_table`
+(precedent suggests yes).
 
 ### Step 9.2: Stable rules checklist
-1. Obviously correct and tested? **PASS** — BOE tested; AUO follows
-   datasheet + standard delay profile
-2. Fixes real bug affecting users? **PASS** — wrong panel delays on real
-   hardware
-3. Important issue? **PASS** — display reliability on shipping
-   Chromebook (MEDIUM-HIGH)
-4. Small and contained? **PASS** — 2 lines, one file
-5. No new features/APIs? **PASS** — panel table entries only (allowed
-   exception)
-6. Can apply to local tree? **PASS** — driver, delay structs, and
-   insertion points all present
+| Criterion | Result |
+|-----------|--------|
+| 1. Obviously correct and tested? | **PASS** — clear ERR_PTR pattern;
+Reviewed-by present |
+| 2. Fixes real bug affecting users? | **PASS** — wrong errno on policy
+load under OOM |
+| 3. Important issue? | **PASS (borderline)** — not crash/security, but
+policy-load failure misdiagnosis on production AppArmor systems; same
+class already deemed stable-worthy |
+| 4. Small and contained? | **PASS** — one file, ~20 lines |
+| 5. No new features/APIs? | **PASS** — internal error propagation only
+|
+| 6. Can apply to local tree? | **PASS** — buggy code confirmed present;
+clean apply expected |
 
-### Step 9.3: Exception category
-**Record:** **Hardware quirk / panel timing workaround** — adding EDID
-panel-ID entries with power-sequencing delays to an existing driver,
-analogous to USB/PCI quirks and device-ID additions.
+### Step 9.3: Exception categories
+**Record:** None (not device ID, quirk, DT, build, or docs). Pure error-
+handling correctness fix.
 
 ### Step 9.4: Decision rationale
-
-This commit should be backported to **Linux 6.18.y**. The `panel-edp`
-driver and MT8195 Dojo platform are both present in this tree, but these
-panel IDs are missing. Without them, affected Chromebooks get incorrect
-eDP power-sequencing delays and a `WARN_ON` on every probe. The fix is
-two lines, uses delay profiles already in the table, and matches the
-pattern of panel additions already accepted into this stable series.
+This fix belongs in stable for the same reason `ac8f179e5c9ee` was
+already backported to this 6.18.y tree: AppArmor policy unpacking must
+return the correct errno so administrators and userspace tools can
+distinguish OOM from protocol corruption. The change is minimal,
+obviously correct, and the bug has been present since `kvzalloc` was
+adopted in 2017. While severity is operational rather than catastrophic,
+the established precedent in this exact subsystem and tree supports
+inclusion.
 
 ---
 
 ## Verification
 
-- [Phase 1] Parsed subject, tags, body; identified hardware enablement
-  intent and BOE on-device testing
-- [Phase 2] Diff analysis: 2 `EDP_PANEL_ENTRY` lines added to
-  `edp_panels[]`
-- [Phase 3] `git describe HEAD`: v6.18.43-1-gc7f0dac02d232; `make
-  kernelversion`: 6.18.43
-- [Phase 3] `git blame` on lines 1918-1925, 1966-1972: table from
-  `6bda50f4333fa` (Nov 2025)
-- [Phase 3] `git log --grep=panel-edp`: similar additions
-  `0bd968c04acfb`, `6ca4647a74155`, `b173ba3365ff0` already in tree
-- [Phase 3] Grep `0xcb8f|0x0a25|B133HAN06|NV133FHM-N4F` in panel-edp.c:
-  no matches — entries absent
-- [Phase 3] Verified insertion anchors `0xc9a8`, `0xcdba`, `0x0a1b`
-  exist at lines 1921, 1922, 1969
-- [Phase 3] Verified `delay_200_500_e50` and `delay_200_500_e50_po2e200`
-  exist at line 1818+
-- [Phase 4] WebFetch lore.kernel.org and patch.msgid.link: **FAILED**
-  (Anubis bot block)
-- [Phase 4] `b4 dig -c`: **NOT RUN** — upstream commit hash not in
-  checkout
-- [Phase 5] Read `generic_edp_panel_probe()` lines 759-825: confirmed
-  NULL `detected_panel` → WARN_ON + conservative timings
-- [Phase 5] Read `find_edp_panel()` lines 2091-2113: confirmed lookup
-  mechanism
-- [Phase 5] Confirmed NV133FHM-N42 (`0x0717`) uses same
-  `delay_200_500_e50_po2e200` profile
-- [Phase 6] Grep Dojo DTS: `mt8195-cherry-dojo-r1.dts` and
-  `mt8195-cherry.dtsi` with `compatible = "edp-panel"` present
-- [Phase 6] Confirmed patch context matches current file structure for
-  clean apply
-- [Phase 8] Failure mode: wrong delays + WARN_ON on display probe;
-  severity MEDIUM-HIGH for affected laptops
-- **UNVERIFIED:** Mailing list review discussion and stable nomination
-  comments
-- **UNVERIFIED:** Whether AUO panel is actually shipped on Dojo SKUs
-  (commit says both found on platform; only BOE tested)
+- [Phase 1] Parsed commit message and tags from user-provided content
+- [Phase 1] Link: https://gitlab.com/apparmor/apparmor/-/issues/592 —
+  fetched; describes Qubes OS protocol errors on `aa-enforce`, not a
+  direct ENOMEM reproducer
+- [Phase 2] Read `security/apparmor/match.c` lines 34–91, 314–434 —
+  confirmed buggy NULL-return pattern and `!table` → `-EPROTO` path
+- [Phase 2] Confirmed `remap_data16_to_data32()` still returns NULL on
+  OOM (lines 283–286, 409–411) — unfixed by this commit
+- [Phase 3] `git describe HEAD` → `v6.18.44-1-g2736c32da98b9`; `make
+  kernelversion` → `6.18.44`
+- [Phase 3] `git blame -L 34,91 security/apparmor/match.c` → function
+  from 2010; `kvzalloc` from `a7c3e901a46ff5` (2017)
+- [Phase 3] `git show a7c3e901a46ff5` — confirmed kvzalloc introduction
+  in `match.c`
+- [Phase 3] `git log --oneline -20 -- security/apparmor/match.c` —
+  recent activity, no conflicting fix
+- [Phase 3] `git show ac8f179e5c9ee` — identical ENOMEM/EPROTO pattern
+  fix already in this tree with stable backport marker
+- [Phase 3] `git log --oneline --grep="ENOMEM" -- security/apparmor/` —
+  related ENOMEM fixes present
+- [Phase 4] `b4 dig -c ac8f179e5c9ee` — no lore match (stable-backport
+  commit)
+- [Phase 4] `b4 dig --commitish "apparmor: propagate -ENOMEM correctly
+  in unpack_table"` — commit not in tree
+- [Phase 4] Web search — found Ubuntu AppArmor list submission
+  (msg12204); spinics stable list shows `unpack_perms_table` ENOMEM fix
+  in stable batch
+- [Phase 4] WebFetch gitlab #592 — success; WebFetch mail-archive —
+  timed out
+- [Phase 5] `grep aa_dfa_unpack security/apparmor/` — callers in
+  `policy_unpack.c`, `lsm.c`
+- [Phase 5] Read `unpack_pdb()` lines 765–770 — `PTR_ERR(pdb->dfa)`
+  propagates error to policy unpack
+- [Phase 6] Confirmed buggy code present in local 6.18.44 checkout
+- [Phase 6] `ac8f179e5c9ee` confirmed in tree; this fix not yet applied
+- [Phase 7] `git log --oneline -20 -- security/apparmor/` — active
+  subsystem with multiple stable backports
 
-**YES**
+**YES**The AppArmor `unpack_table` ENOMEM backport analysis is done for
+your **6.18.44** tree.
 
- drivers/gpu/drm/panel/panel-edp.c | 2 ++
- 1 file changed, 2 insertions(+)
+**Verdict: YES** — backport it.
 
-diff --git a/drivers/gpu/drm/panel/panel-edp.c b/drivers/gpu/drm/panel/panel-edp.c
-index 105074d8cf765..c6d1dfdd64f2e 100644
---- a/drivers/gpu/drm/panel/panel-edp.c
-+++ b/drivers/gpu/drm/panel/panel-edp.c
-@@ -1924,6 +1924,7 @@ static const struct edp_panel_entry edp_panels[] = {
- 	EDP_PANEL_ENTRY('A', 'U', 'O', 0xc4b4, &delay_200_500_e50, "B116XAT04.1"),
- 	EDP_PANEL_ENTRY('A', 'U', 'O', 0xc7ad, &delay_200_500_e50, "B140HAN07.7"),
- 	EDP_PANEL_ENTRY('A', 'U', 'O', 0xc9a8, &delay_200_500_e50, "B140QAN08.H"),
-+	EDP_PANEL_ENTRY('A', 'U', 'O', 0xcb8f, &delay_200_500_e50, "B133HAN06.6"),
- 	EDP_PANEL_ENTRY('A', 'U', 'O', 0xcdba, &delay_200_500_e50, "B140UAX01.2"),
- 	EDP_PANEL_ENTRY('A', 'U', 'O', 0xd497, &delay_200_500_e50, "B120XAN01.0"),
- 	EDP_PANEL_ENTRY('A', 'U', 'O', 0xf390, &delay_200_500_e50, "B140XTN07.7"),
-@@ -1973,6 +1974,7 @@ static const struct edp_panel_entry edp_panels[] = {
- 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x09ae, &delay_200_500_e200, "NT140FHM-N45"),
- 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x09dd, &delay_200_500_e50, "NT116WHM-N21"),
- 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0a1b, &delay_200_500_e50, "NV133WUM-N63"),
-+	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0a25, &delay_200_500_e50_po2e200, "NV133FHM-N4F V8.0"),
- 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0a36, &delay_200_500_e200, "Unknown"),
- 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0a3e, &delay_200_500_e80_d50, "NV116WHM-N49"),
- 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0a5d, &delay_200_500_e50, "NV116WHM-N45"),
+When `kvzalloc()` fails during DFA table unpacking, the kernel currently
+returns `-EPROTO` instead of `-ENOMEM`, so policy load failures under
+memory pressure look like protocol/corruption errors in
+`apparmor_parser`. The fix is small (~20 lines in
+`security/apparmor/match.c`), uses the standard `ERR_PTR`/`IS_ERR`
+pattern, and matches an already-backported fix in this tree
+(`ac8f179e5c9ee` for `unpack_perms_table`). The buggy code is present
+here; the patch should apply cleanly.
+
+Severity is operational (wrong errno, not a crash or security bug), but
+the subsystem precedent and maintainer review support stable inclusion.
+
+ security/apparmor/match.c | 22 +++++++++++++---------
+ 1 file changed, 13 insertions(+), 9 deletions(-)
+
+diff --git a/security/apparmor/match.c b/security/apparmor/match.c
+index 0de249725efbf..b2a4bee4e3939 100644
+--- a/security/apparmor/match.c
++++ b/security/apparmor/match.c
+@@ -27,13 +27,13 @@
+  * @blob: data to unpack (NOT NULL)
+  * @bsize: size of blob
+  *
+- * Returns: pointer to table else NULL on failure
++ * Returns: pointer to table else ERR_PTR on failure
+  *
+  * NOTE: must be freed by kvfree (not kfree)
+  */
+ static struct table_header *unpack_table(char *blob, size_t bsize)
+ {
+-	struct table_header *table = NULL;
++	struct table_header *table = ERR_PTR(-EPROTO);
+ 	struct table_header th;
+ 	size_t tsize;
+ 
+@@ -74,20 +74,21 @@ static struct table_header *unpack_table(char *blob, size_t bsize)
+ 		else if (th.td_flags == YYTD_DATA32)
+ 			UNPACK_ARRAY(table->td_data, blob, th.td_lolen,
+ 				     u32, __be32, get_unaligned_be32);
+-		else
+-			goto fail;
++		else {
++			kvfree(table);
++			table = ERR_PTR(-EPROTO);
++			goto out;
++		}
+ 		/* if table was vmalloced make sure the page tables are synced
+ 		 * before it is used, as it goes live to all cpus.
+ 		 */
+ 		if (is_vmalloc_addr(table))
+ 			vm_unmap_aliases();
+-	}
++	} else
++		table = ERR_PTR(-ENOMEM);
+ 
+ out:
+ 	return table;
+-fail:
+-	kvfree(table);
+-	return NULL;
+ }
+ 
+ /**
+@@ -359,8 +360,11 @@ struct aa_dfa *aa_dfa_unpack(void *blob, size_t size, int flags)
+ 
+ 	while (size > 0) {
+ 		table = unpack_table(data, size);
+-		if (!table)
++		if (IS_ERR(table)) {
++			error = PTR_ERR(table);
++			table = NULL;
+ 			goto fail;
++		}
+ 
+ 		switch (table->td_id) {
+ 		case YYTD_ID_ACCEPT:
 -- 
 2.53.0
 
