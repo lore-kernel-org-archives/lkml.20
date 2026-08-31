@@ -1,205 +1,141 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B7F449CF46;
-	Mon, 31 Aug 2026 16:32:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788193965; cv=none; b=mxjCax65xn9KHiqqB271uJqfVfkvu8AYf+niL6GLzYEENgOrYdp2NpgtGRYh2I8nYByIBgzv7a7YhmNna67bvWib+oB9bxc2EcwANHDaC1Gbqg4ebQJQ2qeAGkchk0ZtejN5GoUJAXh5D17ewhKxKbiAs+5jDfd/BDJ8oxNQ0HY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788193965; c=relaxed/simple;
-	bh=3SeeWB2J9QJfMtK7ieEMZIHW0SOZB1ghPyE/Zx0ncCQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eCyDwXXY0NMZudgJ6X05xxnWIPh0n1t/B0nVPzSL4uukRns36vxFm5M5K3AIjMfBmP/pr8N4J0HafaGP1rMx94lDTjAFGGkOCYUb6kV2sQu2plkvjl8ykKNCyDaGE4qXor9P7VguuNZUcI2L4OxNscNXnw36R/wPXjytdnMCWDg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d1M8rhwa; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB8F949CF59
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 16:33:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.177
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788193983; cv=pass; b=LMZPpAtbF+7ilDOHKUJG7NMeDfggWhFLCyW0LnfhEibDgmcnMQoOp/QfKDGYja9pUNikvORoHpdXRmLNh77ukF/ObVo1qGobsbF0TT+G1tthlnHgvl9JrQsI4ADdfTMI2whRSiX3CBtUARrUcr/lV3NagvIPMjesyE+Cb1RBCwc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788193983; c=relaxed/simple;
+	bh=WAb2HioeKt8yQ4+e2mWpoQ1jc7oIFNQVMnrcZ1VNVk8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=f/CAcnW9ceMApQDT2W3nBAdbr2c/zpiia6q74hO/VUBRRMLNts97W1e4u6LOVDVmH+bTmxfxUdE0fvCFdUNSOOHGx/NMvv8VZGgJP0ZKXoslVI246jhI/ZioYbW+F/FzTrz4s1A5WELxwVT558+kduyvpPCcyVreQQpXDQ+gI9I=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=refBrwGZ; arc=pass smtp.client-ip=209.85.214.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d1M8rhwa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99D211F000E9;
-	Mon, 31 Aug 2026 16:32:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788193964;
-	bh=4EHPpunVWCfvSsl9XR/vLgJXnGfu3RbcnjxL2uwJevM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=d1M8rhwah8JEEByU1jPvUfpA/uRIt207m5rvobtM0FQqYSLkRUbUeBOf5Dr+01pdK
-	 xt2J9Y9U0qD9P9XVLUa63yK8j2xKxQwASOWx0QWBE/CBEVscNDa3k6waHOKuQIQLdL
-	 XG2pwRcne/Jr0zngV3XX42HHYsF2KDEsGAN5jTc86dIKZKbwBpiIgIqfcCZGCsSiza
-	 PzTcdLqY7kiq4zkOl9OiW200hLvMB9OlN4u323NgaSUK/ORzce5JKFyivapQI2N3tj
-	 m5XOnMvIgP/nna5eUxsYBtmoCMN+eiu6A15euz24yhFfRNBCDlT9FNF1F9nbORstJj
-	 exUg4VtY4+umg==
-Date: Mon, 31 Aug 2026 17:32:40 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Changhuang Liang <changhuang.liang@starfivetech.com>
-Cc: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
-	linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v4 1/2] dt-bindings: hwmon: Add starfive,jhb100-fan-tach
-Message-ID: <20260831-dominion-data-c8b6f691dd5b@spud>
-References: <20260830011941.40199-1-changhuang.liang@starfivetech.com>
- <20260830011941.40199-2-changhuang.liang@starfivetech.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="refBrwGZ"
+Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2d906cf83b2so2114935ad.0
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 09:33:01 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788193981; cv=none;
+        d=google.com; s=arc-20260327;
+        b=qZFnkO2ZGObYTwhzqDDBi7EMZqChIY+KstpaV1CwM4GDMxNyK9cHg12kXPbtWAyNiS
+         8SssrtqrPkjb991xuTz6TOjcPT5JeUnWPZLj9S2WH83zFys6pSVDeVzGQ5yJL1jvNjOY
+         z2cIuJ/z3s9p3u1qIEWOAY42YP+vWLL0kMThdmztNnvb4AjlofZi3zK/8NoIYO0BhE/J
+         KV/C6Oy7Hmol7da/Q/8wX5gsF7rnEp89lyi8kogfCEC+vrtAJvEh/BfAUmowq1u11tvx
+         lDjJVPGMe/hSbKtjPpq3CW3PaI6U991P6kSMQNKHJiXvpW+L9z350GwCl8fCuWBHYvPW
+         wurg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=OJzwv1wFVi53NEXZo+hKmNYNH3NbrWf4sdQ3Ijd6Mi0=;
+        fh=UFeZFGkfCsV9PFUn11VmyIa3bMjog353bbOSW8qXmUQ=;
+        b=EwO6V7wYNO8z0gfZS8qTOYog9cvPvGXogwRysrZx1U2lh0O0W7Q10DtmzlkB1ePQPb
+         LIqi4Syt/BFIIlzi9FtOZ9DtLT9khyg32cnOnZrjaKuhCfBi/hgntY34whXo/PGjAJBa
+         /8vDTPLoD0RjMOovZdVUP9PEMWhji7XwwBRxIT3XcJGqqd7/lzyEoRIFeJOkuujlan+f
+         Vb8hBmFEzAF5iIsd631TYUc/0X8D66S6a3N6HIwDwYvmQZKtweE30Foe99VuAm3dJABI
+         clO7298hED4xCV/YKkPeHqCzA3EsNusgmlP9DVPz+ijwvRwuTPQSEsYUKEPHFz6I801V
+         /jdQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788193981; x=1788798781; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=OJzwv1wFVi53NEXZo+hKmNYNH3NbrWf4sdQ3Ijd6Mi0=;
+        b=refBrwGZujpvTpihy/NZH9EfEJJVQmjGZhkmcPyHkrJnQJ4uxgMRAQ9qdfAmyXc03L
+         LstKISwlWnno/B83pwbIRnUCpigRdbTki/T8o4RL0DdE1mBNwkYNrwXIWkrQZ+S9+hCB
+         UNdkFis7VHdX0p4bOSIFoIhPK0E8qrTrv30nvRPTzN1A4fJSUlvLDQzUWVojRbyj4oV1
+         Mste31TatK15L0BlxNuCEGPhA8sNxxbmaTrjPTdJBAMEKpm1ncqMeMjRg8oCVYtHZrC6
+         qGn/Zx3v/TECkieM3oZCrNErFrlwDqzajUw7EmZPLT4TMWHiJYlTF69pnx9q6XmOqawM
+         Zn2g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788193981; x=1788798781;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=OJzwv1wFVi53NEXZo+hKmNYNH3NbrWf4sdQ3Ijd6Mi0=;
+        b=lmgK5Kfr7HxgGcQr1ZOpR2Ez2/1uJ4zxTUQcYR376Iui3seoJ6P4JFnCg8SUpgBqSV
+         r7UCW/f6HPZdijCvGmomMAQc7o4kQmvynVz03916f6VB2EsVV+SUQpzUqoqh658QO4R5
+         1Y9Q0gTFzzPz6UGoHHd5CVZMprcYCuhVfrIkbYwpKrfSZUhGO0kAJ2H5ROsNJ/sx3+CC
+         UnbAoUunjnN8l5ahFtfkxJPCuSQLAQutY/manmV+VbAyI5RqRF9Q4TcuTMumTTkD2/sT
+         vh0YfJk2h0TLFRlyI01F3TT5dt8OzVybtVqdjL74i02YAIDOjMr/w/xa4Eh5dSKA0ASH
+         SKdA==
+X-Forwarded-Encrypted: i=1; AKwUvBwOLBE2UGF6vRvbrevbVGsld/YHXJzPMvTHhuhrODu6nxCzfuQrh9KU+aKNOn1JdXqslz4rIankTjEg3tk=@vger.kernel.org
+X-Gm-Message-State: AFuF++lFGgjiqszWwHjWUUfSxQCc2qs1qs4ShPdWrcyQ4FCdX0aZHeWG
+	IQtO4vQDy/Z8p3TwkhSzo+9gsVpJObyJohRGYlcTVuXuDDKYyJyILpOTYmHGFr7o3OQETDXi1ps
+	R8BEj1Sv5GN7iXQiEkZshWCi44Rj9US8=
+X-Gm-Gg: AYBFou3ZKOFgJfFbO/QBS6YLxKdh4JP6sJiOG9m9TBegXwNCMAj/+6Wns90DjeljTRH
+	VWBva75hSU0HXtDq1nF8JP4HWTQJ16Gm7codMLQV8m3exz6MzG6I2q0Xlr2MXkRwLNr/uUcULJo
+	DqwAU9MNiEJhmc+9Mui+YPSiT7FLhzFfpG/HB9CtMTqtRZmBwiWelATKuzmyIC1RA8TAoC4wIPG
+	g5ST6SaZWDbpDZBhk+Vbx/S4LO5sPG3U+rBCrLAalyJx8xrCroXPi5l/Qs814gUFCdyc1kbYoAX
+	N4xg+6CXbUy+nBah79xS6ox7TVaLchUgCn5F2QlwXjUeyxiWl6+DydOPN9JcX1gqGUkg+Kc+q3p
+	s96d5i/6rqAHmcXsPNtAMgCcziM4mEUwYnBXyzeL80PjTe40XRL9i32s5gg/z
+X-Received: by 2002:a17:902:c94e:b0:2ca:de3:15eb with SMTP id
+ d9443c01a7336-2d74ce5e476mr224272585ad.0.1788193980913; Mon, 31 Aug 2026
+ 09:33:00 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="uatR7M6gSft/ZZlk"
-Content-Disposition: inline
-In-Reply-To: <20260830011941.40199-2-changhuang.liang@starfivetech.com>
-
---uatR7M6gSft/ZZlk
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+References: <20260831151605.638172-2-manuelebnerli@mailbox.org> <20260831152523.638881-1-manuelebnerli@mailbox.org>
+In-Reply-To: <20260831152523.638881-1-manuelebnerli@mailbox.org>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Mon, 31 Aug 2026 18:32:46 +0200
+X-Gm-Features: AcwNN1WxT2qUEpoESa1nnOxcvqd-4guXTylAIIzIEvrVEhydUWRkwim0NkJ623s
+Message-ID: <CANiq72=TYcLdj0t2DbboS31L4BNrSg-0bRmHZe4SDnbRLeoy9g@mail.gmail.com>
+Subject: Re: [PATCH] v2 Docs: changes.rst: introduce optional column
+To: Manuel Ebner <manuelebnerli@mailbox.org>
+Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
+	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
+	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+	Nathan Chancellor <nathan@kernel.org>, Nick Desaulniers <nick.desaulniers+lkml@gmail.com>, 
+	Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, workflows@vger.kernel.org, 
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	rust-for-linux@vger.kernel.org, llvm@lists.linux.dev, 
+	Guillaume Tucker <gtucker@gtucker.io>, Nicolas Schier <nsc@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Sat, Aug 29, 2026 at 06:19:40PM -0700, Changhuang Liang wrote:
-> Add compatible "starfive,jhb100-fan-tach" for StarFive JHB100 Fan-Tach
-> controller.
->=20
-> Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
-> ---
->  .../hwmon/starfive,jhb100-fan-tach.yaml       | 93 +++++++++++++++++++
->  1 file changed, 93 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/hwmon/starfive,jhb1=
-00-fan-tach.yaml
->=20
-> diff --git a/Documentation/devicetree/bindings/hwmon/starfive,jhb100-fan-=
-tach.yaml b/Documentation/devicetree/bindings/hwmon/starfive,jhb100-fan-tac=
-h.yaml
-> new file mode 100644
-> index 000000000000..1dcd4932768f
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/hwmon/starfive,jhb100-fan-tach.ya=
-ml
-> @@ -0,0 +1,93 @@
-> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/hwmon/starfive,jhb100-fan-tach.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: StarFive JHB100 Fan-Tach controller
-> +
-> +maintainers:
-> +  - Changhuang Liang <changhuang.liang@starfivetech.com>
-> +
-> +description:
-> +  The StarFive Fan-Tach controller can support up to 16 fan tach input.
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - starfive,jhb100-fan-tach
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  clocks:
-> +    maxItems: 1
-> +
-> +  resets:
-> +    maxItems: 1
-> +
-> +  interrupts:
-> +    maxItems: 1
-> +
-> +  "#address-cells":
-> +    const: 1
-> +
-> +  "#size-cells":
-> +    const: 0
-> +
-> +patternProperties:
-> +  "^fan@[0-9a-f]+$":
-> +    $ref: fan-common.yaml#
-> +    unevaluatedProperties: false
-> +
-> +    properties:
-> +      reg:
-> +        description:
-> +          PWM channel index. The driver allows two fans to share the same
-> +          PWM channel, or each fan to use a dedicated channel.
+On Mon, Aug 31, 2026 at 5:25=E2=80=AFPM Manuel Ebner <manuelebnerli@mailbox=
+.org> wrote:
+>
+> +bindgen                0.71.1           generate Rust bindings
 
-Doesn't matter what the driver can do, the description should describe
-what the hardware supports.
-pw-bot: changes-requested
+Should this simply say `CONFIG_RUST=3Dy` too?
 
-Does this fan-tach controller provide the PWMs?
-If so (although Guenter may correct me), I think the fan-tach controller
-needs to be.
+> +Clang/LLVM             17.0.1           alternative to GNU C (gcc)
 
-If you don't do that, I think you're going to run into problems with
-having multiple nodes with the same unit address when two fans share a
-pwm?
+Should we add an equivalent one to GNU C?
 
-I think what you're supposed to do is drop "reg" and replace it with
-"pwms", but once again Guenter may correct me there.
-e.g. aspeed,g6-pwm-tach.yaml
+> +gtags (optional)       6.6.5
+
+It seems the patch missed this one?
+
+> +Sphinx\ [#f1]_         3.4.3
+
+Should the footnote be moved into the new column?
+
+> xfsprogs               2.6.0
+
+Is this always required? There may be others that are actually optional too=
+.
+
+Cc'ing Guillaume and Nicolas -- we were discussing Python in this thread:
+
+  https://lore.kernel.org/all/apG3hwaPA8f7SJeI@levanger/
+
+Thanks!
 
 Cheers,
-Conor.
-
-> +        maximum: 15
-> +
-> +      tach-ch:
-> +        description:
-> +          The tachometer channel(s) wired to the fan(s) driven by this P=
-WM
-> +          channel. Integer values in the range 0-15.
-> +        minItems: 1
-> +        maxItems: 2
-> +        items:
-> +          maximum: 15
-> +
-> +    required:
-> +      - reg
-> +      - tach-ch
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - clocks
-> +  - resets
-> +  - interrupts
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    fan-controller@11be0000 {
-> +        compatible =3D "starfive,jhb100-fan-tach";
-> +        reg =3D <0x11be0000 0x400>;
-> +        interrupts =3D <128>;
-> +        clocks =3D <&per2crg 33>;
-> +        resets =3D <&per2crg 5>;
-> +        #address-cells =3D <1>;
-> +        #size-cells =3D <0>;
-> +
-> +        fan@0 {
-> +            reg =3D <0x0>;
-> +            tach-ch =3D /bits/ 8 <0x0 0x8>;
-> +            pulses-per-revolution =3D <2>;
-> +        };
-> +        fan@1 {
-> +            reg =3D <0x1>;
-> +            tach-ch =3D /bits/ 8 <0x1>;
-> +            pulses-per-revolution =3D <2>;
-> +        };
-> +    };
-> --=20
-> 2.25.1
->=20
-
---uatR7M6gSft/ZZlk
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCapWsqAAKCRB4tDGHoIJi
-0sZSAP9cKHl0zdIlOjfBnMN5epXZo6x8A8vqSqvMKJwzPsUZ+wEAlA0F0f+TnzOa
-adsoEcX6fjQuNjiqs3leujt+2M/dUAk=
-=orlK
------END PGP SIGNATURE-----
-
---uatR7M6gSft/ZZlk--
+Miguel
