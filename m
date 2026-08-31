@@ -1,217 +1,141 @@
-Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C91A357D1D
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 19:04:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C04236B92D
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 19:07:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788203051; cv=none; b=R081GJAh3oXZw31h8HQnGbNZlqtUesYhW53sqc3k4aqwhULq1ASsPJuO/QBMm4VVObeFypBW117AarHG6Smav7rIJB0r8eqmgfptBz6tGG/HQWjPzZVGjnobxIqYDrWo8IhySvc3uJnmb2Xw0WXfgy6BlqJlC/E5QP/JBRrl2rw=
+	t=1788203230; cv=none; b=u/EJcy8zOZRaGqmR25XQFo00zYxeioTPsO+8IdBi2Zy9Py/Vk5KDcduLcjTaKqbj7AVEDm2DHdqZtAqeomnb6vtqBttsP5NouStw2PfA9kdJjVEl5Orql1ejuo2RTCS7GO6MCZIqUCATXjEiqXwqk2WSQk9Q7C/W5/ItRpfptlY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788203051; c=relaxed/simple;
-	bh=yP95nTGtvsy873nNSB+nfupYly/y1xNvRbmiSaWnyqE=;
-	h=Message-ID:Date:MIME-Version:Subject:References:To:Cc:From:
-	 In-Reply-To:Content-Type; b=eg8OhNhIYUePx79cFDrmmK1JP1KlT0nsLHfOKz/YcPiDKPGqJ+0c2s7uMfGOMSEatoYbXSKTjR4nq4VVwB+lTBBT3KrbyglI/a4Y/d6N2CfPu7aaKzGnLr77EioUQJ9qHNAT6q1civPuYN1QQEBCQo4BIDzukrySC6+xMoYWPac=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RtuRP4TL; arc=none smtp.client-ip=209.85.215.179
+	s=arc-20240116; t=1788203230; c=relaxed/simple;
+	bh=9FDpS9NhatT0d1jYehrEM/mUCpteaEU5GPgN/Tt9iX8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dwIuUjuhVP4aCP7FaBOvTB8h6lS2hkVoBlkOJVnMIc6z0qUrszx5gbCiKaLkf0hIQa2ktDpJRYH9xSCuLi+AdSX8l76XP7PyTcdJDmAxmknNFL5d8GCf1YQG5tpKWdE135yKnMit+wfo8oJu/FxUVUvdOeiJW9Jw5E1ow7aeYFk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XdtDu4R+; arc=none smtp.client-ip=209.85.216.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RtuRP4TL"
-Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-ca97d139d5fso3273508a12.0
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 12:04:10 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XdtDu4R+"
+Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-38dc4553f62so5388507a91.0
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 12:07:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788203049; x=1788807849; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:cc:to
-         :references:content-language:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=oaGTRAWSBUw2/SKz8a7uyMoVqzIL+CJjDVztLjnCEd4=;
-        b=RtuRP4TLaq9aPepURkrkR3mSfo1KkcXs6aNVpgwtOlD9mo1QZdQyqT8v6RDyl83/aW
-         h4hgme1ysUYkGWMHm2BnUzYfrrBb653OQ+GCo4TMRcXwUYyZXYT6SO6m4329pESBqZK+
-         wh6eSw5wecb7W31+vjoVjG+GTAE8KIO/nM1G6RyEGGsUciHLrcbgy3xYBVyE+9ib4W+4
-         CRaUIlwtnO0/zVb53SGxyi+yDkaocFK3K9DwQIJ+PtDa1fmNjngr4m9s0eqQjoDa+erC
-         Uvjp3RR+wCHxvx26A9ieBDYYfcWkjq69ACzU+cVBf9fcwsoxKHsn2rfcB2h2UDjskOXe
-         f8Pw==
+        d=gmail.com; s=20251104; t=1788203227; x=1788808027; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=02SBPmSvkE0WBy94vSJUxH61zT0eR0teqwzcm9hpKxQ=;
+        b=XdtDu4R+Hj0scw/6o//qhCoUqpvLWwoBkzMuke3GwGALY4ePbPczZglZkER4HNprVy
+         w/nkIW87bgR8Pxsoym1VZDKgOQGfU/MFMQA/w3xDgn3w1eEDrsNqhhVdAuZgDX9vzWDQ
+         BAzv4cWmvqJZGrV3DsCLYNrYUY4kLCCx31Qxi+tvJWZTxVc3cvmwPkGp90hjd60NQk+F
+         rZQq7jhYRIQjdDkzaIb7SiS0826AMSr+0iYmF1BMv/yUaXrtgm3muVeTqt0KagkYRR7x
+         2jIpdvPBAA23y20qaZF6cePKJiXReIm5ajtgGw76JgsUOS7CocpwTitWNtoxYEi6tz3s
+         6HPg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788203049; x=1788807849;
-        h=content-transfer-encoding:content-type:in-reply-to:from:cc:to
-         :references:content-language:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1788203227; x=1788808027;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=oaGTRAWSBUw2/SKz8a7uyMoVqzIL+CJjDVztLjnCEd4=;
-        b=c4p04kRNIcGS7Iw0uvSKVXgPxE9dlkhwA6C3De7iYsZQJvPcelDEZ2nq+uZdPbjQlM
-         nKtiGv1e0M+rauzol5WE2i5FY1AbVx52ltqMNmH931Iqd7ffXOu6oejFLUIbfs5oUwQ2
-         ARXXwLT20XstW28GnR2oH5ajir7jEhvHATKrlrZW7XwCrxmTAa+cEbqqmhx0tJmVqnw9
-         +tyH78E2HVAyaozH2+2w/YUhBOZwoTIZvmMCztHBCyg3H3ScOzz8Ca/JbtAzoh7SIfrc
-         xEaLiVrlWzwICHMLoJiv8U2PGNplk5eRacg6qsUDnsteyMTdDgeevJcnWPIUmHNtfqNi
-         9TkQ==
-X-Gm-Message-State: AFuF++nX5U33IWAWSykH+mhd5pxp7QoaXFqvzxYdt5RVJho+x8zWn6zK
-	5BEZCdjqXRAIEOA/D3P1T6yTg9s/FHwKVS6h9DGpXlxPenrB0MLeKfDD
-X-Gm-Gg: AYBFou1mNEFAgPgGX4HP1TafbGIRx6Q+e6dN44f8cXry6byndJ4nrEwD9lUpvFjdYgk
-	eRQJThKCIEFZslTCZo2GlmVPhOy19/xt9PVRrCpqQUbq2Letij6S6QHFxNiZiBk3+TetiiFwguF
-	l2oQ8jlc8ZCOZEG/9K+UCp2z49W5v6WNiLfvQNltIrZQlMkevtQiEYO/4+gSnFqsX2C5xIypl7F
-	ZPwwiLy19d+DFKnIfXu6Z6eWCy+FzURLBw3C4DUc8/rW0xgpcKET0SQD2xn/EbNIPirxXojX2+e
-	qkinUk20ZSaxvBZgHAgJYh0Tzru6zQyFodeqf61+hcuHsv45JaMyDgXqc1VRig5TU0ScX+zxSU2
-	jqzALlyk9AfvHWpVU2VJz/mEyG6nZKK11a3fMNaEZeZDhuK9PrSgSFdAYVSCCQXHLNLJlkDgXLk
-	wbajNnOy7UG4Xn4mWPsvvKmaIapQebHyGOU6wfLFMrQiHP2g36udpZwfg9vL3meuwi377o9wvFE
-	wKvCABLzH0M4gy6OtLC6dOm
-X-Received: by 2002:a17:90b:4ac9:b0:392:ca3b:370a with SMTP id 98e67ed59e1d1-39907aff7acmr3102531a91.2.1788203049355;
-        Mon, 31 Aug 2026 12:04:09 -0700 (PDT)
-Received: from [192.168.21.192] ([24.18.106.4])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3286f7bc825sm37141411eec.9.2026.08.31.12.04.08
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 31 Aug 2026 12:04:08 -0700 (PDT)
-Message-ID: <27f2418a-e54e-4af7-b554-c0d1fe18a4a9@gmail.com>
-Date: Mon, 31 Aug 2026 12:04:08 -0700
+        bh=02SBPmSvkE0WBy94vSJUxH61zT0eR0teqwzcm9hpKxQ=;
+        b=nTKTjMgReuf1pzK4R19/FozIPgz0OovsK6xXAFOp77JcCJIg+uizdyoWTgOTen+egL
+         pkGuQ5vSaW84FSFb601z8rGFwzpgOz0xGWqWutU0cTI4OSTk4M/5ZvLEPTQjpRFoWHUf
+         yJ2qGojZDjSKhneYKkwqapae7gr5gZCRSc7UX5ogVWhuCUCAupg63nqjpO1eG1eHaKcU
+         VuGKgCKphouD0Z6z2jAnHwb/XzLD0knB73oHLDn/jc8a2badXMy+TLWuSR5xBEdTdgzG
+         4NhSLNFfuYMw4//QS9mb1/hlRLpd5oX+OeflfF4XmBhW7TP9U6icXkJbtPPg/V9jsj61
+         uaDw==
+X-Gm-Message-State: AFuF++kYxYslWCbj2OkZ9k/u3KYnsDejSEJslRkYYL0EGnwWIe+Sr4GQ
+	wwG32dU6PGjoj8Jr3Rhk0Zn0PYop/qJJU3pBOQPznETKD7OJLsga2MAoROJe2A==
+X-Gm-Gg: AYBFou26wVxUOaXRpRPmAWjPzt9D2c7b2J6aqPHdBi1KMXoyueqIctlto29gNCGGhuB
+	8TEvCvaB+bcKJUkNTHPOIPsHEnMXXCjSUg1YlYPJTT1EKvUyA9+BjZ4Y6kV9pNsOUTRHHELt98I
+	GmRFieqbiaQ5/m7qIKIXKlG33bb5BgKiQ5gUQnTWUB9/IP3UPHgPW2SDsYP11fNGApRA0ob/lD8
+	9t5hOS3eyW7L5UTYT3pmy5ABSQnRBEN3WJNV0Bcl3cvQb+oYcZykRPWjFUYUDMh1VtwtJfBWNu7
+	G32hLQ8faEJCEV0lwfaiBrL/I648nGYCOAN+9SRXMsc8EDQii3OU03kgBNyZGJmC9bB9dpG9lgZ
+	0s+rTdQT9wV+RvkZ0DkA9BP98H9m2ApkFjATPy4YSidaUbZjxnwwE6EVyJ4RsGij293NUGDncg3
+	sdrVo37OHGjcXHuXb3XrwvOViOXQZ4a5iP2Kcs6wRib90v/gbtD7SohrTsc9kzFXwLHjr26FQEy
+	imWgHlZHQNdjPjFRCQb6MqI/sgM
+X-Received: by 2002:a17:90b:4b11:b0:398:bacb:1137 with SMTP id 98e67ed59e1d1-39907e499f7mr3233657a91.19.1788203226753;
+        Mon, 31 Aug 2026 12:07:06 -0700 (PDT)
+Received: from localhost ([2409:40c4:13b:7a31:95ce:ef4b:57cf:6fd])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3286f9595bbsm36342147eec.14.2026.08.31.12.07.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Aug 2026 12:07:06 -0700 (PDT)
+From: Lovekesh Solanki <lovekeshsolanki00@gmail.com>
+To: linux-usb@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	Mathias Nyman <mathias.nyman@linux.intel.com>,
+	Michal Pecio <michal.pecio@gmail.com>,
+	Mathieu Fluhr <mathieu.fluhr@gmail.com>,
+	Mario Limonciello <mario.limonciello@amd.com>,
+	Thorsten Leemhuis <regressions@leemhuis.info>,
+	regressions@lists.linux.dev,
+	stable@vger.kernel.org,
+	Lovekesh Solanki <lovekeshsolanki00@gmail.com>
+Subject: [PATCH 1/2] usb: hub: use shorter 120ms post resume hold for SS root hubs
+Date: Tue,  1 Sep 2026 00:33:48 +0530
+Message-ID: <20260831190349.29590-1-lovekeshsolanki00@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Betterbird (Linux)
-Subject: Re: [PATCH v2] sparc64: increase kernel thread stack size to 32K
-Content-Language: en-US
-References: <f3719bb0-e892-49cc-af82-79e2569a8a90@gmail.com>
-To: Stian Halseth <stian@itx.no>, Andreas Larsson <andreas@gaisler.com>,
- davem@davemloft.net, sparclinux@vger.kernel.org
-Cc: LKML <linux-kernel@vger.kernel.org>,
- David Laight <david.laight.linux@gmail.com>,
- John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, thuth@redhat.com,
- Linux kernel regressions list <regressions@lists.linux.dev>,
- nroach44@nroach44.id.au
-From: Tony Rodriguez <unixpro1970@gmail.com>
-In-Reply-To: <f3719bb0-e892-49cc-af82-79e2569a8a90@gmail.com>
-X-Forwarded-Message-Id: <f3719bb0-e892-49cc-af82-79e2569a8a90@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Hello Stian,
+Commit 8f5b7e2bec1c ("usb: hub: fix detection of high tier USB3 devices
+behind suspended hubs") holds a runtime PM reference for
+USB_SS_PORT_U0_WAKE_TIME (200ms) after every SS hub resume, so
+downstream links have time to finish trianing before the hub can
+suspend again.
 
-**Revised for clarity.
+But 200ms is excessive for root hubs since a root hub has no upstream
+suspended hub whose wake propagation needs to be accounted for.
+The root hub still needs some time for USB3 link training to complete,
+And root hubs also default to zero auto suspend delay and get
+periodically resumed by userspace USB enumeration opening and
+closing their usbfs nodes (adb, libusb).
+This extra 200ms hold stretches this resume into a suspend/resume
+cycle of roughly once per second, which on idle AMD systems have
+been reported to cause system freezes.
 
-Thanks for following up on this. As I mentioned to Andreas back in 
-May/June 2026, the current combined stack usage is already very close to 
-the 32K limit. If you need an immediate workaround, increasing the stack 
-to 64K is probably the best option to provide enough headroom and avoid 
-the stack overflow panics we are currently seeing.
+Shorten the post resume hold to 120ms only for root hubs but
+keep the 200ms for external hubs that the original commit is
+intended for.
 
-While I haven't observed any panics with a 32K stack on kernel 7.1 so 
-far, operating so close to the boundary is still a significant concern. 
-It is worth noting that sparc64 definitely crashes with a 16K stack. 
-Additionally, the Nvidia/Mellanox mlx5 driver allocates a large stack on 
-sparc64, which pushes usage to the 32K boundary, and other drivers might 
-do the same. Therefore, a 64K stack is far more ideal.
+Reported-by: Mathieu Fluhr <mathieu.fluhr@gmail.com>
+Link: https://lore.kernel.org/all/CAPyJwA_D9qw0T72f8zwM1yKjP+To=maVANbcdsWM7yRmbBxYvw@mail.gmail.com/
+Cc: stable@vger.kernel.org
+Fixes: 8f5b7e2bec1c ("usb: hub: fix detection of high tier USB3 devices behind suspended hubs")
+Signed-off-by: Lovekesh Solanki <lovekeshsolanki00@gmail.com>
+---
+ drivers/usb/core/hub.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
-Regarding the kernel compilation, when I build the kernel with 
--fstack-usage to generate .su files on the 7.1 kernel, the static 
-analysis shows stack frames for USB core functions. For example:
+diff --git a/drivers/usb/core/hub.c b/drivers/usb/core/hub.c
+index 3345b3298daf..e1415ad5f908 100644
+--- a/drivers/usb/core/hub.c
++++ b/drivers/usb/core/hub.c
+@@ -76,6 +76,12 @@
+  */
+ #define USB_SS_PORT_U0_WAKE_TIME	200  /* ms */
+ 
++/*
++ * Root hubs have no upstream hub whose wake propagation needs to be
++ * accounted for, but still needs time for USB3 link training to complete.
++ */
++#define USB_SS_ROOT_HUB_U0_WAKE_TIME 120 /* ms */
++
+ /* Protect struct usb_device->state and ->children members
+  * Note: Both are also protected by ->dev.sem, except that ->state can
+  * change to USB_STATE_NOTATTACHED even when the semaphore isn't held. */
+@@ -1358,7 +1364,9 @@ static void hub_activate(struct usb_hub *hub, enum hub_activation_type type)
+ 
+ 		queue_delayed_work(system_power_efficient_wq,
+ 				   &hub->post_resume_work,
+-				   msecs_to_jiffies(USB_SS_PORT_U0_WAKE_TIME));
++				   msecs_to_jiffies(hdev->parent ?
++			USB_SS_PORT_U0_WAKE_TIME :
++			USB_SS_ROOT_HUB_U0_WAKE_TIME));
+ 		return;
+ 	}
+ 
+-- 
+2.55.0
 
-     hub_event: 2457 bytes (static)
-     hub_activate: 1892 bytes (static)
-     usb_control_msg: 1248 bytes (static)
-
-However, my runtime stack tracing paints a dramatically different picture:
-
-     STACKTRACE: hub_event():entry: 31856 bytes used
-     STACKTRACE: hub_activate():entry: 31680 bytes used
-     STACKTRACE: usb_control_msg():entry: 30768 bytes used
-
-P.S. I haven't actually tested a 64K stack yet—I am offering this 
-recommendation primarily based on how close the current usage is to the 
-32K boundary.
-
-Regards,
-Tony
-
-On 8/31/26 10:29 AM, Stian Halseth wrote:
-> From: Tony Rodriguez<unixpro1970@gmail.com>
->
-> Kernel stacks on sparc64 are 16K and this is no longer enough:
-> several machines (SPARC T5-2 among them) panic early in boot during
-> USB hub enumeration with "corrupted stack end detected inside
-> scheduler". sparc has not been converted to THREAD_INFO_IN_TASK, so
-> thread_info sits at the bottom of the kernel stack and a marginal
-> overflow corrupts it first; CONFIG_SCHED_STACK_END_CHECK then fires
-> from __schedule long after the deep path has unwound, which is why
-> the reported backtraces look shallow.
->
-> Measurements with CONFIG_STACK_TRACER on an UltraSPARC T4-1 show the
-> problem is frame count, not any single large frame. The high-water
-> mark of an ordinary successful boot is 12616 of 16384 bytes (77%),
-> reached in hub_probe() with a printk console flush and then a timer
-> interrupt (which runs on the task stack, and whose scheduler tick
-> performs load balancing and IPI delivery) stacked on top. Of the 66
-> frames in that path the largest is 408 bytes, and ~85% of them are
-> 176-224 bytes - at or just above the SPARC V9 ABI minimum frame
-> (128-byte register window save area plus 48-byte argument save
-> area). An equivalent call chain on x86-64 costs roughly a third of
-> the stack, so a 16K stack on sparc64 provides far less effective
-> call depth than on other 64-bit architectures.
->
-> Double THREAD_SIZE to 32K (four 8K pages). The PAGE_SHIFT
-> conditionals are dropped: sparc64 only supports 8K base pages, so
-> the other branches were dead code. Kernel stacks become order-2
-> allocations; sparc64 has no VMAP_STACK, but stacks are allocated
-> once per thread and the trade against boot-time panics is a good
-> one.
->
-> Link:https://lore.kernel.org/all/20260519075809.8993-1-unixpro1970@gmail.com/
-> Signed-off-by: Tony Rodriguez<unixpro1970@gmail.com>
-> [stian: reduced the diff to the THREAD_* defines, measured stack
->   usage with CONFIG_STACK_TRACER and rewrote the changelog]
-> Signed-off-by: Stian Halseth<stian@itx.no>
-> ---
-> v2:
->   - drop the CONFIG_SPARC64 / PAGE_SHIFT conditional chain from v1;
->     thread_info_64.h is only built on sparc64 and only 8K pages are
->     supported, so define the three constants unconditionally
->   - replace the panic backtrace in the changelog with stack tracer
->     measurements answering David Laight's review comments:
->     https://lore.kernel.org/all/20260520144104.618c75ca@pumpkin/
->   - retitled from "unify thread stack sizing and add explicit 32KB
->     stack"; the sizing logic for other configurations is unchanged
->
-> Tested on an UltraSPARC T4-1, booted with the stack tracer armed
-> ("stacktrace") before and after this patch. The boot high-water mark
-> is 12616 bytes on both kernels - the worst path (hub_probe with a
-> printk and a timer interrupt on top) is deterministic - i.e. 77% of
-> the 16K stack before, 38% of the 32K stack after. DEBUG_STACK_USAGE
-> agrees: the peak boot-time task shows 9208 bytes left of 16K before
-> vs 25592 bytes left of 32K after (7176 bytes used in both).
->
->   arch/sparc/include/asm/thread_info_64.h | 15 +++------------
->   1 file changed, 3 insertions(+), 12 deletions(-)
->
-> diff --git a/arch/sparc/include/asm/thread_info_64.h b/arch/sparc/include/asm/thread_info_64.h
-> --- a/arch/sparc/include/asm/thread_info_64.h
-> +++ b/arch/sparc/include/asm/thread_info_64.h
-> @@ -99,13 +99,8 @@
->   #define FAULT_CODE_BLKCOMMIT	0x10	/* Use blk-commit ASI in copy_page */
->   #define	FAULT_CODE_BAD_RA	0x20	/* Bad RA for sun4v		   */
->   
-> -#if PAGE_SHIFT == 13
-> -#define THREAD_SIZE (2*PAGE_SIZE)
-> -#define THREAD_SHIFT (PAGE_SHIFT + 1)
-> -#else /* PAGE_SHIFT == 13 */
-> -#define THREAD_SIZE PAGE_SIZE
-> -#define THREAD_SHIFT PAGE_SHIFT
-> -#endif /* PAGE_SHIFT == 13 */
-> +#define THREAD_SIZE (4 * PAGE_SIZE)
-> +#define THREAD_SHIFT (PAGE_SHIFT + 2)
->   
->   /*
->    * macros/functions for gaining access to the thread information structure
-> @@ -128,11 +123,7 @@
->   #endif
->   
->   /* thread information allocation */
-> -#if PAGE_SHIFT == 13
-> -#define THREAD_SIZE_ORDER	1
-> -#else /* PAGE_SHIFT == 13 */
-> -#define THREAD_SIZE_ORDER	0
-> -#endif /* PAGE_SHIFT == 13 */
-> +#define THREAD_SIZE_ORDER	2
->   
->   #define __thread_flag_byte_ptr(ti)	\
->   	((unsigned char *)(&((ti)->flags)))
-> --
-> 2.53.0
