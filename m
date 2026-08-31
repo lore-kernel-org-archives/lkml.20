@@ -1,63 +1,63 @@
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F30263EB7F4
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 09:23:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81FF13EE1E0
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 09:23:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788168236; cv=none; b=dudavzrpIokbH0xiA4B4jHZXX85VqJoh0NiNN3NkQdOnW8Lq/LdPm8grWawSLSZs5iFqUaodxeDqPZGhc4LONjlUketkVVtU8cTi3yu69Z1TlT+I25WEWWchHYjnKcOx8oJ/qCaYAVlc4PCv4GyT+odn2qZcKeQEZvirQagCZVk=
+	t=1788168240; cv=none; b=L9VIIPRc1zbGQCvGGpPu/ZCMrNRDuyDgGmkSOEP1VMIAwcrr2SLUWoQmEnLOJQaJYtWVrWk8hTVVN6ahFwavof6oPrqaKwAiti9KH4DurEZqIKhwETOgz0Fu123W7VNT8/C49zlkAuTnpPnkPfkbcrqA92pDNBo2WONaOtF8OPc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788168236; c=relaxed/simple;
-	bh=bxCCFdUECttyJbXSGfdduUo/DEz+VpTX8wwbkV1YIHo=;
+	s=arc-20240116; t=1788168240; c=relaxed/simple;
+	bh=ny8/Gs7FMzc8WbloXN305yxNtUC/v7SjWkG2BsK5NEM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=JNggFQxmZHX+4xBllLAkBvTqfCtILFBvqbxwBpF/izahklJRUsqvnqrMoxAVNI3Dh5yQ6Nb/wIYAS0ETNv1emvmsogGIPmBaT2VG4X9vy/YWr5Ck6lRhT0uwvsFFzF8C9NbwyvpmbcmAw2f/jZS0hDYYTNqMSdauJ34Dwys13MQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NHGJO3jA; arc=none smtp.client-ip=209.85.128.51
+	 MIME-Version; b=S3tVQGJqrdExfFR+sjeVDKCTGm9/INTu8c9ARK3ViboBB4WwYGb1cyEQcYZuNlir0hj1VgOiZp53NS83mOeAw87Vgtc0/Slq9DRXEynRhl0p82s64G1v3UEhqrnC6j9q0EOVwjAgOV18oP8n1+/RP/vbKio3pO2xolcBWL+QABI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dkkdncBm; arc=none smtp.client-ip=209.85.128.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NHGJO3jA"
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-499ac87c92bso29647575e9.1
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 02:23:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dkkdncBm"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-49b8687630fso22923495e9.3
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 02:23:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788168230; x=1788773030; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788168237; x=1788773037; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=agssTkVjz/VQ+HpJevjjY5hRGfaiF2JHVaDNy5Qphm8=;
-        b=NHGJO3jAzqsuNX0fcpHWCZQRJSPj7bOoNNyTtqReDHDjbsrKBaH7A3WhZZYkmm/O75
-         ozO3WmVaULMLM9ymdK1vDytunkpSUgmhKbNzvInMtGB0D9xXdspyVXG0bKSigZ3EQgwN
-         PmDbeLsJI9u6QU2NUbrpLuQMMVWPUNSRBTMw9Dx5uU74HTMYDqQEBeBLbBT1QncWSpEC
-         tLWlKa3kiyDJe3Ql/CAFPPMIp1Qii0LVvvjJDIlYart8XGjzziqdhoLq0DEGVyP7zdKr
-         LmR4mWSrf67xctx2j3sxfkCIapkeLrbrU+1WwTDcDIbmMHPE1d2tUWjN6mKJS1AIyon7
-         CAHg==
+        bh=7+K9xBUZV2Jmd3T8roo1dKtbVqBUblSh726dOO5UJPI=;
+        b=dkkdncBm1PRV6nFUYMlWgWnENg938zB2PisjOq44ytVBqHRPt/d/0onDsv10OQSa9g
+         mW4vq3AYdRmOmNwzRpMTTQRKUQXdveuXnM1nb1yFEHUR0AnmYAKo9FMvAf38Drq22ACa
+         KTNMqWBOktOZUS9UARVSTStWPpg62AQPzGw6LhgrS8UFR/WIdXSwicpLY7vaSaneNzBy
+         XS5mWG+s3uBOux0nVzxJNgB+MhlpxP0gAcu9DDakaRMUXT8hiT5bFWEbfPM6lxzcdA1G
+         gEU5OAX0PL258LjuXwRkMSvHjawvwpvb5JE4FRfMT3V2PRQecBtj8/d+YeBfV+kRhldm
+         9qLg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788168230; x=1788773030;
+        d=1e100.net; s=20251104; t=1788168237; x=1788773037;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=agssTkVjz/VQ+HpJevjjY5hRGfaiF2JHVaDNy5Qphm8=;
-        b=N3Ntw5j0jaBLFI9plOrimcop1rgr817rYuPdYWYt47KDzTsI7AjjjAUuIMww751W2X
-         Ye3u4Jw2KoQIsgVIinBMSBV6Y3tOz/AbZNHyL5Sv1rqKS3lHpnA7qRcw33phPN6VrY5f
-         YAOJfuLKWquS27TqqFoGV5ha0+Sumtyulm9ymf1uDKUqAUIFIIlu8rzJtTLOs1ubr9VL
-         aeXqUR743Tc6sNBJb9HdtIdQRxhxNRzvQ6tT/7UpsGsRRbrftbDoN9Yf4JVYnoKuy6bm
-         V85qUSIMav6AGjMkTdaVLeiLGycQPjDXKWMglLB3vTYBbyNh+YsPMWBT9uvwMgP25MTQ
-         0TMw==
-X-Gm-Message-State: AFuF++ktZKHm1B4pFaO0CP9+UA6oRcBoVupF038qNf1mDOMMDCb5LBB1
-	SsJKI5PJWzk2DUg1cgbQScbK+QqAzjwcbG1By7iDcGdSNeXZBj3w8iyK
-X-Gm-Gg: AR+sD11B/2UpwjACCn3zlCOZ6+DIEIjqWvNVCI1+7/UGLna8yN6l2sImFzx4AXEfJhT
-	FMvVHsbLbGzpVu0UaPQuClpt65uYEOdH6rTQjqpqnHRjKIoNxNFUb1Yx035OsGqScBmfctTUu89
-	0/kpQ6oR7Tml0n3FgXIm1SRC/+bUGkcTQoQrKqkFKDMdLT5k3iba7y6QQp/OVPFXGZS/onHQyJX
-	afQAtMySu8A6Hu8fwAlu4GqHH4nUOKAZs+2IumDgkijPB+ZqWrxHdvknW8UEqfUjSjrMCpv1pQC
-	/1o9RmK4NAXjuRH0oxcC9IgVIYBl16p2sze4F6qERs2tVC9figHiMWYiu02jt1E6kf9VN9LNIZA
-	s0hA1MK8V1RgAkYddjSLhfvgUya+e4eLskrIH7PcdGS07VjW6f13kmoQ5V+kges2kteUoDGoIRB
-	GvaLX8aMsntqVjCcnhB5YoBjk4FjNw7M+cb+rBadwQz76jRsWA8CPKJI/p7aEqwMkxEoTeN9OFe
+        bh=7+K9xBUZV2Jmd3T8roo1dKtbVqBUblSh726dOO5UJPI=;
+        b=qUMNNi8GiB8Ss9Cvd6A5yl56SbvuLAyY5uU+ED1y6j1tu0Tas5EUvEGsbokPoJt07/
+         pJylRx5R3ShKn2qaOv+UrHuHJWHb80le410UhwycXvPRpQ0UaYr/MTgeDVt1rkMGBOhe
+         VJUq9lupZSGSv8unSaZFukpVbkR17lyMcDM07QTN3vxUHVntfvsoMr90bFyjh20Ya9V8
+         LIfyTdlvwxQ+BzAoNTfVXI8aB+M7/Gl5jl/vwvMNOj4YhL/7+iyIzRwz8nfcfpBk66Hc
+         eBhUsGm2TSAt/v7mnK8cy24TDoS1X1B1E5CrJHrFdsvj53V4Ks9uvJB1Yr9L4E1hGweJ
+         NMjA==
+X-Gm-Message-State: AFuF++ktkXLj3S9YhXd89PEfqNKfOq7wvq/R591lIIabyIC+WxjuaoLD
+	0/EYnQvqBGCynYZ/uYJmjdZpumw42PwfZokSniBIhERCgi8tGW8deODd
+X-Gm-Gg: AR+sD13kk8G7aZkj+jpM0BvaiwHsqMVIZclG3dRkrfQElQXs7Ugvjq3dyyC5H0DxTzL
+	LZWzEwO4J9GXbmmMwzbRdVicLqU+h9k6mevbIfDz6nIokv8o8lAoB9l8+kR0OZ5GA1ZciF9OQNs
+	0i4qserPBh1cZLG8Gu4G9iGs5s9otrVYiTOyF3N7zq0THhVFTGl1cQRd6roR8nvrUAgnu+pkdkA
+	qCbdXARheYB/yMCDztbMtZThDz0W8Wp5ee5gauhQquylkP5FruE2ymR8MXqXLLoxlo807HK4Uvx
+	66eujaIuiZxjbt1bLOWi9fUxUhl38ge050rhbEbH3dCN70Frr96HMBgNzanWNO+obppaCjZHIgB
+	XKCMjau0cW3oy9avsr9MeoOq4Zp53TV45yQfuO8/gIRAmQj6W2VG1yd2+FzQsxiBef7GwRWwEgW
+	P4GJXEBLVPE9YgewEIBHttuwn4eRqSGG2GWcsbyO/VuWtJzYLEIOkbdbXDLnm+WkVvesueaq1IJ
 	A==
-X-Received: by 2002:a05:600c:4585:b0:499:b402:6c0 with SMTP id 5b1f17b1804b1-49b91c265d7mr347797155e9.3.1788168230352;
-        Mon, 31 Aug 2026 02:23:50 -0700 (PDT)
+X-Received: by 2002:a05:600c:1d08:b0:499:bf0e:95c8 with SMTP id 5b1f17b1804b1-49b91c2e145mr372213505e9.1.1788168236596;
+        Mon, 31 Aug 2026 02:23:56 -0700 (PDT)
 Received: from dell-desktop ([2a02:587:4b5f:900:ef25:2f4:1792:4e6f])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b9500c80asm318248155e9.9.2026.08.31.02.23.48
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b9500c80asm318248155e9.9.2026.08.31.02.23.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 02:23:49 -0700 (PDT)
+        Mon, 31 Aug 2026 02:23:56 -0700 (PDT)
 From: Anastasios Papagiannis <tasos.papagiannnis@gmail.com>
 To: bpf@vger.kernel.org
 Cc: linux-kernel@vger.kernel.org,
@@ -77,9 +77,9 @@ Cc: linux-kernel@vger.kernel.org,
 	song@kernel.org,
 	utilityemal77@gmail.com,
 	tasos.papagiannnis@gmail.com
-Subject: [PATCH bpf-next v3 4/7] bpf: Allow reads through trusted-or-null BTF pointers
-Date: Mon, 31 Aug 2026 12:23:02 +0300
-Message-ID: <20260831092305.42062-5-tasos.papagiannnis@gmail.com>
+Subject: [PATCH bpf-next v3 6/7] bpf: Mark linux_binprm->mm as trusted-or-null
+Date: Mon, 31 Aug 2026 12:23:04 +0300
+Message-ID: <20260831092305.42062-7-tasos.papagiannnis@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260831092305.42062-1-tasos.papagiannnis@gmail.com>
 References: <20260831092305.42062-1-tasos.papagiannnis@gmail.com>
@@ -91,107 +91,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Currently, a trusted-or-null pointer
-(i.e. PTR_TO_BTF_ID|PTR_TRUSTED|PTR_MAYBE_NULL) has to be checked
-for NULL before it can be dereferenced. Marking a field from
-PTR_TO_BTF_ID typing to trusted-or-null can reject programs that
-previously dereferenced the pointer directly. This is useful as we
-need to mark new fields as trusted in order to pass those as arguments
-to kfuncs.
-
-This patch adds support to dereference pointers marked as
-PTR_TO_BTF_ID|PTR_TRUSTED|PTR_MAYBE_NULL without the need for a NULL
-check. We define that those pointers can fault on dereference, so
-reads need to happen through BPF_PROBE_MEM. If the dereferenced pointer
-is another BTF pointer, we clear trusted flags and mark the result as
-PTR_UNTRUSTED.
-
-This applies only to reads. Other cases still require an explicit NULL
-check. After such a check, the pointer retains PTR_TRUSTED and can be
-used normally.
-
-To summarise, before that patch, reads to PTR_TO_BTF_ID|PTR_UNTRUSTED
-are allowed through BPF_PROBE_MEM and reads to
-PTR_TO_BTF_ID|PTR_TRUSTED are normal loads. This patch allows
-PTR_TO_BTF_ID|PTR_TRUSTED|PTR_MAYBE_NULL to happen through
-BPF_PROBE_MEM.
-
-The unchecked read path has two consequences:
-
-1. It uses BPF_PROBE_MEM, which is slower than a normal load. An
-   explicit NULL check refines the pointer to PTR_TRUSTED and allows a
-   normal load.
-
-2. A faulting read returns zero, which is indistinguishable from a
-   legitimately zero-valued field. Programs that need to distinguish
-   those cases must check the pointer before reading the field.
-
-The next patch updates current tests and also introduces more checks to
-ensure this change does not break anything.
+Mark linux_binprm->mm as a trusted-or-null nested pointer so BPF programs
+can pass it to kfuncs after a NULL check. The linux_binprm owns this mm
+throughout the bprm_check_security hook and clears the pointer only after
+exec_mmap() installs the new address space.
 
 Signed-off-by: Anastasios Papagiannis <tasos.papagiannnis@gmail.com>
 ---
- include/linux/bpf_verifier.h |  9 ++++++++-
- kernel/bpf/verifier.c        | 12 +++++++++++-
- 2 files changed, 19 insertions(+), 2 deletions(-)
+ kernel/bpf/verifier.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/include/linux/bpf_verifier.h b/include/linux/bpf_verifier.h
-index ae9f606539f4..d3d7254cc1f6 100644
---- a/include/linux/bpf_verifier.h
-+++ b/include/linux/bpf_verifier.h
-@@ -1326,6 +1326,11 @@ static inline bool bpf_is_ptr_to_mem_or_btf_id(enum bpf_reg_type type)
- 	}
- }
- 
-+static inline bool bpf_is_trusted_or_null_btf_ptr(enum bpf_reg_type type)
-+{
-+	return type == (PTR_TO_BTF_ID | PTR_TRUSTED | PTR_MAYBE_NULL);
-+}
-+
- static inline bool bpf_may_fault_on_deref(enum bpf_reg_type type)
- {
- 	/*
-@@ -1333,7 +1338,9 @@ static inline bool bpf_may_fault_on_deref(enum bpf_reg_type type)
- 	 * protection, that is, the ones bpf_convert_ctx_accesses() has to
- 	 * turn a BPF_LDX into a BPF_PROBE_MEM one for.
- 	 */
--	return type == PTR_TO_BTF_ID || (type_flag(type) & PTR_UNTRUSTED);
-+	return type == PTR_TO_BTF_ID ||
-+	       (type_flag(type) & PTR_UNTRUSTED) ||
-+	       bpf_is_trusted_or_null_btf_ptr(type);
- }
- 
- static inline bool bpf_prog_has_arena_ctx_arg(const struct bpf_prog *prog)
 diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
-index 8f585ceb2cd5..386401fe051d 100644
+index 386401fe051d..584c79326b9c 100644
 --- a/kernel/bpf/verifier.c
 +++ b/kernel/bpf/verifier.c
-@@ -6116,6 +6116,15 @@ static int check_ptr_to_btf_access(struct bpf_verifier_env *env,
- 	if (ret != PTR_TO_BTF_ID) {
- 		/* just mark; */
+@@ -5958,6 +5958,10 @@ BTF_TYPE_SAFE_TRUSTED_OR_NULL(struct dentry) {
+ 	struct inode *d_inode;
+ };
  
-+	} else if (bpf_is_trusted_or_null_btf_ptr(reg->type)) {
-+		/*
-+		 * An unchecked load through a trusted-or-NULL pointer is
-+		 * fault-protected. Any pointer derived from that load must be
-+		 * untrusted, as a fault produces a NULL value.
-+		 */
-+		clear_trusted_flags(&flag);
-+		flag |= PTR_UNTRUSTED;
++BTF_TYPE_SAFE_TRUSTED_OR_NULL(struct linux_binprm) {
++	struct mm_struct *mm;
++};
 +
- 	} else if (type_flag(reg->type) & PTR_UNTRUSTED) {
- 		/* If this is an untrusted pointer, all pointers formed by walking it
- 		 * also inherit the untrusted flag.
-@@ -6591,7 +6600,8 @@ static int check_mem_access(struct bpf_verifier_env *env, int insn_idx, struct b
- 		if (!err && t == BPF_READ && value_regno >= 0)
- 			mark_reg_unknown(env, regs, value_regno);
- 	} else if (base_type(reg->type) == PTR_TO_BTF_ID &&
--		   !type_may_be_null(reg->type)) {
-+		   (!type_may_be_null(reg->type) ||
-+		    (t == BPF_READ && bpf_is_trusted_or_null_btf_ptr(reg->type)))) {
- 		err = check_ptr_to_btf_access(env, regs, reg, argno, off, size, t,
- 					      value_regno);
- 	} else if (reg->type == CONST_PTR_TO_MAP) {
+ BTF_TYPE_SAFE_TRUSTED_OR_NULL(struct socket) {
+ 	struct sock *sk;
+ };
+@@ -6012,6 +6016,7 @@ static bool type_is_trusted_or_null(struct bpf_verifier_env *env,
+ {
+ 	BTF_TYPE_EMIT(BTF_TYPE_SAFE_TRUSTED_OR_NULL(struct socket));
+ 	BTF_TYPE_EMIT(BTF_TYPE_SAFE_TRUSTED_OR_NULL(struct dentry));
++	BTF_TYPE_EMIT(BTF_TYPE_SAFE_TRUSTED_OR_NULL(struct linux_binprm));
+ 	BTF_TYPE_EMIT(BTF_TYPE_SAFE_TRUSTED_OR_NULL(struct vm_area_struct));
+ 
+ 	return btf_nested_type_is_trusted(&env->log, reg, field_name, btf_id,
 -- 
 2.55.0
 
