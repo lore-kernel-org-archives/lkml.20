@@ -1,190 +1,156 @@
-Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com [209.85.215.178])
+Received: from mta0.migadu.com (out-212.mta0.migadu.com [91.218.175.212])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AAE738AC78
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 21:11:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D82B7381B10
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 21:12:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.212
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788210699; cv=none; b=bJekwAicuazXOV7YbkaSYsh0xKQo8WLA0HR9ulmsAn+2fiBj3XZS5x7MriAFRCIK6rV0hwBVth2fc1V9IWhjdUADLmEZ/gwl2DwXZCIELjVpx5L6GkxzRRzR60xEd/bZ/Ck+E6gC2AO5xY0la1qKFVyfS3S6zCKvfcQpsal7BwU=
+	t=1788210767; cv=none; b=vAvEZLyQ/G03FRFPKiLr9m7MFP0cBfBvtgira+G0gBzNOmisBrREEmw7/5Dg1CbiyUwf84H8/iHcstPkeasYk8ij2qa0YdzTzqMcbh1ZF/gMME3HQ2Okw02o2zHvfb7lTlNps0g3DIWPai4mnsj0urO/++52bHIJjaXE7GUWM/E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788210699; c=relaxed/simple;
-	bh=Q63MR04sB+zNUYx0lqlqqCJa/F6jjRvfRvkJKfzV9mM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=WVk3MX61hNjJUwViEcKrlgwNXWTAKbpGuVW7cz7YEBfzRQOGNvkWBB05U0tL5RQc5Xb0y9H8V3VP1BKjKB6rYRK+mowVPJVhjoiLefcdRpf7oMnNXhjgfastNrUBsin6Ya6RLNRYuFCWBnl880+Cos08ANEXll5K4jJbAXzay/4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hbvlwasb; arc=none smtp.client-ip=209.85.215.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788210767; c=relaxed/simple;
+	bh=DqVyQybPlXg+s2kQKu0tCcmbPDkd24Q8nMn47uMGMhY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Yt8TwcydgOo69KG9khDkvD2SJ4b1mtcqCrMcC/n02qhqi5cW0RgrrG0sSQ3rrvfEUR1r+B/kIxqJskpKtV21IO1ogkZs8cZYQz+/I3GDu+CCflacoQGvTbCq3JcOxemBNZS9guhUQf0tXZEwquVu3AL0dS23umVYk18Nro9fq/c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=tjOtsN5o; arc=none smtp.client-ip=91.218.175.212
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hbvlwasb"
-Received: by mail-pg1-f178.google.com with SMTP id 41be03b00d2f7-cc1c9b7c1e4so673736a12.2
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 14:11:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788210698; x=1788815498; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=YvP8FNVlmhwGF7juXCoARc73UH3L7nBQG3sdAe9hHrY=;
-        b=hbvlwasbuFlqJ8hYeCtBtdu6Ao+RI5JSMhJzs2xCYXsKk7mWI5cG+7FjNjxtmckg/k
-         KQeXW/rpvfvrtAV2F0i5JIqWJhMUw471oT0GOENCNRwZQ0PfHRowbmEilQh38CjRdBRO
-         wn0Ena/3KtDJngu6MDfc4y3LN6e58RtONVYgnVYziZhwoKAXHGS8s766o73LYDcmeSFR
-         WKhMTp/bKbpzJgxuCsFi0A2GFUQot0TniJduk5/o3OL/HNrGFn5V1LhTh7tvOOJsio71
-         fkpfc3oUatG3O2gZGjgiqyvrlzeEGoAGIH5qqPBUuVEiHeYQfPIC13UC1bUbxVXr/+8d
-         yS4A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788210698; x=1788815498;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=YvP8FNVlmhwGF7juXCoARc73UH3L7nBQG3sdAe9hHrY=;
-        b=h6zDeSls/QG/STb4acNrB46sPyW8Kn5m7sSK3EijEBzxFdpjmBaD1vQZDfRIgbNWB6
-         0k6wArh693nQ7b8au7zfxD/k4rVxm61w4m8WOZDY5nksAA23B5LMMgWy/NQGu5fOF/KZ
-         7DddGGKs5X1KYlC5Q250W74TayxxtvblvbW/VO+QtZ9zOXy2qg/zygqlHLVBPNvufF5z
-         c3t1YUpC0S3lxlyEeh4Hrd1piYt18iRCzJeBQV3XJ1h/J5BJBg7v5KX7/w2Ak/ik3F3h
-         RKGgONnXe9wnC32dzvyneU2uw8ZHorPlfU7F+RSrdpxt6YEGfwMXx1Tu65m/Nvu+JLCz
-         x4aA==
-X-Forwarded-Encrypted: i=1; AKwUvBy6MFommDBBBdsbUl4KtNhNrsSjGYNvUYKB1XlfsMTefY9HaJyZoLqq6l0kcIcsUI4IjSPjtkzugeFnp/E=@vger.kernel.org
-X-Gm-Message-State: AFuF++nvOR0vXTDRDPmxQgCwbbEy1iBYZMwr8PlhMSa+jm1nX6ubpB/N
-	J4yWy5HqtygEfVvHE7+SX6w8Hgr1cNxK4+4NxpYO97GmlmrCt/BkYpF1
-X-Gm-Gg: AYBFou07Ud2zofaU+ppJyNNgCDziZIvkATt/j9S088tsCmE2AyVw2747KhEoAnh3dF2
-	cR9APy2Tcqc+wRfyUCoGhD+dUYowkqvWvIB6vUA47VeJaOosKuQSmjb8JalFNHESB4owZ5lMx/H
-	pfBtOAKh+GiqH3Ndr35LjE+/xYcprpO429fcqLEFXmmfzV/2a9JPc2dTC8zeEkQnFxmY1Jnfjfy
-	hsaYCwbSumDUQr61EDKgvT1pfuJ0YUnJ/H8ZELC0Ls2he0WU/1a49jebq5EztBvVXqxjirtAdZp
-	aL0SXj0qGWOjKmff0nk8+lezyYD8jUi2HdD42Wq7dyYDK2CSBO+1iCn8QAdAD6CJVEKNKLUp1Ft
-	jHi29QuCqRI5MPQinirnpWy2IgUN/Pfh8mFl8AVCdtuyxXMsteAnzqGOLzFfytzJydMrd3zz5wG
-	ksBsTGgpYYqEwQYrs+SXmqLz7O2YKcPZwlCh2LJvg68h+lRLe9lp94wQH70tPjrYhGYhQMgCwhz
-	NB7oBzOFa65+Gv+OnI7iFKgZ3783I4zzAA4sYVV6ZGxUWubuYVhECGfruIsEBJp0M6zPyhKXBP8
-	LhBgP850PrcPd+Qb7bUzkJR/sG6jQCidxJJ4/8QIbKJJspLoelgKiLt12ObkNqS0Rp4RvXAsEea
-	6f8pQOzaN
-X-Received: by 2002:a17:90b:442d:b0:396:d27c:8696 with SMTP id 98e67ed59e1d1-398babea308mr15440305a91.4.1788210697055;
-        Mon, 31 Aug 2026 14:11:37 -0700 (PDT)
-Received: from 1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.ip6.arpa (c-98-47-46-163.hsd1.ca.comcast.net. [98.47.46.163])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-142e0df264csm52933419c88.14.2026.08.31.14.11.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 14:11:36 -0700 (PDT)
-From: Rishabh Jain <rishabh.jain1198@gmail.com>
-To: Mathias Nyman <mathias.nyman@intel.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Mario Limonciello <superm1@kernel.org>,
-	Michal Pecio <michal.pecio@gmail.com>,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Rishabh Jain <rishabh.jain1198@gmail.com>
-Subject: [PATCH v3] usb: pci-quirks: always assert xHCI OS ownership
-Date: Mon, 31 Aug 2026 14:11:26 -0700
-Message-ID: <20260831211126.23745-1-rishabh.jain1198@gmail.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <2026083129-justice-egomaniac-01cd@gregkh>
-References: <2026083129-justice-egomaniac-01cd@gregkh>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="tjOtsN5o"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=DqVyQybPlXg+s2kQKu0tCcmbPDkd24Q8nMn47uMGMhY=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788210762; v=1; x=1788815562;
+ b=tjOtsN5opXNbYvGXjuL5SGApnHmQDuHxtbOdXCa9t7OjYSQgrHtjW0KjFmRy1bXcOhVWINXA
+ hTH0eZSudyuFffmkzHm+FXG5gI1mAXvdkYoZREVtaCb1NSMWT2UZfz+4ozTB8apJ74Btp3Z4r0W
+ SdC1MGuKBuOOQRJp3WsMNdvM=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id df5b3ac7151158ec;
+	Mon, 31 Aug 2026 21:12:42 +0000
+X-Mizu-Trace-ID: df5b3ac7151158ec
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <ec3306be-29d3-49e6-8653-0579007774db@linux.dev>
+Date: Mon, 31 Aug 2026 14:12:36 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH bpf v3 4/5] selftests/bpf: Add test for key-less BTF hash
+ map
+To: Jiayuan Chen <jiayuan.chen@linux.dev>, bpf@vger.kernel.org
+Cc: Alexei Starovoitov <ast@kernel.org>,
+ Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>,
+ Eduard Zingerman <eddyz87@gmail.com>,
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+ Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
+ Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>,
+ Emil Tsalapatis <emil@etsalapatis.com>, Shuah Khan <shuah@kernel.org>,
+ Mykyta Yatsenko <yatsenko@meta.com>, Alan Maguire <alan.maguire@oracle.com>,
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
+References: <20260831110314.150870-1-jiayuan.chen@linux.dev>
+ <20260831110314.150870-5-jiayuan.chen@linux.dev>
+Content-Language: en-US
+From: Ihor Solodrai <ihor.solodrai@linux.dev>
+In-Reply-To: <20260831110314.150870-5-jiayuan.chen@linux.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-The xHCI ownership protocol requires the OS driver to assert the HC OS
-Owned semaphore before using the host controller, then wait for HC BIOS
-Owned to clear if firmware owns it.
+On 8/31/26 4:01 AM, Jiayuan Chen wrote:
+> Create a hash and an rhash map with btf_key_type_id == 0 and expect
+> bpf_map_create() to fail with -EINVAL; a positive control with a real
+> key type confirms the rejection is about the key-less BTF. On an unfixed
+> kernel the map is created, and the test pins and reads it back to walk
+> the bpffs dump path, which reproduces the btf_type_show() NULL-deref - so
+> running it on an unfixed kernel oopses the reading task (and panics it
+> under panic_on_oops).
+> 
+> Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
+> ---
+>  .../bpf/prog_tests/btf_map_keyless.c          | 82 +++++++++++++++++++
+>  1 file changed, 82 insertions(+)
+>  create mode 100644 tools/testing/selftests/bpf/prog_tests/btf_map_keyless.c
+> 
+> diff --git a/tools/testing/selftests/bpf/prog_tests/btf_map_keyless.c b/tools/testing/selftests/bpf/prog_tests/btf_map_keyless.c
+> new file mode 100644
+> index 000000000000..a7d037f57a7e
+> --- /dev/null
+> +++ b/tools/testing/selftests/bpf/prog_tests/btf_map_keyless.c
+> @@ -0,0 +1,82 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +#include <test_progs.h>
+> +#include <bpf/btf.h>
+> +
+> +/*
+> + * A hash map with a key-less BTF (btf_key_type_id == 0) used to NULL-deref in
+> + * btf_type_show() when dumped via bpffs.
+> + * A fixed kernel rejects such a map at creation; on an unfixed kernel the
+> + * pin-and-read below deliberately walks that bpffs dump path, so it doubles
+> + * as a reproducer: it oopses an unfixed kernel (and panics it under
+> + * panic_on_oops).
+> + */
+> +static void check_keyless(int map_type, __u32 map_flags, int btf_fd, int val_id)
+> +{
+> +	LIBBPF_OPTS(bpf_map_create_opts, opts);
+> +	const char *path = "/sys/fs/bpf/keyless_map";
+> +	__u32 key = 1, val = 0x41424344;
+> +	char buf[256];
+> +	int map_fd;
+> +	FILE *f;
+> +
+> +	opts.map_flags = map_flags;
+> +	opts.btf_fd = btf_fd;
+> +	opts.btf_value_type_id = val_id;
+> +
+> +	/*
+> +	 * Positive control: the same map with a real key type must be accepted,
+> +	 * so the -EINVAL below is about the key-less BTF and not some unrelated
+> +	 * rejection (e.g. an unknown map type).
+> +	 */
+> +	opts.btf_key_type_id = val_id;
+> +	map_fd = bpf_map_create(map_type, "keyed_map", 4, 4, 8, &opts);
+> +	if (!ASSERT_GE(map_fd, 0, "keyed create is accepted"))
+> +		return;
+> +	close(map_fd);
+> +
+> +	/* A key-less BTF must be rejected. */
+> +	opts.btf_key_type_id = 0;
+> +	map_fd = bpf_map_create(map_type, "keyless_map", 4, 4, 8, &opts);
+> +
+> +	if (map_fd >= 0) {
+> +		/* Unfixed kernel: reproduce the oops via the bpffs dump path. */
+> +		(void)bpf_map_update_elem(map_fd, &key, &val, 0);
+> +		if (bpf_obj_pin(map_fd, path) == 0) {
+> +			f = fopen(path, "r");
+> +			if (f) {
+> +				while (fgets(buf, sizeof(buf), f))
+> +					;
+> +				fclose(f);
+> +			}
+> +			unlink(path);
+> +		}
+> +		close(map_fd);
+> +	}
 
-quirk_usb_handoff_xhci() currently asserts OS Owned only when BIOS Owned
-is already set. If firmware leaves BIOS Owned clear, Linux uses the xHC
-while both ownership semaphores remain clear.
+The whole `if (map_fd >= 0) { ... }` block can be dropped.
 
-On an AMD PROM21 xHCI controller (1022:43fc), this caused every S3
-resume to terminate Controller Restore State with USBSTS 0x401. Linux
-then reset the host controller, both root hubs and the USB Bluetooth
-adapter.
+If the map has been accepted (0 instead of -EINVAL), it already catches the bug.
+It's unnecessary to reproduce the NULL ptr splat.
 
-The controller entered resume ready and halted with USBSTS 0x1.
-Endpoint state, 100 ms save/restore delays, scratchpads, the DCBAA,
-device contexts and command, event and transfer rings were verified not
-to cause the restore error.
+pw-bot: cr
 
-Asserting only HC OS Owned changed USBLEGSUP from 0x00000801 to
-0x01000801 and eliminated the restore failure across four S3 cycles,
-including a stock-kernel test. Clearing USBLEGCTLSTS was independently
-verified to be unnecessary.
+Also, I think it would be useful to refactor and extend existing
+selftests that were added for the features (for example an old
+prog_tests/snprintf_btf.c), instead of adding a new test program for
+every regression case. Not a blocker, but an effort in that direction
+would be much appreciated.
 
-Always assert OS Owned when the xHCI Legacy Support capability is
-present. Use the existing ownership masks with a single initial register
-read/write. Keep the existing BIOS handoff recovery and legacy SMI
-cleanup unchanged.
+Thanks!
 
-Fixes: 66d4eadd8d06 ("USB: xhci: BIOS handoff and HW initialization.")
-Cc: stable@vger.kernel.org
-Signed-off-by: Rishabh Jain <rishabh.jain1198@gmail.com>
----
-Changes in v3:
-- Drop the unnecessary BIOS ownership debug message.
-- Drop the redundant self Tested-by tag.
-
-Changes in v2:
-- Use XHCI_HC_OS_OWNED instead of byte-offset access.
-- Fold the TI/Renesas forced handoff into the ownership-register write.
-- Make the BIOS handoff wait unconditional and gate recovery on the initial
-  BIOS ownership state.
-
-Additional context:
-
-* Kernel Bugzilla #216470 documents the same USBSTS 0x401/reinitialize
-  behavior and its impact on attached USB devices:
-  https://bugzilla.kernel.org/show_bug.cgi?id=216470
-
-* Commit a7d57abcc8a5 ("xhci: workaround CSS timeout on AMD SNPS 3.0
-  xHC") is related workaround history: it tolerates a distinct AMD CSS
-  timeout and resets the controller on resume:
-  https://github.com/torvalds/linux/commit/a7d57abcc8a5bdeb53bbf8e87558e8e0a2c2a29d
-
-The external reports do not record their ownership semaphore values but
-are included as corroborating failure signatures that this might fix.
-
- drivers/usb/host/pci-quirks.c | 27 ++++++++++++---------------
- 1 file changed, 12 insertions(+), 15 deletions(-)
-
-diff --git a/drivers/usb/host/pci-quirks.c b/drivers/usb/host/pci-quirks.c
-index 0404489c2f6a9..52d41ac5daa85 100644
---- a/drivers/usb/host/pci-quirks.c
-+++ b/drivers/usb/host/pci-quirks.c
-@@ -1191,25 +1191,22 @@ static void quirk_usb_handoff_xhci(struct pci_dev *pdev)
- 	if ((pdev->vendor == PCI_VENDOR_ID_TI && pdev->device == 0x8241) ||
- 			(pdev->vendor == PCI_VENDOR_ID_RENESAS
- 			 && pdev->device == 0x0014)) {
--		val = (val | XHCI_HC_OS_OWNED) & ~XHCI_HC_BIOS_OWNED;
--		writel(val, base + ext_cap_offset);
-+		val &= ~XHCI_HC_BIOS_OWNED;
- 	}
- 
--	/* If the BIOS owns the HC, signal that the OS wants it, and wait */
--	if (val & XHCI_HC_BIOS_OWNED) {
--		writel(val | XHCI_HC_OS_OWNED, base + ext_cap_offset);
-+	val |= XHCI_HC_OS_OWNED;
-+	writel(val, base + ext_cap_offset);
- 
--		/* Wait for 1 second with 10 microsecond polling interval */
--		timeout = handshake(base + ext_cap_offset, XHCI_HC_BIOS_OWNED,
--				0, 1000000, 10);
-+	/* Wait for 1 second with 10 microsecond polling interval */
-+	timeout = handshake(base + ext_cap_offset, XHCI_HC_BIOS_OWNED,
-+			    0, 1000000, 10);
- 
--		/* Assume a buggy BIOS and take HC ownership anyway */
--		if (timeout) {
--			dev_warn(&pdev->dev,
--				 "xHCI BIOS handoff failed (BIOS bug ?) %08x\n",
--				 val);
--			writel(val & ~XHCI_HC_BIOS_OWNED, base + ext_cap_offset);
--		}
-+	/* Assume a buggy BIOS and take HC ownership anyway */
-+	if (timeout && (val & XHCI_HC_BIOS_OWNED)) {
-+		dev_warn(&pdev->dev,
-+			 "xHCI BIOS handoff failed (BIOS bug ?) %08x\n",
-+			 val);
-+		writel(val & ~XHCI_HC_BIOS_OWNED, base + ext_cap_offset);
- 	}
- 
- 	val = readl(base + ext_cap_offset + XHCI_LEGACY_CONTROL_OFFSET);
--- 
-2.50.1 (Apple Git-155)
-
+> +
+> +	ASSERT_EQ(map_fd, -EINVAL, "key-less create is rejected");
+> +}
+> +
+> [...]
