@@ -1,146 +1,505 @@
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com [209.85.210.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE59A3932D8
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 18:08:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA78E397338
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 18:08:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788199690; cv=none; b=MUAVtb1NMFTaaIdkt7TCi1w/ckjFGz+b9JEd1MFMcFaMbUXdo/zKAKcY2RbM/YoExfTMwNsi59wTBPRFNkTjA2eSc/y3EwfgI+hWEIjszhzTmUrpHr9olTpHzqSelSxhSmrWQMLQe3kimBj2rbALhi54cT9zLc7igCMj5CCg1dU=
+	t=1788199738; cv=none; b=RqrDfByKRznFa6ErTPeD3S6jE9R/n4UWbHwimopwWVmo7uRNivFX05I8b+x9yl2hy4+HbEZFaQj4y9Kbp0Sfk1C2pnyBt3wWbJJupd/KTekM9flEJBBtMY167eHdEpx1oimR+P5Ozd8kmMky59/N7lCT1s/mcNy9rZjkybnMFEQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788199690; c=relaxed/simple;
-	bh=TNScjd8kr86i+OFJyz7elzpkHsuoD5X9vwkXPg3lt+w=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=C3shCNZ6AaS5QSVptUBtGCTuzMB+9dtNzjdpD5IJ98TDwGjiZJQwo53COzT9yHFp3Zwp/klE3o1sEldU7/JA2s5j2fUuSQ1gZkuwcF1Z0u+Dfk5w99jpO/gZybI7AS/IKsC4W1ZFI7+B3Qbk7i+1YQHMRLlK6RArqrvcpV2bBAg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=S8OvVoZW; arc=none smtp.client-ip=209.85.128.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788199738; c=relaxed/simple;
+	bh=ktgLtqk2PNocAuxzteWqMuniT7CfUWJjO4o3NouzSrU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=oPmPbSK/mBHPHDSevXm50U3gNFHRcijYZ0AkT/a++2tAmwdzF4phEv6O4bwZF9Ra35h5igDwEJLS1iQ2JImTSCyzfvdaG4VRBQKeK9CZF8qPg4Fw++jGsO/C7zFdI8M/GA1dqVUrYEIdFmsCPQTOOoMic9O2jZwp0y7m6ampKiE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=davidwei.uk; spf=none smtp.mailfrom=davidwei.uk; dkim=pass (2048-bit key) header.d=davidwei-uk.20251104.gappssmtp.com header.i=@davidwei-uk.20251104.gappssmtp.com header.b=kxy6S+K/; arc=none smtp.client-ip=209.85.210.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=davidwei.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=davidwei.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="S8OvVoZW"
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-49b8687630fso27772645e9.3
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 11:08:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=davidwei-uk.20251104.gappssmtp.com header.i=@davidwei-uk.20251104.gappssmtp.com header.b="kxy6S+K/"
+Received: by mail-pf1-f176.google.com with SMTP id d2e1a72fcca58-8548db7428aso3508550b3a.1
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 11:08:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788199686; x=1788804486; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=WB2wOYhNCQXSPlT46P6AGA0QA3CnchsnjHbaxZcMoTA=;
-        b=S8OvVoZWH1xp/DKHuDGfAhpgT06wMYRJnNWUuscnUJ72jDmOmkPAXRazrjVXSQGV4B
-         AkaDr+gmPNoIAJwUXIf8twSzGD8sEI4dINssobXZkkkiLPIqKHdi1NJaffyPxb3D5zTL
-         Ql1LjWd5awm3JBZ5he8B6a2JKlieQpZFWoVhofS0ydmsevvC6QRlXPALwQwQPP1/uiKy
-         /r0Zta9DDF+XX6tyqHD0CZk6aQvFXWQymCqAyUBJ6aNe/LNwkP1qI5n+owUhuRjWz+JX
-         /QCK1redtvTkKNjqcTdyQhbA828IfyfY3czY/7HGhQ/ltHFBKl1gOQBJF5/sNRVqpGsH
-         r3uw==
+        d=davidwei-uk.20251104.gappssmtp.com; s=20251104; t=1788199735; x=1788804535; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3OPRSSQbvSa0krgRMx3xW73TWZ6GLGWWyRkYudAAg30=;
+        b=kxy6S+K/Q3uT7psqVxHefQTyGZ2O507NgqF8oNYTvuisbq4G/M05czbBSe2DaSSsgt
+         rB1mS4AIDl7g5n/UN+P6iH2Ps4IY9KiBdsl1X16unoxlbHneGOj8dqAApvgbKlLirvxw
+         uqsteFghEynyTZg7knakDslCf2l0RterH2hna3VattSjEYYDN3Hihri0aAxiyBfDugkH
+         v/OfvgO6mLIp91GBXZl2lEkLcLjgVoQx6u2the1h8BIHbUmCf+dSbOF/LzvTRSnUdtud
+         11LHLqF8TQ/qnsz4bDuD5SVahRCljOeDbHQgcyZv2GjaA7W6YlTfP++JYcK4lgh8Wndz
+         defQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788199686; x=1788804486;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=WB2wOYhNCQXSPlT46P6AGA0QA3CnchsnjHbaxZcMoTA=;
-        b=DzY+4uLbhsoOq4pReCb8kUb55NL6ebm8syrucgscca9DQFSj4OOzIW57+Wtmcd4DTP
-         6rG6Wk/2bEkkaM4nBD7ss4uHg3ty/P8KuV4gLgzG+FeiZ6+ytgTX/4XKoBZ624eKOrHw
-         Ps3E7Yuw9B4PTvcfsQM82crklFA5jjRXViFQbFQ2VgKKpKW1oMl3kWRTNS+VDrQKoSZl
-         239oTe8qGeoOvtnFk1lkJGig6dx4QiWFEi4Tr9NaLyBd4y+Wai5ftjgegYMbgMy4Bdu+
-         G1qjgWNl1vabed4FgaQobYfNIEvcfoShADXYnqwGH+L807uK5E5Qi4TS41tWMXDteoTY
-         Syhw==
-X-Forwarded-Encrypted: i=1; AHgh+Rrkuk69CkadEGuUF7Ir2GiJv3o/n7gfYBdcH7rk+vxS2Mi+cBpwj31F1xljEBKZY10kdLwKWSylbc7rJTw=@vger.kernel.org
-X-Gm-Message-State: AFuF++mYoLvvrjVzacgj/eLiLdeHfLQgEqQlpuf9gwQJI+gnUTEYQbQm
-	Ntu48jIG6UL8SwqfwNOnKmJX7KdraXSAX9MwEkJdaaK3V23DODMfqgZu
-X-Gm-Gg: AR+sD10WlvADEs8ezZM1vAsjXO71TtMqjx0aVLEvuMPwWC9yawVqXs5k1fohEXYqz7V
-	gXtFKtoZIwR2BpOmVdt7Zute2rwpqaGZjP6insGsYDvRhgJyreQtPv/wpCKT8gYUhjCoU261uE6
-	n3cOBeFv3S0BwPDFeYcRQhyMBVyqMI7fsD45upqNCBL5QjLvCpgevF9DS+EypW7a2w9J/4DIOJe
-	/6hiD8RfV6fRMKAKHF9cHtl+XHdK2ML/WR8bkLk/Kc596nW4yVvj2lXBmI7ZTdcXwn0ud90bjuH
-	XO9KzSTHXhGlc8gwTyl8O/Th4hEfZdyJnRV0aAPM7iTYlG//LO+tGH/ExEeI6cdqc68jwSAXvUG
-	OyaNJWdiqGxwBH/eahcYtQFgRDRgUO1sVH1ooT05EsJch6cK04zjLJPV3qPQJWPM6wu94iL4XMX
-	h1TFtun+7cnpxvS1F2KfdSdF0T24Aprxl8KR6RCxiec3fWtSdjlR7nngwEseRQvX+Foql6nS0dz
-	hCa0QkqTlYszb74UtJcbhgg7il18m5/gKc6HN21BEShZAJo29lzbNtxtfFDWiSFiPsBCmvfRcKV
-	TROPJKTQYyaVcFUIWG+lwx/61LzQdQYu9DBxQDj0pddA/rDrkP/9qS8LoDN85diwa5R9dSF01Ja
-	+j4up
-X-Received: by 2002:a05:600c:6091:b0:49c:d60c:74e0 with SMTP id 5b1f17b1804b1-49cdc44a420mr51361575e9.13.1788199685909;
-        Mon, 31 Aug 2026 11:08:05 -0700 (PDT)
-Received: from MacBook-Pro-von-Karl.localdomain (dynamic-2a02-3100-acb9-0201-68d0-34d2-ad1a-175a.310.pool.telefonica.de. [2a02:3100:acb9:201:68d0:34d2:ad1a:175a])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b955e7906sm251817195e9.1.2026.08.31.11.08.04
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 31 Aug 2026 11:08:05 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Pablo Neira Ayuso <pablo@netfilter.org>,
-	Florian Westphal <fw@strlen.de>,
-	Phil Sutter <phil@nwl.cc>,
-	Jozsef Kadlecsik <kadlec@netfilter.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Vasily Averin <vasily.averin@linux.dev>,
-	Bin Lan <lanbincn@139.com>,
-	XiaoHua Wang <561399680@139.com>,
-	netfilter-devel@vger.kernel.org,
-	coreteam@netfilter.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 6.1.y 6.6.y v2] netfilter: nf_tables: missing objects with no memcg accounting
-Date: Mon, 31 Aug 2026 20:07:31 +0200
-Message-Id: <a223903ab9e3b19f9b28ee39b338a49e3e8e6f5f.1788192676.git.kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-In-Reply-To: <2026083125-bronze-stability-8fba@gregkh>
-References: <2026083125-bronze-stability-8fba@gregkh>
+        d=1e100.net; s=20251104; t=1788199735; x=1788804535;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=3OPRSSQbvSa0krgRMx3xW73TWZ6GLGWWyRkYudAAg30=;
+        b=CN4vTaTn9R/OcS1OjtM5x9awvQXPMJT9nEpoPLusBGxmsY0sk6wszIrJEzajJptcDn
+         /hoWLo/s9AKlytdsFCqD9gtGGIwri8vJLAVI6+45sJo3S1sq6yH0KM0cwTx8tBYqmY7E
+         uxVr9wrXQvl71SKLSxIVXJSMD2mpMRM1xRHIhasiTISPPVPQSctyOGeOPxjtw0b7KM/N
+         I9O59wKTol+JASBk+yBKffIRbJzF0Lc/vBSsGJfbEWqp6nDZZDDj4seCtjhWwvCG3qEb
+         zjFZRZuVkJ+c0FnHP8M+Z4HxDzqiCCDewH6hPFytloAHBjXfdWqVNR/7/v/eZrNV6IoV
+         wydg==
+X-Forwarded-Encrypted: i=1; AHgh+Rpr/yl8Exw2yEaq17uQzqIvbY6tC8reMqIravvOlva1SRmvaQJqR9erYVToduhBEIc09BRv6WKEQTUQTqQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++nXrgeJLtBWCKJfNFDi0rmw58lKjcgoDMBLThlpeiZZs9vcFfZf
+	B42Bf4gizYU2jrQRFZD0Osr877ccvKTNxN2NCjpxJ5UuAFoN3AaMvcoFmitx6+blPCk=
+X-Gm-Gg: AR+sD11/W6AUXcBjegqYFCE5DufF4uaF9B50W2glX3VqfquiBG9Mx/llY48qBkHrBSZ
+	MLh/I40anWadksxmWvlpivHk/PclS8c/eHJqmQQs+YMIst0/wXj3zM6Z0sSLrk1xmoD4yB8o3PO
+	mO4HfTi3PulNuoKl167J7Dp4cHlX/S+lx2PwKGL10NDXFl93VysDS8wz4UK+EZPfJD8KWYV0C8r
+	95NfUuGDYKfQDoC6C1ewvRDFZBXzioM2kuWZeb4J9eaNukeCrTnl6ryBzHZLNZxqH/DRF7uQZDm
+	6s5bENrXwLx6LoAvPCxUdeaOGhp9OVDLcAZbNJ6GkEUu2Kr2GDV1iSpQsOT55kblLHcHs7rtxBK
+	N0ZhZDcgp6D0HSQzzY3YftSvCwjETdx7o1GKNa7f0P8Zmaeuj4kM42JoCHKXSDTD3phVNZb51vL
+	J+U37l144yum7Djh/8KBKltxdVDC1xUn05RmbZL+AlKSHJhDPkHOk1FH8DK8uU9d90HiodR/Jt9
+	YBxVU66GZ/3CH6jQ6ty4V13L7sEEY5qSxssmZBzgbBtpbDu+8seUN97Tp/G3Ux/nOHFnpes0Q==
+X-Received: by 2002:a05:6a21:400d:b0:3d3:ae0f:526a with SMTP id adf61e73a8af0-3d3ae0f5eebmr29486048637.22.1788199735058;
+        Mon, 31 Aug 2026 11:08:55 -0700 (PDT)
+Received: from ?IPV6:2a03:83e0:1156:1:c8f:b917:4342:fa09? ([2620:10d:c090:500::7:1753])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3286f552473sm34996761eec.0.2026.08.31.11.08.53
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 31 Aug 2026 11:08:54 -0700 (PDT)
+Message-ID: <a1d70456-5d1d-4e90-8009-2292e1851a42@davidwei.uk>
+Date: Mon, 31 Aug 2026 11:08:52 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v6 5/6] selftests: net: add multithread server
+ support to iou-zcrx
+To: Juanlu Herrero <juanlu@fastmail.com>, netdev@vger.kernel.org
+Cc: io-uring@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org, kuba@kernel.org, asml.silence@gmail.com,
+ pabeni@redhat.com, shuah@kernel.org
+References: <20260831-iou-zcrx-v6-0-02d1d012f0fd@fastmail.com>
+ <20260831-iou-zcrx-v6-5-02d1d012f0fd@fastmail.com>
+Content-Language: en-US
+From: David Wei <dw@davidwei.uk>
+In-Reply-To: <20260831-iou-zcrx-v6-5-02d1d012f0fd@fastmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Pablo Neira Ayuso <pablo@netfilter.org>
+On 2026-08-31 10:34, Juanlu Herrero wrote:
+> Run the iou-zcrx server as N worker threads, each owning one receive
+> queue with its own io_uring and zero-copy receive (zcrx) ifq, so the
+> test can exercise multi-queue zero-copy receive.
+> 
+> The main thread owns the listening socket, accepts connections, and
+> dispatches each to the worker owning the queue it landed on by matching
+> SO_INCOMING_NAPI_ID against per-queue NAPI IDs.
+> 
+> Assisted-by: Claude:claude-opus-4-8
+> Signed-off-by: Juanlu Herrero <juanlu@fastmail.com>
+> ---
+>   tools/testing/selftests/drivers/net/hw/Makefile   |   5 +-
+>   tools/testing/selftests/drivers/net/hw/iou-zcrx.c | 263 ++++++++++++++++------
+>   2 files changed, 196 insertions(+), 72 deletions(-)
+> 
+> diff --git a/tools/testing/selftests/drivers/net/hw/Makefile b/tools/testing/selftests/drivers/net/hw/Makefile
+> index 37023ba580de..f613c88fffc5 100644
+> --- a/tools/testing/selftests/drivers/net/hw/Makefile
+> +++ b/tools/testing/selftests/drivers/net/hw/Makefile
+> @@ -13,10 +13,6 @@ else
+>   $(warning excluding iouring tests, liburing not installed or too old)
+>   endif
+>   
+> -TEST_GEN_FILES := \
+> -	$(COND_GEN_FILES) \
+> -# end of TEST_GEN_FILES
+> -
+>   TEST_PROGS = \
+>   	csum.py \
+>   	devlink_rate_cross_esw.py \
+> @@ -74,6 +70,7 @@ TEST_INCLUDES := \
+>   YNL_GEN_FILES := \
+>   	ncdevmem \
+>   	toeplitz \
+> +	$(COND_GEN_FILES) \
+>   # end of YNL_GEN_FILES
+>   TEST_GEN_FILES += $(YNL_GEN_FILES)
+>   TEST_GEN_FILES += $(patsubst %.c,%.o,$(wildcard *.bpf.c))
+> diff --git a/tools/testing/selftests/drivers/net/hw/iou-zcrx.c b/tools/testing/selftests/drivers/net/hw/iou-zcrx.c
+> index f793a6c04e41..29905cb3b243 100644
+> --- a/tools/testing/selftests/drivers/net/hw/iou-zcrx.c
+> +++ b/tools/testing/selftests/drivers/net/hw/iou-zcrx.c
+> @@ -38,6 +38,8 @@
+>   #include <sys/wait.h>
+>   
+>   #include <liburing.h>
+> +#include <ynl.h>
+> +#include "netdev-user.h"
+>   
+>   #define SKIP_CODE	42
+>   
+> @@ -90,6 +92,8 @@ static int cfg_num_threads = 1;
+>   
+>   static char *payload;
+>   
+> +#define MAX_CONNS_PER_THREAD	64
+> +
+>   struct thread_ctx {
+>   	struct io_uring		ring;
+>   	void			*area_ptr;
+> @@ -97,9 +101,15 @@ struct thread_ctx {
+>   	size_t			ring_size;
+>   	struct io_uring_zcrx_rq	rq_ring;
+>   	unsigned long		area_token;
+> -	int			connfd;
+> -	bool			stop;
+> -	size_t			received;
+> +	int			queue_id;
+> +	int			napi_id;
+> +	pthread_barrier_t	*setup_done;
+> +	pthread_barrier_t	*dispatch_done;
+> +
+> +	int			connfds[MAX_CONNS_PER_THREAD];
+> +	size_t			received[MAX_CONNS_PER_THREAD];
+> +	int			oneshot_recvs[MAX_CONNS_PER_THREAD];
+> +	int			nr_conns;
+>   };
+>   
+>   static unsigned long gettimeofday_ms(void)
+> @@ -199,7 +209,7 @@ static void setup_zcrx(struct thread_ctx *ctx)
+>   
+>   	struct t_io_uring_zcrx_ifq_reg reg = {
+>   		.if_idx = ifindex,
+> -		.if_rxq = cfg_queue_id,
+> +		.if_rxq = ctx->queue_id,
+>   		.rq_entries = rq_entries,
+>   		.area_ptr = (__u64)(unsigned long)&area_reg,
+>   		.region_ptr = (__u64)(unsigned long)&region_reg,
+> @@ -224,53 +234,32 @@ static void setup_zcrx(struct thread_ctx *ctx)
+>   	ctx->area_token = area_reg.rq_area_token;
+>   }
+>   
+> -static void add_accept(struct thread_ctx *ctx, int sockfd)
+> +static void add_recvzc(struct thread_ctx *ctx, int conn_idx)
+>   {
+>   	struct io_uring_sqe *sqe;
+>   
+>   	sqe = io_uring_get_sqe(&ctx->ring);
+>   
+> -	io_uring_prep_accept(sqe, sockfd, NULL, NULL, 0);
+> -	sqe->user_data = 1;
+> -}
+> -
+> -static void add_recvzc(struct thread_ctx *ctx, int sockfd)
+> -{
+> -	struct io_uring_sqe *sqe;
+> -
+> -	sqe = io_uring_get_sqe(&ctx->ring);
+> -
+> -	io_uring_prep_rw(IORING_OP_RECV_ZC, sqe, sockfd, NULL, 0, 0);
+> +	io_uring_prep_rw(IORING_OP_RECV_ZC, sqe, ctx->connfds[conn_idx],
+> +			 NULL, 0, 0);
+>   	sqe->ioprio |= IORING_RECV_MULTISHOT;
+> -	sqe->user_data = 2;
+> +	sqe->user_data = conn_idx;
+>   }
+>   
+> -static void add_recvzc_oneshot(struct thread_ctx *ctx, int sockfd, size_t len)
+> +static void add_recvzc_oneshot(struct thread_ctx *ctx, int conn_idx, size_t len)
+>   {
+>   	struct io_uring_sqe *sqe;
+>   
+>   	sqe = io_uring_get_sqe(&ctx->ring);
+>   
+> -	io_uring_prep_rw(IORING_OP_RECV_ZC, sqe, sockfd, NULL, len, 0);
+> +	io_uring_prep_rw(IORING_OP_RECV_ZC, sqe, ctx->connfds[conn_idx],
+> +			 NULL, len, 0);
+>   	sqe->ioprio |= IORING_RECV_MULTISHOT;
+> -	sqe->user_data = 2;
+> +	sqe->user_data = conn_idx;
+>   }
+>   
+> -static void process_accept(struct thread_ctx *ctx, struct io_uring_cqe *cqe)
+> -{
+> -	if (cqe->res < 0)
+> -		error(1, 0, "accept()");
+> -	if (ctx->connfd)
+> -		error(1, 0, "Unexpected second connection");
+> -
+> -	ctx->connfd = cqe->res;
+> -	if (cfg_oneshot)
+> -		add_recvzc_oneshot(ctx, ctx->connfd, page_size);
+> -	else
+> -		add_recvzc(ctx, ctx->connfd);
+> -}
+> -
+> -static void process_recvzc(struct thread_ctx *ctx, struct io_uring_cqe *cqe)
+> +static void process_recvzc(struct thread_ctx *ctx, struct io_uring_cqe *cqe,
+> +			   int conn_idx)
+>   {
+>   	unsigned int rq_mask = ctx->rq_ring.ring_entries - 1;
+>   	struct io_uring_zcrx_cqe *rcqe;
+> @@ -280,8 +269,9 @@ static void process_recvzc(struct thread_ctx *ctx, struct io_uring_cqe *cqe)
+>   	ssize_t n;
+>   	int i;
+>   
+> -	if (cqe->res == 0 && cqe->flags == 0 && cfg_oneshot_recvs == 0) {
+> -		ctx->stop = true;
+> +	if (cqe->res == 0 && cqe->flags == 0 &&
+> +	    ctx->oneshot_recvs[conn_idx] == 0) {
+> +		ctx->nr_conns--;
+>   		return;
+>   	}
+>   
+> @@ -289,12 +279,14 @@ static void process_recvzc(struct thread_ctx *ctx, struct io_uring_cqe *cqe)
+>   		error(1, 0, "recvzc(): %d", cqe->res);
+>   
+>   	if (cfg_oneshot) {
+> -		if (cqe->res == 0 && cqe->flags == 0 && cfg_oneshot_recvs) {
+> -			add_recvzc_oneshot(ctx, ctx->connfd, page_size);
+> -			cfg_oneshot_recvs--;
+> +		if (cqe->res == 0 && cqe->flags == 0 &&
+> +		    ctx->oneshot_recvs[conn_idx]) {
+> +			add_recvzc_oneshot(ctx, conn_idx, page_size);
+> +			ctx->oneshot_recvs[conn_idx]--;
+> +			return;
+>   		}
+>   	} else if (!(cqe->flags & IORING_CQE_F_MORE)) {
+> -		add_recvzc(ctx, ctx->connfd);
+> +		add_recvzc(ctx, conn_idx);
+>   	}
+>   
+>   	rcqe = (struct io_uring_zcrx_cqe *)(cqe + 1);
+> @@ -304,10 +296,10 @@ static void process_recvzc(struct thread_ctx *ctx, struct io_uring_cqe *cqe)
+>   	data = (char *)ctx->area_ptr + (rcqe->off & mask);
+>   
+>   	for (i = 0; i < n; i++) {
+> -		if (*(data + i) != payload[(ctx->received + i)])
+> +		if (*(data + i) != payload[(ctx->received[conn_idx] + i)])
+>   			error(1, 0, "payload mismatch at %d", i);
+>   	}
+> -	ctx->received += n;
+> +	ctx->received[conn_idx] += n;
+>   
+>   	rqe = &ctx->rq_ring.rqes[(ctx->rq_ring.rq_tail & rq_mask)];
+>   	rqe->off = (rcqe->off & ~IORING_ZCRX_AREA_MASK) | ctx->area_token;
+> @@ -320,28 +312,124 @@ static void server_loop(struct thread_ctx *ctx)
+>   	struct io_uring_cqe *cqe;
+>   	unsigned int count = 0;
+>   	unsigned int head;
+> -	int i, ret;
+>   
+>   	io_uring_submit_and_wait(&ctx->ring, 1);
+>   
+>   	io_uring_for_each_cqe(&ctx->ring, head, cqe) {
+> -		if (cqe->user_data == 1)
+> -			process_accept(ctx, cqe);
+> -		else if (cqe->user_data == 2)
+> -			process_recvzc(ctx, cqe);
+> -		else
+> -			error(1, 0, "unknown cqe");
+> +		process_recvzc(ctx, cqe, cqe->user_data);
+>   		count++;
+>   	}
+>   	io_uring_cq_advance(&ctx->ring, count);
+>   }
+>   
+> -static void run_server(void)
+> +static void *server_worker(void *arg)
+>   {
+> -	struct thread_ctx ctx = {};
+> -	unsigned int flags = 0;
+> -	int fd, enable, ret;
+> +	struct io_uring_params params = { };
+> +	struct thread_ctx *ctx = arg;
+>   	uint64_t tstop;
+> +	int i;
+> +
+> +	params.flags |= IORING_SETUP_COOP_TASKRUN;
+> +	params.flags |= IORING_SETUP_SINGLE_ISSUER;
+> +	params.flags |= IORING_SETUP_DEFER_TASKRUN;
+> +	params.flags |= IORING_SETUP_SUBMIT_ALL;
+> +	params.flags |= IORING_SETUP_CQE32;
+> +	params.flags |= IORING_SETUP_CQSIZE;
+> +	params.cq_entries = AREA_SIZE / page_size;
+> +
+> +	io_uring_queue_init_params(512, &ctx->ring, &params);
+> +	setup_zcrx(ctx);
+> +
+> +	if (cfg_dry_run)
+> +		return NULL;
+> +
+> +	pthread_barrier_wait(ctx->setup_done);
+> +	pthread_barrier_wait(ctx->dispatch_done);
+> +
+> +	for (i = 0; i < ctx->nr_conns; i++) {
+> +		if (cfg_oneshot) {
+> +			ctx->oneshot_recvs[i] = cfg_oneshot_recvs;
+> +			add_recvzc_oneshot(ctx, i, page_size);
+> +		} else {
+> +			add_recvzc(ctx, i);
+> +		}
+> +	}
+> +
+> +	tstop = gettimeofday_ms() + 5000;
+> +	while (ctx->nr_conns > 0 && gettimeofday_ms() < tstop)
+> +		server_loop(ctx);
+> +
+> +	if (ctx->nr_conns != 0)
+> +		error(1, 0, "test failed: %d connections incomplete",
+> +		      ctx->nr_conns);
+> +
+> +	return NULL;
+> +}
+> +
+> +static int query_napi_id(unsigned int ifindex, int queue_id)
+> +{
+> +	struct netdev_queue_get_req *req;
+> +	struct netdev_queue_get_rsp *rsp;
+> +	struct ynl_error yerr;
+> +	struct ynl_sock *ys;
+> +	int napi_id;
+> +
+> +	ys = ynl_sock_create(&ynl_netdev_family, &yerr);
+> +	if (!ys)
+> +		error(1, 0, "ynl_sock_create: %s", yerr.msg);
+> +
+> +	req = netdev_queue_get_req_alloc();
+> +	netdev_queue_get_req_set_ifindex(req, ifindex);
+> +	netdev_queue_get_req_set_type(req, NETDEV_QUEUE_TYPE_RX);
+> +	netdev_queue_get_req_set_id(req, queue_id);
+> +
+> +	rsp = netdev_queue_get(ys, req);
+> +	if (!rsp)
+> +		error(1, 0, "netdev_queue_get(q=%d): %s", queue_id,
+> +		      ys->err.msg);
+> +	if (!rsp->_present.napi_id)
+> +		error(1, 0, "netdev_queue_get(q=%d): napi_id not present",
+> +		      queue_id);
+> +
+> +	napi_id = rsp->napi_id;
+> +
+> +	netdev_queue_get_req_free(req);
+> +	netdev_queue_get_rsp_free(rsp);
+> +	ynl_sock_destroy(ys);
+> +
+> +	return napi_id;
+> +}
+> +
+> +static int find_thread_by_conn(struct thread_ctx *ctxs, int connfd)
+> +{
+> +	socklen_t len = sizeof(int);
+> +	int napi_id, i;
+> +
+> +	if (getsockopt(connfd, SOL_SOCKET, SO_INCOMING_NAPI_ID, &napi_id, &len))
+> +		error(1, errno, "getsockopt(SO_INCOMING_NAPI_ID)");
+> +
+> +	for (i = 0; i < cfg_num_threads; i++) {
+> +		if (ctxs[i].napi_id == napi_id)
+> +			return i;
+> +	}
+> +
+> +	error(1, 0, "unknown NAPI ID: %d", napi_id);
+> +	return -1;
+> +}
+> +
+> +static void run_server(void)
+> +{
+> +	pthread_barrier_t setup_done, dispatch_done;
+> +	int total_conns, accepted = 0, connfd;
+> +	struct thread_ctx *ctxs;
+> +	int fd, ret, enable, i;
+> +	unsigned int ifindex;
+> +	pthread_t *threads;
+> +
+> +	ctxs = calloc(cfg_num_threads, sizeof(*ctxs));
+> +	threads = calloc(cfg_num_threads, sizeof(*threads));
+> +	if (!ctxs || !threads)
+> +		error(1, 0, "calloc()");
+>   
+>   	fd = socket(AF_INET6, SOCK_STREAM, 0);
+>   	if (fd == -1)
+> @@ -356,29 +444,68 @@ static void run_server(void)
+>   	if (ret < 0)
+>   		error(1, 0, "bind()");
+>   
+> -	flags |= IORING_SETUP_COOP_TASKRUN;
+> -	flags |= IORING_SETUP_SINGLE_ISSUER;
+> -	flags |= IORING_SETUP_DEFER_TASKRUN;
+> -	flags |= IORING_SETUP_SUBMIT_ALL;
+> -	flags |= IORING_SETUP_CQE32;
+> +	pthread_barrier_init(&setup_done, NULL, cfg_num_threads + 1);
+> +	pthread_barrier_init(&dispatch_done, NULL, cfg_num_threads + 1);
+> +
+> +	for (i = 0; i < cfg_num_threads; i++) {
+> +		ctxs[i].queue_id = cfg_queue_id + i;
+> +		ctxs[i].setup_done = &setup_done;
+> +		ctxs[i].dispatch_done = &dispatch_done;
+> +	}
+>   
+> -	io_uring_queue_init(512, &ctx.ring, flags);
+> +	for (i = 0; i < cfg_num_threads; i++) {
+> +		ret = pthread_create(&threads[i], NULL,
+> +				     server_worker, &ctxs[i]);
+> +		if (ret)
+> +			error(1, ret, "pthread_create()");
+> +	}
+>   
+> -	setup_zcrx(&ctx);
+>   	if (cfg_dry_run)
+> -		return;
+> +		goto join;
+>   
+>   	if (listen(fd, 1024) < 0)
+>   		error(1, 0, "listen()");
+>   
+> -	add_accept(&ctx, fd);
+> +	pthread_barrier_wait(&setup_done);
+>   
+> -	tstop = gettimeofday_ms() + 5000;
+> -	while (!ctx.stop && gettimeofday_ms() < tstop)
+> -		server_loop(&ctx);
+> +	if (cfg_num_threads > 1) {
+> +		ifindex = if_nametoindex(cfg_ifname);
+> +		if (!ifindex)
+> +			error(1, 0, "bad interface name: %s", cfg_ifname);
+> +		for (i = 0; i < cfg_num_threads; i++)
+> +			ctxs[i].napi_id = query_napi_id(ifindex,
+> +							ctxs[i].queue_id);
+> +	}
+> +
+> +	total_conns = cfg_num_threads * cfg_num_threads;
+> +
+> +	while (accepted < total_conns) {
+> +		int idx = 0;
+> +
+> +		connfd = accept(fd, NULL, NULL);
+> +		if (connfd < 0)
+> +			error(1, errno, "accept()");
+>   
+> -	if (!ctx.stop)
+> -		error(1, 0, "test failed\n");
+> +		if (cfg_num_threads > 1)
+> +			idx = find_thread_by_conn(ctxs, connfd);
+> +
+> +		if (ctxs[idx].nr_conns >= MAX_CONNS_PER_THREAD)
+> +			error(1, 0, "worker %d connection overflow", idx);
+> +		ctxs[idx].connfds[ctxs[idx].nr_conns++] = connfd;
+> +		accepted++;
+> +	}
+> +
+> +	pthread_barrier_wait(&dispatch_done);
+> +
+> +join:
+> +	for (i = 0; i < cfg_num_threads; i++)
+> +		pthread_join(threads[i], NULL);
+> +
+> +	pthread_barrier_destroy(&setup_done);
+> +	pthread_barrier_destroy(&dispatch_done);
+> +	close(fd);
+> +	free(threads);
+> +	free(ctxs);
+>   }
+>   
+>   static void *client_worker(void *arg)
+> 
 
-[ Upstream commit 69e687cea79fc99a17dfb0116c8644b9391b915e ]
-
-Several ruleset objects are still not using GFP_KERNEL_ACCOUNT for
-memory accounting, update them. This includes:
-
-- catchall elements
-- compat match large info area
-- log prefix
-- meta secctx
-- numgen counters
-- pipapo set backend datastructure
-- tunnel private objects
-
-Fixes: 33758c891479 ("memcg: enable accounting for nft objects")
-Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
-[ Karl Mehltretter: The original 6.1.y and 6.6.y backports omitted the
-  pipapo_realloc_mt() hunk. In these pre-refactor trees, the corresponding
-  mapping-table allocation is still part of pipapo_resize() and uses
-  GFP_KERNEL. A/B tests on 6.1.186 and 6.6.155 measured 524,288 additional
-  charged bytes for a 32,768-element two-field set. On 6.12.107, the
-  corresponding allocation was already accounted. ]
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
----
-Changes in v2:
-- restore Pablo's authorship, original changelog, Fixes tag and sign-off
-- document the older-tree adaptation and exact A/B accounting result
-
-v1: https://lore.kernel.org/stable/20260831043755.29692-1-kmehltretter@gmail.com/
-
- net/netfilter/nft_set_pipapo.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/net/netfilter/nft_set_pipapo.c b/net/netfilter/nft_set_pipapo.c
-index 7c8d28a031ad..8ba76eea3eb1 100644
---- a/net/netfilter/nft_set_pipapo.c
-+++ b/net/netfilter/nft_set_pipapo.c
-@@ -705,7 +705,7 @@ static int pipapo_resize(struct nft_pipapo_field *f, int old_rules, int rules)
- 		return -ENOMEM;
- 	}
- 
--	new_mt = kvmalloc(rules * sizeof(*new_mt), GFP_KERNEL);
-+	new_mt = kvmalloc(rules * sizeof(*new_mt), GFP_KERNEL_ACCOUNT);
- 	if (!new_mt) {
- 		kvfree(new_lt);
- 		return -ENOMEM;
--- 
-2.39.5 (Apple Git-154)
+Reviewed-by: David Wei <dw@davidwei.uk>
