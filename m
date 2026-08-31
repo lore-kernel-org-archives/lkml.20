@@ -1,88 +1,148 @@
-Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-162.mta1.migadu.com [95.215.58.162])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4338233985A;
-	Mon, 31 Aug 2026 12:08:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64FAF3E49D5
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 12:09:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.162
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788178106; cv=none; b=bzFe5IMZepdy4RQOnWV+k/zUWV5U/RHsy1nHiCSRw2+OSadUYLfFwnoDRi2nME68Lj1vYXNSdhG1grO2vecbNu9nA7185PVhH1GTuIQYpG1o1nHSH/+GYcUvtdFilpRE2Yt4K5KZDeTkjheri3/Exdr/s/odCqoGVaA7cMpdmsA=
+	t=1788178165; cv=none; b=Nthnm4YoflmRprzn3Xg6QmpAqf86qYfNzOmyR9LjeUrBNoKFWTPdJi3W2OsfeOteA/VQdNPfyc7vNtw6n3YvXRu2334SmtioGenYieh2aFzdid+SNCN636cWLakP+QycR764Rh3aBR9aeZv2dOAAaNt3YTTHrlAx3sTV5p/vb4A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788178106; c=relaxed/simple;
-	bh=bfKvOVJnh+gqcTLgTc3sL898dxN096IjlFy++ooTqTc=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=QujXF9vLpAZXUOfj52TV5KpSOAL8KOAxHyfimF3Yq5Sr2eWMnZccWTHX/d1V/oJRHWHEH78VB62p6+wBo5UKuzLjZ6pr3epgufnqIoRR0ph+D/Krtw1o6wvrJxKt2ReT922+e40Enuic7iKJnfEe1uTlXS65wZrapFptL6XNe3Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=kV/L8QR3; arc=none smtp.client-ip=194.13.80.246
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+	s=arc-20240116; t=1788178165; c=relaxed/simple;
+	bh=VY8BIT8QfLkUraG1i9FG2AkXjeQpQZ1ABuZnQEaNl2Q=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=HycqJzT/Md5U0Ux2s7GOJwMiVkPA0vvVhZLlJRjROgH2Lc+sLNpfSwpK5rTPecwp++BDFmFuNU//EFPLjkFkLadifpa19wDf1tP6WaGejYoPtoRt64AZpWV7yiMDc4mA/8IQypgvDmEfu+hHEyq8UzrLJBz8lLYhkTH+LuZOa60=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=o9qzV6/t; arc=none smtp.client-ip=95.215.58.162
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="kV/L8QR3"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 55126A418E;
-	Mon, 31 Aug 2026 14:08:21 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1788178101; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=ceJ0urgjIvM+xk4P3r/siRK7ffCtzDxlqr54gAHNC3k=;
-	b=kV/L8QR3myytINkq9yVmoxKTh+Q1iiB1ehv2mLOuNyn6sgVyOXlD2c1thrGR2RxcmUFMmh
-	ZgQqWOCZvqK+nxbBttrL8wfBzeT3F5ai5Tl4VhEt1r3MuasSM7DvJfrMrvNYHFDM0E5Qb+
-	U1M6Za8xuyrDsyzl6K7B1Y/8+P6BdyQGA7nEUsnJrY/SkLMB/fB3DJVwRVqZapDooRLgHN
-	3ARGMlsuzkLSQ2kW76iLsY5tJpqUdl3I2e2AZhGoqDrUgOok5w2VKX0Uc1bkL7ZzjCD5bV
-	p4dqgLZV+L0eBZCAnhsbfcuBzywkaHrQVadmEGplH4nhujTOQ9mEZ96cXrvpAQ==
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="o9qzV6/t"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=VY8BIT8QfLkUraG1i9FG2AkXjeQpQZ1ABuZnQEaNl2Q=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788178160; v=1; x=1788782960;
+ b=o9qzV6/tIH6KZWL3kHJGaaPbSF0mLI5CZg+mHplYXUQBrtenJebU+rWAcFS9pVzt6wiC+aMz
+ u37kvPMClZL8+m+urIbjQbBQF98MlGeVasm7aBPFRJQvdpLdq/6YViHIYNfbcMayq0t46G5HLtp
+ tp1ImABeks9qczC4zGUmYQ6U=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 2c443c59b6b9db85;
+	Mon, 31 Aug 2026 12:09:10 +0000
+X-Mizu-Trace-ID: 2c443c59b6b9db85
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <bed66f22-8bf1-4328-a400-d214e15693e2@linux.dev>
+Date: Mon, 31 Aug 2026 13:09:09 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Mon, 31 Aug 2026 14:08:21 +0200
-From: Nicolai Buchwitz <nb@tipi-net.de>
-To: Maxime Chevallier <maxime.chevallier@bootlin.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, Jakub Kicinski <kuba@kernel.org>,
- davem@davemloft.net, Eric Dumazet <edumazet@google.com>, Paolo Abeni
- <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>, Russell King <linux@armlinux.org.uk>,
- thomas.petazzoni@bootlin.com, =?UTF-8?Q?Alexis_Lothor=C3=A9?=
- <alexis.lothore@bootlin.com>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [PATCH net-next] net: stmmac: Remove ARP offload code
-In-Reply-To: <20260831071351.354255-1-maxime.chevallier@bootlin.com>
-References: <20260831071351.354255-1-maxime.chevallier@bootlin.com>
-Message-ID: <adff6dc3cc322d52b1c1ba9c3176b433@tipi-net.de>
-X-Sender: nb@tipi-net.de
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/2] zstd: use cpu_feature_enabled() for in-kernel BMI2
+ dispatch
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: dsterba@suse.com, linux-kernel@vger.kernel.org, terrelln@fb.com,
+ terrelln@meta.com, linux-crypto@vger.kernel.org, yosry@kernel.org,
+ ebiggers@kernel.org, hannes@cmpxchg.org, nphamcs@gmail.com,
+ chengming.zhou@linux.dev, shakeel.butt@linux.dev, kernel-team@meta.com
+References: <20260830222100.2706175-1-usama.arif@linux.dev>
+ <20260830222100.2706175-3-usama.arif@linux.dev>
+ <CAHk-=wg3d5HUkgdWq4Ac74xoUDU_BiHTC_ONacwYFoXnMQZ7Pw@mail.gmail.com>
+Content-Language: en-US
+From: Usama Arif <usama.arif@linux.dev>
+In-Reply-To: <CAHk-=wg3d5HUkgdWq4Ac74xoUDU_BiHTC_ONacwYFoXnMQZ7Pw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Maxime
 
-On 31.8.2026 09:13, Maxime Chevallier wrote:
-> dwmac can do ARP offloading, where the HW replies to incoming ARP
-> requests. This requires multiple steps to work well :
->  - Program the local IP address in a dedicated register
->  - Enable ARP offloading
-> 
-> This is halfway implemented in stmmac, as it's only ever used by
-> selftests, and these selftests are failing on at least 2 platforms :
-> stm32mp1, and jh7110.
-> 
-> There have been some attempts in the past to support this feature, but
-> this never made it upstream. Let's just remove the test and that code,
-> until someone actually wants that to work. We should likely have a
-> proper API for that so that drivers can use it.
-> 
-> Let's also not mention ARP offload in the stmmac documentation.
-> 
-> Leave the defines in place and the capability detection, this doesn't
-> hurt and gives some information about how the IP is synthesized.
-> 
-> Signed-off-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
-> ---
 
-> [...]
+On 31/08/2026 00:06, Linus Torvalds wrote:
+> On Sun, 30 Aug 2026 at 15:21, Usama Arif <usama.arif@linux.dev> wrote:
+>>
+>> Add ZSTD_USE_BMI2() and use it at every runtime BMI2/default selector.
+> 
+> Thanks, this looks sane to me.
+> 
+> I do still react to a couple of places. Notably, this part (repeated a
+> couple of times):
+> 
+>> +#if !defined(ZSTD_USE_KERNEL_CPU_FEATURES)
+>>      cctx->bmi2 = ZSTD_cpuSupportsBmi2();
+>> +#endif
+> 
+> should probably be an "set state" macro the same way ZSTD_USE_BMI2()
+> is now a "get state" macro.
+> 
 
-Reviewed-by: Nicolai Buchwitz <nb@tipi-net.de>
+Ack, have added ZSTD_SET_BMI2():
 
-Thanks,
-Nicolai
+#if !DYNAMIC_BMI2
+#  define ZSTD_USE_BMI2(bmi2) 0
+#  define ZSTD_SET_BMI2(state, value) do { } while (0)
+#elif defined(ZSTD_USE_KERNEL_CPU_FEATURES)
+#  define ZSTD_USE_BMI2(bmi2) cpu_feature_enabled(X86_FEATURE_BMI2)
+#  define ZSTD_SET_BMI2(state, value) do { } while (0)
+#else
+#  define ZSTD_USE_BMI2(bmi2) (bmi2)
+#  define ZSTD_SET_BMI2(state, value) do { (state) = (value); } while (0)
+#endif
+
+will use above in next revision.
+> And:
+> 
+>> +ccflags-$(CONFIG_X86) += -DZSTD_USE_KERNEL_CPU_FEATURES
+> 
+> We don't have anything like this for any other ZSTD defines, so my gut
+> feel is that either this is in the wrong place, and it should be in
+> something like
+> 
+>    lib/zstd/common/zstd_deps.h
+> 
+> which already has kernel-specific stuff in it, or it should just use
+> #ifdef __KERNEL__ like we use elsewhere for things that are also used
+> by user space.
+> 
+
+Ack, removed it from the Makefile for next revision.
+
+__KERNEL__ alone was insufficient because it is also defined for the x86
+compressed boot code. That environment defines __DISABLE_EXPORTS and cannot
+use the normal alternatives infrastructure, so it retains zstd’s raw-CPUID
+path.
+
+I have added 
+
+#if defined(__KERNEL__) && defined(CONFIG_X86) && \
+    !defined(__DISABLE_EXPORTS)
+#define ZSTD_USE_KERNEL_CPU_FEATURES
+#endif
+
+in lib/zstd/common/zstd_deps.h for the next revision.
+
+
+> The whole situation with ZSTD configuration is a bit strange. I note
+> that there are things like ZSTD_ARCH_ARM_NEON that the kernel never
+> uses.
+> 
+> Why is "DYNAMIC_BMI2" a settimg but things like that
+> ZSTD_ARCH_X86_SSE2 and ZSTD_ARCH_ARM_NEON are never set? This all
+> looks messy.
+> 
+
+DYNAMIC_BMI2 is defined in lib/zstd/common/portability_macros.h.
+
+ZSTD_ARCH_X86_SSE2 and ZSTD_ARCH_ARM_NEON are upstream zstd configuration
+knobs. The kernel import is generated with ZSTD_NO_INTRINSICS [1], so their
+automatic definitions are disabled even though some guarded references
+remain in the imported source. The kernel cannot use SSE/NEON transparently
+because that requires architecture-specific SIMD/FPU state management, whereas
+BMI2 operates only on general-purpose registers.
+
+[1] https://github.com/facebook/zstd/blob/dev/contrib/linux-kernel/Makefile#L30
+
+> Or is there some hidden config I didn't find?
+> 
+> Strange.
+> 
+>              Linus
+
