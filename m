@@ -1,176 +1,121 @@
-Received: from www262.sakura.ne.jp (www262.sakura.ne.jp [202.181.97.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo1-f54.google.com (mail-oo1-f54.google.com [209.85.161.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B68B2473C8D;
-	Mon, 31 Aug 2026 15:51:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.181.97.72
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788191509; cv=none; b=BE2e6IVqUy/psO0tqjeaR7AUmHE2+LbaQm7Ecf1WAr5Owws9fnfdd8EVlnYPOhQTddXEjp7sjsBYasZJqJbaCg8COXbQviCs7E4/ew8DZT3TYzSo1se2UUYyxpNG13cwnzvCMUYR2VWUFNwXgq+JLB75eNQBPEtck6K5frTHcAo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788191509; c=relaxed/simple;
-	bh=bBVowiB5dS8JjB/FFWssLYEWYbCErytHxenCEPiDcoQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=PkV5hnBLX7/JzF6Vdf2fzwbrsOsODNoIaEYXFGHYPuDds1IFdIuB3KYyv9yKe0MW6yizvL0S8TC0a6KpbVFjoQ5gU+RuDykh56A8lPqRjNBgwH/vnFqkJHu2qY7VpA/h8R0ZIA8b21YReCoSPKadlXcHikJRoccaTWYplCivrSE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=I-love.SAKURA.ne.jp; spf=pass smtp.mailfrom=I-love.SAKURA.ne.jp; arc=none smtp.client-ip=202.181.97.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=I-love.SAKURA.ne.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=I-love.SAKURA.ne.jp
-Received: from www262.sakura.ne.jp (localhost [127.0.0.1])
-	by www262.sakura.ne.jp (8.15.2/8.15.2) with ESMTP id 67VFnte6047028;
-	Tue, 1 Sep 2026 00:49:55 +0900 (JST)
-	(envelope-from penguin-kernel@I-love.SAKURA.ne.jp)
-Received: from [192.168.1.6] (M106072072000.v4.enabler.ne.jp [106.72.72.0])
-	(authenticated bits=0)
-	by www262.sakura.ne.jp (8.15.2/8.15.2) with ESMTPSA id 67VFntWh047025
-	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NO);
-	Tue, 1 Sep 2026 00:49:55 +0900 (JST)
-	(envelope-from penguin-kernel@I-love.SAKURA.ne.jp)
-Message-ID: <30528b67-6ff9-4512-892b-f48d819e100f@I-love.SAKURA.ne.jp>
-Date: Tue, 1 Sep 2026 00:49:51 +0900
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9952E47426E
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 15:52:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.161.54
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788191526; cv=pass; b=huupKmnDak4AsVS347WT16ewkfZMvaF5oKDBR++0NUfhfl53wsgsnMNHroF3XURvpnfgs6MbfEhbSIAF/E2rii2480hwDcuIlYot+PtiyTKbt1vY+n9dGNEOCGb0mkcdC9n4JUx15/ep+9Os2iy6zkkb4sTeBpLzX5c2e4A3f8I=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788191526; c=relaxed/simple;
+	bh=yIMH67iFY/zDCqJa0/kWLUzmpSflEFAoQKZH6A3GiNo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=jjB/Xv/0ykPj6LAgyXuE17xvSdXz9flMx0vbJ2J8CWSVpCOmyGpP4PGU/ZLM85gzWp4VHo4fVpy4jZs9hy16tNBiOu4hjf1bdErfstIlU29x5QDW0bCEaTwG6kgsKUeaVPyzU9m6NanJwY+zbABBelZphCL31aZKBJE4M0pt0jc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LY8a6GUf; arc=pass smtp.client-ip=209.85.161.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LY8a6GUf"
+Received: by mail-oo1-f54.google.com with SMTP id 006d021491bc7-6b128dd0cb1so1052141eaf.3
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 08:52:04 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788191523; cv=none;
+        d=google.com; s=arc-20260327;
+        b=YTo/6idUv+oIHxZw1CPWSfsujTxvcsAK85/slawqSfWubwtlGLESlRuwNvO6jWOsgF
+         rEtyLYKqOQgiJAzrfxq7fvPDhyfVi5qm2LrTxuAD6nJLxSk4SvfYaQ7WQM7Zpdek70he
+         OM5MchvjuS9hez4ueobrxQv3wutPuGTieNb5W4MVOCK5jyv2AvxCVUaKWWVJN0OIXPlg
+         jcTml2zDb20xmLL2S7Pk/LhmDSA2lWR3gZIbrReMM33sOePgapRSxt/iFGs0bAJSTGk3
+         A+oNlK2KcbrL94bHfD/XHPwl7GS+oAweJZ55D/uJ2x+MtTxaK15zG0nrMSQXnBMlXyPc
+         wN7Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=gv8LTcghy3tRcsgV2tnBunUotldPm+945vyb/VPcFy4=;
+        fh=QJ+ADE7ML8Q1HKMD1uSgD8K06ThW7Ixx4Jg62unpDMI=;
+        b=azRfbOK5zT2qyLS7rZGQ4wY7fsbJTZfnfjrS6WBFJMukuQ0fr0W8qO3MWt+tlx7Pql
+         DHByODBLSTQRKWoTWIYLJ8ZazHWcq7g4ur/LtSHv3IeUehXeYKjUeS1OMZ25HoAkg/+b
+         9BfbYFSOwzNKYnL4wnOIcmjsBUGOiQuXNKNc4oKf7Q4o6c/PXZybuGN3dX8h13bbVOVU
+         RRMvyqK+Y6fmAecdABChgKQME0AoSFqLQaP//RFaBfCP94OrChm47nxa0Z17UqjGy6Ul
+         1znhcZnAPiMv89I++jmDxLpVjLajbZ53tCsUGYJeQx0J40Hygy/qyewn/nZER9Gb5UUV
+         5xGQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788191523; x=1788796323; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=gv8LTcghy3tRcsgV2tnBunUotldPm+945vyb/VPcFy4=;
+        b=LY8a6GUfSW1WuFwgiGseITvQUyDv8nqvd9hLvP0fLzH0DI4shTBICIQ9YsUow0bfUE
+         mreHwf1uGsittObwK++MrBy+qpEdTTaZDx6znpbNsW0/wcKsnfUx8xBg0LFJN8JwzqaK
+         6NzE6uCNTIClKSkWqLDsZ+QMyIHQnX74YsZJ2SzP7z7NBvuzeqLFGMucTApIYR14nYFc
+         frlC7RegaEBS+0jutVcp4eYSmVTGaVO2EuQB3lXFeGeSTxASHKH8OYSTJayVxJWSR2MU
+         KH+gvr7m97b7j1cGJ6euZwddyGeJrjOPE6j5zkAWJx+inu3Uk+wBw3VHY21ccT1E5vcP
+         OArg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788191523; x=1788796323;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=gv8LTcghy3tRcsgV2tnBunUotldPm+945vyb/VPcFy4=;
+        b=rTYjsF+daLj/Kg+dfNyNFes0NeYIfSz1Ll+WT7e3UBTWBt+UDoFonzgj6vQTBgA32M
+         jKv2Lw5KNi8IcYUSNCK7Ydju4WcriaHRZcUQ5GC0tfe4EFrV02BTlQI/LKgCwb1qNh/u
+         BiBvtP4QVArrhFfeu6qRIc31hjMx3eTXLsj2ZfaXXg41WbalfmLY+vBXd1eMN6jeYm/C
+         0PQ3ylLmQrbpS0j3Udjqye2UK0dzQIri3/o8+yVYjv7m8TQW6os/5ll1fGGedCOERDvA
+         HOtsrtMzavZFGERXpNEK1my5Ctht1M1ngGk8sFeXpe7PkMJjc3NlAeH0jwulALvnR28f
+         6FiQ==
+X-Forwarded-Encrypted: i=1; AHgh+RrLwnH8CoDMxEiTIa3drFx5bB552bfTtJ97LYPcny0wL9E0rq5hRCwjXsYi1QRdybfXrdaB7BuENfyi3G4=@vger.kernel.org
+X-Gm-Message-State: AFuF++n0AM0NJfGI5Y5nuDTucImF2OJaBKLfvGKkIR96tm2K0z4puoOx
+	+pHvN0z7P3s7URm/DuVnlYxGDONANRZpTTX7ewxOwiD478R5O1HKdNg4NSImFt4hjYd9gx/LJbh
+	WbaHMS54E/S2BzZAcyZy2TLRp931Q8FE=
+X-Gm-Gg: AR+sD129HODDt75xWZFmJ0RYNXpzwTvzOXqQ/ZOOHUY2RaIUH1Nqhyv8rHgaE00b6hc
+	ym6BZnvzs7JuQzx24MFu+ioEmfeG8OJVk7Z0HKCrnf6C9D0S/wgX6vItZ0u+EM2Hod18tRH3o4y
+	olnjN4yBdd5gDrxmxCKtJ3bm5uGYA4bZvuUcbURnFtV+rI4XEJLGMU/AV4GSxjoWiHmU1XEjV0p
+	UAuG0gwuLiqqCMI+TWxEgZyg6wboz/lGjq7OrkQ/U0Zm0Yr6A9+nm4y+kF0m10w96NmUyunsvx3
+	1og59/yIQN7x9jfNw9Zo1M+MR1Vl0YDrNiIL0rSKdnpy1Am6u2IxDYZkxeRWziRu9Iy3LPf2/By
+	F
+X-Received: by 2002:a4a:d1f9:0:b0:6b1:a667:f0f5 with SMTP id
+ 006d021491bc7-6b1c673c239mr19248427eaf.20.1788191523257; Mon, 31 Aug 2026
+ 08:52:03 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7] loop: Fix NULL pointer dereference in lo_rw_aio()
-To: Tao Cui <cui.tao@linux.dev>, brauner@kernel.org
-Cc: Markus.Elfring@web.de, axboe@kernel.dk, broonie@kernel.org,
-        bvanassche@acm.org, dlemoal@kernel.org, hch@infradead.org, hch@lst.de,
-        hdanton@sina.com, linux-block@vger.kernel.org,
-        linux-btrfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-next@vger.kernel.org,
-        lkp@intel.com, oe-lkp@lists.linux.dev, oliver.sang@intel.com,
-        torvalds@linux-foundation.org, viro@zeniv.linux.org.uk,
-        Tao Cui <cuitao@kylinos.cn>
-References: <6a770a9c-2642-4392-9b9c-609836693f36@I-love.SAKURA.ne.jp>
- <20260831141143.704821-1-cui.tao@linux.dev>
-Content-Language: en-US
-From: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
-In-Reply-To: <20260831141143.704821-1-cui.tao@linux.dev>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Virus-Status: clean
-X-Anti-Virus-Server: fsav211.rs.sakura.ne.jp
+References: <20260829-surface-pro-11-volume-buttons-v1-1-ace589343a68@gmail.com>
+ <6f33aa1f-563a-4ad8-8c81-6f64fb64f6be@oss.qualcomm.com>
+In-Reply-To: <6f33aa1f-563a-4ad8-8c81-6f64fb64f6be@oss.qualcomm.com>
+From: Dale Whinham <daleyo@gmail.com>
+Date: Mon, 31 Aug 2026 16:51:26 +0100
+X-Gm-Features: AcwNN1VVfkTEW1Bwp9Kuf4cVK9-fWlNN-1KBCKmFxG5U1PmIDQuPO0voL3CHcBo
+Message-ID: <CAFcmK8j09=tGoEUnFwzY+8Te=dBGPBr=pc9C-3dZGwAEorOi_g@mail.gmail.com>
+Subject: Re: [PATCH] arm64: dts: qcom: x1-denali: Add volume up/down GPIO keys
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, 
+	=?UTF-8?B?SsOpcsO0bWUgZGUgQnJldGFnbmU=?= <jerome.debretagne@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for joining to this thread, Tao.
+On Mon, 31 Aug 2026 at 08:13, Konrad Dybcio
+<konrad.dybcio@oss.qualcomm.com> wrote:
+> Let's order the pin nodes by their gpio number
+>
+> otherwise:
+>
+> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+>
+> Konrad
 
-On 2026/08/31 23:11, Tao Cui wrote:
-> From: Tao Cui <cuitao@kylinos.cn>
-> 
-> Hi Tetsuo, Bart,
-> 
->> +	/* Step 1: Flush all outstanding I/O, without open_mutex held. */
->> +	/*
->> +	 * Now that loop_queue_rq() sees lo->lo_state != Lo_bound,
->> +	 * wait for already started loop_queue_rq() to complete.
->> +	 */
->> +	synchronize_rcu();
-> 
-> Your reply to Bart says loop_queue_rq() is called with RCU read
-> lock, but I don't see one.  The two call sites of ->queue_rq() are
-> blk_mq_dispatch_rq_list() and __blk_mq_issue_directly(), and
-> neither is wrapped in rcu_read_lock().  Direct issue from
-> blk_mq_submit_bio() runs in process context with no RCU read-side
-> critical section, so synchronize_rcu() does not wait for a
-> loop_queue_rq() that is already running there.  Only the softirq
-> dispatch path is an implicit RCU reader.
+(Resending as plain text, apologies)
 
-You can read sashiko's raw logs at https://sashiko.dev/#/log/49552 .
+Thank you Konrad - how about the gpio-keys { } section, should we
+re-order them to:
 
-  Okay, let's break this down. My initial thought is to examine how the `blk_mq_run_dispatch_ops`
-  macro is implemented. Specifically, how does it handle RCU read locks? It wraps the provided
-  `dispatch_ops` in either `rcu_read_lock()` or `srcu_read_lock()`, depending on the `BLK_MQ_F_BLOCKING`
-  flag. The loop device, however, is set up *without* this `BLK_MQ_F_BLOCKING` flag. Therefore,
-  `loop_queue_rq` executes under the protection of `rcu_read_lock()`.
+key-vol-up   { pm8550 6 }
+key-vol-down { pm8850 8 }
+switch-lid   { tlmm 2 }
 
-  Now, the critical question: Does the `synchronize_rcu()` call in `__loop_clr_fd` effectively address
-  the potential race conditions? Since `loop_queue_rq()` is indeed RCU-protected, `synchronize_rcu()` will
-  correctly wait for all currently executing instances of `loop_queue_rq()` to complete. Furthermore,
-  the `lo_state` transition to `Lo_rundown` before calling `__loop_clr_fd` ensures that any *new* calls to
-  `loop_queue_rq()` will see this state and return an error. This perfectly fences the execution of
-  `loop_queue_rq()`. Moreover, `drain_workqueue()` then makes sure all queued works are completed, and
-  these are scheduled by `loop_queue_rq()`. This is great; all scheduled works are completed before
-  clearing `lo->lo_backing_file`.
-
-> 
-> The window is still closed by the steps below, so this is not a
-> correctness bug, but the synchronize_rcu() is not doing what the
-> comment claims.  blk_mq_quiesce_queue() +
-> blk_mq_wait_quiesce_done(), as Bart suggested, would express the
-> intent directly.
-
-synchronize_rcu() + drain_workqueue() can be implied by blk_mq_freeze_queue() + blk_mq_unfreeze_queue().
-But why are you talking about blk_mq_quiesce_queue() + blk_mq_wait_quiesce_done() ?
-
-> 
->> +	/*
->> +	 * Now that no more AIO requests are scheduled by lo_rw_aio(),
->> +	 * wait for already started AIO to complete.
->> +	 */
->> +	blk_mq_unfreeze_queue(lo->lo_queue, blk_mq_freeze_queue(lo->lo_queue));
-> 
-> About this step, in your follow-up you wrote:
-> 
->>   (1) since we are in lo_release() with disk_openers(disk) == 0, the activity of
->>       incrementing/decrementing q_usage_counter (incremented before loop_queue_rq()
->>       is called, and decremented after loop_queue_rq() returned BLK_STS_IOERR)) will
->>       cease shortly
-> 
-> The decrement timing here is only true for the error path.  For
-> BLK_STS_OK the reference is held until the request is freed, which
-> is what makes blk_mq_freeze_queue() wait for requests that already
-> passed the state check, including the loop workqueue worker that
-> completes them.  That is the property step 1 relies on, and it is
-> worth stating in the comment.
-> 
-> What is still open is Bart's question about io_uring fixed files:
-> if submissions can continue after the last close, "cease shortly"
-> does not hold, and it is the freeze wait that actually drains them.
-
-If submissions can continue _forever_ despite disk_openers(disk) == 0, what
-mechanism was preventing this problem from occurring until Linux 7.0 ?
-
-> 
->> +	if (need_clear) {
->> +		/*
->> +		 * Grab all references that will be dropped as soon as
->> +		 * returning from lo_release() and releasing disk->open_mutex.
->> +		 */
->> +		get_device(disk_to_dev(disk));
->> +		__module_get(disk->fops->owner);
->> +		queue_work(system_long_wq, &lo->lo_clr_work);
->> +	}
-> 
-> With teardown now asynchronous, between the last close()
-> returning and the work item finishing, lo_open() and
-> LOOP_CONFIGURE return -ENXIO.  That is the same behavior change
-> that led to the revert of the earlier attempt (bf23747ee053,
-> xfs/259).  Moving the xfstests side to the tests is one thing, but
-> userspace that closes a loop device and immediately reconfigures
-> it now needs to handle a transient -ENXIO.  Is that acceptable, or
-> should the retry happen in the kernel?
-
-Does whether the teardown being synchronous or asynchronous matter so much?
-
-I don't think we can control when e.g. udev-worker becomes the thread
-who actually calls __loop_clr_fd()
-( https://lkml.kernel.org/r/9f8b5ab0-efbc-4cf3-a1f8-b43377416946@I-love.SAKURA.ne.jp ).
-Even if an existing user app calls close() immediately followed by open(),
-we can't prove that __loop_clr_fd() is synchronously called by that user app
-because udev-worker can jump in and udev-worker becomes the thread who actually
-calls __loop_clr_fd().
-
-   An user app     udev-worker
-   -----------     -----------
-                    open()
-    close()
-    open() // => succeeds due to Lo_bound state
-    ioctl(LOOP_CONFIGURE) // => fails with -EBUSY due to Lo_bound state
-    close() // <= gives up due to ioctl() failure
-                    close() // => becomes  Lo_rundown and __loop_clr_fd() is called
-
-A claim that mentions that the kernel is unable to release forever due to a refcount
-leak bug is valid. But a claim that mentions that the kernel cannot prove that
-this -ENXIO or -EBUSY problem never happens is invalid. Programs that use the loop
-device have to be prepared for transient errors.
+Cheers,
+Dale
