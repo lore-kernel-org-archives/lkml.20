@@ -1,645 +1,363 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from canpmsgout03.his.huawei.com (canpmsgout03.his.huawei.com [113.46.200.218])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92913403B0E
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 12:33:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=170.10.129.124
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788179599; cv=pass; b=tprttUjXKDwz81sWQTmkJ/Zs1DUk0fTlZzLw/xtVfdnvNH7CTSVLhtqn7zS54Qp3BDMtoesgfCc3LvjOAplXkTg8G4LsTQ5PULVCjgVTdOilsLjgmkTShlTUxovuI2ORD3jcYFHhHJO4m1QUV9TSe/aoAzyWr63M4Q+XOgEKMK8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788179599; c=relaxed/simple;
-	bh=gaRkedV713MsnXzEO4CGtOGQLpcQnFwA/KGBiZD2p+A=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=q0HdL2Vg4kJBy03ThrCl9qBJK6rINjjirX5GkK73GvFsoCGtI957Mc6u4VjLis2rC6h+j+eXcLxYQnkAzwws5ejyxTBk9ms+ROF4TiNUGz0HQVxtNrSofFf0GMZ4/6/cV30M+n0K1aTZLRTPtejZ5PXo34bDTyJff6OFc2cEDX4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=YaZSO/bu; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=M5b0yJkc; arc=pass smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 783E7403E8D;
+	Mon, 31 Aug 2026 12:33:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.218
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788179605; cv=none; b=HhP9pTmbhn+kNaRN7tplTBWQ1uDgbwLhijts9pD49Pba5dWyhyaEL38HQ/JRpiqLI86y2BK5Za1uNX5wrHKtRa7c0IijHOuNpuz6+xWm4zVuMZcoGr3n1reZ0WDkFTwfyvGz2wncymb66WOLeIgwQOK17sZjAsDYZSUBTv95nCc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788179605; c=relaxed/simple;
+	bh=LipF+ezf1dLnmQb806KuDeBToDZpZDGXBhtBV0OAQiM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=u9wJJH+OV4QjubNRyhmo+vntRVDiLUzAqxQH/hwW1zsWevBcqsJqfsIvsnaDHBojUkNllCDLLRpkis5ynEXUdwIGa0PrZKqskmje8W/GUvZTo2jkzyitUTobI3ydJPczrWfgzfoIkKrSEeDC6WIUDkbij4N8traQYm3+Kr0sS8U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=d50GcVg9; arc=none smtp.client-ip=113.46.200.218
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="YaZSO/bu";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="M5b0yJkc"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788179596;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=vykGLcQWkbD8ivoSk8Q9cZUvO6Y0xtJU1XX9cOdfeIs=;
-	b=YaZSO/bu4CFE8YRWSDDXVapV/akVqXwhTJd5pasQ1fpBoHA20dbYe2vqqs+oLYYcVKtua/
-	lysKPLINoxt5FJy5SUc+zgl08EuFVFH9024aZDxqZMFyI8kY1A9p+OmUGwOaS+vI+bsYqa
-	n2rhcNFz4RH+vm/JMVxqZxsxYk9FhxE=
-Received: from mail-yw1-f199.google.com (mail-yw1-f199.google.com
- [209.85.128.199]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-179-955yIthbNN-nq2Oa7o88XA-1; Mon, 31 Aug 2026 08:33:14 -0400
-X-MC-Unique: 955yIthbNN-nq2Oa7o88XA-1
-X-Mimecast-MFC-AGG-ID: 955yIthbNN-nq2Oa7o88XA_1788179594
-Received: by mail-yw1-f199.google.com with SMTP id 00721157ae682-858b746a9a8so76397767b3.2
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 05:33:14 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788179594; cv=none;
-        d=google.com; s=arc-20260327;
-        b=l4+sVPivfCK/eCFBdaaeGqcke1hgg1bjlmSzAyAE6For0qOLsli0X3CBAn/KSBRgJv
-         xm0klNkab3ZvLi6rpC8amIYPXaWlexoY/fE8VwrwbT7d/pn2MqWcs772ZNJmQ9uMcn5N
-         EgbWWiqk5A2SVNUkqZ1N27P4H10gQeMXqmzUhLg9Dw5mM9uW44KJZIWXkpQ33wYmwFaH
-         6klQ7DHHFIpLWfhKLd2d2SfgtyICPGO0kzQyBancGi1gwRY+dluhWrOhdNHM7syqnoWe
-         Pd3ZMgksw31BWofIb+b90aqdFGGP4gdeicFp/BztxXfdsojJCsUOsoLqFRzIPLZGH89A
-         iDLw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=vykGLcQWkbD8ivoSk8Q9cZUvO6Y0xtJU1XX9cOdfeIs=;
-        fh=/3L+WIHO7oxwBsyqIdXOl/Sh7ck8rzoMQcwmcQvB9Ls=;
-        b=MuOyIjMgCiJpzd2iHRTNr9ndTUmt5UEudJBCBAOiWaHlaRewZYIKcFZeJRxPiOE3Zr
-         Z4NcGnOJvswkS6viCVmLsOvqVtIxALD4FVF3sZbzgnsm3iELlCcLV29eyPIL+8gJOWyf
-         p4ADVtTgqeLlVvq5MEVhhE1qVVkUcWWiahfjfKk8f5+qZOe6hQdvOsmpAXvPstfHFnwS
-         TIOFqtnxBZgK4zmuMRcpK0LMMIsStcCHO3FDZZ+czs5mIELPl7cQuIp0TrCmsFgloryA
-         4UdWjpeOKW+8+/Wg5ixzAwMRL/JjMzMLUhHfT68is+ci6IeDa3f6VX1twUSpU44dcCyH
-         M6FQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1788179594; x=1788784394; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=vykGLcQWkbD8ivoSk8Q9cZUvO6Y0xtJU1XX9cOdfeIs=;
-        b=M5b0yJkch9jbyAmN49IAK3k5cXukhmc2QAKQnn1Pti5wNEpRpH9BDAJ/dSjrN0h1Yu
-         CgCTUwV1Wx8kxTYLyhnshVAZ/7WuFA/eCYeKVDcUNDAZPoTpQliAvhmGn9mTorovf6RF
-         rubviHBLB8iK6s+M580thkSldGBovfOL2YEqoifAL4ALNdiMLADc61ZZlHWN/Jv7XOkq
-         J1L8/a/pxkAU/EWDfhIUSgKBxXNU6TT8R5inqo2Dl1XmW37DtkpAYtvnxa7tGoHqeB2Z
-         yyKtlabTonVLYu10YZFetKVl6RNKvtaUSrEmSeO+gtaW0TccvbT1F8RObGuAIaMFz87Z
-         SNgg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788179594; x=1788784394;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vykGLcQWkbD8ivoSk8Q9cZUvO6Y0xtJU1XX9cOdfeIs=;
-        b=IBmumWZl+gWT/xXBfOF9OZmHSf8u5DZ1V4wdtyQBmBgjGObUHZaONnJBvwZ2ubbkqY
-         /Af4BxdU1Wt8RPmQGF/BILUMt0qXFkJXfsGwSZBbdZIDYnx2oY3+BZUrFGV12ZlDjFnD
-         aGyfMWIDwcVH+JYD+s3dbNAVWyAW6A2D3Cqg71fIzjVEo5ao03+1e/vrZ9T0W2BwktVN
-         7/HSKxRm/2VWLd6a8yItKZ0Oi6QwKtMqh2i3cNGmKzdOTcdn2Ns9bHtd/0eTOeifg/d8
-         w2pp/2RIIw+ps86xSGbhB6OANRiaxNZvdTS2ZaAX8Wdpr35ETXnGugID6EVhkV/+bJLC
-         OAAA==
-X-Forwarded-Encrypted: i=1; AKwUvBy+CHWN+3QnN+gpeOQe4RtHiAKeq4WGRMocPUTXkkt1HzDc4EW6OluyM91LMN/v/VmcK1GIQOhs9DdulLM=@vger.kernel.org
-X-Gm-Message-State: AFuF++m2JGVG7J38EQRVUpby7bBP6ymij1PHNHl17aeabTqX8m3K5ZuG
-	ASBI+KX3/KBJLphNXSFfiRDhEL5XEPlfERtxqKoeo5AzV4Dzw4wJsVLb/k2bzIKH6VdVIu0dvl1
-	T4gQ9lADIpxp+hPrq5M+sAkHNhSwFnSOmUdSFunnjrGnWmbwpjXBx3wzoUoUR8uUng/88dGskRi
-	NwoO63jMLrXYRNDeM9BsMi7pDY62ODx/2Xj2LxqF/o
-X-Gm-Gg: AYBFou0QU53j5zj1MYmd0OjlnHExpGLt4Fs9oU9laXl6ez7dYGnRgUceUjkNa8JL+B3
-	UJvqnMahcpR93PoI47ETqTP1pxodFkbaRpeNhKGieQexCN8CBUeXKTiflSmuRePu7OZ4f1ndMdg
-	uCdTrR4i8CT2QK5kmSFCh/r7K5hCZvhy4No4TEnd5tIqsfJJCfZ3ltWZg=
-X-Received: by 2002:a05:690c:12:b0:81f:2403:9e70 with SMTP id 00721157ae682-86874be3a5cmr2835067b3.19.1788179594030;
-        Mon, 31 Aug 2026 05:33:14 -0700 (PDT)
-X-Received: by 2002:a05:690c:12:b0:81f:2403:9e70 with SMTP id
- 00721157ae682-86874be3a5cmr2834877b3.19.1788179593435; Mon, 31 Aug 2026
- 05:33:13 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="d50GcVg9"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=tp4izLt67GiouSHRwSRBi/iNUZc5SeFLPnsr3Anc/o0=;
+	b=d50GcVg9ommDMtAAZTXsj94yZNWlJxiekP+aJWynKQxgGPjpygW01pDRixs4fGlsgb13RP5Tm
+	yV43mKeR37jz0/dMCjtQRYOASkNLkZfMdkF8rtgYM+qgLFxfnKfMI3PhNAcIXDbaLAyAxjzjLfY
+	DzE3rWKjUGQDymnsbP0YtvM=
+Received: from mail.maildlp.com (unknown [172.19.163.0])
+	by canpmsgout03.his.huawei.com (SkyGuard) with ESMTPS id 4hYSm84GW1zpSvB;
+	Mon, 31 Aug 2026 20:22:00 +0800 (CST)
+Received: from kwepemr100010.china.huawei.com (unknown [7.202.195.125])
+	by mail.maildlp.com (Postfix) with ESMTPS id 0E26740537;
+	Mon, 31 Aug 2026 20:33:18 +0800 (CST)
+Received: from [10.67.120.103] (10.67.120.103) by
+ kwepemr100010.china.huawei.com (7.202.195.125) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Mon, 31 Aug 2026 20:33:17 +0800
+Message-ID: <6a20e9cd-af54-4d99-a92d-eb57f4ff92c2@huawei.com>
+Date: Mon, 31 Aug 2026 20:33:16 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260706-kunit_cgroups-v5-0-6c42c8753468@redhat.com>
- <20260706-kunit_cgroups-v5-2-6c42c8753468@redhat.com> <aox7nCE6ety6s8iL@localhost.localdomain>
-In-Reply-To: <aox7nCE6ety6s8iL@localhost.localdomain>
-From: Albert Esteve <aesteve@redhat.com>
-Date: Mon, 31 Aug 2026 14:33:01 +0200
-X-Gm-Features: AcwNN1VESQqh0r-wdgek3mj8e31_XWzdy83B8uFKeigSXr8USOY8ZjvFSjh8Sv0
-Message-ID: <CADSE00KZNUVT41-nZ4O_v8DAihrOmysE2N_LOMH4QJf-+Ha4qg@mail.gmail.com>
-Subject: Re: [PATCH v5 2/4] selftests: cgroup: Add dmem selftest coverage
-To: =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>
-Cc: Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, Shuah Khan <shuah@kernel.org>, 
-	linux-kernel@vger.kernel.org, cgroups@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 3/6] KVM: arm64: Add auto DBM support for hardware
+ dirty tracking
+To: Leonardo Bras <leo.bras@arm.com>
+CC: Oliver Upton <oupton@kernel.org>, <maz@kernel.org>,
+	<catalin.marinas@arm.com>, <will@kernel.org>, <yuzenghui@huawei.com>,
+	<wangzhou1@hisilicon.com>, <yangjinqian1@huawei.com>,
+	<caijian11@h-partners.com>, <liuyonglong@huawei.com>, <yezhenyu2@huawei.com>,
+	<yubihong@huawei.com>, <linuxarm@huawei.com>, <joey.gouly@arm.com>,
+	<kvmarm@lists.linux.dev>, <kvm@vger.kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+	<seiden@linux.ibm.com>, <suzuki.poulose@arm.com>
+References: <96516762-f004-4c2a-a9c6-6fbad49ad6ae@huawei.com>
+ <amoZY8uGLf1PEpjK@LeoBrasDK>
+ <8e36e2c8-587f-4228-ab13-d6783927a281@huawei.com>
+ <45d76d0d-48e9-46a6-b1f9-691f840eba46@huawei.com>
+ <anBrvILpcSFhW7Wg@LeoBrasDK>
+ <95f1ebd4-be04-4684-be68-388f752a1379@huawei.com>
+ <anDCno9HdVI5UAls@LeoBrasDK>
+ <2070002d-94aa-4a5b-8df1-e8e0f0fd265c@huawei.com>
+ <anHIa5PDnF7r9EA4@LeoBrasDK>
+ <3808f469-5403-4f2e-85f0-8c6ca13068bd@huawei.com>
+ <anmvnclRTPS6an8e@LeoBrasDK>
+From: Tian Zheng <zhengtian10@huawei.com>
+In-Reply-To: <anmvnclRTPS6an8e@LeoBrasDK>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
+ kwepemr100010.china.huawei.com (7.202.195.125)
 
-On Mon, Aug 24, 2026 at 8:28=E2=80=AFPM Michal Koutn=C3=BD <mkoutny@suse.co=
-m> wrote:
->
-> On Mon, Jul 06, 2026 at 02:06:41PM +0200, Albert Esteve <aesteve@redhat.c=
-om> wrote:
-> > +static long long dmem_read_limit_for_region(const char *cgroup, const =
-char *ctrl,
-> > +                                         const char *region_name)
->
-> This should be replaceable with lib/cgroup_util.c:cg_read_key_long()
 
-True. I'll take care of it.
 
->
-> > +{
-> > +     char buf[4096];
-> > +     char *line, *saveptr =3D NULL;
-> > +     char fname[256];
-> > +     char fval[64];
-> > +
-> > +     if (cg_read(cgroup, ctrl, buf, sizeof(buf)) < 0)
-> > +             return -2;
-> > +
-> > +     for (line =3D strtok_r(buf, "\n", &saveptr); line;
-> > +          line =3D strtok_r(NULL, "\n", &saveptr)) {
-> > +             if (!line[0])
-> > +                     continue;
-> > +             if (sscanf(line, "%255s %63s", fname, fval) !=3D 2)
-> > +                     continue;
-> > +             if (strcmp(fname, region_name))
-> > +                     continue;
-> > +             if (!strcmp(fval, "max"))
-> > +                     return -1;
-> > +             return strtoll(fval, NULL, 0);
-> > +     }
-> > +     return -2;
-> > +}
-> > +
-> > +static long long dmem_read_limit(const char *cgroup, const char *ctrl)
-> > +{
-> > +     return dmem_read_limit_for_region(cgroup, ctrl, DM_SELFTEST_REGIO=
-N);
-> > +}
-> > +
-> > +static int dmem_write_limit(const char *cgroup, const char *ctrl,
-> > +                         const char *val)
-> > +{
-> > +     char wr[512];
-> > +
-> > +     snprintf(wr, sizeof(wr), "%s %s", DM_SELFTEST_REGION, val);
-> > +     return cg_write(cgroup, ctrl, wr);
-> > +}
-> > +
-> > +static int dmem_selftest_charge_bytes(unsigned long long bytes)
-> > +{
-> > +     char wr[32];
-> > +
-> > +     snprintf(wr, sizeof(wr), "%llu", bytes);
-> > +     return write_text(DM_SELFTEST_CHARGE, wr, strlen(wr));
-> > +}
-> > +
-> > +static int dmem_selftest_uncharge(void)
-> > +{
-> > +     return write_text(DM_SELFTEST_UNCHARGE, "\n", 1);
-> > +}
-> > +
-> > +/*
-> > + * First, this test creates the following hierarchy:
-> > + * A
-> > + * A/B     dmem.max=3D1M
-> > + * A/B/C   dmem.max=3D75K
-> > + * A/B/D   dmem.max=3D25K
-> > + * A/B/E   dmem.max=3D8K
-> > + * A/B/F   dmem.max=3D0
-> > + *
-> > + * Then for each leaf cgroup it tries to charge above dmem.max
-> > + * and expects the charge request to fail and dmem.current to
-> > + * remain unchanged.
-> > + *
-> > + * For leaves with non-zero dmem.max, it additionally charges a
-> > + * smaller amount and verifies accounting grows within one PAGE_SIZE
-> > + * rounding bound, then uncharges and verifies dmem.current returns
-> > + * to the previous value.
-> > + *
-> > + */
-> > +static int test_dmem_max(const char *root)
-> > +{
-> > +     static const char * const leaf_max[] =3D { "75K", "25K", "8K", "0=
-" };
-> > +     static const unsigned long long fail_sz[] =3D {
-> > +             (75ULL * 1024ULL) + 1ULL,
-> > +             (25ULL * 1024ULL) + 1ULL,
-> > +             (8ULL * 1024ULL) + 1ULL,
-> > +             1ULL
-> > +     };
-> > +     static const unsigned long long pass_sz[] =3D {
-> > +             4096ULL, 4096ULL, 4096ULL, 0ULL
-> > +     };
->
-> Possibly those could be signed (to save the casts down below).
->
-> > +     char *parent[2] =3D {NULL};
-> > +     char *children[4] =3D {NULL};
-> > +     unsigned long long cap;
-> > +     long long page_size;
-> > +     long long cur_before, cur_after;
->
-> Just `long` should be fine (with gcc).
->
-> > +     int ret =3D KSFT_FAIL;
-> > +     int charged =3D 0;
-> > +     int in_child =3D 0;
-> > +     long long v;
-> > +     int i;
-> > +
-> > +     if (access(DM_SELFTEST_CHARGE, W_OK) !=3D 0)
-> > +             return KSFT_SKIP;
-> > +
-> > +     if (find_selftest_region(root, &cap) !=3D 1)
-> > +             return KSFT_SKIP;
-> > +
-> > +     page_size =3D sysconf(_SC_PAGESIZE);
-> > +     if (page_size <=3D 0)
-> > +             goto cleanup;
-> > +
-> > +     parent[0] =3D cg_name(root, "dmem_prot_0");
-> > +     if (!parent[0])
-> > +             goto cleanup;
-> > +
-> > +     parent[1] =3D cg_name(parent[0], "dmem_prot_1");
-> > +     if (!parent[1])
-> > +             goto cleanup;
-> > +
-> > +     if (cg_create(parent[0]))
-> > +             goto cleanup;
-> > +
-> > +     if (cg_write(parent[0], "cgroup.subtree_control", "+dmem"))
-> > +             goto cleanup;
-> > +
-> > +     if (cg_create(parent[1]))
-> > +             goto cleanup;
-> > +
-> > +     if (cg_write(parent[1], "cgroup.subtree_control", "+dmem"))
-> > +             goto cleanup;
-> > +
-> > +     for (i =3D 0; i < 4; i++) {
->
->         for (i =3D 0; i < ARRAY_SIZE(children); i++) {
->
-> > +             children[i] =3D cg_name_indexed(parent[1], "dmem_child", =
-i);
-> > +             if (!children[i])
-> > +                     goto cleanup;
-> > +             if (cg_create(children[i]))
-> > +                     goto cleanup;
-> > +     }
-> > +
-> > +     if (dmem_write_limit(parent[1], "dmem.max", "1M"))
-> > +             goto cleanup;
-> > +     for (i =3D 0; i < 4; i++)
->
->         for (i =3D 0; i < ARRAY_SIZE(children); i++) {
->
-> > +             if (dmem_write_limit(children[i], "dmem.max", leaf_max[i]=
-))
-> > +                     goto cleanup;
-> > +
-> > +     v =3D dmem_read_limit(parent[1], "dmem.max");
-> > +     if (v !=3D 1024LL * 1024LL)
->
-> This...
->
-> > +             goto cleanup;
-> > +     v =3D dmem_read_limit(children[0], "dmem.max");
-> > +     if (v !=3D 75LL * 1024LL)
->
-> ...and these literals would be nicer with MB() macro and possibly added
-> similar KB() macro.
->
-> > +             goto cleanup;
-> > +     v =3D dmem_read_limit(children[1], "dmem.max");
-> > +     if (v !=3D 25LL * 1024LL)
-> > +             goto cleanup;
-> > +     v =3D dmem_read_limit(children[2], "dmem.max");
-> > +     if (v !=3D 8LL * 1024LL)
-> > +             goto cleanup;
-> > +     v =3D dmem_read_limit(children[3], "dmem.max");
-> > +     if (v !=3D 0)
-> > +             goto cleanup;
-> > +
-> > +     for (i =3D 0; i < 4; i++) {
->
->         for (i =3D 0; i < ARRAY_SIZE(children); i++) {
->
-> (to avoid unnamed non-trivial constant)
->
-> > +             if (cg_enter_current(children[i]))
-> > +                     goto cleanup;
-> > +             in_child =3D 1;
-> > +
-> > +             cur_before =3D dmem_read_limit(children[i], "dmem.current=
-");
-> > +             if (cur_before < 0)
-> > +                     goto cleanup;
-> > +
-> > +             if (dmem_selftest_charge_bytes(fail_sz[i]) >=3D 0) {
-> > +                     charged =3D 1;
-> > +                     goto cleanup;
-> > +             }
-> > +
-> > +             cur_after =3D dmem_read_limit(children[i], "dmem.current"=
-);
-> > +             if (cur_after !=3D cur_before)
-> > +                     goto cleanup;
-> > +
-> > +             if (pass_sz[i] > 0) {
-> > +                     if (dmem_selftest_charge_bytes(pass_sz[i]) < 0)
-> > +                             goto cleanup;
-> > +                     charged =3D 1;
-> > +
-> > +                     cur_after =3D dmem_read_limit(children[i], "dmem.=
-current");
-> > +                     if (cur_after < cur_before + (long long)pass_sz[i=
-])
-> > +                             goto cleanup;
-> > +                     if (cur_after > cur_before + (long long)pass_sz[i=
-] + page_size)
-> > +                             goto cleanup;
-> > +
-> > +                     if (dmem_selftest_uncharge() < 0)
-> > +                             goto cleanup;
-> > +                     charged =3D 0;
-> > +
-> > +                     cur_after =3D dmem_read_limit(children[i], "dmem.=
-current");
-> > +                     if (cur_after !=3D cur_before)
-> > +                             goto cleanup;
-> > +             }
-> > +
-> > +             if (cg_enter_current(root))
-> > +                     goto cleanup;
-> > +             in_child =3D 0;
-> > +     }
-> > +
-> > +     ret =3D KSFT_PASS;
-> > +
-> > +cleanup:
-> > +     if (charged)
-> > +             dmem_selftest_uncharge();
-> > +     if (in_child)
-> > +             cg_enter_current(root);
-> > +     for (i =3D 3; i >=3D 0; i--) {
->
-> ditto with ARRAY_SIZE
->
-> > +             if (!children[i])
-> > +                     continue;
-> > +             cg_destroy(children[i]);
-> > +             free(children[i]);
-> > +     }
-> > +     for (i =3D 1; i >=3D 0; i--) {
->
-> ditto with ARRAY_SIZE
+On 8/10/2026 7:01 PM, Leonardo Bras wrote:
+> On Wed, Aug 05, 2026 at 11:41:51AM +0800, Tian Zheng wrote:
+>>
+>>
+>> On 8/4/2026 7:10 PM, Leonardo Bras wrote:
+>>> On Tue, Aug 04, 2026 at 12:54:16PM +0800, Tian Zheng wrote:
+>>>>
+>>>>
+>>>> On 8/4/2026 12:32 AM, Leonardo Bras wrote:
+>>>>> On Mon, Aug 03, 2026 at 09:57:46PM +0800, Tian Zheng wrote:
+>>>>>>
+>>>>>>
+>>>>>> On 8/3/2026 6:21 PM, Leonardo Bras wrote:
+>>>>>>> On Mon, Aug 03, 2026 at 12:04:24PM +0800, Tian Zheng wrote:
+>>>>>>>>
+>>>>>>>>
+>>>>>>>> On 8/3/2026 9:33 AM, Tian Zheng wrote:
+>>>>>>>>>>>>>>> 09, 2026 at 06:40:23PM +0800, Tian Zheng wrote:
+>>>>>>>>>>>>>>>> -    if (prot & KVM_PGTABLE_PROT_W)
+>>>>>>>>>>>>>>>> +    if (prot & KVM_PGTABLE_PROT_W) {
+>>>>>>>>>>>>>>>>                 set |= KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W;
+>>>>>>>>>>>>>>>>
+>>>>>>>>>>>>>>>> +        /*
+>>>>>>>>>>>>>>>> +         * No DEVICE filter needed here:
+>>>>>>>>>>>>>>>> relax_perms is only called
+>>>>>>>>>>>>>>>> +         * on FSC_PERM faults. Device pages
+>>>>>>>>>>>>>>>> always get full RW from
+>>>>>>>>>>>>>>>> +         * initial mapping and are never write-protected during
+>>>>>>>>>>>>>>>> +         * migration, so they never trigger a permission fault.
+>>>>>>>>>>>>>>>> +         */
+>>>>>>>>>>>>>>>> +        if (pgt->flags & KVM_PGTABLE_S2_DBM)
+>>>>>>>>>>>>>>>> +            set |= KVM_PTE_LEAF_ATTR_HI_S2_DBM;
+>>>>>>>>>>>>>>>> +    } else {
+>>>>>>>>>>>>>>>> +        /*
+>>>>>>>>>>>>>>>> +         * Clear DBM on W→RO downgrade to prevent hardware from
+>>>>>>>>>>>>>>>> +         * silently upgrading RO+DBM back to W+dirty, which would
+>>>>>>>>>>>>>>>> +         * bypass KVM's write tracking and cause data corruption.
+>>>>>>>>>>>>>>>> +         */
+>>>>>>>>>>>>>>>> +        clr |= KVM_PTE_LEAF_ATTR_HI_S2_DBM;
+>>>>>>>>>>>>>>>> +    }
+>>>>>>>>>>>>>>>> +
+>>>>>>>>>>>>>>> This block makes it pretty evident that the DBM bit really *is* the
+>>>>>>>>>>>>>>> write permission bit. I'd much rather we
+>>>>>>>>>>>>>>> introduce the concept of dirty
+>>>>>>>>>>>>>>> state to the page table library and migrate the abstract write
+>>>>>>>>>>>>>>> permission to the DBM field, even if we don't have FEAT_HAFDBS.
+>>>>>>>>>>>>>>>
+>>>>>>>>>>>>>
+>>>>>>>>>>>>> Ohh, that's an amazing idea!
+>>>>>>>>>>>>
+>>>>>>>>>>>> Thinking about that again...
+>>>>>>>>>>>> If we adopt the encoding with DBM being the write-permission
+>>>>>>>>>>>> bit, and all
+>>>>>>>>>>>> PTEs have it since the start, how can we have lazy-splitting happening?
+>>>>>>>>>>>>
+>>>>>>>>>>>> Only way I think of is removing both DBM and S2_S2AP_W bit
+>>>>>>>>>>>> from writable
+>>>>>>>>>>>> PTEs during dirty-track enable, and re-adding them during
+>>>>>>>>>>>> the first write
+>>>>>>>>>>>> fault. If we don't remove the DBM bit, systems with HDBSS
+>>>>>>>>>>>> would just dirty
+>>>>>>>>>>>> it by hardware, without causing a fault.
+>>>>>>>>>>>>
+>>>>>>>>>>>> DBM=0 would need to happen only in the first write-protect (only on
+>>>>>>>>>>>> lazy-splitting). All other write-protecting would just clean
+>>>>>>>>>>>> the S2_S2AP_W
+>>>>>>>>>>>> bit, as everything is already split.
+>>>>>>>>>>>>
+>>>>>>>>>>>> Is that what was intended?
+>>>>>>>>>>>>
+>>>>>>>>>>>> Thanks!
+>>>>>>>>>>>> Leo
+>>>>>>>>>>>>
+>>>>>>>>>>> Hi Leo,
+>>>>>>>>>>>
+>>>>>>>>>>> I think the cleanest way to handle this is to simply avoid setting DBM
+>>>>>>>>>>> on block mappings. If we only set DBM on page-level PTEs, then block
+>>>>>>>>>>> mappings will naturally stay DBM=0 and trigger a write fault on first
+>>>>>>>>>>> access — exactly what we need for lazy splitting.
+>>>>>>>>>>>
+>>>>>>>>>>> When the fault occurs, the block gets split into page-level PTEs, and at
+>>>>>>>>>>> that point we can set DBM=1 on the resulting leaf entries. This way:
+>>>>>>>>>>>
+>>>>>>>>>>> 1. Lazy split works naturally (fault -> split -> set DBM=1)
+>>>>>>>>>>>
+>>>>>>>>>>> 2. No need to clear DBM globally at dirty-track enable
+>>>>>>>>>>>
+>>>>>>>>>>> 3. No special handling for block mappings
+>>>>>>>>>>>
+>>>>>>>>>>> So I think global DBM is still viable — we just need to filter out block
+>>>>>>>>>>> mappings when setting the DBM bit. That way the lazy split path
+>>>>>>>>>>> is preserved
+>>>>>>>>>>> without extra complexity.
+>>>>>>>>>>
+>>>>>>>>>> Hi Tian,
+>>>>>>>>>>
+>>>>>>>>>> Humm, but would not that be contrary to what Oliver suggested:
+>>>>>>>>>> changing the
+>>>>>>>>>> encoding from the PTE for all entries?
+>>>>>>>>>>
+>>>>>>>>>> (Like, if the PTE is writable, it has to have DBM set)
+>>>>>>>>>>
+>>>>>>>>>> IIUC what you said, on first faulting of the page in the VM:
+>>>>>>>>>> - If the entry is a page (level-3 leaf) and writable, add DBM
+>>>>>>>>>> - If it's a block entry (leaf but not a level-3), don't add DBM
+>>>>>>>>>>
+>>>>>>>>>> So after we enable dirty-logging:
+>>>>>>>>>> - a level-3 entry would not fault, using HDBSS, and
+>>>>>>>>>> - a block entry would fault, do the splitting, and add DBM to level-3
+>>>>>>>>>>        entries during the split.
+>>>>>>>>>>
+>>>>>>>>>> If I got that correct, that would be clean indeed.
+>>>>>>>>>>
+>>>>>>>>>> But then we would have a different encoding for block entries and page
+>>>>>>>>>> entries. In page entries, DBM could be used to say if the page is
+>>>>>>>>>> writable,
+>>>>>>>>>> but on block entries one would have to look at the 'dirty-bit'.
+>>>>>>>>>>
+>>>>>>>>>> Would that be ok?
+>>>>>>>>>>
+>>>>>>>>>> Thanks!
+>>>>>>>>>> Leo
+>>>>>>>>>>
+>>>>>>>>> Hi Leo,
+>>>>>>>>>
+>>>>>>>>> My initial concern was that clearing all DBM bits at the start of
+>>>>>>>>> migration would be too expensive, so I thought distinguishing between
+>>>>>>>>> level-3 entries and block entries would be better.
+>>>>>>>>>
+>>>>>>>
+>>>>>>> I think we expect it to be expensive, but since we already clean the
+>>>>>>> dirty-bit (ro/rw) bit, we can have both happening in the same write :)
+>>>>>>>
+>>>>>>> (since we only mark the DBM bit when we fault the memory on lazy-splitting,
+>>>>>>> we are expecting to have the same amount of writes to pagetable as we have
+>>>>>>> before HDBSS, both on faulting and 1st iteration cleaning)
+>>>>>>>
+>>>>>> Hi, Leo
+>>>>>>
+>>>>>> Actually, I have thought about this approach too, but if we clear DBM in
+>>>>>> kvm_pgtable_stage2_wrprotect(), then during the first round of
+>>>>>> migration, we will fault and release RO -> W, and then add DBM.
+>>>>>
+>>>>> Yeah, that's only for lazy-splitting, though.
+>>>>>
+>>>>>>
+>>>>>> But next time, when we migrate the dirty pages in round two, we will run
+>>>>>> kvm_pgtable_stage2_wrprotect() again, which will clear DBM again. And
+>>>>>> finally, HDBSS will be useless during migration.
+>>>>>
+>>>>> Right, on lazy splitting, we have to clean the DBM bit on the
+>>>>> write-protect only if it's a block entry (hugepage).
+>>>>>
+>>>>> Once it faults for the first time, it will lazy-split, and we don't need to
+>>>>> clean the DBM bit.
+>>>>>
+>>>>>>
+>>>>>>>
+>>>>>>>>> However, I ran a quick test on a 400GB VM (4 vCPUs), and the overhead
+>>>>>>>>> turned out to be around 30ns — which I think is acceptable.
+>>>>>>>>
+>>>>>>>> Just a quick correction — I misstated the unit in my previous email. The
+>>>>>>>> overhead for clearing DBM on the 400GB VM (4 vCPUs) was around 32 µs, not 30
+>>>>>>>> ns.
+>>>>>>>>
+>>>>>>>
+>>>>>>> Oh, that seems more likely :)
+>>>>>>>
+>>>>>>> Question: is tha above amount of memory initially in Level-1 blocks,
+>>>>>>> level-2 blocks or level-3 pages? (aka: were you using explicit/transparent
+>>>>>>> hugepages?)
+>>>>>>>
+>>>>>>
+>>>>>> I'm using transparent hugepages. However, if we were to use level-3 stage-2
+>>>>>> pages with -mem-prealloc enabled in QEMU, I believe the time cost would be
+>>>>>> extremely high — potentially out of our control.
+>>>>>>
+>>>>>
+>>>>> Yeah, that's the issue.
+>>>>> For this not to explode like this, we need to mark as RO only when the
+>>>>> entries are blocks AND we are doing lazy splitting.
+>>>>>
+>>>>> We have:
+>>>>> Mode	DBM	Dirty bit
+>>>>> RO	0	X
+>>>>> WC	1	0
+>>>>> WD	1	1
+>>>>>
+>>>>> On write-protect:
+>>>>> - Lazy splitting + block entry (hugepage, level 2-) -> RO
+>>>>> - Otherwise					    -> WC
+>>>>>
+>>>>> On first fault, the block entry will be lazy-splitten, and we can set DBM=1
+>>>>> in every new page.
+>>>>>
+>>>>> That way we guarantee that we are not faulting level-3 pages unecessarily,
+>>>>> nor need to go through the whole tree setting DBM=1 or DBM=0 on level-3
+>>>>> pages.
+>>>>>
+>>>>> How does that sound?
+>>>>>
+>>>>> Thanks!
+>>>>> Leo
+>>>>>
+>>>
+>>>>
+>>>> Hi Leo,
+>>>>
+>>>> I've also been thinking about this approach: clear
+>>>> KVM_PTE_LEAF_ATTR_HI_S2_DBM when kvm_pgtable_stage2_wrprotect() calls
+>>>> stage2_update_leaf_attrs(). And we can check whether a page is a block
+>>>> page during the page walk, right?
+>>>
+>>> Hi Tian,
+>>> That was what I was thinking :)
+>>>
+>>>>
+>>>> So we can check the page level in the walker callback
+>>>> stage2_attr_walker(), filter there, clear DBM for block pages and
+>>>> preserve DBM on level-3 pages. Something like this:
+>>>>
+>>>> ```
+>>>> pte &= ~data->attr_clr;      // wrprotect: clears S2AP_W only
+>>>> pte |= data->attr_set;
+>>>> if (ctx->level < KVM_PGTABLE_LAST_LEVEL)
+>>>
+>>> Only on lazy splitting, right?
+>>>
+>>> Or maybe we get the DBM bit on during eager splitting...
+>>
+>> Hi, Leo
+>>
+>> No, it works for both. Whether eager or lazy split, wrprotect always runs
+>> before split, so the block DBM is cleared first.
+> 
+> Hi Tian,
+> 
+> On eager splitting, why should we ever strip DBM?
+> 
+> Eager splitting means we won't have to fault to do the splitting, so we can
+> have HAFDBS/HDBSS handle every fault, including the first one that we use
+> for lazy-splitting.
+> 
+>>
+>> For eager split: wrprotect clears W (W=1->W=0) and strips DBM from the
+>> block. Then the block is split into level-3 pages, but since W=0 and DBM
+>> depends on W, DBM stays 0. DBM is only set back to 1 during the first write
+>> fault (relax_perms: W=0->W=1, which also sets DBM=1).
+> 
+> I suggest that, on splitting, set all writable level-3 pages with DBM=1.
+> If lazy-splitting, that will happen naturally on the first fault's split.
+> If eager-splitting that will happen during the split as well.
+> 
+> So total solution looks like:
+> - Dirty-logging on, walk the memslot pagetable
+>    - On block: mark as read-only
+>    - On page: mark as writable-clean
+> - On splitting: Mark writable block's new pages as writable-clean
+> - On fault: after the split, mark the faulting page as writable-dirty
+> 
+> This should take care of everything, including lazy/eager splitting
+> differences, as well as set the groundwork for HDBSS to work properly.
+> 
+> What do you think?
+> 
+> Thanks!
+> Leo
+> 
+> 
+> 
+Hi Leo,
 
-I'll address all the points raised (here and all the above).
+Yes, that's exactly the approach in v5.
 
->
-> > +             if (!parent[i])
-> > +                     continue;
-> > +             cg_destroy(parent[i]);
-> > +             free(parent[i]);
-> > +     }
-> > +     return ret;
-> > +}
-> > +
-> > +/*
-> > + * This test sets dmem.min and dmem.low on a child cgroup, then charge
-> > + * from that context and verify dmem.current tracks the charged bytes
-> > + * (within one page rounding).
->
-> I don't know, this doesn't test much of the .min nor .low protection,
-> and the .current tracking is already tested by the above. I'd drop it
-> for now.
+During write-protect, stage2_attr_walker() strips DBM from blocks (RO) 
+but keeps it on level-3 pages (WC). After a block is split, the new 
+level-3 pages are marked writable-clean. On the first write fault, 
+relax_perms() upgrades the faulting page to writable-dirty.
 
-Makes sense. I'll do that for the next version.
+So all three cases you listed are already covered:
 
->
-> > + */
-> > +static int test_dmem_charge_with_attr(const char *root, bool min)
-> > +{
-> > +     unsigned long long cap;
-> > +     const unsigned long long charge_sz =3D 12345ULL;
-> > +     const char *attribute =3D min ? "dmem.min" : "dmem.low";
-> > +     int ret =3D KSFT_FAIL;
-> > +     char *cg =3D NULL;
-> > +     long long cur;
-> > +     long long page_size;
-> > +     int charged =3D 0;
-> > +     int in_child =3D 0;
-> > +
-> > +     if (access(DM_SELFTEST_CHARGE, W_OK) !=3D 0)
-> > +             return KSFT_SKIP;
-> > +
-> > +     if (find_selftest_region(root, &cap) !=3D 1)
-> > +             return KSFT_SKIP;
-> > +
-> > +     page_size =3D sysconf(_SC_PAGESIZE);
-> > +     if (page_size <=3D 0)
-> > +             goto cleanup;
-> > +
-> > +     cg =3D cg_name(root, "test_dmem_attr");
-> > +     if (!cg)
-> > +             goto cleanup;
-> > +
-> > +     if (cg_create(cg))
-> > +             goto cleanup;
-> > +
-> > +     if (cg_enter_current(cg))
-> > +             goto cleanup;
-> > +     in_child =3D 1;
-> > +
-> > +     if (dmem_write_limit(cg, attribute, "16K"))
-> > +             goto cleanup;
-> > +
-> > +     if (dmem_selftest_charge_bytes(charge_sz) < 0)
-> > +             goto cleanup;
-> > +     charged =3D 1;
-> > +
-> > +     cur =3D dmem_read_limit(cg, "dmem.current");
-> > +     if (cur < (long long)charge_sz)
-> > +             goto cleanup;
-> > +     if (cur > (long long)charge_sz + page_size)
-> > +             goto cleanup;
-> > +
-> > +     if (dmem_selftest_uncharge() < 0)
-> > +             goto cleanup;
-> > +     charged =3D 0;
-> > +
-> > +     cur =3D dmem_read_limit(cg, "dmem.current");
-> > +     if (cur !=3D 0)
-> > +             goto cleanup;
-> > +
-> > +     ret =3D KSFT_PASS;
-> > +
-> > +cleanup:
-> > +     if (charged)
-> > +             dmem_selftest_uncharge();
-> > +     if (in_child)
-> > +             cg_enter_current(root);
-> > +     cg_destroy(cg);
-> > +     free(cg);
-> > +     return ret;
-> > +}
-> > +
-> > +static int test_dmem_min(const char *root)
-> > +{
-> > +     return test_dmem_charge_with_attr(root, true);
-> > +}
-> > +
-> > +static int test_dmem_low(const char *root)
-> > +{
-> > +     return test_dmem_charge_with_attr(root, false);
-> > +}
-> > +
-> > +/*
-> > + * This test charges non-page-aligned byte sizes and verify dmem.curre=
-nt
-> > + * stays consistent: it must account at least the requested bytes and
-> > + * never exceed one kernel page of rounding overhead. Then uncharge mu=
-st
-> > + * return usage to 0.
->
-> The lower bound makes sense. Could you explain more about the upper
-> bound and granularity? That applies only for the test module or is that
-> intended constraint for any dmem-charging driver?
+- Blocks -> RO
+- Pages -> WC
+- Fault -> WD
 
-Uhm, the upper bound was modeled on test_memcontrol.c. Those tests
-cannot match memory.current exactly, so use lower bound plus
-values_close().
-
-But for dmem, it isn't necessary; it accounts for the requested size
-with no page rounding or extra charge. I'll fix that and check for
-equality.
-
-Thanks for raising this.
-
->
-> > + */
-> > +static int test_dmem_charge_byte_granularity(const char *root)
-> > +{
-> > +     static const unsigned long long sizes[] =3D { 1ULL, 4095ULL, 4097=
-ULL, 12345ULL };
-> > +     char *cg =3D NULL;
-> > +     unsigned long long cap;
-> > +     long long cur;
-> > +     long long page_size;
-> > +     int ret =3D KSFT_FAIL;
-> > +     int charged =3D 0;
-> > +     int in_child =3D 0;
-> > +     size_t i;
-> > +
-> > +     if (access(DM_SELFTEST_CHARGE, W_OK) !=3D 0)
-> > +             return KSFT_SKIP;
-> > +
-> > +     if (find_selftest_region(root, &cap) !=3D 1)
-> > +             return KSFT_SKIP;
-> > +
-> > +     page_size =3D sysconf(_SC_PAGESIZE);
-> > +     if (page_size <=3D 0)
-> > +             goto cleanup;
-> > +
-> > +     cg =3D cg_name(root, "dmem_dbg_byte_gran");
-> > +     if (!cg)
-> > +             goto cleanup;
-> > +
-> > +     if (cg_create(cg))
-> > +             goto cleanup;
-> > +
-> > +     if (dmem_write_limit(cg, "dmem.max", "8M"))
-> > +             goto cleanup;
-> > +
-> > +     if (cg_enter_current(cg))
-> > +             goto cleanup;
-> > +     in_child =3D 1;
-> > +
-> > +     for (i =3D 0; i < ARRAY_SIZE(sizes); i++) {
-> > +             if (dmem_selftest_charge_bytes(sizes[i]) < 0)
-> > +                     goto cleanup;
-> > +             charged =3D 1;
-> > +
-> > +             cur =3D dmem_read_limit(cg, "dmem.current");
-> > +             if (cur < (long long)sizes[i])
-> > +                     goto cleanup;
-> > +             if (cur > (long long)sizes[i] + page_size)
-> > +                     goto cleanup;
-> > +
-> > +             if (dmem_selftest_uncharge() < 0)
-> > +                     goto cleanup;
-> > +             charged =3D 0;
-> > +
-> > +             cur =3D dmem_read_limit(cg, "dmem.current");
-> > +             if (cur !=3D 0)
-> > +                     goto cleanup;
-> > +     }
-> > +
-> > +     ret =3D KSFT_PASS;
-> > +
-> > +cleanup:
-> > +     if (charged)
-> > +             dmem_selftest_uncharge();
-> > +     if (in_child)
-> > +             cg_enter_current(root);
-> > +     if (cg) {
-> > +             cg_destroy(cg);
-> > +             free(cg);
-> > +     }
-> > +     return ret;
-> > +}
-> > +
-> > +#define T(x) { x, #x }
-> > +struct dmem_test {
-> > +     int (*fn)(const char *root);
-> > +     const char *name;
-> > +} tests[] =3D {
-> > +     T(test_dmem_max),
-> > +     T(test_dmem_min),
-> > +     T(test_dmem_low),
-> > +     T(test_dmem_charge_byte_granularity),
-> > +};
-> > +#undef T
-> > +
-> > +int main(int argc, char **argv)
-> > +{
-> > +     char root[PATH_MAX];
-> > +     int i;
-> > +
-> > +     ksft_print_header();
-> > +     ksft_set_plan(ARRAY_SIZE(tests));
-> > +
-> > +     if (cg_find_unified_root(root, sizeof(root), NULL))
-> > +             ksft_exit_skip("cgroup v2 isn't mounted\n");
-> > +
-> > +     if (cg_read_strstr(root, "cgroup.controllers", "dmem"))
-> > +             ksft_exit_skip("dmem controller isn't available (CONFIG_C=
-GROUP_DMEM?)\n");
-> > +
-> > +     if (cg_read_strstr(root, "cgroup.subtree_control", "dmem"))
-> > +             if (cg_write(root, "cgroup.subtree_control", "+dmem"))
-> > +                     ksft_exit_skip("Failed to enable dmem controller\=
-n");
-> > +
-> > +     for (i =3D 0; i < ARRAY_SIZE(tests); i++) {
-> > +             switch (tests[i].fn(root)) {
-> > +             case KSFT_PASS:
-> > +                     ksft_test_result_pass("%s\n", tests[i].name);
-> > +                     break;
-> > +             case KSFT_SKIP:
-> > +                     ksft_test_result_skip(
-> > +                             "%s (need CONFIG_DMEM_SELFTEST, modprobe =
-dmem_selftest)\n",
-> > +                             tests[i].name);
->
-> I'm worried that the KSFT_SKIP from a subtest might be too broad for the
-> modprobe prompt.
-> Perhaps you can check it by stat'ing DM_SELFTEST_CHARGE before any
-> subtests start?
-
-Agreed. I'll stat the helper in main().
-
-BR,
-Albert.
-
->
->
-> > +                     break;
-> > +             default:
-> > +                     ksft_test_result_fail("%s\n", tests[i].name);
-> > +                     break;
-> > +             }
-> > +     }
-> > +
-> > +     ksft_finished();
-> > +}
-> >
-> > --
-> > 2.54.0
-> >
+Thanks,
+Tian
 
