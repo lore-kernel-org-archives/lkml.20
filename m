@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB95B485508;
-	Mon, 31 Aug 2026 14:03:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44586485511;
+	Mon, 31 Aug 2026 14:03:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788184986; cv=none; b=ByVdPLYoqojnl2c0XbBnO2L2XSl/ik1EWg3trDZq5unlay0BKqPLAVVS1yapqUZg+OeDRpuQsB7NF+15OQSUxfBdIpawYE60Tx3xCkQdh75Mh86DQ7mVqJovGpVRG4alVSAgeinJgo9i70B43dN/+oKJOLUWK8GdGDTAwhOLymY=
+	t=1788184986; cv=none; b=fyAk4p0bq8i4VC9pxD4TM+Hejd9N8bEo+Ao2csFI0s5okWDWgULJd8Eb54W9lTFG/4mB9ww4MccU7+ewfpMb6wiO3SmqbWz+YzRSJZVtqONg5PapE0yW59Ozgp2KI0RxjLwQHu0YatMHn395Eq4aGEPOvcIWXGaX0g7regOuGRc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788184986; c=relaxed/simple;
-	bh=1/nML6wnR05rkV9jNVuuWopWlORtCjTUs8FNgIFWA4w=;
+	bh=axrgDohB9pRR8QC5Ey27g+zeND1mCd5WgD3HP/J4WSg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=X7g6CV6F13901/7YikHeZk4K05fSf0A0i25UokZbSaPXChnii2kyrGBm/TfCuANiEKHzx/x0D0BdmYTinzL39NzXRkvw7Wb5Yk6FctBJ/TiYJF7mK/N381yoDrSM/nYt8OrMdizfLyPM3IGShZ5r2cehQqhiAW9LmOsa5NSjY8Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IS4NaUCZ; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Heei2wg+1l3v8PBbxfdGEeFVsiKk7BRQPZowyUWJeQ5870n350Dkih0/McXDOMwscEsAkMNYcn+k9gSxEvArjg1sgViXwKvyD+bQ2aE5xdq5cRw/OMZNgs92v8wtDW1byezQiBeQ45+OmVYnxxqzaKAIdI4dyCRDN1ISFiphcBs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oJxpLDdV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IS4NaUCZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97BF51F00ADB;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oJxpLDdV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA3581F000E9;
 	Mon, 31 Aug 2026 14:03:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788184984;
-	bh=XKdCBVqYdsKdXO80RoHHV0o5QsCfADzPQf1ZzSc7B9k=;
+	s=k20260515; t=1788184985;
+	bh=wjxFgW2qNu2RQvNA0pBq7+cQKGiXodxnzF3g5CFurUE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=IS4NaUCZQl4owxLyOXkjofnED5AIG5ZNyQRpkBVZBoyMt8ateeyXPEa7lNhU6i4J6
-	 OTne7u4RNdgEO8kTKPD835bdYHYEIzzIQsr5p73sCK04IEq+aDZU4YtXGL9/pCaiYr
-	 p0M+iMo+J64J/7zmfywqh5Eg8+fE6hGs9MEkbpP7sV94aXy52aO7mNVdDsIV9B8Fz7
-	 j9fPrxqbBOFfNuY2etAIKQua52nNoNhmwemNj6VzAu0yVgptcjyIMLlSBkrD5s8WK9
-	 TR4tehQpFQtRK9ajPeTGv+B1PNb1AcKYep11zfhv0Eh+3+1Lz4kHLDd2NQWjmQ05HJ
-	 nH3HY0AzQivCw==
+	b=oJxpLDdVlPHJRD4OBQA0YEmwv5RdeoyTODGHJk9zi6EAtfAJONJ12tMhjaLQE1cQS
+	 K0bCOwsuKK8My/5RD8Dac+hvm0QNFuUtBB4m122d1FgrK+mIhgUwZosoipv0Vb+FDk
+	 d83/CCEP66tbJ5ezQ6GmckTsnB7MUtDz+QoTH+HJwKTBoI0SJjnQFAMf+uBGViCT10
+	 TFjkYPQk8HRnfu2IMh8OxjHkCxn4BQSV8vhx2rvvdORWLOJP9dSfrF+KTHkEJhsxnG
+	 2ZpC9BBom8O8JJhlIWu462KRFCinaOzmClyX0wS8idLOa9EwGr2T4TW5XeOPHQn5di
+	 DtyQk2vgwPyjg==
 From: SJ Park <sj@kernel.org>
 To: 
 Cc: SJ Park <sj@kernel.org>,
@@ -34,9 +34,9 @@ Cc: SJ Park <sj@kernel.org>,
 	damon@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	linux-mm@kvack.org
-Subject: [RFC PATCH v1.2 6/8] mm/damon/core: handle extreme memory state in damon_get_node_mem_bp()
-Date: Mon, 31 Aug 2026 07:02:45 -0700
-Message-ID: <20260831140254.72004-7-sj@kernel.org>
+Subject: [RFC PATCH v1.2 7/8] mm/damon/core: handle extreme memory state in get_node_memcg_used_bp()
+Date: Mon, 31 Aug 2026 07:02:46 -0700
+Message-ID: <20260831140254.72004-8-sj@kernel.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260831140254.72004-1-sj@kernel.org>
 References: <20260831140254.72004-1-sj@kernel.org>
@@ -48,43 +48,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In an extreme and unlikely situation, si_meminfo_node() might let the
-caller show zero total ram.  That could cause a divide by zero in
-damon_get_node_mem_bp().  It could also show free memory larger than the
-total memory.  This could cause underflow and make DAMOS temporarily
-make unexpected behavior.  Thanks to safety guards in the auto-tuning
-feedback loop, that should not be a real problem, though.  Fix the
-problems by respectively returning 100% and 0% for used and free memory
-queries in the corner cases.
+In extreme unlikely situations, total memory might be zero.  In less
+extreme but still very unlikely situations, lruvec_page_state() calls
+might let the caller show used memory larger than total memory.  In the
+two cases, damos_get_node_memcg_used_bp() could cause division by zero,
+or return underflowed value, respectively.  Handle the cases by
+respectively returning 100% and 0% for used and free memory queries in
+the corner cases.
 
-The issue was discovered [1] by Sashiko.
+This issue was discovered [1] by Sashiko.
 
-[1] https://lore.kernel.org/20260328133216.9697-1-sj@kernel.org
+[1] https://lore.kernel.org/20260329154813.47382-1-sj@kernel.org
 
-Fixes: 0e1c773b501f ("mm/damon/core: introduce damos quota goal metrics for memory node utilization")
-Cc: <stable@vger.kernel.org> # 6.16.x
+Fixes: b74a120bcf50 ("mm/damon/core: implement DAMOS_QUOTA_NODE_MEMCG_USED_BP")
+Cc: <stable@vger.kernel.org> # 6.19.x
 Signed-off-by: SJ Park <sj@kernel.org>
 ---
- mm/damon/core.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ mm/damon/core.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
 diff --git a/mm/damon/core.c b/mm/damon/core.c
-index e2900d0c984c9..75d71ac09515e 100644
+index 75d71ac09515e..3779a04753061 100644
 --- a/mm/damon/core.c
 +++ b/mm/damon/core.c
-@@ -2816,6 +2816,13 @@ static __kernel_ulong_t damos_get_node_mem_bp(
- 	}
+@@ -2863,6 +2863,12 @@ static unsigned long damos_get_node_memcg_used_bp(
+ 	mem_cgroup_put(memcg);
  
  	si_meminfo_node(&i, goal->nid);
-+	if (!i.totalram || i.totalram < i.freeram) {
-+		if (goal->metric == DAMOS_QUOTA_NODE_MEM_USED_BP)
++	if (!i.totalram || i.totalram < used_pages) {
++		if (goal->metric == DAMOS_QUOTA_NODE_MEMCG_USED_BP)
 +			return 10000;
-+		else	/* DAMOS_QUOTA_NODE_MEM_FREE_BP */
++		else	/* DAMOS_QUOTA_NODE_MEMCG_FREE_BP */
 +			return 0;
 +	}
-+
- 	if (goal->metric == DAMOS_QUOTA_NODE_MEM_USED_BP)
- 		numerator = i.totalram - i.freeram;
- 	else	/* DAMOS_QUOTA_NODE_MEM_FREE_BP */
+ 	if (goal->metric == DAMOS_QUOTA_NODE_MEMCG_USED_BP)
+ 		numerator = used_pages;
+ 	else	/* DAMOS_QUOTA_NODE_MEMCG_FREE_BP */
 -- 
 2.47.3
