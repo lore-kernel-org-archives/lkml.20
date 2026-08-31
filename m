@@ -1,152 +1,210 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f53.google.com (mail-yx1-f53.google.com [74.125.224.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B010E34A78E;
-	Mon, 31 Aug 2026 17:04:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788195898; cv=none; b=ca9L2v8mGbGNXKLwqkPVUiHSxtASEaL03lMWgiScBf6zLCPJAmwete5F3J1Z0DQkW4bLI68a08YPk3sQRopK5UoHtvvu4BVesav/Y5u38BWLG8oMEOH1ZM3w37Nv4kVeaJYMeUkslziVi1O5EXWLutcgZMHyrsdFmKN4PTq8SDg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788195898; c=relaxed/simple;
-	bh=lG8xayAZb0TCrchSBn2U3X4gZ2fxxr4ler3a2QCsaWc=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=I5S9c2L1Z6yKgrexTWnvScevnDVOJ7aE+UdTXFRWJgIaAcwPGBRQKrtXwbfCG7kkMn0qQbx0+eoESNrRXkbvC/iaEcOmgwDVyZ+8naRZ7fswjuN4AOhqELSDs6Sh6II7eOoHcGn3uWn4rDwtL4DVUwjw7ZZ/G4Vm0dk19slSfXg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=EJqo0KX9; arc=none smtp.client-ip=192.198.163.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A32074657FE
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 17:05:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.53
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788195906; cv=pass; b=je14rF0B3hgtMA4S23opcciWbG6ve8Iyn3PiJqkxfAJ1A5AS3eQVHcKAeD5O3D2jgvbLMtqYxd4gaNh8lqJfaJR9XFLNS+WUiA6vlm6b0Q2YJVzCNexpEodd9h6Ti4Ln3AH3d0hFsR7H8cVYBE26q15Uy3NDu1xwwFqjvo+wais=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788195906; c=relaxed/simple;
+	bh=wbusIXCi4IMQab0ryvgkHW5sveBwQ2NlPsvZNTV8bzk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=IQG2o0aXrsD6/H+VQTK3w8UKt5zeV60pWrfV+WTfZiP+tOupdxvWHW4afxRzLPj4HgGjTXWNNltY51ZmOutqJz1EbND71l0iUrREk0k9UKJjVP+VIFFxs3o3CfNZCAySzy8bKWKKgcKIHJkYugBJ0r5KWLuWFRAuYmldUUtQDt4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fireburn.co.uk; spf=none smtp.mailfrom=fireburn.co.uk; dkim=pass (2048-bit key) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b=ln9WvdPm; arc=pass smtp.client-ip=74.125.224.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fireburn.co.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=fireburn.co.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="EJqo0KX9"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788195897; x=1819731897;
-  h=message-id:subject:from:to:cc:date:in-reply-to:
-   references:content-transfer-encoding:mime-version;
-  bh=lG8xayAZb0TCrchSBn2U3X4gZ2fxxr4ler3a2QCsaWc=;
-  b=EJqo0KX9oAnfWe2g/kg9BWtmR5MpRPcYY8GprY0pjkjj+VgPWjz3Mwv1
-   VNnSZwTbfVUTaF/yZehY/hnnM8zwSj6OtuPk1MAc42MieeO7v/UMO4LKI
-   PYRo81/gF3DlmO9/v14oSP+Uy5X49klc1NBh9ZNlTGZ0o7lC0CiJRkldO
-   +6LoJa/HtpdUPKg00yTeINja53SEqoQRro78VNAEIkLidZXW/wmWK4fd7
-   E8cFK2oNlbpnYG08xaGzDXxTfNl74K7vxa3ENyq1ag+o8xAPR7RY1zpv8
-   8pfRs+PaZ39eqZmXYb8vUU7eOLlV51UXnwi9TqK5SzBFr/d5fpBQAWaJF
-   Q==;
-X-CSE-ConnectionGUID: s2nXCAtRQx6tTvfmfzyeew==
-X-CSE-MsgGUID: MEs+cFOFRC+E8sV1yLMYIQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11892"; a="87743465"
-X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; 
-   d="scan'208";a="87743465"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 10:04:56 -0700
-X-CSE-ConnectionGUID: YFLULgetTQSbKeRg0Bg4GQ==
-X-CSE-MsgGUID: MG0a+PvbRH+GxSSH2wHQvw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; 
-   d="scan'208";a="264565479"
-Received: from unknown (HELO [10.241.243.185]) ([10.241.243.185])
-  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 10:04:54 -0700
-Message-ID: <30768541782e981703b82227e67ab24942090980.camel@linux.intel.com>
-Subject: Re: [RFC PATCH 0/7] sched/cache: Per-task control of cache aware
- scheduling via prctl
-From: Tim Chen <tim.c.chen@linux.intel.com>
-To: Chen Yu <chen.yu@linux.dev>, Peter Zijlstra <peterz@infradead.org>
-Cc: Ingo Molnar <mingo@redhat.com>, Vincent Guittot
- <vincent.guittot@linaro.org>,  Qais Yousef <qyousef@layalina.io>, K Prateek
- Nayak <kprateek.nayak@amd.com>, Juri Lelli	 <juri.lelli@redhat.com>,
- Dietmar Eggemann <dietmar.eggemann@arm.com>,  Valentin Schneider	
- <vschneid@redhat.com>, Madadi Vineeth Reddy <vineethr@linux.ibm.com>, 
- Shrikanth Hegde <sshegde@linux.ibm.com>, Jianyong Wu
- <jianyong.wu@outlook.com>, Yangyu Chen <cyy@cyyself.name>,  Tingyin Duan
- <tingyin.duan@gmail.com>, Vern Hao <vernhao@tencent.com>, Vern Hao
- <haoxing990@gmail.com>,  Len Brown <len.brown@intel.com>, Aubrey Li
- <aubrey.li@intel.com>, Zhao Liu <zhao1.liu@intel.com>,  Chen Yu
- <yu.chen.surf@gmail.com>, Chen Yu <yu.c.chen@intel.com>, Adam Li	
- <adamli@os.amperecomputing.com>, Aaron Lu <ziqianlu@bytedance.com>, Tim
- Chen	 <tim.c.chen@intel.com>, Josh Don <joshdon@google.com>, Luo Gengkun	
- <luogengkun2@huawei.com>, Gavin Guo <gavinguo@igalia.com>, Yi Lai	
- <yi1.lai@intel.com>, Ricardo Neri <ricardo.neri@intel.com>, 
-	linux-kernel@vger.kernel.org, linux-api@vger.kernel.org
-Date: Mon, 31 Aug 2026 10:04:53 -0700
-In-Reply-To: <apWSGWzDXikBI7GT@three-body>
-References: <cover.1787955777.git.tim.c.chen@linux.intel.com>
-	 <20260829092721.GB776954@noisy.programming.kicks-ass.net>
-	 <apWSGWzDXikBI7GT@three-body>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.1 (3.58.1-1.fc43) 
+	dkim=pass (2048-bit key) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b="ln9WvdPm"
+Received: by mail-yx1-f53.google.com with SMTP id 956f58d0204a3-66d29b298a4so66843d50.1
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 10:05:04 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788195903; cv=none;
+        d=google.com; s=arc-20260327;
+        b=W7X8bIJ4xUjHZInRE9UJpwV918RVlJGzhWEZ63sJEgbZ3+ALWNNTgJnEx1VuWqglJE
+         uY0NtaMMmwRRp9+4J9lFKBVr9iQGj3dQYPg4wG9+ky+t4bYxl7PmG8ujXRFpC7iJ0l+V
+         1lZTDRpQu3NItJEvwDXFHhMrYewu325Fk9t+KVrkl5M8mf6C2kClyjQQKjf1tGljgPNr
+         r9lRc/Yh6FBsrlFbjLbbmJSI3ckM9qbf7jKFeQaetVTy9mt01TJx/RhhnuxxsYNbsKoG
+         FgeDVVdGeQv2U+16gAZXRd5Vf8uPB09c0BmS69DqdypL66NQ4rOufQLHGxpd/rGISRLi
+         Fgrw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=GfeSpY1O8MwrGHI//U6PaOM8wrbbu+iKMbpJd9vFVOw=;
+        fh=7qVx2iUOI0PUAW1u7fTViRkuBw/Ye4oWm5GlwTASvUg=;
+        b=W73AziuEp+iYXd57DBa+RkTcNhuu7PD9Q2UiI2EsGBceJkaXvdbATa+xQXtgRL5H86
+         i1MAMrm/QDHSc+euLYcUlwW2M6FO1HIsZxj8IiOnmjYXTYqzqj4UtW/ZHiqH3TS2TZX5
+         4X7/7frqTqZVpr2OM9pNVfIS1kknZA8+VgJRKJgJhhyzda186CmK77SAs7SyLJ382d8+
+         c7evxcwvRH1wVQGbZgGZ6nX7HIR0NlXjKCeYMBwCWWp0IZutilHjObono0QZ9K55g8ig
+         Kev9619JxW5Kn/Tx/mCFaYTW5zOuQBtR68Bb/BgyBqvRBcdIjEDvCe0e4uDE+WzTN2PW
+         kEtA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=fireburn-co-uk.20251104.gappssmtp.com; s=20251104; t=1788195903; x=1788800703; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=GfeSpY1O8MwrGHI//U6PaOM8wrbbu+iKMbpJd9vFVOw=;
+        b=ln9WvdPmeBNhNUZ6fj/wYeV8PAUd+OOikVvvRh/TvI8UpVlrRIuAPwGrUwSiRT39VB
+         1rgL4D8rGyjLT2v+wfQSogdk+ZLRNpcXC3k1R3fEX88fY7O+0BYypBFJCTvYBaUrZqkV
+         H0/0xZzWQU3D6cflNxwxjDvWeLr8YbV6hUVP+oXCD7DHiC0tCbCVWe4r0egl41c8OCVF
+         xY2bPi6aD1bUlT8l3HVf/hSbaYGz+b5ioXh8zrwieUge3TGl4C0dGJSggeu72Zpllnes
+         MyCGPiBiJkSqjT9h7YuiygJNmbf12RMTjzRSpX5vLECVBkLDyCVnL62F6fXpx94itWwS
+         dkVA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788195903; x=1788800703;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=GfeSpY1O8MwrGHI//U6PaOM8wrbbu+iKMbpJd9vFVOw=;
+        b=KQKsrzLxf0NphDHqFX/GwHXUjsgMliVa7xgfQiOqr3e0Zpa6Yq8yq/xStDUtfKDg0T
+         8+Nszppd9IaFyAQmD/qtJeUywku07NBxFe4wQO6qxfSoXzMyfd5qc6HfdZVSVIG3si04
+         KqlcSQWHu7p9ObvplCi6BxIVDWSQY+U6WeQG+B7Tf4squedIoq6me5oQlMUHfpfuHD6m
+         +wz8JvyS6hxpPDJOvPG0ukCS7AIpMaKCsET8AJB3aMNLhiLH0V1H+hcj44a7OTerBwkN
+         s5TWfoYfS8cb51l6xq7+DyotVWDqyulQahKQwuKjEkhFMrEcfgnan4oq1KHGKGtQauxj
+         I1YQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwh1JlJysLIsNYgbU9drWaGr6AEHODZ2wkBlP8OJM0xkEntr10eiS7iNghHLIgLElq2jigtgXfrf7yhnbQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++k2dqpKsX+SD8szS6oN+og7TubYmsN+igkfKVHNQI2P3KV7Ujhe
+	x3vM3akFpxOVS6n/mmHledzFddrOkO5tJyvs//N/K9xmuVwC/enMOCMLeJAGNwUA1EsNM/m8Q1c
+	BDS6IQLMU93wxyY4vk61fF6rW+5qfCXrOzxfLER1C
+X-Gm-Gg: AYBFou2ZpaSvfzEA3ZiHe1Gu8Bz/lZcO/IHz5fLuobupnfvAFShA1KfqdHfHSerUYdI
+	NeFqOXvKo4sZ8WdRQhZ6kbrW5jD6/nLMGY0KZ2e2sW5bopRb0CVWZ8grfmcPT+tz6u9gkE6Rp0i
+	surUV0sxc3aoj3Xn1W656D4A2ppHzrwfphxdKHd54CKfiDxdd+VLYtkci6umNnKDySlWwK4ZtGM
+	zIFIPBTN8EOhzuHp4fq++3uItXCHHOqxXULoFFB51rVQKMS5FN244OcwvxyZaPf0NPiVlkQ8I0o
+	ExeKgpq9i6SFDPiwtOLOQGIWRy2DDZVB8MEJh29XHXY/jRFTamgd2jK0SNVcPZ/heMBwYc3uEPB
+	LffxzCU+dfddbSRZi7TNMrabzUc4lWPe+owa3NhYtoRoNDg==
+X-Received: by 2002:a05:690e:4512:20b0:66f:8594:b85e with SMTP id
+ 956f58d0204a3-66f8594c483mr815185d50.2.1788195903415; Mon, 31 Aug 2026
+ 10:05:03 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+References: <20260826163004.3365-1-mike@fireburn.co.uk> <20260826163004.3365-3-mike@fireburn.co.uk>
+ <20260827030352.GB2327@sol>
+In-Reply-To: <20260827030352.GB2327@sol>
+From: Mike Lothian <mike@fireburn.co.uk>
+Date: Mon, 31 Aug 2026 18:04:51 +0100
+X-Gm-Features: AcwNN1XRUTonc9UtClpJ99JQyGyLSWDpm68a2GF558801nidk82gsfB0bRqsHB0
+Message-ID: <CAHbf0-G7aHw5HMCMfpABnFUpvLHz5R6d7zmyite9xAqzMXJGvQ@mail.gmail.com>
+Subject: Re: [PATCH v3 2/2] rust: crypto: add synchronous RSA akcipher support
+To: ebiggers@kernel.org, linux-crypto@vger.kernel.org
+Cc: herbert@gondor.apana.org.au, davem@davemloft.net, Jason@zx2c4.com, 
+	ardb@kernel.org, ojeda@kernel.org, boqun@kernel.org, gary@garyguo.net, 
+	bjorn3_gh@protonmail.com, lossin@kernel.org, a.hindborg@kernel.org, 
+	aliceryhl@google.com, tmgross@umich.edu, dakr@kernel.org, 
+	daniel.almeida@collabora.com, tamird@kernel.org, acourbot@nvidia.com, 
+	work@onurozkan.dev, lyude@redhat.com, gregkh@linuxfoundation.org, 
+	lina+kernel@asahilina.net, bqe@google.com, ljs@kernel.org, 
+	joelagnelf@nvidia.com, ynorov@nvidia.com, david@davidgow.net, 
+	linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Mon, 2026-08-31 at 22:39 +0800, Chen Yu wrote:
-> Hi Peter,
->=20
-> On Sat, Aug 29, 2026 at 11:27:21AM +0200, Peter Zijlstra wrote:
-> > Subject: Re: [RFC PATCH 0/7] sched/cache: Per-task control of cache awa=
-re
-> >  scheduling via prctl
-> >=20
-> > On Fri, Aug 28, 2026 at 03:29:07PM -0700, Tim Chen wrote:
-> > =20
-> > > Feedbacks very welcome, especially on the interface shape (prctl vs. =
-a QoS
-> > > attribute), the kernel-owned-cookie choice, and whether the always/ad=
-vise/
-> > > never policy composition is the right model.
-> >=20
-> > Who would be using this -- what workload prompted you do do this etc.
-> >=20
->=20
-> One motivation is that some cloud users would like finer-grained control =
-over
-> cache=E2=80=91aware scheduling. Vern Hao from Tencent previously asked ab=
-out this:
->=20
-> https://lore.kernel.org/all/7d5bb7c4-abc5-470e-84fe-72a3b1d3a2f4@gmail.co=
-m/
->=20
-> and mentioned that, in their production environment, threads within the s=
-ame
-> process do not always share data. On the other hand, it is possible that =
-within
-> one process there are two thread groups, A and B. Threads in group A shar=
-e data
-> with each other, while threads in group B do not. Typically, in Vern's en=
-vironment,
-> group A and group B are cgroups. Group A usually runs memory=E2=80=91inte=
-nsive workloads, such
-> as KV=E2=80=91cache related ones, and such workloads have intensive data =
-sharing among themselves,
-> so they would like to enable cache=E2=80=91aware scheduling separately. F=
-urthermore, since group A
-> is memory=E2=80=91intensive, the default cache=E2=80=91aware scheduling t=
-hreshold might reject aggregation
-> because group A's memory footprint is high. As a result, group A has a re=
-quirement to turn the
-> threshold parameter separately.
+On Thu, 27 Aug 2026, Eric Biggers wrote:
+> > +config RUST_CRYPTO_LIB_AES
+> This is being added in the wrong patch.
+[...]
+> Likewise.
 
-I also remembered in discussions with Vern, His usage scenario has processe=
-s each comprising of threads
-doing different functions, like one thread responsible for database lookup,=
- one for encryption/decryption
-and one for file IO ...etc. So the threads in different processes performin=
-g similar function
-has more common data and perform better when grouped together.
+Sorry I'll get that sorted
 
-Also in separate discussions with Qais, he has also mentioned that
-for his environment, tasks in the same process may not share data.
-https://lore.kernel.org/lkml/20260219140828.a7pyzupun7lsdw34@airbuntu/ :
+> As I've been commenting on other of these bindings patches, it also
+> doesn't really make sense to have the kconfig symbol be in lib/ but then
+> have the actual code be in rust/. They should be in the same place.
 
->> This initial implementation treats threads within the same process as
->> entities that are likely to share data. During load balancing, the
+That one isn't specific to these two patches, so I'm following Miguel's
+reply on it and I'll go with whatever comes out.
 
->This is a very aggressive assumption. From what I've seen, only few tasks =
-truly
->share data. Lumping everything in a process together is an easy way to
->classify, but I think we can do better.
+> If you need RSA, then please just create an API for RSA specifically.
+> The crypto_akcipher abstraction has never worked well, due to
+> differences between the algorithms and various other reasons.
 
-So this series is an attempt to address such cases where grouping
-tasks by other criteria than mm makes sense.
+Will do. The generic akcipher wrapper goes and v4 has an RSA-only API.
 
-Tim
+The only operation I need is RSAES-OAEP-SHA256 public-key encryption
+with a caller-supplied seed. The seed is explicit so the driver can pass
+the kernel CSPRNG while the tests pass published deterministic vectors.
+Would you rather that was a narrow Rust wrapper over the existing rsa
+transform, or something in lib/crypto?
+
+> > +__rust_helper void rust_helper_memzero_explicit(void *s, size_t count)
+> Isn't there a standard Rust solution for this?
+[...]
+> > +__rust_helper void rust_helper_aes_enckey_zero(struct aes_enckey *key)
+> Similarly, isn't there a standard Rust solution to zeroize memory?
+
+There isn't one in the Rust standard library, so the memzero_explicit
+forwarder stays -- Miguel covered that in his reply.
+
+The aes_enckey_zero one was just wrong: it could have called the
+memzero_explicit helper instead of existing at all. Miguel said the
+same. v4 has one safe zeroize() in the kernel crate, used by Secret and
+Aes128, and that helper is gone.
+
+Mike
+
+
+On Thu, 27 Aug 2026 at 04:05, Eric Biggers <ebiggers@kernel.org> wrote:
+>
+> On Wed, Aug 26, 2026 at 05:29:49PM +0100, Mike Lothian wrote:
+> > +config RUST_CRYPTO_LIB_AES
+> > +     bool
+> > +     depends on RUST
+> > +     select CRYPTO_LIB_AES
+> > +     select CRYPTO_LIB_AES_CBC_MACS
+> > +     help
+> > +       Enable the Rust bindings for the synchronous AES library functions.
+> > +       The selected C libraries are built into the kernel because Rust
+> > +       abstractions are part of the built-in kernel crate.
+>
+> This is being added in the wrong patch.
+>
+> >  config CRYPTO_LIB_AESGCM
+> >       tristate
+> >       select CRYPTO_LIB_AES
+> > @@ -216,6 +226,15 @@ config CRYPTO_LIB_SHA256
+> >         Select this if your module uses any of these functions from
+> >         <crypto/sha2.h>.
+> >
+> > +config RUST_CRYPTO_LIB_SHA256
+> > +     bool
+> > +     depends on RUST
+> > +     select CRYPTO_LIB_SHA256
+> > +     help
+> > +       Enable the Rust bindings for the synchronous SHA-256 and HMAC-SHA256
+> > +       library functions. The selected C library is built into the kernel
+> > +       because Rust abstractions are part of the built-in kernel crate.
+>
+> Likewise.
+>
+> As I've been commenting on other of these bindings patches, it also
+> doesn't really make sense to have the kconfig symbol be in lib/ but then
+> have the actual code be in rust/.  They should be in the same place.
+>
+> > +__rust_helper void rust_helper_memzero_explicit(void *s, size_t count)
+> > +{
+> > +     memzero_explicit(s, count);
+> > +}
+>
+> Isn't there a standard Rust solution for this?
+>
+> > +#ifdef CONFIG_RUST_CRYPTO_AKCIPHER
+> > +__rust_helper void rust_helper_crypto_free_akcipher(struct crypto_akcipher *tfm)
+> > +{
+> > +     crypto_free_akcipher(tfm);
+> > +}
+>
+> If you need RSA, then please just create an API for RSA specifically.
+> The crypto_akcipher abstraction has never worked well, due to
+> differences between the algorithms and various other reasons.
+>
+> > +__rust_helper void rust_helper_aes_enckey_zero(struct aes_enckey *key)
+> > +{
+> > +     memzero_explicit(key, sizeof(*key));
+> > +}
+>
+> Similarly, isn't there a standard Rust solution to zeroize memory?
+>
+> - Eric
