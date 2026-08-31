@@ -1,44 +1,49 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CA3E480DE3;
-	Mon, 31 Aug 2026 13:37:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E1C7480331;
+	Mon, 31 Aug 2026 13:37:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183475; cv=none; b=oJg4ucossgmTIi3SII9ISsQbQUHbqxa9Uoiahxv+ZzjoKE5bxKunPdT8VP/jD65hM2R136XTP1GvhFb7z641QW92wezQJIpj0gKHt3Q5N9XDk+iPewGseTLB41fxEyjxSb5Azk666+dKk+CCBk1eEt9DVsszenXAxI3uvEAHcW4=
+	t=1788183478; cv=none; b=X0QWmHWCnAwWRTDsHMs3w8KF2l7odUCFeG1DZk3zXkzaMvEUSnIcClqq1nZDozs7lamwITMNy5PbXP5z3oSPfCU0ow0eym8ugnLUZyRycGdkyswZ0lZ3jy7kRAcTq4KSlL1ziKke+hz9D5KfJmAKE331N6ydRKEwc7rBbu3a2UY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183475; c=relaxed/simple;
-	bh=pNubw+5+aSVMFY36eW4w0RpJCAeWJ43LLlapPMcsWEI=;
+	s=arc-20240116; t=1788183478; c=relaxed/simple;
+	bh=NPSNlMd2dyiS+0NW6Z4zhLy5239fLsj646Pe7Hx53Us=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=GcWX8kmIYZlKXSJcux8w9j/MDiFkWS/AAVDFC+m/sUL6uqvMhrv7/fgER9/ikQrM05sUzeYOMv6dmQREXtuT+2vFjPl21zJxm1xnxVf0pXxteixrFcZeIoiYOlpL4gsG0wJobl5kfR9cL9D/tiyb0HR24a2U8pnJJrW5u2jp+KA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ib22Km/U; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=AzHiMnNkGNAqR0VR5T43WSVJm8dreeVX0iE25WhrFGwRibfBXfJsVILCM+VrAZWE4obt0rwEYtog9jhLcR7/KB2PHLQhb1Dha0ZNH7G3RLMk/SS6LorT799qOXUCH8mMeUQDM/1OO2NM+WMYWRtd7V77HoPOCtkVRWbTcByZW4A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jI+ndjq7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ib22Km/U"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED2001F00A3E;
-	Mon, 31 Aug 2026 13:37:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jI+ndjq7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D91401F000E9;
+	Mon, 31 Aug 2026 13:37:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788183473;
-	bh=Pj2FSw1poSAmPV2lX6oQg5rInI7GCnGYK+m0SbnK8VE=;
+	s=k20260515; t=1788183476;
+	bh=7omeuAaScmWAEKQyvgrvSICA5UGv4oMV1eMMTqvJPYY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ib22Km/UV0YLLgAqWtsKPBt6iMwygk+ZH/9dsdttc64LgOWd8dYEI4A/lVP9ZVvqS
-	 g/55t8Aw9/PuZhVRYwwA1o1r4rh6hrIQqqZkPlhd1hXyfjvdX37KrEq5HgJ+IyEjfW
-	 99Uy0cBTr7lkFdn391ClBIEEWHMgmBRzzhcI114lTZ80hdlvzGahaRjpex1zTxHHWh
-	 1bWr4C9v4lwa6pUuIcV7b9F/NcRRnA0tH1AZhVN8DLX2efgW0XrE4+OV2FMFuIAMNY
-	 SKAee4ua+xHTx2fbd3pVQu4QpTyq62Vd3zqiwJobfXdwQI6+9w6alAuJ50V1LjIItF
-	 0+5CTB2T+8rjA==
+	b=jI+ndjq7u3ZUMSoMFriKK50SK0rT+OqOQG/T58vyVFih+C+S6/B0wpPNops+cc5kX
+	 4L06Yb7ErsT70j9AVo/XIdgejxHoD0n0tCMhk2aDYpOgw91PdJfC0x20z31ywcm06F
+	 RSAW8XlXXfXnkaKVRgVDC1JA7+5KKjqbf3JRiZnTW7o3DMtzkERNxNrSlHqfrWMx3B
+	 /dqqK8oPF7xqi2lk9EvoiCF4KIgfYfHmW6VwONB0CjskAzlklKxEWe7G3zgEayNbci
+	 R2v5l42XXA+DHPE1/DTYV5oUtmRkYs7wuJ1e0iw9UJNN3p+b3apMjKyNVvEJmIw+RR
+	 HUO/HTJWcCJzQ==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Oliver Ohrt <oliver@theohrts.com>,
-	Takashi Iwai <tiwai@suse.de>,
+Cc: Hans Zhang <18255117159@163.com>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
 	Sasha Levin <sashal@kernel.org>,
-	perex@perex.cz,
-	tiwai@suse.com,
-	linux-sound@vger.kernel.org,
+	shawn.lin@rock-chips.com,
+	lpieralisi@kernel.org,
+	kwilczynski@kernel.org,
+	heiko@sntech.de,
+	linux-pci@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18] ALSA: hda/realtek: Fix speakers on Alienware x16 R2
-Date: Mon, 31 Aug 2026 09:22:25 -0400
-Message-ID: <20260831133314.4125787-117-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-5.10] PCI: rockchip: Protect root bus removal with rescan lock
+Date: Mon, 31 Aug 2026 09:22:27 -0400
+Message-ID: <20260831133314.4125787-119-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -54,368 +59,353 @@ X-stable-base: Linux 6.18.48
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Oliver Ohrt <oliver@theohrts.com>
+From: Hans Zhang <18255117159@163.com>
 
-[ Upstream commit 914c85fad93cd7daad30e5fb2e5bc7132ea25524 ]
+[ Upstream commit 0bd9611587bb494c33566d825fe34b2705e4b167 ]
 
-The Alienware x16 R2 has two pairs of speakers, but the BIOS
-marks pin 0x17 as unused, so only the pin 0x14 pair plays and
-audio is very quiet/dull.
+Hold the pci_rescan_remove_lock lock while stopping and removing a root bus
+to avoid racing with concurrent rescan or hotplug operations triggered via
+sysfs.  Such races may lead to use-after-free issues or system crashes.
 
-Apply ALC289_FIXUP_DUAL_SPK like on other Dell machines to set
-up pin 0x17 and route it to DAC1. Tested on my x16 R2 with
-kernel 6.18.38, and now all speakers play at full volume.
-
-Signed-off-by: Oliver Ohrt <oliver@theohrts.com>
-Link: https://patch.msgid.link/20260715070409.42696-1-oliver@theohrts.com
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Signed-off-by: Hans Zhang <18255117159@163.com>
+Signed-off-by: Manivannan Sadhasivam <mani@kernel.org>
+[bhelgaas: commit log]
+Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
+Link: https://patch.msgid.link/20260521161822.132996-8-18255117159@163.com
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-# Stable Backport Analysis: ALSA: hda/realtek: Fix speakers on Alienware
-x16 R2
+## Phase 1: Commit Message Forensics
 
-**Local tree:** `v6.18.44-1-g2736c32da98b9` (kernel 6.18.44)
+### Step 1.1: Parse the Subject Line
+**Record:** `[PCI: rockchip] [Protect] Protect root bus removal with
+rescan lock` — subsystem is Rockchip PCIe host controller; action is
+synchronization/protection (bug fix).
 
----
-
-## PHASE 1: COMMIT MESSAGE FORENSICS
-
-### Step 1.1: Parse the subject line
-**Record:** `[ALSA: hda/realtek]` `[Fix]` — Add HDA codec quirk so
-Alienware x16 R2 internal speakers work at full volume.
-
-### Step 1.2: Parse all commit message tags
+### Step 1.2: Parse All Commit Message Tags
 **Record:**
-- **Fixes:** — not present (expected for manual review)
-- **Reported-by:** — not present
-- **Tested-by:** — not present (author says "Tested on my x16 R2" in
-  body)
-- **Reviewed-by:** — not present
-- **Acked-by:** — not present
+- **Fixes:** none
+- **Reported-by:** none
+- **Tested-by:** none
+- **Reviewed-by:** none
+- **Acked-by:** none
 - **Link:**
-  `https://patch.msgid.link/20260715070409.42696-1-oliver@theohrts.com`
-- **Cc: stable@vger.kernel.org** — not present (not a negative signal)
-- **Signed-off-by:** Oliver Ohrt `<oliver@theohrts.com>` (author)
-- **Signed-off-by:** Takashi Iwai `<tiwai@suse.de>` (ALSA/HDA
-  maintainer)
-- **Notable:** Maintainer sign-off; author hardware testing; no
-  syzbot/sanitizer signals
+  `https://patch.msgid.link/20260521161822.132996-8-18255117159@163.com`
+- **Cc: stable:** none
+- **Signed-off-by:** Hans Zhang, Manivannan Sadhasivam, Bjorn Helgaas
+  (ignore pipeline-added SOBs per instructions)
 
-### Step 1.3: Analyze commit body
+Notable: Signed-off-by from PCI maintainer Bjorn Helgaas. No syzbot or
+user bug reports.
+
+### Step 1.3: Analyze Commit Body
 **Record:**
-- **Bug:** Alienware x16 R2 has two speaker pairs; BIOS marks pin 0x17
-  unused, so only pin 0x14 pair is routed. Audio is very quiet/dull.
-- **Symptom:** Half the speakers inactive; poor volume/quality.
-- **Root cause:** Incorrect BIOS pin configuration for second speaker
-  pair (NID 0x17).
-- **Fix approach:** Apply existing `ALC289_FIXUP_DUAL_SPK` (same as
-  other Dell machines) to configure pin 0x17 and route to DAC1.
-- **Testing:** Author tested on x16 R2 with kernel 6.18.38; all speakers
-  play at full volume.
-- **Version info:** Tested on 6.18.38; hardware is recent (Alienware x16
-  R2).
+- **Bug:** `rockchip_pcie_remove()` tears down the root bus without
+  holding the global PCI rescan/remove mutex, allowing concurrent sysfs-
+  driven rescan or hotplug to operate on the same bus hierarchy.
+- **Symptom:** Use-after-free or system crash.
+- **Root cause:** Missing `pci_lock_rescan_remove()` /
+  `pci_unlock_rescan_remove()` around `pci_stop_root_bus()` +
+  `pci_remove_root_bus()`.
+- **Version info:** None in commit message.
 
-### Step 1.4: Detect hidden bug fixes
-**Record:** Not disguised — explicit hardware/audio functionality fix.
-Classic HDA codec quirk, not cleanup or refactor.
+### Step 1.4: Detect Hidden Bug Fixes
+**Record:** Not disguised — explicitly a race-condition / crash fix, not
+cleanup or optimization.
 
 ---
 
-## PHASE 2: DIFF ANALYSIS
+## Phase 2: Diff Analysis
 
-### Step 2.1: Inventory the changes
+### Step 2.1: Inventory the Changes
 **Record:**
-- **Files:** `sound/hda/codecs/realtek/alc269.c` — 1 line added
-- **Functions modified:** None directly; `alc269_fixup_tbl[]` quirk
-  table only
-- **Scope:** Single-file, one-line surgical quirk addition
+- **Files:** `drivers/pci/controller/pcie-rockchip-host.c` (+2 lines)
+- **Functions:** `rockchip_pcie_remove()`
+- **Scope:** Single-file, surgical fix (2 lines added)
 
-### Step 2.2: Code flow change
+### Step 2.2: Code Flow Change
 **Record:**
-- **Before:** PCI SSID `0x1028:0x0c90` (Alienware x16 R2) has no quirk →
-  default pin config → pin 0x17 unused → only one speaker pair active.
-- **After:** Quirk maps `0x1028:0x0c90` → `ALC289_FIXUP_DUAL_SPK` →
-  during codec probe (`snd_hda_pick_fixup()`), chained fixups run:
-  1. `alc285_fixup_speaker2_to_dac1` — routes NID 0x17 (bass speaker) to
-     DAC1 (0x02)
-  2. `ALC289_FIXUP_DELL_SPK2` — sets pin 0x17 config to `0x90170130`
-- **Path affected:** Codec probe/initialization on matching hardware
-  only.
+- **Hunk (remove path):** Before — `pci_stop_root_bus()` and
+  `pci_remove_root_bus()` run unlocked. After — same calls wrapped in
+  `pci_lock_rescan_remove()` / `pci_unlock_rescan_remove()`. Affects
+  driver remove / module-unbind path only.
 
-### Step 2.3: Bug mechanism
-**Record:**
-- **Category:** Hardware quirk / pin-configuration fix
-- **Mechanism:** BIOS marks pin 0x17 unused despite hardware being
-  connected. Existing Dell dual-speaker fixup reconfigures pin 0x17 and
-  routes it to DAC1, enabling the second speaker pair.
+### Step 2.3: Identify Bug Mechanism
+**Record:** **Category:** Synchronization / race condition.
+**Mechanism:** Concurrent sysfs PCI rescan (`/sys/bus/pci/rescan`, per-
+device `rescan`, `remove`) or hotplug can walk/modify the bus device
+list while `rockchip_pcie_remove()` is tearing it down without the
+global mutex that sysfs paths already hold.
 
-### Step 2.4: Fix quality assessment
-**Record:**
-- **Obviously correct:** Yes — reuses `ALC289_FIXUP_DUAL_SPK` already
-  applied to Dell XPS 15 9520, Precision 5570, XPS 15 9510, etc.
-- **Minimal/surgical:** One `SND_PCI_QUIRK()` line
-- **Regression risk:** Very low — only affects `0x1028:0x0c90`; fixup
-  chain is well-tested on similar Dell hardware
-- **Red flags:** None
+### Step 2.4: Assess Fix Quality
+**Record:** Obviously correct — matches the established pattern in
+`pci_host_common_remove()`, `mtk_pcie_remove()`, `mvebu` and `aardvark`
+remove paths. Minimal, no API changes. **Regression risk:** Very low;
+mutex is the same one used everywhere else for this purpose.
 
 ---
 
-## PHASE 3: GIT HISTORY INVESTIGATION
+## Phase 3: Git History Investigation
 
-### Step 3.1: Blame changed lines
-**Record:** Insertion point is in `alc269_fixup_tbl[]` between `0x0c4d`
-and `0x0c94`. Surrounding Dell quirks from merge `5d324e5159d9e`
-(v6.18-rc8 era). No “buggy code” introduced by a prior commit — missing
-quirk for new hardware.
+### Step 3.1: Blame Changed Lines
+**Record:** `pci_stop_root_bus()` / `pci_remove_root_bus()` in
+`rockchip_pcie_remove()` introduced by Rob Herring (2020-05-22, commit
+`f473182c7524dd`). Remove function itself dates to Shawn Lin
+(2018-05-09). Driver added 2016 (`e77f847df54c6`). Bug has been present
+since the stop/remove calls were added without locking.
 
-### Step 3.2: Follow Fixes: tag
-**Record:** N/A — no `Fixes:` tag.
+### Step 3.2: Follow Fixes: Tag
+**Record:** No `Fixes:` tag present — N/A.
 
-### Step 3.3: File history for related changes
-**Record:** Recent similar commits in this tree:
-- `2ec8f95a08fed` — Fix speakers on Lunnen Ground 14 (pin quirk, `Cc:
-  stable`, backported)
-- `6b2c0cd5f9689` — Fix speakers on Legion Pro 7 (codec SSID quirk, `Cc:
-  stable`, backported)
-- Multiple Dell `ALC289_FIXUP_DUAL_SPK` entries at lines 6618–6623
+### Step 3.3: File History for Related Changes
+**Record:** Part of a 9-patch series "[PATCH 0/9] PCI: controller: Add
+missing rescan lock around root bus removal" (local mbox). Each patch is
+independent per cover letter. `pci_lock_rescan_remove()` infrastructure
+added in 2014 (`9d16947b75831`). `pci_host_common_remove()` has used the
+lock since 2018 (`01fcb7f777a9f`). Fix is **not** yet merged in this
+tree (grep shows no lock in rockchip remove; `git log --grep` for
+subject returned empty).
 
-Standalone one-line quirk; no series dependency.
-
-### Step 3.4: Author's other commits
-**Record:** No other commits from Oliver Ohrt in this tree. Takashi Iwai
-is ALSA maintainer.
+### Step 3.4: Author's Other Commits
+**Record:** Hans Zhang is an active PCI contributor (cadence, dwc
+capability-search series, etc.). Not the Rockchip driver author; fixing
+a cross-driver synchronization gap.
 
 ### Step 3.5: Prerequisites
-**Record:**
-- **Required:** `ALC289_FIXUP_DUAL_SPK`,
-  `alc285_fixup_speaker2_to_dac1`, `ALC289_FIXUP_DELL_SPK2` — all
-  present in 6.18.44
-- **Can apply standalone:** Yes — single quirk line, no dependencies
-- **Commit not yet in tree:** `0x0c90` quirk absent; patch applies
-  cleanly at line 6640
+**Record:** No dependencies. `pci_lock_rescan_remove()` /
+`pci_unlock_rescan_remove()` exist in this tree (since 2014). Driver
+includes `../pci.h` → `<linux/pci.h>`, so no new includes needed.
+Standalone, applies cleanly.
 
 ---
 
-## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
+## Phase 4: Mailing List and External Research
 
-### Step 4.1: Original patch discussion
-**Record:** `b4 dig -c` not run — commit hash not in local tree. Link
-points to `20260715070409.42696-1-oliver@theohrts.com`. Lore fetch
-blocked by Anubis bot protection. **UNVERIFIED:** full review thread
-content.
+### Step 4.1: Original Patch Discussion
+**Record:** `b4 dig` could not be run on an unmerged commit hash. Used
+local mbox `20260522_18255117159_pci_controller_add_missing_rescan_lock_
+around_root_bus_removal.mbx`. Cover letter explains race with sysfs
+rescan/hotplug → UAF/crash. References sashiko-bot review flagging the
+same pattern in cadence code. **No review replies** in the mbox (patches
+only). WebFetch of lore URL blocked by bot protection.
 
 ### Step 4.2: Reviewers
-**Record:** **UNVERIFIED** via b4 dig -w. Takashi Iwai maintainer sign-
-off confirms acceptance.
+**Record:** Cover letter only; no Reviewed-by/Acked-by in thread. Commit
+has SOB from Manivannan Sadhasivam and Bjorn Helgaas (PCI maintainer).
 
-### Step 4.3: Bug report
-**Record:** No external bug report; author-reported hardware issue with
-on-device testing.
+### Step 4.3: Bug Report
+**Record:** No external bug report, syzbot, or KASAN trace. Issue
+identified by code review / bot review of the pattern.
 
-### Step 4.4: Related patches/series
-**Record:** Standalone patch; pattern matches other Dell dual-speaker
-quirks and recent stable-bound speaker fixes.
+### Step 4.4: Related Patches
+**Record:** 9-patch series for cadence, dwc, altera, brcmstb, iproc,
+mediatek, rockchip, vmd, plda. Each independent. Rockchip is patch 7/9.
 
-### Step 4.5: Stable mailing list history
-**Record:** **UNVERIFIED** — lore blocked. Comparable fixes
-(`2ec8f95a08fed`, `6b2c0cd5f9689`) include `Cc: stable@vger.kernel.org`
-and were backported.
+### Step 4.5: Stable Mailing List
+**Record:** No stable-list discussion found in available sources.
 
 ---
 
-## PHASE 5: CODE SEMANTIC ANALYSIS
+## Phase 5: Code Semantic Analysis
 
-### Step 5.1: Key functions
-**Record:** Indirectly affects probe path via `snd_hda_pick_fixup()` →
-matched quirk chain. Direct code touch: `alc269_fixup_tbl[]` only.
+### Step 5.1: Key Functions
+**Record:** `rockchip_pcie_remove()` — only function modified.
 
-### Step 5.2: Callers
-**Record:** `snd_hda_pick_fixup(codec, alc269_fixup_models,
-alc269_fixup_tbl, alc269_fixups)` at line 8471, called from Realtek
-codec init during HDA driver probe (module load / device enumeration).
+### Step 5.2: Trace Callers
+**Record:** Called via `.remove = rockchip_pcie_remove` in
+`rockchip_pcie_driver`, registered with `module_platform_driver()`.
+Triggers on platform device removal: module unload (`rmmod` if built as
+module), driver unbind, or platform teardown.
 
-### Step 5.3: Callees (fixup chain)
-**Record:**
-- `alc285_fixup_speaker2_to_dac1` — `snd_hda_override_conn_list(codec,
-  0x17, ...)` at PRE_PROBE
-- `ALC289_FIXUP_DELL_SPK2` — pin table `{ 0x17, 0x90170130 }`
+### Step 5.3: Trace Callees
+**Record:** `pci_lock_rescan_remove()`, `pci_stop_root_bus()`,
+`pci_remove_root_bus()`, `pci_unlock_rescan_remove()`, then
+`irq_domain_remove()`, clock/regulator cleanup.
 
-### Step 5.4: Call chain / reachability
-**Record:** Triggered at boot when HDA codec probes on Alienware x16 R2
-(`0x1028:0x0c90`). Not userspace-triggerable; affects all users of that
-hardware on every boot.
+### Step 5.4: Call Chain / Reachability
+**Record:** Race is between `rockchip_pcie_remove()` and sysfs paths in
+`pci-sysfs.c` (`rescan_store`, `dev_rescan_store`, `remove_store`,
+`bus_rescan_store`) — all hold `pci_lock_rescan_remove()`. An admin
+writing to `/sys/bus/pci/rescan` (or per-bus/device rescan/remove) while
+the driver is being removed can hit the race. Reachable on any Rockchip
+system with `CONFIG_PCIE_ROCKCHIP_HOST`.
 
-### Step 5.5: Similar patterns
-**Record:** `ALC289_FIXUP_DUAL_SPK` used for at least 6 other Dell PCI
-IDs (0x097d, 0x097e, 0x0a61, 0x0a62, 0x0b19, 0x0b1a). Same pin 0x17 /
-dual-speaker pattern.
-
----
-
-## PHASE 6: CROSS-REFERENCING AGAINST LOCAL TREE
-
-### Step 6.1: Does the buggy situation exist?
-**Record:** Yes. `0x0c90` quirk missing in 6.18.44 (`grep` found no
-match). Without it, x16 R2 gets default handling and second speaker pair
-stays disabled. Not a regression from a specific commit — omission for
-new hardware.
-
-### Step 6.2: Backport complications
-**Record:** **Clean apply** — insertion between existing `0x0c4d` and
-`0x0c94` entries matches upstream diff exactly.
-
-### Step 6.3: Related fixes already present?
-**Record:** No existing fix for `0x0c90`. Underlying
-`ALC289_FIXUP_DUAL_SPK` infrastructure is present.
+### Step 5.5: Similar Patterns
+**Record:** Controllers **with** lock: `pci-host-common.c`, `pcie-
+mediatek-gen3.c`, `pci-mvebu.c`, `pci-aardvark.c`, `pci-hyperv.c`.
+Controllers **without** lock (same bug class): rockchip, cadence, dwc,
+altera, brcmstb, iproc, mediatek (non-gen3), vmd, plda, tegra, etc.
+Rockchip is a clear oversight relative to the common pattern.
 
 ---
 
-## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+## Phase 6: Cross-Reference Against Local Tree
 
-### Step 7.1: Subsystem criticality
-**Record:** `sound/hda/codecs/realtek` — IMPORTANT (audio driver
-quirks). Affects Alienware x16 R2 owners only.
+### Step 6.1: Does Buggy Code Exist?
+**Record:** **Yes.** Tree is **v6.18.44** (`git describe HEAD` →
+`v6.18.44-1-g2736c32da98b9`, `make kernelversion` → `6.18.44`).
+`rockchip_pcie_remove()` at lines 1015–1016 calls `pci_stop_root_bus()`
+/ `pci_remove_root_bus()` **without** the lock. Driver present since
+v4.8 era; bug since ~2020.
 
-### Step 7.2: Subsystem activity
-**Record:** Active — frequent quirk additions in 6.18.y (TongFang, HP,
-Lunnen, Legion, ASUS, etc.).
+### Step 6.2: Backport Complications
+**Record:** **Clean apply** — 2-line addition, no structural changes, no
+conflicts expected.
 
----
-
-## PHASE 8: IMPACT AND RISK ASSESSMENT
-
-### Step 8.1: Who is affected
-**Record:** Alienware x16 R2 users (Dell/Alienware PCI vendor `0x1028`,
-subsystem `0x0c90`) on kernels without this quirk.
-
-### Step 8.2: Trigger conditions
-**Record:** Every boot with internal speakers on matching hardware.
-Common path for affected users; not timing-dependent.
-
-### Step 8.3: Failure mode severity
-**Record:** Quiet/dull audio with only half the speakers active.
-**Severity: MEDIUM** — functional degradation, not
-crash/corruption/security. Matches stable rules’ “hardware quirk” and
-“real bug that bothers people.”
-
-### Step 8.4: Risk-benefit
-**Record:**
-- **Benefit:** Restores full speaker output on affected laptops; same
-  proven fixup as other Dell models
-- **Risk:** Very low — one quirk entry, hardware-specific SSID match
-- **Ratio:** Strong benefit, minimal risk for affected hardware
+### Step 6.3: Related Fixes Already Present?
+**Record:** No equivalent fix in this tree. `git log --grep="Protect
+root bus removal"` returned empty. Mediatek-gen3, mvebu, aardvark, pci-
+host-common already have the lock; rockchip does not.
 
 ---
 
-## PHASE 9: FINAL SYNTHESIS
+## Phase 7: Subsystem and Maintainer Context
 
-### Step 9.1: Evidence compile
+### Step 7.1: Subsystem Criticality
+**Record:** **drivers/pci/controller** — IMPORTANT. PCI core affects
+device enumeration and all downstream PCI devices on Rockchip SoCs
+(RK3399, RK3568, etc.).
 
-**FOR backporting:**
-- Fixes real user-visible hardware bug (impaired speaker output)
-- One-line, contained hardware quirk using existing fixup
-- Author tested on target hardware; maintainer (Iwai) signed off
-- `ALC289_FIXUP_DUAL_SPK` and full fixup chain exist in 6.18.44
-- Applies cleanly to this tree
-- Explicit stable-rules exception: hardware quirk
-- Precedent: similar speaker quirk fixes backported with `Cc: stable`
+### Step 7.2: Subsystem Activity
+**Record:** Actively maintained; recent rockchip commits in this tree
+(link speed, error logging, reset timing).
 
-**AGAINST backporting:**
-- Not crash/security/data corruption (lower urgency than KASAN fixes)
-- Affects narrow hardware population
-- No `Cc: stable` tag (not disqualifying)
-- Lore review thread not accessible
+---
 
-**UNRESOLVED:**
-- Full mailing list review discussion
-- Whether reviewers explicitly nominated for stable
+## Phase 8: Impact and Risk Assessment
 
-### Step 9.2: Stable rules checklist
-1. Obviously correct and tested? **PASS** — reuses proven Dell fixup;
-   author hardware test; maintainer SOB
-2. Fixes real bug affecting users? **PASS** — half speakers inactive,
-   quiet/dull audio
-3. Important issue? **PASS** — hardware quirk / functional audio bug
-   (stable-rules category)
-4. Small and contained? **PASS** — 1 line
-5. No new features/APIs? **PASS** — quirk table entry only
-6. Can apply to local tree? **PASS** — prerequisites present; clean
-   apply
+### Step 8.1: Who Is Affected
+**Record:** Users of Rockchip SoCs with `CONFIG_PCIE_ROCKCHIP_HOST`
+(depends on `ARCH_ROCKCHIP`). Embedded/ARM boards using the legacy
+Rockchip AXI PCIe host controller.
 
-### Step 9.3: Exception categories
-**Record:** Hardware quirk/workaround for HDA codec pin configuration —
-automatic stable candidate per `stable-kernel-rules.rst` and analysis
-guidelines.
+### Step 8.2: Trigger Conditions
+**Record:** Driver remove/unbind concurrent with PCI sysfs rescan or
+remove (typically root). Uncommon in steady state but realistic during
+module reload, driver unbind testing, or admin sysfs operations.
+Requires privileges for sysfs writes; remove path can be triggered by
+module unload or device unbind.
 
-### Step 9.4: Decision rationale
-For **6.18.y**, this is a textbook stable backport: a one-line PCI quirk
-mapping a new Dell/Alienware SSID to an existing, well-tested dual-
-speaker fixup. The infrastructure exists in this tree, the patch applies
-cleanly, and users of Alienware x16 R2 on 6.18.y currently get degraded
-speaker output without it.
+### Step 8.3: Failure Mode Severity
+**Record:** UAF / kernel crash — **HIGH** (potential **CRITICAL**
+depending on exploitability of the freed PCI structures).
+
+### Step 8.4: Risk-Benefit
+**Record:** **Benefit:** HIGH — prevents real crashes on a long-standing
+code path. **Risk:** VERY LOW — 2-line addition using existing, well-
+tested API, matching multiple peer drivers. **Ratio:** Strongly favors
+backport.
+
+---
+
+## Phase 9: Final Synthesis
+
+### Step 9.1: Evidence Summary
+
+**FOR backport:**
+- Real synchronization bug with documented crash/UAF consequence
+- Matches PCI core documentation: rescan/remove must run under
+  `pci_rescan_remove_lock` (comment in `probe.c` lines 3536–3538)
+- Peer drivers already use this pattern; rockchip is an outlier
+- 2-line, obviously correct fix
+- Buggy code confirmed present in v6.18.44 tree
+- Driver has been in production kernels for years
+- Signed-off-by PCI maintainer
+
+**AGAINST backport:**
+- No user-reported crash or syzbot reproducer (theoretical/code-review
+  finding)
+- Part of a 9-patch series (but each patch is independent)
+
+**Unresolved:** No runtime crash report; lore thread review discussion
+unavailable (bot-blocked).
+
+### Step 9.2: Stable Rules Checklist
+1. Obviously correct and tested? **PASS** — pattern proven across
+   multiple drivers; no Tested-by but change is trivial.
+2. Fixes a real bug? **PASS** — missing mutex on a documented-required
+   code path.
+3. Important issue? **PASS** — UAF/system crash.
+4. Small and contained? **PASS** — 2 lines, one function.
+5. No new features/APIs? **PASS** — synchronization only.
+6. Can apply to local tree? **PASS** — APIs and buggy code both present.
+
+### Step 9.3: Exception Categories
+**Record:** None (not device ID, quirk, DT, build, or docs). Standard
+bug fix.
+
+### Step 9.4: Decision Rationale
+
+This commit closes a long-standing race in `rockchip_pcie_remove()`
+where root bus teardown was not serialized against sysfs PCI
+rescan/remove operations. The PCI core has required this mutex since
+2014, and the generic host-common remove path has used it since 2018.
+Rockchip was simply missed. The fix is minimal, follows established
+convention, and prevents crashes on Rockchip platforms during driver
+removal concurrent with PCI sysfs operations. For the v6.18.44 tree
+being evaluated, the buggy code is present and the fix applies cleanly.
 
 ---
 
 ## Verification
 
-- **[Phase 1]** Parsed subject, tags, body from user-provided commit
-  message
-- **[Phase 2]** Diff: 1 line `SND_PCI_QUIRK(0x1028, 0x0c90, ...)` in
-  `alc269.c`
-- **[Phase 2]** Read `alc285_fixup_speaker2_to_dac1` at lines 2532–2540
-- **[Phase 2]** Read `ALC289_FIXUP_DUAL_SPK` chain at lines 5346–5350,
-  `ALC289_FIXUP_DELL_SPK2` at 5337–5344
-- **[Phase 3]** `git describe HEAD`: v6.18.44
-- **[Phase 3]** `grep 0x0c90`: no matches — quirk absent
-- **[Phase 3]** `git blame` lines 6620–6630: surrounding quirks from
-  5d324e5159d9e
-- **[Phase 3]** `git log -S ALC289_FIXUP_DUAL_SPK`: present since
-  5d324e5159d9e merge
-- **[Phase 3]** `git show 2ec8f95a08fed`, `6b2c0cd5f9689`: comparable
-  stable-bound speaker fixes
-- **[Phase 4]** WebFetch lore URL: blocked (Anubis)
-- **[Phase 4]** `b4 dig -c`: not run — commit not in tree
-- **[Phase 5]** `grep snd_hda_pick_fixup`: line 8471 in codec init
-- **[Phase 5]** `grep ALC289_FIXUP_DUAL_SPK`: 6+ existing Dell entries
-- **[Phase 6]** Read lines 6639–6641: exact insertion point matches
-  patch
-- **[Phase 6]** `grep Alienware x16`: only in `alienware-wmi-wmax.c`,
-  not audio quirk
-- **[Phase 7]** `git log --oneline -20 -- sound/hda/codecs/realtek/`:
-  active quirk development
-- **[Phase 8]** Read `Documentation/process/stable-kernel-rules.rst`:
-  hardware quirks explicitly accepted
+- **[Phase 1]** Parsed subject, tags, body; no Fixes:/Reported-by/syzbot
+- **[Phase 2]** Diff: +2 lines in `rockchip_pcie_remove()` wrapping
+  stop/remove with lock
+- **[Phase 3]** `git describe HEAD` → v6.18.44; `git blame` →
+  stop/remove added f473182c (2020); driver since e77f847df54c6 (2016)
+- **[Phase 3]** `git show 9d16947b75831` → lock API added 2014; `git
+  blame pci-host-common.c` → lock in remove since 01fcb7f777a9f (2018)
+- **[Phase 3]** `git log --grep="Protect root bus removal"` → empty (not
+  merged)
+- **[Phase 4]** Read local mbox cover + patch 7/9; 9 independent
+  patches; sashiko-bot race comment verified
+- **[Phase 4]** WebFetch lore URL → blocked; b4 dig on unmerged commit →
+  N/A
+- **[Phase 5]** `grep pci_lock_rescan_remove drivers/pci/controller/` →
+  rockchip absent; mvebu/aardvark/mediatek-gen3/hyperv present
+- **[Phase 5]** Read `pci-sysfs.c` rescan/remove stores — all hold lock
+- **[Phase 5]** Read `probe.c:3536-3552` — documents lock requirement
+- **[Phase 6]** Read `rockchip_pcie_remove()` lines 1009–1016 — buggy
+  code confirmed in tree
+- **[Phase 6]** `Kconfig` → `PCIE_ROCKCHIP_HOST` tristate,
+  `ARCH_ROCKCHIP`
+- **[Phase 8]** Race between remove and sysfs rescan → UAF/crash per
+  commit message and PCI core design
 
-**YES**The backport analysis is done for **ALSA: hda/realtek: Fix
-speakers on Alienware x16 R2** on your **6.18.44** tree.
+**YES**The background checks finished and match what the analysis
+already assumed:
 
-**Verdict: YES** — backport it.
+- **Search for commit in tree:** `b4 dig` on HEAD didn’t match this
+  patch; `git log --grep` for the subject also found nothing. The fix
+  isn’t in this tree yet.
+- **Check if fix already merged:** `git log --grep="rockchip.*rescan
+  lock"` and `--grep="Protect root bus removal"` both returned empty —
+  confirmed not merged in v6.18.44.
 
-It’s a one-line PCI quirk (`0x1028:0x0c90` → `ALC289_FIXUP_DUAL_SPK`)
-that enables the second speaker pair on Alienware x16 R2. The fixup
-chain already exists in this tree, the patch applies cleanly between the
-`0x0c4d` and `0x0c94` entries, and it matches the usual stable pattern
-for HDA hardware quirks (same approach as other Dell dual-speaker
-fixes).
+**Verdict stands: YES** — backport the 2-line `pci_lock_rescan_remove()`
+wrap in `rockchip_pcie_remove()` to close the sysfs rescan/remove race.
 
- sound/hda/codecs/realtek/alc269.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/pci/controller/pcie-rockchip-host.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
-index 7f3e1c47729a1..b7dad90ac9cd4 100644
---- a/sound/hda/codecs/realtek/alc269.c
-+++ b/sound/hda/codecs/realtek/alc269.c
-@@ -6660,6 +6660,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x1028, 0x0c1e, "Dell Precision 3540", ALC236_FIXUP_DELL_DUAL_CODECS),
- 	SND_PCI_QUIRK(0x1028, 0x0c28, "Dell Inspiron 16 Plus 7630", ALC295_FIXUP_DELL_INSPIRON_TOP_SPEAKERS),
- 	SND_PCI_QUIRK(0x1028, 0x0c4d, "Dell", ALC287_FIXUP_CS35L41_I2C_4),
-+	SND_PCI_QUIRK(0x1028, 0x0c90, "Alienware x16 R2", ALC289_FIXUP_DUAL_SPK),
- 	SND_PCI_QUIRK(0x1028, 0x0c94, "Dell Polaris 3 metal", ALC295_FIXUP_DELL_TAS2781_I2C),
- 	SND_PCI_QUIRK(0x1028, 0x0c96, "Dell Polaris 2in1", ALC295_FIXUP_DELL_TAS2781_I2C),
- 	SND_PCI_QUIRK(0x1028, 0x0cbd, "Dell Oasis 13 CS MTL-U", ALC289_FIXUP_DELL_CS35L41_SPI_2),
+diff --git a/drivers/pci/controller/pcie-rockchip-host.c b/drivers/pci/controller/pcie-rockchip-host.c
+index ee1822ca01db3..d203c4876d304 100644
+--- a/drivers/pci/controller/pcie-rockchip-host.c
++++ b/drivers/pci/controller/pcie-rockchip-host.c
+@@ -1012,8 +1012,10 @@ static void rockchip_pcie_remove(struct platform_device *pdev)
+ 	struct rockchip_pcie *rockchip = dev_get_drvdata(dev);
+ 	struct pci_host_bridge *bridge = pci_host_bridge_from_priv(rockchip);
+ 
++	pci_lock_rescan_remove();
+ 	pci_stop_root_bus(bridge->bus);
+ 	pci_remove_root_bus(bridge->bus);
++	pci_unlock_rescan_remove();
+ 	irq_domain_remove(rockchip->irq_domain);
+ 
+ 	rockchip_pcie_deinit_phys(rockchip);
 -- 
 2.53.0
 
