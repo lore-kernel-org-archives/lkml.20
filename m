@@ -1,146 +1,100 @@
-Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A035839A054
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 21:26:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.171
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788211594; cv=pass; b=QxJ5C0jOk4tyz7wT2ADu6SJGzmCkVSFERC7tWVkDE3uaGWDw4zHU6uSdsRXfKLSg7YtCdHgZGZxEAWmCTkbtmPNgWw+KOv256kzxbn+F/DYSyrVLPVwQo2/X9TgwfRT+1CndAtM0/CrWEdQwgavDjMEjZyh0jYv1IF2NmxGPHxY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788211594; c=relaxed/simple;
-	bh=SNlsz2MPRq4levA4MX+yohL5QexaYB539yJgxQLixV8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=CL8lr2k5pdXjZIo1NMVK4q9CnnZzzlVcdLL43uzGOwClSIKCuMJx8Mxl2v3Qv0FhqetneIRXOYL1DoOhbAcpStb07wx/DCzH0+Ch4J0nOgDKhlAbeu99tBOET0AKqCGd65AKfYcrQjlNYImrZDLmKLzae7onNKkXLzkEIH5pG5M=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com; spf=pass smtp.mailfrom=paul-moore.com; dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.b=PQIMo9RI; arc=pass smtp.client-ip=209.85.210.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=paul-moore.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 584783624B8;
+	Mon, 31 Aug 2026 21:27:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788211643; cv=none; b=UJZLAysjn3yEsu8xROSZZlDFHYc+2LS6axtYWqCc3gxLdWXZFysknThzD3lMWhpC/SGabTu5hPS9olNd+zQRHgOly/YY3pdFz0S8Q3S01Gp/nOAKAOyh2QxoFMCzHURTWjfI1tcZf3R2MIQCtiX9PtiHEaYhqeNNz5fO8p9HwTE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788211643; c=relaxed/simple;
+	bh=UWkAB/0UN0jAczMe5AfSqL0s1dlXiU0QWMONLCr0qvE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Wum9iAuT0peKd7s2ZWJek6/SWOIfwF7iZYkQIS3mJxXHNrwRnJ96wG0Hpi6ONMWV+aUx9o3iIVhsLjeGedMTLJLzvD0MVa2fkhubyITcqndS+vvVXaSeR/Frg31ehbI2vX7PtTbLRlpgvHdP3O/v79O6RdCxj6UhqNJDGIZxAQ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B5Wg3vRF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.b="PQIMo9RI"
-Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-84e0688b7e8so2906881b3a.1
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 14:26:32 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788211592; cv=none;
-        d=google.com; s=arc-20260327;
-        b=PMyg2iB8ou3vucq/GWSr89DL3RhEXJGzWlTmgUoDKHv8O2+4+VOwqcYTzLqYkDb0YE
-         0t/TPDxB8peA5PQAYF/nXGSZKSIERfiPcAMfbLo/NJErnW79t4VQbCLPbVM5PKwl6O6g
-         FhaoEtMfIJr//dDOQpKzpixECK3EiKfnEpjV++STP6fkkAdt8RjQz4Q9FeGBMudQUmiz
-         +KAQH6G975SxpdLLBxvZMyi8sJh6p1pBO+z7KrDfUtBzRXdSh1gXHPka/JcNeeOBk1sz
-         9LcQhBkXQoZ9orplkRc9ycHKGDjr25U1weD61LLtuqq51zJvHddjmnSpE1IAuRaNz436
-         rwlw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=B0t0GoOAIGAPmJB6jitdBOXKLd7x+wtGWWpKwR8Li5c=;
-        fh=AgZXsCy7Zcfg8kFBu3S93E0HF6etkv1E8gBkq57W13U=;
-        b=ARWaM9eSkQwdGx6hmex/yzznbBoYFFhZdAKdl061K776W5yB+2tUjgFV8p8Ora5SAf
-         J+SHMeki14gfbEFuHX5VLJ5bsxTePQIiMFBGS8D4fuiikACpYZaaDKPkt3fNUs9qObT7
-         up0/RPy756sohIYwATPB/VwP/Ct9nfS7vgRjWXxpa53K3mDzeIwE2Kl7/mUTLbn69n94
-         bhp2jYAqO0nIVnNb1Jq0+5Tgf2xog+0M/XREC+vdaxpnZeWFwx8bYFHpsBFIk188a/MV
-         ndQQKm17u0yJS4k5wVT6AZkzNJuWISrDZdyenjxt5nZ/uZtdwqi4hkDXwx3p3Rr8aZPa
-         xirg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=paul-moore.com; s=google; t=1788211592; x=1788816392; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=B0t0GoOAIGAPmJB6jitdBOXKLd7x+wtGWWpKwR8Li5c=;
-        b=PQIMo9RIZT6w7HmQKV2ItxMWnQ7jJyw4LDw3Sxt1Fq1/4DVLN4pgtpgAvRvhz211bU
-         VtUJrxLCUImzY8K22youYRZ9bk6Nm7/vW4fFHUnZKcGluCpZ7aubtE3U4Wfm+/FjntTu
-         z/6V+7VDf4SX6e5HWf2GnV73XK/HpkYoauBpjntBsyCzEe98qCEvMXE0T04Fjzp+uIqr
-         NP7VE2I18KgJEnAOlaxy1kTaJoDjqkjzc4ZJlPlVyp+sfH0OZiSEBnIEY1UqMzyxCIQ+
-         IyNCIsKsFVEzVH+jz5prz8x4Ga138WHh9chWvYOO7xHD3+OomyDnNBDb7Gsf/iU9LFu2
-         GW5g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788211592; x=1788816392;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=B0t0GoOAIGAPmJB6jitdBOXKLd7x+wtGWWpKwR8Li5c=;
-        b=LmiploMp0cNx3Y/9AVWFCKOqa2KfH3T4xyhes+PZZ+xJn0dPGnbgnafHiuO8TnP44v
-         6cyPsqou0vbZMptxRNkuv8ebrynImvnrh2+Yrwg89bEg06M0JHj0/jBVRsar3DKI4pTS
-         S/BRKIh4yqZCLqHMRE7tRK+K6a7ZrfRMREvbhA0H1lBIDYCBG0SDErIpoOMYVCtE/TTT
-         0f3a2fCVnjtkWDOn9+7q+tKVN2i8CRQfPz3gJ/dLk76b+CJOAl0RSJcWZAf1xUDIyC31
-         P6p9TllWcf61slTui2WPLJl0eMOq+TOSs3YEz2VgluBM0Ab7ots4MK0oSYW2ZEfKi2T+
-         xxDQ==
-X-Forwarded-Encrypted: i=1; AHgh+RosDW5a7+OG0h6kNZl8RkEsVrBrNZUCcx+L0qeQU1yqvsTR8JZChjviAuB4GkkPpnOo2DxOAgW4y/f+D8Y=@vger.kernel.org
-X-Gm-Message-State: AFuF++lXVlS9C2H2wbZdLz6liJUlUYCLT4cGkMIg6sJUBV7M7H+rHZdo
-	I6GvRVMPBveGfc6Cz0okgWGLrUdBDMmltW1gES8efBPTYIv4N3i4clxfGeDvly+MpVg1Cuvb4cq
-	nRkl0JsHW7jDVMHFyoEYNAi6bxAqhbmpWg1rLCQpS
-X-Gm-Gg: AR+sD10iR1ES4a5m4nfsgGYhr0n8EQYGmpJuc2nG2+g9cGwHTYTPicXXA86ryZ2amQU
-	1lqP+GSzY/MQMnZXcmT6nuML9MN2KThqlZt7Va3LaZfaMjcr7r3GrDYc0VqxPn0PodWRTM7MxYU
-	otoCcrOugF0IOw0kRKGWIjxroiTwBUPfkvc3phtuSIbNRFLZGX2LH2sE5blPQ/vTlBOTSFI42sr
-	63lrsZhiNjjugA5JItq3X1lXdFaYMcjhfpAZj5wAIuH74CeqZ62xrmdbFpoUcX7PajLdnnHVyIE
-	QJcmb1heL6iNzL8vlTxrtqveMvuXouQXg2fpJJcv429nRA==
-X-Received: by 2002:a05:6a00:2da7:b0:851:bf92:34c9 with SMTP id
- d2e1a72fcca58-8562a8d2cdfmr43570322b3a.9.1788211591833; Mon, 31 Aug 2026
- 14:26:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B5Wg3vRF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93A7B1F000E9;
+	Mon, 31 Aug 2026 21:27:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788211641;
+	bh=UWkAB/0UN0jAczMe5AfSqL0s1dlXiU0QWMONLCr0qvE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=B5Wg3vRFGUo/ZoMi0Kd9Mepopts3nZTxI9uo7amXP04TaiWeNf9eDNLC4CyNIlO01
+	 Jr883+5+GPQ9HhKM/TaroYUonHwy4Ok6GcinzJznQEeLkRlpewaXwfivVhiTW9U/Mq
+	 Il76JpGMDjl37kEOvVRN0uBpp46GqKnx0zAAv93tUSeGcpKlaOJcugX0zpJ+QhlElM
+	 s6p4S3wckoXM0VPhh5+tfCAOSuoiZ8OafEGWcbxg9EEzN6dlrTfGsboCwxX86argFz
+	 HRMTWQNva1hq2bjmlEl4q16uN5PGThW/1wMTTPnyrBZIRtQiZOHB3+lvU8kkfSVjwM
+	 qfiyp9r3K7J2w==
+Date: Mon, 31 Aug 2026 22:27:13 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Jia Wang <wangjia@ultrarisc.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Samuel Holland <samuel.holland@sifive.com>,
+	Anup Patel <anup@brainfault.org>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Mika Westerberg <mika.westerberg@linux.intel.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+	Jose Abreu <joabreu@synopsys.com>,
+	Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>,
+	Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
+	Paul Walmsley <paul.walmsley@sifive.com>,
+	Palmer Dabbelt <palmer@sifive.com>, Conor Dooley <conor@kernel.org>,
+	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org,
+	linux-i2c@vger.kernel.org, netdev@vger.kernel.org,
+	dmaengine@vger.kernel.org
+Subject: Re: [PATCH 06/12] spi: dt-bindings: snps,dw-apb-ssi: Add compatible
+ for UltraRISC DP1000 SoC
+Message-ID: <9bd5a17a-43a8-4e3b-bd12-ddde9265c2f0@sirena.org.uk>
+References: <20260824-ultrarisc-dts-v1-0-61ab7aebe9e5@ultrarisc.com>
+ <20260824-ultrarisc-dts-v1-6-61ab7aebe9e5@ultrarisc.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260726161400.3010511-4-mic@digikod.net> <5cabf9b33a20f130cedcc423b8b2d151@paul-moore.com>
-In-Reply-To: <5cabf9b33a20f130cedcc423b8b2d151@paul-moore.com>
-From: Paul Moore <paul@paul-moore.com>
-Date: Mon, 31 Aug 2026 17:26:20 -0400
-X-Gm-Features: AcwNN1VcoP3dcmF-y7p30PIUoPvKVk5sVz3Ko6oQrIqfztGFDqzJ9T0P3PiRYsc
-Message-ID: <CAHC9VhS_WP-bLgMGiFAfE1MT76iKvVJ-OV5r7xju-KMdrfjssQ@mail.gmail.com>
-Subject: Re: [PATCH v3 3/12] security: Add LSM_AUDIT_DATA_NS for namespace
- audit records
-To: =?UTF-8?B?TWlja2HDq2wgU2FsYcO8bg==?= <mic@digikod.net>, 
-	Christian Brauner <brauner@kernel.org>, =?UTF-8?Q?G=C3=BCnther_Noack?= <gnoack@google.com>, 
-	"Serge E . Hallyn" <serge@hallyn.com>
-Cc: Daniel Durning <danieldurning.work@gmail.com>, Jonathan Corbet <corbet@lwn.net>, 
-	Justin Suess <utilityemal77@gmail.com>, Lennart Poettering <lennart@poettering.net>, 
-	Mikhail Ivanov <ivanov.mikhail1@huawei-partners.com>, 
-	Nicolas Bouchinet <nicolas.bouchinet@oss.cyber.gouv.fr>, 
-	Shervin Oloumi <enlightened@google.com>, Tingmao Wang <m@maowtm.org>, kernel-team@cloudflare.com, 
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-security-module@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="q+7g5Wbpwns/c8Jq"
+Content-Disposition: inline
+In-Reply-To: <20260824-ultrarisc-dts-v1-6-61ab7aebe9e5@ultrarisc.com>
+X-Cookie: Chocolate chip.
 
-On Tue, Aug 11, 2026 at 4:16=E2=80=AFPM Paul Moore <paul@paul-moore.com> wr=
-ote:
-> On Jul 26, 2026 =3D?UTF-8?q?Micka=3DC3=3DABl=3D20Sala=3DC3=3DBCn?=3D <mic=
-@digikod.net> wrote:
-> >
-> > Add a new LSM audit data type LSM_AUDIT_DATA_NS that logs namespace
-> > information in audit records.  Two fields are provided:
-> >
-> > - ns_type: the CLONE_NEW* flag identifying the namespace type, logged
-> >   in hexadecimal.
-> >
-> > - ns_id: the unique 64-bit namespace identifier, retrievable from
-> >   userspace via NS_GET_ID or listns(2).  Unlike the proc inode number
-> >   (inum), ns_id is never recycled.  For namespace creation denials,
-> >   ns_id is 0 because the namespace does not exist yet.
->
-> Based on the code in this patch, "ns_type" should be "namespace_type"
-> and a similar change needs to be done for "ns_id".  Regardless, the
-> first three patches look fine to me (I can fixup the above during a
-> merge).
->
-> As mentioned previously, I want to merge at least the first three
-> patches via the LSM tree since we have multiple LSMs which depend on
-> these new hooks.  I'm happy to also merge the remaining Landlock
-> patches in this patchset via the LSM tree, or you can manage those
-> separately; let me know how you would like to proceed with that.
->
-> Since we are at -rc7, this is obviously something for after the
-> upcoming merge window so I'm going to merge the first three patches
-> into the lsm/dev-staging branch now with the understanding that they
-> will move over to the lsm/dev branch after the upcoming merge window
-> is finished.  If you want me to merge the Landlock patches too, just
-> let me know.
 
-The first three patches are now in lsm/dev, thanks everyone.
+--q+7g5Wbpwns/c8Jq
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Micka=C3=ABl, if you would like me to merge the remaining patches in this
-patchset into the lsm/dev branch just let me know.
+On Mon, Aug 24, 2026 at 01:54:19PM +0800, Jia Wang wrote:
+> Add the SoC-specific compatible string and use the generic one as fallback
+> for the UltraRISC DP1000 SPI controller.
 
---=20
-paul-moore.com
+This doesn't apply against current code, please check and resend.
+
+--q+7g5Wbpwns/c8Jq
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqV8bAACgkQJNaLcl1U
+h9DI8wf/eSvMfTYF0nSWOpBbx64lahzK6gdu0QfgliH0pyXLXPkDKM/MJk8BN5Mn
+h1/EIUG8xEEzzOTWbycIU1gyEVN1BSPELOL8mSJJg+5YS4SCKHjPLUvzHJUb+Tiv
+I41ubInBfOHEb15rEuP04UQovZYMvLCr/Grw4crXMM/hZW5RjdT48QhaltrjdbNT
+UOhg1ybDz4UzhD9ys7VACQ+U/cjjhbNezZZR4PaUST3pbURHoE9WFpohUbBhK5xT
+esoGPKe+DYO0LkRQ+SGGTekeE0q5hhwDGNp5F2rqqoz/8jUv5/iFlNsmUGvJQQAR
+0/8l/S9EqYMPbSKL1NQDqYdfFKPZQQ==
+=u+gt
+-----END PGP SIGNATURE-----
+
+--q+7g5Wbpwns/c8Jq--
