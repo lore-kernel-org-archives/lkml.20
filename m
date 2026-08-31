@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91E16554090;
-	Mon, 31 Aug 2026 13:46:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 949595540B6;
+	Mon, 31 Aug 2026 13:46:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788184021; cv=none; b=ABVmawKYhaEsN50V0Gyp47rIbQwTZRM7dDd9HPY+qg9CMrA/Eoj5bCKyLCKFExDktShablKghFxCx5C5fArKFD5u++eBmO5pZ7uIrQGWyB0iavqL1LB8WtKHDyGLO+PEhZTgBFYfpuZAzzStOzpI6u/p6rAIB4wDv9rnAe6qUZA=
+	t=1788184022; cv=none; b=PT2JIF28SjKzuq8AfZqvd/3kt1c/6qLDADqSf5QtqvJ6RDiwxnoTtxhZk7Wh+/dWH+qmjATL1BmA9Rf1nzWUeqdLNAWx77gPtpgjnw9Y9rzRgv5DhdzqNhY6lF0Id96k4UK/+tbz54qlLRnal0r70FWpSHnXIMVEGUrl2GBfxz8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788184021; c=relaxed/simple;
-	bh=uJAbHlxYNXIHE4aJUZQOJhTOXMAj8pE4PVHD3CgWx8Q=;
+	s=arc-20240116; t=1788184022; c=relaxed/simple;
+	bh=zwvwbOhGw1C7ophV7SpK5Uw2kEtfLSP+tp9L42IJE+c=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=RVSTVyXwFyodvKGbSwqHodtf/YZmMdmUrQuMOh4/SBEWddu5/v9OCDFdeo1ySXkEb50IsruE5uMf/zyMzl1TkF/mqD0mdkIn3HTpaQyt8g54PTRA1+zNnU7VfgP03wtSCLWedRmqVMnOnBHUk/yqhnC/Kz2nV/LAWDY/YPyiPAs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WuG181x8; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=CYSvqtU32NBQufbZ3VPwRi2UbfO7WmOGhsWhb61cANHgN3uRaQTcSWFQ9LZCwg3Qus6vrNBWsakOSRNjVLLZIm67s+sFoiOPrOfMVQxDjdGPzm7S62jSCwi0IN9nFS3rUE3/UrQwcAUwuyKG1bbS/sPZ8cxl2wioCWxbmfgia1w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T+rAC9OW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WuG181x8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B39DC1F00A3D;
-	Mon, 31 Aug 2026 13:46:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T+rAC9OW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47DB41F00A3F;
+	Mon, 31 Aug 2026 13:46:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788184016;
-	bh=weETPJ2teorjRCwF4+obXO9mQoQUZieMMic/CWNjFss=;
+	s=k20260515; t=1788184018;
+	bh=KpQJogOnWNm1wLnORWhkcR5bmVd9p4So25qtBfHPoz8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WuG181x89eFRn3KbU8hCTdI1AC4Um2d48KIiJJb0CeXWecFEVwJZiRJ1FEi8yYxKV
-	 DSmnk7/bpp7BeLKew64skmLOMjO/j0CQKcVW6s9HtUByBS2FojhkhoiOWU4GOq1Rwp
-	 3uD1tLoCz0r1g5VwONNpiaeeSWBVRjvWQwyvYD/DdGY/JGDYudD/YzRyTotJR0WB5t
-	 G83t7sXVP4K6QqI5/zjL9Rch1iRmuopCm8XDNmWSDlvqyVnBSymixNoMmhYpIM6Mun
-	 NP7pTZWsFJMjrVC5MuE5EYmJRJbffSqXsC6X4ihyVYeeTEy0vqJJVDJaPnoIg8X+qa
-	 Fh9zUwe3XxzdQ==
+	b=T+rAC9OWbM6h2dAyHcWLHGOWclrIF53qC0bYGvwrTalHIr3z5x/7OX7Da8cYFaYsG
+	 X6kBzfYuYlLBZyMAH1oOgguAIUpArX/S7wGGuDTbYjf451cbp4Gw1ornxTx6UVhBXs
+	 yghC6a/4hCYf83OLhDft7f0i58FcdufxXWjVSSxlFdhuV/9Wab+TGAWZTAkyblXXOe
+	 hlQirdKAqWDhQzdi7oWbUn/cCwpAwosL9MU9LrlIeAuAc9j/l7u8dGWirVcLetfPRz
+	 4/7j3E7dFXQkoXOv0GfcfbLX88r8tDyRodufPTdHM0mLdJrrI5fqlGpONXb4056N+l
+	 NXapE6yFhNcsA==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Eugene Shalygin <eugene.shalygin@gmail.com>,
-	Guenter Roeck <linux@roeck-us.net>,
+Cc: Emmanuel Grumbach <emmanuel.grumbach@intel.com>,
+	Daniel Gabay <daniel.gabay@intel.com>,
+	Miri Korenblit <miriam.rachel.korenblit@intel.com>,
 	Sasha Levin <sashal@kernel.org>,
-	corbet@lwn.net,
-	linux-hwmon@vger.kernel.org,
-	linux-doc@vger.kernel.org,
+	linux-wireless@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18] hwmon: (asus-ec-sensors) add ROG STRIX B850-E GAMING WIFI
-Date: Mon, 31 Aug 2026 09:27:48 -0400
-Message-ID: <20260831133314.4125787-440-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18] wifi: iwlwifi: fix the access to CNVR TOP registers
+Date: Mon, 31 Aug 2026 09:27:49 -0400
+Message-ID: <20260831133314.4125787-441-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -54,425 +53,501 @@ X-stable-base: Linux 6.18.48
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Eugene Shalygin <eugene.shalygin@gmail.com>
+From: Emmanuel Grumbach <emmanuel.grumbach@intel.com>
 
-[ Upstream commit 5e9f31543515d685cafed33274433b6360c0e1e4 ]
+[ Upstream commit c73869c1df2a27dc3c928e94b42660124318f727 ]
 
-The board has a similar sensor configuration to the
-ROG STRIX B850-I GAMING WIFI, but includes an additional
-T-Sensor header. The patch was provided via GitHub [1].
+For Dr and Sc, we need to wait until the TOP is ready to gets its
+registers read by the host.
 
-[1] https://github.com/zeule/asus-ec-sensors/pull/105
-
-Signed-off-by: Eugene Shalygin <eugene.shalygin@gmail.com>
-Link: https://lore.kernel.org/r/20260607123626.100630-1-eugene.shalygin@gmail.com
-Signed-off-by: Guenter Roeck <linux@roeck-us.net>
+Signed-off-by: Emmanuel Grumbach <emmanuel.grumbach@intel.com>
+Reviewed-by: Daniel Gabay <daniel.gabay@intel.com>
+Link: https://patch.msgid.link/20260511203428.09778340db51.I28d678ad404bbf8068f139666d38e29be5aa063b@changeid
+Signed-off-by: Miri Korenblit <miriam.rachel.korenblit@intel.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-## Phase 1: Commit Message Forensics
+# Stable Backport Analysis: `wifi: iwlwifi: fix the access to CNVR TOP
+registers`
 
-### Step 1.1: Parse the Subject Line
-**Record:** `[hwmon: (asus-ec-sensors)] [add] [ROG STRIX B850-E GAMING
-WIFI board support]`
+**Local tree:** Linux **6.18.44** (`git describe HEAD` → `v6.18.44`)
 
-### Step 1.2: Parse All Commit Message Tags
+---
+
+## PHASE 1: COMMIT MESSAGE FORENSICS
+
+### Step 1.1: PARSE THE SUBJECT LINE
+**Record:** `[wifi: iwlwifi]` `[fix]` — Correct premature access to CNVR
+TOP peripheral registers on DR and SC device families during early
+hardware identification.
+
+### Step 1.2: PARSE ALL COMMIT MESSAGE TAGS
 **Record:**
-- **Fixes:** — not present (expected for manual review)
-- **Reported-by:** — not present
-- **Tested-by:** — not present
-- **Reviewed-by:** — not present
-- **Acked-by:** — not present
-- **Link:** `https://lore.kernel.org/r/20260607123626.100630-1-
-  eugene.shalygin@gmail.com`
-- **Cc: stable@vger.kernel.org:** — not present (expected)
-- **Signed-off-by:** Eugene Shalygin `<eugene.shalygin@gmail.com>`
+- **Signed-off-by:** Emmanuel Grumbach `<emmanuel.grumbach@intel.com>`
   (author)
-- **Signed-off-by:** Guenter Roeck `<linux@roeck-us.net>` (hwmon
-  maintainer)
-- **Notable:** GitHub reference `[1] https://github.com/zeule/asus-ec-
-  sensors/pull/105` in body; no syzbot/fuzzer tags
+- **Reviewed-by:** Daniel Gabay `<daniel.gabay@intel.com>` (Intel
+  reviewer)
+- **Link:** `https://patch.msgid.link/20260511203428...` (patch
+  submission reference)
+- **Signed-off-by:** Miri Korenblit
+  `<miriam.rachel.korenblit@intel.com>` (maintainer committer)
+- No `Fixes:`, `Reported-by:`, `Cc: stable@vger.kernel.org`, or syzbot
+  tags
+- Notable: Intel-internal review; part of `[PATCH 3/15]` iwlwifi update
+  series (May 11, 2026)
 
-### Step 1.3: Analyze Commit Body
+### Step 1.3: ANALYZE THE COMMIT BODY TEXT
 **Record:**
-- **Bug description:** Not a crash/corruption fix. Adds DMI board
-  identification and sensor configuration for the ASUS ROG STRIX B850-E
-  GAMING WIFI motherboard.
-- **Symptom without patch:** `asus-ec-sensors` does not bind on this
-  board; no EC-based temperature/fan hwmon sensors are exposed.
-- **Root cause:** Board is absent from the driver's `dmi_table[]` and
-  has no `ec_board_info` entry.
-- **Configuration detail:** Similar to B850-I, but adds
-  `SENSOR_TEMP_T_SENSOR` (T-Sensor header) and uses
-  `ASUS_HW_ACCESS_MUTEX_SB_PCI0_SBRG_SIO1_MUT0` instead of the ACPI
-  global lock used by B850-I.
-- **Version info:** None in commit message.
+- **Bug:** On DR and SC families, the host reads CNVR TOP peripheral
+  registers before the TOP block is ready.
+- **Symptom:** Incorrect or unavailable peripheral register reads during
+  `get_crf_id()` in the PCIe probe path; can lead to wrong/missing RF ID
+  and probe failure.
+- **Root cause:** Missing hardware-readiness wait before `WFPM_CTRL_REG`
+  / peripheral register access.
+- **Version info:** None explicit; hardware-specific to
+  `IWL_DEVICE_FAMILY_DR` and `IWL_DEVICE_FAMILY_SC`.
 
-### Step 1.4: Detect Hidden Bug Fixes
-**Record:** Not a hidden bug fix. This is explicit hardware enablement —
-a DMI board-table addition analogous to adding a PCI/USB device ID. No
-error-path, locking, refcount, or memory-safety changes.
+### Step 1.4: DETECT HIDDEN BUG FIXES
+**Record:** Not disguised — this is an explicit hardware-init timing bug
+fix, not cleanup or optimization.
 
 ---
 
-## Phase 2: Diff Analysis
+## PHASE 2: DIFF ANALYSIS
 
-### Step 2.1: Inventory the Changes
+### Step 2.1: INVENTORY THE CHANGES
 **Record:**
-- `Documentation/hwmon/asus_ec_sensors.rst`: +1 line (board list)
-- `drivers/hwmon/asus-ec-sensors.c`: +10 lines (struct + DMI entry)
-- **Total:** ~11 lines added, 0 removed
-- **Functions modified:** None; only static data
-  (`board_info_strix_b850_e_gaming_wifi`, `dmi_table[]`)
-- **Scope:** Single-subsystem, single-driver, surgical data-table
-  addition
+| File | Change |
+|------|--------|
+| `iwl-io.c` | +18 lines (new poll helper) |
+| `iwl-io.h` | +2 lines (declaration) |
+| `iwl-prph.h` | +5 lines (register/bit defines) |
+| `pcie/gen1_2/trans.c` | +24 lines (wait logic in `get_crf_id()`) |
 
-### Step 2.2: Code Flow Change
+- **Functions modified:** `get_crf_id()`; new
+  `iwl_poll_umac_prph_bits_no_grab()`
+- **Scope:** Single-subsystem, 4-file surgical fix (~51 lines total
+  including copyright year bumps)
+
+### Step 2.2: UNDERSTAND THE CODE FLOW CHANGE
 **Record:**
-- **Hunk 1 (docs):** Adds board name to supported-boards list.
-- **Hunk 2 (board_info):** Before → no config for B850-E. After → new
-  `ec_board_info` with CPU/CPU package/MB/VRM temps, T-Sensor, CPU_OPT
-  fan, SB PCI0 SIO1 mutex, `family_amd_800_series`.
-- **Hunk 3 (dmi_table):** Before → DMI match fails for `"ROG STRIX
-  B850-E GAMING WIFI"`, `get_board_info()` returns NULL,
-  `asus_ec_probe()` returns `-ENODEV`. After → board matches and probe
-  proceeds with correct sensor/mutex config.
-- **Path affected:** Driver probe on matching DMI hardware only.
+- **Hunk 1 (`iwl-io.c` / `iwl-io.h`):** Adds
+  `iwl_poll_umac_prph_bits_no_grab()` — mirrors `iwl_poll_prph_bit()`
+  but uses `iwl_read_umac_prph_no_grab()` for contexts where NIC access
+  is already held.
+- **Hunk 2 (`iwl-prph.h`):** Defines `WFPM_RSRCS_4PHS_REQ_STTS`,
+  `WFPM_RSRCS_4PHS_ACK_STTS`, and CNVR TOP request/ack bits.
+- **Hunk 3 (`trans.c` / `get_crf_id()`):**
+  - **Before:** Immediately reads/writes UMAC peripheral registers.
+  - **After (DR/SC only):** Checks REQ bit 6; polls ACK bit 6 (50 ms
+    timeout); then proceeds with peripheral access.
+  - **Path:** Early probe, inside `iwl_pci_gen1_2_probe()` →
+    `get_crf_id()` with NIC access held.
 
-### Step 2.3: Bug Mechanism
+### Step 2.3: IDENTIFY THE BUG MECHANISM
 **Record:**
-- **Category:** Hardware enablement / board ID addition (DMI quirk
-  equivalent)
-- **Mechanism:** Missing DMI entry prevents driver binding; not a
-  runtime crash bug. Wrong mutex/sensor map (if guessed from B850-I)
-  could cause incorrect EC access — the patch supplies board-owner-
-  validated configuration.
+- **Category:** Logic / hardware-init correctness fix
+  (timing/sequencing).
+- **Mechanism:** `get_crf_id()` reads `WFPM_CTRL_REG`,
+  `sd_reg_ver_addr`, and `CNVI_AUX_MISC_CHIP` before CNVR TOP signals
+  readiness via `WFPM_RSRCS_4PHS_ACK_STTS` bit 6. On DR/SC this yields
+  garbage or zero `hw_crf_id`, causing `map_crf_id()` to fail and probe
+  to return `-EINVAL`.
 
-### Step 2.4: Fix Quality Assessment
+### Step 2.4: ASSESS THE FIX QUALITY
 **Record:**
-- **Quality:** High. Follows the exact pattern of
-  `board_info_strix_b850_i_gaming_wifi` (commit `25b2c02e5b1f8`) and
-  other ATX boards using `ASUS_HW_ACCESS_MUTEX_SB_PCI0_SBRG_SIO1_MUT0`
-  (e.g. `board_info_strix_x670e_e_gaming_wifi`).
-- **Regression risk:** Very low — only adds a new DMI match; existing
-  boards unaffected.
-- **Red flags:** None.
+- Follows existing `iwl_poll_prph_bit()` / `iwl_poll_umac_prph_bit()`
+  patterns.
+- Minimal, device-family-gated (`DR` and `SC` only).
+- **Minor concern:** On ACK poll timeout, code logs `IWL_ERR` but still
+  proceeds (best-effort, same as many iwlwifi init paths). REQ-bit-clear
+  path returns early from `get_crf_id()` without reading registers.
+- **Regression risk:** Low — change is gated to two families and adds a
+  wait before existing reads.
 
 ---
 
-## Phase 3: Git History Investigation
+## PHASE 3: GIT HISTORY INVESTIGATION
 
-### Step 3.1: Blame Changed Lines
-**Record:** Commit not yet in this tree. Sister board B850-I was added
-by `25b2c02e5b1f8` (2025-07-28, merged via `989253cc46ff3` hwmon-
-for-v6.18-rc1). `family_amd_800_series` introduced in `2c8ac03aad7a8`
-(ROG STRIX X870E-E GAMING WIFI). All prerequisite infrastructure
-predates 6.18.44.
+### Step 3.1: BLAME THE CHANGED LINES
+**Record:** `get_crf_id()` at lines 3990–4040 in `trans.c` is present in
+this tree. Git blame in this checkout is shallow (single squashed commit
+per file), so the exact introduction commit could not be determined from
+local history.
 
-### Step 3.2: Follow Fixes: Tag
-**Record:** N/A — no `Fixes:` tag.
+### Step 3.2: FOLLOW THE FIXES: TAG
+**Record:** No `Fixes:` tag present — not applicable.
 
-### Step 3.3: File History for Related Changes
-**Record:** Recent `asus-ec-sensors.c` changes on `stable/linux-6.18.y`
-after v6.18.0 are bug fixes only (`ENOMEM` handling, EC read intervals,
-bank looping, T_Sensor fix for PRIME X670E-PRO WIFI). No new board
-additions were backported post-v6.18.0. B850-I and other boards arrived
-via the v6.18-rc1 merge. This commit would be the first post-release
-board addition for this driver in 6.18.y, but that is precedent context,
-not a disqualifier.
+### Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES
+**Record:** Local git history for `drivers/net/wireless/intel/iwlwifi/`
+is extremely shallow (no meaningful per-file history). Patch is **3/15**
+in the May 2026 iwlwifi series; this commit is standalone and does not
+depend on patches 1/15 or 2/15.
 
-### Step 3.4: Author's Other Commits
-**Record:** Eugene Shalygin is an active `asus-ec-sensors` contributor
-(e.g. B850-I co-author, multiple board/fix commits). Guenter Roeck is
-the hwmon maintainer and committed the patch.
+### Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS
+**Record:** Emmanuel Grumbach is a long-standing iwlwifi maintainer.
+Series cover letter lists him as author of this fix among other iwlwifi
+changes. Cannot verify author history in this shallow tree.
 
-### Step 3.5: Dependent/Prerequisite Commits
-**Record:** No series dependency. Requires only existing infrastructure
-in this tree:
-- `asus-ec-sensors` driver ✓
-- `family_amd_800_series` ✓
-- `SENSOR_TEMP_T_SENSOR`, `SENSOR_FAN_CPU_OPT` ✓
-- `ASUS_HW_ACCESS_MUTEX_SB_PCI0_SBRG_SIO1_MUT0` ✓
-- B850-I support (`25b2c02e5b1f8`) ✓
-Standalone backport.
+### Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS
+**Record:** No prerequisites identified. Required symbols
+(`iwl_read_umac_prph_no_grab`, `IWL_DEVICE_FAMILY_DR`,
+`IWL_DEVICE_FAMILY_SC`, `get_crf_id`) all exist in this tree. Patch
+should apply cleanly.
 
 ---
 
-## Phase 4: Mailing List and External Research
+## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
-### Step 4.1: Original Patch Discussion
-**Record:** Lore URL blocked by Anubis bot protection (could not read
-thread). GitHub PR #105 (merged 2026-04-18, author `leimh`) confirms
-hardware-owner testing; board config includes T-Sensor header and
-dedicated hardware mutex. Label `mainlined` added. `b4 dig` without
-commit hash failed; `b4 dig -c 25b2c02e5b1f8` worked for the related
-B850-I patch only.
+### Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION
+**Record:** Patch found in local mbox
+`20260511_miriam_rachel_korenblit_wifi_iwlwifi_updates_2026_05_11.mbx`
+as `[PATCH 3/15]`. Cover letter classifies it under "Features, cleanups
+and **fixes**". `b4 dig -c HEAD` did not match (HEAD is the stable
+release tag, not this commit). `b4 dig` by subject failed (wrong
+invocation). Link fetch blocked by bot protection — could not read full
+lore thread.
 
-### Step 4.2: Reviewers
-**Record:** Guenter Roeck (maintainer) Signed-off-by on commit. GitHub
-review by `zeule` (asus-ec-sensors maintainer) before merge.
+### Step 4.2: CHECK WHO REVIEWED THE PATCH
+**Record:** `Reviewed-by: Daniel Gabay <daniel.gabay@intel.com>`. Series
+addressed to iwlwifi maintainers. Full `-w` recipient list not
+retrieved.
 
-### Step 4.3: Bug Report
-**Record:** No formal bug report. Hardware validation via GitHub PR #105
-from a B850-E owner. Symptom: missing sensor support, not a kernel oops.
+### Step 4.3: SEARCH FOR THE BUG REPORT
+**Record:** No external bug report, syzbot link, or user `Reported-by:`
+— internal Intel discovery/fix.
 
-### Step 4.4: Related Patches/Series
-**Record:** Standalone 1/1 patch. Related: B850-I addition
-(`25b2c02e5b1f8`) already in tree; B850-E extends the same product line
-with different sensor/mutex layout.
+### Step 4.4: CHECK FOR RELATED PATCHES AND SERIES
+**Record:** Part of 15-patch series; patches 1/15 (debugfs PE naming)
+and 2/15 (firmware core bump) are independent. This fix is self-
+contained.
 
-### Step 4.5: Stable Mailing List History
-**Record:** Not searched (lore access blocked). No stable nomination
-found in available sources.
-
----
-
-## Phase 5: Code Semantic Analysis
-
-### Step 5.1: Key Functions
-**Record:** No functions modified. Data consumed by `get_board_info()` →
-`asus_ec_probe()`.
-
-### Step 5.2: Callers
-**Record:** `get_board_info()` called from `asus_ec_probe()` (line
-1256). `asus_ec_probe()` is the platform driver probe callback — runs at
-boot/module load on ASUS boards with `CONFIG_SENSORS_ASUS_EC=y/m`.
-
-### Step 5.3: Callees
-**Record:** `dmi_first_match(dmi_table)` performs string match against
-DMI board name; returns `ec_board_info` pointer used for sensor bitmask,
-mutex path, and family selection.
-
-### Step 5.4: Call Chain / Reachability
-**Record:** Boot-time platform driver probe → DMI match → hwmon device
-registration. Reachable on every boot for B850-E owners with the driver
-enabled. Not a syscall-triggered path; not unprivileged-user
-triggerable.
-
-### Step 5.5: Similar Patterns
-**Record:** Identical pattern to B850-I (`25b2c02e5b1f8`), X670E-E,
-X870-I, and dozens of other `DMI_EXACT_MATCH_ASUS_BOARD_NAME` entries in
-the same file (44 total matches).
+### Step 4.5: CHECK STABLE MAILING LIST HISTORY
+**Record:** Not searched on lore stable list (no stable nomination found
+in available sources). Absence of `Cc: stable` is expected per review
+instructions.
 
 ---
 
-## Phase 6: Cross-Referencing Against Local Tree
+## PHASE 5: CODE SEMANTIC ANALYSIS
 
-### Step 6.1: Does Buggy/Missing Code Exist?
-**Record:** Local tree is **linux-6.18.y at v6.18.44** (`git describe
-HEAD` → `v6.18.44`). `B850-E` is **not** present; `B850-I` **is**
-present. Without this patch, B850-E users get `-ENODEV` from
-`asus_ec_probe()`. All patch dependencies exist.
+### Step 5.1: IDENTIFY KEY FUNCTIONS IN THE DIFF
+**Record:** `iwl_poll_umac_prph_bits_no_grab()` (new), `get_crf_id()`
+(modified), callers of `get_crf_id()`.
 
-### Step 6.2: Backport Complications
-**Record:** Expected **clean apply**. Insertion anchors verified in
-current tree:
-- After `board_info_strix_b650e_i_gaming` (lines 575–580)
-- Before `board_info_strix_b850_i_gaming_wifi` (lines 582–587)
-- DMI table between B650E-I and B850-I entries (lines 775–778)
-- Docs between B650E-I and B850-I (lines 30–31)
+### Step 5.2: TRACE CALLERS
+**Record:** `get_crf_id()` is called from `iwl_pci_gen1_2_probe()` at
+line 4195, during early PCIe probe after `iwl_trans_activate_nic()` and
+`iwl_trans_grab_nic_access()`. This runs for every iwlwifi PCIe gen1/2
+device, including all SC PCI IDs (`0xE440`, `0xE340`, `0xD340`,
+`0x6E70`, `0xD240` in `pcie/drv.c`).
 
-### Step 6.3: Related Fixes Already Present?
-**Record:** No B850-E entry or equivalent fix present. B850-I support
-already in tree as the closest reference implementation.
+### Step 5.3: TRACE CALLEES
+**Record:** Uses `iwl_read_umac_prph_no_grab()`,
+`iwl_write_umac_prph_no_grab()`, `iwl_read_prph_no_grab()`,
+`udelay(IWL_POLL_INTERVAL)` — standard iwlwifi register I/O.
 
----
+### Step 5.4: FOLLOW THE CALL CHAIN
+**Record:** PCI probe → `iwl_pci_gen1_2_probe()` → `get_crf_id()` →
+`map_crf_id()` (if `hw_rf_id` is zero). Reachable on every boot/module
+load for affected hardware. Not userspace-triggerable directly, but
+affects all users of SC (and future DR) WiFi hardware.
 
-## Phase 7: Subsystem and Maintainer Context
-
-### Step 7.1: Subsystem Criticality
-**Record:** `drivers/hwmon/` — **PERIPHERAL** (board-specific sensor
-driver). Affects only users of `CONFIG_SENSORS_ASUS_EC` on this specific
-motherboard.
-
-### Step 7.2: Subsystem Activity
-**Record:** Actively maintained; 4 bug-fix backports to this driver
-since v6.18.0, plus many board additions in the v6.18-rc1 merge.
+### Step 5.5: SEARCH FOR SIMILAR PATTERNS
+**Record:** `iwl_poll_umac_prph_bit()` exists in `iwl-io.h` (uses
+`iwl_poll_prph_bit` with grab). `rx.c` uses `iwl_poll_umac_prph_bit()`
+for RFH status. New `no_grab` variant is needed because `get_crf_id()`
+runs with NIC access already held — verified: no existing
+`poll_*_no_grab` helper before this patch.
 
 ---
 
-## Phase 8: Impact and Risk Assessment
+## PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
 
-### Step 8.1: Who Is Affected
-**Record:** **Driver-specific / platform-specific** — owners of ROG
-STRIX B850-E GAMING WIFI running `CONFIG_SENSORS_ASUS_EC`.
+### Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?
+**Record:** **YES.** `get_crf_id()` in `trans.c` (lines 3990–4040)
+accesses peripheral registers without CNVR TOP readiness wait.
+`IWL_DEVICE_FAMILY_SC` and `IWL_DEVICE_FAMILY_DR` are defined; SC PCI
+IDs are present in `pcie/drv.c`. DR config (`cfg/dr.c`) exists but has
+no PCI ID table entry yet in this tree. The buggy code path is live for
+SC devices today.
 
-### Step 8.2: Trigger Conditions
-**Record:** Every boot with matching DMI and driver enabled. Common for
-target hardware. Not security-relevant; not userspace-triggerable.
+### Step 6.2: CHECK FOR BACKPORT COMPLICATIONS
+**Record:** Expected **clean apply**. Target functions and register-
+access helpers exist unchanged. No conflicting recent changes found
+(shallow history). Only copyright year lines differ cosmetically.
 
-### Step 8.3: Failure Mode Severity
-**Record:** Without patch: no hwmon sensors (temperature/fan monitoring
-unavailable via this driver); probe returns `-ENODEV`. **Severity: LOW**
-— functional gap, not crash/corruption/deadlock. Fan control may fall
-back to BIOS/EC defaults.
+### Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE
+**Record:** **No.** `iwl_poll_umac_prph_bits_no_grab`,
+`WFPM_RSRCS_4PHS_*`, and `RSRC_*_CNVR_TOP` are absent from this tree
+(grep confirmed).
 
-### Step 8.4: Risk-Benefit Ratio
+---
+
+## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+
+### Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY
+**Record:** `drivers/net/wireless/intel/iwlwifi` — **IMPORTANT** (widely
+deployed Intel WiFi driver; probe/init path).
+
+### Step 7.2: ASSESS SUBSYSTEM ACTIVITY
+**Record:** Actively developed; DR family added recently (cfg copyright
+2024–2025). SC family has been present longer (2015+). Cannot assess
+commit frequency from shallow local history.
+
+---
+
+## PHASE 8: IMPACT AND RISK ASSESSMENT
+
+### Step 8.1: DETERMINE WHO IS AFFECTED
+**Record:** Users with Intel WiFi **SC-family** hardware (PCI IDs in
+`drv.c`). **DR-family** users when PCI IDs are added. Config-dependent
+(`CONFIG_IWLWIFI`).
+
+### Step 8.2: DETERMINE THE TRIGGER CONDITIONS
+**Record:** Every probe/resume path where blank OTP requires reading CRF
+ID from peripheral registers. Timing-dependent on DR/SC silicon — CNVR
+TOP not ready at the moment `get_crf_id()` runs. Common on boot; not
+privilege-dependent.
+
+### Step 8.3: DETERMINE THE FAILURE MODE SEVERITY
 **Record:**
-- **Benefit:** Enables correct thermal/fan monitoring on a current AM5
-  board for stable-kernel users; validated by hardware owner.
-- **Risk:** Very low (~11 lines, data-only, no logic changes).
-- **Ratio:** Favorable. Matches the stable-tree exception for
-  device/board ID additions explicitly allowed in
-  `Documentation/process/stable-kernel-rules.rst`.
+- Wrong/zero `hw_crf_id` → `map_crf_id()` returns `-EIO` → probe fails
+  with `-EINVAL` at line 4211–4214
+- **Severity: HIGH** — WiFi completely non-functional on affected
+  hardware (not a kernel panic, but total device failure)
+- No data corruption or security exposure identified
+
+### Step 8.4: CALCULATE RISK-BENEFIT RATIO
+**Record:**
+- **Benefit:** HIGH for SC (and future DR) users — restores reliable
+  probe/hardware identification
+- **Risk:** LOW — ~30 lines of functional code, family-gated, follows
+  established polling pattern
+- **Ratio:** Strongly favorable
 
 ---
 
-## Phase 9: Final Synthesis
+## PHASE 9: FINAL SYNTHESIS
 
-### Step 9.1: Evidence Summary
+### Step 9.1: COMPILE THE EVIDENCE
 
 **FOR backport:**
-- Explicitly allowed by stable rules: "just add a device ID" (`stable-
-  kernel-rules.rst` line 15)
-- DMI board entry is the hwmon equivalent of a device ID/quirk
-- Tiny, surgical, obviously correct
-- All prerequisites present in 6.18.44 (driver, `family_amd_800_series`,
-  B850-I precedent, mutex path, sensor flags)
-- Hardware-validated via GitHub PR #105
-- Maintainer (Guenter Roeck) signed off
-- Sister board B850-I already supported in this tree
+- Real hardware-init bug on DR/SC silicon
+- Probe failure (`-EINVAL`) when RF ID cannot be read correctly
+- Small, surgical, Intel-reviewed fix
+- Buggy code confirmed present in 6.18.44
+- SC PCI IDs actively supported in this tree
+- Follows existing iwlwifi polling conventions
+- Standalone within a larger series
 
 **AGAINST backport:**
-- Does not fix a crash, security issue, or data corruption
-- No post-v6.18.0 board-addition backports for this driver (only bug
-  fixes) — conservative precedent
-- Affects a narrow hardware population
+- No external user/syzbot report (internal Intel fix)
+- DR PCI IDs not yet in `drv.c` (fix most immediately benefits SC)
+- On ACK timeout, driver still proceeds (mitigation is wait, not hard
+  abort)
+- Shallow git history limits introduction-date analysis
 
 **Unresolved:**
-- Full lore review thread inaccessible (Anubis block)
-- Exact mainline commit SHA not in local tree (not needed for
-  applicability assessment)
+- Exact lore thread review discussion (link blocked)
+- Whether SC devices in the field routinely hit this without the fix
+  (Intel says they need the wait)
 
-### Step 9.2: Stable Rules Checklist
-1. Obviously correct and tested? **PASS** — pattern proven by sibling
-   boards; GitHub PR from hardware owner; maintainer SOB.
-2. Fixes a real bug affecting users? **PASS (exception)** — not a
-   runtime bug, but stable rules explicitly allow device/board ID
-   additions for hardware enablement.
-3. Important issue? **PASS (exception)** — hardware quirk/ID category;
-   enables monitoring on real production hardware.
-4. Small and contained? **PASS** — ~11 lines, 2 files, data only.
-5. No new features/APIs? **PASS** — no new APIs; board table entry only.
-6. Can apply to local tree? **PASS** — prerequisites present; clean
-   insertion points verified.
+### Step 9.2: STABLE RULES CHECKLIST
+1. Obviously correct and tested? **PASS** — standard poll-before-read
+   pattern; Intel reviewed
+2. Fixes a real bug affecting users? **PASS** — probe failure on SC
+   hardware
+3. Important issue? **PASS** — HIGH severity (device completely non-
+   functional)
+4. Small and contained? **PASS** — 4 files, ~30 lines functional code
+5. No new features or APIs? **PASS** — internal driver helper only
+6. Can apply to local tree? **PASS** — all prerequisites present
 
-### Step 9.3: Exception Category
-**Record:** Device/board ID addition to an existing driver (DMI quirk
-equivalent). Driver `asus-ec-sensors` and `family_amd_800_series`
-already exist; only the board entry is new.
+### Step 9.3: EXCEPTION CATEGORIES
+**Record:** Hardware workaround / hardware-init quirk for specific Intel
+WiFi silicon (DR/SC CNVR TOP sequencing).
 
-### Step 9.4: Decision Rationale
+### Step 9.4: DECISION RATIONALE
 
-For **linux-6.18.y (v6.18.44)**, this commit should be backported. It is
-a minimal DMI board-table addition to an existing, already-shipped
-driver — the same category explicitly permitted by stable-kernel rules
-alongside PCI/USB ID additions. The B850-E is not covered by the
-existing B850-I entry (different mutex path and additional T-Sensor).
-Without it, owners of this board on 6.18.y get no `asus-ec-sensors`
-support despite the driver and AMD 800-series infrastructure already
-being present. Risk is negligible.
+For **Linux 6.18.44**, this commit should be backported. The tree
+contains SC-family PCI device support and the buggy `get_crf_id()` path
+that reads CNVR TOP peripheral registers without waiting for hardware
+readiness. Without the fix, affected Intel WiFi hardware can fail probe
+entirely when blank OTP requires CRF-ID-based RF identification. The fix
+is minimal, gated to the affected families, reviewed by Intel, and
+introduces no userspace-visible changes.
 
 ---
 
 ## Verification
 
-- [Phase 1] Parsed subject, tags, body; no Fixes:/syzbot tags; Link to
-  lore present
-- [Phase 1] GitHub PR #105 fetched: merged, hardware-owner tested,
-  T-Sensor + mutex noted
-- [Phase 2] Diff inventory: 2 files, ~11 lines, static data only
-- [Phase 2] Read `asus_ec_probe()` lines 1256–1258: `-ENODEV` when
-  `get_board_info()` returns NULL
-- [Phase 3] `git describe HEAD` → `v6.18.44`; `make kernelversion` →
-  `6.18.44`
-- [Phase 3] `git log --grep="B850-E"` → no commit in tree; B850-I at
-  `25b2c02e5b1f8` confirmed in tree
-- [Phase 3] `git blame` lines 582–587 → B850-I added by `25b2c02e5b1f8`
-- [Phase 3] `git log v6.18.44 --not v6.18 -- drivers/hwmon/asus-ec-
-  sensors.c` → 4 bug-fix backports only, no board additions
-- [Phase 4] Lore fetch blocked by Anubis; GitHub PR #105 verified
-  instead
-- [Phase 4] `b4 dig -c 25b2c02e5b1f8` → B850-I lore URL (related patch
-  only)
-- [Phase 5] `get_board_info()` at line 1233; `asus_ec_probe()` at line
-  1241; DMI table at line 728
-- [Phase 5] `family_amd_800_series` case at line 1279 confirmed
-- [Phase 6] `grep B850-E` in tree → not found; `grep B850-I` → present
-- [Phase 6] Insertion anchor lines 575–587, 775–778, docs 30–31 verified
-  by reading files
-- [Phase 6] `ASUS_HW_ACCESS_MUTEX_SB_PCI0_SBRG_SIO1_MUT0` used by
-  existing boards (e.g. X670E-E line 625)
-- [Phase 7] `CONFIG_SENSORS_ASUS_EC` in `drivers/hwmon/Kconfig` line
-  2704; built via `drivers/hwmon/Makefile`
-- [Phase 8] `Documentation/process/stable-kernel-rules.rst` line 15: "or
-  just add a device ID"
-- [Phase 8] Failure without patch: `-ENODEV`, no sensors — severity LOW,
-  not crash
-- UNVERIFIED: Full lore.kernel.org review thread (blocked)
-- UNVERIFIED: Exact mainline commit SHA (not in local tree; irrelevant
-  to 6.18.y applicability)
+- **[Phase 1]** Parsed subject, tags, body from provided commit message
+  and local mbox
+- **[Phase 2]** Analyzed full diff: 4 files, new poll helper +
+  `get_crf_id()` wait logic
+- **[Phase 3]** `git blame` on `get_crf_id()`: present in tree; shallow
+  history limits introduction commit
+- **[Phase 3]** No `Fixes:` tag to follow
+- **[Phase 3]** Mbox confirms patch 3/15, standalone
+- **[Phase 4]** Local mbox `20260511_miriam_rachel_korenblit_wifi_iwlwif
+  i_updates_2026_05_11.mbx`: found patch 3/15 and cover letter
+- **[Phase 4]** `b4 dig -c HEAD`: no match (HEAD is v6.18.44 tag, not
+  this commit)
+- **[Phase 4]** Link fetch to patch.msgid.link: blocked by bot
+  protection
+- **[Phase 4]** `Reviewed-by: Daniel Gabay` confirmed from commit
+  message
+- **[Phase 5]** `get_crf_id()` caller: `iwl_pci_gen1_2_probe()` line
+  4195 in `trans.c`
+- **[Phase 5]** Downstream: `map_crf_id()` at lines 4211–4214 can return
+  `-EINVAL` on probe failure
+- **[Phase 5]** Existing `iwl_poll_umac_prph_bit()` uses grab; new
+  `no_grab` variant needed in held-access context
+- **[Phase 6]** `git describe HEAD`: v6.18.44
+- **[Phase 6]** Grep: `iwl_poll_umac_prph_bits_no_grab` /
+  `WFPM_RSRCS_4PHS_*` absent — fix not yet applied
+- **[Phase 6]** Grep: `IWL_DEVICE_FAMILY_DR` / `SC` present; SC PCI IDs
+  in `pcie/drv.c` (5 devices); DR config exists but no PCI ID entry
+- **[Phase 6]** Read `get_crf_id()` lines 3990–4040: buggy code (no CNVR
+  TOP wait) confirmed
+- **[Phase 8]** Failure mode traced: bad `hw_crf_id` → `map_crf_id()`
+  `-EIO` → probe `-EINVAL`
 
-**YES**The analysis is complete for **linux-6.18.y (v6.18.44)**.
+**YES**
 
-**Commit:** `hwmon: (asus-ec-sensors) add ROG STRIX B850-E GAMING WIFI`
-**What it does:** Adds a DMI board entry and sensor config (~11 lines)
-so the existing `asus-ec-sensors` driver works on the ROG STRIX B850-E
-(CPU/MB/VRM temps, T-Sensor, CPU_OPT fan). Sister board B850-I is
-already supported in this tree; B850-E is not.
+ drivers/net/wireless/intel/iwlwifi/iwl-io.c   | 18 ++++++++++++-
+ drivers/net/wireless/intel/iwlwifi/iwl-io.h   |  4 ++-
+ drivers/net/wireless/intel/iwlwifi/iwl-prph.h |  7 ++++-
+ .../intel/iwlwifi/pcie/gen1_2/trans.c         | 26 ++++++++++++++++++-
+ 4 files changed, 51 insertions(+), 4 deletions(-)
 
-**Verdict: YES** — This is a small board-ID addition to an existing
-driver, explicitly allowed under stable rules (“just add a device ID”).
-All prerequisites (`family_amd_800_series`, mutex paths, sensor flags)
-are present in 6.18.44. Risk is very low; benefit is real hardware
-enablement validated via GitHub PR #105.
-
- Documentation/hwmon/asus_ec_sensors.rst |  1 +
- drivers/hwmon/asus-ec-sensors.c         | 10 ++++++++++
- 2 files changed, 11 insertions(+)
-
-diff --git a/Documentation/hwmon/asus_ec_sensors.rst b/Documentation/hwmon/asus_ec_sensors.rst
-index a5a58c00c3223..a8456f29db950 100644
---- a/Documentation/hwmon/asus_ec_sensors.rst
-+++ b/Documentation/hwmon/asus_ec_sensors.rst
-@@ -28,6 +28,7 @@ Supported boards:
-  * ROG STRIX B550-E GAMING
-  * ROG STRIX B550-I GAMING
-  * ROG STRIX B650E-I GAMING WIFI
-+ * ROG STRIX B850-E GAMING WIFI
-  * ROG STRIX B850-I GAMING WIFI
-  * ROG STRIX X570-E GAMING
-  * ROG STRIX X570-E GAMING WIFI II
-diff --git a/drivers/hwmon/asus-ec-sensors.c b/drivers/hwmon/asus-ec-sensors.c
-index 13fd212ad4040..57b771d96d4f0 100644
---- a/drivers/hwmon/asus-ec-sensors.c
-+++ b/drivers/hwmon/asus-ec-sensors.c
-@@ -579,6 +579,14 @@ static const struct ec_board_info board_info_strix_b650e_i_gaming = {
- 	.family = family_amd_600_series,
- };
+diff --git a/drivers/net/wireless/intel/iwlwifi/iwl-io.c b/drivers/net/wireless/intel/iwlwifi/iwl-io.c
+index b1944584c6931..c4ccfffdf6af9 100644
+--- a/drivers/net/wireless/intel/iwlwifi/iwl-io.c
++++ b/drivers/net/wireless/intel/iwlwifi/iwl-io.c
+@@ -1,6 +1,6 @@
+ // SPDX-License-Identifier: GPL-2.0 OR BSD-3-Clause
+ /*
+- * Copyright (C) 2003-2014, 2018-2022, 2024-2025 Intel Corporation
++ * Copyright (C) 2003-2014, 2018-2022, 2024-2026 Intel Corporation
+  * Copyright (C) 2015-2016 Intel Deutschland GmbH
+  */
+ #include <linux/device.h>
+@@ -168,6 +168,22 @@ int iwl_poll_prph_bit(struct iwl_trans *trans, u32 addr,
+ 	return -ETIMEDOUT;
+ }
  
-+static const struct ec_board_info board_info_strix_b850_e_gaming_wifi = {
-+	.sensors = SENSOR_TEMP_CPU | SENSOR_TEMP_CPU_PACKAGE |
-+		SENSOR_TEMP_MB | SENSOR_TEMP_VRM |
-+		SENSOR_TEMP_T_SENSOR | SENSOR_FAN_CPU_OPT,
-+	.mutex_path = ASUS_HW_ACCESS_MUTEX_SB_PCI0_SBRG_SIO1_MUT0,
-+	.family = family_amd_800_series,
-+};
++int iwl_poll_umac_prph_bits_no_grab(struct iwl_trans *trans, u32 addr,
++				    u32 bits, u32 mask, int timeout)
++{
++	int t = 0;
 +
- static const struct ec_board_info board_info_strix_b850_i_gaming_wifi = {
- 	.sensors = SENSOR_TEMP_CPU | SENSOR_TEMP_CPU_PACKAGE |
- 		SENSOR_TEMP_MB | SENSOR_TEMP_VRM,
-@@ -774,6 +782,8 @@ static const struct dmi_system_id dmi_table[] = {
- 					&board_info_strix_b550_i_gaming),
- 	DMI_EXACT_MATCH_ASUS_BOARD_NAME("ROG STRIX B650E-I GAMING WIFI",
- 					&board_info_strix_b650e_i_gaming),
-+	DMI_EXACT_MATCH_ASUS_BOARD_NAME("ROG STRIX B850-E GAMING WIFI",
-+					&board_info_strix_b850_e_gaming_wifi),
- 	DMI_EXACT_MATCH_ASUS_BOARD_NAME("ROG STRIX B850-I GAMING WIFI",
- 					&board_info_strix_b850_i_gaming_wifi),
- 	DMI_EXACT_MATCH_ASUS_BOARD_NAME("ROG STRIX X570-E GAMING",
++	do {
++		if ((iwl_read_umac_prph_no_grab(trans, addr) & mask) ==
++		    (bits & mask))
++			return 0;
++		udelay(IWL_POLL_INTERVAL);
++		t += IWL_POLL_INTERVAL;
++	} while (t < timeout);
++
++	return -ETIMEDOUT;
++}
++
+ void iwl_set_bits_prph(struct iwl_trans *trans, u32 ofs, u32 mask)
+ {
+ 	if (iwl_trans_grab_nic_access(trans)) {
+diff --git a/drivers/net/wireless/intel/iwlwifi/iwl-io.h b/drivers/net/wireless/intel/iwlwifi/iwl-io.h
+index 5bcec239ffc4a..d920a32fc173c 100644
+--- a/drivers/net/wireless/intel/iwlwifi/iwl-io.h
++++ b/drivers/net/wireless/intel/iwlwifi/iwl-io.h
+@@ -1,6 +1,6 @@
+ /* SPDX-License-Identifier: GPL-2.0 OR BSD-3-Clause */
+ /*
+- * Copyright (C) 2018-2021, 2025 Intel Corporation
++ * Copyright (C) 2018-2021, 2025-2026 Intel Corporation
+  */
+ #ifndef __iwl_io_h__
+ #define __iwl_io_h__
+@@ -51,6 +51,8 @@ static inline void iwl_write_prph(struct iwl_trans *trans, u32 ofs, u32 val)
+ 
+ int iwl_poll_prph_bit(struct iwl_trans *trans, u32 addr,
+ 		      u32 bits, u32 mask, int timeout);
++int iwl_poll_umac_prph_bits_no_grab(struct iwl_trans *trans, u32 addr,
++				    u32 bits, u32 mask, int timeout);
+ void iwl_set_bits_prph(struct iwl_trans *trans, u32 ofs, u32 mask);
+ void iwl_set_bits_mask_prph(struct iwl_trans *trans, u32 ofs,
+ 			    u32 bits, u32 mask);
+diff --git a/drivers/net/wireless/intel/iwlwifi/iwl-prph.h b/drivers/net/wireless/intel/iwlwifi/iwl-prph.h
+index a7214ddcfaf56..6ca1f51b69a1c 100644
+--- a/drivers/net/wireless/intel/iwlwifi/iwl-prph.h
++++ b/drivers/net/wireless/intel/iwlwifi/iwl-prph.h
+@@ -1,6 +1,6 @@
+ /* SPDX-License-Identifier: GPL-2.0 OR BSD-3-Clause */
+ /*
+- * Copyright (C) 2005-2014, 2018-2025 Intel Corporation
++ * Copyright (C) 2005-2014, 2018-2026 Intel Corporation
+  * Copyright (C) 2013-2015 Intel Mobile Communications GmbH
+  * Copyright (C) 2016 Intel Deutschland GmbH
+  */
+@@ -411,6 +411,11 @@ enum {
+ #define HPM_SECONDARY_DEVICE_STATE      0xa03404
+ #define WFPM_MAC_OTP_CFG7_ADDR		0xa03338
+ #define WFPM_MAC_OTP_CFG7_DATA		0xa0333c
++#define WFPM_RSRCS_4PHS_REQ_STTS	0xa033f8
++#define WFPM_RSRCS_4PHS_ACK_STTS	0xa033fc
++
++#define RSRC_REQ_CNVR_TOP BIT(6)
++#define RSRC_ACK_CNVR_TOP BIT(6)
+ 
+ 
+ /* For UMAG_GEN_HW_STATUS reg check */
+diff --git a/drivers/net/wireless/intel/iwlwifi/pcie/gen1_2/trans.c b/drivers/net/wireless/intel/iwlwifi/pcie/gen1_2/trans.c
+index 59307b5df4417..b003abf1fe2ce 100644
+--- a/drivers/net/wireless/intel/iwlwifi/pcie/gen1_2/trans.c
++++ b/drivers/net/wireless/intel/iwlwifi/pcie/gen1_2/trans.c
+@@ -1,6 +1,6 @@
+ // SPDX-License-Identifier: GPL-2.0 OR BSD-3-Clause
+ /*
+- * Copyright (C) 2007-2015, 2018-2024 Intel Corporation
++ * Copyright (C) 2007-2015, 2018-2024, 2026 Intel Corporation
+  * Copyright (C) 2013-2015 Intel Mobile Communications GmbH
+  * Copyright (C) 2016-2017 Intel Deutschland GmbH
+  */
+@@ -4000,6 +4000,30 @@ static void get_crf_id(struct iwl_trans *iwl_trans,
+ 	else
+ 		sd_reg_ver_addr = SD_REG_VER;
+ 
++	/* wait until the device is ready to access the prph registers */
++	if (iwl_trans->mac_cfg->device_family == IWL_DEVICE_FAMILY_DR ||
++	    iwl_trans->mac_cfg->device_family == IWL_DEVICE_FAMILY_SC) {
++		u32 req = iwl_read_umac_prph_no_grab(iwl_trans,
++						     WFPM_RSRCS_4PHS_REQ_STTS);
++		int ret;
++
++		if (!(req & RSRC_REQ_CNVR_TOP)) {
++			IWL_ERR(iwl_trans,
++				"WFPM_RSRCS_4PHS_REQ_STTS bit 6 is clear 0x%x\n",
++				req);
++			return;
++		}
++
++		ret = iwl_poll_umac_prph_bits_no_grab(iwl_trans,
++						      WFPM_RSRCS_4PHS_ACK_STTS,
++						      RSRC_ACK_CNVR_TOP,
++						      RSRC_ACK_CNVR_TOP,
++						      50 * 1000);
++		if (ret < 0)
++			IWL_ERR(iwl_trans,
++				"WFPM_RSRCS_4PHS_ACK_STTS bit 6 is clear\n");
++	}
++
+ 	/* Enable access to peripheral registers */
+ 	val = iwl_read_umac_prph_no_grab(iwl_trans, WFPM_CTRL_REG);
+ 	val |= WFPM_AUX_CTL_AUX_IF_MAC_OWNER_MSK;
 -- 
 2.53.0
 
