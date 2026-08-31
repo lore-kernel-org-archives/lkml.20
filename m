@@ -1,46 +1,48 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E709134B1B0;
-	Mon, 31 Aug 2026 13:45:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C315538D62;
+	Mon, 31 Aug 2026 13:45:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183927; cv=none; b=cVeGF10HsRSBVrtIqRwAYlj3Db7/ON7ZkZ5CbqDXIdyFW1/trzWdPj6tRD0imzdncKrPBmA6ixQIZRERKF5lSpFrF2DyzwE0mp8ZRynKOasIFuRpcpP15Id8VHEQFyGXKyfBk8Gn823XN3D8PfGDvVnLF9Sg8jeweTroaKEylDw=
+	t=1788183930; cv=none; b=K2Koaf8ElgMJLl3dr3a4xJM0gjcHAWNlqN1GaanbiESYdDBDCEZPqI0rgPEzZ9U1T/xUYZeoc5VPvFMyd4IAS7vkL/7aGnO7t+tpaWyaAn8Eik0XYdFSr1d2IHbZU4BjzWxIZLH6kaPVW68SqKm2pg2hZUnTY+TQUauhX4fiTHk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183927; c=relaxed/simple;
-	bh=jrIrwbXPTwlPI40je3VOQZKw4Ba8CpQ8GyXpajIE+rw=;
+	s=arc-20240116; t=1788183930; c=relaxed/simple;
+	bh=WxMIzKlNYlP4ysh3Rt1CyxaOBPOLCMwy2yPTL8yeioY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=K+RfUYlg6mxhrulmehB/SnpD9EFhoms0IVFD+btV4yKPjfYtS+a90cMWHIkcoiXyfqKp1CqXY7eJxMN+xAXw5w31I6u9nzt5WyOjkYMPUPJs4KN0HBUriT1OFOZta5pHAN7qHfYNgI17+enfDFCcOwf2v539yZM2xOcJ61zBo5o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k04gsmgt; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=CfFI5wfm4GCohMKgBeOunBEGj7cFJJNgcWXfOgj6GJGeDaLmmVNW5UQ3qlC6xPw8JG/XBR9jUABmptTYtMZDFZWCeBJrLi9tztTlP/A8YQY4AFQtYr8Zqf/qniS8yIpdEVG2Za8LCkKpU+DYBHDntNgS/fevlZwnxmrUe5uoXjU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QvWoi8FG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k04gsmgt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 682A91F00ACF;
-	Mon, 31 Aug 2026 13:45:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QvWoi8FG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1423C1F000E9;
+	Mon, 31 Aug 2026 13:45:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788183924;
-	bh=5cc6U4hyTJQJPorZBOnPIJdHuDXg9jM0n2s7KKcMI3U=;
+	s=k20260515; t=1788183926;
+	bh=TjMfBZZn7+QO5Fcxtz741lDPmRz3T3sRXBvHnbkWb5k=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=k04gsmgteoPMqP6WZFhDXEcNBv2WzkVoCPLOEDyMaWPQ1qM9AUFp9+3kZliWNWkGi
-	 +ckXTVnESsQQrrBNKByPTqiCde7/zmQD+vaHPp4pmkLMbmZBwiIHaYQHNFMQpBc5mn
-	 Q5ZzNBZZ4LqaJ1TBbLj91fGcOT+usDRRzydRIkkBPazZYgr7NYAUdGG87SaTHB0tT/
-	 rnKkN/hytbMG0mCfAhHww8qcrQqL3M4C/yu2lr/2zkdvlHP/YTHiu364qX5BepDVYi
-	 kbMkLvtzidWB+1fBgScth4PWqoMUTUn42s5pudwWC4Ohw7yAZzAoa6Nu7GsoLWeSt6
-	 CrgIbPGOjLncQ==
+	b=QvWoi8FG0sfYwo6+f1KMhRqGGoS2dc5iv9Fv8A0v2N2eOouuZBnqSQndR5SfIuFg4
+	 rW395T8Q29uTBuAw/leEg3kIbSrQ+ljSc/X4ztjdwe9K4iP2eKDhAjfplmKbwMdRw0
+	 2dMTcc5Cr6ANl6+X6Asv/4UhWecsRxLJwgd4gbkwtgfRPrk7Qj3woqn8JD2JQIbCRn
+	 vqgY7u4dzeDmTWb2wr4Tjmby+mu4yv6xXGH95QSsSXj2O3ov4liOmKktXg+tMScP8K
+	 I9mMa0/3Rrc2Xd8P8qIqPTH32huVnVx3TBFe0mjC6309WkqoVIO+OtmbBEMybUYjGF
+	 dc7gv6BrPacRw==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Douglas Anderson <dianders@chromium.org>,
-	Saravana Kannan <saravanak@kernel.org>,
-	"Rafael J. Wysocki (Intel)" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
+Cc: Terry Hsiao <terry_hsiao@compal.corp-partner.google.com>,
+	Douglas Anderson <dianders@chromium.org>,
 	Sasha Levin <sashal@kernel.org>,
-	driver-core@lists.linux.dev,
+	neil.armstrong@linaro.org,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	tzimmermann@suse.de,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18] driver core: Replace dev->can_match with dev_can_match()
-Date: Mon, 31 Aug 2026 09:26:52 -0400
-Message-ID: <20260831133314.4125787-384-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18] drm/panel-edp: Add BOE NT140WHM-N4T, BOE NT140WHM-T05, BOE NV140FHM-N40
+Date: Mon, 31 Aug 2026 09:26:53 -0400
+Message-ID: <20260831133314.4125787-385-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -56,493 +58,407 @@ X-stable-base: Linux 6.18.48
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Douglas Anderson <dianders@chromium.org>
+From: Terry Hsiao <terry_hsiao@compal.corp-partner.google.com>
 
-[ Upstream commit f2648bb3150a71241a2254aa4ac10680d7f9fb16 ]
+[ Upstream commit a58ff7da4835e76a5ffc078ecfd2773de90e5d8c ]
 
-In C, bitfields are not necessarily safe to modify from multiple
-threads without locking. Switch "can_match" over to the "flags" field
-so modifications are safe.
+The raw EDIDs for each panel:
 
-Cc: Saravana Kannan <saravanak@kernel.org>
-Reviewed-by: Rafael J. Wysocki (Intel) <rafael@kernel.org>
-Reviewed-by: Danilo Krummrich <dakr@kernel.org>
-Acked-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Acked-by: Marek Szyprowski <m.szyprowski@samsung.com>
+BOE NT140WHM-N4T
+00 ff ff ff ff ff ff 00 09 e5 0d 09 00 00 00 00
+01 1e 01 04 95 1f 11 78 03 f8 45 96 57 54 92 28
+23 50 54 00 00 00 01 01 01 01 01 01 01 01 01 01
+01 01 01 01 01 01 a9 1d 56 d0 50 00 24 30 30 20
+36 00 35 ae 10 00 00 1a c6 13 56 d0 50 00 24 30
+30 20 36 00 35 ae 10 00 00 1a 00 00 00 00 00 00
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 02
+00 0d 40 ff 0a 3c 7d 11 11 21 7d 00 00 00 00 65
+
+BOE NT140WHM-T05
+00 ff ff ff ff ff ff 00 09 e5 85 0b 00 00 00 00
+01 21 01 04 95 1f 11 78 03 ea a5 93 5c 58 8f 29
+1d 50 54 00 00 00 01 01 01 01 01 01 01 01 01 01
+01 01 01 01 01 01 c7 1d 56 e2 50 00 1e 30 30 20
+36 00 35 ae 10 00 00 1a da 13 56 e2 50 00 1e 30
+30 20 36 00 35 ae 10 00 00 1a 00 00 00 00 00 00
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 02
+00 0d 40 ff 0a 3c 7d 11 11 21 7d 00 00 00 00 4e
+
+BOE NV140FHM-N40
+00 ff ff ff ff ff ff 00 09 e5 6f 0c 00 00 00 00
+19 21 01 04 a5 1f 11 78 03 21 35 97 59 57 8f 29
+23 50 54 00 00 00 01 01 01 01 01 01 01 01 01 01
+01 01 01 01 01 01 c2 37 80 cc 70 38 28 40 6c 30
+aa 00 35 ae 10 00 00 1a 2c 25 80 cc 70 38 28 40
+6c 30 aa 00 35 ae 10 00 00 1a 00 00 00 00 00 00
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 02
+00 0d 36 ff 0a 3c 96 09 0a 19 96 00 00 00 01 57
+
+70 20 79 02 00 25 01 09 8c 2d 02 8c 2d 02 28 3c
+80 81 00 10 6f 1a 00 00 03 01 28 3c 00 00 53 4a
+53 4a 3c 00 00 00 00 00 00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 e4 90
+
+Signed-off-by: Terry Hsiao <terry_hsiao@compal.corp-partner.google.com>
+Reviewed-by: Douglas Anderson <dianders@chromium.org>
 Signed-off-by: Douglas Anderson <dianders@chromium.org>
-Link: https://patch.msgid.link/20260406162231.v5.2.I54b3ae6311ff34ad30227659d91bb109911a4aea@changeid
-Signed-off-by: Danilo Krummrich <dakr@kernel.org>
+Link: https://patch.msgid.link/20260506170607.10813-3-terry_hsiao@compal.corp-partner.google.com
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-# Stable Backport Analysis: `driver core: Replace dev->can_match with
-dev_can_match()`
+# Stable Backport Analysis: drm/panel-edp BOE Panel Additions
 
-**Local tree:** `v6.18.43` (Makefile: 6.18.43)
+**Local tree:** `v6.18.43-1-gc7f0dac02d232` (kernel 6.18.43)
 
 ---
 
 ## PHASE 1: COMMIT MESSAGE FORENSICS
 
-**Step 1.1 — Subject line**
-Record: `[driver core]` `[Replace]` — move `can_match` from a struct
-bitfield to atomic flag accessors (`dev_can_match()` /
-`dev_set_can_match()`).
+### Step 1.1: Subject Line
+**Record:** `[drm/panel-edp]` `[Add]` — Add three BOE eDP panel entries
+(NT140WHM-N4T, NT140WHM-T05, NV140FHM-N40) with power-sequencing delay
+profiles.
 
-**Step 1.2 — Tags**
-Record:
-- `Cc: Saravana Kannan <saravanak@kernel.org>`
-- `Reviewed-by: Rafael J. Wysocki (Intel) <rafael@kernel.org>`
-- `Reviewed-by: Danilo Krummrich <dakr@kernel.org>`
-- `Acked-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>`
-- `Acked-by: Marek Szyprowski <m.szyprowski@samsung.com>`
-- `Signed-off-by: Douglas Anderson <dianders@chromium.org>`
-- `Link: https://patch.msgid.link/20260406162231.v5.2.I54b3ae6311ff34ad3
-  0227659d91bb109911a4aea@changeid`
-- `Signed-off-by: Danilo Krummrich <dakr@kernel.org>`
-- No `Fixes:`, no `Reported-by:`, no `Cc: stable@vger.kernel.org`
-- Notable: subsystem maintainer (Greg K-H) and PM/driver-core reviewers
-  acked/reviewed
+### Step 1.2: Tags
+**Record:**
+- **Signed-off-by:** Terry Hsiao `<terry_hsiao@compal.corp-
+  partner.google.com>` (author)
+- **Reviewed-by:** Douglas Anderson `<dianders@chromium.org>`
+  (drm/panel-edp maintainer)
+- **Signed-off-by:** Douglas Anderson `<dianders@chromium.org>`
+  (maintainer merge)
+- **Link:** `https://patch.msgid.link/20260506170607.10813-3-
+  terry_hsiao@compal.corp-partner.google.com`
+- No Fixes:, Reported-by:, Tested-by:, Cc: stable@vger.kernel.org, or
+  syzbot tags
+- Notable: Reviewed and merged by subsystem maintainer; no user bug
+  reports cited
 
-**Step 1.3 — Body**
-Record:
-- **Bug:** In C, bitfields are not safe to modify from multiple threads
-  without locking.
-- **Symptom:** Not spelled out; this is a concurrency-correctness fix,
-  not a crash report.
-- **Root cause:** `can_match` was stored as a `bool` bitfield in `struct
-  device` while being read/written from concurrent probe paths.
-- **Fix:** Move `can_match` into the existing `flags` bitmap (same
-  pattern as `DEV_FLAG_READY_TO_PROBE`) and use `dev_can_match()` /
-  `dev_set_can_match()` atomic accessors.
+### Step 1.3: Body Analysis
+**Record:**
+- **Bug description:** None stated. Commit provides raw EDID dumps for
+  three BOE 14" eDP panels and adds matching entries to the
+  `edp_panels[]` timing table.
+- **Symptom/failure mode:** Without entries, panels fall back to
+  conservative (non-optimized) power-sequencing delays with a `WARN_ON`
+  (verified in `generic_edp_panel_probe()`).
+- **Version info:** None in message.
+- **Root cause:** Panels need panel-specific eDP power-sequencing
+  delays; the generic fallback is intentionally conservative and
+  suboptimal.
 
-**Step 1.4 — Hidden bug fix?**
-Record: **Yes.** Despite the neutral “Replace” wording, this fixes a
-real data-race / undefined-behavior problem. The parent commit
-`3e8fefd2997c8` explicitly avoided bitfields for `ready_to_probe` for
-this exact reason, but left `can_match` as a bitfield — this patch
-completes that design.
+### Step 1.4: Hidden Bug Fix?
+**Record:** No — this is explicit hardware enablement / timing quirk
+data, not a disguised crash or leak fix. Wrong delays can still cause
+flicker or suspend/resume issues on real hardware, but the commit does
+not document a specific failure.
 
 ---
 
 ## PHASE 2: DIFF ANALYSIS
 
-**Step 2.1 — Inventory**
-Record:
-- `include/linux/device.h`: +5 doc, +1 enum, −1 bitfield, +1 accessor
-  macro (~15 net lines)
-- `drivers/base/core.c`: 6 sites, `dev->can_match` → `dev_can_match()` /
-  `dev_set_can_match()`
-- `drivers/base/dd.c`: 4 sites, same replacement
-- **Functions touched:** `dev_is_best_effort`,
-  `device_links_check_suppliers`, `device_links_driver_bound`,
-  `fw_devlink_no_driver`, `device_add`, `driver_deferred_probe_add`,
-  `__driver_probe_device`, `__device_attach_driver`, `__driver_attach`
-- **Scope:** Single-subsystem, surgical mechanical refactor (~40 lines
-  changed)
+### Step 2.1: Inventory
+**Record:**
+- **Files:** `drivers/gpu/drm/panel/panel-edp.c` (+3 lines)
+- **Functions modified:** None; only `edp_panels[]` static table
+- **Scope:** Single-file, surgical hardware-quirk addition
 
-**Step 2.2 — Code flow (per hunk)**
-Record:
-- **Before:** Direct read/write of `dev->can_match` bitfield (non-atomic
-  RMW on shared storage).
-- **After:** `test_bit` / `set_bit` on `dev->flags[DEV_FLAG_CAN_MATCH]`
-  via inline accessors.
-- **Paths affected:** Device probe attach, deferred probe, fw_devlink
-  supplier checks, `device_add()` tail.
+### Step 2.2: Code Flow Change
+**Record:**
+| Hunk | Before | After |
+|------|--------|-------|
+| `0x090d` entry | Unknown BOE panel → conservative timings |
+`NT140WHM-N4T` → `delay_200_500_e50` |
+| `0x0b85` entry | Unknown BOE panel → conservative timings |
+`NT140WHM-T05` → `delay_200_500_e50` |
+| `0x0c6f` entry | Unknown BOE panel → conservative timings |
+`NV140FHM-N40` → `delay_200_500_e50` |
 
-**Step 2.3 — Bug mechanism**
-Record: **Synchronization / data-race fix.** Category (b): concurrent
-unsynchronized bitfield access. Adjacent bitfields in `struct device`
-(`state_synced`, `offline`, `of_node_reused`, DMA flags) can be
-corrupted by non-atomic RMW on `can_match`.
+Affected path: `generic_edp_panel_probe()` → `find_edp_panel()` →
+`desc->delay` applied during `panel_edp_prepare()` /
+`panel_edp_enable()`.
 
-**Step 2.4 — Fix quality**
-Record: Obviously correct — mirrors the already-merged `ready_to_probe`
-pattern. Minimal risk; no API surface change for drivers (accessors are
-static inline in `device.h`). Regression risk: very low.
+### Step 2.3: Bug Mechanism
+**Record:** **Category (h): Hardware workaround / panel timing quirk.**
+Panels are identified by EDID panel ID at probe; missing entries trigger
+`panel_edp_set_conservative_timings()` (`unprepare=2000ms`,
+`enable=200ms`) instead of optimized `delay_200_500_e50`
+(`hpd_absent=200`, `unprepare=500`, `enable=50`).
+
+### Step 2.4: Fix Quality
+**Record:** Obviously correct — EDID product IDs in the commit message
+match the hex IDs in the table (`0x090d`, `0x0b85`, `0x0c6f`). All three
+reuse an existing, widely-used delay profile already used by dozens of
+BOE entries in this tree. Minimal regression risk.
 
 ---
 
 ## PHASE 3: GIT HISTORY INVESTIGATION
 
-**Step 3.1 — Blame**
-Record: `can_match` bitfield introduced in `3e8fefd2997c8` (“driver
-core: Don't let a device probe until it's ready”), merged via
-`5d324e5159d9e`, present since at least `v6.18.27` in this tree. Blame
-on `include/linux/device.h:699` and `drivers/base/dd.c:868` points to
-that introduction.
+### Step 3.1: Blame
+**Record:** Insertion points are in the BOE section of `edp_panels[]`,
+last touched in this tree by `b173ba3365ff0` (NV140WUM-T08, Jan 2026)
+and `5d324e5159d9e` (base 6.18 merge, Nov 2025). The table structure and
+`find_edp_panel()` logic are mature.
 
-**Step 3.2 — Fixes: tag**
-Record: N/A — no `Fixes:` tag. The logical bug-introducer is
-`3e8fefd2997c8`, which **is** in this tree (`git merge-base --is-
-ancestor` confirmed).
+### Step 3.2: Fixes: Tag
+**Record:** N/A — no Fixes: tag.
 
-**Step 3.3 — Related file history**
-Record: Recent driver-core commits in this tree (`0830287cc6cb7`,
-`3880ee7c88d78`, etc.) do not touch `can_match`. No duplicate fix found.
-This commit is **not** yet in the tree (`dev_can_match` grep returns
-nothing).
+### Step 3.3: Related Changes
+**Record:** Part of Terry Hsiao's v1 4-patch series (`20260507_...mbx`),
+patch 2/4. This patch is standalone — it only adds three table rows and
+does not depend on patches 1, 3, or 4. Similar panel additions already
+in this 6.18.y tree: `0bd968c04acfb`, `6ca4647a74155`, `b173ba3365ff0`.
 
-**Step 3.4 — Author context**
-Record: Douglas Anderson authored `3e8fefd2997c8` and `fa9a4c5e69aaa`
-(similar fwnode flags thread-safety fix). Driver-core maintainer chain
-reviewed both.
+### Step 3.4: Author Context
+**Record:** Terry Hsiao (Compal/Google Chromebook partner). Douglas
+Anderson reviewed and signed off — he is the drm/panel-edp maintainer
+and author of much of this driver.
 
-**Step 3.5 — Dependencies**
-Record: Requires `3e8fefd2997c8` (adds `can_match`, `flags` bitmap,
-`__create_dev_flag_accessors`). That prerequisite **exists** in
-v6.18.43. Patch is standalone; no series dependency beyond that.
+### Step 3.5: Dependencies
+**Record:** None. `delay_200_500_e50` and `EDP_PANEL_ENTRY` macro both
+exist in the local tree. Applies cleanly at sorted insertion points.
 
 ---
 
 ## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
-**Step 4.1 — Original discussion**
-Record: `b4 dig -c <hash>` could not run — commit not in local tree.
-Link fetch to patch.msgid.link and lore.kernel.org returned 403/bot-
-block. **UNVERIFIED:** full review thread content.
+### Step 4.1: Original Discussion
+**Record:** Local mbox `20260507_terry_hsiao_drm_panel_edp_add_and_updat
+e_multiple_auo_boe_cmn_and_ivo_panels.mbx` contains the v1 submission.
+`b4 dig -c` could not be run (no upstream commit hash in this checkout).
+Lore URL blocked by bot protection.
 
-**Step 4.2 — Reviewers**
-Record: From commit message — Greg K-H (driver core maintainer), Rafael
-Wysocki (PM/driver core), Danilo Krummrich (reviewer/committer), Marek
-Szyprowski (Acked-by).
+### Step 4.2: Reviewers
+**Record:** Reviewed-by and Signed-off-by: Douglas Anderson
+(maintainer). Author domain: `compal.corp-partner.google.com`
+(Chromebook OEM).
 
-**Step 4.3 — Bug report**
-Record: N/A — no external bug report linked.
+### Step 4.3: Bug Reports
+**Record:** None. No Reported-by, syzbot, or bugzilla links.
 
-**Step 4.4 — Series context**
-Record: Link msgid contains `v5.2`, suggesting patch 2 of v5 of the
-“ready to probe” series. This is a follow-up to `3e8fefd2997c8`, which
-was `Cc: stable@vger.kernel.org`.
+### Step 4.4: Series Context
+**Record:** v1 2/4 of a 4-patch series adding AUO/BOE/CMN/IVO panels
+plus one CMN correction. This commit is independently applicable.
 
-**Step 4.5 — Stable list**
-Record: **UNVERIFIED** — could not search lore stable archive (403).
+### Step 4.5: Stable List Discussion
+**Record:** No stable-specific discussion found in the local mbox. No
+stable nomination in patch headers.
 
 ---
 
 ## PHASE 5: CODE SEMANTIC ANALYSIS
 
-**Step 5.1 — Key functions**
-Record: `dev_can_match`, `dev_set_can_match`, `dev_is_best_effort`,
-`device_links_check_suppliers`, `device_links_driver_bound`,
-`fw_devlink_no_driver`, `device_add`, `driver_deferred_probe_add`,
-`__driver_probe_device`, `__device_attach_driver`, `__driver_attach`.
+### Step 5.1: Key Functions
+**Record:** `find_edp_panel()`, `generic_edp_panel_probe()`,
+`panel_edp_prepare_once()`, `panel_edp_enable()` — only the table data
+feeding these is changed.
 
-**Step 5.2 — Callers / concurrency**
-Record:
-- **Writes** to `can_match`: `__driver_probe_device` (device lock held
-  per `driver_probe_device` comment), `__device_attach_driver` (device
-  lock held in `__device_attach`), **`__driver_attach` (NO device_lock
-  when setting `can_match` at line 1258)**.
-- **Reads**: `device_add()` at line 3778 **without** device lock;
-  `driver_deferred_probe_add()` without device lock;
-  `dev_is_best_effort()` during device-link walks under
-  `device_links_write_lock`; `fw_devlink_no_driver()` under
-  `device_links_write_lock`.
-- Concurrent probe from module load (`driver_register` → `driver_attach`
-  → `__driver_attach`) vs. `device_add()` is the documented race class
-  from `3e8fefd2997c8`.
+### Step 5.2: Callers
+**Record:** `generic_edp_panel_probe()` called from `panel_edp_probe()`
+during device probe. `panel_edp_prepare_once()` / `panel_edp_enable()`
+called on every display power-on/resume via DRM panel ops — common
+laptop/Chromebook path.
 
-**Step 5.3 — Callees**
-Record: After fix, uses `test_bit`/`set_bit` on `dev->flags` — same as
-`dev_ready_to_probe()`.
+### Step 5.3: Callees
+**Record:** Timing delays drive `msleep()` / `panel_edp_wait()` in
+prepare/enable/disable paths; `regulator_enable()`, HPD polling.
 
-**Step 5.4 — Reachability**
-Record: Reachable from `finit_module`/`modprobe`, `device_add()`,
-deferred probe workqueue — common boot and hotplug paths. **Userspace-
-reachable** via module loading.
+### Step 5.4: Reachability
+**Record:** Triggered at boot and on every suspend/resume for machines
+using `panel-edp` with these BOE panels. Userspace cannot directly
+trigger, but all display users are affected.
 
-**Step 5.5 — Similar patterns**
-Record: `ready_to_probe` already uses atomic `flags`; `fa9a4c5e69aaa`
-made fwnode flags thread-safe. `can_match` as bitfield is the
-inconsistent outlier.
+### Step 5.5: Similar Patterns
+**Record:** Dozens of identical one-line `EDP_PANEL_ENTRY` additions in
+this file; three recent ones already backported to 6.18.y in this
+checkout.
 
 ---
 
-## PHASE 6: CROSS-REFERENCE AGAINST LOCAL TREE (v6.18.43)
+## PHASE 6: CROSS-REFERENCE WITH LOCAL TREE
 
-**Step 6.1 — Buggy code present?**
-Record: **Yes.** `bool can_match:1` at `include/linux/device.h:699`;
-direct `dev->can_match` access in `drivers/base/core.c` and
-`drivers/base/dd.c`. Introduced in `3e8fefd2997c8`, ancestor of HEAD.
+### Step 6.1: Buggy Code Present?
+**Record:** Yes. The three panel IDs (`0x090d`, `0x0b85`, `0x0c6f`) are
+**not** in the local tree (grep returned no matches). Unknown panels
+currently hit the conservative-timing fallback. The driver and full
+`edp_panels[]` table exist.
 
-**Step 6.2 — Backport complications**
-Record: **Clean apply expected.** `DECLARE_BITMAP(flags,
-DEV_FLAG_COUNT)` and `__create_dev_flag_accessors` macro already exist;
-only need to add `DEV_FLAG_CAN_MATCH` and swap usages. No conflicting
-local changes found.
+### Step 6.2: Backport Complications
+**Record:** **Clean apply expected.** Insertion points verified against
+current file: after `div class="highlight">0x0849`, after `0x0b66`,
+after `0x0c26` — all in correct sorted order.
 
-**Step 6.3 — Fix already present?**
-Record: **No.** `dev_can_match` / `DEV_FLAG_CAN_MATCH` absent from tree.
+### Step 6.3: Related Fixes Already Present?
+**Record:** No — these three panel IDs are absent. Other patches from
+the same series (AUO B140HAN07.7, CMN/IVO panels) are also not present.
 
 ---
 
 ## PHASE 7: SUBSYSTEM CONTEXT
 
-**Step 7.1 — Subsystem / criticality**
-Record: **driver core** (`drivers/base/`) — **CORE** subsystem; affects
-all device probe/bind on all platforms using the driver model.
+### Step 7.1: Subsystem
+**Record:** `drivers/gpu/drm/panel` — DRM panel driver. **Criticality:
+IMPORTANT** (display on laptops/Chromebooks; not universal core kernel,
+but affects all users of affected hardware).
 
-**Step 7.2 — Activity**
-Record: Actively maintained; recent probe/deferred-probe fixes in this
-tree.
+### Step 7.2: Activity
+**Record:** Actively maintained — three panel-edp additions backported
+to this 6.18.y tree in recent months.
 
 ---
 
 ## PHASE 8: IMPACT AND RISK
 
-**Step 8.1 — Who is affected**
-Record: **Universal** for systems using driver core probe, especially
-with fw_devlink and parallel/async module loading (Android, others).
+### Step 8.1: Who Is Affected
+**Record:** Users of laptops/Chromebooks with BOE NT140WHM-N4T,
+NT140WHM-T05, or NV140FHM-N40 eDP panels using the generic `panel-edp`
+driver.
 
-**Step 8.2 — Trigger conditions**
-Record: Concurrent device probe during `device_add()`, driver
-registration, deferred probe, or async attach — timing-dependent but
-realistic (documented in `3e8fefd2997c8` on Android parallel module
-loading). Unprivileged users can trigger via `modprobe`/`finit_module`.
+### Step 8.2: Trigger Conditions
+**Record:** Every boot and resume when these panels are present. Common
+on new Chromebook hardware from Compal/Google ecosystem.
 
-**Step 8.3 — Failure mode**
-Record: Undefined behavior from concurrent bitfield RMW — possible
-corruption of adjacent `struct device` bitfields (`state_synced`,
-`offline`, `of_node_reused`, DMA flags), leading to incorrect fw_devlink
-behavior, stuck deferred probe, or wrong best-effort probing.
-**Severity: HIGH** (subtle but serious driver-core state corruption;
-same class as the already-stable-nominated `3e8fefd` fix).
+### Step 8.3: Failure Mode Severity
+**Record:** Without fix: `WARN_ON` + conservative timings. Display
+likely still works (driver comment: "highly likely"), but with wrong
+power-sequencing delays that can cause flicker, slow resume, or
+intermittent display failures. **Severity: MEDIUM** (functional
+degradation, not kernel crash or data corruption).
 
-**Step 8.4 — Risk/benefit**
-Record:
-- **Benefit:** HIGH — eliminates UB in core probe path on a tree that
-  already carries the `can_match` feature.
-- **Risk:** LOW — mechanical, pattern-proven, maintainer-reviewed.
-- **Ratio:** Strong benefit, minimal risk.
+### Step 8.4: Risk-Benefit
+**Record:**
+- **Benefit:** Correct power sequencing for three real panels;
+  eliminates WARN splat; matches established stable practice for this
+  driver in 6.18.y
+- **Risk:** Very low — 3 lines, existing delay profile, maintainer-
+  reviewed
+- **Ratio:** Favorable for stable
 
 ---
 
 ## PHASE 9: FINAL SYNTHESIS
 
-**Step 9.1 — Evidence**
+### Step 9.1: Evidence Summary
 
-| FOR | AGAINST |
-|-----|---------|
-| Fixes real concurrent bitfield UB | No user crash report for this
-specific patch |
-| Prerequisite `3e8fefd` already in v6.18.43 | Mailing-list stable
-nomination unverified |
-| Completes design of parent stable-nominated commit |
-Theoretical/timing-dependent (no syzbot) |
-| Small, surgical, maintainer-acked | |
-| Core subsystem, userspace-triggerable via modprobe | |
-| Same pattern as `ready_to_probe` (already atomic) | |
+**FOR backport:**
+- Stable exception category: hardware quirk / panel timing table entry
+  (analogous to device ID additions)
+- Tiny, obviously correct, maintainer-reviewed
+- Applies cleanly to 6.18.43
+- Identical patch type already backported to this tree (`0bd968c04acfb`,
+  `6ca4647a74155`, `b173ba3365ff0`)
+- Wrong eDP power sequencing can cause real suspend/resume/display
+  issues
+- Standalone within a series
 
-**Step 9.2 — Stable rules checklist**
-1. Obviously correct and tested? **PASS** — mirrors existing
-   `ready_to_probe` accessors; reviewed by Greg K-H, Rafael, Danilo.
-2. Fixes a real bug? **PASS** — concurrent bitfield access is C UB with
-   verified unsynchronized read/write paths.
-3. Important issue? **PASS** — driver-core state corruption / probe
-   hangs (HIGH).
-4. Small and contained? **PASS** — ~40 lines, 3 files.
-5. No new features/APIs? **PASS** — internal refactor only.
-6. Can apply to local tree? **PASS** — prerequisite present, no
-   conflicting fix.
+**AGAINST backport:**
+- No documented crash, security issue, or user bug report
+- Fallback conservative timings exist — not a hard failure
+- Arguably "new hardware support" rather than fixing a regression
+- Panels may be on very new Chromebooks not yet widespread on 6.18.y
 
-**Step 9.3 — Exception category**
-Record: N/A (not device ID/quirk/DT/build/doc); standard concurrency bug
-fix.
+**Unresolved:** No upstream commit hash in this checkout; lore thread
+inaccessible; no Tested-by on specific hardware models named in commit.
 
-**Step 9.4 — Decision rationale**
-This tree (v6.18.43) contains `can_match` as an unsafe bitfield since
-`3e8fefd2997c8`. That parent commit explicitly moved `ready_to_probe` to
-atomic flags because bitfields are unsafe under concurrent probe, but
-left `can_match` as a bitfield — an oversight this patch corrects.
-Verified code paths show unsynchronized reads (`device_add`,
-`driver_deferred_probe_add`) and writes (`__driver_attach` without
-device lock) on the same field, with adjacent bitfields also modified
-concurrently. The fix is small, obviously correct, maintainer-approved,
-and directly supports the already-backported probe-race infrastructure
-in this tree.
+### Step 9.2: Stable Rules Checklist
+1. Obviously correct and tested? **PASS** — EDID IDs verified;
+   maintainer reviewed; delay profile matches sibling BOE panels
+2. Fixes real bug affecting users? **PASS** (borderline) — fixes
+   incorrect power sequencing for known hardware; fallback works but is
+   suboptimal
+3. Important issue? **PASS (MEDIUM)** — display reliability / suspend-
+   resume, not crash/corruption
+4. Small and contained? **PASS** — 3 lines, one file
+5. No new features/APIs? **PASS** — table entries only, no API change
+6. Can apply to local tree? **PASS** — driver and dependencies present;
+   clean apply
+
+### Step 9.3: Exception Category
+**Record:** Hardware quirk / panel timing workaround — the stable-rules
+exception for quirks that fix real-world hardware behavior. Same
+category as the panel-edp additions already in 6.18.y.
+
+### Step 9.4: Decision Rationale
+For 6.18.43, this commit adds three BOE panel timing entries to an
+existing, actively-maintained driver. The pattern is routinely accepted
+for stable in this tree. While not a crash fix, correct eDP power
+sequencing is a hardware quirk fix with low risk and clear benefit for
+affected laptop/Chromebook users. Precedent in this exact tree strongly
+supports backporting.
 
 ---
 
 ## Verification
 
-- [Phase 1] Parsed subject, all tags from provided commit message
-- [Phase 2] Diff analysis: 3 files, bitfield →
-  `dev_can_match()`/`dev_set_can_match()`, 10 call sites
-- [Phase 3] `git describe HEAD` → `v6.18.43`
-- [Phase 3] `git merge-base --is-ancestor 3e8fefd2997c8 HEAD` → yes
-- [Phase 3] `git blame` on `device.h:699`, `dd.c:868` → introduced by
-  `3e8fefd2997c8`/`5d324e5159d9e`
-- [Phase 3] `git log -S'can_match'` → single introduction commit
-  `3e8fefd2997c8`
-- [Phase 3] `grep dev_can_match` → not in tree (fix not applied)
-- [Phase 4] patch.msgid.link / lore.kernel.org → 403 blocked
-- [Phase 4] `b4 dig` → cannot run without commit hash in tree
-- [Phase 5] Read `dd.c:857-868`, `dd.c:1252-1258`, `core.c:3778`,
-  `device.h:718-740` — confirmed concurrent access patterns
-- [Phase 5] `grep state_synced|offline` in `drivers/base/` — adjacent
-  bitfields modified concurrently
-- [Phase 6] `grep dev->can_match` — 8 sites in `core.c`/`dd.c`; bitfield
-  at `device.h:699`
-- [Phase 6] `DECLARE_BITMAP(flags)` and
-  `__create_dev_flag_accessors(ready_to_probe)` present at
-  `device.h:715-740`
-- [Phase 8] Parent commit `3e8fefd2997c8` documents Android parallel
-  module-loading race; `Cc: stable@vger.kernel.org`
-- **UNVERIFIED:** Lore review thread content, explicit stable-list
-  discussion for this specific patch
+- [Phase 1] `git describe HEAD` → v6.18.43; parsed subject, tags, body
+  from user-provided commit
+- [Phase 1] No Fixes:/Reported-by:/syzbot tags found
+- [Phase 2] Diff: 3 `EDP_PANEL_ENTRY` lines in `panel-edp.c`
+- [Phase 2] Read `generic_edp_panel_probe()` lines 759–832: unknown
+  panel → `WARN_ON` + conservative timings
+- [Phase 2] Read `panel_edp_set_conservative_timings()` lines 740–754:
+  unprepare=2000, enable=200
+- [Phase 2] Read `delay_200_500_e50` lines 1739–1743: hpd_absent=200,
+  unprepare=500, enable=50
+- [Phase 2] Verified EDID bytes → panel IDs: 0x090d, 0x0b85, 0x0c6f
+- [Phase 3] `git log --oneline -5 -- drivers/gpu/drm/panel/panel-edp.c`
+  → recent panel additions present
+- [Phase 3] `git show 0bd968c04acfb`, `b173ba3365ff0`, `6ca4647a74155` →
+  identical patch type already in 6.18.y
+- [Phase 3] `git blame -L 1981,1983` → insertion context confirmed
+- [Phase 4] Read local mbox/cover files; Reviewed-by: Douglas Anderson
+  confirmed
+- [Phase 4] `b4 dig` failed (no commit hash); lore URL blocked by bot
+  protection
+- [Phase 4] No stable nominations found in mbox
+- [Phase 5] Grep `desc->delay` → delays used in prepare/enable/disable
+  paths
+- [Phase 6] Grep for `0x090d|0x0b85|0x0c6f|NT140WHM-N4T` → **not
+  present** in local tree
+- [Phase 6] Grep for `delay_200_500_e50` → present; `EDP_PANEL_ENTRY`
+  macro present
+- [Phase 6] Verified insertion points at lines 1956, 1981, 1983 match
+  diff context
+- [Phase 7] Three prior panel-edp backports confirmed in `git log
+  --grep`
+- [Phase 8] Failure mode: conservative fallback, WARN_ON — severity
+  MEDIUM, not CRITICAL
 
 **YES**
 
- drivers/base/core.c    | 10 +++++-----
- drivers/base/dd.c      | 10 +++++-----
- include/linux/device.h |  9 +++++----
- 3 files changed, 15 insertions(+), 14 deletions(-)
+ drivers/gpu/drm/panel/panel-edp.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/base/core.c b/drivers/base/core.c
-index 5034d9b103642..2b0179096c73d 100644
---- a/drivers/base/core.c
-+++ b/drivers/base/core.c
-@@ -1084,7 +1084,7 @@ static void device_links_missing_supplier(struct device *dev)
- 
- static bool dev_is_best_effort(struct device *dev)
- {
--	return (fw_devlink_best_effort && dev->can_match) ||
-+	return (fw_devlink_best_effort && dev_can_match(dev)) ||
- 		(dev->fwnode && fwnode_test_flag(dev->fwnode, FWNODE_FLAG_BEST_EFFORT));
- }
- 
-@@ -1152,7 +1152,7 @@ int device_links_check_suppliers(struct device *dev)
- 
- 			if (dev_is_best_effort(dev) &&
- 			    device_link_test(link, DL_FLAG_INFERRED) &&
--			    !link->supplier->can_match) {
-+			    !dev_can_match(link->supplier)) {
- 				ret = -EAGAIN;
- 				continue;
- 			}
-@@ -1435,7 +1435,7 @@ void device_links_driver_bound(struct device *dev)
- 		} else if (dev_is_best_effort(dev) &&
- 			   device_link_test(link, DL_FLAG_INFERRED) &&
- 			   link->status != DL_STATE_CONSUMER_PROBE &&
--			   !link->supplier->can_match) {
-+			   !dev_can_match(link->supplier)) {
- 			/*
- 			 * When dev_is_best_effort() is true, we ignore device
- 			 * links to suppliers that don't have a driver.  If the
-@@ -1823,7 +1823,7 @@ static int fw_devlink_no_driver(struct device *dev, void *data)
- {
- 	struct device_link *link = to_devlink(dev);
- 
--	if (!link->supplier->can_match)
-+	if (!dev_can_match(link->supplier))
- 		fw_devlink_relax_link(link);
- 
- 	return 0;
-@@ -3775,7 +3775,7 @@ int device_add(struct device *dev)
- 	 * match with any driver, don't block its consumers from probing in
- 	 * case the consumer device is able to operate without this supplier.
- 	 */
--	if (dev->fwnode && fw_devlink_drv_reg_done && !dev->can_match)
-+	if (dev->fwnode && fw_devlink_drv_reg_done && !dev_can_match(dev))
- 		fw_devlink_unblock_consumers(dev);
- 
- 	if (parent)
-diff --git a/drivers/base/dd.c b/drivers/base/dd.c
-index dabdfc088f3f6..d019d0f98ad47 100644
---- a/drivers/base/dd.c
-+++ b/drivers/base/dd.c
-@@ -132,7 +132,7 @@ static DECLARE_WORK(deferred_probe_work, deferred_probe_work_func);
- 
- void driver_deferred_probe_add(struct device *dev)
- {
--	if (!dev->can_match)
-+	if (!dev_can_match(dev))
- 		return;
- 
- 	mutex_lock(&deferred_probe_mutex);
-@@ -858,14 +858,14 @@ static int __driver_probe_device(const struct device_driver *drv, struct device
- 		return dev_err_probe(dev, -EPROBE_DEFER, "Device not ready to probe\n");
- 
- 	/*
--	 * Set can_match = true after calling dev_ready_to_probe(), so
-+	 * Call dev_set_can_match() after calling dev_ready_to_probe(), so
- 	 * driver_deferred_probe_add() won't actually add the device to the
- 	 * deferred probe list when dev_ready_to_probe() returns false.
- 	 *
- 	 * When dev_ready_to_probe() returns false, it means that device_add()
- 	 * will do another probe() attempt for us.
- 	 */
--	dev->can_match = true;
-+	dev_set_can_match(dev);
- 	dev_dbg(dev, "bus: '%s': %s: matched device with driver %s\n",
- 		drv->bus->name, __func__, drv->name);
- 
-@@ -1011,7 +1011,7 @@ static int __device_attach_driver(struct device_driver *drv, void *_data)
- 		return 0;
- 	} else if (ret == -EPROBE_DEFER) {
- 		dev_dbg(dev, "Device match requests probe deferral\n");
--		dev->can_match = true;
-+		dev_set_can_match(dev);
- 		driver_deferred_probe_add(dev);
- 		/*
- 		 * Device can't match with a driver right now, so don't attempt
-@@ -1255,7 +1255,7 @@ static int __driver_attach(struct device *dev, void *data)
- 		return 0;
- 	} else if (ret == -EPROBE_DEFER) {
- 		dev_dbg(dev, "Device match requests probe deferral\n");
--		dev->can_match = true;
-+		dev_set_can_match(dev);
- 		driver_deferred_probe_add(dev);
- 		/*
- 		 * Driver could not match with device, but may match with
-diff --git a/include/linux/device.h b/include/linux/device.h
-index dc1252a06480c..56e5a9314367d 100644
---- a/include/linux/device.h
-+++ b/include/linux/device.h
-@@ -485,10 +485,14 @@ struct device_physical_location {
-  *
-  * @DEV_FLAG_READY_TO_PROBE: If set then device_add() has finished enough
-  *		initialization that probe could be called.
-+ * @DEV_FLAG_CAN_MATCH: The device has matched with a driver at least once or it
-+ *		is in a bus (like AMBA) which can't check for matching drivers
-+ *		until other devices probe successfully.
-  * @DEV_FLAG_COUNT: Number of defined struct_device_flags.
-  */
- enum struct_device_flags {
- 	DEV_FLAG_READY_TO_PROBE = 0,
-+	DEV_FLAG_CAN_MATCH = 1,
- 
- 	DEV_FLAG_COUNT
- };
-@@ -575,9 +579,6 @@ enum struct_device_flags {
-  * @state_synced: The hardware state of this device has been synced to match
-  *		  the software state of this device by calling the driver/bus
-  *		  sync_state() callback.
-- * @can_match:	The device has matched with a driver at least once or it is in
-- *		a bus (like AMBA) which can't check for matching drivers until
-- *		other devices probe successfully.
-  * @dma_coherent: this particular device is dma coherent, even if the
-  *		architecture supports non-coherent devices.
-  * @dma_ops_bypass: If set to %true then the dma_ops are bypassed for the
-@@ -696,7 +697,6 @@ struct device {
- 	bool			offline:1;
- 	bool			of_node_reused:1;
- 	bool			state_synced:1;
--	bool			can_match:1;
- #if defined(CONFIG_ARCH_HAS_SYNC_DMA_FOR_DEVICE) || \
-     defined(CONFIG_ARCH_HAS_SYNC_DMA_FOR_CPU) || \
-     defined(CONFIG_ARCH_HAS_SYNC_DMA_FOR_CPU_ALL)
-@@ -738,6 +738,7 @@ static inline bool dev_test_and_set_##accessor_name(struct device *dev) \
- }
- 
- __create_dev_flag_accessors(ready_to_probe, DEV_FLAG_READY_TO_PROBE);
-+__create_dev_flag_accessors(can_match, DEV_FLAG_CAN_MATCH);
- 
- #undef __create_dev_flag_accessors
- 
+diff --git a/drivers/gpu/drm/panel/panel-edp.c b/drivers/gpu/drm/panel/panel-edp.c
+index c1ea17a0040be..105074d8cf765 100644
+--- a/drivers/gpu/drm/panel/panel-edp.c
++++ b/drivers/gpu/drm/panel/panel-edp.c
+@@ -1959,6 +1959,7 @@ static const struct edp_panel_entry edp_panels[] = {
+ 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x08b2, &delay_200_500_e200, "NT140WHM-N49"),
+ 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0848, &delay_200_500_e200, "Unknown"),
+ 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0849, &delay_200_500_e200, "Unknown"),
++	EDP_PANEL_ENTRY('B', 'O', 'E', 0x090d, &delay_200_500_e50, "NT140WHM-N4T"),
+ 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x09c3, &delay_200_500_e50, "NT116WHM-N21,836X2"),
+ 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x094b, &delay_200_500_e50, "NT116WHM-N21"),
+ 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0951, &delay_200_500_e80, "NV116WHM-N47"),
+@@ -1984,8 +1985,10 @@ static const struct edp_panel_entry edp_panels[] = {
+ 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0b43, &delay_200_500_e200, "NV140FHM-T09"),
+ 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0b56, &delay_200_500_e80, "NT140FHM-N47"),
+ 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0b66, &delay_200_500_e80, "NE140WUM-N6G"),
++	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0b85, &delay_200_500_e50, "NT140WHM-T05"),
+ 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0c20, &delay_200_500_e80, "NT140FHM-N47"),
+ 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0c26, &delay_200_500_p2e200, "NV140WUM-T08"),
++	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0c6f, &delay_200_500_e50, "NV140FHM-N40"),
+ 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0c93, &delay_200_500_e200, "Unknown"),
+ 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0cb6, &delay_200_500_e200, "NT116WHM-N44"),
+ 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0cf6, &delay_200_500_e200, "NV140WUM-N64"),
 -- 
 2.53.0
 
