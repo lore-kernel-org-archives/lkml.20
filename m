@@ -1,47 +1,47 @@
-Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013031.outbound.protection.outlook.com [40.107.201.31])
+Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012041.outbound.protection.outlook.com [52.101.48.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A1F14AC2B0
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 17:23:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.31
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D15164ACC8A
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 17:23:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.41
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788197005; cv=fail; b=Lu3GaWROsyEk96/RlGJVCqPaG0jSoR/EAVr8sk9fHLDVRPMpxPBGp5h3HIzg38ndHA3gdNp6MW4fl0BGtBEVH32NS3cVGYLRmaw7ENNDVt8yO7RbrXR1uRUaGXaOdrxGPinQNDphCEG5ohvrxvTl+di+oQLhvxbLkhN42k+q7Uo=
+	t=1788197008; cv=fail; b=fbUfE5h1V1WSajSRmmksYBCx6RnlXuB6hqccTDwH7eN89FvLh0Dk9X55nSRqq/JNRd4O1+NS2HN2+YZ4InLA3kwcUe3+DtRh5qJAG2mtpRoByi5pLLww3qjKYfNksrZ9T+Xdtlz4FFObT+3cHP1uvpfAuAcW3Y2x2DFQkQxzD/k=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788197005; c=relaxed/simple;
-	bh=Upo51H+Z+WUnRF832Nhdr599J9y2tDbCqX/XeCXxDaw=;
+	s=arc-20240116; t=1788197008; c=relaxed/simple;
+	bh=eUZIFDQ20jzyLasnorvtEtryXcGrx4aPOQrUdqDmgNg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=hG5A9Gewzl7EgFmzAMGQVALH3MgfvkpFzNO30K4yahj5YbXRCfI0oOph9tCmtDMjB/W9UPUsDWwfh806L8tgv60Rx1jXsyaXgnlOx4aWbZj6KRtz3LlarUTT6jse/D8uuqjVhKm4gYvWX+4EyGtf2YGwHctv07v9oyAQ8lgoOu0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=tPXTJEiS; arc=fail smtp.client-ip=40.107.201.31
+	 Content-Type:MIME-Version; b=RJ6QObdERWWRjNAgzrotguaSaILjrkhmXrwd7xA1YO5/HzQKvXPJAPRu/70taCc1+fRxw1M9Yr7/pwFUgcRE8KkQmUq6nDtS4ihKPzPVLlNiX1tr0WSqgwTxq9E5J1FsSydVleBX3TbLP68r1pv9WIUlXw7YNt9ESzpRCGWLeuE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=ejId5aib; arc=fail smtp.client-ip=52.101.48.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="tPXTJEiS"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="ejId5aib"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Mg1eTd41tVJA74t/xAqZGlBju/nAN7l/7pN+x3rYbhvlvvcjRvKxQxgBCmZD9HyiSPujvceIEbfebD4dtqvDMQP1bTFJnUTzclxG3qedPNziACSD+Vc3gKZnYnjgTUmR/O77KP8Joh2km3myRMRFnKC+qJzaaAjcsCGVN4dWNQFr2GfEp5flATnwLvtZVWJZvSGgGqBKh9ONOy3Q9frdeqG2QGF53FklKZ3IzzuXq5t+G0UWLZ08+cjnpx3LuE8JQWgx+wtcBoc/wJHB9MiHhoDulb36Ek/bg+2N78tooFqUX1MvbeNH8CGkVo6O2lTet9synB/YYT7Kwn50PfLd5A==
+ b=QpX7IVwEdaMIy/8MhJ6uzB7Wo8sHFx6e4PaeDWmfiB/10Iw4BBebDRq6jOJhx1lF+v+M/RcUaB6i1JYwGFxd7Q7L+ZF14DWW4UGkJ9HOQ2yexH7YwGkCgiZk36aTy/SRuKtACyO/2BJT9kkr4B+rJLSF6+Ll/kCiZdnlydoOml9rSEZzinpF5FrQhqpXmThR04v578a7qX9PwdoIaMCpLZ2yFgEhhtgzzwOMHTsbwRpSbkQ+WEoE6W72XPOgfFR4YMEwzLDw0AEKQPntGYqROCAApv9QrTPS9VLDDm2Kp8eE6bZbXlC9fV5KYAhlvnFLaSyyL82MGhGi0RgnB8rrXQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=j/XogZiVF09IdQ5weUBw/k2ToHqAooppSgXleNX9tNE=;
- b=Ier/GBzgv+fJ2eOyvwzdwyTXxk1mqsdSEzeYf6PahCC4giPyWH6eHHCti6EtAEmgbf2Ig23rbb807bwTK49oInBR85nSlhR/nwdHuvuGzbTg+jxIt2d8iMv6BjvbnYRY7AWzr0nDWJM1vCYQj/ugRfgOx/WRv6HtbBeD/ilHnK0rMIDzMxlWL2VyW3W0PBmYWygn3OPj85HEQ0yARpgtNu7uv/cQ0ofOvJe3PFuy8ZwmkU6mxtw4NfnJlucQEM/Ec8dgl9lkoAPNJwen+hL+I9hiEmutMnB0MSByaoVNytulh9O+BBTwvjnfZg8qko5LM/EkcHLcVVqsHqPf0Sxy5Q==
+ bh=1RNFhbjOiewc2L1jafJuiknurXajjDJ+WcX2lCWmsvU=;
+ b=So6CmVbO8ntXZm9f2RxyQGiH3NvhrOK7kEXL5uLxwul6sQZOgwOqznqZ4d9NhGuP20eU4kTjO55Hs+hj6Xbv4MrUNvsv0O25SSsPJqJdMF3YSk7gOXpdrFaGoaKCRsZcEUEQ8aFi/HlmXlxO2tPd73i5+oWDJpXNKTL2is9HEv64Br2cXrnsdzb6MSnyKfxF4awuItkM1iQRF7ixquDm5+VaJiRv5DbJZYGXKP8RnPInzmcy2gz0iCqJVvbFCauyHhOkftnpNOdHLix4clkcq/4pZKzVblW9LfyTnjHNTqcJiKAcldedIgUAaXogUkkJp1WMVKoxNBau3PdPIp1Tlg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=j/XogZiVF09IdQ5weUBw/k2ToHqAooppSgXleNX9tNE=;
- b=tPXTJEiSNoVmaNPnyMWcZ8h16x9KlKAuWFLf+2OoTFYuao5MDOYLBHe7g1JuxvrUwacVLAOufaBupt0n/vLQfo9Ty6V4uPb1l/qm9mXo0GWG53ZuGjK09eFdiysrDNBegGd2nJcCUteXEL8MdpFbiiKe0XVwjVGD08gk16SGF5Bh2OuW1zXIJM+bt+gmu6sYPxsK8lmhNIhUV6d2thg+XPi3qSsd54tT4/hxt7RN1cSahH2I9OKrvQ+XWB49EOUdAYEXMaIAh5lZCS0Or+SAwGRkIdmtY1ArgeXJA6+tJ+a/A+VXewKud/VLwCKBdLTdOoCre5FuuJwcrco6GCxKpg==
+ bh=1RNFhbjOiewc2L1jafJuiknurXajjDJ+WcX2lCWmsvU=;
+ b=ejId5aibPHjB35vLANZur9ZEiIBOVTRwKhg4kN97vTtwE/rN5deq0DNhFh44mpwoYYvxpBpcV8e+xqjIk8eioxu2Wtr/AeSKpVMw9ujymk3QBeBh0KsZ4PzWCmjHBdy/0xXFlkEVislPKeDYn8k5KapsxXHN7sU10cgykeo3kkJ/TZU5DVFtkVKj6Ks/Z+GjK0DUmUqJ1mC8Y+bAX26cJSPtxcKcLZYq+1uJLjo8fc1ub69zkYB0DrQkb4qmRjBWWFUILy4pPOA0g58JsnXdIxUY5vBAWwfiR0wPxWFeMDfDEyFubEqWQOZr5nYu+ySCoYgx0in7iQUWcNvHRcC0tw==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from DM4PR12MB5230.namprd12.prod.outlook.com (2603:10b6:5:399::11)
- by PH7PR12MB7306.namprd12.prod.outlook.com (2603:10b6:510:20a::12) with
+ by SJ5PPF0C60B25BF.namprd12.prod.outlook.com (2603:10b6:a0f:fc02::98a) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Mon, 31 Aug
- 2026 17:23:15 +0000
+ 2026 17:23:11 +0000
 Received: from DM4PR12MB5230.namprd12.prod.outlook.com
  ([fe80::6e87:1bde:1853:3b73]) by DM4PR12MB5230.namprd12.prod.outlook.com
  ([fe80::6e87:1bde:1853:3b73%5]) with mapi id 15.21.0360.008; Mon, 31 Aug 2026
- 17:23:15 +0000
+ 17:23:11 +0000
 From: Fenghua Yu <fenghuay@nvidia.com>
 To: Reinette Chatre <reinette.chatre@intel.com>,
 	Tony Luck <tony.luck@intel.com>,
@@ -61,16 +61,16 @@ To: Reinette Chatre <reinette.chatre@intel.com>,
 Cc: linux-kernel@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	Fenghua Yu <fenghuay@nvidia.com>
-Subject: [PATCH RFC v2 19/19] selftests/resctrl: Add MB emulation test for ARM MPAM
-Date: Mon, 31 Aug 2026 10:22:45 -0700
-Message-ID: <20260831172245.42253-20-fenghuay@nvidia.com>
+Subject: [PATCH RFC v2 13/19] resctrl: Add mbm_assign_scope_mode for native assignment file names
+Date: Mon, 31 Aug 2026 10:22:39 -0700
+Message-ID: <20260831172245.42253-14-fenghuay@nvidia.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260831172245.42253-1-fenghuay@nvidia.com>
 References: <20260831172245.42253-1-fenghuay@nvidia.com>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: SJ0PR03CA0204.namprd03.prod.outlook.com
- (2603:10b6:a03:2ef::29) To DM4PR12MB5230.namprd12.prod.outlook.com
+X-ClientProxiedBy: SJ0PR03CA0076.namprd03.prod.outlook.com
+ (2603:10b6:a03:331::21) To DM4PR12MB5230.namprd12.prod.outlook.com
  (2603:10b6:5:399::11)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -79,417 +79,347 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB5230:EE_|PH7PR12MB7306:EE_
-X-MS-Office365-Filtering-Correlation-Id: 87a3f298-0095-4681-bb42-08df07848a43
+X-MS-TrafficTypeDiagnostic: DM4PR12MB5230:EE_|SJ5PPF0C60B25BF:EE_
+X-MS-Office365-Filtering-Correlation-Id: 16486e49-654c-4584-746e-08df078485b8
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|23010399003|376014|7416014|3023799007|22082099003|17002099007|18002099003|56012099006|10067099003|6133799003|11063799006|5023799004|921020;
+	BCL:0;ARA:13230040|1800799024|366016|23010399003|7416014|376014|6133799003|18002099003|22082099003|56012099006|11063799006|5023799004|10067099003|921020;
 X-Microsoft-Antispam-Message-Info:
-	g8M628v0O+oaAUVRsg13ex4OtTUO/ip2Uf29hizamuS/6TviIniiDRaEEf7ECmCP1SC6oLiWGfbDFd0h9fpGvxFVSoRekAAUdLUY7y6/wzn6MDKvXfXIHnUOjFbwGPP0l+Pr5JuI5CSqwodMtnFIMMjCrHzJOa8T9tfuUzNIwyjZMK4S7EYo00WQI6LQoLApyIZeM+JxVMhpjd7FhT1iaY8eXAzZSoCsy7fZYhr/HJiV1qyWJsH6WO/IpO+inmcqeMBGbtP9XvPtY/yuwQLmREk8oDP3ggugCGadCxsaS0SOiMgMw8M3ifith1+vNPwBZfXG6SmVmMRtYSx8XNBjFdzD2eLwBxVoEz+ksvvPqUNJdHpgVy4arQFwhv4rTf1WsVzrlNfjn/3FN05xLgzU1kQmHtQIsayDNvMTZSUJnVSHXKnZPtvKY/fG9NT+r6VGEbwHiRh90wOj4gQPl/lJRHQnl3FrakBvhA9CVPep9/PNBVVoSPdXGb27BW92Jvm2WneeXhgNSLGOGW6VvAe2A7cQttx7lBcvShmnO49CsZJOXZLbx+QgihONM16pzMp9RxMaJazduz6DQjiKpCStymxAXnfzj3mJ1bNqLVOYnB41zIomCEv4aHteex74XenOGpic2Qf/eVtLCnY+FXUqKPYjK/UqfOaJpP+6bnDL21IPrQdMdqiR6L25APrpoPJeBzx2ZBLdIIe2hFE2tR2GWg==
+	OkK0NZxGLHPl9xB6c4dJdva9/IA0awO0wLiQ/u6ZrMBeFLFypmESORypzGD4o1BM+wTEj28rneNuFD0IfknvW/GG4xg2kQVgFZ1tLVeAdFzLdHjZbvfCmyYi0W5q1VFh577eOeOdAmpXxRQyHhzz2D6CCey+q2WBjDfOF8ZtGRj6Hw9KsdntJj7cMa10Zaed7P+i0YwRZx+Q+0BXhI4KYkYg6Oi53rK7pyit5ra0GzDFPZ4JAIxL/XF+F/lNm3Rz6ITUm6IdzK4ZpnIoE7I3EgHn7nJy5DxdFf9dhgyYz8bhnnYy5UsMjCyMb3apX6qniQY39r4326/FlayZu7jS75HeW//ld9wbfGZvR2y1RcVcgrmR1h928HEz5gGoAJmfsTXakrGdg1t7HuNKlkyyTRc08CAqzdf9LTyc0PRI5p0FV+uyz3INa51jjWRYpFb00eLAGcbmf06bkzvV/DWr6BcBfcFl47FBdvMeVK0GcnYBgcxGU49BzfG6eMkMGnt7FNOI0VN8sz5GSRTqzUBFjnKQfZln1YGzunJDwKIbOCZsorsrDMzxcm4MEllasKRKbzHLbCeg0oskyUWQ5KJfzd4i0ClCnI7jQbdW/zTHlzfqRrpuvXK9p7Y5CeDPO1zEJOon8Z80xU2ZC97Qjn0KOHvomoMRPWT45SKr4I37ybY35JXJigEv4BTNQ0i0adKRcFIO10J60b0RaBi7qSEiLw==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR12MB5230.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(7416014)(3023799007)(22082099003)(17002099007)(18002099003)(56012099006)(10067099003)(6133799003)(11063799006)(5023799004)(921020);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR12MB5230.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(7416014)(376014)(6133799003)(18002099003)(22082099003)(56012099006)(11063799006)(5023799004)(10067099003)(921020);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?8FEq2ThsfbuF7HRI5coxa3w2lUjPdRwTh06WIOm405wXY/h5w43qnmRYEmzi?=
- =?us-ascii?Q?5R8IgtGG/thXH+jNNvCJR0aS/bOltQ2fr+VJUxF/M9i3qLNCkk1qPii6YKIN?=
- =?us-ascii?Q?/ZCdcY5nCVuSibe09mo3B6IwMXhQDEwVUqDWk66WFDuNUAWrWdjB/s+pHst/?=
- =?us-ascii?Q?ktZh1cghhNkHw4qI0eZ5nW8Sqs6Om1cdqVuOiVUrX6H7c0a8h6PtYZE6j6wf?=
- =?us-ascii?Q?wAUJffw9e0ytvm5uQyqS5vSD15F1EMoq788dyhEKKNBrQ2EN2G7tjTgsh886?=
- =?us-ascii?Q?ZR7ES/uT7S1DpFk+Yst5vO4u9hwl4mfRvwhRr+CW0R9dwifhBpVBAoWJoccQ?=
- =?us-ascii?Q?LHcg/g9yFi5edY0heKu4u8bkxnmxQwHcCqxRaJNPDwISEt2A/S7wM1HdhoZo?=
- =?us-ascii?Q?pv7CMYKeHpd+wyQioBM5h+wsc9rWJ/bBnLey5aSwGj82QSu6BBYC3Rf1jT/Z?=
- =?us-ascii?Q?AnZX6xYFmybFDP4Jv/NLacSigADJE49GqwWDIJY0fBZ0Unw6C/Vl8RSnZTtN?=
- =?us-ascii?Q?s7E4wAd3zUq0QR1YJ1yG3EJv2MtAJmKqR8iMf8SLkGECOHYrtEYIvoa9sr0X?=
- =?us-ascii?Q?7FdbhX27w3vHG47ZZPBa7Fq6ssl9krQY2zX3h2ZNTi78wh2Sik7UA+yX39o4?=
- =?us-ascii?Q?bfWMEAqWXPuG1ULvyNYa3G6yUzxVItJ5YxVGURxAsfpyvIGEakba8CQaMVNJ?=
- =?us-ascii?Q?ZDpPtmW9bk3l6/5ZRe/5WOru8t2SSOG0AMPYibUal+lIuJJNksMl0uAeieUg?=
- =?us-ascii?Q?3XJDXcK+L/xEk02qmwy/DT7DvJ+rj4clC4FQvd7g7VX6vUSovw7qriTtDno7?=
- =?us-ascii?Q?GL753Go7gv8b/mtdURUnlpZ0P6gCUDq54CjGbHs0+LqHLFBqYra8U3juIak2?=
- =?us-ascii?Q?qBi1ClYt0eYQWukejTh0TcnQbB8+rSLTTXTDW8FYfzXLQzFvKcS8cGJmL87I?=
- =?us-ascii?Q?z3oRpDUvTo3+jswuSfV04Dt+PrvFJ7kpIeAVBy82ql8wEHMgHa9ZceAwNgCn?=
- =?us-ascii?Q?OXRpHaOwh4AiBl1sWMQa9ptBA+mvYK9WgWnBr3AKA9ItdAQE0Z5toYb1qe8Y?=
- =?us-ascii?Q?f2yaJC7zlGGSZC6u08dSAaTqLjugKL+BPHuMVu+DFepODIrQ9y9UbNUQP1jV?=
- =?us-ascii?Q?mjK+tOjyvaYRPmZoJzuqg7y+I8jqmRDy6qX/a7xgnKd43sCWtOPkK7+viiAO?=
- =?us-ascii?Q?kzIUOWIt+cVgJqAal9MedJYG7vNLT9+cR7lyHFe3qVOejlPgMQDnrFUONdqJ?=
- =?us-ascii?Q?0PNinZgBCznyyvaScm4FJROdBmhJkNT0hvYlQq3JczR8lbzGOUM6S/47gZlu?=
- =?us-ascii?Q?1U9l/mkqdu709C34r6B922PQqwzA2jzXSk2EC3naei0hhgOHW+ZNfzGadDNG?=
- =?us-ascii?Q?3WophKDdJ6Wp5C4ZKI4PfpJ2SXVE3D43MQFngzU4047JlMnEDIpZCvsYzr0+?=
- =?us-ascii?Q?MAir1JzTHtugzR2T9eOY5RAVXyjGyht2+hU4GYt6w+zE3cR3z2bSJ1wLU5Ms?=
- =?us-ascii?Q?S3VyUiTsspT9W2FsDe3cmcL1H3mVog2dybU/0kPrYbm7JcTjFSZTkBjTdIIr?=
- =?us-ascii?Q?x561vHal3SiiEeGr16z7SPl78V2T5zLxgDfbtGDSyG4EYKkNoFu6HnhXxHyF?=
- =?us-ascii?Q?72X7f+IUBTmmVUYV5OX2KdYxnAboJhs1j/fqESyUMV31xGFaa7BPOeX2Nraw?=
- =?us-ascii?Q?QVVJdu7UtJ73596yh1HTg2Ykk1Rhj/1s2L1Zs91SNL/nSmPtYm682hYOsrh+?=
- =?us-ascii?Q?AHqSc5lSZg=3D=3D?=
+	=?us-ascii?Q?U4Ep+lHM1YlaSDEoUI2dtE5GX/aBkVqkf5G2Qi8Vz4Gm91uYLPtIxP31LCCz?=
+ =?us-ascii?Q?snxLIT/z8pxOvKzzRxNqUvMGiRhOrCPIKEb7OtLGD7BXzigMouRZOKbVZQt8?=
+ =?us-ascii?Q?ADnNowWZD1pkODpxGjY6H4KNY2Jb+TMV4DQu3NqJQAmznwJNbH/g7IGveiy0?=
+ =?us-ascii?Q?eaBPisIodxCQDHHaxJUYxxd9DJLgvbaPTs/JzLf6IkyFC6Zc8P94R34+I+53?=
+ =?us-ascii?Q?YQx8fHNk8M2PcFx8j6Gsc5ltV38e97i9cSv+XNKPRQ/6nyNiw0ORi27HQ2bg?=
+ =?us-ascii?Q?XRAPfSKERLJ8rvkmjjsLyW5vGLLWDoKxp8ywf06RWYgviEu32AJcH5jqmCL3?=
+ =?us-ascii?Q?tvv3pKsR4S8FmtT0pHWtgUWzy6o5cNTg/YBE96lizw/mQ3cZpqWRwatyhWT5?=
+ =?us-ascii?Q?CtBB01LHR/a2aveBjQ84gHVrQwVT2nXcyNASj6ShWVvgUvx8rpFG9wpNPYyg?=
+ =?us-ascii?Q?sV2hP51uods+SV+FTJjHNfwv1NgZ1ilX4zQ67D5b2fnw0e/9frRCE3LRO7fy?=
+ =?us-ascii?Q?77bMUZvxyoLwyYugSDM7B3ZDECvkRUu2yERVL25Y3RmvF0vvB1fUn1CiOlvM?=
+ =?us-ascii?Q?izwLd+4VQQkmvjTjiCTtOpRQmOLTcKVtYOLF6Y1u+vwUAbJj6A3Ij3NAp01U?=
+ =?us-ascii?Q?ugdtsKc5C486xGIKqXnxxUnvUf2RPy4AZyV0KEuGis/P4lONUxZWS9CzNFnU?=
+ =?us-ascii?Q?YBImJ8+Gv7RWLd35lDj3+u/cDHZN5kbd4B0N3iBsuOgZhZiZ++G5AHy65Z0u?=
+ =?us-ascii?Q?DAc+67vUHJEnEXDVM+TU8fkoAog5w6XWFeHyVQs3kN0NFU7uXrHkmBihHZ2m?=
+ =?us-ascii?Q?2FqkpKtdS66T/Ho9dMFbpQ0jXWdkndlBTnLMgSJV+7w4SW1sSbTdIYF0PoEH?=
+ =?us-ascii?Q?8nV1XVfiJj2zEgQTrOOnxlcN6NASQQztt7MiPeF7aXn4PAn/RD9VIVDJtV29?=
+ =?us-ascii?Q?8Jn4ejCy8WRHV/7ulnrQrTPSFm8kMUhz1PXJJ015TpPJTmieaOFqULq9tHZi?=
+ =?us-ascii?Q?NirrLDgn7NojXLRjwteQAZHAKYyya4vGogMM25RfegNDTyfWfGDlAHtFajA0?=
+ =?us-ascii?Q?3O37rlB27HfFqnlE0ceNu+4MD85aTIAPW9+xG1hD3Y1J1yIz0qTfLkgsM++Y?=
+ =?us-ascii?Q?5G2IoLoQ0dHGebOYp2VVJFWRsdk6bft1xFi4StLcuvbk0qbqqVLw5+vv5OLY?=
+ =?us-ascii?Q?dwTmyUEcJdQegpa8PrX1O7eKbimiP6Vf9Ds4SfN30pIK5Bcnh1mgpq/VDDNn?=
+ =?us-ascii?Q?8mPRHf3xopeFfJre19zfL7xuoqrq2qfQnaR47i++spSVjIR4JwHrvByiY9C5?=
+ =?us-ascii?Q?hnf1e9LIZxkCEfboPs18Nn7qNQ/fGkUmAyXG2O4nuTa48n5rf1fqC4LdgwtZ?=
+ =?us-ascii?Q?aDIb1YlWEebrLlC/cQAZVNu4JjiLm5FkUMJxZWmq8qSFmBi9RcowZ98mj77C?=
+ =?us-ascii?Q?Ch7P9Hn8DHUfIQJQdG5UbiWkMAR0YyaIxTBblEDQczD4kc4aoGggKl0gXxuC?=
+ =?us-ascii?Q?BZJptAYyldrm08lKixtYIEanYS5f+wwoc+p7cDAIEGoDXG6poaOFfsmhf1eF?=
+ =?us-ascii?Q?GCwKY+u2iGz+r0moldoM2aIi+Ju1BdEzvJ5LfUGV5K7Dh5oDbQrjanU6txsJ?=
+ =?us-ascii?Q?N+bSZYnZbm8CnuN8n13yDFQxicmnVgRELkUedPY4qkoRsqvdO16YbkwIlCOd?=
+ =?us-ascii?Q?vLhymjT6M+3aOGLSnb6Ks0uw9T9qPC4/aSwASDeIyTgLL9VxbB7Xn8sAagyQ?=
+ =?us-ascii?Q?mxP9ITuyCg=3D=3D?=
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 87a3f298-0095-4681-bb42-08df07848a43
+X-MS-Exchange-CrossTenant-Network-Message-Id: 16486e49-654c-4584-746e-08df078485b8
 X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5230.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 17:23:15.1828
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 17:23:07.1443
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: syzeMuGRsdh7cD8bhtuhTSH5Gyo4q2IwqMNYBV2ga7zaPr8zTYkI7igbKuhPjS7ZbNqgmjvcDlnQTMrj5zYtgw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7306
+X-MS-Exchange-CrossTenant-UserPrincipalName: Jysm+DBB5mr+RKViWiPFT+U4g2E2jvl+HyxgKmkIqJHCh92tUeKu94bEdlDSO9JaX/KXQqbGFUNizr5ln4wg8Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ5PPF0C60B25BF
 
-Add a kselftest that exercises MB control emulation on ARM MPAM:
-info/MB/control_mode, the nested MB_NODE control under
-info/MB/schemata/MB/, and schemata visibility when switching legacy
-(MB:) and native (MB_NODE:) modes. The info/ schemata tree stays nested
-across the switch.
+On platforms whose MBM counters are backed by NUMA node MSCs,
+mbm_NODE_assignments is the native assignment file. User space that
+already programs mbm_L3_assignments needs a compatible default.
+
+Add info/MB_MON/mbm_assign_scope_mode. Legacy (default) always exposes
+mbm_L3_assignments; that file still programs node-scoped counters when
+node MSCs provide MBM. Native mode replaces it with
+mbm_NODE_assignments on those platforms.
 
 Signed-off-by: Fenghua Yu <fenghuay@nvidia.com>
 ---
- .../selftests/resctrl/mb_emulation_test.c     | 314 ++++++++++++++++++
- tools/testing/selftests/resctrl/resctrl.h     |   1 +
- .../testing/selftests/resctrl/resctrl_tests.c |   1 +
- 3 files changed, 316 insertions(+)
- create mode 100644 tools/testing/selftests/resctrl/mb_emulation_test.c
+ fs/resctrl/internal.h   |   9 +++
+ fs/resctrl/monitor.c    | 147 +++++++++++++++++++++++++++++++++++++---
+ fs/resctrl/rdtgroup.c   |   9 +++
+ include/linux/resctrl.h |   6 ++
+ 4 files changed, 162 insertions(+), 9 deletions(-)
 
-diff --git a/tools/testing/selftests/resctrl/mb_emulation_test.c b/tools/testing/selftests/resctrl/mb_emulation_test.c
-new file mode 100644
-index 000000000000..845aa46fd092
---- /dev/null
-+++ b/tools/testing/selftests/resctrl/mb_emulation_test.c
-@@ -0,0 +1,314 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * MB (memory bandwidth) control emulation test (ARM MPAM)
-+ *
-+ * Exercises info/MB/control_mode, the nested MB_NODE control under
-+ * info/MB/schemata/MB/, and schemata visibility when switching between
-+ * legacy (MB:) and native (MB_NODE:) modes.
-+ */
-+#include <fcntl.h>
-+#include <limits.h>
-+
-+#include "resctrl.h"
-+
-+#define MB_INFO			INFO_PATH "/MB"
-+#define MB_MODE_PATH		MB_INFO "/control_mode"
-+#define MB_SCHEMATA_DIR		MB_INFO "/schemata"
-+#define MB_CTRL_PATH		MB_SCHEMATA_DIR "/MB"
-+#define MB_NODE_NESTED_PATH	MB_CTRL_PATH "/MB_NODE"
-+#define MB_NODE_SIBLING_PATH	MB_SCHEMATA_DIR "/MB_NODE"
-+#define ROOT_SCHEMATA_PATH	RESCTRL_PATH "/schemata"
-+
-+static int read_file(const char *path, char *buf, size_t buflen)
-+{
-+	ssize_t ret;
-+	int fd, n;
-+
-+	fd = open(path, O_RDONLY);
-+	if (fd < 0)
-+		return -errno;
-+
-+	ret = read(fd, buf, buflen - 1);
-+	close(fd);
-+	if (ret < 0)
-+		return -errno;
-+
-+	n = (int)ret;
-+	while (n > 0 && (buf[n - 1] == '\n' || buf[n - 1] == ' '))
-+		n--;
-+	buf[n] = '\0';
-+
-+	return 0;
-+}
-+
-+static bool path_is_dir(const char *path)
-+{
-+	struct stat st;
-+
-+	if (stat(path, &st))
-+		return false;
-+
-+	return S_ISDIR(st.st_mode);
-+}
-+
-+static int mb_read_mode(char *buf, size_t len)
-+{
-+	return read_file(MB_MODE_PATH, buf, len);
-+}
-+
-+static int mb_write_mode(const char *mode)
-+{
-+	char msg[32];
-+	int fd, ret, len;
-+
-+	len = snprintf(msg, sizeof(msg), "%s\n", mode);
-+	if (len < 0 || len >= (int)sizeof(msg))
-+		return -EINVAL;
-+
-+	fd = open(MB_MODE_PATH, O_WRONLY);
-+	if (fd < 0)
-+		return -errno;
-+
-+	ret = write(fd, msg, len) == len ? 0 : -errno;
-+	close(fd);
-+
-+	return ret;
-+}
-+
-+static bool mb_mode_active_is(const char *mode_text, const char *mode)
-+{
-+	char pattern[32];
-+
-+	snprintf(pattern, sizeof(pattern), "[%s]", mode);
-+	return strstr(mode_text, pattern);
-+}
-+
-+static int mb_read_root_schemata(char *buf, size_t len)
-+{
-+	return read_file(ROOT_SCHEMATA_PATH, buf, len);
-+}
-+
-+/*
-+ * resctrl right-aligns schemata names with leading whitespace, so a control
-+ * line looks like "             MB:0=100...". Treat prefix as matching when it
-+ * appears at the start of a line, ignoring any leading spaces or tabs.
-+ */
-+static const char *schemata_find_line(const char *schemata, const char *prefix)
-+{
-+	const char *p;
-+
-+	if (!schemata || !prefix)
-+		return NULL;
-+
-+	for (p = strstr(schemata, prefix); p; p = strstr(p + 1, prefix)) {
-+		const char *q = p;
-+
-+		while (q > schemata && (q[-1] == ' ' || q[-1] == '\t'))
-+			q--;
-+
-+		if (q == schemata || q[-1] == '\n')
-+			return p;
-+	}
-+
-+	return NULL;
-+}
-+
-+static bool schemata_has_prefix(const char *schemata, const char *prefix)
-+{
-+	return schemata_find_line(schemata, prefix);
-+}
-+
-+static int mb_expect_nested_hierarchy(const char *why)
-+{
-+	if (!path_is_dir(MB_NODE_NESTED_PATH) || path_is_dir(MB_NODE_SIBLING_PATH)) {
-+		ksft_print_msg("%s: MB_NODE should be nested, nested=%d sibling=%d\n",
-+			       why, path_is_dir(MB_NODE_NESTED_PATH),
-+			       path_is_dir(MB_NODE_SIBLING_PATH));
-+		return -EINVAL;
-+	}
-+
-+	return 0;
-+}
-+
-+static int mb_test_mode_read(void)
-+{
-+	char mode[64];
-+	int ret;
-+
-+	ret = mb_read_mode(mode, sizeof(mode));
-+	if (ret)
-+		return ret;
-+
-+	if (!mb_mode_active_is(mode, "legacy") && !mb_mode_active_is(mode, "native")) {
-+		ksft_print_msg("mode file has no active mode: '%s'\n", mode);
-+		return -EINVAL;
-+	}
-+
-+	ksft_print_msg("mode file: %s\n", mode);
-+	return 0;
-+}
-+
-+static int mb_test_schemata_visibility(bool expect_mb_line, const char *mode)
-+{
-+	char schemata[4096];
-+	bool has_mb, has_mb_node;
-+	int ret;
-+
-+	ret = mb_read_root_schemata(schemata, sizeof(schemata));
-+	if (ret)
-+		return ret;
-+
-+	has_mb = schemata_has_prefix(schemata, "MB:");
-+	has_mb_node = schemata_has_prefix(schemata, "MB_NODE:");
-+
-+	if (expect_mb_line) {
-+		if (!has_mb) {
-+			ksft_print_msg("%s: expected MB: line in schemata\n", mode);
-+			return -EINVAL;
-+		}
-+		if (has_mb_node) {
-+			ksft_print_msg("%s: MB_NODE: line should be hidden in schemata\n",
-+				       mode);
-+			return -EINVAL;
-+		}
-+	} else {
-+		if (has_mb) {
-+			ksft_print_msg("%s: MB: line should be hidden in schemata\n",
-+				       mode);
-+			return -EINVAL;
-+		}
-+		if (!has_mb_node) {
-+			ksft_print_msg("%s: expected MB_NODE: line in schemata\n",
-+				       mode);
-+			return -EINVAL;
-+		}
-+	}
-+
-+	ksft_print_msg("switched to %s: schemata MB:%d MB_NODE:%d\n",
-+		       mode, has_mb, has_mb_node);
-+	return 0;
-+}
-+
-+static int mb_restore_mode(const char *orig_mode)
-+{
-+	if (mb_mode_active_is(orig_mode, "legacy"))
-+		return mb_write_mode("legacy");
-+	if (mb_mode_active_is(orig_mode, "native"))
-+		return mb_write_mode("native");
-+
-+	return 0;
-+}
-+
-+static int mb_verify_active_mode(const char *mode)
-+{
-+	char buf[64];
-+	int ret;
-+
-+	ret = mb_read_mode(buf, sizeof(buf));
-+	if (ret)
-+		return ret;
-+
-+	if (!mb_mode_active_is(buf, mode)) {
-+		ksft_print_msg("mode switch to %s failed, mode file: '%s'\n",
-+			       mode, buf);
-+		return -EINVAL;
-+	}
-+
-+	ksft_print_msg("switched to %s: mode file='%s'\n", mode, buf);
-+	return 0;
-+}
-+
-+/*
-+ * Switch to @mode and verify the mode file, the nested info/MB/schemata
-+ * layout (unchanged by the switch), and root schemata visibility.
-+ */
-+static int mb_switch_and_check(const char *mode)
-+{
-+	bool legacy = !strcmp(mode, "legacy");
-+	int ret;
-+
-+	ksft_print_msg("--- switching to %s mode ---\n", mode);
-+
-+	ret = mb_write_mode(mode);
-+	if (ret) {
-+		ksft_print_msg("failed to write %s mode\n", mode);
-+		return ret;
-+	}
-+
-+	ret = mb_verify_active_mode(mode);
-+	if (ret)
-+		return ret;
-+
-+	ret = mb_expect_nested_hierarchy(mode);
-+	if (ret)
-+		return ret;
-+
-+	return mb_test_schemata_visibility(legacy, mode);
-+}
-+
-+static int mb_emulation_run_test(const struct resctrl_test *test,
-+				 const struct user_params *uparams)
-+{
-+	char orig_mode[64];
-+	int ret;
-+
-+	(void)test;
-+	(void)uparams;
-+
-+	ret = mb_expect_nested_hierarchy("initial");
-+	if (ret)
-+		return ret;
-+
-+	ret = mb_read_mode(orig_mode, sizeof(orig_mode));
-+	if (ret) {
-+		ksft_print_msg("failed to read %s\n", MB_MODE_PATH);
-+		return ret;
-+	}
-+
-+	ret = mb_test_mode_read();
-+	if (ret)
-+		goto out_restore;
-+
-+	/* Cycle legacy -> native -> legacy, checking each transition. */
-+	ret = mb_switch_and_check("legacy");
-+	if (ret)
-+		goto out_restore;
-+
-+	ret = mb_switch_and_check("native");
-+	if (ret)
-+		goto out_restore;
-+
-+	ret = mb_switch_and_check("legacy");
-+	if (ret)
-+		goto out_restore;
-+
-+out_restore:
-+	if (mb_restore_mode(orig_mode))
-+		ksft_print_msg("warning: failed to restore original mode\n");
-+
-+	return ret;
-+}
-+
-+static bool mb_emulation_feature_check(const struct resctrl_test *test)
-+{
-+	(void)test;
-+
-+	if (!resctrl_resource_exists("MB"))
-+		return false;
-+
-+	if (!resource_info_file_exists("MB", "control_mode"))
-+		return false;
-+
-+	if (!path_is_dir(MB_SCHEMATA_DIR) || !path_is_dir(MB_CTRL_PATH))
-+		return false;
-+
-+	return path_is_dir(MB_NODE_NESTED_PATH);
-+}
-+
-+struct resctrl_test mb_emulation_test = {
-+	.name = "mb_emulation",
-+	.group = "mb",
-+	.resource = "MB",
-+	.feature_check = mb_emulation_feature_check,
-+	.run_test = mb_emulation_run_test,
-+};
-diff --git a/tools/testing/selftests/resctrl/resctrl.h b/tools/testing/selftests/resctrl/resctrl.h
-index 175101022bf3..ad1c17c0b0bf 100644
---- a/tools/testing/selftests/resctrl/resctrl.h
-+++ b/tools/testing/selftests/resctrl/resctrl.h
-@@ -242,5 +242,6 @@ extern struct resctrl_test cmt_test;
- extern struct resctrl_test l3_cat_test;
- extern struct resctrl_test l3_noncont_cat_test;
- extern struct resctrl_test l2_noncont_cat_test;
-+extern struct resctrl_test mb_emulation_test;
+diff --git a/fs/resctrl/internal.h b/fs/resctrl/internal.h
+index 32c7d53790ec..f46d4fb7c624 100644
+--- a/fs/resctrl/internal.h
++++ b/fs/resctrl/internal.h
+@@ -457,6 +457,15 @@ int mbm_L3_assignments_show(struct kernfs_open_file *of, struct seq_file *s, voi
  
- #endif /* RESCTRL_H */
-diff --git a/tools/testing/selftests/resctrl/resctrl_tests.c b/tools/testing/selftests/resctrl/resctrl_tests.c
-index dbcd5eea9fbc..593f0ca5251b 100644
---- a/tools/testing/selftests/resctrl/resctrl_tests.c
-+++ b/tools/testing/selftests/resctrl/resctrl_tests.c
-@@ -17,6 +17,7 @@ volatile int *value_sink = &sink_target;
- static struct resctrl_test *resctrl_tests[] = {
- 	&mbm_test,
- 	&mba_test,
-+	&mb_emulation_test,
- 	&cmt_test,
- 	&l3_cat_test,
- 	&l3_noncont_cat_test,
+ ssize_t mbm_L3_assignments_write(struct kernfs_open_file *of, char *buf, size_t nbytes,
+ 				 loff_t off);
++
++int resctrl_mbm_assign_scope_mode_show(struct kernfs_open_file *of, struct seq_file *s,
++				       void *v);
++
++ssize_t resctrl_mbm_assign_scope_mode_write(struct kernfs_open_file *of, char *buf,
++					    size_t nbytes, loff_t off);
++
++void resctrl_mbm_assign_files_apply(struct kernfs_node *kn);
++
+ int resctrl_io_alloc_show(struct kernfs_open_file *of, struct seq_file *seq, void *v);
+ 
+ int rdtgroup_init_cat(struct rdt_resource_final *f, struct resctrl_ctrl *ctrl,
+diff --git a/fs/resctrl/monitor.c b/fs/resctrl/monitor.c
+index d555f2d19164..074dc2a040dc 100644
+--- a/fs/resctrl/monitor.c
++++ b/fs/resctrl/monitor.c
+@@ -18,6 +18,7 @@
+ #define pr_fmt(fmt)	"resctrl: " fmt
+ 
+ #include <linux/cpu.h>
++#include <linux/kernfs.h>
+ #include <linux/resctrl.h>
+ #include <linux/sizes.h>
+ #include <linux/slab.h>
+@@ -1704,6 +1705,130 @@ int resctrl_available_mbm_cntrs_show(struct kernfs_open_file *of,
+ 	return ret;
+ }
+ 
++static bool resctrl_mbm_has_node_mscs(void)
++{
++	struct rdt_resource *r = resctrl_arch_get_resource(RDT_RESOURCE_MBA);
++
++	return r->mon_capable && r->mon_scope == RESCTRL_NODE;
++}
++
++static bool resctrl_mbm_show_l3_assignments(void)
++{
++	return !resctrl_arch_get_resource(RDT_RESOURCE_MBA)->mon.mbm_assign_scope_native ||
++	       !resctrl_mbm_has_node_mscs();
++}
++
++static bool resctrl_mbm_show_node_assignments(void)
++{
++	return resctrl_arch_get_resource(RDT_RESOURCE_MBA)->mon.mbm_assign_scope_native &&
++	       resctrl_mbm_has_node_mscs();
++}
++
++static struct rdt_resource *mbm_l3_assignments_resource(void)
++{
++	if (resctrl_mbm_has_node_mscs())
++		return resctrl_arch_get_resource(RDT_RESOURCE_MBA);
++
++	return resctrl_arch_get_resource(RDT_RESOURCE_L3);
++}
++
++static void resctrl_mbm_assign_file_show(struct kernfs_node *parent, const char *name,
++					 bool show)
++{
++	struct kernfs_node *kn;
++
++	kn = kernfs_find_and_get(parent, name);
++	if (!kn)
++		return;
++
++	kernfs_show(kn, show);
++	kernfs_put(kn);
++}
++
++void resctrl_mbm_assign_files_apply(struct kernfs_node *kn)
++{
++	if (!kn)
++		return;
++
++	resctrl_mbm_assign_file_show(kn, "mbm_L3_assignments",
++				     resctrl_mbm_show_l3_assignments());
++	resctrl_mbm_assign_file_show(kn, "mbm_NODE_assignments",
++				     resctrl_mbm_show_node_assignments());
++}
++
++static void resctrl_mbm_assign_files_apply_all(void)
++{
++	struct rdtgroup *prgrp, *crgrp;
++
++	lockdep_assert_held(&rdtgroup_mutex);
++
++	list_for_each_entry(prgrp, &rdt_all_groups, rdtgroup_list) {
++		resctrl_mbm_assign_files_apply(prgrp->kn);
++		list_for_each_entry(crgrp, &prgrp->mon.crdtgrp_list, mon.crdtgrp_list)
++			resctrl_mbm_assign_files_apply(crgrp->kn);
++	}
++}
++
++int resctrl_mbm_assign_scope_mode_show(struct kernfs_open_file *of,
++				       struct seq_file *s, void *v)
++{
++	struct rdt_resource *r = rdt_kn_parent_priv(of->kn);
++
++	if (!info_kn_lock(of->kn))
++		return -ENOENT;
++
++	if (r->mon.mbm_assign_scope_native)
++		seq_puts(s, "legacy [native]\n");
++	else
++		seq_puts(s, "[legacy] native\n");
++
++	info_kn_unlock(of->kn);
++
++	return 0;
++}
++
++ssize_t resctrl_mbm_assign_scope_mode_write(struct kernfs_open_file *of, char *buf,
++					    size_t nbytes, loff_t off)
++{
++	struct rdt_resource *r = rdt_kn_parent_priv(of->kn);
++	bool native;
++	int ret = 0;
++
++	if (!info_kn_lock(of->kn))
++		return -ENOENT;
++
++	rdt_last_cmd_clear();
++
++	/* Valid input requires a trailing newline */
++	if (nbytes == 0 || buf[nbytes - 1] != '\n') {
++		rdt_last_cmd_puts("mbm_assign_scope_mode: Invalid input\n");
++		ret = -EINVAL;
++		goto out_unlock;
++	}
++
++	buf[nbytes - 1] = '\0';
++
++	if (!strcmp(buf, "legacy")) {
++		native = false;
++	} else if (!strcmp(buf, "native")) {
++		native = true;
++	} else {
++		rdt_last_cmd_puts("Unsupported assign scope mode\n");
++		ret = -EINVAL;
++		goto out_unlock;
++	}
++
++	if (r->mon.mbm_assign_scope_native != native) {
++		r->mon.mbm_assign_scope_native = native;
++		resctrl_mbm_assign_files_apply_all();
++	}
++
++out_unlock:
++	info_kn_unlock(of->kn);
++
++	return ret ?: nbytes;
++}
++
+ static int mbm_assignments_show(struct kernfs_open_file *of, struct seq_file *s,
+ 				void *v, struct rdt_resource *r)
+ {
+@@ -1753,8 +1878,7 @@ static int mbm_assignments_show(struct kernfs_open_file *of, struct seq_file *s,
+ 
+ int mbm_L3_assignments_show(struct kernfs_open_file *of, struct seq_file *s, void *v)
+ {
+-	return mbm_assignments_show(of, s, v,
+-				    resctrl_arch_get_resource(RDT_RESOURCE_L3));
++	return mbm_assignments_show(of, s, v, mbm_l3_assignments_resource());
+ }
+ 
+ int mbm_NODE_assignments_show(struct kernfs_open_file *of, struct seq_file *s, void *v)
+@@ -1873,7 +1997,7 @@ static ssize_t mbm_assignments_write(struct kernfs_open_file *of, char *buf,
+ 
+ 	/* Valid input requires a trailing newline */
+ 	if (nbytes == 0 || buf[nbytes - 1] != '\n') {
+-		rdt_last_cmd_puts("mbm_L3_assignments: Invalid input\n");
++		rdt_last_cmd_puts("mbm assignments: Invalid input\n");
+ 		ret = -EINVAL;
+ 		goto out_unlock;
+ 	}
+@@ -1909,14 +2033,14 @@ ssize_t mbm_L3_assignments_write(struct kernfs_open_file *of, char *buf,
+ 				 size_t nbytes, loff_t off)
+ {
+ 	return mbm_assignments_write(of, buf, nbytes, off,
+-			resctrl_arch_get_resource(RDT_RESOURCE_L3));
++				     mbm_l3_assignments_resource());
+ }
+ 
+ ssize_t mbm_NODE_assignments_write(struct kernfs_open_file *of, char *buf,
+ 				   size_t nbytes, loff_t off)
+ {
+ 	return mbm_assignments_write(of, buf, nbytes, off,
+-			resctrl_arch_get_resource(RDT_RESOURCE_MBA));
++				     resctrl_arch_get_resource(RDT_RESOURCE_MBA));
+ }
+ 
+ static int closid_num_dirty_rmid_alloc(struct rdt_resource *r)
+@@ -2012,10 +2136,15 @@ static void resctrl_mon_resource_init(struct rdt_resource *r)
+ 			resctrl_file_mode_init("event_filter", 0644);
+ 		resctrl_file_fflags_init("mbm_assign_on_mkdir", RFTYPE_MON_INFO |
+ 					 fflags);
+-		if (r->rid == RDT_RESOURCE_MBA)
+-			resctrl_file_fflags_init("mbm_NODE_assignments", RFTYPE_MON_BASE);
+-		else
+-			resctrl_file_fflags_init("mbm_L3_assignments", RFTYPE_MON_BASE);
++		resctrl_file_fflags_init("mbm_L3_assignments", RFTYPE_MON_BASE);
++		if (r->rid == RDT_RESOURCE_MBA) {
++			r->mon.mbm_assign_scope_native = false;
++			resctrl_file_fflags_init("mbm_assign_scope_mode",
++						 RFTYPE_MON_INFO | RFTYPE_RES_MB);
++			if (r->mon_scope == RESCTRL_NODE)
++				resctrl_file_fflags_init("mbm_NODE_assignments",
++							 RFTYPE_MON_BASE);
++		}
+ 		resctrl_file_fflags_init("mbm_assign_mode", RFTYPE_MON_INFO |
+ 					 fflags);
+ 	}
+diff --git a/fs/resctrl/rdtgroup.c b/fs/resctrl/rdtgroup.c
+index a16e35b587c4..1547306dc8d6 100644
+--- a/fs/resctrl/rdtgroup.c
++++ b/fs/resctrl/rdtgroup.c
+@@ -2316,6 +2316,13 @@ static struct rftype res_common_files[] = {
+ 		.seq_show	= mbm_NODE_assignments_show,
+ 		.write		= mbm_NODE_assignments_write,
+ 	},
++	{
++		.name		= "mbm_assign_scope_mode",
++		.mode		= 0644,
++		.kf_ops		= &rdtgroup_kf_single_ops,
++		.seq_show	= resctrl_mbm_assign_scope_mode_show,
++		.write		= resctrl_mbm_assign_scope_mode_write,
++	},
+ 	{
+ 		.name		= "mbm_assign_mode",
+ 		.mode		= 0644,
+@@ -2653,6 +2660,8 @@ static int rdtgroup_add_files(struct kernfs_node *kn, unsigned long fflags)
+ 		}
+ 	}
+ 
++	resctrl_mbm_assign_files_apply(kn);
++
+ 	return 0;
+ error:
+ 	pr_warn("Failed to add %s, err=%d\n", rft->name, ret);
+diff --git a/include/linux/resctrl.h b/include/linux/resctrl.h
+index b8df7489539f..141e2ff594f9 100644
+--- a/include/linux/resctrl.h
++++ b/include/linux/resctrl.h
+@@ -380,6 +380,11 @@ enum resctrl_ctrl_type {
+  *				events of monitor groups created via mkdir.
+  * @mbm_cntr_configurable:	True if assignable counters are configurable.
+  * @mbm_cntr_assign_fixed:	True if the counter assignment mode is fixed.
++ * @mbm_assign_scope_native:	True if assignment files use native names.
++ *				Legacy mode always exposes "mbm_L3_assignments".
++ *				Native mode exposes "mbm_NODE_assignments" when
++ *				NUMA node MSCs are present, otherwise
++ *				"mbm_L3_assignments".
+  */
+ struct resctrl_mon {
+ 	u32			num_rmid;
+@@ -389,6 +394,7 @@ struct resctrl_mon {
+ 	bool			mbm_assign_on_mkdir;
+ 	bool			mbm_cntr_configurable;
+ 	bool			mbm_cntr_assign_fixed;
++	bool			mbm_assign_scope_native;
+ };
+ 
+ /**
 -- 
 2.53.0
 
