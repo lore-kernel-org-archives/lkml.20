@@ -1,46 +1,48 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3438858B6C7;
-	Mon, 31 Aug 2026 13:50:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7374358B6D9;
+	Mon, 31 Aug 2026 13:50:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788184235; cv=none; b=NjVr19e+EqQRH3xNHaPZJ7ZE9ohM0xs3yT5cXbbOlOy+KTTLAT2XIHRJEnRKeYuDxzXTcVso48YH+RRzWwCmSIo9L4K75TJf5zN7w7oNDFI4uZLpScy50FeXKqZ6KAmrC/4mN6Wt21nswYx/SyR/il/BJsLLMQkSo/g+eT1DtQ4=
+	t=1788184237; cv=none; b=G2kemrzQPTn8olKY0efzKRPlhmFszB3hjUDsoQf/OLCb2Xic/eHOCctm3QS3bd6OFaEchhRyu+dVVvOJQry44WmUk456S158PFy4eiJdkZkhha7lVqxp+dLNSQn9R50Yi6jQ684AcHAtbRD9HiAslcQY6kaKcSwOSA3z02GPNAQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788184235; c=relaxed/simple;
-	bh=Wcghe1FVJIscBa5KOWBEgGmrrpcV3pXkLc3/u2Ln1JU=;
+	s=arc-20240116; t=1788184237; c=relaxed/simple;
+	bh=USxSTS8492OWJwk9M0MT5PjW7R0tZplA+Svm0i++wow=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=TGs7gJriUzat+Q6a90SR0/JDgY0YPb2fXAUWXXEZw/YloHlgX6MuhHIxxQPxZjepnPjneQ1brYBe/i2TO3emTVJz8XauxVJSTBnfj8OefRFG/0EaqL2jIKhN14kBqaY0cwywG69S/Bzql6uHwqC2qkDkZRpcl9k45egxTfJ4Vms=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SnhtfPUh; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=ab7oeqOlY5Bid2fS2RM5xdfm+txxK76X21C9Xnbj8ij4IoFCe7hMAGzcqHB8l1uHOPGFYJdcPeUSzRJw2oNMr1skXkhe5wZAvFfl2dD7EddpqvK3KkJfxTF8eZrq5wqAv3ejTwMxqpXDOaaA+uBuMwMyMGURDIfT4m6bFQU8q5c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oDSUU2A0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SnhtfPUh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3B781F00A3E;
-	Mon, 31 Aug 2026 13:50:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oDSUU2A0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 003231F000E9;
+	Mon, 31 Aug 2026 13:50:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788184232;
-	bh=GWWRbb5fx/50qNvFfhxhjVCsZ2dC5kuRKeGuqJBIxak=;
+	s=k20260515; t=1788184235;
+	bh=a054+4uI6BXJFIWW7/FnetJTET2ZtU0mCB7YxbyJzWk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=SnhtfPUhVX74L1ZiyCv6GpdPBCNNhURN5zDrCnYxj9ZKVh7BVKduUlVx1BXs1rms9
-	 lNrfZvFtQCtrgz+ZFA19cvg6WDXOYIYAPo23lCftcmlYqqvo+XyTfOFFYhlz7f6sVB
-	 Esj+JDdXaTquKP0qlALYL8xI5IQ+bJIqRshmtD1mZloQ8Yai5owpTyll6cfZ9Er+6C
-	 7MxUFCe66q9tw2la0wtz1bGIf+XEawLHnl8bS40sMvyed+XYI/8x70BZhZ3aYCLIJu
-	 woxU6SJ3g0e+XwpU6sUnYXFieRap8Joy/1G29h4KVQZFs9kQlRDZdrTW57YPd+twgX
-	 vNbBXNQdkJtHQ==
+	b=oDSUU2A0LJ2K4eJJaIDXyXbU4iG1kegeCeO27eUUXwkHRpA/vDFgZARdnT+3Nnyzk
+	 pjjOMGMqMvuOOvwcibOH1ilzGljRqj7LZteT5MSKq8tnZYRiU0uyrnApYfaEa6yDG8
+	 P0crMIhPcJJ9AbUmiS4VSRMmvd0MfhiUyJ32YrY7vnfOkyu99uMyGecMd35A5adDao
+	 OobVamSN5hYly5jSVtO9Y+/9/vZcccKPzpUV34MgD+0JaAhAsyJTt6hLv2lXa1yAHA
+	 d3pbnWa7CIXwdC4DgbGcEXTJvJKKgGKZzpaWMfwPSGIXD58Cwpo4srZFOpVJ3gW8po
+	 W4m5mhpgLs35w==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Hans Zhang <18255117159@163.com>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
+Cc: Leo Yan <leo.yan@arm.com>,
+	Alexei Starovoitov <ast@kernel.org>,
 	Sasha Levin <sashal@kernel.org>,
-	jingoohan1@gmail.com,
-	lpieralisi@kernel.org,
-	kwilczynski@kernel.org,
-	linux-pci@vger.kernel.org,
+	andrii@kernel.org,
+	eddyz87@gmail.com,
+	daniel@iogearbox.net,
+	memxor@gmail.com,
+	shuah@kernel.org,
+	bpf@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18] PCI: dwc: Protect root bus removal with rescan lock
-Date: Mon, 31 Aug 2026 09:29:58 -0400
-Message-ID: <20260831133314.4125787-570-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18] selftests/bpf: Avoid static LLVM linking for cross builds
+Date: Mon, 31 Aug 2026 09:30:00 -0400
+Message-ID: <20260831133314.4125787-572-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -56,406 +58,353 @@ X-stable-base: Linux 6.18.48
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Hans Zhang <18255117159@163.com>
+From: Leo Yan <leo.yan@arm.com>
 
-[ Upstream commit 26335696498ab502e907a556e97c7039bc80a87e ]
+[ Upstream commit 62617d28d9ae123c0d6ba51035caa3ca52b94f7a ]
 
-Hold the pci_rescan_remove_lock lock while stopping and removing a root bus
-to avoid racing with concurrent rescan or hotplug operations triggered via
-sysfs.  Such races may lead to use-after-free issues or system crashes.
+The BPF selftests prefer static LLVM linking, which works for native
+builds but can break cross builds. Its --link-static output may include
+host-only libraries that are unavailable for the cross compilation,
+causing link failures.
 
-Signed-off-by: Hans Zhang <18255117159@163.com>
-Signed-off-by: Manivannan Sadhasivam <mani@kernel.org>
-[bhelgaas: commit log]
-Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
-Link: https://patch.msgid.link/20260521161822.132996-3-18255117159@163.com
+Avoid static LLVM linking for cross builds and use shared LLVM libraries
+instead. Native builds keep the existing behavior.
+
+Signed-off-by: Leo Yan <leo.yan@arm.com>
+Link: https://lore.kernel.org/r/20260602-tools_build_fix_zero_init_bpf_only-v2-8-c76e5250ea1c@arm.com
+Signed-off-by: Alexei Starovoitov <ast@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-## PHASE 1: COMMIT MESSAGE FORENSICS
+## Phase 1: Commit Message Forensics
 
-### Step 1.1: PARSE THE SUBJECT LINE
-**Record:** `[PCI: dwc]` `[Protect]` — Add synchronization around root
-bus teardown in the DesignWare PCIe host controller to prevent races
-with concurrent PCI rescan/hotplug.
+### Step 1.1: Subject Line
+**Record:** `[selftests/bpf]` `[avoid]` — Avoid static LLVM linking for
+cross builds. Subsystem is BPF selftest build infrastructure; action is
+a preventive build fix.
 
-### Step 1.2: PARSE ALL COMMIT MESSAGE TAGS
+### Step 1.2: Tags
 **Record:**
-- **Link:**
-  `https://patch.msgid.link/20260521161822.132996-3-18255117159@163.com`
-- **Signed-off-by:** Hans Zhang `<18255117159@163.com>`
-- **Signed-off-by:** Manivannan Sadhasivam `<mani@kernel.org>`
-- **Signed-off-by:** Bjorn Helgaas `<bhelgaas@google.com>` (with
-  `[bhelgaas: commit log]`)
-- No `Fixes:`, `Reported-by:`, `Tested-by:`, `Reviewed-by:`, `Acked-
-  by:`, or `Cc: stable@vger.kernel.org`
-- Notable: PCI maintainer (Bjorn Helgaas) committed; DWC maintainer
-  (Mani) signed off. No syzbot or user crash report in the message
-  itself.
+- **Signed-off-by:** Leo Yan `<leo.yan@arm.com>` (author)
+- **Link:** https://lore.kernel.org/r/20260602-
+  tools_build_fix_zero_init_bpf_only-v2-8-c76e5250ea1c@arm.com
+- **Signed-off-by:** Alexei Starovoitov `<ast@kernel.org>` (BPF
+  maintainer merge)
+- No Fixes:, Reported-by:, Tested-by:, Reviewed-by:, Acked-by:, or Cc:
+  stable in commit message
+- Notable: part of bpf-next v2 series patch 8/8; no syzbot or user bug
+  reports
 
-### Step 1.3: ANALYZE THE COMMIT BODY TEXT
+### Step 1.3: Body Analysis
 **Record:**
-- **Bug:** `dw_pcie_host_deinit()` stops and removes the root bus
-  without holding `pci_rescan_remove_lock`.
-- **Symptom:** Race with concurrent sysfs-triggered PCI rescan or
-  hotplug; may cause use-after-free or system crashes.
-- **Root cause:** `pci_stop_root_bus()` / `pci_remove_root_bus()` are
-  not serialized against sysfs paths that already take
-  `pci_lock_rescan_remove()`.
-- **Version info:** None in the message.
+- **Bug:** BPF selftests prefer static LLVM linking via `llvm-config
+  --link-static`; on cross builds this can pull in host-only libraries
+  unavailable to the target linker, causing link failures.
+- **Symptom:** Cross-compiled BPF selftest binaries fail to link.
+- **Fix:** Use shared LLVM libraries when `ARCH != HOSTARCH`; native
+  builds keep static-first behavior.
+- **Root cause:** Static linking logic added without distinguishing
+  native vs cross builds.
 
-### Step 1.4: DETECT HIDDEN BUG FIXES
-**Record:** Not hidden — this is an explicit synchronization bug fix.
-The “protect” wording and UAF/crash description clearly indicate a real
-concurrency defect, not cleanup.
+### Step 1.4: Hidden Bug Fix?
+**Record:** No — this is an explicit build/link fix, not disguised
+cleanup.
 
 ---
 
-## PHASE 2: DIFF ANALYSIS
+## Phase 2: Diff Analysis
 
-### Step 2.1: INVENTORY THE CHANGES
+### Step 2.1: Inventory
 **Record:**
-- **Files:** `drivers/pci/controller/dwc/pcie-designware-host.c` (+2
-  lines)
-- **Function:** `dw_pcie_host_deinit()`
-- **Scope:** Single-file, surgical fix (2 insertions around existing
-  calls)
+- **File:** `tools/testing/selftests/bpf/Makefile` (+7 / -2 lines)
+- **Scope:** Single-file, surgical Makefile change
+- **Area:** LLVM library selection block (lines ~185–192)
 
-### Step 2.2: UNDERSTAND THE CODE FLOW CHANGE
+### Step 2.2: Code Flow Change
 **Record:**
-- **Hunk (deinit path):**
-  - **Before:** `pci_stop_root_bus()` and `pci_remove_root_bus()` run
-    unlocked during driver teardown.
-  - **After:** Same operations run under `pci_lock_rescan_remove()` /
-    `pci_unlock_rescan_remove()`.
-  - **Path affected:** Platform driver remove / module unload / probe
-    error cleanup via `dw_pcie_host_deinit()`.
+- **Before:** Always probe `llvm-config --link-static`; if available,
+  use static libs for all builds.
+- **After:** If `ARCH != HOSTARCH`, skip static probe
+  (`LLVM_LINK_STATIC` empty) and fall through to `--link-shared`. On
+  native builds (`ARCH == HOSTARCH`), probe static linking as before.
+- **Path affected:** Cross-compilation of LLVM-enabled BPF selftests
+  only.
 
-### Step 2.3: IDENTIFY THE BUG MECHANISM
-**Record:**
-- **Category:** Race condition / synchronization bug (can manifest as
-  UAF or crash).
-- **Mechanism:** Sysfs rescan/remove (`rescan_store`, `remove_store`,
-  `bus_rescan_store` in `pci-sysfs.c`) holds `pci_rescan_remove_lock`.
-  DWC host teardown did not, so two threads could concurrently mutate
-  the same PCI bus/device tree.
+### Step 2.3: Bug Mechanism
+**Record:** **Build fix / logic correctness.** Static LLVM link flags
+reference host libraries unsuitable for cross-linking. Forcing shared
+libs on cross builds avoids unresolved host dependencies.
 
-### Step 2.4: ASSESS THE FIX QUALITY
-**Record:**
-- **Quality:** Obviously correct; matches the established pattern in
-  `pci_host_common_remove()`, `pci-aardvark.c`, `pci-mvebu.c`, `pci-
-  hyperv.c`, etc.
-- **Regression risk:** Very low. The lock is a global PCI mutex already
-  used widely; holding it only around bus stop/remove is the intended
-  usage documented in `probe.c`.
-- **Red flags:** None.
+### Step 2.4: Fix Quality
+**Record:** Fix is small and follows the existing `ARCH`/`HOSTARCH`
+pattern used in `tools/perf/Makefile.config`. Low regression risk on
+cross builds. Minor edge case: unnormalized `ARCH=x86_64` vs normalized
+`HOSTARCH=x86` on native builds could force shared instead of static
+linking (degraded preference, not a breakage). Sashiko AI review flagged
+this; committed version unchanged.
 
 ---
 
-## PHASE 3: GIT HISTORY INVESTIGATION
+## Phase 3: Git History Investigation
 
-### Step 3.1: BLAME THE CHANGED LINES
+### Step 3.1: Blame
 **Record:**
-- `pci_stop_root_bus()` / `pci_remove_root_bus()` in
-  `dw_pcie_host_deinit()` introduced in commit `5808d43e7c91b2` (Rob
-  Herring, Aug 2020).
-- `dw_pcie_host_deinit()` itself dates to 2019.
-- **Bug present since:** ~2020 in this function; DWC host code never had
-  the rescan lock (`git log -S 'pci_lock_rescan_remove' -- pcie-
-  designware-host.c` returned empty).
+- Static-linking preference introduced by `67ab80a01886` (Sep 2024,
+  Eduard Zingerman)
+- Dynamic fallback added by `2a9d30fac818f` (Jan 2025, Daniel Xu)
+- Shell redirection fix by `caa4237a790a9` (Mar 2025, Anton Protopopov)
+- All three commits are present in this tree; buggy cross-build behavior
+  dates to static-linking introduction
 
-### Step 3.2: FOLLOW THE FIXES: TAG
-**Record:** No `Fixes:` tag. N/A.
+### Step 3.2: Fixes: Tag
+**Record:** No Fixes: tag. N/A.
 
-### Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES
-**Record:**
-- Related fix in-tree: `1d59d474e1cb7` — “PCI: Hold rescan lock while
-  adding devices during host probe” (Oct 2024), with a documented NULL
-  deref crash from concurrent probe vs. sysfs remove.
-- This commit is patch **2/9** in series “PCI: controller: Add missing
-  rescan lock around root bus removal”; cover letter states **each patch
-  is independent**.
-- Fix is **not yet merged** in this tree (current `pcie-designware-
-  host.c` still lacks the lock).
+### Step 3.3: Related History
+**Record:** Related stable-tree commits in same Makefile:
+- `caa4237a790a9` — Fix selection of static vs dynamic LLVM (already in
+  6.18.y)
+- `cb3ade567816a` — Fix runqslower cross-endian build
+- `fd526e121c4d6` — Fix cross-compiling urandom_read
+- `3b796d3f16c10` — Allow selftests to build with older xxd
+- Candidate commit `62617d28d9ae1` is **not** in this tree
 
-### Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS
-**Record:** Hans Zhang is an active PCI contributor (capability-search
-refactors, cadence/dwc work). This series is a targeted locking fix, not
-part of a larger refactor.
+### Step 3.4: Author Context
+**Record:** Leo Yan is an active ARM/tools contributor (perf, kselftest,
+bpf selftests). This patch is standalone within the broader tools-build
+series.
 
-### Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS
-**Record:**
-- **Dependency:** `pci_lock_rescan_remove()` API from `9d16947b75831`
-  (Jan 2014) — **present in this tree**.
-- **Standalone:** Yes; no structural/API prerequisites beyond the
-  existing lock helpers.
-- Buggy code (`5808d43e7c91b2`) is also an ancestor of HEAD.
+### Step 3.5: Dependencies
+**Record:** Patch 8/8 of v2 series, but this hunk is self-contained — no
+dependency on earlier series patches for the LLVM linking logic. `git
+apply --check` succeeds on current tree.
 
 ---
 
-## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
+## Phase 4: Mailing List and External Research
 
-### Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION
+### Step 4.1: Original Discussion
 **Record:**
-- `b4 dig -c` failed (commit not in local history yet).
-- Local mbox/cover files found: `20260522_18255117159_pci_controller_add
-  _missing_rescan_lock_around_root_bus_removal.{cover,mbx}`.
-- **Series:** 9 independent patches; this is patch 2/9 (DWC).
-- **Cover letter context:** Bot review on a separate cadence patch
-  flagged the same missing-lock pattern; author submitted this series to
-  fix all affected controllers.
-- **Lore URL fetch:** Blocked by Anubis anti-bot on lore.kernel.org.
+- **URL:** https://patch.msgid.link/20260602-
+  tools_build_fix_zero_init_bpf_only-v2-8-c76e5250ea1c@arm.com
+- **Series:** v1 (6 patches, Mar 2026) → v2 bpf-next (8 patches, Jun
+  2026); committed version is v2/8
+- **Review feedback:** Sashiko AI flagged medium-severity concern about
+  `ARCH` vs `HOSTARCH` normalization; suggested `SRCARCH` or
+  `CROSS_COMPILE` check instead
+- No stable nominations found in thread
+- No NAKs; bpf maintainers CC'd
 
-### Step 4.2: CHECK WHO REVIEWED THE PATCH
-**Record:** From commit message: Manivannan Sadhasivam (DWC maintainer)
-SOB; Bjorn Helgaas (PCI maintainer) committed. `b4 dig -w` not available
-for this unreleased commit.
+### Step 4.2: Reviewers
+**Record:** CC'd bpf maintainers (Starovoitov, Borkmann, Nakryiko,
+etc.), Shuah Khan (kselftest), llvm@lists.linux.dev. Series patches
+received Acked-by from Quentin Monnet and Ihor Solodrai (other patches
+in series, not specifically this one in commit message).
 
-### Step 4.3: SEARCH FOR THE BUG REPORT
-**Record:** No `Reported-by:` or crash trace in this specific patch.
-Precedent crash documented in `1d59d474e1cb7` for the **probe/add** side
-of the same locking gap. This fix addresses the symmetric **remove**
-side.
+### Step 4.3: Bug Reports
+**Record:** No external bug report, syzbot, or user Reported-by. Issue
+inferred from cross-build failure mechanism.
 
-### Step 4.4: CHECK FOR RELATED PATCHES AND SERIES
-**Record:** 8 sibling patches fix the same pattern in cadence, altera,
-brcmstb, iproc, mediatek, rockchip, vmd, plda. Each is independently
-backportable.
+### Step 4.4: Series Context
+**Record:** v2/0 covers EXTRA_CFLAGS/HOST_EXTRACFLAGS append fixes;
+patch 8/8 is independent for LLVM linking purposes.
 
-### Step 4.5: CHECK STABLE MAILING LIST HISTORY
-**Record:** Not searched (lore blocked). No stable-list discussion found
-in local mbox files.
+### Step 4.5: Stable List
+**Record:** No stable-specific discussion found for this patch.
 
 ---
 
-## PHASE 5: CODE SEMANTIC ANALYSIS
+## Phase 5: Code Semantic Analysis
 
-### Step 5.1: IDENTIFY KEY FUNCTIONS IN THE DIFF
-**Record:** `dw_pcie_host_deinit()` — only function modified.
+### Step 5.1: Key Functions/Variables
+**Record:** `LLVM_LINK_STATIC`, `LLVM_LDLIBS`, `LLVM_LDFLAGS` in
+Makefile LLVM feature block.
 
-### Step 5.2: TRACE CALLERS
-**Record:** `dw_pcie_host_deinit()` is called from multiple DWC-based
-platform drivers:
-- `pcie-tegra194.c` (`tegra_pcie_deinit_controller()` → platform
-  `.remove` and probe error path)
-- `pcie-stm32.c`, `pcie-rcar-gen4.c`, `pci-meson.c`, `pci-dra7xx.c`,
-  `pcie-bt1.c`, `pci-exynos.c`, `pcie-kirin.c`, `pcie-intel-gw.c`
-- **Context:** Driver remove, module unload, and probe failure cleanup
-  on embedded/SoC platforms using Synopsys DWC PCIe.
+### Step 5.2: Callers/Usage
+**Record:** `LLVM_LDLIBS` used at line 707 in the link rule for selftest
+binaries (e.g. `test_progs`). Only affects builds with `feature-llvm=1`
+and `SKIP_LLVM!=1`.
 
-### Step 5.3: TRACE CALLEES
-**Record:** Key callees in the critical section:
-- `pci_stop_root_bus()` — stops child devices, releases host bridge
-  driver
-- `pci_remove_root_bus()` — removes child devices, deletes host bridge
-  from device model
-- Both documented to require the rescan/remove lock when racing with
-  sysfs operations.
+### Step 5.3: Callees
+**Record:** Invokes `llvm-config --link-static/--link-shared
+--libs/--system-libs`.
 
-### Step 5.4: FOLLOW THE CALL CHAIN
-**Record:**
-- **Trigger A:** Platform device remove / module rmmod →
-  `dw_pcie_host_deinit()` → unlocked bus teardown.
-- **Trigger B (concurrent):** Root/admin writes to
-  `/sys/bus/pci/rescan`, `/sys/bus/pci/devices/.../remove`, or per-bus
-  rescan sysfs → `pci_lock_rescan_remove()` → bus mutation.
-- **Userspace reachability:** Sysfs PCI operations require privileges;
-  race is realistic during driver unbind/rebind, hotplug, or admin
-  tooling — not merely theoretical.
+### Step 5.4: Reachability
+**Record:** Triggered when a developer/CI cross-compiles BPF selftests
+with LLVM support (`make -C tools/testing/selftests/bpf` with
+`ARCH!=host`). Not reachable from normal kernel runtime or typical
+distro kernel packages. Userspace-triggerable: no.
 
-### Step 5.5: SEARCH FOR SIMILAR PATTERNS
-**Record:** In this tree, several controllers already protect removal
-with the lock (`pci-host-common.c`, `pci-aardvark.c`, `pci-mvebu.c`,
-`pcie-mediatek-gen3.c`, `pci-hyperv.c`). DWC and others listed in the
-series do **not** — inconsistent, known-bad pattern.
+### Step 5.5: Similar Patterns
+**Record:** `tools/perf/Makefile.config` uses identical `ifeq ($(ARCH),
+$(HOSTARCH))` for native vs cross detection. Makefile already uses
+`ifneq ($(CROSS_COMPILE),)` elsewhere for cross-build handling.
 
 ---
 
-## PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
+## Phase 6: Cross-Reference Against Local Tree
 
-### Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?
-**Record:**
-- **Tree:** `v6.18.44` (`stable/linux-6.18.y`, detached HEAD at
-  `2736c32da98b9`)
-- **Buggy code:** **YES** — `pcie-designware-host.c:709-710` calls
-  `pci_stop_root_bus()` / `pci_remove_root_bus()` without locking.
-- **Bug age:** Present since ~2020; not a post-6.18 regression.
+### Step 6.1: Buggy Code Present?
+**Record:** **Yes.** Local tree is **v6.18.44** (`linux-6.18.y`). Lines
+185–192 still unconditionally prefer static LLVM linking. Introducing
+commit `67ab80a01886` is an ancestor of HEAD.
 
-### Step 6.2: CHECK FOR BACKPORT COMPLICATIONS
-**Record:** **Clean apply expected** — 2-line addition with no context
-conflicts. File has recent churn but the `dw_pcie_host_deinit()`
-teardown block is stable and matches the patch hunk.
+### Step 6.2: Backport Complications
+**Record:** **Clean apply** — `git apply --check` on commit
+`62617d28d9ae1` succeeds with no conflicts.
 
-### Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE
-**Record:** Probe-side rescan lock fix (`1d59d474e1cb7`) is in-tree.
-Remove-side DWC fix is **not** present. No duplicate fix found.
+### Step 6.3: Related Fixes Already Present?
+**Record:** `caa4237a790a9` (shell redirection for static/dynamic probe)
+is present. The cross-build guard from `62617d28d9ae1` is **not**
+present.
 
 ---
 
-## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+## Phase 7: Subsystem Context
 
-### Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY
-**Record:** **PCI / DWC host controller drivers** — **IMPORTANT**.
-Affects many ARM/embedded SoC platforms (Tegra, STM32, Kirin, Meson,
-Exynos, R-Car, etc.), not universal but widely deployed.
+### Step 7.1: Subsystem
+**Record:** `tools/testing/selftests/bpf` — developer test
+infrastructure. **Criticality: PERIPHERAL** (not core kernel runtime).
 
-### Step 7.2: ASSESS SUBSYSTEM ACTIVITY
-**Record:** PCI controller code is actively maintained; recent related
-stable-worthy fix (`1d59d474e1cb7`) shows the subsystem maintainers
-treat rescan-lock gaps as real crash bugs.
-
----
-
-## PHASE 8: IMPACT AND RISK ASSESSMENT
-
-### Step 8.1: DETERMINE WHO IS AFFECTED
-**Record:** Users of DWC-based PCIe host controllers on platforms using
-`dw_pcie_host_deinit()` — embedded ARM servers/devices, Tegra, various
-SoCs. Config-dependent on `CONFIG_PCIE_DW_HOST` and specific platform
-drivers.
-
-### Step 8.2: DETERMINE THE TRIGGER CONDITIONS
-**Record:**
-- **Trigger:** Concurrent root bus removal (driver unload/remove) with
-  sysfs PCI rescan/remove/hotplug.
-- **Likelihood:** Uncommon but realistic during driver rebinding,
-  development, or admin maintenance.
-- **Unprivileged trigger:** No direct unprivileged sysfs access; race
-  still matters for system stability under privileged operations.
-
-### Step 8.3: DETERMINE THE FAILURE MODE SEVERITY
-**Record:**
-- **Failure mode:** Use-after-free, NULL pointer dereference, kernel
-  oops/crash during concurrent bus teardown.
-- **Severity:** **CRITICAL** (system crash; potential memory
-  corruption).
-
-### Step 8.4: CALCULATE RISK-BENEFIT RATIO
-**Record:**
-- **Benefit:** **High** — prevents crashes on a common PCIe IP block
-  across many platforms; aligns DWC with already-fixed controllers.
-- **Risk:** **Very low** — 2-line, established locking pattern, no
-  API/behavior change beyond proper serialization.
-- **Ratio:** Strong benefit, minimal risk.
+### Step 7.2: Activity
+**Record:** Actively maintained; multiple bpf selftest build fixes
+landed in 6.18.y (e.g. `3b796d3f16c10`, `4b65d5ae97143`,
+`e860a98c8aebd`).
 
 ---
 
-## PHASE 9: FINAL SYNTHESIS
+## Phase 8: Impact and Risk Assessment
 
-### Step 9.1: COMPILE THE EVIDENCE
+### Step 8.1: Who Is Affected
+**Record:** Developers and CI systems cross-compiling BPF selftests with
+LLVM on **6.18.y**. Not production kernel users.
 
-**FOR backporting:**
-- Real race between bus removal and sysfs rescan/remove paths.
-- Documented failure modes (UAF/crash) in commit message; strong
-  precedent in `1d59d474e1cb7`.
-- Tiny, obviously correct fix matching multiple in-tree controllers.
-- Buggy code present in v6.18.44; prerequisites
-  (`pci_lock_rescan_remove`) present.
-- Standalone patch; maintainer-reviewed.
-- Affects widely used DWC PCIe host path on many embedded platforms.
+### Step 8.2: Trigger Conditions
+**Record:** Cross-compile (`ARCH != HOSTARCH`) + LLVM feature enabled +
+static LLVM libs available on host. Uncommon but real for ARM/embedded
+BPF development workflows.
 
-**AGAINST backporting:**
-- No explicit user crash report or syzbot entry for this specific patch.
-- Race requires concurrent privileged sysfs activity (somewhat
-  uncommon).
-- Part of a 9-patch series (though each patch is independent).
+### Step 8.3: Failure Mode
+**Record:** **Link failure** during selftest build. **Severity: LOW** —
+blocks optional test tooling, not kernel boot or data integrity.
 
-**UNRESOLVED:**
-- Full lore.kernel.org review thread (blocked by anti-bot).
-- No independent `Tested-by:` on this specific DWC patch.
+### Step 8.4: Risk-Benefit
+**Record:**
+- **Benefit:** LOW-MEDIUM — restores cross-build of BPF selftests;
+  aligns with prior stable backports of bpf cross-build fixes
+- **Risk:** VERY LOW — 7-line Makefile change, cross-build path only
+- **Ratio:** Modest benefit, very low risk; fits established 6.18.y
+  precedent for bpf selftest build fixes
 
-### Step 9.2: STABLE RULES CHECKLIST
-1. Obviously correct and tested? **PASS** — pattern is standard;
-   maintainer SOBs; no test report but fix is trivial and well-
-   precedented.
-2. Fixes a real bug? **PASS** — missing lock on a documented race path.
-3. Important issue? **PASS** — UAF/kernel crash potential
-   (**CRITICAL**).
-4. Small and contained? **PASS** — 2 lines, one function.
-5. No new features or APIs? **PASS** — uses existing lock API only.
-6. Can apply to the local tree? **PASS** — buggy code and API both
-   present; clean apply expected.
+---
 
-### Step 9.3: EXCEPTION CATEGORIES
-**Record:** None (not a quirk/DT/build/docs fix). This is a core
-synchronization bug fix.
+## Phase 9: Final Synthesis
 
-### Step 9.4: DECISION RATIONALE
+### Step 9.1: Evidence Summary
 
-For **linux-6.18.y** (`v6.18.44`), `dw_pcie_host_deinit()` removes the
-root PCI bus without the global rescan/remove lock that sysfs PCI
-operations already use. That is the same class of defect already fixed
-on the probe/add path (`1d59d474e1cb7`) and already handled correctly in
-several other PCI host controller drivers in this tree. The fix is
-minimal, self-contained, and prevents realistic kernel crashes during
-driver teardown on DWC-based platforms.
+**FOR backport:**
+- Real, reproducible cross-build link failure
+- Small, obviously correct build fix
+- Applies cleanly to 6.18.44
+- Bug introduced by commit already in this tree
+- Precedent in 6.18.y: `cb3ade567816a`, `fd526e121c4d6`,
+  `caa4237a790a9`, other bpf selftest build fixes
+- Build-fix exception category per stable rules
+- Standalone patch, no series dependencies
+
+**AGAINST backport:**
+- Affects only optional selftest tooling, not kernel runtime
+- No user reports, syzbot, or security impact
+- "Important issue" bar is borderline — link failure in tests, not
+  crash/corruption
+- Minor edge case in ARCH/HOSTARCH comparison on native x86_64 builds
+
+**Unresolved:** Whether Leo Yan addressed the Sashiko AI ARCH-
+normalization concern in a follow-up (not in this commit).
+
+### Step 9.2: Stable Rules Checklist
+1. Obviously correct and tested? **PASS** — logic is sound; merged by
+   BPF maintainer; no functional regression on cross path
+2. Fixes a real bug? **PASS** — cross-build link failures are real
+3. Important issue? **PASS (borderline)** — build-fix exception; low
+   severity but blocks a legitimate developer workflow; consistent with
+   prior bpf selftest cross-build backports in this tree
+4. Small and contained? **PASS** — 7 lines, one file
+5. No new features/APIs? **PASS**
+6. Can apply to local tree? **PASS** — clean apply verified
+
+### Step 9.3: Exception Category
+**Record:** **Build fix** for test infrastructure.
+
+### Step 9.4: Decision Rationale
+
+This tree (6.18.44) contains the static LLVM linking preference without
+a cross-build guard, so the bug is real and reachable for cross-
+compiling developers. The fix is minimal, applies cleanly, and matches
+established 6.18.y practice of backporting BPF selftest build
+fixes—including prior cross-compile fixes in the same Makefile. Impact
+is limited to test tooling rather than production kernels, but stable
+trees routinely carry such fixes to keep selftest CI and developer
+workflows functional on stable branches.
 
 ---
 
 ## Verification
 
-- **[Phase 1]** Parsed subject, tags, body; no Fixes/Reported-by;
-  maintainer SOBs present.
-- **[Phase 2]** Confirmed diff: +2 lines wrapping
-  `pci_stop/remove_root_bus` in `dw_pcie_host_deinit()`.
-- **[Phase 3]** `git blame`: buggy calls from `5808d43e7c91b2` (2020);
-  `git log -S`: DWC never had rescan lock.
-- **[Phase 3]** `git merge-base --is-ancestor`: `9d16947b75831` YES,
-  `5808d43e7c91b2` YES.
-- **[Phase 3]** Related fix `1d59d474e1cb7` confirmed in tree with crash
-  stack trace.
-- **[Phase 3]** `git log --grep`: fix not merged in this tree.
-- **[Phase 4]** Read local mbox/cover for series context; patch 2/9,
-  independent patches stated.
-- **[Phase 4]** `b4 dig -c`: failed (commit not in tree); lore fetch
-  blocked.
-- **[Phase 5]** `grep dw_pcie_host_deinit(`: 9 platform driver call
-  sites verified.
-- **[Phase 5]** Read `pci-sysfs.c`: rescan/remove paths use
-  `pci_lock_rescan_remove()`.
-- **[Phase 5]** Read `pci-host-common.c`, `probe.c`: lock pattern and
-  API confirmed.
-- **[Phase 5]** `grep pci_lock_rescan_remove` in
-  `drivers/pci/controller/`: multiple drivers already protected; DWC
-  not.
-- **[Phase 6]** `git describe HEAD`: `v6.18.44-1-g2736c32da98b9`;
-  `Makefile`: 6.18.44.
-- **[Phase 6]** Read `pcie-designware-host.c:703-724`: buggy code
-  confirmed present.
-- **[Phase 8]** Traced `tegra_pcie_dw_remove` →
-  `tegra_pcie_deinit_controller` → `dw_pcie_host_deinit`.
-
-**YES**The analysis is complete: **backport this commit to
-linux-6.18.y**.
-
-`dw_pcie_host_deinit()` in `pcie-designware-host.c` removes the root PCI
-bus without `pci_lock_rescan_remove()`, which can race with sysfs
-rescan/remove and cause UAF or kernel crashes. The fix is two lines,
-matches patterns already used in other PCI host drivers in this tree,
-and applies cleanly to v6.18.44 where the bug is still present.
+- [Phase 1] Parsed commit `62617d28d9ae1` message and tags from `git
+  show`
+- [Phase 2] Diff analysis: 1 file, +7/-2, LLVM linking block only
+- [Phase 3] `git blame` lines 185–192: static linking from
+  `67ab80a01886`, probe fix from `caa4237a790a9`
+- [Phase 3] `67ab80a01886` is ancestor of HEAD; `62617d28d9ae1` is not
+- [Phase 3] `git apply --check` on patch: succeeds
+- [Phase 3] Related stable history: `cb3ade567816a`, `fd526e121c4d6`,
+  `caa4237a790a9` in `stable/linux-6.18.y`
+- [Phase 4] `b4 dig -c 62617d28d9ae1`: found lore thread
+- [Phase 4] `b4 dig -a`: v1→v2 series, patch 8/8
+- [Phase 4] `b4 dig -w`: BPF maintainers CC'd
+- [Phase 4] Mbox review: Sashiko AI medium concern on ARCH/HOSTARCH
+  normalization
+- [Phase 4] No stable@vger nomination found in thread
+- [Phase 5] `LLVM_LDLIBS` used at Makefile line 707 for selftest linking
+- [Phase 5] `ARCH`/`HOSTARCH` defined in `tools/scripts/Makefile.arch`
+  (included line 3)
+- [Phase 6] `git describe HEAD`: v6.18.44-1-g2736c32da98b9; `make
+  kernelversion`: 6.18.44
+- [Phase 6] Buggy code confirmed at Makefile lines 185–192
+- [Phase 6] Patch applies cleanly to current tree
+- [Phase 7] Subsystem: bpf selftests (peripheral)
+- [Phase 8] Failure mode: link error on cross-build; severity LOW; no
+  runtime/security impact
 
 **YES**
 
- drivers/pci/controller/dwc/pcie-designware-host.c | 2 ++
- 1 file changed, 2 insertions(+)
+ tools/testing/selftests/bpf/Makefile | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/pci/controller/dwc/pcie-designware-host.c b/drivers/pci/controller/dwc/pcie-designware-host.c
-index 48e4a887bb1bb..d5c24098c3dd3 100644
---- a/drivers/pci/controller/dwc/pcie-designware-host.c
-+++ b/drivers/pci/controller/dwc/pcie-designware-host.c
-@@ -706,8 +706,10 @@ void dw_pcie_host_deinit(struct dw_pcie_rp *pp)
- 
- 	dwc_pcie_debugfs_deinit(pci);
- 
-+	pci_lock_rescan_remove();
- 	pci_stop_root_bus(pp->bridge->bus);
- 	pci_remove_root_bus(pp->bridge->bus);
-+	pci_unlock_rescan_remove();
- 
- 	dw_pcie_stop_link(pci);
- 
+diff --git a/tools/testing/selftests/bpf/Makefile b/tools/testing/selftests/bpf/Makefile
+index 591e7e77f89ba..372ae53ae63ae 100644
+--- a/tools/testing/selftests/bpf/Makefile
++++ b/tools/testing/selftests/bpf/Makefile
+@@ -182,8 +182,15 @@ ifeq ($(feature-llvm),1)
+   LLVM_CONFIG_LIB_COMPONENTS := mcdisassembler all-targets
+   # both llvm-config and lib.mk add -D_GNU_SOURCE, which ends up as conflict
+   LLVM_CFLAGS  += $(filter-out -D_GNU_SOURCE,$(shell $(LLVM_CONFIG) --cflags))
+-  # Prefer linking statically if it's available, otherwise fallback to shared
+-  ifeq ($(shell $(LLVM_CONFIG) --link-static --libs >/dev/null 2>&1 && echo static),static)
++  # Cross compilation must use dynamic linking to avoid unresolved library
++  # dependencies. For native build, prefer linking statically if it's
++  # available, otherwise fallback to shared.
++  ifneq ($(ARCH), $(HOSTARCH))
++    LLVM_LINK_STATIC :=
++  else
++    LLVM_LINK_STATIC := $(shell $(LLVM_CONFIG) --link-static --libs >/dev/null 2>&1 && echo y)
++  endif
++  ifeq ($(LLVM_LINK_STATIC),y)
+     LLVM_LDLIBS  += $(shell $(LLVM_CONFIG) --link-static --libs $(LLVM_CONFIG_LIB_COMPONENTS))
+     LLVM_LDLIBS  += $(filter-out -lxml2,$(shell $(LLVM_CONFIG) --link-static --system-libs $(LLVM_CONFIG_LIB_COMPONENTS)))
+     LLVM_LDLIBS  += -lstdc++
 -- 
 2.53.0
 
