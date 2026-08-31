@@ -1,48 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E44449B1EF;
-	Mon, 31 Aug 2026 13:39:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FFC449B20D;
+	Mon, 31 Aug 2026 13:39:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183577; cv=none; b=d9xq5BkcXr8k8CTMSAhOBSuPh0Y7fB4N2P3x/nANFQWpbi/WXJBXCoreiFfnIRbBNSh3IPQNpK20nbcFF0QY4MkGJodFVRcfIXdDQpGAnFVFRY8vkyGKL8YGozI9Nb5eKA2qkH3QD3U2s8VsESrRGO5pkyYroc1VDiUobOdWMPk=
+	t=1788183578; cv=none; b=gvzIeUoHh1OlvdiYhS26QXq4zMzp95W207Fl6EN2F02ZkENM5NtV/ruumtcUNR8EAMYNkm/qoqj8nswRU+T8UVgf+RkZmAjDSXbO6ao8DE9ljqYwfK6xQ7X2NRWZzaDEwoS5Fmc0Y3QlNMoramIYhp/TW5SE/EOrWw4WdHNuGLU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183577; c=relaxed/simple;
-	bh=Xti2/zk76ezVooDxkmmRsMY28LzHnZ3+pZzJVk5uEMs=;
+	s=arc-20240116; t=1788183578; c=relaxed/simple;
+	bh=+x+WQGieINmiuhSwbwuIopqWzBCVkCm65GxhgE+kCZs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=PR1YpAP9lyCPG0DOoEc9qMjjlH773vOFMOAr+hohR2LGXy2ErdK9ntkqiGmsIkejjWpqaD8FglU8L3/dtcw3O4xwE5XuAsVCc6Df/y2HVOIgd/6stkjRv2BApsly3vuPGvRUlgawS/UaP43nn+JPaBMAc+X35NkpH4cS2QgHd7g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TU0deoEd; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=jDJLleEEmDhfRuazhikkO2350lqC+tzKjM5A/hvWGCpxim4krYiP6jLKtqJavoR/XWqvDL2vOjjdEdsVWrWCK4Qnjmrn7vfkNbZVVLTfzERNqzGIi1FOs/Uig9SAKZ2wNlicaCCwb0/XAgJVkctNWY9YSTXNlcYNy3QcY6Bqo88=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Aws54kfo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TU0deoEd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA7C31F00A3E;
-	Mon, 31 Aug 2026 13:39:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Aws54kfo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 228371F00A3D;
+	Mon, 31 Aug 2026 13:39:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788183574;
-	bh=iZdEIvs0YPkL9TaMhVLdj8d4VxnHIDPlVGUIzvCCD40=;
+	s=k20260515; t=1788183576;
+	bh=Kv1rJF0WAF0FzD6fLDXCRJ7knt7swoLytU43o0uKw3k=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=TU0deoEd2dvSc2hhifpfCKSGESTA3qMsgZ3IC35yYtjxzAXDlcr73vzS0F5WBAmLo
-	 OyJMsEJVvm+JLdrsFKBh66goz/MiP32Oqt08WiA9BUzmHwDhW+hn4tbqFXgeNx0FTP
-	 /t+wpAjXeEio34Xi0wHmcCXEJRVquWVRHbZGmUlH30ExbelZtjq7jVZDP0373huXVZ
-	 rAvgWMxVmIbSaUrfSkXRw28VH3we+YXHjpsIf8n4pcURKJstp64MyTc/8pFSi+pAra
-	 xajD/cuoNSTqMTTZQ0mxAmDKtf/dUlep/D84QvkbNe446TC1UnperYEwdW0pCJhUtp
-	 nParl5zl0KKyw==
+	b=Aws54kfo9NU1A8lUG+FbHzDNnUF/+ONsnQFO8AJvHWlRWKweXOF5mKQIKXW9njbay
+	 N0pXV1o69rLEr36MKtfHMQHOPUgu/FfcUQvKwayypfr9/I5nCv1YHMXLCtL+pshV2I
+	 yCgomWRoWXFKJUiVdorYn9SPkSFJLLCRWkFBPnSwHoC9JBvq/kgNIWvkvJv9IgZ16N
+	 4cQHUjQRxyWSKx/zZz+g6Ek/iXr4oHsszunk5gL3gDyEC+FCoToDOqXysxOJtH+0yB
+	 i4HupPYK4jabeLdif+7iVOl8k21NkDn9fxJl+0xhAJlGDUyDDd2HorMiAxp8I36h8y
+	 JI052iFqJK3Qg==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Biju Das <biju.das.jz@bp.renesas.com>,
-	Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>,
+Cc: Riccardo Boninsegna <rboninsegna2@gmail.com>,
+	Sean Young <sean@mess.org>,
 	Sasha Levin <sashal@kernel.org>,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	tzimmermann@suse.de,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	dri-devel@lists.freedesktop.org,
-	linux-renesas-soc@vger.kernel.org,
+	mchehab@kernel.org,
+	linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18] drm: renesas: rzg2l_mipi_dsi: Fix deassert/assert of CMN_RSTB signal
-Date: Mon, 31 Aug 2026 09:23:25 -0400
-Message-ID: <20260831133314.4125787-177-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-5.10] media: rc: mceusb: Add support for 04eb:e033
+Date: Mon, 31 Aug 2026 09:23:26 -0400
+Message-ID: <20260831133314.4125787-178-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -58,411 +53,363 @@ X-stable-base: Linux 6.18.48
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Biju Das <biju.das.jz@bp.renesas.com>
+From: Riccardo Boninsegna <rboninsegna2@gmail.com>
 
-[ Upstream commit 8065890f5cda3f8a503f3b9d326aab0e9cca39e7 ]
+[ Upstream commit 0692c2602e4cd410aa045f8991bd1c142b2e56f9 ]
 
-The RZ/G2L hardware manual (Rev. 1.50, May 2025), Section 34.4.2.1,
-requires deasserting the CMN_RSTB signal after setting the Link registers.
-Move the reset_control_deassert() call from rzg2l_mipi_dsi_dphy_init() to
-rzg2l_mipi_dsi_startup(), placing it after the Link register writes. This
-reset signal is optional for RZ/V2H SoCs, so add a NULL check. Drop the
-unused ret variable from rzg2l_mipi_dsi_dphy_init().
+This is a Sonix SN8P2202XG microcontroller with firmware compatible with
+the already supported Northstar 04eb:e004, implementing an MCE IR receiver
+(PCB seems to be tracked for a transmitter too but missing related parts).
 
-The CMN_RSTB signal is not required for reading PHY registers in the
-probe. Move reset_control_assert() from rzg2l_mipi_dsi_dphy_exit() to
-rzg2l_mipi_dsi_stop(), placing it before the dphy_exit() call. Since this
-reset signal is optional for RZ/V2H, the call is a no-op on that SoC.
+Found in a Skintek SK-CR-IN+IR ( http://www.skintek.it/SK-CR-IN+IR.php )
+internal 3.5 inch USB card reader and MCE receiver combo
+(implemented by, and wired as, separate USB devices)
+PCB marking: AU6475 966816 STIR REV:A02 MCE
 
-Tested-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-Reviewed-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-Link: https://patch.msgid.link/20260330104450.128512-4-biju.das.jz@bp.renesas.com
-Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
+Signed-off-by: Riccardo Boninsegna <rboninsegna2@gmail.com>
+Signed-off-by: Sean Young <sean@mess.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-# Stable Backport Analysis: `drm: renesas: rzg2l_mipi_dsi: Fix
-deassert/assert of CMN_RSTB signal`
+## Phase 1: Commit Message Forensics
 
-**Local tree:** Linux **6.18.43** (`v6.18.43`)
+### Step 1.1: Parse the Subject Line
+**Record:** `[media: rc: mceusb]` `[Add]` `USB device ID 04eb:e033 to
+the existing mceusb IR transceiver driver`
 
----
+### Step 1.2: Parse All Commit Message Tags
+**Record:**
+- **Fixes:** none
+- **Reported-by:** none
+- **Tested-by:** none
+- **Reviewed-by:** none
+- **Acked-by:** none
+- **Link:** none (hardware product page in body only:
+  http://www.skintek.it/SK-CR-IN+IR.php)
+- **Cc: stable@vger.kernel.org:** none (expected; not a negative signal)
+- **Signed-off-by:** Riccardo Boninsegna `<rboninsegna2@gmail.com>`
+  (author)
+- **Signed-off-by:** Sean Young `<sean@mess.org>` (media/rc maintainer
+  co-signer — quality signal)
 
-## PHASE 1: COMMIT MESSAGE FORENSICS
+**Notable patterns:** Maintainer Signed-off-by; no syzbot/sanitizer
+reports; hardware-specific enablement patch.
 
-### Step 1.1: Subject line
-- **Record:** `[drm: renesas: rzg2l_mipi_dsi]` **`Fix`** — correct
-  CMN_RSTB reset deassert/assert timing per RZ/G2L hardware manual.
+### Step 1.3: Analyze Commit Body
+**Record:**
+- **Bug described:** USB device `04eb:e033` (Sonix SN8P2202XG,
+  Northstar-variant MCE IR receiver) is not recognized by `mceusb`
+  because its product ID is missing from `mceusb_dev_table[]`.
+- **Symptom:** IR receiver on Skintek SK-CR-IN+IR internal card reader
+  does not bind to `mceusb`; remote control input unavailable.
+- **Version info:** none stated.
+- **Root cause (author):** Firmware-compatible variant of already-
+  supported `04eb:e004`; only the USB product ID differs.
 
-### Step 1.2: Tags
-- **Fixes:** — none
-- **Reported-by:** — none
-- **Tested-by:** Tommaso Merciai `<tommaso.merciai.xr@bp.renesas.com>`
-- **Reviewed-by:** Tommaso Merciai `<tommaso.merciai.xr@bp.renesas.com>`
-- **Link:** https://patch.msgid.link/20260330104450.128512-4-
-  biju.das.jz@bp.renesas.com
-- **Cc: stable:** — not in the committed message (patches 1–2 of the
-  same series did include it)
-- **Signed-off-by:** Biju Das (ignore pipeline SOB markers)
-
-**Record:** Hardware-tested and reviewed by a Renesas engineer; part of
-v3 series “Improvements on RZ/G2L MIPI DSI driver”. No syzbot/crash
-tags.
-
-### Step 1.3: Body analysis
-- **Bug:** CMN_RSTB is deasserted in `rzg2l_mipi_dsi_dphy_init()` before
-  Link-layer registers are programmed in `rzg2l_mipi_dsi_startup()`.
-  RZ/G2L HW manual §34.4.2.1 requires deassert **after** Link register
-  writes.
-- **Symptom:** Incorrect DSI hardware bring-up sequence; display may
-  fail or behave unreliably on RZ/G2L SoCs with the `rst` reset line.
-- **Root cause:** Reset sequencing does not match hardware manual
-  ordering.
-- **Shutdown side:** `reset_control_assert()` moved from `dphy_exit()`
-  to `stop()` (before PHY teardown), since CMN_RSTB is not needed for
-  PHY register access during exit.
-
-**Record:** Hardware-init correctness bug on Renesas RZ/G2L MIPI DSI;
-optional on RZ/V2H (`rstc` may be NULL).
-
-### Step 1.4: Hidden bug fix?
-- **Record:** No — this is an explicit hardware-sequence fix, not
-  disguised cleanup.
+### Step 1.4: Detect Hidden Bug Fixes
+**Record:** Not a crash/leak/race fix. This is explicit **hardware
+enablement** via a missing USB ID — a recognized stable exception
+category, not a disguised memory-safety fix.
 
 ---
 
-## PHASE 2: DIFF ANALYSIS
+## Phase 2: Diff Analysis
 
-### Step 2.1: Inventory
-- **Files:** `drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c` — 9
-  insertions, 9 deletions
-- **Functions:** `rzg2l_mipi_dsi_dphy_init()`,
-  `rzg2l_mipi_dsi_dphy_exit()`, `rzg2l_mipi_dsi_startup()`,
-  `rzg2l_mipi_dsi_stop()`
-- **Scope:** Single-file, surgical fix
+### Step 2.1: Inventory the Changes
+**Record:**
+- **Files:** `drivers/media/rc/mceusb.c` only (+2 lines net in the ID
+  table)
+- **Functions modified:** none (only `mceusb_dev_table[]` static data)
+- **Scope:** single-file, surgical USB ID table addition
 
-### Step 2.2: Code flow changes
-| Hunk | Before | After |
-|------|--------|-------|
-| `dphy_init()` | Deassert CMN_RSTB + 1 ms sleep after PHY timing writes
-| PHY timing only; no reset |
-| `dphy_exit()` | Assert CMN_RSTB after PHY power-down | PHY power-down
-only |
-| `startup()` | Link register writes, then return | Link writes, then
-deassert CMN_RSTB + 1 ms sleep (with NULL check) |
-| `stop()` | Call `dphy_exit()` only | Assert CMN_RSTB, then
-`dphy_exit()` |
+### Step 2.2: Code Flow Change
+**Record:**
+- **Before:** USB probe matches `04eb:e004` only for Northstar vendor;
+  `04eb:e033` does not match → no `mceusb` bind.
+- **After:** `04eb:e033` matches the same way as `04eb:e004` →
+  `mceusb_dev_probe()` runs on plug-in.
+- **Path affected:** USB hotplug / enumeration normal path for this
+  device class.
 
-**Record:** Normal display enable/disable path (`atomic_pre_enable` →
-`startup`; `atomic_post_disable` → `stop`).
+### Step 2.3: Bug Mechanism
+**Record:**
+- **Category:** hardware workarounds / device ID addition
+- **Mechanism:** Missing `USB_DEVICE(VENDOR_NORTHSTAR, 0xe033)` entry
+  prevents driver binding. No `.driver_info` is set, so
+  `id->driver_info` defaults to `0` (`MCE_GEN2`) — identical to the
+  existing `0xe004` entry.
 
-### Step 2.3: Bug mechanism
-- **Category:** Hardware initialization sequence / workaround
-- **Mechanism:** CMN_RSTB released before Link-layer configuration
-  completes, violating required reset sequence.
-
-### Step 2.4: Fix quality
-- **Record:** Minimal, matches manual, uses existing `err_phy` path on
-  deassert failure, NULL-safe for RZ/V2H. Low regression risk.
-
----
-
-## PHASE 3: GIT HISTORY
-
-### Step 3.1: Blame
-- Buggy reset code introduced in `a4871e6201c46` (May 2025, Thomas
-  Zimmermann) when driver was added.
-- Delay tuning in `aa8ad3e0d1fe9` (already in 6.18.43).
-
-**Record:** Bug present since driver introduction; long-standing on
-RZ/G2L platforms.
-
-### Step 3.2: Fixes: tag
-- **Record:** N/A — no Fixes: tag in this commit.
-
-### Step 3.3: Related commits
-- `300a2d970a535` — Move `set_display_timing()` — **present in tree**
-- `aa8ad3e0d1fe9` — Increase reset deassertion delay — **present in
-  tree**
-- `8065890f5cda3` — This CMN_RSTB fix — **NOT present in tree**
-- `79f42487ed60d` — Kernel panic on reboot fix — **present in tree**
-
-**Record:** Patch 3/3 of a v3 series; prerequisites 1/3 and 2/3 already
-backported to 6.18.43.
-
-### Step 3.4: Author context
-- Biju Das is active Renesas maintainer for rz-du/MIPI DSI.
-- **Record:** Subsystem maintainer fix with hardware validation.
-
-### Step 3.5: Dependencies
-- **Record:** Standalone relative to master-only RZ/V2H CPG work.
-  Depends on patches 1–2 of the same series, which are already in this
-  tree. Cherry-pick applies cleanly (verified).
+### Step 2.4: Fix Quality Assessment
+**Record:**
+- **Obviously correct:** yes — mirrors the adjacent `0xe004` entry;
+  author documents firmware compatibility.
+- **Minimal:** 2 lines.
+- **Regression risk:** very low — only adds a new match; does not change
+  probe logic, locking, or APIs.
 
 ---
 
-## PHASE 4: MAILING LIST RESEARCH
+## Phase 3: Git History Investigation
 
-### Step 4.1: Discussion
-- **b4 dig -c 8065890f5cda3:** https://patch.msgid.link/20260330104450.1
-  28512-4-biju.das.jz@bp.renesas.com
-- **Series:** v1 → v2 → v3; committed version is v3 3/3 (latest).
-- **Review:** Tommaso Merciai — “Looks good to me”; Reviewed-by +
-  Tested-by on RZ/G3E.
-- **NAKs:** None found.
-- **Stable:** Patches 1/3 and 2/3 submitted with `Cc:
-  stable@vger.kernel.org`; patch 3/3 did not include it in the email,
-  but cover letter describes HW-manual compliance series.
+### Step 3.1: Blame the Changed Lines
+**Record:** In this checkout (`6.18.43`), `VENDOR_NORTHSTAR` / `0xe004`
+are at lines 160 and 399. The `0xe033` entry is **not** present. The
+Northstar `0xe004` entry exists in `stable/linux-6.18.y`. This tree’s
+history is heavily squashed (many `mceusb.c` lines blame to unrelated
+commits), so the original introduction commit of `0xe004` could not be
+reliably dated here.
+
+### Step 3.2: Follow Fixes: Tag
+**Record:** N/A — no `Fixes:` tag.
+
+### Step 3.3: File History for Related Changes
+**Record:** Recent `drivers/media/rc/` stable commits include real bug
+fixes (`e250b672d40a9` race fix, probe error-handling fixes), but no
+prior `0xe033` addition. On `origin/master`, `0xe033` is already
+present; on current HEAD it is not.
+
+### Step 3.4: Author's Other Commits
+**Record:** No commits from Riccardo Boninsegna found in this tree’s
+history. Sean Young is the media/rc maintainer (Signed-off-by).
+
+### Step 3.5: Dependent/Prerequisite Commits
+**Record:** **No dependencies.** Requires only existing
+`VENDOR_NORTHSTAR` define and `mceusb` driver — both present in
+`6.18.y`. Standalone 2-line backport.
+
+---
+
+## Phase 4: Mailing List and External Research
+
+### Step 4.1: Original Patch Discussion
+**Record:** `b4 dig` could not be run — individual commit SHA not
+available in this mirror (history squashed into merge commits).
+`lore.kernel.org` returned **403 Forbidden**. `git.kernel.org` grep
+confirmed subject `mceusb: Add support for 04eb:e033` exists on
+mainline. Patchwork search returned only generic page scaffolding, no
+detailed review thread retrieved.
 
 ### Step 4.2: Reviewers
-- CC'd: dri-devel, linux-renesas-soc, DRM maintainers (Lankhorst,
-  Ripard, Zimmermann, Airlie, Vetter), Laurent Pinchart.
-- **Record:** Appropriate subsystem review chain.
+**Record:** UNVERIFIED for mailing-list CC list. Sean Young (maintainer)
+Signed-off-by in commit message.
 
-### Step 4.3: Bug report
-- **Record:** No external bugzilla/syzbot report. Validation is hardware
-  testing on RZ/G3E per lore thread.
+### Step 4.3: Bug Report
+**Record:** No formal bug report or syzbot link. Hardware identification
+from author on Skintek SK-CR-IN+IR product.
 
-### Step 4.4: Series context
-- Cover letter (v3 0/3): manual requires PHY timing + Link register
-  writes **before** CMN_RSTB deassert; v2→v3 merged patches 2+3 “to
-  avoid breakage.”
-- **Record:** Incomplete without this patch if delay fix (patch 2) is
-  already applied.
+### Step 4.4: Related Patches/Series
+**Record:** Standalone 1-commit change; not part of a multi-patch
+series.
 
-### Step 4.5: Stable list
-- Patches 1–2 explicitly CC'd stable and were backported to 6.18.y.
-- **Record:** Strong implicit stable intent for the full series.
+### Step 4.5: Stable Mailing List History
+**Record:** UNVERIFIED — lore stable list inaccessible (403).
 
 ---
 
-## PHASE 5: CODE SEMANTIC ANALYSIS
+## Phase 5: Code Semantic Analysis
 
-### Step 5.1: Key functions
-- `rzg2l_mipi_dsi_dphy_init`, `rzg2l_mipi_dsi_startup`,
-  `rzg2l_mipi_dsi_stop`, `rzg2l_mipi_dsi_dphy_exit`
+### Step 5.1: Key Functions
+**Record:** No functions modified. Affected data: `mceusb_dev_table[]`.
+Probe path: `mceusb_dev_probe()`.
 
-### Step 5.2: Callers
-- `rzg2l_mipi_dsi_startup()` ← `rzg2l_mipi_dsi_atomic_pre_enable()`
-  (display enable)
-- `rzg2l_mipi_dsi_stop()` ← `rzg2l_mipi_dsi_atomic_enable()` error path
-  and `rzg2l_mipi_dsi_atomic_post_disable()` (display disable)
+### Step 5.2: Trace Callers
+**Record:** `mceusb_dev_probe()` is registered as `.probe` in
+`mceusb_dev_driver` and invoked by the USB core during device
+enumeration when `usb_device_id` matches. Trigger: user plugs in the IR
+receiver.
 
-**Record:** Standard DRM atomic display enable/disable path on every
-MIPI DSI panel attach.
+### Step 5.3: Trace Callees
+**Record:** On successful match, probe allocates `mceusb_dev`, sets up
+URBs, registers with `rc-core` — standard existing driver path unchanged
+by this patch.
 
-### Step 5.3: Callees
-- `reset_control_deassert/assert`, `rzg2l_mipi_dsi_link_write`,
-  `rzg2l_mipi_dsi_phy_write`, `fsleep(1000)`
+### Step 5.4: Call Chain / Reachability
+**Record:** USB hotplug → `usb_driver.probe` → `mceusb_dev_probe()`.
+Reachable by any user plugging in the device. Without the ID, the chain
+never starts for `04eb:e033`.
 
-### Step 5.4: Reachability
-- Triggered whenever a connected MIPI DSI panel is enabled on
-  `renesas,rzg2l-mipi-dsi` hardware.
-- **Record:** Reachable from normal display operations; not obscure
-  debug path.
-
-### Step 5.5: Similar patterns
-- Same manual section addressed by already-backported delay fix
-  (`aa8ad3e0d1fe9`).
-- **Record:** This completes the reset-sequence work started in that
-  commit.
+### Step 5.5: Similar Patterns
+**Record:** `0xe004` at line 399 uses the same pattern (no
+`.driver_info`). Many other entries in `mceusb_dev_table[]` follow this
+model.
 
 ---
 
-## PHASE 6: CROSS-REFERENCE WITH LOCAL TREE
+## Phase 6: Cross-Referencing Against Local Tree
 
-### Step 6.1: Buggy code present?
-- **Yes.** Lines 271–275 (`reset_control_deassert` in `dphy_init`) and
-  line 289 (`reset_control_assert` in `dphy_exit`) confirmed in 6.18.43.
+**Local tree:** `v6.18.43` (`VERSION=6`, `PATCHLEVEL=18`,
+`SUBLEVEL=43`), detached from `stable/linux-6.18.y`.
 
-### Step 6.2: Backport difficulty
-- **Clean apply.** `git cherry-pick --no-commit 8065890f5cda3` succeeded
-  with auto-merge only.
+### Step 6.1: Does the Buggy Code Exist?
+**Record:** **Yes.** `drivers/media/rc/mceusb.c` exists with
+`VENDOR_NORTHSTAR` (`0x04eb`) and `0xe004`, but **without** `0xe033`.
+The omission is present in this tree.
 
-### Step 6.3: Related fixes already present?
-- Patches 1/3 and 2/3 of series present; this fix is the missing third
-  piece.
-- **Record:** Tree is in intermediate state — delay fixed but ordering
-  still wrong.
+### Step 6.2: Backport Complications
+**Record:** **Clean apply.** `git apply --check` on the provided diff
+succeeded with no conflicts. Insertion point is immediately after the
+existing Northstar `0xe004` entry.
 
----
-
-## PHASE 7: SUBSYSTEM CONTEXT
-
-### Step 7.1: Subsystem
-- **drivers/gpu/drm/renesas/rz-du** — Renesas embedded display (MIPI
-  DSI)
-- **Criticality:** PERIPHERAL (platform-specific), but display is
-  primary output on affected boards.
-
-### Step 7.2: Activity
-- Active development: panic fix, runtime PM, reset timing, display
-  timing ordering all landed recently in 6.18.y.
+### Step 6.3: Related Fixes Already Present?
+**Record:** No existing `0xe033` entry or equivalent fix found in HEAD
+or `stable/linux-6.18.y` grep.
 
 ---
 
-## PHASE 8: IMPACT AND RISK
+## Phase 7: Subsystem and Maintainer Context
 
-### Step 8.1: Who is affected
-- Users of Renesas RZ/G2L SoCs with MIPI DSI displays
-  (`renesas,rzg2l-mipi-dsi`).
-- RZ/V2H unaffected (optional `rst` line; `reset_control_*` is NULL-
-  safe).
+### Step 7.1: Subsystem Criticality
+**Record:** `drivers/media/rc/` — **PERIPHERAL** (USB IR remote
+receiver). Not core kernel path, but affects real users with this
+hardware.
 
-### Step 8.2: Trigger conditions
-- Every display enable/disable on RZ/G2L with CMN_RSTB wired.
-- **Likelihood:** Common on affected hardware.
-
-### Step 8.3: Failure mode
-- Incorrect DSI bring-up per hardware manual → display may not work or
-  may be unreliable.
-- **Severity:** HIGH for affected users (no display); not a kernel
-  crash/oops.
-
-### Step 8.4: Risk-benefit
-- **Benefit:** Correct hardware init; completes already-partially-
-  backported series; tested on RZ/G3E.
-- **Risk:** Very low — 18-line reorder, no API changes, NULL-safe.
-- **Ratio:** Strong benefit, minimal risk for RZ/G2L users.
+### Step 7.2: Subsystem Activity
+**Record:** `drivers/media/rc/` on `stable/linux-6.18.y` has recent
+maintenance (race fixes, probe error handling), indicating active stable
+care for this subsystem.
 
 ---
 
-## PHASE 9: FINAL SYNTHESIS
+## Phase 8: Impact and Risk Assessment
 
-### Step 9.1: Evidence summary
+### Step 8.1: Who Is Affected
+**Record:** Users of the Skintek SK-CR-IN+IR (and any other product
+using `04eb:e033` with MCE-compatible firmware). Config-dependent:
+`CONFIG_IR_MCEUSB` (or module `mceusb`).
+
+### Step 8.2: Trigger Conditions
+**Record:** Plug in the `04eb:e033` USB IR device. Common for intended
+hardware use. Unprivileged user can trigger by plugging in USB device.
+
+### Step 8.3: Failure Mode Severity
+**Record:** Without fix: device does not bind to `mceusb` → IR remote
+control non-functional. **Severity: LOW** (functional/hardware
+enablement, not crash/corruption/security).
+
+### Step 8.4: Risk-Benefit Ratio
+**Record:**
+- **Benefit:** Enables a real, tested hardware variant; identical
+  treatment to already-supported sibling ID.
+- **Risk:** Very low — 2-line ID table addition, no logic change.
+- **Ratio:** Strong benefit for affected users, negligible risk —
+  classic stable device-ID backport.
+
+---
+
+## Phase 9: Final Synthesis
+
+### Step 9.1: Evidence Compile
 
 **FOR backport:**
-- Real hardware-init bug per official RZ/G2L manual
-- Small, surgical, tested on hardware
-- Prerequisites already in 6.18.43
-- Applies cleanly
-- Completes v3 series whose first two patches were already backported
-- Reviewed by Renesas engineer with Tested-by on RZ/G3E
-- Same driver already receives stable fixes (panic on reboot, delay,
-  timing order)
+- Explicit stable exception: **new USB device ID** to existing driver
+- Driver and sibling ID (`04eb:e004`) already in `6.18.y`
+- Author documents firmware compatibility with supported device
+- Maintainer Signed-off-by (Sean Young)
+- 2-line, obviously correct, applies cleanly
+- Already in mainline (`origin/master` has `0xe033`)
+- No dependencies or API changes
 
 **AGAINST backport:**
-- Platform-specific peripheral driver
-- No crash/security/data-corruption report
-- Patch 3/3 lacks explicit `Cc: stable` in commit message
+- Niche hardware (limited user base)
+- Not a crash/security/corruption fix under strict reading of criterion
+  #3
+- No formal regression report or syzbot evidence
+- Mailing-list review not fully verified (lore 403)
 
-**Unresolved:** Exact failure modes on all RZ/G2L boards without the fix
-(manual violation vs. observed “display broken”).
+**UNRESOLVED:**
+- Individual mainline commit SHA and full lore review thread
+- Whether stable maintainers already discussed/nominated this specific
+  ID
 
-### Step 9.2: Stable rules checklist
-1. Obviously correct and tested? **PASS** — manual compliance + Tested-
-   by on RZ/G3E
-2. Fixes real bug? **PASS** — incorrect reset sequencing
-3. Important issue? **PASS** — display failure on affected embedded
-   platforms
-4. Small and contained? **PASS** — 1 file, ~18 lines
-5. No new features/APIs? **PASS**
-6. Can apply to local tree? **PASS** — cherry-picks cleanly;
-   prerequisites present
+### Step 9.2: Stable Rules Checklist
+1. **Obviously correct and tested?** **PASS** — mirrors existing
+   `0xe004`; maintainer SOB; mainline inclusion.
+2. **Fixes a real bug affecting users?** **PASS** — hardware does not
+   work without driver binding.
+3. **Important issue?** **PASS** (via device-ID exception) — functional
+   hardware enablement for affected users; not crash-level, but
+   explicitly covered by stable device-ID policy.
+4. **Small and contained?** **PASS** — 2 lines, one file.
+5. **No new features or APIs?** **PASS** — ID table only.
+6. **Can apply to local tree?** **PASS** — verified with `git apply
+   --check`.
 
-### Step 9.3: Exception category
-- **Hardware workaround / init quirk** — correcting reset sequence per
-  SoC manual.
+### Step 9.3: Exception Category
+**Record:** **NEW DEVICE IDs** — USB product ID addition to existing
+`mceusb` driver. Driver exists; only the ID is new.
 
-### Step 9.4: Decision rationale
-This tree (6.18.43) already carries patches 1/3 and 2/3 of the same
-hardware-manual compliance series but not the final ordering fix.
-Without it, CMN_RSTB is still deasserted before Link register
-programming, which the RZ/G2L manual explicitly forbids. The fix is
-small, tested, low-risk, and completes work stable maintainers already
-started for this driver.
+### Step 9.4: Decision Rationale
+For **Linux 6.18.y** specifically: the `mceusb` driver is present, the
+compatible sibling ID `04eb:e004` is already supported, and the missing
+`04eb:e033` entry prevents a firmware-compatible variant from working.
+This is a textbook, low-risk stable backport under the device-ID
+exception.
 
 ---
 
 ## Verification
 
-- [Phase 1] `git describe HEAD` → v6.18.43; parsed commit message and
-  tags
-- [Phase 2] Read current `rzg2l_mipi_dsi.c`; confirmed reset calls at
-  lines 271–275 and 289
-- [Phase 3] `git blame` → reset code from `a4871e6201c46`; `git log --
-  drivers/.../rzg2l_mipi_dsi.c` → series history
-- [Phase 3] `git merge-base --is-ancestor` → patches 1/3 and 2/3
-  present; 8065890f5cda3 absent
-- [Phase 4] `b4 dig -c 8065890f5cda3` → lore URL found
-- [Phase 4] `b4 dig -a` → v1/v2/v3 series; v3 is latest
-- [Phase 4] `b4 dig -w` → DRM/Renesas maintainers CC'd
-- [Phase 4] `/tmp/cmn_rstb_thread.mbox` → Reviewed-by, Tested-by on
-  RZ/G3E; no NAKs; cover letter describes manual requirements
-- [Phase 5] `grep rzg2l_mipi_dsi_startup/stop` → called from
-  atomic_pre_enable/post_disable
-- [Phase 5] `drivers/reset/core.c` →
-  `reset_control_assert/deassert(NULL)` returns 0 (no-op)
-- [Phase 6] Buggy code confirmed in 6.18.43 tree
-- [Phase 6] `git cherry-pick --no-commit 8065890f5cda3` → exit 0, auto-
-  merge only
-- [Phase 8] Driver supports `renesas,rzg2l-mipi-dsi` compatible string
-  in local tree
+- **[Phase 1]** Parsed subject, tags, body; no Fixes/Reported-by/Link
+  tags; Sean Young SOB confirmed.
+- **[Phase 2]** Diff: +2 lines in `mceusb_dev_table[]`; no
+  `.driver_info` → default `MCE_GEN2` (same as `0xe004`).
+- **[Phase 3]** `git describe HEAD`: `v6.18.43`; `git blame`/`grep`:
+  `0xe004` present, `0xe033` absent on HEAD.
+- **[Phase 3]** `git grep "0xe033" origin/master --
+  drivers/media/rc/mceusb.c`: present on mainline.
+- **[Phase 3]** `git diff HEAD origin/master --
+  drivers/media/rc/mceusb.c`: e033 addition is isolated 2-line hunk.
+- **[Phase 3]** No prerequisite commits identified.
+- **[Phase 4]** `b4 dig`: **UNVERIFIED** — commit SHA unavailable in
+  squashed mirror.
+- **[Phase 4]** lore.kernel.org: **403 Forbidden**.
+- **[Phase 4]** git.kernel.org grep: subject `mceusb: Add support for
+  04eb:e033` confirmed on mainline.
+- **[Phase 4]** Patchwork: no detailed review thread retrieved.
+- **[Phase 5]** `mceusb_dev_probe()` at line 1651; `.probe` in
+  `mceusb_dev_driver` at line 1877.
+- **[Phase 5]** Default model `MCE_GEN2` confirmed in `mceusb_model[]`
+  at index 0.
+- **[Phase 6]** `make kernelversion` equivalent: 6.18.43; tree is
+  `stable/linux-6.18.y`.
+- **[Phase 6]** `git apply --check` on provided diff: **succeeds**.
+- **[Phase 6]** `CONFIG_IR_MCEUSB` exists in `drivers/media/rc/Kconfig`.
+- **[Phase 8]** Failure mode: no driver bind → IR non-functional;
+  severity LOW; risk VERY LOW.
+
+**YES**The background kernel.org lookups finished:
+
+- **Git grep** confirmed mainline has a commit titled `mceusb: Add
+  support for 04eb:e033`.
+- **Commit hash lookup** did not return a usable SHA for that patch
+  (only unrelated HEAD patch metadata), so `b4 dig` and lore review stay
+  unverified.
+
+That does not change the earlier conclusion for **6.18.y**: this is a
+small USB device-ID addition to an existing driver, it applies cleanly
+next to the already-supported `04eb:e004` entry, and it should be
+backported.
 
 **YES**
 
- drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c | 18 +++++++++---------
- 1 file changed, 9 insertions(+), 9 deletions(-)
+ drivers/media/rc/mceusb.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c b/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
-index 04a24ff9dde15..1c6f29c285b65 100644
---- a/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
-+++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
-@@ -228,7 +228,6 @@ static int rzg2l_mipi_dsi_dphy_init(struct rzg2l_mipi_dsi *dsi,
- 	u32 dphytim1;
- 	u32 dphytim2;
- 	u32 dphytim3;
--	int ret;
- 
- 	/* All DSI global operation timings are set with recommended setting */
- 	for (i = 0; i < ARRAY_SIZE(rzg2l_mipi_dsi_global_timings); ++i) {
-@@ -268,12 +267,6 @@ static int rzg2l_mipi_dsi_dphy_init(struct rzg2l_mipi_dsi *dsi,
- 	rzg2l_mipi_dsi_phy_write(dsi, DSIDPHYTIM2, dphytim2);
- 	rzg2l_mipi_dsi_phy_write(dsi, DSIDPHYTIM3, dphytim3);
- 
--	ret = reset_control_deassert(dsi->rstc);
--	if (ret < 0)
--		return ret;
--
--	fsleep(1000);
--
- 	return 0;
- }
- 
-@@ -285,8 +278,6 @@ static void rzg2l_mipi_dsi_dphy_exit(struct rzg2l_mipi_dsi *dsi)
- 
- 	dphyctrl0 &= ~(DSIDPHYCTRL0_EN_LDO1200 | DSIDPHYCTRL0_EN_BGR);
- 	rzg2l_mipi_dsi_phy_write(dsi, DSIDPHYCTRL0, dphyctrl0);
--
--	reset_control_assert(dsi->rstc);
- }
- 
- static int rzg2l_dphy_conf_clks(struct rzg2l_mipi_dsi *dsi, unsigned long mode_freq,
-@@ -393,6 +384,14 @@ static int rzg2l_mipi_dsi_startup(struct rzg2l_mipi_dsi *dsi,
- 	dsisetr |= FIELD_PREP(DSISETR_MRPSZ, RZG2L_DCS_BUF_SIZE);
- 	rzg2l_mipi_dsi_link_write(dsi, DSISETR, dsisetr);
- 
-+	if (dsi->rstc) {
-+		ret = reset_control_deassert(dsi->rstc);
-+		if (ret < 0)
-+			goto err_phy;
-+
-+		fsleep(1000);
-+	}
-+
- 	return 0;
- 
- err_phy:
-@@ -404,6 +403,7 @@ static int rzg2l_mipi_dsi_startup(struct rzg2l_mipi_dsi *dsi,
- 
- static void rzg2l_mipi_dsi_stop(struct rzg2l_mipi_dsi *dsi)
- {
-+	reset_control_assert(dsi->rstc);
- 	dsi->info->dphy_exit(dsi);
- 	pm_runtime_put(dsi->dev);
- }
+diff --git a/drivers/media/rc/mceusb.c b/drivers/media/rc/mceusb.c
+index a4c94fdf767ca..bee5cd15796fb 100644
+--- a/drivers/media/rc/mceusb.c
++++ b/drivers/media/rc/mceusb.c
+@@ -397,6 +397,8 @@ static const struct usb_device_id mceusb_dev_table[] = {
+ 	{ USB_DEVICE(VENDOR_COMPRO, 0x3082) },
+ 	/* Northstar Systems, Inc. eHome Infrared Transceiver */
+ 	{ USB_DEVICE(VENDOR_NORTHSTAR, 0xe004) },
++	/* Northstar Systems, Inc. eHome Infrared Transceiver - variant */
++	{ USB_DEVICE(VENDOR_NORTHSTAR, 0xe033) },
+ 	/* TiVo PC IR Receiver */
+ 	{ USB_DEVICE(VENDOR_TIVO, 0x2000),
+ 	  .driver_info = TIVO_KIT },
 -- 
 2.53.0
 
