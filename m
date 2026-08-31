@@ -1,44 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A91A147A0C2;
-	Mon, 31 Aug 2026 13:35:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA2FD435A9E;
+	Mon, 31 Aug 2026 13:35:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183348; cv=none; b=c5M7vx8xzHjbHyQI6ip5ZHWffrzSnfMUGu62fcvDR1ardOxuw0HPHFTysqFU3KlpZoPMoTEGoRsvgwUY7YyL3vbAQI+u3Cpd1x6NGwvwAl5RNaHRwqYPCRE0DBUKSolJxTGaRYyIZ+DuQ22pAs2Y4vxZPrXZfTZvsLFiSEoCBZc=
+	t=1788183352; cv=none; b=AAlAVPIKyFwRyBsDujn+NxkeQTCmE86t3aVd3lu3QCB3LkmrzJNGKtQ95qVaMjqNjd4+Tm+YoX7APWMyGocgweTNigjDE+Bj7eV0ocAw8LIfVe8ktt5vkC5bJbZQW8dj+i9d5R3mHMwDcW+/HOTSDs7/jO9OAVDgmpx12L6h8tQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183348; c=relaxed/simple;
-	bh=yBiRL63M3Rjo2T7VyeW5SWfmFuagqHFdM0/tII3hL+w=;
+	s=arc-20240116; t=1788183352; c=relaxed/simple;
+	bh=2/c0dEg4i9pBRhFRtzyOwAl8/RuwwqY7K7Zpse2HJ9A=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=McT6A+ksOGesqa6OIsogs+lXguyZJPaIwF9mIYEHMDXJFR5pGAUsprmFx+E2Uny22fBa1o/ax0baMSDJmAVBl0+Ue3D9J0pdnkkDHZIrtau/u065Hs5BKQkmNIznWMOHcp510OMkNIgJ12pPn/bWm5Lu1yAhbdVz/H3WRsMzbOc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eDValOTu; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=k3BP7UMXHfmbLhKT0W+NjvIsJttJB1ZmdclAxCA4VkoBlH3c0On4dOXC7/Jnre9w5Z/W4fZnhp/CbNpMG6pBliOq3UNt5r3gA5AdoOW8Vt54EpKxbamxjcS7Fgk0qTaECx1kUoK5t56o7QJo4+RGW4X1aKoMm1r3OE7SU6wHbsI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gfRwqJkp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eDValOTu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 767C01F000E9;
-	Mon, 31 Aug 2026 13:35:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gfRwqJkp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A6751F000E9;
+	Mon, 31 Aug 2026 13:35:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788183347;
-	bh=vjw+L5eEZuN3yDE6hMQ3rXWernU0q9YRTss9sm3D0GI=;
+	s=k20260515; t=1788183350;
+	bh=i6BED+3xOp0EnxNdMOherIRPNGDDDn6poX3hIV/OZBI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=eDValOTurZrp+qdeKSIBml1ZhgKXzYZPGYYz+LFshMilGkPU4hzqGhPLteZ4F2AQV
-	 MlQWxaIfiP4BRCGNkOKrKwAz8qm4wmpXWHsXGrzvndhtVQb8ByGG3xseD2yMNbGIyH
-	 8YwxufSn/1HDQ1D6YzBysU+BrKgSK+uEmA9bcCKJQxPgaO0ze/iWhoJX86yVC5FTvh
-	 oDDDWZCKSpWF0wl6faejUQFjIbWHWqN3T8kZvUT1hXOGLEKVT1tsnGORgjvw74GGY6
-	 uxMc1adOF4SgFoMzBmzbBhIS6iAEhvZzReWhJM/Q2qddDP5gzSgmjxvrubMymsGE3a
-	 kFv7WuUxHCvyg==
+	b=gfRwqJkp86sWGZJCN4Cry47JbmjpkC9JdXVOOJl63gSiJGd/n1zG05JWmEs1oppJy
+	 BUTFlhPEcGcR4Y0Ui/Bw5uNQ4qqBbrEHHi7Ax7s0S2bHGCp5P/E1BuslrGLLOjtVv6
+	 yWLcLQXCmPMdRG3jeWpASUh0o94QBx6TeFPwMAbqwRsWI1al54lsGKNPrLAbbKf9PE
+	 F/tj5d1phgE3LnDWCI/zMnG4BFPTNSm1hwzl5c5wnbl4KC+TJu1xes2olsvH/FUhO4
+	 l+cjtFcHT0Uyxr2gJta07LOdhFGYgKE0HiKFHHsxQ7qa6Bqr5mDd1lCyggyrfpAI4i
+	 Q2CEvgBdcgnVw==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Kartik Rajput <kkartik@nvidia.com>,
-	Thierry Reding <treding@nvidia.com>,
+Cc: Alexandre MINETTE <contact@alex-min.fr>,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Linus Walleij <linusw@kernel.org>,
 	Sasha Levin <sashal@kernel.org>,
-	thierry.reding@kernel.org,
-	jonathanh@nvidia.com,
-	linux-tegra@vger.kernel.org,
+	brgl@kernel.org,
+	andersson@kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-gpio@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-6.12] soc/tegra: fuse: Register nvmem lookups at probe
-Date: Mon, 31 Aug 2026 09:22:02 -0400
-Message-ID: <20260831133314.4125787-94-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18] pinctrl: qcom: Register functions before enabling pinctrl
+Date: Mon, 31 Aug 2026 09:22:04 -0400
+Message-ID: <20260831133314.4125787-96-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -54,83 +56,84 @@ X-stable-base: Linux 6.18.48
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Kartik Rajput <kkartik@nvidia.com>
+From: Alexandre MINETTE <contact@alex-min.fr>
 
-[ Upstream commit 8a3571618c2e3f339b5b6fee5841143face58a2b ]
+[ Upstream commit 981aefd53b3cdafae0e45332a1023b80d67f52be ]
 
-Register nvmem lookups in tegra_fuse_probe(), after the nvmem device has
-been registered, since they can only be used after the nvmem device is
-registered.
+pinctrl consumers can request states while the pinctrl core enables the
+controller. On Qualcomm pinctrl drivers this can happen before the SoC
+function list has been registered, which leaves the function table
+incomplete during state lookup.
 
-Signed-off-by: Kartik Rajput <kkartik@nvidia.com>
-Signed-off-by: Thierry Reding <treding@nvidia.com>
+On APQ8064 this can fail while claiming pinctrl hogs:
+
+   apq8064-pinctrl 800000.pinctrl: invalid function ps_hold in map table
+   apq8064-pinctrl 800000.pinctrl: error claiming hogs: -22
+   apq8064-pinctrl 800000.pinctrl: could not claim hogs: -22
+
+Register Qualcomm pinctrl with devm_pinctrl_register_and_init(), add the
+SoC pin functions, and only then enable the pinctrl device.
+
+Signed-off-by: Alexandre MINETTE <contact@alex-min.fr>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Signed-off-by: Linus Walleij <linusw@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-The background check on `stable/linux-6.18.y` finished and matches the
-earlier analysis:
+The background checks finished and line up with the earlier analysis:
 
-- **Prerequisites present:** `71661c1c8c34d` (lookup helper),
-  `972167c690801` (ACPI fuse support), `4a4193d9c6dde` (ACPI SoC
-  cleanup)
-- **Fix not present:** no “Register nvmem lookups at probe” commit in
-  6.18.y
+- **Fix commit not in tree** — no local match for "Register functions
+  before enabling pinctrl" or Alexandre MINETTE patches under
+  `drivers/pinctrl/qcom/`.
+- **Regression confirmed in 6.18.44** — `6f6835beab99c` ("use generic
+  pin function helpers") is an ancestor of the `v6.18.44` tag, so the
+  buggy probe order is present in this stable tree.
+- **Precedent exists** — `2aca5c591ef4e` ("pinctrl: samsung: defer
+  pinctrl_enable") uses the same deferred-enable pattern.
+- **`b4 dig` failed** — wrong invocation syntax; lore lookup was done
+  via web search instead.
 
-**Verdict for this tree (v6.18.44): YES** — small init-order fix for
-ACPI Tegra fuse lookups; applies cleanly and corrects code already in
-6.18.y.
+**Verdict for Linux 6.18.44: YES** — this is a small regression fix for
+APQ8064 (and any qcom pinctrl with self-hogs) since v6.18.0.
 
- drivers/soc/tegra/fuse/fuse-tegra.c | 14 +++++---------
- 1 file changed, 5 insertions(+), 9 deletions(-)
+ drivers/pinctrl/qcom/pinctrl-msm.c | 15 ++++++++++-----
+ 1 file changed, 10 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/soc/tegra/fuse/fuse-tegra.c b/drivers/soc/tegra/fuse/fuse-tegra.c
-index 74d2fedea71ca..972a63993e1db 100644
---- a/drivers/soc/tegra/fuse/fuse-tegra.c
-+++ b/drivers/soc/tegra/fuse/fuse-tegra.c
-@@ -182,10 +182,6 @@ static int tegra_fuse_probe(struct platform_device *pdev)
- 		}
+diff --git a/drivers/pinctrl/qcom/pinctrl-msm.c b/drivers/pinctrl/qcom/pinctrl-msm.c
+index 424b14bc29e96..eabd6563629a7 100644
+--- a/drivers/pinctrl/qcom/pinctrl-msm.c
++++ b/drivers/pinctrl/qcom/pinctrl-msm.c
+@@ -1577,11 +1577,11 @@ int msm_pinctrl_probe(struct platform_device *pdev,
+ 	pctrl->desc.pins = pctrl->soc->pins;
+ 	pctrl->desc.npins = pctrl->soc->npins;
  
- 		fuse->soc->init(fuse);
--
--		err = tegra_fuse_add_lookups(fuse);
--		if (err)
--			return dev_err_probe(&pdev->dev, err, "failed to add FUSE lookups\n");
+-	pctrl->pctrl = devm_pinctrl_register(&pdev->dev, &pctrl->desc, pctrl);
+-	if (IS_ERR(pctrl->pctrl)) {
+-		dev_err(&pdev->dev, "Couldn't register pinctrl driver\n");
+-		return PTR_ERR(pctrl->pctrl);
+-	}
++	ret = devm_pinctrl_register_and_init(&pdev->dev, &pctrl->desc,
++					     pctrl, &pctrl->pctrl);
++	if (ret)
++		return dev_err_probe(&pdev->dev, ret,
++				     "Couldn't register pinctrl driver\n");
+ 
+ 	for (i = 0; i < soc_data->nfunctions; i++) {
+ 		func = &soc_data->functions[i];
+@@ -1591,6 +1591,11 @@ int msm_pinctrl_probe(struct platform_device *pdev,
+ 			return ret;
  	}
  
- 	fuse->clk = devm_clk_get_optional(&pdev->dev, "fuse");
-@@ -231,6 +227,10 @@ static int tegra_fuse_probe(struct platform_device *pdev)
- 		return err;
- 	}
- 
-+	err = tegra_fuse_add_lookups(fuse);
-+	if (err)
-+		return dev_err_probe(&pdev->dev, err, "failed to add FUSE lookups\n");
++	ret = pinctrl_enable(pctrl->pctrl);
++	if (ret)
++		return dev_err_probe(&pdev->dev, ret,
++				     "Couldn't enable pinctrl driver\n");
 +
- 	fuse->rst = devm_reset_control_get_optional(&pdev->dev, "fuse");
- 	if (IS_ERR(fuse->rst))
- 		return dev_err_probe(&pdev->dev, PTR_ERR(fuse->rst), "failed to get FUSE reset\n");
-@@ -473,7 +473,7 @@ static int __init tegra_init_fuse(void)
- 	const struct of_device_id *match;
- 	struct device_node *np;
- 	struct resource regs;
--	int err;
-+	int err = 0;
- 
- 	tegra_init_apbmisc();
- 
-@@ -566,10 +566,6 @@ static int __init tegra_init_fuse(void)
- 
- 	tegra_fuse_print_sku_info(&tegra_sku_info);
- 
--	err = tegra_fuse_add_lookups(fuse);
--	if (err)
--		pr_err("failed to add FUSE lookups\n");
--
- 	return err;
- }
- early_initcall(tegra_init_fuse);
+ 	ret = msm_gpio_init(pctrl);
+ 	if (ret)
+ 		return ret;
 -- 
 2.53.0
 
