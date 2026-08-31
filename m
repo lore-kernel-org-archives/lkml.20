@@ -1,42 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 603724F55BE;
-	Mon, 31 Aug 2026 13:41:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 719424F7535;
+	Mon, 31 Aug 2026 13:41:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183670; cv=none; b=FlTy4+IDS6IMul9uFZJyAWGGuV5pbH6C1+Cqp5kgOknjeyKkm6BAnFsi3ubIVOk7hvMjqhLvdceq31GQfses0RokqIvIw9IdR+xRiN4ki7CMAauqjdljTwVmYBLi2y1rKZ01/xUQ/9xdSrSb0R59FLe8hdkIIvmu/3bV6xfbpoA=
+	t=1788183676; cv=none; b=NXaJqy48g6yg9znVRCEg1fqSwaL5UQV0ffsZ6iBpRDE4b+INrIf3t2hrgp/B4RBzyIRWv2tablzfJ0zePbtVTR8BndPOoPGYfQgR3JEG9l+CM2suve3YGNqe5J9B8Sqc0rju8DaSezGiIv0P3Q0LGSOyo7ebN8+oxadsTzxiR3s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183670; c=relaxed/simple;
-	bh=lTg7mI8OB6U9ATpWBGgBlRVGHJV1ZEWD0zBQjH6zj0o=;
+	s=arc-20240116; t=1788183676; c=relaxed/simple;
+	bh=+Kw6GAiPKJfPCrnZPtphnnIbGqur1JPhq186co4M0Fo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=VUIQsQCwzidc8Y4OJYolxJ6Q+Np4AWBOYJSSl2y2EJ8lMG7Fg7voAvxB2zNn8iwMoXAz6n15td12H6QCD06+YBYsW9fvB3JRT+g+kDigQq6E0SWS8EZVkok1SD+RzAEUFIR384yE8Si+GlM0yVe7HdPwjv7epD40COpQPK49knU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZxcXcS2B; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=DX7OfOtIjzTQkL16xVLjdkbpGD9we52FA5L9oKGLScD2Xk4iqTVZQxoF0fZd/5GsNHx3zfgv6yDP5zlaA/Q0C9MW2frx400Pql3yZPg13q0Pnj6dpE+FD7qbvgxVXMkBhwqIzj8FIWPmZwd0P/PhdSZY+Y9NmZYphGXYYvRDgKc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bVOXO1as; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZxcXcS2B"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A1801F00A3F;
-	Mon, 31 Aug 2026 13:41:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bVOXO1as"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A8151F00A3E;
+	Mon, 31 Aug 2026 13:41:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788183667;
-	bh=X82KvuxOuoihP1bgpcO0E5p7eFFJ6u83+mvJZEfATUk=;
+	s=k20260515; t=1788183673;
+	bh=m3wj9mwMPuIL9qGjRegB9YqqtjdnII9VACbYKzWJyv4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ZxcXcS2Bzw1ObY2/Mz8Jz7CRngUEPxvmicDhNmAJhHpYo6DSffz9KQfTO+SmGPXw6
-	 uU1MGolttWdTLkIDDEXpj2FR+JVXgkBppHKYHqyYICeWBQWumlUF4jnY+l0wGlqRfY
-	 X7dhLH/a1AU3Saz4rcfUS4UaDBicDUbMgl+FUkB++rwjUe3o+kYGyiOshu794T8Oed
-	 yZQswY4YefyKkVYhrqwjKczyxrfThPEGgnyCm9kfmGumzbX7BgzoRlWhRhx0msV+er
-	 /TnfWDNSpaj2VBYLDDgtWkRl1pGoIiDWwFQIBxUMnEguHgfZUrylBBlBe7k7SkdM5N
-	 4KJS69l6kvyng==
+	b=bVOXO1asRiNV4GgcAxbXH3BKPflhbrshC8LO5vtrEem9WTyiYmPyqN+k9ua2TA4nL
+	 TCxjAT9JARVv5ltImPGC2x+9vVrsDs0/S325ldIrRt/tltZhySAVUizQuOVedT7Blk
+	 c931bcrIPJNlTLdnhy6spemR5f7Yz45HRhR/r/sbFiQ+ulU2ymgAiHNpfsYQYDC6Yd
+	 Iqesdtf9lVopyh9/oOqeZGjxumWNRunHs2yA05Zk2LEMM4k7Z8sELfHDkXanGtbUiy
+	 d0VykDAhHc4A8yre7rlIKadRgRO+u2jNKQHWN9R9d4f7RDcUsukl9Gl4sxUDXxVVCV
+	 B16Aqf30BHg0g==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
+Cc: Miri Korenblit <miriam.rachel.korenblit@intel.com>,
+	Ilan Peer <ilan.peer@intel.com>,
+	Johannes Berg <johannes.berg@intel.com>,
 	Sasha Levin <sashal@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18] ring-buffer: Skip invalid sub-buffers when validating persistent ring buffer
-Date: Mon, 31 Aug 2026 09:24:20 -0400
-Message-ID: <20260831133314.4125787-232-sashal@kernel.org>
+	johannes@sipsolutions.net,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 6.18] wifi: mac80211: avoid out-of-bounds access in monitor
+Date: Mon, 31 Aug 2026 09:24:24 -0400
+Message-ID: <20260831133314.4125787-236-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -52,70 +54,74 @@ X-stable-base: Linux 6.18.48
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
+From: Miri Korenblit <miriam.rachel.korenblit@intel.com>
 
-[ Upstream commit eb3bd277b37cd435d26a44a40d8f7c87ff16feb6 ]
+[ Upstream commit 03c41203ee5a833a9d7a7630be190830cede29d8 ]
 
-Skip invalid sub-buffers when validating the persistent ring buffer
-instead of discarding the entire ring buffer. Only skipped buffers
-are invalidated (cleared).
+In NAN, we don't know on what band the frame will be sent. Therefore we
+set info->band to NUM_NL80211_BANDS. However, this leads to out-of-bound
+access in ieee80211_add_tx_radiotap_header when we try to access the
+sbands array.
 
-If the cache data in memory fails to be synchronized during a reboot,
-the persistent ring buffer may become partially corrupted, but other
-sub-buffers may still contain readable event data. Only discard the
-subbuffers that are found to be corrupted.
+Fix it by not accessing the array if the band is NUM_NL80211_BANDS.
+This means that we will not report rate info for legacy rate in NAN.
+But nobody really cares about it.
 
-Link: https://lore.kernel.org/all/20260520185018.051228084@kernel.org/
-
-Link: https://patch.msgid.link/20260522171050.914418536@kernel.org
-Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-[SDR: Fixed max_loops in rb_iter_peek() as well ]
-Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
+Reviewed-by: Ilan Peer <ilan.peer@intel.com>
+Reviewed-by: Johannes Berg <johannes.berg@intel.com>
+Signed-off-by: Miri Korenblit <miriam.rachel.korenblit@intel.com>
+Link: https://patch.msgid.link/20260504101829.346c9893d136.I15919027597c04ec35c6217db6e52e2a605e5cfc@changeid
+Signed-off-by: Johannes Berg <johannes.berg@intel.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-# Stable Backport Analysis: ring-buffer persistent validation fix
+# Stable Backport Analysis: `wifi: mac80211: avoid out-of-bounds access
+in monitor`
 
-**Local tree:** `v6.18.44` (Linux 6.18.44)
+**Local tree:** Linux **6.18.43** (`git describe HEAD` →
+`v6.18.43-1-gc7f0dac02d232`)
 
 ---
 
 ## PHASE 1: COMMIT MESSAGE FORENSICS
 
 ### Step 1.1: Subject line
-**Record:** `[ring-buffer]` `[skip]` — Skip invalid sub-buffers when
-validating persistent ring buffer during boot recovery.
+**Record:** `[wifi: mac80211]` `[avoid]` — prevent out-of-bounds array
+access in monitor-mode TX radiotap header construction.
 
 ### Step 1.2: Tags
 **Record:**
-- `Link:`
-  https://lore.kernel.org/all/20260520185018.051228084@kernel.org/
-- `Link:` https://patch.msgid.link/20260522171050.914418536@kernel.org
-- `Signed-off-by:` Masami Hiramatsu (Google) <mhiramat@kernel.org>
-- `Signed-off-by:` Steven Rostedt <rostedt@goodmis.org> (with note:
-  "Fixed max_loops in rb_iter_peek() as well")
-- No `Fixes:`, `Reported-by:`, `Cc: stable`, `Tested-by:`, or `Reviewed-
-  by:` tags
-- Notable: subsystem maintainer (Rostedt) amended and signed off
+- **Reviewed-by:** Ilan Peer \<ilan.peer@intel.com\>
+- **Reviewed-by:** Johannes Berg \<johannes.berg@intel.com\> (mac80211
+  maintainer)
+- **Signed-off-by:** Miri Korenblit
+  \<miriam.rachel.korenblit@intel.com\> (author)
+- **Signed-off-by:** Johannes Berg (maintainer commit)
+- **Link:** https://patch.msgid.link/20260504101829.346c9893d136.I159190
+  27597c04ec35c6217db6e52e2a605e5cfc@changeid
+- No Fixes:, Reported-by:, Tested-by:, Cc: stable@vger.kernel.org
+- Notable: dual Reviewed-by including subsystem maintainer; no
+  fuzzer/user bug report
 
 ### Step 1.3: Body analysis
 **Record:**
-- **Bug:** After reboot, persistent ring buffer validation treats any
-  single corrupted sub-buffer as fatal and discards the entire buffer.
-- **Symptom:** Valid trace events from previous boot (especially post-
-  crash traces) are lost when only some sub-buffers are bad.
-- **Root cause:** Cache may not fully sync across reboot; partial
-  corruption is realistic. Current code in `rb_cpu_meta_valid()` and
-  `rb_meta_validate_events()` rejects the whole buffer on first bad sub-
-  buffer.
-- **Version info:** None in message.
+- **Bug:** For NAN, TX band is set to `NUM_NL80211_BANDS` because the
+  actual band is unknown at TX time.
+- **Symptom:** `ieee80211_add_tx_radiotap_header()` indexes
+  `local->hw.wiphy->bands[info->band]` with that sentinel value → out-
+  of-bounds access.
+- **Trigger path:** NAN transmission + monitor interface capturing TX
+  frames.
+- **Root cause:** Missing bounds check before `bands[]` lookup in the
+  legacy-rate radiotap path.
+- **Functional trade-off:** Legacy rate is not reported in radiotap for
+  NAN frames (acceptable; author notes nobody cares).
 
-### Step 1.4: Hidden bug fix detection
-**Record:** Yes — described as validation improvement, but it fixes real
-data-loss and reader-loop failures (`RB_WARN_ON` when >3 empty pages
-after recovery).
+### Step 1.4: Hidden bug fix?
+**Record:** Not disguised — explicitly an OOB access fix, though
+described as monitor/radiotap rather than "crash fix."
 
 ---
 
@@ -123,208 +129,198 @@ after recovery).
 
 ### Step 2.1: Inventory
 **Record:**
-- **File:** `kernel/trace/ring_buffer.c` only (~73 insertions, ~47
-  deletions)
-- **Functions modified:** `rb_cpu_meta_valid()`, `rb_validate_buffer()`,
-  `rb_meta_validate_events()`, `rb_get_reader_page()`, `rb_iter_peek()`;
-  relocates `rb_page_size()` earlier
-- **Scope:** Single-file surgical fix in persistent ring-buffer recovery
-  path
+- **Files:** `net/mac80211/status.c` (+1 functional line, copyright year
+  bump)
+- **Functions:** `ieee80211_add_tx_radiotap_header()`
+- **Scope:** Single-file, surgical (1-line logic change)
 
-### Step 2.2: Code flow changes
+### Step 2.2: Code flow change
 **Record:**
-| Hunk | Before → After |
-|------|----------------|
-| `rb_cpu_meta_valid()` | Rejects entire meta if any subbuf `commit >
-PAGE_SIZE` → only validates meta array structure; adds `subbuf_size !=
-PAGE_SIZE` check |
-| `rb_validate_buffer()` | Uses raw `commit` → masks `RB_MISSED_MASK`,
-bounds-checks against `meta->subbuf_size` |
-| `rb_meta_validate_events()` | `goto invalid` on first bad page → clear
-only that sub-buffer, continue; track `discarded` count |
-| `rb_get_reader_page()` / `rb_iter_peek()` | `max_loops = 3` hardcoded
-→ `max_loops = nr_pages` for persistent buffers |
-| `rb_page_size()` | Moved earlier so validation code can use masked
-commit size |
+- **Hunk (lines ~298–305):**
+  - **Before:** If no `status_rate`, and `rates[0].idx >= 0` with legacy
+    flags, always dereference `wiphy->bands[info->band]`.
+  - **After:** Same, but only when `info->band < NUM_NL80211_BANDS`.
+  - **Path:** TX status → monitor radiotap header fill on legacy (non-
+    MCS/VHT) rate reporting.
 
 ### Step 2.3: Bug mechanism
 **Record:**
-- **Category:** Logic/correctness fix + secondary loop-limit bug
-- **Mechanism:** Overly aggressive all-or-nothing validation discards
-  recoverable trace data; after per-page discard, multiple consecutive
-  empty pages exceed the hardcoded loop limit of 3, triggering
-  `RB_WARN_ON` and breaking trace reads
+- **Category:** Buffer/out-of-bounds access (array index past end).
+- **Mechanism:** `struct ieee80211_supported_band
+  *bands[NUM_NL80211_BANDS]` (verified in
+  `include/net/cfg80211.h:6076`). Valid indices are `0 ..
+  NUM_NL80211_BANDS-1`. `NUM_NL80211_BANDS` is a sentinel (value 6 in
+  this tree: 2G/5G/60G/6G/S1G/LC). NAN TX sets `info->band =
+  NUM_NL80211_BANDS` in `ieee80211_tx_skb_tid()`
+  (`net/mac80211/tx.c:6316-6317`). Indexing `bands[NUM_NL80211_BANDS]`
+  is OOB; subsequent `sband->bitrates[...]` can crash or corrupt memory.
 
 ### Step 2.4: Fix quality
-**Record:** Fix is minimal, obviously correct, and low regression risk.
-Invalidates only proven-bad pages; still falls back to full discard on
-structural failures (e.g., commit page not found). Rostedt's `max_loops`
-addition addresses a real follow-on failure.
+**Record:**
+- **Obviously correct:** Matches existing guards elsewhere in mac80211
+  (`tx.c:62`, `tx.c:689`, `rate.c:101`, `rate.c:907`).
+- **Minimal:** One condition added.
+- **Regression risk:** Very low — only skips optional radiotap legacy-
+  rate field when band is unknown.
+- **No API changes.**
 
 ---
 
 ## PHASE 3: GIT HISTORY INVESTIGATION
 
 ### Step 3.1: Blame
-**Record:**
-- Aggressive per-subbuf commit check introduced in `c76883f18e59b7`
-  ("ring-buffer: Add test if range of boot buffer is valid", 2024-06-14)
-- `goto invalid` on bad buffer page in `rb_meta_validate_events()` dates
-  to `5f3b6e839f3ceb` (2024-06-12)
-- Persistent ring buffer metadata added in `4009cc31e7813` (2025-03-05)
-  — present in this tree
+**Record:** `git blame` on changed lines shows all of `status.c`
+attributed to commit `19eef1d98eeda` due to flattened/squashed file
+history in this checkout. **UNVERIFIED:** exact commit that introduced
+the missing guard.
 
 ### Step 3.2: Fixes: tag
-**Record:** N/A — no `Fixes:` tag in commit message.
+**Record:** N/A — no Fixes: tag in commit message.
 
 ### Step 3.3: Related file history
-**Record:** Multiple persistent ring-buffer fixes already in this 6.18.y
-tree:
-- `ca296d32ece38` — rewind persistent ring buffer on reboot
-- `b6925774dd15d` — fix per-subbuf entries
-- `2bc60c175568e` — flush/stop on panic
-- This fix (`009124508d96f` / upstream `eb3bd277b37cd`) is **not** yet
-  in HEAD
+**Record:** `git log --oneline -20 -- net/mac80211/status.c` shows only
+the squashed import commit. Recent mac80211 fixes in tree include
+radiotap bounds work (`9b40c59bab08f` — injected antenna index). NAN-
+related work by same author exists (`08e7ae48e175c` cfg80211 NAN). Buggy
+code **is present** in current tree without this fix.
 
 ### Step 3.4: Author context
-**Record:** Masami Hiramatsu is the primary persistent ring-buffer
-author; Steven Rostedt is trace/ring-buffer maintainer. Both have
-multiple related commits in this file.
+**Record:** Miri Korenblit is an active WiFi contributor; recent
+mac80211 commits in tree (`7a1bec39c014e`, `b4b065a880997`). Johannes
+Berg is mac80211 maintainer and reviewed.
 
 ### Step 3.5: Dependencies
-**Record:** Standalone for the validation path. Companion commit
-`8a4563881fa3d` ("Skip invalid sub-buffers when rewinding persistent
-ring buffer", patch 2/9 in v21 series) addresses a related rewind path
-but is separate. This commit includes its own `max_loops` fixes and
-applies independently.
+**Record:** Standalone — no series, no prerequisite commits. Only
+requires existing NAN `band = NUM_NL80211_BANDS` assignment (present at
+`tx.c:6317`) and existing `ieee80211_add_tx_radiotap_header()` (present
+at `status.c:257`).
 
 ---
 
 ## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
 ### Step 4.1: Original discussion
-**Record:**
-- `b4 dig -c 009124508d96f` matched: **[PATCH v21 1/9]** at
-  https://patch.msgid.link/20260522171050.914418536@kernel.org
-- Lore URLs blocked by bot protection (Anubis) — could not read thread
-  content directly
+**Record:** `b4 dig -c <message-id>` failed — commit not in local tree.
+`b4 dig -c HEAD` matched unrelated commit. lore.kernel.org and
+patch.msgid.link blocked by Anubis bot protection. **UNVERIFIED:** full
+mailing-list thread content.
 
 ### Step 4.2: Reviewers
-**Record:** `b4 dig -w` CC list includes Steven Rostedt, linux-trace-
-kernel, Mathieu Desnoyers, Mark Rutland, Andrew Morton — appropriate
-maintainer/reviewer coverage.
+**Record:** Commit message includes Reviewed-by from Johannes Berg
+(maintainer) and Ilan Peer. **UNVERIFIED** via `b4 dig -w` (no commit
+hash available locally).
 
 ### Step 4.3: Bug report
-**Record:** No external bug report or syzbot link. Bug rationale is in
-commit message (cache sync failure across reboot).
+**Record:** No Reported-by, syzbot, or bugzilla link. Bug identified via
+code-path analysis (NAN sentinel band + monitor radiotap).
 
 ### Step 4.4: Series context
-**Record:** Part of v21 9-patch series; this is patch 1/9. Companion
-rewinding fix exists separately. Validation fix is self-contained.
+**Record:** Standalone single-patch fix; no "patch X/Y" indication.
 
 ### Step 4.5: Stable list history
-**Record:** UNVERIFIED — could not search lore stable list due to bot
-protection. However, multiple prior persistent ring-buffer fixes are
-already present in this 6.18.y tree.
+**Record:** **UNVERIFIED** — could not search lore stable archive (bot
+protection).
 
 ---
 
 ## PHASE 5: CODE SEMANTIC ANALYSIS
 
 ### Step 5.1: Key functions
-**Record:** `rb_cpu_meta_valid()`, `rb_validate_buffer()`,
-`rb_meta_validate_events()`, `rb_get_reader_page()`, `rb_iter_peek()`
+**Record:** `ieee80211_add_tx_radiotap_header()`, called from
+`ieee80211_tx_monitor()`.
 
 ### Step 5.2: Callers
 **Record:**
-- `rb_meta_validate_events()` called from ring buffer CPU init at line
-  2399 during `range_addr_start` (persistent/reserved-memory) buffer
-  setup
-- `rb_get_reader_page()` → `rb_buffer_peek()` → `ring_buffer_consume()`
-  / trace reading paths
-- `rb_iter_peek()` → `ring_buffer_iter_peek()` — non-consuming trace
-  reads
+- `ieee80211_tx_monitor()` ← `ieee80211_tx_status_ext()` path when
+  `local->tx_mntrs` (`status.c:1109-1110`)
+- `ieee80211_tx_monitor()` ← `ieee80211_beacon_get_tim()` for beacon TX
+  monitor copy (`tx.c:5819`)
+- `ieee80211_tx_status_ext()` ← `ieee80211_tx_status_skb()` and driver
+  TX status callbacks
 
 ### Step 5.3: Callees
-**Record:** `rb_read_data_buffer()`, `local_read/set`,
-`rb_page_commit()`, `RB_WARN_ON()`, page list operations
+**Record:** `skb_push`, `memset`, `local->hw.wiphy->bands[info->band]`
+(the OOB site), `sband->bitrates[...]`.
 
 ### Step 5.4: Reachability
-**Record:** Triggered at boot when persistent tracing instance is
-configured via reserved memory / boot parameters (`trace.c` maps boot
-instances via `reserve_mem_find_by_name()`). Affects crash/post-mortem
-tracing users, not all kernels — but reachable on every boot for
-configured systems.
+**Record:**
+1. NAN interface started (`NL80211_IFTYPE_NAN`)
+2. Frame TX via `ieee80211_tx_skb_tid()` → `band = NUM_NL80211_BANDS`
+3. At least one monitor interface without `MONITOR_FLAG_SKIP_TX` →
+   `local->tx_mntrs > 0` (`iface.c:1149-1150`)
+4. TX completes with legacy rate info in skb CB (non-MCS/VHT,
+   `rates[0].idx >= 0`)
+5. `ieee80211_add_tx_radiotap_header()` OOB on `bands[]`
+
+Reachable from normal Wi-Fi Aware (NAN) usage with packet capture
+(Wireshark/tcpdump on monitor). Not theoretical.
 
 ### Step 5.5: Similar patterns
-**Record:** Same "skip invalid sub-buffer instead of aborting" pattern
-exists in companion rewinding patch (not yet in tree). Consistent with
-incremental recovery approach used elsewhere in persistent ring-buffer
-series.
+**Record:** Same `info->band` / `NUM_NL80211_BANDS` guard pattern
+already used in:
+- `net/mac80211/tx.c:62-63` (`ieee80211_duration`)
+- `net/mac80211/tx.c:689-692` (rate control)
+- `net/mac80211/rate.c:101-102`, `907` (rate control TX status)
+
+`status.c` radiotap path was the outlier.
 
 ---
 
-## PHASE 6: CROSS-REFERENCE AGAINST LOCAL TREE (v6.18.44)
+## PHASE 6: CROSS-REFERENCE WITH LOCAL TREE (6.18.43)
 
 ### Step 6.1: Buggy code present?
-**Record:** **YES.** Current tree still has:
-- `rb_cpu_meta_valid()` commit check at lines 1795–1797 that rejects
-  entire meta
-- `rb_meta_validate_events()` `goto invalid` on first bad page at lines
-  2012–2016
-- `rb_get_reader_page()` / `rb_iter_peek()` hardcoded `nr_loops > 3`
+**Record:** **YES.** Current `status.c:298-305` lacks `info->band <
+NUM_NL80211_BANDS` check. NAN sentinel assignment exists at
+`tx.c:6316-6317`. Fix is **not** already applied.
 
 ### Step 6.2: Backport complications
-**Record:** Expected **clean apply**. `rb_page_size()` already exists at
-line 3247; patch relocates it earlier (trivial). Function names match
-(`rb_get_reader_page`, not `__rb_get_reader_page`).
+**Record:** Expected **clean apply** — single-line addition in well-
+isolated `else if` branch. Context at lines 298-300 matches the provided
+diff exactly.
 
-### Step 6.3: Related fixes already present?
-**Record:** Prior persistent ring-buffer fixes are in tree, but **not**
-this validation-granularity fix or the companion rewinding fix.
+### Step 6.3: Duplicate fix?
+**Record:** `git grep "avoid out-of-bounds access in monitor"` — no
+matches. No equivalent fix found in tree.
 
 ---
 
 ## PHASE 7: SUBSYSTEM CONTEXT
 
 ### Step 7.1: Subsystem criticality
-**Record:** `kernel/trace/` — IMPORTANT subsystem. Persistent ring
-buffer is a debugging/crash-analysis feature, not core VFS/net, but
-critical for post-crash trace retention.
+**Record:** **net/mac80211** — IMPORTANT (802.11 stack used broadly;
+monitor mode used by developers, security tools, Android debugging).
 
 ### Step 7.2: Activity
-**Record:** Actively developed — 10+ persistent ring-buffer commits in
-recent `ring_buffer.c` history on this branch.
+**Record:** Active — multiple recent mac80211 fixes in this tree
+(radiotap bounds, memory leaks, MLD fixes).
 
 ---
 
 ## PHASE 8: IMPACT AND RISK
 
 ### Step 8.1: Who is affected
-**Record:** Users with persistent/reserved-memory tracing configured
-(boot params, DT `reserve_mem`, crash analysis setups). Config-specific,
-not universal.
+**Record:** Users of **NAN (Wi-Fi Aware)** with **TX monitor
+interfaces** enabled. Config-specific but real (Android Wi-Fi Aware
+development/capture scenarios).
 
 ### Step 8.2: Trigger conditions
-**Record:** Reboot with partially unsynchronized persistent ring-buffer
-memory (unclean shutdown, crash, power loss). Realistic for the
-feature's intended use case.
+**Record:** NAN TX + monitor without SKIP_TX + legacy rate in TX status
+metadata. Unprivileged users can trigger if they can create NAN and
+monitor interfaces (typically requires appropriate
+permissions/CAP_NET_ADMIN).
 
-### Step 8.3: Failure severity
-**Record:**
-- **Without fix:** Total loss of previous-boot trace data when any
-  single sub-buffer is corrupt; `RB_WARN_ON` / failed reads when
-  multiple cleared pages exist after recovery
-- **Severity:** MEDIUM-HIGH for affected users (defeats purpose of
-  persistent tracing); LOW for systems without persistent tracing
+### Step 8.3: Failure mode severity
+**Record:** OOB read of pointer array → likely **NULL or garbage pointer
+dereference** → kernel oops/panic. **Severity: HIGH** (kernel crash).
+Not data corruption in the common case, but memory safety violation.
 
 ### Step 8.4: Risk-benefit
 **Record:**
-- **Benefit:** Recovers partial crash traces; prevents false
-  `RB_WARN_ON` on read path — high value for persistent tracing users
-- **Risk:** Very low — only clears proven-invalid pages; structural
-  failures still trigger full discard
-- **Ratio:** Favorable
+- **Benefit:** Prevents kernel crash on a real, reachable code path;
+  aligns with existing subsystem defensive pattern.
+- **Risk:** Minimal — one bounds check; only affects optional radiotap
+  metadata.
+- **Ratio:** Strongly favorable.
 
 ---
 
@@ -333,377 +329,119 @@ feature's intended use case.
 ### Step 9.1: Evidence summary
 
 **FOR backport:**
-- Real bug with verified presence in v6.18.44
-- Causes loss of recoverable crash-trace data
-- Secondary `RB_WARN_ON`/read failure after recovery
-- Small, single-file, maintainer-reviewed fix
-- Consistent with other persistent ring-buffer fixes already in this
-  stable line
-- Applies cleanly to this tree
+- Real OOB bug with clear mechanism
+- Kernel crash potential
+- Tiny, obviously correct fix
+- Reviewed by mac80211 maintainer (Johannes Berg)
+- Consistent with existing guards in same subsystem
+- Buggy code confirmed present in 6.18.43 tree
+- Clean backport expected
 
 **AGAINST backport:**
-- Niche feature (persistent tracing only)
-- Not a general security/crash issue for all users
-- Companion rewinding patch may also be desirable for complete coverage
+- Niche trigger (NAN + TX monitor, not every user)
+- No syzbot/user Reported-by (found via code review)
+- Mailing-list discussion unverified
 
-**Unresolved:** Lore thread content and stable-list discussion (bot-
-blocked).
+**Unresolved:** Exact introduction commit; lore thread content; whether
+stable maintainers already discussed it.
 
 ### Step 9.2: Stable rules checklist
-1. Obviously correct and tested? **PASS** — logic is clear; maintainer
-   signed off; no Tested-by but tracing selftest series exists
-2. Fixes real bug affecting users? **PASS** — data loss on boot recovery
-   for persistent tracing
-3. Important issue? **PASS** — trace data loss + `RB_WARN_ON` on read
-   path for crash-analysis users
-4. Small and contained? **PASS** — ~120 lines, one file
-5. No new features/APIs? **PASS**
-6. Can apply to local tree? **PASS** — code exists, patch should apply
-   cleanly
+1. Obviously correct and tested? **PASS** — logic mirrors existing
+   mac80211 pattern; maintainer-reviewed.
+2. Fixes a real bug? **PASS** — OOB array access on reachable path.
+3. Important issue? **PASS** — kernel crash / memory safety (HIGH).
+4. Small and contained? **PASS** — 1-line functional change.
+5. No new features/APIs? **PASS** — defensive bounds check only.
+6. Can apply to local tree? **PASS** — code present, patch context
+   matches.
 
-### Step 9.3: Exception categories
-**Record:** None (not a quirk/DT/build/docs fix — a correctness bug fix
-in existing feature).
+### Step 9.3: Exception category
+**Record:** N/A (not device ID, quirk, DT, build fix, or docs — standard
+bug fix).
 
 ### Step 9.4: Decision rationale
-
-This commit fixes a real correctness bug in the persistent ring buffer
-recovery path present in Linux 6.18.44. When memory is partially
-corrupted across reboot (the exact scenario persistent tracing is
-designed for), the current code throws away **all** trace data because
-of **one** bad sub-buffer. The fix surgically invalidates only corrupted
-pages and adjusts reader/iterator loop limits so recovered buffers
-remain readable. The change is small, reviewed by the trace maintainer,
-and follows the same pattern as other persistent ring-buffer fixes
-already accepted into this stable series.
-
-**Note:** Consider also backporting the companion patch `ring-buffer:
-Skip invalid sub-buffers when rewinding persistent ring buffer` for the
-rewind path, but this validation commit is independently valuable.
+For **this 6.18.43 tree**, the NAN TX path sets `info->band` to the
+`NUM_NL80211_BANDS` sentinel, and the monitor radiotap header code
+indexes `wiphy->bands[]` without a bounds check. That is a verified out-
+of-bounds access that can crash the kernel when Wi-Fi Aware traffic is
+captured on a TX-enabled monitor interface. The fix is minimal, matches
+established patterns in the same files, and has maintainer review. The
+trigger is narrower than a core networking crash, but the failure mode
+is severe and the backport risk is negligible.
 
 ---
 
 ## Verification
 
-- [Phase 1] `git show 009124508d96f`: parsed subject, body, tags; no
-  Fixes/Reported-by/Cc:stable
-- [Phase 2] `git show 009124508d96f -- kernel/trace/ring_buffer.c`: full
-  diff analyzed; 1 file, 5 functions
-- [Phase 3] `git describe HEAD`: v6.18.44
-- [Phase 3] `git merge-base --is-ancestor 009124508d96f HEAD`: exit 1 —
-  fix NOT in tree
-- [Phase 3] `git merge-base --is-ancestor 4009cc31e7813 HEAD`: exit 0 —
-  persistent ring buffer feature IS in tree
-- [Phase 3] `git blame -L 1795,1816,2012,2017
-  kernel/trace/ring_buffer.c`: buggy code from c76883f18e59b7 /
-  5f3b6e839f3ceb
-- [Phase 3] `git log --oneline -20 -- kernel/trace/ring_buffer.c`:
-  multiple prior persistent ring-buffer fixes in tree
-- [Phase 3] `git merge-base --is-ancestor 8a4563881fa3d HEAD`: exit 1 —
-  companion rewinding fix not in tree
-- [Phase 4] `b4 dig -c 009124508d96f`: found [PATCH v21 1/9] at
-  patch.msgid.link/20260522171050.914418536@kernel.org
-- [Phase 4] `b4 dig -c 009124508d96f -w`: CC list includes Rostedt,
-  Desnoyers, linux-trace-kernel
-- [Phase 4] WebFetch lore/patch.msgid.link URLs: BLOCKED by Anubis bot
-  protection
-- [Phase 5] Read `ring_buffer.c` lines 1754–2057, 2399, 3247, 5421–5765:
-  confirmed buggy code paths and call sites
-- [Phase 5] Grep `rb_meta_validate_events`, `rb_get_reader_page`,
-  `rb_iter_peek`: traced callers
-- [Phase 5] Read `trace.c` lines 11137–11165: persistent boot instance
-  via `reserve_mem_find_by_name()`
-- [Phase 6] Grep `rb_validate_buffer(head_page->page, cpu_buffer->cpu)`
-  without meta param: confirms pre-fix code in tree
-- [Phase 6] Grep `nr_loops > 3` in reader/iter paths: confirms hardcoded
-  limit in tree
-- [Phase 8] Failure mode: total trace data discard + RB_WARN_ON on read;
-  severity MEDIUM-HIGH for persistent tracing users
+- [Phase 1] Parsed subject, tags, body from user-provided commit message
+- [Phase 1] Identified Reviewed-by: Johannes Berg, Ilan Peer
+- [Phase 2] Read `status.c:257-310` — buggy `bands[info->band]` access
+  without band check
+- [Phase 2] Read `cfg80211.h:6076` — `bands[NUM_NL80211_BANDS]` array
+  size
+- [Phase 2] Read `nl80211.h:5631-5639` — `NUM_NL80211_BANDS` = 6
+  (sentinel index)
+- [Phase 2] Confirmed fix adds `info->band < NUM_NL80211_BANDS` guard
+- [Phase 3] `git blame -L 295,310 status.c` — flattened history (all one
+  commit)
+- [Phase 3] `git log --oneline -20 -- net/mac80211/status.c` — squashed
+  history
+- [Phase 3] `git log --author=Korenblit` — author has recent mac80211
+  commits
+- [Phase 4] `b4 dig -c <message-id>` — failed, commit not in tree
+- [Phase 4] WebFetch lore.kernel.org — blocked (Anubis)
+- [Phase 4] WebFetch patch.msgid.link — blocked (Anubis)
+- [Phase 5] `grep ieee80211_tx_monitor` — callers at `status.c:1110`,
+  `tx.c:5819`
+- [Phase 5] Read `tx.c:6316-6317` — NAN sets `band = NUM_NL80211_BANDS`
+- [Phase 5] Read `iface.c:1149-1150` — `tx_mntrs` incremented for TX
+  monitor
+- [Phase 5] Grep `info->band.*NUM_NL80211_BANDS` in mac80211 — guards in
+  `tx.c`, `rate.c`; missing in `status.c`
+- [Phase 6] `git describe HEAD` / `make kernelversion` — **6.18.43**
+- [Phase 6] Confirmed fix NOT present in current `status.c`
+- [Phase 6] `grep "avoid out-of-bounds access in monitor"` — no existing
+  fix
+- [Phase 8] Traced call chain: NAN TX → TX status →
+  `ieee80211_tx_monitor` → radiotap OOB
+- **UNVERIFIED:** Exact commit that introduced NAN `band =
+  NUM_NL80211_BANDS`
+- **UNVERIFIED:** Mailing-list review thread and stable nominations
+- **UNVERIFIED:** `git apply --check` (patch file formatting issue in
+  test; manual line comparison confirms clean apply)
 
-**YES****Result:** Backport analysis for `ring-buffer: Skip invalid sub-
-buffers when validating persistent ring buffer` on **v6.18.44** —
-**YES**.
+**YES**
 
-The fix belongs in this tree: the buggy all-or-nothing validation is
-still present, persistent ring-buffer support is in-tree, and the patch
-is a small, maintainer-reviewed correctness fix for crash-trace recovery
-after reboot.
+ net/mac80211/status.c | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
 
-**Worth noting:** It’s patch **1/9** in the v21 series. The companion
-**rewinding** fix (`Skip invalid sub-buffers when rewinding persistent
-ring buffer`) isn’t in this tree yet and may be worth evaluating
-separately for full coverage.
-
- kernel/trace/ring_buffer.c | 120 ++++++++++++++++++++++---------------
- 1 file changed, 73 insertions(+), 47 deletions(-)
-
-diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
-index fefa16e51e0ef..631d42281f5b3 100644
---- a/kernel/trace/ring_buffer.c
-+++ b/kernel/trace/ring_buffer.c
-@@ -396,6 +396,12 @@ static __always_inline unsigned int rb_page_commit(struct buffer_page *bpage)
- 	return local_read(&bpage->page->commit);
- }
+diff --git a/net/mac80211/status.c b/net/mac80211/status.c
+index 4b38aa0e902a8..8716eda8317d1 100644
+--- a/net/mac80211/status.c
++++ b/net/mac80211/status.c
+@@ -5,7 +5,7 @@
+  * Copyright 2006-2007	Jiri Benc <jbenc@suse.cz>
+  * Copyright 2008-2010	Johannes Berg <johannes@sipsolutions.net>
+  * Copyright 2013-2014  Intel Mobile Communications GmbH
+- * Copyright 2021-2025  Intel Corporation
++ * Copyright 2021-2026  Intel Corporation
+  */
  
-+/* Size is determined by what has been committed */
-+static __always_inline unsigned int rb_page_size(struct buffer_page *bpage)
-+{
-+	return rb_page_commit(bpage) & ~RB_MISSED_MASK;
-+}
-+
- static void free_buffer_page(struct buffer_page *bpage)
- {
- 	/* Range pages are not to be freed */
-@@ -1756,7 +1762,6 @@ static bool rb_cpu_meta_valid(struct ring_buffer_cpu_meta *meta, int cpu,
- 			      unsigned long *subbuf_mask)
- {
- 	int subbuf_size = PAGE_SIZE;
--	struct buffer_data_page *subbuf;
- 	unsigned long buffers_start;
- 	unsigned long buffers_end;
- 	int i;
-@@ -1764,6 +1769,11 @@ static bool rb_cpu_meta_valid(struct ring_buffer_cpu_meta *meta, int cpu,
- 	if (!subbuf_mask)
- 		return false;
+ #include <linux/export.h>
+@@ -295,9 +295,10 @@ ieee80211_add_tx_radiotap_header(struct ieee80211_local *local,
+ 						 RATE_INFO_FLAGS_VHT_MCS |
+ 						 RATE_INFO_FLAGS_HE_MCS)))
+ 			legacy_rate = status_rate->rate_idx.legacy;
+-	} else if (info->status.rates[0].idx >= 0 &&
+-		 !(info->status.rates[0].flags & (IEEE80211_TX_RC_MCS |
+-						  IEEE80211_TX_RC_VHT_MCS))) {
++	} else if (info->band < NUM_NL80211_BANDS &&
++		   info->status.rates[0].idx >= 0 &&
++		   !(info->status.rates[0].flags & (IEEE80211_TX_RC_MCS |
++						    IEEE80211_TX_RC_VHT_MCS))) {
+ 		struct ieee80211_supported_band *sband;
  
-+	if (meta->subbuf_size != PAGE_SIZE) {
-+		pr_info("Ring buffer boot meta [%d] invalid subbuf_size\n", cpu);
-+		return false;
-+	}
-+
- 	buffers_start = meta->first_buffer;
- 	buffers_end = meta->first_buffer + (subbuf_size * meta->nr_subbufs);
- 
-@@ -1780,11 +1790,12 @@ static bool rb_cpu_meta_valid(struct ring_buffer_cpu_meta *meta, int cpu,
- 		return false;
- 	}
- 
--	subbuf = rb_subbufs_from_meta(meta);
--
- 	bitmap_clear(subbuf_mask, 0, meta->nr_subbufs);
- 
--	/* Is the meta buffers and the subbufs themselves have correct data? */
-+	/*
-+	 * Ensure the meta::buffers array has correct data. The data in each subbufs
-+	 * are checked later in rb_meta_validate_events().
-+	 */
- 	for (i = 0; i < meta->nr_subbufs; i++) {
- 		if (meta->buffers[i] < 0 ||
- 		    meta->buffers[i] >= meta->nr_subbufs) {
-@@ -1792,18 +1803,12 @@ static bool rb_cpu_meta_valid(struct ring_buffer_cpu_meta *meta, int cpu,
- 			return false;
- 		}
- 
--		if ((unsigned)local_read(&subbuf->commit) > subbuf_size) {
--			pr_info("Ring buffer boot meta [%d] buffer invalid commit\n", cpu);
--			return false;
--		}
--
- 		if (test_bit(meta->buffers[i], subbuf_mask)) {
- 			pr_info("Ring buffer boot meta [%d] array has duplicates\n", cpu);
- 			return false;
- 		}
- 
- 		set_bit(meta->buffers[i], subbuf_mask);
--		subbuf = (void *)subbuf + subbuf_size;
- 	}
- 
- 	return true;
-@@ -1867,13 +1872,22 @@ static int rb_read_data_buffer(struct buffer_data_page *dpage, int tail, int cpu
- 	return events;
- }
- 
--static int rb_validate_buffer(struct buffer_data_page *dpage, int cpu)
-+static int rb_validate_buffer(struct buffer_data_page *dpage, int cpu,
-+			      struct ring_buffer_cpu_meta *meta)
- {
- 	unsigned long long ts;
-+	unsigned long tail;
- 	u64 delta;
--	int tail;
- 
--	tail = local_read(&dpage->commit);
-+	/*
-+	 * When a sub-buffer is recovered from a read, the commit value may
-+	 * have RB_MISSED_* bits set, as these bits are reset on reuse.
-+	 * Even after clearing these bits, a commit value greater than the
-+	 * subbuf_size is considered invalid.
-+	 */
-+	tail = local_read(&dpage->commit) & ~RB_MISSED_MASK;
-+	if (tail > meta->subbuf_size - BUF_PAGE_HDR_SIZE)
-+		return -1;
- 	return rb_read_data_buffer(dpage, tail, cpu, &ts, &delta);
- }
- 
-@@ -1884,6 +1898,7 @@ static void rb_meta_validate_events(struct ring_buffer_per_cpu *cpu_buffer)
- 	struct buffer_page *head_page, *orig_head, *orig_reader;
- 	unsigned long entry_bytes = 0;
- 	unsigned long entries = 0;
-+	int discarded = 0;
- 	int ret;
- 	u64 ts;
- 	int i;
-@@ -1895,14 +1910,19 @@ static void rb_meta_validate_events(struct ring_buffer_per_cpu *cpu_buffer)
- 	orig_reader = cpu_buffer->reader_page;
- 
- 	/* Do the reader page first */
--	ret = rb_validate_buffer(orig_reader->page, cpu_buffer->cpu);
-+	ret = rb_validate_buffer(orig_reader->page, cpu_buffer->cpu, meta);
- 	if (ret < 0) {
--		pr_info("Ring buffer reader page is invalid\n");
--		goto invalid;
-+		pr_info("Ring buffer meta [%d] invalid reader page detected\n",
-+			cpu_buffer->cpu);
-+		discarded++;
-+		/* Instead of discard whole ring buffer, discard only this sub-buffer. */
-+		local_set(&orig_reader->entries, 0);
-+		local_set(&orig_reader->page->commit, 0);
-+	} else {
-+		entries += ret;
-+		entry_bytes += rb_page_size(orig_reader);
-+		local_set(&orig_reader->entries, ret);
- 	}
--	entries += ret;
--	entry_bytes += local_read(&orig_reader->page->commit);
--	local_set(&orig_reader->entries, ret);
- 
- 	ts = head_page->page->time_stamp;
- 
-@@ -1930,7 +1950,7 @@ static void rb_meta_validate_events(struct ring_buffer_per_cpu *cpu_buffer)
- 			break;
- 
- 		/* Stop rewind if the page is invalid. */
--		ret = rb_validate_buffer(head_page->page, cpu_buffer->cpu);
-+		ret = rb_validate_buffer(head_page->page, cpu_buffer->cpu, meta);
- 		if (ret < 0)
- 			break;
- 
-@@ -1939,7 +1959,7 @@ static void rb_meta_validate_events(struct ring_buffer_per_cpu *cpu_buffer)
- 		if (ret)
- 			local_inc(&cpu_buffer->pages_touched);
- 		entries += ret;
--		entry_bytes += rb_page_commit(head_page);
-+		entry_bytes += rb_page_size(head_page);
- 	}
- 	if (i)
- 		pr_info("Ring buffer [%d] rewound %d pages\n", cpu_buffer->cpu, i);
-@@ -2009,21 +2029,24 @@ static void rb_meta_validate_events(struct ring_buffer_per_cpu *cpu_buffer)
- 		if (head_page == orig_reader)
- 			continue;
- 
--		ret = rb_validate_buffer(head_page->page, cpu_buffer->cpu);
-+		ret = rb_validate_buffer(head_page->page, cpu_buffer->cpu, meta);
- 		if (ret < 0) {
--			pr_info("Ring buffer meta [%d] invalid buffer page\n",
--				cpu_buffer->cpu);
--			goto invalid;
--		}
--
--		/* If the buffer has content, update pages_touched */
--		if (ret)
--			local_inc(&cpu_buffer->pages_touched);
--
--		entries += ret;
--		entry_bytes += local_read(&head_page->page->commit);
--		local_set(&head_page->entries, ret);
-+			if (!discarded)
-+				pr_info("Ring buffer meta [%d] invalid buffer page detected\n",
-+					cpu_buffer->cpu);
-+			discarded++;
-+			/* Instead of discard whole ring buffer, discard only this sub-buffer. */
-+			local_set(&head_page->entries, 0);
-+			local_set(&head_page->page->commit, 0);
-+		} else {
-+			/* If the buffer has content, update pages_touched */
-+			if (ret)
-+				local_inc(&cpu_buffer->pages_touched);
- 
-+			entries += ret;
-+			entry_bytes += rb_page_size(head_page);
-+			local_set(&head_page->entries, ret);
-+		}
- 		if (head_page == cpu_buffer->commit_page)
- 			break;
- 	}
-@@ -2037,7 +2060,10 @@ static void rb_meta_validate_events(struct ring_buffer_per_cpu *cpu_buffer)
- 	local_set(&cpu_buffer->entries, entries);
- 	local_set(&cpu_buffer->entries_bytes, entry_bytes);
- 
--	pr_info("Ring buffer meta [%d] is from previous boot!\n", cpu_buffer->cpu);
-+	pr_info("Ring buffer meta [%d] is from previous boot!", cpu_buffer->cpu);
-+	if (discarded)
-+		pr_cont(" (%d pages discarded)", discarded);
-+	pr_cont("\n");
- 	return;
- 
-  invalid:
-@@ -3243,12 +3269,6 @@ rb_iter_head_event(struct ring_buffer_iter *iter)
- 	return NULL;
- }
- 
--/* Size is determined by what has been committed */
--static __always_inline unsigned rb_page_size(struct buffer_page *bpage)
--{
--	return rb_page_commit(bpage) & ~RB_MISSED_MASK;
--}
--
- static __always_inline unsigned
- rb_commit_index(struct ring_buffer_per_cpu *cpu_buffer)
- {
-@@ -5421,8 +5441,9 @@ rb_update_iter_read_stamp(struct ring_buffer_iter *iter,
- static struct buffer_page *
- rb_get_reader_page(struct ring_buffer_per_cpu *cpu_buffer)
- {
--	struct buffer_page *reader = NULL;
-+	int max_loops = cpu_buffer->ring_meta ? cpu_buffer->nr_pages : 3;
- 	unsigned long bsize = READ_ONCE(cpu_buffer->buffer->subbuf_size);
-+	struct buffer_page *reader = NULL;
- 	unsigned long overwrite;
- 	unsigned long flags;
- 	int nr_loops = 0;
-@@ -5434,11 +5455,14 @@ rb_get_reader_page(struct ring_buffer_per_cpu *cpu_buffer)
-  again:
- 	/*
- 	 * This should normally only loop twice. But because the
--	 * start of the reader inserts an empty page, it causes
--	 * a case where we will loop three times. There should be no
--	 * reason to loop four times (that I know of).
-+	 * start of the reader inserts an empty page, it causes a
-+	 * case where we will loop three times. There should be no
-+	 * reason to loop four times unless the ring buffer is a
-+	 * recovered persistent ring buffer. For persistent ring buffers,
-+	 * invalid pages are reset during recovery, so there may be more
-+	 * than 3 contiguous pages can be empty, but less than nr_pages.
- 	 */
--	if (RB_WARN_ON(cpu_buffer, ++nr_loops > 3)) {
-+	if (RB_WARN_ON(cpu_buffer, ++nr_loops > max_loops)) {
- 		reader = NULL;
- 		goto out;
- 	}
-@@ -5728,12 +5752,14 @@ rb_iter_peek(struct ring_buffer_iter *iter, u64 *ts)
- 	struct ring_buffer_per_cpu *cpu_buffer;
- 	struct ring_buffer_event *event;
- 	int nr_loops = 0;
-+	int max_loops;
- 
- 	if (ts)
- 		*ts = 0;
- 
- 	cpu_buffer = iter->cpu_buffer;
- 	buffer = cpu_buffer->buffer;
-+	max_loops = cpu_buffer->ring_meta ? cpu_buffer->nr_pages : 3;
- 
- 	/*
- 	 * Check if someone performed a consuming read to the buffer
-@@ -5756,7 +5782,7 @@ rb_iter_peek(struct ring_buffer_iter *iter, u64 *ts)
- 	 * the ring buffer with an active write as the consumer is.
- 	 * Do not warn if the three failures is reached.
- 	 */
--	if (++nr_loops > 3)
-+	if (++nr_loops > max_loops)
- 		return NULL;
- 
- 	if (rb_per_cpu_empty(cpu_buffer))
+ 		sband = local->hw.wiphy->bands[info->band];
 -- 
 2.53.0
 
