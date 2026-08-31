@@ -1,220 +1,134 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+Received: from mail-4323.protonmail.ch (mail-4323.protonmail.ch [185.70.43.23])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64BD537DEAA;
-	Mon, 31 Aug 2026 18:47:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4886F28C009
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 18:48:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.23
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788202070; cv=none; b=D4SGQwaspvwQB03M1qFCXgu+kyCXxDh3Zy6Df+z+7D9TbZN3u+IRFZBeohP/dAeXMQPY4Kp4ijwguOBOUcDnvOyQhlrOFiR48R15JaqJkBABkrUpLf85SwZWWrV+02kksy7oNAQUKdsEN8gmGq33ntfvJ27E1XGcD3+4rBUPjKs=
+	t=1788202105; cv=none; b=ac8pg89VJxoCSyp2hUSBgINSqeKeRqqoIxr2oK47lS4MRQ+EPvmF9y0S9XWwjdG/w9VFylwXRsj7B5Pfj8kqmOSIJ96DqciJtHv3lWRyaHxW0xyrvTIvOy7VfmH1AjZaUw3C1Tr3WzCNJCeRjMv7+5DJhMnEx3fNOX/I1qj/WiY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788202070; c=relaxed/simple;
-	bh=SbC85oh43xK1cq/2ldnnTnGpw2ddhsw9CYnzDkYxAds=;
-	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=ZIUzhpI6Jy3SHk9RE9uMCXHAdiMvHXeBFm0bAbu3Ii/vR6sRR/3fAWDY91sCb35EyANTgUe94pHbgApS7GPAXpL7QCrcntvybD49fK0YMVL+AQTI5KBAOHxBaUExjQLWa+18OaHaH75aS0JQvLRM0qQ4NITL4iPCCijuHft0BJo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=F5O2x/q+; arc=none smtp.client-ip=192.198.163.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1788202105; c=relaxed/simple;
+	bh=Az2Pl7f1QwhQKoRNPr+QTqcoARhJrySgPolWHdwi4M0=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=mvTwahaIrxfUv/B2eExd9jKfHSWYoiihsiOFQm7ezCXEbMzuVbExfehOSXRGgGOBq25tyoonEdy/HpXfkl8amCsPWfjJE6l5gKW5tldsgfVLjaMq5cTkau6Lu93ok1RRrlK6QLMiV8ajG1BAIPURPrWY0KNXzCkpHuyx8fftS7w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ghoul.dev; spf=pass smtp.mailfrom=ghoul.dev; dkim=pass (2048-bit key) header.d=ghoul.dev header.i=@ghoul.dev header.b=nhMN4Gg3; arc=none smtp.client-ip=185.70.43.23
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ghoul.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ghoul.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="F5O2x/q+"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788202068; x=1819738068;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=SbC85oh43xK1cq/2ldnnTnGpw2ddhsw9CYnzDkYxAds=;
-  b=F5O2x/q+5ZorcLUxwin77jfZBj0QpugvJVOIqg5x2hCjp6VIjhB0MKiL
-   fe7NscYQJ2VVhBvUQwAyrzV5rV5foNfFue9GXL07wlHHK7pSbIIxAjVWo
-   /W0qM5yMAfw58kNH60kUTMZWy7mikKesfgaPUYv7Zaf/VkpqMZjSGcL0w
-   bXV/SfCyKADwOuxBHm9X/4+a+ie7iUR8R0QKI3CAQsFUbpgM8gYP43D4r
-   ZrdVJ4XviYpRQOP3hVtVIDuxnec7DOdwpz8OFqXZlji7TNxmzE9JOUuWb
-   EmAWFtmKTdDskaUJEc02fgsXgeQcwXsemN37eEcYXVdCudySbqFtupXXX
-   Q==;
-X-CSE-ConnectionGUID: AFgHITYoSSyL8xi3eUtKCQ==
-X-CSE-MsgGUID: ytpYAnE3QD++VaD4/mxx4Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11892"; a="88742423"
-X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; 
-   d="scan'208";a="88742423"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 11:47:47 -0700
-X-CSE-ConnectionGUID: QoeNdtnTThOlEpqDltVbiQ==
-X-CSE-MsgGUID: 4NjnaTqCQ92FjParRuNGiw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; 
-   d="scan'208";a="267066138"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.121])
-  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 11:47:44 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Mon, 31 Aug 2026 21:47:41 +0300 (EEST)
-To: Geramy Loveless <gloveless@jqluv.com>
-cc: Bjorn Helgaas <bhelgaas@google.com>, alexander.deucher@amd.com, 
-    amd-gfx@lists.freedesktop.org, mario.limonciello@amd.com, 
-    nra3088@gmail.com, 
-    =?ISO-8859-15?Q?Christian_K=F6nig?= <christian.koenig@amd.com>, 
-    meiling.leung@embeddedllm.com, linux-pci@vger.kernel.org, 
-    LKML <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] PCI: Reserve prefetchable window headroom for Resizable
- BARs
-In-Reply-To: <7771e88e-9cdf-4415-97ac-69d15c015d1e@jqluv.com>
-Message-ID: <034f9ce3-3c50-b0f2-8ac7-e6180242de00@linux.intel.com>
-References: <39e09dd8-f73e-4dc2-ba36-8a9228516d26@jqluv.com> <fba65262-5490-4d60-d06d-9badaafc7e17@linux.intel.com> <7771e88e-9cdf-4415-97ac-69d15c015d1e@jqluv.com>
+	dkim=pass (2048-bit key) header.d=ghoul.dev header.i=@ghoul.dev header.b="nhMN4Gg3"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ghoul.dev;
+	s=protonmail2; t=1788202095; x=1788461295;
+	bh=hHFk5EVxfr8xhwx4V530sofgTok9YiDl5MjT46/MXxM=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=nhMN4Gg3fIryM/gC0UK7ZgkH1TKtOy2IGKrPE1vHeCT9/XWkWD8P2PEsyrriaxipT
+	 rzXLLdEu8gwpKOCGE/Inr/a0ha8cueXlaO6uoK9oaS9Ut1L4MZDuwj8FlBVQCpV9aG
+	 t7deCN50cWhAzN6HhEUybytkGavsXgk5zdfzaAqHM18HDOl9BevPjj2COzBCvVdxcd
+	 T+7y6kh3Mvomf/seQxgN2qVo7JBoBxSm0MIz+a8YjIh8FH2Y1oWq1hYmuwETbsEvAq
+	 GYs4pH6m01+CcDk393fx7+J4ZdqbvYu3n4aMifWahSp3AKnrg0eOXS3BRVzO8z48Nk
+	 InqnqH9D1ypmQ==
+Date: Mon, 31 Aug 2026 18:48:08 +0000
+To: Corentin Chary <corentin.chary@gmail.com>, "Luke D. Jones" <luke@ljones.dev>, Denis Benato <denis.benato@linux.dev>, Hans de Goede <hansg@kernel.org>, =?utf-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+From: Ahmed Yaseen <yaseen@ghoul.dev>
+Cc: platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org, Nir Yehoshua <nir@ciphersecuritylabs.com>, Ahmed Yaseen <yaseen@ghoul.dev>
+Subject: [PATCH v2] platform/x86: asus-wmi: validate custom fan curves on enable
+Message-ID: <20260831-fan-curve-validation-v2-1-7274ca16c8fe@ghoul.dev>
+Feedback-ID: 177610485:user:proton
+X-Pm-Message-ID: 94db74f0edd852b9a8cb4a700b5a0e1a0afbb9de
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323328-1847860086-1788202061=:2637"
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+Custom fan curves reach firmware unchecked, so a curve whose temperature
+or PWM decreases from one point to the next is accepted. The firmware
+does not respect such a curve: a first point of 100% followed by 50%
+leaves every point running at 100%. The kernel keeps reporting the
+points that were written, so sysfs stops describing what the fans are
+actually doing.
 
---8323328-1847860086-1788202061=:2637
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: QUOTED-PRINTABLE
+Check the curve when enabling and reject it if it is invalid. Validation
+is done on enable rather than on write because fan curves are written
+one point at a time and are inconsistent mid-write.
 
-On Mon, 31 Aug 2026, Geramy Loveless wrote:
+Fixes: 0f0ac158d28f ("platform/x86: asus-wmi: Add support for custom fan cu=
+rves")
+Reported-by: Nir Yehoshua <nir@ciphersecuritylabs.com>
+Signed-off-by: Ahmed Yaseen <yaseen@ghoul.dev>
+---
+Changes in v2:
+- Rephrased second paragraph of commit message (Ilpo)
+- Link to v1: https://patch.msgid.link/20260828160743.31957-1-yaseen@ghoul.=
+dev
+---
+ drivers/platform/x86/asus-wmi.c | 32 ++++++++++++++++++++++++++++++++
+ 1 file changed, 32 insertions(+)
 
->=20
-> On 8/31/26 9:31 AM, Ilpo J=C3=A4rvinen wrote:
-> > On Fri, 28 Aug 2026, Geramy Loveless wrote:
-> >
-> >> Firmware typically sizes prefetchable bridge windows for the boot-time
-> >> BAR size. Behind a fixed (non-hotplug) PCIe switch fabric, there is th=
-en
-> >> no room for a driver to grow a Resizable BAR afterwards: every window
-> >> from the leaf up to the root is sized for the small BAR, so
-> >> pci_resize_resource() fails with -ENOSPC.=20
-> >>
-> >> Furthermore, a small prefetchable BAR (e.g., a 2 MiB doorbell) sharing=
- a=20
-> >> bridge's single prefetchable window with a much larger one (e.g., a 32=
- GiB=20
-> >> VRAM BAR) pushes the required window size past the large BAR's alignme=
-nt.=20
-> >> Because bridge windows round up to a power of two,
-> > Do they??? In which kernel version I must ask??
-> I'm sorry this was in reference to a prior patch I made, **ignore**
-> >
-> >> this forces a massive=20
-> >> alignment waste (e.g., 32 GiB + 2 MiB rounds up to a 64 GiB window,=20
-> >> wasting ~32 GiB per GPU).
-> > The largest I've seen is 32GB + half of that. And that's not with the=
+diff --git a/drivers/platform/x86/asus-wmi.c b/drivers/platform/x86/asus-wm=
+i.c
+index a65090429ca7..3b743fec5c64 100644
+--- a/drivers/platform/x86/asus-wmi.c
++++ b/drivers/platform/x86/asus-wmi.c
+@@ -3714,6 +3714,33 @@ static int fan_curve_write(struct asus_wmi *asus,
+ =09=09=09=09=09 arg1, arg2, arg3, arg4, &ret);
+ }
 =20
-> > latest kernel.
->=20
-> This is in reference to when there are two R9700s on one switch basically=
-=2E
-> As far as my understanding currently how it works is that when there are =
-two GPUs they both have a BAR0, BAR2, and BAR5 the BAR5 goes onto the 32-bi=
-t window.
-> Bar 0 and 2 don't go onto the second window by default as they could over=
-fill it of course, bar 0 would not fit period, and 2 might which is the cas=
-e I took.=C2=A0
-> This allows BAR 0 on (GPU 0) in leaf 0 on window 0 to align as a multiple=
- of 32G like it I guess has to? This is how I understand it, so if R9700 ha=
-s 32G on, bar0, leaf 0, window 0, and share the same window as GPU 1 then w=
-e have to pad the space between GPU0 BARs on window 0 by 32G, meaning BAR2 =
-really is also using 32G, its not possible or at least right now its not po=
-ssible to move BAR2 to the end of all the allocations it doesnt fit the sta=
-ndards? Keep in mind this is not my specialty here I am trying my best to u=
-nderstand and solve the issue at hand.
++/*
++ * A fan curve is a set of points the firmware interpolates between, so it
++ * only makes sense if neither temperature nor PWM ever decreases along it=
+.
++ */
++static int fan_curve_validate(struct device *dev, struct fan_curve_data *d=
+ata)
++{
++=09u8 *percents =3D data->percents;
++=09u8 *temps =3D data->temps;
++=09int i;
++
++=09for (i =3D 1; i < FAN_CURVE_POINTS; i++) {
++=09=09if (temps[i] < temps[i - 1]) {
++=09=09=09dev_warn(dev, "fan curve: temperature decreases at point %d (%u <=
+ %u)\n",
++=09=09=09=09 i, temps[i], temps[i - 1]);
++=09=09=09return -EINVAL;
++=09=09}
++
++=09=09if (percents[i] < percents[i - 1]) {
++=09=09=09dev_warn(dev, "fan curve: pwm decreases at point %d (%u < %u)\n",
++=09=09=09=09 i, percents[i], percents[i - 1]);
++=09=09=09return -EINVAL;
++=09=09}
++=09}
++
++=09return 0;
++}
++
+ static ssize_t fan_curve_store(struct device *dev,
+ =09=09=09       struct device_attribute *attr, const char *buf,
+ =09=09=09       size_t count)
+@@ -3798,6 +3825,11 @@ static ssize_t fan_curve_enable_store(struct device =
+*dev,
+ =09}
+=20
+ =09if (data->enabled) {
++=09=09err =3D fan_curve_validate(dev, data);
++=09=09if (err) {
++=09=09=09data->enabled =3D false;
++=09=09=09return err;
++=09=09}
+ =09=09err =3D fan_curve_write(asus, data);
+ =09=09if (err)
+ =09=09=09return err;
 
-With the empty space in between, your 64GB calculation would indeed be=20
-true, but that wasn't what you said because you made an inaccurate claim=20
-about window sizes being power of two in case of 32G+2M.
+---
+base-commit: 6b8c8af514d739d0335f5579b585e02babe8a727
+change-id: 20260831-fan-curve-validation-991770300ff3
 
-(I suppose we're generally in agreement here but just ended up discussion=
-=20
-on finer details and the interpretation of those details.)
+Best regards,
+-- =20
+Ahmed Yaseen <yaseen@ghoul.dev>
 
-> >> This patch solves both issues to enable ReBAR on cascaded switch fabri=
-cs:
-> >>
-> >> 1. Reserve Headroom:=20
-> >> Reserve prefetchable window headroom for the maximum size of each=20
-> >> downstream Resizable BAR during the bridge sizing pass. The device BAR=
-=20
-> >> and hardware ReBAR are left at their boot size to prevent tearing down=
-=20
-> >> firmware-loaded state (e.g., AMD R9700 PSP) before the driver binds.
-> > ... reorganizing ...
-> >
-> >> Fallback / Alignment logic:
-> >> If the 32-bit space is exhausted, small BARs remain in the prefetchabl=
-e=20
-> >> window. The alignment logic gracefully handles this by rounding the br=
-idge=20
-> >> window up to the next power of two (e.g., growing to 64 GiB to fit a 3=
-2 GiB=20
-> >> BAR + BAR2) to maintain PCIe compatibility, ensuring sibling GPUs land=
- in=20
-> >> properly aligned slots.
-> >>
-> >> Reserving is safe by default: __assign_resources_sorted() satisfies al=
-l
-> >> required resources first. Use pci=3Dno_rebar_reserve and pci=3Dno_bar_=
-demote=20
-> >> to restore previous behaviours.
-> >
-> > And how does this fallback, if the largest size doesn't fit? What are t=
-he=20
-> > failure modes?
->
-> So if the smaller bars under 16M don't fit in the 32-bit addressable=20
-> space the fallback mode is to do as I said above to your prior comment,=
-=20
-> basically put.=20
-> Don't move the 2M BAR2 over to the 32-bit addressable space / window and=
-=20
-> instead fallback to aligning the prior window by the size of the GPUs=20
-> memory space as I understand it, when you have gpu0 and gpu1 both=20
-> requiring 32GB their address has to be a multiple of their allocation=20
-> size? meaning we get 32G for BAR0 and 32G for BAR2 even though BAR2 only=
-=20
-> needs 2M because its not aligned to allow GPU1 to be on a aligned space?
 
-I'm more referring to the case where the big ReBARs cannot be assigned as=
-=20
-space runs out or some other BAR fails to assign because ReBAR took "too=20
-much", and the numerous ripple effects from that. When that happens in=20
-some system for something important breaking something, you'd have to=20
-solve that problem too or this change gets reverted...
-
-> > It's correct that the sizing decision should be done in pbus_size_mem()=
-=20
-> > but it must not result in breaking things which a naive approach like=
-=20
-> > this will surely do.
-> >
-> > Without proper fallbacks done, there will be too much breakage it's a=
-=20
-> > showstopper for a naive patch like this.
-> >
-> > Basically, what we'd want to do is try with the largest size, then redu=
-ce=20
-> > it one step at a time (because it's 2^n -> 2^(n-1) even one step saves=
-=20
-> > quite much so one might not need to reduce that many steps). But also, =
-in=20
-> > some IOV enabled cases the oversubscription of the space is very=20
-> > substantial and you'd still want to maximize the BAR sizes to what is=
-=20
-> > allowed by the available space.
-> >
-> > Fallback is hard to implement, because sizing and assignment are quite =
-far=20
-> > from each other codewise and there are no structures to carry informati=
-on=20
-> > over to the next retry phase.
-
-=2E..And that's why there should be proper fallback so that failing one=20
-assignment somewhere middle will not result in failure in the end.
-
-Basically, my own plan is for the algorithm to try smaller sizes until all=
-=20
-things fit. And all that retry logic is far from simple.
-
---=20
- i.
-
---8323328-1847860086-1788202061=:2637--
