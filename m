@@ -1,60 +1,52 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2452D3C09F5
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 09:13:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D4E7314A60;
+	Mon, 31 Aug 2026 09:14:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788167640; cv=none; b=Z3fDxEOT6+dAsvgHcoQswXEGecnFgTlA2mCM4rki/dXBy4vdwNNbiNcE+R9o6KWnepQqTpvaw1XNhV7XavI+h1foiUyVsWLNjGZN/ssPviM1XR7myBf3XjJszRM/DGZ8pM7iw6elSujsi3vm3oCLy/pZaMOlGGwJSoKMftrJpXY=
+	t=1788167643; cv=none; b=psVKNML7HKm9lwrYojXWMq20eCKmeeQb8y0bjdHDrErZNX6nqpNq1r7AcIZQ/CPnOT97q0gdTGab6hXpLHdodFERCESjQGED9l6LyaMvk8aBCxsWCJ9nu2NLCG/fnmXoVR2Vwxg/Xi/z0GQtMBg8sdCrAbz865dksW0g+guP/rY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788167640; c=relaxed/simple;
-	bh=/fQ2DT1irxSlo114J6VEqNQTdDnJ0Nlh0JTEno87vNA=;
+	s=arc-20240116; t=1788167643; c=relaxed/simple;
+	bh=C5mbr9iEqsNLjlV0Hb+vr1L557FW0NzksCme0vieaLY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=M9sijtb92XoT+Ga19Depwet3dATbDPKVLcA+P+hS7//f/x/4by5TmUKfU1e5I5IFMBbZB7MAYtke3vUIJA/AbaDlG4D3PPWYr78oJpP2aQ88EJq5Hf+bgAndF3jyp1fBBEv7+ujbqYYFwPo+3dmEwikIAuOziXMCMpKSoxsJoDc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=DyJcV0TQ; arc=none smtp.client-ip=192.198.163.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=EsVFkEIRvKivJSgSv6dpEeA+nUd9zpXJENmu2N+d2SSyais6x8+IeFwKtYc7HNFTqFvA7Gpgg67gJX3ZBZzmB/em4GZ3i4e+Fu5wYr9w1M3Lv7yhG8MT5x1ERo2zCO3uBvE9+rbSQtRKF1TPHpZTN9W3zzXZcTf0heD9Rs3I/rg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=bKkDyFsZ; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=hXta8YaX; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="DyJcV0TQ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788167639; x=1819703639;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=/fQ2DT1irxSlo114J6VEqNQTdDnJ0Nlh0JTEno87vNA=;
-  b=DyJcV0TQzlqCbUOxelsvKvYfT8SYDUzF1sej50WTRErSy3Xmh09aHOUd
-   KCPRUcPDzdOsc+ooduKh5XUmAhXojVI5sr3rzKtNGNqRALdYViEDRL1pp
-   vYHHa2eQkJx78wU5NeD2tGbXl+r+qwkLqhNtOkpkNvWVKX3dX91/3k3K9
-   +h91/ZoG9/s+8baH+Zh/tX5HEHuPwvRodHsmMTeTD1KpncnfYl6pK+TX/
-   MN0ycABFAfOoVl8IrCR1vDoDNygMSMZesmRUx1eRXsjVOFfWCTPyjTpo1
-   6uD7WQ5JI83zcRp9Y8U6l3y2swGUfszEPgE9zZMuTtptRoWg+HOm0xov+
-   w==;
-X-CSE-ConnectionGUID: 8lPM0RJEQJ+u6IW2Qn7LOg==
-X-CSE-MsgGUID: ISG7y0RUS6aGiAvfcE6sjA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11891"; a="88446254"
-X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
-   d="scan'208";a="88446254"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 02:13:58 -0700
-X-CSE-ConnectionGUID: cVMnim6aQ9i/39wPQ9wAZg==
-X-CSE-MsgGUID: YAsZTuWtTJqGOdtzaUrhTg==
-X-ExtLoop1: 1
-Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.244.21])
-  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 02:13:56 -0700
-Date: Mon, 31 Aug 2026 12:13:54 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Inochi Amaoto <inochiama@gmail.com>
-Cc: Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	linux-phy@lists.infradead.org, linux-kernel@vger.kernel.org,
-	Yixun Lan <dlan@gentoo.org>, Longbin Li <looong.bin@gmail.com>
-Subject: Re: [PATCH 2/3] phy: core: Add common helper for get phy phandle by
- index
-Message-ID: <apVF0kdgA1f_MdgB@ashevche-desk.local>
-References: <20260831025319.94886-1-inochiama@gmail.com>
- <20260831025506.95548-1-inochiama@gmail.com>
- <20260831025506.95548-2-inochiama@gmail.com>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="bKkDyFsZ";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="hXta8YaX"
+Date: Mon, 31 Aug 2026 11:13:59 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1788167639;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+sxN1KEjG5y2GfwBVxqB4v4GrJp1o3PRO14Nj7oMRHs=;
+	b=bKkDyFsZuuydQGMgCxfKn1Bgpb/mmDdZS+7WuuAEzOELw16h8l3DTAWF13f/2xYc5I7fwj
+	n6Bc/qwiirSHlf+9ra5hRnjxmHYIdfxskXzbaInWKb4FbL7FoS9/vZfFqBaGDH2yBMC2cY
+	1FPyBjIyfBJ1xtnXjUG27g88wLz//aOX3GOfV9RZxl/wX69r/8ojyhEB8qTmn9qtpbf/MH
+	bR0UX9DYbYcaxQdklcwsqNkQo43CyvQi1IgpdKyI9eF2mTBKPakycc5ipR2BPjn6vCB9aL
+	LUuvUuoNRcAu07SR74cn/70dDyrTlxxNqwykSIpMiDKB6VEYlhiMFq4bbNyhaA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1788167639;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+sxN1KEjG5y2GfwBVxqB4v4GrJp1o3PRO14Nj7oMRHs=;
+	b=hXta8YaXTWE0Aj7+p/2fTf9EUOo+QE9xn7uIS92slSCcj9av8a7iT6Ie667SEj1Jpvmpf+
+	IHfNnVfKUm+u+IBA==
+From: Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>
+To: wang.yaxin@zte.com.cn
+Cc: akpm@linux-foundation.org, fan.yu9@zte.com.cn, yang.yang29@zte.com.cn, 
+	corbet@lwn.net, linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
+	xu.xin16@zte.com.cn
+Subject: Re: [PATCH v5 2/4] tools/include/uapi: Add __kernel_old_time_t
+ typedef to tools/include/uapi/linux/time_types.h
+Message-ID: <20260831110504-4229e3fc-5506-461b-9fdf-50999a9646bd@linutronix.de>
+References: <20260829171238191s9SIXoZPTlZSmA2Px30hn@zte.com.cn>
+ <20260829171452167RNbirsudPmuItbeo-z9Wm@zte.com.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -63,32 +55,97 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260831025506.95548-2-inochiama@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <20260829171452167RNbirsudPmuItbeo-z9Wm@zte.com.cn>
 
-On Mon, Aug 31, 2026 at 10:55:04AM +0800, Inochi Amaoto wrote:
-> Several phy helper use index to get phy phandle of a device node,
-> add a common function for the future reuse.
+On Sat, Aug 29, 2026 at 05:14:52PM +0800, wang.yaxin@zte.com.cn wrote:
+> From: Wang Yaxin <wang.yaxin@zte.com.cn>
+> 
+> Add time_types.h to tools/include/uapi/ to enable y2038-safe time
+> structures in tools. Unlike the kernel's uapi version, we define
+> the required types directly instead of including
+> <asm-generic/posix_types.h>.
 
-...
+This reads, like the UAPI variant uses asm-generic/posix_types.h, which
+it doesn't.
 
-> +/**
-> + * of_phy_get_by_index() - lookup and obtain a reference to a phy using a
-> + * device_node by index.
-> + * @np: device_node for which to get the phy
-> + * @index: index of the phy from device's point of view
-
-> + * Returns the phy driver, after getting a refcount to it; or
-> + * -ENODEV if there is no such phy. The caller is responsible for
-> + * calling of_phy_put() to release that count.
-
-Use proper syntax for Return: section, with the above kernel-doc will warn.
-
+> Rationale:
+> - asm-generic/posix_types.h is NOT architecture-independent
+> - Different architectures override types (e.g., x86_32 overrides
+>   __kernel_mode_t, __kernel_uid_t, __kernel_gid_t to unsigned short)
+> - int-ll64.h is special and cannot be used as a pattern here
+> 
+> Direct typedefs for the three types actually needed:
+> - __kernel_long_t: base type for time values
+> - __kernel_time64_t: 64-bit time for y2038-safe interfaces
+> - __kernel_old_time_t: legacy time type introduced in v5.5
+> 
+> This follows the reviewer's suggestion to add typedefs only where
+> needed, avoiding architecture-specific issues while maintaining
+> self-containment of tools/include/uapi/.
+> 
+> Signed-off-by: Wang Yaxin <wang.yaxin@zte.com.cn>
+> ---
+>  tools/include/uapi/linux/time_types.h | 76 +++++++++++++++++++++++++++
+>  1 file changed, 76 insertions(+)
+>  create mode 100644 tools/include/uapi/linux/time_types.h
+> 
+> diff --git a/tools/include/uapi/linux/time_types.h b/tools/include/uapi/linux/time_types.h
+> new file mode 100644
+> index 000000000000..3aa25d824cac
+> --- /dev/null
+> +++ b/tools/include/uapi/linux/time_types.h
+> @@ -0,0 +1,76 @@
+> +/* SPDX-License-Identifier: GPL-2.0 WITH Linux-syscall-note */
+> +/* Started by AICoder, pid:00350371 */
+> +#ifndef _UAPI_LINUX_TIME_TYPES_H
+> +#define _UAPI_LINUX_TIME_TYPES_H
+> +
+> +#include <linux/types.h>
+> +
+> +/*
+> + * Define time-related types directly instead of including
+> + * <asm-generic/posix_types.h>. The asm-generic header is not
+> + * architecture-independent: different architectures override
+> + * certain types (e.g., x86_32 overrides __kernel_mode_t, __kernel_uid_t,
+> + * __kernel_gid_t to unsigned short).
+> + *
+> + * We only need a few specific types here, so define them directly
+> + * to avoid architecture-specific issues while maintaining self-containment.
 > + */
+> +
+> +#ifndef __kernel_long_t
+> +typedef long __kernel_long_t;
+> +#endif
 
--- 
-With Best Regards,
-Andy Shevchenko
+__kernel_long_t itself is from 2012. Can we not rely on it?
+I thought only __kernel_old_time_t was the problem.
+__kernel_long_t is architecture-dependent, so this could now be wrong with
+old UAPI headers. If it is not strictly needed, I would just drop this.
 
+> +#ifndef __kernel_time64_t
 
+This type is never #defined, so the guard is pointless.
+
+> +typedef long long __kernel_time64_t;
+
+Is __kernel_time64_t a problem with your UAPI headers currently?
+It is older than __kernel_old_time_t. If not, I would drop this.
+
+> +#endif
+> +
+> +/*
+> + * __kernel_old_time_t was introduced in v5.5 for y2038-safe migration.
+> + * It is used by legacy time structures like __kernel_old_timespec.
+> + * Defined here to avoid dependency on outdated system headers.
+> + */
+> +#ifndef __kernel_old_time_t
+
+This type is never #defined, so the guard is pointless.
+
+> +typedef __kernel_long_t __kernel_old_time_t;
+> +#endif
+> +/* Ended by AICoder, pid:00350371 */
+
+Hm, what is this supposed to do? Also missing "Assisted-by" tag?
+
+(...)
