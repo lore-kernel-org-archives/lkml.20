@@ -1,307 +1,437 @@
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B94B24A6CD4
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 13:45:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EE3C533582;
+	Mon, 31 Aug 2026 13:45:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183908; cv=none; b=tPe1ehneF+4baHBlmE0tW8eUGvtez1bK54ZgSZA+/K75bZaaAlet1+1kNaKx7Dqr2kCYe0YM1Wyd/APvVhnVNx8uBBdxepVm3fmuzS3Dpd02Roys+AOYg4fX7AyzKyAXifqc9e/NXs+ISDieM1mNoDUGDhvbLmYbEuP3ibr1KwQ=
+	t=1788183908; cv=none; b=tNvWkZssmHXWl9XAnzYKaP9wxH6S4iuCFP+K0FHZVGPYTKkG2gmw8uG0lQVMuXeTHLmZQHK8ZmHolMKvDUVOdT2hTyL7udD41Aq1Cmebxgg/Fj//344lJMRqgHocydrc/pplHy2qz2SBFurwat9cU6MTSeQiKvM9sbTl7uBTd3Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788183908; c=relaxed/simple;
-	bh=szCww6DoIjOfiP4cVP0uz225CzBVGKmlwbKVVHem22g=;
-	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CT0r/AR7BCF8dZM6oy3XWT542ndAXybP0zCDckuWCplKHXbwhv1TfNtjnR2NlUZMbClqqsRUVc4tDWwc5usnDVk4TXAKQuTTj7PUp/NISTuPtiEFKcDiPsaRp+cMDh4pTGXjr1Zd3TJywI4kNJGnd67I+GyVfISJj7WQJHVF2Ng=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=G74eh3bg; arc=none smtp.client-ip=209.85.216.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	bh=sid1sV8s4q74X6o+frYf112Qrz0DPI3Du+XUomqiJzk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=FFd6R/CNLWD33gZ/oH9hYpEkfK9mLnK8iK9JsLrc7vq/wEWWGqqTCp6E23w3Yk1EUfKpoaXM4ak0HPk+WMYT0ovrQLj5voCUUSVqCJYO4vR9Xmal3/isgOGhL2Eb9jMuGGsxANiRODy8rzycdK60roqOjijQdRA9p+hCg+pc81w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BLDTigrU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="G74eh3bg"
-Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-39266382df6so2895739a91.3
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 06:45:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788183905; x=1788788705; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:date
-         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zeB+rbTGQuZxuhW3Jvl57BKDPYStEwcC60NnCSXea14=;
-        b=G74eh3bgGDM7eciUEycfaZ4a/Sz6vKG9DJOweZJecI5y/vXktIfDN71Owb8g1EI39w
-         5O+lKEYIFHaoYwMOdqfcjxljtA9OnkN8GlxnmYgnRPbBmOZZN2qF2ryO7hhNGkMLIEky
-         aXSkllks0NVdpZMPB5KifHsnlsIb1Vdaa2D/ED9S43LTYe/DJUMIJmJdr4vLbuK0Drd1
-         PR6j43gj13BXWINbYIYsb+tzThXz9HUoqrBkGNLvtHpArfIiGt44iuwX4dub51EuWLtY
-         Q7a5KaYKZuQdlSptmI88/zbbr28vtyKMa86HYYbAmpc5X+voF0IBe8jOyOchmTSGbDG7
-         ej8A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788183905; x=1788788705;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:date
-         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=zeB+rbTGQuZxuhW3Jvl57BKDPYStEwcC60NnCSXea14=;
-        b=W9YhGfUQj3D7k0pGWPW2v2JrZg2CniuzKQBo1EbnzKxNYOlMi6kmsRuLFntLz7O9X1
-         EVz3v6oORpmN0DHw7FsnLqfUYuCoWR9p4T3HqRQwxfeZ0VKPCwL2K0DLv2FMbuiJQ9Kg
-         G4Z6QkLIU9ojq6CmIjnCARvrgNTE+OdFLq7JTeuNgSImBqWq5ZQBw3k9QguXUivN5UK1
-         zd7dVwpHtmXNst0tVkCGGNsNdmfl1wqQ78rq7ky3/fHKtXn5f0FMKxBeTUxKzYlR7Abv
-         DjgdWVC62HAsOazph+5GItxj4brR5KYjw1tm2czwYfhNhPjcDjqxTcZZvF9U2KRf1BRX
-         QFiA==
-X-Forwarded-Encrypted: i=1; AKwUvBzxSy0qsTxLRLwqkXcOh/S/KuFupnd1Ni+ViX2Naon6Ygsk6nQcm6NSXJlyt2Dt6lYufv9WYHp4NauKN/g=@vger.kernel.org
-X-Gm-Message-State: AFuF++khvKAcd0NFQIrh5U62gdRb66N4HS8HcDoNrz29Ju7cGRmlO0vo
-	WyH1oilxlHslvxOHJo7Wz6t2n68U3yrG9OeV36UkLYf0H0ocDoEsNvw+
-X-Gm-Gg: AYBFou0OQZ5/fcG2HkRO/NPyPB/H55rfprDGu1aMPBlphaMAPZztKxw/64g/AM6ggqp
-	fjLTFDV6r9e52fC7Ooit1eQgWRpbW6oIdHK7m3oALv7HVXLHr8YbW7BnfupDeZWKFHF7AKph8Uy
-	yzcILLP8/byTf+W7Q9Tyh5CEg8ntu9W4zKrZ+YlTFWipC7LiKsgpBIKf96U7mvYx+OOo82vvg8A
-	PIb4VE+86tx2YGdsynEYZoQrDxRHv5CVj4w+PVTJjzbEIMeysTZxanz8IRAgIu7c5sIG9Bb6t6+
-	icK4a9/yBWB0BesQbsKfagFRMrmSC4aPrxnB6WX45WFos3qWbwSMFIyGkDn4M0sggUt8+e/sd4e
-	gbE65APZ84GTQ1Naq3svv+vQaSOVTmoZ6LRHqiIaNygsDFrTUM4w+O3u0fhoHfhoY9m7z+jDhGY
-	CJOvowR897oluM+jDPdS7lpNFoZapsPjuY0pYOo5ST75woX3aE3o/bag==
-X-Received: by 2002:a17:90b:55cc:b0:398:de86:5ff0 with SMTP id 98e67ed59e1d1-39907db4f3amr1229981a91.19.1788183904771;
-        Mon, 31 Aug 2026 06:45:04 -0700 (PDT)
-Received: from localhost ([45.112.44.97])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-398aa3a9b54sm4848324a91.4.2026.08.31.06.45.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 06:45:04 -0700 (PDT)
-From: Coiby Xu <coiby.xu@gmail.com>
-X-Google-Original-From: Coiby Xu <Coiby.Xu@gmail.com>
-Date: Mon, 31 Aug 2026 21:44:31 +0800
-To: Jinjie Ruan <ruanjinjie@huawei.com>
-Cc: kexec@lists.infradead.org, Andrew Morton <akpm@linux-foundation.org>, 
-	Sourabh Jain <sourabhjain@linux.ibm.com>, Baoquan He <baoquan.he@linux.dev>, 
-	Dave Young <ruirui.yang@linux.dev>, Pratyush Yadav <pratyush@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Pasha Tatashin <pasha.tatashin@soleen.com>, 
-	open list <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v4 1/9] crash_dump: Fix potential double free and UAF of
- keys_header
-Message-ID: <apWEBBMz6aFBeefa@Rk>
-References: <20260828084900.1496839-1-coiby.xu@gmail.com>
- <20260828084900.1496839-2-coiby.xu@gmail.com>
- <76f634e3-9adb-4ae2-b2b0-a7e13a2f93c3@huawei.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BLDTigrU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB77A1F00A3F;
+	Mon, 31 Aug 2026 13:45:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788183906;
+	bh=oN6+Wuu9JYt/03J6GSnpQ/bNKMItuNfqEycApNwj0K8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=BLDTigrUYHoCwOkyh1u3i3xKAmhXNDAeTJbKyGhQlxdkxCMYaXacx8B7z7UKxMFyX
+	 1N1BPTJo69f/SM0zgqT91UNOOErrzyrfIXC0ICvuPwegKTj6tj7m8DuM6orCpQdT5a
+	 kab+/mBN7Ae0ulc1sCGCvXGQKfj6HaPxe321xxXj1KumwY8xDv8pBfGkLyO8TSaF/Q
+	 Y/fX2Dcqfo+hLkk5ryDC0O4gVfy3Oh5Rv2DrdJH5BrIgEQZiKH9jldVVV4OAtoSoax
+	 1Tvv+f35qAW9e049YweHldMlxHrWGtVV4g2tRQsFvww2KHmdM1jqK2w4NmyBxWKdX7
+	 IgDWcC79FFZaw==
+From: Sasha Levin <sashal@kernel.org>
+To: patches@lists.linux.dev,
+	stable@vger.kernel.org
+Cc: Emmanuel Grumbach <emmanuel.grumbach@intel.com>,
+	Miri Korenblit <miriam.rachel.korenblit@intel.com>,
+	Sasha Levin <sashal@kernel.org>,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 6.18] wifi: iwlwifi: validate SEC_RT TLV minimum size
+Date: Mon, 31 Aug 2026 09:26:41 -0400
+Message-ID: <20260831133314.4125787-373-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
+References: <20260831133314.4125787-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Disposition: inline
+X-stable: review
+X-Patchwork-Hint: Ignore
+X-stable-base: Linux 6.18.48
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <76f634e3-9adb-4ae2-b2b0-a7e13a2f93c3@huawei.com>
 
-On Mon, Aug 31, 2026 at 03:39:35PM +0800, Jinjie Ruan wrote:
->
->
->在 2026/8/28 16:48, Coiby Xu 写道:
->> If kexec_add_buffer somehow fails, keys_header will be freed. Depending
->> on /sys/kernel/config/crash_dm_crypt_key/reuse, it will lead to the
->> following two problems if the kexec_file_load syscall is called again,
->>   1. Double free of keys_header if reuse=false
->>   2. UAF of keys_header if reuse=true
->>
->> To address these problems and also make it easier to reason about the
->> code, keep two invariants,
->>   1. keys_header will always be freed at the end of kexec_file_load
->>      syscall except during kdump image unloading for CPU/memory
->>      hot-plugging support
->>   2. There will always be valid keys_header if reuse=true
->>
->> Fixes: 479e58549b0f ("crash_dump: store dm crypt keys in kdump reserved memory")
->> Fixes: 9ebfa8dcaea7 ("crash_dump: reuse saved dm crypt keys for CPU/memory hot-plugging")
->> Reported-by: Sourabh Jain <sourabhjain@linux.ibm.com>
->> Signed-off-by: Coiby Xu <coiby.xu@gmail.com>
->> ---
->>  include/linux/kexec.h        |  6 ++++
->>  kernel/crash_dump_dm_crypt.c | 66 ++++++++++++++++++++++++++----------
->>  kernel/kexec_file.c          |  2 ++
->>  3 files changed, 56 insertions(+), 18 deletions(-)
->>
->> diff --git a/include/linux/kexec.h b/include/linux/kexec.h
->> index 0af8ae4fdd08..0fa8bac04576 100644
->> --- a/include/linux/kexec.h
->> +++ b/include/linux/kexec.h
->> @@ -552,6 +552,12 @@ void set_kexec_sig_enforced(void);
->>  static inline void set_kexec_sig_enforced(void) {}
->>  #endif
->>
->> +#ifdef CONFIG_CRASH_DM_CRYPT
->> +void kexec_file_post_load_cleanup_dm_crypt(struct kimage *image);
->> +#else
->> +static inline void kexec_file_post_load_cleanup_dm_crypt(struct kimage *image) {}
->> +#endif
->> +
->>  #endif /* !defined(__ASSEBMLY__) */
->>
->>  #endif /* LINUX_KEXEC_H */
->> diff --git a/kernel/crash_dump_dm_crypt.c b/kernel/crash_dump_dm_crypt.c
->> index c685497cd470..4335b6cb1fc4 100644
->> --- a/kernel/crash_dump_dm_crypt.c
->> +++ b/kernel/crash_dump_dm_crypt.c
->> @@ -84,18 +84,25 @@ static int add_key_to_keyring(struct dm_crypt_key *dm_key,
->>  	return r;
->>  }
->>
->> -static void get_keys_from_kdump_reserved_memory(void)
->> +static int get_keys_from_kdump_reserved_memory(void)
->>  {
->>  	struct keys_header *keys_header_loaded;
->> +	size_t keys_header_size;
->>
->> -	arch_kexec_unprotect_crashkres();
->> +	keys_header_size = get_keys_header_size(key_count);
->> +	keys_header = kzalloc(keys_header_size, GFP_KERNEL);
->> +	if (!keys_header)
->> +		return -ENOMEM;
->>
->> +	arch_kexec_unprotect_crashkres();
->>  	keys_header_loaded = kmap_local_page(pfn_to_page(
->>  		kexec_crash_image->dm_crypt_keys_addr >> PAGE_SHIFT));
->>
->> -	memcpy(keys_header, keys_header_loaded, get_keys_header_size(key_count));
->> +	memcpy(keys_header, keys_header_loaded, keys_header_size);
->>  	kunmap_local(keys_header_loaded);
->>  	arch_kexec_protect_crashkres();
->> +
->> +	return 0;
->>  }
->>
->>  static int restore_dm_crypt_keys_to_thread_keyring(void)
->> @@ -286,17 +293,28 @@ static ssize_t config_keys_reuse_show(struct config_item *item, char *page)
->>  static ssize_t config_keys_reuse_store(struct config_item *item,
->>  					   const char *page, size_t count)
->>  {
->> +	bool val;
->> +	int r;
->> +
->>  	if (!kexec_crash_image || !kexec_crash_image->dm_crypt_keys_addr) {
->>  		kexec_dprintk(
->>  			"dm-crypt keys haven't be saved to crash-reserved memory\n");
->>  		return -EINVAL;
->>  	}
->>
->> -	if (kstrtobool(page, &is_dm_key_reused))
->> +	if (kstrtobool(page, &val) || !val)
->>  		return -EINVAL;
->>
->> -	if (is_dm_key_reused)
->> -		get_keys_from_kdump_reserved_memory();
->> +	if (is_dm_key_reused) {
->> +		pr_info("Already got dm-crypt keys, please continue with kexec_file_load syscall\n");
->> +	} else {
->> +		r = get_keys_from_kdump_reserved_memory();
->> +		if (r) {
->> +			pr_warn("Failed to get dm-crypt keys from reserved memory\n");
->> +			return r;
->> +		}
->> +		is_dm_key_reused = true;
->> +	}
->>
->>  	return count;
->>  }
->> @@ -369,9 +387,6 @@ static int build_keys_header(void)
->>  	struct config_key *key;
->>  	int i, r;
->>
->> -	if (keys_header != NULL)
->> -		kvfree(keys_header);
->> -
->>  	keys_header = kzalloc(get_keys_header_size(key_count), GFP_KERNEL);
->>  	if (!keys_header)
->>  		return -ENOMEM;
->> @@ -415,8 +430,7 @@ int crash_load_dm_crypt_keys(struct kimage *image)
->>  		.top_down = false,
->>  		.random = true,
->>  	};
->> -	int r;
->> -
->> +	int r = 0;
->>
->>  	if (key_count <= 0) {
->>  		kexec_dprintk("No dm-crypt keys\n");
->> @@ -424,14 +438,15 @@ int crash_load_dm_crypt_keys(struct kimage *image)
->>  	}
->>
->>  	if (!is_dm_key_reused) {
->> -		image->dm_crypt_keys_addr = 0;
->>  		r = build_keys_header();
->> -		if (r) {
->> -			pr_err("Failed to build dm-crypt keys header, ret=%d\n", r);
->> -			return r;
->> -		}
->> +		if (r)
->> +			goto out;
->>  	}
->>
->> +	/*
->> +	 * keys_header will be copied to reserver memory later and then be
->> +	 * cleaned up at the end of kexec_file_load syscall
->> +	 */
->>  	kbuf.buffer = keys_header;
->>  	kbuf.bufsz = get_keys_header_size(key_count);
->>
->> @@ -441,18 +456,33 @@ int crash_load_dm_crypt_keys(struct kimage *image)
->>  	r = kexec_add_buffer(&kbuf);
->>  	if (r) {
->>  		pr_err("Failed to call kexec_add_buffer, ret=%d\n", r);
->> -		kvfree((void *)kbuf.buffer);
->> -		return r;
->> +		goto out;
->>  	}
->> +
->>  	image->dm_crypt_keys_addr = kbuf.mem;
->>  	image->dm_crypt_keys_sz = kbuf.bufsz;
->>  	kexec_dprintk(
->>  		"Loaded dm crypt keys to kexec_buffer bufsz=0x%lx memsz=0x%lx\n",
->>  		kbuf.bufsz, kbuf.memsz);
->>
->> +out:
->> +	is_dm_key_reused = false;
->
->I think there's still a bug for arm64 here.
->
->When is_dm_key_reused set to true, the outer while loop prematurely
->clears the is_dm_key_reused flag at the end of
->crash_load_dm_crypt_keys() in the very first iteration.
->
->Consequently, subsequent re-entrant calls to crash_load_dm_crypt_keys()
->falsely perceive the keys as not reused, forcing a redundant execution
->of build_keys_header() which overwrites the global keys_header pointer;
->
->This induces a silent kernel memory leak.
+From: Emmanuel Grumbach <emmanuel.grumbach@intel.com>
 
-Thanks for reviewing this patch and raising the concern! Unless I miss
-something, I don't think the global keys_header will be overwritten
-because kexec_file_post_load_cleanup_dm_crypt will called to free the
-memory during the end of kexec_file_load syscall.
+[ Upstream commit d13d5d299c11b7bd3362d5692c56225d9e176664 ]
 
->
->92 >-------/*
-> 93 >------- * The location of the kernel segment may make it impossible
->to satisfy
-> 94 >------- * the other segment requirements, so we try repeatedly to
->find a
-> 95 >------- * location that will work.
-> 96 >------- */
-> 97 >-------while ((ret = kexec_add_buffer(&kbuf)) == 0) {
-> 98 >------->-------/* Try to load additional data */
-> 99 >------->-------kernel_segment = &image->segment[kernel_segment_number];
->100 >------->-------ret = load_other_segments(image, kernel_segment->mem,
->101 >------->------->------->------->-------  kernel_segment->memsz, initrd,
->102 >------->------->------->------->-------  initrd_len, cmdline);
->103 >------->-------if (!ret)
->104 >------->------->-------break;
->105
->106 >------->-------/*
->107 >------->------- * We couldn't find space for the other segments;
->erase the
->108 >------->------- * kernel segment and try the next available hole.
->109 >------->------- */
->110 >------->-------image->nr_segments -= 1;
->111 >------->-------kbuf.buf_min = kernel_segment->mem +
->kernel_segment->memsz;
->112 >------->-------kbuf.mem = KEXEC_BUF_MEM_UNKNOWN;
->113 >-------}
+Reject firmware section TLVs that are shorter than the offset field
+before subtracting sizeof(offset) from the section size.
 
-Btw, I assume the above text is not related to the discussion, right? 
+This prevents size underflow for malformed TLVs.
 
-[...]
+Assisted-by: GitHubCopilot:GPT-5.3-Codex
+Signed-off-by: Emmanuel Grumbach <emmanuel.grumbach@intel.com>
+Link: https://patch.msgid.link/20260717173215.17b040b27edc.I6b32d1e9ad707417e2e604f08a63582456209372@changeid
+Signed-off-by: Miri Korenblit <miriam.rachel.korenblit@intel.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
 
+LLM Generated explanations, may be completely bogus:
+
+## Phase 1: Commit Message Forensics
+
+**Step 1.1 — Subject line**
+
+Record: `[wifi: iwlwifi]` `[validate]` — validate minimum size of SEC_RT
+firmware section TLVs before parsing.
+
+**Step 1.2 — Tags**
+
+Record:
+- `Assisted-by: GitHubCopilot:GPT-5.3-Codex`
+- `Signed-off-by: Emmanuel Grumbach <emmanuel.grumbach@intel.com>`
+- `Signed-off-by: Miri Korenblit <miriam.rachel.korenblit@intel.com>`
+- `Link: https://patch.msgid.link/20260717173215.17b040b27edc...`
+
+Notable patterns: No `Fixes:`, `Reported-by:`, `Cc:
+stable@vger.kernel.org`, `Tested-by:`, or `Reviewed-by:` tags. Absence
+of stable tags is expected for manual review. Intel internal fixes
+series (patch 5/5).
+
+**Step 1.3 — Body analysis**
+
+Record:
+- **Bug:** `iwl_store_ucode_sec()` subtracts `sizeof(offset)` from TLV
+  length without verifying the TLV is at least that large.
+- **Symptom:** Integer underflow on `sec->size` for malformed TLVs
+  (`tlv_len` 0–3).
+- **Root cause:** `sec->size = size - sizeof(sec_parse->offset)` with
+  signed `int size`; negative result assigned to `size_t` becomes a very
+  large value.
+- **Version info:** None in commit message.
+
+**Step 1.4 — Hidden bug fix?**
+
+Record: Yes — described as validation, but it is a real memory-safety
+bug fix (underflow → huge allocation + out-of-bounds `memcpy`).
+
+---
+
+## Phase 2: Diff Analysis
+
+**Step 2.1 — Inventory**
+
+Record:
+- **File:** `drivers/net/wireless/intel/iwlwifi/iwl-drv.c` (+4 / −1)
+- **Function:** `iwl_store_ucode_sec()`
+- **Scope:** Single-file, surgical fix
+
+**Step 2.2 — Code flow change**
+
+Record:
+- **Hunk 1 (parameter type):** `int size` → `size_t size` (matches
+  `tlv_len` as `u32` and `sec->size` as `size_t`).
+- **Hunk 2 (validation):** Before casting `data` to `struct
+  fw_sec_parsing *` and subtracting offset size, reject `size <
+  sizeof(sec_parse->offset)` with `-EINVAL`.
+- **Before:** Malformed TLV with `tlv_len < 4` → read past TLV data,
+  underflow `sec->size` → huge `size_t`.
+- **After:** Early rejection before offset read or size subtraction.
+
+**Step 2.3 — Bug mechanism**
+
+Record:
+- **Category:** Buffer overflow / out-of-bounds read + integer
+  underflow.
+- **Mechanism:** With `tlv_len=1`, `sec->size = 1 - 4 = -3` (signed) →
+  `SIZE_MAX-2` as `size_t`. Later `iwl_alloc_fw_desc()` does
+  `vmalloc(sec->size)` and `memcpy(data, sec->data, desc->len)` far
+  beyond the firmware buffer.
+
+**Step 2.4 — Fix quality**
+
+Record: Obviously correct minimum-length check; minimal change; low
+regression risk. Pre-existing issue: callers ignore
+`iwl_store_ucode_sec()` return value, but the fix still prevents storing
+a corrupted section entry.
+
+---
+
+## Phase 3: Git History Investigation
+
+**Step 3.1 — Blame**
+
+Record: `iwl_store_ucode_sec()` and the vulnerable subtraction are
+present in current `stable/linux-6.18.y` checkout (`v6.18.44`). Shallow
+repo limits deep blame; function is long-standing MVM firmware parsing
+code.
+
+**Step 3.2 — Fixes: tag**
+
+Record: Not applicable — no `Fixes:` tag.
+
+**Step 3.3 — Related changes**
+
+Record:
+- Part of `[PATCH iwlwifi-fixes 0/5]` series (July 17, 2026).
+- Patch 1/5 (`acad742714bdc` — bound aligned TLV advance) is a related
+  but separate fix in the same file; **not** in 6.18.y yet.
+- This patch (5/5) is standalone and applies cleanly without patch 1/5.
+- Similar backported fix already in tree: `eae7fdf7d4469` (validate pnvm
+  payload length).
+
+**Step 3.4 — Author context**
+
+Record: Emmanuel Grumbach and Miri Korenblit are iwlwifi maintainers.
+Multiple similar validation fixes from same authors are already in
+6.18.y.
+
+**Step 3.5 — Dependencies**
+
+Record: No dependencies on other series patches. `git apply --check`
+succeeds on current tree. Standalone.
+
+---
+
+## Phase 4: Mailing List and External Research
+
+**Step 4.1 — Original discussion**
+
+Record:
+- `b4 dig -c d13d5d299c11b`: https://patch.msgid.link/20260717173215.17b
+  040b27edc.I6b32d1e9ad707417e2e604f08a63582456209372@changeid
+- Series: v1 only, patch 5/5 of 5.
+- Cover letter: "A few fixes from our internal tree."
+- No reviewer replies, NAKs, or stable nominations in thread.
+
+**Step 4.2 — Reviewers**
+
+Record: `b4 dig -w`: To johannes@sipsolutions.net; Cc linux-
+wireless@vger.kernel.org, Emmanuel Grumbach. No explicit review acks in
+thread.
+
+**Step 4.3 — Bug report**
+
+Record: No external bug report, syzbot, or sanitizer report. Intel
+internal finding (Copilot-assisted).
+
+**Step 4.4 — Series context**
+
+Record: 5-patch series; patches 1–4 touch different files (`iwl-drv.c`,
+`iwl-dbg-tlv.c`, `acpi.c`, `uefi.c`). Only patch 5/5 is under review
+here.
+
+**Step 4.5 — Stable list**
+
+Record: No stable@vger.kernel.org discussion found for this specific
+fix.
+
+---
+
+## Phase 5: Code Semantic Analysis
+
+**Step 5.1 — Key functions**
+
+Record: `iwl_store_ucode_sec()` (modified); callers in
+`iwl_parse_tlv_firmware()` switch cases.
+
+**Step 5.2 — Callers**
+
+Record: Called from 7 sites in `iwl_parse_tlv_firmware()` for:
+- `IWL_UCODE_TLV_SEC_RT`, `SEC_INIT`, `SEC_WOWLAN`
+- `IWL_UCODE_TLV_SECURE_SEC_RT`, `SECURE_SEC_INIT`, `SECURE_SEC_WOWLAN`
+- `IWL_UCODE_TLV_SEC_RT_USNIFFER`
+
+All during firmware image parsing at driver probe / firmware load.
+
+**Step 5.3 — Callees**
+
+Record: `krealloc()`, `le32_to_cpu()`; stores into `img->sec[]` consumed
+later by `iwl_alloc_ucode_mem()` → `iwl_alloc_fw_desc()` → `vmalloc()` +
+`memcpy()`.
+
+**Step 5.4 — Reachability**
+
+Record:
+- `iwl_req_fw_callback()` → `iwl_parse_tlv_firmware()` →
+  `iwl_store_ucode_sec()`
+- Triggered on every iwlwifi device probe when loading TLV-format MVM
+  firmware from `/lib/firmware`.
+- Malformed firmware (corrupted file) triggers the bug; legitimate Intel
+  firmware is unaffected.
+
+**Step 5.5 — Similar patterns**
+
+Record: Same file has explicit `invalid_tlv_len` checks for many TLV
+types, but SEC_RT family lacks minimum-length validation. `pnvm.c` has
+similar unchecked `tlv_len - sizeof(*section)` (separate issue). Patch
+1/5 in the same series addresses aligned-length underflow in the TLV
+walker.
+
+---
+
+## Phase 6: Cross-Referencing Against Local Tree
+
+**Step 6.1 — Buggy code in tree?**
+
+Record: **Yes.** Local tree is `linux-6.18.y` at `v6.18.44`. Current
+`iwl-drv.c` lacks the minimum-size check; vulnerable line is:
+
+```515:515:drivers/net/wireless/intel/iwlwifi/iwl-drv.c
+        sec->size = size - sizeof(sec_parse->offset);
+```
+
+Commit `d13d5d299c11b` is on `master` but not yet in this stable branch.
+
+**Step 6.2 — Backport complications**
+
+Record: Clean apply (`git apply --check` passes). No conflicts expected.
+
+**Step 6.3 — Related fixes already present?**
+
+Record: No equivalent SEC_RT minimum-size fix in tree. Related pnvm
+validation fix (`eae7fdf7d4469`) is already backported.
+
+---
+
+## Phase 7: Subsystem and Maintainer Context
+
+**Step 7.1 — Subsystem**
+
+Record: `drivers/net/wireless/intel/iwlwifi` — IMPORTANT (widely
+deployed WiFi driver on Intel laptops/desktops).
+
+**Step 7.2 — Activity**
+
+Record: Actively maintained; multiple validation fixes backported to
+6.18.y in 2025–2026.
+
+---
+
+## Phase 8: Impact and Risk Assessment
+
+**Step 8.1 — Who is affected**
+
+Record: iwlwifi users loading TLV-format MVM firmware (`CONFIG_IWLMVM`).
+Affects driver probe path on Intel WiFi hardware.
+
+**Step 8.2 — Trigger conditions**
+
+Record: Firmware image containing SEC_RT-family TLV with `tlv_len <
+sizeof(__le32)` (0–3 bytes). Requires replacing/corrupting firmware file
+(typically root). Not triggerable by normal Intel firmware. Corrupted
+downloads or malicious firmware replacement are realistic vectors.
+
+**Step 8.3 — Failure severity**
+
+Record:
+- Huge `sec->size` → `vmalloc()` of enormous size (OOM pressure)
+- `memcpy()` out-of-bounds read from firmware buffer → kernel crash or
+  info leak
+- **Severity: HIGH** (memory safety during probe)
+
+**Step 8.4 — Risk vs benefit**
+
+Record:
+- **Benefit:** HIGH — prevents OOB read and runaway allocation on
+  malformed input
+- **Risk:** VERY LOW — 4-line defensive check, no API changes
+- **Ratio:** Strongly favors backport
+
+---
+
+## Phase 9: Final Synthesis
+
+**Step 9.1 — Evidence summary**
+
+FOR:
+- Real integer underflow → OOB read bug
+- HIGH severity if triggered
+- Small, obviously correct fix
+- Code exists in 6.18.y; applies cleanly
+- Consistent with other iwlwifi validation fixes already in stable
+- Maintainer-authored
+
+AGAINST:
+- No user/syzbot report (internal finding)
+- Trigger requires malformed firmware (unusual in practice)
+- Callers don't propagate `iwl_store_ucode_sec()` error (pre-existing;
+  fix still prevents bad state)
+- Patch 1/5 from same series is a separate related fix, not a blocker
+
+**Step 9.2 — Stable rules checklist**
+
+1. Obviously correct and tested? **PASS** — logic is trivial; no runtime
+   tests in commit, but mechanism is verifiable by inspection.
+2. Fixes a real bug? **PASS** — underflow with OOB read consequence.
+3. Important issue? **PASS** — memory safety / potential crash during
+   probe.
+4. Small and contained? **PASS** — 4 lines, one function.
+5. No new features/APIs? **PASS** — defensive validation only.
+6. Can apply to local tree? **PASS** — clean apply verified.
+
+**Step 9.3 — Exception category**
+
+Record: Not applicable (not device ID, quirk, DT, build, or docs).
+
+**Step 9.4 — Decision rationale**
+
+For the locally checked-out **linux-6.18.y** tree, this commit should be
+backported. The vulnerable code is present, the fix is minimal and self-
+contained, and the failure mode (size underflow leading to out-of-bounds
+`memcpy` during firmware parsing) is a legitimate stability/memory-
+safety issue appropriate for stable.
+
+---
+
+## Verification
+
+- [Phase 1] Parsed commit message and tags from user query and `git show
+  d13d5d299c11b`
+- [Phase 2] Read current `iwl-drv.c` lines 493–519, 150–168, 999–1044,
+  1458–1474, 1646–1702
+- [Phase 2] Confirmed `sec->size` is `size_t`, parameter was `int`,
+  subtraction at line 515
+- [Phase 3] `git describe HEAD` → `v6.18.44`; `make kernelversion` →
+  `6.18.44`
+- [Phase 3] `git blame` on `iwl_store_ucode_sec`; shallow repo noted
+- [Phase 3] `git log stable/linux-6.18.y..master -- iwl-drv.c` — commit
+  not in stable, patch 1/5 also absent
+- [Phase 3] `git apply --check` of commit diff on HEAD — passes
+- [Phase 4] `b4 dig -c d13d5d299c11b` — found lore URL
+- [Phase 4] `b4 dig -a` — v1 only, patch 5/5
+- [Phase 4] `b4 dig -w` — johannes, linux-wireless, Emmanuel Grumbach
+- [Phase 4] `b4 dig -m /tmp/iwlwifi_sec_rt.mbox` — read cover letter; no
+  reviews/stable/tested-by
+- [Phase 5] `grep iwl_store_ucode_sec` — 7 call sites in TLV parser
+- [Phase 5] Traced call chain: `iwl_req_fw_callback` →
+  `iwl_parse_tlv_firmware` → `iwl_alloc_ucode` → `iwl_alloc_fw_desc`
+- [Phase 6] Confirmed buggy code present at HEAD; fix absent
+  (`d13d5d299c11b` only on master)
+- [Phase 6] Confirmed `eae7fdf7d4469` similar pnvm fix already in stable
+- [Phase 8] Confirmed TLV parser allows `tlv_len < 4` for SEC_RT cases
+  (no `invalid_tlv_len` guard unlike other TLVs)
+
+**YES**
+
+ drivers/net/wireless/intel/iwlwifi/iwl-drv.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/net/wireless/intel/iwlwifi/iwl-drv.c b/drivers/net/wireless/intel/iwlwifi/iwl-drv.c
+index 3a4bcfd60905c..e3b1bf31ca60e 100644
+--- a/drivers/net/wireless/intel/iwlwifi/iwl-drv.c
++++ b/drivers/net/wireless/intel/iwlwifi/iwl-drv.c
+@@ -491,7 +491,7 @@ static void set_sec_offset(struct iwl_firmware_pieces *pieces,
+  * Gets uCode section from tlv.
+  */
+ static int iwl_store_ucode_sec(struct fw_img_parsing *img,
+-			       const void *data, int size)
++			       const void *data, size_t size)
+ {
+ 	struct fw_sec *sec;
+ 	const struct fw_sec_parsing *sec_parse;
+@@ -500,6 +500,9 @@ static int iwl_store_ucode_sec(struct fw_img_parsing *img,
+ 	if (WARN_ON(!img || !data))
+ 		return -EINVAL;
+ 
++	if (size < sizeof(sec_parse->offset))
++		return -EINVAL;
++
+ 	sec_parse = (const struct fw_sec_parsing *)data;
+ 
+ 	alloc_size = sizeof(*img->sec) * (img->sec_counter + 1);
 -- 
-Best regards,
-Coiby
+2.53.0
+
