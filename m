@@ -1,103 +1,147 @@
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08D983DB636
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 12:04:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30A333EB10C;
+	Mon, 31 Aug 2026 12:04:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788177880; cv=none; b=b8bIbj7p73CoBk/pk9uZy/h6AXjZ6YqKty99CjlSWRenXyaPYU393+vRos59Qa3xbKDZ2nu07ogH+sXlIFdm9rR/Z0XT6hg6gRQA2tePfieKUZGX/PjjQdQK+wzWxUAFuk0V/GBBG7keW4ACwH5JWzpubpuh9d/7oa5iJjVz8AI=
+	t=1788177896; cv=none; b=osHfJkzk8toWI5eq+M0ODzgSWA4nOhmLTkO1d5YLQ3LkEw2kzzdnsVj6PrjlOfHfVo1fRYUyf+VFMCYCht4980hwkyUTeukdGxuzo6yEIytOd5aIgFlrsdxgHUESX/Cs40oOCTSfaDdHXIBlZM+guupQ/LFB3Y1USU5MzItFp4g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788177880; c=relaxed/simple;
-	bh=+Qqjdzv2bVxqqJ8KE8jthaL1miiMYy6+r7SugcWAN8g=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=DRJPABJo8Y39AEVAid9czHwdMEpvxmfevcXA2iyZNZDTHtfe7Pb/c5No6OKQdR/48Wjg4o5IWpnJXv1OaVFflCJ9B7ZJ0TVZK5OwRfJZ8jFrVZOxAQGWuo7zJl+Si/YpOqHMNPgGsen0zD9xTwrmv5E/PznwVxbFt1FRnJXpRtE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Tm6r1mzB; arc=none smtp.client-ip=209.85.214.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788177896; c=relaxed/simple;
+	bh=Hr4cHmfSiPdhZn1nJZa7p7nfHHS3hI8BNwlDI8EyNSk=;
+	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
+	 Message-ID:Content-Type; b=R8qbJXmnLOxYyvtnMjx9k1pV2PiRbJh0emC6eUqSLrMpPwo82YHG2ChZPuaQg61A4hKLVsM5XVMW4d9jI9rfUTmgnx6KD69mIbvvzcokXrBgIlVDavW5g4WPlL0bAiKyUj2p+4zzQeOC/Bi+7E8b3acAKKOn/ms5oJA1RaNTCtQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=Q9Oqyh6H; arc=none smtp.client-ip=194.13.80.246
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Tm6r1mzB"
-Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2d944747d41so3979425ad.0
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 05:04:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788177878; x=1788782678; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+Qqjdzv2bVxqqJ8KE8jthaL1miiMYy6+r7SugcWAN8g=;
-        b=Tm6r1mzBcF0X5qRFt/eiSAwIwY8ixhm3SbfRw5cbFtXQ+meeiSBWqUS5lH70jRukqf
-         mgJEPjkQW6uc8C0WMaXdnGM7m60+xrpL9BEDyS8VWxHsswzECaDm4mcazY58yhc2xxOD
-         kEWg5vfLlrLpWqcp2H76HRlsrolQb9SVimlLT3sRzLCd/35x3vKbyY7lRn3bmkHecZcq
-         21uiiLJpdlvNNEzUbI5hrv1zQxAMDOFAExNyhWoVIe3krYduWsaN52AkLZAtkuLW6sCg
-         tnjJRa6Yic3kskFrDsjNObDehd05drmfo3BkoiLZ+FYhNWtqUiBibtbCn+dyQnTMs/zW
-         vv8g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788177878; x=1788782678;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+Qqjdzv2bVxqqJ8KE8jthaL1miiMYy6+r7SugcWAN8g=;
-        b=XvamAMPsfb+0vbmuvVHz5LS9Wg/uwM06UCOk1RRZNFFtfTSaq5htxEpLwDTUYtVfAg
-         ZH9oGu08GxH/lSN2GmusZalKWeaqeD66qP83e4+06e6HWndJHAItSzgWzFC7FdmrMYwW
-         dEWPPzgn8RIjwvDcLZ8vTUqZkhDFIWbrxQ42Ad2qcBKeOUEldvve57t5Pi9gCCEcP9fB
-         HSV1+DikGuwjum4LXmkId7DEDyKj0KadHw7h9J09+kWfNJbPRvrTXkxh26vnFtjVQb3s
-         yDIYj4mYPZPhZHSLME3Lmtbro5r/WmupUOlNgxu3sEONNa07G1NibazrAE0+IVu95xd/
-         xQPg==
-X-Forwarded-Encrypted: i=1; AKwUvBw/PzTBkO74uX67tEZoCsxOHdLM8fTJS5l3b3QBw1XJ85Sg76+Ul7pJHNirnlbHrvF5DWait9t6SfCr0kM=@vger.kernel.org
-X-Gm-Message-State: AFuF++lTxPEErt6DKyWfHEOMHXExc/oD3fPUNlkucYK9CwpkIkUmia8g
-	zEaVgzI1NHTEGV+rJq055li5ABfNmLyulsOhVcbOxxU7ShopwLN+JqzQ
-X-Gm-Gg: AYBFou0ZCzZ3cLXAe9KDHLaU0c8ggECsS20YfH1WAzwPInYdNRJ4YVDu1sGXXuCzHlH
-	Ai1liR9lTEzu2P/RbjhGxE0DSns+38Py9vKXJjFYG0UU3Gd5u0xBJqa/UJx3U5efyxouCKqkuxw
-	bsgoO08RkvURbSz9BuNBNv6pmkAHQmtkCivScgDdOTDhvae64p5se6o1PQFfovJ/Or+RseS/0GF
-	lynlZ7o8HQn+XZAtQyCG7eO8Gf+CnpaudOeOypNZHWDjZDL/i7K3aN7X/GLycgHMnBZzV/0Pg8R
-	nZxt2/XTbW81i8b1K7tSmhLJdYrl43FAP0z7ynKlOiEzsV6yPLGCpW2Gsy31821GB7o6po6tS6W
-	8rfrad4NsamE4hBRYeFcgkckoVnKyJHirbLrx3/W+r8WdMq0WKIDjuz8v2Hp2P8K8h+5hLgYoDV
-	WFxhcm5Po4l9jwXdkEAd6gYLb/MPqC0kWe5OeluUNbrqIpd3ARrw44ss7bCNGNOfsLjpqRTnmI1
-	2QE6NwbdGWD1lqQ0AspyTT/z9h7
-X-Received: by 2002:a17:903:468b:b0:2d9:2688:8be6 with SMTP id d9443c01a7336-2d926888c80mr78196075ad.19.1788177873305;
-        Mon, 31 Aug 2026 05:04:33 -0700 (PDT)
-Received: from localhost.localdomain (vmi2317720.contaboserver.net. [84.247.152.65])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d7594fb1absm34371945ad.6.2026.08.31.05.04.25
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 31 Aug 2026 05:04:32 -0700 (PDT)
-From: Lian Wang <lianux.mm@gmail.com>
-To: "Barry Song (Xiaomi)" <baohua@kernel.org>
-Cc: akpm@linux-foundation.org,
-	linux-mm@kvack.org,
-	axelrasmussen@google.com,
-	baolin.wang@linux.alibaba.com,
-	baoquan.he@linux.dev,
-	chenridong@xiaomi.com,
-	david@kernel.org,
-	hannes@cmpxchg.org,
-	kasong@tencent.com,
-	lianux.mm@gmail.com,
-	linux-kernel@vger.kernel.org,
-	ljs@kernel.org,
-	lyugaofei@xiaomi.com,
-	mhocko@kernel.org,
-	qi.zheng@linux.dev,
-	shakeel.butt@linux.dev,
-	stevensd@chromium.org,
-	wangzicheng@honor.com,
-	weixugc@google.com,
-	yuanchu@google.com
-Subject: Re: [PATCH v2 1/2] mm/mglru: make type fallback logic explicit in isolate_folios()
-Date: Mon, 31 Aug 2026 20:04:01 +0800
-Message-ID: <20260831120416.32950-1-lianux.mm@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260829074204.45304-2-baohua@kernel.org>
-References: <20260829074204.45304-1-baohua@kernel.org> <20260829074204.45304-2-baohua@kernel.org>
+	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="Q9Oqyh6H"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id D3174A39FE;
+	Mon, 31 Aug 2026 14:04:44 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
+	t=1788177889; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=OnI+a4adx7XLWLUhOvT+B7Uvtg/ithJmiCgPTgSYlsY=;
+	b=Q9Oqyh6HZW6LILNy7HKDuNs77IF8b9D6vpjeHc6L4w8sxbuKFgeU62wwRZGVI1u6wyjjuj
+	/3aPgZ4tTYw3XfgkTuvXxYCMuASoFvgeWPL8gNApiRjKm9XVCjKfXm0uz9TtrmO62spx+w
+	ZWu9LQKkAvWopfp/Zw5451zKf8W1pGN9mcc/uh4dw4n2wCz5yd8NTw1ylRCcb3L+fK79cf
+	XfSx5qWM22ZZmfRGxDyutDVUgw5M39e5o+VVSsE9mfsqlR5cSj4QHR1Yd7JUuLOtKfeWrr
+	Zmb7vbSN3UOGcoCR7rsbKu7gPFuLmfEAtf9s+NTsZjMgKxapyBL+zEkx/nLzhA==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Date: Mon, 31 Aug 2026 14:04:44 +0200
+From: Nicolai Buchwitz <nb@tipi-net.de>
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, Jakub Kicinski <kuba@kernel.org>,
+ davem@davemloft.net, Eric Dumazet <edumazet@google.com>, Paolo Abeni
+ <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>, Russell King <linux@armlinux.org.uk>,
+ thomas.petazzoni@bootlin.com, =?UTF-8?Q?Alexis_Lothor=C3=A9?=
+ <alexis.lothore@bootlin.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [PATCH net-next 1/2] net: stmmac: dwmac4: Read the UC filter size
+ from hardware capabilities
+In-Reply-To: <20260831070121.349778-2-maxime.chevallier@bootlin.com>
+References: <20260831070121.349778-1-maxime.chevallier@bootlin.com>
+ <20260831070121.349778-2-maxime.chevallier@bootlin.com>
+Message-ID: <2631c832d5aebc56e152628132494545@tipi-net.de>
+X-Sender: nb@tipi-net.de
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-> Make the fallback behavior explicit in the code and remove the
-> opaque for_each_evictable_type(i, swappiness).
+Hi Maxime
 
-Looks good to me.
+On 31.8.2026 09:01, Maxime Chevallier wrote:
+> dwmac4 has multiple banks of perfect filter entries, independently
+> configurable during IP integration.
+> 
+> The multi_addr bank reports a number between 0 and 31 corresponding to
+> the actual number of entries in that bank, while the 32 and 64 banks
+> are all-or-nothing.
+> 
+> Expose these caps over debugfs as well.
+> 
+> Signed-off-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+> ---
 
-Reviewed-by: Lian Wang <lianux.mm@gmail.com>
+> [...]
+
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4.h 
+> b/drivers/net/ethernet/stmicro/stmmac/dwmac4.h
+> index 6382836828ba..89368e34a388 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac4.h
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4.h
+> @@ -176,7 +176,9 @@ enum power_event {
+> 
+>  /* MAC HW features0 bitmap */
+>  #define GMAC_HW_FEAT_SAVLANINS		BIT(27)
+> -#define GMAC_HW_FEAT_ADDMAC		BIT(18)
+> +#define GMAC_HW_FEAT_MACADR64SEL	BIT(24)
+> +#define GMAC_HW_FEAT_MACADR32SEL	BIT(23)
+> +#define GMAC_HW_FEAT_ADDMAC		GENMASK(22, 18)
+>  #define GMAC_HW_FEAT_RXCOESEL		BIT(16)
+>  #define GMAC_HW_FEAT_TXCOSEL		BIT(14)
+>  #define GMAC_HW_FEAT_EEESEL		BIT(13)
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c 
+> b/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c
+> index 23ffe1adcd0d..14ac3f0e51f7 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c
+> @@ -388,6 +388,8 @@ static int dwmac4_get_hw_feature(void __iomem 
+> *ioaddr,
+>  	dma_cap->half_duplex = (hw_cap & GMAC_HW_FEAT_HDSEL) >> 2;
+>  	dma_cap->vlhash = (hw_cap & GMAC_HW_FEAT_VLHASH) >> 4;
+>  	dma_cap->multi_addr = (hw_cap & GMAC_HW_FEAT_ADDMAC) >> 18;
+
+Now that ADDMAC has grown from single bit to a mask, the hardcoded 18 
+has to match
+dwmac4.h. So IMHO it would make sense to use FIELD_GET() here (like 
+actphyif)?
+
+> +	dma_cap->additional_32_addr = (hw_cap & GMAC_HW_FEAT_MACADR32SEL) >> 
+> 23;
+> +	dma_cap->additional_64_addr = (hw_cap & GMAC_HW_FEAT_MACADR64SEL) >> 
+> 24;
+>  	dma_cap->pcs = (hw_cap & GMAC_HW_FEAT_PCSSEL) >> 3;
+>  	dma_cap->sma_mdio = (hw_cap & GMAC_HW_FEAT_SMASEL) >> 5;
+>  	dma_cap->pmt_remote_wake_up = (hw_cap & GMAC_HW_FEAT_RWKSEL) >> 6;
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c 
+> b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> index f2fc89176654..a885f8cfef21 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> @@ -6580,6 +6580,18 @@ static int stmmac_dma_cap_show(struct seq_file 
+> *seq, void *v)
+>  		seq_printf(seq,
+>  			   "\tNumber of Additional MAC address registers: %d\n",
+>  			   priv->dma_cap.multi_addr);
+> +	} else if (priv->plat->core_type == DWMAC_CORE_GMAC4) {
+> +		seq_printf(seq,
+> +			   "\tNumber of MAC address registers (1-31): %d\n",
+> +			   priv->dma_cap.multi_addr);
+> +		seq_printf(seq,
+> +			   "\tAdditional 32 MAC address registers (32-63): %s\n",
+> +			   priv->dma_cap.additional_32_addr ? "Y" : "N");
+> +		seq_printf(seq,
+> +			   "\tAdditional 64 MAC address registers (64-127): %s\n",
+> +			   priv->dma_cap.additional_64_addr ? "Y" : "N");
+> +		seq_printf(seq, "\tHash Filter: %s\n",
+> +			   (priv->dma_cap.hash_filter) ? "Y" : "N");
+
+hash_filter seems to be only set in dwmac1000_dma.c? So on dwmac4 it 
+would always print N?
+
+>  	} else {
+>  		seq_printf(seq, "\tHash Filter: %s\n",
+>  			   (priv->dma_cap.hash_filter) ? "Y" : "N");
+
+Thanks,
+Nicolai
