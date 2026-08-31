@@ -1,87 +1,96 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from ewsoutbound.kpnmail.nl (ewsoutbound.kpnmail.nl [195.121.94.183])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9E0726B2CE;
-	Mon, 31 Aug 2026 09:41:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4A1F3DDAFA
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 09:41:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.121.94.183
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788169293; cv=none; b=EhaENpzdkRlDcSA98MvxaYx14+FnybnjQH/wfNMRXBfY6DD1tvKBTAE6rrDb2qr1H0KGBqT8SEpotaOJWLRV9oMMXNk2MsPqV0s+mvyAf6ai4GbDuhBXyaqoQrQvLWZMxEnAUaKSFT7MLMmzP+B3MK35q248+iDrKowLsvVd5B8=
+	t=1788169320; cv=none; b=pTDAWbQwTUtsC1jBE7M0ykjhr6qR/byfbGwMMVO7kVOmtySTCDLNxSzbSC/D9OchM7QipufPQCVXuS8bukjfnCOka60JSz/5xqCoA2VhFiUKNg6qSOq+9KS0RiTbDc9jQjr3ZG6uT840uEY+7h6aT2inGN0LI6bnsBxGZRR+8so=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788169293; c=relaxed/simple;
-	bh=lUed+Pcqvu/J6gvYpsHlH6J2lp7O1Z9U6eDL9xxq5Mg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=i1qosVrR3rHUZ0fM7xZOgJkErSiSj6Qm2w/RSQrv/iDTQhqQ+iYyRKfx2kwvxpCp8kylPANnFGy+4d9ACFJxsE8hQxhbIgZ8Wjdlz6Yw5qOgcVIf9ozhJSXPSinvcUlBm3gj5PFId34cQyF2hgdYimv/9Gw8zdxV4owh/YwVjUU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=iRRuDiLS; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788169320; c=relaxed/simple;
+	bh=qEvlKFsk4AwbU+LQWqteKJrut7PfeQWIBm6Wrs4NbAM=;
+	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
+	 MIME-Version:Content-Type; b=m5Z7CRC8I+uoeS+FJ+0KpNsI7zS0SE0ng2wqGzwZD7sQIT8j3uirDcSIi9GhGR/qDZXvS7SfUTVHIw/686N8qY1KG8LG1A+L/4PI03SW5HjFqasUbsJsdtZSnJhByZvhQ9F6UxU/cgY3PvlrliMpq4h/YoHUnhYR2TlwrnC16Wg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xs4all.nl; spf=pass smtp.mailfrom=xs4all.nl; dkim=pass (2048-bit key) header.d=xs4all.nl header.i=@xs4all.nl header.b=eyG2vuIs; arc=none smtp.client-ip=195.121.94.183
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xs4all.nl
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xs4all.nl
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="iRRuDiLS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B86821F000E9;
-	Mon, 31 Aug 2026 09:41:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788169291;
-	bh=1RCvV47ZIovskQwwJ2Cf5orHzYQ8NDUYy3Pq+RF5hp4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=iRRuDiLS/NA0Mr0rAmBwZwKvh6sI7rbxIj6M95q3nsI5kwFrTpYUCiGQgHa//Q5br
-	 yslx2MbcI25nwhDu9Jdq9mxW8RT3qiRZopnRYaBhsHoJEsq1K4xwedn89Q8Qd4phvU
-	 VCeflxX0wph27yoiJsgh2VkmBzicyfTssdPQfPg0=
-Date: Mon, 31 Aug 2026 11:41:27 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Xianying Wang <wangxianying546@gmail.com>
-Cc: linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
-	kees@kernel.org
-Subject: Re: [BUG] usb: gadget: dummy_hcd: general protection fault in
- dummy_set_selfpowered after unbinding dummy_hcd.0
-Message-ID: <2026083113-krypton-ultra-49ae@gregkh>
-References: <CAOU40uBQG6_o+wU7UbWgRzZq4865QmLfJBdK0RP+iqLNy7Q8ew@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=xs4all.nl header.i=@xs4all.nl header.b="eyG2vuIs"
+X-KPN-MessageId: 097e8153-a520-11f1-8f56-005056992ed3
+Received: from mta.kpnmail.nl (unknown [10.31.161.190])
+	by ewsoutbound.so.kpn.org (Halon) with ESMTPS
+	id 097e8153-a520-11f1-8f56-005056992ed3;
+	Mon, 31 Aug 2026 11:40:44 +0200 (CEST)
+Received: from mtaoutbound.kpnmail.nl (unknown [10.128.135.190])
+	by mta.kpnmail.nl (Halon) with ESMTP
+	id 097845df-a520-11f1-b37e-0050569977a2;
+	Mon, 31 Aug 2026 11:40:44 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=xs4all.nl; s=xs4all01;
+	h=content-type:mime-version:subject:message-id:to:from:date;
+	bh=UAEFgs/i0fSHFS1CNQSSnmqB5aisXdzzG/5ljYY2Wfw=;
+	b=eyG2vuIslvAMm7wL8+rjwsq4nGUFfCUxNno9Z73HPaePOkoPI7a6G3b/B2syg/XAziyr0J1uFsGmL
+	 vQNMB3drdfvgeWj/eKeEQtatIKD97xv9/4BoQ7Eg/dVgltOSzmQY1bNxEgI8dLK9UPGDHUxA4N6jl3
+	 uyEVzFxwDtkZ2rqwp9Dn8VQlvsEzMQ6kOI7EohFISHPRXQPRveumOqRhrMA702RDtPCcsQJchjtpuU
+	 0qW/rJnb+OZ3n19ZpaYmZag+tljjHwhrmFGoElDLnKJotG3G9GTkasumNbIJncvVcQYHGmik2s6trh
+	 mITV+fERCXTuvWEqYdmlUA8Zgn3VEqw==
+X-KPN-MID: 33|kb03t+oZ68yz6BGWwZ1dHq6KE4vd2Wu3cYv9IvZOIjMSVo+gT81YjbD77XcvSzG
+ b/ttyy9/ETCw+q5oGGBp3TKXC8JpCbE9yxKkR4e4D/K4=
+X-CMASSUN: 33|hs2VVt2Jjl/NlBuB6s3CKkP8DEegeAR7vhF4cR5UmuJ/3jmVvgo3MNniC1N0DSf
+ v//9c9jgWrtLu/zU+Oh0jVA==
+X-KPN-VerifiedSender: Yes
+Received: from cpxoxapps-mh07 (cpxoxapps-mh07.personalcloud.so.kpn.org [10.128.135.213])
+	by mtaoutbound.kpnmail.nl (Halon) with ESMTPSA
+	id 096b0344-a520-11f1-916a-005056995d6c;
+	Mon, 31 Aug 2026 11:40:44 +0200 (CEST)
+Date: Mon, 31 Aug 2026 11:40:44 +0200 (CEST)
+From: Jori Koolstra <jkoolstra@xs4all.nl>
+To: Christian Brauner <brauner@kernel.org>
+Cc: Jeff Layton <jlayton@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>,
+	Aleksa Sarai <aleksa@amutable.com>, NeilBrown <neil@brown.name>,
+	Amir Goldstein <amir73il@gmail.com>, Jan Kara <jack@suse.cz>,
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
+Message-ID: <1028946868.2301677.1788169244070@kpc.webmail.kpnmail.nl>
+In-Reply-To: <20260831-zutreffen-umgeladen-wahrt-abfce6317a86@brauner>
+References: <20260823160706.358293-1-jkoolstra@xs4all.nl>
+ <20260823160706.358293-7-jkoolstra@xs4all.nl>
+ <20260831-zutreffen-umgeladen-wahrt-abfce6317a86@brauner>
+Subject: Re: [PATCH v5 06/10] vfs: add O_CREAT|O_DIRECTORY to open*(2)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAOU40uBQG6_o+wU7UbWgRzZq4865QmLfJBdK0RP+iqLNy7Q8ew@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Priority: 3
+Importance: Normal
 
-On Mon, Aug 31, 2026 at 05:02:28PM +0800, Xianying Wang wrote:
-> Hi,
+
+> Op 31-08-2026 11:34 CEST schreef Christian Brauner <brauner@kernel.org>:
 > 
-> I would like to report that a previously observed
-> syzkaller-triggerable crash is still reproducible on Linux 7.2-rc3.
+>
+> > +static inline
+> > +struct dentry *vfs_mkdir_no_perm(struct mnt_idmap *, struct inode *,
+> > +				 struct dentry *, umode_t,
+> > +				 struct delegated_inode *);
+> >  /*
+> >   * Look up and maybe create and open the last component.
+> >   *
+> > @@ -4462,6 +4501,7 @@ static struct dentry *lookup_open(struct nameidata *nd, struct file *file,
+> >  	struct mnt_idmap *idmap;
+> >  	struct dentry *dir = nd->path.dentry;
+> >  	struct inode *dir_inode = dir->d_inode;
+> > +	bool create_dir = O_IS_MKDIR(op->mode);
 > 
-> The reproducer first unbinds `dummy_hcd.0` through sysfs, after which
-> the kernel logs show that the dummy HCD/UDC instance is removed and
-> the emulated USB bus is deregistered. It then writes `dummy_udc.0` to
-> the gadget's `UDC` attribute through configfs, which triggers gadget
-> binding.
+> So this is called on op->mode which is 16-bit an O_DIRECTORY is bit 16.
+> Hence, "create_dir" is always false. I think you wanted to test
+> op->open_flag...
 
-Fun, but you do know that "unbind" will taint the kernel in the near
-future :)
+Yes, during rebasing somehow this happened. I fixed it, but then apparently forgot to
+format-patch again... So this garbage series does not even run the selftests. Anyhow,
+I am going to resend it today or tomorrow, but the structure remains the same, so I
+can then also incorporate anything else you've found.
 
-And the dummy_hcd code is just for testing, it's not a "normal" driver
-that any user will ever hit.
-
-> During the bind path, `configfs_composite_bind()` calls into
-> `composite_dev_prepare()`, which in turn invokes
-> `usb_gadget_set_selfpowered()`. This reaches `dummy_set_selfpowered()`
-> in `drivers/usb/gadget/udc/dummy_hcd.c`, where the driver obtains the
-> backing dummy HCD from `gadget_to_dummy_hcd(_gadget)` and dereferences
-> it. At that point, the associated HCD pointer appears to be NULL or no
-> longer valid after the earlier unbind/remove sequence, leading to the
-> reported KASAN null-ptr-deref / general protection fault.
-> 
-> Based on the call trace and the reproducer flow, this seems to be a
-> lifetime/state validation issue in the dummy UDC path: after
-> `dummy_hcd.0` has been removed, binding `dummy_udc.0` is still able to
-> proceed far enough to call gadget operations that assume a live
-> associated HCD.
-> 
-> This appears to match the previously reported `general protection
-> fault in dummy_set_selfpowered` issue, and I am sending this report
-> because it is still reproducible on 7.2-rc3.
-
-Patches are gladly accepted to resolve issues like this.  Why not make
-one as you have a reproducer for it?
-
-thanks,
-
-greg k-h
+Thanks for looking into this again, Christian.
