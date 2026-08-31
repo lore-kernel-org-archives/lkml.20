@@ -1,249 +1,138 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010053.outbound.protection.outlook.com [52.101.69.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB772470EB5
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 15:36:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788190571; cv=none; b=YJiHZnGaacvGEV9Xgvgq3Rzxmhu1HFenpIp6ujqJJVBujIUL+g92XLTyLrxISwoTluTDQ38QuePH9h+G6X7rTg6iJ1f0o0r4oCDmjx3jN/HQQ0nHOz5oIszVqrsisl9WeqWP8JukNmvsQCjo7w4DEggfkONvjzIMKnWknmyb2Cs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788190571; c=relaxed/simple;
-	bh=DodOb5bu1oSMuLPsOxNFB8oK01GET+pyiMt7NsDyP0I=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GLJHgHngeZ+yh4wzlqev0E8T+MmfG7YDuXCe5sdknLxI1YunLX8pKuR3RimeohwQigGhcPUQ2IZAmiaCP6MrGeh2QqYd6p2uphxxBzP3TweFw78SUlQitrlkRp+v9mx7KZH1d1w1OfU1UFyKCLJxGsaU2DaWxCEMlaC5ZHJhxFE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=dakA0lC1; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=ewCGphf9; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6D8847124D;
+	Mon, 31 Aug 2026 15:36:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.53
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788190617; cv=fail; b=oAb3poLCCqjg2lkJ9batuWhFmj10k4uU5OiorbNtqy4Szy4swJvQ3WKue3koWQzdyC22CXGdDzkys9g0p0b08dlAOHcxqIsmS7Cet318jcV/+9UpuxLcAG4wnZGWdeJUbtNoR1AlI43+xKo+F/pXhFCS5rM6hgfYMQsreoTBF/Q=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788190617; c=relaxed/simple;
+	bh=GEJI5NSZ11SDrkgIqxlwS7oOS4Hr0OKROAsVJgMWfCA=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=syNR2CEMz+Hn4A/SuT670O0QomE/HQfOjnIlV3MO4ISi4FI2uAFcNgfABjtgNJNxEhB31Xyi2hBkHLQMilepPrlBgUykO0EwLcXxMEcd1+gcmCh3BsbrX3w2GcwQWqD2zJ+Dc11VXBl8a7LaGXto6AbSgnAMmOPQhHAvJ9zel6U=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=Jxy4BKzk; arc=fail smtp.client-ip=52.101.69.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="dakA0lC1";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="ewCGphf9"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788190568;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=uVxBilOuJ3eJRjLFViKxIC+i5050iOvt2YALC/2UHq4=;
-	b=dakA0lC1O+Wx9Un543FmnQ6r29Xds96hGCtuQA0VAHdBGT4SYp21rIzYG6yTjUx4ehqvn9
-	c08hMuqN3YlfCLEhSC3xsVCpI50N3PWBXPbusYv/nz3G1+t0tRx0ybS8myVyb71FOJZZpU
-	JUSv2Oq8Nn0tNxtxjBy9F1QDAWhlfUU=
-Received: from mail-yx1-f71.google.com (mail-yx1-f71.google.com
- [74.125.224.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-645-PWTwGBSHOTeBoaRY1rwlxg-1; Mon, 31 Aug 2026 11:36:06 -0400
-X-MC-Unique: PWTwGBSHOTeBoaRY1rwlxg-1
-X-Mimecast-MFC-AGG-ID: PWTwGBSHOTeBoaRY1rwlxg_1788190566
-Received: by mail-yx1-f71.google.com with SMTP id 956f58d0204a3-66c767e23f6so4913307d50.0
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 08:36:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1788190566; x=1788795366; darn=vger.kernel.org;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=uVxBilOuJ3eJRjLFViKxIC+i5050iOvt2YALC/2UHq4=;
-        b=ewCGphf972PAR8+k1iRpbk/FrpS7EDIgvk+laCzpoq6oHTazz0nWGn7fL5eenQuHDk
-         pK2aaSI3LtieJ0EDNlGLizJxmHY0iLVNgpR44zNteMSAcIYW5YhngTXGMwf2f/KOfYjE
-         3Wk5rTfDGf6+0AVVaXTb607fcY0Tkm0dVZy4ewwm8z/CSn07cILYFA9QJVgIF2mVs3Yq
-         bL6kUYmFnIdGxIHuEHdJoWgrFVWmZnxufKzwK4wrmJK+1GvYVcam+ZpRI9dmjF0EGAom
-         uErZdLe7+hzkEInBPE1SfmmDrAchECt9RKygdhev30/AXwHZJrT/GwT2EwbNichjtDM9
-         O1Lg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788190566; x=1788795366;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=uVxBilOuJ3eJRjLFViKxIC+i5050iOvt2YALC/2UHq4=;
-        b=DdYLgDlYeP8BAJD1by5CLzDuuzY5ZiGTkStErUwCdxKikgggdG+qIDyTNMs2+N/8jB
-         0Vzah7xAA7mnBYaXAO+D1xXGJlMjsv2s9lDFfgMS8QRklD3cMfqLmPjX7elRQIHeuuus
-         7Bwinzaur6XimdkgnBKmPkORJNYxUndOxZMqx1DE8SoaYbHSn2lM4rS2ezGLp+/wYETI
-         LMDv+p50vqkoWCdaNG/ZLJPfPAyXr5Y77G2PKHmLiDxgMHm39yGVp/M4kGASK9YuLTz6
-         3w0BKUc0VVUHff8k6OWPBLvogI2CnuNJo/KC1J0C8h+G1VKgxbfA0GOouFx1N9guuG2q
-         V53w==
-X-Forwarded-Encrypted: i=1; AKwUvBwBOS7yx4ofTHdMg6KKDWXd+S0MgS/0OJDh3TmLAec3Wvm+moUhE+GPpoMVUNsbSrtfdEVOewdM+/h0Lj4=@vger.kernel.org
-X-Gm-Message-State: AFuF++k0wg0lMUR/0qCZRkxJ8bfROJwrzTbjwAusa7neMoZnFrvoTi4Q
-	8foqFO2rrtkFZDQ7HXbpdOCQ96wTAoP2EmeIlhX28NjnE2z8PkDBY6tR/E+dppfUEa1QcYP8Wcl
-	54H9sCl6ekrgt7SePJOpFk5M/k9ZTucT+BFnQRE9Hgtws1WeUqSYLRkfmg2+KzQ9xlA==
-X-Gm-Gg: AYBFou1k0ewYCDJSr52SZjcz/7X11VGUxfLES2cSwRcFwZkev+MEvqkNWaIxLLbH0kC
-	AMn8JHyvIOoRLItLktZPaY/WPVpFjdoWo1Ym3q7BpL2ySymN3WS4oSmt1+d2J0DswDsEbkZYXIY
-	5ERwT5XozSrAZs7vFRLrednCH34qwf8i0jo8DILHCAn3VeKnrosZQwotuK1VQLc1S45heWxw+wC
-	IbCOGG0xVhjj17bMXmixvG/masiPAp15OFs8VohWb997+p1/uzLGgd5PLglS3K+Q49aIkOMO/t4
-	AR2ZWyD2SYSsesaqdnr1DykHFMHoDRArBqlgwZHyndZm4JWrUyLzCnVpMl4OaeDwWHEY3M3JJhI
-	=
-X-Received: by 2002:a05:690e:13c7:b0:66f:8255:9f3d with SMTP id 956f58d0204a3-66f873db9b1mr559439d50.7.1788190565256;
-        Mon, 31 Aug 2026 08:36:05 -0700 (PDT)
-X-Received: by 2002:a05:690e:13c7:b0:66f:8255:9f3d with SMTP id 956f58d0204a3-66f873db9b1mr559344d50.7.1788190564555;
-        Mon, 31 Aug 2026 08:36:04 -0700 (PDT)
-Received: from redhat.com ([2600:382:8519:3f74:ab6c:bb55:e9cb:f8d6])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-66f7efc9dbfsm2062227d50.9.2026.08.31.08.35.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 08:36:03 -0700 (PDT)
-Date: Mon, 31 Aug 2026 11:35:55 -0400
-From: Brian Masney <bmasney@redhat.com>
-To: Geert Uytterhoeven <geert+renesas@glider.be>
-Cc: Ryan Chen <ryan_chen@aspeedtech.com>, Joel Stanley <joel@jms.id.au>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Andrew Jeffery <andrew@codeconstruct.com.au>,
-	Billy Tsai <billy_tsai@aspeedtech.com>,
-	Nicolas Ferre <nicolas.ferre@microchip.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
-	Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Taichi Sugaya <sugaya.taichi@socionext.com>,
-	Takao Orito <orito.takao@socionext.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Avi Fishman <avifishman70@gmail.com>,
-	Tomer Maimon <tmaimon77@gmail.com>,
-	Tali Perry <tali.perry1@gmail.com>,
-	Patrick Venture <venture@google.com>, Nancy Yuen <yuenn@google.com>,
-	Benjamin Fair <benjaminfair@google.com>,
-	Sudeep Holla <sudeep.holla@kernel.org>,
-	Cristian Marussi <cristian.marussi@arm.com>,
-	David Lechner <david@lechnology.com>,
-	Abel Vesa <abelvesa@kernel.org>, Peng Fan <peng.fan@nxp.com>,
-	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Paul Cercueil <paul@crapouillou.net>,
-	Santosh Shilimkar <ssantosh@kernel.org>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Gregory Clement <gregory.clement@bootlin.com>,
-	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
-	Vladimir Zapolskiy <vz@mleia.com>, Heiko Stuebner <heiko@sntech.de>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Sylwester Nawrocki <s.nawrocki@samsung.com>,
-	Chanwoo Choi <cw00.choi@samsung.com>,
-	Peter Griffin <peter.griffin@linaro.org>,
-	Alim Akhtar <alim.akhtar@samsung.com>,
-	Dinh Nguyen <dinguyen@kernel.org>,
-	Viresh Kumar <vireshk@kernel.org>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Emilio =?iso-8859-1?Q?L=F3pez?= <emilio@elopez.com.ar>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Prashant Gaikwad <pgaikwad@nvidia.com>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Ulf Hansson <ulfh@kernel.org>, Liviu Dudau <liviu.dudau@arm.com>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Michal Simek <michal.simek@amd.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	linux-clk@vger.kernel.org, linux-aspeed@lists.ozlabs.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	openbmc@lists.ozlabs.org, arm-scmi@vger.kernel.org,
-	imx@lists.linux.dev, linux-mips@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org,
-	linux-rockchip@lists.infradead.org,
-	linux-samsung-soc@vger.kernel.org, soc@lists.linux.dev,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-sunxi@lists.linux.dev, linux-tegra@vger.kernel.org,
-	linux-mediatek@lists.infradead.org
-Subject: Re: [PATCH 00/45] clk: Make sure clk_init_data is fully initialized
- (part two)
-Message-ID: <apWfW5ahiYagw0OR@redhat.com>
-References: <cover.1787239813.git.geert+renesas@glider.be>
+	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="Jxy4BKzk"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=eVWhQrFbKX59BreDDXcsJlLY7msMYRN6kjMdqCqObDX/tHZQBTcg1ZRqpIy7AHmnePEGJYxaeZkTH45/ADYbL8QKHTRhW9ieMFvOVU+PqwRu+A2bFjDdlJ8aFRzwZn0S4ZMzq+ePh9TeNckDuF5Z6KUvgjVvPDKmXaO/cCDZ7GAoZdAUzVNrGECqG6tldy1N8t6iSUnPgh2drHRnYu7e7B1HNCbmtSWahK9UCYNrRL8OV69LCMjREbjp/n82Jo+mphrmRkg1VCAx2+S2w4lBzXNgniBIn5tjnXIDsxmoRmTqZ9MYTC+GW4cdKrgOZw6OZ7T2CpW+XwsIuYpstc0zDw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=y6fq8FFUhqTh6OxO/hbh+tslolTU6uMjlpwMj/rFrSg=;
+ b=S4x7UyU1QbMCw67PbTQskdGbRbifjh8o5PQ5D+5xGqGcygFFYG7R6WIrIgfI9l42m3uJ2EOkhM3EadDSpCAE5tFj/OIqcqgAlwKqfVo3BMRkWyg+z9Pfqkd7P7Zw8bAgWdKVrkStd9oqasEPpXun7IktxROd1n7OvjYrS+dLsLDZMzWOaNGxnVW+iYEuOnXsSKMhLMTVNqQUGhNq4HE9uTn13y0Mo53X+rpljsTBIG/x9Bcld0v4mAUtgicqh50QZGw6OXFKDbCO3oh4FIIdWeP9XkX6ZR9V4mbHkcyie5+liW7jY51jL0WFSdX1Ug8NK859HFSOb0nOuGerdNi0FA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.88) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=foss.st.com;
+ dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=y6fq8FFUhqTh6OxO/hbh+tslolTU6uMjlpwMj/rFrSg=;
+ b=Jxy4BKzky5vtuylFv/AY/4mCU4TmnQiVAhFbh8j0x7S0mc7QLg1kSY7fZ4Mo6blKBQGgaq6F1avpDHQLCU/X3u6izaf5D9AY1y2JS+cuorkGXtznChPwYDu+i8WmWL6vZs7UAh+5x3JtLO/zc/BYZIzIlO65ZoG8Q9YJUUFZch2hRrCm9WR3nqliFq6/spV3RlGZmJZ7Xg06COtGk98p2R9ABMBynY0qpSrl5M/cmP8IUPvxds/57F35LheHHHEU5RdPvyG6WCI5Stjud+SAyMiWu1rlrUgfAxlYvy6J9TvSr8/WT8QU83GWYZ6mY6VM+Uy1vfodrh1J7w83KWs2YA==
+Received: from DU6P191CA0023.EURP191.PROD.OUTLOOK.COM (2603:10a6:10:540::17)
+ by AS8PR10MB7664.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:639::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.8; Mon, 31 Aug
+ 2026 15:36:49 +0000
+Received: from DU6PEPF0000B61E.eurprd02.prod.outlook.com
+ (2603:10a6:10:540:cafe::88) by DU6P191CA0023.outlook.office365.com
+ (2603:10a6:10:540::17) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.13 via Frontend Transport; Mon,
+ 31 Aug 2026 15:36:49 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.88)
+ smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.88 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.88; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.88) by
+ DU6PEPF0000B61E.mail.protection.outlook.com (10.167.8.133) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.382.8 via Frontend Transport; Mon, 31 Aug 2026 15:36:48 +0000
+Received: from ENXDAG1NODE4.st.com (10.75.129.197) by smtpo365.st.com
+ (10.250.44.75) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Mon, 31 Aug
+ 2026 17:34:07 +0200
+Received: from localhost (10.48.86.45) by ENXDAG1NODE4.st.com (10.75.129.197)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Mon, 31 Aug
+ 2026 17:36:47 +0200
+From: Antonio Borneo <antonio.borneo@foss.st.com>
+To: <linux-kernel@vger.kernel.org>, Wim Van Sebroeck <wim@linux-watchdog.org>,
+	Guenter Roeck <linux@roeck-us.net>, <linux-watchdog@vger.kernel.org>
+CC: Antonio Borneo <antonio.borneo@foss.st.com>,
+	<linux-stm32@st-md-mailman.stormreply.com>
+Subject: [PATCH] MAINTAINERS: Update URI for watchdog tree
+Date: Mon, 31 Aug 2026 17:36:46 +0200
+Message-ID: <20260831153646.396038-1-antonio.borneo@foss.st.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <cover.1787239813.git.geert+renesas@glider.be>
-User-Agent: Mutt/2.4.0 (2026-06-19)
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To ENXDAG1NODE4.st.com
+ (10.75.129.197)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DU6PEPF0000B61E:EE_|AS8PR10MB7664:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7a605c65-f16d-4966-7e6f-08df0775abf6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|23010399003|82310400026|376014|1800799024|13003099007|56012099006|10067099003|11063799006|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	tE7w7RD+CzOI1vRWCaB2ZWkPfjFZc0sKcHpeGc4rEyqo1QN2yVMZxSE2VL0XBt0I0reKIaII8FExTdKJ+ne9RpUCbK+K1OnG5Jx6CEel726oje1cvJTI7xnOuNWfwQDnft3iDCqjfvUf5FP8QLwjnuEul8MsTDVYPuWn5tiumgCzkVrR0cGqsRD+nQuGZHFzmEds9WaUCgIBYOAj9GT/+FwrAJqzhTaMRm1lfqulHgqmt0/uJjmFvGDl9SmQNyEZrYzYcdSoKDNA2Qa6Arc0xTcWduL3yPDI3kkNGh4T4WFzcQGaBs8t69azFxs1BQGzVRaWt21R1rWHG3B9NpAIySszjDUV/dZH+QjdKlgBfDE84gthVmKuC1+xmDULHPaW8oM5m9vMsRb5GU/CKGQ04o3UZCJuqXNz1qLNdaLxK5SG3Q9jI0Mb1knFqwgsf0g1m5OkMvvCkyjZ2sbKgR6pOpNwZFojCYnlryrzlv4MlfQWP2GpCcfNeRJu1caLhY2iyW4cbTF4NnnCQ5GzuDDq3peDmp9+mrfSjIu81AD04v4WrRYB0zGsw9xN8LqH1FLySbzc1wh6OzHh66aeXgoA4Fi7cUEgtsZGpU0IhIPYPkCp+Rdv3zV1jE9KHfl2H4IHBioszsMiRbMcUTcEqe0LdQ==
+X-Forefront-Antispam-Report:
+	CIP:164.130.1.88;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(23010399003)(82310400026)(376014)(1800799024)(13003099007)(56012099006)(10067099003)(11063799006)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	OTLawAkaRT6SgyuuW8TMTR2XuQL3Z3ULdkgBggZdT+W6IGGRCvSeayfVNPLCahqGTUV2+UC+QkZRRhNAjID2jiIP177z9YO4e4rjYI+Om/9rOODChRCZzrXBT11tGDWzAPc8/vlrWDLhVCvNJhxpaknfLsVBZriAf5+2zr+m6A33qV2VeDcLFIyMDRVCP8899QNG2x2NfPvcP3z1qcHIhJiVvbBdAP7XL5Y2Em66KlTIBZYBtsPwGL1IUKWZ58AJRTLsYMNKq9PSXTq1nd33gQ1C+oXdL8Uup1Ke0/kq50I49xq/8QoekudUguTVBZjtisSFrAkbSeULLJtqHBOF45nrJE0IL/oTYQa1g3yRjocEbZodv3tiskL56V0VE0s6yArAY87hY9xtSmiwU99l8paf1w1o8oLxdslts5HKZJCNkDD38jfNsKc5RFiRNLEE
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 15:36:48.6284
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7a605c65-f16d-4966-7e6f-08df0775abf6
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.88];Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DU6PEPF0000B61E.eurprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR10MB7664
 
-Hi Geert / all,
+The old git repository
+	git://www.linux-watchdog.org/linux-watchdog.git
+is not accessible anymore, while the development of the watchdog
+framework is currently handled in git.kernel.org by Guenter's
+linux-staging repository.
 
-On Fri, Aug 21, 2026 at 10:53:10AM +0200, Geert Uytterhoeven wrote:
-> 	Hi all,
-> 
-> The clk_init_data structure contains several mutually-exclusive members
-> for different methods to specify the possible parents of a clock,
-> prompting drivers to initialize only the members they need.  However,
-> not initializing all members may cause subtle issues, which are only
-> exposed when CONFIG_INIT_STACK_ALL_PATTERN or CONFIG_INIT_STACK_NONE is
-> enabled.
-> 
-> Hence this series aims to make sure all members are fully initialized,
-> to avoid such bugs, and to prevent future breakage when converting
-> drivers to a different method for specifying the parents.
-> 
-> Part One[1] fixed all cases that I identified to be real bugs, in
-> response to a crash I saw on BeagleBone Black.
-> 
-> This series is the clock subpart of Part Two, which fixes remaining
-> cases that are currently harmless.  These are still fragile, and may
-> cause future breakage when converting drivers to a different method for
-> specifying the parents.
-> 
-> Thanks for your comments!
-> 
-> [1] "[PATCH treewide 0/5] clk: Make sure clk_init_data is fully
->      initialized (part 1)"
->     https://lore.kernel.org/cover.1787165329.git.geert+renesas@glider.be
-> 
-> Geert Uytterhoeven (45):
->   clk: aspeed: Make sure clk_init_data is fully initialized
->   clk: at91: Make sure clk_init_data is fully initialized
->   clk: bcm: iproc: Make sure clk_init_data is fully initialized
->   clk: berlin: Make sure clk_init_data is fully initialized
->   clk: cdce925: Make sure clk_init_data is fully initialized
->   clk: clk-axi-clkgen: Make sure clk_init_data is fully initialized
->   clk: cs2000-cp: Make sure clk_init_data is fully initialized
->   clk: davinci: Make sure clk_init_data is fully initialized
->   clk: fractional-divider: Make sure clk_init_data is fully initialized
->   clk: gemini: Make sure clk_init_data is fully initialized
->   clk: highbank: Make sure clk_init_data is fully initialized
->   clk: hisilicon: Make sure clk_init_data is fully initialized
->   clk: imx: Make sure clk_init_data is fully initialized
->   clk: ingenic: Make sure clk_init_data is fully initialized
->   clk: keystone: Make sure clk_init_data is fully initialized
->   clk: lmk04832: Make sure clk_init_data is fully initialized
->   clk: mediatek: Make sure clk_init_data is fully initialized
->   clk: milbeaut: Make sure clk_init_data is fully initialized
->   clk: mmp: Make sure clk_init_data is fully initialized
->   clk: mvebu: Make sure clk_init_data is fully initialized
->   clk: mxs: Make sure clk_init_data is fully initialized
->   clk: nomadik: Make sure clk_init_data is fully initialized
->   clk: npcm7xx: Make sure clk_init_data is fully initialized
->   clk: nxp: Make sure clk_init_data is fully initialized
->   clk: pistachio: Make sure clk_init_data is fully initialized
->   clk: pwm: Make sure clk_init_data is fully initialized
->   clk: renesas: Make sure clk_init_data is fully initialized
->   clk: rockchip: Make sure clk_init_data is fully initialized
->   clk: samsung: Make sure clk_init_data is fully initialized
->   clk: scpi: Make sure clk_init_data is fully initialized
->   clk: silabs: Make sure clk_init_data is fully initialized
->   clk: socfpga: Make sure clk_init_data is fully initialized
->   clk: spear: Make sure clk_init_data is fully initialized
->   clk: stm32: Make sure clk_init_data is fully initialized
->   clk: st: Make sure clk_init_data is fully initialized
->   clk: sunxi: Make sure clk_init_data is fully initialized
->   clk: tegra: Make sure clk_init_data is fully initialized
->   clk: uniphier: Make sure clk_init_data is fully initialized
->   clk: ux500: Make sure clk_init_data is fully initialized
->   clk: versatile: Make sure clk_init_data is fully initialized
->   clk: vt8500: Make sure clk_init_data is fully initialized
->   clk: x86: Make sure clk_init_data is fully initialized
->   clk: xgene: Make sure clk_init_data is fully initialized
->   clk: xilinx: Make sure clk_init_data is fully initialized
->   clk: zynqmp: Make sure clk_init_data is fully initialized
+Update the URI.
 
-44 / 45 patches have been added to clk-next. I took it all for simplicity
-rather than everyone trying to cherry pick just their parts.
+Signed-off-by: Antonio Borneo <antonio.borneo@foss.st.com>
+---
+ MAINTAINERS | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Geert: The only patch that didn't apply was:
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 3a19da74d00c9..5e0468e532577 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -29357,7 +29357,7 @@ M:	Guenter Roeck <linux@roeck-us.net>
+ L:	linux-watchdog@vger.kernel.org
+ S:	Maintained
+ W:	http://www.linux-watchdog.org/
+-T:	git git://www.linux-watchdog.org/linux-watchdog.git
++T:	git git://git.kernel.org/pub/scm/linux/kernel/git/groeck/linux-staging.git
+ F:	Documentation/devicetree/bindings/watchdog/
+ F:	Documentation/watchdog/
+ F:	drivers/watchdog/
 
-  [PATCH 27/45] clk: renesas: Make sure clk_init_data is fully initialized
-
-I didn't look into it too much.
-
-Brian
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+-- 
+2.34.1
 
