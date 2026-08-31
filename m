@@ -1,184 +1,114 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77EA13E5A03;
-	Mon, 31 Aug 2026 10:12:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56DEC3E0241
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 10:12:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788171124; cv=none; b=MKNhlRnKMS9m091Jt9zTzHXcKXGhdrdkOn6Y+MRj3q2L0zsQlRJoJmGcN3pe6kqzwt+xdZTJos77pfGZpedWF8Y5SW+U74VjfYZOTI/votqggGDmMvoiHizAX9/PeF7piqFEkSKvkYinim7phWoFchkAg965zPA6x5F98K/2q30=
+	t=1788171149; cv=none; b=bRi3I7JINCBoXhM8UgsRLNjQLe/hK5R0Z/E6dhpOK5HMib2UnhBdFOvwrSnr0qY53q7Cl6vxst62N/op2fs4FKCewe94lek1ftM5W1eKaqu5qgI/RkjhdtaaDIwZ4a34oH60iRFvfhclIoo8rjjCMdYugTutqu+qEx4L8ZiJotU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788171124; c=relaxed/simple;
-	bh=Iq0d5n6IlO3NBhdFk5UBLPgwEZU19VrtosRUfUZtQ4E=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=B42i1tlQjOegYK5KDL912vTybTD6gs+bdel/DcC5VvxmUst3/sArW91QN8FXxiizrYwmP6VOc4WDRvcsZbs/ge2ofPX7K3eePz/QjsJSweeHf80K0vedoTpLOVH5qCsxwgzBH2iVdvzc6TEtMeg2/dvZfPGBh6RjLlmEDAL2yCM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=A1cs8iP+; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=xjG79jMA; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=F+W7yegO; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=o4nK9Cvo; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="A1cs8iP+";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="xjG79jMA";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="F+W7yegO";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="o4nK9Cvo"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 481B11FB86;
-	Mon, 31 Aug 2026 10:11:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1788171116; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=L58Z7+BXjdSqb3Vh9n8TDNy2pZxNZI0wP+OuP60u9BQ=;
-	b=A1cs8iP+Nvyyux++q0vtbMa3kH8cI64Ua+JXZ3doMv37YUyN6i6MUwvKScUqv4zGOiMkI7
-	0asjHhByYIBYKrlmWDoiALVvUNpDsELSmrdS1USnP8/tEalHdoZi5+h6Z24vA9kyVtLcpV
-	rNxkPYv1HgsK/oxX4nBFrN3DA0IXaOQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1788171116;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=L58Z7+BXjdSqb3Vh9n8TDNy2pZxNZI0wP+OuP60u9BQ=;
-	b=xjG79jMAZv7ON1n3tUBENQUqE/7TTqLmTnH+VeBN7NN4zMK43kKnRIFXyBdPEaRq12IcEl
-	Fpi9bK3txwfCOEDg==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=F+W7yegO;
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=o4nK9Cvo
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1788171112; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=L58Z7+BXjdSqb3Vh9n8TDNy2pZxNZI0wP+OuP60u9BQ=;
-	b=F+W7yegO8lF8Zxf8amh5VWl6oahxp5Hh6GwJLyL/oKyRWViCy1g0WLDkRWUrSGrEiVOZiY
-	RYWcFc0LIHfuMC+s0ovTElTgB1fzA0qhPB52C0MwARE0f/73BFUC3CtiFoe0jMzqytECQL
-	QDjGbU1OEohAUkq3r3ybPCcbLXaawVs=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1788171112;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=L58Z7+BXjdSqb3Vh9n8TDNy2pZxNZI0wP+OuP60u9BQ=;
-	b=o4nK9Cvoz6WVPfkrCSBPa+eFBQwLBoRiLh9TgJmTbXQL+N79z47Fy4WidY40CcLTKJEZ7X
-	T8j1Yzcrdhfiv3Dw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2891C13682;
-	Mon, 31 Aug 2026 10:11:52 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id bZnlCWhTlWoXfQAAD6G6ig
-	(envelope-from <jack@suse.cz>); Mon, 31 Aug 2026 10:11:52 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id B8034A13B5; Mon, 31 Aug 2026 12:11:51 +0200 (CEST)
-Date: Mon, 31 Aug 2026 12:11:51 +0200
-From: Jan Kara <jack@suse.cz>
-To: "Matthew Wilcox (Oracle)" <willy@infradead.org>
-Cc: Christian Brauner <christian@brauner.io>, Jan Kara <jack@suse.cz>, 
-	Gao Xiang <xiang@kernel.org>, Chao Yu <chao@kernel.org>, Theodore Tso <tytso@mit.edu>, 
-	Trond Myklebust <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>, 
-	Namjae Jeon <linkinjeon@kernel.org>, Hyunchul Lee <hyc.lee@gmail.com>, 
-	Phillip Lougher <phillip@squashfs.org.uk>, linux-erofs@lists.ozlabs.org, linux-kernel@vger.kernel.org, 
-	linux-ext4@vger.kernel.org, linux-nfs@vger.kernel.org, ntfs@lists.linux.dev, 
-	linux-fsdevel@vger.kernel.org, linux-mm@kvack.org
-Subject: Re: [PATCH 7/9] squashfs: Remove use of FGP_NOFS
-Message-ID: <kg2pupprlig5gqaqgjydpxfkrsi42bu2li6cingcmu3aidqhyp@afi5wxdrauk6>
-References: <20260830041901.2668-1-willy@infradead.org>
- <20260830041901.2668-8-willy@infradead.org>
+	s=arc-20240116; t=1788171149; c=relaxed/simple;
+	bh=RcOP1NDQQPqZkGJ91JufvzO8ys9JVue1CXqog2TH0Z8=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=qcrQiijcklgoHWrIvc3eP8v1Fpyk47jmG58FhpSnxeu0hBoWXCVT41fSTc6VbFwAGrKeuK1qRZdLFB7khW3vB5hs9Bscpmpr4qacH0rdffi11jSOcx4RMUwqY7kejQMHS8T6HmhH4Yf0N561BNux/vJZDjOCcfrkdWVy1+NBbAM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 74c020d4a52411f19a56ed5b684f684d-20260831
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:4b641a69-50e4-4722-9b20-b7fc85e98cdf,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:7db8b62,CLOUDID:d3d548fb41c10750fb6da136da82571d,BulkI
+	D:nil,BulkQuantity:0,SF:102|865|898,TC:nil,Content:0|15|50,EDM:-3,IP:nil,U
+	RL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,
+	SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 74c020d4a52411f19a56ed5b684f684d-20260831
+X-User: liwanwu@kylinos.cn
+Received: from kylinos.cn [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <liwanwu@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 1521691000; Mon, 31 Aug 2026 18:12:22 +0800
+From: Wanwu Li <liwanwu@kylinos.cn>
+To: "Ingo Molnar" <mingo@redhat.com>,
+	"Peter Zijlstra" <peterz@infradead.org>,
+	"Juri Lelli" <juri.lelli@redhat.com>,
+	"Vincent Guittot" <vincent.guittot@linaro.org>
+Cc: "Dietmar Eggemann" <dietmar.eggemann@arm.com>,
+	"Steven Rostedt" <rostedt@goodmis.org>,
+	"Ben Segall" <bsegall@google.com>,
+	"Mel Gorman" <mgorman@suse.de>,
+	"Valentin Schneider" <vschneid@redhat.com>,
+	"K Prateek Nayak" <kprateek.nayak@amd.com>,
+	"Aaron Lu" <ziqianlu@bytedance.com>,
+	"Wanwu Li" <liwanwu@kylinos.cn>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 0/2] sched/fair: Use cfs_rq->h_curr in the bandwidth paths
+Date: Mon, 31 Aug 2026 18:11:39 +0800
+Message-Id: <20260831101141.391382-1-liwanwu@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260830041901.2668-8-willy@infradead.org>
-X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: 481B11FB86
-X-Spamd-Result: default: False [-2.51 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[18];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_COUNT_THREE(0.00)[3];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_TLS_LAST(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	TO_DN_SOME(0.00)[];
-	TAGGED_RCPT(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DKIM_TRACE(0.00)[suse.cz:+];
-	MISSING_XM_UA(0.00)[];
-	FREEMAIL_CC(0.00)[brauner.io,suse.cz,kernel.org,mit.edu,gmail.com,squashfs.org.uk,lists.ozlabs.org,vger.kernel.org,lists.linux.dev,kvack.org];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[infradead.org:email,suse.cz:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.com:email]
-X-Spam-Flag: NO
-X-Spam-Score: -2.51
+Content-Transfer-Encoding: 8bit
 
-On Sun 30-08-26 05:18:54, Matthew Wilcox (Oracle) wrote:
-> Since we can allocate memory while holding a folio locked, we cannot
-> allow page reclaim to call into the filesystem and attempt to compact
-> the folio we're currently holding locked.  Use memalloc_nofs_save()
-> instead of FGP_NOFS here.
-> 
-> Signed-off-by: Matthew Wilcox (Oracle) <willy@infradead.org>
-> ---
->  fs/squashfs/file.c | 5 ++++-
->  1 file changed, 4 insertions(+), 1 deletion(-)
-> 
-> diff --git a/fs/squashfs/file.c b/fs/squashfs/file.c
-> index d83594ce91d2..34c550a266bc 100644
-> --- a/fs/squashfs/file.c
-> +++ b/fs/squashfs/file.c
-> @@ -398,6 +398,7 @@ void squashfs_copy_cache(struct folio *folio,
->  	struct squashfs_sb_info *msblk = inode->i_sb->s_fs_info;
->  	int i, mask = (1 << (msblk->block_log - PAGE_SHIFT)) - 1;
->  	int start_index = folio->index & ~mask, end_index = start_index | mask;
-> +	unsigned int nofs = memalloc_nofs_save();
+Hi Peter, Ingo,
 
-Why do you need this? The only allocation I can see is the one using
-FGP_NOWAIT below...
+Since commit 85570f10a4c6 ("sched/eevdf: Move to a single runqueue")
+the per-level "is something running at this level" information moved
+from cfs_rq->curr to cfs_rq->h_curr; cfs_rq->curr is now only
+maintained on the root cfs_rq. The cgroup hierarchy is kept for load
+tracking and bandwidth accounting, which makes the bandwidth paths the
+only code that still runs per-level and consults a per-level current.
+Two locations were not updated in this conversion:
 
-								Honza
+  1/2: throttle_cfs_rq() reads cfs_rq->curr to decide whether the
+       throttled level has a running entity. For intermediate cfs_rqs
+       the check is always false, so quota exhaustion never requests a
+       full sched_cfs_bandwidth_slice() and never arms the deferred
+       throttle task_work via task_throttle_setup_work(); a running
+       task can out-run its group's quota until the next pick armed
+       the work instead.
 
->  
->  	/*
->  	 * Loop copying datablock into pages.  As the datablock likely covers
-> @@ -415,7 +416,7 @@ void squashfs_copy_cache(struct folio *folio,
->  
->  		push_folio = (i == folio->index) ? folio :
->  			__filemap_get_folio(mapping, i,
-> -					FGP_LOCK|FGP_CREAT|FGP_NOFS|FGP_NOWAIT,
-> +					FGP_LOCK | FGP_CREAT | FGP_NOWAIT,
->  					mapping_gfp_mask(mapping));
->  
->  		if (IS_ERR(push_folio))
-> @@ -430,6 +431,8 @@ void squashfs_copy_cache(struct folio *folio,
->  		if (i != folio->index)
->  			folio_put(push_folio);
->  	}
-> +
-> +	memalloc_nofs_restore(nofs);
->  }
->  
->  /* Read datablock stored packed inside a fragment (tail-end packed block) */
-> -- 
-> 2.47.3
-> 
+  2/2: distribute_cfs_runtime() gates its clock refresh and runtime
+       accounting on cfs_rq->curr, which never fires for cgroup
+       cfs_rqs. Since commit 28ad5427682b ("sched/fair: Call
+       update_curr() before unthrottling the hierarchy")
+       unthrottle_cfs_rq() catches up unconditionally, so this is not
+       a correctness hole today, but the refresh the check was written
+       for is gone.
+
+I audited all cfs_rq->curr references in kernel/sched/fair.c:
+
+  - Only two sites still run at every level of the hierarchy:
+    throttle_cfs_rq() (patch 1/2) and distribute_cfs_runtime()
+    (patch 2/2). Both reads are fixed here.
+
+  - Every other reader is confined to the root cfs_rq, where curr is
+    correctly maintained (avg_vruntime, place_entity, pick_eevdf,
+    enqueue/dequeue paths, update_curr_eevdf, put/set_next_task_fair
+    and the two assignment sites), or already reads the per-level
+    current via cfs_rq->h_curr (update_curr, check_enqueue_throttle,
+    set_next_entity, put_prev_entity).
+
+I noticed that 85570f10a4c6 carries a TODO to eventually get rid of
+cfs_rq->h_curr. Until that rework lands, the throttle paths should
+observe the per-level current as they did before the conversion; if
+you prefer, these fixes can be folded into the planned rework.
+
+Wanwu Li (2):
+  sched/fair: Use cfs_rq->h_curr in throttle_cfs_rq()
+  sched/fair: Use cfs_rq->h_curr in distribute_cfs_runtime()
+
+ kernel/sched/fair.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+base-commit: 1b78070aaef63512688aebfbc82365ef9d6660f1
 -- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+2.34.1
