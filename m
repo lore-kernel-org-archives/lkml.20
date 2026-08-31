@@ -1,220 +1,143 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3958B429838;
-	Mon, 31 Aug 2026 16:04:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E6604756B6;
+	Mon, 31 Aug 2026 16:04:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788192257; cv=none; b=dz//iwFUrutL6w/baJApZ2rEjKBXr1Tnr9Z4G2HFhtrIhoUzz4eaiVvwi8yHE/G0twxj6e6yi005YWUpLbNIKhUrJxER0rtAkGEkTfWHlre/QSqEO4iiPOmLNxPa3PR2omb3peMwBsojpfDs6/4CWY8Hn9RBfhkQqVqADqYD6F0=
+	t=1788192267; cv=none; b=hxnmyIfziKqlEdqlDUa6KQwfjJsIBHuAgXrof88HCgzIjtAPVUuhYPiPcYSbje4On3zISmN+ecodlCpoKBL0Q9B8SRqEOnXyGVcQM7nGqG6uNjUP7eAv7Cny72Pe8LWsGyzSB5x7VhF+g0t5F0SdHZQS9KuKL6etfDu8m92ebUA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788192257; c=relaxed/simple;
-	bh=mn0I+oybEDI4d3908JwrXhBlFaAjmy8I9oPngGfjUf4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aFj3rSodaD66wnmpIidu6fDXgvtlMlgUBImNWk+axXbIzz/qcbS4vlUurX4dLOhviysTjcsIBAR0/jvEefZ0zHUfucUiMGUAJ9E5blyQOdObSssZg29GtdUu1+Vfon4N/cinacfGyeKwIUmdXKVuxsEu9WSDpbXr23CqpAPAXUk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hGV61OLs; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788192267; c=relaxed/simple;
+	bh=YtBIQydOwiDa9z0YXBYl9v06WxleGdRGUOLPwSPpXlk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=VrIjPUJyDaQxKbwczvJPuHhUFjvbS7Bryqf1EjZf23goap150e5pthGhRLlicawzbR8ERaDtNfNyaTxdVemPRL7+Af2T0kLMK/38aavH1tcGFmduc8gfrv3Sqy3vOFMZGBAZkkKI8/9d3yITOtP9ozF6SQ1NwbBSKflhVmzwI40=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ppunhs5P; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hGV61OLs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35B7B1F000E9;
-	Mon, 31 Aug 2026 16:04:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ppunhs5P"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D1E641F000E9;
+	Mon, 31 Aug 2026 16:04:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788192255;
-	bh=l45S1FIaD59xQAqPUTAkPZR5Cbk0GE3PNFGvxtQ232o=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=hGV61OLsRWpOhdP8vNKS35Q75/KPtDnrrucz2L/aO5/LlmPq6tN0JWYps2SOG9gB8
-	 TxEzOqu2R3MvnyC5cptVR4wjlxS9kSBvGF5K6HqYE/4qxgP8cqoxacV0hZ2vzSikn7
-	 ulxgrkuvnL6r3ilgbBVxt0Epd9BcsJcNzXYvQ9pECNqICpfY8oPJ6CGRB+6sId6pvL
-	 EoHLlxTQELR4sjNzvHZaoEs7GZnJ3WZth9lfJbc8cJCXx3E0RPmBXMPU2Y1aduRsI1
-	 k2yrmmhhJPVWpHPHKcqwS/WnKjryPbhyXQvnqALIn/N1w+K0ZsCjy0tk3dZyNA1Nm4
-	 Z+hXLzV+PzT3g==
-Date: Mon, 31 Aug 2026 17:04:11 +0100
-From: Conor Dooley <conor@kernel.org>
-To: zhentao.guo@amlogic.com
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Jerome Brunet <jbrunet@baylibre.com>,
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v8 3/6] media: dt-bindings: Add Amlogic V4L2 video decoder
-Message-ID: <20260831-matrimony-ability-e5fcf150d213@spud>
-References: <20260831-b4-s4-vdec-upstream-v8-0-830195b9bd91@amlogic.com>
- <20260831-b4-s4-vdec-upstream-v8-3-830195b9bd91@amlogic.com>
+	s=k20260515; t=1788192265;
+	bh=Uq7YyNnWah9USSxVq9LR8zCXv+SqDnnoFlu6Hbu1WXQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Ppunhs5PKu5CdT+XvNVUL7Rb5Z2CPCQLTrH/hyEU6ZLrfpnaoIxBlFJ8zdDIqRVZo
+	 SvxYhhrw9qHo6yB0Fw0wo98g5QjKkN3tbOqS88Obb4g8lWANkTd77KODHvL1gJAlIb
+	 pRPCjJaLUNt57zOR5HdQo3g9ZH6POfvt1ihde/LOIyCPAwe6VABEbvnHGNlwFeJ/j/
+	 VdvyAQIYifTdJBPgeVSC52vQqQ0MbX22IyhMLKEXyUwsB09o/+12jvj1Wtry+GKxzX
+	 9xQvTOWg/VrGEOEYHAQr/mgb41JarJb33o+FN9vIfLTxgPfWIG0leWcatULj0ORPjk
+	 fKk6KXw7nqMsA==
+Message-ID: <faac65a7-5c83-4a00-8334-ed26c45a8201@kernel.org>
+Date: Mon, 31 Aug 2026 18:04:21 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="vDuQ2UyDODDws11u"
-Content-Disposition: inline
-In-Reply-To: <20260831-b4-s4-vdec-upstream-v8-3-830195b9bd91@amlogic.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] mm/slab: don't use kfree_rcu sheaves on PREEMPT_RT in
+ kvfree_call_rcu()
+Content-Language: en-US
+To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ ThangNN99 <ngocthang2710.1999@gmail.com>
+Cc: Harry Yoo <harry@kernel.org>, Andrew Morton <akpm@linux-foundation.org>,
+ Clark Williams <clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>,
+ Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>,
+ David Rientjes <rientjes@google.com>,
+ Roman Gushchin <roman.gushchin@linux.dev>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev,
+ syzbot+acf142088e0182172e58@syzkaller.appspotmail.com
+References: <20260831130057.HLukQ-zm@linutronix.de>
+ <20260831133222.8637-1-ngocthang2710.1999@gmail.com>
+ <20260831143500.x-saxdAs@linutronix.de>
+From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Autocrypt: addr=vbabka@kernel.org; keydata=
+ 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
+In-Reply-To: <20260831143500.x-saxdAs@linutronix.de>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
---vDuQ2UyDODDws11u
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On 8/31/26 16:35, Sebastian Andrzej Siewior wrote:
+> On 2026-08-31 20:32:22 [+0700], ThangNN99 wrote:
+>> --- a/mm/slab_common.c
+>> +++ b/mm/slab_common.c
+>> @@ -2034,7 +2027,14 @@ void kvfree_call_rcu(struct kvfree_rcu_head *head, void *ptr)
+>>  	if (!head)
+>>  		might_sleep();
+>>  
+>> -	if (kfree_rcu_sheaf(ptr))
+>> +	/*
+>> +	 * Callers may hold a raw_spinlock_t here on PREEMPT_RT (e.g.
+>> +	 * set_cpus_allowed_force(), whose callers all hold
+>> +	 * task_struct::pi_lock), and the sheaf/barn locks are also taken
+>> +	 * as blocking locks elsewhere, so trying them here creates a
+>> +	 * lockdep-visible ordering conflict. Skip sheaves on PREEMPT_RT.
+>> +	 */
+> 
+> You mix up things. A raw_spinlock_t should work in general and should
+> not cause a problem. The task_struct::pi_lock is special: It used during
+> wakes and the inner waitlock of the rtmutex acquires it even during a
+> trylock. For PREEMPT_RT we don't want to acquire any locks while the
+> pi_lock is held.
+> 
+> What about
+>   
+>     kvfree_rcu() is called by set_cpus_allowed_force() with
+>     task_struct::pi_lock acquired. On PREEMPT_RT the local_trylock()
+>     usage below will acquire the waitlock which must be avoided.
+>     Therefore avoid it on PREEMPT_RT.
 
-On Mon, Aug 31, 2026 at 04:32:04PM +0800, Zhentao Guo via B4 Relay wrote:
-> From: Zhentao Guo <zhentao.guo@amlogic.com>
->=20
-> Describe the initial support for the V4L2 stateless video decoder
-> driver used with the Amlogic S4 (S805X2) platform.
->=20
-> Signed-off-by: Zhentao Guo <zhentao.guo@amlogic.com>
-> ---
->  .../devicetree/bindings/media/amlogic,s4-vdec.yaml | 106 +++++++++++++++=
-++++++
->  1 file changed, 106 insertions(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/media/amlogic,s4-vdec.yaml=
- b/Documentation/devicetree/bindings/media/amlogic,s4-vdec.yaml
-> new file mode 100644
-> index 000000000000..a93a2140801b
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/media/amlogic,s4-vdec.yaml
-> @@ -0,0 +1,106 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +# Copyright (C) 2025 Amlogic, Inc. All rights reserved
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/media/amlogic,s4-vdec.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Amlogic Video Decode Accelerator
-> +
-> +maintainers:
-> +  - Zhentao Guo <zhentao.guo@amlogic.com>
-> +
-> +description:
-> +  The Video Decoder Accelerator present on Amlogic SOCs.
-> +  It supports stateless h264 decoding.
-> +
-> +properties:
-> +  compatible:
-> +    const: amlogic,s4-vdec
-> +
-> +  reg:
-> +    maxItems: 2
-> +
-> +  reg-names:
-> +    items:
-> +      - const: dos
-> +      - const: dmc
-> +
+Thanks.
 
-> +  interrupts:
-> +    maxItems: 2
+> Vlastimil?
 
-What are these interrupts? All other properties convey the info via
-mandatory -names, but interrupts don't.
+IMHO it's not useful to iterate a fix through emails with apparently a LLM
+agent, so let's continue here:
 
-I don't love the lack of items lists on !-names properties, but not a
-big deal to not have them I don't think.
+https://lore.kernel.org/all/20260831-b4-kfree_rcu_hotfix-v1-1-4f0fb882638b@kernel.org/
 
-On account of the interrupts:
-pw-bot: changes-requested
+> 
+>> +	if (!IS_ENABLED(CONFIG_PREEMPT_RT) && kfree_rcu_sheaf(ptr))
+>>  		return;
+>>  
+>>  	// Queue the object but don't yet schedule the batch.
+> 
+> Sebastian
 
-Cheers,
-Conor.
-
-
-> +
-> +  clocks:
-> +    maxItems: 3
-> +
-> +  clock-names:
-> +    items:
-> +      - const: dos
-> +      - const: core_vdec
-> +      - const: core_hvdec
-> +
-> +  power-domains:
-> +    maxItems: 2
-> +
-> +  power-domain-names:
-> +    items:
-> +      - const: dos_vdec
-> +      - const: dos_hvdec
-> +
-> +  resets:
-> +    maxItems: 1
-> +
-> +  amlogic,canvas:
-> +    description: Canvas maintains an index-to-physical-address
-> +     mapping table that allows the 16-bit AMRISC decoder core
-> +     to access 32-bit or 64-bit physical address.
-> +    $ref: /schemas/types.yaml#/definitions/phandle
-> +
-> +  amlogic,secure-monitor:
-> +    description: Used to decrypt and load the signed decoder
-> +     firmware through ARM SMC (Secure Monitor Call).
-> +    $ref: /schemas/types.yaml#/definitions/phandle
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - reg-names
-> +  - interrupts
-> +  - clocks
-> +  - clock-names
-> +  - power-domains
-> +  - power-domain-names
-> +  - resets
-> +  - amlogic,canvas
-> +  - amlogic,secure-monitor
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
-> +    #include <dt-bindings/clock/amlogic,s4-pll-clkc.h>
-> +    #include <dt-bindings/clock/amlogic,s4-peripherals-clkc.h>
-> +    #include <dt-bindings/power/meson-s4-power.h>
-> +    #include <dt-bindings/reset/amlogic,meson-s4-reset.h>
-> +    video-codec@fe320000 {
-> +      compatible =3D "amlogic,s4-vdec";
-> +      reg =3D <0xfe320000 0x10000>,
-> +            <0xfe036000 0x20>;
-> +      reg-names =3D "dos",
-> +                  "dmc";
-> +      interrupts =3D <GIC_SPI 91 IRQ_TYPE_EDGE_RISING>,
-> +                   <GIC_SPI 92 IRQ_TYPE_EDGE_RISING>;
-> +      clocks =3D <&clkc_periphs CLKID_DOS>,
-> +               <&clkc_periphs CLKID_VDEC_SEL>,
-> +               <&clkc_periphs CLKID_HEVCF_SEL>;
-> +      clock-names =3D "dos",
-> +                    "core_vdec",
-> +                    "core_hvdec";
-> +      power-domains =3D <&pwrc PWRC_S4_DOS_VDEC_ID>,
-> +                      <&pwrc PWRC_S4_DOS_HEVC_ID>;
-> +      power-domain-names =3D "dos_vdec",
-> +                           "dos_hvdec";
-> +      resets =3D <&reset RESET_DOS>;
-> +      amlogic,canvas =3D <&canvas>;
-> +      amlogic,secure-monitor =3D <&sm>;
-> +    };
->=20
-> --=20
-> 2.42.0
->=20
->=20
-
---vDuQ2UyDODDws11u
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCapWl+gAKCRB4tDGHoIJi
-0p1SAQCBt5qF4cDd5+WUBSGCucSvgIOgV7UrxnC4keqbfJkbUQD+N2SKFXRP40rE
-DfkfS3/XekyAhUKyQQMUpSC4VoAF8Aw=
-=YCLQ
------END PGP SIGNATURE-----
-
---vDuQ2UyDODDws11u--
