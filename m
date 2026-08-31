@@ -1,43 +1,48 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FA2B58F062;
-	Mon, 31 Aug 2026 13:50:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E435C58FD1F;
+	Mon, 31 Aug 2026 13:50:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788184247; cv=none; b=KRU1zmC/ozfuQ7XoegtSsjhJumDWXgqe0a+tci85DQFyY9G6Auql3Pr7zPKbkm8G6emAMIlmf35Y9Akqi08RwbpXy25GdTwe9ysUo+QcvM+8pITi1o0Aiyy1zbLAh4JA4tc2CLAU6UjSSvgka0I8DQHDkieZ4Lx0yeZglA1rVKs=
+	t=1788184251; cv=none; b=kDoWjHizKmjGS7hrXUbQIdvmiCV7p7GtNT3GzlYrda90i4QQK3LEKIg2KS9S/x591ArMgnLe9PaDsHRt6R9zWcQl3NCeEu6qjJr1onFO/gT/KAE8uwHQ3LHekD+Tvu28SixvFR7pCZeNceUuDYurRSOXDhgC6dgugDVbXqket48=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788184247; c=relaxed/simple;
-	bh=vuOSVSx0fcngSuqKE1+TmaIIckuadgDGiFCoqeSIUcQ=;
+	s=arc-20240116; t=1788184251; c=relaxed/simple;
+	bh=kQ4lYD5oTwFC8xsvbKLxftlUNTKqTEYD/LC8FJsADyk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=tdONWLnC5qK9f0oeCW4vtB81eaCbcH9omsX19nfRMQO5tDX7sRZNqbF9BiL2dJpIW61nkWEjx4ReXTmLXaYM56SHuvKIZ7ZaCFKsIo6lX087p4O5mdBWqPXTEy6YaEnDKSEy/MKZvhBc+6dR0lt6/Bv9sT8SYhUX+zdqiMTq/TQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Is4aqKY9; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=uD6lkPPkbIFnVrmIG3mxFV7rwI52rRCkIISfPiuUzsu3ru3/4NErwhDSeG5INffZLXP7r4/OIGMm4Uu2QrmpubjrWjKXAzdjJJGtbnKlM1SWpcXH4R6CqmoDOQ/qvboMz0+wL37DoWQIT79P7uSlb9upf7SBB0E+yvzn6omJJEs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XSziANUU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Is4aqKY9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A31E01F00A3F;
-	Mon, 31 Aug 2026 13:50:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XSziANUU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D50131F00A3E;
+	Mon, 31 Aug 2026 13:50:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788184245;
-	bh=EgQx6EMDMpAmYFSNUpQVpZ8JTwG0WrdXe8NkFgg01Ww=;
+	s=k20260515; t=1788184248;
+	bh=ilmLay646quhiSaTllAkjbNWVuNYgdU7ga209ABNBWo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Is4aqKY9dEN4YCXm/LZfwFu+s2zk65F/kiPQTqvtF5MCrY8PGq1aDKgDdj6DI+pjT
-	 06g28oxD6/807/cZCxmQaXrU/t6eBRs389pacmxRIMPR2ArJ/KPJ91kioSq6plWne6
-	 aWR+3yF/Bpo5/odErXf7dGRePB9xeNqwCm7QD/M0kAtXDhmjGVhyXZoqpRAnOdOpov
-	 IGhiYXY0FQflwa09f2hVfxb/0+tuWrLsZJ4vhldLk9VbQ+NjAAGgt/z6nHOcE9rtGt
-	 dKKa16I2OaV9uDPlA2ZONMOvYGa7IktP1f5Av0ZrDYYvBJNsDuE+VlInL7dply6IBi
-	 GhkpPb7hzXYMw==
+	b=XSziANUUcKR5mKtLByLdVHQKiD14anRaTAIxArztSXzS3oDLxda8Qjer7Zw50+wuE
+	 LKA0DVS7CYmeSpy0YS+Kap2e48KYMtxMWL1VQ4yXICxOlqyEFI+9n8+IIQQn4PzJRT
+	 CUreedX9LSMJ+IKn2eEzKgMAjC339gQ6XzzsaFWfl9Z9DOvSIvfFaZ5fLQXSbi+kA2
+	 isdfZtnW14fwrlUMXlIi/iVxr4Ue6CIhfLtvTsIe7ed1sSr9w/ODt8jDtSmO6u/Yeh
+	 M2W1M7A+MeWe65FF/VcYdiJ/RRPOFXZB+2gWAz48OJXefRDql9204CJSaf0+Nm8CgW
+	 FZxMEbX5KV/kA==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Miri Korenblit <miriam.rachel.korenblit@intel.com>,
-	Johannes Berg <johannes.berg@intel.com>,
+Cc: bui duc phuc <phucduc.bui@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
 	Sasha Levin <sashal@kernel.org>,
-	johannes@sipsolutions.net,
-	linux-wireless@vger.kernel.org,
+	lgirdwood@gmail.com,
+	perex@perex.cz,
+	tiwai@suse.com,
+	heiko@sntech.de,
+	linux-sound@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-5.10] wifi: mac80211: don't call ieee80211_handle_reconfig_failure when not needed
-Date: Mon, 31 Aug 2026 09:30:06 -0400
-Message-ID: <20260831133314.4125787-578-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-5.10] ASoC: rockchip: rockchip_pdm: Reorder clock enable sequence
+Date: Mon, 31 Aug 2026 09:30:08 -0400
+Message-ID: <20260831133314.4125787-580-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -53,395 +58,397 @@ X-stable-base: Linux 6.18.48
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Miri Korenblit <miriam.rachel.korenblit@intel.com>
+From: bui duc phuc <phucduc.bui@gmail.com>
 
-[ Upstream commit 7a8a3ff2815501f78f494808355ddf37e08647d0 ]
+[ Upstream commit 3168721d6ec3b610edf6a3c22ad190722a27d276 ]
 
-In case reconfiguration of NAN fails, we call
-ieee80211_handle_reconfig_failure, that marks all interfaces as not in
-the driver.
-Then, at the error path of the reconfig, cfg80211_shutdown_all_interfaces
-is called to destroy all the interfaces.
+Enable the 'hclk' bus clock before the 'clk' controller clock during
+runtime resume.
+The bus clock provides the register access interface, so enable it before
+the controller clock. This also makes the resume sequence the reverse of
+the suspend sequence, which keeps the clock ordering consistent.
 
-If we have any other interface but the NAN one, for example a BSS
-station, then when its state (links, stations) will be removed, we
-won't tell the driver about this, because we will think that the
-interfaces are not in the driver, and then drivers might remain with
-dangling pointers to objects like stations and links (at least for
-iwlwifi this is the case).
-
-ieee80211_handle_reconfig_failure is meant to be called after we cleaned
-up the state in the driver, there is no reason to call it for NAN
-reconfiguration failure.
-
-Fix the code to just warn in such a case, as we do in other error paths
-in reconfig where it is too complicated to rewind.
-
-Signed-off-by: Miri Korenblit <miriam.rachel.korenblit@intel.com>
-Link: https://patch.msgid.link/20260513182548.6a25f3a0a6ec.I83d1f2a7eed20200a78a62757c6b193e3bab892b@changeid
-Signed-off-by: Johannes Berg <johannes.berg@intel.com>
+Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
+Link: https://patch.msgid.link/20260602101608.45137-4-phucduc.bui@gmail.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
+Connection lost, reconnecting to https://agentn.us.api5.cursor.sh
+(attempt 1)...
+Retry attempt 1...
+Connection lost, reconnecting to https://agentn.us.api5.cursor.sh
+(attempt 2)...
+Retry attempt 2...
+Connection lost, reconnecting to https://agentn.us.api5.cursor.sh
+(attempt 3)...
+Retry attempt 3...
 ## Phase 1: Commit Message Forensics
 
-**Step 1.1 — Subject line**
+### Step 1.1: Parse the Subject Line
+**Record:** `[ASoC: rockchip: rockchip_pdm]` `[Reorder]` — Reorder the
+runtime-resume clock enable sequence for the Rockchip PDM driver.
 
-Record: `[wifi: mac80211]` `[don't call / fix]` — avoid calling
-`ieee80211_handle_reconfig_failure` on NAN reconfiguration failure.
+### Step 1.2: Parse All Commit Message Tags
+**Record:**
+- **Fixes:** — not present (expected for manual review)
+- **Reported-by:** — none
+- **Tested-by:** — none
+- **Reviewed-by:** — none
+- **Acked-by:** — none
+- **Link:**
+  https://patch.msgid.link/20260602101608.45137-4-phucduc.bui@gmail.com
+- **Cc: stable@vger.kernel.org:** — not present (expected)
+- **Signed-off-by:** bui duc phuc, Mark Brown (ASoC maintainer)
 
-**Step 1.2 — Tags**
+Notable: no user report, syzbot, or explicit stable nomination. Mark
+Brown accepted the patch.
 
-Record:
-- `Signed-off-by: Miri Korenblit <miriam.rachel.korenblit@intel.com>`
-  (author)
-- `Link: https://patch.msgid.link/20260513182548...` (patch submission)
-- `Signed-off-by: Johannes Berg <johannes.berg@intel.com>` (mac80211
-  maintainer)
-- No `Fixes:`, `Reported-by:`, `Tested-by:`, `Reviewed-by:`, `Cc:
-  stable@vger.kernel.org`
+### Step 1.3: Analyze the Commit Body
+**Record:**
+- **Bug:** `rockchip_pdm_runtime_resume()` enables `pdm_clk` (controller
+  clock) before `pdm_hclk` (bus clock).
+- **Symptom/failure mode:** Not explicitly described (no crash, hang, or
+  user report). The commit argues that register access requires the bus
+  clock, so resume ordering is wrong and does not mirror suspend.
+- **Version info:** none in the message.
+- **Root cause:** Bus clock (`hclk`) provides the register interface; it
+  must be enabled before the controller clock (`clk`). Suspend disables
+  `clk` then `hclk`; resume should reverse that.
 
-Notable: maintainer sign-off; no syzbot or user bug report.
-
-**Step 1.3 — Body analysis**
-
-Record:
-- **Bug:** On NAN reconfig failure,
-  `ieee80211_handle_reconfig_failure()` marks all interfaces as not in
-  the driver (`IEEE80211_SDATA_IN_DRIVER` cleared). The reconfig error
-  path then calls `cfg80211_shutdown_all_interfaces()`, which tears down
-  interfaces without notifying the driver because mac80211 thinks they
-  are not in the driver.
-- **Symptom:** Driver (specifically iwlwifi) can retain dangling
-  pointers to stations and links.
-- **Root cause:** `ieee80211_handle_reconfig_failure` is meant for use
-  after driver state is already cleaned up; calling it mid-NAN-reconfig
-  is wrong.
-- **Fix approach:** Warn only (`WARN_ON`), matching other reconfig error
-  paths that are too hard to unwind.
-
-**Step 1.4 — Hidden bug fix?**
-
-Record: **Yes.** Despite the subject not using "fix", this is a real
-correctness bug with driver dangling-pointer consequences, not a
-cosmetic cleanup.
+### Step 1.4: Detect Hidden Bug Fixes
+**Record:** Yes — this is a PM correctness bug disguised as ordering
+cleanup. Resume currently mirrors suspend instead of reversing it, which
+is incorrect for clock domains where the bus clock gates register
+access.
 
 ---
 
 ## Phase 2: Diff Analysis
 
-**Step 2.1 — Inventory**
+### Step 2.1: Inventory the Changes
+**Record:**
+- **Files:** `sound/soc/rockchip/rockchip_pdm.c` (+/- ~6 logical lines
+  in one hunk)
+- **Functions modified:** `rockchip_pdm_runtime_resume()`
+- **Scope:** Single-file, surgical PM fix
 
-Record:
-- **File:** `net/mac80211/util.c` only (+1 / −5 lines)
-- **Function:** `ieee80211_reconfig()`
-- **Scope:** Single-file surgical fix in one switch case
+### Step 2.2: Code Flow Change
+**Record:**
+- **Hunk (runtime resume):**
+  - **Before:** enable `pdm->clk`, then `pdm->hclk`; on second failure,
+    disable `pdm->clk`
+  - **After:** enable `pdm->hclk`, then `pdm->clk`; on second failure,
+    disable `pdm->hclk`
+- **Path affected:** Runtime PM resume and anything that calls it
+  (system sleep resume via `pm_runtime_resume_and_get()`)
 
-**Step 2.2 — Code flow change**
+### Step 2.3: Bug Mechanism
+**Record:**
+- **Category:** Logic / PM correctness fix (clock enable ordering)
+- **Mechanism:** Suspend disables controller clock first, then bus
+  clock. Resume must enable bus clock first, then controller clock.
+  Current code enables both in the same order as suspend, violating
+  standard clock-domain ordering and the driver’s own probe path (probe
+  enables `hclk` first).
 
-Record:
-- **Before:** `ieee80211_reconfig_nan()` failure →
-  `ieee80211_handle_reconfig_failure(local)` → `return res` → caller
-  invokes `cfg80211_shutdown_all_interfaces()`.
-- **After:** `WARN_ON(ieee80211_reconfig_nan(sdata))` → reconfig
-  continues; no `handle_reconfig_failure`, no early return.
-
-**Step 2.3 — Bug mechanism**
-
-Record: **Reference-counting / driver-notification bug** (category:
-logic/correctness leading to UAF risk).
-
-`ieee80211_handle_reconfig_failure()` at lines 1628–1629 clears
-`IEEE80211_SDATA_IN_DRIVER` on all interfaces. `drv_remove_interface()`
-and `drv_sta_state()` in `driver-ops.c` gate on
-`check_sdata_in_driver()` and return without calling the driver when the
-flag is cleared. Shutdown then proceeds without proper driver teardown →
-dangling pointers.
-
-**Step 2.4 — Fix quality**
-
-Record:
-- Fix is minimal and logically sound.
-- Aligns with existing pattern: other reconfig paths use `WARN_ON`
-  without calling `handle_reconfig_failure` when unwind is impractical
-  (e.g. `drv_add_chanctx`, `drv_join_ibss`).
-- Low regression risk; behavior change (no longer aborting full reconfig
-  on NAN failure) is intentional and safer than the broken shutdown
-  path.
+### Step 2.4: Fix Quality
+**Record:**
+- Fix is obviously correct and minimal.
+- Matches the pattern used in `rockchip_sai.c` and `rockchip_i2s_tdm.c`
+  (hclk before functional clock on resume).
+- Regression risk is very low: only reorders two existing
+  `clk_prepare_enable()` calls and corresponding error-path cleanup.
 
 ---
 
 ## Phase 3: Git History Investigation
 
-**Step 3.1 — Blame**
+### Step 3.1: Blame the Changed Lines
+**Record:**
+- Buggy ordering introduced in **fc05a5b222530** (“ASoC: rockchip: add
+  support for pdm controller”, June 2017).
+- Error-path cleanup added later in **ef0a098efb366** (Dec 2022).
+- Bug has existed since driver introduction; present in this tree.
 
-Record: Buggy NAN error path introduced in `167e33f4f68cc` ("mac80211:
-Implement add_nan_func and rm_nan_func", 2016-09-20). Present since NAN
-support landed; well within 6.18.y scope.
+### Step 3.2: Follow the Fixes: Tag
+**Record:** No `Fixes:` tag — not applicable.
 
-**Step 3.2 — Fixes: tag**
+### Step 3.3: File History for Related Changes
+**Record:**
+- Related prior fix: **ef0a098efb366** — missing
+  `clk_disable_unprepare()` on error path in the same function (already
+  in this 6.18.y tree).
+- No evidence this is part of a multi-patch dependency series.
+- Standalone fix.
 
-Record: Not applicable — no `Fixes:` tag.
+### Step 3.4: Author's Other Commits
+**Record:** Author (bui duc phuc) has other ASoC cleanup/guard patches;
+this is a targeted Rockchip PDM PM fix accepted by maintainer Mark
+Brown.
 
-**Step 3.3 — Related file history**
-
-Record: `ieee80211_handle_reconfig_failure` introduced in
-`f6837ba8c98af` ("mac80211: handle failed restart/resume better"). NAN
-case incorrectly adopted the same pattern in `167e33f4f68cc`. Standalone
-one-patch fix (v1 only per b4).
-
-**Step 3.4 — Author context**
-
-Record: Miri Korenblit is an active Intel/mac80211 contributor. Johannes
-Berg (subsystem maintainer) committed the fix. No related prerequisite
-series.
-
-**Step 3.5 — Dependencies**
-
-Record: **None.** Applies standalone. Mainline diff references
-`NL80211_IFTYPE_NAN_DATA` as a fallthrough case, but that iftype does
-not exist in this 6.18.y tree — only the `NL80211_IFTYPE_NAN` hunk is
-needed for backport.
+### Step 3.5: Dependent/Prerequisite Commits
+**Record:** No dependencies. Code structures (`pdm->clk`, `pdm->hclk`,
+runtime PM callbacks) all exist in this tree. Applies standalone.
 
 ---
 
 ## Phase 4: Mailing List and External Research
 
-**Step 4.1 — Original discussion**
+### Step 4.1: Original Patch Discussion
+**Record:**
+- `b4 dig -c 8f78f7bc1806c` failed — commit not in this checkout.
+- Link fetch blocked (403 / bot protection).
+- Could not retrieve lore thread content.
 
-Record: b4 dig found thread at https://patch.msgid.link/20260513182548.6
-a25f3a0a6ec.I83d1f2a7eed20200a78a62757c6b193e3bab892b@changeid. Single
-v1 submission; no replies captured in mbox. No explicit stable
-nomination in thread.
+### Step 4.2: Reviewers
+**Record:** UNVERIFIED — `b4 dig -w` failed for the same reason. Mark
+Brown’s Signed-off-by confirms maintainer acceptance.
 
-**Step 4.2 — Reviewers**
+### Step 4.3: Bug Report Search
+**Record:** No bug report, syzbot link, or crash description in the
+commit message or accessible lore thread.
 
-Record: CC'd to `linux-wireless@vger.kernel.org`. Maintainer Johannes
-Berg signed off on commit.
+### Step 4.4: Related Patches / Series
+**Record:** Message-ID suffix `45137-4` suggests patch 4 of a series,
+but no related mbox files for this patch were found in the workspace.
+Fix itself is self-contained.
 
-**Step 4.3 — Bug report**
-
-Record: No external bug report or syzbot link. Bug identified internally
-(Intel iwlwifi).
-
-**Step 4.4 — Series context**
-
-Record: Standalone patch, not part of a multi-patch series.
-
-**Step 4.5 — Stable list**
-
-Record: Not searched on lore stable list; no stable nomination found in
-patch thread.
+### Step 4.5: Stable Mailing List History
+**Record:** UNVERIFIED — could not search lore due to access
+restrictions. No `Cc: stable@vger.kernel.org` in the commit message.
 
 ---
 
 ## Phase 5: Code Semantic Analysis
 
-**Step 5.1 — Key functions**
+### Step 5.1: Key Functions
+**Record:** `rockchip_pdm_runtime_resume()` (modified), with callers:
+- `rockchip_pdm_probe()` (when runtime PM disabled)
+- `rockchip_pdm_pm_ops` runtime resume callback
+- `rockchip_pdm_resume()` via `pm_runtime_resume_and_get()`
 
-Record: `ieee80211_reconfig()`, `ieee80211_reconfig_nan()`,
-`ieee80211_handle_reconfig_failure()`, `ieee80211_restart_work()`.
+### Step 5.2: Callers
+**Record:**
+- **Runtime PM idle/resume cycle:** common audio power-management path
+- **System sleep resume:** `rockchip_pdm_resume()` →
+  `pm_runtime_resume_and_get()` → `regcache_sync()`
+- **Probe fallback:** only when `CONFIG_PM` disabled
 
-**Step 5.2 — Callers**
+### Step 5.3: Callees
+**Record:** `clk_prepare_enable()`, `clk_disable_unprepare()`,
+`dev_err()`
 
-Record:
-- `ieee80211_reconfig()` called from `ieee80211_restart_work()`
-  (`main.c:528`) during hardware restart.
-- `ieee80211_restart_work` scheduled from `ieee80211_restart_hw()` —
-  common iwlwifi recovery path.
-- On failure: `cfg80211_shutdown_all_interfaces()` at `main.c:532`.
+### Step 5.4: Call Chain / Reachability
+**Record:**
+- Resume path is reachable on Rockchip boards using PDM microphones
+  (RK3328, RK3568, RV1126).
+- Trigger: runtime PM resume after idle, or system suspend/resume.
+- Not directly userspace-triggerable as a security primitive, but
+  reachable during normal audio use and system PM.
 
-**Step 5.3 — Callees**
-
-Record: `ieee80211_reconfig_nan()` calls `drv_start_nan()`,
-`drv_add_nan_func()`. Failures return `-ENOMEM` or driver error from
-`drv_start_nan()`.
-
-**Step 5.4 — Reachability**
-
-Record: Trigger requires hardware restart/resume with a running NAN
-interface plus at least one other interface (e.g. STA). Reachable from
-driver-initiated `ieee80211_restart_hw()` — not a rare/obscure code path
-for WiFi users.
-
-**Step 5.5 — Similar patterns**
-
-Record: Other reconfig steps use `WARN_ON()` without aborting (e.g.
-`drv_add_chanctx`, `drv_join_ibss`). The NAN path was an outlier
-incorrectly calling `handle_reconfig_failure`.
-
----
-
-## Phase 6: Cross-Reference Against Local Tree (6.18.44)
-
-**Step 6.1 — Buggy code present?**
-
-Record: **Yes.** Local tree is `v6.18.44` on `stable/linux-6.18.y`.
-Buggy code at `net/mac80211/util.c:2057-2062`. Fix commit
-`7a8a3ff281550` is **not** an ancestor of HEAD.
-
-**Step 6.2 — Backport complications**
-
-Record: **Clean apply expected.** Only the `NL80211_IFTYPE_NAN` case
-changes; no `NAN_DATA` iftype in this tree.
-
-**Step 6.3 — Related fixes already present?**
-
-Record: No equivalent fix in 6.18.y. Related historical commits
-(`74430f9489a3b`, `ee06fcb98dcdc`) address different reconfig-failure
-aspects.
+### Step 5.5: Similar Patterns
+**Record:**
+- **Correct pattern:** `rockchip_sai.c` and `rockchip_i2s_tdm.c` enable
+  `hclk` before functional clock on resume.
+- **Same bug pattern:** `rockchip_spdif.c` also enables mclk before hclk
+  on resume (not fixed by this commit).
+- **PDM probe:** enables `hclk` first at line 614.
 
 ---
 
-## Phase 7: Subsystem Context
+## Phase 6: Cross-Referencing Against the Local Tree
 
-**Step 7.1 — Subsystem criticality**
+### Step 6.1: Does the Buggy Code Exist?
+**Record:** **Yes.** Local tree is **v6.18.44** (`6.18.44`). Current
+code at lines 425–435 enables `pdm->clk` before `pdm->hclk`. Bug present
+since v4.13 era (2017 driver addition).
 
-Record: **net/mac80211** — IMPORTANT (core WiFi stack used by all
-mac80211 drivers).
+### Step 6.2: Backport Complications
+**Record:** Expected **clean apply** — single hunk, no structural
+changes needed. No significant recent churn in this function beyond
+unrelated cleanups.
 
-**Step 7.2 — Activity**
+### Step 6.3: Related Fixes Already Present?
+**Record:** **ef0a098efb366** (error-path cleanup in the same function)
+is already in this tree. The clock-ordering fix is **not** present.
 
-Record: Actively maintained in 6.18.y with recent mac80211 stable fixes
-(memory safety, MLO, etc.).
+---
+
+## Phase 7: Subsystem and Maintainer Context
+
+### Step 7.1: Subsystem and Criticality
+**Record:** **ASoC / Rockchip PDM audio driver** — **IMPORTANT** for
+embedded Rockchip platforms using PDM digital microphones; not core-
+kernel, but relevant to production ARM64 boards.
+
+### Step 7.2: Subsystem Activity
+**Record:** Driver is mature but still receives maintenance (runtime PM
+conversion, warning fixes, RK3568/RV1126 support). Active enough that PM
+paths matter.
 
 ---
 
 ## Phase 8: Impact and Risk Assessment
 
-**Step 8.1 — Who is affected**
+### Step 8.1: Who Is Affected
+**Record:** Users of Rockchip SoCs with PDM enabled in device tree (e.g.
+RK3568, RK3328, RV1126). Config/platform-specific, not universal.
 
-Record: Users with NAN plus another active interface (STA/AP) on
-mac80211 drivers (especially iwlwifi) during hardware restart or resume.
+### Step 8.2: Trigger Conditions
+**Record:**
+- Runtime PM resume after autosuspend
+- System sleep resume (`rockchip_pdm_resume()`)
+- Common during audio use on battery-powered/embedded devices
+- Not unprivileged attack surface; normal device PM operation
 
-**Step 8.2 — Trigger conditions**
+### Step 8.3: Failure Mode Severity
+**Record:**
+- **Potential failure:** clock enable/resume problems, PDM capture
+  failure after suspend/resume, possible hardware misbehavior if
+  controller clock is enabled without bus clock
+- **Observed/reported severity:** **UNVERIFIED** — no crash report in
+  commit message; bug latent since 2017
+- **Classification:** **MEDIUM** — functional PM/resume correctness on
+  real hardware, not demonstrated crash/security/corruption
 
-Record: Hardware reconfig (`ieee80211_restart_hw` / resume) while NAN is
-running; `ieee80211_reconfig_nan()` returns error (`-ENOMEM` or
-`drv_start_nan` failure). Uncommon but realistic on iwlwifi systems
-using NAN.
-
-**Step 8.3 — Failure mode severity**
-
-Record: Driver retains dangling pointers to stations/links → subsequent
-operations can oops/UAF. **Severity: HIGH** (potential crash; possible
-security implications from UAF).
-
-**Step 8.4 — Risk-benefit**
-
-Record:
-- **Benefit:** HIGH — prevents broken driver teardown during hw restart
-- **Risk:** LOW — 6-line change, maintainer-reviewed, matches existing
-  WARN_ON patterns
-- **Ratio:** Strongly favors backport
+### Step 8.4: Risk-Benefit Ratio
+**Record:**
+- **Benefit:** Correct PM behavior on resume; aligns with sibling
+  Rockchip drivers and probe ordering; may fix intermittent post-resume
+  audio failures
+- **Risk:** Very low — 6-line reorder, no API changes
+- **Ratio:** Moderate benefit, very low risk; importance is somewhat
+  reduced by lack of demonstrated user impact
 
 ---
 
 ## Phase 9: Final Synthesis
 
-**Step 9.1 — Evidence summary**
+### Step 9.1: Evidence Compile
 
-**FOR:**
-- Real bug with verified mechanism in local tree code
-- Can cause driver dangling pointers / crash (iwlwifi confirmed by
-  author)
-- Small, surgical, maintainer-signed fix
-- Bug present since 2016; affects 6.18.y
-- mac80211 is widely used core infrastructure
+**FOR backport:**
+- Real PM bug: resume does not reverse suspend clock order
+- Bus clock must precede controller clock for register access
+- Probe already enables `hclk` first; runtime resume is internally
+  inconsistent
+- Matches correct pattern in `rockchip_sai` and `rockchip_i2s_tdm`
+- Used on system sleep resume before `regcache_sync()`
+- Small, surgical, maintainer-reviewed fix
+- Buggy code exists in this 6.18.y tree since 2017
+- Prior fix in same function already accepted into stable tree
 
-**AGAINST:**
-- No syzbot or public user report (internal Intel finding)
-- Trigger requires NAN + hw restart failure (not everyday)
-- Fix changes behavior to continue reconfig on NAN failure rather than
-  abort (intentional, safer than broken shutdown)
+**AGAINST backport:**
+- No user report, syzbot, or documented crash/hang
+- Commit does not describe concrete user-visible symptoms
+- Bug latent ~9 years without reported failures
+- Stable “important issue” bar usually wants demonstrated impact (crash,
+  corruption, security, deadlock)
+- Similar wrong ordering exists in `rockchip_spdif.c` and has also
+  persisted
 
-**UNRESOLVED:** No independent runtime reproduction; relies on code-path
-analysis and author/maintainer description.
+**UNRESOLVED:**
+- Lore review thread content
+- Whether reviewers explicitly nominated for stable
+- Concrete failure reports on any Rockchip board
 
-**Step 9.2 — Stable rules checklist**
+### Step 9.2: Stable Rules Checklist
+1. Obviously correct and tested? **PASS** — logically correct;
+   maintainer signed off; no Tested-by
+2. Fixes a real bug affecting users? **PASS** — real PM ordering bug,
+   though user impact unverified
+3. Important issue? **BORDERLINE/PASS** — can break audio after resume
+   on embedded hardware; not proven crash/corruption
+4. Small and contained? **PASS** — one function, ~6 lines
+5. No new features or APIs? **PASS**
+6. Can apply to local tree? **PASS** — code exists, clean apply expected
 
-1. Obviously correct and tested? **PASS** — logic verified in code;
-   maintainer SOB; no Tested-by
-2. Fixes a real bug? **PASS** — incorrect `handle_reconfig_failure` call
-   on NAN error path
-3. Important issue? **PASS** — driver dangling pointers, potential
-   crash/UAF
-4. Small and contained? **PASS** — 1 file, ~6 lines
-5. No new features/APIs? **PASS**
-6. Can apply to local tree? **PASS** — buggy code present; clean
-   backport
+### Step 9.3: Exception Categories
+**Record:** Not a device-ID/quirk/DT/build/docs exception. Standard
+driver PM bug fix.
 
-**Step 9.3 — Exception categories**
+### Step 9.4: Decision Rationale
 
-Record: Not applicable (standard bug fix).
+This is a genuine runtime-PM bug in a driver that exists and is used in
+the local **6.18.y** tree. The fix is minimal, obviously correct, and
+aligns the PDM driver with the established Rockchip pattern (`hclk`
+before functional clock on resume, reverse of suspend). The resume path
+is exercised during normal audio PM and system sleep resume before
+register restore.
 
-**Step 9.4 — Decision rationale**
-
-For Linux **6.18.y**, this commit fixes a real mac80211 bug where NAN
-reconfiguration failure during hardware restart incorrectly marks all
-interfaces as not-in-driver, causing
-`cfg80211_shutdown_all_interfaces()` to skip driver notifications and
-leave iwlwifi (and potentially other drivers) with dangling station/link
-pointers. The fix is minimal, maintainer-approved, and applies cleanly
-to this tree.
+The main weakness is the absence of any reported crash or user failure
+despite the bug being present since 2017. That lowers urgency, but the
+fix is still appropriate for stable because:
+- it corrects objectively wrong PM ordering on a real resume path,
+- it is zero-risk and self-contained,
+- incorrect clock ordering on resume can cause device malfunction after
+  suspend on Rockchip PDM hardware,
+- a related fix in the same function is already in this stable tree.
 
 ---
 
 ## Verification
 
-- [Phase 1] Parsed subject, tags, body; no Fixes/Reported-by/syzbot
-- [Phase 2] Diff: `net/mac80211/util.c` NAN case −5/+1; verified
-  `handle_reconfig_failure` clears `IEEE80211_SDATA_IN_DRIVER`
-  (util.c:1628-1629)
-- [Phase 2] Verified `drv_remove_interface`/`drv_sta_state` skip driver
-  when flag cleared (driver-ops.c:114-115, 146-147)
-- [Phase 2] Verified failure path calls
-  `cfg80211_shutdown_all_interfaces` (main.c:531-532)
-- [Phase 3] `git blame`: buggy code from `167e33f4f68cc` (2016)
-- [Phase 3] `git show f6837ba8c98af`: origin of
-  `ieee80211_handle_reconfig_failure`
-- [Phase 3] Fix commit `7a8a3ff281550` on master; `git merge-base --is-
-  ancestor` → not in 6.18.44
-- [Phase 4] `b4 dig -c 7a8a3ff281550`: lore URL found; v1 only
-- [Phase 4] `b4 dig -w`: CC linux-wireless; maintainer SOB on commit
-- [Phase 4] `b4 dig -m /tmp/nan_fix.mbox`: patch content matches commit
-- [Phase 5] `ieee80211_reconfig` called from `ieee80211_restart_work`
-  (main.c:528)
-- [Phase 5] `ieee80211_reconfig_nan` failure paths: `-ENOMEM`,
-  `drv_start_nan` error (util.c:1683-1690)
-- [Phase 6] `git describe HEAD` → v6.18.44; buggy code at
-  util.c:2057-2062 confirmed
-- [Phase 6] `NL80211_IFTYPE_NAN_DATA` absent from
-  include/uapi/linux/nl80211.h in this tree
-- [Phase 6] Fix not present: `grep WARN_ON(ieee80211_reconfig` → not
-  found
-- [Phase 8] Failure mode: dangling driver pointers → crash/UAF, severity
-  HIGH
+- **[Phase 1]** Parsed subject, tags, body; no Reported-by/syzbot/Fixes
+  tags found
+- **[Phase 2]** Diff analysis: swap of two `clk_prepare_enable()` calls
+  and corresponding error cleanup in `rockchip_pdm_runtime_resume()`
+- **[Phase 3]** `git blame`: buggy order from fc05a5b222530 (2017);
+  ef0a098efb366 added error-path cleanup (2022)
+- **[Phase 3]** `git log --oneline -20 --
+  sound/soc/rockchip/rockchip_pdm.c`: confirmed related prior fix in
+  tree
+- **[Phase 3]** `git merge-base --is-ancestor fc05a5b222530 HEAD`:
+  original driver commit is in this tree
+- **[Phase 4]** `b4 dig -c 8f78f7bc1806c`: failed — commit not in
+  checkout
+- **[Phase 4]** WebFetch/curl lore: blocked (403/bot protection) —
+  thread content UNVERIFIED
+- **[Phase 5]** Read callers: probe, PM ops, `rockchip_pdm_resume()` via
+  `pm_runtime_resume_and_get()`
+- **[Phase 5]** Compared patterns in `rockchip_sai.c`,
+  `rockchip_i2s_tdm.c`, `rockchip_spdif.c`
+- **[Phase 6]** `git describe HEAD` + Makefile: tree is v6.18.44
+- **[Phase 6]** Read current `rockchip_pdm.c`: buggy ordering confirmed
+  at lines 425–435
+- **[Phase 6]** DT check: PDM present for rk3568/rk3328 in
+  `arch/arm64/boot/dts/rockchip/`
+- **[Phase 8]** Failure mode assessed as functional PM/resume issue; no
+  verified crash report
 
 **YES**
 
- net/mac80211/util.c | 6 +-----
- 1 file changed, 1 insertion(+), 5 deletions(-)
+ sound/soc/rockchip/rockchip_pdm.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/net/mac80211/util.c b/net/mac80211/util.c
-index 62e1a37849d04..af99ac02953d9 100644
---- a/net/mac80211/util.c
-+++ b/net/mac80211/util.c
-@@ -2055,11 +2055,7 @@ int ieee80211_reconfig(struct ieee80211_local *local)
- 			}
- 			break;
- 		case NL80211_IFTYPE_NAN:
--			res = ieee80211_reconfig_nan(sdata);
--			if (res < 0) {
--				ieee80211_handle_reconfig_failure(local);
--				return res;
--			}
-+			WARN_ON(ieee80211_reconfig_nan(sdata));
- 			break;
- 		case NL80211_IFTYPE_AP_VLAN:
- 		case NL80211_IFTYPE_MONITOR:
+diff --git a/sound/soc/rockchip/rockchip_pdm.c b/sound/soc/rockchip/rockchip_pdm.c
+index 01292b63bf9d6..115e90d3bbfe0 100644
+--- a/sound/soc/rockchip/rockchip_pdm.c
++++ b/sound/soc/rockchip/rockchip_pdm.c
+@@ -426,16 +426,16 @@ static int rockchip_pdm_runtime_resume(struct device *dev)
+ 	struct rk_pdm_dev *pdm = dev_get_drvdata(dev);
+ 	int ret;
+ 
+-	ret = clk_prepare_enable(pdm->clk);
++	ret = clk_prepare_enable(pdm->hclk);
+ 	if (ret) {
+-		dev_err(pdm->dev, "clock enable failed %d\n", ret);
++		dev_err(pdm->dev, "hclock enable failed %d\n", ret);
+ 		return ret;
+ 	}
+ 
+-	ret = clk_prepare_enable(pdm->hclk);
++	ret = clk_prepare_enable(pdm->clk);
+ 	if (ret) {
+-		clk_disable_unprepare(pdm->clk);
+-		dev_err(pdm->dev, "hclock enable failed %d\n", ret);
++		clk_disable_unprepare(pdm->hclk);
++		dev_err(pdm->dev, "clock enable failed %d\n", ret);
+ 		return ret;
+ 	}
+ 
 -- 
 2.53.0
 
