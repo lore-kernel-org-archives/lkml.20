@@ -1,33 +1,36 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-27.mta0.migadu.com [91.218.175.27])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE24C30E85B;
-	Mon, 31 Aug 2026 03:02:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F77230E85B
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 03:04:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.27
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788145379; cv=none; b=NfZl0sn8syc2lxlI27ggoGga1WFc0JUThb0olqCyxMcni/hsTzns3hqvLRtUClttR2Sm2VoT25o4E/1vXgl9GA+E1uN5jssehTK9MVq3/6b3vM7ePtBQqSjvY5bXXsF+SdEGtzoo/Nlc5RRBZwDfIirTm5CNwWJVv4KcQKKlfR8=
+	t=1788145458; cv=none; b=hXCYlPlznPdqyciT5PO13Y+3L32bJifohJZtY8wPVY0htFTCrYNLuImybI+0YbHwxMHBDuwX0AnKAlwAyeiUIv62G6fZXmCz3KRJODOLo21NzL+VM0FX4s0m9zR6jC9XbiuBilhBJ/x/SDq8+VnGRlIGWwBSaJFi8fFJ9pzlIhg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788145379; c=relaxed/simple;
-	bh=7xAwu7GPkq66WqGt8IyauPsgkbs4KnZkfyNfebfC9nI=;
+	s=arc-20240116; t=1788145458; c=relaxed/simple;
+	bh=7JG+Y/MbG1W3gGf8HyAY/yH0mRHjRKGLSpi2iB9OSXA=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=c0tOolYRHhdjjHINQUGyLE15pHCDeUfJnyiF7W5o9KcwdDa0A/Q6k0Ut0DOhH/gmg67QN1NgcH9Kwvzsq9QE1WFRq6X+MWPJPNF7Ka06qGRiW5fEYtjyl6m0rEt4JR4LFS1Tbq9komACbOkM2NMPUZW/2LSzan9SQGS2gBs3Fmk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EMx2BUw/; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=Lm0zmXhvBE2Oj3Z6RZI/7PMsM/+SLqBUXFzt19L0jzd8cqd9b6Ol+YPDSvc3TZ/syg3nKXocl3KwmV/UbtgB4dDPKgYrsHhgd9KDzejfy5uhdtGZAVXC2gLcVDnr2zrW1WvM+VUFH+TDV3IM0wWA0uqFy2eU38lWUD54a5uh/ng=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Fou/b2MN; arc=none smtp.client-ip=91.218.175.27
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EMx2BUw/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 061B31F000E9;
-	Mon, 31 Aug 2026 03:02:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788145378;
-	bh=ETs+4Tl68muzBumLt5I6HKBvhH1PKmH1PnMlTtXNCJI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=EMx2BUw/mk9z5LR2kM5oqWedT160RYUpYEAIINZtWONcWcjqPg7BbXE56Qy6PEFam
-	 er/CkcI7E6VOBemyixM11nwUvcQ1XKBMiAncHZP91YpvllIrSPf8H/cLAQ/lpp332A
-	 Qtv+93+m9pamvx79iyt3kcinjJoV6MKxvr/VP/QOi3kTzsHgyO8811a6f7qByR/fyG
-	 knhMjDWoSOMdbwmEIkwrIlJXT6qKJJW/UOrunSUKjSy1TeTUI/iVnJy+lLsWabJA8k
-	 4LxhuCGGnn23LXaza2y8FWpdBKPmMJzpXXJQ92qg6AOGPRlXY5F6M+6B332VUPtaom
-	 2qZ+OGzzcdjTw==
-Message-ID: <602bdc5f-e9fa-4ed5-a009-03af860d31a6@kernel.org>
-Date: Mon, 31 Aug 2026 05:02:54 +0200
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Fou/b2MN"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=7JG+Y/MbG1W3gGf8HyAY/yH0mRHjRKGLSpi2iB9OSXA=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788145452; v=1; x=1788750252;
+ b=Fou/b2MNxVkJEcUkrAb+NgKjNF/toU1T4Un230ZOiNeCsDDvYqMhqJuJ8uJFjD3srV0oWe/Z
+ +ptDu/lKgYOVJo8G7IZjPLgLx+Bl8oTs5cUfnFdbZ30BdsL1RtbPatJr73QcIKdXuzoUROYda+n
+ BAM1T+SXSygmMJrx6hGOfKYk=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id d5373d51ec0bae41;
+	Mon, 31 Aug 2026 03:04:12 +0000
+X-Mizu-Trace-ID: d5373d51ec0bae41
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <9b664d58-af07-40d9-bd35-846a517c1ddb@linux.dev>
+Date: Mon, 31 Aug 2026 11:04:08 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,129 +38,258 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] serial: core: replace get_zeroed_page() with
- kzalloc()
-To: "Mike Rapoport (Microsoft)" <rppt@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>, Matthew Wilcox <willy@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>, linux-kernel@vger.kernel.org,
- linux-mm@kvack.org, linux-serial@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org
-References: <20260830-tty-v1-0-0cbe6170649b@kernel.org>
- <20260830-tty-v1-2-0cbe6170649b@kernel.org>
-Content-Language: en-US
-From: Jiri Slaby <jirislaby@kernel.org>
-Autocrypt: addr=jirislaby@kernel.org; keydata=
- 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
-In-Reply-To: <20260830-tty-v1-2-0cbe6170649b@kernel.org>
+Subject: Re: [PATCH v2 1/6] cgroup/cpuset: Respect child CPU ownership in type
+ changes
+To: Guopeng Zhang <guopeng.zhang@linux.dev>, cgroups@vger.kernel.org,
+ longman@redhat.com
+Cc: tj@kernel.org, hannes@cmpxchg.org, mkoutny@suse.com, shuah@kernel.org,
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ Guopeng Zhang <zhangguopeng@kylinos.cn>
+References: <20260828095643.13395-1-guopeng.zhang@linux.dev>
+ <20260828095643.13395-2-guopeng.zhang@linux.dev>
+From: Ridong Chen <ridong.chen@linux.dev>
+In-Reply-To: <20260828095643.13395-2-guopeng.zhang@linux.dev>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 30. 08. 26, 9:49, Mike Rapoport (Microsoft) wrote:
-> uart_alloc_xmit_buf() allocates the transmit buffer of a serial port. The
-> buffer only backs the port's kfifo, the data being sent is copied in and
-> out of it.
+
+
+On 8/28/2026 5:56 PM, Guopeng Zhang wrote:
+> From: Guopeng Zhang <zhangguopeng@kylinos.cn>
 > 
-> This buffer can be allocated with kmalloc() as there's nothing special
-> about it to go directly to the page allocator.
+> effective_xcpus includes CPUs granted to valid child partitions. Changing
+> a parent between root and isolated must not apply its new isolation state
+> or housekeeping constraints to those CPUs.
 > 
-> kmalloc() provides a better API that does not require ugly casts and
-> kfree() does not need to know the size of the freed object.
+> For example, on a cgroup v2 system with CPUs 0-3 online:
 > 
-> Performance difference between kmalloc() and __get_free_pages() is not
-> measurable as both allocators take an object/page from a per-CPU list for
-> fast path allocations.
+>      cd /sys/fs/cgroup
+>      echo +cpuset > cgroup.subtree_control
+>      mkdir type-repro
+>      echo 1-3 > type-repro/cpuset.cpus
+>      echo isolated > type-repro/cpuset.cpus.partition
+>      echo +cpuset > type-repro/cgroup.subtree_control
+>      mkdir type-repro/child
+>      echo 2-3 > type-repro/child/cpuset.cpus
+>      echo isolated > type-repro/child/cpuset.cpus.partition
+>      echo root > type-repro/cpuset.cpus.partition
+>      cat cpuset.cpus.isolated
 > 
-> For the slow path the performance is anyway determined by the amount of
-> reclaim involved rather than by what allocator is used.
+> The isolated mask should still contain CPUs 2-3 after the parent becomes a
+> root partition. Without this change, those CPUs are removed even though
+> the child remains isolated.
 > 
-> While on it, make the local variable holding the buffer a pointer to get
-> rid of the casts.
+> Compute the CPUs owned directly by a partition by subtracting the
+> effective_xcpus of valid children. Use this mask for type-change isolation
+> accounting and housekeeping checks. Apply the same ownership rule when
+> validating a trial CPU mask; otherwise a later CPU-mask update can mark a
+> parent invalid because of a boot-isolated CPU owned by a valid child.
 > 
-> Replace use of get_zeroed_page() with kzalloc() and free_page() with
-> kfree().
+> Limiting the parent check to directly owned CPUs also allows a root child
+> to hold the last housekeeping CPU while its parent becomes isolated. If
+> the child then becomes a member, returning that CPU to the isolated parent
+> would violate the housekeeping constraint. The transition back to member
+> must remain allowed, so invalidate the outermost isolated ancestor and
+> return its CPUs to a root partition.
 > 
-> Link: https://lore.kernel.org/all/635405e4-9423-4a25-a6e7-e03c8ea0bcbe@redhat.com
-> Assisted-by: copilot:claude-opus
-> Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+> Sashiko pointed out the trial-validation and CPU-return gaps while
+> reviewing the original series.
+> 
+> Link: https://sashiko.dev/#/patchset/20260820124202.517160-1-guopeng.zhang%40linux.dev?part=6
+> Fixes: 4a74e418881f ("cgroup/cpuset: Check partition conflict with housekeeping setup")
+> Fixes: 11e5f407b64a ("cgroup/cpuset: Keep track of CPUs in isolated partitions")
+> Fixes: 103b08709e8a ("cgroup/cpuset: Fail if isolated and nohz_full don't leave any housekeeping")
+> Fixes: b1034a690129 ("cgroup/cpuset: Ensure domain isolated CPUs stay in root or isolated partition")
+> Signed-off-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
 > ---
->   drivers/tty/serial/serial_core.c | 16 ++++++++--------
->   1 file changed, 8 insertions(+), 8 deletions(-)
+>   kernel/cgroup/cpuset.c | 92 ++++++++++++++++++++++++++++++++++++++----
+>   1 file changed, 84 insertions(+), 8 deletions(-)
 > 
-> diff --git a/drivers/tty/serial/serial_core.c b/drivers/tty/serial/serial_core.c
-> index 95774b0f1484..f12ce7d190fe 100644
-> --- a/drivers/tty/serial/serial_core.c
-> +++ b/drivers/tty/serial/serial_core.c
-> @@ -247,29 +247,29 @@ static int uart_alloc_xmit_buf(struct tty_port *port)
->   	struct uart_state *state = container_of(port, struct uart_state, port);
->   	struct uart_port *uport;
->   	unsigned long flags;
-> -	unsigned long page;
-
-1:
-
-> +	unsigned char *buf;
+> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
+> index 8f24171b6055..32a37d624c6b 100644
+> --- a/kernel/cgroup/cpuset.c
+> +++ b/kernel/cgroup/cpuset.c
+> @@ -2155,6 +2155,31 @@ static void compute_partition_effective_cpumask(struct cpuset *cs,
+>   	rcu_read_unlock();
+>   }
 >   
->   	/*
->   	 * Initialise and allocate the transmit and temporary
->   	 * buffer.
->   	 */
-> -	page = get_zeroed_page(GFP_KERNEL);
-> -	if (!page)
-> +	buf = kzalloc(PAGE_SIZE, GFP_KERNEL);
-> +	if (!buf)
->   		return -ENOMEM;
+> +/*
+> + * Compute CPUs owned directly by a partition.
+> + *
+> + * effective_xcpus includes CPUs granted to valid child partitions. Exclude
+> + * those CPUs when checking or changing this partition's type.
+> + */
+> +static void compute_partition_owned_cpumask(struct cpuset *cs,
+> +					    const struct cpumask *partition_cpus,
+> +					    struct cpumask *owned_cpus)
+> +{
+> +	struct cgroup_subsys_state *css;
+> +	struct cpuset *child;
+> +
+> +	lockdep_assert_held(&cpuset_mutex);
+> +	cpumask_copy(owned_cpus, partition_cpus);
+> +
+> +	rcu_read_lock();
+> +	cpuset_for_each_child(child, css, cs) {
+> +		if (is_partition_valid(child))
+> +			cpumask_andnot(owned_cpus, owned_cpus,
+> +				       child->effective_xcpus);
+> +	}
+> +	rcu_read_unlock();
+> +}
+> +
+
+To be honest, it took me a while to understand what this function actually does.
+
+I think we should avoid adding terms like partition_cpus and owned_cpus, as they 
+only add confusion. We already have effective_xcpus, effective_cpus, xcpus, and 
+so on—introducing more terminology makes the code harder to follow.
+
+As I understand it, this function is computing local_effective_xcpus, where 
+"local" refers to the CPUs owned by this cgroup itself, excluding those 
+delegated to its children. However, this is really a v1 concept, and I'm not 
+sure it's appropriate to bring it into v2.
+
+Just my two cents.
+
+>   /*
+>    * update_cpumasks_hier - Update effective cpumasks and tasks in the subtree
+>    * @cs:  the cpuset to consider
+> @@ -2401,7 +2426,9 @@ static int parse_cpuset_cpulist(const char *buf, struct cpumask *out_mask)
+>    *
+>    * Return: PRS error code (0 if valid, non-zero error code if invalid)
+>    */
+> -static enum prs_errcode validate_partition(struct cpuset *cs, struct cpuset *trialcs)
+> +static enum prs_errcode validate_partition(struct cpuset *cs,
+> +					   struct cpuset *trialcs,
+> +					   struct cpumask *owned_cpus)
+>   {
+>   	struct cpuset *parent = parent_cs(cs);
 >   
->   	uport = uart_port_ref_lock(state, &flags);
->   	if (!state->port.xmit_buf) {
-> -		state->port.xmit_buf = (unsigned char *)page;
-> +		state->port.xmit_buf = buf;
+> @@ -2411,8 +2438,10 @@ static enum prs_errcode validate_partition(struct cpuset *cs, struct cpuset *tri
+>   	if (cpumask_empty(trialcs->effective_xcpus))
+>   		return PERR_INVCPUS;
+>   
+> +	compute_partition_owned_cpumask(cs, trialcs->effective_xcpus,
+> +					owned_cpus);
+>   	if (prstate_housekeeping_conflict(trialcs->partition_root_state,
+> -					  trialcs->effective_xcpus))
+> +					  owned_cpus))
+>   		return PERR_HKEEPING;
+>   
+>   	if (tasks_nocpu_error(parent, cs, trialcs->effective_xcpus))
+> @@ -2438,7 +2467,7 @@ static void partition_cpus_change(struct cpuset *cs, struct cpuset *trialcs,
+>   	if (cs_is_member(cs))
+>   		return;
+>   
+> -	prs_err = validate_partition(cs, trialcs);
+> +	prs_err = validate_partition(cs, trialcs, tmp->new_cpus);
+>   	if (prs_err) {
+>   		WRITE_ONCE(cs->prs_err, prs_err);
+>   		trialcs->prs_err = prs_err;
+> @@ -2917,6 +2946,36 @@ int cpuset_update_flag(cpuset_flagbits_t bit, struct cpuset *cs,
+>   	return err;
+>   }
+>   
+> +/*
+> + * Invalidate the highest isolated partition that contains @cs.
+> + *
+> + * A root partition returning CPUs to an isolated parent can consume the last
+> + * housekeeping CPU. Invalidating the whole chain returns the CPUs to a root
+> + * partition instead.
+> + */
+> +static struct cpuset *invalidate_isolated_ancestor(struct cpuset *cs,
+> +						   struct tmpmasks *tmp)
+> +{
+> +	struct cpuset *ancestor = parent_cs(cs);
+> +	int err;
+> +
+> +	lockdep_assert_held(&cpuset_mutex);
+> +	while (!is_remote_partition(ancestor) &&
+> +	       (parent_cs(ancestor)->partition_root_state == PRS_ISOLATED))
+> +		ancestor = parent_cs(ancestor);
+> +
+> +	WRITE_ONCE(ancestor->prs_err, PERR_HKEEPING);
+> +	if (is_remote_partition(ancestor)) {
+> +		remote_partition_disable(ancestor, tmp);
+> +	} else {
+> +		err = update_parent_effective_cpumask(ancestor,
+> +						      partcmd_invalidate, NULL, tmp);
+> +		WARN_ON_ONCE(err);
+> +	}
+> +
+> +	return ancestor;
+> +}
+> +
+>   /**
+>    * update_prstate - update partition_root_state
+>    * @cs: the cpuset to update
+> @@ -2929,6 +2988,7 @@ static int update_prstate(struct cpuset *cs, int new_prs)
+>   {
+>   	int err = PERR_NONE, old_prs = cs->partition_root_state;
+>   	struct cpuset *parent = parent_cs(cs);
+> +	struct cpuset *invalidated = NULL;
+>   	struct tmpmasks tmpmask;
+>   	bool isolcpus_updated = false;
+>   
+> @@ -2985,11 +3045,14 @@ static int update_prstate(struct cpuset *cs, int new_prs)
+>   	} else if (old_prs && new_prs) {
+>   		/*
+>   		 * A change in load balance state only, no change in cpumasks.
+> -		 * Need to update isolated_cpus.
+> +		 * Need to update isolated_cpus for CPUs owned by this partition,
+> +		 * excluding CPUs distributed to valid child partitions.
+>   		 */
+> +		compute_partition_owned_cpumask(cs, cs->effective_xcpus,
+> +						tmpmask.new_cpus);
+>   		if (((new_prs == PRS_ISOLATED) &&
+> -		     !isolated_cpus_can_update(cs->effective_xcpus, NULL)) ||
+> -		    prstate_housekeeping_conflict(new_prs, cs->effective_xcpus))
+> +		     !isolated_cpus_can_update(tmpmask.new_cpus, NULL)) ||
+> +		    prstate_housekeeping_conflict(new_prs, tmpmask.new_cpus))
 
-xmit_buf is u8 *. This uchar was omitted when I was changing the type 
-back then. Could you use the right type at 1b now?
+I don't think prstate_housekeeping_conflict is being used correctly. The 
+new_cpus should not be the "local" CPUs.
 
-thanks,
+>   			err = PERR_HKEEPING;
+>   		else
+>   			isolcpus_updated = true;
+> @@ -2998,6 +3061,13 @@ static int update_prstate(struct cpuset *cs, int new_prs)
+>   		 * Switching back to member is always allowed even if it
+>   		 * disables child partitions.
+>   		 */
+> +		if (old_prs == PRS_ROOT &&
+> +		    parent->partition_root_state == PRS_ISOLATED &&
+> +		    !isolated_cpus_can_update(cs->effective_xcpus, NULL))
+> +			invalidated = invalidate_isolated_ancestor(cs, &tmpmask);
+> +		if (invalidated)
+> +			goto out;
+> +
+>   		if (is_remote_partition(cs))
+>   			remote_partition_disable(cs, &tmpmask);
+>   		else
+> @@ -3025,11 +3095,17 @@ static int update_prstate(struct cpuset *cs, int new_prs)
+>   	if (!is_partition_valid(cs))
+>   		reset_partition_data(cs);
+>   	else if (isolcpus_updated)
+> -		isolated_cpus_update(old_prs, new_prs, cs->effective_xcpus);
+> +		isolated_cpus_update(old_prs, new_prs, tmpmask.new_cpus);
+>   	spin_unlock_irq(&callback_lock);
+>   
+>   	/* Force update if switching back to member & update effective_xcpus */
+> -	update_cpumasks_hier(cs, &tmpmask, !new_prs);
+> +	if (invalidated) {
+> +		update_cpumasks_hier(invalidated, &tmpmask, false);
+> +		update_partition_sd_lb(invalidated, PRS_ISOLATED);
+> +		notify_partition_change(invalidated, PRS_ISOLATED);
+> +	} else {
+> +		update_cpumasks_hier(cs, &tmpmask, !new_prs);
+> +	}
+>   
+>   	/* A newly created partition must have effective_xcpus set */
+>   	WARN_ON_ONCE(!old_prs && (new_prs > 0)
+
 -- 
-js
-suse labs
+Best regards
+Ridong
+
