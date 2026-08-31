@@ -1,190 +1,223 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mailout1.samsung.com (mailout1.samsung.com [203.254.224.24])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86B832941A;
-	Mon, 31 Aug 2026 07:04:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEE933C342D
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 07:04:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.24
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788159842; cv=none; b=nkQHbk+sF7at0Xz5HeZ++R9BJccW5cml7iB0ppD7BLyghA4k87T7S+TGtokwK/EH/bDbMYuTtGK0RhW+FcXKLp8KloHB4G+if9D4YM+MFQlLmrqc4yCiLicLoR2Y/ReSxhrHkfgTNYJWnaFZSa8r2hFi/16wDmvr852xv+kIXvE=
+	t=1788159844; cv=none; b=dI0MiAYkCpTvrlWL7VeG1jSvEiAxmz9lWIjPlZXCfnfgK99vN52bMA7vD5jtFRTkjqcsjEyZ8CpV3/SFWi7e/KSbuxxcnF3bdAFHSSxpoVnCScoU8As8hLjsAe1Hx9yrXmYsQeZuvBZoGDsF5zlv0w2VY57W4JCh3uff4H6lxCw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788159842; c=relaxed/simple;
-	bh=gmNMkW8BJZK0ghbj5E3UG1lGb6HMaLQ+7eEIVm4U4TU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=aueIJjjPO6MFW3gkEjUct6uxt9BcVD99g0zB8CGS1fIrYLZy44vgFZqALhQqC/hG7bZLcee/u5aL8TJ18r3Sjdl0p+FnXbuXpawN3vnh55rUdcUYDUhK+EPGCz3SoyL9nW9LaEHNSDpLqFIjzeNHUqVXCzU6uji/hpLjs7X2MEU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AFKrmk+5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788159844; c=relaxed/simple;
+	bh=pcMWMmjLnn8DUrHK9s+VZ8ZoC360Bv0DvW4lp2EBBg8=;
+	h=From:To:Cc:Subject:Date:Message-Id:Content-Type:References; b=fch7DdQNuxVF6CqIcZZ8br+PaB6hbLoSrosvq/2mixWJETVMOgOWM8snkmHnRup6+kP6qxIO/TbC4BAvoMCX0AV1xFUAmEGkKR9Qbh0fyRCEaATJ0OcM6ZkMBOFAFWLmDumvGRpJLtf5GyYQMEhjGfuIlM5/YWhZ0ltz6RDZnYc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=HpEkP/DH; arc=none smtp.client-ip=203.254.224.24
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AFKrmk+5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 696831F000E9;
-	Mon, 31 Aug 2026 07:03:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788159841;
-	bh=dn2CLObij1YYUhH1wWw0aDiMly3mPdNFWYv1tBBXevA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=AFKrmk+5vDmyG9G8H1JEEwJbmAk+fBzl7A0jPF47kKkG+EJygmQXSJwqVFQbAzhk/
-	 PQWVVpn+fKH7QbCTKRdmHwFbsuYrC/B8t8Gz0lS/xu7n/SOD6dRijaAxUSDkoyUoBR
-	 gBEi1NI5wl7DxC/qfV/hOWx4BA3YQJYDQfGeltl2TY784nvgMeCm7JtPYj72kkecdA
-	 tbubdBPTQfwKEazPBtnDGmq5dwRnog+8wTykLf3KSUrjIcF419bX1TSvaUkxIKVTxl
-	 8eiNF0B12+vwHQhjYN33moZ5mka0UJHlAnck/1tYihFEFYWZMlx7lc3ostmD3wvR2I
-	 KM0aMaRSvf+pw==
-Message-ID: <046e4b62-6d25-40fc-baa3-2978eb96eb70@kernel.org>
-Date: Mon, 31 Aug 2026 09:03:48 +0200
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="HpEkP/DH"
+Received: from epcas5p2.samsung.com (unknown [182.195.41.40])
+	by mailout1.samsung.com (KnoxPortal) with ESMTP id 20260831070352epoutp014efb32352ebd5fedb9182afa984ae1f6~Q0eTSHT3K1299312993epoutp01p
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 07:03:52 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.samsung.com 20260831070352epoutp014efb32352ebd5fedb9182afa984ae1f6~Q0eTSHT3K1299312993epoutp01p
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1788159832;
+	bh=Dgb1ngpCR4vwZb6TG7VDqdD3XYLGgbrQsP5sDw19djY=;
+	h=From:To:Cc:Subject:Date:References:From;
+	b=HpEkP/DH2n3xOOnopyTG0qva57RbDbJxtyXz9+oOxmY8Iyh9gDXTw3bAC7n8LAUDg
+	 DAqiynEYOZ3p/3o9xt4zC6d/NleFHw0K9c4qxtESdhu5WwJaCu6qIyOZZj6BxRGyPE
+	 rh2L8c8kc0EvfNz9jnqg5UZp/OCp4ph4RV4lnZAo=
+Received: from epsnrtp03.localdomain (unknown [182.195.42.155]) by
+	epcas5p4.samsung.com (KnoxPortal) with ESMTPS id
+	20260831070351epcas5p46018d94a0c2ca993ee8680a5e0628591~Q0eSQ4KUS1551015510epcas5p4m;
+	Mon, 31 Aug 2026 07:03:51 +0000 (GMT)
+Received: from epcas5p3.samsung.com (unknown [182.195.38.90]) by
+	epsnrtp03.localdomain (Postfix) with ESMTP id 4hYKj24Kvvz3hhT4; Mon, 31 Aug
+	2026 07:03:50 +0000 (GMT)
+Received: from epsmtip1.samsung.com (unknown [182.195.34.30]) by
+	epcas5p4.samsung.com (KnoxPortal) with ESMTPA id
+	20260831070349epcas5p4c62a4e46592dffe95723ddd51a6068e0~Q0eQsfTZ_1106911069epcas5p4l;
+	Mon, 31 Aug 2026 07:03:49 +0000 (GMT)
+Received: from vega.samsungds.net (unknown [107.108.73.84]) by
+	epsmtip1.samsung.com (KnoxPortal) with ESMTPA id
+	20260831070346epsmtip1c4aeecb2495ffbcfc6ef1ee7dbfb8368~Q0eNxrS9g0914309143epsmtip1D;
+	Mon, 31 Aug 2026 07:03:46 +0000 (GMT)
+From: Selvarasu Ganesan <selvarasu.g@samsung.com>
+To: vkoul@kernel.org, neil.armstrong@linaro.org, krzk@kernel.org,
+	peter.griffin@linaro.org, alim.akhtar@samsung.com, pritam.sutar@samsung.com,
+	andre.draszik@linaro.org, kernel@lvkasz.us, linux-phy@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: jh0801.jung@samsung.com, dh10.jung@samsung.com, akash.m5@samsung.com,
+	muhammed.ali@samsung.com, thiagu.r@samsung.com, Selvarasu Ganesan
+	<selvarasu.g@samsung.com>
+Subject: [PATCH] phy: exynos5-usbdrd: Use dynamic phy_cfg size to prevent
+ OOB access
+Date: Mon, 31 Aug 2026 12:33:09 +0530
+Message-Id: <20260831070309.158069-1-selvarasu.g@samsung.com>
+X-Mailer: git-send-email 2.17.1
+X-CMS-MailID: 20260831070349epcas5p4c62a4e46592dffe95723ddd51a6068e0
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+CMS-TYPE: 105P
+cpgsPolicy: CPGSC10-542,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20260831070349epcas5p4c62a4e46592dffe95723ddd51a6068e0
+References: <CGME20260831070349epcas5p4c62a4e46592dffe95723ddd51a6068e0@epcas5p4.samsung.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 11/11] scsi: ufs: ufs-qcom: support ICE keyslot
- partitioning for guest VMs
-To: Linlin Zhang <linlin.zhang@oss.qualcomm.com>, ebiggers@kernel.org,
- axboe@kernel.dk, mst@redhat.com, jasowangio@gmail.com,
- James.Bottomley@HansenPartnership.com, martin.petersen@oracle.com,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- linux-block@vger.kernel.org, linux-crypto@vger.kernel.org,
- linux-scsi@vger.kernel.org, virtualization@lists.linux.dev,
- devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org
-Cc: neeraj.soni@oss.qualcomm.com, gaurav.kashyap@oss.qualcomm.com,
- mani@kernel.org, andersson@kernel.org, konradybcio@kernel.org,
- bvanassche@acm.org, alim.akhtar@samsung.com, avri.altman@sandisk.com,
- stefanha@redhat.com, pbonzini@redhat.com, eperezma@redhat.com,
- xuanzhuo@linux.alibaba.com, linux-kernel@vger.kernel.org
-References: <20260827160806.1295313-1-linlin.zhang@oss.qualcomm.com>
- <20260827160806.1295313-12-linlin.zhang@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260827160806.1295313-12-linlin.zhang@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 27/08/2026 18:07, Linlin Zhang wrote:
-> From: linlzhan <linlin.zhang@oss.qualcomm.com>
-> 
-> On Qualcomm platforms where UFS inline encryption is shared between
-> the host and guest VMs, the ICE hardware keyslots must be partitioned
-> so that each VM operates only within its own physical slot range.
-> Without this, the host's blk_crypto_profile would manage all hardware
-> slots, conflicting with slots already allocated to guests.
-> 
-> Add ufs_qcom_ice_parse_slot_table() to read the qcom,ice-keyslot-map
-> device-tree node.  The function parses all child entries and validates
-> that no entry's slot range or the combined total exceeds the hardware
-> slot count from REG_UFS_CCAP.  The first child entry is taken as the
-> host's own reservation; its slot count and offset are returned to the
-> caller.
-> 
-> In ufs_qcom_ice_init(), use the parsed host reservation to initialize
-> the blk_crypto_profile with only the host's slot count rather than the
-> full hardware range.  Set profile->slot_offset so that
-> blk_crypto_keyslot_index() returns the correct physical ICE slot
-> number when programming hardware.  If no qcom,ice-keyslot-map node is
-> present, the existing behaviour (profile manages all slots) is
-> preserved.
-> 
-> Note: This patch is submitted for visibility. The ufs-qcom driver
-> gets its max_slots and slot_offset based on the the current
-> DT-based keyslot mechanis. we are aware this may need to be replaced
-> by a TZ SCM interface, submit it RFC for design discussion.
-> 
-> Signed-off-by: linlzhan <linlin.zhang@oss.qualcomm.com>
-> ---
->  drivers/ufs/host/ufs-qcom.c | 91 ++++++++++++++++++++++++++++++++++++-
->  1 file changed, 90 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/ufs/host/ufs-qcom.c b/drivers/ufs/host/ufs-qcom.c
-> index 62396212a0a7..0611ab50f4cc 100644
-> --- a/drivers/ufs/host/ufs-qcom.c
-> +++ b/drivers/ufs/host/ufs-qcom.c
-> @@ -163,6 +163,74 @@ static inline void ufs_qcom_ice_enable(struct ufs_qcom_host *host)
->  		qcom_ice_enable(host->ice);
->  }
->  
-> +/**
-> + * ufs_qcom_ice_parse_slot_table() - parse qcom,ice-keyslot-map DT node
-> + * @dev:          UFS controller device
-> + * @hw_max_slots: total physical ICE keyslots reported by REG_UFS_CCAP
-> + * @num_slots:    receives host max_ice_slots (0 = no partitioning)
-> + * @slot_offset:  receives host ice-slot-offset
-> + *
-> + * Parses the qcom,ice-keyslot-map device-tree node.  The first child entry
-> + * is the host's own reservation; subsequent children are guest reservations.
-> + * Validates that no entry's range exceeds @hw_max_slots and that the sum of
-> + * all entries does not exceed @hw_max_slots.
-> + *
-> + * If no qcom,ice-keyslot-map phandle is present, sets @num_slots to 0 and
-> + * returns 0.  Returns -EINVAL if any entry or the total exceeds @hw_max_slots.
-> + */
-> +static int ufs_qcom_ice_parse_slot_table(struct device *dev,
-> +					 unsigned int hw_max_slots,
-> +					 unsigned int *num_slots,
-> +					 unsigned int *slot_offset)
-> +{
-> +	struct device_node *slots_np, *child;
-> +	unsigned int total_slots = 0;
-> +	bool first = true;
-> +	int ret = 0;
-> +
-> +	*num_slots   = 0;
-> +	*slot_offset = 0;
-> +
-> +	slots_np = of_parse_phandle(dev->of_node, "qcom,ice-keyslot-map", 0);
+The probe loop currently iterates using EXYNOS5_DRDPHYS_NUM (2),
+creating both UTMI and PIPE3 PHY instances regardless of the SoC
+capability. Several SoCs (Exynos2200, Exynos7870, Exynos850, Exynos990,
+and ExynosAutoV920) provide phy_cfg arrays containing only a single
+element.
 
-No
+On these SoCs, when the loop reaches index 1, the driver reads past the
+end of the rodata array, populating the second PHY instance with garbage
+data. Since the configuration structure contains critical function
+pointers (phy_isol, phy_init, set_refclk), any subsequent access to this
+PHY instance via exynos5_usbdrd_phy_xlate could result in a kernel oops.
 
-> +	if (!slots_np)
-> +		return 0;
-> +
-> +	for_each_child_of_node(slots_np, child) {
-> +		u32 off, max;
-> +
-> +		if (of_property_read_u32(child, "qcom,ice-slot-offset", &off) ||
-> +		    of_property_read_u32(child, "qcom,max-ice-slots", &max))
+Fix this by adding 'n_phy_cfg' to struct exynos5_usbdrd_phy_drvdata to
+store the actual size of the phy_cfg array for each SoC. Update the
+probe loop and the xlate function to bound their access against this
+value instead of the hardcoded EXYNOS5_DRDPHYS_NUM.
 
-No, there is no such ABI.
+Assisted-by: Claude:claude-sonnet-5
+Signed-off-by: Selvarasu Ganesan <selvarasu.g@samsung.com>
+---
+ drivers/phy/samsung/phy-exynos5-usbdrd.c | 17 +++++++++++++++--
+ 1 file changed, 15 insertions(+), 2 deletions(-)
 
+diff --git a/drivers/phy/samsung/phy-exynos5-usbdrd.c b/drivers/phy/samsung/phy-exynos5-usbdrd.c
+index 8711a3b62c8e..311d1c25eb3e 100644
+--- a/drivers/phy/samsung/phy-exynos5-usbdrd.c
++++ b/drivers/phy/samsung/phy-exynos5-usbdrd.c
+@@ -477,6 +477,7 @@ struct exynos5_usbdrd_phy_config {
+ 
+ struct exynos5_usbdrd_phy_drvdata {
+ 	const struct exynos5_usbdrd_phy_config *phy_cfg;
++	int n_phy_cfg;
+ 	const struct exynos5_usbdrd_phy_tuning **phy_tunes;
+ 	const struct phy_ops *phy_ops;
+ 	const char * const *clk_names;
+@@ -1164,7 +1165,7 @@ static struct phy *exynos5_usbdrd_phy_xlate(struct device *dev,
+ {
+ 	struct exynos5_usbdrd_phy *phy_drd = dev_get_drvdata(dev);
+ 
+-	if (WARN_ON(args->args[0] >= EXYNOS5_DRDPHYS_NUM))
++	if (WARN_ON(args->args[0] >= phy_drd->drv_data->n_phy_cfg))
+ 		return ERR_PTR(-ENODEV);
+ 
+ 	return phy_drd->phys[args->args[0]].phy;
+@@ -1993,6 +1994,7 @@ static const char * const exynos5_regulator_names[] = {
+ 
+ static const struct exynos5_usbdrd_phy_drvdata exynos2200_usb32drd_phy = {
+ 	.phy_cfg		= phy_cfg_exynos2200,
++	.n_phy_cfg		= ARRAY_SIZE(phy_cfg_exynos2200),
+ 	.phy_ops		= &exynos2200_usbdrd_phy_ops,
+ 	.pmu_offset_usbdrd0_phy	= EXYNOS2200_PHY_CTRL_USB20,
+ 	.clk_names		= exynos5_clk_names,
+@@ -2006,6 +2008,7 @@ static const struct exynos5_usbdrd_phy_drvdata exynos2200_usb32drd_phy = {
+ 
+ static const struct exynos5_usbdrd_phy_drvdata exynos5420_usbdrd_phy = {
+ 	.phy_cfg		= phy_cfg_exynos5,
++	.n_phy_cfg		= ARRAY_SIZE(phy_cfg_exynos5),
+ 	.phy_ops		= &exynos5_usbdrd_phy_ops,
+ 	.pmu_offset_usbdrd0_phy	= EXYNOS5_USBDRD_PHY_CONTROL,
+ 	.pmu_offset_usbdrd1_phy	= EXYNOS5420_USBDRD1_PHY_CONTROL,
+@@ -2019,6 +2022,7 @@ static const struct exynos5_usbdrd_phy_drvdata exynos5420_usbdrd_phy = {
+ 
+ static const struct exynos5_usbdrd_phy_drvdata exynos5250_usbdrd_phy = {
+ 	.phy_cfg		= phy_cfg_exynos5,
++	.n_phy_cfg		= ARRAY_SIZE(phy_cfg_exynos5),
+ 	.phy_ops		= &exynos5_usbdrd_phy_ops,
+ 	.pmu_offset_usbdrd0_phy	= EXYNOS5_USBDRD_PHY_CONTROL,
+ 	.clk_names		= exynos5_clk_names,
+@@ -2031,6 +2035,7 @@ static const struct exynos5_usbdrd_phy_drvdata exynos5250_usbdrd_phy = {
+ 
+ static const struct exynos5_usbdrd_phy_drvdata exynos5433_usbdrd_phy = {
+ 	.phy_cfg		= phy_cfg_exynos5,
++	.n_phy_cfg		= ARRAY_SIZE(phy_cfg_exynos5),
+ 	.phy_ops		= &exynos5_usbdrd_phy_ops,
+ 	.pmu_offset_usbdrd0_phy	= EXYNOS5_USBDRD_PHY_CONTROL,
+ 	.pmu_offset_usbdrd1_phy	= EXYNOS5433_USBHOST30_PHY_CONTROL,
+@@ -2044,6 +2049,7 @@ static const struct exynos5_usbdrd_phy_drvdata exynos5433_usbdrd_phy = {
+ 
+ static const struct exynos5_usbdrd_phy_drvdata exynos7_usbdrd_phy = {
+ 	.phy_cfg		= phy_cfg_exynos5,
++	.n_phy_cfg		= ARRAY_SIZE(phy_cfg_exynos5),
+ 	.phy_ops		= &exynos5_usbdrd_phy_ops,
+ 	.pmu_offset_usbdrd0_phy	= EXYNOS5_USBDRD_PHY_CONTROL,
+ 	.clk_names		= exynos5_clk_names,
+@@ -2056,6 +2062,7 @@ static const struct exynos5_usbdrd_phy_drvdata exynos7_usbdrd_phy = {
+ 
+ static const struct exynos5_usbdrd_phy_drvdata exynos7870_usbdrd_phy = {
+ 	.phy_cfg		= phy_cfg_exynos7870,
++	.n_phy_cfg		= ARRAY_SIZE(phy_cfg_exynos7870),
+ 	.phy_tunes		= exynos7870_tunes,
+ 	.phy_ops		= &exynos7870_usbdrd_phy_ops,
+ 	.pmu_offset_usbdrd0_phy	= EXYNOS5_USBDRD_PHY_CONTROL,
+@@ -2069,6 +2076,7 @@ static const struct exynos5_usbdrd_phy_drvdata exynos7870_usbdrd_phy = {
+ 
+ static const struct exynos5_usbdrd_phy_drvdata exynos850_usbdrd_phy = {
+ 	.phy_cfg		= phy_cfg_exynos850,
++	.n_phy_cfg		= ARRAY_SIZE(phy_cfg_exynos850),
+ 	.phy_ops		= &exynos850_usbdrd_phy_ops,
+ 	.pmu_offset_usbdrd0_phy	= EXYNOS5_USBDRD_PHY_CONTROL,
+ 	.clk_names		= exynos5_clk_names,
+@@ -2097,6 +2105,7 @@ static const struct exynos5_usbdrd_phy_tuning *exynos990_tunes[PTS_MAX] = {
+ 
+ static const struct exynos5_usbdrd_phy_drvdata exynos990_usbdrd_phy = {
+ 	.phy_cfg		= phy_cfg_exynos850,
++	.n_phy_cfg		= ARRAY_SIZE(phy_cfg_exynos850),
+ 	.phy_ops		= &exynos850_usbdrd_phy_ops,
+ 	.phy_tunes		= exynos990_tunes,
+ 	.pmu_offset_usbdrd0_phy	= EXYNOS990_PHY_CTRL_USB20,
+@@ -2629,6 +2638,7 @@ static const struct phy_ops exynosautov920_usb31drd_combo_ssphy_ops = {
+ static const
+ struct exynos5_usbdrd_phy_drvdata exynosautov920_usb31drd_combo_ssphy = {
+ 	.phy_cfg		= usb31drd_phy_cfg_exynosautov920,
++	.n_phy_cfg		= ARRAY_SIZE(usb31drd_phy_cfg_exynosautov920),
+ 	.phy_ops		= &exynosautov920_usb31drd_combo_ssphy_ops,
+ 	.pmu_offset_usbdrd0_phy	= EXYNOSAUTOV920_PHY_CTRL_USB31,
+ 	.clk_names		= exynos5_clk_names,
+@@ -2659,6 +2669,7 @@ exynos5_usbdrd_phy_config usbdrd_hsphy_cfg_exynosautov920[] = {
+ static const
+ struct exynos5_usbdrd_phy_drvdata exynosautov920_usbdrd_combo_hsphy = {
+ 	.phy_cfg		= usbdrd_hsphy_cfg_exynosautov920,
++	.n_phy_cfg		= ARRAY_SIZE(usbdrd_hsphy_cfg_exynosautov920),
+ 	.phy_ops		= &exynosautov920_usbdrd_combo_hsphy_ops,
+ 	.pmu_offset_usbdrd0_phy	= EXYNOSAUTOV920_PHY_CTRL_USB20,
+ 	.clk_names		= exynos5_clk_names,
+@@ -2687,6 +2698,7 @@ static const struct exynos5_usbdrd_phy_config phy_cfg_exynosautov920[] = {
+ 
+ static const struct exynos5_usbdrd_phy_drvdata exynosautov920_usbdrd_phy = {
+ 	.phy_cfg		= phy_cfg_exynosautov920,
++	.n_phy_cfg		= ARRAY_SIZE(phy_cfg_exynosautov920),
+ 	.phy_ops		= &exynosautov920_usbdrd_phy_ops,
+ 	.pmu_offset_usbdrd0_phy	= EXYNOSAUTOV920_PHY_CTRL_USB20,
+ 	.clk_names		= exynos5_clk_names,
+@@ -2863,6 +2875,7 @@ static const char * const gs101_regulator_names[] = {
+ 
+ static const struct exynos5_usbdrd_phy_drvdata gs101_usbd31rd_phy = {
+ 	.phy_cfg			= phy_cfg_gs101,
++	.n_phy_cfg			= ARRAY_SIZE(phy_cfg_gs101),
+ 	.phy_tunes			= gs101_tunes,
+ 	.phy_ops			= &gs101_usbdrd_phy_ops,
+ 	.pmu_offset_usbdrd0_phy		= GS101_PHY_CTRL_USB20,
+@@ -3020,7 +3033,7 @@ static int exynos5_usbdrd_phy_probe(struct platform_device *pdev)
+ 
+ 	dev_vdbg(dev, "Creating usbdrd_phy phy\n");
+ 
+-	for (i = 0; i < EXYNOS5_DRDPHYS_NUM; i++) {
++	for (i = 0; i < drv_data->n_phy_cfg; i++) {
+ 		struct phy *phy = devm_phy_create(dev, NULL, drv_data->phy_ops);
+ 
+ 		if (IS_ERR(phy))
+-- 
+2.17.1
 
-Best regards,
-Krzysztof
