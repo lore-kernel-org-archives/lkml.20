@@ -1,505 +1,187 @@
-Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com [209.85.210.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012003.outbound.protection.outlook.com [52.101.53.3])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA78E397338
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 18:08:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.176
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788199738; cv=none; b=RqrDfByKRznFa6ErTPeD3S6jE9R/n4UWbHwimopwWVmo7uRNivFX05I8b+x9yl2hy4+HbEZFaQj4y9Kbp0Sfk1C2pnyBt3wWbJJupd/KTekM9flEJBBtMY167eHdEpx1oimR+P5Ozd8kmMky59/N7lCT1s/mcNy9rZjkybnMFEQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788199738; c=relaxed/simple;
-	bh=ktgLtqk2PNocAuxzteWqMuniT7CfUWJjO4o3NouzSrU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=oPmPbSK/mBHPHDSevXm50U3gNFHRcijYZ0AkT/a++2tAmwdzF4phEv6O4bwZF9Ra35h5igDwEJLS1iQ2JImTSCyzfvdaG4VRBQKeK9CZF8qPg4Fw++jGsO/C7zFdI8M/GA1dqVUrYEIdFmsCPQTOOoMic9O2jZwp0y7m6ampKiE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=davidwei.uk; spf=none smtp.mailfrom=davidwei.uk; dkim=pass (2048-bit key) header.d=davidwei-uk.20251104.gappssmtp.com header.i=@davidwei-uk.20251104.gappssmtp.com header.b=kxy6S+K/; arc=none smtp.client-ip=209.85.210.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=davidwei.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=davidwei.uk
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B13B2399D00
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 18:09:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.53.3
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788199746; cv=fail; b=MiDEQIwQxmgXAfXsiBlQ9yNkn1VN7lZMw0fprfD6Kbf6YAseP4RWjs69IVhC/vmw8g00nbbcPlM7SJnb/p4JKiTPKG+VM3OSYzdHVGw/r+rgFtPJSJUXpKK0poriSXI4qt25Yu9/auw9P4HuyJQLp4mQEoy9udL/nqanm5FXtH4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788199746; c=relaxed/simple;
+	bh=IKxeD6vawmeaI1pRFgU1tzsKhxj7sJJIh3w4+Wb0OZc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=pDc3hpMCNX5vxEXncYYKCIFSzwFi2xRv5QpZdrcWqgHO280cdjYoFAa3LPHRkivE9u3ejijkczKCePwLLPfFoIb9bGXQOuajrBxBWrBJpg9X5qDwKI+TO+ShOGENOOONYwjooM+PNDiidKvSOknSa+JU+1BCN/X0i1N6ZQjPxNs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=HtNv5lr2; arc=fail smtp.client-ip=52.101.53.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=davidwei-uk.20251104.gappssmtp.com header.i=@davidwei-uk.20251104.gappssmtp.com header.b="kxy6S+K/"
-Received: by mail-pf1-f176.google.com with SMTP id d2e1a72fcca58-8548db7428aso3508550b3a.1
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 11:08:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=davidwei-uk.20251104.gappssmtp.com; s=20251104; t=1788199735; x=1788804535; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3OPRSSQbvSa0krgRMx3xW73TWZ6GLGWWyRkYudAAg30=;
-        b=kxy6S+K/Q3uT7psqVxHefQTyGZ2O507NgqF8oNYTvuisbq4G/M05czbBSe2DaSSsgt
-         rB1mS4AIDl7g5n/UN+P6iH2Ps4IY9KiBdsl1X16unoxlbHneGOj8dqAApvgbKlLirvxw
-         uqsteFghEynyTZg7knakDslCf2l0RterH2hna3VattSjEYYDN3Hihri0aAxiyBfDugkH
-         v/OfvgO6mLIp91GBXZl2lEkLcLjgVoQx6u2the1h8BIHbUmCf+dSbOF/LzvTRSnUdtud
-         11LHLqF8TQ/qnsz4bDuD5SVahRCljOeDbHQgcyZv2GjaA7W6YlTfP++JYcK4lgh8Wndz
-         defQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788199735; x=1788804535;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=3OPRSSQbvSa0krgRMx3xW73TWZ6GLGWWyRkYudAAg30=;
-        b=CN4vTaTn9R/OcS1OjtM5x9awvQXPMJT9nEpoPLusBGxmsY0sk6wszIrJEzajJptcDn
-         /hoWLo/s9AKlytdsFCqD9gtGGIwri8vJLAVI6+45sJo3S1sq6yH0KM0cwTx8tBYqmY7E
-         uxVr9wrXQvl71SKLSxIVXJSMD2mpMRM1xRHIhasiTISPPVPQSctyOGeOPxjtw0b7KM/N
-         I9O59wKTol+JASBk+yBKffIRbJzF0Lc/vBSsGJfbEWqp6nDZZDDj4seCtjhWwvCG3qEb
-         zjFZRZuVkJ+c0FnHP8M+Z4HxDzqiCCDewH6hPFytloAHBjXfdWqVNR/7/v/eZrNV6IoV
-         wydg==
-X-Forwarded-Encrypted: i=1; AHgh+Rpr/yl8Exw2yEaq17uQzqIvbY6tC8reMqIravvOlva1SRmvaQJqR9erYVToduhBEIc09BRv6WKEQTUQTqQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++nXrgeJLtBWCKJfNFDi0rmw58lKjcgoDMBLThlpeiZZs9vcFfZf
-	B42Bf4gizYU2jrQRFZD0Osr877ccvKTNxN2NCjpxJ5UuAFoN3AaMvcoFmitx6+blPCk=
-X-Gm-Gg: AR+sD11/W6AUXcBjegqYFCE5DufF4uaF9B50W2glX3VqfquiBG9Mx/llY48qBkHrBSZ
-	MLh/I40anWadksxmWvlpivHk/PclS8c/eHJqmQQs+YMIst0/wXj3zM6Z0sSLrk1xmoD4yB8o3PO
-	mO4HfTi3PulNuoKl167J7Dp4cHlX/S+lx2PwKGL10NDXFl93VysDS8wz4UK+EZPfJD8KWYV0C8r
-	95NfUuGDYKfQDoC6C1ewvRDFZBXzioM2kuWZeb4J9eaNukeCrTnl6ryBzHZLNZxqH/DRF7uQZDm
-	6s5bENrXwLx6LoAvPCxUdeaOGhp9OVDLcAZbNJ6GkEUu2Kr2GDV1iSpQsOT55kblLHcHs7rtxBK
-	N0ZhZDcgp6D0HSQzzY3YftSvCwjETdx7o1GKNa7f0P8Zmaeuj4kM42JoCHKXSDTD3phVNZb51vL
-	J+U37l144yum7Djh/8KBKltxdVDC1xUn05RmbZL+AlKSHJhDPkHOk1FH8DK8uU9d90HiodR/Jt9
-	YBxVU66GZ/3CH6jQ6ty4V13L7sEEY5qSxssmZBzgbBtpbDu+8seUN97Tp/G3Ux/nOHFnpes0Q==
-X-Received: by 2002:a05:6a21:400d:b0:3d3:ae0f:526a with SMTP id adf61e73a8af0-3d3ae0f5eebmr29486048637.22.1788199735058;
-        Mon, 31 Aug 2026 11:08:55 -0700 (PDT)
-Received: from ?IPV6:2a03:83e0:1156:1:c8f:b917:4342:fa09? ([2620:10d:c090:500::7:1753])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3286f552473sm34996761eec.0.2026.08.31.11.08.53
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 31 Aug 2026 11:08:54 -0700 (PDT)
-Message-ID: <a1d70456-5d1d-4e90-8009-2292e1851a42@davidwei.uk>
-Date: Mon, 31 Aug 2026 11:08:52 -0700
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="HtNv5lr2"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=rlrHUgBogfJzSEHrcTG4RklTszrFyxucelL9nwRSvTJXrGGczOsK+8WmNPfLEzmF76Y3v7/kMtUy9i48WgxAb5Oup21taOdFloy5p4F1g+GCKN66yUJYFoBQMZyIaHA0CB99ERv01+2xGFs6cQbpQDhatyukIKmJiiRgIBODdUVuhS0l9kwzaj1OZ3oBagdpASBmeOG6p0oLmBjgVJq43E+L3xsG775Atwjas5hh+JGiP+bkB57kW10CYMPeKuY++EwRHRfq3/qewIhWh65yyoHfhWTflLZq0G4xdpJ56zmkcojIx8faPyd3xPbnZW2y2iS0rq0Lc0JKJPQKyEXKRQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=zwmsfnBGvzxikmHxcv36N4OKKwjIBYxwXO5MlSjP09s=;
+ b=dbxkkhF3nlZKJEuFB+zfhk2QkIuc1LOpt9R77YKtuVhoMtOsVQlLRUI0lUVyOPE9U67EY9zd1WC65eB+U7dXh11lqydhFic9juWtC8Z6cDG7hn1MCm6h8Hu151ajUflkGO6QH8EE89dfK0VfKVnVO44n46R6yelZN2qt7Bs5xO2nWcJx9629eAKF3psYowHsk9DCh7fITl43mFfyJ2GpTt31o2ODSOMVff9Lf/g3soZdqksEo3oZ7svLstXV8F0WO/5HCJtACBSAsO7GnjCqLq3HT7RcHj9hZzoEdKOMA+0INtWg00LdbgRm3F5SGXFtcBT8bi+kx30h74G/EwLIFw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=zwmsfnBGvzxikmHxcv36N4OKKwjIBYxwXO5MlSjP09s=;
+ b=HtNv5lr2rG0XYWc3iCfPxM8nf1yNNzS9c4cho4KdaSq+5AEJ4hPRsaOZBXnvLZRfGZmPTaevQro8ECxLr3t1oNH1USsKYjwRjTmLV1DI1MfRKM/y14EyJNBoVDNuh7BOh1t2me1+VQ5k4sqwVbg0gWOM/TVY/0RkCKAdClM8SaO57cFnqTaqftV4ZeeoKuAIWw/py3m8Y+CwN/Hm549YXDpQtzMVvZ/draY97oUVscquMbU9He2q8MoGv+jBnfP8fO1/3xZSDecGwvcHSK0Ty2kmKJS8FDeyrR/kWsWR3nxunDRR97BOzHSb0s55NIorw4v+wt3UmecLu42bvrOGKg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from LV8PR12MB9620.namprd12.prod.outlook.com (2603:10b6:408:2a1::19)
+ by CY8PR12MB7659.namprd12.prod.outlook.com (2603:10b6:930:9f::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Mon, 31 Aug
+ 2026 18:08:56 +0000
+Received: from LV8PR12MB9620.namprd12.prod.outlook.com
+ ([fe80::299d:f5e0:3550:1528]) by LV8PR12MB9620.namprd12.prod.outlook.com
+ ([fe80::299d:f5e0:3550:1528%4]) with mapi id 15.21.0360.008; Mon, 31 Aug 2026
+ 18:08:56 +0000
+Date: Mon, 31 Aug 2026 15:08:55 -0300
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
+Cc: linux-coco@lists.linux.dev, kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Alexey Kardashevskiy <aik@amd.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Dan Williams <dan.j.williams@intel.com>,
+	Joerg Roedel <joro@8bytes.org>, Jonathan Cameron <jic23@kernel.org>,
+	Marc Zyngier <maz@kernel.org>, Nicolin Chen <nicolinc@nvidia.com>,
+	Pranjal Shrivastava <praan@google.com>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Samuel Ortiz <sameo@rivosinc.com>,
+	Steven Price <steven.price@arm.com>,
+	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
+	Will Deacon <will@kernel.org>, Xu Yilun <yilun.xu@linux.intel.com>
+Subject: Re: [RFC PATCH v4 00/16] coco/TSM: Implement host-side support for
+ Arm CCA TDISP setup
+Message-ID: <20260831180855.GA2171358@nvidia.com>
+References: <20260427085344.941627-1-aneesh.kumar@kernel.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260427085344.941627-1-aneesh.kumar@kernel.org>
+X-ClientProxiedBy: BN9PR03CA0170.namprd03.prod.outlook.com
+ (2603:10b6:408:f4::25) To LV8PR12MB9620.namprd12.prod.outlook.com
+ (2603:10b6:408:2a1::19)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v6 5/6] selftests: net: add multithread server
- support to iou-zcrx
-To: Juanlu Herrero <juanlu@fastmail.com>, netdev@vger.kernel.org
-Cc: io-uring@vger.kernel.org, linux-kselftest@vger.kernel.org,
- linux-kernel@vger.kernel.org, kuba@kernel.org, asml.silence@gmail.com,
- pabeni@redhat.com, shuah@kernel.org
-References: <20260831-iou-zcrx-v6-0-02d1d012f0fd@fastmail.com>
- <20260831-iou-zcrx-v6-5-02d1d012f0fd@fastmail.com>
-Content-Language: en-US
-From: David Wei <dw@davidwei.uk>
-In-Reply-To: <20260831-iou-zcrx-v6-5-02d1d012f0fd@fastmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LV8PR12MB9620:EE_|CY8PR12MB7659:EE_
+X-MS-Office365-Filtering-Correlation-Id: e42002be-b715-4a92-6c28-08df078aec20
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|23010399003|376014|7416014|22082099003|18002099003|56012099006|3023799007|11063799006|10067099003|5023799004;
+X-Microsoft-Antispam-Message-Info:
+	Rm6a0GT4DFeRUQuNQfe2ca/z+SB8+5z7gNAPHtvsXAdlYxtNAdiicsuKV/Sm0RsZ2a7r8XWXkuQCfKDQGGP9aHslQw2iLv7BeR5v7K9GLAA48+Kx6J9KaDmPhlLdpr498Jkf5DHDpOBphIrnxH9IFnWX/YmsVSWm7WMwKhsLE3AqbqPe6jZfsLUvuwaVWrel6qeVsnLc7POpPeLL7df+57FeT2P9MnlVT4BkgTBKorxL60tg/4eejtlQCHqaYOciwrPx8S4pQoB59MNqW2M5bnYaOPTprgyO5X5NXsNzyKn5gLLxLWE//PplKyWVQtDXSfSQZEKAE0scd7qWkSC1OfgB5mHx2BaNquaUSOjkxyPd3uabcBdXNF1XI+c5HTNISLBGG1KFLB2dCXj1U27G2F2xHyPcFFRi16GQ9DERAkO6K5YPDMOOngBdxdfhmSW5xNJWwNx4+DBe0XWyTWgdE04hR61/i76NOd/+EFnzM+TTsyx175+3TlxGZRp+gKdGY9FOMh8CxUgqIvnxON+hBDclkCUnDs/KATfKAw9g0dCCIizEIv0nSs2rXU62G9Fcfi6HZbA7BWkB6sY/ZIH6qmlLiU+t6/VP35RRqNWOJCQq3N7RukS5UoMhcQhv0iwzBKlOnMUVMNkVAMnWd5IIEUhcGNClqYqq9kZ5dWVg0y0=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV8PR12MB9620.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(7416014)(22082099003)(18002099003)(56012099006)(3023799007)(11063799006)(10067099003)(5023799004);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?C1IlO1YmlhSRstoPzOcUCAGW56JoyNqLjeiD+cGfduu6kqBKIuuAqcWuhj7s?=
+ =?us-ascii?Q?3sKm7EGr9p73kC45c5Vf+PhjZ60hK59vurxFkLAUSQK2TKCP0cSdQpcTmFTE?=
+ =?us-ascii?Q?8eDpMZLsK9/J6v68Fhv+JX6KT3e1z7VZifMWWX4khk8BcRwwWo6jOha5aKwH?=
+ =?us-ascii?Q?kOIS4Fdc/wz/+ZcBOpYRzZC9bZpZg9alASk1UINK6bNpNb/1IF5wd1/T24qy?=
+ =?us-ascii?Q?WQe4FqgDFK1dQox6y+QCzkd4Gi4KSTKvWStSm6T6KcB13WosW8mYnfY+McVO?=
+ =?us-ascii?Q?uERjSBGm1+t39e+1j0kYKXryLiyv4g1cL7ylielGM2zp+L9B+V1H1A0pIGfQ?=
+ =?us-ascii?Q?pILuJ7V4zdCyp9Jl/H3wxET5ub0iynSFnxdB7Y2+oQwBeofdEpFWeim+lt63?=
+ =?us-ascii?Q?fKG6T9pBrtK6j9PNoRL61nXUa0AU1vw7A0UiK70I63s81jgJ+YH4OkQO9HVF?=
+ =?us-ascii?Q?BkIdYxbqjyihIGSd0RflHR9+boUSbos0FIycxSJxWaW/N74atMZhQrRmfVyM?=
+ =?us-ascii?Q?m37oU/AMV30a+4BwjKm8sh9YcxSK+LkEqZUGoARfl0SOH1HsTk+QrDnJ+ssA?=
+ =?us-ascii?Q?3yHtruHSt43cL/1aY3SSc5M2KC4B9dUitFMYv2OlHHNFjo1n9fBrkk1nfOir?=
+ =?us-ascii?Q?+B04qULqSoPpEl7l3xjwWxieu1iyKg22MSOvXM0LgfApTB70JQwBs7FbbsmX?=
+ =?us-ascii?Q?Cw4c+Vj/WfmeEwZt+F9w5C/oD3umORtgmlIx9yXKEni3OjsTZAosBR8Ep56R?=
+ =?us-ascii?Q?EWhwfa9pywNySh943ANvXWoAUMGFTfSbMD/OCKlLX5rjycOIS5jxXTAhgmhO?=
+ =?us-ascii?Q?fQ+0ZnbshyYByazMTnokzeHRglwUpQRAfkelqfl5I+q6YUMaX9h9A2LmZJMV?=
+ =?us-ascii?Q?IQkwrhJGsM7L6kRkmGY7PCpZfrMIUSSuY00VhHpuqpZkyTbEETPKS1Hqx3ur?=
+ =?us-ascii?Q?nVcFK+ABlAzKdjrNaTJhTyoevS5KUCaFie1ckyqxnYt75UccgJyTNAJYjThb?=
+ =?us-ascii?Q?k5LvpBzi9sK7Hp6W86DSC0XVlPcLWiBZNcdATA7X30oAJvKIplJd9MgBqeEp?=
+ =?us-ascii?Q?NoA4PecUDcejYSMA1jc0r1cnK/rIz2OzJOm/CBEFF/5bOilQU1oMEN3UaJCo?=
+ =?us-ascii?Q?9jsws6X2sePxKcSuB1eZrPgvkV6/0gkE4ccw/kQm62wo9999BRAeiYV+D+Gl?=
+ =?us-ascii?Q?7Vow9x78YFyE8qvxc2Ti0NxrKjxENqwI8OMKnfJzDolDOGtrucHFVijWcqQM?=
+ =?us-ascii?Q?XCT3X0qpLe+TlrSjmLW6KEPV0obHeI++LjAl7nBRhRPTXPRjcFNjWZz/cLB+?=
+ =?us-ascii?Q?UtB3q7FEUfzSDD+mNIB4TM42YYFP+dYgBjzv5eXoRzeJK+fpciIqdo4EhdFx?=
+ =?us-ascii?Q?dUR3DJHPKtTir2erCoY4ujFZb4ix56ZTvEyaXqEYPtUeFz9x+SKjij/Fg4h6?=
+ =?us-ascii?Q?geN3B5nyYxZOxkRZ9Js45FTEEtxHHdz9zQSmEl8O/i79YrsSU/mAkPnLPT3A?=
+ =?us-ascii?Q?z0+0uILfcEpXjqHIgxFx+xXn/mEoYwmfplA2gVDvlJnwAqDBg4bFsrbfSSn+?=
+ =?us-ascii?Q?+EgBdWAlIO30NNchB33H5w9xK9/a8X6dncZEh3QVkv6aZRCAXy5dAleH0POk?=
+ =?us-ascii?Q?g2Z7PumomYSMqit2Kq0cQUE1GIYKD6x7IjLBTuDIEyY5cU+GBhRmVbcJRGxx?=
+ =?us-ascii?Q?5fGhrgbQhj83ahXKG6WQU3Cnvoh8s+DtLhpcKK7ReUX5RFEH?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e42002be-b715-4a92-6c28-08df078aec20
+X-MS-Exchange-CrossTenant-AuthSource: LV8PR12MB9620.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 18:08:56.0996
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: r8TpoBgHyPXn16ahQHCMXfbefBGi0arM8Cb35oM+JwdcXfVMVU7baI30mPFY7A7j
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7659
 
-On 2026-08-31 10:34, Juanlu Herrero wrote:
-> Run the iou-zcrx server as N worker threads, each owning one receive
-> queue with its own io_uring and zero-copy receive (zcrx) ifq, so the
-> test can exercise multi-queue zero-copy receive.
+On Mon, Apr 27, 2026 at 02:23:28PM +0530, Aneesh Kumar K.V (Arm) wrote:
 > 
-> The main thread owns the listening socket, accepts connections, and
-> dispatches each to the worker owning the queue it landed on by matching
-> SO_INCOMING_NAPI_ID against per-queue NAPI IDs.
-> 
-> Assisted-by: Claude:claude-opus-4-8
-> Signed-off-by: Juanlu Herrero <juanlu@fastmail.com>
-> ---
->   tools/testing/selftests/drivers/net/hw/Makefile   |   5 +-
->   tools/testing/selftests/drivers/net/hw/iou-zcrx.c | 263 ++++++++++++++++------
->   2 files changed, 196 insertions(+), 72 deletions(-)
-> 
-> diff --git a/tools/testing/selftests/drivers/net/hw/Makefile b/tools/testing/selftests/drivers/net/hw/Makefile
-> index 37023ba580de..f613c88fffc5 100644
-> --- a/tools/testing/selftests/drivers/net/hw/Makefile
-> +++ b/tools/testing/selftests/drivers/net/hw/Makefile
-> @@ -13,10 +13,6 @@ else
->   $(warning excluding iouring tests, liburing not installed or too old)
->   endif
->   
-> -TEST_GEN_FILES := \
-> -	$(COND_GEN_FILES) \
-> -# end of TEST_GEN_FILES
-> -
->   TEST_PROGS = \
->   	csum.py \
->   	devlink_rate_cross_esw.py \
-> @@ -74,6 +70,7 @@ TEST_INCLUDES := \
->   YNL_GEN_FILES := \
->   	ncdevmem \
->   	toeplitz \
-> +	$(COND_GEN_FILES) \
->   # end of YNL_GEN_FILES
->   TEST_GEN_FILES += $(YNL_GEN_FILES)
->   TEST_GEN_FILES += $(patsubst %.c,%.o,$(wildcard *.bpf.c))
-> diff --git a/tools/testing/selftests/drivers/net/hw/iou-zcrx.c b/tools/testing/selftests/drivers/net/hw/iou-zcrx.c
-> index f793a6c04e41..29905cb3b243 100644
-> --- a/tools/testing/selftests/drivers/net/hw/iou-zcrx.c
-> +++ b/tools/testing/selftests/drivers/net/hw/iou-zcrx.c
-> @@ -38,6 +38,8 @@
->   #include <sys/wait.h>
->   
->   #include <liburing.h>
-> +#include <ynl.h>
-> +#include "netdev-user.h"
->   
->   #define SKIP_CODE	42
->   
-> @@ -90,6 +92,8 @@ static int cfg_num_threads = 1;
->   
->   static char *payload;
->   
-> +#define MAX_CONNS_PER_THREAD	64
-> +
->   struct thread_ctx {
->   	struct io_uring		ring;
->   	void			*area_ptr;
-> @@ -97,9 +101,15 @@ struct thread_ctx {
->   	size_t			ring_size;
->   	struct io_uring_zcrx_rq	rq_ring;
->   	unsigned long		area_token;
-> -	int			connfd;
-> -	bool			stop;
-> -	size_t			received;
-> +	int			queue_id;
-> +	int			napi_id;
-> +	pthread_barrier_t	*setup_done;
-> +	pthread_barrier_t	*dispatch_done;
-> +
-> +	int			connfds[MAX_CONNS_PER_THREAD];
-> +	size_t			received[MAX_CONNS_PER_THREAD];
-> +	int			oneshot_recvs[MAX_CONNS_PER_THREAD];
-> +	int			nr_conns;
->   };
->   
->   static unsigned long gettimeofday_ms(void)
-> @@ -199,7 +209,7 @@ static void setup_zcrx(struct thread_ctx *ctx)
->   
->   	struct t_io_uring_zcrx_ifq_reg reg = {
->   		.if_idx = ifindex,
-> -		.if_rxq = cfg_queue_id,
-> +		.if_rxq = ctx->queue_id,
->   		.rq_entries = rq_entries,
->   		.area_ptr = (__u64)(unsigned long)&area_reg,
->   		.region_ptr = (__u64)(unsigned long)&region_reg,
-> @@ -224,53 +234,32 @@ static void setup_zcrx(struct thread_ctx *ctx)
->   	ctx->area_token = area_reg.rq_area_token;
->   }
->   
-> -static void add_accept(struct thread_ctx *ctx, int sockfd)
-> +static void add_recvzc(struct thread_ctx *ctx, int conn_idx)
->   {
->   	struct io_uring_sqe *sqe;
->   
->   	sqe = io_uring_get_sqe(&ctx->ring);
->   
-> -	io_uring_prep_accept(sqe, sockfd, NULL, NULL, 0);
-> -	sqe->user_data = 1;
-> -}
-> -
-> -static void add_recvzc(struct thread_ctx *ctx, int sockfd)
-> -{
-> -	struct io_uring_sqe *sqe;
-> -
-> -	sqe = io_uring_get_sqe(&ctx->ring);
-> -
-> -	io_uring_prep_rw(IORING_OP_RECV_ZC, sqe, sockfd, NULL, 0, 0);
-> +	io_uring_prep_rw(IORING_OP_RECV_ZC, sqe, ctx->connfds[conn_idx],
-> +			 NULL, 0, 0);
->   	sqe->ioprio |= IORING_RECV_MULTISHOT;
-> -	sqe->user_data = 2;
-> +	sqe->user_data = conn_idx;
->   }
->   
-> -static void add_recvzc_oneshot(struct thread_ctx *ctx, int sockfd, size_t len)
-> +static void add_recvzc_oneshot(struct thread_ctx *ctx, int conn_idx, size_t len)
->   {
->   	struct io_uring_sqe *sqe;
->   
->   	sqe = io_uring_get_sqe(&ctx->ring);
->   
-> -	io_uring_prep_rw(IORING_OP_RECV_ZC, sqe, sockfd, NULL, len, 0);
-> +	io_uring_prep_rw(IORING_OP_RECV_ZC, sqe, ctx->connfds[conn_idx],
-> +			 NULL, len, 0);
->   	sqe->ioprio |= IORING_RECV_MULTISHOT;
-> -	sqe->user_data = 2;
-> +	sqe->user_data = conn_idx;
->   }
->   
-> -static void process_accept(struct thread_ctx *ctx, struct io_uring_cqe *cqe)
-> -{
-> -	if (cqe->res < 0)
-> -		error(1, 0, "accept()");
-> -	if (ctx->connfd)
-> -		error(1, 0, "Unexpected second connection");
-> -
-> -	ctx->connfd = cqe->res;
-> -	if (cfg_oneshot)
-> -		add_recvzc_oneshot(ctx, ctx->connfd, page_size);
-> -	else
-> -		add_recvzc(ctx, ctx->connfd);
-> -}
-> -
-> -static void process_recvzc(struct thread_ctx *ctx, struct io_uring_cqe *cqe)
-> +static void process_recvzc(struct thread_ctx *ctx, struct io_uring_cqe *cqe,
-> +			   int conn_idx)
->   {
->   	unsigned int rq_mask = ctx->rq_ring.ring_entries - 1;
->   	struct io_uring_zcrx_cqe *rcqe;
-> @@ -280,8 +269,9 @@ static void process_recvzc(struct thread_ctx *ctx, struct io_uring_cqe *cqe)
->   	ssize_t n;
->   	int i;
->   
-> -	if (cqe->res == 0 && cqe->flags == 0 && cfg_oneshot_recvs == 0) {
-> -		ctx->stop = true;
-> +	if (cqe->res == 0 && cqe->flags == 0 &&
-> +	    ctx->oneshot_recvs[conn_idx] == 0) {
-> +		ctx->nr_conns--;
->   		return;
->   	}
->   
-> @@ -289,12 +279,14 @@ static void process_recvzc(struct thread_ctx *ctx, struct io_uring_cqe *cqe)
->   		error(1, 0, "recvzc(): %d", cqe->res);
->   
->   	if (cfg_oneshot) {
-> -		if (cqe->res == 0 && cqe->flags == 0 && cfg_oneshot_recvs) {
-> -			add_recvzc_oneshot(ctx, ctx->connfd, page_size);
-> -			cfg_oneshot_recvs--;
-> +		if (cqe->res == 0 && cqe->flags == 0 &&
-> +		    ctx->oneshot_recvs[conn_idx]) {
-> +			add_recvzc_oneshot(ctx, conn_idx, page_size);
-> +			ctx->oneshot_recvs[conn_idx]--;
-> +			return;
->   		}
->   	} else if (!(cqe->flags & IORING_CQE_F_MORE)) {
-> -		add_recvzc(ctx, ctx->connfd);
-> +		add_recvzc(ctx, conn_idx);
->   	}
->   
->   	rcqe = (struct io_uring_zcrx_cqe *)(cqe + 1);
-> @@ -304,10 +296,10 @@ static void process_recvzc(struct thread_ctx *ctx, struct io_uring_cqe *cqe)
->   	data = (char *)ctx->area_ptr + (rcqe->off & mask);
->   
->   	for (i = 0; i < n; i++) {
-> -		if (*(data + i) != payload[(ctx->received + i)])
-> +		if (*(data + i) != payload[(ctx->received[conn_idx] + i)])
->   			error(1, 0, "payload mismatch at %d", i);
->   	}
-> -	ctx->received += n;
-> +	ctx->received[conn_idx] += n;
->   
->   	rqe = &ctx->rq_ring.rqes[(ctx->rq_ring.rq_tail & rq_mask)];
->   	rqe->off = (rcqe->off & ~IORING_ZCRX_AREA_MASK) | ctx->area_token;
-> @@ -320,28 +312,124 @@ static void server_loop(struct thread_ctx *ctx)
->   	struct io_uring_cqe *cqe;
->   	unsigned int count = 0;
->   	unsigned int head;
-> -	int i, ret;
->   
->   	io_uring_submit_and_wait(&ctx->ring, 1);
->   
->   	io_uring_for_each_cqe(&ctx->ring, head, cqe) {
-> -		if (cqe->user_data == 1)
-> -			process_accept(ctx, cqe);
-> -		else if (cqe->user_data == 2)
-> -			process_recvzc(ctx, cqe);
-> -		else
-> -			error(1, 0, "unknown cqe");
-> +		process_recvzc(ctx, cqe, cqe->user_data);
->   		count++;
->   	}
->   	io_uring_cq_advance(&ctx->ring, count);
->   }
->   
-> -static void run_server(void)
-> +static void *server_worker(void *arg)
->   {
-> -	struct thread_ctx ctx = {};
-> -	unsigned int flags = 0;
-> -	int fd, enable, ret;
-> +	struct io_uring_params params = { };
-> +	struct thread_ctx *ctx = arg;
->   	uint64_t tstop;
-> +	int i;
-> +
-> +	params.flags |= IORING_SETUP_COOP_TASKRUN;
-> +	params.flags |= IORING_SETUP_SINGLE_ISSUER;
-> +	params.flags |= IORING_SETUP_DEFER_TASKRUN;
-> +	params.flags |= IORING_SETUP_SUBMIT_ALL;
-> +	params.flags |= IORING_SETUP_CQE32;
-> +	params.flags |= IORING_SETUP_CQSIZE;
-> +	params.cq_entries = AREA_SIZE / page_size;
-> +
-> +	io_uring_queue_init_params(512, &ctx->ring, &params);
-> +	setup_zcrx(ctx);
-> +
-> +	if (cfg_dry_run)
-> +		return NULL;
-> +
-> +	pthread_barrier_wait(ctx->setup_done);
-> +	pthread_barrier_wait(ctx->dispatch_done);
-> +
-> +	for (i = 0; i < ctx->nr_conns; i++) {
-> +		if (cfg_oneshot) {
-> +			ctx->oneshot_recvs[i] = cfg_oneshot_recvs;
-> +			add_recvzc_oneshot(ctx, i, page_size);
-> +		} else {
-> +			add_recvzc(ctx, i);
-> +		}
-> +	}
-> +
-> +	tstop = gettimeofday_ms() + 5000;
-> +	while (ctx->nr_conns > 0 && gettimeofday_ms() < tstop)
-> +		server_loop(ctx);
-> +
-> +	if (ctx->nr_conns != 0)
-> +		error(1, 0, "test failed: %d connections incomplete",
-> +		      ctx->nr_conns);
-> +
-> +	return NULL;
-> +}
-> +
-> +static int query_napi_id(unsigned int ifindex, int queue_id)
-> +{
-> +	struct netdev_queue_get_req *req;
-> +	struct netdev_queue_get_rsp *rsp;
-> +	struct ynl_error yerr;
-> +	struct ynl_sock *ys;
-> +	int napi_id;
-> +
-> +	ys = ynl_sock_create(&ynl_netdev_family, &yerr);
-> +	if (!ys)
-> +		error(1, 0, "ynl_sock_create: %s", yerr.msg);
-> +
-> +	req = netdev_queue_get_req_alloc();
-> +	netdev_queue_get_req_set_ifindex(req, ifindex);
-> +	netdev_queue_get_req_set_type(req, NETDEV_QUEUE_TYPE_RX);
-> +	netdev_queue_get_req_set_id(req, queue_id);
-> +
-> +	rsp = netdev_queue_get(ys, req);
-> +	if (!rsp)
-> +		error(1, 0, "netdev_queue_get(q=%d): %s", queue_id,
-> +		      ys->err.msg);
-> +	if (!rsp->_present.napi_id)
-> +		error(1, 0, "netdev_queue_get(q=%d): napi_id not present",
-> +		      queue_id);
-> +
-> +	napi_id = rsp->napi_id;
-> +
-> +	netdev_queue_get_req_free(req);
-> +	netdev_queue_get_rsp_free(rsp);
-> +	ynl_sock_destroy(ys);
-> +
-> +	return napi_id;
-> +}
-> +
-> +static int find_thread_by_conn(struct thread_ctx *ctxs, int connfd)
-> +{
-> +	socklen_t len = sizeof(int);
-> +	int napi_id, i;
-> +
-> +	if (getsockopt(connfd, SOL_SOCKET, SO_INCOMING_NAPI_ID, &napi_id, &len))
-> +		error(1, errno, "getsockopt(SO_INCOMING_NAPI_ID)");
-> +
-> +	for (i = 0; i < cfg_num_threads; i++) {
-> +		if (ctxs[i].napi_id == napi_id)
-> +			return i;
-> +	}
-> +
-> +	error(1, 0, "unknown NAPI ID: %d", napi_id);
-> +	return -1;
-> +}
-> +
-> +static void run_server(void)
-> +{
-> +	pthread_barrier_t setup_done, dispatch_done;
-> +	int total_conns, accepted = 0, connfd;
-> +	struct thread_ctx *ctxs;
-> +	int fd, ret, enable, i;
-> +	unsigned int ifindex;
-> +	pthread_t *threads;
-> +
-> +	ctxs = calloc(cfg_num_threads, sizeof(*ctxs));
-> +	threads = calloc(cfg_num_threads, sizeof(*threads));
-> +	if (!ctxs || !threads)
-> +		error(1, 0, "calloc()");
->   
->   	fd = socket(AF_INET6, SOCK_STREAM, 0);
->   	if (fd == -1)
-> @@ -356,29 +444,68 @@ static void run_server(void)
->   	if (ret < 0)
->   		error(1, 0, "bind()");
->   
-> -	flags |= IORING_SETUP_COOP_TASKRUN;
-> -	flags |= IORING_SETUP_SINGLE_ISSUER;
-> -	flags |= IORING_SETUP_DEFER_TASKRUN;
-> -	flags |= IORING_SETUP_SUBMIT_ALL;
-> -	flags |= IORING_SETUP_CQE32;
-> +	pthread_barrier_init(&setup_done, NULL, cfg_num_threads + 1);
-> +	pthread_barrier_init(&dispatch_done, NULL, cfg_num_threads + 1);
-> +
-> +	for (i = 0; i < cfg_num_threads; i++) {
-> +		ctxs[i].queue_id = cfg_queue_id + i;
-> +		ctxs[i].setup_done = &setup_done;
-> +		ctxs[i].dispatch_done = &dispatch_done;
-> +	}
->   
-> -	io_uring_queue_init(512, &ctx.ring, flags);
-> +	for (i = 0; i < cfg_num_threads; i++) {
-> +		ret = pthread_create(&threads[i], NULL,
-> +				     server_worker, &ctxs[i]);
-> +		if (ret)
-> +			error(1, ret, "pthread_create()");
-> +	}
->   
-> -	setup_zcrx(&ctx);
->   	if (cfg_dry_run)
-> -		return;
-> +		goto join;
->   
->   	if (listen(fd, 1024) < 0)
->   		error(1, 0, "listen()");
->   
-> -	add_accept(&ctx, fd);
-> +	pthread_barrier_wait(&setup_done);
->   
-> -	tstop = gettimeofday_ms() + 5000;
-> -	while (!ctx.stop && gettimeofday_ms() < tstop)
-> -		server_loop(&ctx);
-> +	if (cfg_num_threads > 1) {
-> +		ifindex = if_nametoindex(cfg_ifname);
-> +		if (!ifindex)
-> +			error(1, 0, "bad interface name: %s", cfg_ifname);
-> +		for (i = 0; i < cfg_num_threads; i++)
-> +			ctxs[i].napi_id = query_napi_id(ifindex,
-> +							ctxs[i].queue_id);
-> +	}
-> +
-> +	total_conns = cfg_num_threads * cfg_num_threads;
-> +
-> +	while (accepted < total_conns) {
-> +		int idx = 0;
-> +
-> +		connfd = accept(fd, NULL, NULL);
-> +		if (connfd < 0)
-> +			error(1, errno, "accept()");
->   
-> -	if (!ctx.stop)
-> -		error(1, 0, "test failed\n");
-> +		if (cfg_num_threads > 1)
-> +			idx = find_thread_by_conn(ctxs, connfd);
-> +
-> +		if (ctxs[idx].nr_conns >= MAX_CONNS_PER_THREAD)
-> +			error(1, 0, "worker %d connection overflow", idx);
-> +		ctxs[idx].connfds[ctxs[idx].nr_conns++] = connfd;
-> +		accepted++;
-> +	}
-> +
-> +	pthread_barrier_wait(&dispatch_done);
-> +
-> +join:
-> +	for (i = 0; i < cfg_num_threads; i++)
-> +		pthread_join(threads[i], NULL);
-> +
-> +	pthread_barrier_destroy(&setup_done);
-> +	pthread_barrier_destroy(&dispatch_done);
-> +	close(fd);
-> +	free(threads);
-> +	free(ctxs);
->   }
->   
->   static void *client_worker(void *arg)
-> 
+> This patch series implements the host-side changes needed for end-to-end
+> Arm CCA TDISP setup. It adds the RMI/RHI plumbing required to create and
+> manage Realm vdev objects, service device-attestation object requests, and
+> complete the KVM/RMM flows needed for device run-time transitions.
 
-Reviewed-by: David Wei <dw@davidwei.uk>
+So this is enough for the realm to see a physical PCI device inside it
+without any vSMMU inside the realm?
+
+It is really weird to see a viommu for a case where there is no
+viommu..
+
+It doesn't do anything except manage memory for the RMM..
+
+It feels wrong that the arm-cca-guest module is calling
+RMI_PDEV_CREATE and RMI_VDEV_CREATE while the viommu is allocating STE
+memory for the PDEV. That doesn't make alot of sense? The STE is
+needed before VDEV_CREATE, right? So why not place it there in the
+flow?
+
+If that's changed then the only thing the viommu does is manage the
+PSMMU, which again, seems like something VDEV_CREATE needs, so why is
+a viommu involved at all?
+
+The smmu driver involvment would be much smaller if it was only the
+interrupt routing and some helper to return the psmmu addr for a
+struct device that the arm-cc-guest module can call to manage the
+psmmu?
+
+But I'm also sitting here scratching my head a bit, did the tsm_ops
+design go the wrong way? Should we have run more of that through a
+viommu instead of tsm_ops? Bind is sort of an illogical operation
+without a viommu, even if it is a nop viommu.
+
+I suppose it depends what it looks like when a real vsmmu is
+created.. That probably needs a special viommu object, and do we get
+into order problems if the lifecylce becomes split to tsm and viommu?
+
+> RHI v1.0 BET1 specification [5].
+> 
+> At a high level, the series adds support for:
+> - host-side vdev communication and lifecycle management
+> - host handling of RHI DA object read/size requests
+> - host-side fetching and caching of interface reports and measurements
+> - KVM handling of vdev request/complete exits
+> - KVM handling of map/validation exits and teardown on granule destroy
+> - vdev transition to TDISP RUN state
+> - enabling DA in Realm create parameters
+> 
+> The series builds upon the TSM framework patches posted at [2] and depends on
+> the KVM CCA patchset [3]. A git repository containing all related changes is
+> available at [4]. kvmtool repo is at [6]
+
+It looks like it also needs the series that adds bind to iommufd too
+
+Jason
