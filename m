@@ -1,81 +1,118 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com [209.85.160.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E7943D16EF;
-	Mon, 31 Aug 2026 08:26:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788164762; cv=none; b=Hb3c16ah3VxVEtnaEKF8NlA4NeOObcp/j0tD69wv/OtpD7JluVa6y22DvQIS6O0X62gyVMXhiNInQMUKYgG3qUBM1wKvyGIbF7fGqFVNp+RFtozIyj0+QhQU7hvZk5rNvzW+OH+jrNimnvybs35xsQWW4/0qG8fzdpoGPdaybS0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788164762; c=relaxed/simple;
-	bh=oi3IwRGEdFAcg1n0hcZwUHOudCsYct2I5HEiNEmL5wM=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=AeN0siJQDxYpVO+dgque4X6TagST1sG69dLR3FdBUB6WTPiVl2t2UdSrJioP1XANDd6DkPcEWjXNelSuhNkuiWMx4aSJtIqukbf1XW92ssdl0dMKxGjCbFhfys9CuVTJOM19wmUB4VREM5rpHlCb5gw8Uzj93UvdLBodcLrf9Z8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m4OuzjF+; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C99783DAAB6
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 08:26:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.171
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788164773; cv=pass; b=pjzYOWzdPSFikRB+ecdFQ8QAGnbniDZB5KcMIkBohs83f4SvhGoTOxd1vN2DtmBL+pQ2wnjIzc5iIcnb5SihLRJgKWeyoJ4avzQuYIcIxvoFKOKxcJcSPMjbXBoft5x6Lr6vGVxTazre8UXN5cvxzHbUekaW5Re+mUSSW+poYO0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788164773; c=relaxed/simple;
+	bh=L50lYICP106cKUnxwcy3VRTlzI/KCvX3m5TcfCKQ+uY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=te/VGDQqMloo3vv+b2uf61GKnvl+Qu/iehxntJMVsdeGaR2j3nTief2uB/hTYbl2p7vRTyRILtBwRAj93TsZcAzAvCB6YC6ZELHFEYCF/JFIGCnFLW0ab3zvif9TZTVZELngdv2gPfF7jWWzpLvrIds8lpeAKNdaoB1abrUYgv4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=p9nFZFb1; arc=pass smtp.client-ip=209.85.160.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m4OuzjF+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94D481F000E9;
-	Mon, 31 Aug 2026 08:25:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788164760;
-	bh=Bkc3TtL3jy2b+pazsu82eelBxMwpygOXYf82m1fuwME=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=m4OuzjF+GoDRFdIU0nkSPpq4UhwkK4XUvNcXvhKdh+T1Ag3iPX/NPwRkw4VcZWw28
-	 QI+4nqLCPxSfL/kkan7lu71Tf/R/Lp0Z/VHitskkPXTT+HWs8NRni7U2sKENauQpwz
-	 VCeOrqAahgIwl0AFd7LVK3goPaJLDWoJm+vFDcffYIkRI5+zTWtQUmQ4Nn9GZ/APyl
-	 tX19339lrJz7zsnhU11eBH66L4RELNDsAXdThzKPZQ1N1nqdZreJOk6uR8q8WSZwSK
-	 RgVngLlEr6ga1/pFoA8NyhiD7bXUn8kUkIL0UbA/07Jb93KxuT1YbA5q7SoPcs+oxw
-	 zz+QfJBZx3QUg==
-From: Christian Brauner <brauner@kernel.org>
-To: joel.granados@kernel.org, kees@kernel.org, 
- "Cen Zhang (Microsoft)" <blbllhy@gmail.com>
-Cc: oleg@redhat.com, mingo@redhat.com, peterz@infradead.org, 
- akpm@linux-foundation.org, jack@suse.cz, avagin@gmail.com, 
- ptikhomirov@virtuozzo.com, mjguzik@gmail.com, include@grrlz.net, 
- ebiederm@xmission.com, legion@kernel.org, linux-kernel@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, AutonomousCodeSecurity@microsoft.com, 
- tgopinath@linux.microsoft.com, kys@microsoft.com, stable@vger.kernel.org
-In-Reply-To: <20260814040944.16561-1-blbllhy@gmail.com>
-References: <20260814040944.16561-1-blbllhy@gmail.com>
-Subject: Re: [PATCH v4] reboot: fix cad_pid use-after-free race
-Message-Id: <20260831-mysterien-fachwelt-erfreuen-70b49c6e0bad@brauner>
-Date: Mon, 31 Aug 2026 10:25:51 +0200
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="p9nFZFb1"
+Received: by mail-qt1-f171.google.com with SMTP id d75a77b69052e-52fac937235so264691cf.1
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 01:26:11 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788164770; cv=none;
+        d=google.com; s=arc-20260327;
+        b=m8+nMXdhwHTAlvYHMOwgdvW5X+iODTtVaEjZ0Q9OBWsiDVvq1wVn1ItqNm1l3+GTT7
+         n/L9zG5bwfbe20depeeT9rg3w/1piEfh0iIU2bFFtwlmHwJerWtgFFxtl1d+N8fmRDir
+         feLrjiS2/B81SNkBOHDVTQ1yetpWzaCDKa4qc4o/ZceSwF4h8sGv452jYqqtx8NDsHq5
+         BEX+hd1shsVhyI2KV7Ui/uDOnEP7vMO5BWVfJ6a/8MaRAOAbewgZNG4dGTXhylV6c9r0
+         kD8KgerVt+jJI/s9kQgEJp+kyjB7sAT0JACpw/kdkrIKYA90vQDGDU1j1uN9XluIA6+e
+         nZsQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=L50lYICP106cKUnxwcy3VRTlzI/KCvX3m5TcfCKQ+uY=;
+        fh=TlENiqdP++rWQKoFImRUgUPbw1XhFkCrgZLXP3iY3lY=;
+        b=B8fEScQpaPp5DOsTH+yVlLNk4Zn1mMHfrygs+ng2nAv8BcBsGKTsuuPY6WNt/Dy0Yd
+         bwiK+RpdpktN43/x6BPkBSlW2puPtStJZ87CLyB7LfcYy3iJb953REd2E83vbFUK4SVZ
+         eCcc6Rqg6gGC82xPHTLYrysfqxxEMKGmJ2c30OA6z52MhzymK/QwjhrUJEXQNyXTTe60
+         59zSHLpDF6xFMG5vqZU1A2LnWmWFFaY//jNQMQOQSkTGSpi4Jq0RnxI5sgCEpNI1T8Rh
+         5H2fkoBYNR0MZJpBPeaXNo9VwcJLv7/yAYZqzgxJXwgJoJyOyf0KW2KkqIWTKiJgtxBy
+         F/dA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1788164770; x=1788769570; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=L50lYICP106cKUnxwcy3VRTlzI/KCvX3m5TcfCKQ+uY=;
+        b=p9nFZFb1cs9OHaM3+e5GndK27xUg/3Dqt18UoJDIrIF7fpm8/AOB0sBZ14jASYzo/a
+         2vExHxx8ekBpg0WU8QvqBOC54FUJFOdk5igNxQfjtD87uykzqDpGB3qZOY+BIprIAD+N
+         8XyUgyzvtVEJquzVJkNWoSNdo2byyNjiFKSJNbo3Pn8pp0MuhHVhVvg2tx/eVIQX2iGS
+         BJx84QeBVB0n0UlGYaTfZdNfBMtxxKzb9cjPjKnYKZ1RnR6iavjsYFP3jjugconMrZcd
+         5wc9Hrh8AiC57fg/b05t8XVeF0Y3FvifTFg0HkTU0lIBd+8mssG6jF0Bf5+bVwN5r4TV
+         Z3Sg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788164770; x=1788769570;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=L50lYICP106cKUnxwcy3VRTlzI/KCvX3m5TcfCKQ+uY=;
+        b=FfN2ZQHEvmcDbEe+OehHjdi1xmv+cOEokBqvJVyZXUmdF+cF6zCh1mwNQbLmT95evL
+         w24vn/jqWRrFSytTyNvjAq3xvDqNujTCtQHp968Zeljqt8n8KiZoRQXKdar9S01QzImT
+         ohL/SdFThfXV7cCfvKyOpgSv4zSpyUioHKPAk5N3Ac5+cAkPRA/aHi8TJz08PGm8gyO8
+         FVkIRyY215LqHvlD08uFzSHFz2RVcghmmLgnboFXnhG9lO3TX92mkvICM4Wq0p2aIKhA
+         uX9VM/fXYeAICIY5TbpZO35qp6Ff562ie5vgpepzFxnQi8epe5KfDdC3LZX89Vszm30+
+         4rDw==
+X-Forwarded-Encrypted: i=1; AHgh+RoiT/iaR/VaL3kCrOqQNKIaKANg4vODyXOs70xCkNrCfrYP+F7ynogmZ0+tOygVi+US5pIt1LFhEJCRSuI=@vger.kernel.org
+X-Gm-Message-State: AFuF++nwjY+m8sgxT4K0gCFAckBE/wIfwvsxkFg8CIS0gD6a9TFJjIpX
+	nxgOiV2EBZ/EDV6UkAdGrREqUrTe+VQrfSK9vD+lm/TvJLkXK1CwZC+v6MMuDIwxyvy6GxA3lC0
+	XXSSUszAlY7sxjyxBGfFePuBd0qerC1EYpBZzPC8A
+X-Gm-Gg: AR+sD13/qUGwITitSlfJZDZ6u6FiOyZ7zOOJiR4n35jJI2m5nhdh4Gz8SvHRGiWiYQ8
+	JDvmjwnACd0VQHZIGde8zZuSQH/uPvwNloQYuFsri2gUCvBBB44nDfjupd2z5Rsvm6MTIyFUHwJ
+	0MjX81NwQhKbb1zKXPloYiLdhHDRlAs9tRGHkSiBUtUINxQKcbC+bSL5wXsavg/8j3QLst1Yc3K
+	g42JX5CqEsI7vK+PZ1PM6m7NHNsqsmvwNkKp5Kr1W8918UC/SVAZXmoczbjA6OR8L1V38Swjy2e
+	7ieWToJrhxCf/pvlrKEr36RAlJ7L+B3/Bax94JJx1TXZjlERfNDZ7UrFRShTflOvX5Cb6GJeH5V
+	djg==
+X-Received: by 2002:a05:622a:90b:b0:52b:806e:2633 with SMTP id
+ d75a77b69052e-52ff716a474mr28081931cf.1.1788164769903; Mon, 31 Aug 2026
+ 01:26:09 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev-362b8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=863; i=brauner@kernel.org;
- h=from:subject:message-id; bh=oi3IwRGEdFAcg1n0hcZwUHOudCsYct2I5HEiNEmL5wM=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWRNtZqSpfKrpOZA64TSpdmqc/dwpWw8mq/5KN2XeZuAt
- ejM/at4OkpZGMS4GGTFFFkc2k3C5ZbzVGw2ytSAmcPKBDKEgYtTACYSepeR4YZk+I9ZU8/r6eeG
- skserhLoCngiIXvW+M+Hj/uqJpy795KR4f4Fh53Xn01o/r13eqPmNhOBz1WbnjteztY518/wN8P
- 2PCcA
-X-Developer-Key: i=brauner@kernel.org; a=openpgp;
- fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+References: <20260827070345.2853821-1-jorge.ramirez@oss.qualcomm.com> <20260827070345.2853821-2-jorge.ramirez@oss.qualcomm.com>
+In-Reply-To: <20260827070345.2853821-2-jorge.ramirez@oss.qualcomm.com>
+From: Stanley Jhu <stanleyjhu@google.com>
+Date: Mon, 31 Aug 2026 16:25:33 +0800
+X-Gm-Features: AcwNN1WVv-1JxNRBi1FdqkSyKkrL3KqIt4GooQUTfRRAXFQqWs_ZljDsUxFdizM
+Message-ID: <CAE14pdejGMw-4hpj+nydgMi_Ff0WiACEEisa6Y=wp5cV1H_NnA@mail.gmail.com>
+Subject: Re: [PATCH v4 1/2] ufs: rpmb: retry power-on UNIT ATTENTION on the
+ RPMB WLUN
+To: Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>, beanhuo@iokpp.de, 
+	James.Bottomley@hansenpartnership.com, martin.petersen@oracle.com, 
+	alim.akhtar@samsung.com, avri.altman@wdc.com, bvanassche@acm.org, 
+	beanhuo@micron.com, can.guo@oss.qualcomm.com, sumit.garg@oss.qualcomm.com, 
+	jenswi@kernel.org
+Cc: linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	op-tee@lists.trustedfirmware.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Fri, 14 Aug 2026 00:09:44 -0400, Cen Zhang (Microsoft) wrote:
-> reboot: fix cad_pid use-after-free race
+On Thu, 27 Aug 2026 09:03:35 +0200, Jorge Ramirez-Ortiz wrote:
+> After a power cycle, the first command sent to any UFS logical unit
+> completes with CHECK CONDITION reporting a power-on UNIT ATTENTION.
+> The SCSI core surfaces this condition to the caller rather than
+> retrying it.
+>
+> For the RPMB well-known LU the first command after boot is the first
+> RPMB frame, and RPMB has no earlier, guaranteed access that could clear
+> the condition beforehand. The power-on UNIT ATTENTION therefore reaches
+> RPMB and fails that first frame, breaking RPMB on every cold boot.
+>
+> The RPMB WLUN needs the power-on UNIT ATTENTION to be retried so that
+> RPMB works from the very first access after a power cycle.
+>
+> Signed-off-by: Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>
 
-Applied to the vfs.fixes branch of the vfs/vfs.git tree.
-Patches in the vfs.fixes branch should appear in linux-next soon.
-
-Please report any outstanding bugs that were missed during review in a
-new review to the original patch series allowing us to drop it.
-
-It's encouraged to provide Acked-bys and Reviewed-bys even though the
-patch has now been applied. If possible patch trailers will be updated.
-
-Note that commit hashes shown below are subject to change due to rebase,
-trailer updates or similar. If in doubt, please check the listed branch.
-
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
-branch: vfs.fixes
-
-[1/1] reboot: fix cad_pid use-after-free race
-      https://git.kernel.org/vfs/vfs/c/5a88f78df753
-
+Reviewed-by: Stanley Jhu <stanleyjhu@google.com>
