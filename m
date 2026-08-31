@@ -1,184 +1,433 @@
-Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010033.outbound.protection.outlook.com [52.101.56.33])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8E5E530E0E
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 13:44:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.33
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183899; cv=fail; b=kC3TDhmA2KiuHCLXePWMZuPPswtLis9x3lmP4/TykkOynnKIsKRpnaik/2a8rrBgRQjs5ti7w7B4XTskmwcTBJHEgwhVaNu3D2xgyndzVtZ67GZcAy/IsM8O/W221HVpc6qB1XWaLIU+4ftRfU4FRh0yIDsw4YNLbwnOyzMz4y8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48030530E01;
+	Mon, 31 Aug 2026 13:44:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788183899; cv=none; b=uz4jDrRopz0omN0tOQsgHqnZNaN9CSpdBw+E4NXPbSYAoI/SYdMumGa9hOHkuQ4PV/mzkpNzh86ruhTdTi0Y1gRQA8kjhpFFOmEoCpYv4ar46KAJnXDOExCAZJxhpeCyxuMGI3q4K8uSxcJe44dY3ZL/h5JO/ylF5MuI4/hfZZU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788183899; c=relaxed/simple;
-	bh=R4gPrHQELsc/jjL8ymAZds9awgQStaou/vIz14gCNP8=;
+	bh=iFJCfpRqwuOkvNt7G9lVIOoQbPuxZKN1Q63mAfehW1M=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=ZX+K/ryQyMNoDlI2TAoms90CNNrSvDW9uvA5t3P42V6wLEgDLrSq4qfSCtI235oUTU4SnvzNmu3rByLvq/hAF2dD8QxBC7kLFsi6fVb7FGKdWX+9kdBCxLOTgyozhkhx4rvm2H2hIYksSEUnrt02M9NhYK++MPTM9FqL/vF6Ca8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=JW7dlIlE; arc=fail smtp.client-ip=52.101.56.33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	 MIME-Version:Content-Type; b=PR01gUfeXBU6ezfqUHqWXyhkHeguEFN4SFyftyGv/+iEpYzwdHMIImTRFoF8AK3e8RBTMlbIlmWQoYIIMtHYcBcdVdBPjcna7MwEpLOWS5BWhdeuiMnG1yuixXmZHwBhK+qvp+/S+HFN98p9o8gkEduKe6pJUUY1lq7O1w2ssgU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bl9FLwE0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="JW7dlIlE"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=czWysQYwsHJdWy862VFc4maLayTAicNcLuvaswJK4CLPWpio0CMWu7PF6CHjZ6fKDbLbEHvCtXB5vqLKsmb20ntugvwYiI+rnw9JYK2QR1tVQ7XMqC/0DDEG7Ppeg8DEIZKocfPMYta8dDZ3Tcuu2xKO1xI3lX2pCA9DzLUhZje00bPaLVMbTA1UZ0TVo+SeQl2EN6qjpk+oqkRtlB4TOtBQgoiXxPLk/u4AH1/WygJiNMyG1Vv7vEF5cbL0znGqGpxrDesydbOW2gUy6U4A+CBYkQGrM/5F6IswTHySqzYSKqLq1a8N5OsF+sMpV0GpopvG8rmYglNIdJ7PUmOcSw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3Tmy+aPkpHWfLYJMQHTcVXKhGBd857/yV+bzISVUOxo=;
- b=UzAD63r4iY9wfwsvAIfRRlkUe82iUJqixzZxVhIlZc2Jd8FPy7kdFAPO14ext52DQgxn84NF64332u8/hqMeUaayOTfHhQo5WR8BGpaeE8AvnJAUyd0RjXMFdDfqQ2oXuqFZaIVwJpBmvlMskRIpRlXO1Acptb0N7SQbXWn80KtWlNwJW94p6Me6FUAEjW9ElmnPf/L0mhW6p5np7MOa7igwrC6/Q7LrWnpwhHYOjN/1f8Wun9cEhuVWegFBLOqypG/H7ULf8NzSg2qqiVOw70F51Cmu8FLHhUD65E9j64TSCl4QZBCYWrg1JbBxscW6zuuJ9rsPSUJD4jHxLAbC1w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3Tmy+aPkpHWfLYJMQHTcVXKhGBd857/yV+bzISVUOxo=;
- b=JW7dlIlEY9J2F3M3k7hPyqw2lOA6NXQ+ioiFQbxKn4jDURFl1h7QBfZXzd689Y8x7v6JHzJSzwiYlU32kA1xjeZT2b3PufCsNJbERPvBLe/GMy/y85grdOoYRL2vV+WLknJ/JLCTixUCdc4/wMWfS3oAWVtc5sNqU8wIQaNRGdQk/ybJnEWLJqbIIpitWzdTJJbhIMSVHP5mNyuaLy4QCzmgnNKh/hxIevErW34lKCkhF/BbxWxALjVygxVRs1EKQJFnmZtY3oEZ4argle+LNp8ZSf/+vM2yj1+W2bFCfWouZLdf6Yxisq8mytA38ZzEQt5rCAyLrYYpJkxydHT1uQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DM6PR12MB4827.namprd12.prod.outlook.com (2603:10b6:5:1d6::14)
- by MW4PR12MB6755.namprd12.prod.outlook.com (2603:10b6:303:1ea::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.12; Mon, 31 Aug
- 2026 13:44:47 +0000
-Received: from DM6PR12MB4827.namprd12.prod.outlook.com
- ([fe80::6261:3040:864b:159c]) by DM6PR12MB4827.namprd12.prod.outlook.com
- ([fe80::6261:3040:864b:159c%5]) with mapi id 15.21.0360.008; Mon, 31 Aug 2026
- 13:44:47 +0000
-From: Andrea Righi <arighi@nvidia.com>
-To: Tejun Heo <tj@kernel.org>,
-	David Vernet <void@manifault.com>,
-	Changwoo Min <changwoo@igalia.com>,
-	John Stultz <jstultz@google.com>
-Cc: Ingo Molnar <mingo@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>,
-	Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Christian Loehle <christian.loehle@arm.com>,
-	David Dai <david.dai@linux.dev>,
-	Emil Tsalapatis <etsal@meta.com>,
-	Lee Trager <ltrager@nvidia.com>,
-	Richard Cheng <icheng@nvidia.com>,
-	Koba Ko <kobak@nvidia.com>,
-	Aiqun Yu <aiqun.yu@oss.qualcomm.com>,
-	sched-ext@lists.linux.dev,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bl9FLwE0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B91021F00A3D;
+	Mon, 31 Aug 2026 13:44:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788183897;
+	bh=5EYOOfs2MFQSXCyk4VnYLNrx8jys++FtwygfapBYvHQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=bl9FLwE0jGbtWZWUeqhjDWbNCHPrHuLrX6lMBgwflBtHldPRtd941eRFNRSgMvtah
+	 U2ztVPLhCGHj6u0nmVWxKsdPIsVcX4IOvMuW2mcNZswrGQ0Di/lFEORyWF9jYCxuIg
+	 JNS5aWJJH+92ZpCoKfa5v+ksrbjaqiiIP7IbQMZBD5CMY4ws4amHIpPQ6wx3snLCmk
+	 2IQYckPot9K8vMezps1KgpAgiBbrT2Vd56vZJXPn6bBRqCtXGxk8McIYws5XVYXARp
+	 iwhzyrQo/fAxqsobOQTkG7WoG/TOQxt8RNQS1M7SwdS43woj/8kHysD1wBvClVQOIx
+	 6qkq7yiYqMriQ==
+From: Sasha Levin <sashal@kernel.org>
+To: patches@lists.linux.dev,
+	stable@vger.kernel.org
+Cc: Ethan Nelson-Moore <enelsonmoore@gmail.com>,
+	Jarkko Nikula <jarkko.nikula@bitmer.com>,
+	Mark Brown <broonie@kernel.org>,
+	Sasha Levin <sashal@kernel.org>,
+	sen@ti.com,
+	lgirdwood@gmail.com,
+	perex@perex.cz,
+	tiwai@suse.com,
+	linux-sound@vger.kernel.org,
+	linux-omap@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 08/18] sched: Introduce WF_ON_RQ wake flag
-Date: Mon, 31 Aug 2026 15:42:18 +0200
-Message-ID: <20260831134338.1531664-9-arighi@nvidia.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260831134338.1531664-1-arighi@nvidia.com>
-References: <20260831134338.1531664-1-arighi@nvidia.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SJ0PR13CA0080.namprd13.prod.outlook.com
- (2603:10b6:a03:2c4::25) To DM6PR12MB4827.namprd12.prod.outlook.com
- (2603:10b6:5:1d6::14)
+Subject: [PATCH AUTOSEL 6.18-5.10] ASoC: ti: omap3pandora: update board check to use DT compatible
+Date: Mon, 31 Aug 2026 09:26:36 -0400
+Message-ID: <20260831133314.4125787-368-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
+References: <20260831133314.4125787-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4827:EE_|MW4PR12MB6755:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6eb7bc9d-cd3c-4970-0038-08df0766056c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|1800799024|23010399003|366016|10067099003|56012099006|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	mRzc3Q/2zFFIUqFE4WOEcFEGNM8+GUa6vb5EywKKb2DQiTjenGIwPZRr/GMAZ2mNwwABh8FCJAncK8IUDMakOA9NpVw26QLM99D2zaV6eSPe7ScjlK/+Fe4LiDW6uliz6DjNFn+v2AWrYULUTH1Cy5aVZ43A2r8OBttfp6R9YjJBgblkfbHxIkpJ43i6dBunx1zO1gfjmlM2eQqCiSxnSYiAqJPl2r9Z6MP8SNJQVf9MeRfVdlHYSKTqDeLTLksvPF/8DCH0IA9LKpoC8fMI6ujaA1X2dz128bIO3lLHZndsiavwlOl63ilZ6FNBBCdbn4lqV7sl335A+JLC5gscDwneO/p/9S42KTKyZfWUGAk/UjBvWCm29rAj89cIo484KKvGdOJTRqW3nMNo1j2w7Ujo+1w4SM6h+Ub063NMfH/tKou2//+VLLL3EvjP0pkc1ZV8rgzVzimWi6GNqCnsTvvw2QeqjOM6IXl1VYKmz2Nnfs/LpEZsw+wWqjVPvwLKSOGOpsPE70MDYi1KDBUQV2cWGFYeGELmchW9G0xFadNBBUb8NLwTR1CkgwzUQm16eZny3uzrLZ0wekDK4neWk8Ej2/UVJq+OXejwC2dvPi2Twhx720CO7JaFzSNEJy4H748kd97dmOVfLDJNwQpEYCAFPRZ1YU4RH6UNIJptdZg=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR12MB4827.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(23010399003)(366016)(10067099003)(56012099006)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?A1l84vrO/9o6XaUO5h8c1UAsDaY8nWVJEfiUXFPYmKuGsKlWFiDI5euOdveb?=
- =?us-ascii?Q?TE9OxQG54NpJqTOlnAfy0hkmzvOIVI3W26T99CwSqDEddYf0oRxhrcYsdoAk?=
- =?us-ascii?Q?nK/U1/N+/Ae5/xZcx0o2d7zH5al5O/Uocw16w3F1viqohvzaRTWLnZwdJisi?=
- =?us-ascii?Q?Ak6P0tbsoeiPXC20M4uPUs2ZJzwE7qV6BVigcy4sckTxJqkhT8KV8Ov9he30?=
- =?us-ascii?Q?0sh7F1vAXXJJThqvIWnzkCWYgEWgdGYuVz1423WCwmuPoHvuhjN3gFM3w/D8?=
- =?us-ascii?Q?Db6jBRHJW/QmsI+A0viWbxzV8uf5rkO2ZFID9P78G54DIc7WuCFJkwRRO3/Z?=
- =?us-ascii?Q?iDQMYAZvWV8qHJYvPjVMeQj/v/Z6ySygmcQpjBuM9VkQfqZB6H34//Krdi8w?=
- =?us-ascii?Q?Yd8q4Cp6VYV9jJqkV+F+oHxkMR1a9asKVmEMfXpyLZ68Tczomw+6bOyvIdkx?=
- =?us-ascii?Q?w8lmhQpPEgum6uzjt+Pyzybv+SPhKk+uLJR/yczO8xF4ufvQt+9mk689q9a5?=
- =?us-ascii?Q?U5/AVuGlYcnG5DeW8j8Tl7lSq1SjX4gMuc2LOfHn7QIPF3hUiHE3E02aOpzV?=
- =?us-ascii?Q?QpxVYl6dp7Myu9+OkTNv3phIxNCv7LyuzsF6dH5Q+M6AGLm55PGsI7rhELVC?=
- =?us-ascii?Q?zWEzgFFOWvSPnegQsyxyRDUJGXgZbEjC5D/HR4DN2U7OWZ3gNVKHUH/lBRXz?=
- =?us-ascii?Q?GEKL3JA65c0j8XjpvkJ+WNVLgd89u2kasbCBOS16qTNf4NvAy2GWiLGYYgnQ?=
- =?us-ascii?Q?eZHqHFh1Yk3brXUsmeSIVgrUsqr+BKA+0/95MZP66/rTqhxtoqVB3lP8hxMu?=
- =?us-ascii?Q?0MmlQS6FxHe+2hXUBWe+kMYSh8rEJBJasxPmq1IXIMRrYK5f/ir7PzrKcoeL?=
- =?us-ascii?Q?eVTgzE+6Cp+ZMjefT/AHred/x+Ucd5IO1ojNQfyHsOUm6EPSJevSUnsf3GmX?=
- =?us-ascii?Q?Pp7gPTCScHzS3We0QNUyrnrcaYRTZ9Z/5ccGmOVGrSyrruhR1BsV9Y0FFwpf?=
- =?us-ascii?Q?7pALDQj+lwnoozNSIg8pHrvZ+TwXl5JthiNCTBTQpSRuTOrfbqHY8XSt2gK+?=
- =?us-ascii?Q?tQjNfKhjp1cRvS/Q2wQ76G2/DbDKkg8SRsyhnhQInc0Ntiz6hsknP73iYgky?=
- =?us-ascii?Q?1/scpu2ruBjmBUOvuxIWBMmma4OYE9Fgh8chub2B1JHP7M1Xs8ywnh+GAsV5?=
- =?us-ascii?Q?36cSqKIZAjzECNjWOtRnT/NC9tJ7jQU1X1CPY96E+O90LJAJW7vE2NCZsPlt?=
- =?us-ascii?Q?R5wok2wFb7X6sOmWs9W5OiWs4qZOjlNtCWvRpohVlJGjVK7N9XY9Bw42KsSW?=
- =?us-ascii?Q?uqWWMA0LZ1Y9r2+RCEda1vsX7/p7ky5LrRTpDXnX4KnE5bmP5XiuA5Cn7x8e?=
- =?us-ascii?Q?Q/pzkM0sYw1ymG/Bi6DeDNEnG3tQgr0/MH/Qq3vNHWcmrv3/GvZI23iLGa+P?=
- =?us-ascii?Q?UutPpm/M3Kl4suudyuIBP5CxS8b3+MyXBLxuP6j6DYDfW3jJ740/MqH/9PJz?=
- =?us-ascii?Q?SepHLuuBQCykzUgl07iHS6qs7fxAN96PCAO+8OeEVqNUAFdPmLZ4siKijNYR?=
- =?us-ascii?Q?i2bGR5ra+wVIpa15SLTthMV39YgVH58W5dELDjdyb3FMR+JqlM3Hai9WsVa2?=
- =?us-ascii?Q?+geWOuGSCQa/IcZOkLWbb39rwH9CB4MFtXBfrxNha8mPgZh9LqWIdmv1mn/v?=
- =?us-ascii?Q?yboECId9N5pSufCZRimjB2M5QppHRvop0BtNOZbG9ALY86CaLJFevW3vvkIJ?=
- =?us-ascii?Q?jqIJDZL7XQ=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6eb7bc9d-cd3c-4970-0038-08df0766056c
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4827.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 13:44:47.0545
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: cNP6UYRo78iaXjqZtyqcfnnrNOVDfHZcCgac8qXT/fFJyxYcab9Js5SAWlfrDgHmyZeX7eNMho4jle+qgYGjkw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6755
+X-stable: review
+X-Patchwork-Hint: Ignore
+X-stable-base: Linux 6.18.48
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-ttwu_runnable() handles wakeups for tasks which are already on the
-runqueue, but scheduling classes cannot distinguish that path from a
-full wakeup activation in wakeup_preempt().
+From: Ethan Nelson-Moore <enelsonmoore@gmail.com>
 
-Pass WF_ON_RQ to wakeup_preempt() from ttwu_runnable() so scheduling
-classes can handle already-runnable wakeups separately.
+[ Upstream commit 45efb8fbdae303539e7fb5562e147583d4ed63ad ]
 
-This is a preparatory change to support proxy execution with sched_ext.
-No functional change.
+The omap3pandora driver contains a check for the ARM machine ID via the
+machine_is_omap3_pandora() macro. The board concerned now supports
+only FDT booting, which does not use machine IDs, and therefore the
+code should be updated to check the DT compatible property instead. The
+legacy board file for this machine was removed in commit 7fcf7e061edd
+("ARM: OMAP2+: Remove legacy booting support for Pandora").
+The presence of this machine ID check prevents the removal of machine
+IDs no longer used by the kernel from arch/arm/tools/mach-types,
+because the machine_is_*() macros are generated from mach-types. To
+resolve this issue, use of_machine_is_compatible() instead.
 
-Signed-off-by: Andrea Righi <arighi@nvidia.com>
+Signed-off-by: Ethan Nelson-Moore <enelsonmoore@gmail.com>
+Acked-by: Jarkko Nikula <jarkko.nikula@bitmer.com>
+Signed-off-by: Mark Brown <broonie@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/sched/core.c  | 2 +-
- kernel/sched/sched.h | 1 +
- 2 files changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-index d578dd635f2eb..f142ab455b797 100644
---- a/kernel/sched/core.c
-+++ b/kernel/sched/core.c
-@@ -3908,7 +3908,7 @@ static int ttwu_runnable(struct task_struct *p, int wake_flags)
- 		 * When on_rq && !on_cpu the task is preempted, see if
- 		 * it should preempt the task that is current now.
- 		 */
--		wakeup_preempt(rq, p, wake_flags);
-+		wakeup_preempt(rq, p, wake_flags | WF_ON_RQ);
- 	}
- 	ttwu_do_wakeup(p);
- 	return 1;
-diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
-index 56ac104f1f825..f30d122909e7b 100644
---- a/kernel/sched/sched.h
-+++ b/kernel/sched/sched.h
-@@ -2538,6 +2538,7 @@ static inline int task_on_rq_migrating(struct task_struct *p)
- #define WF_MIGRATED		0x20 /* Internal use, task got migrated */
- #define WF_CURRENT_CPU		0x40 /* Prefer to move the wakee to the current CPU. */
- #define WF_RQ_SELECTED		0x80 /* ->select_task_rq() was called */
-+#define WF_ON_RQ		0x100 /* Wakeup of an already runnable task */
+LLM Generated explanations, may be completely bogus:
+
+## Phase 1: Commit Message Forensics
+
+### Step 1.1: Subject line
+**Record:** `[ASoC: ti: omap3pandora]` `[update]` — Update OMAP3 Pandora
+board detection to use device-tree compatible strings instead of ARM
+machine ID.
+
+### Step 1.2: Tags
+**Record:**
+- **Signed-off-by:** Ethan Nelson-Moore `<enelsonmoore@gmail.com>`
+  (author)
+- **Acked-by:** Jarkko Nikula `<jarkko.nikula@bitmer.com>`
+- **Signed-off-by:** Mark Brown `<broonie@kernel.org>` (ASoC maintainer)
+- **No** Fixes:, Reported-by:, Tested-by:, Link:, or Cc:
+  stable@vger.kernel.org in the committed message (v1 had Cc: stable; v3
+  removed it per review)
+- Notable: maintainer ack and ASoC maintainer sign-off
+
+### Step 1.3: Body analysis
+**Record:**
+- **Bug:** `machine_is_omap3_pandora()` relies on legacy ARM machine
+  IDs; Pandora boots only via FDT since legacy board support was removed
+  in `7fcf7e061edd` (2015).
+- **Symptom:** The ASoC module’s `module_init()` returns `-ENODEV`, so
+  the Pandora audio card never registers on DT-booted systems.
+- **Secondary motivation:** The `machine_is_*()` reference blocks
+  cleanup of unused `mach-types` entries.
+- **Root cause:** Board detection uses `MACH_TYPE_OMAP3_PANDORA` while
+  DT boot matches generic `OMAP3_DT` / `OMAP36XX_DT` machine descriptors
+  and sets `__machine_arch_type` accordingly (see
+  `arch/arm/kernel/devtree.c:235`).
+
+### Step 1.4: Hidden bug fix?
+**Record:** Yes. Although framed partly as mach-types maintenance, this
+is a functional board-detection bug: DT-booted Pandora boards do not
+match `machine_is_omap3_pandora()`, so audio never initializes. v2
+changelog softened v1’s “always fails” wording, but on normal DT boot
+`__machine_arch_type` is set from the matched DT machine descriptor, not
+`MACH_TYPE_OMAP3_PANDORA`.
+
+---
+
+## Phase 2: Diff Analysis
+
+### Step 2.1: Inventory
+**Record:**
+- **File:** `sound/soc/ti/omap3pandora.c` (+3 / -2 net, ~5 logical lines
+  changed)
+- **Functions:** `omap3pandora_soc_init()` only
+- **Scope:** Single-file surgical fix
+
+### Step 2.2: Code flow change
+**Record:**
+- **Hunk 1 (includes):** Adds `<linux/of.h>`, removes `<asm/mach-
+  types.h>` — switches from machine-ID API to OF API.
+- **Hunk 2 (`omap3pandora_soc_init`):**
+  - **Before:** `if (!machine_is_omap3_pandora()) return -ENODEV;`
+  - **After:** `if
+    (!of_machine_is_compatible("openpandora,omap3-pandora-600mhz") &&
+    !of_machine_is_compatible("openpandora,omap3-pandora-1ghz")) return
+    -ENODEV;`
+  - **Path affected:** `module_init()` gate for the entire Pandora audio
+    driver.
+
+### Step 2.3: Bug mechanism
+**Record:** **Logic / correctness fix (board detection).** On DT boot,
+Pandora DTs use compatibles `openpandora,omap3-pandora-{600mhz,1ghz}`
+plus generic `ti,omap3430`/`ti,omap3630`. Kernel matches generic
+OMAP3/OMAP36xx DT machine descriptors; `__machine_arch_type` is not
+`MACH_TYPE_OMAP3_PANDORA` (1761). The old check always fails on DT boot,
+blocking driver registration.
+
+### Step 2.4: Fix quality
+**Record:** Obviously correct. Matches DT files in-tree and the pattern
+used by sibling OMAP board drivers (`rx51.c`, `n810.c`). Minimal change,
+no API changes, very low regression risk. Only Pandora DT compatibles
+pass the new check.
+
+---
+
+## Phase 3: Git History Investigation
+
+### Step 3.1: Blame
+**Record:** Current `machine_is_omap3_pandora()` gate is long-standing
+driver code. Legacy Pandora board file removed in `7fcf7e061edd`
+(2015-07-16). DT support added in `771048f59d068`, `b715da74deaf`,
+`9ccd0106c9db` (2015-03-16). Mismatch between DT-only boot and machine-
+ID check has existed since ~2015.
+
+### Step 3.2: Fixes: tag
+**Record:** N/A — no Fixes: tag in committed version (removed in v2
+after review).
+
+### Step 3.3: Related file history
+**Record:** No related omap3pandora fixes in recent history. A larger
+rewrite series (“Rewrite sound card driver as a platform driver with
+DT”, Nikolaus Schaller, 2026) exists on mailing lists but is not in this
+tree and would be unsuitable for stable anyway.
+
+### Step 3.4: Author context
+**Record:** Ethan Nelson-Moore appears to be a board-specific
+contributor. Patch acked by Jarkko Nikula and signed off by Mark Brown
+(ASoC maintainer).
+
+### Step 3.5: Dependencies
+**Record:** Standalone. Requires only existing DT compatibles and
+`of_machine_is_compatible()`, both present in this tree. No series
+prerequisites.
+
+---
+
+## Phase 4: Mailing List and External Research
+
+### Step 4.1: Original discussion
+**Record:** Patch went through v1 → v2 → v3 (May 2026). v2 changelog:
+removed Fixes: tags and corrected claim that machine IDs “always fail” —
+noted they can work if bootloader passes ID. v3 is the committed form.
+Lore fetch blocked by bot protection; details corroborated via
+Ratatoskr/search results.
+
+### Step 4.2: Reviewers
+**Record:** Acked-by Jarkko Nikula; Signed-off-by Mark Brown.
+Appropriate ASoC maintainers involved.
+
+### Step 4.3: Bug reports
+**Record:** No syzbot, bugzilla, or user crash reports. Functional
+hardware-enablement issue, not a sanitizer finding.
+
+### Step 4.4: Related patches
+**Record:** v1 included Cc: stable; final v3 does not. Larger DT
+platform-driver rewrite is a separate future effort.
+
+### Step 4.5: Stable list history
+**Record:** Not investigated on lore stable list (fetch blocked). No
+evidence of prior stable rejection.
+
+---
+
+## Phase 5: Code Semantic Analysis
+
+### Step 5.1: Key functions
+**Record:** `omap3pandora_soc_init()` (modified gate only).
+
+### Step 5.2: Callers
+**Record:** Called via `module_init()` when `snd-soc-omap3pandora.ko` is
+loaded (`CONFIG_SND_SOC_OMAP3_PANDORA=m` in `omap2plus_defconfig`). Runs
+in process context during module load, after DT is populated — safe for
+`of_machine_is_compatible()`.
+
+### Step 5.3: Callees
+**Record:** `of_machine_is_compatible()`, then existing
+`platform_device_alloc/add`, GPIO/regulator setup unchanged.
+
+### Step 5.4: Reachability
+**Record:** Triggered when distro/user loads the omap3pandora audio
+module on OpenPandora hardware booted from DT (the only supported method
+since 2015). Direct user-visible impact: audio card registration.
+
+### Step 5.5: Similar patterns
+**Record:** `sound/soc/ti/rx51.c:364` uses `machine_is_nokia_rx51() ||
+of_machine_is_compatible("nokia,omap3-n900")`.
+`sound/soc/ti/n810.c:289-291` uses only DT compatibles. omap3pandora was
+the outlier still using machine ID only.
+
+---
+
+## Phase 6: Cross-Reference Against Local Tree (6.18.43)
+
+### Step 6.1: Buggy code present?
+**Record:** **Yes.** `sound/soc/ti/omap3pandora.c:226` still has
+`machine_is_omap3_pandora()`. DT files with correct compatibles exist at
+`arch/arm/boot/dts/ti/omap/omap3-pandora-{600mhz,1ghz}.dts`. Legacy
+board file is gone (`7fcf7e061edd` present). `mach-types` still lists
+`omap3_pandora` at line 325.
+
+### Step 6.2: Backport complications
+**Record:** **Clean apply** — verified with `git apply --check` against
+current tree. No conflicts expected.
+
+### Step 6.3: Related fixes already present?
+**Record:** No equivalent DT-compatible check already applied in this
+tree.
+
+---
+
+## Phase 7: Subsystem and Maintainer Context
+
+### Step 7.1: Subsystem
+**Record:** **ASoC / OMAP3 Pandora audio driver** — PERIPHERAL (niche
+embedded hardware: OpenPandora handheld).
+
+### Step 7.2: Activity
+**Record:** Mature, low-churn driver. OMAP DT infrastructure stable.
+Recent activity is this board-detection fix and a proposed larger DT
+rewrite.
+
+---
+
+## Phase 8: Impact and Risk Assessment
+
+### Step 8.1: Who is affected
+**Record:** OpenPandora users with `CONFIG_SND_SOC_OMAP3_PANDORA`
+enabled (present in `omap2plus_defconfig`). Small but real user
+population.
+
+### Step 8.2: Trigger conditions
+**Record:** DT boot (standard for Pandora since 2015) + omap3pandora
+module load. Common for intended users, not a race or obscure corner
+case.
+
+### Step 8.3: Failure mode severity
+**Record:** Audio driver silently fails init (`-ENODEV`); no kernel
+crash, corruption, or security issue. **Severity: MEDIUM** — broken
+hardware functionality (“oh, that's not good” per stable rules), not
+CRITICAL.
+
+### Step 8.4: Risk-benefit
+**Record:**
+- **Benefit:** Restores Pandora audio on the only supported boot path;
+  enables mach-types cleanup; follows established OMAP DT-detection
+  pattern.
+- **Risk:** Very low — 5-line change, board-specific compatibles only.
+- **Ratio:** Moderate-to-good benefit for affected users, minimal risk.
+
+---
+
+## Phase 9: Final Synthesis
+
+### Step 9.1: Evidence summary
+
+**FOR backport:**
+- Real functional bug: DT-booted Pandora never passes board check
+- Small, surgical, maintainer-reviewed fix
+- Applies cleanly to 6.18.43
+- Matches in-tree DT compatibles
+- Precedent in sibling OMAP ASoC drivers
+- Qualifies as hardware quirk / board-detection fix under stable
+  exceptions
+
+**AGAINST backport:**
+- Niche hardware, small user base
+- Bug present since ~2015 without crash/security impact
+- No user bug reports or syzbot findings
+- Final commit omits Cc: stable (not decisive per review rules)
+- Strict “important issue” bar (crash/corruption/deadlock) not met
+
+**Unresolved:** No direct user bug report verified; lore thread not
+fully readable due to bot protection.
+
+### Step 9.2: Stable rules checklist
+1. Obviously correct and tested? **PASS** — logic verified against DT
+   files and `devtree.c` behavior; maintainer acked.
+2. Fixes a real bug affecting users? **PASS** — Pandora audio module
+   cannot initialize on DT boot.
+3. Important issue? **PASS (borderline)** — hardware functionality
+   broken for affected users; hardware-quirk category, not
+   crash/security.
+4. Small and contained? **PASS** — ~5 lines, one file.
+5. No new features or APIs? **PASS** — detection mechanism change only.
+6. Can apply to local tree? **PASS** — verified clean apply.
+
+### Step 9.3: Exception category
+**Record:** Hardware quirk / board-detection workaround — analogous to
+DT updates enabling already-supported hardware.
+
+### Step 9.4: Decision rationale
+
+For **this 6.18.43 tree**, the buggy code exists, DT is the only Pandora
+boot path, and the fix is minimal and correct. Without it,
+`CONFIG_SND_SOC_OMAP3_PANDORA` is effectively dead on real hardware.
+While the user base is small and severity is functional rather than
+catastrophic, stable rules explicitly accept fixes for “hardware quirk”
+issues and “real bug[s] that bother people.” This fits that pattern and
+mirrors accepted OMAP board-detection fixes (`rx51`, `n810`).
+
+---
+
+## Verification
+
+- [Phase 1] Parsed commit message and tags from user-provided content;
+  noted v1→v3 evolution via web search.
+- [Phase 2] Read full `sound/soc/ti/omap3pandora.c`; confirmed diff
+  scope and `module_init` gate.
+- [Phase 3] `git describe HEAD`: v6.18.43-1-gc7f0dac02d232 / kernel
+  6.18.43.
+- [Phase 3] `git show 7fcf7e061edd`: legacy Pandora board file removed
+  2015-07-16; present in tree.
+- [Phase 3] `git show b715da74deaf`, `9ccd0106c9db`, `771048f59d068`: DT
+  files added 2015-03-16; present in tree.
+- [Phase 3] `git blame` on lines 222-230: long-standing
+  `machine_is_omap3_pandora()` check.
+- [Phase 4] Web search: found v1/v2/v3 thread; v2 changelog correction
+  about machine IDs; lore direct fetch blocked.
+- [Phase 4] `b4 dig`: no result for attempted lookups.
+- [Phase 5] Grep `of_machine_is_compatible` in `sound/soc/ti/rx51.c`,
+  `n810.c`: confirmed precedent.
+- [Phase 5] Read `arch/arm/kernel/devtree.c:234-235`: DT boot sets
+  `__machine_arch_type = mdesc->nr`.
+- [Phase 5] Read `arch/arm/mach-omap2/board-generic.c:130-161`: Pandora
+  matches generic OMAP3/OMAP36xx DT descriptors, not OMAP3_PANDORA.
+- [Phase 5] Grep `arch/arm/tools/mach-types`: `omap3_pandora` = 1761.
+- [Phase 6] Grep `sound/soc/ti/omap3pandora.c`: buggy
+  `machine_is_omap3_pandora()` at line 226.
+- [Phase 6] Grep DT files: compatibles
+  `openpandora,omap3-pandora-600mhz` and
+  `openpandora,omap3-pandora-1ghz` present.
+- [Phase 6] `git apply --check`: patch applies cleanly to current tree.
+- [Phase 6] Grep `CONFIG_SND_SOC_OMAP3_PANDORA`: enabled as module in
+  `omap2plus_defconfig`.
+- [Phase 7] Read `Documentation/process/stable-kernel-rules.rst`:
+  hardware quirk criterion applies.
+- [Phase 8] Traced failure mode: `module_init` returns `-ENODEV` → no
+  audio card registered.
+
+**YES**
+
+ sound/soc/ti/omap3pandora.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/sound/soc/ti/omap3pandora.c b/sound/soc/ti/omap3pandora.c
+index 808fb6765c05f..2ddd14e8f6b6c 100644
+--- a/sound/soc/ti/omap3pandora.c
++++ b/sound/soc/ti/omap3pandora.c
+@@ -11,12 +11,12 @@
+ #include <linux/delay.h>
+ #include <linux/regulator/consumer.h>
+ #include <linux/module.h>
++#include <linux/of.h>
  
- static_assert(WF_EXEC == SD_BALANCE_EXEC);
- static_assert(WF_FORK == SD_BALANCE_FORK);
+ #include <sound/core.h>
+ #include <sound/pcm.h>
+ #include <sound/soc.h>
+ 
+-#include <asm/mach-types.h>
+ #include <linux/platform_data/asoc-ti-mcbsp.h>
+ 
+ #include "omap-mcbsp.h"
+@@ -223,7 +223,8 @@ static int __init omap3pandora_soc_init(void)
+ {
+ 	int ret;
+ 
+-	if (!machine_is_omap3_pandora())
++	if (!of_machine_is_compatible("openpandora,omap3-pandora-600mhz") &&
++		!of_machine_is_compatible("openpandora,omap3-pandora-1ghz"))
+ 		return -ENODEV;
+ 
+ 	pr_info("OMAP3 Pandora SoC init\n");
 -- 
-2.55.0
+2.53.0
 
