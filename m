@@ -1,221 +1,122 @@
-Received: from out30-100.freemail.mail.aliyun.com (out30-100.freemail.mail.aliyun.com [115.124.30.100])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4A4B223DE5;
-	Mon, 31 Aug 2026 01:26:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 420AD2D73B6;
+	Mon, 31 Aug 2026 01:27:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788139605; cv=none; b=sDISRi97n51QUJh0GIvoWngNzh1GjpDW2qKYXqeRK+9J+GKWhc9SUQ+2Acs+7oHKarBbRLgg2H1H/kovRh3eCvwXmsvQsKSvhfmpBQ6ZZCYlOwh68aN7olZP+hUbecv1zLyiiHB1jC3NFw3rSKOP2bbyyViC8RnTORjjlq3B6/o=
+	t=1788139675; cv=none; b=BmAvur2u3QoUKkkOhg+3q87ilJzXDcQAYT64iWBqgdlxx9iAfrpq8I8I027deb/CNkU4FgvDUMXGhhcJl6N7aDSovOvSoUO2L+8qRwxZjnolmIMfw/0bvG0kSGhL1lVvZC8iKkSUjkbF93j6lCCJlXeHIHEnMgkdJutetD6I7Y8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788139605; c=relaxed/simple;
-	bh=du8GyQrS7/hANrJTyp86X9opSz8IDykUQxukJnpzFF8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=sR6YxR8elOUfvDU1Bi8vt6eQyVC6z3a++80opI+c/pc5pr2qxXU8AMJkE02yYvIBZMZs+92IEk+uBlOSHE6FZtIUUkrsBm0zEqVVrTwLmQPr7fM4piM0ekSgEdazQUwIcm0sulKB4iJaZZMlCjrbyYoHg2AiYn7i19G7rrs2nmk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=kBpTucjH; arc=none smtp.client-ip=115.124.30.100
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1788139675; c=relaxed/simple;
+	bh=wpVhZ9dfQc6zN+U+o3HTprq9GFbXabEfjOSo9wdLW7Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=pTZbkt6zQ4Fb2PQI2e2Qzr3HmNMocPweyXxrpMJYNjo7VAVpD5zdxf6pFFMFmBAeOmGZG7t+V538qV/I20nH8f17cQiKnB4cHHAEcL963QY6lgE26XeS1Zqg9iGwC/CPcaTJNA6GJQn5X06ycBoszkfS1JwnBxfTK4k/Z1/MpdQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=enVYugWQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="kBpTucjH"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1788139592; h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type;
-	bh=lEH0zLOO60hggjTASVmar4Yca+lpiq/rLQRgzK6veOE=;
-	b=kBpTucjHmxmbY+pYPmdY0Tw9AO261gj62ioohWyCPE6CnP5+AY4+5syuiufq5did3jG3aV6R/awkMWN9Xst26xSJXWMXmxkmuy+3xeql/kAsGhqOk27uEK0ODhlTPmSKZHblc/qCRSLJZ72lYRdvjXa/mPQIcXnTVck2G59E4zw=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R181e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037009110;MF=feng.tang@linux.alibaba.com;NM=1;PH=DS;RN=10;SR=0;TI=SMTPD_---0X9rgu47_1788138647;
-Received: from localhost(mailfrom:feng.tang@linux.alibaba.com fp:SMTPD_---0X9rgu47_1788138647 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Mon, 31 Aug 2026 09:10:48 +0800
-Date: Mon, 31 Aug 2026 09:10:47 +0800
-From: Feng Tang <feng.tang@linux.alibaba.com>
-To: "Johnny.Fan" <johnny.fan@cixtech.com>
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	linux-rtc@vger.kernel.org, Ard Biesheuvel <ardb@kernel.org>,
-	linux-efi@vger.kernel.org, linux-kernel@vger.kernel.org,
-	cix-kernel-upstream@cixtech.com, bob.zhang@cixtech.com,
-	jie.fu@cixtech.com
-Subject: Re: [PATCH] rtc: efi: restore alarm support with runtime capability
- probe
-Message-ID: <apTUlyX9XWyo018i@U-2FWC9VHC-2323.local>
-References: <20260828031519.2749354-1-johnny.fan@cixtech.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="enVYugWQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1831A1F000E9;
+	Mon, 31 Aug 2026 01:27:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788139673;
+	bh=CsMF/MwrXn5D+z4CCMhvyxIpj7dLU68Gxw0tmBoqPjo=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=enVYugWQlH+lv8TPvhH/LIHVCuLVyzhYCrJhW+bQiorUX/qfdA2j4Zv1aRDnKOvIn
+	 42tgYzGe/jyub+iczkOJOEoQbqadqyC21EnE8isVg5J0ZLJjJxEO94tbpVhsof0L43
+	 YleWvshJW2mscntBaFV4GF11I0A4xAvvhVhAhOIQ1sCWUL5M2TraQ5j+XIOAhVQ5RW
+	 H9HaMTsoXrBZfSitROi3Zs/i410j+XRZ2JUjPVKL418sfltmbXNaOo025ccVwnF1zH
+	 J/50++i4CHyol0vZ5XU+m0EyA/1Xy7JjrKfqOxQMgYETxRPwG/CfMol49nYor9HM83
+	 zUS+b7d4t/P4Q==
+Date: Mon, 31 Aug 2026 02:27:48 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Jean-Baptiste Maneyrol via B4 Relay
+ <devnull+jean-baptiste.maneyrol.tdk.com@kernel.org>
+Cc: jean-baptiste.maneyrol@tdk.com, David Lechner <dlechner@baylibre.com>,
+ Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko
+ <andy@kernel.org>, linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Jean-Baptiste Maneyrol <jmaneyrol@invensense.com>
+Subject: Re: [PATCH v2 0/4] inv_icm42600 driver enhancements
+Message-ID: <20260831022748.5b02e7b3@jic23-huawei>
+In-Reply-To: <20260824-inv-icm42600-enhacements-v2-0-0040837fde12@tdk.com>
+References: <20260824-inv-icm42600-enhacements-v2-0-0040837fde12@tdk.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260828031519.2749354-1-johnny.fan@cixtech.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Aug 28, 2026 at 11:15:19AM +0800, Johnny.Fan wrote:
-> From: "Johnny.Fan" <Johnny.Fan@cixtech.com>
-> 
-> Restore the EFI RTC alarm functionality (read_alarm/set_alarm and
-> procfs output) that was removed by commit 18a3510bc87d ("rtc: efi:
-> Remove wakeup functionality").
-> 
-> The removal was motivated by the observation that many EFI platforms
-> lack RTC wakeup support while also omitting the RT_PROP table, causing
-> the wakeup capability to be incorrectly advertised.  While that is
-> true, removing the feature entirely also breaks platforms where the
-> wakeup runtime service actually works.
-> 
-> On CIX SoCs with an I2C-connected RTC, the firmware owns the RTC and
-> exposes it via EFI runtime services.  Using the native I2C RTC driver
-> under Linux breaks Windows, which relies on EFI runtime services to
-> access the RTC.  rtc-efi is therefore the only viable option for
-> shared RTC access across operating systems, and it needs working
-> alarm/wakeup support.
-> 
-> To avoid exposing a broken alarm on firmware that does not implement
-> the wakeup runtime services, probe the capability at ->probe() time by
-> actually calling GetWakeupTime() -- if it fails, clear RTC_FEATURE_ALARM
-> and the device behaves as before the removal.
-> 
-> Also set RTC_FEATURE_ALARM_WAKEUP_ONLY since EFI wakeup time is a
-> wakeup-only alarm, not a periodic/update interrupt source.
+On Mon, 24 Aug 2026 14:30:06 +0200
+Jean-Baptiste Maneyrol via B4 Relay <devnull+jean-baptiste.maneyrol.tdk.com=
+@kernel.org> wrote:
 
-It covers the alarm selftest failure we met before, thanks!
+> This series add enhancements patches to inv_icm42600 driver.
+>=20
+> It includes:
+> 1. Move of MEMS stabilization sleep before FIFO configuration to avoid
+>    pushing incorrect data.
+> 2. Use a fixed FIFO frame of 16 bits to avoid a bug of dynamic FIFO
+>    configuration changed triggered by the sleep move.
+> 3. Simplify watermark computation using gcd.
+> 4. Enhance support of high frequency streaming by avoiding read of FIFO
+>    count for watermark interrupt.
+>=20
+> Signed-off-by: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
+Whilst sashiko did have quite a lot to say I 'think' they are all fine.
+However, please do take a look and if you disagree then shout.
 
-Reviewed-by: Feng Tang <feng.tang@linux.alibaba.com>
+https://sashiko.dev/#/patchset/20260824-inv-icm42600-enhacements-v2-0-00408=
+37fde12%40tdk.com
 
-> 
-> Reviewed-by: Fugang Duan <fugang.duan@cixtech.com>
-> Tested-by: Johnny.Fan <Johnny.Fan@cixtech.com>
-> Signed-off-by: Johnny.Fan <Johnny.Fan@cixtech.com>
+It may well be there are things in there that should be patches on top anyw=
+ay.
+I think all but 1 were things it even thought were preexisting issues.
+
+Anyhow applied to the testing branch of iio.git which i just rebased
+on rc1.
+
+Thanks,
+
+Jonathan
+
+
 > ---
->  drivers/rtc/rtc-efi.c | 78 +++++++++++++++++++++++++++++++++++++++++--
->  1 file changed, 76 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/rtc/rtc-efi.c b/drivers/rtc/rtc-efi.c
-> index b4f44999ef0f..708cba43435e 100644
-> --- a/drivers/rtc/rtc-efi.c
-> +++ b/drivers/rtc/rtc-efi.c
-> @@ -112,6 +112,34 @@ convert_from_efi_time(efi_time_t *eft, struct rtc_time *wtime)
->  	return true;
->  }
->  
-> +static int efi_read_alarm(struct device *dev, struct rtc_wkalrm *wkalrm)
-> +{
-> +	efi_time_t eft;
-> +	efi_status_t status;
-> +
-> +	status = efi.get_wakeup_time((efi_bool_t *)&wkalrm->enabled,
-> +				     (efi_bool_t *)&wkalrm->pending, &eft);
-> +	if (status != EFI_SUCCESS)
-> +		return -EINVAL;
-> +
-> +	if (!convert_from_efi_time(&eft, &wkalrm->time))
-> +		return -EIO;
-> +
-> +	return rtc_valid_tm(&wkalrm->time);
-> +}
-> +
-> +static int efi_set_alarm(struct device *dev, struct rtc_wkalrm *wkalrm)
-> +{
-> +	efi_time_t eft;
-> +	efi_status_t status;
-> +
-> +	convert_to_efi_time(&wkalrm->time, &eft);
-> +
-> +	status = efi.set_wakeup_time((efi_bool_t)wkalrm->enabled, &eft);
-> +
-> +	return status == EFI_SUCCESS ? 0 : -EINVAL;
-> +}
-> +
->  static int efi_read_time(struct device *dev, struct rtc_time *tm)
->  {
->  	efi_status_t status;
-> @@ -146,13 +174,21 @@ static int efi_set_time(struct device *dev, struct rtc_time *tm)
->  
->  static int efi_procfs(struct device *dev, struct seq_file *seq)
->  {
-> -	efi_time_t        eft;
-> +	efi_time_t        eft, alm;
->  	efi_time_cap_t    cap;
-> +	efi_bool_t        enabled, pending;
-> +	struct rtc_device *rtc = dev_get_drvdata(dev);
->  
->  	memset(&eft, 0, sizeof(eft));
-> +	memset(&alm, 0, sizeof(alm));
->  	memset(&cap, 0, sizeof(cap));
->  
->  	efi.get_time(&eft, &cap);
-> +	if (test_bit(RTC_FEATURE_ALARM, rtc->features) &&
-> +	    efi.get_wakeup_time(&enabled, &pending, &alm) != EFI_SUCCESS) {
-> +		enabled = false;
-> +		pending = false;
-> +	}
->  
->  	seq_printf(seq,
->  		   "Time\t\t: %u:%u:%u.%09u\n"
-> @@ -168,6 +204,25 @@ static int efi_procfs(struct device *dev, struct seq_file *seq)
->  		/* XXX fixme: convert to string? */
->  		seq_printf(seq, "Timezone\t: %u\n", eft.timezone);
->  
-> +	if (test_bit(RTC_FEATURE_ALARM, rtc->features)) {
-> +		seq_printf(seq,
-> +			   "Alarm Time\t: %u:%u:%u.%09u\n"
-> +			   "Alarm Date\t: %u-%u-%u\n"
-> +			   "Alarm Daylight\t: %u\n"
-> +			   "Enabled\t\t: %s\n"
-> +			   "Pending\t\t: %s\n",
-> +			   alm.hour, alm.minute, alm.second, alm.nanosecond,
-> +			   alm.year, alm.month, alm.day,
-> +			   alm.daylight,
-> +			   enabled == 1 ? "yes" : "no",
-> +			   pending == 1 ? "yes" : "no");
-> +
-> +		if (alm.timezone == EFI_UNSPECIFIED_TIMEZONE)
-> +			seq_puts(seq, "Alarm Timezone\t: unspecified\n");
-> +		else
-> +			seq_printf(seq, "Alarm Timezone\t: %u\n", alm.timezone);
-> +	}
-> +
->  	/*
->  	 * now prints the capabilities
->  	 */
-> @@ -183,6 +238,8 @@ static int efi_procfs(struct device *dev, struct seq_file *seq)
->  static const struct rtc_class_ops efi_rtc_ops = {
->  	.read_time	= efi_read_time,
->  	.set_time	= efi_set_time,
-> +	.read_alarm	= efi_read_alarm,
-> +	.set_alarm	= efi_set_alarm,
->  	.proc		= efi_procfs,
->  };
->  
-> @@ -191,6 +248,7 @@ static int __init efi_rtc_probe(struct platform_device *dev)
->  	struct rtc_device *rtc;
->  	efi_time_t eft;
->  	efi_time_cap_t cap;
-> +	efi_bool_t enabled, pending;
->  
->  	/* First check if the RTC is usable */
->  	if (efi.get_time(&eft, &cap) != EFI_SUCCESS)
-> @@ -203,7 +261,23 @@ static int __init efi_rtc_probe(struct platform_device *dev)
->  	platform_set_drvdata(dev, rtc);
->  
->  	rtc->ops = &efi_rtc_ops;
-> -	clear_bit(RTC_FEATURE_ALARM, rtc->features);
-> +	clear_bit(RTC_FEATURE_UPDATE_INTERRUPT, rtc->features);
-> +
-> +	/*
-> +	 * The EFI_RT_SUPPORTED_WAKEUP_SERVICES bit defaults to enabled
-> +	 * and only gets cleared when the RT_PROP table explicitly says
-> +	 * wakeup is unsupported. Many platforms lack an RT_PROP table
-> +	 * even though they don't implement the wakeup runtime service,
-> +	 * so probe by actually calling GetWakeupTime() to avoid exposing
-> +	 * a broken alarm to userspace.
-> +	 */
-> +	if (efi_rt_services_supported(EFI_RT_SUPPORTED_WAKEUP_SERVICES) &&
-> +	    efi.get_wakeup_time(&enabled, &pending, &eft) == EFI_SUCCESS) {
-> +		set_bit(RTC_FEATURE_ALARM, rtc->features);
-> +		set_bit(RTC_FEATURE_ALARM_WAKEUP_ONLY, rtc->features);
-> +	} else {
-> +		clear_bit(RTC_FEATURE_ALARM, rtc->features);
-> +	}
->  
->  	device_init_wakeup(&dev->dev, true);
->  
-> -- 
-> 2.55.0
+> Changes in v2:
+> - Add commentaries for easing understanding of changes.
+> - Reword commit messages with better explanations.
+> - Link to v1: https://patch.msgid.link/20260820-inv-icm42600-enhacements-=
+v1-0-075a881db557@tdk.com
+>=20
+> To: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
+> To: Jonathan Cameron <jic23@kernel.org>
+> To: David Lechner <dlechner@baylibre.com>
+> To: Nuno S=C3=A1 <nuno.sa@analog.com>
+> To: Andy Shevchenko <andy@kernel.org>
+> Cc: linux-iio@vger.kernel.org
+> Cc: linux-kernel@vger.kernel.org
+>=20
+> ---
+> Jean-Baptiste Maneyrol (4):
+>       iio: imu: inv_icm42600: sleep before enabling FIFO data
+>       iio: imu: inv_icm42600: use 2 sensors fixed packet size of 16 bytes
+>       iio: imu: inv_icm42600: simplify watermark computation by using GCD
+>       iio: imu: inv_icm42600: do not read FIFO count for watermark it
+>=20
+>  drivers/iio/imu/inv_icm42600/inv_icm42600.h        |   4 +-
+>  drivers/iio/imu/inv_icm42600/inv_icm42600_accel.c  |  16 ++-
+>  drivers/iio/imu/inv_icm42600/inv_icm42600_buffer.c | 112 +++++++++------=
+------
+>  drivers/iio/imu/inv_icm42600/inv_icm42600_gyro.c   |  16 ++-
+>  4 files changed, 73 insertions(+), 75 deletions(-)
+> ---
+> base-commit: 53c022f51fbe540fffee2121ce9ed3e15266c9a4
+> change-id: 20260709-inv-icm42600-enhacements-1e0e18e6f868
+>=20
+> Best regards,
+> -- =20
+> Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
+>=20
+>=20
+
