@@ -1,97 +1,146 @@
-Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx.swemel.ru (mx.swemel.ru [95.143.211.150])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBE8B3BFAFB
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 07:56:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42D7D27E1DC;
+	Mon, 31 Aug 2026 07:57:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.143.211.150
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788162996; cv=none; b=mtAweQvExIIET7BVU/GXKnVkQUleLdmzfbZamoGm30MGxww6dKsgC2XVDuyV/gSmVBtwds7IONHp0ucbqK33XwIDv+QGMA+Svb8/tlDkF2ivmFu4d32oHdmF0isFevIfoFLAFN8ikTplKeWPHSuX9VFyc+f09kTDjaQMW6KK0wc=
+	t=1788163040; cv=none; b=aBHQLtccpzdb97tRvVNZ3pGp72t4WcKyXf42owAWwOWJFS2AKKNoSS5TG0s+GEVToEcjFIFLfsf6MxStCqgAU/jpofhoW3oRAIZ6Vzf/5j0SxfLP/VHcnCXcZP13Pa2/9+hMaq2FkIeNxAUI8uVmulRWuoah8xdk8vpO+FUjuWg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788162996; c=relaxed/simple;
-	bh=/5KBAkXNsAoZ0dCdyXwjvLZJnV0sY2YkzB0CpxvtEFg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=opVw0UD8rTM+bgJyWyYIfI8eyM7Gjo8iSqG+zVSbkY8kLTDKgOti+S8ub575uNsHoPzUTaQ+XKf9Yy2KhvA1vTB5tcViLwbzQrdTvljZsX8DoFaKJqBNK9TLXyIZYqvP+H3sQCk8BztDn45J+KWyqykDnZgTsIaUmwpJRjU2590=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=FwtU1PxZ; arc=none smtp.client-ip=209.85.210.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1788163040; c=relaxed/simple;
+	bh=kbOF8Xis1+b3XyY1U0EPpoTHxr+rl9dG1JOmrg5VWT8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fUJxWz2eh7f8D9FpPdbtPxIe9XTVaCy3O/f6tCPkw/aMODhpONZHlLYl+p/w19Ww9ezGnyWzD72o/TPgid2dgbNykGb5eg1ek/ObxXytzv/AGbP9SLfMGFKQjLgPhADu3rB0fzW2fmiCQfzD4r8vpJJGhmaCwOtxv6tQzhtJ0bQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=swemel.ru; spf=pass smtp.mailfrom=swemel.ru; dkim=pass (1024-bit key) header.d=swemel.ru header.i=@swemel.ru header.b=JI1zsoy9; arc=none smtp.client-ip=95.143.211.150
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=swemel.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=swemel.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="FwtU1PxZ"
-Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-854f8068301so1862270b3a.0
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 00:56:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1788162994; x=1788767794; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=kTj871xlqaHMwYraZdh0kFP+rAgpCuDmxV4vm0NFxw4=;
-        b=FwtU1PxZ3sv00HIYkScT9jNLH1hDhZ0/bDCpL3wwVw0yXXwIWN7hkW1Qyj4Q6W27mv
-         oY88V1kc8gRSgT2DE5Z4Hb+zrwc9h7sDWBYWNdHNH5KRtmRayIbEqF3g/4DjtsdWRtYg
-         4yOW5d/ymUa0v0lTxkEULSow1QiKrtlY3Qlzz/ks9pvOl+p34uTzABJ3W+Xxe0hru6by
-         lYWDCe0fDEju8pczRp1ONLDSlYy3j4NPAaLfivvnBGA6QFEOKsl3g3c0oRrUIYp4eGUg
-         cVW1up/zG28ppOBEgzlNr7VaU1Oel6GHjneX+raCY+aB4T6cS5AXrZr70jtaMbDq4ULX
-         57pg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788162994; x=1788767794;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kTj871xlqaHMwYraZdh0kFP+rAgpCuDmxV4vm0NFxw4=;
-        b=SLSaFHSxR+aThXyIxlcyCeNYVrEECtR09p16OhaOKpXEVSJFpVdnGe2OGie8fyQTBu
-         PnEFKFPV7pKuq9qIE0AXRE0aLa7eN9ueze08NPq4S1YvLxx9tNrc23VFCfH+KfzbnDRT
-         bG+xaKoTy4Lc4z/YOzDo5gOA9PVuI2fAIMRDYNXrxpoVP00FLggJSywgl7/vq3N7mcZw
-         OwETHApRJlG5IPPH04PJ6IDK8/gXkH2Cj+33PhjwZGsbPrGQU3CacwCq2IszW1tGmvSs
-         dSv8U3TmSJsJKv/vC7nu6vzvVq1vQ8dEWCWSDqR5RDKTCSBBbCZo7AUTehTwwvCGOCUz
-         qo5A==
-X-Forwarded-Encrypted: i=1; AHgh+RrBdm4FbI9h1se9NjaKofaJXeMfjyL/ZOV69fdL244lHOLo2ocIfWadKiLHsRNaUnjcg63SAAeUdTX8g0U=@vger.kernel.org
-X-Gm-Message-State: AFuF++li+vVIWZI8KLijujWL6AJdzoy7zgCyWixQV832xSYBRsHXeKvr
-	Ga+uqqmOiF9aZ58SaMQvujmyb0d8cK72/NGkr6sgPa/QwRpDHf1++rQsFjnEkZODDyk=
-X-Gm-Gg: AR+sD10eUvkyuLWOz9Cfxvdn41lEuMEPT3GGtkLgiYTiacQtqW4utP3Bgb1GQClP3+N
-	aVoM7y9nLtiUA1nfviZ8DEmZ9T8abCTInUGrHVJ/aDoR9PVZpE3kBs3Mqt9ZSrTEhRR4QwEzai5
-	Jtz0GfUW2LUYNRINopXlo7T/LW9MtU60+zosyCf9iymSUL1oxoLmp9rk1JzPDo6hm8ihRda76NA
-	audhZ7ogMS2f7cEuTy6BqZhLQcSthPk3UUI7C7hlGQ7FXkL9cMnVWeynY6IyIjskgz5g6kEoBeo
-	hKQJmUZu7vtnh2zqxWiTuScHEyyWbEEwiwGE17F72WVKOUm6GRDuaHbvY/Cy0jic1Mx1qnDJfZZ
-	cQiOKufJXrFLKbL+o+wUsNSTM6YgJ4K/IA2EDWQTz5YXG2okySKVsH6oDzELfo4T1AJGybxyFbS
-	1J9wNrAe5kCCvRzL7NgOHJYqqFn9179CKy24MSPq64bb/vAUEdXH7YXAEPgbfBTzE=
-X-Received: by 2002:a05:6a20:a11f:b0:3c3:6928:8b25 with SMTP id adf61e73a8af0-3d269a4d3ecmr37174478637.17.1788162993984;
-        Mon, 31 Aug 2026 00:56:33 -0700 (PDT)
-Received: from localhost ([122.172.87.224])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3286f9e2a95sm26529255eec.23.2026.08.31.00.56.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 00:56:33 -0700 (PDT)
-Date: Mon, 31 Aug 2026 13:26:30 +0530
-From: Viresh Kumar <viresh.kumar@linaro.org>
-To: Xueqin Luo <luoxueqin@kylinos.cn>
-Cc: rafael@kernel.org, thierry.reding@kernel.org, jonathanh@nvidia.com,
-	sumitg@nvidia.com, linux-pm@vger.kernel.org,
-	linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] cpufreq: tegra194: fix double-pointer error in
- get_cpu_ndiv
-Message-ID: <apUzriIXGmxf-PLc@vireshk-B250M-D3H>
-References: <20260831073009.3772408-1-luoxueqin@kylinos.cn>
+	dkim=pass (1024-bit key) header.d=swemel.ru header.i=@swemel.ru header.b="JI1zsoy9"
+From: Denis Arefev <arefev@swemel.ru>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=swemel.ru; s=mail;
+	t=1788163034;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=Xcfx++QT4NbKdTFPwcuiqKtrJuKRl9bSwmn5aqpMsu4=;
+	b=JI1zsoy94682tqy5LLnIsCiRyKhBnAEVE0MOBBzgAu9EgvA8U+ZwZcL9mx7cDLLVJLa2Oy
+	51IRllwWyg/u+eVe8Gp57qef/0vyoYXvFKjTeNPmGAc0vA6462a/mnHw/aREQ9op5/beK8
+	PWRJcDlrOk+6QLLaT72w2mEFHv05yVQ=
+To: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: "David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Hideaki YOSHIFUJI <yoshfuji@linux-ipv6.org>,
+	David Ahern <dsahern@kernel.org>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Zero Day Initiative <zdi-disclosures@trendmicro.com>,
+	Ido Schimmel <idosch@nvidia.com>
+Subject: [PATCH 6.1] ipv4: igmp: Fix potential UAF in igmp_gq_start_timer()
+Date: Mon, 31 Aug 2026 10:57:12 +0300
+Message-ID: <20260831075714.23091-1-arefev@swemel.ru>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260831073009.3772408-1-luoxueqin@kylinos.cn>
+Content-Transfer-Encoding: 8bit
 
-On 31-08-26, 15:30, Xueqin Luo wrote:
-> ndiv is already a u64 pointer, passing &ndiv to smp_call_function_single()
-> results in a u64** being written to instead of the caller's u64 variable,
-> so the caller always reads back an uninitialized ndiv.  Drop the spurious
-> '&'.
-> 
-> Fixes: 0839ed1fd7ac ("cpufreq: tegra194: add soc data to support multiple soc")
-> Signed-off-by: Xueqin Luo <luoxueqin@kylinos.cn>
-> ---
->  drivers/cpufreq/tegra194-cpufreq.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+From: Eric Dumazet <edumazet@google.com>
 
-Applied. Thanks.
+commit 7b19c0f81ed1fdaec6bc522569be367199a9edf3 upstream.
 
+A race condition exists between device teardown (inetdev_destroy) and
+incoming IGMP query processing (igmp_rcv), leading to a Use-After-Free
+in the IGMP timer callback.
+
+During device destruction, inetdev_destroy() drops the primary reference
+to in_device, which can drop its refcount to 0. The actual freeing of
+in_device memory is deferred via RCU (using call_rcu()).
+
+Concurrently, igmp_rcv() runs under RCU read lock and obtains the
+in_device pointer. Because the memory is RCU-protected, CPU-0 can safely
+dereference in_device even if its refcount has hit 0.
+
+However, if CPU-0 calls igmp_gq_start_timer() and re-arms the timer, it
+attempts to acquire a reference using in_dev_hold(). This increments the
+refcount from 0 to 1, triggering a "refcount_t: addition on 0" warning.
+Since the in_device memory is still scheduled to be freed after the RCU
+grace period (as the free callback does not check the refcount again),
+the device is freed while the timer is still armed. When the timer
+expires, it accesses the freed memory, causing a kernel panic.
+
+Fix this by using refcount_inc_not_zero() (via a new helper
+in_dev_hold_safe()) to prevent acquiring a reference if the device is
+already being destroyed. If the refcount is 0, we do not arm the timer.
+
+A similar issue in IPv6 MLD is fixed in a subsequent patch.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Reported-by: Zero Day Initiative <zdi-disclosures@trendmicro.com>
+Signed-off-by: Eric Dumazet <edumazet@google.com>
+Reviewed-by: Ido Schimmel <idosch@nvidia.com>
+Link: https://patch.msgid.link/20260705181756.963063-2-edumazet@google.com
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+[Denis Arefev: adapted for 6.1: keep prandom_u32_max(),
+get_random_u32_below() not used here]
+Signed-off-by: Denis Arefev <arefev@swemel.ru>
+---
+Backport fix for CVE-2026-72323 
+Link: https://nvd.nist.gov/vuln/detail/CVE-2026-72323 
+---
+ include/linux/inetdevice.h |  5 +++++
+ net/ipv4/igmp.c            | 14 +++++++++-----
+ 2 files changed, 14 insertions(+), 5 deletions(-)
+
+diff --git a/include/linux/inetdevice.h b/include/linux/inetdevice.h
+index ddb27fc0ee8c..c846c5e4be00 100644
+--- a/include/linux/inetdevice.h
++++ b/include/linux/inetdevice.h
+@@ -282,6 +282,11 @@ static inline void in_dev_put(struct in_device *idev)
+ #define __in_dev_put(idev)  refcount_dec(&(idev)->refcnt)
+ #define in_dev_hold(idev)   refcount_inc(&(idev)->refcnt)
+ 
++static inline bool in_dev_hold_safe(struct in_device *idev)
++{
++	return refcount_inc_not_zero(&idev->refcnt);
++}
++
+ #endif /* __KERNEL__ */
+ 
+ static __inline__ __be32 inet_make_mask(int logmask)
+diff --git a/net/ipv4/igmp.c b/net/ipv4/igmp.c
+index fd12b256e05d..ede991885b1f 100644
+--- a/net/ipv4/igmp.c
++++ b/net/ipv4/igmp.c
+@@ -232,16 +232,20 @@ static void igmp_gq_start_timer(struct in_device *in_dev)
+ 		return;
+ 
+ 	in_dev->mr_gq_running = 1;
+-	if (!mod_timer(&in_dev->mr_gq_timer, exp))
+-		in_dev_hold(in_dev);
++	if (in_dev_hold_safe(in_dev)) {
++		if (mod_timer(&in_dev->mr_gq_timer, exp))
++			in_dev_put(in_dev);
++	}
+ }
+ 
+ static void igmp_ifc_start_timer(struct in_device *in_dev, int delay)
+ {
+-	int tv = prandom_u32_max(delay);
++	if (in_dev_hold_safe(in_dev)) {
++		int tv = prandom_u32_max(delay);
+ 
+-	if (!mod_timer(&in_dev->mr_ifc_timer, jiffies+tv+2))
+-		in_dev_hold(in_dev);
++		if (mod_timer(&in_dev->mr_ifc_timer, jiffies + tv + 2))
++			in_dev_put(in_dev);
++	}
+ }
+ 
+ static void igmp_mod_timer(struct ip_mc_list *im, int max_delay)
 -- 
-viresh
+2.43.0
+
