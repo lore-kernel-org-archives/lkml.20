@@ -1,99 +1,127 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36A454A49BD;
-	Mon, 31 Aug 2026 17:14:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44E394252B1;
+	Mon, 31 Aug 2026 17:14:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788196471; cv=none; b=BDiPGVXg65U3gNO/1Qk+ZxxOzKfc+/J9cmHG+1uAzxUkDKDHjdi34JG82d94aEUfBNmmbk4Gp0EtYrfzG3AMKKG2wccqvG83W0vobuMZfyXGLzE6Y88wP1w6o58VfjfM+3j27+I3yRzg0K7Hvh+Ytrf3TUeGqKV+7+nZc4SdRWU=
+	t=1788196496; cv=none; b=aPY64Qyc83nmjXYriCda2+mPJ5offzbhT1qOtG3GtwCGkwOMziS0fwyCEB5FCpfKbJpdV/lWEduiy4XL9dg1zFAilXGqdR9H73mVb7eY5seaKUWqi3ENK/Ow/XVI8Ofa8x3uP2mquZTN3FGJ7U/5+qC2QNgIIFwmvKJL80XpB6E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788196471; c=relaxed/simple;
-	bh=EuYrqhbgzITCE3SQYpdNNeE4L189G9BPhKcSZqVreLA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ki7eZV4Ef3LV5HxzNCCMmN8fjSzUdeK/dgYwYPTb0gnHEuFa2G+yuEW8gTi6mDKVIZcoIVp/KmRv1DAFSIV4IRS8oDGvpbD265+Dbzv9WKA6LapDJ4zO442AOGKZ4VPoXKvihmkwN7ysVnLqqG4DC6Cus8LkdIQ6X7hjGYDZ/Ds=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=ITG0MN6j; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1788196496; c=relaxed/simple;
+	bh=LPbMypSF7JhMLbVLvz9qixDWAqBcFNtb0jTY8hd3MOo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=H2Elq18kFsvb+MBefY7TH4y9n96guhwa1zMjPTzCm14tIw2wn6hsjoZo7UriaV3+OpDxiBynnowKA1hynkxtnsLQEukx2zlsrXhRIrIVLtNntg2YWW6VEmR55U3qNpRTZbEICUu03h3u0yOev8xa7+nRdg3ZsOlgtbvDSlkeBMs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=VryzBJMP; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="ITG0MN6j"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=Mg93C/BLYgHh/n0G+OklhbEZ69gCR/bdEIeH7kWAQMQ=; b=ITG0MN6jXzAjEeH42+oh9s8CZ0
-	fqpgRXe8s30hgWWZ2a6Fu05Z1F6PqiA1mP6iNK3XCjSlCpUXy8Wmi4ncnza3+G/jVDeW+qiUeuK9q
-	Xfp1OHPYdvwjJ+SmyOe6bph7E/LSnxpklT04hIkB/Tgqe3PAgEXRC1czEdPAmFLj1l+o=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x15aG-002EHW-IU; Mon, 31 Aug 2026 19:14:12 +0200
-Date: Mon, 31 Aug 2026 19:14:12 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Maxime Chevallier <maxime.chevallier@bootlin.com>
-Cc: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Richard Cochran <richardcochran@gmail.com>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Russell King <linux@armlinux.org.uk>, linux-arm-msm@vger.kernel.org,
-	netdev@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH RFC 3/9] net: stmmac: qcom-ethqos: fix RGMII_ID mode to
- use DLL bypass
-Message-ID: <74541d4c-5090-454f-96ad-f6c5baa21b93@lunn.ch>
-References: <20260612-shikra_ethernet-v1-0-f0f4a1d19929@oss.qualcomm.com>
- <20260612-shikra_ethernet-v1-3-f0f4a1d19929@oss.qualcomm.com>
- <42355330-c22a-4fce-98ab-dc22b321ff16@lunn.ch>
- <ai93X/cNWHtEQsDt@oss.qualcomm.com>
- <82705420-771d-41bf-a4d9-ed94dff86ff0@lunn.ch>
- <ajF6q5eKz92ddqVl@oss.qualcomm.com>
- <apU8Yx08/PJiS9Xw@oss.qualcomm.com>
- <b36109c3-00e5-434e-a9b7-46049b0bff40@bootlin.com>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="VryzBJMP"
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67VG1amF2749161;
+	Mon, 31 Aug 2026 17:14:48 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=pp1; bh=fZ6PoTCN8CVnMv0ktRWDHC8baSKTJMs7VT3HlD+gW
+	QQ=; b=VryzBJMPfSfjgJlKWEmSNoan8IfBw41By7r+6iCEhb/1YTxm/ohFZSiyx
+	JiEB5EabjaCfUJ4HPxG/Yo9U4CK91gZpuvR+eZ8YKGuvZ61tS+zXuiQoM6tyhNYB
+	xDRvK99IzhZ4q/J+HthBLQdnFBQWvr2f+Ip5ERpetWOQ/RTlw7wNaq21D7k/6+6y
+	76/Q/Xn1KShAwKxOckG9sbEvmrEMDfcZtkR9o0AXnQT+SoCxfFKcIAZp/VAdmZwh
+	61DPZ+UmQP6XWxtFOl2DLlS4mUnJQ4adKuPIxrHVGtSmb41oZCO5a6NwQXfNkh1o
+	6tjhzd3onFg8CFbgqOnL/1v9Ed0qQ==
+Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gbpx5at4t-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 31 Aug 2026 17:14:47 +0000 (GMT)
+Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma23.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67VHBJhK018791;
+	Mon, 31 Aug 2026 17:14:46 GMT
+Received: from smtprelay05.wdc07v.mail.ibm.com ([172.16.1.72])
+	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gcb8h72dw-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 31 Aug 2026 17:14:46 +0000 (GMT)
+Received: from smtpav03.wdc07v.mail.ibm.com (smtpav03.wdc07v.mail.ibm.com [10.39.53.230])
+	by smtprelay05.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67VHEjgC14287482
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 31 Aug 2026 17:14:45 GMT
+Received: from smtpav03.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 77DF75805F;
+	Mon, 31 Aug 2026 17:14:45 +0000 (GMT)
+Received: from smtpav03.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id D536A5805A;
+	Mon, 31 Aug 2026 17:14:43 +0000 (GMT)
+Received: from li-4c4c4544-004d-4810-8043-b7c04f423534.ibm.com.com (unknown [9.61.29.117])
+	by smtpav03.wdc07v.mail.ibm.com (Postfix) with ESMTP;
+	Mon, 31 Aug 2026 17:14:43 +0000 (GMT)
+From: Anthony Krowiak <akrowiak@linux.ibm.com>
+To: linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org,
+        kvm@vger.kernel.org
+Cc: jjherne@linux.ibm.com, borntraeger@de.ibm.com, mjrosato@linux.ibm.com,
+        pasic@linux.ibm.com, alex@shazbot.org, kwankhede@nvidia.com,
+        fiuczy@linux.ibm.com, pbonzini@redhat.com, frankja@linux.ibm.com,
+        imbrenda@linux.ibm.com, agordeev@linux.ibm.com, hca@linux.ibm.com,
+        gor@linux.ibm.com
+Subject: [PATCH v5 0/4] s390/vfio-ap: Fix pre-existing bugs in vfio_ap device driver
+Date: Mon, 31 Aug 2026 13:14:39 -0400
+Message-ID: <20260831171443.222225-1-akrowiak@linux.ibm.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <b36109c3-00e5-434e-a9b7-46049b0bff40@bootlin.com>
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Authority-Analysis: v=2.4 cv=PPc/P/qC c=1 sm=1 tr=0 ts=6a95b687 cx=c_pps
+ a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
+ a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=iQ6ETzBq9ecOQQE5vZCe:22 a=fuWVWdFGajcpH1A5QwgA:9 a=zZCYzV9kfG8A:10
+X-Proofpoint-GUID: aQ9Ps0GB3wtjcUFBphSpUdHZdJvK74wz
+X-Proofpoint-ORIG-GUID: aQ9Ps0GB3wtjcUFBphSpUdHZdJvK74wz
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODMxMDE0NyBTYWx0ZWRfX0ROdQGd8MxYb
+ XzrMSCBlnUsqaEICF8buctKTQ3AYmyNVKAFcAbuxjWcluXDhFonPXkDlKB/A28Em3gBu2GXmnDV
+ tuyO6qxL2mK+brEjg5ksyJWGtaXQyI8=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODMxMDE0NyBTYWx0ZWRfX7t/PapOxYDQT
+ YETi+F1ozDVzIWz5tE5WVp3TQaC2Q6VOPNDRI8CZExGAHllFTjKHY9uUKhbycfOaVhSQYm5CKBC
+ AHlTiOuQ2otE7wZOw1TVW3UHcTfED7rviT7Po3vN3OzFQI917+kluPsZE6k7XS9urNe4GHS7DPS
+ mSxQZllVUTdXnsC3NSiKosBnCRroOMlCGE0iZd0hryeOR+YoMkFFcRa5iXrZrfFlDsQHUA0/rMo
+ WI8KCagxA1sA6h4hZMo5ZlMsp2NIVF+6yrBmz5ZuH2ckYQDQWhc7tK56t4/byUG0C/6Yzm0GeOy
+ k+opymO3sVy1ga3NPFS19+aZ7jFidMTFyQRYWebMBPvgf/6r49qApP5rSMtL+4SZ51cos7Uhjvq
+ cAPp4ULN9SZy9u0jNnGPeGIu5qFjrehBnyudtZSMpHS1rYrvc1UTzaT9veIU+Jm1t0dw6UrPOmg
+ c2+yFofmgaDvH+yGdig==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-31_05,2026-08-31_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 phishscore=0 adultscore=0 suspectscore=0 bulkscore=0
+ spamscore=0 priorityscore=1501 impostorscore=0 malwarescore=0
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2608310147
 
-> > With this in mind, I was thinking of breaking up this patch series into
-> > separate ones to solve one problem at a time:
-> > 
-> >  1. Introduce support for "rgmii-id" using PHY-side delays rather than
-> >  MAC-provided delays. Also, issue a warning if any other phy-mode is
-> >  being used.
-> > 
-> >  2. Fix the DTS of the existing boards to use "rgmii-id".
-> > 
-> >  3. Once the DTS is fixed, remove the now-unused code handling non
-> >  RGMII-ID cases. This should also allow us to remove the whole
-> >  ethqos_emac_por code since it wouldn't be needed for RGMII-ID.
-> 
-> I'm wondering if we should add some temporary very loud warning for
-> boards that use "rgmii" before changing this, or even just keep the
-> actual "rgmii" behaviour which inserts the delays, as there seems to
-> be lots of such users...
+The sashiko AI reported several pre-existing bugs in the vfio_ap device
+driver code while reviewing unrelated patches. This series fixes four
+such bugs.
 
-We cannot break in tree users, and backwards compatibility with old
-mainline DT blobs is required. So for those, we need 'rgmii' to
-continue to work as is.
+Change log v4 => v5:
+~~~~~~~~~~~~~~~~~~~
+Patch 1/4: Fix leak of pinned NIB and registered NISC in vfio_ap_irq_enable
+* Fixed bug in vfio_ap_irq_enable() whereby the AQIC resources are freed
+  when vfio_ap_wait_for_irq_state() returns false.
 
-So steps 1 and 2 are correct. But we cannot do 3. 
+Patch 3/4: Fix unbounded loop in apq_reset_check()
+* Refactored apq_status_check() to verify the queue was zeroized.
 
-We can however issue a warning when 'rgmii' is used, advising users to
-upgrade to a newer DT blob.
+Anthony Krowiak (4):
+  s390/vfio-ap: Fix leak of pinned NIB and registered NISC in
+    vfio_ap_irq_enable/disable()
+  s390/vfio-ap: Fix failure to release IRQ notification eventfd contexts
+  s390/vfio-ap: Fix unbounded loop in apq_reset_check()
+  s390/vfio-ap: Use AP_DOMAINS for adm_add bitmap size in
+    vfio_ap_mdev_cfg_add()
 
-	Andrew
+ drivers/s390/crypto/vfio_ap_ops.c | 273 ++++++++++++++++++++++++++----
+ 1 file changed, 243 insertions(+), 30 deletions(-)
+
+-- 
+2.53.0
+
