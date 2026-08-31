@@ -1,98 +1,103 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CD163C108C;
-	Mon, 31 Aug 2026 06:53:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7319F3B8BCB;
+	Mon, 31 Aug 2026 06:54:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788159191; cv=none; b=lH5dawc2aRSBhB0RQ3GbmF8FiXQUQaJ/RBBu0iXAqRhEH7emTE/bBAfHdjXvFVO72XJu8ElSt7AB1JqORks0loaBApt4va4/yFiUluq5a6lxBgas5MwRMSyriXC+abYWknL66E6XxOBASqoqe/uqeCDMWafjKkAcsqHx7fqIjug=
+	t=1788159259; cv=none; b=L1NVvkmeNmBwgJoe43/ApOqNPRf64KwiwU089yL/EibBQ2sNXn++z9hy94a39uc7nVEHonTHEc9+YNGOLxsJNEHke1MvNa9BgcTRn56noJscTXkqSqBWLgQEfIXg6JiVwQ3Bp7+SDbbz87HAVVWlwHmluQ7/lFtXiIx0Idv2cIE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788159191; c=relaxed/simple;
-	bh=3hnq8MyDBwwGMaWTnhRHK3thPjo7r6kFLSmFUNJfHao=;
+	s=arc-20240116; t=1788159259; c=relaxed/simple;
+	bh=AJjPwOZmE9EeletFg7yEV1eQe3nKDuBLRINDUUtcIwc=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LTGMwx+Llmk1JZddvqzi7RvZJfFky2pEZ/YJr4vPJYQl99Rys79tqQycgw7LRj4WqRdyXZQEg4TNJbdnEKJSUOhIN9iclQfvdRZ2w3yD5w0/riMJjRqvkBgxDa3DgrVuv8g0XXMFkBmUzQXGX6QjsOV4Ka4LvhydudoU4ewezu0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Rve8clx8; arc=none smtp.client-ip=198.175.65.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=plGzefGv5Gs1mwL9iY/1mscw8ZqjuMBnL4480s4y243VST8gon/E1w8lbAGyNaInQhMipvQ2NfgWhbyN3qHHuM+Mbu1jpd5etw50lCX2YLXfXtC0s8mqvGZnFsHSyo/IpXu7okcy4yFqSl4tFIBWOhYo3yFF2och6Bj/duK7860=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=OthG0K15; arc=none smtp.client-ip=192.198.163.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Rve8clx8"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="OthG0K15"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788159187; x=1819695187;
+  t=1788159257; x=1819695257;
   h=date:from:to:cc:subject:message-id:references:
    mime-version:in-reply-to;
-  bh=3hnq8MyDBwwGMaWTnhRHK3thPjo7r6kFLSmFUNJfHao=;
-  b=Rve8clx87V7HWDoiEdIovGlCm3x6UtprJ6P/l7avh5j1Mv5PAYhRolQW
-   tkITHdwq6EOCXHSU9X6tIvuKR43uPHkmeq6U1iD94Hhg32ouX4Kbf/+op
-   VIv6O2xqX/27oX9IRAVoFYPAOS4mySbsNWJNytgWHjIuBZK6Hwdu9mSjz
-   AdpkemlLWa7884VWaZN0Nspdx5T//5dmygm1jSEBz4zT4Fvvn9WgqGhLP
-   gMuor9i6jRdp2JOgEhQh2Cbe+mx8K9B8cUB3kVsmfMRRdeIBQ9sr+FoxV
-   tuO+U1SM/96wHxqmX4otjD7rMmZltoiLgax+zUo29/hD25u06k9D/oUHa
-   w==;
-X-CSE-ConnectionGUID: lkA0X8Y7Rli+On9EbWvjCw==
-X-CSE-MsgGUID: paXjSFiJTVCLDrXXWYDGEQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11891"; a="92245251"
+  bh=AJjPwOZmE9EeletFg7yEV1eQe3nKDuBLRINDUUtcIwc=;
+  b=OthG0K15AEaQBBclzOkaoo+wBRHHsqZazh58zpm82v7taTJk/ehK3MuF
+   i3Ygyre2xu08QlRjTK0MC9sdZx0bNfcwH7kD4B98KxVuxUsuyjjb/OP6x
+   jJic3LLhmgda2QQDZBi1MNpdkMeFpcPToDn96P4MOng1F7VMKWLJAODgm
+   vUowS3z6WJzMy+q41AFuhhvLJ+SFgFiUOAuss5cE12roSsw83bphVz73d
+   HN9ihFHzwBPUbvwrfYLnO7Tj4FUJil40UdYfatl4zJccrCTcltfz1l6le
+   iuyRuQ4HBfsvNLt4b76jRUAIwcNBeDsY01e/U0KhZA5Buwf5OAtiRz7Uu
+   A==;
+X-CSE-ConnectionGUID: ucKmhmt1RrCT1qgzAmAuPQ==
+X-CSE-MsgGUID: /5bQobxrRxWPsw7+RJIAIw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11891"; a="99219905"
 X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
-   d="scan'208";a="92245251"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Aug 2026 23:53:01 -0700
-X-CSE-ConnectionGUID: 7CqDnLebQ6+k9Wki5+SFHg==
-X-CSE-MsgGUID: leAP/HUcTl621WkcSGpKBw==
+   d="scan'208";a="99219905"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Aug 2026 23:54:14 -0700
+X-CSE-ConnectionGUID: +C/VV3K2ThWK101otbAuhA==
+X-CSE-MsgGUID: IipTr6nrRkKdlb/L+s6kqA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
-   d="scan'208";a="272507811"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by orviesa004.jf.intel.com with ESMTP; 30 Aug 2026 23:52:59 -0700
-Received: by black.igk.intel.com (Postfix, from userid 1001)
-	id 111A999; Mon, 31 Aug 2026 08:52:58 +0200 (CEST)
-Date: Mon, 31 Aug 2026 08:52:58 +0200
-From: Mika Westerberg <mika.westerberg@linux.intel.com>
-To: Pengpeng Hou <pengpeng@iscas.ac.cn>
-Cc: Mika Westerberg <westeri@kernel.org>,
-	Andreas Noever <andreas.noever@gmail.com>,
-	Yehezkel Bernat <YehezkelShB@gmail.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 0/2] thunderbolt: validate DROM entry extents
-Message-ID: <20260831065258.GC124825@black.igk.intel.com>
-References: <20260813152206.28059-1-pengpeng@iscas.ac.cn>
+   d="scan'208";a="272905395"
+Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.244.21])
+  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Aug 2026 23:54:13 -0700
+Date: Mon, 31 Aug 2026 09:54:10 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Tate Whiteberg <whiteberg@arista.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Andy Shevchenko <andy@kernel.org>, linux-kernel@vger.kernel.org,
+	linux-serial@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] serial: 8250_mid: wait for LSR tx empty before
+ setting termios
+Message-ID: <apUlEi2pf1SoJQ-m@ashevche-desk.local>
+References: <20260828175733.1650267-1-whiteberg@arista.com>
+ <20260828175733.1650267-3-whiteberg@arista.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260813152206.28059-1-pengpeng@iscas.ac.cn>
+In-Reply-To: <20260828175733.1650267-3-whiteberg@arista.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Hi,
+On Fri, Aug 28, 2026 at 05:57:28PM +0000, Tate Whiteberg wrote:
+> If mid8250_set_termios() is called while data is still in transmission,
+> the corresponding register updates will corrupt the transmission.
+> 
+> Fix this by locking the port and and waiting for the transmitter to
+> empty before performing updates. It is necessary to wait for both
+> UART_LSR_THRE and UART_LSR_TEMT to ensure the final character is sent.
 
-On Thu, Aug 13, 2026 at 11:22:06PM +0800, Pengpeng Hou wrote:
-> The generic DROM walker can read a two-byte entry header from a one-byte
-> tail and accepts an entry whose declared length is shorter than that
-> header.  Separately, the USB4 product descriptor parser reads a complete
-> struct tb_drom_entry_desc without requiring that structure to be present.
-> 
-> Split those contracts into two patches.  The descriptor check now uses
-> sizeof(*desc), as requested by Mika Westerberg, instead of spelling out
-> the fields manually.
-> 
-> Changes since v2:
-> https://lore.kernel.org/all/20260731141700.3-thunderbolt-v2-pengpeng@iscas.ac.cn/
-> - split the generic entry and USB4 descriptor checks
-> - validate the USB4 entry with sizeof(*desc)
-> - rebase and re-review against the current tree
-> 
-> The series was reviewed statically. I did not test it with malformed
-> device DROM data.
-> 
-> Pengpeng Hou (2):
->   thunderbolt: require complete DROM entry headers
->   thunderbolt: validate USB4 product descriptor entry size
+> Fixes: d9eda9bab237 ("serial: 8250_pci: Intel MID UART support to its own driver")
 
-I dropped the Fixes tag, I think these are more like improvements. In
-addition I changed the first patch to use const where possible. Please
-check that it makes sense for you.
+Obviously this is not the commit when the problem appeared.
+Check the commit f549e94effa1 ("serial: 8250_pci: add Intel Penwell ports").
 
-Both applied to thunderbolt.git/next, thanks!
+...
+
+> +	uart_port_lock_irq(p);
+> +
+>  	p->uartclk = fuart * 16 / ps;		/* core uses ps = 16 always */
+
++ blank line
+
+> +	serial8250_wait_for_xmitr(up, UART_LSR_BOTH_EMPTY);
+>  
+>  	writel(ps, p->membase + INTEL_MID_UART_PS);		/* set PS */
+>  	writel(mul, p->membase + INTEL_MID_UART_MUL);		/* set MUL */
+>  	writel(div, p->membase + INTEL_MID_UART_DIV);
+>  
+> +	uart_port_unlock_irq(p);
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
