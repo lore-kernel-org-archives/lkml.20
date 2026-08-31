@@ -1,101 +1,122 @@
-Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com [209.85.208.45])
+Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com [209.85.210.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53C96384243
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 18:02:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1E2B3859D7
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 18:03:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.175
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788199343; cv=pass; b=CIPtW1LatB/Paf9hs4wxY2qI0DUhxSmoublDaez6AL6HY0kxoGNHnVpf+xZfeJ+tOetzkzfsrRxrMk2tvLQXfnpRb4+fs3MouA899ObLRBwdpUJqK7EtnokvsXWb6fyX3NpzzKka4Mysn/Q+8bsYHr9psMSC7/R90BCfVLiuP90=
+	t=1788199382; cv=pass; b=bsECsLkWXFXNbfx0dpA6qI+cXsSoSXk134rH0CuPDatNPpglGqtLRgSalsjse4GTjYk8JWmMuqx/+FZ881CCg2w7mZmAmsv9zxV6fi1RmH48UQFqttTpq3DFH5ySvY5jqeQxCImRUDdbB3qm6n2quVu0Tm2NTLvi67i73iSuuSo=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788199343; c=relaxed/simple;
-	bh=75Peh7ssm8phsUJD3ZkLZHFwYmM3QKn/tUwpbiHhidg=;
+	s=arc-20240116; t=1788199382; c=relaxed/simple;
+	bh=7qxKJrt3+u81eJLDsYKd2Jhek52o57IUpvJh/RceBD4=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Xnt0J+llqkVqhZenPs5GezZn3Rc97SweoGIcURumvoT9oF6F44kNe4nkGGQDV+53kSKsQ9EIKxzTh33naghfXXwpwj2NHviRJhQAWXuInLKPEeU6PvlQ5DuF1ofIksBVFKgmTfVwO6+F5kzfsYWdlITGesvuI5XNwsyAcejaAWo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=XvmSV75I; arc=pass smtp.client-ip=209.85.208.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	 To:Cc:Content-Type; b=LVM2obw5H3IsXxg6EzlOaRD9MoZLyLz2l4UFJiJ4i2Mmxof2axHq0byzUXuSVI7nR5lT6pHwI/tMfpNp3uLXTZrSHGIcPOxkvSNypJYI5w1pwgxFrpXxYH5sjx2n4QnVgz9VW8M8uMfzyGOUfXHqyxB/B2tijN7NxOF8zk1EUfc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com; spf=pass smtp.mailfrom=paul-moore.com; dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.b=c3IU0UC7; arc=pass smtp.client-ip=209.85.210.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=paul-moore.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="XvmSV75I"
-Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-6a5dce0aacdso1064a12.0
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 11:02:22 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788199340; cv=none;
+	dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.b="c3IU0UC7"
+Received: by mail-pf1-f175.google.com with SMTP id d2e1a72fcca58-84e04df8c46so4086491b3a.2
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 11:03:00 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788199380; cv=none;
         d=google.com; s=arc-20260327;
-        b=qeKeM6Lh21DjeZxxyuzCDXFRJk/raiNpLrvsrXMz5yRIXtMsr1UESq1bDkz6tjP8TL
-         CAiUiX4Pxq0TyfpBiIapCf7hl3XWCwWGNiLiZSlABlB9rd49EuHA2rg//Sz0pXpq7nyA
-         n5gCSBYoqB4eMsq06vO5HG2LdJmfKwtmk5yDEOz2NAP67gCs8dC9xNHCfW6b/4Mk7o0+
-         v7y46cACl/y9uRbHTLotPgl4SlGzle7e1mc2Bc3jxB7mBgAwSxuClZG6c7L2cs0VTncy
-         w2tRdGnsQ/3pAhx9SbfgtpKETCRrcqZSxuOVu3NZbcIn70EUxQrP7j6jmi9CR50yy9JH
-         VQ8g==
+        b=rqyw7T1h/DmCviUYJt3hFjnstc586DJ7UKKTRbF8TczXCr/TOZRzvUW835i4tsmfHC
+         T2OvrOBIrHdOB/+XC6obZQkm60s96iKl+Tx9o81WaUyTS4pbhEdgpwQ/XIly2QmnENJN
+         AutZKnFGMwjAoO6D0sZRH6xqYUD501lz8JLfO6et5W6rRA3aS0h82/ZNnKnjKYZVUk8m
+         TGDyyoUt+MpN8hFg782YA90fitPZ4nUWtB1RkpSPVkntm/19kf6l8FRnjGvt9h60N/QT
+         VwwN3CjThcF6DUcajAX9Z4Pz6RVNe4um6HpAnJLnNvoYx3F/IJAqAAa6/RF5eMjR2tGw
+         a93g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=75Peh7ssm8phsUJD3ZkLZHFwYmM3QKn/tUwpbiHhidg=;
-        fh=CL/rQ6GTNCVQ+Wgyncm1FfGKu9C6CfR/0eghqAswNd0=;
-        b=naFRSotVGgf7KuWv+chERvHoSYMLwS5/g4XAX3a9VjIj9r/sX2rOpVXKGU4RUe3Ft/
-         aPDmbWNb5dxMMg4O2Q0Jg2M09j0YXmXT2CcOgVEcqL8MQWYIk0ecQPeEAGzltbyCuRRI
-         ze3PChQHvdDbp3W5I3U/0GlHcSQtVEbLy6M4GpwEl/wQabxjVYCz+qjPzR5cyOYgdM58
-         JkTS66+j5wJ9rUR7A3UG/D1ZW6mIwrq+eXeJ2375xXp6+RXQTWF9j+SplO7WwLhnAZXs
-         ANm8+lj+fb9Ar5rwHFTD/8ztxOAXnHFDRk9vvPIKk5qkVVF5lp2rj3n07GtfgkjK0DqL
-         u0wQ==;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=rX1e2hNyl0dgt8WD8Xkfkh1yvoPo9dQbQc3KQyM7kU4=;
+        fh=r6OvWo//a/NyCqhhbX2tXLe/78wX/fEVXM4BpOZBQdA=;
+        b=Dcr1YfUtrROnbOc+VyPUL4XscR5Pp47jLwX15DWOWbA+C6SOT534Br+AcBsGNfZk0O
+         hYwIoJPBKiKhdiWptWdIUl9Qoz0Cl5kim4+0OEjHQyEgxvdnCIX4yy1bRLsZ3SyaXkqh
+         BSM6rOpQg0GV8OLRLcX+lYi5Y22vCh5DmeN5HceibGvl4DHeSNfpb4Qg9osBaMT7vZsU
+         VPSLgScysIZ5OpJQ30YV6/Q30lulagnib9bOP6FpGUDJUJHUXug+VMdGl2zjLY9Kd7xo
+         j+YcxgnaJuDm19am2xn17pY9w7nmfsIjswlRGCgVZCEfctolCdHJufGrnSphJ50HTNDq
+         +e0A==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788199340; x=1788804140; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=75Peh7ssm8phsUJD3ZkLZHFwYmM3QKn/tUwpbiHhidg=;
-        b=XvmSV75IGw/P5cvyNGDtsONwapenqLlDkfpkWchR8ps9lLd2rQ40bXF++IPwMNMq0O
-         r1UExgWmn0seAhP/OozrlUh9194yb2hATqXzcJx9b0z4YjLxMszTH1eV7B63VxcTi4jk
-         yJqnt4gbltW6mmNcBoqVsEI5pNicWU0YKrI+jPH8a/u1ZUrTMP4Hzum8yOy02iALDFZ/
-         OVKa6WwR7TGtOMczxIGO5aM2YldvZE9uNUkPyAg7SGy/gp2doLvRFX5KqrspNusbhECh
-         OwsS0hYSx7LSffb1INnsZjpNKsuEwx+yxs/9t6pxQzMqhQCx6XBINrnST/lhmhXziaz7
-         0Lvg==
+        d=paul-moore.com; s=google; t=1788199380; x=1788804180; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=rX1e2hNyl0dgt8WD8Xkfkh1yvoPo9dQbQc3KQyM7kU4=;
+        b=c3IU0UC7pWbFifEku2pLveAJLPHzb7GHFsT3HiDAedB/lhwzOgPJ1eo+/OCofgbEi8
+         ILsv2PQnWhry0LqtaOQLFBPMyvULu4V4diDpcb3cRhyQq75ddZ5wIxj8GN7OiMmY7Hf1
+         16dxb2Wkl/8d0dW5K67O7X0XozhDY5xvmzcAmf7flkfrUSL7rUsbKi2ja/mrVofkapnU
+         hFGvX+ky33aLDMv4nw9KFQKmDv+iO5wh0IE88Ial1gl7Uirlch/vCH5bt/7XmGKfjzTf
+         xK/x6J6XbgtnkVdFV9/O7eg8CgemNns6WEjHZ3n+hhxCSlLFXGsh1yV6caC8wOw1zfZx
+         fz7g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788199340; x=1788804140;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=75Peh7ssm8phsUJD3ZkLZHFwYmM3QKn/tUwpbiHhidg=;
-        b=FshGVvlwG401lv0DrrZ/jXH829sjr2gF/UFhYMyHZCiRK782zpkEGNFOZC4nKodYmz
-         JIioGE2JB3Egrn7W448HyGej7qth9Q6OO2FSq9aVxB0lQ+bCthpaA1WegrD5WE/VEO2Q
-         THxZ5UvU370J3CCZqm90zrGJ2MaX6rRWqfIh2Ebd8nJ01WvgPnYsbaHqU5Z5LHDbIXV5
-         JcbRDj61YJpstSetkDxcCycvb8gRzGBQVmgm7SVj+D3whAqhhXqI6TrGxd++C7lDATxv
-         T4G6b45yVYGnxN8Ht0IFjwDPNcJO04moUxlvzWk17ZooyPAymgvosqLSDOTWX66NPyam
-         9ATQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxVcIvnuZwKMS6NbuOXEC/HPIGqOWJzjpnrv11/s4qGfPyMZ21soTxi4FhgCPSq/rEw2kLXhpkfmz3j87c=@vger.kernel.org
-X-Gm-Message-State: AFuF++kkpW62Lwd6V60H7LJWukbt0/RY7fLlDS0fSGQzyy+xczmDq45S
-	tNKbhTnb7esGI46strg4zGB3f1W4P+LmH/gtANvJKILKghOb7KkrreNAROMxjxY7gl5EZW21f8V
-	0TpQkqxAJzn4LjZeiSY3fD1vyzhjrktLpVrCDt4HJ
-X-Gm-Gg: AYBFou2diLaq8ul7omjoMWu75wHj2AaucATGe58UFHY9Nab9JNYFopvffoEoi8G8Fb9
-	zkHrXjk0R5euXchgrjSr9QN1HyYVtDQ4sYHYnS/fXwn43AAXJ7U1CwKzxuu0nnuL9k0pluoY9Lp
-	yc+h/soOOZnblm5II51awk0KAk3OltCn51UpBEqARZGvhfys5ePWh9p0JYTUsnT4wKKL6Gc+P7D
-	5K1M8X1W+6gCtialYPQrQUT3u4QD5SMtGK77RtWgmag/g5ik7Mrcy/QRTgIt4Z+rFpL05e5+iTn
-	QI63ULxOHstexnaUnKjJJCzyvsoxx6NxWHLGOY8zAOeqV60m31ke8wnyzamBPj/q4RVRaNF4iTu
-	bFQ==
-X-Received: by 2002:a05:6402:22d1:b0:6a3:ec9b:9dfe with SMTP id
- 4fb4d7f45d1cf-6a66a17d251mr2710a12.8.1788199340005; Mon, 31 Aug 2026 11:02:20
- -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788199380; x=1788804180;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=rX1e2hNyl0dgt8WD8Xkfkh1yvoPo9dQbQc3KQyM7kU4=;
+        b=pt1ltFECrCNOqXATDQ7KK1oIAlVMzjDwK5SCNWTRbYJnPHTJBINe7itqIuZw5qX+tP
+         NGPrYfTbH/d7CwXK2LiYu8C4ZQ18FlXyiuF6mzdmwAPwr77c1NOJ/rQ4zFFTX7Nv5g9x
+         aauNl9RYG13gehvovF4cW6Xl00mkW4kqFJs+b7wkt6Qq8Ej6lIG3qqqk4YeTixhRpUGm
+         lOp0bnAwZh2Z36mZDHjzFDD8FoX3K3gi16JlwwmAboQPzHnqI76BtTE5y4lVhC5SdMIe
+         hk3wytC95P2uhDsxF2q8omKvnO4gcA6SZvnlLhiKmBD/CxWNOGfl0sapXskEbzZkNKJf
+         Xe+w==
+X-Forwarded-Encrypted: i=1; AHgh+RpDHIQqW0PIwOMDTpTtgPoy1F94LzVsnLuqdDZWB4WyUKtNx+6LTW4N8wYnq6YIBxXCsOUQVpZhoHDSZMY=@vger.kernel.org
+X-Gm-Message-State: AFuF++kY/5R7vlQimHvlYpZK+xmMkNrq63kFqzUMBvJGczjPEtUljPK7
+	Xq4ghOjnbTbI4ZOOSxTHfn4bYT9Tg3mbxETcJLSI4tFXCfbFjQpDQeW52C1kRsttDxGh9Ud26xv
+	RIJZfiiplU3vMru2ogt9avNkw+CkZ/rtc6qfD8ov7
+X-Gm-Gg: AR+sD11kApZWqR2CzJaGuFW2KKjIcLdT0C50PdgxtzA+jz6ot7AYM6dsoSWDptuiiVU
+	PXvIePt8LT74h3vuN/LacWwFF0MwBChblomB9bBaGVWya3BHQrebhvyJHlPZRv03xvt209e/qEn
+	q3Drj2Z7a0GRjNo6WbiREP+FaCthsSxSQFaGQUrvu76o2HH/kcFI2pyeTvN76B8kF4U8+JL5SMM
+	MvNmzfKjsM6BBcL/BcYE2wRmRUzAkZMfO45C2/B4ftayLCKz+Re/4ripur74Hg9x+HKUxaz/upI
+	IUiHoUgwn6FY8k7SWhtPrAOqFzAayOtuwmkWgA1loOKR
+X-Received: by 2002:a05:6a00:7702:b0:857:726d:270e with SMTP id
+ d2e1a72fcca58-857726d2e72mr28350340b3a.26.1788199377609; Mon, 31 Aug 2026
+ 11:02:57 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260828215252.4126811-1-eperot@google.com> <ceef3a1e4e86deef2970e80d94925bac@kernel.org>
-In-Reply-To: <ceef3a1e4e86deef2970e80d94925bac@kernel.org>
-From: Etienne Perot <eperot@google.com>
-Date: Mon, 31 Aug 2026 11:01:40 -0700
-X-Gm-Features: AcwNN1UnnEGdSnQdQ17OP7lths-5KZ15H5ByB4zkfrtDMak_OBA1OLjNz_lVuJA
-Message-ID: <CAFKBtDL9jBTy8BQL8poUCqckwmSRDByCQMfLyo3SMV3wnpaN3Q@mail.gmail.com>
-Subject: Re: [PATCH 1/2] cgroup: fix spurious SIGKILL of CLONE_INTO_CGROUP children
-To: Tejun Heo <tj@kernel.org>
-Cc: Johannes Weiner <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Christian Brauner <brauner@kernel.org>, 
-	Shuah Khan <shuah@kernel.org>, cgroups@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, stable@vger.kernel.org
+References: <20260810125726.775689-2-rrobaina@redhat.com> <7b9f43325dc569ddb689b02893bde8cc@paul-moore.com>
+In-Reply-To: <7b9f43325dc569ddb689b02893bde8cc@paul-moore.com>
+From: Paul Moore <paul@paul-moore.com>
+Date: Mon, 31 Aug 2026 14:02:43 -0400
+X-Gm-Features: AcwNN1X4YwvVJtikAlc68Qp33s2cNHUlgKJNL_7Fz4NLYQY6IuY6zSqRqqsuN2I
+Message-ID: <CAHC9VhS60qFhHfzEshKyJ4AnNCG8eaNBxndAZcU5dnhOwWsOtA@mail.gmail.com>
+Subject: Re: [PATCH] audit: use copied skb length in kauditd_send_multicast_skb()
+To: Ricardo Robaina <rrobaina@redhat.com>, audit@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Cc: eparis@redhat.com
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thanks Tejun, and thanks Shakeel for the review.
+On Mon, Aug 24, 2026 at 6:25=E2=80=AFPM Paul Moore <paul@paul-moore.com> wr=
+ote:
+> On Aug 10, 2026 Ricardo Robaina <rrobaina@redhat.com> wrote:
+> >
+> > The netlink header's nlmsg_len was being set using the original skb
+> > instead of the local copy passed to nlmsg_multicast().
+> >
+> > While skb->len and copy->len are identical at this point following
+> > skb_copy(), it is conceptually cleaner and safer to use the length
+> > of the skb being actively modified and sent. Thus, this is a minor
+> > cleanup only, no functional change expected.
+> >
+> > Signed-off-by: Ricardo Robaina <rrobaina@redhat.com>
+> > Reviewed-by: Bradley Morgan <include@grrlz.net>
+> > ---
+> >  kernel/audit.c | 2 +-
+> >  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> Looks reasonable.  Merged into audit/dev-staging, will be moved to
+> audit/dev next week.
 
-- Etienne
+... now in audit/dev, thanks!
+
+--=20
+paul-moore.com
