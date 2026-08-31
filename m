@@ -1,42 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3AC4510452;
-	Mon, 31 Aug 2026 13:43:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63904511E8D;
+	Mon, 31 Aug 2026 13:43:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183783; cv=none; b=hEVClr4Kl8OzxXxNPeRHwiYeLwbpWBf/tBh4h1bJ7P/dLafK9R+72h8LSmjvfgfzo2U/VVQwe1gE9VIxGB8zD8vPzKHRIpHzzApk7Xxy8nsc7aLvNhHQdCBkmZegrBIsQV3UnZZrVCluv3VPhTI9ydcIkeX8GhDdJSkGkv6tm5A=
+	t=1788183784; cv=none; b=mM9mkoD3ey2AGx+oxPLfMPigpl7M9OnYekQQ4X1JcfD6y0nWad5jE5ANYqMFSpZ7N/ZMyf5tkJUALYAJ9Fnn4gwDemO5qF2LjsE6Zntq845ofA6KM7oER3NNtdPusBHOwnGZ3hBtgEC4TuMn44CLyJ4ih7zaAT58cpILx4gewhs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183783; c=relaxed/simple;
-	bh=1cP5rBgxxLWpKqkFzZ8P53HPnPcg/IunrnTMaYZwWfM=;
+	s=arc-20240116; t=1788183784; c=relaxed/simple;
+	bh=gQ54Kb83VbE6pJF7wgQPgCceL0NcYunXBNUky0rfQ2E=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=k0VO3RIF6TX7KjcrMIP5bLDVzPG4R7ZOnOsKliTN0LXGUjDem8+fDwPw5GacoozaqrwS5j1HPi3LIkzG0Zu9DozDiFHZuduewH07Q/UEjXN+blwJC2QNsy4Y2VPY6akK+eqhPTJUPgB+bLn/QikeOJY9YHIyOYLETvvvEG26BQE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FlaLGiii; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=TSdP0kJrp9zHHtDurfzbb9/JcX28aCR9sQ696dwvGBqo4K7Q9my2CewRU40MknKvNmb8lZ5oeq4ObMWdwlxinZufc1ORlUrIybcSH4bEMDgQN1Cy/KIbn+JYnc8oF+JG7T4qCzSRm8JER3RUa4QeytCPUUxdIHU8juArytuLfQE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZzZD2FyO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FlaLGiii"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E4121F000E9;
-	Mon, 31 Aug 2026 13:42:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZzZD2FyO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29E3D1F00A3E;
+	Mon, 31 Aug 2026 13:43:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788183780;
-	bh=k0KTPZiwC329MUEJR9yhp7CIuCchxZYNZ4GrrKiS+8o=;
+	s=k20260515; t=1788183782;
+	bh=k81biJ+K8PpduLeUzIuG9AsrGX9e8QnNxvaQEDSLZrA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=FlaLGiii4wN/1G2un+xexnEmCKMPz8YuOCLii6HxH4nMOuqN7Vj855hdVeY2juanH
-	 Wf4NPYkw8Ak18dj/R8PCE5uGcAoBxX/KKBhVDQBe+M/oBp0xInmqWel8XlClQGw2e9
-	 PG/uDgVReFdiVfIYCzpLwaNFB1t/5vx5uxawuaG2PRY66hwZsI0kyF0DlWWvoYsM/p
-	 VYR6jrGxMv7TDc9ZhLYwhUucbX+wIQhHSOwm1o+zxceohXl5qFkSiIbc3tfCAgSnsC
-	 kokopH2G3PvL+p/CVkH3bw7QizpY/S9esYc5HUbjDVa8VMc1pyyTewUdmQlbGOzBdH
-	 9Cp3ii7aL+bwQ==
+	b=ZzZD2FyONPSSpKXFElxxP2nb+lUR9Jiu1TUD3f5foEsQvYwXVYXP6oPlJz8dcSyl6
+	 sbgr42nHDvDVsllF8x7IT4ujqycuK2qicHtUXu7NqHcy6BZ6Vg0PZtuQ42SuTZbQC9
+	 8Gq7zfMASOtcofqX4q3EsdJ3B5fLnlQbpqroZPrYUZszfJBQ+SNXwZUYGU1o8TWFSD
+	 dKkCvMbogkXai9/A1Fq9yOhOLMJWuDvbh711L5wx5eXSoSDmOtFkJZ1bC1pme6izPB
+	 WslxLIwfaIGh2drUBpskUldskAU42f5LkZW8OPtZ2TuWjETn08XFo5gq4fuy8jvZfd
+	 HD9xgtuWDNPrw==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Emmanuel Grumbach <emmanuel.grumbach@intel.com>,
-	Miri Korenblit <miriam.rachel.korenblit@intel.com>,
+Cc: Rosen Penev <rosenp@gmail.com>,
+	Corey Minyard <corey@minyard.net>,
 	Sasha Levin <sashal@kernel.org>,
-	linux-wireless@vger.kernel.org,
+	openipmi-developer@lists.sourceforge.net,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-6.6] wifi: iwlwifi: mvm: fix a possible underflow
-Date: Mon, 31 Aug 2026 09:25:28 -0400
-Message-ID: <20260831133314.4125787-300-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-5.10] ipmi: si: Use platform_get_irq_optional() to retrieve interrupt
+Date: Mon, 31 Aug 2026 09:25:29 -0400
+Message-ID: <20260831133314.4125787-301-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -52,375 +52,388 @@ X-stable-base: Linux 6.18.48
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Emmanuel Grumbach <emmanuel.grumbach@intel.com>
+From: Rosen Penev <rosenp@gmail.com>
 
-[ Upstream commit 0cb5260a1027a43f8cdb961e128f2ddd42e46832 ]
+[ Upstream commit 39851b7e580a65bee732e5364f0efb974b242370 ]
 
-We shouldn't trust the firmware about the length of the wowlan packet.
+Use platform_get_irq_optional() to retrieve the interrupt resource
+instead of directly parsing and mapping the OF node via
+irq_of_parse_and_map().  This is the standard pattern for platform
+devices.  irq_of_parse_and_map() requires ire_dispose_mapping(), which
+is missing.
 
-Signed-off-by: Emmanuel Grumbach <emmanuel.grumbach@intel.com>
-Signed-off-by: Miri Korenblit <miriam.rachel.korenblit@intel.com>
-Link: https://patch.msgid.link/20260715215523.fbd989cc85e2.If68de403bfa4943732c025961154c20b01b09e83@changeid
+Assisted-by: Antigravity:Gemini-3.5-Flash
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+Message-ID: <20260603192511.6869-1-rosenp@gmail.com>
+[Handle a negative return from platform_get_irq_optional() to mean
+ no interrupt is assigned.]
+Signed-off-by: Corey Minyard <corey@minyard.net>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-# Stable Backport Analysis: `wifi: iwlwifi: mvm: fix a possible
-underflow`
+# Stable Backport Analysis: `ipmi: si: Use platform_get_irq_optional()
+to retrieve interrupt`
 
-**Local tree:** Linux **6.18.44** (`v6.18.44-2-g1b9e1abadee04`)
+**Local tree:** `v6.18.44` (kernel 6.18.44)
 
 ---
 
 ## PHASE 1: COMMIT MESSAGE FORENSICS
 
-### Step 1.1: Subject line
-**Record:** `[wifi: iwlwifi: mvm]` `[fix]` — validate WoWLAN wake-packet
-size from firmware before arithmetic/copy to prevent integer underflow.
+### Step 1.1: Parse the subject line
+**Record:** `[ipmi: si]` `[use]` — Switch OF probe path from
+`irq_of_parse_and_map()` to `platform_get_irq_optional()` for interrupt
+retrieval.
 
-### Step 1.2: Tags
+### Step 1.2: Parse all commit message tags
 **Record:**
-- **Signed-off-by:** Emmanuel Grumbach `<emmanuel.grumbach@intel.com>`
-  (author)
-- **Signed-off-by:** Miri Korenblit
-  `<miriam.rachel.korenblit@intel.com>` (iwlwifi maintainer)
-- **Link:** `https://patch.msgid.link/20260715215523.fbd989cc85e2...`
-- No Fixes:, Reported-by:, Tested-by:, Reviewed-by:, Cc: stable, or
-  syzbot tags
-- Part of series `[PATCH 14/15]` in
-  `20260715_miriam_rachel_korenblit_wifi_iwlwifi_fixes_07_15_2026.mbx`
+- `Assisted-by: Antigravity:Gemini-3.5-Flash`
+- `Signed-off-by: Rosen Penev <rosenp@gmail.com>`
+- `Message-ID: <20260603192511.6869-1-rosenp@gmail.com>`
+- Follow-up amendment: `Signed-off-by: Corey Minyard
+  <corey@minyard.net>` (IPMI subsystem maintainer)
 
-### Step 1.3: Body
+**Notable patterns:** No `Reported-by:`, `Fixes:`, `Cc: stable`, or
+syzbot links. Maintainer (Corey Minyard) signed off with a behavioral
+clarification (negative return → no IRQ).
+
+### Step 1.3: Analyze commit body
 **Record:**
-- **Bug:** Driver trusts firmware-reported WoWLAN wake-packet length
-  (`wake_packet_bufsize`) without validating it is large enough for
-  header/crypto overhead.
-- **Symptom:** Integer underflow on `pktsize -= hdrlen` / `pktsize -=
-  ivlen + icvlen`, then `skb_put_data()` with a huge effective size →
-  kernel crash on WoWLAN resume.
-- **Root cause:** Missing bounds checks before subtracting lengths from
-  `pktsize`.
-- **Version info:** None in message; wake-packet path dates to 2022.
+- **Bug described:** `irq_of_parse_and_map()` creates an IRQ mapping
+  that requires `irq_dispose_mapping()` on teardown; that cleanup is
+  missing in the IPMI SI OF probe/remove path.
+- **Symptom/failure mode:** IRQ domain mapping leak when an OF-probed
+  IPMI SI device is removed or the driver is unloaded — not a crash, but
+  a real resource leak.
+- **Root cause:** OF path uses the legacy `irq_of_parse_and_map()` API
+  while ACPI/platform paths in the same file already use
+  `platform_get_irq_optional()`.
+- **Fix approach:** Use the standard platform-device IRQ API, matching
+  ACPI/platform probe paths.
 
-### Step 1.4: Hidden bug fix?
-**Record:** No — explicitly labeled “fix a possible underflow”; clearly
-a firmware-validation / memory-safety fix, not cosmetic cleanup.
+### Step 1.4: Detect hidden bug fixes
+**Record:** Yes — despite “use standard pattern” wording, this fixes a
+real resource-leak bug. `irq_of_parse_and_map()` without matching
+`irq_dispose_mapping()` is incorrect API usage. The sibling
+`ipmi_powernv.c` driver correctly pairs these calls.
 
 ---
 
 ## PHASE 2: DIFF ANALYSIS
 
-### Step 2.1: Inventory
+### Step 2.1: Inventory the changes
 **Record:**
-- **File:** `drivers/net/wireless/intel/iwlwifi/mvm/d3.c` (+15 / −4)
-- **Function:** `iwl_mvm_report_wakeup_reasons()`
-- **Scope:** Single-file, surgical fix in WoWLAN wake-packet handling
+- **Files:** `drivers/char/ipmi/ipmi_si_platform.c` only (+3 net lines)
+- **Function modified:** `of_ipmi_probe()`
+- **Scope:** Single-file, surgical fix (4 lines in one hunk)
 
-### Step 2.2: Code flow change
+### Step 2.2: Code flow change per hunk
 **Record:**
-
-| Hunk | Before | After |
-|------|--------|-------|
-| Early guard | Dereference `hdr->frame_control` immediately |
-`WARN_ON_ONCE(pktsize < sizeof(*hdr)); return;` before further header
-use |
-| Data-frame path | Copy header (`skb_put_data`) before validating total
-size | Validate `pktsize > hdrlen + ivlen + icvlen` via `IWL_FW_CHECK`,
-then copy |
-| Underflow site | `pktsize -= ivlen + icvlen` without prior size check
-| Same subtraction only after validation |
+- **Before:** `io.irq = irq_of_parse_and_map(pdev->dev.of_node, 0);` —
+  creates an OF IRQ mapping.
+- **After:** `io.irq = platform_get_irq_optional(pdev, 0);` with `if
+  (io.irq < 0) io.irq = 0;` — uses standard platform IRQ retrieval;
+  negative means no IRQ assigned.
+- **Path affected:** OF device-tree IPMI SI probe (`CONFIG_OF`), called
+  from `ipmi_probe()` when `pdev->dev.of_node` is set.
 
 ### Step 2.3: Bug mechanism
-**Record:** **Integer underflow / out-of-bounds access (memory
-safety).**
-- `pktsize` is `int`; subtracting `hdrlen`, `ivlen`, `icvlen` when
-  firmware reports a too-small value makes `pktsize` negative.
-- `skb_put_data(pkt, pktdata, pktsize)` treats size as unsigned → ~4 GB
-  copy attempt.
-- Header fields are read before validating minimum buffer size.
-- Complements `2d5dec517b539` (validates notification at store time);
-  this validates again at report time.
+**Record:**
+- **Category:** Resource leak (missing `irq_dispose_mapping()`).
+- **Mechanism:** `irq_of_parse_and_map()` allocates an IRQ mapping. On
+  remove, `shutdown_smi()` → `std_irq_cleanup()` only calls
+  `free_irq()`, never `irq_dispose_mapping()`. Each probe/remove cycle
+  leaks one mapping. `platform_get_irq_optional()` uses `of_irq_get()`
+  internally (via `platform.c`) and does not require
+  `irq_dispose_mapping()`.
 
-### Step 2.4: Fix quality
-**Record:** Obviously correct, minimal, matches existing `IWL_FW_CHECK`
-patterns in iwlwifi. Low regression risk.
-- **Minor concern:** Early `return` skips
-  `ieee80211_report_wowlan_wakeup()` (unlike `goto report` on alloc
-  failure). Acceptable trade-off to avoid processing corrupt firmware
-  data.
-- **Note:** Current tree has `icvlen = 0; truncated -= icvlen;` ordering
-  at lines 1548–1550 (subtracts after zeroing). This commit does not fix
-  that; separate issue.
+### Step 2.4: Fix quality assessment
+**Record:**
+- **Quality:** High — matches existing ACPI (`acpi_ipmi_probe`, line
+  368) and platform (`platform_ipmi_probe`, line 200) patterns in the
+  same file.
+- **Regression risk:** Very low — behavior for “no IRQ” is equivalent
+  (`irq_of_parse_and_map` returns 0; `platform_get_irq_optional` returns
+  negative, normalized to 0).
+- **Maintainer amendment:** Corey Minyard’s follow-up correctly handles
+  negative returns as “no interrupt.”
 
 ---
 
 ## PHASE 3: GIT HISTORY INVESTIGATION
 
-### Step 3.1: Blame
-**Record:** Wake-packet handling in `iwl_mvm_report_wakeup_reasons()`
-traces to merge `5d324e5159d9e` (v6.18 base). Original wake-packet
-support in commit `219ed58feda9` (Sep 2022) already had unchecked
-`pktsize` arithmetic. Bug present since feature introduction.
+### Step 3.1: Blame changed lines
+**Record:** `irq_of_parse_and_map()` introduced in `9d70029edbbf2`
+(Corey Minyard, Sep 2017, “ipmi_si: Move platform device handling to
+another file”). Bug present since 2017 in this code path.
 
-### Step 3.2: Fixes: tag
-**Record:** N/A — no Fixes: tag.
+### Step 3.2: Follow Fixes: tag
+**Record:** N/A — no `Fixes:` tag in commit message.
 
-### Step 3.3: Related file history
+### Step 3.3: File history for related changes
 **Record:**
-- `2d5dec517b539` — related wake-packet notification validation;
-  **already in this tree**
-- `dd90880eb5ec5` — OOB read fix in `iwl_mvm_nd_match_info_handler()`
-- Patch 15/15 (ND match struct sizing) is **independent**; patch 14/15
-  is standalone
+- `443d372d6a96` (2020): “ipmi_si: Avoid spurious errors for optional
+  IRQs” — switched ACPI path to `platform_get_irq_optional()`, with `Cc:
+  stable@vger.kernel.org # 5.4.x`.
+- OF path was never updated; inconsistency remains in 6.18.44.
+- This candidate commit is **not yet applied** to the local tree (line
+  279 still uses `irq_of_parse_and_map()`).
 
-### Step 3.4: Author context
-**Record:** Emmanuel Grumbach is a core iwlwifi developer; July 2026
-series is a batch of firmware-validation hardening fixes. Miri Korenblit
-is iwlwifi maintainer.
+### Step 3.4: Author's other commits
+**Record:** Rosen Penev has no prior commits in `drivers/char/ipmi/` in
+this tree. Corey Minyard is the IPMI subsystem maintainer and signed off
+on the amendment.
 
-### Step 3.5: Dependencies
-**Record:** No prerequisites. `IWL_FW_CHECK` exists in `fw/dbg.h`. Self-
-contained; does not need patch 15/15.
+### Step 3.5: Prerequisites/dependencies
+**Record:** None. `platform_get_irq_optional()` exists and is already
+used in the same file. Standalone, self-contained fix.
 
 ---
 
 ## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
-### Step 4.1: Original discussion
-**Record:** Local mbox
-`20260715_miriam_rachel_korenblit_wifi_iwlwifi_fixes_07_15_2026.mbx`,
-patch 14/15. Cover letter lists it under “bugfixes.” `b4 dig -c
-2d5dec517b539` worked for the related patch; direct `b4 dig` on this
-commit hash unavailable (not yet committed upstream in this checkout).
-Lore URL blocked by bot protection.
+### Step 4.1: Original patch discussion
+**Record:** `b4 dig -c <commit>` could not run — commit not present in
+local tree. Lore.kernel.org fetch returned 403 (bot protection).
+Message-ID `20260603192511.6869-1-rosenp@gmail.com` identified but
+thread content unverified.
 
 ### Step 4.2: Reviewers
-**Record:** Series cover shows Intel iwlwifi maintainers as authors; no
-explicit review thread found in local mbox for patch 14.
+**Record:** UNVERIFIED — could not fetch mailing list thread. Corey
+Minyard’s Signed-off-by on the amendment is verified via commit message.
 
 ### Step 4.3: Bug report
-**Record:** No external bug report or syzbot link. Intel-internal
-firmware-trust hardening, consistent with related fixes in the same
-series.
+**Record:** N/A — no `Reported-by:` or `Link:` tags. No user or syzbot
+report.
 
-### Step 4.4: Series context
-**Record:** Patch 14/15 of 15; independent of patch 15/15 (struct layout
-change).
+### Step 4.4: Related patches/series
+**Record:** Appears standalone (not part of a multi-patch series).
+Related prior fix: `443d372` (ACPI path, 2020).
 
-### Step 4.5: Stable list history
-**Record:** No stable-list discussion found. Not a negative signal.
+### Step 4.5: Stable mailing list history
+**Record:** UNVERIFIED — lore.kernel.org inaccessible. Prior related
+ACPI fix was explicitly nominated for stable (`Cc:
+stable@vger.kernel.org # 5.4.x`).
 
 ---
 
 ## PHASE 5: CODE SEMANTIC ANALYSIS
 
-### Step 5.1: Key functions
-**Record:** `iwl_mvm_report_wakeup_reasons()` (modified)
+### Step 5.1: Key functions modified
+**Record:** `of_ipmi_probe()` — only function changed.
 
 ### Step 5.2: Callers
-**Record:**
-- `iwl_mvm_query_wakeup_reasons()` → called from D3 resume path (~line
-  2770)
-- Triggered on **system resume from suspend** when WoWLAN wakes the host
-- Requires `CONFIG_PM`, `CONFIG_IWLMVM`, WoWLAN enabled
+**Record:** `of_ipmi_probe()` called from `ipmi_probe()` (line 400)
+during platform device probe. Triggered at boot on DT systems with IPMI
+nodes (`ipmi-kcs`, `ipmi-smic`, `ipmi-bt` compatible strings).
 
 ### Step 5.3: Callees
-**Record:** `WARN_ON_ONCE`, `IWL_FW_CHECK`, `alloc_skb`, `skb_put_data`,
-`ieee80211_data_to_8023`, `kfree_skb`, `ieee80211_report_wowlan_wakeup`
+**Record:**
+- **Before:** `irq_of_parse_and_map()` → creates mapping needing
+  `irq_dispose_mapping()`.
+- **After:** `platform_get_irq_optional()` → `of_irq_get()` for OF nodes
+  (per `drivers/base/platform.c:184-188`).
+- Downstream: `ipmi_si_add_smi()` → `ipmi_std_irq_setup()` →
+  `request_irq()`; remove via `std_irq_cleanup()` → `free_irq()` only.
 
-### Step 5.4: Reachability
-**Record:** Reachable on every WoWLAN wakeup with a wake packet on Intel
-MVM hardware — common laptop suspend/resume path. Not userspace-
-triggerable directly, but affects all WoWLAN users on resume.
+### Step 5.4: Call chain / reachability
+**Record:** Boot-time device probe on `CONFIG_OF` systems (ARM servers,
+embedded BMC hosts). Bug manifests on device remove/module unload
+(`ipmi_remove()` → `ipmi_si_remove_by_dev()` → `shutdown_smi()`). Not
+syscall-reachable, but reachable via driver unbind/module reload.
 
 ### Step 5.5: Similar patterns
-**Record:** Same series and tree already have multiple `IWL_FW_CHECK`
-validations (`mvm/tx.c`, `mvm/rxmq.c`, `mld/tx.c`). This follows
-established iwlwifi defensive pattern.
+**Record:**
+- Same file: ACPI path (line 368) and platform path (line 200) already
+  use `platform_get_irq_optional()`.
+- `ipmi_powernv.c` correctly pairs `irq_of_parse_and_map()` with
+  `irq_dispose_mapping()` on remove (lines 279, 291) — demonstrates the
+  expected contract.
 
 ---
 
-## PHASE 6: CROSS-REFERENCE WITH LOCAL TREE (6.18.44)
+## PHASE 6: CROSS-REFERENCING AGAINST LOCAL TREE
 
-### Step 6.1: Buggy code present?
-**Record:** **YES.** Lines 1508–1559 in `d3.c` lack the proposed checks.
-Underflow path is live.
+### Step 6.1: Does buggy code exist?
+**Record:** **Yes.** Line 279 in `drivers/char/ipmi/ipmi_si_platform.c`:
+```279:279:drivers/char/ipmi/ipmi_si_platform.c
+        io.irq          = irq_of_parse_and_map(pdev->dev.of_node, 0);
+```
+Bug present since 2017 (`9d70029`). ACPI/platform paths already fixed;
+OF path still buggy in 6.18.44.
 
 ### Step 6.2: Backport complications
-**Record:** **Clean apply.** Patch 14 hunks applied to `d3.c` with +7
-line offset. No structural conflicts.
+**Record:** Expected clean apply — minimal 3-line functional change at a
+stable location with matching context. No conflicting recent churn in
+this function.
 
 ### Step 6.3: Related fixes already present?
-**Record:** `2d5dec517b539` (notification-time validation) is in tree.
-This underflow fix is **not** present (`grep "pktsize is too small"`
-only in mbox).
+**Record:** ACPI/platform paths already use
+`platform_get_irq_optional()`. No equivalent OF-path fix or
+`irq_dispose_mapping()` addition present. This fix not yet in tree.
 
 ---
 
-## PHASE 7: SUBSYSTEM CONTEXT
+## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
 
-### Step 7.1: Subsystem / criticality
-**Record:** `drivers/net/wireless/intel/iwlwifi/mvm` — **IMPORTANT**
-(Intel WiFi on a large share of laptops/desktops).
+### Step 7.1: Subsystem criticality
+**Record:** `drivers/char/ipmi/` — **IMPORTANT** peripheral driver. IPMI
+is widely used on servers/embedded for BMC management, but this specific
+bug is in the teardown path, not the hot IPMI message path.
 
-### Step 7.2: Activity
-**Record:** Actively maintained; several iwlwifi validation fixes
-already backported to this 6.18.y tree in 2026.
+### Step 7.2: Subsystem activity
+**Record:** Moderate recent activity (refactoring, type-info moves). OF
+IRQ retrieval code has been stable since 2017 aside from ACPI-path fix
+in 2020.
 
 ---
 
-## PHASE 8: IMPACT AND RISK
+## PHASE 8: IMPACT AND RISK ASSESSMENT
 
 ### Step 8.1: Who is affected
-**Record:** Intel WiFi users with WoWLAN (`CONFIG_IWLMVM` + PM). Large
-population on laptops.
+**Record:** Users of `CONFIG_IPMI_SI` + `CONFIG_OF` with device-tree
+IPMI nodes. Platform-specific (DT ARM/Power embedded), not universal.
 
 ### Step 8.2: Trigger conditions
-**Record:** Firmware reports `wake_packet_bufsize` smaller than actual
-802.11 header + IV/ICV overhead during WoWLAN wakeup. Requires firmware
-bug or corruption; rare but plausible. Not unprivileged-userspace-
-triggerable.
+**Record:** Device remove, driver module unload, or sysfs unbind after
+successful OF probe with an IRQ defined. Uncommon in production (IPMI
+typically probed once at boot), but possible during development,
+firmware updates, or hot-unbind testing. Not unprivileged-user
+triggerable directly.
 
-### Step 8.3: Failure severity
-**Record:** Integer underflow → massive `skb_put_data()` → **kernel
-oops/panic on resume** — **CRITICAL** for affected path.
+### Step 8.3: Failure mode severity
+**Record:** IRQ domain mapping leak on teardown. **Severity: LOW-
+MEDIUM** — real kernel resource leak, no crash/corruption/security
+impact. Could accumulate with repeated bind/unbind cycles.
 
-### Step 8.4: Risk/benefit
+### Step 8.4: Risk-benefit ratio
 **Record:**
-- **Benefit:** HIGH — prevents crash on WoWLAN resume
-- **Risk:** LOW — ~15 lines, defensive checks only, established macro
-- **Ratio:** Strongly favors backport
+- **Benefit:** Fixes longstanding API misuse; aligns OF path with
+  ACPI/platform paths; prevents per-remove IRQ mapping leaks.
+- **Risk:** Very low — 3 lines, maintainer-reviewed, matches established
+  in-file pattern.
+- **Ratio:** Favorable — tiny, correct fix for a real (if low-impact)
+  bug.
 
 ---
 
 ## PHASE 9: FINAL SYNTHESIS
 
-### Step 9.1: Evidence summary
+### Step 9.1: Evidence compile
 
-**FOR:**
-- Real integer underflow → crash on resume
-- Buggy code confirmed in 6.18.44 tree
-- Small, surgical, obviously correct
-- Complements existing backport `2d5dec517b539`
-- Applies cleanly
-- iwlwifi maintainer authorship
-- Matches stable firmware-validation pattern
+**FOR backport:**
+- Real resource leak: `irq_of_parse_and_map()` without
+  `irq_dispose_mapping()` on remove
+- Maintainer (Corey Minyard) signed off with behavioral fix
+- Matches pattern already used in same file and previously backported
+  for ACPI path (`443d372`, `Cc: stable`)
+- Tiny, surgical, obviously correct
+- Buggy code confirmed present in 6.18.44 since 2017
+- `ipmi_powernv.c` shows correct pairing of these APIs in same subsystem
 
-**AGAINST:**
-- Requires firmware misreporting (not syzbot-proven)
-- Early `return` drops wakeup report on corrupt packet (minor, vs.
-  crash)
-- `icvlen`/`truncated` ordering bug in current tree is separate (not
-  introduced by this patch)
+**AGAINST backport:**
+- Low user-visible impact — leak only on driver remove, not during
+  normal operation
+- No user reports, syzbot, or sanitizer findings
+- Does not cause crash, corruption, deadlock, or security issue
+- IPMI SI rarely unloaded in production
 
-**UNRESOLVED:** No public review thread or syzbot reproducer (not needed
-for decision).
+**Unresolved:**
+- Full mailing list review thread (lore 403)
+- Whether mainline has merged this yet (commit not in local tree)
 
 ### Step 9.2: Stable rules checklist
-1. Obviously correct and tested? **PASS** — logic verified; maintainer-
-   signed
-2. Fixes a real bug? **PASS** — demonstrated underflow path
-3. Important issue? **PASS** — resume-time kernel crash
-4. Small and contained? **PASS** — one function, ~19 lines
-5. No new features/APIs? **PASS**
-6. Can apply to local tree? **PASS** — verified clean apply
+1. Obviously correct and tested? **PASS** — matches in-file precedent;
+   maintainer SOB; logic verified against `platform.c` and
+   `ipmi_powernv.c`.
+2. Fixes a real bug? **PASS** — IRQ mapping leak on teardown.
+3. Important issue? **PASS (borderline)** — resource leak, not
+   crash/corruption; severity low but real; same driver had a lesser
+   ACPI log-spam fix backported to stable in 2020.
+4. Small and contained? **PASS** — 3 net lines, one function.
+5. No new features/APIs? **PASS** — API usage correction only.
+6. Can apply to local tree? **PASS** — buggy code present; clean apply
+   expected.
 
-### Step 9.3: Exception category
-**Record:** N/A (not device ID, quirk, DT, docs, or build fix — standard
-bug fix).
+### Step 9.3: Exception categories
+**Record:** N/A — not a device ID, quirk, DT update, build fix, or docs
+fix. Standard driver bug fix.
 
 ### Step 9.4: Decision rationale
-For Linux **6.18.44**, the vulnerable WoWLAN wake-packet code is present
-and unpatched. Malicious or buggy firmware length fields can underflow
-`pktsize` and crash the kernel during suspend resume — a high-severity,
-low-risk fix that belongs in stable.
+
+This commit fixes a real, verifiable resource leak in the OF IPMI SI
+probe/remove path. The ACPI and platform probe paths in the same file
+were already converted to `platform_get_irq_optional()` years ago (with
+stable nomination for the ACPI case). The OF path was left behind using
+`irq_of_parse_and_map()` without the required `irq_dispose_mapping()` in
+the remove path (`std_irq_cleanup()` only calls `free_irq()`).
+
+While the leak only manifests on device removal and is unlikely to
+affect typical production servers, it is a genuine kernel bug with a
+trivial, maintainer-approved fix that carries negligible regression
+risk. The precedent of backporting a related (less severe) IRQ-handling
+fix in this same driver supports inclusion.
 
 ---
 
 ## Verification
 
-- **[Phase 1]** Parsed subject, tags, body from user query and mbox
-  patch 14/15
-- **[Phase 1]** Confirmed patch 14/15 in
-  `20260715_miriam_rachel_korenblit_wifi_iwlwifi_fixes_07_15_2026.mbx`
-- **[Phase 2]** Read `d3.c` lines 1454–1588; confirmed missing
-  validation
-- **[Phase 2]** Simulated underflow: `pktsize=10, hdrlen=24` →
-  `pktsize=-34` → `4294967262` unsigned
-- **[Phase 3]** `git describe HEAD` → `v6.18.44-2-g1b9e1abadee04`;
-  Makefile `6.18.44`
-- **[Phase 3]** `git blame` lines 1508–1560 → merge `5d324e5159d9e`
-- **[Phase 3]** `git show 219ed58feda9` → wake packet support from Sep
-  2022 with same unchecked arithmetic
-- **[Phase 3]** `git show 2d5dec517b539` → related fix already in tree
-- **[Phase 3]** `git log --oneline -20 --
-  drivers/net/wireless/intel/iwlwifi/mvm/d3.c` → fix not present
-- **[Phase 4]** Read cover letter: listed as “bugfixes”, patch 14/15
-  standalone
-- **[Phase 4]** `b4 dig -c 2d5dec517b539` → lore URL for related patch
-- **[Phase 4]** WebFetch lore URL → blocked (bot protection); relied on
-  local mbox
-- **[Phase 5]** Traced call chain: resume →
-  `iwl_mvm_query_wakeup_reasons` → `iwl_mvm_report_wakeup_reasons`
-- **[Phase 5]** `grep IWL_FW_CHECK` → macro present in `fw/dbg.h`
-- **[Phase 6]** `grep "pktsize is too small"` → only in mbox, not in
-  tree
-- **[Phase 6]** `git apply --check` on patch 14 d3.c hunks → succeeded
-  (offset +7)
-- **[Phase 6]** Confirmed `iwl_mvm_wowlan_store_wake_pkt` and wake-
-  packet path exist
-- **[Phase 8]** Assessed severity: resume crash on WoWLAN path
+- **[Phase 1]** Parsed commit message and tags from user-provided diff
+- **[Phase 2]** Diff analysis: 3 lines added in `of_ipmi_probe()`,
+  replaces `irq_of_parse_and_map` with `platform_get_irq_optional` +
+  negative check
+- **[Phase 3]** `git describe HEAD`: v6.18.44 / kernel 6.18.44
+- **[Phase 3]** `git blame -L 275,285`: `irq_of_parse_and_map` from
+  `9d70029` (Sep 2017)
+- **[Phase 3]** `git log --oneline -5 --
+  drivers/char/ipmi/ipmi_si_platform.c`: recent history reviewed
+- **[Phase 3]** `git show 443d372`: prior ACPI
+  `platform_get_irq_optional` fix with `Cc: stable@vger.kernel.org`
+- **[Phase 4]** `b4 dig`: failed — commit not in local tree (requires
+  `-c COMMITISH`)
+- **[Phase 4]** Lore fetch: 403 Forbidden — thread content UNVERIFIED
+- **[Phase 5]** Read `drivers/char/ipmi/ipmi_si_platform.c`: confirmed
+  OF path at line 279 uses `irq_of_parse_and_map`; ACPI (368) and
+  platform (200) use `platform_get_irq_optional`
+- **[Phase 5]** Read
+  `drivers/char/ipmi/ipmi_si_intf.c:1326-1354,2308-2310`:
+  `std_irq_cleanup()` calls `free_irq()` only, no
+  `irq_dispose_mapping()`
+- **[Phase 5]** Read `drivers/base/platform.c:171-188`:
+  `platform_get_irq_optional()` uses `of_irq_get()` for OF nodes
+- **[Phase 5]** Read `drivers/char/ipmi/ipmi_powernv.c:277-291`: correct
+  `irq_dispose_mapping()` usage with `irq_of_parse_and_map()`
+- **[Phase 6]** `grep irq_of_parse_and_map drivers/char/ipmi/`: only
+  `ipmi_si_platform.c:279` and `ipmi_powernv.c:244` (powernv handles
+  cleanup correctly)
+- **[Phase 6]** Confirmed candidate commit NOT yet in tree (line 279
+  unchanged)
+- **[Phase 8]** Failure mode: IRQ mapping leak on remove, severity LOW-
+  MEDIUM
 
 **YES**
 
- drivers/net/wireless/intel/iwlwifi/mvm/d3.c | 19 +++++++++++++++----
- 1 file changed, 15 insertions(+), 4 deletions(-)
+ drivers/char/ipmi/ipmi_si_platform.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/net/wireless/intel/iwlwifi/mvm/d3.c b/drivers/net/wireless/intel/iwlwifi/mvm/d3.c
-index dd1c21065bc33..82dca6ba56c7f 100644
---- a/drivers/net/wireless/intel/iwlwifi/mvm/d3.c
-+++ b/drivers/net/wireless/intel/iwlwifi/mvm/d3.c
-@@ -1516,6 +1516,10 @@ static void iwl_mvm_report_wakeup_reasons(struct iwl_mvm *mvm,
- 		if (WARN_ON_ONCE(truncated < 0))
- 			truncated = 0;
+diff --git a/drivers/char/ipmi/ipmi_si_platform.c b/drivers/char/ipmi/ipmi_si_platform.c
+index fb6e359ae4946..704b06c919f03 100644
+--- a/drivers/char/ipmi/ipmi_si_platform.c
++++ b/drivers/char/ipmi/ipmi_si_platform.c
+@@ -276,7 +276,10 @@ static int of_ipmi_probe(struct platform_device *pdev)
+ 	io.regspacing	= regspacing ? be32_to_cpup(regspacing) : DEFAULT_REGSPACING;
+ 	io.regshift	= regshift ? be32_to_cpup(regshift) : 0;
  
-+		/* this would be a firmware bug */
-+		if (WARN_ON_ONCE(pktsize < sizeof(*hdr)))
-+			return;
+-	io.irq		= irq_of_parse_and_map(pdev->dev.of_node, 0);
++	io.irq = platform_get_irq_optional(pdev, 0);
++	if (io.irq < 0)
++		io.irq = 0;
 +
- 		if (ieee80211_is_data(hdr->frame_control)) {
- 			int hdrlen = ieee80211_hdrlen(hdr->frame_control);
- 			int ivlen = 0, icvlen = 4; /* also FCS */
-@@ -1524,10 +1528,6 @@ static void iwl_mvm_report_wakeup_reasons(struct iwl_mvm *mvm,
- 			if (!pkt)
- 				goto report;
+ 	io.dev		= &pdev->dev;
  
--			skb_put_data(pkt, pktdata, hdrlen);
--			pktdata += hdrlen;
--			pktsize -= hdrlen;
--
- 			if (ieee80211_has_protected(hdr->frame_control)) {
- 				/*
- 				 * This is unlocked and using gtk_i(c)vlen,
-@@ -1553,6 +1553,17 @@ static void iwl_mvm_report_wakeup_reasons(struct iwl_mvm *mvm,
- 				truncated = 0;
- 			}
- 
-+			if (IWL_FW_CHECK(mvm,
-+					 pktsize <= hdrlen + ivlen + icvlen,
-+					 "pktsize is too small %d\n",
-+					 pktsize)) {
-+				kfree_skb(pkt);
-+				return;
-+			}
-+
-+			skb_put_data(pkt, pktdata, hdrlen);
-+			pktdata += hdrlen;
-+			pktsize -= hdrlen;
- 			pktsize -= ivlen + icvlen;
- 			pktdata += ivlen;
- 
+ 	dev_dbg(&pdev->dev, "addr 0x%lx regsize %d spacing %d irq %d\n",
 -- 
 2.53.0
 
