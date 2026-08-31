@@ -1,152 +1,148 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EF003D6688;
-	Mon, 31 Aug 2026 12:30:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 458F23FBB44;
+	Mon, 31 Aug 2026 12:31:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788179434; cv=none; b=AiVy/GSegUdss7Q4n2amCCqOTlyxnJkcVnPQLLewO+tCOOg8fQCL+YN7HyKl7s9eB4VVgnQyeW/K1kWpLX8dppXnQSvegAs/upx3fukQp/ZUvuUF0TkVQCwI/bdftq6PJip71NSwFBeNF4xYZXSzqKOqryLf/iJogmZviep6zL0=
+	t=1788179461; cv=none; b=mBg2NONQ6SNPcaodl3mIU8DL0DwN/JXOV/TxQlK0lOR9EiLAGkcn++UuAxO6ux7xGbbyQRn1eMUCCsbMkQ+p3bKw9xx+CpkF+Opz5+lVwtf2L2ObIANQcBlgri4MZ7OG9RqTNGm5szjsoFkRbtNlG3AlU35MvZuu+654NkdW6XE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788179434; c=relaxed/simple;
-	bh=P/nUJsislhQJX34fx8Kb2B0lT8SzGNMs1GAHnBSrlJQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=e73aKuKZO+bj99DIXIa10mVuYgQXMfbQ3wFh/tlZ4zFsFHPJSYubkcvMq+af9jTPoYuex0+VW7ForAod76/ZkTXEVXnQyh0X1V7WMp11d8hqyWHvdwhOKsUkSBzpRtg2EHJWerzef8IXTWjJZWZV0BEPIOAvKjTR3wHkiZ8aW3E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G+KSjRfR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788179461; c=relaxed/simple;
+	bh=8kESiFRNnkEyqsmqiEeTAtwD/twPIyY5fNwDn00OYEY=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=BuhhQWc9DmUQWunNPGit7T1CzSqucMOykKHPh1eqSenj5dQbTca8czDLLdJi94EysLUE/O8koYucxbs91i3OJGt1ZtMxlqeEfHcNMkcCmpGRj4Cu/zzyiVpcsHatq81woxKWX++ozqtu6i78G0pzLSoynfqyycCSMlrUxfEzkCQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nrJf7jzC; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G+KSjRfR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70FA81F000E9;
-	Mon, 31 Aug 2026 12:30:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788179432;
-	bh=o0j9vXuew8PzdgEF/ZP3ym0lz6xPW5nlKTzSfWn7rN0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=G+KSjRfRvJBfjsqM2aTWTeCVZQEMsuPITbqdm7+NO/bGl5UDQzJoqteEUbVi70uYH
-	 2xwLIuX9+NUotx2n1s6Rd0MF/hlF4pkUoRdpSv1W5QVZPOGEbkQsxtZH2Ve5uhgN/b
-	 AYmHSQfXDYsy+d9eZskq/ZYtWb86TuT3qFboG71HaO/b3pPhHqaCvH0HDEwqfdAc/K
-	 EzgjSQI6akWXpMqfXGIZOCrox3k//voklpB2cZuaRJxqyQ6uzTaGrDqNa7ecGGLhkO
-	 VtKPezGZ7XqAErXAU7MAnAS1uCkDqspI6aX4cFyZg6txeFJGz6IBaoBM6ko/SaIh9x
-	 k2QdOnINQWScw==
-Message-ID: <d69efb1c-4ab3-4148-8b98-035377852da6@kernel.org>
-Date: Mon, 31 Aug 2026 14:30:23 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nrJf7jzC"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id E2641C2BCB8;
+	Mon, 31 Aug 2026 12:31:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1788179460;
+	bh=8kESiFRNnkEyqsmqiEeTAtwD/twPIyY5fNwDn00OYEY=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=nrJf7jzCqO8Juaw8ag7xft6eHX1Aerh16Ysoq3vc2Awgkw/1NOq4gWiHG6r9MGxdc
+	 cfuaL20QK2CFZcRkiInZNHHU79Guge9y0wXq2rs7G/FdVa+jHNODeNhLzrRVfuTlUw
+	 cR8O3GM6OdytbEOaYM9y7BHXMsB4nFO8Zj9QAJQpQclDiX7dPuIreb9vTI2vxDz8gm
+	 WgtRl69kZ3jMyjNOjP1ckITC4kLe0XI67/TM+3+k/Khdw7IXdWfg8nX/1EhbrHkFue
+	 b/E5Z/iPg9kuHFutSTxGw0QyFFwWdj/548ShsqX+kvOOQsBL2gXtkrICM8omTw/zMM
+	 SwobR34RWf0ag==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C8969C624A4;
+	Mon, 31 Aug 2026 12:31:00 +0000 (UTC)
+From: Quanye Yang via B4 Relay <devnull+quanyeyang.proton.me@kernel.org>
+Date: Mon, 31 Aug 2026 20:30:58 +0800
+Subject: [PATCH] RDMA/ucma: Serialize join and leave on copy_to_user
+ failure
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 01/12] dt-bindings: phy: qcom,ipq5332-uniphy-pcie:
- Change to PCIe/USB3 combo PHY
-To: George Moussalem <george.moussalem@outlook.com>
-Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
- <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Praveenkumar I <praveenkumar.i@oss.qualcomm.com>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>,
- Nitheesh Sekar <quic_nsekar@quicinc.com>,
- Wesley Cheng <quic_wcheng@quicinc.com>,
- Manivannan Sadhasivam <mani@kernel.org>, linux-arm-msm@vger.kernel.org,
- linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org
-References: <20260825-ipq5018-usb3-v3-0-39be0955a6aa@outlook.com>
- <20260825-ipq5018-usb3-v3-1-39be0955a6aa@outlook.com>
- <20260828-wisteria-fennec-from-arcadia-a44ebe@quoll>
- <SN7PR19MB6736B881B203BF5746F0DEE39DAC2@SN7PR19MB6736.namprd19.prod.outlook.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <SN7PR19MB6736B881B203BF5746F0DEE39DAC2@SN7PR19MB6736.namprd19.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20260831-rdma-ucma-mc-uaf-v1-1-b8eeb7046aff@proton.me>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDC2ND3aKU3ETd0mQgkZusW5qYpmuZZJ5oYGGZZGmQaKwE1FZQlJqWWQE
+ 2MjoWwi8uTcpKTS4BmaNUWwsAh1Te03QAAAA=
+X-Change-ID: 20260831-rdma-ucma-mc-uaf-9b7a089b90a3
+To: Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
+ Avihai Horon <avihaih@nvidia.com>
+Cc: linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ syzbot+a6ffe86390c8a6afc818@syzkaller.appspotmail.com, 
+ stable@vger.kernel.org, Quanye Yang <quanyeyang@proton.me>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788179458; l=2901;
+ i=quanyeyang@proton.me; s=20260801; h=from:subject:message-id;
+ bh=N3XkbQXD0jkOovzK5vafwV1Ou+3QGRVYe0LDvdcx34w=;
+ b=IxVh3gAhyL0mBxvWCrkT21TIG7bhE4/cOXVYVi7bUaf+5wjESyYMnZDFcznT1819Fj+uxfp9U
+ QB9yZwh8dm/CzZryGy83ptOgevddwWJSAupMaSBNI5RcNPTl2H4xYNp
+X-Developer-Key: i=quanyeyang@proton.me; a=ed25519;
+ pk=9L9FrcvzMgxPaBRU6XV0EnqTgjDqVO596rQKSZ9qZoY=
+X-Endpoint-Received: by B4 Relay for quanyeyang@proton.me/20260801 with
+ auth_id=963
+X-Original-From: Quanye Yang <quanyeyang@proton.me>
+Reply-To: quanyeyang@proton.me
 
-On 28/08/2026 12:51, George Moussalem wrote:
-> On 8/28/26 14:09, Krzysztof Kozlowski wrote:
->> On Tue, Aug 25, 2026 at 04:37:18PM +0400, George Moussalem wrote:
->>> This PHY is a PCIE/USB3 multi-purpose PHY. Initial support was added for
->>> PCIe only, so rename the binding and add support for USB3 PHY mode.
->>>
->>> The PCIe and USB physical pads are muxed and selection is done via a
->>> control register in TCSR. Add a new property to the binding to enable
->>> switching the default PCIe mux selection to USB3 mode.
->>>
->>> In addition, USB3 mode requires a 5V supply, so add a vdd-supply
->>> property for it.
->>>
->>> Signed-off-by: George Moussalem <george.moussalem@outlook.com>
->>> ---
->>>  .../bindings/phy/qcom,ipq5332-uniphy-pcie-phy.yaml | 109 ----------------
->>>  .../phy/qcom,ipq5332-uniphy-pcie-usb3-phy.yaml     | 141 +++++++++++++++++++++
->>>  include/dt-bindings/phy/phy-qcom-qmp.h             |   4 +
->>>  3 files changed, 145 insertions(+), 109 deletions(-)
->>>
->>> diff --git a/Documentation/devicetree/bindings/phy/qcom,ipq5332-uniphy-pcie-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,ipq5332-uniphy-pcie-phy.yaml
->>> deleted file mode 100644
->>> index 6e9df81441e9..000000000000
->>
->> Please do not rename the binding. Old name was correct. New one is not,
->> otherwise please point me to the compatible like that.
-> 
-> I thought we had come to the conclusion it's the same device in the
-> discussion in v2:
-> https://lore.kernel.org/all/gn43qixdtbq5iyfqvzibdtx4lmwpkt2ieahr7oqsxxjfpldb6d@xbxhbdrq4e6b/
-> 
+From: Quanye Yang <quanyeyang@proton.me>
 
-How is it relevant to renaming of the file?
+rdma_join_multicast() queues RoCE work that later reads the ucma_multicast
+through event->param.ud.private_data, then list_add()s the CMA multicast
+at the head of id_priv->mc_list. rdma_leave_multicast() matches only by
+sockaddr and destroys the first hit.
 
-> I've split up this series into 3 as in the cover letter:
-> 1. Flatten USB Controller Nodes on IPQ SoCs
->    link:
-> https://lore.kernel.org/r/20260825-ipq-flatten-usb-v1-0-5c1f3170bbe9@outlook.com
-> 2. Enable USB3 for Qualcomm IPQ5018 (this patch series)
-> 3. Enable USB3 for Qualcomm IPQ5332 (to be submitted)
+ucma_process_join() used to drop ctx->mutex after a successful join and
+retake it only if copy_to_user() failed. Two concurrent JOIN_MCAST calls
+with the same address can therefore insert a second CMA entry before the
+first thread's leave. leave then cancels the newer work and the older
+worker still dereferences the ucma_multicast that the first thread frees.
 
-How is this relevant?
+Keep ctx->mutex held from rdma_join_multicast() through copy_to_user() and,
+on -EFAULT, through rdma_leave_multicast() so leave cannot miss this join.
+Do not leave if join itself failed: that path never published this address
+on mc_list, and a leave-by-addr would destroy an earlier successful join.
+
+Reported-by: syzbot+a6ffe86390c8a6afc818@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=a6ffe86390c8a6afc818
+Fixes: fe454dc31e84 ("RDMA/ucma: Fix use-after-free bug in ucma_create_uevent")
+Cc: stable@vger.kernel.org
+Signed-off-by: Quanye Yang <quanyeyang@proton.me>
+---
+KASAN + rxe, virtme-ng. The syzbot C repro (two concurrent JOIN_MCAST
+with response=0) no longer reports slab-use-after-free in
+ucma_create_uevent.
+
+Based on linus/master
+---
+ drivers/infiniband/core/ucma.c | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/infiniband/core/ucma.c b/drivers/infiniband/core/ucma.c
+index 4929636f7c53..c3611e2f3248 100644
+--- a/drivers/infiniband/core/ucma.c
++++ b/drivers/infiniband/core/ucma.c
+@@ -1556,27 +1556,27 @@ static ssize_t ucma_process_join(struct ucma_file *file,
+ 	mutex_lock(&ctx->mutex);
+ 	ret = rdma_join_multicast(ctx->cm_id, (struct sockaddr *)&mc->addr,
+ 				  join_state, mc);
+-	mutex_unlock(&ctx->mutex);
+-	if (ret)
++	if (ret) {
++		mutex_unlock(&ctx->mutex);
+ 		goto err_xa_erase;
++	}
+ 
+ 	resp.id = mc->id;
+ 	if (copy_to_user(u64_to_user_ptr(cmd->response),
+ 			 &resp, sizeof(resp))) {
+ 		ret = -EFAULT;
+-		goto err_leave_multicast;
++		rdma_leave_multicast(ctx->cm_id, (struct sockaddr *)&mc->addr);
++		mutex_unlock(&ctx->mutex);
++		ucma_cleanup_mc_events(mc);
++		goto err_xa_erase;
+ 	}
++	mutex_unlock(&ctx->mutex);
+ 
+ 	xa_store(&multicast_table, mc->id, mc, 0);
+ 
+ 	ucma_put_ctx(ctx);
+ 	return 0;
+ 
+-err_leave_multicast:
+-	mutex_lock(&ctx->mutex);
+-	rdma_leave_multicast(ctx->cm_id, (struct sockaddr *) &mc->addr);
+-	mutex_unlock(&ctx->mutex);
+-	ucma_cleanup_mc_events(mc);
+ err_xa_erase:
+ 	xa_lock(&multicast_table);
+ 	list_del(&mc->list);
+
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20260831-rdma-ucma-mc-uaf-9b7a089b90a3
 
 Best regards,
-Krzysztof
+--  
+Quanye Yang <quanyeyang@proton.me>
+
+
