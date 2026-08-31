@@ -1,77 +1,133 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1C3C3BBA1A;
-	Mon, 31 Aug 2026 08:02:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9EE83CAA31;
+	Mon, 31 Aug 2026 08:04:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788163375; cv=none; b=Osq3TLVY5IE0nWu/Mt9u8LToAsPVvH3inaewJmblhJanlI9fwiLnpjXhakTWxCIxDTEa0WZP2EKMckeYTFbt0h4ACzwmHV5PlieFTVkw+Y2ysgbeJ9kN43zgzkCN8dPK1go59V4PjegxTKakLi2r+8xOHuGutcwinrBIUprvawc=
+	t=1788163481; cv=none; b=HnzPjrrNAYqPD/OtKQ/v6lOKT9RkZLiBh2o+aF2ENLgYeWm96YrVfo1nTSKpXUS5szgUJ8bXzRV9TDxpFCGcUorQL+LOmMohSxHwHUqmDW7OVgMhsmdTYh/Qvm4v5bdhhhYqJeQ5oB2loPc1gj2qPiRBvhyhwyVHyBrR/fDuXdE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788163375; c=relaxed/simple;
-	bh=mNJ6TtybuemdnjfJ+xTQ38IRvVsMmZTIi52GSp67/TM=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=ox/qqKHzXzfPyrDQvnjI+jaVEP5bldsE4yWB6QAYZFOXW3DhtvAF+NMI37axDOXorvWIoauEFL7R4/gCfrap3H+pnxJkuNR9FGG92jjTICu75HK50+NmXSGoqsOyFKiBxflfFRivMuPLXPchG0thS+5zgAbLyTYtKEDI5UTkThg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NRFf2RWn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788163481; c=relaxed/simple;
+	bh=Cl5NpPOdLVHO5bVj8nYOLe43QlryP/1zjbbrcAoNYp0=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=jWbW6MKIevfDwXzk2iB4/7bcBPA+j+xgRgQffx1XyqJ5ZIFn6nWNIHoCCft8uobSLFcT57zIj3gBpR1+KDkl9LAklTCrW/NbvrL596XOJnpSOzLRSdM6sLQenNEi9nlb9DqrXzyRkS45tbOfu97nQEcOZIdx/ctXz/+OaiCtS0s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=egHvMJhs; arc=none smtp.client-ip=198.175.65.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NRFf2RWn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EF3B1F000E9;
-	Mon, 31 Aug 2026 08:02:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788163374;
-	bh=Ye99NQfdXi7OZKG0raTZd4ewb9mN+Asa1Yy9ESWHvFE=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=NRFf2RWnx8dsoP6gUfrwmIcALgAsK/bxcT4SbZ0luqJeUo3VMUoNbFvgq4WAHrCss
-	 uOG+kkt0MW/2t3pVffnIF1n8jWcipMJXpU0Q7w5HpOxo5GPqSr69fm0CCT/+ezENHm
-	 KQ33E5k1cbgOh44w4qBlyojTYRlUI08Ku3zMYp8s7nhnjIKo9iel7o1ewHz21ueR0F
-	 bfPSrdFPd5Wd7UQ2Lfw/4u8Y69jnQNQQ3g3fiBNO7rsho8GC0wpzQveqlnAPagHrcg
-	 Ii1msK1JTPdq69jNTR45rnx97kUZVMPLs/WKEl0lidgYIvbCnIFCrT7dBOca+qLcmH
-	 rN42vN57oyfjg==
-From: Christian Brauner <brauner@kernel.org>
-To: shuah@kernel.org, Mahad Ibrahim <mahad.ibrahim.dev@gmail.com>
-Cc: linux-fsdevel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20260819161738.3517-1-mahad.ibrahim.dev@gmail.com>
-References: <20260819161738.3517-1-mahad.ibrahim.dev@gmail.com>
-Subject: Re: [PATCH] selftests/filesystems: Add .gitignore for
- fscontext_ns_test
-Message-Id: <20260831-pfosten-geoutet-knicken-8c8a740962a3@brauner>
-Date: Mon, 31 Aug 2026 10:02:50 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="egHvMJhs"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788163480; x=1819699480;
+  h=from:to:cc:subject:in-reply-to:references:date:
+   message-id:mime-version:content-transfer-encoding;
+  bh=Cl5NpPOdLVHO5bVj8nYOLe43QlryP/1zjbbrcAoNYp0=;
+  b=egHvMJhsaPUTUCfsGpl4BSkpKNXqAnze1Z10phc2EsNIFQEpQI9coEOy
+   UoCwOKtW1hHm0qol6sYVWajBZ7m8cJDiZy+Uy3J46Tre71any+mMbE42s
+   /k9pvJ94IFKZratDJkCFux0k+tHOL34YkFpx8LwQrpAKVdPt8vmTpjqng
+   xXf7nWqeaJjHa+HNXicdZYD32LqEYv00hjcMw2bhuG491tDwyhjlYHIE+
+   8IRCVN8kr6nyGAZfOeWjp/OMbtYyS8/ZlmaAL6Jc+YM5QCSGdfEfXYiAF
+   sjMniRelrR2YT/+jZVlzZ94fgOoN8CpmG+1BrqaxYjCglvnMuFvgGGszh
+   g==;
+X-CSE-ConnectionGUID: q4tyxi0dTVeA8sduZMNdAg==
+X-CSE-MsgGUID: g9yGfiEZR6ac8V3q+ojJrQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11891"; a="92251005"
+X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
+   d="scan'208";a="92251005"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 01:04:39 -0700
+X-CSE-ConnectionGUID: VH6q6OATRrSq7aC9al69eg==
+X-CSE-MsgGUID: mAIosUkXSSavDVXXFTNttQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
+   d="scan'208";a="268171932"
+Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost) ([10.245.244.22])
+  by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 01:04:36 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Deepanshu Kartikey <kartikey406@gmail.com>,
+ joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com,
+ tursulin@ursulin.net, airlied@gmail.com, simona@ffwll.ch,
+ krzysztof.karas@intel.com
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org,
+ syzbot+db96c5ff032f4292a8dc@syzkaller.appspotmail.com,
+ stable@vger.kernel.org
+Subject: Re: [PATCH v2] drm/i915: Guard against NULL driver_data in
+ i915_pci_probe()
+In-Reply-To: <CADhLXY4YXGWUi8JcfdYMJ4HhKMKS2RLg2WvnZnku_XK45m4-fQ@mail.gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20260813064902.367504-1-kartikey406@gmail.com>
+ <CADhLXY4YXGWUi8JcfdYMJ4HhKMKS2RLg2WvnZnku_XK45m4-fQ@mail.gmail.com>
+Date: Mon, 31 Aug 2026 11:04:33 +0300
+Message-ID: <79e8a3d71ca0e2cb7274aa1e5e053f934bc88333@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev-362b8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=904; i=brauner@kernel.org;
- h=from:subject:message-id; bh=mNJ6TtybuemdnjfJ+xTQ38IRvVsMmZTIi52GSp67/TM=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWRNNdVR4C1nq5spUcQ6aeL6BZVFhfkLOwtzTm5s/HbgS
- f5ni4YXHaUsDGJcDLJiiiwO7Sbhcst5KjYbZWrAzGFlAhnCwMUpABPp3sTwh+f7PcFnBcf2xUyu
- P2AnHq4zsUmg7lP0hOx5Aq3z3JS+yjAyTGC6YF17Z8Yn7RDZNyfPRB/j5jnV4Spxb93j+X+W2t7
- axQgA
-X-Developer-Key: i=brauner@kernel.org; a=openpgp;
- fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, 19 Aug 2026 16:17:38 +0000, Mahad Ibrahim wrote:
-> selftests/filesystems: Add .gitignore for fscontext_ns_test
+On Sun, 30 Aug 2026, Deepanshu Kartikey <kartikey406@gmail.com> wrote:
+> On Thu, Aug 13, 2026 at 12:19=E2=80=AFPM Deepanshu Kartikey
+> <kartikey406@gmail.com> wrote:
+>>
+>> pci_match_device() can return the dummy pci_device_id_any entry
+>> when a device is force-bound via sysfs driver_override, in which
+>> case ->driver_data is unset (NULL). i915_pci_probe() casts it to
+>> struct intel_device_info * unconditionally and dereferences
+>> intel_info->require_force_probe, causing a NULL-ptr-deref.
+>>
+>> Reported-by: syzbot+db96c5ff032f4292a8dc@syzkaller.appspotmail.com
+>> Closes: https://syzkaller.appspot.com/bug?extid=3Ddb96c5ff032f4292a8dc
+>> Tested-by: syzbot+db96c5ff032f4292a8dc@syzkaller.appspotmail.com
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
+>> ---
+>> v2: Drop Fixes tag, this isn't a regression from a single commit -
+>>     the unconditional dereference of ->driver_data has always assumed
+>>     it points into a MODULE_DEVICE_TABLE()-backed entry, an assumption
+>>     broken by the generic driver_override fallback path, not by any
+>>     i915-specific change. Add Cc: stable instead. (Krzysztof, Jani)
+>> ---
+>>  drivers/gpu/drm/i915/i915_pci.c | 3 +++
+>>  1 file changed, 3 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915=
+_pci.c
+>> index 82415af47d54..2f03f95945f1 100644
+>> --- a/drivers/gpu/drm/i915/i915_pci.c
+>> +++ b/drivers/gpu/drm/i915/i915_pci.c
+>> @@ -958,6 +958,9 @@ static int i915_pci_probe(struct pci_dev *pdev, cons=
+t struct pci_device_id *ent)
+>>                 (struct intel_device_info *) ent->driver_data;
+>>         int err;
+>>
+>> +       if (!intel_info)
+>> +               return -ENODEV;
+>> +
+>>         if (intel_info->require_force_probe && !id_forced(pdev->device))=
+ {
+>>                 dev_info(&pdev->dev,
+>>                          "Your graphics device %04x is not properly supp=
+orted by i915 in this\n"
+>> --
+>> 2.43.0
+>>
+>
+> Gente Reminder. Let me know the status of this patch .
 
-Applied to the vfs-7.4.misc branch of the vfs/vfs.git tree.
-Patches in the vfs-7.4.misc branch should appear in linux-next soon.
+Sorry about the delay. Thanks for the patch, pushed to drm-intel-next.
 
-Please report any outstanding bugs that were missed during review in a
-new review to the original patch series allowing us to drop it.
+BR,
+Jani.
 
-It's encouraged to provide Acked-bys and Reviewed-bys even though the
-patch has now been applied. If possible patch trailers will be updated.
+>
+> Thanks
+>
+> Deepanshu
 
-Note that commit hashes shown below are subject to change due to rebase,
-trailer updates or similar. If in doubt, please check the listed branch.
-
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
-branch: vfs-7.4.misc
-
-[1/1] selftests/filesystems: Add .gitignore for fscontext_ns_test
-      https://git.kernel.org/vfs/vfs/c/b653a9e55173
-
+--=20
+Jani Nikula, Intel
