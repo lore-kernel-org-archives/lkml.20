@@ -1,87 +1,117 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 464BF45563F
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 16:27:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0333A45563F;
+	Mon, 31 Aug 2026 16:27:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788193643; cv=none; b=HwuSs9ZFwDBx0r9zBc7OVIfKm3BVAGc7cPpJsNKu3RGz26GQ1C2O1N9EW/uzg2tl9prbu8oQdmDbxbvvRUWZIFNxhfJlOu/YwlsCQBXtWFEMyoYfuNc5q3dMbNCofLy1silWZdU4fM6vVlCsD8XSmDyLwaGuiM3UShi7Yqt84kA=
+	t=1788193652; cv=none; b=cozTbImQqcbw6k54nPt15CTw+xICfEc52wuGLrxyU3zG28TLTiW7/t3e737y9wGR1aFsD73CirAMGPdTpnv0SxxHeKA4iYQTCeGSTSKmNcWEWJiiObdm2uj2088TG3yAOM/fEhnS21624SLJl1CcVw3KIieRI7CEKqw2xiioMUA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788193643; c=relaxed/simple;
-	bh=6tEDiwLIF35jcCbcCHXcFaA1j9Bfc+pEUxGnijRqqwg=;
-	h=Date:From:To:CC:Subject:In-Reply-To:Message-ID:MIME-Version:
-	 Content-Type; b=Kaxy+b7A8/T2/8VYCnsrVkuly2wcRjZkeFMRH+Z/HdgmdREKZDNA0hAMU6zHi0Me2Eg19fyJb1nViyKEXyKA4SpcRwP9pvzOc92vRma7MXuWkADbRhYusppzjZVcO6l6bN24JGqSOEI+4hMvOAbxeh8PHyC3jyg0gEtPcn+SmxY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=lbsVHX/3; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=FhDjF7//; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	s=arc-20240116; t=1788193652; c=relaxed/simple;
+	bh=zgs+vADzBp4n4pKplNQNM7cYDwuu30CXustwyPU2QZE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=kIO/dbs77x8sUUxgFJKv0X6eCuKt8J1LBjiN3605mKMuXtv83EU05kgIOSnXOowS4h4PaCkxnrx+wyZY/2bGyrulkKMIM8YT4MajHTUAFwPZg+JN58kQU6Kfc5aYkRt3ACwZPEDYBAzS77HZbVo7Q938our1N/SZIzIhaLEfZh4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=WmVGRFYJ; arc=none smtp.client-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="lbsVHX/3";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="FhDjF7//"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1788193624; bh=lqGsDbqKnGj1Hsuc/+fxctV
-	M89MxbuTcHc9yQF3UYuI=; b=lbsVHX/3JBGq0IJQcOQLtB4F5Qaugu+uI5WhzAE7AVYmB98KBP
-	/a1UsQtGxVaSpAOXwVPaAx3BE5BHIJkL9JNSWlPC8Llw4ecPoyQ+UiL5y3LnA4rz+h6Hfn7mnyn
-	n7lRdcx6jtDlrXGVW9lvywI1z1CS3CudSTt9KoiPamgzXzz8/Cfu9BEki5TZMS8YBu1MvZa/33x
-	q8QIfwVR8pK4zYM70yX7HiDPbfinh+9kQDyab0IQlyIUoZ9u1xRp1J/aetxruUwtaP15T3OJQ4P
-	sWeMOJLZ2O4XGUGu/eNfPW3Gk7vwFuFubMOXoT9e9irjpTvDgO3txMTTT0kSCjOGRVA==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1788193624; bh=lqGsDbqKnGj1Hsuc/+fxctV
-	M89MxbuTcHc9yQF3UYuI=; b=FhDjF7//HplBKi+6wFmNy4+WStxV9jreZhIfoYhA3iEv0uXXDm
-	+DTCjfQUgZNSJUyEfnjk0kaajZtbQXXNGQBw==;
-Date: Mon, 31 Aug 2026 17:27:05 +0100
-From: Bradley Morgan <brads@mainlining.org>
-To: hrushirajg23@gmail.com
-CC: linux-kernel@vger.kernel.org, oberpar@linux.ibm.com,
- akpm@linux-foundation.org
-Subject: Re: [PATCH] gcov: use strscpy() instead of strcpy() in init_node()
-In-Reply-To: <20260831144953.324441-1-hrushirajg23@gmail.com>
-Message-ID: <CB6CAE4C-7DBD-4C8D-B9A9-C93EB9531FDB@mainlining.org>
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="WmVGRFYJ"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 01A7611B183;
+	Mon, 31 Aug 2026 18:27:22 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1788193644;
+	h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=fvYNluFuQySNF3hhgPFVZT3o5V52MNrGi+SgvNu4QfQ=;
+	b=WmVGRFYJbQrjpBImYLPLZ/OyKJcCq/P3KEBI9wDx5T4krCeTGW86/OM+lcozfPy4qqw8yR
+	/bILh2/MlyV8FbLwyWCO40xU2yH1BfRoSqB0I/EAsLZdL7HGM4sHQpzaeP+XhS5KIGHN4a
+	vELVLf70M5rjUBcXgE8fg9QbhfqBkYOgUEw7mVONQdHasQCkn0+clmk/6lZOnET/M6EPuF
+	J0WBiLIt9jQqoPsiyoZL1808IU1BIvR/QkyWrjVVY1Wnl0BJQPxtP5fx4sS5RPlqZA5eC5
+	os8l0T+x9I7+U8zjZnuDJ3epOFvNs9d9N+DQS4+JIDhGXeIs4CoxhOBgC6YULg==
+Message-ID: <2b09012a-3cae-4589-b42d-f61d33f2f876@nabladev.com>
+Date: Mon, 31 Aug 2026 18:27:21 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 1/2] dt-bindings: arm: stm32: Document
+ st,stm32mp23/25-syscfg subnodes and cells
+To: Conor Dooley <conor@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Christophe Roullier <christophe.roullier@foss.st.com>,
+ Conor Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>,
+ Rob Herring <robh@kernel.org>, Yannick Fertre <yannick.fertre@foss.st.com>,
+ devicetree@vger.kernel.org, kernel@dh-electronics.com,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
+References: <20260828151216.175020-1-marex@nabladev.com>
+ <20260828-target-operable-ebc87e0bf30a@spud>
+ <0f959651-34d9-4fb2-9e07-238f731c5342@nabladev.com>
+ <20260831-clustered-margarine-80bf19005aad@spud>
+Content-Language: en-US
+From: Marek Vasut <marex@nabladev.com>
+In-Reply-To: <20260831-clustered-margarine-80bf19005aad@spud>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On 31 August 2026 15:49:53 BST, Hrushiraj Gandhi <hrushirajg23@gmail.com>
-wrote:
->node->name is a flexible array member sized to exactly strlen(name) +
->1 bytes at allocation time in new_node(), so this copy can never
->actually overflow. Still, prefer the bounded strscpy() over strcpy()
->on general principle; pass the same strlen(name) + 1 bound the
->allocation used, since sizeof() cannot be applied to a flexible array
->member.
->
->No functional change.
->
->Signed-off-by: Hrushiraj Gandhi <hrushirajg23@gmail.com>
->---
-> kernel/gcov/fs.c | 2 +-
-> 1 file changed, 1 insertion(+), 1 deletion(-)
->
->diff --git a/kernel/gcov/fs.c b/kernel/gcov/fs.c
->index 1d19b1be207a..764918570de1 100644
->--- a/kernel/gcov/fs.c
->+++ b/kernel/gcov/fs.c
->@@ -529,7 +529,7 @@ static void init_node(struct gcov_node *node, struct gcov_info *info,
-> 	}
-> 	node->parent = parent;
-> 	if (name)
->-		strcpy(node->name, name);
->+		strscpy(node->name, name, strlen(name) + 1);
-> }
+On 8/31/26 5:05 PM, Conor Dooley wrote:
+
+Hello Conor,
+
+>>> Sashiko comment here I believe is valid, the syntax here only works if
+>>> there's only the listed compatible present. It doesn't work with
+>>> fallbacks.
+>>
+>> This syntax is used all over the place ?
+>>
+>> Documentation/devicetree/bindings/ata/ahci-platform.yaml-allOf:
+>> Documentation/devicetree/bindings/ata/ahci-platform.yaml-  - $ref:
+>> ahci-common.yaml#
+>> Documentation/devicetree/bindings/ata/ahci-platform.yaml-
+>> Documentation/devicetree/bindings/ata/ahci-platform.yaml-  - if:
+>> Documentation/devicetree/bindings/ata/ahci-platform.yaml-      properties:
+>> Documentation/devicetree/bindings/ata/ahci-platform.yaml-        compatible:
+>> Documentation/devicetree/bindings/ata/ahci-platform.yaml:          contains:
 > 
-> /*
->
->
-LGTM, thanks.
+>                                                                       ^^^^^^^^
+> This is the key difference, you need "contains" for partial matches.
 
-Reviewed-by: Bradley Morgan <brads@mainlining.org>
+Uh ... right ... fixed in V5. Thank you.
 
+>> Documentation/devicetree/bindings/ata/ahci-platform.yaml-            enum:
+>> Documentation/devicetree/bindings/ata/ahci-platform.yaml-              -
+>> qcom,apq8064-ahci
+>> Documentation/devicetree/bindings/ata/ahci-platform.yaml-              -
+>> qcom,ipq806x-ahci
+>>
+>>> pw-bot: changes-requested
+>>>
+>>>>        then:
+>>>>          required:
+>>>>            - "#clock-cells"
+>>>> +        - "#address-cells"
+>>>> +        - "#size-cells"
+>>>
+>>> else, false? But I'm also not sure what the benefit is of requiring
+>>> addr/size cells when the child node is not?
+>> The subnodes of this syscfg node have reg property , see [PATCH v4 0/4]
+>> arm64: dts: st: Add STM32MP2 USB support .
+> 
+> Right, but I was questioning why the properties describing the reg
+> property in children is required when the children (and thus the reg
+> property in them) were not made required.
 
-Maybe Andrew may like to see this?!
---- Thanks!
-https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
+Do you mean this patternProperties should be made required in here ?
+
+"
++patternProperties:
++  "^phy@[0-9a-f]+$":
+"
+
+Could you please give me a hint how to do that ? git grep gives me nothing.
