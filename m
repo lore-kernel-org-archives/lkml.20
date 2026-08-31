@@ -1,90 +1,63 @@
-Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from va-1-113.ptr.blmpb.com (va-1-113.ptr.blmpb.com [209.127.230.113])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16FBB3BB671;
-	Mon, 31 Aug 2026 03:50:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.29.241.158
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62A7C35A384
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 03:51:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.113
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788148229; cv=none; b=oCuLY+p5Z/OqNeFqkjCOLYwaPzf6JjDBnRyE8Dvyvgtgku99bKa849WEw02qOw/4/IOUrHBQyi8CRooL+eNXy0JGb45GEhd2ttUYjFVzmZxt++YSSkBTYItElRwW1l4UkdqUsy4C665NzTbfw8+dFGM0uWszPmHrgy2zEV63t50=
+	t=1788148294; cv=none; b=JRi8EBDUDM0eDxV8ejsfTPTu1GEFoIy388u7HjoXZG/ydWWG3TI321e12fUhL7LUpG2Ie1W9/dooAYTHuxp9YPOVXiJBRZ6dw0qz67OpzPTGCQfThUBsfQJo7pbLQ+TKNFPVkpOoYiIOLEqicxdSrRGTViXiEAjciaaFZBNNy8s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788148229; c=relaxed/simple;
-	bh=T2zwEOSKeJVPvjSKm2GKFRJuXwoncrPadWyEQ19not8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=A5frTtiipyPNbkL5DWfPqSOZZbZd1SyTwuPjo22xnPcGUNuwA8Kfvcr9SyU8aKEstqqxJnCosOuAVIQY0/JKq8N/H4HFo6gBeXv50Zwur14s906dBIqLx/0myOAdoSBDHTLgyTn4WGNFglhf7Uh9GZSBIBHrbH8QI8w1osFvT6w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au; spf=pass smtp.mailfrom=codeconstruct.com.au; dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b=gyxrraBw; arc=none smtp.client-ip=203.29.241.158
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codeconstruct.com.au
+	s=arc-20240116; t=1788148294; c=relaxed/simple;
+	bh=D3NavzyV7KU3YGjx7vQPk6D5wG9vWP7Ie6nPRhzgPho=;
+	h=Cc:From:Date:References:To:Message-Id:Subject:Content-Type:
+	 Mime-Version:In-Reply-To; b=B6I7eZX7uSPKPE+ALR/dV2HGtkAEwMdwb4FX8oP+oaB270wUarZm92vsf839QZOcwFULCfiZNG/XaOo2RGtgaQAjTBXuFI4JC/Xa3qjffQT4JpfNExy2O/tfDtbiQtEznGxBey/eaujhUamCN/bzH92wEl1Ooo7Qk6V9ocKe4ho=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=jjA/nPJe; arc=none smtp.client-ip=209.127.230.113
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b="gyxrraBw"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=codeconstruct.com.au; s=2022a; t=1788147869;
-	bh=PbFhoF6jYTVQDww2xy+ijFIf+3flRX07CkM/MkYCtcE=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=gyxrraBwUMewyZP9zu2YdxFbIxkpU5oSn9zMlfDLhmvJAQsb/NNDgQPKzoBPYnjis
-	 zQWxBBOJ9BAuiCuLrZmJyY3Z92K2sUdikyldhOgBw8n+4lkURcijFoZCdNxLRnpQsp
-	 hsXvdXjBT4G+bIIDvzmjU0PhV+WaRGe2T1lou/sp5cWsdCePearGOFvbFF7KeBMSTc
-	 RHF8OuP87gmyfr9C3zHwifPDCyxEO9a/rjCe9EbEoKRPeFJtpi0BUw3jdWinilPnu+
-	 +5tbBzlSJJilewX3x6Q4bFgMcujao9Aed0j/NtdqhZhGqW8FyGXBkLgVbBy7o2nO44
-	 d9eNT7Rb1O4FQ==
-Received: by codeconstruct.com.au (Postfix, from userid 10004)
-	id BAF3F6844B; Mon, 31 Aug 2026 11:44:29 +0800 (AWST)
-From: James Lee <james@codeconstruct.com.au>
-Date: Mon, 31 Aug 2026 11:43:40 +0800
-Subject: [PATCH 1/7] net: mctp: usblib: Add to parameterized kunit tests.
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="jjA/nPJe"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=2212171451; d=bytedance.com; t=1788148279; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=D3NavzyV7KU3YGjx7vQPk6D5wG9vWP7Ie6nPRhzgPho=;
+ b=jjA/nPJeifN9mW7KHr4BOWLZepw0nt8gzH57iQSoACDQCvdbtqEpAOssisISh911CtFw5b
+ i1VqgCRbrNyBCGfNQhXOYIlcsWbQxcmarAkGEza+InPnT1kJ0YUC7568LxcTFZUIf2eNlb
+ 1LYqyI6h7QaYTBcYScJ0Y3XxTXgKur0XI6pcyqBjzZSj9c4lcG2BSEgyGUBQ7sWKiKez7h
+ LwdPRuGX9yKMGCvzRXbdtgwDX1UBjK7Yv1+fdvxOOPNtG4ENVDyHX0zzw8bVznTprEPZT1
+ HQBrama6/jw8wcdWpDtCb22Psn5TSnzJ2bUXii0kSmk40Xt1Rz6Ne/fWl2sOzw==
+Cc: "Rui Qi" <qirui.001@bytedance.com>, <mark.rutland@arm.com>, 
+	<pjw@kernel.org>, <palmer@dabbelt.com>, <aou@eecs.berkeley.edu>, 
+	<alex@ghiti.fr>, <linux-kernel@vger.kernel.org>, 
+	<linux-trace-kernel@vger.kernel.org>, <linux-riscv@lists.infradead.org>
+From: "Rui Qi" <qirui.001@bytedance.com>
+Date: Mon, 31 Aug 2026 11:50:45 +0800
+References: <20260707121235.759104-1-qirui.001@bytedance.com>
+To: <rostedt@goodmis.org>, <mhiramat@kernel.org>
+Message-Id: <20260901020000.1-qirui.001@bytedance.com>
+X-Lms-Return-Path: <lba+26a94fa35+7a898f+vger.kernel.org+qirui.001@bytedance.com>
+Subject: Re: [PATCH] riscv: ftrace: reject out-of-range non-direct targets
+Content-Type: text/plain; charset=UTF-8
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Mime-Version: 1.0
+X-Original-From: Rui Qi <qirui.001@bytedance.com>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20260707121235.759104-1-qirui.001@bytedance.com>
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260831-dev-mctp-usb-lib-test-v1-1-79699bf67a18@codeconstruct.com.au>
-References: <20260831-dev-mctp-usb-lib-test-v1-0-79699bf67a18@codeconstruct.com.au>
-In-Reply-To: <20260831-dev-mctp-usb-lib-test-v1-0-79699bf67a18@codeconstruct.com.au>
-To: Jeremy Kerr <jk@codeconstruct.com.au>, 
- Matt Johnston <matt@codeconstruct.com.au>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-hardening@vger.kernel.org, James Lee <james@codeconstruct.com.au>
-X-Mailer: b4 0.14.2
 
-Add parameterized tests to cover worst case scenarios for packet
-splitting and length.
+Hi Steven,
 
-Signed-off-by: James Lee <james@codeconstruct.com.au>
----
- drivers/net/mctp/mctp-usblib-test.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+Gentle ping on this patch. It's been over a month since submission
+and I'd appreciate your review when you have a chance.
 
-diff --git a/drivers/net/mctp/mctp-usblib-test.c b/drivers/net/mctp/mctp-usblib-test.c
-index 9df401a914ff537207911f03bd08f32b5a5e20d1..4c27307900fb6116572bc9d89f3def6f06c30397 100644
---- a/drivers/net/mctp/mctp-usblib-test.c
-+++ b/drivers/net/mctp/mctp-usblib-test.c
-@@ -386,12 +386,18 @@ static const struct mctp_usblib_test_pkt_span mctp_usblib_test_pkt_spans[] = {
- 	{ "1p2x-split-mctphdr", 1, { 16 }, 2, { 6, 10 } },
- 	/* Single packet split over 3 transfers, middle entirely continuation */
- 	{ "1p3x-split", 1, { 12 }, 3, { 4, 4, 4 } },
-+	/* A packet split over 5 transfers, splitting on and between each header. */
-+	{ "1p5x-split", 1, { 12 }, 5, { 3, 1, 1, 3, 4}},
- 	/* Max-sized single transfer */
- 	{ "1p1x-large", 1, { 8191 }, 1, { 8191 } },
- 	/* Two large packets, split at the worst-case for allocation, with a
- 	 * single byte continuing the span
- 	 */
--	{ "2p2x-large-split", 2, { 8190, 8190 }, 2, { 8191, 8189 } },
-+	{ "2p2x-large-split", 2, { 8190, 8191 }, 2, { 8191, 8190 } },
-+	/* Three large packets, split at the worst-case for allocation,
-+	 * with a single byte continuing each span
-+	 */
-+	{ "3p3x-large-split", 3, { 8190, 8191, 8191 }, 3, { 8191, 8191, 8190 } },
- };
- 
- KUNIT_ARRAY_PARAM(mctp_usblib_test_rx_pkt_span, mctp_usblib_test_pkt_spans,
+The patch fixes ftrace_modify_call() on RISC-V to properly validate
+old_addr/addr instead of always treating sites as FTRACE_ADDR, and
+rejects out-of-range non-direct targets that can't be dispatched
+through the existing ftrace_caller path.
 
--- 
-2.47.3
-
+Thanks,
+Rui
