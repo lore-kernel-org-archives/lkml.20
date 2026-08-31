@@ -1,304 +1,142 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f170.google.com (mail-lj1-f170.google.com [209.85.208.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 535AD483829;
-	Mon, 31 Aug 2026 14:02:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 498DE4BB5A4
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 14:02:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788184955; cv=none; b=XhFBNyYuvAqSbOXlIp8cW2q/Wo1REotFAYLRkdd+kGXr2H0iioL9s7XS2sHpLKiruJUkY6oFqwK1oIsshmTdCx4K7hGTVNUtIBs+6gy6pdhwG9ENt7HJtt1CvSzgplVy1oNFhBLp/MEo9fKHXJbsChImBoRjYgONyaKdGZtsgqk=
+	t=1788184959; cv=none; b=UFKwKcdZL5ICdsqrnI62go15icFM1m6PHwulleBQRb0pPEa2tJeCT9OxQwKQF46YQe+2Gy6a5nazniImpPE68NlzO+vxZBlLxQYCbCgiGT7vB9BuicRn7+cdBuVZN6JAA+NEm7sqJiF26CSvMKREopFdXy5nGDyw4jA8zEmD95k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788184955; c=relaxed/simple;
-	bh=0AaOui0ATZSYAH51kcMfhKYq5p5RUHpEf2ydKAATlVk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=sOR2NrOD6atc/4WYfGUjpIrVXGh3EJbDG5v6GimCvOBcxzSnyAGNExSBywndZUGMQgGHx204ZrfuSMLm+cz6DRLv1da57gBWwjSNa5Rj+Sh+3BoXBSzP47rUruuD3TyE6bLSbkXLvuRTrymwUgPOi8qv8B0G7tIWS8Qe1GCXh+4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=IXueXC7X; arc=none smtp.client-ip=220.197.31.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1788184959; c=relaxed/simple;
+	bh=j0rR9MGESIIEuqcISsQKYNt5XVOHewIyabitt0SxDbk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Lzrew8YC1WeeG1dclvBlJg9bqS5jgzzMaWtPqFG0zNRLQehreQXA62tLscOGx9V4+NTF2RgY03wB44sJsbVCeEtxdgRcwiAlT9e/i5GEBpb27h3u7ZHaqwab73bdfqd+o4d7OLsVSPEJlaj90lgJqFWWlA1pjn49WPYz7b7LGsQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=eEhWzK95; arc=none smtp.client-ip=209.85.208.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="IXueXC7X"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=SU
-	eQo8DwvNCB8W1/pfXYlm6GLs+D/BOTHcngtPxlKog=; b=IXueXC7XPf9lDaoyis
-	VM/5osJ2h0EBzM9AqOb8P8CClxk0flnJ9YkcFqWCv8vkXBniQIwhNULhvUza9jkm
-	C79T1IZKlcknvn18bcmsML2XMqW8wDSmjmubj3GCbxL1AAqR45og+OKeHLKMQEUW
-	v5m72dZltI1TyP/q6ebFTWn2s=
-Received: from localhost (unknown [])
-	by gzsmtp5 (Coremail) with SMTP id QCgvCgAnuBc_iZVq6U15PA--.28139S2;
-	Mon, 31 Aug 2026 22:01:36 +0800 (CST)
-From: Hui Su <sh_def@163.com>
-To: bpf@vger.kernel.org
-Cc: ast@kernel.org,
-	daniel@iogearbox.net,
-	andrii@kernel.org,
-	eddyz87@gmail.com,
-	memxor@gmail.com,
-	martin.lau@linux.dev,
-	song@kernel.org,
-	yonghong.song@linux.dev,
-	jolsa@kernel.org,
-	emil@etsalapatis.com,
-	ihor.solodrai@linux.dev,
-	shuah@kernel.org,
-	yatsenko@meta.com,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: [PATCH bpf v2 2/2] selftests/bpf: add RHASH iteration stress test
-Date: Mon, 31 Aug 2026 22:01:32 +0800
-Message-ID: <20260831140132.117755-2-sh_def@163.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260831140132.117755-1-sh_def@163.com>
-References: <20260831140132.117755-1-sh_def@163.com>
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="eEhWzK95"
+Received: by mail-lj1-f170.google.com with SMTP id 38308e7fff4ca-3a20bf98748so2052691fa.2
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 07:02:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1788184954; x=1788789754; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=+6NgNBrKED1HZLTTfXtmSzKHM84oxFz3evM2YzN+h9A=;
+        b=eEhWzK95HTVNoBTxreBIhtX/5MlJo2NiX4TgxkUNd17yKqY5z/3KiquFlU6nqaEN9r
+         zfSPbYNHnHaRLE4wPFERjMmva4HM52KnKroaPYmYdYBW6E7o7HC/Cq5n9iZjB4h/Jzv9
+         tkNI6MwnsJqCT1eQX5EJCmHg3rSBZAjQmgjVtZ7+RJyaPYbnQtlCRnzJ6BKYTqfxOznK
+         ARHYkxRK6i9bEEZ9GP89e/Ay2rVxozQcqBAgMPjamfUkS4LfgDNC4J5h1p48TFPr9z+8
+         BJrY16j0P6waHKEL7DZnFOqBHFa0itDsIZjFjaLF/FT8IA8j2XGY/l8MeGLuFaDHtVU8
+         pzAg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788184954; x=1788789754;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+6NgNBrKED1HZLTTfXtmSzKHM84oxFz3evM2YzN+h9A=;
+        b=d8PPiTJvxPFXDlRzU6d3X9wQq+z4LqDzxkSPAFXlo9/HjwlJEAucFlSNsNbJwd74CL
+         oq91G6q5rqPEGYAqbCmoAcuA/Iektg0a5oAQunPlzDayZOtE7R/ahdgS3wBLWWjGWVAV
+         N18pb+2GS3dND8TuV30qRo34fOTqClTeN8ouzPfgj0fUMH6xetDGAtzY7v0vxBQORrfj
+         91wXt6x1IV1p8X3EPOAck2CjqezcO9Yi8cU2ePoVabqxfi69QLgUPahFEp83x63Z1AuZ
+         +GMP8mMmzB+1iHyDOyeUglKOQBH4TFS9fGSYRSiV8BydkciIJy4zTWvwrltUcSIPj+YH
+         LaZg==
+X-Forwarded-Encrypted: i=1; AKwUvBzx5+yLHAFv9lkP1XLwYCT3GwN15aqtJFjEluEPcHjkOftcTgLSkzt5ONaiMRJIpYceso3Q9gFy7ZVamr8=@vger.kernel.org
+X-Gm-Message-State: AFuF++nuqephlCk6MbvAJvqCbQ+90it4RQ7AVdk9nNpomxHP05V61WA/
+	gqrq9fRZLt+7eemP9NaDaQEkdoBR5tIzlSpnNBThKYqHhN/FfZdCfs/oM3FTt3tjwrzg+YNa7VD
+	cA+AI9d0=
+X-Gm-Gg: AYBFou0Ah4HbXlCTUy2SjtMf1UFKGKf4qScXKr8CIpQFTdBE3gjs8AammDc3KkIFh0p
+	rGEF7e+y30jdniqQAR9krdEPq5F7ppoTq+9yjHV2xTI53ygv2TVJmZpVp1NjaIDz+PeIHfuzEok
+	6Ip6DUZ0BvM98vlo/IoDricNHN3FgWt1XyKMXyxob5cYV7Rn7D1hGOHzqyuveEmS5h37ZCgVyLy
+	npeI4mMUNnZrSEKILVZO42w7X/EiYDFj1pdDdY2g/ilGCm5flZNeUL+enIuQVZrrjYe3k51m4sK
+	5QmW4LfI9zJW76z9Nq75pg2TnUXarYaqeGhfGgvyc2MQRc0UB7PJKJuNbtfJU0xqw9GMQWJfLEZ
+	P+Ollto36AlvafUkAK7nvz/qN/+OfFmbLFsZq1JqqHseSUpwyIvmj9HOJdbvdHpVv+r9KMGlPum
+	+FX/uWemCDFkzlusBQfipnLUqEONBgHZvlbHo0S0C1N+/+8BhxkEnGulPBfZo=
+X-Received: by 2002:a05:651c:a107:10b0:3a3:38e2:aea1 with SMTP id 38308e7fff4ca-3a338e2b1eamr1597451fa.2.1788184954189;
+        Mon, 31 Aug 2026 07:02:34 -0700 (PDT)
+Received: from localhost ([202.127.77.110])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396d77f7643sm5961747a91.3.2026.08.31.07.02.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Aug 2026 07:02:32 -0700 (PDT)
+Date: Mon, 31 Aug 2026 22:02:30 +0800
+From: Heming Zhao <heming.zhao@suse.com>
+To: Joseph Qi <joseph.qi@linux.alibaba.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Mark Fasheh <mark@fasheh.com>, Joel Becker <jlbec@evilplan.org>, ocfs2-devel@lists.linux.dev, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/4] ocfs2: restrict OCFS2_INVALID_SLOT suballoc slot to
+ system inodes
+Message-ID: <apWJLyCNwqfdiRQb@p15>
+References: <20260831062848.2743436-1-joseph.qi@linux.alibaba.com>
+ <20260831062848.2743436-2-joseph.qi@linux.alibaba.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:QCgvCgAnuBc_iZVq6U15PA--.28139S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxKF1rAFWrCw15ur43Kw45Jrb_yoWxtryDpF
-	W0v34akr4rXF48Jw4fK3y2grZ8Kr4rZw4UGrZ5Kw4fAw47K3sFqr1xKF4UtFn3XrWDZ34Y
-	9ws3KrW8WrWrZrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UI2NNUUUUU=
-X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbCwQFy0WqViUEMEQAA3J
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260831062848.2743436-2-joseph.qi@linux.alibaba.com>
 
-Add a stress test for bpf_for_each_map_elem() on
-BPF_MAP_TYPE_RHASH. Update and delete entries from two threads while
-repeatedly running the BPF callback, and record the maximum number of
-callback invocations in one walk.
+On Mon, Aug 31, 2026 at 02:28:45PM +0800, Joseph Qi wrote:
+> ocfs2_validate_inode_block() currently permits i_suballoc_slot to be
+> OCFS2_INVALID_SLOT for any dinode.  Only system inodes created by
+> mkfs.ocfs2 are allocated from the global allocator and thus
+> legitimately carry this value; regular inodes are always allocated
+> from a per-slot suballocator and hence must have a valid slot.
+> 
+> If a corrupted regular inode with OCFS2_INVALID_SLOT is accepted,
+> ocfs2_remove_inode() will pass the slot to ocfs2_get_system_file_inode()
+> and get_local_system_inode() will hit BUG_ON(slot == OCFS2_INVALID_SLOT)
+> when the inode is deleted.  This can be triggered by an unprivileged
+> user unlinking such a corrupted file.
+> 
+> Reject OCFS2_INVALID_SLOT for non-system dinodes during validation,
+> while still accepting it for system inodes.
+> 
+> Fixes: fe7a283b3916 ("ocfs2: add suballoc slot check in ocfs2_validate_inode_block()")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
 
-Use a large map capacity and a smaller working set so the test also
-covers sparse maps where max_entries greatly exceeds current occupancy.
-Concurrent rehashing may cause duplicate visits, which are permitted by
-RHASH's best-effort iteration semantics. Verify that
-bpf_for_each_map_elem() does not exceed the working set in one walk and
-that at least one walk consumes the full working-set-sized budget.
-
-Signed-off-by: Hui Su <sh_def@163.com>
----
-Changes in v2:
-- Use a large map capacity and a smaller BPF rodata working set.
-- Skip the stress test when fewer than two CPUs are available.
-- Avoid result assertions unless a program run completed successfully.
-- Record full walks to make vacuous stress passes less likely.
-- Use the BPF rodata working set as the single source of truth.
-
-Link: https://lore.kernel.org/bpf/20260828183326.3330530-2-sh_def@163.com/
----
- .../testing/selftests/bpf/prog_tests/rhash.c  | 113 ++++++++++++++++++
- tools/testing/selftests/bpf/progs/rhash.c     |  41 +++++++
- 2 files changed, 154 insertions(+)
-
-diff --git a/tools/testing/selftests/bpf/prog_tests/rhash.c b/tools/testing/selftests/bpf/prog_tests/rhash.c
-index 98bb66907b7f..f1a0a8e3fc1a 100644
---- a/tools/testing/selftests/bpf/prog_tests/rhash.c
-+++ b/tools/testing/selftests/bpf/prog_tests/rhash.c
-@@ -3,12 +3,16 @@
- #include <test_progs.h>
- #include <string.h>
- #include <stdio.h>
-+#include <pthread.h>
-+#include <stdatomic.h>
- #include "rhash.skel.h"
- #include "bpf_iter_bpf_rhash_map.skel.h"
- #include <linux/bpf.h>
- #include <linux/perf_event.h>
- #include <sys/syscall.h>
- 
-+#define RHASH_STRESS_DURATION_NS	(3ULL * 1000000000ULL)
-+
- static void rhash_run(const char *prog_name)
- {
- 	struct rhash *skel;
-@@ -53,6 +57,112 @@ static int rhash_map_create(__u32 max_entries, __u64 map_extra)
- 			      sizeof(__u32), sizeof(__u64), max_entries, &opts);
- }
- 
-+struct rhash_stress_arg {
-+	int map_fd;
-+	atomic_bool *stop;
-+	__u32 nr_keys;
-+	__u32 seed;
-+};
-+
-+static void *rhash_stress_update(void *data)
-+{
-+	struct rhash_stress_arg *arg = data;
-+	__u64 value = 0;
-+	__u32 key;
-+	__u32 i;
-+
-+	while (!atomic_load(arg->stop)) {
-+		for (i = 0; i < arg->nr_keys && !atomic_load(arg->stop); i++) {
-+			key = ((__u32)i * 2654435761U + arg->seed) % arg->nr_keys;
-+			bpf_map_update_elem(arg->map_fd, &key, &value, BPF_ANY);
-+		}
-+		for (i = 0; i < arg->nr_keys && !atomic_load(arg->stop); i++) {
-+			key = ((__u32)i * 2654435761U + arg->seed) % arg->nr_keys;
-+			bpf_map_delete_elem(arg->map_fd, &key);
-+		}
-+	}
-+
-+	return NULL;
-+}
-+
-+static void rhash_iter_stress(void)
-+{
-+	struct rhash *skel = NULL;
-+	struct rhash_stress_arg args[2];
-+	LIBBPF_OPTS(bpf_test_run_opts, opts);
-+	atomic_bool stop = false;
-+	bool ran = false;
-+	__u64 start;
-+	pthread_t threads[2];
-+	bool created[2] = {};
-+	struct bpf_program *prog;
-+	int nr_cpus;
-+	__u32 working_set;
-+	int map_fd, err, i;
-+
-+	nr_cpus = libbpf_num_possible_cpus();
-+	if (!ASSERT_GT(nr_cpus, 0, "num_possible_cpus"))
-+		return;
-+	if (nr_cpus < 2) {
-+		test__skip();
-+		return;
-+	}
-+
-+	skel = rhash__open();
-+	if (!ASSERT_OK_PTR(skel, "rhash__open stress"))
-+		return;
-+	working_set = skel->rodata->stress_working_set;
-+
-+	prog = bpf_object__find_program_by_name(skel->obj,
-+						"test_rhash_iter_stress");
-+	if (!ASSERT_OK_PTR(prog, "find stress program"))
-+		goto cleanup;
-+	bpf_program__set_autoload(prog, true);
-+
-+	err = rhash__load(skel);
-+	if (!ASSERT_OK(err, "stress skel_load"))
-+		goto cleanup;
-+
-+	map_fd = bpf_map__fd(skel->maps.stress_rhmap);
-+	for (i = 0; i < ARRAY_SIZE(threads); i++) {
-+		args[i].map_fd = map_fd;
-+		args[i].stop = &stop;
-+		args[i].nr_keys = working_set;
-+		args[i].seed = i * 977;
-+		err = pthread_create(&threads[i], NULL, rhash_stress_update,
-+				     &args[i]);
-+		if (!ASSERT_OK(err, "pthread_create"))
-+			goto stop_threads;
-+		created[i] = true;
-+	}
-+
-+	start = get_time_ns();
-+	while (get_time_ns() - start < RHASH_STRESS_DURATION_NS) {
-+		err = bpf_prog_test_run_opts(bpf_program__fd(prog), &opts);
-+		if (!ASSERT_OK(err, "stress prog run"))
-+			goto stop_threads;
-+		ran = true;
-+	}
-+
-+stop_threads:
-+	atomic_store(&stop, true);
-+	for (i = 0; i < ARRAY_SIZE(threads); i++)
-+		if (created[i])
-+			pthread_join(threads[i], NULL);
-+
-+	if (err || !ran)
-+		goto cleanup;
-+
-+	ASSERT_GT(skel->bss->stress_max_visits, 0, "stress callback visits");
-+	ASSERT_GT(skel->bss->stress_full_walks, 0, "stress full walks");
-+	ASSERT_EQ(skel->bss->stress_overruns, 0, "stress callback bound");
-+	printf("stress max callback visits: %llu (limit %u)\n",
-+	       (unsigned long long)skel->bss->stress_max_visits,
-+	       working_set);
-+cleanup:
-+	rhash__destroy(skel);
-+}
-+
- static void rhash_map_extra_presize(void)
- {
- 	const __u32 max_entries = 1024;
-@@ -180,4 +290,7 @@ void test_rhash(void)
- 
- 	if (test__start_subtest("test_rhash_iter"))
- 		rhash_iter_test();
-+
-+	if (test__start_subtest("test_rhash_iter_stress"))
-+		rhash_iter_stress();
- }
-diff --git a/tools/testing/selftests/bpf/progs/rhash.c b/tools/testing/selftests/bpf/progs/rhash.c
-index fc2dac3a719e..3d7201430bab 100644
---- a/tools/testing/selftests/bpf/progs/rhash.c
-+++ b/tools/testing/selftests/bpf/progs/rhash.c
-@@ -9,11 +9,18 @@
- 
- #define ENOENT 2
- #define EEXIST 17
-+#define RHASH_STRESS_MAX_ENTRIES (1U << 20)
- 
- char _license[] SEC("license") = "GPL";
- 
- int err;
- 
-+const volatile __u32 stress_working_set = 4096;
-+
-+volatile __u64 stress_max_visits;
-+volatile __u64 stress_overruns;
-+volatile __u64 stress_full_walks;
-+
- struct elem {
- 	char arr[128];
- 	int val;
-@@ -27,6 +34,20 @@ struct {
- 	__type(value, struct elem);
- } rhmap SEC(".maps");
- 
-+struct {
-+	__uint(type, BPF_MAP_TYPE_RHASH);
-+	__uint(map_flags, BPF_F_NO_PREALLOC);
-+	__uint(max_entries, RHASH_STRESS_MAX_ENTRIES);
-+	__type(key, __u32);
-+	__type(value, __u64);
-+} stress_rhmap SEC(".maps");
-+
-+static __u64 stress_iter_cb(struct bpf_map *map, __u32 *key, __u64 *val,
-+			    void *ctx)
-+{
-+	return 0;
-+}
-+
- SEC("syscall")
- int test_rhash_lookup_update(void *ctx)
- {
-@@ -246,3 +267,23 @@ int test_rhash_delete_nonexistent(void *ctx)
- 	err = 0;
- 	return 0;
- }
-+
-+SEC("syscall")
-+int test_rhash_iter_stress(void *ctx)
-+{
-+	/*
-+	 * Concurrent rehash may produce duplicate visits. Check that the
-+	 * helper still gives one walk a finite callback bound; no snapshot
-+	 * or unique-visit guarantee is expected here.
-+	 */
-+	long visits;
-+
-+	visits = bpf_for_each_map_elem(&stress_rhmap, stress_iter_cb, NULL, 0);
-+	if (visits > stress_max_visits)
-+		stress_max_visits = visits;
-+	if (visits > stress_working_set)
-+		stress_overruns++;
-+	if (visits == stress_working_set)
-+		stress_full_walks++;
-+	return 0;
-+}
--- 
-2.54.0
-
+LGTM.
+Reviewed-by: Heming Zhao <heming.zhao@suse.com>
+> ---
+>  fs/ocfs2/inode.c | 19 +++++++++++++++++--
+>  1 file changed, 17 insertions(+), 2 deletions(-)
+> 
+> diff --git a/fs/ocfs2/inode.c b/fs/ocfs2/inode.c
+> index 180107a11046..eda50f13ffb5 100644
+> --- a/fs/ocfs2/inode.c
+> +++ b/fs/ocfs2/inode.c
+> @@ -1520,8 +1520,23 @@ int ocfs2_validate_inode_block(struct super_block *sb,
+>  		goto bail;
+>  	}
+>  
+> -	if (le16_to_cpu(di->i_suballoc_slot) != (u16)OCFS2_INVALID_SLOT &&
+> -	    (u32)le16_to_cpu(di->i_suballoc_slot) > OCFS2_SB(sb)->max_slots - 1) {
+> +	/*
+> +	 * Only system inodes created by mkfs.ocfs2 are allocated from the
+> +	 * global allocator and thus legitimately carry OCFS2_INVALID_SLOT.
+> +	 * Regular inodes are always allocated from a per-slot suballocator.
+> +	 * If a regular inode with OCFS2_INVALID_SLOT was accepted here,
+> +	 * deleting it would pass the slot to get_local_system_inode() via
+> +	 * ocfs2_remove_inode() and trigger BUG_ON(slot == OCFS2_INVALID_SLOT).
+> +	 */
+> +	if (le16_to_cpu(di->i_suballoc_slot) == (u16)OCFS2_INVALID_SLOT) {
+> +		if (!(le32_to_cpu(di->i_flags) & OCFS2_SYSTEM_FL)) {
+> +			rc = ocfs2_error(sb,
+> +					 "Invalid dinode %llu: suballoc slot %u for non-system inode\n",
+> +					 (unsigned long long)bh->b_blocknr,
+> +					 le16_to_cpu(di->i_suballoc_slot));
+> +			goto bail;
+> +		}
+> +	} else if ((u32)le16_to_cpu(di->i_suballoc_slot) > OCFS2_SB(sb)->max_slots - 1) {
+>  		rc = ocfs2_error(sb, "Invalid dinode %llu: suballoc slot %u\n",
+>  				 (unsigned long long)bh->b_blocknr,
+>  				 le16_to_cpu(di->i_suballoc_slot));
+> -- 
+> 2.39.3
+> 
