@@ -1,229 +1,140 @@
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43622349B0D
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 04:58:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DB45207A32;
+	Mon, 31 Aug 2026 05:01:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788152300; cv=none; b=UtApVlufir9fuBZj73l51T9cn9vxA7QD1A2oi3HObTsXlZ74Aw5mNIZtYo6SbuPWEMOPhsDgohT8AzBfdDTMoBPnEsU7Ol3cIYi5UAdLPi0QBPd4hRsC459zNlLmYwDMEdG7wKw/Xtrnq6ieS9HlBZG2OGSravVIr7OuOf6b6Hw=
+	t=1788152494; cv=none; b=b9Ft2zs0qhnIK7GbXUVqQZ93oK7Bs3WQ7bSCVGQjJCyTAPrhSo833gOym0AqTJSp1enU7IfK5014hSx4UcK/bdGAI1VuXinBHh+iEVgYf+eQBspRvzoAH8paveTAsTXcbTZpviMRVX8j8QtMs5AFh7YYP28PNrVcOrqYguRT+p4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788152300; c=relaxed/simple;
-	bh=C5e/TkXFiieLUlHtf0Rh7Lv20QTCszBHR/KFzsu98Rc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=q6y3YZ/yvZkbWuQWMuTNbJlJtnNvlf00oQHGfVTLeACoLuKRfs9wIKpG0XTnY046JSFfS4MDD2W52UVj4LGAu9TAQ0haDlici+be/vu3ROAfsh17sp1XrR3XkL3kucPSaOyaLj1yixSHxNfpxWBOE3kXDrPyh79DnpjY6HO3fY0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OKKHN99w; arc=none smtp.client-ip=209.85.214.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788152494; c=relaxed/simple;
+	bh=zMHU9Xj3SzM3xmHQSC2knuRRMmoVMv7BrIS9wMud8Xc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=LFegoim363N2JtaghSGXHmmki3re72e+adeNyxTY02O9yfKI02iGWw9IctJF3J+3tRYKMj0R4UQFpdxxX97ovHD9fTb89Jkjm0LDBufZukPy6J2m6hXugb3uSF/+dnsy5F0HJfCADROWlX/CaQIYLDmXqGJ6ZcHcdcAZgEHZFC4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=H+e4mRZq; arc=none smtp.client-ip=192.198.163.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OKKHN99w"
-Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2d9004f39d3so11733285ad.2
-        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 21:58:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788152299; x=1788757099; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=en4AmD5hCeuCuRbL6FUrsGO5StL0i22HAbZmjfcxvuw=;
-        b=OKKHN99wwB05q6EViC1WRK70ZdFmQL0hahe0titUWWoKqNvpTIvivZvUHFFu+0wFnK
-         4O7YKAcnbpFQ6gBr5bURnFghacUZd8iGUYAbAfdXJiUmgX6IEGqr+tNM0Np/QEWYGgo+
-         6Ne7wr6yeqZ4csK1v/Rx+ZiA92Sr7L6eHHh4icULF6r1gxHRktHFr2x9q67eQ0CiqeYV
-         NLfgw5NnG/9KCZtRIsNAfu++aOU/pMM60+kuc1jNe/iZPJ9WZg04z9OxJB07CAh0ZrSk
-         hLpclFVe64+zxVHoHTus1e8QP8TZ+w389mx5jj3+OrBKoCyXiBFxrai/toisai8o7TZf
-         tvhA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788152299; x=1788757099;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=en4AmD5hCeuCuRbL6FUrsGO5StL0i22HAbZmjfcxvuw=;
-        b=DTYjhVm5tdskipSsOUHRBhx0dWg3K9cUYQRVVFm8NQJlU7r0qJvf8qmuBZJb2orUMY
-         C6ykWa4stUWHfqToO+4Y5O8l2hYhbej8u0sCx+5MO557VF2jszyx4qQ4X9hPaXVLcZQA
-         0UVHu13EhKHfTzwBKIV3kS8Qe/fDhprITocVqlnterwjHhfCqAXwZb/hJ5V9nXWFXWhc
-         nEETfWL89njk0i2KbVySLlkzCZOLJxtiF0zXJ7S7hEXNRqttKlAW3peLKQLN3MkX4nPO
-         tCFYEbuHsGkCKwOZWnrZ8QPkYjdsNmDFcRNW0jq0H4q+P7pMmTeEQQOanvGai51bYdvm
-         ju0w==
-X-Forwarded-Encrypted: i=1; AKwUvBx5qH+xyesSxPBqWkf6aX/tD1Hh9tIGFKu+spcCd+ANaRa3NYsDagbhHm6DvN/G8RU/x+blT+Qa/fvg9gc=@vger.kernel.org
-X-Gm-Message-State: AFuF++nl77s8RygjxYbXKoFMRNcyOcTzp2Q7FFV9q//u0kdrGXnb9J5z
-	4ih1iXwQGMzuoV9tBYGLPYM5yWvHvQR984riaFp+6R/fcUDGeE4x8u/c
-X-Gm-Gg: AYBFou3/5BI+4ZeclEAhWwv+8Eh+rOT89Emvvvjnb6nh0LcLB/144CnWBur/EzelpQ3
-	qrhJuNDpa9VXBGUwaWbwlK1laxuRpCc1pezq/CqRdjYz0nlWJzrY1p6XtoPufocMsmHSNdgR8z9
-	zJ8wmmccMiwkq3cOnPFT6sucQuBzf2nlmL6HJDt75tM5OOBKQb9mxs49saNu0aVd6IVQob4/91d
-	emXQeS7PKMh4kJb46OIL+LTfKSUWjL+ieVKzF9zOBvaxkK5JbaOZn6Eas0VZFRNTkWp8z4eibn5
-	ecgyVcHBoxWytDNvsPm6xVChL9v1mMI1G4gZXsPdZcoRdkCdEnhocKQFZtDeWrb9V2AZ42qnlnP
-	L360ordgyi+lD3Pw8xye4/zKuG9xKdBzpSTjcprujn2cYKvcwm7sduLNznwXgRLA6lnA4bcJ+hM
-	0W4RGWl5wEusfKrLDB4zwewKJH26kYkTeT7CeySndLowIArljiYzqPo5oCpoXLognE13kPnARRa
-	Tb1bDyS6oMfR8Vrjfot+RlNqEb2Mwgc7w==
-X-Received: by 2002:a17:90b:2e4b:b0:393:19a3:4f1 with SMTP id 98e67ed59e1d1-396d0d7b9bdmr35544502a91.6.1788152298604;
-        Sun, 30 Aug 2026 21:58:18 -0700 (PDT)
-Received: from li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com ([49.43.112.37])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3286f8094dasm27903206eec.13.2026.08.30.21.58.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 30 Aug 2026 21:58:18 -0700 (PDT)
-Date: Mon, 31 Aug 2026 10:28:12 +0530
-From: Mukesh Kumar Chaurasiya <mkchauras@gmail.com>
-To: Gautam Menghani <gautam@linux.ibm.com>
-Cc: maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com, 
-	chleroy@kernel.org, ritesh.list@gmail.com, sshegde@linux.ibm.com, 
-	linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] powerpc/configs: Add debug configs for debugging
-Message-ID: <apUJnx1jpdfHLaVa@li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com>
-References: <20260827121309.94434-1-gautam@linux.ibm.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="H+e4mRZq"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788152492; x=1819688492;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=zMHU9Xj3SzM3xmHQSC2knuRRMmoVMv7BrIS9wMud8Xc=;
+  b=H+e4mRZqTsLMbTRl0+icIZysD8wEvhyG7+pIPrYYTXqm6lypbHg9DWQ1
+   yaMm9NJaQxsUxGeeUUyqbk5VQ6APpcpq06XaIBUIJarO8TXRXMAgE/j1L
+   nDGkzeATd+OTGcq6YKMCUyEo4mcO63jwH+CZllot3PzrrPn119dKOIxs8
+   EUB9SnBZBX4PmL7VkbMDjKTAz8eokACU/xqzOn+mh6hxWlSj1LxQjVRLP
+   2J/mj2QGDV8zU5gf3gNwlC2YBReqCE7GQQX832I8fMSK8/DXLiAPLo1w6
+   78A1zdd2pLL18dk+1kXCSkr4KGCzFXmHM9HIaeFaVtNhYJSvLQeDPvfNl
+   g==;
+X-CSE-ConnectionGUID: LEzlPGJWTAq2F9O0g4gj7Q==
+X-CSE-MsgGUID: rl4Q1lJ+T6+xeEPBNxDLkA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11891"; a="76094675"
+X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
+   d="scan'208";a="76094675"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Aug 2026 22:01:32 -0700
+X-CSE-ConnectionGUID: QmEgMgowTGSdqlG9xkxmlA==
+X-CSE-MsgGUID: P8+obPsxQ7e1jTK0LYsT9g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
+   d="scan'208";a="293500149"
+Received: from unknown (HELO [10.238.2.33]) ([10.238.2.33])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Aug 2026 22:01:29 -0700
+Message-ID: <f7a3b14b-d31c-4a46-99e0-055761d631a9@linux.intel.com>
+Date: Mon, 31 Aug 2026 13:01:26 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260827121309.94434-1-gautam@linux.ibm.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 0/4] KVM: TDX: Validate directly configurable CPUID
+ bits
+To: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>,
+ "kvm@vger.kernel.org" <kvm@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Cc: "Gao, Chao" <chao.gao@intel.com>, "seanjc@google.com"
+ <seanjc@google.com>,
+ "dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
+ "kas@kernel.org" <kas@kernel.org>, "Li, Xiaoyao" <xiaoyao.li@intel.com>,
+ "pbonzini@redhat.com" <pbonzini@redhat.com>,
+ "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>,
+ "nik.borisov@suse.com" <nik.borisov@suse.com>
+References: <20260827031837.2863609-1-binbin.wu@linux.intel.com>
+ <e2f8f7976ac6a54e0bbda0e65ed9990940d9fef3.camel@intel.com>
+ <d2efe512-e4fe-407f-96a8-b274fef23382@linux.intel.com>
+ <1deddc78d14326b378ddd62ad99c21d66da401e6.camel@intel.com>
+Content-Language: en-US
+From: Binbin Wu <binbin.wu@linux.intel.com>
+In-Reply-To: <1deddc78d14326b378ddd62ad99c21d66da401e6.camel@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, Aug 27, 2026 at 05:43:08PM +0530, Gautam Menghani wrote:
-> Kernel has multiple config options to run extra validation checks that
-> can help catch bugs. Define new configs for major subsystems to
-> make it easy to enable the debug config options for a given area.
+On 8/29/2026 12:58 AM, Edgecombe, Rick P wrote:
+> On Fri, 2026-08-28 at 11:19 +0800, Binbin Wu wrote:
+>>>
+>>> But it isn't a kernel bug, so I'd think to punt on this and let TDX module
+>>> figure out a solution if/when the time comes. Probably various opt-in knobs
+>>> to allow for working around it.
+>>
+>> Do you mean on the old platforms, the according TDX module versions add opt-in
+>> knobs to allow the "effective 1 -> directly configurable" change?
 > 
-> Signed-off-by: Gautam Menghani <gautam@linux.ibm.com>
-> ---
-> v1 -> v2:
-> 1. Split the enablement of configs into pseries and powernv configs.
-> 
->  arch/powerpc/Makefile                    | 32 ++++++++++++++++++++++++
->  arch/powerpc/configs/common_debug.config | 11 ++++++++
->  arch/powerpc/configs/locks_debug.config  | 13 ++++++++++
->  arch/powerpc/configs/lockup_debug.config |  4 +++
->  arch/powerpc/configs/mm_debug.config     | 24 ++++++++++++++++++
->  5 files changed, 84 insertions(+)
->  create mode 100644 arch/powerpc/configs/common_debug.config
->  create mode 100644 arch/powerpc/configs/locks_debug.config
->  create mode 100644 arch/powerpc/configs/lockup_debug.config
->  create mode 100644 arch/powerpc/configs/mm_debug.config
-> 
-> diff --git a/arch/powerpc/Makefile b/arch/powerpc/Makefile
-> index 9385db478c59..818aacace875 100644
-> --- a/arch/powerpc/Makefile
-> +++ b/arch/powerpc/Makefile
-> @@ -352,6 +352,38 @@ ppc64_randconfig:
->  	$(Q)$(MAKE) KCONFIG_ALLCONFIG=$(srctree)/arch/powerpc/configs/64-bit.config \
->  		-f $(srctree)/Makefile randconfig
-> 
-> +generated_configs += pseries_debug_defconfig
-> +pseries_debug_defconfig:
-> +	$(call merge_into_defconfig,ppc64_defconfig,le guest kvm_guest common_debug)
-> +
-> +generated_configs += pseries_locks_debug_defconfig
-> +pseries_locks_debug_defconfig:
-> +	$(call merge_into_defconfig,ppc64_defconfig,le guest kvm_guest locks_debug)
-> +
-> +generated_configs += pseries_mm_debug_defconfig
-> +pseries_mm_debug_defconfig:
-> +	$(call merge_into_defconfig,ppc64_defconfig,le guest kvm_guest mm_debug)
-> +
-> +generated_configs += pseries_lockup_debug_defconfig
-> +pseries_lockup_debug_defconfig:
-> +	$(call merge_into_defconfig,ppc64_defconfig,le guest kvm_guest lockup_debug)
-> +
-> +generated_configs += powernv_debug_defconfig
-> +powernv_debug_defconfig:
-> +	$(call merge_into_defconfig,powernv_defconfig,le guest kvm_guest common_debug)
-> +
-> +generated_configs += powernv_locks_debug_defconfig
-> +powernv_locks_debug_defconfig:
-> +	$(call merge_into_defconfig,powernv_defconfig,le guest kvm_guest locks_debug)
-> +
-> +generated_configs += powernv_mm_debug_defconfig
-> +powernv_mm_debug_defconfig:
-> +	$(call merge_into_defconfig,powernv_defconfig,le guest kvm_guest mm_debug)
-> +
-> +generated_configs += powernv_lockup_debug_defconfig
-> +powernv_lockup_debug_defconfig:
-> +	$(call merge_into_defconfig,powernv_defconfig,le guest kvm_guest lockup_debug)
-> +
->  PHONY += $(generated_configs)
-> 
->  define archhelp
-> diff --git a/arch/powerpc/configs/common_debug.config b/arch/powerpc/configs/common_debug.config
-> new file mode 100644
-> index 000000000000..a341c8b41468
-> --- /dev/null
-> +++ b/arch/powerpc/configs/common_debug.config
-> @@ -0,0 +1,11 @@
-> +# For use in CI testing
-> +CONFIG_EXPERT=y
-> +CONFIG_PROVE_LOCKING=y
-> +CONFIG_PROVE_RCU=y
-> +CONFIG_KASAN=y
-> +CONFIG_UBSAN=y
-> +CONFIG_DEBUG_PAGEALLOC=y
-> +CONFIG_DEBUG_VM=y
-> +CONFIG_DEBUG_OBJECTS=y
-> +CONFIG_DEBUG_KMEMLEAK=y
-> +CONFIG_DEBUG_STACKOVERFLOW=y
-> diff --git a/arch/powerpc/configs/locks_debug.config b/arch/powerpc/configs/locks_debug.config
-> new file mode 100644
-> index 000000000000..b2cb23de75db
-> --- /dev/null
-> +++ b/arch/powerpc/configs/locks_debug.config
-> @@ -0,0 +1,13 @@
-> +CONFIG_EXPERT=y
-> +CONFIG_PROVE_LOCKING=y
-> +CONFIG_DEBUG_LOCK_ALLOC=y
-> +CONFIG_DEBUG_ATOMIC_SLEEP=y
-> +CONFIG_DEBUG_LOCKING_API_SELFTESTS=y
-> +CONFIG_DEBUG_MUTEXES=y
-> +CONFIG_DEBUG_SPINLOCK=y
-> +CONFIG_DEBUG_RT_MUTEXES=y
-> +CONFIG_DEBUG_RWSEMS=y
-> +CONFIG_PROVE_RAW_LOCK_NESTING=y
-> +CONFIG_RCU_EXPERT=y
-> +CONFIG_PROVE_RCU=y
-> +CONFIG_RCU_TRACE=y
-> diff --git a/arch/powerpc/configs/lockup_debug.config b/arch/powerpc/configs/lockup_debug.config
-> new file mode 100644
-> index 000000000000..ad0a79abf60f
-> --- /dev/null
-> +++ b/arch/powerpc/configs/lockup_debug.config
-> @@ -0,0 +1,4 @@
-> +CONFIG_EXPERT=y
-> +CONFIG_WQ_WATCHDOG=y
-> +CONFIG_DETECT_HUNG_TASK=y
-> +CONFIG_PANIC_ON_OOPS=y
-> diff --git a/arch/powerpc/configs/mm_debug.config b/arch/powerpc/configs/mm_debug.config
-> new file mode 100644
-> index 000000000000..0e88eb983536
-> --- /dev/null
-> +++ b/arch/powerpc/configs/mm_debug.config
-> @@ -0,0 +1,24 @@
-> +CONFIG_EXPERT=y
-> +CONFIG_DEBUG_PAGEALLOC=y
-> +CONFIG_DEBUG_SLAB=y
-> +CONFIG_KASAN=y
-> +CONFIG_KFENCE=y
-> +CONFIG_KMSAN=y
-> +CONFIG_DEBUG_KMEMLEAK=y
-> +CONFIG_DEBUG_VM=y
-> +CONFIG_DEBUG_VIRTUAL=y
-> +CONFIG_DEBUG_OBJECTS=y
-> +CONFIG_DEBUG_OBJECTS_FREE=y
-> +CONFIG_DEBUG_OBJECTS_TIMERS=y
-> +CONFIG_DEBUG_OBJECTS_WORK=y
-> +CONFIG_DEBUG_OBJECTS_RCU_HEAD=y
-> +CONFIG_DEBUG_OBJECTS_PERCPU_COUNTER=y
-> +CONFIG_SCHED_STACK_END_CHECK=y
-> +CONFIG_DEBUG_VM_MAPLE_TREE=y
-> +CONFIG_DEBUG_VM_RB=y
-> +CONFIG_DEBUG_VM_PGFLAGS=y
-> +CONFIG_DEBUG_MEMORY_INIT=y
-> +CONFIG_DEBUG_PER_CPU_MAPS=y
-> +CONFIG_DEBUG_KMAP_LOCAL=y
-> +CONFIG_DEBUG_HIGHMEM=y
-> +CONFIG_DEBUG_STACKOVERFLOW=y
-> --
-> 2.54.0
-> 
+> Yea. Or the other way. Forcing the old fixed-1 bits to 1 automatically. Could be
+> like a quirk like config thing. User/admin can decide if they want migration
+> flexible design, or backwards compatibility for existing TDs.
 
-Thanks Gautam for this. we'll be able to catch a lot of issues earlier
-with this.
+It's all about the new created TDs on the old platforms. For existing TDs, the
+runtime TDX module update should not change the shape of the TDs.
 
-Reviewed-by: Mukesh Kumar Chaurasiya (IBM) <mkchauras@gmail.com>
+> BUT, we could work
+> out the details later if we think we have options.
+> 
+> I think I've convinced myself we have options and can close this one. Agreed?
+
+Agree.
+
+> 
+> <snip>
+>>
+>>
+>> If FRED support lands in KVM for non-TDX VMs before this
+>> filtering/invalidation is in place, adding FRED to the hardcoded denylist
+>> would work as a temporary solution.
+> 
+> This could easily happen.
+> 
+>>
+>> But that only holds for a well-behaved userspace VMM. QEMU, for example, only
+>> enables features supported by both KVM and TDX, so if FRED isn't supported in
+>> KVM for non-TDX VMs, QEMU won't enable it for TDX either.
+>>
+>> A malicious userspace VMM, however, can set a feature regardless of KVM's
+>> reported CPU capabilities, and could still cause trouble.
+> 
+> Right. It the problem I thought we would need an opt-in to avoid.
+> 
+>>
+>>> Do we want it? Where would it get plugged in?
+>>
+>> So if the approach in this series is taken, I think we still need such an opt-
+>> in interface to tell the TDX module that the VMM is now filtering the CPUID
+>> bits so that the TDX module knows that it's safe to report new host state
+>> clobbering features.
+> 
+> Yep. Can we think about what it would look like? Easiest would be a bit passed
+> in TDH_SYS_CONFIG. But then arch/x86 is saying how KVM will behave. Ok to me,
+> for the simplicity. Could come with a nice comment.
+
+The TDX module is initialized before KVM is loaded. I guess the upstream kernel
+doesn't support out of tree KVM code, so we can assume if the kernel has the code to
+opt-in the new host state clobbering features, KVM must have implemented the TDX
+CPUID filtering and validation?
+
+Also, do you think it's reasonable to backport this patch series to stable/LTS
+kernels as an alternative?
+
