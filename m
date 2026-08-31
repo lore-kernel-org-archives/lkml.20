@@ -1,110 +1,408 @@
-Received: from mta0.migadu.com (out-44.mta0.migadu.com [91.218.175.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA1CA4AA563
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 13:46:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56F0C54EEB3;
+	Mon, 31 Aug 2026 13:46:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788184010; cv=none; b=QZ1gdaRUii576ogsjDoZ+G7+RFLoXJwBy/FyChIAO/5sKhb/aXJ9rpWOKeKt1wYyauJ7haHnv/n2fmYwluQ+9ZAETQ7HsaEYaONzIB1vy9A81vMP0gmBvOlonfW62gDLeghPcctOD8sQS/HTf8yJUKFrJo1CZoi38uH7aEo4T8c=
+	t=1788184007; cv=none; b=qP9PSvzL90Aj73NmkS3fVI7np6Fc9HgAjTQ2diBIgCjKDwXNPOCePm5f5e5zGsuvAiSc23LNbUjz2APCH3PgzVzy9tR2XYcpzhi65c+vvrqGGbcyd3xItSbqI397lKGabbxOoUar2IHjvuL6CRUzX2QCgE7ZvYc++Rf+5tXbSwo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788184010; c=relaxed/simple;
-	bh=aJYTFNqOScKS85O+yLyZiMcEgXXBbLJv3BwXF//J3gg=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=eRYtoQemtyA1DROv7pVqukScCFdChj1tle0VNWz9mWj9EiJYhJ5Ldy5v16wZXfJH5v+W8PHMcRD32yPLRlWlbe39CKkBDF7z8a1fqTTfmdjB1vUjI/w0b00XJWqT4tSuv05tzhLqPINQmRwiSPyoxMJ7WVTiOuQmOXndyaUfYec=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=wkw1Xlg/; arc=none smtp.client-ip=91.218.175.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788184007; c=relaxed/simple;
+	bh=UYPJPppqzkAMCqdP1xVBlIiqDkd+p3fS238jn3O7YIM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=kATYGioGyKzKivFmXxF/QnYhvGSxyt8qvLpzsAJeTz7nfMKZjBhbAwVB8OTsCxSZMkfvgaEL08/DXQuvaKyPqC1gi8qgMIZ81c3Ptf6RVhzH4LOngUOBKwQKdj867j0bKSY2FJRf9TVCSsYLyQIUVHun0b2S3Pt0RsoTRhvHAK8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YGgWTQzh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="wkw1Xlg/"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=aJYTFNqOScKS85O+yLyZiMcEgXXBbLJv3BwXF//J3gg=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788184003; v=1; x=1788788803;
- b=wkw1Xlg/XtPK6VPF4HGjbH9EXB2dlRdMfpK+tdrrbPxeYVhRLnqI3K4oUBKfv3gRp1T7RMpG
- YXX4jwSE7Eh8ux5SBw35SQcRTMyisrmPMYE03PlCnXs1G1Y6c9y88RxlQ5gFJt9406YJaMvbT6g
- jDv3s0RzSQVPYYMYd679YQa4=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id d27796f85925d44a;
-	Mon, 31 Aug 2026 13:46:43 +0000
-X-Mizu-Trace-ID: d27796f85925d44a
-X-Migadu-Flow: FLOW_OUT
-From: Troy Mitchell <troy.mitchell@linux.dev>
-Date: Mon, 31 Aug 2026 21:45:40 +0800
-Subject: [PATCH v4 6/6] riscv: dts: spacemit: Add CTF2301 on K3 CoM260
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YGgWTQzh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D81A1F00A3D;
+	Mon, 31 Aug 2026 13:46:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788184003;
+	bh=vI53VAL6FJZXcfe47IL/ARawN3+1DnQrfMdNqhIh9IE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=YGgWTQzhpAqWX9mF5W7DYNffLDDwFK0qiVrhbJWXgoLBc+TbL4EQ1Iiju2ZD3Hyz+
+	 7UWtz7A1nny+KDyQYydv6XmwqJK5OF3suWC0091hph+3PtKTf4fO5cICbdsUunt/g0
+	 uNymmgE13zdY7V6j2P4JFKzhMwRw0oF3JDbEeptzl2CI5f9WihlkqFeAUpd1aOolse
+	 j4Q/EwKrVg6pf03XXgc6DuwQ8ZilB3MrAECZyCCWUwGAJahvYPvCnO/eBzQE1umZi9
+	 mwaqEpLolR6RioC3+TQ/q4cWkMAqqkgKuQip9/P0rK2DyUaAHVjNspT100+1a0OXoC
+	 grutJjcFAu+sg==
+From: Sasha Levin <sashal@kernel.org>
+To: patches@lists.linux.dev,
+	stable@vger.kernel.org
+Cc: Chenguang Zhao <zhaochenguang@kylinos.cn>,
+	Paul Moore <paul@paul-moore.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Sasha Levin <sashal@kernel.org>,
+	davem@davemloft.net,
+	edumazet@google.com,
+	pabeni@redhat.com,
+	netdev@vger.kernel.org,
+	linux-security-module@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 6.18-5.10] netlabel: fix IPv6 unlabeled address add error handling
+Date: Mon, 31 Aug 2026 09:27:40 -0400
+Message-ID: <20260831133314.4125787-432-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
+References: <20260831133314.4125787-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260831-ctl2301-v4-6-b335d52a0570@linux.dev>
-References: <20260831-ctl2301-v4-0-b335d52a0570@linux.dev>
-In-Reply-To: <20260831-ctl2301-v4-0-b335d52a0570@linux.dev>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Guenter Roeck <linux@roeck-us.net>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
- Yixun Lan <dlan@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>
-Cc: Troy Mitchell <troy.mitchell@linux.dev>, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org, 
- linux-riscv@lists.infradead.org, spacemit@lists.linux.dev, 
- linux-doc@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1042;
- i=troy.mitchell@linux.dev; h=from:subject:message-id;
- bh=aJYTFNqOScKS85O+yLyZiMcEgXXBbLJv3BwXF//J3gg=;
- b=owGbwMvMwCU2g/N9w09jE33G02pJDFlTW+cHvn14YJr6/o8nOM9mRPr3F0xu/VT9b8Wls12TX
- +2bOFnEo6OUhUGMi0FWTJGl+wHPtgKfKNsCgUJfmDmsTCBDGLg4BWAiS80Z/qf6nZt0KO3/lMKS
- S3Nf/7Kra2+e0bRpsf+D0skfL8m+WFTC8D88YqFc9b0UC8cQM9N3Bg9/XFdWVQs9u/nJiZV2ghI
- OF1kB
-X-Developer-Key: i=troy.mitchell@linux.dev; a=openpgp;
- fpr=3FE5535CF1B0E658E57DB59BAE1C2FBEA7DB42E1
+X-stable: review
+X-Patchwork-Hint: Ignore
+X-stable-base: Linux 6.18.48
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Enable I2C6 on the K3 CoM260 module and describe the Sensylink
-CTF2301 temperature sensor and fan controller at address 0x4c.
+From: Chenguang Zhao <zhaochenguang@kylinos.cn>
 
-Override the I2C6 pin power source at board level because the IO rail
-voltage is board-specific.
+[ Upstream commit 56872b930feee7ae07b9720ca950dd9fa65596ee ]
 
-Signed-off-by: Troy Mitchell <troy.mitchell@linux.dev>
+netlbl_unlhsh_add_addr6() always returned zero after
+netlbl_af6list_add(), masking failures such as duplicate
+IPv6 static label entries.
+
+Signed-off-by: Chenguang Zhao <zhaochenguang@kylinos.cn>
+Acked-by: Paul Moore <paul@paul-moore.com>
+Link: https://patch.msgid.link/20260522022910.398416-1-zhaochenguang@kylinos.cn
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/riscv/boot/dts/spacemit/k3-com260.dtsi | 17 +++++++++++++++++
- 1 file changed, 17 insertions(+)
 
-diff --git a/arch/riscv/boot/dts/spacemit/k3-com260.dtsi b/arch/riscv/boot/dts/spacemit/k3-com260.dtsi
-index 37627963a649..92dea8639779 100644
---- a/arch/riscv/boot/dts/spacemit/k3-com260.dtsi
-+++ b/arch/riscv/boot/dts/spacemit/k3-com260.dtsi
-@@ -58,6 +58,23 @@ serial-number {
- 	};
- };
+LLM Generated explanations, may be completely bogus:
+
+# Stable Backport Analysis: `netlabel: fix IPv6 unlabeled address add
+error handling`
+
+**Local tree:** `v6.18.44` (`stable/linux-6.18.y`, `VERSION = 6`,
+`PATCHLEVEL = 18`, `SUBLEVEL = 44`)
+
+---
+
+## PHASE 1: COMMIT MESSAGE FORENSICS
+
+### Step 1.1: Subject line
+**Record:** `[netlabel]` `[fix]` — IPv6 unlabeled address add error
+handling was broken; failures from `netlbl_af6list_add()` were masked.
+
+### Step 1.2: Tags
+**Record:**
+- **Signed-off-by:** Chenguang Zhao `<zhaochenguang@kylinos.cn>`
+  (author)
+- **Acked-by:** Paul Moore `<paul@paul-moore.com>` (netlabel maintainer
+  — strong quality signal)
+- **Link:** https://patch.msgid.link/20260522022910.398416-1-
+  zhaochenguang@kylinos.cn
+- **Signed-off-by:** Jakub Kicinski `<kuba@kernel.org>` (committer)
+- No `Fixes:` tag (expected for manual review)
+- No `Reported-by:` / syzbot
+- No `Cc: stable@vger.kernel.org` in submission
+- Ignore pipeline `Signed-off-by: Sasha Levin`
+
+### Step 1.3: Body analysis
+**Record:**
+- **Bug:** `netlbl_unlhsh_add_addr6()` always returned `0` after
+  `netlbl_af6list_add()`, even when that call failed.
+- **Symptom:** Duplicate IPv6 static unlabeled label adds appear
+  successful to callers.
+- **Root cause:** Copy/paste oversight — IPv4 sibling
+  `netlbl_unlhsh_add_addr4()` correctly returns `ret_val`; IPv6 path
+  hard-coded `return 0`.
+- **Version info:** None in message.
+
+### Step 1.4: Hidden bug fix?
+**Record:** Not disguised — explicitly labeled a fix. Error-path
+`kfree(entry)` was already present; the bug is return-value propagation
+and downstream effects, not a leak.
+
+---
+
+## PHASE 2: DIFF ANALYSIS
+
+### Step 2.1: Inventory
+**Record:**
+- **Files:** `net/netlabel/netlabel_unlabeled.c` (+1 / -1)
+- **Function:** `netlbl_unlhsh_add_addr6()`
+- **Scope:** Single-file, single-line surgical fix
+
+### Step 2.2: Code flow change
+**Record:**
+- **Before:** On `netlbl_af6list_add()` failure (e.g. `-EEXIST`), entry
+  is freed, but function returns `0`.
+- **After:** Returns actual `ret_val` from `netlbl_af6list_add()`.
+- **Path affected:** IPv6 static unlabeled address add error path
+  (admin/LSM configuration).
+
+### Step 2.3: Bug mechanism
+**Record:**
+- **Category:** Logic / correctness — incorrect error propagation.
+- **Mechanism:** `netlbl_af6list_add()` returns `-EEXIST` for duplicate
+  address/mask (`net/netlabel/netlabel_addrlist.c:193`). IPv6 wrapper
+  discarded that and reported success. IPv4 path at lines 252–254
+  already does the right thing.
+
+### Step 2.4: Fix quality
+**Record:**
+- Obviously correct — mirrors IPv4 and function documentation (“On
+  success zero is returned, otherwise a negative value”).
+- Minimal risk; no locking/API changes.
+- No regression risk identified.
+
+---
+
+## PHASE 3: GIT HISTORY INVESTIGATION
+
+### Step 3.1: Blame
+**Record:** Buggy `return 0;` at line 298 in current tree; blame points
+to `e664048784506` (file introduction in this tree). IPv4 `return
+ret_val;` at line 254 present alongside it from the same introduction.
+
+### Step 3.2: Fixes: tag
+**Record:** N/A — no `Fixes:` tag.
+
+### Step 3.3: Related file history
+**Record:**
+- `0c4bb32ad7fdc` — same author, separate netlabel validation fix
+  already in this tree.
+- Upstream fix: `56872b930feee` (mainline, May 25 2026); stable backport
+  exists as `642d90c85b137` on `autosel` branch.
+- Fix is **not** in current `HEAD` (`v6.18.44`).
+
+### Step 3.4: Author context
+**Record:** Chenguang Zhao has multiple netlabel fixes; Paul Moore
+(maintainer) Acked this patch.
+
+### Step 3.5: Dependencies
+**Record:** Standalone one-liner; no series prerequisites. Applies
+cleanly (`return 0` → `return ret_val` at line 298; upstream diff
+context matches aside from unrelated `kzalloc` vs `kzalloc_obj` naming
+elsewhere).
+
+---
+
+## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
+
+### Step 4.1: Original discussion
+**Record:**
+- `b4 dig -c 56872b930feee`: https://patch.msgid.link/20260522022910.398
+  416-1-zhaochenguang@kylinos.cn
+- Single v1 submission; applied to netdev/net-next by Jakub Kicinski.
+- Paul Moore replied with **Acked-by** in thread.
+
+### Step 4.2: Reviewers
+**Record:** `b4 dig -w`: CC'd Paul Moore, David Miller, netdev
+maintainers, `linux-security-module@vger.kernel.org`.
+
+### Step 4.3: Bug report
+**Record:** No external bug report or syzbot link — author-found logic
+bug.
+
+### Step 4.4: Series context
+**Record:** Standalone 1-patch series; no dependencies.
+
+### Step 4.5: Stable list
+**Record:** No `Cc: stable` discussion found in mbox thread.
+
+---
+
+## PHASE 5: CODE SEMANTIC ANALYSIS
+
+### Step 5.1: Key functions
+**Record:** `netlbl_unlhsh_add_addr6()`, `netlbl_af6list_add()`,
+`netlbl_unlhsh_add()`.
+
+### Step 5.2: Callers
+**Record:**
+- `netlbl_unlhsh_add()` → `netlbl_unlhsh_add_addr6()` (line 423)
+- `netlbl_unlhsh_add()` called from:
+  - `netlbl_unlabel_staticadd()` / `netlbl_unlabel_staticadddef()`
+    (Generic Netlink admin)
+  - `netlbl_cfg_unlbl_static_add()` (kernel API, used e.g. from
+    `security/smack/smackfs.c`)
+
+### Step 5.3: Callees
+**Record:** `kzalloc()`, `netlbl_af6list_add()` (can return `-EEXIST`),
+`kfree()` on failure.
+
+### Step 5.4: Reachability
+**Record:** Reachable from userspace via Netlink (`CAP_NET_ADMIN`) and
+from LSM code configuring static labels. IPv6 path requires
+`CONFIG_IPV6`.
+
+### Step 5.5: Similar patterns
+**Record:** IPv4 `netlbl_unlhsh_add_addr4()` correctly returns `ret_val`
+— confirms this is an IPv6-only regression/typo.
+
+---
+
+## PHASE 6: CROSS-REFERENCE AGAINST LOCAL TREE
+
+### Step 6.1: Buggy code present?
+**Record:** **YES** — line 298 in `/home/sasha/linux-
+autosel-7.0/net/netlabel/netlabel_unlabeled.c` is `return 0;` while line
+254 (IPv4) is `return ret_val;`.
+
+### Step 6.2: Backport complications
+**Record:** Clean one-line apply expected; no structural conflicts in
+this file.
+
+### Step 6.3: Related fixes already present?
+**Record:** Related validation fix `0c4bb32ad7fdc` is present; this
+error-handling fix is **not**.
+
+---
+
+## PHASE 7: SUBSYSTEM CONTEXT
+
+### Step 7.1: Subsystem criticality
+**Record:** `net/netlabel` — **IMPORTANT** (LSM integration: SELinux,
+Smack; MAC labeling and audit).
+
+### Step 7.2: Activity
+**Record:** Recent activity in this tree (validation fix June 2026);
+netlabel touched in 6.18.y.
+
+---
+
+## PHASE 8: IMPACT AND RISK ASSESSMENT
+
+### Step 8.1: Who is affected
+**Record:** Systems using NetLabel IPv6 static unlabeled labels with
+SELinux/Smack (or other LSM consumers of
+`netlbl_cfg_unlbl_static_add()`). Config-specific (`CONFIG_NETLABEL`,
+`CONFIG_IPV6`).
+
+### Step 8.2: Trigger conditions
+**Record:** Adding a duplicate IPv6 static unlabeled label (same
+address/mask). Requires admin capability. Duplicate-add is a realistic
+admin/script mistake, not exotic.
+
+### Step 8.3: Failure mode severity
+**Record:**
+1. Userspace receives success (`0`) instead of `-EEXIST`.
+2. `netlbl_unlhsh_add()` incorrectly executes
+   `atomic_inc(&netlabel_mgmt_protocount)` (lines 434–435).
+3. Audit records `res=1` (success) on failure (line 444).
+4. **Protocount skew:** duplicate “success” inflates count; after
+   removing the real entry, `netlabel_mgmt_protocount` can remain `> 0`
+   with zero entries, leaving `netlbl_enabled()` true
+   (`net/netlabel/netlabel_kapi.c:960`). SELinux uses `netlbl_enabled()`
+   in netfilter hooks (`security/selinux/hooks.c:6004, 6021`).
+
+**Severity:** **MEDIUM-HIGH** for affected deployments — not a crash,
+but incorrect security subsystem state and audit integrity.
+
+### Step 8.4: Risk-benefit
+**Record:**
+- **Benefit:** Correct errno, accurate audit, correct
+  protocount/`netlbl_enabled()` behavior.
+- **Risk:** Very low (one line, maintainer-acked, mirrors working IPv4
+  path).
+- **Ratio:** Strong benefit, negligible risk.
+
+---
+
+## PHASE 9: FINAL SYNTHESIS
+
+### Step 9.1: Evidence summary
+
+**FOR backport:**
+- Clear, real bug (IPv6-only; IPv4 correct)
+- Maintainer Acked-by (Paul Moore)
+- One-line, obviously correct fix
+- Affects LSM/security admin path and audit logs
+- Protocount inflation can leave NetLabel “enabled” after entries
+  removed
+- Bug confirmed present in `v6.18.44`
+- Upstream already merged (`56872b930feee`)
+
+**AGAINST backport:**
+- No crash, UAF, or memory corruption
+- Only failure mode from `netlbl_af6list_add()` is `-EEXIST`
+  (duplicates)
+- Niche subsystem (NetLabel + IPv6 static labels)
+- No syzbot/user crash reports
+
+**Unresolved:** None material to the decision.
+
+### Step 9.2: Stable rules checklist
+1. Obviously correct and tested? **PASS** — mirrors IPv4; maintainer
+   ack; trivial change.
+2. Fixes a real bug affecting users? **PASS** — wrong errno, audit, and
+   protocount on duplicate IPv6 adds.
+3. Important issue? **PASS** — security subsystem correctness and audit
+   integrity (MEDIUM-HIGH).
+4. Small and contained? **PASS** — 1 line, 1 file.
+5. No new features/APIs? **PASS**.
+6. Can apply to local tree? **PASS** — buggy code present; clean apply.
+
+### Step 9.3: Exception categories
+**Record:** N/A (not device ID, quirk, DT, build, or docs fix).
+
+### Step 9.4: Decision rationale
+This is a straightforward error-handling bug in the NetLabel IPv6 admin
+path. While it does not cause a kernel oops, it corrupts security-
+relevant state: callers, audit subsystem, and
+`netlabel_mgmt_protocount`/`netlbl_enabled()` all behave incorrectly on
+a realistic duplicate-add scenario. The fix is trivial, maintainer-
+reviewed, and the bug is present in this `6.18.44` tree.
+
+---
+
+## Verification
+
+- [Phase 1] `git describe HEAD` → `v6.18.44`; parsed subject, tags, body
+  from provided commit message
+- [Phase 1] Read current `netlbl_unlhsh_add_addr6()` — confirmed `return
+  0` bug at line 298
+- [Phase 2] Read diff — single line `return 0` → `return ret_val`
+- [Phase 2] Read `netlbl_af6list_add()` — returns `-EEXIST` on duplicate
+  (line 193)
+- [Phase 2] Compared IPv4 `netlbl_unlhsh_add_addr4()` — returns
+  `ret_val` (line 254)
+- [Phase 3] `git blame -L 290,305` — buggy line attributed to file
+  introduction
+- [Phase 3] `git show 56872b930feee` — upstream fix commit confirmed
+- [Phase 3] `git merge-base --is-ancestor 56872b930feee HEAD` → fix NOT
+  in HEAD
+- [Phase 3] `git show 642d90c85b137` — stable backport commit exists on
+  `autosel` branch
+- [Phase 4] `b4 dig -c 56872b930feee -w` — lore URL and recipient list
+  retrieved
+- [Phase 4] `b4 dig -c 56872b930feee -a` — single v1 revision
+- [Phase 4] `b4 dig -m /tmp/netlabel_ipv6_fix.mbox` — Paul Moore Acked-
+  by confirmed; no stable Cc in thread
+- [Phase 5] `grep netlbl_unlhsh_add` — traced callers to Netlink and
+  `netlbl_cfg_unlbl_static_add()`
+- [Phase 5] `grep netlbl_enabled` — SELinux hooks depend on protocount
+- [Phase 6] Read lines 248–299 and 364–447 — buggy code and downstream
+  `atomic_inc`/audit impact verified
+- [Phase 6] `git log --oneline -20 -- net/netlabel/netlabel_unlabeled.c`
+  — fix not yet in tree
+- [Phase 8] Traced protocount inflation scenario through add/remove
+  paths (lines 434–435, 664–666, 960)
+
+**YES**
+
+ net/netlabel/netlabel_unlabeled.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/net/netlabel/netlabel_unlabeled.c b/net/netlabel/netlabel_unlabeled.c
+index 2237a5261dd2a..0dfbb63d513ce 100644
+--- a/net/netlabel/netlabel_unlabeled.c
++++ b/net/netlabel/netlabel_unlabeled.c
+@@ -295,7 +295,7 @@ static int netlbl_unlhsh_add_addr6(struct netlbl_unlhsh_iface *iface,
  
-+&i2c6_1_cfg {
-+	i2c6-1-pins {
-+		power-source = <3300>;
-+	};
-+};
-+
-+&i2c6 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&i2c6_1_cfg>;
-+	status = "okay";
-+
-+	temperature-sensor@4c {
-+		compatible = "sensylink,ctf2301";
-+		reg = <0x4c>;
-+	};
-+};
-+
- &i2c8 {
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&i2c8_cfg>;
-
+ 	if (ret_val != 0)
+ 		kfree(entry);
+-	return 0;
++	return ret_val;
+ }
+ #endif /* IPv6 */
+ 
 -- 
-2.55.0
+2.53.0
 
