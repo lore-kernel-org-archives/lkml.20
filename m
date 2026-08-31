@@ -1,115 +1,89 @@
-Received: from trager.us (trager.us [52.5.81.116])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7ED423C3C14;
-	Mon, 31 Aug 2026 23:07:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.5.81.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B62C233937B;
+	Mon, 31 Aug 2026 23:11:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788217647; cv=none; b=OBpvnKDcWY4cXT9RyYlXFFCCEm1vA44EpKpdzq+Axhr7l5bUtE1wZquu4DnM4p92Mi8x4J3NhVLfAiI6bE85UvZaHQozRLo4AnNQR2Q/QObiITKVc18Kc4Xb1DQS1EfH6iW4Es7b+xnW70CXi0TvSp7P002S8XbicG9a4WeOkGY=
+	t=1788217872; cv=none; b=AS6/NXDi+r1pvwsc+OY1mnNcXAeTHL2hDEe/nUv60xnqr79UM6ofRD8BSC1Umq4SVc8yNZt0WfMLMDllvbTIHceHlODCGyBbO8sMUTtVIvwen+PNCvm96HRtfqJ5j8Sr2JI0WBS339gYV418HDiji2vYblJth3oAx03okYBvcrs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788217647; c=relaxed/simple;
-	bh=ZKYbvUdQsXtqMDbl6xBIcD7cB8uHANDdOsGfTYUXct8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=r2SSQqZX/K/wzmgdL+7CXox4FFEKQu40dRZG3L0YGBLfrQxFZ4VpwQiAzGPLCLZjehAnpoxKPoKicHnabo2oHKOZIe+9X/PSFLyg3gUMzuUtYK4asWRSMgM5RKaSt62Ik0n2+556zbTW1OhZYzor0xaqQA6yRWWdiwOsl9DEjFU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=trager.us; spf=pass smtp.mailfrom=trager.us; arc=none smtp.client-ip=52.5.81.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=trager.us
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trager.us
-Received: from c-73-254-161-40.hsd1.wa.comcast.net ([73.254.161.40] helo=[192.168.1.225])
-	by trager.us with esmtpsa (TLSv1.3:TLS_AES_128_GCM_SHA256:128)
-	(Exim 4.92.3)
-	(envelope-from <lee@trager.us>)
-	id 1x1AMJ-0007sZ-6G; Mon, 31 Aug 2026 22:20:07 +0000
-Message-ID: <948381d2-8ba7-458b-b729-d5398e0a8559@trager.us>
-Date: Mon, 31 Aug 2026 15:19:59 -0700
+	s=arc-20240116; t=1788217872; c=relaxed/simple;
+	bh=sqsS6BKl8STjFq7GfXiq8I9ZEFb74NVzMfV779gFsDo=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=TDr1LBa4NXnqhXOuD2zJjqh+mV1Bk/rMweiKGjZn20OdVeuf200CsQfNKP5bxO1S7oZjyr96YzVzx6BcU8L9YIQNxhHAl/CLua1537QVGgna54nNuQBoKxwoPgtaWeJazWyULlBVfS5rzlUZc5EtH0ZSvmnGvNXZbw/SbgKwZQY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oX6ODcHo; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oX6ODcHo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A9511F000E9;
+	Mon, 31 Aug 2026 23:11:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788217871;
+	bh=fTvMy9rkDvERCx3/039j8BN+T2TnfGQtKGFL2YL5wgg=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=oX6ODcHo5Q0NUKFnMGRfwRkvOhR1nxoi7SYLAxbyYgxP/j4t/YYyoQh4UNLZ2FhMx
+	 qVJ9zweTIJbufmIVS9kbCkMDsg4vLvdgYa5EOyZy8wzTU481SRC+E7x0iHBeAlo/iJ
+	 OCLlbLMEeszsi0jvUyR4fx2HDOOu1MYuHJdtfkD2N+jh+d7/Yh0xDTGD8Lol3AmGpj
+	 pKkV0r/JsEHVdd86e7xgvtAOzABXFoNANmJbLSO/mr9DGgM9ishHt+NJmOFpJUyv9j
+	 bgqSzD43hVsjbBOiqY6C5V0qCVc7BhbF6E86jhmzQO0da5i3hQLKScLmmA4TSyu7Nr
+	 sAXGai2qQNS1w==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 56BAE3924471;
+	Mon, 31 Aug 2026 23:10:15 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 10/12] arm_mpam: add MPAM-Fb MSC firmware access
- support
-To: Andre Przywara <andre.przywara@arm.com>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>, Hanjun Guo
- <guohanjun@huawei.com>, Sudeep Holla <sudeep.holla@kernel.org>,
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- "Rafael J . Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>,
- James Morse <james.morse@arm.com>, Ben Horgan <ben.horgan@arm.com>,
- Reinette Chatre <reinette.chatre@intel.com>, Fenghua Yu <fenghuay@nvidia.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
- Srivathsa L Rao <srivathsa.rao@oss.qualcomm.com>,
- Ganapatrao Kulkarni <ganapatrao.kulkarni@oss.qualcomm.com>,
- Trilok Soni <tsoni@quicinc.com>, Srinivas Ramana <sramana@qti.qualcomm.com>,
- Niyas Sait <niyas.sait@arm.com>, Ritwick Sharma <ritwick.sharma@arm.com>,
- Gavin Shan <gshan@redhat.com>, linux-acpi@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20260807105451.3728284-1-andre.przywara@arm.com>
- <20260807105451.3728284-11-andre.przywara@arm.com>
-Content-Language: en-US
-From: Lee Trager <lee@trager.us>
-In-Reply-To: <20260807105451.3728284-11-andre.przywara@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net v7 0/4] Fix to possible skb leak due to race condtion
+ in tx path
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <178821781389.824292.6884805679994851550.git-patchwork-notify@kernel.org>
+Date: Mon, 31 Aug 2026 23:10:13 +0000
+References: 
+ <20260824-fix-race-condition-and-crash-v7-0-4323279b18f2@onsemi.com>
+In-Reply-To: 
+ <20260824-fix-race-condition-and-crash-v7-0-4323279b18f2@onsemi.com>
+To: Selvamani Rajagopal <selvamani.rajagopal@onsemi.com>
+Cc: parthiban.veerasooran@microchip.com, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ Selvamani.Rajagopal@onsemi.com, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Parthiban.Veerasooran@microchip.com,
+ andrew@lunn.ch
 
-On 8/7/26 3:54 AM, Andre Przywara wrote:
+Hello:
 
-> +
-> +static int mpam_fb_send_request(struct mpam_msc *msc, u32 msc_id,
-> +				u16 reg, u32 *result, int mpam_fb_command)
-> +{
-> +	unsigned int token = atomic_inc_return(&mpam_fb_token);
-> +	struct acpi_pcct_ext_pcc_shared_memory __iomem *pcc_shmem;
-> +	struct mpam_pcc_chan *pcc_chan;
-> +	struct pcc_mbox_chan *chan;
-> +	void __iomem *payload_ofs;
-> +	int mpam_fb_err = 0;
-> +	u32 status;
-> +	int ret;
-> +
-> +	pcc_chan = msc->pcc_chan;
-> +	if (!pcc_chan)
-> +		return -ENODEV;
-> +
-> +	chan = pcc_chan->pcc_chan;
-> +
-> +	/* prune token to fit into the 10 bits inside the command register */
-> +	token = FIELD_GET(MPAM_MSC_TOKEN_MASK,
-> +			  FIELD_PREP(MPAM_MSC_TOKEN_MASK, token));
-> +
-> +	mutex_lock(&pcc_chan->pcc_chan_lock);
-> +
-> +	switch (mpam_fb_command) {
-> +	case MPAM_PROTOCOL_VERSION_CMD:
-> +		mpam_fb_build_version_message(token, chan->shmem);
-> +		break;
-> +	case MPAM_MSC_READ_CMD:
-> +		mpam_fb_build_read_message(msc_id, reg, token, chan->shmem);
-> +		break;
-> +	case MPAM_MSC_WRITE_CMD:
-> +		mpam_fb_build_write_message(msc_id, reg, *result,
-> +					    token, chan->shmem);
-> +		break;
-> +	default:
-> +		dev_err(&msc->pdev->dev, "unsupported MPAM-Fb command %d\n",
-> +			mpam_fb_command);
-> +		ret = -EINVAL;
-> +		goto out_err;
-> +	}
-> +
-> +	ret = mbox_send_message(chan->mchan, NULL);
-> +	if (ret < 0)
-> +		goto out_err;
-> +
-While testing this series when building arm64 allnoconfig with 
-CONFIG_ARM4_MPAM=y I got a link failure:
+This series was applied to netdev/net.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
-drivers/resctrl/mpam_fb.o: undefined reference to `mbox_send_message`
+On Mon, 24 Aug 2026 14:57:57 -0700 you wrote:
+> Now the traffic is handled in threaded IRQ, and the
+> disable_traffic flag is checked before handling the
+> data, new race condition is exposed, in which
+> buffer may leak, if threaded IRQ interrupts the
+> trasmit path midway.
+> 
+> With this change, disable_traffic and waiting_tx_skb
+> pointer are protected by spin lock/unlock pair.
+> 
+> [...]
 
-Since the ACPI MPAM-Fb transport also reqiures PCC, wold it make sense 
-for ARM64_MPAM_DRIVER to select both dependencies?
+Here is the summary with links:
+  - [net,v7,1/4] net: ethernet: oa_tc6: Protect skb pointer used by two different kernel instances
+    https://git.kernel.org/netdev/net/c/5443d9c4f55d
+  - [net,v7,2/4] net: ethernet: oa_tc6: Improve the error recovery
+    https://git.kernel.org/netdev/net/c/172c974113bf
+  - [net,v7,3/4] net: ethernet: oa_tc6: Disable tx queues on fatal error
+    https://git.kernel.org/netdev/net/c/349c36636587
+  - [net,v7,4/4] net: ethernet: oa_tc6: Fix for the wrong data type
+    https://git.kernel.org/netdev/net/c/3cc2aa96b971
 
-     select MAILBOX
-     select PCC if ACPI
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
-Lee
+
