@@ -1,169 +1,110 @@
-Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com [209.85.208.43])
+Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74DDF2E62A9
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 17:18:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C97746D093
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 17:19:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.180
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788196731; cv=pass; b=gbm1zBnzSXPgC5YTSEpSTfPfj2VA3G/vQr9QgJbH/RvhroUiSgVSRaxNFIVmJjFpGl8ftTpzPKZE6R98nmrWwjXgmjK7qgc2JApEtU4ng1+Abvp6I2IVfIYM7+qZvPfqG9FJfX5JLnEVSe6ZirLjNujPw68l56xR8QLUnCvc2YE=
+	t=1788196760; cv=pass; b=WeGcAMqyHwFUYLh38A3ukd5ZEg00nfCllY2Nv89XkS6RqQYTrLKddMi3zc2ZZdZ02FBz3q7oYXTfwePuuA39yL3p4rmXDwTJ6gybYgVNB3ifSmOWMgQlLzR4+2nNPOs0mEj0w57VUJT0oJk+BBYVX6fE1YriWTO58OjZ2TMYz/Y=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788196731; c=relaxed/simple;
-	bh=MXFqWr7Uky0TUxYJJ7ciGR+LjTO2h6aLcYNxNAXrW0o=;
-	h=From:In-Reply-To:References:MIME-Version:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=NzjYZML1SUNSSutoSR7qMivhLcYbGi+hXPYftNF295IwgZOoiGuo8lFGeUcVaqBGQYRRaIz0TVm+FnuSSPjJsbKYJmPdj9KDGjb3XRMzA9KydADVt0KT2oweKuN3gLvILaLagoLzq6TDBrpa3QbfRDqBm5kknSHrm71P3oAsWnU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oT/s+vSb; arc=pass smtp.client-ip=209.85.208.43
+	s=arc-20240116; t=1788196760; c=relaxed/simple;
+	bh=EceNcS+Z+ajhb8CIpd8JlFdQ1JxKxr3f6vg2kh+0pjk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=RE2LdbnqlKu3TUEDLPQZeSUdyh7tBWn+phfg2YzurL5ZB5CyXm+KklGIEKJlJ0mDne6qcvMEObSztJMkUezjFokTPtmSjrm9FTkvJklo7DvrPOuUAS3/ynhww22Jcg+Ik/DHui5T7aoFnesBXVaqlZjiJBqID6JQInDlPYHEYMs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=X8VFmRTX; arc=pass smtp.client-ip=209.85.214.180
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oT/s+vSb"
-Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-6a0c8283146so5872077a12.0
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 10:18:49 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788196727; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="X8VFmRTX"
+Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2d6f9e2f681so35878305ad.3
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 10:19:19 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788196759; cv=none;
         d=google.com; s=arc-20260327;
-        b=lk8JB+sYp926elhZmc0UY1lz6hEd5scflq9ZTT1Ys29Qv9jZvzTWzpBL1c0s09QsTX
-         WOG5SHZGnECAIjc60jgWoPyXtSNW4Wj+88Y0qiDNF9fUqZgc3ny2eJm5RZ0jbRS7Tc2O
-         oZ7IwCGOHHpOhwElLVxQ9yIaWN33BUvBkmcl5DOaEs4s7+6us0xx8EWBOwU8rIhxUFBE
-         EhbVmNB6HDNAxJXXxoJIIfwRzEnFux+KittN2u0ADIgKB02A5bNFQkUwH3F8UQtU3/GV
-         NBFnNJ3zkLBkNJulECzPCMq9Q1sNAwAWHIDczAP0aZO3TgFX4qupgOD2qgkAq143tlli
-         TtcA==
+        b=aPLnljwR2Ff1txGvFa6pAy4h+ZOZVi+ON11jv1P28J6W7vDzytryUdyUHY9+9rKHOL
+         /L1Qv7VAQwAORMmodYGm0b19Yq4o+7VhOeS37qqFb/Ij5SAVYqP/d905l0zO1sOYP872
+         nHwAbNAotdyaxhigAv+2X/B2i3D86+Eh5H1sjcTqZc5WSXVy+/31Vsv6fDFj4wkBvDaK
+         CtvdQDHEAmMiqHI6GHdgUCdESH4zFh6LQKsT9cqkdLkaWCZkhxSPzI9qA7KqI5SaaU6z
+         CFEN1cJdzfozVwKWU0GtMFtSGgoAae8UTZ8B9MXl8TrDN7050RhILMVPudBIS9DYlU46
+         qPgQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:mime-version:references:in-reply-to
-         :from:dkim-signature;
-        bh=C/Ut8igNUUEDDCrdtbCLiaGMVpNyyvqtTQshGja4fhw=;
-        fh=EVI2Edo20QQpAQNWnwqSxLNHN0yBsdAq4y4eusD6s9k=;
-        b=FTK3F/aONqqFgh/Mvpx25PwGE8aST70RrxmMtqoLCxoFr7DcEukLSj1YZlZIa0SpQX
-         ExrU+wcMcJ231Al+dfwzExg/qhcm0Ez2V74hFsm1L77Zv1icvIuJCC/qe3pye1bwfrgr
-         MXOto10gJPaQGXYAG2elggxKQdc6vRgXsizaVyXYFvOC5DokMnuzDFZScs/XAkVimp+v
-         8vuAvjBlGAVeK/qpwSgDfdKNkCd0WAgINc3qNbIx/47hEwmKWpNwUqfT9yk2mfDUEFHN
-         /F59rg6d1FYMLLDU2E+pAVybcbfw6hnRbw95P7vVh8poLfKguhJVhMyhuOnNN7PVEnB4
-         f0jA==;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=EceNcS+Z+ajhb8CIpd8JlFdQ1JxKxr3f6vg2kh+0pjk=;
+        fh=6WeJVFJ6L1A0pe3D8jihA3N+iUposWKmqWkxQ1hJS6E=;
+        b=iZcKmx5w4ICCJvxcjHET2uHN+O+zio71UYaUEAMHP+6huBW4iMRQ7K0KaJ/eCsvZey
+         x4JSjGC1u1DvPKUcFWnpIkTbqb4y3Sc6FMvNFAjQQeb6mCNJemIcsKB/RcjygZ5zB37G
+         vN4vXDnWG5hiU2YzXrtFzmwC6jYROXWR7RV/44UO2JtE3ADQzmLnyS7xLTlGztAKWNyn
+         L25laDhbthaD9fGISwFTOfliCHe/hl9hNpEWMvzyIzE4Kc1UT7KdOBCtOCKJzMvf63c9
+         LlLHPeM9s621kCBh4hgsSEmlb1Mb5bDadi2wKhPIVbF5exupY8S8U/XGHo9+kgy2dsyp
+         cLZQ==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788196727; x=1788801527; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:mime-version:references
-         :in-reply-to:from:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1788196759; x=1788801559; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=C/Ut8igNUUEDDCrdtbCLiaGMVpNyyvqtTQshGja4fhw=;
-        b=oT/s+vSbYUZFV9wsMCYWtZ8n3t/mpC/3PkTJL+ANIPHurj9vPpCvuFytNXDs/fvk79
-         +DpnhA8zIBSNbVmsNsF6T/zZgSsMRcEo9OYrqdTIK/NXlpx+YCTkYQHuAPPfw/9lNy63
-         8aif5dO6WiAXrionMfWddBxSDzsX5lxnFbj9cyhan/6AUO3KUgL1x2+RAM43Bsn9WBnR
-         fmHTsw+sM7rtKjpsj+jmC2Ljk4T65VjMXd6tp0tnmlLHvJvmhhpqjIHgifxyv2oITRlI
-         teUA5JJO3KE3H7O+fYpsVd6zIUzx10/6IDAY2davKkR6llvxB06sOlO4qwAD8KmJLkk1
-         TLEQ==
+        bh=EceNcS+Z+ajhb8CIpd8JlFdQ1JxKxr3f6vg2kh+0pjk=;
+        b=X8VFmRTXbvDqoxLgXGat+Z26QoM8Ni9bVBsJTECGEijku1i+wcDfXJVjbcylsITqKk
+         bhv1cBUe9psa+aH3B+7cG3i7eJTRuJ+JJW/146B1vCoY1dxGNH1WVqSQGPHer7h7IRmC
+         kgYMIFn419e51jMovYk+v42CSgOpphBZPsjEdp0XZQlNmTYUCd+5XhWLAhKkczA3D8vp
+         gA9U2ZxmKwd4CRLax+Y+c+Dl6RmHYNAejHuYdfT9DphQalkmjnKInYnXcWwhAPui9gR6
+         hAQOtYC9tAbqxyrXWINhQG9rqgP/wme2R9i1cZYbgsxHn5tbRMHUVzIXOJCfLVkZ9h2k
+         H3xA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788196727; x=1788801527;
-        h=content-type:cc:to:subject:message-id:date:mime-version:references
-         :in-reply-to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=C/Ut8igNUUEDDCrdtbCLiaGMVpNyyvqtTQshGja4fhw=;
-        b=KSdrUP5K2rK2Wpp8YL/joFzT+Sggp+FJwpCHqR5hcB6Kj8lNCdlVGO3vBx+c6GP9Ed
-         L0ZdjVlC5dM6sHCG7ioMBro4W0O0SBaADXqTqRrFE7PvcSOkitvbXEoD3tEjvdPQbRjl
-         plLSUAA9ImW32YDAjH0fVIme+8YBZK3rB2LHI9tw6BaKh02jWcNXQFnRTdsl3XKP0xzK
-         R4KTLX7Cmjv8Z5EEQwG/YnOrq4o+8usyHFJoVtxe+FpMeBjFSXCtacvuRULIbhj2ep0H
-         b5k6xl6xQHG5VcUOaF0rhigGy+PtxbZewUixLFZWKgJNVAjClHgg4SniK5Oilmx8vGhs
-         f/7w==
-X-Forwarded-Encrypted: i=1; AKwUvBzA9f5b/He5Oqv4IHuj8PRgYWF34/IcPrwNYjQc2GMKRa0pGHUhFH+198OYWp+uwuyBXWycWKUouRrgqFs=@vger.kernel.org
-X-Gm-Message-State: AFuF++nXO2+47dPWwRbGb9wUpC1nAL31CpW9D+dA4YefXj9rtLAK8rpA
-	NarDqDPj5DC8fUvuBiFAi5q2PIXFk4hB2C2zRgu0u8nIhCOBLRr2YLcvbsiyuBBRtd/6H64JnwP
-	sXBAGcEyBrm2zHxIi810k3Syx9L7jJyY=
-X-Gm-Gg: AYBFou0SdaZqkSpK9j8oZDt2r1lr6UA9BTQbd1HaQBxNzZkqSXyNkIMToQf1EEhYs8p
-	/MTOFP9w4Hh9Cg2Mfkfk67WLfSGgaIeKhA34ULxTayCD8iBrcvQjtGKbUvrZcJG2ePF1Kdy7yc8
-	vMHvwx2o6siFs47ZNKH9ICHehX98Jm22IyCPlEV4jj8IFTYfYjERfX947vm7doRxI4rVn8Ns6LW
-	ztjZOo76NEB8w3ghmnci/LTmj4NepKNSZfowenSOApBhc8q6jT0jyaKlaW20z1llAXmF0B3EN0U
-	HuPAU+jiTiMvABSw8hcCc6hFddW06SpVwZAGM0s/ZNTNPDlBUorgK2F7vzPN8nE2VapAhXsL9Zc
-	4H5G7HmBnNnjB
-X-Received: by 2002:a05:6402:2483:b0:6a3:8652:a373 with SMTP id
- 4fb4d7f45d1cf-6a663a61f85mr2069275a12.3.1788196727393; Mon, 31 Aug 2026
- 10:18:47 -0700 (PDT)
-Received: from 637551599889 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 31 Aug 2026 12:18:46 -0500
-Received: from 637551599889 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 31 Aug 2026 12:18:46 -0500
-From: Kelvin Zhang <zhangxp1998@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <CAH=xXfH7TPGt-zKXvJRNTgGDZKa1Xoq_sF3-WGs5kdsQLuYn4g@mail.gmail.com>
-References: <CAH=xXfH7TPGt-zKXvJRNTgGDZKa1Xoq_sF3-WGs5kdsQLuYn4g@mail.gmail.com>
+        d=1e100.net; s=20251104; t=1788196759; x=1788801559;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=EceNcS+Z+ajhb8CIpd8JlFdQ1JxKxr3f6vg2kh+0pjk=;
+        b=W8MjwLWbBr3ampC869TlQSbY+xAaS4JL7rOQuKOSJ+jF7X1xtyoqxX0C8G7D4PbE+h
+         4AvGuqas0ic+gYSmC/ZDULI9vAUiD4oFKVdIPiShZgAv8c/ukk8TG8IxrCgO0o/P854U
+         RNAZjN1L78N6CshJTeoVBDznwz9uqg/V21fF1ldRxC0uCYuQUXtPZWVpTn3Wq9PKGTMv
+         U72m9lFaQJmavsB+RaZNq/0wMuvrLJNrwnQ0/1kpI8PfDqJuhOFgBs03CvDlTxeEwimh
+         X1pZRG6Fwp2IQL+N5PP2eWTLKDhEo9fz74a1xgW+ex/+cvsKcGjAzWquYA6pbw7IaRB0
+         QCXA==
+X-Forwarded-Encrypted: i=1; AKwUvBz3Nbb7rlgBkjeaPvsnxbSvhuzllEdmNiUoEyDvmFb2C1w3NgOffzuKmD7VsotHu5UeMgN06MC4GS4ypTQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++mzUN95Rjl17IZRFdMZj+2edmDa1C4PSUyJq6n6O74YbFwaNijW
+	2YDQuybeAhghdB4tbc2CITgryljX3cttRnreSxw+YPb1obLHqUCrmRO2r3KA1JENMN/99zPvNjC
+	Z5nAa1Ud42VC0R5n8d85smX+zYWred+c=
+X-Gm-Gg: AYBFou0oiNTjGvdjUov7Uf/I0htMhjFQWCEkj26PzjQmlGq+tXDB6Nyz+vDsO1e07dw
+	gpn0WyC7l8cK4tNvVyKL99DkU0uu49eNPIJe8n0ZMNLUZIqSGdBxLyNN37abp+Nphg6rCN+Yv9O
+	YmHKHOyI6u3rH0E3V1TSyRxlGI2oZyE7KzCdwePRijqTmVj1msGI16WYP37W5NkliuVZtCdSHEe
+	CQW7KBCr5W51W7CAMdVfrj4lox7Yppo7+vrD2BP8JShWaMZhJwkGvw413Zwwe5vSi6fdpb9dbL7
+	qsMghCdAuAggHEiOduufeLXQ1QQVAuys+RH2s/d5OXhLczTR8AGmcujeW+g9xVox+wH7xf55lgJ
+	KmDoNWkbbHQEsMQYsDUEp9IeNcS8XebIoQBLsiQaldrl1iQ==
+X-Received: by 2002:a17:903:2385:b0:2d8:d4ce:7e40 with SMTP id
+ d9443c01a7336-2d8d4ce83fcmr275351495ad.21.1788196758727; Mon, 31 Aug 2026
+ 10:19:18 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Mon, 31 Aug 2026 12:18:46 -0500
-X-Gm-Features: AcwNN1XECKmKu1GxTPVkn99OW4KkbkvHxEsTNP08mCZaiXBBRgOrQ9k6FodzJbI
-Message-ID: <CAH=xXfHU6McbWkYRreT_1=Fh9g+ONkSd8J7TYvqMQtQLboncLQ@mail.gmail.com>
-Subject: [PATCH v5 01/11] f2fs: initialize sb_info early in f2fs_fill_super
-To: linux-f2fs-devel@lists.sourceforge.net
-Cc: jaegeuk@kernel.org, chao@kernel.org, linux-kernel@vger.kernel.org, 
-	Kelvin Zhang <zhangxp1998@gmail.com>
+References: <20260901-asus-x670e-a-hwmon-fix-v2-1-759406c2a61a@sne.moe>
+In-Reply-To: <20260901-asus-x670e-a-hwmon-fix-v2-1-759406c2a61a@sne.moe>
+From: Eugene Shalygin <eugene.shalygin@gmail.com>
+Date: Mon, 31 Aug 2026 19:19:05 +0200
+X-Gm-Features: AcwNN1WRhzKCE3-qq9S5IPJctdndIBtS6owhuM_r8cD37FzQpK4fkoVAkjdiw9s
+Message-ID: <CAB95QATuQcbMWVGP3GdaguhC=MUEj3ZpnAWkJ1nyUjaSstWXxQ@mail.gmail.com>
+Subject: Re: [PATCH v2] hwmon: (asus-ec-sensors) add ROG STRIX X670E-A GAMING WIFI
+To: sugar@sne.moe
+Cc: Guenter Roeck <linux@roeck-us.net>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, linux-hwmon@vger.kernel.org, 
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Randy Dunlap <rdunlap@infradead.org>
 Content-Type: text/plain; charset="UTF-8"
 
-Previously, init_sb_info() was invoked late in f2fs_fill_super(), after
-processing superblock error tracking, mount options, and sb->s_maxbytes.
+Hi,
 
-However, read_raw_super_block() reads the superblock folio directly
-from the block device mapping using folio page offsets. This makes the
-initial static sb_set_blocksize(sb, F2FS_BLKSIZE) call redundant.
+On Mon, 31 Aug 2026 at 18:18, Asai Neko via B4 Relay
+<devnull+sugar.sne.moe@kernel.org> wrote:
+> Changes in v2:
+> - Reuse the existing X670E-E board information instead of duplicating it.
+> - Link to v1: https://patch.msgid.link/20260830-asus-x670e-a-hwmon-fix-v1-1-cf0a680ccbe2@sne.moe
 
-Move init_sb_info() to execute immediately after sbi->raw_super is
-attached, allowing the block device block size to be set dynamically via
-sb_set_blocksize(sb, sbi->blocksize).
+Reviewed-by: Eugene Shalygin <eugene.shalygin@gmail.com>
 
-This early initialization also prepares for upcoming patches that add
-dynamically computed filesystem geometry fields, such as
-sbi->addrs_per_block and sbi->nids_per_block, to init_sb_info(). These
-fields are required by earlier initialization steps, including mount option
-consistency checks and sb->s_maxbytes computation.
-
-Signed-off-by: Kelvin Zhang <zhangxp1998@gmail.com>
----
- fs/f2fs/super.c | 16 ++++++++--------
- 1 file changed, 8 insertions(+), 8 deletions(-)
-
-diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
-index 253a579e9d5b..2d9f5b77f815 100644
---- a/fs/f2fs/super.c
-+++ b/fs/f2fs/super.c
-@@ -5125,12 +5125,6 @@ static int f2fs_fill_super(struct super_block
-*sb, struct fs_context *fc)
- 	}
- 	mutex_init(&sbi->flush_lock);
-
--	/* set a block size */
--	if (unlikely(!sb_set_blocksize(sb, F2FS_BLKSIZE))) {
--		f2fs_err(sbi, "unable to set blocksize");
--		goto free_sbi;
--	}
--
- 	err = read_raw_super_block(sbi, &raw_super, &valid_super_block,
- 								&recovery);
- 	if (err)
-@@ -5138,6 +5132,14 @@ static int f2fs_fill_super(struct super_block
-*sb, struct fs_context *fc)
-
- 	sb->s_fs_info = sbi;
- 	sbi->raw_super = raw_super;
-+	init_sb_info(sbi);
-+
-+	/* set a block size */
-+	if (!sb_set_blocksize(sb, sbi->blocksize)) {
-+		f2fs_err(sbi, "unable to set blocksize %u", sbi->blocksize);
-+		err = -EINVAL;
-+		goto free_sb_buf;
-+	}
- 	sbi->max_atc_write_bio_size = UINT_MAX;
-
- 	INIT_WORK(&sbi->s_error_work, f2fs_record_error_work);
-@@ -5217,8 +5219,6 @@ static int f2fs_fill_super(struct super_block
-*sb, struct fs_context *fc)
- 	if (err)
- 		goto free_bio_info;
-
--	init_sb_info(sbi);
--
- 	err = f2fs_init_iostat(sbi);
- 	if (err)
- 		goto free_bio_info;
--- 
-2.53.0
+Thank you,
+Eugene
