@@ -1,41 +1,41 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79FD949DBBC;
-	Mon, 31 Aug 2026 14:21:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93D3649E5E4;
+	Mon, 31 Aug 2026 14:21:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788186076; cv=none; b=BYqoPNGTvuldfSovk0OeZPU4qhxMru8/k6ABUKbLNqYJujClW4t8JLCX0fBy/4Lh5jvCUMpcw9ndcfShbeU4zbQCocChjEhZnQrMLTXBuHcJjOnXND+ze/DImVjB9Tc2j2MI8iD5YfAUGVi0O5MEBRSkylgBwD3CayrbBbmttI0=
+	t=1788186078; cv=none; b=q/5XPXpq4O7hgkJlmrKERoPxPafJQ/J3IrZtDW98CkyKNLhIjFiGjBSBH3MJqyohTYozNh7d7zge1huxsOWJH5HZWC68J9nEdmmJ7SqjwXflGqkUjiWU4c58Hw2eCB7j6X6WsvA6EIOiwCVQ4puMAFuYykowrpiSifXFdrLcBf4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788186076; c=relaxed/simple;
-	bh=nnQom02Ih1qwesbG7H+t6ImlBeovlhLhrwVE7x/9+zc=;
+	s=arc-20240116; t=1788186078; c=relaxed/simple;
+	bh=WW3bgWtvchm/ZVcwcd6Is+/46qWg55ayuKIPjH66+G4=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=CphF5S+q74PJb8kQ/Sbq9vi3S1k6q72PBqltzB3MUby62Tz9TvZSnThGtN8E5cZdVP7dn8V0U5VIAgxlHtQGtdCAVJBforTC8rkcEMGzYyPPAGVE5gw7tqAkeC9HKLVCtfOJe9wc8kIi4PRu+sPzw2OoAeFvxL26SxMhIO8UlnY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=E51wLAIN; arc=none smtp.client-ip=148.251.105.195
+	 In-Reply-To:To:Cc; b=X/5AAqgyUtGDTx77Ulh4nLG18sirj9ar0dAiHM8euY9iLvEMmppFIHqaVNqZ2ELw/QmpmwmUKhvTk9hTU7GXFdg2PixYO/zK6LhSTclpC/05/8+8/KuX9fTLgI2ZRzKoeirkwCdaPT6Q29m/jvdsKzQPjXAsTsrL8BA51m2t8vQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=L0UoIPjB; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="E51wLAIN"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="L0UoIPjB"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1788186073;
-	bh=nnQom02Ih1qwesbG7H+t6ImlBeovlhLhrwVE7x/9+zc=;
+	s=mail; t=1788186075;
+	bh=WW3bgWtvchm/ZVcwcd6Is+/46qWg55ayuKIPjH66+G4=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=E51wLAINxykV93UklgsOYS+SQArUDJDgtLX7j6OsAC+kGj20G9ksGp5wCMjbPzRmT
-	 PYSoVixzV7v3ONNu860TUsnWT2j1H5pEGIWprHb5qzESpSxKxeUAIrB3z0/3ArM7re
-	 wqZB6wA2mDwu6lf0DEz6GKWQ1hKkmV7D5cTGiLdu6WozoZmfktm3BYUlCzOwahmNAh
-	 r2cvSoSrfYPKeVphvIlQgmWfTk7xgGLN0rCr38AFlOx+ztPuat+hKly/TD0x2MqJUj
-	 E5V11kv2gh9E7B27Pz+asG9tXCKVyWXjgV+2NQXt+iI+dFPnU63pKcMDiUVVEnhDN0
-	 zJ+hdvv1a3MtQ==
+	b=L0UoIPjBpYbdEuMhT9kraRtVJaCNFwqE5rEmRWPpDiEnrcbvvvBAUrVhJntZwWUqe
+	 J3nFscVHYcGsfmnXl5p73eZFMLuVspW6t5EURykGlkRhFqxusYAvuxxSIOhpLKFfsm
+	 0JPfyrkNmHiMsydIBHmDURQHBDgfMHVadYvH8dGCAVSxFP+r8tirEUN4f6cZlqboL2
+	 ZOvF0Q9aGKgTlZXjgp3grs+LuH8l/9/oaJ3BtbQ6RrnJJ6bnn/j0W54qG5ijO2GETV
+	 VYRvYpux+MBzUY3OiakZI0WvR2UA7mGZkFoD0mmBQLgB5o8PO1J7PM95ws5QXFzv3g
+	 ScfaYtL5Jr4KQ==
 Received: from [192.168.0.15] (unknown [100.64.0.170])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: detlev)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id B3FA617E0180;
-	Mon, 31 Aug 2026 16:21:11 +0200 (CEST)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id E4E1B17E0829;
+	Mon, 31 Aug 2026 16:21:13 +0200 (CEST)
 From: Detlev Casanova <detlev.casanova@collabora.com>
-Date: Mon, 31 Aug 2026 10:20:53 -0400
-Subject: [PATCH 6/7] arm64: dts: rockchip: Rename rk3576 HDMI audio card
+Date: Mon, 31 Aug 2026 10:20:54 -0400
+Subject: [PATCH 7/7] arm64: dts: rockchip: Rename rk3588 HDMI audio cards
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -44,7 +44,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260831-fix-rockchip-hdmi-audio-names-v1-6-5b155ae05293@collabora.com>
+Message-Id: <20260831-fix-rockchip-hdmi-audio-names-v1-7-5b155ae05293@collabora.com>
 References: <20260831-fix-rockchip-hdmi-audio-names-v1-0-5b155ae05293@collabora.com>
 In-Reply-To: <20260831-fix-rockchip-hdmi-audio-names-v1-0-5b155ae05293@collabora.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -61,29 +61,43 @@ Cc: kernel@collabora.com, devicetree@vger.kernel.org,
  Detlev Casanova <detlev.casanova@collabora.com>
 X-Mailer: b4 0.15.2
 
-Rename the card from "HDMI" to "RK3576 HDMI" so it identifies the SoC
-in user-visible ALSA fields and no longer collides with the identical
-"HDMI" string used by other Rockchip SoCs.
+Rename the two cards from "hdmi0"/"hdmi1" to "RK3588 HDMI0"/"RK3588
+HDMI1" so they identify the SoC in user-visible ALSA fields and match
+the naming scheme used across the rest of the Rockchip family.
 
-Fixes: 7f1561d82e3d3 ("arm64: dts: rockchip: Add RK3576 HDMI audio")
+Fixes: b8c6c136971c0 ("arm64: dts: rockchip: Add HDMI audio outputs for rk3588")
 Signed-off-by: Detlev Casanova <detlev.casanova@collabora.com>
 ---
- arch/arm64/boot/dts/rockchip/rk3576.dtsi | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ arch/arm64/boot/dts/rockchip/rk3588-base.dtsi  | 2 +-
+ arch/arm64/boot/dts/rockchip/rk3588-extra.dtsi | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3576.dtsi b/arch/arm64/boot/dts/rockchip/rk3576.dtsi
-index b0c0d3c8b1b1..ca9cbf035265 100644
---- a/arch/arm64/boot/dts/rockchip/rk3576.dtsi
-+++ b/arch/arm64/boot/dts/rockchip/rk3576.dtsi
-@@ -410,7 +410,7 @@ scmi_clk: protocol@14 {
- 
- 	hdmi_sound: hdmi-sound {
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
+index 376ad04e0786..7892e18a7835 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
+@@ -376,7 +376,7 @@ hdmi0_sound: hdmi0-sound {
  		compatible = "simple-audio-card";
--		simple-audio-card,name = "HDMI";
-+		simple-audio-card,name = "RK3576 HDMI";
  		simple-audio-card,format = "i2s";
- 		simple-audio-card,mclk-fs = <256>;
+ 		simple-audio-card,mclk-fs = <128>;
+-		simple-audio-card,name = "hdmi0";
++		simple-audio-card,name = "RK3588 HDMI0";
  		status = "disabled";
+ 
+ 		simple-audio-card,codec {
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588-extra.dtsi b/arch/arm64/boot/dts/rockchip/rk3588-extra.dtsi
+index b251bb129cdb..2bcf30d8a338 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588-extra.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk3588-extra.dtsi
+@@ -11,7 +11,7 @@ hdmi1_sound: hdmi1-sound {
+ 		compatible = "simple-audio-card";
+ 		simple-audio-card,format = "i2s";
+ 		simple-audio-card,mclk-fs = <128>;
+-		simple-audio-card,name = "hdmi1";
++		simple-audio-card,name = "RK3588 HDMI1";
+ 		status = "disabled";
+ 
+ 		simple-audio-card,codec {
 
 -- 
 2.55.0
