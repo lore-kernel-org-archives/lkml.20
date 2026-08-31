@@ -1,35 +1,35 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4433540B10D;
-	Mon, 31 Aug 2026 15:13:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBC9C4AA1C2;
+	Mon, 31 Aug 2026 15:13:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788189190; cv=none; b=tdDCk+zVbBHZgXG/nVeEJzH6Vf60zmldeb5Y59NKO0q0lMpIWL01V1fvObzLJTYEsBTheg1hiVJXYXPrhqAiWbxY8NwxibdaSiGXhYK7lI6ww4xsQM652JN0EefbLd2Q6Cy5NM3SzVifYtKm3wZuPiFA7T/AlYeAhPSidoeZclE=
+	t=1788189194; cv=none; b=BvGoEfTLMSWAqvqSmcYeWxDykc7QHhq4rda+Q/9lSfXWUYntG4al+XpJlgx9R4hIR9ZzhpJJr359K5J33wfD9aCgcUV8EhSbu6ao8DrrLS1g+tklvfg+xO/MyP5SCqjZDU8tLuV2aVG6y5hMNGUAMy0shmKAZBLXRqYPgr/wJwk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788189190; c=relaxed/simple;
-	bh=NkYUOkiNa9E3uqZuEG+cJ1SbRJMoleg3QzGdXA9yz5s=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=NW5p+s9cHawkaT61h1LEq6vqJmMv24MDiHg+9WisSt1TSsdZikc84w3WOUYHUIw/Q+isnFEvcq5bcFhE3OEEaevayJM7J/qS5G73HKvexlJ0dgcdxDhC/zhf5jZQVm1Tf+ipOSoWcDAm43JiIFKXKpyRg6vc3J29ms0IRUOijGk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kfs1qMws; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788189194; c=relaxed/simple;
+	bh=blfFfRYtE7ZzLPJHJw0Y8DQb+sgWw/wLEN3PO9eeURA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=BdJ86UAaLPw9zu71s2ALDhT6ccykTVWKRTghqMO6NG38I+CnyWsrxsFf0wLgse5CfOs5bPLRA/eN6bJdEYp7lOFml8iSTAPTLnsUmp99N+ae/i+rvz9DqRJp0w0IX1IiHFrmayAR6VedwstKepAKa4Yacyu7e8q88R43DJKQWd4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EkqpdoSr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kfs1qMws"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72B2E1F000E9;
-	Mon, 31 Aug 2026 15:13:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EkqpdoSr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 363E51F00A3D;
+	Mon, 31 Aug 2026 15:13:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788189188;
-	bh=T23vz1XT5Dhk0iK4FxPkhvidc2Wl0CtXoyVQvUdnPKA=;
-	h=From:Subject:Date:To:Cc;
-	b=kfs1qMwsLbtxXIAi1KGhQoNZG33C6c9TWByVTS07fOYis4z7BIKWGXDDDHEh+cUAX
-	 YL3aZ0unG5LmqOpsnYberOk42sT3d/YZaz1DgwVs+MHXC1K+LgxIsyUyX+CRfWUk6M
-	 XnVnImvs7Ir9K0/y4KJ4FWxrTFQ3zjYAJCRByE52hVdMX9nV2+DR6BvOrzLS4WK6af
-	 CCkLx525kbk3WsL2ZyI2n/3YldiU46+eyyxXZxKxGCIGuM3NHj7CA8VMy/1mZ4wAW/
-	 QpaVkAzZsVdMnjhhxn+LVgFhOx5xWwh88AbBLkPceaiuBZnzwyRwYnUs8r+5OcnERo
-	 LGGAzqzBztAXQ==
+	s=k20260515; t=1788189192;
+	bh=ualF5+awGlDHLbOLG+wUlZuM4jd8jJfoQcPc7XMxhaI=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=EkqpdoSrLqrqJ+56jtIOkn0qQ5pYUzgkYbPaxtjasLmfcWU1udj5IEWVdg3ZSpHKz
+	 /KCIqnl3daGW2Hi603OV1Bf7sifJEDj14cdAgZQ70tYdaPdV9sbHFZzGWdASQFvyHh
+	 /qbzX2J379Fh8QCaEsGzunE0L/B7l9DCrMaVs4tuoH77I+l0Dq7B6L9IEAGSOD5uUO
+	 Ucbh1XtkiNia6/hmDhMxjLLM06QDEWo2ZzXE3GqWaL9bI4j+TwWHG4gtM4ZVfEv1v5
+	 JP09edUxkx6nI9Fg8a6vWVs4v9rlGM+oCg67G+Xga94HFpyFaRiqaN3ZYC80Cz48ml
+	 GzqyvjbE0oD3A==
 From: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
-Subject: [PATCH 0/2] docs/core-api: memory-allocation: add k[mz]alloc_obj()
+Date: Mon, 31 Aug 2026 18:13:01 +0300
+Subject: [PATCH 1/2] docs/core-api: memory-allocation: add k[mz]alloc_obj()
  and clarify kmalloc
-Date: Mon, 31 Aug 2026 18:13:00 +0300
-Message-Id: <20260831-docs-memalloc-guide-v1-0-547718c274c1@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -38,10 +38,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMQQ6CMBBFr0JmbSMgIeJVDIu2M5YxtDUzYEwId
- 7fo8v389zZQEiaFW7WB0JuVcyrQnCrwk02BDGNhaOu2r6+XxmD2aiJFO8/Zm7AykkHfoRs6RDv
- 0UMyX0IM/v+p9/LOu7kl+OVLHw1kl48QmPx1TFg6cztHqQgL7/gV7A87mlwAAAA==
-X-Change-ID: 20260831-docs-memalloc-guide-dc4db94dda96
+Message-Id: <20260831-docs-memalloc-guide-v1-1-547718c274c1@kernel.org>
+References: <20260831-docs-memalloc-guide-v1-0-547718c274c1@kernel.org>
+In-Reply-To: <20260831-docs-memalloc-guide-v1-0-547718c274c1@kernel.org>
 To: Jonathan Corbet <corbet@lwn.net>, 
  Andrew Morton <akpm@linux-foundation.org>, 
  David Hildenbrand <david@kernel.org>
@@ -53,25 +52,75 @@ Cc: "Liam R. Howlett" <liam@infradead.org>,
  linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org
 X-Mailer: b4 0.17-dev
 
-Update hte memory-allocation guide to describe k[mz]alloc_obj() and
-clarify description of kmalloc() size limitations.
+Since v7.0 the most used memory allocation function is kzalloc_obj().
 
-And when I realized that get_maintainers.pl does not list any of mm
-people for that patch I added the MAINTAINERS update as well :)
+Update hte memory-allocation guide to describe k[mz]alloc_obj() family
+and make kzalloc_obj() the first answer to "How should I allocate
+memory?" question.
 
+While on it, clarify description of kmalloc() size limitations.
+
+Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
 ---
-Mike Rapoport (Microsoft) (2):
-      docs/core-api: memory-allocation: add k[mz]alloc_obj() and clarify kmalloc
-      MAINTAINERS: add memory related docs in core-mm/ to MM - MISC section
-
  Documentation/core-api/memory-allocation.rst | 30 +++++++++++++++++++++-------
- MAINTAINERS                                  |  2 ++
- 2 files changed, 25 insertions(+), 7 deletions(-)
----
-base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
-change-id: 20260831-docs-memalloc-guide-dc4db94dda96
+ 1 file changed, 23 insertions(+), 7 deletions(-)
 
---
-Sincerely yours,
-Mike.
+diff --git a/Documentation/core-api/memory-allocation.rst b/Documentation/core-api/memory-allocation.rst
+index 0f19dd5243239..8ecfa4d35f4f5 100644
+--- a/Documentation/core-api/memory-allocation.rst
++++ b/Documentation/core-api/memory-allocation.rst
+@@ -19,6 +19,12 @@ Diversity of the allocation APIs combined with the numerous GFP flags
+ makes the question "How should I allocate memory?" not that easy to
+ answer, although very likely you should use
+ 
++::
++
++  kzalloc_obj(<VAR_OR_TYPE>);
++
++or
++
+ ::
+ 
+   kzalloc(<size>, GFP_KERNEL);
+@@ -139,10 +145,13 @@ allocate memory for an array, there are kmalloc_array() and kcalloc()
+ helpers. The helpers struct_size(), array_size() and array3_size() can
+ be used to safely calculate object sizes without overflowing.
+ 
+-The maximal size of a chunk that can be allocated with `kmalloc` is
+-limited. The actual limit depends on the hardware and the kernel
+-configuration, but it is a good practice to use `kmalloc` for objects
+-smaller than page size.
++Since 7.0 there are type aware kmalloc-family helpers that let you safely and
++conveniently allocate a single object or arrays of objects with kzalloc_obj()
++and kmalloc_obj() and their array versions kzalloc_objs() and
++kmalloc_objs(). These helpers only need the type of the object that should be
++allocated and the count of elements in the array for the array versions.
++
++As of v7.2, vast majority of the memory allocations use kzalloc_obj().
+ 
+ The address of a chunk allocated with `kmalloc` is aligned to at least
+ ARCH_KMALLOC_MINALIGN bytes. For sizes which are a power of two, the
+@@ -154,9 +163,16 @@ Chunks allocated with kmalloc() can be resized with krealloc(). Similarly
+ to kmalloc_array(): a helper for resizing arrays is provided in the form of
+ krealloc_array().
+ 
+-For large allocations you can use vmalloc() and vzalloc(), or directly
+-request pages from the page allocator. The memory allocated by `vmalloc`
+-and related functions is not physically contiguous.
++`kmalloc` always allocates physically contiguous memory and the maximal size of
++a chunk that can be allocated with `kmalloc` is limited by `MAX_ORDER`, the
++same limit also applies to the page allocator.
++
++Internally, slab allocator differentiates allocations of different orders and
++delegates larger allocations to the page allocator, but for the users of
++`kmalloc` family it is entirely transparent.
++
++For large allocations that do not require physically contiguous memory you can
++use vmalloc() and vzalloc() family.
+ 
+ If you are not sure whether the allocation size is too large for
+ `kmalloc`, it is possible to use kvmalloc() and its derivatives. It will
+
+-- 
+2.53.0
 
