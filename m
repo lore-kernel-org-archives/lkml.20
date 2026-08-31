@@ -1,172 +1,154 @@
-Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012044.outbound.protection.outlook.com [40.107.200.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A29338A71E
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 04:33:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.200.44
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788150803; cv=fail; b=r+kWSwevPgrJubddehTjowaF45tumrco2d/AALAiD3VI2jA2dNSQcYNaIr2BR0jQD5XYImVCMZpUqdlIrXmS5q/ZYQ+GkObi0isSimhr+Tm1xD9P9a7EyQt2T6FbWC4FZT9DlockRQHxCUJAJYyyuep/Y502xrx47DmKdNN1onY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788150803; c=relaxed/simple;
-	bh=rVMo9ztlglIQyh8NL0tWYEjgi8Xh5OvDKEZPdBDU9b8=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=mAINbJCFrBc3cHB/UTTGBPnz+72hJwZgJN2fWnxYKYgcr/BdpToWAjh60Bd/wQjZVL0zOh7gWkzwUF0/8iW+davZi37j9t8XQ9Rg1Kimj9yDHCB7svJHbpcNqKoYPu2Z1fD7EAMqc15s+YemArwxT6KZOFUquek1afJONtlj+Ag=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=KniO4TIw; arc=fail smtp.client-ip=40.107.200.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13DE13AA1A8
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 04:35:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788150910; cv=none; b=qvAvOdPuRdJpDKy/5Ltj89e5QVUcWEcMBX2Z7LXOdcMVkTQLkj0Gm3VvOeUG1YvXbqy0DZpyfI8yWJPoe/yHltt0TCMrDgvZoZ6yQwtBMxvSMLN+4PLyVg7Hl4UYGiI9gzmY7XwQSa/Ai8j8X7Pa+xUzI2t5HslRWQ9FWsYjeds=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788150910; c=relaxed/simple;
+	bh=2K4OYdBn6JH6BbUMe3S8iRa7QaUbz2dz7Xs9yiDufBs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KxsGzrFhi8vSt8XrfCNirw/Nj0L69XpEi9QPVwGitspsCmx/jWX2+a5BVYJQO7IbhGyimfKRZW64HTlvJvhrQRd0o1ks97YABgzd0/oBhoAR6dVsldoZfwYa5PgbrhoekyezZTK1F6a1t6wBgAsVvsMwcW9navvtcFeV6hx5zfk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Kh0wAtYH; arc=none smtp.client-ip=209.85.214.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="KniO4TIw"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=kCih8pnu5Ti/A6Vbb3WHsF2MpGzGH/8Ymqnc9UUJt0rzn+bPpUn5QbDlrjGUZphI8tDd+5OO8sn3L/ORCaDuHx7hyYaWoHK7s3G1iBWlN46ub2DsUmS5wY0aj+o1ipozV/YVNXfHaggBeXXJvXcrDCm6bRKzHpNaFWoOgchkQp+RjTxspsdb5EmLX8788T8Q63ri32upuwC7pohNtTRrb91h4+oveA8GLTxbkufZ/gX1XBMkglSaQFsWq6ZI2/Lj8CPodImiCUSczt43CJjKF2Is1QbBnfYv/m7lhj/E+MrWaT47ZgOCdB3fsetMLR/K2N2VmEzCz7KhgxKPBIuvKA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=SMK0h0qZIkwn1KlhkC98mHsPBKjVn/Zhk2xMPju9qS0=;
- b=fNqirS48V7mTi/1SKSDz5FOc+aNhfh3h49Mf5FaBFIk8PCJX64ZP2nIrlFto0oLvZv50nRZs+H+kF0AW4GR/0iBJ2zmMg0IL89QHdOQ0lq8R9uQDWEQAJ6hbOP0j1gNKQCce3rk0qRzvzPL9BqpTYGguUZK1KAy1JAvVOScvslyHfkimB+xctKoZTlzjiJDYI4ifVHwH3lRbmxmkipCdnlZx0kqyAHPk1T5r1AXQElc284ID4jfsgWupk2dCet9/IQ/lTJ3yuj6az+nngcTOEAxnqQnK5jl/E7RjT13B/Eo5xGGWhKDQMctWov1VJathskcR903gmwEs1ixUAMOclg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SMK0h0qZIkwn1KlhkC98mHsPBKjVn/Zhk2xMPju9qS0=;
- b=KniO4TIwS0LN/D54kYBI/URsAfQdZQ/4Jd5QzC7MMJz1XE8+11Xpj4rA9V+4Z+Mnle5k7KIXq1IB3B3fheMazycqOOZBhG5TfbMSk1tC2fjRJMXbSz6pscJkp/qcNEtzPwfzGe2VC2QXdzMI+VMPDw9AK4sZikCm14Ym54Bs7pGOBGIpHuSuYqqxd50K2br6FHCUrPvYWeiaoTk9PArxLF+l7Vc5aRsoU8GDVxNWEUHgYtAryyUaobhS06f6PZxhnAMjmycQnOmW0Cx2KXTiIkgEeRWsWZJGpSVDpJthFvMKWFwG7iGLmasYhoknWr88q/BCYW5KSyM3haSWPxoVdg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DM3PR12MB9416.namprd12.prod.outlook.com (2603:10b6:0:4b::8) by
- SA1PR12MB6945.namprd12.prod.outlook.com (2603:10b6:806:24c::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Mon, 31 Aug
- 2026 04:33:14 +0000
-Received: from DM3PR12MB9416.namprd12.prod.outlook.com
- ([fe80::8cdd:504c:7d2a:59c8]) by DM3PR12MB9416.namprd12.prod.outlook.com
- ([fe80::8cdd:504c:7d2a:59c8%4]) with mapi id 15.21.0360.008; Mon, 31 Aug 2026
- 04:33:14 +0000
-Message-ID: <d6d3bcba-56d9-4775-9687-ca8e2a0c80ec@nvidia.com>
-Date: Sun, 30 Aug 2026 21:33:12 -0700
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 09/15] gpu: nova-core: match GSP RPC replies by
- sequence, not just function
-To: Alexandre Courbot <acourbot@nvidia.com>
-Cc: Danilo Krummrich <dakr@kernel.org>, Timur Tabi <ttabi@nvidia.com>,
- Alistair Popple <apopple@nvidia.com>, Eliot Courtney <ecourtney@nvidia.com>,
- Zhi Wang <zhiw@nvidia.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Bjorn Helgaas <bhelgaas@google.com>,
- Miguel Ojeda <ojeda@kernel.org>, Alex Gaynor <alex.gaynor@gmail.com>,
- Boqun Feng <boqun.feng@gmail.com>, Gary Guo <gary@garyguo.net>,
- =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
- nova-gpu@lists.linux.dev, LKML <linux-kernel@vger.kernel.org>
-References: <20260829012243.496697-1-jhubbard@nvidia.com>
- <20260829013324.499542-14-jhubbard@nvidia.com>
- <DL2Q86NR6TJU.3ULD0NQAQ9HF@nvidia.com>
-Content-Language: en-US
-From: John Hubbard <jhubbard@nvidia.com>
-In-Reply-To: <DL2Q86NR6TJU.3ULD0NQAQ9HF@nvidia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SJ0PR13CA0185.namprd13.prod.outlook.com
- (2603:10b6:a03:2c3::10) To DM3PR12MB9416.namprd12.prod.outlook.com
- (2603:10b6:0:4b::8)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Kh0wAtYH"
+Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2ce98cb8165so29112995ad.1
+        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 21:35:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788150908; x=1788755708; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=7eDTIpv2tuo9c5hFEI1wY3H5RV5KUp/pbjznvsnrm28=;
+        b=Kh0wAtYHtz+1VclxPNtyByHhq+1aBqYhgxGsMfO66oS6Rzvoqd26W0QQxfzm1ofmok
+         7poqs+RsSWBiCwsY2xCccNgUiMLnaSI+RJZOq1xEObuVRCOBaKDoKapodNBT2Qr6xXnZ
+         h7w2kmHqFM8faU8mSuiq547C8GdceyHhlCBDAZsOiEtJa+mTiYhxTSL96j5NBB3UTrGI
+         5b7iEqNIZhD9KXc6So7s76zY1wbrprN1YaWbG6bQEfvERgT6TW1gn/s+xBxU2qJKGCoZ
+         PaoADmlWUn3+eGwv/yqh+H+xx8fd10Wt4dNJZQ5wYFQW7TRVnISxwdZm6WrGiic1DyUd
+         OXXg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788150908; x=1788755708;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7eDTIpv2tuo9c5hFEI1wY3H5RV5KUp/pbjznvsnrm28=;
+        b=ldL/Y0eHvTyqjNRpXku/XGRUQJzWjV9lOv4p70/+vmuE2CUPVCOnNfyrngWPeE3lCS
+         S568Qocz7jtspy29bWE8KkInqHNCe89x4gKB8B7SSphZiAJTAlSRoNRPu7dpbA98PEKb
+         DQgYzonNJIzlubhzEkGV0vfiBE4/12yJNP3DXcT9T8HnAHE2hubo/IPz6Sai/hKH6P+F
+         BvsuGdbaHcAUDvRLojG5uDS7hVZaldPTzMW3dikt6xoZzMZ10zwiNMBJvTKW2MLQ++vy
+         9dYALCKWt5UMEqZS57N5fwWUub/ksui1Foi1nOOCPgioYtBh47QsB2CXFPjrFFlMfhM7
+         1fKg==
+X-Forwarded-Encrypted: i=1; AKwUvBxeP5DSRhCITTV1xwHQ1sRLh4Fi+lWP951+75XL1E5IUGLdq1hJmPBuIgE1xtG5fijMqDvJ48+hHzsPwi0=@vger.kernel.org
+X-Gm-Message-State: AFuF++lsGfQbdGZ4Dl25lPWYywQTP2PxOQkHhmNblijtVnacbMntewD+
+	fGJfk/u1pt7fqKDm7hiLv6cK1cBUMGKXzkRYLpmT9B/d6heqc4aPS8Iw
+X-Gm-Gg: AYBFou1aOPKhcuE1h5kPw1binFCzhNMvsj9qMxdmVeIcd8aA0tcISd+muYYezpKfBhQ
+	77Jfj3nEFAyVCmPpThtrurarOPwEPGWwpWbjCpsqgjJoirJO1Fcoq4jTfW2onzb2Uf0vLv9RWNs
+	o3ltn/Ca3b6aNnM6PXuqVPFFsRBAkI5d0nmX4Zo60aDVpD9yfM8QP/3G3QjtMgC/8DCO9UETP4d
+	zET99gbWC0xqg/x8Fd97SKAopKAklBi5OpALiqI4bwqJSAJgG8T9R0ZTuxv5w6z2tZx9ymuFbzX
+	h9Mn/Ce/bejJ7cNLQ+ENaymeiyyrYM3pVUx6mG8mcoeHjWvKD7u//1lL2x74U5STzHFsb5CRhN1
+	Dqs0Q0dC1tzmcWsbfoUmObhflN7Ucx7WvYvCNpCrrN6K0GJFYkI4g1sTmq0uGB3EWb5EAG1bKyC
+	UgdhOqH2PGovdDkzq+BKu1JloetaGG7fnVybyXNA0EWVC39Fpsz0zHpJPV/naaiFzD9VQHQa5wY
+	1t0YstyCvQ=
+X-Received: by 2002:a17:902:e809:b0:2d8:d4d2:d134 with SMTP id d9443c01a7336-2d91b239e87mr37083215ad.16.1788150908168;
+        Sun, 30 Aug 2026 21:35:08 -0700 (PDT)
+Received: from volcano9f8e-host.amd.com ([165.204.217.251])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-328713b944bsm26991328eec.27.2026.08.30.21.35.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 30 Aug 2026 21:35:07 -0700 (PDT)
+From: Hemanth Selam <hemanth.selam@gmail.com>
+To: djbw@kernel.org,
+	vishal.l.verma@intel.com,
+	dave.jiang@intel.com,
+	alison.schofield@intel.com
+Cc: iweiny@kernel.org,
+	nvdimm@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] nvdimm/pmem: Release gendisk on probe failure
+Date: Mon, 31 Aug 2026 10:04:59 +0530
+Message-ID: <20260831043459.1298059-1-hemanth.selam@gmail.com>
+X-Mailer: git-send-email 2.43.7
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM3PR12MB9416:EE_|SA1PR12MB6945:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5bdadef9-d638-4cd7-84aa-08df0718f8dc
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|7416014|376014|366016|10070799003|11063799006|4143699003|10067099003|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	9DVXwTHvwvfoeukFz9SL9jP+II228y0nuq8li97C+o6lgk5fetUZGczq3rIOapbt9LD+XOXe9hXCwo5Ho5GVeIntvV/C8EHCHPtxH06GgzPKf/oTigFAHFDP9YmCTAiNxJ5ZRoNr039nQQ+TLc5lIbvTvgHBCof+bU1pdPoD9TcpHEnV/bjFpfViwgNA7To85hAQ5YmGWe8oqGuqwkpEKu1Um8n+EsYwZI1UirdXZ4t4Z9t2mRtrr20IItZLTxFmzBuWC46qKfqyZIkEdTjYz6fupg9xUBWZ4XjiDN4EzyoG9axnStPqDH6Wldb+E3Nywew/j8YYcOTvV2ez2E9rtPQj4c+LO35qIzl/KERP+HAAWANmAsZQ3DHAlChyXHZbmGWT5oQb0g0v/ZoLRzlv6SJ8AwD/386dqsGxcfV7cph32S+zG0aMspYEo1qfCv6nA1enr/wsk9pacE+1Ddk3hFh1pIc2eetyPTIIrYeQxE5r2OMtIVkz93WLfa/z9nIhfWUF5XB1jkAePLVYo1oGk1h62nVV3q2Mu5JpvonNZnqP0+TiMpBNelE+3nk4VuMO8AY1lkBsDgCWB0GBmTfSoIbggXdlUwfeoYycqUhjPLr1xwCHYqMd2w0nDN9JCeoUEJLQe/f8iicDVeu1ceke2RnZi+kJgftWl08JojfJ3ZQ=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM3PR12MB9416.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(7416014)(376014)(366016)(10070799003)(11063799006)(4143699003)(10067099003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?UG9UMzNDUGlQWEszaEw2TnlTNzl1YWdFYUlneUpYU3MxQVpSMEdKbm5aKzZX?=
- =?utf-8?B?ZGRJVngzeExSNXU2My8wTERWTFhxdTQ2Mys0QmlzOVNiVjMxZkx5UWNqN0lF?=
- =?utf-8?B?SnBwK2hxV3hMQzNIeTRYbjJRVlFKRUxmMlBUeGgvMTBoL01idXU0WVFWaXRP?=
- =?utf-8?B?SDUrWE1ndzZsNDFrQVp0UXgxZnRsNTZZeXFQbGhhUDdjTE52OXlDZU9KbkRC?=
- =?utf-8?B?YWU1ZmJNMFNBR1prZTMxTlZ6SGYrcTJadTZpSk5QdTlCVDZObWRSNWgwbG1E?=
- =?utf-8?B?ekdnZ0pKd1p4dzN4YnJUNFRWbTZRYVZ2Y2RGR0luVTRudGxLNS8zR21IWlFs?=
- =?utf-8?B?b2JVeVgzeUREYVVneHQ2V2dETU5STVo0ZnVkM0V3RkpzZEZjOTEzWjFodXcv?=
- =?utf-8?B?ZmJRSjBETTZDRmYwRmM5OUlVK0ZGTW9SUDQwbDRLbEJVenZYMWlESHRaWFlo?=
- =?utf-8?B?REc4b1ZzVVBtcmxmdVVpdTlLdlBqL1YzVXpHOWcvUXB5cjN1ZGw5L0Fxdm5j?=
- =?utf-8?B?N2tzTlNJcjRhUnNTMXkyOHpKZVd6UGRnMnV1UGFKcy94dHR4ZGtGdWJmcVc2?=
- =?utf-8?B?dWU4bDdLRkdFbWNoVEVKTHJPZ0NmZnBURFJPbVFEUE0vRkRPUElSam9SdVI5?=
- =?utf-8?B?S3BrMngxUlpPS3BrN1ozcVp3WnNvV1NwbGVHeUhBNjA2K01ubFZHcC9JVDlE?=
- =?utf-8?B?cEc1ZGxVc3dITVR4WmJKYnF2bVY1RExES1dxU1VsMkZyOFNmZkQwNmhGeUV4?=
- =?utf-8?B?YVRtd3NuR3hpM3NkaUdVbThCdUJPVmxGQXE2bWhzcnEvazMvR05aSnFydmtQ?=
- =?utf-8?B?ZGw1dEZDSTJYbytvUkk2ekR4MjN1aXlMZUFqdWp4Z1ExR3lkbXpPc0dWOTdx?=
- =?utf-8?B?Mml4bUR2QXF2VjQ2ZDFHUlJNbm5jaG9jMmhrOHdhU1g3SkhjNzFqUmFsQjdD?=
- =?utf-8?B?NHp5alN5WUlUQTJrQmlERWlJSVNVKy9vS0Y0dS8zQjVKZHgvdkpudUdjQWlI?=
- =?utf-8?B?REJRM0JRV01lejBiRkZielVVb2kwVURiQlozYTBTZUxQbnR5NGFhUjMxeUMx?=
- =?utf-8?B?NDd6SXFrdWh3QVVYaDVoZlFwM04yMmt2Lzk5akJLMTR0YzdUcFM2Nk1oNGly?=
- =?utf-8?B?dTdTMzg1SXE1a2VtVFFFZm1XRnpxRm5IelJBaTN0Y0RtZFJuQ09TZ3NDTklZ?=
- =?utf-8?B?c2lCQmxkN3dkdjBJZEFvaUlEWHY4VnlUV3Ztd3d3SzJZSjhQWW1mV2Z4RUY2?=
- =?utf-8?B?dW52QW1GVVFTbjgzVlNSNWxXQzQ3TXNtRVJlV1c5dkdGanR4K2lxSUVGay8z?=
- =?utf-8?B?Z05LaUtJWnVqVmdJSGlKaFM3NTZXV1lSbmkyWmdiMXFXUE1mamlCM0tFczJQ?=
- =?utf-8?B?cThrUWdsNysxSEpRQkh2RVVCN1RGa3BWSExyYTlhR0JYd3NPRWlUSUx4RDMz?=
- =?utf-8?B?YVYrV1Y4UnFBQllzelpsbDdVK1AybWY0VDFyakJmNlM5VXhzMEtxNG84ZFU3?=
- =?utf-8?B?Q3hSUHhVK05lZ0EwS1kxcmJDdDVLOWlmVzhRWEtPSEYvNXRMZWk1Q2k5MFdr?=
- =?utf-8?B?aHZoQlp4Wm8yczFDL2Y0TFc3WHNHaWdWZjNWUFE2eFNjWGhFQ0ZpQkV3azBo?=
- =?utf-8?B?aXR1eEhIZEVWMzNHL1h3czhyOUFtSlZSZWFVdVlLZTMyeWRYL2JvdXlIU3Fs?=
- =?utf-8?B?ai9BUTV0bHRacXRHMmozdHZUdUZxQllpRnRCTE9ESGlZYVBVbmVNWEdob3Nw?=
- =?utf-8?B?cXFVL0NyUmIyL3IrWHRFYWloeXRKSWF1NVc4OVQwY0d0a2lyby9aQnZGQ3F4?=
- =?utf-8?B?ZDFqRms2ekpGOG5jVk1hM2ZmZGoyNERmVTlSTTZyZitISWRjU28zd1Q5NTgx?=
- =?utf-8?B?V2w2ajl0VGZ5MWRkVjM3WDlJTjJGb1lqRWRVdnVvYklUeXUva3h1V2xaMlda?=
- =?utf-8?B?emNIZUdQZm1MUUxLNDRwanBpYjd0UURTR2tESSs2bk1CWVBNcHI3MWlMQVBR?=
- =?utf-8?B?RC96bnlYRWN6b0VYcTYzOHRacjExdUkvUGJsd1JlYWFqTnY3RDRzbis1YmI0?=
- =?utf-8?B?Yk5rMmNhZWlId1I4bmxvbU9FbG5xSHB1NFF2eENXTThLOU9HaERlOHhUMnMr?=
- =?utf-8?B?RDJjV2ZiM3c0WlkySWJnQ1Q0SW9meHVHWlgxWW8vRG5DSkwxTWRtS1JidktI?=
- =?utf-8?B?dC9PRDhCRmVqbWlxQTAyMkZxa2IrcWlQU2licHUyampBOFhBUGdkWk9NUE9E?=
- =?utf-8?B?a1c5NldYSm0veHNZSEtuRTJZejZDOTZlMUQ0MHdTNXdPYk8yS3VMV0QzaDRL?=
- =?utf-8?B?aDRVMHNnOFRyaEgrazhrakg4Zm1ISy9xY3VSSTN4NmJZN0lZeFJWSFh2cytl?=
- =?utf-8?Q?2dd8biMs3a4XGqDM=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5bdadef9-d638-4cd7-84aa-08df0718f8dc
-X-MS-Exchange-CrossTenant-AuthSource: DM3PR12MB9416.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 04:33:14.7313
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: X5unqkLm9y0i+9Xac+gX9xfI+0zjO7YFZnAbbwthUeoaf7xR/1rZG29fpul3tYgb1sJ/olOCLTYjOzAnh+2HPw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6945
+Content-Transfer-Encoding: 8bit
 
-On 8/30/26 6:09 PM, Alexandre Courbot wrote:
-> On Sat Aug 29, 2026 at 10:33 AM JST, John Hubbard wrote:
-...
-> So I am particularly looking at patches 8-11 at first, because it looks
-> like they can be merged ahead of the rest and are useful on their own,
-> but I am hitting an error with this one when unloading the driver:
-> 
-> modprobe -r nova-core
-> [ 3333.123171] nova-core 0000:08:00.0: GSP RPC: send: seq# 3, function=UnloadingGuestDriver, length=0x58
-> [ 3333.148123] nova-core 0000:08:00.0: GSP RPC: receive: seq# 0, function=Ok(GspPostNoCat), length=0x50c
-> [ 3333.169449] nova-core 0000:08:00.0: GSP RPC: receive: seq# 0, function=Ok(UcodeLibOsPrint), length=0x78
-> [ 3333.323550] nova-core 0000:08:00.0: GSP RPC: receive: seq# 0, function=Ok(UnloadingGuestDriver), length=0x50
-> [ 3333.323551] nova-core 0000:08:00.0: GSP RPC: dropping stale UnloadingGuestDriver reply (seq 0, awaiting Some(3))
-> [ 3338.124152] nova-core 0000:08:00.0: GSP shutdown failed: ETIMEDOUT
-> [ 3338.161317] nova-core 0000:08:00.0: failed to unload GSP: ETIMEDOUT
-> 
-> It looks like the GSP sends the UnloadingGuestDriver response with a
-> sequence of 0... From what I can gather from OpenRM, 570.144 doesn't
-> match the sequence number, only the function. Maybe this needs to be
-> part of the r000 series instead, if that behavior is only expected
-> there?
+pmem namespace probe allocates a gendisk early, fills it in, and only hands
+it to devres once device_add_disk() has succeeded.  Until that handover the
+probe itself owns the disk, and the error paths in between release it
+through a common label.
 
-That sounds likely correct. In order to test this, I thought I was
-being smart by using the r000 as a base, but of course that seems
-to have led to this test hole. Let me go fix it up.
+Initializing the namespace's badblocks state sits between those two points
+but returns directly on failure, so the gendisk, its queue and its bdev
+inode are left allocated with nothing to free them.  The devres release
+action has not been registered at that point, so unbinding or destroying
+the namespace does not reclaim them either, and they stay allocated for the
+rest of the boot.  Nothing is user visible, as the disk was never added, so
+the only effect is the memory.
 
-thanks,
+devm_init_badblocks() fails only if a one page GFP_KERNEL allocation fails,
+which needs memory exhaustion, so the path is hard to reach in practice.
+
+Release the gendisk through the existing cleanup path on this failure.
+
+Fixes: 0caeef63e6d2 ("libnvdimm: Add a poison list and export badblocks")
+Assisted-by: Cursor:claude-opus-5
+Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+---
+Changes in v2, all from Alison's review of v1:
+ - Retitled, and the changelog rewritten as background, problem, impact and
+   resolution rather than a walk through the error labels.
+ - Fixes: re-derived.  b95f5f4391fa only replaced one failing call with
+   another; the early return that leaks the disk was added a week earlier by
+   0caeef63e6d2, when the disk was already allocated by alloc_disk_node()
+   and the only put_disk() was in the detach path.
+ - Says what the leak's fate is: the devres release action is registered
+   only after device_add_disk(), so nothing reclaims the disk on unbind.
+ - The object counts are gone, see below for why.
+
+How this was found: reviewing pmem's probe error paths with an AI assistant,
+hence the Assisted-by tag.  The finding was then confirmed against the code
+and measured as follows.
+
+How it was tested: this is a unit test of an error path that needs memory
+exhaustion to reach, not a user visible scenario.  The badblocks init in
+pmem_attach_disk() was forced to fail with a throwaway kernel change, a
+namespace was bound 32 times in a guest with memmap=256M!1G, and
+disk_release() calls were counted with ftrace's function profiler:
+
+                          without the patch   with the patch
+  disk_release() calls          0 of 32          32 of 32
+  bdev_cache active         48 -> 72 (+24)     48 -> 48 (+0)
+
+v1 quoted the bdev_cache delta, which is what drew the question about 64
+attempts and 60 objects: slab accounting does not track this one for one,
+as the +24 above shows for 32 probes.  disk_release() does, so that is the
+number reported here and the slab figure is only context.
+
+ drivers/nvdimm/pmem.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/nvdimm/pmem.c b/drivers/nvdimm/pmem.c
+index 30a51c365ce8..648fc7d66063 100644
+--- a/drivers/nvdimm/pmem.c
++++ b/drivers/nvdimm/pmem.c
+@@ -563,8 +563,10 @@ static int pmem_attach_disk(struct device *dev,
+ 	nvdimm_namespace_disk_name(ndns, disk->disk_name);
+ 	set_capacity(disk, (pmem->size - pmem->pfn_pad - pmem->data_offset)
+ 			/ 512);
+-	if (devm_init_badblocks(dev, &pmem->bb))
+-		return -ENOMEM;
++	if (devm_init_badblocks(dev, &pmem->bb)) {
++		rc = -ENOMEM;
++		goto out;
++	}
+ 	nvdimm_badblocks_populate(nd_region, &pmem->bb, &bb_range);
+ 	disk->bb = &pmem->bb;
+ 
 -- 
-John Hubbard
+2.43.7
 
