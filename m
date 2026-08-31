@@ -1,125 +1,100 @@
-Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E6F038F259
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 14:49:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 097F13905EF
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 14:50:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788187779; cv=none; b=Z1wth/nHM7hkuXNQGfcZTZ5In056rsv03IOeQRo+aHkma6URLpiE5Q7RU0YlzoT9Z20+jjRjH532R+En7/eQWDDBKFRJDGwtp0Z4+lbKod0QzGzyY0+C4eTWMBTXi+N0ka4Z94Bw9aA2C6hyw+JTw7PYp4CpHJczCGvEA3HBOnU=
+	t=1788187802; cv=none; b=HKmEr2CHcjhalSHIOFXIJQwtzoXJ4QGiKKv2vLDRKP7EXPjm1nNAIRQWWBC1HpnkljZeNR5KCEueZ4+Sfk5uBb/ywxDtSlqBOVTgipCTJ0eUpL9DQi+4fdjjLM3gzp79mgYAPmb8VmE5don6nJrt3BcEQzr7cFCIQBS8Zw+orQo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788187779; c=relaxed/simple;
-	bh=Dm0ekLFcAj/yuxpG982vzpaIOyejWJrwUkJ1VtsbJUQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=mOWK9pvGpqunN1c6OH+Qbt7gdx5fBUf9gA6k45xdM7bpw8r2ZYrKkuZ3ISvIc+D+Zyw1jO/6TKlzRhet+3vAWug4EU4RDxvs0QgoTN43Ttq8QAPJyjRfd0Ot4qjamnJjMGwY1YE9EvlFQ+6N1yUXjUwtATn5nnOVjzAMhE60zi0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bIXic2xJ; arc=none smtp.client-ip=209.85.210.179
+	s=arc-20240116; t=1788187802; c=relaxed/simple;
+	bh=IdD2TqY8uHrWnoXOd1K5d1mpEPWvjub07q0vrKXwkk0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qX65cbKsyvqrMyoLZ+Ul9+1RTAN2IN4L7D+aUM6taI74JDucOQuBuu9pX0iiBBl/WiHfhmTeK//rUzbU7yBb2HE5ykJk81KQ6tpdnieO5/Bis8ZpQdLTnd3mhjbRojW/pzXfq3iKbBcYm2wH50v26DC+PlvvFZQq5Jq+Jdkqv48=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=okwzJE1E; arc=none smtp.client-ip=209.85.214.182
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bIXic2xJ"
-Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-84e84a6c4bfso3371701b3a.1
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 07:49:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="okwzJE1E"
+Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2d5335cf904so34375055ad.2
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 07:50:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788187778; x=1788792578; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=kEGzi152LLFM3BvwWAWBHGavgBqFineRqvqnk8g7Y6M=;
-        b=bIXic2xJtZZN4/tBG8Kips4QF2r8k4v3+XTTa3ZvhPC7xL3489PF0nGQQVVJykqJTI
-         Pf6lAr5+jQ6bq/rpbJTvBuHURFk5j1zolPHHqcxmaCRfzT7ObG57Apz+BRnXbeYML21i
-         cjJHBkqqHX2N0wrfg5YX9OUdbnwpYeQAWnqI1xoqOcodbSfcbbSXsqtg4+Xi+pYbsqt+
-         36Dh+iI5K/az8GISgZegxj0ZPEKXOdY/1tzQp3PT3+BWZ1BaLPrD7O0WtluWZB11k2IE
-         52319fVvC5ithdcl+1w+vKHDdyb/c/U9i61Cg2kDKfFGMB0ytE8e86421Xcpv8wi1doW
-         TeOA==
+        d=gmail.com; s=20251104; t=1788187800; x=1788792600; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=2Vluxiaw3z/Uy/J4OeGofuLK0jk2uUpi82oTWsj6QOI=;
+        b=okwzJE1EYapnnyCh6M2xLFHRa2Ygnv5y9zp7wv5up2BHWIh+pdBIyBKNop4n4+DsJN
+         63dDTa7RzFWm/nBw+xy4gv3ZaXBHkBznFbvE56gQmB7Ek9MFxBUbaDs6C7Hu7xba/kBI
+         QJhxx/0KmP/Xobdgt66WkdFxvRjcyUK5doT412TVrEGCdmgyf8YMl0ZgUuy1jMbIefKj
+         X6X2Gmx/NZXJ+U7rymBZ8lIrvb7VfNX8Wd+r9wL1EIC8AXU/zSKPd4tII+fgP1aK8HjK
+         6k97Gl5hiVyxeJO5aN5zW2Xvhxyu9cuB/imqYdxM/65ezYtJeLUSwwpnDT3Xv2qK3TEL
+         S9+g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788187778; x=1788792578;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=kEGzi152LLFM3BvwWAWBHGavgBqFineRqvqnk8g7Y6M=;
-        b=lThF/om0UyKPPxNtqvO24c0XIkojCz11UmkGcGka2Zv4xeurrsSmS+0hYdByToxNbw
-         rpRk3gyZJU/snhevtbz4Niq0+jMofaJo4TL45KuMl+trvOSPCSwZQK1Kg22QdV2X+9ZD
-         tSCeRSikVbbu9eWbDQWDLqshYgd9fX4wiecjoQwZcyZpLDvQsynucNy/gJ9ejo/WtXCv
-         f3z7vFzdF8SU2RaXB3aAkmWOfpgIQ5onM44fJNIJ4PQgDEiV+WNMuAQ1gJx0Aprey0aH
-         ldCowVW8MBLiQnO6KlSVn9PxXDZkUjLK4oK9BU5P3rvibyGCycVJwnffFZz+MYWP2CgT
-         zCeA==
-X-Forwarded-Encrypted: i=1; AHgh+RoFBP5dzn70Ur3lhD/ZsDGz3ISbtmZPCZ19Isw6ick3tPgjP0dsYAPEfyl6oAjQKqjbKWw4XKlMbhFIk64=@vger.kernel.org
-X-Gm-Message-State: AFuF++kgfxVvwl4m5eQdYrz2zI0NjGgeETxK/FonTUudO7lzml00x8Uk
-	W4DEEIL2U7Yn5rbUSin6Z3zPKU2BTNay27Jd0Q50AwSwTKMSUymxGJLA
-X-Gm-Gg: AR+sD13qoFvYvNkiUu27v81ksRXLkkX5CTPAjBYfwz4grJsVBjd/1k1aDwg+D2l8aUx
-	WUzDcAPhnqfa321vAUqefm816lk56LyMmFpkDlD3r03o2A4nmt7hjFxUuuMJja3L3tQQEOnsKGL
-	ZNr1+fr/5aB+vI0UDlCjpUl+WvKPWjzcR+fp30pVAb1dpQYgqO2GB7xKvqo3Jgf4j5AKr3R750r
-	roNAFe9bFK7oQrMz9R+LRHK6UaM2svzkNLddj05aS2PhEk1XPtH7HhUIULgYJPyKntOu5VEgjaC
-	8Q3L2n17CZlO+rWY1gdMerMqdn/pnKtsY4wnDTWA1/s05ndU/Jvxkm+he9ceDhUUEv1dN9YQN85
-	Dk0eNH8LEXrcNvNbYVFMGB4Y4Vs2we0FvTd637WJX47KIzBtYsf27HjNWTtq6QVR/XSJWNbnnnk
-	fSErOrXSVAWZ/Lh/jFMYloCp8QOx4+Rf2xutswFT4gNpeaBqwcYMidTviv19UYLQolXclsIVwki
-	fsB3LX5eN4=
-X-Received: by 2002:a05:6a00:3021:b0:84f:6f7e:493 with SMTP id d2e1a72fcca58-85994a72e99mr6514150b3a.3.1788187777559;
-        Mon, 31 Aug 2026 07:49:37 -0700 (PDT)
-Received: from osman.mioffice.cn ([43.224.245.178])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8569fa7ec2csm3892702b3a.18.2026.08.31.07.49.34
+        d=1e100.net; s=20251104; t=1788187800; x=1788792600;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=2Vluxiaw3z/Uy/J4OeGofuLK0jk2uUpi82oTWsj6QOI=;
+        b=iQz1k4HhdAtIccyOT+WBvEIbpyoHoTOlIrf5OTSO/tCU1I5MWeiHyiBswKfgB4VSzW
+         NQX0u0+2ekjoSeK+USp8rR5c9PyClwVaYV1Wl+x8XuBBIvztZCMSnApsoW1HGqz7tajR
+         1Wx7TVjbizQSEIz+S4SvI6uxCOKueue3ZdLzCuvHiI1PiOUo+g7p77K+87zXSDL261na
+         +yjKoSNHk8kvPkWvWw4Yay6MOpCNXb3HBgu39K9rshunxTGXKH0Kf9XQ7OdwjIIWJiTa
+         Zf35nITmyisz8ZqVm+MsA3XNjgjvJqxmwGwK5QQjmvUMiLo/WF+Ced6dyPJnKoOlegmQ
+         DZww==
+X-Gm-Message-State: AFuF++kcwGjFKI61Qg/ZzpPeoAe34iC/1aebrIaZHkp70PdmgNBaDVdB
+	Zu8GblkadrGk2gtN2DEQevnfwQ4NzN8SS3ZMLCrNsKLhfz0SBkbx09/a
+X-Gm-Gg: AYBFou3yuyuDW4Zb9yhioarH38oULCvIavWhNTZKGSEZbvmx2GqyAoIwLtqduugqbcr
+	iHIrG3gkRrOc4a1vWlrLsWrueLo+cDFKCPofcqxmJ/HDaoC+EAhbzLbsqFDpto56lscVDC6RsK1
+	HUO07ng3chSN+yfDfapvxiSVnNuQfTDGm5Ug+pZ9DeerFpGFJSoM4qLjB9JL+2ya+nmwM3g+nxL
+	JAaI+RYmqm/ZObps3DNbCQt0TghpEFVjSgQ4b5bCeWKO9pPmjORn36cJDYUBuj2j55NhL3ooBAE
+	V6pQesvm+KiptCuhtVMkYYL0LASq6lJ1L5Oxh7uJavJ7zv5I5NNgBWKOsOoBvNZ2yP9h+o4ejtj
+	JgQSlJRGu7Yq1Eoxh0WLUJBhGLdBNZhgMmuXrn194/Ils9mxjIvgP8XTg+jcMdfJ8QBnQ/2X3GF
+	DrOTyKrMRsXtGVVNjlcppZpqvnp6op8oANY23+KWBwx8g/V0pTWsGTtjAStxGr6tiYCZZj
+X-Received: by 2002:a17:903:2f0f:b0:2d8:d4cc:be65 with SMTP id d9443c01a7336-2d94a905007mr15808015ad.18.1788187800117;
+        Mon, 31 Aug 2026 07:50:00 -0700 (PDT)
+Received: from i386.168.1.127 ([2402:a00:163:2ce9:6882:91b7:8e79:7958])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3286f9e3cf8sm33137199eec.24.2026.08.31.07.49.58
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 07:49:37 -0700 (PDT)
-From: Zhan Xusheng <zhanxusheng1024@gmail.com>
-X-Google-Original-From: Zhan Xusheng <zhanxusheng@xiaomi.com>
-To: linkinjeon@kernel.org
-Cc: sj1557.seo@samsung.com,
-	yuezhang.mo@sony.com,
-	exfat@lists.linux.dev,
-	anmuxixixi@gmail.com,
-	dxdt@dev.snart.me,
-	chizhiling@kylinos.cn,
-	linux-kernel@vger.kernel.org,
-	zhanxusheng@xiaomi.com
-Subject: Re: [PATCH] exfat: doc: add documentation
-Date: Mon, 31 Aug 2026 22:49:29 +0800
-Message-ID: <20260831144929.1597433-1-zhanxusheng@xiaomi.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260831105330.10449-1-linkinjeon@kernel.org>
-References: <20260831105330.10449-1-linkinjeon@kernel.org>
+        Mon, 31 Aug 2026 07:49:59 -0700 (PDT)
+From: Hrushiraj Gandhi <hrushirajg23@gmail.com>
+To: Peter Oberparleiter <oberpar@linux.ibm.com>
+Cc: linux-kernel@vger.kernel.org,
+	Hrushiraj Gandhi <hrushirajg23@gmail.com>
+Subject: [PATCH] gcov: use strscpy() instead of strcpy() in init_node()
+Date: Mon, 31 Aug 2026 20:19:53 +0530
+Message-ID: <20260831144953.324441-1-hrushirajg23@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-The option list and the defaults match fs/exfat/, including the allow_utime=
-=0D
-derivation and the time_offset range.  Three things the table leaves out or=
-=0D
-implies.=0D
-=0D
-Most of the options cannot be changed on remount.  exfat_reconfigure()=0D
-fails with -EINVAL if iocharset, keep_last_dots, sys_tz, time_offset, uid,=
-=0D
-gid, fmask, dmask or allow_utime differ from the current values=0D
-(super.c:789), leaving only errors, discard and zero_size_dir.  Nothing is=
-=0D
-logged on that path, so "mount -o remount,uid=3D1000" returns a bare EINVAL=
-.=0D
-The reason sits in the code right above the test: the old values are cached=
-=0D
-in inodes and dentries.=0D
-=0D
-umask=3D sets both masks, and the options take effect in the order they are=
-=0D
-written.  Opt_umask assigns fs_fmask and fs_dmask (super.c:289), so=0D
-"-o umask=3D0022,dmask=3D0077" ends up with dmask 0077, while=0D
-"-o dmask=3D0077,umask=3D0022" silently puts dmask back to 0022.  The dmask=
-=3D=0D
-and fmask=3D entries also do not give their default, which is the same=0D
-current umask that umask=3D defaults to.=0D
-=0D
-utf8 is ignored rather than an old spelling of iocharset=3Dutf8.  It shares=
- a=0D
-fallthrough with debug, namecase=3D and codepage=3D (super.c:331), so=0D
-"mount -o utf8" selects nothing.  exfat_show_options() prints=0D
-iocharset=3Dutf8 only when opts->utf8 is set (super.c:132), and nothing set=
-s=0D
-that but iocharset=3Dutf8.  Listing utf8 apart from the group described as=
-=0D
-"Deprecated and ignored" reads as if it still has an effect.=0D
-=0D
-Thanks,=0D
-Zhan Xusheng=0D
+node->name is a flexible array member sized to exactly strlen(name) +
+1 bytes at allocation time in new_node(), so this copy can never
+actually overflow. Still, prefer the bounded strscpy() over strcpy()
+on general principle; pass the same strlen(name) + 1 bound the
+allocation used, since sizeof() cannot be applied to a flexible array
+member.
+
+No functional change.
+
+Signed-off-by: Hrushiraj Gandhi <hrushirajg23@gmail.com>
+---
+ kernel/gcov/fs.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/kernel/gcov/fs.c b/kernel/gcov/fs.c
+index 1d19b1be207a..764918570de1 100644
+--- a/kernel/gcov/fs.c
++++ b/kernel/gcov/fs.c
+@@ -529,7 +529,7 @@ static void init_node(struct gcov_node *node, struct gcov_info *info,
+ 	}
+ 	node->parent = parent;
+ 	if (name)
+-		strcpy(node->name, name);
++		strscpy(node->name, name, strlen(name) + 1);
+ }
+ 
+ /*
