@@ -1,157 +1,164 @@
-Received: from mail-244123.protonmail.ch (mail-244123.protonmail.ch [109.224.244.123])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F7903D0934
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 12:50:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.123
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788180618; cv=none; b=Aw7sGsuNVwmpYuv+MXGZahoRES4XlEkDrN7ukfm1FUVOJhQnF5Fdgfwv3+7fYyqKr71qhtLBJ5drfsS1ICfqqhRDq95LJqBoxH4nztyCTwzulx8DjBdur9m7TOhRb7ONNYfMmRvHaxKlEdHGH2dig+THmosSLXuflH7K/e8xbfo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788180618; c=relaxed/simple;
-	bh=StScrlx6lr6n0DYNI1exVra22pUcitIIBu1ey0wEmT0=;
-	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=fc1DiDJPwa36ElumgVeEaggeU3dOpJarlQNgm5he2zVfu9SgkgslombNEjG6xHiBio6jAVqVlyfTc5ncJ1/wbTnwjjWpZCPfT64t0MPwgjP/xoYXj7v0+wvynq5/M71F9cG+QrQ8ghTxTFBwEOUQFLgPGuPfgIHEYMMu1FfWDRA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=XWS3YcMo; arc=none smtp.client-ip=109.224.244.123
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 413013DC878
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 12:50:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.52
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788180632; cv=pass; b=bwLlFsDDsBZZpeJp8ZsmjUNGMZpB1I2t+3wB2sDjUDxr9Fssq1uuazONNv8jTWIYVpHVy1EiqGtypoFT5IgssFDowmdbcIyjQpLkOhsg3yW4nExcoKiR98WEpiUogdng/cq3j3DqGOrRgIh61swkpHbUuFht+ETtH5Vz5smxwr8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788180632; c=relaxed/simple;
+	bh=o2UJylUuz6w51NEA/fkXwj3lLUPFl66l4s+47Rkdu88=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=u2wSWt5FvrnI7aa8i6J2Y71kBvZZz8sDD201C/hzz/NSD28Ib9cMghAjente2Sjb5d2b3/vy/3lQWv4T2xWFcDO5W1sfghiRX6yap1MkSxxjNVJP9bEArgHRUdAZbNegpDVwM6mTeRnrOeES81s1/XigExKJ5d1bb/x3ZMyeB9U=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=r11thk7N; arc=pass smtp.client-ip=209.85.218.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="XWS3YcMo"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1788180605; x=1788439805;
-	bh=zHt3KzR7Tm3s9s61dun5SYzT6Lk3sZsQIaVY+2vg2Pk=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=XWS3YcMojiRcvs+QWy/tq5sFI5+nehFj+daZjiFcYvoqil4jmMz8HxZYwNT0+lT9u
-	 b1Xn6nfSJ2XVey+Kom2diFu1FZIfZTNoiPj+twm2vswOhTuARCR4KtYOrfAWomoVP3
-	 0S/Zpp4Z/XC8ZInYyHALFzU3BPrH3i0qIykelNPNs7JZzw+0Ml0WUV78ILaVNOVynT
-	 qYJUK6aajQAWSz/hQO8EUAq3W1HqGRvvJYIZUjFBDqaRX7bEerWsxRYmrvX4ZFenr8
-	 jUdYTVHiBelXMCMuVjEP7RwfpHemUYQ09J2NYZvbRcjqq6pS8kceKlqzG+JyHgHMs/
-	 wDMrEc8duPbOg==
-Date: Mon, 31 Aug 2026 12:50:01 +0000
-To: Luiz Augusto von Dentz <luiz.dentz@gmail.com>, Marcel Holtmann <marcel@holtmann.org>, Kiran K <kiran.k@intel.com>
-From: Sergey Lebedev <lsa.uz@pm.me>
-Cc: Chandrashekar Devegowda <chandrashekar.devegowda@intel.com>, linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: btintel_pcie: controller left dead after a boot-stage error, 1 in 12 warm reboots
-Message-ID: <20260831124952.87484-1-lsa.uz@pm.me>
-Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: d8e0ff226e3516f67d3a6cb3052fd84144127e13
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="r11thk7N"
+Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c197e7e4e94so499119866b.2
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 05:50:28 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788180627; cv=none;
+        d=google.com; s=arc-20260327;
+        b=FRdEx9ErFlu15uGyLyqQCKoKfFVfwWg781Uq8CV6A0NnxaGdOau1UkdEgk6PtT2ilw
+         TJVUpZIUhYfoWkRIfF39WO8IERZkX8xh8yIFh3NtllpHB4cbPn02/ZwB+YjyLPmXYgFu
+         +e5qPYKc68gEnsnFWm6clASkqaNB+8Ya2aV8U/Flho4C4MKBIBG0beWfKhpZLXDwtQcu
+         yqJZs5l2l3upE0gvAgVIwmiIDH1SbAWrSD/0EJN50XGM9BhX/EXWBoW9qnChEI33LQoJ
+         EV++vQsOFZzewBHTOO6m/dtBchARr451hjfmkflLJODNeWdas+RX+OnSebHktqXVYuk2
+         BjtA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=xQtOWDkW+w7ybqaZBfV9HKOca4eSda4cgJxTQC5fkhA=;
+        fh=aF0JVBDdyUq6mFCiHRLhoalOWq7tlxbdWAaO9xXMBTA=;
+        b=CrxLcKuMFbioUL6jCA0UBIHPw45hxoCWFlP5n6ZW3yPw36t7E80OAHi/tqe/RRJ0bg
+         gszTXWdCBZmCPWw0E8DuQJwCQoMMDkV+3iHvT6wHtCDgVaMCxAAO3VWjOhz8w2fedjLw
+         sBHyQPyndluBjHHKcwsZZNbnwd9VjSHuxiwAmfaPbJ1hLjCzovawmL2GfgsfCC8gVecI
+         qWguZ/9PoSzqmTaWmtEmz0hVL5VHc24sepwWwn1J0w1cPzxomwHiFZ7DBin6sAhDvGyn
+         OS49AeZU0QlsNc0F8F8FhQRtcJVfWM8+NiQwQCuXr86z4aVP+8WzKrnMRflxw6s3DBa6
+         uTMQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788180627; x=1788785427; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=xQtOWDkW+w7ybqaZBfV9HKOca4eSda4cgJxTQC5fkhA=;
+        b=r11thk7NKsuIeGqEhv7ZfDJ1L32RquGeaBeHaHY55k2VhJ/Ex33OYciywswYL6wtJe
+         xxwI+w9q7goqskWLFVVUpWEPeCvXvabyrdib7ZfyD/HBaGwkXvhuDyRrWKpL95MrcyYG
+         Fcwbcjvp+gqbE/WcAPhWIfNtSnu2Kdb2vAfrkJLKLjDEp9rdqGLVZNBrfs2YO0iO1war
+         4MOUvylEbZdGUtAu44gPjwm9zdyDau/EMwpRwMg+LOVQAg1Sd/Sh6cGDt48Qfwgd7JfW
+         3p82YWLAKe17dbHtq0oGCcRWsUADr3KwC28csWQuc9aWsY/GwSy5eALKM2yAqZcA04HG
+         axmQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788180627; x=1788785427;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=xQtOWDkW+w7ybqaZBfV9HKOca4eSda4cgJxTQC5fkhA=;
+        b=kyewpdHt0ycHbHO4V8IgXEocFpmjlFpQRUM/UKv4f4Xy6RaulLQxDO4IkniXe5ikaS
+         SVpojqwyRxNavT4aMib4izPNTKwulkSG5n1vhFzcZ01XgyNhxfOk+FjOLl+REoGimBsm
+         BCpSN6gt5suQQ+h6YFBkzv+fhs4068bzOhKTG+FyXMEZWkZNy2uUXcMQVr9twS1RtiWt
+         gog1j+1YLFlMhKFLmQa1Q6+nXR38m+GnxfhaSr/gh0j1J68MoIL9uifqmIB+ZF49vjuV
+         v1xnJsrcVm1JLiIlZOWoAS3c+gWGdteKaN0DidLsSB/I0cH17le3FdH2RkwV1SsY8Cwy
+         F+Hg==
+X-Forwarded-Encrypted: i=1; AHgh+RqU4qUmYhDmZOBKg2Wf49BQS0+84J6QMQturTnByOCjKhOT/jgTjsXl6LyCmvFpVOMpyJIDH40ymPHfpvE=@vger.kernel.org
+X-Gm-Message-State: AFuF++mi4a8ux+iDHI2vl+8m14irR09ngu+s240E/MaJX1rPkTaQoZFl
+	o7Qult1T/Fy//+QVPT1vpSVIo74k61CIlbqzN6rtZg1m8bmOMpnAkHK3DshyIdC+45Zm9K2esco
+	Fc0oDWdoz/Qcswo0+8hXnwtDbtreUt/Y=
+X-Gm-Gg: AR+sD13mgnM0EjFfrRvUetPP61AsJYYY4gjJ0nL+XOGXjbu6H86xXvCO402TwoygAP0
+	UsjlxkzSJGxvVhehDj8KBb2yix7DkVuEDwdfLgF0fIJ08jVYUGeneJDGPgf+1SiiG9Qw/qjpmbd
+	eyG/GALz03KTh3XI5CfCCVg11jVCEskJ0vOcIBHC6aneZV9SakXvKCQKtZuoSHsQYw30pzwm+Cj
+	fQNiqXhy4U+2Qy5jbg+05PDlCmeicfwGCQaqzz85jdsk0ag34xNFNHVfJFQjQuJEvUuxD73ORfX
+	r67XjouoTkWilcWiT+3XsHpitNIzufVlhz5KB38Nvf5PTw==
+X-Received: by 2002:a17:907:e917:b0:c15:f598:60c0 with SMTP id
+ a640c23a62f3a-c2556c61b53mr1648394266b.4.1788180626731; Mon, 31 Aug 2026
+ 05:50:26 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+References: <20260830182036.284736-1-prasanth.padarthi10@gmail.com>
+ <d60f234e-1b9e-44cc-9bad-da79e794fe44@lunn.ch> <CAMFFDGgTnNouukst3V1rEg0NCNMW-BZ6tM6+fbQc0zeXaOb72w@mail.gmail.com>
+ <daf98fe8-70f9-410e-8a2a-042a671086c2@lunn.ch>
+In-Reply-To: <daf98fe8-70f9-410e-8a2a-042a671086c2@lunn.ch>
+From: Prasanth <prasanth.padarthi10@gmail.com>
+Date: Mon, 31 Aug 2026 18:20:13 +0530
+X-Gm-Features: AcwNN1X0boEpGKg5x_16jtNRieTR5nthk-taojlLL5pnPEzmWybbo4sOjQPV9Io
+Message-ID: <CAMFFDGgaEXdCdoi3av+HSLfUCZx-_0p4j7c5bjwiq_F08et2AQ@mail.gmail.com>
+Subject: Re: [PATCH v4 0/2] ARM: dts: aspeed: Add ASRock Rack B650D4U BMC
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Ryan Chen <ryan_chen@aspeedtech.com>, Billy Tsai <billy_tsai@aspeedtech.com>, 
+	Andrew Lunn <andrew+netdev@lunn.ch>, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Roughly one warm reboot in twelve, the Bluetooth controller on a Surface Pr=
-o 11
-comes up dead with BD Address 00:00:00:00:00:00, and stays that way until
-btintel_pcie is reloaded by hand. This is a report rather than a patch: the
-trigger looks like a device-side fault, but the driver has recovery machine=
-ry
-it does not reach for here, and that part looks addressable.
+Hi Andrew,
 
-I could not find this reported anywhere. Searching lore for "Unsupported cn=
-vi"
-returns only patches carrying the string in the driver source.
+Thanks. As I mentioned earlier, I had already found that the AST2600
+has MAC-side RGMII delay configuration.
 
-Hardware: Microsoft Surface Pro for Business 11th Edition with Intel, Core =
-Ultra
-7 268V, UEFI 17.105.143. Controller firmware 2026.8 build 113003, bootloade=
-r
-2023.33 build 45995, unchanged throughout. Ubuntu 26.04, kernel 7.0.0-30.
+I will now check the actual delay register values on this board after
+U-Boot has initialized the MAC, and compare them with the
+corresponding U-Boot configuration. That should help determine how
+much of the observed behavior is coming from the MAC-side delays left
+configured by the bootloader.
 
-What differs between a good and a bad boot
-------------------------------------------
+Tan Siewert has also confirmed that the RGMII traces on the B650D4U do
+not provide the delay, and pointed out the difference between the
+SoC-specific delay handling in upstream U-Boot and openbmc/u-boot.
 
-Twelve consecutive warm reboots, one kernel, one firmware, nothing changed
-between them, thirty minutes end to end. One failed. The second-stage firmw=
-are
-load from each, trimmed to the lines that differ:
-
-  failing boot                          every healthy boot
-
-  Found device firmware: ...-pci.sfi    Found device firmware: ...-pci.sfi
-  Boot Address: 0x10000800              Boot Address: 0x10000800
-  Firmware Version: 107-8.26            Firmware Version: 107-8.26
-  Received gp1 mailbox interrupt        Waiting for firmware download to co=
-mplete
-  Waiting for firmware download to ...  Firmware loaded in 645371 usecs
-  Firmware loaded in 685555 usecs       Received gp1 mailbox interrupt
-  Received gp1 mailbox interrupt        Waiting for device to boot
-  Controller in error state
-
-One extra gp1 mailbox interrupt, arriving before the download rather than a=
-fter
-it. Same firmware file, same boot address, same version, download times wit=
-hin
-10 % of each other. Counted across the series, every healthy boot has exact=
-ly
-one gp1 interrupt and no error state; the failing boot has six and three, t=
-he
-extra ones being the driver's own retries.
-
-After that it fails the way a driver fails when its handshake is out of ste=
-p:
-
-  Timeout (3000 ms) on alive interrupt, alive context: intel_reset1
-  Failed to send frame (-62)
-  Intel Soft Reset failed (-62)
-  Firmware download retry count: 1
-
-three times over, and the controller is left with a zero address.
-"Unsupported cnvi 0x00000000", which is the string one would search for, is=
- a
-consequence several steps down and not the fault itself.
-
-The part that looks like a driver question
-------------------------------------------
-
-btintel_pcie_msix_gp0_handler() detects the condition and stops there:
-
-=09if (btintel_pcie_in_error(data)) {
-=09=09bt_dev_err(data->hdev, "Controller in error state");
-=09=09btintel_pcie_dump_debug_registers(data->hdev);
-=09=09return;
-=09}
-
-while btintel_pcie_pci_resume() reaches the same predicate and recovers fro=
-m it:
-
-=09if (btintel_pcie_in_error(data) || btintel_pcie_in_device_halt(data)) {
-=09=09bt_dev_err(data->hdev, "Controller in error state for D0 entry");
-=09=09...
-=09=09btintel_pcie_reset(data->hdev);
-=09}
-
-Reloading the module recovers the controller every time, which suggests the
-device is not permanently wedged - only that nothing tries again. Whether t=
-he
-boot path should call btintel_pcie_reset() the way the resume path does is =
-a
-question for people who know the hardware; from outside it is the obvious t=
-hing
-to ask.
-
-Rates
------
-
-  retained journal, to 2026-08-30                     16 failures / 50 boot=
-s
-  controlled warm reboots, 2026-08-31, after a
-  firmware update to UEFI 17.105.143                   1 failure  / 12 boot=
-s
-
-The earlier 16 were clustered - 15 inside one 24-hour window - which is why=
- I
-waited for a controlled series before writing. Note also that it is not
-cold-boot-specific: 12 of those 16 followed a warm reboot.
-
-I can test patches on this machine and reproduce on demand; twelve reboots =
-take
-half an hour. Full logs of the series and both boot types available on requ=
-est.
+I will investigate that before preparing the next revision and will
+remove the RX-only delay claim from the current patch.
 
 Thanks,
-Sergey
+Prasanth
 
+On Mon, Aug 31, 2026 at 5:42=E2=80=AFPM Andrew Lunn <andrew@lunn.ch> wrote:
+>
+> On Mon, Aug 31, 2026 at 06:43:46AM +0530, Prasanth wrote:
+> > Hi Andrew,
+> >
+> > I do not currently have the PCB layout or trace-length information, so =
+I cannot
+> > prove that the board provides the TX delay externally.
+> >
+> > What I have validated on hardware is:
+> >
+> > rgmii: fails, with RX CRC errors and no valid RX traffic
+> > rgmii-rxid: passes, 5000/5000 packets, 0% loss, no RX CRC errors
+> > rgmii-id: also passes with the same traffic test
+> >
+> > This shows that the RTL8211F RX internal delay is required, but it does=
+ not
+> > establish where the TX delay is provided.
+> >
+> > Given that I cannot provide PCB-level evidence for the TX delay, would =
+you
+> > prefer that I use rgmii-id for the next revision?
+>
+> There has been a number of threads about the Aspeed SoC. It typically
+> has delays enabled in its MAC, by the bootloader. The Linux MAC driver
+> does not disable this, nor does it mask the value passed to the
+> PHY. So you see many Aspeed .dts files incorrectly using 'rgmii'. Over
+> the last couple of years i have been pointing out this problem, but
+> nobody has stepped up to fix the issue. Most DT developers just leave
+> the Ethernet node out, in order to get something merged.
+>
+> You case is interesting, because you are not suggesting 'rgmii'. So it
+> could be there is more going on.
+>
+> If you look in the email archives you should find the information
+> about where to configure the delay in the hardware. You might want to
+> read it out to understand how the bootloader has configured the
+> hardware.
+>
+>     Andrew
