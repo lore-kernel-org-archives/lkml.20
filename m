@@ -1,235 +1,246 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF2543C09EA;
-	Mon, 31 Aug 2026 09:34:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C76AE3DA5AE
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 09:36:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788168902; cv=none; b=WSwDhHz9bgLAG63s4dMcDessNiWsRexjiS8iUE3xDCAMND2GD1Jb7dJgQlU+ENALC8MGeVay1tHzC6NIyDPp8JOO7jT1QSCyt7ctpd3RsMuuDwwoysx6EDgFGGoMbV48W4sSftyLQOADxZxziD6a3M8nuTJyvLV0Ro2/mCIuMDk=
+	t=1788168964; cv=none; b=ueB4zusXrf3nK4+e7RvjX4V5nsT8ESVuWhFe5wcWgBX6MxewNx1O5jSTF+StKr0KokTOUeCIZb6dGBRlj0QN9xwT7Ee2Z2mC1Gt4zz0j7GCOMO4QBxGez+/ZQJZmuKBWW8+zECd364DY3aR5SZMmBpaD7oabSFRqhOBV125lTnI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788168902; c=relaxed/simple;
-	bh=v15i4BJVeuokx2xBRVvJPa7idXbNVThu7dQ864ZRNio=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZkwF5eJzIUNm22iPqfWXrbpATN/4YTpGwoRscjNSqII+8FN85+vT/PRMUmwAdeKyHVCRqzPffMBErnNE4jQD1otfIrOBzQCjIpxm/I0sWkZs7gJs45vtSwmbLtBq44StHBryI2+N0eF8qGPm3i5APj4K5I8IAaQb1bW6n5aeUX0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fqiAvpGa; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788168964; c=relaxed/simple;
+	bh=7Mb+q6N+WQ81Oqcs4xdKYoCQuYOk9+K+7xb3AxjM1mw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=irRJfROlZx/y2bKdwOURsSEjcDQ2CNN8YXzInW6bAESXv4B/X6XRXeHa4rzeO96RSPupimdQr+FNHkK1q7T0mZ9/zGvVBtfT4fMncZ8z7U2u81fVp5IP0pE0HE5q5hMTanog6K3dSmqsWWt8SJBxi0Px2XredxESxWXm5Wgvz64=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=mZxpOwb5; arc=none smtp.client-ip=209.85.216.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fqiAvpGa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A2941F00A3E;
-	Mon, 31 Aug 2026 09:34:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788168896;
-	bh=gmkjvOiWcnG0ZcpiTHaacwKrEu+TlTIMfW1i5S0FVK4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=fqiAvpGaEc/UQj1A4Z7V5wo2SHY3Md9QTIpAKGcL7kyn9j/tD4XOoLDgdlSXLbVZ8
-	 JVUL13UYTBfkmlEVCBUuF7/LFJiIXyz3mqvkSxIvJRLePHTjw2kW203gjXq/va6Jzh
-	 GS1S2s1/A23CZeFiU1UKZyaoK9xQx2kQTyVX7qTgbU8fu6RHQdlok9dpfe7IwLblEM
-	 rtaB8dTo7DNqjI4o5336pBzR10Fj0JM7fu4KmNCS6j+zi6t0BDUon17s3HYxsbPCoL
-	 Wg/iomY645SVZeTgULLywr64iEycUZplX5zgD8Wmk4pfpXw0GHcIqwdAIS3nUGRNZv
-	 g/b0FQzGkw19w==
-Date: Mon, 31 Aug 2026 11:34:52 +0200
-From: Christian Brauner <brauner@kernel.org>
-To: Jori Koolstra <jkoolstra@xs4all.nl>
-Cc: Jeff Layton <jlayton@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>, 
-	Aleksa Sarai <aleksa@amutable.com>, NeilBrown <neil@brown.name>, Amir Goldstein <amir73il@gmail.com>, 
-	Jan Kara <jack@suse.cz>, linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 06/10] vfs: add O_CREAT|O_DIRECTORY to open*(2)
-Message-ID: <20260831-zutreffen-umgeladen-wahrt-abfce6317a86@brauner>
-References: <20260823160706.358293-1-jkoolstra@xs4all.nl>
- <20260823160706.358293-7-jkoolstra@xs4all.nl>
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="mZxpOwb5"
+Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-38ec1402b05so2620756a91.2
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 02:36:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1788168962; x=1788773762; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=FN1nAbCl0iWx1Jrj/gmdbaIbN4coW5aF8DCQuC7TC90=;
+        b=mZxpOwb57z0ZQCis9Xax0JrtF0G6ZEc59kRDs8TsvbmGQbseKUa4CoZXO8xUjfPaNW
+         EMbVSmurKMMNHe+Xy8WkuQfsJev9uFGo+Rv2xIBj8X+bXjrvbLdgCTKU8nKBdpLA2RNT
+         SZHurQCrpmn9ObVq9SoCwLzeUkbnBInvshwto=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788168962; x=1788773762;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=FN1nAbCl0iWx1Jrj/gmdbaIbN4coW5aF8DCQuC7TC90=;
+        b=pHeDexfwc3T2fOvA8Kut0f1hqASMban/JuHF9cHCziDrhPrCdCKC79rh2Iz/bYqMLM
+         rUPW/jzWwcbsQNTUX8is/rXeJJFccsYTwAhiCBrJHsNZ7f86ral/svlxXqi3irpUY/9l
+         jbLsX1AFuKZmtHFcrMkGcHI3jzLNMRSVsdC8xL3wbwJxG3OKUHayx7oIILk9FVr2FJ5/
+         PkboVIf2z1UjKRN7oNibCiGDb+ubSGOuakLN3jlWpxifp4DiXytZ2egPXtomaS8qg0Ot
+         ChyBW259uxFfbbZk8GWePfSUTG8zilhrAz09NCPgRskI7NPGowdtTVVLoy1GkYYjRbx2
+         72Fw==
+X-Forwarded-Encrypted: i=1; AKwUvBxF8QANFQ0TLMA0ByLI4g5t3rI9sD61p8nyMhKXSflOStol8qetEhiS1ArIFOIAUxuzjS0z4sxxdJ3PWmg=@vger.kernel.org
+X-Gm-Message-State: AFuF++ksv/SlNSEyBJnBLwV4+rSEd93v8qcQ6vvBoP4dfyflPG5iR+rz
+	4f4tbpjRJD3tts3omFCiU/LCfd61dhXU5NtT77lD59Ca5eyON6NOHPhk87e//9Ct09bOT1VES2m
+	aR35YnB8D
+X-Gm-Gg: AYBFou2BY/WiBlVrhGvYSUhUYInTFWCjytKirH4TD77COtleYLhEZS5KivOIOHdMhni
+	l+0CPs0u5beLTuHBy4OFq+gY2XfrhGTyHDVXM7tz0/ZaFht51xIjZC1ZG34DaFd7NTk2TQ4us9Y
+	n07X3cjnBeu3xqu3H3AvACKbaPGQ/zhbGEEbdyL4c4VCy2jZ+hoQul3MbX0eiCD10B26Xs4xmyh
+	iLyFPnF37oGLAPUjUrjB7DFhzYY1f+TMqEvH9ltKwU/c0DYb2ak3OgOPJ3wdEDVkTko9yMMrbJ8
+	1l2WmeIjwUtCppMD/INKQUt3FIShCqWuvRjY76QI/O1AZc1uKLLFZxswWP2lfPngKhV4EB4xIX7
+	IcWyT8wm8nsYcBoPgwVUA5YHzw56G2ckxBpJbzMAGMBD4eW2lK/hPj7j/SSXmYCAJY3dYMkHshy
+	EZwNbFK+sj5B3oCQKg/wnJ0i7yh+JtP3rkanVM1zwIB6snl5hbdtZVdsQqsI8NSbgxCO/o2bp+l
+	OdL9eD/2ZPVxzmh4KpdcS8VV05m1w==
+X-Received: by 2002:a17:90b:3c8a:b0:38e:524:8797 with SMTP id 98e67ed59e1d1-396d10076e9mr38160605a91.13.1788168961794;
+        Mon, 31 Aug 2026 02:36:01 -0700 (PDT)
+Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com. [209.85.210.172])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396dda7aaaasm15762223a91.6.2026.08.31.02.36.00
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 31 Aug 2026 02:36:01 -0700 (PDT)
+Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-84eb992a881so2864959b3a.2
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 02:36:00 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RqD4TOGtXvyB0yYP72InCuDDsLqHqDxKPFeySm2d+4FJK5WOVtcVT43KwFoEeUnGmQ2MhnmBfiloxYHA+4=@vger.kernel.org
+X-Received: by 2002:a05:6a21:3a93:b0:3cc:eea9:f757 with SMTP id
+ adf61e73a8af0-3d268f0155amr42887925637.16.1788168959895; Mon, 31 Aug 2026
+ 02:35:59 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260823160706.358293-7-jkoolstra@xs4all.nl>
+References: <20260828152557.653475-1-jordan.mymail@gmail.com> <20260828152557.653475-3-jordan.mymail@gmail.com>
+In-Reply-To: <20260828152557.653475-3-jordan.mymail@gmail.com>
+From: Ricardo Ribalda <ribalda@chromium.org>
+Date: Mon, 31 Aug 2026 11:35:46 +0200
+X-Gmail-Original-Message-ID: <CANiDSCuBjSBaFn+_tU0_mJJPmYS22hYDtKkQPdA-hdyoYyAx2Q@mail.gmail.com>
+X-Gm-Features: AcwNN1XgkLCjecn-xMPBFQ2S99WV76kJbhuKbPVXzKnNTlVDVd-mHsiSIZiuY6g
+Message-ID: <CANiDSCuBjSBaFn+_tU0_mJJPmYS22hYDtKkQPdA-hdyoYyAx2Q@mail.gmail.com>
+Subject: Re: [PATCH 2/3] media: uvcvideo: generalise the XU flags fixup to all controls
+To: Michael Jordan <jordan.mymail@gmail.com>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Hans Verkuil <hverkuil+cisco@kernel.org>, 
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Sun, Aug 23, 2026 at 06:07:02PM +0200, Jori Koolstra wrote:
-> Currently there is no way to race-freely create and open a directory.
-> For regular files we have open(O_CREAT) for creating a new file inode,
-> and returning a pinning fd to it. The lack of such functionality for
-> directories means that when populating a directory tree there's always
-> a race involved: the inodes first need to be created, and then opened
-> to adjust their permissions/ownership/labels/timestamps/acls/xattrs/...,
-> but in the time window between the creation and the opening they might
-> be replaced by something else.
-> 
-> Addressing this race without a proper API is only partially possible:
-> the caller can immediately fstat() what was opened to verify that it
-> has the expected inode type, owner and mode. But besides being easy to
-> get wrong, this cannot establish who created the directory: a directory
-> created by another process with identical credentials is
-> indistinguishable from one the caller created itself, so the caller
-> cannot tell whether the directory is its own to manage.
-> 
-> Historically, the O_CREAT|O_DIRECTORY behaviour was to return ENOTDIR if
-> a regular file exists at the open path; EISDIR if a directory exists at
-> the path; and to create a regular file if no file exists at the path.
-> This behaviour changed accidentally with 973d4b73fbaf ("do_last(): rejoin
-> the common path even earlier in FMODE_{OPENED,CREATED} case") causing
-> ENOTDIR to return in the last case while still creating the file. As
-> this change was not detected for a long time, Brauner proposed to adopt
-> the more consistent NetBSD behaviour, i.e. to return EINVAL on the
-> O_CREAT|O_DIRECTORY combination. This change was applied in 43b450632676
-> ("open: return EINVAL for O_DIRECTORY | O_CREAT") in March, 2023. As
-> the EINVAL behaviour has been in the kernel for about 3 years now, no
-> rollback is expected as a result of userspace reliance on old
-> behaviour, leaving us free to reassign the O_CREAT|O_DIRECTORY semantics.
-> 
-> O_CREAT|O_DIRECTORY is made to reduce to a lookup on ->atomic_open()
-> filesystems. These filesystems currenly cannot handle
-> O_CREAT|O_DIRECTORY without protocol extensions and therefore are forced
-> into a fallback mode by stripping the O_CREAT bit. This causes existing
-> directories to be succesfully opened, while for targets that should have
-> been created, -ENOENT is returned. The other option of simply returning
-> -EINVAL leads to inconsistent behaviour: before ->atomic_open() is
-> called in lookup_open(), the dcache is queried. So returning -EINVAL
-> there would make O_CREAT|O_DIRECTORY dependent on the cache state of the
-> dentry.
-> 
-> There is no separate sysctl for directory creation implemented currently.
-> Therefore, for the S_ISDIR case, disabling sysctl_protected_regular is
-> not enough to allow creating a directory in a sticky folder, because that
-> may surprise users not expecting that O_CREAT|O_DIRECTORY is possible on
-> newer kernels.
-> 
-> This feature idea (and some of its description) is taken from the
-> UAPI group:
-> https://github.com/uapi-group/kernel-features?tab=readme-ov-file#race-free-creation-and-opening-of-non-file-inodes
-> 
-> Signed-off-by: Jori Koolstra <jkoolstra@xs4all.nl>
+Hi Michael
+
+Thanks for your patch
+
+On Fri, 28 Aug 2026 at 17:26, Michael Jordan <jordan.mymail@gmail.com> wrote:
+>
+> uvc_ctrl_fixup_xu_info() holds a per-device table of controls whose
+> GET_INFO reply is wrong, and overrides the flags for them. It only runs
+> from uvc_ctrl_fill_xu_info(), so it can only correct extension unit
+> controls, but standard controls suffer from the same class of firmware
+> bug: a device can report a wrong capability byte for a Camera Terminal
+> or Processing Unit control just as easily.
+>
+> Rename it to uvc_ctrl_fixup_flags() and call it from
+> uvc_ctrl_get_flags(), where the flags are derived from GET_INFO for every
+> control, standard and XU alike. Call it whether or not the GET_INFO
+> request succeeded, so the table has the last word in both cases. The
+> call in uvc_ctrl_fill_xu_info() is dropped, as it now runs from
+> uvc_ctrl_get_flags() which that function calls.
+>
+> No functional change for the devices already in the table: their
+> entries are XU controls, and were matched by entity and selector before
+> as they are now.
+>
+> Suggested-by: Ricardo Ribalda <ribalda@chromium.org>
+> Signed-off-by: Michael Jordan <jordan.mymail@gmail.com>
 > ---
->  fs/namei.c            | 89 ++++++++++++++++++++++++++++++++++---------
->  fs/open.c             | 25 ++++++------
->  include/linux/fcntl.h |  6 +++
->  3 files changed, 92 insertions(+), 28 deletions(-)
-> 
-> diff --git a/fs/namei.c b/fs/namei.c
-> index 3afae6e87825..6f18a480665b 100644
-> --- a/fs/namei.c
-> +++ b/fs/namei.c
-> @@ -1382,13 +1382,13 @@ int may_linkat(struct mnt_idmap *idmap, const struct path *link)
->  
->  /**
->   * may_create_in_sticky - Check whether an O_CREAT open in a sticky directory
-> - *			  should be allowed, or not, on files that already
-> - *			  exist.
-> + *			  should be allowed, or not, on files/directories that
-> + *			  already exist.
->   * @idmap: idmap of the mount the inode was found from
->   * @nd: nameidata pathwalk data
->   * @inode: the inode of the file to open
->   *
-> - * Block an O_CREAT open of a FIFO (or a regular file) when:
-> + * Block an O_CREAT open of a FIFO (or a regular file/directory) when:
->   *   - sysctl_protected_fifos (or sysctl_protected_regular) is enabled
->   *   - the file already exists
->   *   - we are in a sticky directory
-> @@ -1416,6 +1416,14 @@ static int may_create_in_sticky(struct mnt_idmap *idmap, struct nameidata *nd,
->  	if (likely(!(dir_mode & S_ISVTX)))
->  		return 0;
->  
-> +	/*
-> +	 * There is no separate sysctl for directory creation in sticky
-> +	 * folders. Therefore, for the S_ISDIR case, disabling
-> +	 * sysctl_protected_regular is not enough to allow creating a
-> +	 * directory in a sticky folder, because that may surprise users
-> +	 * not expecting that O_CREAT|O_DIRECTORY is possible on newer
-> +	 * kernels.
-> +	 */
->  	if (S_ISREG(inode->i_mode) && !sysctl_protected_regular)
->  		return 0;
->  
-> @@ -1447,6 +1455,12 @@ static int may_create_in_sticky(struct mnt_idmap *idmap, struct nameidata *nd,
->  					      "sticky_create_regular");
->  			return -EACCES;
->  		}
+>  drivers/media/usb/uvc/uvc_ctrl.c | 87 +++++++++++++++++---------------
+>  1 file changed, 46 insertions(+), 41 deletions(-)
+>
+> diff --git a/drivers/media/usb/uvc/uvc_ctrl.c b/drivers/media/usb/uvc/uvc_ctrl.c
+> index aceb26310..b16a5cc0d 100644
+> --- a/drivers/media/usb/uvc/uvc_ctrl.c
+> +++ b/drivers/media/usb/uvc/uvc_ctrl.c
+> @@ -2852,6 +2852,46 @@ int uvc_ctrl_set(struct uvc_fh *handle, struct v4l2_ext_control *xctrl)
+>   * Dynamic controls
+>   */
+>
+What about making uvc_ctrl_fixup_flags return bool:
+true if it applied a patch.
+
+That way we can move it to the beggining of uvc_ctrl_flags, even
+before the kmalloc and return early.
+
+
+> +static void uvc_ctrl_fixup_flags(struct uvc_device *dev,
+> +                                const struct uvc_control *ctrl,
+> +                                struct uvc_control_info *info)
+> +{
+> +       struct uvc_ctrl_fixup {
+> +               struct usb_device_id id;
+> +               u8 entity;
+> +               u8 selector;
+> +               u8 flags;
+> +       };
 > +
-> +		if (S_ISDIR(inode->i_mode)) {
-> +			audit_log_path_denied(AUDIT_ANOM_CREAT,
-> +					      "sticky_create_dir");
-> +			return -EACCES;
-> +		}
->  	}
->  
->  	return 0;
-> @@ -4334,21 +4348,41 @@ static inline int open_to_namei_flags(int flag)
->  
->  static int may_o_create(struct mnt_idmap *idmap,
->  			const struct path *dir, struct dentry *dentry,
-> -			umode_t mode)
-> +			int open_flag, umode_t mode)
->  {
-> -	int error = security_path_mknod(dir, dentry, mode, 0);
-> +	struct inode *dir_inode = dir->dentry->d_inode;
-> +	bool create_dir = O_IS_MKDIR(open_flag);
-> +	int error;
+> +       static const struct uvc_ctrl_fixup fixups[] = {
+> +               { { USB_DEVICE(0x046d, 0x08c2) }, 9, 1,
+> +                       UVC_CTRL_FLAG_GET_MIN | UVC_CTRL_FLAG_GET_MAX |
+> +                       UVC_CTRL_FLAG_GET_DEF | UVC_CTRL_FLAG_SET_CUR |
+> +                       UVC_CTRL_FLAG_AUTO_UPDATE },
+> +               { { USB_DEVICE(0x046d, 0x08cc) }, 9, 1,
+> +                       UVC_CTRL_FLAG_GET_MIN | UVC_CTRL_FLAG_GET_MAX |
+> +                       UVC_CTRL_FLAG_GET_DEF | UVC_CTRL_FLAG_SET_CUR |
+> +                       UVC_CTRL_FLAG_AUTO_UPDATE },
+> +               { { USB_DEVICE(0x046d, 0x0994) }, 9, 1,
+> +                       UVC_CTRL_FLAG_GET_MIN | UVC_CTRL_FLAG_GET_MAX |
+> +                       UVC_CTRL_FLAG_GET_DEF | UVC_CTRL_FLAG_SET_CUR |
+> +                       UVC_CTRL_FLAG_AUTO_UPDATE },
+> +       };
 > +
-> +	if (create_dir)
-> +		error = security_path_mkdir(dir, dentry, mode);
-> +	else
-> +		error = security_path_mknod(dir, dentry, mode, 0);
->  	if (error)
->  		return error;
->  
->  	if (!fsuidgid_has_mapping(dir->dentry->d_sb, idmap))
->  		return -EOVERFLOW;
->  
-> -	error = inode_permission(idmap, dir->dentry->d_inode,
-> -				 MAY_WRITE | MAY_EXEC);
-> +	error = inode_permission(idmap, dir_inode, MAY_WRITE | MAY_EXEC);
->  	if (error)
->  		return error;
->  
-> -	return security_inode_create(dir->dentry->d_inode, dentry, mode);
-> +	if (create_dir)
-> +		error = security_inode_mkdir(dir_inode, dentry, mode);
-> +	else
-> +		error = security_inode_create(dir_inode, dentry, mode);
+> +       unsigned int i;
 > +
-> +	return error;
+> +       for (i = 0; i < ARRAY_SIZE(fixups); ++i) {
+> +               if (!usb_match_one_id(dev->intf, &fixups[i].id))
+> +                       continue;
+> +
+> +               if (fixups[i].entity == ctrl->entity->id &&
+> +                   fixups[i].selector == info->selector) {
+> +                       info->flags = fixups[i].flags;
+> +                       return;
+> +               }
+> +       }
 > +}
 > +
-> +static inline umode_t o_create_mode(struct mnt_idmap *idmap,
-> +		const struct inode *dir, int open_flag, umode_t mode)
-> +{
-> +	if (O_IS_MKDIR(open_flag))
-> +		return vfs_prepare_mode(idmap, dir, mode, S_IRWXUGO | S_ISVTX, S_IFDIR);
-> +	else
-> +		return vfs_prepare_mode(idmap, dir, mode, S_IALLUGO, S_IFREG);
->  }
->  
->  /**
-> @@ -4384,8 +4418,9 @@ static struct dentry *atomic_open(const struct path *path, struct dentry *dentry
->  
->  	file->__f_path.dentry = DENTRY_NOT_SET;
->  	file->__f_path.mnt = path->mnt;
-> +
->  	error = dir_inode->i_op->atomic_open(dir_inode, dentry, file,
-> -				       open_to_namei_flags(open_flag), mode);
-> +					     open_to_namei_flags(open_flag), mode);
->  	d_lookup_done(dentry);
->  
->  	if (!error) {
-> @@ -4441,6 +4476,10 @@ static struct dentry *atomic_open(const struct path *path, struct dentry *dentry
->  	return dentry;
->  }
->  
-> +static inline
-> +struct dentry *vfs_mkdir_no_perm(struct mnt_idmap *, struct inode *,
-> +				 struct dentry *, umode_t,
-> +				 struct delegated_inode *);
 >  /*
->   * Look up and maybe create and open the last component.
->   *
-> @@ -4462,6 +4501,7 @@ static struct dentry *lookup_open(struct nameidata *nd, struct file *file,
->  	struct mnt_idmap *idmap;
->  	struct dentry *dir = nd->path.dentry;
->  	struct inode *dir_inode = dir->d_inode;
-> +	bool create_dir = O_IS_MKDIR(op->mode);
+>   * Retrieve flags for a given control
+>   */
+> @@ -2889,49 +2929,16 @@ static int uvc_ctrl_get_flags(struct uvc_device *dev,
+>                                 UVC_CTRL_FLAG_ASYNCHRONOUS : 0);
+>         }
+>
+> +       /*
+> +        * Some devices report bogus capabilities through GET_INFO. Let the
+> +        * fixup table have the last word, whether or not GET_INFO succeeded.
+> +        */
+> +       uvc_ctrl_fixup_flags(dev, ctrl, info);
+> +
+>         kfree(data);
+>         return ret;
+>  }
+>
+> -static void uvc_ctrl_fixup_xu_info(struct uvc_device *dev,
+> -       const struct uvc_control *ctrl, struct uvc_control_info *info)
+> -{
+> -       struct uvc_ctrl_fixup {
+> -               struct usb_device_id id;
+> -               u8 entity;
+> -               u8 selector;
+> -               u8 flags;
+> -       };
+> -
+> -       static const struct uvc_ctrl_fixup fixups[] = {
+> -               { { USB_DEVICE(0x046d, 0x08c2) }, 9, 1,
+> -                       UVC_CTRL_FLAG_GET_MIN | UVC_CTRL_FLAG_GET_MAX |
+> -                       UVC_CTRL_FLAG_GET_DEF | UVC_CTRL_FLAG_SET_CUR |
+> -                       UVC_CTRL_FLAG_AUTO_UPDATE },
+> -               { { USB_DEVICE(0x046d, 0x08cc) }, 9, 1,
+> -                       UVC_CTRL_FLAG_GET_MIN | UVC_CTRL_FLAG_GET_MAX |
+> -                       UVC_CTRL_FLAG_GET_DEF | UVC_CTRL_FLAG_SET_CUR |
+> -                       UVC_CTRL_FLAG_AUTO_UPDATE },
+> -               { { USB_DEVICE(0x046d, 0x0994) }, 9, 1,
+> -                       UVC_CTRL_FLAG_GET_MIN | UVC_CTRL_FLAG_GET_MAX |
+> -                       UVC_CTRL_FLAG_GET_DEF | UVC_CTRL_FLAG_SET_CUR |
+> -                       UVC_CTRL_FLAG_AUTO_UPDATE },
+> -       };
+> -
+> -       unsigned int i;
+> -
+> -       for (i = 0; i < ARRAY_SIZE(fixups); ++i) {
+> -               if (!usb_match_one_id(dev->intf, &fixups[i].id))
+> -                       continue;
+> -
+> -               if (fixups[i].entity == ctrl->entity->id &&
+> -                   fixups[i].selector == info->selector) {
+> -                       info->flags = fixups[i].flags;
+> -                       return;
+> -               }
+> -       }
+> -}
+> -
+>  /*
+>   * Query control information (size and flags) for XU controls.
+>   */
+> @@ -2972,8 +2979,6 @@ static int uvc_ctrl_fill_xu_info(struct uvc_device *dev,
+>                 goto done;
+>         }
+>
+> -       uvc_ctrl_fixup_xu_info(dev, ctrl, info);
+> -
+>         uvc_dbg(dev, CONTROL,
+>                 "XU control %pUl/%u queried: len %u, flags { get %u set %u auto %u }\n",
+>                 info->entity, info->selector, info->size,
+> --
+> 2.43.0
+>
 
-So this is called on op->mode which is 16-bit an O_DIRECTORY is bit 16.
-Hence, "create_dir" is always false. I think you wanted to test
-op->open_flag...
+
+-- 
+Ricardo Ribalda
