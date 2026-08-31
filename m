@@ -1,179 +1,308 @@
-Received: from mail-yw1-f176.google.com (mail-yw1-f176.google.com [209.85.128.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D096E503BEB
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 15:00:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FE13463B6D;
+	Mon, 31 Aug 2026 15:01:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788188460; cv=none; b=hOMQloEqQJJIYTIWHYsylDHCqK9EEuaP64VT7LFthzP7BKaC/pm4keApIPG9elhuS6DC9ZGHuEjNEKIgoYGhoEZTqYl+SGVLs3Ek15yQuuRPcUGPDRnSUtMsXaqjdb2XuFUHybNpwvRuNf35MsKc2mAZquMLNZ/RFOEu2W6UyaI=
+	t=1788188471; cv=none; b=QIDxhOUrmWxSB2qbWpYG23oVN0SMPRuw0uMH7mW0vjW5d/onnviD1NOuXbmYE5Q9KxYLpou6l3lUdZBPcmEyF4xfVeNBQb+dZlr3YHqtHc2NnMud1MOcwFRGVq6FTuDAmR5eQvQ54pfncoYDIty0FCfrcKJja9PayW0iwArqseM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788188460; c=relaxed/simple;
-	bh=WptSfOqEMNBmGXPbTwBGhZeeMOjidJMhs+vE6dbvvzI=;
+	s=arc-20240116; t=1788188471; c=relaxed/simple;
+	bh=9wfYmcMLiY3XrO1XIWerZba4FDE2476kRIwsoeop3ao=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=tbg21CtLLpU419jrGM+HpnjrhGOH6sv/yLLgydR2ZE4fPrt0CDBYFOErd16CrWdb9yxhoLWpjMDzSR8p9RdgVVCQmjb6TF85SiDYPmzTIITpYorgcmFpo8auLt+bBN/gW1gUBeezGNaP73U64+QSHJA3UxOKyR7/Jev2Jsx55lQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qdR5VD8i; arc=none smtp.client-ip=209.85.128.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 MIME-Version; b=d30Mzp6+MKThdsfpCM1sziuIs6AtwoQ1BDUAc4MyWKwbmJqNAtxnEZM/BfTbthGb+trYkaw6q+HlaN7MwuSljRGN2Atdza67SRNsPmKoV1adGkjzqOMxzjPUAbclJjNmpSo5SIkVWV5Nf/FXq/REeA8uvSJaGi1531uHg+wB1+k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=fq+1UynD; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qdR5VD8i"
-Received: by mail-yw1-f176.google.com with SMTP id 00721157ae682-867a943b149so8584547b3.1
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 08:00:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788188458; x=1788793258; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=P+ivS8VeeEbj61xzPS0u7NgZI1YqhiDthhnP+E6PAls=;
-        b=qdR5VD8iNcuRx462EBfWJeyu9x0tUaxVsaqQz2xAiVhTvDSQIpM7/pmzrnUU8neMFL
-         YB4HR3mtnwD/I2GaMDdu6y3tnVwTlP5RgSdsFD5iwnxYHWjz8eZU8XgaMso3ZYlvA4kj
-         FsfD014PI8/5djnkc/5jobgKsGtbpz1YZkaQ7PnoqsvguMfecefjNBBZzjC7UxNILmLe
-         w+n8IkIHZRmk24UTzXLjBWIXTedT+fdu6JJc6xBbgZyKLDPTnXTP9HuH/x4ERS8jPVHW
-         54o/elhfn4l10v0XQv2/TeCrht1jl8WG69jGmgsRqqXXU+yyZniYa3w8OzmgChTiDDoE
-         JY1w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788188458; x=1788793258;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=P+ivS8VeeEbj61xzPS0u7NgZI1YqhiDthhnP+E6PAls=;
-        b=tG3aZN+GROOLxgi9QP1ovYf72zmNa1VdBdt9ijzfbMe1Pq5CGJUj1y7+TnWqvupC04
-         hX34kiY+nMEdhTFIzWm6Vap+qNkbBTDRqsdzDCbIDyt+QgzfExXNbOrdp0ZRqPXc1BKX
-         iGLal5hEm+oMthzIqTv9DCPIi1/naWisqv35aoAge2r4jayCrNBuru4cF4v0cVvvoxP0
-         PHGeMga9v4OXjMUgpElF+4Zm4qapwBBKpfqPU1KUvk6mE/qQRQQo4a2eVgQz7fC5QzSw
-         +stJNud+QNf21ZoZucG3GJQoOfpqEX8hb3kOKXOyDtJoXSZD3naYI6SiM5l0LBpXYZJ4
-         HrfA==
-X-Forwarded-Encrypted: i=1; AKwUvBxCQq30jKewCgwX0bh2JEj02m0ROwoPN6k1ZL2R3QIThKAx81ZaSl+FO0TfctvXsx+oisHsNgVAP4588T4=@vger.kernel.org
-X-Gm-Message-State: AFuF++kV+BD0WYaiqwLW0eISmglnKJaV8ouqsTp3zyVKlbtpkvBOiPXg
-	/bgsm0+ZZTfAVZNApERIcYQi+HLxIIlPiPW2tAJfkuQMz6+wms1INW5c
-X-Gm-Gg: AYBFou2Tbke9alngg+HBIEmsx/dcd7Po+Z59h29ZPQm+GCULASD5cczd1DXCkzRvnzI
-	neXTnQ7BPw1lCDT9vAeYy0zHR8ra6nhmCt9QYn3XbR4aHBfvZ3ewQNY97R6gl4XSUXBmsgqk2FC
-	8Y+pN4irb/fGquth1tcKNK2dFOYcgFrvXc9QEKP091NVXRfJagSSxT1bbNYU9/8zy4LJ5L0OA1p
-	KNxwODb89HiBeYe8U+EwhHTFrvJWNma6kKDtA4btMdtFSVvUsJ7YptLBV8okZ3Lz/v2KONsUV0w
-	4kFWQukkLJskokpiEegYieysrlSSdcN+IFZcxcXpTALKtXLDf3XvD2yy/KiJBjSRSB3pt/7LW4Z
-	+eYgBT+/NZqvO7lpuwDPie8N1xDezO+nJSpxmYxMiwuY1JXok2/2CHi34f7JMshw+EhPD9L1rGV
-	VWNOyrO9q+TwFixpG+uwOn6AJYUoWw7WerAJ/AmK8Lla09ayZBqqXK+Ip2H37EaJpbaWZDSdwmN
-	mvI6wzGwby17KLiP8iueSs=
-X-Received: by 2002:a05:690c:47c5:b0:81d:edf2:dad8 with SMTP id 00721157ae682-868726e607emr7223467b3.22.1788188457650;
-        Mon, 31 Aug 2026 08:00:57 -0700 (PDT)
-Received: from zenbox ([2600:1700:18fb:6011:f6fc:b424:b1bb:6ff0])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-85e58666e15sm53903827b3.0.2026.08.31.08.00.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 08:00:56 -0700 (PDT)
-From: Justin Suess <utilityemal77@gmail.com>
-To: ast@kernel.org,
-	daniel@iogearbox.net,
-	andrii@kernel.org,
-	kpsingh@kernel.org,
-	paul@paul-moore.com,
-	mic@digikod.net,
-	viro@zeniv.linux.org.uk,
-	brauner@kernel.org,
-	kees@kernel.org
-Cc: gnoack@google.com,
-	jack@suse.cz,
-	song@kernel.org,
-	yonghong.song@linux.dev,
-	martin.lau@linux.dev,
-	m@maowtm.org,
-	bpf@vger.kernel.org,
-	linux-security-module@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Justin Suess <utilityemal77@gmail.com>
-Subject: [PATCH v2 15/15] landlock: Document the BPF policy interface
-Date: Mon, 31 Aug 2026 10:58:57 -0400
-Message-ID: <20260831145858.3869191-16-utilityemal77@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260831145858.3869191-1-utilityemal77@gmail.com>
-References: <20260831145858.3869191-1-utilityemal77@gmail.com>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="fq+1UynD"
+Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67VEZ9EV652844;
+	Mon, 31 Aug 2026 14:55:45 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=pp1; bh=ejJUX+hlnx8Z0T2Mp
+	/03Cnp35wBOJqAQDWt4j6mc6Lg=; b=fq+1UynDK9vlq3szYdgSPwiT+Yjf644SK
+	12FjHkYoHCJmITr7H/DTbDgn0NA5cG+f3U37xI9DJZkh4HRqQJqztKdbF/6foypa
+	hs+lm5t4cbleMK9NaaPByeI/N3MNsDIYGmVWVmmW9TaXHKI3OBkkPo2rNVpOgon1
+	TTuxQSwgeQvQH66bZE5WM0ggmluvHdpLldflP53/AC8sMlq0mrai5W/gNSOLymDh
+	HU7rdSKtk+Yu7iAucy/onOiJxDmJXKWVzp4+EA6jhtmEe2y5G8B/DgijcNo6cv0G
+	WMA9HuWM9vJv+A30xTbk0BM1f/i9kJN4Rq7GF+RivJ4OariNWgKfQ==
+Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gbq3r209j-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 31 Aug 2026 14:55:44 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma11.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67VEfdFE029538;
+	Mon, 31 Aug 2026 14:55:44 GMT
+Received: from smtprelay01.fra02v.mail.ibm.com ([9.218.2.227])
+	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gccexx8uc-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 31 Aug 2026 14:55:43 +0000 (GMT)
+Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com [10.20.54.103])
+	by smtprelay01.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67VEtcJX47382792
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 31 Aug 2026 14:55:38 GMT
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id E54A520040;
+	Mon, 31 Aug 2026 14:55:37 +0000 (GMT)
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 6A48B2004B;
+	Mon, 31 Aug 2026 14:55:37 +0000 (GMT)
+Received: from tuxmaker.boeblingen.de.ibm.com (unknown [9.87.85.9])
+	by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Mon, 31 Aug 2026 14:55:37 +0000 (GMT)
+From: Steffen Eiden <seiden@linux.ibm.com>
+To: kvm@vger.kernel.org, kvmarm@lists.linux.dev,
+        linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+        linux-s390@vger.kernel.org
+Cc: Alexander Gordeev <agordeev@linux.ibm.com>,
+        Andreas Grapentin <gra@linux.ibm.com>, Arnd Bergmann <arnd@arndb.de>,
+        Catalin Marinas <catalin.marinas@arm.com>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        Claudio Imbrenda <imbrenda@linux.ibm.com>,
+        David Hildenbrand <david@kernel.org>,
+        Friedrich Welter <fritz@linux.ibm.com>, Fuad Tabba <tabba@google.com>,
+        Gautam Gala <ggala@linux.ibm.com>,
+        Hariharan Mari <hari55@linux.ibm.com>,
+        Heiko Carstens <hca@linux.ibm.com>,
+        Hendrik Brueckner <brueckner@linux.ibm.com>,
+        Ilya Leoshkevich <iii@linux.ibm.com>,
+        Janosch Frank <frankja@linux.ibm.com>, Joey Gouly <joey.gouly@arm.com>,
+        Marc Zyngier <maz@kernel.org>, Nico Boehr <nrb@linux.ibm.com>,
+        Nina Schoetterl-Glausch <oss@nina.schoetterlglausch.eu>,
+        Oliver Upton <oupton@kernel.org>, Paolo Bonzini <pbonzini@redhat.com>,
+        Suzuki K Poulose <suzuki.poulose@arm.com>,
+        Sven Schnelle <svens@linux.ibm.com>,
+        Ulrich Weigand <Ulrich.Weigand@de.ibm.com>,
+        Vasily Gorbik <gor@linux.ibm.com>, Will Deacon <will@kernel.org>,
+        Zenghui Yu <yuzenghui@huawei.com>
+Subject: [PATCH v2 01/20] KVM: arm64: Refactor idreg caching into dedicated structure
+Date: Mon, 31 Aug 2026 16:55:16 +0200
+Message-ID: <20260831145536.913567-2-seiden@linux.ibm.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260831145536.913567-1-seiden@linux.ibm.com>
+References: <20260831145536.913567-1-seiden@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Authority-Analysis: v=2.4 cv=EIc2FVZC c=1 sm=1 tr=0 ts=6a9595f1 cx=c_pps
+ a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+ a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=uAbxVGIbfxUO_5tXvNgY:22 a=VnNF1IyMAAAA:8 a=LNVzOGTwHolIvdFCj68A:9
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODMxMDEyNSBTYWx0ZWRfX76Rl1Fez0CBI
+ CDVSHnkKXXTV20Rx9x/gSP2iyLYL8mR0bCML80XrmsSleLjEio0yNZCUkecppfTQg6VNjNsmEil
+ qNX2QNhCGxokI3DFB2bROchl01MpwQoPry8ysyfU1G0DUSwswpXh09FP27lymJhmblzWfQXpZ24
+ YqMODEUwzROHrFETDBIe8ya1WrtYpJCLMAEvYMbva9A+3iOhpgDSXdiD/koT5iuxBpCmp8ZPqmA
+ FcrY13WFRoan9cTKj0RugUji3N8XZtlVL4aWF+kmPmikhBgiTff/XEsYECV0KArG/QEpxAPAa3y
+ THG4li5sLG5ZQzWGddyjDpZLMbh0n9qG0z4wzcZHgu6gj5IPNOHHcOcMBOCVD1/o61Zye+6BPnQ
+ V32qF904xee5Tb0ZHbhXTZjfbm6+wEu9xs7f4uboH2Vg6LuD0fU3OemnUKjb7utBub6KS9kjU5t
+ NGQhoUyRFOHy4HDQgpg==
+X-Proofpoint-GUID: LaLHm07Mg0oo9fmbHz6s4rnhmqkuMq1v
+X-Proofpoint-ORIG-GUID: 7doDAoFkK5nGYWMUFtE8aDQa7R2gRfXp
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODMxMDEyNSBTYWx0ZWRfXyIev3iT2igoJ
+ IZ+qUhWL8l5bQvrsIFim2nkGhEJSfcN5W/mevPKitr88Mye/wWEwAkeB3dYlUor2B15PlrQHEHA
+ P8GXZvCQ6ILpLI76mu/J++JFgT0hQXs=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-31_05,2026-08-27_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 impostorscore=0 suspectscore=0 priorityscore=1501 clxscore=1015
+ phishscore=0 spamscore=0 adultscore=0 lowpriorityscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608310125
 
-Describe how the generic LSM policy kfuncs apply to Landlock
-rulesets: the program-side flow, the staged restriction and its trace
-event, the LANDLOCK_RESTRICT_SELF_NO_NEW_PRIVS semantics on an
-execution, and why the bprm path carries no no_new_privs/
-CAP_SYS_ADMIN precondition.  Note the new emission point in the trace
-events overview.
+Move VM-wide ID register emulation fields from struct kvm_arch into a
+new struct kvm_vm_id_regs to prepare future sharing of these fields and
+functions using them. Update all users to use the new structure. No
+functional changes.
 
-Cc: Mickaël Salaün <mic@digikod.net>
-Signed-off-by: Justin Suess <utilityemal77@gmail.com>
+Co-developed-by: Nina Schoetterl-Glausch <nsg@linux.ibm.com>
+Signed-off-by: Nina Schoetterl-Glausch <nsg@linux.ibm.com>
+Signed-off-by: Steffen Eiden <seiden@linux.ibm.com>
 ---
- Documentation/security/landlock.rst     | 38 +++++++++++++++++++++++++
- Documentation/trace/events-landlock.rst |  5 +++-
- 2 files changed, 42 insertions(+), 1 deletion(-)
+ arch/arm64/include/asm/kvm_host.h  | 50 ++++++++++++++++--------------
+ arch/arm64/kvm/config.c            |  2 +-
+ arch/arm64/kvm/hyp/nvhe/pkvm.c     |  7 +++--
+ arch/arm64/kvm/hyp/nvhe/sys_regs.c |  4 +--
+ arch/arm64/kvm/sys_regs.c          |  2 +-
+ 5 files changed, 35 insertions(+), 30 deletions(-)
 
-diff --git a/Documentation/security/landlock.rst b/Documentation/security/landlock.rst
-index 2d6e1076484e..ddc0d149ae8f 100644
---- a/Documentation/security/landlock.rst
-+++ b/Documentation/security/landlock.rst
-@@ -130,6 +130,44 @@ The reasoning is:
-   restrictions, because access within the same scope is already
-   allowed based on ``LANDLOCK_ACCESS_FS_RESOLVE_UNIX``.
+diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
+index a8ddce3921b8..f9e90ef9ee4b 100644
+--- a/arch/arm64/include/asm/kvm_host.h
++++ b/arch/arm64/include/asm/kvm_host.h
+@@ -349,6 +349,25 @@ enum fgt_group_id {
+ 	__NR_FGT_GROUP_IDS__
+ };
  
-+BPF kfuncs
-+==========
++struct kvm_vm_id_regs {
++	/*
++	 * Emulated CPU ID registers per VM
++	 * (Op0, Op1, CRn, CRm, Op2) of the ID registers to be saved in it
++	 * is (3, 0, 0, crm, op2), where 1<=crm<8, 0<=op2<8.
++	 *
++	 * These emulated idregs are VM-wide, but accessed from the context of a vCPU.
++	 * Atomic access to multiple idregs are guarded by kvm_arch.config_lock.
++	 */
++#define IDREG_IDX(id)		(((sys_reg_CRm(id) - 1) << 3) | sys_reg_Op2(id))
++#define KVM_ARM_ID_REG_NUM	(IDREG_IDX(sys_reg(3, 0, 0, 7, 7)) + 1)
++	u64 ftr_reg[KVM_ARM_ID_REG_NUM];
 +
-+BPF programs can apply a userspace-created Landlock ruleset to an
-+execution, through the generic LSM policy kfuncs (see
-+Documentation/security/lsm-development.rst).  A syscall program
-+(``BPF_PROG_TYPE_SYSCALL``), running in the context of the process
-+that set the ruleset up, acquires the ruleset with
-+``bpf_lsm_policy_from_fd()`` and typically hands it over through a
-+map kptr field; a sleepable LSM BPF program attached to the
-+``bprm_creds_for_exec`` or ``bprm_creds_from_file`` hooks then
-+enforces it on an execution with ``bpf_lsm_policy_apply_bprm()``.
++	u64 midr_el1;
++	u64 revidr_el1;
++	u64 aidr_el1;
++	u64 ctr_el0;
++};
 +
-+The restriction is staged in the Landlock blob of the credentials
-+prepared for the execution and committed past the exec point of no
-+return, so a failed execution leaves the calling task untouched.  The
-+commitment emits the ``landlock_enforce_domain`` trace event (see
-+Documentation/trace/events-landlock.rst).  The kfunc flags take the
-+``landlock_restrict_self(2)`` flags with their usual semantics, with
-+the exception of ``LANDLOCK_RESTRICT_SELF_TSYNC``, which is rejected:
-+the restriction targets the execution, not the calling threads.
-+
-+``LANDLOCK_RESTRICT_SELF_NO_NEW_PRIVS`` makes the executed program
-+start with no_new_privs set, binding it and all its descendants.  It
-+does not affect the current execution's privilege computation: the
-+bprm credentials, including any setuid elevation, are computed before
-+the flag is set.
-+
-+Unlike ``landlock_restrict_self(2)``, the bprm path has no
-+no_new_privs/``CAP_SYS_ADMIN`` precondition: a task that is not
-+no_new_privs can carry a BPF-applied domain, and its setuid
-+executions still elevate while confined.  This is sound because
-+attaching the BPF program is itself privileged, granting the same
-+power as the syscall's ``CAP_SYS_ADMIN`` carve-out.
-+
-+Executions may run concurrently: each takes its own reference on
-+the shared ruleset with ``bpf_lsm_policy_acquire()``.
-+
- Tests
- =====
+ struct kvm_arch {
+ 	struct kvm_s2_mmu mmu;
  
-diff --git a/Documentation/trace/events-landlock.rst b/Documentation/trace/events-landlock.rst
-index af9267cca47d..6cec3194af0b 100644
---- a/Documentation/trace/events-landlock.rst
-+++ b/Documentation/trace/events-landlock.rst
-@@ -34,7 +34,10 @@ Landlock trace events are organized in four categories:
- - ``landlock_add_rule_fs``: a filesystem rule is added to a ruleset
- - ``landlock_add_rule_net``: a network port rule is added to a ruleset
- - ``landlock_create_domain``: a new domain is created from a ruleset
--- ``landlock_enforce_domain``: a domain is enforced on a thread
-+- ``landlock_enforce_domain``: a domain is enforced on a thread.  Also
-+  emitted at ``execve(2)``'s point of no return when a BPF program has
-+  staged a policy on the execution (see the BPF kfuncs section of
-+  Documentation/security/landlock.rst)
+@@ -408,22 +427,7 @@ struct kvm_arch {
+ 	struct kvm_smccc_features smccc_feat;
+ 	struct maple_tree smccc_filter;
  
- **Denial events** are emitted when an access is denied:
+-	/*
+-	 * Emulated CPU ID registers per VM
+-	 * (Op0, Op1, CRn, CRm, Op2) of the ID registers to be saved in it
+-	 * is (3, 0, 0, crm, op2), where 1<=crm<8, 0<=op2<8.
+-	 *
+-	 * These emulated idregs are VM-wide, but accessed from the context of a vCPU.
+-	 * Atomic access to multiple idregs are guarded by kvm_arch.config_lock.
+-	 */
+-#define IDREG_IDX(id)		(((sys_reg_CRm(id) - 1) << 3) | sys_reg_Op2(id))
+-#define KVM_ARM_ID_REG_NUM	(IDREG_IDX(sys_reg(3, 0, 0, 7, 7)) + 1)
+-	u64 id_regs[KVM_ARM_ID_REG_NUM];
+-
+-	u64 midr_el1;
+-	u64 revidr_el1;
+-	u64 aidr_el1;
+-	u64 ctr_el0;
++	struct kvm_vm_id_regs id_regs;
+ 
+ 	/* Masks for VNCR-backed and general EL2 sysregs */
+ 	struct kvm_sysreg_masks	*sysreg_masks;
+@@ -1563,19 +1567,19 @@ static inline void kvm_hyp_reserve(void) { }
+ void kvm_arm_vcpu_power_off(struct kvm_vcpu *vcpu);
+ bool kvm_arm_vcpu_stopped(struct kvm_vcpu *vcpu);
+ 
+-static inline u64 *__vm_id_reg(struct kvm_arch *ka, u32 reg)
++static inline u64 *__vm_id_reg(struct kvm_vm_id_regs *id_regs, u32 reg)
+ {
+ 	switch (reg) {
+ 	case sys_reg(3, 0, 0, 1, 0) ... sys_reg(3, 0, 0, 7, 7):
+-		return &ka->id_regs[IDREG_IDX(reg)];
++		return &id_regs->ftr_reg[IDREG_IDX(reg)];
+ 	case SYS_CTR_EL0:
+-		return &ka->ctr_el0;
++		return &id_regs->ctr_el0;
+ 	case SYS_MIDR_EL1:
+-		return &ka->midr_el1;
++		return &id_regs->midr_el1;
+ 	case SYS_REVIDR_EL1:
+-		return &ka->revidr_el1;
++		return &id_regs->revidr_el1;
+ 	case SYS_AIDR_EL1:
+-		return &ka->aidr_el1;
++		return &id_regs->aidr_el1;
+ 	default:
+ 		WARN_ON_ONCE(1);
+ 		return NULL;
+@@ -1583,7 +1587,7 @@ static inline u64 *__vm_id_reg(struct kvm_arch *ka, u32 reg)
+ }
+ 
+ #define kvm_read_vm_id_reg(kvm, reg)					\
+-	({ u64 __val = *__vm_id_reg(&(kvm)->arch, reg); __val; })
++	({ u64 __val = *__vm_id_reg(&(kvm)->arch.id_regs, reg); __val; })
+ 
+ void kvm_set_vm_id_reg(struct kvm *kvm, u32 reg, u64 val);
+ 
+diff --git a/arch/arm64/kvm/config.c b/arch/arm64/kvm/config.c
+index 1053676551af..de56656237f4 100644
+--- a/arch/arm64/kvm/config.c
++++ b/arch/arm64/kvm/config.c
+@@ -1410,7 +1410,7 @@ void __init check_feature_map(void)
+ 
+ static bool idreg_feat_match(struct kvm *kvm, const struct reg_bits_to_feat_map *map)
+ {
+-	u64 regval = kvm->arch.id_regs[map->regidx];
++	u64 regval = kvm->arch.id_regs.ftr_reg[map->regidx];
+ 	u64 regfld = (regval >> map->shift) & GENMASK(map->width - 1, 0);
+ 
+ 	if (map->sign) {
+diff --git a/arch/arm64/kvm/hyp/nvhe/pkvm.c b/arch/arm64/kvm/hyp/nvhe/pkvm.c
+index 459bd9eb7e4b..bb11561de05e 100644
+--- a/arch/arm64/kvm/hyp/nvhe/pkvm.c
++++ b/arch/arm64/kvm/hyp/nvhe/pkvm.c
+@@ -343,7 +343,7 @@ static void pkvm_init_features_from_host(struct pkvm_hyp_vm *hyp_vm, const struc
+ 	DECLARE_BITMAP(allowed_features, KVM_VCPU_MAX_FEATURES);
+ 
+ 	/* CTR_EL0 is always under host control, even for protected VMs. */
+-	hyp_vm->kvm.arch.ctr_el0 = host_kvm->arch.ctr_el0;
++	hyp_vm->kvm.arch.id_regs.ctr_el0 = host_kvm->arch.id_regs.ctr_el0;
+ 
+ 	/* Preserve the vgic model so that GICv3 emulation works */
+ 	hyp_vm->kvm.arch.vgic.vgic_model = host_kvm->arch.vgic.vgic_model;
+@@ -358,7 +358,7 @@ static void pkvm_init_features_from_host(struct pkvm_hyp_vm *hyp_vm, const struc
+ 			    KVM_VCPU_MAX_FEATURES);
+ 
+ 		if (test_bit(KVM_ARCH_FLAG_WRITABLE_IMP_ID_REGS, &host_arch_flags))
+-			hyp_vm->kvm.arch.midr_el1 = host_kvm->arch.midr_el1;
++			hyp_vm->kvm.arch.id_regs.midr_el1 = host_kvm->arch.id_regs.midr_el1;
+ 
+ 		return;
+ 	}
+@@ -492,7 +492,8 @@ static int vm_copy_id_regs(struct pkvm_hyp_vcpu *hyp_vcpu)
+ 	if (test_and_set_bit(KVM_ARCH_FLAG_ID_REGS_INITIALIZED, &kvm->arch.flags))
+ 		return 0;
+ 
+-	memcpy(kvm->arch.id_regs, host_kvm->arch.id_regs, sizeof(kvm->arch.id_regs));
++	memcpy(kvm->arch.id_regs.ftr_reg, host_kvm->arch.id_regs.ftr_reg,
++	       sizeof(kvm->arch.id_regs.ftr_reg));
+ 
+ 	return 0;
+ }
+diff --git a/arch/arm64/kvm/hyp/nvhe/sys_regs.c b/arch/arm64/kvm/hyp/nvhe/sys_regs.c
+index 8758c6801776..3e70b71d8f4f 100644
+--- a/arch/arm64/kvm/hyp/nvhe/sys_regs.c
++++ b/arch/arm64/kvm/hyp/nvhe/sys_regs.c
+@@ -293,7 +293,7 @@ static u64 read_id_reg(const struct kvm_vcpu *vcpu,
+ 		return 0;
+ 
+ 	if (reg >= sys_reg(3, 0, 0, 1, 0) && reg <= sys_reg(3, 0, 0, 7, 7))
+-		return kvm->arch.id_regs[IDREG_IDX(reg)];
++		return kvm->arch.id_regs.ftr_reg[IDREG_IDX(reg)];
+ 
+ 	return 0;
+ }
+@@ -544,7 +544,7 @@ void kvm_init_pvm_id_regs(struct kvm_vcpu *vcpu)
+ 	 * for protected VMs.
+ 	 */
+ 	for (r = sys_reg(3, 0, 0, 4, 0); r <= sys_reg(3, 0, 0, 7, 7); r += sys_reg(0, 0, 0, 0, 1))
+-		ka->id_regs[IDREG_IDX(r)] = pvm_calc_id_reg(vcpu, r);
++		ka->id_regs.ftr_reg[IDREG_IDX(r)] = pvm_calc_id_reg(vcpu, r);
+ 
+ 	set_bit(KVM_ARCH_FLAG_ID_REGS_INITIALIZED, &kvm->arch.flags);
+ }
+diff --git a/arch/arm64/kvm/sys_regs.c b/arch/arm64/kvm/sys_regs.c
+index 44aae52c473d..06dc8ec7a883 100644
+--- a/arch/arm64/kvm/sys_regs.c
++++ b/arch/arm64/kvm/sys_regs.c
+@@ -2543,7 +2543,7 @@ static int set_id_reg(struct kvm_vcpu *vcpu, const struct sys_reg_desc *rd,
+ 
+ void kvm_set_vm_id_reg(struct kvm *kvm, u32 reg, u64 val)
+ {
+-	u64 *p = __vm_id_reg(&kvm->arch, reg);
++	u64 *p = __vm_id_reg(&kvm->arch.id_regs, reg);
+ 
+ 	lockdep_assert_held(&kvm->arch.config_lock);
  
 -- 
-2.55.0
+2.53.0
 
