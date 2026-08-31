@@ -1,46 +1,46 @@
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7D8B4CCDDF
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 17:44:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DA7E35F5E4
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 17:44:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788198273; cv=none; b=cKXbWavts+1dge+UTcL+yJkR8lM+o9h/7wj8kTjiyW7oHHdgyvWorRBP0o++vZb0WUIjw2y9/mBcZSySnj07QtmK+fX0dMHGh+DuawvhwMEzE96opGwfzBihbedNia4HIKUmtLlkVIGn8TJbuvuYrhmPeWjvhwLseb2rIZWXSXQ=
+	t=1788198275; cv=none; b=RYqvEJ0pK6Cuj4QR5p6rmI6bFqiAgBhahqSyD7b3fhdfcoQA+yJncqauHLWCQRWFCyI0K/4roc/vHOqYszzLbh0a3ESTkAmpYFSsZ0uSgu9TbUPDdwhXwZmbl0j5vBShnwr1goxKhNS82XOEHhkmhVjDANudxvXwsGyuVSHGE38=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788198273; c=relaxed/simple;
-	bh=m4mCceyYGSEylh507AjhMHMA9CPOWNWzet0C2V3dNlE=;
+	s=arc-20240116; t=1788198275; c=relaxed/simple;
+	bh=rtXP+ZV+ZhfZyGXoj7bFm+8ohjVE+0kKIObjn4xX2T4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=W8hkVw9hHqBOnBNa9kxSNtiTNbbvJPnEwU33qoDd21+W6QzVJ45wgQkn+l6FLeXcTEbUcZGlQ7gUgPR7ur3bWfJwZb1nvLbwKNzloN0PiqcaeHkRhx7T9C4UplCILtwOQKWV3uhIddGTp5Zuhkt3YvFXBx18eYdOwRxh4WDoikI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=iDeT0F59; arc=none smtp.client-ip=198.175.65.14
+	 MIME-Version; b=okTvSSQ+SllkSCkqcBfhiknp09RqC9jUhuoAJ4VWysfD94z9qTuUtl3Siu99DIxNTg+OSlu0qp3xI20/I4ReQXICF/6v8fmAr1v09U7BddVkv79spfA4uToYmI2+km3+xZRjvgBbzS0MnvEQMna+FqSSiyJdOjjSa5wMREEVNPE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=JLDSHTx1; arc=none smtp.client-ip=198.175.65.14
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="iDeT0F59"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="JLDSHTx1"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788198272; x=1819734272;
+  t=1788198273; x=1819734273;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=m4mCceyYGSEylh507AjhMHMA9CPOWNWzet0C2V3dNlE=;
-  b=iDeT0F59lBGBtgWpEczIw35PWv3pjyiDzitZ6xHDXoGnMou7yc216HR4
-   UFFmcarENnniUCHoLx7p8dgDcRPVyL42etp6sqSsjJDn2RZflIAX6kmsr
-   mGHRvhI4N9KebDqtsP9yhFRico2KE6puw+8dTJ1BFYyR7hFkoYjnZaiig
-   veSk/t/ue23/in9vvB995sk3muYPO4PXE4He1eQlgWwGDej/HOE74obfq
-   OxySwan8CUJBT54sYzkMQ+ZopuqA5RZMaGC57e2RYTZwcKcO3+PN5x/eH
-   EAOhIC2rOkqefNh5KuMk7kPwr05DeSJ5CGi+SI9xk/Xw0OhoXDx3clUUy
+  bh=rtXP+ZV+ZhfZyGXoj7bFm+8ohjVE+0kKIObjn4xX2T4=;
+  b=JLDSHTx1iDZRj+onOPJ4JBb2RQS3W6Ebzf4WjogF5j1xqVuBT7mnKGxz
+   wFyBI8KNbr/7gemhe5hEay0WWG458bYdPI1cNbpVpVvHuqGxnFC66g7YL
+   qA9DFL3CFL/T6mZwp3OMo9LH28ZU0vubnZOK7XhikFDTLZUu/nq3/xyIA
+   cEz/E7d40ojsktxy7ERAJTGv+STyPIx92nWnBhy2nEUHzzpkyKBWHSbjr
+   jWr5ozOeoXvXvXXIPo5fW/jyOxiKCNVjGVAS0VUjIHo82zWxjqmhF82dc
+   akItf7+aRnMf6scemu1DAQgrgkiUEk66NLnXgyX01B49Y/ggzcCkdJGYG
    g==;
-X-CSE-ConnectionGUID: 9IgGMvzVSdSdo77JBEeC4w==
-X-CSE-MsgGUID: SZUn+nxjSs2S61ckD3AsvA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11892"; a="92479896"
+X-CSE-ConnectionGUID: ApdU7pHTQZmEIe51I5eOwg==
+X-CSE-MsgGUID: j+GYbwmUSyGGlnWFJmhI4Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11892"; a="92479905"
 X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; 
-   d="scan'208";a="92479896"
+   d="scan'208";a="92479905"
 Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 10:44:31 -0700
-X-CSE-ConnectionGUID: oyh3d6yoRQar0JlkqKYxeg==
-X-CSE-MsgGUID: 6pizaa+7SniFHBRsJIjcng==
+  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 10:44:32 -0700
+X-CSE-ConnectionGUID: 8d68QUxvSMKsXDWy2/9xmA==
+X-CSE-MsgGUID: BcaPZNCtRiuE/1NHI5wk1w==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; 
-   d="scan'208";a="268906938"
+   d="scan'208";a="268906944"
 Received: from aherrold-mobl1.amr.corp.intel.com (HELO agluck-desk3.intel.com) ([10.124.220.17])
   by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 10:44:30 -0700
 From: Tony Luck <tony.luck@intel.com>
@@ -59,9 +59,9 @@ Cc: Christoph Hellwig <hch@infradead.org>,
 	linux-kernel@vger.kernel.org,
 	patches@lists.linux.dev,
 	Tony Luck <tony.luck@intel.com>
-Subject: [PATCH v11 01/23] x86/resctrl: Give better names to X86_FEATURE flags for monitoring
-Date: Mon, 31 Aug 2026 10:43:59 -0700
-Message-ID: <20260831174421.13921-2-tony.luck@intel.com>
+Subject: [PATCH v11 02/23] x86/resctrl: Check if monitoring features are enabled
+Date: Mon, 31 Aug 2026 10:44:00 -0700
+Message-ID: <20260831174421.13921-3-tony.luck@intel.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260831174421.13921-1-tony.luck@intel.com>
 References: <20260831174421.13921-1-tony.luck@intel.com>
@@ -73,137 +73,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The feature flags for enumeration of Resource Director Technology (RDT)
-capabilities were chosen when the only feature was LLC cache occupancy
-monitoring and they were given names using the abbreviation CQM for
-Cache Quality of Service Monitoring.
+Both Intel and AMD manuals say that software must first check
+CPUID(0x7,0x0).EBX[12] to see if any monitoring features are enabled
+before checking for specific features enabled in subleaves.
 
-Additional monitoring features have been added to CPUs and the names
-are now more likely to confuse than inform the purpose of these flags.
+Each of the L3-based monitoring features is gated by X86_FEATURE_L3_MON
 
-Rename X86_FEATURE_CQM to X86_FEATURE_RDT_M (to match the Intel Software
-Developer's Manual, and for symmetry with X86_FEATURE_RDT_A).
+Add check feature bits.
 
-Rename X86_FEATURE_CQM_LLC to X86_FEATURE_L3_MON since it enumerates
-that some L3 monitoring features may be present.
-
-Add missing dependency to cpuid_deps[].
-
+Fixes: cbc82b172638 ("x86: Add support for Intel Cache QoS Monitoring (CQM) detection")
 Signed-off-by: Tony Luck <tony.luck@intel.com>
 ---
 v11:
-	New patch. Fix FEATURE options
+	New patch
 
- Documentation/arch/x86/cpuinfo.rst       | 2 +-
- arch/x86/include/asm/cpufeatures.h       | 4 ++--
- tools/arch/x86/include/asm/cpufeatures.h | 4 ++--
- arch/x86/kernel/cpu/cpuid-deps.c         | 8 +++++---
- arch/x86/kernel/cpu/resctrl/core.c       | 2 +-
- arch/x86/kernel/cpu/scattered.c          | 2 +-
- 6 files changed, 12 insertions(+), 10 deletions(-)
+ arch/x86/kernel/cpu/resctrl/core.c | 33 ++++++++++++++++++------------
+ 1 file changed, 20 insertions(+), 13 deletions(-)
 
-diff --git a/Documentation/arch/x86/cpuinfo.rst b/Documentation/arch/x86/cpuinfo.rst
-index 17fce95367e6..5aa4e9d2ad23 100644
---- a/Documentation/arch/x86/cpuinfo.rst
-+++ b/Documentation/arch/x86/cpuinfo.rst
-@@ -96,7 +96,7 @@ Flags can be from scattered CPUID-based features
- Hardware features enumerated in sparsely populated CPUID leaves get
- software-defined values. Still, CPUID needs to be queried to determine
- if a given feature is present. This is done in init_scattered_cpuid_features().
--For instance, X86_FEATURE_CQM_LLC is defined as 11*32 + 0 and its presence is
-+For instance, X86_FEATURE_L3_MON is defined as 11*32 + 0 and its presence is
- checked at runtime in the respective CPUID leaf [EAX=f, ECX=0] bit EDX[1].
- 
- The intent of scattering CPUID leaves is to not bloat struct
-diff --git a/arch/x86/include/asm/cpufeatures.h b/arch/x86/include/asm/cpufeatures.h
-index f70ee74b5f92..6a7f0adb123e 100644
---- a/arch/x86/include/asm/cpufeatures.h
-+++ b/arch/x86/include/asm/cpufeatures.h
-@@ -252,7 +252,7 @@
- #define X86_FEATURE_ERMS		( 9*32+ 9) /* "erms" Enhanced REP MOVSB/STOSB instructions */
- #define X86_FEATURE_INVPCID		( 9*32+10) /* "invpcid" Invalidate Processor Context ID */
- #define X86_FEATURE_RTM			( 9*32+11) /* "rtm" Restricted Transactional Memory */
--#define X86_FEATURE_CQM			( 9*32+12) /* "cqm" Cache QoS Monitoring */
-+#define X86_FEATURE_RDT_M		( 9*32+12) /* "cqm" Resource Director Technology Monitoring */
- #define X86_FEATURE_ZERO_FCS_FDS	( 9*32+13) /* Zero out FPU CS and FPU DS */
- #define X86_FEATURE_MPX			( 9*32+14) /* "mpx" Memory Protection Extension */
- #define X86_FEATURE_RDT_A		( 9*32+15) /* "rdt_a" Resource Director Technology Allocation */
-@@ -285,7 +285,7 @@
-  *
-  * Reuse free bits when adding new feature flags!
-  */
--#define X86_FEATURE_CQM_LLC		(11*32+ 0) /* "cqm_llc" LLC QoS if 1 */
-+#define X86_FEATURE_L3_MON		(11*32+ 0) /* "cqm_llc" LLC QoS if 1 */
- #define X86_FEATURE_CQM_OCCUP_LLC	(11*32+ 1) /* "cqm_occup_llc" LLC occupancy monitoring */
- #define X86_FEATURE_CQM_MBM_TOTAL	(11*32+ 2) /* "cqm_mbm_total" LLC Total MBM monitoring */
- #define X86_FEATURE_CQM_MBM_LOCAL	(11*32+ 3) /* "cqm_mbm_local" LLC Local MBM monitoring */
-diff --git a/tools/arch/x86/include/asm/cpufeatures.h b/tools/arch/x86/include/asm/cpufeatures.h
-index 6547c0aee45b..9b71a7663e26 100644
---- a/tools/arch/x86/include/asm/cpufeatures.h
-+++ b/tools/arch/x86/include/asm/cpufeatures.h
-@@ -242,7 +242,7 @@
- #define X86_FEATURE_ERMS		( 9*32+ 9) /* "erms" Enhanced REP MOVSB/STOSB instructions */
- #define X86_FEATURE_INVPCID		( 9*32+10) /* "invpcid" Invalidate Processor Context ID */
- #define X86_FEATURE_RTM			( 9*32+11) /* "rtm" Restricted Transactional Memory */
--#define X86_FEATURE_CQM			( 9*32+12) /* "cqm" Cache QoS Monitoring */
-+#define X86_FEATURE_RDT_M		( 9*32+12) /* "cqm" Resource Director Technology Monitoring */
- #define X86_FEATURE_ZERO_FCS_FDS	( 9*32+13) /* Zero out FPU CS and FPU DS */
- #define X86_FEATURE_MPX			( 9*32+14) /* "mpx" Memory Protection Extension */
- #define X86_FEATURE_RDT_A		( 9*32+15) /* "rdt_a" Resource Director Technology Allocation */
-@@ -275,7 +275,7 @@
-  *
-  * Reuse free bits when adding new feature flags!
-  */
--#define X86_FEATURE_CQM_LLC		(11*32+ 0) /* "cqm_llc" LLC QoS if 1 */
-+#define X86_FEATURE_L3_MON		(11*32+ 0) /* "cqm_llc" LLC QoS if 1 */
- #define X86_FEATURE_CQM_OCCUP_LLC	(11*32+ 1) /* "cqm_occup_llc" LLC occupancy monitoring */
- #define X86_FEATURE_CQM_MBM_TOTAL	(11*32+ 2) /* "cqm_mbm_total" LLC Total MBM monitoring */
- #define X86_FEATURE_CQM_MBM_LOCAL	(11*32+ 3) /* "cqm_mbm_local" LLC Local MBM monitoring */
-diff --git a/arch/x86/kernel/cpu/cpuid-deps.c b/arch/x86/kernel/cpu/cpuid-deps.c
-index 99801e844b30..58482c264b76 100644
---- a/arch/x86/kernel/cpu/cpuid-deps.c
-+++ b/arch/x86/kernel/cpu/cpuid-deps.c
-@@ -67,9 +67,11 @@ static const struct cpuid_dep cpuid_deps[] = {
- 	{ X86_FEATURE_AVX512_4FMAPS,		X86_FEATURE_AVX512F   },
- 	{ X86_FEATURE_AVX512_VPOPCNTDQ,		X86_FEATURE_AVX512F   },
- 	{ X86_FEATURE_AVX512_VP2INTERSECT,	X86_FEATURE_AVX512VL  },
--	{ X86_FEATURE_CQM_OCCUP_LLC,		X86_FEATURE_CQM_LLC   },
--	{ X86_FEATURE_CQM_MBM_TOTAL,		X86_FEATURE_CQM_LLC   },
--	{ X86_FEATURE_CQM_MBM_LOCAL,		X86_FEATURE_CQM_LLC   },
-+	{ X86_FEATURE_L3_MON,			X86_FEATURE_RDT_M     },
-+	{ X86_FEATURE_CQM_OCCUP_LLC,		X86_FEATURE_L3_MON    },
-+	{ X86_FEATURE_CQM_MBM_TOTAL,		X86_FEATURE_L3_MON    },
-+	{ X86_FEATURE_CQM_MBM_LOCAL,		X86_FEATURE_L3_MON    },
-+	{ X86_FEATURE_ABMC,			X86_FEATURE_L3_MON    },
- 	{ X86_FEATURE_BMEC,			X86_FEATURE_CQM_MBM_TOTAL   },
- 	{ X86_FEATURE_BMEC,			X86_FEATURE_CQM_MBM_LOCAL   },
- 	{ X86_FEATURE_SDCIAE,			X86_FEATURE_CAT_L3    },
 diff --git a/arch/x86/kernel/cpu/resctrl/core.c b/arch/x86/kernel/cpu/resctrl/core.c
-index 55214d6fdc49..2435eddd24eb 100644
+index 2435eddd24eb..fcbecf677914 100644
 --- a/arch/x86/kernel/cpu/resctrl/core.c
 +++ b/arch/x86/kernel/cpu/resctrl/core.c
-@@ -1078,7 +1078,7 @@ static enum cpuhp_state rdt_online;
- /* Runs once on the BSP during boot. */
- void resctrl_cpu_detect(struct cpuinfo_x86 *c)
- {
--	if (!cpu_has(c, X86_FEATURE_CQM_LLC) && !cpu_has(c, X86_FEATURE_ABMC)) {
-+	if (!cpu_has(c, X86_FEATURE_L3_MON) && !cpu_has(c, X86_FEATURE_ABMC)) {
- 		c->x86_cache_max_rmid  = -1;
- 		c->x86_cache_occ_scale = -1;
- 		c->x86_cache_mbm_width_offset = -1;
-diff --git a/arch/x86/kernel/cpu/scattered.c b/arch/x86/kernel/cpu/scattered.c
-index 8665a6474806..7e5490e1e537 100644
---- a/arch/x86/kernel/cpu/scattered.c
-+++ b/arch/x86/kernel/cpu/scattered.c
-@@ -32,7 +32,7 @@ static const struct cpuid_bit cpuid_bits[] = {
- 	{ X86_FEATURE_APX,			CPUID_EDX, 21, 0x00000007, 1 },
- 	{ X86_FEATURE_RRSBA_CTRL,		CPUID_EDX,  2, 0x00000007, 2 },
- 	{ X86_FEATURE_BHI_CTRL,			CPUID_EDX,  4, 0x00000007, 2 },
--	{ X86_FEATURE_CQM_LLC,			CPUID_EDX,  1, 0x0000000f, 0 },
-+	{ X86_FEATURE_L3_MON,			CPUID_EDX,  1, 0x0000000f, 0 },
- 	{ X86_FEATURE_CQM_OCCUP_LLC,		CPUID_EDX,  0, 0x0000000f, 1 },
- 	{ X86_FEATURE_CQM_MBM_TOTAL,		CPUID_EDX,  1, 0x0000000f, 1 },
- 	{ X86_FEATURE_CQM_MBM_LOCAL,		CPUID_EDX,  2, 0x0000000f, 1 },
+@@ -968,20 +968,27 @@ static __init bool get_rdt_mon_resources(void)
+ 	struct rdt_resource *r = &rdt_resources_all[RDT_RESOURCE_L3].r_resctrl;
+ 	bool ret = false;
+ 
+-	if (rdt_cpu_has(X86_FEATURE_CQM_OCCUP_LLC)) {
+-		resctrl_enable_mon_event(QOS_L3_OCCUP_EVENT_ID, false, 0, NULL);
+-		ret = true;
+-	}
+-	if (rdt_cpu_has(X86_FEATURE_CQM_MBM_TOTAL)) {
+-		resctrl_enable_mon_event(QOS_L3_MBM_TOTAL_EVENT_ID, false, 0, NULL);
+-		ret = true;
+-	}
+-	if (rdt_cpu_has(X86_FEATURE_CQM_MBM_LOCAL)) {
+-		resctrl_enable_mon_event(QOS_L3_MBM_LOCAL_EVENT_ID, false, 0, NULL);
+-		ret = true;
++	/* Any monitoring at all? */
++	if (!cpu_feature_enabled(X86_FEATURE_RDT_M))
++		return false;
++
++	/* Any of the L3 monitoring features? */
++	if (cpu_feature_enabled(X86_FEATURE_L3_MON)) {
++		if (rdt_cpu_has(X86_FEATURE_CQM_OCCUP_LLC)) {
++			resctrl_enable_mon_event(QOS_L3_OCCUP_EVENT_ID, false, 0, NULL);
++			ret = true;
++		}
++		if (rdt_cpu_has(X86_FEATURE_CQM_MBM_TOTAL)) {
++			resctrl_enable_mon_event(QOS_L3_MBM_TOTAL_EVENT_ID, false, 0, NULL);
++			ret = true;
++		}
++		if (rdt_cpu_has(X86_FEATURE_CQM_MBM_LOCAL)) {
++			resctrl_enable_mon_event(QOS_L3_MBM_LOCAL_EVENT_ID, false, 0, NULL);
++			ret = true;
++		}
++		if (rdt_cpu_has(X86_FEATURE_ABMC))
++			ret = true;
+ 	}
+-	if (rdt_cpu_has(X86_FEATURE_ABMC))
+-		ret = true;
+ 
+ 	if (!ret)
+ 		return false;
 -- 
 2.55.0
 
