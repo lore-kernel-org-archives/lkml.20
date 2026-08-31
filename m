@@ -1,129 +1,96 @@
-Received: from mta1.migadu.com (out-43.mta1.migadu.com [95.215.58.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3DB53E714C
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 10:07:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 990203E714C;
+	Mon, 31 Aug 2026 10:07:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788170846; cv=none; b=nT/+181/QZlIGm0YFeuQTkMsFbCNhWwd5kdz+TlkozRvCe7UI0Khqzo8QIZrhoUTg0ikFdnleX6mIuKlOjxjMJx8J8nD99CTUw9PfYdZHiws4K97xRn7bCIK1TQOL8DMQRJR8Hn9StxQfyCYGoo2zRMmaq5j3MZ0CLLIGThxQN0=
+	t=1788170852; cv=none; b=aKXSYP9D9FYnWj+typf9rRBTOmLmc1yGb4tr7zN8YsKKXLCaFrwCgS2KRy5KQ3BVNSo44ySBBwR3a/dJZJgXkrAjkw5lTDgM6oe/s3Yqa+zIjOWNATAOrKyZjqWFOBM1uNX1zvXUxut6C/Z1KeiKlhi/yc7ckTrJrJdf9WHOV+Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788170846; c=relaxed/simple;
-	bh=L8sCA1hR0yKQaKvtbOB+F+dFt6CAS+8pOknhGBWJJP0=;
-	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=nIvs+0LlCxpNo5xvKlpDdC0DM2Xf9XELgYmnxjwn1BBJprKpXYjZrStOOrrc4r762vihhRHdElvXs/yKtjUyv6Ubw9s/OZE40TxzuzWwg5HzjUusVbuQTnk2/e5RZ53VMYoX14v4ueAYb3G4YlG9M1pdCmEmcXAM/P/+h9BibXc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=JpqhbaVW; arc=none smtp.client-ip=95.215.58.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788170852; c=relaxed/simple;
+	bh=CKDvWF0ui5pn13nr7UoA/5PU88Wqt9/Kw0pgq4FBRGg=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
+	 References:In-Reply-To; b=pxRvXs0dhVvYJ6CrZKHUI3rK2nKUAP/AmRApNd17iwXakpjB9qdgFq9BRKeBf/PY8MageTDJ9rujgw+/urCs3ZBMzrR295ULSrUK0y+xwhYfQaiGqncgr4ouSc5tAHaN5ogJc+xZyUvylfO16DnxRbttJmQLU14RujYSPnYs3ZA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=SmH/N28A; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="JpqhbaVW"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=L8sCA1hR0yKQaKvtbOB+F+dFt6CAS+8pOknhGBWJJP0=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788170842; v=1; x=1788775642;
- b=JpqhbaVWQx16Tqxk1v+JNW04XHFGh1rf7K5LAiGL6GP5C0qfSQZY2fT2u2uRsd6z59wXIZP5
- J6RecwpRCzPFfFVo5O9w1RY/0dwzqaB761Gnm7LPSAI/ymG76uJ/3pN+Ogz5BQvxrXWunde0SsA
- hzEm8JxKEjwd2wxVCP2ha+Rk=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 5c7f071e8e369887;
-	Mon, 31 Aug 2026 10:07:12 +0000
-X-Mizu-Trace-ID: 5c7f071e8e369887
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <276b50cc-6b92-425f-8f70-25b2fade14c0@linux.dev>
-Date: Mon, 31 Aug 2026 18:07:06 +0800
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="SmH/N28A"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id D32F14E41441;
+	Mon, 31 Aug 2026 10:07:27 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 92FDD60231;
+	Mon, 31 Aug 2026 10:07:27 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 77FB811C78AE2;
+	Mon, 31 Aug 2026 12:07:23 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1788170846; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=CKDvWF0ui5pn13nr7UoA/5PU88Wqt9/Kw0pgq4FBRGg=;
+	b=SmH/N28AQE63Hm6ogNyKsBeYnuoP6ubOF4PGCw6JN3UQTBFwOd3eftodZ2zmVIgZqjfgXW
+	hdt9NfomvtbQxGUSEPPcrGWfnpsYLV5J5MzgDYfgRPbVrhzvUH4hRfZxWnSqvU5FC9sJRt
+	GHVLldzFj+AkULkiTa0l/no2pq0tbiQSTNI58o9n1R7810wmpywpH8mkH8IvJmAkOtuAKo
+	o0d/FaobeVvwhF0tE31edMK1n+MN0G+7sP6mF8F3aLKPFtIldVu3oORxon5yxBnRIPrZZz
+	YIIDjyu/+OxEBWuxdoelW3tDS6FWuDEBFqzPB0vigfHEUxb+sdyQhYBAzf/kPQ==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: cui.tao@linux.dev, hch@lst.de, linux-block@vger.kernel.org,
- linux-kernel@vger.kernel.org, Tao Cui <cuitao@kylinos.cn>
-Subject: Re: [PATCH v2 2/3] loop: replace simple_strtol() with kstrtoint()
-To: bvanassche@acm.org, axboe@kernel.dk
-References: <20260831100305.695116-1-cui.tao@linux.dev>
- <20260831100305.695116-3-cui.tao@linux.dev>
-From: Tao Cui <cui.tao@linux.dev>
-In-Reply-To: <20260831100305.695116-3-cui.tao@linux.dev>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Date: Mon, 31 Aug 2026 12:07:22 +0200
+Message-Id: <DL31NSK4T9VI.1CM5I9PRKJLCS@bootlin.com>
+Subject: Re: [PATCH] mips: select CONFIG_WEAK_REORDERING_BEYOND_LLSC from
+ CONFIG_EYEQ
+Cc: "linux-mips@vger.kernel.org" <linux-mips@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, "Vladimir Kondratiev"
+ <vladimir.kondratiev@mobileye.com>, =?utf-8?q?Beno=C3=AEt_Monin?=
+ <benoit.monin@bootlin.com>, "Thomas Petazzoni"
+ <thomas.petazzoni@bootlin.com>, "stable@vger.kernel.org"
+ <stable@vger.kernel.org>, "Rahul Bedarkar" <rahulbedarkar89@gmail.com>,
+ "Paul Burton" <paulburton@kernel.org>
+To: "Jiaxun Yang" <jiaxun.yang@flygoat.com>, "Thomas Bogendoerfer"
+ <tsbogend@alpha.franken.de>, "Alexei Starovoitov" <ast@kernel.org>, "Daniel
+ Borkmann" <daniel@iogearbox.net>, "David S . Miller" <davem@davemloft.net>,
+ "Jakub Kicinski" <kuba@kernel.org>, "Jesper Dangaard Brouer"
+ <hawk@kernel.org>, "John Fastabend" <john.fastabend@gmail.com>, "Stanislav
+ Fomichev" <sdf@fomichev.me>, "Gregory CLEMENT"
+ <gregory.clement@bootlin.com>
+From: =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260828-eyeq-reordering-llsc-v1-1-0c5a69fc5124@bootlin.com>
+ <DL0P7NCKVU0I.ARBMN6GAMMBS@bootlin.com>
+ <cea78eaa-aea0-4d1a-9695-8a6d73750216@app.fastmail.com>
+In-Reply-To: <cea78eaa-aea0-4d1a-9695-8a6d73750216@app.fastmail.com>
+X-Last-TLS-Session-Version: TLSv1.3
 
+Hello Jiaxun,
 
-Hi Bart,
+On Sun Aug 30, 2026 at 5:05 AM CEST, Jiaxun Yang wrote:
+> On Fri, 28 Aug 2026, at 11:56 PM, Th=C3=A9o Lebrun wrote:
+>> First off, sorry to net maintainers for being in Cc of this patch.
+>> get_maintainer.pl added you and the MLs because the commit message
+>> containing "xdp". I deleted the MLs in Cc but forgot the individuals.
+>
+> Reviewed-by: Jiaxun Yang <jiaxun.yang@flygoat.com>
 
-在 2026/8/31 18:03, Tao Cui 写道:
-> From: Tao Cui <cuitao@kylinos.cn>
-> 
-> simple_strtol() is deprecated and swallows errors.  Use kstrtoint()
-> in the max_loop setup code; an invalid option keeps the default and
-> now says so.
-> 
-> Only mark max_loop_specified when the option was parsed successfully.
-> With simple_strtol() a garbage string yields max_loop = 0, and
-> loop_probe()'s "max_loop_specified && max_loop" check short-circuits
-> on 0, so legacy autoloading is not capped.  Keeping max_loop at its
-> default while still setting max_loop_specified would instead turn the
-> default into a hard upper bound for dynamic device creation.  This
-> mirrors what max_loop_param_set_int() already does for the module
-> parameter.
-> 
+Thanks for the review.
 
-Thanks for the review!
+> Can confirm weak ordering beyond LLSC is necessary for all MTI cores with=
+ CM.
 
-After sending v1 I noticed a regression in this patch, so I'll follow
-up with a v2 of just this one (1/3 and 3/3 are unchanged and keep your
-Reviewed-by).
-
-With simple_strtol() a garbage max_loop= string yields max_loop = 0,
-and loop_probe()'s "max_loop_specified && max_loop" check
-short-circuits on 0, so legacy autoloading was not capped.  In v1 an
-invalid string keeps max_loop at its default value while
-max_loop_specified is still set to true, which turns the default into
-a hard upper bound for dynamic device creation.  The v2 only marks
-max_loop_specified when kstrtoint() succeeds, mirroring
-max_loop_param_set_int():
-
- 	if (kstrtoint(str, 0, &max_loop))
-+	{
- 		pr_warn("loop: invalid max_loop, keeping default\n");
-+		return 1;
-+	}
- #ifdef CONFIG_BLOCK_LEGACY_AUTOLOAD
- 		max_loop_specified = true;
- #endif
-
-This was pointed out by an AI-assisted review of v1, so I've left your
-Reviewed-by off this one for now.  Could you take another look when
-you have a chance?
+Only CPU_LOONGSON64 has "select ..." upstream, so I wondered if any
+board apart from Mobileye ones were missing the flag. An LLM pointed me
+to img/pistachio_marduk.dts and img/boston.dts which looks correct.
+I CCed the board maintainers.
 
 Thanks,
-Tao
 
-> Signed-off-by: Tao Cui <cuitao@kylinos.cn>
-> 
-> ---
-> Changes in v2:
-> - move max_loop_specified = true under the success path, pointed out
->   by an AI-assisted review of v1.
-> ---
->  drivers/block/loop.c | 5 ++++-
->  1 file changed, 4 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/block/loop.c b/drivers/block/loop.c
-> index 68a9cc7aeb13..126f42580632 100644
-> --- a/drivers/block/loop.c
-> +++ b/drivers/block/loop.c
-> @@ -2341,7 +2341,10 @@ module_exit(loop_exit);
->  #ifndef MODULE
->  static int __init max_loop_setup(char *str)
->  {
-> -	max_loop = simple_strtol(str, NULL, 0);
-> +	if (kstrtoint(str, 0, &max_loop)) {
-> +		pr_warn("loop: invalid max_loop, keeping default\n");
-> +		return 1;
-> +	}
->  #ifdef CONFIG_BLOCK_LEGACY_AUTOLOAD
->  	max_loop_specified = true;
->  #endif
+--
+Th=C3=A9o Lebrun, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
 
