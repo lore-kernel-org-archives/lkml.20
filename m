@@ -1,103 +1,160 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7319F3B8BCB;
-	Mon, 31 Aug 2026 06:54:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8570A39B97B;
+	Mon, 31 Aug 2026 06:55:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788159259; cv=none; b=L1NVvkmeNmBwgJoe43/ApOqNPRf64KwiwU089yL/EibBQ2sNXn++z9hy94a39uc7nVEHonTHEc9+YNGOLxsJNEHke1MvNa9BgcTRn56noJscTXkqSqBWLgQEfIXg6JiVwQ3Bp7+SDbbz87HAVVWlwHmluQ7/lFtXiIx0Idv2cIE=
+	t=1788159319; cv=none; b=iWsA+xnVNkx/FWvtRUaXv11iyKIdP38FaiaVhtfLVwS+sdnMt/YkumuJErM7mF2Dp32Y0VZZG35PQSc6e5fTgYQgEftcL0UonR3ruKzJX/PkR0/eaip87+2o64qNthhOsTOKTuK4hRHV6t9W8s6qY2RbkRDDHw0RJBSLQA7IkSM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788159259; c=relaxed/simple;
-	bh=AJjPwOZmE9EeletFg7yEV1eQe3nKDuBLRINDUUtcIwc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=plGzefGv5Gs1mwL9iY/1mscw8ZqjuMBnL4480s4y243VST8gon/E1w8lbAGyNaInQhMipvQ2NfgWhbyN3qHHuM+Mbu1jpd5etw50lCX2YLXfXtC0s8mqvGZnFsHSyo/IpXu7okcy4yFqSl4tFIBWOhYo3yFF2och6Bj/duK7860=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=OthG0K15; arc=none smtp.client-ip=192.198.163.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1788159319; c=relaxed/simple;
+	bh=2463VO+LS0Iy5h18OwIwTKelOUNmM2EEtLiIfAJWf80=;
+	h=Content-Type:MIME-Version:In-Reply-To:References:Subject:From:Cc:
+	 To:Date:Message-ID; b=X1MuqyKu5V50jVOjaUYCOuNmNOenynLBJbS/ZhpNYcd1LdzsCvF4Xd8oMZBjxUDoWsaSLnA6FRUw1nfWc/KgyIbZQOvpdESv+QmBa+VtMFhAuB0LH6uO4ZhEEzRKLncbzWK6dA52Iby+4uJA3YE/A9chodgWkRy3EWNVEdNkT3U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=ef/uaG5A; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="OthG0K15"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788159257; x=1819695257;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=AJjPwOZmE9EeletFg7yEV1eQe3nKDuBLRINDUUtcIwc=;
-  b=OthG0K15AEaQBBclzOkaoo+wBRHHsqZazh58zpm82v7taTJk/ehK3MuF
-   i3Ygyre2xu08QlRjTK0MC9sdZx0bNfcwH7kD4B98KxVuxUsuyjjb/OP6x
-   jJic3LLhmgda2QQDZBi1MNpdkMeFpcPToDn96P4MOng1F7VMKWLJAODgm
-   vUowS3z6WJzMy+q41AFuhhvLJ+SFgFiUOAuss5cE12roSsw83bphVz73d
-   HN9ihFHzwBPUbvwrfYLnO7Tj4FUJil40UdYfatl4zJccrCTcltfz1l6le
-   iuyRuQ4HBfsvNLt4b76jRUAIwcNBeDsY01e/U0KhZA5Buwf5OAtiRz7Uu
-   A==;
-X-CSE-ConnectionGUID: ucKmhmt1RrCT1qgzAmAuPQ==
-X-CSE-MsgGUID: /5bQobxrRxWPsw7+RJIAIw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11891"; a="99219905"
-X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
-   d="scan'208";a="99219905"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Aug 2026 23:54:14 -0700
-X-CSE-ConnectionGUID: +C/VV3K2ThWK101otbAuhA==
-X-CSE-MsgGUID: IipTr6nrRkKdlb/L+s6kqA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
-   d="scan'208";a="272905395"
-Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.244.21])
-  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Aug 2026 23:54:13 -0700
-Date: Mon, 31 Aug 2026 09:54:10 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Tate Whiteberg <whiteberg@arista.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Andy Shevchenko <andy@kernel.org>, linux-kernel@vger.kernel.org,
-	linux-serial@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] serial: 8250_mid: wait for LSR tx empty before
- setting termios
-Message-ID: <apUlEi2pf1SoJQ-m@ashevche-desk.local>
-References: <20260828175733.1650267-1-whiteberg@arista.com>
- <20260828175733.1650267-3-whiteberg@arista.com>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="ef/uaG5A"
+Received: from neptunite.rasen.tech (unknown [IPv6:2400:2411:160:2f00:a9ae:3688:6dfb:71b0])
+	by perceval.ideasonboard.com (Postfix) with UTF8SMTPSA id 446C84BB;
+	Mon, 31 Aug 2026 08:53:42 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1788159223;
+	bh=2463VO+LS0Iy5h18OwIwTKelOUNmM2EEtLiIfAJWf80=;
+	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
+	b=ef/uaG5A8pTVtXkXUKjhtY8RHx/YrZg4kP9iK3f57Q6sdHX6lqvGbqLLFZOq9LgBI
+	 xTM4BhwA35vGmRC8Z631opXKtpe9ZvUMJegFko7KXVjOUAdmT5USq+VkMAvMRx5brm
+	 a+t8Ml5Y3dQek/U4xy4B+nOMSu0SsEC25a/XSK5U=
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260828175733.1650267-3-whiteberg@arista.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260717-b4-vchiq-isp-v3-6-fb8235e15c68@ideasonboard.com>
+References: <20260717-b4-vchiq-isp-v3-0-fb8235e15c68@ideasonboard.com> <20260717-b4-vchiq-isp-v3-6-fb8235e15c68@ideasonboard.com>
+Subject: Re: [PATCH v3 6/9] media: videobuf2: Allow exporting of a struct dmabuf
+From: Paul Elder <paul.elder@ideasonboard.com>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Kieran Bingham <kieran.bingham@ideasonboard.com>, Dave Stevenson <dave.stevenson@raspberrypi.com>, Naushir Patuck <naush@raspberrypi.com>, Stefan Wahren <wahrenst@gmx.net>, Jacopo Mondi <jacopo.mondi@ideasonboard.com>, Daniel Scally <dan.scally@ideasonboard.com>, linux-media@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, Jai Luthra <jai.luthra@ideasonboard.com>, Dave Stevenson <dave.stevenson@raspberrypi.org>
+To: Florian Fainelli <florian.fainelli@broadcom.com>, Jai Luthra <jai.luthra@ideasonboard.com>, Marek Szyprowski <m.szyprowski@samsung.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, Tomasz Figa <tfiga@chromium.org>
+Date: Mon, 31 Aug 2026 15:55:05 +0900
+Message-ID: <178815930536.1005982.4207748174695263962@neptunite.rasen.tech>
+User-Agent: alot/0.0.0
 
-On Fri, Aug 28, 2026 at 05:57:28PM +0000, Tate Whiteberg wrote:
-> If mid8250_set_termios() is called while data is still in transmission,
-> the corresponding register updates will corrupt the transmission.
-> 
-> Fix this by locking the port and and waiting for the transmitter to
-> empty before performing updates. It is necessary to wait for both
-> UART_LSR_THRE and UART_LSR_TEMT to ensure the final character is sent.
-
-> Fixes: d9eda9bab237 ("serial: 8250_pci: Intel MID UART support to its own driver")
-
-Obviously this is not the commit when the problem appeared.
-Check the commit f549e94effa1 ("serial: 8250_pci: add Intel Penwell ports").
-
-...
-
-> +	uart_port_lock_irq(p);
+Quoting Jai Luthra (2026-07-17 20:04:21)
+> From: Dave Stevenson <dave.stevenson@raspberrypi.org>
+>=20
+> videobuf2 only allowed exporting a dmabuf as a file descriptor,
+> but there are instances where having the struct dma_buf is
+> useful within the kernel.
+>=20
+> Split the current implementation into two, one step which
+> exports a struct dma_buf, and the second which converts that
+> into an fd.
+>=20
+> Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.org>
+> Signed-off-by: Jai Luthra <jai.luthra@ideasonboard.com>
+> ---
+>  drivers/media/common/videobuf2/videobuf2-core.c | 21 ++++++++++++++++++-=
+--
+>  include/media/videobuf2-core.h                  | 15 +++++++++++++++
+>  2 files changed, 33 insertions(+), 3 deletions(-)
+>=20
+> diff --git a/drivers/media/common/videobuf2/videobuf2-core.c b/drivers/me=
+dia/common/videobuf2/videobuf2-core.c
+> index b0a6084f1757..0e62f3d97194 100644
+> --- a/drivers/media/common/videobuf2/videobuf2-core.c
+> +++ b/drivers/media/common/videobuf2/videobuf2-core.c
+> @@ -2419,11 +2419,11 @@ static int __find_plane_by_offset(struct vb2_queu=
+e *q, unsigned long offset,
+>         return 0;
+>  }
+> =20
+> -int vb2_core_expbuf(struct vb2_queue *q, int *fd, unsigned int type,
+> -                   struct vb2_buffer *vb, unsigned int plane, unsigned i=
+nt flags)
+> +int vb2_core_expbuf_dmabuf(struct vb2_queue *q, unsigned int type,
+> +                          struct vb2_buffer *vb, unsigned int plane,
+> +                          unsigned int flags, struct dma_buf **dmabuf)
+>  {
+>         struct vb2_plane *vb_plane;
+> -       int ret;
+>         struct dma_buf *dbuf;
+> =20
+>         if (q->memory !=3D VB2_MEMORY_MMAP) {
+> @@ -2468,6 +2468,21 @@ int vb2_core_expbuf(struct vb2_queue *q, int *fd, =
+unsigned int type,
+>                 return -EINVAL;
+>         }
+> =20
+> +       *dmabuf =3D dbuf;
+> +       return 0;
+> +}
+> +EXPORT_SYMBOL_GPL(vb2_core_expbuf_dmabuf);
 > +
->  	p->uartclk = fuart * 16 / ps;		/* core uses ps = 16 always */
+> +int vb2_core_expbuf(struct vb2_queue *q, int *fd, unsigned int type,
+> +                   struct vb2_buffer *vb, unsigned int plane, unsigned i=
+nt flags)
+> +{
+> +       struct dma_buf *dbuf;
+> +       int ret;
+> +
+> +       ret =3D vb2_core_expbuf_dmabuf(q, type, vb, plane, flags, &dbuf);
+> +       if (ret)
+> +               return ret;
+> +
+>         ret =3D dma_buf_fd(dbuf, flags & ~O_ACCMODE);
+>         if (ret < 0) {
+>                 dprintk(q, 3, "buffer %d, plane %d failed to export (%d)\=
+n",
+> diff --git a/include/media/videobuf2-core.h b/include/media/videobuf2-cor=
+e.h
+> index 4b4f4c15c53a..15aeaaeaf8ad 100644
+> --- a/include/media/videobuf2-core.h
+> +++ b/include/media/videobuf2-core.h
+> @@ -954,6 +954,21 @@ int vb2_core_streamon(struct vb2_queue *q, unsigned =
+int type);
+>   */
+>  int vb2_core_streamoff(struct vb2_queue *q, unsigned int type);
+> =20
+> +/**
+> + * vb2_core_expbuf_dmabuf() - Export a buffer as a dma_buf structure
+> + * @q:         videobuf2 queue
+> + * @type:      buffer type
+> + * @index:     id number of the buffer
+> + * @plane:     index of the plane to be exported, 0 for single plane que=
+ues
+> + * @flags:     flags for newly created file, currently only O_CLOEXEC is
+> + *             supported, refer to manual of open syscall for more detai=
+ls
+> + * @dmabuf:    Returns the dmabuf pointer
+> + *
 
-+ blank line
+For completeness of the documentation, imo you're missing documentation for=
+ the
+actual return value.
 
-> +	serial8250_wait_for_xmitr(up, UART_LSR_BOTH_EMPTY);
->  
->  	writel(ps, p->membase + INTEL_MID_UART_PS);		/* set PS */
->  	writel(mul, p->membase + INTEL_MID_UART_MUL);		/* set MUL */
->  	writel(div, p->membase + INTEL_MID_UART_DIV);
->  
-> +	uart_port_unlock_irq(p);
-
--- 
-With Best Regards,
-Andy Shevchenko
+ * Return: returns zero on success; an error code otherwise.
 
 
+Other than that, looks good to me.
+
+Reviewed-by: Paul Elder <paul.elder@ideasonboard.com>
+
+
+> + */
+> +int vb2_core_expbuf_dmabuf(struct vb2_queue *q, unsigned int type,
+> +                          struct vb2_buffer *vb, unsigned int plane,
+> +                          unsigned int flags, struct dma_buf **dmabuf);
+> +
+>  /**
+>   * vb2_core_expbuf() - Export a buffer as a file descriptor.
+>   * @q:         pointer to &struct vb2_queue with videobuf2 queue.
+>=20
+> --=20
+> 2.54.0
+>=20
+>
