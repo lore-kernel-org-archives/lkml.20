@@ -1,94 +1,90 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f178.google.com (mail-yw1-f178.google.com [209.85.128.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68A854F7992
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 15:00:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6346D4FB9B5
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 15:00:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788188410; cv=none; b=CZ4rFcoxajyX529ZaGDv+3kgF1xHrn1fM2JgEY1sDnLhoFwP8hJnqP3oA0TCDGiQBhu4PsraPW7Wb9zuqVYoxT4yo8mzaIKLbrgxb8WeSI5BwkiWLw68Kb5Xw9fc8T6MpeKR6YOhWHLbcJT+wwErbmvnKOd7DPmSMJMxHkff1rs=
+	t=1788188412; cv=none; b=h8+w3vELKR+jASA5jYBfUPR0J/wRcKEhNzIs2I3/FKCXsk/qz5A8F7H0KDl6zZgz3kp1oQVWWI4h5YnEe7LTTDFpFZk0H+MGOmh4Qot81b+7QdjUWlyUpCC+LRTcgycVsJIDTGYMZ4TqNNKbeYuD5zFhLrSLRdC5JHRJ+mFuzqg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788188410; c=relaxed/simple;
-	bh=3jvJd+GEBNht0nDRRE4iznUY8ZX7j8j8n4bxWEBNvcw=;
+	s=arc-20240116; t=1788188412; c=relaxed/simple;
+	bh=ZSuaHxdeSmdK1XVdgW9I78FY4WiLUsxPZgAk1jSE970=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=mGmvfIUiJhjbdqaeRo4s9YJvhMNs+oC0M8c0ggdSKVW65sWQEpkckRL6NtRdAfEHppEWCUJC73tGO4verakgxKuUElIaPSbJzPKd3DfaqiR6qQ1yDO9gsG3vAGMYVcLWQSyR9Oq0co42gE77YtGdlCMISaaN6bV49AqAH4BZjWg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=CsK3lQJz; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=iA/6Z6u2; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 MIME-Version; b=WjQ4A9azTZ7x4a/pIfmzHRwJ5SU9nQr9XAWWF3zyqkMl9VQg/vomwZ0wwNVM2ifApNToFZiXpvJBJVvV67nH9fGpxu52zIqvLfNxczrzdID3rJgGczCHO0lpf1UPf8ZsL40fAw99eETK+DGh5NVuHgD94Xq7ds4ZMD8hto0fEnE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Y2/Vm0nU; arc=none smtp.client-ip=209.85.128.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="CsK3lQJz";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="iA/6Z6u2"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67VETbea4049766
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 15:00:07 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=zw80Tv2AUkE
-	oZUkCffPmU+BFxb4TWxnn8dB/Ukvaur0=; b=CsK3lQJzlxavD7umb0ByOSCa0SR
-	ldDgrKy2rSMpFNNJdpqohaKCBe/j1FFspmlqDr9c4SDN3yz9FnCU48t3svhGjq/7
-	QQhz7VGRZwlVGMeWjUKaLKB32ec/aWSBLfJcsTpEklMosjQwacHtQDTjoA7eEmDv
-	OrBqWqvh/kai5MStXsfsyPKnJd/1cdrrOmYwsUgq6VKF6P5WQYQ7rPg5vc1/RCCv
-	A52w20So4+kub6OZ/qQR0tPrRPQuSlIrAWb/BFvw6w4GDv8r73hzv46fdgviI+WG
-	nfhB+rpY7Gn7WeuJnXo+KJ9Hp3ZQsPQMo9U52Ufz3q9eAKDmus0OQ/Jy53Q==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gd6jghfyc-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 15:00:06 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-934956beec8so612737485a.0
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 08:00:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Y2/Vm0nU"
+Received: by mail-yw1-f178.google.com with SMTP id 00721157ae682-8664769db58so10149467b3.3
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 08:00:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788188406; x=1788793206; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788188409; x=1788793209; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=zw80Tv2AUkEoZUkCffPmU+BFxb4TWxnn8dB/Ukvaur0=;
-        b=iA/6Z6u2lX28Ec6GNlneymw1hkMM2Sy9i+zkz5QLTILlbwWxrZXbmtlqmclsM6t5Ip
-         AYF26pC7YI8llsLignD7AAujwh3mIv/Zo/pTyp+nJ/5f0sIZlH6GSgVHqwRoIa45K/jB
-         3ObEushT8E8qUHrr+c559lZigLZQmnUlodvcLW0w0a8rUpTZv7QZwLPSwd1/bmpfwmKF
-         5JpQdPUTou5Wo1Ra7cMEkMMx74Wds7xhLi1BPr97MyS+vQ2GgFwEyiyw/+W0S/0BI8aB
-         Xd7F6gkE5jBPWyK5U8wp0MXxGF1SSodq6pFTsbj5Avcvqj8Tl/mqLCPGqbFONt3GwpLW
-         255A==
+        bh=xKtb+s5mvwWHR2Dm56oQU87T2PX0PUH0OEkGW4x95GI=;
+        b=Y2/Vm0nUmzXzhAQjDw/2Y5pc/FwY5dIj308vVT12yAbmD6fVCV68CiTqI/nRoKK+to
+         fhf7XtN5CWyG/ydMSnekty57XGpqqI8mDNg+OMiJarRYCjocUGVwFypCNmj96Q3PZjuf
+         mPZ7yqpuqyPWnTfzje3Q2SjPE3qM0Mbq+wT8XfEXr4d3mnVWgt9UIlcyOQcJgrD9yWpu
+         1LbqAdnvzdIWd5x7BiesnOp/b6SWJWrEbLMaHLryZ7VczXWEIRBpfcWd0fDWNCaDRfjx
+         1SvaajZ5iaOmCXDr+DHbtTpm3RQxW7pY7QMMMeAuWMGdHbavFNsE+hAugDlJ0apH2uQB
+         Vs/w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788188406; x=1788793206;
+        d=1e100.net; s=20251104; t=1788188409; x=1788793209;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zw80Tv2AUkEoZUkCffPmU+BFxb4TWxnn8dB/Ukvaur0=;
-        b=Ptl2bbNb++rA5shaLOd17LtOlKc/jSj966SjfyLeYwS4T5QXYLtXuxUrf7A9ZePRJe
-         +tWHZ13vrao8PqrhIoICxiz8XMZrlQKObqYIa8gVJu1PPb0BJCpjYz70PXo70ska6lOT
-         TIqefLe18SUFVP/+NvdiH7TZD/PhPGFisQW7Sx1C97UcWIwN3Glzi0ersGWfDMvv6AQC
-         CDPBg3CFg22FKruBDhM56Cvq+NMVvVwBTASgm8sVB6OFEUukts6x+qP49viqjmVvbYTb
-         y0rw8reI8rnndQbDlLLGunlmGh1QBwGlG/ZVykbLkSpmz3pEvdbIl3EpwDjCeyNn4plC
-         GQ+Q==
-X-Gm-Message-State: AFuF++ldPHMpxo+HDVBHj+703r9WMp0mr+3kpk5MHUOsNkVheHl6GqBr
-	ajhANv0SAjoXw6BaE/O9JKpeFJ3qWlrj0o0KiJFYnbWn7IOEg9J++/XBLxPCfK8J5miz6MqnQbL
-	fAexRCRMNucq3N1sFzlnFVtyPLZNyyYMM87eCkZY8oqLFpvuhI3PILNXqVcazxOzsgDQ=
-X-Gm-Gg: AR+sD10h+EqvQxy2nBiwIFwgNJzpqAj6DEL2a1AifnuMlCa35j2iIcRkg/qkpgsdPRE
-	WCwpFxG6wPRxBlQYdee19qWqkH4wfxdIJv8V7DS7IMr4Wfch/p5HyeutAXBF48kVigYB4XNtE8p
-	PU1NQrrAEptI+Zlleu7BjlqVpmJwxlZsJKO8nu1JZUnHVJ+7aLikZVLyyA75hpw7JFYKnbnEDkQ
-	+7gXW37u+lYm2kGlf8qIm0+TUkgBd/bCpe/buUq4bZ7xUSMU6qqnDJEqYgAZIK0YiU/bCfOH30N
-	dJV7IcujNeuE873R9upFjTPifsylWp2UhruBg/M0Now6V8rFJxnVsSCBdxBk9Zv1r1mr/zuxb6F
-	l9HAfnI7lAOIB8toeZCZKhx2zzi5knLJe+qc=
-X-Received: by 2002:a05:620a:7002:b0:936:e18d:763d with SMTP id af79cd13be357-939137af523mr2744029285a.8.1788188406031;
-        Mon, 31 Aug 2026 08:00:06 -0700 (PDT)
-X-Received: by 2002:a05:620a:7002:b0:936:e18d:763d with SMTP id af79cd13be357-939137af523mr2744010585a.8.1788188405326;
-        Mon, 31 Aug 2026 08:00:05 -0700 (PDT)
-Received: from localhost (ip-86-49-251-7.bb.vodafone.cz. [86.49.251.7])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b94dcaf61sm272743545e9.4.2026.08.31.08.00.04
+        bh=xKtb+s5mvwWHR2Dm56oQU87T2PX0PUH0OEkGW4x95GI=;
+        b=NTWTXw66m8ZSIeWTyOUmXEPeQVycnjtnrYOf+T2PR8JROcvCsKjUZl7UfPDUOTi/OV
+         xtL6Uy8jHiAAFZR34WTJZGDsQXnR9urIDe/T/LMuxujsSRu8ICl4EJOGszY2KP8hu4Mz
+         EQjtgBOBTh8OEAyEi57WZ3GxYjvQEGAt/G9pnDFz5mmpootwGgq941Jb6JsacZQYGUy/
+         +1j/HqAizvQgzwXlh96BN7GCMjkN6jWR0PMA+t5PmW+8jhtfqnUMND5D6UfosO3FVLtd
+         MaMEvSqXiTfp7TASa4jYji8KkR1rdmVFlWvhd2lzYZcMHy3aloDOdCdmu8us6ZUVqS5C
+         2mww==
+X-Forwarded-Encrypted: i=1; AKwUvBy5o1HgPtsDKP/o+C6povRGYb6e9V0jlWANOorsrDvGGYnEHu43jIWtZC8ZeGuGUYZqcGtjHmgv6/+WsaI=@vger.kernel.org
+X-Gm-Message-State: AFuF++kjsIcZ/Uu6Qv/AY2HykKkdE7MrA4/yLEvaIe6ByGrqrXk2cF7K
+	msWgj/UHYHp1X3HE5vxW8+aMXu+YQoaqew2YRCKstxHpDNOYFj5UmlGr
+X-Gm-Gg: AYBFou3/Wt9yUGBan1pMWCD+ScV5vYT8owGe21IZD/0xkiBOPKfBJvynXrPBKAoogqw
+	fFnY2aKhPEwUsubP++j4z60TypzUuRmRudLCOwrtFAGH7yhfq5iuhkj8cD4x+rdLjZoXXNSeIe7
+	7Ij+vKlJF8+Pbdcs7znLiGgiUQF/lSxOKjI2W3j9X6n73DvcUXgFJI4rMpegLkg/ix3lJTB0hx6
+	wHjeRQve8DB1Uw/n9VjRVKPDA7St0JC0vhSz0bsHxgCGgOuQ18LtNEZbMQI+sV3yU5oPkUkQ008
+	hrideVHyirFjXfEN/mrwBje7ZM80KW/fMrvf8iyGVBpTzDvjfVmXrBn+Itj39pUo/YLXEztTE2z
+	b3x9+OG+FBQUQdx/osbHlLcqqiEK11t98dN/rxlSNHTlsMLZ4OxXBmBGZ+9mB3f1jy3hG0/dUO5
+	qyVz/+PUczVI2LIFeU4qORHarXpKFJjymVLb3Yuk/LS45gJ4BjDI9BHs1cCQZ1LoY3D0yWLHaaz
+	SCBZ6ulzrS4gniZN/qhdtg=
+X-Received: by 2002:a05:690c:c6c5:b0:85c:79d2:91a4 with SMTP id 00721157ae682-85d6b275eacmr80105927b3.17.1788188408827;
+        Mon, 31 Aug 2026 08:00:08 -0700 (PDT)
+Received: from zenbox ([2600:1700:18fb:6011:f6fc:b424:b1bb:6ff0])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-85e58666e15sm53903827b3.0.2026.08.31.08.00.08
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 08:00:04 -0700 (PDT)
-From: Andrew Jones <andrew.jones@oss.qualcomm.com>
-To: linux-riscv@lists.infradead.org, iommu@lists.linux.dev
-Cc: linux-kernel@vger.kernel.org, tomasz.jeznach@linux.dev,
-        tjeznach@rivosinc.com, jgg@ziepe.ca, jgg@nvidia.com, joro@8bytes.org,
-        will@kernel.org, robin.murphy@arm.com, pjw@kernel.org,
-        palmer@dabbelt.com, anup@brainfault.org, tglx@kernel.org,
-        kevin.tian@intel.com, fangyu.yu@linux.alibaba.com
-Subject: [PATCH v5 12/17] irqchip/riscv-imsic: Support IOMMU MSI address lists
-Date: Mon, 31 Aug 2026 16:59:38 +0200
-Message-ID: <20260831145943.313726-13-andrew.jones@oss.qualcomm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260831145943.313726-1-andrew.jones@oss.qualcomm.com>
-References: <20260831145943.313726-1-andrew.jones@oss.qualcomm.com>
+        Mon, 31 Aug 2026 08:00:08 -0700 (PDT)
+From: Justin Suess <utilityemal77@gmail.com>
+To: ast@kernel.org,
+	daniel@iogearbox.net,
+	andrii@kernel.org,
+	kpsingh@kernel.org,
+	paul@paul-moore.com,
+	mic@digikod.net,
+	viro@zeniv.linux.org.uk,
+	brauner@kernel.org,
+	kees@kernel.org
+Cc: gnoack@google.com,
+	jack@suse.cz,
+	song@kernel.org,
+	yonghong.song@linux.dev,
+	martin.lau@linux.dev,
+	m@maowtm.org,
+	bpf@vger.kernel.org,
+	linux-security-module@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Justin Suess <utilityemal77@gmail.com>
+Subject: [PATCH v2 06/15] lsm: Add the bpf_lsm_policy_acquire kfunc
+Date: Mon, 31 Aug 2026 10:58:48 -0400
+Message-ID: <20260831145858.3869191-7-utilityemal77@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260831145858.3869191-1-utilityemal77@gmail.com>
+References: <20260831145858.3869191-1-utilityemal77@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -96,146 +92,116 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: r8Hp6k9tDeJN0b1nalRrfBIVFyy49NLY
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODMxMDEyOSBTYWx0ZWRfX8D2wzfVD73HJ
- JyfFcPJ4Z+tx4/EIpDg6ymRLxe2ntGjkccMWtlbqps5PSKM2v7vZgFBvPAR+XOhQi/S9mdpoQvX
- fzKZAPisCxtpvZMs0Mwrg6kNN1a9Nc8=
-X-Proofpoint-ORIG-GUID: r8Hp6k9tDeJN0b1nalRrfBIVFyy49NLY
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODMxMDEyOSBTYWx0ZWRfX4ABlyOrQuvLU
- yZUBevi1qs1nSNHLcU3RYT4zuM1EhVgadz3SUndN5o0uW3B1Ivm0JzGPnrOVO8bATFXHQ3uC4i3
- iKMUYWawwejEf2WCKUWE7gd5iQIFFROjhE9G8dq8IWZfzMTotBmTIDxFu7gdquZOCPedf5Fh9cq
- XDPU+ar7NUj/em/DS206GeI/eC96+Iic28mzmRopinuMfkBLpH7M7PaigV2BrgZ/uBYxWoBqXRb
- 2KtBHkD+Ia8h2ZAHTHPeJiLEoQWMLkn21Syj3CK9h77PsAWKy95GIWurd1kdioUVYKyBgWpN/he
- Ohw3iWubwmInMh/Z5iMpTKVL8kf4oH8WV66L17TwgeTKm1TMCrd1978JVHJNHtJCmNMjlzUNhvh
- Ed823Gcu0O0cqIDYP/SRQh93uLXMn1IepAtFGkMA2IQxKkmMbyVFMYfL1y7eA1hMcmJrVBAK0eG
- 4iGbiloGmsWqSZjJtwQ==
-X-Authority-Analysis: v=2.4 cv=YsY/gYYX c=1 sm=1 tr=0 ts=6a9596f6 cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=on9AXyaqQ0RhfYpiXjjEXA==:17
- a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=EUspDBNiAAAA:8
- a=jAyyop91dzRkNHH0oPsA:9 a=bTQJ7kPSJx9SKPbeHEYW:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-31_05,2026-08-27_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 spamscore=0 clxscore=1015 suspectscore=0 phishscore=0
- priorityscore=1501 adultscore=0 impostorscore=0 malwarescore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608310129
 
-RISC-V IOMMU host interrupt remapping maps every possible host IMSIC
-target into one contiguous IOVA range. MSI message composition therefore
-needs each target's position within that range.
+Add the kfunc acquiring a reference on a policy object the program
+does not own:
 
-When the S-mode IMSIC address list is available, prepare the complete
-list while allocating an IRQ. This allows the IOMMU backend to map the
-pages and cache the contiguous base IOVA in the MSI descriptor. Skip the
-optional preparation when no list is available, allowing devices which
-do not need IOMMU MSI translation to keep using physical MSI messages.
+  bpf_lsm_policy_acquire(object)        KF_ACQUIRE|KF_RCU|KF_RET_NULL
 
-When the descriptor has an IOMMU MSI mapping, use the selected logical
-CPU directly as the page index within the IOVA range. Use the same path
-for initial composition and affinity updates. Messages remain physical
-when no IOMMU MSI mapping is required.
+bpf_kptr_xchg() is the only way to take an owned pointer out of a map
+kptr field, and it empties the slot: concurrent executions of an
+enforcement program would race for the one stored reference.  Modeled
+after bpf_task_acquire(), this kfunc removes the exclusivity: a
+program loads the kptr field with a plain read under
+bpf_rcu_read_lock(), acquires its own reference through the
+policy_object_get hook, and leaves the map slot untouched.  The
+acquired reference survives bpf_rcu_read_unlock(), carrying over to a
+sleepable bpf_lsm_policy_apply_bprm() call, and is released with
+bpf_lsm_policy_release().
 
-Signed-off-by: Andrew Jones <andrew.jones@oss.qualcomm.com>
+Adding struct lsm_policy_object to the verifier's rcu_protected_types
+set makes the plain load yield an RCU-protected pointer instead of an
+untrusted one.  This is where the policy object contract's RCU
+requirements become load-bearing: the kfunc and the get hook examine
+the object concurrently with a possible last put, which is safe
+because implementations free only after an RCU grace period and
+acquire with inc-not-zero semantics.  A failed get makes the kfunc
+return NULL, per KF_RET_NULL.
+
+The kfunc does not sleep and is meaningful wherever a policy object
+pointer can be loaded, so the filter adds no per-kfunc rule.
+
+Cc: Paul Moore <paul@paul-moore.com>
+Cc: KP Singh <kpsingh@kernel.org>
+Signed-off-by: Justin Suess <utilityemal77@gmail.com>
 ---
- drivers/irqchip/Kconfig                    |  1 +
- drivers/irqchip/irq-riscv-imsic-platform.c | 25 +++++++++++++++++++---
- 2 files changed, 23 insertions(+), 3 deletions(-)
+ kernel/bpf/verifier.c     |  3 +++
+ security/bpf_lsm_kfuncs.c | 34 +++++++++++++++++++++++++++++++++-
+ 2 files changed, 36 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/irqchip/Kconfig b/drivers/irqchip/Kconfig
-index 42f2278a702d..c7cda52b21eb 100644
---- a/drivers/irqchip/Kconfig
-+++ b/drivers/irqchip/Kconfig
-@@ -656,6 +656,7 @@ config RISCV_IMSIC
- 	select IRQ_DOMAIN_HIERARCHY
- 	select GENERIC_IRQ_MATRIX_ALLOCATOR
- 	select GENERIC_MSI_IRQ
-+	select IRQ_MSI_IOMMU
- 	select IRQ_MSI_LIB
+diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
+index 7aa47342dc65..ba9972c572e1 100644
+--- a/kernel/bpf/verifier.c
++++ b/kernel/bpf/verifier.c
+@@ -4394,6 +4394,9 @@ BTF_ID(struct, task_struct)
+ #ifdef CONFIG_CRYPTO
+ BTF_ID(struct, bpf_crypto_ctx)
+ #endif
++#ifdef CONFIG_BPF_LSM
++BTF_ID(struct, lsm_policy_object)
++#endif
+ BTF_SET_END(rcu_protected_types)
  
- config RISCV_RPMI_SYSMSI
-diff --git a/drivers/irqchip/irq-riscv-imsic-platform.c b/drivers/irqchip/irq-riscv-imsic-platform.c
-index 643c8e459611..6e26a31f7503 100644
---- a/drivers/irqchip/irq-riscv-imsic-platform.c
-+++ b/drivers/irqchip/irq-riscv-imsic-platform.c
-@@ -10,6 +10,7 @@
- #include <linux/cpu.h>
- #include <linux/interrupt.h>
- #include <linux/io.h>
-+#include <linux/iommu.h>
- #include <linux/irq.h>
- #include <linux/irqchip.h>
- #include <linux/irqdomain.h>
-@@ -69,8 +70,10 @@ static void imsic_irq_ack(struct irq_data *d)
- 	irq_move_irq(d);
- }
+ static bool rcu_protected_object(const struct btf *btf, u32 btf_id)
+diff --git a/security/bpf_lsm_kfuncs.c b/security/bpf_lsm_kfuncs.c
+index 988dcd6f4dd9..43a4bf57fd31 100644
+--- a/security/bpf_lsm_kfuncs.c
++++ b/security/bpf_lsm_kfuncs.c
+@@ -14,6 +14,36 @@
  
--static void imsic_irq_compose_vector_msg(struct imsic_vector *vec, struct msi_msg *msg)
-+static void imsic_irq_compose_vector_msg(struct irq_data *d, struct imsic_vector *vec,
-+					 struct msi_msg *msg)
- {
-+	struct msi_desc *desc = irq_data_get_msi_desc(d);
- 	phys_addr_t msi_addr;
+ __bpf_kfunc_start_defs();
  
- 	if (WARN_ON(!vec))
-@@ -79,6 +82,11 @@ static void imsic_irq_compose_vector_msg(struct imsic_vector *vec, struct msi_ms
- 	if (WARN_ON(!imsic_cpu_page_phys(vec->cpu, 0, &msi_addr)))
- 		return;
- 
-+	if (desc->iommu_msi_shift) {
-+		msi_addr = (desc->iommu_msi_iova << desc->iommu_msi_shift) +
-+			   vec->cpu * IMSIC_MMIO_PAGE_SZ;
-+	}
++/**
++ * bpf_lsm_policy_acquire - Acquire a reference on a shared policy object
++ * @object: RCU-protected pointer to a policy object, e.g. loaded from
++ *          a map kptr field under bpf_rcu_read_lock()
++ *
++ * Acquire a reference of its own on a policy object the program does
++ * not own, so that any number of concurrent program executions can
++ * use the object shared through one map kptr field, without emptying
++ * it as bpf_kptr_xchg() would.  The returned reference stays valid
++ * after bpf_rcu_read_unlock() and must be released with
++ * bpf_lsm_policy_release().
++ *
++ * Return: A referenced policy object, or NULL if the object's
++ * reference count concurrently dropped to zero.
++ */
++__bpf_kfunc struct lsm_policy_object *
++bpf_lsm_policy_acquire(struct lsm_policy_object *object)
++{
++	struct lsm_static_call *scall;
 +
- 	msg->address_hi = upper_32_bits(msi_addr);
- 	msg->address_lo = lower_32_bits(msi_addr);
- 	msg->data = vec->local_id;
-@@ -86,7 +94,7 @@ static void imsic_irq_compose_vector_msg(struct imsic_vector *vec, struct msi_ms
- 
- static void imsic_irq_compose_msg(struct irq_data *d, struct msi_msg *msg)
- {
--	imsic_irq_compose_vector_msg(irq_data_get_irq_chip_data(d), msg);
-+	imsic_irq_compose_vector_msg(d, irq_data_get_irq_chip_data(d), msg);
- }
- 
- #ifdef CONFIG_SMP
-@@ -94,7 +102,7 @@ static void imsic_msi_update_msg(struct irq_data *d, struct imsic_vector *vec)
- {
- 	struct msi_msg msg = { };
- 
--	imsic_irq_compose_vector_msg(vec, &msg);
-+	imsic_irq_compose_vector_msg(d, vec, &msg);
- 	irq_data_get_irq_chip(d)->irq_write_msi_msg(d, &msg);
- }
- 
-@@ -225,7 +233,9 @@ static struct irq_chip imsic_irq_base_chip = {
- static int imsic_irq_domain_alloc(struct irq_domain *domain, unsigned int virq,
- 				  unsigned int nr_irqs, void *args)
- {
-+	msi_alloc_info_t *info = args;
- 	struct imsic_vector *vec;
-+	int ret;
- 
- 	/* Multi-MSI is not supported yet. */
- 	if (nr_irqs > 1)
-@@ -235,6 +245,15 @@ static int imsic_irq_domain_alloc(struct irq_domain *domain, unsigned int virq,
- 	if (!vec)
- 		return -ENOSPC;
- 
-+	if (imsic->smode_msi_pa) {
-+		ret = iommu_dma_prepare_msi_list(info->desc, imsic->smode_msi_pa,
-+						 num_possible_cpus(), IMSIC_MMIO_PAGE_SZ);
-+		if (ret) {
-+			imsic_vector_free(vec);
-+			return ret;
-+		}
++	lsm_for_each_hook(scall, policy_object_get) {
++		if (scall->hl->lsmid->id != object->lsmid)
++			continue;
++		if (scall->hl->hook.policy_object_get(object))
++			return NULL;
++		return object;
 +	}
++	return NULL;
++}
 +
- 	irq_domain_set_info(domain, virq, virq, &imsic_irq_base_chip, vec,
- 			    handle_edge_irq, NULL, NULL);
- 	irq_set_noprobe(virq);
+ /**
+  * bpf_lsm_policy_from_fd - Get an LSM policy object from a fd
+  * @fd: file descriptor referring to a policy object, resolved in the
+@@ -57,7 +87,8 @@ __bpf_kfunc struct lsm_policy_object *bpf_lsm_policy_from_fd(int fd, u32 flags)
+  * bpf_lsm_policy_release - Release a policy object reference
+  * @object: policy object to release
+  *
+- * Release a reference acquired with bpf_lsm_policy_from_fd().
++ * Release a reference acquired with bpf_lsm_policy_from_fd() or
++ * bpf_lsm_policy_acquire().
+  */
+ __bpf_kfunc void bpf_lsm_policy_release(struct lsm_policy_object *object)
+ {
+@@ -83,6 +114,7 @@ CFI_NOSEAL(bpf_lsm_policy_release_dtor);
+ __bpf_kfunc_end_defs();
+ 
+ BTF_KFUNCS_START(bpf_lsm_policy_kfunc_ids)
++BTF_ID_FLAGS(func, bpf_lsm_policy_acquire, KF_ACQUIRE | KF_RCU | KF_RET_NULL)
+ BTF_ID_FLAGS(func, bpf_lsm_policy_from_fd,
+ 	     KF_ACQUIRE | KF_RET_NULL | KF_SLEEPABLE)
+ BTF_ID_FLAGS(func, bpf_lsm_policy_release, KF_RELEASE)
 -- 
-2.43.0
+2.55.0
 
