@@ -1,187 +1,128 @@
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3F271419A4
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 00:14:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03EF1EED8;
+	Mon, 31 Aug 2026 00:17:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788135245; cv=none; b=blzHrZO8ssGBYffb2H+BV793boLnaZe6eXEAT6f3ofDTz6MSHAWbcnDGMOb8NUVn+Ff+wtwTDIVGpGM3teClYERCqhSZbHOBJwoPZXzaLlu8MhcUzN6I2A4/oYl4zOkVaeEXnw/qFsO4WU8jHdXq+8+IbOxtugT+RmH/d8f9Ue0=
+	t=1788135472; cv=none; b=c0h36GuJ4eOOLchTFy/+TmmYuiglvzzyTWY+FJGlCDMn7fwlPFHVKh/LnATitT5I6WtuP/X8N6jd55mOjZLkugSZitcx778VXQiENIkhWJosM6bN0pu/Iwtvz5w0O32egQk036Djb/9eikgkIEJ7A1poCVg0mzkYLdhFN04qbbs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788135245; c=relaxed/simple;
-	bh=4zrUzGUAYzwCTo2PeEbJTUL51taSmIvMZQZeYqNbs58=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=hUG+e3S+q8Frq8t/wqO1e+vuQQX3ji+e82cej0TZuYvFLRTsR9cPE5ymV5tCBfQJrqT1LZNgErThhj7eIHUZOlolLqhmA4ACBZIVYf9Bp+5APOZA6dYdKNduYZYTGDb8KUT2YytAttXLq5FgmRxfZYWq7kwLAEs7r1PGus+fQgo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4b28d8d1b76so3154323b6e.3
-        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 17:14:03 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788135243; x=1788740043;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=fo0Hu+aws2U32FIHNxxrs9p4BPhWz3B2i9eKSeX1ugk=;
-        b=VYBL8KwNRM4EJCpdqXlmwJ8jJb2QqmEkhoqLpyH9ue8Acr6q2u6dmAMLyXm2VEPlgl
-         UE5ue5RvVwKTF9Hf1fn8sLHr4HeYjc3Th8fxYQbx0KpeCUJQaPkYmFeUs77d3F8H3MEv
-         2W2LobCvB1umNd9svJ2hTDOr2Ug7arXPPJWKlkkfHRIBhfJsOrBj9NrUlBsTQ7sMsUZI
-         w3EkpTaf6FOLgLHqQvdXPUQOD9JDJBrzpQCKYOdHr2gArso0hl6H7xmle1+LUfHOtXWE
-         i2p9eL7E3IzufnpPRIMSvjthyijd4SEy7V80VBxobpOdSdA2C9579QaFCPmUmHxnHTrK
-         LXqQ==
-X-Forwarded-Encrypted: i=1; AHgh+RqaATwQPkAdS0i4Z2Gn2+c06XnyBhhaqy+YFcgHAWhyIt0wcJ0as3XIDmgXCVhpOBxftdVqus/9zJ4QelY=@vger.kernel.org
-X-Gm-Message-State: AFuF++mZddlL3Z/91XrlPQKuhpHc8m2m7ZCL4twNCL9ExGZwh1oJLJzI
-	ftpp119nMoE6cFYJY8e4S1WUd47c//AmPz+DrA5UvC/JyNp+bTg5pwa/G9DEfCCAB0U14g9KTDj
-	0oVuKiv5Sw6sGVKI2rWM8L0JIX2DK4movRyyM6KvS+nI0e+lLcZys7EZfk0I=
+	s=arc-20240116; t=1788135472; c=relaxed/simple;
+	bh=3A1s75w6yBHCrzkPz4OXN7iXNRtStl0NXVco/whZc1o=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Il+I+w4OHngpot0TDNF+jc1H1wOTCVyTTqJzqQSO5b8CDjyfIQyR2mqGv3rsb3losO++qxOWiqmFl9u8vy0hKpeLZmLJMNQnByAST7alMCwvnNpjfN1xMyRyYQRp9VyCSHNnR0ZPVMhVQ61KWna5L0oIoectD9afNzP4nzoQTCE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kleKRPW3; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kleKRPW3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 847DC1F000E9;
+	Mon, 31 Aug 2026 00:17:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788135470;
+	bh=RcsJ9VjEFob7KN1Uh9/V2lYRRojSuc85augoJT/WwT4=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=kleKRPW3FblfDZjO1Pbq1msAtYXqMNlLDnKxFpeav/ZkbZmiPtiQMY8ttM9Q+XzYi
+	 7PH0TwRZnHJq2rIfwZArw/xwERm4rIOuZfqivi1LOcBwWRqw4g/KYxgb9L+SDh+UDC
+	 jmz7O7Kusa0MuUeJXnJnerB/TjCEfOj5FYLmVK+FB+o7Va4l71QV6xHM1uJZw6WUqI
+	 +0+8LQt70wgDimqp3WGthJCjk2pFJ5NWrU1JidY9DOQ0y3DP6D8lmkQTKjTrFsQmjG
+	 rS8wVrfU+1gDUcpD2HN1iUjhxKGr+rhqQfbWkgviY/DAsIZT9QRthWdKiRnkO0hSC0
+	 638YDWC8nbsgQ==
+Date: Mon, 31 Aug 2026 01:17:45 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Joshua Crofts <joshua.crofts1@gmail.com>
+Cc: Yang Zi <2959243019@qq.com>, lorenzo@kernel.org,
+ linux-iio@vger.kernel.org, dlechner@baylibre.com, nuno.sa@analog.com,
+ andy@kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] iio: humidity: hts221: fix division by zero in
+ calibration data parsing
+Message-ID: <20260831011745.1ac064c5@jic23-huawei>
+In-Reply-To: <20260825113958.000038b8@gmail.com>
+References: <tencent_0F43B1BC41CE4066DA52B7B25FBC04C41A09@qq.com>
+	<20260825113958.000038b8@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:1b14:b0:4a0:cf55:3cf0 with SMTP id
- 5614622812f47-4b398194062mr21156945b6e.9.1788135243028; Sun, 30 Aug 2026
- 17:14:03 -0700 (PDT)
-Date: Sun, 30 Aug 2026 17:14:03 -0700
-In-Reply-To: <20260830235031.326993-1-eadavis@sina.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a94c74b.a8e469d2.cbf3.560d.GAE@google.com>
-Subject: Re: [syzbot] [usb?] KASAN: slab-use-after-free Write in keyspan_close
-From: syzbot <syzbot+5fabc1ae99ff40690d84@syzkaller.appspotmail.com>
-To: eadavis@sina.com, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-Hello,
+On Tue, 25 Aug 2026 11:39:58 +0200
+Joshua Crofts <joshua.crofts1@gmail.com> wrote:
 
-syzbot has tested the proposed patch but the reproducer is still triggering an issue:
-BUG: corrupted list in usb_hcd_link_urb_to_ep
+> On Tue, 25 Aug 2026 17:21:10 +0800
+> Yang Zi <2959243019@qq.com> wrote:
+>=20
+> > hts221_parse_temp_caldata() and hts221_parse_rh_caldata() compute the
+> > sensor slope as ((cal_y1 - cal_y0) * 8000) / (cal_x1 - cal_x0). If the
+> > device reports cal_x1 =3D=3D cal_x0 the division causes a divide-by-zero
+> > error.
+> >=20
+> > Return -EINVAL when cal_x1 =3D=3D cal_x0 in both functions before perfo=
+rming
+> > the division.
+> >=20
+> > Signed-off-by: Yang Zi <2959243019@qq.com>
+> > ---
+> > diff --git a/drivers/iio/humidity/hts221_core.c b/drivers/iio/humidity/=
+hts221_core.c
+> > index bfeb0a60d3af..7d1f04951d8b 100644
+> > --- a/drivers/iio/humidity/hts221_core.c
+> > +++ b/drivers/iio/humidity/hts221_core.c
+> > @@ -288,6 +288,9 @@ static int hts221_parse_temp_caldata(struct hts221_=
+hw *hw)
+> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return err;
+> > =C2=A0 =C2=A0 =C2=A0cal_x1 =3D le16_to_cpu(val);
+> > =C2=A0
+> > +=C2=A0 =C2=A0 if (cal_x1 =3D=3D cal_x0)
+> > +=C2=A0 =C2=A0 =C2=A0 =C2=A0 return -EINVAL;
+> > +
+> > =C2=A0 =C2=A0 =C2=A0slope =3D &hw->sensors[HTS221_SENSOR_T].slope;
+> > =C2=A0 =C2=A0 =C2=A0b_gen =3D &hw->sensors[HTS221_SENSOR_T].b_gen;
+> > =C2=A0
+> > @@ -327,6 +330,9 @@ static int hts221_parse_rh_caldata(struct hts221_hw=
+ *hw)
+> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return err;
+> > =C2=A0 =C2=A0 =C2=A0cal_x1 =3D le16_to_cpu(val);
+> > =C2=A0
+> > +=C2=A0 =C2=A0 if (cal_x1 =3D=3D cal_x0)
+> > +=C2=A0 =C2=A0 =C2=A0 =C2=A0 return -EINVAL;
+> > +
+> > =C2=A0 =C2=A0 =C2=A0slope =3D &hw->sensors[HTS221_SENSOR_H].slope;
+> > =C2=A0 =C2=A0 =C2=A0b_gen =3D &hw->sensors[HTS221_SENSOR_H].b_gen;
+> > =C2=A0
+> >=20
+> >  =20
+>=20
+> This definitely needs a Fixes: tag, otherwise LGTM.
+Looks like hardening to me rather than a fix. Given those algs come
+off the datasheet and the div zero case makes no sense, I'd not expect
+the hardware to ever return a combination that triggers this.
 
-list_add double add: new=ffff888024daf118, prev=ffff888024daf118, next=ffff88802b357078.
-------------[ cut here ]------------
-kernel BUG at lib/list_debug.c:35!
-Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
-CPU: 0 UID: 0 PID: 7594 Comm: syz.3.536 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-RIP: 0010:__list_add_valid_or_report.cold+0x34/0x36 lib/list_debug.c:35
-Code: eb ff 90 0f 0b 48 c7 c7 00 0d 62 8c e8 7a be eb ff 90 0f 0b 48 89 d9 4c 89 ea 48 89 ee 48 c7 c7 40 0f 62 8c e8 62 be eb ff 90 <0f> 0b 48 89 de 48 c7 c7 00 10 62 8c e8 50 be eb ff 90 0f 0b 48 89
-RSP: 0018:ffffc900000078b8 EFLAGS: 00010086
-RAX: 0000000000000058 RBX: ffff88802b357078 RCX: 0000000000000000
-RDX: 0000000000000058 RSI: ffffffff81e9e1d9 RDI: fffff52000000f08
-RBP: ffff888024daf118 R08: 0000000000000007 R09: 0000000000000000
-R10: 8000000000000102 R11: 0000000000000001 R12: ffff88802b357080
-R13: ffff888024daf118 R14: 0000000000000000 R15: ffff888024daf118
-FS:  00007f9d428ff6c0(0000) GS:ffff8880d5b64000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007fbabb227dac CR3: 000000003d2aa000 CR4: 0000000000352ef0
-Call Trace:
- <IRQ>
- __list_add_valid include/linux/list.h:104 [inline]
- __list_add include/linux/list.h:169 [inline]
- list_add_tail include/linux/list.h:206 [inline]
- usb_hcd_link_urb_to_ep+0x220/0x3a0 drivers/usb/core/hcd.c:1154
- dummy_urb_enqueue+0x2b5/0x880 drivers/usb/gadget/udc/dummy_hcd.c:1310
- usb_hcd_submit_urb+0x268/0x2150 drivers/usb/core/hcd.c:1542
- usb_submit_urb+0x827/0x19b0 drivers/usb/core/urb.c:586
- keyspan_usa67_send_setup.isra.0+0x641/0x950 drivers/usb/serial/keyspan.c:2740
- usa67_glocont_callback+0x1bb/0x2a0 drivers/usb/serial/keyspan.c:1454
- __usb_hcd_giveback_urb+0x38e/0x610 drivers/usb/core/hcd.c:1657
- usb_hcd_giveback_urb+0x3ca/0x4a0 drivers/usb/core/hcd.c:1741
- dummy_timer+0xdb2/0x3700 drivers/usb/gadget/udc/dummy_hcd.c:2019
- __run_hrtimer kernel/time/hrtimer.c:2067 [inline]
- __hrtimer_run_queues+0x462/0x9c0 kernel/time/hrtimer.c:2124
- hrtimer_run_softirq+0x1ca/0x360 kernel/time/hrtimer.c:2141
- handle_softirqs+0x1e6/0x9d0 kernel/softirq.c:645
- __do_softirq kernel/softirq.c:679 [inline]
- invoke_softirq kernel/softirq.c:519 [inline]
- __irq_exit_rcu+0x194/0x210 kernel/softirq.c:767
- irq_exit_rcu+0x9/0x30 kernel/softirq.c:784
- instr_sysvec_apic_timer_interrupt arch/x86/kernel/apic/apic.c:1062 [inline]
- sysvec_apic_timer_interrupt+0xa3/0xc0 arch/x86/kernel/apic/apic.c:1062
- </IRQ>
- <TASK>
- asm_sysvec_apic_timer_interrupt+0x1a/0x20 arch/x86/include/asm/idtentry.h:674
-RIP: 0010:lock_acquire+0x5e/0x380 kernel/locking/lockdep.c:5913
-Code: 05 4f a1 a4 12 83 f8 07 0f 87 da 00 00 00 48 0f a3 05 5e d7 5d 0f 0f 82 c9 02 00 00 8b 35 fe 08 5e 0f 85 f6 0f 85 c7 00 00 00 <48> 8b 44 24 30 65 48 2b 05 ed a0 a4 12 0f 85 09 03 00 00 48 83 c4
-RSP: 0018:ffffc9000dfbf6f0 EFLAGS: 00000206
-RAX: 0000000000000046 RBX: 0000000000000000 RCX: 0000000000000200
-RDX: 0000000000000000 RSI: ffffffff8e3c46cc RDI: ffffffff8c620c80
-RBP: ffffffff8edec060 R08: 00000000c68d1768 R09: 0000000000000007
-R10: 0000000000000200 R11: 0000000000000001 R12: 0000000000000002
-R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
- rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
- rcu_read_lock include/linux/rcupdate.h:849 [inline]
- class_rcu_constructor include/linux/rcupdate.h:1216 [inline]
- unwind_next_frame+0xd1/0x2090 arch/x86/kernel/unwind_orc.c:495
- arch_stack_walk+0x94/0xf0 arch/x86/kernel/stacktrace.c:25
- stack_trace_save+0x8e/0xc0 kernel/stacktrace.c:122
- kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
- kasan_save_track+0x14/0x30 mm/kasan/common.c:78
- poison_kmalloc_redzone mm/kasan/common.c:398 [inline]
- __kasan_kmalloc+0xaa/0xb0 mm/kasan/common.c:415
- kasan_kmalloc include/linux/kasan.h:263 [inline]
- __do_kmalloc_node mm/slub.c:5414 [inline]
- __kmalloc_noprof+0x32f/0x840 mm/slub.c:5439
- _kmalloc_noprof include/linux/slab.h:995 [inline]
- tomoyo_realpath_from_path+0xb6/0x690 security/tomoyo/realpath.c:251
- tomoyo_get_realpath security/tomoyo/file.c:151 [inline]
- tomoyo_path_number_perm+0x23c/0x580 security/tomoyo/file.c:728
- security_file_ioctl+0xd3/0x230 security/security.c:2512
- __do_sys_ioctl fs/ioctl.c:591 [inline]
- __se_sys_ioctl fs/ioctl.c:583 [inline]
- __x64_sys_ioctl+0xb7/0x210 fs/ioctl.c:583
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f9d4199e159
-Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007f9d428ff028 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
-RAX: ffffffffffffffda RBX: 00007f9d41c25fa0 RCX: 00007f9d4199e159
-RDX: 0000000000000000 RSI: 0000000000005437 RDI: 0000000000000004
-RBP: 00007f9d41a35024 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-R13: 00007f9d41c26038 R14: 00007f9d41c25fa0 R15: 00007ffc0da26608
- </TASK>
-Modules linked in:
----[ end trace 0000000000000000 ]---
-RIP: 0010:__list_add_valid_or_report.cold+0x34/0x36 lib/list_debug.c:35
-Code: eb ff 90 0f 0b 48 c7 c7 00 0d 62 8c e8 7a be eb ff 90 0f 0b 48 89 d9 4c 89 ea 48 89 ee 48 c7 c7 40 0f 62 8c e8 62 be eb ff 90 <0f> 0b 48 89 de 48 c7 c7 00 10 62 8c e8 50 be eb ff 90 0f 0b 48 89
-RSP: 0018:ffffc900000078b8 EFLAGS: 00010086
-RAX: 0000000000000058 RBX: ffff88802b357078 RCX: 0000000000000000
-RDX: 0000000000000058 RSI: ffffffff81e9e1d9 RDI: fffff52000000f08
-RBP: ffff888024daf118 R08: 0000000000000007 R09: 0000000000000000
-R10: 8000000000000102 R11: 0000000000000001 R12: ffff88802b357080
-R13: ffff888024daf118 R14: 0000000000000000 R15: ffff888024daf118
-FS:  00007f9d428ff6c0(0000) GS:ffff8880d5b64000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007fbabb227dac CR3: 000000003d2aa000 CR4: 0000000000352ef0
-----------------
-Code disassembly (best guess):
-   0:	05 4f a1 a4 12       	add    $0x12a4a14f,%eax
-   5:	83 f8 07             	cmp    $0x7,%eax
-   8:	0f 87 da 00 00 00    	ja     0xe8
-   e:	48 0f a3 05 5e d7 5d 	bt     %rax,0xf5dd75e(%rip)        # 0xf5dd774
-  15:	0f
-  16:	0f 82 c9 02 00 00    	jb     0x2e5
-  1c:	8b 35 fe 08 5e 0f    	mov    0xf5e08fe(%rip),%esi        # 0xf5e0920
-  22:	85 f6                	test   %esi,%esi
-  24:	0f 85 c7 00 00 00    	jne    0xf1
-* 2a:	48 8b 44 24 30       	mov    0x30(%rsp),%rax <-- trapping instruction
-  2f:	65 48 2b 05 ed a0 a4 	sub    %gs:0x12a4a0ed(%rip),%rax        # 0x12a4a124
-  36:	12
-  37:	0f 85 09 03 00 00    	jne    0x346
-  3d:	48                   	rex.W
-  3e:	83                   	.byte 0x83
-  3f:	c4                   	.byte 0xc4
+With that said, the cost in catching it is low.
+
+I was going to pick this up, but seems patch is corrupted.
+Looks like we have tabs replaced with white space but I haven't checked clo=
+sely.
+
+Please fix that up and send a v2.
+
+thanks,
+
+Jonathan
 
 
-Tested on:
-
-commit:         08dbfad3 Merge tag 'for-linus' of git://git.kernel.org..
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-console output: https://syzkaller.appspot.com/x/log.txt?x=113a8349580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=8c5c3949d762a91f
-dashboard link: https://syzkaller.appspot.com/bug?extid=5fabc1ae99ff40690d84
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=14357379580000
+>=20
+> Feel free to carry my review tag.
+>=20
+> Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
+>=20
+> PS, a bit of process info: I noticed Sashiko (sashiko.dev) failed to appl=
+y your
+> patches. To prevent this from happening in the future, please use the `--=
+base` flag
+> when running `git format-patch` to specify which commit it should be appl=
+ied onto.
+>=20
 
