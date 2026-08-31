@@ -1,83 +1,82 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-07.mail-europe.com (mail-07.mail-europe.com [37.187.220.204])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BDA128488F;
-	Mon, 31 Aug 2026 07:50:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E621E3B9DA8
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 07:50:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=37.187.220.204
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788162624; cv=none; b=ZPDevhwRK/PjcIZbckUV5+WiQhtHGBe/J/9KGvdbywtJn/8ySFekywF5PwSkZH5YBNbwtMWzo5oqArL+jBOWMgmeaQfiC10JcHcStMQcmd9JTcbd9Wjpx8fpYCZefRAD/8PmF/5FzNuwflXrcLc0QFgGvV1PAHjWXVBRWsOg4vw=
+	t=1788162657; cv=none; b=S3hdWnlYpO3FQtZ/qsLmTfcIce7K4x3sMyAliBsK9TzHRyOksuIHN+2FEA+w4C7bX84Sjoh/aRGPNQIKFmxv82iFhNCkgXpOGG87P08BTQltbabGorI2rYkQs0G//50+2ci5kVACeTIc2kyMvIjSyfCRy7/GGwsQp0aqaq4JmJc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788162624; c=relaxed/simple;
-	bh=5KGP3pDfd2oRfBsbLzYUjRICP7+g6Xk/mWw39Y0NrGw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=RsqmhEvEWN40lGfTzm8bsoshM+ORGQV/7EsfHsWlkStupfK49UXyntygOb3KecjU9S5W4qCVJq27pUd6MWqNIgweOie0yjK59uPs1AY7F5NjPUL5x6kFdP+rWhAN6lI3sjAL+h61gom8Z12SAwo/gAPiM5NGHhcjZ0jPpO2lPdA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lfbdARZD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788162657; c=relaxed/simple;
+	bh=0hvMDX5dGPzleb29l/9Tm3oC4w1pSlAh9xjq/jWar8g=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=We8JCql8a2W++L7K0Wqnx3ud2AlAAjLkIpGZnkGAakuoFAOpPahyqBZ1Ru3OSTo1LDz1HWdj3qAPGL2UnzlLEEpkcl1RdcU6P2kCPZT2KcFlWalU3TgNrmE44h7eL42/LraQYzEE1oBSGjIp1ryYz2WgAhgcKCX0fFFRvTG5xa8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=OJGuyAIl; arc=none smtp.client-ip=37.187.220.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lfbdARZD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82C0D1F000E9;
-	Mon, 31 Aug 2026 07:50:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788162623;
-	bh=Tv7TETlQonuGOZoFgYmWm+06VrFWt+2TmiKJsqOV6R4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=lfbdARZDrDjmi8JbffZc7p10w97L6Cg8ERpf+ZAI9Sqig8vvsv+1uyBosEi/fHYOJ
-	 cavn60wxthLv4tDvWZhDzThBkcEv2E34zHwGmmC2aWmDFz3wd3GkOaWX+03p28vu4F
-	 wBE4l7mjB7pHPQX9RuB5raA+SfU6ziP4/gFV5rYmNFzeTGsSwzwK8jWTySwkycDLFb
-	 /JxKLu2J2GDJM5irsGhHdeCv2kGyIiV/6eVbA5+unP5tOdkIE+mU5TakR6Vf1A6+uP
-	 EYAErwATeaDPcAoPVCYgMxxTdk+8ej4qX616cvqolpqvioCLLs1tfxt9m2Fw/vhfKR
-	 jn2cyh7IBSYhg==
-From: Christian Brauner <brauner@kernel.org>
-To: shuah@kernel.org,
-	Disha Goel <disgoel@linux.ibm.com>
-Cc: Christian Brauner <brauner@kernel.org>,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	kernel test robot <lkp@intel.com>
-Subject: Re: [PATCH v2 1/2] selftests/filesystems: Move file_stressor to dedicated subdirectory
-Date: Mon, 31 Aug 2026 09:50:16 +0200
-Message-ID: <20260831-klopfen-gedenken-vorleben-54fd9d119a83@brauner>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260521101758.14639-1-disgoel@linux.ibm.com>
-References: <20260521101758.14639-1-disgoel@linux.ibm.com>
+	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="OJGuyAIl"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail; t=1788162637; x=1788421837;
+	bh=0hvMDX5dGPzleb29l/9Tm3oC4w1pSlAh9xjq/jWar8g=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=OJGuyAIlm47ajtgc+fiTXn3M9eB5MDnZqa9gcy/79odwXVhWSRYAY016+89QTb7jo
+	 FD9kEhZw8hj+bKKWobLRc1PahLnAfmg8HDaT0W1D3ND4ib8cpYOec5L+sDeHYh06U2
+	 OLkDhaO0xLZJBNrJ3++ofuxw+TTns/Dk3QkUu77HhNhD1r+/wQqL3VLm+0+5zHNFAY
+	 Ky9wsC0IcoGt9k0WbIWI8aOwnSWyQRRGRtrLi0Kzkey2b0YbOHCslyjb7DKBvqUOW9
+	 1xBLrJWMhuN06oPUvbmW60cHEQ74wuxjz2oMeJ/6YBDhX/TrTuRBmGs5Q6ylguO0s2
+	 KMf9rSO6K3lbA==
+Date: Mon, 31 Aug 2026 07:50:30 +0000
+To: "Usyskin, Alexander" <alexander.usyskin@intel.com>
+From: nirbhayykumarr@proton.me
+Cc: "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>, "arnd@arndb.de" <arnd@arndb.de>, "w@1wt.eu" <w@1wt.eu>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "stable@vger.kernel.org" <stable@vger.kernel.org>
+Subject: RE: [PATCH v4] misc: mei: fix race condition between client teardown and read completion
+Message-ID: <TLwVYumErA8o-vTKsGdBjrbPEwbhWftX85vbrJl7YR3mf-q9PeneLVl-HY8-LDuCpuoM1Vak9d9-ysDfF5swgpRVb13ihncKDppjylpGV8E=@proton.me>
+In-Reply-To: <CY5PR11MB63661742670108288F61A179EDAA2@CY5PR11MB6366.namprd11.prod.outlook.com>
+References: <ftGV8Hp-LYTtUVnxctTg6RSMnglJf1Dkgx65y7bRorozRtAeBBPU3zTQNG8Bmj-wNjNl0hTO5m2hyGMw8TktWQ2bijbJzdmGsRmlv-XLk3A=@proton.me> <CY5PR11MB63661742670108288F61A179EDAA2@CY5PR11MB6366.namprd11.prod.outlook.com>
+Feedback-ID: 172828574:user:proton
+X-Pm-Message-ID: 10a0624fba3dbc07244430a451236c979a49d54b
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1488; i=brauner@kernel.org; h=from:subject:message-id; bh=5KGP3pDfd2oRfBsbLzYUjRICP7+g6Xk/mWw39Y0NrGw=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWRNNbJa7jk9x2vJnKI1q/w95k85VJ31WeWwwLnoX628n 6/6yxVc7ChlYRDjYpAVU2RxaDcJl1vOU7HZKFMDZg4rE8gQBi5OAZiI+W2GP7ypE5wnXud85zBf tmAhg+nHZdIVvmpT9r/6rRZ8p1F47jeGf4ZzVl23mJpReL+r7Fv65vLc+79aU1mn/A/l/eH41dy 2kgkA
-X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, 21 May 2026 15:47:56 +0530, Disha Goel wrote:
-> The file_stressor test requires a 30-minute timeout (1800 seconds) due to
-> its 15-minute runtime plus setup/teardown overhead. This is significantly
-> longer than the default 45-second timeout used by other filesystem tests.
-> 
-> Move file_stressor into its own subdirectory (filesystems/file_stressor/)
-> with a dedicated settings file to isolate its timeout configuration. This
-> prevents the long timeout from affecting other fast-running tests in the
-> filesystems/ directory.
-> 
-> [...]
+On Sunday, August 30th, 2026 at 2:06 PM, Usyskin, Alexander <alexander.usys=
+kin@intel.com> wrote:
+>=20
+> This change look like no-op in this flow as you moved mei_cl_flush_queues=
+() inside the mei_cl_unlink(),
+> but mei_cl_unlink() is called here straight after mei_cl_flush_queues() w=
+ithout releasing device_lock.
+>=20
+> Seems like the failure is real but analysis and patch is wrong.
+> I suppose there is another path that call mei_cl_unlink() without proper =
+queue cleanup.
+>=20
 
-Applied to the vfs-7.4.misc branch of the vfs/vfs.git tree.
-Patches in the vfs-7.4.misc branch should appear in linux-next soon.
+Hi Sasha,
 
-Please report any outstanding bugs that were missed during review in a
-new review to the original patch series allowing us to drop it.
+You were right. Moving mei_cl_flush_queues() into mei_cl_unlink()=20
+was a no-op because the lock is held across both calls.
 
-It's encouraged to provide Acked-bys and Reviewed-bys even though the
-patch has now been applied. If possible patch trailers will be updated.
+Your comment prompted me to look deeper, and I realized the issue=20
+wasn't the call location, but that mei_cl_flush_queues() itself was=20
+fundamentally broken. Specifically, mei_cl_free_pending() was using=20
+list_first_entry_or_null() and only freeing a maximum of one callback=20
+per flush leaving any other queued read callbacks stranded on the list=20
+to trigger the WARN_ON.
 
-Note that commit hashes shown below are subject to change due to rebase,
-trailer updates or similar. If in doubt, please check the listed branch.
+I will send a v5 patch to the list which corrects this by properly=20
+iterating through the pending queues and allowing per-file descriptor=20
+filtering during teardown.
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
-branch: vfs-7.4.misc
+Thanks for the review and guidance.
 
-[1/2] selftests/filesystems: Move file_stressor to dedicated subdirectory
-      https://git.kernel.org/vfs/vfs/c/5550456dad37
-[2/2] selftests/filesystems: allow security.selinux xattr in listxattr kernfs test
-      https://git.kernel.org/vfs/vfs/c/cc87d0a97bc0
+Best regards,
+Nirbhay Kumar
