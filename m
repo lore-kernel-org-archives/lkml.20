@@ -1,46 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CEDF455628;
-	Mon, 31 Aug 2026 17:54:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9ED27455636;
+	Mon, 31 Aug 2026 17:54:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788198846; cv=none; b=vC+MKJCgxFjNx1eQCArqlwAR0ctKPimct9GVwvmgcBtYRJE5g3TUvM8w2u8hlRj+D+oI17e9yT/lr/GE2ljw1Q8m7/arFmbuIvOA/jn09gtN8j5r15XNGzCwH5GbpBajzJ9SaBOXOhRyqg3J5VFwOARcladQNa3cpaP6d7NCPnw=
+	t=1788198847; cv=none; b=BM0yXEt+pDMEK86JzpCK66jCAYgj6vZJH2i+XPYXDmURkF3wVPe1Uv39+fEBYk9NcwrSx5TEbCyeKFBB0Z+f4/UJvZmg0WtTB37gA5T/x0qawDWEmoN3DkR554pIcLccqTMAIS20DQAACtrz6j9/DlXJCqTswSeZaUCRgj/y0uM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788198846; c=relaxed/simple;
-	bh=sFg6qCP/s8ySIjMbGUCaaMkx9niLD9b0Ep9lAbtCY5M=;
+	s=arc-20240116; t=1788198847; c=relaxed/simple;
+	bh=Fff09j9x7cLgjE65+taZ/w2XnpxCs7qqT4VfoDNOiWk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=OXGmmrlladHWnI872cT4LanILGm9nV2rQU3BCxl0k43nKqlJrpFAqnlge3f4uAaE1HUUHsYR/UI9+ZJv5nLzOvy8o/HHNlgp1TeVEdRETcoOtTjlFH6zwf8vBEAFZjULOVs20vD0MdAC7LvUe9BFpEyZcntqkjV/ETbCoZ1SnUU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UVkGF324; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=HRDQGVAnUDklHA9ZVrO6nt3O9hi8/nX0iVVMwS3kPFYj6Gi1uis5MG6K4mgFayBq48PGEGgYZ7pvg4SIHq32V1u9G92nUhSRQkvIKj3RsvTb/loeDatGRyt5xMhSfay+yYsgxTCY25xfl+h3Xxg0sTKO8hrApAuKgg2OqlQ0Pc4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Xhqb1lSu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UVkGF324"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A92E71F00A3E;
-	Mon, 31 Aug 2026 17:54:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Xhqb1lSu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 784991F00A3D;
+	Mon, 31 Aug 2026 17:54:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788198845;
-	bh=n9f2ix3Oe+GMATScLwOHLCTbsVGNe0oXW8M/rfOdWsI=;
+	s=k20260515; t=1788198846;
+	bh=gomQlLulf6sfwYK52Z3XzNywzZ9bpMtZuFoG3PO2fcc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=UVkGF324iXuRQbYhVGAusjJBRDSGl7D+rxC5lc4vXqXcd/xDaILNMt+YVJPIlIol6
-	 6mQjYxTJFlBVF3ge1jLF0Te+KHFCdESRLqMSy/GTkqwNxg0Rk+OG6DiVrp5+HpJx06
-	 6uMVrn7n07W3BHcJYLxd9WGTVSFB4cSo3Kczw0x4JYjF5qwNP6VIVcL/IUopeZuoHr
-	 Ca5oNPVbeV0qxkxmAhimzZuPZ1sbGf3SWRWYuTby2E3EsD/sOaI5STSXcl2HLIxIen
-	 SZwxPPHccqHJholuC6L3w/ICScTgxqSj8Rl4fVzvnw3WjKRZWyvCddlD3sQawN1ejv
-	 gqNViyQhcQs2A==
+	b=Xhqb1lSuJV6S5BZ2p7MHSySsmphN6pD81FhJIkI9km+7QK1CEa/uifbgrWQubP3qv
+	 v6PFbaxDSD86JovkoidLAozz5bUcd7tcT/Ixfc7PdR9+d4+gAILfGUZ/hHVLfq61OB
+	 lDU0t+CrGsJjIMax9TruTq48BUybr2xsDNSjD3yHKFZ0S0AZfQpa+XaVNHhTAFZW4a
+	 bJ0vwqZe0dYI6k/fTEFOfaSg6xBvkHn7JbtSwIeVbljkDvxzSFVm9Tq8dIUgZJLcg2
+	 GlysuD+wO74L9i4jyNUeODbzK2tws8Zn68eec0FHY9eaPZ+4KAnX/Te4x0E7CWDwFl
+	 KcMWk94CiiOCw==
 From: Bjorn Andersson <andersson@kernel.org>
 To: Konrad Dybcio <konradybcio@kernel.org>,
-	Pankaj Patil <pankaj.patil@oss.qualcomm.com>,
-	Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
-Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
-	Rajendra Nayak <rajendra.nayak@oss.qualcomm.com>,
+	Greg Ociepka <greg@ferrisoft.com>
+Cc: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>,
 	linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] soc: qcom: smem: fix 32-bit overflow in DDR frequency calculation
-Date: Mon, 31 Aug 2026 12:53:32 -0500
-Message-ID: <178819882978.1411250.7496836489456729501.b4-ty@kernel.org>
+Subject: Re: [PATCH] arm64: dts: qcom: glymur: Add missing USB clock, power and bandwidth votes
+Date: Mon, 31 Aug 2026 12:53:33 -0500
+Message-ID: <178819882986.1411250.14850856788064355579.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260827-glymur_dramc-v1-1-eba358d504b8@oss.qualcomm.com>
-References: <20260827-glymur_dramc-v1-1-eba358d504b8@oss.qualcomm.com>
+In-Reply-To: <20260812083522.774711-1-greg@ferrisoft.com>
+References: <20260812083522.774711-1-greg@ferrisoft.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -51,21 +52,22 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Thu, 27 Aug 2026 01:13:17 -0700, Gopikrishna Garmidi wrote:
-> The DDR frequency in SMEM is reported in kHz and converted to Hz by
-> multiplying it by 1000. Since the SMEM frequency value is a u32, using
-> an unsuffixed integer constant causes the multiplication to be performed
-> with 32-bit arithmetic.
+On Wed, 12 Aug 2026 10:35:22 +0200, Greg Ociepka wrote:
+> The four USB3 controller nodes on Glymur (usb_0, usb_1, usb_2, usb_mp)
+> are missing three property groups that Glymur's own usb_hs node at
+> a200000 already carries, and that Hamoa (x1e80100) carries on all five
+> of its USB controllers:
 > 
-> This overflows for DDR frequencies above 4294967 kHz, resulting in an
-> incorrect frequency being reported through the SMEM DRAM interface.
+>   - assigned-clocks / assigned-clock-rates
+>   - required-opps
+>   - interconnects / interconnect-names
 > 
 > [...]
 
 Applied, thanks!
 
-[1/1] soc: qcom: smem: fix 32-bit overflow in DDR frequency calculation
-      commit: 7bb5f186784074f2a91d83e191e305238be47103
+[1/1] arm64: dts: qcom: glymur: Add missing USB clock, power and bandwidth votes
+      commit: 0f8d35f04a126fb17134728ec441a177a35babb5
 
 Best regards,
 -- 
