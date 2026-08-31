@@ -1,46 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C621C4EE841;
-	Mon, 31 Aug 2026 13:40:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 311274EE870;
+	Mon, 31 Aug 2026 13:40:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183643; cv=none; b=jpjmIiVjuHdIkUAz0RgeFd9WdhayIx1hrj9Ik5EEetYUx61LO44WNKKH4tGiYTEBf0ZUkIMxg6qe1FpC+ASw4TNxSpBZ5LIocGo9b9vgM/6gRaAFhyCSiNfhrgFTwxLcPnLy4o/b6ZBPTmIG8qQ9CwyZ1a64Bnad5F92lvImonE=
+	t=1788183644; cv=none; b=G3RECKGwXMa06tc3QaxQ/4oHsEswcxqu3nJWPX5lXAQHRCgMp8YxaD0nlzli91YAOekt5NafXqh6csIROQ5pXzLwTPMO0qyOOn6xmwlaa6R6E3vMVaTxrJRHUh3oZJiBfZutImyLl34ZCepMBkT9zHWV/FMsbv9ZADLUyknbhCc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183643; c=relaxed/simple;
-	bh=azQwWZCqGTN20xijGibFqhDOiiyrv1F4YnbkYJ7WPfo=;
+	s=arc-20240116; t=1788183644; c=relaxed/simple;
+	bh=fQb2NZwz1PsDV8tYROM5SczFzkCqvIep+IPA92orETA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=urUiqXrReO7XccYwkWhHAYTBHqjoQReHS2ysBGpJH9W2jQ1x08gxRsGAFujWcXFSciX2lCh8GtyQh6Dl96ZapRRB2WkMX6/GdfhJCO/N+cLhDkTxue1Ebt1dCAW3kQx3ZOdP57fhm9uL/pt+9zB0BuJjsjTktz9vZwIzeAVNPJs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VlFPWqfx; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=rYBkF39PYIp+aHtn3Uov6laqDSqU+Odl/J5IwnS+lXkPUqMdpkRUnQr9FMeTxVsIiThHnaUdkNf3Ix223AZ0bmE+ip6v8z+nzULIaJwItvd4mCUOQsjqa199bwf4VWs0lOO6+hMtTTkiAyzmXz44zKv3ackLD7X7ilu7PeoSHjc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P8r2aJSY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VlFPWqfx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4FAB91F000E9;
-	Mon, 31 Aug 2026 13:40:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P8r2aJSY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1006E1F00ACF;
+	Mon, 31 Aug 2026 13:40:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788183640;
-	bh=eHW04iVrIBNdytuxwg466nIlWzszNOWJnFQFON4ayFQ=;
+	s=k20260515; t=1788183641;
+	bh=l2DLiaCPgwLm5QHijOrXvkcz1SdOAgshW8SkglcvLeE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=VlFPWqfxLWF/xwlrteqes56fwBXqN0+ug6hWst9mgB0GdCk4KIEZw7vY+UlME12DS
-	 ICOrrpX563RY68/v2a4f+luCdrSyS0aNELWZ19djSZpBHmED8hhkQn4JuNaL55v41g
-	 Q+fOnK2mVy5jMkHmnfMgbBxNjzQV2Jb+UWNAWUXc1MTEmR5nAqYgjYxllXxiVnj7Zt
-	 SUE4LKdtFuDOfp6QkTUiqm3VucMbw9z0Yo5COcUGsRNl6SYBJQDe2BOHFBu1o7mFUq
-	 dK8SLyzNnQHKHjOWhupZQxctzCX2tX2y4Pi5RX3xsskd88e3pQmEfJDcKgwyRyUsnK
-	 KtpnFNBVflTgw==
+	b=P8r2aJSYs5a8ah5B8BdwgTBGyfMCV6DkuRNM1fZLo1b6KWp+OZlJz0Ne+k/yavjvC
+	 t2pmsjAm//iGMhiZApGnC0SeoQCfDcRL7B0nsum+MfmdFFdcCTzp7QgO9GMiz4vBZO
+	 SBBbhAcyqj2kxckmo33p9SMUe1BCxnrNlVIrCgZUWlu4Y3wICpVff4JugSh/UDVtne
+	 wdCZ1KEqCMKJPoiBo3yQzEzXB1ZiDLa0FI2aSSrmUPDz5vAW1bRUqS3CmVcPPBmFjS
+	 95M+DQK9iyCnctVg0lJxwtuE3KB9KKQ6msx3ppNhIVEG4w/M19VvH/hieJ/pb94XNz
+	 sWsL2Uk6WuHGg==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: ikaros <void0red@gmail.com>,
-	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+Cc: Emmanuel Grumbach <emmanuel.grumbach@intel.com>,
+	Miri Korenblit <miriam.rachel.korenblit@intel.com>,
 	Sasha Levin <sashal@kernel.org>,
-	rafael@kernel.org,
-	maciej.wieczor-retman@intel.com,
-	pawel.chmielewski@intel.com,
-	linux-acpi@vger.kernel.org,
-	acpica-devel@lists.linux.dev,
+	linux-wireless@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-5.10] ACPICA: validate handler object type in two places
-Date: Mon, 31 Aug 2026 09:24:02 -0400
-Message-ID: <20260831133314.4125787-214-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-6.6] wifi: iwlwifi: mvm: validate sta_id in BA window status notif
+Date: Mon, 31 Aug 2026 09:24:03 -0400
+Message-ID: <20260831133314.4125787-215-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -56,277 +52,277 @@ X-stable-base: Linux 6.18.48
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: ikaros <void0red@gmail.com>
+From: Emmanuel Grumbach <emmanuel.grumbach@intel.com>
 
-[ Upstream commit c5296da2d516707862f8a2dbb4b515f777e5294f ]
+[ Upstream commit 6aa77efaea9efea92e3090c35ad348fd759a3cf3 ]
 
-ACPICA: validate handler object type in acpi_ev_has_default_handler()
-and acpi_ev_find_region_handler().
+BA_WINDOW_STATUS_NOTIFICATION_ID extracts a 5-bit sta_id from the
+firmware notification and uses it to index fw_id_to_mac_id[] without
+bounds checking. Validate sta_id before array access to prevent
+out-of-bounds indexing.
 
-Link: https://github.com/acpica/acpica/commit/f6fc648a1389
-Signed-off-by: ikaros <void0red@gmail.com>
-Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
-Link: https://patch.msgid.link/48111441.fMDQidcC6G@rafael.j.wysocki
+Assisted-by: GitHubCopilot:gpt-5.3-codex
+Signed-off-by: Emmanuel Grumbach <emmanuel.grumbach@intel.com>
+Link: https://patch.msgid.link/20260714141909.2e97f337f3cb.Ic3f0f404082ccdea13809a3c0b70e0f5417e1037@changeid
+Signed-off-by: Miri Korenblit <miriam.rachel.korenblit@intel.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-# Stable Backport Analysis: ACPICA handler object type validation
+# Stable Backport Analysis: `wifi: iwlwifi: mvm: validate sta_id in BA
+window status notif`
 
-**Local tree:** `v6.18.44` (`stable/linux-6.18.y`, `make kernelversion`
-= 6.18.44)
-**Candidate commit (mainline):** `c5296da2d5167` — same diff as upstream
-ACPICA `f6fc648a1389`
-**Status in this tree:** Fix is **not** present; vulnerable code is
-present.
+**Local tree:** `v6.18.44-1-g2736c32da98b9` (Makefile: 6.18.44)
 
 ---
 
 ## PHASE 1: COMMIT MESSAGE FORENSICS
 
-### Step 1.1: Subject line
-**Record:** `[ACPICA] [validate] validate handler object type in
-acpi_ev_has_default_handler() and acpi_ev_find_region_handler()`
+### Step 1.1: Parse the subject line
+**Record:** `[wifi: iwlwifi: mvm]` `[validate]` — Add bounds validation
+for `sta_id` extracted from a BA window status firmware notification
+before indexing `fw_id_to_mac_id[]`.
 
-### Step 1.2: Tags
+### Step 1.2: Parse all commit message tags
 **Record:**
-- **Link:** https://github.com/acpica/acpica/commit/f6fc648a1389
-- **Link:**
-  https://patch.msgid.link/48111441.fMDQidcC6G@rafael.j.wysocki
-- **Signed-off-by:** ikaros \<void0red@gmail.com\>
-- **Signed-off-by:** Rafael J. Wysocki \<rafael.j.wysocki@intel.com\>
-- No `Fixes:`, `Reported-by:`, `Cc: stable@vger.kernel.org`, `Reviewed-
-  by:`, `Tested-by:`, or `Acked-by:` tags in the commit message
-- Notable: upstream ACPICA issue #1132 documents an ASAN global-buffer-
-  overflow; author is the issue reporter
+- **Fixes:** — not present (expected for manual review)
+- **Reported-by:** — none
+- **Tested-by:** — none
+- **Reviewed-by:** — none
+- **Acked-by:** — none
+- **Link:** `https://patch.msgid.link/20260714141909.2e97f337f3cb...`
+  (patch submission link)
+- **Cc: stable@vger.kernel.org** — not present (expected)
+- **Signed-off-by:** Emmanuel Grumbach `<emmanuel.grumbach@intel.com>`
+  (author)
+- **Signed-off-by:** Miri Korenblit
+  `<miriam.rachel.korenblit@intel.com>` (iwlwifi maintainer)
+- **Assisted-by:** GitHubCopilot:gpt-5.3-codex
 
-### Step 1.3: Body text
+Notable: maintainer sign-off from Miri Korenblit; no syzbot/user crash
+report in the message.
+
+### Step 1.3: Analyze commit body
 **Record:**
-- **Bug:** Handler linked lists walked via `common_notify.handler`
-  assume every node is `ACPI_TYPE_LOCAL_ADDRESS_HANDLER`, but the list
-  can contain objects of another type (corrupt/crafted ACPI state).
-- **Symptom:** Out-of-bounds read when accessing
-  `address_space.space_id` or `address_space.next` on a non-address-
-  handler object (ASAN: global-buffer-overflow, 8-byte read in
-  `AcpiEvFindRegionHandler`).
-- **Root cause:** Missing type check before interpreting union members
-  as `address_space` fields.
-- **Version info:** None in commit message; upstream ACPICA fix dated
-  2026-03-20.
+- **Bug:** `BA_WINDOW_STATUS_NOTIFICATION_ID` carries a 5-bit `sta_id`
+  in `ra_tid`; the handler indexes `fw_id_to_mac_id[sta_id]` without
+  validating it.
+- **Symptom/failure mode:** Out-of-bounds array indexing when firmware
+  sends an invalid `sta_id`.
+- **Version info:** none in message.
+- **Root cause:** Missing bounds check against
+  `mvm->fw->ucode_capa.num_stations` before array access.
 
-### Step 1.4: Hidden bug fix?
-**Record:** Yes — although the subject says “validate,” this is a
-memory-safety fix preventing buffer overflow on handler-list traversal,
-not cosmetic cleanup.
+### Step 1.4: Detect hidden bug fixes
+**Record:** Not disguised — this is an explicit defensive validation
+fix. It closes a memory-safety hole in a firmware-notification handler,
+consistent with other iwlwifi validation patches already in this tree.
 
 ---
 
 ## PHASE 2: DIFF ANALYSIS
 
-### Step 2.1: Inventory
+### Step 2.1: Inventory the changes
 **Record:**
-- **Files:** `drivers/acpi/acpica/evhandler.c` (+11 lines, 0 removed)
-- **Functions modified:** `acpi_ev_has_default_handler()`,
-  `acpi_ev_find_region_handler()`
-- **Scope:** Single-file, surgical fix
+- **Files:** `drivers/net/wireless/intel/iwlwifi/mvm/rx.c` (+5 lines)
+- **Function:** `iwl_mvm_window_status_notif()`
+- **Scope:** Single-file, surgical fix in one loop iteration
 
 ### Step 2.2: Code flow change
 **Record:**
-- **Hunk 1 (`acpi_ev_has_default_handler`):** Before — walked handler
-  list unconditionally using `address_space` fields. After — breaks loop
-  if `handler_obj->common.type != ACPI_TYPE_LOCAL_ADDRESS_HANDLER`.
-- **Hunk 2 (`acpi_ev_find_region_handler`):** Same type check added
-  before `space_id` comparison and `next` pointer chase.
-- **Paths affected:** Normal ACPI handler lookup during region
-  initialization, handler installation, and namespace walks.
+- **Hunk (lines ~1225–1227):** Before: extract `sta_id` from `ratid`,
+  immediately `rcu_dereference(mvm->fw_id_to_mac_id[sta_id])`. After: if
+  `sta_id >= num_stations`, log via `IWL_FW_CHECK` and `continue`.
+- **Path affected:** Firmware RX notification handler for block-ack
+  window status (powersave/reordering path).
+- **Context:** Normal RX handler loop, not init/teardown.
 
 ### Step 2.3: Bug mechanism
 **Record:**
-- **Category:** Memory safety / buffer overflow (out-of-bounds read)
-- **Mechanism:** `union acpi_operand_object` is accessed as
-  `address_space` without verifying `common.type`. Wrong type → wrong
-  union layout → read past valid object memory via
-  `address_space.space_id` (1 byte + padding) or `address_space.next`
-  (8-byte pointer read per ASAN report).
+- **Category:** Buffer overflow / out-of-bounds access (memory safety).
+- **Mechanism:**
+  - `BA_WINDOW_STATUS_STA_ID_MSK` is 5 bits → `sta_id` range 0–31
+    (`fw/api/rx.h`).
+  - `fw_id_to_mac_id[]` size is `IWL_STATION_COUNT_MAX` = **16**
+    (`fw/api/mac.h`).
+  - `num_stations` is capped at 16 by firmware TLV parsing (`iwl-
+    drv.c`).
+  - Without validation, `sta_id` values ≥ `num_stations` (and especially
+    16–31) can index past the 16-element array.
+  - A garbage pointer from OOB memory may pass `IS_ERR_OR_NULL()` and
+    reach `ieee80211_mark_rx_ba_filtered_frames()`.
 
 ### Step 2.4: Fix quality
 **Record:**
-- Fix is minimal and obviously correct: `common_notify.handler` is
-  documented as the address-space handler list; only
-  `ACPI_TYPE_LOCAL_ADDRESS_HANDLER` objects belong there.
-- **Regression risk:** Very low. On type mismatch, loop terminates (same
-  as list end). Worst case: handler not found where list was already
-  corrupt — far safer than OOB read.
-- No API changes, no locking changes.
+- **Quality:** High — matches existing driver patterns
+  (`iwl_mvm_sta_from_staid_rcu()`, `iwl_mvm_sta_pm_notif()`, MLD RX
+  handlers using `IWL_FW_CHECK`).
+- **Regression risk:** Very low — only skips invalid entries; no
+  API/locking changes.
+- **Red flags:** None.
 
 ---
 
 ## PHASE 3: GIT HISTORY INVESTIGATION
 
-### Step 3.1: Blame
-**Record:**
-- `acpi_ev_has_default_handler` walk loop: `42f8fb75c43cc6` (Bob Moore,
-  2013-01-11) — long-standing code
-- `acpi_ev_find_region_handler`: `7b73806485ada` (Bob Moore,
-  2015-12-29), introduced by `f31a99cefd05f` “Deploys
-  acpi_ev_find_region_handler()”
-- Bug predates 6.18.y branch by many years
+### Step 3.1: Blame changed lines
+**Record:** Shallow repository (`git rev-parse --is-shallow-repository`
+→ `true`). `git blame` attributes `iwl_mvm_window_status_notif()` to
+merge commit `5d324e5159d9e`; exact introduction commit not available in
+this checkout. Function and buggy pattern are present in tag
+`1efe5d048a391` (Linux 6.18.44).
 
-### Step 3.2: Fixes: tag
-**Record:** N/A — no `Fixes:` tag. Upstream ACPICA references GitHub
-issue #1132 (ASAN global-buffer-overflow in `AcpiEvFindRegionHandler`).
+### Step 3.2: Follow Fixes: tag
+**Record:** N/A — no `Fixes:` tag in the commit message.
 
-### Step 3.3: Related file history
-**Record:**
-- Recent `evhandler.c` changes in this tree are copyright updates and
-  unrelated fixes (e.g. `c27f3d011b085` I2C/GPIO race).
-- `aa6abd2be1cc7` (2015) moved address handlers to
-  `common_notify.handler` — architectural context, not the bug
-  introducer.
-- Fix is **standalone**; patch 18/27 in the ACPICA sync series but does
-  not depend on patches 1–17.
+### Step 3.3: File history for related changes
+**Record:** Recent iwlwifi stable commits in this tree include similar
+validation fixes:
+- `2d5dec517b539` — wake packet notification bounds fix
+- `dd90880eb5ec5` — OOB read in `iwl_mvm_nd_match_info_handler()`
+- `1de92789ce31e` — BA session handler `sta_mask` validation (MLD)
 
-### Step 3.4: Author context
-**Record:** ikaros reported the upstream ACPICA bug and authored 14
-hardening patches in the same series. Rafael J. Wysocki (ACPI
-maintainer) signed off and committed to mainline.
+Standalone fix; not part of a multi-patch series in this tree.
 
-### Step 3.5: Dependencies
-**Record:** None. Uses `ACPI_TYPE_LOCAL_ADDRESS_HANDLER` (defined in
-`include/acpi/actypes.h` as `0x18` in this tree). No prerequisite
-commits required.
+### Step 3.4: Author's other commits
+**Record:** Emmanuel Grumbach is a long-time iwlwifi developer. Miri
+Korenblit is iwlwifi maintainer (signed off). Shallow history limits
+author-specific log on `rx.c`.
+
+### Step 3.5: Prerequisites
+**Record:** No dependencies found. `IWL_FW_CHECK` exists in `fw/dbg.h`.
+`iwl_mvm_window_status_notif` and `BA_WINDOW_STATUS_NOTIFICATION_ID`
+handler are present. `git apply --check` confirms the patch applies
+cleanly to HEAD.
 
 ---
 
 ## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
-### Step 4.1: Original discussion
-**Record:**
-- **URL:** https://patch.msgid.link/48111441.fMDQidcC6G@rafael.j.wysocki
-- **Series:** `[PATCH v1 18/27]` in “ACPI: ACPICA 20260408” series by
-  Rafael Wysocki
-- **Revisions:** v1 only found via `b4 dig -a`
-- No explicit stable nomination or NAK found in thread grep
-- Cover letter groups this with other ikaros buffer-overflow / memory-
-  safety hardening patches
+### Step 4.1: Original patch discussion
+**Record:** `b4 dig -c HEAD` did not match this patch (matched unrelated
+OF overlay patch). `b4 dig` by subject failed (wrong usage).
+Lore.kernel.org and patch.msgid.link blocked by Anubis bot protection —
+**could not read thread discussion**.
 
-### Step 4.2: Reviewers
-**Record:** CC’d: Rafael J. Wysocki, linux-acpi, LKML, Saket Dumbre,
-Pawel Chmielewski (Intel ACPICA maintainers). Signed-off-by from Rafael
-J. Wysocki.
+### Step 4.2: Reviewers from b4 dig -w
+**Record:** Not retrieved — patch-specific `b4 dig` match not found.
 
 ### Step 4.3: Bug report
-**Record:**
-- **GitHub issue #1132:** ASAN global-buffer-overflow, READ of 8 bytes
-  in `AcpiEvFindRegionHandler`
-- **Reproducer:** `./acpiexec -m issue26.aml` (crafted AML)
-- **Severity:** Memory safety bug with concrete ASAN proof
+**Record:** No `Reported-by:` or syzbot link. Bug identified by
+static/code review (Copilot-assisted per message). Severity is
+theoretical until bad firmware data arrives, but consequences are real
+(OOB access).
 
-### Step 4.4: Related patches
-**Record:** Part of 27-patch ACPICA sync; 13 other ikaros hardening
-patches in same series. This patch is independently applicable.
+### Step 4.4: Related patches/series
+**Record:** Part of iwlwifi's ongoing firmware-input validation theme;
+similar fixes already backported to 6.18.y (see Phase 3.3). Appears
+standalone.
 
-### Step 4.5: Stable list discussion
-**Record:** No stable@vger.kernel.org discussion found for this specific
-patch (lore blocked for web fetch; mbox grep found no “Cc: stable”).
+### Step 4.5: Stable mailing list history
+**Record:** Could not search lore (blocked). Similar iwlwifi OOB fixes
+in this tree were explicitly nominated with `Cc: stable@vger.kernel.org`
+(e.g. `dd90880eb5ec5`).
 
 ---
 
 ## PHASE 5: CODE SEMANTIC ANALYSIS
 
 ### Step 5.1: Key functions
-**Record:** `acpi_ev_has_default_handler()`,
-`acpi_ev_find_region_handler()`
+**Record:** `iwl_mvm_window_status_notif()` — only function modified.
 
 ### Step 5.2: Callers
-**Record:**
-- `acpi_ev_has_default_handler()` ← `acpi_ev_initialize_op_regions()` in
-  `evregion.c` (boot-time `_REG` method execution)
-- `acpi_ev_find_region_handler()` ←
-  - `acpi_ev_install_handler()` (namespace walk during handler install)
-  - `acpi_ev_install_space_handler()` (handler installation)
-  - `acpi_ev_region_init()` path in `evrgnini.c` (region attachment
-    during init)
-  - `dbdisply.c` (debug only, `CONFIG_ACPI_DEBUG`)
+**Record:** Registered in
+`drivers/net/wireless/intel/iwlwifi/mvm/ops.c`:
+```348:350:drivers/net/wireless/intel/iwlwifi/mvm/ops.c
+        RX_HANDLER(BA_WINDOW_STATUS_NOTIFICATION_ID,
+                   iwl_mvm_window_status_notif, RX_HANDLER_SYNC,
+                   struct iwl_ba_window_status_notif),
+```
+Called from iwlwifi firmware RX dispatch when firmware sends
+`BA_WINDOW_STATUS_NOTIFICATION_ID` (0x13). Reachable during normal WiFi
+operation with block-ack sessions (e.g. after D0i3 per notification
+semantics).
 
 ### Step 5.3: Callees
-**Record:** Functions read `obj_desc->common_notify.handler`, then walk
-list accessing `address_space.space_id`, `handler_flags`, `next`. No
-allocation in the fixed loops.
+**Record:** `IWL_FW_CHECK()`, `rcu_dereference()`, `IS_ERR_OR_NULL()`,
+`ieee80211_mark_rx_ba_filtered_frames()`, `le16_to_cpu()`,
+`le64_to_cpu()`, `le32_to_cpu()`.
 
-### Step 5.4: Reachability
-**Record:**
-- **Boot path:** `tbxfload.c` → `acpi_ev_install_region_handlers()`;
-  `nsinit.c` → `acpi_ev_initialize_op_regions()`
-- **Runtime:** `acpi_install_address_space_handler()` used by EC, GPIO,
-  I2C, PMIC, PCC, and platform drivers
-- **Trigger:** Corrupt/crafted ACPI AML that leaves non-address-handler
-  objects on the handler list
-- **Userspace:** Not directly syscall-reachable, but ACPI tables are
-  firmware-controlled; root can override tables on some systems
+### Step 5.4: Call chain / reachability
+**Record:** Firmware → iwl trans RX → MVM RX handler table →
+`iwl_mvm_window_status_notif()`. Triggered by firmware notifications
+during WiFi RX/reordering. Not directly userspace-triggered, but
+firmware bugs/corruption are realistic (similar fixes already accepted
+for iwlwifi in stable).
 
 ### Step 5.5: Similar patterns
-**Record:** Other ACPICA code validates `common.type` before union
-access (e.g. `exdump.c`, `utdecode.c`, `nsobject.c`). `evxfregn.c` and
-`dbdisply.c` still walk handler lists without type checks — fix is
-partial but addresses the two functions named in the ASAN stack trace.
+**Record:** Same `sta_id >= num_stations` check exists in:
+- `iwl_mvm_sta_from_staid_rcu()` (`mvm.h:1354`)
+- `iwl_mvm_sta_pm_notif()` (`mac80211.c:3366`)
+- RX MPDU path (`rx.c:369`)
+- MLD RX path (`mld/rx.c:1551-1554`)
+
+This handler was the outlier missing the check.
 
 ---
 
-## PHASE 6: CROSS-REFERENCE AGAINST LOCAL TREE (6.18.44)
+## PHASE 6: CROSS-REFERENCING AGAINST LOCAL TREE (6.18.44)
 
-### Step 6.1: Buggy code present?
-**Record:** **Yes.** Current `evhandler.c` lines 132–141 and 294–305
-lack type validation. Bug present since at least 2013/2015.
+### Step 6.1: Does buggy code exist?
+**Record:** **YES.** In `rx.c` at lines 1225–1227, `sta_id` is used to
+index `fw_id_to_mac_id[sta_id]` without validation. Confirmed in tag
+`1efe5d048a391` (Linux 6.18.44). Fix is **not** yet applied in this
+checkout.
 
 ### Step 6.2: Backport complications
-**Record:** **Clean apply expected.** Mainline diff applies identically
-to this tree’s `evhandler.c` (verified via `git show c5296da2d5167`
-against current file).
+**Record:** **Clean apply** — `git apply --check` succeeded with no
+conflicts.
 
 ### Step 6.3: Related fixes already present?
-**Record:** **No.** `git grep 'validate handler object type'` returns
-nothing in this tree. Fix exists on `all-next` as `c5296da2d5167` but
-not on `stable/linux-6.18.y` at `v6.18.44`.
+**Record:** No duplicate fix for this specific path. Related iwlwifi
+firmware-validation fixes are already in 6.18.y (see Phase 3.3).
 
 ---
 
-## PHASE 7: SUBSYSTEM CONTEXT
+## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
 
-### Step 7.1: Subsystem and criticality
-**Record:** **ACPI / ACPICA events subsystem** — **CORE** (affects all
-ACPI-enabled x86/ARM systems at boot and during device operation).
+### Step 7.1: Subsystem criticality
+**Record:** **IMPORTANT** — `drivers/net/wireless/intel/iwlwifi` (Intel
+WiFi, widely deployed on laptops/desktops). `CONFIG_IWLWIFI` /
+`CONFIG_IWLMVM`.
 
-### Step 7.2: Activity
-**Record:** Actively maintained; periodic ACPICA upstream syncs. Long-
-standing handler-list code with recent hardening focus from fuzzing.
+### Step 7.2: Subsystem activity
+**Record:** Active — multiple iwlwifi fixes backported to 6.18.y in
+recent history (validation, race fixes, OOB fixes).
 
 ---
 
 ## PHASE 8: IMPACT AND RISK ASSESSMENT
 
 ### Step 8.1: Who is affected
-**Record:** All systems with `CONFIG_ACPI` during ACPI table load,
-operation-region initialization, and address-space handler installation.
+**Record:** Users with Intel WiFi (`iwlmvm`) hardware using block-ack
+reordering. Config-specific (`CONFIG_IWLWIFI` + `CONFIG_IWLMVM`), but
+that is very common on Intel platforms.
 
 ### Step 8.2: Trigger conditions
-**Record:** Handler list containing a
-non-`ACPI_TYPE_LOCAL_ADDRESS_HANDLER` object — demonstrated with crafted
-AML (`issue26.aml`). Uncommon in the field but plausible with
-malicious/corrupt ACPI tables or interpreter bugs. Requires ACPI
-processing context (boot or module load), not arbitrary unprivileged
-syscall.
+**Record:** Firmware sends `BA_WINDOW_STATUS_NOTIFICATION` with `sta_id
+>= num_stations` (or ≥16 with 5-bit encoding). Uncommon in normal
+operation, but plausible with firmware bugs or corrupted notifications.
+Not directly userspace-triggered.
 
 ### Step 8.3: Failure mode severity
-**Record:** Out-of-bounds **read** (8 bytes) → kernel oops/crash or
-information leak. **Severity: HIGH** (memory safety in core boot path).
+**Record:** Out-of-bounds read of `fw_id_to_mac_id[]` → possible invalid
+`sta` pointer → kernel oops/corruption in
+`ieee80211_mark_rx_ba_filtered_frames()`. **Severity: HIGH** (memory
+safety / potential crash).
 
 ### Step 8.4: Risk-benefit
 **Record:**
-- **Benefit:** HIGH — prevents OOB read in widely used ACPI core code
-- **Risk:** VERY LOW — 11-line defensive check, ACPI maintainer-reviewed
-- **Ratio:** Strong benefit, minimal risk
+- **Benefit:** HIGH — closes a real OOB indexing bug in a live RX path.
+- **Risk:** VERY LOW — 5-line validation, established pattern.
+- **Ratio:** Strongly favors backport.
 
 ---
 
@@ -335,130 +331,104 @@ information leak. **Severity: HIGH** (memory safety in core boot path).
 ### Step 9.1: Evidence summary
 
 **FOR backport:**
-- ASAN-confirmed global-buffer-overflow (upstream issue #1132)
-- Buggy code present in 6.18.44 since 2013/2015
-- Small, surgical, standalone fix (+11 lines, one file)
-- ACPI maintainer signed off
-- Affects boot-time and runtime ACPI handler paths
-- Consistent with ACPICA hardening pattern (type check before union
-  access)
+- Real out-of-bounds indexing bug (5-bit `sta_id` vs 16-element array)
+- Memory-safety issue with crash/corruption potential
+- Small, obviously correct, matches existing driver conventions
+- Applies cleanly to 6.18.44
+- Buggy code confirmed present; fix not yet applied
+- Similar iwlwifi firmware-validation fixes already backported to this
+  tree
+- iwlwifi maintainer sign-off
 
 **AGAINST backport:**
-- Reproducer uses crafted AML via `acpiexec` — field trigger frequency
-  uncertain
-- Fix does not cover all similar walks (`evxfregn.c`, `dbdisply.c`) —
-  incomplete hardening
-- Part of larger 27-patch series (though this patch is independent)
+- No user crash report or syzbot reproduction in commit message
+- Trigger requires bad firmware notification data (uncommon)
+- Shallow git history prevents dating when the handler was introduced
 
 **Unresolved:**
-- No kernel-runtime reproducer confirmed (only upstream `acpiexec` tool)
-- No explicit stable nomination in mailing list thread
+- Lore review thread inaccessible (Anubis)
+- Exact upstream commit hash not in this shallow tree
 
 ### Step 9.2: Stable rules checklist
-1. Obviously correct and tested? **PASS** — logic is straightforward;
-   ASAN-tested upstream; maintainer SOB
-2. Fixes a real bug affecting users? **PASS** — ASAN OOB read with
-   concrete reproducer
-3. Important issue? **PASS** — memory safety in ACPI core (HIGH
-   severity)
-4. Small and contained? **PASS** — 11 lines, one file, two functions
-5. No new features or APIs? **PASS** — defensive validation only
-6. Can apply to local tree? **PASS** — clean apply to 6.18.44
+1. Obviously correct and tested? **PASS** — pattern used throughout
+   iwlwifi; maintainer SOB; no logic concerns.
+2. Fixes a real bug? **PASS** — missing bounds check on firmware-derived
+   index.
+3. Important issue? **PASS** — OOB access / potential kernel crash
+   (HIGH).
+4. Small and contained? **PASS** — 5 lines, one function.
+5. No new features/APIs? **PASS** — defensive validation only.
+6. Can apply to local tree? **PASS** — clean apply verified; code
+   exists.
 
 ### Step 9.3: Exception categories
-**Record:** None (not device ID, quirk, DT, build, or docs). Qualifies
-as a core memory-safety bug fix.
+**Record:** Not a device-ID/quirk/DT/docs/build fix. Standard memory-
+safety bug fix.
 
 ### Step 9.4: Decision rationale
-For **this** 6.18.y tree, the vulnerable handler-list walk code exists
-and is reachable during ACPI initialization and handler management. The
-fix prevents a demonstrated out-of-bounds read with negligible
-regression risk. Incomplete coverage of similar walks elsewhere does not
-diminish the value of fixing the two functions implicated in the ASAN
-report.
+For **Linux 6.18.44**, `iwl_mvm_window_status_notif()` indexes a
+16-element array using a 5-bit firmware-provided `sta_id` without
+validation. This is a clear out-of-bounds access bug. The fix is
+minimal, follows established iwlwifi patterns, applies cleanly, and
+aligns with other firmware-input validation fixes already accepted into
+6.18.y.
 
 ---
 
 ## Verification
 
-- **[Phase 1]** Parsed subject, tags, body from commit `c5296da2d5167`
-  and user-provided message
-- **[Phase 1]** Fetched upstream ACPICA commit and issue #1132 from
-  GitHub — confirmed ASAN global-buffer-overflow
-- **[Phase 2]** Analyzed diff: +11 lines in `evhandler.c`, two type-
-  check hunks
-- **[Phase 3]** `git blame`: buggy loops from 2013 and 2015
-- **[Phase 3]** `git show aa6abd2be1cc7`: `common_notify.handler` used
-  for address-space handlers since 2015
-- **[Phase 3]** No `Fixes:` tag to follow
-- **[Phase 3]** Fix not in stable tree; present on `all-next` as
-  `c5296da2d5167`
-- **[Phase 4]** `b4 dig -c c5296da2d5167`: found lore thread at
-  patch.msgid.link
-- **[Phase 4]** `b4 dig -a`: v1, patch 18/27 in ACPICA 20260408 series
-- **[Phase 4]** `b4 dig -w`: Rafael Wysocki, linux-acpi, Intel
-  maintainers CC’d
-- **[Phase 4]** Downloaded mbox; grep found no stable nomination or NAK
-  for this patch
-- **[Phase 5]** `grep` callers: `evregion.c`, `evrgnini.c`,
-  `evhandler.c`, `dbdisply.c`
-- **[Phase 5]** Traced boot path: `tbxfload.c` →
-  `acpi_ev_install_region_handlers()`, `nsinit.c` →
-  `acpi_ev_initialize_op_regions()`
-- **[Phase 5]** `grep acpi_install_address_space_handler`: used by EC,
-  GPIO, I2C, PMIC, platform drivers
-- **[Phase 6]** `git describe HEAD`: v6.18.44 on `stable/linux-6.18.y`
-- **[Phase 6]** Read current `evhandler.c`: vulnerable code confirmed at
-  lines 132–141, 294–305
-- **[Phase 6]** `git show c5296da2d5167`: diff applies cleanly to
-  current file
-- **[Phase 6]** `grep 'validate handler object type'`: no match in tree
-- **[Phase 8]** GitHub issue #1132: ASAN READ 8 bytes, reproducer
-  `acpiexec -m issue26.aml`
+- [Phase 1] Parsed subject, tags, body from user-provided commit message
+- [Phase 1] Confirmed no Reported-by/syzbot; maintainer SOB present
+- [Phase 2] Read `rx.c:1193-1238` — buggy code without `IWL_FW_CHECK`
+  confirmed
+- [Phase 2] Read `fw/api/rx.h:972-976` — 5-bit `sta_id` mask confirmed
+- [Phase 2] Read `fw/api/mac.h:19` — `IWL_STATION_COUNT_MAX` = 16
+- [Phase 2] Read `mvm.h:1008` — `fw_id_to_mac_id[IWL_STATION_COUNT_MAX]`
+- [Phase 2] Read `fw/dbg.h:334-342` — `IWL_FW_CHECK` macro behavior
+- [Phase 3] `git rev-parse --is-shallow-repository` → `true`
+- [Phase 3] `git blame -L 1193,1238 rx.c` — shallow history only
+- [Phase 3] `git show 1efe5d048a391:rx.c` — buggy code in 6.18.44 tag
+- [Phase 3] `git log --oneline -20 --
+  drivers/net/wireless/intel/iwlwifi/` — related fixes found
+- [Phase 3] `git show 2d5dec517b539`, `dd90880eb5ec5` — similar stable
+  backports
+- [Phase 3] `git apply --check` — patch applies cleanly
+- [Phase 4] `b4 dig -c HEAD` — no match for this patch
+- [Phase 4] WebFetch lore.kernel.org — blocked by Anubis (UNVERIFIED:
+  review discussion)
+- [Phase 4] WebFetch patch.msgid.link — blocked by Anubis (UNVERIFIED:
+  thread content)
+- [Phase 5] `grep iwl_mvm_window_status_notif` — caller in
+  `ops.c:348-350`
+- [Phase 5] Compared with `mvm.h:1354`, `mac80211.c:3366`,
+  `mld/rx.c:1551`
+- [Phase 6] `git describe HEAD` → `v6.18.44-1-g2736c32da98b9`
+- [Phase 6] Makefile → 6.18.44
+- [Phase 6] Buggy code present; fix absent in HEAD
+- [Phase 8] OOB mechanism verified: 5-bit index (0–31) vs 16-element
+  array
 
----
+**YES**
 
-**YES**The background `git log --grep` search timed out on this repo, so
-I killed it and used targeted lookups instead (`b4 dig`, `git show
-c5296da2d5167`, direct file reads). That was enough to finish the
-analysis.
+ drivers/net/wireless/intel/iwlwifi/mvm/rx.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-**Verdict for 6.18.44:** backport **YES** — the fix prevents an ASAN-
-confirmed out-of-bounds read when walking ACPI address-space handler
-lists, and it applies cleanly as an 11-line change to `evhandler.c`.
-
- drivers/acpi/acpica/evhandler.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
-
-diff --git a/drivers/acpi/acpica/evhandler.c b/drivers/acpi/acpica/evhandler.c
-index 5a35dae945e20..f16c1148e602e 100644
---- a/drivers/acpi/acpica/evhandler.c
-+++ b/drivers/acpi/acpica/evhandler.c
-@@ -130,6 +130,14 @@ acpi_ev_has_default_handler(struct acpi_namespace_node *node,
- 		/* Walk the linked list of handlers for this object */
- 
- 		while (handler_obj) {
-+
-+			/* Validate handler object type before accessing fields */
-+
-+			if (handler_obj->common.type !=
-+			    ACPI_TYPE_LOCAL_ADDRESS_HANDLER) {
-+				break;
-+			}
-+
- 			if (handler_obj->address_space.space_id == space_id) {
- 				if (handler_obj->address_space.handler_flags &
- 				    ACPI_ADDR_HANDLER_DEFAULT_INSTALLED) {
-@@ -292,6 +300,9 @@ union acpi_operand_object *acpi_ev_find_region_handler(acpi_adr_space_type
- 	/* Walk the handler list for this device */
- 
- 	while (handler_obj) {
-+		if (handler_obj->common.type != ACPI_TYPE_LOCAL_ADDRESS_HANDLER) {
-+			break;
-+		}
- 
- 		/* Same space_id indicates a handler is installed */
- 
+diff --git a/drivers/net/wireless/intel/iwlwifi/mvm/rx.c b/drivers/net/wireless/intel/iwlwifi/mvm/rx.c
+index 8c1bb3a7ffcaa..1e6d06bb674c1 100644
+--- a/drivers/net/wireless/intel/iwlwifi/mvm/rx.c
++++ b/drivers/net/wireless/intel/iwlwifi/mvm/rx.c
+@@ -1224,6 +1224,11 @@ void iwl_mvm_window_status_notif(struct iwl_mvm *mvm,
+ 		/* get the station */
+ 		sta_id = (ratid & BA_WINDOW_STATUS_STA_ID_MSK)
+ 			 >> BA_WINDOW_STATUS_STA_ID_POS;
++		if (IWL_FW_CHECK(mvm,
++				 sta_id >= mvm->fw->ucode_capa.num_stations,
++				 "Invalid sta id (%d) in BA window status notification\n",
++				 sta_id))
++			continue;
+ 		sta = rcu_dereference(mvm->fw_id_to_mac_id[sta_id]);
+ 		if (IS_ERR_OR_NULL(sta))
+ 			continue;
 -- 
 2.53.0
 
