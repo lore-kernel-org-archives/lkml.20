@@ -1,98 +1,98 @@
-Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com [209.85.215.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F7FD235358
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 06:09:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.175
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1EDA239E9BF
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 06:09:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788156557; cv=none; b=LbMeRdPdIUOCfl9V5N7ZgYU8r4GgRCtPZvymTYYOHL/ZCE3BdYjYxCbq89oJ6b4w3EqhRRGQJEroU5kodCyF7mRlwADDK7MRPsCZZs9gRcI4kxV8UkFR+2PMIRskJkDKAIrv8+ESlOSntAFnRd5mgqOm78NkBW1iRHP6PT17QoA=
+	t=1788156561; cv=none; b=jjp8N5gsGvYeA0+tpHLzob950dq+Wym/b9zxc8uWGMfgUazFj95CLNti4W13oKOOl9Wu2D5hD4Osqvfo8uFaAY9M2Q854uQmleETX1MlkgjUimtraDgblWokYzuRHrxIdrBVHo5oIYo5iPwl+s9rECY9PyEDAXMvnwvZ4A6Xtkw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788156557; c=relaxed/simple;
-	bh=g0/fWI4kaAH49ZjyjviEpK4wrWOx/yLhKN6DwAytVVo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qbUpTSnj2fdzI56iL4QxQQAW2NgONuSSgIRKA1LR3Zqxfb32Khevamj9cypc02CRhebr5eZ2Fjk2kuUMlhtDplkaYChm/mQgTfNYKU8TMAcjouQPWZUQbC7XIkI/NPrdfxScWQHxBbxj/Zjm/EurPaC4+2Eg7R+gKZKS3QVZkCQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=afkCIMbq; arc=none smtp.client-ip=209.85.215.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1788156561; c=relaxed/simple;
+	bh=XMjiDlUWUD0lEd7uWazW4CIIYSMDuTnUsQicLckbR0U=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=AIL+EOaEWGjiTY0FzgzXUY5v1BOfMROBP48Gwr8n8PC+qlDqcB4PNhrduP+JCZPiNi1YOFpqwOgwBmV5NGViAX2okwhi4Nx9MBzxD8gSiNGiuBb7XB+KwrU/TEo9D/S8hI67wAwjufaL2eXToqsYDp8HzGEfOlnNJpPUdsZGV0w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=NhYV4X83; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="afkCIMbq"
-Received: by mail-pg1-f175.google.com with SMTP id 41be03b00d2f7-ca12086c06eso2456902a12.0
-        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 23:09:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1788156555; x=1788761355; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=GnV26Q/NYKfR4yRZkITW+Mqd2oTMukvcHneE1HMVheY=;
-        b=afkCIMbq6yw47jhZ5QrR1ZeYg4lNjUv2RkdXWwODcy+hZIr/FeJyKX7NelsQLRNZ5n
-         VxPNUxnd2X/DVPgon8zA2S3N/Hvwj7SCV4j75BhTjYH/bvw57ZTLQ8jyOG9wTaC6wA/6
-         3L5shuPBe3pXkqr9G6yj4VlP8W5hXS6J7qnvIMeHImLy9t0+AfAnZdEZuROKbIB57agP
-         D2N252epq+HhXtjNTyoiHWwy8fSnSjvqIUrDSoYfk+jpRB7Tv2vEqQ/LrHsoaKks2m8Y
-         ml+XAyQ2hVvD0Oa138UPG0jArJGYLtZu1HAMrGro5ROyIZPABoqVczFaqnuwXSC5Ckeq
-         Z3vA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788156555; x=1788761355;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GnV26Q/NYKfR4yRZkITW+Mqd2oTMukvcHneE1HMVheY=;
-        b=BZo5vKCNAkF4NUSHxThkFcHUiNMFWG6DwieqxcCxpov5q7/ZdSWtD5trrwl0ySdhll
-         g+qI0q2KaQ8AqMUPN9N+BRII4+Lf1dxd+HEe2FylSNufAfmuD7SVOFEf6vX3503MSzH4
-         2v3RPLH3u7eZQh4MxHSNtwQILZnuzIR0/Qdh11CGQnhutuK84cOAd6GShXw28SScrvPe
-         cNa/8TLHu7vlSsN37Wl2Bzk4vEJr9I9imEPGHOlRW+HC7Urj74/c1E8+CG94OhFlA+NL
-         ckQqKd5orWD7wcLYPky9rQKevZT742JmwmXeS8eBp5UA3Wiimnx+fDDrdDbsQz22Ro82
-         7Zhg==
-X-Forwarded-Encrypted: i=1; AHgh+RrLRc3X835uKWRjJNSkGOvOuEoovfHEptJolVx53nPAuyiMvMMgNm21756LuRCWQ+wAaWZ7bfKj0D20SD4=@vger.kernel.org
-X-Gm-Message-State: AFuF++mAlthYWfBLYGJB0C/TJHgPciJtj6vIV4f5/PzGO/byBAPO+8zy
-	wVCncWIJ045KOsUQRGm+UPEmbywdEK2oGtXRFIjrj9cnstcXY9FJRivD5olQrtZuqb0=
-X-Gm-Gg: AR+sD119SO8uuBw8tmSswsDOlu0yFWmbwJah2qpX0iZILJYgnkS0qfttPwUrTd9mADz
-	Iq8+s+CKduBoz0oIwy9WbnN0d7TQ49PIh6zHViHhqAuAKyM6Tbs0Svgz0Vw60g7v2XB/LlcutMj
-	4pTvT+UGJDkIgZDyAWjKm1DWfcjMQ/SddUY39fs2BLMQNnFxv3eqo5UMxWgMGZs2nCZUL+mDyvZ
-	1w+Tb04l/zcIE7bSaiT8FktQhfgiTlloeFpx4i/sGUHpG1BTtCydX5ZVzID93ZiZfs/XOfNg46x
-	aYDxL5WlUMDJ9bUf/T9+zHs/4tkL1iCwTqO5WDzWKBDNKS8tE02gOq4UxcJYHzA3LDtB6tmtz92
-	h0nMPno0yvdo0TczZhkFbn42rcc7o/iQ2boW8wF3DjiVjB1CpAmZPTJqd6grqyGOstIC5QfWq1N
-	pPHmaty7ivz7Z0m9r5wsP+O5sIxi3m8pbvQttRU+/USh9cLhgQ33ysc2Ux/jHYADRUkHKULzpZF
-	j4=
-X-Received: by 2002:a05:6a21:6b87:b0:3cc:f008:8123 with SMTP id adf61e73a8af0-3d266582c55mr42074601637.8.1788156554788;
-        Sun, 30 Aug 2026 23:09:14 -0700 (PDT)
-Received: from localhost ([122.172.87.224])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3286f7bc825sm31297019eec.9.2026.08.30.23.09.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 30 Aug 2026 23:09:14 -0700 (PDT)
-Date: Mon, 31 Aug 2026 11:39:11 +0530
-From: Viresh Kumar <viresh.kumar@linaro.org>
-To: Sumeet Pawnikar <sumeet4linux@gmail.com>
-Cc: vireshk@kernel.org, nm@ti.com, sboyd@kernel.org,
-	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] opp: Use %pe to print symbolic error name
-Message-ID: <apUahwItxSCj-dE-@vireshk-B250M-D3H>
-References: <20260829134925.8883-1-sumeet4linux@gmail.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="NhYV4X83"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 53E8E14BF;
+	Sun, 30 Aug 2026 23:09:15 -0700 (PDT)
+Received: from [10.164.19.53] (unknown [10.164.19.53])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 6B26A3F8C6;
+	Sun, 30 Aug 2026 23:09:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1788156559; bh=XMjiDlUWUD0lEd7uWazW4CIIYSMDuTnUsQicLckbR0U=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=NhYV4X83xcSoXc3krWIy4c3Q+4GvV8j3Y57msAuhGticUjas+j+t63IiPIfMJvy5W
+	 KW+KG96C0prQYGADilYGIQGFNyltA9FGVa9sJow3Y2qfbNdqB0OZ0zGzlajZIdpI0k
+	 qXFVh4f93XkmBsi/ll3CHAAQCaG84ssRDmjaawC8=
+Message-ID: <bec5eaef-d084-467f-9bfd-43f7dedc1aa7@arm.com>
+Date: Mon, 31 Aug 2026 11:39:14 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260829134925.8883-1-sumeet4linux@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] mm: vmalloc: fix vmap_purge_lock livelock under memory
+ pressure
+To: Andrew Morton <akpm@linux-foundation.org>, Ye Liu <ye.liu@linux.dev>
+Cc: Uladzislau Rezki <urezki@gmail.com>, Ye Liu <liuye@kylinos.cn>,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org
+References: <20260828091753.299295-1-ye.liu@linux.dev>
+ <20260828110503.e1eff32a9b7df9a8b2ddd4d6@linux-foundation.org>
+Content-Language: en-US
+From: Dev Jain <dev.jain@arm.com>
+In-Reply-To: <20260828110503.e1eff32a9b7df9a8b2ddd4d6@linux-foundation.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On 29-08-26, 19:19, Sumeet Pawnikar wrote:
-> Replace PTR_ERR() and %ld with %pe and pass the original pointer directly
-> to dev_dbg(), dev_warn(), dev_err() or pr_err(). The %pe format specifier
-> prints a symbolic error name (e.g. -ENOMEM) when CONFIG_SYMBOLIC_ERRNAME
-> is enabled, otherwise it falls back gracefully and prints the raw integer
-> value. This makes error messages more readable without any functional
-> change.
+
+
+On 28/08/26 11:35 pm, Andrew Morton wrote:
+> On Fri, 28 Aug 2026 17:17:53 +0800 Ye Liu <ye.liu@linux.dev> wrote:
 > 
-> Signed-off-by: Sumeet Pawnikar <sumeet4linux@gmail.com>
-> ---
->  drivers/opp/core.c | 24 ++++++++++++------------
->  drivers/opp/of.c   |  4 ++--
->  2 files changed, 14 insertions(+), 14 deletions(-)
+>> From: Ye Liu <liuye@kylinos.cn>
+>>
+>> The vmap_purge_lock mutex can be held for an extended period by
+>> __purge_vmap_area_lazy() which calls flush_work() to wait for
+>> purge_vmap_node workers while holding the lock.  Under memory
+>> pressure, those workers may themselves be blocked in direct
+>> reclaim trying to acquire the same lock via the
+>> vmap_node_shrink_scan() shrinker callback, creating a circular
+>> dependency that deadlocks the entire system.
+>>
+>> Two places acquire vmap_purge_lock from paths that can be reached
+>> during direct reclaim:
+>>
+>> 1. vmap_node_shrink_scan(): replace blocking guard(mutex) with
+>>    mutex_trylock().  This is a shrinker that only decays the vmap
+>>    pool and returns SHRINK_STOP without freeing memory; skipping a
+>>    decay cycle when the lock is contended is harmless and prevents
+>>    tasks from piling up on the mutex in the direct reclaim path.
+>>
+>> 2. reclaim_and_purge_vmap_areas(): replace mutex_lock() with
+>>    mutex_trylock().  This is called from the vmalloc allocation
+>>    overflow path; if trylock fails, another thread is already
+>>    purging and the allocator's retry will find freed space.  The
+>>    notifier chain provides a fallback if the retry still fails.
+>>
+>> Both trylock failures break the circular dependency: the lock
+>> holder's flush_work() can complete because workers are no longer
+>> blocked on vmap_purge_lock in the direct reclaim path.
+> 
+> Thanks.  AI review expressed a couple of concerns:
+> 	https://sashiko.dev/#/patchset/20260828091753.299295-1-ye.liu@linux.dev
 
-Applied. Thanks.
 
--- 
-viresh
+Sounds legit to me. Now there is no guarantee of purge being successful, and we
+can get a spurious failure.
+
+How about using a WQ_RECLAIM workqueue:
+
+vmap_purge_wq = alloc_workqueue("vmap_purge",
+				WQ_MEM_RECLAIM | WQ_PERCPU, 0);
+
+I see the same pattern in __lru_add_drain_all() and kmem_cache_init_late().
+
