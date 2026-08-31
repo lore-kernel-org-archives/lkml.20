@@ -1,142 +1,149 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 413063DA7FB;
-	Mon, 31 Aug 2026 08:30:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 549803D47DA;
+	Mon, 31 Aug 2026 08:30:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788165031; cv=none; b=TOIYtLusj968NnM+pj26rQcwRmlK1t3LiW5dDdqvDp8CZQTPhzCXNTUHus7l63ZdLEziIgIpFtdgFeMEyupuJDQPQRror/BcVqKvxW1Qabv0fwOP7SwbTcn1SQ4rmErJ3k78oX5iQzXP6fS3SSn2/QXPPY1uhCoITAhg658aSAw=
+	t=1788165040; cv=none; b=iRQTe8xQ214rMT4sSFSnGK0Ig74KuNxM/wRV8RjKD5x5J7bp6LLopyqfmb7EwLd7DfPpup8ol+RWbVXeVFg80sIk9Ub3mmxYaHivwb0tENMUR28zhvmhzufUyTNeKRjEFkaKtn1q2GYPGR6cakS6yhBQCB5bX1qA2LJiWjGO6o0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788165031; c=relaxed/simple;
-	bh=Cs/FtVOHd4Hy/bH3NtIPuFxWw9rytXuKP7JMV4qPfvw=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=cW2WsbAWOk7V2B86Ap+4ZyELlqET0AkXjDK/fQPWQxqqvDGgdd8lZ40oSdUpm862ewMCc+K0U1GZKoNz66DcbUaAgF76Daxf2OObNbHHrQHVHa/klWpbyIwwYjrndre/cqw67LFhG2GJR3+HUCXUtYzWTM6WdRBdmGVD1W6GApg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 347101aaa51611f19a56ed5b684f684d-20260831
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:11aa1790-5758-460d-bb13-c487a77e9fe2,IP:0,U
-	RL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
-	:release,TS:-5
-X-CID-META: VersionHash:7db8b62,CLOUDID:0512239b95e893dfc728865e2659f886,BulkI
-	D:nil,BulkQuantity:0,SF:81|82|102|850|865|898,TC:nil,Content:0|15|50,EDM:-
-	3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,A
-	V:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 347101aaa51611f19a56ed5b684f684d-20260831
-X-User: zenghongling@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <zenghongling@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 1675361273; Mon, 31 Aug 2026 16:30:21 +0800
-From: Hongling Zeng <zenghongling@kylinos.cn>
-To: linkinjeon@kernel.org,
-	hyc.lee@gmail.com
-Cc: ntfs@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	zhongling0719@126.com,
-	Hongling Zeng <zenghongling@kylinos.cn>,
-	stable@vger.kernel.org,
-	Baolin Liu <liubaolin@kylinos.cn>
-Subject: [PATCH] ntfs: take invalidate_lock in ntfs_filemap_page_mkwrite()
-Date: Mon, 31 Aug 2026 16:30:15 +0800
-Message-Id: <20260831083015.80396-2-zenghongling@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260831083015.80396-1-zenghongling@kylinos.cn>
-References: <20260831083015.80396-1-zenghongling@kylinos.cn>
+	s=arc-20240116; t=1788165040; c=relaxed/simple;
+	bh=ZEohXMso2UnLfOaPwh8fE/Y5u848DkPeMrU9krgJk2g=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=OOiKY30AEqMDBjeeMMthmnaamhux/c5ewlXi2rj4usmiLV6xxb0fyjUm96dBjpDyx+IJQ3ANXGL8HLWMmIBqhW/S7bBUxiel/AxndTs7uw12fne4iAPTFl5IGVffIY8fyrR6jFmOni2JtIkznu1vFgizhfnJbVfi/WWo5pmIhJs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=GCyrxT4N; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=eNpniQ51; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=TuDv6mXB; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=YSFmvwaH; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="GCyrxT4N";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="eNpniQ51";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="TuDv6mXB";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="YSFmvwaH"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id D59F822365;
+	Mon, 31 Aug 2026 08:30:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1788165033; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=5g9HGIsPHpRg7BEmppOVWDI8WBxx2zBXbWq8AiSDDOA=;
+	b=GCyrxT4NzEf8rP8qPUAeSNgLXruNmYEdCAjDRBh2aftm7WTfFiHKOBJVgs46Ul/j/AUiGj
+	2P3phjd3fhWBuq14fMySuuw/DYTiMlBwzZUJlOV/nAp+U7bjzQrqCqv6Ai9XwSml8F9ZJG
+	X50/kLvv5AyybLfDignkdC737ROu0Z0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1788165033;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=5g9HGIsPHpRg7BEmppOVWDI8WBxx2zBXbWq8AiSDDOA=;
+	b=eNpniQ51yUbRWOFLvJHCn1v5dsKqtvP0dJAd0y2xCjretK04iscMe4BEUxuCh0rIxCzuUg
+	dhek/qpg82GZZECA==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1788165028; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=5g9HGIsPHpRg7BEmppOVWDI8WBxx2zBXbWq8AiSDDOA=;
+	b=TuDv6mXBZCSuP8TkuPVOnoSmD+yI+eqP0T2dis/eHGSm5JetW0lqRiYcu+6HVV7bQOQsrf
+	o9TRgwlXplyZmGwc/KpGXDb9tmRCevmeQ3nXDpqIqsLb61q2CA6tG4KgweBRNikoqQs4+o
+	jAD1NX075mL1CIH+aTZcZ+7uWt5lv44=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1788165028;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=5g9HGIsPHpRg7BEmppOVWDI8WBxx2zBXbWq8AiSDDOA=;
+	b=YSFmvwaHDcSh3dQGcturTeemuI26eDgkS5mPSYVX0b6qc00JdW3hwrEYZp+tBp5CB1O/Co
+	V17nt+jb8QjvnwBA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 597C113515;
+	Mon, 31 Aug 2026 08:30:27 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id dDQ/OaM7lWoDFwAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Mon, 31 Aug 2026 08:30:27 +0000
+Date: Mon, 31 Aug 2026 10:30:27 +0200
+Message-ID: <877bl6sndo.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Jonathan Seth Mainguy <jon@soh.re>
+Cc: linux-sound@vger.kernel.org,
+	perex@perex.cz,
+	tiwai@suse.com,
+	niklas@aldervall.se,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/4] ALSA: usb-audio: support Roland Capture sample rates
+In-Reply-To: <20260829005001.534571-1-jon@soh.re>
+References: <20260829005001.534571-1-jon@soh.re>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spam-Level: 
+X-Spam-Score: -3.30
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-3.30 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-0.993];
+	MIME_GOOD(-0.10)[text/plain];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TO_DN_SOME(0.00)[];
+	ARC_NA(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[6];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:mid]
 
-ntfs_filemap_page_mkwrite() calls iomap_page_mkwrite() without holding
-mapping->invalidate_lock, so a concurrent truncate or fallocate can be
-in the middle of invalidating pagecache and rewriting the runlist while
-the write fault maps blocks and dirties the folio.  This races with
-ntfs_attr_fallocate(), which merges clusters into the in-memory
-runlist, drops the runlist lock, and only afterwards zeroes the newly
-allocated clusters on disk; and with the punch-hole/insert/collapse
-paths that free clusters after truncating the cache.
+On Sat, 29 Aug 2026 02:49:57 +0200,
+Jonathan Seth Mainguy wrote:
+> 
+> The fixed quirks for these devices currently describe 44.1 kHz:
+> 
+>   0582:0120  Roland OCTA-CAPTURE
+>   0582:012f  Roland QUAD-CAPTURE
+> 
+> Add their 48, 96 and 192 kHz alternate settings. The OCTA-CAPTURE's existing
+> S32_LE format description causes the white-noise playback reported by Niklas
+> Aldervall and other users. Change it to the packed S24_3LE format used by the
+> device.
+> 
+> Expose the OCTA-CAPTURE control MIDI cables and synchronize the hardware clock
+> with the selected endpoint rate during stream preparation.
+> 
+> Tested on physical OCTA-CAPTURE and QUAD-CAPTURE units. Rate changes followed
+> by full-duplex streaming succeeded at 44.1, 48, 96 and 192 kHz on both models.
+> External digital clocking on the OCTA-CAPTURE was tested at all supported
+> rates: 44.1, 48 and 96 kHz. The OCTA-CAPTURE disables its digital input and
+> output at 192 kHz, so external clocking is unavailable at that rate.
+> 
+> Reported-by: Niklas Aldervall <niklas@aldervall.se>
+> Closes: https://lore.kernel.org/alsa-devel/6b623cb6-3a9b-4fe4-a57c-9a165d261692@aldervall.se/
+> Signed-off-by: Jonathan Seth Mainguy <jon@soh.re>
+> 
+> Jonathan Seth Mainguy (4):
+>   ALSA: usb-audio: add Roland OCTA-CAPTURE multirate support
+>   ALSA: usb-audio: expose OCTA-CAPTURE control MIDI cables
+>   ALSA: usb-audio: add Roland QUAD-CAPTURE multirate support
+>   ALSA: usb-audio: set Roland Capture rate during stream preparation
 
-Per Documentation/filesystems/locking.rst, ->page_mkwrite() must ensure
-there are no truncate/invalidate races, "usually mapping->invalidate_lock
-is suitable for proper serialization".  xfs takes its mmaplock (= the
-invalidate_lock rwsem) shared in exactly this path.
+Applied to for-next branch.  Thanks.
 
-Take invalidate_lock shared around iomap_page_mkwrite().  The read-only
-fault path is already covered because filemap_fault() itself grabs
-invalidate_lock shared on instantiation/read paths; only page_mkwrite
-was bypassing it in this driver.
 
-Fixes: 9c87959601e8 ("ntfs: update file operations")
-Cc: stable@vger.kernel.org
-Co-developed-by: Namjae Jeon <linkinjeon@kernel.org>
-Reviewed-by: Hyunchul Lee <hyc.lee@gmail.com>
-Reviewed-by: Baolin Liu <liubaolin@kylinos.cn>
-Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
----
-Change in v1:
- -Move truncate_pagecache() and pagecache_isize_extended() inside the
- invalidate_lock hold range in ntfs_fallocate(), per review comment
----
- fs/ntfs/file.c | 20 +++++++++++++++-----
- 1 file changed, 15 insertions(+), 5 deletions(-)
-
-diff --git a/fs/ntfs/file.c b/fs/ntfs/file.c
-index 585ab2145797..8164326b7812 100644
---- a/fs/ntfs/file.c
-+++ b/fs/ntfs/file.c
-@@ -676,6 +676,7 @@ static ssize_t ntfs_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
- static vm_fault_t ntfs_filemap_page_mkwrite(struct vm_fault *vmf)
- {
- 	struct inode *inode = file_inode(vmf->vma->vm_file);
-+	struct address_space *mapping = inode->i_mapping;
- 	vm_fault_t ret;
- 
- 	if (NInoWofCompressed(NTFS_I(inode)))
-@@ -684,7 +685,14 @@ static vm_fault_t ntfs_filemap_page_mkwrite(struct vm_fault *vmf)
- 	sb_start_pagefault(inode->i_sb);
- 	file_update_time(vmf->vma->vm_file);
- 
-+	/*
-+	 * Serialize against truncate/fallocate which hold the lock
-+	 * exclusively while invalidating pagecache and changing extents.
-+	 */
-+	filemap_invalidate_lock_shared(mapping);
- 	ret = iomap_page_mkwrite(vmf, &ntfs_page_mkwrite_iomap_ops, NULL);
-+	filemap_invalidate_unlock_shared(mapping);
-+
- 	sb_end_pagefault(inode->i_sb);
- 	return ret;
- }
-@@ -1185,13 +1193,15 @@ static long ntfs_fallocate(struct file *file, int mode, loff_t offset, loff_t le
- 
- 	err = file_modified(file);
- out:
-+	if (!err && mode == 0 && NInoNonResident(ni) &&
-+	    offset > old_size) {
-+		truncate_pagecache(vi, old_size);
-+		pagecache_isize_extended(vi, old_size, offset);
-+	}
-+
- 	filemap_invalidate_unlock(vi->i_mapping);
-+
- 	if (!err) {
--		if (mode == 0 && NInoNonResident(ni) &&
--		    offset > old_size) {
--			truncate_pagecache(vi, old_size);
--			pagecache_isize_extended(vi, old_size, offset);
--		}
- 		NInoSetFileNameDirty(ni);
- 		inode_set_mtime_to_ts(vi, inode_set_ctime_current(vi));
- 		mark_inode_dirty(vi);
--- 
-2.25.1
-
+Takashi
