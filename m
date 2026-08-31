@@ -1,43 +1,51 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FFC449B20D;
-	Mon, 31 Aug 2026 13:39:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05B684E084E;
+	Mon, 31 Aug 2026 13:39:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183578; cv=none; b=gvzIeUoHh1OlvdiYhS26QXq4zMzp95W207Fl6EN2F02ZkENM5NtV/ruumtcUNR8EAMYNkm/qoqj8nswRU+T8UVgf+RkZmAjDSXbO6ao8DE9ljqYwfK6xQ7X2NRWZzaDEwoS5Fmc0Y3QlNMoramIYhp/TW5SE/EOrWw4WdHNuGLU=
+	t=1788183583; cv=none; b=kMfMs0acl6o2zYrdYgK4BnhaAi0letVs3hlZhDGBQ+sT0T8aPH0CyTdnYctfvqRJmCJkjbZOJrvLsDZEJa+V5hAVqKOgFGqEeobtwUZBAYgE2OPQahDhuAHAErQJqJEEwrSva53oitK5M/FutnUsUdaH3n5UL5MmV1wEkpSn3cc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183578; c=relaxed/simple;
-	bh=+x+WQGieINmiuhSwbwuIopqWzBCVkCm65GxhgE+kCZs=;
+	s=arc-20240116; t=1788183583; c=relaxed/simple;
+	bh=dMwVcp8FBXhsGODO6KrlNhYd9dc9H1SiUP76wGM67Yg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=jDJLleEEmDhfRuazhikkO2350lqC+tzKjM5A/hvWGCpxim4krYiP6jLKtqJavoR/XWqvDL2vOjjdEdsVWrWCK4Qnjmrn7vfkNbZVVLTfzERNqzGIi1FOs/Uig9SAKZ2wNlicaCCwb0/XAgJVkctNWY9YSTXNlcYNy3QcY6Bqo88=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Aws54kfo; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=VivHM86B8f6hW7S+dWjr3Rnp6ld0d+k2Zow21rGImHEAWXAyQp2SU3mXK8AFy2pktCGpayG6OOwObyFdR02Hms9nzHc5CnX+YVVDnC1YWXBCc5LHwi+xLtq1ekQqt0IypyXF1bwfId+rhTHWMEaA4m1w5ighH47oxTeLi+YEHeY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iJn0GRdQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Aws54kfo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 228371F00A3D;
-	Mon, 31 Aug 2026 13:39:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iJn0GRdQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B0FB1F00A3E;
+	Mon, 31 Aug 2026 13:39:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788183576;
-	bh=Kv1rJF0WAF0FzD6fLDXCRJ7knt7swoLytU43o0uKw3k=;
+	s=k20260515; t=1788183580;
+	bh=HoB4g/rt9CqwjhhLJydbZlhFZuVjpMaZ8oMy9xa3FGQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Aws54kfo9NU1A8lUG+FbHzDNnUF/+ONsnQFO8AJvHWlRWKweXOF5mKQIKXW9njbay
-	 N0pXV1o69rLEr36MKtfHMQHOPUgu/FfcUQvKwayypfr9/I5nCv1YHMXLCtL+pshV2I
-	 yCgomWRoWXFKJUiVdorYn9SPkSFJLLCRWkFBPnSwHoC9JBvq/kgNIWvkvJv9IgZ16N
-	 4cQHUjQRxyWSKx/zZz+g6Ek/iXr4oHsszunk5gL3gDyEC+FCoToDOqXysxOJtH+0yB
-	 i4HupPYK4jabeLdif+7iVOl8k21NkDn9fxJl+0xhAJlGDUyDDd2HorMiAxp8I36h8y
-	 JI052iFqJK3Qg==
+	b=iJn0GRdQ/0pnDM/B63J/+VLi0rDX4dH0H+pIJvRYRI1oY9QyNmxfXPlxSNz9RPb5s
+	 jllJRqrADRwmtm75f/7sIlrGtZ50752zIikT6K+ad1YbW/jdVeOCsJrHqQgnrqrSYV
+	 ImQPCUHvG64veA2qMxvzT8WG9ku8Mqkh6vVZYaAkTqGVyhwxapSqOc+6R1pwxMsRNL
+	 kV9uBP0IBLuZwsL+VrJCBqUg3UXZHce14Aj+Rl3xsuq3G9Y05m8EGlubd6DPQPhcS0
+	 lhl2arWjFtAEwv6lKQxyxB/x3aA34rBz2Q4TRnW0DbqgTVhLeqA91E0mXvCuGw09J3
+	 tArUGGs0T0maw==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Riccardo Boninsegna <rboninsegna2@gmail.com>,
-	Sean Young <sean@mess.org>,
+Cc: Bard Liao <yung-chuan.liao@linux.intel.com>,
+	=?UTF-8?q?P=C3=A9ter=20Ujfalusi?= <peter.ujfalusi@linux.intel.com>,
+	Liam Girdwood <liam.r.girdwood@intel.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+	Vinod Koul <vkoul@kernel.org>,
+	Mark Brown <broonie@kernel.org>,
 	Sasha Levin <sashal@kernel.org>,
-	mchehab@kernel.org,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-5.10] media: rc: mceusb: Add support for 04eb:e033
-Date: Mon, 31 Aug 2026 09:23:26 -0400
-Message-ID: <20260831133314.4125787-178-sashal@kernel.org>
+	perex@perex.cz,
+	tiwai@suse.com,
+	lgirdwood@gmail.com,
+	daniel.baluta@nxp.com,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	sound-open-firmware@alsa-project.org
+Subject: [PATCH AUTOSEL 6.18] ASoC/soundwire: Intel: reset the PCMSyCM registers in hda_sdw_bpt_close
+Date: Mon, 31 Aug 2026 09:23:28 -0400
+Message-ID: <20260831133314.4125787-180-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -47,369 +55,517 @@ List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 6.18.48
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Riccardo Boninsegna <rboninsegna2@gmail.com>
+From: Bard Liao <yung-chuan.liao@linux.intel.com>
 
-[ Upstream commit 0692c2602e4cd410aa045f8991bd1c142b2e56f9 ]
+[ Upstream commit 992eb0dfbc4f594d60ae57974efa835bfac34d1e ]
 
-This is a Sonix SN8P2202XG microcontroller with firmware compatible with
-the already supported Northstar 04eb:e004, implementing an MCE IR receiver
-(PCB seems to be tracked for a transmitter too but missing related parts).
+Resetting the PCMSyCM registers is required for Intel SoundWire stream. The
+same procedure is done in sdw_hda_dai_hw_params() for the normal
+SoundWire stream, too.
 
-Found in a Skintek SK-CR-IN+IR ( http://www.skintek.it/SK-CR-IN+IR.php )
-internal 3.5 inch USB card reader and MCE receiver combo
-(implemented by, and wired as, separate USB devices)
-PCB marking: AU6475 966816 STIR REV:A02 MCE
-
-Signed-off-by: Riccardo Boninsegna <rboninsegna2@gmail.com>
-Signed-off-by: Sean Young <sean@mess.org>
+Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Reviewed-by: Liam Girdwood <liam.r.girdwood@intel.com>
+Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>
+Acked-by: Vinod Koul <vkoul@kernel.org>
+Link: https://patch.msgid.link/20260730012518.2180906-1-yung-chuan.liao@linux.intel.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-## Phase 1: Commit Message Forensics
+# Stable Backport Analysis: Reset PCMSyCM Registers in
+`hda_sdw_bpt_close`
 
-### Step 1.1: Parse the Subject Line
-**Record:** `[media: rc: mceusb]` `[Add]` `USB device ID 04eb:e033 to
-the existing mceusb IR transceiver driver`
-
-### Step 1.2: Parse All Commit Message Tags
-**Record:**
-- **Fixes:** none
-- **Reported-by:** none
-- **Tested-by:** none
-- **Reviewed-by:** none
-- **Acked-by:** none
-- **Link:** none (hardware product page in body only:
-  http://www.skintek.it/SK-CR-IN+IR.php)
-- **Cc: stable@vger.kernel.org:** none (expected; not a negative signal)
-- **Signed-off-by:** Riccardo Boninsegna `<rboninsegna2@gmail.com>`
-  (author)
-- **Signed-off-by:** Sean Young `<sean@mess.org>` (media/rc maintainer
-  co-signer — quality signal)
-
-**Notable patterns:** Maintainer Signed-off-by; no syzbot/sanitizer
-reports; hardware-specific enablement patch.
-
-### Step 1.3: Analyze Commit Body
-**Record:**
-- **Bug described:** USB device `04eb:e033` (Sonix SN8P2202XG,
-  Northstar-variant MCE IR receiver) is not recognized by `mceusb`
-  because its product ID is missing from `mceusb_dev_table[]`.
-- **Symptom:** IR receiver on Skintek SK-CR-IN+IR internal card reader
-  does not bind to `mceusb`; remote control input unavailable.
-- **Version info:** none stated.
-- **Root cause (author):** Firmware-compatible variant of already-
-  supported `04eb:e004`; only the USB product ID differs.
-
-### Step 1.4: Detect Hidden Bug Fixes
-**Record:** Not a crash/leak/race fix. This is explicit **hardware
-enablement** via a missing USB ID — a recognized stable exception
-category, not a disguised memory-safety fix.
+**Local tree:** `v6.18.44` (6.18.y stable)
+**Commit under review:** `992eb0dfbc4f5` — *ASoC/soundwire: Intel: reset
+the PCMSyCM registers in hda_sdw_bpt_close*
+**Status in this tree:** Not present (on `master` only)
 
 ---
 
-## Phase 2: Diff Analysis
+## PHASE 1: COMMIT MESSAGE FORENSICS
 
-### Step 2.1: Inventory the Changes
+### Step 1.1: Subject Line
+**Record:** `[ASoC/soundwire: Intel]` `[reset]` — Reset PCMSyCM
+registers during BPT stream close to match the open/setup path.
+
+### Step 1.2: Tags
 **Record:**
-- **Files:** `drivers/media/rc/mceusb.c` only (+2 lines net in the ID
-  table)
-- **Functions modified:** none (only `mceusb_dev_table[]` static data)
-- **Scope:** single-file, surgical USB ID table addition
+- **Signed-off-by:** Bard Liao, Mark Brown (ignore pipeline-added SOBs)
+- **Reviewed-by:** Péter Ujfalusi, Liam Girdwood, Pierre-Louis Bossart
+- **Acked-by:** Vinod Koul (SoundWire maintainer)
+- **Link:** https://patch.msgid.link/20260730012518.2180906-1-yung-
+  chuan.liao@linux.intel.com
+- **No** Fixes:, Reported-by:, Tested-by:, Cc: stable@vger.kernel.org
+- Notable: Three Intel audio maintainers reviewed; SoundWire maintainer
+  Acked.
+
+### Step 1.3: Body Analysis
+**Record:**
+- **Bug:** `hda_sdw_bpt_close()` deprepared DMA buffers but did not
+  reset PCMSyCM hardware registers programmed during
+  `hda_sdw_bpt_open()`.
+- **Symptom:** Not explicitly stated (no crash trace or user report),
+  but stale PCMSyCM state can interfere with subsequent SoundWire audio
+  streams on the same link.
+- **Root cause:** Asymmetric open/close — open programs PCMSyCM via
+  `hdac_bus_eml_sdw_map_stream_ch()`, close omitted the inverse reset.
+- **Reference pattern:** Commit message cites `sdw_hda_dai_hw_params()`;
+  the actual reset pattern lives in `sdw_hda_dai_hw_free()` (commit
+  message typo, not a code issue).
+
+### Step 1.4: Hidden Bug Fix?
+**Record:** Yes. Despite the neutral "reset" wording, this is a real
+hardware cleanup bug — missing register teardown on a production code
+path, not cosmetic cleanup.
+
+---
+
+## PHASE 2: DIFF ANALYSIS
+
+### Step 2.1: Inventory
+**Record:**
+| File | Change |
+|------|--------|
+| `sound/soc/sof/intel/hda-sdw-bpt.c` | +24 lines (core fix) |
+| `drivers/soundwire/intel_ace2x.c` | +3 lines (pass `link_id`) |
+| `include/sound/hda-sdw-bpt.h` | +2 lines (API signature) |
+
+**Functions modified:** `hda_sdw_bpt_close()`, `hda_sdw_bpt_open()`
+(error path), `intel_ace2x_bpt_open_stream()`,
+`intel_ace2x_bpt_close_stream()`
+**Scope:** Single-subsystem, surgical fix across 3 files.
 
 ### Step 2.2: Code Flow Change
 **Record:**
-- **Before:** USB probe matches `04eb:e004` only for Northstar vendor;
-  `04eb:e033` does not match → no `mceusb` bind.
-- **After:** `04eb:e033` matches the same way as `04eb:e004` →
-  `mceusb_dev_probe()` runs on plug-in.
-- **Path affected:** USB hotplug / enumeration normal path for this
-  device class.
+- **Hunk 1 (`hda_sdw_bpt_close`):** Before: only DMA deprepare. After:
+  reset PDI0 (playback) and PDI1 (capture) PCMSyCM registers via
+  `hdac_bus_eml_sdw_map_stream_ch(..., 0, 0, stream)`, then deprepare
+  DMA regardless of reset errors.
+- **Hunk 2 (API):** Adds `int link_id` parameter to
+  `hda_sdw_bpt_close()` to identify the SoundWire sublink.
+- **Hunk 3 (callers):** `intel_ace2x.c` passes `sdw->instance`;
+  `hda_sdw_bpt_open()` error path passes existing `link_id`.
 
 ### Step 2.3: Bug Mechanism
-**Record:**
-- **Category:** hardware workarounds / device ID addition
-- **Mechanism:** Missing `USB_DEVICE(VENDOR_NORTHSTAR, 0xe033)` entry
-  prevents driver binding. No `.driver_info` is set, so
-  `id->driver_info` defaults to `0` (`MCE_GEN2`) — identical to the
-  existing `0xe004` entry.
+**Record:** **Category (g) — logic/correctness / hardware state
+cleanup.**
+`hda_sdw_bpt_open()` programs PCMSyCM for PDI0 and PDI1. Without reset
+on close, hardware retains stale channel/stream mappings. The normal
+SoundWire path already resets in `sdw_hda_dai_hw_free()`:
 
-### Step 2.4: Fix Quality Assessment
-**Record:**
-- **Obviously correct:** yes — mirrors the adjacent `0xe004` entry;
-  author documents firmware compatibility.
-- **Minimal:** 2 lines.
-- **Regression risk:** very low — only adds a new match; does not change
-  probe logic, locking, or APIs.
+```631:638:sound/soc/sof/intel/hda-dai.c
+        /* in the case of SoundWire we need to reset the PCMSyCM
+registers */
+        ret = hdac_bus_eml_sdw_map_stream_ch(sof_to_bus(sdev), link_id,
+cpu_dai->id,
+                                             0, 0, substream->stream);
+```
 
----
+The fix applies the same reset pattern to the BPT path.
 
-## Phase 3: Git History Investigation
-
-### Step 3.1: Blame the Changed Lines
-**Record:** In this checkout (`6.18.43`), `VENDOR_NORTHSTAR` / `0xe004`
-are at lines 160 and 399. The `0xe033` entry is **not** present. The
-Northstar `0xe004` entry exists in `stable/linux-6.18.y`. This tree’s
-history is heavily squashed (many `mceusb.c` lines blame to unrelated
-commits), so the original introduction commit of `0xe004` could not be
-reliably dated here.
-
-### Step 3.2: Follow Fixes: Tag
-**Record:** N/A — no `Fixes:` tag.
-
-### Step 3.3: File History for Related Changes
-**Record:** Recent `drivers/media/rc/` stable commits include real bug
-fixes (`e250b672d40a9` race fix, probe error-handling fixes), but no
-prior `0xe033` addition. On `origin/master`, `0xe033` is already
-present; on current HEAD it is not.
-
-### Step 3.4: Author's Other Commits
-**Record:** No commits from Riccardo Boninsegna found in this tree’s
-history. Sean Young is the media/rc maintainer (Signed-off-by).
-
-### Step 3.5: Dependent/Prerequisite Commits
-**Record:** **No dependencies.** Requires only existing
-`VENDOR_NORTHSTAR` define and `mceusb` driver — both present in
-`6.18.y`. Standalone 2-line backport.
+### Step 2.4: Fix Quality
+**Record:** Obviously correct — mirrors established
+`sdw_hda_dai_hw_free()` behavior. Minimal, symmetric with `_open()`.
+Pierre-Louis Bossart confirmed: *"LGTM, this patch makes the _close()
+sequence and api mimic the _open() one."* Low regression risk; continues
+DMA cleanup even if register reset fails.
 
 ---
 
-## Phase 4: Mailing List and External Research
+## PHASE 3: GIT HISTORY INVESTIGATION
 
-### Step 4.1: Original Patch Discussion
-**Record:** `b4 dig` could not be run — individual commit SHA not
-available in this mirror (history squashed into merge commits).
-`lore.kernel.org` returned **403 Forbidden**. `git.kernel.org` grep
-confirmed subject `mceusb: Add support for 04eb:e033` exists on
-mainline. Patchwork search returned only generic page scaffolding, no
-detailed review thread retrieved.
+### Step 3.1: Blame
+**Record:** `hda_sdw_bpt_close()` introduced in `5d5cb86fb46ea`
+(2025-02-27, "add helpers for SoundWire BPT DMA") without PCMSyCM reset.
+Present since **v6.15**, including this tree at v6.18.44.
+
+### Step 3.2: Fixes: Tag
+**Record:** N/A — no Fixes: tag.
+
+### Step 3.3: Related File History
+**Record:** Recent related commits in this tree:
+- `67d0475e78b39` — release bpt_stream when close
+- `8b184c34806e5` — set persistent_buffer false
+- `5d5cb86fb46ea` — initial BPT helpers
+
+Standalone single-patch series (v1 only). No prerequisite commits
+required.
+
+### Step 3.4: Author Context
+**Record:** Bard Liao is a regular Intel SoundWire/SOF contributor.
+Related commits in this subsystem include BPT CHAIN_DMA support and
+stream lifecycle fixes.
+
+### Step 3.5: Dependencies
+**Record:** No dependencies. Uses `hdac_bus_eml_sdw_map_stream_ch()`
+(present since 2023, `ccc2f0c1b6b61`) and `sdw->instance` (already used
+in `hda_sdw_bpt_open()` at line 167 of `intel_ace2x.c`). Applies
+standalone.
+
+---
+
+## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
+
+### Step 4.1: Original Discussion
+**Record:**
+- **URL:** https://patch.msgid.link/20260730012518.2180906-1-yung-
+  chuan.liao@linux.intel.com
+- **Series:** v1 only (no revisions)
+- **Key feedback:** Vinod Koul Acked; Pierre-Louis Bossart Reviewed with
+  LGTM
+- **No** stable nomination, NAKs, or explicit failure reports in thread
 
 ### Step 4.2: Reviewers
-**Record:** UNVERIFIED for mailing-list CC list. Sean Young (maintainer)
-Signed-off-by in commit message.
+**Record:** CC'd: linux-sound, broonie, tiwai, vkoul, pierre-
+louis.bossart, peter.ujfalusi — appropriate subsystem maintainers and
+Intel audio team.
 
-### Step 4.3: Bug Report
-**Record:** No formal bug report or syzbot link. Hardware identification
-from author on Skintek SK-CR-IN+IR product.
+### Step 4.3: Bug Reports
+**Record:** No Reported-by:, syzbot, or bugzilla links. Impact inferred
+from code analysis and established PCMSyCM reset requirement.
 
-### Step 4.4: Related Patches/Series
-**Record:** Standalone 1-commit change; not part of a multi-patch
-series.
+### Step 4.4: Related Patches
+**Record:** Related stable-nominated PCMSyCM fix: `6e38a7e098d32`
+("Handle prepare without close for non-HDA DAI's") included `Cc:
+stable@vger.kernel.org # 6.10.x 6.11.x` for SDW PCMSyCM reset on
+prepare-after-drain. Same subsystem, same register family.
 
-### Step 4.5: Stable Mailing List History
-**Record:** UNVERIFIED — lore stable list inaccessible (403).
+### Step 4.5: Stable List History
+**Record:** No stable-list discussion found for this specific patch. Not
+a negative signal.
 
 ---
 
-## Phase 5: Code Semantic Analysis
+## PHASE 5: CODE SEMANTIC ANALYSIS
 
 ### Step 5.1: Key Functions
-**Record:** No functions modified. Affected data: `mceusb_dev_table[]`.
-Probe path: `mceusb_dev_probe()`.
+**Record:** `hda_sdw_bpt_close()`, `intel_ace2x_bpt_close_stream()`,
+`intel_ace2x_bpt_open_stream()`, `hdac_bus_eml_sdw_map_stream_ch()`
 
-### Step 5.2: Trace Callers
-**Record:** `mceusb_dev_probe()` is registered as `.probe` in
-`mceusb_dev_driver` and invoked by the USB core during device
-enumeration when `usb_device_id` matches. Trigger: user plugs in the IR
-receiver.
+### Step 5.2: Callers
+**Record:**
+- `intel_ace2x_bpt_close_stream()` — called from BPT error paths and
+  after `intel_ace2x_bpt_wait()` completes
+- `hda_sdw_bpt_close()` — called from `intel_ace2x_bpt_open_stream()`
+  error path and `hda_sdw_bpt_open()` error path
+- BPT entry: `sdw_bpt_send_async()` / `sdw_bpt_wait()` in `bus.c` →
+  Intel `hw_ops` → `intel_ace2x_bpt_*`
+- Used for SoundWire register access (BRA/BPT), codec driver operations,
+  and debugfs BPT interface
 
-### Step 5.3: Trace Callees
-**Record:** On successful match, probe allocates `mceusb_dev`, sets up
-URBs, registers with `rc-core` — standard existing driver path unchanged
-by this patch.
+### Step 5.3: Callees
+**Record:** `hdac_bus_eml_sdw_map_stream_ch()` programs/resets PCMSyCM
+shim registers; `hda_sdw_bpt_dma_deprepare()` tears down DMA.
 
-### Step 5.4: Call Chain / Reachability
-**Record:** USB hotplug → `usb_driver.probe` → `mceusb_dev_probe()`.
-Reachable by any user plugging in the device. Without the ID, the chain
-never starts for `04eb:e033`.
+### Step 5.4: Reachability
+**Record:** Triggered during SoundWire BPT transfers on Intel ACE2.x
+platforms with `CONFIG_SND_SOF_SOF_HDA_SDW_BPT` (auto-selected for Intel
+LNL+ with SoundWire). Reachable from kernel driver/codec operations and
+debugfs — not a dead path.
 
 ### Step 5.5: Similar Patterns
-**Record:** `0xe004` at line 399 uses the same pattern (no
-`.driver_info`). Many other entries in `mceusb_dev_table[]` follow this
-model.
+**Record:** `sdw_hda_dai_hw_free()` uses identical reset
+(`channel_mask=0, stream_id=0`). Open side in `hda_sdw_bpt_open()`
+already programs PCMSyCM at lines 277–292. Fix completes the symmetry.
 
 ---
 
-## Phase 6: Cross-Referencing Against Local Tree
+## PHASE 6: CROSS-REFERENCING AGAINST LOCAL TREE
 
-**Local tree:** `v6.18.43` (`VERSION=6`, `PATCHLEVEL=18`,
-`SUBLEVEL=43`), detached from `stable/linux-6.18.y`.
-
-### Step 6.1: Does the Buggy Code Exist?
-**Record:** **Yes.** `drivers/media/rc/mceusb.c` exists with
-`VENDOR_NORTHSTAR` (`0x04eb`) and `0xe004`, but **without** `0xe033`.
-The omission is present in this tree.
+### Step 6.1: Buggy Code Exists?
+**Record:** **Yes.** `hda_sdw_bpt_close()` in v6.18.44 only deprepares
+DMA (lines 425–438 of `hda-sdw-bpt.c`). Bug present since v6.15
+(`5d5cb86fb46ea`), well before 6.18 branched.
 
 ### Step 6.2: Backport Complications
-**Record:** **Clean apply.** `git apply --check` on the provided diff
-succeeded with no conflicts. Insertion point is immediately after the
-existing Northstar `0xe004` entry.
+**Record:** `.c` files apply cleanly (`git apply --check` passes).
+Header file fails automated apply because master added
+`hda_sdw_bpt_get_buf_size_alignment()` after `hda_sdw_bpt_close()` —
+that function is **not** in v6.18.44. The signature change itself is
+trivial and needs only dropping that extra context line. **Minor manual
+adjustment**, not a rework.
 
 ### Step 6.3: Related Fixes Already Present?
-**Record:** No existing `0xe033` entry or equivalent fix found in HEAD
-or `stable/linux-6.18.y` grep.
+**Record:** No equivalent PCMSyCM reset in BPT close path. Other BPT
+fixes present (`67d0475e78b39`, `8b184c34806e5`) address different
+issues.
 
 ---
 
-## Phase 7: Subsystem and Maintainer Context
+## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
 
 ### Step 7.1: Subsystem Criticality
-**Record:** `drivers/media/rc/` — **PERIPHERAL** (USB IR remote
-receiver). Not core kernel path, but affects real users with this
-hardware.
+**Record:** **sound/ASoC/SOF/Intel SoundWire** — IMPORTANT. Affects
+audio on modern Intel laptops (Meteor Lake, Lunar Lake, Panther Lake)
+with SoundWire codecs.
 
 ### Step 7.2: Subsystem Activity
-**Record:** `drivers/media/rc/` on `stable/linux-6.18.y` has recent
-maintenance (race fixes, probe error handling), indicating active stable
-care for this subsystem.
+**Record:** Actively developed — BPT support added in 6.15, multiple
+follow-up fixes through 6.18.y.
 
 ---
 
-## Phase 8: Impact and Risk Assessment
+## PHASE 8: IMPACT AND RISK ASSESSMENT
 
 ### Step 8.1: Who Is Affected
-**Record:** Users of the Skintek SK-CR-IN+IR (and any other product
-using `04eb:e033` with MCE-compatible firmware). Config-dependent:
-`CONFIG_IR_MCEUSB` (or module `mceusb`).
+**Record:** Users of Intel SOF + SoundWire platforms with BPT enabled
+(`CONFIG_SND_SOF_SOF_HDA_SDW_BPT`). Growing population of modern Intel
+laptops.
 
 ### Step 8.2: Trigger Conditions
-**Record:** Plug in the `04eb:e033` USB IR device. Common for intended
-hardware use. Unprivileged user can trigger by plugging in USB device.
+**Record:** Any BPT transfer on a SoundWire link (register access, codec
+configuration, debugfs BPT operations) followed by normal audio use on
+the same link. Not timing-dependent; deterministic stale hardware state.
 
 ### Step 8.3: Failure Mode Severity
-**Record:** Without fix: device does not bind to `mceusb` → IR remote
-control non-functional. **Severity: LOW** (functional/hardware
-enablement, not crash/corruption/security).
+**Record:** Stale PCMSyCM mappings can cause subsequent audio stream
+setup/playback failures on the affected link. **Severity: MEDIUM-HIGH**
+for affected hardware — functional audio breakage, not kernel
+crash/oops/corruption.
 
-### Step 8.4: Risk-Benefit Ratio
+### Step 8.4: Risk-Benefit
 **Record:**
-- **Benefit:** Enables a real, tested hardware variant; identical
-  treatment to already-supported sibling ID.
-- **Risk:** Very low — 2-line ID table addition, no logic change.
-- **Ratio:** Strong benefit for affected users, negligible risk —
-  classic stable device-ID backport.
+- **Benefit:** Prevents audio malfunction after BPT operations;
+  completes missing hardware cleanup
+- **Risk:** Very low — ~30 lines, mirrors proven pattern, well-reviewed
+- **Ratio:** Clear benefit outweighs minimal risk
 
 ---
 
-## Phase 9: Final Synthesis
+## PHASE 9: FINAL SYNTHESIS
 
-### Step 9.1: Evidence Compile
+### Step 9.1: Evidence Summary
 
 **FOR backport:**
-- Explicit stable exception: **new USB device ID** to existing driver
-- Driver and sibling ID (`04eb:e004`) already in `6.18.y`
-- Author documents firmware compatibility with supported device
-- Maintainer Signed-off-by (Sean Young)
-- 2-line, obviously correct, applies cleanly
-- Already in mainline (`origin/master` has `0xe033`)
-- No dependencies or API changes
+- Real bug: missing PCMSyCM register reset on BPT close
+- Bug present in v6.18.44 since BPT introduction (v6.15)
+- Mirrors `sdw_hda_dai_hw_free()` — same reset already deemed stable-
+  worthy in related commit
+- Small, surgical, obviously correct
+- Reviewed by 3 maintainers + Acked by SoundWire maintainer
+- Can break audio on production Intel SoundWire hardware
 
 **AGAINST backport:**
-- Niche hardware (limited user base)
-- Not a crash/security/corruption fix under strict reading of criterion
-  #3
-- No formal regression report or syzbot evidence
-- Mailing-list review not fully verified (lore 403)
+- No explicit user crash report or syzbot finding
+- Commit message doesn't describe concrete failure symptoms
+- Header needs trivial manual adjustment for 6.18.y apply
 
-**UNRESOLVED:**
-- Individual mainline commit SHA and full lore review thread
-- Whether stable maintainers already discussed/nominated this specific
-  ID
+**Unresolved:** No documented user-facing failure report; impact
+inferred from code analysis and hardware register semantics.
 
 ### Step 9.2: Stable Rules Checklist
-1. **Obviously correct and tested?** **PASS** — mirrors existing
-   `0xe004`; maintainer SOB; mainline inclusion.
-2. **Fixes a real bug affecting users?** **PASS** — hardware does not
-   work without driver binding.
-3. **Important issue?** **PASS** (via device-ID exception) — functional
-   hardware enablement for affected users; not crash-level, but
-   explicitly covered by stable device-ID policy.
-4. **Small and contained?** **PASS** — 2 lines, one file.
-5. **No new features or APIs?** **PASS** — ID table only.
-6. **Can apply to local tree?** **PASS** — verified with `git apply
-   --check`.
+| Criterion | Result |
+|-----------|--------|
+| 1. Obviously correct and tested? | **PASS** — mirrors existing
+pattern; maintainer-reviewed |
+| 2. Fixes real bug? | **PASS** — missing hardware register cleanup |
+| 3. Important issue? | **PASS** — audio failure on affected Intel
+hardware |
+| 4. Small and contained? | **PASS** — ~30 lines, 3 files |
+| 5. No new features/APIs? | **PASS** — extends existing close with
+required cleanup; signature change is internal |
+| 6. Can apply to local tree? | **PASS** — clean apply on .c files;
+trivial header tweak |
 
-### Step 9.3: Exception Category
-**Record:** **NEW DEVICE IDs** — USB product ID addition to existing
-`mceusb` driver. Driver exists; only the ID is new.
+### Step 9.3: Exception Categories
+**Record:** N/A — standard bug fix, not device ID/quirk/DT/build/doc
+exception.
 
 ### Step 9.4: Decision Rationale
-For **Linux 6.18.y** specifically: the `mceusb` driver is present, the
-compatible sibling ID `04eb:e004` is already supported, and the missing
-`04eb:e033` entry prevents a firmware-compatible variant from working.
-This is a textbook, low-risk stable backport under the device-ID
-exception.
+
+This commit fixes a genuine omission in the SoundWire BPT teardown path.
+Since BPT was introduced in v6.15, `hda_sdw_bpt_open()` has programmed
+PCMSyCM registers while `hda_sdw_bpt_close()` left them programmed —
+unlike the normal SoundWire audio path, which explicitly resets them in
+`sdw_hda_dai_hw_free()`. On Intel SOF + SoundWire laptops, BPT
+operations (register access, codec configuration) are followed by normal
+audio use; stale PCMSyCM state can cause audio failures on that link.
+
+The fix is small, mirrors an established and previously stable-nominated
+pattern, and is endorsed by the SoundWire maintainer and Intel audio
+team. The missing user report is outweighed by the clear hardware
+semantics and code asymmetry.
 
 ---
 
 ## Verification
 
-- **[Phase 1]** Parsed subject, tags, body; no Fixes/Reported-by/Link
-  tags; Sean Young SOB confirmed.
-- **[Phase 2]** Diff: +2 lines in `mceusb_dev_table[]`; no
-  `.driver_info` → default `MCE_GEN2` (same as `0xe004`).
-- **[Phase 3]** `git describe HEAD`: `v6.18.43`; `git blame`/`grep`:
-  `0xe004` present, `0xe033` absent on HEAD.
-- **[Phase 3]** `git grep "0xe033" origin/master --
-  drivers/media/rc/mceusb.c`: present on mainline.
-- **[Phase 3]** `git diff HEAD origin/master --
-  drivers/media/rc/mceusb.c`: e033 addition is isolated 2-line hunk.
-- **[Phase 3]** No prerequisite commits identified.
-- **[Phase 4]** `b4 dig`: **UNVERIFIED** — commit SHA unavailable in
-  squashed mirror.
-- **[Phase 4]** lore.kernel.org: **403 Forbidden**.
-- **[Phase 4]** git.kernel.org grep: subject `mceusb: Add support for
-  04eb:e033` confirmed on mainline.
-- **[Phase 4]** Patchwork: no detailed review thread retrieved.
-- **[Phase 5]** `mceusb_dev_probe()` at line 1651; `.probe` in
-  `mceusb_dev_driver` at line 1877.
-- **[Phase 5]** Default model `MCE_GEN2` confirmed in `mceusb_model[]`
-  at index 0.
-- **[Phase 6]** `make kernelversion` equivalent: 6.18.43; tree is
-  `stable/linux-6.18.y`.
-- **[Phase 6]** `git apply --check` on provided diff: **succeeds**.
-- **[Phase 6]** `CONFIG_IR_MCEUSB` exists in `drivers/media/rc/Kconfig`.
-- **[Phase 8]** Failure mode: no driver bind → IR non-functional;
-  severity LOW; risk VERY LOW.
+- **[Phase 1]** `git show 992eb0dfbc4f5`: parsed full commit message and
+  all tags
+- **[Phase 1]** Read `sdw_hda_dai_hw_free()` at lines 631–638 of `hda-
+  dai.c`: confirmed PCMSyCM reset pattern; commit message references
+  wrong function name (`hw_params` vs `hw_free`)
+- **[Phase 2]** Diff analysis: 3 files, ~30 net lines; core fix adds two
+  `hdac_bus_eml_sdw_map_stream_ch()` calls with `(0, 0)` reset
+- **[Phase 3]** `git describe HEAD`: v6.18.44; `make kernelversion`:
+  6.18.44
+- **[Phase 3]** `git blame` on `hda_sdw_bpt_close()`: introduced
+  `5d5cb86fb46ea` (2025-02-27)
+- **[Phase 3]** `git merge-base --is-ancestor 5d5cb86fb46ea v6.18.44`:
+  BPT code present in this tree
+- **[Phase 3]** `git merge-base --is-ancestor 992eb0dfbc4f5 HEAD`:
+  commit NOT in current tree
+- **[Phase 3]** `git tag --contains 5d5cb86fb46ea`: first in v6.15
+- **[Phase 3]** `git log --oneline -20` on affected files: no duplicate
+  fix found
+- **[Phase 4]** `b4 dig -c 992eb0dfbc4f5`: found thread at
+  patch.msgid.link URL
+- **[Phase 4]** `b4 dig -c 992eb0dfbc4f5 -w`: Vinod Koul, broonie,
+  vkoul, pierre-louis.bossart CC'd
+- **[Phase 4]** `b4 dig -c 992eb0dfbc4f5 -a`: single v1 patch, no
+  revisions
+- **[Phase 4]** `/tmp/bpt_thread.mbox`: Vinod Koul Acked; Pierre-Louis
+  Bossart LGTM; no stable nomination or NAKs
+- **[Phase 4]** WebFetch of patch URL: blocked by bot protection; used
+  mbox instead
+- **[Phase 5]** `grep hdac_bus_eml_sdw_map_stream_ch`: present in `hda-
+  mlink.c`, used in `hda-dai.c` and `hda-sdw-bpt.c`
+- **[Phase 5]** `grep bpt_` call chain: `bus.c` → `intel_ace2x.c` →
+  `hda_sdw_bpt_close()`
+- **[Phase 5]** `grep sdw->instance` in `intel_ace2x.c`: already used in
+  `hda_sdw_bpt_open()` at line 167
+- **[Phase 6]** Read current `hda_sdw_bpt_close()` at lines 425–438:
+  confirms buggy code (no PCMSyCM reset)
+- **[Phase 6]** `git show 992eb0dfbc4f5 -- sound/soc/sof/intel/hda-sdw-
+  bpt.c drivers/soundwire/intel_ace2x.c | git apply --check`: **passes**
+- **[Phase 6]** `git show 992eb0dfbc4f5 -- include/sound/hda-sdw-bpt.h |
+  git apply --check`: **fails** — master has
+  `hda_sdw_bpt_get_buf_size_alignment()` not in v6.18.44; trivial manual
+  fix
+- **[Phase 6]** `git diff v6.18.44 master -- include/sound/hda-sdw-
+  bpt.h`: confirmed divergence
+- **[Phase 7]** `grep CONFIG_SND_SOF_SOF_HDA_SDW_BPT` in Kconfig:
+  present, auto-selected for Intel LNL+
+- **[Phase 8]** Failure mode assessed from PCMSyCM register semantics
+  and parallel `sdw_hda_dai_hw_free()` behavior
 
-**YES**The background kernel.org lookups finished:
+**YES**Those background git searches finished successfully and match
+what the analysis already used:
 
-- **Git grep** confirmed mainline has a commit titled `mceusb: Add
-  support for 04eb:e033`.
-- **Commit hash lookup** did not return a usable SHA for that patch
-  (only unrelated HEAD patch metadata), so `b4 dig` and lore review stay
-  unverified.
+- **BPT introduction:** SoundWire BPT support landed with
+  `5d5cb86fb46ea` ("add helpers for SoundWire BPT DMA"), first appearing
+  in **v6.15** and present in your **v6.18.44** tree.
+- **PCMSyCM history:** The register helper dates to `ccc2f0c1b6b61`
+  (2023); the normal SoundWire reset path is in `sdw_hda_dai_hw_free()`,
+  and a related stable-nominated fix is `6e38a7e098d32`.
 
-That does not change the earlier conclusion for **6.18.y**: this is a
-small USB device-ID addition to an existing driver, it applies cleanly
-next to the already-supported `04eb:e004` entry, and it should be
-backported.
+That confirms the bug has been in the BPT close path since BPT was
+added, and the backport recommendation remains **YES**.
 
-**YES**
+ drivers/soundwire/intel_ace2x.c   |  4 +++-
+ include/sound/hda-sdw-bpt.h       |  5 +++--
+ sound/soc/sof/intel/hda-sdw-bpt.c | 31 ++++++++++++++++++++++++++++---
+ 3 files changed, 34 insertions(+), 6 deletions(-)
 
- drivers/media/rc/mceusb.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/drivers/media/rc/mceusb.c b/drivers/media/rc/mceusb.c
-index a4c94fdf767ca..bee5cd15796fb 100644
---- a/drivers/media/rc/mceusb.c
-+++ b/drivers/media/rc/mceusb.c
-@@ -397,6 +397,8 @@ static const struct usb_device_id mceusb_dev_table[] = {
- 	{ USB_DEVICE(VENDOR_COMPRO, 0x3082) },
- 	/* Northstar Systems, Inc. eHome Infrared Transceiver */
- 	{ USB_DEVICE(VENDOR_NORTHSTAR, 0xe004) },
-+	/* Northstar Systems, Inc. eHome Infrared Transceiver - variant */
-+	{ USB_DEVICE(VENDOR_NORTHSTAR, 0xe033) },
- 	/* TiVo PC IR Receiver */
- 	{ USB_DEVICE(VENDOR_TIVO, 0x2000),
- 	  .driver_info = TIVO_KIT },
+diff --git a/drivers/soundwire/intel_ace2x.c b/drivers/soundwire/intel_ace2x.c
+index f0e0a79b30b0e..c1ea420bc11ff 100644
+--- a/drivers/soundwire/intel_ace2x.c
++++ b/drivers/soundwire/intel_ace2x.c
+@@ -192,6 +192,7 @@ static int intel_ace2x_bpt_open_stream(struct sdw_intel *sdw, struct sdw_slave *
+ 		__func__, str_read_write(command), ret);
+ 
+ 	ret1 = hda_sdw_bpt_close(cdns->dev->parent, /* PCI device */
++				 sdw->instance,
+ 				 sdw->bpt_ctx.bpt_tx_stream, &sdw->bpt_ctx.dmab_tx_bdl,
+ 				 sdw->bpt_ctx.bpt_rx_stream, &sdw->bpt_ctx.dmab_rx_bdl);
+ 	if (ret1 < 0)
+@@ -226,7 +227,8 @@ static void intel_ace2x_bpt_close_stream(struct sdw_intel *sdw, struct sdw_slave
+ 	struct sdw_cdns *cdns = &sdw->cdns;
+ 	int ret;
+ 
+-	ret = hda_sdw_bpt_close(cdns->dev->parent /* PCI device */, sdw->bpt_ctx.bpt_tx_stream,
++	ret = hda_sdw_bpt_close(cdns->dev->parent /* PCI device */, sdw->instance,
++				sdw->bpt_ctx.bpt_tx_stream,
+ 				&sdw->bpt_ctx.dmab_tx_bdl, sdw->bpt_ctx.bpt_rx_stream,
+ 				&sdw->bpt_ctx.dmab_rx_bdl);
+ 	if (ret < 0)
+diff --git a/include/sound/hda-sdw-bpt.h b/include/sound/hda-sdw-bpt.h
+index f649549b75d52..330cda50f100c 100644
+--- a/include/sound/hda-sdw-bpt.h
++++ b/include/sound/hda-sdw-bpt.h
+@@ -27,7 +27,7 @@ int hda_sdw_bpt_send_async(struct device *dev, struct hdac_ext_stream *bpt_tx_st
+ int hda_sdw_bpt_wait(struct device *dev, struct hdac_ext_stream *bpt_tx_stream,
+ 		     struct hdac_ext_stream *bpt_rx_stream);
+ 
+-int hda_sdw_bpt_close(struct device *dev, struct hdac_ext_stream *bpt_tx_stream,
++int hda_sdw_bpt_close(struct device *dev, int link_id, struct hdac_ext_stream *bpt_tx_stream,
+ 		      struct snd_dma_buffer *dmab_tx_bdl, struct hdac_ext_stream *bpt_rx_stream,
+ 		      struct snd_dma_buffer *dmab_rx_bdl);
+ #else
+@@ -56,7 +56,8 @@ static inline int hda_sdw_bpt_wait(struct device *dev, struct hdac_ext_stream *b
+ 	return -EOPNOTSUPP;
+ }
+ 
+-static inline int hda_sdw_bpt_close(struct device *dev, struct hdac_ext_stream *bpt_tx_stream,
++static inline int hda_sdw_bpt_close(struct device *dev, int link_id,
++				    struct hdac_ext_stream *bpt_tx_stream,
+ 				    struct snd_dma_buffer *dmab_tx_bdl,
+ 				    struct hdac_ext_stream *bpt_rx_stream,
+ 				    struct snd_dma_buffer *dmab_rx_bdl)
+diff --git a/sound/soc/sof/intel/hda-sdw-bpt.c b/sound/soc/sof/intel/hda-sdw-bpt.c
+index ff5abccf0d88b..4e5c99413c750 100644
+--- a/sound/soc/sof/intel/hda-sdw-bpt.c
++++ b/sound/soc/sof/intel/hda-sdw-bpt.c
+@@ -297,7 +297,8 @@ int hda_sdw_bpt_open(struct device *dev, int link_id, struct hdac_ext_stream **b
+ 		__func__, ret);
+ 
+ close:
+-	ret1 = hda_sdw_bpt_close(dev, *bpt_tx_stream, dmab_tx_bdl, *bpt_rx_stream, dmab_rx_bdl);
++	ret1 = hda_sdw_bpt_close(dev, link_id, *bpt_tx_stream, dmab_tx_bdl,
++				 *bpt_rx_stream, dmab_rx_bdl);
+ 	if (ret1 < 0)
+ 		dev_err(dev, "%s: hda_sdw_bpt_close failed: %d\n",
+ 			__func__, ret1);
+@@ -422,14 +423,38 @@ int hda_sdw_bpt_wait(struct device *dev, struct hdac_ext_stream *bpt_tx_stream,
+ }
+ EXPORT_SYMBOL_NS(hda_sdw_bpt_wait, "SND_SOC_SOF_INTEL_HDA_SDW_BPT");
+ 
+-int hda_sdw_bpt_close(struct device *dev, struct hdac_ext_stream *bpt_tx_stream,
++int hda_sdw_bpt_close(struct device *dev, int link_id, struct hdac_ext_stream *bpt_tx_stream,
+ 		      struct snd_dma_buffer *dmab_tx_bdl, struct hdac_ext_stream *bpt_rx_stream,
+ 		      struct snd_dma_buffer *dmab_rx_bdl)
+ {
++	struct snd_sof_dev *sdev = dev_get_drvdata(dev);
+ 	int ret;
+ 	int ret1;
+ 
+-	ret = hda_sdw_bpt_dma_deprepare(dev, bpt_rx_stream, dmab_rx_bdl);
++	/*
++	 * In the case of SoundWire we need to reset the PCMSyCM registers.
++	 * Need to continue depreparing the DMA buffers even if this fails.
++	 */
++	ret = hdac_bus_eml_sdw_map_stream_ch(sof_to_bus(sdev), link_id,
++					     0, /* PDI0 */
++					     0, 0, SNDRV_PCM_STREAM_PLAYBACK);
++	if (ret < 0)
++		dev_err(dev, "%s: hdac_bus_eml_sdw_map_stream_ch failed %d for PDI0\n",
++			__func__, ret);
++
++	ret1 = hdac_bus_eml_sdw_map_stream_ch(sof_to_bus(sdev), link_id,
++					      1, /* PDI1 */
++					      0, 0, SNDRV_PCM_STREAM_CAPTURE);
++	if (ret1 < 0) {
++		dev_err(dev, "%s: hdac_bus_eml_sdw_map_stream_ch failed %d for PDI1\n",
++			__func__, ret1);
++		if (!ret)
++			ret = ret1;
++	}
++
++	ret1 = hda_sdw_bpt_dma_deprepare(dev, bpt_rx_stream, dmab_rx_bdl);
++	if (!ret)
++		ret = ret1;
+ 
+ 	ret1 = hda_sdw_bpt_dma_deprepare(dev, bpt_tx_stream, dmab_tx_bdl);
+ 	if (!ret)
 -- 
 2.53.0
 
