@@ -1,108 +1,278 @@
-Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpbgsg1.qq.com (smtpbgsg1.qq.com [54.254.200.92])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 629DD2C15A5
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 10:25:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 544453DA7D2
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 10:27:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.254.200.92
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788171932; cv=none; b=PZYROBi6q2K5l6WsV5DHzB8h5+8XTr01YP4YrCIkTuRanxRvksWtwxeEYqKMWaUTnRGOxl+xCkrLd0oFrLEheKsskzo2xm3efdp5SrrPJydglTa9DEwN+qXCS+Y/vfhxWGMe2f1LKlxIUnbMG6+huop4O90w5QSwx/qQv7Rp7Ss=
+	t=1788172039; cv=none; b=awCTDCmcuVZBo/ENlJD0fgIzC8uD0/gxFLcP8GuzVMbR/2+Kl8gXeirysSZ0GdUaGqONF6XCC1wS0rRXH+K+NapQw88m0vwlfVsszUw34bUozCX6+qY2OXDiNBGudZ0rDGiT/s3VvBX+AND6kkisvHrX8Z3O4OOu1zczWGY2aDM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788171932; c=relaxed/simple;
-	bh=oDdxchw+HfFAGtOiAlLwJIKnl3Z6Y/3M5kytY39eayg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KGdCZpKAZAE9/l3P5jbqJKIVdvl28BdY0Vl/ASF9fyd4RyN4zFEEY9yYZWnGt+Cy1d5eMMNJUqClW4tvkVUaffnaMtXOySO9JBaUuM3OibMDbmKgsiBtpMcQ0QvDvRjw4Phay8pd+cid/f0iokkxB8YsC8qwcvWR5XB0OVIA+eI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lQmFP7wP; arc=none smtp.client-ip=209.85.210.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788172039; c=relaxed/simple;
+	bh=T/CEMNAc29GVRKV0QovRu34sL55a2lLYzjcOzZ2ybqw=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:Content-Type; b=BoBHVdvSwG9tR8R0nZQ4r86HIS7tl2ROkIye7HS3b7cWevqklOtYEb1ZESNFImwz7uhqziXv4Mhlue50F0wP7cE7lW0Y+3kAFhRFq+7XjllQGAzVsunWsCZ2ChU+iPKUhs1FlkWJ73mOYIy9SVMwJxMA8mRudy+BEmVgkjlvHks=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=smail.nju.edu.cn; spf=pass smtp.mailfrom=smail.nju.edu.cn; dkim=pass (1024-bit key) header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.b=J7QZteHi; arc=none smtp.client-ip=54.254.200.92
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=smail.nju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=smail.nju.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lQmFP7wP"
-Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-84e0688b7e8so2265174b3a.1
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 03:25:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788171931; x=1788776731; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=85h0gP4EJzGrJjTm/s6tdHc7gvUEeMEkIXjoNPcxSzc=;
-        b=lQmFP7wPAnoy0qe3XSbB/eiBM2esLl5N/USsJjhsB1gbnUEPyt7VReggrpXbcUGSgk
-         +mN+Sd9W/FzSyDu25w4DBb8hfKTyotLW8hOeIFxtloSaXyOljqfiiuFyxUzGtRpp8gDZ
-         faML/yQDfY6Cqp0jjl1x92v+F99BqzdJ5CNCr/u4Pe0GjMr3EsVmKLvsOwuG/9UqGgeS
-         MaHjoJKp69sSXClxpYS9EDQECXMD9945GgpYpTAAcFlmTyEXO7zXl82lKY7fbcG3yzCo
-         w3+S0sX4XPwDzEpEHQ+lrlsjZWn0XJVq/qXZZkq7O/tL07XQKsBrjhNWiU+tElG4xlUt
-         3imw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788171931; x=1788776731;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=85h0gP4EJzGrJjTm/s6tdHc7gvUEeMEkIXjoNPcxSzc=;
-        b=Pucsi5oUVsISoyfTGHkaO5EBgP4uLXKw324Nqqrp20Z7crdb7RnbMV6tj5UIVkfWs9
-         +AU5AXDVJZBhy8aG3eQ6lLBiA7sipyvuvJDiwQTZS3L1YUBAHC1GnmloaomarBzz4ZZH
-         xF5WmXckSWf5GQ7Ebb53lgSSe9i9g/TdF9EQNl7afHWqz7HjpT39aKTuwYcZv7aKdL4D
-         ix4iHXxdmGN00QK8A0s3HkDfIBqnC7UgAHWPkYQyw1vwq4KBJ9rcNPnP1q5LuDtuO34x
-         dr2LizhaIYq+bEvlf+NfH8xXv+DCBRGF2ugCjzgG+Q1rpF94UgzCetdHlcl4eLurfeQf
-         cnfw==
-X-Forwarded-Encrypted: i=1; AHgh+RpoCyINn2Hm05FAgUEVvwWyMeY316IjMsNhvq4BCGaR/CFBOMxjnD/lPeKYe4SlaBNWNELj1uEiHQkTldQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++lfztI444YSebxFRgOG47LPj4tsMm/sXqp4aDADBA4vJ2qjjJ7U
-	GTxOpOhL6/266IzsTRtyy5iLMKQwBHRy2WIFBpnPnPRHrYpTZcUN1WEL
-X-Gm-Gg: AR+sD10XnPytYm1WSMNfdWMHPTKHcxGes8/H1yvA4HucruzzSmJWwI4s19KZxcdPZoV
-	3pNPc+BxJ/cN/nVh7H4sw+K3XLxlbjbfWm5WoJUsnmjClyuKXckvcR/jkk3DkIKbbx9TGQaNkdV
-	b9phmAAdOiyJ+hlxsyo+y6Db9Q1njAazD4TmywqCnXksbw8Z4S8jBkDyAQjccYwZQHqWsDgvG2V
-	0mAdHjFxYuJFEFwxlhBWS42OIFNbtqSsVZ9pcJZKEBwgLxqDecbA/LmVRdkgkl1P9sAecu4l65X
-	2mW2JWqeDznzOHjqJ296SVR0nc1oTFqgP7Rqz5JN0/HktVfIdHi06tmaBKThGha5A+w03ws3VoD
-	c91gQXps8uuvvTxTGVhqKZ9GDRpsrL2McT0msSiJJd2IpqBT53BKQEeO0fVx7EYOUZtf5uv27uy
-	YLpXqpcKAQdl03iMUwXLGfY34JxBUUIfIXKLsmC0rpfA9+5DivIdlv30O89AvSju2zzw==
-X-Received: by 2002:a05:6a21:6e88:b0:3c4:46ca:334b with SMTP id adf61e73a8af0-3d267b60e7emr43957424637.9.1788171930549;
-        Mon, 31 Aug 2026 03:25:30 -0700 (PDT)
-Received: from Default ([2409:40f4:1016:5ca4:c595:44a4:9cb1:2f2f])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3286f9595bbsm32800439eec.14.2026.08.31.03.25.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 03:25:29 -0700 (PDT)
-From: Jeffin Philip <jeffinphilip14@gmail.com>
-To: gregkh@linuxfoundation.org
-Cc: i@zenithal.me,
-	jeffinphilip14@gmail.com,
-	linux-kernel@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	shuah@kernel.org,
-	stable@vger.kernel.org,
-	syzbot+af76b01c9a0f0ab60fb0@syzkaller.appspotmail.com,
-	valentina.manea.m@gmail.com
-Subject: Re: [PATCH v3 1/2] usbip: usbip_host: fix null pointer dereference in rebind_store
-Date: Mon, 31 Aug 2026 15:55:17 +0530
-Message-ID: <20260831102517.109498-1-jeffinphilip14@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <2026083141-morbidly-swiftness-9f8f@gregkh>
-References: <2026083141-morbidly-swiftness-9f8f@gregkh>
+	dkim=pass (1024-bit key) header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.b="J7QZteHi"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=smail.nju.edu.cn;
+	s=iohv2404; t=1788171917;
+	bh=HN7ZYFndlFzWF/4LHCcxX+J5bKHhHro+gAvSDxxhvus=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To;
+	b=J7QZteHii3ah2Ja3JQLuzkSUv5UX71smt9yjGYIMqNkZEbLKrGn3IXtJ2KvQsokTR
+	 RUy+iCUavNQpIDJiR8V7F5Mivj0E8j2ZVS1DsZFp1cfZzIEjY5QkbMxzHsrH5wwBpE
+	 ubNA6hViAteJ0bd2LwEIrG3tpRRPTgoQVbTh9bjs=
+X-QQ-mid: zesmtpgz9t1788171911t6e96afb4
+X-QQ-Originating-IP: pdz5bx2PCuB7VaE6d0z/N9mhXIcrPStA16xeaeD2/YE=
+Received: from [127.0.0.1] ( [180.98.43.87])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Mon, 31 Aug 2026 18:25:09 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 14989090907872479450
+Message-ID: <0101FF6B4641D94C+63f6ab39-aa06-4697-92fe-9241aef45218@smail.nju.edu.cn>
+Date: Mon, 31 Aug 2026 18:25:09 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+From: Peiyang He <peiyang_he@smail.nju.edu.cn>
+Subject: [BUG] nouveau: KASAN slab-use-after-free Read in nvif_object_mthd
+To: lyude@redhat.com, dakr@kernel.org
+Cc: nouveau@lists.freedesktop.org,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpgz:smail.nju.edu.cn:qybglogicsvrsz:qybglogicsvrsz4b-0
+X-QQ-XMAILINFO: MjA5tsjrlPcvFCdmRXu4zcLreN71KtQPI1Kn3F93u54yn/nsuJC65M75
+	tTD0d9C6rvbhBInyANfUaAuhg0/DDk1TjuDzpOyxuXjRNIv11+sjWFhdY0ygsgBq95/1hBi
+	daAk0Ox8/gIVqpAk7UFuJT5Mhj96GMvy/ZdoPP8auhIYOfc+Bqeg+3cJcEIEQx9DI8WbwKM
+	yaTYmPv+g38MvfdeF/tzyVbMq4fUz/3ZNATLt3y2rGtK4K6u+r/mPDsL/nI/zAXaGHpNpSl
+	xk5pajDxgBpnYUOrYIQt2enWVcg5d3+h4kpzirF5G8QsshnBTrkflcsQMPD1Y17LGugF9Np
+	X7rdOi5LT81Oz4bZLGZIH4NvnpnR51oL5/Wiy+EjqOLLUvsUzOALPzGq1EHKOUnBERzdSi1
+	Gr6jMWSVWI3ABYGvGMVNSIdIcdtrSazza+JDRWYtWlH8sEQ2TId46h3bFH498G/GFprkM1M
+	reJ8x/er6jY6HorYITK1DgiAeTw4tRxFs9+BFL5ymSchVdCNmltpqYYgj3vhotuTgz18QCg
+	BxIrEYT3T6kAGXAULTyvyZhTawzXM1PSsRqyWzzInIGFfZCEiG/QEJVJZ0C6E1ulw7FgxAg
+	NNd586w01IorxbEkMBQtkHMiCqCzy5UkjoBcldtwc5hpfGrDD4XqvPvgfW10Q/V6X6mUVkF
+	HQZFrn2Rjbf/tAQnJhqOzXxpymtCJ9jkedyoxd+enCWn5P+I1s/2N6P2KYDQTFGVcznRvAS
+	2HafFSd9hTbDQYd+jxkmjI4lhOv9BOyNRv0xii14wbOCpSgHPS95nseLZs8lhK26eL28W+f
+	Jhj0qAobrTQhQD/xZFkl8ULIRrP9Q6yjk7Hh3hybSSkOe1kaxfTVIo1DjujKZlEm/x221gM
+	bSd9fYhTRnAF5OWpMNVP774bw6VzKX6kA4fg4AbyQeFFJoFIe2n+CRECp88rPqYfb3b/t4g
+	1pZ0U3Q4gXYpVz0DG9+ySzfQnp63PhPMLeaGIgIkpNJz3vH46g9cwaNDdm2DV7WcWAxBaNq
+	Q2EXTJpAwjK/1rM1sLTI5VunDILOQ=
+X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
+X-QQ-RECHKSPAM: 0
 
-On Mon, 31 Aug 2026 12:04:45 +0200, Greg KH wrote:
->No one will ever notice this, just remove the sysfs file entirely if
->you really think it is ok to remove the functionality.  That way
->userspace will notice and handle it properly (hopefully...)
+Hello Linux kernel developers and maintainers,
 
-userspace tool atp handles this properly as it unbinds and rebinds sequentially.
-The problem is when any script tries to do this without a particular order in
-sysfs: bind, rebind then unbind causes an invalid opcode and attempting to directly
-rebind immediately after writing to match_busid causes the dereference. I think
-it is best we drop the rebind_store function and use drivers_probe(). We add 
-del_match_busid() alone to rebind_store() to stop tracking.
+We found a KASAN: slab-use-after-free Read in nvif_object_mthd
+when fuzzing the nouveau driver with one research tool we built
+on top of Syzkaller.
 
->But, are you sure it is ok to remove this user/kernel api?  What about
->workflows that are using it?
+The version of the kernel under test is 8d3ae59288f1e7d58d76558a6ee96d533bc5019f (tag v7.2).
+It is fuzzed inside a QEMU virtual machine using a GTX 1650 GPU
+passed through from the host via VFIO.
 
-Any scripts/user that don't use the sysfs properly can keep the broken pieces
-themselves, no? We have the newer drivers_probe() that can perform this
-much more cleaner.
+We believe this UAF is a GPU VMA lifetime bug triggered by unusal syscall
+sequence. A legacy per-client GPU mapping is created when the DRM client
+is in legacy VMM mode. If userspace then switches the client into UVMM mode
+with DRM_IOCTL_NOUVEAU_VM_INIT, nouveau_gem_object_close() takes an early return
+for UVMM clients and never tears that legacy vma down, so it stays linked on nvbo->vma_list
+with vma->vmm pointing at cli->vmm. If the backing BO is kept alive past
+the client (e.g. it was exported as a PRIME dma-buf), closing the DRM fd
+frees cli->vmm, and the later destruction of the shared BO walks the
+stale vma and unmaps it against the freed vmm. The freed object is dereferenced
+as an nvif_object, and its client pointer is read from freed memory,
+thus triggering the KASAN report.
 
-Ultimately we can keep the rebind_store() function if you choose. But this is just
-my opinion.
+More detailed analysis will be given below.
 
-Thanks,
-Jeffin.
+================
+Syzkaller report
+================
+
+BUG: KASAN: slab-use-after-free in nvif_object_mthd+0x59a/0x600
+Read of size 8 at addr ffff88811fe29230 by task syz.0.71/2823
+
+CPU: 1 UID: 0 PID: 2823 Comm: syz.0.71 Not tainted 7.2.0 #4 PREEMPT(lazy) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+Call Trace:
+ <TASK>
+ dump_stack_lvl+0x95/0xe0
+ print_report+0xcb/0x5a0 report.c:-1
+ kasan_report+0xca/0x100
+ nvif_object_mthd+0x59a/0x600
+ nvif_vmm_unmap+0x86/0xb0
+ nouveau_vma_unmap+0x7b/0xe0
+ nouveau_bo_move_ntfy+0x222/0x620 nouveau_bo.c:-1
+ ttm_bo_cleanup_memtype_use+0x99/0x200 ttm_bo.c:-1
+ ttm_bo_release+0x392/0x9e0 ttm_bo.c:-1
+ ttm_bo_fini+0x55/0x80
+ nouveau_gem_object_del+0xb2/0x1b0
+ drm_gem_object_free+0x5f/0x90
+ drm_gem_dmabuf_release+0xb9/0xd0
+ dma_buf_release+0x140/0x2b0 dma-buf.c:-1
+ dentry_kill+0x291/0xb10 dcache.c:-1
+ finish_dput+0x20/0x180 dcache.c:-1
+ dput+0x3b/0x40
+ __fput+0x483/0xa60 file_table.c:-1
+ task_work_run+0x15a/0x230
+ exit_to_user_mode_loop+0x18d/0x440
+ do_syscall_64+0x4f8/0x690
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f509a83594d
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 90 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b0 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007ffd8f3056e8 EFLAGS: 00000246 ORIG_RAX: 00000000000001b4
+RAX: 0000000000000000 RBX: 00007f509aac7da0 RCX: 00007f509a83594d
+RDX: 0000000000000000 RSI: 000000000000001e RDI: 0000000000000003
+RBP: 00007ffd8f305788 R08: 0000001b2bf20219 R09: 30007f509a8dd1d4
+R10: 0000001b2c320000 R11: 0000000000000246 R12: ffffffffffffffff
+R13: 00007f509aac5fac R14: 00007f509aac7da0 R15: 00007ffd8f3057b0
+ </TASK>
+
+Allocated by task 2824 on cpu 0 at 55.525014s:
+ kasan_save_stack+0x24/0x50
+ kasan_save_track+0x17/0x60
+ __kasan_kmalloc+0xaa/0xb0
+ __kmalloc_cache_noprof+0x299/0x630
+ nouveau_drm_open+0x217/0x740 nouveau_drm.c:-1
+ drm_file_alloc+0x5f2/0xad0
+ drm_open_helper+0x1d7/0x4a0
+ drm_open+0x190/0x3d0
+ drm_stub_open+0x1f2/0x460 drm_drv.c:-1
+ chrdev_open+0x21c/0x660 char_dev.c:-1
+ do_dentry_open+0x59d/0x12b0 open.c:-1
+ vfs_open+0x82/0x390
+ path_openat+0x2345/0x3420 namei.c:-1
+ do_file_open+0x207/0x460
+ do_sys_openat2+0xd1/0x1d0 open.c:-1
+ __x64_sys_openat+0x144/0x200
+ do_syscall_64+0x115/0x690
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+Freed by task 2824 on cpu 0 at 55.617917s:
+ kasan_save_stack+0x24/0x50
+ kasan_save_track+0x17/0x60
+ kasan_save_free_info+0x3b/0x60
+ __kasan_slab_free+0x61/0x80
+ kfree+0x383/0x590
+ nouveau_drm_postclose+0x270/0x3e0 nouveau_drm.c:-1
+ drm_file_free.part.0+0x6d6/0xb60 drm_file.c:-1
+ drm_close_helper.isra.0+0x11a/0x160 drm_file.c:-1
+ drm_release+0x1ab/0x330
+ __fput+0x39c/0xa60 file_table.c:-1
+ fput_close_sync+0xf0/0x1f0
+ __x64_sys_close+0x8a/0xf0
+ do_syscall_64+0x115/0x690
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+The buggy address belongs to the object at ffff88811fe29000
+ which belongs to the cache kmalloc-2k of size 2048
+The buggy address is located 560 bytes inside of
+ freed 2048-byte region [ffff88811fe29000, ffff88811fe29800)
+
+The buggy address belongs to the physical page:
+page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x11fe28
+head: order:3 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
+flags: 0x200000000000040(head|node=0|zone=2)
+page_type: f5(slab)
+raw: 0200000000000040 ffff888100042000 dead000000000100 dead000000000122
+raw: 0000000000000000 0000000000080008 00000000f5000000 0000000000000000
+head: 0200000000000040 ffff888100042000 dead000000000100 dead000000000122
+head: 0000000000000000 0000000000080008 00000000f5000000 0000000000000000
+head: 0200000000000003 fffffffffffffe01 00000000ffffffff 00000000ffffffff
+head: 0000000000000000 0000000000000000 00000000ffffffff 0000000000000000
+page dumped because: kasan: bad access detected
+
+Memory state around the buggy address:
+ ffff88811fe29100: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+ ffff88811fe29180: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+>ffff88811fe29200: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+                                     ^
+ ffff88811fe29280: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+ ffff88811fe29300: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+
+==========
+Root cause
+==========
+
+MODE_CREATE_DUMB    /* client still legacy: cli->uvmm.ptr == NULL */
+--> nouveau_gem_object_open
+    --> !nouveau_cli_uvmm(cli) == true
+        --> nouveau_vma_new
+            --> vma->vmm = &cli->vmm
+            --> list_add_tail(&vma->head, &nvbo->vma_list)
+
+NOUVEAU_VM_INIT
+--> nouveau_uvmm_ioctl_vm_init
+    --> cli->uvmm.ptr = uvmm    /* client now UVMM */
+
+PRIME_HANDLE_TO_FD(dumb)
+--> drm_gem_prime_export    /* dma_buf holds a ref on the BO, the BO outlives client */
+
+MODE_DESTROY_DUMB / GEM_CLOSE
+--> nouveau_gem_object_close
+    --> nouveau_cli_uvmm(cli) == true /* return early, vma NOT removed, still on nvbo->vma_list */
+
+close(drm_fd)
+--> nouveau_drm_postclose
+    --> nouveau_cli_fini
+        --> flush_work(&cli->work)    /* orphan vma not on queue */
+        --> nouveau_vmm_fini(&cli->vmm)
+            --> nvif_vmm_dtor(&cli->vmm.vmm)
+    --> kfree(cli)    /* cli->vmm (vma->vmm) freed */
+
+close(dma_buf_fd)    /* explicit, or at task exit */
+--> __fput
+    --> dma_buf_release
+        --> drm_gem_dmabuf_release
+            --> nouveau_gem_object_del
+                --> ttm_bo_release
+                    --> nouveau_bo_move_ntfy
+                        --> list_for_each_entry(vma, &nvbo->vma_list, head)
+                            --> nouveau_vma_unmap(vma)    /* the orphan vma */
+                                --> nvif_vmm_unmap(&vma->vmm->vmm)    /* vma->vmm is freed */
+                                    --> nvif_object_mthd
+                                        --> nvif_object_ioctl
+                                            --> client = object->client    /* UAF read of freed cli->vmm */
+
+=============
+Suggested fix
+=============
+
+From the comments in nouveau_gem_ioctl_new and nouveau_abi16_ioctl_channel_alloc:
+
+    /* If uvmm wasn't initialized until now disable it completely to prevent
+	 * userspace from mixing up UAPIs.
+
+it seems the design intention is that legacy mode and UVMM mode should be mutually exclusive.
+nouveau_gem_ioctl_new and nouveau_abi16_ioctl_channel_alloc do this by calling
+__nouveau_cli_disable_uvmm_noinit(cli). So the minimum fix for this UAF is to add
+the same calling in the dumb path:
+
+  diff --git a/drivers/gpu/drm/nouveau/nouveau_display.c b/drivers/gpu/drm/nouveau/nouveau_display.c
+  --- a/drivers/gpu/drm/nouveau/nouveau_display.c
+  +++ b/drivers/gpu/drm/nouveau/nouveau_display.c
+  @@ -818,6 +818,11 @@ nouveau_display_dumb_create(struct drm_file *file_priv, struct drm_device *dev,
+        else
+                domain = NOUVEAU_GEM_DOMAIN_GART;
+
+  +     /* If uvmm wasn't initialized until now disable it completely to prevent
+  +      * userspace from mixing up UAPIs.
+  +      */
+  +     nouveau_cli_disable_uvmm_noinit(cli);
+        ret = nouveau_gem_new(cli, args->size, 0, domain, 0, 0, &bo);
+        if (ret)
+                return ret;
+
+We are happy to send a patch if the fix is considered reasonable.
+
+---
+Best,
+Peiyang
