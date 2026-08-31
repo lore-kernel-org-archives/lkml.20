@@ -1,44 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0B005803B5;
-	Mon, 31 Aug 2026 13:49:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5C89581252;
+	Mon, 31 Aug 2026 13:49:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788184189; cv=none; b=jkl17QpZ34+ofbnYpUL9OVSVoCAMv6cBHXU8G518RPCj873ZoZq0qlXZxM7xrdpFS2ZIhDwz1odOEUvDBCf1wudnr/d9jd4C+akDhag3xuQWJ1Y9kiwV1jVOQLsQnLJxNB3ax2FyLogoP82PJYXYdJNtEXZvMegeTRX5iRrNRwo=
+	t=1788184192; cv=none; b=Ca8najd0VnvP7N2exzz6MdCge/YpZhhPG9ghviPNayutoYtqyx4IA93ttkcy4SwlXRTV/nNmLkaFErSmrGkEPUD/kJLGWar5CEG8fMX0LzcGXbDIByyoSZwNsXWIIi6xDrrPme+OGBZgdvipxFBc7hSTOMWg+Z+tzKSN3t+o9Zk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788184189; c=relaxed/simple;
-	bh=LPueD1hUsDjQlY4SKgu6VHjnhiah98+PhF0cjozIjDE=;
+	s=arc-20240116; t=1788184192; c=relaxed/simple;
+	bh=3rVMO+1l3g7xklmBAuPt3uj9YNlTPFwa8bHpqgSrX5c=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ifTzv3kGi3xn2WK17+Ks9pvkZcAFkXUXpXPyUMf5RQKeFFwxORn8ofB2Jqty4RROH7+uccL1CwSiqy2GolE6E08d9FIFBMg/JRFahvhBKgpgytm/URYfA6/BiDxGQMY8lNRq3YMDSvXqksbYxPUV+JX4xvT2A4jXnde+CGzXYXs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cbLXvWdT; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=WEyDn5WronoQYRLfR1+Dsmyq8CxoguUJ1pfRYlvb9NiENShMO13VHhNBXbkf7iZVt7lqqxtCb5ec0pbrUfQZCJDlvTeK6c0GZRzEMDsQRUNuimuybV8XBzivSoJ+fpf+W0vjKK8N9J/3kwv2z6BYTpFoO0i8JsYPpaiyqPEuka8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ycpp7BsU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cbLXvWdT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF3B91F00A3D;
-	Mon, 31 Aug 2026 13:49:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ycpp7BsU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F6731F000E9;
+	Mon, 31 Aug 2026 13:49:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788184186;
-	bh=sEnbmS/e3mUQWPuHjNXWSDPAdU/HRaTajz+dBcPwjX4=;
+	s=k20260515; t=1788184189;
+	bh=N6fURMI7uBvTjM8tKOZYWgJgAFkJWInlkr0MoI+eQD8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=cbLXvWdT39QgBFWWQBTWB6aOXGRgsvBs/9IFM31ocpAPeazTpEtV/8NJcomr4E9Xq
-	 6GUwAgdD+MTJ1Yess+8jAVekVnyy/dvznlSwKYscDwi/+NCnbnhHimCmrqR7TbbJBw
-	 iNQsakS8gTd/NISmDC7qYoUxSukHYk1vZDAfE1Wq1mCAHbvFg258p4nt+9V9PWJsVU
-	 hO47biD36a1k2PN+985Qi0SWqV3X5I91kR5xGp8UE0kppdWwxbv5IyknQk4/ArW/J1
-	 ljoFItTHa1hVrWejwOyB0ytX1ZUtW256O8o+w73bG/8SSRFbjkoQ5OST+UTKWrYCnk
-	 gAkfF+xlLQpWQ==
+	b=Ycpp7BsUTesX9qh8csWYLF7dgJqtfCqt7uWGg9QP1woR2iF1Jhl76s+WuhxLHso2p
+	 VYlLUCLsBDYQ4ycSTokBQAj5cJt6Vy9uTO/KP8lhrGwuWZLWpZ35gRVh6WQbqXdzbc
+	 hnHAwE/rpZdIp8qI5CYWEtSyXh7N+buoZJb7nOrQMPId8eylXwRJsiifATSICn6WT6
+	 hwAx/2qSm2+CuME4Gwl1cHZQdOD4fYzEVTHRW02cr1UqJUM2xSmbJ3BVa1ze2bSqKr
+	 vBTHNYqX3sbXJdgMT08BWdSM5f8dU6GxauOD+vtFWR8I3W9UMBGGflUxX5L3scqF5c
+	 Kq8HhfORZ911A==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Luis de Carlos <reskoldo73@gmail.com>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+Cc: ZhengYuan Huang <gality369@gmail.com>,
+	Konstantin Komarov <almaz.alexandrovich@paragon-software.com>,
 	Sasha Levin <sashal@kernel.org>,
-	teackot@gmail.com,
-	hansg@kernel.org,
-	platform-driver-x86@vger.kernel.org,
+	ntfs3@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-6.12] platform/x86: msi-ec: Add support for MSI Pulse GL66 12th Gen
-Date: Mon, 31 Aug 2026 09:29:31 -0400
-Message-ID: <20260831133314.4125787-543-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-5.15] fs/ntfs3: preserve non-DOS attribute bits in system.dos_attrib
+Date: Mon, 31 Aug 2026 09:29:33 -0400
+Message-ID: <20260831133314.4125787-545-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -48,24 +46,60 @@ List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 6.18.48
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Luis de Carlos <reskoldo73@gmail.com>
+From: ZhengYuan Huang <gality369@gmail.com>
 
-[ Upstream commit ab7be7ed913086e076bfd8aba79f614f415cd6dc ]
+[ Upstream commit b1c1101067d9536bcb0fe023b96ee2dde5535959 ]
 
-Add the firmware string '1583EMS1.109' to the ALLOWED_FW_10 array.
-This enables Embedded Controller support, including battery charge
-thresholds, for the MSI Pulse GL66 12UEK (MS-1583) laptop.
+[BUG]
+A corrupted ntfs3 image can hit a NULL function pointer call in
+generic_perform_write() after toggling system.ntfs_attrib and then
+overwriting system.dos_attrib on the same file.
 
-Signed-off-by: Luis de Carlos <reskoldo73@gmail.com>
-Link: https://patch.msgid.link/20260527134750.25263-1-reskoldo73@gmail.com
-Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+BUG: kernel NULL pointer dereference, address: 0000000000000000
+\#PF: supervisor instruction fetch in kernel mode
+\#PF: error_code(0x0010) - not-present page
+PGD bed5067 P4D bed5067 PUD 0
+Oops: Oops: 0010 [#1] SMP KASAN NOPTI
+RIP: 0010:0x0
+Code: Unable to access opcode bytes at 0xffffffffffffffd6.
+RSP: 0018:ffff88801025f988 EFLAGS: 00010246
+Call Trace:
+ generic_perform_write+0x409/0x8c0 mm/filemap.c:4255
+ __generic_file_write_iter+0x1bb/0x200 mm/filemap.c:4372
+ ntfs_file_write_iter+0xcd9/0x1c20 fs/ntfs3/file.c:1253
+ new_sync_write fs/read_write.c:593 [inline]
+ vfs_write+0x63b/0xf70 fs/read_write.c:686
+ ksys_write+0x133/0x250 fs/read_write.c:738
+ __do_sys_write fs/read_write.c:749 [inline]
+ __se_sys_write fs/read_write.c:746 [inline]
+ __x64_sys_write+0x77/0xc0 fs/read_write.c:746
+ ...
+
+[CAUSE]
+system.ntfs_attrib updates ATTR_DATA flags via ni_new_attr_flags()
+and switches i_mapping->a_ops to ntfs_aops_cmpr when
+FILE_ATTRIBUTE_COMPRESSED is set. system.dos_attrib then overwrites
+ni->std_fa from a one-byte DOS attribute value, clearing the compression
+bit without updating ATTR_DATA or the mapping operations.
+
+Old buffered writes use is_compressed(ni) to choose
+__generic_file_write_iter(). That leaves generic_perform_write() calling
+a NULL write_begin callback from ntfs_aops_cmpr.
+
+[FIX]
+Treat system.dos_attrib as a low-byte DOS attribute update and preserve the
+existing non-DOS attribute bits in ni->std_fa. This keeps compressed and
+sparse state consistent with ATTR_DATA and the mapping operations while
+keeping the existing DOS attribute semantics intact.
+
+Signed-off-by: ZhengYuan Huang <gality369@gmail.com>
+Signed-off-by: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
@@ -74,39 +108,47 @@ LLM Generated explanations, may be completely bogus:
 ## Phase 1: Commit Message Forensics
 
 ### Step 1.1: Subject Line
-**Record:** `[platform/x86: msi-ec]` `[Add]` — Add firmware whitelist
-entry to enable EC support for MSI Pulse GL66 12th Gen (MS-1583).
+**Record:** `[fs/ntfs3]` `[preserve]` — preserve non-DOS attribute bits
+when updating `system.dos_attrib` xattr.
 
 ### Step 1.2: Commit Message Tags
 **Record:**
-- **Signed-off-by:** Luis de Carlos `<reskoldo73@gmail.com>` (author)
-- **Link:**
-  https://patch.msgid.link/20260527134750.25263-1-reskoldo73@gmail.com
-- **Reviewed-by:** Ilpo Järvinen `<ilpo.jarvinen@linux.intel.com>`
-  (subsystem maintainer)
-- **Signed-off-by:** Ilpo Järvinen (committer/maintainer)
-- No Fixes:, Reported-by:, Tested-by:, Cc: stable@vger.kernel.org, or
-  syzbot tags
-- Notable: Reviewed and committed by platform/x86 maintainer Ilpo
-  Järvinen
+- **Fixes:** — not present (expected for manual review)
+- **Reported-by:** — not present
+- **Tested-by:** — not present
+- **Reviewed-by:** — not present
+- **Acked-by:** — not present
+- **Link:** — not present
+- **Cc: stable@vger.kernel.org** — not present (expected)
+- **Signed-off-by:** ZhengYuan Huang `<gality369@gmail.com>`, Konstantin
+  Komarov `<almaz.alexandrovich@paragon-software.com>`
+
+Notable: maintainer (Komarov) Signed-off-by present; no syzbot report,
+but commit includes full KASAN oops stack trace.
 
 ### Step 1.3: Commit Body Analysis
 **Record:**
-- **Bug description:** Not a crash/corruption bug. The `msi-ec` driver
-  refuses to load on firmware `1583EMS1.109` because it is absent from
-  `ALLOWED_FW_10`.
-- **Symptom:** Driver init returns `-EOPNOTSUPP` with "Firmware version
-  is not supported"; battery charge thresholds and other EC extras
-  unavailable on MSI Pulse GL66 12UEK (MS-1583).
-- **Root cause:** Missing firmware string in the whitelist for existing
-  `CONF10` configuration.
-- **Version info:** None stated; laptop is 12th Gen (Alder Lake era).
+- **Bug:** NULL function pointer dereference in
+  `generic_perform_write()` after setting `system.ntfs_attrib` then
+  `system.dos_attrib` on the same file.
+- **Symptom:** Kernel oops — `#PF: supervisor instruction fetch`, `RIP:
+  0x0`, call chain through `ntfs_file_write_iter` →
+  `__generic_file_write_iter` → `generic_perform_write`.
+- **Root cause:** `system.ntfs_attrib` sets compression via
+  `ni_new_attr_flags()` and switches `i_mapping->a_ops` to
+  `ntfs_aops_cmpr`. `system.dos_attrib` then replaces all of
+  `ni->std_fa` with a 1-byte DOS value, clearing
+  `FILE_ATTRIBUTE_COMPRESSED` without updating ATTR_DATA or `a_ops`.
+  `is_compressed(ni)` becomes false, so buffered writes use
+  `__generic_file_write_iter()`, but `a_ops` remains `ntfs_aops_cmpr`
+  which has no `write_begin` → NULL deref.
+- **Fix:** Mask-merge: preserve upper bits of `ni->std_fa`, only update
+  low DOS byte.
 
 ### Step 1.4: Hidden Bug Fix Detection
-**Record:** Not a hidden bug fix. This is explicit hardware enablement —
-adding a firmware identification string so an existing, tested
-configuration (`CONF10`) is selected for a new laptop variant.
-Functionally equivalent to adding a device ID.
+**Record:** Not disguised — explicitly labeled `[BUG]` with stack trace
+and root-cause analysis. This is a clear correctness/crash fix, not
+cleanup.
 
 ---
 
@@ -114,193 +156,188 @@ Functionally equivalent to adding a device ID.
 
 ### Step 2.1: Change Inventory
 **Record:**
-- **Files:** `drivers/platform/x86/msi-ec.c` (+1 line)
-- **Functions/areas:** `ALLOWED_FW_10[]` firmware whitelist array
-- **Scope:** Single-file, single-line surgical change
+- **Files:** `fs/ntfs3/xattr.c` only (+3 lines, -1 line)
+- **Function:** `ntfs_setxattr()`
+- **Scope:** Single-file surgical fix in xattr handler
 
 ### Step 2.2: Code Flow Change
 **Record:**
-- **Before:** `load_configuration()` iterates `CONFIGS[]`, calls
-  `match_string()` on each `allowed_fw` list. Firmware `1583EMS1.109`
-  matches nothing → warning + `-EOPNOTSUPP` → `msi_ec_init()` fails →
-  module does not load.
-- **After:** `1583EMS1.109` matches `ALLOWED_FW_10` → `CONF10` is copied
-  into `conf` → `battery_hook_register()` succeeds → charge threshold
-  sysfs attributes become available.
-- **Path affected:** Module initialization (`__init`), normal boot path
-  for matching MSI hardware.
+- **Before:** `SYSTEM_DOS_ATTRIB` setxattr: `new_fa = cpu_to_le32(*(u8
+  *)value)` — full 32-bit replace from 1-byte input.
+- **After:** `new_fa = (ni->std_fa & ~cpu_to_le32(0xff)) |
+  cpu_to_le32(*(u8 *)value)` — merge low byte only.
+- **Path affected:** `setxattr("system.dos_attrib", ...)` on regular
+  files, then `set_new_fa` label updates `ni->std_fa` without calling
+  `ni_new_attr_flags()`.
 
 ### Step 2.3: Bug Mechanism
-**Record:** Category: **Hardware enablement / device identification**
-(not memory safety, race, or crash). The driver deliberately whitelists
-firmware versions before exposing EC register addresses. Missing entry =
-safe refusal to load, not a kernel defect.
+**Record:** **Logic/correctness + NULL pointer dereference.**
+Inconsistent inode state: `a_ops` says compressed, `std_fa` says not.
+`ntfs_file_write_iter()` at line 1252 branches on `is_compressed(ni)`
+(checks `std_fa`), not on `a_ops`. Mismatch leads to
+`generic_perform_write()` calling NULL `write_begin` from
+`ntfs_aops_cmpr`.
+
+Verified: `ntfs_aops_cmpr` (inode.c:2116-2121) has no `write_begin`;
+`ntfs_aops` (2105-2114) does.
 
 ### Step 2.4: Fix Quality
-**Record:** Obviously correct — reuses existing `CONF10` already used
-for `1582EMS1.107` (GF66 11UC), a closely related MS-158x platform.
-Minimal change. Regression risk very low: only affects systems reporting
-exactly this firmware string; no API, locking, or memory management
-changes.
+**Record:** Obviously correct. `ntfs_getxattr()` for `SYSTEM_DOS_ATTRIB`
+already returns only the low byte (`*(u8 *)buffer =
+le32_to_cpu(ni->std_fa)` at xattr.c:781), so set/get semantics are now
+symmetric. Minimal change, no API changes, very low regression risk.
 
 ---
 
 ## Phase 3: Git History Investigation
 
 ### Step 3.1: Blame
-**Record:** `ALLOWED_FW_10` and `CONF10` introduced in `8abba08944663`
-("platform/x86: msi-ec: Add more EC configs", 2023-10-06, v6.6 era).
-Present in this tree since driver merge.
+**Record:** Buggy line `new_fa = cpu_to_le32(*(u8 *)value)` introduced
+in `be71b5cba2e648` (Konstantin Komarov, 2021-08-13, "fs/ntfs3: Add
+attrib operations"). `SYSTEM_DOS_ATTRIB` strcmp dispatch added in
+`d45da67caedacd` (2022-09-24). Bug present since ntfs3 xattr support was
+added.
 
 ### Step 3.2: Fixes: Tag
-**Record:** N/A — no Fixes: tag present.
+**Record:** No `Fixes:` tag. N/A.
 
 ### Step 3.3: Related File History
-**Record:** Recent `msi-ec.c` history in this tree (v6.18.44):
-- `59fff63cc2b75` Merge platform-drivers-x86 v6.7-1
-- `6284e67aa6cb3` Fix the 3rd config
-- `8abba08944663` Add more EC configs
-- `392cacf2aa10d` Add new msi-ec driver (v6.4)
-
-On master but not in this stable tree:
-- `ab7be7ed91308` — this commit (Pulse GL66)
-- `4c8f323b9e151` — unrelated include fix for future acpi.h change
-
-**Standalone:** Yes. No series dependency.
+**Record:** Recent ntfs3 activity in this tree is heavy on
+fuzzer/corruption fixes (OOB reads, bounds checks). No prior fix for
+this dos_attrib inconsistency. Standalone 1-patch series (b4 dig shows
+only v1).
 
 ### Step 3.4: Author Context
-**Record:** Luis de Carlos is a hardware reporter/user contributor. Ilpo
-Järvinen is the platform/x86 maintainer who reviewed and committed the
-patch.
+**Record:** ZhengYuan Huang is a contributor (not maintainer).
+Konstantin Komarov (ntfs3 maintainer) Signed-off-by and queued for merge
+per lore reply.
 
-### Step 3.5: Prerequisites
-**Record:** No prerequisites. `CONF10`, `CONFIGS[]`,
-`load_configuration()`, and `ALLOWED_FW_10` all exist in v6.18.44. The
-`4c8f323b9e151` dmi.h include commit is independent and not needed for
-this one-line addition.
+### Step 3.5: Dependencies
+**Record:** No dependencies. Uses existing `ni->std_fa`, `cpu_to_le32`,
+and `set_new_fa` path. `git apply --check` on commit `b1c1101067d9536`
+succeeds cleanly against local tree.
 
 ---
 
 ## Phase 4: Mailing List and External Research
 
 ### Step 4.1: Original Discussion
-**Record:**
-- **b4 dig URL:**
-  https://patch.msgid.link/20260527134750.25263-1-reskoldo73@gmail.com
-- **Series revisions:** v1 → v2 (v2 is what was committed)
-- **Reviewer feedback:** Ilpo Järvinen applied to his review branch with
-  acknowledgment ("Thank you for your contribution, it has been
-  applied")
-- **No NAKs, no stable nomination** in thread
-- **No objections** raised
+**Record:** `b4 dig -c b1c1101067d9536bcb0fe023b96ee2dde5535959` →
+https://patch.msgid.link/20260427032418.2678198-1-gality369@gmail.com.
+Single v1 patch (2026-04-27). Komarov replied 2026-05-22: "Queued for
+the next merge window, thank you." No NAKs found.
 
 ### Step 4.2: Reviewers
-**Record:** CC'd: `platform-driver-x86@vger.kernel.org`, `linux-
-kernel@vger.kernel.org`, teackot@gmail.com (driver author),
-hansg@kernel.org. Reviewed/committed by Ilpo Järvinen.
+**Record:** `b4 dig -w`: To Komarov; Cc ntfs3@lists.linux.dev, linux-
+kernel@vger.kernel.org, co-authors. Maintainer engaged.
 
 ### Step 4.3: Bug Report
-**Record:** No external bug report, syzbot, or bugzilla link. User-
-submitted hardware enablement from laptop owner.
+**Record:** Stack trace embedded in commit message (KASAN oops). No
+external bugzilla/syzbot link. Reproducible via setxattr sequence +
+write syscall.
 
-### Step 4.4: Related Patches
-**Record:** Standalone 1/1 patch. No multi-patch series dependencies.
+### Step 4.4: Series Context
+**Record:** Standalone patch, not part of multi-patch series.
 
-### Step 4.5: Stable Mailing List
-**Record:** Not searched separately; no stable nomination found in the
-patch thread itself.
+### Step 4.5: Stable List
+**Record:** No stable@vger.kernel.org nomination found in available
+thread content. Not a negative signal.
 
 ---
 
 ## Phase 5: Code Semantic Analysis
 
 ### Step 5.1: Key Functions
-**Record:** `ALLOWED_FW_10[]` (data), `load_configuration()`,
-`msi_ec_init()`.
+**Record:** `ntfs_setxattr()`, `ni_new_attr_flags()`, `is_compressed()`,
+`ntfs_file_write_iter()`, `generic_perform_write()`.
 
 ### Step 5.2: Callers
-**Record:** `msi_ec_init()` → `load_configuration()` at module init.
-`msi_ec` is a loadable module (`CONFIG_MSI_EC`, tristate) probed on MSI
-laptops matching DMI vendor table. Called once at boot/module load.
+**Record:** `ntfs_setxattr` registered as `.set` in
+`ntfs_other_xattr_handler` (xattr.c:1054-1058), reachable from VFS
+`setxattr`/`fsetxattr` syscalls. `ntfs_file_write_iter` reachable from
+`write()`/`pwrite()` syscalls.
 
 ### Step 5.3: Callees
-**Record:** `ec_get_firmware_version()` reads EC register 0xa0;
-`match_string()` compares against whitelist; on match,
-`battery_hook_register()` exposes charge threshold sysfs via ACPI
-battery hook.
+**Record:** `system.ntfs_attrib` path calls `ni_new_attr_flags()` which
+sets `i_mapping->a_ops`. `system.dos_attrib` path skips that and goes
+directly to `set_new_fa`.
 
 ### Step 5.4: Reachability
-**Record:** Triggered when `CONFIG_MSI_EC=m/y` on MSI laptop with
-firmware `1583EMS1.109`. Requires root to load module (or built-in at
-boot). Not a syscall path; hardware-specific platform driver init.
+**Record:** **Userspace-reachable.** Any file owner on a writable ntfs3
+mount can set `system.ntfs_attrib` and `system.dos_attrib` (no
+`CAP_SYS_ADMIN` check for these names; only `$LX*` xattrs are restricted
+at xattr.c:958-962). Then `write()` triggers the crash.
 
 ### Step 5.5: Similar Patterns
-**Record:** The driver has 14 `ALLOWED_FW_*` arrays with the same
-pattern. Adding entries to existing arrays is the established mechanism
-for new hardware variants (e.g., `8abba08944663` added many configs at
-once).
+**Record:** `system.ntfs_attrib` path correctly calls
+`ni_new_attr_flags()` for regular files. Only `system.dos_attrib`
+bypasses it while being able to clear non-DOS bits — the inconsistency
+is unique to this code path.
 
 ---
 
 ## Phase 6: Cross-Reference Against Local Tree
 
-### Step 6.1: Buggy Code Exists?
-**Record:** **YES.** Local tree is **v6.18.44** (6.18.y stable).
-`ALLOWED_FW_10` exists with only `"1582EMS1.107"`. Firmware
-`1583EMS1.109` is not whitelisted. Commit `ab7be7ed91308` is on master
-but not in this tree.
+### Step 6.1: Buggy Code Present?
+**Record:** **YES.** Local tree is **6.18.44** (`git describe HEAD` →
+`v6.18.44-1-gef4bf62bccf3c`). Buggy code at xattr.c:870: `new_fa =
+cpu_to_le32(*(u8 *)value)`. Fix commit `b1c1101067d9536` is NOT an
+ancestor of HEAD (`git merge-base --is-ancestor` exit 1). ntfs3
+subsystem fully present.
 
 ### Step 6.2: Backport Complications
-**Record:** **Clean apply expected.** Single-line insertion into
-existing array at line 825. No conflicts with local modifications. Index
-in commit (`f19504dbf164c`) matches current tree structure around
-`CONF9`/`ALLOWED_FW_10`.
+**Record:** **Clean apply.** `git apply --check` on the upstream diff
+succeeds with no conflicts. Line numbers match (867-872 region).
 
 ### Step 6.3: Related Fixes Already Present?
-**Record:** No. `git grep 1583EMS1` returns no matches. No alternative
-fix for Pulse GL66 in this tree.
+**Record:** No existing fix for this issue found via `git log --grep`.
+Recent ntfs3 stable fixes address other corruption paths but not this
+xattr inconsistency.
 
 ---
 
-## Phase 7: Subsystem and Maintainer Context
+## Phase 7: Subsystem Context
 
 ### Step 7.1: Subsystem Criticality
-**Record:** `drivers/platform/x86/` — **PERIPHERAL** platform driver for
-MSI laptop EC extras. Optional module; laptop functions without it (no
-crash), but battery charge threshold control is unavailable.
+**Record:** **fs/ntfs3** — filesystem driver. **IMPORTANT** (not
+universal like VFS core, but any ntfs3 mount user is affected; crash is
+kernel-wide once triggered).
 
-### Step 7.2: Subsystem Activity
-**Record:** Driver added v6.4 (2023), configs expanded v6.6. Mature but
-still receiving firmware whitelist additions. Low churn in stable tree.
+### Step 7.2: Activity
+**Record:** Highly active — 20+ recent ntfs3 fixes in this tree for
+corruption/crash issues, indicating ongoing hardening of a relatively
+young driver.
 
 ---
 
 ## Phase 8: Impact and Risk Assessment
 
 ### Step 8.1: Who Is Affected
-**Record:** **Hardware-specific** — owners of MSI Pulse GL66 12UEK
-(MS-1583) with firmware `1583EMS1.109` who build/load `CONFIG_MSI_EC`.
-Small population.
+**Record:** Users with ntfs3 mounted read-write (CONFIG_NTFS3). File
+owners who can set xattrs on their files.
 
 ### Step 8.2: Trigger Conditions
-**Record:** Boot or `modprobe msi-ec` on matching MSI laptop with this
-exact firmware. Not timing-dependent. Requires `CONFIG_MSI_EC` enabled.
-Unprivileged users cannot trigger module load.
+**Record:**
+1. `setxattr("system.ntfs_attrib", FILE_ATTRIBUTE_COMPRESSED)` on empty
+   regular file
+2. `setxattr("system.dos_attrib", <byte without compression bit>)`
+3. Buffered `write()` to the file
 
-### Step 8.3: Failure Mode Severity
-**Record:** Without patch: driver refuses to load (`-EOPNOTSUPP`),
-charge thresholds unavailable. **Severity: LOW** — missing
-functionality, not crash, corruption, hang, or security issue. Laptop
-otherwise works.
+Also triggerable by corrupted on-disk metadata that sets the same
+inconsistent state. Unprivileged local user can trigger via syscalls.
+
+### Step 8.3: Failure Mode
+**Record:** **NULL pointer dereference → kernel oops** (supervisor
+instruction fetch at address 0). Severity: **CRITICAL** (system crash /
+local DoS).
 
 ### Step 8.4: Risk-Benefit
 **Record:**
-- **Benefit:** Enables battery charge threshold and EC extras for a real
-  laptop on stable kernel; matches official stable rule allowing device
-  ID additions
-- **Risk:** Very low — 1 line, whitelist-only, reuses proven `CONF10`
-  config
-- **Ratio:** Moderate benefit for affected users, negligible risk
+- **Benefit:** HIGH — prevents reproducible kernel crash from common
+  syscall path
+- **Risk:** VERY LOW — 3-line mask-merge, matches existing getxattr
+  semantics
+- **Ratio:** Strongly favors backport
 
 ---
 
@@ -308,125 +345,105 @@ otherwise works.
 
 ### Step 9.1: Evidence Summary
 
-**FOR backporting:**
-- Explicitly allowed by `Documentation/process/stable-kernel-rules.rst`:
-  "just add a device ID"
-- Firmware string is this driver's device-identification mechanism
-- 1 line, obviously correct, maintainer-reviewed
-- Driver and `CONF10` already exist in v6.18.44
-- Clean apply, no dependencies
-- Enables real hardware functionality for stable-kernel users
+**FOR backport:**
+- Real NULL pointer dereference with documented KASAN stack trace
+- Userspace-triggerable on writable ntfs3 mounts (setxattr + write)
+- Bug present since 2021 in code that exists in 6.18.44
+- Tiny, obviously correct fix; applies cleanly
+- Semantically aligns setxattr with getxattr (low byte only for
+  dos_attrib)
+- Maintainer reviewed and signed off
+- ntfs3 driver actively maintained in stable with similar crash fixes
 
-**AGAINST backporting:**
-- Not a crash/corruption/security/deadlock fix
-- Affects one laptop model with small user base
-- Optional module — system works without it
-- No user bug reports beyond patch author
+**AGAINST backport:**
+- Commit not yet merged to this tree (candidate evaluation — that's the
+  point)
+- Affects only ntfs3 users (not all kernel users) — but crash severity
+  outweighs narrow scope
+- No syzbot/bugzilla report (but stack trace and code analysis confirm
+  the bug)
 
-**Unresolved:** Whether `CONF10` register map is fully validated on
-MS-1583 (author and maintainer accepted it; no independent test reports
-in thread).
+**Unresolved:** None material to the decision.
 
 ### Step 9.2: Stable Rules Checklist
-1. Obviously correct and tested? **PASS** — maintainer
-   reviewed/committed; trivial whitelist addition
-2. Fixes real bug affecting users? **PASS** — per stable rules, "just
-   add a device ID" is sufficient; missing ID prevents driver from
-   loading on real hardware
-3. Important issue? **PASS (by exception)** — not crash-level, but
-   device ID additions are explicitly permitted
-4. Small and contained? **PASS** — 1 line, 1 file
-5. No new features or APIs? **PASS** — no new APIs; enables existing
-   `CONF10` on new hardware variant
-6. Can apply to local tree? **PASS** — driver infrastructure present,
-   clean 1-line apply
+1. Obviously correct and tested? **PASS** — logic verified against code;
+   maintainer SOB; KASAN trace confirms failure mode
+2. Fixes a real bug? **PASS** — state inconsistency → NULL deref on
+   write
+3. Important issue? **PASS** — kernel oops / local DoS (CRITICAL)
+4. Small and contained? **PASS** — 3 lines, 1 file
+5. No new features/APIs? **PASS** — corrects existing xattr semantics
+6. Can apply to local tree? **PASS** — clean `git apply --check`
 
-### Step 9.3: Exception Category
-**Record:** **NEW DEVICE ID** — firmware version string added to
-existing driver's whitelist, enabling existing `CONF10` configuration.
-Directly matches stable-kernel-rules.rst line 15 and the user's "NEW
-DEVICE IDs" exception.
+### Step 9.3: Exception Categories
+**Record:** Not applicable (not device ID, quirk, DT, build, or docs).
+Standard bug-fix category.
 
 ### Step 9.4: Decision Rationale
-
-This commit adds firmware `1583EMS1.109` to the `ALLOWED_FW_10`
-whitelist so the existing `msi-ec` driver loads on the MSI Pulse GL66
-12UEK. The local tree (v6.18.44) has the driver and `CONF10` but lacks
-this string, so affected laptops cannot use kernel-managed battery
-charge thresholds.
-
-Per the stable rules in this tree's own documentation, patches that
-"just add a device ID" are explicitly acceptable for stable. The
-firmware string serves as the device identifier for `msi-ec`. The change
-is one line, maintainer-reviewed, applies cleanly, and carries
-negligible regression risk.
+This commit fixes a long-standing inconsistency in ntfs3 xattr handling
+that leaves `i_mapping->a_ops` and `ni->std_fa` out of sync, causing a
+NULL `write_begin` dereference on buffered writes. The bug exists in the
+local 6.18.44 tree, the fix is minimal and correct, and the crash is
+reachable from userspace. This meets all stable kernel criteria.
 
 ---
 
 ## Verification
 
-- [Phase 1] Parsed subject, tags, body; identified hardware enablement
-  intent
-- [Phase 1] No syzbot/Fixes:/Cc: stable tags found
-- [Phase 2] Diff: +1 line to `ALLOWED_FW_10[]` in
-  `drivers/platform/x86/msi-ec.c`
-- [Phase 2] Read `load_configuration()` at lines 1306–1337: confirms
-  `-EOPNOTSUPP` without whitelist match
-- [Phase 3] `git describe HEAD`: v6.18.44
-- [Phase 3] `git blame -L 824,827`: `ALLOWED_FW_10` from `8abba08944663`
-  (2023-10-06)
-- [Phase 3] `git show ab7be7ed91308`: confirmed commit hash and 1-line
-  diff
-- [Phase 3] `git log HEAD..master -- drivers/platform/x86/msi-ec.c`: 2
-  commits (this + unrelated include fix)
-- [Phase 3] `git show 4c8f323b9e151`: confirmed NOT a prerequisite
-- [Phase 4] `b4 dig -c ab7be7ed91308`: found v2 thread at
-  patch.msgid.link
-- [Phase 4] `b4 dig -a`: v1→v2 series, v2 committed
-- [Phase 4] `b4 dig -w`: Ilpo Järvinen, platform-driver-x86 list CC'd
-- [Phase 4] Read `/tmp/msi-ec-pulse.mbox`: maintainer applied patch, no
-  NAKs, no stable CC
-- [Phase 5] `grep match_string`: used in `load_configuration()` line
-  1319
-- [Phase 5] Read `Kconfig` MSI_EC help text: confirms charge threshold
-  purpose
-- [Phase 6] `grep 1583EMS1`: not present in local tree
-- [Phase 6] `grep 1582EMS1`: present at line 825, confirming target
-  array exists
-- [Phase 6] Read `Documentation/process/stable-kernel-rules.rst` line
-  15: "just add a device ID" explicitly allowed
-- [Phase 8] Confirmed failure mode is `-EOPNOTSUPP` (LOW severity), not
-  crash
-
-**YES**The MSI Pulse GL66 `msi-ec` commit is a good stable backport
-candidate for this tree (v6.18.44).
-
-It adds one firmware string (`1583EMS1.109`) to the existing
-`ALLOWED_FW_10` whitelist so the already-present `CONF10` config can
-load on the MSI Pulse GL66 12UEK. Without it, `msi-ec` returns
-`-EOPNOTSUPP` and battery charge thresholds stay unavailable.
-
-This fits the stable rule for device ID additions: one line, maintainer-
-reviewed, clean apply, and the driver infrastructure is already in
-6.18.y. It is hardware enablement, not a crash fix, but that is
-explicitly allowed for this kind of change.
+- **[Phase 1]** Parsed subject, tags, body; no Fixes/Reported-
+  by/Cc:stable tags
+- **[Phase 1]** Identified explicit [BUG] with KASAN oops stack trace
+- **[Phase 2]** Diff: 3 lines in `ntfs_setxattr()` SYSTEM_DOS_ATTRIB
+  path
+- **[Phase 2]** Verified `ntfs_aops_cmpr` lacks `write_begin`
+  (inode.c:2116-2121)
+- **[Phase 2]** Verified `ntfs_aops` has `write_begin` (inode.c:2107)
+- **[Phase 2]** Verified `is_compressed()` checks `ni->std_fa`
+  (ntfs_fs.h:1034-1037)
+- **[Phase 2]** Verified `ntfs_file_write_iter()` branches on
+  `is_compressed(ni)` (file.c:1252-1253)
+- **[Phase 2]** Verified `generic_perform_write()` calls
+  `a_ops->write_begin` unconditionally (filemap.c:4266-4267)
+- **[Phase 3]** `git blame`: buggy line from `be71b5cba2e648`
+  (2021-08-13)
+- **[Phase 3]** `git log -20 -- fs/ntfs3/xattr.c`: no prior dos_attrib
+  fix
+- **[Phase 3]** `git apply --check` on b1c1101067d9536 diff: **clean
+  apply**
+- **[Phase 4]** `b4 dig -c b1c1101067d9536`: lore thread found
+- **[Phase 4]** `b4 dig -a`: single v1 patch only
+- **[Phase 4]** `b4 dig -w`: Komarov (maintainer) in To, ntfs3 list Cc'd
+- **[Phase 4]** Openwall lore: Komarov queued for merge, no objections
+- **[Phase 5]** Verified xattr handler has no CAP_SYS_ADMIN gate for
+  system.* names (xattr.c:867-891 vs 958-962)
+- **[Phase 5]** Verified getxattr returns only low byte for dos_attrib
+  (xattr.c:781)
+- **[Phase 6]** `git describe HEAD`: v6.18.44-1-gef4bf62bccf3c (6.18.y
+  tree)
+- **[Phase 6]** `git merge-base --is-ancestor b1c1101067d9536 HEAD`:
+  exit 1 (fix NOT in tree)
+- **[Phase 6]** Buggy code confirmed at xattr.c:870 in local checkout
+- **[Phase 8]** Failure mode: NULL deref kernel oops, CRITICAL severity
 
 **YES**
 
- drivers/platform/x86/msi-ec.c | 1 +
- 1 file changed, 1 insertion(+)
+ fs/ntfs3/xattr.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/platform/x86/msi-ec.c b/drivers/platform/x86/msi-ec.c
-index f19504dbf164c..0157e233e4300 100644
---- a/drivers/platform/x86/msi-ec.c
-+++ b/drivers/platform/x86/msi-ec.c
-@@ -823,6 +823,7 @@ static struct msi_ec_conf CONF9 __initdata = {
- 
- static const char * const ALLOWED_FW_10[] __initconst = {
- 	"1582EMS1.107", // GF66 11UC
-+	"1583EMS1.109", // Pulse GL66 12UEK
- 	NULL
- };
+diff --git a/fs/ntfs3/xattr.c b/fs/ntfs3/xattr.c
+index d719e1073dbb1..b6f365849272e 100644
+--- a/fs/ntfs3/xattr.c
++++ b/fs/ntfs3/xattr.c
+@@ -867,7 +867,9 @@ static noinline int ntfs_setxattr(const struct xattr_handler *handler,
+ 	if (!strcmp(name, SYSTEM_DOS_ATTRIB)) {
+ 		if (sizeof(u8) != size)
+ 			goto out;
+-		new_fa = cpu_to_le32(*(u8 *)value);
++		/* system.dos_attrib only covers the low DOS attribute byte. */
++		new_fa = (ni->std_fa & ~cpu_to_le32(0xff)) |
++			 cpu_to_le32(*(u8 *)value);
+ 		goto set_new_fa;
+ 	}
  
 -- 
 2.53.0
