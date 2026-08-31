@@ -1,162 +1,256 @@
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
+Received: from mta1.migadu.com (out-111.mta1.migadu.com [95.215.58.111])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C469B367B67
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 16:41:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9A9136C0CD
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 16:42:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.111
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788194519; cv=none; b=ZjIqkbEsgWolWSoYiPdL6srqRNu7NDquF2ySIt68T+W5f7zHAQtlycRU+geL7vweJOaC90tSnQlvbmaZd5zmRV/ng2CuNq2CHj0z/EbsopvGe8vZNSoxhBznigjZxDDZCAsEQSkkC1VHrDP7Ur0y5gNkyQUMvEm+/ODq9vw2dwk=
+	t=1788194535; cv=none; b=XZ8NXAC1qoZaewsjpJuFPrIpCzuhmBb9EVCCyzPZJQn1qfclsQR85YsJXnQWEog6PmrWu+zA8ezle35R6xGEXdudorENdCdYzKJaYn1PnGXr2NzKdjd6MelAAuZXvW6/GGEaUzOcV52EKGFrxS5/Ymbma5fAaWzOtbblRX+KBE0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788194519; c=relaxed/simple;
-	bh=LULiVBaw6hSvVUVgaozvc7c+6Gf7WHEv6ODyp56BOXQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=o8hriZeLeeikTAYCJXCbNezsw+mlXuO783RDKD/ymwY5ZguIsmgMQB8vN7Rc4TD5/v1Do2WP5gd+lB1IAWUFR84IovxtGxNrcqxUvdf0Ag0XIUHH0kzaqkOqNsnG5VLEkU7QSJIhKl72x18pGSluktqgcksWVi/DNzGEEbxQnXE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QgSk6AmL; arc=none smtp.client-ip=209.85.214.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788194535; c=relaxed/simple;
+	bh=tdHcWsi0AaT2ukB84G+9Y6w92gG5pzB05rU1WCPqkkM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Q94pkPjVUdhUMsphT2DbMltCQ4orXQYIsXDcKCiiDJb5j95lRfZ8t7G6JXJYzkFNWgwk4eBNJYII9KY6lt0uWQCgEkY4dDuK0PH37HXJqzEeDKucMNCeHRYw8eblyKoCmYBJCBjpZo/WCDtxQIZ635MS+fEbxasJSd67r9z2Tno=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=e/bgbYZO; arc=none smtp.client-ip=95.215.58.111
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QgSk6AmL"
-Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2d94c868ea5so2449295ad.3
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 09:41:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788194517; x=1788799317; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Jgcy4vhcuOFybIiqsdMpVsUmfvN2Slyg4glzbZ+onWU=;
-        b=QgSk6AmLwvkjDyK3Tpu2hbZCtk82I4HiBdblmyWoMsFs9Y7kdKDKkzqTudqBs3wlU9
-         17l77BrU9i0Kp0x4034f7YStG1ghWfwYo7p/t6LgdW87iFzgvsP1SAHAgEjdJ7Rk5uv7
-         DY38nZhj+4uXWxVm8Hg+m7eSTSvWxXBtbpxuE/6YtHLjF59H5a9+rE3NM3Dfyrpt4Vj+
-         WA7OJfsayuDeJxblCLQzwZmoVQ8dOns+uH6RBzMXMADOWHJcbW3yQ4kkqKw7TnK4qOhL
-         OP+lrETP9tvRhwin33GJyUXp1NyJ7dg0yjvZtp45Se5Kf2vKkSCa/tiP1xrhTfkr5Uop
-         FaQw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788194517; x=1788799317;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Jgcy4vhcuOFybIiqsdMpVsUmfvN2Slyg4glzbZ+onWU=;
-        b=EnPNMkpqpuUZp9cU0oX+lZpEE0DKjvIbsw6trs0237APX9WWSLfGCOtaonHEnjtY8C
-         fe1kCkH4UieGXkA6Z+J0MGv3gQZvg+mJDEyBXgG2RlP5sMAB0LcYez0Iz1PhlvE0Z81y
-         W4kUF1LvWLB7s09s2HV3AtTXiVTDlVSezr9Nd3Jjq5y+zsaWpeqRBZUMEydT7SKl9k61
-         53ztrzBnedU56lvrzZakYnCYKoX4wHa9M6akhOxDdKowY8lrut8GdJFucZiCl2lLAjmZ
-         AqFr6udpkC4SvHP+XeW8xKkIe/3XTmVXY5GTfut9TpF1Oue8NyHw14XamuOkMw00I3ed
-         6h9w==
-X-Forwarded-Encrypted: i=1; AKwUvBzPwUJselMhKYwR70eTtrYR1J9XSKeZc4p81BdBjidakzY4AA7TdiTBLrai6/WtRgM3t4coqt/sajaorow=@vger.kernel.org
-X-Gm-Message-State: AFuF++n5NE27UQzytRPAI3Kcx0dWdxhcK1BF/z2Ukw0aV+sSKWmyBcCw
-	wQDqpBZpdZu91WRKRaoNK9XxMUBP33kvUwX0t100OWlWOP4lcS50UMTH
-X-Gm-Gg: AYBFou0zoKhiAJe6oEa83kQWFM4+UoSkSyfEt66oxtyJUaZN7bARws9i2aq5XEHJch5
-	1UwUHb6CQpp82Q6dNcFFzEBk+yjGD/3zAk4zujkVMnfHhTxMinz188gSeGmxtaHKLJUi9T8gFgI
-	EsWJ64UPuAB11YrmeXFnduWQh4ehpbAmkZ3DmzWdr1Wf3QF/3vbgT6XOVkUODIq3mABD2WVN6cA
-	SDRrVT7/tMiS9vRAxt0nI+Mpyh8h294isIxHgStNx1hPQzaGLOQj36tVch8X+KxWZ10AuE8XeDs
-	PyDsestIlj1kCyGuiwSwOTb2E82NBYAx00hC8kQ30CY8d+XXGgyZmvHe6J/60X/aX951eNKeZGX
-	A5cTRlk05ckRCMdx8sxs0+tGAHB83+nwC1tjCs1W3MJLY/GQwIgAi5mvpgRIR0G/WcjwqTJ9HfE
-	FS8dnGq4sukoHy4VrO9v/NTsTDdpsLbXghMwb9tk0jeQ4sZv1geos+NwN7IeHIAUEy1BCS/g==
-X-Received: by 2002:a17:903:458b:b0:2d9:51bd:534f with SMTP id d9443c01a7336-2d951bd58e9mr1320725ad.10.1788194516382;
-        Mon, 31 Aug 2026 09:41:56 -0700 (PDT)
-Received: from gmail.com ([185.220.238.38])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d75988a1d6sm39974305ad.55.2026.08.31.09.41.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 09:41:55 -0700 (PDT)
-From: Kunwu Chan <kunwu.chan@gmail.com>
-X-Google-Original-From: Kunwu Chan <kunwu.chan@linux.dev>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Kunwu Chan <kunwu.chan@linux.dev>,
-	Kunwu Chan <kunwu.chan@gmail.com>,
-	Dev Jain <dev.jain@arm.com>,
-	akpm@linux-foundation.org,
-	david@kernel.org,
-	riel@surriel.com,
-	liam@infradead.org,
-	vbabka@kernel.org,
-	harry@kernel.org,
-	jannh@google.com,
-	lance.yang@linux.dev,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] mm/rmap: remove stale hugetlb check in try_to_unmap_one
-Date: Tue,  1 Sep 2026 00:41:42 +0800
-Message-ID: <20260831164143.2517715-1-kunwu.chan@linux.dev>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <apWlLTa3oZq1wwvR@lucifer>
-References: 
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="e/bgbYZO"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=tdHcWsi0AaT2ukB84G+9Y6w92gG5pzB05rU1WCPqkkM=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788194531; v=1; x=1788799331;
+ b=e/bgbYZO3CtzoAtgTXgEkj6oh2lTvqcDFoMARhIVTMa4ssFR6D4PLt7MQEkW9IrJmwE0z+C4
+ odgP3NjRw7WJkVSY7SGEJOryYgpQ4NXmvlRXwTLrOzLZbMn1gx09HA0uSR3fBUhYEc6sY5zdBbN
+ gbjGIq9NJ0c8xKQ0098yIpUo=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 26a930ce5f2a0f09;
+	Mon, 31 Aug 2026 16:42:01 +0000
+X-Mizu-Trace-ID: 26a930ce5f2a0f09
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <46079ae8-8b8f-41b5-8cf6-0fe1664b0848@linux.dev>
+Date: Mon, 31 Aug 2026 10:41:55 -0600
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] HID: hyperv: add KUnit coverage for device info
+ bounds
+To: Michael Bommarito <michael.bommarito@gmail.com>,
+ Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>,
+ kys@microsoft.com, Haiyang Zhang <haiyangz@microsoft.com>,
+ Wei Liu <wei.liu@kernel.org>
+Cc: Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>,
+ linux-input@vger.kernel.org, linux-hyperv@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260710022854.3739558-1-michael.bommarito@gmail.com>
+ <20260710022854.3739558-3-michael.bommarito@gmail.com>
+Content-Language: en-US, en-ZM
+From: "Nico Pache (Red Hat)" <nico.pache@linux.dev>
+In-Reply-To: <20260710022854.3739558-3-michael.bommarito@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, 31 Aug 2026 17:00:56 +0100 "Lorenzo Stoakes (ARM)" <ljs@kernel.org> wrote:
 
-> On Mon, Aug 31, 2026 at 11:59:12PM +0800, Kunwu Chan wrote:
-> > On Mon, 31 Aug 2026 08:28:47 +0000 Dev Jain <dev.jain@arm.com> wrote:
-> >
-> > > Post commit d4ec5572825a ("mm/rmap: add try_to_unmap_poisoned_hugetlb_one")
-> > > try_to_unmap_one() cannot be called with a hugetlb folio. Therefore remove
-> > > the folio_test_hugetlb() check.
-> >
-> > Yes, the d4ec5572825 change shows that try_to_unmap() dispatches
-> > hugetlb folios to try_to_unmap_poisoned_hugetlb_one(),
-> > so try_to_unmap_one() cannot be called with a hugetlb folio.
-> >
-> >
-> > It would be better to add:
-> > Fixes: d4ec5572825 ("mm/rmap: add try_to_unmap_poisoned_hugetlb_one")
-> 
-> Nope, let's not thanks.
-> 
-> This isn't a bug.
-> 
 
-Got it, thanks for pointing that out. 
-I mistakenly treated the stale code as a bug.
-
-Thanks,
-KunWu
-
-> >
-> > Reviewed-by: Kunwu Chan <kunwu.chan@gmail.com>
-> >
-> > Thanks,
-> > KunWu
-> >
-> > >
-> > > Signed-off-by: Dev Jain <dev.jain@arm.com>
-> > > ---
-> > > Rebase soup - my huge_ptep_get() fixes landed after the refactoring.
-> > >
-> > > This patch applies on Linux 7.3-rc1.
-> > >
-> > >  mm/rmap.c | 7 ++-----
-> > >  1 file changed, 2 insertions(+), 5 deletions(-)
-> > >
-> > > diff --git a/mm/rmap.c b/mm/rmap.c
-> > > index d1819fd699380..606c8ecf31302 100644
-> > > --- a/mm/rmap.c
-> > > +++ b/mm/rmap.c
-> > > @@ -2299,11 +2299,8 @@ static bool try_to_unmap_one(struct folio *folio, struct vm_area_struct *vma,
-> > >  		VM_BUG_ON_FOLIO(!pvmw.pte, folio);
-> > >
-> > >  		address = pvmw.address;
-> > > -		if (folio_test_hugetlb(folio)) {
-> > > -			pteval = huge_ptep_get(mm, address, pvmw.pte);
-> > > -		} else {
-> > > -			pteval = ptep_get(pvmw.pte);
-> > > -		}
-> > > +		pteval = ptep_get(pvmw.pte);
-> > > +
-> > >  		if (likely(pte_present(pteval))) {
-> > >  			pfn = pte_pfn(pteval);
-> > >  		} else {
-> > > --
-> > > 2.43.0
-> > >
-> > >
-> >
+On 7/9/26 8:28 PM, Michael Bommarito wrote:
+> Add KUnit coverage for Hyper-V synthetic HID initial device-info parsing.
+> The tests cover zero bLength, a valid descriptor plus report descriptor,
+> and a malformed report descriptor length that exceeds the received
+> message.
 > 
-> --
-> Cheers, Lorenzo
+> The same-translation-unit test uses a KUnit-only ACK bypass so parser
+> coverage does not require a live VMBus channel.
 > 
+> Assisted-by: Codex:gpt-5-5-xhigh
+> Signed-off-by: Michael Bommarito <michael.bommarito@gmail.com>
+> ---
+
+Hi this is breaking builds when compiling the kunit framework as modules.
+
+See below.
+
+>  drivers/hid/Kconfig      |  10 ++++
+>  drivers/hid/hid-hyperv.c | 117 ++++++++++++++++++++++++++++++++++++---
+>  2 files changed, 120 insertions(+), 7 deletions(-)
+> 
+> diff --git a/drivers/hid/Kconfig b/drivers/hid/Kconfig
+> index c1d9f7c6a5f23..41ca48d9adc9e 100644
+> --- a/drivers/hid/Kconfig
+> +++ b/drivers/hid/Kconfig
+> @@ -1183,6 +1183,16 @@ config HID_HYPERV_MOUSE
+>  	help
+>  	Select this option to enable the Hyper-V mouse driver.
+>  
+> +config HID_HYPERV_MOUSE_KUNIT_TEST
+> +	bool "KUnit tests for Hyper-V mouse driver" if !KUNIT_ALL_TESTS
+
+This should either be tristate (instead of bool) or...
+
+> +	depends on KUNIT && HID_HYPERV_MOUSE
+
+... this should be 'KUNIT=y'
+
+Im not familar with this test so I cant judge what is right. Can this test run
+as a module or does it have to be builtin?
+
+Cheers,
+-- Nico
+
+
+> +	default KUNIT_ALL_TESTS
+> +	help
+> +	  Builds unit tests for the Hyper-V synthetic HID driver.
+> +	  These tests exercise the initial device-info parser with
+> +	  malformed host-provided HID descriptors and are only useful
+> +	  for kernel developers running KUnit.
+> +
+>  config HID_SMARTJOYPLUS
+>  	tristate "SmartJoy PLUS PS2/USB adapter support"
+>  	help
+> diff --git a/drivers/hid/hid-hyperv.c b/drivers/hid/hid-hyperv.c
+> index fd90196430e29..6579bd19da13a 100644
+> --- a/drivers/hid/hid-hyperv.c
+> +++ b/drivers/hid/hid-hyperv.c
+> @@ -13,6 +13,9 @@
+>  #include <linux/hiddev.h>
+>  #include <linux/hyperv.h>
+>  
+> +#if IS_ENABLED(CONFIG_HID_HYPERV_MOUSE_KUNIT_TEST)
+> +#include <kunit/test.h>
+> +#endif
+>  
+>  struct hv_input_dev_info {
+>  	unsigned int size;
+> @@ -240,13 +243,18 @@ static void mousevsc_on_receive_device_info(struct mousevsc_dev *input_device,
+>  	ack.ack.header.size = 1;
+>  	ack.ack.reserved = 0;
+>  
+> -	ret = vmbus_sendpacket(input_device->device->channel,
+> -			&ack,
+> -			sizeof(struct pipe_prt_msg) +
+> -			sizeof(struct synthhid_device_info_ack),
+> -			(unsigned long)&ack,
+> -			VM_PKT_DATA_INBAND,
+> -			VMBUS_DATA_PACKET_FLAG_COMPLETION_REQUESTED);
+> +	if (IS_ENABLED(CONFIG_HID_HYPERV_MOUSE_KUNIT_TEST) &&
+> +	    !input_device->device) {
+> +		ret = 0;
+> +	} else {
+> +		ret = vmbus_sendpacket(input_device->device->channel,
+> +				       &ack,
+> +				       sizeof(struct pipe_prt_msg) +
+> +				       sizeof(struct synthhid_device_info_ack),
+> +				       (unsigned long)&ack,
+> +				       VM_PKT_DATA_INBAND,
+> +				       VMBUS_DATA_PACKET_FLAG_COMPLETION_REQUESTED);
+> +	}
+>  
+>  	if (!ret)
+>  		input_device->dev_info_status = 0;
+> @@ -635,5 +643,100 @@ static void __exit mousevsc_exit(void)
+>  MODULE_LICENSE("GPL");
+>  MODULE_DESCRIPTION("Microsoft Hyper-V Synthetic HID Driver");
+>  
+> +#if IS_ENABLED(CONFIG_HID_HYPERV_MOUSE_KUNIT_TEST)
+> +static struct mousevsc_dev *mousevsc_kunit_alloc_dev(struct kunit *test)
+> +{
+> +	struct mousevsc_dev *input_dev;
+> +
+> +	input_dev = kunit_kzalloc(test, sizeof(*input_dev), GFP_KERNEL);
+> +	if (!input_dev)
+> +		return NULL;
+> +
+> +	init_completion(&input_dev->wait_event);
+> +
+> +	return input_dev;
+> +}
+> +
+> +static void mousevsc_device_info_zero_blength(struct kunit *test)
+> +{
+> +	struct synthhid_device_info *info;
+> +	struct mousevsc_dev *input_dev;
+> +
+> +	input_dev = mousevsc_kunit_alloc_dev(test);
+> +	KUNIT_ASSERT_NOT_NULL(test, input_dev);
+> +	info = kunit_kzalloc(test, sizeof(*info), GFP_KERNEL);
+> +	KUNIT_ASSERT_NOT_NULL(test, info);
+> +
+> +	info->hid_descriptor.bLength = 0;
+> +
+> +	mousevsc_on_receive_device_info(input_dev, info, sizeof(*info));
+> +
+> +	KUNIT_EXPECT_EQ(test, input_dev->dev_info_status, -ENOMEM);
+> +}
+> +
+> +static void mousevsc_device_info_valid_descriptor(struct kunit *test)
+> +{
+> +	struct synthhid_device_info *info;
+> +	struct mousevsc_dev *input_dev;
+> +	u8 *report;
+> +
+> +	input_dev = mousevsc_kunit_alloc_dev(test);
+> +	KUNIT_ASSERT_NOT_NULL(test, input_dev);
+> +	info = kunit_kzalloc(test, sizeof(*info) + 4, GFP_KERNEL);
+> +	KUNIT_ASSERT_NOT_NULL(test, info);
+> +
+> +	info->hid_descriptor.bLength = sizeof(struct hid_descriptor);
+> +	info->hid_descriptor.rpt_desc.wDescriptorLength = cpu_to_le16(4);
+> +	report = ((u8 *)&info->hid_descriptor) + info->hid_descriptor.bLength;
+> +	memset(report, 0x42, 4);
+> +
+> +	mousevsc_on_receive_device_info(input_dev, info, sizeof(*info) + 4);
+> +
+> +	KUNIT_EXPECT_EQ(test, input_dev->dev_info_status, 0);
+> +	KUNIT_EXPECT_EQ(test, input_dev->report_desc_size, 4);
+> +	KUNIT_EXPECT_MEMEQ(test, input_dev->report_desc, report, 4);
+> +
+> +	kfree(input_dev->hid_desc);
+> +	kfree(input_dev->report_desc);
+> +}
+> +
+> +static void mousevsc_device_info_report_desc_oob(struct kunit *test)
+> +{
+> +	struct synthhid_device_info *info;
+> +	struct mousevsc_dev *input_dev;
+> +	u8 *report;
+> +
+> +	input_dev = mousevsc_kunit_alloc_dev(test);
+> +	KUNIT_ASSERT_NOT_NULL(test, input_dev);
+> +	info = kunit_kzalloc(test, sizeof(*info) + 8, GFP_KERNEL);
+> +	KUNIT_ASSERT_NOT_NULL(test, info);
+> +
+> +	info->hid_descriptor.bLength = sizeof(struct hid_descriptor);
+> +	info->hid_descriptor.rpt_desc.wDescriptorLength = cpu_to_le16(64);
+> +	report = ((u8 *)&info->hid_descriptor) + info->hid_descriptor.bLength;
+> +	memset(report, 0x42, 8);
+> +
+> +	mousevsc_on_receive_device_info(input_dev, info, sizeof(*info) + 8);
+> +
+> +	KUNIT_EXPECT_EQ(test, input_dev->dev_info_status, -EINVAL);
+> +
+> +	kfree(input_dev->hid_desc);
+> +}
+> +
+> +static struct kunit_case mousevsc_test_cases[] = {
+> +	KUNIT_CASE(mousevsc_device_info_zero_blength),
+> +	KUNIT_CASE(mousevsc_device_info_valid_descriptor),
+> +	KUNIT_CASE(mousevsc_device_info_report_desc_oob),
+> +	{}
+> +};
+> +
+> +static struct kunit_suite mousevsc_test_suite = {
+> +	.name = "hid_hyperv_mouse",
+> +	.test_cases = mousevsc_test_cases,
+> +};
+> +
+> +kunit_test_suite(mousevsc_test_suite);
+> +#endif
+> +
+>  module_init(mousevsc_init);
+>  module_exit(mousevsc_exit);
 
