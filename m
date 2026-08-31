@@ -1,140 +1,98 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from out30-133.freemail.mail.aliyun.com (out30-133.freemail.mail.aliyun.com [115.124.30.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A8CC1419A4;
-	Mon, 31 Aug 2026 06:27:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82258361DB1
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 06:28:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788157648; cv=none; b=QvTIQIJgUjpBwhjmVg35KdaJD5+P2AsI6qg/HZpcozq/X5OUYzco+6N/3dsqH83G8XDsPA6pFOWuu1tOUXjN7B4dL93bRmhUNp/R4DAojS6Vf6x4QCjwuFyvxO+QcS200Eimv+NsebYYcDCwnJP10u0fv08vSjOiMF6M1XBnrLM=
+	t=1788157736; cv=none; b=WmHP4jJDVML8yWUfdDZcCtOWPlauemw8cb7i4UT0Dn6jKR0m9VJJjeZhAhzFmZ+6STqC5DcmZA6tWmeIIg0g0Ngz1Y6A8JWD+jdX/gkcEHzrQQZVJAOcjfPckuRnT0Cfrt0N/PPjJPFbUfnkCwNRXVfVc9qkPCjQ7OmrtkFgBXM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788157648; c=relaxed/simple;
-	bh=h6TrPn8BNsIv5ZFTjsdChli3MYu0Z+ur1tvxsNGVmaM=;
-	h=Content-Type:MIME-Version:In-Reply-To:References:Subject:From:Cc:
-	 To:Date:Message-ID; b=Sb1YZPNefR6bHqW4FSYnNRBnVwLWDn0LR1xektH3L2+5rOaiw3Q1nU+QkHv2eNQMlxSRdHXc4HsqMCkBlA+ZU/U3lLB0c3iF1l/7ES2n2A1E53RJzO55Gdo59iLtzcs/bwiBKDpESJZXWM60Vp+eBP5CeK6fbsSK62WDxtz8xLM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=NoNHBMnQ; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1788157736; c=relaxed/simple;
+	bh=24F7JnUKIQwR1p9OEYUFcs/P364dEGyxjRuC7f4ru7w=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=mSRnEYqRH/CbZ4T5wIAyGJJzPYkEOSKLT5Yi8v+01dvWAZ2fg8t0xX+yvO9LSirotqaLyOjHTQTyyfKCnRkqkGB/ocuo5HaqPj08aeDvio8S65q4dMdqh/sjn/+ER9mRD/SVE8Qx7Bq+U+ZMZLGahOGK8t08PlI+bJBPUz0jvlU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=b6wbcLDr; arc=none smtp.client-ip=115.124.30.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="NoNHBMnQ"
-Received: from neptunite.rasen.tech (unknown [IPv6:2400:2411:160:2f00:a9ae:3688:6dfb:71b0])
-	by perceval.ideasonboard.com (Postfix) with UTF8SMTPSA id CD53D4BB;
-	Mon, 31 Aug 2026 08:25:54 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1788157555;
-	bh=h6TrPn8BNsIv5ZFTjsdChli3MYu0Z+ur1tvxsNGVmaM=;
-	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
-	b=NoNHBMnQyODMUNxuY5tF7WdSCg5psyzcrzeTiTIjTLbT2dRrMXYvyQmKHZ+WrhFU0
-	 1aZ1jMoXx5+aQvDkGysFFpK5QmkscQ4SeUkVI36/De9l4asnE+Xba+J4GD55thRE1p
-	 wcxUyoEEqmiqcuvVFbH1gNbA6GakJr0FLo9ZJymA=
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="b6wbcLDr"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1788157730; h=From:To:Subject:Date:Message-Id:MIME-Version;
+	bh=y1z3/Aa1omnaTPLQzWaM4xGI1FJmgF5SMzjGce8CzKM=;
+	b=b6wbcLDrJDv+R4c0yZsdr+BaHBcNqMPepBdiwxG9U0eCO+5Z8RWWu8nTRz1xpHzq7J8tMvbs/mwPzbKctM91PclIhQVIbgA5gOGM3dCTtHbHmQmowxuyxe0Qd8QgIm4jIO7MGiY53Zzj+5Fdf29QFpyEm3tCJo2Kv+CWtRtImSc=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R771e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037026112;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=6;SR=0;TI=SMTPD_---0X9tzGoQ_1788157729;
+Received: from localhost(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0X9tzGoQ_1788157729 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Mon, 31 Aug 2026 14:28:49 +0800
+From: Joseph Qi <joseph.qi@linux.alibaba.com>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	Heming Zhao <heming.zhao@suse.com>
+Cc: Mark Fasheh <mark@fasheh.com>,
+	Joel Becker <jlbec@evilplan.org>,
+	ocfs2-devel@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 0/4] ocfs2: validate suballoc slot and bit of metadata blocks
+Date: Mon, 31 Aug 2026 14:28:44 +0800
+Message-Id: <20260831062848.2743436-1-joseph.qi@linux.alibaba.com>
+X-Mailer: git-send-email 2.39.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <178428817339.1426769.9456608230178052105@freya>
-References: <20260717-b4-vchiq-isp-v3-0-fb8235e15c68@ideasonboard.com> <20260717-b4-vchiq-isp-v3-7-fb8235e15c68@ideasonboard.com> <178428817339.1426769.9456608230178052105@freya>
-Subject: Re: [PATCH v3 7/9] media: platform: broadcom: Move unicam driver to subdir
-From: Paul Elder <paul.elder@ideasonboard.com>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Kieran Bingham <kieran.bingham@ideasonboard.com>, Dave Stevenson <dave.stevenson@raspberrypi.com>, Naushir Patuck <naush@raspberrypi.com>, Stefan Wahren <wahrenst@gmx.net>, Jacopo Mondi <jacopo.mondi@ideasonboard.com>, Daniel Scally <dan.scally@ideasonboard.com>, linux-media@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-To: Florian Fainelli <florian.fainelli@broadcom.com>, Jai Luthra <jai.luthra@ideasonboard.com>, Marek Szyprowski <m.szyprowski@samsung.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, Tomasz Figa <tfiga@chromium.org>
-Date: Mon, 31 Aug 2026 15:27:19 +0900
-Message-ID: <178815763934.1005982.3278179844103617258@neptunite.rasen.tech>
-User-Agent: alot/0.0.0
+Content-Transfer-Encoding: 8bit
 
-Quoting Jai Luthra (2026-07-17 20:36:13)
-> Quoting Jai Luthra (2026-07-17 16:34:22)
-> > The BCM283x/BCM2711x SoCs capture camera frames using CSI-2, and
-> > optionally process the raw frames using a VC4 firmware-based ISP block.
-> >=20
-> > As the ISP driver will be added subsequently, move the files related to
-> > the unicam driver to a separate subdirectory to ease distinction between
-> > the two drivers' files.
-> >=20
-> > Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-> > Signed-off-by: Jai Luthra <jai.luthra@ideasonboard.com>
->=20
-> [...]
->=20
-> > diff --git a/drivers/media/platform/broadcom/Kconfig b/drivers/media/pl=
-atform/broadcom/Kconfig
-> > index 93ba565d9a02..cab44885182c 100644
-> > --- a/drivers/media/platform/broadcom/Kconfig
-> > +++ b/drivers/media/platform/broadcom/Kconfig
-> > @@ -1,18 +1,5 @@
-> >  # SPDX-License-Identifier: GPL-2.0
-> > =20
-> > -config VIDEO_BCM2835_UNICAM
-> > -       tristate "Broadcom BCM283x/BCM271x Unicam video capture driver"
-> > -       depends on ARCH_BCM2835 || COMPILE_TEST
-> > -       depends on COMMON_CLK && PM
-> > -       depends on VIDEO_DEV
-> > -       select MEDIA_CONTROLLER
-> > -       select V4L2_FWNODE
-> > -       select VIDEO_V4L2_SUBDEV_API
-> > -       select VIDEOBUF2_DMA_CONTIG
-> > -       help
-> > -         Say Y here to enable support for the BCM283x/BCM271x CSI-2 re=
-ceiver.
-> > -         This is a V4L2 driver that controls the CSI-2 receiver direct=
-ly,
-> > -         independently from the VC4 firmware.
-> > +comment "Broadcom BCM283x/BCM271x media platform drivers"
-> > =20
-> > -         To compile this driver as a module, choose M here. The module=
- will be
-> > -         called bcm2835-unicam.
-> > +source "drivers/media/platform/broadcom/bcm2835-unicam/Kconfig"
-> > diff --git a/drivers/media/platform/broadcom/bcm2835-unicam/Kconfig b/d=
-rivers/media/platform/broadcom/bcm2835-unicam/Kconfig
-> > new file mode 100644
-> > index 000000000000..32b76ebfcd9a
-> > --- /dev/null
-> > +++ b/drivers/media/platform/broadcom/bcm2835-unicam/Kconfig
-> > @@ -0,0 +1,23 @@
-> > +# SPDX-License-Identifier: GPL-2.0
-> > +
-> > +config VIDEO_BCM2835_UNICAM
-> > +       tristate "Broadcom BCM283x/BCM271x Unicam video capture driver"
-> > +       depends on ARCH_BCM2835 || COMPILE_TEST
-> > +       depends on COMMON_CLK && PM
-> > +       depends on VIDEO_DEV
-> > +       select MEDIA_CONTROLLER
-> > +       select V4L2_FWNODE
-> > +       select VIDEO_V4L2_SUBDEV_API
-> > +       select VIDEOBUF2_DMA_CONTIG
-> > +       help
-> > +         Say Y here to enable support for the BCM283x/BCM271x CSI-2 re=
-ceiver.
-> > +         This is a V4L2 driver that controls the CSI-2 receiver direct=
-ly,
-> > +         independently from the VC4 firmware.
-> > +
-> > +         This driver is mutually exclusive with the use of bcm2835-cam=
-era. The
-> > +         firmware will disable all access to the peripheral from withi=
-n the
-> > +         firmware if it finds a DT node using it, and bcm2835-camera w=
-ill
-> > +         therefore fail to probe.
-> > +
->=20
-> Oops the above paragraph is no longer there in the old location, I must
-> have missed dropping it during the rebase.
+ocfs2 metadata validators trust the on-disk suballoc slot (and the
+dinode suballoc bit) without checking them against the mounted
+filesystem's slot range.  A corrupted image can carry
+OCFS2_INVALID_SLOT or another out-of-range value; when the
+corresponding inode, extent block, xattr block, or dir index root is
+later freed, the unvalidated slot/bit is passed to
+ocfs2_get_system_file_inode() or _ocfs2_free_suballoc_bits() and hits
+BUG_ON() or indexes local_system_inodes[] out of bounds.
 
-Ah, yes :)
+Mounting ocfs2 requires privilege (ocfs2 cannot be mounted from a
+user namespace), so this needs a privileged mount of a crafted or
+corrupted image -- e.g. an administrator mounting untrusted media or a
+disk image supplied to a virtual machine.  Once such an image is
+mounted, an unprivileged user who can delete the corrupted object
+triggers the crash.
 
-With that removed, looks good to me.
+This series rejects such values at read time, in the existing
+validators, so corrupted objects fail with -EROFS (and a read-only
+remount) instead of crashing:
 
-Reviewed-by: Paul Elder <paul.elder@ideasonboard.com>
+  patch 1 restricts OCFS2_INVALID_SLOT dinodes to system inodes,
+        completing fe7a283b3916 ("ocfs2: add suballoc slot check in
+        ocfs2_validate_inode_block()");
+  patch 2 rejects oversized dinode suballoc bits;
+  patch 3 validates the suballoc slot of xattr and dir index blocks;
+  patch 4 validates the suballoc slot of extent blocks.
 
->=20
-> > +         To compile this driver as a module, choose M here. The module=
- will be
-> > +         called bcm2835-unicam.
->=20
-> --
-> Jai
->
+All checks match what the kernel itself writes (always a valid slot
+from meta_ac->ac_alloc_slot) and what mkfs.ocfs2/libocfs2 write
+(system inodes carry OCFS2_INVALID_SLOT with OCFS2_SYSTEM_FL, extent
+blocks carry slot 0), so legitimate filesystems are unaffected.
+
+Tested with negative corruption testing under QEMU: for each new
+check a test image was generated with the field overwritten by an
+out-of-range value; with the series applied the access fails cleanly
+with -EROFS and the filesystem remounts read-only instead of hitting
+BUG_ON().
+
+Joseph Qi (4):
+  ocfs2: restrict OCFS2_INVALID_SLOT suballoc slot to system inodes
+  ocfs2: validate suballoc bit during inode read
+  ocfs2: validate suballoc slot of xattr and dir index blocks
+  ocfs2: validate suballoc slot of extent blocks
+
+ fs/ocfs2/alloc.c | 14 ++++++++++++++
+ fs/ocfs2/dir.c   | 14 ++++++++++++++
+ fs/ocfs2/inode.c | 33 +++++++++++++++++++++++++++++++--
+ fs/ocfs2/xattr.c | 13 +++++++++++++
+ 4 files changed, 72 insertions(+), 2 deletions(-)
+
+-- 
+2.39.3
+
