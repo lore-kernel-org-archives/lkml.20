@@ -1,218 +1,139 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15DA5358373;
-	Mon, 31 Aug 2026 05:42:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CB9239E9BF
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 05:42:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788154962; cv=none; b=eiUIyumt24/lv3by2AznyvWp8HenTl/phDkunMcoMtIGKq6ut7rHCJLaNGJ5Fol/6rjbh7RjF4flTeTFlIOrRCcMxOrjqHux8kWDHhzHTBUIkJDmx+nFQXLjX8TLz8Z4KaVeKLcCsbtvilYBo3vDuOoki3KqGLc60sR4BbIP2Rs=
+	t=1788154980; cv=none; b=O1c9s7Ua+6U/rrA65VflxHKKt9/ZWYM649QHX4X9/e9ThLBQY7g6rWfO/gqmg9V5maGmWQlkQBJ8/b5ck+TCJe7C8nGculWNDZy6YgS3b0WxSDK8OR7InQVynzhflGYc+QxyvcQapbQhbEAOTxkIz9J5esfwMhPTx9SovmIYjMc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788154962; c=relaxed/simple;
-	bh=QyC4aln2oLmLMJyl0y55BgXRWNy18iCgmjlPpUUKYUM=;
-	h=Content-Type:MIME-Version:In-Reply-To:References:Subject:From:Cc:
-	 To:Date:Message-ID; b=HEjqMaQim2wLcm3hsz5LwLGJJRzamTDkniWzmFblOv6c1hNGLCdC2wt9Cj0akSwh/WaApkg/81vU5fiqrYokiF1qVIwL+b1jTr/N+46yUZ4LUbRdunvqhOWiawgdxdTXB9crt1YCzr/gxYX0I/Zd5t/10gNuxOGXqe3dj3JqKPs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=n3aMrSLv; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1788154980; c=relaxed/simple;
+	bh=Op/XItXxXOAr/NkxxBOxih26AjZkhlDofAzSF9G6YbU=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=k4focNcBs5kzv3+tU/pEJY1RW1hzPJH03i27/SLmyBirFlvLqnFJU59VR4vwZhvZPNXsHxbQkjnUcHo1fsZPEt9Wm73n0UYkqQ2x9D5VPRRflVlRy/CB5tKgvpLt6bi6d4zeIzSzZK4k4T1Y1nirRLhBdiR81J64ISUEbALSAmE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JxcGGzQV; arc=none smtp.client-ip=209.85.221.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="n3aMrSLv"
-Received: from neptunite.rasen.tech (unknown [IPv6:2400:2411:160:2f00:a9ae:3688:6dfb:71b0])
-	by perceval.ideasonboard.com (Postfix) with UTF8SMTPSA id 9EFE26DC;
-	Mon, 31 Aug 2026 07:41:06 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1788154867;
-	bh=QyC4aln2oLmLMJyl0y55BgXRWNy18iCgmjlPpUUKYUM=;
-	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
-	b=n3aMrSLv9NLzbSttYLVDUI52ipXWR/ZGuJg8gQwe+A//UxmN1OC45bhXFmVDpUbv4
-	 szjeYdl3ozr/TW/yhDiu++ivE2kllPoSjDIbGVkgFfdSMDYx6R7iJeL4nxOoYXdFUi
-	 lNtsp2vi6gh1q1TyO8vrFVEehTaxssOkHXozXoQ8=
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JxcGGzQV"
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-482f2ee53e7so1313961f8f.1
+        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 22:42:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788154975; x=1788759775; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=i8abeE7yuo9J9DmBCNkbVrY67aO7PUOd2dMVcC0+Ats=;
+        b=JxcGGzQV2lYzX4MWfIHSNq5yO2suK+UtR5PzirGp9VSiqOtv54nuptzDjQN33dJTim
+         gSPufnmmAUo18VkoJffw8IaQgvgchASM2Hmc+ynsVZzEkG+3ilDtNPL2dft9tkW2kYOd
+         2BLnEeJH09aUAlFUmz34bUJi9taGcGRYk4AbxH7kE6EYK12cfVAmiG2coPHhMaPNO9IW
+         pBOkXFycdpYG2zibnQz6q27YEbUIbtvKakY8ag9lGZdehMdIy4GZ89U4phDlGOLZ2RX9
+         MVZAVrRe0J1p6GW9TYDYwilCM58P3BOMOI++wWtuyWHdOL+v9gRB8YCyWZ3O0aG7Zx7A
+         9Xow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788154975; x=1788759775;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=i8abeE7yuo9J9DmBCNkbVrY67aO7PUOd2dMVcC0+Ats=;
+        b=LgEIIeDy2yozGuEQQLHIOhf6pS89G8TvxdN/8EEyWQ9XSCUsasTA1nfYszxl7PPGp4
+         +w+rEoH2NUIXAU4TllYnB2k/q2u1QSia7HLmtE9c5f61Z/9wudJn5mszZesUglTP4WlQ
+         rOQNlha9gwEP+IAsKCgajyD238plfZNnzh2ECBPBl8buspjkHF5NtauFksfcXTZhJso+
+         JcitqoMfRHC23TV+lvjyTxyMgQjlmdyzFmhldYtYbr9dP4kz+QdHJAyB1aY0NopI9moD
+         VXCR8CnU4qP8VjIkykTYZhYGf0yMz4Kt7flRTXKLayc6tyFj74TdOAD72g89Yb4UGLZ3
+         TLJg==
+X-Forwarded-Encrypted: i=1; AKwUvBzczD1ARZM+G4OTYZo8KBb5gh95BqOeMlFiQCxwV5a4lPDrOIRRyMn0+JKBmzRnUbRPEfUNdJ47xp4V2VU=@vger.kernel.org
+X-Gm-Message-State: AFuF++m7mSa2Dlq1dixKAmjwV1XPlHQg9YW82bLqINZIOc853jMV/NhZ
+	eM/OM/peemt9DJQTRzMxvkzwwY/REY58oYYBi83Ymg7c4iH8UsIER7li
+X-Gm-Gg: AYBFou3T1jH0uR9MOOTB7Es8kDPC8I1JwH6Gz0JgU0FxV2qi3cEynkC0HuopadHB5Yv
+	rSBPHYcE3Tbvp29d8dipBNk9Gve4Z6ZThIM6jbn3M4hejdxayU09OQxMr0b3oIZDYBCYdtLpq7W
+	HRxFOIKjUnhu3RiTIl5VUUrhOeE8bnWhp6E465AWgiatSFNTvnJPhL30mIa9V/zVQ4cXA8QWFek
+	oAFK8I/EEd+N1srPqHnSsQxcqHqPZwAEvKvyGFbIAZ1SE9sFZETOlYNGkncBFDus8tyObMDEVjs
+	oYnSYeLcvq4/gwVueazp+tAhMMmPJgs935EB1yqZmx60zgf1nZy1UoZXIjanGhOmOqVc0/HrLIO
+	HzLAyVOsTAI+W2WJaURV7Oe/+fOSItFmtREdV5j0yl/F+w7oW7cM318BXq6kyK41oNTnxYQjndV
+	HfmKnY5knnYbTr/9V9/zTqOR8WMcSZC7TKZsmhW3fe9oHAV9Tk5M5aTxBV7xNXmL62FCm6IOLQ2
+	ADDxQfZVwaRSmyYpAJ1XQ5NFP42KLrw+MIaSPpmPtYflbRYWu8BgFlLSqBsOooyTfxMONf0a0uX
+	imz2zM6NdEJaz2C48x1LSNrgPOqkam3krBq/HHmgkE7+qP7MyC6UmY9Kxi2y38EvYw==
+X-Received: by 2002:a05:6000:38f:b0:484:3317:a1a with SMTP id ffacd0b85a97d-48433170bb5mr22283097f8f.27.1788154975401;
+        Sun, 30 Aug 2026 22:42:55 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-2a02-3100-acb9-0201-68d0-34d2-ad1a-175a.310.pool.telefonica.de. [2a02:3100:acb9:201:68d0:34d2:ad1a:175a])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482fbb284cbsm20138400f8f.30.2026.08.30.22.42.53
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sun, 30 Aug 2026 22:42:55 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	Ard Biesheuvel <ardb@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Karl Mehltretter <kmehltretter@gmail.com>
+Subject: [PATCH 6.6.y] arm64: mm: clear extra idmap level before use
+Date: Mon, 31 Aug 2026 07:42:47 +0200
+Message-Id: <20260831054247.33352-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20260717-b4-vchiq-isp-v3-0-fb8235e15c68@ideasonboard.com>
-References: <20260717-b4-vchiq-isp-v3-0-fb8235e15c68@ideasonboard.com>
-Subject: Re: [PATCH v3 0/9] media: Add support for Broadcom/RPi BCM2835 ISP
-From: Paul Elder <paul.elder@ideasonboard.com>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Kieran Bingham <kieran.bingham@ideasonboard.com>, Dave Stevenson <dave.stevenson@raspberrypi.com>, Naushir Patuck <naush@raspberrypi.com>, Stefan Wahren <wahrenst@gmx.net>, Jacopo Mondi <jacopo.mondi@ideasonboard.com>, Daniel Scally <dan.scally@ideasonboard.com>, linux-media@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, Jai Luthra <jai.luthra@ideasonboard.com>, Dave Stevenson <dave.stevenson@raspberrypi.org>, Umang Jain <uajain@igalia.com>
-To: Florian Fainelli <florian.fainelli@broadcom.com>, Jai Luthra <jai.luthra@ideasonboard.com>, Marek Szyprowski <m.szyprowski@samsung.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, Tomasz Figa <tfiga@chromium.org>
-Date: Mon, 31 Aug 2026 14:42:30 +0900
-Message-ID: <178815495015.1005982.5785137659086474897@neptunite.rasen.tech>
-User-Agent: alot/0.0.0
+Content-Transfer-Encoding: 8bit
 
-Hi Jai,
+The 6.6.y adaptation of commit 0e9df1c905d8 ("arm64: mm: Don't remap
+pgtables for allocate vs populate") removes the clearing performed by
+early_pgtable_alloc().  Its replacement clears allocations made by the
+generic page-table walkers, but 6.6's create_idmap() still allocates an
+extra root level directly when a sub-48-bit VA kernel is loaded
+sufficiently high in physical memory.
 
-Thanks for the series.
+memblock_phys_alloc_range() does not zero the returned memory.  The direct
+caller therefore publishes an uncleared root page and passes it to
+__create_pgd_mapping().  A stale nonzero entry can trip the bad-descriptor
+BUG_ON or be followed as a page-table descriptor, preventing the kernel
+from booting.
 
-Quoting Jai Luthra (2026-07-17 20:04:15)
-> Hi,
->=20
-> This series adds initial support for Broadcom/Raspberry Pi BCM2835 ISP
-> present on older Raspberry Pi boards.
->=20
-> The underlying hardware for the ISP is accessed through the VideoCore
-> VPU, via the VCHIQ/MMAL interface that was recently destaged under
-> platform/raspberrypi. The ISP driver, and thus this series, depends on
-> VCSM CMA driver for shared memory support (for lens shading buffers):
->=20
-> https://lore.kernel.org/all/20260105-b4-vc-sm-cma-v2-0-4daea749ced9@ideas=
-onboard.com/
->=20
-> The baseline driver was taken from the one present in the downstream
-> raspberrypi 6.12 tree (which was posted as v1 with minor cleanups).
->=20
-> Since then the driver has been significantly modified, switching away
-> from custom V4L2 controls to parameter buffers for ISP configuration,
-> and many other fixes.
->=20
-> You can test this series with libcamera, using the following branch:
-> https://github.com/jailuthra/libcamera/tree/pi4-upstream
+Clear the direct allocation through its linear alias before publishing it.
+init_clear_pgtable() also supplies the barrier required before the table
+descriptor becomes visible.
 
-It works! \o/
+Mainline is not affected because commit e6128a8e523c ("arm64: mm: Use
+48-bit virtual addressing for the permanent ID map") removed the dynamic
+extra level before page-table initialization moved out of the allocator.
 
-Tested on Raspberry Pi 4B with imx219.
+Fixes: 54322d95309d ("arm64: mm: Don't remap pgtables for allocate vs populate")
+---
+A deterministic QEMU A/B used 16 KiB pages, a 36-bit VA, a 48-bit PA, an
+Image loaded at 0x1000200000, and test-only instrumentation that filled the
+extra root with 0x02.  The affected kernel hit the expected bad-descriptor
+BUG_ON.  With this patch, the same poisoned allocation survived
+create_idmap() before the test stopped deliberately.
 
-# cam -c1 --capture=3D10
-[42:53:29.157032279] [4146]  INFO Camera camera_manager.cpp:340 libcamera v=
-0.7.2+10-0de3e405
-[42:53:29.182984113] [4149]  INFO IPAProxy ipa_proxy.cpp:184 Using tuning f=
-ile /usr/share/libcamera/ipa/rpi/vc4/imx219.json
-[42:53:29.191749464] [4149]  WARN RPI vc4.cpp:377 Mismatch between Unicam a=
-nd CamHelper for embedded data usage!
-[42:53:29.192265409] [4149]  INFO Camera camera_manager.cpp:223 Adding came=
-ra '/base/i2c-mux0/i2c@1/camera@10' for pipeline handler rpi/vc4
-[42:53:29.192290964] [4149]  INFO RPI vc4.cpp:434 Registered camera /base/i=
-2c-mux0/i2c@1/camera@10 to Unicam device /dev/media0 and ISP device /dev/me=
-dia1
-Using camera /base/i2c-mux0/i2c@1/camera@10 as cam0
-[42:53:29.192825798] [4146]  INFO Camera camera.cpp:1216 configuring stream=
-s: (0) 800x600-XRGB8888/sRGB
-[42:53:29.192997261] [4149]  INFO RPI vc4.cpp:644 Sensor: /base/i2c-mux0/i2=
-c@1/camera@10 - Selected sensor format: 1640x1232-SBGGR10_1X10/RAW - Select=
-ed unicam format: 1640x1232-pBAA/RAW
-cam0: Capture 10 frames
-154409.246635 (0.00 fps) cam0-stream0 seq: 000000 bytesused: 1920000
-154409.279952 (30.01 fps) cam0-stream0 seq: 000001 bytesused: 1920000
-154409.313269 (30.01 fps) cam0-stream0 seq: 000002 bytesused: 1920000
-154409.380002 (14.99 fps) cam0-stream0 seq: 000003 bytesused: 1920000
-154409.446734 (14.99 fps) cam0-stream0 seq: 000004 bytesused: 1920000
-154409.513466 (14.99 fps) cam0-stream0 seq: 000005 bytesused: 1920000
-154409.580197 (14.99 fps) cam0-stream0 seq: 000006 bytesused: 1920000
-154409.646930 (14.99 fps) cam0-stream0 seq: 000007 bytesused: 1920000
-154409.713658 (14.99 fps) cam0-stream0 seq: 000008 bytesused: 1920000
-154409.780390 (14.99 fps) cam0-stream0 seq: 000009 bytesused: 1920000
+The injected contents make the allocator's permitted nonzero return
+deterministic; they do not estimate real-world incidence.
 
-Tested-by: Paul Elder <paul.elder@ideasonboard.com>
+Tested on:
+  6.6.y a4a971135a2ff64382ae4235b3ae60503bb1036a (Linux 6.6.155)
 
->=20
-> Thanks,
-> Jai
->=20
-> Signed-off-by: Jai Luthra <jai.luthra@ideasonboard.com>
-> ---
-> Changes in v3:
-> - Rebase on v7.2-rc1
-> - Split PATCH 1 to add missing incles before moving the headers
-> - Update commit messages with Laurent's suggestions
-> - Drop redundant buffer list and locks for params as we send them
->   immediately to the firmware in .buf_queue
-> - Drop the now empty .stop_streaming() for params node
-> - Minor cleanups
-> - Link to v2: https://lore.kernel.org/r/20260210-b4-vchiq-isp-v2-0-440394=
-4152fe@ideasonboard.com
->=20
-> Changes in v2:
-> - Replace custom V4L2 controls (V4L2_CID_USER_BCM2835_ISP_*) with the
->   V4L2 extensible parameters framework via a dedicated metadata output
->   node (bcm2835-isp-params). Split params handling into new file
->   bcm2835-isp-params.c.
-> - Add AWB gains and digital gain as extensible parameter block types
->   instead of standard V4L2 integer controls.
-> - Use MEDIA_ENT_F_PROC_VIDEO_ISP instead of MEDIA_ENT_F_PROC_VIDEO_SCALER
->   for the media entity function.
-> - Rework media controller registration: let video device nodes handle
->   their own entity registration, removing the manual entity/interface
->   creation in media_controller_register_node().
-> - Propagate colorspace, ycbcr_enc, xfer_func, and quantization properly
->   through g_fmt/s_fmt.
-> - Fold the stats/params FourCC additions (previously a separate commit)
->   into this patch.
-> - Drop the custom CID base commit (no longer needed).
-> - Update documentation.
-> - Link to v1: https://lore.kernel.org/r/20260113-b4-vchiq-isp-v1-0-ea0b30=
-0bffc8@ideasonboard.com
->=20
-> ---
-> Dave Stevenson (1):
->       media: videobuf2: Allow exporting of a struct dmabuf
->=20
-> Jai Luthra (6):
->       platform/raspberrypi: vchiq-mmal: Include missing headers
->       platform/raspberrypi: vchiq-mmal: Move headers to include/linux
->       platform/raspberrypi: vchiq-mmal: Support ISP parameters and stats
->       platform/raspberrypi: vchiq-mmal: Support bayer and gray formats
->       platform/raspberrypi: vchiq: Add helpers for vchiq driver data
->       media: platform: broadcom: Move unicam driver to subdir
->=20
-> Naushir Patuck (2):
->       media: platform: broadcom: Add bcm2835-isp driver
->       platform/raspberrypi: vchiq: Load bcm2835_isp driver from vchiq
->=20
->  Documentation/admin-guide/media/bcm2835-isp.dot    |   14 +
->  Documentation/admin-guide/media/bcm2835-isp.rst    |   78 +
->  Documentation/admin-guide/media/v4l-drivers.rst    |    1 +
->  .../userspace-api/media/v4l/meta-formats.rst       |    1 +
->  .../media/v4l/metafmt-bcm2835-isp.rst              |  101 ++
->  MAINTAINERS                                        |   12 +-
->  drivers/media/common/videobuf2/videobuf2-core.c    |   21 +-
->  drivers/media/platform/broadcom/Kconfig            |   18 +-
->  drivers/media/platform/broadcom/Makefile           |    3 +-
->  .../media/platform/broadcom/bcm2835-isp/Kconfig    |   15 +
->  .../media/platform/broadcom/bcm2835-isp/Makefile   |    4 +
->  .../broadcom/bcm2835-isp/bcm2835-isp-common.h      |   51 +
->  .../broadcom/bcm2835-isp/bcm2835-isp-fmts.h        |  558 ++++++++
->  .../broadcom/bcm2835-isp/bcm2835-isp-params.c      |  470 ++++++
->  .../broadcom/bcm2835-isp/bcm2835-v4l2-isp.c        | 1502 ++++++++++++++=
-++++++
->  .../media/platform/broadcom/bcm2835-unicam/Kconfig |   23 +
->  .../platform/broadcom/bcm2835-unicam/Makefile      |    3 +
->  .../{ =3D> bcm2835-unicam}/bcm2835-unicam-regs.h     |    0
->  .../broadcom/{ =3D> bcm2835-unicam}/bcm2835-unicam.c |    0
->  drivers/media/v4l2-core/v4l2-ioctl.c               |    2 +
->  .../raspberrypi/vchiq-interface/vchiq_arm.c        |    2 +
->  .../platform/raspberrypi/vchiq-mmal/mmal-vchiq.c   |    9 +-
->  .../linux/raspberrypi}/mmal-common.h               |    4 +
->  .../linux/raspberrypi}/mmal-encodings.h            |   68 +
->  .../linux/raspberrypi}/mmal-msg-common.h           |    0
->  .../linux/raspberrypi}/mmal-msg-format.h           |    0
->  .../linux/raspberrypi}/mmal-msg-port.h             |    0
->  .../linux/raspberrypi}/mmal-msg.h                  |    0
->  .../linux/raspberrypi}/mmal-parameters.h           |   86 ++
->  .../linux/raspberrypi}/mmal-vchiq.h                |    0
->  include/linux/raspberrypi/vchiq_arm.h              |    1 +
->  include/linux/raspberrypi/vchiq_bus.h              |   10 +
->  include/media/videobuf2-core.h                     |   15 +
->  include/uapi/linux/bcm2835-isp.h                   |  530 +++++++
->  include/uapi/linux/videodev2.h                     |    2 +
->  35 files changed, 3579 insertions(+), 25 deletions(-)
-> ---
-> base-commit: 728e68a889bcf257b1e67298b12c360e5c3a13e0
-> change-id: 20250923-b4-vchiq-isp-7e8c22c2860c
-> prerequisite-message-id: 20260717-b4-vc-sm-cma-v3-0-6c4e77804e5d@ideasonb=
-oard.com
-> prerequisite-patch-id: 07e50207cc947f44e1d626b31d0ace7e12a8f3a1
-> prerequisite-patch-id: 3d82a2605799686668729fdc2677c3f6b7c2aa0d
-> prerequisite-patch-id: 3022f05545dcfdaf05522f8ce1ebd8b9e3bc412f
-> prerequisite-patch-id: ad833b78f90ce3081e470caf70e601fc573bb52d
-> prerequisite-patch-id: 1898d91213e9bd75be3109180527fb0caf6d7174
-> prerequisite-patch-id: d0cfc49c673c8c4a4c13d44a547104c24f57cb49
->=20
-> Best regards,
-> --=20
-> Jai Luthra <jai.luthra@ideasonboard.com>
->=20
->
+ arch/arm64/mm/mmu.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/arch/arm64/mm/mmu.c b/arch/arm64/mm/mmu.c
+index e075792d722575d38488e8352df8947c6aaddd2b..4e9e997e08daf543e5c09799563f991a9f8a7cc0 100644
+--- a/arch/arm64/mm/mmu.c
++++ b/arch/arm64/mm/mmu.c
+@@ -777,9 +777,10 @@ static void __init create_idmap(void)
+ 	/* check if we need an additional level of translation */
+ 	if (VA_BITS < 48 && idmap_t0sz < (64 - VA_BITS_MIN)) {
+ 		pgd_phys = early_pgtable_alloc(PAGE_SHIFT);
++		pgd = __va(pgd_phys);
++		init_clear_pgtable(pgd);
+ 		set_pgd(&idmap_pg_dir[start >> VA_BITS],
+ 			__pgd(pgd_phys | P4D_TYPE_TABLE));
+-		pgd = __va(pgd_phys);
+ 	}
+ 	__create_pgd_mapping(pgd, start, start, size, PAGE_KERNEL_ROX,
+ 			     early_pgtable_alloc, 0);
+-- 
+2.39.5 (Apple Git-154)
