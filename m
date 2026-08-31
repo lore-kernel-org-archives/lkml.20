@@ -1,102 +1,189 @@
-Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com [209.85.215.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73996480327
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AFD747FB16
 	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 17:44:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788198293; cv=none; b=F7q1AZNQxdGgTR+ZzMMP9DvDEppyxJATiIu5CnlznUYcU/s5JNWuhWi2mjIFR7+FnFRKZOQR2FTtWSD5KW/4xB3Ir8MFg1QEh114b5pvd6GcDgWzKil0WVdr2LIEWg9lxt7uVUE6evzwGWTisbCPsbIl6fjvFL8+lON1D5pIWcg=
+	t=1788198292; cv=none; b=GTodK2G9eyeq99q+p8BpDgyUo3TohRQsQ+lLDTkN7IlgjDIumkVzY4FnwVmMjqpxhjFr7a7jazkwnVipo4MCh++R0deacb0GCjRwEW/FXLQqH8CgqjYSsMY4U2+wixzwtW8sHWAp/mnoa3RZfR58rpRGWiMdaUxkgKe0O6YuAjo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788198293; c=relaxed/simple;
-	bh=OJz59BymLPH2X07/HNaEsZOAqsWDBphkuaZ4veb3x5M=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=WyfsTSnI9PJGxCwlQ25WIJny5b7whuLrX9QmP5hS59rROC2vKgievUBwZpKRJjoZEpeFqxEoySScag+s7++jLwnhInylzDCzklEbgRGYlhVdYZCzoHJMt/5VWyvsYlhPMaDTShdQAdIbVyS7xKFJqj8XeQsuflzi0mvr7Q76k4k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=kernel.org; spf=pass smtp.mailfrom=baylibre.com; arc=none smtp.client-ip=209.85.215.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=kernel.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
-Received: by mail-pg1-f175.google.com with SMTP id 41be03b00d2f7-cc1e1ff659bso53369a12.0
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 10:44:50 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788198289; x=1788803089;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=iOcXlRKPdGaWyLXZRmYh2gsjN3nZXYDCKL0Pm8ihJIM=;
-        b=bOP2AXd19j/UcfvWqEllpun++mp/Ng3RWf3T4nVvbDLBVz6J7c3AE9JwFzpbLJAuo2
-         HvPHqxmSSo098tyN+9SalJz+BmMe/YNTtZ0h/fOYyrgkJW8nLJ5NomrdcYnZphWSKvPy
-         /AP09toQLDacWOcWSOuJqKCL9cEGlnA7ZSt/rI6sOoc9YfOgS5hGwXEtKOHRmVHsY3Z1
-         cvBbRbqXNDycO+NHBdGEM3RRiZXcIrWh1YcNyDMP/YWFqmInf7TIL1IjvE7r4NSpZ3nG
-         PzvbTIjRcMt8/fYjWODoS4pS/G0qEqXooTe41sL1yT+KioUjuH08hbMYNBLoavFNYQR9
-         XRRA==
-X-Forwarded-Encrypted: i=1; AKwUvBxCIpX0PvJHNlG37i5uBQDTdiPDUhQSRkj01cpajGAsUOEvE6gjM1xkgvq9n1xbq4k6g3o8VlVBPvRmgmc=@vger.kernel.org
-X-Gm-Message-State: AFuF++kW61h8NN6FGzH+pyP/0lY2mDxz3bsDY3gEZwp1iDYarbL90H40
-	xwpy9/qsWvWZSAtTi6FwYVTelWOQhgYsmjdYJ9qdtJKoRm9vJO78aHjrA2At23ucgt0=
-X-Gm-Gg: AYBFou3Isw1HSYqDN2y47UOcj4y0oe468TgGieLpSS/RT/UlBEV9Crq/VF5QdMFtI96
-	7rlsKGQLFh6TI/8Em2vkvb+F4YoCO7+bwWGOIAmrYzIUbHbBS7W9Ts3NbjzrX/27pmZq8tyXDVq
-	pUy2eMK53NeTr1VN+ryZM5G8VJLfbGev4nb6ijka0uWPmf24ioKUCLcHDT6N/3U7hVxFDm6Y7H4
-	wWtez63F2HYUx12jEwfWVuhHMTMEJNHBYh7GpbMMoxWg79YpooHyq2zSaxuN2tpkzQ/oxR8WmoC
-	WqZzgPLw80SOg3/L0K7tIvcda7FxbnESG6Hqx9Lqnj7hIsIxxE7Zol+pIcfJ3IoC210PIlDnkpd
-	i2a8C9t62isgByhDy6ePb9nX/n6tV6dMHE2nILgoJfToPl1CgbHYZDRqEY6hMGgaO0xaaVWlWn1
-	C2lNxVsIxLVu9OULgUY+rdVYAzGLZTr/XZkiIKz1fOrbNfcIU1UsiTCjaZ0g==
-X-Received: by 2002:a17:90b:1d83:b0:38e:2e86:ed02 with SMTP id 98e67ed59e1d1-396d1023217mr36121504a91.14.1788198289340;
-        Mon, 31 Aug 2026 10:44:49 -0700 (PDT)
-Received: from localhost ([71.212.197.238])
-        by smtp.gmail.com with UTF8SMTPSA id 98e67ed59e1d1-3990d7bb7c5sm664546a91.14.2026.08.31.10.44.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 10:44:48 -0700 (PDT)
-From: Kevin Hilman <khilman@kernel.org>
-To: "H. Nikolaus Schaller" <hns@goldelico.com>, "Markus Schneider-Pargmann
- (TI)" <msp@baylibre.com>
-Cc: Andreas Kemnade <andreas@kemnade.info>, Daniel Lezcano
- <daniel.lezcano@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-omap@vger.kernel.org, letux-kernel@openphoenux.org
-Subject: Re: [PATCH] clocksource/drivers/timer-ti-dm: Register
- clocksource/event only for am654
-In-Reply-To: <E27F05E3-DE4F-4C77-95E3-1701B3410E93@goldelico.com>
-References: <20260828-v7-3-next-topic-ti-timer-dm-clocksource-omap-fix-v1-1-85f0e4dc6f9f@baylibre.com>
- <20260828230445.3c2510b9@kemnade.info>
- <E27F05E3-DE4F-4C77-95E3-1701B3410E93@goldelico.com>
-Date: Mon, 31 Aug 2026 10:44:48 -0700
-Message-ID: <7hzey26v73.fsf@baylibre.com>
+	s=arc-20240116; t=1788198292; c=relaxed/simple;
+	bh=gTVpu+SVk+l61/McWJ0wIc0Ewu4AX96KjxEgWsJK59I=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=u5dg0lSi8vrQly9aldX+YGmQn2JK2dVxAq13ms/zJV8wQlGp3LxpkWUpd+yUJWxURTE+itJDfjLOmlmU/AhO1FoAeTO0E05TEKrwhHEciQm1PgAOQRSzVeY0T9WoOBUYlOQgLLnL0jUNruQcrD9WMWIXcbKMPgBMoCCUS2m96jA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=YiyrLKxU; arc=none smtp.client-ip=198.175.65.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="YiyrLKxU"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788198290; x=1819734290;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=gTVpu+SVk+l61/McWJ0wIc0Ewu4AX96KjxEgWsJK59I=;
+  b=YiyrLKxUATUxYQ7LfiXRDqsweYuKj+UF0K+5yrQ978m6TsATHeLJV3xW
+   jpCUkdcxztLrvOozxAeQMAVg5AjhlDeFkqN9VEZWNLwJvnwI3cS0doxN7
+   vQJBiuB014bmE5dG/pXwqpbiDiQz8fxeELNu8u56wDGlf58mATn3cLzUa
+   TaSEcihnLkGGWrhK9STV46bYf8m8j9HH9Aw7ft9uugOksw2gLsphf7Nxo
+   QjGAf5XETniXKcFjaBqcGEX2/XDBauT/oPNl5Hwq1bBlkshSebrqmxesG
+   H//7dnMWqOzFk3hrJwX9a6WLNvO252x4cISHbpGg0oJI9fpgjbw5Nnyiw
+   A==;
+X-CSE-ConnectionGUID: vvXM+PLXSWSfMN4GWEuvow==
+X-CSE-MsgGUID: a1t7jLKhQnCWEQFRXbd3IA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11892"; a="92480120"
+X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; 
+   d="scan'208";a="92480120"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 10:44:44 -0700
+X-CSE-ConnectionGUID: D1iupUh/R56lW4EyKmHFHQ==
+X-CSE-MsgGUID: OfAbCW4DR9yb3gRROGKXsw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; 
+   d="scan'208";a="268907032"
+Received: from aherrold-mobl1.amr.corp.intel.com (HELO agluck-desk3.intel.com) ([10.124.220.17])
+  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 10:44:43 -0700
+From: Tony Luck <tony.luck@intel.com>
+To: Fenghua Yu <fenghuay@nvidia.com>,
+	Reinette Chatre <reinette.chatre@intel.com>,
+	Maciej Wieczor-Retman <maciej.wieczor-retman@intel.com>,
+	Peter Newman <peternewman@google.com>,
+	James Morse <james.morse@arm.com>,
+	Babu Moger <babu.moger@amd.com>,
+	Drew Fustini <dfustini@baylibre.com>,
+	Dave Martin <Dave.Martin@arm.com>,
+	Chen Yu <yu.c.chen@intel.com>,
+	David E Box <david.e.box@intel.com>,
+	x86@kernel.org
+Cc: Christoph Hellwig <hch@infradead.org>,
+	linux-kernel@vger.kernel.org,
+	patches@lists.linux.dev,
+	Tony Luck <tony.luck@intel.com>
+Subject: [PATCH v11 22/23] x86/resctrl: Simplify Kconfig options for resctrl
+Date: Mon, 31 Aug 2026 10:44:20 -0700
+Message-ID: <20260831174421.13921-23-tony.luck@intel.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260831174421.13921-1-tony.luck@intel.com>
+References: <20260831174421.13921-1-tony.luck@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 
-"H. Nikolaus Schaller" <hns@goldelico.com> writes:
+Linus Torvalds complained[1] about Kconfig complexity making it too
+hard for "random people to build their own kernels".
 
->> Am 28.08.2026 um 23:04 schrieb Andreas Kemnade <andreas@kemnade.info>:
->> 
->> On Fri, 28 Aug 2026 20:47:45 +0200
->> "Markus Schneider-Pargmann (TI)" <msp@baylibre.com> wrote:
->> 
->>> Registering clocksource/clockevent for the older platforms breaks
->>> booting them. The older platforms have their own implementation in early
->>> boot that is used to register clocksource/clockevent in
->>> timer-ti-dm-systimer.c.
->>> 
->>> With am654, the timer is much more complex with more dependencies so
->>> doing this in early boot with the other driver is very difficult and
->>> gets ugly. Instead it is implemented in the platform driver for am654.
->>> However the old platforms may not register clocksource/clockevent in
->>> this driver as that would break the boot.
->>> 
->>> Add a system_timer_capable flag that is only set for am654-timer that
->>> gates the clocksource/clockevent registration.
->>> 
->>> Reported-by: H. Nikolaus Schaller <hns@goldelico.com>
->>> Closes: https://lore.kernel.org/r/2013A99A-0502-4128-ACFA-B04886224393@goldelico.com
->>> Fixes: b8eeeca55456 ("clocksource/drivers/timer-ti-dm: Add clocksource support")
->>> Signed-off-by: Markus Schneider-Pargmann (TI) <msp@baylibre.com>
->> 
->> Tested-by: Andreas Kemnade <andreas@kemnade.info> # OMAP3 GTA04
->
-> Tested-by: H. Nikolaus Schaller <hns@goldelico.com> # OMAP3 OpenPandora
->
+CONFIG_X86_CPU_RESCTRL_INTEL_AET has been causing problems since it was
+first added as it required other config options to be set to "built-in".
 
-Tested-by: Kevin Hilman <khilman@baylibre.com> # OMAP3 Beagle XM
+AET now resolves PMT symbols at runtime via the registration API,
+so INTEL_PMT_TELEMETRY no longer needs to be built-in. This means
+that AET can be included unconditionally as part of X86_CPU_RESCTRL.
+
+Signed-off-by: Tony Luck <tony.luck@intel.com>
+Link: https://lore.kernel.org/all/CAHk-=whigg3hvOy7c1j1MXFy6o6CHp0g4Tc3Y-MAk+XDssHU0A@mail.gmail.com # 1
+---
+v11:
+	Drop the intel_aet*() stubs from internal.h
+
+ include/linux/intel_vsec.h             |  4 ++--
+ arch/x86/kernel/cpu/resctrl/internal.h | 14 --------------
+ arch/x86/Kconfig                       | 13 -------------
+ arch/x86/kernel/cpu/resctrl/Makefile   |  2 +-
+ 4 files changed, 3 insertions(+), 30 deletions(-)
+
+diff --git a/include/linux/intel_vsec.h b/include/linux/intel_vsec.h
+index bcbf4937c71c..885f8e3ab057 100644
+--- a/include/linux/intel_vsec.h
++++ b/include/linux/intel_vsec.h
+@@ -257,7 +257,7 @@ static inline void
+ intel_pmt_put_feature_group(struct pmt_feature_group *feature_group) {}
+ #endif
+ 
+-#ifdef CONFIG_X86_CPU_RESCTRL_INTEL_AET
++#ifdef CONFIG_X86_CPU_RESCTRL
+ void intel_aet_register_enumeration(struct module *module,
+ 				    struct pmt_feature_group *(*get)(enum pmt_feature_id id),
+ 				    void (*put)(struct pmt_feature_group *p));
+@@ -269,6 +269,6 @@ static inline void intel_aet_register_enumeration(struct module *module,
+ 						  void (*put)(struct pmt_feature_group *p)) { }
+ static inline void intel_aet_unregister_enumeration(void) { }
+ static inline void intel_aet_invalidate(u8 package_id) { }
+-#endif /* CONFIG_X86_CPU_RESCTRL_INTEL_AET */
++#endif /* CONFIG_X86_CPU_RESCTRL */
+ 
+ #endif
+diff --git a/arch/x86/kernel/cpu/resctrl/internal.h b/arch/x86/kernel/cpu/resctrl/internal.h
+index 4409ee20474d..d88f9f82c9cb 100644
+--- a/arch/x86/kernel/cpu/resctrl/internal.h
++++ b/arch/x86/kernel/cpu/resctrl/internal.h
+@@ -233,7 +233,6 @@ bool rdt_cpu_has(int flag);
+ void rdt_domain_reconfigure_cdp(struct rdt_resource *r);
+ void resctrl_arch_mbm_cntr_assign_set_one(struct rdt_resource *r);
+ 
+-#ifdef CONFIG_X86_CPU_RESCTRL_INTEL_AET
+ void __init intel_aet_init(void);
+ bool intel_aet_pre_mount(void);
+ void intel_aet_unmount(void);
+@@ -241,18 +240,5 @@ int intel_aet_read_event(int domid, u32 rmid, void *arch_priv, u64 *val);
+ void intel_aet_mon_domain_setup(int cpu, int id, struct rdt_resource *r,
+ 				struct list_head *add_pos);
+ bool intel_handle_aet_option(bool force_off, char *tok);
+-#else
+-static inline void intel_aet_init(void) { }
+-static inline bool intel_aet_pre_mount(void) { return false; }
+-static inline void intel_aet_unmount(void) { }
+-static inline int intel_aet_read_event(int domid, u32 rmid, void *arch_priv, u64 *val)
+-{
+-	return -EINVAL;
+-}
+-
+-static inline void intel_aet_mon_domain_setup(int cpu, int id, struct rdt_resource *r,
+-					      struct list_head *add_pos) { }
+-static inline bool intel_handle_aet_option(bool force_off, char *tok) { return false; }
+-#endif
+ 
+ #endif /* _ASM_X86_RESCTRL_INTERNAL_H */
+diff --git a/arch/x86/Kconfig b/arch/x86/Kconfig
+index 06b5d0c4633e..47f92613434e 100644
+--- a/arch/x86/Kconfig
++++ b/arch/x86/Kconfig
+@@ -539,19 +539,6 @@ config X86_CPU_RESCTRL
+ 
+ 	  Say N if unsure.
+ 
+-config X86_CPU_RESCTRL_INTEL_AET
+-	bool "Intel Application Energy Telemetry"
+-	depends on X86_CPU_RESCTRL && CPU_SUP_INTEL && INTEL_PMT_TELEMETRY=y && INTEL_TPMI=y
+-	help
+-	  Enable per-RMID telemetry events in resctrl.
+-
+-	  Intel feature that collects per-RMID execution data
+-	  about energy consumption, measure of frequency independent
+-	  activity and other performance metrics. Data is aggregated
+-	  per package.
+-
+-	  Say N if unsure.
+-
+ config X86_FRED
+ 	bool "Flexible Return and Event Delivery"
+ 	depends on X86_64
+diff --git a/arch/x86/kernel/cpu/resctrl/Makefile b/arch/x86/kernel/cpu/resctrl/Makefile
+index 273ddfa30836..97ceb4e44dfa 100644
+--- a/arch/x86/kernel/cpu/resctrl/Makefile
++++ b/arch/x86/kernel/cpu/resctrl/Makefile
+@@ -1,7 +1,7 @@
+ # SPDX-License-Identifier: GPL-2.0
+ obj-$(CONFIG_X86_CPU_RESCTRL)		+= core.o rdtgroup.o monitor.o
+ obj-$(CONFIG_X86_CPU_RESCTRL)		+= ctrlmondata.o
+-obj-$(CONFIG_X86_CPU_RESCTRL_INTEL_AET)	+= intel_aet.o
++obj-$(CONFIG_X86_CPU_RESCTRL)		+= intel_aet.o
+ obj-$(CONFIG_RESCTRL_FS_PSEUDO_LOCK)	+= pseudo_lock.o
+ 
+ # To allow define_trace.h's recursive include:
+-- 
+2.55.0
 
