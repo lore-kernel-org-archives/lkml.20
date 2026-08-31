@@ -1,88 +1,94 @@
-Received: from mta1.migadu.com (out-235.mta1.migadu.com [95.215.58.235])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2BB93FB067
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 10:03:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.235
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3CC73E5EEA;
+	Mon, 31 Aug 2026 10:03:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788170617; cv=none; b=WC7fi2zp0FYlcwIIZsK340insREgvQ768673js3lbZFjKqX3Dyh3kAC51XvpV2oNs4gudF+ulMkViLlF0UOqnXSKXHP+ijFl77MUQCIs1ZAWjgMGFuuDuGWCTHRxng9oRHcjI1mepysyIbLYWxSpEY5gW/p+uSH4XOzfPNLzF8s=
+	t=1788170624; cv=none; b=uL9fHDlZxagUbyZkH2VG2SaqD3JwQ89jtjz1VaV3KkbLpMHa22tXO7Oh11ECW52a9G7OpR4jK1DMMpHm6hqPibfNPtg2nPnv2C01qGdyf13M4BMs8ERscCGEFtwahXT3UiiRk7vYALzOHYLVz7j+mFAyqgihjXhKI5kJIYkr3wo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788170617; c=relaxed/simple;
-	bh=msNGKfPbz9m7HBz/I4U/FvBOAiAK0b9KMdY0WUWTEno=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=aVXITtE8SbKzyo5RWVSRXn+tu97Y8/80l7G1WJWcV4hJTKWequfRkPSR1v5Y2N35ygf+RzBTPzW550ZijCKu1ukzQgHSGy07LYtX8DZPRnBN7Bxs++zvOvDFTAYQGsDSeYY7hj2wgnwfz5V+Ck3KG2OsnNqFOAPKF8IOmGzcG74=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=PtyF82ot; arc=none smtp.client-ip=95.215.58.235
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788170624; c=relaxed/simple;
+	bh=lRbSSu/+b4rTToiOU8MM/0ji99H9vzmGs7aSniLhDwg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=M2p4pcwyxXSbN1ee703QMpnx+61ljnccYwqcLRphtuCWHylwxPrI/PjjgNOEY6o9BAZIvOgexWJCB5qcbTnmeWv8Iqf37zBV2wCri9oN0Fxj+5/+5SyakAIuXFHJQGRj9yxze2Ph4a7NR13gi8CEdx4dWpFdk0b4xVQwl7rrQ3I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=fWojYNir; arc=none smtp.client-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="PtyF82ot"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=msNGKfPbz9m7HBz/I4U/FvBOAiAK0b9KMdY0WUWTEno=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788170613; v=1; x=1788775413;
- b=PtyF82otjKNHqNaQPOx4ZrFIr2SQW4tEecUMhWpJJDrtdVl7ebp5zBmKJ8S7ls9LLt0ZlD0a
- lOylvJY9wFSTTdQACFT3IPj3+AciXWWys7wu+8GzdVE8T3DiWAk2nHh32Kd/T2vPHFgzjEMnbgP
- Evs9I4B7UJWjiyVL8Cn2asHA=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 8182e1c89fcaaebb;
-	Mon, 31 Aug 2026 10:03:33 +0000
-X-Mizu-Trace-ID: 8182e1c89fcaaebb
-X-Migadu-Flow: FLOW_OUT
-From: Tao Cui <cui.tao@linux.dev>
-To: bvanassche@acm.org,
-	axboe@kernel.dk
-Cc: hch@lst.de,
-	linux-block@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	cui.tao@linux.dev,
-	Tao Cui <cuitao@kylinos.cn>
-Subject: [PATCH v2 3/3] loop: drop the unused argument of lo_req_flush()
-Date: Mon, 31 Aug 2026 18:03:05 +0800
-Message-ID: <20260831100305.695116-4-cui.tao@linux.dev>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260831100305.695116-1-cui.tao@linux.dev>
-References: <20260831100305.695116-1-cui.tao@linux.dev>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="fWojYNir"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788170623; x=1819706623;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=lRbSSu/+b4rTToiOU8MM/0ji99H9vzmGs7aSniLhDwg=;
+  b=fWojYNir0VP5DcCxgFzdgqJytCMOpFwo5bVQcJnubIxw3myiSH6nAZC3
+   JpBMI4cmF24CyijsS2+WiUFUxX2PKZqo/cKOBJHFVzVNMg5z8ujouXeXX
+   hte8rwAvP7PlZhy2LvmL7m9xCUa5wjJbV9k2uviMpqUFcrkzYb+WLspNb
+   2PSmeQ4t/SXe5LSXmRIIbN7HztDuGJHPkLeAEV44YYIub0SOV9vEGfa3W
+   WxRw5vMS7YzXK20OJxjl3iDX/cCScdpLtXM73Klg9nDaMTDlpkgmnV0fL
+   aVs2WjpYzlLuvXea1V3hG1qWPGrhbcuBd9iF5ezz6ID79vEKKZMHq956/
+   Q==;
+X-CSE-ConnectionGUID: H14Yg6+eRHuvzfvQk0osbg==
+X-CSE-MsgGUID: 7EDBucPCRRqr2zNwgpd/Xw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11891"; a="99175568"
+X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
+   d="scan'208";a="99175568"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 03:03:42 -0700
+X-CSE-ConnectionGUID: z3FoL9HLSoOnfAZM7Da+Pg==
+X-CSE-MsgGUID: R1TMSTsPRja2k2elN8uW4g==
+X-ExtLoop1: 1
+Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.244.21])
+  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 03:03:39 -0700
+Date: Mon, 31 Aug 2026 13:03:36 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Maurizio Casciano <mauriziocasciano7@gmail.com>
+Cc: linux-media@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Bingbu Cao <bingbu.cao@amd.com>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+	Nicholas Roth <nicholas@rothemail.net>,
+	Andy Shevchenko <andy@kernel.org>, Hans de Goede <hansg@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jose Maria Martin <jmmartinf@hotmail.com>,
+	Uwe Kleine-Koenig <ukleinek@kernel.org>,
+	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 12/15] media: ov2740: add manual white balance controls
+Message-ID: <apVReFqDOIhPDnNj@ashevche-desk.local>
+References: <cover.1787933456.git.mauriziocasciano7@gmail.com>
+ <a34bb1a2647d85de407b4c93627981ef0577cc75.1787933456.git.mauriziocasciano7@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <a34bb1a2647d85de407b4c93627981ef0577cc75.1787933456.git.mauriziocasciano7@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-From: Tao Cui <cuitao@kylinos.cn>
+On Fri, Aug 28, 2026 at 06:14:54PM +0200, Maurizio Casciano wrote:
+> The sensor has separate red, green and blue manual white-balance gain
+> registers, but the driver currently writes the same digital-gain value
+> to all three channels. This prevents userspace from correcting the
+> strong color cast of raw Bayer capture.
+> 
+> Expose red- and blue-balance controls relative to the digital gain,
+> update all three channels under group hold,
 
-lo_req_flush() never uses its request argument.  Drop it.
+> and always release and launch the group even when a channel write fails.
 
-Signed-off-by: Tao Cui <cuitao@kylinos.cn>
-Reviewed-by: Bart Van Assche <bvanassche@acm.org>
----
- drivers/block/loop.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+This part can be split to a separate change explaining "why?". What's wrong
+if we don't do this (as it's currently done in the original code)?
 
-diff --git a/drivers/block/loop.c b/drivers/block/loop.c
-index 126f42580632..1aff40963b40 100644
---- a/drivers/block/loop.c
-+++ b/drivers/block/loop.c
-@@ -270,7 +270,7 @@ static int lo_fallocate(struct loop_device *lo, struct request *rq, loff_t pos,
- 	return ret;
- }
- 
--static int lo_req_flush(struct loop_device *lo, struct request *rq)
-+static int lo_req_flush(struct loop_device *lo)
- {
- 	int ret = vfs_fsync(lo->lo_backing_file, 0);
- 	if (unlikely(ret && ret != -EINVAL))
-@@ -411,7 +411,7 @@ static int do_req_filebacked(struct loop_device *lo, struct request *rq)
- 
- 	switch (req_op(rq)) {
- 	case REQ_OP_FLUSH:
--		return lo_req_flush(lo, rq);
-+		return lo_req_flush(lo);
- 	case REQ_OP_WRITE_ZEROES:
- 		/*
- 		 * If the caller doesn't want deallocation, call zeroout to
+> Tested on the Yoga Book OV2740 with live gain changes and continuous raw
+> capture.
+
 -- 
-2.43.0
+With Best Regards,
+Andy Shevchenko
+
 
