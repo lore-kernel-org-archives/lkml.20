@@ -1,84 +1,84 @@
-Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
+Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19C6239B970
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 18:16:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FC5039B970
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 18:17:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788200216; cv=none; b=Ur27tTHJghnN+LnWcWzPZrIzIRg5FopRtj52EMBwwn8zGUhdqf768vJofQ0Y6TLYoOZJ7ropWDZFfzIGg/F8fXOlfUw80d3gjFE9ovahiPPmMbw546ERQp5vrhDHKGnCO6FFEXG/iuIB5waj4KMpuzaZ5hAkjSBLIQo8zXzT9Kc=
+	t=1788200230; cv=none; b=lKf2EbVXoOVp6gsasxFvKFEmT9qMwXTvH+y8bVmnnpqcIFNvPsXB5zHlt5RMYMu6kMVJAM82XI5z9pvPz21/BTN7csVbOt28oOgOtTWcoq3axgMxvjxlFX3rqllhH5S1dXwLNEW7O99My0yyrpJrX7xOL1h5y2Z9wAygq4S/ipA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788200216; c=relaxed/simple;
-	bh=xbw4b8lag8MyTeGZcrb5hN4Ez5F8B1eouB6Ym16ffLs=;
+	s=arc-20240116; t=1788200230; c=relaxed/simple;
+	bh=uuSQFEl0f5Xgmd+uvHvfUuQ50DstW+2uE4t8uSGFq5k=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=kbIzhlsDyhmSsp1B1zrGPk05H0CTDzhMhurs46rZwpapu9ulyyTjp+ujjjpZR+tgDhrxFXt1Ci5mOpohiqgUwW8Y4RIk3rRqLI2pDvKSHksp8gqq7z9y99HEzEnkRe5jZJgPbqUOnh8mRoslFai2QBjWSpXCpC86szIrk/Omm54=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=Vcd5GHpL; arc=none smtp.client-ip=209.85.218.52
+	 To:Cc:Content-Type; b=fUi3bBfTl0IECZpMZTp97oeJ8dsOcg7TxWOvQKm5ZciXVdrmtrb7DtI1IUDZyPVTmCZ5XIUKX8FmbkbBW62Al41zYTG92F/JCIlhpWyOpPFaRBYWRhlK6g9o9biERRDl1a7wLaCJ0ylON19JnXqwtH4s7DoX7O9Rip/GHCMZXtw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=TDfnxHy+; arc=none smtp.client-ip=209.85.218.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="Vcd5GHpL"
-Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c197e7e4e94so565849766b.2
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 11:16:53 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="TDfnxHy+"
+Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c2531f453eeso592263966b.3
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 11:17:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1788200212; x=1788805012; darn=vger.kernel.org;
+        d=chromium.org; s=google; t=1788200227; x=1788805027; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=2QU1kfWJYR+xjkRuN6RGZEPHu4Juq/92TUoclvitOE8=;
-        b=Vcd5GHpL+B6lKe/zgKK2BBkQJSvxzlIR/YaUuyROJxHfXS4TavndXRORpaetCAxmmX
-         h2eEUxpKPVQKU9QRnZ418UvLPjaJHs20la9ABiwZs8uFR3aXQVm4V3jt/EkqMt5ej/Ct
-         VivLhcA+gPf6an4dVPrIDCtosEM81nSy2Vljc=
+        bh=0HEz6oOVo7hlt3+Pf50YPJ4GWCG1Y+vkc7cVq7puJWI=;
+        b=TDfnxHy+pC1lDiJixMMspQIxNfKaeT9o46zrCn/uSPEC5xV4w7u0mQ+Wsm230or72/
+         vQ3ib7wkWojYS9e/HA9E548DWfIhYy0jvAx25pklUMxGBXcS+Q1F3bsP8XnXZW4A8WWj
+         BoAvBTOcYiWsiS4iK4Bw4XkzTlQQBVr3VwHEk=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788200212; x=1788805012;
+        d=1e100.net; s=20251104; t=1788200227; x=1788805027;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=2QU1kfWJYR+xjkRuN6RGZEPHu4Juq/92TUoclvitOE8=;
-        b=FzLaXX7eDHQhdr65SGNp1Z50f5GHHvkhLl7AWzZezzgKLs5A51qAf8iViXR0ZWsl/s
-         T+Zv689oXUucye9I4ui3QCJiE7eBh9MIHlc8PTgezP+TFYeQ4ry/9ma62Cv3x/6F4o6q
-         dnN4Vx2xSbVvTnb5F2qIeSbm0NRqdzxEysRFslhw9ToX20CghPMd54sbdTWOy01h2NpB
-         liaDdOVYQNR7ng4yyRABych7AX4+fPIyx5RvdD3r2PnenVxSwxqglOfoS+NiU/dWkuWK
-         ya/PYmde0AZVfQvAnuVWSr0+nl+RnMtlNGvLDommPFkaZ9d5Sb9nJ9XZFvjkvSNODkRA
-         tgTw==
-X-Forwarded-Encrypted: i=1; AHgh+Ro9DEEFcXNEFoFEFajMQAjm+G8HMhIqe1CVwn/NLsnOYvvRv0tGrdA6bgBfNwJiQ1jL084ix2srwxpxMuE=@vger.kernel.org
-X-Gm-Message-State: AFuF++kDSyKHyacqLDDl8IkggPCGtkWTIRXDiS9X/v5BW4J2cXl/I2j1
-	CLchHCSbLLEBAyO1mey7SrET4CBNIzL+eBLMD5f+7/72/tRYE73DBgORYeveu8UHwj/N4ZmD+zV
-	HXYRcFss7
-X-Gm-Gg: AR+sD10rcGu9XM2W+U98zSIUYdC3u65Ic3yRbByYZbBbfFT/Ntrpe1M0TJiQ0nQEqkv
-	4ETvnmb+O1Xlea6Qz2CBrovfXxyMCaB3B/VuitfuF/kEGGlJ8q3ka9vVDRLGtEjEoddCPfk+RPv
-	0bZHCWomTRcKZ6iGq7pZ9HDUCepreEel0Jyhaazv6XRn2iFhbLdT34kJM9smJYAZwJKeP2GQWr/
-	/qKfQzyQsjVcUm2bi3b0KnMbaI0GZWm0tWsbT8gqR7uEkFMVJ0mdezoKIpe4z+IouTTQ5TnHVfh
-	6/17fx0STekewCCjCqvU2iV1Ehpe4oZV3EOXwuPLfZ5qNQ6zfFS7iTqA0xGnN+9zrvKZBoy9ej7
-	b+/oTe+YrosDPomiCM/costVG4H2jYVILpEdiOWqnnYWnxc3oTTSDCv1l460CYwou/cBYpPp7Cg
-	0DHVN0io21QNMnNg8FQYKz1CbEWSSt+fPz/ZnSGcj4aFKZyUlNqZNjI4+unzbVlAmk/kPpY/r2d
-	dt1/LSHxVvlaNQAewZ+mWTZ/2M=
-X-Received: by 2002:a17:907:c01c:b0:c20:af9d:454a with SMTP id a640c23a62f3a-c25571deba3mr1841223966b.16.1788200212219;
-        Mon, 31 Aug 2026 11:16:52 -0700 (PDT)
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com. [209.85.128.48])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c255f1fb965sm493434466b.49.2026.08.31.11.16.51
+        bh=0HEz6oOVo7hlt3+Pf50YPJ4GWCG1Y+vkc7cVq7puJWI=;
+        b=fuXDN7zUfYIAdoE6uP7gF0qYopNoaj2zRw5zQpc5xRURwmiTLfsrzgsg1TMEmoC1iB
+         1O6wLNArFr6PUqL1qRdQkjvUzpSxA0BBT2/EhD+NDCl4EBPAUZzIn3bW1SaMiutG9XpT
+         14ctQbtVh4txYgjpwuN1kGqXH8umOsge26cyK1wju6uSbhxH4404XpuNo3xjZBti7jn5
+         WfKpWAcKzH2bSQ1iIZF7O+jcEurb8xDfDhu4lDufqVlY4+GNEgh7ZJfqGqigePETTF5+
+         2qHhsi69nh7rU/8C9cHVeW9USJ2zBg6IhmXU63kjpihNKUpVZLxLiZg/XoXpj2yXxfNE
+         2Faw==
+X-Forwarded-Encrypted: i=1; AHgh+Rrz9SWPeLa9N9gRa6cCf/KzblIUSsotkyIJG8q/9BHFjsPZM6hZkP9eLkVkvml3M1AisP7b/2qwMcOFA5Q=@vger.kernel.org
+X-Gm-Message-State: AFuF++nlrAHCyyMx0mfmo1zv/KrXYtN3lgQ9Wq0BoFqEJ7ogLRhvZ/Eo
+	6p7MCjiaJepsDC1fYg4/x05fQgxi+/zRAUhIH5++/GJIhLJdW2k42bPAxVzpcWZUzags9WQjUsd
+	53MXA/7UH
+X-Gm-Gg: AR+sD12d3plVG44Mz5YwSQJ1z1n+aOYNUiP7RWUEAKKJDBH8fvizZaMYMDdQw/Rl8y2
+	w7YxJh1NsAzLQ78IesK25dYzIvJJZFqJamX7Jo2IBL6JS/4EgwgmFuzoe5adpR8SzMUHfiZqkpZ
+	3jTkiGGyLR31+MGRgT3HGtC3LvEO6ViuY5LwNw5PCcEmWNRVj+dY7tpA2B5wUWHi0f9pklaCx1h
+	7MrtW0fVI0EWmfnPwE4h/drXXsdI/tVu0P41pEgAr6IoUvQPtt/dXbVCydxrU8Farw0/N4IJgH4
+	fYH7WFjyISXXm281dkFC/fSQLQW2rIvO6ftIQQZZEQPBQNxGsxBfP2E3L9pgVFGL+6AWsChybjf
+	FPCHiMq6TSHc1N+PcZvCDMN2bMAf55OD6+7bRCTEkRpsAkzFQltmBgAFYwM76r+s5P21Df1on5o
+	KpO0tjGkUIZla0SMflXcxK1EuijYif4viNa33lL+bSfRtXO4f8QHl1urXkk5Mzw6cvrZBT085A5
+	sJL1vTxBCU5ZxUajC/UyksWof8=
+X-Received: by 2002:a17:906:39d3:b0:c08:417e:3696 with SMTP id a640c23a62f3a-c25b3da372amr150086866b.20.1788200227460;
+        Mon, 31 Aug 2026 11:17:07 -0700 (PDT)
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com. [209.85.221.53])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c255ee28596sm483425966b.20.2026.08.31.11.17.04
         for <linux-kernel@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 31 Aug 2026 11:16:51 -0700 (PDT)
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-49954b88fffso26726565e9.0
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 11:16:51 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RpFTr1wkJwAciQMRku2mtYy4NBnxFY7hC8cj/tZXqjuUVJ/cKpWKlkxQ/YuBQYPwU5p8elBwN9Iu+KRerc=@vger.kernel.org
-X-Received: by 2002:a05:600c:621a:b0:49c:dc12:2ab0 with SMTP id
- 5b1f17b1804b1-49cdc122ac8mr48333075e9.11.1788200210130; Mon, 31 Aug 2026
- 11:16:50 -0700 (PDT)
+        Mon, 31 Aug 2026 11:17:06 -0700 (PDT)
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-482e2fdf6ebso3190719f8f.1
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 11:17:04 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwjjBeRqIcdZPvk4l8jHV3RubNF0e2PysUkt6FInVv5JR8PhFHotkR0wE251azUviWuEYBZZgcGCkxTmbI=@vger.kernel.org
+X-Received: by 2002:a5d:43c8:0:b0:484:40e1:8c40 with SMTP id
+ ffacd0b85a97d-48440fcda91mr3934528f8f.5.1788200223514; Mon, 31 Aug 2026
+ 11:17:03 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260828-qcom-wdt-nmi-series-v2-0-363979fe6b6b@google.com> <20260828-qcom-wdt-nmi-series-v2-1-363979fe6b6b@google.com>
-In-Reply-To: <20260828-qcom-wdt-nmi-series-v2-1-363979fe6b6b@google.com>
+References: <20260828-qcom-wdt-nmi-series-v2-0-363979fe6b6b@google.com> <20260828-qcom-wdt-nmi-series-v2-2-363979fe6b6b@google.com>
+In-Reply-To: <20260828-qcom-wdt-nmi-series-v2-2-363979fe6b6b@google.com>
 From: Doug Anderson <dianders@chromium.org>
-Date: Mon, 31 Aug 2026 11:16:38 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=VaDEWktsK5vNWJY0txA+YJZcjha-VPhmKQX=XS5pF+mg@mail.gmail.com>
-X-Gm-Features: AcwNN1VV28U2KlLG_KwlvZN_vPKUX9__aF5EBSUQ4pSV3pF_j6BfJodMLb9TnQI
-Message-ID: <CAD=FV=VaDEWktsK5vNWJY0txA+YJZcjha-VPhmKQX=XS5pF+mg@mail.gmail.com>
-Subject: Re: [PATCH v2 1/5] genirq: Synchronize in-flight handlers during NMI teardown
+Date: Mon, 31 Aug 2026 11:16:51 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=Xgq2aJ1wPFggFBT5x810xZr33GOtyJDvhYf74CmuPUKQ@mail.gmail.com>
+X-Gm-Features: AcwNN1VE0AERlOw15wusqCepTJcCXi7KNdMxoGrnxAOTT_pd3WQ9VGal9zL8yXg
+Message-ID: <CAD=FV=Xgq2aJ1wPFggFBT5x810xZr33GOtyJDvhYf74CmuPUKQ@mail.gmail.com>
+Subject: Re: [PATCH v2 2/5] genirq: Implement synchronous disable_nmi()
 To: Mayank Rungta <mrungta@google.com>
 Cc: Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck <linux@roeck-us.net>, 
 	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, linux-watchdog@vger.kernel.org, 
@@ -92,37 +92,29 @@ Hi,
 On Fri, Aug 28, 2026 at 6:00=E2=80=AFPM Mayank Rungta <mrungta@google.com> =
 wrote:
 >
-> When freeing an interrupt requested via request_nmi(), __cleanup_nmi()
-> currently tears down the NMI and frees the irqaction structure without
-> waiting for in-flight instances of the handler on other CPUs to complete,
-> which can lead to use-after-free conditions on module unload.
+> Currently, disable_nmi_nosync() is the only interface to disable an NMI
+> line. Drivers stopping their devices in process context need a synchronou=
+s
+> variant that guarantees any running instance of the NMI handler has
+> completed on other CPUs before returning.
 >
-> Because NMIs cannot acquire desc->lock or set IRQD_IRQ_INPROGRESS without
-> risking deadlocks, synchronizing in-flight NMIs on other CPUs during
-> teardown (__synchronize_hardirq) relies on querying the hardware
-> controller state via __irq_get_irqchip_state(IRQCHIP_STATE_ACTIVE).
->
-> Enforce that any interrupt controller claiming NMI support via
-> IRQCHIP_SUPPORTS_NMI must implement ->irq_get_irqchip_state(). In
-> __cleanup_nmi(), shut down the line, call __synchronize_hardirq(desc, tru=
-e)
-> to wait for in-flight handlers, and only then tear down the NMI
-> configuration and deactivate the interrupt domain before freeing the acti=
-on
-> structure.
->
-> Also add a WARN(in_interrupt()) check in free_nmi() matching __free_irq()
-> to prevent freeing NMIs from atomic contexts since synchronization and
-> resource cleanup can sleep and spin.
+> Implement disable_nmi() by wrapping disable_irq().
 >
 > Assisted-by: Antigravity:gemini
 > Signed-off-by: Mayank Rungta <mrungta@google.com>
 > ---
->  kernel/irq/manage.c | 25 ++++++++++++++++++++-----
->  1 file changed, 20 insertions(+), 5 deletions(-)
+>  include/linux/interrupt.h |  1 +
+>  kernel/irq/manage.c       | 15 +++++++++++++++
+>  2 files changed, 16 insertions(+)
 
-FWIW, Sashiko's feedback [1] again seems relevant, so probably a v3 is
-worthwhile.
+This looks right to me.
 
-[1] https://lore.kernel.org/all/20260829011449.87AF11F000E9@smtp.kernel.org=
+Reviewed-by: Douglas Anderson <dianders@chromium.org>
+
+Sashiko had feedback [1] where it was worried about tightly looping
+doing HW polling. To me, that doesn't seem like a big deal since there
+shouldn't be many NMI users and NMIs shouldn't be freed often. Perhaps
+Thomas has different thoughts.
+
+[1] https://lore.kernel.org/all/20260829011853.0B9A41F000E9@smtp.kernel.org=
 /
