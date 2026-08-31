@@ -1,246 +1,686 @@
-Received: from mail-yx1-f41.google.com (mail-yx1-f41.google.com [74.125.224.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EE6525B093
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 19:18:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78BED20A5C4;
+	Mon, 31 Aug 2026 19:21:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788203930; cv=none; b=dfXb0BD2klcaqBNXOBud8bPPNJNnDOTXiFIl65aoyOoT2dm9o/LZIQq3Rs6K9PUgAFtTIqdq3yJ8XYtw8vaVdpab/iB+p1LaGnmbVaU7XH7/o7NI+OY75pAsA7zxwFT33Byf5SMquriDKmEkXX+Ceqeu9Z5zPItE4qYEBRRIRpU=
+	t=1788204109; cv=none; b=toer2gC5IoYwCy+cJ8a1IaPrQBsLwVHs+DNZ07YaP7fkPqhks4Feq3iHYqBuwegsL4ojk68FN3YQzl53tBnrqrPUNsKHkpyJaSPvGdixctPd7L95LSy8ggxHgdK5zWaSrw6Wve2eZtL+juzw0SuzoBUE8iYCdxJGbT/x2Ykdiuo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788203930; c=relaxed/simple;
-	bh=SUWAGf8sVHKWryZvJc2CRMyaoHq/CAf8ooTs1lQf5cA=;
-	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
-	 Mime-Version:Content-Type; b=Sy7oHzaTtO2DBskDzE7upaNpFRmizAWZplvVtJCbFZcyp/FEhtT1beVvYmIUdKMazoETwqOLAIFl+KOlVwrOPqzIsubqnYWp+Uw9erPD5UAn7Ux6skgRvXQcBWqtiIHmjfLCAhaKUTCdUGZkRF7v4bErF4kxZhWCsINua6VpQYM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=S0gsBBh1; arc=none smtp.client-ip=74.125.224.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788204109; c=relaxed/simple;
+	bh=zQPVufPKNcBIXiW0CKwQDfNfgHkccTecZZrH+1iOeUA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=b20390dHGkxmrIPoMi5BdXFLi8awWRtYX80l+H1tEyhviCTFT/D7PZP+PqiXKKrC+wvlgqhVGhqhZh2CfareT20bQ0SaS1SGSGA9IaGbH1FeohHIGdxT41qVsNeBqe6USt8C4t7zQ7h/R+ss3Su3zeAfhB+Tf3V+CcoE82eF1UQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fAEu7Uih; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="S0gsBBh1"
-Received: by mail-yx1-f41.google.com with SMTP id 956f58d0204a3-66e63afda8fso1734016d50.3
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 12:18:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788203927; x=1788808727; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=vyGggYc18dLYZvLE+3PHcbnS8L3cXtAXyIgurB3vQjg=;
-        b=S0gsBBh1Q8dxmt9Bh/gnTP65jBd1H3cjishr05Lpn3jyaP+5qr5ZT4UzpXZshlMVGE
-         3dQn/ChQNwYC1do7iGkNjyRonMVWD1rlFhSDIbVTH422OvPHtqWmKA+z1yWfSAxlT4sM
-         uIVgJ5jm9pU2MrOO6tFrshjBucYHJl3tNG9ndfNKJQWL+HWeAFRFjflXORJoiSveIc6y
-         Ox4cbGRKcnFbKJo91yVNJJWJ8CDA4HoGJIhvdjevP160RmP8jQm+7eXeIIlEgvowULMi
-         /hf+kUFlArlVsaXhAl+iDSDT9ovqX/3CRRJVfjtZLL6wVIPTTWb/k96QQYbPn0edn13j
-         9HpA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788203927; x=1788808727;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vyGggYc18dLYZvLE+3PHcbnS8L3cXtAXyIgurB3vQjg=;
-        b=otvOT9XuLGLJxNNg7eYfUmMJTg6DMTnkbES1Ju38Q07YoKfJ9zHV0+QhCA+BWTpV4w
-         1cAp93RtuqzUGC8XWp8X/I2TIhL5XHYc0/TD6J8Jh0Y56Prr+XflQ2hPSovcbSCigiVs
-         7tkatrW9RBBrKXQCq2XGuAPNLjc85L7KsqeT1Ix7j3iTWQoil2FlPMaUF+2ULKujtR5X
-         8VPdY2W8VCVEqt3Es+dIbzL/gp53dBAZQS6PpVJr7GgvsS6m/MYCK4vNrTh+5oXua8Mv
-         suWNizjQydiIRZWEb3DIxGxIs5HMF49zLmmoXv1hUUmJvWegSoatlL5iZZpF/JhGXQg5
-         /8eA==
-X-Forwarded-Encrypted: i=1; AKwUvBxAA5hGkKUhqLard4HU7y44UNBhfAPUJopkP6kgOiKxrLmLJNfZHVGxmoWOSE5NET5IdnIPD6kkLFEDJGs=@vger.kernel.org
-X-Gm-Message-State: AFuF++kbXiD7mlSOyze9Koz8JtyrQ97/bTZPrCUFFfwKNuk+YV5AGZjC
-	I7RRTpbd820WrmTMx8XACRnYSPsfynOPnwZ0/UWmNlYxve8fjgX6ZNQi
-X-Gm-Gg: AYBFou1wdqdqE1FdxUnOZiDxI33ak0UmFpqVEYwbkWIsho5DAiB7tqu3hOkEAMX3iBu
-	oiTYlS/zcX+kA6963qgQcR+mGvLMjnG65+hNYQfnCU8FX2zVpK2CBTLdrlFXEfpml049+0u8kl+
-	er9Fv64ciHnSZ2ErJwX315TIJPD1xJRrsm3ropKZGqdQRZtOhle1yD+fP/pRUQy+KjwRLNnSdvB
-	VMz5XWhL3WJWqxzKhsNOpWtk3yqYMJ2GBRCV73ZNWYszyjajGB67fIa60l3sW5iijcr0DVQv+i/
-	JJoY2T48UKgCpaDFBA+XQbrMva4NXNbm34pqAXCFuc8Xu8KUs4pP//ybqFC0VXxv/92v7XhnbTs
-	T9TTlRU/PwH5vBKKafTHwt7kg4BIn8hNi8nRnYfqmWroNT8uP4ciMeTEQuTHjrPGZncS/xtLvq4
-	w724cQ7p9RGWPiQJasvcUW9RP52NpkvDz4VniGVcWz1IjUgDmwSHJGaTXjg9XvmnfYPXmulHfLJ
-	gWaI5bFlZfy3qUK6bZtrYMzsAQFvldb4RtzAlKeHA==
-X-Received: by 2002:a53:e950:0:b0:66d:289f:6498 with SMTP id 956f58d0204a3-66f875c6a73mr824777d50.36.1788203926780;
-        Mon, 31 Aug 2026 12:18:46 -0700 (PDT)
-Received: from gmail.com (234.207.85.34.bc.googleusercontent.com. [34.85.207.234])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-66e4ed2c78esm6675036d50.19.2026.08.31.12.18.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 12:18:46 -0700 (PDT)
-Date: Mon, 31 Aug 2026 15:18:45 -0400
-From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-To: Junnan Zhang <zhangjn_dev@163.com>, 
- Willem de Bruijn <willemdebruijn.kernel@gmail.com>, 
- "David S . Miller" <davem@davemloft.net>, 
- Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>
-Cc: Simon Horman <horms@kernel.org>, 
- "Michael S . Tsirkin" <mst@redhat.com>, 
- Hangbin Liu <liuhangbin@gmail.com>, 
- netdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- zhangjn_dev@163.com, 
- Junnan Zhang <zhangjn11@chinatelecom.cn>, 
- Shouxin Sun <sunshx@chinatelecom.cn>
-Message-ID: <willemdebruijn.kernel.2a4f4a498e1ff@gmail.com>
-In-Reply-To: <20260831072034.40044-1-zhangjn_dev@163.com>
-References: <20260831072034.40044-1-zhangjn_dev@163.com>
-Subject: Re: [PATCH net v2] net/packet: fix network header offset for non-VLAN
- raw packets
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fAEu7Uih"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 756BF1F000E9;
+	Mon, 31 Aug 2026 19:21:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788204107;
+	bh=sXfD6dej8IYua/DTCdKP9q0yWpYofmCwekcE6fstowQ=;
+	h=From:To:Cc:Subject:Date;
+	b=fAEu7UihlBvs09NZ0Myv0MHtHSG3vVFxbg/BXm0RiUY8xlgtE7+nNn1PEZxs6L2BU
+	 4varcF5TNCb4AXXrECNKcYIWKR73hKFkAGRtulCA5VlrGu7nhrRhhQbvzTl7kIApNG
+	 q41UvznYlEImsWCYEGG4s+ll8qZB3JnA36gNTEe1e/plOW724o6B1SD46lnH1DOFSt
+	 CO9tuj6Wdi1h9kB2emMrATZe9kFiaPNOtTrJClEKB/ln0MGmAxY46rtuAor9ShDHgv
+	 RRQeVOExRWgPxmfiHEWwlPbUaPZRP3Zzs8fcA6bPL+bqz+IBO7ILvi+VoWMeCH3a9E
+	 /wtl7WRTY0Vug==
+From: Eric Biggers <ebiggers@kernel.org>
+To: bpf@vger.kernel.org,
+	Vadim Fedorenko <vadim.fedorenko@linux.dev>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>
+Cc: linux-crypto@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Karl Mehltretter <kmehltretter@gmail.com>,
+	Eric Biggers <ebiggers@kernel.org>
+Subject: [PATCH bpf-next] bpf: crypto: Use AES-CBC and AES-ECB libraries
+Date: Mon, 31 Aug 2026 12:21:39 -0700
+Message-ID: <20260831192139.94895-1-ebiggers@kernel.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Junnan Zhang wrote:
-> AF_PACKET SOCK_RAW sets skb network_header to dev->hard_header_len in
-> packet_snd(). For Ethernet devices whose hard_header_len exceeds the
-> on-wire L2 header length (min_header_len = ETH_HLEN) -- e.g.
-> software-offload VLAN subinterfaces, where hard_header_len = ETH_HLEN +
-> VLAN_HLEN = 18 -- a non-VLAN SOCK_RAW frame still carries a standard
-> 14-byte Ethernet header, so its L3 header sits at min_header_len, not
-> hard_header_len.
-> 
-> packet_parse_headers() only corrects network_header for VLAN-tagged
-> frames. For non-VLAN frames it leaves network_header at hard_header_len,
-> so the IP header is found (hard_header_len - min_header_len) bytes too
-> late and inet_gso_segment() fails with -EINVAL.
-> 
-> Observed on a virtio_net NIC (KVM guest) that advertises
-> NETIF_F_HW_VLAN_CTAG_FILTER but not NETIF_F_HW_VLAN_CTAG_TX, so VLAN
-> subinterfaces use software tag insertion (hard_header_len = 18). An
-> AF_PACKET SOCK_RAW socket bound to the VLAN subinterface with
-> PACKET_VNET_HDR enabled sends a large IPv4/TCP frame exceeding the path
-> MTU, with gso_type set in the virtio-net header. The user frame is a
-> plain [ethhdr][IP...] layout without a VLAN tag; the VLAN subdevice
-> inserts the 802.1Q tag in vlan_dev_hard_start_xmit(). 
+BPF crypto was implemented using the lskcipher API, which doesn't seem
+to be going anywhere.  lskcipher supports only "arc4", "cbc(aes)",
+"ecb(aes)", and only with unoptimized implementations.
 
-Where does it do this? validate_xmit_vlan does this on the physical
-device I think.
+Library APIs also have been found to be a much better approach, for a
+variety of reasons, including reduced overhead, greater flexibility, and
+having to be explicit about the crypto algorithms that are supported.
 
-That adds a bigger problem that the extra needed headroom of
-(hard_header_len - min_header_len) is not reserved at the start of the
-frame.
+We can safely ignore the theoretical ARC4 support in BPF crypto as
+unused, which leaves AES-CBC and AES-ECB.  AES-CBC was stated to be
+needed for decrypting packets using a homebrew UDP-based protocol
+(https://lore.kernel.org/r/d1cdfc23-b336-49a9-8833-29f05b5b9fec@linux.dev/).
+AES-ECB is used by the BPF self-tests, and it was stated to maybe be
+used in the future for QUIC-LB
+(https://lore.kernel.org/r/5f9c3aab-5339-463c-a86d-edac297e1e95@linux.dev/).
 
-In packet_snd, reserve == hard_header_len, so the packet socket
-starts writing at the start of the buffer. When
-__vlan_insert_inner_tag inserts the tag, it tries to move the mac
-header back, leaving the network header in place. Which works fine if
-the network header was set correctly from the start, and the original
-mac started at network_header - min_header_len.
+Those reasons don't make much sense either, especially AES-ECB which
+isn't appropriate in new systems and should be dropped.  Regardless,
+let's assume that both AES-CBC and AES-ECB need to be kept for now.
 
-This is all messy because before needed_headroom existed, legacy
-tunnels had to resort to increasing hard_header_len to reserve extra
-room for their outer headers.
+There are library APIs for both of these now, which are much easier to
+use and more efficient.  Reimplement BPF crypto on top of them, greatly
+simplifying the code.  As part of this, the bpf_crypto_type abstraction
+layer is removed, as it's not useful.
 
-Long aside, and I don't expect to address/disentangle that in this bug
-fix targeting net. Will take a look whether we can safely do that in
-net-next.
+Signed-off-by: Eric Biggers <ebiggers@kernel.org>
+---
+ MAINTAINERS                  |   2 -
+ crypto/Makefile              |   3 -
+ crypto/bpf_crypto_skcipher.c |  83 -----------
+ include/linux/bpf_crypto.h   |  24 ----
+ kernel/bpf/Kconfig           |   9 ++
+ kernel/bpf/Makefile          |   4 +-
+ kernel/bpf/crypto.c          | 271 +++++++++++++++--------------------
+ 7 files changed, 122 insertions(+), 274 deletions(-)
+ delete mode 100644 crypto/bpf_crypto_skcipher.c
+ delete mode 100644 include/linux/bpf_crypto.h
 
-But please Link to this version of the patch (and thus the thread)
-when sending the next version.
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 3a19da74d00c..16f13270ce1f 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -4936,8 +4936,6 @@ BPF [CRYPTO]
+ M:	Vadim Fedorenko <vadim.fedorenko@linux.dev>
+ L:	bpf@vger.kernel.org
+ S:	Maintained
+-F:	crypto/bpf_crypto_skcipher.c
+-F:	include/linux/bpf_crypto.h
+ F:	kernel/bpf/crypto.c
+ 
+ BPF [DOCUMENTATION] (Related to Standardization)
+diff --git a/crypto/Makefile b/crypto/Makefile
+index 8386d55a9755..33bb5ad595e8 100644
+--- a/crypto/Makefile
++++ b/crypto/Makefile
+@@ -22,9 +22,6 @@ crypto_skcipher-y += lskcipher.o
+ crypto_skcipher-y += skcipher.o
+ 
+ obj-$(CONFIG_CRYPTO_SKCIPHER2) += crypto_skcipher.o
+-ifeq ($(CONFIG_BPF_SYSCALL),y)
+-obj-$(CONFIG_CRYPTO_SKCIPHER2) += bpf_crypto_skcipher.o
+-endif
+ 
+ obj-$(CONFIG_CRYPTO_SEQIV) += seqiv.o
+ obj-$(CONFIG_CRYPTO_ECHAINIV) += echainiv.o
+diff --git a/crypto/bpf_crypto_skcipher.c b/crypto/bpf_crypto_skcipher.c
+deleted file mode 100644
+index a88798d3e8c8..000000000000
+--- a/crypto/bpf_crypto_skcipher.c
++++ /dev/null
+@@ -1,83 +0,0 @@
+-// SPDX-License-Identifier: GPL-2.0-only
+-/* Copyright (c) 2024 Meta, Inc */
+-#include <linux/types.h>
+-#include <linux/module.h>
+-#include <linux/bpf_crypto.h>
+-#include <crypto/skcipher.h>
+-
+-static void *bpf_crypto_lskcipher_alloc_tfm(const char *algo)
+-{
+-	return crypto_alloc_lskcipher(algo, 0, 0);
+-}
+-
+-static void bpf_crypto_lskcipher_free_tfm(void *tfm)
+-{
+-	crypto_free_lskcipher(tfm);
+-}
+-
+-static int bpf_crypto_lskcipher_has_algo(const char *algo)
+-{
+-	return crypto_has_skcipher(algo, CRYPTO_ALG_TYPE_LSKCIPHER, CRYPTO_ALG_TYPE_MASK);
+-}
+-
+-static int bpf_crypto_lskcipher_setkey(void *tfm, const u8 *key, unsigned int keylen)
+-{
+-	return crypto_lskcipher_setkey(tfm, key, keylen);
+-}
+-
+-static u32 bpf_crypto_lskcipher_get_flags(void *tfm)
+-{
+-	return crypto_lskcipher_get_flags(tfm);
+-}
+-
+-static unsigned int bpf_crypto_lskcipher_ivsize(void *tfm)
+-{
+-	return crypto_lskcipher_ivsize(tfm);
+-}
+-
+-static unsigned int bpf_crypto_lskcipher_statesize(void *tfm)
+-{
+-	return crypto_lskcipher_statesize(tfm);
+-}
+-
+-static int bpf_crypto_lskcipher_encrypt(void *tfm, const u8 *src, u8 *dst,
+-					unsigned int len, u8 *siv)
+-{
+-	return crypto_lskcipher_encrypt(tfm, src, dst, len, siv);
+-}
+-
+-static int bpf_crypto_lskcipher_decrypt(void *tfm, const u8 *src, u8 *dst,
+-					unsigned int len, u8 *siv)
+-{
+-	return crypto_lskcipher_decrypt(tfm, src, dst, len, siv);
+-}
+-
+-static const struct bpf_crypto_type bpf_crypto_lskcipher_type = {
+-	.alloc_tfm	= bpf_crypto_lskcipher_alloc_tfm,
+-	.free_tfm	= bpf_crypto_lskcipher_free_tfm,
+-	.has_algo	= bpf_crypto_lskcipher_has_algo,
+-	.setkey		= bpf_crypto_lskcipher_setkey,
+-	.encrypt	= bpf_crypto_lskcipher_encrypt,
+-	.decrypt	= bpf_crypto_lskcipher_decrypt,
+-	.ivsize		= bpf_crypto_lskcipher_ivsize,
+-	.statesize	= bpf_crypto_lskcipher_statesize,
+-	.get_flags	= bpf_crypto_lskcipher_get_flags,
+-	.owner		= THIS_MODULE,
+-	.name		= "skcipher",
+-};
+-
+-static int __init bpf_crypto_skcipher_init(void)
+-{
+-	return bpf_crypto_register_type(&bpf_crypto_lskcipher_type);
+-}
+-
+-static void __exit bpf_crypto_skcipher_exit(void)
+-{
+-	int err = bpf_crypto_unregister_type(&bpf_crypto_lskcipher_type);
+-	WARN_ON_ONCE(err);
+-}
+-
+-module_init(bpf_crypto_skcipher_init);
+-module_exit(bpf_crypto_skcipher_exit);
+-MODULE_LICENSE("GPL");
+-MODULE_DESCRIPTION("Symmetric key cipher support for BPF");
+diff --git a/include/linux/bpf_crypto.h b/include/linux/bpf_crypto.h
+deleted file mode 100644
+index a41e71d4e2d9..000000000000
+--- a/include/linux/bpf_crypto.h
++++ /dev/null
+@@ -1,24 +0,0 @@
+-/* SPDX-License-Identifier: GPL-2.0-only */
+-/* Copyright (c) 2024 Meta Platforms, Inc. and affiliates. */
+-#ifndef _BPF_CRYPTO_H
+-#define _BPF_CRYPTO_H
+-
+-struct bpf_crypto_type {
+-	void *(*alloc_tfm)(const char *algo);
+-	void (*free_tfm)(void *tfm);
+-	int (*has_algo)(const char *algo);
+-	int (*setkey)(void *tfm, const u8 *key, unsigned int keylen);
+-	int (*setauthsize)(void *tfm, unsigned int authsize);
+-	int (*encrypt)(void *tfm, const u8 *src, u8 *dst, unsigned int len, u8 *iv);
+-	int (*decrypt)(void *tfm, const u8 *src, u8 *dst, unsigned int len, u8 *iv);
+-	unsigned int (*ivsize)(void *tfm);
+-	unsigned int (*statesize)(void *tfm);
+-	u32 (*get_flags)(void *tfm);
+-	struct module *owner;
+-	char name[14];
+-};
+-
+-int bpf_crypto_register_type(const struct bpf_crypto_type *type);
+-int bpf_crypto_unregister_type(const struct bpf_crypto_type *type);
+-
+-#endif /* _BPF_CRYPTO_H */
+diff --git a/kernel/bpf/Kconfig b/kernel/bpf/Kconfig
+index eb3de35734f0..822599b42be2 100644
+--- a/kernel/bpf/Kconfig
++++ b/kernel/bpf/Kconfig
+@@ -87,6 +87,15 @@ config BPF_UNPRIV_DEFAULT_OFF
+ 
+ 	  If you are unsure how to answer this question, answer Y.
+ 
++config BPF_CRYPTO
++	def_bool y
++	depends on BPF_SYSCALL
++	select CRYPTO_LIB_AES_CBC
++	select CRYPTO_LIB_AES_ECB
++	help
++	  Provide the kfuncs needed for BPF programs to encrypt and decrypt
++	  data. The supported algorithms are AES-CBC and AES-ECB.
++
+ source "kernel/bpf/preload/Kconfig"
+ 
+ config BPF_LSM
+diff --git a/kernel/bpf/Makefile b/kernel/bpf/Makefile
+index 90255d80e5be..ab2e5d2782e6 100644
+--- a/kernel/bpf/Makefile
++++ b/kernel/bpf/Makefile
+@@ -55,9 +55,7 @@ obj-$(CONFIG_BPF_SYSCALL) += cpumask.o
+ # semantics within pahole are revisited accordingly.
+ obj-${CONFIG_BPF_LSM} += bpf_lsm_proto.o bpf_lsm.o
+ endif
+-ifneq ($(CONFIG_CRYPTO),)
+-obj-$(CONFIG_BPF_SYSCALL) += crypto.o
+-endif
++obj-$(CONFIG_BPF_CRYPTO) += crypto.o
+ obj-$(CONFIG_BPF_PRELOAD) += preload/
+ 
+ obj-$(CONFIG_BPF_SYSCALL) += relo_core.o
+diff --git a/kernel/bpf/crypto.c b/kernel/bpf/crypto.c
+index 51f89cecefb4..8cdc16f9b374 100644
+--- a/kernel/bpf/crypto.c
++++ b/kernel/bpf/crypto.c
+@@ -1,19 +1,13 @@
+ // SPDX-License-Identifier: GPL-2.0-only
+ /* Copyright (c) 2024 Meta, Inc */
+ #include <linux/bpf.h>
+-#include <linux/bpf_crypto.h>
+ #include <linux/bpf_mem_alloc.h>
+ #include <linux/btf.h>
+ #include <linux/btf_ids.h>
+ #include <linux/filter.h>
+-#include <linux/scatterlist.h>
+ #include <linux/skbuff.h>
+-#include <crypto/skcipher.h>
+-
+-struct bpf_crypto_type_list {
+-	const struct bpf_crypto_type *type;
+-	struct list_head list;
+-};
++#include <crypto/aes-cbc.h>
++#include <crypto/aes-ecb.h>
+ 
+ /* BPF crypto initialization parameters struct */
+ /**
+@@ -36,94 +30,53 @@ struct bpf_crypto_params {
+ 	u32 authsize;
+ };
+ 
+-static LIST_HEAD(bpf_crypto_types);
+-static DECLARE_RWSEM(bpf_crypto_types_sem);
++enum bpf_crypto_algo_id {
++	BPF_ALGO_AES_CBC,
++	BPF_ALGO_AES_ECB,
++};
++
++static const struct {
++	const char *type_name;
++	const char *algo_name;
++	enum bpf_crypto_algo_id algo;
++} bpf_crypto_algos[] = {
++	{ "skcipher", "cbc(aes)", BPF_ALGO_AES_CBC },
++	{ "skcipher", "ecb(aes)", BPF_ALGO_AES_ECB },
++};
++
++static bool bpf_crypto_find_algo(const struct bpf_crypto_params *params,
++				 enum bpf_crypto_algo_id *id_ret)
++{
++	for (size_t i = 0; i < ARRAY_SIZE(bpf_crypto_algos); i++) {
++		if (strncmp(bpf_crypto_algos[i].type_name, params->type,
++			    sizeof(params->type)) == 0 &&
++		    strncmp(bpf_crypto_algos[i].algo_name, params->algo,
++			    sizeof(params->algo)) == 0) {
++			*id_ret = bpf_crypto_algos[i].algo;
++			return true;
++		}
++	}
++	return false;
++}
+ 
+ /**
+  * struct bpf_crypto_ctx - refcounted BPF crypto context structure
+- * @type:	The pointer to bpf crypto type
+- * @tfm:	The pointer to instance of crypto API struct.
+- * @siv_len:    Size of IV and state storage for cipher
++ * @algo:	The crypto algorithm ID
++ * @key:	The crypto key
+  * @rcu:	The RCU head used to free the crypto context with RCU safety.
+  * @usage:	Object reference counter. When the refcount goes to 0, the
+  *		memory is released back to the BPF allocator, which provides
+  *		RCU safety.
+  */
+ struct bpf_crypto_ctx {
+-	const struct bpf_crypto_type *type;
+-	void *tfm;
+-	u32 siv_len;
++	enum bpf_crypto_algo_id algo;
++	union {
++		struct aes_key aes;
++	} key;
+ 	struct rcu_head rcu;
+ 	refcount_t usage;
+ };
+ 
+-int bpf_crypto_register_type(const struct bpf_crypto_type *type)
+-{
+-	struct bpf_crypto_type_list *node;
+-	int err = -EBUSY;
+-
+-	down_write(&bpf_crypto_types_sem);
+-	list_for_each_entry(node, &bpf_crypto_types, list) {
+-		if (!strcmp(node->type->name, type->name))
+-			goto unlock;
+-	}
+-
+-	node = kmalloc_obj(*node);
+-	err = -ENOMEM;
+-	if (!node)
+-		goto unlock;
+-
+-	node->type = type;
+-	list_add(&node->list, &bpf_crypto_types);
+-	err = 0;
+-
+-unlock:
+-	up_write(&bpf_crypto_types_sem);
+-
+-	return err;
+-}
+-EXPORT_SYMBOL_GPL(bpf_crypto_register_type);
+-
+-int bpf_crypto_unregister_type(const struct bpf_crypto_type *type)
+-{
+-	struct bpf_crypto_type_list *node;
+-	int err = -ENOENT;
+-
+-	down_write(&bpf_crypto_types_sem);
+-	list_for_each_entry(node, &bpf_crypto_types, list) {
+-		if (strcmp(node->type->name, type->name))
+-			continue;
+-
+-		list_del(&node->list);
+-		kfree(node);
+-		err = 0;
+-		break;
+-	}
+-	up_write(&bpf_crypto_types_sem);
+-
+-	return err;
+-}
+-EXPORT_SYMBOL_GPL(bpf_crypto_unregister_type);
+-
+-static const struct bpf_crypto_type *bpf_crypto_get_type(const char *name)
+-{
+-	const struct bpf_crypto_type *type = ERR_PTR(-ENOENT);
+-	struct bpf_crypto_type_list *node;
+-
+-	down_read(&bpf_crypto_types_sem);
+-	list_for_each_entry(node, &bpf_crypto_types, list) {
+-		if (strcmp(node->type->name, name))
+-			continue;
+-
+-		if (try_module_get(node->type->owner))
+-			type = node->type;
+-		break;
+-	}
+-	up_read(&bpf_crypto_types_sem);
+-
+-	return type;
+-}
+-
+ __bpf_kfunc_start_defs();
+ 
+ /**
+@@ -146,7 +99,6 @@ __bpf_kfunc struct bpf_crypto_ctx *
+ bpf_crypto_ctx_create(const struct bpf_crypto_params *params, u32 params__sz,
+ 		      int *err)
+ {
+-	const struct bpf_crypto_type *type;
+ 	struct bpf_crypto_ctx *ctx;
+ 
+ 	if (!params || params->reserved[0] || params->reserved[1] ||
+@@ -155,69 +107,40 @@ bpf_crypto_ctx_create(const struct bpf_crypto_params *params, u32 params__sz,
+ 		return NULL;
+ 	}
+ 
+-	type = bpf_crypto_get_type(params->type);
+-	if (IS_ERR(type)) {
+-		*err = PTR_ERR(type);
+-		return NULL;
+-	}
+-
+-	if (!type->has_algo(params->algo)) {
+-		*err = -EOPNOTSUPP;
+-		goto err_module_put;
+-	}
+-
+-	if (!!params->authsize ^ !!type->setauthsize) {
+-		*err = -EOPNOTSUPP;
+-		goto err_module_put;
+-	}
+-
+-	if (!params->key_len || params->key_len > sizeof(params->key)) {
+-		*err = -EINVAL;
+-		goto err_module_put;
+-	}
+-
+ 	ctx = kzalloc_obj(*ctx);
+ 	if (!ctx) {
+ 		*err = -ENOMEM;
+-		goto err_module_put;
++		return NULL;
+ 	}
+ 
+-	ctx->type = type;
+-	ctx->tfm = type->alloc_tfm(params->algo);
+-	if (IS_ERR(ctx->tfm)) {
+-		*err = PTR_ERR(ctx->tfm);
+-		goto err_free_ctx;
++	if (!bpf_crypto_find_algo(params, &ctx->algo)) {
++		*err = -ENOENT;
++		goto out;
+ 	}
+ 
+-	if (params->authsize) {
+-		*err = type->setauthsize(ctx->tfm, params->authsize);
+-		if (*err)
+-			goto err_free_tfm;
++	switch (ctx->algo) {
++	case BPF_ALGO_AES_CBC:
++	case BPF_ALGO_AES_ECB:
++		if (params->authsize)
++			*err = -EOPNOTSUPP;
++		else
++			*err = aes_preparekey(&ctx->key.aes, params->key,
++					      params->key_len);
++		break;
++	default:
++		WARN_ON(1);
++		*err = -ENOENT;
++		break;
+ 	}
+ 
+-	*err = type->setkey(ctx->tfm, params->key, params->key_len);
+-	if (*err)
+-		goto err_free_tfm;
+-
+-	if (type->get_flags(ctx->tfm) & CRYPTO_TFM_NEED_KEY) {
+-		*err = -EINVAL;
+-		goto err_free_tfm;
++out:
++	if (*err) {
++		kfree_sensitive(ctx);
++		return NULL;
+ 	}
+ 
+-	ctx->siv_len = type->ivsize(ctx->tfm) + type->statesize(ctx->tfm);
+-
+ 	refcount_set(&ctx->usage, 1);
+-
+ 	return ctx;
+-
+-err_free_tfm:
+-	type->free_tfm(ctx->tfm);
+-err_free_ctx:
+-	kfree(ctx);
+-err_module_put:
+-	module_put(type->owner);
+-
+-	return NULL;
+ }
+ 
+ static void crypto_free_cb(struct rcu_head *head)
+@@ -225,9 +148,7 @@ static void crypto_free_cb(struct rcu_head *head)
+ 	struct bpf_crypto_ctx *ctx;
+ 
+ 	ctx = container_of(head, struct bpf_crypto_ctx, rcu);
+-	ctx->type->free_tfm(ctx->tfm);
+-	module_put(ctx->type->owner);
+-	kfree(ctx);
++	kfree_sensitive(ctx);
+ }
+ 
+ /**
+@@ -267,27 +188,53 @@ __bpf_kfunc void bpf_crypto_ctx_release_dtor(void *ctx)
+ }
+ CFI_NOSEAL(bpf_crypto_ctx_release_dtor);
+ 
++static int bpf_aes_cbc_crypt(u8 *dst, u32 dst_len, const u8 *src, u32 src_len,
++			     u8 *iv, u32 iv_len,
++			     const struct bpf_crypto_ctx *ctx, bool decrypt)
++{
++	if (iv_len != AES_BLOCK_SIZE)
++		return -EINVAL;
++	if (src_len % AES_BLOCK_SIZE || dst_len < src_len)
++		return -EINVAL;
++	if (decrypt)
++		aes_cbc_decrypt(dst, src, src_len, iv, &ctx->key.aes);
++	else
++		aes_cbc_encrypt(dst, src, src_len, iv, &ctx->key.aes);
++	return 0;
++}
++
++static int bpf_aes_ecb_crypt(u8 *dst, u32 dst_len, const u8 *src, u32 src_len,
++			     u8 *iv, u32 iv_len,
++			     const struct bpf_crypto_ctx *ctx, bool decrypt)
++{
++	if (iv_len != 0)
++		return -EINVAL;
++	if (src_len % AES_BLOCK_SIZE || dst_len < src_len)
++		return -EINVAL;
++	if (decrypt)
++		aes_ecb_decrypt(dst, src, src_len, &ctx->key.aes);
++	else
++		aes_ecb_encrypt(dst, src, src_len, &ctx->key.aes);
++	return 0;
++}
++
+ static int bpf_crypto_crypt(const struct bpf_crypto_ctx *ctx,
+ 			    const struct bpf_dynptr_kern *src,
+ 			    const struct bpf_dynptr_kern *dst,
+-			    const struct bpf_dynptr_kern *siv,
++			    const struct bpf_dynptr_kern *iv,
+ 			    bool decrypt)
+ {
+-	u32 src_len, dst_len, siv_len;
++	u32 src_len, dst_len, iv_len;
+ 	const u8 *psrc;
+ 	u8 *pdst, *piv;
+-	int err;
+ 
+ 	if (__bpf_dynptr_is_rdonly(dst))
+ 		return -EINVAL;
+ 
+-	siv_len = siv ? __bpf_dynptr_size(siv) : 0;
++	iv_len = iv ? __bpf_dynptr_size(iv) : 0;
+ 	src_len = __bpf_dynptr_size(src);
+ 	dst_len = __bpf_dynptr_size(dst);
+-	if (!src_len || !dst_len || src_len > dst_len)
+-		return -EINVAL;
+-
+-	if (siv_len != ctx->siv_len)
++	if (!src_len || !dst_len)
+ 		return -EINVAL;
+ 
+ 	psrc = __bpf_dynptr_data(src, src_len);
+@@ -297,14 +244,20 @@ static int bpf_crypto_crypt(const struct bpf_crypto_ctx *ctx,
+ 	if (!pdst)
+ 		return -EINVAL;
+ 
+-	piv = siv_len ? __bpf_dynptr_data_rw(siv, siv_len) : NULL;
+-	if (siv_len && !piv)
++	piv = iv_len ? __bpf_dynptr_data_rw(iv, iv_len) : NULL;
++	if (iv_len && !piv)
+ 		return -EINVAL;
+ 
+-	err = decrypt ? ctx->type->decrypt(ctx->tfm, psrc, pdst, src_len, piv)
+-		      : ctx->type->encrypt(ctx->tfm, psrc, pdst, src_len, piv);
+-
+-	return err;
++	switch (ctx->algo) {
++	case BPF_ALGO_AES_CBC:
++		return bpf_aes_cbc_crypt(pdst, dst_len, psrc, src_len, piv,
++					 iv_len, ctx, decrypt);
++	case BPF_ALGO_AES_ECB:
++		return bpf_aes_ecb_crypt(pdst, dst_len, psrc, src_len, piv,
++					 iv_len, ctx, decrypt);
++	default:
++		return -EINVAL;
++	}
+ }
+ 
+ /**
+@@ -312,20 +265,20 @@ static int bpf_crypto_crypt(const struct bpf_crypto_ctx *ctx,
+  * @ctx:		The crypto context being used. The ctx must be a trusted pointer.
+  * @src:		bpf_dynptr to the encrypted data. Must be a trusted pointer.
+  * @dst:		bpf_dynptr to the buffer where to store the result. Must be a trusted pointer.
+- * @siv__nullable:	bpf_dynptr to IV data and state data to be used by decryptor. May be NULL.
++ * @iv__nullable:	bpf_dynptr to the initialization vector. May be NULL.
+  *
+  * Decrypts provided buffer using IV data and the crypto context. Crypto context must be configured.
+  */
+ __bpf_kfunc int bpf_crypto_decrypt(struct bpf_crypto_ctx *ctx,
+ 				   const struct bpf_dynptr *src,
+ 				   const struct bpf_dynptr *dst,
+-				   const struct bpf_dynptr *siv__nullable)
++				   const struct bpf_dynptr *iv__nullable)
+ {
+ 	const struct bpf_dynptr_kern *src_kern = (struct bpf_dynptr_kern *)src;
+ 	const struct bpf_dynptr_kern *dst_kern = (struct bpf_dynptr_kern *)dst;
+-	const struct bpf_dynptr_kern *siv_kern = (struct bpf_dynptr_kern *)siv__nullable;
++	const struct bpf_dynptr_kern *iv_kern = (struct bpf_dynptr_kern *)iv__nullable;
+ 
+-	return bpf_crypto_crypt(ctx, src_kern, dst_kern, siv_kern, true);
++	return bpf_crypto_crypt(ctx, src_kern, dst_kern, iv_kern, true);
+ }
+ 
+ /**
+@@ -333,20 +286,20 @@ __bpf_kfunc int bpf_crypto_decrypt(struct bpf_crypto_ctx *ctx,
+  * @ctx:		The crypto context being used. The ctx must be a trusted pointer.
+  * @src:		bpf_dynptr to the plain data. Must be a trusted pointer.
+  * @dst:		bpf_dynptr to the buffer where to store the result. Must be a trusted pointer.
+- * @siv__nullable:	bpf_dynptr to IV data and state data to be used by decryptor. May be NULL.
++ * @iv__nullable:	bpf_dynptr to the initialization vector. May be NULL.
+  *
+  * Encrypts provided buffer using IV data and the crypto context. Crypto context must be configured.
+  */
+ __bpf_kfunc int bpf_crypto_encrypt(struct bpf_crypto_ctx *ctx,
+ 				   const struct bpf_dynptr *src,
+ 				   const struct bpf_dynptr *dst,
+-				   const struct bpf_dynptr *siv__nullable)
++				   const struct bpf_dynptr *iv__nullable)
+ {
+ 	const struct bpf_dynptr_kern *src_kern = (struct bpf_dynptr_kern *)src;
+ 	const struct bpf_dynptr_kern *dst_kern = (struct bpf_dynptr_kern *)dst;
+-	const struct bpf_dynptr_kern *siv_kern = (struct bpf_dynptr_kern *)siv__nullable;
++	const struct bpf_dynptr_kern *iv_kern = (struct bpf_dynptr_kern *)iv__nullable;
+ 
+-	return bpf_crypto_crypt(ctx, src_kern, dst_kern, siv_kern, false);
++	return bpf_crypto_crypt(ctx, src_kern, dst_kern, iv_kern, false);
+ }
+ 
+ __bpf_kfunc_end_defs();
 
-> With
-> network_header stuck at 18 while the real IP header is at ETH_HLEN (14),
-> inet_gso_segment() reads a misaligned ip_hdr(skb) and returns -EINVAL.
-> 
-> Set network_header to min_header_len for non-VLAN SOCK_RAW frames on
-> Ethernet devices whose hard_header_len exceeds min_header_len, so the
-> L3/L4 header positions match the actual on-the-wire frame.
-> 
-> This fix is placed before skb_probe_transport_header() so that both the
-> transport header probe (which uses skb_network_offset() as nhoff) and
-> subsequent GSO see the right L3/L4 offsets. It complements
-> commit 01fdecc0480d ("net: packet: fix wrong transport_header when sending VLAN-tagged frame")
-> which only covers VLAN-tagged frames.
-> 
-> Fixes: dfed913e8b55 ("net/af_packet: add VLAN support for AF_PACKET SOCK_RAW GSO")
-> Signed-off-by: Junnan Zhang <zhangjn11@chinatelecom.cn>
-> Signed-off-by: Shouxin Sun <sunshx@chinatelecom.cn>
-> Signed-off-by: Junnan Zhang <zhangjn_dev@163.com>
-> ---
-> v2:
-> - Drop "on VLAN subinterfaces" from the subject and reword the scope to
->   Ethernet devices whose hard_header_len exceeds the on-wire L2 header
->   length (min_header_len). The min_header_len < hard_header_len test is
->   not VLAN-specific; it also covers Ethernet drivers that reserve extra
->   hard_header_len space for driver-internal wrapping.
-> - Restructure packet_parse_headers() to test dev->type once; replace
->   has_vlan, which mixed the device and packet tests, with the
->   packet-only is_vlan.
-> - Describe the header offset error generically as (hard_header_len -
->   min_header_len) bytes instead of hard-coding the 4-byte VLAN case.
-> - Document the reproducer: virtio_net advertising
->   NETIF_F_HW_VLAN_CTAG_FILTER but not NETIF_F_HW_VLAN_CTAG_TX, with
->   PACKET_VNET_HDR and GSO triggering the -EINVAL from
->   inet_gso_segment().
-> 
-> v1: https://lore.kernel.org/all/20260821085722.24036-1-zhangjn_dev@163.com/#t
-> ---
->  net/packet/af_packet.c | 22 ++++++++++++++++++++--
->  1 file changed, 20 insertions(+), 2 deletions(-)
-> 
-> diff --git a/net/packet/af_packet.c b/net/packet/af_packet.c
-> index 1168bd6b09cd..be5bf9db7ea1 100644
-> --- a/net/packet/af_packet.c
-> +++ b/net/packet/af_packet.c
-> @@ -1935,6 +1935,7 @@ static int packet_rcv_spkt(struct sk_buff *skb, struct net_device *dev,
->  static void packet_parse_headers(struct sk_buff *skb, struct socket *sock)
->  {
->  	int depth;
-> +	bool is_vlan = false;
->  
->  	/* On TX skb->data is the L2 header; anchor it for all socket types. */
->  	skb_reset_mac_header(skb);
-> @@ -1943,11 +1944,28 @@ static void packet_parse_headers(struct sk_buff *skb, struct socket *sock)
->  	    sock->type == SOCK_RAW)
->  		skb->protocol = dev_parse_header_protocol(skb);
->  
-> +	if (likely(skb->dev->type == ARPHRD_ETHER)) {
-> +		is_vlan = eth_type_vlan(skb->protocol);
-> +
-> +		/* For non-VLAN SOCK_RAW frames on Ethernet devices whose
-> +		 * hard_header_len exceeds the on-wire L2 header length
-> +		 * (min_header_len) -- e.g. software-offload VLAN subinterfaces,
-> +		 * or Ethernet drivers that reserve extra space in
-> +		 * hard_header_len for driver-internal wrapping -- the SOCK_RAW
-> +		 * send paths leave network_header at hard_header_len, while the
-> +		 * user frame's L3 sits at min_header_len. Move network_header
-> +		 * to the actual L2/L3 boundary so the transport header probe
-> +		 * below and subsequent GSO see the right L3.
-> +		 */
-> +		if (!is_vlan && sock->type == SOCK_RAW &&
-> +		    skb->dev->min_header_len < skb->dev->hard_header_len)
-
-Instead of using min_header_len != hard_header_len to detect vlan devices,
-consider is_vlan_dev(). That does not have false positives for other
-protocols, and makes the code more self-descriptive.
-
-Unless we are certain that the same also exhibits for other devices that
-play hard_header_len games, such as GRE tunnels. But then the
-ARPHRD_ETHER check excludes those anyway. So for now I would focus on the
-VLAN issue only.
-
-  if (sock->type == SOCK_RAW && !is_vlan_packet && is_vlan_dev(skb->dev))
-    skb_set_network_header(skb, skb->dev->min_header_len);
-
-It sucks that we have to add another branch in the hot path for an edge
-case. Would be preferable if we can fix this in the vlan driver. But
-that will come too late for skb_probe_transport_header.
-
-> +			skb_set_network_header(skb, skb->dev->min_header_len);
-> +	}
-> +
->  	skb_probe_transport_header(skb);
->  
->  	/* Move network header to the right position for VLAN tagged packets */
-> -	if (likely(skb->dev->type == ARPHRD_ETHER) &&
-> -	    eth_type_vlan(skb->protocol) &&
-> +	if (is_vlan &&
->  	    vlan_get_protocol_and_depth(skb, skb->protocol, &depth) != 0)
->  		skb_set_network_header(skb, depth);
->  }
-> -- 
-> 2.43.0
-> 
-
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+-- 
+2.55.0
 
