@@ -1,371 +1,170 @@
-Received: from mta0.migadu.com (out-131.mta0.migadu.com [91.218.175.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 605FD4A0F07
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 16:35:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3DC94A1E19
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 16:36:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788194122; cv=none; b=NosS/W+WH3i/S7UNEiQjVHcHQU+8YUDKXm1RvZqww8WsCGDr7Gs5R+PJVH4w9RBbbi3w82YeoTwBYuce7l89zEh1QJWaJGetdGboN84yM2Up0RHYIH709VBdY+PAR45hpM7p1It+yRBzV0nXGxDjY0NwR4MSl8zNYp0hJoZim9A=
+	t=1788194216; cv=none; b=N7R2pltSiBhpJbBZKW+O7AUh7QYX6E4qeqKXLYHGKjfSns/dz5OLvdl8lLMSp4IzuCqyI7h3qaIS87JEOHbBE1hkTaRG8J0LX+p/DVG9hwz3l0mIHrLl+i73b+gh+6B9/hThNQpK+SmbTIbX7MGWovFPr1ZCGC7hwmgz+egR2sM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788194122; c=relaxed/simple;
-	bh=cANDNO2tv54Yz7hlZgxlcIbNF8NJMg7aOsYvgLITD0E=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=m0rH9BlppiTZykPV+jdK+xNCnTFQjYoSOsIyAQbrWPl5IT7m6N5uVECYBAKT8Ee9XRr4YVMIDGqbNDfPziTwY/AbgTrtdWRP8r0kcN/hJs1MJy+uBYA+lDDd70DudE1O4TG3XpeG2tRDVzjRmBpDIFv37xFqW7NweitEr31SiLg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=m0S5Xv9s; arc=none smtp.client-ip=91.218.175.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788194216; c=relaxed/simple;
+	bh=xTpOhfVqaVWaoOJVZbGCxX2ZY6YXW6oOFEBei85ggi0=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=B1inVDQhBeRHf+dBw5Nfyebm0cynAVG4FspTBo3YGRPrQiq44GFPjNgOM6px3GevcE7NKt7NpDnlrN+F7CYiQkTzBJMw4ZxrMM564MwXLEFRH1IAFT/gfxQpJkkyaleM63/rSYdszvec5qML7xn/e7OOgHFMChXG+fpFrtZw4Fo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=mDeB5fzm; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=SdqOLFBz; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="m0S5Xv9s"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=cANDNO2tv54Yz7hlZgxlcIbNF8NJMg7aOsYvgLITD0E=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788194118; v=1; x=1788798918;
- b=m0S5Xv9sS8l1MAYCE5+BuJGNUw9NxcmBYch3u2fcZWBsXTW3xo/UfySFUZYczK3shndU4iaY
- wqMZgjavCvVAusRgbe+pazdkl2IaBr2+Rf0CIPaRFBwXlemfPKIP+5UwrsWJ5KugquK9KePBQCI
- DZt4GCfp+OD+T6ujUhtWPO/Q=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 8a9deb6fc4739e5d;
-	Mon, 31 Aug 2026 16:35:18 +0000
-X-Mizu-Trace-ID: 8a9deb6fc4739e5d
-X-Migadu-Flow: FLOW_OUT
-From: Fuad Tabba <fuad.tabba@linux.dev>
-To: Marc Zyngier <maz@kernel.org>,
-	Oliver Upton <oupton@kernel.org>,
-	kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Cc: Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Vincent Donnefort <vdonnefort@google.com>,
-	Quentin Perret <qperret@google.com>,
-	Fuad Tabba <tabba@google.com>
-Subject: [PATCH 17/17] KVM: arm64: Document the protected VM userspace API
-Date: Mon, 31 Aug 2026 17:34:21 +0100
-Message-Id: <20260831163421.272420-18-fuad.tabba@linux.dev>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20260831163421.272420-1-fuad.tabba@linux.dev>
-References: <20260831163421.272420-1-fuad.tabba@linux.dev>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="mDeB5fzm";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="SdqOLFBz"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67VFqD3Q4079245
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 16:36:54 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=rqfzRoa8lzdVEVcPPhGUKT
+	zLirYY2hrbQz5zAHTrgZE=; b=mDeB5fzmXNU+c62b++t3Wdhu/8Z838ZL7VTpg1
+	NfziV25EY3d1RXRCyO0jNknPMtkp4Ymean83WXcD3VP+Tv2GtAg3LJXZb8D8/sdQ
+	XxZAFtfxx3K2VuM+ufNCpfKur3wa6s8IYPqsSYR7GxfKUa+A/aUx+u4IJYbI4yFU
+	f6znz1Sw7CsMUYzt5DygpfPfpjhVSw0N01ULqctku3VejE8e0cmBXtbpRAz+uHtw
+	zQWd6V3Voes2rYvXUQgiSRh2ygsHgn139k+mTnrcoQB49atDanV1EfBWaYHh8WtU
+	35hsMrVUdCtWehG3Ufb3TLGocFJx244KV+0ORa9TXcRFm2KQ==
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gd6rb9x5f-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 16:36:54 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-38f97b3f853so6355276a91.3
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 09:36:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788194213; x=1788799013; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=rqfzRoa8lzdVEVcPPhGUKTzLirYY2hrbQz5zAHTrgZE=;
+        b=SdqOLFBzQGLrl3qIesRGXgNTMUXttSBsz1oMKqWXpVIig3YnBhiN3I/UjA3NCACTV6
+         QoO6jRbI4DwOomIWI1FN1VIm9NUVUbNC5WwY7/6428MDPKKHXzgPo+0TT0eGaNVUumED
+         onKmV13VS2ph/H6b8O5mofxjALnB2DP43Kll4n1IPDXji07TMUVzCOSnE4T1c2yFuUQh
+         ZZ7TkNlizNmmIzsUnu0FxL2KxXP0+hEk4zflyUpu3Z8tBIj9iZpquTPDBAapftnbAwmR
+         eGBbrBdsAsrXrvpeC5ZlFE47AETYRwaLX1E4bxZo6H71w1TlHHnUt8/BHt3s60AM8DpX
+         WaUQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788194213; x=1788799013;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=rqfzRoa8lzdVEVcPPhGUKTzLirYY2hrbQz5zAHTrgZE=;
+        b=b1afygRU6wdFtf+OkC3oo+9BC7TUuc/R7tuFNGb9c9Lt7APHDaWjdHoZ+XaEmAjJht
+         WkCkjuk+gwM88DVVZ6/0Z4mOqO0AF/5VixwpwUDarezNK2a11W8FxZ0TYbnAAgPDNN3V
+         Ks34uNBnmDq9HU9sWTCoL7yDdcOY7O+KpB8GX0iK2EdjgD18l8jniERGiyzBew1Pjr8L
+         XSUXMAks0TBKUd93iqMNLhM3j/PjGWebElRN81irFVVge2ihC4bXO5zRDirOEkmsfEV4
+         CLrXXvli6Uj0LPJ6yPi8dIJZj4jroT5YWNefMd+AgcD6OACMuRwp4Ya4vlZkCw41xFLo
+         4Uag==
+X-Forwarded-Encrypted: i=1; AKwUvBzBg7LFdP0msZwDhWXp/MON1qSruoBtlUvBCgBH3oDo34e1UR814bI2Da+FyoDmXI573RM1dbKm13MjH9o=@vger.kernel.org
+X-Gm-Message-State: AFuF++nPEN2IDeygT9MCuIamIE7RByRv5+8k0bb58fCAV3vx42JS0lwa
+	VLE81wS8uOyuzyKBoCYSlFippRiglQHVsOiBFfSjP25stBvnaB+zT/iARNx7Z9aDFbbxumWCezP
+	jeauLqDDDuNQZyftDraEeiz8B3bZpOEI7tW8Z1T4eV6Bp83GPRU6sgkeGRXFRcpniDVg=
+X-Gm-Gg: AYBFou2N20Nsnrs23HFy/EVvSkWJSXQ9rIa5rzeYjiZxu1GGHjjc06/uKnOhUQx0hg4
+	UDzqu5OQp4Bo/G3l8u+u0Bj+lz72yep6zB+LIfQcp9+WwM4wLJ93gyy6kugAlqEOdyZ8fUwRH4J
+	289uyn5bmQZzV20dOut0llG+UmDVHe/LGH+O/n4b2kj3MHr6rUXAq6Cz10QFk4Rt/AK5MV+j989
+	NWwqC2rML5DHQBFUB+BeqqltCS8rHhLLSYJBg6cQqiCgNyMujMnt26fvmVwskoA1OwtD8C+haDN
+	NEs5F1QLDwfdG8IEd8vVj33wYP+GXlSAn9DajzqoAfDkkru+Q/URMT5OV6rWn2YIY/nmZx8FyVc
+	iLfqLGo+kYqjNiiIe6Z4rgTzWGHrfWn068Q==
+X-Received: by 2002:a17:90b:224c:b0:398:9c00:29ec with SMTP id 98e67ed59e1d1-3989c003c31mr24473216a91.20.1788194213577;
+        Mon, 31 Aug 2026 09:36:53 -0700 (PDT)
+X-Received: by 2002:a17:90b:224c:b0:398:9c00:29ec with SMTP id 98e67ed59e1d1-3989c003c31mr24472805a91.20.1788194209805;
+        Mon, 31 Aug 2026 09:36:49 -0700 (PDT)
+Received: from hu-ptalari-hyd.qualcomm.com ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3990d75fc49sm271260a91.12.2026.08.31.09.36.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Aug 2026 09:36:49 -0700 (PDT)
+From: Praveen Talari <praveen.talari@oss.qualcomm.com>
+Subject: [PATCH 0/3] dmaengine: qcom: gpi: Add trace event support
+Date: Mon, 31 Aug 2026 22:06:34 +0530
+Message-Id: <20260831-add-trace-support-gpio-v1-0-7b0fd0d0ddb3@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAJOtlWoC/yXMQQ6CMBBA0auQWTsJVBTrVYiL0o44LGgzUwgJ4
+ e5UXb7F/zsoCZPCs9pBaGXlOBc0lwr8x80jIYdiMLW5149rgy4EzOI8oS4pRck4Jo5oLQ23NrS
+ mMxZKnITevP3G/etvXYaJfP7e4DhO8hCwq3oAAAA=
+X-Change-ID: 20260831-add-trace-support-gpio-99eb54d42729
+To: konrad.dybcio@oss.qualcomm.com, Steven Rostedt <rostedt@goodmis.org>,
+        Masami Hiramatsu <mhiramat@kernel.org>,
+        Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+        Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>
+Cc: chandana.chiluveru@oss.qualcomm.com, mukesh.savaliya@oss.qualcomm.com,
+        linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, dmaengine@vger.kernel.org,
+        Praveen Talari <praveen.talari@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788194205; l=1247;
+ i=praveen.talari@oss.qualcomm.com; s=20251114; h=from:subject:message-id;
+ bh=xTpOhfVqaVWaoOJVZbGCxX2ZY6YXW6oOFEBei85ggi0=;
+ b=95Frxty43ymUylU6j5YTJArM/YAiljzCRUdfAAIdm6roQZxJ33T2TqX/e48F2m6i62dODAzZU
+ NKPKK3fBFs4BzlnXNky/J3IxpcExdaCEmQVqCPCzDWy795gULL/MMSB
+X-Developer-Key: i=praveen.talari@oss.qualcomm.com; a=ed25519;
+ pk=NGK/88fjyHXgfhIKwag7+uIytOmyOypvZ/hDFaYPEss=
+X-Proofpoint-ORIG-GUID: B4e2-eltQ_xgl0zjBI5VDWWU8wz5KlgU
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODMxMDE0MyBTYWx0ZWRfX8mPoB4EUSNaf
+ 4Xh7oaW2gHv0BIBPy49JQF9bit21UQLGWkO60gp2jpLiccZ5xlk3Qr8nPxxAVQBiYU/IFHY5Iw4
+ UO3btTJc+yOJu4XxjeGQ3H+sjDFk6D6ehcXkh+xk/DswVRv2jaIYWGyaP+HloVoFphvCNeEw5hR
+ KSjnfitNFqygZm1VoBcZtyFVnGqnt1QoJ5tlfRjQ9nKjl6MKvVIMvmE/ovB+7Kd7dOH7yTfoJW0
+ MMwQdW08F4LyfnPdhpz8XQAPHqZ4snZuFl3L8e6d+mMGlSf7Wz8R37q+2glU5gLlaVv0BDf6ogn
+ 7bDhzLOQ8c6kMz+QjTmT+ayNf/+thHaD0mg8+t4NsbCLvISG1+QlPgT2MKPFFoxDBste6YiV8V0
+ KqN7mYQP+T8ap7JT7UdBta08M3K2ZyGgEVMXgJJqJO3EVaz+MBgKFkdvYZEx6+pTEw4I8AbUf+6
+ kN32vaLBj9N3PJLVkNw==
+X-Proofpoint-GUID: B4e2-eltQ_xgl0zjBI5VDWWU8wz5KlgU
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODMxMDE0MyBTYWx0ZWRfX4tWDtIujCtv0
+ suKI8mg3DjzYaBP8lRXlc2Jz9YtJAMEp9bJut3CcORuBv2VZxrnL9lYm3W1j4ds6VdLEd7SHGz4
+ GRtslILzSR4huNzrfnBoZCO0mRaQVmI=
+X-Authority-Analysis: v=2.4 cv=d/fFDxjE c=1 sm=1 tr=0 ts=6a95ada6 cx=c_pps
+ a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=EUspDBNiAAAA:8 a=bEzAOnUhC74fLp94dtcA:9 a=QEXdDO2ut3YA:10
+ a=uKXjsCUrEbL0IQVhDsJ9:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-31_05,2026-08-31_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 lowpriorityscore=0 suspectscore=0 impostorscore=0 spamscore=0
+ phishscore=0 priorityscore=1501 clxscore=1015 adultscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608310143
 
-EL2 owns a protected vCPU's state once it has run, and the ioctls that
-would access it fail rather than silently operate on a copy that is not
-the guest's. Describe the resulting API in pkvm.rst, point api.rst at
-it from each ioctl that behaves differently, and note the errnos beside
-the PVTIME attribute in devices/vcpu.rst and the PSCI version register
-in fw-pseudo-registers.rst.
+This series adds tracepoint support to the Qualcomm GPI DMA engine
+driver, giving structured runtime visibility into GPI DMA behavior
+without requiring invasive debug patches.
 
-No functional change intended.
+Patch 1 adds the qcom_gpi trace events header, covering command
+dispatch, IRQ handling, channel/event control state transitions,
+completion event processing, ring allocation, and TRE contents.
 
-Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+Patch 2 wires these tracepoints into the driver alongside the
+existing dev_dbg() calls.
+
+Patch 3 converts the remaining dev_dbg() call sites in the driver to
+use the new tracepoints instead.
+
+Signed-off-by: Praveen Talari <praveen.talari@oss.qualcomm.com>
 ---
- Documentation/virt/kvm/api.rst                |  22 ++-
- .../virt/kvm/arm/fw-pseudo-registers.rst      |   2 +
- Documentation/virt/kvm/arm/pkvm.rst           | 141 +++++++++++++++++-
- Documentation/virt/kvm/devices/vcpu.rst       |   4 +-
- 4 files changed, 161 insertions(+), 8 deletions(-)
+Praveen Talari (3):
+      dmaengine: qcom: gpi: trace: Add trace events header for Qualcomm GPI DMA
+      dmaengine: qcom: gpi: Add trace event support
+      dmaengine: qcom: gpi: Convert dev_dbg() calls to tracepoints
 
-diff --git a/Documentation/virt/kvm/api.rst b/Documentation/virt/kvm/api.rst
-index e0430cc750c9e..212ac2aa5c6bd 100644
---- a/Documentation/virt/kvm/api.rst
-+++ b/Documentation/virt/kvm/api.rst
-@@ -1322,6 +1322,9 @@ guests, across different userspace implementations. Nevertheless, userspace
- can still emulate all Arm exceptions by manipulating individual registers
- using the KVM_SET_ONE_REG API.
- 
-+For a protected VM, setting ext_dabt_pending returns -EPERM; see
-+Documentation/virt/kvm/arm/pkvm.rst. Injecting an SError is unaffected.
-+
- See KVM_GET_VCPU_EVENTS for the data structure.
- 
- Calling this ioctl on a vCPU that hasn't been initialized will return
-@@ -1624,6 +1627,11 @@ For arm64/riscv:
- The only states that are valid are KVM_MP_STATE_STOPPED and
- KVM_MP_STATE_RUNNABLE which reflect if the vcpu should be paused or not.
- 
-+On arm64, once a protected VM's vcpu has run, KVM_MP_STATE_RUNNABLE and
-+KVM_MP_STATE_SUSPENDED return -EPERM if the guest has powered it off with
-+CPU_OFF or has not yet brought it online with CPU_ON: only the guest can
-+power it on. See Documentation/virt/kvm/arm/pkvm.rst.
-+
- On LoongArch, only the KVM_MP_STATE_RUNNABLE state is used to reflect
- whether the vcpu is runnable.
- 
-@@ -2324,7 +2332,8 @@ Errors:
-   ENOENT   no such register
-   EINVAL   invalid register ID, or no such register or used with VMs in
-            protected virtualization mode on s390
--  EPERM    (arm64) register access not allowed before vcpu finalization
-+  EPERM    (arm64) register access not allowed before vcpu
-+           finalization, or after a protected VM's vcpu has run
-   EBUSY    (riscv) changing register value not allowed after the vcpu
-            has run at least once
-   ======   ============================================================
-@@ -2949,7 +2958,8 @@ Errors include:
-   ENOENT   no such register
-   EINVAL   invalid register ID, or no such register or used with VMs in
-            protected virtualization mode on s390
--  EPERM    (arm64) register access not allowed before vcpu finalization
-+  EPERM    (arm64) register access not allowed before vcpu
-+           finalization, or after a protected VM's vcpu has run
-   ======== ============================================================
- 
- (These error codes are indicative only: do not rely on a specific error
-@@ -3484,6 +3494,7 @@ Errors:
-   ======     =================================================================
-   EINVAL     the target is unknown, or the combination of features is invalid.
-   ENOENT     a features bit specified is unknown.
-+  EPERM      the vcpu belongs to a protected VM and has already run.
-   ======     =================================================================
- 
- This tells KVM what type of CPU to present to the guest, and what
-@@ -3512,6 +3523,10 @@ after the vcpu has been run. This will reset the vcpu to its initial
- state. All calls to this function after the initial call must use the same
- target and same set of feature flags, otherwise EINVAL will be returned.
- 
-+For a protected VM this ioctl returns EPERM once the vcpu has run, and the
-+features it accepts are restricted: KVM_ARM_VCPU_PSCI_0_2 is required. See
-+Documentation/virt/kvm/arm/pkvm.rst.
-+
- Possible features:
- 
- 	- KVM_ARM_VCPU_POWER_OFF: Starts the CPU in a power-off state.
-@@ -3790,6 +3805,9 @@ can be determined by querying the KVM_CAP_GUEST_DEBUG_HW_BPS and
- KVM_CAP_GUEST_DEBUG_HW_WPS capabilities which return a positive number
- indicating the number of supported registers.
- 
-+On arm64, this ioctl returns -EPERM for a protected VM: debugging a
-+protected guest is not supported. See Documentation/virt/kvm/arm/pkvm.rst.
-+
- For ppc, the KVM_CAP_PPC_GUEST_DEBUG_SSTEP capability indicates whether
- the single-step debug event (KVM_GUESTDBG_SINGLESTEP) is supported.
- 
-diff --git a/Documentation/virt/kvm/arm/fw-pseudo-registers.rst b/Documentation/virt/kvm/arm/fw-pseudo-registers.rst
-index d78b53b05dfcf..c07471e258ea2 100644
---- a/Documentation/virt/kvm/arm/fw-pseudo-registers.rst
-+++ b/Documentation/virt/kvm/arm/fw-pseudo-registers.rst
-@@ -33,6 +33,8 @@ The following registers are defined:
-     highest PSCI version implemented by KVM and compatible with v0.2)
-   - Allows any PSCI version implemented by KVM and compatible with
-     v0.2 to be set with SET_ONE_REG
-+  - Returns -EINVAL for a version below v1.1 on a protected VM (see
-+    Documentation/virt/kvm/arm/pkvm.rst)
-   - Affects the whole VM (even if the register view is per-vcpu)
- 
- * KVM_REG_ARM_SMCCC_ARCH_WORKAROUND_1:
-diff --git a/Documentation/virt/kvm/arm/pkvm.rst b/Documentation/virt/kvm/arm/pkvm.rst
-index 514992a79a833..4411599fd508f 100644
---- a/Documentation/virt/kvm/arm/pkvm.rst
-+++ b/Documentation/virt/kvm/arm/pkvm.rst
-@@ -15,7 +15,8 @@ Overview
- Booting a host kernel with '``kvm-arm.mode=protected``' enables
- "Protected KVM" (pKVM). During boot, pKVM installs a stage-2 identity
- map page-table for the host and uses it to isolate the hypervisor
--running at EL2 from the rest of the host running at EL1/0.
-+running at EL2 from the rest of the host running at EL1/0. pKVM requires
-+a GICv3 interrupt controller.
- 
- pKVM permits creation of protected virtual machines (pVMs) by passing
- the ``KVM_VM_TYPE_ARM_PROTECTED`` machine type identifier to the
-@@ -31,7 +32,7 @@ See hypercalls.rst for more details.
- Isolation mechanisms
- ====================
- 
--pKVM relies on a number of mechanisms to isolate PVMs from the host:
-+pKVM relies on a number of mechanisms to isolate pVMs from the host:
- 
- CPU memory isolation
- --------------------
-@@ -67,12 +68,20 @@ largely due to the lack of MMU notifiers:
-   then it will either return ``-EFAULT`` or forcefully reclaim the
-   memory pages. Reclaimed memory is zeroed by the hypervisor and a
-   subsequent attempt to access it in the pVM will return ``-EFAULT``
--  from the ``VCPU_RUN`` ioctl().
-+  from the ``KVM_RUN`` ioctl().
- 
- CPU state isolation
- -------------------
- 
--Status: **Unimplemented.**
-+Status: CPU register state of protected vCPUs is managed entirely at EL2.
-+
-+pKVM performs the complete context switch for protected vCPUs within the
-+hypervisor. Protected vCPU state is initialised by the hypervisor to
-+architecturally defined reset values, and only what each exit needs is
-+synchronised back to the host.
-+
-+The user-visible consequences are described under `API behaviour for
-+protected VMs`_.
- 
- DMA isolation using an IOMMU
- ----------------------------
-@@ -89,13 +98,135 @@ The FF-A proxy ensures that the host cannot share pVM or hypervisor
- memory with Trustzone as part of a "confused deputy" attack.
- 
- The PSCI proxy ensures that CPUs always have the stage-2 identity map
--installed when they are executing in the host.
-+installed when they are executing in the host. This proxy is distinct
-+from the PSCI handling provided to protected guests, which is described
-+under `API behaviour for protected VMs`_.
- 
- Protected VM firmware (pvmfw)
- -----------------------------
- 
- Status: **Unimplemented.**
- 
-+API behaviour for protected VMs
-+===============================
-+
-+Protected vCPU state is owned by EL2 (see `CPU state isolation`_). The VMM
-+configures a vCPU before its first ``KVM_RUN``; afterwards the state is
-+private to the guest and the ioctls that access it return ``-EPERM``. The
-+errors follow one rule: ``-EPERM`` means the host asked for state that the
-+guest owns, and ``-EINVAL`` means the request is not valid for a protected
-+VM. The ioctls themselves are described in Documentation/virt/kvm/api.rst.
-+
-+Boot
-+----
-+
-+A protected VM boots from a single primary vCPU. Before the first
-+``KVM_RUN``, the VMM prepares the boot state:
-+
-+* Set ``KVM_MP_STATE_RUNNABLE`` on the primary vCPU and
-+  ``KVM_MP_STATE_STOPPED`` on every other vCPU. EL2 allows only one
-+  RUNNABLE primary per protected VM. A second RUNNABLE vCPU fails at its
-+  first ``KVM_RUN``.
-+* Set the primary vCPU's boot state with ``KVM_SET_ONE_REG``: the kernel
-+  entry address in ``PC`` and the DTB pointer in ``x0``.
-+
-+``PC`` and ``x0`` are the only registers EL2 takes from the host. Other
-+pre-run writes are accepted, but the guest starts from the architectural
-+reset values.
-+
-+Secondary vCPUs are started by the guest itself through PSCI ``CPU_ON``
-+(see `Power state`_), which supplies their entry point and context ID.
-+The VMM cannot choose where they boot.
-+
-+vCPU state
-+----------
-+
-+* ``KVM_GET_ONE_REG`` and ``KVM_SET_ONE_REG`` return ``-EPERM`` once the
-+  vCPU has run. Before that, they access the host-side copy from which
-+  EL2 builds the guest's boot state (see `Boot`_).
-+* ``KVM_ARM_VCPU_INIT`` accepts only the vCPU features that a protected
-+  guest supports and returns ``-EINVAL`` otherwise.
-+  ``KVM_ARM_VCPU_PSCI_0_2`` is required, as EL2 implements PSCI 1.1 for
-+  the guest (see `Power state`_). ``KVM_ARM_VCPU_EL1_32BIT`` is not
-+  supported: protected guests run in AArch64 only and see no AArch32
-+  support in ``ID_AA64PFR0_EL1``. Once the vCPU has run,
-+  ``KVM_ARM_VCPU_INIT`` returns ``-EPERM``, as re-initialising it would
-+  reset the host-side copy alone.
-+* ``KVM_SET_VCPU_EVENTS`` returns ``-EPERM`` for external-abort injection
-+  (``ext_dabt_pending``). SError injection is unaffected.
-+* ``KVM_SET_GUEST_DEBUG`` returns ``-EPERM`` (see `Debug`_).
-+
-+Power state
-+-----------
-+
-+EL2 implements PSCI 1.1 for a protected guest. The calls that move a
-+vCPU's power state, ``CPU_ON``, ``CPU_OFF`` and ``AFFINITY_INFO``, are
-+handled at EL2, and the host cannot change the outcome: for ``CPU_ON``
-+the host only schedules the target, which EL2 has already reset to the
-+entry point the guest chose, and for ``CPU_OFF`` it only stops
-+scheduling it. A vCPU becomes a valid ``CPU_ON`` target at its first
-+``KVM_RUN``, and before that EL2 returns ``INVALID_PARAMETERS``. The
-+platform calls, ``CPU_SUSPEND``, ``SYSTEM_OFF``, ``SYSTEM_RESET`` and
-+``SYSTEM_RESET2``, are forwarded to the host and behave as for a
-+non-protected VM, with the ``SYSTEM_*`` calls exiting to the VMM as
-+``KVM_EXIT_SYSTEM_EVENT``; the ``SYSTEM_RESET2`` reset type and cookie
-+are in the guest's registers, which ``KVM_GET_ONE_REG`` rejects once
-+the vCPU has run. Any other function returns ``NOT_SUPPORTED``, and
-+``PSCI_FEATURES`` reports the same set. Because the host handles those
-+forwarded calls, ``KVM_SET_ONE_REG`` on ``KVM_REG_ARM_PSCI_VERSION``
-+returns ``-EINVAL`` for a version below 1.1.
-+
-+Once a vCPU has run, its power state follows the guest's PSCI calls, not
-+the VMM's. ``KVM_SET_MP_STATE`` with ``KVM_MP_STATE_STOPPED`` still stops
-+the vCPU, so the VMM can pause it. ``KVM_MP_STATE_RUNNABLE`` and
-+``KVM_MP_STATE_SUSPENDED`` return ``-EPERM`` for a vCPU that the guest has
-+powered off with ``CPU_OFF``, or has not yet brought online with ``CPU_ON``:
-+only an in-guest ``CPU_ON`` can power it on.
-+
-+Other interface differences
-+---------------------------
-+
-+* ``KVM_CHECK_EXTENSION`` reports only the capabilities that pKVM supports
-+  for protected guests, and ``KVM_ENABLE_CAP`` accepts only those. Query
-+  them on the VM file descriptor: the system file descriptor has no VM to
-+  filter against. The filter does not cover every interface either:
-+  device-fd configuration (for example the VGIC after
-+  ``KVM_CREATE_DEVICE``) and vCPU attributes are unfiltered, and can refuse
-+  what a capability reported as available. ``KVM_ARM_VCPU_PVTIME_CTRL``
-+  returns ``-EPERM``, for example, since steal time cannot work for a
-+  protected guest.
-+* The vGIC of a protected VM remains host-managed: device creation,
-+  configuration and interrupt injection all work as they do for a
-+  non-protected VM.
-+* ``KVM_ARM_SET_COUNTER_OFFSET`` and ``KVM_ARM_GET_REG_WRITABLE_MASKS``
-+  return ``-EINVAL``: their capabilities are not offered to a protected
-+  VM, whose counter offset and ID registers are set by EL2. A protected
-+  guest sees the physical timebase.
-+* A protected guest's first access to each page of memory exits to the
-+  host, since the hypervisor cannot tell memory from a device before the
-+  page is mapped. For a store, the host sees the value of the register
-+  the syndrome names, clamped to the access width, and nothing else from
-+  the register file.
-+* A protected guest that uses a feature it was not given, or executes an
-+  ``SMC``, takes an undefined instruction exception from the hypervisor;
-+  the host is not involved.
-+* The hypervisor handles a protected guest's SMCCC calls itself and does
-+  not involve the host. A function it does not implement returns
-+  ``NOT_SUPPORTED``.
-+* The hypervisor can decode a trapped guest access only from the CPU's
-+  instruction syndrome, which is provided only for a load or store of a
-+  single general-purpose register. An access without one (for example a
-+  load/store pair or a SIMD/FP access) cannot be decoded. For a
-+  non-protected VM it can exit to the VMM as ``KVM_EXIT_ARM_NISV``. For a
-+  protected VM it cannot be emulated by the VMM, so the guest takes a
-+  synchronous external abort instead.
-+
-+Debug
-+-----
-+
-+Hardware-assisted debugging is not available to protected guests: their
-+debug registers are RAZ/WI.
-+
- Resources
- =========
- 
-diff --git a/Documentation/virt/kvm/devices/vcpu.rst b/Documentation/virt/kvm/devices/vcpu.rst
-index deb5c51bc00c8..5e571d43e54ca 100644
---- a/Documentation/virt/kvm/devices/vcpu.rst
-+++ b/Documentation/virt/kvm/devices/vcpu.rst
-@@ -226,12 +226,14 @@ Returns:
- 	 -ENXIO   Stolen time not implemented
- 	 -EEXIST  Base address already set for this VCPU
- 	 -EINVAL  Base address not 64 byte aligned
-+	 -EPERM   The VCPU belongs to a protected VM
- 	 =======  ======================================
- 
- Specifies the base address of the stolen time structure for this VCPU. The
- base address must be 64 byte aligned and exist within a valid guest memory
- region. See Documentation/virt/kvm/arm/pvtime.rst for more information
--including the layout of the stolen time structure.
-+including the layout of the stolen time structure. Stolen time is not
-+supported for protected VMs (see Documentation/virt/kvm/arm/pkvm.rst).
- 
- 4. GROUP: KVM_VCPU_TSC_CTRL
- ===========================
--- 
-2.39.5
+ drivers/dma/qcom/gpi.c          |  69 ++++-----
+ include/trace/events/qcom_gpi.h | 313 ++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 340 insertions(+), 42 deletions(-)
+---
+base-commit: e30626823a406725ce29bc75cb8ec467d3e1e326
+change-id: 20260831-add-trace-support-gpio-99eb54d42729
+
+Best regards,
+--  
+Praveen Talari <praveen.talari@oss.qualcomm.com>
 
