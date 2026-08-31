@@ -1,128 +1,216 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F15325771
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 08:08:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB6F02DB7B8;
+	Mon, 31 Aug 2026 08:09:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788163693; cv=none; b=C+PrwH1L9crxmCOhr/fzsd7hDayY1HqWmDeWMyIzY+R+Udc/7QBqwI/UXMVh5/OaAijcelZTAr2OHu+v0v3BkjjlawXXHM2LtfVmQFxQn6A25XdIyN+g1+l+EXJ7K9sa4fselnBgsjDkrSCfevv9aNuutnBdV2C2/Rd18LiDhLo=
+	t=1788163789; cv=none; b=XpUk4s49QS39KXPzxazHFkOnU0gE/3l6AUWRNnr5c3I1LaTUOEqV27DA3C1lL1BJwhG9ELt3maDnfu7oi3FuOKEOY96baTMtqErGg3izpE2CdQPRASnUFki+9oEcdAoZ3dFSr0BpUQslJDrBoeQPmzC/p/ZiVsrjE2EsBEFjvJ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788163693; c=relaxed/simple;
-	bh=UKX9q9oIJSnrg3PkOmKbLEBVHZJHu9rSC2zcqfRiq/U=;
+	s=arc-20240116; t=1788163789; c=relaxed/simple;
+	bh=EXnz4UJb8ZmHDgh2E82zE8nu9XWep7z0mFdwx/EeODQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=f17hHuwNoytANNdahGLlGKd8wW8ekfGMo14w44qiOTEJuurD0YSPGGLtPMAUUY3Dv5xY0Ta1MYb7fRQKA0oDjWqPXZIBP/J1GidrcmT4WfAfhUnJpitEcPfpkgeZ056/hFJPJgxjbUTQsxecGZuCGHV80SHN+PtGIeCBvDFSksQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=UqyAcgbk; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=N9IKktNN; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	 Content-Type:Content-Disposition:In-Reply-To; b=FTh/5QqP4LPerSx00ISmITfrQqdvfjel8fIpsD7fxxUK/DcVwV+9c9sV7WHZIw1329R1e/WwQcZ4wxsFQMwRPgOZM9yjsl5NjpOQkq/6CdPDY3/6lKrp6CCO1I+mSJC+uLXuT/BIl4AFfdM+Y+mK0grzOkv9KlpSsLjQclzpMyo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=mXGzmDqW; arc=none smtp.client-ip=198.175.65.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="UqyAcgbk";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="N9IKktNN"
-Date: Mon, 31 Aug 2026 10:08:03 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1788163685;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=kOSOst4In022OAgVRNxSdoYjl0jKl41mZxfh1QOXGYk=;
-	b=UqyAcgbknTYn3fJW+77HU4qPPnTrytzLhryZvvJYqEuIx8qphJckoDifDfdm+rCRRjuKx3
-	X5AYx39fVc8NNQX0G53A5jZPrsmNKDCRCO17shC7V7IzmBfEvXg+awsNTsMSRKtjVuoish
-	6esMnTvDM2bG4LZr+N3HLR7SrxRC29FZ3/9FFEJPR5tIXTO8wMMMtHknvUzs1BeoJHSEES
-	fjqXjpkR/1miN9p7UOSQgsfBnbgFNVII3NxwD42wrshQxcc3VIE4WWUYwfm+VVzt4DLsDf
-	KxMDmIxUDVB+MF902mkKdqmc/xK1S4lVk0DJdJ9CvipP2ojiOg/aG7AJ5W14fQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1788163685;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=kOSOst4In022OAgVRNxSdoYjl0jKl41mZxfh1QOXGYk=;
-	b=N9IKktNNqgpGblx0PmDvTe0TsNYwsV/Spk75gDgAMfcaFRBv4+VoIfFsyYXqyU/3U78EvG
-	MvmNWirnPXNVdQCw==
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-To: David Stevens <stevensd@google.com>
-Cc: Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H . Peter Anvin" <hpa@zytor.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Dave Chinner <david@fromorbit.com>, Qi Zheng <qi.zheng@linux.dev>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Muchun Song <muchun.song@linux.dev>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Uladzislau Rezki <urezki@gmail.com>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R . Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>,
-	Clark Williams <clrkwllms@kernel.org>, suleiman@google.com,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-mm@kvack.org, linux-rt-devel@lists.linux.dev
-Subject: Re: [RFC 06/10] Reclaim memory from blocked kernel stacks
-Message-ID: <20260831080803.LhShiZ4V@linutronix.de>
-References: <20260827232948.2520558-1-stevensd@google.com>
- <20260827232948.2520558-7-stevensd@google.com>
- <20260828133620._x2XfJR_@linutronix.de>
- <CAOiLmNHK5Hw55omycg_EAHzi=g1iqJn1NTap1Mt98im3xTXcvA@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="mXGzmDqW"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788163788; x=1819699788;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=EXnz4UJb8ZmHDgh2E82zE8nu9XWep7z0mFdwx/EeODQ=;
+  b=mXGzmDqWZKfFbWnmtUdjvm7cTtGmqZMVUQ1SFYtbGFs4dMOMjizs/76a
+   oihlWipxY5c9vi6s2rIIlQ5EysvXKrc5WVqa5flc80NeCQvtgNCcqL5hl
+   HbVhzmkVvOljZmKs6ofsHeHYvHRjvf3peiyav7v2dSGtj8VenabId1IcY
+   bc/mxCo6n8GJmNiLXfXRT5OzKoZbU+fRU7y0rG78AWEvvLaiqmNbTTMWr
+   gd9Oaivcy/ajPPQWA1VaJQhO9qvaOegzzAwzb1390w2BOoxXHrg5YchRt
+   t1rHuiLwhO9N9vvrZYC86DZYQTAkVHlWnIALtaoVPpw8GsM2v/uHkOIAh
+   Q==;
+X-CSE-ConnectionGUID: XpdmVuxxRXOwVlcfeRnPVw==
+X-CSE-MsgGUID: 8euqMg7xS7WEkT7iSYkmJg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11891"; a="98901128"
+X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
+   d="scan'208";a="98901128"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 01:09:47 -0700
+X-CSE-ConnectionGUID: 1Esp0D5mSj+Yq0GhUveGNg==
+X-CSE-MsgGUID: couaheZHSjaD6OCfTDrStA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
+   d="scan'208";a="272526641"
+Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.244.21])
+  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 01:09:41 -0700
+Date: Mon, 31 Aug 2026 11:09:38 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Janani Sunil <janani.sunil@analog.com>
+Cc: Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Olivier Moysan <olivier.moysan@foss.st.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Michael Walle <mwalle@kernel.org>, linux@analog.com,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
+	linux-doc@vger.kernel.org, jananisunil.dev@gmail.com,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>
+Subject: Re: [PATCH v5 08/20] iio: adc: ad7768: Derive output data rates
+Message-ID: <apU2wvlPtlZtxhPF@ashevche-desk.local>
+References: <20260828-ad7768-driver-v5-0-e33ca6f841a2@analog.com>
+ <20260828-ad7768-driver-v5-8-e33ca6f841a2@analog.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CAOiLmNHK5Hw55omycg_EAHzi=g1iqJn1NTap1Mt98im3xTXcvA@mail.gmail.com>
+In-Reply-To: <20260828-ad7768-driver-v5-8-e33ca6f841a2@analog.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On 2026-08-28 14:17:49 [-0700], David Stevens wrote:
-> > Did lockdep see this?
+On Fri, Aug 28, 2026 at 05:30:31PM +0200, Janani Sunil wrote:
+> Derive valid output data rates from the master clock, power mode and
+> decimation ratio.
 > 
-> What are you referring to by "this"? I did stress testing with lockdep
-> enabled and didn't see any errors, although I will admit the bulk of
-> that stress testing was !PREEMPT_RT.
+> Replace the fixed x64 decimation and open-coded DCLK divider in
+> ad7768_configure_capture() with the derived default output rate and the
+> new decimation and clock-divider helpers. Select the maximum rate
+> supported by the configured data interface for the initial capture
+> configuration.
 
-I am (was) just surprised that lockdep did not complain about the memory
-allocation under the PI lock. It was pointed out in that thread later
-that the new trylock usage could mask that.
+...
 
-> > If I understood the whole exercise correct then you have a kernel stack
-> > of two pages and in best case you can unmap and release the second page
-> > while the task is napping.
-> >
-> > What might be a tad simpler is to memset(,0,) the remaining part of the
-> > stack. Since the stack is vmap-ed it should be swapped out on its own
-> > without additional tricks. That memset() would help zram to compress
-> > better so it uses less memory. ta-da.
-> >
-> > What also should be simpler (and I am not saying just to move you away
-> > from the scheduler) is to have a shrinker which iterates over all tasks
-> > which are marked for reclaim and then similar to swap just unmap both
-> > stack pages and release the second page which is not used.
-> > Upon wake up the task should create a page_fault which would be used to
-> > allocate the second stack page and map the whole stack again.
-> >
-> > This sounds simpler.
-> 
-> There is no swap for kernel memory, only user memory. I did contribute
-> to some previous work that aimed to only only prepopulate one page of
-> each kernel stack and then to dynamically fault in further pages as
-> needed [1], but handling that architecturally and guaranteeing that
-> memory is available when needed is difficult. Full-on swap to zram
+> +static int ad7768_set_clk_divs(struct ad7768_state *st, unsigned int freq)
+> +{
+> +	const struct ad7768_freq_config *freq_cfg;
+> +	unsigned int mclk, dclk, dclk_div;
+> +	unsigned int chan_per_doutx;
+> +	unsigned int dclk_div_reg;
+> +
+> +	freq_cfg = ad7768_find_freq_config(st, st->power_mode_idx, freq);
+> +	if (!freq_cfg)
+> +		return -EINVAL;
+> +
+> +	mclk = clk_get_rate(st->mclk);
+> +	chan_per_doutx = st->chip_info->num_channels / st->datalines;
+> +	if (!chan_per_doutx)
+> +		return -EINVAL;
+> +
+> +	dclk = freq_cfg->freq_hz * AD7768_SAMPLE_SIZE * chan_per_doutx;
+> +	if (!dclk || dclk > mclk)
+> +		return -EINVAL;
 
-but faulting it in while the task is running is sort of complicated
-since the task might have page_faults disabled. This is what I missed
-initially (the task is with disabled interrupts in the scheduler).
+SAMPLE_SIZE must not be 0, the chan_per_doutx is checked above, so this check
+is about freq_hz, do we need it? If yes, make it better written
 
-But unmap the stack while application is sleeping (via shrinker) and
-fault it in via another thread on wake up should be doable.
+	freq_cfg = ad7768_find_freq_config(st, st->power_mode_idx, freq);
+	if (!freq_cfg)
+		return -EINVAL;
+	// Do we really need this?
+	if (!freq_cfg->freq_hz)
+		return -EINVAL;
+	...
+	dclk = freq_cfg->freq_hz * AD7768_SAMPLE_SIZE * chan_per_doutx;
+	if (dclk > mclk)
+		return -EINVAL;
 
-Sebastian
+> +	/* Set the divider to the next-lowest supported power of two. */
+> +	dclk_div = DIV_ROUND_CLOSEST(mclk, dclk);
+> +	if (dclk_div > AD7768_MAX_DCLK_DIV)
+> +		dclk_div = AD7768_MAX_DCLK_DIV;
+> +	else
+> +		dclk_div = rounddown_pow_of_two(dclk_div);
+
+It's okay as is, but just to show that this can be shorten to
+
+	dclk_div = DIV_ROUND_CLOSEST(mclk, dclk);
+
+	/* Set the divider to the next-lowest supported power of two. */
+	dclk_div = rounddown_pow_of_two(min(dclk_div, AD7768_MAX_DCLK_DIV));
+
+> +	dclk_div_reg = AD7768_INTERFACE_CFG_DCLK_DIV(dclk_div);
+> +
+> +	return regmap_update_bits(st->regmap, AD7768_REG_INTERFACE_CFG,
+> +				  AD7768_INTERFACE_CFG_DCLK_DIV_MSK,
+> +				  FIELD_PREP(AD7768_INTERFACE_CFG_DCLK_DIV_MSK,
+> +					     dclk_div_reg));
+> +}
+
+...
+
+> +static void ad7768_set_available_sampling_freqs(struct ad7768_state *st)
+> +{
+
+	unsigned int n_power_modes = ARRAY_SIZE(ad7768_power_modes);
+
+> +	unsigned int mclk = clk_get_rate(st->mclk);
+> +
+> +	for (unsigned int mode_idx = 0;
+> +	     mode_idx < ARRAY_SIZE(ad7768_power_modes); mode_idx++) {
+
+	for (unsigned int mode_idx = 0; mode_idx < n_power_modes); mode_idx++) {
+
+> +		struct ad7768_avail_freq *avail_freq;
+> +
+> +		avail_freq = &st->avail_freq[mode_idx];
+
+> +		for (unsigned int dec = ARRAY_SIZE(ad7768_dec_rate); dec > 0;
+> +		     dec--) {
+
+Leave this on a single line, it's okay to have it slightly bigger. However,
+taking into account the below I would rather do it differently, id est
+
+		unsigned int dec = ARRAY_SIZE(ad7768_dec_rate);
+		struct ad7768_avail_freq *avail_freq;
+		...
+		while (dec--) {
+
+> +			struct ad7768_freq_config *freq_cfg;
+> +
+> +			freq_cfg = &avail_freq->freq_cfg[avail_freq->n_freqs++];
+> +			freq_cfg->dec_rate = dec - 1;
+
+			freq_cfg->dec_rate = dec;
+
+> +			freq_cfg->freq_hz = mclk /
+> +				(ad7768_dec_rate[dec - 1] *
+> +				 ad7768_power_modes[mode_idx].mclk_div);
+
+This style is not good, better to take longer lines, but split on logical
+boundaries. I also would go with a temporary variable
+
+			// can be shortened to 'd' if you wish
+			unsigned int div = ad7768_power_modes[mode_idx].mclk_div;
+			...
+
+			freq_cfg->freq_hz = mclk / (ad7768_dec_rate[dec] * div);
+> +		}
+> +	}
+> +
+> +	/* One DOUT line cannot carry the AD7768 fast-mode x32 output rate. */
+> +	if (st->datalines == 1 &&
+> +	    st->chip_info->num_channels == AD7768_MAX_CHANNEL)
+
+> +		st->avail_freq[ARRAY_SIZE(ad7768_power_modes) - 1].n_freqs--;
+
+		st->avail_freq[n_power_modes - 1].n_freqs--;
+
+> +}
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
