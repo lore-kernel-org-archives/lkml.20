@@ -1,184 +1,144 @@
-Received: from dggsgout11.his.huawei.com (dggsgout11.his.huawei.com [45.249.212.51])
+Received: from mail-43172.protonmail.ch (mail-43172.protonmail.ch [185.70.43.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2AA3346AF1;
-	Mon, 31 Aug 2026 12:18:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37B6B1EEA3C;
+	Mon, 31 Aug 2026 12:21:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788178731; cv=none; b=Su2DdH+l0D4sZO51DG28xivm29mUk5Y6XUnJKxL7WF51t6zNzmmPAi6Dda5Pq/K1M9FbdwZ4OFCv7y4CqA6xZ2LWGylH3cQvHaW92kHRCYsiVa3OiljekdvkB6KNQmg4GzRKGIvPEkJpiJRysv7uhlcJNvXX0iv/lJWUIFLdxJk=
+	t=1788178906; cv=none; b=CyKE4uZcCTMWS3EPibejjxo/qLZGF2tPBxTFV5myBVgMg6rhBcXRlSgGZq8x9ojvziM2cbmvKjNTGmES6hUJkkeF0H/Eo4QzU+IFuu1Qkm8IeRv556J0KpB02Eu9LgIcvrfVhO0g4E6r1wW+apq8+UyyNFe2zw5AQzQLmSRDTbY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788178731; c=relaxed/simple;
-	bh=rMVKG7mQaBVoReB17i9I2MCnyV/Ej6kSAE2S0iKfHzI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:Cc:From:
-	 In-Reply-To:Content-Type; b=pzqBPaVxnB7tfsPmF9oGleNwv5qMZjbgBxZbd4lPsRy/U/nPJ0n7z7171z9I1TxVMrVdo48MdhIO85d1a7LkhmFU/vNzss6W2W4zINV5Gznw/h0+BFCWPR4AqfsedaYe26cO4uIuMFv5JeSDcdX2oc316ghGGMTEKdl9VAvphdA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com; spf=pass smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
-Received: from mail.maildlp.com (unknown [172.19.163.198])
-	by dggsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4hYSgd6vC7zYQtt0;
-	Mon, 31 Aug 2026 20:18:05 +0800 (CST)
-Received: from mail02.huawei.com (unknown [10.116.40.112])
-	by mail.maildlp.com (Postfix) with ESMTP id 6518040A3B;
-	Mon, 31 Aug 2026 20:18:43 +0800 (CST)
-Received: from [10.174.178.253] (unknown [10.174.178.253])
-	by APP1 (Coremail) with UTF8SMTPSA id cCh0CgAX_gggcZVq1qL1AA--.38183S3;
-	Mon, 31 Aug 2026 20:18:42 +0800 (CST)
-Message-ID: <49d6df68-dd74-417d-a313-69d15846c2b7@huaweicloud.com>
-Date: Mon, 31 Aug 2026 20:18:39 +0800
+	s=arc-20240116; t=1788178906; c=relaxed/simple;
+	bh=/Kw/p74EOaNXM6bl0ZXpsSFe28WdspgifTNsCFLkvOQ=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=nABKbvwYzkKTuYEjGDQNOiV/aYfjnLnKqBORNG3lhXrhYUS3QPUHGRBoQ30hm9N6sdGY5tEYk/GmJyxhFqp/aTH/EB57gXeZoswmpDnL/NJqYkgGm++0KsMAfn9f2uYf5TpvbZyM8plAdPe1lUQZUK1YiJlJGtkQX2z7kVO/Dv4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=X9U6tm66; arc=none smtp.client-ip=185.70.43.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="X9U6tm66"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
+	s=protonmail; t=1788178902; x=1788438102;
+	bh=gkNsrcKWH70pwYQoP2Dag/Kqil/5Pxfxy/NTos7krVU=;
+	h=From:Subject:Date:Message-Id:To:Cc:From:To:Cc:Date:Subject:
+	 Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=X9U6tm66Ms8P5wGcF4ZZlLZPRvp7YjxfSzH95WsyUC0R3GG+XAEk31nY6G/vwt/dw
+	 QsJPWHAvULGLSGluO8wGXsA4YGRzxFfFoVDvTvGWzp/ywOBxHFrnjjnWM25mGMKTcP
+	 DXOcetAVlp6fR3JoXWiFmZQYVOTmnPlmBdumn4Umw8dKXRmv+kG2yZ6hJLuToIchVo
+	 44vJTOEitUBnu2h3GoR5rOd6Ol+ck6bFdm+ZhRacQ4WnpU2AJ8wNlDexc7h0JKFDKm
+	 bW8we47ajHz49GLMDsXc0OH2cbjkyiGCtPfsH7QsWCAozQvuVV3OuNDaFuXtHvlrqd
+	 86ggZ48+lyDhQ==
+X-Pm-Submission-Id: 4hYSll6pT3z1DFFC
+From: Esben Haabendal <esben@geanix.com>
+Subject: [PATCH v5 0/2] drm/bridge: ti-sn65dsi83: Various fixes
+Date: Mon, 31 Aug 2026 14:21:31 +0200
+Message-Id: <20260831-ti-sn65dsi83-fixes-v5-0-e712765d6c4f@geanix.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 07/11] ext4: Convert group-count barrier protocol to
- acquire/release
-To: Jinjie Ruan <ruanjinjie@huawei.com>
-References: <20260825095422.3166067-1-ruanjinjie@huawei.com>
- <20260825095422.3166067-8-ruanjinjie@huawei.com>
-Content-Language: en-US
-Cc: viro@zeniv.linux.org.uk, brauner@kernel.org, jack@suse.cz,
- bcrl@kvack.org, tytso@mit.edu, adilger.kernel@dilger.ca,
- libaokun@linux.alibaba.com, ojaswin@linux.ibm.com, ritesh.list@gmail.com,
- pmladek@suse.com, rostedt@goodmis.org, andriy.shevchenko@linux.intel.com,
- linux@rasmusvillemoes.dk, senozhatsky@chromium.org,
- akpm@linux-foundation.org, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- socketcan@hartkopp.net, mkl@pengutronix.de, kuniyu@google.com,
- willemb@google.com, jhs@mojatatu.com, jiri@resnulli.us, kees@kernel.org,
- cyphar@cyphar.com, tglx@kernel.org, liuhangbin@gmail.com, sdf@fomichev.me,
- nb@tipi-net.de, linux-fsdevel@vger.kernel.org, linux-aio@kvack.org,
- linux-kernel@vger.kernel.org, linux-ext4@vger.kernel.org,
- netdev@vger.kernel.org, linux-can@vger.kernel.org
-From: Zhang Yi <yi.zhang@huaweicloud.com>
-In-Reply-To: <20260825095422.3166067-8-ruanjinjie@huawei.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-CM-TRANSID:cCh0CgAX_gggcZVq1qL1AA--.38183S3
-X-Coremail-Antispam: 1UD129KBjvJXoWxurW5Zr17Gw1fWFy5ur43GFg_yoWrAw4Up3
-	9rCF1UAF1kXw1UuF47G348uF1xW3WIka4Yq3s3Kr129Fy3t3W8AFyUtF18AFWvvFZ7Zr18
-	Xan093yDurnrCrDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvYb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I20VC2zVCF04k2
-	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4
-	vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7Cj
-	xVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x
-	0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG
-	6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFV
-	Cjc4AY6r1j6r4UM4x0Y48IcVAKI48JM4IIrI8v6xkF7I0E8cxan2IY04v7MxkF7I0En4kS
-	14v26rWY6Fy7MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I
-	8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWrXVW8
-	Jr1lIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7
-	CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v2
-	6r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07
-	j6a0PUUUUU=
-X-CM-SenderInfo: d1lo6xhdqjqx5xdzvxpfor3voofrz/
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/23QTU4DMQwF4KtUWRPk/DZhxT0Qi8RxWyMxgyZDV
+ FTN3ckUIYo6yyfb35N8EZUmpiqedhcxUePK49CDe9gJPKXhSJJLz0KD9rBXIGeWdfCuVA5GHvh
+ MVaoCgSCh32cj+uHHRNdBv3t5/cn1M78Rzqu0bpy4zuP0dW1tat37LVBbBU1JkCU4ys5YnWN4P
+ lIa+PyI47tYG5q+NdymobtBGS2aA+mY/Z1h/owAZtMw3YjZgkkWHGK5M+yNsf2sZruRKGJ0GIr
+ y+p+xLMs34i4U95MBAAA=
+X-Change-ID: 20260710-ti-sn65dsi83-fixes-1d08e0ac67b3
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Herve Codina <herve.codina@bootlin.com>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Linus Walleij <linusw@kernel.org>, 
+ Frieder Schrempf <frieder.schrempf@kontron.de>, Marek Vasut <marex@denx.de>, 
+ Dmitry Baryshkov <lumag@kernel.org>
+Cc: Esben Haabendal <esben@geanix.com>, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788178899; l=3114;
+ i=esben@geanix.com; s=20240523; h=from:subject:message-id;
+ bh=/Kw/p74EOaNXM6bl0ZXpsSFe28WdspgifTNsCFLkvOQ=;
+ b=oVzQpNhOiKrcXOhJXvIh7wZITk7znLE0ZTAU5DZ3i+zy1n1aJ8IqgWEq4/MVCrMCEDBVYW2sv
+ rjO4qhjjpGdDa1lQaV8rL5IX9qmc0w+ndGmEZEQsVMZ8zYrtax5S5vF
+X-Developer-Key: i=esben@geanix.com; a=ed25519;
+ pk=PbXoezm+CERhtgVeF/QAgXtEzSkDIahcWfC7RIXNdEk=
 
-On 8/25/2026 5:54 PM, Jinjie Ruan wrote:
-> During an online resize, reading s_groups_count and s_blockfile_groups
-> requires strict ordering against subsequent initialized block group
-> metadata.
-> 
-> Replace the historical smp_wmb()/smp_rmb() pairs with smp_store_release()
-> and smp_load_acquire(). This formalizes the publish-subscribe pattern
-> and allows weakly-ordered architectures (e.g., arm64) to utilize native
-> STLR/LDAR instructions instead of full DMB fences.
-> 
-> Update the documentation in resize.c and ext4.h accordingly.
-> 
-> Assisted-by: Gemini:Gemini-3.1
-> Assisted-by: DeepSeek:DeepSeek-V3
-> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+This small series adds support for using SN65DSI84 in single-link mode with
+output to LVDS channel B, and provides a fix for an error-handling
+regression in sn65dsi83_reset_pipe()/sn65dsi83_reset_work().
 
-Looks good to me.
+Signed-off-by: Esben Haabendal <esben@geanix.com>
+---
+Changes in v5:
+- Squashed patch 1 and 2 and changed it so that enable_irq() is only called
+  when sn65dsi83_reset_pipe() succeeds.
+- Link to v4: https://patch.msgid.link/20260810-ti-sn65dsi83-fixes-v4-0-ae9c95c8d162@geanix.com
 
-Reviewed-by: Zhang Yi <yi.zhang@huawei.com>
+Changes in v4:
+- Swapped patch 1 and 2 for proper ordering.
+- Ensure enable_irq() is called in sn65dsi83_reset_work() error handling
+  path.
+- Added Fixes and Cc: stable tags to patch 1 and 2.
+- Link to v3: https://patch.msgid.link/20260803-ti-sn65dsi83-fixes-v3-0-9b403a405ccd@geanix.com
 
-> ---
->  fs/ext4/ext4.h    | 10 +++-------
->  fs/ext4/mballoc.c |  6 ++----
->  fs/ext4/resize.c  | 19 +++++++++++--------
->  3 files changed, 16 insertions(+), 19 deletions(-)
-> 
-> diff --git a/fs/ext4/ext4.h b/fs/ext4/ext4.h
-> index 724a27e8be61..d70b9cb09155 100644
-> --- a/fs/ext4/ext4.h
-> +++ b/fs/ext4/ext4.h
-> @@ -3542,16 +3542,12 @@ static inline void ext4_isize_set(struct ext4_inode *raw_inode, loff_t i_size)
->  }
->  
->  /*
-> - * Reading s_groups_count requires using smp_rmb() afterwards.  See
-> - * the locking protocol documented in the comments of ext4_group_add()
-> - * in resize.c
-> + * Reading s_groups_count uses acquire semantics.
->   */
->  static inline ext4_group_t ext4_get_groups_count(struct super_block *sb)
->  {
-> -	ext4_group_t	ngroups = EXT4_SB(sb)->s_groups_count;
-> -
-> -	smp_rmb();
-> -	return ngroups;
-> +	/* Pairs with smp_store_release() in ext4_update_super() */
-> +	return smp_load_acquire(&EXT4_SB(sb)->s_groups_count);
->  }
->  
->  static inline ext4_group_t ext4_flex_group(struct ext4_sb_info *sbi,
-> diff --git a/fs/ext4/mballoc.c b/fs/ext4/mballoc.c
-> index 06171a11db12..a15285224cdf 100644
-> --- a/fs/ext4/mballoc.c
-> +++ b/fs/ext4/mballoc.c
-> @@ -899,10 +899,8 @@ static ext4_group_t ext4_get_allocation_groups_count(
->  
->  	/* non-extent files are limited to low blocks/groups */
->  	if (!(ext4_test_inode_flag(ac->ac_inode, EXT4_INODE_EXTENTS)))
-> -		ngroups = EXT4_SB(ac->ac_sb)->s_blockfile_groups;
-> -
-> -	/* Pairs with smp_wmb() in ext4_update_super() */
-> -	smp_rmb();
-> +		/* Pairs with smp_store_release() in ext4_update_super() */
-> +		ngroups = smp_load_acquire(&EXT4_SB(ac->ac_sb)->s_blockfile_groups);
->  
->  	return ngroups;
->  }
-> diff --git a/fs/ext4/resize.c b/fs/ext4/resize.c
-> index 2c5b851c552a..5e3ad8393cf8 100644
-> --- a/fs/ext4/resize.c
-> +++ b/fs/ext4/resize.c
-> @@ -1462,11 +1462,11 @@ static void ext4_update_super(struct super_block *sb,
->  	 *
->  	 * The precise rules we use are:
->  	 *
-> -	 * * Writers must perform a smp_wmb() after updating all
-> -	 *   dependent data and before modifying the groups count
-> +	 * * Writers must use a release store when updating the groups count
-> +	 *   after all dependent data has been updated
->  	 *
-> -	 * * Readers must perform an smp_rmb() after reading the groups
-> -	 *   count and before reading any dependent data.
-> +	 * * Readers must use an acquire load when reading the groups
-> +	 *   count before reading any dependent data.
->  	 *
->  	 * NB. These rules can be relaxed when checking the group count
->  	 * while freeing data, as we can only allocate from a block
-> @@ -1474,12 +1474,15 @@ static void ext4_update_super(struct super_block *sb,
->  	 * only then free after serialising in turn against that
->  	 * allocation.
->  	 */
-> -	smp_wmb();
->  
->  	/* Update the global fs size fields */
-> -	sbi->s_groups_count += flex_gd->count;
-> -	sbi->s_blockfile_groups = min(sbi->s_groups_count,
-> -			(EXT4_MAX_BLOCK_FILE_PHYS / EXT4_BLOCKS_PER_GROUP(sb)));
-> +	/* Pairs with smp_load_acquire() in ext4_get_groups_count() */
-> +	smp_store_release(&sbi->s_groups_count,
-> +			  sbi->s_groups_count + flex_gd->count);
-> +	/* Pairs with smp_load_acquire() in ext4_get_allocation_groups_count() */
-> +	smp_store_release(&sbi->s_blockfile_groups,
-> +			  min(sbi->s_groups_count,
-> +			      (EXT4_MAX_BLOCK_FILE_PHYS / EXT4_BLOCKS_PER_GROUP(sb))));
->  
->  	/* Update the reserved block counts only once the new group is
->  	 * active. */
+Changes in v3:
+- Rename panel_port variable to output_port.
+- Propagate error code from drm_bridge_helper_reset_crtc() in
+  sn65dsi83_reset_pipe().
+- Drop with fix for premature PLL locking. Should be fixed in DSI host
+  driver (or upstream bridge driver) instead.
+  See https://lore.kernel.org/all/48f6f55f-43fd-4355-88b9-d2e2d0e26d07@kontron.de/
+- Link to v2: https://patch.msgid.link/20260715-ti-sn65dsi83-fixes-v2-0-ebc4c3fe29b6@geanix.com
+
+Changes in v2:
+- Fix error handling in sn65dsi83_atomic_enable() to ensure
+  drm_brige_exit() is always called on exit.
+- Change logging level from warn to dbg for two messages in
+  sn65dsi83_parse_dt().
+- Removed trailing dot in comment lines.
+- Added patch with fix so that DRM bridge critical section is exited on
+  error in sn65dsi83_reset_work().
+- Added Fixes and Cc: stable tags to the premature PLL patch.
+- Re-ordered patch so fixes comes first.
+- Link to v1: https://patch.msgid.link/20260711-ti-sn65dsi83-fixes-v1-0-d85eb5342b98@geanix.com
+
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>
+To: Herve Codina <herve.codina@bootlin.com>
+To: Andrzej Hajda <andrzej.hajda@intel.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+To: Robert Foss <rfoss@kernel.org>
+To: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
+To: Jonas Karlman <jonas@kwiboo.se>
+To: Jernej Skrabec <jernej.skrabec@gmail.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+To: Maxime Ripard <mripard@kernel.org>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+To: David Airlie <airlied@gmail.com>
+To: Simona Vetter <simona@ffwll.ch>
+To: Linus Walleij <linusw@kernel.org>
+To: Frieder Schrempf <frieder.schrempf@kontron.de>
+To: Marek Vasut <marex@denx.de>
+To: Dmitry Baryshkov <lumag@kernel.org>
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org
+
+---
+Esben Haabendal (2):
+      drm/bridge: ti-sn65dsi83: Fix error handling in sn65dsi83_reset_work()
+      drm/bridge: ti-sn65dsi83: Support LVDS Channel B on SN65DSI84
+
+ drivers/gpu/drm/bridge/ti-sn65dsi83.c | 40 +++++++++++++++++++++++------------
+ 1 file changed, 27 insertions(+), 13 deletions(-)
+---
+base-commit: 8d3ae59288f1e7d58d76558a6ee96d533bc5019f
+change-id: 20260710-ti-sn65dsi83-fixes-1d08e0ac67b3
+
+Best regards,
+--  
+Esben Haabendal <esben@geanix.com>
 
