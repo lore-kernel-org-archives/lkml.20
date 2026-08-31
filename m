@@ -1,47 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E2B656E07D;
-	Mon, 31 Aug 2026 13:48:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 707F24AE10A;
+	Mon, 31 Aug 2026 13:48:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788184114; cv=none; b=rxWgZmKBrtLd8otEixBRH3MZZUeP1ApWHQx1Xai0lrG9lj953e1iijnjkFlziSyDX0tsvtaSoeCHNagrzQVvUQULT/8ZqED36cEBoYYAK7br+5xqhrh9L72wM/WGeE4r+XIRo4jHKjtzKTVaig7+fREk48YDS5BkVNUdZ2P9J3U=
+	t=1788184115; cv=none; b=qImyha8m+0B0IQeUbuy0moMtcR0NmAYoEWPG91Dpt8A+Ubm11IonToeiWx4NTRkF2sYHb5/fnu64XF6tXxPxBAlpk7OIcdmYTCiqTBpi6cnmhpEBuA9GQ0heJ1EQpoNobtuSw5U28MKnJUwHYa1psBQMG5ke16n0OYWPa2U5w2U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788184114; c=relaxed/simple;
-	bh=JeIWjeuuWo6VaEzTSPuo2urvBxzEIcwn0ji/bX9o5/4=;
+	s=arc-20240116; t=1788184115; c=relaxed/simple;
+	bh=wkONQlJveVnXMRF87bAcPyMdv+CkVKuQayBY1/B9MHg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=O6Ke9iCXahxg2Uuw7uVA1IXzL2loUxqCkqrIKmWY41k7TRo72GJkhU1UaVaxvWnH1sQCGeeLfJA3DT+TQgl2LXEReDP34lCEiAL4uoC1TO4v1rL2cocjbQ4K1yqZqHiYYTSeQJvgkuMzu2YZeZ80PrVvehVs9PtsMYsTJrKRP88=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E6UnkWmv; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=SUXcaCOzrTKs/h16mww8MFBnzi5aYFQqKKSZY7CISrLTMRHn441hi8N2S/se4TgHEb0Nz0QED79LTbJRADS/qLHHoNEs0cufgXynr8ckHFWh23p+dka9L6NL62DizQNt6vLoDoD25YyEc1J/hGwZxuigtqZ/m20mg/iA5QyZlso=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IzCdEAe2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E6UnkWmv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E51AD1F00ACA;
-	Mon, 31 Aug 2026 13:48:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IzCdEAe2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B67D1F00A3D;
+	Mon, 31 Aug 2026 13:48:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788184112;
-	bh=fwK88PsV0/tcr1iY8Ix2BUCLb4fJksddhf7T8CmozkY=;
+	s=k20260515; t=1788184113;
+	bh=gcsO/YjmrI9xPTx4rYUVj9KgkrXnYbioR7BJYXuCLYk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=E6UnkWmvVRMh6G0a20rAICgZslT9pUVoH9xsKCOrpXkvp7GgVlA1T0fYgvDH42BGf
-	 NYla9Jmu8aSs7k/t4ZbkXhPyQficGnnzfbAFKMUIo+FnBnSx0KqA04AkvPwRl33lK1
-	 VsnzxEe3Sdu2w9jqh0349+YFmLmnn/FimLPRUzi2Y6SC4tWzDJBz+V8f0JEzHDPHdy
-	 e+PR/cx67K1IRYPvGgp4ZMdmEJag/pssh3yBNx99EFb4mZuXktNOGmrnRBO9nTkXM7
-	 eTaAlR645TRGbvMXHW6nRAYomsKdCcBD35M/nIaZChajRF4ltPQFXg08oPc7/YQDI1
-	 ZqIAuEfUxuWCw==
+	b=IzCdEAe2IllO1EnAb/cyMseqsuB/A2wOiAfN0FpYyVzRyiYY+m0ukOxTw1CvEmTPw
+	 EudKSPBgdwXG8ICQ2yxSLcPxrOVbRVkqPEAEKB3/Xh70zVJwJo0lqF+xvfOTbdTEqV
+	 4/G1c6Bs5/nhkyIWhTQWsJD+iKmHCi/hcRDwQTx9RoGjDEjX3VPt74sdgRmVaaJJhn
+	 Rqi2M3y3df11pUNzqL2TGNL7fgk/6irsyrEKh97asAxkZjrCN7u/E4WQbHMysJUaHW
+	 C1bn5lkxLPGyqOnlUzClZcOUmV9i9ZxC0E3H1dXj7zZlAAuR2kT6ebNRnfjHkmVOVE
+	 x5u/x03CyGbAg==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Xiaogang Chen <xiaogang.chen@amd.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
+Cc: Wang YuWei <1973615295@qq.com>,
+	Mark Brown <broonie@kernel.org>,
 	Sasha Levin <sashal@kernel.org>,
-	Felix.Kuehling@amd.com,
-	christian.koenig@amd.com,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
+	linux-spi@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-6.6] drm/amdkfd: check find_first_zero_bit before __set_bit on kfd->doorbell_bitmap
-Date: Mon, 31 Aug 2026 09:28:46 -0400
-Message-ID: <20260831133314.4125787-498-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-6.1] spi: dw-dma: Wait for controller idle before completing Tx
+Date: Mon, 31 Aug 2026 09:28:47 -0400
+Message-ID: <20260831133314.4125787-499-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -57,369 +52,386 @@ X-stable-base: Linux 6.18.48
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Xiaogang Chen <xiaogang.chen@amd.com>
+From: Wang YuWei <1973615295@qq.com>
 
-[ Upstream commit 516bf737a5602875f6c28d1028967837c8edf2c0 ]
+[ Upstream commit 0bcd59706aeda8a5d48ba656bab74cb26f2b423e ]
 
-If inx from find_first_zero_bit is beyond range not need set doorbell_bitmap.
+dw_spi_dma_wait_tx_done() polls dw_spi_dma_tx_busy(), which only checks
+DW_SPI_SR_TF_EMPT. An empty TX FIFO merely means the last data word has
+been moved into the shift register; the transfer is not complete on the
+bus until DW_SPI_SR_BUSY is also cleared. As a result the wait can
+return while the controller is still shifting out the final word.
 
-Signed-off-by: Xiaogang Chen <xiaogang.chen@amd.com>
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit 2664ce9143d174651a793d96a6a2326050c4f45a)
+Any caller that tears down or reconfigures the controller right after
+the transfer can then lose the tail of the transfer.
+
+The memory-operation path in spi-dw-core.c already waits for both
+DW_SPI_SR_BUSY == 0 and DW_SPI_SR_TF_EMPT == 1. Use the same completion
+condition in the DMA path so the transfer is guaranteed to be finished
+on the bus before the wait returns.
+
+Signed-off-by: Wang YuWei <1973615295@qq.com>
+Link: https://patch.msgid.link/tencent_4EA7B5C94669ED4C38A5F6C1C9126E5D9106@qq.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-# Stable Backport Analysis: `drm/amdkfd: check find_first_zero_bit
-before __set_bit on kfd->doorbell_bitmap`
+# Stable Backport Analysis: `spi: dw-dma: Wait for controller idle
+before completing Tx`
 
-**Local tree:** `v6.18.44` (Linux 6.18.44)
-**Fix commit:** `2664ce9143d174651a793d96a6a2326050c4f45a` — **not** in
-this tree; buggy code is still present.
+**Local tree:** `v6.18.44` (`stable/linux-6.18.y`, `VERSION = 6`,
+`PATCHLEVEL = 18`, `SUBLEVEL = 44`)
 
 ---
 
 ## PHASE 1: COMMIT MESSAGE FORENSICS
 
-### Step 1.1: Subject line
-**Record:** `[drm/amdkfd]` `[check]` — validate `find_first_zero_bit`
-result before calling `__set_bit` on `kfd->doorbell_bitmap`.
+### Step 1.1: PARSE THE SUBJECT LINE
+**Record:** `[spi: dw-dma]` `[Wait]` — Ensure the DesignWare SPI DMA TX
+completion wait does not return until the controller is fully idle on
+the bus.
 
-### Step 1.2: Tags
+### Step 1.2: PARSE ALL COMMIT MESSAGE TAGS
 **Record:**
-- **Signed-off-by:** Xiaogang Chen `<xiaogang.chen@amd.com>` (author)
-- **Reviewed-by:** Alex Deucher `<alexander.deucher@amd.com>` (AMD DRM
+- **Fixes:** — not present (expected for manual review)
+- **Reported-by:** — none
+- **Tested-by:** — none
+- **Reviewed-by:** — none
+- **Acked-by:** — none
+- **Link:** `https://patch.msgid.link/tencent_4EA7B5C94669ED4C38A5F6C1C9
+  126E5D9106@qq.com`
+- **Cc: stable:** — not present (not a negative signal)
+- **Signed-off-by:** Wang YuWei `<1973615295@qq.com>` (author)
+- **Signed-off-by:** Mark Brown `<broonie@kernel.org>` (SPI subsystem
   maintainer)
-- **Signed-off-by:** Alex Deucher `<alexander.deucher@amd.com>`
-- No `Fixes:`, `Reported-by:`, `Link:`, `Cc: stable`, `Tested-by:`, or
-  `Acked-by:` tags
-- `(cherry picked from commit 2664ce9143d1...)` — pipeline marker;
-  ignored per instructions
 
-### Step 1.3: Body analysis
+Notable: maintainer ack via Mark Brown's Signed-off-by; no syzbot/user
+bug report.
+
+### Step 1.3: ANALYZE THE COMMIT BODY TEXT
 **Record:**
-- **Bug:** When `find_first_zero_bit` finds no free bit, it returns `nb`
-  (the search size). The old code called `__set_bit(inx, ...)` before
-  checking whether `inx` is in range.
-- **Symptom:** Out-of-bounds bitmap write when the bitmap is exhausted;
-  on large-page systems, also leaks bitmap slots on the error path (set
-  bit, then return NULL).
-- **Root cause:** Range check was placed after `__set_bit` instead of
-  before it.
+- **Bug:** `dw_spi_dma_tx_busy()` only checks `DW_SPI_SR_TF_EMPT`. TX
+  FIFO empty means the last word entered the shift register, but the bus
+  transfer is not finished until `DW_SPI_SR_BUSY` is also clear.
+- **Symptom:** `dw_spi_dma_wait_tx_done()` can return early; callers
+  that tear down or reconfigure the controller immediately afterward can
+  truncate the final word(s) of a transfer.
+- **Root cause:** Incomplete hardware status polling in the DMA TX wait
+  path.
+- **Fix approach:** Match the DMA path to the intended completion
+  condition: idle only when `TF_EMPT=1` **and** `BUSY=0`.
 
-### Step 1.4: Hidden bug fix?
-**Record:** Yes. Despite the terse message, this is a memory-safety /
-resource-management fix, not cosmetic cleanup.
+### Step 1.4: DETECT HIDDEN BUG FIXES
+**Record:** Not disguised — this is an explicit correctness bug fix for
+premature TX completion, not cleanup or optimization.
 
 ---
 
 ## PHASE 2: DIFF ANALYSIS
 
-### Step 2.1: Inventory
+### Step 2.1: INVENTORY THE CHANGES
 **Record:**
-- **File:** `drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c` (+5 / -3 lines)
-- **Function:** `kfd_get_kernel_doorbell()`
-- **Scope:** Single-file, surgical fix
+- **Files:** `drivers/spi/spi-dw-dma.c` (+2 / -1)
+- **Functions modified:** `dw_spi_dma_tx_busy()` only
+- **Scope:** Single-file, surgical (3-line hunk)
 
-### Step 2.2: Code flow change
+### Step 2.2: UNDERSTAND THE CODE FLOW CHANGE
 **Record:**
-- **Before:** lock → `find_first_zero_bit` → `__set_bit` → unlock → if
-  `inx >= 1024` return NULL
-- **After:** lock → `find_first_zero_bit` → if `inx >= 1024` unlock and
-  return NULL → `__set_bit` → unlock
-- **Affected path:** Error path when no kernel doorbell slot is
-  available
+- **Hunk (dw_spi_dma_tx_busy):**
+  - **Before:** `busy = !(SR & TF_EMPT)` — not busy as soon as TX FIFO
+    is empty.
+  - **After:** `busy = ((SR & (BUSY|TF_EMPT)) != TF_EMPT)` — busy unless
+    FIFO is empty **and** controller is not shifting.
+  - **Path affected:** `dw_spi_dma_wait_tx_done()` polling loop, called
+    from `dw_spi_dma_transfer()` after DMA submission completes.
 
-### Step 2.3: Bug mechanism
+### Step 2.3: IDENTIFY THE BUG MECHANISM
 **Record:**
-- **Category:** Out-of-bounds access / bitmap resource leak
-- **Mechanism:** `doorbell_bitmap` is allocated with
-  `bitmap_zalloc(PAGE_SIZE / sizeof(u32))` (1024 bits on 4 KiB pages).
-  `find_first_zero_bit(..., PAGE_SIZE / sizeof(u32))` returns `1024`
-  when full. `__set_bit(1024, ...)` writes past the end of a 1024-bit
-  bitmap. On larger pages, indices 1024..(PAGE_SIZE/4-1) could be set
-  and then discarded via `return NULL`, leaking slots.
+- **Category:** Logic / hardware-timing correctness fix
+- **Mechanism:** On DW APB SSI, `TF_EMPT` can be set while `BUSY` is
+  still set (shift register active). Old code treated that state as
+  "done"; new code correctly keeps waiting.
 
-### Step 2.4: Fix quality
+### Step 2.4: ASSESS THE FIX QUALITY
 **Record:**
-- Obviously correct; mirrors the process-doorbell pattern in
-  `kfd_device_queue_manager.c` (check before `set_bit`)
-- Minimal change, no API changes
-- **Regression risk:** Very low — only affects the exhaustion error path
+- **Quality:** Obviously correct from DW SPI status-register semantics.
+- **Minimal:** One condition change in one inline helper.
+- **Regression risk:** Very low. Worst case is slightly longer wait on
+  the final word; that is the intended behavior and matches hardware
+  reality.
+- **Note:** Commit body says mem-op path waits for both `BUSY==0` and
+  `TF_EMPT==1`, but `dw_spi_ctlr_busy()` in `spi-dw-core.c` only tests
+  `DW_SPI_SR_BUSY`. The DMA fix itself is still correct; the mem-op
+  comparison is slightly imprecise wording.
 
 ---
 
 ## PHASE 3: GIT HISTORY INVESTIGATION
 
-### Step 3.1: Blame
+### Step 3.1: BLAME THE CHANGED LINES
 **Record:**
-- Function dates to 2014 (`19f6d2a660340d`, Oded Gabbay)
-- `find_first_zero_bit` with `PAGE_SIZE / sizeof(u32)` added in
-  `c31866651086fc` (Jul 2023, Shashank Sharma)
-- The check-after-set pattern predates 2023; the 2023 change did not
-  introduce the ordering bug, but kept it
+- Blame on current tree (`HEAD`): lines 282–285 introduced in
+  `5d324e5159d9e` (Nov 2025 merge bringing in `spi-dw-dma.c`).
+- Buggy `TF_EMPT`-only check present at `v6.15`, `v6.16`, `v6.17`,
+  `v6.18`, and current `HEAD`.
 
-### Step 3.2: Fixes: tag
-**Record:** N/A — no `Fixes:` tag present.
+### Step 3.2: FOLLOW THE FIXES: TAG
+**Record:** No `Fixes:` tag. N/A.
 
-### Step 3.3: Related file history
+### Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES
 **Record:**
-- Recent `kfd_doorbell.c` changes are doorbell-manager refactors (2023)
-- No related fix for this issue already in the tree
-- Part of a 3-patch series per b4; patch 1 is unrelated
-  (`AMDKFD_IOC_GET_DMABUF_INFO`)
+- Upstream fix: `0bcd59706aeda` (`spi: dw-dma: Wait for controller idle
+  before completing Tx`)
+- Related nearby fix on this tree: `aae4a47073b12` (NULL deref in
+  timeout error logging — separate issue)
+- Standalone one-patch series (v1 only); no series dependency.
 
-### Step 3.4: Author context
-**Record:** Xiaogang Chen is an AMD contributor; Alex Deucher
-(maintainer) reviewed and committed.
+### Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS
+**Record:** Wang YuWei has no other commits in this tree's
+`drivers/spi/` history. Mark Brown is SPI maintainer and applied the
+patch.
 
-### Step 3.5: Dependencies
-**Record:** Standalone — no prerequisite commits required. Applies
-cleanly to current `kfd_doorbell.c`.
+### Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS
+**Record:** No prerequisites. `git apply --check` of upstream diff
+against current `spi-dw-dma.c` succeeds cleanly. Only touches
+`dw_spi_dma_tx_busy()`; no dependency on newer refactors.
 
 ---
 
 ## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
-### Step 4.1: Original discussion
+### Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION
 **Record:**
-- **b4 dig URL:**
-  https://patch.msgid.link/20260528184656.123149-2-xiaogang.chen@amd.com
-- **Series:** `[PATCH 2/3]` — patch 1 is unrelated ioctl work
-- Lore fetch blocked by bot protection; thread content not directly
-  readable
+- **b4 dig -c 0bcd59706aeda:** https://patch.msgid.link/tencent_4EA7B5C9
+  4669ED4C38A5F6C1C9126E5D9106@qq.com
+- **Revisions (b4 dig -a):** v1 only
+- **Review feedback:** Mark Brown reply: "Applied to broonie/spi
+  for-7.2. Thanks!" No NAKs, no objections, no explicit stable
+  nomination in thread.
 
-### Step 4.2: Reviewers
-**Record:** CC'd to `amd-gfx@lists.freedesktop.org`; Reviewed-by Alex
-Deucher (maintainer).
+### Step 4.2: CHECK WHO REVIEWED THE PATCH
+**Record (b4 dig -w):** To Mark Brown; Cc Jisheng Zhang, `linux-
+spi@vger.kernel.org`, `linux-kernel@vger.kernel.org`. Appropriate
+maintainer coverage.
 
-### Step 4.3: Bug reports
-**Record:** No external bug report, syzbot report, or crash trace
-referenced.
+### Step 4.3: SEARCH FOR THE BUG REPORT
+**Record:** No external bug report, syzbot link, or hardware-specific
+reproduction email. Bug rationale is hardware-spec-based code analysis.
 
-### Step 4.4: Related patches
-**Record:** Patch 2/3 is independent of patches 1 and 3 for this fix's
-correctness.
+### Step 4.4: CHECK FOR RELATED PATCHES AND SERIES
+**Record:** Single-patch series; no companion patches required.
 
-### Step 4.5: Stable list history
-**Record:** Not searched separately; no stable nomination found in
-commit metadata.
+### Step 4.5: CHECK STABLE MAILING LIST HISTORY
+**Record:** Lore stable search not performed (lore bot protection on
+WebFetch). No stable discussion found in downloaded mbox thread.
 
 ---
 
 ## PHASE 5: CODE SEMANTIC ANALYSIS
 
-### Step 5.1: Key functions
-**Record:** `kfd_get_kernel_doorbell()`, `kfd_release_kernel_doorbell()`
+### Step 5.1: IDENTIFY KEY FUNCTIONS IN THE DIFF
+**Record:** `dw_spi_dma_tx_busy()` (modified); caller
+`dw_spi_dma_wait_tx_done()` (unchanged).
 
-### Step 5.2: Callers
+### Step 5.2: TRACE CALLERS
 **Record:**
-- `kfd_kernel_queue.c:76` — `kernel_queue_init()` for HIQ/DIQ queues
-- Typically 1–2 kernel queues per KFD device (HIQ + optional DIQ)
-- Error path at line 78–80 handles NULL return
+- `dw_spi_dma_wait_tx_done()` ← `dw_spi_dma_transfer()` (line 660)
+- `dw_spi_dma_transfer()` ← `dws->dma_ops->dma_transfer` in `spi-dw-
+  core.c:456`
+- `dw_spi_transfer_one()` ← standard SPI controller transfer path during
+  DMA-mapped transfers
 
-### Step 5.3: Callees
-**Record:** `mutex_lock/unlock`, `find_first_zero_bit`, `__set_bit`,
-`amdgpu_doorbell_index_on_bar`
+Called during normal SPI DMA message processing, not obscure init-only
+code.
 
-### Step 5.4: Reachability
+### Step 5.3: TRACE CALLEES
+**Record:** `dw_readl(dws, DW_SPI_SR)` — hardware status register read
+only. No locks, allocations, or API changes.
+
+### Step 5.4: FOLLOW THE CALL CHAIN
 **Record:**
-- Triggered during KFD device init / debug-queue setup (`CONFIG_HSA_AMD`
-  / AMDGPU KFD)
-- Not directly userspace-syscall reachable, but reachable during GPU
-  compute driver init
-- Exhaustion requires ~1024 allocations without release — unrealistic in
-  normal use (~2 kernel queues), but possible with a doorbell leak
+`userspace ioctl/write → spidev or kernel SPI client →
+spi_sync/spi_async → dw_spi_transfer_one → dw_spi_dma_transfer →
+dw_spi_dma_wait_tx_done → dw_spi_dma_tx_busy`
 
-### Step 5.5: Similar patterns
-**Record:** Process doorbells in `kfd_device_queue_manager.c:484–490`
-already check `found >= KFD_MAX_NUM_OF_QUEUES_PER_PROCESS` **before**
-`set_bit`. This fix aligns kernel doorbells with that correct pattern.
+Reachable from userspace via SPI device nodes and from in-kernel SPI
+clients (flash, sensors, etc.) on `CONFIG_SPI_DW_DMA` platforms.
+
+### Step 5.5: SEARCH FOR SIMILAR PATTERNS
+**Record:** Mem-op wait in `spi-dw-core.c` uses `dw_spi_ctlr_busy()`
+(`BUSY` only). DMA path was inconsistent and too eager. No other
+instances of the same broken `TF_EMPT`-only pattern found in this file.
 
 ---
 
-## PHASE 6: CROSS-REFERENCE WITH LOCAL TREE
+## PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
 
-### Step 6.1: Buggy code present?
-**Record:** **Yes.** Current tree at lines 155–162 still has check-
-after-set:
+### Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?
+**Record:** **Yes.** Current `HEAD` at `drivers/spi/spi-dw-
+dma.c:282-285`:
 
-```155:162:drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
-        mutex_lock(&kfd->doorbell_mutex);
-        inx = find_first_zero_bit(kfd->doorbell_bitmap, PAGE_SIZE /
-sizeof(u32));
-
-        __set_bit(inx, kfd->doorbell_bitmap);
-        mutex_unlock(&kfd->doorbell_mutex);
-
-        if (inx >= KFD_MAX_NUM_OF_QUEUES_PER_PROCESS)
-                return NULL;
+```282:285:drivers/spi/spi-dw-dma.c
+static inline bool dw_spi_dma_tx_busy(struct dw_spi *dws)
+{
+        return !(dw_readl(dws, DW_SPI_SR) & DW_SPI_SR_TF_EMPT);
+}
 ```
 
-Bitmap allocation at line 75: `bitmap_zalloc(PAGE_SIZE / sizeof(u32))` —
-1024 bits on 4 KiB pages. `KFD_MAX_NUM_OF_QUEUES_PER_PROCESS` = 1024
-(`kfd_priv.h:97`).
+Present since at least v6.15 in this repository's tags; definitely
+present in v6.18.y.
 
-### Step 6.2: Backport difficulty
-**Record:** Clean apply expected — 8-line hunk, no conflicts observed.
+### Step 6.2: CHECK FOR BACKPORT COMPLICATIONS
+**Record:** **Clean apply expected.** `git apply --check` of upstream
+patch against current file succeeded. No conflicts with `aae4a47073b12`
+(different lines). `ctlr` vs `host` rename in other parts of file does
+not affect this hunk.
 
-### Step 6.3: Related fixes already present?
-**Record:** None. `git merge-base --is-ancestor 2664ce9143d1 HEAD` →
-NOT_IN_TREE.
+### Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE
+**Record:** Fix **not** present. `git merge-base --is-ancestor
+0bcd59706aeda HEAD` → not an ancestor. Buggy code still at `HEAD`.
 
 ---
 
-## PHASE 7: SUBSYSTEM CONTEXT
+## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
 
-### Step 7.1: Subsystem criticality
-**Record:** `drivers/gpu/drm/amd/amdkfd` — **PERIPHERAL** (AMD GPU
-compute / ROCm users with `CONFIG_HSA_AMD`)
+### Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY
+**Record:** `drivers/spi/` — DesignWare SPI DMA driver. **IMPORTANT**:
+widely used on embedded SoCs; SPI often backs boot flash, storage, and
+sensors.
 
-### Step 7.2: Activity
-**Record:** Actively maintained; recent doorbell-manager refactoring in
-2023.
+### Step 7.2: ASSESS SUBSYSTEM ACTIVITY
+**Record:** Active in 6.18.y (recent `aae4a47073b12` fix in same file).
+`spi-dw-dma.c` is established infrastructure, not brand-new experimental
+code in this tree.
 
 ---
 
 ## PHASE 8: IMPACT AND RISK ASSESSMENT
 
-### Step 8.1: Who is affected
-**Record:** AMD GPU users with KFD/ROCm enabled — not universal, but
-real production users.
+### Step 8.1: DETERMINE WHO IS AFFECTED
+**Record:** Users of DesignWare SPI with DMA enabled
+(`CONFIG_SPI_DW_DMA`). Driver-specific but common on ARM/embedded
+platforms using DW APB SSI.
 
-### Step 8.2: Trigger conditions
+### Step 8.2: DETERMINE THE TRIGGER CONDITIONS
 **Record:**
-- All doorbell bitmap slots consumed (1024 on 4 KiB pages)
-- Normal operation uses ~2 kernel doorbells per device
-- **Likelihood:** Very low without a resource leak; **possible** with a
-  leak bug
+- **Trigger:** Any DMA SPI TX transfer where the wait returns after FIFO
+  empty but before shift register completes.
+- **Likelihood:** Real on real hardware — this is documented DW SPI
+  behavior, not theoretical.
+- **Userspace trigger:** Yes, via SPI userspace access or kernel drivers
+  using DMA-mapped transfers.
 
-### Step 8.3: Failure mode severity
+### Step 8.3: DETERMINE THE FAILURE MODE SEVERITY
 **Record:**
-- **OOB `__set_bit`:** Memory corruption adjacent to bitmap → potential
-  crash or unpredictable behavior — **HIGH** if triggered
-- **Bitmap leak (large pages):** Gradual exhaustion — **MEDIUM**
-- **Practical impact today:** Low due to unlikely trigger
+- **Failure mode:** Truncated/lost tail of SPI transfer; possible data
+  corruption on SPI flash/devices, protocol errors, silent bad data.
+- **Severity:** **HIGH** (data integrity / silent corruption), not
+  merely cosmetic.
 
-### Step 8.4: Risk-benefit
+### Step 8.4: CALCULATE RISK-BENEFIT RATIO
 **Record:**
-- **Benefit:** Prevents OOB write and bitmap leaks on error path; aligns
-  with existing correct pattern
-- **Risk:** Minimal — 5-line reorder/addition on error path only
-- **Ratio:** Favorable — near-zero risk, real correctness fix
+- **Benefit:** HIGH — prevents real transfer truncation on common
+  embedded hardware.
+- **Risk:** VERY LOW — 2-line status-check correction, maintainer-
+  reviewed.
+- **Ratio:** Strongly favors backport.
 
 ---
 
 ## PHASE 9: FINAL SYNTHESIS
 
-### Step 9.1: Evidence summary
+### Step 9.1: COMPILE THE EVIDENCE
 
 **FOR backport:**
-- Real out-of-bounds bitmap write when exhausted
-- Obviously correct; maintainer-reviewed
-- Small, self-contained, clean apply
-- Matches established pattern in same subsystem
-- Buggy code confirmed present in v6.18.44
-- Memory-safety class of fix
+- Real hardware-timing bug with plausible data-corruption impact
+- Buggy code confirmed in v6.18.44
+- Fix is minimal, obviously correct, applies cleanly
+- SPI maintainer (Mark Brown) Signed-off-by
+- Affects normal DMA SPI transfer completion path
+- No prerequisite commits
 
 **AGAINST backport:**
-- No user reports or fuzzer findings
-- Trigger extremely unlikely in normal kernel-queue usage (~2 doorbells)
-- Bug present since 2014 without known incidents
-- Config/driver-specific (AMD KFD only)
+- No user bug report or syzbot reproduction (weak negative only)
+- Commit message slightly overstates mem-op path behavior (does not
+  affect fix correctness)
 
-**Unresolved:** None affecting the decision.
+**Unresolved:** No hardware-specific reproduction logs; impact inferred
+from DW SPI register semantics and code path (sufficient for this class
+of driver fix).
 
-### Step 9.2: Stable rules checklist
-1. Obviously correct and tested? **PASS** — logic verified; maintainer
-   reviewed (no runtime test cited)
-2. Fixes a real bug? **PASS** — OOB `__set_bit` on exhaustion
-3. Important issue? **PASS** — memory corruption (severity high if
-   triggered; trigger rare)
-4. Small and contained? **PASS** — 8 lines, one function
-5. No new features/APIs? **PASS**
-6. Can apply to local tree? **PASS** — code exists; fix not yet applied
+### Step 9.2: STABLE RULES CHECKLIST
+1. Obviously correct and tested? **PASS** — logic matches hardware;
+   maintainer applied; no Tested-by but change is trivial and
+   verifiable.
+2. Fixes a real bug affecting users? **PASS** — premature TX completion
+   can truncate transfers.
+3. Important issue? **PASS** — data corruption / transfer integrity
+   (HIGH).
+4. Small and contained? **PASS** — 1 file, 2 lines changed.
+5. No new features or APIs? **PASS** — behavior correction only.
+6. Can apply to local tree? **PASS** — verified clean apply.
 
-### Step 9.3: Exception categories
-**Record:** None (not a quirk, device ID, DT, build, or docs fix).
+### Step 9.3: EXCEPTION CATEGORIES
+**Record:** None (not device ID, quirk, DT, build, or docs). Standard
+driver correctness fix.
 
-### Step 9.4: Decision rationale
+### Step 9.4: DECISION RATIONALE
 
-This is a small, maintainer-reviewed memory-safety fix for a genuine
-ordering bug: `__set_bit` was called before validating the index
-returned by `find_first_zero_bit`. When the bitmap is full, that is an
-out-of-bounds write. The trigger is rare for kernel doorbells (only
-HIQ/DIQ, typically ~2 per device), but the fix is trivial, matches the
-correct pattern already used for process doorbells in the same driver,
-and has essentially no regression risk. For the 6.18.y stable tree where
-the buggy code is present and the fix is absent, this meets stable
-kernel criteria.
+For **linux-6.18.y**, the buggy `TF_EMPT`-only wait exists, the fix is
+absent, the patch applies cleanly, and the failure mode (truncated SPI
+DMA transfers) is materially important for stable users on DW SPI + DMA
+platforms. This is exactly the kind of small, hardware-correctness fix
+stable trees should carry.
 
 ---
 
 ## Verification
 
-- **[Phase 1]** `git show 2664ce9143d1` — parsed message and tags
-- **[Phase 2]** Read `kfd_doorbell.c:149–176` — confirmed check-after-
-  set bug; analyzed diff
-- **[Phase 2]** `kfd_priv.h:97` — `KFD_MAX_NUM_OF_QUEUES_PER_PROCESS` =
-  1024
-- **[Phase 2]** `kfd_doorbell.c:75` — bitmap sized `PAGE_SIZE /
-  sizeof(u32)` bits
-- **[Phase 3]** `git blame -L 150,176 kfd_doorbell.c` — function history
-  since 2014
-- **[Phase 3]** `git show c31866651086fc` — 2023 doorbell-mgr refactor
-- **[Phase 3]** `git show 19f6d2a660340d` — original code had same
-  ordering bug
-- **[Phase 3]** `git log --oneline -15 -- kfd_doorbell.c` — no duplicate
-  fix
-- **[Phase 4]** `b4 dig -c 2664ce9143d1` — lore URL found; patch 2/3 of
-  series
-- **[Phase 4]** `b4 dig -w` — amd-gfx list CC'd
-- **[Phase 4]** `b4 dig -a` — v1 series identified
-- **[Phase 5]** `grep kfd_get_kernel_doorbell` — caller in
-  `kfd_kernel_queue.c:76`
-- **[Phase 5]** Read `kfd_kernel_queue.c:76–80, 191, 224` — NULL
-  handled; release on cleanup
-- **[Phase 5]** Read `kfd_device_queue_manager.c:484–490` — correct
-  check-before-set pattern
-- **[Phase 6]** `git describe HEAD` — v6.18.44
-- **[Phase 6]** `git merge-base --is-ancestor 2664ce9143d1 HEAD` —
-  NOT_IN_TREE
-- **[Phase 6]** Read current `kfd_doorbell.c` — buggy code confirmed
-  present
+- [Phase 1] Parsed subject, tags, body; no Fixes/Reported-by/syzbot
+- [Phase 2] Diff: 1 file, `dw_spi_dma_tx_busy()` only; logic change
+  verified
+- [Phase 3] `git describe HEAD` → `v6.18.44`; blame → buggy lines at
+  282–285
+- [Phase 3] `git cat-file` / `git grep` → buggy code at v6.15, v6.16,
+  v6.17, v6.18, HEAD
+- [Phase 3] Upstream commit `0bcd59706aeda` confirmed; not ancestor of
+  HEAD
+- [Phase 3] `git apply --check` → patch applies cleanly to current tree
+- [Phase 4] `b4 dig -c 0bcd59706aeda` → lore URL found
+- [Phase 4] `b4 dig -a` → v1 only
+- [Phase 4] `b4 dig -w` → Mark Brown, Jisheng Zhang, linux-spi CC'd
+- [Phase 4] mbox thread → Mark Brown applied; no NAKs
+- [Phase 5] Call chain traced: `dw_spi_transfer_one` →
+  `dw_spi_dma_transfer` → `dw_spi_dma_wait_tx_done`
+- [Phase 5] `dw_spi_dma_wait_tx_done` called at `spi-dw-dma.c:660` when
+  `cur_msg->status == -EINPROGRESS`
+- [Phase 6] Buggy code read at `spi-dw-dma.c:282-285` on HEAD
+- [Phase 6] Related fix `aae4a47073b12` present; this fix not present
+- [Phase 8] Failure mode: truncated SPI TX → data corruption risk,
+  severity HIGH
 
 **YES**
 
- drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+ drivers/spi/spi-dw-dma.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c b/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
-index 05c74887fd6fd..fdcf7f2d1b5b4 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
-@@ -153,14 +153,16 @@ void __iomem *kfd_get_kernel_doorbell(struct kfd_dev *kfd,
- 	u32 inx;
+diff --git a/drivers/spi/spi-dw-dma.c b/drivers/spi/spi-dw-dma.c
+index 31063f9270924..72b85e0f683dc 100644
+--- a/drivers/spi/spi-dw-dma.c
++++ b/drivers/spi/spi-dw-dma.c
+@@ -281,7 +281,8 @@ static int dw_spi_dma_wait(struct dw_spi *dws, unsigned int len, u32 speed)
  
- 	mutex_lock(&kfd->doorbell_mutex);
-+
- 	inx = find_first_zero_bit(kfd->doorbell_bitmap, PAGE_SIZE / sizeof(u32));
-+	if (inx >= KFD_MAX_NUM_OF_QUEUES_PER_PROCESS) {
-+		mutex_unlock(&kfd->doorbell_mutex);
-+		return NULL;
-+	}
+ static inline bool dw_spi_dma_tx_busy(struct dw_spi *dws)
+ {
+-	return !(dw_readl(dws, DW_SPI_SR) & DW_SPI_SR_TF_EMPT);
++	return (dw_readl(dws, DW_SPI_SR) &
++		(DW_SPI_SR_BUSY | DW_SPI_SR_TF_EMPT)) != DW_SPI_SR_TF_EMPT;
+ }
  
- 	__set_bit(inx, kfd->doorbell_bitmap);
- 	mutex_unlock(&kfd->doorbell_mutex);
- 
--	if (inx >= KFD_MAX_NUM_OF_QUEUES_PER_PROCESS)
--		return NULL;
--
- 	*doorbell_off = amdgpu_doorbell_index_on_bar(kfd->adev,
- 						     kfd->doorbells,
- 						     inx,
+ static int dw_spi_dma_wait_tx_done(struct dw_spi *dws,
 -- 
 2.53.0
 
