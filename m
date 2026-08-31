@@ -1,302 +1,147 @@
-Received: from todd.t-8ch.de (todd.t-8ch.de [159.69.126.157])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73CBB3C2BAF
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 04:48:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.69.126.157
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDD343A5422
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 04:49:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788151734; cv=none; b=fbx82aF7Ct8CjpwIgTucStJ10C14KMNKKAMHv7yYMFUnnz77erYsGrHi7aqxlPW2R61nQkaSXR3LvZuWr02AcjA+ZYe53qt3muIDbZQ+3Ci29jreCIpQEq3hQARFgN4OHz6S7NCCvBveSngzUacsFT3fG5Z/0yhJEd3hnHUp6pA=
+	t=1788151749; cv=none; b=tDezjKmnK+Ov7QIVOej/+LCdcHqRaH0f5fzjTpEo2lDtad2vWgK98X/eOlRRksfiU9PeYc+gU8Y3g0hMBuWb5CiJmZovUVyxbc9wYUlbsjoh/qsoDdJ5bR+891wBA8uToOzbabRfac17DLPue5Py5+W9UgMNzmTLVttOmKGExLE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788151734; c=relaxed/simple;
-	bh=zOfMkKvQ/4SyNTJ14DRTwpEpVyFE3GSJ3XgEqN5Li8w=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=flsvE9oa095L32Smqh1SMPgCaPjpr+1QwIEkHUV99N4rV23aaF3JKOpeN7/hvErsgEX1GnBUyQi+BklmmiZeQ38Lw6RJ4K2CIGursXurBNov21ta4wP/psfGY+COw0MmqrO4AjyD53eswbtaqUMczQesADXmqVbw9KH7GDPQxc4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=weissschuh.net; spf=pass smtp.mailfrom=weissschuh.net; dkim=pass (1024-bit key) header.d=weissschuh.net header.i=@weissschuh.net header.b=nFlCAUAe; arc=none smtp.client-ip=159.69.126.157
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=weissschuh.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=weissschuh.net
+	s=arc-20240116; t=1788151749; c=relaxed/simple;
+	bh=gRjZ543JpnkvPdOiYYfaRnVfystG759Aro/R69ofTXg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Z6PXSYjp6jgeaOm8x/HveOMGMpf6JOSjA+WTTmjSdFNxb7evIJb5VbYJt1wvDWzCYrHZVlyBiDdjZEqstjV6s6M0qTlw3qhgW5r0HunqrGNUIe4IIHTO2GGEDeJh+OYGm6awBvGIHf7YDRjWcUGWDJPnMexWenAh2X95SZ9awHk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AqkTYyMH; arc=none smtp.client-ip=209.85.216.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=weissschuh.net header.i=@weissschuh.net header.b="nFlCAUAe"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=weissschuh.net;
-	s=mail; t=1788151729;
-	bh=zOfMkKvQ/4SyNTJ14DRTwpEpVyFE3GSJ3XgEqN5Li8w=;
-	h=From:Date:Subject:To:Cc:From;
-	b=nFlCAUAe/lfmfXAuO+W1t5vz9kjKH+2J5cjXll/LUH00ijcz4jYo88has2V+D2MAB
-	 hdgpjaHnGv2WnimseD2Uf4oxnjvy7KjS8rMPH+xivd49+pEGMO3tCf4H24xPnSlIRF
-	 32z4mS3woDCRiE+JMLIaF446Ri9RtitBEfBEXGmY=
-From: =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
-Date: Mon, 31 Aug 2026 06:48:47 +0200
-Subject: [PATCH] tools/nolibc: rename SET_ERRNO() to __nolibc_set_errno()
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AqkTYyMH"
+Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-398c1101c1bso1120183a91.1
+        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 21:49:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788151747; x=1788756547; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=g6UxknVhwES+fkCV48PrpOtYW0/olM82VS/wYfSM3Uw=;
+        b=AqkTYyMHVjFiA5THOgWEfyFALqCL0x5lKu3eaVtmLO1wMWK6A6OAmMg8MX9dCCZGCR
+         Ai5bp1Xo9IHdyvZYH7V3YEJMSNpKO0VVzMv3Z1R5WGyCwT6ch9u8xLriFqtPBthjB+7c
+         VYXGv/t0VnasctYfQujLLxioqFqUyU3xYv3pAv1BPGLV5KcF8mi4Gx6yubY6IaEse4M2
+         kznaXQ78Yi2gF0XEeeeZVtxQhSjq6caSTxtQ4fWCY58qAc/WE1TkV1P1HUItG/iumDtC
+         pnBdeoXyC8pU6W2xTugfGDWLCtRuRoXnvA1lGmYGagmwdvY9Zc2fxkl8gfZJo7dna0LP
+         vdsA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788151747; x=1788756547;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=g6UxknVhwES+fkCV48PrpOtYW0/olM82VS/wYfSM3Uw=;
+        b=Dwb7VJ8cdRyA5/NfxX2wlV4a3JxQ1cIN77kx2bQkc1UJPc/31onh9786uQmj1lipf8
+         EmeYgaGXFYPR/lLnbw/b4hD2QR8tTgZQEB8a5NziHfKZ6Pg3gTqPlIvxgkQiT98chCRt
+         NaAPVlXO2MnM6yAzjy/ySdBeBC2sK6yR7Q6M97jOBPFjqQsEMXmrbD5vjAjTNWLHKFHa
+         T04mQGAGtSrlCVyaUXesVZ29zAVdOjNB3zAp8BEDqi+zzpReyZQAt0aSPVnrz5KOkNRl
+         ha3Yt9XHIo53QMOe+EpDQjuv0wIQSQdasfdkJ8tDBft3DRsg5zIPDmgoUzl8CfLH63r+
+         voGg==
+X-Forwarded-Encrypted: i=1; AKwUvByc4TRtBqDgJEUdFOQ2bTkROOAY/a+beFA4yhQ+qvxIvoZhd5V/5u/uu0tvDwMnQDQDDhDfH8gt5Hwjqx8=@vger.kernel.org
+X-Gm-Message-State: AFuF++lUUiRK3gm8EQXWVW8tvZ6/2zomx3YoC56xmGiXzMSkt3xOtK/M
+	IgwuQ9TFmXx2nAUVULC527t/O3d+7x/k+IsvignoAJj3hir0dlC95+B5
+X-Gm-Gg: AYBFou0ZlOAS94mhkUVuvTGeqv5QCxmsZRrSNgtd2YziJEBO4OY7+vqFmndrclUsCvc
+	7mRxucu2s914BxpsDveZu35qygdAS/D4e//eF9G/kB5U5yd/kvpbvKl0vRfPa+laqRqPtlpCMwE
+	E651zrbAlqJz7Rahln5pLmupgvQXPgQVxisj8F58dl4SoDb54j4TmMoPqYo2YydprxWMk4WGV+D
+	403ot5Y2EAFv33vzjalZc3LONaoVWLPwAYtIhHmkKzk0MrBEcIrtwbZs1lN4WYJjYB9HheY4faq
+	TKQig+7jSa3LgoirBf31QnDFKptKB9JT3Vx8hMCNtR117zBzQuobDdhH7b5tL4+h2Xih6nH+7zn
+	5LUGkbaUoK685075/2p5wuBEGFV36bheYCpzQLSdOiOy9NogClc8kk7FBi51KA23RYuqr4J8zl+
+	oh0fP/RW1fRik4vjxGjz6TmF8o1qY13/0X7kezdbRZR7EvZ3+7vT9ery7XCcAv27kQbszLZ73By
+	VLVZJZdEB8Q+Q==
+X-Received: by 2002:a17:90b:4b05:b0:381:cef1:11ac with SMTP id 98e67ed59e1d1-396d0fe2140mr36234553a91.10.1788151746977;
+        Sun, 30 Aug 2026 21:49:06 -0700 (PDT)
+Received: from d.home.yangfl.dn42 ([2a09:bac1:76a0:d30::4cf:2e])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396b0fd5c34sm19345763a91.8.2026.08.30.21.49.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 30 Aug 2026 21:49:06 -0700 (PDT)
+From: David Yang <mmyangfl@gmail.com>
+To: netdev@vger.kernel.org
+Cc: David Yang <mmyangfl@gmail.com>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net-next v11 0/5] net: dsa: motorcomm: Add LED support
+Date: Mon, 31 Aug 2026 12:38:53 +0800
+Message-ID: <20260831044818.4103477-1-mmyangfl@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260831-nolibc-set-errno-v1-1-516b7a970e7d@weissschuh.net>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMTQqDMBBA4avIrB2IP4S0VykuNE7slJKUGRVBv
- LupLr/FezsoCZPCs9hBaGXlFDOqsgD/7uNEyGM21Ka2xjUVxvTlwaPSjCQSE9oxtMb11rnwgJz
- 9hAJv1/LV3dZl+JCf/x84jhMKv0zPdAAAAA==
-X-Change-ID: 20260831-nolibc-set-errno-6df408a688f9
-To: Willy Tarreau <w@1wt.eu>
-Cc: linux-kernel@vger.kernel.org, 
- =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788151731; l=7553;
- i=linux@weissschuh.net; s=20221212; h=from:subject:message-id;
- bh=zOfMkKvQ/4SyNTJ14DRTwpEpVyFE3GSJ3XgEqN5Li8w=;
- b=/W8zv356lpjP0ImEtB8lWZP9/u9z2jX6CwUuGXWKsHEVuqth0/BgYw5azbf9n/MW10rMqGhDW
- WPoXcs+3qggDC8X6cpgQew5zXpcBMxt6xHNLlxfQ2GAjOldusixHVuv
-X-Developer-Key: i=linux@weissschuh.net; a=ed25519;
- pk=KcycQgFPX2wGR5azS7RhpBqedglOZVgRPfdFSPB1LNw=
 
-The previous name infringes on the application's namespace.
+LEDs can be described in the device tree using the standard LED node
+notation. Currently, only parallel mode and strict 1:1 mapping (i.e. the
+HW default) are supported.
 
-Rename it to a nolibc-private name.
+v10: https://lore.kernel.org/r/20260816193905.218112-1-mmyangfl@gmail.com
+  - new patch to fix lock status check
+  - LED control block redesigned
+v9: https://lore.kernel.org/r/20260726162731.1005803-1-mmyangfl@gmail.com
+  - LED initialization sequence adjusted
+  - add DT description
+v8: https://lore.kernel.org/r/20260725045008.858692-1-mmyangfl@gmail.com
+  - limit the led port number
+v7: https://lore.kernel.org/r/20260723195335.806002-1-mmyangfl@gmail.com
+  - rebase
+v6: https://lore.kernel.org/r/20260709014812.1158178-1-mmyangfl@gmail.com
+  - per-port initialization support
+v5: https://lore.kernel.org/r/20260707064752.1030345-1-mmyangfl@gmail.com
+  - improve trigger selection
+v4: https://lore.kernel.org/r/20260703165241.542195-1-mmyangfl@gmail.com
+  - fix some reg op typos
+v3: https://lore.kernel.org/r/20260701155519.273212-1-mmyangfl@gmail.com
+  - fix null pointer dereference
+  - support polarity auto-configuration
+v2: https://lore.kernel.org/r/20260629183137.541341-1-mmyangfl@gmail.com
+  - allocate LED structures only
+  - eliminate double locking
+v1: https://lore.kernel.org/r/20260618202716.2166450-1-mmyangfl@gmail.com
+  - set up polarity correctly
+  - do not set up .brightness_get() to prevent dead lo
 
-Signed-off-by: Thomas Weißschuh <linux@weissschuh.net>
----
- tools/include/nolibc/dirent.h   |  4 ++--
- tools/include/nolibc/errno.h    |  4 ++--
- tools/include/nolibc/stdio.h    | 12 ++++++------
- tools/include/nolibc/stdlib.h   |  6 +++---
- tools/include/nolibc/sys.h      | 13 ++++++++-----
- tools/include/nolibc/sys/mman.h |  4 ++--
- tools/include/nolibc/sys/wait.h |  2 +-
- tools/include/nolibc/unistd.h   |  4 ++--
- 8 files changed, 26 insertions(+), 23 deletions(-)
+David Yang (5):
+  net: dsa: yt921x: Check lock status with lockdep_assert_held_once()
+  net: dsa: motorcomm: Move to subdirectory
+  net: dsa: motorcomm: Split SMI module
+  net: dsa: motorcomm: Add LED support
+  dt-bindings: net: dsa: yt921x: Add LEDs definition example
 
-diff --git a/tools/include/nolibc/dirent.h b/tools/include/nolibc/dirent.h
-index 4e02ef25e72d..49e5190cc1f0 100644
---- a/tools/include/nolibc/dirent.h
-+++ b/tools/include/nolibc/dirent.h
-@@ -31,7 +31,7 @@ static __attribute__((unused))
- DIR *fdopendir(int fd)
- {
- 	if (fd < 0) {
--		SET_ERRNO(EBADF);
-+		__nolibc_set_errno(EBADF);
- 		return NULL;
- 	}
- 	return (DIR *)(intptr_t)~fd;
-@@ -54,7 +54,7 @@ int closedir(DIR *dirp)
- 	intptr_t i = (intptr_t)dirp;
- 
- 	if (i >= 0) {
--		SET_ERRNO(EBADF);
-+		__nolibc_set_errno(EBADF);
- 		return -1;
- 	}
- 	return close(~i);
-diff --git a/tools/include/nolibc/errno.h b/tools/include/nolibc/errno.h
-index a2325596d550..9c2fe7810073 100644
---- a/tools/include/nolibc/errno.h
-+++ b/tools/include/nolibc/errno.h
-@@ -13,12 +13,12 @@
- #include <linux/errno.h>
- 
- #ifndef NOLIBC_IGNORE_ERRNO
--#define SET_ERRNO(v) do { errno = (v); } while (0)
-+#define __nolibc_set_errno(v) do { errno = (v); } while (0)
- int errno __attribute__((weak));
- char *program_invocation_name __attribute__((weak)) = (char *)"";
- char *program_invocation_short_name __attribute__((weak)) = (char *)"";
- #else
--#define SET_ERRNO(v) do { } while (0)
-+#define __nolibc_set_errno(v) do { } while (0)
- #define program_invocation_name ""
- #define program_invocation_short_name ""
- #endif
-diff --git a/tools/include/nolibc/stdio.h b/tools/include/nolibc/stdio.h
-index ebdd413d13ec..25205d40e2b3 100644
---- a/tools/include/nolibc/stdio.h
-+++ b/tools/include/nolibc/stdio.h
-@@ -50,7 +50,7 @@ static __attribute__((unused))
- FILE *fdopen(int fd, const char *mode __attribute__((unused)))
- {
- 	if (fd < 0) {
--		SET_ERRNO(EBADF);
-+		__nolibc_set_errno(EBADF);
- 		return NULL;
- 	}
- 	return (FILE*)(intptr_t)~fd;
-@@ -72,7 +72,7 @@ FILE *fopen(const char *pathname, const char *mode)
- 		flags = O_WRONLY | O_CREAT | O_APPEND;
- 		break;
- 	default:
--		SET_ERRNO(EINVAL); return NULL;
-+		__nolibc_set_errno(EINVAL); return NULL;
- 	}
- 
- 	if (mode[1] == '+')
-@@ -89,7 +89,7 @@ int fileno(FILE *stream)
- 	intptr_t i = (intptr_t)stream;
- 
- 	if (i >= 0) {
--		SET_ERRNO(EBADF);
-+		__nolibc_set_errno(EBADF);
- 		return -1;
- 	}
- 	return ~i;
-@@ -103,7 +103,7 @@ int fflush(FILE *stream)
- 
- 	/* NULL is valid here. */
- 	if (i > 0) {
--		SET_ERRNO(EBADF);
-+		__nolibc_set_errno(EBADF);
- 		return -1;
- 	}
- 
-@@ -118,7 +118,7 @@ int fclose(FILE *stream)
- 	intptr_t i = (intptr_t)stream;
- 
- 	if (i >= 0) {
--		SET_ERRNO(EBADF);
-+		__nolibc_set_errno(EBADF);
- 		return -1;
- 	}
- 
-@@ -900,7 +900,7 @@ int vsscanf(const char *str, const char *format, va_list args)
- 			} else if (*format == 'p') {
- 				*va_arg(args, void **) = (void *)strtoul(str, &endptr, 16);
- 			} else {
--				SET_ERRNO(EILSEQ);
-+				__nolibc_set_errno(EILSEQ);
- 				goto done;
- 			}
- 
-diff --git a/tools/include/nolibc/stdlib.h b/tools/include/nolibc/stdlib.h
-index 1816c2368b68..400f160e2fa5 100644
---- a/tools/include/nolibc/stdlib.h
-+++ b/tools/include/nolibc/stdlib.h
-@@ -148,7 +148,7 @@ void *calloc(size_t size, size_t nmemb)
- 	size_t x;
- 
- 	if (__builtin_expect(__builtin_mul_overflow(size, nmemb, &x), 0)) {
--		SET_ERRNO(ENOMEM);
-+		__nolibc_set_errno(ENOMEM);
- 		return NULL;
- 	}
- 
-@@ -440,7 +440,7 @@ uintmax_t __strtox(const char *nptr, char **endptr, int base, intmax_t lower_lim
- 	char c;
- 
- 	if (base < 0 || base > 36) {
--		SET_ERRNO(EINVAL);
-+		__nolibc_set_errno(EINVAL);
- 		goto out;
- 	}
- 
-@@ -496,7 +496,7 @@ uintmax_t __strtox(const char *nptr, char **endptr, int base, intmax_t lower_lim
- 
- out:
- 	if (overflow) {
--		SET_ERRNO(ERANGE);
-+		__nolibc_set_errno(ERANGE);
- 		val = limit;
- 	}
- 	if (endptr)
-diff --git a/tools/include/nolibc/sys.h b/tools/include/nolibc/sys.h
-index 548f94d96ed2..650b7a85e0f1 100644
---- a/tools/include/nolibc/sys.h
-+++ b/tools/include/nolibc/sys.h
-@@ -40,9 +40,12 @@
- #define __sysret(arg)							\
- ({									\
- 	__typeof__(arg) __sysret_arg = (arg);				\
--	(__sysret_arg < 0)                              /* error ? */	\
--		? (({ SET_ERRNO(-__sysret_arg); }), -1) /* ret -1 with errno = -arg */ \
--		: __sysret_arg;                         /* return original value */ \
-+	/* error ? */							\
-+	(__sysret_arg < 0)						\
-+		/* return -1 with errno = -arg */			\
-+		? (({ __nolibc_set_errno(-__sysret_arg); }), -1)	\
-+		/* return original value */				\
-+		: __sysret_arg;						\
- })
- 
- /* Syscall ENOSYS helper: Avoids unused-parameter warnings, provides compile
-@@ -121,7 +124,7 @@ int brk(void *addr)
- 	void *ret = _sys_brk(addr);
- 
- 	if (!ret) {
--		SET_ERRNO(ENOMEM);
-+		__nolibc_set_errno(ENOMEM);
- 		return -1;
- 	}
- 	return 0;
-@@ -136,7 +139,7 @@ void *sbrk(intptr_t inc)
- 	if (ret && _sys_brk(ret + inc) == ret + inc)
- 		return ret + inc;
- 
--	SET_ERRNO(ENOMEM);
-+	__nolibc_set_errno(ENOMEM);
- 	return (void *)-1;
- }
- 
-diff --git a/tools/include/nolibc/sys/mman.h b/tools/include/nolibc/sys/mman.h
-index 72bc1d43d1d4..e5eb42825783 100644
---- a/tools/include/nolibc/sys/mman.h
-+++ b/tools/include/nolibc/sys/mman.h
-@@ -37,7 +37,7 @@ void *mmap(void *addr, size_t length, int prot, int flags, int fd, off_t offset)
- 	void *ret = _sys_mmap(addr, length, prot, flags, fd, offset);
- 
- 	if ((unsigned long)ret >= -4095UL) {
--		SET_ERRNO(-(long)ret);
-+		__nolibc_set_errno(-(long)ret);
- 		ret = MAP_FAILED;
- 	}
- 	return ret;
-@@ -56,7 +56,7 @@ void *mremap(void *old_address, size_t old_size, size_t new_size, int flags, voi
- 	void *ret = _sys_mremap(old_address, old_size, new_size, flags, new_address);
- 
- 	if ((unsigned long)ret >= -4095UL) {
--		SET_ERRNO(-(long)ret);
-+		__nolibc_set_errno(-(long)ret);
- 		ret = MAP_FAILED;
- 	}
- 	return ret;
-diff --git a/tools/include/nolibc/sys/wait.h b/tools/include/nolibc/sys/wait.h
-index 7a1feb2b66fc..7fb4b3fca013 100644
---- a/tools/include/nolibc/sys/wait.h
-+++ b/tools/include/nolibc/sys/wait.h
-@@ -41,7 +41,7 @@ pid_t waitpid(pid_t pid, int *status, int options)
- 	pid_t id;
- 
- 	if (pid == INT_MIN) {
--		SET_ERRNO(ESRCH);
-+		__nolibc_set_errno(ESRCH);
- 		return -1;
- 	} else if (pid < -1) {
- 		idtype = P_PGID;
-diff --git a/tools/include/nolibc/unistd.h b/tools/include/nolibc/unistd.h
-index a264a20da13d..d48f02a00f5f 100644
---- a/tools/include/nolibc/unistd.h
-+++ b/tools/include/nolibc/unistd.h
-@@ -90,7 +90,7 @@ char *getcwd(char *buf, size_t size)
- 
- 	/* Unlike other libc's we don't handle passing NULL for buf */
- 	if (!buf || !size) {
--		SET_ERRNO(EINVAL);
-+		__nolibc_set_errno(EINVAL);
- 		return NULL;
- 	}
- 
-@@ -105,7 +105,7 @@ char *getcwd(char *buf, size_t size)
- 	 * This matches what musl is doing.
- 	 */
- 	if (ret == 0 || buf[0] != '/') {
--		SET_ERRNO(ENOENT);
-+		__nolibc_set_errno(ENOENT);
- 		return NULL;
- 	}
- 
+ .../bindings/net/dsa/motorcomm,yt921x.yaml    |  23 +
+ MAINTAINERS                                   |   2 +-
+ drivers/net/dsa/Kconfig                       |  10 +-
+ drivers/net/dsa/Makefile                      |   2 +-
+ drivers/net/dsa/motorcomm/Kconfig             |  17 +
+ drivers/net/dsa/motorcomm/Makefile            |   5 +
+ .../net/dsa/{yt921x.c => motorcomm/chip.c}    | 228 +------
+ .../net/dsa/{yt921x.h => motorcomm/chip.h}    |  15 +
+ drivers/net/dsa/motorcomm/leds.c              | 641 ++++++++++++++++++
+ drivers/net/dsa/motorcomm/leds.h              | 118 ++++
+ drivers/net/dsa/motorcomm/smi.c               | 180 +++++
+ drivers/net/dsa/motorcomm/smi.h               |  61 ++
+ 12 files changed, 1083 insertions(+), 219 deletions(-)
+ create mode 100644 drivers/net/dsa/motorcomm/Kconfig
+ create mode 100644 drivers/net/dsa/motorcomm/Makefile
+ rename drivers/net/dsa/{yt921x.c => motorcomm/chip.c} (96%)
+ rename drivers/net/dsa/{yt921x.h => motorcomm/chip.h} (99%)
+ create mode 100644 drivers/net/dsa/motorcomm/leds.c
+ create mode 100644 drivers/net/dsa/motorcomm/leds.h
+ create mode 100644 drivers/net/dsa/motorcomm/smi.c
+ create mode 100644 drivers/net/dsa/motorcomm/smi.h
 
----
-base-commit: 9c47af906bc655c8f45aaf1f156656239c2c5073
-change-id: 20260831-nolibc-set-errno-6df408a688f9
-
-Best regards,
---  
-Thomas Weißschuh <linux@weissschuh.net>
+-- 
+2.53.0
 
