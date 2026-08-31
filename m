@@ -1,439 +1,101 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D597D3F1066;
-	Mon, 31 Aug 2026 01:31:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0349A7260D;
+	Mon, 31 Aug 2026 01:34:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788139875; cv=none; b=h/UD55Zc2dk4vrvOeRxv6sAHTlb9AjqfeTeRr8F6fhqNgjof5cW1KXR/t9tZChbMQol274YSR+yYo+srBcdwuKKJe6/f5hwTuOyOKYs1KiG2UM9fQ/YBBLcRz2HxFp9cVmHdQwXWWAUckfkKxnnteIOQZ9HP/kBZMHxpOR5P+Xc=
+	t=1788140093; cv=none; b=utar+AvPe8q7mJVLzbO3zvYrVwNZ9/qHCmnlShRRrY25ldXJSdpzAjBihfg1XxWPaOTHjTaxYcDZVXCN5xafqYn/yNNqNuwlZefnRrXBmxX+TobRSdghUCC3iBoD2RadpNFM2zxYSbG/mQLB0e5yhbRQhocEJGyI8a35ONXu5/U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788139875; c=relaxed/simple;
-	bh=Sk16axtaetc8ZObl0AjH9H8Lzi7oNseZ9/dzRgNrTwk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=eo9w/4pnzqMGS00MhK93E9sJ9t1HzC9l7c/5GUFE4rWFKYrdggKnNzJv3gI1onWIrKvoZkgzduSFeNKMtqFb3HgXymlatYCROgd1TS+oYRZx7obIFsJWPo2Rq6Ja59sJBUGm2khYuZ4YzEo8uJYhlTuxJHcvEBRTOgnI4nK6AjY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=a8CgJyEw; arc=none smtp.client-ip=192.198.163.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1788140093; c=relaxed/simple;
+	bh=XAQhw2DAELXbMhOtLuwXtBEHurz/vLsnJyUpShH7ldU=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=II/c/RQ31kL8TLPqGeKvWmAeggT2QMrzSIYjWfEkmfjxRtus6PhfA1eUyQmhJu5UFIQA/6Yj4d1+VM4DXx7iqtIw7qozZihEa4OQarclhCXvqnG7sGbiQq2GM4LLvqB+YiroUQ3CLtLBUUw6TTr+9sNw5wDsyk/kEbENP9nu6f8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=V0kLDHcI; arc=none smtp.client-ip=117.135.210.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="a8CgJyEw"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788139873; x=1819675873;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=Sk16axtaetc8ZObl0AjH9H8Lzi7oNseZ9/dzRgNrTwk=;
-  b=a8CgJyEwzyI5dSOm6QH0mZzhaDBNKl9XpEryM0KmX6AYSC8l0MFq9K9k
-   /e117+IEUkvtgM/9JG0IxeIZX6p6nJMm5qQoPPPNqJdB8exv9H3uDDmyZ
-   6voNQwCNlnuLeBdQ3kJZ2UgLEzQVP7C6nDKwpxgpwfpYhT68gtWg1LfGh
-   vsux4V+jM+iS404V50z91B/Nto7/wODPlwfCaLzdoCKdLgiFPtTmBkpzm
-   eFxKJQY5PchznAdiaFvJEiqk2xMjf/SjYn+CWmCoe3MSBX6lUQ8UZYuWC
-   KSGF9K7PbuQbM62YB42pzgeg5WE8v/dxL1DARYXEW7/e7Qv/U6zNSiACO
-   g==;
-X-CSE-ConnectionGUID: wwOG/agKSae2wNebgOHAIQ==
-X-CSE-MsgGUID: 6sYoocpGT56cLEo5EXzcZA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11891"; a="76086959"
-X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
-   d="scan'208";a="76086959"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Aug 2026 18:31:12 -0700
-X-CSE-ConnectionGUID: LMW4kpjBT5qaC4zuApgP+w==
-X-CSE-MsgGUID: OgD0AhncSCi8C4R1KGRgcA==
-X-ExtLoop1: 1
-Received: from dapengmi-mobl1.ccr.corp.intel.com (HELO [10.124.241.239]) ([10.124.241.239])
-  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Aug 2026 18:31:09 -0700
-Message-ID: <6d81b35a-3c5d-4f9d-8c72-6418a1ca49c1@linux.intel.com>
-Date: Mon, 31 Aug 2026 09:31:05 +0800
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="V0kLDHcI"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=z1
+	9ziYzlRKZx6zie0RnE6wXWzn/6qa4EAc4MT1IdAEg=; b=V0kLDHcIupiy3orZaR
+	oZGDxyzjO6gelF8yMPF1VR9+1hkU0BohQYLgXhBSOoaMgo6saVfvNKCOYiZCt3WK
+	6hlE5KeZCmx3Lzbe8iV+nrxGnteID0kGbMfnTqp0j6VGbQ71a+Gy3+KJgzb9rJoK
+	aL3ugPdmECvAP3Sa/hHq/BtaE=
+Received: from localhost.localdomain (unknown [])
+	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wDnf4Tb2ZRqdfBMSg--.60465S2;
+	Mon, 31 Aug 2026 09:33:17 +0800 (CST)
+From: luoqing <l1138897701@163.com>
+To: Pablo Neira Ayuso <pablo@netfilter.org>,
+	Florian Westphal <fw@strlen.de>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: Phil Sutter <phil@nwl.cc>,
+	Simon Horman <horms@kernel.org>,
+	Jing Min Zhao <zhaojignmin@hotmail.com>,
+	Patrick McHardy <kaber@trash.net>,
+	netfilter-devel@vger.kernel.org,
+	coreteam@netfilter.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [RESEND PATCH nf-next] netfilter: nf_conntrack_h323: fix double cursor advance in decode_int()
+Date: Mon, 31 Aug 2026 09:33:15 +0800
+Message-Id: <20260831013315.95231-1-l1138897701@163.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 12/23] KVM: x86/pmu: Add the perfmon_mask module parameter
-To: "Chen, Zide" <zide.chen@intel.com>,
- Sean Christopherson <seanjc@google.com>, Paolo Bonzini
- <pbonzini@redhat.com>, Peter Zijlstra <peterz@infradead.org>
-Cc: kvm@vger.kernel.org, Andi Kleen <ak@linux.intel.com>,
- Jim Mattson <jmattson@google.com>, Stephane Eranian <eranian@google.com>,
- linux-kernel@vger.kernel.org, Mingwei Zhang <mizhang@google.com>,
- Das Sandipan <Sandipan.Das@amd.com>, Shukla Manali <Manali.Shukla@amd.com>,
- Xudong Hao <xudong.hao@intel.com>
-References: <20260821222002.54907-1-zide.chen@intel.com>
- <20260821222002.54907-13-zide.chen@intel.com>
- <c804747d-9214-4587-8f53-e6cb219268bf@linux.intel.com>
- <686cab53-132c-4550-9e64-55a8f8164755@intel.com>
-Content-Language: en-US
-From: "Mi, Dapeng" <dapeng1.mi@linux.intel.com>
-In-Reply-To: <686cab53-132c-4550-9e64-55a8f8164755@intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wDnf4Tb2ZRqdfBMSg--.60465S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7Kry7Wr13KF1kuF1rZr1rXrb_yoW8Wr45pr
+	ZxK3y7Gr9rXF4Ska1jga97Ary7J395Gr43WryrtrWFk398JFWUWFW5K34YgFy7Jr4kJFyD
+	ZF15ZF47Aa1kZFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jbAwsUUUUU=
+X-CM-SenderInfo: jorrjmiyzxliqr6rljoofrz/xtbC3R1tsWqU2d2ZvgAA3B
 
+From: Qing Luo <luoqing@kylinos.cn>
 
-On 8/28/2026 6:45 AM, Chen, Zide wrote:
->
-> On 8/26/2026 3:18 AM, Mi, Dapeng wrote:
->> I don't remember why to set the perfmon_mask to be a kvm_intel module
->> parameter, but per my understanding, it seems better and more
->> straightforward to set perfmon_mask to be a perf/x86 parameter. It's also
->> consistent with current perf/x86 behavior. Host exposes all PMU
->> capabilities to KVM instead of the opposite.
-> Perfmon Masking can be enabled only after perf_create_mediated_pmu()
-> succeeds, but the following conditions are not determined by perf/x86:
->
-> - Host VMX capability support.
-> - mediated PMU is enabled.
-> - perf/core does not block the mediated guest creation.
+In the CONS case of decode_int(), when the field is actually decoded
+(base is not NULL and the field carries the DECODE attribute),
+get_uint() already advances the bitstream cursor by 'len' bytes.  The
+subsequent unconditional "bs->cur += len" then advances the cursor a
+second time over the same data, so the parser skips 'len' extra bytes.
 
-Ok, strictly speaking, whether mediated vPMU is enabled has nothing to do
-with the PMU partition, but it's true that only KVM knows if VMX supports
-perfmon_mask.
+All fields following such an integer are decoded from a wrong bit
+position.  This affects the timeToLive field in RAS
+RegistrationRequest/RegistrationConfirm messages: subsequent fields
+(e.g. transport addresses) end up being parsed from arbitrary offsets
+inside the message, so the helper may create expectations based on
+bogus addresses/ports.
 
-If we decide to define the perfmon_mask as a kvm_intel parameter, the host
-events need to be forced scheduling out and scheduling when the parameter
-changes. But suppose it's fine since it should be not frequent to change
-the parameter.
+Only advance the cursor manually when get_uint() was not called, so
+that the value bytes are consumed exactly once in either case.
 
-Thanks.
+Assisted-by: LLM
+Signed-off-by: Qing Luo <luoqing@kylinos.cn>
+---
+ net/netfilter/nf_conntrack_h323_asn1.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
+diff --git a/net/netfilter/nf_conntrack_h323_asn1.c b/net/netfilter/nf_conntrack_h323_asn1.c
+index 6830c9da3507..a51275cc4d0f 100644
+--- a/net/netfilter/nf_conntrack_h323_asn1.c
++++ b/net/netfilter/nf_conntrack_h323_asn1.c
+@@ -336,8 +336,9 @@ static int decode_int(struct bitstr *bs, const struct field_t *f,
+ 			unsigned int v = get_uint(bs, len) + f->lb;
+ 			PRINT(" = %u", v);
+ 			*((unsigned int *)(base + f->offset)) = v;
++		} else {
++			bs->cur += len;
+ 		}
+-		bs->cur += len;
+ 		break;
+ 	case UNCO:
+ 		BYTE_ALIGN(bs);
+-- 
+2.25.1
 
->
-> If perf/x86 owns the parameter, but whether the parameter takes effect
-> depends on actions taken by a loaded module at runtime, it does not
-> sound reasonable.
->
-> BTW, in this approach, an additional interface between KVM and perf/x86
-> would be needed to communicate the enablement of Perfmon Masking.
->
-> Additionally, this is less flexible, as the mask cannot be changed
-> without rebooting the host. I might be wrong, but not sure whether
-> different masks may be needed to accommodate different guests for live
-> migration.
->
-> Also, given that the format of this parameter is complicated, it is not
-> surprising that an administrator may provide an incorrect or undesired
-> value at boot time, and repeatedly rebooting the host to correct it may
-> not be convenient.
->> Thanks.
->>
->> On 8/22/2026 6:19 AM, Zide Chen wrote:
->>> Only Intel CPUs support PerfMon masking, so this new parameter is
->>> Intel-specific. Mediated vPMU must be enabled for PerfMon masking.
->>>
->>> PerfMon masking lets a VMM partition PMU resources between host and
->>> guest: each mask bit determines whether the guest (set) or host
->>> (clear) owns a counter's MSR(s), RDPMC access, and the corresponding
->>> bit in the global MSRs (e.g. IA32_PERF_GLOBAL_CTRL) in non-root mode.
->>>
->>> The setting is system-wide and caps what any individual guest may be
->>> given; each guest may configure a subset of it.
->>>
->>> The parameter is configured with a text-based, semicolon-separated
->>> list of terms. Currently supported for a mediated vPMU guest:
->>>
->>>   guest_gp=<list>    general purpose counters (0-based) owned by the guest
->>>   guest_fixed=<list> fixed counters (0-based) owned by the guest
->>>   perf_metrics       PERF_METRICS is owned by the guest
->>>
->>> For example:
->>>
->>>   kvm-intel.perfmon_mask=guest_gp=0-3;guest_fixed=0,2-3;perf_metrics
->>>
->>> Internally, the parsed terms are folded into a 64-bit perfmon_mask
->>> variable that uses the same layout as the PERFMON_MASK VMCS field,
->>> i.e. the IA32_PERF_GLOBAL_STATUS layout. An empty (default) value
->>> behaves the same as a plain mediated vPMU.
->>>
->>> Using IA32_PERF_GLOBAL_CTRL in the generic VM-exit MSR-store area
->>> while the PerfMon masking VM-execution control is set is undefined,
->>> so PerfMon masking requires the dedicated Save-IA32_PERF_GLOBAL_CTRL
->>> VM-exit control.
->>>
->>> cpu_has_vmx_perfmon_mask() is hardcoded to false temporarily until
->>> later patches.
->>>
->>> Signed-off-by: Zide Chen <zide.chen@intel.com>
->>> ---
->>>  .../admin-guide/kernel-parameters.txt         | 30 ++++++++
->>>  arch/x86/kvm/pmu.c                            |  3 +
->>>  arch/x86/kvm/pmu.h                            |  1 +
->>>  arch/x86/kvm/vmx/capabilities.h               |  5 ++
->>>  arch/x86/kvm/vmx/pmu_intel.c                  | 68 +++++++++++++++++++
->>>  arch/x86/kvm/vmx/vmx.c                        | 54 +++++++++++++++
->>>  arch/x86/kvm/vmx/vmx.h                        |  1 +
->>>  arch/x86/kvm/x86.c                            |  2 +-
->>>  8 files changed, 163 insertions(+), 1 deletion(-)
->>>
->>> diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
->>> index b5493a7f8f22..e0ff16746a08 100644
->>> --- a/Documentation/admin-guide/kernel-parameters.txt
->>> +++ b/Documentation/admin-guide/kernel-parameters.txt
->>> @@ -3284,6 +3284,36 @@ Kernel parameters
->>>  			[KVM,Intel] Control nested virtualization feature in
->>>  			KVM/VMX. Default is 1 (enabled).
->>>  
->>> +	kvm-intel.perfmon_mask=
->>> +			[KVM,Intel] Defines the host-wide PMU resource
->>> +			partition between guest and host. Resources assigned
->>> +			to the guest are unavailable to the host, and vice
->>> +			versa, while a guest is running.
->>> +
->>> +			The value is a semicolon-separated list of terms:
->>> +
->>> +			  guest_gp=<list>    General purpose counters
->>> +					     (0-based) assigned to the guest.
->>> +			  guest_fixed=<list> Fixed counters (0-based) assigned
->>> +					     to the guest.
->>> +			  perf_metrics       PERF_METRICS is assigned to the
->>> +					     guest. Requires fixed counter 3
->>> +					     to also be assigned to the
->>> +					     guest.
->>> +
->>> +			<list> is a comma-separated list of numbers and/or
->>> +			ranges, e.g. "0-2,5". Terms and the resources they
->>> +			don't mention default to being host-owned. For
->>> +			example:
->>> +
->>> +				kvm-intel.perfmon_mask=guest_gp=0-3;guest_fixed=0-1,3;perf_metrics
->>> +
->>> +			assigns general purpose counters 0-3, fixed counters
->>> +			0, 1 and 3, and PERF_METRICS to the guest, while all
->>> +			other resources remain with the host.
->>> +
->>> +			Default is "" (disabled).
->>> +
->>>  	kvm-intel.unrestricted_guest=
->>>  			[KVM,Intel] Control KVM's use of unrestricted guest
->>>  			feature (virtualized real and unpaged mode). Default
->>> diff --git a/arch/x86/kvm/pmu.c b/arch/x86/kvm/pmu.c
->>> index c022337d0bec..92ff685d11b3 100644
->>> --- a/arch/x86/kvm/pmu.c
->>> +++ b/arch/x86/kvm/pmu.c
->>> @@ -43,6 +43,9 @@ module_param(enable_pmu, bool, 0444);
->>>  bool __read_mostly enable_mediated_pmu;
->>>  EXPORT_SYMBOL_FOR_KVM_INTERNAL(enable_mediated_pmu);
->>>  
->>> +u64 __read_mostly perfmon_mask;
->>> +EXPORT_SYMBOL_FOR_KVM_INTERNAL(perfmon_mask);
->>> +
->>>  struct kvm_x86_pmu_event_filter {
->>>  	__u32 action;
->>>  	__u32 nevents;
->>> diff --git a/arch/x86/kvm/pmu.h b/arch/x86/kvm/pmu.h
->>> index 8322bbed2d64..2dc12e3f3af0 100644
->>> --- a/arch/x86/kvm/pmu.h
->>> +++ b/arch/x86/kvm/pmu.h
->>> @@ -64,6 +64,7 @@ struct kvm_pmu_ops {
->>>  
->>>  extern bool enable_pmu;
->>>  extern bool enable_mediated_pmu;
->>> +extern u64 perfmon_mask;
->>>  
->>>  void kvm_pmu_ops_update(const struct kvm_pmu_ops *pmu_ops);
->>>  
->>> diff --git a/arch/x86/kvm/vmx/capabilities.h b/arch/x86/kvm/vmx/capabilities.h
->>> index 810119167f79..d4c362093966 100644
->>> --- a/arch/x86/kvm/vmx/capabilities.h
->>> +++ b/arch/x86/kvm/vmx/capabilities.h
->>> @@ -296,6 +296,11 @@ static inline bool cpu_has_vmx_ipiv(void)
->>>  	return vmcs_config.cpu_based_3rd_exec_ctrl & TERTIARY_EXEC_IPI_VIRT;
->>>  }
->>>  
->>> +static inline bool cpu_has_vmx_perfmon_mask(void)
->>> +{
->>> +	return false;
->>> +}
->>> +
->>>  static inline bool cpu_has_vmx_flexpriority(void)
->>>  {
->>>  	return cpu_has_vmx_tpr_shadow() &&
->>> diff --git a/arch/x86/kvm/vmx/pmu_intel.c b/arch/x86/kvm/vmx/pmu_intel.c
->>> index e2e51006ca47..62e542eac05e 100644
->>> --- a/arch/x86/kvm/vmx/pmu_intel.c
->>> +++ b/arch/x86/kvm/vmx/pmu_intel.c
->>> @@ -955,6 +955,74 @@ static void intel_mediated_pmu_put(struct kvm_vcpu *vcpu)
->>>  	}
->>>  }
->>>  
->>> +static bool intel_pmu_validate_perfmon_mask(void)
->>> +{
->>> +	u64 guest_fixed_mask, guest_gp_mask;
->>> +
->>> +	/*
->>> +	 * Combining VM-exit MSR-store with PerfMon masking produces
->>> +	 * undefined behavior, so it requires hardware support for this
->>> +	 * dedicated save control.
->>> +	 */
->>> +	if (!cpu_has_save_perf_global_ctrl())
->>> +		return false;
->>> +
->>> +	guest_gp_mask = perfmon_mask & GENMASK_ULL(INTEL_PMC_MAX_GENERIC - 1, 0);
->>> +	guest_fixed_mask = perfmon_mask >> INTEL_PMC_IDX_FIXED;
->>> +	guest_fixed_mask &= GENMASK_ULL(INTEL_PMC_MAX_FIXED - 1, 0);
->>> +
->>> +	if ((guest_fixed_mask & ~kvm_pmu_cap.fixed_cntr_mask64) ||
->>> +	    (guest_gp_mask & ~kvm_pmu_cap.cntr_mask64))
->>> +		return false;
->>> +
->>> +	/*
->>> +	 * Without KVM Arch PerfMon extension support, the guest cannot own
->>> +	 * non-contiguous GP counters.
->>> +	 */
->>> +	if (guest_gp_mask & (guest_gp_mask + 1))
->>> +		return false;
->>> +
->>> +	if ((perfmon_mask & GLOBAL_STATUS_PERF_METRICS_OVF) &&
->>> +	    !(kvm_host.perf_capabilities & PERF_CAP_PERF_METRICS))
->>> +		return false;
->>> +
->>> +	/*
->>> +	 * PERF_METRICS and fixed counter 3 must both be host-owned or both
->>> +	 * guest-owned.
->>> +	 */
->>> +	if (!!(perfmon_mask & BIT_ULL(GLOBAL_STATUS_PERF_METRICS_OVF_BIT)) !=
->>> +	    !!(perfmon_mask & BIT_ULL(INTEL_PMC_IDX_FIXED + 3)))
->>> +		return false;
->>> +
->>> +	/*
->>> +	 * The guest must not own all PMU counters. Otherwise, the configuration
->>> +	 * degenerates into plain mediated vPMU and adds unnecessary complexity
->>> +	 * to the perf scheduler.
->>> +	 */
->>> +	if ((guest_fixed_mask == kvm_host_pmu.fixed_cntr_mask64) &&
->>> +	    (guest_gp_mask == kvm_host_pmu.cntr_mask64))
->>> +		return false;
->>> +
->>> +	return true;
->>> +}
->>> +
->>> +void intel_pmu_perfmon_mask_setup(void)
->>> +{
->>> +	if (!perfmon_mask)
->>> +		return;
->>> +
->>> +	if (!enable_mediated_pmu || !cpu_has_vmx_perfmon_mask()) {
->>> +		perfmon_mask = 0;
->>> +		return;
->>> +	}
->>> +
->>> +	if (!intel_pmu_validate_perfmon_mask()) {
->>> +		pr_warn("Invalid perfmon_mask=%#llx, disabling PerfMon masking\n",
->>> +			perfmon_mask);
->>> +		perfmon_mask = 0;
->>> +	}
->>> +}
->>> +
->>>  struct kvm_pmu_ops intel_pmu_ops __initdata = {
->>>  	.emulate_rdpmc = intel_emulate_rdpmc,
->>>  	.msr_idx_to_pmc = intel_msr_idx_to_pmc,
->>> diff --git a/arch/x86/kvm/vmx/vmx.c b/arch/x86/kvm/vmx/vmx.c
->>> index ded63e2e39ce..cdd141d22efa 100644
->>> --- a/arch/x86/kvm/vmx/vmx.c
->>> +++ b/arch/x86/kvm/vmx/vmx.c
->>> @@ -14,6 +14,7 @@
->>>   */
->>>  #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
->>>  
->>> +#include <linux/bitmap.h>
->>>  #include <linux/highmem.h>
->>>  #include <linux/hrtimer.h>
->>>  #include <linux/kernel.h>
->>> @@ -25,6 +26,7 @@
->>>  #include <linux/sched.h>
->>>  #include <linux/sched/smt.h>
->>>  #include <linux/slab.h>
->>> +#include <linux/string.h>
->>>  #include <linux/tboot.h>
->>>  #include <linux/trace_events.h>
->>>  
->>> @@ -164,6 +166,56 @@ module_param(allow_smaller_maxphyaddr, bool, S_IRUGO);
->>>  
->>>  module_param(enable_mediated_pmu, bool, 0444);
->>>  
->>> +/*
->>> + * See the "kvm-intel.perfmon_mask" entry in
->>> + * Documentation/admin-guide/kernel-parameters.txt for the full syntax.
->>> + * Example: kvm-intel.perfmon_mask=guest_gp=0-3;guest_fixed=0-1,3;perf_metrics
->>> + */
->>> +static int perfmon_mask_set(const char *val, const struct kernel_param *kp)
->>> +{
->>> +	unsigned long gp_bitmap = 0, fixed_bitmap = 0;
->>> +	char *buf, *orig, *tok;
->>> +	size_t prefix_len;
->>> +	u64 mask = 0;
->>> +	int r = 0;
->>> +
->>> +	buf = orig = kstrdup(val, GFP_KERNEL);
->>> +	if (!buf)
->>> +		return -ENOMEM;
->>> +
->>> +	while ((tok = strsep(&buf, ";")) != NULL) {
->>> +		if (!*tok)
->>> +			continue;
->>> +
->>> +		if (!strcmp(tok, "perf_metrics")) {
->>> +			mask |= GLOBAL_STATUS_PERF_METRICS_OVF;
->>> +		} else if ((prefix_len = str_has_prefix(tok, "guest_gp="))) {
->>> +			r = bitmap_parselist(tok + prefix_len, &gp_bitmap,
->>> +					     INTEL_PMC_MAX_GENERIC);
->>> +		} else if ((prefix_len = str_has_prefix(tok, "guest_fixed="))) {
->>> +			r = bitmap_parselist(tok + prefix_len, &fixed_bitmap,
->>> +					     INTEL_PMC_MAX_FIXED);
->>> +		} else {
->>> +			r = -EINVAL;
->>> +		}
->>> +
->>> +		if (r)
->>> +			goto out;
->>> +	}
->>> +
->>> +	mask |= gp_bitmap | ((u64)fixed_bitmap << INTEL_PMC_IDX_FIXED);
->>> +	*(u64 *)kp->arg = mask;
->>> +out:
->>> +	kfree(orig);
->>> +	return r;
->>> +}
->>> +
->>> +static const struct kernel_param_ops perfmon_mask_ops = {
->>> +	.set = perfmon_mask_set,
->>> +	.get = param_get_ullong,
->>> +};
->>> +module_param_cb(perfmon_mask, &perfmon_mask_ops, &perfmon_mask, 0444);
->>> +
->>>  #define KVM_VM_CR0_ALWAYS_OFF (X86_CR0_NW | X86_CR0_CD)
->>>  #define KVM_VM_CR0_ALWAYS_ON_UNRESTRICTED_GUEST X86_CR0_NE
->>>  #define KVM_VM_CR0_ALWAYS_ON				\
->>> @@ -8824,6 +8876,8 @@ __init int vmx_hardware_setup(void)
->>>  	else
->>>  		vt_init_ops.handle_intel_pt_intr = NULL;
->>>  
->>> +	intel_pmu_perfmon_mask_setup();
->>> +
->>>  	setup_default_sgx_lepubkeyhash();
->>>  
->>>  	vmx_set_cpu_caps();
->>> diff --git a/arch/x86/kvm/vmx/vmx.h b/arch/x86/kvm/vmx/vmx.h
->>> index dc8517f15bc4..ccda5c5c8c2c 100644
->>> --- a/arch/x86/kvm/vmx/vmx.h
->>> +++ b/arch/x86/kvm/vmx/vmx.h
->>> @@ -667,6 +667,7 @@ static __always_inline struct vcpu_vmx *to_vmx(struct kvm_vcpu *vcpu)
->>>  void intel_pmu_cross_mapped_check(struct kvm_pmu *pmu);
->>>  int intel_pmu_create_guest_lbr_event(struct kvm_vcpu *vcpu);
->>>  void vmx_passthrough_lbr_msrs(struct kvm_vcpu *vcpu);
->>> +void intel_pmu_perfmon_mask_setup(void);
->>>  
->>>  struct vmcs *alloc_vmcs_cpu(bool shadow, int cpu, gfp_t flags);
->>>  void free_vmcs(struct vmcs *vmcs);
->>> diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
->>> index 5f3215915c76..26a3b7a267b5 100644
->>> --- a/arch/x86/kvm/x86.c
->>> +++ b/arch/x86/kvm/x86.c
->>> @@ -9328,7 +9328,7 @@ int kvm_arch_vcpu_precreate(struct kvm *kvm, unsigned int id)
->>>  	if (enable_mediated_pmu && kvm->arch.enable_pmu &&
->>>  	    !kvm->arch.created_mediated_pmu) {
->>>  		if (irqchip_in_kernel(kvm)) {
->>> -			r = perf_create_mediated_pmu(0);
->>> +			r = perf_create_mediated_pmu(perfmon_mask);
->>>  			if (r) {
->>>  				pr_warn_ratelimited(PERF_MEDIATED_PMU_MSG);
->>>  				return r;
