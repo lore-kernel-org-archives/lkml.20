@@ -1,63 +1,128 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-25.mta1.migadu.com [95.215.58.25])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4246930F924;
-	Mon, 31 Aug 2026 21:06:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B56F0370AF8
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 21:06:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788210389; cv=none; b=rZy+Y2fMKk9RxmmizVvs4b9wGs/mZoNVtYQt6wDzMFKYmFQsoXDSo1MS2c32pvpgTgYSOV7cYZZeGDfUlbCPLYsbgU/zNt+h8NX+zQVKpzHTuWAdkYr8i8J5wtx7TxGa1KpI42qldSnWuvrLDkqkc5LI5AdrHW4BfR27PxH+fQM=
+	t=1788210413; cv=none; b=DtDkYtHypGztXEQ1T5tgCkHlKcfBACwXqYK1q+5W068rOKEcAri5bYzUqfEiGDZCTYg7HxdK0mWgg1DR803vRNQfxSBpzl3186ZVY7LH0yD5WDCD6VGJmbiE6HbxTEXw3MXF0rpV69QuU9c/mUP2iAxTm1TYWu2dkvorcV3GxKI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788210389; c=relaxed/simple;
-	bh=on9W0iZdjE0CONYEBQDzRLxVCXvTBfYkz3qO8R4fyzk=;
-	h=Subject:From:In-Reply-To:References:Message-Id:Date:To:Cc; b=bGAH7VCgKWBpA6LCAoNrAw8Jomdq3wItxyhfOu1pgxkBykqLzI6AbxVqc3aoa8rIRJ/tTDi2TOmHLDbucIAPwg04TfilhuDAcnqr6NF9Z2neJq2YDxrbXERKWNzMByK41/mVFMYFi2lzkVij03esEb1v7EgUIWWu9WnzvG8wDvk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=neZ8YcSe; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788210413; c=relaxed/simple;
+	bh=wNd8QboWKht0yztSP4Sbpt6U2NkJV8XlHDJXK515WTg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=i8xxqgaEetn3DTiSKpILZovaVT/4HZdAlyGjhYI9WLaQ2Z2+I+l72IsyA7WP75uUdK9GusfxQ8q5RASSnrpATYvgfUFVZVzqUPG3wbQAQlGhaw2BCXA/VyCOHKOh5ruQbSFNttsj+ulzOLOg/RQI6dVnsBSUYuAK8ap5b4vtH80=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=NjVGE9Xc; arc=none smtp.client-ip=95.215.58.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="neZ8YcSe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D227E1F00A3D;
-	Mon, 31 Aug 2026 21:06:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788210387;
-	bh=BLInu6RvvZGHywwNg4lsOHG+7URIGo5mulh0ZFWtrO4=;
-	h=Subject:From:In-Reply-To:References:Date:To:Cc;
-	b=neZ8YcSeBYgnRcEzMKlpEmQG+AyUDszo6GQeBLpOL1o/+lnRKlPwM41UEc5QduBHx
-	 WSydGpBQrWaYrjkBAg9yYX7kUQ82TFEzrHTacP3VOCAgnXUWL09VlKWDgV1d4jbUSp
-	 oM2UCD8np7qDSFrY5AzqOteEoKEbK9mVMEsdQAdOwPB7MlNw+fmEGwQERJ3da1rEoO
-	 E4Dd491sjeE9CpOwa62ZHB+ce/lljaYQsjkyaxSXV9QettIhIdaMPquK+t2ynHBFRt
-	 MRUUCFekjQbenCubR+I1Hhf6ij4K07jU9EGw85QxzdUfMt9TAX68z9yBoTp4NpkDci
-	 KBv90LSOZosJA==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 19A763924469;
-	Mon, 31 Aug 2026 21:05:32 +0000 (UTC)
-Subject: Re: [GIT PULL] sched_ext: Fixes for v7.3-rc1
-From: pr-tracker-bot@kernel.org
-In-Reply-To: <0f59915200a4239f27a624250c58dd6c@kernel.org>
-References: <0f59915200a4239f27a624250c58dd6c@kernel.org>
-X-PR-Tracked-List-Id: <linux-kernel.vger.kernel.org>
-X-PR-Tracked-Message-Id: <0f59915200a4239f27a624250c58dd6c@kernel.org>
-X-PR-Tracked-Remote: https://git.kernel.org/pub/scm/linux/kernel/git/tj/sched_ext.git tags/sched_ext-for-7.3-rc1-fixes
-X-PR-Tracked-Commit-Id: 068e5a0bc57e57d24cbf38def29cc5fb4db9a0df
-X-PR-Merge-Tree: torvalds/linux.git
-X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: bf1079577a116f0685e7025b9ee2547345ee1c63
-Message-Id: <178821033071.773084.18341134789285724214.pr-tracker-bot@kernel.org>
-Date: Mon, 31 Aug 2026 21:05:30 +0000
-To: Tejun Heo <tj@kernel.org>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, linux-kernel@vger.kernel.org, sched-ext@lists.linux.dev, David Vernet <void@manifault.com>, Andrea Righi <arighi@nvidia.com>, Changwoo Min <changwoo@igalia.com>, Emil Tsalapatis <emil@etsalapatis.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="NjVGE9Xc"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=wNd8QboWKht0yztSP4Sbpt6U2NkJV8XlHDJXK515WTg=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788210409; v=1; x=1788815209;
+ b=NjVGE9XceHDTA32GvIHNSjEPQ3yJtaopNo0M97Lm6a0S5j3/RsmyTtIcOL0y4ZVrjQjon6At
+ ykYl6kXJKCOGIewQXZ02j8/ICnGdZ/MqaWBduWw44SL1+GHvuX7j7NWd5GIt4Gfr+Gn2zcyo+Z2
+ Izv/GOqGdtcsI+n7k8OqBInc=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 4daa89fecb40d3f3;
+	Mon, 31 Aug 2026 21:06:49 +0000
+X-Mizu-Trace-ID: 4daa89fecb40d3f3
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <99f0921c-0cf9-48a8-a84f-3b888988eb33@linux.dev>
+Date: Mon, 31 Aug 2026 14:06:40 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH bpf v3 2/5] bpf: Fix NULL-ptr-deref when showing a void
+ BTF type
+To: Jiayuan Chen <jiayuan.chen@linux.dev>, bpf@vger.kernel.org
+Cc: Alexei Starovoitov <ast@kernel.org>,
+ Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>,
+ Eduard Zingerman <eddyz87@gmail.com>,
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+ Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
+ Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>,
+ Emil Tsalapatis <emil@etsalapatis.com>, Shuah Khan <shuah@kernel.org>,
+ Mykyta Yatsenko <yatsenko@meta.com>, Alan Maguire <alan.maguire@oracle.com>,
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
+References: <20260831110314.150870-1-jiayuan.chen@linux.dev>
+ <20260831110314.150870-3-jiayuan.chen@linux.dev>
+Content-Language: en-US
+From: Ihor Solodrai <ihor.solodrai@linux.dev>
+In-Reply-To: <20260831110314.150870-3-jiayuan.chen@linux.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-The pull request you sent on Mon, 31 Aug 2026 10:03:50 -1000:
+On 8/31/26 4:01 AM, Jiayuan Chen wrote:
+> btf_modifier_show() resolves the modifier and then calls
+> btf_type_ops(t)->show() unconditionally. For the void type (type_id 0,
+> BTF_KIND_UNKN) kind_ops[] has no entry, so ->show is NULL.
+> 
+> The map dump path cannot reach a void type (a map key/value must have a
+> size and void has none), but bpf_snprintf_btf() takes a type_id straight
+> from the BPF program, and a "const void" (a modifier that resolves to
+> void, present in the vmlinux BTF) NULL-derefs there:
+> 
+> KASAN: null-ptr-deref in range [0x0000000000000028-0x000000000000002f]
+> RIP: 0010:btf_modifier_show (kernel/bpf/btf.c:2914)
+> Call Trace:
+>  <TASK>
+>  btf_type_show (kernel/bpf/btf.c:8251)
+>  btf_type_snprintf_show (kernel/bpf/btf.c:8321)
+>  bpf_snprintf_btf (kernel/trace/bpf_trace.c:1047)
+>  bpf_prog_test_run_raw_tp (net/bpf/test_run.c:829)
+>  __sys_bpf (kernel/bpf/syscall.c:4804)
+>  do_syscall_64 (arch/x86/entry/syscall_64.c:94)
+>  entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
+>  </TASK>
+> 
+> void has no size, so there is nothing to render - not even a byte length
+> to fall back to dumping as raw hex. btf_df_show() is already the ->show
+> for the other kinds that carry no value to print - FWD, FUNC, FUNC_PROTO,
+> FLOAT and DECL_TAG - and emits an "<unsupported kind:N>" placeholder;
+> void belongs to the same group and only lacks a show op because it has
+> no kind_ops[] entry at all. Fall back to btf_df_show() in
+> btf_modifier_show() when the resolved type has no show op, so a void type
+> prints that placeholder instead of crashing; bpf_snprintf_btf() then
+> returns the length as usual.
 
-> https://git.kernel.org/pub/scm/linux/kernel/git/tj/sched_ext.git tags/sched_ext-for-7.3-rc1-fixes
+nit: The explanation is a bit too verbose, I'd try simplifying. And the
+comment in the code as well.
 
-has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/bf1079577a116f0685e7025b9ee2547345ee1c63
+> 
+> Fixes: c4d0bfb45068 ("bpf: Add bpf_snprintf_btf helper")
+> Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
+> ---
+>  kernel/bpf/btf.c | 10 +++++++++-
+>  1 file changed, 9 insertions(+), 1 deletion(-)
+> 
+> diff --git a/kernel/bpf/btf.c b/kernel/bpf/btf.c
+> index 91b8ce77f699..6e267c4c4e1f 100644
+> --- a/kernel/bpf/btf.c
+> +++ b/kernel/bpf/btf.c
+> @@ -2911,7 +2911,15 @@ static void btf_modifier_show(const struct btf *btf,
+>  	else
+>  		t = btf_type_skip_modifiers(btf, type_id, NULL);
+>  
+> -	btf_type_ops(t)->show(btf, t, type_id, data, bits_offset, show);
+> +	/*
+> +	 * A modifier can resolve to the void type (e.g. "const void"), which
+> +	 * has no show op (kind_ops[BTF_KIND_UNKN] is NULL). Print a placeholder
+> +	 * instead of dereferencing NULL.
+> +	 */
+> +	if (!btf_type_ops(t))
+> +		btf_df_show(btf, t, type_id, data, bits_offset, show);
+> +	else
+> +		btf_type_ops(t)->show(btf, t, type_id, data, bits_offset, show);
 
-Thank you!
+Acked-by: Ihor Solodrai <ihor.solodrai@linux.dev>
 
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/prtracker.html
+>  }
+>  
+>  static void btf_var_show(const struct btf *btf, const struct btf_type *t,
+
