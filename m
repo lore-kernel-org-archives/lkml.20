@@ -1,149 +1,86 @@
-Received: from mail01.salmtek.com (mail01.salmtek.com [65.108.149.29])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f70.google.com (mail-ot1-f70.google.com [209.85.210.70])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58D0B46AED1;
-	Mon, 31 Aug 2026 15:18:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.108.149.29
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32A275355A3
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 15:19:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788189500; cv=none; b=hyxQt6LgGzYFXABGkwAuVl7NQRqfu1pi0ww3UO1Wx7tO9c3tBRJJ98OQv4W6OERD76TIdgTeA8R8fP+BVWQ/Qi4bVBS9lobVgLK09BxBxx3+mzGVXBajf6iiVm2MHXOsenhvadGXpytIDqizW/iHMAX54ND6o8m48lXIfUhyPMI=
+	t=1788189573; cv=none; b=gbwXO6JlHzxn2diN11vsC8ZKqMPQHltW0J7qc/ApR1PI6MIVqRa67GqmTC7azx7QDMzro9eIs6qaCMH1cuccbpKcSD4UmzqZOZY+nfq+vfLpmkiMbo5Pa2Pqyi/Ma7klrpSJ++35v88HoUeYfwIjvP3fgqXjyyezZvdkHTe+X3o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788189500; c=relaxed/simple;
-	bh=oG7pZxVGZAS2196JAGe5LmrXqPzUtp/DMka9joAiDwc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=m10769jr52+3HN17RGMfeluDB6QM15eEjMaHkeZYN4mwKlRD/rFar3dq+Up/8XZwnuiO2Hm3fKN3RZPtszw8ESfV9SPiq35HR3rt/6/gt2SzqWv2GQnkn/k8MeucQade1ylsJIQ2LDqdOHCnq5YMmQtdWEOKDdsGowLGbfUZC1g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=salmtek.com; spf=none smtp.mailfrom=salmtek.com; dkim=pass (2048-bit key) header.d=salmtek.com header.i=@salmtek.com header.b=URLmNjwp; arc=none smtp.client-ip=65.108.149.29
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=salmtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=salmtek.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=salmtek.com header.i=@salmtek.com header.b="URLmNjwp"
-Received: from mail01.salmtek.com (localhost.localdomain [127.0.0.1])
-	by mail01.salmtek.com (Proxmox) with ESMTP id EA40E40917;
-	Mon, 31 Aug 2026 12:11:13 -0300 (-03)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=salmtek.com; h=
-	cc:cc:content-transfer-encoding:date:from:from:message-id
-	:mime-version:reply-to:subject:subject:to:to; s=selector01; bh=n
-	JA55XNvLE2Wi1SwAhyde34kstoTKEwzY+Xqkq/NX3M=; b=URLmNjwpwfsjv+p2G
-	SG6cyniA6RH6L/B3ZKMBrv11XvOou6btzUDo2+1cbBfa8VvjmuNd8G+9WP65U/hS
-	gQx9q3w0TUIu2WmIMGLC+YefqkNEj6U8NwVJY7YrMIuDab88dJ4mY61WV6sJj25I
-	jE/zN0SjNfP+3vLhAhzoh1mBQEH7t1zvVYtC2LFqsEcyhwR4ydkcn84QX9PWZpmd
-	f2oOwz3SnKRthXsFhL4vUPgEEQmQt11jDJDaXQT7auD/7jwL1UPf/AjUtB2tce0H
-	+HeOWyZLiacDReKAMUQxViwbZcsvFzmGdgSAyGGSzI+fize0U56sQF90JIhCIyl3
-	fh9Ig==
-From: Sebastian Salmhofer <sebastian.salmhofer@salmtek.com>
-To: jjohnson@kernel.org
-Cc: ath12k@lists.infradead.org,
-	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Sebastian Salmhofer <sebastian.salmhofer@salmtek.com>
-Subject: [PATCH] wifi: ath12k: flush REO queue extension descriptors before freeing the qdesc
-Date: Mon, 31 Aug 2026 12:10:11 -0300
-Message-ID: <20260831151011.2336305-1-sebastian.salmhofer@salmtek.com>
-X-Mailer: git-send-email 2.47.3
+	s=arc-20240116; t=1788189573; c=relaxed/simple;
+	bh=Frm43ufNh8qqB/Bw6xfF1sMT8C8/aL6tF6RXXphvCaI=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=qe3ArDCYtQla1GCAYDvd1uo3DmZ6bUE0u31+ynqkWTbt4SQQrS8fYBKyTS02hDlxu4Y5+8HGwntCvmqpX6JqBobpHf43HtkSB9IgNUUPTcjB1gtXyMcEqkAgf7a2XOPqI4hapgCnuTpKnK1GxVXCfP9C3cnreWxaXGE3NeUYKyY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-ot1-f70.google.com with SMTP id 46e09a7af769-7e9ee20bde0so5344514a34.2
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 08:19:31 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788189571; x=1788794371;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Frm43ufNh8qqB/Bw6xfF1sMT8C8/aL6tF6RXXphvCaI=;
+        b=QHp7vJLD6St5T495GCr5vFlOjqC5CqqO/MAd0EYFpQIzhCAr0Dm0dLhpOkwweLEy8M
+         dtvUwnbNb0A+pE1naYpt50e+769cjfa5tQ6/pqoOmTl0c281MO57xscP7CbMoOkBmskQ
+         R55Y8jq5miJvR1bCogZMgviEUbOxSZj19/4uXfMRGO79NbBJ3JuRHivSzXv07UTvxzHD
+         eWZhlJ+nr8G5aK9ziDDsmmdGUJ995tbQzYYwR40P3JvyxUGLEo0DDACPcmv1UPJpnmlB
+         jP95AXtNnshz2oEdB8PKjSXdX/uJVJQ83iNDQ0eCVsvE6glytAH2TbtSOHfpLboP5Rt1
+         c7rw==
+X-Forwarded-Encrypted: i=1; AHgh+RpvvvYAu5KjBuhe//L6KVPS/drZUqlYhzhhsLfie8cz3zc0uXOynpLWR8XliSYSkiL+qC+7zj4sok8ciM0=@vger.kernel.org
+X-Gm-Message-State: AFuF++lngipNmSH+Mx+p3CL3hXN3yvOZJV6+YOCei7DlpG31eLnA6LdG
+	7ZCsMCXJX2PqBy440h23UhcHBha1gWR419mTCigXI9PYTMjEJiM7x2MPGiGFHu4iN6p6Rz9k7zb
+	Fau/dTnBtvRl4VN+gI4Jn6An+SIrhanRUTkU1JE1GGoydwQb415u+f02bIpo=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6820:60e:b0:6b1:b867:1a1 with SMTP id
+ 006d021491bc7-6b372d5c4dbmr1423741eaf.12.1788189571050; Mon, 31 Aug 2026
+ 08:19:31 -0700 (PDT)
+Date: Mon, 31 Aug 2026 08:19:31 -0700
+In-Reply-To: <00000000000034ae0f05e9f94c79@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a959b83.04428c52.29b18.0000.GAE@google.com>
+Subject: Re: [syzbot] KASAN: use-after-free Read in jfs_lazycommit
+From: syzbot <syzbot+885a4f3281b8d99c48d8@syzkaller.appspotmail.com>
+To: dave.kleikamp@oracle.com, jfs-discussion@lists.sourceforge.net, 
+	kapoorarnav43@gmail.com, linux-kernel@vger.kernel.org, qianqiang.liu@163.com, 
+	shaggy@kernel.org, syzkaller-bugs@googlegroups.com, tristmd@gmail.com
+Content-Type: text/plain; charset="UTF-8"
 
-Since commit b706fb4e580b ("wifi: ath12k: Use 1KB Cache Flush Command
-for QoS TID Descriptors") a QoS TID RX queue descriptor is retired with
-a single FLUSH_CACHE command carrying FLUSH_QUEUE_1K_DESC. On QCN9274
-that command does not cover the extension descriptors that follow the
-queue descriptor in the same 1536-byte allocation. Those hold the MPDU
-link pointers and are written by REO on every enqueue and dequeue, so
-they are frequently dirty in the REO cache when the TID is deleted.
+This bug is marked as fixed by commit:
+From 7e1a0b91e9efa8bec40fc5397ba6c4e683d72df0 Mon Sep 17 00:00:00 2001
 
-After the qdesc is unmapped and freed, the REO cache controller later
-evicts the stale extension lines and writes them back to the old DMA
-address. On a host with the IOMMU enabled this shows up as a burst of
-AMD-Vi IO_PAGE_FAULT write events at 128-byte spacing, e.g.
+But I can't find it in the tested trees[1] for more than 90 days.
+Is it a correct commit? Please update it by replying:
 
-  AMD-Vi: Event logged [IO_PAGE_FAULT domain=0x0038 address=0xf6e7a100 flags=0x0020]
-  AMD-Vi: Event logged [IO_PAGE_FAULT domain=0x0038 address=0xf6e7a180 flags=0x0020]
-  ...
-  AMD-Vi: Event logged [IO_PAGE_FAULT domain=0x0038 address=0xf6e7a580 flags=0x0020]
+#syz fix: exact-commit-title
 
-The faulting addresses always fall at offsets 0x100..0x580 of a
-retired qdesc and never at 0x000 or 0x080, i.e. exactly the ten
-extension descriptors and never the queue descriptor or the 1K bitmap
-descriptor. The writes are triggered by later REO activity, typically
-a new station association, so they can occur minutes or hours after the
-memory was freed, and the blocked transactions stall the data path for
-several seconds. Without an IOMMU the same writes silently corrupt
-whatever now occupies that memory.
+Until then the bug is still considered open and new crashes with
+the same signature are ignored.
 
-Restore the per-segment flush of every 128-byte line above the queue
-descriptor, as ath11k still does, before issuing the base flush with
-FLUSH_QUEUE_1K_DESC and NEED_STATUS. REO commands execute in order, so
-the status of the final base flush also confirms the preceding segment
-flushes have completed, and the qdesc is still only freed from that
-completion. A send failure in the sequence leaves the descriptor on the
-retirement list for retry, as before.
+Kernel: Linux
+Dashboard link: https://syzkaller.appspot.com/bug?extid=885a4f3281b8d99c48d8
 
-Tested-on: QCN9274 hw2.0 PCI WLAN.WBE.1.6-01243-QCAHKSWPL_SILICONZ-1
-
-Fixes: b706fb4e580b ("wifi: ath12k: Use 1KB Cache Flush Command for QoS TID Descriptors")
-Signed-off-by: Sebastian Salmhofer <sebastian.salmhofer@salmtek.com>
 ---
- drivers/net/wireless/ath/ath12k/wifi7/dp_rx.c | 39 ++++++++++++++++++++-------
- 1 file changed, 30 insertions(+), 9 deletions(-)
+[1] I expect the commit to be present in:
 
---- a/drivers/net/wireless/ath/ath12k/wifi7/dp_rx.c
-+++ b/drivers/net/wireless/ath/ath12k/wifi7/dp_rx.c
-@@ -225,22 +225,43 @@
- 				    struct ath12k_dp_rx_tid_rxq *rx_tid)
- {
- 	struct ath12k_hal_reo_cmd cmd = {};
-+	dma_addr_t paddr = rx_tid->qbuf.paddr_aligned;
-+	u32 off = rx_tid->qbuf.size;
- 	int ret;
- 
--	cmd.addr_lo = lower_32_bits(rx_tid->qbuf.paddr_aligned);
--	cmd.addr_hi = upper_32_bits(rx_tid->qbuf.paddr_aligned);
-+	/* The REO cache controller caches the queue descriptor and each
-+	 * 128-byte extension descriptor as separate objects, and a
-+	 * FLUSH_CACHE command only addresses one of them. FLUSH_QUEUE_1K_DESC
-+	 * extends the base flush to the 1K-window descriptor but does not
-+	 * cover the extension descriptors, so flush those explicitly first.
-+	 * The command ring executes in order, hence the final base flush
-+	 * status also confirms the extension flushes have completed.
-+	 */
-+	while (off > HAL_LINK_DESC_ALIGN) {
-+		off -= HAL_LINK_DESC_ALIGN;
-+		memset(&cmd, 0, sizeof(cmd));
-+		cmd.addr_lo = lower_32_bits(paddr + off);
-+		cmd.addr_hi = upper_32_bits(paddr + off);
-+		ret = ath12k_wifi7_dp_reo_cmd_send(ab, rx_tid,
-+						   HAL_REO_CMD_FLUSH_CACHE,
-+						   &cmd, NULL);
-+		if (ret) {
-+			ath12k_warn(ab,
-+				    "failed to send FLUSH_CACHE for tid %d offset 0x%x: %d\n",
-+				    rx_tid->tid, off, ret);
-+			return ret;
-+		}
-+	}
-+
-+	memset(&cmd, 0, sizeof(cmd));
-+	cmd.addr_lo = lower_32_bits(paddr);
-+	cmd.addr_hi = upper_32_bits(paddr);
- 	/* HAL_REO_CMD_FLG_FLUSH_FWD_ALL_MPDUS - all pending MPDUs
--	 *in the bitmap will be forwarded/flushed to REO output rings
-+	 * in the bitmap will be forwarded/flushed to REO output rings
- 	 */
- 	cmd.flag = HAL_REO_CMD_FLG_NEED_STATUS |
- 		   HAL_REO_CMD_FLG_FLUSH_FWD_ALL_MPDUS;
- 
--	/* For all QoS TIDs (except NON_QOS), the driver allocates a maximum
--	 * window size of 1024. In such cases, the driver can issue a single
--	 * 1KB descriptor flush command instead of sending multiple 128-byte
--	 * flush commands for each QoS TID, improving efficiency.
--	 */
--
- 	if (rx_tid->tid != HAL_DESC_REO_NON_QOS_TID)
- 		cmd.flag |= HAL_REO_CMD_FLG_FLUSH_QUEUE_1K_DESC;
- 
---
-2.47.0
+1. for-kernelci branch of
+git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux.git
 
+2. master branch of
+git://git.kernel.org/pub/scm/linux/kernel/git/bpf/bpf-next.git
+
+3. master branch of
+git://git.kernel.org/pub/scm/linux/kernel/git/bpf/bpf.git
+
+4. main branch of
+git://git.kernel.org/pub/scm/linux/kernel/git/davem/net-next.git
+
+The full list of 11 trees can be found at
+https://syzkaller.appspot.com/upstream/repos
