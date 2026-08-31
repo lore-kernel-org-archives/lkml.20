@@ -1,462 +1,311 @@
-Received: from mail-yw1-f178.google.com (mail-yw1-f178.google.com [209.85.128.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9640395ACA
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 14:52:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.178
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788187980; cv=pass; b=BELT9xIGodMuQxzGMKXr2UyqUvl/5bmQ7JumjxrG01St9E2sknoN6pOIeUELEUQ8w1L/+/NGt18BmA++1zAK8T9HMFpAfAXrmBe1y2gVJ4etuMxSQetKmSDRliiMSca4F0uBmXFR6b1P4yegEWPffoXbrNgNfKLyodt+Ey140N0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788187980; c=relaxed/simple;
-	bh=xkNpN7efCHF4pdD46P43IKOykmL+e6GzvtLJUbEDQ8U=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=h6Z1yBVTwfvCXsue0k28lTcyW2Q7X2HgzLQSxNDzjZbWfBTmk2LIf6TMFXOx3vv3DSeAUVd6OCaZBJKz4qVM5X+e0V+Jf4INQl3yWPRvtb3UhUbplqWiMeJAjlIT3H5Pag07SvKXEihuZ2wHnUpNuIMk7jJqdvlE7XBkVq6zezY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kRzoNqCL; arc=pass smtp.client-ip=209.85.128.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C053639936E;
+	Mon, 31 Aug 2026 14:53:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788188015; cv=none; b=iAkvQ0lvPkl2Yyl3H04mMkAZWX5jEbl9Juk464z9N2f3/3uvaH9taqNcxB5UI1jhx473gf7d83XEXJeCDdvacSu24F3+r48HJ363J21Cy8reiXLembvtxSrEG+DJctuN+fee+68EXA2bc3qMh85SBpq7o9DaJvOPC1SXjg22E2E=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788188015; c=relaxed/simple;
+	bh=75h27E2GFq2pGEuURQaDXGwk6WX7k2Ho3Xa6aJm+ZNs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=E0gRQWtfbkgWhidso3U/0K/D1GDBPJiZs2YnwakmESPMe2xTLL1RgPHo34e6/kFCtzdD7p1S+nrMA57NY/56d7pMEbX1AGT5SJszMHh/P8TyZt4W1Gu7GhWbEIoC+neXfbwLnbq+7U/ahe/bm470nEY37wTYOMhgKX8C7txq6Y0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=iA7xIH89; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kRzoNqCL"
-Received: by mail-yw1-f178.google.com with SMTP id 00721157ae682-85aeb506b78so45529827b3.3
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 07:52:58 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788187977; cv=none;
-        d=google.com; s=arc-20260327;
-        b=QVWSojJJgY9KFkBujcWzZ5FtJdv69yGbqJgJaAVb42PFOhIHwZvEsFEodsFPon2I2k
-         fJ2tbWlSxSGSSWzvI8/OJk/+ArTIhgDAxdHa3VjBf7T7PFqtajvxskZ6fWn6VCNw4Ku+
-         4vk8s95dMW7BD2CfnSzbS0/FPTNPk4hPB2XM8U/+aio/1Fkx9ZQJ7voBOYYc0DvuFdLh
-         RLtsXFBWh2iDFfUJVOK8i5zo542EJfF3GxNDSjRHj1NeI6IytCQoCi8CmT2v0gVZpWqr
-         LD1Tj3NMLGpx3Am60Gzu2NmUXRmlOsmTCDD9HrDS5fGTeII/4gzONb6UCVAd13zgOi9r
-         rlKA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=WM/dFJBj5xwYcfB5jia0P++D/pur5zHzV+GzG4BESvM=;
-        fh=c/ScMl7Go9Bby6p2kNsY/ubUK8lrBdXQaW2ZYmRdZII=;
-        b=K/5orWSaVurPz40BnuwJTclos39zQK6N5Xx53nPfPAHpS88agaIO2f3B3VXInmddVZ
-         42016vwe5JjpVhkR6GQfFnfvAyDG8ATb20uILp6V7SiOihJ8LiPkImsjbfWrOICmkwoE
-         Gx/tQXlm+24rtgtwV1EwNmdrXCKHzQkLQ8TMN9SELLpJXZ5DCTYa+Y5I+jm8b/+X447l
-         oKoJELaZfLKYIcd8ZIVd2DBKo248Q4gyl6bIoIVXz6Jr1P1KAbvtSA+u4IK2dsoyeUNW
-         GtzEnIstxsKCrrAgi0PzYDXdqmZ4raw0pzCEP+v2/600cdwuxM+PLOadLVpmSa402Ifq
-         q9xw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788187977; x=1788792777; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=WM/dFJBj5xwYcfB5jia0P++D/pur5zHzV+GzG4BESvM=;
-        b=kRzoNqCLnnisRQTXu9HBHxtPFmjrPIiathx22F7MvBtUqmLWaF6ns8EUiinM/WVdV8
-         SPJzsHLH7tXaeYqczskNotbH15rOsRKNFpUJ9h9tMGa9SzUzOxNyKoizrmmO/Q4uy7fU
-         nf95oUO/lEraGneMAZXlzq+hBH/djMfE/tIxPBYKlYKaqIl+k7aqqNP4UrnmqxJixSjD
-         HrbI9XS8BCf9BSSaSXuFIAA4uWMakYC5PPApmlU5MptniBxIxsvZgAKpwyKA4KsRhyQC
-         XPCxzmhNtgxpfVX30j6KQ/yt2RL3d0FNVqIowQnv9k9ukK4wSbIEyV9C+O4N4EYEW/kI
-         KqBg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788187977; x=1788792777;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=WM/dFJBj5xwYcfB5jia0P++D/pur5zHzV+GzG4BESvM=;
-        b=bTEFcOMb77+dw9kA0xy/QfZLD3ifV4EiUhCf7sSIP+rNbqoqcBD+x6CRs/2rK0PeK0
-         KtZ/fFybqgHvO+DFTo9U26SfcQV2clmILKtFP5oY2o/2GMa1u4gIDF1fvP5C8hSnF2Ca
-         DxSrHODDYiYaCKy4OqfSFI/B+rDUQQw8yE2NqDtEdCd6t7oIdBKth8twriEvw+Kd1XIM
-         c7iIAAqmaqdwXglA1TeKl7NeR4p0rrZF4ObVQpqBL8OVpQa1spYZqcaGEEFS1HEQeyWf
-         cdHOl2mq50BVuajYqa6105J2Uq/Uoe3TbISl0Ak142oDfUjWntFLoQAHQ4VdRIqmBsUG
-         s10w==
-X-Forwarded-Encrypted: i=1; AKwUvBwICMgOHGnPkeQe7C7QdxK8hOpShhqmZm+SysVRtDLqJFwB1Ys6CtqPaZPfESvbVAGaxQHuaJ2YFQRym5I=@vger.kernel.org
-X-Gm-Message-State: AFuF++knEC7R2K8Ai9A+LSQVqCsDVhS8c2p4ICxylb1wkTg5DxXav/l0
-	aQLr5Xl2QhwCy9hvMNMUvDnlbV2Mf8PeByiJznzQixx5YrF5TeDNWx7rf1FgbkdLM1xS7SII+a0
-	taK+q1uDH37F8MbcNItn7XQlbRcInNM0=
-X-Gm-Gg: AYBFou0NaW5YRDLt63mmoQG2BypPLbRwomoj0mrB+hsPwKOckw6YJFSMfhY7gEAwYWP
-	3RNUth9DF69vaJx8FaatJRPf8TuV631y2ZSKVinqoWV8aPUrGMocSLHgnodf5gSnzhOJJUJZGWm
-	HJWldu05QO1DSkMo91fHz9pJuPMwVaFxvu5wzA/I4cX8eY3N4AmgNYvG6s9Utl6m2tbfmsk5iMc
-	3Lvej+wO+pYyllS66+oO19TuUiUaIfvv0JRz4QF5QMpaSC3STFSTxttcCXYL7iSJa3bVaG4yDYU
-	pBj5LXmWyiGyC9avcO5XvWff5vDd5Namjzk3jBzF9DQcOXnc7SnhmjiCMLLEp6T3DjGr1I8V8k7
-	u9lBIdh26St8yU/rHUBvoVVa1rU0PbOoRuWak55U=
-X-Received: by 2002:a05:690c:5781:b0:844:c27b:35dc with SMTP id
- 00721157ae682-868726e5b60mr6009007b3.18.1788187977347; Mon, 31 Aug 2026
- 07:52:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="iA7xIH89"
+Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67VEZFre2415072;
+	Mon, 31 Aug 2026 14:48:10 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=pp1; bh=MciimgfRQy+dNXl2h
+	v/jOjY0mlqh6s0MBTSE9WarVjg=; b=iA7xIH89SScWnNr+dm9W8maLuYAWNGfDc
+	3O2yLZwB8BuFA648W9YucAWVfyPKP9J/pWRUUMEE7tNIxOma51GazyvXFQzaNeXO
+	7+Yz41AwnS+2Ds1F7sipQXsIHAqra0lm9zlG6QnR3ls+LQAJbrDM9v+bz/B/0R1g
+	W79ScK/dkHiDpr4NkfphgJLuifmfVYUKJthAulDYqsa6J2CTtdBnWQVXZxdXY+E7
+	kjRG5tX/Jt2j27WDXsqFYHedNzHtH/m7KOJZuOpa87Q4phBnrA2zdlkKEU9f9v7j
+	zlJiY6WZ2djUmsBoykAGomkxh/kdFRStJAYmXax4NaFeQoqcNGCJA==
+Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gbmuhj4qv-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 31 Aug 2026 14:48:09 +0000 (GMT)
+Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma23.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67VEfk9e017006;
+	Mon, 31 Aug 2026 14:48:08 GMT
+Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
+	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gcb8h6cja-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 31 Aug 2026 14:48:08 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
+	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67VEm4u349938908
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 31 Aug 2026 14:48:04 GMT
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 19CFD20043;
+	Mon, 31 Aug 2026 14:48:04 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id AB1E02004B;
+	Mon, 31 Aug 2026 14:48:03 +0000 (GMT)
+Received: from tuxmaker.boeblingen.de.ibm.com (unknown [9.87.85.9])
+	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Mon, 31 Aug 2026 14:48:03 +0000 (GMT)
+From: Steffen Eiden <seiden@linux.ibm.com>
+To: kvm@vger.kernel.org, kvmarm@lists.linux.dev,
+        linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+        linux-s390@vger.kernel.org
+Cc: Alexander Gordeev <agordeev@linux.ibm.com>,
+        Andreas Grapentin <gra@linux.ibm.com>, Arnd Bergmann <arnd@arndb.de>,
+        Catalin Marinas <catalin.marinas@arm.com>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        Claudio Imbrenda <imbrenda@linux.ibm.com>,
+        David Hildenbrand <david@kernel.org>,
+        Friedrich Welter <fritz@linux.ibm.com>, Fuad Tabba <tabba@google.com>,
+        Gautam Gala <ggala@linux.ibm.com>,
+        Hariharan Mari <hari55@linux.ibm.com>,
+        Heiko Carstens <hca@linux.ibm.com>,
+        Hendrik Brueckner <brueckner@linux.ibm.com>,
+        Ilya Leoshkevich <iii@linux.ibm.com>,
+        Janosch Frank <frankja@linux.ibm.com>, Joey Gouly <joey.gouly@arm.com>,
+        Marc Zyngier <maz@kernel.org>, Nico Boehr <nrb@linux.ibm.com>,
+        Nina Schoetterl-Glausch <oss@nina.schoetterlglausch.eu>,
+        Oliver Upton <oupton@kernel.org>, Paolo Bonzini <pbonzini@redhat.com>,
+        Sean Christopherson <seanjc@google.com>,
+        Suzuki K Poulose <suzuki.poulose@arm.com>,
+        Sven Schnelle <svens@linux.ibm.com>,
+        Ulrich Weigand <Ulrich.Weigand@de.ibm.com>,
+        Vasily Gorbik <gor@linux.ibm.com>, Will Deacon <will@kernel.org>,
+        Zenghui Yu <yuzenghui@huawei.com>
+Subject: [PATCH v7 02/23] KVM: Make device name configurable
+Date: Mon, 31 Aug 2026 16:47:39 +0200
+Message-ID: <20260831144802.834315-3-seiden@linux.ibm.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260831144802.834315-1-seiden@linux.ibm.com>
+References: <20260831144802.834315-1-seiden@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260830-vendor_hci-v2-0-9903760957ab@oss.qualcomm.com> <20260830-vendor_hci-v2-3-9903760957ab@oss.qualcomm.com>
-In-Reply-To: <20260830-vendor_hci-v2-3-9903760957ab@oss.qualcomm.com>
-From: Luiz Augusto von Dentz <luiz.dentz@gmail.com>
-Date: Mon, 31 Aug 2026 10:52:45 -0400
-X-Gm-Features: AcwNN1VCwJTbcNQuKlRnGP6yJam0SZxWYGeWYc-7G-0_oku3jhC5ORFN5ToMMAk
-Message-ID: <CABBYNZJg6f4GCk0SToAYn4carEkjizXGV7cNsBLr6o=Es1=oCg@mail.gmail.com>
-Subject: Re: [PATCH BlueZ v2 3/3] monitor: Support vendor HCI packets
-To: Zijun Hu <zijun.hu@oss.qualcomm.com>
-Cc: Marcel Holtmann <marcel@holtmann.org>, Zijun Hu <zijun_hu@icloud.com>, 
-	linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-GUID: zpotYHMueYHFGubXaUIHPDiOC7l6lDzE
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODMxMDEyNSBTYWx0ZWRfX5GLMaBLxW+pA
+ bvPwDgZruDKbdCiSSO7YYAjDW+6AdYqdfJJ2xhp6sEAV7mVks/yZhKvOnTlf7TnzIP1IA6Lyxwj
+ 8g1VMEQEzOcQU7oazIDhk8BOWqIcXVZBFHcY9c/uyJZyC+hPmmSnKJZUiO9MH6YISfBZrO0OtrH
+ CdHPZxc+yrnkrqvIkrbHh3isuSnKSW8bnns6CQMeanC6nOWlP21R3E3LKCAGv0TNNuqRcxWGjqv
+ N+IdSPzQKOSln2/afuoXgAGsLwI4ZltxLYZY3SiXPPXABuizFmAUnbeIOGARaM16twutsNf/UYK
+ VmMTgl+l79LT2MOESqGGUI93TaONswwrPyEkMqvro/fMqXd+U/dqMZhOF+JafOJFftCXm0hNyJ/
+ jKbsnfIvcjKU+3dPHjFxJFCZRRvZg0VI7XclfhmFluA8BNsY9EfbCYUIFw/j/TFeXvUaDQUdPLe
+ c1QvyozmoUeDAAt4z3w==
+X-Authority-Analysis: v=2.4 cv=Osl/DS/t c=1 sm=1 tr=0 ts=6a959429 cx=c_pps
+ a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
+ a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=Y2IxJ9c9Rs8Kov3niI8_:22 a=VnNF1IyMAAAA:8 a=unCO0wLouRnWOUCqr6wA:9
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODMxMDEyNSBTYWx0ZWRfX2CbcRsElhazX
+ wTwq83xHKJWHfpMvWULuBwajM8STYNyy15Smr9F/hM+y8zS6zjuva7Ydb9ml/jnfVnTqeexooAq
+ hzh2al+gC13EkYpqf71QG/LodfsVM6c=
+X-Proofpoint-ORIG-GUID: ThPWlD9sCPR0zB_LX2qX7O2uKsuQng9N
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-31_05,2026-08-27_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 malwarescore=0 suspectscore=0 bulkscore=0 lowpriorityscore=0
+ adultscore=0 impostorscore=0 phishscore=0 clxscore=1015 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608310125
 
-Hi Zijun,
+Allow KVM implementations to choose alternative device names. This is
+especially useful for architectures providing multiple KVM
+implementations simultaneously. Architectures providing multiple KVM
+implementations must compile the KVM common code once per
+implementation and mange symbols.
 
-On Mon, Aug 31, 2026 at 1:39=E2=80=AFAM Zijun Hu <zijun.hu@oss.qualcomm.com=
-> wrote:
->
-> Vendor HCI packets have 0xff as packet type.
->
-> Support them in tool btmon.
->
-> ---
-> Changes since previous version:
-> - Rename COLOR_VENDOR_HCI to COLOR_HCI_VENDOR
-> - Rename packet_vendor_hci() to packet_hci_vendor()
-> - Improve the commit title and message
-> ---
->  doc/btsnoop-protocol.rst |  8 ++++++++
->  monitor/analyze.c        | 23 +++++++++++++++++++++++
->  monitor/packet.c         | 26 ++++++++++++++++++++++++++
->  monitor/packet.h         |  2 ++
->  src/shared/btsnoop.h     |  2 ++
->  5 files changed, 61 insertions(+)
->
-> diff --git a/doc/btsnoop-protocol.rst b/doc/btsnoop-protocol.rst
-> index a875db63a9dd..81cd8fdc71ae 100644
-> --- a/doc/btsnoop-protocol.rst
-> +++ b/doc/btsnoop-protocol.rst
-> @@ -111,16 +111,24 @@ values match the definitions in ``src/shared/btsnoo=
-p.h``.
->     * - BTSNOOP_OPCODE_ISO_TX_PKT
->       - 18
->       - 0x0012
->       - Outgoing ISO packet
->     * - BTSNOOP_OPCODE_ISO_RX_PKT
->       - 19
->       - 0x0013
->       - Incoming ISO packet
-> +   * - BTSNOOP_OPCODE_VENDOR_TX_PKT
-> +     - 22
-> +     - 0x0016
-> +     - Outgoing vendor HCI packet
-> +   * - BTSNOOP_OPCODE_VENDOR_RX_PKT
-> +     - 23
-> +     - 0x0017
-> +     - Incoming vendor HCI packet
->
->  New Index
->  ---------
->
->  Code: 0x0000
->
->  Parameters:
->
-> diff --git a/monitor/analyze.c b/monitor/analyze.c
-> index de9c23603a21..59e8ac819272 100644
-> --- a/monitor/analyze.c
-> +++ b/monitor/analyze.c
-> @@ -39,16 +39,17 @@ struct hci_dev {
->         struct timeval time_added;
->         struct timeval time_removed;
->         unsigned long num_hci;
->         unsigned long num_cmd;
->         unsigned long num_evt;
->         unsigned long num_acl;
->         unsigned long num_sco;
->         unsigned long num_iso;
-> +       unsigned long vendor_hci;
->         unsigned long vendor_diag;
->         unsigned long system_note;
->         unsigned long user_log;
->         unsigned long ctrl_msg;
->         unsigned long unknown;
->         uint16_t manufacturer;
->         struct queue *conn_list;
->  };
-> @@ -460,16 +461,17 @@ static void dev_destroy(void *data)
->         printf("\n");
->
->
->         printf("  %lu commands\n", dev->num_cmd);
->         printf("  %lu events\n", dev->num_evt);
->         printf("  %lu ACL packets\n", dev->num_acl);
->         printf("  %lu SCO packets\n", dev->num_sco);
->         printf("  %lu ISO packets\n", dev->num_iso);
-> +       printf("  %lu vendor HCI packets\n", dev->vendor_hci);
->         printf("  %lu vendor diagnostics\n", dev->vendor_diag);
->         printf("  %lu system notes\n", dev->system_note);
->         printf("  %lu user logs\n", dev->user_log);
->         printf("  %lu control messages \n", dev->ctrl_msg);
->         printf("  %lu unknown opcodes\n", dev->unknown);
->         queue_destroy(dev->conn_list, conn_destroy);
->         printf("\n");
->
-> @@ -1357,16 +1359,29 @@ static void iso_pkt(struct timeval *tv, uint16_t =
-index, bool out,
->
->         if (out) {
->                 conn_pkt_tx(conn, tv, size - sizeof(*hdr), NULL);
->         } else {
->                 conn_pkt_rx(conn, tv, size - sizeof(*hdr), NULL);
->         }
->  }
->
-> +static void vendor_hci_pkt(struct timeval *tv, uint16_t index, bool out,
-> +                                       const void *data, uint16_t size)
-> +{
-> +       struct hci_dev *dev;
-> +
-> +       dev =3D dev_lookup(index);
-> +       if (!dev)
-> +               return;
-> +
-> +       dev->num_hci++;
-> +       dev->vendor_hci++;
-> +}
-> +
->  static void unknown_opcode(struct timeval *tv, uint16_t index,
->                                         const void *data, uint16_t size)
->  {
->         struct hci_dev *dev;
->
->         dev =3D dev_lookup(index);
->         if (!dev)
->                 return;
-> @@ -1463,16 +1478,24 @@ void analyze_trace(const char *path)
->                 case BTSNOOP_OPCODE_ISO_TX_PKT:
->                         num_frames++;
->                         iso_pkt(&tv, index, true, buf, pktlen);
->                         break;
->                 case BTSNOOP_OPCODE_ISO_RX_PKT:
->                         num_frames++;
->                         iso_pkt(&tv, index, false, buf, pktlen);
->                         break;
-> +               case BTSNOOP_OPCODE_VENDOR_TX_PKT:
-> +                       num_frames++;
-> +                       vendor_hci_pkt(&tv, index, true, buf, pktlen);
-> +                       break;
-> +               case BTSNOOP_OPCODE_VENDOR_RX_PKT:
-> +                       num_frames++;
-> +                       vendor_hci_pkt(&tv, index, false, buf, pktlen);
-> +                       break;
->                 default:
->                         unknown_opcode(&tv, index, buf, pktlen);
->                         break;
->                 }
->
->                 num_packets++;
->         }
->
-> diff --git a/monitor/packet.c b/monitor/packet.c
-> index 0d3b23cc3fb7..7adcf64a3631 100644
-> --- a/monitor/packet.c
-> +++ b/monitor/packet.c
-> @@ -67,16 +67,17 @@
->
->  #define COLOR_HCI_COMMAND              COLOR_BLUE
->  #define COLOR_HCI_COMMAND_UNKNOWN      COLOR_WHITE_BG
->  #define COLOR_HCI_EVENT                        COLOR_MAGENTA
->  #define COLOR_HCI_EVENT_UNKNOWN                COLOR_WHITE_BG
->  #define COLOR_HCI_ACLDATA              COLOR_CYAN
->  #define COLOR_HCI_SCODATA              COLOR_YELLOW
->  #define COLOR_HCI_ISODATA              COLOR_YELLOW
-> +#define COLOR_HCI_VENDOR               COLOR_GREEN
->
->  #define COLOR_UNKNOWN_ERROR            COLOR_WHITE_BG
->  #define COLOR_UNKNOWN_FEATURE_BIT      COLOR_WHITE_BG
->  #define COLOR_UNKNOWN_COMMAND_BIT      COLOR_WHITE_BG
->  #define COLOR_UNKNOWN_EVENT_MASK       COLOR_WHITE_BG
->  #define COLOR_UNKNOWN_LE_STATES                COLOR_WHITE_BG
->  #define COLOR_UNKNOWN_SERVICE_CLASS    COLOR_WHITE_BG
->  #define COLOR_UNKNOWN_PKT_TYPE_BIT     COLOR_WHITE_BG
-> @@ -4523,16 +4524,22 @@ void packet_monitor(struct timeval *tv, struct uc=
-red *cred,
->                 packet_hci_scodata(tv, cred, index, true, data, size);
->                 break;
->         case BTSNOOP_OPCODE_ISO_TX_PKT:
->                 packet_hci_isodata(tv, cred, index, false, data, size);
->                 break;
->         case BTSNOOP_OPCODE_ISO_RX_PKT:
->                 packet_hci_isodata(tv, cred, index, true, data, size);
->                 break;
-> +       case BTSNOOP_OPCODE_VENDOR_TX_PKT:
-> +               packet_hci_vendor(tv, cred, index, false, data, size);
-> +               break;
-> +       case BTSNOOP_OPCODE_VENDOR_RX_PKT:
-> +               packet_hci_vendor(tv, cred, index, true, data, size);
-> +               break;
->         case BTSNOOP_OPCODE_OPEN_INDEX:
->                 if (index < MAX_INDEX)
->                         addr2str(index_list[index].bdaddr, str);
->                 else
->                         sprintf(str, "00:00:00:00:00:00");
->
->                 packet_open_index(tv, index, str);
->                 break;
-> @@ -14650,16 +14657,35 @@ malformed:
->                 print_packet(tv, cred, '*', index, NULL, COLOR_ERROR,
->                                 "Malformed ISO Data RX packet", NULL, NUL=
-L);
->         else
->                 print_packet(tv, cred, '*', index, NULL, COLOR_ERROR,
->                                 "Malformed ISO Data TX packet", NULL, NUL=
-L);
->         packet_hexdump(data, size);
->  }
->
-> +void packet_hci_vendor(struct timeval *tv, struct ucred *cred, uint16_t =
-index,
-> +                               bool in, const void *data, uint16_t size)
-> +{
-> +       char extra_str[16];
-> +
-> +       if (index >=3D MAX_INDEX) {
-> +               print_field("Invalid index (%d).", index);
-> +               return;
-> +       }
-> +
-> +       index_list[index].frame++;
-> +
-> +       sprintf(extra_str, "(len %d)", size);
-> +       print_packet(tv, cred, in ? '>' : '<', index, NULL, COLOR_HCI_VEN=
-DOR,
-> +                               "Vendor HCI Packet", NULL, extra_str);
-> +
-> +       packet_hexdump(data, size);
-> +}
+Co-developed-by: Nina Schoetterl-Glausch <nsg@linux.ibm.com>
+Signed-off-by: Nina Schoetterl-Glausch <nsg@linux.ibm.com>
+Signed-off-by: Steffen Eiden <seiden@linux.ibm.com>
+---
+ include/linux/kvm_host.h |  4 +++-
+ virt/kvm/async_pf.c      | 13 +++++++++++--
+ virt/kvm/async_pf.h      |  4 ++--
+ virt/kvm/kvm_main.c      | 42 ++++++++++++++++++++++++++++++----------
+ 4 files changed, 48 insertions(+), 15 deletions(-)
 
-There is already support for vendor traffic:
+diff --git a/include/linux/kvm_host.h b/include/linux/kvm_host.h
+index bfecce1b5955..ec294e419762 100644
+--- a/include/linux/kvm_host.h
++++ b/include/linux/kvm_host.h
+@@ -1082,7 +1082,9 @@ static inline void kvm_irqfd_exit(void)
+ {
+ }
+ #endif
+-int kvm_init(unsigned vcpu_size, unsigned vcpu_align, struct module *module);
++int kvm_init(unsigned int vcpu_size, unsigned int vcpu_align, struct module *module);
++int kvm_init_with_dev(unsigned int vcpu_size, unsigned int vcpu_align,
++		      struct module *module, const char *dev_name, int minor);
+ void kvm_exit(void);
+ 
+ void kvm_get_kvm(struct kvm *kvm);
+diff --git a/virt/kvm/async_pf.c b/virt/kvm/async_pf.c
+index b8aaa96b799b..015761249107 100644
+--- a/virt/kvm/async_pf.c
++++ b/virt/kvm/async_pf.c
+@@ -19,9 +19,18 @@
+ 
+ static struct kmem_cache *async_pf_cache;
+ 
+-int kvm_async_pf_init(void)
++int kvm_async_pf_init(const char *cache_name)
+ {
+-	async_pf_cache = KMEM_CACHE(kvm_async_pf, 0);
++	char *full_cache_name;
++
++	full_cache_name = kasprintf(GFP_KERNEL, "%s_async_pf", cache_name);
++	if (!full_cache_name)
++		return -ENOMEM;
++
++	async_pf_cache = kmem_cache_create(full_cache_name,
++					   sizeof(struct kvm_async_pf), 0,
++					   SLAB_ACCOUNT, NULL);
++	kfree(full_cache_name);
+ 
+ 	if (!async_pf_cache)
+ 		return -ENOMEM;
+diff --git a/virt/kvm/async_pf.h b/virt/kvm/async_pf.h
+index 90d1a7d8c6de..4a7b81743248 100644
+--- a/virt/kvm/async_pf.h
++++ b/virt/kvm/async_pf.h
+@@ -12,11 +12,11 @@
+ #define __KVM_ASYNC_PF_H__
+ 
+ #ifdef CONFIG_KVM_ASYNC_PF
+-int kvm_async_pf_init(void);
++int kvm_async_pf_init(const char *cache_name);
+ void kvm_async_pf_deinit(void);
+ void kvm_async_pf_vcpu_init(struct kvm_vcpu *vcpu);
+ #else
+-#define kvm_async_pf_init() (0)
++#define kvm_async_pf_init(_name) (0)
+ #define kvm_async_pf_deinit() do {} while (0)
+ #define kvm_async_pf_vcpu_init(C) do {} while (0)
+ #endif
+diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
+index 34b4c43908b3..823b693d89e6 100644
+--- a/virt/kvm/kvm_main.c
++++ b/virt/kvm/kvm_main.c
+@@ -5595,9 +5595,7 @@ static struct file_operations kvm_chardev_ops = {
+ };
+ 
+ static struct miscdevice kvm_dev = {
+-	KVM_MINOR,
+-	"kvm",
+-	&kvm_chardev_ops,
++	.fops = &kvm_chardev_ops,
+ };
+ 
+ #ifdef CONFIG_KVM_GENERIC_HARDWARE_ENABLING
+@@ -6369,13 +6367,13 @@ static void kvm_uevent_notify_change(unsigned int type, struct kvm *kvm)
+ 	kfree(env);
+ }
+ 
+-static void kvm_init_debug(void)
++static void kvm_init_debug(const char *dev_name)
+ {
+ 	const struct file_operations *fops;
+ 	const struct kvm_stats_desc *pdesc;
+ 	int i;
+ 
+-	kvm_debugfs_dir = debugfs_create_dir("kvm", NULL);
++	kvm_debugfs_dir = debugfs_create_dir(dev_name, NULL);
+ 
+ 	for (i = 0; i < kvm_vm_stats_header.num_desc; ++i) {
+ 		pdesc = &kvm_vm_stats_desc[i];
+@@ -6511,23 +6509,42 @@ void kvm_unregister_perf_callbacks(void)
+ }
+ #endif
+ 
+-int kvm_init(unsigned vcpu_size, unsigned vcpu_align, struct module *module)
++int kvm_init(unsigned int vcpu_size, unsigned int vcpu_align, struct module *module)
+ {
++	return kvm_init_with_dev(vcpu_size, vcpu_align, module, "kvm", KVM_MINOR);
++}
++
++int kvm_init_with_dev(unsigned int vcpu_size, unsigned int vcpu_align,
++		      struct module *module, const char *dev_name, int minor)
++{
++	char *cache_name;
+ 	int r;
+ 	int cpu;
+ 
++	kvm_dev.minor = minor;
++	kvm_dev.name = kstrdup_const(dev_name, GFP_KERNEL);
++	if (!kvm_dev.name)
++		return -ENOMEM;
++
+ 	/* A kmem cache lets us meet the alignment requirements of fx_save. */
+ 	if (!vcpu_align)
+ 		vcpu_align = __alignof__(struct kvm_vcpu);
++
++	r = -ENOMEM;
++	cache_name = kasprintf(GFP_KERNEL, "%s_vcpu", dev_name);
++	if (!cache_name)
++		goto err_dev_name;
+ 	kvm_vcpu_cache =
+-		kmem_cache_create_usercopy("kvm_vcpu", vcpu_size, vcpu_align,
++		kmem_cache_create_usercopy(cache_name, vcpu_size, vcpu_align,
+ 					   SLAB_ACCOUNT,
+ 					   offsetof(struct kvm_vcpu, arch),
+ 					   offsetofend(struct kvm_vcpu, stats_id)
+ 					   - offsetof(struct kvm_vcpu, arch),
+ 					   NULL);
++	kfree(cache_name);
++
+ 	if (!kvm_vcpu_cache)
+-		return -ENOMEM;
++		goto err_dev_name;
+ 
+ 	for_each_possible_cpu(cpu) {
+ 		if (!alloc_cpumask_var_node(&per_cpu(cpu_kick_mask, cpu),
+@@ -6541,7 +6558,7 @@ int kvm_init(unsigned vcpu_size, unsigned vcpu_align, struct module *module)
+ 	if (r)
+ 		goto err_irqfd;
+ 
+-	r = kvm_async_pf_init();
++	r = kvm_async_pf_init(dev_name);
+ 	if (r)
+ 		goto err_async_pf;
+ 
+@@ -6553,7 +6570,7 @@ int kvm_init(unsigned vcpu_size, unsigned vcpu_align, struct module *module)
+ 	kvm_preempt_ops.sched_in = kvm_sched_in;
+ 	kvm_preempt_ops.sched_out = kvm_sched_out;
+ 
+-	kvm_init_debug();
++	kvm_init_debug(kvm_dev.name);
+ 
+ 	r = kvm_vfio_ops_init();
+ 	if (WARN_ON_ONCE(r))
+@@ -6595,6 +6612,8 @@ int kvm_init(unsigned vcpu_size, unsigned vcpu_align, struct module *module)
+ 	for_each_possible_cpu(cpu)
+ 		free_cpumask_var(per_cpu(cpu_kick_mask, cpu));
+ 	kmem_cache_destroy(kvm_vcpu_cache);
++err_dev_name:
++	kfree_const(kvm_dev.name);
+ 	return r;
+ }
+ EXPORT_SYMBOL_FOR_KVM_INTERNAL(kvm_init);
+@@ -6620,5 +6639,8 @@ void kvm_exit(void)
+ 	kvm_vfio_ops_exit();
+ 	kvm_async_pf_deinit();
+ 	kvm_irqfd_exit();
++
++	kfree_const(kvm_dev.name);
++	kvm_dev.name = NULL;
+ }
+ EXPORT_SYMBOL_FOR_KVM_INTERNAL(kvm_exit);
+-- 
+2.53.0
 
-static const struct vendor_ocf *current_vendor_ocf(uint16_t ocf)
-{
-uint16_t manufacturer, msft_opcode;
-
-if (index_current < MAX_INDEX) {
-manufacturer =3D index_list[index_current].manufacturer;
-msft_opcode =3D index_list[index_current].msft_opcode;
-} else {
-manufacturer =3D fallback_manufacturer;
-msft_opcode =3D BT_HCI_CMD_NOP;
-}
-
-if (msft_opcode !=3D BT_HCI_CMD_NOP &&
-cmd_opcode_ocf(msft_opcode) =3D=3D ocf)
-return msft_vendor_ocf();
-
-switch (manufacturer) {
-case COMPANY_ID_INTEL:
-return intel_vendor_ocf(ocf);
-case COMPANY_ID_BROADCOM:
-return broadcom_vendor_ocf(ocf);
-}
-
-return NULL;
-}
-
-static const struct vendor_evt *current_vendor_evt(const void *data,
-uint8_t size, int *consumed_size)
-{
-uint16_t manufacturer;
-uint8_t evt =3D *((const uint8_t *) data);
-
-if (msft_event_prefix_match(data, size)) {
-*consumed_size =3D index_list[index_current].msft_evt_len;
-return msft_vendor_evt();
-}
-
-/* A regular vendor event consumes 1 byte. */
-*consumed_size =3D 1;
-
-if (index_current < MAX_INDEX)
-manufacturer =3D index_list[index_current].manufacturer;
-else
-manufacturer =3D fallback_manufacturer;
-
-switch (manufacturer) {
-case COMPANY_ID_INTEL:
-return intel_vendor_evt(data, consumed_size);
-case COMPANY_ID_BROADCOM:
-return broadcom_vendor_evt(evt);
-}
-
-return NULL;
-}
-
-So this not only fails to use the manufacturer info to hook into its
-own dedicated file but it makes the vendor packets completely opaque
-by just hexdumping their content.
-
->  void packet_ctrl_open(struct timeval *tv, struct ucred *cred, uint16_t i=
-ndex,
->                                         const void *data, uint16_t size)
->  {
->         uint32_t cookie;
->         uint16_t format;
->         char channel[11];
->
->         if (size < 6) {
-> diff --git a/monitor/packet.h b/monitor/packet.h
-> index 73a86f64b242..8c519eca61c1 100644
-> --- a/monitor/packet.h
-> +++ b/monitor/packet.h
-> @@ -130,16 +130,18 @@ void packet_hci_command(struct timeval *tv, struct =
-ucred *cred, uint16_t index,
->  void packet_hci_event(struct timeval *tv, struct ucred *cred, uint16_t i=
-ndex,
->                                         const void *data, uint16_t size);
->  void packet_hci_acldata(struct timeval *tv, struct ucred *cred, uint16_t=
- index,
->                                 bool in, const void *data, uint16_t size)=
-;
->  void packet_hci_scodata(struct timeval *tv, struct ucred *cred, uint16_t=
- index,
->                                 bool in, const void *data, uint16_t size)=
-;
->  void packet_hci_isodata(struct timeval *tv, struct ucred *cred, uint16_t=
- index,
->                                 bool in, const void *data, uint16_t size)=
-;
-> +void packet_hci_vendor(struct timeval *tv, struct ucred *cred, uint16_t =
-index,
-> +                               bool in, const void *data, uint16_t size)=
-;
->
->  void packet_ctrl_open(struct timeval *tv, struct ucred *cred, uint16_t i=
-ndex,
->                                         const void *data, uint16_t size);
->  void packet_ctrl_close(struct timeval *tv, struct ucred *cred, uint16_t =
-index,
->                                         const void *data, uint16_t size);
->  void packet_ctrl_command(struct timeval *tv, struct ucred *cred, uint16_=
-t index,
->                                         const void *data, uint16_t size);
->  void packet_ctrl_event(struct timeval *tv, struct ucred *cred, uint16_t =
-index,
-> diff --git a/src/shared/btsnoop.h b/src/shared/btsnoop.h
-> index c24755d56729..efa87a8f2971 100644
-> --- a/src/shared/btsnoop.h
-> +++ b/src/shared/btsnoop.h
-> @@ -37,16 +37,18 @@
->  #define BTSNOOP_OPCODE_SYSTEM_NOTE     12
->  #define BTSNOOP_OPCODE_USER_LOGGING    13
->  #define BTSNOOP_OPCODE_CTRL_OPEN       14
->  #define BTSNOOP_OPCODE_CTRL_CLOSE      15
->  #define BTSNOOP_OPCODE_CTRL_COMMAND    16
->  #define BTSNOOP_OPCODE_CTRL_EVENT      17
->  #define BTSNOOP_OPCODE_ISO_TX_PKT      18
->  #define BTSNOOP_OPCODE_ISO_RX_PKT      19
-> +#define BTSNOOP_OPCODE_VENDOR_TX_PKT   22
-> +#define BTSNOOP_OPCODE_VENDOR_RX_PKT   23
->
->  #define BTSNOOP_MAX_PACKET_SIZE                (1486 + 4)
->
->  #define BTSNOOP_TYPE_PRIMARY   0
->  #define BTSNOOP_TYPE_AMP       1
->
->  #define BTSNOOP_BUS_VIRTUAL    0
->  #define BTSNOOP_BUS_USB                1
->
-> --
-> 2.34.1
->
-
-
---=20
-Luiz Augusto von Dentz
