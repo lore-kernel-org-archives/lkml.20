@@ -1,172 +1,182 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09DAD3E123C
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 12:13:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CDF73F4856;
+	Mon, 31 Aug 2026 12:13:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788178398; cv=none; b=XQTk9vqOa3Z+OZAbn+YWxEARN7MGe7RZaBIAGZMGQceeME29qQfrJULUEof/c6d4GW1MXJYq0ix6Y0OLPmbNdKJO+p8KzmOs6PeWNma/nqz4H5MqnC/HU6P3ZKU7gH25X5t7VdAKGxqczzNb1XTLYv8PtGFQY4dL5ljMjteVv8I=
+	t=1788178398; cv=none; b=JgwKST7sN9qgwxk3Y+9Cu8bALv9+9Ga+blYzOk6AsWHCrPFpjnX7lFgb2BJtVjf523VuqaUvJzjZPXEJl/+rPL/u3U/oYC4pKkWAMb65BydiQ1/AmRpMtB94obkmSGnNL6APC4Lp8tra878JXv1P9b3Q5Xq3BSyfynbs3pQwk7g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788178398; c=relaxed/simple;
-	bh=PLxxAbrujktGRnRZTWWBERj2ms6HU6jC4w9nfAb5dxM=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=a/z9dbYdN+YGaAvY6+Z0/BTYjzs1fXiopUmo4ScOrx0ZkjG+TLRE8VMDd9/lBxh7T2HHDWIcpweIYsoPVc0366BSfZbiETzWbI4DKomXqyKu55y6Mrt8unkUrK28LusyeHmH82N2AnlpBmEs6YhTFTljNmwHUOdv5pz1Ikc5ksc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=gGfYbwOf; arc=none smtp.client-ip=220.197.31.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	bh=Oz8OhcXW3DGFgvrMTjcKnGfRhfl+uGoLHZ2JtGHNdKQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=GbsRGbZemjckvdnS3APmXp0AIPrq1Hls1venIJmlYubER7tL8KeO8efsIs0nYFypQeg8aVG4wh9/7wL7w20nDOAEvYELH967aj+1K/DnW8GSpOWzoaqnEgwsF6tZkyqa0tSG7NMYElwuR3nCzdko2VEvCDIOGTi4B15RVgv1lnQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=qMKq1Fns; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=hZRKk0pK; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=ncQVYC8r; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=nFbmib6W; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="gGfYbwOf"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Message-ID:Date:MIME-Version:From:Subject:To:
-	Content-Type; bh=5akJYmmRXUk88N0xG/Jq0H/5tMkiTfzIxeZ/sqRKUAk=;
-	b=gGfYbwOfRXEOpViqrUcm+fyEiDjZGznJv71548gpu2IJy9NiAVrJe21nRxsg9Z
-	O6gJTs/izv3YjSmGLkjm3e8lB9TC07rgHLeZMaATrw9+UGyFRXmsgRE2s6db3Jnf
-	lLERX+hY936Yl90WBpE1qrExGtwwNIwlGY2Ov2wN/sTLM=
-Received: from [198.18.0.1] (unknown [])
-	by gzga-smtp-mtada-g0-2 (Coremail) with SMTP id _____wBnbsuZb5VqDhGmSQ--.62460S2;
-	Mon, 31 Aug 2026 20:12:11 +0800 (CST)
-Message-ID: <0f10d088-75c9-4287-bc2e-f2def5a9c7de@163.com>
-Date: Mon, 31 Aug 2026 20:12:09 +0800
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="qMKq1Fns";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="hZRKk0pK";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="ncQVYC8r";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="nFbmib6W"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 1EA4D1FB3C;
+	Mon, 31 Aug 2026 12:13:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1788178391; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=GajAddIu1c2jqUsPJn9Xf2Jd5zQ/sfmJIO2W+gMIJFc=;
+	b=qMKq1Fns+aGfqRiQHSqd7b0UaM0YFzWEwhKsvLKAEN5X0wd/fMXXAOLB+EtlFOXgXtXYhm
+	iOCt1RdxAmLFSeFXMlyYHR+0n82PWILo/SxXeqWydSVPquHNz8uQgUSeE/fzTM8ZBHlDBq
+	rwPZ2qSc/n3d7kBtrN/4pKvBpAHK78A=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1788178391;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=GajAddIu1c2jqUsPJn9Xf2Jd5zQ/sfmJIO2W+gMIJFc=;
+	b=hZRKk0pKGytvYxDsW3kOGrd5G8SHtykGuNTpBk2Dkwi1hJ2HyfmgiVQLktn3CiEu7mr2bY
+	IaUwqp0GUDyEB5Cw==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=ncQVYC8r;
+	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=nFbmib6W
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1788178387; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=GajAddIu1c2jqUsPJn9Xf2Jd5zQ/sfmJIO2W+gMIJFc=;
+	b=ncQVYC8rPmkqS+GhkmGEkKRLsyKpLRoo07HY8FQnyQ+Cby2xbG7Fg+g6gExv3A1lWh+9XF
+	WkJQxVs3zO+1UzGiNA64fUr3F731aX3i1K2z+iVUFrv8z/ZPS4pZ6iKDiT5fog72ex26FZ
+	sgbHRsZTaKFrcOUhRE99LvN9RO3OkHY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1788178387;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=GajAddIu1c2jqUsPJn9Xf2Jd5zQ/sfmJIO2W+gMIJFc=;
+	b=nFbmib6WoD6TAY9gwCiogiAxcTgiIn1Chxj/tyz9wZROaRGWfznfF+b1aVBL0lM/gOWR3J
+	6dt3/2VlMqh868CQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id EF51B13685;
+	Mon, 31 Aug 2026 12:13:06 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id vTtpOtJvlWqBdQAAD6G6ig
+	(envelope-from <jack@suse.cz>); Mon, 31 Aug 2026 12:13:06 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id 8A753A13B5; Mon, 31 Aug 2026 14:13:06 +0200 (CEST)
+Date: Mon, 31 Aug 2026 14:13:06 +0200
+From: Jan Kara <jack@suse.cz>
+To: Jinjie Ruan <ruanjinjie@huawei.com>
+Cc: viro@zeniv.linux.org.uk, brauner@kernel.org, jack@suse.cz, 
+	bcrl@kvack.org, tytso@mit.edu, adilger.kernel@dilger.ca, 
+	libaokun@linux.alibaba.com, ojaswin@linux.ibm.com, ritesh.list@gmail.com, 
+	yi.zhang@huawei.com, pmladek@suse.com, rostedt@goodmis.org, 
+	andriy.shevchenko@linux.intel.com, linux@rasmusvillemoes.dk, senozhatsky@chromium.org, 
+	akpm@linux-foundation.org, davem@davemloft.net, edumazet@google.com, kuba@kernel.org, 
+	pabeni@redhat.com, horms@kernel.org, socketcan@hartkopp.net, mkl@pengutronix.de, 
+	kuniyu@google.com, willemb@google.com, jhs@mojatatu.com, jiri@resnulli.us, 
+	kees@kernel.org, cyphar@cyphar.com, tglx@kernel.org, liuhangbin@gmail.com, 
+	sdf@fomichev.me, nb@tipi-net.de, linux-fsdevel@vger.kernel.org, 
+	linux-aio@kvack.org, linux-kernel@vger.kernel.org, linux-ext4@vger.kernel.org, 
+	netdev@vger.kernel.org, linux-can@vger.kernel.org
+Subject: Re: [PATCH 03/11] fs: aio: Use acquire/release for ring->tail
+ publication
+Message-ID: <x75um7rluga7zvqhe4wdqj76hjnyazpaxqs4ugme4eaompfsf6@zzj5flkfcw26>
+References: <20260825095422.3166067-1-ruanjinjie@huawei.com>
+ <20260825095422.3166067-4-ruanjinjie@huawei.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Longlong Xia <xialonglong2025@163.com>
-Subject: Re: [PATCH 0/2] mm/hugetlb: fix surplus accounting and availability
- checks during demotion
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: muchun.song@linux.dev, osalvador@suse.de, david@kernel.org,
- mike.kravetz@oracle.com, yuzhao@google.com, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, Longlong Xia <xialonglong@kylinos.cn>
-References: <20260823034307.1072415-1-xialonglong2025@163.com>
- <20260828161042.de43f4751296883eeca633a6@linux-foundation.org>
-In-Reply-To: <20260828161042.de43f4751296883eeca633a6@linux-foundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wBnbsuZb5VqDhGmSQ--.62460S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxury7JrWktry7Gr1UAr4Utwb_yoWrJry5pa
-	y5Jw1Ykrs5Ar1jkr4xZ34qkwna9r1fXr45K3ZxJw13t3W3Wr9rKrySy345WFyI9rWfJay0
-	qrWUZw1DZ3W5XF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UO2-5UUUUU=
-X-CM-SenderInfo: x0ldz0pqjo00rjsqjki6rwjhhfrp/xtbC2xsC+mqVb5tZ9wAA3d
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260825095422.3166067-4-ruanjinjie@huawei.com>
+X-Spam-Score: -2.51
+X-Rspamd-Queue-Id: 1EA4D1FB3C
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-2.51 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCPT_COUNT_TWELVE(0.00)[40];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_COUNT_THREE(0.00)[3];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	RCVD_TLS_LAST(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	TO_DN_SOME(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	R_RATELIMIT(0.00)[to_ip_from(RLa77mm4gi8mw7uppieotozii3)];
+	MISSING_XM_UA(0.00)[];
+	FREEMAIL_CC(0.00)[zeniv.linux.org.uk,kernel.org,suse.cz,kvack.org,mit.edu,dilger.ca,linux.alibaba.com,linux.ibm.com,gmail.com,huawei.com,suse.com,goodmis.org,linux.intel.com,rasmusvillemoes.dk,chromium.org,linux-foundation.org,davemloft.net,google.com,redhat.com,hartkopp.net,pengutronix.de,mojatatu.com,resnulli.us,cyphar.com,fomichev.me,tipi-net.de,vger.kernel.org];
+	DKIM_TRACE(0.00)[suse.cz:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[huawei.com:email,suse.cz:dkim,suse.cz:email,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.com:email]
+X-Spam-Flag: NO
 
+On Tue 25-08-26 17:54:14, Jinjie Ruan wrote:
+> Replace the smp_wmb() + WRITE_ONCE(ring->tail) and READ_ONCE(ring->tail)
+> + smp_rmb() barrier pair with smp_store_release()/smp_load_acquire()
+> on `ring->tail`.
+> 
+> This expresses the publish/subscribe pattern more clearly and allows
+> architectures with native acquire/release instructions (e.g. arm64's
+> STLR/LDAR) to avoid the cost of full one-way barriers (DMB ISHST/ISHLD).
+> 
+> The release ensures event data written before updating ring->tail is
+> visible to readers that observe the new tail value via acquire, which
+> is exactly the ordering the barrier pair provided.
+> 
+> No functional change intended.
+> 
+> Assisted-by: DeepSeek:DeepSeek-V3
+> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
 
-在 2026/8/29 7:10, Andrew Morton 写道:
-> On Sun, 23 Aug 2026 11:43:05 +0800 Longlong Xia<xialonglong2025@163.com> wrote:
->
->> This series fixes two problems in the hugetlb demote path.
->>
->> Patch 1 fixes surplus accounting in the source hstate.
->> demote_pool_huge_page() removes every source folio as a persistent
->> folio, but a free folio may instead account for one of the source
->> hstate's surplus pages (for example after a vmemmap restoration
->> failure). Removing such a folio without adjusting surplus_huge_pages
->> makes the persistent count underflow, and later subtracting it from
->> max_huge_pages can underflow that counter as well.
->>
->> Patch 2 fixes an availability overcount in the sysfs demote path. The
->> sysfs trigger checks whether any page is available but then passes the
->> entire request to demote_pool_huge_page(), which can remove free huge
->> pages that back existing reservations. With two free pages and one
->> reservation, a request for two pages removes both and leaves the
->> reservation without a backing page.
-> Thanks.  Have you created and tested reproducers for these?  Gemini was
-> trivially able to do this for me.
->
-> If so, it would be helpful to includes the details in the
-> changelogging.
+The patch looks good. Feel free to add:
 
-Hi Andrew,
+Reviewed-by: Jan Kara <jack@suse.cz>
 
-Yes, I created and tested reproducers for both bugs.
+Just one nit below:
 
-Patch 1 requires a vmemmap restoration failure, which is difficult to
-trigger deterministically. For that test only, I added a one-shot fault
-injection that makes the first attempt to restore the vmemmap of an
-optimized 1 GiB folio fail with -ENOMEM. The injection does not modify
-the demotion or accounting code, and it is one-shot so that the later
-restore performed during demotion can succeed.
+> diff --git a/fs/aio.c b/fs/aio.c
+> index d78acc69f487..4413c82688cc 100644
+> --- a/fs/aio.c
+> +++ b/fs/aio.c
+> @@ -1206,13 +1206,12 @@ static void aio_complete(struct aio_kiocb *iocb)
+>  	/* after flagging the request as done, we
+>  	 * must never even look at it again
+>  	 */
+> -	smp_wmb();	/* make event visible before updating tail */
+> -
+> -	ctx->tail = tail;
+> +	WRITE_ONCE(ctx->tail, tail);
 
-Patch 2 is reproducible entirely from userspace and requires no kernel
-instrumentation.
+I don't thing ctx->tail is accessed anywhere outside of completion_lock so
+I think this WRITE_ONCE is pointless.
 
-Patch 1 (surplus accounting):
-
-   1. Hack the kernel to force the first 1G vmemmap restore to fail:
-
-      /* TEST ONLY: fail the first optimized 1G folio restore. */
-      static atomic_t fail_next_1g_restore = ATOMIC_INIT(1);
-
-      ... in __hugetlb_vmemmap_restore_folio():
-      if (huge_page_size(h) == SZ_1G &&
-          atomic_cmpxchg(&fail_next_1g_restore, 1, 0) == 1) {
-              pr_info("TEST ONLY: forcing one 1G vmemmap restore 
-failure\n");
-              return -ENOMEM;
-      }
-
-   2. Boot QEMU with:
-      hugepagesz=1G hugepages=0 hugetlb_cma=1G hugetlb_free_vmemmap=on
-
-   3. Enable overcommit:
-      echo 1 > 
-/sys/kernel/mm/hugepages/hugepages-1048576kB/nr_overcommit_hugepages
-
-   4. Allocate one 1G hugepage:
-      nr=1 surplus=1 free=0 resv=0
-
-   5. Unmap it.  Due to the forced restore failure, the folio is left on
-      the freelist but still accounted as surplus:
-      nr=1 surplus=1 free=1 resv=0
-
-   6. Demote one page:
-      echo 1 > /sys/kernel/mm/hugepages/hugepages-1048576kB/demote
-
-      Before fix:
-        nr=0 surplus=1 free=0 resv=0
-        surplus > nr  (wrong -- surplus not decremented)
-
-      After fix:
-        nr=0 surplus=0 free=0 resv=0
-        accounts consistent
-
-Patch 2 (cap demotion):
-
-   1. Boot QEMU with:
-      hugepagesz=1G hugepages=2
-      nr=2 surplus=0 free=2 resv=0
-
-   2. Reserve one 1G page (mmap hugetlbfs, do not touch):
-      nr=2 surplus=0 free=2 resv=1
-
-   3. Request demotion of 2 pages:
-      echo 2 > /sys/kernel/mm/hugepages/hugepages-1048576kB/demote
-
-      Before fix:
-        nr=0 surplus=0 free=0 resv=1
-        resv > free  (wrong -- reservation has no backing page)
-
-      After fix:
-        nr=1 surplus=0 free=1 resv=1
-        resv == free  (correct -- request capped at available=1)
-
-   4. Touch the reserved page and let the process exit:
-
-      Before fix:
-        Bus error (core dumped)
-      nr=0 surplus=0 free=0 resv=0
-
-
-      After fix:
-        touch: OK (value=0x00)
-        nr=1 surplus=0 free=1 resv=0
-
-I'll include these reproducer details in the changelog of the next
-version.
-
-Thanks,
-Longlong
-
+								Honza
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
