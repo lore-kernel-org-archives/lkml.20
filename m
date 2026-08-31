@@ -1,424 +1,274 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012048.outbound.protection.outlook.com [52.101.48.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A677F525A9E;
-	Mon, 31 Aug 2026 13:44:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183864; cv=none; b=hgfuRmj49srTGQjmzwUrZBQ53FubD2wZPyKq5xWhR/eId9EHcoCLLo7tKTxpn1KuSqFHFUD601CbeQyo68EBrW+n1i4cM9RFL3EH4eemdzjBOlMq4kY6T+HVHbWEd5hX+Od3QRFEpnwsKaRiseam2Uv7rU2m8oGdFwzbppuXLMw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183864; c=relaxed/simple;
-	bh=iIoLSThhvBNpdNvI4xmyVzoJqgONVjjSmzWQnmCZs6M=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B39D526A86
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 13:44:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.48
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788183865; cv=fail; b=pDUgWMoXjxJzDUQMG5xuFU/zJrnZRzfHUfqS8UwPyRW08lqIZo41a80evHrh4tDHasygh25G1G/TOjO7q9Ut1g5vz9YcGnvV5RgOHP/zWoAQS0/N6m1AKr7FHI2BBkZDOXGFh8ATUffMTJQkCMoM49lkyU3VKn0L0LtgV5aSEAk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788183865; c=relaxed/simple;
+	bh=Uo12J90Hda7ITCQ8lI3A1YpSK4gODdjMHtiprdUV46s=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=qV2g72JocLK492Qgs/NOT869z8G+oJDXL5FZt4mCd8JG84zqJlp17m7yoxVepTh+/Q9VcPVJnqDdnaSq4BzHhbRUnVRGjyrxQXS+C1/yRrqZGyFrdIOUhn0wLH4dO/QkQmCLB0A9qVFDiIhejFT1hQQTT5Xy0E2hGK04N25YH9I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Lg4qFprw; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:MIME-Version; b=DUwHsJzOS4mfbxHVMx9+cG9t080SdKR/TALEUkhx/NQt/xZvK7X6fNxtLpmFwpNozfKJv+Qp0CEJCWVjYIYQaGaBnjUH86lK23NKwpo63hh6f1hxl6bIV29JWFAxinFQiEiRu7vB+ZFqH7pkxJsdfnXph0pansAlMdUkTacNMxY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=kFdMzfIK; arc=fail smtp.client-ip=52.101.48.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Lg4qFprw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47DE41F00A3E;
-	Mon, 31 Aug 2026 13:44:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788183861;
-	bh=BCUcAlchfVkJ6CooKk/wH8zMbjYepLYVbdrAMkbfdaw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Lg4qFprwRYqFRESe+s3dK2JNk4HjWODdINGyDaTh49ut60lnzf5C6lV7U5IX83uus
-	 mQmVbegVS2ilGDcta5O7txbOCB46VHSLSvjdLHyaprSQ/NYI/YnbHUeNYdg49Begnv
-	 Xe77O97RLwV/B20qLXlW3ZYoBPVq+NaJ2DdL6KlpijIscXy74qKxgv9oxq54VhP4ct
-	 U9Hae2d6lAYUpZkg0Ysc2rHidRbEg3XmOTIa9OVebszR2I/h/jdXS4qRrvy6YPB6qn
-	 lpQfB78l1CLZAzCMTaWV/vLM4cNitJwOeOHJXDjxElKpGpXwkUgDjxxm69gHFPxTLF
-	 MNMWJXwZzgC9Q==
-From: Sasha Levin <sashal@kernel.org>
-To: patches@lists.linux.dev,
-	stable@vger.kernel.org
-Cc: Haoxiang Li <haoxiang_li2024@163.com>,
-	Helge Deller <deller@gmx.de>,
-	Sasha Levin <sashal@kernel.org>,
-	linux-fbdev@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="kFdMzfIK"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=IEUtkLHIJLhuzOHhTowEw+O/IEBjC5xZS6llXj7zNsAF0hlvWzbwFS4R38fbbhLlWZyWSx9N6TUgO7sGt5/kdqCHShkNehqzcbQq7l6QdAHCi2vW9JzPeXjxTZOHN+XMP1oFWmnI+tuhdkVddesRJo915ueYp0XkqYnr8zfBz/m3Pr9mCgSscBA8YrqcOjYq1JSxh/D/0CEkQkiiD7OrYCgoGNNA43nzuvrL+aijI/6aQBLvejxdXRK+rK/zaSJyWeP4hJvzJzHQTkWz01Uni/1wwdjFsPrQmCF6ajoeWeSJGaOInJjWfNZzMPBvwoKhthmss0Saa16kM8dXPKznXw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=eJFi5qAiDKesnD3lga1WWjE4rAqcoiFAffqVLeUHsWI=;
+ b=B/VBrjVDJdfIkRXSORkxgJiMLaqgqDBFpMXegOLbQTJcmnBuouPrDZZrp8Xxt0DPtRd/17MtdegkXMEpmWM1M2zAnt2kuOopn1ChLuI5vuhS+TKVfQgRTzjBt/qgk6O5fX7t3t7ZrYfTzYbbn/OKO7eDVMj65XWAfC9CSpddto6T68uIG7tw6TV+GamJHm5nIzdOxvDhl+c3RW9mo0hlDE2CZyVjBr9rI0L6yN39rvcc10YcvETEe/evDX3fWWclI0rk3InrNyuxtS3SeNl60LcrYhUMCvRbyg6ZRD7BtPh78DJCRxa9Nyo4LZisDoDetGwrO+VELIfEEXBHYEPisQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=eJFi5qAiDKesnD3lga1WWjE4rAqcoiFAffqVLeUHsWI=;
+ b=kFdMzfIKbhQDSGu0DiByz933zoRST69hnV5GHhT1YshD3wHYNQZ8bnuas0H/NvJ8Labt2PurqhPpMTTsyFnb7X+ikoWwEgg0+T2TJCyQUWbJZOiu+HR+rQ1v9M2dR7+wlVnYxKkEe66oBy2PMiy+KpYpRSqtvjgm8u6wP2a6NV0P09i9UXtFux+HgNQAA7J34NaKrTW6mPoiZX89ZT9aVa7NOAAw+Gc4Oc2HEFsNlOF4hL0FqS34lmgCJr5aPeeR4Y5lYL261YC84K9AMWDuSNSIrdH02VfAWXHT64EK9pPeqTonrj+n/tmuw4yEMGsQRqLHfmLNZZIMeWUxEH16Mg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DM6PR12MB4827.namprd12.prod.outlook.com (2603:10b6:5:1d6::14)
+ by MW4PR12MB6755.namprd12.prod.outlook.com (2603:10b6:303:1ea::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.12; Mon, 31 Aug
+ 2026 13:44:15 +0000
+Received: from DM6PR12MB4827.namprd12.prod.outlook.com
+ ([fe80::6261:3040:864b:159c]) by DM6PR12MB4827.namprd12.prod.outlook.com
+ ([fe80::6261:3040:864b:159c%5]) with mapi id 15.21.0360.008; Mon, 31 Aug 2026
+ 13:44:15 +0000
+From: Andrea Righi <arighi@nvidia.com>
+To: Tejun Heo <tj@kernel.org>,
+	David Vernet <void@manifault.com>,
+	Changwoo Min <changwoo@igalia.com>,
+	John Stultz <jstultz@google.com>
+Cc: Ingo Molnar <mingo@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>,
+	Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Christian Loehle <christian.loehle@arm.com>,
+	David Dai <david.dai@linux.dev>,
+	Emil Tsalapatis <etsal@meta.com>,
+	Lee Trager <ltrager@nvidia.com>,
+	Richard Cheng <icheng@nvidia.com>,
+	Koba Ko <kobak@nvidia.com>,
+	Aiqun Yu <aiqun.yu@oss.qualcomm.com>,
+	sched-ext@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-5.10] fbdev: pm2fb: unwind WC setup on probe failure
-Date: Mon, 31 Aug 2026 09:26:16 -0400
-Message-ID: <20260831133314.4125787-348-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
-References: <20260831133314.4125787-1-sashal@kernel.org>
+Subject: [PATCH 03/18] sched: Make NOHZ CFS bandwidth checks follow proxy donor
+Date: Mon, 31 Aug 2026 15:42:13 +0200
+Message-ID: <20260831134338.1531664-4-arighi@nvidia.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260831134338.1531664-1-arighi@nvidia.com>
+References: <20260831134338.1531664-1-arighi@nvidia.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: MI0P293CA0010.ITAP293.PROD.OUTLOOK.COM
+ (2603:10a6:290:44::12) To DM6PR12MB4827.namprd12.prod.outlook.com
+ (2603:10b6:5:1d6::14)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.18.48
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4827:EE_|MW4PR12MB6755:EE_
+X-MS-Office365-Filtering-Correlation-Id: 558e55d3-e779-46bc-3565-08df0765f25a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|1800799024|23010399003|366016|3023799007|10067099003|56012099006|11063799006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	XUQHmvjJQcffdSXTei7KPXSLJeOx7Lxuqjgt0BaRvQjOjVtGlcKgI/emvGrsgSLdyQMUTgJ93LshvIE1YuZZNEzAXjImK+yzjq8ssQIZyAGLZWKMjVKo+XxBZdj4dKXC5PkMG+aye1wvQmApHzzyzlcSAscL9MHRYeGBkgbCX2kReuVxGVdoedTzgvkFtmeVr7htNKm0ku6h7G7S/7fE7atOq8Xbc8UoRVie3F11UCM9EOJIzsR8rEcSjtZLrImjXxNonn+UsK4t01D4v/s6NI5y65mcybN3gUZWLlWmQ1azbQ+unKTnYW8yvV3IFwxRSkOqixvWiQFIxfKvKqEOU4esQY8rlXcK8nFMDKXo29D2M71XveQFF7rDX3xIuDHebF21TSja9a9iWSVw4eB0yZ6qll7h/utIPLUf9B/8pOS/1K8hv6TGcz5s2zPkSFGXPc0wHhngLyPxK5/IKJK2J/2w5D5k1rTtFjEpug9w0zvjySwHTVB1B8B/5B7KPvBEGdOXxswk6EviafJcoL3CqB1u/bos+H68MF/gs8gGHNLs8ZxqefsrgoapWepzYJ37l+BU24IrrB0EtfhVPdLBWSybp6YYinL+cjtjyU6IhB7X+iptDPGpAQHI7xkiyO9cFzvaE49l4ADUi4c3PP9edmwQ6hGm+hxv6sSN0hQ8BB8=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR12MB4827.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(23010399003)(366016)(3023799007)(10067099003)(56012099006)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?tCwAe2GcUnI1z0ylw9oSvtu6FfLyVn36UQey65R69iEjtUoACBDHU3Cwui4Y?=
+ =?us-ascii?Q?n7jP8yTrbnoTDUG5Y14CuJHsoaZh8GQ86vcePmN4vNHDzU6JCKH+APnzY7I6?=
+ =?us-ascii?Q?oRS4Zqz7sznaLmU7idQz9XRyb/KtlldBT3ibjX0ue0L0Ra1EqNynV09f+ttO?=
+ =?us-ascii?Q?qo4JRacuO1QeGnSVvoZ5t2sGwQGwEvBzfwFdWsx0k9djiwxwdKfnJPdiA0GR?=
+ =?us-ascii?Q?0g1PlEuiRmEdwjm84YchfNDgUWLGyWJd3kLT8uTo2QT+UoWNXyGPbR0UXBVQ?=
+ =?us-ascii?Q?IiEvcggsxekJ2xrrZrUwpKUXc45RJlKI3vTJ62zXfr75D5ww1G8NXTxa7TwW?=
+ =?us-ascii?Q?RNc4nIn2aUOGdlPiMwcmZb/dMQC4AFl2wIkt5gYpu4audz41UzWXvhXjRd8I?=
+ =?us-ascii?Q?8OFMWE9+5PnBTgQdEmrHIQxSMIW0z2IAbcZ0tweEhwp5xrIl508/M6voqpGk?=
+ =?us-ascii?Q?xwicAdXrt8+zIR8sXnysQx+g4DYrdXAL8rt5F5Q8arcUdAFAD2ayehH7CqAM?=
+ =?us-ascii?Q?t7wBvU7N4qaOPTSnP6c+u3l9EqFG7It2lxqrJiPsiaFHNvXyjb5+JSwW7qrI?=
+ =?us-ascii?Q?jUPkQdc2eaSk3bTsARNdZUz0DohIiu0rnZiGTQfe67yqiqx4rga6UoQwj70G?=
+ =?us-ascii?Q?v/HoFGhoTlfOnCAOZ6zRaOyoA5WyIsq3hOIuCnesGgMQBhL8/vGB6qb2lqrl?=
+ =?us-ascii?Q?NLBSyJsoPrarztCRzBE6HU74XW7NQk/omvuOsythYy+EnbXmBU3Snls/ncNY?=
+ =?us-ascii?Q?8Vn0HIOv/aoJnM+M+1jgdavsdduRIPm87kAZhzmKTWF5mPm+O3cTWPh2tVGz?=
+ =?us-ascii?Q?0XAndeLxghlSMEhtNc6db0Ux+0Ed9I6htXKVqqSne1LEtb9LxU1owFDCLwGB?=
+ =?us-ascii?Q?4/o1Qq5AjtRciIkQ5jp7+znwrJy5b414HQvvlCTydDm02UzsTvm1BXk6P7Dc?=
+ =?us-ascii?Q?jKFqnKvlNA699jAv3xihBSDLzEXj4lWMY82kgRAA+O1qnrcc2rjhHv57MdWV?=
+ =?us-ascii?Q?CHfh6CzZe/v0XpfidB5eIa0h8cMRz8Sj4GrernyfNPbxwKpXaWCH/r2RBiVW?=
+ =?us-ascii?Q?rXyorr+dTUW4ehlI2Pq0whMLe7aheIJ/Q1oSUWt0J+MOg5jUAozGLD+5QJv+?=
+ =?us-ascii?Q?xk+zom/mYKUmQ7vO6hNETgSi3hculI9Bk7g4lxk4vYa88PTqJs/orMIvfj3L?=
+ =?us-ascii?Q?CmEFoldDLPAxvESSaWrC7XLjWZ5dngn8Kf7uHKC+3HsUpVGDPgh0rJ0/7e18?=
+ =?us-ascii?Q?aULp+B9iz83C6wBoymZuyLuJKsVPyMGotm6NOhOjSh8aDQ5OBemNVOIpxWyz?=
+ =?us-ascii?Q?sycvF8ACowmC4D2Zg9MEa8x3TqEtz1WnMgqIiRqb7F1Cr29ugZpv7t54S09n?=
+ =?us-ascii?Q?LcEohbJVzjNvLdZQ9RtS1U1WZehnh/caTP9QpiMOb49NC5AqGkSxSu5TSz9Q?=
+ =?us-ascii?Q?7agsnQyIZewWPWhVsBwjjW8SWw3GDH5mM0R3OfUxIk1vumRd5Aeu3BD0OqJM?=
+ =?us-ascii?Q?LLef3P9wdkw6uwIy8FwhyZaGCO/Yu4EROEUAafXPTKTwFjavdB26eEPV8Oyi?=
+ =?us-ascii?Q?oakNqcrw8/6kUyg94o+L4DprELpZIHSJRC667DJZHrlikm4KUVjU8t5crsp9?=
+ =?us-ascii?Q?VqfUDEx9PJ79n5wa4m6dhsfWoK/x5QHSvyIErNRHR2otxmtbKmUn0v1ofYsQ?=
+ =?us-ascii?Q?t9OHhIsjftcDxHXRriNnj2ukZhzeuklQ9WSvag/9mdAe5dtI5uS5KrPfc+Xk?=
+ =?us-ascii?Q?Bfp1rMwVnQ=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 558e55d3-e779-46bc-3565-08df0765f25a
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4827.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 13:44:15.0328
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ixJvIG1uzThqeQXH6VJsZb8zUOF+TgWJjzbMmUTj7WkC46z+mnd6w7eiUxe4qCp3a08T3anMR+ChgwFmNeacTA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6755
 
-From: Haoxiang Li <haoxiang_li2024@163.com>
+Proxy execution separates the scheduling context in rq->donor from the
+physical execution context in rq->curr. sched_can_stop_tick() checks the
+latter for CFS bandwidth constraints and only does so when nr_running is
+one.
 
-[ Upstream commit 16eb19f0c90af03bda6ba66586d7bb0e9cf85b43 ]
+A retained proxy donor keeps both the donor and mutex owner queued. The
+check therefore misses a constrained FAIR donor and may stop the tick
+while its runtime still needs to be enforced.
 
-Add arch_phys_wc_del() on error path to keep the
-write-combining setup balanced when later probe
-steps fail.
+Check the selected donor instead and remove the nr_running restriction.
+The donor being a queued FAIR task is sufficient to require bandwidth
+accounting regardless of other runnable tasks.
 
-Signed-off-by: Haoxiang Li <haoxiang_li2024@163.com>
-Signed-off-by: Helge Deller <deller@gmx.de>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: af0c8b2bf67b ("sched: Split scheduler and execution contexts")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Link: https://lore.kernel.org/r/20260713164807.E5ED21F00A3A@smtp.kernel.org
+Acked-by: John Stultz <jstultz@google.com>
+Signed-off-by: Andrea Righi <arighi@nvidia.com>
 ---
-
-LLM Generated explanations, may be completely bogus:
-
-# Stable Backport Analysis: `fbdev: pm2fb: unwind WC setup on probe
-failure`
-
-**Local tree:** `v6.18.44` (`stable/linux-6.18.y`, `HEAD` detached)
-**Candidate commit:** `16eb19f0c90af03bda6ba66586d7bb0e9cf85b43`
-(mainline only; **not** in this tree)
-
----
-
-## PHASE 1: COMMIT MESSAGE FORENSICS
-
-### Step 1.1: Subject line
-**Record:** `[fbdev: pm2fb]` `[unwind]` — Add missing write-combining
-teardown when `pm2fb_probe()` fails after WC setup.
-
-### Step 1.2: Tags
-**Record:**
-- `Signed-off-by: Haoxiang Li <haoxiang_li2024@163.com>` (author)
-- `Signed-off-by: Helge Deller <deller@gmx.de>` (fbdev maintainer,
-  applied the patch)
-- No `Fixes:`, `Reported-by:`, `Tested-by:`, `Reviewed-by:`, `Cc:
-  stable@vger.kernel.org`, or `Link:` tags
-- Notable: maintainer ack via application; no user/fuzzer reports
-
-### Step 1.3: Body analysis
-**Record:**
-- **Bug:** `arch_phys_wc_add()` is called during probe, but later probe
-  failures skip `arch_phys_wc_del()`.
-- **Symptom:** Leaked MTRR/WC mapping on x86 systems where
-  `arch_phys_wc_add()` actually allocates an MTRR (PAT disabled, MTRR
-  enabled, `nomtrr` unset).
-- **Root cause:** Missing symmetric cleanup on `err_exit_pixmap` and
-  downstream error labels (`err_exit_both`, `err_exit_all`).
-- **Version info:** None in the message.
-
-### Step 1.4: Hidden bug fix?
-**Record:** Yes. Although titled “unwind WC setup,” this is a probe
-error-path **resource leak** fix, not cosmetic cleanup.
-
----
-
-## PHASE 2: DIFF ANALYSIS
-
-### Step 2.1: Inventory
-**Record:**
-- **Files:** `drivers/video/fbdev/pm2fb.c` (+1 / −0)
-- **Functions:** `pm2fb_probe()` error path only
-- **Scope:** Single-file, surgical one-liner
-
-### Step 2.2: Code flow change
-**Record:**
-- **Before:** After `arch_phys_wc_add()` at lines 1655–1657, failures at
-  pixmap alloc (`err_exit_pixmap`), cmap alloc (`err_exit_both`), or
-  `register_framebuffer()` (`err_exit_all`) skipped WC teardown.
-- **After:** `err_exit_pixmap` calls
-  `arch_phys_wc_del(default_par->wc_cookie)` before unmapping smem —
-  matching `pm2fb_remove()` at line 1738.
-- **Affected paths:** Error paths only (not the success path).
-
-### Step 2.3: Bug mechanism
-**Record:**
-- **Category:** Error-path resource leak
-- **Mechanism:** `arch_phys_wc_add()` may consume an MTRR slot on PAT-
-  less x86; without `arch_phys_wc_del()`, that slot stays allocated
-  after failed probe. On PAT-enabled or non-x86 systems,
-  `arch_phys_wc_add()` is effectively a no-op and `arch_phys_wc_del(0)`
-  is also a no-op.
-
-### Step 2.4: Fix quality
-**Record:**
-- Obviously correct; mirrors `pm2fb_remove()` and the pattern in
-  `tdfxfb.c` (line 1556).
-- Minimal, no API changes.
-- **Regression risk:** Very low — `arch_phys_wc_del()` is documented to
-  be safe for handle `0` and error returns.
-
----
-
-## PHASE 3: GIT HISTORY INVESTIGATION
-
-### Step 3.1: Blame
-**Record:**
-- `arch_phys_wc_add()` introduced in `f8f05cdc767fa` (Apr 2015, “use
-  arch_phys_wc_add() and ioremap_wc()”).
-- `f8f05cdc767fa` **is** an ancestor of this tree (`merge-base` exit 0).
-- Error-path labels date to 2005–2008; WC cleanup on error was never
-  added when MTRR code was converted in 2015.
-
-### Step 3.2: Fixes: tag
-**Record:** N/A — no `Fixes:` tag. Bug introduced by `f8f05cdc767fa`,
-which is present in 6.18.y.
-
-### Step 3.3: Related file history
-**Record:**
-- `a943710407120` — identical fix for `uvesafb_probe()` error path,
-  **already in 6.18.y**
-- `ed359a464846b` — `pm2fb` missing `pci_disable_device()` on probe
-  error path, **already in 6.18.y**
-- `tdfxfb.c` already has `arch_phys_wc_del()` on probe error path (line
-  1556)
-- Standalone patch; not part of a series
-
-### Step 3.4: Author context
-**Record:** Haoxiang Li submits probe error-path leak fixes across
-subsystems; Helge Deller (fbdev maintainer) applied this patch.
-
-### Step 3.5: Dependencies
-**Record:** None. Requires only
-`arch_phys_wc_add()`/`arch_phys_wc_del()` and `wc_cookie` in `struct
-pm2fb_par`, all present since `f8f05cdc767fa`. Applies cleanly.
-
----
-
-## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
-
-### Step 4.1: Original discussion
-**Record:**
-- `b4 dig -c 16eb19f0c90af`: https://patch.msgid.link/20260621071935.380
-  2673-1-haoxiang_li2024@163.com
-- Single-patch submission; Helge Deller replied “applied. Thanks!”
-- No series revisions (`-a` not needed; single patch)
-- No stable nomination in thread
-- No NAKs or concerns
-
-### Step 4.2: Reviewers
-**Record:** `b4 dig -w`: To/Cc — Haoxiang Li, Helge Deller, `linux-
-fbdev@vger.kernel.org`, `linux-kernel@vger.kernel.org`
-
-### Step 4.3: Bug reports
-**Record:** N/A — no `Reported-by:` or `Link:` tags; no syzbot/fuzzer
-involvement.
-
-### Step 4.4: Related patches
-**Record:** Direct analogue: `a943710407120` (uvesafb, same maintainer,
-same pattern).
-
-### Step 4.5: Stable list history
-**Record:** Lore fetch blocked by bot protection; no stable-list
-discussion found via `b4`. Precedent established in-tree via uvesafb
-backport.
-
----
-
-## PHASE 5: CODE SEMANTIC ANALYSIS
-
-### Step 5.1: Key functions
-**Record:** `pm2fb_probe()`, `arch_phys_wc_add()`, `arch_phys_wc_del()`
-
-### Step 5.2: Callers
-**Record:** `pm2fb_probe()` registered as `.probe` in `pm2fb_driver`
-(PCI core during device enumeration/module load). Not a hot path; runs
-once per device attach attempt.
-
-### Step 5.3: Callees
-**Record:** On failure after WC setup: `kfree()`, `fb_dealloc_cmap()`,
-`iounmap()`, `release_mem_region()`, `framebuffer_release()`,
-`pci_disable_device()`. WC teardown was the missing piece.
-
-### Step 5.4: Reachability
-**Record:** Trigger requires `CONFIG_FB_PM2` built/loaded, Permedia2
-hardware present, probe progressing past smem ioremap + WC add, then
-failing at:
-1. `kmalloc(PM2_PIXMAP_SIZE)` → `-ENOMEM`
-2. `fb_alloc_cmap()` failure
-3. `register_framebuffer()` failure
-
-Reachable from module load / PCI hotplug; no userspace syscall needed
-beyond normal device binding.
-
-### Step 5.5: Similar patterns
-**Record:**
-- `tdfxfb.c`: has probe-error `arch_phys_wc_del()` ✓
-- `uvesafb.c`: fixed in `a943710407120` (in this tree) ✓
-- `s3fb.c`, `i740fb.c`: WC add after success point or missing probe-
-  error del (latent issues elsewhere; out of scope)
-
----
-
-## PHASE 6: CROSS-REFERENCE AGAINST LOCAL TREE
-
-### Step 6.1: Buggy code present?
-**Record:** **Yes.** Lines 1655–1657 call `arch_phys_wc_add()`; lines
-1713–1715 (`err_exit_pixmap`) lack `arch_phys_wc_del()`. Bug present
-since `f8f05cdc767fa` (2015).
-
-### Step 6.2: Backport complications
-**Record:** Clean apply expected — one line at `err_exit_pixmap`,
-identical context to mainline diff.
-
-### Step 6.3: Related fixes already present?
-**Record:**
-- `a943710407120` (uvesafb WC probe-error fix) — **present**
-- `ed359a464846b` (pm2fb `pci_disable_device` probe fix) — **present**
-- `16eb19f0c90af` (this fix) — **absent** (`merge-base --is-ancestor`
-  exit 1)
-
----
-
-## PHASE 7: SUBSYSTEM CONTEXT
-
-### Step 7.1: Subsystem criticality
-**Record:** `drivers/video/fbdev/pm2fb.c` — legacy framebuffer driver
-(`CONFIG_FB_PM2`, tristate). **PERIPHERAL** — affects users of 1990s-era
-Permedia2 hardware (PCI/SPARC).
-
-### Step 7.2: Activity
-**Record:** Low churn; occasional maintenance fixes from Helge Deller’s
-fbdev tree.
-
----
-
-## PHASE 8: IMPACT AND RISK ASSESSMENT
-
-### Step 8.1: Who is affected
-**Record:** Users with Permedia2 hardware, `CONFIG_FB_PM2` enabled,
-probe failing after WC setup. Narrow population.
-
-### Step 8.2: Trigger conditions
-**Record:**
-- **Real leak only on:** x86, PAT disabled, MTRR enabled, `nomtrr=0`
-- **Failure modes:** ENOMEM or framebuffer registration failure after WC
-  add
-- **Likelihood:** Low (legacy hardware + rare probe failure)
-- **Unprivileged trigger:** Indirectly via module load / device
-  presence; not a typical attack vector
-
-### Step 8.3: Failure severity
-**Record:** Leaked MTRR slot (finite resource, typically ~8–10 entries).
-Can degrade performance or block other drivers needing MTRR on PAT-less
-systems. **Not** a crash, deadlock, or data corruption. **Severity:
-LOW–MEDIUM** (resource leak, not security).
-
-### Step 8.4: Risk–benefit
-**Record:**
-- **Benefit:** Correct probe teardown; consistency with uvesafb/tdfxfb;
-  prevents MTRR exhaustion on affected configs
-- **Risk:** Negligible — one line, symmetric with remove path, no-op on
-  modern PAT-enabled systems
-- **Ratio:** Low benefit magnitude, but also near-zero risk; established
-  fbdev stable pattern
-
----
-
-## PHASE 9: FINAL SYNTHESIS
-
-### Step 9.1: Evidence summary
-
-**FOR backport:**
-- Real, verifiable resource leak since 2015 WC conversion
-- One-line, obviously correct fix
-- Identical pattern already backported in this tree (`a943710407120`
-  uvesafb)
-- Same maintainer (Helge Deller) applied both uvesafb and pm2fb fixes
-- Buggy code confirmed present in 6.18.y; fix not yet applied
-- Matches `tdfxfb` probe-error pattern already in tree
-
-**AGAINST backport:**
-- Very obscure hardware (Permedia2)
-- No user reports, syzbot, or security angle
-- Effective only on PAT-less x86 with MTRR (rare on 6.18 deployments)
-- Impact is resource leak, not crash/corruption
-- “Important issue” bar is borderline for severity
-
-**Unresolved:** None material to the decision.
-
-### Step 9.2: Stable rules checklist
-1. Obviously correct and tested? **PASS** — mirrors remove path;
-   maintainer applied; no objections
-2. Fixes a real bug? **PASS** — MTRR leak on probe failure (on affected
-   configs)
-3. Important issue? **PASS (borderline)** — resource leak, not
-   crash/security; but same class already accepted for uvesafb in this
-   tree
-4. Small and contained? **PASS** — 1 line, 1 file
-5. No new features/APIs? **PASS**
-6. Can apply to local tree? **PASS** — prerequisite code present; clean
-   apply
-
-### Step 9.3: Exception categories
-**Record:** None (not device ID, quirk, DT, build, or docs). Standard
-probe error-path resource cleanup.
-
-### Step 9.4: Decision rationale
-
-For **linux-6.18.y**, this is a legitimate probe error-path resource
-leak fix. Severity is low and the hardware is legacy, but the patch is
-trivial, zero-risk, and the **same tree already carries the identical
-uvesafb fix** (`a943710407120`). Backporting maintains consistency in
-fbdev probe teardown and closes a gap that has existed since the 2015
-`arch_phys_wc_add()` conversion.
-
----
-
-## Verification
-
-- **[Phase 1]** Parsed subject, tags, body; no Reported-by/syzbot
-- **[Phase 2]** Diff: +1 line `arch_phys_wc_del()` at `err_exit_pixmap`
-  in `pm2fb_probe()`
-- **[Phase 3]** `git describe HEAD` → `v6.18.44`; `git blame` → WC add
-  from `f8f05cdc767fa` (2015)
-- **[Phase 3]** `git merge-base --is-ancestor f8f05cdc767fa HEAD` → exit
-  0 (bug source in tree)
-- **[Phase 3]** `git merge-base --is-ancestor 16eb19f0c90af HEAD` → exit
-  1 (fix not in tree)
-- **[Phase 3]** `git log stable/linux-6.18.y..master -- pm2fb.c` → only
-  `16eb19f` and unrelated pci_device_id change
-- **[Phase 3]** Related: `a943710407120` (uvesafb), `ed359a464846b`
-  (pm2fb pci_disable) in tree
-- **[Phase 4]** `b4 dig -c 16eb19f` → lore URL found; maintainer
-  “applied”
-- **[Phase 4]** `b4 dig -w` → fbdev maintainers CC’d
-- **[Phase 5]** Read `arch_phys_wc_add/del` in
-  `arch/x86/kernel/cpu/mtrr/mtrr.c` and stubs in `include/linux/io.h`
-- **[Phase 5]** Compared `tdfxfb.c:1556` (has probe-error del) and
-  `pm2fb.c:1738` (remove-path del)
-- **[Phase 6]** Confirmed missing `arch_phys_wc_del` at lines 1713–1715
-  in current tree
-- **[Phase 6]** `git show a943710407120` — identical uvesafb probe-error
-  fix already in 6.18.y
-- **[Phase 8]** Assessed impact: MTRR leak on PAT-less x86 only;
-  LOW–MEDIUM severity
-
-**YES**The background lookups finished and matched what the analysis
-used:
-
-- **pm2fb history:** The commit isn’t in this `v6.18.44` tree yet;
-  recent `pm2fb.c` history shows maintenance fixes like the
-  `pci_disable_device()` probe cleanup.
-- **Candidate hash:** Mainline commit is `16eb19f0c90af` (“fbdev: pm2fb:
-  unwind WC setup on probe failure”).
-- **Stable precedent:** `6.18.y` already has the same pattern for
-  uvesafb (`a943710407120`); this pm2fb fix is not in stable yet.
-
-**Verdict for 6.18.y: YES** — one-line probe error-path MTRR/WC cleanup,
-same class of fix already accepted in this tree.
-
- drivers/video/fbdev/pm2fb.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/video/fbdev/pm2fb.c b/drivers/video/fbdev/pm2fb.c
-index f34429829b7d7..82408503c2812 100644
---- a/drivers/video/fbdev/pm2fb.c
-+++ b/drivers/video/fbdev/pm2fb.c
-@@ -1711,6 +1711,7 @@ static int pm2fb_probe(struct pci_dev *pdev, const struct pci_device_id *id)
-  err_exit_both:
- 	kfree(info->pixmap.addr);
-  err_exit_pixmap:
-+	arch_phys_wc_del(default_par->wc_cookie);
- 	iounmap(info->screen_base);
- 	release_mem_region(pm2fb_fix.smem_start, pm2fb_fix.smem_len);
-  err_exit_mmio:
+ kernel/sched/core.c | 35 ++++++++++++++++++-----------------
+ kernel/sched/fair.c | 12 +++++++-----
+ 2 files changed, 25 insertions(+), 22 deletions(-)
+
+diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+index 237d216382f46..14d0d5c884393 100644
+--- a/kernel/sched/core.c
++++ b/kernel/sched/core.c
+@@ -1419,11 +1419,8 @@ static void nohz_csd_func(void *info)
+ #endif /* CONFIG_NO_HZ_COMMON */
+ 
+ #ifdef CONFIG_NO_HZ_FULL
+-static inline bool __need_bw_check(struct rq *rq, struct task_struct *p)
++static inline bool __need_bw_check(struct task_struct *p)
+ {
+-	if (rq->nr_running != 1)
+-		return false;
+-
+ 	if (p->sched_class != &fair_sched_class)
+ 		return false;
+ 
+@@ -1441,6 +1438,14 @@ bool sched_can_stop_tick(struct rq *rq)
+ 	if (rq->dl.dl_nr_running)
+ 		return false;
+ 
++	/*
++	 * The selected scheduling context can be a constrained FAIR donor even
++	 * when rq->curr is an RT task. Check it before the RT fast paths below,
++	 * which may report that the tick can stop for a throttled RT context.
++	 */
++	if (__need_bw_check(rq->donor) && cfs_task_bw_constrained(rq->donor))
++		return false;
++
+ 	/*
+ 	 * If there are more than one RR tasks, we need the tick to affect the
+ 	 * actual RR behaviour.
+@@ -1471,18 +1476,6 @@ bool sched_can_stop_tick(struct rq *rq)
+ 	if (rq->cfs.h_nr_queued > 1)
+ 		return false;
+ 
+-	/*
+-	 * If there is one task and it has CFS runtime bandwidth constraints
+-	 * and it's on the cpu now we don't want to stop the tick.
+-	 * This check prevents clearing the bit if a newly enqueued task here is
+-	 * dequeued by migrating while the constrained task continues to run.
+-	 * E.g. going from 2->1 without going through pick_next_task().
+-	 */
+-	if (__need_bw_check(rq, rq->curr)) {
+-		if (cfs_task_bw_constrained(rq->curr))
+-			return false;
+-	}
+-
+ 	return true;
+ }
+ #endif /* CONFIG_NO_HZ_FULL */
+@@ -7114,7 +7107,7 @@ find_proxy_task(struct rq *rq, struct task_struct *donor, struct rq_flags *rf)
+  */
+ static void __sched notrace __schedule(int sched_mode)
+ {
+-	struct task_struct *prev, *next;
++	struct task_struct *prev, *next, *tick_donor;
+ 	/*
+ 	 * On PREEMPT_RT kernel, SM_RTLOCK_WAIT is noted
+ 	 * as a preemption by schedule_debug() and RCU.
+@@ -7168,6 +7161,7 @@ static void __sched notrace __schedule(int sched_mode)
+ 	rq->clock_update_flags <<= 1;
+ 	update_rq_clock(rq);
+ 	rq->clock_update_flags = RQCF_UPDATED;
++	tick_donor = rq->donor;
+ 
+ 	switch_count = &prev->nivcsw;
+ 
+@@ -7243,6 +7237,13 @@ static void __sched notrace __schedule(int sched_mode)
+ 	clear_tsk_need_resched(prev);
+ 	clear_preempt_need_resched();
+ keep_resched:
++	/*
++	 * Enqueue and dequeue updates can evaluate the outgoing donor. Refresh
++	 * the dependency after selecting a different scheduling context.
++	 */
++	if (rq->donor != tick_donor)
++		sched_update_tick_dependency(rq);
++
+ 	rq->last_seen_need_resched_ns = 0;
+ 
+ 	is_switch = prev != next;
+diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+index 8dff37059faf7..1842a748641b7 100644
+--- a/kernel/sched/fair.c
++++ b/kernel/sched/fair.c
+@@ -7703,14 +7703,16 @@ static void sched_fair_update_stop_tick(struct rq *rq, struct task_struct *p)
+ 	if (!tick_nohz_full_cpu(cpu))
+ 		return;
+ 
+-	if (rq->nr_running != 1)
++	if (rq->cfs.h_nr_queued != 1)
+ 		return;
+ 
+ 	/*
+-	 *  We know there is only one task runnable and we've just picked it. The
+-	 *  normal enqueue path will have cleared TICK_DEP_BIT_SCHED if we will
+-	 *  be otherwise able to stop the tick. Just need to check if we are using
+-	 *  bandwidth control.
++	 * We know there is only one FAIR task queued and we've just picked it.
++	 * The normal enqueue path will have cleared TICK_DEP_BIT_SCHED if we
++	 * will be otherwise able to stop the tick. With proxy execution, its
++	 * lock owner may remain runnable in another scheduling class, so
++	 * rq->nr_running can be greater than one. Just need to check if we are
++	 * using bandwidth control.
+ 	 */
+ 	if (cfs_task_bw_constrained(p))
+ 		tick_nohz_dep_set_cpu(cpu, TICK_DEP_BIT_SCHED);
 -- 
-2.53.0
+2.55.0
 
