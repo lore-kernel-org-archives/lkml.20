@@ -1,306 +1,387 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010059.outbound.protection.outlook.com [40.93.198.59])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5128D4582CC;
-	Mon, 31 Aug 2026 14:56:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788188218; cv=none; b=Db6m+EhxLbKltaXX0grFJrPcNumaHCqumqqwT5P694hDRBG/puCxnf7Suir0T250GmSJP5Hoazcn7S04uof2kvqIjut2ITAoWiwdL+XQtJ1AA4hsQ/BCfJ6eLO0+SOy4LwBca956ByBRkOVwkMDhwbVGH5st382WXktowYydtq8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788188218; c=relaxed/simple;
-	bh=XahmHxH0Gd3lj5ehi9NUQWJAAODcuOY5ppqaWC/GHdU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PcRQ3vzjzO/fM0ZTOuU6AkdtETH2hMDz/VblcYvkr6iYUlcS5WvrUI8i3WafCrlFBmsvJc60H0P+GLGzVFBgC8CQ3PtCDNE91YyXkbBcqo+Jg0F0FggxhYWC85qEO8/lQQgy8B2qE5KtkCWZVdGS8E2Qb3iofUTcizBegbdzPnU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=FmhrmU9Q; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F180C459AC4
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 14:56:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.198.59
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788188220; cv=fail; b=nL7Hz/rBMMxDg8mXuAkfP416wizWGR/TYPWlV+HH0VE0mtHh/izgWIsU8f/aUYqjtQ8T3u5HEcBFfhWNwh28Z8bJH70hqgPtUYM/fHMOM/GElwsDzImdfxhIrNzA0xJHCDSWpmsx9WSilFYRpANlsCMBTvUSKrMwQ65G0EXxRJY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788188220; c=relaxed/simple;
+	bh=npkOlvwlz8z1Y1onFEZ5tWFaUjZfazIAjCezV/Xy2Tw=;
+	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=NmV6pS8xoU9FJ4KplzAD15/pMKG1QVrqRR8Y6s7VANVK9Q3ee8kkFj1p44AnioaviWxcytCGVZvaiEktl6/HGlk7GrpakRdi6MwBMCQe3ZZqHiC3qObRlOcG6MICbRmwfwnO1j5fibktQSt72b9X/NaLEwCrMXvV9Q8oqBJxvuI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=tbE4WqYu; arc=fail smtp.client-ip=40.93.198.59
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="FmhrmU9Q"
-Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67VEZ2N92530185;
-	Mon, 31 Aug 2026 14:55:50 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=pp1; bh=2z3sWLPpK2eDFdOqs
-	5emIQ2Y32dheJUIVq6RAjdHB/w=; b=FmhrmU9QCAA6qlzw/bTCVodXBHEs7nQss
-	/WGCPp+Nvzh/RNExAwknHK/FS+fu1bVW0GvqjmV9eMNOo9hknj9S4s+8ScbofUsG
-	h825t8nvhkzqgInaLmQhuaqOrZYDv6q0RkGkwLkf8UhivRsp2TOnxalTaNCs2GlA
-	z06PsQHdDp0WKAwTiKofjCPru6RoMS24J1gb5/Jrk1mcfF8ZMjkIguubBgV0T1FX
-	nav4Y+vYYFqgXbgP4sXRqco0mAj4UyIi9gkCy/Kldv7ga4m03k8q/69xPDpEu368
-	zE2gdx3H7S7S/I6XqrAX3tGX8E7RWb5g/LZyFNcVDE2z20/uGn6HQ==
-Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gbpx5a1u7-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 31 Aug 2026 14:55:49 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma13.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67VEfiRm000511;
-	Mon, 31 Aug 2026 14:55:48 GMT
-Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
-	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gcbyg6a9x-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 31 Aug 2026 14:55:48 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com [10.20.54.103])
-	by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67VEte2i48759128
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 31 Aug 2026 14:55:40 GMT
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 6F81620040;
-	Mon, 31 Aug 2026 14:55:40 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id EFAC820043;
-	Mon, 31 Aug 2026 14:55:39 +0000 (GMT)
-Received: from tuxmaker.boeblingen.de.ibm.com (unknown [9.87.85.9])
-	by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Mon, 31 Aug 2026 14:55:39 +0000 (GMT)
-From: Steffen Eiden <seiden@linux.ibm.com>
-To: kvm@vger.kernel.org, kvmarm@lists.linux.dev,
-        linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-        linux-s390@vger.kernel.org
-Cc: Alexander Gordeev <agordeev@linux.ibm.com>,
-        Andreas Grapentin <gra@linux.ibm.com>, Arnd Bergmann <arnd@arndb.de>,
-        Catalin Marinas <catalin.marinas@arm.com>,
-        Christian Borntraeger <borntraeger@linux.ibm.com>,
-        Claudio Imbrenda <imbrenda@linux.ibm.com>,
-        David Hildenbrand <david@kernel.org>,
-        Friedrich Welter <fritz@linux.ibm.com>, Fuad Tabba <tabba@google.com>,
-        Gautam Gala <ggala@linux.ibm.com>,
-        Hariharan Mari <hari55@linux.ibm.com>,
-        Heiko Carstens <hca@linux.ibm.com>,
-        Hendrik Brueckner <brueckner@linux.ibm.com>,
-        Ilya Leoshkevich <iii@linux.ibm.com>,
-        Janosch Frank <frankja@linux.ibm.com>, Joey Gouly <joey.gouly@arm.com>,
-        Marc Zyngier <maz@kernel.org>, Nico Boehr <nrb@linux.ibm.com>,
-        Nina Schoetterl-Glausch <oss@nina.schoetterlglausch.eu>,
-        Oliver Upton <oupton@kernel.org>, Paolo Bonzini <pbonzini@redhat.com>,
-        Suzuki K Poulose <suzuki.poulose@arm.com>,
-        Sven Schnelle <svens@linux.ibm.com>,
-        Ulrich Weigand <Ulrich.Weigand@de.ibm.com>,
-        Vasily Gorbik <gor@linux.ibm.com>, Will Deacon <will@kernel.org>,
-        Zenghui Yu <yuzenghui@huawei.com>
-Subject: [PATCH v2 06/20] KVM: arm64: Prepare sys_regs.c for sharing with s390
-Date: Mon, 31 Aug 2026 16:55:21 +0200
-Message-ID: <20260831145536.913567-7-seiden@linux.ibm.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260831145536.913567-1-seiden@linux.ibm.com>
-References: <20260831145536.913567-1-seiden@linux.ibm.com>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="tbE4WqYu"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Gm4wz4RIu3Ys6IujtBcG5cq1rA/5zc3HtC/LuqT7djGlqSg0CzEUoLuD5szGbSDd/FG2SEW368VncVVTG2dzuw7Qhv3mGzQnGMu0DshkNhwVteaaosGG34pGBeFmAPbv5TLZSoe/DG0Ar9NB7m/B04RHEOyN+it2tg1wdKYCEkTPpT30CKbsaqqShxYZGOylc+hAesBVnFADx/BONHoE/wwUX7BPLmZZkD3HG+y+Tmk/Ze7JB2MRwIPLoe66nZW5ygM9E9+3p5T53c8MP2ygItSGw00GKZep24r0GzhbotY8821v0bCIR5gAD3Lcz7sxFPfNdPuh7kF0mOWva4vWyQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=s9oAEflEphoDIl6J2aejSrrH8pLOvpq+BMD3rsC5dOQ=;
+ b=B27eZOcjHgmRud0vN8dYKn4mHPVWOUIVWG4/lwxGt01KyQXLC5afn4VNv4vcN6Pv0fB0UNskBZ6oObxfQJ0tcR5gdUwAl+753gjyB8Q9bttEgisfbJrbeP90ZQDj1s7B4IjtgqpuoYdDnth2M0SkbYDWJOQPnVBkbzuoLvAjkCVSzlLFrii/cTLiOLWI8+xIwThearCo5iVaqHH+lyZlFLwRJ0Gmrpf+8CyzZrFRIA1kktrokrlZflUnOL3kuQA22LdbYPErGeE6p6VgcqcFPtE4rWcOaEaC7MSvgBl3jYC9k69J1Wy7GbUcg/UvfqaSsvoA4ZTsUz24qBJqaXlXiA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=s9oAEflEphoDIl6J2aejSrrH8pLOvpq+BMD3rsC5dOQ=;
+ b=tbE4WqYuMbyrI7Zaj/e2tvLlJXmK4SkH1Rh+iiSCj/gsIg3IO2KOK6cefy2rW+EHs+a/vWPoKRf/yW2eZSnsHteAFQDR8uAnlv1CBw83qPCpB5FqN1S3CwiF/BPq4lLkM4xeqGiopfValtZmDNU/HNIpPgArlugYHiRlhPklLXQ=
+Received: from BL1PR13CA0407.namprd13.prod.outlook.com (2603:10b6:208:2c2::22)
+ by DS4PR12MB9769.namprd12.prod.outlook.com (2603:10b6:8:2a9::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Mon, 31 Aug
+ 2026 14:56:54 +0000
+Received: from BN3PEPF00022BC8.namprd05.prod.outlook.com
+ (2603:10b6:208:2c2:cafe::68) by BL1PR13CA0407.outlook.office365.com
+ (2603:10b6:208:2c2::22) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.7 via Frontend Transport; Mon, 31
+ Aug 2026 14:56:54 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN3PEPF00022BC8.mail.protection.outlook.com (10.167.248.214) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.382.8 via Frontend Transport; Mon, 31 Aug 2026 14:56:54 +0000
+Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Mon, 31 Aug 2026 09:56:53 -0500
+From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+To: <linux-kernel@vger.kernel.org>
+Subject: [PATCH 3/4] drm/xe: Convert xe_user_fence to drm_user_fence
+Date: Mon, 31 Aug 2026 20:26:36 +0530
+Message-ID: <20260831145637.126892-3-srinivasan.shanmugam@amd.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260831145637.126892-1-srinivasan.shanmugam@amd.com>
+References: <20260831145637.126892-1-srinivasan.shanmugam@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Authority-Analysis: v=2.4 cv=PPc/P/qC c=1 sm=1 tr=0 ts=6a9595f5 cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
- a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=iQ6ETzBq9ecOQQE5vZCe:22 a=VnNF1IyMAAAA:8 a=ij1lYihUeJT8dvZHXdMA:9
-X-Proofpoint-GUID: l8CeX09BAcs-5KdSLesq6XqQMWOQcj1r
-X-Proofpoint-ORIG-GUID: 572vbWJLKU_EE3ExR3nIQY2XukXZic_6
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODMxMDEyNSBTYWx0ZWRfX51eO/bYuMVOJ
- QhApnQqsz9Uya79UwctrOWx4Ob1nDdJI0PK6KmyX3A6u/ycdM5BhwQPd3XZtiNK7J3w5CgqJ726
- GyrIu7nPkfZac6VfDyipXLnhzxgjN6c=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODMxMDEyNSBTYWx0ZWRfX2VMQon3K1S9s
- 9cHp1gqRzXtiTaeEVdrNgLElUmnPoGddrjZj6HfaoCqZiNaD57r/wyfmKCkmKZYMpYX7jlLG1Av
- /SWj17tGtBPs4QLlqLb7xsJE6EdG6cHATWkYUA6cHIIqYUALqhyXaMiA2y9R42Aoblo/YjnYTbi
- AAJw4hlmB9ssHWSvg7SAyzRqXd0FbvJT1+1j1e9WWVcNyRaz8kj9TwuaCW6bFUxelQBmZJIpf8+
- hDzbwoGUhDTkkbHami2mZ9JiYa1E5zW/MMTdk3V0GiqPufPwufkd80NdZIhnlWpy/38eDgyBuag
- JPPfFX5HyYoaBasD7YqLaHgK6FEZZgjAe8g17VluWvA3aIxVN8HnK4lVOS2voTKcB1HTo3GpvE+
- 2b30pJedslmbmH6FALpiI/gQzxb4JW/ciWPBMPDCrjKSJIm1QOoPQsJ2yOALA2E8e5sgpm40Roh
- FBHlDYXcyD6UhE32mBw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-31_05,2026-08-27_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 phishscore=0 adultscore=0 suspectscore=0 bulkscore=0
- spamscore=0 priorityscore=1501 impostorscore=0 malwarescore=0
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2608310125
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN3PEPF00022BC8:EE_|DS4PR12MB9769:EE_
+X-MS-Office365-Filtering-Correlation-Id: 92b24e4f-9811-4027-f3bc-08df077018fe
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|82310400026|23010399003|36860700016|376014|10067099003|6133799003|18002099003|22082099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	6Hur0Yg4+G+d4H4VTzZTZZO1iV0tkvmDFC8fD8iSBZQXwuU/uvqF1GblF8kZXBZW+twkWefCKaf6WTUOCzpbTmOgnAui0xUzCQCqFyE7M2j12HD6hfWQlPnXwKXrPW4L3O7FAg4uGkXwTWBTjYubxeEWhsel4Um5drbw5Fx/q4Pcm3zncwqeFXz4JIrpSr5pNHZdEHaO+8jhGgMIkZatI08ascamJjSzYEGRekBF9iRDMVyl6KBht9g3IkHmMNB/ujnXuy96z+uVwOnKYy3hDHiIxdIrvh0b5+yNxK/tumzwqEwYg8d4Ev5fIr34tj+gIN82ppU9D4/2m1SBEmSw2TFF4u10R8fOtPhRLVZHjw8G0GxpQJJQWG8mhcNeh+UOT85doVG/y5VaWepIHgGPXQlNiTXDrkK1vrBqcKAt04A/nvC4putHsXSkd/I8UqdEk4Q8jH1D7iF6tQzDtxpCp347161bVJBfliHqQKRIkNd8FK8JJaDiHhNQypM/Y1sCIdLhWzoz4r7NiSPENrIAA2T46kw/MMb9jKgUMcIzB/YQlSamaEBwDiXmvxDy3efBZUSkaE7jrXmKX93GWFE2JUgBhoaENeTOiFE0L4HSiVEbrnt6eiZqpnGruO4OH2Duqmbv/zGtxr+1UANQNcDN2wqlQGXNBxMvmBL1kYPLuGRs5fdFq4kLLxTKrB/x2uEOhk5tneptLYh7toOaHek5vw==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(23010399003)(36860700016)(376014)(10067099003)(6133799003)(18002099003)(22082099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	C6rpdNic76EXlM3lYnsyXFs7t7p+OhMKGtOJIELPeWDB6K1/W++d3omujwDOVknQMHjFnSZtYPTyFKp2epDR3g/DxugH8uKgwNYfY5dZJ2VpaUuPFKklSRTwj26pYBNHXNsjT8spJfGiFEi6abKQfgjHsr/phqluYIHtKrba7XiV33Mb/KXmvGgke+7KzVCRBhLkk42z1PxrtgRNBxxxuIxtGhiQAeOzozsbpFoKJXWr9YdK4pUeGR5GXfKZeDoddL3rFvP2bnAChHHBSd05MKRdumvKQIrla7RuEe94+qy2re2iYqHzJVLPUsf7DPS9+Be4Gtxeotq91oE3LExjxUoUS4sKmTDikX+T2nVVw9JDCZWVj3ackZRKlEbeRLMnbKZfAoDbQqmp5Vp1El5EUzGNsXRqieuD8FzTr1Pd1SPeax6lgOofGTVUtu5boQ1P
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 14:56:54.6543
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 92b24e4f-9811-4027-f3bc-08df077018fe
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN3PEPF00022BC8.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PR12MB9769
 
-Prepare sharing of sys_regs.c with s390 by moving functions to another
-location inside sys_regs.c. This reduces the number of shared regions.
+Replace the open-coded user fence implementation in xe_sync.c with the
+new common drm_user_fence helper.
 
-Signed-off-by: Steffen Eiden <seiden@linux.ibm.com>
+struct xe_user_fence now embeds struct drm_user_fence as its base.
+XE-specific fields (xe_device pointer for the ufence_wq wake-up,
+userspace VA, expected value, signalled flag) remain in the wrapper.
+
+The local user_fence_destroy/get/put/worker/kick_ufence/user_fence_cb
+functions are removed. Their logic moves to xe_ufence_ops.worker and
+xe_ufence_ops.destroy, which are called by drm_user_fence_work().
+
+Cc: Matthew Brost <matthew.brost@intel.com>
+Cc: Mika Kuoppala <mika.kuoppala@linux.intel.com>
+Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: Christian König <christian.koenig@amd.com>
+Cc: dri-devel@lists.freedesktop.org
+Cc: intel-xe@lists.freedesktop.org
+Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 ---
- arch/arm64/kvm/sys_regs.c | 100 +++++++++++++++++++-------------------
- arch/s390/kvm/arm64/arm.c |   2 +
- 2 files changed, 52 insertions(+), 50 deletions(-)
+ drivers/gpu/drm/xe/xe_sync.c       | 149 ++++++++++++++++-------------
+ drivers/gpu/drm/xe/xe_sync.h       |   2 +
+ drivers/gpu/drm/xe/xe_sync_types.h |   1 -
+ drivers/gpu/drm/xe/xe_vm.c         |   1 +
+ 4 files changed, 84 insertions(+), 69 deletions(-)
 
-diff --git a/arch/arm64/kvm/sys_regs.c b/arch/arm64/kvm/sys_regs.c
-index 7d0047b542f4..53d096803d9d 100644
---- a/arch/arm64/kvm/sys_regs.c
-+++ b/arch/arm64/kvm/sys_regs.c
-@@ -2043,13 +2043,6 @@ static inline bool is_vcpu_ftr_id_reg(u32 id)
- 	return is_feature_id_reg(id) && !is_vm_ftr_id_reg(id);
- }
+diff --git a/drivers/gpu/drm/xe/xe_sync.c b/drivers/gpu/drm/xe/xe_sync.c
+index 37866768d64c..2d1e07792506 100644
+--- a/drivers/gpu/drm/xe/xe_sync.c
++++ b/drivers/gpu/drm/xe/xe_sync.c
+@@ -6,12 +6,11 @@
+ #include "xe_sync.h"
  
--static inline bool is_aa32_id_reg(u32 id)
--{
--	return (sys_reg_Op0(id) == 3 && sys_reg_Op1(id) == 0 &&
--		sys_reg_CRn(id) == 0 && sys_reg_CRm(id) >= 1 &&
--		sys_reg_CRm(id) <= 3);
--}
--
- static unsigned int id_visibility(const struct kvm_vcpu *vcpu,
- 				  const struct sys_reg_desc *r)
+ #include <linux/dma-fence-array.h>
+-#include <linux/kthread.h>
+-#include <linux/sched/mm.h>
+ #include <linux/uaccess.h>
+ 
+ #include <drm/drm_print.h>
+ #include <drm/drm_syncobj.h>
++#include <drm/drm_user_fence.h>
+ #include <uapi/drm/xe_drm.h>
+ 
+ #include "xe_device.h"
+@@ -19,36 +18,60 @@
+ #include "xe_macros.h"
+ #include "xe_sched_job_types.h"
+ 
++/*
++ * xe_user_fence wraps drm_user_fence with XE-specific fields.
++ * The drm_user_fence base handles MM borrowing and work-item lifetime.
++ */
+ struct xe_user_fence {
+-	struct xe_device *xe;
+-	struct kref refcount;
+-	struct dma_fence_cb cb;
+-	struct work_struct worker;
+-	struct mm_struct *mm;
+-	u64 __user *addr;
+-	u64 value;
+-	int signalled;
++	struct drm_user_fence base;
++	struct xe_device     *xe;
++	u64 __user           *addr;
++	u64                   value;
++	int                   signalled;
+ };
+ 
+-static void user_fence_destroy(struct kref *kref)
++static void xe_ufence_worker(struct drm_user_fence *base, bool mm_ok)
  {
-@@ -2065,20 +2058,6 @@ static unsigned int id_visibility(const struct kvm_vcpu *vcpu,
- 	return 0;
- }
+-	struct xe_user_fence *ufence = container_of(kref, struct xe_user_fence,
+-						 refcount);
++	struct xe_user_fence *ufence = container_of(base, struct xe_user_fence, base);
  
--static unsigned int aa32_id_visibility(const struct kvm_vcpu *vcpu,
--				       const struct sys_reg_desc *r)
--{
--	/*
--	 * AArch32 ID registers are UNKNOWN if AArch32 isn't implemented at any
--	 * EL. Promote to RAZ/WI in order to guarantee consistency between
--	 * systems.
--	 */
--	if (!kvm_supports_32bit_el0())
--		return REG_RAZ | REG_USER_WI;
--
--	return id_visibility(vcpu, r);
+-	mmdrop(ufence->mm);
+-	kfree(ufence);
 -}
--
- static unsigned int raz_visibility(const struct kvm_vcpu *vcpu,
- 				   const struct sys_reg_desc *r)
- {
-@@ -2099,6 +2078,27 @@ static bool access_id_reg(struct kvm_vcpu *vcpu,
- 	return true;
- }
- 
-+static unsigned int aa32_id_visibility(const struct kvm_vcpu *vcpu,
-+				       const struct sys_reg_desc *r)
-+{
 +	/*
-+	 * AArch32 ID registers are UNKNOWN if AArch32 isn't implemented at any
-+	 * EL. Promote to RAZ/WI in order to guarantee consistency between
-+	 * systems.
++	 * Mark signalled before waking waiters so UMD can safely reuse
++	 * the same ufence without hitting -EBUSY.
 +	 */
-+	if (!kvm_supports_32bit_el0())
-+		return REG_RAZ | REG_USER_WI;
++	WRITE_ONCE(ufence->signalled, 1);
+ 
+-static void user_fence_get(struct xe_user_fence *ufence)
+-{
+-	kref_get(&ufence->refcount);
++	/*
++	 * Ensure the signalled store is visible before the user memory write
++	 * on weakly ordered architectures (e.g. ARM64). Without this barrier
++	 * the CPU may reorder stores, causing userspace to observe the user
++	 * memory update before signalled == 1.
++	 */
++	smp_wmb();
 +
-+	return id_visibility(vcpu, r);
-+}
++	if (mm_ok) {
++		if (copy_to_user(ufence->addr, &ufence->value, sizeof(ufence->value)))
++			drm_dbg(&ufence->xe->drm,
++				"copy_to_user failed, user fence wasn't signaled\n");
++	} else {
++		drm_dbg(&ufence->xe->drm,
++			"mmget_not_zero() failed, ufence wasn't signaled\n");
++	}
 +
-+static inline bool is_aa32_id_reg(u32 id)
-+{
-+	return (sys_reg_Op0(id) == 3 && sys_reg_Op1(id) == 0 &&
-+		sys_reg_CRn(id) == 0 && sys_reg_CRm(id) >= 1 &&
-+		sys_reg_CRm(id) <= 3);
-+}
-+
- /* Visibility overrides for SVE-specific control registers */
- static unsigned int sve_visibility(const struct kvm_vcpu *vcpu,
- 				   const struct sys_reg_desc *rd)
-@@ -2553,29 +2553,6 @@ void kvm_set_vm_id_reg(struct kvm *kvm, u32 reg, u64 val)
- 	*p = val;
++	wake_up_all(&ufence->xe->ufence_wq);
  }
  
--static int get_raz_reg(struct kvm_vcpu *vcpu, const struct sys_reg_desc *rd,
--		       u64 *val)
--{
--	*val = 0;
--	return 0;
--}
--
--static int set_wi_reg(struct kvm_vcpu *vcpu, const struct sys_reg_desc *rd,
--		      u64 val)
--{
--	return 0;
--}
--
--static bool access_ctr(struct kvm_vcpu *vcpu, struct sys_reg_params *p,
--		       const struct sys_reg_desc *r)
--{
--	if (p->is_write)
--		return write_to_read_only(vcpu, p, r);
--
--	p->regval = kvm_read_vm_id_reg(vcpu->kvm, SYS_CTR_EL0);
--	return true;
--}
--
- static bool access_clidr(struct kvm_vcpu *vcpu, struct sys_reg_params *p,
- 			 const struct sys_reg_desc *r)
+-static void user_fence_put(struct xe_user_fence *ufence)
++static void xe_ufence_destroy(struct drm_user_fence *base)
  {
-@@ -2684,6 +2661,29 @@ static bool access_ccsidr(struct kvm_vcpu *vcpu, struct sys_reg_params *p,
- 	return true;
+-	kref_put(&ufence->refcount, user_fence_destroy);
++	struct xe_user_fence *ufence = container_of(base, struct xe_user_fence, base);
++
++	kfree(ufence);
  }
  
-+static int get_raz_reg(struct kvm_vcpu *vcpu, const struct sys_reg_desc *rd,
-+		       u64 *val)
-+{
-+	*val = 0;
-+	return 0;
-+}
++static const struct drm_user_fence_ops xe_ufence_ops = {
++	.worker  = xe_ufence_worker,
++	.destroy = xe_ufence_destroy,
++};
 +
-+static int set_wi_reg(struct kvm_vcpu *vcpu, const struct sys_reg_desc *rd,
-+		      u64 val)
-+{
-+	return 0;
-+}
-+
-+static bool access_ctr(struct kvm_vcpu *vcpu, struct sys_reg_params *p,
-+		       const struct sys_reg_desc *r)
-+{
-+	if (p->is_write)
-+		return write_to_read_only(vcpu, p, r);
-+
-+	p->regval = kvm_read_vm_id_reg(vcpu->kvm, SYS_CTR_EL0);
-+	return true;
-+}
-+
- static unsigned int mte_visibility(const struct kvm_vcpu *vcpu,
- 				   const struct sys_reg_desc *rd)
+ static struct xe_user_fence *user_fence_create(struct xe_device *xe, u64 addr,
+ 					       u64 value)
  {
-@@ -4855,12 +4855,6 @@ static bool check_sysreg_table(const struct sys_reg_desc *table, unsigned int n,
- 	return true;
+@@ -63,51 +86,22 @@ static struct xe_user_fence *user_fence_create(struct xe_device *xe, u64 addr,
+ 	if (!ufence)
+ 		return ERR_PTR(-ENOMEM);
+ 
+-	ufence->xe = xe;
+-	kref_init(&ufence->refcount);
+-	ufence->addr = ptr;
++	ufence->xe    = xe;
++	ufence->addr  = ptr;
+ 	ufence->value = value;
+-	ufence->mm = current->mm;
+-	mmgrab(ufence->mm);
++	drm_user_fence_init(&ufence->base, xe->ordered_wq, &xe_ufence_ops);
+ 
+ 	return ufence;
  }
  
--int kvm_handle_cp14_load_store(struct kvm_vcpu *vcpu)
+-static void user_fence_worker(struct work_struct *w)
 -{
--	kvm_inject_undefined(vcpu);
--	return 1;
+-	struct xe_user_fence *ufence = container_of(w, struct xe_user_fence, worker);
+-
+-	WRITE_ONCE(ufence->signalled, 1);
+-	if (mmget_not_zero(ufence->mm)) {
+-		kthread_use_mm(ufence->mm);
+-		if (copy_to_user(ufence->addr, &ufence->value, sizeof(ufence->value)))
+-			XE_WARN_ON("Copy to user failed");
+-		kthread_unuse_mm(ufence->mm);
+-		mmput(ufence->mm);
+-	} else {
+-		drm_dbg(&ufence->xe->drm, "mmget_not_zero() failed, ufence wasn't signaled\n");
+-	}
+-
+-	/*
+-	 * Wake up waiters only after updating the ufence state, allowing the UMD
+-	 * to safely reuse the same ufence without encountering -EBUSY errors.
+-	 */
+-	wake_up_all(&ufence->xe->ufence_wq);
+-	user_fence_put(ufence);
 -}
 -
- static void perform_access(struct kvm_vcpu *vcpu,
- 			   struct sys_reg_params *params,
- 			   const struct sys_reg_desc *r)
-@@ -4944,6 +4938,12 @@ static void unhandled_cp_access(struct kvm_vcpu *vcpu,
- 	kvm_inject_undefined(vcpu);
+-static void kick_ufence(struct xe_user_fence *ufence, struct dma_fence *fence)
++static void user_fence_get(struct xe_user_fence *ufence)
+ {
+-	INIT_WORK(&ufence->worker, user_fence_worker);
+-	queue_work(ufence->xe->ordered_wq, &ufence->worker);
+-	dma_fence_put(fence);
++	drm_user_fence_get(&ufence->base);
  }
  
-+int kvm_handle_cp14_load_store(struct kvm_vcpu *vcpu)
+-static void user_fence_cb(struct dma_fence *fence, struct dma_fence_cb *cb)
++static void user_fence_put(struct xe_user_fence *ufence)
+ {
+-	struct xe_user_fence *ufence = container_of(cb, struct xe_user_fence, cb);
+-
+-	kick_ufence(ufence, fence);
++	drm_user_fence_put(&ufence->base);
+ }
+ 
+ int xe_sync_entry_parse(struct xe_device *xe, struct xe_file *xef,
+@@ -282,24 +276,15 @@ void xe_sync_entry_signal(struct xe_sync_entry *sync, struct dma_fence *fence)
+ 	} else if (sync->syncobj) {
+ 		drm_syncobj_replace_fence(sync->syncobj, fence);
+ 	} else if (sync->ufence) {
+-		int err;
+-
+ 		drm_syncobj_add_point(sync->ufence_syncobj,
+ 				      sync->ufence_chain_fence,
+ 				      fence, sync->ufence_timeline_value);
+ 		sync->ufence_chain_fence = NULL;
+ 
+ 		fence = drm_syncobj_fence_get(sync->ufence_syncobj);
+-		user_fence_get(sync->ufence);
+-		err = dma_fence_add_callback(fence, &sync->ufence->cb,
+-					     user_fence_cb);
+-		if (err == -ENOENT) {
+-			kick_ufence(sync->ufence, fence);
+-		} else if (err) {
++		if (drm_user_fence_add_callback(&sync->ufence->base, fence))
+ 			XE_WARN_ON("failed to add user fence");
+-			user_fence_put(sync->ufence);
+-			dma_fence_put(fence);
+-		}
++		/* fence ref consumed by drm_user_fence_add_callback */
+ 	}
+ }
+ 
+@@ -434,6 +419,34 @@ void xe_sync_ufence_put(struct xe_user_fence *ufence)
+ 	user_fence_put(ufence);
+ }
+ 
++/**
++ * xe_sync_ufence_cancel() - Non-blocking cancel of user fence callback
++ * @ufence: user fence reference
++ *
++ * Attempts to cancel the pending callback without waiting for the worker.
++ * Safe to call while holding dma_resv_lock or vm->lock. If the callback
++ * has already fired, the worker runs independently — xe_ufence_worker
++ * only accesses device-level and userspace resources, both safe after
++ * VMA teardown.
++ */
++void xe_sync_ufence_cancel(struct xe_user_fence *ufence)
 +{
-+	kvm_inject_undefined(vcpu);
-+	return 1;
++	drm_user_fence_cancel(&ufence->base);
++}
++
++/**
++ * xe_sync_ufence_cancel_sync() - Cancel user fence callback and wait for worker
++ * @ufence: user fence reference
++ *
++ * Cancels any pending dma-fence callback and waits for the worker to fully
++ * complete before returning. Must be called during teardown before freeing
++ * any resources accessed by the worker.
++ */
++void xe_sync_ufence_cancel_sync(struct xe_user_fence *ufence)
++{
++	drm_user_fence_cancel_sync(&ufence->base);
 +}
 +
  /**
-  * kvm_handle_cp_64 -- handles a mrrc/mcrr trap on a guest CP14/CP15 access
-  * @vcpu: The VCPU pointer
-diff --git a/arch/s390/kvm/arm64/arm.c b/arch/s390/kvm/arm64/arm.c
-index 3caa72f780a5..2740ee3b703e 100644
---- a/arch/s390/kvm/arm64/arm.c
-+++ b/arch/s390/kvm/arm64/arm.c
-@@ -9,6 +9,7 @@
- #include <linux/kvm_host.h>
- #include <linux/cleanup.h>
- #include <linux/fpu.h>
-+#include <linux/bitfield.h>
+  * xe_sync_ufence_get_status() - Get user fence status
+  * @ufence: user fence
+diff --git a/drivers/gpu/drm/xe/xe_sync.h b/drivers/gpu/drm/xe/xe_sync.h
+index 6b949194acff..b5ff3387c592 100644
+--- a/drivers/gpu/drm/xe/xe_sync.h
++++ b/drivers/gpu/drm/xe/xe_sync.h
+@@ -44,6 +44,8 @@ static inline bool xe_sync_is_ufence(struct xe_sync_entry *sync)
+ struct xe_user_fence *__xe_sync_ufence_get(struct xe_user_fence *ufence);
+ struct xe_user_fence *xe_sync_ufence_get(struct xe_sync_entry *sync);
+ void xe_sync_ufence_put(struct xe_user_fence *ufence);
++void xe_sync_ufence_cancel(struct xe_user_fence *ufence);
++void xe_sync_ufence_cancel_sync(struct xe_user_fence *ufence);
+ int xe_sync_ufence_get_status(struct xe_user_fence *ufence);
  
- #include <asm/access-regs.h>
+ #endif
+diff --git a/drivers/gpu/drm/xe/xe_sync_types.h b/drivers/gpu/drm/xe/xe_sync_types.h
+index b88f1833e28c..67048199b070 100644
+--- a/drivers/gpu/drm/xe/xe_sync_types.h
++++ b/drivers/gpu/drm/xe/xe_sync_types.h
+@@ -12,7 +12,6 @@ struct drm_syncobj;
+ struct dma_fence;
+ struct dma_fence_chain;
+ struct drm_xe_sync;
+-struct user_fence;
  
-@@ -25,6 +26,7 @@
- #include "trace.h"
+ struct xe_sync_entry {
+ 	struct drm_syncobj *syncobj;
+diff --git a/drivers/gpu/drm/xe/xe_vm.c b/drivers/gpu/drm/xe/xe_vm.c
+index b01f31ed4417..fbd2c28de8a6 100644
+--- a/drivers/gpu/drm/xe/xe_vm.c
++++ b/drivers/gpu/drm/xe/xe_vm.c
+@@ -1181,6 +1181,7 @@ static void xe_vma_destroy_late(struct xe_vma *vma)
+ 	struct xe_bo *bo = xe_vma_bo(vma);
  
- static unsigned long system_supported_vcpu_features(void);
-+#define read_sanitised_ftr_reg(_id) 0
- 
- #define __INCL_GEN_ARM_FILE
- #include "generated/arm.inc"
+ 	if (vma->ufence) {
++		xe_sync_ufence_cancel(vma->ufence);
+ 		xe_sync_ufence_put(vma->ufence);
+ 		vma->ufence = NULL;
+ 	}
 -- 
-2.53.0
+2.34.1
 
