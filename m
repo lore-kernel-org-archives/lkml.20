@@ -1,48 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42A03448B9B;
-	Mon, 31 Aug 2026 13:40:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A6C94EBAEF;
+	Mon, 31 Aug 2026 13:40:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183626; cv=none; b=a0Uba32ydzvsM817LPQ5IOFXaTovGYZKx7k1g4LzJAXqTt9Ths96X4jf5yBUf7PPKqvThPu4dVNY2xrRX1kua+2ojFzZGGW3ENI6XjJ/XSttLL6U4WNTP/dtrDg4pCHqRMvgLhETI3Ib/e0rPX14fTx682KVv8f5wUlCaAEqwCM=
+	t=1788183630; cv=none; b=XWrfTSUFcxHSGjaiA1dFel5clolSeLKv3tJFrximQIPwaqTasgxrOIh6Mqac1xpSy2KL4/Qt8YsnjxE2Vry00rY+CbaD9U2/XR7/iwu2BQDlrFNm2pcGwbSLcRVd62CvxDmpM1FqcXg3DSLOr86d/WEJ7LJUu1YFbCRvlTJE+Cw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183626; c=relaxed/simple;
-	bh=LzKUEN5iloDyuAC5qBgV8IjlQFTiekzLkNn72l1wtZ4=;
+	s=arc-20240116; t=1788183630; c=relaxed/simple;
+	bh=hNr87Kqa8DKvg14Kw28dTNDaw2cFnYnDRQx8gNTGbw4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=pbJO2MFcUFt0cHe8QpIlkqkR9xmkeVRLExmT9YlTrIlYyMhq3NSpgUDdynO9VzUgt3VIq2yLTOHAC95S1rZatkhtfb9hSlbQx0sJre5EoyOEZ2feRIjmn/+H6Q61dpH7Rc4aelTw9TFBs/H+Z6xpomtPsAGlgj89VUmrRoHxtfE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gKBlvMnu; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=Q1fT+K1D3dWQZbNWKlaoCXYOifYIu0zp2+L9tYAp6JQQG+yDxDAnH3g9XKfbFfdWZnu6JBCGVlT20/YOmmZkpNzMxw3hGyi33KgCcn5B1x0SseXfs6fdS1c4RNIkk5gCTVVID74vekyZFjG3siYp4A91JJFPe8Y3QNrU8wUwNEs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kmVa1m2i; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gKBlvMnu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C664E1F00A3F;
-	Mon, 31 Aug 2026 13:40:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kmVa1m2i"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F3571F00ADE;
+	Mon, 31 Aug 2026 13:40:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788183624;
-	bh=ud6f7rM9i9/CrEz3zfui4Cdx9Ga+5N1V8oNPpgXSeFg=;
+	s=k20260515; t=1788183627;
+	bh=JAsaYLnB6f6YFl+J2a9zgmsONfJFwMD11bOzwQv+uZ0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=gKBlvMnuc/cN9j8haHASSqEIYjZ3v2tW3pAmCn2RNP/2CG5nt7kB1HUhCAUmx8W3s
-	 6bJyHkwu/h/r4MM2JyliK6MJm1sTnuWLYZb05/4jbGPFsKNoU5fhuVEt2mlYD5yaqp
-	 MAvmvIAPTkaeTjZY2cwFrNYuXYfQhg8gR0DwWmeGAO2NY5Q6jo+LMiUP+kahld1Ih+
-	 lcPqu04wFJZARJwzWW4NajaY2IppkOSt2bk/pQI/QFI0B7YExFUCqfyW3VRMZ2QD7g
-	 C58Y1r5JO0hK5XcUPugHKNfXaUOIHFCDY1TQaZJORGtBbXugaSgAZPqWhAaQ84juOh
-	 OKKX05q2I6yiQ==
+	b=kmVa1m2iqTnzv+xh3lDCDCQr5HtdPN38sy5iym3hkuJOR/LyJgarxIT6lN3xM7gzc
+	 7CCZoIzD4QCcOKYYsYJTefCgjvsKgePTtDs8JR6nPaYaBygCzrsn2P96UaMJ6lydYJ
+	 P0DxHSSSHGDj3L8PbUTGdzqEi2+39TDK7ncdGV1IS/n7u/AGQFRfzavvD5aLl9+7d8
+	 TBC5a2/X/YtGbV0aVPPQFwJoVVwUH5vvzPqs96NZspPoSHo0YIdFByxTotiMagn18G
+	 p4WvDg/lLTUUahFyPNsVKzwEy53M/PIU6ATIi0zjVyZck8L5aYmyb9D5dZsPw6pglM
+	 SwY4wWG26dvvA==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Jeremy Klarenbeek <jeremy.klarenbeek99@gmail.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
-	=?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
+Cc: Samuel Moelius <sam.moelius@trailofbits.com>,
+	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
 	Sasha Levin <sashal@kernel.org>,
-	kenneth.feng@amd.com,
-	christian.koenig@amd.com,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
+	marcel@holtmann.org,
+	luiz.dentz@gmail.com,
+	linux-bluetooth@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-5.10] drm/amd/pm/si: Fix updating clock limits from power states
-Date: Mon, 31 Aug 2026 09:23:53 -0400
-Message-ID: <20260831133314.4125787-205-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-5.10] Bluetooth: L2CAP: validate connectionless PSM length
+Date: Mon, 31 Aug 2026 09:23:55 -0400
+Message-ID: <20260831133314.4125787-207-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -52,117 +48,67 @@ List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 6.18.48
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Jeremy Klarenbeek <jeremy.klarenbeek99@gmail.com>
+From: Samuel Moelius <sam.moelius@trailofbits.com>
 
-[ Upstream commit e6c5d36756e7d4d260e2365fc4d01226f1973152 ]
+[ Upstream commit a40a5f922546b3bd7c094d882b29177db4f2abe0 ]
 
-VBIOS can contain conflicting values between:
-- the maximum allowed clocks and voltages on AC or DC
-- the clocks and voltages in power states on AC or DC
+Connectionless L2CAP frames carry a two-byte PSM at the start of the
+payload.  l2cap_recv_frame() currently reads that PSM unconditionally
+after validating only the outer L2CAP length.
 
-Update maximum clock (and voltage) limits for both AC/DC
-and take the highest value from the VBIOS limits and
-the performance/battery power states. Previously this
-was only done for AC, but is also needed for DC.
+A malformed connectionless frame with a zero- or one-byte payload can
+therefore make the parser read beyond the advertised skb payload and use
+tailroom bytes as part of the PSM.  A VHCI-backed QEMU reproducer
+injected a one-byte connectionless payload and reached the unchecked
+read.
 
-This commit fixes the behaviour on some laptop GPUs,
-where the VBIOS limit was set to the lowest possible
-clock frequency, so the GPU was stuck on the lowest
-possible power level on battery.
+Reject connectionless frames that cannot contain the PSM before reading
+or pulling it.  This preserves all valid connectionless frames while
+dropping only structurally incomplete packets.
 
-Some affected GPUs are:
-FirePro W4170M (Dell Precision M2800)
-Radeon HD 8790M (Dell Latitude E6540)
-and possibly other laptop GPUs.
-
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-Co-developed-by: Timur Kristóf <timur.kristof@gmail.com>
-Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
-Signed-off-by: Jeremy Klarenbeek <jeremy.klarenbeek99@gmail.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Assisted-by: Codex:gpt-5.5-cyber-preview
+Signed-off-by: Samuel Moelius <sam.moelius@trailofbits.com>
+Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-The background git searches finished and match the earlier analysis:
+The background git searches finished: neither `git log --grep="validate
+connectionless PSM"` nor `--grep="connectionless PSM length"` found
+anything on HEAD, which matches the earlier finding that `a40a5f922546`
+is not in the 6.18.44 tree even though the buggy code is still there.
 
-- **History search:** The AC-only `max_clock_voltage_on_ac` assignment
-  traces back through the SI DPM code (pickaxe hit `837d542a09cd5`, the
-  pm header relocation). No prior fix for DC clock limits was found.
-- **Author search:** Jeremy Klarenbeek has no commits in this 6.18.44
-  tree.
-- **Fix commit search:** `git log --grep="updating clock limits"`
-  returned nothing — the patch is not in this tree yet. The only "power
-  states" hit in `si_dpm.c` was an unrelated debug-level change.
-- **Hardware search:** No existing commits mention the FirePro W4170M or
-  Radeon HD 8790M by name.
+**Verdict for this tree (6.18.44): YES** — backport the 5-line PSM
+length check. It fixes a remote-triggerable out-of-bounds read in
+connectionless L2CAP handling, applies cleanly, and follows the same
+pattern as other L2CAP validation fixes already in this branch.
 
-That supports the **YES** backport recommendation: the bug is present
-and unfixed in 6.18.44, and this would be a new, standalone fix.The
-hardware-related git search completed: there are no commits in this
-6.18.44 tree that mention the FirePro W4170M, Radeon HD 8790M, or author
-Jeremy Klarenbeek in connection with this clock-limits issue. That
-confirms this would be a new fix rather than something already present
-under a different commit.
+ net/bluetooth/l2cap_core.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
- drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c | 29 ++++++++++++++++++----
- 1 file changed, 24 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
-index 0385b24e7e4a2..ea97276358c0a 100644
---- a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
-+++ b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
-@@ -7238,6 +7238,7 @@ static void si_parse_pplib_clock_info(struct amdgpu_device *adev,
- 	struct evergreen_power_info *eg_pi = evergreen_get_pi(adev);
- 	struct si_power_info *si_pi = si_get_pi(adev);
- 	struct  si_ps *ps = si_get_ps(rps);
-+	struct amdgpu_clock_and_voltage_limits *limits;
- 	u16 leakage_voltage;
- 	struct rv7xx_pl *pl = &ps->performance_levels[index];
- 	int ret;
-@@ -7297,12 +7298,30 @@ static void si_parse_pplib_clock_info(struct amdgpu_device *adev,
- 		si_pi->mvdd_bootup_value = mvdd;
- 	}
+diff --git a/net/bluetooth/l2cap_core.c b/net/bluetooth/l2cap_core.c
+index 6133c65b20172..1a38a667ef0b0 100644
+--- a/net/bluetooth/l2cap_core.c
++++ b/net/bluetooth/l2cap_core.c
+@@ -7117,6 +7117,11 @@ static void l2cap_recv_frame(struct l2cap_conn *conn, struct sk_buff *skb)
+ 		break;
  
-+	/*
-+	 * Update maximum allowed clock limits.
-+	 * VBIOS can contain conflicting values between:
-+	 * - the maximum allowed clocks and voltages on AC or DC
-+	 * - the clocks and voltages in power states on AC or DC
-+	 */
- 	if ((rps->class & ATOM_PPLIB_CLASSIFICATION_UI_MASK) ==
--	    ATOM_PPLIB_CLASSIFICATION_UI_PERFORMANCE) {
--		adev->pm.dpm.dyn_state.max_clock_voltage_on_ac.sclk = pl->sclk;
--		adev->pm.dpm.dyn_state.max_clock_voltage_on_ac.mclk = pl->mclk;
--		adev->pm.dpm.dyn_state.max_clock_voltage_on_ac.vddc = pl->vddc;
--		adev->pm.dpm.dyn_state.max_clock_voltage_on_ac.vddci = pl->vddci;
-+	    ATOM_PPLIB_CLASSIFICATION_UI_PERFORMANCE)
-+		limits = &adev->pm.dpm.dyn_state.max_clock_voltage_on_ac;
-+	else if ((rps->class & ATOM_PPLIB_CLASSIFICATION_UI_MASK) ==
-+		 ATOM_PPLIB_CLASSIFICATION_UI_BATTERY)
-+		limits = &adev->pm.dpm.dyn_state.max_clock_voltage_on_dc;
-+	else
-+		limits = NULL;
+ 	case L2CAP_CID_CONN_LESS:
++		if (skb->len < L2CAP_PSMLEN_SIZE) {
++			kfree_skb(skb);
++			break;
++		}
 +
-+	if (limits) {
-+		if (pl->sclk > limits->sclk)
-+			limits->sclk = pl->sclk;
-+		if (pl->mclk > limits->mclk)
-+			limits->mclk = pl->mclk;
-+		if (pl->vddc > limits->vddc)
-+			limits->vddc = pl->vddc;
-+		if (pl->vddci > limits->vddci)
-+			limits->vddci = pl->vddci;
- 	}
- }
- 
+ 		psm = get_unaligned((__le16 *) skb->data);
+ 		skb_pull(skb, L2CAP_PSMLEN_SIZE);
+ 		l2cap_conless_channel(conn, psm, skb);
 -- 
 2.53.0
 
