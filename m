@@ -1,78 +1,167 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5448343C043;
-	Mon, 31 Aug 2026 16:08:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C39143B4BD
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 16:08:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788192485; cv=none; b=DYrLHlMz4KU6NSIpFTUBdvxgZIU6dLJOUxlScHiqlpKSsb3cQX216VzX2r+hykwqBW1fHqQ21SqQaJzFmQ30E9b5Te3V0AUMmvtTtExmsN5ePjR6i2G/JBoMNvKWYWm0EvRMGOgt1RJAT0UyjgbYYEVXa07dK+pWfBkxtohR9dQ=
+	t=1788192485; cv=none; b=jsjDI/sJwyLYf/UHpW2e3vRda1LqxDD6l7V752GTgQsmpXQXvB+xkmNbstMl8lPReYfB+PkdQE6nA787V9vDKMKaGxKvLS1CuUbUiBFMog5cAwY06PA6MMeZ++xxMadIvZrNZdEApjy+7lChUR8x57/v2tjkvRxF7vgcuEo72BQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788192485; c=relaxed/simple;
-	bh=3Vynq3eyR9D6otlOg1mCxMi4f6PjR1A45mbH0owAWkk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=AYeKRHd2H7MffOv1so9rjTnypFLQiZd+QKtp8fDpXyPEWq8KlNPq+frDgoJO54aG1rJ//tBv8f6UIAP7jIEzqes+HBa4IFpX3MxJ7AXEbSAxtNs4MU1+ScCH6TzrkJ/lwgqnm9Oiiln14KBQTmev3qifEt9ggMV1njw5gYNjThg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IvJj6/3a; arc=none smtp.client-ip=100.103.45.18
+	bh=7wUoamM4+c7jF5tl6thS/Yftiw42UmhP7P4CTu0M+ms=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=GI/rFQ7mjx7yQKOmVvUpAVUttv30QD0qJmXTfb38jb1t8monTxDitJWcVCit1gGGM8kgX/lu1NnkV4D4HGLl9RrLxT7gxarAAW0Yd/ZLpfFDy9bdrybLS6Ix672rS5ncTZh50wN+evWzuJVNC+kcpkl8wl0kKj4EeESu3tLyr4U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=p9YxMGmA; arc=none smtp.client-ip=209.85.221.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IvJj6/3a"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EE6E1F00A3E;
-	Mon, 31 Aug 2026 16:08:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788192484;
-	bh=3Vynq3eyR9D6otlOg1mCxMi4f6PjR1A45mbH0owAWkk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=IvJj6/3aqBrI/QT35/fpcVZRyOfWItH0VXOAoZZ6GqV4XsstFm0+dp7If9yxbTH1B
-	 njAzDPqL2TcX7bJ+zRiFgmjX+lhmsbGzeEU2g33IprSQsxpd4IELWiHZqsruYG1iaW
-	 2VW9UHnSw5JQ9tRK/0AKbpJNHXuSYD/9Rfcz9R0OwklldWttlaHk47X6QaxV2Dg+Bb
-	 wvuXilK2kjdTj+gaXRlWttu6hnIzQrZjS6DE9sWAugAwVGTQHpr/qoa2+sUHkHHx2/
-	 QobotARceuOkaJP94FXYGEEcJWVLw1VRe7tsJm8s/A+02Yp9UPfvIqlXx0xMRBRwv1
-	 CPigM4OsfJSZQ==
-Date: Mon, 31 Aug 2026 17:07:59 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Frank Li <Frank.Li@nxp.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Loic Poulain <loic.poulain@oss.qualcomm.com>,
-	linux-media@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH v2 4/6] media: dt-bindings: nxp,imx8-isi: Add i.MX952 ISI
- compatible string
-Message-ID: <20260831-pushchair-empirical-034396da2f0e@spud>
-References: <20260831-isi_imx952-v2-0-fafdb4b446d4@oss.nxp.com>
- <20260831-isi_imx952-v2-4-fafdb4b446d4@oss.nxp.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="p9YxMGmA"
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-47fe89fb333so2164007f8f.3
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 09:08:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788192482; x=1788797282; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=9PppgYVQCH9iw7pmx72bD2vKBs7GSn3BtKiFc/nksis=;
+        b=p9YxMGmAtaXJ88ra9MRSZ9p/6j8JSlqD91saeBETDt/6QAIieFhYAPunrvoB728wZk
+         H7emJ6HZPNf4FTLfLafTYNO0Oy/AC5KPJ+c2vM5QPJyDfGRw5HMc7B2m8MZbL6I1yCqL
+         bPbiPMLaFgsh3Z02T5VSYNI7SRmqcbqH1WEVAy7j0HfK0F7ZOBzG6uMgvmsyvnk9VlZH
+         L5hR86XBBOFA4+hUlOp+Hf9PU8KBRw1VXNVL7d0Rp0dE3aQTotrLzpnNlBVLOMdqt8Ac
+         8pI+v5Fz2lL4twibvJElwdf1peeegdzj14vwRiEmPQIps82H8mj5tHd86VlNBSScBg4O
+         DRwg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788192482; x=1788797282;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=9PppgYVQCH9iw7pmx72bD2vKBs7GSn3BtKiFc/nksis=;
+        b=Onj8mgeXVdVKoSclMnNcvmA14sSlALQg8Ytg1wChqk4CQDC9dKEqjvrk8XBcqvsPZn
+         ddPXtRg1sjwXzKrXXDIVyfN2geZrsp0BGfFSTmMeS076aBcWruOp1RvMtbrovToXMjEI
+         3E4BnnRqBFu3X4kS+jVMbEmvvgDvxk04X6LwXvK+5oIkTkVaaRboWwYBRQHe0KelTqFA
+         PnmynJCtxGv0mmQlff8vsDV9rNLnYFWZsXf4zALR16UhoOp1KNcoDXlK6CfptthLkNTw
+         uKiEHIM42RHJ2DVuzRi68E0pLbLals0VqkMnVR5vJ81/ITkeA67lp2Tca24SKaBxGYPp
+         0xtA==
+X-Gm-Message-State: AFuF++monCfsfCudJRKpl7j90U1QjwPPwXNJMMeXeU2xZkWFOhubEI0a
+	4MjfsydsFJVW/1/I/URv945N4nGfx73ltzp1tYcqBQ+BzFg3aT6SyqtJK6pc/yMpDH5Jgw==
+X-Gm-Gg: AYBFou21eTYqMCkE4FHW0LBsAUYKaSi0TzwRBHwtvL+N/RFQairnrnLEmlm97knvZAO
+	VPAUyRxTMiJ6T90YSY9GWei22U4vvn5j/rYOK+0wyDeofH9J2BxSl+IFOh2+lL1FUY3Q/rnVgaA
+	Uz77O+v6M9PP+OwPUevjL4mJnd1NcmNLy+01S0bWfeYUssRbIeFk2gwfQBHND/hw77969ge2ga5
+	Ivgu5tjmfMAF+GflYa2/EnnEnnuB6+a1Uzy0SnTmDHVp5EGX3BfREGHTIVcKRe60U3G09KDhWHD
+	PGNfn8GxNPAQxuF7oiOHMcwKZXpQfO6P7BjTwqcvc2GA7aMptuQzw/pZUGbsHhW1d469EVzibNu
+	3iNMPHcP8cRZx2CRqO+8/prd1ROW1o7/T4+plnU0sBCwYlQDfeYYP6Atj492dixzQ815J3FU+ud
+	9G3PdSgsNiQjLqXQjWGvWPaysQIbr58F5l4evkC5PgTnwRANpzmayVm7JqyQ==
+X-Received: by 2002:adf:f882:0:b0:484:3cbf:f254 with SMTP id ffacd0b85a97d-48441022253mr2861178f8f.21.1788192481405;
+        Mon, 31 Aug 2026 09:08:01 -0700 (PDT)
+Received: from TC-LAPTOP ([2a01:e0a:b8a:2610:ccbd:b529:37d3:c1b8])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482fbab3f3asm23849760f8f.3.2026.08.31.09.08.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Aug 2026 09:08:01 -0700 (PDT)
+From: Thierry Chatard <tchatard@gmail.com>
+To: linux-kernel@vger.kernel.org
+Cc: hansg@kernel.org,
+	lee@kernel.org,
+	platform-driver-x86@vger.kernel.org,
+	ilpo.jarvinen@linux.intel.com,
+	djrscally@gmail.com,
+	linux-media@vger.kernel.org,
+	mchehab@kernel.org,
+	sakari.ailus@linux.intel.com,
+	jacopo.mondi@ideasonboard.com,
+	nicholas@rothemail.net,
+	andriy.shevchenko@intel.com,
+	v.vitovt@gmail.com,
+	Thierry Chatard <tchatard@gmail.com>
+Subject: [PATCH v10 1/8] mfd: intel-lpss: add resource conflict quirk for Dell Latitude 5285
+Date: Mon, 31 Aug 2026 18:07:47 +0200
+Message-ID: <20260831160754.9857-2-tchatard@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260831160754.9857-1-tchatard@gmail.com>
+References: <20260831160754.9857-1-tchatard@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="pwXx4DOOFbxIx9RZ"
-Content-Disposition: inline
-In-Reply-To: <20260831-isi_imx952-v2-4-fafdb4b446d4@oss.nxp.com>
+Content-Transfer-Encoding: 8bit
 
---pwXx4DOOFbxIx9RZ
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+The Dell Latitude 5285 2-in-1 has a BIOS bug where the ACPI GEXP device
+and the I2C4 controller (INT3446) both claim the same MMIO region via the
+shared SB04 variable. This causes intel_lpss_acpi to fail binding to I2C4
+with -EBUSY, preventing the front camera (OV5670) sensor from being
+registered.
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-pw-bot: not-applicable
+Match the affected machine by DMI and the affected device by ACPI ID,
+carrying QUIRK_IGNORE_RESOURCE_CONFLICTS in the ACPI match data and
+applying it to the per-device info in probe. This follows the quirk
+organisation used by the PCI counterpart.
 
---pwXx4DOOFbxIx9RZ
-Content-Type: application/pgp-signature; name=signature.asc
+Assisted-by: Claude Code:claude-opus-4-8
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+Signed-off-by: Thierry Chatard <tchatard@gmail.com>
+---
+ drivers/mfd/intel-lpss-acpi.c | 32 ++++++++++++++++++++++++++++++++
+ 1 file changed, 32 insertions(+)
 
------BEGIN PGP SIGNATURE-----
+diff --git a/drivers/mfd/intel-lpss-acpi.c b/drivers/mfd/intel-lpss-acpi.c
+index d4b24a717..9d7d0ad62 100644
+--- a/drivers/mfd/intel-lpss-acpi.c
++++ b/drivers/mfd/intel-lpss-acpi.c
+@@ -8,7 +8,9 @@
+  *          Mika Westerberg <mika.westerberg@linux.intel.com>
+  */
+ 
++#include <linux/acpi.h>
+ #include <linux/device.h>
++#include <linux/dmi.h>
+ #include <linux/gfp_types.h>
+ #include <linux/ioport.h>
+ #include <linux/module.h>
+@@ -171,6 +173,27 @@ static const struct acpi_device_id intel_lpss_acpi_ids[] = {
+ };
+ MODULE_DEVICE_TABLE(acpi, intel_lpss_acpi_ids);
+ 
++/*
++ * Devices that need a quirk applied only on the machines matched by
++ * intel_lpss_quirk_dmi[] below. The quirk to apply is carried in the
++ * matching entry's driver_data.
++ */
++static const struct acpi_device_id intel_lpss_acpi_quirk_ids[] = {
++	/* Dell Latitude 5285: ACPI GEXP device conflicts with I2C4 (INT3446) */
++	{ "INT3446", QUIRK_IGNORE_RESOURCE_CONFLICTS },
++	{ }
++};
++
++static const struct dmi_system_id intel_lpss_quirk_dmi[] = {
++	{
++		.matches = {
++			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Dell Inc."),
++			DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "Latitude 5285"),
++		},
++	},
++	{ }
++};
++
+ static int intel_lpss_acpi_probe(struct platform_device *pdev)
+ {
+ 	const struct intel_lpss_platform_info *data;
+@@ -185,6 +208,15 @@ static int intel_lpss_acpi_probe(struct platform_device *pdev)
+ 	if (!info)
+ 		return -ENOMEM;
+ 
++	/* Apply per-device quirks that are only needed on certain machines */
++	if (dmi_check_system(intel_lpss_quirk_dmi)) {
++		const struct acpi_device_id *id;
++
++		id = acpi_match_device(intel_lpss_acpi_quirk_ids, &pdev->dev);
++		if (id)
++			info->quirks |= id->driver_data;
++	}
++
+ 	/* No need to check mem and irq here as intel_lpss_probe() does it for us */
+ 	info->mem = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+ 	info->irq = platform_get_irq(pdev, 0);
+-- 
+2.53.0
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCapWm3wAKCRB4tDGHoIJi
-0ou7AQCfQdXvM1TibmA0/BN+SjYPRIakJo2dh19uu/ch4xXz/QD9F4AbjzK2IupS
-KOH1B7ezgchdWNPN3EfZ2Jt3qde19wQ=
-=G8I8
------END PGP SIGNATURE-----
-
---pwXx4DOOFbxIx9RZ--
