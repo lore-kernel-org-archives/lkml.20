@@ -1,50 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEF6E5740AA;
-	Mon, 31 Aug 2026 13:48:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D4974AEBC2;
+	Mon, 31 Aug 2026 13:48:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788184138; cv=none; b=YrthSnA3AIJhoz7KwVYMZwvxT3SfqZD/T7MFO7Sd0n1DnZKHip8KCtMfsREQGTMWuvProLaHyAJZMhwJJjvDZMvkx3Uq9KLbe6ro5/4C8z8vBeFDPptaD5guJjS2y209GXPDimpu85QGgJdebe1wlx8dMSgp0pxuBRB82OSnP7w=
+	t=1788184142; cv=none; b=GrG9MSXWMb6wZOsduF/e1ln0/dcwbpveoV/uM2aAnHUe5V6v89cHxV7ACCE/kAAi860TLv9tsAboLwoTN9nYgaFG75FlWIRD95IB/ZsqZDwW0G1XGPo/NZ//1iHE8++x2lASfauJKDtOauHfx4DSUEmY52Yyhpz1Vej2hf70LSs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788184138; c=relaxed/simple;
-	bh=1jDpXDiJt1A7Pbmrk3A4boKy0YANjOhgFv7bBY2OXsg=;
+	s=arc-20240116; t=1788184142; c=relaxed/simple;
+	bh=7zEFP8ZY1r0gCLEU+l9NnJVIjNcgzLZ61BnKsn/iRQc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=OGRkE8eTqj8ZLnj4q/OuE1YepW8ph4tNH3vcfVJt3IYJM25faxpT6Cg9I+2mzzamZheM5rzkn42TURoAouv6f76yfiJDdV/tQymnXEOUuTUrJsUbeUBrw697t2mCWPM6ztfoBAa4dCe7kPk/i3+cW0VQoEXuyGTFCo97t53ro5k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZITkX+ZN; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=Gj59GLW2ZMDP3aTxlVjUL+Q6rmFycLn+K7m5opGoI73DgpnjEA9m2K2mlvBXEiQDRjTocn1+dmOPbT3EZ/ml9Jj8qe+ukRgG+sVq2EgaYGmNFQgqEdeXoop/TGie//m5wKXOYphkRqoJ1sZnp07zS90U5reRoD0+CZqAUtmPBKs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VN1j4fm4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZITkX+ZN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC8F81F00ADB;
-	Mon, 31 Aug 2026 13:48:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VN1j4fm4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76B781F00A3E;
+	Mon, 31 Aug 2026 13:48:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788184134;
-	bh=hv05+zTA0Jb00LrEJVlNWMYzyTNPLjsQgkanl5k33tU=;
+	s=k20260515; t=1788184137;
+	bh=CBWdldcJE8xPdqsaPFZXxeaY6tXuX3vHWPhS0ty9szg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ZITkX+ZNYlWjqH6DgI0EHwYULnZQb/gFcNY0as+yHpAJKo9PUJMsfuybHuzA70Ab0
-	 M3gkp6s8G8+MkA3od+WD+VFAwH1vdaxtuzyYmRSZisK62PcUGZxvB8FRf+V0lae3aW
-	 agk3lRPt+hcmzPp58T2N85pTYlIewBHN4YfcZYeb60k1s7kso0dSg8a3m0r/ZbxDkK
-	 6mgTxp41IZ+kAMa2GXpoTQ7lNb5hfoaGMGFRcYEAG2nkvG3ViY0zc3gmREVRYybszG
-	 cAqJxubhdbZFWtc3QPk73T6mrsvDlphJGAGVcIaihYxkO4tzM20DYeZIcxHLUJB01a
-	 HuLPxY5CjOOHg==
+	b=VN1j4fm4/DWVdV0vyIyeTHUL1iiUyLT72F896UCjcoQxlq55FK00YmNvBE1pHH18Z
+	 yPjuu9pDVbAhkcQxi8eMRpq1bLUPhFqcy7yVIzXmPQWuEM7KZBNa8vM7bGWQM9Elc7
+	 P1s0ZtvAQW3dOLoPBxTW6i5Y0hrsvkrWjOTyvSuKfq0oAvLjFWCih+mjPfJPy6SKVz
+	 RkJVcSqlCX2u4BpKwJwby8/JZztWqRani+YNv5ol2K2iFEkLRqAkSt/j6azevSRUAB
+	 JW8UIIhGgzx9G+PG2507qz1FRMCofzCzeLgYj4AQKtr67Cs7uGad0K4n3XSi+VZNXr
+	 hskj+33uQdSfQ==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Denzeel Oliva <wachiturroxd150@gmail.com>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
+Cc: Yongqiang Sun <Yongqiang.Sun@amd.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
 	Sasha Levin <sashal@kernel.org>,
-	s.nawrocki@samsung.com,
-	cw00.choi@samsung.com,
-	peter.griffin@linaro.org,
-	sboyd@kernel.org,
-	bmasney+clk@redhat.com,
-	jbrunet+clk@baylibre.com,
-	linux-samsung-soc@vger.kernel.org,
-	linux-clk@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
+	Felix.Kuehling@amd.com,
+	christian.koenig@amd.com,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18] clk: samsung: exynos990: Fix PERIC0/1 USI clock types
-Date: Mon, 31 Aug 2026 09:29:00 -0400
-Message-ID: <20260831133314.4125787-512-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18] drm/amdkfd: fix SMI event cross-process information leak
+Date: Mon, 31 Aug 2026 09:29:02 -0400
+Message-ID: <20260831133314.4125787-514-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -60,760 +57,406 @@ X-stable-base: Linux 6.18.48
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Denzeel Oliva <wachiturroxd150@gmail.com>
+From: Yongqiang Sun <Yongqiang.Sun@amd.com>
 
-[ Upstream commit e11560b050ce867bd7d3ccea138231db54e2250a ]
+[ Upstream commit 92a8dba246d371fe268280e5fd74b0955688e6df ]
 
-Use nMUX() for USI and UART user muxes to allow reparenting between
-OSC and CMU IP output when changing rates, and use DIV_F() with
-CLK_SET_RATE_PARENT on their dividers and gates so rate requests
-propagate upward.
+kfd_smi_ev_enabled() skips the suser privilege check when pid=0.
+PROCESS_START, PROCESS_END, and VMFAULT events are emitted with
+pid=0 while carrying another process's PID and command name, so any
+/dev/kfd user in the render group can monitor all GPU workloads.
 
-Consolidate identical USI parent arrays into shared
-mout_peric0_nonbususer_p and mout_peric1_nonbususer_p.
+Pass the target process PID into kfd_smi_event_add() for these events
+so the existing per-client filter restricts delivery to the owning
+process or CAP_SYS_ADMIN subscribers.
 
-Signed-off-by: Denzeel Oliva <wachiturroxd150@gmail.com>
-Link: https://patch.msgid.link/20260528-perics-usi-v1-1-13a6ee4d1a6f@gmail.com
-Signed-off-by: Krzysztof Kozlowski <krzk@kernel.org>
+Signed-off-by: Yongqiang Sun <Yongqiang.Sun@amd.com>
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-# Stable Backport Analysis: `clk: samsung: exynos990: Fix PERIC0/1 USI
-clock types`
-
-**Local tree:** `v6.18.44` (Linux 6.18.44)
-
----
-
-## PHASE 1: COMMIT MESSAGE FORENSICS
+## Phase 1: Commit Message Forensics
 
 **Step 1.1 — Subject line**
 
-Record: `[clk: samsung: exynos990]` `[Fix]` — Correct PERIC0/1 USI clock
-types (mux/div clock framework flags).
+Record: `[drm/amdkfd] [fix] SMI event cross-process information leak`
 
 **Step 1.2 — Tags**
 
 Record:
-- `Signed-off-by: Denzeel Oliva <wachiturroxd150@gmail.com>` (author)
-- `Link: https://patch.msgid.link/20260528-perics-
-  usi-v1-1-13a6ee4d1a6f@gmail.com`
-- `Signed-off-by: Krzysztof Kozlowski <krzk@kernel.org>` (clk/samsung
+- `Signed-off-by: Yongqiang Sun <Yongqiang.Sun@amd.com>` (author)
+- `Acked-by: Alex Deucher <alexander.deucher@amd.com>` (AMD DRM
   maintainer)
-- No `Fixes:`, `Reported-by:`, `Tested-by:`, `Reviewed-by:`, `Cc:
+- `Signed-off-by: Alex Deucher <alexander.deucher@amd.com>` (committer)
+- No `Fixes:`, `Reported-by:`, `Tested-by:`, `Link:`, or `Cc:
   stable@vger.kernel.org`
 
-Notable: maintainer commit; no fuzzer or user bug reports.
+Notable: maintainer Acked-by; no syzbot or user bug report tags.
 
 **Step 1.3 — Body analysis**
 
 Record:
-- **Bug:** PERIC0/1 USI and UART user muxes use `MUX()`
-  (`CLK_SET_RATE_NO_REPARENT`) and plain `DIV()` without
-  `CLK_SET_RATE_PARENT`, so rate changes cannot reparent between
-  `oscclk` and `dout_cmu_peric*_ip`, and rate requests do not propagate
-  up the tree.
-- **Symptom:** USI peripherals (UART/SPI/I2C via Samsung USI blocks) and
-  UART debug cannot get correct clock rates when drivers call
-  `clk_set_rate()`.
-- **Root cause:** Wrong clock-type macros at PERIC bring-up (author's
-  earlier PERIC0/1 commit).
-- **Version info:** None explicit; bug introduced when PERIC0/1 support
-  landed in 6.18.
+- **Bug:** `kfd_smi_ev_enabled()` does not apply per-client PID
+  filtering when the filter PID argument is `0`. `PROCESS_START`,
+  `PROCESS_END`, and `VMFAULT` events are emitted with filter PID `0`
+  but carry another process's PID and command name in the event payload.
+- **Symptom:** Any `/dev/kfd` user in the render group can monitor all
+  GPU workloads (other processes' PIDs and command names).
+- **Root cause:** `kfd_smi_event_add(0, ...)` bypasses the `if (pid &&
+  ...)` guard in `kfd_smi_ev_enabled()`.
+- **Fix:** Pass `task_info->tgid` into `kfd_smi_event_add()` so the
+  existing filter restricts delivery to the owning process or
+  `CAP_SYS_ADMIN` subscribers (`client->suser`).
 
 **Step 1.4 — Hidden bug fix?**
 
-Record: **Yes.** Despite "Fix" in the subject, this is a functional
-clock-tree correctness bug, not cosmetic cleanup. Same class of bug
-fixed earlier on GS101 (`7b54d9113cd49`).
+Record: No — this is an explicit security/privacy bug fix, not disguised
+cleanup.
 
 ---
 
-## PHASE 2: DIFF ANALYSIS
+## Phase 2: Diff Analysis
 
 **Step 2.1 — Inventory**
 
 Record:
-- **File:** `drivers/clk/samsung/clk-exynos990.c` only (+143 / −164
-  lines, net −21)
-- **Functions/sections:** `peric0_mux_clks[]`, `peric0_div_clks[]`,
-  `peric1_mux_clks[]`, `peric1_div_clks[]`, parent-name arrays
-- **Scope:** Single-file, mechanical clock registration fix
+- **File:** `drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c` (+5 / -3
+  lines)
+- **Functions modified:** `kfd_smi_event_update_vmfault()`,
+  `kfd_smi_event_process()`
+- **Scope:** Single-file surgical fix
 
-**Step 2.2 — Code flow per hunk**
+**Step 2.2 — Code flow changes**
 
 Record:
-- **PERIC0/1 parent arrays:** 11+12 duplicate `PNAME()` arrays → 2
-  shared `mout_peric*_nonbususer_p` arrays (no behavior change).
-- **Mux clocks:** `MUX()` → `nMUX()` for UART_DBG and all USI user
-  muxes. Before: reparenting blocked on rate change. After: reparenting
-  between OSC (~24.5 MHz) and CMU IP output allowed.
-- **Div clocks:** `DIV()` → `DIV_F(..., CLK_SET_RATE_PARENT, 0)` for all
-  USI dividers. Before: rate requests stopped at divider. After:
-  propagate to parent mux.
-- **Gates:** unchanged (commit message mentions gates, but diff does not
-  modify `GATE()` entries).
+- **Hunk 1 (`kfd_smi_event_update_vmfault`):** Before:
+  `kfd_smi_event_add(0, dev, VMFAULT, ...)` → all subscribed clients
+  receive VM fault events with other processes' PID/comm. After:
+  `kfd_smi_event_add(task_info->tgid, dev, VMFAULT, ...)` → only
+  matching client or admin receives it.
+- **Hunk 2 (`kfd_smi_event_process`):** Before: `kfd_smi_event_add(0,
+  pdd->dev, PROCESS_START/END, ...)` → broadcast. After:
+  `kfd_smi_event_add(task_info->tgid, pdd->dev, ...)` → per-process
+  filtering.
 
 **Step 2.3 — Bug mechanism**
 
-Record: **Logic / correctness fix** in clock framework registration.
-- `MUX()` sets `CLK_SET_RATE_NO_REPARENT` (see `clk.h` line 145).
-- `nMUX()` clears that flag (line 151–152).
-- `DIV_F()` with `CLK_SET_RATE_PARENT` enables upward rate propagation.
-- Category: hardware clock configuration bug; analogous to GS101 PERIC0
-  USI SPI fix.
+Record: **Information leak / missing access control.** Category (d)
+memory-safety adjacent — logic/correctness in security filtering.
+`pid=0` is intentional for system-wide events (GPU reset, thermal
+throttle); using it for per-process events defeats isolation.
 
 **Step 2.4 — Fix quality**
 
-Record:
-- **Obviously correct:** Matches established GS101 pattern for the same
-  IP block family.
-- **Minimal:** Only affected clocks changed; parent arrays consolidated.
-- **Regression risk:** Low — enables intended CCF behavior; no API or
-  structural changes.
-- **Note:** Commit message overstates gate changes; gates remain plain
-  `GATE()` without `CLK_SET_RATE_PARENT` (unlike GS101). Maintainer
-  accepted as-is.
+Record: Obviously correct — uses `task_info->tgid`, which matches
+`client->pid = current->tgid` set in `kfd_smi_event_open()`. Minimal
+change. Low regression risk; system-wide events still use `pid=0`.
 
 ---
 
-## PHASE 3: GIT HISTORY INVESTIGATION
+## Phase 3: Git History Investigation
 
 **Step 3.1 — Blame**
 
-Record: Buggy `MUX(CLK_MOUT_PERIC0_USI00_USI_USER, ...)` introduced in
-`b3b314ef13e46` (Denzeel Oliva, 2025-09-04) — "Add PERIC0 and PERIC1
-clock support". Present since v6.18.
+Record:
+- `kfd_smi_ev_enabled()` filter: Philip Yang, 2022-01-13
+  (`163a5a58437062`); superuser logic simplified by Eric Huang,
+  2025-04-14 (`6b9d26089f56f`).
+- VMFAULT with `pid=0`: since at least Shashank Sharma refactor,
+  2024-01-18 (`b8f67b9ddf4f8`); format-only change in 2024-02-16
+  (`663b0f1e141dc`).
+- PROCESS_START/END with `pid=0`: introduced 2025-04-07
+  (`4172b556fd5bd`).
 
 **Step 3.2 — Fixes: tag**
 
-Record: N/A — no `Fixes:` tag. Originating commit `b3b314ef13e46` is an
-ancestor of `v6.18.44`.
+Record: Not applicable — no `Fixes:` tag. Buggy PROCESS events
+introduced by `4172b556fd5bd`; VMFAULT leak predates that.
 
 **Step 3.3 — Related file history**
 
-Record:
-- `bdd03ebf721f7` (2024-12-14): Introduce Exynos990 clock driver
-- `b3b314ef13e46` (2025-09-07): Add PERIC0/PERIC1 — introduced bug
-- `44b0a8e433aaa`: Enable PERIC0/PERIC1 in exynos990 DT
-- Fix commit `e11560b050ce8` is the only change to this file between
-  `v6.18.44` and mainline
-- Standalone 1/1 patch, no series dependencies
+Record: Recent related commits in this tree:
+- `6b9d26089f56f` — superuser SMI filter fix (present)
+- `4172b556fd5bd` — process start/end events (present, introduced leak)
+- `9315860d05aa2` — NULL check fix for process SMI event
+- `9fd86747daa6c` — queue restore string fix
+- On master but not in 6.18.44: `92a8dba246d37` / `3b347d011773d` (this
+  fix), `1142738572ef3` (container PID reporting — separate, larger
+  change)
 
 **Step 3.4 — Author context**
 
-Record: Denzeel Oliva authored both PERIC bring-up and this fix.
-Krzysztof Kozlowski (samsung-clk maintainer) committed it.
+Record: Yongqiang Sun has at least one other amdkfd fix in history. Alex
+Deucher (maintainer) Acked and committed the fix.
 
-**Step 3.5 — Prerequisites**
+**Step 3.5 — Dependencies**
 
-Record: No dependencies. `nMUX`, `DIV_F`, and `CLK_SET_RATE_PARENT` all
-exist in this tree's `drivers/clk/samsung/clk.h`. Patch applies cleanly
-(`git apply --check` passed).
+Record: Standalone — uses `task_info->tgid` already present in `struct
+amdgpu_task_info` since 2018 (`2aa37bf58838f`). No series prerequisites.
+`git apply --check` passes cleanly on 6.18.44.
 
 ---
 
-## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
+## Phase 4: Mailing List and External Research
 
 **Step 4.1 — Original discussion**
 
-Record:
-- `b4 dig -c e11560b050ce8` → https://patch.msgid.link/20260528-perics-
-  usi-v1-1-13a6ee4d1a6f@gmail.com
-- Single-patch series (v1, 1/1)
-- Krzysztof Kozlowski: "Applied, thanks!" — no review thread, no stable
-  nomination, no NAKs
+Record: `b4 dig -c 3b347d011773d` found v1 only at
+https://patch.msgid.link/20260527141014.567441-1-Yongqiang.Sun@amd.com.
+Lore fetch blocked by Anubis bot protection; no thread replies
+retrieved.
 
 **Step 4.2 — Reviewers**
 
-Record: CC'd Krzysztof Kozlowski, Sylwester Nawrocki, Chanwoo Choi, Alim
-Akhtar, Michael Turquette, Stephen Boyd, Brian Masney; lists `linux-
-clk`, `linux-samsung-soc`, `linux-arm-kernel`.
+Record: `b4 dig -w` — sent to Yongqiang Sun and `amd-
+gfx@lists.freedesktop.org`. Alex Deucher Acked in commit.
 
-**Step 4.3 — Bug reports**
+**Step 4.3 — Bug report**
 
-Record: N/A — no `Reported-by:` or bugzilla/syzbot links.
+Record: Not applicable — no `Reported-by:` or `Link:` tags. Bug
+identified by code review / internal AMD analysis per commit message.
 
 **Step 4.4 — Related patches**
 
-Record: Direct precedent — `7b54d9113cd49` "clk: samsung: gs101:
-propagate PERIC0 USI SPI clock rate" documents identical mechanism (nMUX
-+ DIV_F + GATE CLK_SET_RATE_PARENT for USI on GS101 PERIC0).
+Record: Container PID fix (`1142738572ef3`) is a separate follow-up on
+master; not required for this security fix to function on non-container
+or host-PID setups.
 
 **Step 4.5 — Stable list**
 
-Record: No stable-list discussion found for this patch.
+Record: Not searched (lore blocked). No stable nomination found in
+available sources.
 
 ---
 
-## PHASE 5: CODE SEMANTIC ANALYSIS
+## Phase 5: Code Semantic Analysis
 
-**Step 5.1 — Key symbols**
+**Step 5.1 — Key functions**
 
-Record: PERIC0/1 mux/div clock tables in `clk-exynos990.c`; no new
-functions.
+Record: `kfd_smi_ev_enabled()`, `kfd_smi_event_add()`,
+`kfd_smi_event_update_vmfault()`, `kfd_smi_event_process()`,
+`kfd_smi_event_open()`
 
 **Step 5.2 — Callers**
 
-Record: Clocks registered at init via exynos990 CMU probe; consumed at
-runtime by device drivers via `clk_get()` / `clk_set_rate()`. PERIC0/1
-CMUs are enabled in `exynos990.dtsi` (`cmu_peric0`, `cmu_peric1`).
+Record:
+- `kfd_smi_event_update_vmfault()` ← `kfd_int_process_v9.c`,
+  `kfd_int_process_v11.c`, `cik_event_interrupt.c` (GPU fault interrupt
+  paths)
+- `kfd_smi_event_process()` ← `kfd_process.c` (process start at line
+  ~1727, end at ~1059)
+- `kfd_smi_event_open()` ← `kfd_chardev.c` via `kfd_ioctl_smi_events()`
+  (userspace ioctl)
 
 **Step 5.3 — Callees**
 
-Record: Samsung CCF helpers (`samsung_clk_register_mux`,
-`samsung_clk_register_div`); standard Linux common clock framework
-rate/recalc paths.
+Record: `amdgpu_vm_get_task_info_pasid()`,
+`amdgpu_vm_get_task_info_vm()`, `add_event_to_kfifo()` → iterates all
+SMI clients and checks `kfd_smi_ev_enabled()`.
 
 **Step 5.4 — Reachability**
 
-Record: Reachable when exynos990 drivers request peripheral clocks. USI
-device nodes are not yet in mainline exynos990 DTS, but PERIC clock
-controllers are live and UART_DBG mux is also fixed. Any future or out-
-of-tree USI/UART driver using these clocks hits the bug today.
+Record: Userspace opens SMI event fd via KFD ioctl (`/dev/kfd`, render
+group). GPU faults and process lifecycle events are triggered by normal
+KFD compute workloads. **Reachable by unprivileged render-group users**
+who can subscribe to SMI events and receive other users' process
+metadata.
 
 **Step 5.5 — Similar patterns**
 
-Record: GS101 PERIC0/1 USI clocks use `nMUX` +
-`DIV_F(CLK_SET_RATE_PARENT)` + `GATE(..., CLK_SET_RATE_PARENT)`.
-Exynos850 CMGP USI uses `MUX_F(CLK_SET_RATE_PARENT)` +
-`DIV_F(CLK_SET_RATE_PARENT)`. Exynos990 PERIC was the outlier using
-plain `MUX`/`DIV`.
+Record: Other per-process events (`page_fault`, `migration`,
+`queue_eviction`, etc.) already pass non-zero PID and are correctly
+filtered. Only VMFAULT and PROCESS_START/END incorrectly used `pid=0`.
 
 ---
 
-## PHASE 6: CROSS-REFERENCE WITH LOCAL TREE (v6.18.44)
+## Phase 6: Cross-Reference Against Local Tree (6.18.44)
 
 **Step 6.1 — Buggy code present?**
 
-Record: **Yes.** Current HEAD still has `MUX()` for USI user muxes and
-`DIV()` for USI dividers (e.g. lines 1568–1640). Fix commit
-`e11560b050ce8` is **not** in HEAD. Bug introduced in 6.18 with PERIC
-support.
+Record: **Yes.** Local tree is `v6.18.44` on `stable/linux-6.18.y`.
+Verified:
+- Line 257: `kfd_smi_event_add(0, dev, KFD_SMI_EVENT_VMFAULT, ...)`
+- Line 359: `kfd_smi_event_add(0, pdd->dev, PROCESS_START/END, ...)`
+- Filter at lines 168-169 skips all PID checks when `pid==0`
+- Fix commit `3b347d011773d` is **not** an ancestor of HEAD (`merge-
+  base` exit 1)
 
 **Step 6.2 — Backport complications**
 
-Record: **Clean apply** — `git apply --check` on `e11560b050ce8` patch
-succeeded against HEAD. Only one intervening commit on this file between
-v6.18.44 and the fix.
+Record: **Clean apply** — `git show 3b347d011773d -p | git apply
+--check` succeeded with no conflicts.
 
 **Step 6.3 — Related fixes already present?**
 
-Record: **No** equivalent fix in this tree.
+Record: Superuser filter fix (`6b9d26089f56f`) is present but does not
+address `pid=0` bypass. This specific information-leak fix is absent.
 
 ---
 
-## PHASE 7: SUBSYSTEM CONTEXT
+## Phase 7: Subsystem Context
 
-**Step 7.1 — Subsystem / criticality**
+**Step 7.1 — Subsystem**
 
-Record: `drivers/clk/samsung` — **PERIPHERAL** (Exynos990 platform-
-specific), but PERIC clocks underpin UART/SPI/I2C for the SoC.
+Record: `drivers/gpu/drm/amd/amdkfd` — AMD KFD (ROCm/HSA GPU compute).
+Criticality: **IMPORTANT** for AMD GPU compute users; config-dependent
+(`CONFIG_HSA_AMD`).
 
 **Step 7.2 — Activity**
 
-Record: exynos990 clk driver actively developed; PERIC support added in
-6.18 cycle.
+Record: Actively maintained — multiple SMI event commits in 2024-2026 in
+this file.
 
 ---
 
-## PHASE 8: IMPACT AND RISK
+## Phase 8: Impact and Risk Assessment
 
 **Step 8.1 — Who is affected**
 
-Record: Exynos990 users (Galaxy S21 family boards: x1s, c1s, r8s, etc.
-in `arch/arm64/boot/dts/exynos/`). Config/platform-specific, not
-universal.
+Record: Multi-user systems with AMD GPUs and KFD/ROCm enabled; any user
+in the render group with `/dev/kfd` access.
 
 **Step 8.2 — Trigger conditions**
 
-Record: Any driver calling `clk_set_rate()` on a PERIC0/1 USI or
-UART_DBG clock. Common during SPI/UART/I2C device probe and transfer
-setup. Not security-relevant; unprivileged users cannot trigger
-directly.
+Record: Another user's KFD process starts/ends or triggers a VM fault
+while a malicious/co-resident user has an SMI event fd subscribed.
+Common on shared GPU servers, HPC clusters, and multi-tenant
+workstations.
 
 **Step 8.3 — Failure mode severity**
 
-Record: **Incorrect clock rates** → peripheral probe failure, wrong
-baud/SPI timing, device malfunction. **Severity: MEDIUM** (functional
-hardware breakage, not kernel crash/oops/corruption).
+Record: **Cross-process information disclosure** — other processes' PIDs
+and command names exposed. Severity: **HIGH** (security/privacy; not
+crash/corruption, but violates process isolation). Unprivileged render-
+group users can trigger it.
 
 **Step 8.4 — Risk vs benefit**
 
 Record:
-- **Benefit:** Fixes a regression introduced in 6.18 itself; unblocks
-  correct USI/UART clock operation on exynos990; matches proven GS101
-  fix pattern.
-- **Risk:** Very low — declarative flag changes only, clean apply,
-  maintainer-reviewed.
-- **Ratio:** Favorable for 6.18.y where the buggy PERIC code already
-  shipped.
+- **Benefit:** HIGH — closes a real cross-process monitoring hole on
+  shared GPU systems
+- **Risk:** VERY LOW — 8-line change, uses existing fields and filtering
+  logic, maintainer-acked
+- **Ratio:** Strongly favors backport
 
 ---
 
-## PHASE 9: FINAL SYNTHESIS
+## Phase 9: Final Synthesis
 
 **Step 9.1 — Evidence summary**
 
 **FOR:**
-- Real functional bug in clock registration
-- Bug introduced in this stable series (6.18) with PERIC0/1 support
-- Buggy code confirmed present in v6.18.44
-- Small, mechanical, obviously correct fix
-- Clean apply, no dependencies
-- Direct precedent (GS101 USI clock fix)
-- Samsung clk maintainer committed
+- Real security/privacy bug (cross-process PID/comm leak)
+- Small, surgical, maintainer-acked fix
+- Applies cleanly to 6.18.44
+- Buggy code confirmed present in this tree
+- Unprivileged users in render group can exploit
+- Aligns with stable policy for security fixes
 
 **AGAINST:**
-- No crash/security/corruption — functional hardware issue only
-- No user reports, syzbot, or Tested-by
-- exynos990 USI device nodes not yet in mainline DTS (limited immediate
-  impact)
-- Commit message inaccurately claims gate changes that aren't in the
-  diff
-- Platform-specific, narrow user base on mainline stable
+- Affects only AMD KFD users (not universal)
+- No external bug report or syzbot confirmation
+- Container PID correctness is a separate follow-up on master (not a
+  reason to reject this fix)
 
-**Unresolved:** Whether gate clocks also need `CLK_SET_RATE_PARENT` (as
-on GS101) — not addressed by this commit; maintainer accepted without
-gate changes.
+**UNRESOLVED:**
+- Full lore thread discussion (Anubis blocked fetch)
+- No explicit stable-list nomination found
 
 **Step 9.2 — Stable rules checklist**
 
 | Criterion | Result |
 |-----------|--------|
-| 1. Obviously correct and tested? | **PASS** — matches GS101 pattern;
-no Tested-by |
-| 2. Fixes real bug affecting users? | **PASS** — broken clock rate
-setting for USI/UART |
-| 3. Important issue? | **PASS** (borderline) — MEDIUM severity hardware
-functionality bug, regression in 6.18 |
-| 4. Small and contained? | **PASS** — single file, mechanical |
-| 5. No new features/APIs? | **PASS** — corrects existing clock flags
+| 1. Obviously correct and tested? | **PASS** — logic clear; Acked-by
+maintainer |
+| 2. Fixes real bug affecting users? | **PASS** — cross-process info
+leak on shared GPUs |
+| 3. Important issue? | **PASS** — security information disclosure
+(HIGH) |
+| 4. Small and contained? | **PASS** — 8 lines, 1 file |
+| 5. No new features/APIs? | **PASS** — corrects existing event delivery
 only |
-| 6. Applies to local tree? | **PASS** — clean apply verified |
+| 6. Can apply to this tree? | **PASS** — clean apply verified |
 
 **Step 9.3 — Exception categories**
 
-Record: N/A — not a device ID, quirk, DT, build, or docs fix. Standard
-driver correctness fix.
+Record: None (not a quirk/DT/build/doc fix) — qualifies on security bug-
+fix merits.
 
 **Step 9.4 — Decision rationale**
 
-This is a regression fix for code that shipped broken in Linux 6.18. The
-PERIC0/1 USI and UART mux/div clocks were registered with flags that
-prevent the common clock framework from reparenting and propagating rate
-changes — exactly the problem documented and fixed on GS101. For the
-v6.18.44 tree, the buggy code is present, the fix applies cleanly, and
-exynos990 platform support (including PERIC CMUs in DT) is already in
-this release. While severity is functional rather than a kernel crash,
-correcting a driver bug introduced in the same stable series is
-appropriate stable material.
+This commit fixes a genuine cross-process information leak in AMD KFD
+SMI events. The buggy code is present in Linux 6.18.44, the fix is
+minimal and obviously correct, and it restores the intended per-process
+isolation that `kfd_smi_ev_enabled()` was designed to provide. Shared-
+GPU and multi-user ROCm deployments on stable kernels should receive
+this security fix.
 
 ---
 
 ## Verification
 
-- [Phase 1] Parsed subject, tags, body from provided commit message
-- [Phase 2] Read `clk.h` lines 144–198: confirmed `MUX()` =
-  `CLK_SET_RATE_NO_REPARENT`, `nMUX()` allows reparenting, `DIV_F()`
-  supports `CLK_SET_RATE_PARENT`
-- [Phase 2] Full diff via `git show e11560b050ce8`: 143+/164−, no gate
-  changes despite message claim
-- [Phase 3] `git describe HEAD` → `v6.18.44`; Makefile → 6.18.44
-- [Phase 3] `git blame` lines 1568–1570 → `b3b314ef13e46` introduced
-  buggy MUX
-- [Phase 3] `git merge-base --is-ancestor b3b314ef13e46 v6.18.44` →
-  PERIC0 in tree; fix NOT in HEAD
-- [Phase 3] `git tag --contains b3b314ef13e46 | grep v6.18` → present
-  since v6.18-rc1
-- [Phase 3] `git show 7b54d9113cd49` — GS101 precedent with detailed
-  USI/SPI clk_set_rate explanation
-- [Phase 4] `b4 dig -c e11560b050ce8` → lore URL found
-- [Phase 4] `b4 dig -w` → maintainers CC'd
-- [Phase 4] `/tmp/perics-usi.mbx` — only maintainer "Applied, thanks!"
-  reply; no stable nomination
-- [Phase 5] Grep exynos990 DTS — `cmu_peric0`/`cmu_peric1` enabled; no
-  USI device nodes yet
-- [Phase 5] Grep `clk-gs101.c` — CLK_SET_RATE_PARENT on USI mux/div/gate
-  clocks
-- [Phase 6] Grep current tree — buggy `MUX()`/`DIV()` still present at
-  lines 1565–1640, 2123+
-- [Phase 6] `git apply --check` of fix patch against HEAD → clean apply
-- [Phase 6] `git log v6.18.44..e11560b050ce8 -- clk-exynos990.c` → 1
-  commit (the fix)
-- [Phase 8] Failure mode assessed as MEDIUM (functional), not CRITICAL
-  (no oops/corruption)
+- [Phase 1] Parsed commit message and tags from user query and `git show
+  3b347d011773d`
+- [Phase 2] Read current `kfd_smi_events.c` lines 163-366; confirmed
+  diff changes only VMFAULT and PROCESS paths
+- [Phase 3] `git blame` on filter and event functions; identified
+  introducing commits `4172b556fd5bd`, `b8f67b9ddf4f8`, `6b9d26089f56f`,
+  `163a5a58437062`
+- [Phase 3] `git merge-base --is-ancestor`: PROCESS events and superuser
+  fix present; info-leak fix absent
+- [Phase 3] `git show 3b347d011773d -p | git apply --check`: clean apply
+- [Phase 4] `b4 dig -c 3b347d011773d`: found lore URL; v1 only
+- [Phase 4] `b4 dig -w`: amd-gfx list CC'd
+- [Phase 4] `b4 dig -a`: single v1 revision
+- [Phase 4] WebFetch lore URL: blocked by Anubis (no thread content)
+- [Phase 5] `grep` callers of `kfd_smi_event_update_vmfault` and
+  `kfd_smi_event_process`
+- [Phase 5] Read `kfd_smi_event_open()`: `client->pid = current->tgid`,
+  `client->suser = capable(CAP_SYS_ADMIN)`
+- [Phase 5] Verified `task_info->tgid` populated in `amdgpu_vm.c:2543`
+- [Phase 6] `git describe HEAD`: v6.18.44
+- [Phase 6] Confirmed buggy `kfd_smi_event_add(0, ...)` at lines 257 and
+  359 in current tree
+- [Phase 6] `git log stable/linux-6.18.y..master -- kfd_smi_events.c`:
+  fix on master, not in stable
+- [Phase 8] Assessed severity as cross-process information disclosure
+  via render-group `/dev/kfd` access
 
-**YES**The background searches finished and line up with the earlier
-analysis:
+**YES**
 
-- **PERIC0 history:** Buggy PERIC0/1 support came in with
-  `b3b314ef13e46` ("Add PERIC0 and PERIC1 clock support"), which is in
-  this `v6.18.44` tree.
-- **Fix commit:** The fix is `e11560b050ce8` on mainline; it is **not**
-  in the checked-out `v6.18.44` tree yet.
-- **GS101 precedent:** `7b54d9113cd49` ("propagate PERIC0 USI SPI clock
-  rate") is the same class of fix and is present in this tree's history.
+ drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-That supports the earlier verdict: **YES** for backport to this `6.18.y`
-tree.
-
- drivers/clk/samsung/clk-exynos990.c | 307 +++++++++++++---------------
- 1 file changed, 143 insertions(+), 164 deletions(-)
-
-diff --git a/drivers/clk/samsung/clk-exynos990.c b/drivers/clk/samsung/clk-exynos990.c
-index 6277dd557fab6..4385c3b76dd68 100644
---- a/drivers/clk/samsung/clk-exynos990.c
-+++ b/drivers/clk/samsung/clk-exynos990.c
-@@ -1546,54 +1546,44 @@ static const unsigned long peric0_clk_regs[] __initconst = {
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
+index d2bc169e84b0b..fe4b936923854 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
+@@ -254,8 +254,10 @@ void kfd_smi_event_update_vmfault(struct kfd_node *dev, uint16_t pasid)
+ 	if (task_info) {
+ 		/* Report VM faults from user applications, not retry from kernel */
+ 		if (task_info->task.pid)
+-			kfd_smi_event_add(0, dev, KFD_SMI_EVENT_VMFAULT, KFD_EVENT_FMT_VMFAULT(
+-					  task_info->task.pid, task_info->task.comm));
++			kfd_smi_event_add(task_info->tgid, dev,
++					  KFD_SMI_EVENT_VMFAULT,
++					  KFD_EVENT_FMT_VMFAULT(task_info->task.pid,
++								task_info->task.comm));
+ 		amdgpu_vm_put_task_info(task_info);
+ 	}
+ }
+@@ -356,7 +358,7 @@ void kfd_smi_event_process(struct kfd_process_device *pdd, bool start)
+ 	task_info = amdgpu_vm_get_task_info_vm(avm);
  
- /* Parent clock list for CMU_PERIC0 muxes */
- PNAME(mout_peric0_bus_user_p) = { "oscclk", "dout_cmu_peric0_bus" };
--PNAME(mout_peric0_uart_dbg_p) = { "oscclk", "dout_cmu_peric0_ip" };
--PNAME(mout_peric0_usi00_user_p) = { "oscclk", "dout_cmu_peric0_ip" };
--PNAME(mout_peric0_usi01_user_p) = { "oscclk", "dout_cmu_peric0_ip" };
--PNAME(mout_peric0_usi02_user_p) = { "oscclk", "dout_cmu_peric0_ip" };
--PNAME(mout_peric0_usi03_user_p) = { "oscclk", "dout_cmu_peric0_ip" };
--PNAME(mout_peric0_usi04_user_p) = { "oscclk", "dout_cmu_peric0_ip" };
--PNAME(mout_peric0_usi05_user_p) = { "oscclk", "dout_cmu_peric0_ip" };
--PNAME(mout_peric0_usi13_user_p) = { "oscclk", "dout_cmu_peric0_ip" };
--PNAME(mout_peric0_usi14_user_p) = { "oscclk", "dout_cmu_peric0_ip" };
--PNAME(mout_peric0_usi15_user_p) = { "oscclk", "dout_cmu_peric0_ip" };
--PNAME(mout_peric0_usi_i2c_user_p) = { "oscclk", "dout_cmu_peric0_ip" };
-+PNAME(mout_peric0_nonbususer_p) = { "oscclk", "dout_cmu_peric0_ip" };
- 
- static const struct samsung_mux_clock peric0_mux_clks[] __initconst = {
- 	MUX(CLK_MOUT_PERIC0_BUS_USER, "mout_peric0_bus_user",
- 	    mout_peric0_bus_user_p, PLL_CON0_MUX_CLKCMU_PERIC0_BUS_USER,
- 	    4, 1),
--	MUX(CLK_MOUT_PERIC0_UART_DBG, "mout_peric0_uart_dbg",
--	    mout_peric0_uart_dbg_p, PLL_CON0_MUX_CLKCMU_PERIC0_UART_DBG,
--	    4, 1),
--	MUX(CLK_MOUT_PERIC0_USI00_USI_USER, "mout_peric0_usi00_usi_user",
--	    mout_peric0_usi00_user_p, PLL_CON0_MUX_CLKCMU_PERIC0_USI00_USI_USER,
--	    4, 1),
--	MUX(CLK_MOUT_PERIC0_USI01_USI_USER, "mout_peric0_usi01_usi_user",
--	    mout_peric0_usi01_user_p, PLL_CON0_MUX_CLKCMU_PERIC0_USI01_USI_USER,
--	    4, 1),
--	MUX(CLK_MOUT_PERIC0_USI02_USI_USER, "mout_peric0_usi02_usi_user",
--	    mout_peric0_usi02_user_p, PLL_CON0_MUX_CLKCMU_PERIC0_USI02_USI_USER,
--	    4, 1),
--	MUX(CLK_MOUT_PERIC0_USI03_USI_USER, "mout_peric0_usi03_usi_user",
--	    mout_peric0_usi03_user_p, PLL_CON0_MUX_CLKCMU_PERIC0_USI03_USI_USER,
--	    4, 1),
--	MUX(CLK_MOUT_PERIC0_USI04_USI_USER, "mout_peric0_usi04_usi_user",
--	    mout_peric0_usi04_user_p, PLL_CON0_MUX_CLKCMU_PERIC0_USI04_USI_USER,
--	    4, 1),
--	MUX(CLK_MOUT_PERIC0_USI05_USI_USER, "mout_peric0_usi05_usi_user",
--	    mout_peric0_usi05_user_p, PLL_CON0_MUX_CLKCMU_PERIC0_USI05_USI_USER,
--	    4, 1),
--	MUX(CLK_MOUT_PERIC0_USI13_USI_USER, "mout_peric0_usi13_usi_user",
--	    mout_peric0_usi13_user_p, PLL_CON0_MUX_CLKCMU_PERIC0_USI13_USI_USER,
--	    4, 1),
--	MUX(CLK_MOUT_PERIC0_USI14_USI_USER, "mout_peric0_usi14_usi_user",
--	    mout_peric0_usi14_user_p, PLL_CON0_MUX_CLKCMU_PERIC0_USI14_USI_USER,
--	    4, 1),
--	MUX(CLK_MOUT_PERIC0_USI15_USI_USER, "mout_peric0_usi15_usi_user",
--	    mout_peric0_usi15_user_p, PLL_CON0_MUX_CLKCMU_PERIC0_USI15_USI_USER,
--	    4, 1),
-+	nMUX(CLK_MOUT_PERIC0_UART_DBG, "mout_peric0_uart_dbg",
-+	     mout_peric0_nonbususer_p, PLL_CON0_MUX_CLKCMU_PERIC0_UART_DBG,
-+	     4, 1),
-+	nMUX(CLK_MOUT_PERIC0_USI00_USI_USER, "mout_peric0_usi00_usi_user",
-+	     mout_peric0_nonbususer_p, PLL_CON0_MUX_CLKCMU_PERIC0_USI00_USI_USER,
-+	     4, 1),
-+	nMUX(CLK_MOUT_PERIC0_USI01_USI_USER, "mout_peric0_usi01_usi_user",
-+	     mout_peric0_nonbususer_p, PLL_CON0_MUX_CLKCMU_PERIC0_USI01_USI_USER,
-+	     4, 1),
-+	nMUX(CLK_MOUT_PERIC0_USI02_USI_USER, "mout_peric0_usi02_usi_user",
-+	     mout_peric0_nonbususer_p, PLL_CON0_MUX_CLKCMU_PERIC0_USI02_USI_USER,
-+	     4, 1),
-+	nMUX(CLK_MOUT_PERIC0_USI03_USI_USER, "mout_peric0_usi03_usi_user",
-+	     mout_peric0_nonbususer_p, PLL_CON0_MUX_CLKCMU_PERIC0_USI03_USI_USER,
-+	     4, 1),
-+	nMUX(CLK_MOUT_PERIC0_USI04_USI_USER, "mout_peric0_usi04_usi_user",
-+	     mout_peric0_nonbususer_p, PLL_CON0_MUX_CLKCMU_PERIC0_USI04_USI_USER,
-+	     4, 1),
-+	nMUX(CLK_MOUT_PERIC0_USI05_USI_USER, "mout_peric0_usi05_usi_user",
-+	     mout_peric0_nonbususer_p, PLL_CON0_MUX_CLKCMU_PERIC0_USI05_USI_USER,
-+	     4, 1),
-+	nMUX(CLK_MOUT_PERIC0_USI13_USI_USER, "mout_peric0_usi13_usi_user",
-+	     mout_peric0_nonbususer_p, PLL_CON0_MUX_CLKCMU_PERIC0_USI13_USI_USER,
-+	     4, 1),
-+	nMUX(CLK_MOUT_PERIC0_USI14_USI_USER, "mout_peric0_usi14_usi_user",
-+	     mout_peric0_nonbususer_p, PLL_CON0_MUX_CLKCMU_PERIC0_USI14_USI_USER,
-+	     4, 1),
-+	nMUX(CLK_MOUT_PERIC0_USI15_USI_USER, "mout_peric0_usi15_usi_user",
-+	     mout_peric0_nonbususer_p, PLL_CON0_MUX_CLKCMU_PERIC0_USI15_USI_USER,
-+	     4, 1),
- 	MUX(CLK_MOUT_PERIC0_USI_I2C_USER, "mout_peric0_usi_i2c_user",
--	    mout_peric0_usi_i2c_user_p, PLL_CON0_MUX_CLKCMU_PERIC0_USI_I2C_USER,
-+	    mout_peric0_nonbususer_p, PLL_CON0_MUX_CLKCMU_PERIC0_USI_I2C_USER,
- 	    4, 1),
- };
- 
-@@ -1602,42 +1592,42 @@ static const struct samsung_div_clock peric0_div_clks[] __initconst = {
- 	    "mout_peric0_uart_dbg",
- 	    CLK_CON_DIV_DIV_CLK_PERIC0_UART_DBG,
- 	    0, 4),
--	DIV(CLK_DOUT_PERIC0_USI00_USI, "dout_peric0_usi00_usi",
--	    "mout_peric0_usi00_usi_user",
--	    CLK_CON_DIV_DIV_CLK_PERIC0_USI00_USI,
--	    0, 4),
--	DIV(CLK_DOUT_PERIC0_USI01_USI, "dout_peric0_usi01_usi",
--	    "mout_peric0_usi01_usi_user",
--	    CLK_CON_DIV_DIV_CLK_PERIC0_USI01_USI,
--	    0, 4),
--	DIV(CLK_DOUT_PERIC0_USI02_USI, "dout_peric0_usi02_usi",
--	    "mout_peric0_usi02_usi_user",
--	    CLK_CON_DIV_DIV_CLK_PERIC0_USI02_USI,
--	    0, 4),
--	DIV(CLK_DOUT_PERIC0_USI03_USI, "dout_peric0_usi03_usi",
--	    "mout_peric0_usi03_usi_user",
--	    CLK_CON_DIV_DIV_CLK_PERIC0_USI03_USI,
--	    0, 4),
--	DIV(CLK_DOUT_PERIC0_USI04_USI, "dout_peric0_usi04_usi",
--	    "mout_peric0_usi04_usi_user",
--	    CLK_CON_DIV_DIV_CLK_PERIC0_USI04_USI,
--	    0, 4),
--	DIV(CLK_DOUT_PERIC0_USI05_USI, "dout_peric0_usi05_usi",
--	    "mout_peric0_usi05_usi_user",
--	    CLK_CON_DIV_DIV_CLK_PERIC0_USI05_USI,
--	    0, 4),
--	DIV(CLK_DOUT_PERIC0_USI13_USI, "dout_peric0_usi13_usi",
--	    "mout_peric0_usi13_usi_user",
--	    CLK_CON_DIV_DIV_CLK_PERIC0_USI13_USI,
--	    0, 4),
--	DIV(CLK_DOUT_PERIC0_USI14_USI, "dout_peric0_usi14_usi",
--	    "mout_peric0_usi14_usi_user",
--	    CLK_CON_DIV_DIV_CLK_PERIC0_USI14_USI,
--	    0, 4),
--	DIV(CLK_DOUT_PERIC0_USI15_USI, "dout_peric0_usi15_usi",
--	    "mout_peric0_usi15_usi_user",
--	    CLK_CON_DIV_DIV_CLK_PERIC0_USI15_USI,
--	    0, 4),
-+	DIV_F(CLK_DOUT_PERIC0_USI00_USI, "dout_peric0_usi00_usi",
-+	      "mout_peric0_usi00_usi_user",
-+	      CLK_CON_DIV_DIV_CLK_PERIC0_USI00_USI, 0, 4,
-+	      CLK_SET_RATE_PARENT, 0),
-+	DIV_F(CLK_DOUT_PERIC0_USI01_USI, "dout_peric0_usi01_usi",
-+	      "mout_peric0_usi01_usi_user",
-+	      CLK_CON_DIV_DIV_CLK_PERIC0_USI01_USI, 0, 4,
-+	      CLK_SET_RATE_PARENT, 0),
-+	DIV_F(CLK_DOUT_PERIC0_USI02_USI, "dout_peric0_usi02_usi",
-+	      "mout_peric0_usi02_usi_user",
-+	      CLK_CON_DIV_DIV_CLK_PERIC0_USI02_USI, 0, 4,
-+	      CLK_SET_RATE_PARENT, 0),
-+	DIV_F(CLK_DOUT_PERIC0_USI03_USI, "dout_peric0_usi03_usi",
-+	      "mout_peric0_usi03_usi_user",
-+	      CLK_CON_DIV_DIV_CLK_PERIC0_USI03_USI, 0, 4,
-+	      CLK_SET_RATE_PARENT, 0),
-+	DIV_F(CLK_DOUT_PERIC0_USI04_USI, "dout_peric0_usi04_usi",
-+	      "mout_peric0_usi04_usi_user",
-+	      CLK_CON_DIV_DIV_CLK_PERIC0_USI04_USI, 0, 4,
-+	      CLK_SET_RATE_PARENT, 0),
-+	DIV_F(CLK_DOUT_PERIC0_USI05_USI, "dout_peric0_usi05_usi",
-+	      "mout_peric0_usi05_usi_user",
-+	      CLK_CON_DIV_DIV_CLK_PERIC0_USI05_USI, 0, 4,
-+	      CLK_SET_RATE_PARENT, 0),
-+	DIV_F(CLK_DOUT_PERIC0_USI13_USI, "dout_peric0_usi13_usi",
-+	      "mout_peric0_usi13_usi_user",
-+	      CLK_CON_DIV_DIV_CLK_PERIC0_USI13_USI, 0, 4,
-+	      CLK_SET_RATE_PARENT, 0),
-+	DIV_F(CLK_DOUT_PERIC0_USI14_USI, "dout_peric0_usi14_usi",
-+	      "mout_peric0_usi14_usi_user",
-+	      CLK_CON_DIV_DIV_CLK_PERIC0_USI14_USI, 0, 4,
-+	      CLK_SET_RATE_PARENT, 0),
-+	DIV_F(CLK_DOUT_PERIC0_USI15_USI, "dout_peric0_usi15_usi",
-+	      "mout_peric0_usi15_usi_user",
-+	      CLK_CON_DIV_DIV_CLK_PERIC0_USI15_USI, 0, 4,
-+	      CLK_SET_RATE_PARENT, 0),
- 	DIV(CLK_DOUT_PERIC0_USI_I2C, "dout_peric0_usi_i2c",
- 	    "mout_peric0_usi_i2c_user",
- 	    CLK_CON_DIV_DIV_CLK_PERIC0_USI_I2C,
-@@ -2107,58 +2097,47 @@ static const unsigned long peric1_clk_regs[] __initconst = {
- 
- /* Parent clock list for CMU_PERIC1 muxes */
- PNAME(mout_peric1_bus_user_p)  = { "oscclk", "dout_cmu_peric1_bus" };
--PNAME(mout_peric1_uart_bt_user_p) = { "oscclk", "dout_cmu_peric1_ip" };
--PNAME(mout_peric1_usi06_user_p)  = { "oscclk", "dout_cmu_peric1_ip" };
--PNAME(mout_peric1_usi07_user_p)  = { "oscclk", "dout_cmu_peric1_ip" };
--PNAME(mout_peric1_usi08_user_p)  = { "oscclk", "dout_cmu_peric1_ip" };
--PNAME(mout_peric1_usi09_user_p)  = { "oscclk", "dout_cmu_peric1_ip" };
--PNAME(mout_peric1_usi10_user_p)  = { "oscclk", "dout_cmu_peric1_ip" };
--PNAME(mout_peric1_usi11_user_p)  = { "oscclk", "dout_cmu_peric1_ip" };
--PNAME(mout_peric1_usi12_user_p)  = { "oscclk", "dout_cmu_peric1_ip" };
--PNAME(mout_peric1_usi18_user_p)  = { "oscclk", "dout_cmu_peric1_ip" };
--PNAME(mout_peric1_usi16_user_p)  = { "oscclk", "dout_cmu_peric1_ip" };
--PNAME(mout_peric1_usi17_user_p)  = { "oscclk", "dout_cmu_peric1_ip" };
--PNAME(mout_peric1_usi_i2c_user_p) = { "oscclk", "dout_cmu_peric1_ip" };
-+PNAME(mout_peric1_nonbususer_p) = { "oscclk", "dout_cmu_peric1_ip" };
- 
- static const struct samsung_mux_clock peric1_mux_clks[] __initconst = {
- 	MUX(CLK_MOUT_PERIC1_BUS_USER, "mout_peric1_bus_user",
- 	    mout_peric1_bus_user_p, PLL_CON0_MUX_CLKCMU_PERIC1_BUS_USER,
- 	    4, 1),
--	MUX(CLK_MOUT_PERIC1_UART_BT_USER, "mout_peric1_uart_bt_user",
--	    mout_peric1_uart_bt_user_p, PLL_CON0_MUX_CLKCMU_PERIC1_UART_BT_USER,
--	    4, 1),
--	MUX(CLK_MOUT_PERIC1_USI06_USI_USER, "mout_peric1_usi06_usi_user",
--	    mout_peric1_usi06_user_p, PLL_CON0_MUX_CLKCMU_PERIC1_USI06_USI_USER,
--	    4, 1),
--	MUX(CLK_MOUT_PERIC1_USI07_USI_USER, "mout_peric1_usi07_usi_user",
--	    mout_peric1_usi07_user_p, PLL_CON0_MUX_CLKCMU_PERIC1_USI07_USI_USER,
--	    4, 1),
--	MUX(CLK_MOUT_PERIC1_USI08_USI_USER, "mout_peric1_usi08_usi_user",
--	    mout_peric1_usi08_user_p, PLL_CON0_MUX_CLKCMU_PERIC1_USI08_USI_USER,
--	    4, 1),
--	MUX(CLK_MOUT_PERIC1_USI09_USI_USER, "mout_peric1_usi09_usi_user",
--	    mout_peric1_usi09_user_p, PLL_CON0_MUX_CLKCMU_PERIC1_USI09_USI_USER,
--	    4, 1),
--	MUX(CLK_MOUT_PERIC1_USI10_USI_USER, "mout_peric1_usi10_usi_user",
--	    mout_peric1_usi10_user_p, PLL_CON0_MUX_CLKCMU_PERIC1_USI10_USI_USER,
--	    4, 1),
--	MUX(CLK_MOUT_PERIC1_USI11_USI_USER, "mout_peric1_usi11_usi_user",
--	    mout_peric1_usi11_user_p, PLL_CON0_MUX_CLKCMU_PERIC1_USI11_USI_USER,
--	    4, 1),
--	MUX(CLK_MOUT_PERIC1_USI12_USI_USER, "mout_peric1_usi12_usi_user",
--	    mout_peric1_usi12_user_p, PLL_CON0_MUX_CLKCMU_PERIC1_USI12_USI_USER,
--	    4, 1),
--	MUX(CLK_MOUT_PERIC1_USI18_USI_USER, "mout_peric1_usi18_usi_user",
--	    mout_peric1_usi18_user_p, PLL_CON0_MUX_CLKCMU_PERIC1_USI18_USI_USER,
--	    4, 1),
--	MUX(CLK_MOUT_PERIC1_USI16_USI_USER, "mout_peric1_usi16_usi_user",
--	    mout_peric1_usi16_user_p, PLL_CON0_MUX_CLKCMU_PERIC1_USI16_USI_USER,
--	    4, 1),
--	MUX(CLK_MOUT_PERIC1_USI17_USI_USER, "mout_peric1_usi17_usi_user",
--	    mout_peric1_usi17_user_p, PLL_CON0_MUX_CLKCMU_PERIC1_USI17_USI_USER,
--	    4, 1),
-+	nMUX(CLK_MOUT_PERIC1_UART_BT_USER, "mout_peric1_uart_bt_user",
-+	     mout_peric1_nonbususer_p, PLL_CON0_MUX_CLKCMU_PERIC1_UART_BT_USER,
-+	     4, 1),
-+	nMUX(CLK_MOUT_PERIC1_USI06_USI_USER, "mout_peric1_usi06_usi_user",
-+	     mout_peric1_nonbususer_p, PLL_CON0_MUX_CLKCMU_PERIC1_USI06_USI_USER,
-+	     4, 1),
-+	nMUX(CLK_MOUT_PERIC1_USI07_USI_USER, "mout_peric1_usi07_usi_user",
-+	     mout_peric1_nonbususer_p, PLL_CON0_MUX_CLKCMU_PERIC1_USI07_USI_USER,
-+	     4, 1),
-+	nMUX(CLK_MOUT_PERIC1_USI08_USI_USER, "mout_peric1_usi08_usi_user",
-+	     mout_peric1_nonbususer_p, PLL_CON0_MUX_CLKCMU_PERIC1_USI08_USI_USER,
-+	     4, 1),
-+	nMUX(CLK_MOUT_PERIC1_USI09_USI_USER, "mout_peric1_usi09_usi_user",
-+	     mout_peric1_nonbususer_p, PLL_CON0_MUX_CLKCMU_PERIC1_USI09_USI_USER,
-+	     4, 1),
-+	nMUX(CLK_MOUT_PERIC1_USI10_USI_USER, "mout_peric1_usi10_usi_user",
-+	     mout_peric1_nonbususer_p, PLL_CON0_MUX_CLKCMU_PERIC1_USI10_USI_USER,
-+	     4, 1),
-+	nMUX(CLK_MOUT_PERIC1_USI11_USI_USER, "mout_peric1_usi11_usi_user",
-+	     mout_peric1_nonbususer_p, PLL_CON0_MUX_CLKCMU_PERIC1_USI11_USI_USER,
-+	     4, 1),
-+	nMUX(CLK_MOUT_PERIC1_USI12_USI_USER, "mout_peric1_usi12_usi_user",
-+	     mout_peric1_nonbususer_p, PLL_CON0_MUX_CLKCMU_PERIC1_USI12_USI_USER,
-+	     4, 1),
-+	nMUX(CLK_MOUT_PERIC1_USI18_USI_USER, "mout_peric1_usi18_usi_user",
-+	     mout_peric1_nonbususer_p, PLL_CON0_MUX_CLKCMU_PERIC1_USI18_USI_USER,
-+	     4, 1),
-+	nMUX(CLK_MOUT_PERIC1_USI16_USI_USER, "mout_peric1_usi16_usi_user",
-+	     mout_peric1_nonbususer_p, PLL_CON0_MUX_CLKCMU_PERIC1_USI16_USI_USER,
-+	     4, 1),
-+	nMUX(CLK_MOUT_PERIC1_USI17_USI_USER, "mout_peric1_usi17_usi_user",
-+	     mout_peric1_nonbususer_p, PLL_CON0_MUX_CLKCMU_PERIC1_USI17_USI_USER,
-+	     4, 1),
- 	MUX(CLK_MOUT_PERIC1_USI_I2C_USER, "mout_peric1_usi_i2c_user",
--	    mout_peric1_usi_i2c_user_p, PLL_CON0_MUX_CLKCMU_PERIC1_USI_I2C_USER,
-+	    mout_peric1_nonbususer_p, PLL_CON0_MUX_CLKCMU_PERIC1_USI_I2C_USER,
- 	    4, 1),
- };
- 
-@@ -2167,46 +2146,46 @@ static const struct samsung_div_clock peric1_div_clks[] __initconst = {
- 	    "mout_peric1_uart_bt_user",
- 	    CLK_CON_DIV_DIV_CLK_PERIC1_UART_BT,
- 	    0, 4),
--	DIV(CLK_DOUT_PERIC1_USI06_USI, "dout_peric1_usi06_usi",
--	    "mout_peric1_usi06_usi_user",
--	    CLK_CON_DIV_DIV_CLK_PERIC1_USI06_USI,
--	    0, 4),
--	DIV(CLK_DOUT_PERIC1_USI07_USI, "dout_peric1_usi07_usi",
--	    "mout_peric1_usi07_usi_user",
--	    CLK_CON_DIV_DIV_CLK_PERIC1_USI07_USI,
--	    0, 4),
--	DIV(CLK_DOUT_PERIC1_USI08_USI, "dout_peric1_usi08_usi",
--	    "mout_peric1_usi08_usi_user",
--	    CLK_CON_DIV_DIV_CLK_PERIC1_USI08_USI,
--	    0, 4),
--	DIV(CLK_DOUT_PERIC1_USI18_USI, "dout_peric1_usi18_usi",
--	    "mout_peric1_usi18_usi_user",
--	    CLK_CON_DIV_DIV_CLK_PERIC1_USI18_USI,
--	    0, 4),
--	DIV(CLK_DOUT_PERIC1_USI12_USI, "dout_peric1_usi12_usi",
--	    "mout_peric1_usi12_usi_user",
--	    CLK_CON_DIV_DIV_CLK_PERIC1_USI12_USI,
--	    0, 4),
--	DIV(CLK_DOUT_PERIC1_USI09_USI, "dout_peric1_usi09_usi",
--	    "mout_peric1_usi09_usi_user",
--	    CLK_CON_DIV_DIV_CLK_PERIC1_USI09_USI,
--	    0, 4),
--	DIV(CLK_DOUT_PERIC1_USI10_USI, "dout_peric1_usi10_usi",
--	    "mout_peric1_usi10_usi_user",
--	    CLK_CON_DIV_DIV_CLK_PERIC1_USI10_USI,
--	    0, 4),
--	DIV(CLK_DOUT_PERIC1_USI11_USI, "dout_peric1_usi11_usi",
--	    "mout_peric1_usi11_usi_user",
--	    CLK_CON_DIV_DIV_CLK_PERIC1_USI11_USI,
--	    0, 4),
--	DIV(CLK_DOUT_PERIC1_USI16_USI, "dout_peric1_usi16_usi",
--	    "mout_peric1_usi16_usi_user",
--	    CLK_CON_DIV_DIV_CLK_PERIC1_USI16_USI,
--	    0, 4),
--	DIV(CLK_DOUT_PERIC1_USI17_USI, "dout_peric1_usi17_usi",
--	    "mout_peric1_usi17_usi_user",
--	    CLK_CON_DIV_DIV_CLK_PERIC1_USI17_USI,
--	    0, 4),
-+	DIV_F(CLK_DOUT_PERIC1_USI06_USI, "dout_peric1_usi06_usi",
-+	      "mout_peric1_usi06_usi_user",
-+	      CLK_CON_DIV_DIV_CLK_PERIC1_USI06_USI, 0, 4,
-+	      CLK_SET_RATE_PARENT, 0),
-+	DIV_F(CLK_DOUT_PERIC1_USI07_USI, "dout_peric1_usi07_usi",
-+	      "mout_peric1_usi07_usi_user",
-+	      CLK_CON_DIV_DIV_CLK_PERIC1_USI07_USI, 0, 4,
-+	      CLK_SET_RATE_PARENT, 0),
-+	DIV_F(CLK_DOUT_PERIC1_USI08_USI, "dout_peric1_usi08_usi",
-+	      "mout_peric1_usi08_usi_user",
-+	      CLK_CON_DIV_DIV_CLK_PERIC1_USI08_USI, 0, 4,
-+	      CLK_SET_RATE_PARENT, 0),
-+	DIV_F(CLK_DOUT_PERIC1_USI18_USI, "dout_peric1_usi18_usi",
-+	      "mout_peric1_usi18_usi_user",
-+	      CLK_CON_DIV_DIV_CLK_PERIC1_USI18_USI, 0, 4,
-+	      CLK_SET_RATE_PARENT, 0),
-+	DIV_F(CLK_DOUT_PERIC1_USI12_USI, "dout_peric1_usi12_usi",
-+	      "mout_peric1_usi12_usi_user",
-+	      CLK_CON_DIV_DIV_CLK_PERIC1_USI12_USI, 0, 4,
-+	      CLK_SET_RATE_PARENT, 0),
-+	DIV_F(CLK_DOUT_PERIC1_USI09_USI, "dout_peric1_usi09_usi",
-+	      "mout_peric1_usi09_usi_user",
-+	      CLK_CON_DIV_DIV_CLK_PERIC1_USI09_USI, 0, 4,
-+	      CLK_SET_RATE_PARENT, 0),
-+	DIV_F(CLK_DOUT_PERIC1_USI10_USI, "dout_peric1_usi10_usi",
-+	      "mout_peric1_usi10_usi_user",
-+	      CLK_CON_DIV_DIV_CLK_PERIC1_USI10_USI, 0, 4,
-+	      CLK_SET_RATE_PARENT, 0),
-+	DIV_F(CLK_DOUT_PERIC1_USI11_USI, "dout_peric1_usi11_usi",
-+	      "mout_peric1_usi11_usi_user",
-+	      CLK_CON_DIV_DIV_CLK_PERIC1_USI11_USI, 0, 4,
-+	      CLK_SET_RATE_PARENT, 0),
-+	DIV_F(CLK_DOUT_PERIC1_USI16_USI, "dout_peric1_usi16_usi",
-+	      "mout_peric1_usi16_usi_user",
-+	      CLK_CON_DIV_DIV_CLK_PERIC1_USI16_USI, 0, 4,
-+	      CLK_SET_RATE_PARENT, 0),
-+	DIV_F(CLK_DOUT_PERIC1_USI17_USI, "dout_peric1_usi17_usi",
-+	      "mout_peric1_usi17_usi_user",
-+	      CLK_CON_DIV_DIV_CLK_PERIC1_USI17_USI, 0, 4,
-+	      CLK_SET_RATE_PARENT, 0),
- 	DIV(CLK_DOUT_PERIC1_USI_I2C, "dout_peric1_usi_i2c",
- 	    "mout_peric1_usi_i2c_user",
- 	    CLK_CON_DIV_DIV_CLK_PERIC1_USI_I2C,
+ 	if (task_info) {
+-		kfd_smi_event_add(0, pdd->dev,
++		kfd_smi_event_add(task_info->tgid, pdd->dev,
+ 				  start ? KFD_SMI_EVENT_PROCESS_START :
+ 				  KFD_SMI_EVENT_PROCESS_END,
+ 				  KFD_EVENT_FMT_PROCESS(task_info->task.pid,
 -- 
 2.53.0
 
