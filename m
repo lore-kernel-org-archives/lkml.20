@@ -1,167 +1,112 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from bkemail.birger-koblitz.de (bkemail.birger-koblitz.de [23.88.97.239])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49B5E3E6394;
-	Mon, 31 Aug 2026 10:08:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48CA63E4C94;
+	Mon, 31 Aug 2026 10:08:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=23.88.97.239
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788170885; cv=none; b=Jv07jLG/qoJyBfG1xTyhqcd71J6YoE/oTLXquuZrs0cgPrNdgPtN5IXjEEeUzKlrNQOn85U1riM4/P+5mLpHdNgi63QVLTvC7kPK2jrZskCtnuO3/WOGFBur23A/TLly6Qk5lM/6/Vo67A3nO+lBf+jY5UTl/tRNEK2U4rN16W4=
+	t=1788170891; cv=none; b=VAB0NFMBp1Qw9kWcNOrLfdl3G2LDMEispLfI1MAJ2iyRV6J/4kz4hjPuE7P6lvfecoPxjgYzrFHxtKR0x3xtx4t1+T0kQ300QLbVUj65pR+AEyxRhiBGlfygiOJ+tkr5KAz7t9TO8ZTcwHuHmCED1rt6mIexUHSosOSUw97CZ34=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788170885; c=relaxed/simple;
-	bh=FLZrLAVX3QjsoTAX93eGV3hYHIDUF6lzvReBHdrgG6w=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gAHmDEeQ2xz/j+dDOVvP60IKP9kCl44CkCXlBF8foQ0IeOBcUS82CbyEm2DZBjyG2CWD6ZFFz/RlFgSop0HwG7qxUVPS1/Sl8SHmx3iizoJAVfc4i9HoC+ML4CfbiL37KI+F8eYQRmmFWciQIZKPNpjk1RbUelotp6WX9GXsoAI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=aNRfX8vx; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=C2FBLfRx; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=bYP23/Jw; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=HJyZzCAq; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	s=arc-20240116; t=1788170891; c=relaxed/simple;
+	bh=Fz2uf0tPnU/Y4m5DeWMKXkg3rFzA0IH7d6hBVf3YE8Q=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=dssAVt0nFSX2z43QkAhIty5IPqlNmiFRSAdoBN3p8rKmtjiplgXBNk61FJYxmxv8duO3DtG7xSeYWAwSac+DdRYfWPhktyXzlnmm1iDRYh/JwiEGPOdeCFEWYj0iwMvXheKQpyarl00C0msh7D44/X9+T3GK9LZ62miyMTQms+o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=birger-koblitz.de; spf=pass smtp.mailfrom=birger-koblitz.de; dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b=va2fxk+a; dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b=AjxUk8Uc; arc=none smtp.client-ip=23.88.97.239
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=birger-koblitz.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=birger-koblitz.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="aNRfX8vx";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="C2FBLfRx";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="bYP23/Jw";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="HJyZzCAq"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id D72481FB3C;
-	Mon, 31 Aug 2026 10:07:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1788170878; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=kgcS0o3Xgc0q06A194A0nwAi34yqPqnCWzQ7aKp6YgU=;
-	b=aNRfX8vxxjM3odxsdfJV6wO0jG1NqkuTD9HoFNIODpmSWjCxeNfMdMYvhmzKQjujswSnS/
-	rsw2myUH73slSIpAbHyQIpFfxod/SQ2iQvVYWJoq5Caq6Mw/C9sC61t5fOi17IYtnepOde
-	7PSGZ/7EJG/gjRtw+IKV6ViVMkT9ZzI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1788170878;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=kgcS0o3Xgc0q06A194A0nwAi34yqPqnCWzQ7aKp6YgU=;
-	b=C2FBLfRx5w0FhBlYmUEqJBJeiO+tYeVwOm3uAqGwG+EH4A/5oSH+COi7OpJf0RrTmcyy3Y
-	+8lyiHRF5PTrfjCA==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b="bYP23/Jw";
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=HJyZzCAq
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1788170873; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=kgcS0o3Xgc0q06A194A0nwAi34yqPqnCWzQ7aKp6YgU=;
-	b=bYP23/JwEC8Iz5BXzI8ktYpWIGLxXVJ+2iWwruUdHZ9/LPZaqgfV59aDVFEPG5i3JOTaks
-	2uIp7s/5M7c+SLxJsp+nlM5EyOiFQZtnegZ12+DPLgrtIOdAQeUPZb/CMSXHltIUiRLDts
-	FI0VoUMNgmd+3o2uc4+mgVVrJDfjYtY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1788170873;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=kgcS0o3Xgc0q06A194A0nwAi34yqPqnCWzQ7aKp6YgU=;
-	b=HJyZzCAqmkoMNCvobtYJW6f9ASXIDXGTYKAyP3rU5YD/8sFndO8X/CKnGEI4bW/Uok/xuJ
-	kiVj+Hpb5awsiaBQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A253D13682;
-	Mon, 31 Aug 2026 10:07:53 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id vNCfJ3lSlWobeQAAD6G6ig
-	(envelope-from <jack@suse.cz>); Mon, 31 Aug 2026 10:07:53 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id 39461A13B5; Mon, 31 Aug 2026 12:07:45 +0200 (CEST)
-Date: Mon, 31 Aug 2026 12:07:45 +0200
-From: Jan Kara <jack@suse.cz>
-To: "Matthew Wilcox (Oracle)" <willy@infradead.org>
-Cc: Christian Brauner <christian@brauner.io>, Jan Kara <jack@suse.cz>, 
-	Gao Xiang <xiang@kernel.org>, Chao Yu <chao@kernel.org>, Theodore Tso <tytso@mit.edu>, 
-	Trond Myklebust <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>, 
-	Namjae Jeon <linkinjeon@kernel.org>, Hyunchul Lee <hyc.lee@gmail.com>, 
-	Phillip Lougher <phillip@squashfs.org.uk>, linux-erofs@lists.ozlabs.org, linux-kernel@vger.kernel.org, 
-	linux-ext4@vger.kernel.org, linux-nfs@vger.kernel.org, ntfs@lists.linux.dev, 
-	linux-fsdevel@vger.kernel.org, linux-mm@kvack.org
-Subject: Re: [PATCH 4/9] nfs: Remove redundant FGP_NOFS
-Message-ID: <qabnsbfd2jknm6g6h2jqlavbpxiem3f2rfu6lwozmlt264aknw@6vxajyigvkaz>
-References: <20260830041901.2668-1-willy@infradead.org>
- <20260830041901.2668-5-willy@infradead.org>
+	dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b="va2fxk+a";
+	dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b="AjxUk8Uc"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=birger-koblitz.de;
+	s=default; t=1788170339;
+	bh=Fz2uf0tPnU/Y4m5DeWMKXkg3rFzA0IH7d6hBVf3YE8Q=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=va2fxk+aqXfH85aihJt743i4t8WIRlljzIN1TR+6sa7my4ZQiAi/+9hayRccMgMNP
+	 5noVSMXU/xgNUs1wEVbi23K8aINULqDBHnaAOj2ZIphcvprF+QB7j5pWaiyM/0i8ge
+	 B0nhG6weRBNpgz5nEKdXsYd3rfslhq/477FiROHS2CibNVsMSzN+HiiMXGk7aKL5A1
+	 e5pfKCGiU6voPXZzxMFgW89xVixwpQc/L+qv3gtHtRN+i+nVRpEAQU0HJyOUFPLAAB
+	 qXKSLQl0NluNS9TiBeLglmIcTbrJzTN9IcxWeqUlVtcPTg4exruLSAWcqjx43wuiyE
+	 KQ2fh1g2z+fug==
+Received: by bkemail.birger-koblitz.de (Postfix, from userid 109)
+	id 66EE83EC8A; Mon, 31 Aug 2026 09:58:59 +0000 (UTC)
+X-Spam-Level: 
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=birger-koblitz.de;
+	s=default; t=1788170337;
+	bh=Fz2uf0tPnU/Y4m5DeWMKXkg3rFzA0IH7d6hBVf3YE8Q=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=AjxUk8Ucc6y/XlJ588gJj6IRbLIMwfumgU1nhngGHkheV72IosQn/RbqP/Ticjb1L
+	 zZjyWv7YI4S+3UeUqIOYy507fFZr4R2+e9nJyv6F3WXBDKpweOT+pgd8xhT3jRGisv
+	 tZabHYDg4Zp1xTbvhF9TYvExa3aUB2eLO+ApmwaUpGiOMp1Bt9odCAidcsaPf4J0qO
+	 nOmqqAmLa9LVz/IWPVif6JqlrGJt5HEBVn+6JiNyAljeDdawBZOX4J8KyPsPmQ/GGG
+	 ZLPq/il9XWFUnHNhTNd6MCp2zN534a/YFcUiTlWqhXyKzc5tLtLLZbeuYfdsMcgeLl
+	 vDA3goVHnjiVw==
+Received: from AMDDesktop.lan (unknown [IPv6:2a00:6020:47a3:e800:271c:c6c5:9fde:77cb])
+	by bkemail.birger-koblitz.de (Postfix) with ESMTPSA id 2E2763EC4F;
+	Mon, 31 Aug 2026 09:58:57 +0000 (UTC)
+From: Birger Koblitz <mail@birger-koblitz.de>
+Date: Mon, 31 Aug 2026 11:58:51 +0200
+Subject: [PATCH net-next v8 02/15] phylib: Add support for PHYs with broken
+ forced mode
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260830041901.2668-5-willy@infradead.org>
-X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: D72481FB3C
-X-Spamd-Result: default: False [-2.51 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	RCPT_COUNT_TWELVE(0.00)[18];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_TLS_LAST(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	TO_DN_SOME(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	TAGGED_RCPT(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FREEMAIL_CC(0.00)[brauner.io,suse.cz,kernel.org,mit.edu,gmail.com,squashfs.org.uk,lists.ozlabs.org,vger.kernel.org,lists.linux.dev,kvack.org];
-	DKIM_TRACE(0.00)[suse.cz:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,infradead.org:email,suse.com:email,suse.cz:dkim,suse.cz:email]
-X-Spam-Flag: NO
-X-Spam-Score: -2.51
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260831-ax88179a-v8-2-de905f2ee426@birger-koblitz.de>
+References: <20260831-ax88179a-v8-0-de905f2ee426@birger-koblitz.de>
+In-Reply-To: <20260831-ax88179a-v8-0-de905f2ee426@birger-koblitz.de>
+To: Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Russell King <linux@armlinux.org.uk>, Andrew Lunn <andrew@lunn.ch>, 
+ Heiner Kallweit <hkallweit1@gmail.com>
+Cc: linux-usb@vger.kernel.org, netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Birger Koblitz <mail@birger-koblitz.de>, 
+ Jianhui Xu <neuromoments@gmail.com>
+X-Mailer: b4 0.14.2
 
-On Sun 30-08-26 05:18:51, Matthew Wilcox (Oracle) wrote:
-> The flags already include FGP_NOWAIT which prohibits all reclaim, not
-> just reclaiming from the filesystem.
-> 
-> Signed-off-by: Matthew Wilcox (Oracle) <willy@infradead.org>
+Add support for PHYs which only supported auto-negotiated
+speed modes. This prevents a kernel warning and stack-trace within the
+phy_state_machine when PHYs return -EOPNOTSUPP from config_aneg()
+because they do not support forced modes.
 
-Obvious enough :) feel free to add:
+Signed-off-by: Birger Koblitz <mail@birger-koblitz.de>
+---
+ drivers/net/phy/phy.c | 4 ++++
+ include/linux/phy.h   | 1 +
+ 2 files changed, 5 insertions(+)
 
-Reviewed-by: Jan Kara <jack@suse.cz>
+diff --git a/drivers/net/phy/phy.c b/drivers/net/phy/phy.c
+index fce9bc7be3304b408c9f3ec9b5b95c76d3680a88..b83f938fe7c3bd619ae453434fd9582c0a055a57 100644
+--- a/drivers/net/phy/phy.c
++++ b/drivers/net/phy/phy.c
+@@ -1190,6 +1190,10 @@ int phy_ethtool_ksettings_set(struct phy_device *phydev,
+ 	      duplex != DUPLEX_FULL)))
+ 		return -EINVAL;
+ 
++	if (autoneg == AUTONEG_DISABLE &&
++	    (phydev->drv->flags & PHY_BROKEN_FORCED))
++		return -EOPNOTSUPP;
++
+ 	mutex_lock(&phydev->lock);
+ 	phydev->autoneg = autoneg;
+ 
+diff --git a/include/linux/phy.h b/include/linux/phy.h
+index 199a7aaa341bfd9b13731e996a8de7e1aea586ff..8169c0b0fd28f3a52d2905611820ec8954383587 100644
+--- a/include/linux/phy.h
++++ b/include/linux/phy.h
+@@ -64,6 +64,7 @@ extern const int phy_basic_ports_array[3];
+ #define PHY_RST_AFTER_CLK_EN	0x00000002
+ #define PHY_POLL_CABLE_TEST	0x00000004
+ #define PHY_ALWAYS_CALL_SUSPEND	0x00000008
++#define PHY_BROKEN_FORCED	0x00000010
+ #define MDIO_DEVICE_IS_PHY	0x80000000
+ 
+ /**
 
-								Honza
-
-> ---
->  fs/nfs/dir.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/fs/nfs/dir.c b/fs/nfs/dir.c
-> index 49394123bd09..e34125a8a2e2 100644
-> --- a/fs/nfs/dir.c
-> +++ b/fs/nfs/dir.c
-> @@ -447,7 +447,7 @@ static struct folio *nfs_readdir_folio_get_next(struct address_space *mapping,
->  	struct folio *folio;
->  
->  	folio = __filemap_get_folio(mapping, index,
-> -			FGP_LOCK|FGP_CREAT|FGP_NOFS|FGP_NOWAIT,
-> +			FGP_LOCK | FGP_CREAT | FGP_NOWAIT,
->  			mapping_gfp_mask(mapping));
->  	if (IS_ERR(folio))
->  		return NULL;
-> -- 
-> 2.47.3
-> 
 -- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+2.47.3
+
