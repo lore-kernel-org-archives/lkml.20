@@ -1,180 +1,155 @@
-Received: from mail-qt1-f169.google.com (mail-qt1-f169.google.com [209.85.160.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 415964F7979
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 15:00:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.169
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788188409; cv=pass; b=r7JPUd1+NpMEvo0xwWuGWjfyxmGCCcYO18CfGMeEjORjX4a2MXwto780hquOhgAQDwMDjdDEpisoivAe21CjRvleFox/fqnLmBXdl2g4+PgoXCOUqgfs1rosSVYkwPOWA3VkMSRIhVlTzRESgYxWjYdQCXo0PvzQ0/CWezN9mJE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788188409; c=relaxed/simple;
-	bh=wJfBEfLv+Rwg7Tjw7PXm4/IPo+26W/5qnu3XOen5aCs=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=h1UqCJ3Q+PvfkZIPXDEP5gRaryST4dtPrjmOeJOdAGXQ0fFpemUCJMiMR0jXVrr4DTEIMOw64atKvnc5il35TWsJNHpY07qM1vDilJ9WBQGs++fnvHi5HvD+b3rmkRznQhjZ7pmyJmQCUSPTdBKALm/sTcKCa5DkHEB3WnkeFdA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=P79wDAX5; arc=pass smtp.client-ip=209.85.160.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF5DE4FB9A5
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 15:00:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788188411; cv=none; b=ox6995JS2YYJC4HVqZEd1pjWgNgiociBVgXS4xHSPJxqh4cGwc/w7hhd4FWfYJrEArlkIzznkl2V0lmyN9NrROFDYIIQAGHAm1k+VxexEa1rVqj+mQQCsD8/b8nUge0V+kJIxcEIcRYMOuYVYfoZ61s3W90eBDloP/GHFlSByDw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788188411; c=relaxed/simple;
+	bh=+ofXmQ6aEwgY9wsAg+7EOB4x9r9B1VPmqlK+pXTFlrM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=syR4SLsBIGIVRuOanZIPsGPmBH9gBqINrPEgORR2s2VQAAFJIMelALAFs167N6S0p+k6I8JfrZI8nx5PKNwGLU0IIDIdow7+M13RKFjH0keaP2wZZjyVicR7Zjj402+3bCbuyyE/kqEOGk4FK68sIej27EZ5idBLRYUYgwT3lNE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ZHmmwZ55; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Igs1AHI4; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="P79wDAX5"
-Received: by mail-qt1-f169.google.com with SMTP id d75a77b69052e-5276d598b96so27887381cf.3
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 08:00:07 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788188406; cv=none;
-        d=google.com; s=arc-20260327;
-        b=bFmUCnwdg7AFFdsNKwtN8HcEJQBuqfyRevQvMWXenb3QzYuqHElBaBjbT0jvmpZ/Tl
-         tc8vUP4uKP2ZPYaEWnfxJUTWv/l4YZkhY2Qd7MPOhUKWfiEVjX5L/qU119n+hk2pluYe
-         gncW9NGuugPzyqMOJX5sYW2P8S/eKOQfuO/C/frol32ijqnWFDGy8OQUk9bSqtioK/Ib
-         AIYwOvsYnKnyQdUNbZUZBegJQ0M4aXcx8iM/q+Gti4TIxf0Jf2qZ86lnt5eYrke7xerI
-         ZzLUIrXP5l4KkJv5SLxlUpWwPpmrnjjOjsD8Q4FqqVqX5JbDLarPJTFAXCXv7ojsAT9E
-         PTVQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=ieLlYx0vyeXO3RjHlzi38YD4dkPfW6u9uvQpCQ5tCDY=;
-        fh=m7XO3xzyafwm/RrM4/iiXfbaBW/vBqVX2/iTG7JDk6I=;
-        b=lCB45WxRn2m7qEa5wcGrpoU1xdH4JqqMKW1VjD0ZB/Vdea6u7LJh2JNu0grAH5+fNP
-         PxA5RA0/I0aQgjU5E4981IDfSziU38UKocYntvPD9+X/QGHOVqDBJHxLwWs1++RZtZaF
-         x7+nf9Nc1+ZXVUAogsPFuV9oiZ3HsGgQIYwpDqN3Tf6ZK79jUnY+0MYEPGNDpAl3kHYQ
-         aYRL1rWpRqgkeQ+IUT0xjOEqXavpjDzZNhyU+AbOPs8OwLbTdH9KIsyce6SXV6UxAzCf
-         HVvcJM82ly6wJkaGn2Zc2nWNc3c9MNWvelLSmLi/Rh5XJzBlt3WeG6isH5Q2TmSnLL7d
-         sxkw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ZHmmwZ55";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Igs1AHI4"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67VETahd3808063
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 15:00:08 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=CZ0/AJS5lrL
+	G+aHvu4+7DfuUzkXUVTyUzcLulD7cZ8k=; b=ZHmmwZ55ZkWxUUGmJr6kRIKil/f
+	olLP59mQRyaxFb4gJ9UAzYLH4//NXYQWlNIf+R043iOWSmX2VKC/nQ3hBvEdjjCR
+	bpGG4SlGH9/6+VhDwY3i4npiEZ4eGAjZhNH8MAISVd4j1XjbN0Tw3nNlurDM7sOm
+	LpTwpWBQALIrAbmeBY/F83cFUT523ZnKZXsWsLPAWR0klxXt32Hr240nTlk+BSIQ
+	KFM+kd+sC7u+bVKncLCyrMTXCqsx4lMGY5lQ8bUax8KOkkCectd9CO67yLA2tHeL
+	nxdgKKUK7Y9iR+UwBMkgbKZrI/kpyNOph2mz2QZQKhS8oz2wM/o4djz9I+Q==
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gcv7wbakx-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 15:00:08 +0000 (GMT)
+Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-90cd16a0bc1so83804866d6.0
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 08:00:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788188406; x=1788793206; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ieLlYx0vyeXO3RjHlzi38YD4dkPfW6u9uvQpCQ5tCDY=;
-        b=P79wDAX53bYBYWUXDZ2VsNAg102RCtC0qfkqJcxkXHMHfl/MlUW3MaUlp5GQSRgI7O
-         AQRITMc6tCwwAzaT/gAX1pXOQV01XuPESk0Y6n/o1AlI+BgC4QD5+5QcTxvaP9YqaOh5
-         87F+5fiBTcMzma5MyguEOYxdIjzGpfpCyce7sAI3EpyfNYk8787vd+S5btzW2Av3sO51
-         FVkNMZiS4TqKXqMa6E+/ecy8R/wCBZKvlX1iXI0crAY0YpCXbjkQSic6rq6Fx9L2q1kY
-         /P9jG/Qt5uLaFMRa4w+ANb4jTd26ncW7/GQzDClxU/B2Y5vAMILdRqWNsZTokl5PA27c
-         wBPw==
+        d=oss.qualcomm.com; s=google; t=1788188408; x=1788793208; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=CZ0/AJS5lrLG+aHvu4+7DfuUzkXUVTyUzcLulD7cZ8k=;
+        b=Igs1AHI4D18xJ+oHymeXLJCiQHaoI/JP2R5juedKPyXKgaKT2I4qZLhXYWJGOABTTW
+         JE2VtHXho7nvtSLLMNua4St4aaVB9TBOvTEl+4OxXmzznj/JeKxvJ1oMiDj1KFgddrsp
+         1EwwEpL3GTYqUYN1k0KfONWgok8sUrGVWWX+21nuiLuB89HZFkbWSL1E1Cf3nFCtEVIf
+         mXMJM3puDxL1yNlDUnJDb9uIGXQVMYlKUCZyS69JtijkHlHVWt4IVaDpOT8iIQ/rFclC
+         Ut04uvnqPGsHPy/gYOtmDV36vunA1CWUwysMwiAm0YtqfK0YReLIrpLOQawkSbCMAHPT
+         E0iA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788188406; x=1788793206;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ieLlYx0vyeXO3RjHlzi38YD4dkPfW6u9uvQpCQ5tCDY=;
-        b=RMnSPUH5JUQyibI/4Wnc5ptWkaVczKKS3i77DAykNzL3BR9kazOH122wwW/ulEw70L
-         MutGJ4FsQ4K9Oe8icRGaESRa/yYyFKoPgGGUjF6JSBQ2uenOuWnWsKbANlDu1SV+Y3kj
-         Uxp2DOVJNKYyL4BxoygrKw0saVoQ/5cwKHHJtJZI90EbuW+xSxXhDxqvPPnwjB1+VF9X
-         k5PB+LFRTaVScuqGEommIJBykSJk8IoBa9RmzqQK7NZSvFnutmLC+jK75pB67Zdw7DUG
-         FLiQG67rSj/P+IpCRbPogcDHfdfz/Oy+51MamO0VVG6RfNsA0WvZPhP5AYfXr/2Tg78r
-         0m3g==
-X-Forwarded-Encrypted: i=1; AHgh+RqJt+joacOJDKLoeqhoLR+VuoSRgwuXdtpoQl5ZvlkZi5EXWb7ew0cUK9UVKe+bllCP91EQKueeyMtgQ6o=@vger.kernel.org
-X-Gm-Message-State: AFuF++l49q1oFIA4SISJr4GcTiaDy6Npej8WaUl75HIGrQn8QW9BDTzY
-	Xkoi3zA8/3tOkuatXdRg6cUFui1spo00A5tykIHbBd34r5BRamJ7I/hlCt2DtiTi8MBNhoG3Yjf
-	OS+lWaaUv0NJA5H8lHT/IlLDzbj4U8zKmwmS5yTDD
-X-Gm-Gg: AR+sD12kbmZJngl5VAKSEAi7JLanHGtfQQndAqyCncjGjW82wQbucqI4djT5ohulHZm
-	FbgEkUFEtSvHkP6SwiQq5i5oIS/M+0qa9xPk7MK0vzlm0GX5SKf+DEEzG5DzEpPJJ80vpil9mmg
-	kQn9lxYOZrll7QUFdgBPOBBrM6MR2lHshxj5ig/3vPyohSLvTaNg6KuPFA1WQgBQHO+v4m4uUV4
-	AMu4/N9Hrr5XGaTU90Qld19KHaNzocYbjBYzT1z0mTGphNCiMZyrADG45Ox3ECHFCD5gXx1bT0m
-	k3vn50q4Ig69MebVoDtDoCKpf4GvNCPQT/3CGMP6c+xdaraKuK1KgyGhQeqrPf1a1/xNWF7QSgk
-	88qQnehF1uW4W49o7FG+1ppckcB4PSa+PZFj3nRzuXBcwn8NRg7p4tq8e2A==
-X-Received: by 2002:a05:622a:2512:b0:530:4ed:c251 with SMTP id
- d75a77b69052e-53021b9e3b4mr18674631cf.12.1788188404846; Mon, 31 Aug 2026
- 08:00:04 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788188408; x=1788793208;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=CZ0/AJS5lrLG+aHvu4+7DfuUzkXUVTyUzcLulD7cZ8k=;
+        b=eW44/e4RL6xpyTtEXPj7BweCJNTCfiUYcrlbezT5SfyFuqHR6P4bh1G97HBjv+9we6
+         R2PpILjdJvLa1WSgbCr4TIPpwxELjJniKZaaN9LeLwe0PlRc14TfuS81e+AsbjFwPaOt
+         OMqKk8yw5t4YDdOg0uB9uPH5b45h4pqVXKlT+I7QF3203TOgNKqOR8eBWo+RHDPt3dfJ
+         uiZx5daqKV7XHfR1dxl6jVagrm8pwUCtfwwi2MN+WikqD7jvM6FhI8kwcC0M9UbZRy2l
+         Q8hHxZWP8rjYjhAXqGQbJRZyh25mvKw88OChPEhuDISDze4ecxv9W6gAh+zicuMpEyZ0
+         HCzQ==
+X-Gm-Message-State: AFuF++mQVl8KijcM3o2W8t/8L51t9g4ATzfjK4lAxHgwurqMtpKPyFZa
+	SV1JKBQdKbyCurUszprKbA4irn2Fkf/vArV/QzJEDcowMysZTF0SObTh07ERmfliqPikVgPj68y
+	T6CiQITIM4VF/JXzG/yZHI54Gkwd1ozcQktwECgezrIfWfn2jmFLBZFoQMTNHhuRdMG1N1vCBP0
+	Y=
+X-Gm-Gg: AR+sD10llHBvfoonPI+/g5Yj1SC6pY0D8+3xiVbG9dZ1w60CCwi5y+IeUODffqd4J66
+	I6g7SYNNL3vs+YcL/Hlw87OYGruNwSvWe1orL3xKPkIYA8hV7LDEFvHJ51TPBpxq1uVqhBbzKFS
+	pfPkGmP+6LXJfvSyrWgdOMKTca88RuD6jVyHgBidpOdBXYvVBOLWwn6r6yYnYcC9K20a5wsVU34
+	q5vSKyiqujQ7IKQr17RDlpMyAKmmiqMhQz2UZyRi1bCDVQ5IdIAe/DTn8zxrJfLrDVBDvJSj07h
+	G6e3+FD/TsS2/TJkbAn0ZU8/B/Cpz+ih+rPeWwAQq2/6HMzfFEDmWM9PeXTY+D8pomKMompwOfu
+	8YHLWkCOODEiPFuza6/JI0oh3xU5gLhg5Beg=
+X-Received: by 2002:a05:620a:aa15:b0:92e:8310:7369 with SMTP id af79cd13be357-9391398cfd0mr2651619885a.37.1788188407811;
+        Mon, 31 Aug 2026 08:00:07 -0700 (PDT)
+X-Received: by 2002:a05:620a:aa15:b0:92e:8310:7369 with SMTP id af79cd13be357-9391398cfd0mr2651604585a.37.1788188407117;
+        Mon, 31 Aug 2026 08:00:07 -0700 (PDT)
+Received: from localhost (ip-86-49-251-7.bb.vodafone.cz. [86.49.251.7])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482fbb32d30sm24100210f8f.34.2026.08.31.08.00.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Aug 2026 08:00:06 -0700 (PDT)
+From: Andrew Jones <andrew.jones@oss.qualcomm.com>
+To: linux-riscv@lists.infradead.org, iommu@lists.linux.dev
+Cc: linux-kernel@vger.kernel.org, tomasz.jeznach@linux.dev,
+        tjeznach@rivosinc.com, jgg@ziepe.ca, jgg@nvidia.com, joro@8bytes.org,
+        will@kernel.org, robin.murphy@arm.com, pjw@kernel.org,
+        palmer@dabbelt.com, anup@brainfault.org, tglx@kernel.org,
+        kevin.tian@intel.com, fangyu.yu@linux.alibaba.com
+Subject: [PATCH v5 13/17] iommu/dma: Enable IOMMU_DMA for 64-bit RISC-V
+Date: Mon, 31 Aug 2026 16:59:39 +0200
+Message-ID: <20260831145943.313726-14-andrew.jones@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260831145943.313726-1-andrew.jones@oss.qualcomm.com>
+References: <20260831145943.313726-1-andrew.jones@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <5a786da9-f9cb-4957-938d-51000793a4a8@mail.kernel.org>
-In-Reply-To: <5a786da9-f9cb-4957-938d-51000793a4a8@mail.kernel.org>
-From: Eric Dumazet <edumazet@google.com>
-Date: Mon, 31 Aug 2026 16:59:51 +0200
-X-Gm-Features: AcwNN1Vj061KqWNnfn0-xipzLG7ZbvfYcBi0Wps-v1a38_YeDBMpkiOsYiD2FwY
-Message-ID: <CANn89i+FVuGcPv=uBhYMrHfmMpkEnPTcLX=joWbZtBiqLSN-gg@mail.gmail.com>
-Subject: Re: [PATCH] rxrpc: Fix use-after-free in rxrpc_destroy_all_peers()
-To: syzbot <syzbot@kernel.org>
-Cc: syzkaller-bugs@googlegroups.com, Marco Elver <elver@google.com>, 
-	"David S. Miller" <davem@davemloft.net>, David Howells <dhowells@redhat.com>, 
-	Jakub Kicinski <kuba@kernel.org>, linux-afs@lists.infradead.org, 
-	Marc Dionne <marc.dionne@auristor.com>, netdev@vger.kernel.org, 
-	Paolo Abeni <pabeni@redhat.com>, horms@kernel.org, linux-kernel@vger.kernel.org, 
-	syzbot@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=E9f9Y6dl c=1 sm=1 tr=0 ts=6a9596f8 cx=c_pps
+ a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=on9AXyaqQ0RhfYpiXjjEXA==:17
+ a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=h0uksLzaAAAA:8
+ a=EUspDBNiAAAA:8 a=vvBRGx3AIC5YeKHJuXcA:9 a=pJ04lnu7RYOZP9TFuWaZ:22
+ a=MSi_79tMYmZZG2gvAgS0:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODMxMDEyOSBTYWx0ZWRfX0GpluQnpW00Z
+ mh4kkDoefpAq0kDXRpKfnK365UDdbnRaUNVTRsEZjsjvRn2ne3OORjY3dfn/l7tl/PHip9qxzR8
+ CRzSnqzb/Bph23e9PaqF8sJrYVQd5Ts=
+X-Proofpoint-ORIG-GUID: QHDgQvVTLKjLUpDZnJ8bP21cj3JhFGCx
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODMxMDEyOSBTYWx0ZWRfX3JLtWtF6W3pv
+ zqbx6fj11AAi2LUYo7MreJxq3ed0ICa9n7B7W5DWBHP1Wm4ZVklUubSj5CEd3t9HbNlqfAgyWje
+ mc6g+7KaY6xFnA+aFFTPpluZbanx8fb9UQGP2bvhZa/Jg39XA4ZpRjLrdq5oHvT/GNUROWusu2E
+ OMrCObH3u1ntd4G4vE+P11YLi9dniPI/q3GwhDhE/axP3tJeXDOmwpltR2/ETbMV/b0i8EzbxgK
+ krXovDVDlHqtf0GfMUodMZNGRyE746Vs1lLFnxHR8X9lPlUXtbpop1nfNdmqYlxaFscIg00hjqf
+ SASJleQc2OCGVm7LWqiDo88ok6tZ7dIgbkfh1KrO5xmxOwWlND7VF58YO8bF1NNEG4UfsTHtsNb
+ 7RHwBB/sLDHGkxIO5N0A3j0hV7cDKs/2tnVzKTHj3s8Pq1lLOa4vhzzpks9Yik2pHfdOxaNnP/7
+ LbLctaO/gjZ0XuvxvmA==
+X-Proofpoint-GUID: QHDgQvVTLKjLUpDZnJ8bP21cj3JhFGCx
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-31_05,2026-08-27_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 malwarescore=0 bulkscore=0 spamscore=0 phishscore=0
+ lowpriorityscore=0 adultscore=0 impostorscore=0 priorityscore=1501
+ clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2608310129
 
-On Mon, Aug 31, 2026 at 4:41=E2=80=AFPM syzbot <syzbot@kernel.org> wrote:
->
-> From: Marco Elver <elver@google.com>
->
-> During network namespace teardown, rxrpc_destroy_all_peers() iterates ove=
-r
-> the rxnet->peer_hash table to print leaked peers. However, it does so
-> without holding rxnet->peer_hash_lock. This allows a race condition with
-> asynchronous peer destruction, where RCU callbacks concurrently remove
-> peers from the hash table and free them. When rxrpc_destroy_all_peers()
-> accesses the freed peer, it results in a KASAN slab-use-after-free.
->
-> BUG: KASAN: slab-use-after-free in rxrpc_destroy_all_peers+0xcc/0x150
-> net/rxrpc/peer_object.c:461
-> Read of size 8 at addr ffff88811089e420 by task kworker/u8:1/13
-> Call Trace:
->  <TASK>
->  rxrpc_destroy_all_peers+0xcc/0x150 net/rxrpc/peer_object.c:461
->  rxrpc_exit_net+0x7f/0xc0 net/rxrpc/net_ns.c:114
->  ops_exit_list net/core/net_namespace.c:199 [inline]
->  ops_undo_list+0x43d/0x8d0 net/core/net_namespace.c:252
->  cleanup_net+0x572/0x810 net/core/net_namespace.c:702
->  process_one_work kernel/workqueue.c:3322 [inline]
->  process_scheduled_works+0xa8e/0x14e0 kernel/workqueue.c:3405
->  worker_thread+0x92d/0xe10 kernel/workqueue.c:3486
->  kthread+0x388/0x470 kernel/kthread.c:436
->  ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
->  ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
->  </TASK>
->
-> To fix the slab-use-after-free, acquire rxnet->peer_hash_lock with
-> spin_lock_bh() while iterating over rxnet->peer_hash in
-> rxrpc_destroy_all_peers().
->
-> Additionally, insert rcu_barrier() in rxrpc_exit_net() prior to destroyin=
-g
-> peers and local endpoints. Without rcu_barrier(), rxrpc_destroy_all_peers=
-()
-> races with pending RCU callbacks that drop peer and local references,
-> logging spurious leak warnings. Furthermore, this missing synchronization
-> causes a downstream panic hazard in rxrpc_destroy_all_locals() because
-> in-flight peer releases leave rxnet->local_endpoints populated. Calling
-> rcu_barrier() ensures all pending RCU callbacks that drop peer and local
-> references complete prior to leak checks and local endpoint destruction.
->
-> Fixes: 17226f124038 ("rxrpc: Fix leak of rxrpc_peer objects")
-> Assisted-by: Gemini:gemini-3.6-flash Gemini:gemini-3.1-pro-preview syzbot
-> Reported-by: syzbot+c876adfab6362679008c@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=3Dc876adfab6362679008c
-> Link: https://syzkaller.appspot.com/ai_job?id=3D7fecbeb2-cd9b-4ca2-8149-4=
-8663e20b153
-> Signed-off-by: Marco Elver <elver@google.com>
->
-> ---
-> diff --git a/net/rxrpc/net_ns.c b/net/rxrpc/net_ns.c
-> index 9a9834145..c00cddfd3 100644
-> --- a/net/rxrpc/net_ns.c
-> +++ b/net/rxrpc/net_ns.c
-> @@ -111,6 +111,11 @@ static __net_exit void rxrpc_exit_net(struct net *ne=
-t)
->         timer_delete_sync(&rxnet->peer_keepalive_timer);
->         rxrpc_destroy_all_calls(rxnet);
->         rxrpc_destroy_all_connections(rxnet);
-> +       /*
-> +        * Wait for pending RCU callbacks that drop peer and local
-> +        * references to avoid spurious leak warnings and panics.
-> +        */
-> +       rcu_barrier();
+From: Tomasz Jeznach <tomasz.jeznach@linux.dev>
 
-Hi Marco.
+Enable IOMMU_DMA for 64-bit RISC-V now that the RISC-V
+IOMMU driver supports MSI remapping.
 
-This rcu_barrier() is a pretty big hammer as you might guess.
+Signed-off-by: Tomasz Jeznach <tjeznach@rivosinc.com>
+Signed-off-by: Andrew Jones <andrew.jones@oss.qualcomm.com>
+---
+ drivers/iommu/Kconfig | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Please ask your LLM to use pre_exit method in truct pernet_operations
-rxrpc_net_ops
-(split existing rxrpc_exit_net(struct net *net) in two parts)
+diff --git a/drivers/iommu/Kconfig b/drivers/iommu/Kconfig
+index 6e07bd69467a..1c9f2ad10f36 100644
+--- a/drivers/iommu/Kconfig
++++ b/drivers/iommu/Kconfig
+@@ -151,7 +151,7 @@ config OF_IOMMU
+ 
+ # IOMMU-agnostic DMA-mapping layer
+ config IOMMU_DMA
+-	def_bool ARM64 || X86 || S390
++	def_bool ARM64 || X86 || S390 || (RISCV && 64BIT)
+ 	select DMA_OPS_HELPERS
+ 	select IOMMU_API
+ 	select IOMMU_IOVA
+-- 
+2.43.0
 
-pw-bot: cr
