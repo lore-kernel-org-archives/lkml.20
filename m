@@ -1,107 +1,113 @@
-Received: from fout-a5-smtp.messagingengine.com (fout-a5-smtp.messagingengine.com [103.168.172.148])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C540D3F58C9
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 10:12:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.148
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D05F43BED2D
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 10:13:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788171179; cv=none; b=qHO5pOSxbzSNSihnKbedj+ZSvwAonvOS+J9fFSd1dlkAuNzM+Pi1PJ5PbDJaZNnvw4kogZUaKkkobkFRJv4q+4CLTOh1Epd//nu9MgFpRmFrx4kplLdVpvYkrM+n0CxhL8ljUtvZfW0Mxuhtlna6wWXJsW2eGW4oz0iwerCGxlo=
+	t=1788171194; cv=none; b=fK+JDSEnn+6K8OOHGdrEyYZt02uY1fcYPWdm0tbDzEwbd3O2275Ff+QiBPE5ZRtjroB97gRelIUV9014HivpPvqdYywxR4XPvAUqvGA5HKjg6kcUAux0mYuFwL6KZG5gWRZAv+oqbXQzXBgi8Fa850N6k55D4TQ1DTjqqi/w1Ys=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788171179; c=relaxed/simple;
-	bh=8Ab5ghyQyT+IVeb5nykY+K7bhBbCpROTICzoj/2hZts=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NQvOvvrfU+9OEAtKYEzirm+MfELZITrxPEeX/vyo5LBSei2c+3VzYrhxfcgvqjvxZmFO8GayU84O2QARprW+o8JsE4SL6oRZ4IrTw8r9MvJ+LEeKAdtbqxPrIaMSQJ+htjBeMmWDUqA2NaJ+fj8sXRC1VhNEH/pitdnQL1JR7g8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp; spf=pass smtp.mailfrom=sakamocchi.jp; dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b=Q8Bwpwip; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=dnx5qWu2; arc=none smtp.client-ip=103.168.172.148
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sakamocchi.jp
+	s=arc-20240116; t=1788171194; c=relaxed/simple;
+	bh=a+mF+4DNcJoAkhbxx0tCvatH9wMVAiaD4FrL8xvpAvk=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=T6p9YnNQj0tyMz/B0EAR+Vka5advqY6KwgigJZamwGMeptzJniUO58DYls5q37JtK5VnitnX2UAPwOHA3W1uiZ13KgothozmZKb5OZTU1/E4XlSy8nI6LrwqE8SnkjOZywiTTxpI787lCVcPwl1xQB7IshdRyMUsZhedwmGH0rw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qsDrdF+h; arc=none smtp.client-ip=209.85.218.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b="Q8Bwpwip";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="dnx5qWu2"
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailfout.phl.internal (Postfix) with ESMTP id ADBB7EC0105;
-	Mon, 31 Aug 2026 06:12:56 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-02.internal (MEProxy); Mon, 31 Aug 2026 06:12:56 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
-	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
-	:from:in-reply-to:message-id:mime-version:reply-to:subject
-	:subject:to:to; s=fm3; t=1788171176; x=1788257576; bh=JrW4EK68O3
-	qkeAI/9IHeMspjkPi78CybFRpeJsdxiVM=; b=Q8BwpwipSn/KB+tQ6Ra33RSDPD
-	0Gt32iRwDX3JTLdkQ4XsxpNOWC+4xcdM7Y0Np2eCR7506Yx+z17MFZ2VmugoFOle
-	V22FQqyVkgl5Z6v5mNLtHIy+cQnECTgUEaDjvwUo3Nn3iakdQEQXDOYE/Rj/ju/2
-	Jjk6tQVSDf/YyegXTjdV6EwYtIj+4f2taN296ntMAx1oWaJ+Wd6xF1O9++wdYJcG
-	Ny3jkFmMj9uX606JbzIoAyWCi8VgzeSoY36jGzyDmGmKWLsjDMaPae7xrc0mZ8qK
-	RGOsTurkc4T3UmD3ZsdNmsRLEgBjl57qcspjGEnEcKCtr3Ws2OUthYVIj81g==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
-	1788171176; x=1788257576; bh=JrW4EK68O3qkeAI/9IHeMspjkPi78CybFRp
-	eJsdxiVM=; b=dnx5qWu2TUnP+oP4o5l/HSZhvaamWfJ7s74TZxZZkLWQTOkIl8r
-	6vvLeiumUeMkc6DyG1EPbQ3baoUX/3HAVJLxh2kmgJ/mA50Egy1LwdFv5/ybVhuS
-	nMQiBKuz/mimXsnwtzlE7FDlBHfDJYX5YrXga+j0zMn++A8vl6b5Z8vEvH9sOkJ7
-	G5BP6/5ZkvGnjXYQSruhJx9zNiQW8Yhv9zHZ/j3BvEYqY6ZBEDXB10kWW/KGwcAp
-	LzrA4EHAXNE0bMCi7gnem0Zon/+eYQTSo2haVzw2cIfZH+AOm8ESydHMr05ImWLo
-	DlHdFdKM8JDxU8QGXy6Vg+HpRzvJKqm+ywA==
-X-ME-Sender: <xms:qFOVavkVyQ-eXYUFsGM3JJIAHn3X0ERJ_gQbmnrN0odt9rc9-hAT_w>
-    <xme:qFOVagxawrk8YxMLcaYaIXqkdliIKCJJHYZscFD7DEsIYPKG1eo357d7F7GAWhSJs
-    JMS9DXlLuwUQOBebGl1ajL1iZAKrKKi6IB-THkmFBKCCK41NSkjGFWR>
-X-ME-Received: <xmr:qFOVatOcfQkHV9v0YQFS7hwNhCjV0zvW21Emw5pdW0017xWw4lzd2my34uqoVrKoA12oVHr2Rvru6eU0y1CzIHlsG1Q_c3lalkA84NQehu2H>
-X-ME-Proxy-Cause: dmFkZTE/9QgyKXI3W+gHHwVYG8+Qyx9p+sGIaj1vgSaZeVUMIKY7UmiTkXiOn4HCS6zIVM
-    KJZG+pGhKvmLqoWshibsj0qGts5ytlU8gebYOOszUSJv3n1NiSb7cpLILQP46J5WPDKvx7
-    4GT06bv6qrQFfgDM+pXNYSJZC4yg7WxrWAZXDnM+otyQRw4EFZLmu+P0KNRVUqCtBUf5hu
-    jXiLedLkyK9J6x+pk+U25EDEXyb3hjFw6jZgVC9LUzhH/5+uENOcs/z/CATbERpDc4bVmu
-    7NEN5OA5prAtn0XhbKCZ1eq3rV7WuIeIeNT0IMk0jwLJdZsoqaO8vD93f6GSs+sQKahDhw
-    hrEJtUiRbFhyoeGXB35a0SXHR/L7NbZmM2CdzZ52swMw9bZ8EHkDOH4xjXQS+LtBlOA3oH
-    4//GAqwJYaiAYRYVub0XywwQa3HBwrCrVF6Q5hFoaaaXgxR3TjGhIM9SvxwwfV4h9s0Kon
-    OVPKj5GK/BR4QZcauG7i9nBMDZXOb9WqZvzWE+dNvKr9MPnmC5rxZQg3Sfh3wbTw7wwdt/
-    gmpgPK0jAJnOZtlWrIMVi/aHJ4nKFF/zIxav6OT5zOBNT0JKe+ciwgwV2je37AfzC9bUPx
-    lcxSuJAC+4PsskUf/iaftH5k4loz42BI6kBgLfeSihT9QscLSxgdTYOIB3Cw
-X-ME-Proxy: <xmx:qFOVakRDfQ8XH_gewobmvClr7Xny4BwAyexMzSA2QqDORi9yc0ZWVw>
-    <xmx:qFOVarZuCfnD2GYu0klVrgDfNf2TZ9lVbQC34cYZGfAwExzUxsmSFQ>
-    <xmx:qFOVah2fFRh2oD9oj-Sz0qBGIytY4xwXlb667quk5wAH-ixo8GTQhQ>
-    <xmx:qFOVarXVYrfM2efnOJWmuSX4lE0PDVK4GMBYMnH10teT7FLjKXTtjg>
-    <xmx:qFOVah5riLWuwiR561Ii3DGqNuuAGtDzjQ7Yx2MfC_ubS0W-8cmBm9uq>
-Feedback-ID: ie8e14432:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 31 Aug 2026 06:12:55 -0400 (EDT)
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: linux1394-devel@lists.sourceforge.net
-Cc: linux-kernel@vger.kernel.org
-Subject: [PATCH] firewire: core: fix wrong git hash in code comment
-Date: Mon, 31 Aug 2026 19:12:53 +0900
-Message-ID: <20260831101253.1810143-1-o-takashi@sakamocchi.jp>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qsDrdF+h"
+Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c2531f453eeso500414266b.3
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 03:13:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788171191; x=1788775991; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:subject:from:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=67t2MAwM/CJHQTc19wvE+OmwIIUNA6nz2MWrmdq+rUg=;
+        b=qsDrdF+hs/zPpqfsxrUJTTaH/d3jMBrtQdgQs/wAYnZGdlLFOwReszA7cBTEN/B4yp
+         2dOBJUTTR8W5Y4boKN8L+MwpdTwhCTAf3XXdwYyGybn4ZxhjGP+Y8uTQML5h0sV9KmiX
+         FyhQHZtFWphZgT2Wu3atZlkEATfMbmAEMh9YVO4TejOwRg42w/tMm5iURyrGBjjQ9IC3
+         lU0dx66A0eNxwrmybdCbO4WhMsCz68ZS78dgHZt0qaUZWr+wOLFi4TmQ+5MrbUQqVOX5
+         +kOcSvScV0YZiBjbQU/dHxrfL/c5yKOAKR2mfUKYBpsCu6VJTMLM4Dbx9F4PXfFvL2+6
+         ICEA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788171191; x=1788775991;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:subject:from:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=67t2MAwM/CJHQTc19wvE+OmwIIUNA6nz2MWrmdq+rUg=;
+        b=V2NM8CSQgEIjQnE8bCHmVqKqdBgx2ltYbMAvOruEdfCkPV0A0qFPFyZ1iaAm4CNMfE
+         KQkAeoh+v+7u/RtSES32Lgrvhdmpgl2pjL3FwvizRlWGZJtfOMH/BOU/gwCB3DfHzZ9l
+         hEOt+DvWVkeATgyJnKTm1Ycbu1fz5jQW+KFanaxW/mLrhdfG8ZS8VN4stuus1uQtnI0D
+         4DXwn/cc34eeOW9pc8PXk/gt8KPQHqdEN2ZysU0+mzdRvD/2ewKwVpWCGQemN83h/EOX
+         MyJZoQsEKRxv2JaNszlalV8VdufSzpIy9q1YSaZgiDEhTpUaqaYjOSeUPVtl497FfaxX
+         0OxQ==
+X-Forwarded-Encrypted: i=1; AHgh+RpNvdDwsIuKOhIhLC6sCzAjGZ+IdjcyZ/7c+4d13DvK8qEc6C0Z6CFsaCr/GtHjH5KbpqyLcIhNEMktyc4=@vger.kernel.org
+X-Gm-Message-State: AFuF++n6lG0b7HgNZrL5dk0zCTotyuJFnfaTG6kbKrtiqlSH6NnJ3pL4
+	d2sShUXBnzutNZSYls/CjIlUyyVxn2fhYFgi+HK0lQAMz72lQgHWJpX+
+X-Gm-Gg: AR+sD139CYagZ524qsxEDWFdI00jx7Q/q7/dLYRQ98au9n68rVlFvaYTDfbkgtHJw9O
+	fhE3g/c8v/UUwdSOpswlNAERF9qBnlKHZ7yhXrS9//1gcSFGoFMzhcnCb6wKN5DufbC0APV3Met
+	4aIJpkYzlU1b/g19LNaqg+r3ewMAgRy2b4gu+1DCd0e+k101+0+fhblOge7k/jKZY83kUeE5FgB
+	a39JBbLR7kJcN3T6u4STGuhrStegWCoMpEXXzWgmm+N3c98xEc2MChKc8i1HpxiIi6fQIJ/Rlln
+	8yxRmYDsf2tvlnfKEoDHGb8zLl98m1SCoKQobP5Z2Zyr1Bea37dalGSahAtt9HCJzp3fZ3/WQE4
+	+4TW4Z621eHeSs8Dbn0nIqGfaKdk5994lLIQLlXxv8w92ujU3Rzs1UYdwfFDxI0HHin5xQBCmaT
+	Ih8TU4fRHZuCTRCA2WOYeN7Ecr7xQPjCC03hWRw793lzrXk8uFTtsQ6vwj55z5q/remTzqXx6/v
+	HOs5kiJd5fHzCQUdlRgVDu+
+X-Received: by 2002:a17:906:1013:10b0:c25:2d27:5652 with SMTP id a640c23a62f3a-c25aee558cfmr69135566b.11.1788171190678;
+        Mon, 31 Aug 2026 03:13:10 -0700 (PDT)
+Received: from [192.168.1.89] (c-85-228-45-68.bbcust.telenor.se. [85.228.45.68])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c255f1b28f6sm385832566b.39.2026.08.31.03.13.09
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 31 Aug 2026 03:13:10 -0700 (PDT)
+Message-ID: <f6001085-9234-4025-ff34-6cc4a66c293a@outbound.gmail.com>
+Date: Mon, 31 Aug 2026 12:13:08 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.10.0
+From: Eli Billauer <eli.billauer@gmail.com>
+Subject: Re: [PATCH 2/4] char: xillybus: replace __get_free_pages() with
+ kmalloc()
+To: "Mike Rapoport (Microsoft)" <rppt@kernel.org>,
+ Arnd Bergmann <arnd@arndb.de>, Brad Warrum <bwarrum@linux.ibm.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Michal Simek <michal.simek@amd.com>, Ritu Agarwal <rituagar@linux.ibm.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>, Matthew Wilcox <willy@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+ linuxppc-dev@lists.ozlabs.org
+References: <20260830-char-misc-v1-0-05e2ce44f291@kernel.org>
+ <20260830-char-misc-v1-2-05e2ce44f291@kernel.org>
+Content-Language: en-US
+In-Reply-To: <20260830-char-misc-v1-2-05e2ce44f291@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-When refactoring device quirk code, the wrong git hash from my local
-repository slipped into the common header.
+On 30/08/2026 9:47, Mike Rapoport (Microsoft) wrote:
+> fifo_init() allocates the buffers backing the software FIFO and
+> endpoint_alloc() allocates the transfer buffers of a USB endpoint.
+> 
+> These buffers can be allocated with kmalloc() as there's nothing special
+> about them to go directly to the page allocator.
 
-Fixes: 5a43dc9f4ee0 ("firewire: core: detect device quirk when reading configuration ROM")
-Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
----
- include/linux/firewire.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Except that they are a bit large.
 
-diff --git a/include/linux/firewire.h b/include/linux/firewire.h
-index fd35a6570cd8..b41af502bd89 100644
---- a/include/linux/firewire.h
-+++ b/include/linux/firewire.h
-@@ -172,7 +172,7 @@ struct fw_attribute_group {
- };
- 
- enum fw_device_quirk {
--	// See afa1282a35d3 ("firewire: core: check for 1394a compliant IRM, fix inaccessibility of Sony camcorder").
-+	// See 10389536742c ("firewire: core: check for 1394a compliant IRM, fix inaccessibility of Sony camcorder").
- 	FW_DEVICE_QUIRK_IRM_IS_1394_1995_ONLY = BIT(0),
- 
- 	// See a509e43ff338 ("firewire: core: fix unstable I/O with Canon camcorder").
--- 
-2.53.0
+fifo_init() may be requested to allocate up to 256 MB of buffer memory. 
+This memory resource is split into an array of buffers (fifo->mem[i]), 
+each 64 kiB (or less, if there's trouble obtaining segments of this size).
 
+Citing Documentation/core-api/memory-allocation.rst:
+
+"The maximal size of a chunk that can be allocated with `kmalloc` is 
+limited. The actual limit depends on the hardware and the kernel 
+configuration, but it is a good practice to use `kmalloc` for objects 
+smaller than page size."
+
+Regards,
+    Eli
