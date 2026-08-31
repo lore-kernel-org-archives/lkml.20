@@ -1,216 +1,143 @@
-Received: from out30-97.freemail.mail.aliyun.com (out30-97.freemail.mail.aliyun.com [115.124.30.97])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C0293EDAAE;
-	Mon, 31 Aug 2026 12:02:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.97
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3C713E49C0
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 12:03:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788177766; cv=none; b=qKcW1c2yhz1ZsdW6nNyZAIm4FNrrB6iKZzaW784zm2Dt4QGsw85O8UwS/kcD4QeFPaALp9aprJd4AFNAUgDB8JVfBj5xL9UAamTqvVXdQGQhYRy/fcgopeQWSW8bymkPDJUjMY4qox/RA3gd77j1s+6RQ6mPAD3JP7eTTiahTfE=
+	t=1788177793; cv=none; b=XAelkujQQMMR8Qc/nd0P1KeTN4yQPbd4sgfyQUgeMpZxt2R/wEo6qL7/YWfHnU0zk5foKBOoFJZu8S6lUS9VcC42tdzd1LBgAQOgSiMu/eeQ7xTyH8Hjsu3da4Inrjo+0pA1eUZY39QNr/LTIaydaVHWkruqEjvfIo5agfh9xFY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788177766; c=relaxed/simple;
-	bh=IyJ2m0F2gC4wIjSWPNgkDRMm3GFnNUGRoVtcwZY9e3I=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=I+Zy6eR8c4T6cynpMMozObI+HosFlASbFHnnaIDcaUPA59WgJyr9Xg0Y+ijttGPB9Aey9oTb/hoFfulb8Krz9pr7TVCG+o0DQVE1ClmBGigb2FUDBidaGySGtQndwjG/QdKi/a/5I5UVdhxs7BfKpmWK55ypEqc69A9s8so6+Xc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=JN/oU+Jy; arc=none smtp.client-ip=115.124.30.97
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1788177793; c=relaxed/simple;
+	bh=BLdIX4JmDDmCb/nESqUPLgpc5EXO7M0X8FYZInOGzg8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ZoExB3GVMqfDtaPekX673qqQ/pwBIFSomwXyU5cGwJ3FBiVzFfY7FwaxZ0Ch6dG5om8MqGPoNIvwBldWFh2h1vY1DM99SqJtcHLSi817uohcuHvhYqM8LQqYYfPhg6Akx0yRFpUQbGI+uTdbFLrYxnN66fFZC8kcjDW5D39CaXw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=b/JY0HZc; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=c3r7YiXf; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="JN/oU+Jy"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1788177760; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=kymKZSP31XgAy8ct7wz18g8WiiIjn5XierY4WajobxA=;
-	b=JN/oU+JyQhbwZVCsJFYh9tGKven83Pplg95wCBix0j9jTGHoGwUle3EdTmJpG3SthhEn+jqYmyHCeLwZXwwVmNbJBIkCNs66QCr2kJmpB6eSdZ0vacbc3F/85QHb9fcl2bzg3cO+HSj4cHnkKnLKNC7f0A87jzAnUcWMVWIaxds=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R101e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037033178;MF=xiangzao@linux.alibaba.com;NM=1;PH=DS;RN=23;SR=0;TI=SMTPD_---0X9y.-8q_1788177757;
-Received: from banye.tbsite.net(mailfrom:xiangzao@linux.alibaba.com fp:SMTPD_---0X9y.-8q_1788177757 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Mon, 31 Aug 2026 20:02:38 +0800
-From: Yuanhe Shu <xiangzao@linux.alibaba.com>
-To: tglx@kernel.org,
-	mingo@redhat.com,
-	bp@alien8.de,
-	dave.hansen@linux.intel.com,
-	x86@kernel.org
-Cc: hpa@zytor.com,
-	xin@zytor.com,
-	luto@kernel.org,
-	jpoimboe@kernel.org,
-	peterz@infradead.org,
-	rostedt@goodmis.org,
-	akpm@linux-foundation.org,
-	rdunlap@infradead.org,
-	elver@google.com,
-	andreyknvl@gmail.com,
-	glider@google.com,
-	gor@linux.ibm.com,
-	brads@mainlining.org,
-	kasan-dev@googlegroups.com,
-	linux-kernel@vger.kernel.org,
-	Yuanhe Shu <xiangzao@linux.alibaba.com>,
-	Xiang Zheng <xiang.zheng@linux.alibaba.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2 2/2] x86/fred: Fix stack depot filtering of FRED event stacks
-Date: Mon, 31 Aug 2026 20:02:21 +0800
-Message-ID: <20260831120221.2874445-3-xiangzao@linux.alibaba.com>
-X-Mailer: git-send-email 2.43.7
-In-Reply-To: <20260831120221.2874445-1-xiangzao@linux.alibaba.com>
-References: <20260831120221.2874445-1-xiangzao@linux.alibaba.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="b/JY0HZc";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="c3r7YiXf"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67VBA1to320715
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 12:03:11 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	NOEJTVFIcyoSbwosxVwbkQo3ZwwxOkwI5Yd+ZvI7e9U=; b=b/JY0HZc7fjI2rEe
+	xT3mbk9004ZfT32oo+urk6xdI7RATR9xcI0wgQLl82QLpzA8zl7cpVtqQ5f799C9
+	pxJ2hQEG1vSTmAZ9SQa5u3DXe3+FzIJcYNPDxeIgydSaKuWiBhOQTCwtxRrj9Vmf
+	WgmJxdo5AHnhCSabGjqeNI0o2znqkVYhNMA3ywSmpY/S2jRULCyBqO09h7iSDHhP
+	a76RBS12vGNad3+zoDCPXXuJAbCiqUFcHHMHrCfrAidLlDeoba9YDvULFKTRX939
+	TlhDfjn6Jn8iHNjknuFDNApafSGuRf4PdQMZB1tE0TiDiWvq4Gva/sjnJF5gmRfr
+	uxtmUg==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gd8cvr6kv-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 12:03:10 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-53002215979so4810971cf.0
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 05:03:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788177790; x=1788782590; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=NOEJTVFIcyoSbwosxVwbkQo3ZwwxOkwI5Yd+ZvI7e9U=;
+        b=c3r7YiXfOKevrDU0klJO+0I5mnuVbJZot9ojdU56PxXeO2yIS6kPL8YU8oxQPJt6rR
+         fVypCb+FLGTNMuLA1VaXP7FCRZdi3kvc9cLZpkmJ7w7TnBIiqmXKSukjKOo9u0hOmVud
+         7Y24cZ8PE3JapXapJ0h7Ir2WFzB2Bw0kIWOobn8RKF+AKXPymyWUI92gNk5qtW3NZBuR
+         /G299Hr0wUcrOM1rHVb1ewHoswHXcK+aczEotzLJiKVi+Kj+RdDscKiEsE1/l6QBN05+
+         RCB4dDmxLbX4DhUhXkO/nBLnMyMSE4qhY+R+XpZmkifIKIR1aFaNhsfLhfgQzesty4Ar
+         WhEg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788177790; x=1788782590;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=NOEJTVFIcyoSbwosxVwbkQo3ZwwxOkwI5Yd+ZvI7e9U=;
+        b=fFm75NU/e4nYRx7lJfLWlYlB6sqI0XJwNYs41U9NNrCs/pjVQvSOHORp7GJvID5UwN
+         2E4Q07X8aCAqYeXRUXFhqcK0P+MoKU9pwSostxtjunmzPrmgzDjwoJ/XloCIc91KL/Ne
+         TNnGiRFWrf8y13JTmZVUBqUMDFFcwhlokfOKrKOE/2iA3uLgpXZOTqK5pdPyRAt7Y4Vu
+         fDWPniNmBZYsNz5QdsHy9X3EHsnIGsFtRxGeZ8Muaxh0EJTLMXLr3zetcOLj7CQq4tHh
+         c1Kbi8lGcdQyFOoYk/XN+T75srrjaaghwnZ9zhRyALJevKDao69cmgfLT6F63+5VkrUQ
+         m1Vg==
+X-Forwarded-Encrypted: i=1; AHgh+RpQFFtIVzZq7gLnrRgLLP8onaD5Xtn2wwtTlYOw512HK4L+lHkshCQ2yetuiTkYz0/krO0iOroKAE6T9ps=@vger.kernel.org
+X-Gm-Message-State: AFuF++nhYPYSU09z3G87xXKq/3tIMJ5eBERzHYvNtfbeRbyerkIIVylu
+	qK6mNCQmRT4dS/i7io0A2xs3Yg4+x3pzZqfcZJlrguKdate2PBKxXRnwrIjeD8OTUHCKpZa10Eu
+	nk8XEsVWQR8vjxx2zT5HPCDoQ6/NK342+wBT8l8pTYyM2uvBxQGquAnoAFTFdCz+7IjU=
+X-Gm-Gg: AR+sD12qrt6b/rXyua2LOwVa84/OLzCpqANfFrnfC3hZzQD+2LDBDiiBv1Rducdl9N0
+	/Pa3IYAd3YUDKKpPjk4XbXE9E+7UgER8RL+0PtOTYdETkQtWxUd6xb5Lp8Raf4UZlQFEnvShrZw
+	ZXyOtE79/XGq5JPVYKeeLI3B0nau3cvIjOEnD3b081TV/2lbpfxrc0TSVF9o7vS78UyG2UZEtW0
+	XDjVimyaDvKwCr0pFfO/NB8ct5rhjQFhEfSm8YBoEnLBq32KGc5hqWtVfscVqJab/c83Mb1iHvh
+	5BB5UCCW/KpgGVkNpI5FXNXpFlDZQ3zEXWGFoaHOZaAQTJXssjz4EslQEYPPMDMUGEk787eYfFm
+	JEEmRYpEFumtMetl0aZekTA==
+X-Received: by 2002:ac8:7f4f:0:b0:517:6162:daf5 with SMTP id d75a77b69052e-52fb95f4e1amr202144231cf.3.1788177789972;
+        Mon, 31 Aug 2026 05:03:09 -0700 (PDT)
+X-Received: by 2002:ac8:7f4f:0:b0:517:6162:daf5 with SMTP id d75a77b69052e-52fb95f4e1amr202143721cf.3.1788177789522;
+        Mon, 31 Aug 2026 05:03:09 -0700 (PDT)
+Received: from [192.168.202.12] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a611b5c567sm3300432a12.1.2026.08.31.05.03.05
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 31 Aug 2026 05:03:07 -0700 (PDT)
+Message-ID: <adbdb2eb-0173-4500-af16-de0b7c251e10@oss.qualcomm.com>
+Date: Mon, 31 Aug 2026 14:03:04 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] arm64: dts: qcom: sc8280xp: Add more thermal zones
+To: Xilin Wu <sophon@radxa.com>, Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20260831-sc8280xp-thermal-zones-v2-1-8c2b89b4c9c5@radxa.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260831-sc8280xp-thermal-zones-v2-1-8c2b89b4c9c5@radxa.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODMxMDEwNCBTYWx0ZWRfX8jGKmuCVSvlN
+ 932kqJiN+/9Sj146Rs3HurEN1JSWTlNR6R0kiBvRZ01Q9Qtq05tb3onm5Y4vIn6UggtvfDW40mC
+ pxc/2UmNUw84Cmj86Pb3kzClSgCM0pE=
+X-Authority-Analysis: v=2.4 cv=JtnBas4C c=1 sm=1 tr=0 ts=6a956d7e cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=ksxQWNrZAAAA:8 a=EUspDBNiAAAA:8 a=ROVUC7vSL5sbk-NUvPwA:9 a=QEXdDO2ut3YA:10
+ a=uxP6HrT_eTzRwkO_Te1X:22 a=l7WU34MJF0Z5EO9KEJC3:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODMxMDEwNCBTYWx0ZWRfXyZLHo85AlpbK
+ WBh3tAYx3MUtQVYX3yal9sxtwP3YMafAUtroOqz9xdEeMYUMvyKQvKb3z01SUtOZivIuyQq2Fp2
+ 5mlUYrckhtqawjVxJ7aOaFsxM3j9+R2CYq6T1yFVREQ7DAZBHR9it3EiG7dHiptlHu5PMSjTQtk
+ 7rejotM6/JNfbbphX9of0HVKEwUtFeihn8zLbGhZenA7pM6MvHxBV1hFbNg+04bUjN0PbsCsEsf
+ 3T2xCyLusDGTRN5ztLfBzrmkMA2VX2q4dSfs7a8xpAPUlJWdq7ifo9Q9gz2ykNsspfdb7MPVXNT
+ U6I6CdnG5I23lTB/6HVIV776d5iBzAhnhkC35TXijFu52OLFDr10kiQrQZubVNEmsAapU59gyVz
+ hb4ZxxG3vqT9DQoe446upN2B2Oc/YraVGHT40yEBWk+DBmSWUG1zzlr7/+9mtunmcM/yd0RKSk6
+ xqcvLIFR9Fs3BVJ2Dhw==
+X-Proofpoint-GUID: mFKsfqT7_MHMhFWTVAamFOQE_WiMMYW0
+X-Proofpoint-ORIG-GUID: mFKsfqT7_MHMhFWTVAamFOQE_WiMMYW0
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-31_04,2026-08-27_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 clxscore=1015 bulkscore=0 phishscore=0 priorityscore=1501
+ adultscore=0 spamscore=0 suspectscore=0 malwarescore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608310104
 
-With FRED, events are delivered to asm_fred_entrypoint_user and
-asm_fred_entrypoint_kernel in .noinstr.text, not to the IDT stubs, which
-are the only code covered by __irqentry_text_start..__irqentry_text_end.
-in_event_entry_text() therefore never recognizes the event entry point and
-filter_irq_stacks() does not truncate FRED event stacks: every trace
-saved from interrupt or exception context by stack depot users such as
-KASAN alloc/free tracking or SLUB object tracking combines the event path
-with the arbitrarily interrupted context.  The number of unique stacks
-grows with the product of both and the depot is exhausted.
+On 8/31/26 12:19 PM, Xilin Wu wrote:
+> The SC8280XP contains a lot of TSENS sensors which are not yet described.
+> Add the thermal zones for them.
+> 
+> Signed-off-by: Xilin Wu <sophon@radxa.com>
+> ---
 
-Observed on a dual-socket FRED-capable system with KASAN (generic,
-inline) and SLUB object tracking enabled, on both sockets roughly 80
-minutes after boot, once the depot had reached its maximum of 8192 pools
-(128 MiB):
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Tested-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com> # SC8280XP CRD, X13s
 
-  Stack depot reached limit capacity
-  WARNING: CPU: 286 PID: 128614 at lib/stackdepot.c:271 depot_alloc_stack+0x158/0x170
-
-The traces had the expected shape: an interrupt side trace ran through
-asm_fred_entrypoint_kernel into the frames of the task it had
-interrupted.  New traces are dropped (handle 0) from then on and the
-depot never shrinks, so tracking stays dead until reboot.  (Splat from a
-6.6 based kernel; filter_irq_stacks() and the FRED entry layout are
-unchanged in mainline.)
-
-The entry points cannot be brought inside that range.  x86 has no
-.irqentry.text: commit f0178fc01fe4 ("x86/entry: Unbreak
-__irqentry_text_start/end magic") dropped it from the linker script and
-emits the markers as labels around the sequentially laid out IDT stubs
-instead, exactly because the entry rework had moved that code into
-.noinstr.text and broken the function graph tracer and
-filter_irq_stacks(); __irq_entry has been __invalid_section since.
-Those labels live inside entry_64.S and wrap the IDT stubs which
-asm/idtentry.h emits into .entry.text, so the linker cannot place
-another translation unit between them: only code compiled into
-entry_64.S itself can end up inside the range.  Architectures which do
-have the section fixed the same symptom locally, e.g.
-commit f6794950f0e5 ("arm64: set __exception_irq_entry with __irq_entry
-as a default") and commit 45c9f2b856a0 ("s390/entry: Mark IRQ entries
-to fix stack depot warnings").
-
-Every FRED event leaves a return address in the FRED entry text: the
-return address of the call to fred_entry_from_user/kernel, or a frame of
-asm_fred_entry_from_kvm(), which the core entry code uses to forward VMX
-interrupts and NMIs acknowledged as part of the VM-Exit; see
-commit 0701c9e17bd9 ("x86/kvm/vmx: Move IRQ/NMI dispatch from KVM
-into x86 core").  So bracket it with __fred_entry_text_start/end, the
-same way the IDT stubs are bracketed, and report that range from
-arch_in_event_entry_text().  Verified on that system with the fix
-backported: traces from FRED event context now end at
-asm_fred_entrypoint_kernel (/sys/kernel/debug/slab/*/alloc_traces) and
-the pool count levels off a few minutes after boot instead of climbing
-to the limit.
-
-The range covers every FRED entry point, including the ring 3 one which
-also serves syscalls, and the hook cannot tell them apart - it only gets
-an address.  That does not change any trace: filter_irq_stacks() cuts at
-the innermost match, and for anything entered from ring 3 the entry frame
-is already the outermost trace entry (the unwinder follows the pt_regs
-the entry pushed and stops there because user_mode(regs) is true), so the
-trace is returned unchanged.  Only ring 0 events, and the IRQ/NMI the
-core forwards through asm_fred_entry_from_kvm(), leave an unrelated
-context below the entry frame.  The IDT markers are not IRQ-only either:
-they wrap the entire asm/idtentry.h expansion, so the synchronous
-exception stubs have always been inside them.  The function graph
-tracer uses the same markers and has the same gap; it can be converted
-separately.
-
-This is not limited to FRED hardware: KVM_INTEL selects X86_FRED on
-x86_64 (commit 28d11e4548b7 ("x86/fred: KVM: VMX: Always use FRED for
-IRQs when CONFIG_X86_FRED=y")), so every kernel with Intel KVM support,
-built in or as a module, carries the FRED dispatch code, and the
-forwarding path above runs it even when the kernel itself uses the IDT.
-KVM host stacks therefore take the same untruncated path on non-FRED
-systems, albeit from a mostly fixed vcpu_run chain.
-
-Reported-by: Xiang Zheng <xiang.zheng@linux.alibaba.com>
-Fixes: 14619d912b65 ("x86/fred: FRED entry/exit and dispatch code")
-Cc: stable@vger.kernel.org # v6.9+
-Signed-off-by: Yuanhe Shu <xiangzao@linux.alibaba.com>
----
- arch/x86/entry/entry_64_fred.S  | 14 ++++++++++++++
- arch/x86/include/asm/sections.h | 23 +++++++++++++++++++++++
- 2 files changed, 37 insertions(+)
-
-diff --git a/arch/x86/entry/entry_64_fred.S b/arch/x86/entry/entry_64_fred.S
-index b98f8945dfff..5a3db902e961 100644
---- a/arch/x86/entry/entry_64_fred.S
-+++ b/arch/x86/entry/entry_64_fred.S
-@@ -36,6 +36,17 @@
-  */
- 	.align 4096
- 
-+/*
-+ * Bounds of the FRED event entry text.  Every event delivered by FRED
-+ * enters here, including events which the core entry code forwards
-+ * through asm_fred_entry_from_kvm().  This is the FRED counterpart of
-+ * __irqentry_text_start..__irqentry_text_end and lets
-+ * in_event_entry_text() find the event entry point of a stack, see
-+ * arch_in_event_entry_text().
-+ */
-+	.globl __fred_entry_text_start
-+__fred_entry_text_start:
-+
- SYM_CODE_START_NOALIGN(asm_fred_entrypoint_user)
- 	FRED_ENTER
- 	call	fred_entry_from_user
-@@ -150,3 +161,6 @@ SYM_FUNC_START(asm_fred_entry_from_kvm)
- 
- SYM_FUNC_END(asm_fred_entry_from_kvm)
- #endif
-+
-+	.globl __fred_entry_text_end
-+__fred_entry_text_end:
-diff --git a/arch/x86/include/asm/sections.h b/arch/x86/include/asm/sections.h
-index 30e8ee7006f9..d18c9b9ca3bf 100644
---- a/arch/x86/include/asm/sections.h
-+++ b/arch/x86/include/asm/sections.h
-@@ -5,6 +5,29 @@
- #include <asm-generic/sections.h>
- #include <asm/extable.h>
- 
-+#ifdef CONFIG_X86_FRED
-+extern char __fred_entry_text_start[], __fred_entry_text_end[];
-+
-+#define arch_in_event_entry_text arch_in_event_entry_text
-+
-+/*
-+ * FRED delivers events to entry points in .noinstr.text, which
-+ * __irqentry_text_start..__irqentry_text_end does not cover.  See
-+ * __fred_entry_text_start in entry_64_fred.S.
-+ *
-+ * Note that the range includes the ring 3 entry point, which also
-+ * delivers syscalls.  That is fine for the only consumer,
-+ * filter_irq_stacks(): it cuts at the innermost match, and for an
-+ * entry from ring 3 the entry frame is already the outermost frame
-+ * of the trace, so matching it is a no-op.
-+ */
-+static inline bool arch_in_event_entry_text(unsigned long addr)
-+{
-+	return addr >= (unsigned long)__fred_entry_text_start &&
-+	       addr < (unsigned long)__fred_entry_text_end;
-+}
-+#endif
-+
- extern char __relocate_kernel_start[], __relocate_kernel_end[];
- extern char __brk_base[], __brk_limit[];
- extern char __end_rodata_aligned[];
--- 
-2.43.7
-
+Konrad
