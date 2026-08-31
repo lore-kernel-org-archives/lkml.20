@@ -1,228 +1,282 @@
-Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com [209.85.215.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7598B364E89
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 14:46:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29B68367F23
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 14:47:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788187589; cv=none; b=sIO/uyenLq0dJpFUWkDi95NAVU7SxvwCLcXFbmjnr7I9UlObwYBgP0uzKzR9F9tUn2O8JbEQzBMsbJhw5dbb8J/m2fliuZz8LpdYTwO2Jo3+BcRR+/o64L2vKAqmIhwm+xUpkE/0nUo5+zM/THHqdxJZ+v7nZbo8yWLVzmR6SM0=
+	t=1788187647; cv=none; b=VonjzgO7vHN6G+7gEhkr27eTEfmBrmahinkm1lJUrn/ChNFmuaSNnBc5QJ4aE0WC8N+K8D2NftUHIQuqyS1w1ljM9gxMgW6XG5FTk8/x0RQ8JHPFb6v5pd5XCrPyjinyT+z7oCDFi6zR0WQxzWE2OLkfochmr1ktvcbQFJ5TnYA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788187589; c=relaxed/simple;
-	bh=3wtKqciQeOHcSakXZnMHLLISP+Cf8Obt+lYhptG6Gfw=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=RVQVcKL6ybTamkT0x63+mS+NfoF4S7z6yyOrhupFpzKQW7D+jWS4YPQxXBcGtJP93PS/FYdQAAGewwkUcs93A5aN9A7dIq8n8OJfZHYwSJZ6Z56mH7/MBSVupgg0XRaFWSLI95XF0ZmBh517Kysr6san5NnG0LSc4efP9IC5ev8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RTznZESZ; arc=none smtp.client-ip=209.85.215.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788187647; c=relaxed/simple;
+	bh=jTIth2s19FEHrP3bltLRkCUmh8TSFVNblDfUSe5Yjp4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=E33sK59OexgWsVA6emPLS1yxbSRopGGeo4esSvGovLuL8gYqVuZ7dFeGH2vra55Wq/zFiBgiTyr1rmiXBKB8QBqhRj/Pn9p/fOH4/9IvBKdIH+JCIt6058LbGKXp18Emwe5AOOQHFfAcy1OYuFuHO5U3xYNCzJWYxahE5jv/0kE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=pP5pKGD4; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RTznZESZ"
-Received: by mail-pg1-f175.google.com with SMTP id 41be03b00d2f7-cb2513ec378so450136a12.3
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 07:46:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788187588; x=1788792388; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Y8fnpAA71PpA4geiQW/S84jidbVYovY7D0FubXhURV0=;
-        b=RTznZESZT1DSaDYu9tl3nktThzFkVvm92JC3cA2sfwtnLnfjhIyde9xa51xg3zkGnW
-         udwfYlTq1frD4yyrXD5htY9dNsBiMk2iyxosXiUvfoGoDJr3fiYJR6sPpOce0BdGdOkP
-         8zs1tBgxSU5G78/hMIfp78SMchqRJgxT3yhVUktupl12T2N4cWa9/TOf+2gUwaFG3Hl5
-         9qTMdousTfDxsxvf1PBxVcRGuSrwRGUEl5FA9e7Oit051OjFj6Arnz43rINfsn8xZuSV
-         rj1mfVVbPHKMJ6UvJSn53dDKI5sTcl2Q2TSMqmCKrjrov+APjNPhZ1XLAVrjrPIqCSWV
-         /EvQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788187588; x=1788792388;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Y8fnpAA71PpA4geiQW/S84jidbVYovY7D0FubXhURV0=;
-        b=hpoLRahU1zASy3ch0TeZHM53lNmKxVr2Lu2LuTojQnVd6TpwiCIl0VFqdzXbBPmwiD
-         B4vVIV22e95clt2JY36mNJdfhRIl20JWxvVcAe6NvYmTgf7niWE8M2rDxmb6EWqDpy4p
-         EtHV0dkCh+SwYt5YJOA56B6yxr8wUUofNJ3w/RefWH3aOrdRl5gwnyzzwRzWUcXH1etu
-         O6bupq73rMLHaqDkZ9TTSzG0rJJ+5fArq56R59qQzaD9OFtaUEugigeaXJCqh+9HaOfV
-         vac4BwgjmAUXKMZJUzx0Q2qhlzDCVDHGA/KMZShIA1UUnguXa+ziZ1L9Ua7QGt853EEh
-         2xTg==
-X-Forwarded-Encrypted: i=1; AKwUvBzSD4DmiAEwDLP94kogyrSCMWg7FDug/rlW07S19SwRnijd5A5yhXGKFzs+i76RKopm/LhA2szijYeFbmM=@vger.kernel.org
-X-Gm-Message-State: AFuF++nMXIcH+ZMxwT6A/iJuMhL5CVDTSL2LfRZ4Ikj9IHa0BdXybM12
-	16lRaeuzoviUhZQu9NZdlFqYfPgcb5wGnb/kLjMDjTOAQKFP3RjJrKhH
-X-Gm-Gg: AYBFou20MSxvtmbRnfaD5iWfmRBVFCNxBwdyy4cwClRbOd0F1cHBxsoUZ1M8skzd3nB
-	FttronA2CZQ4+TRg7ETdym6w8nHTRdAsQHM7oQqbCeMmP1L70EVcFKnlBlc5LW32/i8YgxqYEUY
-	Ujx4+Evg/EcVoGw+VHvxRbZucimVe3KOD93dMebcR8Zm/waLDt8LVIs5+VuOBhkmKnu41FIBLcU
-	pVezFsaybv3QmZ6d7q0mqqc4zlIKWEErhWirChF95Qp/6ecZUIv9pExSM4AMSVF58brdScejpyi
-	Shw7/M73EJYS+6XBOEK32ryVRewFadnM1ZD36FQI+NJHSCmBRT+5attgZNBWOWNVBnJUgd6NV8O
-	LW3tEKNwTyHLsnjcBMJaniYNAUMPGLR0QC+Z5gA4ZtL6MpT/PGg0QklG/r081zted/pRi6k7Fl9
-	s3SVhOnJo8tHSupODNPCSbjRqJGaUIGi5gw/6XJO0lQNQTi5CS/J5mfnIcd0Ea8fxxiXSY7BQ=
-X-Received: by 2002:a17:90a:ec85:b0:398:bad2:c0f with SMTP id 98e67ed59e1d1-398bad20e7bmr12372505a91.5.1788187587501;
-        Mon, 31 Aug 2026 07:46:27 -0700 (PDT)
-Received: from [10.60.78.252] ([2409:40c2:5009:b339:5edc:6eb2:1ff7:f053])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-142e0bf8a13sm43217279c88.0.2026.08.31.07.46.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 07:46:26 -0700 (PDT)
-From: Bhargav Joshi <j.bhargav.u@gmail.com>
-Date: Mon, 31 Aug 2026 20:15:35 +0530
-Subject: [PATCH v3 2/2] dt-bindings: mfd: ti,keystone-devctrl: Convert to
- DT schema
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="pP5pKGD4"
+Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67VEZEoX2414997;
+	Mon, 31 Aug 2026 14:47:08 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=i5ct4m
+	P4gEGxsavC+ivSbXKJco08ebR0qikna7vzZeM=; b=pP5pKGD4xm5Wu7iCRxJctZ
+	QyAecobxYvdWByetfaGlZ5AfV17HPdi7pCl9IpFn1z3UhaGeK6UYfYYDpFCa0BJO
+	ziYZ21SgTjjlxAEsPi+J7YFo3Duz/p/8AMhR0h7AUgWkpai0aPK5aNdBM06kdMr8
+	qz/gIm6Zgpjw443g14J8FG4PVN359QNkJDUi9YtJhqnk3uGOzH/TN5x6u9GMM1GN
+	8EnafGJNKdR/OOjztZDa06VSeJP2oPEIPC75M7x9++p8lcTdHYN4R41heS2QX3J/
+	9G/yA7hVoQcFeyuAx67quhjD5P626aJUgBBeKAIJiwlDmLs2a3dJ7JL+sUDiBuTw
+	==
+Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gbmuhj4ha-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 31 Aug 2026 14:47:07 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma21.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67VEfd85003378;
+	Mon, 31 Aug 2026 14:47:06 GMT
+Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
+	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gcarjxf0j-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 31 Aug 2026 14:47:06 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com [10.20.54.100])
+	by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67VEl0fb44958204
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 31 Aug 2026 14:47:00 GMT
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id AA91220043;
+	Mon, 31 Aug 2026 14:47:00 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 4C0BF20040;
+	Mon, 31 Aug 2026 14:46:57 +0000 (GMT)
+Received: from [9.124.217.83] (unknown [9.124.217.83])
+	by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Mon, 31 Aug 2026 14:46:57 +0000 (GMT)
+Message-ID: <410a3225-3ec8-408d-af93-15f7cc6f1629@linux.ibm.com>
+Date: Mon, 31 Aug 2026 20:16:56 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260831-ti-keystone-devctrl-v3-2-0614fceba0f1@gmail.com>
-References: <20260831-ti-keystone-devctrl-v3-0-0614fceba0f1@gmail.com>
-In-Reply-To: <20260831-ti-keystone-devctrl-v3-0-0614fceba0f1@gmail.com>
-To: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Ivan Khoronzhuk <ivan.khoronzhuk@ti.com>, Nishanth Menon <nm@ti.com>, 
- Santosh Shilimkar <ssantosh@kernel.org>
-Cc: mfd@lists.linux.dev, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, goledhruva@gmail.com, m-chawdhry@ti.com, 
- daniel.baluta@gmail.com, simona.toaca@nxp.com, j.bhargav.u@gmail.com, 
- linux-arm-kernel@lists.infradead.org
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788187552; l=4030;
- i=j.bhargav.u@gmail.com; h=from:subject:message-id;
- bh=3wtKqciQeOHcSakXZnMHLLISP+Cf8Obt+lYhptG6Gfw=;
- b=v4RdH5dbhuk9pP0rKYU9cicQ5Fllo/lac5Te5KW3tVVt/p0onHxeydqFkXSfhebx8aILFsc/Y
- ZB4HqXMtPa3AkHP7BDPKIX467EW/bn1Q+iBNPz1UA3+Sl7VtCWLo2+q
-X-Developer-Key: i=j.bhargav.u@gmail.com; a=ed25519;
- pk=IqNDwUZKECEA+n8wXctFLBbYL9NhFstZNbOznm/nX1k=
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/5] powerpc/rtas: Handle ibm,open-errinjct return
+ format
+To: Sourabh Jain <sourabhjain@linux.ibm.com>, mahesh@linux.ibm.com,
+        maddy@linux.ibm.com, mpe@ellerman.id.au, christophe.leroy@csgroup.eu,
+        gregkh@linuxfoundation.org, oohall@gmail.com, npiggin@gmail.com
+Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
+        tyreld@linux.ibm.com, vaibhav@linux.ibm.com, sbhat@linux.ibm.com,
+        ganeshgr@linux.ibm.com, haren@linux.ibm.com, thuth@redhat.com
+References: <20260721033815.5300-1-nnmlinux@linux.ibm.com>
+ <20260721033815.5300-2-nnmlinux@linux.ibm.com>
+ <c4e58e48-a7a6-44b7-8984-7f03b3251160@linux.ibm.com>
+Content-Language: en-US
+From: Narayana Murty N <nnmlinux@linux.ibm.com>
+In-Reply-To: <c4e58e48-a7a6-44b7-8984-7f03b3251160@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-GUID: gAtS3PWsQIGK500B1FtiPpHa0grdAXCt
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODMxMDEyNSBTYWx0ZWRfX2t3CfuC+JWep
+ 4P8bowchaySaORhQFTt7gAMlYXi2oP9tXJJzOp2BBHhqGikmkEi2ckUs3TppOet09lXbkW6j/Th
+ StIfXZs6cBMGHgZT5OnCqbctnZdhZU/V92xgdctKjZs+oI/OQE8odL+tH4EpoIOVWO8uMt4Z8QN
+ 6C54FcmnhB3tFcPzAxBtG6RyWosHDTbIxlm637W4vC73viGAc7pgD1fRuA0g5mOC+C42kyIt9OB
+ TPAjwH1IR6Q+hzBvH+d8Ttbzj2mSQIO5satdqg6weQLYxGqM20XHFkMZhNmli0I+J6CN6aAupMS
+ 4Zn62rcpZudcysDVBZD+L/r9m8316q8XWWlyHzZAuoysZkFAN4TCyvU9nHV6hPDW0i33mmf+vF+
+ MxYTnUqoeIjZocPZtAs4oeWr8ZycmOCLMcfRassMQurwxRkJnfk4LxJhPxUuzKvEK5bhOeF2Fkq
+ NWNWk8k6kaqRE9NzTAA==
+X-Authority-Analysis: v=2.4 cv=Osl/DS/t c=1 sm=1 tr=0 ts=6a9593eb cx=c_pps
+ a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=1mVJ_uiqAAAA:8
+ a=VnNF1IyMAAAA:8 a=o-ATCx0ry3g-RqrqluQA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=h67g7WpEjx8dfGT80pje:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODMxMDEyNSBTYWx0ZWRfX89MMWzcIPZT9
+ FMhtRN/eVE/FOdtvEicC1E3wwxFrAnR7X0oS9gAFlNWzhUekttgeS3Dc6LvXmhYoBfonASUKhBv
+ RiCzpbLI1tMBP6Tu9Fei86ukyy8xILs=
+X-Proofpoint-ORIG-GUID: cGrvrxASN7C3l5rfwwzgKDEvzkrb4GrB
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-31_05,2026-08-27_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 malwarescore=0 suspectscore=0 bulkscore=0 lowpriorityscore=0
+ adultscore=0 impostorscore=0 phishscore=0 clxscore=1015 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608310125
 
-Convert the Texas Instruments Keystone Device State Control binding from
-legacy text format to DT schema.
+Hi Sourabh,
 
-During the conversion, the following updates were made:
-- Add "simple-mfd" to compatibles matching existing dts usage.
-- Add required bus properties #address-cells, #size-cells, and ranges
-  which were missing in text binding.
-- Document child nodes gpio, interrupt-controller, and reset-controller.
+Thanks for the review.
 
-Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
----
- .../bindings/mfd/ti,keystone-devctrl.yaml          | 84 ++++++++++++++++++++++
- .../bindings/mfd/ti-keystone-devctrl.txt           | 19 -----
- 2 files changed, 84 insertions(+), 19 deletions(-)
+On 04/08/26 11:22 AM, Sourabh Jain wrote:
+> 
+> 
+> On 21/07/26 09:08, Narayana Murty N wrote:
+>> PAPR specifies that ibm,open-errinjct has a unique return-cell layout:
+>>
+>>    rets[0] = injection session token (output parameter)
+>>    rets[1] = status code
+>>
+>> This differs from every other RTAS call, where:
+>>
+>>    rets[0] = status code
+>>    rets[1..] = output parameters
+>>
+>> As a result, the existing rtas_call() convention — return value is the
+>> RTAS status, outputs[] receives the non-status output values — must be
+>> preserved while correctly extracting status from rets[1] for this one
+>> call.
+>>
+>> Add rtas_token_is_open_errinjct() and rtas_status_from_args() helpers.
+>> rtas_status_from_args() selects the correct status cell based on the
+>> token, and the output-copy loop in rtas_call() is updated so that for
+>> ibm,open-errinjct:
+>>
+>>    rtas_call() return = rets[1]   (RTAS status)
+>>    outputs[0]        = rets[0]   (session token)
+>>
+>> For all other calls the behaviour is unchanged: return value is rets[0]
+>> and outputs[] receives rets[1..nret-1].
+>>
+>> The sys_rtas userspace path is not modified: copy_to_user() still
+>> copies raw RTAS return cells (rets[0..nret-1]) to userspace.
+>>
+>> Callers passing a single output int (nret == 2) are safe because we
+>> write at most nret-1 values into outputs[], never all nret cells.
+>>
+>> Also move the '/* A -1 return code...*/' comment to immediately precede
+>> the if (ret == -1) check it describes, and remove the redundant stale
+>> else branch that re-assigned ret.
+>>
+>> Reference: OpenPOWER PAPR documentation
+>>             https://files.openpower.foundation/s/XFgfMaqLMD5Bcm8
+>>
+>> Signed-off-by: Narayana Murty N <nnmlinux@linux.ibm.com>
+>> ---
+>>   arch/powerpc/kernel/rtas.c | 51 ++++++++++++++++++++++++++++++++------
+>>   1 file changed, 44 insertions(+), 7 deletions(-)
+>>
+>> diff --git a/arch/powerpc/kernel/rtas.c b/arch/powerpc/kernel/rtas.c
+>> index 8d81c1e7a8db..27d53f34494d 100644
+>> --- a/arch/powerpc/kernel/rtas.c
+>> +++ b/arch/powerpc/kernel/rtas.c
+>> @@ -1117,6 +1117,29 @@ static bool token_is_restricted_errinjct(s32 
+>> token)
+>>              token == rtas_function_token(RTAS_FN_IBM_ERRINJCT);
+>>   }
+>> +/**
+>> + * rtas_token_is_open_errinjct() - Test whether @token identifies 
+>> ibm,open-errinjct.
+>> + */
+>> +static bool rtas_token_is_open_errinjct(int token)
+>> +{
+>> +    return token == rtas_function_token(RTAS_FN_IBM_OPEN_ERRINJCT);
+>> +}
+> 
+> The above function is a god candidate for an inline function.
 
-diff --git a/Documentation/devicetree/bindings/mfd/ti,keystone-devctrl.yaml b/Documentation/devicetree/bindings/mfd/ti,keystone-devctrl.yaml
-new file mode 100644
-index 000000000000..dd73b62357ca
---- /dev/null
-+++ b/Documentation/devicetree/bindings/mfd/ti,keystone-devctrl.yaml
-@@ -0,0 +1,84 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/mfd/ti,keystone-devctrl.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Texas Instruments Keystone Device State Control
-+
-+maintainers:
-+  - Ivan Khoronzhuk <ivan.khoronzhuk@ti.com>
-+
-+description:
-+  The Keystone II devices have a set of registers that are used to control the
-+  status of its peripherals. This node is intended to allow access to this
-+  functionality.
-+
-+properties:
-+  compatible:
-+    items:
-+      - const: ti,keystone-devctrl
-+      - const: syscon
-+      - const: simple-mfd
-+
-+  reg:
-+    maxItems: 1
-+
-+  "#address-cells":
-+    const: 1
-+
-+  "#size-cells":
-+    const: 1
-+
-+  ranges: true
-+
-+patternProperties:
-+  "^gpio@[0-9a-f]+$":
-+    type: object
-+    description: Keystone DSP GPIO controller
-+
-+  "^interrupt-controller@[0-9a-f]+$":
-+    type: object
-+    description: Keystone DSP to ARM interrupt controller
-+
-+  "^reset-controller@[0-9a-f]+$":
-+    type: object
-+    description: Keystone reset controller
-+
-+required:
-+  - compatible
-+  - reg
-+  - "#address-cells"
-+  - "#size-cells"
-+  - ranges
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+
-+    device-state-control@2620000 {
-+        compatible = "ti,keystone-devctrl", "syscon", "simple-mfd";
-+        reg = <0x02620000 0x1000>;
-+        #address-cells = <1>;
-+        #size-cells = <1>;
-+        ranges = <0x0 0x02620000 0x1000>;
-+
-+        interrupt-controller@2a0 {
-+            compatible = "ti,keystone-irq";
-+            reg = <0x2a0 0x4>;
-+            interrupts = <GIC_SPI 4 IRQ_TYPE_EDGE_RISING>;
-+            interrupt-controller;
-+            #interrupt-cells = <1>;
-+            ti,syscon-dev = <&devctrl 0x2a0>;
-+        };
-+
-+        reset-controller@328 {
-+            compatible = "ti,keystone-reset";
-+            reg = <0x328 0x10>;
-+            ti,syscon-pll = <&pllctrl 0xe4>;
-+            ti,syscon-dev = <&devctrl 0x328>;
-+            ti,wdt-list = <0>;
-+        };
-+    };
-diff --git a/Documentation/devicetree/bindings/mfd/ti-keystone-devctrl.txt b/Documentation/devicetree/bindings/mfd/ti-keystone-devctrl.txt
-deleted file mode 100644
-index 71a1f5963936..000000000000
---- a/Documentation/devicetree/bindings/mfd/ti-keystone-devctrl.txt
-+++ /dev/null
-@@ -1,19 +0,0 @@
--* Device tree bindings for Texas Instruments keystone device state control
--
--The Keystone II devices have a set of registers that are used to control
--the status of its peripherals. This node is intended to allow access to
--this functionality.
--
--Required properties:
--
--- compatible:		"ti,keystone-devctrl", "syscon"
--
--- reg:			contains offset/length value for device state control
--			registers space.
--
--Example:
--
--devctrl: device-state-control@02620000 {
--	compatible = "ti,keystone-devctrl", "syscon";
--	reg = <0x02620000 0x1000>;
--};
+Agreed. I updated this in v4 and made the helper static inline.
 
--- 
-2.55.0
+>> +
+>> +/**
+>> + * rtas_status_from_args() - Extract the RTAS status code from a 
+>> completed
+>> + *                           call's return-cell array.
+>> + *
+>> + * For ibm,open-errinjct the status lives in rets[1]; for every other
+>> + * RTAS function it lives in rets[0].
+>> + */
+>> +static int rtas_status_from_args(int token, struct rtas_args *args, 
+>> int nret)
+>> +{
+>> +    if (rtas_token_is_open_errinjct(token) && nret > 1)
+> 
+> Do we know what RTAS returns when nret is less than 2 for the ibm,open- 
+> errinjct RTAS call?
+> 
+> I assume RTAS treats this as a parameter error. However, since there is 
+> no rets buffer available
+> to store the status code, I'm not sure how RTAS would convey the 
+> parameter error back to the kernel.
+> 
+> The way the RTAS status code is extracted when nret is less than 2 for 
+> the ibm,open-errinjct RTAS
+> call seems problematic me, especially when nret == 1. When nret == 1, 
+> this function returns args->rets[0],
+> which is supposed to contain the session token.
+> 
+> Are we sure that RTAS places the call status in rets[0] when nret == 1 
+> for the ibm,open-errinjct RTAS call?
+> 
+The rets[0] contains a status for
+ibm,open-errinjct when fewer than two return cells are provided. For this
+RTAS call, rets[0] is the session token and rets[1] is the status. So if
+nret < 2, the kernel cannot reliably extract the status.
 
+I fixed this in v4 by treating ibm,open-errinjct with nret < 2 as an
+invalid rtas_call() usage instead of falling back to rets[0]. That avoids
+mistaking a session token for a status code.
+
+For normal callers using nret == 2, the behavior remains:
+
+rtas_call() return value = rets[1] status
+outputs[0] = rets[0] session token
+
+The sys_rtas() path remains unchanged and continues to expose the raw RTAS
+return cells to userspace.
+
+> - Sourabh Jain
+> 
+>> +        return be32_to_cpu(args->rets[1]);
+>> +
+>> +    return nret > 0 ? be32_to_cpu(args->rets[0]) : 0;
+>> +}
+>> +
+>>   /**
+>>    * rtas_call() - Invoke an RTAS firmware function.
+>>    * @token: Identifies the function being invoked.
+>> @@ -1213,15 +1236,29 @@ int rtas_call(int token, int nargs, int nret, 
+>> int *outputs, ...)
+>>       va_rtas_call_unlocked(args, token, nargs, nret, list);
+>>       va_end(list);
+>> -    /* A -1 return code indicates that the last command couldn't
+>> -       be completed due to a hardware error. */
+>> -    if (be32_to_cpu(args->rets[0]) == -1)
+>> +    ret = rtas_status_from_args(token, args, nret);
+>> +
+>> +    /*
+>> +     * A -1 return code indicates that the last command couldn't
+>> +     * be completed due to a hardware error.
+>> +     */
+>> +    if (ret == -1)
+>>           buff_copy = __fetch_rtas_last_error(NULL);
+>> -    if (nret > 1 && outputs != NULL)
+>> -        for (i = 0; i < nret-1; ++i)
+>> -            outputs[i] = be32_to_cpu(args->rets[i + 1]);
+>> -    ret = (nret > 0) ? be32_to_cpu(args->rets[0]) : 0;
+>> +    if (nret > 1 && outputs != NULL) {
+>> +        if (rtas_token_is_open_errinjct(token)) {
+>> +            /*
+>> +             * ibm,open-errinjct: rets[0]=session token, rets[1]=status.
+>> +             * Expose session token in outputs[0]; skip rets[1] 
+>> (status).
+>> +             */
+>> +            outputs[0] = be32_to_cpu(args->rets[0]);
+>> +            for (i = 1; i < nret - 1; ++i)
+>> +                outputs[i] = be32_to_cpu(args->rets[i + 1]);
+>> +        } else {
+>> +            for (i = 0; i < nret - 1; ++i)
+>> +                outputs[i] = be32_to_cpu(args->rets[i + 1]);
+>> +        }
+>> +    }
+>>       lockdep_unpin_lock(&rtas_lock, cookie);
+>>       raw_spin_unlock_irqrestore(&rtas_lock, flags);
+> 
+
+
+Thanks,
+Narayana
