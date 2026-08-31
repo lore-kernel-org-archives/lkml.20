@@ -1,91 +1,132 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD0B43CB56D
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 08:00:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C42D2D0629;
+	Mon, 31 Aug 2026 08:02:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788163220; cv=none; b=fsypjp4pou95bqvEUjU176qYbdsvnP1ylCV6ZpS8c0W6vdrgYHBxToRqlevt9EXWgDW+27LB+LmfHkINXjVct0PANb42iGAkU1YVG4RONAqgP1QRJI56homrUSiJCpym4eGgalUYcBrmVqK5eevsXzS4+2JIHxGbxe2gUpB600E=
+	t=1788163374; cv=none; b=e/EQTS8gesEjd2eLNug/TTOZm4Wpi86nimxdSdyKjU9ztr1fNI0lzXXxKzZx4XkYbdk4DBHjCgyqrUeTz3PtdjqUYcHNqAy+2poXyFUwiJZUOarTlU2BU6w2y1BiK+hZ51x8bS7i6ykK5ehPZqlhEMKGPJBHumSmRKuruvVWqTk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788163220; c=relaxed/simple;
-	bh=ZGzJd83BAGjp2cT7TwaBLsmXWFTNbze0BK2Zfeclrok=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=fg8fyXtViqO3BSbyKEKA0UxpoRw4+yCyrKagSc6thvjWfEmpxa7LV2R1UlPBUu+DLFZSIYKDhH28+3mPxFEP8W0+NI7jtftIpPcK1EZJDM6whhrSq6Ck5UFQbXD9hN6K7UcSTBLV96UMgMMpHcj0ITvbmGgedW066OA9KAyfAgk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Zk7w2p99; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788163374; c=relaxed/simple;
+	bh=ThNjseMe9lv1Y0BFPvM1quupMSyAbrI9tCTKBf0q1cM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=SVENJAQ2mSOJMJ5x8Z97E/3Cq1q+XSyxB1fTJCduJ8F650WTjUWN/NZ2B8dqc+mHbgt200D0Dp23NDYDTgkKFVcFoMalho2iea4Mp15ZRGhEZmt1atx1JFt4g1PjHzEokhzR9pYWZKkydtdibzZ7QLOZi8RmBkzeKNgI7VYNJQw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=jJq0VbH/; arc=none smtp.client-ip=198.175.65.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Zk7w2p99"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C408C1F00A3E
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 08:00:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788163219;
-	bh=ULeEqtlOWfhTY3DrPTSE+Wp5uaJoZujCu6a+kI8cVj8=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=Zk7w2p99/mZBnqFjSLarLEjWOOOBgEqqURig2DPtwdStDAMiFy8UL6nXLUMzVc7AV
-	 jGmgcM1VtfOrBF4idjqDdWTyoJLDISDBJOzY1SGd4+5lS81nF1MmPGlE4GHHirbjB4
-	 zCJFNVaTTDFrtKKcKPofUqPPEgLXJ55N0c0AsA3VHuklL2IV3JEYA/dUYzJtUPBGmD
-	 CHdWtGiwI76fU5hathNBPSkmfU5nz6Jd0jRMcc953B1jQXADMKMdTdNBvLQ+3r6Ns9
-	 MLXCK83YxmbjyyYrZrl8lZs+V3gXRM9XfWLrIuu5fKdMtEAdw1jZzf6CvnzUJNIFpT
-	 ryuwZPeeZRopA==
-Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5b4aa47bc97so2515004e87.2
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 01:00:19 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxSgTYuaiEJT07zzcQNY4VVN96XvMf7873kk5FYk4QVMNMUMG8K66ZML0fZ0Q9eQXGxE9MHz/NDqvskka8=@vger.kernel.org
-X-Gm-Message-State: AFuF++m5jR4W+XvYd1Hi/f/dgW6T8A5e8Z1NuCiEyi1Kegg/iD5Yd3Cs
-	SXRM4AoArkObA3K2PHyPvjjYrzMqnjLrobjFj+KCkQNtuHkN8GZyXa1QXKiklj/yNR+ORw7BUXJ
-	xSocDSF5sS3UN2Jiqq9Hw++WOghcwPLg=
-X-Received: by 2002:a05:6512:10cd:b0:5ae:bba5:aee8 with SMTP id
- 2adb3069b0e04-5b5e6b0b37dmr7480095e87.24.1788163218511; Mon, 31 Aug 2026
- 01:00:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="jJq0VbH/"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788163372; x=1819699372;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=ThNjseMe9lv1Y0BFPvM1quupMSyAbrI9tCTKBf0q1cM=;
+  b=jJq0VbH/uESGuOfI1cEdoptwO4LJac6uXH73K16uYYwqwNOZ9CwBP94H
+   eVCsXG4SVP30VGGvbgKQdAPZSunl9VL8LAfl2lm+i2sSzQsigepu/SnBm
+   HJKnTPm1ThTW/GEdfacHVY49GRbdjrPzsq9aFkf6dKuY/iJumz/hWzeI3
+   8GYy8FIk3d8PHRo53kDq+gprdoAnerVjkV+v54lQ4or+m1/Tec7CtP8GT
+   7iwIl+9cTEePN15UmIGKcM0gBdXU6w9PpIg8ZT+lBiZSG+zGh03VSLnQs
+   rNsbZ+1NxkxwlCb713cstmJFuI/YcA21H6O2MBBd/pB9dO8NiX2mGCmmX
+   A==;
+X-CSE-ConnectionGUID: lawEfFXbRMKVUF6fiJffiQ==
+X-CSE-MsgGUID: D7J7DF+KTWGWneclsFzmzQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11891"; a="88416603"
+X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
+   d="scan'208";a="88416603"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 01:02:51 -0700
+X-CSE-ConnectionGUID: 2LuPwHNnSg+HJqlvOkVgIg==
+X-CSE-MsgGUID: 22YGIUXhQzaKBYsH4d1iwg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
+   d="scan'208";a="266923768"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.60])
+  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 01:02:50 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 1397E11F7F5;
+	Mon, 31 Aug 2026 11:02:48 +0300 (EEST)
+Date: Mon, 31 Aug 2026 11:02:47 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: johannes.goede@oss.qualcomm.com
+Cc: "D. Manresa" <dmanresa@gmail.com>,
+	Dan Scally <dan.scally@ideasonboard.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: ipu-bridge: software nodes are never unregistered; PCI
+ remove/rescan of IPU6 fails with -EEXIST and leaves dangling properties
+Message-ID: <apU1JxHwqGsQOIlQ@kekkonen.localdomain>
+References: <20260827232636.93145-1-dmanresa@gmail.com>
+ <apGqPKMIk5kgqfMj@kekkonen.localdomain>
+ <20260828205424.154443-1-dmanresa@gmail.com>
+ <096b57f0-90be-406d-bcbb-74d19dee91a5@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260831-gemini-usb-fotg2-v1-0-8a8ee12c4b32@kernel.org>
- <20260831-gemini-usb-fotg2-v1-1-8a8ee12c4b32@kernel.org> <fef8be63-ab17-475a-a77a-4dc874d1a704@rowland.harvard.edu>
-In-Reply-To: <fef8be63-ab17-475a-a77a-4dc874d1a704@rowland.harvard.edu>
-From: Linus Walleij <linusw@kernel.org>
-Date: Mon, 31 Aug 2026 10:00:05 +0200
-X-Gmail-Original-Message-ID: <CAD++jLkAmnmmQSN=jvcdkna8Bm1CZQkfN1yTAPGGMcCROqUSJQ@mail.gmail.com>
-X-Gm-Features: AcwNN1U8zrlOhVBSjBzSBDLJoAvR6uqOqWolnu1rJQ3dFN_Vs5QGLXi4txoZams
-Message-ID: <CAD++jLkAmnmmQSN=jvcdkna8Bm1CZQkfN1yTAPGGMcCROqUSJQ@mail.gmail.com>
-Subject: Re: [PATCH 1/3] usb: ehci: support controllers with non-standard registers
-To: Alan Stern <stern@rowland.harvard.edu>
-Cc: Daniel Palmer <daniel@thingy.jp>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, linux-usb@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <096b57f0-90be-406d-bcbb-74d19dee91a5@oss.qualcomm.com>
 
-On Mon, Aug 31, 2026 at 3:15=E2=80=AFAM Alan Stern <stern@rowland.harvard.e=
-du> wrote:
-> On Mon, Aug 31, 2026 at 12:24:19AM +0200, Linus Walleij wrote:
-> > The Faraday FOTG210 EHCI implementation moves PORTSC, omits
-> > CONFIGFLAG and USBMODE, and needs controller-specific speed and reset
-> > handling. Add
-> > per-controller hooks for those variations while preserving the standard
-> > register path for existing drivers.
-> >
-> > Also allow a controller to reject full/low-speed isochronous transfers
-> > when its integrated transaction translator cannot schedule siTDs.
-> >
-> > Assisted-by: LLM
->
-> Which LLM?  Or is that the actual name?
+Hi Hans, D.,
 
-The new kernel policy is to just say "LLM"
-Documentation/process/coding-assistants.rst
-commit 816d9992d9ed434ec52cfbd63080d518e535a41b
-"coding-assistants: simplify attribution"
+On Sun, Aug 30, 2026 at 02:40:52PM +0200, johannes.goede@oss.qualcomm.com wrote:
+> Hi,
+> 
+> On 28-Aug-26 22:54, D. Manresa wrote:
+> > Hi Sakari,
+> > 
+> > On Fri, Aug 28, 2026 at 06:33:16PM +0300, Sakari Ailus wrote:
+> >> The regulator string length has been increased to 6 since and I believe
+> >> with <20260729-sp7plus-int3472-v2-1-cdfaf97ac3ad@berg.pm> (on LMML) the
+> >> camera might work streaming-wise at least. There might be Bayer order
+> >> issues though, there was another patchset
+> >> (<20260729-sp7plus-ov-flips-v2-0-91884b81a8f5@berg.pm>) addressing those.
+> > 
+> > Thanks for the pointers -- good to know about the string length fix, and
+> > we are aware of Jakob's two series: we have adopted his POWER1 approach
+> > in our local tree and have offered him Tested-by on this hardware to
+> > help both series move.
+> > 
+> > This report is orthogonal to the sensor bring-up, though: all three
+> > sensors here are fully powered and streaming (the cameras work
+> > end-to-end, hardware ISP included). The issue is that ipu-bridge has no
+> > teardown -- after any unbind of the IPU PCI device its software nodes
+> > stay registered, so a rescan can never re-probe (-EEXIST), and once the
+> > module is gone the node properties dangle into freed module memory. It
+> > reproduces on any ipu-bridge machine regardless of sensor state.
+> > 
+> > Would a fix be welcome, and if so, which direction do you prefer:
+> > a real teardown on unbind (unregister the node groups, clear the
+> > secondary fwnodes, drop the deliberate struct leak), or making
+> > ipu_bridge_init() idempotent so a rebind reuses the already-registered
+> > nodes? Happy to write and test either on this hardware.
+> 
+> Not Sakari, but IIRC the goal has always been for the nodes to
+> stick around (be leaked) since other drivers may still reference
+> them when the module goes away and then a rebind should use
+> the already-registered nodes,
+> 
+> Which is why all of the swnodes are dynamically allocated and e.g.
+> strings a strdup-ed and things are never freed. If there are pointers
+> in the swnodes to things which go away on module unload then that is
+> a bug which should fixed.
 
-...but it is GPT 5.6!
+Indeed. Software nodes do support refcounting so in principle it should be
+possible to remove the software nodes, given no driver is holding a
+reference to them.
 
-> This is a pretty unwieldy patch, which makes it a little difficult to
-> review.  Can you split it into, say, three parts?  Such as: one for
-> the port status register change, one for the port reset and speed change,
-> and one for everything else?
+Software nodes, like OF and ACPI nodes, can reference other nodes and this
+is the case with the graph data structure. As the remote-endpoint
+properties refer to the other nodes, there should be a circular dependency
+there, and current framework implementation really doesn't allow removing
+the other node, whether or not a reference to the remote node is actually
+acquired right now.
 
-Of course, no problem.
+-- 
+Kind regards,
 
-Yours,
-Linus Walleij
+Sakari Ailus
