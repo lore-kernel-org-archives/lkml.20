@@ -1,71 +1,71 @@
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06F4C39E176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 765C43A7597
 	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 21:13:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788210831; cv=none; b=S/Om9SpZoUSFWsAMvdcyPxDZ+IJ+2JS9ZJ0/VZTKWeTP/iHdUCKyhdG6+syO2Hvm+iEVZLewwU4n6lmpmqQ2JuPdriCHFUY+iNVtaiUJ0p5aNlkZWgKfeUtfqAGCQzjrkR+NqlzmSc+FObyVaU5SakMzNRlNYLqPHCeW7HuKGqo=
+	t=1788210831; cv=none; b=K92WXGWkPz+JMG4nbDTK4dZpHuiN9D2qbJaBuguHkewATDnDPsi/Jg+k74LSUoT78Dr9Xpgv51AtYanY6/VvDk+23HVvEQG/cxbf3e/cUOJaw0cm6099JuY+NORb4xoBw7to0skKfftF1o8zeMRNaUlJ8qOIIJvl1bgvp4kJIYQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788210831; c=relaxed/simple;
-	bh=S0psc0GokPMG3r5dgQR0E3KceBkww71p70Ddzytet2M=;
+	bh=lZ538xn0MusE4k1KK9y0lCXK70e6dTvhVB099UUkj2Q=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=MnEbC97guZLQ0/047UV7yAiB9/aml2OS0nOFTZHwFPN/8qQ3+peolbJFCC0WcD6yMD3Mtdz9r6e4scgyjkhNnrE3CYWPXWXx3Ariy4+HS2PG53kTl/FlBbFecFYOVGxm6WduQm7LxIrVXXPNm58oWHqPkQWZzNEmel+OgAwVUNk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZsUCvcIA; arc=none smtp.client-ip=209.85.128.49
+	 In-Reply-To:To:Cc; b=PnYrU6vmlA8ekrmcF52+JYYM74fL/oalO5pbnC2nLLDY0QC/AdKDfS+iVGBEO1Kovc+9/zxq4flrbR0oWNct4qnJwtnwx5MmjYuOAQxXR6l2VYaLqzjCxYGkS/KlK53Dsu8g+YL0NkBfJnWuuSIIPCvqBIi7O5CYrQPg9vbBmwk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XTAhUKCC; arc=none smtp.client-ip=209.85.128.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZsUCvcIA"
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-49b0dbfbf7bso28838545e9.2
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XTAhUKCC"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-49b8eeb3ff2so29603345e9.2
         for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 14:13:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788210828; x=1788815628; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788210827; x=1788815627; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=BZLzJmQwMgWXL3sbjVA8gM6zLJbXj/mUC/hE8T4vkRg=;
-        b=ZsUCvcIAOm9+R+7fP964cvUGr2pBAikOpWVPIMDCxUgEmCJ2Ghmxfe2WL2yT1w9i4m
-         xByidXN6nnmlnFnyVucnhQBfrbjJy91/aFCagWlLrzTou8FF9qbG/Yq/ang534ONic+l
-         8tdYVoEFn1uq2Zzvl1O4DEAunyuNSsIUSECjmXAS40cU3ZwvVjzDwOV4rjMnW8vZOM79
-         DMa58brj2alhMqpfBOJAZTLfMbhANm36+q/ODIzgFJ9Mc+luOPBj7hlCUWNHPzod4euM
-         x92CzM3ZtA/HEAUbM+8rJzpYRn3i/PWZJuJPICwZJ/lRZEUMXtJKROvIMWIuyHUTRSPI
-         aX4w==
+        bh=6IX/mr1AWyIWzkY9+da9P64x4UyMMvD+KxSqNh+tYjc=;
+        b=XTAhUKCC/EYWkfD8MqN5GlowiUynxb2uJFcX5tuAt/LjAyId+zRs2z4Az1mefse5No
+         sPCUYFzQgbFLjz7E6Vai/6KD2YQNFuYfJxoapOuvKLnan7AoFXsoxvWk82AVT4HFxQeG
+         FugTFRkCpU8IEUsvWu2+s8POgy/8XBaMz2/uwiJqWtua3RWJh8d8Qfr3Wd4JaWVNEYTy
+         Cf0fcXuZEqo/t+nNZibajL7K5ZtEgU7whakaZo0kVzWbDXKDI07ZYUMiX5DEgHb6OWV5
+         IbCiALQdMq6y24v/cihak/wKTldy4iFOwLgIh6uqWpA1CogNhzeS3JMueuGj/P+BFGfV
+         4r5g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788210828; x=1788815628;
+        d=1e100.net; s=20251104; t=1788210827; x=1788815627;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=BZLzJmQwMgWXL3sbjVA8gM6zLJbXj/mUC/hE8T4vkRg=;
-        b=pNuFTgptQVS9U+95P+saNPAnJJYiEU14g1M+8itwiTvOprl0+sWAY7pHRwYDNQAxgn
-         zGZIyLKdToieUAfDYH/jyLtEaygQ2hazuvMppZ5gE3AQ2cwcbgbIuAq5g3zy8KYQfkTc
-         jmLLDhnyrwcVUpWGvx1vMMtMfYU6Y29FXkRkzhoVB3GN/pURtgBASn5LMKpuDDhOGyir
-         gr9gDFSNt5adB3IjPeT8+ElijZFsVR7XfpX5eBb0ybllyhNYYOSmRufKd65CjHh2Hbnt
-         W+c/RUHrkSBRpeOcBDkohADOY3OqGpuNKEoPCXst8R7Kf7BE//8dPNja9M2RdO2Raa6p
-         YOiQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rq2FdffNwiGHd+LkeBGw/95nAQEhfxUmBFpV4VrGvx9nC/1LcAzz8SZdZZV+HgQ4FnRcgpenU3a9F55daI=@vger.kernel.org
-X-Gm-Message-State: AFuF++lRD2tXaKz2NLOesKqYpsbP4c65YsQ6EZTs/Ct3j51t/iivnsYg
-	tVKzYfa9yMbg6OJJlihhaNLy1nGXqszyt1zKZEeS4sN1oV5OZ++8zdFx
-X-Gm-Gg: AR+sD109RpVjf2lUwUZ1Z2/6G2i5VsyMz/K/x+xxi5Mm6rUptGe6crxEEOVJbk7xSOx
-	m41abGuFBNgs4yV2P5zFVy9ZeJwIyeMm5tTVqf/c4Ahz3YCou/N+TDR6Ya1s8yhIbVA+HqNiMuz
-	ADeQMXu3ei6/9FgWjwDdaxP3TYo/AEQ/bwOgHqECNW+iQ7ykXB76Cf4+JPCpOljlhvD4MBvD4td
-	aqwCkVGT4YEEtn3QMER+wSXPaOibrKG2HXR+qMHiODoP0YWKw0e8TS+84p48tMjupVthIQ2P880
-	gEUYKMjWqgK0v0mGddVcheGXs7Mh1YGKzXdssWF2/NWMPXE6LfSMdYcWyBMQFQiSb00LWFcveQq
-	61H+PQHtFgOwjptL4zCjedHz+idKVU+uL5hT34HvgikhfUqgjrCwNZjaDJUw6SBU4XKaHR1v7tt
-	g7aHkxOIyV1ufUKMGJD+2jWdcG3YxyJ1h1RbIi4Cn98DA2OpZ5LyX1+qCvRqFt4Nr2R/aUVbIKT
-	7kos0WSjT3n8peMc1UfJho2NzQNISOWqyuJPtkJyW4d4TK68tkG6EcgUZ8+kP1yBJcoKv7wr0TJ
-	jhd08WBCHq3jgDiMWAY3hBWbCFEFwnVWfmcNV1hhHzXENqc2wpaB04UdGpCQAUoLH5cnbfPyPDj
-	cWZfm75QrY72vjoedSYYTCHiy
-X-Received: by 2002:a05:600c:6215:b0:499:593b:a15b with SMTP id 5b1f17b1804b1-49cdc422c50mr67567885e9.1.1788210828027;
-        Mon, 31 Aug 2026 14:13:48 -0700 (PDT)
+        bh=6IX/mr1AWyIWzkY9+da9P64x4UyMMvD+KxSqNh+tYjc=;
+        b=oNLqL62tTnhpZL6c+HYEGhB1FlVLNfBKrXCEJ75LwLY4e3ISA0e1A50472D98vqMMU
+         ef4txgM01272LmnuTDbVwMJxEfyYQswjUMZ6MTRbuQEZ5vD/r7SdmGxG8UcR9/heKiOG
+         65wXyR4CIoJqi7nmAj4UIAE02kssewNOLAOlCpIjrhDPaHsFlqkvAVyawCVUzZ9OkVVn
+         bh80vFxNtp0hy7SN6m04mfXn3A6H+Z9yn8lUCbhtuoZdws8QKwLu1fNkuxLfEVr563ec
+         voMIb9tfP6x6KzoiL+mjr1uZSagtN8l2UnscC/bdcX1Y/nSk3E2BcwwiYvxF/6y5IfU1
+         ygAA==
+X-Forwarded-Encrypted: i=1; AHgh+RpKSTvi9RPQs6q21fLBDEhLUY2wNf8G3vqXldGoRHh38BICGBriZXUNjNzHoDCavxCYzL8CiLi/UEFZ4U0=@vger.kernel.org
+X-Gm-Message-State: AFuF++kC9xsoiCazKayFk5+CEJl9cPXS9eLTJZesBRfmPNlPZzXwW3ht
+	xffRGxt1pZYKdKTbfttMyRZ0g9SSjZQ0GdHk4DJ7NC+w9/wVYW5QC42r
+X-Gm-Gg: AR+sD11nKk/LkenU8bjMoM2OBwcBcqXKNl7wctgCZJtUyuEgK6so4FWc3ejWaIffOni
+	HWVWaKkF7xiozlsRTruuBDMAo8Vn7BjBUS7i7tl6mtxL8PCgI/8ZSuse6jeYBZzT2eTxm+Fe5JW
+	I+Asgv5hitzD8d1q/rP0iJ9J4Nzo9XNhGiJYJuTf5FpoCIZcln9UR8ku2C/fXOiQl9grBVVXFQF
+	z7miKYSlp4UCpUKxaHrcyKjnQXFcCbBa7axMtoG2MaEKLNJYSJ0Orp3dQCiWORzLOls9CctzjcR
+	6LD9jpRYh1A1avvveHa3shjxv40yOpYhMW++mPx1a9xv0rOt9401IcynbVPXVLmTWA8JAVOzEiB
+	bfFuZahe87OlmTPnseKxqcmEgBOKfnrxflfjcwkzS7vRskTOQzMP1OUslDLHOmETVmrqIMzEilJ
+	KIp8GEHFJtl1QoZbMOf9HWuvySM1DAnSQrEtEsCKpPcgi6k3U+4mXotrlRbvAx1EB98GldWmqSo
+	mFWShL8MUch9RQVj8ykxBOkivJAln8kMd+Qu09l/C9S6dmSvfe9Fb3F8YDh6mWj8cvHD3zvhMul
+	qMZsYVfaGmlOwpYSOtwJBMORZBAFyKOHYbxC7N6RP9WWX6VUZpLUALfDNYzN0qukz3B8LfjgAd+
+	CKh5se2QpeOYoxCYf3TnN9QGJgL9hsc/ebp4=
+X-Received: by 2002:a05:600c:6b08:b0:498:952:e276 with SMTP id 5b1f17b1804b1-49cdc41f98fmr43629265e9.8.1788210827444;
+        Mon, 31 Aug 2026 14:13:47 -0700 (PDT)
 Received: from [192.168.1.187] ([2a02:8308:4092:11f0::f9f])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cdce1754csm17695925e9.10.2026.08.31.14.13.47
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cdce1754csm17695925e9.10.2026.08.31.14.13.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Mon, 31 Aug 2026 14:13:47 -0700 (PDT)
 From: Joshua Crofts <joshua.crofts1@gmail.com>
-Date: Mon, 31 Aug 2026 23:13:36 +0200
-Subject: [PATCH v2 06/11] iio: temperature: tmp117: sort headers
- alphabetically
+Date: Mon, 31 Aug 2026 23:13:35 +0200
+Subject: [PATCH v2 05/11] iio: temperature: mlx90635: make headers conform
+ to IWYU
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -74,7 +74,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260831-kernel-header-removal-v2-6-b92b580ef5eb@gmail.com>
+Message-Id: <20260831-kernel-header-removal-v2-5-b92b580ef5eb@gmail.com>
 References: <20260831-kernel-header-removal-v2-0-b92b580ef5eb@gmail.com>
 In-Reply-To: <20260831-kernel-header-removal-v2-0-b92b580ef5eb@gmail.com>
 To: Jonathan Cameron <jic23@kernel.org>, 
@@ -85,42 +85,64 @@ To: Jonathan Cameron <jic23@kernel.org>,
 Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Joshua Crofts <joshua.crofts1@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788210819; l=928;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788210819; l=1772;
  i=joshua.crofts1@gmail.com; s=20260530; h=from:subject:message-id;
- bh=S0psc0GokPMG3r5dgQR0E3KceBkww71p70Ddzytet2M=;
- b=Bi5LMlu2NHtnbcUH9zCVbESPx41H1U8BXpXZ7VyzptCnG7IBK55Vd7dRuuebmXwInnSyvrSP7
- qHuc2Y4CYJRDqghAnEANFvwE+YTiTlX9rQ/AqRs8a+nGc2t47B66E6f
+ bh=lZ538xn0MusE4k1KK9y0lCXK70e6dTvhVB099UUkj2Q=;
+ b=cL16eD7hISahdpDpT/3iplXwrj/oBC+wB6qNOq2/ysGw4eR3kkXUloag00nNErl7wU43w+Wc7
+ dAd+BljEq5KDz/3FojdQLOHnWz+S332CK/PWLltq4IpMS2wOwl0On8C
 X-Developer-Key: i=joshua.crofts1@gmail.com; a=ed25519;
  pk=RTDOoVwgeL4oFdASj9U+cxJuIjXuXk73zkjnGOJKbEo=
 
-Sort the headers alphabetically to improve readability.
+Remove the catch-all kernel.h header and add the missing headers to
+enforce IWYU.
 
-No functional change.
+Additionally, sort the headers alphabetically.
 
 Signed-off-by: Joshua Crofts <joshua.crofts1@gmail.com>
 ---
- drivers/iio/temperature/tmp117.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+Header changes explained:
+Added:
+- <linux/array_size.h>: for ARRAY_SIZE()
+- <linux/bits.h>: for GENMASK() and BIT() macros
+- <linux/dev_printk.h>: for dev_err(), dev_info(), etc.
+- <linux/mutex.h>: for struct mutex and mutex_lock/unlock
+- <linux/types.h>: for fixed-width integer types (u8, u16, etc.)
+Removed:
+- <linux/gpio/consumer.h>: not directly used in this driver
+- <linux/kernel.h>: catch-all header no longer needed
+- <linux/limits.h>: not directly used in this driver
+---
+ drivers/iio/temperature/mlx90635.c | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/iio/temperature/tmp117.c b/drivers/iio/temperature/tmp117.c
-index 74cb8d62bef3..fed8af2d81eb 100644
---- a/drivers/iio/temperature/tmp117.c
-+++ b/drivers/iio/temperature/tmp117.c
-@@ -10,16 +10,16 @@
+diff --git a/drivers/iio/temperature/mlx90635.c b/drivers/iio/temperature/mlx90635.c
+index 0f31879a4f64..48c760c980f3 100644
+--- a/drivers/iio/temperature/mlx90635.c
++++ b/drivers/iio/temperature/mlx90635.c
+@@ -6,21 +6,24 @@
+  *
+  * Driver for the Melexis MLX90635 I2C 16-bit IR thermopile sensor
   */
- 
- #include <linux/array_size.h>
-+#include <linux/bitops.h>
++
++#include <linux/array_size.h>
+ #include <linux/bitfield.h>
++#include <linux/bits.h>
  #include <linux/delay.h>
++#include <linux/dev_printk.h>
+ #include <linux/device.h>
  #include <linux/err.h>
+-#include <linux/gpio/consumer.h>
  #include <linux/i2c.h>
+ #include <linux/iopoll.h>
+ #include <linux/jiffies.h>
+-#include <linux/kernel.h>
+-#include <linux/limits.h>
 -#include <linux/module.h>
--#include <linux/bitops.h>
--#include <linux/types.h>
- #include <linux/kernel.h>
- #include <linux/limits.h>
+ #include <linux/math64.h>
 +#include <linux/module.h>
- #include <linux/property.h>
++#include <linux/mutex.h>
+ #include <linux/pm_runtime.h>
+ #include <linux/regmap.h>
  #include <linux/regulator/consumer.h>
 +#include <linux/types.h>
  
