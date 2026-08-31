@@ -1,46 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15AEF48989B;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E550D48A8A7;
 	Mon, 31 Aug 2026 17:54:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788198850; cv=none; b=NkRgXt0Fh3at+knMnUlDUdA9YX5Yfor5WKa7i4WCONWB70nw5nfdGYv8LqJg4UP1ErmEEAJsZv+kMChfvhgytvLM3IjXfZNRFzdvMMjB2s4jvNAo3n04E78NwIDcStP5TCdTFPl2ij6UudRogZfYyNPLziRtBxIjFZrHe1qi2G4=
+	t=1788198851; cv=none; b=GVhEXQiD6IkYEBzpSSQINQm5BKAkIAQJXysT4KlaSNlfG3CzRtU3XMMLRCoEI3BdhdmF8BWtTajofYyv5t4tWbxwmKk/EVIrVbr31qG4SSJ+Aj/RmzBmuyktyxYlDZOpnucWj4HS8KDPRI5IkQ+ZvUVqSO+iI4xrHL/gdIj6tCY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788198850; c=relaxed/simple;
-	bh=jIkYRyPkpRImXCXFcfUFTMScrz0LiaTMNpayT6QxRFQ=;
+	s=arc-20240116; t=1788198851; c=relaxed/simple;
+	bh=y325OmXH56bFDPY0esHYFMJgRu+3sLSzqiodi5pX2hI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=QxXhwPo8pMeN/4CGyAjf1Q0oLvxGhdLFcCGh8yzlF9uO1/Axno+uYj/+E5RcIGXfb/bR1Q/GFKXihy9TfuXZCqPYCYlX2fOZeUTZ9gPJcwJHQuS7EeD30m21BEO8rjjFpVmrXmgQff5hdtd+WNP4QZsCFUHDj4NkY4Mjzkc4GU0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kn3uFruW; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=kbxu+dfGwTh3JbZyB/1NbhN/bPogGBJ79+SvI5SbzxGqoRpO+yYUyLILuYF3gQ7PPPECGoYdZ7ZkdEdB9MZltJjwhDLgCBahJPbLODPjoA+cDYq7B3s6NyeYH+gG3q5pzPgDa/+m7VZweHyikQUDgdIH8WO1juZbhvMaV1NRsIo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HvO9DWW6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kn3uFruW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 634EF1F00A3E;
-	Mon, 31 Aug 2026 17:54:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HvO9DWW6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3237D1F00ACA;
+	Mon, 31 Aug 2026 17:54:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1788198849;
-	bh=C0wR2CeHaYepxDy1YJiRtN6s19xvFFxPA27keILXfmQ=;
+	bh=B8FcrYXoqnVvTwjORIvK7AW+pS8jJNQkl0TMw09fzwM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=kn3uFruWK7RL2hbgxaV0+n6/ohSNiSdP4sGT5r/vLRDM1VG5eCq2RhzRWbySHws/b
-	 r5XBcxSKJWf+dzuTdeWcteTDts7/JshVS0tY23wIlCJCEBXzDCAdGtai6fsQT+XJZ9
-	 2saidryraRg5pB4zcMkX4wF94x83eX9N+3zS7Zu4edxPv8LQgNnetnmnuAwSq027ih
-	 EAjBk/8zgCugtHN0j+SN6xz1xis0920iyqxx40d/XSkJi7B/GzwvuJBM++t2vmfI5C
-	 Isg+AQ9Hwhey0d39kYS4xKlZ6o2IgaFAoXFcmlA2b73ZminNGHmmDoE84RfjUlg3yz
-	 ZK6JrrhkguNOg==
+	b=HvO9DWW6bmS9s5n2GFmBYwXWtRGDHZVeBpk+oL8cNghb0NrRk1k4TXtMHl5tihQOY
+	 URoKyrzMbmWDCM4QlHwD7Hyy6Cj3aQBdpuJDNYljQ90+I8PT9sNqAnamUNqhJ6qRDx
+	 /79F8ku2yxNfbmaEIiWwjmK8FK6lfSSeIYEMQV5qP1ZsYW0eKyn38s7MIdb7t0ZKqE
+	 L1CVvdaG1CSZPe9eIlsfbYcz9ZrHQCmLSfWOSQFAb2mC/kUDJRXEDkFgDezJEG7uiC
+	 42Um4CLPUVmyJU46qhSGhTL4riuJnR8crQX1auQzMCpKmtbUKndZL4uQrjF8KRNPu+
+	 H6A9BvjYOZeiA==
 From: Bjorn Andersson <andersson@kernel.org>
 To: Konrad Dybcio <konradybcio@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jens Glathe <jens.glathe@oldschoolsolutions.biz>
+	Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
 Cc: linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/2] arm64: dts: qcom: sc8280xp-x13s: HBR3 and USB-C DP audio
-Date: Mon, 31 Aug 2026 12:53:36 -0500
-Message-ID: <178819882976.1411250.13651068634513911390.b4-ty@kernel.org>
+	linux-kernel@vger.kernel.org,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Subject: Re: [PATCH v3] soc: qcom: llcc: Update the SCT table for IPQ5424
+Date: Mon, 31 Aug 2026 12:53:37 -0500
+Message-ID: <178819882997.1411250.16401704788552603182.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260827-x13s-dpaudio-v1-0-da73414c6ab5@oldschoolsolutions.biz>
-References: <20260827-x13s-dpaudio-v1-0-da73414c6ab5@oldschoolsolutions.biz>
+In-Reply-To: <20260819-ipq5424_llcc_updates-v3-1-42b48451481d@oss.qualcomm.com>
+References: <20260819-ipq5424_llcc_updates-v3-1-42b48451481d@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -51,22 +48,21 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Thu, 27 Aug 2026 09:52:47 +0200, Jens Glathe wrote:
-> The X13s already enables both USB-C DisplayPort controllers, but the
-> board DTS never described the link rates or the audio paths.
+On Wed, 19 Aug 2026 21:53:27 +0530, Kathiravan Thirumoorthy wrote:
+> Update the IPQ5424 LLCC slice configuration table to give the PPE
+> and Wi-Fi datapaths dedicated slices.
 > 
-> Patch 1 lists RBR through HBR3 on the DP0/DP1 outbound endpoints.
-> Without link-frequencies the msm/dp driver still defaults to HBR2,
-> which is not enough for some docks and monitors.
+> Assign slice IDs 1 and 5 to the PPE RX descriptor and RX fill use cases,
+> slice IDs 6 and 7 to the Wi-Fi radios connected over PCIe, and slice ID
+> 2 to the CPU subsystem. Adjust the corresponding capacities, priorities,
+> and way masks for these consumers.
 > 
 > [...]
 
 Applied, thanks!
 
-[1/2] arm64: dts: qcom: sc8280xp-x13s: Enable HBR3 on external DPs
-      commit: e187ae3975932d9a9c66762fa3e2664c485331b0
-[2/2] arm64: dts: qcom: sc8280xp-x13s: Add DP0/DP1 audio playback support
-      commit: 8a62b9c730521a48a24b4403e48e5af74e484aca
+[1/1] soc: qcom: llcc: Update the SCT table for IPQ5424
+      commit: 57bf822e3c692e1f204d3d8674967344e7e05549
 
 Best regards,
 -- 
