@@ -1,142 +1,189 @@
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0860047606F
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 15:59:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDD9C3D669A
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 16:00:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788191971; cv=none; b=KCfu2LJbZ7ZV32B1Tvm1+VyYT4HQtm08Sek56U678IWSlH3jkGoJS7P/DABUIsg4Sj/NBPJphZu2J6kgl6PtNDXb9bs/+NQykzmG3YQvW2u5eQj9hJ5eKw1HSHxxcDi2sf8j5EUVsskdT3Uj9jj9/CpVta5eisqP73yOW5oo7nY=
+	t=1788192004; cv=none; b=Nxl19Vwh//lQ7n6mGzJwWbbpJN2bdeaaA/LbOvHOx4W+gTR2fSQVltMCims6Yhmf9zl41wQ+rKTbMW5QIm+JOrFXRX9oweX8T7L2OGKqypPRH/r4t5HIWVG+OcJNxh5iZ/ki5FxMt8CjbhqZUlj9KLKp+48grhbhfKBCP5R24i4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788191971; c=relaxed/simple;
-	bh=o1FlrGPMHZrUJtCpdYwtq2kuTdCYRTFJX7Aw6G7fg7k=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=XwYbKeu86Rptvtw78ft2EMgmPsyI30ziPdBlg3Kl3AhVMumadEbZJPNE1KbVZaJFz8w17b3VDUV4rmk1YAwcL2jYjU5QEROXr5tNujppv3Y25nluJBE8oEUhBBgL38SccrNRWovnF6iv6adqA1bAOnElEl+xVIHh6S3d85tN8ck=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dCwgrqsv; arc=none smtp.client-ip=209.85.216.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788192004; c=relaxed/simple;
+	bh=C2HsrkAsY551zyQVjhc/uoCKFo+qO9kHWqJMqFvLm7s=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=G86yZAx0HGnZ6nJFusvuo1+Y9bvRIFwXSeVyyaAR3zZRICNK/ehXcM2eCfIClQcakt2Tn87s+SuS049spEnkTXDjTEO24kSpeGaa1WZ39BPjPFavrpSSU4mmTV/832k0JrbXOfO/qyLPtOUyPAwNXvfUllPVE3t5dMJSNXf70mY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=WA9H4rr+; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=DzbrXQr5; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dCwgrqsv"
-Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-38ec1402b05so3081881a91.2
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 08:59:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="WA9H4rr+";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="DzbrXQr5"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67VFprH93989255
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 16:00:02 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	I76VLQrz2FsEqHBxgl+gJTgbNgwv1LFzl20Eqv99Pco=; b=WA9H4rr+fNwvKyra
+	gGCUywkf0DtM+OjQMqc75kAqo6KISiN2lHaiZhc00deAZWFCVycXI9uXpsGZLfPc
+	OEjJ/YMfKCOSO87Jk60/wjDWVAPvWdy4Eu1U5aBwZYlFq0GLyFU4yVjy0E+LzTwP
+	bYsc5rgo1G9BsJbsP1/epknRev6ghsbqu3BO6oqKpezojq7Ob/UPRHcTW21JYN86
+	ccrm9R+ykmX9lL4g3l31Xs71gd5LmFdKnR8YhjfjKG2wt26V3GMKA0e1YOJdF546
+	3gu/V0JJvWJyIJd0sDL+Ey0pFBTho2bpEtvG1NHRacjdWTZfNUzoWyFxpS5IDVUk
+	bVD6gg==
+Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gcv7wbm32-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 16:00:01 +0000 (GMT)
+Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cc1b80835d5so5938806a12.2
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 09:00:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788191969; x=1788796769; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=S55ppFl9FgwQ4vQKooEY5Qf66QJ+aBK7c5+37bZh5e0=;
-        b=dCwgrqsv33KpVnDXfUM8Wn9uuyTG5b3QW0EdUyDM9QkbEKSxR5pvrXfAq+kjRaJWGN
-         rbNk5zBdBTkddqrgJB7wHEOergWzc1ngaramdv9USVNtOQ5JjuOnrlyp5DNkwECbXlbY
-         5+Z3E4hNImCx39KL8hpMp6LQW+gWp/kfUbBmOONlKNWB/4V3LiZ85L+H3T/n1Lf9XaXF
-         vywEhCf0hsr1q1pJHe6Ec+HAHsU1Hq6S2BgjvOw0DyN6/UOZ7vc+f8gaFaDxPlcTZGIN
-         AeA5R6cn488vkaNF3zFRhZ3EGc59Jobv4Mg5c6VmkxD0Z1+vfC1yMwCY88tYVYoX3IoN
-         diBw==
+        d=oss.qualcomm.com; s=google; t=1788192001; x=1788796801; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=I76VLQrz2FsEqHBxgl+gJTgbNgwv1LFzl20Eqv99Pco=;
+        b=DzbrXQr5/AysCz/ydddu5uqDrp5Ijpjz3AF9eyMnPZ6uUI+YplU79TNfj4m1R/UMiz
+         oPPNAb+59DCmjPuoy1YfmYy0elBnDeBCLdk2gVN/1GL9LCMaZjjsuOUIvRSmaToQbCGv
+         4NQVhRkt2R3wffdqA6BtVBiYkA6rphI5duenc2rFKk7UTg7Uzm5aosuNaXPeGnIuwib8
+         AsWvrxnSDbOv76Xuk+b54nOicxFd4ST8tSosJlTZa6/UOLjDT8HH0RgQ1AOdBtbIB+CE
+         6xozRLWJ/dyiB23CbFk4dmMc5dZtVbPm6XIHLPKhMLENYpO4tLPntRjLw+NOdDWCVRj1
+         nXzw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788191969; x=1788796769;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=S55ppFl9FgwQ4vQKooEY5Qf66QJ+aBK7c5+37bZh5e0=;
-        b=QDkdC3czNDUuh17CCZg9yopaIUy2CVmJSqDtYnHAIR9UNPZdspxXIxrjayhMO6XT6o
-         vcNIKkI44vCr3ii2RQWN0zF3IsMAApNlAXdLTPNg1YYZpb7y2U93DEamUlycKSs9yiZI
-         RpYYKmy4RY6P3QIg4bYEO9Z3z1bTlZv9H9itceHhj5oHT7Urw3Y0HspQtEr4hfM5YRWB
-         VhfqlNej1o97xCZMyuyy1BumgiwZAYiCoNzKNxMM6NNkM7RwDRh83JlScTyYfwzx0BdD
-         K7S+gP2Dc+GwCa6vmRn7haB9ifUck2y+xDSH6EpX0NpsmFgxAW0zaBLHC3Bemr3pKlD2
-         GZig==
-X-Forwarded-Encrypted: i=1; AKwUvBzHUjMehVdmcV7zHM4Y7YMcc6Veo06Mr6plLZ+YPshSV7dZG+poUFVrE7VNqRVPp1t9dkCh2kE9bAiurGM=@vger.kernel.org
-X-Gm-Message-State: AFuF++nQojvyDBd/0ZyVviJRtBe+On8nKpRKd2RJ1RpCR4VK1fGIpwzM
-	iObMu90OOxzGfmfsz+7m24EYx1VjpRY1pt0sB+pZNcjJcLg6nW7FNUh+
-X-Gm-Gg: AYBFou2npdnAGNK1jOE758YnvuFB00ZJZZywSPuEi08heDW499NqwMQT89blOq3GKML
-	hEloSPWtNzu/27jw6Sj9SzIKvMr/V/sKn4GQVLqcCci5gmDy+wXgTjswVagE+kWlbxGZZz7pIiX
-	XbL6aB9n2tuEY//DCVqr1s8hsM7eiwkKsP6CB2ttCdBqz3E2gXsbZGRMwW1dHhDpo1cDQolXuUH
-	DygDFv8GF6h7TtizhUqZ39DRkRt23QLp/kurNVGQTvZ2EUGyGXhqXc+5RFJInCNIyLJW2y3vVbd
-	8wmF6BkYx3EhwRtoNBE1fmCExxQ27h14Pd0fdvMIrxf16/rM62h3L6m8rLPvA0tb9OTfbhJ6NLz
-	zWelpGC3XuFVSisZ2gtvbEUyeLjE3Lbu0P6j/aQmzpPFZCo+6rNZmagX5ZVweJclUYuvnsyLAcL
-	uhsvM0FCavf+bqj8NuIX6sBr3NEOOLEB13RDobc+kiDTVUJQcxVjT+N9uj9Bg=
-X-Received: by 2002:a17:90b:3c45:b0:398:c292:ac80 with SMTP id 98e67ed59e1d1-398c292b6b2mr20410535a91.10.1788191968691;
-        Mon, 31 Aug 2026 08:59:28 -0700 (PDT)
-Received: from gmail.com ([185.220.238.38])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3990d630371sm115535a91.17.2026.08.31.08.59.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 08:59:28 -0700 (PDT)
-From: Kunwu Chan <kunwu.chan@gmail.com>
-X-Google-Original-From: Kunwu Chan <kunwu.chan@linux.dev>
-To: Dev Jain <dev.jain@arm.com>
-Cc: Kunwu Chan <kunwu.chan@linux.dev>,
-	akpm@linux-foundation.org,
-	david@kernel.org,
-	ljs@kernel.org,
-	riel@surriel.com,
-	liam@infradead.org,
-	vbabka@kernel.org,
-	harry@kernel.org,
-	jannh@google.com,
-	lance.yang@linux.dev,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	Kunwu Chan <kunwu.chan@gmail.com>
-Subject: Re: [PATCH] mm/rmap: remove stale hugetlb check in try_to_unmap_one
-Date: Mon, 31 Aug 2026 23:59:12 +0800
-Message-ID: <20260831155913.2497152-1-kunwu.chan@linux.dev>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260831082849.3573957-1-dev.jain@arm.com>
-References: 
+        d=1e100.net; s=20251104; t=1788192001; x=1788796801;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=I76VLQrz2FsEqHBxgl+gJTgbNgwv1LFzl20Eqv99Pco=;
+        b=g2zdIW/1Z2xpI89EK64Q4+uFK/Y2OTT8RQ46HABJsxITbodsmcmpHudZJSXg3NxdDV
+         dW2SuUbr5Hc/6HNDludIk95ODLR0LF4LpXyW3Iw2AtdWtGunbGEaIHnc9b+dSMCqmp1O
+         I+WgHKXO2Qa6E8DZBMlJPyeQHxRrZhUt/UrbhNNdoSwBLZoawVRrQJG5tjfOBCy+62tw
+         /CEzGxta5fPz3e5539MqfQAzI2mWKbOTO06UHchYJ0AMScAnIDytIF3gn3ohzkI32PYr
+         GNkMWzQ8N32VacodHOIahiHjn2E5pZR79kdKW3Mtvz6NBcXdPeVhUibUup9iHeuTrmPJ
+         lkIA==
+X-Forwarded-Encrypted: i=1; AHgh+Rr1DVIpuOcQm4RLP4wfDhvuWjNLNYyDcZ8H77ykCDI+P7V3GkfMyoMiU3BTIrfSS8uUzMnxsXDI8LE5IvE=@vger.kernel.org
+X-Gm-Message-State: AFuF++lBK4I/OI3KzVE2biuRSFZTdEnV0Ha5HQYP6REov5cCTW0ML3W5
+	/Lp4+ZFwspVtKSjumvD/APi6uD+Xa8Hme+qUORSXm0k4Ma+ErUhIU2bivFw6TKY7X/0HcpqRe25
+	ME3bfXmU7XzydbIsaSRLOJZ15bri14AiqCLXPRumWALATPhceBXZmFSakcIi4n5+KE34=
+X-Gm-Gg: AR+sD10xQmgOnT4pLwsEg5XWWwPanU6EU7s9ZQhaynmbYsbH7GgMeX6OYKn/RRE9yuh
+	9q7S+I2X7wxPnev5Ap2v6TRvPEoPhgE52MT38SgK6b+7x7i7Fu0WGHYvyRqpEgyTAokdzgfswAH
+	0SsXGdS0PUSBbHxRSkp8Ecr3QTeRHQ7/8V7oo1T5XDiJ+kzeV0gdG3uUL81lZFEK2+AOyUuoXzf
+	ASg3OU+T2hC496hyS+4fIKDqSwP3Dvcg4e5e3oEoj9RA+OwZZmXOTkTzDpR/C+ZFawvf6ZnyqDK
+	gvG7/7UfrbDdV0E0Xs44g5A5yZqbxaPOawdIQgVh0REhXNnTL8D1WO/61FDMfUAdvl29Mwu/IO3
+	KZeQjGQwoNKRWfktXIm+RcpNyTABAOr1cOA==
+X-Received: by 2002:a05:6a21:4593:b0:3d2:2afa:d85 with SMTP id adf61e73a8af0-3d7af82fb8amr2661669637.13.1788192000728;
+        Mon, 31 Aug 2026 09:00:00 -0700 (PDT)
+X-Received: by 2002:a05:6a21:4593:b0:3d2:2afa:d85 with SMTP id adf61e73a8af0-3d7af82fb8amr2661610637.13.1788192000244;
+        Mon, 31 Aug 2026 09:00:00 -0700 (PDT)
+Received: from [192.168.0.102] ([183.83.143.92])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3286fa20e2fsm31401770eec.28.2026.08.31.08.59.56
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 31 Aug 2026 08:59:58 -0700 (PDT)
+Message-ID: <5be318fd-5413-4d6e-a8c0-f1b1eb35393a@oss.qualcomm.com>
+Date: Mon, 31 Aug 2026 21:29:54 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] serial: qcom-geni: Fix port_ida handling for console
+ and probe errors
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Jiri Slaby <jirislaby@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-serial@vger.kernel.org
+References: <20260831-master-v2-1-0032ec7fd1ca@oss.qualcomm.com>
+ <5bb31efb-3855-41e7-b011-1a5a94fee59f@oss.qualcomm.com>
+Content-Language: en-US
+From: Aniket RANDIVE <aniket.randive@oss.qualcomm.com>
+In-Reply-To: <5bb31efb-3855-41e7-b011-1a5a94fee59f@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=E9f9Y6dl c=1 sm=1 tr=0 ts=6a95a501 cx=c_pps
+ a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=XkslMnuk+fwelqvQqm66dA==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=EUspDBNiAAAA:8 a=t_IBPTLT0seuTEbNzfsA:9 a=QEXdDO2ut3YA:10
+ a=x9snwWr2DeNwDh03kgHS:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODMxMDEzOCBTYWx0ZWRfX2WvRP4eJfoR+
+ mnVkyQiS5u8R+25BkwrOUWHOsYKL4VldHL9oEtKgYNpVTLNsUPMKJZvVNFtGNzltEhAOYHD5VOk
+ 0OCQZdvXasJfedsfnyuL4uti0XDpdaU=
+X-Proofpoint-ORIG-GUID: YMOfSef9NhofgJA04MfsU2CN2yJY2jFh
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODMxMDEzOCBTYWx0ZWRfX0vFiVlBFFdd7
+ vvcN23PmvSIrIu3sDqpCk24NtRSkbcoz2hSFLCxjaFvHX6PxTabNKYmeXgFcr1MgfwlxgeQxGzm
+ ZwzjLP/neEmEswIOCDEjegspmUKe7WOTOvwRCB22pw4aGeLUkfNY+QfiCX/Ar1BqisptVi5Smpy
+ GdUdf1AiZlcJ2Aq2pZytWXEUoqYDQyADUjqI+ovmytbIZcURLh4XygPz1JiKMBj9fKBODLrcCUM
+ LMueqrgXuyav1A7ByeCEq3w7Nejs+t1dAtKBPJNdBv3JdzeDS2D9DaZe6p37aC3oqDxvTZGuzfP
+ jZ/WnYSiRoFGqtQybHPSE0w1roorcLavpQsp/58Xfk+mZ7AeTAd250hPotWTVKpVODRqdarcb46
+ zygUWP7HfCbt2GybF0hgXFQ8k7TaOxbETMKlQcObUqyq7SCDoZqCTQViprbWhqRwK5IGJMlCoDG
+ 1KGP9sNLUeE6Gz2BQtA==
+X-Proofpoint-GUID: YMOfSef9NhofgJA04MfsU2CN2yJY2jFh
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-31_05,2026-08-31_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 malwarescore=0 bulkscore=0 spamscore=0 phishscore=0
+ lowpriorityscore=0 adultscore=0 impostorscore=0 priorityscore=1501
+ clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2608310138
 
-On Mon, 31 Aug 2026 08:28:47 +0000 Dev Jain <dev.jain@arm.com> wrote:
-
-> Post commit d4ec5572825a ("mm/rmap: add try_to_unmap_poisoned_hugetlb_one")
-> try_to_unmap_one() cannot be called with a hugetlb folio. Therefore remove
-> the folio_test_hugetlb() check.
-
-Yes, the d4ec5572825 change shows that try_to_unmap() dispatches 
-hugetlb folios to try_to_unmap_poisoned_hugetlb_one(), 
-so try_to_unmap_one() cannot be called with a hugetlb folio.
 
 
-It would be better to add:
-Fixes: d4ec5572825 ("mm/rmap: add try_to_unmap_poisoned_hugetlb_one")
+On 8/31/2026 5:08 PM, Konrad Dybcio wrote:
+> On 8/31/26 1:12 PM, Aniket Randive wrote:
+>> The console port uses a fixed line number and is not allocated from
+>> port_ida. However, qcom_geni_serial_remove() unconditionally frees the
+>> line number for all ports, including the console port.
+>>
+>> Skip ida_free() for console ports so that only IDs allocated from
+>> port_ida are returned.
+>>
+>> Also release allocated IDs from the common probe error path. Currently,
+>> IDs are freed only on the wake-IRQ failure path, causing leaks when
+>> probe fails after a successful allocation. Move the ida_free() call to
+>> the common error path and guard it for console ports.
+>>
+>> Route resources_init() failures through the common error path so the
+>> allocated line number is released correctly.
+>>
+>> Allocate the port structure before calling ida_alloc_range() in
+>> get_port_from_line(). This prevents IDs from being left allocated when
+>> memory allocation fails.
+>>
+>> Signed-off-by: Aniket Randive <aniket.randive@oss.qualcomm.com>
+>> ---
+>> Changes in v2:
+>> - Route port->dev_data->resources_init() failures through the common
+>> error path so allocated line numbers are not leaked.
+> 
+> I asked GPT what it thinks again and this time it found that this
+> will cause a double calling of dev_pm_domain_detach_list(), which
+> will mess up the refcounting..
+> 
+> I think the fix here is to drop the manual detaches since the common
+> helper uses a devres-managed version of attach.
+> 
 
-Reviewed-by: Kunwu Chan <kunwu.chan@gmail.com>
+Thanks for catching this.
+
+Looking closer, this appears to be a separate issue from the port_ida 
+fixes in this patch. The dev_pm_domain_detach_list() problem already 
+exists in the current error path and is not introduced by this change.
+
+Since this involves power-domain cleanup rather than port_ida handling, 
+I'd prefer to address it in a separate follow-up patch to keep this fix 
+focused and easier to review.
+
+Is it OK to keep this patch limited to the port_ida fixes and handle the 
+power-domain cleanup separately?
 
 Thanks,
-KunWu
+Aniket
 
-> 
-> Signed-off-by: Dev Jain <dev.jain@arm.com>
-> ---
-> Rebase soup - my huge_ptep_get() fixes landed after the refactoring.
-> 
-> This patch applies on Linux 7.3-rc1.
-> 
->  mm/rmap.c | 7 ++-----
->  1 file changed, 2 insertions(+), 5 deletions(-)
-> 
-> diff --git a/mm/rmap.c b/mm/rmap.c
-> index d1819fd699380..606c8ecf31302 100644
-> --- a/mm/rmap.c
-> +++ b/mm/rmap.c
-> @@ -2299,11 +2299,8 @@ static bool try_to_unmap_one(struct folio *folio, struct vm_area_struct *vma,
->  		VM_BUG_ON_FOLIO(!pvmw.pte, folio);
->  
->  		address = pvmw.address;
-> -		if (folio_test_hugetlb(folio)) {
-> -			pteval = huge_ptep_get(mm, address, pvmw.pte);
-> -		} else {
-> -			pteval = ptep_get(pvmw.pte);
-> -		}
-> +		pteval = ptep_get(pvmw.pte);
-> +
->  		if (likely(pte_present(pteval))) {
->  			pfn = pte_pfn(pteval);
->  		} else {
-> -- 
-> 2.43.0
-> 
-> 
+> Konrad
 
