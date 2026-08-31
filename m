@@ -1,156 +1,253 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 289E3362138;
-	Mon, 31 Aug 2026 22:37:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05F78362138;
+	Mon, 31 Aug 2026 22:39:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788215879; cv=none; b=nKuoSycBBXozGrW2of6DpWOKuuPDjA7A0Isy5u3Vt/uLjwtY1xsqLoXxvV+rcKThBOHQEc3b2hO8qfHk/qlRaM4qoTp1hYadDe/Mt6uGdDTZ3mNQWAtla1r+m3st7fNzEZ2bSzhgkmwVy+OOUhqjdB+jaUO7+fUc5udB0Gsm1hI=
+	t=1788215951; cv=none; b=BQyrdgbgzdiy6JO2CHGWGQW0MY95l8jJfIJ5W+9ECglGQTvH20gOlUIhK3UoH1MogXKrAjN8sPDNEeujt8Ggh/EwGkmtYiMVVZ1evWcQNaCWOMY3Ei5YdGtqv5JBNBNEms6+mbhNe/fC5W5ZkMva5kvF1/b2kL1lcN5dt/w4GiE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788215879; c=relaxed/simple;
-	bh=OdIEXdDkdDS/PVia3X2NAFYGbeKMhaddRZryWLnLDzQ=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=DUFYN+LzCwTPVYcIm/kKcZUAMxmSfGrGWpuXSDrw1HwkoGyIPFjMwcfsh1gLhVf/NM4T6xMHLKrVpN4JbFnSIz1iG5aGaqeEGDJubTcmGu4xpO0jrX2bFsRvRvtVEnuxLtjJ22yMRVKB4LH1n5lczbXM0JOaEI77zg4n78QfjMg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Vs21YVWb; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788215951; c=relaxed/simple;
+	bh=Jo0Dqa4f0OQM+TQSxhYX6bH9M6j4+4/eRDZJhvejqg8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=moZN17+d/0CVsAPLBcYbq3cPGoiF1CPtGCO35NqaOj0psPi3vC1MkRl9OjkBl3L0SwuQeUK3SaZdesuHI2BJPgrhLnVku/DTzmpQ5inZIGP1UCqfif8o0G7WLRAuScXSAQ57NUN2zMy2NZDMykKYUHRVQWNviXBGhYYoiXWNIos=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cSGHsVy0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Vs21YVWb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5422F1F000E9;
-	Mon, 31 Aug 2026 22:37:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cSGHsVy0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13E101F000E9;
+	Mon, 31 Aug 2026 22:39:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788215877;
-	bh=aUuYrSBZ336/J97RtA5AvaAES7nKKnIuqwoFvMOu8qs=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=Vs21YVWbotF/QUzAzOimb0pVl3ct3PMF3+hEJPbbDJPSptvzkrvSKtSHw+SaQfO/U
-	 0x7TQfYUvKZWYHNjlKEIcrbQgtc13DEa5xHhogdLnNrCtCbSfP+D1FbIcfLAKHdhcs
-	 z1kzSc0b80/NIOzUWtzH7ZXgPg6G0DkfNWEsG9Ybhl5Kqgch9BSWcvB3b9uU6S2wq5
-	 wtKNzvOhvftLc9+AV9t3BPpEb6QGR2cTPovwCGjQC5P490TnFUXAffhfgxGysnZ5vG
-	 TBkaVy/x8DmGFEvTi0gDwOj/pxAtu+i1l1a3VJolierj9O7Mtg14Bn6TTO/IXfnKGt
-	 +IIzekkjwMi4w==
-Date: Tue, 1 Sep 2026 07:37:51 +0900
-From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-To: Steven Rostedt <rostedt@goodmis.org>
-Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@kernel.org>,
- x86@kernel.org, Jinchao Wang <wangjinchao600@gmail.com>, Mathieu Desnoyers
- <mathieu.desnoyers@efficios.com>, Thomas Gleixner <tglx@linutronix.de>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- "H . Peter Anvin" <hpa@zytor.com>, Alexander Shishkin
- <alexander.shishkin@linux.intel.com>, Ian Rogers <irogers@google.com>,
- linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-perf-users@vger.kernel.org
-Subject: Re: [PATCH 2/2] tracing/probes: Fix BTF kflag check for anonymous
- struct member access
-Message-Id: <20260901073751.aa53249adf57cdbae351a3a7@kernel.org>
-In-Reply-To: <20260831131429.0c949991@gandalf.local.home>
-References: <178818875393.104360.1469039168635349344.stgit@devnote2>
-	<178818877624.104360.10938474138218043559.stgit@devnote2>
-	<20260831131429.0c949991@gandalf.local.home>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	s=k20260515; t=1788215949;
+	bh=NgLuCSc5MZRS8g/zjyDJLlD9wWkbg/zA6QcbJG+zlaU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=cSGHsVy00l3fsBa/egcf9AsdUP/JsF85nroEWi+0N8R8Nh1WBKFqZRP3czxyOlCBH
+	 bMSadqlJo/dsW8m2xyHeYnLN1X+RZ26qn49tpLWAr63NKdR8kx2S5E0DAIlacHtbSh
+	 LhNS3G9Bwa/V8PmxKltU370XrN7glRYSrEkbDePNxFt1eCZPZsqUGKW2ZYQiZdkm5y
+	 KHmGOB0qsZJrZFzJ9Hl6zh77c98yTeoUN/nLoDoLp1OsBtVJjOqI45qXL+Q8pszLZh
+	 tjYwsCr/6oYpW16dnH4URUQpIL3Zb6vflwezuGc0K/L0xbmCd7xBlTUTmREIoOxH5T
+	 YJ6AbtvRnIShA==
+Date: Mon, 31 Aug 2026 17:39:06 -0500
+From: Bjorn Andersson <andersson@kernel.org>
+To: Elson Serrao <elson.serrao@oss.qualcomm.com>
+Cc: Conor Dooley <conor+dt@kernel.org>, 
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Rob Herring <robh@kernel.org>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v7 1/8] dt-bindings: soc: qcom: eud: Add per-path child
+ nodes for UTMI routing
+Message-ID: <apYCal5G0S9cOWJf@baldur>
+References: <20260831030147.1500616-1-elson.serrao@oss.qualcomm.com>
+ <20260831030147.1500616-2-elson.serrao@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260831030147.1500616-2-elson.serrao@oss.qualcomm.com>
 
-On Mon, 31 Aug 2026 13:14:29 -0400
-Steven Rostedt <rostedt@goodmis.org> wrote:
-
-> On Tue,  1 Sep 2026 00:06:16 +0900
-> "Masami Hiramatsu (Google)" <mhiramat@kernel.org> wrote:
-> > diff --git a/kernel/trace/trace_btf.h b/kernel/trace/trace_btf.h
-> > index 4bc44bc261e6..4bd26bceae23 100644
-> > --- a/kernel/trace/trace_btf.h
-> > +++ b/kernel/trace/trace_btf.h
-> > @@ -8,4 +8,5 @@ const struct btf_param *btf_get_func_param(const struct btf_type *func_proto,
-> >  const struct btf_member *btf_find_struct_member(struct btf *btf,
-> >  						const struct btf_type *type,
-> >  						const char *member_name,
-> > -						u32 *anon_offset);
-> > +						u32 *anon_offset,
-> > +						const struct btf_type **member_type);
-> > diff --git a/kernel/trace/trace_probe.c b/kernel/trace/trace_probe.c
-> > index c4163904ba74..ce2a7bb00d28 100644
-> > --- a/kernel/trace/trace_probe.c
-> > +++ b/kernel/trace/trace_probe.c
-> > @@ -625,6 +625,7 @@ static int get_bitoffset_of_field(char **pfieldname, const struct btf_type **pty
-> >  {
-> >  	const struct btf_type *type = *ptype;
-> >  	const struct btf_member *field;
-> > +	const struct btf_type *mtype = NULL;
+On Sun, Aug 30, 2026 at 08:01:40PM -0700, Elson Serrao wrote:
+> The Qualcomm Embedded USB Debugger (EUD) can intercept one or two
+> High-Speed UTMI paths depending on the SoC. For example, SC7280 supports
+> EUD on the primary UTMI path only, while SM8350 supports EUD on both
+> primary and secondary UTMI paths.
 > 
-> Why initialize mtype to NULL?
+> Each UTMI path connects an independent USB controller/connector pair and
+> forms its own role-switch domain. EUD routes traffic based on USB role.
+> In device role the debug hub is inserted, while in host role it is
+> bypassed.
 > 
-> >  	struct btf *btf = ctx_btf(ctx);
-> >  	char *fieldname = *pfieldname;
-> >  	int bitoffs = 0;
-> > @@ -640,7 +641,7 @@ static int get_bitoffset_of_field(char **pfieldname, const struct btf_type **pty
-> >  
-> >  		anon_offs = 0;
-> >  		field = btf_find_struct_member(btf, type, fieldname,
-> > -						&anon_offs);
-> > +						&anon_offs, &mtype);
+> The existing binding models EUD using a flattened ports representation.
+> While sufficient for fixed device-role configurations, it cannot naturally
+> associate a controller, connector, and role switch with a specific
+> EUD-routable path. This is problematic for role-switch capable ports and
+> becomes more pronounced on SoCs with multiple paths. In such cases, each
+> path forms an independent role-switch domain and requires per-path role
+> awareness.
 > 
-> If mtype is not set here, then field would be either an error or NULL.
-> 
-> >  		if (IS_ERR(field)) {
-> >  			trace_probe_log_err(ctx->offset, BAD_BTF_TID);
-> >  			return PTR_ERR(field);
-> 
-> If field is an error or NULL, it exits out early.
-> 
-> > @@ -653,7 +654,7 @@ static int get_bitoffset_of_field(char **pfieldname, const struct btf_type **pty
-> >  		bitoffs += anon_offs;
-> >  
-> >  		/* Accumulate the bit-offsets of the dot-connected fields */
-> > -		if (btf_type_kflag(type)) {
-> > +		if (btf_type_kflag(mtype)) {
-> 
-> mtype should be guaranteed as set here (maybe set to NULL, but set regardless)
-> 
-> Now, if btf_find_struct_member() did not set mtype, because this is in a
-> loop, in a second iteration, mtype would be stale.
-
-Ah, indeed!
-
-> 
-> So either set it to NULL at the top of the loop, or don't set it at all.
-> 
-> Or am I missing something?
-
-OK, let me just drop NULL initialization because it is a kind of hardening.
-(Since anon_offs is left uninitialized, mtype = NULL seems somewhat unbalanced.)
-
-Thanks!
-
-> 
-> -- Steve
-> 
-> 
-> 
-> >  			bitoffs += BTF_MEMBER_BIT_OFFSET(field->offset);
-> >  			ctx->last_bitsize = BTF_MEMBER_BITFIELD_SIZE(field->offset);
-> >  		} else {
-> > @@ -661,11 +662,11 @@ static int get_bitoffset_of_field(char **pfieldname, const struct btf_type **pty
-> >  			ctx->last_bitsize = 0;
-> >  		}
-> >  
-> > -			type = btf_type_skip_modifiers(btf, field->type, NULL);
-> > -			if (!type) {
-> > -				trace_probe_log_err(ctx->offset, BAD_BTF_TID);
-> > -				return -EINVAL;
-> > -			}
-> > +		type = btf_type_skip_modifiers(btf, field->type, NULL);
-> > +		if (!type) {
-> > +			trace_probe_log_err(ctx->offset, BAD_BTF_TID);
-> > +			return -EINVAL;
-> > +		}
-> >  
-> >  		if (next)
-> >  			ctx->offset += next - fieldname;
+> Model each UTMI path as a separate child node with its own OF graph. This
+> representation is used for role-aware EUD routing regardless of whether a
+> SoC exposes one or two UTMI paths. Add an SM8350 compatible for
+> dual-path EUD topologies. Retain support for the legacy flat ports
+> representation on SC7280 for backward compatibility.
 > 
 
+Acked-by: Bjorn Andersson <andersson@kernel.org>
 
--- 
-Masami Hiramatsu (Google) <mhiramat@kernel.org>
+Please merge this together with the driver changes.
+
+Regards,
+Bjorn
+
+> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Signed-off-by: Elson Serrao <elson.serrao@oss.qualcomm.com>
+> ---
+>  .../bindings/soc/qcom/qcom,eud.yaml           | 134 +++++++++++++++++-
+>  1 file changed, 133 insertions(+), 1 deletion(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/soc/qcom/qcom,eud.yaml b/Documentation/devicetree/bindings/soc/qcom/qcom,eud.yaml
+> index 84218636c0d8..c377a77d623c 100644
+> --- a/Documentation/devicetree/bindings/soc/qcom/qcom,eud.yaml
+> +++ b/Documentation/devicetree/bindings/soc/qcom/qcom,eud.yaml
+> @@ -18,6 +18,7 @@ properties:
+>      items:
+>        - enum:
+>            - qcom,sc7280-eud
+> +          - qcom,sm8350-eud
+>        - const: qcom,eud
+>  
+>    reg:
+> @@ -45,10 +46,88 @@ properties:
+>          $ref: /schemas/graph.yaml#/properties/port
+>          description: This port is to be attached to the type C connector.
+>  
+> +  '#address-cells':
+> +    const: 1
+> +
+> +  '#size-cells':
+> +    const: 0
+> +
+> +patternProperties:
+> +  "^eud-path@[0-1]$":
+> +    type: object
+> +    description:
+> +      Represents one High-Speed UTMI path that EUD intercepts. Use eud-path nodes
+> +      to associate role-switching behavior with specific port connections, allowing
+> +      EUD to manage role transitions independently for each UTMI path.
+> +
+> +    properties:
+> +      reg:
+> +        maxItems: 1
+> +        description: Path number
+> +
+> +      usb-role-switch:
+> +        type: boolean
+> +        description:
+> +          Indicates that EUD relays USB role-switch events for this path and
+> +          performs role-dependent UTMI routing accordingly. In device role,
+> +          the EUD hub is inserted into this path to enable debug
+> +          functionality. In host role, the EUD hub is bypassed and UTMI
+> +          traffic flows directly between the PHY and the USB controller.
+> +
+> +      ports:
+> +        $ref: /schemas/graph.yaml#/properties/ports
+> +        description:
+> +          These ports are to be attached to the endpoint of the USB controller node
+> +          and USB connector node.
+> +
+> +        properties:
+> +          port@0:
+> +            $ref: /schemas/graph.yaml#/properties/port
+> +            description: This port is to be attached to the USB controller.
+> +
+> +          port@1:
+> +            $ref: /schemas/graph.yaml#/properties/port
+> +            description: This port is to be attached to the USB connector.
+> +
+> +    required:
+> +      - reg
+> +      - ports
+> +
+> +    additionalProperties: false
+> +
+>  required:
+>    - compatible
+>    - reg
+> -  - ports
+> +
+> +allOf:
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: qcom,sc7280-eud
+> +    then:
+> +      oneOf:
+> +        - required:
+> +            - ports
+> +          properties:
+> +            eud-path@0: false
+> +            eud-path@1: false
+> +        - required:
+> +            - eud-path@0
+> +          properties:
+> +            ports: false
+> +            eud-path@1: false
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: qcom,sm8350-eud
+> +    then:
+> +      required:
+> +        - eud-path@0
+> +        - eud-path@1
+> +      properties:
+> +        ports: false
+>  
+>  additionalProperties: false
+>  
+> @@ -77,3 +156,56 @@ examples:
+>              };
+>          };
+>      };
+> +  - |
+> +    eud@88e0000 {
+> +        compatible = "qcom,sm8350-eud", "qcom,eud";
+> +        reg = <0x88e0000 0x2000>,
+> +              <0x88e2000 0x1000>;
+> +        #address-cells = <1>;
+> +        #size-cells = <0>;
+> +
+> +        eud-path@0 {
+> +            reg = <0>;
+> +            usb-role-switch;
+> +
+> +            ports {
+> +                #address-cells = <1>;
+> +                #size-cells = <0>;
+> +                port@0 {
+> +                    reg = <0>;
+> +                    eud_usb0: endpoint {
+> +                        remote-endpoint = <&usb_1_dwc3_hs>;
+> +                    };
+> +                };
+> +
+> +                port@1 {
+> +                    reg = <1>;
+> +                    eud_con0: endpoint {
+> +                        remote-endpoint = <&pmic_glink_hs_in>;
+> +                    };
+> +                };
+> +            };
+> +        };
+> +
+> +        eud-path@1 {
+> +            reg = <1>;
+> +
+> +            ports {
+> +                #address-cells = <1>;
+> +                #size-cells = <0>;
+> +                port@0 {
+> +                    reg = <0>;
+> +                    eud_usb1: endpoint {
+> +                        remote-endpoint = <&usb_2_dwc3_hs>;
+> +                    };
+> +                };
+> +
+> +                port@1 {
+> +                    reg = <1>;
+> +                    eud_con1: endpoint {
+> +                        remote-endpoint = <&conn_2_hs_in>;
+> +                    };
+> +                };
+> +            };
+> +        };
+> +    };
+> -- 
+> 2.34.1
+> 
