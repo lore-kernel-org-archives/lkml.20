@@ -1,179 +1,94 @@
-Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010014.outbound.protection.outlook.com [52.101.56.14])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C7CC38D6A2
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 20:38:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.14
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788208703; cv=fail; b=fQ4iAQWSEtZyyRIKM4q/r7esjzggK9of2yfSzHpYKM5GfzmBNsjowBk14PCKaSg8HJ1lx56KLszCpdc+aYaCq75vlSuf4x9W7eHy4wgFsVnKZNjKmnZ3tUWS3RBtbifUP6Fpl0fVkzLj6SgcJSDFT3Ko0OUBiRUd5cqJh1gn2g4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788208703; c=relaxed/simple;
-	bh=bnbVaH4ilSj4qcoRK8YFj7Fd4v8X49xduJuKkt1bO9s=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=tgcfEeiRLeNoNIPcS4snIUBqX/Xq8SkiHT5ezJz2XLanqILqWSFuSSitvqbwZ9eWkDDZqzvRP4VpY3WDsHNqV+PtPm1PyRJYUtlSgt9jhFmftCZ1m+6Y2IV3+iSkogbIO++oP9y4rBHGZvzAY5/n24AyVSbTllB6mD6S7/ia7ZY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=YnafyvRi; arc=fail smtp.client-ip=52.101.56.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07B7138F62A
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 20:38:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788208736; cv=none; b=qPVNrXVgc0jMEUHAEJ+hIN2I5aj7kReUQxKFWeSO+hjuNxpQMbTiwTOLlZvw+H+CO9VWI2C2wnox39u3HsztPNT4sDNYJKCIhfum9jnwGV+vuVvSyQIo0TRnFy2FNAnf9uEm25eJJf6HcXlsDtx5NSRdjNZ7MOhm/pmrhR+NiFw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788208736; c=relaxed/simple;
+	bh=iDbevmO+BhExRVVSvnLH//sZmRne9ntiLN5cAqRFuaY=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References; b=M+QQ/Iw6xboj4aPCHKgyvq4f5BooFMG6Lu7FfAX6hRSqZzeUyFSgk6ecralrIpqSERsXZAuRvXoLFLs+dgioJZWYlY6PatFuBy0BmQOu1bW8w4hqleQBH6WfKFqze9i0mxbf/9hscuBcsrLzbwJOw+Lc/gG1CmTpISe17RTDCW0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=boj8DfVQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="YnafyvRi"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=or0gt6R5lANH1Q66KDqxs3QGVyY4q0197CtGJrJ3lGsM+d6medZnCpok8kay4CAdVRtQUI/GNX88NiYfQmG1L5VtRcO2/rHBKFUH9GHVKKgUjM1hNfXHQXfVrIROBwAmCctmHtQGrzeFCN/X/2c/Iv992iISLDJW7XmGxgtJw625f+kcsHqunBM9w90NNH3RcHIYGiF4XNfPzMrPJ+OH1rlkRbAZz7gCRTLwogpjt2cbWhJGGezJErhmugmk/lpubYC2gj+yqeAIMPLmkMh7hggpbhNSMvByIEzUNn4wqRy/mW/Fbe4l+KKni5DStZSZbCHwzrEdB+SSXi8r3DYdzQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZiBLbDYuOddXr8BPQj1XByb5doocaLWPpHCBpF7zqxQ=;
- b=l2CugGPv2xKOJktBywhPc/ID5J7jY3MbdK1X2Fu0eMKoNbP0ssgsUQTdg6uePau/p4L3tnMR7N7bSxUezHMq1ojQoabM5HwYH0WCs56avf5TKfYZR5JsUt6aqoYwJGx4cX/nCYv2LD7LvoQZJ9s2WS/14wl7hDF6uGtPMRhcxe7n7L0ZrP4Jr/R+8kiq7SWoSfxs4XgjfOpgfQ2aNQJuZmBZ4bPFuqcvAzBTxq8DzzVcOKEswnLVbsdByr8dlYIOUoX5y+vl1UM0S0li0jdDWdMaV5yVLJNCJ8DIg40j5j4qEXUjvtJxXZJL/m2vRa3PdX06RVKB0rl61cAtTpq/1Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZiBLbDYuOddXr8BPQj1XByb5doocaLWPpHCBpF7zqxQ=;
- b=YnafyvRiROOytFGHkdklyM1m6/3o4J57N2biSqJj0XSPd2oqiJo44XdyUnuG9FPEMluWTUIXm5wIhV8iEmK/Pl6IEl1SJuUlAHWhTyJzYwl1ynO37xBn0d06sMep5CRnsEsADTj/LRTwx1rAsyHmLapQPT3IedqruD0hn+8LvQc=
-Received: from BL1PR13CA0384.namprd13.prod.outlook.com (2603:10b6:208:2c0::29)
- by PH7PR12MB6737.namprd12.prod.outlook.com (2603:10b6:510:1a8::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Mon, 31 Aug
- 2026 20:38:06 +0000
-Received: from BN2PEPF000055E1.namprd21.prod.outlook.com
- (2603:10b6:208:2c0:cafe::9b) by BL1PR13CA0384.outlook.office365.com
- (2603:10b6:208:2c0::29) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.9 via Frontend Transport; Mon, 31
- Aug 2026 20:38:06 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- BN2PEPF000055E1.mail.protection.outlook.com (10.167.245.11) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.0 via Frontend Transport; Mon, 31 Aug 2026 20:38:04 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Mon, 31 Aug
- 2026 15:38:04 -0500
-Received: from [172.19.71.207] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.46 via Frontend
- Transport; Mon, 31 Aug 2026 15:38:03 -0500
-Message-ID: <44919809-5a71-70b9-84dc-1c4cac3eac46@amd.com>
-Date: Mon, 31 Aug 2026 13:38:03 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="boj8DfVQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A79D71F000E9;
+	Mon, 31 Aug 2026 20:38:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788208734;
+	bh=6BS+gWXUs9LW5bT94s6ckk0YIqKAkR0D90rUL+i7DLw=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=boj8DfVQiYh5zdYTF4w6o0stM3yAFG96LZXamBWn8uYXV8A5edYQsV/rX2ngcgZWl
+	 HWyStbmOusfqECpuYmkvhs5fHcS5aIY8ZAFkavVDpx9sh2OCD07FD3lFOluud7WmNF
+	 i/bgmzRVZlewz/L0elPRC51LFjApxhiGNbMvU6I12aqV9sv/5RmkRxAiAgokhue9+4
+	 OwODw/XQN/ygPS78CKU/5lhHc7sFJz6RxEm/9GLulmFNBWvi45D2rC+0Mk9hZM7adG
+	 dOWRj8WqSp7V2QJJPejJSKT67tznfIt9muZgihkpItvuNZnTcMlcqiRAtcy6cXHet9
+	 BhYj/7FGlEDzw==
+Date: Mon, 31 Aug 2026 10:38:53 -1000
+Message-ID: <7c884196b9a8890efadeb0a8ef9c1f6e@kernel.org>
+From: Tejun Heo <tj@kernel.org>
+To: Aaron Tomlin <atomlin@atomlin.com>
+Cc: leitao@debian.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] tools/workqueue/wq_dump.py: Add busy worker
+ inspection and BH pool states
+In-Reply-To: <20260831181554.117795-3-atomlin@atomlin.com>
+References: <20260831181554.117795-1-atomlin@atomlin.com>
+ <20260831181554.117795-3-atomlin@atomlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH v2] accel/amdxdna: fix NULL deref and GEM object leak in
- error paths
-Content-Language: en-US
-To: Deniz Aydogan <denizaydogan1902@gmail.com>,
-	<amd-gfx@lists.freedesktop.org>
-CC: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-References: <20260829080016.10002-1-denizaydogan1902@gmail.com>
- <20260829085644.38103-1-denizaydogan1902@gmail.com>
-From: Lizhi Hou <lizhi.hou@amd.com>
-In-Reply-To: <20260829085644.38103-1-denizaydogan1902@gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF000055E1:EE_|PH7PR12MB6737:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9ecb6f82-523b-4135-36f7-08df079fc1f5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|82310400026|23010399003|1800799024|36860700016|10067099003|3023799007|18002099003|22082099003|56012099006|11063799006|4143699003|13003099007;
-X-Microsoft-Antispam-Message-Info:
-	ZUx5j65QqhDMIayjDEs+TFb47N25wCvXthgivExsk4ROUAvlF3z+SwZXBdW9HxETUEgzvIfalTwhg13DzXTYERN4EUNUmKJBJFUUKlvS7ECu0C04cp0FRvIlM46qLa0h6sHZB0tDN3X/SZwuKuLQz9fXQ37wYZxcgBaeILisA6ylvYX0TIzMHsAAnh6sTehH01NCKDOx+qHo6ZR2/zhL4ishrNXXN6pZhBFVVgYisGGyzdataUtMkJXg80vR8xdlphjc3TaQsvrvu1Ht3FTew3w0Og7ZAKVLwSd/8xk0Nh6j9Jks8Lxy55ge5NHz32P5DilaBGrVVkdASIa2uwlJncWl7hYLf7tA2P7LrtRa/fELxIElg5INdxRUXBEqMjvaiFd8eFTmfMDtXyDHNqpheuHf4dR52trS21mDYFRg54t6YV7AVfGkdyfNYmf/XbVCQnfufZIZu11/dUJweshHri7PC28glH/M8nKp3KUyzI9/axSpI9oCIz4d3MZTC6ZkJGR2hagfk+6s1F7BtVfVXXr+Kt1zWFqW8fBThOrqP85h4lqK/UqNwzWiglmsXzjzlqbF8S2gf5smbauStf3elk5o4xQUrTv1Cfs649841TPuLNzy+GkTRsZjXHDB61sZO+DcOxg3tXQk/q/kKW95R+XUFVBqv0RgEL9hZbDgrlrM6PRkxWPiZehacp2+5qGr4CFRwdZCw/mNLTuS2TKfhA==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(82310400026)(23010399003)(1800799024)(36860700016)(10067099003)(3023799007)(18002099003)(22082099003)(56012099006)(11063799006)(4143699003)(13003099007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	ymvl/Nv2EZ9PSi4/cX6So594ZXCVQYdTn/0BpGsg+p97o3iuUFvGXpjIUHM9XcjnpF2/5vMYE0S5eY+Q6S/UMr1YngkkcEYIRg7e7YtdfjRa5SEiyiaPBL1jA3jwx8ZfWHQOJu4aRd5LuiQTGVx0v+iAobz5+7nioxtANMoBt3erl3sry2FI8xwjqja4u1k4cslHJS9E11TQZLuSlImzkJOMPi+MIxeHoi2uDHfXFRGbXOOtw6/qo3HO1Hyi5eoTyB/QlxSaag6QJbcpMt62W9wL9GdS4H4hyfyFW+3kI9Al37e6KM2iKhsmXlP5Kp6BloHs0Cx75MMj5fmRa9Rx116hCttw/0s4tYGqIjZ5bMosgoJulBqblOdEKYpNf50hjo3tSqQ3/k14zcoD/56IxgqlhdGezNTQk8d8aUXfWdWWapm+mZYzVN5RXIjvE7UM
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 20:38:04.4744
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9ecb6f82-523b-4135-36f7-08df079fc1f5
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN2PEPF000055E1.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6737
 
+Hello, Aaron.
 
-On 8/29/26 01:56, Deniz Aydogan wrote:
-> amdxdna_cmd_submit() does not set job->cmd_bo for internal driver
-> commands that pass AMDXDNA_INVALID_BO_HANDLE. When such a job hits
-> an error or completes normally, both the submit error path and
-> amdxdna_sched_job_cleanup() call amdxdna_gem_put_obj(job->cmd_bo)
-> unconditionally, dereferencing NULL.
->
-> Separately, amdxdna_cmd_set_error() acquires a GEM reference via
-> amdxdna_gem_get_obj() when handling a chained command, but leaks it
-> when the subsequent amdxdna_gem_vmap() returns NULL.
->
-> Guard all three amdxdna_gem_put_obj(job->cmd_bo) call sites with a
-> NULL check and release the GEM reference on vmap failure.
->
-> Fixes: 3ba13f5e7180 ("Merge tag 'devicetree-fixes-for-7.3-1'")
-> Signed-off-by: Deniz Aydogan <denizaydogan1902@gmail.com>
-> ---
->   drivers/accel/amdxdna/amdxdna_ctx.c | 10 +++++++---
->   1 file changed, 7 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/accel/amdxdna/amdxdna_ctx.c b/drivers/accel/amdxdna/amdxdna_ctx.c
-> index 31a414c3f..a806702ec 100644
-> --- a/drivers/accel/amdxdna/amdxdna_ctx.c
-> +++ b/drivers/accel/amdxdna/amdxdna_ctx.c
-> @@ -183,8 +183,10 @@ int amdxdna_cmd_set_error(struct amdxdna_gem_obj *abo,
->   		if (!abo)
->   			return -EINVAL;
->   		cmd = amdxdna_gem_vmap(abo);
-> -		if (!cmd)
-> +		if (!cmd) {
-> +			amdxdna_gem_put_obj(abo);
->   			return -ENOMEM;
-This is fixed by: 
-https://lore.kernel.org/all/17811ffc-f33b-b3ac-865b-18138239e0dd@amd.com/
-> +		}
->   	}
->   
->   	memset(cmd->data, 0xff, abo->mem.size - sizeof(*cmd));
-> @@ -575,7 +577,8 @@ void amdxdna_sched_job_cleanup(struct amdxdna_sched_job *job)
->   	trace_amdxdna_debug_point(job->hwctx->name, job->seq, "job release");
->   	amdxdna_pm_suspend_put(job->hwctx->client->xdna);
->   	amdxdna_arg_bos_put(job);
-> -	amdxdna_gem_put_obj(job->cmd_bo);
-> +	if (job->cmd_bo)
-> +		amdxdna_gem_put_obj(job->cmd_bo);
+On Mon, Aug 31, 2026 at 02:15:54PM -0400, Aaron Tomlin wrote:
+> +            if pool.flags & POOL_BH_DRAINING:
+> +                print(' draining', end='')
+> +        if pool.flags & POOL_DISASSOCIATED:
+> +            print(' disassociated', end='')
 
-The current code will not crash because drm_gem_object_put will check 
-the if the obj pointer is NULL.
+Note that POOL_DISASSOCIATED is set by init_worker_pool() and cleared only
+for per-cpu non-BH pools, so BH and unbound pools carry it for their whole
+lifetime. This would print " disassociated" on every one of their lines.
+It's only meaningful on a per-cpu non-BH pool whose CPU is offline.
 
-And I agree it is more robuster to check job->cmd_bo. Could you remove 
-the "Fixes" tag and previous leak fix?
+> +    if args.busy:
+> +        for bkt in pool.busy_hash:
+> +            for worker in hlist_for_each_entry('struct worker', bkt.address_of_(), 'hentry'):
+> +                wq_name = worker.current_pwq.wq.name.string_().decode()
+> +                fn_name = prog.symbol(worker.current_func.value_()).name
 
-Thanks
+process_one_work() hashes the worker before setting current_func and
+current_pwq, and clears them right after unhashing, all under pool->lock. A
+worker caught in either window reads back NULL, so worker.current_pwq.wq
+raises and prog.symbol(0) can raise errors and kill the rest of the dump.
+Work items can finish at a very high rate, so this wouldn't be difficult to
+hit on a busy machine. Maybe catch the exceptions and retry the worker?
 
-Lizhi
+> +                dur_str = ''
+> +                if 'jiffies' in prog and worker.current_start.value_():
+> +                    jiffies = prog['jiffies'].value_()
+> +                    dur_s = max(0, (jiffies - worker.current_start.value_()) // hz)
+> +                    dur_str = f' for {dur_s}s'
 
->   	dma_fence_put(job->fence);
->   	mmdrop(job->mm);
->   }
-> @@ -676,7 +679,8 @@ int amdxdna_cmd_submit(struct amdxdna_client *client,
->   put_bos:
->   	amdxdna_arg_bos_put(job);
->   cmd_put:
-> -	amdxdna_gem_put_obj(job->cmd_bo);
-> +	if (job->cmd_bo)
-> +		amdxdna_gem_put_obj(job->cmd_bo);
->   free_job:
->   	if (job->mm)
->   		mmdrop(job->mm);
+worker->current_start was added in v7.0 by e8e14ac7cfe4 ("workqueue: Show
+in-flight work item duration in stall diagnostics"). The 'jiffies' in prog
+test doesn't protect the member access, so on an older kernel or vmcore the
+first busy worker aborts the dump, the same failure mode the previous patch
+fixes for wq->attrs. Please handle it the same way.
+
+Also, the values are plain Python integers, so on a 32bit kernel the
+subtraction goes negative when jiffies wraps (the first wrap is five minutes
+after boot due to INITIAL_JIFFIES) and the max() turns the duration into
+"for 0s". Mask the difference to the target's word size instead, e.g.:
+
+    mask = (1 << (prog['jiffies'].type_.size * 8)) - 1
+    dur_s = ((jiffies - worker.current_start.value_()) & mask) // hz
+
+Thanks.
+
+-- 
+tejun
