@@ -1,99 +1,104 @@
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0400C3AF647
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 03:24:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58AF63AB286;
+	Mon, 31 Aug 2026 03:25:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788146683; cv=none; b=GHPQiWMdJvMXHxd5y90XYnWU9yWYptOcNZT/xHMLr+mxDa0vp87R7jbyRVNlTVZUO6a19cT2u71nCZPnsVWPDBVhxQIn++a+qxUbQ8tl3HXBNKhpfKEujRdpzBXtpcLWk7586V+80il2qThOgETAZ3vctiRn36rIaJtEpAx4sW0=
+	t=1788146733; cv=none; b=l0WwdHyor7vWnRauZEhfsVb6hz1LlBtQBVYBnZPPC1KjPjekFDQLqCe/dnMEbdrs6NAwW0dtVUfq+/6nCOB89orORW/U2SG/qKc7FO+fAwYNr+kcCvo/8VGZin1zEvNyhDv/zFEZkYUCRI4p46a/fbHmBxGAH2PWmlqX3H8j3Vc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788146683; c=relaxed/simple;
-	bh=+jYrMNj4gYVMpOQjdgm3R6wNO/eAnlIxPedhB6P4YHU=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=B4nLKYNBYsd2S6AKD6YClrTpPxFrtK8xADs6rA7qbHupCYkc0pGg5q7yKnRGPxGjXiE4ce5NLia4wFhn98MKh85cVPgwfbW/wOCchYs9XbGvUepjkjf2KurqR7/Lr/Gj7p98EkwcQlpnVkgILWW55AixeKW7J7QTY1sWhAPyqKs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--rathodpriyank.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=eX+7MwOC; arc=none smtp.client-ip=209.85.216.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--rathodpriyank.bounces.google.com
+	s=arc-20240116; t=1788146733; c=relaxed/simple;
+	bh=iCQdk9RaoT2kCMVj56PSH/WYTAj5LwSA7yUm9XDxF2o=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=plG4F56YHz877CjEk9JUhak3pr62O3GqUJG7HKx22uzDBYSWj8hEdDbhgOI46uirwY3s3+Vgs4shYFAcZyBBfwCO5oZGqa/nhl0MDS44WpO0XFkvxicgiXmCoGH6pI4GdNPngvhp6E3zouN8geovbz59CqKH42aElhoR/dAMlmA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=zx2c4.com header.i=@zx2c4.com header.b=lQjT3/OM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="eX+7MwOC"
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-398d0010cfaso1639844a91.3
-        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 20:24:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788146681; x=1788751481; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=LqUXShy4Y1uwDBlZFsBdfY3ls/HGLA3gGP5AeZZ/dKE=;
-        b=eX+7MwOChS4Fnsiwvda0cscMBNlOieLpIwoNf/lRnLvsYdqgCHDyepNM6TE9FjrU/h
-         WvXNuA90ZSFAAe8D9QEPfMKOtg+t9/OZ53nDzlnCPp/9KO7dwOPYsS5SigHU7U8vVg5X
-         WSaK0ds7yWk9I46AFQgnkVFAa+IO12XDJx6rlqL5WpRQ9X6uQyRbtWW216ZfBIJY+M5+
-         VHURdv+mGDAt8p1vG3zluw0KNYbuPHwOZu13bNUCq1S+ZWjfDB+C5XuGmIYZJ8IV8vTw
-         i4cBcQZSDDDQ8VfbDUitf73+HcqRQqPOFbqTM0zb4cr9tnO/zLGDBWtp8qLOFQsiXQne
-         OTtA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788146681; x=1788751481;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=LqUXShy4Y1uwDBlZFsBdfY3ls/HGLA3gGP5AeZZ/dKE=;
-        b=r7inhcT8z3Y0r3R2ui8rDVftjGAhjbrxXWh2OiwzFpBA6EyUU9hZo9HZqcSrC0Zvre
-         Sr2mTU6MhtbM/OCD84FtVLgoev1e1RrSXqP4z+cclvrP6ex0c5js7ot7UsfO0lvwnylW
-         mQkI1DFPg9t9owRzeY/nwFC5WFpURv+LM5NUMWCosxGWw73pDP1uzzufjA6TRApnRCNb
-         35TUp9qZxa/cPU7hTgn/4Y5e4XMMfgFWRzaKLyHAmeXq05tYeyHKJdXwexEeY28pPiBD
-         vO3QbQiXAm5G1prOJMUo39vGL1qv6rx2bM9YGEnKV9hjiAWDbzq5/wGWVXJi1EfBvV+j
-         B6IQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy29Nlw4wIT1J/4duoprk0CFT7/SzFENaiCfoI7e+6/e5Bgi9BekGSez4YmfLpJW/POA6WCAwxA1MdGKn4=@vger.kernel.org
-X-Gm-Message-State: AFuF++lXXEpFOQrUB8D4dmVxP7rHztR3GGP1Z/dwmC85sVeOwBG86wCv
-	UsrepEfxoYlT8hRhjbHEhFCoBssjKU7ilZVO2LezYAfIaDBjChM7ZX0M/5/bSm3pfAg3WAJK1Yt
-	ogu3/+63tFL6272I7JbQc+7EmBkvGNix/CA==
-X-Received: from pjbgw21.prod.google.com ([2002:a17:90b:a55:b0:383:7b51:b1cd])
- (user=rathodpriyank job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:90b:3d4b:b0:398:9be8:ea6a with SMTP id 98e67ed59e1d1-398f87e4b39mr785477a91.23.1788146681049;
- Sun, 30 Aug 2026 20:24:41 -0700 (PDT)
-Date: Mon, 31 Aug 2026 03:24:40 +0000
-In-Reply-To: <apSdOnbdLdrJ7ksF@wunner.de>
+	dkim=pass (1024-bit key) header.d=zx2c4.com header.i=@zx2c4.com header.b="lQjT3/OM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A92581F000E9;
+	Mon, 31 Aug 2026 03:25:29 +0000 (UTC)
+Authentication-Results: smtp.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=zx2c4.com header.i=@zx2c4.com header.a=rsa-sha256 header.s=20210105 header.b=lQjT3/OM
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zx2c4.com; s=20210105;
+	t=1788146728;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=zKdZAmn445qhRZS0uBj1MCk1GVoADURg/5nlTEd0BLA=;
+	b=lQjT3/OMWfWDv8gCGmA/N+ykEVDspz9O/ynOIboDnKKeyxfvtj+3xMeA9vntKgcdiGqF2Z
+	FFTxC0+aqs/QKcYEyYloI1EcfTsgfpu5RIG2k2tUROfWL68bY/u5VXLQBt9+xIP9vNT0/6
+	uoW+58rDkA+0IngiguWFA3CaOsSrD6A=
+Received: 
+	by mail.zx2c4.com (OpenSMTPD) with ESMTPSA id 3f46e57b (TLSv1.3:TLS_AES_256_GCM_SHA384:256:NO);
+	Mon, 31 Aug 2026 03:25:27 +0000 (UTC)
+Date: Sun, 30 Aug 2026 21:25:19 -0600
+From: "Jason A. Donenfeld" <Jason@zx2c4.com>
+To: ramses@well-founded.dev
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Martin KaFai Lau <kafai@fb.com>, wireguard@lists.zx2c4.com,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net] wireguard: queueing: preserve tstamp_type in
+ wg_reset_packet()
+Message-ID: <apT0H7qIwFW-JCLn@zx2c4.com>
+References: <20260827-wg-tstamp-v1-1-4acfebb855ef@well-founded.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260830-fix-aer-refcount-leak-v1-1-64e1013add12@google.com> <apSdOnbdLdrJ7ksF@wunner.de>
-X-Mailer: git-send-email 2.55.0.897.gb25b4bd76c-goog
-Message-ID: <20260831032440.1053206-1-rathodpriyank@google.com>
-Subject: Re: [PATCH] PCI/AER: Fix struct pci_dev reference leak in aer_process_err_devices()
-From: Priyank Rathod <rathodpriyank@google.com>
-To: lukas@wunner.de
-Cc: Priyank Rathod <rathodpriyank@google.com>, Mahesh J Salgaonkar <mahesh@linux.ibm.com>, 
-	"Oliver O'Halloran" <oohall@gmail.com>, Bjorn Helgaas <bhelgaas@google.com>, 
-	Stefan Roese <stefan.roese@mailbox.org>, linuxppc-dev@lists.ozlabs.org, 
-	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260827-wg-tstamp-v1-1-4acfebb855ef@well-founded.dev>
 
-On Sun, Aug 30, 2026 at 11:14:34PM +0200, Lukas Wunner wrote:
-> The "no active error status is read" is the only scenario where
-> this *could* happen.  However if no error bits are set in the
-> status register, why did the device send an error message upstream
-> in the first place?  That would be a broken device.
+Hi Ramses,
+
+On Thu, Aug 27, 2026 at 01:52:56PM +0200, Ramses de Norre via B4 Relay wrote:
+> From: Ramses de Norre <ramses@well-founded.dev>
 > 
-> Another theoretical possibility would be that the device becomes
-> inaccessible by the time aer_get_device_error_info() reads the
-> status/mask registers.  They'd both be read as "all ones",
-> hence info->status & ~info->mask == 0.
+> Sending traffic through a wireguard tunnel on a host using the fq
+> qdisc fills the log with:
+> 
+>   fq: likely mono tstamp with tstamp_type 0
+> 
+> An skb carries a timestamp in skb->tstamp and, separately, a
+> skb->tstamp_type field recording which clock that timestamp came from.
+> The two have to agree.
+> 
+> When wireguard encapsulates a packet it calls wg_reset_packet(), which
+> clears the fields that must not leak from the inner packet into the
+> tunnel packet. It does so in two steps:
+> 
+>   skb_scrub_packet(skb, true);
+>   memset(&skb->headers, 0, sizeof(skb->headers));
+> 
+> skb_scrub_packet() deliberately keeps skb->tstamp when it holds a
+> monotonic timestamp: that value is the time the packet is scheduled to
+> be sent, and the qdisc still needs it. The memset then zeroes
+> skb->tstamp_type, because that field sits inside the headers group
+> while skb->tstamp does not. The packet therefore leaves wireguard
+> carrying a monotonic timestamp labelled as a realtime one.
+> 
+> Nothing noticed until commit c4f796c4f16b ("net_sched: sch_fq: convert
+> skb->tstamp if not monotonic"): fq used to assume every timestamp was
+> monotonic. It now consults tstamp_type, spots the mismatch, warns, and
+> falls back to treating the value as monotonic. Pacing still ends up
+> correct, so the log spam is the actual problem.
+> 
+> Save tstamp_type before the memset and restore it when encapsulating,
+> next to the hash fields that are already carried over this way. When
+> decapsulating it stays zeroed, which is right: an incoming packet's
+> timestamp is a realtime receive timestamp.
+> 
+> Fixes: de799101519a ("net: Add skb_clear_tstamp() to keep the mono delivery_time")
+> Signed-off-by: Ramses de Norre <ramses@well-founded.dev>
+ 
+Thanks for this. I've queued this up in the wireguard tree.
 
-Hi Lukas,
+One thing I'm wondering is whether your Fixes: line is correct. Would
+c4f796c4f16b be a better candidate than de799101519a? Or maybe even
+4d25ca2d6801 is best?
 
-Thanks for the review and clarifying that.
-
-The underlying reference count leak is genuine, but the additional topology
-scenarios listed in v1 were inadvertently incorporated from an automated AI
-review bot report, which introduced those inaccurate/hallucinated cases.
-
-I have updated this in v2:
-- Corrected the Fixes tag to 60271ab044a5 ("PCI/AER: Take reference on error devices").
-- Cleaned up the commit description to remove the extra scenarios and focus
-  strictly on the actual failure path (device becoming inaccessible / register
-  read returning no active unmasked status).
-
-Thanks,
-Priyank
+Jason
