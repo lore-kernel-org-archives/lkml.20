@@ -1,117 +1,196 @@
-Received: from mail-yx1-f46.google.com (mail-yx1-f46.google.com [74.125.224.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36F9846D562
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 15:25:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.46
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788189944; cv=pass; b=ArajvcrlK2+MiqtFZY3iRku6j5CC4Z4D72ufmhXukE3LUFlFRTajYD+KVR0QGaY7marHEZ6b8Eo5WqbSsfMW++hPk9toJOI0Iuy/yQzmjPfJWFDYH5pp5awCqma0eO2DEvBha/mqZaHJQ7RR1x0UcNk61RCLE5V4xYoQ1jat4HI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788189944; c=relaxed/simple;
-	bh=5r5lIWIE05yql962Lu66IpUSpOLRAbYoczG3Qe81sGo=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=prU4vagqwW9R2rj9qkv4mz7hXOOD9HRzwwhYwk0wvfuVaxsrXWz4WQ94DVFPNl+zaUCgPOQj4fGpfi11x0Q9A5XgbJC0qGRW3tCmEf+wJ/85nwMqYRLPWVYEiF+2T6yIdwFkbjJ8fVoWDC5nc+aAc84eHi+GVcDsDcnTwwJE/Vo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Y6osjXU+; arc=pass smtp.client-ip=74.125.224.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE69046D559;
+	Mon, 31 Aug 2026 15:25:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.171
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788189957; cv=none; b=fBQ/jTp/zJXZoA7ndpQPwmibsZUTFoKKb1ZTozFoFIwtuqzSsWKG4q5y6wWHxt7sPvkA+kLm1HgiQOXpYgojK/ercXBRLGcQ45Qcq60Xf1o1tHPKZUjn/CKcVZrCOCnRzMfVDcQwHYM8u7xAC34Tp2lI1aJseJ/jhL9LSRX3MMA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788189957; c=relaxed/simple;
+	bh=6n96KrwdCy1R3cw3knruAQ0UKZlgvvVlvt3iShTbow0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=smQvhzJlmXpPtr1VsO2nwlWWd7x/BKyeHY2NBMj55pgHoSfwBuY2er4gKZZApuG03onVweV/kK3qeunq7wObDO5TWxueSyzU7JOeXnuga5W8C3aDa2xkwlqI8je1cyNjrqEFPB57ZlqumjSHUW5AhTy+luULGL3oTvFbgDqDDqk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=e7oCxPWF; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=lyUUATlF; arc=none smtp.client-ip=80.241.56.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Y6osjXU+"
-Received: by mail-yx1-f46.google.com with SMTP id 956f58d0204a3-66f88b68518so114000d50.3
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 08:25:43 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788189942; cv=none;
-        d=google.com; s=arc-20260327;
-        b=rkB4sYCCxd3l7LcFzjm1iFW80P9jaBorTWZyztLw1SiKt6Dp+oiNErYBT7dX8vScYS
-         c1KAoC1eCuNgiEleiBAYJWDGyysQ1IZuiFkFl5adqpmnUlAZjgtitwe5ap89pDyljvnf
-         E9PnfJsz0H55OVRAQPb1w+HQ4W2kRfMqC+x+K2RpjJItVCTRI4kplsMZ4ya/MnTBK5w3
-         7YBc6MxwHsOSr+gqPe7pgsWaCuy7wKU3iSYIcmq5lZW9gHNWS1aSssJk2GIslf040gNn
-         sHneuJ0N+iwqZd9Exwg7o9wMCC8Uwgqg1cVHCt1SU7an5xXf/fnMdkgYGM6Vdv3rMes7
-         C5+w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=2lfcBfmQY62Vm348mWM4CEGfElAKI7bW/B4d2+TFnBY=;
-        fh=48XoqTJ0AKcmbbal/DJO9YmF+AUJVX0DS5g2FrwGLHA=;
-        b=bDWnPwe4gZ3jT6icm+4ClyiAppYH7VNs93zQclfC592V0C1EvTiz8Hz7M9GGv7a+Td
-         KOqxrsID7hxPyKIfTIkEaRpYArRJawHtF1E6+YDTdnp83hkYp0BA28hJrDmED1XMkAUK
-         V6VOsIX+k8w7M9Ch69DHr78DIy6r0VdfNJ8rjJgpn6oo46P55GDpT8RWilusMH8wWuan
-         PzlJulFjixsPQF94meU3dasrpH60qUNEniUgdMzXPC434TLPselnDM9kmXj4cZGZtYA6
-         njqYFikYhXEF8+bGdeYsLNVM8Ubo0IfagyxIMchZu1G1snDux77X/DcL2HE71AL8c2c6
-         lH6g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788189942; x=1788794742; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=2lfcBfmQY62Vm348mWM4CEGfElAKI7bW/B4d2+TFnBY=;
-        b=Y6osjXU+kW6Jam4k1IzXYyj3nNibFhcTM+I5jK2qbm9mDMGLIx1hPxjDBoFcNCY3Ec
-         DAii1KiqmZyrUsr9JN2gVDNeyqCrHhp7ppAXrD3VGfMSDGE+NlVW7hnC/HL2RdaEqmlB
-         /CzW3lzSC43kheUmPJOK9NGmjyaziTpAJD/wtE2Yrtiqg3t6Dqj6DKoTcHpZ0inIA+C3
-         mJLg0xbTa5j8x3pRPmt1tG70FqySbqsYXXiIHCn7XWhPArKfZ0/aVxMdNYqukd6XlHMS
-         I5mSMCjOcM2g77EFw1hAE5CV8UUIBhzqXuWtKSnsNtvAGGm1FhjU2Spe/7fqtRiQV/tL
-         J9OA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788189942; x=1788794742;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2lfcBfmQY62Vm348mWM4CEGfElAKI7bW/B4d2+TFnBY=;
-        b=e0NlQ93yH/j7e0iezmL2QHMv0nbDO0a1XpK4h9u36ZoMgONnowFohh/LiH4IlvwQKj
-         c3Bwb/TvoYXUFEgROL/a6TefbtWXxvTDgqHaSKl55BYceGWpFaAf0DFllVCEboXOSZMR
-         lYmTBH5ow/G2ZrNgzZQN4s1Qw4T64juQwZm3C+jiWLlSrWEewnyudPAF13qvxDttyTrc
-         ceycxzha0p9TEjoYhsB98MZ+Blih8Nt+Yh80OlFTHarCEblGBvbXXtP6dIkJUmirpeQQ
-         5jf7+AQCBH0G8+ddEDK2z6GHobjYy2OOHLWyafqpgzACjobL6CbQDG7F+CBejUbUP+Rd
-         lW1g==
-X-Forwarded-Encrypted: i=1; AKwUvBwcfQSLZH3O0kWOKxv6c3nxN/2+Jjb89KoB7E1V+0LWmUld+TT2+1VmCsOn+jKGqkw/1Dxcp1anJVVO21g=@vger.kernel.org
-X-Gm-Message-State: AFuF++n9yOghAPFHt/1isP/DqwYk23N5wCMvKHM0S7V0H9XZ2CcnXmrM
-	fiqH285oM7teij4FWlFcuWIeQGDt+Fmh9Qkblrb6NrY3Vk988UUh9/fABc15IZNKhxonL8eQyKs
-	uDkBy0iqyfzZY/SSPw2UmraJ6GFr0jj8=
-X-Gm-Gg: AYBFou1l9Sh+kMmDB/5KG3iOqszilJimJhHKejIyx4KFlKL1Yud2KdVdwkszljmpiU5
-	RfiErCZYoEpp1OxggCDfrCB0sJM0WguEv4uNS26S18/I1maDm40S3QmjQhKxB+zCYW36i1C2d8j
-	0R8C5S5B+D1OOxh0+q3hmjQMFHZThwOEZL1Otl5bnn0Kfzy4mRU3JNZ1RH+Drdxa+o/bmaj7VF2
-	+W8DNTZam2bMR4R9Cyeu2yQCRVlRIh3IlKX1VdIvLgPmKdWZ4bA9bitYPIA37Xga6aG3tS1P/wh
-	slgl/vb1FzS+uL/Gpe6vDzQmGCWEceaLOi19e7Etm9nn/x0l8aJ9Dvt7Y/JccRaKCEf1XloEIl+
-	zkDKZEXv8
-X-Received: by 2002:a05:690e:480d:b0:66d:132a:875f with SMTP id
- 956f58d0204a3-66f87615f57mr469041d50.47.1788189942058; Mon, 31 Aug 2026
- 08:25:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="e7oCxPWF";
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="lyUUATlF"
+Received: from smtp202.mailbox.org (smtp202.mailbox.org [10.196.197.202])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4hYXrB3KRlzMlL2;
+	Mon, 31 Aug 2026 17:25:46 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1788189946;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=yJ8wDwLUHHM5alMinMFlBdo6Q2IkABX6kyUMOvTWkHA=;
+	b=e7oCxPWF3NTVpnQ2bA+aeknMUr64ME2cPO1jwtXEKA3FSl2Oeq6vwJreR80fGEz1LX6Ulk
+	pJdVvcwFiMa9XjFQaZKPq8pewrbk60t7nmKmCpHggGnON/Rb3Kli2kCIARpKgou4n4dEWk
+	J2ogLq+fPgUh9VvbCEcVA3oeERl4Uio2lOf3uq4ZCwL2H7//Xw0vowX+8s0BzVKTIkJzIM
+	aM+MTgnTGHdaqmg+2M3NoEdFNVvUGRcOUngSxi8assCtcLd2bE9H4gA70wQxcEtPJU6uxw
+	rxYfFHJy6paw2cNOc5BJF8ruZAswEq8evAmu1mv4Jw95KgJKBMRGGCGQXZRBKw==
+From: Manuel Ebner <manuelebnerli@mailbox.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1788189944;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=yJ8wDwLUHHM5alMinMFlBdo6Q2IkABX6kyUMOvTWkHA=;
+	b=lyUUATlF2stKxxDrIEWF2LTvNqGPKVzKZPNR6aYIf9hJJaSiAa1iLK4gecZfmNA/C7h5Zp
+	X/Vl3IXKMg1MeS9ci0MRgvuYziRKZoJ8Zipr9XMdZEaOPNWeKQcJ1eOfaX67Z/s6NFnOM0
+	36uZDjUeJCLezmj3Rc/dxgvT3mdQu4QIr7y7bAcB3bCFaYl4ZbMHqIOntH22GImM0eW4Lb
+	6vrKQQwz17ZVMk5S//bIBOtxgxYWlGlOxTTEmGY6H/8l3Kf83UfNEnw06qQyxW8y577qMC
+	1XEY0BRGJEybF1lEcIOqoi6QPRNvjPMGoxFbkIgQMyAG411ceE/bCr3MzcXKAw==
+To: Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Miguel Ojeda <ojeda@kernel.org>,
+	Boqun Feng <boqun@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>
+Cc: Manuel Ebner <manuelebnerli@mailbox.org>,
+	workflows@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	rust-for-linux@vger.kernel.org,
+	llvm@lists.linux.dev
+Subject: [PATCH] v2 Docs: changes.rst: introduce optional column
+Date: Mon, 31 Aug 2026 17:25:22 +0200
+Message-ID: <20260831152523.638881-1-manuelebnerli@mailbox.org>
+In-Reply-To: <20260831151605.638172-2-manuelebnerli@mailbox.org>
+References: <20260831151605.638172-2-manuelebnerli@mailbox.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260710022854.3739558-1-michael.bommarito@gmail.com>
- <20260710022854.3739558-3-michael.bommarito@gmail.com> <20260831134023.7784374a@pumpkin>
-In-Reply-To: <20260831134023.7784374a@pumpkin>
-From: Michael Bommarito <michael.bommarito@gmail.com>
-Date: Mon, 31 Aug 2026 11:25:29 -0400
-X-Gm-Features: AcwNN1XCy_2Zo6asUAI6Mo_MrE5tR1bf4Mf0i1abV1r9A7R-zlEGvrG8uEVg748
-Message-ID: <CAJJ9bXzmVKLQopUHTNh7-C4WggMcBJ3s9KShA05piwm9VTMTOg@mail.gmail.com>
-Subject: Re: [PATCH 2/2] HID: hyperv: add KUnit coverage for device info bounds
-To: David Laight <david.laight.linux@gmail.com>
-Cc: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>, kys@microsoft.com, 
-	Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>, 
-	Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>, linux-input@vger.kernel.org, 
-	linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-META: oc546a5fwr1qnkcp7tk1jgc3muciipkx
+X-MBO-RS-ID: a45539c2849ffa04d06
 
-On Mon, Aug 31, 2026 at 8:40=E2=80=AFAM David Laight
-<david.laight.linux@gmail.com> wrote:
+The optional tag isn't obvious nor defined. Therefore replace with column.
 
-> This has landed in rc1 and fails to build (with gcc 12.2) because the tes=
-ts
-> in fortify-string.h detect that is it writing beyond the end of the
-> structure.
->  module_exit(mousevsc_exit);
+Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
+---
+ Documentation/process/changes.rst | 84 +++++++++++++++----------------
+ 1 file changed, 42 insertions(+), 42 deletions(-)
 
-I think Juergen and Jiri already found and fixed this, but it probably
-needs to get bumped up to for-linus sooner.  Sorry again for missing
-this on the original series.
+diff --git a/Documentation/process/changes.rst b/Documentation/process/changes.rst
+index b3fa980b63e3..905ac0f6cdc5 100644
+--- a/Documentation/process/changes.rst
++++ b/Documentation/process/changes.rst
+@@ -29,49 +29,49 @@ systems; obviously, if you don't have any PC Card hardware, for example,
+ you probably do not need to concern yourself with pcmciautils.
+ 
+ ====================== ===============  ========================================
+-        Program        Minimal version       Command to check the version
++        Program        Minimal version  Required for 
+ ====================== ===============  ========================================
+-bash                   4.2              bash --version
+-bc                     1.06.95          bc --version
+-bindgen (optional)     0.71.1           bindgen --version
+-binutils               2.30             ld -v
+-bison                  2.0              bison --version
+-btrfs-progs            0.18             btrfs --version
+-Clang/LLVM (optional)  17.0.1           clang --version
+-e2fsprogs              1.41.4           e2fsck -V
+-flex                   2.5.35           flex --version
+-gdb                    7.2              gdb --version
+-genisoimage            1.1.11           genisoimage --version
+-GNU awk (optional)     5.1.0            gawk --version
+-GNU C                  8.1              gcc --version
+-GNU make               4.0              make --version
+-GNU tar                1.28             tar --version
+-GRUB                   0.93             grub --version || grub-install --version
+-gtags (optional)       6.6.5            gtags --version
+-iproute2               6.14.0           ip -V
+-iptables               1.4.2            iptables -V
+-jfsutils               1.1.3            fsck.jfs -V
+-kmod                   13               kmod -V
+-liblzma                5.8.1            lzma -V
+-lzop                   1.04             lzop -V
+-mcelog                 0.6              mcelog --version
+-mkimage (optional)     2017.01          mkimage --version
+-mtools                 4.0.49           mtools -V
+-nfs-utils              1.0.5            showmount --version
+-openssl & libcrypto    1.0.0            openssl version
+-pahole                 1.26             pahole --version
+-pcmciautils            004              pccardctl -V
+-PPP                    2.4.0            pppd --version
+-procps                 3.2.0            ps --version
+-Python                 3.9.x            python3 --version
+-quota-tools            3.09             quota -V
+-Rust (optional)        1.85.0           rustc --version
+-Sphinx\ [#f1]_         3.4.3            sphinx-build --version
+-squashfs-tools         4.0              mksquashfs -version
+-syslinux               6.04             syslinux --version
+-udev                   081              udevadm --version
+-util-linux             2.10o            mount --version
+-xfsprogs               2.6.0            xfs_db -V
++bash                   4.2              
++bc                     1.06.95          
++bindgen                0.71.1           generate Rust bindings
++binutils               2.30             
++bison                  2.0              
++btrfs-progs            0.18             
++Clang/LLVM             17.0.1           alternative to GNU C (gcc)
++e2fsprogs              1.41.4           ext4
++flex                   2.5.35           
++gdb                    7.2              
++genisoimage            1.1.11           
++GNU awk                5.1.0            objtool
++GNU C                  8.1              
++GNU make               4.0              
++GNU tar                1.28             
++GRUB                   0.93             
++gtags (optional)       6.6.5            
++iproute2               6.14.0           
++iptables               1.4.2            
++jfsutils               1.1.3            
++kmod                   13               
++liblzma                5.8.1            
++lzop                   1.04             
++mcelog                 0.6              
++mkimage                2017.01          ARCH=arc, arm, or powerpc
++mtools                 4.0.49           
++nfs-utils              1.0.5            
++openssl & libcrypto    1.0.0            
++pahole                 1.26             
++pcmciautils            004              
++PPP                    2.4.0            
++procps                 3.2.0            
++Python                 3.9.x            
++quota-tools            3.09             
++Rust                   1.85.0           CONFIG_RUST=y
++Sphinx\ [#f1]_         3.4.3            
++squashfs-tools         4.0              
++syslinux               6.04             
++udev                   081              
++util-linux             2.10o            
++xfsprogs               2.6.0            
+ ====================== ===============  ========================================
+ 
+ .. [#f1] Sphinx is needed only to build the Kernel documentation
+-- 
+2.54.0
 
-Thanks,
-Mike
