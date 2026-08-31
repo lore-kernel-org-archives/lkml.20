@@ -1,163 +1,96 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from mail-43170.protonmail.ch (mail-43170.protonmail.ch [185.70.43.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8E6D2DB7BF
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 12:15:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4B992EBB8D;
+	Mon, 31 Aug 2026 12:15:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788178519; cv=none; b=i0+0r2Wr0tpn/A5YfuOWq+hZmH+3kxwFYzmNmewjIVqsQzIzY7ag8Mf9S0QsFoJZeDkmrvOZ7dLGi6pCXi0EnJrE4Q6NLRYS2Hycj+4VMgh9k4P/636b9e2NCwmuKl1KsP/u9Pr5PgecKer6r54c6gqx7xISLhTKp5xm/hWjAoQ=
+	t=1788178552; cv=none; b=V8AG2JTIvBON8VMNFzPwvrSnFRI0BvpeHtKapGd8xtjJdUdyKopME6oV91jVegbS4E2lOjrBrpDCE/mxRoYfkjyb7oYK3VSalwnE0UAGcSxCR0F0QK3J+oJMIlRQJ5mBClwkV6TIj2h/6uAENjapzhOsm9Xk0GoNxMs6mfYYeok=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788178519; c=relaxed/simple;
-	bh=LxUt+CnyDWGDMtzxg5Cjeq/z3ZUGbAwQZvmAAhj5b1E=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=tH9f3ksNOC2R4G6excHOODaP4MCie62eyhSg4u4DcoFVdOKM8cIrw9sFsRSv0MwaG853mh8AKsE1fFvGPRGYvkmECi8w9jQhT4xFoP5pdJkvpgRkEyvXjcMuD8GSSiavv8NyS5iE1gErD3r7mWVbENvBbAC1tnYNh5csBvVW0pE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=x8s3e4Cn; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1788178552; c=relaxed/simple;
+	bh=s1wZ2c0AfDKuRP/bzpxQiB/gvfog8oW6GEL8GwzB2rM=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=o+XUO+JnNiPq42NCXqvdQA0Bx0YLrGob/k6yfoJ/tz5wqm5+J+NWoVfwbqQidj0tqfQpjj67py9RuHid6Ntd8a3uSSbR0R4Bj1lMnLf+2KG5TdnzZC9Pw+ehlaDe2SbrGzwovB9EKD2qZF2f2I3135Upg1eeijWt8wo2tU0i+P0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=MuDN+f0h; arc=none smtp.client-ip=185.70.43.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="x8s3e4Cn"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 058AB1A191A;
-	Mon, 31 Aug 2026 12:15:15 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id CBC2F60231;
-	Mon, 31 Aug 2026 12:15:14 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id EB42B11C78B4C;
-	Mon, 31 Aug 2026 14:15:04 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788178509; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=MKHpfG9FXZBRRV2MzUmsKoBDMrVngBIFiVIQAk/+QT4=;
-	b=x8s3e4Cn2x+dOCKmc9hckekz+B0vlGLGChkHD95QauWurwh9rKYWr7JDXVdiLJVK4PwPcd
-	3WcNFco7+jtDi3/5GhWMW0/GFw6A6U/BCY4SR2MKIwNypKR/MDZw8DI54tdwiznnuETGWt
-	ldX3FC3niPA4g3xlFrgTkf3mOlYknS2lYYJRyK34uk2+xY+A2uR5uWDmj/Kn9Iq9AP9bRx
-	9hxwqEpIoTsKMHtXlE0vU8rK8/OIcf23jjAoBvJ2zSVzx7SgYn+wTpx6yJ6WzWMdRmSDSJ
-	EXB8hFmiy5SG7KKp6qnIHuqMEW+oTxirjDua4lzhoknscg1f56bmGy3GNAopkA==
-Message-ID: <480f15e2-e045-46b7-89af-1fbcefd3c4eb@bootlin.com>
-Date: Mon, 31 Aug 2026 14:15:04 +0200
+	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="MuDN+f0h"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
+	s=protonmail; t=1788178538; x=1788437738;
+	bh=Y4qfHbSelR1W1n0w0pbKPKZgJ5rYbtRV+/lIG9Gq1bU=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:From:To:
+	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=MuDN+f0hRXsgkH7jNOyogDpvno6Q1PvZnDtCoS3H2+RSPheDdtH3DxrJoqtzfBkA7
+	 cz0oXM+FoSDprbZ6QWq7jO36FBT5zEqoYuy8CacxOwSjlsX/+aNdFkqTSS4BceadkW
+	 UpZqFrgy4UGEtY6pRB82jDTXhY99EtRKpd0tejzV/Qt/X2EjUsJsruR8HJo/Z/tQhd
+	 XSr0tev5NvbltfbmNry1kJLoSPkxthsEuuE2C+qYBXa1u1B7T8ExlIxJEWrU4lfXMk
+	 lUafGul935RLeGmgxzHbOm/8VryNa74SN/C7SNumbbZE9O2f1c7XHqPdY1EW+Od484
+	 q1B2OLTeovUjQ==
+X-Pm-Submission-Id: 4hYScm74y6z2SdHS
+From: Esben Haabendal <esben@geanix.com>
+To: "Jonathan Cameron" <jic23@kernel.org>
+Cc: "Joshua Crofts" <joshua.crofts1@gmail.com>,
+  <linux-iio@vger.kernel.org>,  <devicetree@vger.kernel.org>,  "Lars-Peter
+ Clausen" <lars@metafoo.de>,  "Rob Herring" <robh@kernel.org>,  "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>,  "Conor Dooley" <conor+dt@kernel.org>,
+  "Martin Kepplinger" <martink@posteo.de>,  "Sean Nyekjaer"
+ <sean@geanix.com>,  "David Lechner" <dlechner@baylibre.com>,  Nuno
+ =?utf-8?Q?S=C3=A1?=
+ <nuno.sa@analog.com>,  "Andy Shevchenko" <andy@kernel.org>,  "Martin
+ Kepplinger" <martin.kepplinger@theobroma-systems.com>,
+  <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v6 7/9] iio: accel: mma8452: Drop unneeded lock acquire
+ on read
+In-Reply-To: <20260831013425.7803ce1c@jic23-huawei> (Jonathan Cameron's
+	message of "Mon, 31 Aug 2026 01:34:25 +0100")
+References: <20260825-mma8452-open-drain-v6-0-9b252804ee80@geanix.com>
+	<20260825-mma8452-open-drain-v6-7-9b252804ee80@geanix.com>
+	<UFc9cC1VeohKw6lxQ8uulsfj9wJ_OqGUgGPTUnTX-zssKZ97aEC0Xi9nsAxv-tcf2DP5e85ElFZ8wPgxwG8l3g==@protonmail.internalid>
+	<20260825121704.00004ed3@gmail.com> <87y0dumiga.fsf@geanix.com>
+	<2m3zXurwen7GRVSaBnDu6bY31Gn7dFzO2UEoU4bRNxCGCR86DTyGq-CMmmeEh-U7AcCWC6eBjjFbZSGNltSwWg==@protonmail.internalid>
+	<20260825154449.00002f6f@gmail.com> <87pkz6mh07.fsf@geanix.com>
+	<d7QLXSH9l60wN2wQRLBVJ_hqyARslMkuBvmhXIarJC_4JkmykwA4t0pyBg6OBkyn4_6EVy9-nexfkzl5rZpbHg==@protonmail.internalid>
+	<20260831013425.7803ce1c@jic23-huawei>
+Date: Mon, 31 Aug 2026 14:15:36 +0200
+Message-ID: <87zey2v63b.fsf@geanix.com>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next 1/2] net: stmmac: dwmac4: Read the UC filter size
- from hardware capabilities
-To: Nicolai Buchwitz <nb@tipi-net.de>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, Jakub Kicinski <kuba@kernel.org>,
- davem@davemloft.net, Eric Dumazet <edumazet@google.com>,
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Russell King <linux@armlinux.org.uk>, thomas.petazzoni@bootlin.com,
- =?UTF-8?Q?Alexis_Lothor=C3=A9?= <alexis.lothore@bootlin.com>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com
-References: <20260831070121.349778-1-maxime.chevallier@bootlin.com>
- <20260831070121.349778-2-maxime.chevallier@bootlin.com>
- <2631c832d5aebc56e152628132494545@tipi-net.de>
-Content-Language: en-US
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-In-Reply-To: <2631c832d5aebc56e152628132494545@tipi-net.de>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain
 
+"Jonathan Cameron" <jic23@kernel.org> writes:
 
+> On Tue, 25 Aug 2026 16:06:32 +0200
+> Esben Haabendal <esben@geanix.com> wrote:
+>
+>> Great. I have created a local mma8452-next branch where I will continue
+>> the work on some of these issues.
+>
+> Great. It is absolutely fine to postpone (or indeed ignore completely) reports
+> from sashiko that are on preexisting issues.  That even applies when I point
+> them out or suggest maybe you take a look!  I don't mind folk saying
+> they are too busy!  I know I am which is why I try to talk others into doing
+> this stuff ;)
 
-On 8/31/26 14:04, Nicolai Buchwitz wrote:
-> Hi Maxime
-> 
-> On 31.8.2026 09:01, Maxime Chevallier wrote:
->> dwmac4 has multiple banks of perfect filter entries, independently
->> configurable during IP integration.
+Good to know, and thanks :)
+
+>> > Nevertheless this is an issue that will be caused directly by this patch if
+>> > applied. If your only goal is to add support for open-drain irq sharing, you
+>> > can probably just drop this for the time being and just focus on that.
 >>
->> The multi_addr bank reports a number between 0 and 31 corresponding to
->> the actual number of entries in that bank, while the 32 and 64 banks
->> are all-or-nothing.
->>
->> Expose these caps over debugfs as well.
->>
->> Signed-off-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
->> ---
-> 
->> [...]
-> 
->> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4.h b/drivers/net/ethernet/stmicro/stmmac/dwmac4.h
->> index 6382836828ba..89368e34a388 100644
->> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac4.h
->> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4.h
->> @@ -176,7 +176,9 @@ enum power_event {
->>
->>  /* MAC HW features0 bitmap */
->>  #define GMAC_HW_FEAT_SAVLANINS        BIT(27)
->> -#define GMAC_HW_FEAT_ADDMAC        BIT(18)
->> +#define GMAC_HW_FEAT_MACADR64SEL    BIT(24)
->> +#define GMAC_HW_FEAT_MACADR32SEL    BIT(23)
->> +#define GMAC_HW_FEAT_ADDMAC        GENMASK(22, 18)
->>  #define GMAC_HW_FEAT_RXCOESEL        BIT(16)
->>  #define GMAC_HW_FEAT_TXCOSEL        BIT(14)
->>  #define GMAC_HW_FEAT_EEESEL        BIT(13)
->> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c b/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c
->> index 23ffe1adcd0d..14ac3f0e51f7 100644
->> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c
->> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c
->> @@ -388,6 +388,8 @@ static int dwmac4_get_hw_feature(void __iomem *ioaddr,
->>      dma_cap->half_duplex = (hw_cap & GMAC_HW_FEAT_HDSEL) >> 2;
->>      dma_cap->vlhash = (hw_cap & GMAC_HW_FEAT_VLHASH) >> 4;
->>      dma_cap->multi_addr = (hw_cap & GMAC_HW_FEAT_ADDMAC) >> 18;
-> 
-> Now that ADDMAC has grown from single bit to a mask, the hardcoded 18 has to match
-> dwmac4.h. So IMHO it would make sense to use FIELD_GET() here (like actphyif)?
+>> I will drop this particular patch for this series, and work on a proper
+>> fix for all these race conditions in my mma8452-next branch.
+>
+> Excellent!
+>
+> I'll wait on a fresh shorter version of this series then get that queued
+> up to give an upstream base for further work.
 
-It's hardcoded all over, if you look at how all the other fields from the features
-are read. I can change it if you really think it's worth, however I'd rather
-do a proper cleanup of how all the properties are read at once :)
+v7 on its way.
 
-> 
->> +    dma_cap->additional_32_addr = (hw_cap & GMAC_HW_FEAT_MACADR32SEL) >> 23;
->> +    dma_cap->additional_64_addr = (hw_cap & GMAC_HW_FEAT_MACADR64SEL) >> 24;
->>      dma_cap->pcs = (hw_cap & GMAC_HW_FEAT_PCSSEL) >> 3;
->>      dma_cap->sma_mdio = (hw_cap & GMAC_HW_FEAT_SMASEL) >> 5;
->>      dma_cap->pmt_remote_wake_up = (hw_cap & GMAC_HW_FEAT_RWKSEL) >> 6;
->> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
->> index f2fc89176654..a885f8cfef21 100644
->> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
->> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
->> @@ -6580,6 +6580,18 @@ static int stmmac_dma_cap_show(struct seq_file *seq, void *v)
->>          seq_printf(seq,
->>                 "\tNumber of Additional MAC address registers: %d\n",
->>                 priv->dma_cap.multi_addr);
->> +    } else if (priv->plat->core_type == DWMAC_CORE_GMAC4) {
->> +        seq_printf(seq,
->> +               "\tNumber of MAC address registers (1-31): %d\n",
->> +               priv->dma_cap.multi_addr);
->> +        seq_printf(seq,
->> +               "\tAdditional 32 MAC address registers (32-63): %s\n",
->> +               priv->dma_cap.additional_32_addr ? "Y" : "N");
->> +        seq_printf(seq,
->> +               "\tAdditional 64 MAC address registers (64-127): %s\n",
->> +               priv->dma_cap.additional_64_addr ? "Y" : "N");
->> +        seq_printf(seq, "\tHash Filter: %s\n",
->> +               (priv->dma_cap.hash_filter) ? "Y" : "N");
-> 
-> hash_filter seems to be only set in dwmac1000_dma.c? So on dwmac4 it would always print N?
-
-Yeah but dwmac4 has a hash filter, but same as the UC filter it's just not plumbed
-in :/
-
-Let's leave this flag here, hash filter addition for MC filtering is coming-up, so let's not
-drop it now only to re-enable it after, one of the other wonderful discoveries found by
-running the selftests...
-
-> 
->>      } else {
->>          seq_printf(seq, "\tHash Filter: %s\n",
->>                 (priv->dma_cap.hash_filter) ? "Y" : "N");
-> 
-> Thanks,
-> Nicolai
-
-Maxime
+/Esben
