@@ -1,79 +1,91 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A44AB2877E8;
-	Mon, 31 Aug 2026 00:27:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A6572D6E44;
+	Mon, 31 Aug 2026 00:31:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788136056; cv=none; b=MwdFYIjUF67Smeq0z1sIE6wfpy1XfG2cg8RXlQGgSGLNGFIj6rG+Htsp0t4whZDp+4Txy2VC/gAuyfnCho4WlxOUJSCow60f7PqenS0mF7Z4BncV2D94R+yAs+3LRjIhNQIs0Qm7JFBtvluvoMmUF+Nb06SDkwV/+yNbLOmO7x4=
+	t=1788136274; cv=none; b=UsfMEalgLgycrDA+nZWtJwSw2YWcfRB2W0rx7kLX75GBASs4gFuqSX/rqMMDVFb+cd+bKzh/rpCwyw8XNZc2y1d0i6fALym7w798IdKbj8DOU1akiWgzc7icxANsEnkPiGRWQ34kXuBuHu/ijE7FSkDdWypze1QeQJ7afsvn0G0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788136056; c=relaxed/simple;
-	bh=4F43whH2f0XvuPNS0HhL7clb0Q22fLEcfZuGJzgXYVI=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=kXPU+0iOyDjd3JCMFLYI+QFgYf5aMi/Xh8urIkSKFf6Qc6QuABAeU44vz5byYP9IX230AkZGhDPAWCzHY47wemlIP3Bxk12VJAwBcJqbrr4DTBah/gTV9senmr6MCU5nIbJWY7uirOUpe6uXC2NSgWn9CI3coCLFryNEYwplldk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jUNI77OC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788136274; c=relaxed/simple;
+	bh=96aJ3VCBX7KD0qRumoP2E1GikYgtU7bWw2M3hkV6lLc=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=jE9LsYM/rUf9yzeIa0VbP5z5sNM6+f2N5HJeRXTuDM6um9ArFnBJL2lYpXTR5r3FgN/uNQNngqxCY9cY/4M8rPxxQe+u6eAv7VU8n/SG40T+izoeh6n7xTt/QfgRjY2sOR/RyU9HfUWbIgUrtFHiUSyl9JEv66K6VrU5jCQGQEI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XsGyt4ku; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jUNI77OC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 374911F000E9;
-	Mon, 31 Aug 2026 00:27:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XsGyt4ku"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7B951F000E9;
+	Mon, 31 Aug 2026 00:31:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788136055;
-	bh=/3c8swGZPIjy9qm5uOVU9u4/3PwyRuvmy7Xq9trE48g=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=jUNI77OCbNGEjkQ7kz+f7dFtIc9Jda43v2/u+cDxJ1aQNSjK0XPUdoVHZyJBfPC3y
-	 pgKZqy9WJUL2KBMI2kVCs3pFtW0kyam7UxpFxPCVpGxLFL8cvbpPy3WtR+sTYB4/wt
-	 SKlURs19eokT/c2+0j9fAuwjIraTIAQBakitrfOtOJNVMlCJms/Uy4JJXoeQwqve80
-	 l1ggvZw7rETMODDno/9q0Fr0H3rvGl2KD8OQMrwjtRIT2GC5jkMAkt4WZOLDJ5x/xv
-	 MrKipHR60lfozs4P/Jz9m81/6XC6css03fli/7cVx0dCakuGzgjNShEFRj/MfUlWCY
-	 mNo36YF5mWjqA==
-Date: Mon, 31 Aug 2026 01:27:28 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Yash Suthar <yashsuthar983@gmail.com>, dlechner@baylibre.com,
- nuno.sa@analog.com, andy@kernel.org, grondon@gmail.com, linusw@kernel.org,
- hexlabsecurity@proton.me, sakari.ailus@linux.intel.com,
- srinivas.pandruvada@linux.intel.com, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 3/3] iio: accel: bmc150: use
- iio_push_to_buffers_with_ts()
-Message-ID: <20260831012728.0261184b@jic23-huawei>
-In-Reply-To: <ao_iV2xg-1Oc5Ttb@ashevche-desk.local>
-References: <20260825085156.212042-1-yashsuthar983@gmail.com>
-	<20260825085156.212042-4-yashsuthar983@gmail.com>
-	<ao_iV2xg-1Oc5Ttb@ashevche-desk.local>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1788136272;
+	bh=YGt+e6fGrUSj1AFyydsWDKZOb+S30Q0PQ9RjCFLvlR0=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=XsGyt4kub0KT17u9dHM2tEniBsrU0Og7JCio8KJclJogT7HDssCJcBun+FeNmH6XM
+	 jB/zCJA5vcIs37k/Rq01LV5T3Wid2ktDIk941+VkFXBUsNqrJ9x5hx9vpGp/mkFlhP
+	 aCn6Tcw4OjDMw95agnyyeuv+3zRs5r9CYhpgtRwtV/e5KE4oK4B7z6JmBMwtKc99eR
+	 wsaLs5wGUtaGjxl96pv5a4Yj17j09Qc5MbtdAQMsbpifCrb7CHZ5ghvRo/11zqm2Jb
+	 eV9QjrhGK83ZQm4bUlzJUH30OgLEtO0Xtoo799yv+u74V4XUd/pxKAD3WfkBsgJehc
+	 t/E0fSgTuzsXA==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 93C5B380CFD7;
+	Mon, 31 Aug 2026 00:30:17 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net v5 0/6] net: phy: fix cleanup after probe failure
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <178813621634.3966634.2247622864690119590.git-patchwork-notify@kernel.org>
+Date: Mon, 31 Aug 2026 00:30:16 +0000
+References: <20260823035600.188864-1-xuanqiang.luo@linux.dev>
+In-Reply-To: <20260823035600.188864-1-xuanqiang.luo@linux.dev>
+To: luoxuanqiang <xuanqiang.luo@linux.dev>
+Cc: netdev@vger.kernel.org, andrew@lunn.ch, maxime.chevallier@bootlin.com,
+ kuba@kernel.org, hkallweit1@gmail.com, chleroy@kernel.org,
+ qingfang.deng@siflower.com.cn, hao.guan@siflower.com.cn,
+ linux@armlinux.org.uk, davem@davemloft.net, edumazet@google.com,
+ pabeni@redhat.com, linux-kernel@vger.kernel.org, luoxuanqiang@kylinos.cn
 
-On Thu, 27 Aug 2026 10:08:07 +0300
-Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
+Hello:
 
-Hi Andy,
+This series was applied to netdev/net-next.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
-> On Tue, Aug 25, 2026 at 02:21:56PM +0530, Yash Suthar wrote:
-> > Replace deprecated iio_push_to_buffers_with_timestamp() with
-> > iio_push_to_buffers_with_ts() to allow source size runtime checks.  
+On Sun, 23 Aug 2026 11:55:54 +0800 you wrote:
+> From: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
 > 
-> With this you might want to use IIO_DECLARE_DMA_BUFFER_WITH_TS() in the
-> definition of the scan buffer.
+> phy_probe() initializes the PHY driver, ports, SFP upstream, and LEDs in
+> stages. Its error paths do not always release only the resources acquired
+> at each stage. It can also mark the PHY ready before all setup succeeds.
 > 
-Why?  The structure used is: 
-	struct {
- 		__le16 channels[3];
- 		aligned_s64 ts;
- 	} scan __aligned(IIO_DMA_MINALIGN);
+> Port setup also leaves SFP cleanup split between phy_sfp_probe(),
+> phy_setup_ports(), and phy_probe(), and default port setup ignores errors
+> from attaching the port to the PHY driver.
+> 
+> [...]
 
-So given we never let things get enabled with just timestamp, the timestamp
-and channels always end up in the places the structure describes.
+Here is the summary with links:
+  - [net,v5,1/6] net: phy: split phy_probe() error paths
+    https://git.kernel.org/netdev/net-next/c/b6d201d97145
+  - [net,v5,2/6] net: phy: unregister SFP upstream before port cleanup
+    https://git.kernel.org/netdev/net-next/c/f558204abcb9
+  - [net,v5,3/6] net: phy: set PHY_READY after LED setup
+    https://git.kernel.org/netdev/net-next/c/52dd7eb1a33e
+  - [net,v5,4/6] net: phy: call driver remove when core initialization fails
+    https://git.kernel.org/netdev/net-next/c/afd5aecd3c07
+  - [net,v5,5/6] net: phy: propagate errors from default port setup
+    https://git.kernel.org/netdev/net-next/c/48378efebbe7
+  - [net,v5,6/6] net: phy: avoid double-free after LED trigger registration failure
+    https://git.kernel.org/netdev/net-next/c/f7f619ecda57
 
-Where that is the case, I much prefer this to the magic buffer with enough
-elements of the channel type on the end.
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
-Jonathan
 
