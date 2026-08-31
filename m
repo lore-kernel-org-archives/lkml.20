@@ -1,191 +1,119 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.w14.tutanota.de (mail.w14.tutanota.de [185.205.69.214])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64606282F1E;
-	Mon, 31 Aug 2026 10:32:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B5F32C15A5
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 10:32:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.205.69.214
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788172356; cv=none; b=ePnRM14f7cSUtnRJFvdI/iofXwcnUMkY674I+PQaKSnerW9IspSNoSHmWvOzLGzdEMYrojE/8AyJ8PuAp+yKut9HVDIvlUbrdQXX6FUqtPzt9v/NAyUxKExo3q9okembH1hhoXsEES2rL/WJpH7mkThV5mRfbLPVW1+l2X/MD/s=
+	t=1788172376; cv=none; b=FGx8snr1nA2V/6u83N+XCzd4ItDqxHwnl4MqMLqh6CyWzfMqh1XYYwXrzEXHQ9h/6wZk1QWqyE9GUP9fkTMKfTy1ehfwzowpAwXw4/6OhE6x+MmanPDlUmouycXBcepf2UF2dTWk/nM+YZhGXvFLnOcjXxoIwbeUlbvMyImTl0Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788172356; c=relaxed/simple;
-	bh=GczyA7v0iKnbEXrVLW+F6aZQQ7fSZMX272ybm/ztJXs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Hkqv9mmFmTQfJDc6w17784GW2krNKcbFHPrXmhDc8LlrxgqZidyCcmQmUak1/DicBjjv8IdWsS32Ug4gz3JfXxvq7Ix1farc+smoFj9CctbnRgZtwBIY6VHwVrOxlbFg/o4KV7bQKwR5mJs31u7d7H+9Trcw6gqVAR//nv/6Df0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=njJY3XjG; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=cSzdxqYU; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=PNgBLCTP; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=rIW5owKI; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	s=arc-20240116; t=1788172376; c=relaxed/simple;
+	bh=jyLmSLhSq4w8mYax0r97CS4BX3pLU4DQ57ciOPhVbNc=;
+	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
+	 MIME-Version:Content-Type; b=LTsRiRqYscl4QiYuy5wX8E3V5kRU1bcJ0RR/BKyk9XO7sVHi2Bd65e+U8REqTgj8Z856/U5s2ObYLm8LCogPOVYp9PJwpKots+RhR4vzu1F5gjO5kQhdS/ucCzur2J8kgWerj98IjjYcvEi047k32SjLP0ZBV1uQEoRyrzX1wzo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=well-founded.dev; spf=pass smtp.mailfrom=well-founded.dev; dkim=pass (2048-bit key) header.d=well-founded.dev header.i=@well-founded.dev header.b=OW6XnJ73; arc=none smtp.client-ip=185.205.69.214
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=well-founded.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=well-founded.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="njJY3XjG";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="cSzdxqYU";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="PNgBLCTP";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="rIW5owKI"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 57D0E1FB59;
-	Mon, 31 Aug 2026 10:31:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1788172278; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=XRNex3+qBCItCxn6F7Fzem4nZKhsLA2RzviX5fQd4ZQ=;
-	b=njJY3XjGU3Bz14vXgqoqn+NsNq6Nz/gLb3gqWLr/UyPP2aQHnC6Nf3hRErE4sUf8+eLeHd
-	0dt0T3P3YkJGASgW4vtpErxStvJYm+HLPh7W7a8cfVilQxeCR/56N0VHKd0mIkLt4d4zwh
-	PoHoa1V+p8bjdbuiIn8zanZAMYWqCUs=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1788172278;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=XRNex3+qBCItCxn6F7Fzem4nZKhsLA2RzviX5fQd4ZQ=;
-	b=cSzdxqYUS8jTeCgx5/rgOrNm7chcvB0FovGN1z9Cvn7IshDthADEHZkkzBRSLB+J92thq0
-	qZc6NSnAqL6t2WBQ==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1788172274; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=XRNex3+qBCItCxn6F7Fzem4nZKhsLA2RzviX5fQd4ZQ=;
-	b=PNgBLCTP9hoIXVm3KTEa4zcBGRTAEqk0QfXKwsLmt3mrt/kecez4SeLUnPWleHUYYXbmUZ
-	pOAn+6Ti5ilSpGny4eQHpeNuOxkiI1ihgzGMFc8p8nfzOs3Qv2QciUlY8v8/tntApMC+o/
-	I+vEf3pt1/X0ceQ0tgAapWpREoEeEKc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1788172274;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=XRNex3+qBCItCxn6F7Fzem4nZKhsLA2RzviX5fQd4ZQ=;
-	b=rIW5owKIexNKRTaz7DMNWlgO9rj/wwxZGa6KeXY0aIV25cvNH+NfEFf93wgoDFz6XAM5q5
-	1/BDqV1KJ+ExBmCw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 362B113515;
-	Mon, 31 Aug 2026 10:31:14 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 15QfDfJXlWpcEQAAD6G6ig
-	(envelope-from <jack@suse.cz>); Mon, 31 Aug 2026 10:31:14 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id BE79DA13B5; Mon, 31 Aug 2026 12:31:09 +0200 (CEST)
-Date: Mon, 31 Aug 2026 12:31:09 +0200
-From: Jan Kara <jack@suse.cz>
-To: ZW Tang <tangzw515@gmail.com>
-Cc: Jan Kara <jack@suse.cz>, Amir Goldstein <amir73il@gmail.com>, 
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
-Subject: Re: [BUG] fanotify: WARNING in fanotify_handle_event with crafted
- msdos image and long path
-Message-ID: <3kzvlb3wpzbg6k6ttzp6rh2cfmz3hmmmlisgxjn5u4xmaaqibm@qkre7flkhejl>
-References: <CAA2SOT5mWrS_KN38TRCu_KfTjpG6fyaytqZbOb25Pb0kfqZ3gQ@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=well-founded.dev header.i=@well-founded.dev header.b="OW6XnJ73"
+Received: from tutadb.w10.tutanota.de (w10.api.tuta.com [IPv6:fd:ac::d:10])
+	by mail.w14.tutanota.de (Postfix) with ESMTP id A563117B03FFB
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 12:24:16 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1788171855;
+	s=s1; d=well-founded.dev;
+	h=From:From:To:To:Subject:Subject:Content-Description:Content-ID:Content-Type:Content-Type:Content-Transfer-Encoding:Content-Transfer-Encoding:Cc:Cc:Date:Date:In-Reply-To:In-Reply-To:MIME-Version:MIME-Version:Message-ID:Message-ID:Reply-To:References:References:Sender;
+	bh=3a/1tLM258+XX6sFATstRDA/BXsqthctD9Jmbcf7QLk=;
+	b=OW6XnJ73rMHhix5m/I8qylskUIhn+n7eSE+Ef+6jHLS9yNU7JFjmZ2yGTlvJHoKj
+	smfnlH1jlkwXeE8bnVuAQagSCarq9EcmKGvk3lmXDELY4MXnTOFLufZiqCOh7lPjmQC
+	npY1alQOXViJavLNAqaN8+3kQoXBbM7RcCAkpl3OgKeLyIshWudNGnmXFoU3IKvWkZQ
+	4URHP1QhmECB1/yTI0JLGYiD9ALvLARlRBrLtL6lW+KKR0SzC/yPujH+WWA59g5sBLE
+	BAcVgVx91ll8px6Gfn4B7KvQ06RXNeAvumld+rMB6kNJoUKh6oEaGL+61lXxMXIb8+D
+	MSSEXJbNYA==
+Date: Mon, 31 Aug 2026 12:24:15 +0200 (CEST)
+From: Ramses <ramses@well-founded.dev>
+To: "Jason A. Donenfeld" <jason@zx2c4.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>, Martin KaFai Lau <kafai@fb.com>,
+	Wireguard <wireguard@lists.zx2c4.com>,
+	Netdev <netdev@vger.kernel.org>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+Message-ID: <P0MLDmd--F-9@well-founded.dev>
+In-Reply-To: <apT0H7qIwFW-JCLn@zx2c4.com>
+References: <20260827-wg-tstamp-v1-1-4acfebb855ef@well-founded.dev> <apT0H7qIwFW-JCLn@zx2c4.com>
+Subject: Re: [PATCH net] wireguard: queueing: preserve tstamp_type in
+ wg_reset_packet()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAA2SOT5mWrS_KN38TRCu_KfTjpG6fyaytqZbOb25Pb0kfqZ3gQ@mail.gmail.com>
-X-Spam-Level: 
-X-Spam-Score: -3.80
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-3.80 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_TO(0.00)[gmail.com];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[suse.cz,gmail.com,vger.kernel.org,mail.parknet.co.jp];
-	RCPT_COUNT_FIVE(0.00)[6];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:email]
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Feedback-ID: 0163e381fa67fa966160938ffa017803050e57578bb1735d37cd25d20463a96a9bb3a550250bbc5eaa94bfdfd8cf3defcf1aa43859ae980630826bb8230f264e7f:TurnOnPrivacy!:tutamail
 
-Hello,
+Aug 31, 2026, 05:25 by Jason@zx2c4.com:
 
-On Mon 31-08-26 12:32:57, ZW Tang wrote:
-> I am reporting a warning triggered by a syzkaller reproducer on
-> Linux 7.2.0-rc3. A similar issue appears to have been reported upstream
-> before, but I can still reproduce it on Linux 7.2.0-rc3 with HEAD commit
-> 1137d8b5df06137fb49513cc923b3b24d94cb809.
-> 
-> The reproducer mounts a crafted msdos filesystem image, creates a very
-> long pathname, installs a fanotify mark, and then calls execve() on the
-> long path. During execve(), the file open path triggers fsnotify, which
-> then calls fanotify_handle_event(). While fanotify is constructing the
-> event, it hits a warning in fs/notify/fanotify/fanotify.h.
-> 
-> This looks like a fanotify name-event encoding robustness issue. A crafted
-> filesystem image together with a very long pathname appears to trigger an
-> unexpected name/fid event layout, and fanotify_info_copy_name() reaches a
-> WARN_ON_ONCE() path. The kernel should probably reject or truncate the
-> event cleanly instead of triggering a warning, because panic_on_warn turns
-> this into a kernel panic.
+> Hi Ramses,
+>
+> On Thu, Aug 27, 2026 at 01:52:56PM +0200, Ramses de Norre via B4 Relay wrote:
+>
+>> From: Ramses de Norre <ramses@well-founded.dev>
+>>
+>> Sending traffic through a wireguard tunnel on a host using the fq
+>> qdisc fills the log with:
+>>
+>>  fq: likely mono tstamp with tstamp_type 0
+>>
+>> An skb carries a timestamp in skb->tstamp and, separately, a
+>> skb->tstamp_type field recording which clock that timestamp came from.
+>> The two have to agree.
+>>
+>> When wireguard encapsulates a packet it calls wg_reset_packet(), which
+>> clears the fields that must not leak from the inner packet into the
+>> tunnel packet. It does so in two steps:
+>>
+>>  skb_scrub_packet(skb, true);
+>>  memset(&skb->headers, 0, sizeof(skb->headers));
+>>
+>> skb_scrub_packet() deliberately keeps skb->tstamp when it holds a
+>> monotonic timestamp: that value is the time the packet is scheduled to
+>> be sent, and the qdisc still needs it. The memset then zeroes
+>> skb->tstamp_type, because that field sits inside the headers group
+>> while skb->tstamp does not. The packet therefore leaves wireguard
+>> carrying a monotonic timestamp labelled as a realtime one.
+>>
+>> Nothing noticed until commit c4f796c4f16b ("net_sched: sch_fq: convert
+>> skb->tstamp if not monotonic"): fq used to assume every timestamp was
+>> monotonic. It now consults tstamp_type, spots the mismatch, warns, and
+>> falls back to treating the value as monotonic. Pacing still ends up
+>> correct, so the log spam is the actual problem.
+>>
+>> Save tstamp_type before the memset and restore it when encapsulating,
+>> next to the hash fields that are already carried over this way. When
+>> decapsulating it stays zeroed, which is right: an incoming packet's
+>> timestamp is a realtime receive timestamp.
+>>
+>> Fixes: de799101519a ("net: Add skb_clear_tstamp() to keep the mono delivery_time")
+>> Signed-off-by: Ramses de Norre <ramses@well-founded.dev>
+>>
+>
+> Thanks for this. I've queued this up in the wireguard tree.
+>
+> One thing I'm wondering is whether your Fixes: line is correct. Would
+> c4f796c4f16b be a better candidate than de799101519a? Or maybe even
+> 4d25ca2d6801 is best?
+>
+> Jason
+>
+Hi Jason
 
-fanotify complains that the name length is greater than NAME_MAX.  If I can
-guess, the problem likely is that the msdos filesystem (vfat?) allows a
-file name that is longer than NAME_MAX. Which would be a bug in the
-filesystem driver, not a problem in fanotify... Ogawa, care to have a look?
+I think you are right, but I think d98d58a00261 is actually the commit that introduced the issue then (but no warnings were logged yet at that point).
+The patch doesn't apply cleanly to that version though, I think it only applies starting from 6.11 because of a rename, so we can't backport all the way back. It's probably fine though, since the warnings weren't being logged yet at that point.
+Do you want me to send an updated patch, or will you just fix this up in your tree?
 
-								Honza
+Thanks,
+Ramses
 
-> 
-> Reproducer:
-> 
-> syz reproducer: https://pastebin.com/raw/JqBwvgbH
-> console output: https://pastebin.com/raw/2jnY4jzL
-> kernel config: https://pastebin.com/raw/RgvQ5DPY
-> 
-> Kernel:
-> 
-> HEAD commit: 1137d8b5df06137fb49513cc923b3b24d94cb809
-> git tree: torvalds/linux
-> kernel version: 7.2.0-rc3 #1 PREEMPT(full) (QEMU Ubuntu 24.10)
-> 
-> Relevant log:
-> 
-> loop0: detected capacity change from 0 to 128
-> 
-> ------------[ cut here ]------------
-> WARNING: fs/notify/fanotify/fanotify.h:217 at
-> fanotify_handle_event+0x3e93/0x4800, CPU#1: syz.0.17/10761
-> 
-> CPU: 1 UID: 0 PID: 10761 Comm: syz.0.17 Not tainted 7.2.0-rc3 #1 PREEMPT(full)
-> Hardware name: QEMU Ubuntu 24.10 PC (i440FX + PIIX, 1996)
-> 
-> RIP: 0010+0x3e93/0x4800
-> 
-> Call Trace:
-> <TASK>
-> fsnotify+0x1105/0x1be0
-> __fsnotify_parent+0x6b6/0xd40
-> vfs_open+0x2e6/0x3f0
-> path_openat+0x29a2/0x3e20
-> do_file_open+0x216/0x310
-> do_open_execat+0xe8/0x430
-> alloc_bprm+0x2b/0x900
-> do_execveat_common.isra.0+0x1a8/0x5d0
-> __x64_sys_execve+0x93/0xd0
-> do_syscall_64+0xc4/0x7a0
-> entry_SYSCALL_64_after_hwframe+0x76/0x7e
-> </TASK>
-> 
-> Kernel panic - not syncing: kernel: panic_on_warn set ...
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
