@@ -1,137 +1,113 @@
-Received: from mx1.manguebit.org (mx1.manguebit.org [143.255.12.172])
+Received: from mail.netfilter.org (mail.netfilter.org [217.70.190.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52EC23002DD;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA9F53AAF54;
 	Mon, 31 Aug 2026 22:15:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=143.255.12.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.190.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788214536; cv=none; b=C+9Fqf2H925t+JWpoGQeBIOFVgT1urfvQyNfwlaQZlXEUqmhcKlN6DUPJPXUYL6z6o631YAX3F5xC0bseNbTvvTgXL7E3STN/P2rEp2OlkOeKZJNZN16Epjdq2GJ2pFGgkjZDZzOxZ83aJBl1qolP0+2yJXLvx0WMbCRVSiA5qk=
+	t=1788214537; cv=none; b=l/O38lzApTXhGhMMJym2h++zzTG1N3qW5PwabEFoSf6XzqcRePLwZYsbYQf4BxU9vxCukV3QQ1C8WDsB1Oh669cDwQspoG/z2JfnHRyWgvCOZjfi4MXcymZZ7h7gvdziNxAd1pyvrtlEChFANgIHLRoj6EbYQyqH6tWU++urkts=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788214536; c=relaxed/simple;
-	bh=l4haeV6VhtUB3oibnyraeVizUHKDvnuEXG4rWi6pXek=;
-	h=Message-ID:From:To:Cc:Subject:In-Reply-To:References:Date:
-	 MIME-Version:Content-Type; b=W+FviQapB1rDIG7bMUQEjHZedThsQcLVE6I3DSsDGUdKXvx9ugyxtpqZp2Q/CcBx1P+ATHm7FVOdZBinPGi0lVtROQBxIZkxO99hg6nLa7w9R0+vdjk2HrPcRWaYH9fIIdujlD6tCjHPtTvvam7EpBrbAL4LIENfbw+5YAR9yEY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org; spf=pass smtp.mailfrom=manguebit.org; dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b=Q5EF2Yer; arc=none smtp.client-ip=143.255.12.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=manguebit.org
+	s=arc-20240116; t=1788214537; c=relaxed/simple;
+	bh=4yKnuwdJTs/MCj8545ryyc60qDLh2x3b913oTnd3rS0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=JtZWd70hQShnbn3hTl3jQ/V/in6W+0wecxF8KG/gUTzgTJIAXPOLh8x1orPD9QiO3RqBuDRMwkwuLqCvPwyMoL7RzmloAr3u4ZZxCUyb2qRFsf9y1Co6KNYq3ugoJavxyiZergeRyf6m4yNgUbrzyAb07Bptc2wqPyagWR3iypA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=netfilter.org; spf=pass smtp.mailfrom=netfilter.org; dkim=pass (2048-bit key) header.d=netfilter.org header.i=@netfilter.org header.b=YI8jhpql; arc=none smtp.client-ip=217.70.190.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=netfilter.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=netfilter.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b="Q5EF2Yer"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=manguebit.org; s=dkim; h=Content-Type:MIME-Version:Date:References:
-	In-Reply-To:Subject:Cc:To:From:Message-ID:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=7eEXQnZ3TyFS1iy6IZK3Iv7UtyMqIYCMseVZ2nJyG6g=; b=Q5EF2YerUQmijCvcfG7FC5GwE3
-	NNzR5bthohB8gaK1/15JS4VI7qizr14KbmvXe0gR+9/2GekADtxHeFD/tsSbWhUpm+tm1HVY6gpwt
-	DPRm559/bqF3fy9ATPpXEZ2aNMtul15RloQmNJBgEGlj1jx/Ifkju/k6EMCDWnZIeFIGjSJBNBy0/
-	GDduOp4n0/a1mFRsXI0E/jG3YWwxuGnTWLD6nwyodtWV/gXdi/kWZx/fgAu+xSmtovyTbstRq4xvI
-	5zwaXzXvPyYvIcBfeiGf8FtvF4wG7pk8rugYsIFONB0MTGrwvGPdiHuna6aXl6Iy4cxeP5VlbN4QW
-	PcGb74Vg==;
-Received: from pc by mx1.manguebit.org with local (Exim 4.99.5)
-	id 1x1AHk-00000000NLF-0nUP;
-	Mon, 31 Aug 2026 19:15:24 -0300
-Message-ID: <0abfb2d2f99e54aceac4cea63947b65a@manguebit.org>
-From: Paulo Alcantara <pc@manguebit.org>
-To: Diego Oliva <diego@bynar.io>, Namjae Jeon <linkinjeon@kernel.org>
-Cc: Ronnie Sahlberg <ronniesahlberg@gmail.com>, Shyam Prasad N
- <sprasad@microsoft.com>, Tom Talpey <tom@talpey.com>, Bharath SM
- <bharathsm@microsoft.com>, linux-cifs@vger.kernel.org,
- samba-technical@lists.samba.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] smb: client: reject out-of-bounds DataOffset in
- CIFSSMBRead()
-In-Reply-To: <20260831125045.479576-1-diego@bynar.io>
-References: <20260828150203.1419003-1-diego@bynar.io>
- <20260831125045.479576-1-diego@bynar.io>
-Date: Mon, 31 Aug 2026 19:15:23 -0300
+	dkim=pass (2048-bit key) header.d=netfilter.org header.i=@netfilter.org header.b="YI8jhpql"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=netfilter.org;
+	s=2025; t=1788214532;
+	bh=GsPYj8syF9cXFIOMiBnw0dzRxeZ391I8EKIeN74tGG8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=YI8jhpql3750ckYzT2dPJ1KrVdimmCMg5ujBrIlMJZwud9kAUy9tWgg/Y5tkP9bQL
+	 QqOo4R0q5NMTHvqDFKdWR4xwNTHBN1VkLVW+rXdYd2Kf86c5asve9/L6gbGc855L4G
+	 9+VlQcIztBCEk1AcwFZGtsnBSHWXGkFgimENMh+O9ie7DvBpj8RKEuVmC0pw6qzmTT
+	 FMPAE/evoVRVfqlnRCeNmluyQg1k0ix3VREb2PttpnHdfBAUNM+auY6BpliWOv2Xty
+	 T/szbyxUo95kanrZi/PNxZrim0E+mTb2s3pFZrSuUKFC6dcLrGOUzTD01yHLBKBYD4
+	 oBZGXBWJVXcFA==
+Received: from netfilter.org (mail-agni [217.70.190.124])
+	by mail.netfilter.org (Postfix) with UTF8SMTPSA id C563A60244;
+	Tue,  1 Sep 2026 00:15:31 +0200 (CEST)
+Date: Tue, 1 Sep 2026 00:15:29 +0200
+From: Pablo Neira Ayuso <pablo@netfilter.org>
+To: Karl Mehltretter <kmehltretter@gmail.com>
+Cc: stable@vger.kernel.org, Florian Westphal <fw@strlen.de>,
+	Phil Sutter <phil@nwl.cc>, "David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Mukul Sikka <mukul.sikka@broadcom.com>,
+	Keerthana K <keerthana.kalyanasundaram@broadcom.com>,
+	Stefano Brivio <sbrivio@redhat.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Brennan Lamoreaux <brennan.lamoreaux@broadcom.com>,
+	Bin Lan <lanbincn@139.com>, XiaoHua Wang <561399680@139.com>,
+	netfilter-devel@vger.kernel.org, coreteam@netfilter.org,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 6.1.y 6.6.y] netfilter: nft_set_pipapo: restore cloned
+ mapping table memcg accounting
+Message-ID: <apX9AZoNkpVrBMIE@chamomile>
+References: <20260831194905.45045-1-kmehltretter@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260831194905.45045-1-kmehltretter@gmail.com>
 
-Diego Oliva <diego@bynar.io> writes:
+On Mon, Aug 31, 2026 at 09:49:05PM +0200, Karl Mehltretter wrote:
+> The 6.1.y and 6.6.y backports of commit 69e687cea79f
+> ("netfilter: nf_tables: missing objects with no memcg accounting")
+> changed the pipapo_clone() mapping-table allocation to
+> GFP_KERNEL_ACCOUNT.
+> 
+> Later stable backports of commit 07ace0bbe03b ("netfilter:
+> nft_set_pipapo: do not rely on ZERO_SIZE_PTR") rewrote this allocation
+> and changed the flag back to GFP_KERNEL. Upstream applied the
+> ZERO_SIZE_PTR change before the memcg accounting change and retains
+> GFP_KERNEL_ACCOUNT after both.
+> 
+> nft_pipapo_deactivate() clones a populated set before looking up an
+> element to delete. If the element is absent, priv->dirty remains false
+> and the clone is retained. Its mapping tables therefore remain allocated
+> without being charged to the requesting memory cgroup.
+> 
+> Restore GFP_KERNEL_ACCOUNT for the cloned mapping table.
+> 
+> For a 32,768-element two-field concatenation set, A/B tests on 6.1.186
+> and 6.6.155 measured exactly 524,288 additional bytes charged to the
+> memory cgroup after restoring the flag. An unmodified 6.12.107 control
+> already accounted the corresponding allocation and showed the same
+> accounting behavior.
+> 
+> Fixes: a4983e89e3b1 ("netfilter: nft_set_pipapo: do not rely on ZERO_SIZE_PTR")
+> Fixes: 32bad10de347 ("netfilter: nft_set_pipapo: do not rely on ZERO_SIZE_PTR")
 
-> The SMB1 synchronous read helper CIFSSMBRead() validates the server's
-> DataLength against CIFSMaxBufSize and the caller's count, but never
-> validates DataOffset. The copy source is formed as
->
-> 	&pSMBr->hdr.Protocol + le16_to_cpu(pSMBr->DataOffset)
->
-> and memcpy()'d for DataLength bytes with no check that the
-> [DataOffset, DataOffset + DataLength) range lies within the response
-> actually received from the server.
->
-> A malicious or compromised SMB1 server can return a short response
-> carrying an in-range DataLength and a large DataOffset, driving the
-> source pointer past the end of the response buffer. The memcpy() then
-> copies adjacent kernel heap into the caller's read buffer (information
-> disclosure), or reads unmapped memory and oopses (denial of service).
-> SMB1 is not negotiated by default; reaching this code requires an
-> explicit vers=1.0 mount.
->
-> Both DataOffset and the received response length recorded in
-> rsp_iov.iov_len are relative to the start of the SMB header, so reject
-> the response unless DataOffset + DataLength fits within that length,
-> using overflow-safe arithmetic, before forming the source pointer.
->
-> While here, make data_length unsigned. It holds a length derived from
-> an unsigned on-the-wire field and is only ever compared against
-> unsigned quantities. This is not required by the validation added
-> above, but it matches what the variable represents.
->
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Cc: stable@vger.kernel.org
-> Assisted-by: Bynario AI
-> Signed-off-by: Diego Oliva <diego@bynar.io>
+This two Fixes: tag do not make any sense to me.
+
+> Assisted-by: LLM
+> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 > ---
-> v2:
->  - make data_length unsigned, as suggested by Namjae Jeon
->  - rebased on current upstream
->  - v1: https://lore.kernel.org/linux-cifs/20260828150203.1419003-1-diego@bynar.io/
->
-> Note for backporting: this uses the smb_EIO2() tracepoint helper added
-> in v6.19 with f80ac7eda1cf5. For older kernels, the call can be
-> replaced with a simple return of -EIO.
->
->  fs/smb/client/cifssmb.c | 13 ++++++++++---
->  fs/smb/client/trace.h   |  1 +
->  2 files changed, 11 insertions(+), 3 deletions(-)
->
-> diff --git a/fs/smb/client/cifssmb.c b/fs/smb/client/cifssmb.c
-> index f5aad5f61dce..b89d49395362 100644
-> --- a/fs/smb/client/cifssmb.c
-> +++ b/fs/smb/client/cifssmb.c
-> @@ -1720,7 +1720,8 @@ CIFSSMBRead(const unsigned int xid, struct cifs_io_parms *io_parms,
->  	if (rc) {
->  		cifs_dbg(VFS, "Send error in read = %d\n", rc);
->  	} else {
-> -		int data_length = le16_to_cpu(pSMBr->DataLengthHigh);
-> +		unsigned int data_length = le16_to_cpu(pSMBr->DataLengthHigh);
-> +		__u16 data_offset = le16_to_cpu(pSMBr->DataOffset);
-
-Shouldn't you also validate the minimum response size so that you can
-safely dereference the above fields?  E.g.,
-
-if (rsp_iov.iov_len < tcon->ses->server->read_rsp_size) {
-        rc = smb_EIO(...);
-        *nbytes = 0;
-} else {
-        unsigned int data_length = le16_to_cpu(pSMBr->DataLengthHigh);
-        ...
-}
-
->  		data_length = data_length << 16;
->  		data_length += le16_to_cpu(pSMBr->DataLength);
->  		*nbytes = data_length;
-> @@ -1733,9 +1734,15 @@ CIFSSMBRead(const unsigned int xid, struct cifs_io_parms *io_parms,
->  			rc = smb_EIO2(smb_eio_trace_read_overlarge,
->  				      data_length, count);
->  			*nbytes = 0;
-> +		} else if ((size_t)data_offset + data_length > rsp_iov.iov_len) {
-> +			/* check that the data lies within the received response */
-> +			cifs_dbg(FYI, "bad data offset %u length %d for read response of %zu\n",
-> +				 data_offset, data_length, rsp_iov.iov_len);
-
-@data_length is now unsigned, so use '%u' instead.  Also, print __func__
-in cifs_dbg().
+>  net/netfilter/nft_set_pipapo.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/net/netfilter/nft_set_pipapo.c b/net/netfilter/nft_set_pipapo.c
+> index 7c8d28a031ad..4c3bb5d61a3b 100644
+> --- a/net/netfilter/nft_set_pipapo.c
+> +++ b/net/netfilter/nft_set_pipapo.c
+> @@ -1465,7 +1465,7 @@ static struct nft_pipapo_match *pipapo_clone(struct nft_pipapo_match *old)
+>  				goto out_mt;
+>  
+>  			dst->mt = kvmalloc_array(src->rules, sizeof(*src->mt),
+> -						 GFP_KERNEL);
+> +						 GFP_KERNEL_ACCOUNT);
+>  			if (!dst->mt)
+>  				goto out_mt;
+>  
+> -- 
+> 2.39.5 (Apple Git-154)
+> 
