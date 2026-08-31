@@ -1,758 +1,190 @@
-Received: from mail-ot1-f49.google.com (mail-ot1-f49.google.com [209.85.210.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010071.outbound.protection.outlook.com [40.93.198.71])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 712CD377AA5
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 02:22:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89A9537A85A
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 02:23:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.198.71
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788142970; cv=pass; b=PbNL0ORy5vxUmsYf96STnPUoCxdM6RoTCyk/hCnYUvs3qX/8r3z2ylK2huT8VPCQnYd6d70nCFef8ntSbHNAPKDQcc6N7i2cAutlMhHIntArshXZaX0flLphmlnoHzvK0+KvHbhuLZ7cBvkNWk/5uOotLEr+j5oaBmAap5Ln3hI=
+	t=1788143037; cv=fail; b=BYynsPL4MplaJC3UdkNDnQzpPPsHO16+OxuvpOaswA83EJb4JdBcmVWpgOyCXzDsiYekjdB6CKPB5DeHpsKwVG/tT7auqJA9QPi3vv8uxRbDvT52edHMK1x2Q3eFuNs/DgRE0BNEwF6vJE9OldItbfzSZ8iy+TgtJV8K05dZgjU=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788142970; c=relaxed/simple;
-	bh=RJxpkATgLBU/u1tO9tMF9UGpnmlllsMGsyAtf0uwiQ0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Fth+bAWOFsMIUueMnBiobalKYWorj80JX/svSs+NbfVVap1KFc087jespECyu/SMwNigRIyALU/jMUDCyAHyGnlj6o/7Ay4KHvMyeG6wPN61qKkw72dmJwqkGUsYq6G+hT+v8YX3rK4LnEj0DfMS+Ped15Pr5vUiA0739VQJirg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=CaSf0585; arc=pass smtp.client-ip=209.85.210.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	s=arc-20240116; t=1788143037; c=relaxed/simple;
+	bh=zsHM+etyj0HpBkyPTfsK8RMxdLP7MH/QMBHkfxVrIIs=;
+	h=From:Date:Subject:Content-Type:Message-Id:To:Cc:MIME-Version; b=lbLYYiuff+EEMBh6PKVZ9bZLUU0VpTbfbL/G4/C568WN2Asw+rzwJwaCwd+xFIGkg/bWSFT0bK+eTW5Zwvtgf+MBPfsz7H+cSl23leDbA3Fkd752oS27mGf3HjaPGrJ0HMU/Evkxz+lZIXpqkIzr6VtjlMTJiSYmlu8aBz8Gjvs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=Yoz4bql6; arc=fail smtp.client-ip=40.93.198.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="CaSf0585"
-Received: by mail-ot1-f49.google.com with SMTP id 46e09a7af769-7eb5bdb50fcso2727265a34.1
-        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 19:22:35 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788142954; cv=none;
-        d=google.com; s=arc-20260327;
-        b=kaXvdvvg/EHcAsi8IEqS6ZaHP4g+u3u0SJHmkMPl6DF3zO5AjaKqTog5amQHg2c2xQ
-         eXRRLFulwOA8P+by9r44HGoFoRKcG0KKXZqHtrIrHKM1sZauST2ZG8jVaKLm5vw8LfZN
-         D6slNKVmPSO7QWKtIG/s7IXRlg09daLEHNeXlfy3W4zPxCOr3HLKkGJMcwFOflokE/AK
-         uONAuFytVOi/MEQDZd297XoBp6Qxt9/5gIxBVRTbbQRWp1FZKpok5MkYrZZmIrAqQdWB
-         oFG4GnSTMbBcfpSU6JhwIxV0xoiQOSRV5wyyFRhXzulQI8R6ooq8gLqudYl/1fLEFTYl
-         3s3Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=ipOguuWwal65r/1u4oSzUlBPvWWg7WVDAuJhTjQTFug=;
-        fh=9lO6BmlrmgAEiUoZZVgNeUefgIEXEZuRGnSaoMOmCdk=;
-        b=HhfAOe4+sqaFmuSaakNfqLbCs1piOkVYtR2cViWDJoRd0dmlyMVLCmnI15giCChKqs
-         JZ2iIlOdBM7jbDhu6FZk4/EW43rMbe55Esgdf6Ej3pfsm/xpfPFvJ50RmE1HSVZfjvXS
-         3SyDLDLjYFJQcMoglsNn4bJemWwqsqQ+xicDtcD8YNuCprbXTJcJc0E9JOUfVzvYtdNm
-         rQig2ial6OxesX/3QwNsVVUK+uK7AzYlhnAgoMCaw8WGAR4kr4sGCX5ITTmtDuN0bU2x
-         BB8xbRiysV/gjDiXmgqRW9nIZEhQ5fg7GZKMGioXKTzdKhN2SSUILjbYs/8SVZG85WPG
-         /WgQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bytedance.com; s=google; t=1788142954; x=1788747754; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ipOguuWwal65r/1u4oSzUlBPvWWg7WVDAuJhTjQTFug=;
-        b=CaSf0585BSnvukl25BOgo2deyLClWLzkHGljpDaKhr6YUlTJVpEd4bcraMQe8rHjcD
-         YkHkPDlJ1PoE0Gd5yuG+MBZyN3E2LDJQlVH74Hl7jiLGVhAgJvy0Vsqc+CZRVcvEVpfA
-         vBB2KLQivJJ409je0+KYIrflrDLMHHzhVSejmBCvVUY1ACzIH+44oOYgL1p7bMOOR7AZ
-         46Cu8aB+RBOl4117IwjiNEBbEgXyenBVxD0H33Bo0rU6UkIDJ+B0BcYW7ZDspsHolfdN
-         7MQSm7vc+KJuur8E/F61c2rK7sgDHfj5nVO3EvqWvQFNc8IgLFFvR/4/feyCs2xyUGOu
-         aeDQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788142954; x=1788747754;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ipOguuWwal65r/1u4oSzUlBPvWWg7WVDAuJhTjQTFug=;
-        b=eQKf0cUp7glRulWmVBqjDu31n08p5a8ddh+j9N1Bhr3vXlHF6CVaVS/doFvXkzEBkm
-         T+6dJ7E9FfuwreFdQE05exoU+LCijOIsiv48BP49OhQ5aqFrMjBCxpS3fGAEq0HsJeFX
-         +FkGFE427BGpWWu+MQIB9LqqG5dGs2ayliLdcCQ+SRhwXpZaYL4BnTpNAhf5aX8jI9lF
-         C4XdZx+x1YpisD8U16YyC2D6F1v7cc+bglTmD9GtVUmf8y+apsPNYbTVuvwhylSP0G85
-         IPvDibRD/bF1OSqxZNMpb8LfzMTAU7Wdns+TxX/QadhAg3BL/A8zCM+01FBvWWNBRcND
-         +c0w==
-X-Forwarded-Encrypted: i=1; AHgh+RobfNi4s4JOdynsJKkZAWjCOk7h37p0ZT6Vp2isFqwe4chWkECwcH9NBLjccCuPAWs8OkKMEaqMil0a4Sc=@vger.kernel.org
-X-Gm-Message-State: AFuF++kkqUjCE+j1k11oQ1fyYgdQ7tnMyi83X3fITCiBi4R4B48uH+hp
-	1IsnRbYn9vVdScMfT4ZS7HgLdSMFTiZFn1Dvvw9pYc6DXuoLugkpyvNEXX8X5256wiJ5EUp9g04
-	LFJbBJe1YO4YHV6rc+oQJvYCANGp5CO8gsZpmrpqySw==
-X-Gm-Gg: AR+sD11kCeT6ldgkZqQt6C+0bQ6i9rTwAz8v7BxGEL4mu1iLoi/7BE++xUkjDQB8AUV
-	YWjCTRNPdbQWmf5qDsb15V9xknTDbKRDMt+FDzQIo1tIxwcvg7bV6CpwkXk07B+r2CnrhQux52Y
-	Z7c9hZpRS76MQjRTg5RWF2GbcHlvK/qjWdlXMniDtDBv5S1TWhLRenN5/RJejqUD/qnLKRvZGNp
-	NFMoZtoS9TGPFxRxCRQ+ZcomIK7zFxJIe2likPhjrSAp61TvMK17mg71m5cECExO9KXTtnSKrPV
-	KfoSV86i074dpIRCS8iN8/pWKhacZVXwfM7O40McudWajCbZ6OOBll9kcNdBX4I=
-X-Received: by 2002:a05:6808:23c9:b0:495:fd9b:1808 with SMTP id
- 5614622812f47-4b398017060mr25722777b6e.8.1788142953747; Sun, 30 Aug 2026
- 19:22:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="Yoz4bql6"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Rky5BsVcYyRET4r4y7z2I/JPR2RUZsKSTZlW5UBiPQ9HLNW1R9200pFheGx6Kxwv7yaFYPrfSKw+5EA4TQg204fKnbhrSLCV7s7NrlMjo1Gdk3Q7tr/3qFBiW9vGLGwPGASJhKoNenOOktiZZy8nMT/JaZ5g2+nhR9v3BARPM5Qbl9NGIuo1mwYHZB4xBD8kJZvX2QWIwrTP5kty6F0lKF2oYY8zt0Vy1EUiXG+gQ/su15aWt7WXKkmvl1cndENKq10znRfstiaPbYMpIQLabYegYvdr/cKv9XDDpn+MjbVEgi56/w2+Mb+ikXkPB8Kk4qd/hj6OciwInuYr+WVO+g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=pKQ03Ud1z7nEF2VMdIFa3oY2Ivkf2VKV/A9qrRQ/nTQ=;
+ b=A0jqx+bf93UN00eOo/KJ/B6l36XgWaHBVRmzr8vtxgaaYktbculvQGP5GJHPjnw2MtINM4srUJ9wXcrSrCXgIWnq5nHe2k1HBVZk+5wF+NxR3vd7zukjfOGWdq2J5iEb1ZbH5pjBX0V/d78jT3nDwkqUZta9PACsmRqiQs4xXHnPi6XEae+vlC5kNZP9fQPlgp3advzo0rtrUgjsbrzaTCOEPJ/tNWYlENRpb6ArOquV8d9QYfjcMQChUctoKBDO3QyuhXGb+HZMkvj4SXopfXiA89V/dshbLo3acmA/pdZe+JVFy5JNEKYnFGfuwQJGUMaaQ3+DNgHWKjZu6ML9bg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=pKQ03Ud1z7nEF2VMdIFa3oY2Ivkf2VKV/A9qrRQ/nTQ=;
+ b=Yoz4bql6+lMxnKjumSVQz9+tSAZszvkuGlVqN1pN00XEVDFBG9DulW7E2oei+PPgY/OE6Vf9SXDZnp0BtKqErYDmJNAdyRSg3+NKaANML+1FrtHNmfSoZFmPE471VRHdXiU6f4y0A7G56A3d6V0OVNLhYg/0EIthV4+hx1HLLY5qMYmsYDmFRSAQkGpedY5/MnMHkgW4+bSQIF3HcN/6L8cTNCBtjOpTLrZxuvuUVMyjnIrQY+Fep8IEl3060S6LUYH/7jGUlat7332s++p0K/SM/Ruxh9Ws6nJTPgo/zr59qHWeitkEeyfJx4npzZtK5dVHq4tTVtUOIcB1ItkVng==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
+ by CH3PR12MB9028.namprd12.prod.outlook.com (2603:10b6:610:123::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Mon, 31 Aug
+ 2026 02:23:35 +0000
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16%5]) with mapi id 15.21.0360.008; Mon, 31 Aug 2026
+ 02:23:35 +0000
+From: Zi Yan <ziy@nvidia.com>
+Date: Sun, 30 Aug 2026 22:23:23 -0400
+Subject: [PATCH v2] mm/slab: reject unsupported kmalloc() sizes
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260830-limit_kmalloc_size-v2-1-bf4ca9c63c88@nvidia.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32NQQ6CMBBFr0JmbQ0taIkr72EIKcMgo9CaFhuVc
+ HcB9y5f8v77EwTyTAFOyQSeIgd2dgG1SwA7Y68kuFkYVKqOaSG16HngsboPpu8dVoE/JDKTG4U
+ 6q8kgLMOHp5ZfW/RS/jg86xvhuJZWo+MwOv/eXqNcvb8HUQopDjW1eaF1KhHPNnLDZo9ugHKe5
+ y9zyTWVxwAAAA==
+X-Change-ID: 20260817-limit_kmalloc_size-3a4a2c73beac
+To: Vlastimil Babka <vbabka@kernel.org>, Harry Yoo <harry@kernel.org>, 
+ Andrew Morton <akpm@linux-foundation.org>, Hao Li <hao.li@linux.dev>, 
+ Christoph Lameter <cl@gentwo.org>, David Rientjes <rientjes@google.com>, 
+ Roman Gushchin <roman.gushchin@linux.dev>, 
+ Alan Stern <stern@rowland.harvard.edu>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ Zi Yan <ziy@nvidia.com>
+X-Mailer: b4 0.15.2
+X-ClientProxiedBy: YQBPR0101CA0098.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:4::31) To IA0PR12MB8374.namprd12.prod.outlook.com
+ (2603:10b6:208:40e::7)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260714130657.46963-1-zhangzhanpeng.jasper@bytedance.com> <20260714130657.46963-7-zhangzhanpeng.jasper@bytedance.com>
-In-Reply-To: <20260714130657.46963-7-zhangzhanpeng.jasper@bytedance.com>
-From: yunhui cui <cuiyunhui@bytedance.com>
-Date: Mon, 31 Aug 2026 10:22:22 +0800
-X-Gm-Features: AcwNN1VHNaLflYI-HVMoCotiDIU95Gw4KdfrwenubXhIi3zixKqADa4c1CPSbdY
-Message-ID: <CAEEQ3wkxJYK2K602yjcaKPir9Tcb73ML--shpG2CrOm8geLNjg@mail.gmail.com>
-Subject: Re: [RFC PATCH 6/7] riscv_cbqri: Assign IOMMU groups to resource groups
-To: Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>
-Cc: joro@8bytes.org, palmer@dabbelt.com, tony.luck@intel.com, 
-	reinette.chatre@intel.com, tomasz.jeznach@linux.dev, will@kernel.org, 
-	robin.murphy@arm.com, fustini@kernel.org, pjw@kernel.org, 
-	aou@eecs.berkeley.edu, alex@ghiti.fr, Dave.Martin@arm.com, 
-	james.morse@arm.com, babu.moger@amd.com, corbet@lwn.net, shuah@kernel.org, 
-	jgg@ziepe.ca, kevin.tian@intel.com, yuanzhu@bytedance.com, 
-	iommu@lists.linux.dev, linux-riscv@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, x86@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|CH3PR12MB9028:EE_
+X-MS-Office365-Filtering-Correlation-Id: f6c7865f-e3a3-41f3-337a-08df0706dc05
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|7416014|376014|23010399003|366016|6133799003|10067099003|11063799006|56012099006|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	GltRCiDAzw4Uh3hsBmz9iFJwcPLJV/1akq8GtbLM0TQpKkKjI087vnN6fIfEtfyjapd0LyoT4yqOyDe013G4rR42HOb+YeuWVMYIC0RYwYCTIhpPnHU++/eI73IONIDTnRsaZte5peViDFANkjI5Qfej/rn0smGuaBOKE5CSYmqPmZKXbKpJ8zLrgA3ynEIUiX8vMb/O9C1trT8gCI8GiLZtrU7d1GJKgX7YC+6DNpV5D1QbvVZnzFY/a/FXJEid1otSiA/PDJHXPy08gJMYK8HW9JyKqtfoeVhMvDZrJEM4xzOeDUhIpBxASs6WKvvatFpgFkGNRfd6TEaWK1Z7fGvvpjXaQHo37pBbjBvOaR3+GkJJRK7Bq8pCnYbFKCXFDAreo8XfslrUQR71NnjTm1Cp0fqQkCZDX8Ix99+wPvTpRCfMmV5FvrG+u678NztDXOV4zMLxRynOUy3OLFtupa29XXHVwrAVPieCtiecW6kp+3yGNOSJ5j+IEjZoeyvIKPycxIr829RVcfa/JzWyxBKkrjvE4xlUDmQaOs1AZ5vLAkRUYYhE+yq8vYjfVLULvwOdMzONCyW5o62Gnz2wJVar8LMOwL+gsU9SY1PJ7+HM20IRboczsEFppuRBBtRMaGxM1y6AYY4MxUh/BbB9+9MU5P5qWXRnnkYI58MDOVs=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(23010399003)(366016)(6133799003)(10067099003)(11063799006)(56012099006)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?dUp4RVBZTlBKLzlWa0FHTUVyRWl1OGlDTjBLVmJKVnI2TVJNQW53RmtKeUE0?=
+ =?utf-8?B?aExCeVdxNWVHMktPQWE5b0VDM0lIL0o3TkhkUlQ3SVZ1d3F0UUtxMDdCZGFw?=
+ =?utf-8?B?eVNJamJPVytsQzRWSG5DcWtUSFhyemtzaTNONVhkSVhyZ1VaKzJydlRNdmdL?=
+ =?utf-8?B?M1NjUjJKakt1VXF5UUlkR3dnTzIrbEVySGduNmlCb25nZXdJTUVocTI5WlFW?=
+ =?utf-8?B?MENhVlNVOGtVc05HTlBhMkpqWjI5UU9vV3M2Qy9vOW85WlZqZDRoMXhuVGJ4?=
+ =?utf-8?B?QVhMU1pGWGQ5cDIxMFprbldva3BKVkhid0x6cXE0Yjd0MEpuU0w1TWhIb2Fl?=
+ =?utf-8?B?dXFtK28zeHNBKzYvTVZ6UHp6cFZtalo5UDBBWnhzbjErNGRYRWVBWVNqRmYz?=
+ =?utf-8?B?dVdDSDNVTXQxaHZieUNyakJFeG9tbVBFa1lVY0hDeFBOVEd1UUZyNDZHdnJu?=
+ =?utf-8?B?di82a1FocVV6MFc3cFM1dkRQVGFxZDljWmtEekVUaFJCYXRzMHNtWDJ1WFdx?=
+ =?utf-8?B?dUYzdDVvV3BoRG5SUlB1K3k3QTYwV25EWklIamt5dkVheitWQm40M3V1MFFF?=
+ =?utf-8?B?aTBKS2htS09RQlV0OWlTNEdHWVpKVVA3UHZuTFVOM1EvSGQvYlU5NUNBU2Fl?=
+ =?utf-8?B?STVGeitIMmptUEVhbktqNEE5cDh4T3R6Z1U2ZXo0dUVva1k4a1hOcmxlandI?=
+ =?utf-8?B?VUI3RTR3LzNPUHR0N3hZKythUlI5S1ZiRTZjcWlwaGJ3Ylp1Q1JiNlVsdVdP?=
+ =?utf-8?B?d3hOcDVQSTBuU3psYzBGWmhyTmZUWXhoUkwxWFZrbmNKRlg4RjVNemVGMDBM?=
+ =?utf-8?B?Nis3Y084dTVyUFMxM3hKczFCZkluNGhFNFRETUZiN29MS21NZ0o0Tm1qQXJu?=
+ =?utf-8?B?OXNLWTlad2h0aStJM1QwUk9HamxUOGNlUGlHOTBzYTNCdWlaVFVZTUpFdU9z?=
+ =?utf-8?B?ZklNYTFva0hHOEdYTUlIY24wbWdtZjFMQnB5dXRVaWI3Qnk1YlZLcStZY29v?=
+ =?utf-8?B?anRkZ0MrVitQMTlQNG9uS2dMdmQwZkh3UTJhVTVPcmd1elBtNDFTeEVydE1y?=
+ =?utf-8?B?dXNFWlYxRWNJanBBWXZNaDlZdmxRcFFyY2Q3djMvY3NLbFlaeGVhQWwvWmlG?=
+ =?utf-8?B?VlRxWXZZSTJQbmN4WTlQTzRpMjJGSXpzTzdnNXVFeG8wcUtIRW5VTWFxeHFp?=
+ =?utf-8?B?NzhtYjZETHZoWHNUN0RtMERZRGFFS0JXUHE4Uis0M01jcmZBd3l4MVhHQVR0?=
+ =?utf-8?B?VVpqZEIvWFErLzB1RFZJRFdmU1p3emF0ZFpvOU5HUUxLOHFObE43OC9nU3Zq?=
+ =?utf-8?B?cUZLVzZRTnZoMjZNMm1DVDdBVjdFWEFIZHhPSy9GL3hHc3V0R2JBcUV4MXE2?=
+ =?utf-8?B?cHoxeExtQWxzSEFNOCtaazVFOVpMZWNFN3Q1UHV3YVR1NUJLSDE1YVczNWRi?=
+ =?utf-8?B?enZMS3E1cmZVZ2VTWmRWa3pKbUE1RTFqRFREcElrdlRrZXJGbFNOUW8xKzlw?=
+ =?utf-8?B?N0NsK2s3djF1VlZ3SWQ4N1BHT3pwNHluVXR6SkFxWEkxMitwYld2c0g0MmRJ?=
+ =?utf-8?B?d2UzYm1DSjFLRjFGSS9OY3g2S0V1eEVBb0dVTllveW5yOU9KRDZnWFROTzlR?=
+ =?utf-8?B?T09PNDU2UENZSmpCRU9IQVdxazIyRnoxcUZ3UFRoTW1QNlV5OFpmeHNCYjFF?=
+ =?utf-8?B?VUdNSHZXRytVNWN1OTJEZm5SZk9zZUpQcnMyaG8xZnpTVTZTQTZsNG9IMWx2?=
+ =?utf-8?B?ZHpvdVNxWmxuaVFvTCtqZWVzWk5WTWFIWWF2V0hCd29aWnpuV3JkYWRVbGQ3?=
+ =?utf-8?B?UWV2VkpTRTBTYzJ4NGF3dmtEd1laTjdBcWczRS93a3ljZ3ZtQ3NaUjM1TFhw?=
+ =?utf-8?B?TDRDNHRMcWlwOUQydzBBNXpyZUF4cXdlVEk0WUszSlg1d1k0NXNoakJVZ25i?=
+ =?utf-8?B?RXpuM1FaM0puc0ZuOUtZdVd0Vk9lVkRTbGpjVmtNTVRHaXc3TlJGdExLZlZH?=
+ =?utf-8?B?YUFzOEVlMXBpV1hpYVd6M1VyRk9GTTNoYjZUTUs2bldUSlorZy9tUjV4cmZy?=
+ =?utf-8?B?RWFlc0V3akRJQVJnN1g1MmE4ajIySzUyRjEvamhCQjFUSTNOaTMxZGUxd0Iw?=
+ =?utf-8?B?YzBXUWF4QldHcDF3eHdwS3pBQVh1U3ZrZzNOVEd1dnhkc1lkNkRYRWJNZWgw?=
+ =?utf-8?B?WVhzQXJnR0o1Q24xYUxKWFJpbDRFOUd3cW5jaXhUKzRtQzNTeEFRSXJDWlJM?=
+ =?utf-8?B?NE9zRVhHV09LSG5jQlVyR1YzMUtYUUZLdFFrbk01M1BYV3BTeEZ6ZStyLytQ?=
+ =?utf-8?Q?bKYVdvCd0ZIps/pcSQ?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f6c7865f-e3a3-41f3-337a-08df0706dc05
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 02:23:35.3722
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ubMsO3kfgEw34yqAK8MgAK8U60F9zlNlRPoMs1y3FOTruTylknp+sIL8HXzb1pOd
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9028
 
-Hi Zhanpeng,
+kmalloc() is used to allocate physically contiguous memory for kernel
+allocations. For requests larger than KMALLOC_MAX_CACHE_SIZE, kmalloc()
+uses the page allocator and can only support up to KMALLOC_MAX_SIZE. For
+request sizes bigger than KMALLOC_MAX_SIZE, the page allocator can emit a
+WARN because kmalloc() allocates an order greater than MAX_PAGE_ORDER. To
+make the KMALLOC_MAX_SIZE limit more explicit instead of relying on the
+page allocator check, add a KMALLOC_MAX_SIZE check inside kmalloc() to emit
+a WARN and return NULL for requested sizes bigger than KMALLOC_MAX_SIZE.
+Like the WARN in the page allocator and kvmalloc(), allow __GFP_NOWARN to
+suppress the WARN.
 
-On Tue, Jul 14, 2026 at 9:08=E2=80=AFPM Zhanpeng Zhang
-<zhangzhanpeng.jasper@bytedance.com> wrote:
->
-> Allow the resctrl devices file to accept iommu_group:<id> tokens on
-> RISC-V and map the target resource group's closid and rmid values to
-> RCID and MCID.
->
-> Record non-default assignments in an RCU-protected binding list rather
-> than inferring membership from hardware IDs, which may be shared. Keep a
-> parent reference obtained by numeric group lookup so the binding does not
-> keep an empty group's devices kobject active, and prune bindings after
-> their group becomes inactive.
->
-> Publish an explicit UPDATING state while hardware changes. Paging-domain
-> attachment rejects that transient state. Static FSC=3DBare transitions
-> preserve the current IDs so a mandatory release-domain attachment cannot
-> fail. After the checked group update succeeds, publish the packed IDs. A
-> validation failure restores the previous active state without partially
-> changing hardware.
->
-> Moving an IOMMU group to the default resource group resets its hardware
-> state and removes the software binding. Device contexts created later for
-> an assigned group inherit the IDs through the RCU lookup path.
->
-> Signed-off-by: Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>
-> ---
->  MAINTAINERS                   |   1 +
->  arch/riscv/include/asm/qos.h  |  12 ++
->  drivers/iommu/riscv/iommu.c   |  70 +++++++--
->  drivers/iommu/riscv/iommu.h   |  16 +-
->  drivers/resctrl/Kconfig       |   6 +
->  drivers/resctrl/Makefile      |   1 +
->  drivers/resctrl/cbqri_iommu.c | 276 ++++++++++++++++++++++++++++++++++
->  7 files changed, 369 insertions(+), 13 deletions(-)
->  create mode 100644 drivers/resctrl/cbqri_iommu.c
->
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index c59be02c8f02..162ad5a1780f 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -23288,6 +23288,7 @@ L:      iommu@lists.linux.dev
->  L:     linux-riscv@lists.infradead.org
->  S:     Maintained
->  F:     Documentation/ABI/testing/sysfs-class-iommu-riscv-iommu
-> +F:     drivers/resctrl/cbqri_iommu.c
->
->  RISC-V MICROCHIP SUPPORT
->  M:     Conor Dooley <conor.dooley@microchip.com>
-> diff --git a/arch/riscv/include/asm/qos.h b/arch/riscv/include/asm/qos.h
-> index daa758d4efff..84a93739c6ff 100644
-> --- a/arch/riscv/include/asm/qos.h
-> +++ b/arch/riscv/include/asm/qos.h
-> @@ -8,6 +8,18 @@
->
->  struct iommu_group;
->
-> +#ifdef CONFIG_RISCV_CBQRI_IOMMU
-> +int riscv_resctrl_iommu_group_get_qosid(struct iommu_group *group,
-> +                                       u32 *rcid, u32 *mcid);
-> +#else
-> +static inline int
-> +riscv_resctrl_iommu_group_get_qosid(struct iommu_group *group, u32 *rcid=
-,
-> +                                   u32 *mcid)
-> +{
-> +       return -ENOENT;
-> +}
-> +#endif
-> +
->  #ifdef CONFIG_RISCV_IOMMU
->  int riscv_iommu_group_set_qosid(struct iommu_group *group, u32 rcid,
->                                 u32 mcid);
-> diff --git a/drivers/iommu/riscv/iommu.c b/drivers/iommu/riscv/iommu.c
-> index e85da9eef58e..1a7d8a582959 100644
-> --- a/drivers/iommu/riscv/iommu.c
-> +++ b/drivers/iommu/riscv/iommu.c
-> @@ -1188,16 +1188,50 @@ static void riscv_iommu_iodir_iotinval(struct ris=
-cv_iommu_device *iommu,
->   * device is not quiesced might be disruptive, potentially causing
->   * interim translation faults.
->   */
-> -static void riscv_iommu_iodir_update(struct riscv_iommu_device *iommu,
-> -                                    struct device *dev, u64 fsc, u64 ta)
-> +static int riscv_iommu_iodir_update(struct riscv_iommu_device *iommu,
-> +                                   struct device *dev, u64 fsc, u64 ta)
->  {
->         struct iommu_fwspec *fwspec =3D dev_iommu_fwspec_get(dev);
->         struct riscv_iommu_dc *dc;
->         struct riscv_iommu_command cmd;
->         bool sync_required =3D false;
-> +       u64 group_qos_ta =3D 0;
-> +       bool has_group_qos;
-> +       u32 group_rcid;
-> +       u32 group_mcid;
->         u64 tc;
-> +       int ret =3D 0;
-> +       int qos_ret;
->         int i;
->
-> +       /* Serialize DC.ta updates with resctrl IOMMU group QoS changes. =
-*/
-> +       mutex_lock(&iommu->qosid_lock);
-> +
-> +       qos_ret =3D riscv_resctrl_iommu_group_get_qosid(dev->iommu_group,
-> +                                                     &group_rcid, &group=
-_mcid);
-> +       if (qos_ret =3D=3D -EAGAIN) {
-> +               /* Static domain transitions must not fail during device =
-release. */
-> +               if (fsc !=3D RISCV_IOMMU_FSC_BARE) {
-> +                       ret =3D -EBUSY;
-> +                       goto unlock;
-> +               }
-> +               qos_ret =3D -ENOENT;
-> +       }
-> +       has_group_qos =3D !qos_ret;
-> +       if (has_group_qos) {
-> +               if (!(iommu->caps & RISCV_IOMMU_CAPABILITIES_QOSID) ||
-> +                   iommu->ddt_mode <=3D RISCV_IOMMU_DDTP_IOMMU_MODE_BARE=
-) {
-> +                       ret =3D -EOPNOTSUPP;
-> +                       goto unlock;
-> +               }
-> +               if (group_rcid > FIELD_MAX(RISCV_IOMMU_DC_TA_RCID) ||
-> +                   group_mcid > FIELD_MAX(RISCV_IOMMU_DC_TA_MCID)) {
-> +                       ret =3D -ERANGE;
-> +                       goto unlock;
-> +               }
-> +               group_qos_ta =3D riscv_iommu_qosid_ta(group_rcid, group_m=
-cid);
-> +       }
-> +
->         for (i =3D 0; i < fwspec->num_ids; i++) {
->                 dc =3D riscv_iommu_get_dc(iommu, fwspec->ids[i]);
->                 tc =3D READ_ONCE(dc->tc);
-> @@ -1233,11 +1267,12 @@ static void riscv_iommu_iodir_update(struct riscv=
-_iommu_device *iommu,
->                 tc =3D READ_ONCE(dc->tc);
->                 dc_ta =3D ta;
->                 if (iommu->caps & RISCV_IOMMU_CAPABILITIES_QOSID) {
-> -                       dc_ta |=3D READ_ONCE(dc->ta) &
-> -                                (RISCV_IOMMU_DC_TA_RCID |
-> -                                 RISCV_IOMMU_DC_TA_MCID);
-> -                       ta_mask |=3D RISCV_IOMMU_DC_TA_RCID |
-> -                                  RISCV_IOMMU_DC_TA_MCID;
-> +                       if (has_group_qos)
-> +                               dc_ta |=3D group_qos_ta;
-> +                       else
-> +                               dc_ta |=3D READ_ONCE(dc->ta) &
-> +                                        RISCV_IOMMU_DC_TA_QOSID;
-> +                       ta_mask |=3D RISCV_IOMMU_DC_TA_QOSID;
->                 }
->                 tc |=3D dc_ta & RISCV_IOMMU_DC_TC_V;
->
-> @@ -1259,6 +1294,9 @@ static void riscv_iommu_iodir_update(struct riscv_i=
-ommu_device *iommu,
->         }
->
->         riscv_iommu_cmd_sync(iommu, RISCV_IOMMU_IOTINVAL_TIMEOUT);
-> +unlock:
-> +       mutex_unlock(&iommu->qosid_lock);
-> +       return ret;
->  }
->
->  /*
-> @@ -1324,6 +1362,7 @@ static int riscv_iommu_attach_paging_domain(struct =
-iommu_domain *iommu_domain,
->         struct riscv_iommu_info *info =3D dev_iommu_priv_get(dev);
->         struct pt_iommu_riscv_64_hw_info pt_info;
->         u64 fsc, ta;
-> +       int ret;
->
->         pt_iommu_riscv_64_hw_info(&domain->riscvpt, &pt_info);
->
-> @@ -1338,7 +1377,11 @@ static int riscv_iommu_attach_paging_domain(struct=
- iommu_domain *iommu_domain,
->         if (riscv_iommu_bond_link(domain, dev))
->                 return -ENOMEM;
->
-> -       riscv_iommu_iodir_update(iommu, dev, fsc, ta);
-> +       ret =3D riscv_iommu_iodir_update(iommu, dev, fsc, ta);
-> +       if (ret) {
-> +               riscv_iommu_bond_unlink(domain, dev);
-> +               return ret;
-> +       }
->         riscv_iommu_bond_unlink(info->domain, dev);
->         info->domain =3D domain;
->
-> @@ -1413,9 +1456,12 @@ static int riscv_iommu_attach_blocking_domain(stru=
-ct iommu_domain *iommu_domain,
->  {
->         struct riscv_iommu_device *iommu =3D dev_to_iommu(dev);
->         struct riscv_iommu_info *info =3D dev_iommu_priv_get(dev);
-> +       int ret;
->
->         /* Make device context invalid, translation requests will fault w=
-/ #258 */
-> -       riscv_iommu_iodir_update(iommu, dev, RISCV_IOMMU_FSC_BARE, 0);
-> +       ret =3D riscv_iommu_iodir_update(iommu, dev, RISCV_IOMMU_FSC_BARE=
-, 0);
-> +       if (ret)
-> +               return ret;
->         riscv_iommu_bond_unlink(info->domain, dev);
->         info->domain =3D NULL;
->
-> @@ -1435,8 +1481,12 @@ static int riscv_iommu_attach_identity_domain(stru=
-ct iommu_domain *iommu_domain,
->  {
->         struct riscv_iommu_device *iommu =3D dev_to_iommu(dev);
->         struct riscv_iommu_info *info =3D dev_iommu_priv_get(dev);
-> +       u64 ta =3D RISCV_IOMMU_PC_TA_V;
-> +       int ret;
->
-> -       riscv_iommu_iodir_update(iommu, dev, RISCV_IOMMU_FSC_BARE, RISCV_=
-IOMMU_PC_TA_V);
-> +       ret =3D riscv_iommu_iodir_update(iommu, dev, RISCV_IOMMU_FSC_BARE=
-, ta);
-> +       if (ret)
-> +               return ret;
->         riscv_iommu_bond_unlink(info->domain, dev);
->         info->domain =3D NULL;
->
-> diff --git a/drivers/iommu/riscv/iommu.h b/drivers/iommu/riscv/iommu.h
-> index 13ea67b7e42d..e7804ec65647 100644
-> --- a/drivers/iommu/riscv/iommu.h
-> +++ b/drivers/iommu/riscv/iommu.h
-> @@ -11,13 +11,11 @@
->  #ifndef _RISCV_IOMMU_H_
->  #define _RISCV_IOMMU_H_
->
-> +#include <linux/errno.h>
->  #include <linux/iommu.h>
->  #include <linux/iopoll.h>
->  #include <linux/mutex.h>
->  #include <linux/types.h>
-> -#ifdef CONFIG_RISCV_IOMMU_32BIT
-> -#include <linux/spinlock.h>
-> -#endif
->
->  #include "iommu-bits.h"
->
-> @@ -26,6 +24,18 @@ struct riscv_iommu_device;
->  int riscv_iommu_group_set_qosid(struct iommu_group *group, u32 rcid,
->                                 u32 mcid);
->
-> +#ifdef CONFIG_RISCV_CBQRI_IOMMU
-> +int riscv_resctrl_iommu_group_get_qosid(struct iommu_group *group,
-> +                                       u32 *rcid, u32 *mcid);
-> +#else
-> +static inline int
-> +riscv_resctrl_iommu_group_get_qosid(struct iommu_group *group, u32 *rcid=
-,
-> +                                   u32 *mcid)
-> +{
-> +       return -ENOENT;
-> +}
-> +#endif
-> +
->  struct riscv_iommu_queue {
->         atomic_t prod;                          /* unbounded producer all=
-ocation index */
->         atomic_t head;                          /* unbounded shadow ring =
-buffer consumer index */
-> diff --git a/drivers/resctrl/Kconfig b/drivers/resctrl/Kconfig
-> index b7db6ff9d054..4e10c813e647 100644
-> --- a/drivers/resctrl/Kconfig
-> +++ b/drivers/resctrl/Kconfig
-> @@ -60,3 +60,9 @@ endif
->  config RISCV_CBQRI_RESCTRL_FS
->         bool
->         default y if RISCV_CBQRI && RESCTRL_FS
-> +
-> +config RISCV_CBQRI_IOMMU
-> +       bool
-> +       depends on RISCV_CBQRI_RESCTRL_FS && RISCV_IOMMU
-> +       select ARCH_HAS_RESCTRL_DEVICES
-> +       default y
-> diff --git a/drivers/resctrl/Makefile b/drivers/resctrl/Makefile
-> index c8339113ef1f..148b2e28c6a3 100644
-> --- a/drivers/resctrl/Makefile
-> +++ b/drivers/resctrl/Makefile
-> @@ -8,3 +8,4 @@ obj-$(CONFIG_RISCV_CBQRI)                       +=3D cbqr=
-i.o
->  cbqri-y                                                +=3D cbqri_device=
-s.o
->  cbqri-$(CONFIG_RISCV_CBQRI_RESCTRL_FS)         +=3D cbqri_resctrl.o
->  cbqri-$(CONFIG_RISCV_CBQRI_CAPACITY)           +=3D cbqri_capacity.o
-> +cbqri-$(CONFIG_RISCV_CBQRI_IOMMU)                      +=3D cbqri_iommu.=
-o
-> diff --git a/drivers/resctrl/cbqri_iommu.c b/drivers/resctrl/cbqri_iommu.=
-c
-> new file mode 100644
-> index 000000000000..4086c32546bd
-> --- /dev/null
-> +++ b/drivers/resctrl/cbqri_iommu.c
-> @@ -0,0 +1,276 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +
-> +#include <linux/capability.h>
-> +#include <linux/errno.h>
-> +#include <linux/iommu.h>
-> +#include <linux/kernel.h>
-> +#include <linux/limits.h>
-> +#include <linux/list.h>
-> +#include <linux/rculist.h>
-> +#include <linux/rcupdate.h>
-> +#include <linux/resctrl.h>
-> +#include <linux/seq_file.h>
-> +#include <linux/slab.h>
-> +#include <linux/string.h>
-> +#include <linux/types.h>
-> +
-> +#include <asm/qos.h>
-> +
-> +#define IOMMU_GROUP_TOKEN      "iommu_group:"
-> +
-> +/*
-> + * RISC-V IOMMU RCID and MCID fields are 12 bits each, so an active bind=
-ing
-> + * cannot contain U64_MAX.
-> + */
-> +#define QOS_IOMMU_BINDING_UPDATING     U64_MAX
-> +
-> +/* Records the resctrl QoS ID assignment for one IOMMU group. */
-> +struct qos_iommu_group_binding {
-> +       struct list_head node;
-> +       struct rcu_head rcu;
-> +       struct iommu_group *group;
-> +       int group_id;
-> +       /* Packed IDs, or QOS_IOMMU_BINDING_UPDATING during a hardware up=
-date. */
-> +       u64 state;
-> +};
-> +
-> +/*
-> + * resctrl owns IOMMU group membership bookkeeping. Do not infer members=
-hip by
-> + * reading RCID/MCID back from hardware: the same IDs may be shared by m=
-ultiple
-> + * resctrl users. Writers are serialized by rdtgroup_mutex. IOMMU attach=
- paths
-> + * read the list under RCU so newly attached devices can inherit an exis=
-ting
-> + * group assignment without taking locks in the opposite order to resctr=
-l.
-> + */
-> +static LIST_HEAD(qos_iommu_bindings);
-> +
-> +static u64 qos_iommu_group_ids_pack(struct resctrl_group_ids ids)
-> +{
-> +       return (u64)ids.closid << 32 | ids.rmid;
-> +}
-> +
-> +static struct resctrl_group_ids qos_iommu_group_ids_unpack(u64 ids)
-> +{
-> +       return (struct resctrl_group_ids) {
-> +               .closid =3D upper_32_bits(ids),
-> +               .rmid =3D lower_32_bits(ids),
-> +       };
-> +}
-> +
-> +static bool qos_iommu_group_ids_match(u64 packed, struct resctrl_group_i=
-ds ids)
-> +{
-> +       return packed !=3D QOS_IOMMU_BINDING_UPDATING &&
-> +              packed =3D=3D qos_iommu_group_ids_pack(ids);
-> +}
-> +
-> +static bool qos_iommu_group_ids_default(struct resctrl_group_ids ids)
-> +{
-> +       return ids.closid =3D=3D RESCTRL_RESERVED_CLOSID &&
-> +              ids.rmid =3D=3D RESCTRL_RESERVED_RMID;
-> +}
-> +
-> +static struct qos_iommu_group_binding *
-> +qos_iommu_group_find_binding(int group_id)
-> +{
-> +       struct qos_iommu_group_binding *binding;
-> +
-> +       list_for_each_entry(binding, &qos_iommu_bindings, node) {
-> +               if (binding->group_id =3D=3D group_id)
-> +                       return binding;
-> +       }
-> +
-> +       return NULL;
-> +}
-> +
-> +static void qos_iommu_group_free_binding(struct qos_iommu_group_binding =
-*binding)
-> +{
-> +       list_del_rcu(&binding->node);
-> +       iommu_group_put_by_id(binding->group);
-> +       kfree_rcu(binding, rcu);
-> +}
-> +
-> +static void qos_iommu_group_prune_inactive(void)
-> +{
-> +       struct qos_iommu_group_binding *binding;
-> +       struct qos_iommu_group_binding *tmp;
-> +
-> +       list_for_each_entry_safe(binding, tmp, &qos_iommu_bindings, node)=
+Suggested-by: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Signed-off-by: Zi Yan <ziy@nvidia.com>
+---
+Instead of passing requests greater than KMALLOC_MAX_SIZE to the page
+allocator, reject them early inside kmalloc().
+---
+Changes in v2:
+1. Rejected kmalloc() request sizes bigger than KMALLOC_MAX_SIZE by
+   emitting a WARN and returning NULL inside kmalloc(). The WARN can be
+   suppressed by __GFP_NOWARN. So the page allocator will no longer see
+   excessively large requests from kmalloc().
+- Link to v1: https://patch.msgid.link/20260817-limit_kmalloc_size-v1-1-5bef487701cc@nvidia.com
+---
+ mm/slub.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/mm/slub.c b/mm/slub.c
+index f9b56cb439e70..23e57a8fe55b4 100644
+--- a/mm/slub.c
++++ b/mm/slub.c
+@@ -5342,7 +5342,12 @@ static void *___kmalloc_large_node(size_t size, gfp_t flags, int node)
  {
-> +               if (!iommu_group_is_active(binding->group))
-> +                       qos_iommu_group_free_binding(binding);
-> +       }
-> +}
-> +
-> +static int qos_iommu_group_set(struct iommu_group *group,
-> +                              struct resctrl_group_ids ids)
-> +{
-> +       /* RISC-V IOMMU QoS maps closid->rcid and rmid->mcid 1:1. */
-> +       return riscv_iommu_group_set_qosid(group, ids.closid, ids.rmid);
-> +}
-> +
-> +int resctrl_arch_devices_write(char *tok, struct resctrl_group_ids ids)
-> +{
-> +       struct qos_iommu_group_binding *binding;
-> +       struct qos_iommu_group_binding *new_binding =3D NULL;
-> +       struct iommu_group *group;
-> +       u64 old_state =3D QOS_IOMMU_BINDING_UPDATING;
-> +       bool default_ids;
-> +       int group_id;
-> +       int ret;
-> +
-> +       if (strncmp(tok, IOMMU_GROUP_TOKEN, strlen(IOMMU_GROUP_TOKEN))) {
-> +               resctrl_last_cmd_printf("Unsupported device token %s\n", =
-tok);
-> +               return -EOPNOTSUPP;
-> +       }
-> +
-> +       tok +=3D strlen(IOMMU_GROUP_TOKEN);
-> +       if (kstrtoint(tok, 10, &group_id) || group_id < 0) {
-> +               resctrl_last_cmd_printf("IOMMU group parsing error %s%s\n=
-",
-> +                                       IOMMU_GROUP_TOKEN, tok);
-> +               return -EINVAL;
-> +       }
-> +
-> +       if (!capable(CAP_SYS_ADMIN)) {
-> +               resctrl_last_cmd_puts("No permission to move IOMMU group\=
-n");
-> +               return -EPERM;
-> +       }
-> +
-> +       default_ids =3D qos_iommu_group_ids_default(ids);
-> +       qos_iommu_group_prune_inactive();
-> +       binding =3D qos_iommu_group_find_binding(group_id);
-> +       if (!binding) {
-> +               group =3D iommu_group_get_by_id(group_id);
-> +               if (!group) {
-> +                       resctrl_last_cmd_printf("No IOMMU group %d\n", gr=
-oup_id);
-> +                       return -ENOENT;
-> +               }
-> +
-> +               if (default_ids) {
-> +                       ret =3D qos_iommu_group_set(group, ids);
-> +                       iommu_group_put_by_id(group);
-> +                       if (ret)
-> +                               resctrl_last_cmd_printf("Failed to reset =
-IOMMU group %d QoS (%d)\n",
-> +                                                       group_id, ret);
-> +                       return ret;
-> +               }
-> +
-> +               new_binding =3D kzalloc_obj(*new_binding, GFP_KERNEL);
-> +               if (!new_binding) {
-> +                       iommu_group_put_by_id(group);
-> +                       resctrl_last_cmd_puts("Unable to allocate IOMMU g=
-roup QoS binding\n");
-> +                       return -ENOMEM;
-> +               }
-> +               binding =3D new_binding;
-> +               binding->group =3D group;
-> +               binding->group_id =3D group_id;
-> +               binding->state =3D QOS_IOMMU_BINDING_UPDATING;
-> +               list_add_tail_rcu(&binding->node, &qos_iommu_bindings);
-> +       } else {
-> +               group =3D binding->group;
-> +               old_state =3D READ_ONCE(binding->state);
-> +               WRITE_ONCE(binding->state, QOS_IOMMU_BINDING_UPDATING);
-> +       }
+ 	struct page *page;
+ 	void *ptr = NULL;
+-	unsigned int order = get_order(size);
++	unsigned int order;
++
++	if (WARN_ON_ONCE_GFP(size > KMALLOC_MAX_SIZE, flags))
++		return NULL;
++
++	order = get_order(size);
+ 
+ 	if (unlikely(flags & GFP_SLAB_BUG_MASK))
+ 		flags = kmalloc_fix_flags(flags);
 
-Could this make a concurrent paging-domain attachment fail
-unnecessarily?
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20260817-limit_kmalloc_size-3a4a2c73beac
 
-  resctrl_arch_devices_write()
-iommu_attach_group()
-  --------------------------------
---------------------------------
+Best regards,
+--  
+Yan, Zi
 
-  WRITE_ONCE(binding->state,
-             QOS_IOMMU_BINDING_UPDATING);
-
-
-mutex_lock(&group->mutex);
-
-__iommu_attach_group()
-
-__iommu_group_set_domain()
-
-__iommu_device_set_domain()
-
-riscv_iommu_attach_paging_domain()
-
- riscv_iommu_iodir_update()
-
-   riscv_resctrl_iommu_group_get_qosid()
-
-     return -EAGAIN
-
-   return -EBUSY
-
-mutex_unlock(&group->mutex);
-
-  qos_iommu_group_set()
-    riscv_iommu_group_set_qosid()
-      iommu_group_update_devices()
-        mutex_lock(&group->mutex);
-        riscv_iommu_qosid_validate_dev()
-        riscv_iommu_qosid_apply_dev()
-        mutex_unlock(&group->mutex);
-
-Since QOS_IOMMU_BINDING_UPDATING is published before
-iommu_group_update_devices() acquires group->mutex, the attachment can
-acquire group->mutex first, but still fail with -EBUSY after observing
-the transient state.
-
-Should the binding state transition be serialized with the group update
-under group->mutex instead?
-
-Thanks,
-Yunhui
-
-> +
-> +       ret =3D qos_iommu_group_set(group, ids);
-> +       if (ret) {
-> +               if (new_binding)
-> +                       qos_iommu_group_free_binding(binding);
-> +               else
-> +                       WRITE_ONCE(binding->state, old_state);
-> +               resctrl_last_cmd_printf("Failed to move IOMMU group %d Qo=
-S (%d)\n",
-> +                                       group_id, ret);
-> +               return ret;
-> +       }
-> +
-> +       if (default_ids)
-> +               qos_iommu_group_free_binding(binding);
-> +       else
-> +               WRITE_ONCE(binding->state, qos_iommu_group_ids_pack(ids))=
-;
-> +
-> +       return 0;
-> +}
-> +
-> +int riscv_resctrl_iommu_group_get_qosid(struct iommu_group *group, u32 *=
-rcid,
-> +                                       u32 *mcid)
-> +{
-> +       struct qos_iommu_group_binding *binding;
-> +       int ret =3D -ENOENT;
-> +
-> +       if (!group)
-> +               return -ENODEV;
-> +
-> +       rcu_read_lock();
-> +       list_for_each_entry_rcu(binding, &qos_iommu_bindings, node) {
-> +               struct resctrl_group_ids ids;
-> +               u64 state;
-> +
-> +               if (binding->group !=3D group)
-> +                       continue;
-> +               state =3D READ_ONCE(binding->state);
-> +               if (state =3D=3D QOS_IOMMU_BINDING_UPDATING) {
-> +                       ret =3D -EAGAIN;
-> +                       break;
-> +               }
-> +
-> +               ids =3D qos_iommu_group_ids_unpack(state);
-> +               if (rcid)
-> +                       *rcid =3D ids.closid;
-> +               if (mcid)
-> +                       *mcid =3D ids.rmid;
-> +               ret =3D 0;
-> +               break;
-> +       }
-> +       rcu_read_unlock();
-> +
-> +       return ret;
-> +}
-> +
-> +void resctrl_arch_devices_show(struct seq_file *s, struct resctrl_group_=
-ids ids)
-> +{
-> +       struct qos_iommu_group_binding *binding;
-> +
-> +       qos_iommu_group_prune_inactive();
-> +       list_for_each_entry(binding, &qos_iommu_bindings, node) {
-> +               if (qos_iommu_group_ids_match(READ_ONCE(binding->state), =
-ids))
-> +                       seq_printf(s, "iommu_group:%d\n", binding->group_=
-id);
-> +       }
-> +}
-> +
-> +bool resctrl_arch_devices_assigned(struct resctrl_group_ids ids)
-> +{
-> +       struct qos_iommu_group_binding *binding;
-> +
-> +       qos_iommu_group_prune_inactive();
-> +       list_for_each_entry(binding, &qos_iommu_bindings, node) {
-> +               if (qos_iommu_group_ids_match(READ_ONCE(binding->state), =
-ids))
-> +                       return true;
-> +       }
-> +
-> +       return false;
-> +}
-> +
-> +int resctrl_arch_devices_reset_all(struct resctrl_group_ids default_ids)
-> +{
-> +       struct qos_iommu_group_binding *binding;
-> +       struct qos_iommu_group_binding *tmp;
-> +       u64 old_state;
-> +       int first_ret =3D 0;
-> +       int ret;
-> +
-> +       qos_iommu_group_prune_inactive();
-> +       list_for_each_entry_safe(binding, tmp, &qos_iommu_bindings, node)=
- {
-> +               old_state =3D READ_ONCE(binding->state);
-> +               WRITE_ONCE(binding->state, QOS_IOMMU_BINDING_UPDATING);
-> +               ret =3D qos_iommu_group_set(binding->group, default_ids);
-> +               if (ret) {
-> +                       WRITE_ONCE(binding->state, old_state);
-> +                       if (!first_ret)
-> +                               first_ret =3D ret;
-> +                       resctrl_last_cmd_printf("Failed to reset IOMMU gr=
-oup %d QoS (%d)\n",
-> +                                               binding->group_id, ret);
-> +                       continue;
-> +               }
-> +
-> +               qos_iommu_group_free_binding(binding);
-> +       }
-> +
-> +       return first_ret;
-> +}
-> --
-> 2.50.1 (Apple Git-155)
->
