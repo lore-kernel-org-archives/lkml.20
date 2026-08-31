@@ -1,109 +1,199 @@
-Received: from mx0a-0016f401.pphosted.com (mx0a-0016f401.pphosted.com [67.231.148.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC53C3A59BC;
-	Mon, 31 Aug 2026 02:38:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=67.231.148.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8435A3A9013
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 02:39:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788143941; cv=none; b=dpeqjleeFmTajPt5XxREDDBE9SQIbwNy/+palo5WaQ48HZSX8CKwolg5H0fad8HuPRhWg8GDjY3Q+Sv0/fPe2iwdhM3xII9bPo24ms56l2JH+QauKDFpzF4a8ErWBZYRx+XylFV7nTg1bQn6rh6pdBbb64MyzzCXsYsYEFwpFNw=
+	t=1788143979; cv=none; b=u5ItvPCJGtxLQlhd6K+YlpolFnnmF17Xhhp2B1m5zeCFcbktOWuC0mAvjU+ru5ZhoCFuBdjrtDGjmCni8nBWtjhV4QaL+ihepF7MwY/4zOyja8IO04RnfZZuYjtwVkPITig4Hq9xc9iN+SOSAlTIe0ZMAtf99k4FQ9waFjftDMs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788143941; c=relaxed/simple;
-	bh=7s0xBomybd8KcX7yxMNeR6pnGCzyWJA1/waJv9jtQrc=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QT7Nf/gYUWuMiYnqmX7S74A/PS6rd2VEP3n8mToqE7VJ2BXopvRcIJLirXisdRFVVLfr16SJ1l4G9rnGaj6SWwAVhsZf7BBdOncKNLLz8vSakLxE13hAVqfa9I66sTsktGZHZgB7t5sknvIAMVa83nyZktRzYLRxOCEtTzPvz6c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com; spf=pass smtp.mailfrom=marvell.com; dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b=SYlMqLk8; arc=none smtp.client-ip=67.231.148.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marvell.com
+	s=arc-20240116; t=1788143979; c=relaxed/simple;
+	bh=0Da7/dbbEMpfnvBKbdJE+zwY+N6bZ1hZScpHd8G4GYA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UUslZi/LtvOaENacIYraPBsUMPyaiWs1Jyj4Mh0ZyPg2SbyGH9yflpWJMG8Rt0lFxgAXSqbOYEX6lVWcnlaE/VaIYDUxlK/Basuqqbo9Jxj25rmwp9sQj1pNZW4JO+eRe6SVKbh5pKRaVbfPsh64TVCQDva0gKN0lrsRkOU5J9Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qLm3xdrH; arc=none smtp.client-ip=209.85.210.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b="SYlMqLk8"
-Received: from pps.filterd (m0431384.ppops.net [127.0.0.1])
-	by mx0a-0016f401.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67V1buKx3698144;
-	Sun, 30 Aug 2026 19:38:38 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marvell.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=pfpt0220; bh=7s0xBomybd8KcX7yxMNeR6pnG
-	CzyWJA1/waJv9jtQrc=; b=SYlMqLk8Vu4g3TD01TJ24xUo1jWRfnNHTwLX23v0y
-	D2x2RPWXwXGZxMxMdfUrI2x6DlzZl8eHmaWueiPMQlO2vLKWvLnLssZg4NclmRu7
-	Diqq0YTNzg3ZT324fh6i3XxT04iT8RZse33MO+p9eVTv8Ho0eI7OL2OalHAt6gP8
-	q3QxDVfR4z1qd7Ou0d4BXQNOeTxUklxYapdszQgScmTtUN1/IpY/8cze67RvGOdP
-	xL4ykb1egaD9IIjWo7C7eJTmg811SB0GYSf7oElC2EMkCXOiCy+h5pc2JG+U1RE3
-	bg5QdWTXtwokOwbc1UDmQKlXWup/so3CgxvzjHiR0A5zg==
-Received: from dc5-exch05.marvell.com ([199.233.59.128])
-	by mx0a-0016f401.pphosted.com (PPS) with ESMTPS id 4gckp8h1yj-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Sun, 30 Aug 2026 19:38:37 -0700 (PDT)
-Received: from DC5-EXCH05.marvell.com (10.69.176.209) by
- DC5-EXCH05.marvell.com (10.69.176.209) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.25; Sun, 30 Aug 2026 19:38:36 -0700
-Received: from maili.marvell.com (10.69.176.80) by DC5-EXCH05.marvell.com
- (10.69.176.209) with Microsoft SMTP Server id 15.2.1544.25 via Frontend
- Transport; Sun, 30 Aug 2026 19:38:36 -0700
-Received: from rkannoth-OptiPlex-7090 (unknown [10.28.36.165])
-	by maili.marvell.com (Postfix) with SMTP id 30ABC3F7082;
-	Sun, 30 Aug 2026 19:38:33 -0700 (PDT)
-Date: Mon, 31 Aug 2026 08:08:33 +0530
-From: Ratheesh Kannoth <rkannoth@marvell.com>
-To: <davem@davemloft.net>, <gakula@marvell.com>,
-        <linux-kernel@vger.kernel.org>, <netdev@vger.kernel.org>,
-        <sgoutham@marvell.com>
-CC: <andrew+netdev@lunn.ch>, <edumazet@google.com>, <kuba@kernel.org>,
-        <pabeni@redhat.com>
-Subject: Re: [PATCH v3 net] octeontx2-af: allocate qmem from page allocator
- to avoid CMA
-Message-ID: <apTpKcN_S1xIwRbZ@rkannoth-OptiPlex-7090>
-References: <20260827070554.3919891-1-rkannoth@marvell.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qLm3xdrH"
+Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-84e0688b7e8so2013980b3a.1
+        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 19:39:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788143973; x=1788748773; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=8+jOHR5naC1tM4DFH+e8Pqt5XoUo3rCHA1hAgrfQ3VA=;
+        b=qLm3xdrHCIVoNrPhtMtW+3bNfbpQoyVK6WxW2VanyxjHexApHLtO8XO0OF+ukFSGcz
+         K9+hDx9SzB3sHshpPG126lYgh2vDG8TfiPPNXiHQLpxw5kEo/SC/jJXsZ1Ms+8A9JBHJ
+         TgoEb1H7u0iZg6R38eoLD5UGkPsuUZhMAAzQu7VF8TKFThIYE6ZSpHM1Rc4iPcQ2+JTt
+         ffOThZLzKUyiq0f9QUwThyqEogmKRv4LcXmrQBotMdmEUTIvqBvkMirkXzSHN1CvO5EZ
+         hdMNVEvtIKn2lKELECYNm8978nieuKhNzCqCLjygIc09an59GQOs0pzoyGgBP/WYyO49
+         i60g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788143973; x=1788748773;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8+jOHR5naC1tM4DFH+e8Pqt5XoUo3rCHA1hAgrfQ3VA=;
+        b=kzk83+xKbg59MyckvkGP7ELJ1oa25VGJbrxo2BcCa+i8YFbxl8sA+KtJc1SVg4Zt3m
+         T86kt9NN8mwfuvQWatbnd3cGOGMt6qG7p/0oCbkogPJrVgY0jzrHZ7eGezIb8LsSlTo3
+         dbAQndf0scR18khmdxEoPfbfF7GQRffrtIG9tR+Xs/EGG2zg+I+W2P5NxwzXGFHlYmqJ
+         tKzf8ITuX0XCukeZxzy3ibequSMpWLDnaJRCG0clbzy1oiQHPOhD/srQ6ZawkP0djyXc
+         /Oca08uGojp04KsBED2IzwroKhGZtj9MGU7Xh8Dc1Y5WaKfqKygHJesgS4xs6P0whzkt
+         GwdA==
+X-Forwarded-Encrypted: i=1; AHgh+RoR5dp8rPLPxMuonLNL9B8DBMh2D8VBuegBS7qgA74zn1LKuAsw6WfCwz5oI+pOugaoSBQMSotBa0Edy9k=@vger.kernel.org
+X-Gm-Message-State: AFuF++lZ5+MPGBbHF4zxVd9RaV+UJLvpAWkQtoMkmhOMFWynnL0GApRA
+	ccvxjnrCwAduyaHNiCf5VcTmGExEDbSwRZ1UIX+P8nwBsedJcIfvQdMm
+X-Gm-Gg: AR+sD10j8KIoztiLYOHUdvCw7oZl2RmQAv3Cez2LKIyhJqFC6Pld0Cgff9mdgDJp+6X
+	3lSIfofCvCKXzvNP3zv2jf5cnuiYHcFFf1bj63qRYLIp6jqNgIuQ4RY6o4Jj5awDmQIgQK8fBXD
+	970ymYPG02i1IPsTLkI8Gcto7fUvV/sodNtKmwuIL0c3BeBgwPxhE/PiSGXW4o8rcDBa2c6bm0U
+	UoFmCOgrQFYw6bJRH59sIWfMUm0tGYZlYtm13T+TvMkh/E827L640OS+ZsPcFgVPd6bLu1QYYYi
+	IvVYES9kkWo0CApB//dAdP9GMlYWPAt7rmi+7tNz/it7ZQ61W4WJ9wEIxLhiobpVbyGUXWx1ODB
+	3FvC6yAKfHdmnn6R88QyZfdt2H+ejXyzYE9qPeIbJsw0BPPc8mbILlzE9lC8fr50JYIUNO15fht
+	I1XgOGyEuu7X/PzLIHzyXiIy2li97/3mCGizGqQtVBEtQs12CrgJ6P1AHuMMqAtceYcQDqqwpCU
+	NMbSBmgDwDksEAzw57NcfyqP5NCVs7jNN6e7RHTanOkGRmvDlwyBaOePvL5FQ==
+X-Received: by 2002:a05:6a00:1144:b0:84a:60a4:2651 with SMTP id d2e1a72fcca58-85628f66f2dmr32908239b3a.6.1788143973123;
+        Sun, 30 Aug 2026 19:39:33 -0700 (PDT)
+Received: from secrnd-cstp.tailb7f510.ts.net ([125.131.91.97])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-856a397deb5sm2881106b3a.52.2026.08.30.19.39.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 30 Aug 2026 19:39:32 -0700 (PDT)
+From: Sanghyun Park <sanghyun.park.cnu@gmail.com>
+To: Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	bpf@vger.kernel.org
+Cc: Sanghyun Park <sanghyun.park.cnu@gmail.com>,
+	Leon Hwang <leon.hwang@linux.dev>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	Shuah Khan <shuah@kernel.org>,
+	Stanislav Fomichev <sdf@fomichev.me>,
+	Pu Lehui <pulehui@huawei.com>,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org
+Subject: [PATCH bpf-next v4 1/2] bpf: Validate program attach type during link update
+Date: Mon, 31 Aug 2026 11:39:11 +0900
+Message-ID: <20260831023918.1857658-1-sanghyun.park.cnu@gmail.com>
+X-Mailer: git-send-email 2.48.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20260827070554.3919891-1-rkannoth@marvell.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODMxMDAyMSBTYWx0ZWRfX9HRkKDcgwrJg
- XObUHqm8ri0S7Fz75BU0k1B1Vd9j65s1JxEdbDlTJRlUCrz9X5NaQK4hZI1r5rq0gC89W+5b2zd
- KV4rlqqKIPLp07U3JDTzLQVyeLtANocJ2mLMfL6hZBmHOq77LDnJdGtL+5BtTiM8S1q3RCD5QX3
- +/vwqfXbQWRbG9vF2zjS5SQi/xJ66TiL1TfOQqlMNBbMSSlOcXjh1SIzhPnypUAnDRB6lJEob40
- XsqUSJbR5Dyl2wkwYv9wdTzzxOSsW/fiy9AXX2gsdhMpdOeS6JR+fVRKg6CB2sVc7vgNl2xbdJ8
- j+ZD1sF62GCQIegYXHX1Fv25N6yNhGST/2y3OAL+0qXiFl3WqcMfecUexN+vX/6Nv76nkc2U0Ou
- DpHTZVM0WVkR0CaAbnyYpINJk4YoYd84p9vNhhGPPmeZUnZJcursfSN3N+nDuctWf032WvkTPJ2
- TMO4NgdB/BrOaPJvG6A==
-X-Proofpoint-GUID: nvP_6FqLw9Hou00AEJV7fcgiXAQvx7mw
-X-Proofpoint-ORIG-GUID: nvP_6FqLw9Hou00AEJV7fcgiXAQvx7mw
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODMxMDAyMSBTYWx0ZWRfX+Ltj68FyYyMp
- WK9mOjSUcHYp6khdxtRx108EGcokNISwwpTQ4p9RcHEndkrbpd6SFk7BfKGm73JBHL5+F1Xdvpu
- h1/FFF4gwaTssSoKUKV0dTwxlKmXe2Q=
-X-Authority-Analysis: v=2.4 cv=GLk41ONK c=1 sm=1 tr=0 ts=6a94e92d cx=c_pps
- a=rEv8fa4AjpPjGxpoe8rlIQ==:117 a=rEv8fa4AjpPjGxpoe8rlIQ==:17
- a=kj9zAlcOel0A:10 a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=l0iWHRpgs5sLHlkKQ1IR:22 a=TtqV-g6YmW1Jfm2GSLaY:22 a=M5GUcnROAAAA:8
- a=X1YraWbzWtjX4d_u3iIA:9 a=CjuIK1q_8ugA:10 a=OBjm3rFKGHvpk9ecZwUJ:22
- a=Oh551-UHZqmTy8JkqTUo:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-31_01,2026-08-27_02,2025-10-01_01
+Content-Transfer-Encoding: 8bit
 
-On 2026-08-27 at 12:35:53, Ratheesh Kannoth (rkannoth@marvell.com) wrote:
-> qmem_alloc() uses dma_alloc_attrs() with DMA_ATTR_FORCE_CONTIGUOUS for
-> physically contiguous DMA memory (e.g. CN10K LMTST regions spanning page
-> boundaries). With CMA enabled, those allocations are drawn from the CMA
-> pool. qmem backs NIX/NPA queue contexts, admin queues, and LMTST regions,
-> so total usage scales with enabled interfaces and is hard to provision in
-> CMA.
->
-> Add otx2_dma_alloc_coherent() and otx2_dma_free_coherent() helpers that
-> allocate compound pages from the buddy allocator via __get_free_pages()
-> with __GFP_COMP, __GFP_ZERO, and __GFP_RECLAIM (qmem_alloc() runs in
-> GFP_KERNEL context), select DMA-reachable memory with dma_coherent_ok()
-> (retrying with GFP_DMA32), and map the contiguous physical range for DMA
-> through dma_map_phys() and dma_unmap_phys() with DMA_ATTR_REQUIRE_COHERENT
-> so SMMU/IOMMU page table entries are installed on IOMMU-backed platforms.
-> Switch qmem_alloc() and qmem_free() to these helpers instead of
-> dma_alloc_attrs()/dma_free_attrs() with DMA_ATTR_FORCE_CONTIGUOUS.
->
+Cgroup link updates compare only the program type. Programs verified
+for different hooks can share a type, so a UDP6 sock_addr program can
+replace a UDP4 program and write beyond the four-byte ipc.addr field in
+the stack-local struct ipcm_cookie. The same gap permits incompatible
+LSM_MAC and LSM_CGROUP replacements.
 
-Will address compilation issues in v4.
+Validate every replacement program against the link attach type before
+dispatching to the link-specific update operation. Keep the CGROUP_SKB
+CAP_NET_ADMIN check at initial attach so pinned or delegated link FDs can
+still be updated after a capability drop.
 
-pw-bot: changes-requested
+Fixes: 0c991ebc8c69 ("bpf: Implement bpf_prog replacement for an active bpf_cgroup_link")
+Signed-off-by: Sanghyun Park <sanghyun.park.cnu@gmail.com>
+---
+v4:
+  - Validate every program link update through the shared attach-type helper.
+  - Fold the LSM attach-flavor check into that helper.
+  - Keep the CGROUP_SKB permission check in the attach-only wrapper and rename
+    the wrapper to describe that role.
+  - Follow the preferred BPF multi-line comment style.
+  - Add focused regression selftests as patch 2/2.
+v3: https://lore.kernel.org/r/20260821084726.3769957-2-sanghyun.park.cnu@gmail.com
+  - Factor the CGROUP_SKB CAP_NET_ADMIN check into an attach-only helper.
+v2: https://lore.kernel.org/r/20260818061021.2551771-2-sanghyun.park.cnu@gmail.com
+  - Extend validation from cgroup sock_addr programs to all cgroup program
+    types, including exact LSM attach flavors.
+  - Preserve legacy CGROUP_SKB ingress/egress replacement compatibility.
+  - Keep the CGROUP_SKB CAP_NET_ADMIN check on attach, not link update.
+v1: https://lore.kernel.org/r/20260805052858.2390918-3-sanghyun.park.cnu@gmail.com
+---
+ kernel/bpf/syscall.c | 31 ++++++++++++++++++++++---------
+ 1 file changed, 22 insertions(+), 9 deletions(-)
+
+diff --git a/kernel/bpf/syscall.c b/kernel/bpf/syscall.c
+index 6874ba1424af..84823149dffa 100644
+--- a/kernel/bpf/syscall.c
++++ b/kernel/bpf/syscall.c
+@@ -4481,14 +4481,9 @@ static int bpf_prog_attach_check_attach_type(const struct bpf_prog *prog,
+ 	case BPF_PROG_TYPE_CGROUP_SOCK_ADDR:
+ 	case BPF_PROG_TYPE_CGROUP_SOCKOPT:
+ 	case BPF_PROG_TYPE_SK_LOOKUP:
++	case BPF_PROG_TYPE_LSM:
+ 		return attach_type == prog->expected_attach_type ? 0 : -EINVAL;
+ 	case BPF_PROG_TYPE_CGROUP_SKB:
+-		if (!bpf_token_capable(prog->aux->token, CAP_NET_ADMIN))
+-			/* cg-skb progs can be loaded by unpriv user.
+-			 * check permissions at attach time.
+-			 */
+-			return -EPERM;
+-
+ 		ptype = attach_type_to_prog_type(attach_type);
+ 		if (prog->type != ptype)
+ 			return -EINVAL;
+@@ -4542,6 +4537,20 @@ static int bpf_prog_attach_check_attach_type(const struct bpf_prog *prog,
+ 	}
+ }
+ 
++static int bpf_prog_attach_check_perm(const struct bpf_prog *prog,
++				      enum bpf_attach_type attach_type)
++{
++	/*
++	 * CGROUP_SKB programs can be loaded by unprivileged users, so check
++	 * permissions at attach time.
++	 */
++	if (prog->type == BPF_PROG_TYPE_CGROUP_SKB &&
++	    !bpf_token_capable(prog->aux->token, CAP_NET_ADMIN))
++		return -EPERM;
++
++	return bpf_prog_attach_check_attach_type(prog, attach_type);
++}
++
+ static bool is_cgroup_prog_type(enum bpf_prog_type ptype, enum bpf_attach_type atype,
+ 				bool check_atype)
+ {
+@@ -4606,7 +4615,7 @@ static int bpf_prog_attach(const union bpf_attr *attr)
+ 	if (IS_ERR(prog))
+ 		return PTR_ERR(prog);
+ 
+-	if (bpf_prog_attach_check_attach_type(prog, attr->attach_type)) {
++	if (bpf_prog_attach_check_perm(prog, attr->attach_type)) {
+ 		bpf_prog_put(prog);
+ 		return -EINVAL;
+ 	}
+@@ -5805,8 +5814,8 @@ static int link_create(union bpf_attr *attr, bpfptr_t uattr)
+ 	if (IS_ERR(prog))
+ 		return PTR_ERR(prog);
+ 
+-	ret = bpf_prog_attach_check_attach_type(prog,
+-						attr->link_create.attach_type);
++	ret = bpf_prog_attach_check_perm(prog,
++					 attr->link_create.attach_type);
+ 	if (ret)
+ 		goto out;
+ 
+@@ -5968,6 +5977,10 @@ static int link_update(union bpf_attr *attr)
+ 		goto out_put_progs;
+ 	}
+ 
++	ret = bpf_prog_attach_check_attach_type(new_prog, link->attach_type);
++	if (ret)
++		goto out_put_progs;
++
+ 	if (link->ops->update_prog)
+ 		ret = link->ops->update_prog(link, new_prog, old_prog);
+ 	else
+-- 
+2.48.1
