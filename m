@@ -1,125 +1,100 @@
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DE494B5CCB
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 16:08:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01F4C4B66C0;
+	Mon, 31 Aug 2026 16:08:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788192499; cv=none; b=WseKUUe60L5zuv9AvveZeKd2ezemWJ58EaP7cQgmvGrksLutQ1jDi/Sy4CpTDsfkZUVSNsk+6hp66XutWBuMxj1sKLTgvyU+hZI4Bq3V/dnqhdGD1E+LnQ829NsI5kr8umcbkOxTVWHiEwdYoTWXk6hOppciR5/JYqQ9R+9ujz0=
+	t=1788192500; cv=none; b=dr3AZWaCXmZ+S2wAKULeZEk9gSQmnqhcdA+KfGM4lP+mStFVtInvRSrm1APsMNIxgt9NV5WMwbQ2Vc0e7iqzROcboaF1iF79FR04GH9LhSdJMZlY6irLR08+XGPLibILu1O/87i31dIRJGGhCQ5THSxXKXuN/+rEWWhFd2iiq6o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788192499; c=relaxed/simple;
-	bh=UmS+Y8EHGYdZm3il/1GKD/s6a3f3J8OBYpQA7/B897A=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=pGbsrKOKEhOlm6tqIuMPl0kvaFTLgyscvcQztNYVrY03kIKgVqZX3Utj6t5thynAD4z6a13Ac3xYxxKLxmPpcQrQkwGXwDBzW4LVXjD/FJz6SSEBqG0NubyJm5cAbY45UXxOl0LJnsIzkIJ3xO0IfBNSN+TQY982FwBWts8Z2Q4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XD/4TWH4; arc=none smtp.client-ip=209.85.221.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788192500; c=relaxed/simple;
+	bh=g2MWSvgJvrHUzfntfew8lZZFVuCLmWFpnGqNc5dkZnQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=aTEt2hbZQVJJnHUfELkEloFwwl7GfAkqhX8NO88iaeugiYuaphEe7SbwZ4a+dyvaA3ECF3tjORD4mbPxEKojxuZ7jVPlZk1BNdDaXnL2Zc8KS5n36PGDpw5Qs5IjrLAvWLWYyIAb2/K45MuwJA3r+xxV2Zt3ZlYn3ffqxC9VUxE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jB0K7jLA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XD/4TWH4"
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-482fc2b44a7so3134980f8f.2
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 09:08:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788192496; x=1788797296; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=jPvwlP4rGOO2+Pk+QMwFAR8MHWtVs+GCtUx09ytGEmc=;
-        b=XD/4TWH4sQEuGJMsc3ysZWFAwA5qqwcJQXxRY0crFpDXZCtxwCc/KMaQ8aMgxipeCc
-         l4Y5z0a5oAZhl3/PyvLPu5Rf/ZXrntz2iUq+IXPOzkvCK6RnZjsoJk3opguMJXXfoG4I
-         Lp+3FKunYr3mbYR4pIteLdqUjzHrN0WaQiykUw4zZzjsxcYO6lxTt7PS7O7yGp9ac0Xg
-         srgwoXotuCS7RN3hHfaWAqbSDx9I70dhseu8Jeb3x4Go5KjyXYo7OpZZ9VF2w9lUoMzE
-         OYQmoRLYNw6yYKpcGBfr/gnjxS19IvImcXq/yu/Z30t1WfLMeNBosdjKK2I0TxEo6xT+
-         fxZg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788192496; x=1788797296;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jPvwlP4rGOO2+Pk+QMwFAR8MHWtVs+GCtUx09ytGEmc=;
-        b=XbYu/kpamFDB1Ho84sD2olXv9HXKoH8tIojjBMPxAYWOnP1C7LpXiorc2m9GGJzU4Z
-         fLkhb3LONVPCDn1VnKsr/tTeQjTtSvHRIfpmnw1TW8mKjDIWiyb6nOnagWzyptFYUT9X
-         JhdIRTonly0yGgfFgZtAtW7CunJAq5qR6fowKIpX0IKDYP52bVXW9DNV+jIjJrDbnKKJ
-         LdCFNs7szBH+DvcByaceCA0O1Z+H5SU9NoRgBsjxxMT3D/vBdl7Q2Fajad44660usduP
-         CkJk8FaKooFFtKTzLH8fovftV0mYsZ2hQEQhouqDxktUu93gsPtCTtbKFJ7wKTeZ8T2C
-         utmQ==
-X-Gm-Message-State: AFuF++l9eiJCK/g5LiCUokwFexwZhcX4/CfYAzTXhKVcUigbN5P2rKfh
-	3sSJMiWjAyu+/CL+LmR8PqOFGZTDHmn6L9UniGdMZ78rxjTcbcH5+LaZFA1eeJcWHm5TZw==
-X-Gm-Gg: AYBFou0+8i3+jPPx7N+Bqj7qA5poNzXAu13glMnbFj8hOyoMTSveP8w6+GJ9RWnXO6v
-	R4MfO2UMJA8MIfcvPPSBHC1/+ELXMkcaNd8ICki2DCmbyCogPgihUBoxPRukX84S8j7mUiJrNkU
-	JI7p7ZYtcR4e1wVtabBFDga0F9sMmeih579wbiwiczu4nStdUSqjWTkj75cX7KoNHksv7tfoF71
-	vdBeHIPODqiwBxpBr2YkEOVhH+ujZMV7tFOB2H6umzsOXvaDzs8Smghn6KZJmtVEOdl+6IUiEna
-	kupqFbgG0D4x3AQ5JEmEniyzwR9uNWVOLwxUFS2zZdqVxunDGskzM3yabyqZti+u7Cpt13mfYaF
-	pCPYEXr70rZ+BGQWLHnKUJ10Yz8a0IL+Z0vk7c6MzMvNiLxXp4GZ4xlSzmyO7JB2xf3fGwCaKOj
-	YmYz/XBo4pXbY63+flfVDTeZJfgvMVElX2FXdMLgAUVHTI09xUP0skvK5L
-X-Received: by 2002:a05:6000:2890:b0:484:3311:3176 with SMTP id ffacd0b85a97d-48433113230mr21848864f8f.23.1788192494991;
-        Mon, 31 Aug 2026 09:08:14 -0700 (PDT)
-Received: from TC-LAPTOP ([2a01:e0a:b8a:2610:ccbd:b529:37d3:c1b8])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482fbab3f3asm23849760f8f.3.2026.08.31.09.08.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 09:08:14 -0700 (PDT)
-From: Thierry Chatard <tchatard@gmail.com>
-To: linux-kernel@vger.kernel.org
-Cc: hansg@kernel.org,
-	lee@kernel.org,
-	platform-driver-x86@vger.kernel.org,
-	ilpo.jarvinen@linux.intel.com,
-	djrscally@gmail.com,
-	linux-media@vger.kernel.org,
-	mchehab@kernel.org,
-	sakari.ailus@linux.intel.com,
-	jacopo.mondi@ideasonboard.com,
-	nicholas@rothemail.net,
-	andriy.shevchenko@intel.com,
-	v.vitovt@gmail.com,
-	Thierry Chatard <tchatard@gmail.com>
-Subject: [PATCH v10 8/8] media: ov8858: add ACPI device ID INT3477
-Date: Mon, 31 Aug 2026 18:07:54 +0200
-Message-ID: <20260831160754.9857-9-tchatard@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260831160754.9857-1-tchatard@gmail.com>
-References: <20260831160754.9857-1-tchatard@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jB0K7jLA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF1431F00A3F;
+	Mon, 31 Aug 2026 16:08:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788192498;
+	bh=g0pH1l1rU3YbRFeShfY4wk3U3HqcGAKn/fA6tlZNaT0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=jB0K7jLAWxn+ZauhusyY00+9E7LfQBFWIMV86Gp7LrehHLUieXfteqjVEnQqgYG6H
+	 +ojF//piOKCjTfjR4tXN0Ck/zFqUZYrF1cC6cz19llE4oHTHQAqVAIellULpmjKpgK
+	 WagCKTeo/JYdqc332H7afVZiXOxAKQoOhjGRERvrfk2+S8R+NEtdmPtJmlgMXj0cd3
+	 UIqFfAS/HXbHh9m3+I+AY3aMvIev8+46fAyy1kHqx7MpH82dl12L1XRYA32oSNVP7V
+	 LIZWfCJlU3grNuxgTlKLckibI595v49ySbQiDmSXDy5Ij3NP02+KXTfVioiI+47Xze
+	 Sj5qRWl/taxZg==
+Message-ID: <7f2bbcf7-ed00-4872-bdef-c07010f5dfad@kernel.org>
+Date: Mon, 31 Aug 2026 11:08:17 -0500
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] crypto: ccp: Initialize DBC ioctl mutex before
+ registering device
+Content-Language: en-US
+To: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Cc: thomas.lendacky@amd.com, john.allen@amd.com, herbert@gondor.apana.org.au,
+ davem@davemloft.net, linux-crypto@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, jianhao.xu@seu.edu.cn
+References: <20260829133410.1708684-1-runyu.xiao@seu.edu.cn>
+ <20260830015104.2040153-1-runyu.xiao@seu.edu.cn>
+From: Mario Limonciello <superm1@kernel.org>
+In-Reply-To: <20260830015104.2040153-1-runyu.xiao@seu.edu.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-The Omnivision OV8858 appears in ACPI firmware under the HID INT3477 on
-Intel IPU3-based platforms such as the Dell Latitude 5285 2-in-1. Add
-INT3477 to the ACPI match table so the driver binds when instantiated by
-ipu_bridge.
 
-Assisted-by: Claude Code:claude-opus-4-8
-Signed-off-by: Thierry Chatard <tchatard@gmail.com>
----
- drivers/media/i2c/ov8858.c | 7 +++++++
- 1 file changed, 7 insertions(+)
 
-diff --git a/drivers/media/i2c/ov8858.c b/drivers/media/i2c/ov8858.c
-index 3f45f7fab..f0148c1f2 100644
---- a/drivers/media/i2c/ov8858.c
-+++ b/drivers/media/i2c/ov8858.c
-@@ -1981,11 +1981,18 @@ static const struct of_device_id ov8858_of_match[] = {
- };
- MODULE_DEVICE_TABLE(of, ov8858_of_match);
- 
-+static const struct acpi_device_id ov8858_acpi_ids[] = {
-+	{ .id = "INT3477" },
-+	{ /* sentinel */ }
-+};
-+MODULE_DEVICE_TABLE(acpi, ov8858_acpi_ids);
-+
- static struct i2c_driver ov8858_i2c_driver = {
- 	.driver = {
- 		.name = "ov8858",
- 		.pm = &ov8858_pm_ops,
- 		.of_match_table = ov8858_of_match,
-+		.acpi_match_table = ov8858_acpi_ids,
- 	},
- 	.probe		= ov8858_probe,
- 	.remove		= ov8858_remove,
--- 
-2.53.0
+On 8/29/26 20:51, Runyu Xiao wrote:
+> dbc_dev_init() registers the DBC misc device before initializing
+> ioctl_mutex. Once misc_register() publishes the device, userspace can
+> open it and invoke dbc_ioctl() while the mutex is still uninitialized.
+> 
+> Initialize ioctl_mutex before calling misc_register() so the published
+> ioctl callback always sees an initialized mutex.
+> 
+> Fixes: c04cf9e14f10 ("crypto: ccp - Add support for fetching a nonce for dynamic boost control")
+> Cc: stable@vger.kernel.org
+> Link: https://lore.kernel.org/all/20260829133410.1708684-1-runyu.xiao@seu.edu.cn/
+> Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+> Assisted-by: Codex:GPT-5
+I mean my tag to come here, I didn't realize this was threaded with V1 
+and V2 together.
+
+Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>> ---
+> v2:
+> - Move mutex initialization before setting up the misc device, as suggested
+>    by Tom Lendacky.
+> 
+>   drivers/crypto/ccp/dbc.c | 4 ++--
+>   1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/crypto/ccp/dbc.c b/drivers/crypto/ccp/dbc.c
+> index 410084a9039c..4db49a14550c 100644
+> --- a/drivers/crypto/ccp/dbc.c
+> +++ b/drivers/crypto/ccp/dbc.c
+> @@ -235,6 +235,8 @@ int dbc_dev_init(struct psp_device *psp)
+>   		goto cleanup_mbox;
+>   	}
+>   
+> +	mutex_init(&dbc_dev->ioctl_mutex);
+> +
+>   	dbc_dev->char_dev.minor = MISC_DYNAMIC_MINOR;
+>   	dbc_dev->char_dev.name = "dbc";
+>   	dbc_dev->char_dev.fops = &dbc_fops;
+> @@ -243,8 +245,6 @@ int dbc_dev_init(struct psp_device *psp)
+>   	if (ret)
+>   		goto cleanup_mbox;
+>   
+> -	mutex_init(&dbc_dev->ioctl_mutex);
+> -
+>   	return 0;
+>   
+>   cleanup_mbox:
 
