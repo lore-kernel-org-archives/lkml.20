@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8899B30FF31;
-	Mon, 31 Aug 2026 00:25:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25C362E738D;
+	Mon, 31 Aug 2026 00:25:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788135921; cv=none; b=qTLCLA+t+MiJ8MDJnl4Spbs5fcO22np1KT5pgp4ujkcXfzkCv5uMMdn4+9oww+5icjG2KSslJxLtr+Jhazh32oGWGx4A+em+t0CgrjS4DOmJ9dCX0sjFpL8iV76LKL/oRlaRHUyCqyqEOCO2CiYjWu8Bvwd54QkUtW2knEj9Qrk=
+	t=1788135922; cv=none; b=Ju9j/cvoHxvvtr52cl1qTUlAQ9NGj6gIYQ5lY138RYtl0ebXSsVhTMogWvFDNJAGgiU5QH3PXerTQuWVMeZ0bCR3rGMp6sK2ACrgBrnjN5ITj0GukWOIHL6Uf5LWyvRD+jGwDN+xHIacNvWbeqLl73AicxiIhRIQznIomnd+CMA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788135921; c=relaxed/simple;
-	bh=INfl/U4MD7DiNVtE20rEnCF+KqGWKq4XKxW9ss03gIs=;
+	s=arc-20240116; t=1788135922; c=relaxed/simple;
+	bh=9EkpEqxMLjQNDYpL+7i928KW0BKp0BAiSqRXLiWPp6s=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=emr8efGEK0YVISKVudmE/LZoYIOau5VisHdOHtBHkK8df0PSTIJH7hPPcHFOeaswEifStJfBjVXbcmJ4817j7UIiqxOYsktqEinePmouYhlxdtGA1v/TMjn2K1RcZmigNV6y040a4N4hFElH3FKjMnbKbOnW6qprfgPTCWxGAPE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J7ixRXTW; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=OVIs8u23K8O6imclLLJvFFs6lON16BUb56EzT8doLY86WImagluuxvWLyZQH5jRT/a0tBYKm8SOLtJuZWHH3Lk2E0DABz8ZQyOhgD2BzHPXhtpz9ONoDlLf3z1yhMCCTiHLSsE+zNIevOqtctnLtzPqgr1QGwgDojxsh1MCmC4A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gyYzRbzX; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J7ixRXTW"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 69A39C2BCFB;
-	Mon, 31 Aug 2026 00:25:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gyYzRbzX"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 09B95C2BCFD;
+	Mon, 31 Aug 2026 00:25:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1788135921;
-	bh=INfl/U4MD7DiNVtE20rEnCF+KqGWKq4XKxW9ss03gIs=;
+	s=k20201202; t=1788135922;
+	bh=9EkpEqxMLjQNDYpL+7i928KW0BKp0BAiSqRXLiWPp6s=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=J7ixRXTWSc5y6i4hxgZ+vagyxK1c4T1Q5OxM7n49KwqCLSdHU+Q5P1825KMWSNCCl
-	 6QzFq+JulXODd9QaYpj1JpQMbEE22BcGNDHQYBIRQX5CbCSKNoSn3V5xOjKiOcLHUp
-	 6474IBrpI9oaHry4lMCko9TWcsafgUUhylnSP5nbH/kgvo0d3w8QwIvp9jbRpkZkVg
-	 lZlMeE2m1WBompIa00FCrC1XZeLeO1Io9MQFNwts96/g7IDNevknCIHRf2RZaB+R1H
-	 RA8MLBO7bcV4d+S1AUDPRg9bAbU37BgsXyZBO3ocN3AX4XQfLKe/Y8lWWZFV9i55PL
-	 LV61OtRr3BBkw==
+	b=gyYzRbzXGlkG/aUpiIys2LbQmRsW7tP50wUDEsyt9RjxvJ64sTjxOT3hh/k8Hdy4w
+	 /fwFxfHMH7fRxj90PD7xEba/JSh55g2ZM4d14gJ/TSaGDaT0pImU/S/v7Xv/qJo/Xb
+	 tu/MCelKnAxVZlN0r7KRn54+V+a0/6fi2RFkmt4av+ChvYzGOJKjvHcWe8xsdI9h+Q
+	 XDMxxlXdtvgro814Qmu1PWjZ5th3gM/KubMPWZ/mXTJzFDLXnNAGALHc7jQoRPJb35
+	 Hk1JTxKCTvRb0/erM0C1KWQGBKeUbtdQgAdTGiIDqdW3guhLOitVVrEZUwIBOaWrxo
+	 d37knLUInc+IQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 51E9BC61DFD;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E8926C61DF1;
 	Mon, 31 Aug 2026 00:25:21 +0000 (UTC)
 From: Ackerley Tng via B4 Relay <devnull+ackerleytng.google.com@kernel.org>
-Date: Sun, 30 Aug 2026 17:25:19 -0700
-Subject: [PATCH v12 18/45] KVM: guest_memfd: Handle lru_add fbatch
- refcounts during conversion safety check
+Date: Sun, 30 Aug 2026 17:25:25 -0700
+Subject: [PATCH v12 24/45] KVM: guest_memfd: Enable INIT_SHARED on
+ guest_memfd for x86 Coco VMs
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260830-gmem-inplace-conversion-v12-18-85e5fd25252a@google.com>
+Message-Id: <20260830-gmem-inplace-conversion-v12-24-85e5fd25252a@google.com>
 References: <20260830-gmem-inplace-conversion-v12-0-85e5fd25252a@google.com>
 In-Reply-To: <20260830-gmem-inplace-conversion-v12-0-85e5fd25252a@google.com>
 To: aik@amd.com, andrew.jones@linux.dev, binbin.wu@linux.intel.com, 
@@ -79,13 +79,13 @@ Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-trace-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
  linux-kselftest@vger.kernel.org, linux-mm@kvack.org, 
  linux-coco@lists.linux.dev, Ackerley Tng <ackerleytng@google.com>, 
- Fuad Tabba <fuad.tabba@linux.dev>
+ Xiaoyao Li <xiaoyao.li@intel.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788135915; l=4735;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788135915; l=1693;
  i=ackerleytng@google.com; s=20260225; h=from:subject:message-id;
- bh=Ty5BgQhIGN1xkSlbhdIOV4bbPZLbusnibdr1eTvGdlc=;
- b=91swEloDGQUbfYBsHAl/7syD81mtjIP2F0V0Ab45bJ3IEkR1Q5bwBtEL76LfwbU26GezrPCHL
- XT0wJWHs3EeBheGTp9WnqG2e2q+vGU7johvpQZYqq79+7IhHv7ZWqRu
+ bh=3+Z8h6K2ZEH0/i+xD8ty2YuUR3PhzVzKd8N9HPdoh4c=;
+ b=kFzzNs3iUa2auFaXzj1DJYK15zRovrlFdOgPxqF+B0zfKR4KcuuLFX1O1DbwmGlWyFFcc13bR
+ c62upXEB2l4AoL7J7gxH3T2810e7NU8NfEcZrGUtWkWt3/4kWC/EnPJ
 X-Developer-Key: i=ackerleytng@google.com; a=ed25519;
  pk=sAZDYXdm6Iz8FHitpHeFlCMXwabodTm7p8/3/8xUxuU=
 X-Endpoint-Received: by B4 Relay for ackerleytng@google.com/20260225 with
@@ -93,131 +93,50 @@ X-Endpoint-Received: by B4 Relay for ackerleytng@google.com/20260225 with
 X-Original-From: Ackerley Tng <ackerleytng@google.com>
 Reply-To: ackerleytng@google.com
 
-From: Ackerley Tng <ackerleytng@google.com>
+From: Sean Christopherson <seanjc@google.com>
 
-A guest_memfd folio has no outstanding references if guest_memfd holds the
-only references on it. Any other references on the folio may indicate
-another user, and guest_memfd cannot convert it to private if there may be
-an existing host user.
+Now that guest_memfd supports tracking private vs. shared within gmem
+itself, allow userspace to specify INIT_SHARED on a guest_memfd instance
+for x86 Confidential Computing (CoCo) VMs, so long as in-place conversion
+is enabled, i.e. when it's actually possible for a guest_memfd instance to
+contain shared memory.
 
-A folio will have outstanding references if it is present in a per-CPU
-lru_add fbatch. guest_memfd does not actually participate in LRU, but
-freshly-allocated folios are still added to the lru_add fbatch for batch
-LRU statistics processing.
-
-A folio may also have extra refcounts if it is on the mlock fbatch.
-
-These two known "usages" of the folio are handled by calling
-lru_cache_drain_for_folio, which drains both the lru_add and mlock
-fbatches. After draining, if the refcount is still elevated, then there are
-truly outstanding references.
-
-If the page may be dma pinned, DMA is using it and hence there are
-outstanding references. folio_maybe_dma_pinned() can have false positives,
-but that's only with a significant number of refcounts, at which point
-draining LRU is not going to move the needle - it can still be concluded
-that the folio has outstanding references.
-
-If the page is still mapped after guest_memfd tried to unmap it earlier in
-the conversion process, it also has outstanding references.
-
-Return true and exit early to avoid unnecessary draining in these 2 cases.
-
-Provide a drain status to only drain once ever while processing a batch of
-folios.
-
-Acked-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
-Suggested-by: David Hildenbrand <david@kernel.org>
-Reviewed-by: Fuad Tabba <fuad.tabba@linux.dev>
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+Reviewed-by: Fuad Tabba <tabba@google.com>
+Reviewed-by: Xiaoyao Li <xiaoyao.li@intel.com>
+Tested-by: Shivank Garg <shivankg@amd.com>
 Reviewed-by: Binbin Wu <binbin.wu@linux.intel.com>
 Signed-off-by: Ackerley Tng <ackerleytng@google.com>
 ---
- mm/folio.c             |  2 ++
- virt/kvm/guest_memfd.c | 30 ++++++++++++++++++++++--------
- 2 files changed, 24 insertions(+), 8 deletions(-)
+ arch/x86/kvm/x86.c | 13 +++++++------
+ 1 file changed, 7 insertions(+), 6 deletions(-)
 
-diff --git a/mm/folio.c b/mm/folio.c
-index c02dcea9c03c2..50a6dbe55998e 100644
---- a/mm/folio.c
-+++ b/mm/folio.c
-@@ -33,6 +33,7 @@
- #include <linux/page_idle.h>
- #include <linux/local_lock.h>
- #include <linux/buffer_head.h>
-+#include <linux/kvm_types.h>
- 
- #include "internal.h"
- #include "page_alloc.h"
-@@ -926,6 +927,7 @@ void lru_cache_drain_for_folio(const struct folio *folio,
- 			*drained = LRU_CACHE_DRAINED_ALL;
- 	}
- }
-+EXPORT_SYMBOL_FOR_KVM(lru_cache_drain_for_folio);
- 
- atomic_t lru_disable_count = ATOMIC_INIT(0);
- 
-diff --git a/virt/kvm/guest_memfd.c b/virt/kvm/guest_memfd.c
-index ac8e0c6d6e942..1fe935aaef36f 100644
---- a/virt/kvm/guest_memfd.c
-+++ b/virt/kvm/guest_memfd.c
-@@ -8,6 +8,7 @@
- #include <linux/mempolicy.h>
- #include <linux/pseudo_fs.h>
- #include <linux/pagemap.h>
-+#include <linux/swap.h>
- 
- #include "kvm_mm.h"
- #include "guest_memfd.h"
-@@ -556,10 +557,28 @@ static int kvm_gmem_mas_preallocate(struct ma_state *mas, u64 attributes,
- 	return mas_preallocate(mas, xa_mk_value(attributes), GFP_KERNEL);
+diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
+index 75e03a2f79db2..c081e4b9b25de 100644
+--- a/arch/x86/kvm/x86.c
++++ b/arch/x86/kvm/x86.c
+@@ -10637,14 +10637,15 @@ bool kvm_arch_no_poll(struct kvm_vcpu *vcpu)
  }
  
-+static bool __folio_has_outstanding_references(struct folio *folio,
-+					       enum lru_cache_drained *drained)
-+{
-+	if (folio_maybe_dma_pinned(folio) || folio_mapped(folio))
-+		return true;
-+
-+	/* 1 reference held by filemap_get_folios() in the folio batch. */
-+	lru_cache_drain_for_folio(folio, 1, drained);
-+
-+	/*
-+	 * Outstanding references are anything other than those from the page
-+	 * cache, plus 1 temporary reference held by filemap_get_folios() in the
-+	 * folio batch.
-+	 */
-+	return folio_ref_count(folio) != folio_nr_pages(folio) + 1;
-+}
-+
- static bool kvm_gmem_has_outstanding_references(struct inode *inode,
- 						pgoff_t start, size_t nr_pages,
- 						pgoff_t *err_index)
+ #ifdef CONFIG_KVM_GUEST_MEMFD
+-/*
+- * KVM doesn't yet support initializing guest_memfd memory as shared for VMs
+- * with private memory (the private vs. shared tracking needs to be moved into
+- * guest_memfd).
+- */
+ bool kvm_arch_supports_gmem_init_shared(struct kvm *kvm)
  {
-+	enum lru_cache_drained drained = LRU_CACHE_NOT_DRAINED;
- 	struct address_space *mapping = inode->i_mapping;
- 	pgoff_t last = start + nr_pages - 1;
- 	bool has_outstanding = false;
-@@ -570,17 +589,12 @@ static bool kvm_gmem_has_outstanding_references(struct inode *inode,
- 	folio_batch_init(&fbatch);
+-	return !kvm_arch_has_private_mem(kvm);
++	/*
++	 * INIT_SHARED is supported if in-place conversion is enabled, or if
++	 * the VM doesn't support private memory.  If the VM has private memory
++	 * and in-place conversion is disabled, then guest_memfd can _only_ be
++	 * used for private memory.
++	 */
++	return gmem_in_place_conversion || !kvm_arch_has_private_mem(kvm);
+ }
  
- 	next = start;
--	while (has_outstanding && filemap_get_folios(mapping, &next, last, &fbatch)) {
-+	while (!has_outstanding && filemap_get_folios(mapping, &next, last, &fbatch)) {
- 		for (i = 0; i < folio_batch_count(&fbatch); ++i) {
- 			struct folio *folio = fbatch.folios[i];
- 
--			/*
--			 * Outstanding references are anything other than those
--			 * from the page cache, plus 1 temporary reference held
--			 * by filemap_get_folios() in the folio batch.
--			 */
--			if (folio_ref_count(folio) != folio_nr_pages(folio) + 1) {
--				has_outstanding = true;
-+			has_outstanding = __folio_has_outstanding_references(folio, &drained);
-+			if (has_outstanding) {
- 				*err_index = max(start, folio->index);
- 				break;
- 			}
+ #ifdef CONFIG_HAVE_KVM_ARCH_GMEM_CONVERT
 
 -- 
 2.55.0.897.gb25b4bd76c-goog
