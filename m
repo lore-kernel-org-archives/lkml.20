@@ -1,37 +1,37 @@
-Received: from mail-106112.protonmail.ch (mail-106112.protonmail.ch [79.135.106.112])
+Received: from mail-43170.protonmail.ch (mail-43170.protonmail.ch [185.70.43.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 224B53F54C6
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 12:17:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.112
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A959A3F6C22
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 12:17:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788178649; cv=none; b=OS8eOn+/RhGEwr9usX2q3HQMQaSzs6w1G4tJap0To0IeT7ksHaAaJC54hDiekra+mOtgA+LxPQIW7bOTNFpLQOHsTB48ZAi9G2rb6q/eurVwJB0Bt728r1It8qtbbVrM3mKjLjH3D1ODjOV7OTKEUN4cgLiRpzqXjhXRE5Ys2+w=
+	t=1788178654; cv=none; b=fWT/4F+nBsaz2YsZN9J0c9pkR1hvTfJWveyTYWTiaGizPMIEua1sEdruWQ1B1zcrw+Kcgv8Sb4gr9T6w0/2Dn9q8lSTkG4YfQBosYTCtKJeEjBqlHAqomqIEKQsx1FreJQ6END78A1VdMTTnhmx2VIUEJl/oMpvtclms2rm/liM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788178649; c=relaxed/simple;
-	bh=hZw9obe3nthRbPAPqrrWPrJ8rTI3POsteBLsAliD4Z8=;
+	s=arc-20240116; t=1788178654; c=relaxed/simple;
+	bh=34Br3bh4ES15KWd8ZuqEaj+uBXJutTdfjD/RifG+LSA=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=cUwKJOChsGdWTH+1IxU8Seu/HhpFZpUzZioMJDUYnpMeYFHiN3WCByu5y5vTgnjrTiwVZo9+DItzHnjPBQK9dAArlMPRdnkyrqu2x/UHlhLK75JLq0opgye781lPJckScDpxY+2py3CGdy/RB1p/Onyk2o9qBpAx9kd2/cWagdY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=0DvQu0aZ; arc=none smtp.client-ip=79.135.106.112
+	 In-Reply-To:To:Cc; b=Nausaw0eBeQ08pcUY6E+aJpXdKLNuLCQsPGmuuTr9Vjc4gvs9iapveGkExlDd04e3PiAoa5dHG2QI8wTha042W5q4kFpBPyaoGFtecEYmXW/KryiMN96GZkQ3OS3gej13gVNhsCYduqlW2uZSK3Kb7pTnCavPdK/EjLfm1n7eeU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=BxGOxzDi; arc=none smtp.client-ip=185.70.43.170
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="0DvQu0aZ"
+	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="BxGOxzDi"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
-	s=protonmail; t=1788178643; x=1788437843;
-	bh=4LxYhhz3DNXFvpjt11E18Eq/L5WwfIqXKDX+l4mFsfk=;
+	s=protonmail; t=1788178645; x=1788437845;
+	bh=YxvbCdJglJ60chOji4ihckHLdAxqWh2Hg3ol4lFeN4E=;
 	h=From:Date:Subject:Message-Id:References:In-Reply-To:To:Cc:From:To:
 	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=0DvQu0aZuhWzCSSR2G82ktUqps3NtPEH+pu2g9Ye9X85oTcm5CUBTg+JwIyZzfcep
-	 Nxw3xjdmjq7z+Jlazm1p3ulvPsCRQH1tAUnm2oG/4pob7Nxcqms+tzYR1P4dUGyfeR
-	 MigHEBbQxOo5xUHBa1VKO0Afxk6qIIrPpnDOvntrgcKEVzmeSX25RU3VuMDiVM4voN
-	 H9F5dA0vMJYBBX5vk0dZU9fo0zVjBrN440l53yeCSLU19CuOvaAQQwUlbWIlug0QHW
-	 ldAotGwO005NRn0Z9si/+3sFILtJd3RdggCkhldFMj03n4DRbxgQsZGBO0jnhgX/JW
-	 xKIv1+DqW73HQ==
-X-Pm-Submission-Id: 4hYSfn2s76z1DFFC
+	b=BxGOxzDiJSCvaH3OYuctoX0gbqxvArS5+pdAc7CwR0vJhbflhpbMSjdElRAhD90DC
+	 pJtGFT8y5+lA61AC+FverMm3nwuZ9UyAQEi7njXerfbr5eJdiAK/Q1KdX1y+Z79rL1
+	 mCYa4BNlJv4s+AmCdN6zL148AZx+m8InBn+6csF1V4kgO7pCB+4HYOZVr1P9q5pKLc
+	 8IaFPY9kvFYsJT66R3qJxw86ukQOwKxwITTs0IMgkVSwConR12zZepIiPaZM7gBsJW
+	 ESHF3os65oj/hGBTFlXGwfrU2Dl/N65GTSoaHKqdx8OE749HpYLWz/XzOB7VOwF2WK
+	 NFRlg36q0RvjQ==
+X-Pm-Submission-Id: 4hYSfq3bdkz1DFFv
 From: Esben Haabendal <esben@geanix.com>
-Date: Mon, 31 Aug 2026 14:17:08 +0200
-Subject: [PATCH v7 5/8] iio: accel: mma8452: Allow open drain interrupt pin
- configuration
+Date: Mon, 31 Aug 2026 14:17:09 +0200
+Subject: [PATCH v7 6/8] iio: accel: mma8452: Reuse existing dev pointer in
+ mma8452_probe()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -40,7 +40,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260831-mma8452-open-drain-v7-5-22946812c928@geanix.com>
+Message-Id: <20260831-mma8452-open-drain-v7-6-22946812c928@geanix.com>
 References: <20260831-mma8452-open-drain-v7-0-22946812c928@geanix.com>
 In-Reply-To: <20260831-mma8452-open-drain-v7-0-22946812c928@geanix.com>
 To: Jonathan Cameron <jic23@kernel.org>, 
@@ -54,93 +54,126 @@ To: Jonathan Cameron <jic23@kernel.org>,
  Christoph Muellner <christoph.muellner@theobroma-systems.com>
 Cc: Esben Haabendal <esben@geanix.com>, linux-iio@vger.kernel.org, 
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Andy Shevchenko <andriy.shevchenko@intel.com>
+ Joshua Crofts <joshua.crofts1@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788178627; l=2409;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788178627; l=4085;
  i=esben@geanix.com; s=20240523; h=from:subject:message-id;
- bh=hZw9obe3nthRbPAPqrrWPrJ8rTI3POsteBLsAliD4Z8=;
- b=udTDqY6KOS/UBpULb4ZoN8sfYdszDqmAvnExBMUNVOzbmBmK11syFGykfVadKv8anoeQOLQJm
- IrttwtO0pmhA5DqmjFfaZZgjEDFiRel8vi4wQW0YUhWfLPUQm3sSKAV
+ bh=34Br3bh4ES15KWd8ZuqEaj+uBXJutTdfjD/RifG+LSA=;
+ b=l1OYfqKXSAz8przx9oJ+ZHD5BiPXhxmCjtzWhOb7PROI6wDqp9M3+fShvlgZXyHpfC4qToTs+
+ ovCvlPB6xlpC2UIO0a/oCwVBrXrwSQpFicPUZJ1uMJtW89ynIiIkTIC
 X-Developer-Key: i=esben@geanix.com; a=ed25519;
  pk=PbXoezm+CERhtgVeF/QAgXtEzSkDIahcWfC7RIXNdEk=
 
-When designing systems sharing the interrupt for mma8452 chips, it is
-helpful to be able to configure the irq pin in open-drain mode (default is
-push-pull).
+In commit 32a5c04d4575 ("iio: accel: mma8452: Use dev_err_probe()") the
+struct device * pointer was assigned to local variable dev, so we can just
+as well reuse that throughout the function for sligthly more readable code.
 
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
 Signed-off-by: Esben Haabendal <esben@geanix.com>
 ---
- drivers/iio/accel/mma8452.c | 28 ++++++++++++++++++++++++++++
- 1 file changed, 28 insertions(+)
+ drivers/iio/accel/mma8452.c | 34 ++++++++++++++++------------------
+ 1 file changed, 16 insertions(+), 18 deletions(-)
 
 diff --git a/drivers/iio/accel/mma8452.c b/drivers/iio/accel/mma8452.c
-index 936eeb2efb2d..2ba6e2c44cb9 100644
+index 2ba6e2c44cb9..bf56ebd6e091 100644
 --- a/drivers/iio/accel/mma8452.c
 +++ b/drivers/iio/accel/mma8452.c
-@@ -81,6 +81,8 @@
- #define  MMA8452_CTRL_REG2_RST			BIT(6)
- #define  MMA8452_CTRL_REG2_MODS_SHIFT		3
- #define  MMA8452_CTRL_REG2_MODS_MASK		0x1b
-+#define MMA8452_CTRL_REG3			0x2c
-+#define  MMA8452_CTRL_REG3_PP_OD		BIT(0)
- #define MMA8452_CTRL_REG4			0x2d
- #define MMA8452_CTRL_REG5			0x2e
- #define MMA8452_OFF_X				0x2f
-@@ -120,6 +122,7 @@ struct mma8452_data {
- 	u8 ctrl_reg1;
- 	u8 data_cfg;
- 	bool suspended;
-+	bool open_drain;
- };
+@@ -1587,7 +1587,7 @@ static int mma8452_probe(struct i2c_client *client)
+ 	struct iio_dev *indio_dev;
+ 	int ret;
  
-  /**
-@@ -648,6 +651,22 @@ static int mma8452_set_power_mode(struct mma8452_data *data, u8 mode)
- 	return mma8452_change_config(data, MMA8452_CTRL_REG2, reg);
- }
+-	indio_dev = devm_iio_device_alloc(&client->dev, sizeof(*data));
++	indio_dev = devm_iio_device_alloc(dev, sizeof(*data));
+ 	if (!indio_dev)
+ 		return -ENOMEM;
  
-+static int mma8452_set_interrupt_pin_mode(struct mma8452_data *data)
-+{
-+	int reg;
-+
-+	reg = i2c_smbus_read_byte_data(data->client, MMA8452_CTRL_REG3);
-+	if (reg < 0)
-+		return reg;
-+
-+	if (data->open_drain)
-+		reg |= MMA8452_CTRL_REG3_PP_OD;
-+	else
-+		reg &= ~MMA8452_CTRL_REG3_PP_OD;
-+
-+	return i2c_smbus_write_byte_data(data->client, MMA8452_CTRL_REG3, reg);
-+}
-+
- /* returns >0 if in freefall mode, 0 if not or <0 if an error occurred */
- static int mma8452_freefall_mode_enabled(struct mma8452_data *data)
- {
-@@ -1682,6 +1701,11 @@ static int mma8452_probe(struct i2c_client *client)
- 			goto disable_regulators;
+@@ -1597,21 +1597,20 @@ static int mma8452_probe(struct i2c_client *client)
+ 
+ 	data->chip_info = i2c_get_match_data(client);
+ 	if (!data->chip_info)
+-		return dev_err_probe(&client->dev, -ENODEV,
+-				     "unknown device model\n");
++		return dev_err_probe(dev, -ENODEV, "unknown device model\n");
+ 
+-	ret = iio_read_mount_matrix(&client->dev, &data->orientation);
++	ret = iio_read_mount_matrix(dev, &data->orientation);
+ 	if (ret)
+ 		return ret;
+ 
+-	data->vdd_reg = devm_regulator_get(&client->dev, "vdd");
++	data->vdd_reg = devm_regulator_get(dev, "vdd");
+ 	if (IS_ERR(data->vdd_reg))
+-		return dev_err_probe(&client->dev, PTR_ERR(data->vdd_reg),
++		return dev_err_probe(dev, PTR_ERR(data->vdd_reg),
+ 				     "failed to get VDD regulator!\n");
+ 
+-	data->vddio_reg = devm_regulator_get(&client->dev, "vddio");
++	data->vddio_reg = devm_regulator_get(dev, "vddio");
+ 	if (IS_ERR(data->vddio_reg))
+-		return dev_err_probe(&client->dev, PTR_ERR(data->vddio_reg),
++		return dev_err_probe(dev, PTR_ERR(data->vddio_reg),
+ 				     "failed to get VDDIO regulator!\n");
+ 
+ 	ret = regulator_enable(data->vdd_reg);
+@@ -1643,7 +1642,7 @@ static int mma8452_probe(struct i2c_client *client)
+ 		goto disable_regulators;
  	}
  
-+	data->open_drain = device_property_read_bool(dev, "drive-open-drain");
-+	ret = mma8452_set_interrupt_pin_mode(data);
-+	if (ret)
-+		goto trigger_cleanup;
-+
- 	data->ctrl_reg1 = MMA8452_CTRL_ACTIVE |
- 			  (MMA8452_CTRL_DR_DEFAULT << MMA8452_CTRL_DR_SHIFT);
+-	dev_info(&client->dev, "registering %s accelerometer; ID 0x%x\n",
++	dev_info(dev, "registering %s accelerometer; ID 0x%x\n",
+ 		 data->chip_info->name, data->chip_info->chip_id);
  
-@@ -1830,6 +1854,10 @@ static int mma8452_runtime_resume(struct device *dev)
+ 	i2c_set_clientdata(client, indio_dev);
+@@ -1676,10 +1675,10 @@ static int mma8452_probe(struct i2c_client *client)
+ 	if (client->irq) {
+ 		int irq2;
  
- 	WRITE_ONCE(data->suspended, false);
+-		irq2 = fwnode_irq_get_byname(dev_fwnode(&client->dev), "INT2");
++		irq2 = fwnode_irq_get_byname(dev_fwnode(dev), "INT2");
  
-+	ret = mma8452_set_interrupt_pin_mode(data);
-+	if (ret)
-+		goto runtime_resume_failed;
-+
- 	ret = mma8452_active(data);
+ 		if (irq2 == client->irq) {
+-			dev_dbg(&client->dev, "using interrupt line INT2\n");
++			dev_dbg(dev, "using interrupt line INT2\n");
+ 		} else {
+ 			ret = i2c_smbus_write_byte_data(client,
+ 							MMA8452_CTRL_REG5,
+@@ -1687,7 +1686,7 @@ static int mma8452_probe(struct i2c_client *client)
+ 			if (ret < 0)
+ 				goto disable_regulators;
+ 
+-			dev_dbg(&client->dev, "using interrupt line INT1\n");
++			dev_dbg(dev, "using interrupt line INT1\n");
+ 		}
+ 
+ 		ret = i2c_smbus_write_byte_data(client,
+@@ -1736,14 +1735,13 @@ static int mma8452_probe(struct i2c_client *client)
+ 			goto buffer_cleanup;
+ 	}
+ 
+-	ret = pm_runtime_set_active(&client->dev);
++	ret = pm_runtime_set_active(dev);
  	if (ret < 0)
- 		goto runtime_resume_failed;
+ 		goto free_irq;
+ 
+-	pm_runtime_enable(&client->dev);
+-	pm_runtime_set_autosuspend_delay(&client->dev,
+-					 MMA8452_AUTO_SUSPEND_DELAY_MS);
+-	pm_runtime_use_autosuspend(&client->dev);
++	pm_runtime_enable(dev);
++	pm_runtime_set_autosuspend_delay(dev, MMA8452_AUTO_SUSPEND_DELAY_MS);
++	pm_runtime_use_autosuspend(dev);
+ 
+ 	ret = iio_device_register(indio_dev);
+ 	if (ret < 0)
+@@ -1810,7 +1808,7 @@ static int mma8452_runtime_suspend(struct device *dev)
+ 	ret = mma8452_standby(data);
+ 	mutex_unlock(&data->lock);
+ 	if (ret < 0) {
+-		dev_err(&data->client->dev, "powering off device failed\n");
++		dev_err(dev, "powering off device failed\n");
+ 		return -EAGAIN;
+ 	}
+ 
 
 -- 
 2.55.0
