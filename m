@@ -1,64 +1,64 @@
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BB60374A06
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 18:01:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 624A1376A13
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 18:01:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788199279; cv=none; b=cldgxRVMU0mZ7kzhgayh2ThhcvB+EYL/1i7R2Wkw6o1YJxkpFCqHV7vFX6JIKl2Z/Tb2mI4wMkZuQlqdn8fRoAUkMdNYM/Ps8nkL89fgrhNuzlJIZzlZnO3+u1e7zUfi1cFeOn9OeLt1ZOlQw2qZBGImhwJTC/Hc84EjgE98wnU=
+	t=1788199281; cv=none; b=E09dke0z1jdSx6Atv1fWv/E+GT8jV3uuQw/+Jw4oj4miHZbtDJsxEeZ45/BSkLD6uXET6b/K0JFFBFxsvpAvRSn8q2vj47Ts/44+E+mhHAaOkKpgLHKzUKrcaBX4b54XlHAu/ZW1pkR4jcEwrkauMvqmAkVa274a1IgJXl1pimI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788199279; c=relaxed/simple;
-	bh=sTTdJ+a915WjRhsMxkVa81I/Ww6U/l+JAdnO6byk8Sc=;
+	s=arc-20240116; t=1788199281; c=relaxed/simple;
+	bh=WyTLm3nJrWyEPC1OlppN/k0EgaQgjfMDm7WlJrB5cQo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QuNIzZCqORN+X9/l9/1YylmDC5N6qL+851sgEFShvcYWNPZtUyloteHnvwvXXIsh6AelUyC5YbVV3zGByrestJCid3ZJJ4cWf1+dI6DKF5ywPHeO7i2aORjD0yeu9fV9cnQFFtSjXHhRZnV4bLJuqpeSAhsghfi29KdhG48sbXg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=d/kuU7q7; arc=none smtp.client-ip=209.85.221.53
+	 MIME-Version; b=ILQnl/EIfbStgl0SDycSaXrjcTReAtnc/RH1A50nO4738Py3IBKuMTR3v66SuwjXjZviRHGWC09UXfZnqA2sK4xZTBPnwR+Vs+/q2hN6D2U5nXvweGUgSnkNkzcaoVyvIz46ADn9T8F32s382Rk6crzZPAmMKEc5hqwYbriaXGs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RVFOhfVy; arc=none smtp.client-ip=209.85.221.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="d/kuU7q7"
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-482e5733a5aso2243536f8f.0
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 11:01:17 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RVFOhfVy"
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48436216a98so981976f8f.0
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 11:01:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788199275; x=1788804075; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788199277; x=1788804077; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=O14LPPXLUHkibdGlwfhv5IQQ+lgmVBBTlfYVPR5q/qg=;
-        b=d/kuU7q75vrWH2t1z1IpGS1n/BfIVuCCnA1g7v1Wk2j+DLxGYQ9z+bQJjxXCNVKJnY
-         5Dqo8tK80c7sMOFkFl5fDR3//JDQKjNFcPSpfqXLKkc17w5ljtUPJDsISmGWMQgooOL6
-         YJNfQ41kLpNO7umtAwh+9GdGKqQnqXijJS43cEHC+g1vUkKdGPV4EOpk2+WsuPyudgfy
-         QUhMtJYiPCBht424dStTKbS4LU3LdZHa5prnh8i63Fkp3JoMRdmoelJzGevY0z8kcTzS
-         o2ByYriA8T8OFqDOb/jZExrTNVGZZFb5z5cQ24ZAx7mlIisSSWvtxamf0qI5wYjGMy4g
-         d1Og==
+        bh=KzgUwaQwZkakfwcRSTvIoOI/cqYjfJpPcdCsGPGI/Pg=;
+        b=RVFOhfVyiuBLKVMcE9W869HhgXwsmvhC33RHBi9A1O8FINvXt76H1FD63nkDcoEsUm
+         3VcQqpJFOaIaUbqsguu4rOvLBtswj7O6uP9dXr/6l1sMZkeBYT8TgfQldtay2TpzHU1o
+         2Z0pvSfYWqYCLkQgX1fBsh2HD0maLmFLxInV69O8Bk09qsECnM8uBSNBuDWNHEO47c1p
+         xC9w9JcR4TccXEGIe4JukTDzgH8JuZk3FOEfIGHxA8JawS41Xm2hlXx75+2ubIvYkTtQ
+         eCLKYJj+KJw3zU8qsT9iBDO/7gZP54/L6FZXheVBBip8ZcFBS27qPkC7cEw4+xE+d1ev
+         B1vw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788199275; x=1788804075;
+        d=1e100.net; s=20251104; t=1788199277; x=1788804077;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=O14LPPXLUHkibdGlwfhv5IQQ+lgmVBBTlfYVPR5q/qg=;
-        b=s4tAThRUpJ/ji2tJSt4uViNQuBbmXcyaL39T4+0YR6+1Clye+NEp2I8j7bty8DsRlM
-         ZNWvz0AyHwRAxEBiH/BYssQEiaoqCK79d5TcpI+qTHsVQuqVQyZPPKG0iS4vj9WXkLTE
-         kk6BvTFEc9HiKuvuZJ7gkIVHyU38hHvj1I8epDRklfPJV+jeYHAVV66gLLmEodJ5+rJj
-         0/IOni8Ag/HOFE74UQ7HssBhbnh0jwcaoQTHjLtw8f/MbBvJm1855yr4cU26dE16l90L
-         1YkAoa9Ov9gZ56DFu73LKOCAQj1Sd5MAzb/ExNIKopktxPRgPghGWnx8NtWSn5QbT+m0
-         hUfA==
-X-Forwarded-Encrypted: i=1; AKwUvBzLqdGj3l9cMnncDshns+KtLE0jTkBuILiBCUn0K7jreuQSfNqAJVO4e5ldNsMOnf/88eqGWapIbLSSffo=@vger.kernel.org
-X-Gm-Message-State: AFuF++nT7UJV2o+eFHWbBQM5Pm+xak6I//XipZzwxQP65+h7bBsPPdOj
-	3JTSFJ/Ci4FO6W3F/NIt2DxBt13r5q+yFC6OMLDhkXuBYV1PxSzrnGrT
-X-Gm-Gg: AYBFou1cPumRBCIqy/CfpIZD1AbSnKu5T74As9Lhwg38+uDcEKLd1/ZTwDVVxQNEOx1
-	kGZibVAaTvI+vXvY5EDI0fcy0LYqvpJHL2msOn5S8MbSD6MFH3TnGBho/5JILtao7hbQv1ejYwa
-	brjnrW3mMPnR5br1R2X0A56EOiuo0n/+OqfseJM4XJqQxzz5l6Oyg8K50nU3LeaYIZLM0I+oWM1
-	gVcLnrX8pSZnuEtydUZNq9/W9hlIsCbL3t/HW4tBv7c8mpRD7rP+TOcCBEAsvp1Y6tx7SGWhBV7
-	mRWlZs57Ktv9flvTkDfbP6McVpvx2WardugGXX0yKDE0OogzrFK5Wx3UlKTcgYEik+HtGx1ZKqp
-	x4CaIc/C/u8PTrsC9oEuIG6qxcaPCDg2i+5yceAWGtiRlsw6F7eiFWB4SzNqwPyXNBSXhaLBJqI
-	7pneVvE3FZ1CMmxfknfab4hUiosVMBEhrCRyAE79jJKrayvOczbCuRuAg7nirKBpaQZVrJJCset
-	Tw8agL/HiC4biY7SOg8p9ocWIzoe2Z85EeOjmLkmik=
-X-Received: by 2002:a05:6000:64a:b0:484:3310:710d with SMTP id ffacd0b85a97d-4844102ad9amr4771790f8f.25.1788199275336;
-        Mon, 31 Aug 2026 11:01:15 -0700 (PDT)
+        bh=KzgUwaQwZkakfwcRSTvIoOI/cqYjfJpPcdCsGPGI/Pg=;
+        b=DqptOb9CCdPdo9PDsh2YNUUOP/sNIsCqNpeWM6xI+qW3BUqShWHK140MgXaRsTqkMf
+         JVq9Jq1jsDA7Xcq8SK1oBpCwssAUWr0CzQ873njpLvZCoawEUmDZnzwgAX3jG7Rp2T1X
+         7WO/TbPhG71qav0RRZu38PsNygmiuqh2TpDYZ299CmCgnKTpkd4BPVtgA8W6BNviisi7
+         YZuMiV4PJqcIL+r7iKnMCTvuA/4l6phiZmqINDW5OjzfhaCXhBcAReZSTTsBE+Js727f
+         5c0lCBi7bVrSKN8voD2MzU49oSEdrTHFcoCZm4Fa7P6b9VFB5s7kgKCH1Qn2ycD/yhEI
+         4e/Q==
+X-Forwarded-Encrypted: i=1; AKwUvBz5jnCOIByGu5FvZGE9PyNAYUN2zrKQzIY0tAUf/H4ld6F1UJrxZTziTkCSX/K/ttWCj0z/nQvx4Hj/+js=@vger.kernel.org
+X-Gm-Message-State: AFuF++nmMbkHMkcMItodITiex5iQBt0rGGnENUWAM7fx/a6LaglKuMV1
+	H0xyA+vSYnE1sGfy8eHveTso8q2KPFHt3eVPXOAl7Tq7qOhZAsP4Aoo5
+X-Gm-Gg: AYBFou0zEjQhEVPWezckuYZzGcTfBETRW5CTJRZBgofw+PRXhBkXUTb+gFMy2I1EnVZ
+	X1jOqHpMqn3tHYaXL6HiMu+uvsMAYjHfKknmMIj9waaeK8GWfrxOBZwAgYY2dncSiXe6vhQG/5W
+	pje9qtwxWjrfdAUd1RRK2SIcfNvsPOIBRVRvXDtC4d7AlOf8fiEIAP2tn1m14txZmJ8vxAulHBg
+	89FA01H7WZnmy6EREI0P/GDpBP8dDTeRbJHqkT756lQ9orZQPCAGC1amcdLlus0j52H84rRKoTc
+	DBR/WRHtK5DN7Hd60juItgeexa/JkcVTUwkOp+2EM+kzVI7iDRjUj1iVlXLgrGrqP7QYUOfaRAx
+	m1uJ20ue3gLgrg4EQKGRdPsA8jBRrNuP92FE7MN3A7kv8ZQiH7+XkjQQPPGdwqYMN5Ij3fmIWy0
+	oh4Igup9qKNLqnV/J4Ovti5yZT6zpRhEZM5kZJJRPoAc/v+JHHrvyS4AeTAmelvNkW5KkjidFHd
+	fiV+TJvsrjlf6Qncp5Ve8e7PB+f1XrIvqVIYNRMpdU=
+X-Received: by 2002:a05:6000:653:b0:482:fa3b:fab2 with SMTP id ffacd0b85a97d-482fa3bfcd5mr43581557f8f.19.1788199277291;
+        Mon, 31 Aug 2026 11:01:17 -0700 (PDT)
 Received: from 1Z10 ([78.213.92.213])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482fbab3fcesm22861530f8f.5.2026.08.31.11.01.13
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482fbab3fcesm22861530f8f.5.2026.08.31.11.01.15
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 11:01:14 -0700 (PDT)
+        Mon, 31 Aug 2026 11:01:16 -0700 (PDT)
 From: Maurizio Casciano <mauriziocasciano7@gmail.com>
 To: linux-media@vger.kernel.org
 Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
@@ -75,9 +75,9 @@ Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
 	linux-staging@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	Maurizio Casciano <mauriziocasciano7@gmail.com>
-Subject: [PATCH v5 05/16] media: ov8858: Add INT3477 ACPI ID
-Date: Mon, 31 Aug 2026 20:00:50 +0200
-Message-ID: <20260831180101.3109854-6-mauriziocasciano7@gmail.com>
+Subject: [PATCH v5 06/16] media: intel: ipu-bridge: Add Yoga Book camera sensors
+Date: Mon, 31 Aug 2026 20:00:51 +0200
+Message-ID: <20260831180101.3109854-7-mauriziocasciano7@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831180101.3109854-1-mauriziocasciano7@gmail.com>
 References: <cover.1787933456.git.mauriziocasciano7@gmail.com>
@@ -90,47 +90,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Firmware may use INT3477 as the ACPI hardware ID for an OV8858 image
-sensor. Add an ACPI match table for that ID.
+The Yoga Book YB1-X91 uses INT3477 for its OV8858 rear sensor and
+OVTI2740 for its OV2740 front sensor. Add link frequencies consumed by
+the sensor drivers when the IPU bridge constructs software endpoints.
+
+This supplies endpoint data only; it does not establish that either
+sensor can stream on the Yoga Book hardware.
 
 Signed-off-by: Maurizio Casciano <mauriziocasciano7@gmail.com>
+Assisted-by: LLM sparse
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
 ---
- drivers/media/i2c/ov8858.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ drivers/media/pci/intel/ipu-bridge.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/media/i2c/ov8858.c b/drivers/media/i2c/ov8858.c
-index d45659bd5dda..e48902d517aa 100644
---- a/drivers/media/i2c/ov8858.c
-+++ b/drivers/media/i2c/ov8858.c
-@@ -6,6 +6,7 @@
-  * Copyright (c) 2017 Intel Corporation.
-  */
- 
-+#include <linux/acpi.h>
- #include <linux/clk.h>
- #include <linux/delay.h>
- #include <linux/device.h>
-@@ -2087,6 +2088,12 @@ static void ov8858_remove(struct i2c_client *client)
- 	pm_runtime_set_suspended(&client->dev);
- }
- 
-+static const struct acpi_device_id ov8858_acpi_match[] = {
-+	{ .id = "INT3477" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(acpi, ov8858_acpi_match);
-+
- static const struct of_device_id ov8858_of_match[] = {
- 	{ .compatible = "ovti,ov8858" },
- 	{ /* sentinel */ },
-@@ -2097,6 +2104,7 @@ static struct i2c_driver ov8858_i2c_driver = {
- 	.driver = {
- 		.name = "ov8858",
- 		.pm = &ov8858_pm_ops,
-+		.acpi_match_table = ACPI_PTR(ov8858_acpi_match),
- 		.of_match_table = ov8858_of_match,
- 	},
- 	.probe		= ov8858_probe,
+diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel/ipu-bridge.c
+index 1bb3a3e98d6b..47317c423fad 100644
+--- a/drivers/media/pci/intel/ipu-bridge.c
++++ b/drivers/media/pci/intel/ipu-bridge.c
+@@ -65,6 +65,8 @@ static const struct ipu_sensor_config ipu_supported_sensors[] = {
+ 	IPU_SENSOR_CONFIG("INT33F0", 1, 384000000),
+ 	/* Omnivision OV2740 */
+ 	IPU_SENSOR_CONFIG("INT3474", 1, 180000000),
++	/* Omnivision OV8858 */
++	IPU_SENSOR_CONFIG("INT3477", 1, 360000000),
+ 	/* Omnivision OV5670 */
+ 	IPU_SENSOR_CONFIG("INT3479", 1, 422400000),
+ 	/* Omnivision OV8865 */
+@@ -93,6 +95,8 @@ static const struct ipu_sensor_config ipu_supported_sensors[] = {
+ 	IPU_SENSOR_CONFIG("OVTIDB10", 1, 560000000),
+ 	/* Omnivision OV2680 */
+ 	IPU_SENSOR_CONFIG("OVTI2680", 1, 331200000),
++	/* Omnivision OV2740 */
++	IPU_SENSOR_CONFIG("OVTI2740", 1, 360000000),
+ 	/* Omnivision OV5675 */
+ 	IPU_SENSOR_CONFIG("OVTI5675", 1, 450000000),
+ 	/* Omnivision OV8856 */
 -- 
 With Best Regards,
 Maurizio Casciano
