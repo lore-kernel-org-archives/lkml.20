@@ -1,147 +1,161 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+Received: from www62.your-server.de (www62.your-server.de [213.133.104.62])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 664F93B38BF;
-	Mon, 31 Aug 2026 08:55:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E50DA3C13E9;
+	Mon, 31 Aug 2026 08:56:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.133.104.62
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788166557; cv=none; b=dodVyMvmdYnLApYBVfYsn7L1QL8S56VfI5uBEAaSI7oAd6BAcVW56nvTc3Ywwkq2VA1WMU4qHluPlp7hXH2Q0EofE1y06HCIleZ8x0Pa0UkHLKzw5SHSfp3XjkvzBWjmtEPBTUw6BQKzIn0K9JAfdhUgxKekPpO4BStoW+aluGo=
+	t=1788166575; cv=none; b=MLd1pAYR273jAswFybXTM1pAB/8v0BMvetS4mgsn0e4vDTWy8UaRPU6mXZItVjGKe+3UdzRS5p44L+QpM5xWooTv0sijlJn6qVtF1GRxn5f7d86w5fT//JrT/p9/rVdyt5WzUzmSeFem4Imdxtc9x+OW4MM0ISe690Fs2M3J5pU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788166557; c=relaxed/simple;
-	bh=O9kLkeXsxXvGPMErhk2+GTZViMNOPLUOJF1XdfOCyWY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=sD/BlvjOH3JbbVgAg+UM3eeQAHfF9wI8BebQCg6q2JkilZHdZD6J795+kkuQ7t+FcxLsom/1/gmMXU2i6LA0h7LNT/cVmJRmp/KW9mip+of10np9Csv8DS2Eb4rEzK+pHRERt4WIAdOasFuHsJHX+HG584C7PrrYiT/IQRyf9Es=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=VA93GIOt; arc=none smtp.client-ip=192.198.163.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1788166575; c=relaxed/simple;
+	bh=eqM1ufo2HkRCI1ek3YUkIE8dU9SYuoLx4z2M13rIzu8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=e07bNLycSSc8msG4c4A/ijD5TsAVSUBaHRFdhlL4ua0nE64dfsNdRhnMntHa2O5cpkMDfXd0qwDzbox4MBkEiMmU1hbNv9StgFWa9CsAeN2mVB/MYlLA2Mm2FNTkBmdTeFpIoO/x2L1DzZASIxv+f7TL/RHS5mS2pY8SA/7HUP8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iogearbox.net; spf=pass smtp.mailfrom=iogearbox.net; dkim=pass (2048-bit key) header.d=iogearbox.net header.i=@iogearbox.net header.b=aj49Hkva; arc=none smtp.client-ip=213.133.104.62
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iogearbox.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iogearbox.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="VA93GIOt"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788166556; x=1819702556;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=O9kLkeXsxXvGPMErhk2+GTZViMNOPLUOJF1XdfOCyWY=;
-  b=VA93GIOtJtnaIOkGJcSW2ky9RFKuZTYl0KrdCYCpvir5WsQsYjCulHjj
-   OuofKnfGF04xDETRXAPNNtTxI1Zww18Q/uPL5BwfmpQSGapjA9Vh5KPlC
-   vVStoQXPzea+ZTW3UKWULoO2cVKarJ8bCS0+Q2ar7JigJ39LCZz2qprn3
-   es5jNIE4eDwLLYZGf3ZqTU52EEjJigKL9RwTrDbI0AjbdLpUlRTLNfQrd
-   JnoG9ugxv4Pd/TGpIys7Dz929JPkvCUPwyrYl3x9cPeJXKg0XbWjQPbYB
-   JsCl5u+7nQfkQq7rpj3Ly422DAYjYKEjmxIqIeKcvQV8BFLh0rkCx3k8k
-   w==;
-X-CSE-ConnectionGUID: hGle0cnSQF6tGTFzxVEgtw==
-X-CSE-MsgGUID: +8urBKlWRMeDWExwHGJAoQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11891"; a="92379363"
-X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
-   d="scan'208";a="92379363"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 01:55:55 -0700
-X-CSE-ConnectionGUID: CtDiUuQUSwSsNsnfT3xRYQ==
-X-CSE-MsgGUID: UVHv2V6BT+ylmrt4/XNo2Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
-   d="scan'208";a="274011859"
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.87])
-  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 01:55:52 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 4026D11F894;
-	Mon, 31 Aug 2026 11:55:50 +0300 (EEST)
-Date: Mon, 31 Aug 2026 11:55:50 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Christian Murphy <christian@themurphys.eu>
-Cc: linux-media@vger.kernel.org, hpa@redhat.com, mchehab@kernel.org,
-	tarang.raval@siliconsignals.io, jai.luthra@ideasonboard.com,
-	linux-kernel@vger.kernel.org, antti.laakso@linux.intel.com
-Subject: Re: [PATCH] media: i2c: imx471: Fix pixel rate and line length
-Message-ID: <apVBljHkHhjcodTX@kekkonen.localdomain>
-References: <20260830173345.15886-1-christian@themurphys.eu>
+	dkim=pass (2048-bit key) header.d=iogearbox.net header.i=@iogearbox.net header.b="aj49Hkva"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=iogearbox.net; s=default2302; h=Content-Transfer-Encoding:Content-Type:
+	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
+	bh=2eCJgA3mPrEvbh5UxXv7uN+1qTaUzk52n7ZY9Ly6mts=; b=aj49HkvaNaLeR4iZVwSp9iNS67
+	E7r/bJMEo0gF7OpSyDcnJBFKnnpu88cgYgsSbmbRhpM5lkp0K1kzC081isSJ09DPOQn4O0556h9NY
+	9ey2unpQHEh+z5RZJ4uyGin8hL0loReKxwdHJ3WgJTvn0XpFtEzgGfriF7X2grA+fmsuO9N+d+zu2
+	LWjH1UHm7qv/FQuDQJtpsJkJ+8hFNYfauw4XgTJHF6PBm/Oz3MzOfsrDFsWOZ8BaA0KLFPgR9Ma62
+	vW2ecGJp4uQ/lb2cgvJZZxSKh80RmoNCGwiszMOcIoBzzCVfJ6kM+cHMIjGTOVBkkryZS+pfONPto
+	11CXYf1Q==;
+Received: from sslproxy04.your-server.de ([78.46.152.42])
+	by www62.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.96.2)
+	(envelope-from <daniel@iogearbox.net>)
+	id 1x0xoA-0003UH-1J;
+	Mon, 31 Aug 2026 10:56:02 +0200
+Received: from localhost ([127.0.0.1])
+	by sslproxy04.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <daniel@iogearbox.net>)
+	id 1x0xo9-000N0B-1C;
+	Mon, 31 Aug 2026 10:56:01 +0200
+Message-ID: <5af98c98-0633-4efd-89ca-43eb9ef0cd75@iogearbox.net>
+Date: Mon, 31 Aug 2026 10:56:00 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260830173345.15886-1-christian@themurphys.eu>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH bpf-next v2] selftests/bpf: Track test_xdp_features DUT
+ processes
+To: =?UTF-8?Q?Alexis_Lothor=C3=A9?= <alexis.lothore@bootlin.com>,
+ Bochao Cao <bochaolucky@gmail.com>, bpf@vger.kernel.org
+Cc: Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman
+ <eddyz87@gmail.com>, Ihor Solodrai <ihor.solodrai@linux.dev>,
+ Jiayuan Chen <jiayuan.chen@linux.dev>, Alexei Starovoitov <ast@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Stanislav Fomichev <sdf@fomichev.me>,
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, Song Liu <song@kernel.org>,
+ Emil Tsalapatis <emil@etsalapatis.com>, netdev@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Lorenzo Bianconi <lorenzo@kernel.org>
+References: <20260812-xdp-dut-process-lifecycle-gmail-v2-1-b03ef2aa1b97@gmail.com>
+ <d4be160e-703e-46bb-9509-d3d90f6bc34b@iogearbox.net>
+ <DKX99ZAP7GZ8.23U5EOSFB4VPU@bootlin.com>
+ <CAHKNYVXN0DAUzv2Lwm=oQ_K=zhi2iNyTO2e99s5F4M+Kr7u5tQ@mail.gmail.com>
+ <CAHKNYVV8gn-L_unjsxUZV=E+Rx4ouDBJX613_n4hevXP1rivyg@mail.gmail.com>
+ <DL2YUKA3J3CG.1GUS47SLVPRNX@bootlin.com>
+Content-Language: en-US
+From: Daniel Borkmann <daniel@iogearbox.net>
+Autocrypt: addr=daniel@iogearbox.net; keydata=
+ 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
+In-Reply-To: <DL2YUKA3J3CG.1GUS47SLVPRNX@bootlin.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Virus-Scanned: Clear (ClamAV 1.4.3/28109/Mon Aug 31 08:24:07 2026)
 
-Hi Christian,
-
-Thanks for the patch.
-
-On Sun, Aug 30, 2026 at 06:33:45PM +0100, Christian Murphy wrote:
-> The pixel rate is derived from the CSI-2 link frequency, 200 MHz * 2 *
-> 4 lanes / 10 bits = 160 MHz, and the line length is the binned array
-> width, 2328. Neither describes the pixel array.
+On 8/31/26 9:55 AM, Alexis Lothoré wrote:
+> On Fri Aug 28, 2026 at 8:10 AM CEST, Bochao Cao wrote:
+>>   Thanks Daniel and Alexis.
+>>
+>>    Dropping the procps dependency is not the primary motivation for
+>>    this change. I agree that Debian can remove the dependency independently.
+>>    The issue addressed by this patch is process isolation in the standalone
+>>    test. The current readiness check may observe an unrelated
+>>    concurrent xdp_features process, while cleanup may terminate every
+>> xdp_features
+>>    process on the host. In addition, a DUT which exits before listening can
+>> leave the test waiting indefinitely.
+>>
+>>    Although this script is not currently run by the BPF CI, it remains
+>> useful  for testing real hardware,
+>>    so these process lifecycle issues can still  affect users running the
+>> test manually.
+>>
+>>    Would it be acceptable to fix these issues in the script's current
+>> location?
+>>    If the preferred direction is to move it under
+>> tools/testing/selftests/drivers/net/hw/,
+>>    should the move be submitted first, with this fix rebased on top?
 > 
-> The VT PLL gives 19.2 MHz / PREPLLCK_VT_DIV 2 * PLL_VT_MPY 121 /
-> VTPXCK_DIV 6 = 193.6 MHz and the array reads two pixels per clock, so
-> the pixel rate is 387.2 MHz. LINE_LENGTH_PCK is never written and its
-> power-on default reads back 5120. Timing frames at several written
-> line lengths confirms 387.2 MHz at every value.
-> 
-> With the declared values the line duration comes out 14.55 us instead
-> of 13.22 us and exposure is overstated by 10%: libcamera reports a
-> maximum ExposureTime longer than the frame.
-> 
-> Set the pixel rate to 387.2 MHz and the line length to 5120, which
-> changes HBLANK from 400 to 3192. No register write is added.
-> 
-> Fixes: be1589e567ae ("media: i2c: imx471: Add Sony IMX471 image sensor driver")
-> Link: https://lore.kernel.org/linux-media/20260728042013.23707-1-hpa@redhat.com/
-> Assisted-by: Claude-Code:claude-fable-5
-> Signed-off-by: Christian Murphy <christian@themurphys.eu>
-> ---
-> 
-> Notes:
->     LINE_LENGTH_PCK reads back 0x1400 (5120) from the streaming sensor.
+> I have no strong feeling about whether it should be moved or kept here,
+> I'll let BPF/netdev maintainers express their opinions here (Jakub
+> already suggested in [1] that there are helpers in net testing helpers
+> that could help making it move to the net tests). I've added Lorenzo in
+> CC, who is the original author of the script.
 
-Interestingly, 2328 would appear to be a seemigly valid value.
+Given it is explicitly for testing real HW/driver capabilities wrt XDP,
+it would make sense to me to migrate it over into
+tools/testing/selftests/drivers/net/hw/ ; then vendors can run it also as
+part of their netdev CI.
 
-Cc Antti.
+Thanks,
+Daniel
 
->     Written to 5632, 6144, 5008 and 5120 in one stream, the line period is
->     llp / 387.2 MHz at every value (14.5457, 15.8680, 12.9341, 13.2234 us).
->     
->     Tested on a ThinkPad X1 Carbon Gen 14 (Debian linux 7.1.8-2, libcamera
->     0.7.2): controls read back 387200000 / 3192, 17.296 ms frames, maximum
->     ExposureTime 17.057 ms. v4l2-compliance 46/46; W=1 and sparse clean.
->     The driver is in no release (7.3 merge window), so no Cc: stable.
+> Alexis
 > 
->  drivers/media/i2c/imx471.c | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/media/i2c/imx471.c b/drivers/media/i2c/imx471.c
-> index 4053aed84340..7a1335873270 100644
-> --- a/drivers/media/i2c/imx471.c
-> +++ b/drivers/media/i2c/imx471.c
-> @@ -282,7 +282,7 @@ static const struct imx471_mode imx471_modes[] = {
->  		.height = 1088,
->  		.fll_def = 1308,
->  		.fll_min = 1308,
-> -		.llp = 2328,
-> +		.llp = 5120,
->  		.default_mode_regs = mode_1928x1088_regs,
->  		.default_mode_regs_length = ARRAY_SIZE(mode_1928x1088_regs),
->  	},
-> @@ -691,8 +691,8 @@ static int imx471_init_controls(struct imx471 *sensor)
->  					   0,
->  					   link_freq_menu_items);
->  
-> -	/* pixel_rate = link_freq * 2 * nr_of_lanes / bits_per_sample */
-> -	pixel_rate = div_u64(IMX471_LINK_FREQ_DEFAULT * 2 * 4, 10);
-> +	/* pixel_rate = 2 * vt_pix_clk, with vt_pix_clk = 19.2 MHz / 2 * 121 / 6 */
-> +	pixel_rate = 387200000;
-
-Can you calculate the value instead, please?
-
->  
->  	v4l2_ctrl_new_std(ctrl_hdlr, &imx471_ctrl_ops,
->  			  V4L2_CID_PIXEL_RATE, pixel_rate,
+> [1] https://lore.kernel.org/bpf/20240914063828.7bd73c5e@kernel.org/
 > 
 
--- 
-Kind regards,
-
-Sakari Ailus
