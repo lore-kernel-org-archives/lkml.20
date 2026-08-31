@@ -1,235 +1,96 @@
-Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx1.mail-out.lima-city.de (mx1.mail-out.lima-city.de [91.216.248.203])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D8EF408623
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 23:38:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44A834078E6;
+	Mon, 31 Aug 2026 23:41:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.216.248.203
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788219528; cv=none; b=JxMUZU3D+lGog3APKT4Cps3kho33xUSxzyot50+n2ywRecGlzZhHkz9QXylDTDJkVToJ6qvXI5S0h/Ryd4f36QtiPTvcKJzaGdmW+XLXW7E5t4l/Q3BjFcWM6ZJ5xBPv3bYUiKKRzB748VIvXW5T7zgdLHx4jTWfD/QA39xPgl4=
+	t=1788219662; cv=none; b=LUtQWv8Yk6jy0mXIAqb2XD+iL6Ppal5/e9/iN4K9RBQ9ecseedOv8jsktuW5/gNgp+0c87Otw2upH8FW+FJ2Zwbyu9IVGmSxJ4ea2vUuGH7Q0wqF4u/kmZcTbdkHCnZVJz5kzINPEG5SddnHdILEl+vGO9HGivu+wnxDoCV4i34=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788219528; c=relaxed/simple;
-	bh=8CDwIcw9Cwa7xa/xb0sjU9AEZPy8+v5Rr1k2WHBl6B8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=DhThgaH72QQGqIISRgvLN4nw0ObvhAqWR3RSTU/+T3RIA8wT0w+YE4YVjFmvtYSguYhPPlaXKW950QqA7qgL6Yy6Hoe5boSs7d1T67Ht/w5/XGMCJ6K1lI+jvyqklHo166tuKvV2naV1+twRmEaGaJwVYFWbV5z/TB3AXPupUTM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MJ/9WwEn; arc=none smtp.client-ip=209.85.215.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788219662; c=relaxed/simple;
+	bh=Pd+xuj/awkQjzclpiwBAlCOaUDbx6XwHn6PW/HGWlGA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=MSuuEp8YgjMAkm1VpmEs1odzpjmyMdnwTq3i+gE7zAREh7tB8YgzytFsOkvUv2QqNUW9opS1tMpXS8PAN4hAWGpNWRFrzIfSfVXPnIa4XxOBE04NsrMiIpXLGRXahvj2sjCjnZ8QPN380oem0mlttEZoApx2jCFxKKGfd00v4Us=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=matt3o12.de; spf=pass smtp.mailfrom=matt3o12.de; dkim=pass (2048-bit key) header.d=matt3o12.de header.i=@matt3o12.de header.b=NpCoRxf9; arc=none smtp.client-ip=91.216.248.203
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=matt3o12.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=matt3o12.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MJ/9WwEn"
-Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-c9d290216d0so645590a12.3
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 16:38:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788219527; x=1788824327; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=shThNVvHvcCvkYDrxu1ymT+FnDuu2k7qfXr77Zt+pxI=;
-        b=MJ/9WwEnmn0IIPstXrg2HYZ1XmblzdrJlq0sCbcMlJRIqyOdzbW6W8rgy5ns/tR26w
-         ZvsQ5Tirm9/JNMtXLBIgZxarb7EzAI6/5OBWqtCJ5f0WME7DTueUWxVcozbw/NvhWXaa
-         N0fF1f0vlE4GpJT+Rnk1B6D66vSTSVE2xocewKRAHHa2Hg/ie3LNV8cVjlLuwDVi0YOV
-         EPGJN+bBhxTdCPxz+MW7elPyPLB0VtWQHW7giX55hRpiqsN/A4bp19bjTwp0CG3j/414
-         rlxgxU+XEg0lTY/qHWxpWarzGizRlKeo9B/wK/SC9Yc7+GzX2np1WHgg9e28lKX7br8l
-         htEQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788219527; x=1788824327;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=shThNVvHvcCvkYDrxu1ymT+FnDuu2k7qfXr77Zt+pxI=;
-        b=RFYoYwzXJthxqwBzGX+4RLo9ZKvQrHIK9NWf25wHkImlqpM75Ji4r8/W2h3GQo1mNv
-         jAZYNTH3SKgF8QVRLEhNnpTS2PLhK2nOYa56RMNy9uTL3HeIC7BWyKQpIF5vIwmggNcD
-         LgHfyAe8QRfu80b9KxCSRebALxq7N4l8EHbYntFvQX+guV10gfXdFXWXbpdgYsLl3Jsc
-         LOFBI+aaaynUA/wL3gocE5Tkh+JyFR+GFxY8WB2VhdXrvjEK6cusyE9q985gHH+ceNVx
-         fMKXnAcX7wdcZtTn4WR0zid1ACoWpiq/zjJUFVOsg4r+nlujsJqjLqc2KPnjRulR9+ct
-         HLqg==
-X-Forwarded-Encrypted: i=1; AKwUvByaj/7xsR6gbYQtyfufEcKHnxbbJJEIRmbaUyTvbIdfK5s0oViBG+eBGDoy0uDAHiNqYQpbfoDXKQTUjD8=@vger.kernel.org
-X-Gm-Message-State: AFuF++kzUfN5sIoDc34VPzIrAHNkS1tFmfHdA3IrdJOZwFyRaL3EOm5x
-	t5azGZ/T0OKPgEZhxPkEdlGLsjjnu0Mp30U8sfoSRKxUUCNG+WCcKxJZ
-X-Gm-Gg: AYBFou21dzo1XL0oCMvXqUpwWgg6quXo1TAGYf6CEUj/IC1Jlj2yYlCCtfTXoEqlpzs
-	n10EmcbRnJQtzi1L+Ini6MSIZAee2J6n5xTVhuqC2oLMqFbY4V/cHIYC9BeSR1zH0DiNaaRcJFo
-	4qi2f9E/o8w6uDZR3SZIiwrQd271FqvKV1YoP2VkOPcSVt1EHCdXphbKPI5AfBnCXPoaKt3QprG
-	gQk7Z71HLFyNx6+6/AURnIZDMuzamr5zexoedpPjMEKDvIm0zTf4+oDrFDzuBciIiRYSzrdXjfz
-	frcbIoEUvN2CQrytTx4rlpl+1Jm67fGu7GA7/0gXlvAdVIs2tCqOA14+Ci4mM8aDErqE5Gxod54
-	dXlR+ngoFGUhgXF60+m4roF074wprTVqhTRxYRKv4UoYXqcLWmlyfPdYHycae3bsVsV10WZvjP8
-	/5cb0QF9ydhGkewOfjXR1XpXAVT48tgn5k7KulH34Xl0vckfCrH40tKR6zmqD3WEt0ayNUB+zbv
-	uI+gQSHWA==
-X-Received: by 2002:a17:90b:17cd:b0:390:af7c:fe5e with SMTP id 98e67ed59e1d1-398bab29b39mr14687470a91.2.1788219526679;
-        Mon, 31 Aug 2026 16:38:46 -0700 (PDT)
-Received: from [10.60.78.252] ([2409:40c2:5002:4362:354a:8f21:7ceb:c8a6])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3990c40d0c9sm2143682a91.7.2026.08.31.16.38.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 16:38:46 -0700 (PDT)
-From: Bhargav Joshi <j.bhargav.u@gmail.com>
-Date: Tue, 01 Sep 2026 05:08:13 +0530
-Subject: [PATCH v4 2/2] dt-bindings: mfd: ti,keystone-devctrl: Convert to
- DT schema
+	dkim=pass (2048-bit key) header.d=matt3o12.de header.i=@matt3o12.de header.b="NpCoRxf9"
+From: Matteo Kloiber <kernel@matt3o12.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=matt3o12.de;
+	s=securedbylima-20230709; t=1788219153;
+	bh=Pd+xuj/awkQjzclpiwBAlCOaUDbx6XwHn6PW/HGWlGA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=NpCoRxf92FZv9ezg56i3s4eaV+rg3wSalMNrQ1ifw0PSoniBKhdKXfDqF7zK0a1WF
+	 hVqXw0Lfgz426mJuqN3i7DpJ7YtWVvFX/WtiMPuNOiLQfclMPFHFd3OBPUqkWWyC9Z
+	 eiX880QoRoI8IeYSOlfSH8ubn8oOLzhHRGIGPYPq0mpT9rex1hriMIP7fu17UzmBUB
+	 a6yspNk+lj0DuCdkzcA8MI0rSHOhE2xRlNvHhXSD+bsTWFRzHHf2X3G+iHkclS8Lb0
+	 fUcJbckd8IDf2Dz32Vm/oQHBqFhiUIbocQgWvi5/JXvAu+Lg4AiQrzcyfSB+a3Y6b+
+	 0U9JupAyf3PGg==
+To: dakr@kernel.org,
+	acourbot@nvidia.com
+Cc: aliceryhl@google.com,
+	ojeda@kernel.org,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	abdiel.janulgue@gmail.com,
+	daniel.almeida@collabora.com,
+	robin.murphy@arm.com,
+	a.hindborg@kernel.org,
+	nova-gpu@lists.linux.dev,
+	dri-devel@lists.freedesktop.org,
+	driver-core@lists.linux.dev,
+	rust-for-linux@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Matteo Kloiber <kernel@matt3o12.de>
+Subject: [PATCH 1/2] gpu: nova-core: declare unlimited DMA max segment size
+Date: Tue,  1 Sep 2026 01:32:14 +0200
+Message-ID: <20260831233215.287881-2-kernel@matt3o12.de>
+X-Mailer: git-send-email 2.51.2
+In-Reply-To: <20260831233215.287881-1-kernel@matt3o12.de>
+References: <20260831233215.287881-1-kernel@matt3o12.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260901-ti-keystone-devctrl-v4-2-2922f2a44792@gmail.com>
-References: <20260901-ti-keystone-devctrl-v4-0-2922f2a44792@gmail.com>
-In-Reply-To: <20260901-ti-keystone-devctrl-v4-0-2922f2a44792@gmail.com>
-To: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Ivan Khoronzhuk <ivan.khoronzhuk@ti.com>, Nishanth Menon <nm@ti.com>, 
- Santosh Shilimkar <ssantosh@kernel.org>
-Cc: mfd@lists.linux.dev, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, goledhruva@gmail.com, m-chawdhry@ti.com, 
- daniel.baluta@gmail.com, simona.toaca@nxp.com, j.bhargav.u@gmail.com, 
- linux-arm-kernel@lists.infradead.org
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788219500; l=4141;
- i=j.bhargav.u@gmail.com; h=from:subject:message-id;
- bh=8CDwIcw9Cwa7xa/xb0sjU9AEZPy8+v5Rr1k2WHBl6B8=;
- b=RtlS7lipVVDU7Yzpx9NBd0BOlUuy+8xcgvjciTvzjXfiuS1dupEJC1duo8n5rtoNPopwOZ/sS
- DgTXTYQZVE6Aj+gvomsw9VBPHnR99qUXpaDoybfoXdf845nyA0Maj+g
-X-Developer-Key: i=j.bhargav.u@gmail.com; a=ed25519;
- pk=IqNDwUZKECEA+n8wXctFLBbYL9NhFstZNbOznm/nX1k=
+Content-Transfer-Encoding: 8bit
 
-Convert the Texas Instruments Keystone Device State Control binding from
-legacy text format to DT schema.
+The PCI default max_seg_size is 64 KiB. nova-core never raises it, so
+mapping the GSP firmware image (~60 MiB) as a scatter-gather table
+triggers a DMA-API debug warning when contiguous pages coalesce into
+segments that exceed the default:
 
-During the conversion, the following updates were made:
-- Add "simple-mfd" to compatibles matching existing dts usage.
-- Add required bus properties #address-cells, #size-cells, and ranges
-  which were missing in text binding.
-- Document child nodes gpio, interrupt-controller, and reset-controller.
+  DMA-API: nova-core 0000:00:03.0: mapping sg segment longer than
+  device claims to support [len=62914560] [max=65536]
 
-Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
+CONFIG_DMA_API_DEBUG=y is required to see this warning.
+
+Signed-off-by: Matteo Kloiber <kernel@matt3o12.de>
+Assisted-by: Claude:claude-opus-4-8
 ---
- .../bindings/mfd/ti,keystone-devctrl.yaml          | 90 ++++++++++++++++++++++
- .../bindings/mfd/ti-keystone-devctrl.txt           | 19 -----
- 2 files changed, 90 insertions(+), 19 deletions(-)
+ drivers/gpu/nova-core/gpu.rs | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/mfd/ti,keystone-devctrl.yaml b/Documentation/devicetree/bindings/mfd/ti,keystone-devctrl.yaml
-new file mode 100644
-index 000000000000..564dfc8a731f
---- /dev/null
-+++ b/Documentation/devicetree/bindings/mfd/ti,keystone-devctrl.yaml
-@@ -0,0 +1,90 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/mfd/ti,keystone-devctrl.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
+diff --git a/drivers/gpu/nova-core/gpu.rs b/drivers/gpu/nova-core/gpu.rs
+index fd1414004dd0..233ef2dc9688 100644
+--- a/drivers/gpu/nova-core/gpu.rs
++++ b/drivers/gpu/nova-core/gpu.rs
+@@ -343,6 +343,13 @@ pub(crate) fn new<'a>(
+                 // still constructing it, so no concurrent DMA allocations can exist.
+                 unsafe { pdev.dma_set_mask_and_coherent(dma_mask)? };
+ 
++                // Nova re-decomposes SG segments into 4 KiB page-table entries, so it
++                // has no upper bound on segment length; declare that to the DMA layer.
++                //
++                // SAFETY: same invariant as above -- still constructing, no concurrent
++                // DMA mapping can exist.
++                unsafe { pdev.dma_set_max_seg_size(u32::MAX) };
 +
-+title: Texas Instruments Keystone Device State Control
-+
-+maintainers:
-+  - Ivan Khoronzhuk <ivan.khoronzhuk@ti.com>
-+
-+description:
-+  The Keystone II devices have a set of registers that are used to control the
-+  status of its peripherals. This node is intended to allow access to this
-+  functionality.
-+
-+properties:
-+  compatible:
-+    items:
-+      - const: ti,keystone-devctrl
-+      - const: syscon
-+      - const: simple-mfd
-+
-+  reg:
-+    maxItems: 1
-+
-+  "#address-cells":
-+    const: 1
-+
-+  "#size-cells":
-+    const: 1
-+
-+  ranges: true
-+
-+patternProperties:
-+  "^gpio@[0-9a-f]+$":
-+    type: object
-+    description: Keystone DSP GPIO controller
-+    required:
-+      - compatible
-+
-+  "^interrupt-controller@[0-9a-f]+$":
-+    type: object
-+    description: Keystone DSP to ARM interrupt controller
-+    required:
-+      - compatible
-+
-+  "^reset-controller@[0-9a-f]+$":
-+    type: object
-+    description: Keystone reset controller
-+    required:
-+      - compatible
-+
-+required:
-+  - compatible
-+  - reg
-+  - "#address-cells"
-+  - "#size-cells"
-+  - ranges
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+
-+    device-state-control@2620000 {
-+        compatible = "ti,keystone-devctrl", "syscon", "simple-mfd";
-+        reg = <0x02620000 0x1000>;
-+        #address-cells = <1>;
-+        #size-cells = <1>;
-+        ranges = <0x0 0x02620000 0x1000>;
-+
-+        interrupt-controller@2a0 {
-+            compatible = "ti,keystone-irq";
-+            reg = <0x2a0 0x4>;
-+            interrupts = <GIC_SPI 4 IRQ_TYPE_EDGE_RISING>;
-+            interrupt-controller;
-+            #interrupt-cells = <1>;
-+            ti,syscon-dev = <&devctrl 0x2a0>;
-+        };
-+
-+        reset-controller@328 {
-+            compatible = "ti,keystone-reset";
-+            reg = <0x328 0x10>;
-+            ti,syscon-pll = <&pllctrl 0xe4>;
-+            ti,syscon-dev = <&devctrl 0x328>;
-+            ti,wdt-list = <0>;
-+        };
-+    };
-diff --git a/Documentation/devicetree/bindings/mfd/ti-keystone-devctrl.txt b/Documentation/devicetree/bindings/mfd/ti-keystone-devctrl.txt
-deleted file mode 100644
-index 71a1f5963936..000000000000
---- a/Documentation/devicetree/bindings/mfd/ti-keystone-devctrl.txt
-+++ /dev/null
-@@ -1,19 +0,0 @@
--* Device tree bindings for Texas Instruments keystone device state control
--
--The Keystone II devices have a set of registers that are used to control
--the status of its peripherals. This node is intended to allow access to
--this functionality.
--
--Required properties:
--
--- compatible:		"ti,keystone-devctrl", "syscon"
--
--- reg:			contains offset/length value for device state control
--			registers space.
--
--Example:
--
--devctrl: device-state-control@02620000 {
--	compatible = "ti,keystone-devctrl", "syscon";
--	reg = <0x02620000 0x1000>;
--};
-
+                 hal.wait_gfw_boot_completion(bar)
+                     .inspect_err(|_| dev_err!(dev, "GFW boot did not complete\n"))?;
+             },
 -- 
-2.55.0
+2.51.2
 
