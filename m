@@ -1,141 +1,142 @@
-Received: from mta1.migadu.com (out-151.mta1.migadu.com [95.215.58.151])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5DD037996B
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 02:28:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.151
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D6B4376A12
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 02:29:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788143304; cv=none; b=XoDZcx47+QtPSGL4N4UWxaVrJrxKQ62kN9cvFUMsDHjND7n4CGsKHc1SZAixlKmr2YbjrqhyHQ1iASkMEmrtXUXj53YLe1o3NXZGjDfMN6PfjF5f/S0AnzLQ8ZBAHOTnZjrS+I0Yn/+vnqZz+cvd9GEIeHBl4Im3LNJRHglnWoM=
+	t=1788143346; cv=none; b=FbWW6KYJpgqnoBMmTLNyiOwDVVMe+i+XfRr0Rm2wbXSRCLFGwjqCR5TyFSYDhZpD6W1iGr4vurM1yI3jgRv55kKP9/UFTfOyARpKyhlpV1bxNrusnIl0fmpvIKzbWH960ZRDlJU4wo6quNDUiZ1eSYMW/rM0den0tcBo5f+b0LQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788143304; c=relaxed/simple;
-	bh=FlD54LcSt+NZlq7D9GrYKYXHGNdn1dwZ5TEhIQvteAM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=iE/FCA+ei/nAe9CzYucFlraQryCY76OMd4vPs6s/h5Kbl2UVrhDnBhln8Zbc/Bo+7bP4S9dnt0IJOYcJs770CzfsUKvNDSKoWRBAgIDgNpKoDWu6vYrvFgsOaxoWR01GBZWKFUoxk4jhXa9UNYqCW9HTxieVXym9eX/wJrk7nIU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=bmStEd8N; arc=none smtp.client-ip=95.215.58.151
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788143346; c=relaxed/simple;
+	bh=kmlBwvRehw3VKz9c8309cNc1KVpQR1VloFEEvq8gjC0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=YV8GveG0hjKeqjkg6kqF97Jeo1wGzS84z6or6puGIY92Vk8AilrSwKnzSQRKDhHwgcptvJLsZmO3x9LbkrfMAVDvebBN5u9949h5xk1Lbldm8Gtykn2bAe7suUj+GUpX6RNiJwodVBmuYZ1blQxF0S397CjnriVmpPXZc3WMyW0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AVZUOLoN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="bmStEd8N"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=FlD54LcSt+NZlq7D9GrYKYXHGNdn1dwZ5TEhIQvteAM=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788143294; v=1; x=1788748094;
- b=bmStEd8NE/ucj4J8M/w/Y6phdgdh1G91NbqqAuoOfNin/BTsO66DH11e5Eu90l5uX/o++Kn2
- K8Bu1EBL85QOTc/4vWaSKmkJL+TyYH0TKv1dEYXNDVfAZujROnkhNiNvW9Ofm7XMeA4TZLYRfMH
- M7VRss+YhUnkaEAslP71jR00=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 5a4496ccf4f994c7;
-	Mon, 31 Aug 2026 02:28:03 +0000
-X-Mizu-Trace-ID: 5a4496ccf4f994c7
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <c1ad6e39-3b21-413c-ad02-f90cfc4102f9@linux.dev>
-Date: Mon, 31 Aug 2026 10:28:00 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AVZUOLoN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 301851F000E9;
+	Mon, 31 Aug 2026 02:28:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788143334;
+	bh=YwqNfmhuWrZGj3kuSG9MxCjuM4AM56GhnZE26FcBYfc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=AVZUOLoN0gCkVdhjfloSYqHYJb2zpMUOZaa0k5a9H6baqstqM7+AgtQFs7+YXiUz0
+	 7X1Wy9PJ0aqPDPxPCk9B1aSKsBlKyzu94zWsLbwTslm6P1MWLJK0+uVuTVZfvta+p7
+	 Wcuen5HEeTIV7IRXa9SyRZemp9sC+xDQEg3thDHS+5PeHu3F90qCYPOkHpfccFQUbF
+	 uMDAglZo2Zo1QOE/UrmGhOWHEkVDFG8sIPv51sJdv17C5EoMT/jSBiGn8OsxtYJcs8
+	 /7FSGzpnBqmVao6JGbPMupd9rHO3aq27jS8NlPgmLvq81/4xXEMIedpmh+su84R1Hc
+	 WaXOUIHuUEIDA==
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 1507F1980050;
+	Sun, 30 Aug 2026 22:28:43 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-03.internal (MEProxy); Sun, 30 Aug 2026 22:28:50 -0400
+X-ME-Sender: <xms:2-aUam1Zghk7jsPTVkI4JM-RbrLDPOo6LaJH_47P0CgAHje4-hPbdQ>
+    <xme:2-aUas1oIhQroj2LB2S-TBBc6Qs3Lp9H3K1WV3sKPcIXQrsSEuuXk3_hM_4Lsv4on
+    amZeEAeyRxKj9vblePiRHYWuGsL5ajvuctLS8eTOV6klYcXY9Ws4Q>
+X-ME-Received: <xmr:2-aUauq5ObrCNd3kePUb32QFERp0If9mquNAna5UBSRHkusqMRXCcpY2y5E>
+X-ME-Proxy-Cause: dmFkZTGikeL7Ca+TmNEFzc0vH4jlwT722XVdXtOou1v3igBDEncFGj77NsHPEuBojySN8T
+    oeVj2weYrB7KZMakVoVRJUPY80SNG0ySMJsIFhtHzgdy+bSF3uopPrr5hWqYy4PkJ6m2nf
+    pwcb4EGSm5KTlkaImH9Awl16Ph6U0QciZ9hMWbDvOx2H146Eyvho7+8mPIuoEq5bRN6MKI
+    E/ksYGeF6/W/xKluaF51v3+7WGq0uzd/3CmXvCDFovpLXjrV4gEXi+NAgkUpnMeEQCEbR5
+    QJmxIsRD+d1gcCwwfNdaE9dK0hFulFNDH8T+zCSx13N3x2ouJ/jP8UviWjZD7C2DjDNoT4
+    +ms3fM5gUKRSnswAQ/qeL0hAcDLz2QO5l0pHOFMin3wotE3xEj9F7/iAViZWIb2GTkyqar
+    fzfGmIvro0IWJUMESur9u8YFA4GBxsqTesEeZyqhu2bXGSeKgT4D7JyolLaLb0fkai11af
+    +KVIIGjaVpbKFdAcVQnDRnM+YVw8iKzJ8AF4qboZxMulCFJhyXtXofC2esia8N6FZmcjU+
+    WWC2AHzrMP4DeAACwH6856+j/kCABE7HOW/s6TpLzSa1A+kkGxtlx22K8reu4dGQY/58MS
+    tYgJU8M4/EBvfNAjl846FVOW+brqAmI1OnITyK44vYU7Q4KiPKWTRMvnuiOA
+X-ME-Proxy: <xmx:2-aUanJ7XxmVtIIXxjCOEJNH8PBsOX_M9t5zX6dDW_BK3sdUuBsyDg>
+    <xmx:2-aUageco-eD9TfWakNkdmaGQ_bc9SmHk56ZNonQAPGlcfedPq0lrg>
+    <xmx:2-aUavnJxex1loLDFXFzofNmYj0_jPxOz1qLo7zbIFw8cS9pIpD_-g>
+    <xmx:2-aUagYBeyhZz_7hzzu4DeoNo1Me1hYxJLsHK4ERA7b6Q7gddU7khw>
+    <xmx:2-aUavLkZ3xi8RZQNC9Htrl4RqMZkkqmgPzS3Sw-YO2LHYfzKensXXQi>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
+ 30 Aug 2026 22:28:42 -0400 (EDT)
+Date: Mon, 31 Aug 2026 03:28:41 +0100
+From: Kiryl Shutsemau <kas@kernel.org>
+To: Hugh Dickins <hughd@google.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ 	Ackerley Tng <ackerleytng@google.com>,
+ Alexander Viro <viro@zeniv.linux.org.uk>,
+ 	Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Barry Song <baohua@kernel.org>, 	Binbin Wu <binbin.wu@linux.intel.com>,
+ Christian Brauner <brauner@kernel.org>, 	Christoph Hellwig <hch@lst.de>,
+ Christoph Lameter <cl@gentwo.org>,
+ 	Claudio Imbrenda <imbrenda@linux.ibm.com>,
+ David Hildenbrand <david@kernel.org>, 	JP Kobryn <jp.kobryn@linux.dev>,
+ Jan Kara <jack@suse.cz>, Jens Axboe <axboe@kernel.dk>,
+ 	Johannes Weiner <hannes@cmpxchg.org>, Kairui Song <ryncsn@gmail.com>,
+ 	Lance Yang <lance.yang@linux.dev>, Leonardo Bras <leobras.c@gmail.com>,
+ 	Lorenzo Stoakes <ljs@kernel.org>, Marcelo Tosatti <mtosatti@redhat.com>,
+ 	Matthew Wilcox <willy@infradead.org>,
+ Mel Gorman <mgorman@techsingularity.net>,
+ 	Miaohe Lin <linmiaohe@huawei.com>, Michal Hocko <mhocko@suse.com>,
+ Minchan Kim <minchan@kernel.org>, 	Muchun Song <muchun.song@linux.dev>,
+ Oscar Salvador <osalvador@suse.de>,
+ 	Peter Zijlstra <peterz@infradead.org>, Qi Zheng <qi.zheng@linux.dev>,
+ Rik van Riel <riel@surriel.com>,
+ 	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Shakeel Butt <shakeel.butt@linux.dev>,
+ 	Suren Baghdasaryan <surenb@google.com>,
+ Vlastimil Babka <vbabka@kernel.org>,
+ 	Yang Shi <yang@os.amperecomputing.com>, Yu Zhao <yuzhao@google.com>,
+ Zach O'Keefe <zokeefe@google.com>, 	Zi Yan <ziy@nvidia.com>,
+ linux-block@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ 	linux-kernel@vger.kernel.org, linux-mm@kvack.org
+Subject: Re: [PATCH 07/25] mm/fbatch: LRU_NEXT_ACTIVATE bit to optimize
+ folio_activate()
+Message-ID: <apThx6sWOQ-aZcN7@thinkstation>
+References: <14a16945-529b-8bc0-ab38-3ea97e54e223@google.com>
+ <16b39f43-d91e-7b23-900e-90cec13837ff@google.com>
+ <apAllneItXmyjRPo@thinkstation>
+ <7b30ca86-dca6-83b7-a632-180e35ed2a0c@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/4] fs: fix missed removal of
- super_fs_objects_eligible()
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: hughd@google.com, baolin.wang@linux.alibaba.com, usama.arif@linux.dev,
- brauner@kernel.org, david@kernel.org, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, Qi Zheng <zhengqi.arch@bytedance.com>
-References: <cover.1786955972.git.zhengqi.arch@bytedance.com>
- <3b038d373c70ebac7cdabfb0035bb91d1d6e6cfe.1786955972.git.zhengqi.arch@bytedance.com>
- <20260828114129.909edbfb7e42b36af2da6a98@linux-foundation.org>
- <eeae0d48-4d50-4dd4-9e16-b4f9902d84f4@linux.dev>
- <20260829162350.1ee9e17d71a297b06b171941@linux-foundation.org>
-From: Qi Zheng <qi.zheng@linux.dev>
-In-Reply-To: <20260829162350.1ee9e17d71a297b06b171941@linux-foundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <7b30ca86-dca6-83b7-a632-180e35ed2a0c@google.com>
 
-Hi Andrew,
+On Fri, Aug 28, 2026 at 01:40:51AM -0700, Hugh Dickins wrote:
+> Do you have a head for smp_mb__ barriers? I'm more anxious that
+> I might be missing one or two of those.
 
-On 8/30/26 7:23 AM, Andrew Morton wrote:
-> On Sat, 29 Aug 2026 09:49:44 +0800 Qi Zheng <qi.zheng@linux.dev> wrote:
-> 
->> Hi Andrew,
->>
->> On 8/29/26 2:41 AM, Andrew Morton wrote:
->>> On Mon, 17 Aug 2026 17:03:25 +0800 Qi Zheng <qi.zheng@linux.dev> wrote:
->>>
->>>> From: Qi Zheng <zhengqi.arch@bytedance.com>
->>>>
->>>> Commit 0ef8faff490be ("fs: push nr_cached_objects memcg gating into
->>>> individual filesystems") forgot to drop the super_fs_objects_eligible(),
->>>> just fix it.
->>>
->>> Oh.  Why?  Please can we have a description of what's wrong with the
->>> current code?
->>
->> As I replied in another thread [1], this fix and commit 0ef8faff490be
->> together make up the complete patch originally sent by Usama [2], so
->> they should be squashed together.
-> 
-> 0ef8faff490be is upstream so they can't be squashed!
+I think the release side of PG_lru is missing.
 
-So sad.
+You effectively turn PG_lru into a lock over folio->lru.next.
 
-> 
->> Without this fix, all memcg-aware
->> nr_cached_objects() will be skipped during memcg-level shrinking.
->> Besides the newly added memcg-aware shmem huge shrinker, XFS will also
->> run into issues.
-> 
-> OK, please add this info to this patch's changelog.  Please also decide
-> whether a cc:stable should be added and if so, ensure the changelog
-> makes clear why we're recommending a backport.
-> 
-> As part of this, let's expand on "XFS will also run into issues".
+The acquire side works: test_and_clear_bit() has a return value, so it
+is fully ordered.
 
-How about this instead:
+But there's a problem with release. set_bit() is unordered. You
+correctly placed a fence in __folio_add_lru(), but every other
+folio_set_lru() is problematic.
 
----
-Commit 0ef8faff490be ("fs: push nr_cached_objects memcg gating into
-individual filesystems") was meant to drop the blanket memcg gate in
-fs/super.c and let each ->nr_cached_objects() implementation decide
-for itself whether it is meaningful in per-memcg reclaim. However,
-when that patch was applied the removal of super_fs_objects_eligible()
-and its two call sites in super_cache_scan() / super_cache_count() was
-lost, so the helper is still gating every ->nr_cached_objects() hook
-and 0ef8faff490be is effectively a no-op.
+For instance:
 
-Consequences of the leftover gate:
+	CPU0 				CPU1
+folio_batch_move_lru()		folio_batch_move_lru()
+  lru_add_del_folio()
+    lru.next = LIST_POISON1
+  lruvec lock
+    list_add()
+  /* no barrier */
+  set_bit(PG_lru)
+				  folio_try_get() == true
+				  folio_test_clear_lru() == true
+				  lru_next == stale BATCHED ???
+  lruvec unlock
 
-   - XFS's inode-reclaim hook, which is intentionally driven from
-     per-memcg contexts to free memcg-charged slab, is still
-     short-circuited in fs/super.c — exactly the regression from
-     commit 0baad6f9b997 ("fs/super: skip non-memcg-aware
-     nr_cached_objects in memcg slab shrink") that 0ef8faff490be was
-     written to undo. Memcg-charged XFS inode slab therefore keeps
-     piling up under per-memcg pressure until global reclaim kicks in.
+If CPU1 sees a stale BATCHED, lru_add_del_folio() returns true without
+doing the list_del() or the NR_LRU_BASE accounting, and CPU1 then goes
+on to lruvec_add_folio() a folio that is already on a list.
 
-   - Any future ->nr_cached_objects()/->free_cached_objects() that
-     grows memcg awareness is likewise blocked before it can run, so
-     filesystems cannot opt in to per-memcg reclaim on their own —
-     defeating the whole point of pushing the gating decision down
-     into the callbacks.
+I think we need to have a helper that would set PG_lru and enforce
+release semantics.
 
-Drop the leftover helper and its call sites so the intent of
-0ef8faff490be actually takes effect.
-
-Fixes: 0ef8faff490be ("fs: push nr_cached_objects memcg gating into 
-individual filesystems")
-Cc: stable@vger.kernel.org
----
-
-Can you fix up the commit message directly on your end? Let me know if
-you prefer me to spin a v5 instead.
-
-Thank,
-Qi
-
-> 
-> Thanks.
-> 
-
+-- 
+  Kiryl Shutsemau / Kirill A. Shutemov
