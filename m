@@ -1,192 +1,129 @@
-Received: from pdx-out-011.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-011.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.35.192.45])
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 732A33B19A6
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 22:12:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.35.192.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AAAA39FCD7
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 22:13:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788214323; cv=none; b=N8+nik1n20Bgtli/wkxeRpU6Ax3Zoz0nV7LeSLTM3zXkyFAZmypUPoGkfFGWNcDu6ZfVQ/HbUpx4JNDPf8JSOloM9/Ulzyyzh3EXACsBbEP7PSeJusbQhyeEWqzKSh9N550Bp9/vOXOr9ma68eNKsicOYVKVO90yWc8Sfxk6nb0=
+	t=1788214433; cv=none; b=pirNHiKa73k/HhX9GlVLu4JT+k/WO3QgsDagxkPijEKxAq+X2hkmsCY8RkuUhnAQFx87249vF776GkTj+LIvRX7Dx0Fa65U042nPrvg/V+pio6S6MEO2M2qw5oho2+PWKRXLOfX0C92ZKeYABwvmXAvw4sp9ahxXsorUcx/4ufI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788214323; c=relaxed/simple;
-	bh=o5W9o5rNP5s499mXGQO9Hug5/lBDR1pGrnbCVJVCDo8=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=J2C0Nrsm+p09g1hcMx3Or2Wcqq9xn+ckQHQRg835eRX/J6B4PB8Pb1Olw2OjhxnE241BlIYUoB3Ia+cyVA9kBY54AMYo2LuHAvyZ1iqFccb1Vs1moF1HRjGB9Ax2D+Rafh9G54jcwSXDfVilwiyjiHA3RecZQHtaxiwjGaOBI4k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=gukZoG37; arc=none smtp.client-ip=52.35.192.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
+	s=arc-20240116; t=1788214433; c=relaxed/simple;
+	bh=++uYQUMvFwFMMUcMfMUrEyexfdb2Id4wtR4X7wQ5p2o=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=gsbxX4md0tzA+vsCiRTdn15Rz5d2NU1zE7XxHPn/qU5Gsw9l5ekipjsJvtIV9ImSWF4O771UiBOOsLiGqn56O14ofvl2dShNy6vngIZ3XJVWPgKlsEnMuxqoV+BvfcTJwi5fBUgZeBfz0188mBFOEHH40BQE+RtUX5QxTjdKzwQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=36q+etKU; arc=none smtp.client-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="gukZoG37"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1788214322; x=1819750322;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=/X8kM8mFmh3GkThmAvG35lkCePNBjW1VUyypxdJ8g9A=;
-  b=gukZoG37LGtJmMcXph4R1Go5rsHCA2+mkpoib0xTgzzemevHuYm7FJES
-   ivGSTpsKELVegbH4fZaKO6Ud+TORee7/Z5H0uPQ99sJpabM/6wdsgVeGP
-   aQYumX7f0KhzcpEiRn1wiUP2AzlGfguwKwyOOtjHBpqOEfchPjlvZKUVd
-   gLVfYyYl2hsXCtcbIQR9gyhu5ED8bNKM0gYfYCbRmn6UHy8xMqi8dR+xw
-   kNumh+eBCOPWG4r3OhWPzrGZL3qzrkMVEJ8V7TYeOJFsI7klX/ykJEGYL
-   VLi9lh5y0vU6ZEftftRaWIroXGa0hRUMAedqgJxNWdxjBgrh7N+P79os1
-   A==;
-X-CSE-ConnectionGUID: mfHRJFKpS7GxXRUqgKEPDw==
-X-CSE-MsgGUID: FyVwAOAWQJiu3Xorfce8cQ==
-X-IronPort-AV: E=Sophos;i="6.25,254,1779148800"; 
-   d="scan'208";a="27209376"
-Received: from ip-10-5-0-115.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.0.115])
-  by internal-pdx-out-011.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 22:11:59 +0000
-Received: from EX19MTAUWC001.ant.amazon.com [205.251.233.53:13487]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.52.146:2525] with esmtp (Farcaster)
- id 6c0612df-8596-4553-97cd-ae226648a58c; Mon, 31 Aug 2026 22:11:58 +0000 (UTC)
-X-Farcaster-Flow-ID: 6c0612df-8596-4553-97cd-ae226648a58c
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWC001.ant.amazon.com (10.250.64.174) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.45;
- Mon, 31 Aug 2026 22:11:58 +0000
-Received: from 6c7e67c92ceb.amazon.com (10.187.171.29) by
- EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.46;
- Mon, 31 Aug 2026 22:11:58 +0000
-From: Nathan Gao <zcgao@amazon.com>
-To: <sj@kernel.org>, <akpm@linux-foundation.org>
-CC: <damon@lists.linux.dev>, <linux-mm@kvack.org>,
-	<linux-kernel@vger.kernel.org>, <baolin.wang@linux.alibaba.com>,
-	<david@kernel.org>, <ryan.roberts@arm.com>
-Subject: [PATCH v2] mm/damon/vaddr: use a page-aligned address for the sampling walks
-Date: Mon, 31 Aug 2026 15:11:51 -0700
-Message-ID: <20260831221151.50561-1-zcgao@amazon.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="36q+etKU"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
+	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=VOlevrFdEXRUzbmZojs2dVjkkSXh++UDxDK4wG8MPBY=; b=36q+etKUhagPNuiwzgaG5YP4/U
+	bxJkAJXydme5CsT5PwvoX7Bdgj1xQ8qSC70UnI0yjYTNIRg2DPG9pn99BN3rMtpmvMUv+2iQMleLX
+	lpOE9CwUGFnqhTb2WOZwREc5okZLIrQdmxnVmIwLyh1p02f4Ixl5TRWehOAPqfW3mkSvISnWTBXIv
+	7VXDoz+3IrM7n+y+xCwaPQC31ZiJFkYO9I3GLwwosCLuC03ye8GSMaPh62lNnu+TTE/7Ki0SFglk5
+	cwDi75BBIkmba3o49OvpdHv9u6AGw39/WJGbP1Ag68rxZqzpgXKM07dlE31GIf4pd91ArG5akXHMG
+	pzawV2aA==;
+Received: from [38.23.173.23] (helo=localhost)
+	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x1AGC-0000000AaEI-0blG;
+	Mon, 31 Aug 2026 22:13:48 +0000
+Date: Mon, 31 Aug 2026 18:13:45 -0400
+From: "Liam R. Howlett" <liam@infradead.org>
+To: Andi Kleen <andi@firstfloor.org>
+Cc: Andi Kleen <ak@kernel.org>, akpm@linux-foundation.org, ljs@kernel.org, 
+	jannh@google.com, pfalcato@suse.de, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] RCU safety for vma maple tree walks
+Message-ID: <bft5zaxtu4sqbixj2zuxnjcdjy4we2522w4qxxhqypdvy4lot6@lcwehbvsh3wd>
+References: <20260831143511.1133029-1-ak@kernel.org>
+ <nq4g527ozizmp2iqmozau7xwgdq4cny43onciw2mw7vu4bwabg@uzkdpjchygkn>
+ <apWxTNwhaMU3XiZP@firstfloor.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D036UWC004.ant.amazon.com (10.13.139.205) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <apWxTNwhaMU3XiZP@firstfloor.org>
 
-__damon_va_prepare_access_check() picks a random byte address within the
-region and stores it in r->sampling_addr. There are two users of
-r->sampling_addr in vaddr.c that pass it into a page table walk, and
-both use it as the address of a page.
+On 26/08/31 09:52AM, Andi Kleen wrote:
+> > 
+> > Did you check this with lockdep?
+> 
+> Yes all tests were running with lockdep, and it didn't trigger.
+> 
+> > 
+> > Any access to the maple tree without holding the write lock or the rcu
+> > read lock will cause lockdep to complain.
+> 
+> Hmm, seems that's not working for some reason?
+> 
+> The VM callers of for_each_vma clearly don't take rcu read locks.
 
-  damon_va_mkold(mm, r->sampling_addr)
-    damon_va_walk_page_range(mm, addr, addr + 1)
-      damon_mkold_pmd_entry()
-        damon_ptep_mkold(pte, vma, addr)
-          ptep_test_and_clear_young(vma, addr, pte)
-          mmu_notifier_clear_young(mm, addr, addr + PAGE_SIZE)
+I can't say why it's not triggering for you, but I can tell you that
+lockdep detects incorrect locking for me and others using the maple
+tree.
 
-  damon_va_young(mm, r->sampling_addr, &folio_sz)
-    damon_va_walk_page_range(mm, addr, addr + 1)
-      damon_young_pmd_entry()
-        ptep_get(pte)
-        mmu_notifier_test_young(walk->mm, addr)
+You even pointed to a syzbot example of a report of an rcu locking issue
+- which is resolved.  No unresolved issues by syzbot (which has lockdep
+ working..) has been reported in any of the functions you have patched.
 
-For arm64, before commit 6f0e1142173a ("arm64: mm: support batch
-clearing of the young flag for large folios"), the contpte helper walked
-exactly CONT_PTES entries from the aligned-down page table pointer and
-used @addr only to pass down to each entry, so an unaligned value was
-harmless:
+It is okay to not hold the rcu lock if you hold the write lock.
 
-        ptep = contpte_align_down(ptep);
-        addr = ALIGN_DOWN(addr, CONT_PTE_SIZE);
-        for (i = 0; i < CONT_PTES; i++, ptep++, addr += PAGE_SIZE)
+> 
+> > 
+> > Likewise, any sleeping while holding the rcu read lock would produce
+> > warnings.
+> 
+> Right but the walkers don't use the read lock.
 
-Now the range to walk is derived from @addr instead: end = addr +
-nr * PAGE_SIZE, rounded up to CONT_PTE_SIZE. For a sample in the last
-page of a contpte block, the sub-page offset puts end just past the
-block boundary, so the round-up lands a whole block further and the
-walk clears PTE_AF in CONT_PTES entries beyond the sampled block. For
-the last block in a page table page, those entries are past the end of
-that page, so the walk writes into the page that follows.
+Every walker either holds the read or the write lock, please recheck the
+code.
 
-Triggered by the full 7.1/7.2 kernel selftest suite on arm64 (EC2
-c/m6g.4xlarge). The kernel sometimes crashes at or shortly after the
-DAMON test.
+> > Note that you do not need to hold the rcu read lock on the vma maple
+> > tree if you have the write lock.  This looks to be the case for most (or
+> > all?) of the cases you have below.
+> 
+> Yes the write lock is hold (like I discussed).  The problem isn't parallel
+> modification but that splitting during the walk invalidates the
+> iterator caching if you sleep too. That's all purely on the local
+> thread. The only contribution from others is to cause more sleeping
+> due to memory pressure or rescheduling.
 
-What the overrun does depends on the page that happens to follow the
-page table, so there is no single signature. If that page is read-only,
-the write faults in the sampling path itself:
+I'm going to state some things that will hopefully help us understand
+our disconnect.
 
-  Unable to handle kernel write to read-only memory at virtual address ffff0003c5d2d000
-    FSC = 0x0f: level 3 permission fault
-    CM = 0, WnR = 1, TnD = 0, TagAccess = 0
-  CPU: 10 UID: 0 PID: 3487 Comm: kdamond.2
-  pc : contpte_test_and_clear_young_ptes+0x70/0xc0
-  lr : damon_ptep_mkold+0x1e8/0x1f8
-  Call trace:
-   contpte_test_and_clear_young_ptes+0x70/0xc0 (P)
-   damon_mkold_pmd_entry+0x150/0x170
-   walk_pmd_range+0x110/0x2b0
-   walk_pud_range+0x10c/0x208
-   walk_pgd_range+0x134/0x258
-   __walk_page_range+0x98/0x1b0
-   walk_page_range_vma_unsafe+0x90/0x148
-   walk_page_range_vma+0x28/0x40
-   damon_va_walk_page_range+0x114/0x2b8
-   damon_va_prepare_access_checks+0xec/0x1a8
-   kdamond_fn+0x534/0x770
-   kthread+0x128/0x138
-   ret_from_fork+0x10/0x20
+Parallel modifications are not possible.
 
-Otherwise the page is writable, the PTE_AF clearing succeeds silently
-and the damage only surfaces later, in whatever happened to own the
-page, so the backtrace is unrelated to DAMON and differs between runs.
+Splits are writes.
 
-Align the address down to a page boundary in damon_va_mkold() and
-damon_va_young(), the two users that pass it into a page table walk. It
-is the address of the page to sample, so this matches its intended
-meaning. r->sampling_addr itself is left as is, so the sampling and
-region bookkeeping semantics are unchanged.
+Writes update the maple state.
 
-Fixes: 6f0e1142173a ("arm64: mm: support batch clearing of the young flag for large folios")
-Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
-Cc: David Hildenbrand (Arm) <david@kernel.org>
-Cc: Ryan Roberts <ryan.roberts@arm.com>
-Cc: stable@vger.kernel.org
-Signed-off-by: Nathan Gao <zcgao@amazon.com>
----
-V1 -> V2:
-- Align inside damon_va_mkold() and damon_va_young(), the two users that
-  pass the address into a page table walk, rather than aligning
-  r->sampling_addr itself, so that sub-page sampling addresses remain
-  possible for future non-PTE access check primitives (SJ)
-- Point Fixes: at 6f0e1142173a instead of 3f49584b262c, since the
-  unaligned address was harmless before that commit (SJ)
-- Describe how the issue was noticed and what it does to the kernel (SJ)
-- Reword the subject to match the narrower change
+Sleeping with the write lock means nothing writes.
 
-v1: https://lore.kernel.org/all/20260827193821.46115-1-zcgao@amazon.com/
+Writers replace the nodes in the tree before marking old nodes as dead.
 
- mm/damon/vaddr.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+Writers mark the nodes dead before they are added to the rcu free list.
 
-diff --git a/mm/damon/vaddr.c b/mm/damon/vaddr.c
-index 2c1c1952c008d..e7aa18200088f 100644
---- a/mm/damon/vaddr.c
-+++ b/mm/damon/vaddr.c
-@@ -349,6 +349,9 @@ static void damon_va_mkold(struct mm_struct *mm, unsigned long addr)
- 		.hugetlb_entry = damon_mkold_hugetlb_entry,
- 	};
- 
-+	/* Arch helpers can derive a page range from @addr; align it down. */
-+	addr = PAGE_ALIGN_DOWN(addr);
-+
- 	damon_va_walk_page_range(mm, addr, addr + 1, &damon_mkold_ops, NULL);
- }
- 
-@@ -482,6 +485,9 @@ static bool damon_va_young(struct mm_struct *mm, unsigned long addr,
- 		.hugetlb_entry = damon_young_hugetlb_entry,
- 	};
- 
-+	/* Arch helpers can derive a page range from @addr; align it down. */
-+	addr = PAGE_ALIGN_DOWN(addr);
-+
- 	damon_va_walk_page_range(mm, addr, addr + 1, &damon_young_ops, &arg);
- 	return arg.young;
- }
--- 
-2.50.1
+Writers return pointing to the new node, not the dead node.
+
+Readers cannot sleep.
+
+Readers that see a dead node restart the walk from the top of the tree
+into a new node that is not dead.
+
+Nodes cannot be freed until all readers which could have had a reference
+have dropped the rcu read lock.
+
+I am very confident you are doing something wrong in the code that is
+not upstream.  If you have a reproducer with the upstream kernel, then I
+can help you.
+
+Thanks,
+Liam
 
