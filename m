@@ -1,78 +1,162 @@
-Received: from mta0.migadu.com (out-123.mta0.migadu.com [91.218.175.123])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from canpmsgout03.his.huawei.com (canpmsgout03.his.huawei.com [113.46.200.218])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DC373F1045
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 01:23:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.123
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 983A625B0BD;
+	Mon, 31 Aug 2026 01:24:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.218
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788139438; cv=none; b=LXazftVgDMHNxca4xu0lMJXkvy0HS8QXm1AtOWkdTBndc/VxHdhC6G4PIU4H04N9GEEcrQqHktn+AsK2Te50GEw6rnyxU8i55QQGwZKVvyDBKNiPgXAgur1XMaei88bAPxsIfaOqF+M9TqJp4Yj0ArjzZMTaswbOGuftZxMgM90=
+	t=1788139468; cv=none; b=sr9j1iwFDi/uAb9cNMjzRYY2gri6/3g4bh6RvxzltQyOEwnWIhJMQcfr9R+AGwZ9kLNWZFIBhtWZb0mlx5GDYEeBaCSyqd4dYdmP7DOLtgiZfI2K/TGIrcLu7x8+IeE67TLIrjJHHiLmrCAL466q9LoI8cvz+0KCbIiz/v8f2qQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788139438; c=relaxed/simple;
-	bh=cTeEuccT2PKVpzCvAuCxC2zeJqk0NMGvrpNIIWSN0oY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=acb3fv1Td8kmSjt56+0A5M9RVbXaHlfZPQZKk1sElTaI+XFI4YveXpUqQ1d/ZmrnAEaWom6UyeLFN7621v8uWkW/yuC49aQjgJ3Ai2eDzWVFLV+dvqq/98CuzpCO8zV/VsyVluYqFn9MsB9irlCB0qq0AM3MZMVvxGHDEZT+xiI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=HiV4aecM; arc=none smtp.client-ip=91.218.175.123
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788139468; c=relaxed/simple;
+	bh=npiYEDGa5lXor52q7g2HcncLu6uo0RjGe5aaz1Cny1w=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=YWI2Xo07GzeWLopQjQmCXl6txu8xdy239GksAXA/1Fg1MnjmROiEa37SBBAyiXBhJBZzypF+K8vp/Rcf+uHm0s7q9NenCC0BdmJ9J5C+RpKxAeoIXjyclQ8ZYJgxKYODn4pjFRlN2bT2zk+pHYC4C3bDy60vtOBqMSAlqATjFYs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=Fs/xB0Yg; arc=none smtp.client-ip=113.46.200.218
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="HiV4aecM"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=cTeEuccT2PKVpzCvAuCxC2zeJqk0NMGvrpNIIWSN0oY=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788139433; v=1; x=1788744233;
- b=HiV4aecM6qdnxoPXzmlQRBPTkbnQQsWJqXz5ERUESAwCEXp+TShp/c5XJD5X3bbwV6pcMqbe
- hxpC0my/juuXjy5LyRNElzVV7EKfi1WQzMRMEpgVyZBJUJEA/RbLPyL2OVNLSqaTfjVcOU6XlOF
- 9sfjtD/AUTUI0nuH3zZsDP3I=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id f1b9064f72c984e7;
-	Mon, 31 Aug 2026 01:23:43 +0000
-X-Mizu-Trace-ID: f1b9064f72c984e7
-X-Migadu-Flow: FLOW_OUT
-Date: Mon, 31 Aug 2026 09:23:31 +0800
-From: Hangbin Liu <hangbin.liu@linux.dev>
-To: Nikolay Aleksandrov <razor@blackwall.org>
-Cc: David Laight <david.laight.linux@gmail.com>,
-	Jay Vosburgh <jv@jvosburgh.net>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Hangbin Liu <liuhangbin@kylinos.cn>
-Subject: Re: [PATCH net v5 2/2] bonding: fix u32 overflow in compute_gap()
-Message-ID: <apTXkxseTr_1to2u@fedora>
-References: <20260825-bond_overflow-v5-0-7a800de133f1@kylinos.cn>
- <20260825-bond_overflow-v5-2-7a800de133f1@kylinos.cn>
- <20260827192048.39ea95e6@pumpkin>
- <9e71daf9-aad4-4c8b-9fc4-7429f62130c7@blackwall.org>
- <20260827215611.1cb9f252@pumpkin>
- <31228099-41a8-4976-acc3-9b320a5012ea@blackwall.org>
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="Fs/xB0Yg"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=XoeDNcLDw7hqig4W64iLCrlEHYGNT6SfF67o40azHuY=;
+	b=Fs/xB0Yg8kWOG2+vbJXCQn6KxCz4jWLUSzEAq/b1HKUjTI6Zn6a1TBwmvuGGuCcesE500xj3A
+	SHlJN9aRXKf3A7Fs3t9RDcaKDSzLORDLcS8OYgkK4sJKg+bVG/PW2a9vzhyuN23Kf3k818vtagI
+	kSNrNpmr3MK18T+muYRiL2Q=
+Received: from mail.maildlp.com (unknown [172.19.162.223])
+	by canpmsgout03.his.huawei.com (SkyGuard) with ESMTPS id 4hY9w638lvzpSvb;
+	Mon, 31 Aug 2026 09:12:54 +0800 (CST)
+Received: from dggpemf500011.china.huawei.com (unknown [7.185.36.131])
+	by mail.maildlp.com (Postfix) with ESMTPS id 0BA4140577;
+	Mon, 31 Aug 2026 09:24:11 +0800 (CST)
+Received: from [10.67.109.254] (10.67.109.254) by
+ dggpemf500011.china.huawei.com (7.185.36.131) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.11; Mon, 31 Aug 2026 09:24:08 +0800
+Message-ID: <fecbe6ee-12e3-4f3d-94ac-eb7cd08eeb0d@huawei.com>
+Date: Mon, 31 Aug 2026 09:24:07 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <31228099-41a8-4976-acc3-9b320a5012ea@blackwall.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 07/17] crash_dump: Fix potential double-free of
+ keys_header
+To: Sourabh Jain <sourabhjain@linux.ibm.com>, <catalin.marinas@arm.com>,
+	<will@kernel.org>, <mark.rutland@arm.com>, <chenhuacai@kernel.org>,
+	<kernel@xen0n.name>, <maddy@linux.ibm.com>, <mpe@ellerman.id.au>,
+	<npiggin@gmail.com>, <chleroy@kernel.org>, <tglx@kernel.org>,
+	<mingo@redhat.com>, <bp@alien8.de>, <dave.hansen@linux.intel.com>,
+	<hpa@zytor.com>, <akpm@linux-foundation.org>, <baoquan.he@linux.dev>,
+	<rppt@kernel.org>, <pasha.tatashin@soleen.com>, <pratyush@kernel.org>,
+	<ruirui.yang@linux.dev>, <kees@kernel.org>, <thuth@redhat.com>,
+	<gshan@redhat.com>, <jic23@kernel.org>, <james.morse@arm.com>,
+	<ardb@kernel.org>, <leitao@debian.org>, <yeoreum.yun@arm.com>,
+	<coxu@redhat.com>, <tangyouling@kylinos.cn>, <hbathini@linux.ibm.com>,
+	<adityag@linux.ibm.com>, <ionut.nechita@windriver.com>,
+	<liaoyuanhong@vivo.com>, <seanjc@google.com>, <fuqiang.wang@easystack.cn>,
+	<makb@juniper.net>, <piliu@redhat.com>, <ebiggers@kernel.org>,
+	<jbouron@amazon.com>, <mclapinski@google.com>, <me@linux.beauty>,
+	<graf@amazon.com>, <bgwin@google.com>, <robh@kernel.org>,
+	<takahiro.akashi@linaro.org>, <palmer@rivosinc.com>, <x86@kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+	<loongarch@lists.linux.dev>, <linuxppc-dev@lists.ozlabs.org>,
+	<kexec@lists.infradead.org>, <linux-fsdevel@vger.kernel.org>,
+	<linux-mm@kvack.org>, Coiby Xu <coiby.xu@gmail.com>
+References: <20260826092541.3905933-1-ruanjinjie@huawei.com>
+ <20260826092541.3905933-8-ruanjinjie@huawei.com>
+ <87186b8a-f68c-400b-97cf-8ea6129eba69@linux.ibm.com>
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+In-Reply-To: <87186b8a-f68c-400b-97cf-8ea6129eba69@linux.ibm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
+ dggpemf500011.china.huawei.com (7.185.36.131)
 
-On Fri, Aug 28, 2026 at 12:19:47PM +0300, Nikolay Aleksandrov wrote:
-> > > How is that relevant to these patches?
-> > > And how does that help at all if today that is done at about 10 second interval?
-> > 
-> > The 10 seconds is almost certainly completely arbitrary.
-> > It is relevant because the 64bit divide is significantly expensive on 32bit.
-> > 
-> > David
-> > 
+
+
+在 2026/8/30 13:59, Sourabh Jain 写道:
+> Hello Jinjie,
 > 
-> Yeah, that is clear. But currently that recalculation is done once every 10
-> seconds, such optimizations will be noise. Regardless of that, these changes
-> are unrelated to the problem he is fixing with the set.
+> Coiby is handling this issue in the below patch series:
+> https://lore.kernel.org/all/20260828084900.1496839-2-coiby.xu@gmail.com/
+> 
+> Since the above patch series is all about crash_load_dm_crypt_keys,
+> could you
+> please consider dropping this patch from your series and reviewing his
+> patch
+> instead?
 
-+1.
+Absolutely, happy to do so — I'll drop this patch and review Coiby's
+series instead.
 
-Thanks
-Hangbin
+> 
+> Thanks,
+> Sourabh Jain
+> 
+> On 26/08/26 14:55, Jinjie Ruan wrote:
+>> `keys_header` was freed in `build_keys_header()` without being reset
+>> to NULL, and the error path in `crash_load_dm_crypt_keys()` freed it
+>> unconditionally even when reused, leading to double-free or
+>> use-after-free.
+>>
+>> Add `free_keys_header()` to centralize freeing and NULL-setting.
+>> Use it in `build_keys_header()` and only free in the error path when
+>> the header was newly built (`!is_dm_key_reused`).
+>>
+>> Cc: Andrew Morton <akpm@linux-foundation.org>
+>> Cc: Baoquan He <bhe@redhat.com>
+>> Cc: Mike Rapoport <rppt@kernel.org>
+>> Cc: Pasha Tatashin <pasha.tatashin@soleen.com>
+>> Cc: Pratyush Yadav <pratyush@kernel.org>
+>> Cc: Dave Young <ruirui.yang@linux.dev>
+>> Cc: stable@vger.kernel.org
+>> Fixes: e3a84be1ec2f ("arm64,ppc64le/kdump: pass dm-crypt keys to kdump
+>> kernel")
+>> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+>> ---
+>>   kernel/crash_dump_dm_crypt.c | 15 +++++++++++----
+>>   1 file changed, 11 insertions(+), 4 deletions(-)
+>>
+>> diff --git a/kernel/crash_dump_dm_crypt.c b/kernel/crash_dump_dm_crypt.c
+>> index c685497cd470..ed0960ff0987 100644
+>> --- a/kernel/crash_dump_dm_crypt.c
+>> +++ b/kernel/crash_dump_dm_crypt.c
+>> @@ -363,15 +363,21 @@ static struct configfs_subsystem
+>> config_keys_subsys = {
+>>       },
+>>   };
+>>   +static void free_keys_header(void)
+>> +{
+>> +    if (keys_header) {
+>> +        kvfree(keys_header);
+>> +        keys_header = NULL;
+>> +    }
+>> +}
+>> +
+>>   static int build_keys_header(void)
+>>   {
+>>       struct config_item *item = NULL;
+>>       struct config_key *key;
+>>       int i, r;
+>>   -    if (keys_header != NULL)
+>> -        kvfree(keys_header);
+>> -
+>> +    free_keys_header();
+>>       keys_header = kzalloc(get_keys_header_size(key_count), GFP_KERNEL);
+>>       if (!keys_header)
+>>           return -ENOMEM;
+>> @@ -441,7 +447,8 @@ int crash_load_dm_crypt_keys(struct kimage *image)
+>>       r = kexec_add_buffer(&kbuf);
+>>       if (r) {
+>>           pr_err("Failed to call kexec_add_buffer, ret=%d\n", r);
+>> -        kvfree((void *)kbuf.buffer);
+>> +        if (!is_dm_key_reused)
+>> +            free_keys_header();
+>>           return r;
+>>       }
+>>       image->dm_crypt_keys_addr = kbuf.mem;
+> 
+
