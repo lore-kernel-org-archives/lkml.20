@@ -1,636 +1,196 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BFAA33D4E4
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 10:53:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F308C310779;
+	Mon, 31 Aug 2026 10:53:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788173601; cv=none; b=iPg8k1Rs2XeJ5FZucGt72yQUewkNVz4TeajbYWOozoPs0wksFMnaRdZnUy6fdXz1POdHfT+Z86P2FebOaCVSpP+aswetdg77+Xv6TWICyIDqvO0iQQLXx2z/rxbrXUot1iYj3XnjYjn3uXRUVUWanmyy+5Qpd8r3dXc9mmq0Uf8=
+	t=1788173623; cv=none; b=CCcPfTB908rohtS6jT/2PeBGPdyWRmjaISQfToIrs0LDDKYsSqxEO+UHSwqc7jtenqkOTF44jhA0pJkWu4Q/O3Uq9HuvuOBMB3cdFnk+9q67KQH54haJWG8+fnP+UkztVz1Yrulvhe5L5eXzwEjRrCE4AAxVYyEDAXRhnbAtkrw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788173601; c=relaxed/simple;
-	bh=Bfc8bRFvhlyfWSIXLY19TrQqAAKUqK69Opcm01Kb20o=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=p2rmU3nBcsployd0uRPDrGFPlwGQL8l5OU2KXsVHGalYkttoSEaOKMusZtUCKSeiRQQuIBCUctpdamKsgCSwT+gXi7S+Q8uIgwnW2wu2ESbWmV6MyKFtGQQNODA7btC7v9kxyFIkXK17z59o1Tn0LSgQhovi3SBotmMA1MScVD8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=o1Ai3btZ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788173623; c=relaxed/simple;
+	bh=zQtdAjOc0xZG78n9bTgyF7fJtpb9ymJ/Xz3N0g8ohc0=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=nf5B4qHT0f0xfubem8SFenmxk1W4XPu+tFW8IVpflfRg+hJUw2vFg3gYPy0QwSewW+rqanadPoPM9Ou3TA/aKkWCeUZ13v7oo3mDeMQh43jC4Pgyi1cdYXGq3QYhY2S2EbfPA71+1AaysUPQmqbID4+ILHzvXIlmQXIQdlA0Yss=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IIW0O3Zn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="o1Ai3btZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E71DB1F00ACA
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 10:53:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IIW0O3Zn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5466D1F000E9;
+	Mon, 31 Aug 2026 10:53:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788173599;
-	bh=YTaCiacdaG4aFEw+8K76Z00j59NDxlKRxxkC8PekRIk=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=o1Ai3btZbtYwL2hF+eziT9Z2xNQIYjszF6RzPJWU/N/BG7fqpcOSDyGfmYykvXSJe
-	 +pr6RNlb3N5lNEIzvX7OzE6GAFRbc0RmWC/yzcLoc3QB/EfyysREJEFcIWDAjD9wWU
-	 jP37lGndlZbpJucZ2Ji6AGxt6TIAjN6Et6qR5DnzJMAQhfQT1gtps5l/+y9zf+1Lpi
-	 C6A5PdmlyNozMTpwkhp9uFtP+QbBo3Ug8c44owTvqKn66rRA3Elk3qXdSCOwbTAm4N
-	 zkIhlAFEx1z2QZ1rBRfc3Igaye0Qji6XICRK7TqmR16lwn2nS7QoOuJVXjJBiPhDD5
-	 ZVw6iLUKyRCdw==
-Received: by mail-vs1-f48.google.com with SMTP id ada2fe7eead31-785073ad5ccso2012936137.1
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 03:53:18 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RpifSfPus3VmG3sYItynlqZ91PyiJJpTGmDGmEq3PYKCLgV2i1kwG4Ng5FV9OIt7kg5jRuDpCMpB5Z6huI=@vger.kernel.org
-X-Gm-Message-State: AFuF++lyoJFbb7M/n+3GKPdX5SYGDCQjWgrqtV5C86ye28VWVyY2+YTw
-	uaRaCwGTi7xDtxY86mqFe429ZuD8UJqNUAPmZeTP1ChKUXFZxGRNc1Ahl4XV/crSGD4HVHaf4O1
-	joUolUSSdM6QJNhFLxfPR7iGwUyccBlQ=
-X-Received: by 2002:a05:6102:5547:b0:785:b85f:2aa with SMTP id
- ada2fe7eead31-789fc12e60dmr22609137.2.1788173597954; Mon, 31 Aug 2026
- 03:53:17 -0700 (PDT)
+	s=k20260515; t=1788173621;
+	bh=0TMUVUbDKhxygUyvxGHjekLLbSUdJfWiPqMGV9ltxqo=;
+	h=From:To:Cc:Subject:Date;
+	b=IIW0O3Zn/Nyrr1+WMyuZMwZ5nGDJoLFceTDXbEuJ5nmuClTmuswhYVqplpEm/Izza
+	 wf5QKAlld8TJohsdnHdZuHzx1qABpF7s3s74UrN4QVTszyvwSTImD2YqkeQq1F+h7a
+	 +2G+TnzmhWk7vi7zJRvt4amepcbI5bEMTctVXiP/oDJCWETiuDpXcnkBRYLp1uSU+f
+	 ShAQ79XSAcgoj3c9+aHDNV+Fh4vWq+nz5ReVi/I4EVkg+X7iLzQV0XXj7etNvM5BDC
+	 DoMjAmFtI3/v9EAY523n6Gjt5Rl0MDMfP9YCrjAVxd7kQDv0mrh8WXKGgeGKb9WQhD
+	 aO5PoU2DtHrgw==
+From: Namjae Jeon <linkinjeon@kernel.org>
+To: sj1557.seo@samsung.com,
+	yuezhang.mo@sony.com
+Cc: exfat@lists.linux.dev,
+	anmuxixixi@gmail.com,
+	dxdt@dev.snart.me,
+	chizhiling@kylinos.cn,
+	linux-kernel@vger.kernel.org,
+	Namjae Jeon <linkinjeon@kernel.org>
+Subject: [PATCH] exfat: doc: add documentation
+Date: Mon, 31 Aug 2026 19:53:30 +0900
+Message-Id: <20260831105330.10449-1-linkinjeon@kernel.org>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <a74ov5nvs5u4nkqhrs5lp2jaj664wewkqqsjxzhuemzazzmzvx@eeof6sjb3xdc>
-In-Reply-To: <a74ov5nvs5u4nkqhrs5lp2jaj664wewkqqsjxzhuemzazzmzvx@eeof6sjb3xdc>
-From: Filipe Manana <fdmanana@kernel.org>
-Date: Mon, 31 Aug 2026 11:52:41 +0100
-X-Gmail-Original-Message-ID: <CAL3q7H6Fqyo2bbHb6RnEpOk6Q6p5omDaepZcsb2N0LQCkk64aw@mail.gmail.com>
-X-Gm-Features: AcwNN1XCoxq1YFctBdVARsz4wcEPIr135hN8atx0mFZf_x4JSE8uQGfoXcTiNqU
-Message-ID: <CAL3q7H6Fqyo2bbHb6RnEpOk6Q6p5omDaepZcsb2N0LQCkk64aw@mail.gmail.com>
-Subject: Re: [PATCH] btrfs: fix deadlocks with transaction commit when cloning
- inline extents
-To: Melon Liu <melon1335@163.com>
-Cc: clm@fb.com, dsterba@suse.com, fdmanana@suse.com, 
-	linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Sat, Aug 29, 2026 at 8:40=E2=80=AFAM Melon Liu <melon1335@163.com> wrote=
-:
->
-> Commits b48c980b6a7e ("btrfs: fix deadlock between reflink and transactio=
-n
-> commit when using flushoncommit") and 532085d00eb5 ("btrfs: fix deadlock
-> cloning inline extent when using flushoncommit") moved the destination
-> i_size update before btrfs_start_transaction() to prevent
-> extent_writepage() from invalidating a folio beyond EOF.  However, two
-> deadlock windows remain.
->
-> First, after the folio is dirtied but before i_size is updated,
-> extent_writepage() can still see the folio beyond EOF.  It calls
-> folio_invalidate(), and btrfs_invalidate_folio() waits for the destinatio=
-n
-> extent range lock held by the clone task.
->
-> Second, if extent_writepage() sees the folio within EOF, it proceeds to
-> writepage_delalloc(), which also waits for the destination extent range
-> lock.
->
-> In both cases the transaction commit waits for writeback to complete,
-> while the clone task waits in btrfs_start_transaction() for the
-> committing transaction to become unblocked.
->
-> To close both windows, first call btrfs_start_transaction() after reservi=
-ng
-> delalloc space and before creating and dirtying the folio.
-> However, a commit may still start writeback before all extwriters have le=
-ft
-> the transaction.  Therefore, when the copied range extends beyond EOF,
-> update i_size while the folio is still locked and before marking it dirty=
-,
-> so that extent_writepage() cannot treat it as being beyond EOF.  The
-> resulting ordering also makes BTRFS_INODE_NO_DELALLOC_FLUSH unnecessary, =
-so
-> remove the flag and its associated logic.
+Add documentation for the Linux exFAT filesystem driver, including
+supported mount options and exfatprogs.
 
-Please don't mix fixing a bug with removing the no longer needed flag
-BTRFS_INODE_NO_DELALLOC_FLUSH.
+Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
+---
+ Documentation/filesystems/exfat.rst | 117 ++++++++++++++++++++++++++++
+ Documentation/filesystems/index.rst |   1 +
+ 2 files changed, 118 insertions(+)
+ create mode 100644 Documentation/filesystems/exfat.rst
 
-That makes backports more complex, not to mention the fact that it
-could be the case some stable kernels use
-BTRFS_INODE_NO_DELALLOC_FLUSH in other places, so it would make the
-backport even less trivial - fortunately if memory serves me well,
-there were never other users of the flag.
+diff --git a/Documentation/filesystems/exfat.rst b/Documentation/filesystems/exfat.rst
+new file mode 100644
+index 000000000000..ce5c9344a7b2
+--- /dev/null
++++ b/Documentation/filesystems/exfat.rst
+@@ -0,0 +1,117 @@
++.. SPDX-License-Identifier: GPL-2.0
++
++==================================
++The Linux exFAT filesystem driver
++==================================
++
++
++.. Table of contents
++
++   - Overview
++   - Utilities support
++   - Supported mount options
++
++
++Overview
++========
++
++exFAT is a filesystem designed for removable storage and other devices that
++need to store large files.  The Linux exFAT filesystem driver provides read
++and write support for exFAT volumes.
++
++To mount an exFAT volume, use the ``exfat`` filesystem type::
++
++  mount -t exfat /dev/sdX1 /mnt
++
++
++Utilities support
++=================
++
++The exfatprogs project provides userspace utilities for creating, checking,
++repairing, inspecting, and tuning exFAT filesystems.  Use exfatprogs when
++creating or checking an exFAT filesystem.  For example, use ``mkfs.exfat``
++to create a filesystem and ``fsck.exfat`` to check or repair one.
++
++The project is available at:
++
++  https://github.com/exfatprogs/exfatprogs
++
++
++Supported mount options
++=======================
++
++The exFAT driver supports the following mount options:
++
++======================= ====================================================
++uid=
++gid=                    Set the owner and group of all files and
++                        directories.  The default is the uid and gid of
++                        the process mounting the filesystem.
++
++umask=                  Set the permission mask for files and directories.
++                        The default is the umask of the process mounting
++                        the filesystem.
++
++dmask=                  Set the permission mask for directories.
++
++fmask=                  Set the permission mask for files.
++
++allow_utime=            Control the permission check for changing file
++                        timestamps.  Only permission bits 0022 are used.
++                        Permission bit 0020 allows members of the file's
++                        group to change timestamps, and permission bit 0002
++                        allows other users to change timestamps.  The
++                        default is derived from dmask (``~dmask & 0022``).
++
++iocharset=name          Character set used to convert between user-visible
++                        filenames and the UTF-16 character encoding used by
++                        exFAT.  The default is
++                        CONFIG_EXFAT_DEFAULT_IOCHARSET, which is ``utf8``
++                        unless changed at kernel configuration time.  Use
++                        ``iocharset=utf8`` for UTF-8 filename handling.
++
++errors=                 Specify exFAT behavior on filesystem errors.  The
++                        value must be ``panic``, ``continue``, or
++                        ``remount-ro``.  These respectively panic, continue
++                        without changing the filesystem, or remount the
++                        filesystem read-only.  The default is
++                        ``remount-ro``.
++
++discard                 Issue discard/TRIM requests to the block device
++                        when clusters are freed.  This is disabled by
++                        default.  ``nodiscard`` disables it explicitly.
++
++keep_last_dots          Keep trailing periods in path components during
++                        lookup.  Without this option, trailing periods are
++                        stripped.  Existing entries with trailing periods
++                        can be accessed when this option is enabled, but
++                        creating new entries with trailing periods is
++                        rejected.
++
++sys_tz                  Use the system timezone as the UTC offset when an
++                        exFAT timestamp does not contain a valid timezone
++                        offset.  This takes precedence over time_offset.
++
++time_offset=minutes     Set the UTC offset, in minutes, used when an exFAT
++                        timestamp does not contain a valid timezone offset.
++                        Values from -1440 to 1440 are accepted.  The default
++                        is 0.  This option is ignored when sys_tz is set.
++
++zero_size_dir           Create directories with zero size and without
++                        allocating a cluster.  This is disabled by default;
++                        the default behavior allocates a cluster for a new
++                        directory.  ``nozero_size_dir`` disables it
++                        explicitly.
++======================= ====================================================
++
++
++Deprecated mount options
++------------------------
++
++The following options are accepted for compatibility but should not be used:
++
++``utf8``
++  Deprecated.  Use ``iocharset=utf8`` instead.
++
++``debug``, ``namecase=``, ``codepage=``
++  Deprecated and ignored by the exFAT driver.
+diff --git a/Documentation/filesystems/index.rst b/Documentation/filesystems/index.rst
+index 734a45e51667..fbd55915a318 100644
+--- a/Documentation/filesystems/index.rst
++++ b/Documentation/filesystems/index.rst
+@@ -87,6 +87,7 @@ Documentation for filesystem implementations.
+    ecryptfs
+    efivarfs
+    erofs
++   exfat
+    ext2
+    ext3
+    ext4/index
+-- 
+2.25.1
 
-Always make one minimal patch that fixes only a bug, and leave
-cleanups as separate followup patches please.
-
-Looking at sashiko, its review is correct: if we clone a range that
-has an inline extent followed by ohter extents (non-inline), we can
-deadlock when starting a transaction at btrfs_replace_file_extent().
-If you look at the comment I left over when setting
-BTRFS_INODE_NO_DELALLOC_FLUSH, it explictly mentions this:
-
- "We will clear that flag when we finish cloning all extents, since a
-transaction is started after finding each extent to clone."
-
->
-> Fixes: 05a5a7621ce6 ("Btrfs: implement full reflink support for inline ex=
-tents")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Melon Liu <melon1335@163.com>
-> ---
->  fs/btrfs/btrfs_inode.h |  14 +----
->  fs/btrfs/dev-replace.c |   2 +-
->  fs/btrfs/disk-io.c     |   2 +-
->  fs/btrfs/inode.c       |  16 ++----
->  fs/btrfs/ioctl.c       |   4 +-
->  fs/btrfs/qgroup.c      |   4 +-
->  fs/btrfs/reflink.c     | 117 ++++++++++-------------------------------
->  fs/btrfs/send.c        |   4 +-
->  fs/btrfs/space-info.c  |   2 +-
->  9 files changed, 45 insertions(+), 120 deletions(-)
->
-> diff --git a/fs/btrfs/btrfs_inode.h b/fs/btrfs/btrfs_inode.h
-> index 1082fa92c..aafe47b23 100644
-> --- a/fs/btrfs/btrfs_inode.h
-> +++ b/fs/btrfs/btrfs_inode.h
-> @@ -68,15 +68,6 @@ enum {
->          * to an inode.
->          */
->         BTRFS_INODE_NO_XATTRS,
-> -       /*
-> -        * Set when we are in a context where we need to start a transact=
-ion and
-> -        * have dirty pages with the respective file range locked. This i=
-s to
-> -        * ensure that when reserving space for the transaction, if we ar=
-e low
-> -        * on available space and need to flush delalloc, we will not flu=
-sh
-> -        * delalloc for this inode, because that could result in a deadlo=
-ck (on
-> -        * the file range, inode's io_tree).
-> -        */
-> -       BTRFS_INODE_NO_DELALLOC_FLUSH,
->         /*
->          * Set when we are working on enabling verity for a file. Computi=
-ng and
->          * writing the whole Merkle tree can take a while so we want to p=
-revent
-> @@ -531,9 +522,8 @@ int btrfs_add_link(struct btrfs_trans_handle *trans,
->  int btrfs_delete_subvolume(struct btrfs_inode *dir, struct dentry *dentr=
-y);
->  int btrfs_truncate_block(struct btrfs_inode *inode, u64 offset, u64 star=
-t, u64 end);
->
-> -int btrfs_start_delalloc_snapshot(struct btrfs_root *root, bool in_recla=
-im_context);
-> -int btrfs_start_delalloc_roots(struct btrfs_fs_info *fs_info, long nr,
-> -                              bool in_reclaim_context);
-> +int btrfs_start_delalloc_snapshot(struct btrfs_root *root);
-> +int btrfs_start_delalloc_roots(struct btrfs_fs_info *fs_info, long nr);
->  int btrfs_set_extent_delalloc(struct btrfs_inode *inode, u64 start, u64 =
-end,
->                               unsigned int extra_bits,
->                               struct extent_state **cached_state);
-> diff --git a/fs/btrfs/dev-replace.c b/fs/btrfs/dev-replace.c
-> index dc0834f92..ea1e43b9a 100644
-> --- a/fs/btrfs/dev-replace.c
-> +++ b/fs/btrfs/dev-replace.c
-> @@ -899,7 +899,7 @@ static int btrfs_dev_replace_finishing(struct btrfs_f=
-s_info *fs_info,
->          * flush all outstanding I/O and inode extent mappings before the
->          * copy operation is declared as being finished
->          */
-> -       ret =3D btrfs_start_delalloc_roots(fs_info, LONG_MAX, false);
-> +       ret =3D btrfs_start_delalloc_roots(fs_info, LONG_MAX);
->         if (ret) {
->                 /* Stays started/resumable; keep both denied. */
->                 mutex_unlock(&dev_replace->lock_finishing_cancel_unmount)=
-;
-> diff --git a/fs/btrfs/disk-io.c b/fs/btrfs/disk-io.c
-> index 819727460..fcd627251 100644
-> --- a/fs/btrfs/disk-io.c
-> +++ b/fs/btrfs/disk-io.c
-> @@ -4403,7 +4403,7 @@ void __cold close_ctree(struct btrfs_fs_info *fs_in=
-fo)
->          * getting delayed iputs than are never run. So flush delalloc an=
-d wait
->          * for ordered extents.
->          */
-> -       btrfs_start_delalloc_roots(fs_info, LONG_MAX, false);
-> +       btrfs_start_delalloc_roots(fs_info, LONG_MAX);
->         btrfs_wait_ordered_roots(fs_info, U64_MAX, NULL);
->
->         /*
-> diff --git a/fs/btrfs/inode.c b/fs/btrfs/inode.c
-> index 3c10a0ef0..00795c3de 100644
-> --- a/fs/btrfs/inode.c
-> +++ b/fs/btrfs/inode.c
-> @@ -8901,7 +8901,7 @@ static struct btrfs_delalloc_work *btrfs_alloc_dela=
-lloc_work(struct inode *inode
->   * of all the inodes with pending delalloc and forces them to disk.
->   */
->  static int start_delalloc_inodes(struct btrfs_root *root, long *nr_to_wr=
-ite,
-> -                                bool snapshot, bool in_reclaim_context)
-> +                                bool snapshot)
->  {
->         struct btrfs_delalloc_work *work, *next;
->         LIST_HEAD(works);
-> @@ -8919,10 +8919,6 @@ static int start_delalloc_inodes(struct btrfs_root=
- *root, long *nr_to_write,
->
->                 list_move_tail(&inode->delalloc_inodes, &root->delalloc_i=
-nodes);
->
-> -               if (in_reclaim_context &&
-> -                   test_bit(BTRFS_INODE_NO_DELALLOC_FLUSH, &inode->runti=
-me_flags))
-> -                       continue;
-> -
->                 tmp_inode =3D igrab(&inode->vfs_inode);
->                 if (!tmp_inode) {
->                         cond_resched_lock(&root->delalloc_lock);
-> @@ -8971,17 +8967,16 @@ static int start_delalloc_inodes(struct btrfs_roo=
-t *root, long *nr_to_write,
->         return ret;
->  }
->
-> -int btrfs_start_delalloc_snapshot(struct btrfs_root *root, bool in_recla=
-im_context)
-> +int btrfs_start_delalloc_snapshot(struct btrfs_root *root)
->  {
->         struct btrfs_fs_info *fs_info =3D root->fs_info;
->
->         if (unlikely(BTRFS_FS_ERROR(fs_info)))
->                 return -EROFS;
-> -       return start_delalloc_inodes(root, NULL, true, in_reclaim_context=
-);
-> +       return start_delalloc_inodes(root, NULL, true);
->  }
->
-> -int btrfs_start_delalloc_roots(struct btrfs_fs_info *fs_info, long nr,
-> -                              bool in_reclaim_context)
-> +int btrfs_start_delalloc_roots(struct btrfs_fs_info *fs_info, long nr)
->  {
->         long *nr_to_write =3D nr =3D=3D LONG_MAX ? NULL : &nr;
->         struct btrfs_root *root;
-> @@ -9003,8 +8998,7 @@ int btrfs_start_delalloc_roots(struct btrfs_fs_info=
- *fs_info, long nr,
->                                &fs_info->delalloc_roots);
->                 spin_unlock(&fs_info->delalloc_root_lock);
->
-> -               ret =3D start_delalloc_inodes(root, nr_to_write, false,
-> -                               in_reclaim_context);
-> +               ret =3D start_delalloc_inodes(root, nr_to_write, false);
->                 btrfs_put_root(root);
->                 if (ret < 0 || nr <=3D 0)
->                         goto out;
-> diff --git a/fs/btrfs/ioctl.c b/fs/btrfs/ioctl.c
-> index 72bc9d4f7..43a956a00 100644
-> --- a/fs/btrfs/ioctl.c
-> +++ b/fs/btrfs/ioctl.c
-> @@ -926,7 +926,7 @@ static noinline int btrfs_mksnapshot(struct dentry *p=
-arent,
->          */
->         btrfs_drew_read_lock(&root->snapshot_lock);
->
-> -       ret =3D btrfs_start_delalloc_snapshot(root, false);
-> +       ret =3D btrfs_start_delalloc_snapshot(root);
->         if (ret)
->                 goto out;
->
-> @@ -5586,7 +5586,7 @@ long btrfs_ioctl(struct file *file, unsigned int
->         case BTRFS_IOC_SYNC: {
->                 int ret;
->
-> -               ret =3D btrfs_start_delalloc_roots(fs_info, LONG_MAX, fal=
-se);
-> +               ret =3D btrfs_start_delalloc_roots(fs_info, LONG_MAX);
->                 if (ret)
->                         return ret;
->                 ret =3D btrfs_sync_fs(inode->i_sb, 1);
-> diff --git a/fs/btrfs/qgroup.c b/fs/btrfs/qgroup.c
-> index f68b696b4..a4e01403c 100644
-> --- a/fs/btrfs/qgroup.c
-> +++ b/fs/btrfs/qgroup.c
-> @@ -1321,7 +1321,7 @@ static int flush_reservations(struct btrfs_fs_info =
-*fs_info)
->  {
->         int ret;
->
-> -       ret =3D btrfs_start_delalloc_roots(fs_info, LONG_MAX, false);
-> +       ret =3D btrfs_start_delalloc_roots(fs_info, LONG_MAX);
->         if (ret)
->                 return ret;
->         btrfs_wait_ordered_roots(fs_info, U64_MAX, NULL);
-> @@ -4228,7 +4228,7 @@ static int try_flush_qgroup(struct btrfs_root *root=
-)
->                 return 0;
->         }
->
-> -       ret =3D btrfs_start_delalloc_snapshot(root, true);
-> +       ret =3D btrfs_start_delalloc_snapshot(root);
->         if (ret < 0)
->                 goto out;
->         btrfs_wait_ordered_extents(root, U64_MAX, NULL);
-> diff --git a/fs/btrfs/reflink.c b/fs/btrfs/reflink.c
-> index d2a410191..11950a2cd 100644
-> --- a/fs/btrfs/reflink.c
-> +++ b/fs/btrfs/reflink.c
-> @@ -58,7 +58,8 @@ static int copy_inline_to_page(struct btrfs_inode *inod=
-e,
->                                char *inline_data,
->                                const u64 size,
->                                const u64 datal,
-> -                              const u8 comp_type)
-> +                              const u8 comp_type,
-> +                              struct btrfs_trans_handle **trans_out)
->  {
->         struct btrfs_fs_info *fs_info =3D inode->root->fs_info;
->         const u32 block_size =3D fs_info->sectorsize;
-> @@ -84,6 +85,18 @@ static int copy_inline_to_page(struct btrfs_inode *ino=
-de,
->         if (ret)
->                 goto out;
->
-> +       /*
-> +        * Start the transaction before creating and dirtying the folio, =
-otherwise
-> +        * commit writeback can deadlock on the destination range locked =
-by the
-
-Let's be more clear here please. Instead of saying just "commit", say
-"transaction commit", and be clear about how the deadlock happens:
-
-1) In case the flushoncommit mount option is enabled
-2) In case starting the transaction triggers the data async reclaim
-task to reserve space
-
-> +        * caller.
-> +        */
-> +       *trans_out =3D btrfs_start_transaction(inode->root, 1);
-
-Before each call to btrfs_start_transaction(), we also have the good
-practice of leaving a comment exlaining the unit count, just like in
-the chunk you are removing in clone_copy_inline_extent():
-
-"1 unit to update inode item"
-
-Thanks.
-
-> +       if (IS_ERR(*trans_out)) {
-> +               ret =3D PTR_ERR(*trans_out);
-> +               *trans_out =3D NULL;
-> +               goto out_unlock;
-> +       }
-> +
->         folio =3D __filemap_get_folio(mapping, file_offset >> PAGE_SHIFT,
->                                         FGP_LOCK | FGP_ACCESSED | FGP_CRE=
-AT,
->                                         btrfs_alloc_write_mask(mapping));
-> @@ -100,19 +113,6 @@ static int copy_inline_to_page(struct btrfs_inode *i=
-node,
->         if (ret)
->                 goto out_unlock;
->
-> -       /*
-> -        * After dirtying the page our caller will need to start a transa=
-ction,
-> -        * and if we are low on metadata free space, that can cause flush=
-ing of
-> -        * delalloc for all inodes in order to get metadata space release=
-d.
-> -        * However we are holding the range locked for the whole duration=
- of
-> -        * the clone/dedupe operation, so we may deadlock if that happens=
- and no
-> -        * other task releases enough space. So mark this inode as not be=
-ing
-> -        * possible to flush to avoid such deadlock. We will clear that f=
-lag
-> -        * when we finish cloning all extents, since a transaction is sta=
-rted
-> -        * after finding each extent to clone.
-> -        */
-> -       set_bit(BTRFS_INODE_NO_DELALLOC_FLUSH, &inode->runtime_flags);
-> -
->         if (comp_type =3D=3D BTRFS_COMPRESS_NONE) {
->                 memcpy_to_folio(folio, offset_in_folio(folio, file_offset=
-), data_start,
->                                         datal);
-> @@ -140,6 +140,14 @@ static int copy_inline_to_page(struct btrfs_inode *i=
-node,
->         if (datal < block_size)
->                 folio_zero_range(folio, datal, block_size - datal);
->
-> +       /*
-> +        * A commit may start writeback before all extwriters have left t=
-he
-> +        * transaction.  Update i_size while the folio is still locked an=
-d before
-> +        * marking it dirty, so that writeback cannot treat it as being b=
-eyond EOF.
-> +        */
-> +       if (file_offset + datal > i_size_read(&inode->vfs_inode))
-> +               i_size_write(&inode->vfs_inode, file_offset + datal);
-> +
->         btrfs_folio_set_uptodate(fs_info, folio, file_offset, block_size)=
-;
->         btrfs_folio_set_dirty(fs_info, folio, file_offset, block_size);
->  out_unlock:
-> @@ -150,6 +158,10 @@ static int copy_inline_to_page(struct btrfs_inode *i=
-node,
->         if (ret)
->                 btrfs_delalloc_release_space(inode, data_reserved, file_o=
-ffset,
->                                              block_size, true);
-> +       if (ret && *trans_out) {
-> +               btrfs_end_transaction(*trans_out);
-> +               *trans_out =3D NULL;
-> +       }
->         btrfs_delalloc_release_extents(inode, block_size);
->  out:
->         extent_changeset_free(data_reserved);
-> @@ -180,12 +192,11 @@ static int clone_copy_inline_extent(struct btrfs_in=
-ode *inode,
->         struct btrfs_drop_extents_args drop_args =3D { 0 };
->         int ret;
->         struct btrfs_key key;
-> -       bool copied_inline_to_page =3D false;
->
->         if (new_key->offset > 0) {
->                 ret =3D copy_inline_to_page(inode, new_key->offset,
-> -                                         inline_data, size, datal, comp_=
-type);
-> -               copied_inline_to_page =3D (ret =3D=3D 0);
-> +                                         inline_data, size, datal, comp_=
-type,
-> +                                         &trans);
->                 goto out;
->         }
->
-> @@ -290,73 +301,6 @@ static int clone_copy_inline_extent(struct btrfs_ino=
-de *inode,
->         if (unlikely(ret))
->                 btrfs_abort_transaction(trans, ret);
->  out:
-> -       if (!ret && !trans) {
-> -               if (copied_inline_to_page &&
-> -                   new_key->offset + datal > i_size_read(&inode->vfs_ino=
-de)) {
-> -                       /*
-> -                        * If we copied the inline extent data to a page/=
-folio
-> -                        * beyond the i_size of the destination inode, th=
-en we
-> -                        * need to increase the i_size before we start a
-> -                        * transaction to update the inode item. This is =
-to
-> -                        * prevent a deadlock when the flushoncommit moun=
-t
-> -                        * option is used, which happens like this:
-> -                        *
-> -                        * 1) Task A clones an inline extent from inode X=
- to an
-> -                        *    offset of inode Y that is beyond Y's curren=
-t
-> -                        *    i_size. This means we copied the inline ext=
-ent's
-> -                        *    data to a folio of inode Y that is beyond i=
-ts EOF,
-> -                        *    using the call above to copy_inline_to_page=
-();
-> -                        *
-> -                        * 2) Task B starts a transaction commit and call=
-s
-> -                        *    btrfs_start_delalloc_flush() to flush delal=
-loc;
-> -                        *
-> -                        * 3) The delalloc flushing sees the new dirty fo=
-lio of
-> -                        *    inode Y and when it attempts to flush it, i=
-t ends
-> -                        *    up at extent_writepage() and sees that the =
-offset
-> -                        *    of the folio is beyond the i_size of inode =
-Y, so
-> -                        *    it attempts to invalidate the folio by call=
-ing
-> -                        *    folio_invalidate(), which ends up at btrfs'=
- folio
-> -                        *    invalidate callback - btrfs_invalidate_foli=
-o().
-> -                        *    There it tries to lock the folio's range in=
- inode
-> -                        *    Y's extent io tree, but it blocks since it'=
-s
-> -                        *    currently locked by task A - during reflink=
- we
-> -                        *    lock the inodes and the source and destinat=
-ion
-> -                        *    ranges after flushing all delalloc and wait=
-ing for
-> -                        *    ordered extent completion - after that we d=
-on't
-> -                        *    expect to have dirty folios in the ranges, =
-the
-> -                        *    exception is if we have to copy an inline e=
-xtent's
-> -                        *    data (because the destination offset is not=
- zero);
-> -                        *
-> -                        * 4) Task A then does the 'goto out' below and a=
-ttempts
-> -                        *    to start a transaction to update the inode =
-item,
-> -                        *    and then it's blocked since the current
-> -                        *    transaction is in the TRANS_STATE_COMMIT_ST=
-ART
-> -                        *    state. Therefore task A has to wait for the
-> -                        *    current transaction to become unblocked (it=
-s
-> -                        *    state >=3D TRANS_STATE_UNBLOCKED).
-> -                        *
-> -                        * This leads to a deadlock - the task committing=
- the
-> -                        * transaction waiting for the delalloc flushing =
-which
-> -                        * is blocked during folio invalidation on the in=
-ode's
-> -                        * extent lock and the reflink task waiting for t=
-he
-> -                        * current transaction to be unblocked so that it=
- can
-> -                        * start a new one to update the inode item (whil=
-e
-> -                        * holding the extent lock).
-> -                        */
-> -                       i_size_write(&inode->vfs_inode, new_key->offset +=
- datal);
-> -               }
-> -               /*
-> -                * No transaction here means we copied the inline extent =
-into a
-> -                * page of the destination inode.
-> -                *
-> -                * 1 unit to update inode item
-> -                */
-> -               trans =3D btrfs_start_transaction(root, 1);
-> -               if (IS_ERR(trans)) {
-> -                       ret =3D PTR_ERR(trans);
-> -                       trans =3D NULL;
-> -               }
-> -       }
->         if (ret && trans)
->                 btrfs_end_transaction(trans);
->         if (!ret)
-> @@ -376,8 +320,7 @@ static int clone_copy_inline_extent(struct btrfs_inod=
-e *inode,
->         btrfs_release_path(path);
->
->         ret =3D copy_inline_to_page(inode, new_key->offset,
-> -                                 inline_data, size, datal, comp_type);
-> -       copied_inline_to_page =3D (ret =3D=3D 0);
-> +                                 inline_data, size, datal, comp_type, &t=
-rans);
->
->         goto out;
->  }
-> @@ -665,8 +608,6 @@ static int btrfs_clone(struct btrfs_inode *src, struc=
-t btrfs_inode *inode,
->         }
->
->  out:
-> -       clear_bit(BTRFS_INODE_NO_DELALLOC_FLUSH, &inode->runtime_flags);
-> -
->         return ret;
->  }
->
-> diff --git a/fs/btrfs/send.c b/fs/btrfs/send.c
-> index dca357016..e0febffaf 100644
-> --- a/fs/btrfs/send.c
-> +++ b/fs/btrfs/send.c
-> @@ -7908,7 +7908,7 @@ static int flush_delalloc_roots(struct send_ctx *sc=
-tx)
->         int i;
->
->         if (root) {
-> -               ret =3D btrfs_start_delalloc_snapshot(root, false);
-> +               ret =3D btrfs_start_delalloc_snapshot(root);
->                 if (ret)
->                         return ret;
->                 btrfs_wait_ordered_extents(root, U64_MAX, NULL);
-> @@ -7916,7 +7916,7 @@ static int flush_delalloc_roots(struct send_ctx *sc=
-tx)
->
->         for (i =3D 0; i < sctx->clone_roots_cnt; i++) {
->                 root =3D sctx->clone_roots[i].root;
-> -               ret =3D btrfs_start_delalloc_snapshot(root, false);
-> +               ret =3D btrfs_start_delalloc_snapshot(root);
->                 if (ret)
->                         return ret;
->                 btrfs_wait_ordered_extents(root, U64_MAX, NULL);
-> diff --git a/fs/btrfs/space-info.c b/fs/btrfs/space-info.c
-> index 39a28e1be..7915819d7 100644
-> --- a/fs/btrfs/space-info.c
-> +++ b/fs/btrfs/space-info.c
-> @@ -770,7 +770,7 @@ static void shrink_delalloc(struct btrfs_space_info *=
-space_info,
->                 long nr_pages =3D min_t(u64, temp, LONG_MAX);
->                 int async_pages;
->
-> -               btrfs_start_delalloc_roots(fs_info, nr_pages, true);
-> +               btrfs_start_delalloc_roots(fs_info, nr_pages);
->
->                 /*
->                  * We need to make sure any outstanding async pages are n=
-ow
-> --
-> 2.43.0
->
->
