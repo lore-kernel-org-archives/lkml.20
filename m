@@ -1,201 +1,204 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from esa.hc6817-7.iphmx.com (esa.hc6817-7.iphmx.com [216.71.154.88])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D39962DC350;
-	Mon, 31 Aug 2026 15:06:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788188784; cv=none; b=luFvKefC0TQgccexcOn6kqUwmKhZTKYHxaq8FfaSqywpAmh0jCz9GZ6cvF+gjU7ijEEPAtDipVHFBHGzzm1RSOl1mlHbFs3OpqGlMmu/tuwqnrkd9mOi1deOSOJnzrm2HZYlEnaS+8P0DbVmIsQGp+KokDomQ7X/oswnhovh4Ck=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF161519911
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 15:06:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=216.71.154.88
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788188784; cv=fail; b=NOWaHgML8bwIK1Iqq4/QC2ZhY6v5Z+w3AUnQVjiVLp9ymNee5Eu6ZGiw2zAA9MBygb4yL/U40LsNp3p5MMdqh2UFN30icMgQHPi3oCZtGGFlapxl9WJSnrvWuJ0a6RPEm/5xpyhEufxhvRza2A3VBN3r8TjH4qN3wuepUu6BiSw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788188784; c=relaxed/simple;
-	bh=ibu6LZ3BEKxiIYE0JR0hwUHZH7jDp2GIKjMpj5TaW5c=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=t/jL83BRnJAmv0tEGb/fPxdpubRBJ0TSN6HEj9WHKAFO0l9eCX3wXOPKGkAnkELniPUcVL9+259oFBau6jO49Gzlciq4E29ugvMcHh9Dha2qm3lrtEwZcdkgKPFA2DoEi6FA+o02NOMEe3fxMkpg+aYwjB/KpmxQ/NGYM6+a/ds=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nDKTIion; arc=none smtp.client-ip=100.103.45.18
+	bh=MvuuCgSZepsE21qW+TzGrv7/camkC23N41VPhVxr/d8=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=MF9vY34eppFZj69wpBXolp+5R8GHf9Nj1jgqF4sCufUhXHh/2zRkumhu4PHDmN8ZgJ20QUhb/hfufXir6832n8rITX9FunfwGHhqVBsb0KBhbD/gazb6gNnyEkzLU8K+5Ui1oWNWgSIYK4OPep5uJ4Ugjg7PAJ+e8+ACWMxySUE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sandisk.com; spf=pass smtp.mailfrom=sandisk.com; dkim=pass (2048-bit key) header.d=sandisk.com header.i=@sandisk.com header.b=U7T429sw; arc=fail smtp.client-ip=216.71.154.88
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sandisk.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sandisk.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nDKTIion"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D73EE1F000E9;
-	Mon, 31 Aug 2026 15:06:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788188782;
-	bh=6Edu64T4weJ/kJ+tb2++5BsIaJvIAnxDYHi6GHU8kAs=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nDKTIiony1RVHKlAZ83702w3rW5M8ZPhvIOGrgqdevy9wBkmVih6d5XJmbSFRcOqw
-	 UIZ4df9stNAhWqOlHwS59rXYG3YrgErOB2/LeeF4Lxnn7Pv1G62yGqwbscrW8wFu7C
-	 mqtQ9n+sG8cI+i2km4WCV+1AfafRv9/YcAG52SclxUYwBLMEZK3mHb/D623zZrJHnu
-	 cTnIyWdRDl9ziMW9lyzBLpFq5fMCC2+WgDCyqcxEgpqQPj7rB1yUTt4aT9V5RGLTCh
-	 yfmEcK2EFqaId19ioxTstPaeaulfFmwoANAmBVuzNVBCeK7Mdo71R6qVch0uui+Z4W
-	 Mg6WvKZ+V4rPg==
-From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
-To: Steven Rostedt <rostedt@goodmis.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@kernel.org>,
-	x86@kernel.org
-Cc: Jinchao Wang <wangjinchao600@gmail.com>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H . Peter Anvin" <hpa@zytor.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Ian Rogers <irogers@google.com>,
-	linux-kernel@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-perf-users@vger.kernel.org
-Subject: [PATCH 2/2] tracing/probes: Fix BTF kflag check for anonymous struct member access
-Date: Tue,  1 Sep 2026 00:06:16 +0900
-Message-ID: <178818877624.104360.10938474138218043559.stgit@devnote2>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <178818875393.104360.1469039168635349344.stgit@devnote2>
-References: <178818875393.104360.1469039168635349344.stgit@devnote2>
-User-Agent: StGit/0.19
+	dkim=pass (2048-bit key) header.d=sandisk.com header.i=@sandisk.com header.b="U7T429sw"
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=sandisk.com; i=@sandisk.com; q=dns/txt;
+  s=dkimnew.sandisk.com; t=1788188783; x=1819724783;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=MvuuCgSZepsE21qW+TzGrv7/camkC23N41VPhVxr/d8=;
+  b=U7T429sw9rPC4OOC4y97wFE8bVf0ByughcgvXoZj9/ZO/4ai/ROejGvn
+   WTJlok34r2ynNU86EHiwrQGtZIbbijql1u70waVRPUHPbSFD+fxuAYXZb
+   i2LG9ivEr2R+JGyBQsjpIyjS+8PIWbnDmP3VT7kQp3V1jo6rb0H7MLsH8
+   YMHD96sLpSV0R3xwvsR/u4giYL5vp9uR6iVXk0M/0HENQOLYUGiHhw0Ku
+   GXVPZsjy9S4b92loUl6ahB0xOayBh8/HVqpk4VPAmXMCCug120bcByC9r
+   J+glFyNecywmbtjW+aQC1rWHheqiTu7OttwArn5N5dFTvLeCZ5lpbxlSf
+   A==;
+X-CSE-ConnectionGUID: UW96QFiJTXW40Bl8dHUCeQ==
+X-CSE-MsgGUID: yksn/fMNSs6pZiKNYQ5nnQ==
+X-IronPort-RemoteIP: 40.107.209.91
+X-IronPort-MID: 29340025
+X-IronPort-Reputation: None
+X-IronPort-Listener: OutgoingMail
+X-IronPort-SenderGroup: RELAY_O365
+X-IronPort-MailFlowPolicy: $RELAYED
+Received: from mail-westus3azon11022091.outbound.protection.outlook.com (HELO PH8PR06CU001.outbound.protection.outlook.com) ([40.107.209.91])
+  by ob1.hc6817-7.iphmx.com with ESMTP; 31 Aug 2026 08:05:14 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=kzWmYXT/ZshS7v9pnvsjCpgCUCiby2GZW4au7RpuzQCLlI4HsGRuZ1WXv6H3YQCA3EZAA+P0uSeszoLkAGwsznXFso61lHahQVjk2WIWmFb5cubPhHTJ6f+v0sBYsH2t2YZ9tunHcQOvGUHhkP67//TM74bW5Jt5NMaFEZgYN+f7evB5OSQLdxWrIyI0JHLnZrpJtU/aDFb563l+oRiIoge4QyRvpiP9csT8mMAubWV7gXO1jnUyv8pRovPTgrX3st6qdVRMVLQcubW275SmCeJTTcdQmYyBX+6FTnT9QQ+JHSuVxzS5m8sazdW2y+xr9lF0TilpLEoGQlB4AlO09A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=MvuuCgSZepsE21qW+TzGrv7/camkC23N41VPhVxr/d8=;
+ b=M0UzbHAshDUkgao2WOOuXeDPzROrdnpl2XzhLUOJYpuB/p9aIVilBiFz/3Ab5CgRsqr1dae/sB+CEBI0tABYWWLfzniedkfM+RwS0zKOVAWXiPiZROG0fXECRMjgynGEYdralxHCfz5FWaDaxGdXEfsbD3iwwdUu7zU5HV13lSvdnATrkLrxLAsbOMSvl+tu4En8BQzHJyvDXc8kxkLCao/EpvkEMCeTYpiT3rw3HJTnTaewNHGJr04ZZF3auOanETSbRtsnzzLeJROq7TyaazWqZTB2FLG+hRQkRutCY/1OKg1x4ZY1pWBSvhJg6WyCTa8FociTxUXZNMXnhbzzjA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=sandisk.com; dmarc=pass action=none header.from=sandisk.com;
+ dkim=pass header.d=sandisk.com; arc=none
+Received: from DS4PR16MB6924.namprd16.prod.outlook.com (2603:10b6:8:31f::17)
+ by CH8PR16MB062009.namprd16.prod.outlook.com (2603:10b6:610:31f::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Mon, 31 Aug
+ 2026 15:05:11 +0000
+Received: from DS4PR16MB6924.namprd16.prod.outlook.com
+ ([fe80::977c:faf6:2b68:f082]) by DS4PR16MB6924.namprd16.prod.outlook.com
+ ([fe80::977c:faf6:2b68:f082%3]) with mapi id 15.21.0360.008; Mon, 31 Aug 2026
+ 15:05:11 +0000
+From: Alexey Bogoslavsky <Alexey.Bogoslavsky@sandisk.com>
+To: Ferran Duarri <ferran.duarri@me.com>, Keith Busch <kbusch@kernel.org>,
+	Jens Axboe <axboe@kernel.dk>, Christoph Hellwig <hch@lst.de>, Sagi Grimberg
+	<sagi@grimberg.me>
+CC: Yehuda Hahn <Yehuda.Hahn@sandisk.com>, "linux-nvme@lists.infradead.org"
+	<linux-nvme@lists.infradead.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>
+Subject: RE: [PATCH] nvme: lower default APST max latency to 25ms
+Thread-Topic: [PATCH] nvme: lower default APST max latency to 25ms
+Thread-Index: AQHyoQ3ATROJkKaMw9FUI4dwULo0cbaHZgBwgAXt5wCAABhg4A==
+Date: Mon, 31 Aug 2026 15:05:11 +0000
+Message-ID:
+ <DS4PR16MB6924BCA2979152667FA670DA92A92@DS4PR16MB6924.namprd16.prod.outlook.com>
+References:
+ <DS4PR16MB692456B5425BE0974054C45692AD2@DS4PR16MB6924.namprd16.prod.outlook.com>
+ <20260831131701.200793-1-ferran.duarri@me.com>
+In-Reply-To: <20260831131701.200793-1-ferran.duarri@me.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=sandisk.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DS4PR16MB6924:EE_|CH8PR16MB062009:EE_
+x-ms-office365-filtering-correlation-id: 42d8480a-9382-4a34-5323-08df077140dc
+x-ms-exchange-atpmessageproperties: SA
+sndkipoutbound: EOP-TRUE
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|1800799024|23010399003|376014|366016|10067099003|55112099003|18002099003|22082099003|11063799006|4143699003|56012099006|38070700021;
+x-microsoft-antispam-message-info:
+ 2//hLhLkUorF4pEWguH54SwrZEVTGRS69A6fCRkuJsQYW+FQyXBHswJZOlxC7CzNOKobVEEaem24bkaOC7IKEaDQ6K3zdEmGNAyriNz20jXYGGhC9tENeHQ2mGnZbknFcTV9EjkO4e7SyHU7juN4kx4dU9h4sOIoAwnBd7J9NKbspTJDgATkDMAypH5JyL0oAiyxR5PkWApb+0BJL/M5avgFKDkt3lrEuH/HquhEcT9kTJvvc9kD6aMGCf+j3UAmZPwd5SqEn4v7mMw950PXCvilutDBLYbXwLd7so4U09DPRNMkyA1azm97XiWqEg457jQCtWHJbIQ5K+qvXZ5dY9NnbULiplsBtT70f6RcBKyKDmfRjro/RM9YVinDiY9CV0xxYr2fcjAOm/hBN1FJ05TEirT2jEO9JRwFf7ahiACTNHSf5B2q94fYJdlB0HY0wkMh4HlISdLulKgc5wl3O5/ipHl7yKDoYTqV6oh1MXwfZo7akZtSQLdcqcf2vnN6OdZOcEJhX2DGxNTUNyUbbj81+vhNtOaei9EkHrHmhdjl7QCvYbVC6vCKtujVhpr6jKuUOu4by5+TV6hZhb0UeWWp7GmdCwA8JRXZRYKYvMn+rfEOWVeW3WzZtuAsyFliUNmukvbzerlBJB0W7E2MoE9SDq0Zr1HJYpgQQIVbhBDiemo2H6I+OCSJAjQ+jDwSlGSDUICc/RqcrevK/zFiCVNkdsQfm2vYQrsQ4OCfKkw=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS4PR16MB6924.namprd16.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(366016)(10067099003)(55112099003)(18002099003)(22082099003)(11063799006)(4143699003)(56012099006)(38070700021);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?y2V8aeEh89pDZ8qrzp0QziUpfbYg6B/1JJCowUVXzQ/rqH17ZPHmpfl7Rd4D?=
+ =?us-ascii?Q?XLEsCHeKnhsBef2u7zOJFvMoqiJJsZPsfb9+FBS5NzcOymL1HcLi0dUr/2hG?=
+ =?us-ascii?Q?7xAxexEv7KY96x2NWR4rVa4htHl7aKTUoozsMMhg3Ol02rQgoEZCMw8QjSie?=
+ =?us-ascii?Q?muxcTKz+jXOfIKWP0j+4tj120VOMTw0DyN12rbh63PFDu58zhCUz30tlQpRg?=
+ =?us-ascii?Q?ByRQx7uiwgIVKQH/95PaeeMABYaJf6/OiGT09HSOXVQS++xbJkJITbewY1eE?=
+ =?us-ascii?Q?H2ZKQBDZn/moIT9Av7OMhOqMCnJAS9RRv3jHUdpHniXJUog2R2n9DsAfr+qQ?=
+ =?us-ascii?Q?aYJNANDdT6Z7XaZOw9dYpTir8d9PhuyLqh0UI0PwEE0Ze+yEJdaRTBOHtioX?=
+ =?us-ascii?Q?2kym4j24LktKyd4ql7rUTIsEsfAXwjFLi9BrfrpUlMjfO9wfONYkjuDxhoWb?=
+ =?us-ascii?Q?3s7eXK2Oa2jupEnDXHuvDfheNw0vaIzsJtbbD3c1+k8NrnGZ043dLNibWO0E?=
+ =?us-ascii?Q?jibzUtXTWbWOleBCe9DIQ5Ubb70unJsXiY0Q4z4LOt8+Su8yIwVaq0E/bOEs?=
+ =?us-ascii?Q?L7Ij+//6Z+Vy12qF62AT+IhcxfJdBEjtgl7R3U932fW2FLka3i10bt5hjidk?=
+ =?us-ascii?Q?Yo2qAMzHnSjfHb4comm4ipiusg8LEMBwQhTN9y74ZzBtkkTfliqgNn2kzKk6?=
+ =?us-ascii?Q?WgewPN6FcLTUe5HMrFvYpyoCjHOxGwYQUkHU09lMC6dJPeoYSOoQT2PRwkgF?=
+ =?us-ascii?Q?vd8TTGaTxaxWcCOzhSGgsBhIOQTe2AplWwDCV39D16QkvP3xAKdCghQyQpC9?=
+ =?us-ascii?Q?u+nhiAaG9nfyWhR4bpVS9Xx8Qi6/J071sB9/c2AvD/9IgY4EjccodR1fcqHc?=
+ =?us-ascii?Q?G4orvnhRKV0qjT2qYAIX2maMvMTXlatWYbRbTsLaIWHX03gG/12C2V+Z8+Jq?=
+ =?us-ascii?Q?4w22ytRhz2GRfQ2cOyBGpKIBYIAIGRXESccYoiQ3AVSR0pOYZKh8K7uWMgPo?=
+ =?us-ascii?Q?r4WucEs6t9dsYUqT/QLixVHACF/fgM2gK5dmkuGIGJYfIl2pr+hImDb3D78Q?=
+ =?us-ascii?Q?jJKUeZfScmaX8/hyrUEYSIWpZGRAoKIMZtHc6ixLzVBWw2QW2n1kXtm8cmaX?=
+ =?us-ascii?Q?Odr2Ib6Bydk39ZWzoAAQ2MhPYlRk6WdG2pgjaHKdqZLy7d1yaW4NbrpLDMKJ?=
+ =?us-ascii?Q?dhqPr2Ynx/zfKcqHcu/zVFIyyc6smkfGKhfVLzab4SD19wf2j6syqjsW2mG3?=
+ =?us-ascii?Q?RXKFY+oLqZjeJOBp8m87BBTJdLxeg/tn+ds/JWwMeAlIMq0ygOsD5PbO6fOI?=
+ =?us-ascii?Q?mtf/aliG8tGne5qQpBacQMBNUFD72S5U+Wm6+wpZeUhwS6jgNhFZwsmVSHJz?=
+ =?us-ascii?Q?ubpQTHI6bObC5sWhRlAqDfYeDHQph9lDOf0hzYl11fccaja+BeO8VvrIqbHV?=
+ =?us-ascii?Q?zglCr3iDwjc9SdnMBfGaoew6ng6/iuF0bGwT/Mq22zIjxWxDGsNpo+w+csCg?=
+ =?us-ascii?Q?kqtShvd9tmlWxUWrWNEEq6zVzvDl/eOqw8IQ3zZf00/0uN34jGuK8gp4AjPF?=
+ =?us-ascii?Q?n8kOW3EUJRc3VugofhkeNg+dkk72e4UBrJiYC+mcBrFmLEI7R1oTXhI05U/k?=
+ =?us-ascii?Q?dvYaz+RoKgqAjbKhNnTN69sFSqRuff/pUbK5CxFdi5nPmNCkoRLGIc8EMHvN?=
+ =?us-ascii?Q?46o/c+QLgATfVWZizFLWVZ84iZkUKSTTuPlbA09tNvgMoQC8zuKur7BvRCWh?=
+ =?us-ascii?Q?2K4UbD5gRwhJQjl7cuBVptMU/bGjMKM=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+X-Exchange-RoutingPolicyChecked:
+	F0tvD1+6NsDLxBCXP/9T4pvsYO8PzTmzMbnM4/fLx4Smhy5Y6NXWCw+ajQ0Hxddt0lF3RGJjDnY5IqZjObzht8gTvqKpREnZYqRiFoZxdmtYOnYYGJO/GcKzBHqe0ZJRd+dat4jEYQ/leqC6Kp4thEcgDTg1bv+AUafcfO0WCYBlc8AQmSv07zIqUpNXjPqHlqAhok8CUtLtyBzTg5CtxuDSBtOFG+BUqzhiLf/5sEGucfeqN5UKUEeVj5HSnPVhGLj9nfg9KERvYdHrDtI2oMg/IufapPsMuigK0Ky0vYKa68k4YZ2NBxDUiE4qp2xnAihpQPvahq9sIxq/vYXGwA==
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
+	T4HRghTHDAjOGdg9oznBbJY8xLzJqsAtDjXrYap4zhtshcvdI/n3Jdq0OvG/V4rv9FCv4RrZoytBSc6hMXPTl/W0/uMvNgjMzefxjNalTKi11s9K8kVwcyT63PVDenx/OC3WRdrclQLcQBGO+NlWSsNPRdvwfgBHg7zyOL0GGqzVy16BifrZzF/nRNZ6E4GSB5V7i77HwN7C3n+5k87+M2NbImtTPzKeZD/+8fX8BcCPpdDaA70kIjwNWAFObK4tQ9XU/RLyriSDbPmWxKpY/czIGsUWgUbeTbk4QktPuk48md/0CKILikiFrl1zylsaOAW2xquWUCpazVlgiIZabRV6KsAf359r+HJMRIeNgGE5y7UEj44lLPnHL7QxI1YPwx+KVw+GmBParWluXBi/pzamVEHH00Cjhgpm2D0AKOj+SnzhpcKdsIyKdj2aD/TpSn+0IWBcSniwEfMARSE+C+kalxZrQYk5OMravfWUNQu3CJNWVB/rry/QKSmEyVfocOdsXQPhtZrup4Lpk6fkd4q6ErYCbtwbFQmF7pDyggOmdW6yw7ZQp/7/MAwrJ6alZ9aiOrOMTl5e/uDv7mSXA1vmkkeU4vi1LrVXMxUofP8YhTrsz0RqK3y78aG6yNOJ5YRyHAd84pR8vbXZZUKVcA==
+X-OriginatorOrg: sandisk.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DS4PR16MB6924.namprd16.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 42d8480a-9382-4a34-5323-08df077140dc
+X-MS-Exchange-CrossTenant-originalarrivaltime: 31 Aug 2026 15:05:11.0424
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 7ffe0ff2-35d0-407e-a107-79fc32e84ec4
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: UrG8ZSJBLVGtJDon2NB54NPYu+oL3kLcaIq0y+PxswZa+xG1lxmrd4vWhiYCyEccLFS+gxgOtQXD8UnfiAUG3xFJ0bH61z1pP8O7PThNITc=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH8PR16MB062009
 
-From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+> -----Original Message-----
+> From: Ferran Duarri <ferran.duarri@me.com>=20
+> Sent: Monday, August 31, 2026 4:17 PM
+> To: Alexey Bogoslavsky <Alexey.Bogoslavsky@sandisk.com>; Keith Busch <kbu=
+sch@kernel.org>; Jens Axboe <axboe@kernel.dk>; Christoph Hellwig <hch@lst.d=
+e>; Sagi Grimberg <sagi@grimberg.me>
+> Cc: Yehuda Hahn <Yehuda.Hahn@sandisk.com>; linux-nvme@lists.infradead.org=
+; linux-kernel@vger.kernel.org; Ferran Duarri <ferran.duarri@me.com>
+> Subject: Re: [PATCH] nvme: lower default APST max latency to 25ms
 
-btf_find_struct_member() traverses into nested anonymous structures and
-unions to find a struct member. However, get_bitoffset_of_field() in
-trace_probe.c checked btf_type_kflag(type) using the outer parent type
-instead of the actual anonymous structure/union that directly contains
-the found member.
+> Alexey - thanks, that's a real point I hadn't considered: if EXLAT is
+> deliberately inflated to keep Windows on ps3, the 100ms default isn't a b=
+ug,
+> it's aligned with what vendors actually tuned for.
 
-If the parent structure and anonymous structure have mismatched kflags
-(e.g., the parent has kflag=0 while the anonymous structure has kflag=1
-because it contains bitfields), the bitfield size encoded in the upper
-8 bits of member->offset is erroneously treated as part of the byte/bit
-offset, corrupting the resolved offset and failing to set last_bitsize.
-Similarly, btf_find_struct_member() pushed anonymous member offsets
-onto anon_stack without masking BTF_MEMBER_BIT_OFFSET() when kflag is set.
+> The measurement itself I think still holds - it's reading what the drive'=
+s
+> live APST table targets, not just trusting the label, and the wake cost a=
+t
+> ps4 was real regardless of why 43ms is the number on the tin. But that's =
+a
+> different question from whether Linux should default away from it.
 
-To fix this problem, update btf_find_struct_member() to return actual
-containing structure/union type via member_type, use appropriate
-__btf_member_bit_offset() to get bit offset, and use member_type for
-btf_type_kflag() in get_bitoffset_of_field().
+> What's the OEM precedent you mentioned - did lowering the bound before br=
+eak
+> something specific, or was it more general pushback? Trying to understand=
+ if
+> this needs to stay a boot-time opt-in (which it already is via
+> default_ps_max_latency_us) rather than ever being a compiled default, on =
+any
+> hardware.
 
-Fixes: c440adfbe302 ("tracing/probes: Support BTF based data structure field access")
-Assisted-by: Antigravity:gemini-3.7-flash
-Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
----
- This is separated from wprobe patch series v14.
- - https://lore.kernel.org/all/178810003326.64882.5820404025124695636.stgit@devnote2/
----
- kernel/trace/trace_btf.c   |   19 +++++++++++--------
- kernel/trace/trace_btf.h   |    3 ++-
- kernel/trace/trace_probe.c |   15 ++++++++-------
- 3 files changed, 21 insertions(+), 16 deletions(-)
+Hi, Ferran,
+The immediate reason for revising the previous algorithm was failure to
+meet Chromebook power consumption requirements (as mentioned in commit
+ebd8a93). But the problem is a generic one, excessively high power
+consumption is never OK and will occasionally be caught by OEMs during
+device qualification tests.
+Regards,
+Alexey
 
-diff --git a/kernel/trace/trace_btf.c b/kernel/trace/trace_btf.c
-index d3ba356d5503..ee7a04886bf6 100644
---- a/kernel/trace/trace_btf.c
-+++ b/kernel/trace/trace_btf.c
-@@ -61,16 +61,17 @@ struct btf_anon_stack {
- 
- /*
-  * Find a member of data structure/union by name and return it.
-- * Return NULL if not found, or -EINVAL if parameter is invalid.
-- * If the member is an member of anonymous union/structure, the offset
-- * of that anonymous union/structure is stored into @anon_offset. Caller
-- * can calculate the correct offset from the root data structure by
-- * adding anon_offset to the member's offset.
-+ * Return NULL if not found, or ERR_PTR(-EINVAL) if parameter is invalid.
-+ * If the member is a member of an anonymous union/structure, the bit offset
-+ * of that anonymous union/structure is stored into @anon_offset.
-+ * If @member_type is non-NULL, the actual containing structure/union type
-+ * of the found member is stored into @member_type.
-  */
- const struct btf_member *btf_find_struct_member(struct btf *btf,
- 						const struct btf_type *type,
- 						const char *member_name,
--						u32 *anon_offset)
-+						u32 *anon_offset,
-+						const struct btf_type **member_type)
- {
- 	struct btf_anon_stack *anon_stack;
- 	const struct btf_member *member;
-@@ -94,14 +95,16 @@ const struct btf_member *btf_find_struct_member(struct btf *btf,
- 			if (mtype && btf_type_is_struct(mtype) &&
- 			    top < BTF_ANON_STACK_MAX) {
- 				anon_stack[top].tid = tid;
--				anon_stack[top++].offset =
--					cur_offset + member->offset;
-+				anon_stack[top++].offset = cur_offset +
-+					__btf_member_bit_offset(type, member);
- 			}
- 		} else {
- 			name = btf_name_by_offset(btf, member->name_off);
- 			if (name && !strcmp(member_name, name)) {
- 				if (anon_offset)
- 					*anon_offset = cur_offset;
-+				if (member_type)
-+					*member_type = type;
- 				goto out;
- 			}
- 		}
-diff --git a/kernel/trace/trace_btf.h b/kernel/trace/trace_btf.h
-index 4bc44bc261e6..4bd26bceae23 100644
---- a/kernel/trace/trace_btf.h
-+++ b/kernel/trace/trace_btf.h
-@@ -8,4 +8,5 @@ const struct btf_param *btf_get_func_param(const struct btf_type *func_proto,
- const struct btf_member *btf_find_struct_member(struct btf *btf,
- 						const struct btf_type *type,
- 						const char *member_name,
--						u32 *anon_offset);
-+						u32 *anon_offset,
-+						const struct btf_type **member_type);
-diff --git a/kernel/trace/trace_probe.c b/kernel/trace/trace_probe.c
-index c4163904ba74..ce2a7bb00d28 100644
---- a/kernel/trace/trace_probe.c
-+++ b/kernel/trace/trace_probe.c
-@@ -625,6 +625,7 @@ static int get_bitoffset_of_field(char **pfieldname, const struct btf_type **pty
- {
- 	const struct btf_type *type = *ptype;
- 	const struct btf_member *field;
-+	const struct btf_type *mtype = NULL;
- 	struct btf *btf = ctx_btf(ctx);
- 	char *fieldname = *pfieldname;
- 	int bitoffs = 0;
-@@ -640,7 +641,7 @@ static int get_bitoffset_of_field(char **pfieldname, const struct btf_type **pty
- 
- 		anon_offs = 0;
- 		field = btf_find_struct_member(btf, type, fieldname,
--						&anon_offs);
-+						&anon_offs, &mtype);
- 		if (IS_ERR(field)) {
- 			trace_probe_log_err(ctx->offset, BAD_BTF_TID);
- 			return PTR_ERR(field);
-@@ -653,7 +654,7 @@ static int get_bitoffset_of_field(char **pfieldname, const struct btf_type **pty
- 		bitoffs += anon_offs;
- 
- 		/* Accumulate the bit-offsets of the dot-connected fields */
--		if (btf_type_kflag(type)) {
-+		if (btf_type_kflag(mtype)) {
- 			bitoffs += BTF_MEMBER_BIT_OFFSET(field->offset);
- 			ctx->last_bitsize = BTF_MEMBER_BITFIELD_SIZE(field->offset);
- 		} else {
-@@ -661,11 +662,11 @@ static int get_bitoffset_of_field(char **pfieldname, const struct btf_type **pty
- 			ctx->last_bitsize = 0;
- 		}
- 
--			type = btf_type_skip_modifiers(btf, field->type, NULL);
--			if (!type) {
--				trace_probe_log_err(ctx->offset, BAD_BTF_TID);
--				return -EINVAL;
--			}
-+		type = btf_type_skip_modifiers(btf, field->type, NULL);
-+		if (!type) {
-+			trace_probe_log_err(ctx->offset, BAD_BTF_TID);
-+			return -EINVAL;
-+		}
- 
- 		if (next)
- 			ctx->offset += next - fieldname;
+> Also - sorry for the fourth copy of this patch landing in your inbox on t=
+he
+> 28th. That was a bookkeeping failure on my end, not a deliberate re-post;=
+ it
+> went out after your reply had already arrived and should not have.
 
+That's OK)
+
+> Cheers,
+> Ferran
