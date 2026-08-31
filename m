@@ -1,90 +1,72 @@
-Received: from relay.hostedemail.com (smtprelay0011.hostedemail.com [216.40.44.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 597C937DEBF;
-	Mon, 31 Aug 2026 16:48:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5680437E5F9;
+	Mon, 31 Aug 2026 16:48:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788194926; cv=none; b=CQx09CUIxNIds3zTWGMR4iHsBys3hjo0WyOam20PjcDgPFVKM6XoJSNbIP6dFWiqRxykgFBjwDwPCyrTL4SuQg8fhM8kV0tHBBGxqDs5DvR60xN8zwRFRDez9b7CypuVI5gL0gip1euTEqjk2UcdrgBzWWL05r4qAFusc4/PV4c=
+	t=1788194938; cv=none; b=PauNcjA+yrHG+xeNWY35nW4wE3CZmjWlu6NLZ3FMsL0COiIL/cX7+D5fH1LyWHSHTh5cGiWcJfX/g23BOCoG3fHZwZGNId8pbNHXx8Xcdgl2jodPy4XgL9kvfcTf3Ae9ZtvNfRTw5yVa80L4CvDIHNZv1A/TEZcLDoPkaf+FH0w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788194926; c=relaxed/simple;
-	bh=lRUd4QhEQ+Tj2B1hEFCQEBwSYlblCpzjx8QTcT/F/BA=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ixPe0FKt/AyyZXawC8X8gKC/KXydfDEbGD5jqig5u1nMY/CP7BjfYs4I8cAjAOUsDQXLpng0wgHD23g9ebxQzPDeIOjepusWPG4ySvStIwq8l266YxF2lU9pkd4PmKcEdc9WTwL1rM3RyOB54FkTopVPNy4kJsQzL5bVpmZZO8g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=fjkoNEou; arc=none smtp.client-ip=216.40.44.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	s=arc-20240116; t=1788194938; c=relaxed/simple;
+	bh=tMqvzM+NtaDomdUobueJyQAk0vekXFDVCKXdce+Qo28=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=PlA1am9gggpAKxt/RM6BQHzr/s0P41YF/EcaTMK/laAp/zHzb7UeIWmPMFutsu0bwuo5HVH3CtB09cARBR7s8Uf/sw4kQXgzXnwcpY8VYTLVKn/FXVxzU3kjLotmqCzJk1brGDHUXT1Hl//4HryI4GwdmKreTW6F7kNQ87kRD3Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W2glTfmZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="fjkoNEou"
-Received: from omf02.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay02.hostedemail.com (Postfix) with ESMTP id 9EB131201B5;
-	Mon, 31 Aug 2026 16:48:34 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf02.hostedemail.com (Postfix) with ESMTPA id 1231480013;
-	Mon, 31 Aug 2026 16:48:32 +0000 (UTC)
-Date: Mon, 31 Aug 2026 12:49:28 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Cc: Petr Mladek <pmladek@suse.com>, Thomas Gleixner <tglx@kernel.org>, Peter
- Zijlstra <peterz@infradead.org>, linux-kernel@vger.kernel.org,
- linux-hardening@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Kees Cook
- <kees@kernel.org>, Rasmus Villemoes <linux@rasmusvillemoes.dk>, Sergey
- Senozhatsky <senozhatsky@chromium.org>, Tycho Andersen <tycho@tycho.pizza>,
- Linus Torvalds <torvalds@linuxfoundation.org>
-Subject: Re: [PATCH v2 2/2] kallsyms: Document why unresolved symbols are
- revealed
-Message-ID: <20260831124928.22e163ab@gandalf.local.home>
-In-Reply-To: <20260831133729.p5ylO7O6@linutronix.de>
-References: <20260821152614.2202196-1-bigeasy@linutronix.de>
-	<20260821152614.2202196-3-bigeasy@linutronix.de>
-	<ao8SeCCG65uwH-Tk@pathway.suse.cz>
-	<20260827102411.NsziRXyJ@linutronix.de>
-	<20260831133729.p5ylO7O6@linutronix.de>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W2glTfmZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 055321F000E9;
+	Mon, 31 Aug 2026 16:48:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788194936;
+	bh=vzmYtLl5bnZOyvIqYRapFlptSXbUlhDwouajn9hEDXs=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=W2glTfmZaiCan90uw5FC3c4RvzK8rWr034AX38DzUkL4AG7pYytmfDNkvwV6U4LZK
+	 fE17JFcS3JWoSAI6bl7fkJEAmMkTJmVdWgBsBp6NBme0sJ0ql4zGky6a9q51MMOL/w
+	 +za2w6/gIRKrCixnikIKjDNsyaGRfK/Qltsolq4qu+3Z+WzZMg8WGEtVWDgypJaI/O
+	 5k8i9nu4AIfBmUclVqS9r1uEwKOpUXD21Bnyzg1Hf/UoDdhUU9VKSSaJDxF7NgBfxy
+	 ZrPDDMD9/ohkkz+FNck0TdtgjZhyMiBy9RE06+bQKUKhxAkncCq1/gC1mBg/3D6DTS
+	 +SUpKFXDPpDQQ==
+From: Bjorn Andersson <andersson@kernel.org>
+To: Mathieu Poirier <mathieu.poirier@linaro.org>,
+	Rohit kumar <rohitkr@codeaurora.org>,
+	Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
+	Anup Vishwakarma <anup.vishwakarma@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org,
+	linux-remoteproc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: [PATCH] remoteproc: qcom_q6v5_adsp: Fix double jiffies conversion in adsp_start()
+Date: Mon, 31 Aug 2026 11:48:47 -0500
+Message-ID: <178819492777.1319417.13157039707797004081.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260831-b4-adsp_start_jiffies_fix_upstream-v1-1-9f8cf85ea220@oss.qualcomm.com>
+References: <20260831-b4-adsp_start_jiffies_fix_upstream-v1-1-9f8cf85ea220@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Rspamd-Queue-Id: 1231480013
-X-Stat-Signature: ituq6i7baidazb4su8x6ado1funz1tzm
-X-Rspamd-Server: rspamout07
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX18ZqRGqxs7puIId+Ef8aZBJDsOIRf12WwY=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=WsljotfB7onrjzTjyEtxNzvepuY6gZ4jRtvpx8W7cqM=; b=fjkoNEouMaMDTWCOK4aay+7yuGukaFP9gZHNq15hUjvwkTTTV2X/dwfVEYBYqmxjMUJjcmoT7kqaLahlmYGx9AUehEfUmgDm0XjTxOFSIl2DAS5nKIXVDP94i6nYxDuJcBclYJuDn8a65/0YFZ5OpkJTszwxwC5852K3FU13uL4=
-X-HE-Tag: 1788194911-300693
-X-HE-Meta: U2FsdGVkX189353ttIQiKGJiTablLs8NIEZkRSyuoaBHovZqSJD/mYcHZe5Gqwy92TuejBV5506vJR6qnmKVnd4YH7QxNQ7uomvA7jlDotKXva6BROYEAiDJzr40JsOCXmRH5mGmZc4ND+YxMRqCFcF3ntInynf3eEyBHS8Chnv4pqSS1th/HqYeHoz9MKqqG1JNsX+LFfX1Yf1efxY6vtDMFCId5ux5aKeLL0/STg87iR90S6li8Fsix9XFff+GhcCp7Tf5WZ/5k38tX49YPL+8x0ETsBHGpGKAi3u5DbOThdVEzZQcS2Ub7X2yQ2UvKmE0AMbtEF7W0xEcU+yV+NTy//9s9HW/
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-On Mon, 31 Aug 2026 15:37:29 +0200
-Sebastian Andrzej Siewior <bigeasy@linutronix.de> wrote:
 
-> Could someone yell here, please? I convinced myself that hiding
-> unresolved pointers is the good thing to do here since a "wrong" pointer
-> would be seen in backtrace anyway.
+On Mon, 31 Aug 2026 18:09:08 +0530, Anup Vishwakarma wrote:
+> adsp_start() computes 5 * HZ, an already-converted jiffies count, and
+> passes it into msecs_to_jiffies(), which expects milliseconds --
+> reinterpreting the value and shrinking the intended timeout. Every
+> other caller (q6v5_start() in qcom_q6v5_mss.c, qcom_pas_start() in
+> qcom_q6v5_pas.c) passes msecs_to_jiffies(5000) directly, matching
+> qcom_q6v5_wait_for_start()'s kerneldoc, which documents @timeout as
+> already being in jiffies.
 > 
-> Thread starts at
-> 	https://lore.kernel.org/all/20260821152614.2202196-1-bigeasy@linutronix.de/
+> [...]
 
-I wonder if we should just tagged hash values as such:
+Applied, thanks!
 
-| [    1.498171]  <TASK>
-| [    1.498172]  00000000cb9bc262 [hash]
-| [    1.498174]  ? 00000000eb5021dd [hash]
-| [    1.498176]  00000000ed1a9938 [hash]
-| [    1.498178]  </TASK>
+[1/1] remoteproc: qcom_q6v5_adsp: Fix double jiffies conversion in adsp_start()
+      commit: f559ef6316971fe39dc5f5edd6a483429ba03768
 
-So that people will know that the value is just some random hash value and
-not a real address.
-
-Although rather useless in call stacks, I like hash values because the same
-address will show up the same.
-
-Having '[unknown]' may also be confusing because it doesn't really say
-"why" it was unknown. But having a number goes back to what it always did.
-Hashing it with a "[hash]" marker will also let people know the value was
-hashed.
-
--- Steve
+Best regards,
+-- 
+Bjorn Andersson <andersson@kernel.org>
