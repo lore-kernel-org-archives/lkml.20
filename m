@@ -1,43 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EF7E42DA20;
-	Mon, 31 Aug 2026 13:33:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 292D143636A;
+	Mon, 31 Aug 2026 13:33:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183210; cv=none; b=qFto6HJjS4+bbGa1af61Z30whLUnUdcI81vD6B1ixyCtT1p8Yh+1/tt5+PkAkCGb6ygFcBjj8Zm2NZR0JXSEIjpYoBy9r2f1GCsIz9Gh57IXqi/orbEX+HXWWcIFjdXTa6+NFJuHe5mXHy+6+gPWygfhKcxK0DDZV4yRYjl6ado=
+	t=1788183214; cv=none; b=cr+jDawbArav4WjcWlJv3pCbKW4lMCdYS44noCXyr/FGwKs59P1gmZ6KIvbpxY57VpMzYE+7tCyiS5U7RxKWIpZAhrXg2Hrl/ZRc+2j2u5SoynPp2wrwp34GXx9i7YL0DUGfkih46g5sAOqewCzqvgiI2D/rewNkKyQu4IHKtes=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183210; c=relaxed/simple;
-	bh=Cpdq/hdLgHOnK2/2Df8uliquYDhINglA8BG+lAA2qb4=;
+	s=arc-20240116; t=1788183214; c=relaxed/simple;
+	bh=GgoK44ToOxpQOb9pHrS0uWo5FrJYpbjz15udKZwiH4g=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=QbGcsfuEkPqTsA1zHadI2BHV4KS+gCyZx0YXgHl5PGX6mKh0x25fvOk/4mKxupsTr8rcWoj6JxnghKXd2oTfIecvlbyBM6CM5AtiOT4ZKKDYTru3aijizzmurzb8eZyo8AAesm7Iw1jFyH2QZ3Mbyjk7+zDEYNJQRGDsXoe67bQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R//+bULy; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=n/Zjrd0JBwsmeGZtfqX0AkZgvuwIfm97JgsRp500eKBd6n4/W+lk6crxY5tDGCiztacKAWlKi9c/yZtqIYSRwOLXQ0gxctNHgyl3Vh4VdoExVRnn4PZpeVZyXqMqrQJvJbBDEyuD+OQBdUgzcZ/UVbIGQXuhYRzQI757tv8HO6w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nAbybSi7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R//+bULy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30E701F000E9;
-	Mon, 31 Aug 2026 13:33:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nAbybSi7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FDD91F00A3E;
+	Mon, 31 Aug 2026 13:33:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788183209;
-	bh=dsJxYGfTejdNN0K+N2I9dd0MGqetmjFk7kICNZ32h50=;
+	s=k20260515; t=1788183211;
+	bh=vUpCbj518q8jGpORKgaCJbcqBE6unMNUixhJOVRkWu8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=R//+bULyW7jwqzY0pCOZGK0mLliQnsISYggrICGt2tIquF4f4DM9KvSng3r5AMOMy
-	 3hKzYPBEEJMqU2mNibqQ7OsJr86kRenWhmTf9keMhuCdq2VHXe+hmJHAjbrj9zQjCC
-	 0OZbNCiySroQkZS9gbnrmzYQWLMdO8sTe13BNqJLyfZ2zznqvypwhEC7WViQGRcNvW
-	 s6UqkOtuOoAhW19X8sh1SSH1I/WP6qSnaiCF20soGcCJVWw25k9VCgyu3S/Y3RkTB4
-	 Z2Wddl2lmjgT81a5CpQu809nKyLnoRiD+g+c2zCDi3196BM0qliN+OEzYWtaXKU4Ld
-	 01d2mhacYsJOg==
+	b=nAbybSi7sayZdVEQOVempz2oG/rdHC0S7DwaBn7rQ2FpK6WkB1j9ETgV0N5Se8H/t
+	 K4s/jYZl/JEaKO/K5IaGyPHTthJfSTc6wt7xVKssMBzgRxBfIeTgNNYOciWESx0Xwb
+	 q0S18Uydpa6KNlPPEYCCz7Qxtk4Qb4eRhEv5kvdms6bML9upcQ4TjjsxBdP3sHhrJK
+	 ZasCqqmRfp1PlGfDRgX0BVFdFuU4E8nxFAcqdRsy+Sd5wAoth+xbKjnO4vKd7/0j8y
+	 dyRq59ZUdtamkgB/w5vPwXr83HbfXtK6Pepr2JAA+3iaXveBRyO8obnfX0YRcd7uWm
+	 aNQZNO4gNp8Eg==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Yu Peng <pengyu@kylinos.cn>,
-	Will Deacon <will@kernel.org>,
+Cc: Breno Leitao <leitao@debian.org>,
+	Paolo Abeni <pabeni@redhat.com>,
 	Sasha Levin <sashal@kernel.org>,
-	catalin.marinas@arm.com,
-	linux-arm-kernel@lists.infradead.org,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-5.10] arm64: fixmap: Allow 256K early_ioremap() at any offset
-Date: Mon, 31 Aug 2026 09:20:37 -0400
-Message-ID: <20260831133314.4125787-9-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-6.12] netconsole: take target_cleanup_list_lock in drop_netconsole_target()
+Date: Mon, 31 Aug 2026 09:20:39 -0400
+Message-ID: <20260831133314.4125787-11-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -53,378 +56,374 @@ X-stable-base: Linux 6.18.48
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Yu Peng <pengyu@kylinos.cn>
+From: Breno Leitao <leitao@debian.org>
 
-[ Upstream commit 21fc7ec93f8b633b60d5bddef2f1529ff6b36185 ]
+[ Upstream commit 91aeb87f052367a5a2743cc93777dfb4386f2f14 ]
 
-NR_FIX_BTMAPS is the per-slot page limit for early_ioremap(). Since
-__early_ioremap() maps the page-aligned physical range, a 256K request
-can require one extra page when the physical address is not page-aligned.
+drop_netconsole_target() unlinks the target while only holding
+target_list_lock. However, when the underlying interface has been
+unregistered, netconsole_netdev_event() moves the target from
+target_list to target_cleanup_list, and netconsole_process_cleanups_core()
+walks that list under target_cleanup_list_lock only.
 
-Reserve one extra page per slot so the 256K mapping budget is usable
-regardless of the initial page offset.
+If a user removes the configfs target at the same time the cleanup
+worker is iterating target_cleanup_list, list_del() can corrupt the list
+because the two paths take disjoint locks while operating on the same
+list node.
 
-Link: https://lore.kernel.org/r/08fd96fa-ee3a-4904-bd11-bb08bd90436f@kylinos.cn
-Signed-off-by: Yu Peng <pengyu@kylinos.cn>
-Signed-off-by: Will Deacon <will@kernel.org>
+Acquire target_cleanup_list_lock around the list_del() so the unlink is
+serialised against netconsole_process_cleanups_core() regardless of
+which list the target currently belongs to. The state transition that
+downgrades STATE_DEACTIVATED to STATE_DISABLED is left intact and is
+performed under the same combined locking, preserving the existing
+ordering with resume_target().
+
+Signed-off-by: Breno Leitao <leitao@debian.org>
+Link: https://patch.msgid.link/20260604-netcons_fix_before_move-v3-3-ab055b3a6aa5@debian.org
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-# Stable Backport Analysis: `arm64: fixmap: Allow 256K early_ioremap()
-at any offset`
+# Stable backport analysis: `netconsole: take target_cleanup_list_lock
+in drop_netconsole_target()`
 
-**Local tree:** `v6.18.44-2-g1b9e1abadee04` (detached from
-`stable/linux-6.18.y`, kernel version **6.18.44**)
+**Local tree:** `v6.18.44` (Linux 6.18.44 stable)
+**Mainline commit:** `91aeb87f05236` (not present in this tree)
 
 ---
 
 ## PHASE 1: COMMIT MESSAGE FORENSICS
 
-### Step 1.1: PARSE THE SUBJECT LINE
-**Record:** `[arm64: fixmap]` `[Allow]` — fix boot-time fixmap slot
-sizing so a full 256K `early_ioremap()` works at any physical page
-offset.
+### Step 1.1: Subject line
+**Record:** `[netconsole]` `[take/acquire lock]` — Serialize
+`drop_netconsole_target()` list unlink against
+`netconsole_process_cleanups_core()` by taking
+`target_cleanup_list_lock`.
 
-### Step 1.2: PARSE ALL COMMIT MESSAGE TAGS
+### Step 1.2: Tags
 **Record:**
-- **Link:** `https://lore.kernel.org/r/08fd96fa-
-  ee3a-4904-bd11-bb08bd90436f@kylinos.cn`
-- **Signed-off-by:** Yu Peng `<pengyu@kylinos.cn>` (author)
-- **Signed-off-by:** Will Deacon `<will@kernel.org>` (arm64 maintainer,
-  committer on mainline)
-- **No** Fixes:, Reported-by:, Tested-by:, Reviewed-by:, Acked-by:, Cc:
-  stable@
-- Notable: maintainer commit/sign-off on mainline (`21fc7ec93f8b6`); no
-  syzbot or user bug report
+- **Signed-off-by:** Breno Leitao `<leitao@debian.org>` (author)
+- **Signed-off-by:** Paolo Abeni `<pabeni@redhat.com>` (netdev
+  committer)
+- **Link:** https://patch.msgid.link/20260604-netcons_fix_before_move-
+  v3-3-ab055b3a6aa5@debian.org
+- No `Fixes:`, `Reported-by:`, `Cc: stable@vger.kernel.org`, `Reviewed-
+  by:`, `Tested-by:`
 
-### Step 1.3: ANALYZE THE COMMIT BODY TEXT
+Notable: netdev maintainer committed it; no syzbot/fuzzer report.
+
+### Step 1.3: Body analysis
 **Record:**
-- **Bug:** `NR_FIX_BTMAPS` is the per-slot page budget for
-  `early_ioremap()`. `__early_ioremap()` page-aligns the physical range,
-  so a 256K request at a non-page-aligned address can require **one
-  extra page** (65 pages on 4K kernels).
-- **Symptom:** `WARN_ON(nrpages > NR_FIX_BTMAPS)` in `__early_ioremap()`
-  → returns `NULL` → early-boot mapping failure.
-- **Root cause:** `NR_FIX_BTMAPS` was defined as exactly `SZ_256K /
-  PAGE_SIZE` (64 on 4K pages), without room for alignment slop.
-- **No** explicit kernel version range in the message.
+- **Bug:** `drop_netconsole_target()` unlinks a target under only
+  `target_list_lock`, while `netconsole_netdev_event()` can move the
+  target to `target_cleanup_list`, and
+  `netconsole_process_cleanups_core()` walks that list under only
+  `target_cleanup_list_lock`.
+- **Symptom:** Concurrent `list_del()` vs. list iteration can corrupt
+  the kernel linked list.
+- **Root cause:** Disjoint locks on the same list node.
+- **Fix:** Hold `target_cleanup_list_lock` around the `list_del()` path.
+- **Version info:** None in the message; bug exists wherever deferred
+  cleanup (`target_cleanup_list`) exists.
 
-### Step 1.4: DETECT HIDDEN BUG FIXES
-**Record:** Not disguised — this is an explicit correctness fix for
-fixmap slot sizing, not style cleanup.
+### Step 1.4: Hidden bug fix?
+**Record:** No — this is an explicit concurrency/list-corruption fix,
+not disguised cleanup.
 
 ---
 
 ## PHASE 2: DIFF ANALYSIS
 
-### Step 2.1: INVENTORY THE CHANGES
+### Step 2.1: Inventory
 **Record:**
-- **Files:** `arch/arm64/include/asm/fixmap.h` (+5 / -1 lines, ~6 lines
-  changed)
-- **Scope:** Single-header, surgical change
-- **Modified:** `NR_FIX_BTMAPS` macro and comment block in `enum
-  fixed_addresses`
+- **Files:** `drivers/net/netconsole.c` (+2 lines on mainline; user's
+  diff shows +4 with surrounding context)
+- **Function:** `drop_netconsole_target()`
+- **Scope:** Single-file, surgical locking fix
 
-### Step 2.2: UNDERSTAND THE CODE FLOW CHANGE
+### Step 2.2: Code flow change
 **Record:**
-- **Before:** `NR_FIX_BTMAPS = SZ_256K / PAGE_SIZE` (64 pages @ 4K)
-- **After:** `NR_FIX_BTMAPS = (SZ_256K / PAGE_SIZE) + 1` (65 pages @ 4K)
-- **Affected path:** `__early_ioremap()` in `mm/early_ioremap.c` — early
-  boot only (`WARN_ON(system_state >= SYSTEM_RUNNING)`)
+- **Before:** `list_del(&nt->list)` under `target_list_lock` only.
+- **After:** `mutex_lock(&target_cleanup_list_lock)` →
+  `spin_lock_irqsave(&target_list_lock)` → state handling + `list_del()`
+  → unlock spinlock → `mutex_unlock(&target_cleanup_list_lock)`.
+- **Path affected:** Configfs target removal (`drop_item` callback),
+  error/admin teardown path.
 
-Relevant existing logic:
+### Step 2.3: Bug mechanism
+**Record:** **Category:** Race condition / list corruption.
+**Mechanism:** Two paths operate on the same `list_head` with non-
+overlapping locks (`target_list_lock` vs. `target_cleanup_list_lock`).
+Matches the locking pattern already used in `enabled_store()` (disable)
+and `netconsole_netdev_event()`.
 
-```131:140:mm/early_ioremap.c
-        offset = offset_in_page(phys_addr);
-        phys_addr &= PAGE_MASK;
-        size = PAGE_ALIGN(last_addr + 1) - phys_addr;
-        // ...
-        nrpages = size >> PAGE_SHIFT;
-        if (WARN_ON(nrpages > NR_FIX_BTMAPS))
-                return NULL;
-```
-
-### Step 2.3: IDENTIFY THE BUG MECHANISM
-**Record:** **Logic/correctness — off-by-one in fixmap page budget.**
-Category: boot-time mapping failure / NULL return from
-`early_ioremap()`.
-
-Verified math: for `size = SZ_256K` and any `offset_in_page(phys) != 0`,
-`nrpages = 65` while `NR_FIX_BTMAPS = 64` → failure.
-
-### Step 2.4: ASSESS THE FIX QUALITY
-**Record:**
-- **Obviously correct:** Yes — standard fix for page-aligned mapping of
-  unaligned ranges.
-- **Minimal:** Yes — one macro change + comment.
-- **Regression risk:** Very low — adds 7 extra fixmap pages total (7
-  slots × 1 page). Cherry-pick auto-merges cleanly on this tree.
-- **Side effect:** `MAX_MAP_CHUNK` / `MAP_CHUNK_SIZE` grow by one page,
-  correctly reflecting usable mapping budget.
+### Step 2.4: Fix quality
+**Record:** Obviously correct; mirrors existing lock ordering in the
+same file. Minimal regression risk; no API changes. On 6.18.44 the same
+mutex addition around `list_del()` is sufficient without
+`STATE_DEACTIVATED` logic (not in this tree).
 
 ---
 
 ## PHASE 3: GIT HISTORY INVESTIGATION
 
-### Step 3.1: BLAME THE CHANGED LINES
-**Record:** Current `NR_FIX_BTMAPS` lines blame to `5d324e5159d9e`
-(merge, Nov 2025) in this checkout. Value `SZ_256K / PAGE_SIZE` present
-since at least **v5.10** through **v6.18.44** on arm64.
+### Step 3.1: Blame
+**Record:** `drop_netconsole_target()` list unlink dates to
+`0bcc1816188e57` (2007). The race was introduced when deferred cleanup
+was added in `97714695ef904` (2024-08-13, Breno Leitao). That commit is
+an ancestor of this tree.
 
-### Step 3.2: FOLLOW THE FIXES: TAG
-**Record:** N/A — no `Fixes:` tag in commit message.
+### Step 3.2: Fixes: tag
+**Record:** N/A — no `Fixes:` tag. Bug introduced by `97714695ef904`
+("Defer netpoll cleanup to avoid lock release during list traversal").
 
-### Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES
-**Record:** Standalone 1-patch series (v1 only per `b4 dig -a`).
-Mainline commit: `21fc7ec93f8b6`. Merged to master after `Linux 6.18.44`
-(`1efe5d048a391`). No prerequisite commits.
+### Step 3.3: Related file history
+**Record:** Recent netconsole fixes in this tree include race fixes
+(e.g. `00764aa5c9bbb` userdata locking). `STATE_DEACTIVATED` /
+`resume_wq` commits (`e8f4005ab2d48`, `220dbe3c76ed1`, `4cfcd6acc295c`)
+are on `master` only — **not** in 6.18.44.
 
-### Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS
-**Record:** Yu Peng — not a regular arm64 maintainer; patch
-reviewed/applied by Will Deacon (arm64 maintainer).
+### Step 3.4: Author context
+**Record:** Breno Leitao authored the deferred-cleanup infrastructure
+and this fix. Paolo Abeni committed both.
 
-### Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS
-**Record:** None. Self-contained header change. Applies standalone.
+### Step 3.5: Dependencies
+**Record:** Standalone for the cleanup-list race on 6.18.44. Mainline
+patch is v3 3/5 of a series, but this specific hunk does not require
+other series patches for the race described. `STATE_DEACTIVATED`
+handling in mainline is additional context not present here.
 
 ---
 
 ## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
-### Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION
-**Record:**
-- **URL:**
-  https://patch.msgid.link/20260708023514.2445926-1-pengyu@kylinos.cn
-- **Series:** v1 only (no v2/v3)
-- **Will Deacon reply:** "Applied to arm64 (for-next/fixes), thanks!" —
-  no NAKs, no stable nomination in thread
+### Step 4.1: Original discussion
+**Record:** `b4 dig -c 91aeb87f05236` → https://patch.msgid.link/2026060
+4-netcons_fix_before_move-v3-3-ab055b3a6aa5@debian.org
+Series: v1 (2026-05-29), v3 (2026-06-04, 5 patches). Applied version is
+latest v3.
 
-### Step 4.2: CHECK WHO REVIEWED THE PATCH
-**Record:** CC'd: Catalin Marinas, Will Deacon, Thomas Huth, linux-arm-
-kernel, linux-kernel. Applied directly by Will Deacon.
+### Step 4.2: Reviewers
+**Record:** `b4 dig -w`: CC'd netdev maintainers (Miller, Kicinski,
+Abeni, Dumazet, etc.) and `netdev@vger.kernel.org`.
 
-### Step 4.3: SEARCH FOR THE BUG REPORT
-**Record:** No Reported-by, syzbot, or bugzilla link. Code-
-analysis/maintainer-accepted fix.
+### Step 4.3: Bug report
+**Record:** No external bug report; issue found by code analysis during
+the netconsole fix series.
 
-### Step 4.4: CHECK FOR RELATED PATCHES AND SERIES
-**Record:** Single-patch series. RISC-V and powerpc use the same
-`SZ_256K / PAGE_SIZE` pattern but are out of scope for this arm64-only
-commit.
+### Step 4.4: Series context
+**Record:** Part of "netconsole: Fix reported problems" (v3 0/5). This
+patch (3/5) is self-contained for the cleanup-list race.
 
-### Step 4.5: CHECK STABLE MAILING LIST HISTORY
-**Record:** Not searched separately; no stable discussion found in patch
-thread.
+### Step 4.5: Stable list history
+**Record:** No `Cc: stable` or stable-list discussion found in the
+downloaded mbox thread.
 
 ---
 
 ## PHASE 5: CODE SEMANTIC ANALYSIS
 
-### Step 5.1: IDENTIFY KEY FUNCTIONS IN THE DIFF
-**Record:** Macro only — affects `__early_ioremap()`, `early_ioremap()`,
-`early_memremap()`, `copy_from_early_mem()` (via `MAX_MAP_CHUNK`), ACPI
-`MAP_CHUNK_SIZE`.
+### Step 5.1: Key functions
+**Record:** `drop_netconsole_target()`,
+`netconsole_process_cleanups_core()`, `netconsole_netdev_event()`,
+`enabled_store()` (disable path).
 
-### Step 5.2: TRACE CALLERS
-**Record:** On arm64, `__acpi_map_table()` → `early_memremap(phys,
-size)` maps whole ACPI tables without chunking
-(`arch/arm64/kernel/acpi.c`). Also EFI early paths, generic
-`copy_from_early_mem()`. All early-boot, pre-`SYSTEM_RUNNING`.
-
-Chunking helpers (`copy_from_early_mem`, `acpi_table_upgrade`) already
-limit `clen + slop <= MAP_CHUNK_SIZE` with page-aligned `phys`, so they
-stay within 64 pages today. **Direct** `early_memremap(phys, ~256K)` at
-misaligned `phys` is the failure path.
-
-### Step 5.3: TRACE CALLEES
-**Record:** `__early_ioremap()` → `__early_set_fixmap()` /
-`__late_set_fixmap()` per page.
-
-### Step 5.4: FOLLOW THE CALL CHAIN
-**Record:** Reachable during kernel boot on ACPI/EFI arm64 systems. Not
-a post-boot userspace syscall path, but boot failure is severe.
-
-### Step 5.5: SEARCH FOR SIMILAR PATTERNS
-**Record:** Identical `SZ_256K / PAGE_SIZE` define in
-`arch/riscv/include/asm/fixmap.h` and
-`arch/powerpc/include/asm/fixmap.h` — same latent bug, different arch.
-
----
-
-## PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
-
-### Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?
-**Record:** **YES.** Current tree has:
-```
-#define NR_FIX_BTMAPS           (SZ_256K / PAGE_SIZE)
-```
-Bug present since at least v5.10 on arm64 (verified across tags
-v5.10–v6.18.44). Fix **not** present on this 6.18.44 tree; **is** on
-`master`.
-
-### Step 6.2: CHECK FOR BACKPORT COMPLICATIONS
-**Record:** **Clean apply** — tested `git cherry-pick --no-commit
-21fc7ec93f8b6`: auto-merged `arch/arm64/include/asm/fixmap.h` with no
-conflicts.
-
-### Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE
-**Record:** No equivalent fix in this tree. `master` has commit
-`21fc7ec93f8b6`.
-
----
-
-## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
-
-### Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY
-**Record:** **arm64 boot / fixmap / early_ioremap** — **CORE** for arm64
-boot; affects all arm64 kernels using early MMIO/ACPI/EFI mappings.
-
-### Step 7.2: ASSESS SUBSYSTEM ACTIVITY
-**Record:** Active; fix landed in arm64-fixes for post-6.18 mainline.
-
----
-
-## PHASE 8: IMPACT AND RISK ASSESSMENT
-
-### Step 8.1: DETERMINE WHO IS AFFECTED
-**Record:** **Platform-specific (arm64)** — all arm64 builds;
-practically relevant for ACPI/EFI early-boot mapping when a ~256K region
-is mapped at a non-page-aligned physical address.
-
-### Step 8.2: DETERMINE THE TRIGGER CONDITIONS
+### Step 5.2: Callers
 **Record:**
-- `early_ioremap()` / `early_memremap()` with `size` near `SZ_256K` and
-  `phys % PAGE_SIZE != 0`
-- Uncommon but deterministic; firmware-chosen ACPI table placement can
-  satisfy this
-- Not a post-boot unprivileged syscall trigger
+- `drop_netconsole_target` → configfs `drop_item` (admin removes target
+  via configfs)
+- `netconsole_process_cleanups_core` → `netconsole_process_cleanups()`
+  and directly from `netconsole_netdev_event()`
+- `netconsole_netdev_event` → netdev notifier (interface
+  unregister/release/join/changename)
 
-### Step 8.3: DETERMINE THE FAILURE MODE SEVERITY
-**Record:** `WARN_ON` + `NULL` return from `__early_ioremap()` →
-ACPI/EFI early mapping failure → **boot failure or ACPI broken**.
-Severity: **HIGH** for affected configs (boot-time), though trigger
-frequency is **LOW**.
+### Step 5.3: Callees
+**Record:** `list_del()`, `list_move()`, `do_netpoll_cleanup()`,
+`mutex_lock`/`spin_lock_irqsave`.
 
-### Step 8.4: CALCULATE RISK-BENEFIT RATIO
+### Step 5.4: Reachability
+**Record:** Requires `CONFIG_NETCONSOLE` + `CONFIG_NETCONSOLE_DYNAMIC`.
+Trigger: netdev unregister (or manual disable moving target to cleanup
+list) concurrent with configfs target removal. Admin/root configfs
+access required — not unprivileged userspace, but reachable in
+production netconsole setups.
+
+### Step 5.5: Similar patterns
+**Record:** All other paths that touch `target_cleanup_list` already
+take `target_cleanup_list_lock` first, then `target_list_lock`.
+`drop_netconsole_target()` is the outlier.
+
+---
+
+## PHASE 6: CROSS-REFERENCE AGAINST LOCAL TREE (6.18.44)
+
+### Step 6.1: Buggy code present?
+**Record:** **Yes.** Current `drop_netconsole_target()` at lines
+1329–1331:
+
+```1329:1331:drivers/net/netconsole.c
+        spin_lock_irqsave(&target_list_lock, flags);
+        list_del(&nt->list);
+        spin_unlock_irqrestore(&target_list_lock, flags);
+```
+
+`target_cleanup_list` infrastructure is present (since `97714695ef904`).
+Bug present since Aug 2024 in this series.
+
+### Step 6.2: Backport complications
+**Record:** **Needs rework** — literal mainline patch does not apply
+(`git apply --check` fails at line 1452; stable `drop_netconsole_target`
+is at ~1323). Adapted backport is trivial: add
+`mutex_lock/unlock(&target_cleanup_list_lock)` around the existing
+`list_del` block (2 lines).
+
+### Step 6.3: Related fixes already present?
+**Record:** Fix `91aeb87f05236` is **not** in this tree (`git merge-base
+--is-ancestor` confirms).
+
+---
+
+## PHASE 7: SUBSYSTEM CONTEXT
+
+### Step 7.1: Subsystem criticality
+**Record:** `drivers/net/netconsole.c` — **IMPORTANT** (network logging;
+used on servers for remote crash logs). Config-gated
+(`CONFIG_NETCONSOLE_DYNAMIC`).
+
+### Step 7.2: Activity
+**Record:** Actively maintained; multiple netconsole fixes landed in
+6.18.y.
+
+---
+
+## PHASE 8: IMPACT AND RISK
+
+### Step 8.1: Who is affected
+**Record:** Systems using dynamic netconsole (configfs-managed targets),
+especially during netdev teardown or target disable concurrent with
+configfs removal.
+
+### Step 8.2: Trigger conditions
+**Record:** Interface unregister/disable moves target to
+`target_cleanup_list`; admin simultaneously removes configfs target.
+Uncommon but realistic during network reconfiguration or module unload.
+Requires root.
+
+### Step 8.3: Failure mode
+**Record:** Kernel linked-list corruption → possible oops/panic.
+**Severity: HIGH** (crash); not a security issue for unprivileged users.
+
+### Step 8.4: Risk-benefit
 **Record:**
-- **Benefit:** MEDIUM-HIGH — restores intended 256K early_ioremap
-  budget; prevents deterministic boot failures in edge cases
-- **Risk:** VERY LOW — 7 extra fixmap pages, no API change, maintainer-
-  applied
-- **Ratio:** Favorable for stable
+- **Benefit:** Prevents real list corruption in production netconsole
+  setups
+- **Risk:** Very low — 2-line lock addition matching established pattern
+- **Ratio:** Favorable
 
 ---
 
 ## PHASE 9: FINAL SYNTHESIS
 
-### Step 9.1: COMPILE THE EVIDENCE
+### Step 9.1: Evidence summary
 
 **FOR backport:**
-- Real, deterministic off-by-one bug in fixmap sizing
-- Boot-time failure mode (NULL from `early_ioremap`)
-- Tiny, obviously correct fix; arm64 maintainer signed off
-- In mainline (`21fc7ec93f8b6`); cherry-picks cleanly to 6.18.44
-- Bug present in this tree since at least v5.10
-- Meets stable size rule (< 100 lines)
+- Real, verifiable race in existing 6.18.44 code
+- List corruption can crash the kernel
+- Fix is in mainline (`91aeb87f05236`)
+- Minimal, obviously correct, matches existing lock ordering
+- Bug introduced by code already in this tree (`97714695ef904`)
+- Same author who introduced the infrastructure
 
 **AGAINST backport:**
-- No user/syzbot report — edge-case trigger
-- Most chunking callers already avoid the failure
-- arm64-only (not a concern for this tree-specific verdict)
+- Narrow audience (`CONFIG_NETCONSOLE_DYNAMIC`)
+- Requires admin/configfs action
+- Literal patch does not apply cleanly (needs simple adaptation)
+- No user/fuzzer report
 
-**UNRESOLVED:** No documented production incident; impact inferred from
-code path analysis.
+**Unresolved:** No runtime crash report; no explicit stable nomination
+in lore thread.
 
-### Step 9.2: STABLE RULES CHECKLIST
-1. Obviously correct and tested? **PASS** — mathematically correct;
-   maintainer-applied to mainline (no explicit Tested-by)
-2. Fixes a real bug? **PASS** — deterministic `nrpages > NR_FIX_BTMAPS`
-   failure
-3. Important issue? **PASS** — boot-time mapping failure (HIGH severity,
-   lower frequency)
-4. Small and contained? **PASS** — 6 lines, one file
-5. No new features/APIs? **PASS** — sizing correction only
-6. Can apply to local tree? **PASS** — clean cherry-pick verified
+### Step 9.2: Stable rules checklist
+1. Obviously correct and tested? **PASS** — lock ordering matches
+   sibling paths; committed to mainline by netdev maintainer.
+2. Fixes real bug affecting users? **PASS** — concrete list-corruption
+   race on configfs removal.
+3. Important issue? **PASS** — kernel crash (HIGH severity, niche
+   config).
+4. Small and contained? **PASS** — 2 lines effective change on this
+   tree.
+5. No new features/APIs? **PASS**
+6. Can apply to local tree? **PASS with adaptation** — core fix applies;
+   literal hunk does not (`git apply --check` fails).
 
-### Step 9.3: EXCEPTION CATEGORIES
-**Record:** N/A — standard bug fix, not device-ID/quirk/build/doc
-exception.
+### Step 9.3: Exception categories
+**Record:** None (not device ID, quirk, DT, build, or docs).
 
-### Step 9.4: DECISION RATIONALE
-For **this 6.18.44 arm64 stable tree**, the buggy `NR_FIX_BTMAPS`
-definition exists and the fix is already in mainline. The patch is
-minimal, maintainer-backed, and prevents real early-boot
-`early_ioremap()` failures when the full 256K mapping budget is used at
-a misaligned physical address. Risk is negligible.
+### Step 9.4: Decision rationale
+This is a real concurrency bug in code present in Linux 6.18.44 since
+deferred cleanup was added. The fix is minimal, follows the file's
+established locking discipline, and is already in mainline. While the
+audience is limited to dynamic-netconsole users, list corruption is a
+serious failure mode. The patch needs a small backport adjustment for
+6.18.44's simpler `drop_netconsole_target()`, but the fix itself is
+independent of the `STATE_DEACTIVATED` machinery that exists only on
+newer mainline.
 
 ---
 
 ## Verification
 
-- [Phase 1] `git describe HEAD` → v6.18.44; parsed commit message tags
-- [Phase 2] Read `mm/early_ioremap.c` lines 100–160; confirmed alignment
-  → `nrpages` check
-- [Phase 2] Python math: offset 1/2048/4095 + 256K → `nrpages=65`,
-  `NR_FIX_BTMAPS=64`, `fail=True`
-- [Phase 3] `git blame` on fixmap.h; tags v5.10–v6.18.44 all show
-  `SZ_256K / PAGE_SIZE`
-- [Phase 3] `git show 21fc7ec93f8b6` — mainline commit details
-- [Phase 3] `git log 1efe5d048a391..master --grep='256K early_ioremap'`
-  — fix after 6.18.44
-- [Phase 4] `b4 dig -c 21fc7ec93f8b6` — lore URL found
-- [Phase 4] `b4 dig -c 21fc7ec93f8b6 -w` — maintainers CC'd
-- [Phase 4] `b4 dig -c 21fc7ec93f8b6 -a` — v1 only
-- [Phase 4] `b4 dig -m /tmp/fixmap_thread.mbox` — Will Deacon "Applied"
-  reply, no NAKs
-- [Phase 5] Grep `early_memremap`/`__acpi_map_table` call paths on arm64
-- [Phase 5] Read `arch/arm64/kernel/acpi.c` — direct
-  `early_memremap(phys, size)` without chunking
-- [Phase 6] `git show HEAD:arch/arm64/include/asm/fixmap.h` — buggy
-  macro confirmed
-- [Phase 6] `git show master:arch/arm64/include/asm/fixmap.h` — fixed
-  macro on master
-- [Phase 6] `git cherry-pick --no-commit 21fc7ec93f8b6` — clean auto-
-  merge
+- **[Phase 1]** Parsed subject, tags, body from provided commit message
+  and `git show 91aeb87f05236`
+- **[Phase 2]** Diff analysis: +2 lines on mainline; race between
+  `drop_netconsole_target` and `netconsole_process_cleanups_core`
+- **[Phase 3]** `git describe HEAD` → v6.18.44
+- **[Phase 3]** `git blame` on `drop_netconsole_target`: base from 2007;
+  race introduced `97714695ef904` (2024-08-13)
+- **[Phase 3]** `97714695ef904` is ancestor of HEAD
+- **[Phase 3]** `STATE_DEACTIVATED` commits not in tree
+- **[Phase 3]** Fix `91aeb87f05236` not in tree
+- **[Phase 4]** `b4 dig -c 91aeb87f05236`: lore URL found
+- **[Phase 4]** `b4 dig -a`: v1 and v3 series; v3 is latest
+- **[Phase 4]** `b4 dig -w`: netdev maintainers CC'd
+- **[Phase 4]** Mbox thread: no stable nomination or Reviewed-by found
+- **[Phase 5]** `grep` confirmed all `target_cleanup_list_lock` users
+  except `drop_netconsole_target`
+- **[Phase 5]** Read `netconsole_netdev_event`, `enabled_store`,
+  `netconsole_process_cleanups_core`
+- **[Phase 6]** Buggy code confirmed at lines 1329–1331 in local tree
+- **[Phase 6]** `git apply --check` on mainline patch: **fails** (needs
+  adaptation)
+- **[Phase 6]** `git log --oneline -20 -- drivers/net/netconsole.c`:
+  active subsystem
+- **[Phase 8]** Failure mode: list corruption → crash, HIGH severity,
+  config-specific
 
 ---
 
-**YES**Those background checks finished and line up with the earlier
-analysis:
+**YES**
 
-- **NR_FIX_BTMAPS history** — The `SZ_256K / PAGE_SIZE` definition has
-  been in arm64 `fixmap.h` since at least v5.10 through v6.18.44, so the
-  off-by-one bug is long-standing in this tree.
-- **Branch check** — The fix is on `master` (`21fc7ec93f8b6`); the
-  6.18.44 checkout still has the buggy `(SZ_256K / PAGE_SIZE)` define.
-- **Release timing** — The fix landed in mainline after the `Linux
-  6.18.44` tag, which is why it belongs as a stable backport.
+ drivers/net/netconsole.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-**Verdict for 6.18.y: YES** — small, maintainer-applied fix for a real
-early-boot `early_ioremap()` failure when mapping 256K at a misaligned
-physical address; cherry-picks cleanly.
-
- arch/arm64/include/asm/fixmap.h | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
-
-diff --git a/arch/arm64/include/asm/fixmap.h b/arch/arm64/include/asm/fixmap.h
-index 635a43c4ec85b..9288021ba93b1 100644
---- a/arch/arm64/include/asm/fixmap.h
-+++ b/arch/arm64/include/asm/fixmap.h
-@@ -78,8 +78,12 @@ enum fixed_addresses {
- 	/*
- 	 * Temporary boot-time mappings, used by early_ioremap(),
- 	 * before ioremap() is functional.
-+	 *
-+	 * Reserve one extra page so a 256K mapping may start at any
-+	 * offset within a page. early_ioremap() maps the page-aligned
-+	 * physical range, so the initial offset can consume an extra page.
- 	 */
--#define NR_FIX_BTMAPS		(SZ_256K / PAGE_SIZE)
-+#define NR_FIX_BTMAPS		((SZ_256K / PAGE_SIZE) + 1)
- #define FIX_BTMAPS_SLOTS	7
- #define TOTAL_FIX_BTMAPS	(NR_FIX_BTMAPS * FIX_BTMAPS_SLOTS)
+diff --git a/drivers/net/netconsole.c b/drivers/net/netconsole.c
+index 06345487d6aac..fec111d64f611 100644
+--- a/drivers/net/netconsole.c
++++ b/drivers/net/netconsole.c
+@@ -1326,9 +1326,11 @@ static void drop_netconsole_target(struct config_group *group,
+ 	unsigned long flags;
+ 	struct netconsole_target *nt = to_target(item);
  
++	mutex_lock(&target_cleanup_list_lock);
+ 	spin_lock_irqsave(&target_list_lock, flags);
+ 	list_del(&nt->list);
+ 	spin_unlock_irqrestore(&target_list_lock, flags);
++	mutex_unlock(&target_cleanup_list_lock);
+ 
+ 	/*
+ 	 * The target may have never been enabled, or was manually disabled
 -- 
 2.53.0
 
