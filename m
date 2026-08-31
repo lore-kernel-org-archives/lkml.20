@@ -1,239 +1,251 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 178774078CE;
-	Mon, 31 Aug 2026 12:37:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06C0C408611
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 12:37:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788179822; cv=none; b=XQIsHHkkMGUF2UP0amfAOFbbl/ckXpibJngYQhoue8h0ZcrPlWnVkgIsBwPV+i75tE4dGCtoV+3tSqSpz/gkW9vpRLMmR8tl3JCdEYmr9Tq3ND9giYmSgOtGSf1VHuw9SOkIPGryYmKCHNPFnzWUTv8WI84jrbG1CJi/YkV+49k=
+	t=1788179828; cv=none; b=nojJVRRb+c+qwo74cclHc02j1gZUmix8dqcMF4sR9mC8IEFTcc+mF4ezgPOrYLzK7WZ1db6UIq9kZWgcSstFzsz4iFjvKdaJCggIP2SY25FJ2II/JHRNjWN5gd/cBvpDzyv6P/zzCatsu8/J74XakKm7S55rjKIcF+KkciJGAK0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788179822; c=relaxed/simple;
-	bh=OaUHN0on2LFZSqFBMh91h9A5XaznbXGVGfJt1EFkZE4=;
-	h=Mime-Version:Content-Type:Date:Message-Id:To:Subject:Cc:From:
-	 References:In-Reply-To; b=Z0nTAt12k+op2VXPFpn1bHvI7l91jj47jnu5aVOGqBBGrK1byL+GBr0+ikAlI0T/IdeuNgdxzyg7+Pgv3Il8wmWSsvMk262ZtW71PmP01QQhWbYHCJRcRgCTPC+Uv1iZAt8Zt3B0D8FYB2b3zh8lv2q1XsxNUwhVBfzY3eas/F4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k+u9FIXm; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788179828; c=relaxed/simple;
+	bh=rxafdNkhfDfqTybQYvBD6c3YqwB52Q+nzoEnzCYqAtc=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=A4LBbimMPaBLbWdEIfThwNA3zPTiToHz08MA2IkgKx0wS5I1s7Ap164ZpI0orvXdvY7IK+npwpOYcDQKV0bugnsdCR3mkMjCRU5Oq40sYoDv8fkKnOoHlOPJ59hgO/D1e2GBFtAFdEp9W3fBeiqXByoYI/qbXHvBzBIF38yS100=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=9elements.com; spf=pass smtp.mailfrom=9elements.com; dkim=pass (2048-bit key) header.d=9elements.com header.i=@9elements.com header.b=K1XHC5SY; arc=none smtp.client-ip=209.85.221.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=9elements.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=9elements.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k+u9FIXm"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 3338C1F000E9;
-	Mon, 31 Aug 2026 12:37:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788179820;
-	bh=OOVncr/f4VG8zzLjULrj0DYaPhiNtz9Us9BQK+5A7RE=;
-	h=Date:To:Subject:Cc:From:References:In-Reply-To;
-	b=k+u9FIXm6xmN5F7UHqlVYnNFfd57RkHr6WFIMO9v7V6tgbCAyeIaxhTCtLD8tJk0A
-	 MgzncDTZMoXsJ8dNvNGDGWpvjd3r0m9So+nL6aaWd0RD3YnxO76tKbB7QjaUyF7lAb
-	 000S/il31mNJsblTWlo5OTaY/tDyQ9zWMxGDLjTXxHWpWL8zabEZtUaCasjv4hN1CP
-	 czrFG5DRdtqPHb+kbSCv4u+aY65Hwrx2KOnRD88TKJtGd84cemj7FssTd8ZWWBBv29
-	 ndP9VXWRRdT1pE3xouWALjrzfkqW5nNYR2TKCyf/eNvl3pKhVHa9LVffAMh4JBpAqQ
-	 aWsqsaIGB+gEQ==
+	dkim=pass (2048-bit key) header.d=9elements.com header.i=@9elements.com header.b="K1XHC5SY"
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-484362f5c4aso1257753f8f.3
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 05:37:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=9elements.com; s=google; t=1788179823; x=1788784623; darn=vger.kernel.org;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=v+j/HMcDeeoZ1SxGQJxVLKBNJDgbVV4ZRTow/yvavFk=;
+        b=K1XHC5SYcxnGaJQ7IIVVk74WmHlY9GT9xoczspG/I4CSA+ZLPcMmkIJlBEGpoFrYov
+         GWpoqZrhA3cWR/1FbOGocZkCfwkMaow9lyDuQ17kvrFdbaL7g28WdNhjdKtYZZQFSG3L
+         2mUFrQJi702uTcFFL3sYptIHeSNnNu1t3hLvMnvismdviy87q6IVlEmB3Q9eNF5oXx61
+         dK83PhJtDTPBFJHLmS325kNec26ujYKPj5Nh4gIstnTrZwjXvILT69wx14mTpyVTzKAJ
+         3WltxTga0F9gaEko1eDQmRMOHpSAWKY3Cvp+NBAOuGj/3Dvk9NYpjtKvp2LbFL09O2di
+         JZTQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788179823; x=1788784623;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=v+j/HMcDeeoZ1SxGQJxVLKBNJDgbVV4ZRTow/yvavFk=;
+        b=Q0NotPCdvCq+c18pX12N6uaTD1U/+t9aWbkAFMBEJXMUubZuTe7627OkdmwmpCxpmy
+         e+d3QODnUFYQuWKZ/WAthROgaQ96/oJhy+lC0q5KcR/h/8DtoVfdO9aB6U/IV/YrIpIb
+         Js9EqD8T/jH0UENb4aCnrMVAmbiwt84OGx7vYM77xwTsRdVysuyMWhjgeNOhUlStKLS9
+         H+hDSr91uOWLm0n1KyRxzIC9vBPiYgx8f6c/75WF+Y2aPqPDlJOwq2QV6SOOK8ph9yOQ
+         QQTZccFe+DqMr38oZvMxHPO0JtIkAuNUErRd72/oIzynWNvqggc8U1jj1gVD3y0v3QPH
+         CDVQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzyJeARgWw1v1y2kgy/SO31XGO0QS3V8GgI5TQpcwTkuXfPm6GKrPAMNoA3X2zUkxQ6/uQZrBV6542x/8c=@vger.kernel.org
+X-Gm-Message-State: AFuF++ljrxwxuSlSlqc5a9A3HYpKyL1vnxNSz0V1v292epU3mOzKJ5n+
+	TvNH2lM0YK1YM6nR36S88Rbd56yeVFtPcudqohjbrvkM90OUXz8Fr6AcuGc+VzUIIW19q+/zbCS
+	/MaMoPgE=
+X-Gm-Gg: AYBFou24iGKObUWEBeB7+IbWQPwpcdYbZQ6eb4BG8U+OCAkgYD5e1EUqbhg4whvt7rs
+	bNz9Ogu5Pp4x6Xe+8gV3TfbL0Q4hxJ7+zbroml/lpnJ7c/M/M+WaOQYYfXEX/RNbQDVb/yhxHIH
+	Kd6fJdxEZZ10RdmJ13XNC06XI2RSzpuGmDpsDa0NbgnfMOQmSSrtetggChlYZdiM25gluSvHS2+
+	NhIgS7l0TUQU6dw/TWlG8sIiPywe8VVQsCC6FxxmZZTxOTt2oaARwfvMvVglNuzk03DxOYy2xKy
+	r9tGtavhNkxT6Pg1CK5SllOz9NZDqmMPzZGyCN06GB9QfQ0VrFWMm1T82ITnmRfg4fgba5Uwt7M
+	6gLqLTw66J97BPyJzY3oDOm72IP10BlF4Lj7E6d7l0fcuJ4rldoIvprSO9zQ/wW4CkB7forNYwN
+	IAzeR5TdvJcUyuoRUZ09PI1D1+x76nxq17PHZ5i/Agc78oAvYIuTELsqE4ktaDFqqk/NWTA3Qn4
+	jThgKCHgUWARh3BzYsbhr9Wub6Nvko97xEmh3mYjNzfGKChGCR3kOI9/krQCGQf4E8v
+X-Received: by 2002:adf:e014:0:20b0:47f:7129:6e2d with SMTP id ffacd0b85a97d-48441010765mr717293f8f.17.1788179822646;
+        Mon, 31 Aug 2026 05:37:02 -0700 (PDT)
+Received: from white-mocha.local (p200300e66714e500cb5f91bd76cb96be.dip0.t-ipconnect.de. [2003:e6:6714:e500:cb5f:91bd:76cb:96be])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4843dcc00a6sm4540003f8f.33.2026.08.31.05.37.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Aug 2026 05:37:02 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: multipart/signed;
- boundary=f0e586ea3a10e95359c0d4b96a8104e1d279536c0a9993139697a11d4ad4;
- micalg=pgp-sha384; protocol="application/pgp-signature"
-Date: Mon, 31 Aug 2026 14:36:49 +0200
-Message-Id: <DL34U80UW849.3OYQBBTN7GRJ8@kernel.org>
-To: <tjakobsen84@protonmail.com>, "Pratyush Yadav" <pratyush@kernel.org>,
- "Takahiro Kuwano" <takahiro.kuwano@infineon.com>, "Miquel Raynal"
- <miquel.raynal@bootlin.com>, "Richard Weinberger" <richard@nod.at>,
- "Vignesh Raghavendra" <vigneshr@ti.com>, "Mark Brown" <broonie@kernel.org>
-Subject: Re: [PATCH v2 1/2] mtd: spi-nor: allow the platform to supply write
- protection state
-Cc: "Mika Westerberg" <mika.westerberg@linux.intel.com>,
- <linux-mtd@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
- <linux-spi@vger.kernel.org>
-From: "Michael Walle" <mwalle@kernel.org>
-X-Mailer: aerc 0.20.0
-References: <20260831-spi-nor-platform-lock-v2-0-6cc75b909241@protonmail.com> <20260831-spi-nor-platform-lock-v2-1-6cc75b909241@protonmail.com>
-In-Reply-To: <20260831-spi-nor-platform-lock-v2-1-6cc75b909241@protonmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v4 2/2] ARM: dts: aspeed: Add ASRock Rack B650D4U BMC
+From: Tan Siewert <tan.siewert@9elements.com>
+To: Prasanth Kumar Padarthi <prasanth.padarthi10@gmail.com>
+Cc: Joel Stanley <joel@jms.id.au>, 
+ Andrew Jeffery <andrew@codeconstruct.com.au>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Ryan Chen <ryan_chen@aspeedtech.com>, 
+ Billy Tsai <billy_tsai@aspeedtech.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20260830182036.284736-3-prasanth.padarthi10@gmail.com>
+References: <20260830182036.284736-1-prasanth.padarthi10@gmail.com>
+ <20260830182036.284736-3-prasanth.padarthi10@gmail.com>
+Date: Mon, 31 Aug 2026 14:36:34 +0200
+Message-Id: <178817979463.20922.10263529532171804189.b4-review@b4>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788179813; l=4261;
+ i=tan.siewert@9elements.com; s=20260527; h=from:subject:message-id;
+ bh=rxafdNkhfDfqTybQYvBD6c3YqwB52Q+nzoEnzCYqAtc=;
+ b=t8LGYUPo6IQisrHMFR86MLJkpE4vyOvF+mup7Ma3JedRI7oe9cjXkFGqlpW4+NEa7i1H4cjuu
+ KqDrGxOVrRaAPCrbQic/6SFFZLmVlk7lX/4SH0QIWnf7fDdf0cciMtA
+X-Developer-Key: i=tan.siewert@9elements.com; a=ed25519;
+ pk=ORQd/zQf+LsAvJGXP1CjQwVO6t6iEOGq/eGUsmRVTG4=
 
---f0e586ea3a10e95359c0d4b96a8104e1d279536c0a9993139697a11d4ad4
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
+Hi Prasanth,
 
-Hi,
+On 8/30/26 8:20 PM, Prasanth Kumar Padarthi wrote:
+> Add the device tree for the ASRock Rack B650D4U BMC, which is
+> based on the ASPEED AST2600 SoC.
+> 
+> Describe the BMC memory, SPI NOR flash layout, UART console, and
+> MAC0 connected to an RTL8211F Ethernet PHY.
 
-On Mon Aug 31, 2026 at 2:05 PM CEST, Tobias Jakobsen via B4 Relay wrote:
-> From: Tobias Jakobsen <tjakobsen84@protonmail.com>
+Why no GPIOs? Why no I2C buses? You'd need at least i2c7 with an at24c128 to
+populate the MAC address on MAC0.
+
+> 
+> The MAC0 RGMII RX delay configuration was validated on hardware.
+> The RTL8211F requires its internal RX delay for reliable operation,
+> while an additional TX delay is not required.
+
+No, it does not. The traces have the same length and don't require special
+delays. If you use u-boot/next, then it might be true because it still misses
+the correct SoC-specific delays. This is, however, fixed in openbmc/u-boot.
+
+I know that this is not optimal. I'm already working on getting this fixed in
+upstream U-Boot too.
+
+> 
+> Signed-off-by: Prasanth Kumar Padarthi <prasanth.padarthi10@gmail.com>
 >
-> Some flashes are write protected by the platform they are attached to
-> rather than by their own block protection bits. An Intel PCH SPI
-> controller programmed with protected range registers is one example: it
-> refuses writes to a range regardless of what the chip's status register
-> says, while the chip's block protection bits are typically left clear.
->
-> MEMISLOCKED therefore either fails with -EOPNOTSUPP, or, once the chip
-> gains SPI_NOR_HAS_LOCK, reports a range as unlocked while writes to it
-> are in fact being refused.
->
-> Let the platform supply an optional is_locked() callback in struct
-> flash_platform_data, alongside the partitions it can already supply, and
-> prefer it over the chip's own block protection bits. This is independent
-> of SPI_NOR_HAS_LOCK, so an answer is also given for chips that have no
-> block protection support of their own.
->
-> lock() and unlock() return -EOPNOTSUPP, as platform enforced protection
-> is not expected to be changed at runtime.
->
-> Platforms that do not supply the callback are unaffected.
->
-> Link: https://bugzilla.kernel.org/show_bug.cgi?id=3D221927
-> Assisted-by: LLM
-> Signed-off-by: Tobias Jakobsen <tjakobsen84@protonmail.com>
-> ---
->  drivers/mtd/spi-nor/core.c | 52 ++++++++++++++++++++++++++++++++++++++++=
-++++--
->  include/linux/spi/flash.h  | 12 +++++++++++
->  2 files changed, 62 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/mtd/spi-nor/core.c b/drivers/mtd/spi-nor/core.c
-> index ccf4396cd..a5c37eea4 100644
-> --- a/drivers/mtd/spi-nor/core.c
-> +++ b/drivers/mtd/spi-nor/core.c
-> @@ -3001,6 +3001,50 @@ static void spi_nor_init_fixup_flags(struct spi_no=
-r *nor)
->  		nor->flags |=3D SNOR_F_IO_MODE_EN_VOLATILE;
->  }
-> =20
-> +static int spi_nor_platform_lock(struct spi_nor *nor, loff_t ofs, u64 le=
-n)
-> +{
-> +	return -EOPNOTSUPP;
-> +}
+> diff --git a/arch/arm/boot/dts/aspeed/Makefile b/arch/arm/boot/dts/aspeed/Makefile
+> index 6b68671f9379..b109491d5c8f 100644
+> --- a/arch/arm/boot/dts/aspeed/Makefile
+> +++ b/arch/arm/boot/dts/aspeed/Makefile
+> @@ -10,6 +10,7 @@ dtb-$(CONFIG_ARCH_ASPEED) += \
+>  	aspeed-bmc-ampere-mtmitchell.dtb \
+>  	aspeed-bmc-arm-stardragon4800-rep2.dtb \
+>  	aspeed-bmc-asrock-altrad8.dtb \
+> +	aspeed-bmc-asrock-b650d4u.dtb \
+>  	aspeed-bmc-asrock-e3c246d4i.dtb \
+>  	aspeed-bmc-asrock-e3c256d4i.dtb \
+>  	aspeed-bmc-asrock-paul-ipmi-card.dtb \
+> diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-asrock-b650d4u.dts b/arch/arm/boot/dts/aspeed/aspeed-bmc-asrock-b650d4u.dts
+> new file mode 100644
+> index 000000000000..aa623f0ca36c
+> --- /dev/null
+> +++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-asrock-b650d4u.dts
+> @@ -0,0 +1,95 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/dts-v1/;
 > +
-> +static int spi_nor_platform_unlock(struct spi_nor *nor, loff_t ofs, u64 =
-len)
-> +{
-> +	return -EOPNOTSUPP;
-> +}
+> +#include "aspeed-g6.dtsi"
 > +
-> +static int spi_nor_platform_is_locked(struct spi_nor *nor, loff_t ofs, u=
-64 len)
-> +{
-> +	struct flash_platform_data *data =3D dev_get_platdata(nor->dev);
+> +/ {
+> +	model = "ASRock Rack B650D4U BMC";
+> +	compatible = "asrock,b650d4u-bmc", "aspeed,ast2600";
 > +
-> +	return data->is_locked(nor->spimem->spi, ofs, len);
-> +}
+> +	aliases {
+> +		serial0 = &uart5;
+> +	};
 > +
-> +static const struct spi_nor_locking_ops spi_nor_platform_locking_ops =3D=
- {
-> +	.lock =3D spi_nor_platform_lock,
-> +	.unlock =3D spi_nor_platform_unlock,
-> +	.is_locked =3D spi_nor_platform_is_locked,
+> +	chosen {
+> +		stdout-path = "serial0:115200n8";
+> +	};
+> +
+> +	memory@80000000 {
+> +		device_type = "memory";
+> +		reg = <0x80000000 0x20000000>;
+> +	};
+
+Where's the reservation for video?
+
 > +};
-
-If we can't unlock the flash, what's it's use then? Can't we just
-clear the HAS_LOCK if there is an intel-spi driver?
-
 > +
-> +/**
-> + * spi_nor_init_platform_locking_ops() - Use the platform supplied write
-> + *	protection query, if there is one.
-> + * @nor:	pointer to a 'struct spi_nor'
-> + *
-> + * Some flashes are write protected by the platform they are attached to=
- rather
-> + * than by their own block protection bits, for example by an Intel PCH =
-SPI
-> + * controller programmed with protected range registers. In that case th=
-e chip's
-> + * block protection bits are typically left clear and say nothing about =
-what is
-> + * actually enforced, so prefer the platform supplied query when availab=
-le.
-> + */
-> +static void spi_nor_init_platform_locking_ops(struct spi_nor *nor)
-> +{
-> +	struct flash_platform_data *data =3D dev_get_platdata(nor->dev);
+> +&fmc {
+> +	status = "okay";
 > +
-> +	if (!data || !data->is_locked || !nor->spimem)
-> +		return;
+> +	flash@0 {
+> +		compatible = "jedec,spi-nor";
+> +		reg = <0>;
+
+That's already defined in aspeed-g6.dtsi
+
+> +		label = "bmc";
+> +		m25p,fast-read;
+> +		spi-max-frequency = <50000000>;
+> +		spi-rx-bus-width = <4>;
+> +		status = "okay";
 > +
-> +	nor->params->locking_ops =3D &spi_nor_platform_locking_ops;
-> +}
+> +		partitions {
+> +			compatible = "fixed-partitions";
+> +			#address-cells = <1>;
+> +			#size-cells = <1>;
 > +
->  /**
->   * spi_nor_late_init_params() - Late initialization of default flash par=
-ameters.
->   * @nor:	pointer to a 'struct spi_nor'
-> @@ -3040,9 +3084,13 @@ static int spi_nor_late_init_params(struct spi_nor=
- *nor)
->  	spi_nor_init_fixup_flags(nor);
-> =20
->  	/*
-> -	 * NOR protection support. When locking_ops are not provided, we pick
-> -	 * the default ones.
-> +	 * NOR protection support. Platform enforced protection is preferred
-> +	 * over the chip's own, as the chip is not necessarily aware of it.
-> +	 * When locking_ops are not provided, we pick the default ones.
->  	 */
-
-This doesn't work, does it? What if a flash already provide locking
-ops?
-
--michael
-
-> +	if (!nor->params->locking_ops)
-> +		spi_nor_init_platform_locking_ops(nor);
+> +			u-boot@0 {
+> +				reg = <0x00000000 0x000e0000>;
+> +				label = "u-boot";
+> +				read-only;
+> +			};
 > +
->  	if (nor->flags & SNOR_F_HAS_LOCK && !nor->params->locking_ops)
->  		spi_nor_init_default_locking_ops(nor);
-> =20
-> diff --git a/include/linux/spi/flash.h b/include/linux/spi/flash.h
-> index 2401a0887..f415e2c0b 100644
-> --- a/include/linux/spi/flash.h
-> +++ b/include/linux/spi/flash.h
-> @@ -2,7 +2,10 @@
->  #ifndef LINUX_SPI_FLASH_H
->  #define LINUX_SPI_FLASH_H
-> =20
-> +#include <linux/types.h>
+> +			u-boot-env@e0000 {
+> +				reg = <0x000e0000 0x00020000>;
+> +				label = "u-boot-env";
+> +			};
 > +
->  struct mtd_partition;
-> +struct spi_device;
-> =20
->  /**
->   * struct flash_platform_data: board-specific flash data
-> @@ -11,6 +14,13 @@ struct mtd_partition;
->   * @nr_parts: number of mtd_partitions for static partitioning
->   * @type: optional flash device type (e.g. m25p80 vs m25p64), for use
->   *	with chips that can't be queried for JEDEC or other IDs
-> + * @is_locked: optional callback to query write protection enforced by t=
-he
-> + *	platform rather than by the flash chip itself, for example a SPI
-> + *	controller that gates writes to a range of the flash. Returns 1 if
-> + *	the whole range is protected, 0 if it is not, or a negative errno.
-> + *	When supplied it takes precedence over the chip's own block
-> + *	protection bits, which do not necessarily reflect what is actually
-> + *	being enforced.
->   *
->   * Board init code (in arch/.../mach-xxx/board-yyy.c files) can
->   * provide information about SPI flash parts (such as DataFlash) to
-> @@ -26,6 +36,8 @@ struct flash_platform_data {
-> =20
->  	char		*type;
-> =20
-> +	int		(*is_locked)(struct spi_device *spi, loff_t ofs, u64 len);
+> +			kernel@200000 {
+> +				reg = <0x00200000 0x00800000>;
+> +				label = "kernel";
+> +			};
 > +
->  	/* we'll likely add more ... use JEDEC IDs, etc */
->  };
-> =20
+> +			rofs@a00000 {
+> +				reg = <0x00a00000 0x02000000>;
+> +				label = "rofs";
+> +				read-only;
+> +			};
+> +
+> +			rwfs@2a00000 {
+> +				reg = <0x02a00000 0x01600000>;
+> +				label = "rwfs";
+> +			};
 
+No. Include the partitions via `#include openbmc-flash-layout-64.dtsi`.
 
---f0e586ea3a10e95359c0d4b96a8104e1d279536c0a9993139697a11d4ad4
-Content-Type: application/pgp-signature; name="signature.asc"
+> +		};
+> +	};
+> +};
+> +
+> +&mac0 {
+> +	status = "okay";
+> +
+> +	/*
+> +	 * The RTL8211F provides the required RGMII RX delay. No additional
+> +	 * TX delay is required for this board.
+> +	 */
 
------BEGIN PGP SIGNATURE-----
+No? I do have this board myself with a custom BMC ROM and I can tell you that
+you don't have to set delays other than the described SoC-specific delays, but
+this is, as mentioned, already done in the BSP. (And no, I haven't upstreamed
+my DTS yet bc I haven't had the time to do it.)
 
-iKgEABMJADAWIQTIVZIcOo5wfU/AngkSJzzuPgIf+AUCapV1YhIcbXdhbGxlQGtl
-cm5lbC5vcmcACgkQEic87j4CH/gP6QF9E8qbsVLgqjAJh9RC0A0NC0hfm33elSN2
-XzZWRRZ4eljrb+q6i+NqUsmaKQ9SPwhUAYDFMVNdCpsJ+MbKXt7cRUh1mHeFgiiX
-l/AxToXZTnA14XtvZK6b7t5XzDKDgeXRrrk=
-=WZHv
------END PGP SIGNATURE-----
+> +	phy-mode = "rgmii-rxid";
 
---f0e586ea3a10e95359c0d4b96a8104e1d279536c0a9993139697a11d4ad4--
+`rgmii-id`
+
+> +	phy-handle = <&ethphy0>;
+> +	pinctrl-names = "default";
+> +	pinctrl-0 = <&pinctrl_rgmii1_default>;
+
+No nvmem cell to set the MAC address? i2c7@57 offset 0x3f80? Please see the
+other device-trees for ASRock Rack mainboards.
+
+For me, it is a:
+
+NACKed-by: Tan Siewert <tan.siewert@9elements.com>
+
+Tan
+
+-- 
+Tan Siewert <tan.siewert@9elements.com>
