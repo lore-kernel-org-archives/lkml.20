@@ -1,441 +1,190 @@
-Received: from pidgin.makrotopia.org (pidgin.makrotopia.org [185.142.180.65])
+Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013044.outbound.protection.outlook.com [52.101.83.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C51EB549374;
-	Mon, 31 Aug 2026 15:45:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.142.180.65
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788191113; cv=none; b=k5Z5P1HulN4UDuU4R+17pkxwEce59uXwCuSyamCZ5OQV88VFYcdKtSw1mC/vuZwdiZn2hkJxbZEqyF+MWswwox+u6+XeEvUgFJ6o3Yg4CYbS//+1kfnaunu7Y0jmVRgJ53zO21Q3NDjLpq8V8ISXr4FNJaJHGWGCiC3B8sZN7zk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788191113; c=relaxed/simple;
-	bh=rDZZcqZL5E67ZBakP1saii5Q94Xyu91HaPA390TmtOM=;
-	h=Date:From:To:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dRaD+avHzH7ZaONf696Iep31WroXQDa5CIRyJeujk9rtuMhTxE3bipoOvu463mR2MKtRv5aD1P7XcCP0lVf8FE6hEb+CCiWrNj/83O07mNzE3beXVMSK6BOjOZJguBTq/awmoYmZVz7U7qE5LkEUASoAx1et0q+pMyxDUiiULrc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org; spf=pass smtp.mailfrom=makrotopia.org; arc=none smtp.client-ip=185.142.180.65
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=makrotopia.org
-Received: from local
-	by pidgin.makrotopia.org with esmtpsa (TLS1.3:TLS_AES_256_GCM_SHA384:256)
-	 (Exim 4.99)
-	(envelope-from <daniel@makrotopia.org>)
-	id 1x1458-0000000078x-0tea;
-	Mon, 31 Aug 2026 15:37:58 +0000
-Date: Mon, 31 Aug 2026 16:37:55 +0100
-From: Daniel Golle <daniel@makrotopia.org>
-To: "Chester A. Unal" <chester.a.unal@arinc9.com>,
-	Daniel Golle <daniel@makrotopia.org>, Andrew Lunn <andrew@lunn.ch>,
-	Vladimir Oltean <olteanv@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Russell King <linux@armlinux.org.uk>, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org
-Subject: [PATCH net-next v5 1/9] net: dsa: mt7530: move MDIO bus locking into
- regmap
-Message-ID: <6927a774b87238800de5d6c0c717b0afd02d320b.1788190568.git.daniel@makrotopia.org>
-References: <cover.1788190568.git.daniel@makrotopia.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B75DC472776;
+	Mon, 31 Aug 2026 15:46:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.44
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788191191; cv=fail; b=a+ukeoUawEWMjwrYlSOgNaFsYkqJbWwakkKZTD9fcT6hpzS4NxyRrSNvdJ/deWL2VE7KdiX8tT+V+9OviX8SCwcgHpsjL8Oc3JippmodEm9puj2KSHKCaRkuOAkoU9EZiNIVVAKTNNxuSAeVPSHjqb0iJwh5pqnybTr9PFpjXyo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788191191; c=relaxed/simple;
+	bh=CND6qp3tF5HMZiWmfBhZuBahqdshf62iJP2iV7+c6g0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=gPOeIqs8Z3uJ8kC7hJCsdQQUMddCTOfG1ov8BFwziBmKQbKL9U7e9GDvbrJLwZbjL6fguyRJFqW7/7bUoyXMPg6Y+jZsP4N6ciYD3tlBrNgfD7LbYNpx17+/4OKaEMNdZ9Y2BXdwksr91uCPm3yLSfo7SJZ2o0i27FWs42FyvkY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=psV3GguR; arc=fail smtp.client-ip=52.101.83.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="psV3GguR"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=E3dS4SQHbfw3ivGpXHVBSriuA8tr1XrV++AaZZz83J4+k6h3UWxBGu/rmJNaEmN0cqQaB66jx5WH/9iAHAEz8Pa6afsii37j/ShYzFS2yZcn9GlFj7Ro5Ia7tkK1tJUslSzNKCdWtLgUwUpmB09sS4WbZ5iiRy8IX+Kf9F4+eMFsBmjo1FVhO9iWQxhHW4qkBQ0f6vj3u/dltuNG2ZT/Qhc6pO+D2N3AjnIFtAakaS4s3LUAQDDwoSbDS8nY9Mw44r6JWRX6suMcWlXK5TYKqSys+bugjI5ld69IswkPrvSZHreE7hQ7cUSVbtU2rrRMNHaNCk4Tka1NRBIocFBoWQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=HDBCGu79Yyh6daFR6kZoFkXp/Tw5z48ivV48n3Iym6A=;
+ b=oHGtKYHMkmiEZWU01DORJpNaWx7cdCrOo2HqHqy4C4RlQQzKaYtns0L3wdoiREE4LXJcEEaG9Wti53VYIyB83IXSsLyv9gjcx4eFx5NFpkgg6bfmzAWSd5VtTYge46ixiinm2BcwHYrjej7SEq60oeIX6fxXKyaTn7Sez8YTv7+jQc+RaOfs6XRjyvwDW3ocd8tyqS6Scb2AMBpZPEilLSDkLVdOVlAYn+NoXkB0gVQBUc/vVb69W8mvPzLrCe4qC4xH+LBmnrO5hp8S9WsymHojBEW0Ct9rgR/G+0koxh2vmTOKTXWs7EInxGrLIJkNkz7RgpRvukd0xNd9Cj/+1Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=HDBCGu79Yyh6daFR6kZoFkXp/Tw5z48ivV48n3Iym6A=;
+ b=psV3GguReYF3SDm2TxS6bTRLA+2uo2UuNIT5xOD+7SyUz4uxHGkzWtSBhMvezs/w59Pbp2RrHFnTKklO6ZgvW6eslStzANIIlDiOGRctgvxlkPFXL7pFUWpCZogxv4RYEBkbF2wR/BncvlwBHbbpxRnPmVDaH4dzL6PBJL8Q8BlHrFxsemeKZ1kmfG5RuQtpoq7g0D0TV+ed9w/YIooCzhg5Gzl12GZSNVEzT7/f1mYWGSpSurzulGw1Nb27J6Ad9pa6ZiOseHCeNchZRNOJOIM/AVhDb6Tuqjwhh4NnZJAir3oAaznE6FK8zx2KMhh32mCcgzhoziuESueV1sTYwQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by MI9PR04MB338771.eurprd04.prod.outlook.com (2603:10a6:290:87::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Mon, 31 Aug
+ 2026 15:46:26 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0360.008; Mon, 31 Aug 2026
+ 15:46:26 +0000
+Date: Mon, 31 Aug 2026 10:46:18 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Pengpeng Hou <pengpeng@iscas.ac.cn>, joy.zou@nxp.com
+Cc: Frank Li <Frank.Li@nxp.com>, Vinod Koul <vkoul@kernel.org>,
+	imx@lists.linux.dev, dmaengine@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] dmaengine: fsl-edma: make channel resource allocation
+ transactional
+Message-ID: <apWhyl5RKCtmEbzv@SMW015318>
+References: <20260830140925.30268-1-pengpeng@iscas.ac.cn>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260830140925.30268-1-pengpeng@iscas.ac.cn>
+X-ClientProxiedBy: CY5PR17CA0025.namprd17.prod.outlook.com
+ (2603:10b6:930:17::16) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <cover.1788190568.git.daniel@makrotopia.org>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|MI9PR04MB338771:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9709e45a-82e2-4bea-f373-08df0777044a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|19092799006|376014|1800799024|23010399003|366016|10067099003|11063799006|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	k5eNa28bQnMVePibT57W4xwhd+yxoCLzj3UHgDW6lVQoGU1EBN0dmq9lw8pZQ+8qMVnfA2/von16ECNOpgPDGoFjWDl8kSgT/BEPJGfd+67ch/URtJs4FOccfysbAHskaIgcMof3+4Pc+iOIKson16PNPvprcRnbkQ35cduOT66p+Zo3FXX1/YdXrEgLS/bQYfTikCIyaOfXKfA7HjU0tIM8AvF/JqpsU6FVqDgUg/4WsBwwhSH0spZONgjRdGqbMN504FYPJZamp4WMBf19p1Pmd8sPCsWxKKug3FjTAkshMObqA3/H/S+i/W3v0LGT5RHJciKGxiziCY4XGU42AMk9y55EmEx/ZxpDHzPeXJCp4+GF0kKifteLUXUnTns8zGLxvq57FE+fKy3kNW/bvAsx7b+cJlj9E3jyKlRjLY8s9MnL82omkVaJHU0lXoaCLufJhExigzxZkuSHnx2a89ZDeA6ev1Z02+/jL0inmNoJ4MpworzUO9TDWLqPVFOx2TvA00npM3h4O2jwITJfqz2rrSip0fPRokwl72/zivu+a+bRY3jCPZqJz3GWtTkzAe6EAsu8CAHmzcUFHTXNLCDSuEJfd33Wu3RmvWfQnreva/F0vlmQMpQbsNZLDnM713hMfKUcPJVgOkipEkTXbbQfmQmWfKcZhcHlo8UhjbU=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(376014)(1800799024)(23010399003)(366016)(10067099003)(11063799006)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?L8sKCr4vvH/XWbbCo39W0oMsSzMypzuBeyBmFnvqszSbwUcJpqg6ZrnK2RpV?=
+ =?us-ascii?Q?pyJRgng3g7Wc9tTclMlgasu/Bn2FpVOa6fLaVFB2exqkt59vBm/FiT7KaQCE?=
+ =?us-ascii?Q?tY9Juguc8KA4lptFUViPzi7nxDHwvGOmK1d8W6vRNFSSb9+OnSR93BvXJD5Z?=
+ =?us-ascii?Q?L18lEYLKhl4QB1zcgFo1249s2FawNONc3dwxCWSvDV0zTosWV36dF2L42Brs?=
+ =?us-ascii?Q?dp5bOqkWzPE8iN7QeyChIxzXjSZTKiof5klYifD+fOybBcvG/KE6fwJAiHDG?=
+ =?us-ascii?Q?2XsN45pB2py/cNd7nsStr2SFlJyOs3Sn8ESJExgeld5MRlnMUNIDw3Ys6ZV5?=
+ =?us-ascii?Q?foMfQgvQ9dyZ/lf2AcwZCOvqkVltaiH9YUGAPehOWJ5hNcqhCnhSRwOSjpJw?=
+ =?us-ascii?Q?KfIX+dqo3+X4K46DPJO3hojozZMBHyQn/yh0s9EM+c4UdgQsRhsP9d0RqWzu?=
+ =?us-ascii?Q?LvMxzwmdXpZmqafzCY2dkq06roWZMAj6EKxYkdYzaB2D8cD4ud0YNF08Xb+C?=
+ =?us-ascii?Q?k1z6CTMxQDqHTqvwm8VhTjUro5UZNGxHNyDs5vpMBHzN4seGHUOsBMhizQXX?=
+ =?us-ascii?Q?pQR2Kx/89vQgzGFovHms+TyC75lNIrAvVeEbdgZTR58E92xpAziFa1Eu7Ock?=
+ =?us-ascii?Q?s6+TsBtRPcMqNG8GNkincBVCETLfnmpdgvGxBaOfKrR9fYpfHxPTCEc1T1ff?=
+ =?us-ascii?Q?rvFZfjvq8OSnlW9TBHqi0HYX68Hm7K9j41Ni05zQYBu+sVddSAtSDgyRdBsc?=
+ =?us-ascii?Q?X4draucrdALVH1IJXmxh91pEydBf2Q0iJT/FJyc5iuwQd2aiqdU3tSyGrgZl?=
+ =?us-ascii?Q?dBhSX1PZFWVD+DyM9BbYGtwRy5snNR6/huWftyPz4oRcO6qFfiMwsLttNnun?=
+ =?us-ascii?Q?D3UjrAZ4kS81sciso0jL0CLYWSGNxtH4eR8gCPD+0rc41sKhJinbUSFPzTqQ?=
+ =?us-ascii?Q?ZOWDdcusNeCjQZRMurTTJ93StN7X5KXMwwW3GyJBefMzmZaI2qj7F51Nx7Dt?=
+ =?us-ascii?Q?qI/FxtcKsAqLZwgpFcDdqn/jhTmqyTmqBStD5sj6FhioSVqquOIgK7bMmlOX?=
+ =?us-ascii?Q?aWnQir9VV1Sk0upJ1ck4WVfu7Cxbi7B9iGhkUa+5cA77B9MGM3mCagUzlP75?=
+ =?us-ascii?Q?VfJfT8lIE/9QhDCR/j8nkhZEib8ailUBbbJbTm74R5BFVBW9xtJTj4U9vqzj?=
+ =?us-ascii?Q?532InDsUrdEDUBsXH+yu5GGjJ0kHXbvYC7BwdsY9ZcTNBV7prqynrTdZHo71?=
+ =?us-ascii?Q?0f6PPmeI3wf6tIEfeIf2IRIBQ+JKPRAQJfbl97v9jAy0QM7IhQtfeD8h2ljz?=
+ =?us-ascii?Q?osuc4z7L9tNXr7lFe5HmeKekUFxqRHDASc2TP59f20qK9IxjkIkAalIL6qwZ?=
+ =?us-ascii?Q?QwNBB16bJx3aM/cudcOyFw0bjGvPCmnOc4lkqPfH+nsRGLsB/SHWhfcmEjZ6?=
+ =?us-ascii?Q?MymTK6ck23szs1eMUhim5+VpxmTRMF94LXnk6tSsLeNCgP6TAXa4AVEGmGGP?=
+ =?us-ascii?Q?j6lPEBD6uge690H5ApPxmIcK/EEXhlfScnFZzloYI2rqGd+8ATs0aKbTOBCh?=
+ =?us-ascii?Q?io+gf/L/9xdyuBFy6Er2fg7J0mBXqvTjT7MgdGahYhb8d4lwmKf2dO+Cns2R?=
+ =?us-ascii?Q?ia0ZwJshjihcn+rEYH0ixFpfBwdCDkwmO9hUdvBjfExuNTRpS8gRbLu0LU6o?=
+ =?us-ascii?Q?4eyKNV8DmzethbxdaCbkqwHM4vclUpytMXtZgZivH0jYC4wBA8O0DRZ9Al2r?=
+ =?us-ascii?Q?Y6a9DEw/NGQIP/wGkwjJN1uX073m90myEkTGHZtDy55+V9OAx4nw?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9709e45a-82e2-4bea-f373-08df0777044a
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 15:46:26.7461
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: X0yJcQQwSQ12Bf+Z87urwIgEiSBwGR5wcXt9uH6hubdDsT75ziLN2S9rmlsuUWOlAqvVZUwYFsItqHtkGb0cC9tw8IoaD4hty5w0gtLz58gViDEb6FBQlRtWsLAIgDfv
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MI9PR04MB338771
 
-The switch register regmap was created with .disable_locking = true,
-relying on callers to manually lock the MDIO bus. Move the locking
-into the regmap using .lock/.unlock callbacks, matching the PCS
-regmaps that already do this. This allows any code path reaching the
-regmap to be automatically protected.
+On Sun, Aug 30, 2026 at 10:09:25PM +0800, Pengpeng Hou wrote:
+> Channel allocation ignores a required clock failure and does not reject
+> a failed TCD DMA-pool allocation before requesting IRQ resources.
+>
+> Check both prerequisites and unwind only the channel clock that was
+> enabled by this allocation attempt.
+>
+> Fixes: 9d831528a656 ("dmaengine: fsl-edma: extract common fsl-edma code (no changes in behavior intended)")
+> Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
+> ---
+>  drivers/dma/fsl-edma-common.c | 15 ++++++++++++---
+>  1 file changed, 12 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/dma/fsl-edma-common.c b/drivers/dma/fsl-edma-common.c
+> index bb7531c456dfa..02b92d1464cca 100644
+> --- a/drivers/dma/fsl-edma-common.c
+> +++ b/drivers/dma/fsl-edma-common.c
+> @@ -844,13 +844,20 @@ int fsl_edma_alloc_chan_resources(struct dma_chan *chan)
+>  	struct fsl_edma_chan *fsl_chan = to_fsl_edma_chan(chan);
+>  	int ret = 0;
+>
+> -	if (fsl_edma_drvflags(fsl_chan) & FSL_EDMA_DRV_HAS_CHCLK)
+> -		clk_prepare_enable(fsl_chan->clk);
+> +	if (fsl_edma_drvflags(fsl_chan) & FSL_EDMA_DRV_HAS_CHCLK) {
 
-With regmap handling bus locking, the manual mt7530_mutex_lock/unlock
-calls in mt7530_write(), _mt7530_read(), mt7530_rmw() and
-mt7530_port_change_mtu() become redundant and are removed, as is the
-bus lock held across the ATC/VTCR command poll sequences.
 
-The handle_mask_sync callback added by commit dd52b3df25ed ("net: dsa:
-mt7530: serialize the regmap IRQ chip like every other user") to hold
-mt7530_mutex_lock() around the regmap-irq mask register write is
-likewise removed. With the regmap now self-locking, regmap-irq's
-default unmask_base sync is serialized on its own, and so are the
-status read, ack write and init_ack_masked write that had no hook,
-closing the gaps that commit left open. The per-device copy of the irq
-chip it needed goes away too.
+Actually check is unnecesary because it is no-ops when clock is NULL.
 
-The MT7531 indirect PHY access functions need serialization of their
-multi-step register sequences, but no longer need to hold bus->mdio_lock
-across the whole operation. Switch them to reg_mutex.
+Joy have did some work
+at https://patchwork.kernel.org/project/imx/list/?series=1119587
 
-core_write()/core_rmw() are the only remaining callers of
-mt7530_mutex_lock(). They access TRGMII core PHY registers via the
-clause 22 MMD indirect protocol -- a separate register space that
-bypasses regmap and needs manual bus->mdio_lock protection.
+Joy:
+	Can you take this patch into your serie to avoid merge conflicts?
 
-The lock removals are generated using the following semantic patch:
+Frnak
 
-// Collapse mt7530_write() now that regmap serialises bus access.
-@@
-expression priv, reg, val;
-identifier ret;
-@@
- {
--	int ret;
--
--	mt7530_mutex_lock(priv);
--
--	ret = mt7530_mii_write(priv, reg, val);
--
--	mt7530_mutex_unlock(priv);
--
--	return ret;
-+	return mt7530_mii_write(priv, reg, val);
- }
-
-// Remove mt7530_mutex_lock/unlock around single regmap-based calls.
-@@
-expression priv, reg, mask, set;
-@@
- {
--	mt7530_mutex_lock(priv);
--
- 	regmap_update_bits(priv->regmap, reg, mask, set);
--
--	mt7530_mutex_unlock(priv);
- }
-
-@@
-expression p;
-identifier val;
-@@
- {
--	u32 val;
--	mt7530_mutex_lock(p->priv);
--	val = mt7530_mii_read(p->priv, p->reg);
--	mt7530_mutex_unlock(p->priv);
--	return val;
-+	return mt7530_mii_read(p->priv, p->reg);
- }
-
-@@
-expression priv;
-identifier val;
-@@
--	mt7530_mutex_lock(priv);
- 	val = mt7530_mii_read(priv, MT7530_GMACCR);
- 	...
- 	mt7530_mii_write(priv, MT7530_GMACCR, val);
--	mt7530_mutex_unlock(priv);
-
-// The ATC/VTCR command polls no longer need the bus lock held across
-// the poll and the status read-back.
-@@
-expression priv, reg, cond;
-identifier ret, val;
-@@
--	mt7530_mutex_lock(priv);
--
- 	ret = regmap_read_poll_timeout(priv->regmap, reg, val, cond, 20, 20000);
- 	if (!ret)
- 		ret = regmap_read(priv->regmap, reg, &val);
--
--	mt7530_mutex_unlock(priv);
-
-// The MT7531 indirect PHY sequences keep serialising themselves, but
-// against reg_mutex rather than the MDIO bus lock.
-@@
-expression priv;
-identifier ret, val;
-@@
--	mt7530_mutex_lock(priv);
-+	mutex_lock(&priv->reg_mutex);
- 	ret = regmap_read_poll_timeout(priv->regmap, MT7531_PHY_IAC, val, ...);
-
-@@
-expression priv;
-@@
- out:
--	mt7530_mutex_unlock(priv);
-+	mutex_unlock(&priv->reg_mutex);
-
-Signed-off-by: Daniel Golle <daniel@makrotopia.org>
----
-v5: reworked on top of net-next's accessor error handling: mt7530_write()
-    now returns int, so removing its lock collapses it to a direct
-    return, the bus lock around the ATC/VTCR command polls goes too, and
-    _mt7530_unlocked_read() is already gone. Also revert the
-    handle_mask_sync workaround of commit dd52b3df25ed, which regmap's
-    own locking makes redundant and which would otherwise recurse on
-    bus->mdio_lock.
-v4: no changes
-v3: no changes
-v2: no changes
----
- drivers/net/dsa/mt7530-mdio.c |  9 ++--
- drivers/net/dsa/mt7530.c      | 78 +++++------------------------------
- 2 files changed, 17 insertions(+), 70 deletions(-)
-
-diff --git a/drivers/net/dsa/mt7530-mdio.c b/drivers/net/dsa/mt7530-mdio.c
-index 784dd58a7158..422f785d2143 100644
---- a/drivers/net/dsa/mt7530-mdio.c
-+++ b/drivers/net/dsa/mt7530-mdio.c
-@@ -148,12 +148,14 @@ static const struct regmap_config regmap_config = {
- 	.val_bits = 32,
- 	.reg_stride = 4,
- 	.max_register = MT7530_CREV,
--	.disable_locking = true,
-+	.lock = mt7530_mdio_regmap_lock,
-+	.unlock = mt7530_mdio_regmap_unlock,
- };
- 
- static int
- mt7530_probe(struct mdio_device *mdiodev)
- {
-+	struct regmap_config rc = regmap_config;
- 	struct mt7530_priv *priv;
- 	struct device_node *dn;
- 	int ret;
-@@ -207,8 +209,9 @@ mt7530_probe(struct mdio_device *mdiodev)
- 			return PTR_ERR(priv->io_pwr);
- 	}
- 
--	priv->regmap = devm_regmap_init(priv->dev, &mt7530_regmap_bus, priv,
--					&regmap_config);
-+	rc.lock_arg = &priv->bus->mdio_lock;
-+	priv->regmap = devm_regmap_init(priv->dev, &mt7530_regmap_bus,
-+					priv, &rc);
- 	if (IS_ERR(priv->regmap))
- 		return PTR_ERR(priv->regmap);
- 
-diff --git a/drivers/net/dsa/mt7530.c b/drivers/net/dsa/mt7530.c
-index 2b7be091c056..dbf70e5dd55f 100644
---- a/drivers/net/dsa/mt7530.c
-+++ b/drivers/net/dsa/mt7530.c
-@@ -188,29 +188,13 @@ mt7530_mii_read(struct mt7530_priv *priv, u32 reg)
- static int
- mt7530_write(struct mt7530_priv *priv, u32 reg, u32 val)
- {
--	int ret;
--
--	mt7530_mutex_lock(priv);
--
--	ret = mt7530_mii_write(priv, reg, val);
--
--	mt7530_mutex_unlock(priv);
--
--	return ret;
-+	return mt7530_mii_write(priv, reg, val);
- }
- 
- static u32
- _mt7530_read(struct mt7530_dummy_poll *p)
- {
--	u32 val;
--
--	mt7530_mutex_lock(p->priv);
--
--	val = mt7530_mii_read(p->priv, p->reg);
--
--	mt7530_mutex_unlock(p->priv);
--
--	return val;
-+	return mt7530_mii_read(p->priv, p->reg);
- }
- 
- static u32
-@@ -226,11 +210,7 @@ static void
- mt7530_rmw(struct mt7530_priv *priv, u32 reg,
- 	   u32 mask, u32 set)
- {
--	mt7530_mutex_lock(priv);
--
- 	regmap_update_bits(priv->regmap, reg, mask, set);
--
--	mt7530_mutex_unlock(priv);
- }
- 
- static void
-@@ -257,15 +237,11 @@ mt7530_fdb_cmd(struct mt7530_priv *priv, enum mt7530_fdb_cmd cmd, u32 *rsp)
- 	if (ret)
- 		return ret;
- 
--	mt7530_mutex_lock(priv);
--
- 	ret = regmap_read_poll_timeout(priv->regmap, MT7530_ATC, val,
- 				       !(val & ATC_BUSY), 20, 20000);
- 	if (!ret)
- 		ret = regmap_read(priv->regmap, MT7530_ATC, &val);
- 
--	mt7530_mutex_unlock(priv);
--
- 	if (ret < 0) {
- 		dev_err(priv->dev, "reset timeout\n");
- 		return ret;
-@@ -560,7 +536,7 @@ mt7531_ind_c45_phy_read(struct mt7530_priv *priv, int port, int devad,
- 	u32 reg, val;
- 	int ret;
- 
--	mt7530_mutex_lock(priv);
-+	mutex_lock(&priv->reg_mutex);
- 
- 	ret = regmap_read_poll_timeout(priv->regmap, MT7531_PHY_IAC, val,
- 				       !(val & MT7531_PHY_ACS_ST), 20, 100000);
-@@ -597,7 +573,7 @@ mt7531_ind_c45_phy_read(struct mt7530_priv *priv, int port, int devad,
- 
- 	ret = val & MT7531_MDIO_RW_DATA_MASK;
- out:
--	mt7530_mutex_unlock(priv);
-+	mutex_unlock(&priv->reg_mutex);
- 
- 	return ret;
- }
-@@ -609,7 +585,7 @@ mt7531_ind_c45_phy_write(struct mt7530_priv *priv, int port, int devad,
- 	u32 val, reg;
- 	int ret;
- 
--	mt7530_mutex_lock(priv);
-+	mutex_lock(&priv->reg_mutex);
- 
- 	ret = regmap_read_poll_timeout(priv->regmap, MT7531_PHY_IAC, val,
- 				       !(val & MT7531_PHY_ACS_ST), 20, 100000);
-@@ -645,7 +621,7 @@ mt7531_ind_c45_phy_write(struct mt7530_priv *priv, int port, int devad,
- 	}
- 
- out:
--	mt7530_mutex_unlock(priv);
-+	mutex_unlock(&priv->reg_mutex);
- 
- 	return ret;
- }
-@@ -656,7 +632,7 @@ mt7531_ind_c22_phy_read(struct mt7530_priv *priv, int port, int regnum)
- 	int ret;
- 	u32 val;
- 
--	mt7530_mutex_lock(priv);
-+	mutex_lock(&priv->reg_mutex);
- 
- 	ret = regmap_read_poll_timeout(priv->regmap, MT7531_PHY_IAC, val,
- 				       !(val & MT7531_PHY_ACS_ST), 20, 100000);
-@@ -681,7 +657,7 @@ mt7531_ind_c22_phy_read(struct mt7530_priv *priv, int port, int regnum)
- 
- 	ret = val & MT7531_MDIO_RW_DATA_MASK;
- out:
--	mt7530_mutex_unlock(priv);
-+	mutex_unlock(&priv->reg_mutex);
- 
- 	return ret;
- }
-@@ -693,7 +669,7 @@ mt7531_ind_c22_phy_write(struct mt7530_priv *priv, int port, int regnum,
- 	int ret;
- 	u32 reg;
- 
--	mt7530_mutex_lock(priv);
-+	mutex_lock(&priv->reg_mutex);
- 
- 	ret = regmap_read_poll_timeout(priv->regmap, MT7531_PHY_IAC, reg,
- 				       !(reg & MT7531_PHY_ACS_ST), 20, 100000);
-@@ -717,7 +693,7 @@ mt7531_ind_c22_phy_write(struct mt7530_priv *priv, int port, int regnum,
- 	}
- 
- out:
--	mt7530_mutex_unlock(priv);
-+	mutex_unlock(&priv->reg_mutex);
- 
- 	return ret;
- }
-@@ -1452,8 +1428,6 @@ mt7530_port_change_mtu(struct dsa_switch *ds, int port, int new_mtu)
- 	if (!dsa_is_cpu_port(ds, port))
- 		return 0;
- 
--	mt7530_mutex_lock(priv);
--
- 	val = mt7530_mii_read(priv, MT7530_GMACCR);
- 	val &= ~MAX_RX_PKT_LEN_MASK;
- 
-@@ -1473,8 +1447,6 @@ mt7530_port_change_mtu(struct dsa_switch *ds, int port, int new_mtu)
- 
- 	mt7530_mii_write(priv, MT7530_GMACCR, val);
- 
--	mt7530_mutex_unlock(priv);
--
- 	return 0;
- }
- 
-@@ -1642,15 +1614,11 @@ mt7530_vlan_cmd(struct mt7530_priv *priv, enum mt7530_vlan_cmd cmd, u16 vid)
- 	if (ret)
- 		return ret;
- 
--	mt7530_mutex_lock(priv);
--
- 	ret = regmap_read_poll_timeout(priv->regmap, MT7530_VTCR, val,
- 				       !(val & VTCR_BUSY), 20, 20000);
- 	if (!ret)
- 		ret = regmap_read(priv->regmap, MT7530_VTCR, &val);
- 
--	mt7530_mutex_unlock(priv);
--
- 	if (ret < 0) {
- 		dev_err(priv->dev, "poll timeout\n");
- 		return ret;
-@@ -2319,21 +2287,6 @@ static const struct regmap_irq mt7530_irqs[] = {
- 	REGMAP_IRQ_REG_LINE(31, 32), /* ACL */
- };
- 
--/* Serialize regmap-irq's mask sync like every other regmap user */
--static int mt7530_irq_mask_sync(int index, unsigned int mask_buf_def,
--				unsigned int mask_buf, void *irq_drv_data)
--{
--	struct mt7530_priv *priv = irq_drv_data;
--	int ret;
--
--	mt7530_mutex_lock(priv);
--	ret = regmap_update_bits(priv->regmap, MT7530_SYS_INT_EN,
--				 mask_buf_def, ~mask_buf);
--	mt7530_mutex_unlock(priv);
--
--	return ret;
--}
--
- static const struct regmap_irq_chip mt7530_regmap_irq_chip = {
- 	.name = KBUILD_MODNAME,
- 	.status_base = MT7530_SYS_INT_STS,
-@@ -2343,14 +2296,12 @@ static const struct regmap_irq_chip mt7530_regmap_irq_chip = {
- 	.irqs = mt7530_irqs,
- 	.num_irqs = ARRAY_SIZE(mt7530_irqs),
- 	.num_regs = 1,
--	.handle_mask_sync = mt7530_irq_mask_sync,
- };
- 
- static int
- mt7530_setup_irq(struct mt7530_priv *priv)
- {
- 	struct regmap_irq_chip_data *irq_data;
--	struct regmap_irq_chip *chip;
- 	struct device *dev = priv->dev;
- 	struct device_node *np = dev->of_node;
- 	int irq, ret;
-@@ -2370,17 +2321,10 @@ mt7530_setup_irq(struct mt7530_priv *priv)
- 	if (priv->id == ID_MT7530 || priv->id == ID_MT7621)
- 		mt7530_set(priv, MT7530_TOP_SIG_CTRL, TOP_SIG_CTRL_NORMAL);
- 
--	chip = devm_kmemdup(dev, &mt7530_regmap_irq_chip, sizeof(*chip),
--			    GFP_KERNEL);
--	if (!chip)
--		return -ENOMEM;
--
--	chip->irq_drv_data = priv;
--
- 	ret = devm_regmap_add_irq_chip_fwnode(dev, dev_fwnode(dev),
- 					      priv->regmap, irq,
- 					      IRQF_ONESHOT,
--					      0, chip,
-+					      0, &mt7530_regmap_irq_chip,
- 					      &irq_data);
- 	if (ret)
- 		return ret;
--- 
-2.55.0
+> +		ret = clk_prepare_enable(fsl_chan->clk);
+> +		if (ret)
+> +			return ret;
+> +	}
+>
+>  	fsl_chan->tcd_pool = dma_pool_create("tcd_pool", chan->device->dev,
+>  				fsl_edma_drvflags(fsl_chan) & FSL_EDMA_DRV_TCD64 ?
+>  				sizeof(struct fsl_edma_hw_tcd64) : sizeof(struct fsl_edma_hw_tcd),
+>  				32, 0);
+> +	if (!fsl_chan->tcd_pool) {
+> +		ret = -ENOMEM;
+> +		goto err_pool;
+> +	}
+>
+>  	if (fsl_chan->txirq)
+>  		ret = request_irq(fsl_chan->txirq, fsl_chan->irq_handler, IRQF_SHARED,
+> @@ -873,7 +880,9 @@ int fsl_edma_alloc_chan_resources(struct dma_chan *chan)
+>  		free_irq(fsl_chan->txirq, fsl_chan);
+>  err_txirq:
+>  	dma_pool_destroy(fsl_chan->tcd_pool);
+> -	clk_disable_unprepare(fsl_chan->clk);
+> +err_pool:
+> +	if (fsl_edma_drvflags(fsl_chan) & FSL_EDMA_DRV_HAS_CHCLK)
+> +		clk_disable_unprepare(fsl_chan->clk);
+>
+>  	return ret;
+>  }
+>
+> base-commit: 08dbfad3f5040f5bdb6c529da20d6d4e81fefd72
+> --
+> 2.50.1
+>
+>
