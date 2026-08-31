@@ -1,661 +1,311 @@
-Received: from smtpbgau2.qq.com (smtpbgau2.qq.com [54.206.34.216])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E35D24A99D1;
-	Mon, 31 Aug 2026 15:09:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.206.34.216
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6381A531B04
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 15:10:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788189004; cv=none; b=nDtlkEDIkx/jSVOiVlPvlguO4Gxfo85Tr4U/1ukwGEfebYzx4sSFItiFsiR/QZw8ju91Sc+HDio3s2rOVQZxrmGOt2Um2XMHzbZPluEAbjLitlwgz3Aw5ZAKAnkw77Tc0qKMjGJGKh7L9HiFcsrkbS6cUW13wAGRlCtXgtwbow4=
+	t=1788189005; cv=none; b=V6fizqADccCxCTC3ZDhVWVvg2A/VycjjiYisa1So9Emsy6G+ON3BnoxrxCH+wKMv0vP2EjeFBOU6wi/fiGIs3y4Yvwcw4FT4J99zMaawGlizBlfPoErXCTpsdz5TQvAvN0ZRgprRDhNXv1oxiol2Fk5DCc061LnHBKC/Acjsx60=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788189004; c=relaxed/simple;
-	bh=KR5zIC9MjS9KDL+E3J1GN63LF/NOwojJqczy6h31rWo=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=EHASEoBb7rttx6z5fiClYUvhLwL+MfoOC0q290RJdrNBuDTtz8jOwnKECcxQMJzgMIFBdqrXAo12RLu9yGOEXR2LYgh09uO+KnoO/st1Jb1XmPFzUnD3j1o6WbP4fGZB2MrUJk4yBPYKlreqnIIzYCYWq3NsR3Xan3r0KGAI67E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com; spf=pass smtp.mailfrom=radxa.com; arc=none smtp.client-ip=54.206.34.216
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=radxa.com
-X-QQ-mid: zesmtpip2t1788188985tad3ad028
-X-QQ-Originating-IP: +93kN03FFqH1G4SnEf9Z7LhYXbcRYqmYq0ZGb7jdsFw=
-Received: from [192.168.30.32] ( [localhost])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Mon, 31 Aug 2026 23:09:43 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 5458043899803403433
-EX-QQ-RecipientCnt: 13
-From: Xilin Wu <sophon@radxa.com>
-Date: Mon, 31 Aug 2026 23:09:33 +0800
-Subject: [PATCH 2/2] platform: arm64: radxa-svc: Add hwmon sensors
+	s=arc-20240116; t=1788189005; c=relaxed/simple;
+	bh=4U2LUmTx8w7E3cGVly3nAax5cSJO3+I1ab/g9gL7jTs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=UrpX/sOceo/+H94iFBgOwMZH5M4GtTZ/+sG1c3Qxo5ZEI4c9tFrRHL+NlsEw8t4anwetjRhIHTuWkWpiODHOHJ9K+HdHI7tNFSI1N5QF6n8FB5hcVfESgZh9Lb7mE7wRX+Q9TDjsxhZp3XV8T6Igr65n7C8V8C26yUyaR32ndjI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=OHiS9OG+; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="OHiS9OG+"
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67VEZ3nX2530191;
+	Mon, 31 Aug 2026 15:09:48 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=nqvvjo
+	cRJPuBAbBXC+gYZnypv5W8yQhGpHk8UKs+KXk=; b=OHiS9OG+EGsT5N0RUyCKo3
+	BuURiJcZDFngnsOaquGVEAxGJkdc5dBGlIZPNl7FynopaNU097P22GctIaCXocUg
+	1kvjBZXU8cWbOYLR73A/TXmpPPhzZv7anYVgc2vJtunIc9jSh0HHX2kAqa+PQ6SK
+	E2XFoIwY4HwoVXAd5BmrRt8EoUtXhL1HwmYZ/iUiRx84RNn/7UnRklYONrq6koPV
+	5w2J1iJEbleHmOCZQA0YhuR53ynlxzfJlXfkVA50ROzi1p4cb0nnyeCeCzI1keYn
+	w2+6b8tOMAHHFXAMeujs0Q1CLhDJzxgToG/ftnCc7kYvnYN8gVwzqLvv1XmgejKA
+	==
+Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gbpx5a4y2-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 31 Aug 2026 15:09:47 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma21.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67VEubqh024915;
+	Mon, 31 Aug 2026 15:09:46 GMT
+Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
+	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gcarjxk6u-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 31 Aug 2026 15:09:46 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com [10.20.54.100])
+	by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67VF9e9n51904878
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 31 Aug 2026 15:09:40 GMT
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 732B02004E;
+	Mon, 31 Aug 2026 15:09:40 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id C24902004D;
+	Mon, 31 Aug 2026 15:09:36 +0000 (GMT)
+Received: from [9.124.217.83] (unknown [9.124.217.83])
+	by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Mon, 31 Aug 2026 15:09:36 +0000 (GMT)
+Message-ID: <d7031bd9-9485-4cc5-a06e-082f91cad91a@linux.ibm.com>
+Date: Mon, 31 Aug 2026 20:39:35 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260831-radxa-svc-v1-2-7c028de6a387@radxa.com>
-References: <20260831-radxa-svc-v1-0-7c028de6a387@radxa.com>
-In-Reply-To: <20260831-radxa-svc-v1-0-7c028de6a387@radxa.com>
-To: Guenter Roeck <linux@roeck-us.net>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>, Hans de Goede <hansg@kernel.org>, 
- =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Cc: linux-hwmon@vger.kernel.org, linux-doc@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- platform-driver-x86@vger.kernel.org, Xilin Wu <sophon@radxa.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=17010; i=sophon@radxa.com;
- h=from:subject:message-id; bh=KR5zIC9MjS9KDL+E3J1GN63LF/NOwojJqczy6h31rWo=;
- b=owGbwMvMwCVmdFg0fe08Iz/G02pJDFlTZxrFnNaMr0/Yn2f2N3r3zmnzr+udFd6p4b5pVpTRB
- Xet42x3OkpZGMS4GGTFFFkU4hnmslfmXnsqVqoHM4eVCWQIAxenAEyERY/hf7aSfZbWqWkJW+9Z
- RkS2hqxraKm24DMJ57pxpO21tED5G4b/QfMz8t13Tl/EOlVVgfe8Rl3FWTvRxjmnDuXdur3mvOo
- ePgA=
-X-Developer-Key: i=sophon@radxa.com; a=openpgp;
- fpr=205F009D07796DD6E516752E32C31567AD9E324E
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpip:radxa.com:qybglogicsvrsz:qybglogicsvrsz3b-0
-X-QQ-XMAILINFO: NlVgJxuVJf8S399MKbIkmeXMujjosvqWQB68gAWE7fOCITBRlBv96zTJ
-	1Gzd10Z63PfsxWLE0o8nkn90N5gSi+nVvBoyevgvWA4Y69S7V2We2IP56GpWKQJ25b0Bikp
-	DGiKymmZPygBvFK3WqyhnDEw5UMqrs99pbwrZllca+lnwTTbVw5+5kcJ+YXE6Kkzsi84gko
-	7OewwvFZBbaqoRG4Zt4f1VB13jm/aIeJKMTzUlGyBZQFtBE/jxlcxOYEq2/YcPJKG8FyW2n
-	VQNraP5xJJac311DN1qluHK9k0pAAX/leR/yav6FaCBaoJ5a/2FHB4jx2ExmkcG/rEKk9NC
-	99O5KHw9loiXSlG1Ho/5WsAY34/CLYouolcpm2fPLUSrFeHpHD7qD3sNtuaTFjp3QBQoIR2
-	fjzWkSkS8ytCUJe1jT6WPlE/WT5bN59pmE2qiOWuZ7jTRXkDhnJ4ODpV7o0JwFY9NqtJ+k6
-	33KC5Y/5AVQ4IVrOClL09oabot4XaKZPPudu2CFauH1aGfBODvlUmkcGs8A/upPVvMaHJcE
-	w0MXXrtDkWvfsj62v6DWLRAFfCwHPZfhNmAMogb1BRBfZYPtZN63eIm6aRQeqqKf0e923gd
-	WGkKOuZUWnXtrALKtfz9Ld3L9JmNPKNXE3DuBoumoiw/MWi6758Ywrr/yMe8s7rS9hKk5E+
-	5lLP9wG/JPLqfqV7TH4EFGVBTmj8Ia6HCY+i24G1u5aoQTDHcioIHKLV5BdGqGZaFZCRc3X
-	w0WdChHVGs+93HtnXJTge1CRzIzdy3JQqUy8kvRrSXkXxhCdCQoDAnrTNcvWenpYuebTIiz
-	AajZ5D6zxAVkhL1G3KGvpnZGyYES8QNSldghVWahj9w8wi7CGp9lZvNIixiyVv2eIXD0x8R
-	UlOn9+XJO0URU9+/xCSTbLgvCGNkKtc7JDfrxMMT1EvqXllgnvRoICEPvJmGZzWyOleniEP
-	c6AcE+E5Dld5ica2SXjV/Aqv5xymAbDXkrMnerLphjX1B0nwrfx6gF0UpsuDD0OGONtrKYU
-	oyXhdbvXyF2MO1BiQzJ7XOBAOBx2iP4QyQR5xt4tTEpzfgFYwMAiXMHAPUzn8=
-X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
-X-QQ-RECHKSPAM: 0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 4/5] powerpc/pseries/eeh: Implement RTAS-based EEH
+ error injection
+To: Sourabh Jain <sourabhjain@linux.ibm.com>, mahesh@linux.ibm.com,
+        maddy@linux.ibm.com, mpe@ellerman.id.au, christophe.leroy@csgroup.eu,
+        gregkh@linuxfoundation.org, oohall@gmail.com, npiggin@gmail.com
+Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
+        tyreld@linux.ibm.com, vaibhav@linux.ibm.com, sbhat@linux.ibm.com,
+        ganeshgr@linux.ibm.com, haren@linux.ibm.com, thuth@redhat.com
+References: <20260721033815.5300-1-nnmlinux@linux.ibm.com>
+ <20260721033815.5300-5-nnmlinux@linux.ibm.com>
+ <1f8f70a4-2e5c-4e41-a8f1-9a32f37286d0@linux.ibm.com>
+Content-Language: en-US
+From: Narayana Murty N <nnmlinux@linux.ibm.com>
+In-Reply-To: <1f8f70a4-2e5c-4e41-a8f1-9a32f37286d0@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Authority-Analysis: v=2.4 cv=PPc/P/qC c=1 sm=1 tr=0 ts=6a95993c cx=c_pps
+ a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=VwQbUJbxAAAA:8
+ a=VnNF1IyMAAAA:8 a=vIEh78ILgNviK4F0Fn4A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: L7CN_AlEYjPbasFBPyqlV6Wz608COKa3
+X-Proofpoint-ORIG-GUID: 7NAaSYsUr21Hi2mBBMamfimicZzkrs8b
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODMxMDEzMCBTYWx0ZWRfXx0+Z2sB7lclt
+ DipgknIzDYO3yuqM35grwo+ta5uhRiQ32vAMS0ofXitvt8/y15EU9hLXV4ArGmWFstizELNM2bW
+ Ed6+Joztb6NvCpF0z/py/6RmQN0mMQA=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODMxMDEzMCBTYWx0ZWRfX20QSbVdRjrH6
+ 3FRVadgvXmipuPounmuxXcarphH+7sjUF9T/5q0XwDr4GQPeTPpaiGzLflyw2Bn0qcvkQaOQVw4
+ Zc0nB6kgV0z0+4EeF8TjkeJszc7wvY92xZM17PWngePBdura+CY+ErhiMatAwuWTNPmBDs6nnZJ
+ er7qbml9zdkfjLAdn7/SWAefRedDRueP5un3y9pjdNMP8AXW5vW8LGL414Qoy/6FGLqyrUvJmjI
+ DzO8EzqX3vm9OhSzuiR2+fukUHmFwWmyisH7uBPFUEW4uHYqn+2hS9MIpTPZVkrikTPI0y3mxue
+ RWNda4WT4w9zYdFJ9Pc1bm4/ZE81NoAkJPNx3XNoeeBPxggu5/DjOGWvM7UJ7GFPDcSmqlWrtF0
+ yXKAR6icR3GugpNvonEzC+AfQrEvemjKI4Oe89RZYUWSp276ODU1Gs3npjwz2IrI9K8cpinL6PC
+ Yx19M8bbeAqwdMXB/RA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-31_05,2026-08-27_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 phishscore=0 adultscore=0 suspectscore=0 bulkscore=0
+ spamscore=0 priorityscore=1501 impostorscore=0 malwarescore=0
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2608310130
 
-Add support for the optional sensor discovery and sampling operations.
-Expose firmware temperature, voltage, current, and combined sensors as
-read-only hwmon devices.
+Hi Sourabh,
+Thanks for the review.
 
-Validate firmware descriptors and samples, cache complete readings, and
-calculate power for combined voltage and current sensors.
+On 04/08/26 11:56 PM, Sourabh Jain wrote:
+> 
+> 
+> On 21/07/26 09:08, Narayana Murty N wrote:
+>> Replace legacy MMIO error injection with full PAPR-compliant RTAS error
+>> injection supporting 14+ error types via
+>>    - ibm,open-errinjct
+>>    - ibm,errinjct
+>>    - ibm,close-errinjct.
+>>
+>> Key features:
+>>    - Complete open-session-inject-close cycle management
+>>    - Special handling for ibm,open-errinjct output format (token,status)
+>>    - Comprehensive buffer preparation per PAPR layouts
+>>    - All pr_* logging uses pr_fmt("EEH: ") prefix
+>>
+>> Tested with corresponding QEMU patches:
+>> https://lore.kernel.org/all/20251029150618.186803-1- 
+>> nnmlinux@linux.ibm.com/
+>>
+>> Signed-off-by: Narayana Murty N <nnmlinux@linux.ibm.com>
+>> ---
+>>   arch/powerpc/platforms/pseries/eeh_pseries.c | 121 +++++++++++++++----
+>>   1 file changed, 95 insertions(+), 26 deletions(-)
+>>
+>> diff --git a/arch/powerpc/platforms/pseries/eeh_pseries.c b/arch/ 
+>> powerpc/platforms/pseries/eeh_pseries.c
+>> index 25aad86c696d..d32a84009fdc 100644
+>> --- a/arch/powerpc/platforms/pseries/eeh_pseries.c
+>> +++ b/arch/powerpc/platforms/pseries/eeh_pseries.c
+>> @@ -1037,40 +1037,109 @@ static int prepare_errinjct_buffer(void *buf, 
+>> struct eeh_pe *pe,
+>>   }
+>>   /**
+>> - * pseries_eeh_err_inject - Inject specified error to the indicated PE
+>> - * @pe: the indicated PE
+>> - * @type: error type
+>> - * @func: specific error type
+>> - * @addr: address
+>> - * @mask: address mask
+>> - * The routine is called to inject specified error, which is
+>> - * determined by @type and @func, to the indicated PE
+>> + * pseries_eeh_err_inject - Inject specified error into the indicated PE
+>> + * @pe:   the indicated PE
+>> + * @type: generic EEH error type (EEH_ERR_TYPE_*)
+>> + * @func: error function selector (EEH_ERR_FUNC_*)
+>> + * @addr: target address, if applicable
+>> + * @mask: address mask, if applicable
+>> + *
+>> + * Implements the EEH error-injection callback for pseries using the 
+>> RTAS
+>> + * ibm,open-errinjct / ibm,errinjct / ibm,close-errinjct firmware 
+>> services.
+>> + *
+>> + * Generic EEH error types are translated to RTAS firmware type codes 
+>> via
+>> + * pseries_eeh_type_to_rtas() before the injection session is opened.
+>> + * Unsupported generic types are rejected with -EINVAL before any 
+>> RTAS call
+>> + * is made.  Existing userspace is unaffected.
+>> + *
+>> + * Return: 0 on success, negative errno or RTAS error code on failure.
+>>    */
+>>   static int pseries_eeh_err_inject(struct eeh_pe *pe, int type, int 
+>> func,
+>>                     unsigned long addr, unsigned long mask)
+>>   {
+>> -    struct    eeh_dev    *pdev;
+>> -
+>> -    /* Check on PCI error type */
+>> -    if (type != EEH_ERR_TYPE_32 && type != EEH_ERR_TYPE_64)
+>> -        return -EINVAL;
+>> +    int open_token, errinjct_token, close_token;
+>> +    int session_token = 0;
+>> +    bool session_open = false;
+>> +    void *buf;
+>> +    u32 buf_phys;
+>> +    int rc;
+>> +    int rtas_type;
+>> -    switch (func) {
+>> -    case EEH_ERR_FUNC_LD_MEM_ADDR:
+>> -    case EEH_ERR_FUNC_LD_MEM_DATA:
+>> -    case EEH_ERR_FUNC_ST_MEM_ADDR:
+>> -    case EEH_ERR_FUNC_ST_MEM_DATA:
+>> -        /* injects a MMIO error for all pdev's belonging to PE */
+>> -        pci_lock_rescan_remove();
+>> -        list_for_each_entry(pdev, &pe->edevs, entry)
+>> -            eeh_pe_inject_mmio_error(pdev->pdev);
+>> -        pci_unlock_rescan_remove();
+>> -        break;
+>> -    default:
+>> +    /* Guard: buffer must fit in 32 bits for RTAS */
+>> +    if (WARN_ON_ONCE(upper_32_bits(rtas_errinjct_buf)))
+>>           return -ERANGE;
+>> +
+>> +    /* Map generic EEH ABI to RTAS-internal error type */
+>> +    rtas_type = pseries_eeh_type_to_rtas(type);
+>> +    if (rtas_type < 0) {
+>> +        pr_err("unsupported EEH error type %#x\n", type);
+>> +        return rtas_type;
+> 
+> How about -EINVAL instead?
+Agreed.
+> 
+>>       }
+>> -    return 0;
+>> +    /* Verify all three RTAS tokens are available before touching 
+>> firmware */
+>> +    open_token    = rtas_function_token(RTAS_FN_IBM_OPEN_ERRINJCT);
+>> +    errinjct_token = rtas_function_token(RTAS_FN_IBM_ERRINJCT);
+>> +    close_token   = rtas_function_token(RTAS_FN_IBM_CLOSE_ERRINJCT);
+>> +
+>> +    if (open_token    == RTAS_UNKNOWN_SERVICE ||
+>> +        errinjct_token == RTAS_UNKNOWN_SERVICE ||
+>> +        close_token   == RTAS_UNKNOWN_SERVICE) {
+>> +        pr_err("ibm,open/errinjct/close-errinjct not available\n");
+>> +        return -ENODEV;
+>> +    }
+>> +
+>> +    buf      = __va(rtas_errinjct_buf);
+>> +    buf_phys = lower_32_bits(rtas_errinjct_buf);
+>> +
+>> +    mutex_lock(&rtas_errinjct_mutex);
+>> +
+>> +    /* Step 1: open injection session */
+>> +    do {
+>> +        rc = rtas_call(open_token, 0, 2, &session_token);
+>> +    } while (rtas_busy_delay(rc));
+>> +
+>> +    if (rc) {
+>> +        pr_err("ibm,open-errinjct failed: status=%d\n", rc);
+>> +        goto out_unlock;
+>> +    }
+>> +    session_open = true;
+>> +
+>> +    /* Step 2: prepare the work buffer */
+>> +    rc = prepare_errinjct_buffer(buf, pe, rtas_type, func, addr, mask);
+>> +    if (rc) {
+>> +        pr_err("failed to prepare errinjct buffer: rc=%d\n", rc);
+>> +        goto out_close;
+>> +    }
+>> +
+>> +    /* Step 3: inject the error */
+>> +    do {
+>> +        rc = rtas_call(errinjct_token, 3, 1, NULL,
+>> +                   rtas_type, session_token, buf_phys);
+>> +    } while (rtas_busy_delay(rc));
+>> +
+>> +    if (rc)
+>> +        pr_err("ibm,errinjct failed: status=%d\n", rc);
+>> +
+>> +out_close:
+>> +    /* Step 4: always close the session */
+>> +    {
+>> +        int close_rc;
+> 
+> Why are having separate rc variable for close close token call?
+> 
+The intent was to preserve the original inject failure status while 
+still attempting to close the error-injection session. If ibm,errinjct 
+fails and ibm,close-errinjct also fails, returning the close status 
+would hide the original injection failure.
 
-Signed-off-by: Xilin Wu <sophon@radxa.com>
----
- Documentation/hwmon/radxa-svc-glink.rst  |  11 +-
- drivers/platform/arm64/Kconfig           |   4 +-
- drivers/platform/arm64/radxa_svc_glink.c | 470 +++++++++++++++++++++++++++++++
- 3 files changed, 482 insertions(+), 3 deletions(-)
+So close_rc is used only to report close failure with pr_warn(), while 
+the function returns the status from the open/prepare/inject path.
+>> +
+>> +        if (session_open) {
+> 
+> is session_open variable really needed?
 
-diff --git a/Documentation/hwmon/radxa-svc-glink.rst b/Documentation/hwmon/radxa-svc-glink.rst
-index c464b130a4e4..99750a1f876e 100644
---- a/Documentation/hwmon/radxa-svc-glink.rst
-+++ b/Documentation/hwmon/radxa-svc-glink.rst
-@@ -8,7 +8,8 @@ Description
- 
- The Radxa SVC GLINK driver communicates with the ``RADXA_SVC_ADSP_APPS``
- firmware service found on supported Radxa boards with Qualcomm SoCs. The
--firmware provides fan control.
-+firmware provides fan control and dynamically discoverable temperature,
-+voltage, current, and power sensors.
- 
- Fan control
- -----------
-@@ -30,3 +31,11 @@ The supported ``pwm1_enable`` values are:
- 
- When manual mode is selected, the driver starts with the current fan speed. If
- the current speed cannot be determined, it starts at full speed.
-+
-+Sensors
-+-------
-+
-+Each sensor discovered through the firmware service is registered as a
-+separate hwmon device. Depending on the sensor type, it exposes the standard
-+``temp1_input``, ``in0_input``, ``curr1_input``, and ``power1_input``
-+attributes and their corresponding labels.
-diff --git a/drivers/platform/arm64/Kconfig b/drivers/platform/arm64/Kconfig
-index 60c1e541fe89..c4e70a3c5089 100644
---- a/drivers/platform/arm64/Kconfig
-+++ b/drivers/platform/arm64/Kconfig
-@@ -111,8 +111,8 @@ config RADXA_SVC_GLINK
- 	help
- 	  Enable support for the Radxa SVC firmware service found on supported
- 	  Radxa boards using Qualcomm SoCs. The driver communicates with the
--	  RADXA_SVC_ADSP_APPS service over rpmsg and exposes fan control through
--	  the standard hwmon interface.
-+	  RADXA_SVC_ADSP_APPS service over rpmsg and exposes fan control and
-+	  sensor readings through the standard hwmon interface.
- 
- 	  Say M or Y here to include this support.
- 
-diff --git a/drivers/platform/arm64/radxa_svc_glink.c b/drivers/platform/arm64/radxa_svc_glink.c
-index 1c91bfabcd12..b2a4f0c5317a 100644
---- a/drivers/platform/arm64/radxa_svc_glink.c
-+++ b/drivers/platform/arm64/radxa_svc_glink.c
-@@ -10,6 +10,7 @@
- #include <linux/hwmon.h>
- #include <linux/jiffies.h>
- #include <linux/kernel.h>
-+#include <linux/limits.h>
- #include <linux/minmax.h>
- #include <linux/module.h>
- #include <linux/mutex.h>
-@@ -31,6 +32,8 @@
- #define RADXA_SVC_OP_FAN_GET_STATE	0x50
- #define RADXA_SVC_OP_FAN_SET_CONTROL	0x51
- #define RADXA_SVC_OP_FAN_GET_CONTROL	0x52
-+#define RADXA_SVC_OP_SENSOR_LIST		0x60
-+#define RADXA_SVC_OP_SENSOR_READ		0x61
- 
- #define RADXA_SVC_PROFILE_QUIET		0
- #define RADXA_SVC_PROFILE_PERFORMANCE	1
-@@ -48,11 +51,29 @@
- #define RADXA_SVC_CAP_PROFILE		BIT(1)
- #define RADXA_SVC_CAP_FANCTL		BIT(5)
- #define RADXA_SVC_CAP_FANCTL_CTRL	BIT(6)
-+#define RADXA_SVC_CAP_SENSORS		BIT(7)
- 
- #define RADXA_SVC_REQUIRED_CAPS		(RADXA_SVC_CAP_PROFILE | \
- 					 RADXA_SVC_CAP_FANCTL | \
- 					 RADXA_SVC_CAP_FANCTL_CTRL)
- 
-+#define RADXA_SVC_SENSOR_MAX_SENSORS	64
-+#define RADXA_SVC_SENSOR_NAME_LEN	32
-+#define RADXA_SVC_SENSOR_PAGE_MAX	5
-+#define RADXA_SVC_SENSOR_CACHE_TIME	msecs_to_jiffies(50)
-+
-+#define RADXA_SVC_SENSOR_TEMP		1
-+#define RADXA_SVC_SENSOR_VOLTAGE		2
-+#define RADXA_SVC_SENSOR_CURRENT		3
-+#define RADXA_SVC_SENSOR_VOLTAGE_CURRENT	4
-+
-+#define RADXA_SVC_SENSOR_VALID_TEMP	BIT(0)
-+#define RADXA_SVC_SENSOR_VALID_VOLTAGE	BIT(1)
-+#define RADXA_SVC_SENSOR_VALID_CURRENT	BIT(2)
-+#define RADXA_SVC_SENSOR_VALID_MASK	(RADXA_SVC_SENSOR_VALID_TEMP | \
-+					 RADXA_SVC_SENSOR_VALID_VOLTAGE | \
-+					 RADXA_SVC_SENSOR_VALID_CURRENT)
-+
- struct radxa_svc_hdr {
- 	__le32 magic;
- 	__le16 version;
-@@ -100,10 +121,57 @@ struct radxa_svc_fan_control_resp {
- 	__le32 manual_pwm;
- } __packed;
- 
-+struct radxa_svc_sensor_list_req {
-+	__le32 start_index;
-+	__le32 max_entries;
-+} __packed;
-+
-+struct radxa_svc_sensor_desc {
-+	__le32 sensor_id;
-+	__le32 sensor_type;
-+	char name[RADXA_SVC_SENSOR_NAME_LEN];
-+} __packed;
-+
-+struct radxa_svc_sensor_list_resp {
-+	__le32 total_count;
-+	__le32 returned_count;
-+	struct radxa_svc_sensor_desc entries[];
-+} __packed;
-+
-+struct radxa_svc_sensor_read_req {
-+	__le32 sensor_id;
-+} __packed;
-+
-+struct radxa_svc_sensor_read_resp {
-+	__le32 sensor_id;
-+	__le32 valid_mask;
-+	__le32 temp_millic;
-+	__le32 voltage_mv;
-+	__le32 current_ma;
-+} __packed;
-+
-+struct radxa_svc_glink;
-+
-+struct radxa_svc_sensor {
-+	struct radxa_svc_glink *svc;
-+	struct device *hwmon_dev;
-+	struct mutex cache_lock; /* protects cached sample fields */
-+	unsigned long last_updated;
-+	u32 sensor_id;
-+	u32 sensor_type;
-+	char name[RADXA_SVC_SENSOR_NAME_LEN];
-+	s32 temp_millic;
-+	s32 voltage_mv;
-+	s64 current_ma;
-+	bool cache_valid;
-+};
-+
- struct radxa_svc_glink {
- 	struct device *dev;
- 	struct rpmsg_device *rpdev;
- 	struct device *hwmon_dev;
-+	struct radxa_svc_sensor *sensors;
-+	u32 num_sensors;
- 
- 	struct mutex xfer_lock; /* serializes request/response transactions */
- 	struct mutex fan_lock; /* serializes multi-request fan configuration */
-@@ -428,6 +496,403 @@ static int radxa_svc_rpmsg_callback(struct rpmsg_device *rpdev, void *data,
- 	return 0;
- }
- 
-+static u32 radxa_svc_sensor_expected_mask(u32 sensor_type)
-+{
-+	switch (sensor_type) {
-+	case RADXA_SVC_SENSOR_TEMP:
-+		return RADXA_SVC_SENSOR_VALID_TEMP;
-+	case RADXA_SVC_SENSOR_VOLTAGE:
-+		return RADXA_SVC_SENSOR_VALID_VOLTAGE;
-+	case RADXA_SVC_SENSOR_CURRENT:
-+		return RADXA_SVC_SENSOR_VALID_CURRENT;
-+	case RADXA_SVC_SENSOR_VOLTAGE_CURRENT:
-+		return RADXA_SVC_SENSOR_VALID_VOLTAGE |
-+		       RADXA_SVC_SENSOR_VALID_CURRENT;
-+	default:
-+		return 0;
-+	}
-+}
-+
-+static int radxa_svc_sensor_update(struct radxa_svc_sensor *sensor)
-+{
-+	struct radxa_svc_sensor_read_req req;
-+	struct radxa_svc_sensor_read_resp resp = {};
-+	unsigned long cache_expires;
-+	u32 expected_mask;
-+	u32 valid_mask;
-+	size_t len = sizeof(resp);
-+	int ret;
-+
-+	mutex_lock(&sensor->cache_lock);
-+
-+	cache_expires = sensor->last_updated + RADXA_SVC_SENSOR_CACHE_TIME;
-+	if (sensor->cache_valid && time_before(jiffies, cache_expires)) {
-+		ret = 0;
-+		goto out_unlock;
-+	}
-+
-+	req.sensor_id = cpu_to_le32(sensor->sensor_id);
-+	ret = radxa_svc_request(sensor->svc, RADXA_SVC_OP_SENSOR_READ,
-+				&req, sizeof(req), &resp, &len);
-+	if (ret)
-+		goto out_unlock;
-+
-+	if (len != sizeof(resp) ||
-+	    le32_to_cpu(resp.sensor_id) != sensor->sensor_id) {
-+		ret = -EPROTO;
-+		goto out_unlock;
-+	}
-+
-+	valid_mask = le32_to_cpu(resp.valid_mask);
-+	expected_mask = radxa_svc_sensor_expected_mask(sensor->sensor_type);
-+	if ((valid_mask & RADXA_SVC_SENSOR_VALID_MASK) != expected_mask ||
-+	    valid_mask & ~RADXA_SVC_SENSOR_VALID_MASK) {
-+		ret = -EPROTO;
-+		goto out_unlock;
-+	}
-+
-+	sensor->temp_millic = (s32)le32_to_cpu(resp.temp_millic);
-+	sensor->voltage_mv = (s32)le32_to_cpu(resp.voltage_mv);
-+	sensor->current_ma = (s32)le32_to_cpu(resp.current_ma);
-+	sensor->last_updated = jiffies;
-+	sensor->cache_valid = true;
-+	ret = 0;
-+
-+out_unlock:
-+	mutex_unlock(&sensor->cache_lock);
-+	return ret;
-+}
-+
-+static int radxa_svc_sensor_hwmon_read(struct device *dev,
-+				       enum hwmon_sensor_types type, u32 attr,
-+				       int channel, long *val)
-+{
-+	struct radxa_svc_sensor *sensor = dev_get_drvdata(dev);
-+	s64 power;
-+	int ret;
-+
-+	if (channel)
-+		return -EOPNOTSUPP;
-+
-+	ret = radxa_svc_sensor_update(sensor);
-+	if (ret)
-+		return ret;
-+
-+	switch (type) {
-+	case hwmon_temp:
-+		if (attr != hwmon_temp_input ||
-+		    sensor->sensor_type != RADXA_SVC_SENSOR_TEMP)
-+			return -EOPNOTSUPP;
-+		*val = sensor->temp_millic;
-+		return 0;
-+	case hwmon_in:
-+		if (attr != hwmon_in_input ||
-+		    !(radxa_svc_sensor_expected_mask(sensor->sensor_type) &
-+		      RADXA_SVC_SENSOR_VALID_VOLTAGE))
-+			return -EOPNOTSUPP;
-+		*val = sensor->voltage_mv;
-+		return 0;
-+	case hwmon_curr:
-+		if (attr != hwmon_curr_input ||
-+		    !(radxa_svc_sensor_expected_mask(sensor->sensor_type) &
-+		      RADXA_SVC_SENSOR_VALID_CURRENT))
-+			return -EOPNOTSUPP;
-+		if (sensor->current_ma > LONG_MAX ||
-+		    sensor->current_ma < LONG_MIN)
-+			return -ERANGE;
-+		*val = sensor->current_ma;
-+		return 0;
-+	case hwmon_power:
-+		if (attr != hwmon_power_input ||
-+		    sensor->sensor_type != RADXA_SVC_SENSOR_VOLTAGE_CURRENT)
-+			return -EOPNOTSUPP;
-+
-+		power = (s64)sensor->voltage_mv * sensor->current_ma;
-+		if (power > LONG_MAX || power < LONG_MIN)
-+			return -ERANGE;
-+		*val = power;
-+		return 0;
-+	default:
-+		return -EOPNOTSUPP;
-+	}
-+}
-+
-+static int radxa_svc_sensor_hwmon_read_string(struct device *dev,
-+					      enum hwmon_sensor_types type, u32 attr,
-+					      int channel, const char **str)
-+{
-+	if (channel)
-+		return -EOPNOTSUPP;
-+
-+	switch (type) {
-+	case hwmon_temp:
-+		if (attr == hwmon_temp_label)
-+			*str = "Temperature";
-+		else
-+			return -EOPNOTSUPP;
-+		break;
-+	case hwmon_in:
-+		if (attr == hwmon_in_label)
-+			*str = "Voltage";
-+		else
-+			return -EOPNOTSUPP;
-+		break;
-+	case hwmon_curr:
-+		if (attr == hwmon_curr_label)
-+			*str = "Current";
-+		else
-+			return -EOPNOTSUPP;
-+		break;
-+	case hwmon_power:
-+		if (attr == hwmon_power_label)
-+			*str = "Power";
-+		else
-+			return -EOPNOTSUPP;
-+		break;
-+	default:
-+		return -EOPNOTSUPP;
-+	}
-+
-+	return 0;
-+}
-+
-+static umode_t radxa_svc_sensor_hwmon_is_visible(const void *data,
-+						 enum hwmon_sensor_types type,
-+						 u32 attr, int channel)
-+{
-+	const struct radxa_svc_sensor *sensor = data;
-+
-+	if (channel)
-+		return 0;
-+
-+	switch (type) {
-+	case hwmon_temp:
-+		if (sensor->sensor_type == RADXA_SVC_SENSOR_TEMP &&
-+		    (attr == hwmon_temp_input || attr == hwmon_temp_label))
-+			return 0444;
-+		break;
-+	case hwmon_in:
-+		if ((radxa_svc_sensor_expected_mask(sensor->sensor_type) &
-+		     RADXA_SVC_SENSOR_VALID_VOLTAGE) &&
-+		    (attr == hwmon_in_input || attr == hwmon_in_label))
-+			return 0444;
-+		break;
-+	case hwmon_curr:
-+		if ((radxa_svc_sensor_expected_mask(sensor->sensor_type) &
-+		     RADXA_SVC_SENSOR_VALID_CURRENT) &&
-+		    (attr == hwmon_curr_input || attr == hwmon_curr_label))
-+			return 0444;
-+		break;
-+	case hwmon_power:
-+		if (sensor->sensor_type == RADXA_SVC_SENSOR_VOLTAGE_CURRENT &&
-+		    (attr == hwmon_power_input || attr == hwmon_power_label))
-+			return 0444;
-+		break;
-+	default:
-+		break;
-+	}
-+
-+	return 0;
-+}
-+
-+static const struct hwmon_ops radxa_svc_sensor_hwmon_ops = {
-+	.is_visible = radxa_svc_sensor_hwmon_is_visible,
-+	.read = radxa_svc_sensor_hwmon_read,
-+	.read_string = radxa_svc_sensor_hwmon_read_string,
-+};
-+
-+static const struct hwmon_channel_info * const radxa_svc_temp_info[] = {
-+	HWMON_CHANNEL_INFO(temp, HWMON_T_INPUT | HWMON_T_LABEL),
-+	NULL
-+};
-+
-+static const struct hwmon_channel_info * const radxa_svc_voltage_info[] = {
-+	HWMON_CHANNEL_INFO(in, HWMON_I_INPUT | HWMON_I_LABEL),
-+	NULL
-+};
-+
-+static const struct hwmon_channel_info * const radxa_svc_current_info[] = {
-+	HWMON_CHANNEL_INFO(curr, HWMON_C_INPUT | HWMON_C_LABEL),
-+	NULL
-+};
-+
-+static const struct hwmon_channel_info * const radxa_svc_voltage_current_info[] = {
-+	HWMON_CHANNEL_INFO(in, HWMON_I_INPUT | HWMON_I_LABEL),
-+	HWMON_CHANNEL_INFO(curr, HWMON_C_INPUT | HWMON_C_LABEL),
-+	HWMON_CHANNEL_INFO(power, HWMON_P_INPUT | HWMON_P_LABEL),
-+	NULL
-+};
-+
-+static const struct hwmon_chip_info radxa_svc_temp_chip_info = {
-+	.ops = &radxa_svc_sensor_hwmon_ops,
-+	.info = radxa_svc_temp_info,
-+};
-+
-+static const struct hwmon_chip_info radxa_svc_voltage_chip_info = {
-+	.ops = &radxa_svc_sensor_hwmon_ops,
-+	.info = radxa_svc_voltage_info,
-+};
-+
-+static const struct hwmon_chip_info radxa_svc_current_chip_info = {
-+	.ops = &radxa_svc_sensor_hwmon_ops,
-+	.info = radxa_svc_current_info,
-+};
-+
-+static const struct hwmon_chip_info radxa_svc_voltage_current_chip_info = {
-+	.ops = &radxa_svc_sensor_hwmon_ops,
-+	.info = radxa_svc_voltage_current_info,
-+};
-+
-+static const struct hwmon_chip_info *radxa_svc_sensor_chip_info(u32 sensor_type)
-+{
-+	switch (sensor_type) {
-+	case RADXA_SVC_SENSOR_TEMP:
-+		return &radxa_svc_temp_chip_info;
-+	case RADXA_SVC_SENSOR_VOLTAGE:
-+		return &radxa_svc_voltage_chip_info;
-+	case RADXA_SVC_SENSOR_CURRENT:
-+		return &radxa_svc_current_chip_info;
-+	case RADXA_SVC_SENSOR_VOLTAGE_CURRENT:
-+		return &radxa_svc_voltage_current_chip_info;
-+	default:
-+		return NULL;
-+	}
-+}
-+
-+static int radxa_svc_sensor_validate_desc(struct radxa_svc_glink *svc,
-+					  const struct radxa_svc_sensor_desc *desc,
-+					  u32 index)
-+{
-+	const char *nul;
-+	u32 sensor_id = le32_to_cpu(desc->sensor_id);
-+	u32 sensor_type = le32_to_cpu(desc->sensor_type);
-+	u32 i;
-+
-+	nul = memchr(desc->name, '\0', sizeof(desc->name));
-+	if (!nul || nul == desc->name || !radxa_svc_sensor_chip_info(sensor_type))
-+		return -EPROTO;
-+
-+	for (i = 0; i < index; i++) {
-+		if (svc->sensors[i].sensor_id == sensor_id ||
-+		    !strcmp(svc->sensors[i].name, desc->name))
-+			return -EPROTO;
-+	}
-+
-+	svc->sensors[index].svc = svc;
-+	svc->sensors[index].sensor_id = sensor_id;
-+	svc->sensors[index].sensor_type = sensor_type;
-+	strscpy(svc->sensors[index].name, desc->name,
-+		sizeof(svc->sensors[index].name));
-+	mutex_init(&svc->sensors[index].cache_lock);
-+
-+	return 0;
-+}
-+
-+static int radxa_svc_sensor_hwmon_init(struct radxa_svc_glink *svc)
-+{
-+	struct radxa_svc_sensor_list_resp *resp;
-+	struct radxa_svc_sensor_list_req req;
-+	const struct hwmon_chip_info *chip_info;
-+	char *hwmon_name;
-+	size_t max_len;
-+	size_t len;
-+	u32 returned;
-+	u32 total = 0;
-+	u32 start = 0;
-+	u32 i;
-+	int ret;
-+
-+	if (!(svc->caps & RADXA_SVC_CAP_SENSORS))
-+		return 0;
-+
-+	max_len = struct_size(resp, entries, RADXA_SVC_SENSOR_PAGE_MAX);
-+	resp = kzalloc(max_len, GFP_KERNEL);
-+	if (!resp)
-+		return -ENOMEM;
-+
-+	do {
-+		req.start_index = cpu_to_le32(start);
-+		req.max_entries = cpu_to_le32(RADXA_SVC_SENSOR_PAGE_MAX);
-+		len = max_len;
-+		ret = radxa_svc_request(svc, RADXA_SVC_OP_SENSOR_LIST,
-+					&req, sizeof(req), resp, &len);
-+		if (ret)
-+			goto out_free;
-+
-+		if (len < sizeof(*resp)) {
-+			ret = -EPROTO;
-+			goto out_free;
-+		}
-+
-+		returned = le32_to_cpu(resp->returned_count);
-+		if (!start) {
-+			total = le32_to_cpu(resp->total_count);
-+			if (total > RADXA_SVC_SENSOR_MAX_SENSORS) {
-+				ret = -EOVERFLOW;
-+				goto out_free;
-+			}
-+
-+			if (total) {
-+				svc->sensors =
-+					devm_kcalloc(svc->dev, total,
-+						     sizeof(*svc->sensors), GFP_KERNEL);
-+				if (!svc->sensors) {
-+					ret = -ENOMEM;
-+					goto out_free;
-+				}
-+			}
-+		} else if (le32_to_cpu(resp->total_count) != total) {
-+			ret = -EPROTO;
-+			goto out_free;
-+		}
-+
-+		if (returned > RADXA_SVC_SENSOR_PAGE_MAX || returned > total - start ||
-+		    len != struct_size(resp, entries, returned) ||
-+		    (start < total && !returned)) {
-+			ret = -EPROTO;
-+			goto out_free;
-+		}
-+
-+		for (i = 0; i < returned; i++) {
-+			ret = radxa_svc_sensor_validate_desc(svc, &resp->entries[i],
-+							     start + i);
-+			if (ret)
-+				goto out_free;
-+		}
-+
-+		start += returned;
-+	} while (start < total);
-+
-+	svc->num_sensors = total;
-+	for (i = 0; i < svc->num_sensors; i++) {
-+		struct radxa_svc_sensor *sensor = &svc->sensors[i];
-+
-+		chip_info = radxa_svc_sensor_chip_info(sensor->sensor_type);
-+		hwmon_name = devm_hwmon_sanitize_name(svc->dev, sensor->name);
-+		if (IS_ERR(hwmon_name)) {
-+			ret = PTR_ERR(hwmon_name);
-+			goto out_free;
-+		}
-+
-+		sensor->hwmon_dev =
-+			devm_hwmon_device_register_with_info(svc->dev, hwmon_name,
-+							     sensor, chip_info, NULL);
-+		if (IS_ERR(sensor->hwmon_dev)) {
-+			ret = PTR_ERR(sensor->hwmon_dev);
-+			dev_err_probe(svc->dev, ret,
-+				      "failed to register sensor %s hwmon\n",
-+				      sensor->name);
-+			goto out_free;
-+		}
-+	}
-+
-+	ret = 0;
-+
-+out_free:
-+	kfree(resp);
-+	return ret;
-+}
-+
- static int radxa_svc_fan_get_pwm_mode(struct radxa_svc_glink *svc,
- 				      long *mode)
- {
-@@ -694,6 +1159,11 @@ static int radxa_svc_rpmsg_probe(struct rpmsg_device *rpdev)
- 		return dev_err_probe(&rpdev->dev, ret,
- 				     "failed to register hwmon\n");
- 
-+	ret = radxa_svc_sensor_hwmon_init(svc);
-+	if (ret)
-+		return dev_err_probe(&rpdev->dev, ret,
-+				     "failed to register sensor hwmon devices\n");
-+
- 	return 0;
- }
- 
+It is mostly defensive. It avoids calling ibm,close-errinjct if 
+ibm,open-errinjct failed before a valid session was established.
 
--- 
-2.55.0
+In v4, I simplified the flow so the close path is only used after a 
+successful open. That makes the control flow clearer and avoids carrying 
+unnecessary state.
+
+Regards,
+Narayana.
+> 
+>> +            do {
+>> +                close_rc = rtas_call(close_token, 1, 1, NULL,
+>> +                             session_token);
+>> +            } while (rtas_busy_delay(close_rc));
+>> +
+>> +            if (close_rc)
+>> +                pr_warn("ibm,close-errinjct failed: status=%d\n",
+>> +                    close_rc);
+>> +        }
+>> +    }
+>> +
+>> +out_unlock:
+>> +    mutex_unlock(&rtas_errinjct_mutex);
+>> +    return rc;
+>>   }
+>>   static struct eeh_ops pseries_eeh_ops = {
+> 
 
