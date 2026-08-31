@@ -1,217 +1,163 @@
-Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from gentwo.org (gentwo.org [62.72.0.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61B953B7B93
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 18:25:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD7F33B635C
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 18:25:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.72.0.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788200706; cv=none; b=SwSIjHRGtgOBnPXvbhjjjJ7oE3nIjHDfAsrFmz32gCYM/RNMB+ub0tT4iDGnYEEV8adcmuzrojsrp/Wfc6CaaXd7N5PsPCyB71HrTh67GB5UXr8+eXoT7W9L+KhBnE8whtBruxaYuEmF6X6vGp4JCL39SpTBxrivcjeNbzHnxkw=
+	t=1788200756; cv=none; b=ZWSu2Yo117Zgj70NhK2m9h/nu/qFtyvPggzRP1l7Jpu6cZJN5oyRGopS8WwDhxvdyuBBCYbvA6hlJ1Dw40oDMxoF9bGwcoAVbiCR0JOVCzI913DRwPxdP8KI+AchcltCABD6JgF2rmrNXoy3QbwnFKcsIgkHbeWBSIcu6KzDupE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788200706; c=relaxed/simple;
-	bh=1geMDasm5YEAbcc8lbIMJ8Z0mYy0xqKyIcoPdlMMkQg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=EME7cmPE0YWIa1YfwWF3JaKHmwX34ovCVqexgc11C9a5sDLX3FHDR8/f/FkbdScaaUm2EaixTkyDeYnKtGAVw2l/KiQZvjTQVTK75rccPbCQbSHrWs7FfJdE2oEsXVld+pqngOm85gT5IqYy83mnrux5AlXW+BzDDMzoG2310yg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aEo9tyXt; arc=none smtp.client-ip=209.85.215.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788200756; c=relaxed/simple;
+	bh=NMnn1Np1J02pg568k78cSUeWp5XR3Mfy7whOylXzj6I=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=ZEXo8kCrRL0EdDCa3rkq6THjYpBfr0fM39VmmDYmAgO0TWeDetNMGBj1MqIbsaKm80Hrbf+l+ZTS0Cw6zBQH4uvL3ZkjBCWQyF/OKW1gd2ZXBjpBxERHB/rPASGP2xtx94WfPv9cyjEI+QKj0YNkb78DeqIG7LAmDv+bTP0vfl4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=gentwo.org; spf=pass smtp.mailfrom=gentwo.org; dkim=pass (1024-bit key) header.d=gentwo.org header.i=@gentwo.org header.b=joOhqAIS; arc=none smtp.client-ip=62.72.0.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=gentwo.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gentwo.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aEo9tyXt"
-Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-cc1cb472b76so3487849a12.0
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 11:25:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788200704; x=1788805504; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=zg16aUyXsNhWNe3K+DCBkMThZsxzbl8N3Kd+8LFw0cY=;
-        b=aEo9tyXtGNimgrIMSUIZ9lBYkP6+sw5rb0YFS7uDF8pkZqTO3sTNhuEQ5Uw55FGHvp
-         UMQCWZkNedqvW7qWwLN8L0czwPbF4BZnd/TR/E4sCCk5gl5L3BGg+ZJhpkiWnZW3C/Ep
-         YjHky+as5u27md+DERO9iZoQLA4qVB92qKdq2W1f5EWvPkqmD59BigmUXuaUJeCDQLJf
-         xlBKcpn8G/KQ7MGN21clXLqM0/O0tW0aoarHOXcSk2FvXmXvJQ9+Q4Y9FrMfRQelhV0H
-         w9w2k96Kz6J4MTul8gRYqN8991oh0qEy4C5j0IehIGJ1iBfJhMV5ZZoacqu0HsgM/5hF
-         jEpw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788200704; x=1788805504;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=zg16aUyXsNhWNe3K+DCBkMThZsxzbl8N3Kd+8LFw0cY=;
-        b=oxug554N00GDAIkRgJhDdfDl1z55xiKsktU2LynC5MZMnSm3RkTtrYGalXpg/BbmDj
-         HT22PzkEJOt0dhi/jcwPI/htmI51qUDMFycKGVfHnuNUE+FvYXafcIE0qarmsfiY/uRb
-         Tohys4/5cm3yZ7UmWjmUlaTshdaQ3A/IPZWVyIlrrb9tGz2OEqbOg7foZCB6IVsqfxj6
-         HqCDpq81bl4ag2MUHbORCfub0PpZ/uZOe50f1KW//huqCQO0Y8yZV3HhTzU14WrU6hQh
-         isy8eBBoHdxBgRGOU7UXJYqrciGTl//dvf5a3hMkfPeJHoyTv8v0kxl1wSuRhfnQvQCd
-         eSPQ==
-X-Gm-Message-State: AFuF++kbxTpxr9GdLWJIDD97emaWI/Ivs8r51N20WbbjWsVGvJw3mSaP
-	e5cn+eGgOnOm/6a0AVRWh44XL1Bo94Tin4t7MbD0Um5zUMKbBhYP3Tmt
-X-Gm-Gg: AR+sD107gLR5tH3E0kDJQek3As/gLYnPnpWI0WZ6s1oBUlMaDCQE4efFWCfeALb+Ob6
-	a/UT/xuzvpdd3t6+oCaLsTiBmzRiK134hl5IwE2YjBMX/mfsXO2uvpT8lBOVltH+x9eJmS4rLtB
-	VPcN0J1TOod567dSp29HGMGvThFfRPebi54Um5Bd7Bi4pE9UJ99/I3CBtPpEb2KqhldVVnabit2
-	DcG3nVIWpgdXPXxdtGzg6DioxWR0QnsjxXyOZ5Fy30KXfWgwvQedTy5cxC0cdBzdol98B4BqaRz
-	gwyyiGUBzjwRXxYhEHfj5yaR/o/hOQkLYbY9ZkYPvkU2/E4TIdKOwdKAGFNA8X/SOdZhCcG7RDW
-	YDd8ORjNibGdVxSvBdE0lPge0kDclyfz2rcu+kJvP/QAEu85CPZYe+i5NF5mPjqUHXLl/ihi7uv
-	9znYA5BMMoS14f+6wFXhvAMuAFBoaJoqBuJRYGNWj0xT2vIkjaNhczD4j2Fh3yCFb/BTz9qKTrz
-	RjDehrbVrw6kBaMYAIZTKki
-X-Received: by 2002:a05:6a21:46c4:b0:3d1:2f88:913f with SMTP id adf61e73a8af0-3d2681aa0damr46895633637.14.1788200703483;
-        Mon, 31 Aug 2026 11:25:03 -0700 (PDT)
-Received: from [192.168.21.192] ([24.18.106.4])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-142e0dc898dsm29077645c88.9.2026.08.31.11.25.01
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 31 Aug 2026 11:25:02 -0700 (PDT)
-Message-ID: <afaa8ced-0717-4d62-8ea6-4ecdbf489694@gmail.com>
-Date: Mon, 31 Aug 2026 11:25:01 -0700
+	dkim=pass (1024-bit key) header.d=gentwo.org header.i=@gentwo.org header.b="joOhqAIS"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gentwo.org;
+	s=default; t=1788200267;
+	bh=NMnn1Np1J02pg568k78cSUeWp5XR3Mfy7whOylXzj6I=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=joOhqAISv05R69oCmbLPw2JKFiIH6hM3hniYnOHi2YAUqRPOMJK9QqDWCKNoALYJk
+	 hJA9oGyb3csfGbwPb1kWpLczmxC2RNlDmHRAz6KshMDYwFuBDmzC5LQ7WGg86K7Mfm
+	 NZq5wp8Rdjeiend4Ci29VUxAPFZUFCQhy8iVPROs=
+Received: by gentwo.org (Postfix, from userid 1007)
+	id 7AB8D4046F; Mon, 31 Aug 2026 11:17:47 -0700 (PDT)
+Received: from localhost (localhost [127.0.0.1])
+	by gentwo.org (Postfix) with ESMTP id 785F9401C8;
+	Mon, 31 Aug 2026 11:17:47 -0700 (PDT)
+Date: Mon, 31 Aug 2026 11:17:47 -0700 (PDT)
+From: Shubhang <sh@gentwo.org>
+To: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
+    Juri Lelli <juri.lelli@redhat.com>, 
+    Vincent Guittot <vincent.guittot@linaro.org>, 
+    Dietmar Eggemann <dietmar.eggemann@arm.com>, 
+    Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, 
+    Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, 
+    K Prateek Nayak <kprateek.nayak@amd.com>, John Stultz <jstultz@google.com>, 
+    Zhan Xusheng <zhanxusheng@xiaomi.com>, 
+    Christopher Lameter <cl@os.amperecomputing.com>, 
+    Shubhang Kaushik <shubhang@os.amperecomputing.com>
+cc: linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] sched/core: Skip rq->avg_idle update without a valid
+ idle_stamp
+In-Reply-To: <20260807-master-v3-1-c328354efed3@gentwo.org>
+Message-ID: <746602fd-e9d5-128f-bd6c-e5ce7c756916@gentwo.org>
+References: <20260807-master-v3-1-c328354efed3@gentwo.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Betterbird (Linux)
-Subject: Re: [PATCH v2] sparc64: increase kernel thread stack size to 32K
-To: Stian Halseth <stian@itx.no>, andreas@gaisler.com, davem@davemloft.net,
- sparclinux@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org, david.laight.linux@gmail.com,
- glaubitz@physik.fu-berlin.de, thuth@redhat.com, regressions@lists.linux.dev,
- nroach44@nroach44.id.au
-References: <20260519075809.8993-1-unixpro1970@gmail.com>
- <20260831172928.3082853-1-stian@itx.no>
-Content-Language: en-US
-From: Tony Rodriguez <unixpro1970@gmail.com>
-In-Reply-To: <20260831172928.3082853-1-stian@itx.no>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII; format=flowed
 
-Hi Stian,
+Hi,
 
-Thanks for following up regarding this, I am currently busy with other 
-tasks.  Back in May/June 2026, I also mentioned the following to Andreas:
+Could you please let me know whether it is suitable for the sched/core
+tree for v7.3, or whether further work is needed?
 
-The combined stack usage is already very close to the 32K limit. If you 
-need an immediate workaround, increasing the stack to 64 K may be the 
-better option. That should provide enough headroom to avoid the stack 
-overflow panics we are seeing.  As of kernel 7.1, I haven't noticed any 
-panics using a 32K stack, but once again a stack size that is so close 
-to the 32K boundary is a concern. But once again, sparc64 definitely 
-crashes with a 16K stack.  The Nvidia/Mellonox mlx5 driver also 
-allocates a big stack on sparc64, which pushes it to the 32K boundary.  
-There may be other drivers that may do so as well.
+Thanks,
+Shubhang Kaushik
 
-The 64K stack is more ideal.
+On Fri, 7 Aug 2026, Shubhang Kaushik (Ampere) wrote:
 
-When I compile the kernel with -fstack-usage to generate .su files, on 
-7.1 kerner, the static analysis shows small stack frames for all USB 
-core functions.
-For example:
-
-hub_event:      2457 bytes  (static)
-hub_activate:   1892 bytes  (static)
-usb_control_msg: 1248 bytes (static)
-
-However, my runtime stack tracing shows a dramatically different picture:
-
-STACKTRACE: hub_event():entry: 31856 bytes used
-STACKTRACE: hub_activate():entry: 31680 bytes used
-STACKTRACE: usb_control_msg():entry: 30768 bytes used
-
-
-PS - I have not tested a 64K stack yet, only 32K, and this is a heads-up 
-recommendation.
-
-
-Tony
-
-On 8/31/26 10:29 AM, Stian Halseth wrote:
-> From: Tony Rodriguez <unixpro1970@gmail.com>
+> Commit 4b603f1551a73 ("sched: Update rq->avg_idle when a task is moved
+> to an idle CPU") moved rq->avg_idle accounting out of the wakeup path and
+> into put_prev_task_idle(), so that the idle interval is consumed whenever
+> the idle task is switched out.
 >
-> Kernel stacks on sparc64 are 16K and this is no longer enough:
-> several machines (SPARC T5-2 among them) panic early in boot during
-> USB hub enumeration with "corrupted stack end detected inside
-> scheduler". sparc has not been converted to THREAD_INFO_IN_TASK, so
-> thread_info sits at the bottom of the kernel stack and a marginal
-> overflow corrupts it first; CONFIG_SCHED_STACK_END_CHECK then fires
-> from __schedule long after the deep path has unwound, which is why
-> the reported backtraces look shallow.
+> The wakeup-side accounting that it replaced only updated rq->avg_idle
+> when rq->idle_stamp was non-zero. The new helper lost that validity
+> check and unconditionally computes:
 >
-> Measurements with CONFIG_STACK_TRACER on an UltraSPARC T4-1 show the
-> problem is frame count, not any single large frame. The high-water
-> mark of an ordinary successful boot is 12616 of 16384 bytes (77%),
-> reached in hub_probe() with a printk console flush and then a timer
-> interrupt (which runs on the task stack, and whose scheduler tick
-> performs load balancing and IPI delivery) stacked on top. Of the 66
-> frames in that path the largest is 408 bytes, and ~85% of them are
-> 176-224 bytes - at or just above the SPARC V9 ABI minimum frame
-> (128-byte register window save area plus 48-byte argument save
-> area). An equivalent call chain on x86-64 costs roughly a third of
-> the stack, so a 16K stack on sparc64 provides far less effective
-> call depth than on other 64-bit architectures.
+> 	rq_clock(rq) - rq->idle_stamp
 >
-> Double THREAD_SIZE to 32K (four 8K pages). The PAGE_SHIFT
-> conditionals are dropped: sparc64 only supports 8K base pages, so
-> the other branches were dead code. Kernel stacks become order-2
-> allocations; sparc64 has no VMAP_STACK, but stacks are allocated
-> once per thread and the trade against boot-time panics is a good
-> one.
+> If rq->idle_stamp is zero, this uses rq_clock(rq) as the sample. That is
+> not a valid idle duration and can immediately drive rq->avg_idle to its
+> clamp.
 >
-> Link: https://lore.kernel.org/all/20260519075809.8993-1-unixpro1970@gmail.com/
-> Signed-off-by: Tony Rodriguez <unixpro1970@gmail.com>
-> [stian: reduced the diff to the THREAD_* defines, measured stack
->   usage with CONFIG_STACK_TRACER and rewrote the changelog]
-> Signed-off-by: Stian Halseth <stian@itx.no>
+> This can happen when sched_balance_newidle() returns before setting
+> rq->idle_stamp, for example when this_rq->ttwu_pending is set. In that
+> case the rq can switch to the idle task with idle_stamp still zero and
+> leave idle again when the pending wakeup is processed.
+>
+> Other paths can also switch to the idle task without setting
+> rq->idle_stamp via newidle_balance(), for example find_proxy_task() or
+> force-idling.
+>
+> Restore the idle_stamp validity check in update_rq_avg_idle() and skip
+> the rq->avg_idle update when there is no measured idle interval.
+>
+> Fixes: 4b603f1551a73 ("sched: Update rq->avg_idle when a task is moved to an idle CPU")
+> Reviewed-by: K Prateek Nayak <kprateek.nayak@amd.com>
+> Acked-by: John Stultz <jstultz@google.com>
+> Signed-off-by: Shubhang Kaushik (Ampere) <sh@gentwo.org>
 > ---
-> v2:
->   - drop the CONFIG_SPARC64 / PAGE_SHIFT conditional chain from v1;
->     thread_info_64.h is only built on sparc64 and only 8K pages are
->     supported, so define the three constants unconditionally
->   - replace the panic backtrace in the changelog with stack tracer
->     measurements answering David Laight's review comments:
->     https://lore.kernel.org/all/20260520144104.618c75ca@pumpkin/
->   - retitled from "unify thread stack sizing and add explicit 32KB
->     stack"; the sizing logic for other configurations is unchanged
+> Temporary tracing under hackbench load confirmed that
+> update_rq_avg_idle() can be reached with rq->idle_stamp == 0.
+> Hackbench showed no material regression versus v7.2-rc5 mainline.
 >
-> Tested on an UltraSPARC T4-1, booted with the stack tracer armed
-> ("stacktrace") before and after this patch. The boot high-water mark
-> is 12616 bytes on both kernels - the worst path (hub_probe with a
-> printk and a timer interrupt on top) is deterministic - i.e. 77% of
-> the 16K stack before, 38% of the 32K stack after. DEBUG_STACK_USAGE
-> agrees: the peak boot-time task shows 9208 bytes left of 16K before
-> vs 25592 bytes left of 32K after (7176 bytes used in both).
+> Related discussion:
+>  https://lore.kernel.org/r/20260423023322.1293923-1-firelzrd@gmail.com
 >
->   arch/sparc/include/asm/thread_info_64.h | 15 +++------------
->   1 file changed, 3 insertions(+), 12 deletions(-)
+> This is a narrower variant of the earlier proposal. It keeps the
+> rq->idle_stamp guard in update_rq_avg_idle(), but intentionally does not
+> stamp idle entry from set_next_task_idle(), preserving the existing
+> newidle accounting model and avoiding force-idle/proxy-exec accounting
+> concerns.
+> ---
+> Changes in v3:
+>  - Describe the sched_balance_newidle()/ttwu_pending path as an
+>    example of entering idle without a valid rq->idle_stamp.
+>  - Drop unlikely() from the idle_stamp check.
+>  - Add Acked-by from John Stultz.
 >
-> diff --git a/arch/sparc/include/asm/thread_info_64.h b/arch/sparc/include/asm/thread_info_64.h
-> --- a/arch/sparc/include/asm/thread_info_64.h
-> +++ b/arch/sparc/include/asm/thread_info_64.h
-> @@ -99,13 +99,8 @@
->   #define FAULT_CODE_BLKCOMMIT	0x10	/* Use blk-commit ASI in copy_page */
->   #define	FAULT_CODE_BAD_RA	0x20	/* Bad RA for sun4v		   */
->   
-> -#if PAGE_SHIFT == 13
-> -#define THREAD_SIZE (2*PAGE_SIZE)
-> -#define THREAD_SHIFT (PAGE_SHIFT + 1)
-> -#else /* PAGE_SHIFT == 13 */
-> -#define THREAD_SIZE PAGE_SIZE
-> -#define THREAD_SHIFT PAGE_SHIFT
-> -#endif /* PAGE_SHIFT == 13 */
-> +#define THREAD_SIZE (4 * PAGE_SIZE)
-> +#define THREAD_SHIFT (PAGE_SHIFT + 2)
->   
->   /*
->    * macros/functions for gaining access to the thread information structure
-> @@ -128,11 +123,7 @@
->   #endif
->   
->   /* thread information allocation */
-> -#if PAGE_SHIFT == 13
-> -#define THREAD_SIZE_ORDER	1
-> -#else /* PAGE_SHIFT == 13 */
-> -#define THREAD_SIZE_ORDER	0
-> -#endif /* PAGE_SHIFT == 13 */
-> +#define THREAD_SIZE_ORDER	2
->   
->   #define __thread_flag_byte_ptr(ti)	\
->   	((unsigned char *)(&((ti)->flags)))
-> --
-> 2.53.0
+> Link to v2: https://lore.kernel.org/r/20260806-master-v2-1-e1f3a1a0c903@gentwo.org
+>
+> Changes in v2:
+>  - Add Reviewed-by from Prateek.
+>  - Mention find_proxy_task() and force-idling as examples of paths that
+>    can switch to the idle task without a valid rq->idle_stamp.
+>  - Cc John Stultz.
+>
+> Link to v1: https://lore.kernel.org/r/20260728-master-v1-1-f95d9b0147d2@gentwo.org
+> ---
+> kernel/sched/core.c | 10 ++++++++--
+> 1 file changed, 8 insertions(+), 2 deletions(-)
+>
+> diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+> index 96226707c2f6135341aa779b8262f113e103d8ad..68fa724cd668fb6c4cead329d05fa95e2f1ea5db 100644
+> --- a/kernel/sched/core.c
+> +++ b/kernel/sched/core.c
+> @@ -3732,11 +3732,17 @@ static inline void ttwu_do_wakeup(struct task_struct *p)
+>
+> void update_rq_avg_idle(struct rq *rq)
+> {
+> -	u64 delta = rq_clock(rq) - rq->idle_stamp;
+> -	u64 max = 2*rq->max_idle_balance_cost;
+> +	u64 idle_stamp = rq->idle_stamp;
+> +	u64 delta, max;
+> +
+> +	if (!idle_stamp)
+> +		return;
+> +
+> +	delta = rq_clock(rq) - idle_stamp;
+>
+> 	update_avg(&rq->avg_idle, delta);
+>
+> +	max = 2 * rq->max_idle_balance_cost;
+> 	if (rq->avg_idle > max)
+> 		rq->avg_idle = max;
+> 	rq->idle_stamp = 0;
+>
+> ---
+> base-commit: 3f008280327ba5ad132965abab0c7846283cef0c
+> change-id: 20260728-master-55cd7cc13290
+>
+> Best regards,
+> -- 
+> Shubhang Kaushik (Ampere) <sh@gentwo.org>
+>
