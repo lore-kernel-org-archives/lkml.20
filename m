@@ -1,46 +1,66 @@
-Received: from mta0.migadu.com (out-3.mta0.migadu.com [91.218.175.3])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D17613D332A
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 09:06:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BC683D9533
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 09:07:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788167218; cv=none; b=QvRWrX3pBVGgUT0LxECLMd3koG1PxOBKSpX19tf96dQKs009bh5FFfhZXwhaZFxpBVZFZrlF/jp+4Tu/jf8t6xdaav84GIm1F9eHoP4Z3VEfxMPeiYj/rmuLdAmpLoBYBh6jUbb+H84GfU47Luest3b4VNKJLzOniuJa1c2SUtE=
+	t=1788167228; cv=none; b=YdGxCgRugSg6JdEYHmYxTB+QMUsrtG3JjuuXXE+Rn1xWCq1dysDdq1wq3FTH+j+39JG7y2l/Wunje8d1e+CTntBOvXMbMa4+cTyqnsp+WcrcdSBUOqoHcDpYw0lcpc1PwclEgbJoUGlHxVrSzdxp91DuS9jhNDccJEQle0ptj40=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788167218; c=relaxed/simple;
-	bh=Ay756BWLfvfN9kwsl9VEisA10j5cWcMCG782Tfg2UzM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DAgyY5sB7r42dcmozjXCJ70R3wWBVAIieBzIUBI/m5WarSK71b19YwBTdCxV/NfCTgj9lkMMOn9+Hee7PBPGo4OdsQ9HTRGSl9GLD07fLsRhWQYRrFVaDIKuF5zozP0QTB3c2jJ3qMNv7+Qard4KcZ0zt2vYH+hVBeHWLBHjNFM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=LB2AA/Ev; arc=none smtp.client-ip=91.218.175.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788167228; c=relaxed/simple;
+	bh=j9Bk+0pj2/24u8T6/SP13Tt6ikszrpnpvXPCcD/6MLU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ajkUn6/j8eNXTzwFozViY7cUwFD6kE9DeQvKRIi3ud1De9y8AvzPRbzAx4VpzQP6z1CoLqciTnyHcmPqbu+teB0CsGVhWAR49AElpnrsa1XHQgNSbLIii4/f0g52pnzpVpb51CrxZcBWeV8Dl/xTdyBi3aG1Z7KBGnDXjdl+f/k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=h6Luy7Ua; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="LB2AA/Ev"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Ay756BWLfvfN9kwsl9VEisA10j5cWcMCG782Tfg2UzM=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788167214; v=1; x=1788772014;
- b=LB2AA/Ev9SQYA2GlWJb9apZEO35ewz7AFMMOmEQEclNyT56m7q1trzlFRH5RLto0/GqGk7Pf
- 9dCade1Ej2bRN3a4EbKGbhFVXPNySoE9nHBbFSjsei9CR7fr2pZq1NI174zQvTQQb2rqeSn10xc
- eS77RCvV0+rmmg6mhCx3HmwU=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 589db87ed55c533a;
-	Mon, 31 Aug 2026 09:06:53 +0000
-X-Mizu-Trace-ID: 589db87ed55c533a
-X-Migadu-Flow: FLOW_OUT
-From: Hongfu Li <hongfu.li@linux.dev>
-To: hughd@google.com,
-	baolin.wang@linux.alibaba.com,
-	akpm@linux-foundation.org,
-	vivek.kasireddy@intel.com
-Cc: linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	hongfu.li@linux.dev,
-	Hongfu Li <lihongfu@kylinos.cn>
-Subject: [PATCH] mm/memfd: don't unreserve hugetlb pages on -EEXIST in error path
-Date: Mon, 31 Aug 2026 17:06:31 +0800
-Message-ID: <20260831090631.29227-1-hongfu.li@linux.dev>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="h6Luy7Ua"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788167224;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=7jsHCsFIe83xcZRq1DwfLWv9aF61ZEwjfkBd6QeliCQ=;
+	b=h6Luy7UaEddGIgkEHOhalPJVkAu7s8+UH1jwwB/JnCmDN7gX1En6u2rECb3btrgOODKb9v
+	DnNpzj2nYWUSPeVQ7mKfHYprsiBZC4v1wxG0uOgS7N4JtACRjXlQu7yfm22wY1h96VZPgB
+	kCDWb4Dim6OHZ0Xxmkg9mo/55mzKvXs=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-262-3GBh1lUkPE2U7wQ8A-ui3Q-1; Mon,
+ 31 Aug 2026 05:07:00 -0400
+X-MC-Unique: 3GBh1lUkPE2U7wQ8A-ui3Q-1
+X-Mimecast-MFC-AGG-ID: 3GBh1lUkPE2U7wQ8A-ui3Q_1788167219
+Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id DB240182E6B4;
+	Mon, 31 Aug 2026 09:06:58 +0000 (UTC)
+Received: from gmonaco-thinkpadt14gen3.redhat.corp (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
+	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id C234C18005BB;
+	Mon, 31 Aug 2026 09:06:53 +0000 (UTC)
+From: Gabriele Monaco <gmonaco@redhat.com>
+To: linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org,
+	bpf@vger.kernel.org,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>
+Cc: Nam Cao <namcao@linutronix.de>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Gabriele Monaco <gmonaco@redhat.com>,
+	Wen Yang <wen.yang@linux.dev>,
+	Tobias Schaffner <tobias.schaffner@siemens.com>,
+	Viktor Malik <vmalik@redhat.com>
+Subject: [RFC PATCH 01/20] sched: Add task enqueue/dequeue trace points
+Date: Mon, 31 Aug 2026 11:05:05 +0200
+Message-ID: <20260831090524.106845-2-gmonaco@redhat.com>
+In-Reply-To: <20260831090524.106845-1-gmonaco@redhat.com>
+References: <20260831090524.106845-1-gmonaco@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -48,43 +68,99 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
 
-From: Hongfu Li <lihongfu@kylinos.cn>
+From: Nam Cao <namcao@linutronix.de>
 
-If hugetlb_add_to_page_cache() fails with -EEXIST, a concurrent fault has
-already instantiated the folio in the page cache, and the reservation now
-belongs to that folio. Calling hugetlb_unreserve_pages() in that case
-incorrectly removes the region backing the cached folio, and a later
-truncate or inode eviction passes a negative (chg - freed) into
-hugepage_subpool_put_pages(), corrupting subpool and resv_huge_pages
-accounting.
+Add trace points into enqueue_task() and dequeue_task().
 
-Skip the unreserve on -EEXIST; failures other than -EEXIST leave the
-reservation unconsumed and still unreserve it.
-
-Fixes: 717cf9357325 ("mm/memfd: reserve hugetlb folios before allocation")
-Signed-off-by: Hongfu Li <lihongfu@kylinos.cn>
+Signed-off-by: Nam Cao <namcao@linutronix.de>
+Suggested-by: Peter Zijlstra <peterz@infradead.org>
+Reviewed-by: K Prateek Nayak <kprateek.nayak@amd.com>
+Co-developed-by: Gabriele Monaco <gmonaco@redhat.com>
+Signed-off-by: Gabriele Monaco <gmonaco@redhat.com>
 ---
- mm/memfd.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ include/trace/events/sched.h |  8 ++++++++
+ kernel/sched/core.c          | 12 +++++++++++-
+ kernel/sched/sched.h         |  2 ++
+ 3 files changed, 21 insertions(+), 1 deletion(-)
 
-diff --git a/mm/memfd.c b/mm/memfd.c
-index c708d92533f4..1b65bc22fb19 100644
---- a/mm/memfd.c
-+++ b/mm/memfd.c
-@@ -128,6 +128,12 @@ struct folio *memfd_alloc_folio(struct file *memfd, pgoff_t idx)
+diff --git a/include/trace/events/sched.h b/include/trace/events/sched.h
+index 535860581f15..d6e41edc25d2 100644
+--- a/include/trace/events/sched.h
++++ b/include/trace/events/sched.h
+@@ -896,6 +896,14 @@ DECLARE_TRACE(sched_set_need_resched,
+ 	TP_PROTO(struct task_struct *tsk, int cpu, int tif),
+ 	TP_ARGS(tsk, cpu, tif));
  
- 			if (err) {
- 				folio_put(folio);
-+				/*
-+				 * On -EEXIST, a concurrent fault has cached the folio,
-+				 * which now owns the reservation; don't unreserve.
-+				 */
-+				if (err == -EEXIST)
-+					return ERR_PTR(err);
- 				goto err_unresv;
- 			}
++DECLARE_TRACE(sched_enqueue,
++	TP_PROTO(struct task_struct *tsk, int cpu),
++	TP_ARGS(tsk, cpu));
++
++DECLARE_TRACE(sched_dequeue,
++	TP_PROTO(struct task_struct *tsk, int cpu),
++	TP_ARGS(tsk, cpu));
++
+ #define DL_OTHER 0
+ #define DL_TASK 1
+ #define DL_SERVER_FAIR 2
+diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+index f78275192036..8561ca324943 100644
+--- a/kernel/sched/core.c
++++ b/kernel/sched/core.c
+@@ -121,6 +121,8 @@ EXPORT_TRACEPOINT_SYMBOL_GPL(sched_compute_energy_tp);
+ EXPORT_TRACEPOINT_SYMBOL_GPL(sched_entry_tp);
+ EXPORT_TRACEPOINT_SYMBOL_GPL(sched_exit_tp);
+ EXPORT_TRACEPOINT_SYMBOL_GPL(sched_set_need_resched_tp);
++EXPORT_TRACEPOINT_SYMBOL_GPL(sched_enqueue_tp);
++EXPORT_TRACEPOINT_SYMBOL_GPL(sched_dequeue_tp);
+ EXPORT_TRACEPOINT_SYMBOL_GPL(sched_dl_throttle_tp);
+ EXPORT_TRACEPOINT_SYMBOL_GPL(sched_dl_replenish_tp);
+ EXPORT_TRACEPOINT_SYMBOL_GPL(sched_dl_update_tp);
+@@ -2181,6 +2183,9 @@ unsigned long get_wchan(struct task_struct *p)
+ 
+ void enqueue_task(struct rq *rq, struct task_struct *p, int flags)
+ {
++	if (trace_sched_enqueue_tp_enabled() && !(flags & ENQUEUE_DELAYED))
++		trace_sched_enqueue_tp(p, cpu_of(rq));
++
+ 	if (!(flags & ENQUEUE_NOCLOCK))
+ 		update_rq_clock(rq);
+ 
+@@ -2207,6 +2212,8 @@ void enqueue_task(struct rq *rq, struct task_struct *p, int flags)
+  */
+ inline bool dequeue_task(struct rq *rq, struct task_struct *p, int flags)
+ {
++	bool ret;
++
+ 	if (sched_core_enabled(rq))
+ 		sched_core_dequeue(rq, p, flags);
+ 
+@@ -2223,7 +2230,10 @@ inline bool dequeue_task(struct rq *rq, struct task_struct *p, int flags)
+ 	 * and mark the task ->sched_delayed.
+ 	 */
+ 	uclamp_rq_dec(rq, p);
+-	return p->sched_class->dequeue_task(rq, p, flags);
++	ret = p->sched_class->dequeue_task(rq, p, flags);
++	if (trace_sched_dequeue_tp_enabled() && !(flags & DEQUEUE_SLEEP))
++		trace_sched_dequeue_tp(p, cpu_of(rq));
++	return ret;
+ }
+ 
+ void activate_task(struct rq *rq, struct task_struct *p, int flags)
+diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
+index e656c7059bf8..a2cb06beafe6 100644
+--- a/kernel/sched/sched.h
++++ b/kernel/sched/sched.h
+@@ -3070,6 +3070,8 @@ static inline void sub_nr_running(struct rq *rq, unsigned count)
+ 
+ static inline void __block_task(struct rq *rq, struct task_struct *p)
+ {
++	trace_sched_dequeue_tp(p, cpu_of(rq));
++
+ 	if (p->sched_contributes_to_load)
+ 		rq->nr_uninterruptible++;
  
 -- 
-2.54.0
+2.55.0
 
