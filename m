@@ -1,163 +1,435 @@
-Received: from fhigh-a6-smtp.messagingengine.com (fhigh-a6-smtp.messagingengine.com [103.168.172.157])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C16C054A7C5;
-	Mon, 31 Aug 2026 13:46:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.157
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FBC154A7C9;
+	Mon, 31 Aug 2026 13:46:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183992; cv=none; b=nKtlsP7A2hYp+q0lLeBMm31YQ+mdiYSdny41w2vF+QjEGeoUXirKtDST/NDd/ZaSnCZBWgjWyHyF40ymRjwNy+N68g7rK3Uk8RIQWjeaSkrGApZgXF2eiHSg+d3Q18HmfJ242cX9cM3Pq+mqOJMhWYcFe3CK2be9GXJlrKA2CHA=
+	t=1788183994; cv=none; b=YVFR3jn66N5q4vMRomAEyohLZ1oWyttgHIbkvwBTXugiXpFP6b2VR/mIA2wd56m4uNYQ3MWGi1Zh/2isg0Y2+5eolI6WxlH3HxaJ/ldrKk0tcGtiuC4iNTMt8uhd8TjvGyhqYIqTWun6BRHNCbewaGXFyT379YI44RBVxL1d9UQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183992; c=relaxed/simple;
-	bh=8Rv9OVc1AW97l/UiCVzPt+gRZOTmtkExTv7zaq6GYSo=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=o+j7YZJ/5sjyA6kHdqU6MKso6MocxM217POo5rXO983vXsFqOAB5T+1+1hbDW86+Mbw8bUE61KXF9mU+0MnRb2y0w0opq8eGzwIFPzw5z1ebkrmlMBFHk/dDTTnlCjJAhAVGLd7Dy9Fb3rPtP+/imXZUTvrgoU0WPpf1vEJrqz8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jannau.net; spf=pass smtp.mailfrom=jannau.net; dkim=pass (2048-bit key) header.d=jannau.net header.i=@jannau.net header.b=YIYN2iZs; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=JDNE1ccg; arc=none smtp.client-ip=103.168.172.157
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jannau.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jannau.net
+	s=arc-20240116; t=1788183994; c=relaxed/simple;
+	bh=1xBuQ0gZEAHbXJOSDdQNZveaw4f/7BN3YmUO2jb/O/o=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ME3cd9YxIzogobku5CaBgfQpIk/2e6kCLKi2eIZsbH7SaMPF8iGVlTgTF2Ny/hyj0Fztc+UCC8/4LsFEa4xUIRAPA8Ma1mb7qLwC8AicEu/FOijz+oiNBCHrWnNb9sOUNHPkutbpru0vQ6XuctBRRaHErBh45QCiP2UViaOzrFM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QnFF4pZj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=jannau.net header.i=@jannau.net header.b="YIYN2iZs";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="JDNE1ccg"
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 5AF0F14000E1;
-	Mon, 31 Aug 2026 09:46:26 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-03.internal (MEProxy); Mon, 31 Aug 2026 09:46:26 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jannau.net; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1788183986;
-	 x=1788270386; bh=QR9hH2qCFCqj8AmL9TfSa9UfhVhgFX2hAhjrgRMsWck=; b=
-	YIYN2iZsgvCB7XHtF3OC+M+il3i6fbu6wFpRTNS7gPGMy/vo6R/I26tNerm+qYeD
-	4yIfH2JJQUjNbGWdqM9yp+soKKf6aDNS8XaCOGtGO6KNS/0eKkMvK5Jvbu+lUJ7U
-	C+cAHIuGO8Cnc75pzcf1UF4b+BSIBUbsdMfOravj8nlSX9JhDEBJyqKjNP0xnc2s
-	Iw5qpfxfOY9Ke8q6HKH0veCCQHoX3DMCQsTzojNtaKUm06hj9T2ivf6ZyaG4GaMY
-	v7pp8xuwEX0dCOQZ0wf5jNGmvf4hzrcvb6SbfhIK5htF0rKXIlvqnGPO3SQ3C7ZQ
-	5k6jxYaIgwx8Uiww61fAJA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1788183986; x=
-	1788270386; bh=QR9hH2qCFCqj8AmL9TfSa9UfhVhgFX2hAhjrgRMsWck=; b=J
-	DNE1ccg3xnCF7NQ+RJgkNeDSobAXZ/hfT8e0mczXvdIDMpPTUb8MdJ2i1k4kF+9y
-	JfM8VqjNFslFq7TVLM9JsEFgyvLvmja3zz2Vk42OrykHML47IyK5fJKI2PZDZGqA
-	0NANcdaF/v6O0OtE13vugRBIpKSLesY8Wt5hiaaPsou/ZcdyhRw9H6Engji6PNiS
-	2VgHphCZNYvzWl4SG2N1YlcnwGqRLvBIyvnPoEzOc5sols+X3YLs/cekdvs3XkK8
-	0SZ3H4S1Se/3amvNgVfFOjRbAFmjHYWpunZbw0y/t2sZpZKARVSb8CfvtjURMetS
-	U5fEyUgq73vnMSmtrA8vQ==
-X-ME-Sender: <xms:soWVajqviKyUBxzLpxHWTwaiUZ65kQHKYuvcRWO22bvujjAxGNWszg>
-    <xme:soWVaoDMTaAtPeSjZPjLg-UoOsEiknA1O9bZoRKbg0ap7Hy9BSjomDm4Jt474n58T
-    qWCU8vzvEif0vi_m0DOfjdRHf9-4oDrln_PWz7LZ1TeiuFFfGW_iMFq>
-X-ME-Received: <xmr:soWVamWyoVly-MHnzwcKiH7DUcmS1OVb3JXO_Xx36ILy-p0h8THOyaG2kzXKhnlUf6XDHfNIGBKKT6_738SfubRuWcg25AYpsINanA>
-X-ME-Proxy-Cause: dmFkZTEuyEFcOjU0cTbo0+jvHR3ugKYgYQC82+6geliAeEgQYiGJ2PoFhaYIOXtBFBPMgv
-    N0Yb9itjHB70kUIpYa2ZqpInnrlpamY3sS9Gw3ozWxyeWN4qicyEC/SHtrX+8DNmqbhtWF
-    hA3C9An2Oy9iJQxv68cR9vReBMChe/EEdbruzcRM/eTvqxBDcrwplsbypj97UAORs0M/UL
-    pf0nR34hybavI1wIxXCFk/MKrsAABTJveZ6tlpXuwBZy66TvyVL4f5uLDAosxyZ67iJHFX
-    fYAhg4GD1vt+2mqJ8KdUTywOD9HRjmqcss2+F3QcUkFLvmFWtfNkObhZIJCaXwSfLavCIj
-    7n0u6YtQcMvCE4vpLo1qynVsnX6+xRxO8Sa9tMYIofnJaXgAH/u9UI6lWpmaiyLS6csJz0
-    Y3HARO5pAPJt4D/tig73jaUyiymbbYoHpkZmjGabWoujR9WTBCYlUWVxUeJprL6dgkRBoM
-    E1Vnds5z1eKyXRgj03/EWvJoUKEEx0ECBSLsYoAZI2BKaD6YhGW9sxHtGMoDU9YHa+tJev
-    8q6Ct8dQ1FY6InxVYOKVp5kYrdd3VePpP0ELmp1mO+U6+d1xgJC6+3GJiuBKjSUcWCp5Oq
-    76/dJufDKhzks3ocbzcTP6pw1rxlvDDjlbj2pMgqnbrMbRzZmTuy4Pig2Tcg
-X-ME-Proxy: <xmx:soWVaiDXopZvDhIYVOwxgpCohWK3sBRnsZPV_0Wa4EOepD_hddW8Lw>
-    <xmx:soWVarddRxbkR3jCzRX2vwUuuEevIfQ4IqJoZ4X6WcH6xavEJWEsOA>
-    <xmx:soWVahrE8-SV2GwuvZbw2lwU_JahunpjzqpU8qHKiYjbnq5Njc9Wvg>
-    <xmx:soWVakRL1TIJdk4M0drTPcCzS9B8F0V-6zloc0RRp1C3n_u8veGuDA>
-    <xmx:soWVavyo4k99avn0w7TJ4sNRUedRD1GriNXaK3nI0D8vS1PocitpmdOB>
-Feedback-ID: i47b949f6:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 31 Aug 2026 09:46:25 -0400 (EDT)
-From: Janne Grunau <j@jannau.net>
-Date: Mon, 31 Aug 2026 15:46:08 +0200
-Subject: [PATCH v2 1/2] dt-bindings: iommu: dart: Support specifying the
- DMA aperture
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QnFF4pZj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E11BB1F0155C;
+	Mon, 31 Aug 2026 13:46:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788183987;
+	bh=YKmxevGAZUKI12EUFAQGXeRQsENzcOVvija/FDY1ez4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=QnFF4pZjJ+cKgQf/fdH5wI6qHobC31482L4JRiUk0unHITAmYLK6ICKL9rcmb0c9K
+	 wu3xXdxStx7zX7AlZuvfijuy7ulWonXSv4BVu/eUxmQLbnFEFtaJQHrXR3yNvbQPmg
+	 qIrAzBlUv78lrOl7Gc+9awp4yiCqpa9SjDxIwQJ+gKblk6cOTGVfBuDhjIkHsAJmgn
+	 uCPYcHENtLu93UVJwHCvoHPYctyVMbmq8excYhkdFXdkCTBiGfAKq2HVeBnMI1hkPl
+	 GYL+2I7zrvHo1L0/Q3l1Lcf/FEPPrxGprbbMmQ31+hKT8vN3Vj1yLr0bywSN/rO+It
+	 rD2W4BcrPTgoA==
+From: Sasha Levin <sashal@kernel.org>
+To: patches@lists.linux.dev,
+	stable@vger.kernel.org
+Cc: Adriana Stancu <adriana@arista.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Sasha Levin <sashal@kernel.org>,
+	linux-rtc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 6.18-5.10] rtc: bq32000: add delay between RTC reads
+Date: Mon, 31 Aug 2026 09:27:31 -0400
+Message-ID: <20260831133314.4125787-423-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
+References: <20260831133314.4125787-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260831-iommu-apple-dart-aperture-v2-1-d16ce3770299@jannau.net>
-References: <20260831-iommu-apple-dart-aperture-v2-0-d16ce3770299@jannau.net>
-In-Reply-To: <20260831-iommu-apple-dart-aperture-v2-0-d16ce3770299@jannau.net>
-To: Sven Peter <sven@kernel.org>, Neal Gompa <neal@gompa.dev>, 
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
- Robin Murphy <robin.murphy@arm.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- iommu@lists.linux.dev, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Janne Grunau <j@jannau.net>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2153; i=j@jannau.net;
- s=yk2025; h=from:subject:message-id;
- bh=8Rv9OVc1AW97l/UiCVzPt+gRZOTmtkExTv7zaq6GYSo=;
- b=owGbwMvMwCW2UNrmdq9+ahrjabUkhqyprWtub7LOiK28Fp1ceuGM2+b9CXY6AjlaT34JLuSb5
- K26ad75jlIWBjEuBlkxRZYk7ZcdDKtrFGNqH4TBzGFlAhnCwMUpABMR62b4799/j//EIikur0+d
- 2tcP8ch5JR0V0EgR+vvq+z7xMz8fLmFk6IybsIptVuTx5fw+c3ju9dUGByZ4ewdfaC+aYX3GNeo
- AMwA=
-X-Developer-Key: i=j@jannau.net; a=openpgp;
- fpr=8B336A6BE4E5695E89B8532B81E806F586338419
+X-stable: review
+X-Patchwork-Hint: Ignore
+X-stable-base: Linux 6.18.48
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Apple DARTs are often connected directly to devices that expect only a
-portion of their address space to be used for DMA (for example, because
-other ranges are mapped directly to something else).
+From: Adriana Stancu <adriana@arista.com>
 
-Follow the "#iommu-cells = <4>" example from iommu.txt and allow
-specifying the DMA aperture via additional cells. Since DART is used on
-64-bit Apple silicon systems use two cells to specify the start and
-length of the aperture. A common aperture starts at 0x100_0000_0000
-and spans a 36-bit address space.
+[ Upstream commit d4992b7050a10079bc760bdc5b8688e05a09dfc2 ]
 
-This corresponds to the vm-base and vm-size properties on the Apple
-device tree side of things.
+When the RTC is used on systems without a interrupt line, userspace
+tools like `hwclock` fall back to a frequent polling loop to synchronize
+with the edge of the next second.
 
-As not all devices require this and to keep compatibility with existing
-device trees allow 1 and 5 as values for #iommu-cells.
+On the BQ32000, this aggressive polling can temporarly lock the register
+refresh cycle, because the continuous transfers prevent the hardware from
+updating the buffer. This results in stale data reads or select() timeouts
+in userspace.
 
-Signed-off-by: Janne Grunau <j@jannau.net>
+This patch introduces a delay before reading the RTC registers in order to
+provide a sufficient idle time for the hardware to sync with the register
+buffer.
+
+Signed-off-by: Adriana Stancu <adriana@arista.com>
+Link: https://patch.msgid.link/20260416142151.3385827-1-adriana@arista.com
+Signed-off-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- Documentation/devicetree/bindings/iommu/apple,dart.yaml | 12 +++++++-----
- 1 file changed, 7 insertions(+), 5 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/iommu/apple,dart.yaml b/Documentation/devicetree/bindings/iommu/apple,dart.yaml
-index 47ec7fa52c3a..6efbe732b4ce 100644
---- a/Documentation/devicetree/bindings/iommu/apple,dart.yaml
-+++ b/Documentation/devicetree/bindings/iommu/apple,dart.yaml
-@@ -44,10 +44,12 @@ properties:
-       Optional since not all IOMMUs are attached to a clock gate.
- 
-   '#iommu-cells':
--    const: 1
-+    enum: [ 1, 5 ]
-     description:
--      Has to be one. The single cell describes the stream id emitted by
--      a master to the IOMMU.
-+      Has to be one or five. The first cell describes the stream id emitted by
-+      a master to the IOMMU. The optional second and third cell describe the
-+      aperture start of a master's DMA window and fourth and fifth cell describe
-+      the size of DMA window.
- 
-   power-domains:
-     maxItems: 1
-@@ -66,11 +68,11 @@ examples:
-       compatible = "apple,t8103-dart";
-       reg = <0x82f80000 0x4000>;
-       interrupts = <1 781 4>;
--      #iommu-cells = <1>;
-+      #iommu-cells = <5>;
-     };
- 
-     master1 {
--      iommus = <&dart1 0>;
-+      iommus = <&dart1 0 0x100 0x0 0x10 0x0>;
-     };
- 
-   - |+
+LLM Generated explanations, may be completely bogus:
 
+## Phase 1: Commit Message Forensics
+
+### Step 1.1: Parse the Subject Line
+**Record:** `[rtc: bq32000]` `[add]` — add a delay between RTC register
+reads in the BQ32000 driver.
+
+### Step 1.2: Parse All Commit Message Tags
+**Record:**
+- **Link:**
+  `https://patch.msgid.link/20260416142151.3385827-1-adriana@arista.com`
+- **Signed-off-by:** Adriana Stancu `<adriana@arista.com>` (author)
+- **Signed-off-by:** Alexandre Belloni `<alexandre.belloni@bootlin.com>`
+  (RTC maintainer)
+- No `Fixes:`, `Reported-by:`, `Tested-by:`, `Reviewed-by:`, `Acked-
+  by:`, or `Cc: stable@vger.kernel.org`
+- Notable: maintainer sign-off; no syzbot or external bug-report tags
+
+### Step 1.3: Analyze Commit Body
+**Record:**
+- **Bug:** On BQ32000 systems without an interrupt line, userspace tools
+  (`hwclock`) poll aggressively waiting for the second rollover.
+  Continuous I2C reads block the chip’s internal register-buffer
+  refresh, yielding stale time data.
+- **Symptom:** Stale RTC reads; `select()` timeouts in userspace during
+  `hwclock` synchronization.
+- **Root cause:** Hardware needs idle time between reads for the
+  register buffer to sync; aggressive polling prevents that.
+- **Version info:** None stated.
+
+### Step 1.4: Detect Hidden Bug Fixes
+**Record:** Not disguised as cleanup — explicitly a hardware timing
+workaround. Functionally fixes incorrect RTC reads on affected hardware
+(hardware quirk category).
+
+---
+
+## Phase 2: Diff Analysis
+
+### Step 2.1: Inventory the Changes
+**Record:**
+- **Files:** `drivers/rtc/rtc-bq32k.c` only (+9 lines net, including
+  `#include <linux/delay.h>`)
+- **Functions modified:** `bq32k_rtc_read_time()`
+- **Scope:** Single-file surgical fix
+
+### Step 2.2: Code Flow Change
+**Record:**
+- **Hunk 1 (include):** Adds `<linux/delay.h>` for `usleep_range()`.
+- **Hunk 2 (`bq32k_rtc_read_time`):**
+  - **Before:** Read registers immediately via `bq32k_read()`.
+  - **After:** If `client->irq <= 0`, sleep 2000–2500 µs, then read
+    registers.
+  - **Path affected:** Every `.read_time` call on devices without a
+    connected IRQ.
+
+### Step 2.3: Bug Mechanism
+**Record:**
+- **Category:** Hardware quirk / timing workaround
+- **Mechanism:** BQ32000 needs idle time between I2C accesses for its
+  internal buffer to refresh. Polling (common when no IRQ is available)
+  starves that refresh. A fixed settle delay gives the hardware time to
+  update before each read.
+
+### Step 2.4: Fix Quality Assessment
+**Record:**
+- Small, obviously motivated fix aligned with similar RTC driver
+  patterns (`rtc-isl1208`, `rtc-rv3028`, `rtc-max8998`).
+- **Regression risk:** Low. Adds ~2 ms latency only when `client->irq <=
+  0`. `usleep_range()` is safe on the process-context paths that reach
+  `.read_time`.
+- **Concern:** Delay applies to every read without IRQ, not only
+  aggressive polling — acceptable trade-off for correctness.
+
+---
+
+## Phase 3: Git History Investigation
+
+### Step 3.1: Blame Changed Lines
+**Record:** `bq32k_rtc_read_time()` core logic dates to `1ce7c83fa91d2`
+(2009, “rtc: add driver for BQ32000 I2C RTC”). The immediate-read path
+without delay has been present since driver introduction.
+
+### Step 3.2: Follow Fixes Tag
+**Record:** N/A — no `Fixes:` tag.
+
+### Step 3.3: File History for Related Changes
+**Record:** Recent `rtc-bq32k.c` history is maintenance (i2c probe
+conversion, SPDX, HTTPS links). No prior fix for this polling issue.
+Patch evolved v1→v2 (DT property `ti,read-settle-us`) → v3 (hardcoded
+delay when `irq <= 0`); committed form matches v3.
+
+### Step 3.4: Author's Other Commits
+**Record:** No prior commits from Adriana Stancu in this tree. Arista-
+reported hardware issue.
+
+### Step 3.5: Prerequisites
+**Record:** Standalone. No series dependency. Uses existing
+`client->irq` from I2C core; no new APIs or structures.
+
+---
+
+## Phase 4: Mailing List and External Research
+
+### Step 4.1: Original Patch Discussion
+**Record:**
+- **URL:** https://yhbt.net/lore/linux-
+  rtc/20260416142151.3385827-1-adriana@arista.com/T/
+- **Series:** v1 (DT property) → v2 → v3 (final, hardcoded delay); v3 is
+  the applied version
+- **Review:** 0 replies in thread; Alexandre Belloni sign-off in commit
+- **Stable nomination:** None found in thread
+
+### Step 4.2: Reviewers
+**Record:** CC’d: `alexandre.belloni`, `linux-rtc`, `devicetree`,
+`linux-kernel`, `robh`, `krzk+dt`, `conor+dt`. RTC maintainer included.
+
+### Step 4.3: Bug Report
+**Record:** No external bug tracker or syzbot link. Issue described in
+patch and commit message (Arista hardware, `hwclock` polling failure).
+
+### Step 4.4: Related Patches
+**Record:** v1/v2 added DT binding for `ti,read-settle-us`; v3 dropped
+that in favor of `if (client->irq <= 0) usleep_range(2000, 2500)`. No
+other patches required.
+
+### Step 4.5: Stable Mailing List
+**Record:** Not searched exhaustively; no stable nomination found in
+available thread data.
+
+---
+
+## Phase 5: Code Semantic Analysis
+
+### Step 5.1: Key Functions
+**Record:** `bq32k_rtc_read_time()` (modified)
+
+### Step 5.2: Callers
+**Record:** Via `rtc_class_ops.read_time` → `__rtc_read_time()` in
+`drivers/rtc/interface.c` → callers include:
+- `RTC_RD_TIME` ioctl in `drivers/rtc/dev.c` (userspace `hwclock`, etc.)
+- `rtc_uie_task` workqueue (update-interrupt emulation polling)
+- sysfs `date`/`time` attributes in `drivers/rtc/sysfs.c`
+- Other in-kernel RTC consumers
+
+### Step 5.3: Callees
+**Record:** `to_i2c_client()`, `usleep_range()`, `bq32k_read()` (I2C
+transfer)
+
+### Step 5.4: Call Chain / Reachability
+**Record:** Userspace → `/dev/rtc*` ioctl or sysfs → `rtc_read_time()` →
+`bq32k_rtc_read_time()`. Reachable from unprivileged userspace with RTC
+device access. Polling path (`rtc_uie_task`) is the scenario described
+in the commit message.
+
+### Step 5.5: Similar Patterns
+**Record:** Multiple RTC drivers use read delays for hardware timing:
+- `rtc-isl1208.c`: `msleep(250)` for alarm clearing
+- `rtc-rv3028.c` / `rtc-rv3032.c`: `usleep_range()` for busy-wait
+- `rtc-max8998.c`: `msleep(2000)` for LP3974 workaround
+- `rtc-renesas-rtca3.c`, `rtc-ti-k3.c`, others: similar settle delays
+
+---
+
+## Phase 6: Cross-Referencing Against the Local Tree
+
+### Step 6.1: Does the Buggy Code Exist?
+**Record:** **Yes.** Local tree is **6.18.44**
+(`v6.18.44-1-g2736c32da98b9`). `drivers/rtc/rtc-bq32k.c` exists;
+`bq32k_rtc_read_time()` reads immediately with no delay (lines 90–116).
+Driver present since 2009; bug present for the full lifetime of the
+driver in this tree. Fix is **not** yet applied.
+
+### Step 6.2: Backport Complications
+**Record:** Clean apply expected — add one include, a few lines in one
+function. No structural conflicts with recent `rtc-bq32k.c` changes.
+
+### Step 6.3: Related Fixes Already Present?
+**Record:** None found for BQ32000 read-settle delay.
+
+---
+
+## Phase 7: Subsystem and Maintainer Context
+
+### Step 7.1: Subsystem Criticality
+**Record:** **drivers/rtc** — IMPORTANT. RTC correctness affects system
+time, logging, TLS, and boot synchronization.
+
+### Step 7.2: Subsystem Activity
+**Record:** Actively maintained; recent stable-worthy fixes (NULL deref,
+refcount, alarm races) in this tree.
+
+---
+
+## Phase 8: Impact and Risk Assessment
+
+### Step 8.1: Who Is Affected
+**Record:** Systems with TI BQ32000 (`ti,bq32000`) and **no interrupt
+line** (`client->irq <= 0`). DT example in binding shows RTC without
+`interrupts`. Affects embedded/enterprise platforms using this chip
+without IRQ wiring.
+
+### Step 8.2: Trigger Conditions
+**Record:** Userspace polling for second rollover (e.g. `hwclock
+--systohc` without RTC update IRQ). Common on no-IRQ configurations.
+Triggerable from userspace via RTC device node.
+
+### Step 8.3: Failure Mode Severity
+**Record:** Stale RTC data and `hwclock` `select()` timeouts —
+**MEDIUM** severity. Not a kernel oops/UAF, but can leave system time
+wrong or prevent time synchronization at boot. Operational impact on
+affected hardware is real.
+
+### Step 8.4: Risk-Benefit
+**Record:**
+- **Benefit:** MEDIUM-HIGH for affected BQ32000 users — restores
+  reliable time reads and `hwclock` behavior
+- **Risk:** LOW — ~12 lines, well-understood pattern, delay only when
+  `irq <= 0`
+- **Ratio:** Favorable; fits the hardware-quirk exception for stable
+
+---
+
+## Phase 9: Final Synthesis
+
+### Step 9.1: Evidence Summary
+
+**FOR backport:**
+- Real hardware bug on BQ32000 without IRQ
+- Hardware quirk / timing workaround (explicit stable exception)
+- Small, surgical, maintainer-reviewed fix
+- Buggy code present in 6.18.44 since driver introduction (2009)
+- Precedent in RTC subsystem (isl1208, rv3028, max8998 delays)
+- Userspace-reachable via RTC ioctl/polling paths
+- No new APIs, DT bindings, or feature additions in final form
+
+**AGAINST backport:**
+- No kernel crash, UAF, or security issue
+- Niche hardware (BQ32000 without IRQ)
+- No syzbot or multi-user bug reports
+- Adds ~2 ms to every read on no-IRQ systems (minor latency)
+- `client->irq <= 0` is a heuristic; IRQ in DT but unused by this driver
+  would skip the delay
+
+**Unresolved:**
+- No independent test reports beyond author/maintainer
+- b4 dig unavailable (commit not in local history)
+
+### Step 9.2: Stable Rules Checklist
+1. Obviously correct and tested? **PASS** — clear hardware rationale;
+   maintainer sign-off; matches established RTC delay patterns
+2. Fixes a real bug affecting users? **PASS** — stale RTC reads and
+   `hwclock` failures on affected hardware
+3. Important issue? **PASS (MEDIUM)** — not a crash, but broken RTC/time
+   sync on real hardware; hardware-quirk category
+4. Small and contained? **PASS** — single file, ~12 lines
+5. No new features or APIs? **PASS** — no DT property, no new
+   sysfs/module params
+6. Can apply to local tree? **PASS** — driver and buggy code present;
+   clean apply expected
+
+### Step 9.3: Exception Categories
+**Record:** **Hardware quirk/workaround** — BQ32000 requires idle time
+between reads for register-buffer refresh. Same class as USB/PCI quirks
+and other RTC settle-delay fixes.
+
+### Step 9.4: Decision Rationale
+
+For **linux 6.18.y** (this checkout): the BQ32000 driver has read the
+RTC immediately since 2009. On systems without an interrupt line,
+userspace polling can prevent the chip from refreshing its register
+buffer, producing stale reads and `hwclock` timeouts. The fix is a
+small, well-precedented hardware timing workaround that only affects no-
+IRQ configurations. It does not add features or APIs, applies cleanly,
+and addresses a real operational bug on affected hardware.
+
+---
+
+## Verification
+
+- **[Phase 1]** Parsed subject, tags, and body from provided commit
+  message
+- **[Phase 1]** Confirmed no `Fixes:`, `Reported-by:`, or syzbot tags
+- **[Phase 2]** Diff analysis: 1 file, `bq32k_rtc_read_time()` only,
+  adds `usleep_range(2000, 2500)` when `client->irq <= 0`
+- **[Phase 3]** `git blame -L 90,116 drivers/rtc/rtc-bq32k.c`: core read
+  path from `1ce7c83fa91d2` (2009)
+- **[Phase 3]** `git log --oneline -20 -- drivers/rtc/rtc-bq32k.c`: no
+  prior settle-delay fix
+- **[Phase 3]** `git log --grep='add delay between RTC reads'`: commit
+  not in local tree
+- **[Phase 4]** Web search: found v1→v3 series; v3 URL on yhbt.net/lore;
+  0 thread replies
+- **[Phase 4]** `b4 dig -c HEAD`: failed (commit not in tree); `b4 dig`
+  requires `-c COMMITISH`
+- **[Phase 4]** lore.kernel.org direct fetch blocked (Anubis bot
+  protection)
+- **[Phase 5]** Read `drivers/rtc/interface.c`: `__rtc_read_time()`
+  calls `rtc->ops->read_time()`
+- **[Phase 5]** Read `drivers/rtc/dev.c`: `RTC_RD_TIME` ioctl and
+  `rtc_uie_task` call `rtc_read_time()`
+- **[Phase 5]** `grep usleep_range/msleep` in `drivers/rtc/*.c`:
+  multiple similar delay patterns confirmed
+- **[Phase 6]** `git describe HEAD`: `v6.18.44-1-g2736c32da98b9`;
+  Makefile confirms 6.18.44
+- **[Phase 6]** Read `drivers/rtc/rtc-bq32k.c`: fix not present; no
+  `linux/delay.h`, no `usleep_range`
+- **[Phase 6]** Read
+  `Documentation/devicetree/bindings/rtc/ti,bq32000.yaml`: `interrupts`
+  optional; example has no IRQ
+- **[Phase 7]** `git log --oneline -20 -- drivers/rtc/`: active
+  subsystem with recent bug fixes
+- **[Phase 8]** Read `drivers/i2c/i2c-core-base.c` lines 503–532:
+  `client->irq` set to 0 when no IRQ from DT/ACPI
+- **[Phase 8]** `grep irq` in `rtc-bq32k.c`: driver does not implement
+  IRQ handling
+- **[Phase 3]** `git show 0dbd610c426ed`: isl1208 delay fix precedent
+  (13 lines, maintainer sign-off)
+
+**YES**
+
+ drivers/rtc/rtc-bq32k.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+diff --git a/drivers/rtc/rtc-bq32k.c b/drivers/rtc/rtc-bq32k.c
+index 7ad34539be4d2..245e5e45d6a16 100644
+--- a/drivers/rtc/rtc-bq32k.c
++++ b/drivers/rtc/rtc-bq32k.c
+@@ -16,6 +16,7 @@
+ #include <linux/kstrtox.h>
+ #include <linux/errno.h>
+ #include <linux/bcd.h>
++#include <linux/delay.h>
+ 
+ #define BQ32K_SECONDS		0x00	/* Seconds register address */
+ #define BQ32K_SECONDS_MASK	0x7F	/* Mask over seconds value */
+@@ -89,9 +90,17 @@ static int bq32k_write(struct device *dev, void *data, uint8_t off, uint8_t len)
+ 
+ static int bq32k_rtc_read_time(struct device *dev, struct rtc_time *tm)
+ {
++	struct i2c_client *client = to_i2c_client(dev);
+ 	struct bq32k_regs regs;
+ 	int error;
+ 
++	/*
++	 * When the device doesn't have the interrupt connected, prevent
++	 * userpace from polling the RTC registers too frequently.
++	 */
++	if (client->irq <= 0)
++		usleep_range(2000, 2500);
++
+ 	error = bq32k_read(dev, &regs, 0, sizeof(regs));
+ 	if (error)
+ 		return error;
 -- 
-2.55.0
+2.53.0
 
