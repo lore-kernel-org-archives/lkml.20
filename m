@@ -1,140 +1,85 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from out-93wp-a38.jellyfish.systems (out-93wp-a38.jellyfish.systems [104.207.68.38])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA91033B97D;
-	Mon, 31 Aug 2026 17:15:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CB1A46A604
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 17:16:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=104.207.68.38
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788196552; cv=none; b=WviWVx9t47cQICOI9H/yA/f1QAegYrT7tyuwt3i2XllvFHmSvG9DyXjpa8PXa/YaBPveDy6RQneUPweXjAD20TcTaBPTZchXfRhsAX9LpQgH2Zu3+c8N+rB6IIdilECwEf5VD1Qcc/jL3rBimcwr6Vd57J1ddJoDD6jfvTmAEH4=
+	t=1788196582; cv=none; b=r488mp+DZT6tZcKvGS18toD/n5gdy5MF4VvCOEkTDQFg+L549X1ZMF76bJcsx9o8A/8HF4ZfRWnjO0MkZuw0ORbiOZfTmxFx1m5qmhFe0jb6JAHRnJf0OcXLD9bmDYYweUKpjtQMp3/XM9bRXPenQWL4qmYSER99ZDBLv7SWyqo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788196552; c=relaxed/simple;
-	bh=qhps3i/s6KKq+LUWs2P9LFVcYQc2rWPelFcUqOtIChA=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=QgQTn5HYRBo10f2q6f4eLAAikkkEhTnt8ptY/tMcpFtsQL6bvGAIMdXwbB3GyE2wm5ZMd/aYbIRSzAd8hWXcL+Vr6DYuf3lLsoEXajnMqWFbzIkbSrd8sk2NSeNwcvQ3lyB9LEIJQhkBRhotzqYN1Wc0FoEG36Hl4rmQ0aByKsE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mdZ1In+j; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1788196582; c=relaxed/simple;
+	bh=gl0/SCu64bz3iEgZlakHvuwIqurKmNqW/AgWgajhtMc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Bz5wyRH0/nG4EgWFtgyPqhkRFQR0m5qirG+Q19h/Ga0RNnSud0fCm0SW4NHdWqB0izOIl6ugLQQcq5e2RTRqiinSwLa9obp1p7/J5r1CTymhCm4dsr3KMW4N5bvyc5KNUJiOBN5Js/gdgBnOJ2fYZnot49j1Tc48jYrPmiBKYeE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gurudas.dev; spf=pass smtp.mailfrom=gurudas.dev; dkim=pass (2048-bit key) header.d=gurudas.dev header.i=@gurudas.dev header.b=eABI9QuZ; arc=none smtp.client-ip=104.207.68.38
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gurudas.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gurudas.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mdZ1In+j"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 64911C2BCB8;
-	Mon, 31 Aug 2026 17:15:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1788196552;
-	bh=qhps3i/s6KKq+LUWs2P9LFVcYQc2rWPelFcUqOtIChA=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=mdZ1In+j1Tbsx2leubMe4rl5fv94iDQglSmFwMzbd9Dv2mfjIOHX+tyBPPPLscBdT
-	 ATG/MZwJbl40bEsZ5b01E4jj2i5BRMqZRggsOu4LmxFS76UTEHcp6yFyQmmYw/i/Dt
-	 FJRSDGJDSpIcGuW4Gcp+2ZH1z3PwFf0IdHQ4G6aIynP63vSCePV/cRDvhab36KNrfv
-	 wsF8ZUyzZyAk/ZkFQTxRWE5lQ5IAjexNhagNc16JWTc/jECsB9FG40l7Qj/dCVBtwX
-	 VxpQKx2O+/lnW1Fl5dUAVQT4SFrF9sAybLliLPVBOwuR6rFkM2c2wQSAwva+DZzIXM
-	 tBCpM+9ZQfDSg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3EB2AC624C6;
-	Mon, 31 Aug 2026 17:15:52 +0000 (UTC)
-From: Sophon Zhang via B4 Relay <devnull+aiqubits.hotmail.com@kernel.org>
-Date: Tue, 01 Sep 2026 01:09:53 +0800
-Subject: [PATCH v4] rust: pci: reject IRQ vector indices that do not fit in
- u32
+	dkim=pass (2048-bit key) header.d=gurudas.dev header.i=@gurudas.dev header.b="eABI9QuZ"
+Received: from gurudas.dev (107-194-158-19.lightspeed.sntcca.sbcglobal.net [107.194.158.19])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mail.spacemail.com (Postfix) with ESMTPSA id 4hYZGF3bTPz8sXD;
+	Mon, 31 Aug 2026 16:29:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gurudas.dev;
+	s=spacemail; t=1788193797;
+	bh=G/cJ7AF6I/QA5U7RnOSBpR0OZgRn9Fa2wLsVsq4RM7U=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=eABI9QuZXGlSaL8p2OoAE0nJSBQMXmJ+nMhJpEpdHLXYOQz5aLzOmUurasPvwMwCu
+	 cFB2TTtUqj6K03nAc2t1R35MOk+6oE3qFTLdjQsQi4sgJ4+T01fjQ5bpeKN48db1iB
+	 a/vTVUOaoCou2RNbSTQy7kreJIenDdZUHT38DEMKL+OJJGcnHktbu600lqPdBgd3vn
+	 hGZbb5PIVarewbFL54LnFMaae/CXwiPVULA8CKnk1jt7l/fMmUXzaY/v8mc9lanREj
+	 aXH4L+4erk6/KrNQAS8npvwFvp1cyOsBtdKUiZGRDACXo/7ZA3ye9IgcuPMKN5JQ0n
+	 OWFQEeppn7QTA==
+Date: Mon, 31 Aug 2026 09:29:56 -0700
+From: Guru Das Srinagesh <linux@gurudas.dev>
+To: Matthew Wilcox <willy@infradead.org>
+Cc: Alex Lanzano <lanzano.alex@gmail.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Gustavo Silva <gustavograzs@gmail.com>,
+	linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] minmax: Add in_range_inclusive() for inclusive
+ range checks
+Message-ID: <apWsBDT6tdpW6lUU@gurudas.dev>
+References: <20260816-minmax-in-range-incl-v2-0-766f737dd6bf@gurudas.dev>
+ <20260816-minmax-in-range-incl-v2-1-766f737dd6bf@gurudas.dev>
+ <aoItA_ktl04qmhEb@casper.infradead.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260901-fix-pci-irq-vector-index-truncation-v4-1-f94aa6932fd9@hotmail.com>
-X-B4-Tracking: v=1; b=H4sIAGC1lWoC/53OPQ7CMAwF4KugzBjlpySUiXsghpAYagQtJCUCo
- d4dFybEBOOT/L7nh8iYCLNYTh4iYaFMXcuhmk5EaHy7R6DIWWiprVwYBTu6wTkQULpAwdB3Cai
- NeIM+Xdvge+6DdXO9M26uvIyCpXNCrr1W1pt3ztftgdsjPV40lFm6v94oarz7bbEoUBCt0crFu
- t5at2q6/uTpOAvdSYybRf+halYraSR65yrr62/V/KEaVr1W7C6qqCV+qsMwPAH8zWrBlgEAAA=
- =
-X-Change-ID: 20260831-fix-pci-irq-vector-index-truncation-6752f3751a0d
-To: Danilo Krummrich <dakr@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
- =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
- Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
- Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Tamir Duberstein <tamird@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>, 
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>
-Cc: linux-pci@vger.kernel.org, rust-for-linux@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Sophon Zhang <aiqubits@hotmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788196549; l=2550;
- i=aiqubits@hotmail.com; s=20260831; h=from:subject:message-id;
- bh=aDpWwnCHJqNDAl+iMV/Pt6CcKak8JY7tJ57zkb1ld5w=;
- b=NHZdgqGpnU8lETGIZIzu3ZLXvJ5MUb7qp3HPbYOF5EZ6zD3TUOvdD19e2lx9OaKdyoL8P9bx0
- oXZbGHZhaj/BBqC18cpsZ4tDH2lJz928e3nN1ux9aBvnlhVV2c3sNI9
-X-Developer-Key: i=aiqubits@hotmail.com; a=ed25519;
- pk=+mrkwQAyCCkZdVPpu+CBQr1VZQlkXa7/1WizfeSF/yg=
-X-Endpoint-Received: by B4 Relay for aiqubits@hotmail.com/20260831 with
- auth_id=992
-X-Original-From: Sophon Zhang <aiqubits@hotmail.com>
-Reply-To: aiqubits@hotmail.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aoItA_ktl04qmhEb@casper.infradead.org>
+X-Envelope-From: linux@gurudas.dev
 
-From: Sophon Zhang <aiqubits@hotmail.com>
+On Sun, Aug 16, 2026 at 10:34:59PM +0100, Matthew Wilcox wrote:
+> On Sun, Aug 16, 2026 at 12:26:20PM -0700, Guru Das Srinagesh wrote:
+> > +++ b/include/linux/minmax.h
+> > @@ -299,6 +299,25 @@ static inline bool in_range32(u32 val, u32 start, u32 len)
+> >  	((sizeof(start) | sizeof(len) | sizeof(val)) <= sizeof(u32) ?	\
+> >  		in_range32(val, start, len) : in_range64(val, start, len))
+> >  
+> > +#define __in_range_inclusive(val, start, end, uval, ustart, uend) ({	\
+> > +	typeof(val) uval = (val);					\
+> > +	typeof(start) ustart = (start);					\
+> > +	typeof(end) uend = (end);					\
+> > +	uval >= ustart && uval <= uend;					\
+> 
+> By convention, 'end' is used for exclusive ranges while 'max' is used
+> for inclusive ranges.
 
-IrqVectorRegistration::index() accepts a usize, but pci_irq_vector()
-takes an unsigned int. On 64-bit architectures, casting an index larger
-than u32::MAX wraps it before the PCI core can validate it. In
-particular, u32::MAX + 1 becomes zero and can resolve to the first
-allocated vector.
+Changed to use 'min' and 'max' instead.
 
-Use a checked conversion and return EINVAL when the index cannot be
-represented by the C API.
+> Also, this seems completely wrong.  How do you think this is unsigned
+> comparisons?  I think you'd do better to follow the example of
+> in_range() much more closely.
 
-Fixes: 2fb7755b0a7e ("rust: pci: resolve IRQ in index() and embed IrqRequest in IrqVector")
-Signed-off-by: Sophon Zhang <aiqubits@hotmail.com>
----
-Prevent 64-bit Rust IRQ vector indices from wrapping when they cross the
-PCI C API boundary.
----
-Changes in v4:
-- Drop the explicit length check in favor of PCI core range validation.
-- Use the existing TryFromIntError-to-Error conversion directly.
-- Keep commit trailers adjacent and narrow the description to truncation.
-- Link to v3: https://patch.msgid.link/20260831-fix-pci-irq-vector-index-truncation-v3-1-a2103084d20e@hotmail.com
-
-Changes in v3:
-- Check the index against the allocated vector count before entering the C API.
-- Keep the checked usize-to-u32 conversion and document the C-side warning.
-- Link to v2: https://patch.msgid.link/20260831-fix-pci-irq-vector-index-truncation-v2-1-4030ea7746a9@hotmail.com
-
-Changes in v2:
-- No code changes.
-- Link to v1: https://patch.msgid.link/20260831-fix-pci-irq-vector-index-truncation-v1-1-d63217d99b67@hotmail.com
-
-Testing:
-- make rustfmtcheck
-- Not build- or hardware-tested; bindgen is unavailable in the test environment.
----
- rust/kernel/pci/irq.rs | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/rust/kernel/pci/irq.rs b/rust/kernel/pci/irq.rs
-index 6741046ec1c0..22e2cdf82a21 100644
---- a/rust/kernel/pci/irq.rs
-+++ b/rust/kernel/pci/irq.rs
-@@ -151,8 +151,10 @@ pub fn irq_type(&self) -> IrqType {
-     /// [`Self::len()`].
-     #[inline]
-     pub fn index(&self, index: usize) -> Result<IrqVector<'_>> {
-+        let index = u32::try_from(index)?;
-+
-         // SAFETY: `self.dev.as_raw()` is a valid pointer to a `struct pci_dev`.
--        let irq = unsafe { bindings::pci_irq_vector(self.dev.as_raw(), index as u32) };
-+        let irq = unsafe { bindings::pci_irq_vector(self.dev.as_raw(), index) };
-         if irq < 0 {
-             return Err(Error::from_errno(irq));
-         }
-
----
-base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
-change-id: 20260831-fix-pci-irq-vector-index-truncation-6752f3751a0d
-
-Best regards,
---  
-Sophon Zhang <aiqubits@hotmail.com>
-
-
+Done - v3 now follows in_range() closely.
