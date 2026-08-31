@@ -1,77 +1,82 @@
-Received: from mail-106118.protonmail.ch (mail-106118.protonmail.ch [79.135.106.118])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD5814DA543
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 14:25:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.118
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24E4049F117;
+	Mon, 31 Aug 2026 14:26:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788186343; cv=none; b=Dg5T4H4gPtXV0RCjou+aFulWLW9leLuSyNlUleMvYb9F++7bjUbqVlSHIr4ItQUY5u+F4WKfAR3o1YLRyE31YSzcVo++NU2VaA4W7gUPe7aNWpVgq0BtWPQ5phbD1y3amAYnXNZzDMpORLtnN7rEg3qEJBtDB/BrXSx7+C2P7eg=
+	t=1788186385; cv=none; b=J6ecVoSiS/xMpz9eNF/72yE0oNIRe26EbPFMF9VUK9su2lGbhR9D5cwHlztU4AVxveHQ+OPRElmoEN6l3WFnQ/mxpOAaKpOqAufItGnMTzo4KiS0U+IKrRSqHUpxpYs2RqPNmYBevWCxOiWZpWPoeo8mV6Jau+qc0H876oEswZw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788186343; c=relaxed/simple;
-	bh=vZw0hLL4dSeqV3jSVMA6jvCgpb5+g5wnq9JcTayBwm4=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=HLRdSCjxcRt65dYluP7qD1ZQLBa7BPqXp03TBR6EnsnSt3AEnfTNyFvqMWSAvRlQlKfMHGV97V9fdEEXmAZNjRYLefRr6d5lVu2qQQc6kcdDW4MrV5ArPaPdrTiYcRYH85muBRUBUYKdIrDatYEi9X89iI+JdJDv+U3wYMzwYBQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=fpCt/fdg; arc=none smtp.client-ip=79.135.106.118
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	s=arc-20240116; t=1788186385; c=relaxed/simple;
+	bh=aVdWKKuRk8nkHDpzmEb77cT15+azH/FUhxdnKjZpuIQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=i7HTWtxviOaVEMIQmYyTGY4ohtPceG8TQMzvFV9QKFX9XhCkVwG55u8x0PdfbYtAZWOuyegjuf7p3+5h3J48c1oVsH5fTkAjbvBDyH6rKm1L6+GXPUQAgbK+3oilLv5tu13hPJ9sZ+rhwW8GJM1+k8lxHNUji1zYK8H6zV7xl8c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OOnu/tWm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="fpCt/fdg"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1788186333; x=1788445533;
-	bh=Am4U/GdbWSNMOv42LsGji8ij2jzfV8TWsw2TXnhE03I=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=fpCt/fdgDy4/Qye6+As96aJ/KQKYVB5hKdoBlWvpBDgcbiuMU8mgG5UlKlVSTrjIO
-	 XAvfUA2B0sIfgkMQA7hdJpDROCvaheLLycNXMTZ5SlONidGSggHzvpGa0aJB0SalYl
-	 822Zi13vlO7spldtmnd5eQIsw+cHdwxMT8uH9xrdn9vM0pK5vyAWL3d0uskcah0Slb
-	 7yz2MUriPFDbHGxkDgbpGNjBM/VMbw2p8mHrnyP8GF3x8L4WkK2aRaTyyz55OXFgC/
-	 Rr7LrrKyN333FFAfn8gJE/9Ldslu5WJUlM+VP51P/LdmFRJxNU713khO7Nbb+Q6f80
-	 p+TsjwW4As23Q==
-Date: Mon, 31 Aug 2026 14:25:30 +0000
-To: Sasha Levin <sashal@kernel.org>
-From: Sergey Lebedev <lsa.uz@pm.me>
-Cc: stable@vger.kernel.org, Mark Brown <broonie@kernel.org>, patches@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH AUTOSEL 6.18] ASoC: rt1320: run the initialisation preset on the first hardware init
-Message-ID: <20260831142522.85439-1-lsa.uz@pm.me>
-In-Reply-To: <20260831133314.4125787-601-sashal@kernel.org>
-References: <20260831133314.4125787-1-sashal@kernel.org> <20260831133314.4125787-601-sashal@kernel.org>
-Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: 67733ea88f02bf58460191b0df5284c8101e7578
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OOnu/tWm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D38F11F00A3F;
+	Mon, 31 Aug 2026 14:26:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788186384;
+	bh=j0ux2Ajr+KLUU8fQjRJzy/leuNsARMPnQOrajKg2u/o=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=OOnu/tWm7FfN/WVmuah++vaeUv4DTc82sDlwfcr2fojF5ZyGY1ykULsmmlY5KU12p
+	 tT56GE1m+DVb8VmGJzfdb7Awq9W4WmaX5D5fOuECuUGO+ZEKDO4r4RmWiOr2M821vI
+	 2SeZlnWf5CULk4zQd2cQ2/0cy+hkpUiDq894szbRuHeGbG+gD2ecFNJ6wmFpA6wPXn
+	 sFMeKH5ncp+HwYNPBy50vTiy4AGoUnWRrFr+q6p6o7Z9nZfBdZJsXs7O0MouB8kcuW
+	 dnFZt459wBFA+cGkZqr27oXM1TsX5DLpIZU17wb/bf5sSL2jYUwIXqcUf8VixxYxN9
+	 LQMbH3H8wLu6Q==
+From: SJ Park <sj@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: "Zenghui Yu (Huawei)" <zenghui.yu@linux.dev>,
+	SJ Park <sj@kernel.org>,
+	damon@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: [PATCH 1/7] mm/damon/core: remove declaration of __damon_commit_ctx()
+Date: Mon, 31 Aug 2026 07:26:03 -0700
+Message-ID: <20260831142611.77572-2-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260831142611.77572-1-sj@kernel.org>
+References: <20260831142611.77572-1-sj@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Author's ack for the AUTOSEL 6.18 pick of
+From: "Zenghui Yu (Huawei)" <zenghui.yu@linux.dev>
 
-  ASoC: rt1320: run the initialisation preset on the first hardware init
-  upstream 9b30521074f01aff856f539c1241a48342b69f7c
+It was added by commit b1471afe4d10 ("mm/damon/core: do parameter testing
+commit on damon_start()") but is actually not needed.  Remove it.
 
-Appropriate for stable, and the reason is narrow enough to state precisely.
+Changes from v1
+- v1: https://lore.kernel.org/20260806170701.79266-1-zenghui.yu@linux.dev
+- Collect R-b: from SJ.
+- Rebase to latest mm-new.
 
-Without it the RT1320 on the Microsoft Surface Pro 11 is left unprogrammed =
-on
-every boot: its SDCA function status reads 0x41 (NEWLY_ATTACHED |
-FUNCTION_HAS_BEEN_RESET) and never sets FUNCTION_NEEDS_INITIALIZATION, so
-rt1320_vc_preset() and the MCU patch load are skipped. rt712-sdca and
-rt722-sdca already carry the first_hw_init fallback this adds.
+Cc: "Zenghui Yu (Huawei)" <zenghui.yu@linux.dev>
+Signed-off-by: Zenghui Yu (Huawei) <zenghui.yu@linux.dev>
+Reviewed-by: SJ Park <sj@kernel.org>
+Signed-off-by: SJ Park <sj@kernel.org>
+---
+ mm/damon/core.c | 2 --
+ 1 file changed, 2 deletions(-)
 
-On the risk side, which is what matters for a backport: the added condition=
- can
-only cause the preset to run where it would otherwise not have run at all. =
-On
-hardware that does set FUNCTION_NEEDS_INITIALIZATION the behaviour is
-unchanged, so a later board revision carrying a different RT1320 -- which B=
-ard
-Liao noted is possible for this SKU -- is not exposed to anything new.
-
-Tested on the affected hardware. With the patch the amplifier reports
-RT1320_KR0_INT_READY=3D0x1f where it previously did not, and audio works.
-
-Sergey Lebedev
-
+diff --git a/mm/damon/core.c b/mm/damon/core.c
+index b3f8bea774c2d..79515ef03fc2a 100644
+--- a/mm/damon/core.c
++++ b/mm/damon/core.c
+@@ -1961,8 +1961,6 @@ static int __damon_start(struct damon_ctx *ctx)
+ 	return err;
+ }
+ 
+-static int __damon_commit_ctx(struct damon_ctx *dst, struct damon_ctx *src);
+-
+ /**
+  * damon_start() - Starts the monitorings for a given group of contexts.
+  * @ctxs:	an array of the pointers for contexts to start monitoring
+-- 
+2.47.3
