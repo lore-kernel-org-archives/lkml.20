@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3062649B206;
-	Tue,  1 Sep 2026 18:20:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE98849B1E0;
+	Tue,  1 Sep 2026 18:20:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788286824; cv=none; b=nu6/BwYm+bE3+enn5IBQxtR43FbSCvtSAsyt8PwYmCqcZqw02jRr6owoHIWZft6UnTeP/X6+JzcnKwqQrE0ZV9Mhwl0OY7CG9IPMCd3s5khzrot3VDBs5d/BLSReR91lCL0ugFko23hfHe7zs4WC71SHPq0BkDdyaNLkb/8pEvA=
+	t=1788286835; cv=none; b=FVcrShBZ1SomSwl1z2ZZCUBq13trAMJm455rwRtW4/NuFnpLpwA8CkLhi2NFtRVZmvIyTCrViFlDswXlAHGr4vp+obsH9aNXzg4NGzbfG/3ykTWnZ6lu2zx6Hptht60/fX3dz4XCODxWmA1IRufUTu5TmBfES5ZVWn1kNhCnDgs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788286824; c=relaxed/simple;
-	bh=1XVf+KD4fdDnv8zdLPNUnNbdVOkJCyHPqO72iXznzqI=;
+	s=arc-20240116; t=1788286835; c=relaxed/simple;
+	bh=G1o2fOb+b8zZot2tnJjWu9uxPSwY7Tt8RZblc4UrUIU=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=YN7tl1BEKE+zgVURLBuTb32benWFxmxhGIBrG9vwbh3f6kP/ypr52wyjWoUjA+Xg7vBirMbsNi4fyVK+HDmZeCS2eCLx7RiPEusWOzpwjrhUHLfrmy27ZkoB2mWJcCr1nEixUuIYIgf+pfQ2jvmah474qF+htXp5hqSmaGAvGEg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cpTqJ4GY; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=WqJiR3ULGJznFyvR+79kyQIctoQoiQc6GikcBs+9gNg3FnF7FBdqlsUyK4kgt4Ij2TCVbPd3F6TYSnwctOGj8lqnpXHslQZzGhFOVtyzgKQugxY3cg92LQhBkwSEH7zMhNRBMhKOa6ehekMpxnrYaS9s1WmtUJd1uq7dYF/ga6g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WAHH+725; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cpTqJ4GY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96AAA1F000E9;
-	Tue,  1 Sep 2026 18:20:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WAHH+725"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0BC31F000E9;
+	Tue,  1 Sep 2026 18:20:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788286822;
-	bh=BUKiKs0kChUCTOHYgzamNh5mNEW73GRcHBeBzMGIesY=;
+	s=k20260515; t=1788286834;
+	bh=DzFOSRSfFZEXwrU7R3npJ1aDPbSVcIQBYbvQ3bdLSBA=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=cpTqJ4GYDmFxSaFyjvKPTcRzxoFAS5d3mCysgFmhjT1XzEizGUAO4+FgHteSV96uF
-	 syV4qUDEKjRso/XNl1LvpjsaEqdgeKrzSt+NNhj0N/NwK8gMcJLhdYgOnUdcvLxvwM
-	 BgQkvwEYObrwyEoFfP3ptA3IB3u6pJ9KR8fkYQbE/wDVNbGyc6qoaRXVJCwSDEJpEN
-	 v+GRAhiLDR052PizDZIMF+/0b3fMIAkrP/v7wXgv8LZvmWO+3qq7S8AXGOoeRIATax
-	 hMvUrtMF93XUdFAm2wPMhMmsoib81SBhGukWmtOHsG5/jvDPc/2n4Wz/9D3LJvEnhq
-	 Wez3x6DJDeitQ==
+	b=WAHH+7254KBQOS3SGjEzNQl2kIb0pIEqWi6esAGb1/H2Z17DalfXZAbr03a2NAY76
+	 nQF2OjvbjVljOE9Sfit/4hscwfGXja+krslyjYyqqaSp5yI4cE0tw4SZ3IhkfB5iGU
+	 lTt70jatNK32KL0kgvDQWDgVNbxbBVVSJ8UI7P+iQ5w7l5KcrXdPvMygbYNC2eWeUF
+	 c4DH+AgUJLax+VhKEfjkgIPomaVOVbk1TEI36ecWwnBVQjVwHve4nFjh4lZh6S9FjH
+	 jA1huZZ6RwOwR4lYSda0sB9KndLh5JN7NaSSFnEiJIqjjh73I0MfrhQ5Nur590SL74
+	 pO4jEdGlXzwtw==
 From: Mark Brown <broonie@kernel.org>
-To: shengjiu.wang@gmail.com, Xiubo.Lee@gmail.com, festevam@gmail.com, 
- nicoleotsuka@gmail.com, lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com, 
- Chancel Liu <chancel.liu@oss.nxp.com>
-Cc: Frank.Li@nxp.com, linuxppc-dev@lists.ozlabs.org, 
- linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260820021454.2229094-1-chancel.liu@oss.nxp.com>
-References: <20260820021454.2229094-1-chancel.liu@oss.nxp.com>
-Subject: Re: [PATCH] ASoC: fsl_mqs: Add DAPM output widgets for MQS_L/MQS_R
- pins
-Message-Id: <178812881948.13461.18281205860019181872.b4-ty@b4>
-Date: Sun, 30 Aug 2026 23:26:59 +0100
+To: Srinivas Kandagatla <srini@kernel.org>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, 
+ Takashi Iwai <tiwai@suse.com>, David Heidelberg <david@ixit.cz>
+Cc: linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20260823-wcd-dt-typo-fix-v1-1-a71b458e0d31@ixit.cz>
+References: <20260823-wcd-dt-typo-fix-v1-1-a71b458e0d31@ixit.cz>
+Subject: Re: [PATCH] ASoC: wcd-mbhc-v2: Fix incorrect properties names and
+ typos
+Message-Id: <178821151230.439600.10637420602245098274.b4-ty@b4>
+Date: Mon, 31 Aug 2026 22:25:12 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -47,20 +47,20 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1135; i=broonie@kernel.org;
- h=from:subject:message-id; bh=1XVf+KD4fdDnv8zdLPNUnNbdVOkJCyHPqO72iXznzqI=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqlxdiNOt9CuCwHjrDsFwMB0MoiPiegCVvK4wwO
- YBS3xKPMKmJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCapcXYgAKCRAk1otyXVSH
- 0K+qB/9aZ9Cwp0KGr5/WSsc2aONUsvWe7bw2BGN4uHfQwKFgwDw0wZ8G1wZk8LfdPJaOtcu136A
- 33B7zgiHJW9+98Zx7ErhdJNzGFsKd69ONo0m1MWfiVP4uly4OfHTsEy1RME0ukVtxhb73E0LjpG
- sOSgCdD3DIQrk3PxkxJiYtopszT4cbX2rRireay7acnU4ENwbqQia0D++sdYkwjhaNs86AUd7lC
- rIrNLMFrwcvOK8AbWxnzLPhjK9gbvE66wdwY8CYZTrUk6nCUnazFKLuP4CGKny2C9TNuN0DYccW
- E03zG0f8Px6zubUrfwnGTZfmBG2OaajrbHkf0PpbOIZ3jkb5
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1140; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=G1o2fOb+b8zZot2tnJjWu9uxPSwY7Tt8RZblc4UrUIU=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqlxduwOrHkHo1rY8/YGWj6ENU8g+oyi+g/MKYz
+ 9bIL23CRWuJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCapcXbgAKCRAk1otyXVSH
+ 0AY4B/4l0fCPcwoWeSMia0gdd8Zc2DvAYv2Gje3kXCBvXGdQtsAAIrecSWgB/uSXXRaRVXnaBWS
+ q9gg+D6CURQ5EAz73vFRiMbgr5fEi9w4gXd1I5O5qh3qXUwKRxj/MY+v6v0ACa4xI+UBqao1SLa
+ 6KI1A+oPhScAm913ljEVN5ndrayNCfSsMiC0thlRCUpGocOU//T688XHPLW+DgcE3dmK42AVIPn
+ OPk++HFL1YpVBG8cs2i2ZKPG64p1/0w27rNHeZNyh9hIfugoISWMhQZ8yQrLXYtai1bVB+YNCjD
+ 6McpbDox2edOaaArp9hy46f459pRWKOnjhFljbbRGa3BncPR
 X-Developer-Key: i=broonie@kernel.org; a=openpgp;
  fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Thu, 20 Aug 2026 11:14:53 +0900, Chancel Liu wrote:
-> ASoC: fsl_mqs: Add DAPM output widgets for MQS_L/MQS_R pins
+On Sun, 23 Aug 2026 11:09:55 +0200, David Heidelberg wrote:
+> ASoC: wcd-mbhc-v2: Fix incorrect properties names and typos
 
 Applied to
 
@@ -68,8 +68,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: fsl_mqs: Add DAPM output widgets for MQS_L/MQS_R pins
-      https://git.kernel.org/broonie/sound/c/040a7beba8bf
+[1/1] ASoC: wcd-mbhc-v2: Fix incorrect properties names and typos
+      https://git.kernel.org/broonie/sound/c/17bca5d55446
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
