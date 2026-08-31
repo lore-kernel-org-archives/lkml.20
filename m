@@ -1,64 +1,141 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-151.mta1.migadu.com [95.215.58.151])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 405C3387363;
-	Mon, 31 Aug 2026 02:26:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5DD037996B
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 02:28:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.151
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788143185; cv=none; b=PQ4tBUy7rp3A3Y2Jn9fR37dQGJ0hfiERdRaCQP6AyV6W//G61+hlmf2VqmZLZr7bDRbfGqXWip/ItnlCbt8bZq8Ak0I6jpr5fVCjAwHT+fXNOzMdh00oZOH8XK6kHp+pqIvpEd8YfvkIS7fs47H9tzLsDi5KUc429YeVWu+JPnc=
+	t=1788143304; cv=none; b=XoDZcx47+QtPSGL4N4UWxaVrJrxKQ62kN9cvFUMsDHjND7n4CGsKHc1SZAixlKmr2YbjrqhyHQ1iASkMEmrtXUXj53YLe1o3NXZGjDfMN6PfjF5f/S0AnzLQ8ZBAHOTnZjrS+I0Yn/+vnqZz+cvd9GEIeHBl4Im3LNJRHglnWoM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788143185; c=relaxed/simple;
-	bh=d8Hs6S+dKfpFggHaqLVu/GufQyKEH6HRxbqNopsYD40=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qBYMiZ1w55Hf3zY4dLudoZuGChopuFb41UyPvZI7+5Pw0KpWjTfHxb0WcQyLO8aYyMK8tFBLEVETibiMC9js+Jm458rcbeymaS+pQ9cJRFbedmrVvu1SLkxIUDtDlv99SBDGbvLqwe9BYxJA6GKR6oJoMT+4WMUVTxCssxd08vw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W7h8QDe5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788143304; c=relaxed/simple;
+	bh=FlD54LcSt+NZlq7D9GrYKYXHGNdn1dwZ5TEhIQvteAM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=iE/FCA+ei/nAe9CzYucFlraQryCY76OMd4vPs6s/h5Kbl2UVrhDnBhln8Zbc/Bo+7bP4S9dnt0IJOYcJs770CzfsUKvNDSKoWRBAgIDgNpKoDWu6vYrvFgsOaxoWR01GBZWKFUoxk4jhXa9UNYqCW9HTxieVXym9eX/wJrk7nIU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=bmStEd8N; arc=none smtp.client-ip=95.215.58.151
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W7h8QDe5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88A771F000E9;
-	Mon, 31 Aug 2026 02:26:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788143174;
-	bh=PAuNlSD3KcRG2e6QUkGjSARsweEPhyxyVC+8H743MtY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=W7h8QDe56JzPkyprp5woK7/y/j89Diw9LYnHmfTjkWmNwKb3fAjyN4DEgp7Z0P6kv
-	 gU46M2rbsN8sgqmUvO07Xw96GI9buacXspG6jmJZ0YSMWoJvvlhphjtggvjqMEeI7+
-	 rKhx5pBIfuZch4/bmuG76al5GfGQRy1pXaC9xI4WZqWDmHQ/kA4i6sANgKBWBdjXFD
-	 t8L7Mtsu/0m7dz6/owZbhTWA3S2QpwmU7yO9MHYhss8JM3191bxVke3Hgz/+vVlMd1
-	 CosQvExXlR1qC1u4DPqW98VWATBnS5nBH080huN1MSFf6Ws2i62PT3CoPFclo5YiCP
-	 Y2/6USXmrMnOg==
-Date: Mon, 31 Aug 2026 02:26:11 +0000
-From: Tzung-Bi Shih <tzungbi@kernel.org>
-To: Daniel Balint <dbalint@google.com>
-Cc: linux-kernel@vger.kernel.org, chrome-platform@lists.linux.dev,
-	jakiela@google.com, hmazur@google.com,
-	Benson Leung <bleung@chromium.org>
-Subject: Re: [PATCH] platform/chrome: cros_ec: add API for power monitoring
-Message-ID: <apTmQ4w3aupzVp0p@google.com>
-References: <20260824155554.1046334-1-dbalint@google.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="bmStEd8N"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=FlD54LcSt+NZlq7D9GrYKYXHGNdn1dwZ5TEhIQvteAM=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788143294; v=1; x=1788748094;
+ b=bmStEd8NE/ucj4J8M/w/Y6phdgdh1G91NbqqAuoOfNin/BTsO66DH11e5Eu90l5uX/o++Kn2
+ K8Bu1EBL85QOTc/4vWaSKmkJL+TyYH0TKv1dEYXNDVfAZujROnkhNiNvW9Ofm7XMeA4TZLYRfMH
+ M7VRss+YhUnkaEAslP71jR00=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 5a4496ccf4f994c7;
+	Mon, 31 Aug 2026 02:28:03 +0000
+X-Mizu-Trace-ID: 5a4496ccf4f994c7
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <c1ad6e39-3b21-413c-ad02-f90cfc4102f9@linux.dev>
+Date: Mon, 31 Aug 2026 10:28:00 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260824155554.1046334-1-dbalint@google.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 1/4] fs: fix missed removal of
+ super_fs_objects_eligible()
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: hughd@google.com, baolin.wang@linux.alibaba.com, usama.arif@linux.dev,
+ brauner@kernel.org, david@kernel.org, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, Qi Zheng <zhengqi.arch@bytedance.com>
+References: <cover.1786955972.git.zhengqi.arch@bytedance.com>
+ <3b038d373c70ebac7cdabfb0035bb91d1d6e6cfe.1786955972.git.zhengqi.arch@bytedance.com>
+ <20260828114129.909edbfb7e42b36af2da6a98@linux-foundation.org>
+ <eeae0d48-4d50-4dd4-9e16-b4f9902d84f4@linux.dev>
+ <20260829162350.1ee9e17d71a297b06b171941@linux-foundation.org>
+From: Qi Zheng <qi.zheng@linux.dev>
+In-Reply-To: <20260829162350.1ee9e17d71a297b06b171941@linux-foundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Mon, Aug 24, 2026 at 03:55:54PM +0000, Daniel Balint wrote:
-> Add new EC host command and MKBP event to allow cros_ec_pwrmon
-> iio devices to query the EC for power monitoring data.
-> The actual cros_ec_pwrmon driver using this API is currently downstream
-> and will be upstreamed at a later date. This is a sync between the EC
-> header and the kernel.
+Hi Andrew,
+
+On 8/30/26 7:23 AM, Andrew Morton wrote:
+> On Sat, 29 Aug 2026 09:49:44 +0800 Qi Zheng <qi.zheng@linux.dev> wrote:
 > 
-> [...]
+>> Hi Andrew,
+>>
+>> On 8/29/26 2:41 AM, Andrew Morton wrote:
+>>> On Mon, 17 Aug 2026 17:03:25 +0800 Qi Zheng <qi.zheng@linux.dev> wrote:
+>>>
+>>>> From: Qi Zheng <zhengqi.arch@bytedance.com>
+>>>>
+>>>> Commit 0ef8faff490be ("fs: push nr_cached_objects memcg gating into
+>>>> individual filesystems") forgot to drop the super_fs_objects_eligible(),
+>>>> just fix it.
+>>>
+>>> Oh.  Why?  Please can we have a description of what's wrong with the
+>>> current code?
+>>
+>> As I replied in another thread [1], this fix and commit 0ef8faff490be
+>> together make up the complete patch originally sent by Usama [2], so
+>> they should be squashed together.
+> 
+> 0ef8faff490be is upstream so they can't be squashed!
 
-Applied to
+So sad.
 
-    https://git.kernel.org/pub/scm/linux/kernel/git/chrome-platform/linux.git for-next
+> 
+>> Without this fix, all memcg-aware
+>> nr_cached_objects() will be skipped during memcg-level shrinking.
+>> Besides the newly added memcg-aware shmem huge shrinker, XFS will also
+>> run into issues.
+> 
+> OK, please add this info to this patch's changelog.  Please also decide
+> whether a cc:stable should be added and if so, ensure the changelog
+> makes clear why we're recommending a backport.
+> 
+> As part of this, let's expand on "XFS will also run into issues".
 
-[1/1] platform/chrome: cros_ec: add API for power monitoring
-      commit: b57af7f8d194617e965d9713a767cc012774a2b9
+How about this instead:
 
-Thanks!
+---
+Commit 0ef8faff490be ("fs: push nr_cached_objects memcg gating into
+individual filesystems") was meant to drop the blanket memcg gate in
+fs/super.c and let each ->nr_cached_objects() implementation decide
+for itself whether it is meaningful in per-memcg reclaim. However,
+when that patch was applied the removal of super_fs_objects_eligible()
+and its two call sites in super_cache_scan() / super_cache_count() was
+lost, so the helper is still gating every ->nr_cached_objects() hook
+and 0ef8faff490be is effectively a no-op.
+
+Consequences of the leftover gate:
+
+   - XFS's inode-reclaim hook, which is intentionally driven from
+     per-memcg contexts to free memcg-charged slab, is still
+     short-circuited in fs/super.c — exactly the regression from
+     commit 0baad6f9b997 ("fs/super: skip non-memcg-aware
+     nr_cached_objects in memcg slab shrink") that 0ef8faff490be was
+     written to undo. Memcg-charged XFS inode slab therefore keeps
+     piling up under per-memcg pressure until global reclaim kicks in.
+
+   - Any future ->nr_cached_objects()/->free_cached_objects() that
+     grows memcg awareness is likewise blocked before it can run, so
+     filesystems cannot opt in to per-memcg reclaim on their own —
+     defeating the whole point of pushing the gating decision down
+     into the callbacks.
+
+Drop the leftover helper and its call sites so the intent of
+0ef8faff490be actually takes effect.
+
+Fixes: 0ef8faff490be ("fs: push nr_cached_objects memcg gating into 
+individual filesystems")
+Cc: stable@vger.kernel.org
+---
+
+Can you fix up the commit message directly on your end? Let me know if
+you prefer me to spin a v5 instead.
+
+Thank,
+Qi
+
+> 
+> Thanks.
+> 
+
