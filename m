@@ -1,195 +1,114 @@
-Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com [209.85.160.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EB1A53ED0B
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 15:26:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.176
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788189988; cv=pass; b=o8kEeKM7z+ZY41zX4v58gDuvJbWWu1Eq1Pf9M21I4leLyvPI6U3fzXrsmQFQnjSACokjR2bIpdGHcuuyYOrKxxoQeRlo59Xu9SkmXEaSp2tcL6QfNgbU4rJ8Nsknlz8qWVZZM98WZiEF//8VKZm0ngjFOKFVsgtVGo4DV0/AeeM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788189988; c=relaxed/simple;
-	bh=PSPMRmWPcYte4abw7ulwi8Gm7cYsldtwsvZeCimevjo=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=mKJNlaVmkALbVvpUcuKs8o95jqHjKv+13wLTS66oP3VbzbjOddRouCBKBqU4k3dTacJ/DE/LnWemPtnsEY3ROYt8uN6MhuSpdKuaFgFlOaDzCACi/S34B8h6ggP329jafxRwYhBA2mfzlu0WcQz63kK9TM/MGohJRqjwst3a5SQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=h+TE+GVZ; arc=pass smtp.client-ip=209.85.160.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B003546EC60;
+	Mon, 31 Aug 2026 15:26:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.152
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788190018; cv=none; b=kJRjSSsqltLovjogzvNJCsyUb27/cezTaeSKpi/0uY/Q1RVdigoh8Tfv5M3KapCp+Bd7krWnf3ImURZVTIittKG4tV9ZiCYWcnilQdNM6MDDJy1T/tJCI+j5G5Hiqsm7SC2IxZyL1RUBMNjfTUg3jClgXagm5u/2FT1SBptP/cc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788190018; c=relaxed/simple;
+	bh=I4KTVzy5BoD1GTAnVFgm6RMU2oj6vNB9P8NUMJXws04=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=fZYWJri488thxLBQyKqPOFOf/PRsRaVt3FtVmJnoPeJL8OmH/834NoArk1SywuXHaYKv4rB94tVc70ObviLPjgb+5uphv1laDqxYbkieGhY71LzVNTfL6NyvLcNkFlekUKY/Z9NZOYZiVMwqFP/M/WDKHDsv3gobJMZY/BbUA1Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=HLrWa9uu; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=pI48Ma05; arc=none smtp.client-ip=80.241.56.152
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="h+TE+GVZ"
-Received: by mail-qt1-f176.google.com with SMTP id d75a77b69052e-52fac937235so360141cf.1
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 08:26:25 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788189984; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ZtYsYKEMhD/skWFFptk70r58huKw5m3vRal9lU4pscCmSRLjWxhEX2TcqXSVa+JU5j
-         NkrF7xdcxex9QkdVRF9O0zyC347b+/cDsR2l5o+7cTViyD1746JM/6PKZE7deVFCgAnP
-         q4xu9jq1LTpfzz8DXvU3lP4aSXjM8HaxmpBZ9XoLcXgOwJW8GTmmYReUMokSejpqZhRh
-         1qNHQ3dtKx52cztdocUSaq7d8BS5Pw3D0ceRVjy1JUo+x7E3yb7br7W+WlLc3w0NsD0X
-         QBvQ/c/+x1J+bvhgH2NuJXJvgQjY4mpbFVSI7KZyGHgTCJNcLaU2sXPmrMIiwPolyqQN
-         eleA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=HKx4z/gVUVYo3h0sY7zCFMtg9vG2hgH7eEzaxSp487c=;
-        fh=t3upZq/Wz9hDa5qPbqz3RJb5L6sAptD7vQe3dsvBIPc=;
-        b=g0moQHAOk0gyHhLvoZiHSy/NlZgjHMGAnZrpKDvrz6U6TkoiC0iVL1OsZdKRK6Y9EI
-         jSIs4d0YuiwJPkYYwIgpkHawerlC1io4j2C3GaGmpRZflbJQaO4uQq9RqzfXLzB5YIEu
-         H+zfc+XNjEluYi94nG1hFdEotiL2CIqMcmbArJnpN8hEzk2NYNKagxWJAthcXX+gYAJS
-         7E+K/f7mEKEP7YdzOAhTDpummYCNLAbZJbs3SEFCX0OoEbabsuHx8++y0iGo+nH81tWq
-         eCqny9boWQaN3TDMj3NoOjNOCc3Q/jvCZPhbRxwOXJvSPfh+qGmXHFpElnALTTxsZG13
-         o52A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788189984; x=1788794784; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=HKx4z/gVUVYo3h0sY7zCFMtg9vG2hgH7eEzaxSp487c=;
-        b=h+TE+GVZdJ3h9caROdNsfMLza7qu7ybcRXIYjqlDqz2x52dzSuOdw6UGiU1l43bjCx
-         3mrYmbHH+KUYoL+d9b9nq1Pdb7duVys3uC/O3YqxXjGlXeJ6bQwEFnepDLKhlPNpO6Rm
-         EKsK9gwHOuv1LhroBpxO/0YLzjG08f7Bvwj90BZOomTxnq46Cp9/FAEC5H7gDLk9CbnZ
-         n5VfVv7VFqQtZRjUGlawic9LwtrHvKmmb53cQ1fdM9ldcj5YSxmQ8Hav6tHsI2mUniWw
-         g6y6dTVUIyvohN8KWc2P8VywQp0qJVY5Ubv2yHN8oLvRE5Ovip3DmkyI6+YHqEmhqWqq
-         BS+Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788189984; x=1788794784;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HKx4z/gVUVYo3h0sY7zCFMtg9vG2hgH7eEzaxSp487c=;
-        b=nna9WRIehlUeb1ZiQTJh9dzYVsPQvjTb7Tp7Cki0HDWzXBL/VZWC/Co7IcCNXUYAIz
-         5IVb+x/WI9uvvACBdqadAjbK53ZhkEU/4F+Or4KpqKXvl9i1AgTNuFZ4kT4raGODJyDy
-         AdCg2kGP6satxmmEeX+1A9KcjXFEgid4B0S723rOallFlF3e2aJt4v6rRskMv/GeORkH
-         T3GDwqxwNyPVRl2JXu+8CTJa9AnVxq7ObwvJuBHAeWVvLsYJdjsABjbmLS/vH5WOMwxl
-         xDNNsYuRhGDDO7KAIlLvr/vaTHpMOwRAsglBt29Yh+7ldW+jCWlvwusmoZpiFSNypFmu
-         uM5Q==
-X-Forwarded-Encrypted: i=1; AHgh+Rr+YVDSOaWVklPGY+yzG1bzrNlA5ck4G9qpzG25RJtbgp5OnYp5Wc8Gk6x8/9ln1arZmc36zoZZr5MIvOE=@vger.kernel.org
-X-Gm-Message-State: AFuF++lVO4sj2XU3SuE0nJxYj6rGzeaLAd8B6v4E4ZYN/0XidYtzM9+Y
-	1iqx7fZ5/cz7Dn+1Zpl9pmqvqEFPd2CR7uqtUH1wcj7fa+WXtx5EDV1YNGtLz2YjsEtPgyCrVZr
-	esxmGir9hJhcrh17kWc7/npmX2kJwm9469H8JfXj0
-X-Gm-Gg: AR+sD12S1BGF9KEepWzf4gh7amXczzTd8vjKJtUheV0dEZ6MO3bUTl2uSfWZtkC0Sc8
-	z0WhmfvmNPRBs++kB40WdKnDLqEAdM+XLncTe3xutz0fdYjYZ0GKhfbRx3mibio43q+j0LljEUe
-	H7TKuCJj/b9JRD9M6VJLBuOl6cHJ0bHrf7vV0kWJlh/FNpxxiZVIxp8pc1hvPaIbxQDh2sHReYV
-	XYAovTQxrIvatA/5319ebKCGGE21rK84gs2ogHZzOIgZXVeqn9yBv+qpfzukqYmo8Lh0Xjlqg4y
-	sRBFNejmcJ8oEVcyx4ZrSfj9DawvzVcQ2GA81NbOEGI=
-X-Received: by 2002:a05:622a:598e:b0:52d:7a3c:8396 with SMTP id
- d75a77b69052e-52ff6f30c8emr34733291cf.2.1788189983103; Mon, 31 Aug 2026
- 08:26:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="HLrWa9uu";
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="pI48Ma05"
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [10.196.197.102])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4hYXsV3g3QzKv7l;
+	Mon, 31 Aug 2026 17:26:54 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1788190014;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=XjlD3nYpD275LVKpnpFS3J736ATFvCpGmeyYsaWdxxE=;
+	b=HLrWa9uuM5g5Lut5br4Mx732+XiZbfOPFWiU4/NoxPRg/0ltn8gbgGk1eHUj81D45AyTrJ
+	gjRYeOY1hg6MyCCHKKKU38EtBYjumfkhBD7gXFjNi5/x/Cgmn9ZUZ+4r46G/ss95sahZiH
+	NkV1RPSbVHCwNiJtW8RLHvSPLj40DhPJD91O4MogstwBo7gfZ8oFCiOsoHlY4HZVrWmZMn
+	qR6rzEv2ud++vhkSdu+bz5iEP3ctfj6QHz4iotjuRII76seIj11QX7FBjXD5V5omtEec2U
+	ZE5yrAnFqa3qt4Se2E9TN7PhGJcqve+O2uObIUC1FXzIewIrzoOkQMwGjUIZIQ==
+From: Manuel Ebner <manuelebnerli@mailbox.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1788190013;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=XjlD3nYpD275LVKpnpFS3J736ATFvCpGmeyYsaWdxxE=;
+	b=pI48Ma0536VA5EDX7/WdEEnwJXbJG5lFSgqwe5gi2ADpVsPQr/1lGK+en8rE0Pc8WsD1TT
+	+dawiLJgZV32nd7N2D++waAe1udjMfa6X3BvujcIuazgS1AtNjY+wHW0GfvwSky9QhbO5s
+	i/ud3krYtwVbsQxsD/QsmHunpN7qFn1ulS4NUmIu1+pYZ0I0T+uZkFaxnflPpCOJvr4ypl
+	ApaoeU65Ay/Je+enGsY/GFJgWrFn7GhZApgr18UVtO6MKk9vnJN2smXvJYzcoE5MCpqSTl
+	jaiAu0npDFkT4dYlwc9C+AS18ln3cYdwBGx+ZZv65R+uklPm8o3Fnn/scxdsaQ==
+To: Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>
+Cc: Manuel Ebner <manuelebnerli@mailbox.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	workflows@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 1/4] Docs: changes.rst: Refine language
+Date: Mon, 31 Aug 2026 17:26:07 +0200
+Message-ID: <20260831152607.639027-2-manuelebnerli@mailbox.org>
+In-Reply-To: <20260831151605.638172-2-manuelebnerli@mailbox.org>
+References: <20260831151605.638172-2-manuelebnerli@mailbox.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260831-docs-memalloc-guide-v1-0-547718c274c1@kernel.org> <20260831-docs-memalloc-guide-v1-1-547718c274c1@kernel.org>
-In-Reply-To: <20260831-docs-memalloc-guide-v1-1-547718c274c1@kernel.org>
-From: Suren Baghdasaryan <surenb@google.com>
-Date: Mon, 31 Aug 2026 08:26:11 -0700
-X-Gm-Features: AcwNN1WFRSN--wzS21rSGRH8C_o1FPRMTwmuGQ5Gza9KkI5iwhlrj79hsn8yfPE
-Message-ID: <CAJuCfpGMOW89vVaAX_69MiMy+4VV0o-H+OBqkLRVUVHToM241g@mail.gmail.com>
-Subject: Re: [PATCH 1/2] docs/core-api: memory-allocation: add
- k[mz]alloc_obj() and clarify kmalloc
-To: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
-Cc: Jonathan Corbet <corbet@lwn.net>, Andrew Morton <akpm@linux-foundation.org>, 
-	David Hildenbrand <david@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, 
-	Michal Hocko <mhocko@suse.com>, Randy Dunlap <rdunlap@infradead.org>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Vlastimil Babka <vbabka@kernel.org>, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-META: ndiae5ccdzxeb91pdt1bsgum1fkr4yxy
+X-MBO-RS-ID: 51b028c4878022b02cd
 
-On Mon, Aug 31, 2026 at 8:13=E2=80=AFAM Mike Rapoport (Microsoft)
-<rppt@kernel.org> wrote:
->
-> Since v7.0 the most used memory allocation function is kzalloc_obj().
->
-> Update hte memory-allocation guide to describe k[mz]alloc_obj() family
+This document grew over the years and isn't limited to compilling or running
+the kernel anymore.
 
-s/hte/the
+compile -> interact
+levels -> versions
+run the current kernel version -> change code, compile, install and boot the current kernel version.
+ip-route2 -> iproute2
 
-> and make kzalloc_obj() the first answer to "How should I allocate
-> memory?" question.
->
-> While on it, clarify description of kmalloc() size limitations.
->
-> Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
+Acked-by: Randy Dunlap <rdunlap@infradead.org>
+---
+I messed the order up.
+---
+ Documentation/process/changes.rst | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
 
-Reviewed-by: Suren Baghdasaryan <surenb@google.com>
+diff --git a/Documentation/process/changes.rst b/Documentation/process/changes.rst
+index 1ca8c5f73ad0..fb5ef7d743ba 100644
+--- a/Documentation/process/changes.rst
++++ b/Documentation/process/changes.rst
+@@ -1,13 +1,14 @@
+ .. _changes:
+ 
+-Minimal requirements to compile the Kernel
+-++++++++++++++++++++++++++++++++++++++++++
++Minimal requirements to interact with the Kernel
++++++++++++++++++++++++++++++++++++++++++++++++++
+ 
+ Intro
+ =====
+ 
+-This document is designed to provide a list of the minimum levels of
+-software necessary to run the current kernel version.
++This document is designed to provide a list of the minimum versions of
++software necessary to change code, compile, install and boot the current
++kernel version.
+ 
+ This document is originally based on my "Changes" file for 2.0.x kernels
+ and therefore owes credit to the same people as that file (Jared Mauch,
+-- 
+2.54.0
 
-> ---
->  Documentation/core-api/memory-allocation.rst | 30 +++++++++++++++++++++-=
-------
->  1 file changed, 23 insertions(+), 7 deletions(-)
->
-> diff --git a/Documentation/core-api/memory-allocation.rst b/Documentation=
-/core-api/memory-allocation.rst
-> index 0f19dd5243239..8ecfa4d35f4f5 100644
-> --- a/Documentation/core-api/memory-allocation.rst
-> +++ b/Documentation/core-api/memory-allocation.rst
-> @@ -19,6 +19,12 @@ Diversity of the allocation APIs combined with the num=
-erous GFP flags
->  makes the question "How should I allocate memory?" not that easy to
->  answer, although very likely you should use
->
-> +::
-> +
-> +  kzalloc_obj(<VAR_OR_TYPE>);
-> +
-> +or
-> +
->  ::
->
->    kzalloc(<size>, GFP_KERNEL);
-> @@ -139,10 +145,13 @@ allocate memory for an array, there are kmalloc_arr=
-ay() and kcalloc()
->  helpers. The helpers struct_size(), array_size() and array3_size() can
->  be used to safely calculate object sizes without overflowing.
->
-> -The maximal size of a chunk that can be allocated with `kmalloc` is
-> -limited. The actual limit depends on the hardware and the kernel
-> -configuration, but it is a good practice to use `kmalloc` for objects
-> -smaller than page size.
-> +Since 7.0 there are type aware kmalloc-family helpers that let you safel=
-y and
-> +conveniently allocate a single object or arrays of objects with kzalloc_=
-obj()
-> +and kmalloc_obj() and their array versions kzalloc_objs() and
-> +kmalloc_objs(). These helpers only need the type of the object that shou=
-ld be
-> +allocated and the count of elements in the array for the array versions.
-> +
-> +As of v7.2, vast majority of the memory allocations use kzalloc_obj().
->
->  The address of a chunk allocated with `kmalloc` is aligned to at least
->  ARCH_KMALLOC_MINALIGN bytes. For sizes which are a power of two, the
-> @@ -154,9 +163,16 @@ Chunks allocated with kmalloc() can be resized with =
-krealloc(). Similarly
->  to kmalloc_array(): a helper for resizing arrays is provided in the form=
- of
->  krealloc_array().
->
-> -For large allocations you can use vmalloc() and vzalloc(), or directly
-> -request pages from the page allocator. The memory allocated by `vmalloc`
-> -and related functions is not physically contiguous.
-> +`kmalloc` always allocates physically contiguous memory and the maximal =
-size of
-> +a chunk that can be allocated with `kmalloc` is limited by `MAX_ORDER`, =
-the
-> +same limit also applies to the page allocator.
-> +
-> +Internally, slab allocator differentiates allocations of different order=
-s and
-> +delegates larger allocations to the page allocator, but for the users of
-> +`kmalloc` family it is entirely transparent.
-> +
-> +For large allocations that do not require physically contiguous memory y=
-ou can
-> +use vmalloc() and vzalloc() family.
->
->  If you are not sure whether the allocation size is too large for
->  `kmalloc`, it is possible to use kvmalloc() and its derivatives. It will
->
-> --
-> 2.53.0
->
