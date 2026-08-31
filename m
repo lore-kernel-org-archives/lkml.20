@@ -1,41 +1,66 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 951AB3DAAB1;
-	Mon, 31 Aug 2026 09:38:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 754EF3DDB0A;
+	Mon, 31 Aug 2026 09:38:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788169105; cv=none; b=rgYBGJ9Xe/pxEpXBTyjhcMPvv1ofJKfyM8MTZax/JZ1BrMUjhLJjZ338HMR4OZB3Q5K2FmS2dAm1OcV5vcHuWzutHy/BOJH1X4o8aFvLkr11FgK0NsZiOusSlMJJZTYOBilLw7ic6YDUrFoPlT/mZd69bWiepTy4NtDlQTKbcr8=
+	t=1788169115; cv=none; b=bXyp1VFWsbsOvPM63ZqLv+GS4letlYTyKRFwJaAEdb2CDKgyWdAxn4pf9F+lo8cAxzQ+zzdaIyG4X9tG5phwrE1pPkU/io3bhhOXQzy+xg3DVm+h/M74AFEKk8RXTW8baJ6OZydngRDs4sQ390owtrNVBIfP9HElsBAnVy/wdKI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788169105; c=relaxed/simple;
-	bh=GKs972raUa9R83lda5wU3KsEd1d9qQMaVryjObJSkbk=;
+	s=arc-20240116; t=1788169115; c=relaxed/simple;
+	bh=UX0cTnp/7eBM7a7SaTtkUnd+VLDmCj+L4RlAfCiCw/U=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Ed8F4kTIwDsPrxJu5hyoE+TsYrqIQO68Ncl+lirvJJDdB+qFJ03wc0L+grYqposTHIUrRRfxNxu7Fc4ZI1O0/mzwi/qJLZ8BkaXu0d6rhHjmIxxAP6gSdWOSK9nkHfzQGIzGi/1UCvGhvMxc51QYMlrx+2jU9EtWUxw99p9H4EA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mKs+kdq5; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=ij3x4haY81MJLTKlH75Lz27rcxjKniEH1+hqgUSWo8DuLJZ+axtqLYWY6/Q1I7jXWAD5/8+rlWnb5mh9wJVJ8lX5qlSI7XJIB1wGcLQOgvUPWfcPuKpVxoQ369KbQKXsGDfpH6eisrvEkkFUXxHJLOfH0BlHcQWaGSuip9398h0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ZVoY2V0O; arc=none smtp.client-ip=198.175.65.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mKs+kdq5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 034901F000E9;
-	Mon, 31 Aug 2026 09:38:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788169104;
-	bh=RKqPhAZ9xw3NdRQ5uWMTUCn71fcMmY5LEXL0pLWjVzU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=mKs+kdq5UHGfH4ZrlI/c5W/Ge68k7a67c4PVUttuKr3swhPohtWn6VeXEygJUHTVL
-	 g6/zW8/16KfSZMoCVxFx0G1FfY5V/yEdumYBGLSJSZNymDxm0AmOQx2J/CEJZz4F65
-	 O+l0+w2aqUXipzp6zD59NOIwgJOcg8iwTceVOm8wMJycCaatrvGDVQVeQlMbU9J9Fj
-	 fG8vmm1OozawqHJwSXTSgvIx+MbFDKrYq44HNi2jPRt0NizIs4uFlEVFA4WFoOvZgy
-	 CS8gVi6DC6OolDbuobZbV9qVL59Rml4RRUUyUCVVHaN9kR9HRCnVNhCarPQaC8URR3
-	 I1vuXvCsUXgOQ==
-Date: Mon, 31 Aug 2026 19:38:15 +1000
-From: Dave Chinner <dgc@kernel.org>
-To: Eric Peterson <linuxinstalled@gmail.com>
-Cc: Carlos Maiolino <cem@kernel.org>, linux-xfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Eric Peterson <eric.peterson@hpe.com>
-Subject: Re: [PATCH] xfs: add per-mount read/write I/O completion counters
-Message-ID: <apVLh7cJ3Zf_aLcd@dread>
-References: <20260828033429.4070267-1-linuxinstalled@gmail.com>
- <apSgHPl4er6Jy9xi@dread>
- <20260831004700.4072037-1-linuxinstalled@gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ZVoY2V0O"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788169114; x=1819705114;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=UX0cTnp/7eBM7a7SaTtkUnd+VLDmCj+L4RlAfCiCw/U=;
+  b=ZVoY2V0OuxKR0PP+CBnaCEPPz9qpEmvs+29meycGOijHNJdunyoIHNvh
+   +JTL3FpOsCdDX+epnhz3kJbeTARSNLp8GidXXz0H6J+JCXCH+Gcti/9OC
+   9JixOtXq4DWA+4AcbSZjEd0Bca6AG/2KaQL1laYY0kp5kAo/KmoehLb0w
+   t2XbicMK+yJc5E2Sn5WeCt6Egw7vlppuq5Qh+wgESxBcoW5KRX7NynMnK
+   x6s07pqcQ4c4Ok+pZdCW/Hfu0V/lty1KKpnNcK58fFQCtPyI8k3/6sPbw
+   a6DyIvhxjWhCJGdMaJrVg4St1RnfMTw5MbtfJHhfxOIKYb6y/Ohtx6v4/
+   Q==;
+X-CSE-ConnectionGUID: TZAKT3WJQ36/AkwybZtgww==
+X-CSE-MsgGUID: Yn54/7XaR9iZcJphiBwrWA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11891"; a="98908795"
+X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
+   d="scan'208";a="98908795"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 02:38:34 -0700
+X-CSE-ConnectionGUID: oDeBqC2LQp254eXNNDlxVw==
+X-CSE-MsgGUID: nNVW0wOtQeW3vgTfIRmThg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
+   d="scan'208";a="292251749"
+Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.244.21])
+  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 02:38:30 -0700
+Date: Mon, 31 Aug 2026 12:38:27 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Maurizio Casciano <mauriziocasciano7@gmail.com>
+Cc: linux-media@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Bingbu Cao <bingbu.cao@amd.com>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+	Nicholas Roth <nicholas@rothemail.net>,
+	Andy Shevchenko <andy@kernel.org>, Hans de Goede <hansg@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jose Maria Martin <jmmartinf@hotmail.com>,
+	Uwe Kleine-Koenig <ukleinek@kernel.org>,
+	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 02/15] media: ov8858: support 19.2 MHz clock and CHT
+ gain setup
+Message-ID: <apVLky0JxI2nyQAo@ashevche-desk.local>
+References: <cover.1787933456.git.mauriziocasciano7@gmail.com>
+ <017d1719d7fe132273f818cf7e20d93ce3e2c9c9.1787933456.git.mauriziocasciano7@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -44,145 +69,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260831004700.4072037-1-linuxinstalled@gmail.com>
+In-Reply-To: <017d1719d7fe132273f818cf7e20d93ce3e2c9c9.1787933456.git.mauriziocasciano7@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Sun, Aug 30, 2026 at 06:47:00PM -0600, Eric Peterson wrote:
-> On Mon, Aug 31, 2026 at 07:26:52AM +1000, Dave Chinner wrote:
-> > Hence this really doesn't seem like something we should be trying to
-> > infer from indirect filesystem stats. Why can't you use the bdev
-> > stats to get the actual filesystem wide queue depth information?
+On Fri, Aug 28, 2026 at 06:14:44PM +0200, Maurizio Casciano wrote:
+> The Yoga Book drives its OV8858 from a 19.2 MHz platform clock, while
+> the existing mode tables program the sensor PLL for 24 MHz. Reusing
+> those settings produces incorrect internal and CSI-2 clocks.
 > 
-> The block device measures the device queue, which is a different
-> quantity than filesystem outstanding I/O - not just a lower-layer view
-> of the same thing.
+> Accept both input rates and use the actual rate for the reset delay. For
+> 19.2 MHz, apply the Cherry Trail MRD PLL and black-level settings after
+> the generic mode table.
 > 
-> Below are three cases where filesystem queue depth is not what the block
-> layer sees:
+> The 19.2 MHz platform uses the per-channel manual white-balance
+> registers for digital gain. Program registers 0x5032, 0x5034 and 0x5036
+> and expose their 1x-to-4x range, while retaining the existing
+> long-exposure gain block for 24 MHz systems.
+> 
+> The manual white-balance register definitions and programming follow
+> the GPL-2.0 Intel OV5670 driver, so retain its 2017 Intel copyright
+> notice in this file. No proprietary source or tuning binary is included.
+> 
+> Tested on the Lenovo Yoga Book YB1-X91L OV8858 with full-range test bars
+> and real 10-bit Bayer frames.
 
-I do know the difference. Assume I understand what you are saying,
-and that you don't need to explain how the IO stack works to me...
+...
 
-> To be clear about scope: I'm not proposing a queue-depth feature in
-> the kernel. The change just adds read/write completion counters to pair
-> with the existing call (submission) counters, so userspace can compute
-> outstanding I/O and derive a response-time estimate itself. The kernel
-> side is only exposing the complementary raw signal that's currently
-> missing - calls are counted, completions are not.
+> -#define OV8858_LINK_FREQ		360000000U
+> -#define OV8858_XVCLK_FREQ		24000000
+> +#define OV8858_LINK_FREQ		(360 * HZ_PER_MHZ)
+> +#define OV8858_XVCLK_FREQ_19_2MHZ	(192 * HZ_PER_MHZ / 10)
+> +#define OV8858_XVCLK_FREQ_24MHZ		(24 * HZ_PER_MHZ)
 
-I know, I just don't see how it can be used for a response time
-metric that any way useful for behavioural correlation because of
-the sampling method.
+I believe the idea was not to touch these. Again I haven't seen the reply on
+why both comments (Sakari's and mine) were ignored.
 
-> Being upfront: what userspace derives from this is an instantaneous
-> approximation, not a precise time-weighted queue length. It's meant as
-> a cheap, always-on aggregate, not a replacement for accurate per-op
-> tooling.
+...
 
-And that's exactly why I'm having trouble understanding how this
-new metric means anything useful. Ignoring temporal sampling jitter
-of multiple per-cpu counters, if you sample read + completions
-it at some instant, all it tells you is what is happening at that
-instant.
+> -	return ov8858_write(ov8858, OV8858_REG_LONG_DIGIGAIN, long_gain, NULL);
+> +	return ov8858_write(ov8858, OV8858_REG_LONG_DIGIGAIN,
+> +			    long_gain, NULL);
 
-What happens the other 999.9ms of that second is not captured by
-this new "in-flight" metric?  For example, if I sample read
-submissions at 10Hz (annotated manually with rough deltas between
-samples):
+Stray change.
 
-$ pmval -r -t 0.1 xfs.read
+...
 
-metric:    xfs.read
-host:      devoid
-semantics: cumulative counter
-units:     count
-samples:   all
-  294454912
-  294454912		S (0 IO in flight)
-  294454912
-  294454912
-  294454912
-  294454912
-  294454912
-  294454912
-  294454912
-  294454912
-  294455553	+650
-  294455553		S (0 IO in flight)
-  294455555	+2
-  294455555
-  294455555
-  294455555
-  294455555
-  294455555
-  294455555
-  294455555
-  294455559	+4
-  294455559		S (0 IO in flight)
-  294455559
-  294455559
-  294455559
-  294455559
-  294455559
-  294455559
-  294455559
-  294455559
-  294455559
-  294455559		S (0 IO in flight)
-  294455561	+2
-  294455561
-  294455561
-  294455564
-  294455564
-  294456360	+800
-  294457344	+1000
-  294457344
-  294457346	+2
-  294457352	+6	S (at most 6 IO in flight)
-  294457352
-  294458065	+700
-  294458285
-  294458285
-  294458285
-  294458285
-  294458285
-  294458285
-  294458285
-  294458285		S (0 IO in flight)
+I stopped here, Please, give a full reply to *each* of the comments you
+disagree with.
 
-You can see that there are some 100ms periods where nothing happens,
-whilst others have 650-1000 buffered reads. In all the cases where
-there are periods with no submission, the in-flight calculation will
-be zero. In the busy periods, it will likely be some non-zero
-number, but it won't give any indication of IO behaviour in that
-entire period.
-
-If we pick a 1s sample time (marked with "S" above), only one of
-those sample points had any chance of there being IO in flight.
-If I pick a sampling pattern that hits one of those high
-IO periods, it gives an unrealisticly high in flight value for the
-sampling period, given that for most of the rest of the second
-around that burst there was almost no read activity.
-
-Hence I don't see how sampling a point in time "in-flight" metric
-slowly provides reliable insight into application behaviour. To
-address that, one would need to sample and calculate the inflight
-metric at high resolution to be able to catch the concurrency of IO
-in those high IOPS bursts.
-
-However, the faster you sample to catch bursts, the closer the read
-submission rate approaches the in-flight IO rate. i.e. if I sample
-at 1000Hz instead of 10Hz, it'll capture the fact that there are
-bursts much faster bursts than 8-10 read IOs per millisecond, yet
-the in-flight counter still won't reflect that - it might still not
-register any IO being in flight at all because at the sample instant
-there was no IO in flight....
-
-Hence I'm asking how this new metric is supposed to be used and
-correlated to observed/measured application behaviour. i.e. what
-insight does it give you into application performance that can only
-be derived from this point in time snapshot?
-
--Dave.
 -- 
-Dave Chinner
-dgc@kernel.org
+With Best Regards,
+Andy Shevchenko
+
+
