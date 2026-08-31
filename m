@@ -1,328 +1,298 @@
-Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn (mail-bjschn02on2104.outbound.protection.partner.outlook.cn [139.219.17.104])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B11BD3E2770;
-	Mon, 31 Aug 2026 11:35:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.17.104
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788176147; cv=fail; b=dr8laag0MmCY/A8aAFxHr1GJSmyPvepIF6tMd9pOVQ5LaBBqHXo+ltO2CSdHP4BpgSfJ+cSirS1adv2LcMUPpM3FGMeimRA83qNNgqCR0jFzXKWM0X9sv6XcO8eU43djegc/jCy2rAl1Kfi5yMELRK48Y57rKZxpdP4uS5V7R7I=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85C143E49EA
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 11:35:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788176147; cv=none; b=STzWUTdC4GcP/lVK15lp7XXbILFopHpFJMxwn3ut6TSYykFF3L75JWfn9qNhndB/+F1T42m/x+ZeFO6mWWu6mbzC/AddfmTccR0+QpJyLwxy0OAwAKj45GrovEOx20W7Vv3/yZbhh/6x77/5Xo/XSMhLzOlpsM3/tgrSGkSl7l4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788176147; c=relaxed/simple;
-	bh=97992c9S3eoy19L/NDzwn/sC1i6X+qLemhzw+zvVkck=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=lEkazqXSnTWqLrQdpWTC/zgHxI6vikO4JYh6M84CU2H5NjERTkvy7cDpyFf3il+/nJRuvRNzYtfr8gd90Q95fr4DMR3/qhfHRUpYTo46enrG+W8qa6i9I+3iAx9Ba1Eptot67YWirBr1L5MzZiM5UHiDkfJnbOstUdi4s9Xvo5M=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.17.104
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=MvVOVhwF8aTiKLjB8DA6pSV5GCrrErFajFPBLnX7o33hrvdijrP8DMA4+Fq8hHsPJhRktrQvo9UIFAhTyvlEQJ6NbbRrSazG26w8BmrPLUN/Xt08dh8lQVqGD0nzqxMrG3B/dgWgP3LEWn+wBRLEdKKcNnqUNBUeWLsJu4rDgkmOdKubXfyPn8C1TCjTuIratLNvOlOcXiUGiuQ+GL4nGYykgLE1W3Q+R1lizav/oCbC8qDKhBkCdzuAEMKhZecyuDuWBAqEEyXDASMgCHDCt3YcGEoNFAGm6WSmb0OmbR8IeQST/XVB20GXui+2VtUbMcoanxuw23LWH1IzJI8F0g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=z2BXP1y+ypC5LvfUhrjCEltJQHhur4wc7+L3mJFjkB8=;
- b=R2yNoiB8FQyTkV44u6RxIUraLOMZttFMRvcJ8F1+Cbkae4XAs63v48GZsikgvePyV98hAJVxrzkq8NHfeLc0xOyfF2+dl2qvHRFhZH1MhYIcKxIva5Dgv0Ya/mMjPX6q5ZpjTr6cMI4WSRgtPFUFw+9W1H1mz+wVSl0Fw/f/gbNQAb30poIMpTqWlyZ0GxlUDjvj4TYTxkY1Phavbpej86vs29oaOx2PQa4jSioSu3kHLy5AR1ILJC/vX7fu0aYtkUfSBRTvo2Ip83BFRh2HmokleonJ/PxuYIS6h8P9+mYrIeHejwpKTQixcXFgSEZW+jt72ONHJ8yfp7Atewkieg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=starfivetech.com; dmarc=pass action=none
- header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=starfivetech.com;
-Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:17::6) by ZQ4PR01MB1332.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:16::7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.25; Mon, 31 Aug
- 2026 11:35:33 +0000
-Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- ([fe80::e7d4:256c:b066:850d]) by
- ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn ([fe80::e7d4:256c:b066:850d%4])
- with mapi id 15.21.0315.011; Mon, 31 Aug 2026 11:35:33 +0000
-From: Changhuang Liang <changhuang.liang@starfivetech.com>
-To: Linus Walleij <linusw@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Emil Renner Berthing <kernel@esmil.dk>,
-	Paul Walmsley <pjw@kernel.org>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Bartosz Golaszewski <brgl@kernel.org>
-Cc: linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>,
-	Changhuang Liang <changhuang.liang@starfivetech.com>
-Subject: [PATCH v7 07/21] dt-bindings: pinctrl: Add starfive,jhb100-sys1-pinctrl
-Date: Mon, 31 Aug 2026 04:35:00 -0700
-Message-Id: <20260831113514.66382-8-changhuang.liang@starfivetech.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260831113514.66382-1-changhuang.liang@starfivetech.com>
-References: <20260831113514.66382-1-changhuang.liang@starfivetech.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: ZQ0PR01CA0013.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:5::8) To ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:17::6)
+	bh=G34vVcBjtNuLm4zHDPCP/nu6CBRB1VjWl+bJfL5dI6M=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=iHoAv1DhxIPTifsTH2yAsENS8rv0JQz+JPuE34iOR2qdB1h7mSqFEwJQIGd2Uo9+j4aEUiqhX6ZvmQD3WS0G6UqiZU7SeBerENTWLilLy10wsPWeqUo40sxAeweOwMWLhRUj5Bg9mhN4Gpy97mdtivme/KpEZiHg20+ykIrbu0w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=U2bnDORB; arc=none smtp.client-ip=209.85.221.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="U2bnDORB"
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-482e2fdf6ebso2818710f8f.1
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 04:35:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788176143; x=1788780943; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=nZYkEx3Ctxi7NgTIVrUS9p9a6fw6J6p+pzkMHeaVtDE=;
+        b=U2bnDORByAdPy15g+nFZ+ZgWqreRRVGpaEMaw8lWfvTHT3fZD/c+KzVQ4dJYeqCKFf
+         Cbq0HOyt9/yl4X6XAiJ7yzmrjAsqx6Z2D8vuK17mXCRxrpo9cBeteABX4YkebFux3od0
+         Id09y5x1pskqgtxayiiUrU9QMm7TEDRzegaIuYWhTxzUZkogvmh8oiC7QiMIa5AKCSjs
+         o+3XVrSNKQJRcCLp+z/UyNk+AgJ8Dea/7k9xV0mE7sNXOhbYIorjaPGpinWwHpEpuV7q
+         A2wr3qAvIP5frkjGzbWJt0XHzjO40ECbRXPDZQiZvLMTy3DBa1f4ngL3q8JVuqrmpO+6
+         IA6A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788176143; x=1788780943;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=nZYkEx3Ctxi7NgTIVrUS9p9a6fw6J6p+pzkMHeaVtDE=;
+        b=R2ZIgbDgYSkk4cKGunlRe9CWy5r2gb3JG5n5qiWiRh5K6cZbGZtuG12XdKR5D1MHHC
+         mDbcThI5dvwzegvH0KboTqxSi1LRphYh1JplLy/LkK4/MbAQnMJMVqfKprcS59pj+2Zn
+         Ra+/eshqyQixHEhLjlCoAO7evd0h5l5R3Fdv5miqFHPntjAx2wefxRzTC6BcPBE2Y07b
+         b/lUeZAh8SJl5MnVAU4rOp2Ci0c78hwPFdDKBxOLRGnTlDIMnKVJd7SbM4z2NkHH/AtW
+         mlbrAAADByOGzNWkhkpCq5Cx2NeBfCL7qima4M5T7FRWEXFvsA2PsbxCtmqFYosUuajr
+         Dizg==
+X-Forwarded-Encrypted: i=1; AKwUvBzIBiV9trxwniCMJFQq6KHfo4j1EsrvOtNXCqemJlh8dnlOD+pDWuMk1vA3XPhrxzAP9LWuRpoAVMbjzoU=@vger.kernel.org
+X-Gm-Message-State: AFuF++nEz+f1IclpRPoMN/12t3V+7AO73LcmkK7hEh6/OgEKVh/BxR3e
+	kbLGkkbaRsEoxVcBF1P8hlh1cB5Yh1qyOYbzNcgLFa4S1GUX8GU0b7mlSPbjINUG
+X-Gm-Gg: AYBFou19vtQQmjQJr6BULjZYCLnlHPi7Y183rqdeEacRZurNUd/8/aheuPfH0Ixqlnj
+	OKCyLPWGeus75YwxheJGHYEfVvxOGuFqXtUSP8j7rtZlXGM+I0v3+M6Vl6qhYqNFlE2kS/Xw5GW
+	K+AnoZsOgpTlBYULOMtHOj2i9taKVfNTm+gGMcDLnuFeJnGEFuQzME8ux8wxI/svetD7s/BTHcU
+	Kn3+7ci8+OGhPnnc7qrTv1d3WM5i3MHQXO1MKX7jPrSrOCPEpmwYJyhxlJOZLijXInXbctsplQr
+	HIy9Zq0gn0xK7eQ63NWVEx0xImqGr9pMXxOcf+CkRH37VduwOoH0s6+yF5AMQND8Cq65faIqmB/
+	6JR0UG1CpMpzwbDC4D9sRhundEJLjwg4QuWT4Fr+FQMmfFsiFnbj9iaKbVfi5jKL+Do+U3pr74b
+	MuBBv8eZpC2MqWAiC7VkFPFrU2p1mFgouPWaQ3aeUwUk5F9LfqQZKoLHOtv8Px0yP/k2oraRyGT
+	3d7Zs+PUtqVQzbOu8L/F/rs7I66XmFOp96r
+X-Received: by 2002:a05:6000:2284:b0:482:eabd:642c with SMTP id ffacd0b85a97d-48440fcd986mr130563f8f.1.1788176143141;
+        Mon, 31 Aug 2026 04:35:43 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482fbb20793sm21651095f8f.17.2026.08.31.04.35.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Aug 2026 04:35:42 -0700 (PDT)
+Date: Mon, 31 Aug 2026 12:35:38 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: Thomas Gleixner <tglx@kernel.org>
+Cc: "Eric W. Biederman" <ebiederm@xmission.com>, Oleg Nesterov
+ <oleg@redhat.com>, Frederic Weisbecker <frederic@kernel.org>, Hyunwoo Kim
+ <imv4bel@gmail.com>, brauner@kernel.org, peterz@infradead.org,
+ anna-maria@linutronix.de, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] signal: Prevent exec() race
+Message-ID: <20260831123538.45cb6d93@pumpkin>
+In-Reply-To: <87h5kad0mx.ffs@fw13>
+References: <875x10hrkt.ffs@fw13>
+	<8733w3j1i1.ffs@fw13>
+	<aowkvvxg8cPP5V0X@redhat.com>
+	<aoww8qi_ce_8ECA9@redhat.com>
+	<aoxOVAd8ooqHFW12@localhost.localdomain>
+	<87pkz6gms6.ffs@fw13>
+	<ao3kt-eRxw4agOj7@redhat.com>
+	<87fr02gegn.ffs@fw13>
+	<ao6zmDB9EjsqPIVN@redhat.com>
+	<87zey8g05g.ffs@fw13>
+	<ao8_NUo0ACPAA4QB@redhat.com>
+	<87ecfki6l5.fsf@email.froward.int.ebiederm.org>
+	<87se3zgb3m.ffs@fw13>
+	<87mru7h09e.fsf@email.froward.int.ebiederm.org>
+	<87tsofdvf2.ffs@fw13>
+	<871pbfeaiv.ffs@fw13>
+	<87zey3fep2.fsf@email.froward.int.ebiederm.org>
+	<87pkyyd39l.ffs@fw13>
+	<87h5kad0mx.ffs@fw13>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: ZQ4PR01MB1202:EE_|ZQ4PR01MB1332:EE_
-X-MS-Office365-Filtering-Correlation-Id: c6b579ec-0bed-48b6-5148-08df0753f7b2
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|52116014|366016|1800799024|376014|7416014|18002099003|38350700014|22082099003|56012099006|3023799007|921020|10067099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	naEmKpn07NzBTZF2Wtz2eY33TjiAm4lqUCrFdbpEKl1wVHYsl46+rD3EidBncsIA1dLQkGwsfeF2Zz56qevgO+AfZWpTnrSiSbdubhxVvhwh6ZBNFmnen37G67kKLkoVc5I51GFT/x9A/nyTeXmO6RjuGWlHJT79UmpZTlMeaSTCdrA1qzuT5MLwa+wYaNSYbtfUh9j5lqq6LruaportXsygTd+PHG7Ea0gUHpAos+VuUwUJfz5rkJUfM+L0g9Ft0hysFpqD4SWLkKQZz5exX8+GSUs4N7bpZEoh55cEj60U+KJ3ZkqFpfegsYbja1RBS7r2YsYbujX+8793M/82Dc5ZFd8LQExO6syr8m8AGRd23TYc8CQo2cJTiqLDK5SwAHNS+dDUZToQ9CDiR4BTm7mgApMj5K9WKFpLDmOV2dwUOuzwlo8d2nvCO9d2lkQGKCyPNDwmdax8/ZrFKtlEQjC173OaoHljG7ZQd1qfZSOsDPpGfvd5SNFGA0nIvUkMQwdcyFXQRAaUjqLp8uApTXAWQ1raZJabVHDtJJqVrGtic17w4dlafjg/13JvVx6QKEAykdfxMd7qf/YVlUHDNg==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(52116014)(366016)(1800799024)(376014)(7416014)(18002099003)(38350700014)(22082099003)(56012099006)(3023799007)(921020)(10067099003)(6133799003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?+8Kw5OXUXoKcqeE2uKyyyMIiKWcNrhA8Il3rMNJEoxt//162uUX9l//VgIwN?=
- =?us-ascii?Q?qkwzKkkYD4AR18kQlMnOvW9gkhsNBYuWQbkc/EyZaZv7e7i0Ho+x8csi+Vjk?=
- =?us-ascii?Q?4KgoEzTHaDCHo+YnMdY5B7eKKqwAzaPSHiki8GZuyed5uSerXlPn+B+CswFc?=
- =?us-ascii?Q?nrOr7FdlvM2fx+y48arTUJBA7sK2rQdx4daR0cyXkbWPwYJpgYMJKTvFZdR1?=
- =?us-ascii?Q?c/nV9L0yWu1OaFoHFgzzITeSR4UFbeQmzHjq31fanuFU2dL14IE76R8QR0uQ?=
- =?us-ascii?Q?YrKF1UZbyN8Xgwm4RE40q7H/EG58EkjMHJT4S+wUS2Ui3ULLdxpSy3m/Q5vN?=
- =?us-ascii?Q?VTeMkzsuAXkAhtc3aMA43FcZU7x3M8oCSBxKo97sSmjgonC3gE3OmmU/Q4OY?=
- =?us-ascii?Q?RVrd0f6oHsGi9IpWwz3TME0SIaFCm2EX5813eLRKpbhU02zqL5+MDKY0FOaa?=
- =?us-ascii?Q?o+HmyEvVMqnSdcA4/VjqqVqrJDGU4zXmJkrSmgurL2jHuA1ZrWvPyiV/UH3Y?=
- =?us-ascii?Q?Y4Yz+O9xImKc05bsUzev/IOjkidiJpxnzmDBvCifpvPmd8Zui83/hDbU2IV4?=
- =?us-ascii?Q?8OCxbRUF+t0Rgd/JfePaI0I9JUKbpFTvvL89DnTUF0NwFF8z0eeRK0J/4YRy?=
- =?us-ascii?Q?mdBXh9BC2rPcqHGAkrMd7+tglW6FWg1faVH+ksK1cQwgw4W6scyO2xYGqKX3?=
- =?us-ascii?Q?KZEx84xcB69C9Ae/f6sRvGMmTWrg+je+yMJhHkhZOUDX2Bq5wZox1o9NGC4z?=
- =?us-ascii?Q?kM/wS69yry4SbdMNJuL9UHgnh+h1WdkMDsCvM8l6BfcfEIdHPaO43gfFi0y0?=
- =?us-ascii?Q?8zu2qrDlX3jdlObLOqA5FH7q8dPL8DhBUb03/+se8d4SNy3jb4FVAnzTkywK?=
- =?us-ascii?Q?IyESrv3yVnsDLRERru+Oh1IBbkeGbccpIp2FK895V64AHblOs3rzCRZhI+Up?=
- =?us-ascii?Q?H+TdQBL3Gogo6usupFfGJ3Fykx7gQE9VbA5B13lJPHuIF6eOQF38r3icdTXG?=
- =?us-ascii?Q?rEaL1j0V8/Z5zJ5s4b2b1Wq3rVd09cXsh+pH3NBKJfk/rtGjo/e7GhQgD/kZ?=
- =?us-ascii?Q?SknvQ5pf+wMAy4wiAdx80Q/q5yQHRluhObr2ntwQRiiaE7DaxzHJU85UQ/AW?=
- =?us-ascii?Q?Gh5/iU5taRFjYCKSsP6JXQHGL7WxB68DSpzZY8ZGqMSWelzyc6BG5pzLcfJF?=
- =?us-ascii?Q?xezUem9RD4IzrnscC5/lMJE3Ks5/VoC64D2BMHdD/IYTxhZVoh4/SmnqsXdx?=
- =?us-ascii?Q?QsVJo0l82uhUiHevmRA75QPytF58XtjK5YzmXeuzvfRPqkHIhLYObPVx8X7C?=
- =?us-ascii?Q?FttZGaQhvnrgxl9KBxBfsN7M9fA3s2ATqqpdxx1mNzUBuuK/MpZ0jqWALmll?=
- =?us-ascii?Q?+yJStNji2axy+cCWHB96xaot2ECrwlm0lFmFPdXqXTAH0HY3P8YPYyG5fi21?=
- =?us-ascii?Q?0cQEG7jd5UaFXTLdWDCbLtPPnIigK0TqyZlateE4UT6Wcj/EupWfPbAukeAi?=
- =?us-ascii?Q?96j5QOk2B76FBlByUXAsi105Mc729NnLGSSHUKl8VICZfCgtB8aAuvg5XCbM?=
- =?us-ascii?Q?lVTb16DYzEwWtoBJIwHDwxu2TqM4DLoaQQuUNtdiNKJc+Tm2JDegHx2D6XAu?=
- =?us-ascii?Q?3kI1sCcNQtGI7U6bam8t0SKGIDho3j1v9r2dpXY/AdvdxrCVuabD1J/DNO3r?=
- =?us-ascii?Q?ANYzTdTVBmiATm+mcqANEmHHYGpF1BiUtrXAdTQqS7e2TrrZXZ4yZM1LWgxc?=
- =?us-ascii?Q?HK8MeNTmOx+HYQpiCmnqW3euZkVoovE8vYsrXnDEpRt+aequE7qf?=
-X-OriginatorOrg: starfivetech.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c6b579ec-0bed-48b6-5148-08df0753f7b2
-X-MS-Exchange-CrossTenant-AuthSource: ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 11:35:33.0632
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: NnaTr/KgE1aoKVsAEmlVjN1w/Cozcrb7dDt4Q6i4B3gzWwPqDOeD1d/nBuj05SVzWloPbVQRy54qjbNpjotCI1ME76beGn4ewBwE+MG9vL4cstv1ON2bbYIkV9zptYIR
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ4PR01MB1332
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Add pinctrl bindings for StarFive JHB100 SoC System-1(sys1) pinctrl
-controller.
+On Mon, 31 Aug 2026 12:50:46 +0200
+Thomas Gleixner <tglx@kernel.org> wrote:
 
-Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
----
- .../pinctrl/starfive,jhb100-sys1-pinctrl.yaml | 164 ++++++++++++++++++
- .../pinctrl/starfive,jhb100-pinctrl.h         |  10 ++
- 2 files changed, 174 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/pinctrl/starfive,jhb100-sys1-pinctrl.yaml
+> Hyunwoo debugged the following KASAN UAF splat:
+> 
+>   BUG: KASAN: slab-use-after-free in __send_signal_locked+0xb27/0xba0
+>   Write of size 8 at addr ffff888007ed80c8 by task poc/79
+>   ...
+>   Call Trace:
+>    __send_signal_locked+0xb27/0xba0
+>    do_send_sig_info+0xa7/0x160
+>    do_send_specific+0x76/0xa0
+>    __x64_sys_tgkill+0x193/0x270
+>   ...
+>   Allocated by task 80:
+>    do_timer_create+0x1a4/0x1030
+>    __x64_sys_timer_create+0x145/0x190
+>   ...
+>   Freed by task 12:
+>    kmem_cache_free_bulk+0x1f8/0x4a0
+>    kvfree_rcu_bulk+0x14f/0x1c0
+>    kfree_rcu_work+0x128/0x1a0
+>   ...
+>   Last potentially related work creation:
+>    kvfree_call_rcu+0x39/0x390
+>    __flush_itimer_signals+0x211/0x320
+>    flush_itimer_signals+0x47/0x90
+>    begin_new_exec+0xa6b/0x28c0
+> 
+> It turned out that this happens with a non-leader exec() as Hyunwoo
+> explained:
+> 
+> de_thread() calls exchange_tids() before release_task(leader), so the
+> struct pid held by a SIGEV_THREAD_ID timer created against the leader's tid
+> now points to the thread which called execve(). pid_task() returns that
+> thread and lock_task_sighand() on it succeeds.
+> 
+> If the timer signal is blocked, its sigqueue stays queued on the leader's
+> task::pending. The next expiry of that timer can then run while
+> release_task() flushes the queue.
+> 
+> posixtimer_send_sigqueue() checks whether the sigqueue is already queued
+> with a plain list_empty(), which only reads list_head::next.
+> list_del_init() is not atomic and INIT_LIST_HEAD() stores list_head::next
+> before list_head::prev, so the check can pass in between. list_add_tail()
+> queues the entry on the task::pending of the live thread, and the
+> list_head::prev store from the flush then overwrites the list_head::prev
+> link that list_add_tail() has just set.
+> 
+> __flush_itimer_signals() does not undo that either. With list_head::prev
+> pointing at the entry itself, its list_del_init() only stores the same
+> values again, so the entry is not removed from the list. It is still there
+> after the last reference is dropped and the timer is freed by RCU, and the
+> list_add_tail() of a later tgkill() follows that list_head::prev into the
+> freed timer.
+> 
+> This problem is due to a recent commit which moved the sigqueue flush
+> out of the sighand lock held region. Before that it was properly
+> serialized.
+> 
+> Hyonwoo proposed to fix this by using list_del_init_careful(), but that
+> just papers over the underlying problem. After some disucssions and
+> various attempts to solve it, Eric pointed out that there is no reason
+> to flush task::pending late in release_task() and it should be done in
+> exit_signals() already.
+> 
+> As nothing can collect and deliver signals which are queued in a dying
+> task's pending queue, there is no reason to delay it further.
+> 
+> But it has to be ensured that no signals can be queued into it after that
+> point. exit_signals() sets PF_EXITING in task::flags, which can be used as
+> an indicator for this.
+> 
+> Cure it by:
+> 
+>   - Preventing signal queueing for task private signals (PIDTYPE_PID) when
+>     the task has PF_EXITING set in __send_signal_locked() and in
+>     posixtimer_send_sigqueue().
+> 
+>   - Protecting the unlocked setting of PF_EXITING in exit_signals() for the
+>     task group empty and the group exit case with sighand lock
+> 
+>   - Flushing task::pending signals right there.
+> 
+>     This can be done unlocked because PF_EXITING prevents further signals
+>     to be queued and there is no other code which accesses task::pending.
+> 
+> Fixes: fb3bbcfe344e ("exit: change the release_task() paths to call flush_sigqueue() lockless")
+> Reported-by: Hyunwoo Kim <imv4bel@gmail.com>
+> Debugged-by: Hyunwoo Kim <imv4bel@gmail.com>
+> Suggested-by: "Eric W. Biederman" <ebiederm@xmission.com>
+> Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+> Cc: stable@vger.kernel.org
+> Closes: https://patch.msgid.link/aok1rdkBgZsynHZB@v4bel
+> ---
+>  kernel/exit.c   |   11 ++++++-----
+>  kernel/signal.c |   23 ++++++++++++++++++++++-
+>  2 files changed, 28 insertions(+), 6 deletions(-)
+> 
+> --- a/kernel/exit.c
+> +++ b/kernel/exit.c
+> @@ -299,12 +299,13 @@ void release_task(struct task_struct *p)
+>  	free_pids(post.pids);
+>  	release_thread(p);
+>  	/*
+> -	 * This task was already removed from the process/thread/pid lists
+> -	 * and lock_task_sighand(p) can't succeed. Nobody else can touch
+> -	 * ->pending or, if group dead, signal->shared_pending. We can call
+> -	 * flush_sigqueue() lockless.
+> +	 * This task was already removed from the process/thread/pid lists and
+> +	 * lock_task_sighand(p) can't succeed. If it's the group leader then
+> +	 * flush tsk->signal->shared_pending. tsk->pending has been flushed
+> +	 * already in exit_signals(). Nothing else can touch
+> +	 * signal->shared_pending anymore, so flush_sigqueue() can be invoked
+> +	 * lockless.
+>  	 */
+> -	flush_sigqueue(&p->pending);
+>  	if (thread_group_leader(p))
+>  		flush_sigqueue(&p->signal->shared_pending);
+>  
+> --- a/kernel/signal.c
+> +++ b/kernel/signal.c
+> @@ -1030,6 +1030,10 @@ static int __send_signal_locked(int sig,
+>  	lockdep_assert_held(&t->sighand->siglock);
+>  
+>  	result = TRACE_SIGNAL_IGNORED;
+> +
+> +	if (unlikely(type == PIDTYPE_PID && (t->flags & PF_EXITING)))
+> +		goto ret;
 
-diff --git a/Documentation/devicetree/bindings/pinctrl/starfive,jhb100-sys1-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/starfive,jhb100-sys1-pinctrl.yaml
-new file mode 100644
-index 000000000000..55e111117ea0
---- /dev/null
-+++ b/Documentation/devicetree/bindings/pinctrl/starfive,jhb100-sys1-pinctrl.yaml
-@@ -0,0 +1,164 @@
-+# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/pinctrl/starfive,jhb100-sys1-pinctrl.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: StarFive JHB100 System-1 Pin Controller
-+
-+description: |
-+  Pinctrl bindings for JHB100 RISC-V SoC from StarFive Technology Ltd.
-+
-+  The JHB100 SoC has 13 pinctrl domains - sys0, sys0h, sys1, sys2, per0, per1,
-+  per2, per2pok, per3, adc0, adc1, emmc, and vga.
-+  This document provides an overview of the "sys1" pinctrl domain.
-+
-+  The "sys1" domain has a pin controller which provides
-+  - function selection for GPIO pads.
-+  - GPIO pad configuration.
-+  - GPIO interrupt handling.
-+
-+  In the SYS1 Pin Controller, there are 8 multi-function GPIO_PADs. Each of
-+  them can be multiplexed to different hardware blocks through function
-+  selection. Each iopad has a maximum of up to 4 functions - 0, 1, 2, and 3.
-+  Function 0 is the default function which is generally the GPIO function
-+  (or occasionally, it can be a peripheral signal).
-+  Function 1, 2, and 3 are the alternate functions or peripheral signals that
-+  can be routed to the iopad. The function selection can be carried out by
-+  writing the function number to the iopad function select register.
-+
-+  Each iopad is configurable with parameters such as input-enable, internal
-+  pull-up/pull-down bias, drive strength, schmitt trigger, slew rate, input
-+  debounce nanoseconds.
-+
-+maintainers:
-+  - Changhuang Liang <changhuang.liang@starfivetech.com>
-+
-+properties:
-+  compatible:
-+    items:
-+      - const: starfive,jhb100-sys1-pinctrl
-+
-+  reg:
-+    maxItems: 1
-+
-+  clocks:
-+    maxItems: 1
-+
-+  resets:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  interrupt-controller: true
-+
-+  '#interrupt-cells':
-+    const: 2
-+
-+  gpio-controller: true
-+
-+  '#gpio-cells':
-+    const: 2
-+
-+  gpio-ranges: true
-+
-+  gpio-line-names: true
-+
-+patternProperties:
-+  '-grp$':
-+    type: object
-+    additionalProperties: false
-+    patternProperties:
-+      '-pins$':
-+        type: object
-+        description: |
-+          A pinctrl node should contain at least one subnode representing the
-+          pinctrl groups available in the domain. Each subnode will list the
-+          pins it needs, and how they should be configured, with regard to
-+          function selection, bias, input enable/disable, input schmitt
-+          trigger enable/disable, slew-rate, input debounce nanoseconds
-+          and drive-strength.
-+        allOf:
-+          - $ref: /schemas/pinctrl/pincfg-node.yaml
-+          - $ref: /schemas/pinctrl/pinmux-node.yaml
-+        additionalProperties: false
-+
-+        properties:
-+          pins:
-+            description:
-+              The list of IOs that properties in the pincfg node apply to.
-+
-+          function:
-+            description:
-+              A string containing the name of the function to mux for these
-+              pins.
-+            enum: [ espi, espi_reset, gpio, host0_port80, host1_port80 ]
-+
-+          bias-disable: true
-+
-+          bias-pull-down:
-+            type: boolean
-+
-+          bias-pull-up:
-+            type: boolean
-+
-+          drive-strength:
-+            enum: [ 2, 4, 8, 12 ]
-+
-+          drive-strength-microamp:
-+            enum: [ 2000, 4000, 8000, 12000 ]
-+
-+          input-debounce-ns:
-+            minimum: 0
-+            maximum: 10485680
-+            description:
-+              Debounce time in nanoseconds. The hardware counts in 80 ns
-+              stages with a 17-bit counter, so the maximum is 10485680 ns.
-+
-+          input-disable: true
-+
-+          input-enable: true
-+
-+          input-schmitt-enable: true
-+
-+          input-schmitt-disable: true
-+
-+          slew-rate:
-+            enum: [ 0, 1 ]
-+            default: 0
-+            description: |
-+                0: slow
-+                1: fast
-+
-+required:
-+  - compatible
-+  - reg
-+  - resets
-+  - interrupts
-+  - interrupt-controller
-+  - '#interrupt-cells'
-+  - gpio-controller
-+  - '#gpio-cells'
-+  - gpio-ranges
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    soc {
-+        #address-cells = <2>;
-+        #size-cells = <2>;
-+
-+        pinctrl_sys1: pinctrl@13081000 {
-+            compatible = "starfive,jhb100-sys1-pinctrl";
-+            reg = <0x0 0x13081000 0x0 0x1000>;
-+            resets = <&sys1crg 2>;
-+            interrupts = <58>;
-+            interrupt-controller;
-+            #interrupt-cells = <2>;
-+            gpio-controller;
-+            #gpio-cells = <2>;
-+            gpio-ranges = <&pinctrl_sys1 0 0 8>;
-+        };
-+    };
-diff --git a/include/dt-bindings/pinctrl/starfive,jhb100-pinctrl.h b/include/dt-bindings/pinctrl/starfive,jhb100-pinctrl.h
-index 38d5a94e92e3..30704a5a3418 100644
---- a/include/dt-bindings/pinctrl/starfive,jhb100-pinctrl.h
-+++ b/include/dt-bindings/pinctrl/starfive,jhb100-pinctrl.h
-@@ -28,4 +28,14 @@
- #define PADNUM_SYS0H_GPIO_A14				10
- #define PADNUM_SYS0H_GPIO_A15				11
- 
-+/* sys1 pad numbers */
-+#define PADNUM_SYS1_GPIO_A16				0
-+#define PADNUM_SYS1_GPIO_A17				1
-+#define PADNUM_SYS1_GPIO_A18				2
-+#define PADNUM_SYS1_GPIO_A19				3
-+#define PADNUM_SYS1_GPIO_A20				4
-+#define PADNUM_SYS1_GPIO_A21				5
-+#define PADNUM_SYS1_GPIO_A22				6
-+#define PADNUM_SYS1_GPIO_A23				7
-+
- #endif
--- 
-2.25.1
+Is that unlikely() going do the right thing?
+Pretty much the only way to avoid a branch in the 'usual' path is to test
+PF_EXITING first.
+So you could do:
+	if (unlikely(t->flags & PF_EXITING) && type == PIDTYPE_PID)
+		goto ret;
+(assuming t->flags is unlikely to be a cache miss).
+Or, if you can persuade the compiler not to use a branch for the ?:
+	if (unlikely(t->flags & (type == PIDTYPE_PID ? PF_EXITING : 0)))
+		goto ret;
+
+David
+
+> +
+>  	if (!prepare_signal(sig, t, force))
+>  		goto ret;
+>  
+> @@ -1990,6 +1994,9 @@ void posixtimer_send_sigqueue(struct k_i
+>  	if (!likely(lock_task_sighand(t, &flags)))
+>  		return;
+>  
+> +	if (unlikely(tmr->it_pid_type == PIDTYPE_PID && (t->flags & PF_EXITING)))
+> +		return;
+> +
+>  	/*
+>  	 * Update @tmr::sigqueue_seq for posix timer signals with sighand
+>  	 * locked to prevent a race against dequeue_signal().
+> @@ -3118,6 +3125,16 @@ static void retarget_shared_pending(stru
+>  	}
+>  }
+>  
+> +/*
+> + * tsk::flags has PF_EXITING set which prevents signals to be queued on
+> + * tsk::pending. Nothing else can touch tsk::pending anymore so it can be
+> + * flushed lockless.
+> + */
+> +static inline void flush_pending_unlocked(struct task_struct *tsk)
+> +{
+> +	flush_sigqueue(&tsk->pending);
+> +}
+> +
+>  void exit_signals(struct task_struct *tsk)
+>  {
+>  	int group_stop = 0;
+> @@ -3130,8 +3147,10 @@ void exit_signals(struct task_struct *ts
+>  	cgroup_threadgroup_change_begin(tsk);
+>  
+>  	if (thread_group_empty(tsk) || (tsk->signal->flags & SIGNAL_GROUP_EXIT)) {
+> -		tsk->flags |= PF_EXITING;
+> +		scoped_guard(spinlock_irq, &tsk->sighand->siglock)
+> +			tsk->flags |= PF_EXITING;
+>  		cgroup_threadgroup_change_end(tsk);
+> +		flush_pending_unlocked(tsk);
+>  		return;
+>  	}
+>  
+> @@ -3157,6 +3176,8 @@ void exit_signals(struct task_struct *ts
+>  out:
+>  	spin_unlock_irq(&tsk->sighand->siglock);
+>  
+> +	flush_pending_unlocked(tsk);
+> +
+>  	/*
+>  	 * If group stop has completed, deliver the notification.  This
+>  	 * should always go to the real parent of the group leader.
+> 
 
