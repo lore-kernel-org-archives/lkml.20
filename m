@@ -1,492 +1,66 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37562435A86
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 13:25:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8099341BA81;
+	Mon, 31 Aug 2026 13:26:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788182754; cv=none; b=cu7RQbYpymW0NxEdYd1N51DAwDgzpqnA9knBiePHJEfHGMDiEeip6S1jhh+bGzlo5XIUZty3x9c7rc+efFhOyDUleaxvUy+j2uHzxZgQuFTXbSuktKY1lutDEAbxiWBI8u+upO4gtSFzOlZPISSA5nlCL6APQx0D5m/6iRdrjnw=
+	t=1788182763; cv=none; b=TE0YyJaqB9FtP3Afml35047IRk89HUDIO48xS6aVZXACzg5YEW2MPf5xGpivEOxgjHG1RS0cQqAnxtzGO+/Q02ejKcK5JYeCifYX4CZ9ZzEwLrhkVPBqCwvgBeN5CCdt0giiD1zvCONjiapZrA9YvsV3aDaXgeIjcur9vkzsjsY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788182754; c=relaxed/simple;
-	bh=gY8Txk0MvRXn9ike7J4w0hfcCmt/+Ijo7qXVYCoFB2g=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ekTYJKI+Ond0ev1erjlqoRx/t6Bf6qv/rDkEpxqTaYchJDdjpyii4R5qRb+hVAKKCjYvj1KdpKmqJoPGDF+oa1F8pR4mOUVDS6O+UhU1Oxu2vrc1l+te7JQ9hbIG4QBjWRaO1h23V2PAajehkdvZ4HEq3AnjK8IwXf2sfbEmgIA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=plkVitwj; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1788182763; c=relaxed/simple;
+	bh=mXUsUOFI6uogKr+/XVSlKjRv7nyryrvz+nFSzx10sN0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Pyb49IhIewAPNTTUqdpOHPKBl+lutjJRE1DynOcYRKJEZPknowQDxL/iGrrsahBJhKaGn7HLIkPmGbokpeAvXIrbw/9DSd30zWw71SbD0ORV1Kil9bf9bcAXA6+Mv8gpbCsaM2znvCFXZjdyJszT8rjirN0ZLT3nCdO8LdL873A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=er8oaBWW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="plkVitwj"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id BB1264E4147F;
-	Mon, 31 Aug 2026 13:25:50 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 8EE5160231;
-	Mon, 31 Aug 2026 13:25:50 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 6478B11C78D63;
-	Mon, 31 Aug 2026 15:25:44 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788182745; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=0QqBjLvBZb3HskOPQXGXIouIa+SH8TMZVHy6E7n0de0=;
-	b=plkVitwjm5uGEagOpyZyPghvek6NEGjlS9o/9SU3KsEPSHNsg2Ft9OCs9PoAy/Vghuez4G
-	14VLrXoMBdJ2HHDcIQXqIHt57WIvW88N9YZJxX4J5aPutaF4c/nmCNy3ReaueyDpLizov6
-	RC2O2KSj6hvstiAe3T0UTADeIWn93vaYOHXxIGq/fD5z0hZNpVI4a6/9A/qTnlOFnc/su1
-	OuFAzX1QiW4ZtMHcw3gn6olfR9JCqn++FjFVKRUGppmNedx8RVyvnEdkkPzkfZ79eh5OVx
-	x6VhpdXDexSOspzayHJJPCgsX1j4NNpUYW+y8/oLCrklQ6eyAAHGsMPWwHquFw==
-From: "Bastien Curutchet (Schneider Electric)" <bastien.curutchet@bootlin.com>
-Date: Mon, 31 Aug 2026 15:25:32 +0200
-Subject: [PATCH net-next 10/10] net: dsa: microchip: add periodic output
- support for the KSZ8463
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="er8oaBWW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E205E1F000E9;
+	Mon, 31 Aug 2026 13:26:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788182762;
+	bh=3xoPh2mmAVseNtv54cZJwkmR8RDEH2R2eBQsknv1qs8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=er8oaBWWMircgr75Wk5NsJ3DCgDAiZHXTPumWtycBMRXkReJl3u/8Q7w5ch/TR6Zq
+	 Ao5MoIImWPnERSOTyvPFurpj/w4QX/MZXes9c7KutSybvchldfsA5ewEbrg9dIgBd7
+	 pu0jehMz5nmmbMeojM9E9T81bEZoJ3Ec0fJgGe+M6L3PiYm6T1kQ/SMcgCcaS8LclG
+	 DWs0YlA8dXz3u9Ik4lvtyq6cOj7yGUCN6hlTJ+bl+1LBXgnX+ibf1Y/zZMPYH0s4Gv
+	 SXn34ZRrMC2a/fiNTybj01lXXk5bN8nS+KIxf8e1CNi42h/mvHjCkqMw4hRCUJZmrp
+	 9h2Fb2eDNFmkA==
+Date: Mon, 31 Aug 2026 08:26:01 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Eduard Bostina <egbostina@gmail.com>
+Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+	mfd@lists.linux.dev, daniel.baluta@nxp.com,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Lee Jones <lee@kernel.org>, simona.toaca@nxp.com,
+	goledhruva@gmail.com, linux-kernel@vger.kernel.org,
+	m-chawdhry@ti.com
+Subject: Re: [PATCH] dt-bindings: mfd: Convert TPS61050 to DT schema
+Message-ID: <178818276042.689774.12054503350838564303.robh@kernel.org>
+References: <20260815083145.2145984-1-egbostina@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260831-ksz-perout-v1-10-14202db763b3@bootlin.com>
-References: <20260831-ksz-perout-v1-0-14202db763b3@bootlin.com>
-In-Reply-To: <20260831-ksz-perout-v1-0-14202db763b3@bootlin.com>
-To: Woojung Huh <woojung.huh@microchip.com>, UNGLinuxDriver@microchip.com, 
- Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Richard Cochran <richardcochran@gmail.com>
-Cc: Pascal Eberhard <pascal.eberhard@se.com>, 
- =?utf-8?q?Miqu=C3=A8l_Raynal?= <miquel.raynal@bootlin.com>, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, netdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- "Bastien Curutchet (Schneider Electric)" <bastien.curutchet@bootlin.com>
-X-Mailer: b4 0.14.3
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260815083145.2145984-1-egbostina@gmail.com>
 
-KSZ8463 has several periodic outputs. The way it handles them differ
-from the other KSZ switches:
- - KSZ8463 has one set of registers for each of its 12 units while others
-   switches share on set of configuration registers for all their units.
- - Maximum size of the KSZ8463 pulse width is smaller
- - KSZ8463 has 12 outputs while others only have 2
 
-Add support for the KSZ8463 periodics outputs through a set of KSZ8463
-specific functions.
+On Sat, 15 Aug 2026 08:31:45 +0000, Eduard Bostina wrote:
+> Convert the Texas Instruments TPS61050/TPS61052 boost converters bindings
+> to DT schema.
+> 
+> Signed-off-by: Eduard Bostina <egbostina@gmail.com>
+> ---
+>  .../devicetree/bindings/mfd/ti,tps61050.yaml  | 92 +++++++++++++++++++
+>  .../devicetree/bindings/mfd/tps6105x.txt      | 62 -------------
+>  2 files changed, 92 insertions(+), 62 deletions(-)
+>  create mode 100644 Documentation/devicetree/bindings/mfd/ti,tps61050.yaml
+>  delete mode 100644 Documentation/devicetree/bindings/mfd/tps6105x.txt
+> 
 
-Signed-off-by: Bastien Curutchet (Schneider Electric) <bastien.curutchet@bootlin.com>
----
- drivers/net/dsa/microchip/ksz8.c        |   2 +-
- drivers/net/dsa/microchip/ksz_common.c  |   2 +
- drivers/net/dsa/microchip/ksz_ptp.c     | 258 ++++++++++++++++++++++++++++++++
- drivers/net/dsa/microchip/ksz_ptp.h     |   3 +-
- drivers/net/dsa/microchip/ksz_ptp_reg.h |  16 ++
- 5 files changed, 279 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/net/dsa/microchip/ksz8.c b/drivers/net/dsa/microchip/ksz8.c
-index f2a23e2e474a..6b08bb8fed5b 100644
---- a/drivers/net/dsa/microchip/ksz8.c
-+++ b/drivers/net/dsa/microchip/ksz8.c
-@@ -2478,7 +2478,7 @@ static int ksz8463_setup(struct dsa_switch *ds)
- 		if (ret)
- 			goto free_girq;
- 
--		ksz_ptp_set_caps(ds);
-+		ksz8463_ptp_set_caps(ds);
- 		ret = ksz_ptp_clock_register(ds);
- 		if (ret) {
- 			dev_err(dev->dev, "Failed to register PTP clock: %d\n",
-diff --git a/drivers/net/dsa/microchip/ksz_common.c b/drivers/net/dsa/microchip/ksz_common.c
-index 194c88cdd00b..111f3014e5a9 100644
---- a/drivers/net/dsa/microchip/ksz_common.c
-+++ b/drivers/net/dsa/microchip/ksz_common.c
-@@ -1161,6 +1161,8 @@ const struct ksz_chip_data ksz_switch_chips[] = {
- 		.supports_mii = {false, false, true},
- 		.supports_rmii = {false, false, true},
- 		.internal_phy = {true, true, false},
-+		.n_pins = 12,
-+		.n_per_out = 12,
- 	},
- 
- 	[KSZ8563] = {
-diff --git a/drivers/net/dsa/microchip/ksz_ptp.c b/drivers/net/dsa/microchip/ksz_ptp.c
-index 0a77b46cfad2..d33034892a8f 100644
---- a/drivers/net/dsa/microchip/ksz_ptp.c
-+++ b/drivers/net/dsa/microchip/ksz_ptp.c
-@@ -26,6 +26,7 @@
-  */
- #define KSZ_MAX_DRIFT_CORR 6249999
- #define KSZ_MAX_PULSE_WIDTH 125000000LL
-+#define KSZ8463_MAX_PULSE_WIDTH 500000LL
- 
- #define KSZ_PTP_INC_NS 40ULL  /* HW clock is incremented every 40 ns (by 40) */
- #define KSZ_PTP_SUBNS_BITS 32
-@@ -63,6 +64,17 @@ static int ksz_ptp_tou_gpio(struct ksz_device *dev)
- 			 LED_SRC_PTP_GPIO_1 | LED_SRC_PTP_GPIO_2);
- }
- 
-+static int ksz8463_ptp_tou_reset(struct ksz_device *dev, u8 unit)
-+{
-+	int ret;
-+
-+	ret = ksz_rmw16(dev, KSZ8463_TOU_SW_RST, BIT(unit), BIT(unit));
-+	if (ret)
-+		return ret;
-+
-+	return ksz_rmw16(dev, KSZ8463_TOU_SW_RST, BIT(unit), 0);
-+}
-+
- static int ksz_ptp_tou_reset(struct ksz_device *dev, u8 unit)
- {
- 	u32 data;
-@@ -120,6 +132,28 @@ static int ksz_ptp_tou_target_time_set(struct ksz_device *dev,
- 	return 0;
- }
- 
-+static int ksz8463_ptp_tou_start(struct ksz_device *dev, u8 unit)
-+{
-+	u16 data;
-+	int ret;
-+
-+	ret = ksz_rmw16(dev, KSZ8463_TOU_EN, BIT(unit), BIT(unit));
-+	if (ret)
-+		return ret;
-+
-+	ret = ksz_read16(dev, KSZ8463_TOU_ACTIVE, &data);
-+	if (ret)
-+		return ret;
-+
-+	if (!(data & BIT(unit))) {
-+		dev_err(dev->dev, "%s: Trigger unit%d error!\n", __func__,
-+			unit);
-+		return -EIO;
-+	}
-+
-+	return 0;
-+}
-+
- static int ksz_ptp_tou_start(struct ksz_device *dev, u8 unit)
- {
- 	u32 data;
-@@ -147,6 +181,56 @@ static int ksz_ptp_tou_start(struct ksz_device *dev, u8 unit)
- 	return 0;
- }
- 
-+static int ksz8463_ptp_configure_perout(struct ksz_device *dev,
-+					u32 cycle_width_ns, u32 pulse_width_ns,
-+					struct timespec64 const *target_time,
-+					u8 index)
-+{
-+	struct ptp_pin_desc *pin = &dev->ptp_data.pin_config[index];
-+	u16 cfg_base = KSZ8463_TRIG1_CFG + KSZ8463_TRIGN_CFG_SIZE * pin->chan;
-+	u16 data;
-+	int ret;
-+
-+	/* Hardware has only 32 bit */
-+	if ((target_time->tv_sec & 0xffffffff) != target_time->tv_sec)
-+		return -EINVAL;
-+
-+	data = KSZ8463_NOTIFY_BIT |
-+	       FIELD_PREP(KSZ8463_PATTERN_M, TRIG_POS_PERIOD) |
-+	       pin->index;
-+	ret = ksz_write16(dev, cfg_base + KSZ8463_PATTERN_OFF, data);
-+	if (ret)
-+		return ret;
-+
-+	ret = ksz_write32(dev, cfg_base + KSZ8463_CYCLE_WIDTH_OFF,
-+			  cycle_width_ns);
-+	if (ret)
-+		return ret;
-+
-+	/* Set cycle count 0 - Infinite */
-+	ret = ksz_write16(dev, cfg_base + KSZ8463_CYCLE_CNT_OFF, 0);
-+	if (ret)
-+		return ret;
-+
-+	/* KSZ8463 uses a 8 ns unit value to compute the pulse width */
-+	data = (pulse_width_ns / 8);
-+	ret = ksz_write16(dev, cfg_base + KSZ8463_PULSE_WIDTH_OFF, data);
-+	if (ret)
-+		return ret;
-+
-+	ret = ksz_write32(dev, cfg_base + KSZ8463_TARGET_NSEC,
-+			  target_time->tv_nsec);
-+	if (ret)
-+		return ret;
-+
-+	ret = ksz_write32(dev, cfg_base + KSZ8463_TARGET_SEC,
-+			  target_time->tv_sec);
-+	if (ret)
-+		return ret;
-+
-+	return 0;
-+}
-+
- static int ksz_ptp_configure_perout(struct ksz_device *dev,
- 				    u32 cycle_width_ns, u32 pulse_width_ns,
- 				    struct timespec64 const *target_time,
-@@ -241,6 +325,58 @@ static u64 ksz_ptp_compute_perout_pulse(struct ksz_device *dev,
- 	return min_t(u64, req_pulse_width_ns, max_pulse_width);
- }
- 
-+static int ksz8463_ptp_enable_perout(struct ksz_device *dev,
-+				     struct ptp_perout_request const *request,
-+				     int on)
-+{
-+	struct ksz_ptp_data *ptp_data = &dev->ptp_data;
-+	u64 cycle_width_ns;
-+	u64 pulse_width_ns;
-+	int pin;
-+	int ret;
-+
-+	pin = ksz_ptp_get_pin(dev, request);
-+	if (pin < 0)
-+		return pin;
-+
-+	ret = ksz8463_ptp_tou_reset(dev, request->index);
-+	if (ret)
-+		return ret;
-+
-+	if (!on) {
-+		ptp_data->tou_mode = KSZ_PTP_TOU_IDLE;
-+		return 0;
-+	}
-+	ret = ksz_ptp_compute_perout_cycle(dev, request, &cycle_width_ns);
-+	if (ret)
-+		return ret;
-+	pulse_width_ns = ksz_ptp_compute_perout_pulse(dev, request,
-+						      KSZ8463_MAX_PULSE_WIDTH);
-+
-+	ret = ksz_ptp_tou_pulse_verify(pulse_width_ns,
-+				       KSZ8463_TRIG_PULSE_WIDTH_M);
-+	if (ret)
-+		return ret;
-+
-+	ret = ksz8463_ptp_configure_perout(dev, cycle_width_ns, pulse_width_ns,
-+					   &ptp_data->perout_target_time_first,
-+					   pin);
-+	if (ret)
-+		return ret;
-+
-+	ret = ksz_ptp_tou_gpio(dev);
-+	if (ret)
-+		return ret;
-+
-+	ret = ksz8463_ptp_tou_start(dev, request->index);
-+	if (ret)
-+		return ret;
-+
-+	ptp_data->tou_mode = KSZ_PTP_TOU_PEROUT;
-+
-+	return 0;
-+}
-+
- static int ksz_ptp_enable_perout(struct ksz_device *dev,
- 				 struct ptp_perout_request const *request,
- 				 int on)
-@@ -845,6 +981,18 @@ static int ksz_ptp_restart_perout(struct ksz_device *dev)
- 	return ksz_ptp_enable_perout(dev, &request, 1);
- }
- 
-+static int ksz8463_ptp_restart_perout(struct ksz_device *dev)
-+{
-+	struct ptp_perout_request request;
-+	int ret;
-+
-+	ret = ksz_ptp_prepare_restart_perout(dev, &request);
-+	if (ret)
-+		return ret;
-+
-+	return ksz8463_ptp_enable_perout(dev, &request, 1);
-+}
-+
- static int __ksz_ptp_settime(struct ksz_device *dev,
- 			     const struct timespec64 *ts)
- {
-@@ -871,6 +1019,41 @@ static int __ksz_ptp_settime(struct ksz_device *dev,
- 	return 0;
- }
- 
-+static int ksz8463_ptp_settime(struct ptp_clock_info *ptp,
-+			       const struct timespec64 *ts)
-+{
-+	struct ksz_ptp_data *ptp_data = ptp_caps_to_data(ptp);
-+	struct ksz_device *dev = ptp_data_to_ksz_dev(ptp_data);
-+	int ret;
-+
-+	mutex_lock(&ptp_data->lock);
-+
-+	ret = __ksz_ptp_settime(dev, ts);
-+	if (ret)
-+		goto unlock;
-+
-+	switch (ptp_data->tou_mode) {
-+	case KSZ_PTP_TOU_IDLE:
-+		break;
-+
-+	case KSZ_PTP_TOU_PEROUT:
-+		ret = ksz8463_ptp_restart_perout(dev);
-+		if (ret)
-+			goto unlock;
-+
-+		break;
-+	}
-+
-+	spin_lock_bh(&ptp_data->clock_lock);
-+	ptp_data->clock_time = *ts;
-+	spin_unlock_bh(&ptp_data->clock_lock);
-+
-+unlock:
-+	mutex_unlock(&ptp_data->lock);
-+
-+	return ret;
-+}
-+
- static int ksz_ptp_settime(struct ptp_clock_info *ptp,
- 			   const struct timespec64 *ts)
- {
-@@ -985,6 +1168,40 @@ static int __ksz_ptp_adjtime(struct ksz_device *dev, s64 delta)
- 	return 0;
- }
- 
-+static int ksz8463_ptp_adjtime(struct ptp_clock_info *ptp, s64 delta)
-+{
-+	struct ksz_ptp_data *ptp_data = ptp_caps_to_data(ptp);
-+	struct ksz_device *dev = ptp_data_to_ksz_dev(ptp_data);
-+	struct timespec64 delta64 = ns_to_timespec64(delta);
-+	int ret;
-+
-+	mutex_lock(&ptp_data->lock);
-+
-+	ret = __ksz_ptp_adjtime(dev, delta);
-+	if (ret)
-+		goto unlock;
-+
-+	switch (ptp_data->tou_mode) {
-+	case KSZ_PTP_TOU_IDLE:
-+		break;
-+
-+	case KSZ_PTP_TOU_PEROUT:
-+		ret = ksz8463_ptp_restart_perout(dev);
-+		if (ret)
-+			goto unlock;
-+
-+		break;
-+	}
-+
-+	spin_lock_bh(&ptp_data->clock_lock);
-+	ptp_data->clock_time = timespec64_add(ptp_data->clock_time, delta64);
-+	spin_unlock_bh(&ptp_data->clock_lock);
-+
-+unlock:
-+	mutex_unlock(&ptp_data->lock);
-+	return ret;
-+}
-+
- static int ksz_ptp_adjtime(struct ptp_clock_info *ptp, s64 delta)
- {
- 	struct ksz_ptp_data *ptp_data = ptp_caps_to_data(ptp);
-@@ -1019,6 +1236,26 @@ static int ksz_ptp_adjtime(struct ptp_clock_info *ptp, s64 delta)
- 	return ret;
- }
- 
-+static int ksz8463_ptp_enable(struct ptp_clock_info *ptp,
-+			      struct ptp_clock_request *req, int on)
-+{
-+	struct ksz_ptp_data *ptp_data = ptp_caps_to_data(ptp);
-+	struct ksz_device *dev = ptp_data_to_ksz_dev(ptp_data);
-+	int ret;
-+
-+	switch (req->type) {
-+	case PTP_CLK_REQ_PEROUT:
-+		mutex_lock(&ptp_data->lock);
-+		ret = ksz8463_ptp_enable_perout(dev, &req->perout, on);
-+		mutex_unlock(&ptp_data->lock);
-+		break;
-+	default:
-+		return -EOPNOTSUPP;
-+	}
-+
-+	return ret;
-+}
-+
- static int ksz_ptp_enable(struct ptp_clock_info *ptp,
- 			  struct ptp_clock_request *req, int on)
- {
-@@ -1095,6 +1332,27 @@ static int ksz_ptp_start_clock(struct ksz_device *dev)
- 	return 0;
- }
- 
-+void ksz8463_ptp_set_caps(struct dsa_switch *ds)
-+{
-+	struct ksz_device *dev = ds->priv;
-+	struct ksz_ptp_data *ptp_data;
-+
-+	ptp_data = &dev->ptp_data;
-+
-+	ptp_data->caps.owner		= THIS_MODULE;
-+	snprintf(ptp_data->caps.name, 16, "Microchip Clock");
-+	ptp_data->caps.max_adj		= KSZ_MAX_DRIFT_CORR;
-+	ptp_data->caps.gettime64	= ksz_ptp_gettime;
-+	ptp_data->caps.settime64	= ksz8463_ptp_settime;
-+	ptp_data->caps.adjfine		= ksz_ptp_adjfine;
-+	ptp_data->caps.adjtime		= ksz8463_ptp_adjtime;
-+	ptp_data->caps.do_aux_work	= ksz_ptp_do_aux_work;
-+	ptp_data->caps.enable		= ksz8463_ptp_enable;
-+	ptp_data->caps.verify		= ksz_ptp_verify_pin;
-+	ptp_data->caps.n_pins		= dev->info->n_pins;
-+	ptp_data->caps.n_per_out	= dev->info->n_per_out;
-+}
-+
- void ksz_ptp_set_caps(struct dsa_switch *ds)
- {
- 	struct ksz_device *dev = ds->priv;
-diff --git a/drivers/net/dsa/microchip/ksz_ptp.h b/drivers/net/dsa/microchip/ksz_ptp.h
-index 89716b31596b..92589cf373ac 100644
---- a/drivers/net/dsa/microchip/ksz_ptp.h
-+++ b/drivers/net/dsa/microchip/ksz_ptp.h
-@@ -12,7 +12,7 @@
- 
- #include <linux/ptp_clock_kernel.h>
- 
--#define KSZ_PTP_N_GPIO		2
-+#define KSZ_PTP_N_GPIO		12
- 
- enum ksz_ptp_tou_mode {
- 	KSZ_PTP_TOU_IDLE,
-@@ -34,6 +34,7 @@ struct ksz_ptp_data {
- };
- 
- void ksz_ptp_set_caps(struct dsa_switch *ds);
-+void ksz8463_ptp_set_caps(struct dsa_switch *ds);
- int ksz_ptp_clock_register(struct dsa_switch *ds);
- 
- void ksz_ptp_clock_unregister(struct dsa_switch *ds);
-diff --git a/drivers/net/dsa/microchip/ksz_ptp_reg.h b/drivers/net/dsa/microchip/ksz_ptp_reg.h
-index 65ea8577af75..16f117fa5d49 100644
---- a/drivers/net/dsa/microchip/ksz_ptp_reg.h
-+++ b/drivers/net/dsa/microchip/ksz_ptp_reg.h
-@@ -51,6 +51,22 @@
- 
- #define REG_PTP_UNIT_INDEX__4		0x0520
- 
-+#define KSZ8463_TOU_ACTIVE		0x202
-+#define KSZ8463_TOU_EN			0x206
-+#define KSZ8463_TOU_SW_RST		0x208
-+
-+#define KSZ8463_TRIGN_CFG_SIZE		0x20
-+#define KSZ8463_TRIG1_CFG		0x220
-+#define KSZ8463_TARGET_NSEC		0x000
-+#define KSZ8463_TARGET_SEC		0x004
-+#define KSZ8463_PATTERN_OFF		0x008
-+#define KSZ8463_NOTIFY_BIT		BIT(8)
-+#define KSZ8463_PATTERN_M		GENMASK(6, 4)
-+#define KSZ8463_PULSE_WIDTH_OFF		0x00A
-+#define KSZ8463_TRIG_PULSE_WIDTH_M	GENMASK(15, 0)
-+#define KSZ8463_CYCLE_WIDTH_OFF		0x00C
-+#define KSZ8463_CYCLE_CNT_OFF		0x010
-+
- #define PTP_GPIO_INDEX			GENMASK(19, 16)
- #define PTP_TSI_INDEX			BIT(8)
- #define PTP_TOU_INDEX			GENMASK(1, 0)
-
--- 
-2.55.0
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 
