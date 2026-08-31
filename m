@@ -1,267 +1,90 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from relay.hostedemail.com (smtprelay0011.hostedemail.com [216.40.44.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 325BC339383;
-	Mon, 31 Aug 2026 16:47:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 597C937DEBF;
+	Mon, 31 Aug 2026 16:48:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788194832; cv=none; b=NFlNkP3Xjkt2lGDUvj5UIdxiRRYyEM0vbOJ6/Ksqd/X++i6wj89vd3ZCmx++hyS9OPuTk70UtLIpSqO5UbN0tPeuKhhv9+WA9RD2Cxa/qouKeJt4wvms+lYOrmTCCA48rpeUHW6EIoJLf6BWmpk1y0gV6SOo94dIwMU+uuXs3Oo=
+	t=1788194926; cv=none; b=CQx09CUIxNIds3zTWGMR4iHsBys3hjo0WyOam20PjcDgPFVKM6XoJSNbIP6dFWiqRxykgFBjwDwPCyrTL4SuQg8fhM8kV0tHBBGxqDs5DvR60xN8zwRFRDez9b7CypuVI5gL0gip1euTEqjk2UcdrgBzWWL05r4qAFusc4/PV4c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788194832; c=relaxed/simple;
-	bh=0IGJ/VMBc0hNIKINVYD78fctDJOxqDY1t0Xdvc9VFQI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tdiz7G6PYG1sCCfx5YM4rzZSj3X+LnZcFDmDHVhsy3ESeijFnE92HOg6/gEfINiRzcevpgGG433ywFeB5jf1V3lIbS8wZWE++HN00dNF897f66LcK+80IwCElKw0KqHP+rViAffuqzt1Y0E+9nJ5P/rIQBnTI0hu/zdTgmFNhIQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eOA81gsL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788194926; c=relaxed/simple;
+	bh=lRUd4QhEQ+Tj2B1hEFCQEBwSYlblCpzjx8QTcT/F/BA=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ixPe0FKt/AyyZXawC8X8gKC/KXydfDEbGD5jqig5u1nMY/CP7BjfYs4I8cAjAOUsDQXLpng0wgHD23g9ebxQzPDeIOjepusWPG4ySvStIwq8l266YxF2lU9pkd4PmKcEdc9WTwL1rM3RyOB54FkTopVPNy4kJsQzL5bVpmZZO8g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=fjkoNEou; arc=none smtp.client-ip=216.40.44.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eOA81gsL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7644F1F000E9;
-	Mon, 31 Aug 2026 16:47:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788194830;
-	bh=ZirCIc9EB7gtC4ijBO/mp3VXtz/a+lJqEgBTzaSoBGo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=eOA81gsLbzo0G6Gp7gAbct5ooY0TMVh6T3outXooj1QVXbDFGdeVdLoFdKxSFOYbA
-	 +edDxXzPXn6rdIkWDxOgsATtReLQWAQvXgdioNuUkIqAF/v6nwUMJd0/gg76Xvk8cl
-	 6y9yiLsDGNi1cLzu0c8TsrXp4ZrRLlKkXHCL+ehmGe3ZKPobQBiu2UQleLzJb4o+Cs
-	 UhxNS07lRalE3Tw1c2x6xJzf1sEdL7xNQAGmivKPUIWh1PpWEgsuDl5v4HWMQSvwaL
-	 OhX5orc+5pKrEzzZMZz2uHHAZMs05ExxtGGcvUhH0/d0JdQsGR0f4mEZElbULw5pIV
-	 8gleQREfAxHOw==
-Date: Mon, 31 Aug 2026 17:47:05 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Markus Probst <markus.probst@posteo.de>
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <uwe@kleine-koenig.org>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Gregory Clement <gregory.clement@bootlin.com>,
-	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
-	Michael Langer <michael.brainbug.langer@googlemail.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Linus Walleij <linusw@kernel.org>,
-	linux-arm-kernel@lists.infradead.org, linux-rtc@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v7 1/6] dt-bindings: rtc: Add pinctrl for S35390A
-Message-ID: <20260831-theorize-unnoticed-1e6ac97d5369@spud>
-References: <20260829-rtc_s35390a_int1-v7-0-debcd31143ae@posteo.de>
- <20260829-rtc_s35390a_int1-v7-1-debcd31143ae@posteo.de>
+	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="fjkoNEou"
+Received: from omf02.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay02.hostedemail.com (Postfix) with ESMTP id 9EB131201B5;
+	Mon, 31 Aug 2026 16:48:34 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf02.hostedemail.com (Postfix) with ESMTPA id 1231480013;
+	Mon, 31 Aug 2026 16:48:32 +0000 (UTC)
+Date: Mon, 31 Aug 2026 12:49:28 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Cc: Petr Mladek <pmladek@suse.com>, Thomas Gleixner <tglx@kernel.org>, Peter
+ Zijlstra <peterz@infradead.org>, linux-kernel@vger.kernel.org,
+ linux-hardening@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Kees Cook
+ <kees@kernel.org>, Rasmus Villemoes <linux@rasmusvillemoes.dk>, Sergey
+ Senozhatsky <senozhatsky@chromium.org>, Tycho Andersen <tycho@tycho.pizza>,
+ Linus Torvalds <torvalds@linuxfoundation.org>
+Subject: Re: [PATCH v2 2/2] kallsyms: Document why unresolved symbols are
+ revealed
+Message-ID: <20260831124928.22e163ab@gandalf.local.home>
+In-Reply-To: <20260831133729.p5ylO7O6@linutronix.de>
+References: <20260821152614.2202196-1-bigeasy@linutronix.de>
+	<20260821152614.2202196-3-bigeasy@linutronix.de>
+	<ao8SeCCG65uwH-Tk@pathway.suse.cz>
+	<20260827102411.NsziRXyJ@linutronix.de>
+	<20260831133729.p5ylO7O6@linutronix.de>
+X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="/S+o0lYrnjJZ6O8r"
-Content-Disposition: inline
-In-Reply-To: <20260829-rtc_s35390a_int1-v7-1-debcd31143ae@posteo.de>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Rspamd-Queue-Id: 1231480013
+X-Stat-Signature: ituq6i7baidazb4su8x6ado1funz1tzm
+X-Rspamd-Server: rspamout07
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX18ZqRGqxs7puIId+Ef8aZBJDsOIRf12WwY=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=WsljotfB7onrjzTjyEtxNzvepuY6gZ4jRtvpx8W7cqM=; b=fjkoNEouMaMDTWCOK4aay+7yuGukaFP9gZHNq15hUjvwkTTTV2X/dwfVEYBYqmxjMUJjcmoT7kqaLahlmYGx9AUehEfUmgDm0XjTxOFSIl2DAS5nKIXVDP94i6nYxDuJcBclYJuDn8a65/0YFZ5OpkJTszwxwC5852K3FU13uL4=
+X-HE-Tag: 1788194911-300693
+X-HE-Meta: U2FsdGVkX189353ttIQiKGJiTablLs8NIEZkRSyuoaBHovZqSJD/mYcHZe5Gqwy92TuejBV5506vJR6qnmKVnd4YH7QxNQ7uomvA7jlDotKXva6BROYEAiDJzr40JsOCXmRH5mGmZc4ND+YxMRqCFcF3ntInynf3eEyBHS8Chnv4pqSS1th/HqYeHoz9MKqqG1JNsX+LFfX1Yf1efxY6vtDMFCId5ux5aKeLL0/STg87iR90S6li8Fsix9XFff+GhcCp7Tf5WZ/5k38tX49YPL+8x0ETsBHGpGKAi3u5DbOThdVEzZQcS2Ub7X2yQ2UvKmE0AMbtEF7W0xEcU+yV+NTy//9s9HW/
 
---/S+o0lYrnjJZ6O8r
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On Mon, 31 Aug 2026 15:37:29 +0200
+Sebastian Andrzej Siewior <bigeasy@linutronix.de> wrote:
 
-On Sat, Aug 29, 2026 at 02:22:56PM +0000, Markus Probst wrote:
-> Synology NAS devices use the output pin for interrupt signal 1 to wake up
-> the system.
->=20
-> Move devicetree bindings for sii,s35390a into its own file.
-> Add necessary properties to configure the individual pins via pinctrl,
-> which allows the interrupt signal 1 to be used for wakeup alarm.
->=20
-> Signed-off-by: Markus Probst <markus.probst@posteo.de>
-> ---
->  .../devicetree/bindings/rtc/sii,s35390a.yaml       | 111 +++++++++++++++=
-++++++
->  .../devicetree/bindings/rtc/trivial-rtc.yaml       |   3 -
->  2 files changed, 111 insertions(+), 3 deletions(-)
->=20
-> diff --git a/Documentation/devicetree/bindings/rtc/sii,s35390a.yaml b/Doc=
-umentation/devicetree/bindings/rtc/sii,s35390a.yaml
-> new file mode 100644
-> index 000000000000..d9da3abbbd51
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/rtc/sii,s35390a.yaml
-> @@ -0,0 +1,111 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/rtc/sii,s35390a.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: S-35390A 2-WIRE REAL-TIME CLOCK
-> +
-> +maintainers:
-> +  - Alexandre Belloni <alexandre.belloni@bootlin.com>
+> Could someone yell here, please? I convinced myself that hiding
+> unresolved pointers is the good thing to do here since a "wrong" pointer
+> would be seen in backtrace anyway.
+> 
+> Thread starts at
+> 	https://lore.kernel.org/all/20260821152614.2202196-1-bigeasy@linutronix.de/
 
-Probably this should be you!
+I wonder if we should just tagged hash values as such:
 
-> +
-> +description:
-> +  The S-35390A is a CMOS 2-wire real-time clock IC which operates with t=
-he
-> +  very low current consumption in the wide range of operation voltage.
-> +
-> +allOf:
-> +  - $ref: rtc.yaml#
-> +
-> +properties:
-> +  compatible:
-> +    const: sii,s35390a
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  interrupts:
-> +    minItems: 1
-> +    maxItems: 2
-> +    description: Supports up to 2 interrupt lines via the INT1 and INT2 =
-pins.
+| [    1.498171]  <TASK>
+| [    1.498172]  00000000cb9bc262 [hash]
+| [    1.498174]  ? 00000000eb5021dd [hash]
+| [    1.498176]  00000000ed1a9938 [hash]
+| [    1.498178]  </TASK>
 
-I think you need interrupt-names here, so that you know which is which?
+So that people will know that the value is just some random hash value and
+not a real address.
 
-> +
-> +  wakeup-parent: true
-> +
-> +  wakeup-source: true
-> +
-> +  "#clock-cells":
-> +    const: 1
-> +
-> +patternProperties:
-> +  "^pins":
-> +    type: object
-> +    patternProperties:
-> +      "-pins$":
-> +        type: object
-> +        properties:
-> +          pins:
-> +            $ref: /schemas/pinctrl/pinmux-node.yaml#/properties/pins
-> +            minItems: 1
+Although rather useless in call stacks, I like hash values because the same
+address will show up the same.
 
-This construct here seems overly complicated.
-You should be able to do
-    patternProperties:
-      '-pins$':
-        type: object
-        additionalProperties: false
+Having '[unknown]' may also be confusing because it doesn't really say
+"why" it was unknown. But having a number goes back to what it always did.
+Hashing it with a "[hash]" marker will also let people know the value was
+hashed.
 
-        allOf:
-          - $ref: pincfg-node.yaml#
-
-	properties:
-	  pins:
-	    minItems: 1
-
-cos the additionalProperties: false you have below will exclude the
-parts of pinmux-node you don't want.
-
-pw-bot: changes-requested
-
-Thanks,
-Conor.
-
-
-> +            items:
-> +              enum:
-> +                - int1
-> +                - int2
-> +
-> +          function:
-> +            $ref: /schemas/types.yaml#/definitions/string
-> +            description: |
-> +              Pin function:
-> +              - ignore:  Preserve the previous state.
-> +              - disable: Disable pin output.
-> +              - wakeup:  Output wakes up the system.
-> +              - clock:   Output clock pulse.
-> +              - pmin1:   Minute periodical output with 50% duty.
-> +              - pmin2:   Minute periodical output L for 7.81 ms.
-> +                         Can only be used with pin int1.
-> +            enum:
-> +              - ignore
-> +              - disable
-> +              - wakeup
-> +              - clock
-> +              - pmin1
-> +              - pmin2
-> +
-> +        required:
-> +          - pins
-> +          - function
-> +
-> +        additionalProperties: false
-> +
-> +    additionalProperties: false
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +
-> +unevaluatedProperties: false
-> +
-> +examples:
-> +  - |
-> +    i2c {
-> +        #address-cells =3D <1>;
-> +        #size-cells =3D <0>;
-> +
-> +        rtc@30 {
-> +            compatible =3D "sii,s35390a";
-> +            reg =3D <0x30>;
-> +            pinctrl-0 =3D <&rtc_pins_default>;
-> +            pinctrl-names =3D "default";
-> +
-> +            wakeup-parent =3D <&int>;
-> +
-> +            rtc_pins_default: pins {
-> +              int1-pins {
-> +                pins =3D "int1";
-> +                function =3D "wakeup";
-> +              };
-> +              int2-pins {
-> +                pins =3D "int2";
-> +                function =3D "disable";
-> +              };
-> +            };
-> +        };
-> +    };
-> diff --git a/Documentation/devicetree/bindings/rtc/trivial-rtc.yaml b/Doc=
-umentation/devicetree/bindings/rtc/trivial-rtc.yaml
-> index f4d0eed98a08..7b3f682ef4d5 100644
-> --- a/Documentation/devicetree/bindings/rtc/trivial-rtc.yaml
-> +++ b/Documentation/devicetree/bindings/rtc/trivial-rtc.yaml
-> @@ -81,8 +81,6 @@ properties:
->        - ricoh,rv5c386
->        # I2C bus SERIAL INTERFACE REAL-TIME CLOCK IC
->        - ricoh,rv5c387a
-> -      # 2-wire CMOS real-time clock
-> -      - sii,s35390a
->        # ST SPEAr Real-time Clock
->        - st,spear600-rtc
->        # VIA/Wondermedia VT8500 Real-time Clock
-> @@ -105,5 +103,4 @@ required:
->    - reg
-> =20
->  additionalProperties: false
-> -
->  ...
->=20
-> --=20
-> 2.54.0
->=20
-
---/S+o0lYrnjJZ6O8r
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCapWwCQAKCRB4tDGHoIJi
-0jnVAQDHKr3Ggu9GiXbgWCOZibO91GsY120UnN4mo0ZWOJDTeAD9FYsMrH3OyB7A
-PVZA6zfOGAPBH+3caffWVRLR213OwQQ=
-=4Fr7
------END PGP SIGNATURE-----
-
---/S+o0lYrnjJZ6O8r--
+-- Steve
