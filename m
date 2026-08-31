@@ -1,47 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2019641D225;
-	Mon, 31 Aug 2026 13:33:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D84E7420469;
+	Mon, 31 Aug 2026 13:33:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183200; cv=none; b=Js4wXiTQpU5+4OKJKl6lQVq3FQTvx4QT0pDX4sNEXGCyFEfd+Kq6brzv2xwjXcgh6xCK/URnGJhQKHVPufVrSuyyCjfT2uGwIzjJWLyapsl75FWUf4hBI9iQFTDTX4Oxosa23//zwFysMEe2AF5ZttMECBIED0NXs3BC/cf5LgY=
+	t=1788183203; cv=none; b=omSHlFeFajjGVnkPMZ5J2dVQP8JWNDu/RgVALaZJDorvOGvGmWI6RF+Q9tcM/FuY9fbFuzOGrBHAXbSG68mxQ+Y/CGRI8Tgg2qvy3hveOaLpP5+CKH6AyF5CvRRv3v4ZwwDrqSHoRmYaUZXMf3dX+eoVW0QTHNGezXLLu/L4Njw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183200; c=relaxed/simple;
-	bh=bQNR5dJDB//iPQtoUvHkmucJ5fkcuPfkCvN8hLETjoE=;
+	s=arc-20240116; t=1788183203; c=relaxed/simple;
+	bh=74tR+vzgnULBR0ZG/+wMuuddELvqUNbck9Y2L51OrqY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=QM1bwYu0cSQ3aY0yM0I6w6fRz5lfZ4v27MupUYTliNQJSz6O7gRFeo2dH9lAv5H8TudCAXpbQc/d0MNYF5XGas3S+nlKNZDUkohuu5LXcNrBUz7dctT0u3q5xvNKWJR6PbV4hTtG94XfM7sQf5eCUrfFeuTTR0JOkXbOx1mNA9c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RYBHx5L+; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=VEp1XqNHVlKckgSuD0fIUcyUCatg+V9bu7KQKuM/T7Hy3B9A90UXQUJoMMguq+PJNcOilukw2siODdX25WK1KfzTuCs1w9BBhNwFL6mDvg8ojj4VHAplSY4K7QhF8jBwNC6kdbZ6avvoj7RwGJDcNaK6/x96jA6RYd7lHHid8nc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KSJ29o3h; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RYBHx5L+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD24F1F00A3D;
-	Mon, 31 Aug 2026 13:33:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KSJ29o3h"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0DCB1F00A3F;
+	Mon, 31 Aug 2026 13:33:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788183197;
-	bh=gMSEUv9vvIex0riq53kC05okBgJwyNWZV/O/QUfcg8Y=;
+	s=k20260515; t=1788183200;
+	bh=yjVcWilnbKfrt4r4Cp7FH7KSRSeVdy116MkJ3Ry0ex4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=RYBHx5L++ZyTbbl7k4FjtSSN0dgKTV5D8JoYE8TmHNMrsYuUk8BwM8k0i2jc8nn9h
-	 c5ntR90Ql4KGzdoyyQx9ZEd1Lje2cTElWGMUEyYiqSPFtjbQx14Dc6KDtb3ZZcWAFS
-	 fwMFkyqkV9G17+w95xYQiEqFY6nt+/u0+0oIFtGueJxik6iD3I+4XRlAYMCdV+baYO
-	 lQJaxt/QpAVht0D4LvgUoQZTVlUhXADyifrjYF06XaWMvvzr0T8RPTE8rme+YsgeBC
-	 xGHTM+0fPL7TGV4DnuZNq3DFfmegBNShEvLeOp1ZyMaKWqFPeAdSIGG+iB7l/h5xZA
-	 omuXRKOc+AXlA==
+	b=KSJ29o3hrLrybTucbQu8eaX2d+w5Z4Bn57nDSp29bK3msbrjs0FECVkLtRq2tGSVk
+	 RtSLUt4gxSAZVZZu/Eo/cbSdv3JgVxV7mUQ1GPKXfXjiln347VWeMB50pjyvKYmZQO
+	 yOwj/JR943bXBeK8iA9rEK3EZbU4a6FRiF0DAvou7OF7g4Qqz6dnpRRwNOMPoG8itY
+	 bbmILQICK8SE2BXao2CAxOUkwotmCLDGhry2pM9I0oat/M+NDdGDjqsTd9vy/gPf3k
+	 /dMsDa2DHWKrPOBwGV6n5TEspg2ZwROvb3GN+4MN9G/f9KfztI69C9nTyzLnc9AVRz
+	 77wNH4r4Uk9Kw==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Priyansh Jain <priyansh.jain@oss.qualcomm.com>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+Cc: Hans Zhang <18255117159@163.com>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
 	Sasha Levin <sashal@kernel.org>,
-	amitk@kernel.org,
-	thara.gopinath@gmail.com,
-	rafael@kernel.org,
-	linux-pm@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
+	daire.mcnamara@microchip.com,
+	lpieralisi@kernel.org,
+	kwilczynski@kernel.org,
+	linux-pci@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-6.6] thermal/drivers/qcom/tsens: Atomic temperature read with hardware-guided retries
-Date: Mon, 31 Aug 2026 09:20:30 -0400
-Message-ID: <20260831133314.4125787-2-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-6.12] PCI: plda: Protect root bus removal with rescan lock
+Date: Mon, 31 Aug 2026 09:20:32 -0400
+Message-ID: <20260831133314.4125787-4-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -57,609 +56,411 @@ X-stable-base: Linux 6.18.48
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Priyansh Jain <priyansh.jain@oss.qualcomm.com>
+From: Hans Zhang <18255117159@163.com>
 
-[ Upstream commit e28ef2f3ccea276436bd0f30c93f99e764ba492b ]
+[ Upstream commit 4e4f9745f016c1631d00a4035b06f6e75d449e01 ]
 
-The existing TSENS temperature read logic polls the valid bit and then
-reads the temperature register. When temperature reads are triggered
-at very short intervals, this can race with hardware updates and allow
-the temperature field to be read while it is still being updated.
+Hold the pci_rescan_remove_lock lock while stopping and removing a root bus
+to avoid racing with concurrent rescan or hotplug operations triggered via
+sysfs.  Such races may lead to use-after-free issues or system crashes.
 
-In this case, the valid bit may already be asserted even though the
-temperature value is transitioning, resulting in an incorrect reading.
-
-Hardware programming guidelines require the temperature value and the
-valid bit to be sampled atomically in the same read transaction. A
-reading is considered valid only if the valid bit is observed set in
-that same sample.
-
-The guidelines further specify that software should attempt the
-temperature read up to three times to account for transient update
-windows. If none of the attempts yields a valid sample, a stable fallback
-value must be returned: if the first and second samples match, the second
-value is returned;otherwise, if the second and third samples match, the
-third value is returned;if neither pair matches, -EAGAIN is returned.
-
-Update the TSENS sensor read logic to implement atomic sampling along
-with the recommended retry-and-compare fallback behavior. This removes
-the race window and ensures deterministic temperature values in
-accordance with hardware requirements.
-
-Signed-off-by: Priyansh Jain <priyansh.jain@oss.qualcomm.com>
-Signed-off-by: Daniel Lezcano <daniel.lezcano@kernel.org>
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Link: https://patch.msgid.link/20260514113643.1954111-1-priyansh.jain@oss.qualcomm.com
+Signed-off-by: Hans Zhang <18255117159@163.com>
+Signed-off-by: Manivannan Sadhasivam <mani@kernel.org>
+[bhelgaas: commit log]
+Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
+Link: https://patch.msgid.link/20260521161822.132996-10-18255117159@163.com
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-# Stable Backport Analysis: Qualcomm TSENS Atomic Temperature Read
+# Stable Backport Analysis: PCI: plda: Protect root bus removal with
+rescan lock
 
-**Local tree:** `v6.18.44` (Linux 6.18.44)
+**Local tree:** `v6.18.44-1-g2736c32da98b9` (Linux 6.18.44)
 
 ---
 
 ## PHASE 1: COMMIT MESSAGE FORENSICS
 
-### Step 1.1: Subject Line
-**Record:** `[thermal/drivers/qcom/tsens]` — action:
-**update/implement** — **Atomic temperature read with hardware-guided
-retries**
+### Step 1.1: PARSE THE SUBJECT LINE
+**Record:** `[PCI: plda]` `[Protect]` — Add `pci_rescan_remove_lock`
+protection around root bus teardown in the PLDA PCIe host driver.
 
-### Step 1.2: Commit Message Tags
+### Step 1.2: PARSE ALL COMMIT MESSAGE TAGS
 **Record:**
-- **Signed-off-by:** Priyansh Jain `<priyansh.jain@oss.qualcomm.com>`
-  (author)
-- **Signed-off-by:** Daniel Lezcano `<daniel.lezcano@kernel.org>`
-  (thermal maintainer)
-- **Reviewed-by:** Konrad Dybcio `<konrad.dybcio@oss.qualcomm.com>`
-  (Qualcomm reviewer)
-- **Link:** `https://patch.msgid.link/20260514113643.1954111-1-
-  priyansh.jain@oss.qualcomm.com`
-- **No** Fixes:, Reported-by:, Tested-by:, Acked-by:, Cc:
-  stable@vger.kernel.org
-- **Notable:** Reviewed by Qualcomm engineer; signed by thermal
-  subsystem maintainer. No syzbot or user bug report.
+- **Fixes:** — not present (expected for manual review)
+- **Reported-by:** — none
+- **Tested-by:** — none
+- **Reviewed-by:** — none in this commit (series cover references
+  sashiko-bot review)
+- **Acked-by:** — none
+- **Link:** `https://patch.msgid.link/20260521161822.132996-10-
+  18255117159@163.com`
+- **Cc: stable:** — none
+- **Signed-off-by:** Hans Zhang, Manivannan Sadhasivam, Bjorn Helgaas
+  (ignore any pipeline-added SOBs)
 
-### Step 1.3: Commit Body Analysis
+Notable: No syzbot/user crash report; issue identified by code-review
+pattern (series cover letter cites sashiko-bot).
+
+### Step 1.3: ANALYZE THE COMMIT BODY TEXT
 **Record:**
-- **Bug:** TSENS reads poll the VALID bit, then separately read the
-  temperature field. Under rapid read intervals, VALID may be set while
-  the temperature field is still transitioning, yielding a stale or
-  corrupt reading.
-- **Symptom:** Incorrect temperature values returned to the thermal
-  subsystem.
-- **Root cause:** VALID and temperature are in the same status register
-  but were sampled via separate `regmap_field_read()` transactions
-  instead of one atomic register read.
-- **Fix:** Single `regmap_read()` of the status register; up to 3
-  retries per HW guidelines; fallback comparison logic; return `-EAGAIN`
-  if no stable sample.
-- **Version info:** None specified in the message.
+- **Bug:** `plda_pcie_host_deinit()` calls `pci_stop_root_bus()` /
+  `pci_remove_root_bus()` without holding `pci_rescan_remove_lock`.
+- **Symptom:** Race with concurrent sysfs-triggered PCI rescan or
+  hotplug/remove → use-after-free or system crash.
+- **Root cause:** Missing lock acquisition that other PCI host drivers
+  already use.
+- **Version info:** None in commit message.
 
-### Step 1.4: Hidden Bug Fix Detection
-**Record:** Not disguised as cleanup — this is an explicit hardware-
-correctness bug fix. The retry/fallback logic implements Qualcomm TSENS
-programming guidelines, not a cosmetic refactor.
+### Step 1.4: DETECT HIDDEN BUG FIXES
+**Record:** Not disguised — this is an explicit synchronization/race
+fix, not cleanup or optimization.
 
 ---
 
 ## PHASE 2: DIFF ANALYSIS
 
-### Step 2.1: Change Inventory
+### Step 2.1: INVENTORY THE CHANGES
 **Record:**
-- **Files:** `drivers/thermal/qcom/tsens.c` (~+100/−50 lines),
-  `drivers/thermal/qcom/tsens.h` (+1 line: `MAX_READ_RETRY 3`)
-- **Functions modified/added:** `tsens_read_temp()` (new),
-  `tsens_hw_to_mC()` (refactored to convert only),
-  `tsens_read_irq_state()`, `get_temp_tsens_valid()`
-- **Scope:** Single-driver, surgical fix with one internal helper added
+- **File:** `drivers/pci/controller/plda/pcie-plda-host.c` (+2 lines)
+- **Function:** `plda_pcie_host_deinit()`
+- **Scope:** Single-file, surgical fix (2 insertions)
 
-### Step 2.2: Code Flow Changes
+### Step 2.2: UNDERSTAND THE CODE FLOW CHANGE
 **Record:**
+- **Before:** Root bus stop/remove ran unlocked during driver teardown.
+- **After:** `pci_lock_rescan_remove()` held for the entire
+  `pci_stop_root_bus()` + `pci_remove_root_bus()` sequence, then
+  unlocked.
+- **Path affected:** Platform driver remove / module unload error path
+  via `starfive_pcie_remove()` → `plda_pcie_host_deinit()`.
 
-| Hunk | Before | After |
-|------|--------|-------|
-| `get_temp_tsens_valid()` | Poll VALID via
-`regmap_field_read_poll_timeout()`, then call `tsens_hw_to_mC(s,
-temp_idx)` which does a second `regmap_field_read()` | Call new
-`tsens_read_temp()` for atomic register read + retries, then convert via
-`tsens_hw_to_mC(s, *temp)` |
-| `tsens_hw_to_mC()` | Reads hardware field and converts | Accepts pre-
-read raw value, converts only |
-| `tsens_read_irq_state()` | Threshold reads via `tsens_hw_to_mC(s,
-field)` (implicit read) | Explicit `regmap_field_read()` then
-`tsens_hw_to_mC(s, value)` |
+### Step 2.3: IDENTIFY THE BUG MECHANISM
+**Record:** **Category:** Synchronization / race condition.
 
-**Affected paths:** Normal thermal zone temperature polling and IRQ
-handler temperature reads during threshold violations.
+**Mechanism:** Sysfs rescan/remove paths (`rescan_store`,
+`dev_rescan_store`, `bus_rescan_store`, `remove_store`) all take
+`pci_lock_rescan_remove()` (verified in `drivers/pci/pci-sysfs.c`).
+`pci_stop_root_bus()` / `pci_remove_root_bus()` tear down the same
+bus/device lists without that lock in `plda_pcie_host_deinit()`,
+creating a concurrent teardown vs. rescan/remove window.
 
-### Step 2.3: Bug Mechanism
-**Record:** **Logic / hardware correctness fix (race on non-atomic
-register sampling).**
-
-Verified in field definitions — both v1 and v2 place LAST_TEMP and VALID
-in the same `TM_Sn_STATUS_OFF` register:
-
-```135:136:drivers/thermal/qcom/tsens-v1.c
-        REG_FIELD_FOR_EACH_SENSOR11(LAST_TEMP,    TM_Sn_STATUS_OFF,  0,
-9),
-        REG_FIELD_FOR_EACH_SENSOR11(VALID,        TM_Sn_STATUS_OFF, 14,
-14),
-```
-
-```128:129:drivers/thermal/qcom/tsens-v2.c
-        REG_FIELD_FOR_EACH_SENSOR16(LAST_TEMP,       TM_Sn_STATUS_OFF,
-0,  11),
-        REG_FIELD_FOR_EACH_SENSOR16(VALID,           TM_Sn_STATUS_OFF,
-21,  21),
-```
-
-The old code performed two independent field reads; hardware can update
-the register between them.
-
-### Step 2.4: Fix Quality
+### Step 2.4: ASSESS THE FIX QUALITY
 **Record:**
-- **Quality:** High — matches documented HW requirements; minimal API
-  surface change (all internal).
-- **Regression risk:** Low. VER_0 path preserved (no VALID bit).
-  Threshold reads in `tsens_read_irq_state()` are separated correctly
-  since thresholds are not subject to the same race.
-- **New behavior:** `-EAGAIN` when no stable sample after 3 attempts —
-  safer than returning a corrupt value.
+- **Quality:** Obviously correct; matches `pci_host_common_remove()`,
+  `mtk_pcie_remove()`, `pci_aardvark` remove, etc.
+- **Risk:** Very low — standard mutex pair, no API change, no logic
+  change beyond serialization.
+- **Red flags:** None.
 
 ---
 
 ## PHASE 3: GIT HISTORY INVESTIGATION
 
-### Step 3.1: Blame
+### Step 3.1: BLAME THE CHANGED LINES
 **Record:**
-- `get_temp_tsens_valid()` introduced in `a7ff82976122e` (Amit Kucheria,
-  2020-04-29): *"Merge tsens-common.c into tsens.c"*
-- VALID-bit polling added in `d012f9189fda0f` (Christian Marangi,
-  2021-10-07): *"Add timeout to get_temp_tsens_valid"* — fixed infinite
-  loop, not the atomic-read race
-- Bug present since ~2020 in this tree; the separate-read pattern
-  predates 6.18 branching
+- Buggy `pci_stop_root_bus()` / `pci_remove_root_bus()` calls introduced
+  in **76c9113968079** (`PCI: plda: Add host init/deinit and map bus
+  functions`, May 28 2024).
+- Present in this 6.18.44 tree without the lock.
 
-### Step 3.2: Fixes: Tag
-**Record:** N/A — no Fixes: tag in the commit message.
+### Step 3.2: FOLLOW THE FIXES: TAG
+**Record:** No `Fixes:` tag. N/A.
 
-### Step 3.3: Related File History
-**Record:** Recent tsens changes in this tree are device-support
-additions (IPQ5018, MSM8937, v1 without RPM). No prior fix for atomic
-sampling. Standalone patch, not part of a series.
+### Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES
+**Record:**
+- Part of a 9-patch series (`[PATCH 0/9] PCI: controller: Add missing
+  rescan lock around root bus removal`) fixing the same pattern in
+  cadence, dwc, altera, brcmstb, iproc, mediatek, rockchip, vmd, and
+  plda.
+- Cover letter states: *"Each patch is independent and targets a
+  specific controller driver."*
+- Related precedent: **1d59d474e1cb7** (`PCI: Hold rescan lock while
+  adding devices during host probe`) — real NULL deref crash from
+  missing rescan lock during concurrent PCI operations.
 
-### Step 3.4: Author Context
-**Record:** Priyansh Jain (Qualcomm). Daniel Lezcano is the thermal
-maintainer (Signed-off-by). No other commits from this author in the
-local tsens history.
+### Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS
+**Record:** Hans Zhang authored the full 9-driver series. PCI
+maintainers (Bjorn Helgaas) committed related PCI work in this tree. No
+Hans Zhang commits currently in this tree's plda path (series not yet
+merged here).
 
-### Step 3.5: Dependencies
-**Record:** No prerequisites. Uses existing `priv->tm_map`,
-`priv->fields[]`, `priv->rf[]` — all present in 6.18.44. Applies
-standalone.
+### Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS
+**Record:** **Standalone.** Only requires existing
+`pci_lock_rescan_remove()` / `pci_unlock_rescan_remove()` (present since
+**9d16947b75831**, Jan 2014). No structural prerequisites.
 
 ---
 
 ## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
-### Step 4.1: Original Discussion
-**Record:** UNVERIFIED — `b4 dig` requires a commit hash (commit not in
-this tree). Lore.kernel.org fetch blocked by bot protection. Link tag
-points to `20260514113643.1954111-1-priyansh.jain@oss.qualcomm.com`.
+### Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION
+**Record:**
+- `b4 dig -c <sha>`: N/A — commit not in this tree.
+- Local mbox `20260522_18255117159_pci_controller_add_missing_rescan_loc
+  k_around_root_bus_removal.mbx` contains full series.
+- Cover letter references sashiko-bot review asking whether unlocked
+  root bus removal can race with sysfs rescan/hotplug.
+- WebFetch of patch.msgid.link: blocked by anti-bot page (could not read
+  live thread).
 
-### Step 4.2: Reviewers
-**Record:** UNVERIFIED via b4 dig -w. Commit message lists Reviewed-by:
-Konrad Dybcio and Signed-off-by: Daniel Lezcano.
+### Step 4.2: CHECK WHO REVIEWED THE PATCH
+**Record:** Cover letter CC'd linux-pci; bot review prompted the series.
+Final commit SOBs include Manivannan Sadhasivam and Bjorn Helgaas. Full
+maintainer thread not verified live.
 
-### Step 4.3: Bug Report
-**Record:** No Reported-by: or bugzilla/syzbot links. Bug identified
-from HW programming guidelines, not a user crash report.
+### Step 4.3: SEARCH FOR THE BUG REPORT
+**Record:** No user crash report or syzbot link for plda specifically.
+Issue identified by code-review pattern matching against known PCI
+locking requirements.
 
-### Step 4.4: Related Patches
-**Record:** Standalone single patch; not part of a multi-patch series.
+### Step 4.4: CHECK FOR RELATED PATCHES AND SERIES
+**Record:** 9-patch series; each driver patch is independent per cover
+letter. Other drivers in this tree (dwc, cadence, altera, etc.) have the
+**same unfixed pattern** — this commit only addresses plda.
 
-### Step 4.5: Stable List History
-**Record:** UNVERIFIED — could not search lore stable list due to access
-restrictions.
+### Step 4.5: CHECK STABLE MAILING LIST HISTORY
+**Record:** Not searched (no stable nomination found in local mbox).
+Absence of `Cc: stable` is not a negative signal per review
+instructions.
 
 ---
 
 ## PHASE 5: CODE SEMANTIC ANALYSIS
 
-### Step 5.1: Key Functions
-**Record:** `tsens_read_temp()` (new), `get_temp_tsens_valid()`,
-`tsens_hw_to_mC()`, `tsens_get_temp()`, IRQ handler path at line 605
+### Step 5.1: IDENTIFY KEY FUNCTIONS IN THE DIFF
+**Record:** `plda_pcie_host_deinit()` — only function modified.
 
-### Step 5.2: Callers
+### Step 5.2: TRACE CALLERS
 **Record:**
-- `get_temp_tsens_valid` is `.get_temp` for 6 tsens v1/v2 platform
-  variants (`tsens-v1.c`, `tsens-v2.c`)
-- Called from IRQ handler when threshold violated (`tsens.c:605`)
-- `tsens_get_temp()` → `priv->ops->get_temp()` → thermal framework
-  polling, hwmon sysfs, cooling decisions
+- **Caller:** `starfive_pcie_remove()` in
+  `drivers/pci/controller/plda/pcie-starfive.c` (platform `.remove`
+  callback).
+- **Context:** Driver unbind, module unload, platform device removal —
+  can overlap with root-initiated sysfs PCI operations.
 
-### Step 5.3: Callees
-**Record:** `regmap_read()`, `regmap_field_read()`, `code_to_degc()`,
-`sign_extend32()`
+### Step 5.3: TRACE CALLEES
+**Record:** `pci_lock_rescan_remove()`, `pci_stop_root_bus()`,
+`pci_remove_root_bus()`, `pci_unlock_rescan_remove()`, then
+`plda_pcie_irq_domain_deinit()` and optional `host_deinit`.
 
-### Step 5.4: Reachability
-**Record:** Userspace can trigger via thermal sysfs/hwmon reads. Kernel
-thermal governor polls regularly. IRQ path fires during overheating —
-exactly when rapid successive reads are most likely and accuracy is most
-critical.
+### Step 5.4: FOLLOW THE CALL CHAIN
+**Record:**
+- `platform_driver.remove` → `plda_pcie_host_deinit()` → unlocked bus
+  teardown.
+- Concurrent path: root writes to `/sys/bus/pci/rescan`,
+  `/sys/.../remove`, or per-device rescan while StarFive PCIe driver is
+  being removed.
+- **Reachability:** Requires `CONFIG_PCIE_STARFIVE_HOST` (StarFive
+  JH7110 / COMPILE_TEST). Sysfs triggers require root; driver remove can
+  also happen during reboot/module unload.
 
-### Step 5.5: Similar Patterns
-**Record:** `get_temp_common()` (VER_0/v0.1 paths) uses a different read
-model and is unchanged. Only `get_temp_tsens_valid` platforms (v1, v2)
-are affected.
+### Step 5.5: SEARCH FOR SIMILAR PATTERNS
+**Record:** Same missing-lock pattern exists in dwc, cadence, altera,
+brcmstb, iproc, mediatek (non-gen3), rockchip, vmd in this tree.
+**Correct pattern** already present in `pci_host_common_remove()`,
+`mtk_pcie_remove()` (gen3), `pci_aardvark`, `pci_mvebu`, `pci-hyperv`.
 
 ---
 
-## PHASE 6: CROSS-REFERENCE WITH LOCAL TREE (6.18.44)
+## PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
 
-### Step 6.1: Buggy Code Present?
-**Record:** **YES.** Current `get_temp_tsens_valid()` at lines 751–779
-still uses separate VALID poll + `tsens_hw_to_mC()` field read:
+### Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?
+**Record:** **YES.** Current code at lines 641–644 of `pcie-plda-
+host.c`:
 
-```751:779:drivers/thermal/qcom/tsens.c
-int get_temp_tsens_valid(const struct tsens_sensor *s, int *temp)
+```641:644:drivers/pci/controller/plda/pcie-plda-host.c
+void plda_pcie_host_deinit(struct plda_pcie_rp *port)
 {
-        // ...
-        ret = regmap_field_read_poll_timeout(priv->rf[valid_idx], valid,
-                                             valid, 1, 20 *
-USEC_PER_MSEC);
-        // ...
-        *temp = tsens_hw_to_mC(s, temp_idx);
-        return 0;
-}
+        pci_stop_root_bus(port->bridge->bus);
+        pci_remove_root_bus(port->bridge->bus);
 ```
 
-The candidate commit is **not** in this tree.
+Bug present since **76c9113968079** (May 2024), well before 6.18.y
+branched.
 
-### Step 6.2: Backport Complications
-**Record:** **Clean apply expected.** File structure, enums (`VALID_0`,
-`LAST_TEMP_0`), and `tm_map` match what the patch expects. No
-conflicting refactors in recent 6.18 tsens history.
+### Step 6.2: CHECK FOR BACKPORT COMPLICATIONS
+**Record:** **Clean apply expected** — 2-line addition with no
+surrounding churn in recent plda history. Latest plda-host change:
+`882569dca6646`.
 
-### Step 6.3: Related Fixes Already Present?
-**Record:** **No.** `git log --grep` found only `d012f9189fda0f`
-(timeout fix), which addressed a different bug (infinite poll loop on
-disabled sensors).
+### Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE
+**Record:** **No** — `git log --grep="plda: Protect root bus"` returned
+nothing. Fix not yet in this tree.
 
 ---
 
-## PHASE 7: SUBSYSTEM CONTEXT
+## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
 
-### Step 7.1: Subsystem Criticality
-**Record:** `drivers/thermal/qcom/tsens` — **IMPORTANT** (Qualcomm SoC
-thermal management on phones, routers, embedded). Not core-kernel-wide,
-but safety-relevant on affected hardware.
+### Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY
+**Record:** **Subsystem:** `drivers/pci/controller/plda` (PCI host
+controller). **Criticality:** IMPORTANT — PCI core synchronization;
+crash/UAF on affected hardware.
 
-### Step 7.2: Activity Level
-**Record:** Moderately active — recent commits add IPQ5018, MSM8937,
-v1-without-RPM support. Driver is mature but still receiving platform
-additions.
+### Step 7.2: ASSESS SUBSYSTEM ACTIVITY
+**Record:** PLDA code actively maintained (MSI domain switch, affinity,
+microchip integration in 6.17–6.18). StarFive driver added May 2024,
+merged via pci-v6.12-changes.
 
 ---
 
 ## PHASE 8: IMPACT AND RISK ASSESSMENT
 
-### Step 8.1: Who Is Affected
-**Record:** Users of Qualcomm SoCs with TSENS v1 or v2 (SDM845,
-MSM8996/8998, IPQ routers, many Android devices). Config:
-`CONFIG_QCOM_TSENS` (or module equivalent). Not universal, but large
-embedded/mobile population.
+### Step 8.1: DETERMINE WHO IS AFFECTED
+**Record:** **Platform-specific** — users of `CONFIG_PCIE_STARFIVE_HOST`
+(StarFive JH7110 RISC-V boards). Microchip PLDA users go through
+`pci_host_common_remove()` which already holds the lock.
 
-### Step 8.2: Trigger Conditions
-**Record:** Temperature reads at short intervals — thermal framework
-polling, hwmon reads, and especially IRQ-handler reads during threshold
-violations. Plausible in production, not merely theoretical.
-
-### Step 8.3: Failure Mode Severity
-**Record:** **Incorrect temperature readings** → wrong thermal
-throttling decisions. Could under-throttle during overheating (hardware
-stress) or over-throttle (performance loss). Not a kernel oops/UAF, but
-affects thermal protection. **Severity: MEDIUM-HIGH** for affected
-platforms.
-
-### Step 8.4: Risk-Benefit
+### Step 8.2: DETERMINE THE TRIGGER CONDITIONS
 **Record:**
-- **Benefit:** Correct thermal readings per HW spec; safer `-EAGAIN`
-  instead of corrupt values; fixes race on safety-critical overheating
-  path
-- **Risk:** Low — contained driver change, reviewed, follows HW
-  guidelines
-- **Ratio:** Favorable for Qualcomm TSENS users
+- **Trigger:** Concurrent PLDA host driver removal and sysfs PCI
+  rescan/remove on the same bus hierarchy.
+- **Likelihood:** Uncommon but realistic (admin scripts, hotplug
+  testing, driver rebind during PCI maintenance).
+- **Unprivileged trigger:** No direct userspace trigger without
+  root/CAP_SYS_ADMIN for sysfs PCI ops.
+
+### Step 8.3: DETERMINE THE FAILURE MODE SEVERITY
+**Record:** **Use-after-free / kernel crash** — severity **HIGH**
+(potential **CRITICAL** on affected systems). Matches documented PCI
+subsystem race class; similar missing-lock bug caused a real oops in
+**1d59d474e1cb7**.
+
+### Step 8.4: CALCULATE RISK-BENEFIT RATIO
+**Record:**
+- **Benefit:** Prevents crashes/UAF on StarFive JH7110 stable
+  deployments during driver teardown.
+- **Risk:** Minimal — 2-line lock pair, established pattern, no behavior
+  change except correct serialization.
+- **Ratio:** Strong benefit, negligible risk.
 
 ---
 
 ## PHASE 9: FINAL SYNTHESIS
 
-### Step 9.1: Evidence Summary
+### Step 9.1: COMPILE THE EVIDENCE
 
 **FOR backport:**
-- Real, verifiable bug: non-atomic VALID/temp sampling from same
-  register
-- Bug present in 6.18.44 since ~2020
-- Affects thermal protection on widely deployed Qualcomm hardware
-- IRQ path during threshold violations is a concrete high-risk trigger
-- Fix is reviewed, maintainer-signed, follows HW programming guidelines
-- Small, self-contained, no new public APIs
-- Returns `-EAGAIN` instead of corrupt data when sampling fails
+- Real synchronization bug in existing code path
+- Documented PCI race class with UAF/crash consequences
+- 2-line fix matching multiple in-tree precedents
+- Bug present since `plda_pcie_host_deinit()` was added (2024)
+- Standalone, applies cleanly to 6.18.44
+- PCI maintainer sign-off (Bjorn Helgaas)
+- Prior stable-worthy precedent: **1d59d474e1cb7** (rescan lock crash
+  fix)
 
 **AGAINST backport:**
-- No user crash reports, syzbot, or CVE
-- Not oops/UAF/corruption — incorrect sensor data
-- Stable rules discourage unproven "theoretical" races (though this has
-  a concrete HW mechanism)
-- Patch may approach the ~100-line stable size guideline
-- Mailing list discussion unverified
+- No explicit user crash report for plda
+- Affects niche embedded platform (StarFive JH7110 only in this tree)
+- Sysfs race requires privileged access
 
-### Step 9.2: Stable Rules Checklist
-1. Obviously correct and tested? **PASS** — HW spec compliance;
-   Reviewed-by + maintainer SOB (runtime testing not independently
-   verified)
-2. Fixes a real bug? **PASS** — verified separate-read race on shared
-   status register
-3. Important issue? **PASS (borderline)** — incorrect thermal readings
-   on overheating path; hardware quirk / HW-requirement compliance
-   category
-4. Small and contained? **PASS** — single driver, ~50 net lines; diff
-   may be near 100-line guideline
-5. No new features/APIs? **PASS** — internal refactor only
-6. Can apply to local tree? **PASS** — buggy code present, no
-   dependencies
+**UNRESOLVED:**
+- Full lore.kernel.org review thread (WebFetch blocked)
+- Whether commit has landed in mainline (not in this checkout)
 
-### Step 9.3: Exception Categories
-**Record:** **Hardware quirk/workaround** — implements mandatory HW
-atomic-sampling and retry protocol for TSENS status registers.
+### Step 9.2: STABLE RULES CHECKLIST
+1. Obviously correct and tested? **PASS** — matches established in-tree
+   pattern; no Tested-by but fix is trivially verifiable.
+2. Fixes a real bug? **PASS** — missing lock on bus teardown vs. sysfs
+   rescan/remove.
+3. Important issue? **PASS** — UAF/crash (HIGH severity).
+4. Small and contained? **PASS** — 2 lines, 1 function.
+5. No new features or APIs? **PASS** — synchronization only.
+6. Can apply to local tree? **PASS** — buggy code confirmed present;
+   infrastructure exists.
 
-### Step 9.4: Decision Rationale
+### Step 9.3: EXCEPTION CATEGORIES
+**Record:** None (not a quirk, device ID, DT, build, or docs fix).
+Standard bug fix.
 
-For Linux **6.18.44**, this commit fixes a longstanding hardware-read
-race in the Qualcomm TSENS driver that can return incorrect temperatures
-during rapid reads — including in the IRQ handler when sensors report
-threshold violations. While it does not cause kernel crashes, thermal
-sensor correctness on the overheating path is safety-relevant for a
-large class of production devices. The fix is small, reviewed, follows
-documented HW requirements, and applies cleanly to this tree.
+### Step 9.4: DECISION RATIONALE
+
+For Linux **6.18.y**, `plda_pcie_host_deinit()` removes a root PCI bus
+without holding `pci_rescan_remove_lock`, while sysfs rescan/remove
+paths hold that same lock. This is a known PCI race pattern that can
+cause use-after-free and kernel crashes. The fix is a minimal 2-line
+addition that mirrors `pci_host_common_remove()` and other corrected
+drivers. It is standalone, applies cleanly, and addresses a real
+stability issue on StarFive JH7110 systems using
+`CONFIG_PCIE_STARFIVE_HOST`.
 
 ---
 
 ## Verification
 
-- **[Phase 1]** Parsed subject, tags (SOB, Reviewed-by, Link); no
-  Fixes/Reported-by/syzbot
-- **[Phase 2]** Diff analysis: new `tsens_read_temp()`, refactored
-  `tsens_hw_to_mC()`, updated `get_temp_tsens_valid()` and
-  `tsens_read_irq_state()`
-- **[Phase 2]** Verified LAST_TEMP and VALID share `TM_Sn_STATUS_OFF` in
-  `tsens-v1.c:135-136` and `tsens-v2.c:128-129`
-- **[Phase 3]** `git blame -L 751,779`: core logic from `a7ff82976122e`
-  (2020), polling from `d012f9189fda0f` (2021)
-- **[Phase 3]** `git show d012f9189fda0f`: prior fix addressed infinite
-  poll, not atomic read
-- **[Phase 3]** `git log --oneline -20 -- drivers/thermal/qcom/tsens.c`:
-  no duplicate fix present
-- **[Phase 3]** `git log --grep="Atomic temperature"`: no match in tree
-  (commit not present)
-- **[Phase 4]** UNVERIFIED: `b4 dig -c` failed (no commit hash in tree);
-  lore fetch blocked
-- **[Phase 4]** UNVERIFIED: stable list discussion, reviewer stable
-  nominations
-- **[Phase 5]** `grep get_temp_tsens_valid`: 6 `.get_temp` assignments
-  in v1/v2 + IRQ call at `tsens.c:605`
-- **[Phase 5]** `grep tsens_get_temp`: thermal zone ops at
-  `tsens.c:1170`
-- **[Phase 6]** `git describe HEAD`: v6.18.44
-- **[Phase 6]** Read `get_temp_tsens_valid()` at `tsens.c:751-779`:
-  buggy separate-read pattern confirmed
-- **[Phase 6]** `grep tsens_read_temp|MAX_READ_RETRY`: not in tree — fix
-  not yet applied
-- **[Phase 7]** `git log --oneline -20 -- drivers/thermal/qcom/`:
-  subsystem active with platform additions
-- **[Phase 8]** Failure mode: incorrect temperature → thermal mis-
-  management; severity MEDIUM-HIGH on affected platforms
+- **[Phase 1]** Parsed subject, tags, body from provided commit message
+  and local mbox cover letter.
+- **[Phase 2]** Read current `pcie-plda-host.c` lines 641–651; confirmed
+  2-line lock addition matches diff.
+- **[Phase 2]** Read `drivers/pci/remove.c` — `pci_stop_root_bus()` /
+  `pci_remove_root_bus()` have no internal lock.
+- **[Phase 2]** Read `drivers/pci/pci-sysfs.c` lines 461–541 —
+  rescan/remove stores use `pci_lock_rescan_remove()`.
+- **[Phase 3]** `git describe HEAD` → v6.18.44; Makefile confirms
+  6.18.44.
+- **[Phase 3]** `git blame` lines 641–644 → introduced in
+  **76c9113968079** (2024-03-28).
+- **[Phase 3]** `git show 76c9113968079` — added
+  `plda_pcie_host_deinit()`.
+- **[Phase 3]** `git show 9d16947b75831` — `pci_lock_rescan_remove()`
+  added 2014.
+- **[Phase 3]** `git show 1d59d474e1cb7` — precedent crash from missing
+  rescan lock.
+- **[Phase 3]** `git log --grep="plda: Protect root bus"` — no match
+  (fix not in tree).
+- **[Phase 4]** Read local mbox `20260522_18255117159_pci_controller_add
+  _missing_rescan_lock_around_root_bus_removal.mbx` — series context and
+  bot review.
+- **[Phase 4]** `b4 dig -c 76c9113968079` — found unrelated plda init
+  thread (not this patch).
+- **[Phase 4]** WebFetch patch.msgid.link — blocked (UNVERIFIED live
+  thread).
+- **[Phase 5]** `grep plda_pcie_host_deinit` — single caller:
+  `starfive_pcie_remove()`.
+- **[Phase 5]** `grep pci_lock_rescan_remove drivers/pci/controller/` —
+  confirmed correct pattern in host-common, mtk-gen3, aardvark, mvebu,
+  hyperv; missing in plda.
+- **[Phase 6]** Buggy code confirmed present in 6.18.44 checkout.
+- **[Phase 6]** Read `drivers/pci/controller/plda/Kconfig` — StarFive
+  selects `PCIE_PLDA_HOST`; Microchip uses `PCI_HOST_COMMON` (already
+  locked).
+- **[Phase 7]** `git log --oneline -5 drivers/pci/controller/plda/pcie-
+  starfive.c` — driver present since **39b91eb40c6aa** (May 2024).
+- **[Phase 8]** Failure mode UAF/crash inferred from commit message, PCI
+  probe.c comment (lines 3536–3539), and **1d59d474e1cb7** precedent —
+  no plda-specific crash report (UNVERIFIED user impact).
 
-**YES**The background searches finished and match the earlier analysis:
+**YES**The git history check finished successfully. It confirmed the
+missing lock has been in `plda_pcie_host_deinit()` since commit
+`76c9113968079` (May 2024), and that the fix is not yet in this 6.18.44
+tree.
 
-- **Subject search:** No commit matching “Atomic temperature read with
-  hardware-guided retries” (or `tsens_read_temp`) is in this **6.18.44**
-  tree — the fix is still a backport candidate, not something already
-  applied.
-- **Related history:** The only closely related prior change is
-  `d012f9189fda0f` (“Add timeout to get_temp_tsens_valid”), which fixed
-  an infinite-poll loop on disabled sensors, not the atomic VALID/temp
-  sampling race this patch addresses.
+**Verdict: YES** — backport this commit. It’s a small, correct race fix
+(UAF/crash risk during root bus removal vs. sysfs rescan) that matches
+the pattern already used in `pci_host_common_remove()` and similar
+drivers.
 
-**Verdict for 6.18.44:** **YES** — real HW-read race on Qualcomm TSENS
-v1/v2, affects thermal readings (including the IRQ/overheat path), and
-the fix is small, reviewed, and should apply cleanly.
+ drivers/pci/controller/plda/pcie-plda-host.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
- drivers/thermal/qcom/tsens.c | 111 ++++++++++++++++++++++++-----------
- drivers/thermal/qcom/tsens.h |   1 +
- 2 files changed, 78 insertions(+), 34 deletions(-)
-
-diff --git a/drivers/thermal/qcom/tsens.c b/drivers/thermal/qcom/tsens.c
-index a2422ebee8169..40f27c1a1cd59 100644
---- a/drivers/thermal/qcom/tsens.c
-+++ b/drivers/thermal/qcom/tsens.c
-@@ -316,9 +316,66 @@ static inline int code_to_degc(u32 adc_code, const struct tsens_sensor *s)
- }
+diff --git a/drivers/pci/controller/plda/pcie-plda-host.c b/drivers/pci/controller/plda/pcie-plda-host.c
+index 3c2f683830107..f9a34f323ad8c 100644
+--- a/drivers/pci/controller/plda/pcie-plda-host.c
++++ b/drivers/pci/controller/plda/pcie-plda-host.c
+@@ -640,8 +640,10 @@ EXPORT_SYMBOL_GPL(plda_pcie_host_init);
  
- /**
-- * tsens_hw_to_mC - Return sign-extended temperature in mCelsius.
-+ * tsens_read_temp - Retrieve temperature readings from the hardware.
-  * @s:     Pointer to sensor struct
-  * @field: Index into regmap_field array pointing to temperature data
-+ * @temp: temperature in deciCelsius to be read from hardware
-+ *
-+ * This function handles temperature returned in ADC code or deciCelsius
-+ * depending on IP version.
-+ *
-+ * Return: 0 on success, a negative errno will be returned in error cases
-+ */
-+static int tsens_read_temp(const struct tsens_sensor *s, int field, int *temp)
-+{
-+	struct tsens_priv *priv = s->priv;
-+	int temp_val[MAX_READ_RETRY] = {0};
-+	u32 status;
-+	int ret;
-+	u32 last_temp_mask = GENMASK(priv->fields[LAST_TEMP_0].msb,
-+					priv->fields[LAST_TEMP_0].lsb);
-+	u32 valid_bit = priv->rf[VALID_0] ? BIT(priv->fields[VALID_0].lsb) : 0;
-+
-+	for (int i = 0; i < MAX_READ_RETRY; i++) {
-+		ret = regmap_read(priv->tm_map, priv->fields[field].reg, &status);
-+		if (ret)
-+			return ret;
-+
-+		/* VER_0 doesn't have a VALID bit */
-+		if (!valid_bit) {
-+			*temp = status & last_temp_mask;
-+			return 0;
-+		}
-+
-+		temp_val[i] = status & last_temp_mask;
-+
-+		if (status & valid_bit) {
-+			*temp = temp_val[i];
-+			return 0;
-+		}
-+	}
-+
-+	/*
-+	 * As per the HW guidelines, if none of the attempts observe a
-+	 * valid sample, a stable fallback value must be returned. If the
-+	 * first and second samples match, the second value is returned;
-+	 * otherwise, if the second and third samples match, the third
-+	 * value is returned.
-+	 */
-+	if (temp_val[0] == temp_val[1])
-+		*temp = temp_val[1];
-+	else if (temp_val[1] == temp_val[2])
-+		*temp = temp_val[2];
-+	else
-+		return -EAGAIN;
-+
-+	return 0;
-+}
-+
-+/**
-+ * tsens_hw_to_mC - Return sign-extended temperature in mCelsius.
-+ * @s:     Pointer to sensor struct
-+ * @temp: temperature in milliCelsius to be read from hardware
-  *
-  * This function handles temperature returned in ADC code or deciCelsius
-  * depending on IP version.
-@@ -326,20 +383,14 @@ static inline int code_to_degc(u32 adc_code, const struct tsens_sensor *s)
-  * Return: Temperature in milliCelsius on success, a negative errno will
-  * be returned in error cases
-  */
--static int tsens_hw_to_mC(const struct tsens_sensor *s, int field)
-+static int tsens_hw_to_mC(const struct tsens_sensor *s, int temp)
+ void plda_pcie_host_deinit(struct plda_pcie_rp *port)
  {
- 	struct tsens_priv *priv = s->priv;
- 	u32 resolution;
--	u32 temp = 0;
--	int ret;
++	pci_lock_rescan_remove();
+ 	pci_stop_root_bus(port->bridge->bus);
+ 	pci_remove_root_bus(port->bridge->bus);
++	pci_unlock_rescan_remove();
  
- 	resolution = priv->fields[LAST_TEMP_0].msb -
- 		priv->fields[LAST_TEMP_0].lsb;
+ 	plda_pcie_irq_domain_deinit(port);
  
--	ret = regmap_field_read(priv->rf[field], &temp);
--	if (ret)
--		return ret;
--
- 	/* Convert temperature from ADC code to milliCelsius */
- 	if (priv->feat->adc)
- 		return code_to_degc(temp, s) * 1000;
-@@ -514,8 +565,10 @@ static int tsens_read_irq_state(struct tsens_priv *priv, u32 hw_id,
- 					&d->crit_irq_mask);
- 		if (ret)
- 			return ret;
--
--		d->crit_thresh = tsens_hw_to_mC(s, CRIT_THRESH_0 + hw_id);
-+		ret = regmap_field_read(priv->rf[CRIT_THRESH_0 + hw_id], &d->crit_thresh);
-+		if (ret)
-+			return ret;
-+		d->crit_thresh = tsens_hw_to_mC(s, d->crit_thresh);
- 	} else {
- 		/* No mask register on older TSENS */
- 		d->up_irq_mask = 0;
-@@ -525,8 +578,16 @@ static int tsens_read_irq_state(struct tsens_priv *priv, u32 hw_id,
- 		d->crit_thresh = 0;
- 	}
- 
--	d->up_thresh  = tsens_hw_to_mC(s, UP_THRESH_0 + hw_id);
--	d->low_thresh = tsens_hw_to_mC(s, LOW_THRESH_0 + hw_id);
-+	ret = regmap_field_read(priv->rf[UP_THRESH_0 + hw_id], &d->up_thresh);
-+	if (ret)
-+		return ret;
-+
-+	d->up_thresh = tsens_hw_to_mC(s, d->up_thresh);
-+	ret = regmap_field_read(priv->rf[LOW_THRESH_0 + hw_id], &d->low_thresh);
-+	if (ret)
-+		return ret;
-+
-+	d->low_thresh = tsens_hw_to_mC(s, d->low_thresh);
- 
- 	dev_dbg(priv->dev, "[%u] %s%s: status(%u|%u|%u) | clr(%u|%u|%u) | mask(%u|%u|%u)\n",
- 		hw_id, __func__,
-@@ -750,33 +811,15 @@ static void tsens_disable_irq(struct tsens_priv *priv)
- 
- int get_temp_tsens_valid(const struct tsens_sensor *s, int *temp)
- {
--	struct tsens_priv *priv = s->priv;
- 	int hw_id = s->hw_id;
- 	u32 temp_idx = LAST_TEMP_0 + hw_id;
--	u32 valid_idx = VALID_0 + hw_id;
--	u32 valid;
- 	int ret;
- 
--	/* VER_0 doesn't have VALID bit */
--	if (tsens_version(priv) == VER_0)
--		goto get_temp;
--
--	/* Valid bit is 0 for 6 AHB clock cycles.
--	 * At 19.2MHz, 1 AHB clock is ~60ns.
--	 * We should enter this loop very, very rarely.
--	 * Wait 1 us since it's the min of poll_timeout macro.
--	 * Old value was 400 ns.
--	 */
--	ret = regmap_field_read_poll_timeout(priv->rf[valid_idx], valid,
--					     valid, 1, 20 * USEC_PER_MSEC);
--	if (ret)
--		return ret;
--
--get_temp:
--	/* Valid bit is set, OK to read the temperature */
--	*temp = tsens_hw_to_mC(s, temp_idx);
-+	ret = tsens_read_temp(s, temp_idx, temp);
-+	if (!ret)
-+		*temp = tsens_hw_to_mC(s, *temp);
- 
--	return 0;
-+	return ret;
- }
- 
- int get_temp_common(const struct tsens_sensor *s, int *temp)
-diff --git a/drivers/thermal/qcom/tsens.h b/drivers/thermal/qcom/tsens.h
-index 2a7afa4c899b9..ab57ad88c3f7c 100644
---- a/drivers/thermal/qcom/tsens.h
-+++ b/drivers/thermal/qcom/tsens.h
-@@ -21,6 +21,7 @@
- #define THRESHOLD_MIN_ADC_CODE	0x0
- 
- #define MAX_SENSORS 16
-+#define MAX_READ_RETRY 3
- 
- #include <linux/interrupt.h>
- #include <linux/thermal.h>
 -- 
 2.53.0
 
