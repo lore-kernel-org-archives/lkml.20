@@ -1,71 +1,67 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out30-101.freemail.mail.aliyun.com (out30-101.freemail.mail.aliyun.com [115.124.30.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C5883AD52A;
-	Mon, 31 Aug 2026 08:44:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F8713B14A2
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 08:44:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788165851; cv=none; b=Uh5r8lOa3ItfGkzxDctspZa6+4Gqeg198pUfVLCCXjgF9VSj/1CrK3YwMTyT/7eZ/m4D2YTkBrlRzBT2qOAjxnlWfchCtAAC1ukYU53039zTn1wBSxgWtP+c9vADGE09cJMWzibftANMphRQYXoQIkAZVjqQ5BxNnHjVvmXYpxs=
+	t=1788165851; cv=none; b=Au3pnDDjoIbPMt0YDSzVgnw0VxngtSnariSRHssTWy0z8f7CgREQqLzwykq7thaxdGrikY6CQOTsdAFAQXsS7t+zhCGfT2LbHl3/o97ku08mNjIZiPOBaPY+huwg/WOtd4vnZpR4p5wCS6dUCYR5Zt53ztIUjrpNTaFC4US75Sc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788165851; c=relaxed/simple;
-	bh=SwaWKgsflHdP9q6JnN7qO4nrYWHuUTmbpqBZFga1aPk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=c8FlFSnshyx5uxvQnYzqa4R5iuMyuVm3E/ed5g7X9c0fsc13Lc8XOknbpYz2iBcp0Na/JI8N3lb4mwZgflZr7vcl8tytHJqSyoo4lvtjsh5dTIesYdAHfNMo2Ug6Fk/pTakRqdOwgsaCWV4GW73G/MFDwXY5XZsCmdAsitUnipk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mFANuf6a; arc=none smtp.client-ip=100.103.45.18
+	bh=WUqdkbwnPNh6/u8L4ywCzeT2xFA6T3CkCs/kKHgaOpU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=lowoP4yfdrg8vTpI/ZGa3O5hlGf8ZUf+q3BMMbICzljnsuE+uR9OY1R48CXwgAu65f1sNP9qju/yeML8+zykyYFeZWrGFv9VmWYSYDLuUdJk5xcGMtZTSwO8LyWVjIxd7UTNwaIbqCxbOF/kb+WXEO4jwgMKplymGcy+ynBjzfY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=cevWiCXM; arc=none smtp.client-ip=115.124.30.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mFANuf6a"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 841D31F000E9;
-	Mon, 31 Aug 2026 08:44:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788165850;
-	bh=H1RgWhyTfBxEvx3kHkEet9cSR5ERPAF0r/ewZQk2l+8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=mFANuf6aC7FSqHRlkgdVvsUh3kaDEzddY/ZsVk5Tp6RaLZe7k8m1+a/AUux8i0l3I
-	 I6DnI5VkUJ52e5sbLk4cM2Uj5mEf2ZkKbQV9BmNNbpeZNiCCdNZLRpcRlJ0LQfKWVd
-	 a1ATBEwi9xL+4Bxmflh+3ajXshthvTQ8YZ16u1DqHFpNn3AyWnCAFbjLvFUW/cl79Z
-	 21Rf+y8Mn1aEysBQ/8or5Z2HUeITicCnS5QMDNgVjUv2oa58s/JmhC7xZmdobN7AOo
-	 iJQlP3rsUIDg3Q3Z8DNpu//dcVlRlxWQAxJWPV3Xf+qVsfOehH226mW9UmFRFZeAXL
-	 gMolx8M25djhA==
-Date: Mon, 31 Aug 2026 10:44:06 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
-Cc: Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Lorenzo Pieralisi <lpieralisi@kernel.org>, Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
-	Manivannan Sadhasivam <mani@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
-	Bjorn Andersson <andersson@kernel.org>, Maxime Chevallier <maxime.chevallier@bootlin.com>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org
-Subject: Re: [PATCH v2 2/4] dt-bindings: pci: qcom: add Nord PCIe controller
- compatible
-Message-ID: <20260831-labrador-of-extreme-prowess-d36ceb@quoll>
-References: <20260828-nord-v2-0-18bf59d19d6f@oss.qualcomm.com>
- <20260828-nord-v2-2-18bf59d19d6f@oss.qualcomm.com>
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="cevWiCXM"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1788165846; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=etMu0VI5+wpQmX7ykhBd022G3QB/fUHBgr7JAI3YPJM=;
+	b=cevWiCXMAj2yYqlGUMVyjdZNjglKBVJUn0VkeqgeG2Ypi4E/z+eXH48WVjcu/d+WuuF+aP2dhXdL1RuLVZfG0gk3HWVoCvUHNZSp6I6xuoqHkWW4TWtMyXiU1WdLOgw3oCPYXaud35DLyMKDvoqAf5VuCeYDsowfVKQ2oOvkG8s=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R181e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037009110;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=20;SR=0;TI=SMTPD_---0X9vX2gk_1788165843;
+Received: from 30.74.144.115(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0X9vX2gk_1788165843 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Mon, 31 Aug 2026 16:44:04 +0800
+Message-ID: <fc1721d9-aee5-4ffa-96a7-9f9b68ae0871@linux.alibaba.com>
+Date: Mon, 31 Aug 2026 16:44:03 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260828-nord-v2-2-18bf59d19d6f@oss.qualcomm.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/2] mm/mglru: make retry logic explicit in
+ isolate_folios()
+To: "Barry Song (Xiaomi)" <baohua@kernel.org>, akpm@linux-foundation.org,
+ linux-mm@kvack.org
+Cc: axelrasmussen@google.com, baoquan.he@linux.dev, chenridong@xiaomi.com,
+ david@kernel.org, hannes@cmpxchg.org, kasong@tencent.com,
+ lianux.mm@gmail.com, linux-kernel@vger.kernel.org, ljs@kernel.org,
+ lyugaofei@xiaomi.com, mhocko@kernel.org, qi.zheng@linux.dev,
+ shakeel.butt@linux.dev, stevensd@chromium.org, wangzicheng@honor.com,
+ weixugc@google.com, yuanchu@google.com
+References: <20260829074204.45304-1-baohua@kernel.org>
+ <20260829074204.45304-3-baohua@kernel.org>
+From: Baolin Wang <baolin.wang@linux.alibaba.com>
+In-Reply-To: <20260829074204.45304-3-baohua@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Fri, Aug 28, 2026 at 02:13:36PM +0530, Krishna Chaitanya Chundru wrote:
-> Add the qcom,nord-pcie compatible string to the Qualcomm PCIe
-> controller binding.
+
+
+On 8/29/26 3:42 PM, Barry Song (Xiaomi) wrote:
+> The existing mainline code retries the same type once in a rather
+> subtle way. `for_each_evictable_type()` may provide one more iteration,
+> allowing the same type to be retried if we scanned some folios but
+> failed to isolate any due to protections, promotions, or races. This
+> patch makes the retry behavior explicit.
 > 
-> The Nord PCIe controller is compatible with the SA8775P PCIe
-> controller implementation and reuses the same binding definition.
-> 
-> Signed-off-by: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+> Signed-off-by: Barry Song (Xiaomi) <baohua@kernel.org>
 > ---
->  Documentation/devicetree/bindings/pci/qcom,pcie-sa8775p.yaml | 1 +
->  1 file changed, 1 insertion(+)
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-
-Best regards,
-Krzysztof
-
+LGTM.
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
