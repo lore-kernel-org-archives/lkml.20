@@ -1,116 +1,217 @@
-Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
+Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B047392C3D
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 19:00:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C91A357D1D
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 19:04:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788202843; cv=none; b=fqkP6AFnhn/L5AbXqxcklDwsZlVsv9dMHvbL4deRqAIa7Zn+Nh4H7Lw0fIP9xWA0FolggmfvsEG0juDwSIZLWVM8Ogxm3UCxM3jCDj7FTvsA6+weUQTNmlPnD2OHmHXZKKB4yqzk0xHMqMpBl5U9s7pIpb/tLZ6qkA843OhrmS4=
+	t=1788203051; cv=none; b=R081GJAh3oXZw31h8HQnGbNZlqtUesYhW53sqc3k4aqwhULq1ASsPJuO/QBMm4VVObeFypBW117AarHG6Smav7rIJB0r8eqmgfptBz6tGG/HQWjPzZVGjnobxIqYDrWo8IhySvc3uJnmb2Xw0WXfgy6BlqJlC/E5QP/JBRrl2rw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788202843; c=relaxed/simple;
-	bh=swFnLySAppNxuSAvXdelckAar1KHHAhbi00Pj7v/3qo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=C9VbFgQLRS5o0K53q/z8k7diPrJO/rVoOzrl6XCUIVMXHklD9ZzUQfCz94ht6vm6lzauFpi0G/uW5NsUASdnAY+oDGOo1H5cjgEHNDPGZ+vicFSaGOL21AlKxv1mlTvHJQ9HmXDb206is6rcpM2OTvnQQFTbpNtpPQ+aSNvR1oY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=e5c1b7/f; arc=none smtp.client-ip=209.85.210.177
+	s=arc-20240116; t=1788203051; c=relaxed/simple;
+	bh=yP95nTGtvsy873nNSB+nfupYly/y1xNvRbmiSaWnyqE=;
+	h=Message-ID:Date:MIME-Version:Subject:References:To:Cc:From:
+	 In-Reply-To:Content-Type; b=eg8OhNhIYUePx79cFDrmmK1JP1KlT0nsLHfOKz/YcPiDKPGqJ+0c2s7uMfGOMSEatoYbXSKTjR4nq4VVwB+lTBBT3KrbyglI/a4Y/d6N2CfPu7aaKzGnLr77EioUQJ9qHNAT6q1civPuYN1QQEBCQo4BIDzukrySC6+xMoYWPac=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RtuRP4TL; arc=none smtp.client-ip=209.85.215.179
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="e5c1b7/f"
-Received: by mail-pf1-f177.google.com with SMTP id d2e1a72fcca58-84830c774a0so32636b3a.1
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 12:00:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RtuRP4TL"
+Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-ca97d139d5fso3273508a12.0
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 12:04:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788202841; x=1788807641; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=BLLrMyDTQSEhjgi9BlS/V8xtiJJP4gucQLQ+mXxPqRQ=;
-        b=e5c1b7/ftXqgipAo+PUnBkk+EMhS5dQwxS8BPUL1LnrGjvdrvVEFBl55aOwY1ZFnoV
-         2PR1mL0mXF7u2DiNP3TJUUIse8SkMT0p/l1kHzzFbAUoO7eVCaRNV6wYMcdVAVuqFDbM
-         6fgxragWkIRfdlDI+dzkR7tWXjOibdKJDG/u77gigzju62d/P45okRWH6fpXzPZxdENM
-         wGHoDJhBHmPyBJ/knQ6dJv47cx5+HNu3rE0O7/o+k/UFNEENSLnIdRjrUdpuC0aSdSq8
-         RQcpOU32BQEIii5543WjMO6MBFjTZSG0PIybI0guorHaAbuzO0xRlbMY0gY97aadIb85
-         4zQA==
+        d=gmail.com; s=20251104; t=1788203049; x=1788807849; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:cc:to
+         :references:content-language:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=oaGTRAWSBUw2/SKz8a7uyMoVqzIL+CJjDVztLjnCEd4=;
+        b=RtuRP4TLaq9aPepURkrkR3mSfo1KkcXs6aNVpgwtOlD9mo1QZdQyqT8v6RDyl83/aW
+         h4hgme1ysUYkGWMHm2BnUzYfrrBb653OQ+GCo4TMRcXwUYyZXYT6SO6m4329pESBqZK+
+         wh6eSw5wecb7W31+vjoVjG+GTAE8KIO/nM1G6RyEGGsUciHLrcbgy3xYBVyE+9ib4W+4
+         CRaUIlwtnO0/zVb53SGxyi+yDkaocFK3K9DwQIJ+PtDa1fmNjngr4m9s0eqQjoDa+erC
+         Uvjp3RR+wCHxvx26A9ieBDYYfcWkjq69ACzU+cVBf9fcwsoxKHsn2rfcB2h2UDjskOXe
+         f8Pw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788202841; x=1788807641;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1788203049; x=1788807849;
+        h=content-transfer-encoding:content-type:in-reply-to:from:cc:to
+         :references:content-language:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=BLLrMyDTQSEhjgi9BlS/V8xtiJJP4gucQLQ+mXxPqRQ=;
-        b=gMRgJ6TCGUGiqze4B3dpH8QHje9AR2XPpuPiO6INY+1WG/ekIBM0LgE7OdLSzlcEt3
-         P529hyjwNrZO9Tn0LCRoY4gvxgBm2+zAUxkMsdRhtSzPp1k2EKIechUexZRw2+RQJQmS
-         EqfXmFb4v0fqaUwpQGRqZtjfoW8ER+FlOItcctQmyIQJfIE6Mfcl/7zcCuJsjzYr3Rx8
-         DnCV7zNNFxWx1oEcA5G6WKxixCFKZGofsNL8X+uCV48eMlwsP2F4Ijqmr8OkaAbpPdQF
-         rhh1y3vwscWAH7LpL5XpTF+4qQ2Gs126MXmKYiMlqwbdeNqtq3uqV7U+TewcPlUUxnzo
-         cIoA==
-X-Forwarded-Encrypted: i=1; AHgh+RpwnVnw7M9jGqidvdCoHjKeD7Ck0/KIoiqTXhUrh/dqQi3o3D1tIsarv9IXBS0pY5HdCCgMckSnbJoNH00=@vger.kernel.org
-X-Gm-Message-State: AFuF++mdiiWvmtuQz8uXmn3134OA3UnI4snhX8nzwh1lipTcTPbIqGqi
-	hVTx1dI3ryQdtVQKRDwjjOJOMkQT7knY05kKlAsxpj5JqD3cN9Gmex/ifow6tQ==
-X-Gm-Gg: AR+sD117TAutaF4He8Bm7SwVR2Dn2EvZ/TIWbs+zLQoTAUR8xVM5Ey+/8O1sXqLm4d8
-	eedixPv7TKY7SNZ0n26VtQtwOBRL+Jwfrl5rNRb7L2rSeRRcDxYLHbOswse8QrG+J1tHSRMKMFB
-	mw0q9vv5f1xpsM93A0RIFzxjKM33ALikwfxDrHhkJBCb+ShH35l6umbKOvfZqXwiMKJbIqRHRW0
-	GJ+HyCl/VdWGpiigPA8CetCW9yxmnamJT8edrFUb1Cgng46vqGCCB2WKiSbWYu/olM/0fOLlI7W
-	CRn1ki/tpOLvSysnXxtBi7rGoA/phTWApqRhYMTRSZzGH1hXxMdI7wpqceq3WFoSwX+or/HNa+M
-	dj+wYdZqVTs1A0w1aBsuGDRlQlYnKB7aDdtYXQSVfge5MCWOmYVDmvZsjGeoDENnpT9wYp30+Fl
-	1lWyOQw6V+sGSNBl+D6gl0Q+P/1fZDQK4gNCONs5xoACgXMVKBpuJ49mQDRFRx7O8JIGx91cBWA
-	QQmXD+A5154iPf2+YX5YNM/dZKWUw==
-X-Received: by 2002:a05:6a21:9098:b0:3d3:adbf:7778 with SMTP id adf61e73a8af0-3d3adbf8191mr30903334637.20.1788202841370;
-        Mon, 31 Aug 2026 12:00:41 -0700 (PDT)
-Received: from [192.168.1.3] (ip68-4-215-93.oc.oc.cox.net. [68.4.215.93])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3286f7be440sm36737824eec.7.2026.08.31.12.00.40
+        bh=oaGTRAWSBUw2/SKz8a7uyMoVqzIL+CJjDVztLjnCEd4=;
+        b=c4p04kRNIcGS7Iw0uvSKVXgPxE9dlkhwA6C3De7iYsZQJvPcelDEZ2nq+uZdPbjQlM
+         nKtiGv1e0M+rauzol5WE2i5FY1AbVx52ltqMNmH931Iqd7ffXOu6oejFLUIbfs5oUwQ2
+         ARXXwLT20XstW28GnR2oH5ajir7jEhvHATKrlrZW7XwCrxmTAa+cEbqqmhx0tJmVqnw9
+         +tyH78E2HVAyaozH2+2w/YUhBOZwoTIZvmMCztHBCyg3H3ScOzz8Ca/JbtAzoh7SIfrc
+         xEaLiVrlWzwICHMLoJiv8U2PGNplk5eRacg6qsUDnsteyMTdDgeevJcnWPIUmHNtfqNi
+         9TkQ==
+X-Gm-Message-State: AFuF++nX5U33IWAWSykH+mhd5pxp7QoaXFqvzxYdt5RVJho+x8zWn6zK
+	5BEZCdjqXRAIEOA/D3P1T6yTg9s/FHwKVS6h9DGpXlxPenrB0MLeKfDD
+X-Gm-Gg: AYBFou1mNEFAgPgGX4HP1TafbGIRx6Q+e6dN44f8cXry6byndJ4nrEwD9lUpvFjdYgk
+	eRQJThKCIEFZslTCZo2GlmVPhOy19/xt9PVRrCpqQUbq2Letij6S6QHFxNiZiBk3+TetiiFwguF
+	l2oQ8jlc8ZCOZEG/9K+UCp2z49W5v6WNiLfvQNltIrZQlMkevtQiEYO/4+gSnFqsX2C5xIypl7F
+	ZPwwiLy19d+DFKnIfXu6Z6eWCy+FzURLBw3C4DUc8/rW0xgpcKET0SQD2xn/EbNIPirxXojX2+e
+	qkinUk20ZSaxvBZgHAgJYh0Tzru6zQyFodeqf61+hcuHsv45JaMyDgXqc1VRig5TU0ScX+zxSU2
+	jqzALlyk9AfvHWpVU2VJz/mEyG6nZKK11a3fMNaEZeZDhuK9PrSgSFdAYVSCCQXHLNLJlkDgXLk
+	wbajNnOy7UG4Xn4mWPsvvKmaIapQebHyGOU6wfLFMrQiHP2g36udpZwfg9vL3meuwi377o9wvFE
+	wKvCABLzH0M4gy6OtLC6dOm
+X-Received: by 2002:a17:90b:4ac9:b0:392:ca3b:370a with SMTP id 98e67ed59e1d1-39907aff7acmr3102531a91.2.1788203049355;
+        Mon, 31 Aug 2026 12:04:09 -0700 (PDT)
+Received: from [192.168.21.192] ([24.18.106.4])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3286f7bc825sm37141411eec.9.2026.08.31.12.04.08
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 31 Aug 2026 12:00:40 -0700 (PDT)
-Message-ID: <ac8605bf-cb09-4ab1-9487-8e4c58dfeb06@gmail.com>
-Date: Mon, 31 Aug 2026 12:00:48 -0700
+        Mon, 31 Aug 2026 12:04:08 -0700 (PDT)
+Message-ID: <27f2418a-e54e-4af7-b554-c0d1fe18a4a9@gmail.com>
+Date: Mon, 31 Aug 2026 12:04:08 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.12 00/99] 6.12.108-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
- hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
- sr@sladewatkins.com
-References: <20260831133359.740409777@linuxfoundation.org>
+User-Agent: Betterbird (Linux)
+Subject: Re: [PATCH v2] sparc64: increase kernel thread stack size to 32K
 Content-Language: en-US
-From: Florian Fainelli <f.fainelli@gmail.com>
-In-Reply-To: <20260831133359.740409777@linuxfoundation.org>
+References: <f3719bb0-e892-49cc-af82-79e2569a8a90@gmail.com>
+To: Stian Halseth <stian@itx.no>, Andreas Larsson <andreas@gaisler.com>,
+ davem@davemloft.net, sparclinux@vger.kernel.org
+Cc: LKML <linux-kernel@vger.kernel.org>,
+ David Laight <david.laight.linux@gmail.com>,
+ John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, thuth@redhat.com,
+ Linux kernel regressions list <regressions@lists.linux.dev>,
+ nroach44@nroach44.id.au
+From: Tony Rodriguez <unixpro1970@gmail.com>
+In-Reply-To: <f3719bb0-e892-49cc-af82-79e2569a8a90@gmail.com>
+X-Forwarded-Message-Id: <f3719bb0-e892-49cc-af82-79e2569a8a90@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+Hello Stian,
 
+**Revised for clarity.
 
-On 8/31/2026 6:33 AM, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.12.108 release.
-> There are 99 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Wed, 02 Sep 2026 13:32:19 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.12.108-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.12.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
+Thanks for following up on this. As I mentioned to Andreas back in 
+May/June 2026, the current combined stack usage is already very close to 
+the 32K limit. If you need an immediate workaround, increasing the stack 
+to 64K is probably the best option to provide enough headroom and avoid 
+the stack overflow panics we are currently seeing.
 
-On ARCH_BRCMSTB using 32-bit and 64-bit ARM kernels, build tested on 
-BMIPS_GENERIC:
+While I haven't observed any panics with a 32K stack on kernel 7.1 so 
+far, operating so close to the boundary is still a significant concern. 
+It is worth noting that sparc64 definitely crashes with a 16K stack. 
+Additionally, the Nvidia/Mellanox mlx5 driver allocates a large stack on 
+sparc64, which pushes usage to the 32K boundary, and other drivers might 
+do the same. Therefore, a 64K stack is far more ideal.
 
-Tested-by: Florian Fainelli <florian.fainelli@broadcom.com>
--- 
-Florian
+Regarding the kernel compilation, when I build the kernel with 
+-fstack-usage to generate .su files on the 7.1 kernel, the static 
+analysis shows stack frames for USB core functions. For example:
 
+     hub_event: 2457 bytes (static)
+     hub_activate: 1892 bytes (static)
+     usb_control_msg: 1248 bytes (static)
+
+However, my runtime stack tracing paints a dramatically different picture:
+
+     STACKTRACE: hub_event():entry: 31856 bytes used
+     STACKTRACE: hub_activate():entry: 31680 bytes used
+     STACKTRACE: usb_control_msg():entry: 30768 bytes used
+
+P.S. I haven't actually tested a 64K stack yet—I am offering this 
+recommendation primarily based on how close the current usage is to the 
+32K boundary.
+
+Regards,
+Tony
+
+On 8/31/26 10:29 AM, Stian Halseth wrote:
+> From: Tony Rodriguez<unixpro1970@gmail.com>
+>
+> Kernel stacks on sparc64 are 16K and this is no longer enough:
+> several machines (SPARC T5-2 among them) panic early in boot during
+> USB hub enumeration with "corrupted stack end detected inside
+> scheduler". sparc has not been converted to THREAD_INFO_IN_TASK, so
+> thread_info sits at the bottom of the kernel stack and a marginal
+> overflow corrupts it first; CONFIG_SCHED_STACK_END_CHECK then fires
+> from __schedule long after the deep path has unwound, which is why
+> the reported backtraces look shallow.
+>
+> Measurements with CONFIG_STACK_TRACER on an UltraSPARC T4-1 show the
+> problem is frame count, not any single large frame. The high-water
+> mark of an ordinary successful boot is 12616 of 16384 bytes (77%),
+> reached in hub_probe() with a printk console flush and then a timer
+> interrupt (which runs on the task stack, and whose scheduler tick
+> performs load balancing and IPI delivery) stacked on top. Of the 66
+> frames in that path the largest is 408 bytes, and ~85% of them are
+> 176-224 bytes - at or just above the SPARC V9 ABI minimum frame
+> (128-byte register window save area plus 48-byte argument save
+> area). An equivalent call chain on x86-64 costs roughly a third of
+> the stack, so a 16K stack on sparc64 provides far less effective
+> call depth than on other 64-bit architectures.
+>
+> Double THREAD_SIZE to 32K (four 8K pages). The PAGE_SHIFT
+> conditionals are dropped: sparc64 only supports 8K base pages, so
+> the other branches were dead code. Kernel stacks become order-2
+> allocations; sparc64 has no VMAP_STACK, but stacks are allocated
+> once per thread and the trade against boot-time panics is a good
+> one.
+>
+> Link:https://lore.kernel.org/all/20260519075809.8993-1-unixpro1970@gmail.com/
+> Signed-off-by: Tony Rodriguez<unixpro1970@gmail.com>
+> [stian: reduced the diff to the THREAD_* defines, measured stack
+>   usage with CONFIG_STACK_TRACER and rewrote the changelog]
+> Signed-off-by: Stian Halseth<stian@itx.no>
+> ---
+> v2:
+>   - drop the CONFIG_SPARC64 / PAGE_SHIFT conditional chain from v1;
+>     thread_info_64.h is only built on sparc64 and only 8K pages are
+>     supported, so define the three constants unconditionally
+>   - replace the panic backtrace in the changelog with stack tracer
+>     measurements answering David Laight's review comments:
+>     https://lore.kernel.org/all/20260520144104.618c75ca@pumpkin/
+>   - retitled from "unify thread stack sizing and add explicit 32KB
+>     stack"; the sizing logic for other configurations is unchanged
+>
+> Tested on an UltraSPARC T4-1, booted with the stack tracer armed
+> ("stacktrace") before and after this patch. The boot high-water mark
+> is 12616 bytes on both kernels - the worst path (hub_probe with a
+> printk and a timer interrupt on top) is deterministic - i.e. 77% of
+> the 16K stack before, 38% of the 32K stack after. DEBUG_STACK_USAGE
+> agrees: the peak boot-time task shows 9208 bytes left of 16K before
+> vs 25592 bytes left of 32K after (7176 bytes used in both).
+>
+>   arch/sparc/include/asm/thread_info_64.h | 15 +++------------
+>   1 file changed, 3 insertions(+), 12 deletions(-)
+>
+> diff --git a/arch/sparc/include/asm/thread_info_64.h b/arch/sparc/include/asm/thread_info_64.h
+> --- a/arch/sparc/include/asm/thread_info_64.h
+> +++ b/arch/sparc/include/asm/thread_info_64.h
+> @@ -99,13 +99,8 @@
+>   #define FAULT_CODE_BLKCOMMIT	0x10	/* Use blk-commit ASI in copy_page */
+>   #define	FAULT_CODE_BAD_RA	0x20	/* Bad RA for sun4v		   */
+>   
+> -#if PAGE_SHIFT == 13
+> -#define THREAD_SIZE (2*PAGE_SIZE)
+> -#define THREAD_SHIFT (PAGE_SHIFT + 1)
+> -#else /* PAGE_SHIFT == 13 */
+> -#define THREAD_SIZE PAGE_SIZE
+> -#define THREAD_SHIFT PAGE_SHIFT
+> -#endif /* PAGE_SHIFT == 13 */
+> +#define THREAD_SIZE (4 * PAGE_SIZE)
+> +#define THREAD_SHIFT (PAGE_SHIFT + 2)
+>   
+>   /*
+>    * macros/functions for gaining access to the thread information structure
+> @@ -128,11 +123,7 @@
+>   #endif
+>   
+>   /* thread information allocation */
+> -#if PAGE_SHIFT == 13
+> -#define THREAD_SIZE_ORDER	1
+> -#else /* PAGE_SHIFT == 13 */
+> -#define THREAD_SIZE_ORDER	0
+> -#endif /* PAGE_SHIFT == 13 */
+> +#define THREAD_SIZE_ORDER	2
+>   
+>   #define __thread_flag_byte_ptr(ti)	\
+>   	((unsigned char *)(&((ti)->flags)))
+> --
+> 2.53.0
