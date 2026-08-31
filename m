@@ -1,65 +1,66 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E64A83CC9EA
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 08:10:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D74B3CC7EA
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 08:10:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788163826; cv=none; b=nArI7kIjKR676KaynYMHbmLna0IB8uHL30PleClMRXuWzzvwBkzGLmp8CMvwuiv2wQ0Zd0gi/UGgggYQp93IXS0rUugNwUD0jVExG3dIFamQiW7T87tSdX6ZP9x29fpLNSunwe71xdfJ3+ntlVsen8hx1xsyU8F5tIpqXStl76U=
+	t=1788163833; cv=none; b=C1bxOGBwJJoht1pDfZ3jhR8t0FO/8vDjqfDKvdz0QzaNLuLzhkh75wH/965KYel1hiN1fnHqd9+DTkI7xKj/8Y87a6O0aD7rs+zW+HNb6yCvAW4LDBPXS58R3d7dJf46RBDqQ6fJaPlAe6QAFtshnqdAjl05Q8d4cZjbkRfATCk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788163826; c=relaxed/simple;
-	bh=Aob392KCiPwYOZ26v4z6ameSKdVNEWay1hUTRybnICw=;
+	s=arc-20240116; t=1788163833; c=relaxed/simple;
+	bh=QaFutOje1lyg823tSWBbhoOBYa9TMEFhpNTqa16R5ow=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=g2ZtJYaEmwx7Uja01GnzrwfSSYxki0r1fGIueXQifYpjQHRgUSSdyS1aa1RVUQWpdGtvFMaejh/85UOuTM7oJq1RAcnnrP6lLESeigcF/YB5/5XlaNsetgH0DRuzlM6hfQAAs2GEgweQmkhdNub919gr6P6ormiEsuvh7Z4U7eI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=a6YXr0Cc; arc=none smtp.client-ip=209.85.128.42
+	 MIME-Version; b=pl5ghniwIVj90AWCHWrLvLx/bgbRCgkd2vTzveDh0SwwYweb/BtHViMCZT2zgkNRWhbxZPDGz47pyIO6ESDUW93Y+k3y4Bs9ek5khPgNUaLUfM+c7PenDEHvV3EKA6ZnMzYziYN28gWfu4AgMINOI9ngvTDjd7eHfVe7irxIGB4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ys3kfpn2; arc=none smtp.client-ip=209.85.128.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="a6YXr0Cc"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-490cf322ed0so36101685e9.1
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 01:10:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ys3kfpn2"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-499ac87c92bso28945495e9.1
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 01:10:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788163822; x=1788768622; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788163824; x=1788768624; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=DQe0/H8SNUjRW9auKFahnt1W5WCW5fFGWugsoqcSd7E=;
-        b=a6YXr0CcMuslOhGbOHvGG1AENbfAN3dxqwa3TkpYpBo5n7hRhqUs2JZTcJnrQQa0Jw
-         EkBlGwygKVozAStl49+wKrfR9OVVzFD86NTxMOVtM1ELDvyNc+tndJ+W6ak4WoAAbowt
-         g78k7jgeXfUyH9Wh8boZt0NyrRZ1WtbMSES0ppouGrz93g/55xSGx8Y0bHrsMigd5SXz
-         US47fdUr0DFqw6giI1o/3lchJ4gL0nLAieNgOfLeahlayRxOuCpd1Kf5R+f4sCI3T+8S
-         IwgpmxsSajV8QOEQ/wtwtZaQKcLr94Y2O10vPC97VZuW7+AvHtoVGg8vM6AyGWU22W0P
-         moyg==
+        bh=7d5RXYEUOuzc4V23hC9MU0bXZ0pxNQetgcVjvcKaM1c=;
+        b=Ys3kfpn2WsO9Inm4kHCx9zumAjHgp9mktLZai/tLyejpwasTX+VB1PZYeFqy+2VsFb
+         v40zKGbYbRD6lbyE+JoTlsDYXxztgA1eoxLbgaUjymAEGWkBH0yHT6Raiu1dkrBrwPmg
+         eSj3OWVrOJRlvE0csw/GIR6xrErAk8zUg1X7OfiMtu3StJhx9iiWNBr7IISVS1JE16d8
+         0qD0usXwLpM6ffiBBKZcQbo6TCbPiFc92f0j39+NtzqBwnJ5Vnb6Fq9YQUXh0s0XhTSp
+         wJzsByiyDCChGQ+AedQ5h3x32zqGp/+IEyM/r/2RuL4NC4oeZY4w3GeHN/wqjgLMbRL2
+         SPSQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788163822; x=1788768622;
+        d=1e100.net; s=20251104; t=1788163824; x=1788768624;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DQe0/H8SNUjRW9auKFahnt1W5WCW5fFGWugsoqcSd7E=;
-        b=Hj909VwtUp4/Q8F5dd0RYpVyi+Z8PyoSJOJZ0mlOFKrHqRbAEszC7JNK/d7FUVswC0
-         KV5kH9DSKKffPZRcZTPCf57sa6truoQTctxFQLJNysVubQbr/rC7C5LTn3SOGe3lD1ag
-         guQgn5aF+EIeK/LvpxdRg+JwraH82yzlQ7l56kCMXeZT0iUXhU1t4np7GQIcgaavu9+e
-         CpNj2yvMdT6blBo2obnpHEdTDjPjgjRw09BNNv7A1rzfZOgq+U9PzJdjBe6ivt1O6mzb
-         oJnl90itc6eVO5ojcjWU1P0Fj17qVhJqBCiAj6evULYWtNPsSLjhdOX7QJ16s7zx4QG6
-         3GMw==
-X-Forwarded-Encrypted: i=1; AHgh+RohQmOOM290/XJKagTQ/XGJ52K4dmAh5GdDZdyDsm/35bsm+T/pRCb66DiuWOeNgfZLWdl24LmuH4vHC4Y=@vger.kernel.org
-X-Gm-Message-State: AFuF++m23WsAblxnA71ZtoScnXWYawGvf9jo2NHPQWnG2hQC/hnT/0/+
-	/6vaQxC/X/7jGfLFvjw3N4AzY5veni2rDe1UzvBv/rFEm4LNG848j/pD
-X-Gm-Gg: AR+sD12UauX5QwHqEB8dOQ9dGYYKyhPAuMDVx8xb6UmpLEDWMXiAuotHl3tuDVTv8gj
-	v4HWg5eMeDY20BigPvpq/HsA8H4ymYhYjwVwxbl26kzrOy1aKmXJkc2BzGETkjPl6Zxp8B/SLir
-	dCCeNxI2h1mcstJ+mVwwVUbeavlW6Cyr180aLGvF39CO7jNQGrVQbWzS5Ere/m63btEBVX2VVzq
-	bcaEF62rA4OGaCzUeZCsDTgIjWd7r1GndG//feDYKN6/l52cHDUU1aExInqPRnSYy/NCbRQUdkt
-	PIkWtooPd9SpHBc1jmKPH7CIfPqCwTrK4km8cb0aGz0wtBlKoK4/oXjNZqRzNck8IuDS5sbndg8
-	IDm2IOTPr8YOlTcx2JX3sb2t9YLHXuV+RNwt8eQjRwFE1fUBiO8eT3HWM3aJxQTbSopq1bjnQJk
-	Ljde4U9XFk0iMOZUWhcxxBXoS+QRre3lCEmGNBawcfLFLmFhZBN7MxDsRT1KZrkbuJR/COoOzDY
-	x4PuqnTKaf36sethL1BTj4kTGzQAR0fsaorYjoqrhUQUL4ilS9rjFeD0fAXg5ggu6dKmfKp2UZZ
-	DKylZIi5q0fFBCuAyIEF+nyteRj/aIWLUrf2tHeAgDorUTTECnXgAM0ZK8rlaYOXXC26wQ8=
-X-Received: by 2002:a05:600c:c3cf:10b0:49b:8f18:714a with SMTP id 5b1f17b1804b1-49b91c47b76mr281088265e9.12.1788163821808;
-        Mon, 31 Aug 2026 01:10:21 -0700 (PDT)
+        bh=7d5RXYEUOuzc4V23hC9MU0bXZ0pxNQetgcVjvcKaM1c=;
+        b=SfZ6tVkYbH3a8FZeF4AIYmjvcHD+ntrRF6E+9glEjH0X4CozjxulV8SD/AYXua3ta5
+         3Vmu2/Ig+dBv6HEdZwEE0hPiMTdRANQmFNCznqS40R+Rbrdt155OHDttFktExagkVXvb
+         n+4qrer91nXyq7cmBvzLo8ksA9f3LitexFRZlVayoOka8V6S5YYWkXL6Ero2VV/h/exK
+         UG3iNPfFqG0PMV26LuJudocNva4+hAVK9TVrjkMsusP0q0JFDz99wNMGOnWCdwwCw/+9
+         xgeaPfce4jiqtUA1KIvrbfN3RaCmzUJ62wo8b+cYoffPKjrl1zQYUhABrfTySXUoyoPs
+         WrOQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rp7EEkgivjXAlXTseoMIpwtpxsa+PKWBwPadwnnheyRQsIb0hlSXUS/GhH3LmoUapLH9gH1wAhOMDDeMIw=@vger.kernel.org
+X-Gm-Message-State: AFuF++nUjvtGHe7VppeFqmvToyDo68HwvjFqazO+Ol0K4k2yyvDTNGr3
+	9Nw+Xj3atEvp9swgrn9ujjKJQ0QIYKB/a5jn/MWcMZfTgBnoSWOeMnK1
+X-Gm-Gg: AR+sD13jce3hqKJfqgOgOuHGsl7qiJeJZLTJJ2ohnv4yfvOmJKO/EhjCPxQoabN4OAr
+	7ujvAZW/tlyoDM0oDIZfsUFdJCEh3JSUaoWfQEe/OvqVTQCY/b8InCADwnluaJ1aF+e6PhAkEqr
+	BSVVArZ5vuDn6HcVxxchtgMcaaEwDrtCTSKg3EAHNp5d9u57NtqFiufn1DtzBZCL9FJerOnWysc
+	hF8ZVSCCeXQtKXk1qgSG++t0Waa204SqhJSFSC3eELEg4NZ2H9+UTgJ8aRRVgjUp4WtZ1kLFelS
+	rYhHueW3psQMFjS+qT0pHegcc2NMrgopHtWumHJ50D+vmNKQ6Vz4ckddTsSOBG+jf4UoN01lY7v
+	Q924938KArEju9dZdHyaV37PiPvwxuUIOJDQ7xQMrye1Muscs5ee4ZZrg4xVY8NzHqFw2mKZm2p
+	yACP1XZC1OhRzaI//rHQ5xDPyggE0m39Gz93D8QGr0TC+Dd+EpZLEsRi9Gw2zd3mkeeyqN3G80e
+	yPsPC8LOJ9bom9wLhjmJGSbxSqy+XxxKPMMMflc1NHfNu/nrbFxmlHLs27Lu4UhI5+DML1bhbSy
+	xyTUadVTBTF6P9PgLaXh4ReHtB4unwBXLYsrIwTbwClScMpfXGxASNsZrPa+HFDymg9o8ZnRcqs
+	7AnodgQ==
+X-Received: by 2002:a05:600c:354b:b0:495:4d88:e630 with SMTP id 5b1f17b1804b1-49b91c4fb4amr349472475e9.10.1788163823703;
+        Mon, 31 Aug 2026 01:10:23 -0700 (PDT)
 Received: from localhost.localdomain (dynamic-2a02-3100-acb9-0201-68d0-34d2-ad1a-175a.310.pool.telefonica.de. [2a02:3100:acb9:201:68d0:34d2:ad1a:175a])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b95013d06sm370393515e9.12.2026.08.31.01.10.20
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b95013d06sm370393515e9.12.2026.08.31.01.10.21
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 31 Aug 2026 01:10:21 -0700 (PDT)
+        Mon, 31 Aug 2026 01:10:23 -0700 (PDT)
 From: Karl Mehltretter <kmehltretter@gmail.com>
 To: Marc Zyngier <maz@kernel.org>,
 	Oliver Upton <oupton@kernel.org>,
@@ -80,9 +81,9 @@ Cc: Karl Mehltretter <kmehltretter@gmail.com>,
 	linux-kernel@vger.kernel.org,
 	kvm@vger.kernel.org,
 	linux-kselftest@vger.kernel.org
-Subject: [PATCH v4 2/4] KVM: arm64: vgic-v3: Roll back assignments from the new region
-Date: Mon, 31 Aug 2026 10:10:02 +0200
-Message-Id: <20260831081005.41346-3-kmehltretter@gmail.com>
+Subject: [PATCH v4 3/4] KVM: arm64: selftests: Pass guest code to vm_gic_create_with_vcpus()
+Date: Mon, 31 Aug 2026 10:10:03 +0200
+Message-Id: <20260831081005.41346-4-kmehltretter@gmail.com>
 X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 In-Reply-To: <20260831081005.41346-1-kmehltretter@gmail.com>
 References: <20260831081005.41346-1-kmehltretter@gmail.com>
@@ -94,106 +95,108 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A failed REDIST_REGION write unregisters the redistributor iodevs of every
-vCPU processed before the failure. This includes vCPUs assigned to older
-regions. Their assignments remain cached, so a retry does not register the
-iodevs again.
+Pass the guest-code address to vm_gic_create_with_vcpus(), and use
+guest_code at the existing call sites. This lets tests with different guest
+code reuse the common VM and VGIC setup while retaining the void *
+interface of vm_create_with_vcpus().
 
-The vCPU whose registration fails has no assignment to roll back. For vCPUs
-processed earlier, limit rollback to those assigned to the new region. The
-region is removed on failure, so its free_index does not need restoring.
-
-Resetting assignments from older regions is unsafe because a vCPU can own
-one before kvm_for_each_vcpu() can see it. Rollback could then move
-free_index behind that live assignment.
-
-kvm_vgic_addr() holds slots_lock across the REDIST_REGION write. vCPU
-creation takes the same lock before assigning a redistributor. A concurrent
-vCPU cannot acquire an assignment from the new region before rollback
-completes. The lock also keeps rdreg valid across the config_lock drop
-required by MMIO-bus registration.
-
-Fixes: c011f4ea106b ("KVM: arm/arm64: Check vcpu redist base before registering an iodev")
-Cc: stable@vger.kernel.org
 Assisted-by: Codex:gpt-5.6-sol
 Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+Reviewed-by: Fuad Tabba <fuad.tabba@linux.dev>
 ---
- arch/arm64/kvm/vgic/vgic-mmio-v3.c | 32 +++++++++++++++++++++++-------
- 1 file changed, 25 insertions(+), 7 deletions(-)
+ tools/testing/selftests/kvm/arm64/vgic_init.c | 24 ++++++++++++-------
+ 1 file changed, 16 insertions(+), 8 deletions(-)
 
-diff --git a/arch/arm64/kvm/vgic/vgic-mmio-v3.c b/arch/arm64/kvm/vgic/vgic-mmio-v3.c
-index 22897ce64dbf..77aa8433701a 100644
---- a/arch/arm64/kvm/vgic/vgic-mmio-v3.c
-+++ b/arch/arm64/kvm/vgic/vgic-mmio-v3.c
-@@ -855,7 +855,25 @@ void vgic_unregister_redist_iodev(struct kvm_vcpu *vcpu)
- 	kvm_io_bus_unregister_dev(vcpu->kvm, KVM_MMIO_BUS, &rd_dev->dev);
- }
+diff --git a/tools/testing/selftests/kvm/arm64/vgic_init.c b/tools/testing/selftests/kvm/arm64/vgic_init.c
+index 47e34b43afb2..84aa97204b7f 100644
+--- a/tools/testing/selftests/kvm/arm64/vgic_init.c
++++ b/tools/testing/selftests/kvm/arm64/vgic_init.c
+@@ -73,6 +73,7 @@ static int run_vcpu(struct kvm_vcpu *vcpu)
  
--static int vgic_register_all_redist_iodevs(struct kvm *kvm)
-+static void vgic_rollback_redist_iodev(struct kvm_vcpu *vcpu,
-+				       struct vgic_redist_region *rdreg)
-+{
-+	struct vgic_cpu *vgic_cpu = &vcpu->arch.vgic_cpu;
-+
-+	lockdep_assert_held(&vcpu->kvm->slots_lock);
-+
-+	if (vgic_cpu->rdreg != rdreg)
-+		return;
-+
-+	vgic_unregister_redist_iodev(vcpu);
-+
-+	guard(mutex)(&vcpu->kvm->arch.config_lock);
-+	vgic_cpu->rdreg = NULL;
-+	vgic_cpu->rd_iodev.base_addr = VGIC_ADDR_UNDEF;
-+}
-+
-+static int vgic_register_all_redist_iodevs(struct kvm *kvm,
-+					   struct vgic_redist_region *rdreg)
+ static struct vm_gic vm_gic_create_with_vcpus(u32 gic_dev_type,
+ 					      u32 nr_vcpus,
++					      void *guest_code,
+ 					      struct kvm_vcpu *vcpus[])
  {
- 	struct kvm_vcpu *vcpu;
- 	unsigned long c;
-@@ -870,12 +888,12 @@ static int vgic_register_all_redist_iodevs(struct kvm *kvm)
- 	}
+ 	struct vm_gic v;
+@@ -338,7 +339,7 @@ static void test_vgic_then_vcpus(u32 gic_dev_type)
+ 	struct vm_gic v;
+ 	int ret, i;
  
- 	if (ret) {
--		/* The current c failed, so iterate over the previous ones. */
-+		/* Undo assignments made from the region being added. */
- 		int i;
+-	v = vm_gic_create_with_vcpus(gic_dev_type, 1, vcpus);
++	v = vm_gic_create_with_vcpus(gic_dev_type, 1, guest_code, vcpus);
  
- 		for (i = 0; i < c; i++) {
- 			vcpu = kvm_get_vcpu(kvm, i);
--			vgic_unregister_redist_iodev(vcpu);
-+			vgic_rollback_redist_iodev(vcpu, rdreg);
- 		}
- 	}
+ 	subtest_dist_rdist(&v);
  
-@@ -984,10 +1002,13 @@ void vgic_v3_free_redist_region(struct kvm *kvm, struct vgic_redist_region *rdre
- 
- int vgic_v3_set_redist_base(struct kvm *kvm, u32 index, u64 addr, u32 count)
- {
-+	struct vgic_redist_region *rdreg;
+@@ -359,7 +360,8 @@ static void test_vcpus_then_vgic(u32 gic_dev_type)
+ 	struct vm_gic v;
  	int ret;
  
- 	mutex_lock(&kvm->arch.config_lock);
- 	ret = vgic_v3_alloc_redist_region(kvm, index, addr, count);
-+	if (!ret)
-+		rdreg = vgic_v3_rdist_region_from_index(kvm, index);
- 	mutex_unlock(&kvm->arch.config_lock);
- 	if (ret)
- 		return ret;
-@@ -996,12 +1017,9 @@ int vgic_v3_set_redist_base(struct kvm *kvm, u32 index, u64 addr, u32 count)
- 	 * Register iodevs for each existing VCPU.  Adding more VCPUs
- 	 * afterwards will register the iodevs when needed.
- 	 */
--	ret = vgic_register_all_redist_iodevs(kvm);
-+	ret = vgic_register_all_redist_iodevs(kvm, rdreg);
- 	if (ret) {
--		struct vgic_redist_region *rdreg;
--
- 		mutex_lock(&kvm->arch.config_lock);
--		rdreg = vgic_v3_rdist_region_from_index(kvm, index);
- 		vgic_v3_free_redist_region(kvm, rdreg);
- 		mutex_unlock(&kvm->arch.config_lock);
- 		return ret;
+-	v = vm_gic_create_with_vcpus(gic_dev_type, NR_VCPUS, vcpus);
++	v = vm_gic_create_with_vcpus(gic_dev_type, NR_VCPUS, guest_code,
++				     vcpus);
+ 
+ 	subtest_dist_rdist(&v);
+ 
+@@ -411,7 +413,8 @@ static void test_v3_new_redist_regions(void)
+ 	u64 addr;
+ 	int ret;
+ 
+-	v = vm_gic_create_with_vcpus(KVM_DEV_TYPE_ARM_VGIC_V3, NR_VCPUS, vcpus);
++	v = vm_gic_create_with_vcpus(KVM_DEV_TYPE_ARM_VGIC_V3, NR_VCPUS,
++				     guest_code, vcpus);
+ 	subtest_v3_redist_regions(&v);
+ 	kvm_device_attr_set(v.gic_fd, KVM_DEV_ARM_VGIC_GRP_CTRL,
+ 			    KVM_DEV_ARM_VGIC_CTRL_INIT, NULL);
+@@ -422,7 +425,8 @@ static void test_v3_new_redist_regions(void)
+ 
+ 	/* step2 */
+ 
+-	v = vm_gic_create_with_vcpus(KVM_DEV_TYPE_ARM_VGIC_V3, NR_VCPUS, vcpus);
++	v = vm_gic_create_with_vcpus(KVM_DEV_TYPE_ARM_VGIC_V3, NR_VCPUS,
++				     guest_code, vcpus);
+ 	subtest_v3_redist_regions(&v);
+ 
+ 	addr = REDIST_REGION_ATTR_ADDR(1, 0x280000, 0, 2);
+@@ -436,7 +440,8 @@ static void test_v3_new_redist_regions(void)
+ 
+ 	/* step 3 */
+ 
+-	v = vm_gic_create_with_vcpus(KVM_DEV_TYPE_ARM_VGIC_V3, NR_VCPUS, vcpus);
++	v = vm_gic_create_with_vcpus(KVM_DEV_TYPE_ARM_VGIC_V3, NR_VCPUS,
++				     guest_code, vcpus);
+ 	subtest_v3_redist_regions(&v);
+ 
+ 	ret = __kvm_device_attr_set(v.gic_fd, KVM_DEV_ARM_VGIC_GRP_ADDR,
+@@ -608,7 +613,8 @@ static void test_v3_redist_ipa_range_check_at_vcpu_run(void)
+ 	int ret, i;
+ 	u64 addr;
+ 
+-	v = vm_gic_create_with_vcpus(KVM_DEV_TYPE_ARM_VGIC_V3, 1, vcpus);
++	v = vm_gic_create_with_vcpus(KVM_DEV_TYPE_ARM_VGIC_V3, 1, guest_code,
++				     vcpus);
+ 
+ 	/* Set space for 3 redists, we have 1 vcpu, so this succeeds. */
+ 	addr = max_phys_size - (3 * 2 * 0x10000);
+@@ -641,7 +647,8 @@ static void test_v3_its_region(void)
+ 	u64 addr;
+ 	int its_fd, ret;
+ 
+-	v = vm_gic_create_with_vcpus(KVM_DEV_TYPE_ARM_VGIC_V3, NR_VCPUS, vcpus);
++	v = vm_gic_create_with_vcpus(KVM_DEV_TYPE_ARM_VGIC_V3, NR_VCPUS,
++				     guest_code, vcpus);
+ 	its_fd = kvm_create_device(v.vm, KVM_DEV_TYPE_ARM_VGIC_ITS);
+ 
+ 	addr = 0x401000;
+@@ -684,7 +691,8 @@ static void test_v3_nassgicap(void)
+ 	u32 typer2;
+ 	int ret;
+ 
+-	vm = vm_gic_create_with_vcpus(KVM_DEV_TYPE_ARM_VGIC_V3, NR_VCPUS, vcpus);
++	vm = vm_gic_create_with_vcpus(KVM_DEV_TYPE_ARM_VGIC_V3, NR_VCPUS,
++				      guest_code, vcpus);
+ 	kvm_device_attr_get(vm.gic_fd, KVM_DEV_ARM_VGIC_GRP_DIST_REGS,
+ 			    GICD_TYPER2, &typer2);
+ 	has_nassgicap = typer2 & GICD_TYPER2_nASSGIcap;
 -- 
 2.39.5 (Apple Git-154)
