@@ -1,115 +1,70 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16A994E80DA
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 14:32:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1C3E4E8DEE;
+	Mon, 31 Aug 2026 14:33:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788186770; cv=none; b=UNocTWUTuNnJ+qXmbAEqmmvTLboon2oCetEWOZrTEpi81Ak+V2xUFtKzguX9kd+MAXKlTLKQSAc1dCmxfYjkMDGJROCavOFMBLketiSmaBPe+jGemebkjjdxK9V/MqasbSVkKYGsQTuzLzRhXaEu/7XeA2UkzPRKOFevJ9Yc3Yg=
+	t=1788186782; cv=none; b=lquQuDJ6X6+8RdxQidv74WaBBcgtouxavwS9U/lIqtCVuJhz8lAGrOfYUCEqgia5HETb9yPjzNnXx0a6hzQ/8wYO9LxvKVA/ajVR2V1BRd0GTCKJKEcODaFljy5M1zsl2NIIqOiy1lrgdW73flveZpyBs4wX+v7V7bnKHHB6gjU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788186770; c=relaxed/simple;
-	bh=QjMSkXe0n6TBETzI3Ha2tiZ8wGiaGM9B4fBWkY0BniE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Uf+jwhA0tLygNNiYve1pJ+uKsUYDGbN8juUZlsdvlkiEoi8X7H7WozfQjwh4Qb+qZ5G3reqrNPfegAMfw6vLrIsfd980HRJp/VuoUmtcJlLBFPF9JJc3Oo5lVVLudjU5oTYrstJi5HgViack7Ai94fUCDvc1m3/kdvR+Igk1VcM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MJnW45oV; arc=none smtp.client-ip=209.85.128.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788186782; c=relaxed/simple;
+	bh=L8RhlQFyPiBZ+TbEiSgbtHpc0i4DTh8+hs9quUtf2hM=;
+	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
+	 Subject:From:To:Cc:Date; b=XsZfCziXs3ATQSLfiGrzq5t7egQhnp4sxCqYkDOIqqcI+puMwz+0LZptYvIhA9q1wTAbOSmV65FjW5PfmJ0mOv4quB6fDv9cdjr6vAjJfIsFrx7Ao2mvPj/LaQtGL2RFsXCgIHFWeEXSTUTR8DCFrX63byby7UIVCUyY3Ix9Y4M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E3WraPmB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MJnW45oV"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4956869750eso23182475e9.2
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 07:32:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788186767; x=1788791567; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=GWaK2495asznjoEZZji7S7Kk6wtOsxYz8ipCUtATvyQ=;
-        b=MJnW45oV/XbuoEXUI/vDyeIcwima7IgbqwDMnXUeA9/qA00WI2LnycOSpegEfjJ3bi
-         S1l2OLs1aGxU+0h/CUa6vz8m9sMSYJBZzxdx7lDCCFZrHBRXqx2X9dbeF37ywz4aLyFs
-         svOD5aWoe8Wi0PpjMjTLOF48AnhGbhzaNjLZ7pQGct4J26cb4GQnS6E3CdGCLXZQjL8q
-         zr0Jc4kmjs+j8arYX+UYQq6cKwYODMTavh4E8/aW/6yuqkRRl6TPYgCVo5qAfFxPKC7X
-         Il9T/BPZK3G/HB36augVssACj0reTm/X1Z0iDnDkdBsZHEQmzjac3rhGQTE1ZDhxjbYv
-         +4OA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788186767; x=1788791567;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GWaK2495asznjoEZZji7S7Kk6wtOsxYz8ipCUtATvyQ=;
-        b=T7HGnm34+Ljn7Dd5G3ev1vvc6zeJzuX7by+jvabf7stApmoiyECjs09A/sOrR0LRKp
-         unhFoj64O65gXAOPtEWDhnjVcva6zvHOw8ktyZAetEYAJGE+34zKVHk2wpzs52VpQjoi
-         /WYLSJUxzdYg2M3pI5pkoV/T75kMqexQY31w84C/x0cffQdf9u+eTF1Ey5n+X7sZqdhW
-         WzaR2rLXL9AMYxyQaokzoRQ9A6m8KGP+7iBRzoRKVkb0YJhCJESLjriZn1l7+DrgwAC4
-         iyL2Kbs8+OeDarsb19eFJNcULZhYyR2QQ3X0pf/HgNg/C6v6naOxT/L/lCgazJ3gUJjf
-         ecqA==
-X-Forwarded-Encrypted: i=1; AHgh+RocnSvhgNwErZHvyh3DOPs/jPvo1IszovGkJsQEucWQWw2oeP7mo3saahTBxx8XyHCeQbNvc8gScWbMeuY=@vger.kernel.org
-X-Gm-Message-State: AFuF++lylKxIdoP1dInOrF6RdQ0Tj7JTPKD1e54IZFPrG1qwBWqMSsbI
-	2vIfcOeG/UJC/u68EZc0j1PvS/kHjVglRMZpamIT7iFatYVGQl0zItuX
-X-Gm-Gg: AR+sD10RXrYXMFxIfJFoqMIqMiR7rYo7ukcyMKkhmZP9rvtWbMFo9HUqXUXn+hHw+Ov
-	MLwGvyTbqRVdKxUHJsuP7KJtlhto6ocgr1ILULYxTnkdo7yG2KaJhtYY2r79E3W8j/hyCFwRnsq
-	nZugIVN8x3rC8pGO2P8DvQ7MtZDJ543TW2cjP4GJiFxO5dRhQj1yWo5p6Ku6a9JAZqMDWq9lZb7
-	ROV+vPjTQu8LJNq0xZudEH0HVIqXRBKVbXIchOQF7q8Tr+1RXUaq/Xu9yTjzQSlzI1Va0k2zpjo
-	w4mdLPKkiItGOT1kYUw8+flU29g2++6vwqd4l2RRmgl62zKTLQ5mgXfMLhPe3tKlaMhY8qCzQKf
-	1F2nlifVNYgGp8BB63ihdXtvAm32Go3NEEdhIjfWMoTruAoEJoFE2a6NPp1rtoEFhZEZgJKnCvx
-	wT4phAjHFjfWc4H9ky6UcE1buHyYtQ8rFsZIp9zjoKKJWonG1yywIwweDFeLk5O81d+JXcRMRcV
-	ihq4L7D2v1iAGMISOpq5lMU
-X-Received: by 2002:a05:600c:c494:b0:499:8aff:59b6 with SMTP id 5b1f17b1804b1-49b91c486c3mr330092135e9.14.1788186767364;
-        Mon, 31 Aug 2026 07:32:47 -0700 (PDT)
-Received: from unix.. (244.red-81-44-253.staticip.rima-tde.net. [81.44.253.244])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b945816f2sm344786125e9.8.2026.08.31.07.32.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 07:32:45 -0700 (PDT)
-From: =?UTF-8?q?Iv=C3=A1n=20Ezequiel=20Rodriguez?= <ivanrwcm25@gmail.com>
-To: Jonathan Corbet <corbet@lwn.net>,
-	Bartosz Golaszewski <brgl@kernel.org>
-Cc: linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-gpio@vger.kernel.org,
-	=?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>,
-	Jason Wang <jasowangio@gmail.com>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	=?UTF-8?q?Iv=C3=A1n=20Ezequiel=20Rodriguez?= <ivanrwcm25@gmail.com>
-Subject: [PATCH 6/7] docs: ioctl: fix stale NVMe registry entry and note N conflict
-Date: Mon, 31 Aug 2026 11:31:24 -0300
-Message-ID: <20260831143125.151360-7-ivanrwcm25@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260831143125.151360-1-ivanrwcm25@gmail.com>
-References: <20260831143125.151360-1-ivanrwcm25@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E3WraPmB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D7331F000E9;
+	Mon, 31 Aug 2026 14:33:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788186781;
+	bh=ioTcirFgjt11MJvXw07ZI60BuEgp2FCMyrIWw8Zn5pM=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=E3WraPmBO2a7SYhC+/M9OesyUojyj79L0b/sc7Vr0uvR6MvxGm516Ky7WgLkU/vDA
+	 FqI0oNe8nNkNqzxbrLvrzr4aVFEiJzFlCUHv57igvWaVejXLM34qi+QyMKTunNaJ3N
+	 jri03h89AmR0WRWCFy3rmPnOyCKuAfjUW+N81HYCO8nPA5V/LihYXdwGLAZgqxO+Vx
+	 enlFa2blAirUxjKE9q6uNd79RDbn30y0o0BECnWBz1wSxVcIJ0DFa4+aw90Ej8u7pr
+	 dGFG8vGu77jy0MMP1XbpaYAh1yadcvOERZWAxYWqpfJYf+GJVYWYyztgbf2E3raxA5
+	 YMVTUdMTVjBVA==
+Content-Type: multipart/mixed; boundary="===============3553436697400353996=="
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Message-Id: <0286b97409c113f28068c7d3866ddaa6a88852c7fd300786d1e62c8ac077b619@mail.kernel.org>
+In-Reply-To: <20260831134537.1227914-1-sudipm.mukherjee@gmail.com>
+References: <20260831134537.1227914-1-sudipm.mukherjee@gmail.com>
+Subject: Re: [PATCH] libbpf: Fix debian kernel version information parsing
+From: bot+bpf-ci@kernel.org
+To: sudipm.mukherjee@gmail.com,andrii@kernel.org,eddyz87@gmail.com,ihor.solodrai@linux.dev,ast@kernel.org,daniel@iogearbox.net,memxor@gmail.com,martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,emil@etsalapatis.com
+Cc: bpf@vger.kernel.org,linux-kernel@vger.kernel.org,sudipm.mukherjee@gmail.com,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Mon, 31 Aug 2026 14:33:00 +0000 (UTC)
 
-The NVMe row pointed at drivers/block/nvme.c, which no longer exists,
-and ioctl numbers 0x80-0x83 overlap between ntsync.h and nvme_ioctl.h
-without a conflict! marker.
+--===============3553436697400353996==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Signed-off-by: Iván Ezequiel Rodriguez <ivanrwcm25@gmail.com>
+> libbpf: Fix debian kernel version information parsing
+>
+> Currently get_debian_kernel_version() expects the version to be in the
+> form of x.y.z but the Debian kernels uploaded to experimental are not
+> always LTS kernels. Like the current Debian kernel in experimental
+> is 7.2~rc7-1~exp1 and uname -v reported "Debian 7.2~rc7-1~exp1".
+>
+> Signed-off-by: Sudip Mukherjee <sudipm.mukherjee@gmail.com>
+
+This looks like a bug fix for get_debian_kernel_version() that was added
+in an earlier commit. Should this include:
+
+  Fixes: d1d7730ff875 ("libbpf: Correctly set the kernel code version in Debian kernel.")
+
+
 ---
- Documentation/userspace-api/ioctl/ioctl-number.rst | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
 
-diff --git a/Documentation/userspace-api/ioctl/ioctl-number.rst b/Documentation/userspace-api/ioctl/ioctl-number.rst
-index 2fc53093752d..bb7004e6043d 100644
---- a/Documentation/userspace-api/ioctl/ioctl-number.rst
-+++ b/Documentation/userspace-api/ioctl/ioctl-number.rst
-@@ -181,8 +181,9 @@ Code  Seq#    Include File                                             Comments
- 'M'   01-03  drivers/scsi/megaraid/megaraid_sas.h
- 'M'   00-0F  drivers/video/fsl-diu-fb.h                                conflict!
- 'N'   00-1F  drivers/usb/scanner.h
--'N'   40-7F  drivers/block/nvme.c
--'N'   80-8F  uapi/linux/ntsync.h                                       NT synchronization primitives
-+'N'   40-7F  uapi/linux/nvme_ioctl.h
-+'N'   80-83  uapi/linux/ntsync.h and uapi/linux/nvme_ioctl.h           conflict!
-+'N'   84-8F  uapi/linux/ntsync.h                                       NT synchronization primitives
-                                                                        <mailto:wine-devel@winehq.org>
- 'O'   00-06  mtd/ubi-user.h                                            UBI
- 'P'   all    linux/soundcard.h                                         conflict!
--- 
-2.43.0
-
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/33399492426
+--===============3553436697400353996==--
