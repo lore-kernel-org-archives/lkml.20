@@ -1,167 +1,465 @@
-Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012004.outbound.protection.outlook.com [52.101.53.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 436B7545D8E
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 13:46:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.53.4
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183974; cv=fail; b=n7dS2emfyNVFFja3AoB8FCefcJSL13YTvhV4SKhx5uW+/4vSvdWTT9aosTqRhUP3tw4rYuLUFHIPUf5wSXCJBfamBj+UFwKyEH8AtN1EXOfGcYv9iUgl6b4Z5hV1wY2IvjBvzPfGhOSzRtxVQCIqPpEna+1qyql3++E73TMz+GE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183974; c=relaxed/simple;
-	bh=R4jzsFYEnIaUAe3P7VSe6pLAxM6Dgbg8ElRvboxzaSM=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42B9B545281;
+	Mon, 31 Aug 2026 13:46:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788183972; cv=none; b=heC5mVRohm0gRDY9lUlco6NS0O7aNoKQkyTcbKr7tzuH3vvPECGIK6TDKUwuO88Ee117KaGnTYiwKgKX8Sf9ESczkWWVivDWZgHaeLhsCFLtx6KuWpA+09U+wUYcykxKPUSl62qcy4KKN4aNYiFYaHP/Qq2GZ8ebVb3TNcsdhdg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788183972; c=relaxed/simple;
+	bh=b4DTqo5FvFIy5AqMW3T2xxF8pGsbNqZjFdxVccvjIIU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=dckS7SXAvFnnxlnL3qzt86CkhQrixeV3z5u3djAXFYN/GHoLdVVtXaOQxVlMHgXpPROwLjyyjzI92alro9auGzEf5P8/VCfp7IkqfeU/MqUjP95WCQ4cWA+DBlYfuGlEpwkvOb6G8uH6Sl7PLMfvqaXcYcfKGR6vG4h3zTwyrmQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=fy4vMYGf; arc=fail smtp.client-ip=52.101.53.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	 MIME-Version:Content-Type; b=nDQsrT0cg2db5bcwqk0qtJ7rLe44NddT3eH2yxfHb7HKK/XUeXlatrwdDSLzcLoPOUz5kcTX2FctNpvfN+BFoFwmhRIDqwv47zJfwlfgcTx01Ee5iCtZILM0PxKf566V5z9t6V0NMeBTZcRV+z7D6kOzc3SnSM7NH/sus0UstoA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ayGhAm54; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="fy4vMYGf"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=oqmDK1gDhV6Twj0ifdKhEWfzVuICNOSVb9DUv30L2u3cbO7as+Gw5Pjk6/stn9MHUs9dcyUbrwijmZPetWIcSAqlEY0+QayQnXT/kTJeXER29jwPF3ktYhqwEIY0P6uGTXuCoxNaEvz6NycUkyFYv8WOsmyd6ELwurzOz4WkHAKLzm3iD8GA2U5i6ztRyVDsNm1OWsPT7PKmXljshW0VfNtaY5Za466lF+VvU80jQYe5GAxtkDCV64YeuOQiCAYZdh1aWxXDW6EPreFqGfHU5a2A/dSY/2G7O4ErK/km1YtpTwR40Ru3eC7nWdVawUJUsGUyhYAEB4nKom9zhawFWQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=W8oIIx5qCJ/qG+Xg6UxdAUrUxgKPrJ4WQy+5Bhc1krA=;
- b=txl5Sc99guOEwJA/INRv8sCXLMv8X5T5GWAKqk/SvNNjpW4YgIZxtrhDDifGBp3qfkcDGLRwG5CZiKnci8gZsyDzoKzE9UzTNHbn6qUnJTYOCzW8fMaq1hthOgHCJXDi7HV3rlHLK7jpBNesXDsZow+jSVwjXdOidxd/odT+nrcNFNatZkdcZSFtJYjCoXRRJK57dKivKOc/r/kyozNlAovWQMUADv/sZA1B9OVkVW2BoAy7BTVbiJybJPpVVZ2lb+J1EYXFg0KBNpFSI3Hsidd6j+gk0D4gMbwPkuOog5+rzQ/pgHNvwCK/0Go8iMkLPc5WrvRZC+bSCqbFfR+2RA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=W8oIIx5qCJ/qG+Xg6UxdAUrUxgKPrJ4WQy+5Bhc1krA=;
- b=fy4vMYGfnxVyttZBka3OpDF9GO/Y1jY2rqkoAcMusPMz8ckOKM1RDznRr2bEuPMgqkDEVve346RHww4gBT4vYcWufZmwWh+pHC+dgGUnIi+PS1LmI+J8zbpCqSo+TjhwlWX+8blKG1PbKR+KjzCYUemZDaQuGSmwTjBwKt+ZZmpJ+naIiySNRfVVkIDXIpfU3fUkmtyzUsqbNZE2IVvt23dLB61FQewm2FQr2UtUJ1sM3akyOwsW5aYzhL1yomtsyEMU/RQtR6k77TbsSrzUjv8qOqPu2c/2Q1FuII2C2EgNutEBi/8yQBeozp16WWHJGWTytYv2xG0jZeyge88DKQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DM6PR12MB4827.namprd12.prod.outlook.com (2603:10b6:5:1d6::14)
- by MW4PR12MB6755.namprd12.prod.outlook.com (2603:10b6:303:1ea::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.12; Mon, 31 Aug
- 2026 13:46:01 +0000
-Received: from DM6PR12MB4827.namprd12.prod.outlook.com
- ([fe80::6261:3040:864b:159c]) by DM6PR12MB4827.namprd12.prod.outlook.com
- ([fe80::6261:3040:864b:159c%5]) with mapi id 15.21.0360.008; Mon, 31 Aug 2026
- 13:46:01 +0000
-From: Andrea Righi <arighi@nvidia.com>
-To: Tejun Heo <tj@kernel.org>,
-	David Vernet <void@manifault.com>,
-	Changwoo Min <changwoo@igalia.com>,
-	John Stultz <jstultz@google.com>
-Cc: Ingo Molnar <mingo@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>,
-	Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Christian Loehle <christian.loehle@arm.com>,
-	David Dai <david.dai@linux.dev>,
-	Emil Tsalapatis <etsal@meta.com>,
-	Lee Trager <ltrager@nvidia.com>,
-	Richard Cheng <icheng@nvidia.com>,
-	Koba Ko <kobak@nvidia.com>,
-	Aiqun Yu <aiqun.yu@oss.qualcomm.com>,
-	sched-ext@lists.linux.dev,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ayGhAm54"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C040C1F00A3F;
+	Mon, 31 Aug 2026 13:46:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788183968;
+	bh=jLWiOl+oEcyUeRXWZBezCLaWKqLNiKK1v07cQaOuK4g=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=ayGhAm542qSIdGGZIZBjVsJjazOu/D7wm6PC8WxehgP009j7p4/uZzU/mxGFLvKze
+	 SCqmiokk3IYubX5yOP/ZWVJ9Tc93HVdmDwcJERCCXJ5W6Vv8dsZLJvv79+8JQ/auIR
+	 LB2V8puxdpdVmsqdn/0uNXzb3PlAsX73MEr3jA2V76jBHxArpoNfwk4cetc3XfJaXy
+	 IjcnykB0mBNXNgjfzIt0RkuWfx2hU9eTShdGR8abig3sLgsQ3PUlQzu+FXmnyx6pmM
+	 /63jwIIk4uyn2bERU/eLhudl8Q62nwU8bxzCdx0uNqmqPlpwZzNxltFZgenFmOeprK
+	 pFeziE41qeYmw==
+From: Sasha Levin <sashal@kernel.org>
+To: patches@lists.linux.dev,
+	stable@vger.kernel.org
+Cc: Chih-Kang Chang <gary.chang@realtek.com>,
+	Ping-Ke Shih <pkshih@realtek.com>,
+	Sasha Levin <sashal@kernel.org>,
+	linux-wireless@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 18/18] sched: Allow enabling proxy exec with sched_ext
-Date: Mon, 31 Aug 2026 15:42:28 +0200
-Message-ID: <20260831134338.1531664-19-arighi@nvidia.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260831134338.1531664-1-arighi@nvidia.com>
-References: <20260831134338.1531664-1-arighi@nvidia.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SJ0PR03CA0057.namprd03.prod.outlook.com
- (2603:10b6:a03:33e::32) To DM6PR12MB4827.namprd12.prod.outlook.com
- (2603:10b6:5:1d6::14)
+Subject: [PATCH AUTOSEL 6.18] wifi: rtw89: suspend DIG when remain-on-channel
+Date: Mon, 31 Aug 2026 09:27:19 -0400
+Message-ID: <20260831133314.4125787-411-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
+References: <20260831133314.4125787-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4827:EE_|MW4PR12MB6755:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3abbc527-3ef5-4013-529e-08df076631f9
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|1800799024|23010399003|366016|10067099003|56012099006|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	66Nw0kYB79X2ZDyaPd6u8DG/V/H1lNMo4pl707RwoNWUr9ptJ96wuumf8+UDbKVM0Ow+kDqW2mug+n1e7F0PWZD8zWPcfILWA+/hLbgYd+LsYr8wAyc5jtC8zCdMWDtzeCZvT+M5bSYCmj9mQCvcou2Jp1H/dRMwJz2AXD9s0GAafcvB+aYjC7p2EwYlaDXmwXbC+gWHLpuVokdRQdI4jS3j26RIWkq78N91n9muXHeYH/VeQ+DPBoJ2IMn1ukJAyA1U8S6hJPzOdaYwdQ32EJQ/Fws4ckDXpX6VUKUowZqTF1VYunHw1Vux3KDEbe8KrmPqRlPSK2hnXSCiHnVGeyDszlsDQxiW5x4kRuxSahpykWUiJxq/1WDbUFuH7MQny1Q0hJzEzOYAFs9JfudbdWBeS1kPBZXhsOcslSlRNdyeH3UK84GSc8kWYUx/1GfZswA4zcVIv3cVx34rKBf5fTHVk3cGzqriH1R3l6qJVpHePv7WpZD6mqlZ9agC7iilURhe4/s4/r0V+6/5B4g2A1aNE7nGIRtKvYut5gJCdqb5Qz6/8vub37gMXNjI30tvrX9FoztywuNPF7sBHF+cB4CnT/2CTWQMxAeutzlq8LM3z8fS6dVcE+n0/GMczKT9VLXACElI8Bn93v1mOpAiGeIdsYShquVHboWo3wewbkc=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR12MB4827.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(23010399003)(366016)(10067099003)(56012099006)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?mMx20tmzyH25fquZqbZyHOz7FiT3T9ABLbvdBQaGXhE5E80TvXFrORAY+C7w?=
- =?us-ascii?Q?Q7a1DUHXDLyqe1usPx7r0Ar2NGMCJr/3vutOewUy/dooTmanGeKQ4IhdYTas?=
- =?us-ascii?Q?e226baKBiRWPCuH8AZowbYXqb2Zi120o2ydVqt6Thd4rwQrYts0haD8qtymg?=
- =?us-ascii?Q?36hiLiNiWfekUjuzuHYOkvYrpBPlFdwSwiPLnKnqdVwj89HErQVONgcKw9r6?=
- =?us-ascii?Q?0nvTOvykzEoKcGf0mxC6Dn5/NwwM91h9532bPM/UkafoFMV2V06Yo8FOD2/M?=
- =?us-ascii?Q?/WK2hEXRbekFqLCJNeY0UJTOVOkMVNIS7oxyB+PE0iWWuiBFJmviMdT7T08Q?=
- =?us-ascii?Q?PpqDmQxJoiU8B467gjznldsF/MWkIABR8oSUpKdahP5K0PlutwB7JhbhREZb?=
- =?us-ascii?Q?6N+9z/ZlW4JoLyAHfg54ovU05DzZdopQ4wlwDBdnbd24LvxdTVBXHceTjcAU?=
- =?us-ascii?Q?mxHf6X8GBzY/G7D4QLZDbtSeIZWPVzTzBBjXik1i30TtehqobjELk+8dd7tr?=
- =?us-ascii?Q?D+fEodhVhnfHi0Sc9wGzmJmPGxUtqnsdg3ZwzFXwklJDhCuML7em1olW0QS2?=
- =?us-ascii?Q?4Uk5KiU2aMukZp8A/1+j2ncn9ELb4oKWwzlyY5wtfbHPn0Vjd1u6Z08+mPNr?=
- =?us-ascii?Q?XtRi0ut/6ufoEe63tJgLgWYOkl97w9ttM1ftHV79Xc8OL5YVVuw652z6BF/G?=
- =?us-ascii?Q?yHWD0VPYpUcHPvHLKnkQwdIMXh2vyGx/cPD938nDPKogcbDV/dVvdEWqrZWw?=
- =?us-ascii?Q?+oCS+0/5CQOz+OHpVQqlUeEn2eNvBp7NSMBjGVWfKUUReED577Zvjsng8JVI?=
- =?us-ascii?Q?yt+oiZZn4VX7+xoq+Dy/hHdOJy+WdbM+Z0x/z2BA+amNKQHG4wvFls8PY1dG?=
- =?us-ascii?Q?Aumx5YR8i+ymOTJNaPwrNBjQ9r+hidRf3KOFeJZuilnldDSdynAZFkKO9a+D?=
- =?us-ascii?Q?XCf4fdlIZb5exvPxSl5WpQUsKc1rzaEvpH5QVfh3pvoGNnjA/Plc5ytzi27H?=
- =?us-ascii?Q?tff7Mie9uD0TN2UQX5KqAgt9hv9VoqUNFJhLXCBcwep0B14YV3r/0YZE4SHP?=
- =?us-ascii?Q?BmwGe2+T7rGEPKQ1oYK07jOL1h03h5SXT5JerInHvG5F4+uQ6cXicqGi4UPZ?=
- =?us-ascii?Q?CV1Vi3TyRvoI7/K3VI3EnaTNbW9RBPO9Un35Cwc/gh3ZmBZ51RLvLEKjkf4t?=
- =?us-ascii?Q?ABxj63xTDMo3n06s0Wv0GDFhtUwu8Dohl3158H5P8W5Bp9G+jtDEdWf3axdw?=
- =?us-ascii?Q?DSxM2h+h579A0gACfOwwW737rNuMGwnoE6p+Pb+wGQ/P78C+ZdoLj1qoxAC+?=
- =?us-ascii?Q?cxHXiC1uxXRFINtLYo6B7RmkxTCbKgrY5NT4QtULzH5MkqTZtpmQJyLgnZSB?=
- =?us-ascii?Q?3tIrevXlwGWk9ZXI+W55g9inrVi3M3VwJ26lFzW9Wc/qoKUahOnv5XGSUee4?=
- =?us-ascii?Q?IDCuBMJInRG7ZghlPWgldDvlfL5osxdLUXFauKr5Gh/OMK5TZlSayEi4zClP?=
- =?us-ascii?Q?py+HUUAy4fgydoEACQnOw+swfXeBiv34vbj7+T84lUSBeKxLrPsg58jXCrEP?=
- =?us-ascii?Q?dC1vUzRW85JTBrU/QjaSbr5JGot/a1yDkg2uX70leXZrDQ2Pdro/Q5DqiEfl?=
- =?us-ascii?Q?dcrd6iCNzpmmn+XL1KO5i2ijskWodIieXoGY9KemZqXkOUo2vRgwYjRwIx08?=
- =?us-ascii?Q?992KXZkfuyZGsrmefeuJgDTP9zkMa2sjQRHE2E1L9kQ4i7ayaCJIbO2S+U/2?=
- =?us-ascii?Q?EzN5Kt6S1g=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3abbc527-3ef5-4013-529e-08df076631f9
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4827.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 13:46:01.7792
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: IXNuzA/QKH6uWvb6w9tMZRfemw8bkq0bHLOFwmd5uIIRLd8JqxyK42uJTvIWw6ZAa/cG3h1p29DbFb7R5oXjuQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6755
+X-stable: review
+X-Patchwork-Hint: Ignore
+X-stable-base: Linux 6.18.48
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Now that sched_ext can handle proxy donors and BPF schedulers can opt in
-to blocked-donor enqueueing with SCX_OPS_ENQ_BLOCKED, remove the
-!SCHED_CLASS_EXT dependency from SCHED_PROXY_EXEC and allow both options
-to be enabled together.
+From: Chih-Kang Chang <gary.chang@realtek.com>
 
-Acked-by: John Stultz <jstultz@google.com>
-Signed-off-by: Andrea Righi <arighi@nvidia.com>
+[ Upstream commit 602b58bb45b2f2bf848215560406ff87dc9a0ab6 ]
+
+The PD (Packet Detection) lower bound is set after the STA interface
+connects. When the P2P interface attempts to find peers, it enters
+the remain-on-channel flow to listen for probe requests. However, if
+the RSSI of the connected AP is too high, the P2P interface fails to
+receive it. To resolve this, suspend the DIG during the
+remain-on-channel period.
+
+Signed-off-by: Chih-Kang Chang <gary.chang@realtek.com>
+Signed-off-by: Ping-Ke Shih <pkshih@realtek.com>
+Link: https://patch.msgid.link/20260420034051.17666-15-pkshih@realtek.com
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- init/Kconfig | 2 --
- 1 file changed, 2 deletions(-)
 
-diff --git a/init/Kconfig b/init/Kconfig
-index 8583d9f06c522..f3b3bbd14dc41 100644
---- a/init/Kconfig
-+++ b/init/Kconfig
-@@ -938,8 +938,6 @@ config SCHED_PROXY_EXEC
- 	bool "Proxy Execution"
- 	# Avoid some build failures w/ PREEMPT_RT until it can be fixed
- 	depends on !PREEMPT_RT
--	# Need to investigate how to inform sched_ext of split contexts
--	depends on !SCHED_CLASS_EXT
- 	# Not particularly useful until we get to multi-rq proxying
- 	depends on EXPERT
- 	help
+LLM Generated explanations, may be completely bogus:
+
+# Stable Backport Analysis: `wifi: rtw89: suspend DIG when remain-on-
+channel`
+
+**Local tree:** `v6.18.43` (Makefile: 6.18.43)
+
+---
+
+## PHASE 1: COMMIT MESSAGE FORENSICS
+
+### Step 1.1: Parse the subject line
+**Record:** `[wifi: rtw89]` — no explicit "fix" verb, but describes
+corrective behavior — `[suspend DIG when remain-on-channel]` — suspend
+Dynamic Integrity Gain (DIG) during P2P remain-on-channel (ROC)
+operation.
+
+### Step 1.2: Parse all commit message tags
+**Record:**
+- **Signed-off-by:** Chih-Kang Chang `<gary.chang@realtek.com>` (author)
+- **Signed-off-by:** Ping-Ke Shih `<pkshih@realtek.com>` (Realtek rtw89
+  maintainer)
+- **Link:**
+  `https://patch.msgid.link/20260420034051.17666-15-pkshih@realtek.com`
+  (patch 15 in a series, per message-id)
+- **No** Fixes:, Reported-by:, Tested-by:, Reviewed-by:, Acked-by:, or
+  Cc: stable tags (absence of Cc: stable is expected per review pipeline
+  rules)
+
+**Notable patterns:** Maintainer sign-off from Ping-Ke Shih; message-id
+suffix `-15` suggests a multi-patch series, but the change itself is
+self-contained.
+
+### Step 1.3: Analyze commit body
+**Record:**
+- **Bug:** After STA association, Packet Detection (PD) lower bound is
+  set by DIG based on connected AP RSSI. When P2P uses remain-on-channel
+  to listen for probe requests during peer discovery, a strong AP RSSI
+  drives the PD lower bound too high.
+- **Symptom:** P2P interface fails to receive probe requests from peers
+  (peer discovery broken).
+- **Root cause (author):** DIG PD lower bound not suspended during ROC,
+  unlike scan/MCC paths.
+- **Fix approach:** Call `rtw89_phy_dig_suspend()` at ROC start and
+  `rtw89_phy_dig_resume(rtwdev, true)` at ROC end.
+- **Version info:** None stated in commit message.
+
+### Step 1.4: Detect hidden bug fixes
+**Record:** Despite no "fix" in the subject, this is a functional bug
+fix disguised as a behavioral adjustment. It corrects missing DIG
+suspend/resume pairing in the ROC path — the same pattern already used
+for hardware scan and MCC in this driver.
+
+---
+
+## PHASE 2: DIFF ANALYSIS
+
+### Step 2.1: Inventory the changes
+**Record:**
+- **File:** `drivers/net/wireless/realtek/rtw89/core.c` (+2 lines)
+- **Functions modified:** `rtw89_roc_start()`, `rtw89_roc_end()`
+- **Scope:** Single-file, surgical, 2-line functional fix
+
+### Step 2.2: Code flow change per hunk
+
+**Hunk 1 — `rtw89_roc_start()`:**
+- **Before:** After RX filter setup, immediately calls
+  `ieee80211_ready_on_channel()` and schedules ROC timeout work.
+- **After:** Suspends DIG (`rtw89_phy_dig_suspend`) before notifying
+  mac80211 that the device is on-channel.
+- **Path affected:** P2P/WiFi-Direct remain-on-channel entry (normal and
+  mgmt-tx ROC types).
+
+**Hunk 2 — `rtw89_roc_end()`:**
+- **Before:** After pending TX handling, checks idle state and may
+  schedule IPS work.
+- **After:** Resumes DIG with `restore=true` before the idle check.
+- **Path affected:** ROC expiry or cancellation
+  (`cancel_remain_on_channel`).
+
+### Step 2.3: Bug mechanism
+**Record:** **Category:** Logic/correctness — missing state management
+in ROC path.
+
+**Mechanism:** `rtw89_phy_dig_dyn_pd_th()` sets `dig->bak_dig` and
+writes the PD lower bound based on connected STA RSSI. With a
+nearby/strong AP, the PD threshold is raised, filtering out weaker
+incoming frames. During ROC peer discovery, probe requests from distant
+peers fall below that threshold and are not received.
+`rtw89_phy_dig_suspend()` sets PD lower bound to 0 and disables DIG
+tracking; `rtw89_phy_dig_resume(rtwdev, true)` restores the backed-up
+value — matching scan (`fw.c`) and MCC (`chan.c`) behavior.
+
+### Step 2.4: Fix quality assessment
+**Record:**
+- **Obviously correct:** Yes — mirrors existing suspend/resume usage in
+  scan, MCC, and STA-association paths.
+- **Minimal:** Two function calls at symmetric entry/exit points.
+- **Idempotent:** `rtw89_phy_dig_ctrl()` early-returns if already in the
+  requested pause state.
+- **Regression risk:** Very low. DIG suspend/resume is already exercised
+  on hot paths; ROC is relatively infrequent.
+- **Minor concern:** `rtw89_roc_end()` has an early return if the link
+  is not found (line 4068–4071); if ROC start succeeded but end hits
+  that path, DIG could remain suspended. This path is unlikely in normal
+  operation and is a pre-existing structural issue, not introduced by
+  this patch's logic.
+
+---
+
+## PHASE 3: GIT HISTORY INVESTIGATION
+
+### Step 3.1: Blame changed lines
+**Record:** Current `rtw89_roc_start()`/`rtw89_roc_end()` body (lines
+3989–4095) and `rtw89_phy_dig_suspend()`/`rtw89_phy_dig_resume()`
+(phy.c:6923–6937) are present in this tree. Git blame attributes them to
+`19eef1d98eeda` (squashed/import history in this stable checkout). The
+ROC path and DIG APIs both exist in v6.18.43.
+
+### Step 3.2: Follow Fixes: tag
+**Record:** N/A — no Fixes: tag in commit message.
+
+### Step 3.3: Related file history
+**Record:** Recent rtw89 commits in this tree include `98a774e2c58df`
+("fix unable to receive probe responses under MLO connection") — same
+symptom class (probe reception failure), already backported here. Other
+recent rtw89 stable commits are unrelated PCI/PHY fixes. No commit in
+this tree already adds DIG suspend to ROC.
+
+### Step 3.4: Author's other commits
+**Record:** Chih-Kang Chang and Ping-Ke Shih are active Realtek rtw89
+contributors. Ping-Ke Shih is the rtw89 maintainer. Recent commits from
+these authors in this tree include MCC, MAC, and PCI fixes — established
+subsystem contributors.
+
+### Step 3.5: Prerequisites / dependencies
+**Record:** No dependencies identified. `rtw89_phy_dig_suspend()` and
+`rtw89_phy_dig_resume()` are declared in `phy.h` and implemented in
+`phy.c`. Patch applies cleanly to this tree (verified with `git apply
+--check`). Standalone despite being patch 15/N in a series.
+
+---
+
+## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
+
+### Step 4.1: Original patch discussion
+**Record:** Lore.kernel.org and patch.msgid.link are blocked by Anubis
+bot protection from this environment. `b4 dig -c <commit>` could not be
+run because the commit is not in this checkout. **UNVERIFIED:** Full
+mailing list review thread, series context, and any stable nominations.
+
+### Step 4.2: Reviewers
+**Record:** **UNVERIFIED** via b4 dig -w. Ping-Ke Shih (maintainer) has
+Signed-off-by on the commit.
+
+### Step 4.3: Bug report
+**Record:** No Reported-by: or bugzilla/syzbot links. Bug described by
+author based on known DIG/ROC interaction. No external user report
+verified.
+
+### Step 4.4: Related patches / series
+**Record:** Message-id `17666-15` indicates patch 15 of a series. The
+diff uses only existing APIs and is self-contained. No other series
+patches required for this fix to function.
+
+### Step 4.5: Stable mailing list history
+**Record:** **UNVERIFIED** — could not search lore stable list due to
+bot protection.
+
+---
+
+## PHASE 5: CODE SEMANTIC ANALYSIS
+
+### Step 5.1: Key functions modified
+**Record:** `rtw89_roc_start()`, `rtw89_roc_end()`, plus callees
+`rtw89_phy_dig_suspend()`, `rtw89_phy_dig_resume()`,
+`rtw89_phy_dig_ctrl()`.
+
+### Step 5.2: Callers of affected code
+**Record:**
+- `rtw89_roc_start()` called from `rtw89_ops_remain_on_channel()` in
+  `mac80211.c:1466`
+- `rtw89_roc_end()` called from `rtw89_ops_cancel_remain_on_channel()`
+  (`mac80211.c:1484`) and `rtw89_roc_work()` on timeout (`core.c:4112`)
+- ROC is triggered by mac80211/cfg80211 for P2P peer discovery, P2P GO
+  negotiation, and off-channel management frame TX
+
+### Step 5.3: Callees
+**Record:** `rtw89_phy_dig_suspend()` → `rtw89_phy_dig_ctrl(rtwdev, bb,
+true, false)` — sets PD lower bound to 0, disables DIG.
+`rtw89_phy_dig_resume(rtwdev, true)` → `rtw89_phy_dig_ctrl(rtwdev, bb,
+false, true)` — restores `dig->bak_dig`.
+
+### Step 5.4: Call chain / reachability
+**Record:** Userspace (wpa_supplicant, NetworkManager, Android WiFi
+Direct) → nl80211/cfg80211 → `remain_on_channel` →
+`rtw89_ops_remain_on_channel()` → `rtw89_roc_start()`. Reachable from
+userspace during P2P operations. Trigger: P2P peer discovery while STA
+is associated to an AP (common WiFi Direct scenario).
+
+### Step 5.5: Similar patterns
+**Record:** DIG suspend/resume already used in:
+- `fw.c:8099/8134` — hardware scan start/complete
+- `chan.c:2347/2447` — MCC start/stop
+- `chan.c:2903` — MCC prepare
+- `core.c:4626/4818` — STA association start/end (P2P STA)
+
+ROC was the missing path — consistent oversight.
+
+---
+
+## PHASE 6: CROSS-REFERENCING AGAINST LOCAL TREE (v6.18.43)
+
+### Step 6.1: Does the buggy code exist?
+**Record:** **Yes.** `rtw89_roc_start()` at lines 4041–4047 does not
+call `rtw89_phy_dig_suspend()`. `rtw89_roc_end()` at lines 4089–4094
+does not call `rtw89_phy_dig_resume()`. DIG suspend/resume APIs exist
+and are used elsewhere. Bug is present in this tree.
+
+### Step 6.2: Backport complications
+**Record:** **Clean apply** — `git apply --check` succeeded with no
+conflicts. Minor contextual differences from mainline (e.g., RX filter
+setup style) do not affect placement of the two new calls.
+
+### Step 6.3: Related fixes already present?
+**Record:** `98a774e2c58df` fixes probe-response reception under MLO
+(different root cause — MAC address matching). No existing fix for DIG-
+during-ROC issue.
+
+---
+
+## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+
+### Step 7.1: Subsystem and criticality
+**Record:** **Subsystem:** `drivers/net/wireless/realtek/rtw89` —
+Realtek 802.11ax WiFi driver. **Criticality:** IMPORTANT (peripheral
+driver, but WiFi connectivity affects many laptop/desktop users with
+RTL8852/8922 chips).
+
+### Step 7.2: Subsystem activity
+**Record:** Actively maintained — multiple rtw89 fixes backported to
+this 6.18.y tree in recent history.
+
+---
+
+## PHASE 8: IMPACT AND RISK ASSESSMENT
+
+### Step 8.1: Who is affected
+**Record:** Users of Realtek rtw89 hardware (RTL8852AE/BE, RTL8922AE,
+etc.) running P2P/WiFi Direct while simultaneously associated as STA to
+an AP. Config-dependent: `CONFIG_RTW89` and specific hardware.
+
+### Step 8.2: Trigger conditions
+**Record:**
+- STA connected to AP with strong RSSI
+- P2P interface initiates remain-on-channel for peer discovery
+- **Likelihood:** Common in WiFi Direct use (screen mirroring, file
+  sharing, P2P GO negotiation)
+- **Unprivileged trigger:** Yes — userspace WiFi management triggers ROC
+  via standard nl80211 APIs
+
+### Step 8.3: Failure mode severity
+**Record:** **Failure mode:** P2P peer discovery fails — probe requests
+from peers not received. **Severity:** MEDIUM — functional/connectivity
+breakage, not kernel crash, data corruption, or security vulnerability.
+Degrades WiFi Direct usability in a realistic scenario.
+
+### Step 8.4: Risk-benefit ratio
+**Record:**
+- **Benefit:** Restores P2P peer discovery for rtw89 users; aligns ROC
+  with established DIG handling; precedent exists in this tree for
+  similar probe-reception fixes
+- **Risk:** Very low — 2 lines, proven API, symmetric pairing,
+  idempotent implementation
+- **Ratio:** Favorable — low risk, real user-visible benefit for
+  affected hardware
+
+---
+
+## PHASE 9: FINAL SYNTHESIS
+
+### Step 9.1: Evidence summary
+
+**FOR backport:**
+- Real functional bug with clear mechanism (PD lower bound too high
+  during ROC)
+- Small, surgical, obviously correct fix following existing driver
+  patterns
+- Applies cleanly to v6.18.43
+- Maintainer sign-off (Ping-Ke Shih)
+- Precedent: `98a774e2c58df` (probe response reception) already
+  backported to this tree
+- Userspace-reachable via standard P2P/ROC nl80211 operations
+- Stable rules allow "real bug that bothers people" and "interactivity
+  issue"
+
+**AGAINST backport:**
+- Not a crash, security issue, or data corruption
+- Hardware-specific (rtw89 only)
+- No user bug report or syzbot evidence verified
+- Mailing list review unverified
+- Strict "important issue" bar (oops/hang/corruption) not met literally
+
+**Unresolved:** Lore discussion content, explicit stable nomination,
+user bug reports.
+
+### Step 9.2: Stable rules checklist
+1. **Obviously correct and tested?** PASS — mirrors scan/MCC pattern;
+   maintainer SOB; logic verifiable in code (testing not independently
+   verified)
+2. **Fixes a real bug affecting users?** PASS — P2P peer discovery
+   failure on rtw89 with strong AP signal
+3. **Important issue?** PASS (borderline) — connectivity/interactivity
+   issue per stable-kernel-rules.rst allowance for "real bug that
+   bothers people" and notable interactivity issues; not CRITICAL
+   severity
+4. **Small and contained?** PASS — 2 lines, 1 file
+5. **No new features or APIs?** PASS — uses existing internal APIs only
+6. **Can apply to local tree?** PASS — clean apply verified; all
+   prerequisites present
+
+### Step 9.3: Exception categories
+**Record:** None directly (not device ID, quirk, DT, build fix, or
+docs). Qualifies as a hardware driver functional bug fix.
+
+### Step 9.4: Decision rationale
+
+For **v6.18.43**, the bug exists: ROC does not suspend DIG while scan
+and MCC already do. The fix is minimal, follows established driver
+conventions, applies cleanly, and addresses a real WiFi Direct peer-
+discovery failure on rtw89 hardware. This tree already backported a
+closely related rtw89 probe-reception fix (`98a774e2c58df`),
+establishing precedent for this class of connectivity bug. The risk is
+negligible; the benefit to P2P users on affected hardware is concrete.
+
+---
+
+## Verification
+
+- **[Phase 1]** Parsed commit message: subject, body, SOBs from Realtek
+  authors, Link tag; no Fixes/Reported-by/Cc: stable
+- **[Phase 2]** Read diff and `core.c` ROC functions (lines 3989–4117);
+  read `rtw89_phy_dig_ctrl/suspend/resume` in `phy.c` (6880–6937)
+- **[Phase 2]** Confirmed suspend sets PD lower bound to 0; resume with
+  `restore=true` restores `bak_dig`
+- **[Phase 3]** `git describe HEAD`: v6.18.43
+- **[Phase 3]** `git blame` on ROC and DIG functions: present in tree
+- **[Phase 3]** `git log --grep="probe response"`: found `98a774e2c58df`
+  already in tree
+- **[Phase 3]** `git apply --check`: patch applies cleanly
+- **[Phase 4]** WebFetch/curl to lore.kernel.org: BLOCKED by Anubis
+- **[Phase 4]** `b4 dig -c HEAD`: N/A (commit not in tree)
+- **[Phase 5]** Grep callers: `mac80211.c:1466,1484`, `core.c:4112`
+- **[Phase 5]** Grep all `rtw89_phy_dig_suspend/resume` sites: fw.c,
+  chan.c, core.c (assoc) — ROC missing
+- **[Phase 6]** Confirmed buggy code present at `core.c:4041–4094`
+  without DIG calls
+- **[Phase 6]** Confirmed `rtw89_phy_dig_suspend/resume` declared in
+  `phy.h`, implemented in `phy.c`
+- **[Phase 7]** Confirmed rtw89 driver directory exists; recent stable
+  rtw89 activity in git log
+- **[Phase 8]** Traced ROC path from `rtw89_ops_remain_on_channel()` —
+  userspace-reachable
+- **UNVERIFIED:** Mailing list review, stable nominations, user bug
+  reports, series prerequisite patches
+
+**YES**
+
+ drivers/net/wireless/realtek/rtw89/core.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/net/wireless/realtek/rtw89/core.c b/drivers/net/wireless/realtek/rtw89/core.c
+index 018857d3569a8..d10483210ccca 100644
+--- a/drivers/net/wireless/realtek/rtw89/core.c
++++ b/drivers/net/wireless/realtek/rtw89/core.c
+@@ -4041,6 +4041,7 @@ void rtw89_roc_start(struct rtw89_dev *rtwdev, struct rtw89_vif *rtwvif)
+ 	reg = rtw89_mac_reg_by_idx(rtwdev, mac->rx_fltr, rtwvif_link->mac_idx);
+ 	rtw89_write32_clr(rtwdev, reg, B_AX_A_UC_CAM_MATCH | B_AX_A_BC_CAM_MATCH);
+ 
++	rtw89_phy_dig_suspend(rtwdev);
+ 	ieee80211_ready_on_channel(hw);
+ 	wiphy_delayed_work_cancel(hw->wiphy, &rtwvif->roc.roc_work);
+ 	wiphy_delayed_work_queue(hw->wiphy, &rtwvif->roc.roc_work,
+@@ -4088,6 +4089,7 @@ void rtw89_roc_end(struct rtw89_dev *rtwdev, struct rtw89_vif *rtwvif)
+ 
+ 	rtw89_core_handle_sta_pending_tx(rtwdev, rtwvif_link);
+ 	queue_work(rtwdev->txq_wq, &rtwdev->txq_work);
++	rtw89_phy_dig_resume(rtwdev, true);
+ 
+ 	if (hw->conf.flags & IEEE80211_CONF_IDLE)
+ 		wiphy_delayed_work_queue(hw->wiphy, &roc->roc_work,
 -- 
-2.55.0
+2.53.0
 
