@@ -1,101 +1,136 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+Received: from mail-244118.protonmail.ch (mail-244118.protonmail.ch [109.224.244.118])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AC653DCDBF;
-	Mon, 31 Aug 2026 09:21:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44D8D3B71D0
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 09:21:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.118
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788168114; cv=none; b=PIQxm0sV4PAQqUryQ40OlAN+Dc8brI0DHBXW87unC9MbrEt2B6c/JgpC7xF4AVIHPUZozq7x06X4nOoYxJnEQZX78OA24etUihM1RIcaOIKuuZyxEVCllulBMafmPh7kFHNFPzE5zgnbRBBRZ6kirVj0NKeuXPO8/9zPXOjaQW4=
+	t=1788168106; cv=none; b=bVBU8Ff1qtA3+Fy26UYKsXQiLDDM/tJmeEYuCbRyQfZEWAG6jawfDQpGggRG/Tp+NWL94LiKIIuesDD8maUtuaITl98bEre0A8U4XHgqcbdrgUEnHTUknzhXCG0Y76o0AQlXP/3CpevyzdIR1uiZLONbZyKTE2OaXN6v0gRS508=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788168114; c=relaxed/simple;
-	bh=nE5qrzKBb2CTapNtRYiI1LnBzdqfo6itleuF6g6tnNM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=icrvG7phL1sOZdNLF/PryRi0YtHEDzoRxKFFhMhBxFnZh/klUB/s1J0VERL7n6gq2fzJVFBKRbmP92WC5XDroARwCppMN3LXzTYFUF7kF6MqKpVi0Oi3GN9J4E0vwI2ZlpsLbC6/QCgrqcxNU/RfIgqBdEglLHS3z47HBMaPY3A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=O/WYjdgA; arc=none smtp.client-ip=192.198.163.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1788168106; c=relaxed/simple;
+	bh=UEeN7K2KXI/ttH3ws4cBIbiBg8OfS27DqmjeATDsQEw=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=XCf3SKnuVgz4zg/USUmRCVKiDbejoQZVgEPCzUBRcSgIiLCpCypkYc7Ja4/CgzlJcMB6sFq09rJFKFx7/nX6+Cb/zUjBx89x3fZlHq+vMODf879yL5mRwkpLbvG5k/gNjvnLa4wWZD+2/ko86nzFSErFA+YTLaNahRD/tPlPzSo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=berg.pm; spf=pass smtp.mailfrom=berg.pm; dkim=pass (2048-bit key) header.d=berg.pm header.i=@berg.pm header.b=Dw3JvN+D; arc=none smtp.client-ip=109.224.244.118
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=berg.pm
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=berg.pm
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="O/WYjdgA"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788168112; x=1819704112;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=nE5qrzKBb2CTapNtRYiI1LnBzdqfo6itleuF6g6tnNM=;
-  b=O/WYjdgAv2wN+p+p0vmZM6bQmyl31M4t6FSGqV+6tUf8RZFXY2f8t1dA
-   XPpI7ZYNkSqQO4Q0Z3piWIDvAnsDePbUp0Ze6UOLkQUqtd9UOlr+O88Qr
-   3Lf0xCPl91vp0jY3Pj9GLHg7fPOyTQmlNoRu1xg0MzDJyIc4ioZOqEv8O
-   ge2EnMBYekUWhM0RLb+qXHEJDvMlq4xGP3rYBNTbaLo7Z9izFGPCXaYG+
-   YHiTxgYHZjqyf/Uct/3DKxGt83L1lLBiLDlq57UfOUwRFe/WcjLgIC9MG
-   1cktDf8deBhPrZ8G0jal5Qg9MYkeyHPYCBegPb0hOdVkQ4ExFO0tkToiB
-   g==;
-X-CSE-ConnectionGUID: d2xi+eVNR5uibnpRipr48w==
-X-CSE-MsgGUID: /9OZruZpQienE6DPmMu4Ww==
-X-IronPort-AV: E=McAfee;i="6800,10657,11891"; a="76119094"
-X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
-   d="scan'208";a="76119094"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 02:21:51 -0700
-X-CSE-ConnectionGUID: KCOVgDKHS0myaom0zw//0A==
-X-CSE-MsgGUID: 6Dw3w3PAR1OHTJdgjqnO/w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
-   d="scan'208";a="265505862"
-Received: from slindbla-desk.ger.corp.intel.com (HELO [10.245.244.13]) ([10.245.244.13])
-  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 02:21:49 -0700
-Message-ID: <81ddd491-1ec3-4a0c-90b3-6a286ff1a908@linux.intel.com>
-Date: Mon, 31 Aug 2026 12:21:46 +0300
+	dkim=pass (2048-bit key) header.d=berg.pm header.i=@berg.pm header.b="Dw3JvN+D"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=berg.pm;
+	s=protonmail; t=1788168100; x=1788427300;
+	bh=bo3aaKxAXier+NUIPT2YsAFnTSCOPF2dzGRUxGbpf4A=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=Dw3JvN+DZdvLQQo9M9V8ew2sWzBW0egw35/t5Ws1iRkp8M+VonmOBIzyxou/4lynk
+	 BNHtmtOrY+A6j9y3G4yb9iHk/KcOn7LM1Io8ztrGVxAqL4BWgk15GA2IIlpiatkYCX
+	 b1dUAYp1nsoMXOC8TM+g3ZV4yjJNNZUQ5zMSyL1+aFAgbAo5IuNSXrDX35TdABUPrM
+	 vgmnNudlS6c5qQt78cKb5wvIVk46wsFXh2J/SorpuSpHy3TqNBf/cje60xcz3/eiaN
+	 XPytcEGKqcNlE5UbRA12+1VzpK/b4zbbXlyq0bQwwvJOtrA91pV6AJdXE7TT6BkTK7
+	 xQqjAkgVAqmaw==
+Date: Mon, 31 Aug 2026 09:21:34 +0000
+To: Sergey Lebedev <lsa.uz@pm.me>
+From: Jakob Berg Jespersen <dev@berg.pm>
+Cc: Daniel Scally <dan.scally@ideasonboard.com>, Sakari Ailus <sakari.ailus@linux.intel.com>, Hans de Goede <hansg@kernel.org>, =?utf-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, platform-driver-x86@vger.kernel.org, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] platform/x86: int3472: support the POWER1 GPIO type
+Message-ID: <xwSI6AZy8i6fOp48SxKkCmFiG2NNdkRtidVqaIi0VsczFe_1Kh9UUuamWCuaSrVXpxPO4YdGgNfeWxbpuFns_VUTQfUCEfCTFTD1ARbH9mw=@berg.pm>
+In-Reply-To: <20260830134126.70277-1-lsa.uz@pm.me>
+References: <20260830134126.70277-1-lsa.uz@pm.me>
+Feedback-ID: 210104851:user:proton
+X-Pm-Message-ID: 92dc338287ec179c84bfe11563fbed8025f404d6
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] usb: xhci: fix maximum event ring segments calculation
-To: Thorsten Leemhuis <regressions@leemhuis.info>,
- Pierre-David Belanger <pierredavidbelanger@gmail.com>,
- Shixiong Ou <oushixiong1025@163.com>
-Cc: Shixiong Ou <oushixiong@kylinos.cn>,
- Mathias Nyman <mathias.nyman@intel.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Niklas Neronin <niklas.neronin@linux.intel.com>, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org, regressions@lists.linux.dev
-References: <20260828105926.930033-1-oushixiong1025@163.com>
- <20260830031233.1810986-2-pierredavidbelanger@gmail.com>
- <64a7ce30-b346-4e94-974f-f30893d66829@leemhuis.info>
-Content-Language: en-US
-From: Mathias Nyman <mathias.nyman@linux.intel.com>
-In-Reply-To: <64a7ce30-b346-4e94-974f-f30893d66829@leemhuis.info>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On 8/31/26 09:55, Thorsten Leemhuis wrote:
-> On 8/30/26 05:12, Pierre-David Belanger wrote:
+Hi Sergey, thank you for testing it on your SP11
+
+Does any of the maintainers want me to send out a v4 of this patch where I =
+include a commit message with this limitation related to ov13858?=20
+
+Best,
+Jakob
+
+On Sunday, August 30th, 2026 at 15:41, Sergey Lebedev <lsa.uz@pm.me> wrote:
+
+> Hans pointed me at this from a report I sent this morning about the same
+> GPIO type on a Surface Pro 11 - thank you, and sorry for the duplicate
+> question. I have now tested this patch on that machine, which is a third
+> model and, more usefully, a different sensor. Result below, with the part
+> that is still missing for this sensor family.
+>=20
+> Tested-by: Sergey Lebedev <lsa.uz@pm.me>   # Surface Pro 11, INT3472 side
+>=20
+> What the patch fixes here
+> -------------------------
+>=20
+> Built on 7.0.0-30 (Ubuntu 26.04). The warning is gone and the rail is
+> mapped:
+>=20
+>   before: int3472-discrete INT3472:00: GPIO type 0x08 unknown;
+>                                        the sensor may not work
+>   after : no int3472 messages at all
+>=20
+>   /sys/class/regulator:
+>     regulator.1  INT3472:00-avdd
+>     regulator.2  INT3472:00-dvdd     <- new, from this patch
+>     regulator.3  INT3472:01-avdd
+>     regulator.4  INT3472:01-dovdd
+>     regulator.5  INT3472:02-avdd
+>=20
+> Nothing else regressed: audio, Secure Boot and module signing unaffected,
+> no failed units.
+>=20
+> What it does not fix, and why that is not this patch's fault
+> ------------------------------------------------------------
+>=20
+> The camera is exactly as dead as before:
+>=20
+>   ov13858 i2c-OVTID858:00: failed to find sensor: -5
+>   every regulator: num_users=3D0, state=3Ddisabled
+>   /dev/media0: 0 entities
+>=20
+> The rear sensor here is an OV13858, and the in-tree ov13858 driver reques=
+ts
+> no regulators and touches no GPIOs at all - zero `regulator` and zero
+> `gpiod` references in drivers/media/i2c/ov13858.c. So INT3472:00-dvdd is
+> registered and then never claimed by anyone, and the sensor is still held
+> in reset because nothing releases it.
+>=20
+> That is exactly the difference between your machine and this one. ov8865
+> asks for "dvdd", "dovdd" and "avdd" by name, so mapping POWER1 to "dvdd"
+> completes the picture for the Surface Pro 7+. ov13858 asks for nothing.
+>=20
+> The same conclusion was reached independently on the Surface Pro 10, whic=
+h
+> carries the same OV13858:
+>=20
+>   https://github.com/linux-surface/linux-surface/issues/2153
+>=20
+> There they had to add reset-GPIO handling to ov13858_probe() and force th=
+e
+> regulators on, and describe the latter as too broad for upstream.
+>=20
+> So: this patch is correct and necessary, and for the OV13858 machines it =
+is
+> not sufficient. The remaining work is in the sensor driver rather than in
+> int3472, which seems worth stating explicitly so nobody expects the Pro 1=
+0
+> or Pro 11 rear camera to start working when this lands.
+>=20
+> If it would help, I am happy to test a patch teaching ov13858 to request
+> its supplies and release reset - it is the same shape as what ov8865
+> already does. The machine is here and I can build and boot kernels on it.
+>=20
+> One note for anyone reproducing this out-of-tree: the module build uses
+> /usr/src/linux-headers-<ver>/include/, not the patched source tree, so
+> patching only the tree gives 'INT3472_GPIO_TYPE_POWER1' undeclared. The
+> installed header has to be patched too.
+>=20
+> Thanks,
+> Sergey
 > 
->> The failure on 08dbfad3f504:
->>
->>    xhci_hcd 0000:00:04.0: xHCI Host Controller
->>    xhci_hcd 0000:00:04.0: new USB bus registered, assigned bus number 1
->>    xhci_hcd 0000:00:04.0: Failed to allocate interrupter erst
->>    xhci_hcd 0000:00:04.0: can't setup: -12
->>    xhci_hcd 0000:00:04.0: USB bus 1 deregistered
->>    xhci_hcd 0000:00:04.0: init 0000:00:04.0 fail, -12
->>    xhci_hcd 0000:00:04.0: probe with driver xhci_hcd failed with error -12
-> FWIW, not my area of expertise, but to me it looks like there were two
-> similar fixes submitted earlier to address this and "usb: xhci: Fix
-> HCS_ERST_MAX conversion" (
-> https://lore.kernel.org/all/20260828105926.930033-1-oushixiong1025@163.com/
-> ) seems to be heading towards mainline already according to Mathias.
-> Sadly this missed -rc1, wonder why it wasn't submitted for it to prevent
-> more people from running into this, but whatever, that's ship has sailed.
-
-Looks like at least QEMU and Mediatek users were hit by this issue.
-
-Note that this is a v7.3-rc1 regression which was found during merge window for v7.3-rc1.
-v7.3-rc1 came out a few hours ago.
-I can't resolve it much earlier than this.
-
-Thanks
-Mathias
-
