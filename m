@@ -1,95 +1,90 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f170.google.com (mail-yw1-f170.google.com [209.85.128.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 670994F55A7
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 15:00:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A096D4F6470
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 15:00:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788188403; cv=none; b=IwpFNFjxpkYf3deT9zdUrkoS8otwBPfaACKsq3LPEQOadsuyeqq2MwyVolvQj8cQmlEOtTV1CQFdBM2oyqVSQvp9N5Y3mDdtboB+DmEnRBfktzYZTWsgNvCtFnvGko4bnqVLZQz6pkeiWAEeWUktACgE2ZCkyuyuDdjl1HSIOZU=
+	t=1788188406; cv=none; b=MtpkV1GpDcQ9UFolqvVuSsee5r++UQaTo0rTzRpUWpYiDNbIRocFGqza/HWq3GxV0ItWS+ObRcGmHR6UZFm4uYbDTt8wDCyLmde118JAIb2jWXKFWYDrUVdq/CIvYuE1qLNToaCAA398Y2RLTB1kq185DvW4snq9vHXUNYksU3I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788188403; c=relaxed/simple;
-	bh=d2kEh7HVzlBwHlg4wUlDQLP+gFBRPRjcYANIrX/vg2E=;
+	s=arc-20240116; t=1788188406; c=relaxed/simple;
+	bh=b13IPf/84INpWuDI29q/RKRtrh98z2Lf1mSfFGTrgeM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=uWo5vqYMWi7yf2VJCRyCob1Q+c+e7BnSjvonrl55n3kdCWvZGcQjx/T6KobfBJO8prtqdXLFV89FVcWMa3tXD1vLpl5L+P610SWjBCaTO1Wg9uQE/S3Dh4Z7aYMG4/VjdFdSdQFNmTmM6UjkVT/AxaCjGcSWPj2e63+Acg6dGvk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=IPUQa0Pw; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=jhXGDjxk; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 MIME-Version; b=RH3d5qfmqoDHbUOdpK3IGRih5nuZOLcdJXdty/RiNf2keFU2h+Z56ypFDRWSoKIeLkidKt0QhuLEVgUGjJ/QN2StpvZ1VvgHiAWDmdbbn7q8lp4HpulT0rnvEJ83uDccF5p3+8nXXv0h1/0KVYmgk16HS+2ZcHm/Mwy8qp8z100=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kZbge3x0; arc=none smtp.client-ip=209.85.128.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="IPUQa0Pw";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="jhXGDjxk"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67VETQk03296602
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 15:00:00 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=zpaaBsor5YI
-	74G39irsbNb4XZr4VVwzRwDQMT7L/5rI=; b=IPUQa0PwLv4BhD+iOx+WUbO91c/
-	rqVNB+19og2ZNQ01/n6ZCbmNO5sUy0nCyGIm+LoK1RaZD8TEDNZg41w0ITRVHoz4
-	r5yUySpRfnRsHsuLTsqJmzbDv8Kxt7UbB/YoJRZrlbFPtc16Mnk2J87MDyQGdysc
-	nNmm+ZTv0Dv6zYUkpRjYavgpIdbSsRUCPgzG3/AUOeQxJoJDCANP/2pS+GIc1hm3
-	5ZHx/puvEYtZA2i70bupg3ToFPFqZre/TAjUGLePWlsx0OqYkpH0V6JR62oO9Hrb
-	eH9J2s17CBpF9yn6uDVukCX4AehkOCH7Nh2Xyb4WX8usM7tznlKc4G1hmLg==
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gd6ayhhxy-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 15:00:00 +0000 (GMT)
-Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-90e80ce3597so32289366d6.1
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 07:59:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kZbge3x0"
+Received: by mail-yw1-f170.google.com with SMTP id 00721157ae682-8588583a7c3so43999067b3.2
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 08:00:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788188399; x=1788793199; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788188403; x=1788793203; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=zpaaBsor5YI74G39irsbNb4XZr4VVwzRwDQMT7L/5rI=;
-        b=jhXGDjxk4lQ7W8RrU0557u9NvIe726kfH6RGZ06EZpYjSo36K8so91mpv0+H/Upm4i
-         vNF+CWEJ0TXLIv/StoOvCvlr5WL+gmBMd/2QKfKoPo3Z70W/zR4itCQUVhn5/sluOWpp
-         FprXBHYK5zU3DWrshWXBzYH061JBGSuYZ6QTFF3sMJo0CqtFR/pE0NS/FFEQfdDWU93e
-         cKezKFcOiY6CzpPShu1hN5JIzatNOFKDyYK+zeOeCz0HgkS3e0/XbFAneFvxc1BD8rit
-         yjcQ1VGYNcT/oAal3/JB0DIqsXJYZGCVeUVKxUnQoIwXoRDkUtxRa4KUtXvJVyUvYHPV
-         hf4A==
+        bh=rCFWN9c5DyvZlo6DEGKf40uISp6POIHTrkimV4mL3IQ=;
+        b=kZbge3x06aKFzXNvf6cyjoA7yBvs5Ly+cX1WlfmDUoSnwqQih1TnNj2pK1iRia+5wb
+         lpUl6uE5rzbRx4elvQdOtyUEerK2r9vxqATKZs9flWkMvmC+qATzcrIZtsx4Jyw1Fzx1
+         zSxDQfo3FRwq9HCH5tgP3KdEXN2s8opCR8CsdY4PxE2GUYQbrQDPH271O9EBtuT0xk8C
+         H+v95cOXvlRk0zUrAZy7RY+IjGRqcddqiSgdsAiKs8ykI8P6VsFqWA1ew9em/Zi+yy9v
+         Z4039trmXpZocgF+eJtBnNQH+RMVI+Asn/VuBcbyjXi7ohefY91/w6SduZvFGRHFa7kb
+         VzUQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788188399; x=1788793199;
+        d=1e100.net; s=20251104; t=1788188403; x=1788793203;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zpaaBsor5YI74G39irsbNb4XZr4VVwzRwDQMT7L/5rI=;
-        b=P5Ecrphrxth2yG1HbDoaQnRKBlS3+tT2IUtozSrHHsHV7M66J6bkqdcgkfS1zsjXmN
-         plJKVgVzVwiEI2ydUP6HQtecuxRH4QRFISGHXDUFuS4TK4ixOQWRCiGwHFU774O5HR2M
-         vKd0ibgJRHAUGldyxEtxYZL44X/Zbnhd0KcA24wUxTZsXaieitnkILHs8qVuhCEpgrms
-         86tHTg0+QNlUSbFK9QS+EAsoeweGWLX7cIIsOIka9ycTdfoHXwGEMuS48kRyieBsHQwE
-         4QoHH8f71h3QQk3DvqKNF/XCuVji7XZewxOa03OEa+ILdeFZeBZHM4SWg5xNalN9U5a4
-         vNKA==
-X-Gm-Message-State: AFuF++nUeE2zg130Qb8w/wZy65xSHEwAUjmGPph3COxVwXuRV85N1BR9
-	BYImW6UxgPUBo9qQ9Sydy6mqR60eUq0MVuxVZuo2kAJeahzMcMXfP4pgNv7TLCsIUsnjjQ3gCrV
-	j9YnUwakx9piizlJmi5xKIKAaAdPlXnMi1CJ6CRCL3aZmVlUU6CZWc5+e+vkw0JWzF8U21FLDdC
-	8=
-X-Gm-Gg: AR+sD12iu66tQteNQHfO13AKpszKn+9l8uov4AA+96FnyL2EvMmeuatrEz2nONP7Iwx
-	CSDwjZK9Icx+FRg9iHlKLMkP1yD6aqVSbW4wCS1TJ/ebF8/mdSC6hB3EnLffJHFZ9BNTuXa7pWD
-	x9q3TdnI7n9LfeU2TQ2mJcwS3wpuWFSulsJ20AGFVdZpKUjooORS8x2Hv637iTJ8pdUhP8nRqkH
-	vUgE11SMAoMhuqvQKR87pPkynkZivYmvRDsXwqO+B10TBrRPiHAGS9wTWTtJ3PpKM/R4NxQwdYd
-	5gBTKI1Z7LWMYLtR9NEvoJzP7M0oO+zF+zF2apSQ85tqSbiiBRlOtcEJMoxSMtQAbM4pz4BZROd
-	iZlin/PmverwWPS24fFrB+VARgRhTap+xvts=
-X-Received: by 2002:ae9:f70b:0:b0:932:ddff:123d with SMTP id af79cd13be357-93913940a19mr2492738085a.29.1788188399075;
-        Mon, 31 Aug 2026 07:59:59 -0700 (PDT)
-X-Received: by 2002:ae9:f70b:0:b0:932:ddff:123d with SMTP id af79cd13be357-93913940a19mr2492733185a.29.1788188398551;
-        Mon, 31 Aug 2026 07:59:58 -0700 (PDT)
-Received: from localhost (ip-86-49-251-7.bb.vodafone.cz. [86.49.251.7])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ccea6b814sm180435205e9.0.2026.08.31.07.59.57
+        bh=rCFWN9c5DyvZlo6DEGKf40uISp6POIHTrkimV4mL3IQ=;
+        b=LIXgaTmBz1HtV4FEofgclWCMSqzqxqomgcAAf42hEK5pnM9EgYE3AEXsxrT9IINa9h
+         jILr9LVyR0JtQDufg69uyNyIY0nlVkK5rn2eg+YHc/EqM8+EgUoaHgk2YgwAYwMPcBcK
+         Mk5Z6y9mVOChVddhwGr7vPg4FgZ+nN7jATq81lFbi9u09KAg93XkNe0eBRrHRg9GrUGP
+         Mi+wAtGJi25azqSiWVWB6IxF+IhuAss/T1GrEOf14HuiaMvzvmM+SVQ8jOyMxG00SI/a
+         6sNi019dXPgdGkRcR858fs+579f2eX6jaWhuR6m1QY3iwQswXS+5VtJd8srz00RD3Jt7
+         YxpA==
+X-Forwarded-Encrypted: i=1; AKwUvBz0biWrzlpo/CBaiwvjKA0UmavenH1tNbMG58x4Rge8OQsej26u9LKlYXvPshdIitb0cBfn7QShxCiDZ14=@vger.kernel.org
+X-Gm-Message-State: AFuF++l+eBRu4gXCdq6SpCQAH9FNfVThIkcUv1XqoUUR+2crqcTREa02
+	bIzBTmsgi45H2g2yBRvjw6mHg/xQPFWz2eFxt9z361IQM+sO2fEjbRVr
+X-Gm-Gg: AYBFou2eR0Xz1+BMDGI7RsYQpNSBCOncJPONWri9pEhY51JcGyMIOxkc/nhHYiomj6P
+	HVKOx7ug06VJ0sx9knTKrGjRMbf6YvuJ9V01sID6wCTS1znQzwXtZTXRPdUXvuTBpGlGAI1Eb21
+	kpf10idzLc3IjCckLB2cG2168Bal1GkXAjFPseQEZS+XdCbGmX5siNht0Pfq1/YF9cUMSHkxKNf
+	bN/Y6bvnzDZiohamtXcj1U8Wxii6jEIfl3ZexBwvXZXFJBsXkP0neovb3iL437VO3lQbeWbN/Ve
+	pN3FSm+gsVXdQqXfgVadXy5T6/e2AevCjvTBAB98uFdsdDQUO2Uzhtb072yCYoxYFzsL1UaztI9
+	R4fTllb1y6F5eg6pbOuyOZeKdHDjw5Z4mKTTuwWExWwNiAuGA3JMxvfmwry/YEK7ej227UUyRev
+	yM/3rwbvDoTkFWxf+At5AxrxZ5scz/06LlfUriNRMnm1wI3hnB+x3Yip7CSdm5mwrsEtTCCkmAO
+	Zxt1KEn4W87Ddpebbfmg2c=
+X-Received: by 2002:a05:690c:93:b0:862:65f4:c8bb with SMTP id 00721157ae682-86265f4cb64mr46763897b3.3.1788188402897;
+        Mon, 31 Aug 2026 08:00:02 -0700 (PDT)
+Received: from zenbox ([2600:1700:18fb:6011:f6fc:b424:b1bb:6ff0])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-85e58666e15sm53903827b3.0.2026.08.31.08.00.01
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 07:59:57 -0700 (PDT)
-From: Andrew Jones <andrew.jones@oss.qualcomm.com>
-To: linux-riscv@lists.infradead.org, iommu@lists.linux.dev
-Cc: linux-kernel@vger.kernel.org, tomasz.jeznach@linux.dev,
-        tjeznach@rivosinc.com, jgg@ziepe.ca, jgg@nvidia.com, joro@8bytes.org,
-        will@kernel.org, robin.murphy@arm.com, pjw@kernel.org,
-        palmer@dabbelt.com, anup@brainfault.org, tglx@kernel.org,
-        kevin.tian@intel.com, fangyu.yu@linux.alibaba.com
-Subject: [PATCH v5 08/17] iommu/dma: Introduce iommu_dma_prepare_msi_list()
-Date: Mon, 31 Aug 2026 16:59:34 +0200
-Message-ID: <20260831145943.313726-9-andrew.jones@oss.qualcomm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260831145943.313726-1-andrew.jones@oss.qualcomm.com>
-References: <20260831145943.313726-1-andrew.jones@oss.qualcomm.com>
+        Mon, 31 Aug 2026 08:00:02 -0700 (PDT)
+From: Justin Suess <utilityemal77@gmail.com>
+To: ast@kernel.org,
+	daniel@iogearbox.net,
+	andrii@kernel.org,
+	kpsingh@kernel.org,
+	paul@paul-moore.com,
+	mic@digikod.net,
+	viro@zeniv.linux.org.uk,
+	brauner@kernel.org,
+	kees@kernel.org
+Cc: gnoack@google.com,
+	jack@suse.cz,
+	song@kernel.org,
+	yonghong.song@linux.dev,
+	martin.lau@linux.dev,
+	m@maowtm.org,
+	bpf@vger.kernel.org,
+	linux-security-module@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Justin Suess <utilityemal77@gmail.com>
+Subject: [PATCH v2 05/15] lsm: Add the bpf_lsm_policy_from_fd kfunc
+Date: Mon, 31 Aug 2026 10:58:47 -0400
+Message-ID: <20260831145858.3869191-6-utilityemal77@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260831145858.3869191-1-utilityemal77@gmail.com>
+References: <20260831145858.3869191-1-utilityemal77@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -97,346 +92,128 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODMxMDEyOSBTYWx0ZWRfX7db9vtgXQ3A5
- 1Db7L5A2pCkCS+lZeXBII+nMARfE3DAY+STMZMxx2FisnHDvSyW9ZHp2PJFGlLrS1pPtrovo3ti
- IZIWkAl7squbnT4JvXJ5ZF2Me3aHNqQ=
-X-Proofpoint-GUID: hocgLZFEHrS1JcQpoNMbPOtFeIZm3WH6
-X-Authority-Analysis: v=2.4 cv=CYE4Irrl c=1 sm=1 tr=0 ts=6a9596f0 cx=c_pps
- a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=on9AXyaqQ0RhfYpiXjjEXA==:17
- a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=EUspDBNiAAAA:8
- a=2ceW4JgIosI8Fxwmn1gA:9 a=pJ04lnu7RYOZP9TFuWaZ:22
-X-Proofpoint-ORIG-GUID: hocgLZFEHrS1JcQpoNMbPOtFeIZm3WH6
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODMxMDEyOSBTYWx0ZWRfXyWSwKh0Kuiaz
- Nk/jXAszIfMTVYd+t8L+4H12ItlwZWwKjkJVp4s3Gf+HkZlxjdcis4npWh9loLnWxExHzOFxSMC
- b4st9OBTmd1S9hRmOP83PyR4I1GUz8Bz02hMyanZuFjH9oDz6vjmN2BjKglfDK5g0PcETqtqLjo
- G5icD7D78nGzPJKtSJzoy9ONNvamSs9OX+21OSS6z0hMam8a+xyDLlfxACb07jgX8ZkBeedUxR9
- wqMgjP+PMZ0DCYwZt+4XwdTQZyKN5Y5Iwj6h8X+nNeYohvQ098SqJysZNeECZ3gAWNAs+9zmgub
- w1NA2l3oMOuZgOHyxvVLiXGhM7JuPZRBp1/jQZxPePI84/kr9Y9yEMThpgpgXfHYj+JxZUJNxUP
- +4H4xosUCS9yZEkIuup+LywjKg5GNnzJJi/fSNMjK9mYlKEzhPveDoFsbEwiO3PbF+wZuU6vr3I
- cmO2gSwPiBS9PtHcaSQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-31_05,2026-08-27_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 impostorscore=0 adultscore=0 malwarescore=0 lowpriorityscore=0
- priorityscore=1501 suspectscore=0 bulkscore=0 spamscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608310129
 
-Add iommu_dma_prepare_msi_list() to map an ordered physical address list
-through the current domain backend. Validate that the requested granule
-is a power of two no smaller than PAGE_SIZE and that every address is
-aligned to it.
+Add the kfunc translating a file descriptor into a referenced policy
+object:
 
-Refactor iommu_dma_prepare_msi() to obtain the backend granule and align
-its single address before using the same list dispatcher. Convert the
-DMA-IOMMU and iommufd backend entry points to consume address lists
-directly.
+  bpf_lsm_policy_from_fd(fd, flags)
+      KF_ACQUIRE|KF_RET_NULL|KF_SLEEPABLE
 
-Signed-off-by: Andrew Jones <andrew.jones@oss.qualcomm.com>
+No argument names an LSM: a policy object fd refers to a file set up
+through the owning LSM's own userspace interface so the fd itself
+identifies the LSM asked to translate it.  The kfunc offers the fd to
+every policy_object_from_fd implementation in turn until one claims it.
+
+Following the convention of the lsm_*(2) syscalls, @flags belongs to
+the framework and is reserved: the kfunc returns NULL for @flags != 0.
+
+A policy object fd is only meaningful in the fd table of the process
+that set the object up, while an LSM program runs in the context of
+the task it mediates, so the filter makes this kfunc exclusive to
+syscall programs (BPF_PROG_TYPE_SYSCALL), which run in the context of
+the task invoking them.  The acquired object may be released with
+bpf_lsm_policy_release().
+
+Cc: Paul Moore <paul@paul-moore.com>
+Cc: KP Singh <kpsingh@kernel.org>
+Signed-off-by: Justin Suess <utilityemal77@gmail.com>
 ---
- drivers/iommu/dma-iommu.c      |  13 ++--
- drivers/iommu/dma-iommu.h      |  13 +++-
- drivers/iommu/iommu-priv.h     |   7 ++-
- drivers/iommu/iommu.c          | 109 +++++++++++++++++++++++++++------
- drivers/iommu/iommufd/driver.c |  24 +++-----
- include/linux/iommu.h          |   8 +++
- 6 files changed, 126 insertions(+), 48 deletions(-)
+ security/bpf_lsm_kfuncs.c | 53 +++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 51 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/iommu/dma-iommu.c b/drivers/iommu/dma-iommu.c
-index 38a0c4e244d6..c9fdc792416c 100644
---- a/drivers/iommu/dma-iommu.c
-+++ b/drivers/iommu/dma-iommu.c
-@@ -2173,7 +2173,7 @@ static bool has_msi_cookie(const struct iommu_domain *domain)
- 			  domain->cookie_type == IOMMU_COOKIE_DMA_MSI);
- }
+diff --git a/security/bpf_lsm_kfuncs.c b/security/bpf_lsm_kfuncs.c
+index e1190215d477..988dcd6f4dd9 100644
+--- a/security/bpf_lsm_kfuncs.c
++++ b/security/bpf_lsm_kfuncs.c
+@@ -14,11 +14,50 @@
  
--static size_t cookie_msi_granule(const struct iommu_domain *domain)
-+size_t iommu_dma_msi_granule(const struct iommu_domain *domain)
- {
- 	switch (domain->cookie_type) {
- 	case IOMMU_COOKIE_DMA_IOVA:
-@@ -2304,23 +2304,20 @@ static struct iommu_dma_msi_page *iommu_dma_get_msi_page(struct device *dev,
- }
+ __bpf_kfunc_start_defs();
  
- int iommu_dma_sw_msi(struct iommu_domain *domain, struct msi_desc *desc,
--		     phys_addr_t msi_addr)
-+		     const phys_addr_t *phys_addrs, unsigned int nr_addrs, size_t granule)
- {
- 	struct device *dev = msi_desc_to_dev(desc);
- 	const struct iommu_dma_msi_page *msi_page;
--	phys_addr_t phys_addr;
--	size_t granule;
- 
- 	if (!has_msi_cookie(domain)) {
- 		msi_desc_set_iommu_msi_iova(desc, 0, 0);
- 		return 0;
- 	}
--
--	granule = cookie_msi_granule(domain);
--	phys_addr = ALIGN_DOWN(msi_addr, granule);
-+	if (granule != iommu_dma_msi_granule(domain))
-+		return -EOPNOTSUPP;
- 
- 	iommu_group_mutex_assert(dev);
--	msi_page = iommu_dma_get_msi_page(dev, &phys_addr, 1, granule, domain);
-+	msi_page = iommu_dma_get_msi_page(dev, phys_addrs, nr_addrs, granule, domain);
- 	if (!msi_page)
- 		return -ENOMEM;
- 
-diff --git a/drivers/iommu/dma-iommu.h b/drivers/iommu/dma-iommu.h
-index 040d00252563..bf9cd4102d35 100644
---- a/drivers/iommu/dma-iommu.h
-+++ b/drivers/iommu/dma-iommu.h
-@@ -19,8 +19,9 @@ int iommu_dma_init_fq(struct iommu_domain *domain);
- 
- void iommu_dma_get_resv_regions(struct device *dev, struct list_head *list);
- 
-+size_t iommu_dma_msi_granule(const struct iommu_domain *domain);
- int iommu_dma_sw_msi(struct iommu_domain *domain, struct msi_desc *desc,
--		     phys_addr_t msi_addr);
-+		     const phys_addr_t *phys_addrs, unsigned int nr_addrs, size_t granule);
- 
- extern bool iommu_dma_forcedac;
- 
-@@ -53,8 +54,14 @@ static inline void iommu_dma_get_resv_regions(struct device *dev, struct list_he
- {
- }
- 
--static inline int iommu_dma_sw_msi(struct iommu_domain *domain,
--				   struct msi_desc *desc, phys_addr_t msi_addr)
-+static inline size_t iommu_dma_msi_granule(const struct iommu_domain *domain)
-+{
-+	return 0;
-+}
-+
-+static inline int iommu_dma_sw_msi(struct iommu_domain *domain, struct msi_desc *desc,
-+				   const phys_addr_t *phys_addrs, unsigned int nr_addrs,
-+				   size_t granule)
- {
- 	return -ENODEV;
- }
-diff --git a/drivers/iommu/iommu-priv.h b/drivers/iommu/iommu-priv.h
-index aaffad5854fc..1122c99566d5 100644
---- a/drivers/iommu/iommu-priv.h
-+++ b/drivers/iommu/iommu-priv.h
-@@ -54,10 +54,11 @@ int iommu_replace_group_handle(struct iommu_group *group,
- 
- #if IS_ENABLED(CONFIG_IOMMUFD_DRIVER_CORE) && IS_ENABLED(CONFIG_IRQ_MSI_IOMMU)
- int iommufd_sw_msi(struct iommu_domain *domain, struct msi_desc *desc,
--		   phys_addr_t msi_addr);
-+		   const phys_addr_t *phys_addrs, unsigned int nr_addrs, size_t granule);
- #else /* !CONFIG_IOMMUFD_DRIVER_CORE || !CONFIG_IRQ_MSI_IOMMU */
--static inline int iommufd_sw_msi(struct iommu_domain *domain,
--				 struct msi_desc *desc, phys_addr_t msi_addr)
-+static inline int iommufd_sw_msi(struct iommu_domain *domain, struct msi_desc *desc,
-+				 const phys_addr_t *phys_addrs, unsigned int nr_addrs,
-+				 size_t granule)
- {
- 	return -EOPNOTSUPP;
- }
-diff --git a/drivers/iommu/iommu.c b/drivers/iommu/iommu.c
-index a3dea7353500..692e793c624e 100644
---- a/drivers/iommu/iommu.c
-+++ b/drivers/iommu/iommu.c
-@@ -4223,42 +4223,115 @@ void pci_dev_reset_iommu_done(struct pci_dev *pdev)
- EXPORT_SYMBOL_GPL(pci_dev_reset_iommu_done);
- 
- #if IS_ENABLED(CONFIG_IRQ_MSI_IOMMU)
-+static int __iommu_dma_prepare_msi_list(struct iommu_group *group, struct msi_desc *desc,
-+					const phys_addr_t *phys_addrs, unsigned int nr_addrs,
-+					size_t granule)
-+{
-+	if (!group->domain || group->domain->type == IOMMU_DOMAIN_IDENTITY)
-+		return 0;
-+
-+	switch (group->domain->cookie_type) {
-+	case IOMMU_COOKIE_DMA_MSI:
-+	case IOMMU_COOKIE_DMA_IOVA:
-+		return iommu_dma_sw_msi(group->domain, desc, phys_addrs, nr_addrs, granule);
-+	case IOMMU_COOKIE_IOMMUFD:
-+		return iommufd_sw_msi(group->domain, desc, phys_addrs, nr_addrs, granule);
-+	default:
-+		return -EOPNOTSUPP;
-+	}
-+}
-+
-+static int iommu_dma_validate_msi_list(const phys_addr_t *phys_addrs, unsigned int nr_addrs,
-+				       size_t granule)
-+{
-+	unsigned int i;
-+
-+	if (!nr_addrs || granule < PAGE_SIZE || !is_power_of_2(granule) ||
-+	    nr_addrs > SIZE_MAX / granule)
-+		return -EINVAL;
-+
-+	for (i = 0; i < nr_addrs; i++)
-+		if (!IS_ALIGNED(phys_addrs[i], granule))
-+			return -EINVAL;
-+
-+	return 0;
-+}
-+
 +/**
-+ * iommu_dma_prepare_msi_list() - Map MSI pages in the IOMMU domain
-+ * @desc: MSI descriptor to update with the base IOVA
-+ * @phys_addrs: Ordered MSI target physical addresses
-+ * @nr_addrs: Number of addresses in @phys_addrs
-+ * @granule: Mapping granule for every address
++ * bpf_lsm_policy_from_fd - Get an LSM policy object from a fd
++ * @fd: file descriptor referring to a policy object, resolved in the
++ *      file descriptor table of the task running the program
++ * @flags: reserved for future use, must be 0
 + *
-+ * @nr_addrs must be nonzero and @granule must be a power of two no smaller than
-+ * PAGE_SIZE. Every address must be aligned to @granule. The addresses are mapped
-+ * in order to one contiguous IOVA range and may repeat. The list is consumed
-+ * synchronously and is not retained.
++ * Translate @fd, as set up through the owning LSM's own userspace
++ * interface, into a referenced policy object.  The fd identifies the
++ * LSM asked to translate it: each LSM recognizes its own fds and
++ * declines every other.  Only syscall programs may call this kfunc:
++ * they run in the context of the task invoking them, where the fd is
++ * meaningful.  The reference must be released with
++ * bpf_lsm_policy_release().
 + *
-+ * When a software MSI mapping is required, the backend records the base IOVA
-+ * and granule shift in @desc. Otherwise, @desc is left unchanged.
-+ *
-+ * Return: 0 on success, -EINVAL if the parameters are invalid, -EOPNOTSUPP if
-+ * the domain backend cannot provide the mapping, or another negative error
-+ * code from the backend.
++ * Return: A referenced policy object, or NULL if @flags is not 0, if
++ * no enabled LSM recognizes @fd as one of its policy objects, or if
++ * the recognizing LSM fails to translate it.
 + */
-+int iommu_dma_prepare_msi_list(struct msi_desc *desc, const phys_addr_t *phys_addrs,
-+			       unsigned int nr_addrs, size_t granule)
++__bpf_kfunc struct lsm_policy_object *bpf_lsm_policy_from_fd(int fd, u32 flags)
 +{
-+	struct device *dev = msi_desc_to_dev(desc);
-+	struct iommu_group *group = dev->iommu_group;
-+	int ret;
++	struct lsm_static_call *scall;
++	struct lsm_policy_object *object;
++	int err;
 +
-+	ret = iommu_dma_validate_msi_list(phys_addrs, nr_addrs, granule);
-+	if (ret || !group)
-+		return ret;
++	if (flags)
++		return NULL;
 +
-+	mutex_lock(&group->mutex);
-+	ret = __iommu_dma_prepare_msi_list(group, desc, phys_addrs, nr_addrs, granule);
-+	mutex_unlock(&group->mutex);
-+	return ret;
++	lsm_for_each_hook(scall, policy_object_from_fd) {
++		err = scall->hl->hook.policy_object_from_fd(fd, &object);
++		if (err == -EOPNOTSUPP)
++			/* Not this LSM's fd: let another claim it. */
++			continue;
++		if (err)
++			return NULL;
++		return object;
++	}
++	return NULL;
 +}
 +
  /**
-  * iommu_dma_prepare_msi() - Map the MSI page in the IOMMU domain
-  * @desc: MSI descriptor, will store the MSI page
-  * @msi_addr: MSI target address to be mapped
+  * bpf_lsm_policy_release - Release a policy object reference
+  * @object: policy object to release
   *
-- * The implementation of sw_msi() should take msi_addr and map it to
-- * an IOVA in the domain and call msi_desc_set_iommu_msi_iova() with the
-- * mapping information.
-- *
-  * Return: 0 on success or negative error code if the mapping failed.
+- * Release an acquired reference on a policy object.
++ * Release a reference acquired with bpf_lsm_policy_from_fd().
   */
- int iommu_dma_prepare_msi(struct msi_desc *desc, phys_addr_t msi_addr)
+ __bpf_kfunc void bpf_lsm_policy_release(struct lsm_policy_object *object)
  {
- 	struct device *dev = msi_desc_to_dev(desc);
- 	struct iommu_group *group = dev->iommu_group;
-+	phys_addr_t phys_addr;
-+	size_t granule;
- 	int ret = 0;
+@@ -44,6 +83,8 @@ CFI_NOSEAL(bpf_lsm_policy_release_dtor);
+ __bpf_kfunc_end_defs();
  
- 	if (!group)
+ BTF_KFUNCS_START(bpf_lsm_policy_kfunc_ids)
++BTF_ID_FLAGS(func, bpf_lsm_policy_from_fd,
++	     KF_ACQUIRE | KF_RET_NULL | KF_SLEEPABLE)
+ BTF_ID_FLAGS(func, bpf_lsm_policy_release, KF_RELEASE)
+ BTF_KFUNCS_END(bpf_lsm_policy_kfunc_ids)
+ 
+@@ -51,10 +92,14 @@ BTF_ID_LIST(bpf_lsm_policy_dtor_ids)
+ BTF_ID(struct, lsm_policy_object)
+ BTF_ID(func, bpf_lsm_policy_release_dtor)
+ 
++BTF_ID_LIST_SINGLE(bpf_lsm_policy_from_fd_ids, func, bpf_lsm_policy_from_fd)
++
+ /*
+  * BPF_PROG_TYPE_LSM and BPF_PROG_TYPE_SYSCALL share their kfunc
+  * lookup buckets with other program types, so restricting the policy
+- * kfuncs requires a filter.
++ * kfuncs requires a filter.  A policy object fd is only meaningful in
++ * the fd table of the task that set the object up: the fd kfunc is
++ * exclusive to syscall programs, which run in that task's context.
+  */
+ static int bpf_lsm_policy_kfunc_filter(const struct bpf_prog *prog,
+ 				       u32 kfunc_id)
+@@ -64,7 +109,11 @@ static int bpf_lsm_policy_kfunc_filter(const struct bpf_prog *prog,
+ 
+ 	switch (prog->type) {
+ 	case BPF_PROG_TYPE_SYSCALL:
++		return 0;
+ 	case BPF_PROG_TYPE_LSM:
++		if (kfunc_id == bpf_lsm_policy_from_fd_ids[0])
++			return -EACCES;
++
  		return 0;
- 
- 	mutex_lock(&group->mutex);
--	/* An IDENTITY domain must pass through */
--	if (group->domain && group->domain->type != IOMMU_DOMAIN_IDENTITY) {
--		switch (group->domain->cookie_type) {
--		case IOMMU_COOKIE_DMA_MSI:
--		case IOMMU_COOKIE_DMA_IOVA:
--			ret = iommu_dma_sw_msi(group->domain, desc, msi_addr);
--			break;
--		case IOMMU_COOKIE_IOMMUFD:
--			ret = iommufd_sw_msi(group->domain, desc, msi_addr);
--			break;
--		default:
--			ret = -EOPNOTSUPP;
--			break;
--		}
-+	if (!group->domain || group->domain->type == IOMMU_DOMAIN_IDENTITY)
-+		goto out_unlock;
-+
-+	switch (group->domain->cookie_type) {
-+	case IOMMU_COOKIE_DMA_MSI:
-+	case IOMMU_COOKIE_DMA_IOVA:
-+		granule = iommu_dma_msi_granule(group->domain);
-+		break;
-+	case IOMMU_COOKIE_IOMMUFD:
-+		granule = PAGE_SIZE;
-+		break;
-+	default:
-+		ret = -EOPNOTSUPP;
-+		goto out_unlock;
- 	}
-+
-+	phys_addr = ALIGN_DOWN(msi_addr, granule);
-+	ret = __iommu_dma_prepare_msi_list(group, desc, &phys_addr, 1, granule);
-+
-+out_unlock:
- 	mutex_unlock(&group->mutex);
- 	return ret;
- }
-diff --git a/drivers/iommu/iommufd/driver.c b/drivers/iommu/iommufd/driver.c
-index 45278c11c688..72e9ce63a5ee 100644
---- a/drivers/iommu/iommufd/driver.c
-+++ b/drivers/iommu/iommufd/driver.c
-@@ -419,9 +419,14 @@ static void iommufd_sw_msi_set_required(struct iommufd_group *igroup,
- 	}
- }
- 
--static int iommufd_sw_msi_list(struct iommu_domain *domain, struct msi_desc *desc,
--			       const phys_addr_t *phys_addrs, unsigned int nr_addrs,
--			       size_t granule)
-+/*
-+ * Called by the irq code if the platform translates the MSI addresses through the
-+ * IOMMU. phys_addrs are the physical addresses of the MSI pages. iommufd will
-+ * allocate contiguous fd global iovas for the physical pages that are the same on
-+ * all domains and devices.
-+ */
-+int iommufd_sw_msi(struct iommu_domain *domain, struct msi_desc *desc,
-+		   const phys_addr_t *phys_addrs, unsigned int nr_addrs, size_t granule)
- {
- 	struct device *dev = msi_desc_to_dev(desc);
- 	struct iommufd_hwpt_paging *hwpt_paging;
-@@ -505,19 +510,6 @@ static int iommufd_sw_msi_list(struct iommu_domain *domain, struct msi_desc *des
- 	return rc;
- }
- 
--/*
-- * Called by the irq code if the platform translates the MSI address through the
-- * IOMMU. msi_addr is the physical address of the MSI page. iommufd will
-- * allocate a fd global iova for the physical page that is the same on all
-- * domains and devices.
-- */
--int iommufd_sw_msi(struct iommu_domain *domain, struct msi_desc *desc,
--		   phys_addr_t msi_addr)
--{
--	phys_addr_t phys_addr = msi_addr & PAGE_MASK;
--
--	return iommufd_sw_msi_list(domain, desc, &phys_addr, 1, PAGE_SIZE);
--}
- EXPORT_SYMBOL_NS_GPL(iommufd_sw_msi, "IOMMUFD");
- #endif
- 
-diff --git a/include/linux/iommu.h b/include/linux/iommu.h
-index ac43b8b93f14..bf08be172e40 100644
---- a/include/linux/iommu.h
-+++ b/include/linux/iommu.h
-@@ -1561,8 +1561,16 @@ static inline void pci_dev_reset_iommu_done(struct pci_dev *pdev)
- 
- #ifdef CONFIG_IRQ_MSI_IOMMU
- #ifdef CONFIG_IOMMU_API
-+int iommu_dma_prepare_msi_list(struct msi_desc *desc, const phys_addr_t *phys_addrs,
-+			       unsigned int nr_addrs, size_t granule);
- int iommu_dma_prepare_msi(struct msi_desc *desc, phys_addr_t msi_addr);
- #else
-+static inline int iommu_dma_prepare_msi_list(struct msi_desc *desc, const phys_addr_t *phys_addrs,
-+					     unsigned int nr_addrs, size_t granule)
-+{
-+	return 0;
-+}
-+
- static inline int iommu_dma_prepare_msi(struct msi_desc *desc,
- 					phys_addr_t msi_addr)
- {
+ 	default:
+ 		return -EACCES;
 -- 
-2.43.0
+2.55.0
 
