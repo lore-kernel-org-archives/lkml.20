@@ -1,335 +1,208 @@
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com [209.85.128.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B8D640BCAB
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 12:57:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D52EC40DB37
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 12:57:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788181032; cv=none; b=RDPGCljkAWOtyO5q1rK4c7m1j1EHNWLqbtXfufYAFBd7TnOHqR/pFNvcixBm2uWhS+4xm7ch+vbPF5nQeTHQ682FX/8NUd8YqVanonONuIsp4AAji2AiQPM8XsQ6QsH9nF2h0DNhYeKtgz2N2iX7xEURs5rxy1Q9C7YqBY9RzG8=
+	t=1788181059; cv=none; b=IIuZk1zsniEIvG+vOBBQrVfd9SD32eJ8oG0gx3TDB4N2BIc2R2UPwyUTWfy8zCBUQoEHB77KVcNp+Itu+2iCnxbypBF8iIZEZCA09JmBN0huhC0sUte9Nd7Q7XlhGaSpVYRjyQVDrsPVFINNGXK7lyzQQwouRrEHCgdOPcbUuEg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788181032; c=relaxed/simple;
-	bh=8Osa2PuSG7NB9dJZI5amIi1Tsefo0mCPT5lN1eFX25U=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=uZmAg31eHfX/m0zVflntHk0L9bq2xCPuYHucQxYZIi+qUikbB/Eqw3iR9uUw4w38h852hgOhbaIQTehtNJmbgER4cmKLakPImpTSWVofIevx1JP35qyxcWOXidIjOut143v5u2Za7j3s/ieZWLtvDkNXzK9/uoXAP4zQGGIH0Uw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=e7VwsVw6; arc=none smtp.client-ip=209.85.128.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1788181059; c=relaxed/simple;
+	bh=9ZL4XBzPZ0V9ydMLiQmcbR7eiM+nR8n/0NGC/rsZkDs=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=icMddmDyUpiNm5xu+wiIPf090ykU3kbf/s4/WhDK3rM0iWGT1FMFFKSLTg4+EH1Hz4osbz4mmbv7FEVqIRJpxb2R8ct4jKHUAVVM9VU/K3lPttJiGAVPR5daEhw+U4HdOVQBzUQiOhOZ7kfYJFp2FmjpmU8Jc+HyWUF67tI5iO0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Nwo7NLxx; arc=none smtp.client-ip=209.85.128.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="e7VwsVw6"
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-499b2981a7bso38566525e9.3
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 05:57:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Nwo7NLxx"
+Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-49ccb223bceso14582585e9.0
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 05:57:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1788181027; x=1788785827; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ZQJDQy5rb/uJP6b6BKCnJ/LPglbNUPImqzRgdlzJPKA=;
-        b=e7VwsVw6YW9hM9Q9Npzl4F+lCMok2uPPT3J1GAQdfAaTpw0H1736zHM2KduWETisHY
-         mXdvD62fzvP5n/BaSCJruM4wXXVH1P28BG/UiTg3ybyynu8HncwQAkeLn6OD0GoPbMjL
-         ImXDNknJnPuRmIilSS+Acra5jjc7n+gI3DjTMf5KzdwWNeKtME5SVs+Gpps8CJJzsC5O
-         5Hw15Bu75THxSOmiUYipy5EC7gQ5i1VtVcY0o6G86vrnToI3Jr87OyZeSQnEu7RTN5yD
-         B7Zp01jQPQO0JHWyGJkK7ekwjcntqqlTHFct1yyPKQP0YloX6ZPSIT0p1l/yLAu2yMe4
-         bz2Q==
+        d=google.com; s=20251104; t=1788181056; x=1788785856; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=cKyH/g1NLaguYKAGHg3qgzdHP4bGLADdCtBT1AC9Fr0=;
+        b=Nwo7NLxxMhj64eutgN6/3+L/uI2MGH0sGWp6pAHMw/j9iiKpc0g1q0tnviS5HWVW+R
+         FTteYGLuCOVsoLRtWW9ihIG/Q2W2zaG+KMtOzFp1frpItSAf/QHgDs7KdUkkejXVGfvI
+         odPInk5E31766YCeg+iVae0PPzYwNNUlaULlT7e0LFflnMmnQvOhrQX6rHDqEaO+2U5C
+         6kXL7G8zBMwmlsrPZwQbD4TQ+Od4gK80nEIq5n1nMOxWEN4g7juWP+NggHVfOBwCKfbn
+         LyTSF2z+y896UMVrl8y34h0+HEA/psgX/lGsMdT7RgeqZqjvMSFCJAChCfo1Oy7D4lmG
+         TpXw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788181027; x=1788785827;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20251104; t=1788181056; x=1788785856;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ZQJDQy5rb/uJP6b6BKCnJ/LPglbNUPImqzRgdlzJPKA=;
-        b=sq2VLLK7nn2AALRJQuJCEZKkmLPmBSJCNtjxN+WS2l1JaAdmHFdQ058n4OiTZtHOHO
-         BxaEbpMWPIoUwHUHFXQik5jdoJzKBM6QiEGMeB6aBPyKSo0aeuxRsWsUANbOtappnicx
-         5AtI3refhLzYXlicAu4jlDCH7eoG9t64bEvz+eIrmeKQDcKFKIYy1tPzqkWNhxbFB75W
-         O7aLzUKH65B0eecyOgI8Ig0iSFi4e1eup1hDyiiA5SVZA/Vt1KNvyd0UBuknqoRNE7if
-         GBwMOhqb6+uw8eZ9LPuqr+CMTVi1nNJqxV0pe7AKDhRbdQoGIno67OIe6bPXiDITikPs
-         yuAA==
-X-Forwarded-Encrypted: i=1; AHgh+RoWfSag1oro/c4U3vfpKccWo6lOBH+InQykaz5DAKKg3xKxHqoooTYjDJAvr5hfi0HXiaUk1j6JG+Q2hjo=@vger.kernel.org
-X-Gm-Message-State: AFuF++mOvXWujHx4v4IK8bUz83dowpPMIQpY7jmyyQ0Wf0m5tujxwNwE
-	ImkByHFwefMANS8gzEO1G8QuZHn07lN6sXkAkgD5cEOAdYs6uy9c0TEvIwNKmBM1N8I=
-X-Gm-Gg: AR+sD13K+mgEBvmqLpfoiuD+XNntx35j2LsNCouGEW+KwQhSxVZdJCfJ+UAklkAXwnc
-	OOrfgNDJeynoGnA7GzCn+jyHamdr6/Ogfhy9r1UOZ+gFFQuw/qCuYA7hdWhyh70UIG2fs+gWZ7h
-	K6HqrV399WOmEkMTNJ70EjcBM8EZnmTAylCE7ruXkysQEZSVL9VzLD1f5X/pCIW4MMA8XE6eL/T
-	dzZh93UYHf7p1YfrAjJkDi121NvxYEbRaZXL5z05x3JoFjQdGaV7zKezEAFkxuYwprPZ/5vtlN8
-	ql/083wZ5THZrTVlTigXOjVK9u9GXbneUuDswOWgulPZz3rQhDxszSxzAymWOxjQaoP4/z8Q6hs
-	6Cd3osnkpo9t0OTwvPEKfduFdDz6uOi8hBmw2Ct96ptSRnuRip9fu9K13kiQK5RxCDQKwKCVgs2
-	cSDMMrzi/a5ZlMbwW4DGeaEyzOwbf4Sl53HSd3WfqsJMJ65xQ9A276wMJBSR7mVQ==
-X-Received: by 2002:a05:600c:8b88:b0:49b:4d64:bbc4 with SMTP id 5b1f17b1804b1-49cdc4403e4mr7292785e9.8.1788181027219;
-        Mon, 31 Aug 2026 05:57:07 -0700 (PDT)
-Received: from pathway.suse.cz ([176.114.240.130])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cdb13f094sm31431385e9.3.2026.08.31.05.57.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 05:57:06 -0700 (PDT)
-Date: Mon, 31 Aug 2026 14:57:04 +0200
-From: Petr Mladek <pmladek@suse.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: Harry Hsu <x90613@gmail.com>, jpoimboe@kernel.org,
-	linux-kernel@vger.kernel.org, jikos@kernel.org,
-	joe.lawrence@redhat.com, live-patching@vger.kernel.org,
-	mbenes@suse.cz
-Subject: Re: [PATCH 3/3] livepatch: Clean up klp_init_object_loaded() when
- fails
-Message-ID: <apV6IPGhqhK7cGeh@pathway.suse.cz>
-References: <20260830173343.52759-1-x90613@gmail.com>
- <20260830173343.52759-4-x90613@gmail.com>
- <20260830175608.4BABB1F000E9@smtp.kernel.org>
+        bh=cKyH/g1NLaguYKAGHg3qgzdHP4bGLADdCtBT1AC9Fr0=;
+        b=tDZoE4gF+JDiJCIAx1w1qroH0OCOFOsfERnNDsm98BPDQ3+tDEwSmWq6oXuhYYUgGr
+         W1pSqNrGTJS4G4AFzQi0S8Cg+3dfVCZ9F9fdp0WdlK3BulaDcxN2RG3xQi6ynCaC0Css
+         BKIfu7LAfFzKpEQ0jrIEyMDEWzvSSRzOdDBJXywPjljshmfWg3RtqbAI1RFW7UvySUlF
+         0zoXmaIqFMVE9pbyXY5EOFfJOs75Rwm4TEkAgKpGCNIq/pnrWZLrNj6I5BweNN9ORS46
+         kb3e76wwRSA/LxWNBXEg61DacVByU58HwHlwdzfc9DLRIqU3j+XTt+ZjjYnXaYA1JA6i
+         jDig==
+X-Forwarded-Encrypted: i=1; AHgh+RonFx3xV6sVHnK5UJcOta/DLvCdr2E7IlCmIyCMA6gsraKtHQUM8XkmCVc/Y1p0JPkPDo9EWHTCBl9wFoM=@vger.kernel.org
+X-Gm-Message-State: AFuF++luNhZH1vVaPEz+Bet9K1Prlx5OPue9IlcmweD8wtglmiwxBzfK
+	HNnoXRRvnArdjUsedLaDBJjRp9dIvylwcRPJHeMwYLsPrMMX1EuLg/5nAoYMFVAwTQL158A7l21
+	7ZKxyLPDBXowU+kiOYA==
+X-Received: from wrca25.prod.google.com ([2002:a5d:4579:0:b0:47f:40f4:399])
+ (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:600c:3b11:b0:499:59fd:dbfc with SMTP id 5b1f17b1804b1-49cd5312c4bmr116093915e9.1.1788181055786;
+ Mon, 31 Aug 2026 05:57:35 -0700 (PDT)
+Date: Mon, 31 Aug 2026 12:57:26 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260830175608.4BABB1F000E9@smtp.kernel.org>
+Mime-Version: 1.0
+X-B4-Tracking: v=1; b=H4sIADV6lWoC/x3M3Q5DQBCG4VuROe4k2AZ1K40D1rdM1E92aDXi3
+ m0cPgfve5DCC5TK6CCPr6jMU0DyiMj29dSBpQ2mNE6zuDAJ61/ZbSt2/tUDeJURrB+xYGuy3BS Ny5vXk0K/eDjZ7/e7Os8LP0I/zmsAAAA=
+X-Change-Id: 20260831-sys-futex-wake-time-slice-c36738bf7b94
+X-Developer-Key: i=aliceryhl@google.com; a=openpgp; fpr=49F6C1FAA74960F43A5B86A1EE7A392FDE96209F
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5416; i=aliceryhl@google.com;
+ h=from:subject:message-id; bh=9ZL4XBzPZ0V9ydMLiQmcbR7eiM+nR8n/0NGC/rsZkDs=;
+ b=owEBbQKS/ZANAwAKAQRYvu5YxjlGAcsmYgBqlXo5XkZJ/cLNePTes/5M7fqd3nfGvueYaphPp
+ CSactW57IGJAjMEAAEKAB0WIQSDkqKUTWQHCvFIvbIEWL7uWMY5RgUCapV6OQAKCRAEWL7uWMY5
+ RmTPD/9AeJ1U4JHzObrRSkY0Ji1Cx2BzazA67y7PXmzUDBjtoKd+PWoOdYHkDkWQ+qerlBujUs4
+ XvKt//3pqDOj9UIACwKbTtdhPHGZLkY0YqvQCf2IKYV1mJPfNe6EVu+hB2Qkv8UGRaQEyr6ng/b
+ 3bIU3cGAgy4Dkeh7ZNLpx5HkdKVlwdx8WDR1wIM0Zjscy8pLVzHdo9oqPOex4pF9nfYLTR4fDmP
+ 7J8ro6eCYpp1pP5hiz0R+9QiW+2CAY6L8XJKf98/JOP0QeXu6WW4t4zgqzD5HUcG70KaCzo74tW
+ Vy4oOLlHIZrJBKHqHh3ViCXIXG36nrTd36a7wv4T9AuVAGN4PXkqtatuHcFc81Dh5ycJzdW+Tyl
+ 3w4gTalyJV3yIBuDokhwZhSi2ClbEgLZ/aF1sE0x132UeCG5zkPnZHtVi4hG/ZSk7m9uVyKn4WH
+ 4fIxU4iA/NroslxurDJ1O1Nk2eWDCuMFH6qzikgoJn1J3QX+5ee8AZIXYVpqp5jL4z/Wy8hKxwX
+ xgAMtLmZoxkuladsOPhpBrB4iQYNapBAXIk9R5lBXQTozpaP3rBg5scHX34KbNPSTDOT+yyqsjW
+ tizhmGvXsFMwLBYmMYpunAg4NfHytPb3QkqxwM+yImAt+Lc0RhVqEvClcFycC6p82hpKqCdY8pI mLXMKbjOZ0v6+uQ==
+X-Mailer: b4 0.14.3
+Message-ID: <20260831-sys-futex-wake-time-slice-v1-1-814bb95cc339@google.com>
+Subject: [PATCH] rseq: defer time slice extension yield for sys_futex_wake
+From: Alice Ryhl <aliceryhl@google.com>
+To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, Peter Zijlstra <peterz@infradead.org>, 
+	"Paul E. McKenney" <paulmck@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+	Dmitry Vyukov <dvyukov@google.com>, Thomas Gleixner <tglx@kernel.org>
+Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Randy Dunlap <rdunlap@infradead.org>, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Alice Ryhl <aliceryhl@google.com>
+Content-Type: text/plain; charset="utf-8"
 
-On Sun 2026-08-30 17:56:07, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
-> 
-> New issues:
-> - [Medium] Failing `klp_apply_object_relocs()` triggers spurious architectural warnings due to unconditional clearing of unapplied relocations in the newly added error path.
-> 
-> Pre-existing issues:
-> - [High] If `klp_pre_patch_callback()` or `klp_patch_object()` fails during `klp_module_coming()`, the successfully initialized state from `klp_init_object_loaded()` is leaked. The cleanup function `klp_cleanup_module_patches_limited()` intentionally skips the currently failing patch, leaving applied relocations in the livepatch module uncleared and causing subsequent load attempts of the target module to persistently fail.
-> --
-> 
-> commit a90c142b7a6f2c5551f83382ec1fcf15614ffbac
-> Author: Petr Mladek <pmladek@suse.com>
-> 
-> livepatch: Clean up klp_init_object_loaded() when fails
-> 
-> When a module is loaded, klp_module_coming() iterates over patches and
-> calls klp_init_object_loaded(). If initialization fails, it delegates
-> cleanup to klp_cleanup_module_patches_limited(). This commit updates
-> klp_free_object_loaded() to revert all and only changes made by
-> klp_init_object_loaded().
-> 
-> Closes: https://lore.kernel.org/r/20260823062313.1321B1F000E9@smtp.kernel.org
-> 
-> > diff --git a/kernel/livepatch/core.c b/kernel/livepatch/core.c
-> > index a6796cd6b65fd..706a4a7193514 100644
-> > --- a/kernel/livepatch/core.c
-> > +++ b/kernel/livepatch/core.c
-> 
-> [ ... ]
-> 
-> > @@ -916,11 +920,17 @@ static int klp_init_object_loaded(struct klp_patch *patch,
-> >  		if (!ret) {
-> >  			pr_err("kallsyms size lookup failed for '%s' replacement\n",
-> >  			       func->old_name);
-> > -			return -ENOENT;
-> > +			ret = -ENOENT;
-> > +			goto err;
-> >  		}
-> >  	}
-> >  
-> >  	return 0;
-> > +
-> > +err:
-> > +	klp_free_object_loaded(patch, obj);
-> > +
-> > +	return ret;
-> >  }
-> 
-> [Severity: Medium]
-> Does this unconditionally clear unapplied relocations?
+When a task is granted an rseq scheduler time slice extension, it is
+expected to finish its critical section and relinquish the CPU via
+rseq_slice_yield(2). If the task issues any other system call while a
+grant is active, rseq_syscall_enter_work() forces an immediate
+reschedule on syscall entry via cond_resched(). This may cause
+significant latency penalty for userspace lock implementations that use
+rseq time slice extensions when unlocking the futex.
 
-Ah, I thought that this should be OK.
+In a userspace mutex unlock sequence:
+1. The lock is released in userspace.
+2. If there are waiters, the unlocking thread calls sys_futex_wake()
+   to wake a sleeping waiter.
 
-> When klp_init_object_loaded() fails (for example, if a symbol lookup fails
-> after klp_apply_object_relocs() succeeds, or if klp_apply_object_relocs()
-> itself fails), this newly added error path calls klp_free_object_loaded().
-> 
-> This unconditionally invokes klp_clear_object_relocs(), which iterates over
-> all .klp.rela sections and attempts to un-apply them via
-> clear_relocate_add().
-> 
-> However, for sections that were never applied, the target memory remains
-> unmodified (zeroed). On architectures like x86, clear_relocate_add() uses
-> memcmp() to verify that the memory contains the expected relocated value.
-> Since it does not, it prints an "Invalid relocation target" warning for
-> every unapplied relocation entry, resulting in significant spurious warning
-> spam in the kernel log.
+Because sys_futex_wake() is currently treated as an arbitrary syscall,
+rseq_syscall_enter_work() schedules out the unlocking thread upon
+syscall entry, which is before it has executed the wakeup. Consequently,
+the lock is free in userspace, but the waiter remains blocked in the
+kernel while the CPU switches to an unrelated task. The waiter is only
+woken when the unlocking thread is eventually scheduled back in to
+finish the syscall, causing lock handoff delays.
 
-Sashiko is right. __write_relocate_add() really checks the original
-value even when clearing relocation at least on x86_64.
+Thus, update rseq_syscall_enter_work() for sys_futex_wake() so that it
+does not reschedule during syscall entry. The thread will yield the CPU
+on the syscall exit path instead.
 
-Only klp_write_object_relocs() knows which relocations were updated.
-So it has to clear its own mess.
+There is no need to apply this optimization to the multiplexed futex()
+syscall since any userspace code that can invoke rseq_slice_yield() can
+also invoke futex_wake().
 
-I am going to do the following changes on top of this patch
-(just compile tested at the moment):
+This patch was verified via ftrace that when sys_futex_wake() is invoked
+during an active slice grant, the wakeup (sched_waking) occurs before
+any context switch:
+1. sys_enter_futex_wake
+2. sched_waking (wakes waiting thread)
+3. sys_exit_futex_wake -> 0x1
+4. sched_switch (on syscall exit due to TIF_NEED_RESCHED)
 
-diff --git a/kernel/livepatch/core.c b/kernel/livepatch/core.c
-index 1c217ac49d2b..b6ae3a518ca9 100644
---- a/kernel/livepatch/core.c
-+++ b/kernel/livepatch/core.c
-@@ -342,14 +342,17 @@ int klp_apply_section_relocs(struct module *pmod, Elf_Shdr *sechdrs,
- 					secndx, objname, true);
- }
+Assisted-by: LLM
+Signed-off-by: Alice Ryhl <aliceryhl@google.com>
+---
+ Documentation/userspace-api/rseq.rst | 17 +++++++++++++----
+ kernel/rseq.c                        | 16 +++++++++++++---
+ 2 files changed, 26 insertions(+), 7 deletions(-)
+
+diff --git a/Documentation/userspace-api/rseq.rst b/Documentation/userspace-api/rseq.rst
+index 8549a6c61531..30bdb1885f67 100644
+--- a/Documentation/userspace-api/rseq.rst
++++ b/Documentation/userspace-api/rseq.rst
+@@ -217,10 +217,10 @@ operation.
  
--static int klp_write_object_relocs(struct klp_patch *patch,
--				   struct klp_object *obj,
--				   bool apply)
-+static int klp_write_object_relocs_limited(struct klp_patch *patch,
-+					   struct klp_object *obj,
-+					   bool apply, int limit)
- {
- 	int i, ret;
- 	struct klp_modinfo *info = patch->mod->klp_info;
+ If the thread issues a syscall other than rseq_slice_yield(2) within the
+ granted timeslice extension, the grant is also revoked and the CPU is
+-relinquished immediately when entering the kernel. This is required as
+-syscalls might consume arbitrary CPU time until they reach a scheduling
+-point when the preemption model is either NONE or VOLUNTARY and therefore
+-might exceed the grant by far.
++relinquished. For most syscalls, this occurs immediately when entering the
++kernel. This is required as syscalls might consume arbitrary CPU time until
++they reach a scheduling point when the preemption model is either NONE or
++VOLUNTARY and therefore might exceed the grant by far.
  
--	for (i = 1; i < info->hdr.e_shnum; i++) {
-+	if (!limit || limit > info->hdr.e_shnum)
-+		limit = info->hdr.e_shnum;
+ The preferred solution for user space is to use rseq_slice_yield(2) which
+ is side effect free. The support for arbitrary syscalls is required to
+@@ -228,5 +228,14 @@ support onion layer architectured applications, where the code handling the
+ critical section and requesting the time slice extension has no control
+ over the code within the critical section.
+ 
++For futex_wake(2), the CPU is instead relinquished when returning to userspace,
++so that it gets a chance to wake any waiting tasks before yielding the CPU.
++This makes it possible to terminate the critical region of a userspace mutex
++using rseq and futexes with futex_wake(2) instead of rseq_slice_yield(2).
++Currently, this is the only syscall that does not relinquish the CPU
++immediately on syscall entry. Note in particular that this applies only to the
++dedicated futex_wake(2) syscall, and not to the futex(2) syscall even when
++using op=FUTEX_WAKE.
 +
-+	for (i = 1; i < limit; i++) {
- 		Elf_Shdr *sec = info->sechdrs + i;
- 
- 		if (!(sec->sh_flags & SHF_RELA_LIVEPATCH))
-@@ -359,13 +362,23 @@ static int klp_write_object_relocs(struct klp_patch *patch,
- 					       info->secstrings,
- 					       patch->mod->core_kallsyms.strtab,
- 					       info->symndx, i, obj->name, apply);
--		if (ret)
-+		if (ret) {
-+			if (apply)
-+				klp_write_object_relocs_limited(patch, obj, false, i);
- 			return ret;
-+		}
- 	}
- 
- 	return 0;
- }
- 
-+static int klp_write_object_relocs(struct klp_patch *patch,
-+				   struct klp_object *obj,
-+				   bool apply)
-+{
-+	return klp_write_object_relocs_limited(patch, obj, apply, 0);
-+}
-+
- static int klp_apply_object_relocs(struct klp_patch *patch,
- 				   struct klp_object *obj)
- {
-@@ -902,7 +915,7 @@ static int klp_init_object_loaded(struct klp_patch *patch,
+ The kernel enforces flag consistency and terminates the thread with SIGSEGV
+ if it detects a violation.
+diff --git a/kernel/rseq.c b/kernel/rseq.c
+index e75e3a5e312c..81bc2ed997f0 100644
+--- a/kernel/rseq.c
++++ b/kernel/rseq.c
+@@ -723,9 +723,18 @@ void rseq_syscall_enter_work(long syscall)
+ 		 * the task was already rescheduled before arriving here.
  		 */
- 		ret = klp_apply_object_relocs(patch, obj);
- 		if (ret)
--			goto err;
-+			return ret;
+ 		if (!curr->rseq.event.sched_switch) {
+-			rseq_slice_set_need_resched(curr);
++			if (syscall == __NR_futex_wake) {
++				/*
++				 * For this syscall, reschedule on syscall exit
++				 * instead of syscall entry to avoid delaying
++				 * the wakeup.
++				 */
++				set_tsk_need_resched(curr);
++			} else {
++				rseq_slice_set_need_resched(curr);
++			}
+ 
+-			if (syscall == __NR_rseq_slice_yield) {
++			if (syscall == __NR_rseq_slice_yield || syscall == __NR_futex_wake) {
+ 				rseq_stat_inc(rseq_stats.s_yielded);
+ 				/* Update the yielded state for syscall return */
+ 				curr->rseq.slice.yielded = 1;
+@@ -735,7 +744,8 @@ void rseq_syscall_enter_work(long syscall)
+ 		}
  	}
+ 	/* Reschedule on NONE/VOLUNTARY preemption models */
+-	cond_resched();
++	if (syscall != __NR_futex_wake)
++		cond_resched();
  
- 	klp_for_each_func(obj, func) {
+ 	/* Clear the grant in kernel state and user space */
+ 	curr->rseq.slice.state.granted = false;
 
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20260831-sys-futex-wake-time-slice-c36738bf7b94
 
+Best regards,
+-- 
+Alice Ryhl <aliceryhl@google.com>
 
-> [ ... ]
-> 
-> > @@ -1274,8 +1284,8 @@ static void klp_cleanup_module_patches_limited(struct module *mod,
-> >  			klp_unpatch_object(obj);
-> >  
-> >  			klp_post_unpatch_callback(obj);
-> > -			klp_clear_object_relocs(patch, obj);
-> > -			klp_free_object_loaded(obj);
-> > +			klp_free_object_loaded(patch, obj);
-> > +			obj->mod = NULL;
-> >  			break;
-> >  		}
-> >  	}
-> 
-> [Severity: High]
-> This is a pre-existing issue, but does this cleanup logic leak relocations
-> if klp_module_coming() fails after klp_init_object_loaded() succeeds?
-> 
-> If klp_pre_patch_callback() or klp_patch_object() fails during
-> klp_module_coming(), the successfully initialized state from
-> klp_init_object_loaded() is leaked.
-> 
-> The cleanup function intentionally skips the currently failing patch:
-> 
-> kernel/livepatch/core.c:klp_cleanup_module_patches_limited() {
-> 	...
-> 	klp_for_each_patch(patch) {
-> 		if (patch == limit)
-> 			break;
-> 	...
-> }
-> 
-> This prevents its newly applied relocations from being cleared. Since these
-> relocations modify the livepatch module's memory, they persist even after
-> the target module's load attempt is aborted.
-> 
-> Upon a subsequent attempt to load the target module,
-> klp_apply_object_relocs() will attempt to apply the relocations again. On
-> architectures like x86, apply_relocate_add() verifies that the target
-> memory is zero; finding it non-zero, it returns -ENOEXEC. This causes
-> klp_module_coming() to fail, permanently preventing the target module
-> from being loaded as long as the livepatch is loaded.
-
-Sigh, I got a bit lost in all the cycles. I believe that this should
-get fixed the the following changes on top of this patch:
-
-diff --git a/kernel/livepatch/core.c b/kernel/livepatch/core.c
-index 1c217ac49d2b..09b6f4aa6217 100644
---- a/kernel/livepatch/core.c
-+++ b/kernel/livepatch/core.c
-@@ -1360,7 +1373,7 @@ int klp_module_coming(struct module *mod)
- 			if (ret) {
- 				pr_warn("pre-patch callback failed for object '%s'\n",
- 					obj->name);
--				goto err;
-+				goto err_free_object;
- 			}
- 
- 			ret = klp_patch_object(obj);
-@@ -1368,8 +1381,7 @@ int klp_module_coming(struct module *mod)
- 				pr_warn("failed to apply patch '%s' to module '%s' (%d)\n",
- 					patch->mod->name, obj->mod->name, ret);
- 
--				klp_post_unpatch_callback(obj);
--				goto err;
-+				goto err_unpatch_callback;
- 			}
- 
- 			if (patch != klp_transition_patch)
-@@ -1383,6 +1395,10 @@ int klp_module_coming(struct module *mod)
- 
- 	return 0;
- 
-+err_unpatch_callback:
-+	klp_post_unpatch_callback(obj);
-+err_free_object:
-+	klp_free_object_loaded(patch, obj);
- err:
- 	/*
- 	 * If a patch is unsuccessfully applied, return
-
-
-Note: This is called when it fails in the middle of
-
-		klp_for_each_object(patch, obj) {
-
-      Naive approach would be to implement another *_limited
-      variant which would revert the action for all already
-      proceed "obj" structures.
-
-      But this is called in klp_module_coming() so only one
-      struct object should match. All others are skipped.
-      This is why it should be enough to revert only the last "obj"
-      in the err_* goto targets.
-
-      We propably should enforce this => add another patch
-      which would reject livepatches which contain two
-      struct object for the same object.
-
-Best Regards,
-Petr
-
-PS: I am going to wait few more days for a possible feedback.
-    Then I would v4 of this whole patchset with the additional
-    changes.
-
-    I hope that the 1st patch from Harry won't need more changes.
-    So, I will only fix my part of the patchset. /o\
-
-Best Regards,
-Petr
