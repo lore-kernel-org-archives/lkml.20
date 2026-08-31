@@ -1,116 +1,132 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91D9F3E5A0B
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 11:38:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 660A03F39DC;
+	Mon, 31 Aug 2026 11:38:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788176325; cv=none; b=WkiLec76RrTwuwTWj2RqgaJ+RbXfaPhH/Wa21qlB0tRISQU/whbE3tgFQYe7d/tgi+sU++W7ue6JyAB108coMTi3wW3hZ0seGUaFvjENLLM1ldMHClccAF6A4Lt1XjqfcNSHCUJ4GBaQSBd+IF+hJAH3Qx3tLoN3Bj4XQEk6QW4=
+	t=1788176326; cv=none; b=iU/a8zYL8bH3mx+wXQeLjBJkS6/p38S4TvbC/3rBs2UGQRs+rt2HxqjNWz5GYtkrRBxQ+LnwB1HkdSc00yrIXTET+sQTkf3kKn8t7wKotvoHToqBknyaKipNDDhxEhgv8+jXZjJkoo+Xjk3S1bawbus3hR7p7h99hB+uWhu+CxQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788176325; c=relaxed/simple;
-	bh=hwmMhCYK3a8hrYjtNGCx1Y4KisTSk2GO7CBfRf7aNxU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=iXZyXa2Ib8DIFjAzpIH9bvYXdCQ5G0TYdoeMKsFzPhg80RBfb5UHpLvSM14AIgUgSuOkmn15oCLefxVRBjGYDD3Rdwk2CYdL/JvKRv08RBIBFPIxAR+I3hF4uNRgvVvWs34iQzJFdZmdTtu3TR8gkquDdpcFJVyebGsox4Up3AE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=nu1auKKG; arc=none smtp.client-ip=192.198.163.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1788176326; c=relaxed/simple;
+	bh=nwOFeWvsaBX4TElxo8BKbmKNns0DJdUW18m7d+uWhnc=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
+	 MIME-Version:Content-Type; b=ThCyoSg+dJiF5q5+ReciUPnNru2X/NV9zgyGAt2MjnlPKauJmydOnSG595rZsJvbqriMo+TH5lkxRFEG73+idldJtwKxT+zsb/saoyn7vJnP0+LA6tcgUSS+9A5DThKhxdNdj7YfWV9MEwiEl5DL9epJLgFjUPrV6aSVqpAIQOI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=dfFKL9ly; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=55bSVbf5; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="nu1auKKG"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788176323; x=1819712323;
-  h=from:date:subject:mime-version:content-transfer-encoding:
-   message-id:references:in-reply-to:to:cc;
-  bh=hwmMhCYK3a8hrYjtNGCx1Y4KisTSk2GO7CBfRf7aNxU=;
-  b=nu1auKKGWBVV9hPXVEh1Yr3evGMqYFxDtRD2BYygCyeyxCZIbT2jPCF3
-   ks3BNSXQWPYWbis89+Cs39hxeE2N6jvS3w+mgcKO3j/x4zPzb6ZAk50Ib
-   0tYzx9EAzPezzNMFCn0LrZLnN/y1LtMG/ZY4tg+U8K2ZQYrFdScw+pVt4
-   bhPo4sRnXR9ql1+He9kw9HUbzL7XBUlKHSNAI9JhkwgLpcQ5YwlTdS4WB
-   9xIosgNkGZXjj7sOmNlko8xl2/YSYAx2vNbRX2KGxjz2LtNS4R0zsC8Yd
-   zVezjdqpii5uGN6GlgkuYTduJbnAaQIAzKRH/qROC1TyutdmxpvE8p5pQ
-   A==;
-X-CSE-ConnectionGUID: cFALQ5q3TWiPkw9wUqhj6Q==
-X-CSE-MsgGUID: tzwnlRaFTS6Az9ZL1JHtiA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11891"; a="76129324"
-X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; 
-   d="scan'208";a="76129324"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 04:38:43 -0700
-X-CSE-ConnectionGUID: QMHlCdtdRyifUEhbDWpOeg==
-X-CSE-MsgGUID: BPA5cbmWQ+mYfrX121x9gQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; 
-   d="scan'208";a="262645106"
-Received: from sannilnx-dsk.jer.intel.com (HELO [127.0.1.1]) ([10.12.231.107])
-  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 04:38:42 -0700
-From: Alexander Usyskin <alexander.usyskin@intel.com>
-Date: Mon, 31 Aug 2026 14:38:31 +0300
-Subject: [PATCH char-misc-next 1/4] mei: make polling wait interruptible
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="dfFKL9ly";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="55bSVbf5"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1788176287; bh=9HqZxXcOW1Xz+TeJ5NTeoxc
+	fysDQipXYrj2AUeLNun0=; b=dfFKL9lyz40RzeiWqHXXOCaIDqgwZ1htZdpeyMaBEy0PvVjJVu
+	O2C8rvt8ORsvG29BGnpKvkeXtTj5EfmADXyEm+lQwzlx9k6in1w6Zi9K25Oa44YfHOd20AMyQnz
+	2vmpKB7Xs4RuacxKM5cQf09axsoKhFz8Zkangyy8N2E3yhUBi1XFtTp0A7qcWqnziXps4jaAxEV
+	nXEqziHG7t6I1zepHtrJ+6zue8J9Siy/+dmCIyFC+rlmBLEo4QFVkazKeZFpHSTbrwcmcziEmJJ
+	wzrzfIKyVY5W7lOonPUnq5W2KEz6WBlkuMyzoyNp4LQGZMZv3Mr/1xr47biUIXcv4fw==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1788176287; bh=9HqZxXcOW1Xz+TeJ5NTeoxc
+	fysDQipXYrj2AUeLNun0=; b=55bSVbf5AvgQD63tjCm5Ti7kRPi24HGf/KR7iTn9Mnol/gUT8g
+	OzzaXlRRf/EfnCdf/4aPiANr0XnCdUJnlNCg==;
+Date: Mon, 31 Aug 2026 12:38:07 +0100
+From: Bradley Morgan <brads@mainlining.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+CC: Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>,
+ Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>,
+ Aaron Tomlin <atomlin@atomlin.com>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
+ Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Aleksandr Nogikh <nogikh@google.com>, linux-modules@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-usb@vger.kernel.org, driver-core@lists.linux.dev,
+ linux-trace-kernel@vger.kernel.org, Johan Hovold <johan@kernel.org>
+Subject: Re: [PATCH v2 1/2] module: pull out add_taint_module() to be public
+In-Reply-To: <2026083107-gently-leverage-7f97@gregkh>
+References: <20260831-bind_taint-v2-0-1082d631213b@linuxfoundation.org> <20260831-bind_taint-v2-1-1082d631213b@linuxfoundation.org> <2026083120-matrix-waffle-7ee7@gregkh> <A47FDF4A-DA90-4015-AFDB-61CA611F6311@mainlining.org> <2026083107-gently-leverage-7f97@gregkh>
+Message-ID: <F4CE5DE5-66B7-491C-B288-A5666A56FC0F@mainlining.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260831-cri_polling-v1-1-d927315e6598@intel.com>
-References: <20260831-cri_polling-v1-0-d927315e6598@intel.com>
-In-Reply-To: <20260831-cri_polling-v1-0-d927315e6598@intel.com>
-To: Arnd Bergmann <arnd@arndb.de>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-kernel@vger.kernel.org, 
- Alexander Usyskin <alexander.usyskin@intel.com>, 
- Menachem Adin <menachem.adin@intel.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788176320; l=1426;
- i=alexander.usyskin@intel.com; s=20260315; h=from:subject:message-id;
- bh=hwmMhCYK3a8hrYjtNGCx1Y4KisTSk2GO7CBfRf7aNxU=;
- b=MddRt+qCW2c6GwWqb/yDM5MGm37nqt1wnc+ETtVg+MMIKn4NBa2aMU8TpGU4QHBN5k09gDgzu
- bkHRPMZK7L1Ctp5um1H+vAH7KUIFcQ/mWS3ICrkkeBWci9yrHJ0J6lV
-X-Developer-Key: i=alexander.usyskin@intel.com; a=ed25519;
- pk=X+qoF/nFCdDOV04IForWSxnkyoCAbUE10egZi6PSfcU=
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-Polling thread wait should be interruptible to avoid stuck task.
+On 31 August 2026 12:28:48 BST, Greg Kroah-Hartman
+<gregkh@linuxfoundation.org> wrote:
+>On Mon, Aug 31, 2026 at 12:14:17PM +0100, Bradley Morgan wrote:
+>> On 31 August 2026 12:07:50 BST, Greg Kroah-Hartman
+>> <gregkh@linuxfoundation.org> wrote:
+>> >On Mon, Aug 31, 2026 at 12:51:46PM +0200, Greg Kroah-Hartman wrote:
+>> >> Other kernel code might want to call add_taint_module() so pull it
+>out
+>> >> and make it global.  If modules are not enabled, this defaults to a
+>call
+>> >> to add_taint(), so all is fine.
+>> >> 
+>> >> Reviewed-by: Johan Hovold <johan@kernel.org>
+>> >> Tested-by: Johan Hovold <johan@kernel.org>
+>> >> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+>> >> ---
+>> >>  include/linux/module.h | 10 ++++++++++
+>> >>  kernel/module/main.c   | 16 +++++++++++++---
+>> >>  2 files changed, 23 insertions(+), 3 deletions(-)
+>> >> 
+>> >> diff --git a/include/linux/module.h b/include/linux/module.h
+>> >> index 96cc98568eea..0636e0f2728c 100644
+>> >> --- a/include/linux/module.h
+>> >> +++ b/include/linux/module.h
+>> >> @@ -29,6 +29,7 @@
+>> >>  #include <linux/srcu.h>
+>> >>  #include <linux/static_call_types.h>
+>> >>  #include <linux/dynamic_debug.h>
+>> >> +#include <linux/panic.h>
+>> >>  
+>> >>  #include <linux/percpu.h>
+>> >>  #include <asm/module.h>
+>> >> @@ -770,6 +771,9 @@ static inline bool is_livepatch_module(struct
+>module
+>> >*mod)
+>> >>  
+>> >>  void module_for_each_mod(int(*func)(struct module *mod, void *data),
+>> >void *data);
+>> >>  
+>> >> +void add_taint_module(struct module *mod, unsigned flag,
+>> >> +		      enum lockdep_ok lockdep_ok);
+>> >> +
+>> >>  #else /* !CONFIG_MODULES... */
+>> >>  
+>> >>  static inline struct module *__module_address(unsigned long addr)
+>> >> @@ -877,6 +881,12 @@ static inline bool module_is_coming(struct
+>module
+>> >*mod)
+>> >>  static inline void module_for_each_mod(int(*func)(struct module
+>*mod,
+>> >void *data), void *data)
+>> >>  {
+>> >>  }
+>> >> +
+>> >> +static inline void add_taint_module(struct module *mod, unsigned
+>flag,
+>> >> +				    enum lockdep_ok, lockdep_ok)
+>> >
+>> >And this line is wrong, ugh.  I gotta go get sashiko running locally...
+>> 
+>> Cough cough, Claude code speaking 
+>
+>Nope, no claude running here at all, sorry to burst your bubble.  If I
+>had, it would have caught this :)
+>
+>greg k-h
+Nooooo lol.
 
-Reviewed-by: Menachem Adin <menachem.adin@intel.com>
-Signed-off-by: Alexander Usyskin <alexander.usyskin@intel.com>
----
- drivers/misc/mei/gsc-me.c | 2 +-
- drivers/misc/mei/hw-me.c  | 6 +++---
- 2 files changed, 4 insertions(+), 4 deletions(-)
+I mean asking Claudy to find bugs in the code submitted before submitting
+it.
 
-diff --git a/drivers/misc/mei/gsc-me.c b/drivers/misc/mei/gsc-me.c
-index 376840b2c354..b38ddb04f2e8 100644
---- a/drivers/misc/mei/gsc-me.c
-+++ b/drivers/misc/mei/gsc-me.c
-@@ -242,7 +242,7 @@ static int __maybe_unused mei_gsc_pm_runtime_resume(struct device *device)
- 
- 	if (mei_me_hw_use_polling(hw)) {
- 		hw->is_active = true;
--		wake_up(&hw->wait_active);
-+		wake_up_interruptible(&hw->wait_active);
- 	}
- 
- 	mutex_unlock(&dev->device_lock);
-diff --git a/drivers/misc/mei/hw-me.c b/drivers/misc/mei/hw-me.c
-index e7fbc02fb70f..ef7e1289ad7e 100644
---- a/drivers/misc/mei/hw-me.c
-+++ b/drivers/misc/mei/hw-me.c
-@@ -1441,9 +1441,9 @@ int mei_me_polling_thread(void *_dev)
- 		struct mei_me_hw *hw = to_me_hw(dev);
- 		u32 hcsr;
- 
--		wait_event_timeout(hw->wait_active,
--				   hw->is_active || kthread_should_stop(),
--				   msecs_to_jiffies(MEI_POLLING_TIMEOUT_IDLE));
-+		wait_event_interruptible_timeout(hw->wait_active,
-+						 hw->is_active || kthread_should_stop(),
-+						 msecs_to_jiffies(MEI_POLLING_TIMEOUT_IDLE));
- 
- 		if (kthread_should_stop())
- 			break;
-
--- 
-2.53.0
-
+Saves me a ridiculous amount of time.
+--- Thanks!
+https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
