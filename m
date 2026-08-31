@@ -1,67 +1,58 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE46A3BED7B;
-	Mon, 31 Aug 2026 07:37:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 178873BED7B
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 07:37:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788161834; cv=none; b=jivWJsmf1K4QQhwnD5rWOBbeeURwIBsX/4bs9048SF/DmbHJjwEDM8DDnSlc1vVYrIS4rfk5rVSmaWmk2SY3XHJreeuQ5jlkISHYfwtZ2gnN6stMEyakMQHVnDENDx88OGP3RPtTymkuN9N7YlKES/MmpDzsUeXNMeZPNq8zCv0=
+	t=1788161844; cv=none; b=VBJBiqLAEfUp/pKpONldjJkf6Qwf8MHdRWwbv0AuU/YIcBKpooA8Wm2FH7VoWwuVJ3AprhomxXl7pIeiXCWnzUHZA4OgoQ8Vshe/hbvTVojkZOYFQopoWkTdO/sRcDMRXinR45fN7T/CF91X8PWSUYP7+iOV1ohLii0ZaTGug8k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788161834; c=relaxed/simple;
-	bh=LB0C0brdyfnftVgvL1iqZUXGLUMFGwAHJqIPC8DcX4U=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=T8aTJZRIqUdlO3NasExV2KKQs0iOZH/D/7tTG2UYzmuo1lkOy2X3mL8e6NnApVbb/lak1z6kph9EmbJPbvhhpUrTQHhUSOtA+hcZW0argv3w8GC4Nkt1nZAHTn1oO5kPRMNnCo6wX/ZFwUN9V7pcK5kZl5pNGhTJoLXvOjr8+us=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SVQLYAuK; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788161844; c=relaxed/simple;
+	bh=MybcKbRn8vPMw2FdR6CSR6v2UiBpWU9l819wTpv9Aes=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=KEqBhU2fEkn+ipbnnK0+O8gFkVsAvZv/1Y5fs8XIGNMRW70ckwW8csnMh147Eop5SQZEY5icR0wxxzUkdDO6MEu/5akHDDCQDLKFRf/9l3iCsGVEQ0lu32rO2XB5fn7QAFz//csE4PrKgUb4b188f6s8UIBMK2CHR9gmhkWYLgg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VqOrzr4l; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SVQLYAuK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4B171F000E9;
-	Mon, 31 Aug 2026 07:37:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VqOrzr4l"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 807FF1F000E9;
+	Mon, 31 Aug 2026 07:37:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788161833;
-	bh=icIhn3Lxi6zoLKWYZDJZ7RgVfwGTSGo1Ir7IxXgMSIo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=SVQLYAuKQkzbz49pHfPShD4N9CYVVzp9fPEJD7G8c10Aj3L6+RKrVq3H0IJg+GEzk
-	 Dl1aIHATZnnJeJP2W3gObOF/ha6+tf9UjpVQPpmR7fXHxfdsKvGIsqos5kBGW5iiNU
-	 3/6ul4pO3/zn8/3mOPTmub3E/pk6v8b6PF2f6S9sEZ5bFZswgwJwyEncUBRSCCFj6Y
-	 YPGYVQr11K+xCWmQN3ELcch0QcUQQovjJL55YIBGEJUvL/YckWVXIK5mlL+Ux4vdmN
-	 O+GcWs/24yljwhnuHt/zPofko/q4GOBi4Dx6cJmGD7bWiW0gghmn/jiReumtXudf1Y
-	 +mUnqsmG7M+Nw==
-Date: Mon, 31 Aug 2026 09:37:09 +0200
-From: Christian Brauner <brauner@kernel.org>
-To: hanzhijian <hanzhijian1991@gmail.com>
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, 
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	syzbot+1c70732df5fd4f0e4fbb@syzkaller.appspotmail.com
-Subject: Re: [PATCH] fs: fix s_fs_info leak when setup_bdev_super() fails
-Message-ID: <20260831-chinchilla-zugzwang-havarie-7ee3e8639da9@brauner>
-References: <20260822023918.2498361-1-hanzhijian1991@gmail.com>
+	s=k20260515; t=1788161842;
+	bh=/6u4YzIWHtkU9ystADvq+TmxhJSTLpTiJEvlTgSovaM=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=VqOrzr4lVKwvi7loVALD5Yfb8E0qq5ydMfagKPHGBuRO3dKFmEPHrVj68msnHSn5a
+	 fUhddW4gGfUW9LLRl5dzELOMWH9UeSAzwM2O0fwgaCbwGua3I2PcJhjoQmLlqaS8MO
+	 OVz940K7kiEmo9w2qroqB40NwT3boLxS2bge2tGDQrHoUXG91qnqJXOf7rYBQ46UQN
+	 Kw4sqFw00LvJuLn83zvoya6C7c3i4q5TV7ID2UN24CotYHdp/YHR1y0i6+pZT973qz
+	 wTUdcVZaEhxYKaa/65lxsUDaVu33FGedjqD5BfF+w6cOPN/PZWz5tWBcb3TTiJiZVi
+	 AU5BjR50LutQQ==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260822023918.2498361-1-hanzhijian1991@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH] mm/mm_init: remove zone_absent_pages_in_node()
+From: Mike Rapoport <rppt@kernel.org>
+To: Sang-Heon Jeon <ekffu200098@gmail.com>
+Cc: Mike Rapoport <rppt@kernel.org>, 
+ Andrew Morton <akpm@linux-foundation.org>, linux-kernel@vger.kernel.org, 
+ linux-mm@kvack.org
+In-Reply-To: <20260827144151.486192-1-ekffu200098@gmail.com>
+References: <20260827144151.486192-1-ekffu200098@gmail.com>
+Date: Mon, 31 Aug 2026 10:37:17 +0300
+Message-Id: <178816183737.3691663.7482057515031348878.b4-review@b4>
+X-Mailer: b4 0.17-dev
 
-On Sat, Aug 22, 2026 at 10:39:18AM +0800, hanzhijian wrote:
-> get_tree_bdev_flags() hands fc->s_fs_info to the newly allocated
-> super block in sget_fc() and clears fc->s_fs_info.  If
-> setup_bdev_super() then fails (the block device cannot be opened, is
-> read-only, or is frozen), fill_super() is never called and sb->s_root
-> stays NULL.  The cleanup path calls deactivate_locked_super(), whose
-> generic_shutdown_super() skips the whole sb->s_root block -- including
-> the put_super() callback that would otherwise release s_fs_info --
-> leaking the allocation made by the filesystem's init_fs_context().
-> 
-> Hand s_fs_info back to the fs_context when setup_bdev_super() fails so
-> that put_fs_context() releases it through the filesystem's free()
-> callback.
-> 
-> Reported-by: syzbot+1c70732df5fd4f0e4fbb@syzkaller.appspotmail.com
-> Link: https://syzkaller.appspot.com/bug?extid=1c70732df5fd4f0e4fbb
-> Signed-off-by: hanzhijian <hanzhijian1991@gmail.com>
-> ---
+> zone_absent_pages_in_node() returns 0 when the zone is empty and
+> otherwise calls __absent_pages_in_range(), which already returns 0 for
+> an empty range.
 
-There's a fix for this in vfs.fixes. This is the wrong layer.
+Right, but it loops over memblock memory for an empty zone to get that 0
+
+-- 
+Sincerely yours,
+Mike.
+
