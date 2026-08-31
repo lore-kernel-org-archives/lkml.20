@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0151D525A6F;
-	Mon, 31 Aug 2026 13:44:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A677F525A9E;
+	Mon, 31 Aug 2026 13:44:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183863; cv=none; b=SAo5xH9ot+9Pvfv/jRgaICRY64ObhAUl1xpB+try7s/rCjC+GeSonhA3XK6x/LTV2kLxBfNdMAJH5r3WVh7fDXKUj1/XyMWsNRoVYVjsm1ot5nS0b4liWFFd9fzqeTulA878rXAqWSZRxE82Cdw783mUuDpe0kW4kZZVRpBLEWE=
+	t=1788183864; cv=none; b=hgfuRmj49srTGQjmzwUrZBQ53FubD2wZPyKq5xWhR/eId9EHcoCLLo7tKTxpn1KuSqFHFUD601CbeQyo68EBrW+n1i4cM9RFL3EH4eemdzjBOlMq4kY6T+HVHbWEd5hX+Od3QRFEpnwsKaRiseam2Uv7rU2m8oGdFwzbppuXLMw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183863; c=relaxed/simple;
-	bh=ngM2hmLXNNb2yM0KxAfiYZN18ij7FLX5uaebl+80Efg=;
+	s=arc-20240116; t=1788183864; c=relaxed/simple;
+	bh=iIoLSThhvBNpdNvI4xmyVzoJqgONVjjSmzWQnmCZs6M=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ZXENkGTOOPkf0DHhfaOduShUqAr9gCLqXfYDkjen0HARZwY3JwmIQpdY3pSNn6nHRb8lHsSkI1w2bK9mEEdeXbPMAsRLzliQhL6lm18KhOqjmCELqFVSMEvBtYRec2FcWNhD8v8HFPOs+y3HuhIEDbaPFu7dWQhGNoa4kilz9J8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oLEsDjHg; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=qV2g72JocLK492Qgs/NOT869z8G+oJDXL5FZt4mCd8JG84zqJlp17m7yoxVepTh+/Q9VcPVJnqDdnaSq4BzHhbRUnVRGjyrxQXS+C1/yRrqZGyFrdIOUhn0wLH4dO/QkQmCLB0A9qVFDiIhejFT1hQQTT5Xy0E2hGK04N25YH9I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Lg4qFprw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oLEsDjHg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E46E11F00A3D;
-	Mon, 31 Aug 2026 13:44:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Lg4qFprw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47DE41F00A3E;
+	Mon, 31 Aug 2026 13:44:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788183859;
-	bh=PCZJYIcnf3ceMTCmR4evOhuHbJFuQAFeLPT8UgL3h3Q=;
+	s=k20260515; t=1788183861;
+	bh=BCUcAlchfVkJ6CooKk/wH8zMbjYepLYVbdrAMkbfdaw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=oLEsDjHgQJKnpr3j+/9S7VLlj+czzBXfkS4nUeMyEYsWteGsMezgdk1HTT25qzVE/
-	 OKR1kUlzC8wzoFj+1qkSIhbNfVFBzInSHvZ3M0Q5NSlGfhUKWbuLIznwULSR90PIEA
-	 pCzsSmJSA2DsvnlVryEF4MFYWhZI5qKNlkda2kQoUZTkSU6ki73leeJG7t6AUEucDz
-	 +lfl7cP9jU12CoAqJilGWa9hFoUTs+NyNLNcFYet+BkeP941iYBW4nzoCzXYrBOKw3
-	 A/Q6hl5ltRbfKLMaJJUsqvZva1BjjJ7G3cngYWaKUXoT8BUjiFBizc5xdQieluErEC
-	 mY3unFYhu2gXw==
+	b=Lg4qFprwRYqFRESe+s3dK2JNk4HjWODdINGyDaTh49ut60lnzf5C6lV7U5IX83uus
+	 mQmVbegVS2ilGDcta5O7txbOCB46VHSLSvjdLHyaprSQ/NYI/YnbHUeNYdg49Begnv
+	 Xe77O97RLwV/B20qLXlW3ZYoBPVq+NaJ2DdL6KlpijIscXy74qKxgv9oxq54VhP4ct
+	 U9Hae2d6lAYUpZkg0Ysc2rHidRbEg3XmOTIa9OVebszR2I/h/jdXS4qRrvy6YPB6qn
+	 lpQfB78l1CLZAzCMTaWV/vLM4cNitJwOeOHJXDjxElKpGpXwkUgDjxxm69gHFPxTLF
+	 MNMWJXwZzgC9Q==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Piotr Kubik <piotr@kubik.pl>,
-	Lee Jones <lee@kernel.org>,
+Cc: Haoxiang Li <haoxiang_li2024@163.com>,
+	Helge Deller <deller@gmx.de>,
 	Sasha Levin <sashal@kernel.org>,
-	pavel@kernel.org,
-	linux-leds@vger.kernel.org,
+	linux-fbdev@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-6.12] leds: trigger: gpio: Use GPIOD_FLAGS_BIT_NONEXCLUSIVE
-Date: Mon, 31 Aug 2026 09:26:15 -0400
-Message-ID: <20260831133314.4125787-347-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-5.10] fbdev: pm2fb: unwind WC setup on probe failure
+Date: Mon, 31 Aug 2026 09:26:16 -0400
+Message-ID: <20260831133314.4125787-348-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -53,397 +53,372 @@ X-stable-base: Linux 6.18.48
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Piotr Kubik <piotr@kubik.pl>
+From: Haoxiang Li <haoxiang_li2024@163.com>
 
-[ Upstream commit 26e15f2558f66b6747ef981df8054d0d92d01b60 ]
+[ Upstream commit 16eb19f0c90af03bda6ba66586d7bb0e9cf85b43 ]
 
-When a GPIO is shared between the LED trigger driver and another driver,
-the LED trigger driver needs to request the GPIO with
-GPIOD_FLAGS_BIT_NONEXCLUSIVE to allow both drivers to monitor the same
-GPIO pin.
+Add arch_phys_wc_del() on error path to keep the
+write-combining setup balanced when later probe
+steps fail.
 
-Without this flag, if another driver has already claimed the GPIO,
-the LED trigger driver's gpiod_get_optional() call fails silently,
-and the LED trigger doesn't work.
-
-This is needed for scenarios like:
-- SFP module presence/status LED triggered by SFP Mod_ABS/Rx_LOS
-
-Both GPIOs are also monitored by the SFP driver for module state
-management, so they need to be shared.
-
-Signed-off-by: Piotr Kubik <piotr@kubik.pl>
-Link: https://patch.msgid.link/20260408115106.379834-1-piotr@kubik.pl
-Signed-off-by: Lee Jones <lee@kernel.org>
+Signed-off-by: Haoxiang Li <haoxiang_li2024@163.com>
+Signed-off-by: Helge Deller <deller@gmx.de>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-## Phase 1: Commit Message Forensics
+# Stable Backport Analysis: `fbdev: pm2fb: unwind WC setup on probe
+failure`
 
-### Step 1.1: Subject Line
-**Record:** `[leds: trigger: gpio]` `[Use]` — Add
-`GPIOD_FLAGS_BIT_NONEXCLUSIVE` when requesting the GPIO used by the gpio
-LED trigger.
+**Local tree:** `v6.18.44` (`stable/linux-6.18.y`, `HEAD` detached)
+**Candidate commit:** `16eb19f0c90af03bda6ba66586d7bb0e9cf85b43`
+(mainline only; **not** in this tree)
+
+---
+
+## PHASE 1: COMMIT MESSAGE FORENSICS
+
+### Step 1.1: Subject line
+**Record:** `[fbdev: pm2fb]` `[unwind]` — Add missing write-combining
+teardown when `pm2fb_probe()` fails after WC setup.
 
 ### Step 1.2: Tags
 **Record:**
-- **Link:**
-  https://patch.msgid.link/20260408115106.379834-1-piotr@kubik.pl
-- **Signed-off-by:** Piotr Kubik \<piotr@kubik.pl\>
-- **Signed-off-by:** Lee Jones \<lee@kernel.org\> (LED subsystem
-  maintainer)
-- No Fixes:, Reported-by:, Tested-by:, Reviewed-by:, Acked-by:, or Cc:
-  stable tags
-- Notable: maintainer (Lee Jones) Signed-off-by is a quality signal
+- `Signed-off-by: Haoxiang Li <haoxiang_li2024@163.com>` (author)
+- `Signed-off-by: Helge Deller <deller@gmx.de>` (fbdev maintainer,
+  applied the patch)
+- No `Fixes:`, `Reported-by:`, `Tested-by:`, `Reviewed-by:`, `Cc:
+  stable@vger.kernel.org`, or `Link:` tags
+- Notable: maintainer ack via application; no user/fuzzer reports
 
-### Step 1.3: Body Analysis
+### Step 1.3: Body analysis
 **Record:**
-- **Bug:** When a GPIO is shared between the gpio LED trigger and
-  another driver (e.g. SFP `Mod_ABS` / `Rx_LOS`), the LED trigger
-  requests the GPIO exclusively; if another driver already claimed it,
-  acquisition fails and the trigger does not work.
-- **Symptom:** Status LEDs driven by the gpio trigger do not function on
-  shared-GPIO hardware.
-- **Use case:** SFP module presence/status LEDs on network appliances
-  where the SFP driver also monitors the same GPIO lines.
-- **Root cause:** Missing `GPIOD_FLAGS_BIT_NONEXCLUSIVE` on
-  `gpiod_get_optional()`.
+- **Bug:** `arch_phys_wc_add()` is called during probe, but later probe
+  failures skip `arch_phys_wc_del()`.
+- **Symptom:** Leaked MTRR/WC mapping on x86 systems where
+  `arch_phys_wc_add()` actually allocates an MTRR (PAT disabled, MTRR
+  enabled, `nomtrr` unset).
+- **Root cause:** Missing symmetric cleanup on `err_exit_pixmap` and
+  downstream error labels (`err_exit_both`, `err_exit_all`).
+- **Version info:** None in the message.
 
-### Step 1.4: Hidden Bug Fix?
-**Record:** Yes. Although not labeled "fix", this is a functional bug
-fix: shared-GPIO hardware enablement, not a refactor or optimization.
+### Step 1.4: Hidden bug fix?
+**Record:** Yes. Although titled “unwind WC setup,” this is a probe
+error-path **resource leak** fix, not cosmetic cleanup.
 
 ---
 
-## Phase 2: Diff Analysis
+## PHASE 2: DIFF ANALYSIS
 
 ### Step 2.1: Inventory
 **Record:**
-- **File:** `drivers/leds/trigger/ledtrig-gpio.c` (+2 / -1 lines)
-- **Function:** `gpio_trig_activate()`
-- **Scope:** Single-file, surgical one-line functional change
+- **Files:** `drivers/video/fbdev/pm2fb.c` (+1 / −0)
+- **Functions:** `pm2fb_probe()` error path only
+- **Scope:** Single-file, surgical one-liner
 
-### Step 2.2: Code Flow Change
+### Step 2.2: Code flow change
 **Record:**
-- **Before:** `gpiod_get_optional(dev, "trigger-sources", GPIOD_IN)` —
-  exclusive GPIO request.
-- **After:** Same call with `GPIOD_IN | GPIOD_FLAGS_BIT_NONEXCLUSIVE` —
-  allows sharing with an already-claimed GPIO.
-- **Path:** LED trigger activation during default-trigger setup or
-  manual trigger selection.
+- **Before:** After `arch_phys_wc_add()` at lines 1655–1657, failures at
+  pixmap alloc (`err_exit_pixmap`), cmap alloc (`err_exit_both`), or
+  `register_framebuffer()` (`err_exit_all`) skipped WC teardown.
+- **After:** `err_exit_pixmap` calls
+  `arch_phys_wc_del(default_par->wc_cookie)` before unmapping smem —
+  matching `pm2fb_remove()` at line 1738.
+- **Affected paths:** Error paths only (not the success path).
 
-### Step 2.3: Bug Mechanism
+### Step 2.3: Bug mechanism
 **Record:**
-- **Category:** Logic / hardware-workaround (shared GPIO access).
-- **Mechanism:** Without `NONEXCLUSIVE`, `gpiod_request()` returns
-  `-EBUSY` when another consumer already holds the line.
-  `gpiod_get_optional()` propagates `ERR_PTR(-EBUSY)`.
-  `gpio_trig_activate()` returns that error.
-  `led_match_default_trigger()` ignores the `led_trigger_set()` return
-  value, so activation failure is silent and the LED never gets the gpio
-  trigger.
+- **Category:** Error-path resource leak
+- **Mechanism:** `arch_phys_wc_add()` may consume an MTRR slot on PAT-
+  less x86; without `arch_phys_wc_del()`, that slot stays allocated
+  after failed probe. On PAT-enabled or non-x86 systems,
+  `arch_phys_wc_add()` is effectively a no-op and `arch_phys_wc_del(0)`
+  is also a no-op.
 
-Verified in gpiolib:
-
-```4672:4674:drivers/gpio/gpiolib.c
-        if (ret) {
-                if (!(ret == -EBUSY && flags &
-GPIOD_FLAGS_BIT_NONEXCLUSIVE))
-                        return ERR_PTR(ret);
-```
-
-And in LED core:
-
-```271:278:drivers/leds/led-triggers.c
-static bool led_match_default_trigger(struct led_classdev *led_cdev,
-                                      struct led_trigger *trig)
-{
-        if (!strcmp(led_cdev->default_trigger, trig->name) &&
-            trigger_relevant(led_cdev, trig)) {
-                led_cdev->flags |= LED_INIT_DEFAULT_TRIGGER;
-                led_trigger_set(led_cdev, trig);
-                return true;
-```
-
-### Step 2.4: Fix Quality
+### Step 2.4: Fix quality
 **Record:**
-- Obviously correct: matches the established pattern used across many
-  drivers in this tree (regulators, extcon, PHY drivers, etc.).
-- Minimal change, no API changes.
-- Low regression risk: only affects the shared-GPIO case; exclusive
-  GPIOs behave as before.
-- The flag is marked deprecated in `consumer.h`, but remains the
-  supported workaround throughout this tree.
+- Obviously correct; mirrors `pm2fb_remove()` and the pattern in
+  `tdfxfb.c` (line 1556).
+- Minimal, no API changes.
+- **Regression risk:** Very low — `arch_phys_wc_del()` is documented to
+  be safe for handle `0` and error returns.
 
 ---
 
-## Phase 3: Git History Investigation
+## PHASE 3: GIT HISTORY INVESTIGATION
 
 ### Step 3.1: Blame
 **Record:**
-- Buggy line introduced by `9bbd6b7209cf1` (Andy Shevchenko, Nov 3
-  2023): switched to `gpiod_get_optional()` without `NONEXCLUSIVE`.
-- Underlying trigger-sources design from `4a11dbf04f31c` (Linus Walleij,
-  Sep 26 2023).
-- Both commits are present in this 6.18.44 tree.
+- `arch_phys_wc_add()` introduced in `f8f05cdc767fa` (Apr 2015, “use
+  arch_phys_wc_add() and ioremap_wc()”).
+- `f8f05cdc767fa` **is** an ancestor of this tree (`merge-base` exit 0).
+- Error-path labels date to 2005–2008; WC cleanup on error was never
+  added when MTRR code was converted in 2015.
 
-### Step 3.2: Fixes: Tag
-**Record:** N/A — no Fixes: tag in commit message.
+### Step 3.2: Fixes: tag
+**Record:** N/A — no `Fixes:` tag. Bug introduced by `f8f05cdc767fa`,
+which is present in 6.18.y.
 
-### Step 3.3: Related File History
-**Record:** Recent `ledtrig-gpio.c` history is cleanups only (sysfs,
-kstrtox, DEVICE_ATTR_RW). No related fix already present. Standalone
-patch, not part of a series.
+### Step 3.3: Related file history
+**Record:**
+- `a943710407120` — identical fix for `uvesafb_probe()` error path,
+  **already in 6.18.y**
+- `ed359a464846b` — `pm2fb` missing `pci_disable_device()` on probe
+  error path, **already in 6.18.y**
+- `tdfxfb.c` already has `arch_phys_wc_del()` on probe error path (line
+  1556)
+- Standalone patch; not part of a series
 
-### Step 3.4: Author Context
-**Record:** Piotr Kubik has other networking-related work in this tree
-(e.g. PSE driver). This gpio-trigger fix is a focused hardware-
-enablement change, not a large series.
+### Step 3.4: Author context
+**Record:** Haoxiang Li submits probe error-path leak fixes across
+subsystems; Helge Deller (fbdev maintainer) applied this patch.
 
 ### Step 3.5: Dependencies
-**Record:**
-- Requires `GPIOD_FLAGS_BIT_NONEXCLUSIVE` (present since
-  `ec757001c818c`, 2018).
-- Requires trigger-sources gpio trigger (`4a11dbf04f31c`, 2023) —
-  present in this tree.
-- No other commits required. Applies standalone.
+**Record:** None. Requires only
+`arch_phys_wc_add()`/`arch_phys_wc_del()` and `wc_cookie` in `struct
+pm2fb_par`, all present since `f8f05cdc767fa`. Applies cleanly.
 
 ---
 
-## Phase 4: Mailing List and External Research
+## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
-### Step 4.1: Original Discussion
-**Record:** `b4 dig -c <commit>` could not run — commit is not in this
-checkout. Lore/patch.msgid.link fetch blocked by Anubis bot protection.
-Could not retrieve thread discussion.
+### Step 4.1: Original discussion
+**Record:**
+- `b4 dig -c 16eb19f0c90af`: https://patch.msgid.link/20260621071935.380
+  2673-1-haoxiang_li2024@163.com
+- Single-patch submission; Helge Deller replied “applied. Thanks!”
+- No series revisions (`-a` not needed; single patch)
+- No stable nomination in thread
+- No NAKs or concerns
 
 ### Step 4.2: Reviewers
-**Record:** UNVERIFIED — could not run `b4 dig -w` without commit hash.
-Lee Jones Signed-off-by indicates maintainer acceptance.
+**Record:** `b4 dig -w`: To/Cc — Haoxiang Li, Helge Deller, `linux-
+fbdev@vger.kernel.org`, `linux-kernel@vger.kernel.org`
 
-### Step 4.3: Bug Report
-**Record:** No external bug report or syzbot link. Use case described in
-commit message (SFP Mod_ABS/Rx_LOS LEDs).
+### Step 4.3: Bug reports
+**Record:** N/A — no `Reported-by:` or `Link:` tags; no syzbot/fuzzer
+involvement.
 
-### Step 4.4: Related Patches
-**Record:** No multi-patch series indicated. SFP driver
-(`drivers/net/phy/sfp.c`) claims GPIOs via `devm_gpiod_get_optional()`
-without `NONEXCLUSIVE` at lines 3149–3150 — consistent with SFP-probes-
-first, LED-joins-shared scenario described in the commit.
+### Step 4.4: Related patches
+**Record:** Direct analogue: `a943710407120` (uvesafb, same maintainer,
+same pattern).
 
-### Step 4.5: Stable List History
-**Record:** UNVERIFIED — could not search lore stable list due to fetch
-restrictions.
+### Step 4.5: Stable list history
+**Record:** Lore fetch blocked by bot protection; no stable-list
+discussion found via `b4`. Precedent established in-tree via uvesafb
+backport.
 
 ---
 
-## Phase 5: Code Semantic Analysis
+## PHASE 5: CODE SEMANTIC ANALYSIS
 
-### Step 5.1: Key Functions
-**Record:** `gpio_trig_activate()` modified.
+### Step 5.1: Key functions
+**Record:** `pm2fb_probe()`, `arch_phys_wc_add()`, `arch_phys_wc_del()`
 
 ### Step 5.2: Callers
-**Record:** `gpio_trig_activate` is the `.activate` callback for
-`gpio_led_trigger`, invoked from `led_trigger_set()` in
-`drivers/leds/led-triggers.c` during:
-- Default trigger setup at LED registration (`led_trigger_set_default()`
-  → `led_match_default_trigger()`)
-- Late trigger module load (`led_trigger_register()`)
-- Manual trigger changes via sysfs
+**Record:** `pm2fb_probe()` registered as `.probe` in `pm2fb_driver`
+(PCI core during device enumeration/module load). Not a hot path; runs
+once per device attach attempt.
 
 ### Step 5.3: Callees
-**Record:** `gpiod_get_optional()`, `gpiod_set_consumer_name()`,
-`request_threaded_irq()` (already uses `IRQF_SHARED`),
-`gpio_trig_irq()`.
+**Record:** On failure after WC setup: `kfree()`, `fb_dealloc_cmap()`,
+`iounmap()`, `release_mem_region()`, `framebuffer_release()`,
+`pci_disable_device()`. WC teardown was the missing piece.
 
 ### Step 5.4: Reachability
-**Record:** Triggered during device probe/LED registration for any
-platform using `linux,default-trigger = "gpio"` with `trigger-sources`
-referencing a GPIO also claimed by another driver. Requires
-`CONFIG_LEDS_TRIGGER_GPIO`. SFP network appliances are the documented
-case.
+**Record:** Trigger requires `CONFIG_FB_PM2` built/loaded, Permedia2
+hardware present, probe progressing past smem ioremap + WC add, then
+failing at:
+1. `kmalloc(PM2_PIXMAP_SIZE)` → `-ENOMEM`
+2. `fb_alloc_cmap()` failure
+3. `register_framebuffer()` failure
 
-### Step 5.5: Similar Patterns
-**Record:** `GPIOD_FLAGS_BIT_NONEXCLUSIVE` is used in 30+ locations in
-this tree for the same shared-GPIO pattern (regulators, extcon, micrel
-PHY, etc.). LED gpio trigger was an omission.
+Reachable from module load / PCI hotplug; no userspace syscall needed
+beyond normal device binding.
 
----
-
-## Phase 6: Cross-Reference Against Local Tree (6.18.44)
-
-### Step 6.1: Buggy Code Present?
-**Record:** YES. Current tree at `drivers/leds/trigger/ledtrig-
-gpio.c:89`:
-
-```89:89:drivers/leds/trigger/ledtrig-gpio.c
-        gpio_data->gpiod = gpiod_get_optional(dev, "trigger-sources",
-GPIOD_IN);
-```
-
-Fix is not yet applied. Bug has existed since Nov 2023 in this tree.
-
-### Step 6.2: Backport Complications
-**Record:** Clean apply expected — single-line change, no surrounding
-churn. No conflicts anticipated.
-
-### Step 6.3: Related Fixes Already Present?
-**Record:** No — `git log --grep` found no matching fix in this tree.
+### Step 5.5: Similar patterns
+**Record:**
+- `tdfxfb.c`: has probe-error `arch_phys_wc_del()` ✓
+- `uvesafb.c`: fixed in `a943710407120` (in this tree) ✓
+- `s3fb.c`, `i740fb.c`: WC add after success point or missing probe-
+  error del (latent issues elsewhere; out of scope)
 
 ---
 
-## Phase 7: Subsystem Context
+## PHASE 6: CROSS-REFERENCE AGAINST LOCAL TREE
 
-### Step 7.1: Subsystem
-**Record:** `drivers/leds/trigger/` — LED triggers. **Criticality:
-PERIPHERAL** (status LEDs), but on network appliances SFP status LEDs
-are operationally important.
+### Step 6.1: Buggy code present?
+**Record:** **Yes.** Lines 1655–1657 call `arch_phys_wc_add()`; lines
+1713–1715 (`err_exit_pixmap`) lack `arch_phys_wc_del()`. Bug present
+since `f8f05cdc767fa` (2015).
+
+### Step 6.2: Backport complications
+**Record:** Clean apply expected — one line at `err_exit_pixmap`,
+identical context to mainline diff.
+
+### Step 6.3: Related fixes already present?
+**Record:**
+- `a943710407120` (uvesafb WC probe-error fix) — **present**
+- `ed359a464846b` (pm2fb `pci_disable_device` probe fix) — **present**
+- `16eb19f0c90af` (this fix) — **absent** (`merge-base --is-ancestor`
+  exit 1)
+
+---
+
+## PHASE 7: SUBSYSTEM CONTEXT
+
+### Step 7.1: Subsystem criticality
+**Record:** `drivers/video/fbdev/pm2fb.c` — legacy framebuffer driver
+(`CONFIG_FB_PM2`, tristate). **PERIPHERAL** — affects users of 1990s-era
+Permedia2 hardware (PCI/SPARC).
 
 ### Step 7.2: Activity
-**Record:** Moderate recent activity (cleanups in 2024–2025). trigger-
-sources gpio trigger is mature in this tree.
+**Record:** Low churn; occasional maintenance fixes from Helge Deller’s
+fbdev tree.
 
 ---
 
-## Phase 8: Impact and Risk Assessment
+## PHASE 8: IMPACT AND RISK ASSESSMENT
 
-### Step 8.1: Who Is Affected
-**Record:** Config-specific — systems with `CONFIG_LEDS_TRIGGER_GPIO`
-and device trees wiring gpio LED triggers to GPIO lines shared with
-another driver (documented: SFP Mod_ABS/Rx_LOS). Not universal, but real
-on network appliance hardware.
+### Step 8.1: Who is affected
+**Record:** Users with Permedia2 hardware, `CONFIG_FB_PM2` enabled,
+probe failing after WC setup. Narrow population.
 
-### Step 8.2: Trigger Conditions
+### Step 8.2: Trigger conditions
 **Record:**
-- Another driver (e.g. SFP) claims the GPIO before LED gpio trigger
-  activates.
-- Common probe order on SFP platforms (SFP probes first).
-- Not a security issue; unprivileged users cannot trigger this directly.
+- **Real leak only on:** x86, PAT disabled, MTRR enabled, `nomtrr=0`
+- **Failure modes:** ENOMEM or framebuffer registration failure after WC
+  add
+- **Likelihood:** Low (legacy hardware + rare probe failure)
+- **Unprivileged trigger:** Indirectly via module load / device
+  presence; not a typical attack vector
 
-### Step 8.3: Failure Mode Severity
-**Record:** Status LEDs silently non-functional. **Severity: LOW to
-MEDIUM** — no crash, corruption, or deadlock, but broken hardware
-indication on affected platforms.
+### Step 8.3: Failure severity
+**Record:** Leaked MTRR slot (finite resource, typically ~8–10 entries).
+Can degrade performance or block other drivers needing MTRR on PAT-less
+systems. **Not** a crash, deadlock, or data corruption. **Severity:
+LOW–MEDIUM** (resource leak, not security).
 
-### Step 8.4: Risk-Benefit
+### Step 8.4: Risk–benefit
 **Record:**
-- **Benefit:** Restores intended SFP/status LED behavior on shared-GPIO
-  platforms; one-line fix following established kernel pattern.
-- **Risk:** Very low — minimal, well-understood change.
-- **Ratio:** Moderate benefit, very low risk. Fits hardware-
-  quirk/workaround exception category.
+- **Benefit:** Correct probe teardown; consistency with uvesafb/tdfxfb;
+  prevents MTRR exhaustion on affected configs
+- **Risk:** Negligible — one line, symmetric with remove path, no-op on
+  modern PAT-enabled systems
+- **Ratio:** Low benefit magnitude, but also near-zero risk; established
+  fbdev stable pattern
 
 ---
 
-## Phase 9: Final Synthesis
+## PHASE 9: FINAL SYNTHESIS
 
-### Step 9.1: Evidence Summary
+### Step 9.1: Evidence summary
 
 **FOR backport:**
-- Real, verified bug with understood mechanism (EBUSY on shared GPIO →
-  silent activation failure).
-- Small, obviously correct, maintainer-reviewed fix.
-- Buggy code and all prerequisites exist in 6.18.44.
-- Established `GPIOD_FLAGS_BIT_NONEXCLUSIVE` pattern used widely in this
-  tree.
-- Hardware workaround for network appliance SFP LED use case.
+- Real, verifiable resource leak since 2015 WC conversion
+- One-line, obviously correct fix
+- Identical pattern already backported in this tree (`a943710407120`
+  uvesafb)
+- Same maintainer (Helge Deller) applied both uvesafb and pm2fb fixes
+- Buggy code confirmed present in 6.18.y; fix not yet applied
+- Matches `tdfxfb` probe-error pattern already in tree
 
 **AGAINST backport:**
-- Not a crash, security, corruption, or deadlock issue.
-- Affects a narrow configuration (shared GPIO + gpio LED trigger).
-- `GPIOD_FLAGS_BIT_NONEXCLUSIVE` is deprecated (though still the
-  required workaround).
-- No in-tree DTS found yet wiring SFP GPIOs to gpio LED triggers (use
-  case may be out-of-tree/future DTS).
+- Very obscure hardware (Permedia2)
+- No user reports, syzbot, or security angle
+- Effective only on PAT-less x86 with MTRR (rare on 6.18 deployments)
+- Impact is resource leak, not crash/corruption
+- “Important issue” bar is borderline for severity
 
-**UNRESOLVED:**
-- Full mailing list review thread (fetch blocked).
-- Whether any in-tree DTS currently triggers this exact SFP+gpio-trigger
-  configuration.
+**Unresolved:** None material to the decision.
 
-### Step 9.2: Stable Rules Checklist
-1. Obviously correct and tested? **PASS** — mechanism verified in code;
-   maintainer SOB; pattern proven across tree.
-2. Fixes a real bug affecting users? **PASS** — shared-GPIO LED trigger
-   silently fails.
-3. Important issue? **PASS (borderline)** — not crash/security, but real
-   hardware functionality loss on network appliances; fits hardware-
-   workaround exception.
-4. Small and contained? **PASS** — 1-line functional change.
-5. No new features or APIs? **PASS** — fixes existing trigger behavior.
-6. Can apply to local tree? **PASS** — prerequisites present, clean
-   apply expected.
+### Step 9.2: Stable rules checklist
+1. Obviously correct and tested? **PASS** — mirrors remove path;
+   maintainer applied; no objections
+2. Fixes a real bug? **PASS** — MTRR leak on probe failure (on affected
+   configs)
+3. Important issue? **PASS (borderline)** — resource leak, not
+   crash/security; but same class already accepted for uvesafb in this
+   tree
+4. Small and contained? **PASS** — 1 line, 1 file
+5. No new features/APIs? **PASS**
+6. Can apply to local tree? **PASS** — prerequisite code present; clean
+   apply
 
-### Step 9.3: Exception Category
-**Record:** Hardware quirk/workaround — shared GPIO access between LED
-trigger and another driver (SFP).
+### Step 9.3: Exception categories
+**Record:** None (not device ID, quirk, DT, build, or docs). Standard
+probe error-path resource cleanup.
 
-### Step 9.4: Decision Rationale
-For the **6.18.44** tree checked out here: the bug exists, the fix is
-minimal and follows a well-established kernel pattern, and it restores
-broken status-LED functionality on real shared-GPIO hardware (SFP
-network appliances). Severity is below crash/corruption tier, but stable
-trees routinely accept such hardware-enablement GPIO sharing fixes.
-Benefit outweighs the very low regression risk.
+### Step 9.4: Decision rationale
+
+For **linux-6.18.y**, this is a legitimate probe error-path resource
+leak fix. Severity is low and the hardware is legacy, but the patch is
+trivial, zero-risk, and the **same tree already carries the identical
+uvesafb fix** (`a943710407120`). Backporting maintains consistency in
+fbdev probe teardown and closes a gap that has existed since the 2015
+`arch_phys_wc_add()` conversion.
 
 ---
 
 ## Verification
 
-- [Phase 1] Parsed subject, tags, body; identified hardware-sharing bug
-- [Phase 2] Read diff and `ledtrig-gpio.c`; verified EBUSY → silent
-  failure path via `gpiolib.c:4672-4674` and `led-triggers.c:271-278`
-- [Phase 3] `git blame`: buggy line from `9bbd6b7209cf1` (Nov 2023);
-  trigger-sources from `4a11dbf04f31c` (Sep 2023)
-- [Phase 3] `git log --oneline -20 -- drivers/leds/trigger/ledtrig-
-  gpio.c`: no duplicate fix
-- [Phase 3] `git show ec757001c818c`: NONEXCLUSIVE support since 2018
-- [Phase 4] `b4 dig`: failed — commit not in tree
-- [Phase 4] WebFetch lore/patch.msgid.link: blocked by Anubis
-- [Phase 5] Traced `gpio_trig_activate` → `led_trigger_set` →
-  `led_match_default_trigger` call chain
-- [Phase 5] `grep GPIOD_FLAGS_BIT_NONEXCLUSIVE`: 30+ existing uses in
-  tree
-- [Phase 5] Read `sfp.c:3149-3150`: SFP claims GPIOs without
-  NONEXCLUSIVE
-- [Phase 6] `git describe HEAD`: v6.18.44-1-g2736c32da98b9
-- [Phase 6] Confirmed buggy code at `ledtrig-gpio.c:89` without fix
-- [Phase 6] `grep trigger-sources *.dts*`: USB router use cases present;
-  no in-tree SFP+gpio-trigger DTS found
-- [Phase 8] Confirmed `gpiod_not_found()` only maps `-ENOENT` to NULL,
-  not `-EBUSY` (`gpiolib.h:221`)
+- **[Phase 1]** Parsed subject, tags, body; no Reported-by/syzbot
+- **[Phase 2]** Diff: +1 line `arch_phys_wc_del()` at `err_exit_pixmap`
+  in `pm2fb_probe()`
+- **[Phase 3]** `git describe HEAD` → `v6.18.44`; `git blame` → WC add
+  from `f8f05cdc767fa` (2015)
+- **[Phase 3]** `git merge-base --is-ancestor f8f05cdc767fa HEAD` → exit
+  0 (bug source in tree)
+- **[Phase 3]** `git merge-base --is-ancestor 16eb19f0c90af HEAD` → exit
+  1 (fix not in tree)
+- **[Phase 3]** `git log stable/linux-6.18.y..master -- pm2fb.c` → only
+  `16eb19f` and unrelated pci_device_id change
+- **[Phase 3]** Related: `a943710407120` (uvesafb), `ed359a464846b`
+  (pm2fb pci_disable) in tree
+- **[Phase 4]** `b4 dig -c 16eb19f` → lore URL found; maintainer
+  “applied”
+- **[Phase 4]** `b4 dig -w` → fbdev maintainers CC’d
+- **[Phase 5]** Read `arch_phys_wc_add/del` in
+  `arch/x86/kernel/cpu/mtrr/mtrr.c` and stubs in `include/linux/io.h`
+- **[Phase 5]** Compared `tdfxfb.c:1556` (has probe-error del) and
+  `pm2fb.c:1738` (remove-path del)
+- **[Phase 6]** Confirmed missing `arch_phys_wc_del` at lines 1713–1715
+  in current tree
+- **[Phase 6]** `git show a943710407120` — identical uvesafb probe-error
+  fix already in 6.18.y
+- **[Phase 8]** Assessed impact: MTRR leak on PAT-less x86 only;
+  LOW–MEDIUM severity
 
-**YES**The background search finished. It turned up related work
-(Puzzle-M801 board DTS with SFP+, Broadcom PHY/SFP LED handling), but
-nothing that changes the backport call.
+**YES**The background lookups finished and matched what the analysis
+used:
 
-**Verdict for this 6.18.44 tree: YES**
+- **pm2fb history:** The commit isn’t in this `v6.18.44` tree yet;
+  recent `pm2fb.c` history shows maintenance fixes like the
+  `pci_disable_device()` probe cleanup.
+- **Candidate hash:** Mainline commit is `16eb19f0c90af` (“fbdev: pm2fb:
+  unwind WC setup on probe failure”).
+- **Stable precedent:** `6.18.y` already has the same pattern for
+  uvesafb (`a943710407120`); this pm2fb fix is not in stable yet.
 
-The gpio LED trigger fails silently when another driver (e.g. SFP for
-Mod_ABS/Rx_LOS) already owns the GPIO. Adding
-`GPIOD_FLAGS_BIT_NONEXCLUSIVE` is a one-line fix that matches an
-established pattern elsewhere in the tree, and the buggy code is still
-present at `ledtrig-gpio.c:89`.
+**Verdict for 6.18.y: YES** — one-line probe error-path MTRR/WC cleanup,
+same class of fix already accepted in this tree.
 
- drivers/leds/trigger/ledtrig-gpio.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/video/fbdev/pm2fb.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/leds/trigger/ledtrig-gpio.c b/drivers/leds/trigger/ledtrig-gpio.c
-index 7f6a2352b0acd..3199275fd250b 100644
---- a/drivers/leds/trigger/ledtrig-gpio.c
-+++ b/drivers/leds/trigger/ledtrig-gpio.c
-@@ -86,7 +86,8 @@ static int gpio_trig_activate(struct led_classdev *led)
- 	 * The generic property "trigger-sources" is followed,
- 	 * and we hope that this is a GPIO.
- 	 */
--	gpio_data->gpiod = gpiod_get_optional(dev, "trigger-sources", GPIOD_IN);
-+	gpio_data->gpiod = gpiod_get_optional(dev, "trigger-sources",
-+					      GPIOD_IN | GPIOD_FLAGS_BIT_NONEXCLUSIVE);
- 	if (IS_ERR(gpio_data->gpiod)) {
- 		ret = PTR_ERR(gpio_data->gpiod);
- 		kfree(gpio_data);
+diff --git a/drivers/video/fbdev/pm2fb.c b/drivers/video/fbdev/pm2fb.c
+index f34429829b7d7..82408503c2812 100644
+--- a/drivers/video/fbdev/pm2fb.c
++++ b/drivers/video/fbdev/pm2fb.c
+@@ -1711,6 +1711,7 @@ static int pm2fb_probe(struct pci_dev *pdev, const struct pci_device_id *id)
+  err_exit_both:
+ 	kfree(info->pixmap.addr);
+  err_exit_pixmap:
++	arch_phys_wc_del(default_par->wc_cookie);
+ 	iounmap(info->screen_base);
+ 	release_mem_region(pm2fb_fix.smem_start, pm2fb_fix.smem_len);
+  err_exit_mmio:
 -- 
 2.53.0
 
