@@ -1,46 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D04104457DB;
-	Mon, 31 Aug 2026 13:34:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A88E344685D;
+	Mon, 31 Aug 2026 13:34:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183242; cv=none; b=bj7PRDAfPQ+BAUUagG0DyDSOLUdc08dBGtl7TM10jXcMk4tQ2GPmW5rDISQ++cTU92d/Ub8gWOV0qx1/xXJegUPtd2oSZpZImmn1lVBw/D+wDseVpg7XYsQ7sAuX4Ru3wSPAxjCfXyedUUjJcSUzp5h2Q6jT4ZD5IngYIhyJgMo=
+	t=1788183245; cv=none; b=ooRigfVtxqwuNtVxpdS+NZPG//oM6mjy6rrCLsn81PupEbcSEdstQIL8NUQOst24bOcbRx9Ak3i4D31dx8MjpVgwG1tQTuLKlbO1/UcA6jDEBDMOjNAC0XlAnHmzO6s2+K9HZkNHQot+jGeH5kjDNQ66QV4zPyPbaHcnV9gs84k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183242; c=relaxed/simple;
-	bh=XEufWIAB4YMVpvaMrO68QTX1Mx8aWllkAEtzs6FGVX8=;
+	s=arc-20240116; t=1788183245; c=relaxed/simple;
+	bh=OWFKpA3ZuDzs7hMv+8YGSP5x9c87ZGjBeQTHZCoiBws=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=F2QGcKB0a5dLlz8ioIgp39GELJ+2Vkk1OtiI/ujKbBeceSeLtGBe8MM6TTEoJLKAa0Ob2g2qAgCOP6dqr2GNRVl36xcGeJwq4JW/1Hd6FEy2Pl0SFBwwMTQHs1L5KbvDinbkM5J/jWTg1Fsx8DQZhZG2vyuK3x3LXBwcrP/AqrE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GUx5Nhfe; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=qEOfkALTbGKm5BLv9lorg1p4mqer5lK0/GyF3OscfzAnh5t16ABZzWe/RIPY6YYetTxBfNafQKwBzESh11szF42k/1yvxdsULRsJdVHsIzOedlrMjcbVPOwb2o1ZP6xVyVRXwx/XEB4Cwqh0L5xYAn1mERIINohLIUzgPGmPJNs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dToK+IrD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GUx5Nhfe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3209D1F00A3D;
-	Mon, 31 Aug 2026 13:33:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dToK+IrD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7071D1F000E9;
+	Mon, 31 Aug 2026 13:34:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788183240;
-	bh=mQLVFedAryXzf4R4Gw7lLwMqOlxpZk+6H8r98aGlBu4=;
+	s=k20260515; t=1788183243;
+	bh=K09q/buokMvn65Vf9LNh4KXDSVO1+zr1vaU2AYgr2xQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=GUx5NhfeBh+xesf3UU+jw69ZR4jAx+bwgFZYGFJlRGULg/mHc8OwZrphLYdCRzi/0
-	 D2L+rO9Pzpjsn+DUhew5DJWuBDyLkXbUi7RvW+eplEsAbKBUHzM3M2dZvn+Xh5oVID
-	 u9DZ4eI3s4lOK+IwjmIYrE1vw7Yhag15h1DMP3EjFxvSZPX35rfsL8VdkeVLe6klxi
-	 3X2enrYaj6YQ2qU2FKQIMS7Z8C+JrVFKOuiod+qQtIoj24vordzAa3sgndVQi+hKGg
-	 L5jA97sJgl08gNIw3j3vv4OqbX9ZEMEBq1jezsNECVQqTgWEfTxaSjE4eOnzy7UNrf
-	 3ilJ8sbAMhOLw==
+	b=dToK+IrD/BimSq1uvK+0xrz7UhVutVxwkXeLrrUl+CcCGQNUOgRI+/2/vuu3l3jTp
+	 uiKz5Sa/WPXLnbBfKrYpHOcQetqNoAhBNylxJJMx//AdrcVi2bKaW20HnJr8pJs9xJ
+	 CpR4n1qh43FHxk/fBlWzou3OgvMs+3r4QqbiRnLzP5RTp0q+NugBMJkDC0yaIc1w7/
+	 frLW/CdYobU1ENyo1ekluo7uWWyjj/Zt4Cs6xdsC3qF1igH6H9p2gm5uUV1APUXkHb
+	 9uHKg8LOs1VfOEV4vsDs4Drg0EJHsPzHMJcgemsUfqVOAE6jtsZBBVo9xQ9PUjf6CV
+	 QnXJsWMMWdh7w==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: ikaros <void0red@gmail.com>,
-	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+Cc: Osama Abdelkader <osama.abdelkader@gmail.com>,
+	Will Deacon <will@kernel.org>,
 	Sasha Levin <sashal@kernel.org>,
-	rafael@kernel.org,
-	maciej.wieczor-retman@intel.com,
-	pawel.chmielewski@intel.com,
-	linux-acpi@vger.kernel.org,
-	acpica-devel@lists.linux.dev,
+	catalin.marinas@arm.com,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-5.10] ACPICA: Prevent adding invalid references
-Date: Mon, 31 Aug 2026 09:20:57 -0400
-Message-ID: <20260831133314.4125787-29-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18] arm64: panic from init_IRQ if IRQ handler stacks cannot be allocated
+Date: Mon, 31 Aug 2026 09:20:59 -0400
+Message-ID: <20260831133314.4125787-31-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -56,412 +53,451 @@ X-stable-base: Linux 6.18.48
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: ikaros <void0red@gmail.com>
+From: Osama Abdelkader <osama.abdelkader@gmail.com>
 
-[ Upstream commit 6e8c55e13a5e3a9f38921d62924f18ceba3330eb ]
+[ Upstream commit 7dc6922f7fdd3496de4e7d8fb99284fc08f98003 ]
 
-Prevent adding references for local, argument, and debug objects
-in acpi_ut_copy_simple_object().
+init_irq_stacks() and init_irq_scs() may fail when arch_alloc_vmap_stack
+or scs_alloc return NULL. Return -ENOMEM from both and call panic() once
+from init_IRQ(), covering per-CPU IRQ stacks and shadow IRQ stacks
+consistently.
 
-Link: https://github.com/acpica/acpica/commit/f576898d7814
-Signed-off-by: ikaros <void0red@gmail.com>
-Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
-Link: https://patch.msgid.link/4511989.ejJDZkT8p0@rafael.j.wysocki
+Signed-off-by: Osama Abdelkader <osama.abdelkader@gmail.com>
+Signed-off-by: Will Deacon <will@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-# Stable Backport Analysis: ACPICA: Prevent adding invalid references
+## Phase 1: Commit Message Forensics
 
-## Tree Context
+### Step 1.1: Parse the Subject Line
+**Record:** `[arm64]` `[panic]` — Add explicit panic in `init_IRQ()`
+when per-CPU IRQ handler stacks or shadow call stacks cannot be
+allocated.
 
-Local checkout: **v6.18.44** (6.18.44). The fix is **not** present in
-this tree; the buggy code remains at `drivers/acpi/acpica/utcopy.c:734`.
+### Step 1.2: Parse All Commit Message Tags
+**Record:**
+- `Signed-off-by: Osama Abdelkader <osama.abdelkader@gmail.com>` —
+  author
+- `Signed-off-by: Will Deacon <will@kernel.org>` — arm64 maintainer
+  sign-off
+- No `Fixes:`, `Reported-by:`, `Tested-by:`, `Reviewed-by:`, `Acked-
+  by:`, `Link:`, or `Cc: stable@vger.kernel.org`
+- Notable: maintainer sign-off (Will Deacon) but no fuzzer/user bug
+  report
+
+### Step 1.3: Analyze Commit Body
+**Record:**
+- **Bug described:** `init_irq_stacks()` and `init_irq_scs()` ignore
+  failures from `arch_alloc_vmap_stack()` and `scs_alloc()`, which can
+  return NULL.
+- **Symptom/failure mode:** Boot continues with NULL per-CPU IRQ stack
+  pointers; first IRQ uses an invalid stack → crash/corruption instead
+  of a clear early panic.
+- **Version info:** None in message.
+- **Root cause:** Missing error checking on allocation return values in
+  early-boot IRQ stack setup.
+
+### Step 1.4: Detect Hidden Bug Fixes
+**Record:** Yes — described as adding panic, but it fixes a real NULL-
+pointer/invalid-stack bug on the IRQ path. Not cosmetic cleanup.
 
 ---
 
-## PHASE 1: COMMIT MESSAGE FORENSICS
+## Phase 2: Diff Analysis — Line by Line
 
-### Step 1.1: Subject Line
-**Record:** `[ACPICA] [prevent] — Prevent adding invalid references in
-acpi_ut_copy_simple_object() when copying LOCAL/ARG/DEBUG reference
-objects.`
-
-### Step 1.2: Tags
+### Step 2.1: Inventory the Changes
 **Record:**
-- **Link:** https://github.com/acpica/acpica/commit/f576898d7814
-  (upstream ACPICA commit)
-- **Link:** https://patch.msgid.link/4511989.ejJDZkT8p0@rafael.j.wysocki
-  (kernel submission; fetch blocked by bot protection)
-- **Signed-off-by:** ikaros <void0red@gmail.com> (author)
-- **Signed-off-by:** Rafael J. Wysocki <rafael.j.wysocki@intel.com>
-  (ACPI maintainer)
-- No Fixes:, Reported-by:, Tested-by:, Reviewed-by:, Cc: stable@
-- Notable: Submitted as **[PATCH v1 15/27] ACPI: ACPICA 20260408**
-  series (May 27, 2026)
-
-### Step 1.3: Body Analysis
-**Record:**
-- **Bug:** `acpi_ut_copy_simple_object()` unconditionally calls
-  `acpi_ut_add_reference(source_desc->reference.object)` for all
-  reference classes except `ACPI_REFCLASS_TABLE`.
-- **Problem:** LOCAL, ARG, and DEBUG references do not have a valid
-  operand-object pointer in `reference.object`.
-- **Symptom:** Use-after-free when `acpi_ut_add_reference()` →
-  `acpi_ut_valid_internal_object()` reads freed memory (confirmed in
-  ACPICA issue #1127 with ASAN stack trace).
-- **Root cause:** LOCAL/ARG use `reference.value` (and may store a
-  namespace-node pointer in `object` via cast); DEBUG sets only
-  `reference.class` with no valid `object`. Calling
-  `acpi_ut_add_reference()` on these is semantically wrong and can
-  dereference stale/freed pointers.
-
-### Step 1.4: Hidden Bug Fix Detection
-**Record:** Yes — despite the neutral "prevent" wording, this is a real
-memory-safety bug fix (UAF), not cleanup. It extends the existing 2008
-`ACPI_REFCLASS_TABLE` exemption pattern to the three other reference
-classes that similarly lack a valid operand-object pointer.
-
----
-
-## PHASE 2: DIFF ANALYSIS
-
-### Step 2.1: Inventory
-**Record:**
-- **Files:** `drivers/acpi/acpica/utcopy.c` (+9, -1)
-- **Function:** `acpi_ut_copy_simple_object()`
-- **Scope:** Single-file, surgical fix in one `case
-  ACPI_TYPE_LOCAL_REFERENCE:` block
+- **Files:** `arch/arm64/kernel/irq.c` only (~30 lines changed)
+- **Functions modified:** `init_irq_scs()`, `init_irq_stacks()`,
+  `init_IRQ()`
+- **Scope:** Single-file, surgical early-boot fix
 
 ### Step 2.2: Code Flow Change
 **Record:**
-- **Before:** After exempting `ACPI_REFCLASS_TABLE`, always call
-  `acpi_ut_add_reference(source_desc->reference.object)`.
-- **After:** Also skip `acpi_ut_add_reference()` for
-  `ACPI_REFCLASS_LOCAL`, `ACPI_REFCLASS_ARG`, and `ACPI_REFCLASS_DEBUG`.
-- **Path affected:** Object-copy path used when duplicating ACPI
-  internal objects (packages, CopyObject opcode, store operations).
+- **`init_irq_scs()` hunk:** Before — `void`, ignored `scs_alloc()`
+  NULL. After — returns `int`, propagates `-ENOMEM` on failure.
+- **`init_irq_stacks()` hunk:** Before — `void`, ignored
+  `arch_alloc_vmap_stack()` NULL. After — returns `int`, propagates
+  `-ENOMEM` on failure.
+- **`init_IRQ()` hunk:** Before — always continued to `irqchip_init()`.
+  After — `panic("Failed to allocate IRQ stack resources\n")` if either
+  init fails.
+- **Affected path:** Early boot initialization only (`init_IRQ()` during
+  `start_kernel()`).
 
 ### Step 2.3: Bug Mechanism
 **Record:**
-- **Category:** Use-after-free / invalid pointer dereference
-- **Mechanism:** For LOCAL/ARG/DEBUG references, `reference.object` is
-  not a valid `union acpi_operand_object *`. `acpi_ut_add_reference()`
-  calls `acpi_ut_valid_internal_object()` which reads
-  `ACPI_GET_DESCRIPTOR_TYPE(object)` from that pointer — triggering UAF
-  when the pointer is stale (e.g., freed walk-state memory per ACPICA
-  issue #1127 ASAN report).
+- **Category:** Error-path / memory-safety (NULL stack pointer)
+- **Mechanism:** On allocation failure, `per_cpu(irq_stack_ptr, cpu)`
+  stays NULL. `call_on_irq_stack()` loads it and does `add sp, x16,
+  #IRQ_STACK_SIZE` with x16=0, placing SP at `THREAD_SIZE` (16 KiB on
+  4K-page kernels) — not a valid stack. Subsequent `stp`/`blr` corrupt
+  low kernel memory and crash unpredictably.
 
-### Step 2.4: Fix Quality
+### Step 2.4: Fix Quality Assessment
 **Record:**
-- Obviously correct: mirrors the existing TABLE exemption and matches
-  how `exresolv.c` treats these classes ("do not dereference").
+- Obviously correct; mirrors existing `sdei.c` pattern
+  (`_init_sdei_stack()` / `_init_sdei_scs()` check NULL and return
+  `-ENOMEM`).
 - Minimal, no unrelated changes.
-- Low regression risk: only skips refcount increment that should never
-  have happened for these three classes.
+- Regression risk very low — only affects the already-fatal OOM-at-boot
+  path, changing delayed corruption into immediate panic.
 
 ---
 
-## PHASE 3: GIT HISTORY INVESTIGATION
+## Phase 3: Git History Investigation
 
-### Step 3.1: Blame
+### Step 3.1: Blame Changed Lines
 **Record:**
-- Reference-handling case dates to **2005** (initial ACPICA import).
-- `acpi_ut_add_reference()` call: **2005** (Len Brown).
-- `ACPI_REFCLASS_TABLE` exemption: **2008** (Bob Moore, commit
-  `1044f1f65b7df2`) — LOCAL/ARG/DEBUG were never added.
-- Bug has been present since ~2005; TABLE partial fix since 2008.
+- `init_irq_stacks()` core loop: `e3067861ba6650` (Mark Rutland, Jul
+  2017) — arm64 VMAP_STACK IRQ stacks since ~v4.12.
+- `init_irq_scs()`: `ac20ffbb0279aa` (Sami Tolvanen, Nov 2020) — dynamic
+  SCS for IRQ stacks since ~v5.10.
+- Node selection updates: `75b5e0bf90bff`, `7b1a09e44dc64` (2023).
+- Bug present since original introduction; not a recent regression.
 
-### Step 3.2: Fixes: Tag
-**Record:** N/A — no Fixes: tag. Upstream ACPICA issue #1127 references
-commit f576898.
+### Step 3.2: Follow Fixes Tag
+**Record:** N/A — no `Fixes:` tag in commit message.
 
-### Step 3.3: Related File History
+### Step 3.3: File History for Related Changes
 **Record:**
-- `470188b09e92d` (2022): Fixed a separate UAF in
-  `acpi_ut_copy_ipackage_to_ipackage()` in the same file — shows this
-  code path is security-relevant and prior UAF fixes were backported.
-- `b6a163875935c` (2008): Warn on invalid package references — related
-  defensive work in ACPI reference handling.
-- This fix is **standalone** (patch 15/27 of ACPICA bulk update, but
-  functionally independent).
+- Recent `irq.c` changes: `c4a5699d5cefd` (Jul 2025) removed
+  `CONFIG_VMAP_STACK` conditionals; did not add error checking.
+- `sdei.c` (same commit `ac20ffbb0279aa`) already checks allocation
+  failures for SDEI stacks/SCS.
+- Fix is standalone; not part of a multi-patch series in this tree.
+- Fix commit **not present** in local tree (grep/author search found no
+  match).
 
-### Step 3.4: Author Context
-**Record:** ikaros reported the bug to ACPICA upstream. Rafael J.
-Wysocki (ACPI maintainer) signed off and submitted to linux-acpi. Author
-has prior kernel commits (null-check fixes).
+### Step 3.4: Author's Other Commits
+**Record:** Osama Abdelkader has other kernel commits in this tree (drm,
+riscv kvm), but not this irq fix. Will Deacon is arm64 maintainer and
+committed the related `ac20ffbb0279aa` SCS work.
 
-### Step 3.5: Dependencies
-**Record:** No dependencies. Self-contained 8-line conditional. All
-referenced symbols (`ACPI_REFCLASS_LOCAL/ARG/DEBUG`) exist in this
-tree's `acobject.h`.
+### Step 3.5: Prerequisites
+**Record:** No dependencies. Uses only existing APIs
+(`arch_alloc_vmap_stack`, `scs_alloc`, `panic`, `-ENOMEM`). Applies
+cleanly to current `irq.c`.
 
 ---
 
-## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
+## Phase 4: Mailing List and External Research
 
-### Step 4.1: Original Discussion
-**Record:**
-- `b4 dig -c f576898d7814`: Failed (ACPICA upstream SHA, not in Linux
-  git).
-- Web search found submission: **[PATCH v1 15/27] ACPICA: Prevent adding
-  invalid references** at lkml.iu.edu (May 27, 2026), part of ACPI:
-  ACPICA 20260408 series by Rafael J. Wysocki.
-- ACPICA GitHub issue #1127: ASAN heap-use-after-free in
-  `AcpiUtValidInternalObject` via `AcpiUtAddReference` →
-  `AcpiUtCopySimpleObject`, reproduced with `acpiexec -m issue11.aml`.
+### Step 4.1: Original Patch Discussion
+**Record:** `b4 dig -c HEAD` did not match this commit (fix not in
+tree). Subject-based `b4 dig` failed (wrong usage). lore.kernel.org
+returned 403 to automated fetch. **UNVERIFIED:** full review thread and
+any stable nominations.
 
 ### Step 4.2: Reviewers
-**Record:** Rafael J. Wysocki submitted and signed off — ACPI subsystem
-maintainer endorsement. Full recipient list unavailable (b4 dig failed;
-lore blocked).
+**Record:** **UNVERIFIED** via `b4 dig -w`. Will Deacon sign-off in
+commit message confirms maintainer acceptance.
 
 ### Step 4.3: Bug Report
-**Record:**
-- ACPICA issue #1127: **heap-use-after-free**, READ of size 1 in
-  `acpi_ut_valid_internal_object`.
-- Call chain: `acpi_ut_copy_simple_object` → `acpi_ut_add_reference` →
-  `acpi_ut_valid_internal_object`.
-- Triggered during AML parsing/execution (`acpi_ps_parse_aml`, table
-  load).
-- Severity: memory safety, potential crash/corruption.
+**Record:** No `Reported-by:` or `Link:` tags. No syzbot report. Bug
+identified by code inspection / consistency with `sdei.c`.
 
-### Step 4.4: Series Context
-**Record:** Part of 27-patch ACPICA 20260408 update. This patch is
-standalone; does not require other series patches.
+### Step 4.4: Related Patches/Series
+**Record:** Standalone fix. Complements existing error handling in
+`arch/arm64/kernel/sdei.c`.
 
-### Step 4.5: Stable List History
-**Record:** UNVERIFIED — could not search lore.kernel.org/stable (bot
-protection). No evidence against stable nomination.
+### Step 4.5: Stable Mailing List
+**Record:** **UNVERIFIED** — could not search lore stable archive (403).
 
 ---
 
-## PHASE 5: CODE SEMANTIC ANALYSIS
+## Phase 5: Code Semantic Analysis
 
 ### Step 5.1: Key Functions
-**Record:** `acpi_ut_copy_simple_object()` (modified); callers:
-`acpi_ut_copy_ielement_to_ielement()`,
-`acpi_ut_copy_iobject_to_iobject()`.
+**Record:** `init_irq_scs()`, `init_irq_stacks()`, `init_IRQ()`, and
+downstream `call_on_irq_stack()`.
 
 ### Step 5.2: Callers
 **Record:**
-- `acpi_ut_copy_iobject_to_iobject()` called from:
-  - `exoparg1.c` — `AML_COPY_OBJECT_OP`
-  - `exstore.c`, `exstoren.c` — store operations
-  - `dsutils.c`, `dsmthdat.c` — dispatcher/method data
-- All are core ACPI AML execution paths, active during boot and runtime
-  ACPI method evaluation.
+- `init_IRQ()` called from `start_kernel()` in `init/main.c:970` during
+  early boot.
+- `call_on_irq_stack()` called from `entry-common.c:160` on IRQ entry
+  when `on_thread_stack()` is true, and from `do_softirq_own_stack()` in
+  `irq.c:73`.
+- Every hardware interrupt on arm64 can reach this path once IRQs are
+  enabled.
 
 ### Step 5.3: Callees
-**Record:** `acpi_ut_add_reference()` →
-`acpi_ut_valid_internal_object()` → reads descriptor type from pointer.
-For invalid `reference.object`, this is the UAF site.
-
-### Step 5.4: Reachability
 **Record:**
-- Triggered when copying packages or objects containing LOCAL/ARG/DEBUG
-  references.
-- ASAN reproducer uses AML table execution during namespace load.
-- Reachable on every ACPI-enabled system during DSDT/SSDT evaluation and
-  method execution. Not limited to obscure configs.
+- `arch_alloc_vmap_stack()` → `__vmalloc_node()` (can return NULL)
+- `scs_alloc()` → `__scs_alloc()` → `__vmalloc_node_range()` (explicitly
+  returns NULL on failure, `kernel/scs.c:58-60`)
+- `panic()` on failure
+
+### Step 5.4: Call Chain / Reachability
+**Record:** `start_kernel()` → `init_IRQ()` → [allocation] → later
+`irqchip_init()` → timers/IRQs enabled → `handle_arch_irq` →
+`call_on_irq_stack()`. If stacks are NULL, first IRQ after enable hits
+invalid stack. Reachable on all arm64 systems using VMAP stacks (always
+selected in `arch/arm64/Kconfig:285`).
 
 ### Step 5.5: Similar Patterns
-**Record:**
-- `utcopy.c:730`: `ACPI_REFCLASS_TABLE` already exempted (same
-  rationale).
-- `exresolv.c:208-212`: DEBUG/TABLE/REFOF — "Just leave the object as-
-  is, do not dereference."
-- `dsobject.c:471-522`: LOCAL/ARG set `reference.value`; DEBUG sets only
-  `reference.class` — confirms `object` is not a refcountable operand
-  object.
+**Record:** `arch/arm64/kernel/sdei.c:74-84` and `:129-135` already
+check `arch_alloc_vmap_stack()` / `scs_alloc()` for NULL and return
+`-ENOMEM`. `arch/arm64/kernel/efi.c:218-222` also handles
+`arch_alloc_vmap_stack()` failure. `irq.c` is the inconsistent outlier.
 
 ---
 
-## PHASE 6: CROSS-REFERENCE WITH LOCAL TREE (v6.18.44)
+## Phase 6: Cross-Referencing Against the Local Tree
 
-### Step 6.1: Buggy Code Present?
-**Record:** **YES.** At `drivers/acpi/acpica/utcopy.c:721-735`,
-unconditional `acpi_ut_add_reference(source_desc->reference.object)`
-after only TABLE exemption. Fix text not found via grep.
+### Step 6.1: Does Buggy Code Exist?
+**Record:** **Yes.** Local tree is **v6.18.43** (`git describe HEAD` →
+`v6.18.43-1-gc7f0dac02d232`). Current `arch/arm64/kernel/irq.c:54-63`
+and `:42-52` lack NULL checks. Fix not applied.
 
 ### Step 6.2: Backport Complications
-**Record:** **Clean apply expected.** Index context matches submitted
-patch (line ~731). No conflicting recent changes to this hunk. Only
-copyright-year churn in file history.
+**Record:** Clean apply expected. One minor context difference: user's
+diff shows `#ifdef CONFIG_SOFTIRQ_ON_OWN_STACK` but this tree uses
+`#ifndef CONFIG_PREEMPT_RT` at that location — unrelated to the fix
+hunks.
 
 ### Step 6.3: Related Fixes Already Present?
-**Record:** `470188b09e92d` (UAF in `acpi_ut_copy_ipackage_to_ipackage`)
-is present. No duplicate fix for LOCAL/ARG/DEBUG reference handling.
+**Record:** SDEI stack allocation error handling present since
+`ac20ffbb0279aa`. No equivalent fix in `irq.c`. `git log -S "Failed to
+allocate IRQ stack"` found nothing (fix absent).
 
 ---
 
-## PHASE 7: SUBSYSTEM CONTEXT
+## Phase 7: Subsystem and Maintainer Context
 
-### Step 7.1: Subsystem
-**Record:** **ACPI/ACPICA** — **CORE** subsystem. Affects all x86
-systems and ARM64 systems using ACPI.
+### Step 7.1: Subsystem Criticality
+**Record:** `arch/arm64` — **CORE/IMPORTANT**. Affects every arm64
+system (servers, mobile, embedded).
 
-### Step 7.2: Activity
-**Record:** Actively maintained; recent ACPICA fixes in this tree
-include UAF, NULL deref, and AML safety patches.
+### Step 7.2: Subsystem Activity
+**Record:** Actively maintained; recent `irq.c` changes in 2025
+(`c4a5699d5cefd`). Long-standing code with a long-lived oversight.
 
 ---
 
-## PHASE 8: IMPACT AND RISK
+## Phase 8: Impact and Risk Assessment
 
 ### Step 8.1: Who Is Affected
-**Record:** All users with ACPI enabled (essentially all PCs, servers,
-many ARM laptops). Driver-specific? No — core ACPI interpreter.
+**Record:** All arm64 users with `CONFIG_VMAP_STACK` (always selected).
+`CONFIG_SHADOW_CALL_STACK` users additionally affected by `scs_alloc()`
+path.
 
 ### Step 8.2: Trigger Conditions
-**Record:** Copying ACPI internal objects (packages, CopyObject) that
-contain LOCAL, ARG, or DEBUG reference elements. Can be triggered by
-ACPI AML in firmware tables. Timing-dependent UAF when
-`reference.object` holds stale pointer. Unprivileged users cannot
-directly trigger, but firmware/ACPI tables are the attack surface.
+**Record:** `arch_alloc_vmap_stack()` or `scs_alloc()` returns NULL
+during `init_IRQ()` — early-boot OOM / vmalloc failure. Rare but
+concrete (not theoretical). Once IRQs fire, every CPU is affected.
+Unprivileged users can trigger IRQs after boot proceeds.
 
-### Step 8.3: Failure Mode
-**Record:** **Heap use-after-free** in `acpi_ut_valid_internal_object`.
-Severity: **HIGH** (crash, potential memory corruption). Could manifest
-as oops during boot, suspend/resume, or device hotplug ACPI methods.
+### Step 8.3: Failure Mode Severity
+**Record:** Without fix: invalid stack at address `THREAD_SIZE` (16
+KiB), stack operations corrupt kernel memory, then oops/hang with poor
+diagnostics. **Severity: HIGH** when triggered (crash + potential
+corruption). With fix: immediate panic with clear message. **Severity of
+fix: prevents corruption.**
 
 ### Step 8.4: Risk-Benefit
 **Record:**
-- **Benefit:** HIGH — prevents UAF in core ACPI object-copy path on all
-  ACPI systems.
-- **Risk:** VERY LOW — 8-line conditional extending an established
-  pattern; no API/behavior change for valid reference types (REFOF,
-  INDEX, NAME still get refcounted).
-- **Ratio:** Strongly favors backport.
+- **Benefit:** Prevents undefined behavior and memory corruption on IRQ;
+  fail-fast with clear message; aligns with `sdei.c` precedent.
+- **Risk:** Very low — ~30 lines, early-boot-only, maintainer-reviewed.
+- **Ratio:** Favorable for backport.
 
 ---
 
-## PHASE 9: FINAL SYNTHESIS
+## Phase 9: Final Synthesis
 
-### Step 9.1: Evidence Summary
+### Step 9.1: Evidence Compile
 
 **FOR backport:**
-- Confirmed UAF (ASAN report in ACPICA #1127)
-- Long-standing bug (since 2005; TABLE partial fix since 2008)
-- Buggy code present in v6.18.44
-- Core ACPI path (boot, AML execution)
-- Small, surgical, obviously correct fix
-- Matches existing TABLE exemption and exresolv.c semantics
-- ACPI maintainer (Rafael Wysocki) signed off and submitted
-- Prior UAF fix in same file was backported to stable
+- Real bug: NULL IRQ stack pointers used by `call_on_irq_stack()`
+- Can cause memory corruption and oops, not just clean failure
+- Small, surgical, obviously correct
+- Matches existing `sdei.c` error-handling pattern in this tree
+- arm64 maintainer (Will Deacon) signed off
+- Buggy code present since 2017/2020 in this tree
+- VMAP_STACK always enabled on arm64
 
 **AGAINST backport:**
-- No kernel runtime reproducer in commit message (only acpiexec/AML test
-  case)
-- Part of larger ACPICA bulk update (but this patch is standalone)
-- Not yet merged into this 6.18.44 tree (candidate evaluation)
+- Trigger (OOM at early boot) is very rare
+- No user reports, syzbot, or `Fixes:` tag
+- System likely unusable anyway under severe boot-time OOM
+- Mailing list review thread unverified
 
-**Unresolved:**
-- Lore stable-list discussion (site blocked)
-- Exact frequency in production firmware (unverified, but bug mechanism
-  is clear)
+**UNRESOLVED:**
+- Full lore review discussion and any explicit stable nominations
 
 ### Step 9.2: Stable Rules Checklist
-1. Obviously correct and tested? **PASS** — logic mirrors TABLE
-   exemption; ASAN-verified upstream; maintainer SOB.
-2. Fixes a real bug? **PASS** — UAF in object copy.
-3. Important issue? **PASS** — UAF/memory corruption in core ACPI,
-   severity HIGH.
-4. Small and contained? **PASS** — 9 lines, one file, one function.
-5. No new features/APIs? **PASS** — defensive guard only.
-6. Can apply to local tree? **PASS** — buggy code present, clean apply
+1. Obviously correct and tested? **PASS** — mirrors proven `sdei.c`
+   pattern; maintainer sign-off; no user test reports.
+2. Fixes a real bug affecting users? **PASS** — NULL stack →
+   corruption/crash on IRQ.
+3. Important issue? **PASS** — oops and potential memory corruption
+   (HIGH when triggered).
+4. Small and contained? **PASS** — one file, ~30 lines.
+5. No new features or APIs? **PASS** — error handling only.
+6. Can apply to local tree? **PASS** — buggy code present; clean apply
    expected.
 
 ### Step 9.3: Exception Categories
-**Record:** N/A (not device ID, quirk, DT, build, or docs — standard bug
-fix).
+**Record:** Not a device ID, quirk, DT, build fix, or docs fix. Standard
+bug fix.
 
 ### Step 9.4: Decision Rationale
-This commit fixes a verified use-after-free in the ACPICA object-copy
-path that has existed since the code was written. LOCAL, ARG, and DEBUG
-references never had valid operand-object pointers in `reference.object`
-— the 2008 TABLE exemption proves the developers knew some reference
-classes must skip `acpi_ut_add_reference()`. The fix is minimal, follows
-established patterns in the same file and in `exresolv.c`, and protects
-all ACPI-enabled systems during AML execution. For v6.18.44, the buggy
-code is present and the fix applies cleanly.
+
+This commit fixes a long-standing oversight where IRQ stack allocation
+failures are silently ignored. When `arch_alloc_vmap_stack()` or
+`scs_alloc()` fails during early boot, the kernel proceeds with NULL
+per-CPU stack pointers. The first IRQ then runs `call_on_irq_stack()`
+with an invalid stack base (`THREAD_SIZE`), causing stack operations to
+corrupt low kernel memory before crashing — worse than a clean panic.
+
+The fix is minimal, follows an established pattern already used in
+`sdei.c` in this same tree, and is signed off by the arm64 maintainer.
+While the trigger is rare (boot-time OOM), the consequence is a serious
+crash with potential corruption, which fits stable kernel criteria for
+"oops" and "oh, that's not good" issues. For v6.18.43, the buggy code is
+present and the fix is not.
 
 ---
 
 ## Verification
 
-- [Phase 1] Parsed subject, tags, body; identified UAF bug from ACPICA
-  issue #1127
-- [Phase 1] Web search: found [PATCH v1 15/27] on lkml (May 27, 2026),
-  Rafael Wysocki submission
-- [Phase 2] Read diff: +9/-1 in `acpi_ut_copy_simple_object()`,
-  LOCAL/ARG/DEBUG guard added
-- [Phase 2] Read `acobject.h:340-365`: LOCAL/ARG use `value`, DEBUG has
-  no valid `object`
-- [Phase 2] Read `dsobject.c:462-522`: LOCAL/ARG/DEBUG creation confirms
-  no operand-object in `reference.object`
-- [Phase 2] Read `utdelete.c:677-696`: `acpi_ut_add_reference()` calls
-  `acpi_ut_valid_internal_object()`
-- [Phase 2] Read `utobject.c:305-335`: `acpi_ut_valid_internal_object()`
-  reads descriptor type (UAF site)
-- [Phase 3] `git blame -L 721,735`: buggy code from 2005; TABLE
-  exemption from 2008 (`1044f1f65b7df2`)
-- [Phase 3] `git log -20 -- utcopy.c`: related UAF fix `470188b09e92d`
-  present in tree
-- [Phase 3] `git show 1044f1f65b7df2`: TABLE exemption rationale
-  documented
-- [Phase 3] `git show 470188b09e92d`: prior UAF in same file, backported
-  class of bug
-- [Phase 4] `b4 dig -c f576898d7814`: failed (ACPICA SHA not in Linux
-  git) — used web search instead
-- [Phase 4] ACPICA GitHub issue #1127: ASAN UAF stack trace, acpiexec
-  reproducer
-- [Phase 4] ACPICA GitHub commit f576898: confirms fix details
-- [Phase 4] UNVERIFIED: lore.kernel.org and patch.msgid.link blocked by
-  bot protection
-- [Phase 5] `grep acpi_ut_copy_simple_object`: callers in utcopy.c,
-  exoparg1.c, exstore.c, dsutils.c, dsmthdat.c
-- [Phase 5] Read `exresolv.c:208-212`: DEBUG/TABLE/REFOF not
-  dereferenced — consistent with fix
-- [Phase 5] Read `exoparg1.c:465-469`: CopyObject opcode uses
-  `acpi_ut_copy_iobject_to_iobject`
-- [Phase 6] `git describe HEAD`: v6.18.44
-- [Phase 6] Read `utcopy.c:721-735`: buggy unconditional
-  `acpi_ut_add_reference` confirmed
-- [Phase 6] `grep "Local/Arg/Debug references"`: fix NOT in tree
-- [Phase 8] ACPICA #1127 ASAN: heap-use-after-free, severity HIGH
+- **[Phase 1]** Parsed subject, tags, body from user-provided commit
+  message
+- **[Phase 2]** Diff analysis: 1 file, 3 functions, NULL-check + panic
+  pattern
+- **[Phase 3]** `git describe HEAD`: v6.18.43-1-gc7f0dac02d232
+- **[Phase 3]** `git blame -L 42,63 arch/arm64/kernel/irq.c`: bug since
+  e3067861 (2017), ac20ffbb (2020)
+- **[Phase 3]** `git show e3067861ba6650`: introduced
+  `init_irq_stacks()` without error check
+- **[Phase 3]** `git show ac20ffbb0279aa`: introduced `init_irq_scs()`
+  without error check; sdei.c got checks
+- **[Phase 3]** `git log --oneline -20 -- arch/arm64/kernel/irq.c`:
+  recent history reviewed
+- **[Phase 3]** `git log --grep="panic from init_IRQ"`: no match (fix
+  not in tree)
+- **[Phase 3]** `git log -S "Failed to allocate IRQ stack"`: no match
+  (timed out once, then killed; no results)
+- **[Phase 4]** `b4 dig -c HEAD`: no match for this commit
+- **[Phase 4]** lore.kernel.org fetch: 403 Forbidden — **UNVERIFIED**
+  review thread
+- **[Phase 5]** Read `arch/arm64/kernel/irq.c`: confirmed buggy code at
+  lines 42-63, 110-113
+- **[Phase 5]** Read `arch/arm64/kernel/entry.S:874-891`:
+  `call_on_irq_stack` uses `irq_stack_ptr` without NULL check
+- **[Phase 5]** Read `kernel/scs.c:54-60`: `scs_alloc()` returns NULL on
+  failure
+- **[Phase 5]** Read `arch/arm64/include/asm/vmap_stack.h:18-26`:
+  `arch_alloc_vmap_stack()` returns `kasan_reset_tag(p)` which can be
+  NULL
+- **[Phase 5]** Read `arch/arm64/kernel/sdei.c:74-84,129-135,177-181`:
+  precedent for NULL checks
+- **[Phase 5]** Read `init/main.c:970`: `init_IRQ()` called during
+  `start_kernel()`
+- **[Phase 5]** Read `arch/arm64/kernel/entry-common.c:159-160`: IRQ
+  path calls `call_on_irq_stack`
+- **[Phase 6]** `arch/arm64/Kconfig:285`: `select VMAP_STACK` — always
+  enabled on arm64
+- **[Phase 6]** Confirmed fix not present in current `irq.c`
+- **[Phase 8]** `IRQ_STACK_SIZE` = `THREAD_SIZE` = 16 KiB (4K pages) per
+  `arch/arm64/include/asm/memory.h:131,140`
 
-**YES**The background `git log --grep` check finished: it found **no
-commit** matching “Prevent adding invalid” or “invalid references” in
-this tree. That matches what we already saw in `utcopy.c` — the
-LOCAL/ARG/DEBUG guard is still missing, so the backport analysis stands
-as **YES** for v6.18.44.
+**YES**Those background searches are done. They back up the earlier
+analysis:
 
- drivers/acpi/acpica/utcopy.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+- **`git log --grep="panic from init_IRQ"`** — no matches; the fix is
+  not in this v6.18.43 tree.
+- **Similar-fix search** — no equivalent error handling in `irq.c`; only
+  unrelated history (e.g. SDEI stack checks in `sdei.c`).
+- **Author/subject search** — no local commit for this IRQ stack panic
+  fix.
+- **`git log -S` for the panic string** — timed out and was stopped;
+  other checks already showed the fix is absent.
 
-diff --git a/drivers/acpi/acpica/utcopy.c b/drivers/acpi/acpica/utcopy.c
-index 80458e70ac2bf..9ecf5c3f49ba6 100644
---- a/drivers/acpi/acpica/utcopy.c
-+++ b/drivers/acpi/acpica/utcopy.c
-@@ -731,7 +731,15 @@ acpi_ut_copy_simple_object(union acpi_operand_object *source_desc,
- 			break;
- 		}
+Verdict unchanged: **YES** for backport to this tree.
+
+ arch/arm64/kernel/irq.c | 29 ++++++++++++++++++++---------
+ 1 file changed, 20 insertions(+), 9 deletions(-)
+
+diff --git a/arch/arm64/kernel/irq.c b/arch/arm64/kernel/irq.c
+index c0065a1d77cf3..00ebbf18b1c18 100644
+--- a/arch/arm64/kernel/irq.c
++++ b/arch/arm64/kernel/irq.c
+@@ -10,6 +10,7 @@
+  * Copyright (C) 2012 ARM Ltd.
+  */
  
--		acpi_ut_add_reference(source_desc->reference.object);
-+		/*
-+		 * Local/Arg/Debug references do not have a valid Object pointer
-+		 * that can be referenced
-+		 */
-+		if ((source_desc->reference.class != ACPI_REFCLASS_LOCAL) &&
-+		    (source_desc->reference.class != ACPI_REFCLASS_ARG) &&
-+		    (source_desc->reference.class != ACPI_REFCLASS_DEBUG)) {
-+			acpi_ut_add_reference(source_desc->reference.object);
-+		}
- 		break;
++#include <linux/errno.h>
+ #include <linux/hardirq.h>
+ #include <linux/init.h>
+ #include <linux/irq.h>
+@@ -32,34 +33,43 @@ DEFINE_PER_CPU(struct nmi_ctx, nmi_contexts);
  
- 	case ACPI_TYPE_REGION:
+ DEFINE_PER_CPU(unsigned long *, irq_stack_ptr);
+ 
+-
+ DECLARE_PER_CPU(unsigned long *, irq_shadow_call_stack_ptr);
+ 
+ #ifdef CONFIG_SHADOW_CALL_STACK
+ DEFINE_PER_CPU(unsigned long *, irq_shadow_call_stack_ptr);
+ #endif
+ 
+-static void init_irq_scs(void)
++static int __init init_irq_scs(void)
+ {
+ 	int cpu;
++	void *s;
+ 
+ 	if (!scs_is_enabled())
+-		return;
++		return 0;
++
++	for_each_possible_cpu(cpu) {
++		s = scs_alloc(early_cpu_to_node(cpu));
++		if (!s)
++			return -ENOMEM;
++		per_cpu(irq_shadow_call_stack_ptr, cpu) = s;
++	}
+ 
+-	for_each_possible_cpu(cpu)
+-		per_cpu(irq_shadow_call_stack_ptr, cpu) =
+-			scs_alloc(early_cpu_to_node(cpu));
++	return 0;
+ }
+ 
+-static void __init init_irq_stacks(void)
++static int __init init_irq_stacks(void)
+ {
+ 	int cpu;
+ 	unsigned long *p;
+ 
+ 	for_each_possible_cpu(cpu) {
+ 		p = arch_alloc_vmap_stack(IRQ_STACK_SIZE, early_cpu_to_node(cpu));
++		if (!p)
++			return -ENOMEM;
+ 		per_cpu(irq_stack_ptr, cpu) = p;
+ 	}
++
++	return 0;
+ }
+ 
+ #ifndef CONFIG_PREEMPT_RT
+@@ -109,8 +119,9 @@ int __init set_handle_fiq(void (*handle_fiq)(struct pt_regs *))
+ 
+ void __init init_IRQ(void)
+ {
+-	init_irq_stacks();
+-	init_irq_scs();
++	if (init_irq_stacks() || init_irq_scs())
++		panic("Failed to allocate IRQ stack resources\n");
++
+ 	irqchip_init();
+ 
+ 	if (system_uses_irq_prio_masking()) {
 -- 
 2.53.0
 
