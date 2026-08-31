@@ -1,42 +1,48 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F5C346F489;
-	Mon, 31 Aug 2026 13:48:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68A2556FA5E;
+	Mon, 31 Aug 2026 13:48:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788184117; cv=none; b=DOMrJVQU6qksnDoMRlp36beVi6Z3FAjIib695YSYe1WTG5ZIkEQ8Njo5JPNy5gghFRXYkqvh+xVedYHfNwUThSsUx4XfIY0FQC1DjmXOXugcHJHwyVcqSgwoVtW4375mU5VGfxx/22W7u504YaETJpjz2CbnlNxt0g1Rnk6VabQ=
+	t=1788184119; cv=none; b=CZbDQmZ4uLpaOuF2HuQKTpZYi8JwxDk0Me/e1bwlUh4KcuGxxnP2yCGUacrnSTiO4XjxKb3ZQDMCrVI7UXPDcNR4jEPlBUOrNnBCKh5iXbeZdoVNCP9oPxNNP8OWbaosRW0fJKms6q+mounJ9F8/VuUORVAW3AeWAumH0m2B3EM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788184117; c=relaxed/simple;
-	bh=kEccnSqcdwaRbdVWv6CyagxOJgt/MHw2pTVWaSzf6tM=;
+	s=arc-20240116; t=1788184119; c=relaxed/simple;
+	bh=oDroo2WiPTU90nvz2/0npryiyyfLGXDy2Hy3NzJEsPM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=NykQkrcKnDS5EJ2TcaP4zu5kofaq8z2WswcNUavUYFbmJG0yJrlXMzpqV7ARRVN6TrAK52g/UHFA+jxoIIt3+YoI0SByHvuuJKAkuR3BkNXN8yX0qcd3aSttd9jfN3uMESjZlNudu4fVkik9LjSC/BZtXSYKiImD+jUUCEZUlrA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mhQhaJQW; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=uLGYorS/cqrGUTwbNi4wYCXJGgeYmGEIxa4SZHbqF7IofSAfrroTCkzMJbHijtC4TxDDxWjzP4Ov9+m43PhPVNJXoMmba0ZwNZXRMZ2HxHDalLG2NqSFt1dBiTAGtYt0BIbPTc+rvCKGJGeSgKIf4RJojyLfxruB4QKqiQBEREs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NipMI7oO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mhQhaJQW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA9931F000E9;
-	Mon, 31 Aug 2026 13:48:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NipMI7oO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E79061F00ACA;
+	Mon, 31 Aug 2026 13:48:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788184114;
-	bh=GKgVBceKmcZzDMFW5Ev+rcocEaNq/rvDzUVuI8VqkqE=;
+	s=k20260515; t=1788184116;
+	bh=sRR5RzAfZF2ygozG/qavqvPeChy7+XYeXV4CDkN88MM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mhQhaJQWOTlng5e1r0aNjLvJhKxxUzDBb9iXr5AbSx8mAzIyZlaUZrw81XxYVRrqr
-	 LyQM3Kha/tEG+rNONr/AFMiiE4LvofXuANkTcbJwfsXaFG/8sbW15c8ia4EHqJBtBZ
-	 KUWakf/XjPgqmBsyyX7ls3j0esf+eFjqGYFQmG09gHEjIEsjWTiUjCc4L2FM51qbMV
-	 puZ0jpm+SPt796IPUtn9+oQIrgzgA6luwAMrL3XMVbZptbXZlS/Cqt8rh+n33Ko7mU
-	 AHXglxiixsSXmWqD5pvmK7IXirpsrzH8HRYgoUFVlJyYGVEjwrcjHcFuGOI7n56wyg
-	 opLE8GJzx1ZHA==
+	b=NipMI7oOpWJpEntVg0UXpciHQWk1UP2b8FmPcMFTjVVrCLQR+u1a+ylYhmqi7tBhb
+	 AKWlQzqNUuVd+40RZ0B7OHrwZD9nZB3UUrZJL+qsFMOU40KR1+Y/0JaatwTvWQ/QdZ
+	 HR5HGZEh48SeSifIPKxDA8kihDyJpMcuTUgyFij8XZwf9b4Y+oWmk5nr98aTlfaNwL
+	 UEJmY654ud2HkVlU4J2AEYyagDvUFkRmUR5BSDe5lbrFL/KVrnztChBcSQW5F+Tzr8
+	 0136PGo49b8UirOLIn5Qit/Izia1QtgrR8xCRRHOsTCZANjtQjxtQWMYV5g6XvMLod
+	 616c3Bb0WWOdQ==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Emmanuel Grumbach <emmanuel.grumbach@intel.com>,
-	Miri Korenblit <miriam.rachel.korenblit@intel.com>,
+Cc: Wesley Cheng <wesley.cheng@oss.qualcomm.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Abel Vesa <abel.vesa@oss.qualcomm.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Vinod Koul <vkoul@kernel.org>,
 	Sasha Levin <sashal@kernel.org>,
-	linux-wireless@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-phy@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-5.10] wifi: iwlwifi: bound aligned TLV advance in FW parser
-Date: Mon, 31 Aug 2026 09:28:48 -0400
-Message-ID: <20260831133314.4125787-500-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18] phy: qcom: m31-eusb2: Make USB repeater optional
+Date: Mon, 31 Aug 2026 09:28:49 -0400
+Message-ID: <20260831133314.4125787-501-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -52,66 +58,79 @@ X-stable-base: Linux 6.18.48
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Emmanuel Grumbach <emmanuel.grumbach@intel.com>
+From: Wesley Cheng <wesley.cheng@oss.qualcomm.com>
 
-[ Upstream commit acad742714bdc70e7fd7f234323807c596828213 ]
+[ Upstream commit a62bfbcf2db4ae6eb7a544a40b1075a81784ea41 ]
 
-Validate ALIGN(tlv_len, 4) against remaining parser length before
-consuming bytes from the firmware image.
+A repeater is not required for the PHY to function. On systems with
+multiple PHY instances connected to a multi-port controller, some PHYs
+may be unconnected. All PHYs must still probe successfully even without
+attached repeaters, otherwise the controller probe fails.
 
-This avoids length underflow on malformed TLVs.
+So make it optional.
 
-Assisted-by: GitHubCopilot:GPT-5.3-Codex
-Signed-off-by: Emmanuel Grumbach <emmanuel.grumbach@intel.com>
-Link: https://patch.msgid.link/20260717173215.393c286488f9.Ia39144dc3ca334325ee4eacb7420901e2446fc23@changeid
-Signed-off-by: Miri Korenblit <miriam.rachel.korenblit@intel.com>
+Signed-off-by: Wesley Cheng <wesley.cheng@oss.qualcomm.com>
+[abel.vesa@oss.qualcomm.com: commit re-worded to reflect actual reason]
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Reviewed-by: Bjorn Andersson <andersson@kernel.org>
+Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Link: https://patch.msgid.link/20260302-phy-qcom-m31-eusb2-make-repeater-optional-v2-1-dbf714c72056@oss.qualcomm.com
+Signed-off-by: Vinod Koul <vkoul@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-# Stable Backport Analysis: `wifi: iwlwifi: bound aligned TLV advance in
-FW parser`
+# Stable Backport Analysis: `phy: qcom: m31-eusb2: Make USB repeater
+optional`
 
-**Local tree:** `v6.18.44` (linux-6.18.y stable), `HEAD` detached from
-`stable/linux-6.18.y`
+**Local tree:** Linux **6.18.43** (`v6.18.43-1-gc7f0dac02d232`)
+**Commit under review:** `dd085bf278421` (upstream `a62bfbcf2db4`) —
+**not yet in this tree**
 
 ---
 
 ## PHASE 1: COMMIT MESSAGE FORENSICS
 
 ### Step 1.1: Subject line
-**Record:** `[wifi: iwlwifi]` **`bound`** (preventive/safety) **`aligned
-TLV advance in FW parser`** — validates aligned TLV length before
-advancing the firmware parser.
+**Record:** `[phy: qcom: m31-eusb2]` `[make]` — Make the USB repeater
+optional in the Qualcomm M31 eUSB2 PHY driver probe path.
 
 ### Step 1.2: Tags
 **Record:**
-- **Link:** `https://patch.msgid.link/20260717173215.393c286488f9.Ia3914
-  4dc3ca334325ee4eacb7420901e2446fc23@changeid`
-- **Assisted-by:** GitHubCopilot:GPT-5.3-Codex
-- **Signed-off-by:** Emmanuel Grumbach `<emmanuel.grumbach@intel.com>`
-- **Signed-off-by:** Miri Korenblit
-  `<miriam.rachel.korenblit@intel.com>`
-- **No** Fixes:, Reported-by:, Tested-by:, Reviewed-by:, Acked-by:, Cc:
-  stable@vger.kernel.org
-- Notable: Intel iwlwifi maintainer authorship; no fuzzer/user bug
-  report
+- **Fixes:** — absent
+- **Reported-by:** — absent
+- **Tested-by:** — absent
+- **Reviewed-by:** Dmitry Baryshkov, Bjorn Andersson, Neil Armstrong,
+  Konrad Dybcio
+- **Acked-by:** — absent
+- **Link:** https://patch.msgid.link/20260302-phy-qcom-m31-eusb2-make-
+  repeater-optional-v2-1-dbf714c72056@oss.qualcomm.com
+- **Cc: stable:** — absent (expected for manual review)
+- **Signed-off-by:** Wesley Cheng, Abel Vesa, Vinod Koul (ignore
+  pipeline SOBs)
+
+Notable: multiple subsystem maintainers reviewed; no syzbot/fuzzer
+report.
 
 ### Step 1.3: Body analysis
 **Record:**
-- **Bug:** Parser checks `tlv_len` against remaining length, but
-  advances by `ALIGN(tlv_len, 4)`. When `tlv_len` is not 4-byte aligned
-  and equals remaining bytes, `len -= ALIGN(tlv_len, 4)` underflows
-  `size_t`.
-- **Symptom:** Length underflow on malformed TLV firmware images.
-- **Root cause:** Mismatch between validation quantity (`tlv_len`) and
-  consumption quantity (`ALIGN(tlv_len, 4)`).
-- **Version info:** None in message.
+- **Bug:** Driver requires an eUSB2 repeater at probe time via
+  `devm_of_phy_get_by_index()`, but repeaters are not always present.
+- **Symptom:** On multi-port controllers with multiple PHY instances,
+  PHYs without attached repeaters fail probe; that can fail the whole
+  USB controller probe.
+- **Root cause:** Repeater treated as mandatory when hardware/DT allows
+  it to be absent.
+- **Version info:** None in message; driver targets
+  `qcom,sm8750-m31-eusb2-phy`.
 
 ### Step 1.4: Hidden bug fix?
-**Record:** Yes — described as validation hardening, but it fixes a real
-unsigned integer underflow leading to out-of-bounds parsing.
+**Record:** Yes. Despite “make optional” wording, this is a real probe-
+failure bug fix, not a feature. The DT binding already lists `phys` as
+optional (not in `required:`), but the driver enforced it as mandatory.
 
 ---
 
@@ -119,69 +138,65 @@ unsigned integer underflow leading to out-of-bounds parsing.
 
 ### Step 2.1: Inventory
 **Record:**
-- **File:** `drivers/net/wireless/intel/iwlwifi/iwl-drv.c` (+11 / -2,
-  net +9)
-- **Function:** `iwl_parse_tlv_firmware()`
-- **Scope:** Single-file, surgical fix
+- **File:** `drivers/phy/qualcomm/phy-qcom-m31-eusb2.c` (+1 / -1)
+- **Function:** `m31eusb2_phy_probe()`
+- **Scope:** Single-file, single-line surgical change
 
 ### Step 2.2: Code flow change
 **Record:**
-- **Hunk (TLV loop):**
-  - **Before:** `if (len < tlv_len)` then `len -= ALIGN(tlv_len, 4)` and
-    pointer advance by aligned length.
-  - **After:** Compute `aligned_tlv_len = ALIGN(tlv_len, 4)`, validate
-    `len >= aligned_tlv_len`, then subtract/advance by aligned length.
-- **Path affected:** Firmware TLV parsing loop during ucode load (error
-  path on malformed input).
+- **Before:** `devm_of_phy_get_by_index(dev, dev->of_node, 0)` returns
+  `-ENODEV` when no `phys` property → probe fails.
+- **After:** `devm_phy_optional_get(dev, NULL)` converts `-ENODEV` to
+  `NULL` → probe succeeds.
+- **Path affected:** Platform device probe during boot/module init.
 
 ### Step 2.3: Bug mechanism
-**Record:**
-- **Category:** Buffer safety / integer underflow
-- **Mechanism:** With `len == tlv_len` and `tlv_len % 4 != 0`, e.g.
-  `len=3, tlv_len=3`: check `3 < 3` fails (passes), but `len -=
-  ALIGN(3,4)` → `len -= 4` underflows `size_t` to a huge value. Loop
-  continues, `data` advances past buffer → OOB read, potential kernel
-  oops.
+**Record:** **Logic / correctness fix** — mandatory resource lookup for
+an optional component. Category: driver/DT mismatch causing cascading
+probe failure.
+
+With repeater present, both APIs resolve index 0 via `_of_phy_get()`
+(verified in `phy_get()` and `devm_of_phy_get_by_index()`).
 
 ### Step 2.4: Fix quality
 **Record:**
-- Obviously correct: validates the same quantity that is consumed.
-- Minimal, no unrelated changes.
-- **Regression risk:** Very low — only rejects previously-accepted
-  malformed input; legitimate Intel firmware uses properly aligned TLVs.
+- Fix is minimal and matches established pattern in `phy-snps-eusb2.c`
+  (`devm_of_phy_optional_get`).
+- `phy_init()`, `phy_exit()`, and `phy_set_mode_ext()` all accept `NULL`
+  and return 0 (verified in `phy-core.c`).
+- No new deadlock/locking risk.
+- `IS_ERR()` check after optional get remains correct (only real errors
+  propagate).
 
 ---
 
 ## PHASE 3: GIT HISTORY INVESTIGATION
 
 ### Step 3.1: Blame
-**Record:** Buggy lines blame to `5d324e5159d9e` in this shallow
-checkout. Repo is shallow (`true`); full introduction history
-unavailable. `iwl_parse_tlv_firmware()` is longstanding core iwlwifi
-code present in 6.18.y.
+**Record:** Repeater lookup introduced in `5d324e5159d9e` (6.18 merge,
+Nov 2025). Buggy line present at `drivers/phy/qualcomm/phy-
+qcom-m31-eusb2.c:288` in this tree.
 
 ### Step 3.2: Fixes: tag
-**Record:** N/A — no Fixes: tag.
+**Record:** N/A — no `Fixes:` tag.
 
 ### Step 3.3: Related file history
-**Record:**
-- Fix commit on `autosel` branch: `9121064ed2d94` (upstream
-  `acad742714bdc`)
-- Part of 5-patch Intel series (`iwlwifi-fixes 07-17-2026`); this is
-  patch 1/5
-- Related sibling fixes on `autosel`: `8ab01d2f5a78a` (dbg-tlv),
-  `4025ad3399772` (SEC_RT TLV) — separate, not prerequisites
-- Similar validation fixes already in this 6.18.y tree: `eae7fdf7d4469`,
-  `a076b0c457c71`, `dd90880eb5ec5`
+**Record:** Recent history in this tree:
+- `09e1c96594afb` — PLL_EN suspend power fix (backported, `Cc: stable`)
+- `37ef11ab2cf3c` — init sequence update
+- Driver arrived via `5d324e5159d9e` (6.18)
+
+Standalone one-patch fix; not part of a multi-patch dependency series.
 
 ### Step 3.4: Author context
-**Record:** Emmanuel Grumbach is iwlwifi maintainer. Miri Korenblit is
-active iwlwifi contributor. Multiple recent iwlwifi validation fixes
-from same authors/backporters in this tree.
+**Record:** Wesley Cheng is the driver author and DT binding maintainer.
+Abel Vesa committed v2. Vinod Koul (PHY maintainer) merged. Multiple
+Qualcomm/ARM maintainers reviewed.
 
 ### Step 3.5: Dependencies
-**Record:** Standalone — no prerequisite commits. Patch 1/5 only touches
-`iwl-drv.c`. `git apply --check` passes cleanly on current HEAD.
+**Record:** No prerequisites. `devm_phy_optional_get()` exists in this
+tree’s `phy-core.c`. Fix applies cleanly to current `68f1ba8fec4ad`
+index state.
 
 ---
 
@@ -189,131 +204,123 @@ from same authors/backporters in this tree.
 
 ### Step 4.1: Original discussion
 **Record:**
-- **b4 dig -c 9121064ed2d94:** https://patch.msgid.link/20260717173215.3
-  93c286488f9.Ia39144dc3ca334325ee4eacb7420901e2446fc23@changeid
-- **Series:** v1 only, patch 1/5 of `iwlwifi-fixes 07-17-2026`
-- **Review feedback:** No replies, NAKs, or stable nominations in saved
-  thread
-- lore.kernel.org blocked by bot protection (Anubis)
+- **b4 dig:** https://patch.msgid.link/20260227-phy-qcom-m31-eusb2-make-
+  repeater-optional-v1-1-07a086bbaba4@oss.qualcomm.com
+- **Revisions:** v1 (2026-02-27), v2 (2026-03-02, committed version)
+- **Feedback:** Reviewed-by from Dmitry Baryshkov and Bjorn Andersson on
+  v1; no NAKs found
+- **Stable nomination in thread:** none found
 
 ### Step 4.2: Reviewers
-**Record:** **b4 dig -w** recipients: Miri Korenblit,
-johannes@sipsolutions.net, linux-wireless@vger.kernel.org, Emmanuel
-Grumbach. Appropriate iwlwifi mailing list coverage.
+**Record:** CC’d: `linux-phy@lists.infradead.org`, `linux-arm-
+msm@vger.kernel.org`, Vinod Koul, Bjorn Andersson, Dmitry Baryshkov —
+appropriate maintainer coverage.
 
 ### Step 4.3: Bug report
-**Record:** No external bug report, syzbot, or user Reported-by.
-Theoretical/corrupt-firmware trigger.
+**Record:** No external bug report or syzbot link. Bug described from
+hardware/DT design requirements.
 
 ### Step 4.4: Related patches
-**Record:** Series patches 2–5 fix similar patterns elsewhere (`iwl-dbg-
-tlv.c`, ACPI WGDS, UEFI PPAG, SEC_RT TLV). Independent of this patch.
+**Record:** Separate follow-up on master: `361f533a2dce2` (“Fix return
+value of init call”) — fixes unrelated error-path return bug; **not** a
+prerequisite for this change.
 
 ### Step 4.5: Stable list
-**Record:** Could not search lore stable list (bot protection). No
-stable discussion found in mbox thread.
+**Record:** No stable-list discussion found for this specific patch.
 
 ---
 
 ## PHASE 5: CODE SEMANTIC ANALYSIS
 
 ### Step 5.1: Key functions
-**Record:** `iwl_parse_tlv_firmware()` modified.
+**Record:** `m31eusb2_phy_probe()` modified; downstream users of
+`phy->repeater`: `m31eusb2_phy_init()`, `m31eusb2_phy_exit()`,
+`m31eusb2_phy_set_mode()`.
 
 ### Step 5.2: Callers
-**Record:**
-- `iwl_req_fw_callback()` → `iwl_parse_tlv_firmware()` when `ucode->ver
-  == 0` (TLV-format firmware)
-- `iwl_req_fw_callback()` ← `iwl_request_firmware()` ← `iwl_drv_start()`
-  ← PCIe probe path (`iwl_drv_start()` in `pcie/gen1_2/trans.c`)
-- Runs during async firmware load at iwlwifi device probe/module init
+**Record:** `m31eusb2_phy_probe` registered as `platform_driver`
+`.probe` → called during device enumeration for
+`qcom,sm8750-m31-eusb2-phy` nodes.
 
 ### Step 5.3: Callees
-**Record:** `le32_to_cpu()`, `ALIGN()`,
-`set_sec_data()`/`set_sec_size()`/`set_sec_offset()` in TLV switch. No
-locks/allocation in the fixed hunk.
+**Record:** `devm_phy_optional_get()` → `devm_phy_get()` →
+`_of_phy_get(dev->of_node, 0)` for DT devices.
 
 ### Step 5.4: Reachability
-**Record:** Triggered whenever iwlwifi loads TLV-format ucode from
-`/lib/firmware/`. Requires malformed/corrupted firmware (not normal
-Intel images). Firmware files are root-controlled; unprivileged users
-cannot typically substitute firmware. Reachable on probe with bad
-firmware → driver load failure or kernel oops.
+**Record:** Triggered at boot on Qualcomm platforms with
+`CONFIG_PHY_QCOM_M31_EUSB=y/m`. Affects kernel init / module probe, not
+a syscall path.
 
 ### Step 5.5: Similar patterns
-**Record:** Same `len < tlv_len` + `ALIGN(tlv_len, 4)` pattern exists
-unfixed in:
-- `iwl-dbg-tlv.c:490-491` (patch 2/5 addresses separately)
-- `fw/pnvm.c`, `fw/uefi.c` (other series patches or unfixed)
+**Record:** `drivers/phy/phy-snps-eusb2.c:589` uses
+`devm_of_phy_optional_get()` for the same repeater pattern.
 
 ---
 
-## PHASE 6: CROSS-REFERENCING AGAINST LOCAL TREE
+## PHASE 6: CROSS-REFERENCE WITH LOCAL TREE (6.18.43)
 
 ### Step 6.1: Buggy code present?
-**Record:** **Yes.** Current HEAD (`v6.18.44`) has buggy code at lines
-849–855:
-
-```849:855:drivers/net/wireless/intel/iwlwifi/iwl-drv.c
-                if (len < tlv_len) {
-                        IWL_ERR(drv, "invalid TLV len: %zd/%u\n",
-                                len, tlv_len);
-                        return -EINVAL;
-                }
-                len -= ALIGN(tlv_len, 4);
-                data += sizeof(*tlv) + ALIGN(tlv_len, 4);
+**Record:** **Yes.** Current tree still has:
+```288:291:drivers/phy/qualcomm/phy-qcom-m31-eusb2.c
+        phy->repeater = devm_of_phy_get_by_index(dev, dev->of_node, 0);
+        if (IS_ERR(phy->repeater))
+                return dev_err_probe(dev, PTR_ERR(phy->repeater),
+                                     "failed to get repeater\n");
 ```
-
-Fix commit `9121064ed2d94` is **not** on current HEAD (only on `autosel`
-branch).
+Driver and Kconfig (`PHY_QCOM_M31_EUSB`) both exist. `git merge-base
+--is-ancestor dd085bf278421 HEAD` → **NOT_IN_TREE**.
 
 ### Step 6.2: Backport complications
-**Record:** Clean apply confirmed (`git apply --check` exit 0). No
-refactoring conflicts in this file region.
+**Record:** Clean one-line apply expected. No refactor conflicts in
+probe path.
 
 ### Step 6.3: Related fixes already present?
-**Record:** No equivalent aligned-TLV validation fix in `iwl-drv.c`.
-Other iwlwifi validation fixes present but not for this specific bug.
+**Record:** PLL_EN suspend fix (`09e1c96594afb`) already backported —
+shows maintainers are already carrying m31-eusb2 fixes into 6.18.y. Init
+return-value fix (`361f533a2dce2`) is **not** in this tree (separate
+issue).
 
 ---
 
-## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+## PHASE 7: SUBSYSTEM CONTEXT
 
-### Step 7.1: Subsystem criticality
-**Record:** **drivers/net/wireless/intel/iwlwifi** — IMPORTANT (widely
-deployed Intel WiFi hardware; driver-specific).
+### Step 7.1: Subsystem / criticality
+**Record:** `drivers/phy/qualcomm/` — **PERIPHERAL** (platform-specific
+Qualcomm USB PHY driver). Impact is limited to `ARCH_QCOM` +
+`CONFIG_PHY_QCOM_M31_EUSB`.
 
-### Step 7.2: Subsystem activity
-**Record:** Active — many iwlwifi fixes backported to this 6.18.y tree
-recently (validation, race, OOB fixes).
+### Step 7.2: Activity
+**Record:** New driver in 6.18; actively receiving fixes (PLL_EN, init
+sequence, this repeater fix on mainline).
 
 ---
 
-## PHASE 8: IMPACT AND RISK ASSESSMENT
+## PHASE 8: IMPACT AND RISK
 
 ### Step 8.1: Who is affected
-**Record:** Users with Intel iwlwifi hardware (`CONFIG_IWLWIFI`) loading
-TLV-format firmware during probe.
+**Record:** Users of Qualcomm SM8750 (`qcom,sm8750-m31-eusb2-phy`) with
+multi-PHY USB controllers where some PHY instances lack repeaters.
+Config-specific, platform-specific.
 
 ### Step 8.2: Trigger conditions
-**Record:** Malformed TLV ucode where `tlv_len == remaining_bytes` and
-`tlv_len % 4 != 0`. Unlikely with legitimate Intel firmware; possible
-with corruption, partial download, or disk errors. Not easily triggered
-by unprivileged users.
+**Record:** DT node for M31 eUSB2 PHY without `phys` property (or no
+connected repeater). Common on multi-port designs with unconnected
+ports. Triggered at every boot for affected boards.
 
-### Step 8.3: Failure mode severity
-**Record:** `size_t` underflow → parser continues with bogus length →
-OOB read past firmware buffer → potential kernel oops during driver
-probe. **Severity: MEDIUM-HIGH** (crash on probe), not CRITICAL (no
-privilege escalation, requires bad firmware).
+### Step 8.3: Failure mode / severity
+**Record:** PHY probe returns `-ENODEV` → USB controller probe may fail
+→ **USB completely non-functional** on affected ports/boards. Not a
+crash/UAF/security issue, but a **HIGH functional impact** for affected
+hardware. Severity: **HIGH** (hardware broken), not CRITICAL (no memory
+corruption/panic).
 
-### Step 8.4: Risk-benefit
+### Step 8.4: Risk vs benefit
 **Record:**
-- **Benefit:** Prevents kernel crash on malformed firmware; aligns with
-  other iwlwifi validation backports in this tree.
-- **Risk:** Very low — 9-line validation addition, no behavior change
-  for valid firmware.
-- **Ratio:** Favorable for stable.
+- **Benefit:** Enables USB on valid hardware configs; aligns driver with
+  DT binding; prevents cascading probe failure.
+- **Risk:** Very low — one line, reviewed, NULL-safe downstream via phy
+  core.
+- **Ratio:** High benefit for affected users, negligible risk.
 
 ---
 
@@ -322,112 +329,112 @@ privilege escalation, requires bad firmware).
 ### Step 9.1: Evidence summary
 
 **FOR backport:**
-- Real bug: unsigned length underflow on malformed TLVs
-- Can cause OOB reads / kernel oops during firmware load
-- Fix is obviously correct, minimal, standalone
-- Buggy code confirmed present in 6.18.44
-- Applies cleanly
-- Consistent with other iwlwifi validation fixes already in this tree
-- Intel maintainer authorship
+- Real bug: mandatory repeater breaks probe when absent
+- Driver exists in 6.18.43
+- DT binding already marks `phys` optional
+- One-line, reviewed fix
+- Phy core handles NULL repeater safely
+- Prior m31-eusb2 fix already backported to this tree
+- Matches snps-eusb2 established pattern
 
 **AGAINST backport:**
-- No user report or syzbot reproduction
-- Requires malformed firmware (root-controlled resource)
-- Legitimate Intel firmware unlikely to trigger
-- Same pattern exists in other iwlwifi files (not fixed by this single
-  patch)
+- Very new, platform-specific driver (SM8750 only)
+- No syzbot/user bug report
+- Not a security/crash/data-corruption issue
+- No in-tree DTS examples yet for this PHY
+- Limited 6.18 stable user base for this hardware
 
-**Unresolved:**
-- Exact commit/version that introduced the buggy check (shallow repo
-  limits history)
-- No mailing list review discussion retrieved (lore blocked)
+**Unresolved:** No production deployment data for SM8750 on 6.18.y
+(unverifiable).
 
 ### Step 9.2: Stable rules checklist
-1. Obviously correct and tested? **PASS** — logic is clear; no Tested-by
-   but pattern is standard validation.
-2. Fixes a real bug? **PASS** — integer underflow with OOB parsing
-   consequence.
-3. Important issue? **PASS** — kernel oops on driver probe (MEDIUM-
-   HIGH).
-4. Small and contained? **PASS** — 1 file, ~9 net lines.
-5. No new features/APIs? **PASS** — validation only.
-6. Can apply to local tree? **PASS** — clean apply verified.
+1. Obviously correct and tested? **PASS** — reviewed by PHY/ARM
+   maintainers; semantics verified against phy core.
+2. Fixes a real bug? **PASS** — probe failure on valid hardware configs.
+3. Important issue? **PASS** — USB controller/PHY probe failure renders
+   USB non-functional on affected boards.
+4. Small and contained? **PASS** — 1 line, 1 file.
+5. No new features/APIs? **PASS** — corrects driver to match existing
+   optional DT property.
+6. Can apply to local tree? **PASS** — driver and APIs present; clean
+   apply.
 
-### Step 9.3: Exception categories
-**Record:** None (not device ID, quirk, DT, build, or docs). Standard
-bug fix.
+### Step 9.3: Exception category
+**Record:** Hardware workaround / driver-DT mismatch fix (similar to
+quirk category). Not a new device ID, but fixes hardware enablement for
+existing driver.
 
 ### Step 9.4: Decision rationale
-For linux-6.18.y, the buggy TLV parser code exists, the fix is surgical
-and self-contained, and it prevents a real firmware-parsing underflow
-that can crash the kernel during iwlwifi probe. While triggering
-requires malformed firmware, the kernel must reject such input safely —
-matching the pattern of other iwlwifi validation fixes already accepted
-into this stable tree. Risk is minimal; benefit is meaningful for
-robustness.
+
+For **this 6.18.43 tree**, the driver is present and the bug is present.
+The fix is trivial, correct, and safe. While the audience is narrow
+(Qualcomm SM8750), the failure mode is complete USB probe failure on
+valid multi-port designs — exactly the kind of contained hardware-
+enablement fix stable trees accept when the driver already ships in that
+series. The DT binding never required `phys`; the driver was wrong from
+introduction.
 
 ---
 
 ## Verification
 
-- **[Phase 1]** Parsed subject, tags, body from user-provided commit
-  message
-- **[Phase 2]** Read diff and current `iwl-drv.c` lines 788–875;
-  confirmed underflow mechanism
-- **[Phase 3]** `git describe HEAD` → v6.18.44; shallow repo confirmed;
-  `git blame -L 849,855` → 5d324e5159d9e; `git show 9121064ed2d94` on
-  autosel branch; `git merge-base --is-ancestor` → fix NOT on HEAD
-- **[Phase 3]** `git log --grep="iwlwifi"` — multiple validation fixes
-  already in tree
-- **[Phase 4]** `b4 dig -c 9121064ed2d94` — lore URL found; `b4 dig -a`
-  — v1, patch 1/5; `b4 dig -w` — linux-wireless CC'd; mbox saved and
-  parsed — no review replies or stable nominations
-- **[Phase 4]** lore.kernel.org fetch blocked by Anubis bot protection
-- **[Phase 5]** `grep iwl_parse_tlv_firmware` — caller chain via
-  `iwl_req_fw_callback` → `iwl_drv_start`; `grep ALIGN(tlv_len, 4)` —
-  same pattern in iwl-dbg-tlv.c, pnvm.c, uefi.c
-- **[Phase 6]** Buggy code present at iwl-drv.c:849-855; `git apply
-  --check` from 9121064ed2d94 → passes
-- **[Phase 6]** Fix not on HEAD; only on autosel branch
-- **[Phase 8]** Failure mode: size_t underflow → OOB read → probe-time
-  oops; trigger requires malformed firmware
+- **[Phase 1]** Parsed commit `dd085bf278421` message and all tags via
+  `git show`
+- **[Phase 1]** Confirmed no Reported-by/syzbot/Fixes:/Cc: stable tags
+- **[Phase 2]** Verified diff: 1 line in `m31eusb2_phy_probe()`
+- **[Phase 2]** Verified `phy_init(NULL)`, `phy_exit(NULL)`,
+  `phy_set_mode_ext(NULL)` return 0 in `drivers/phy/phy-
+  core.c:232,272,386`
+- **[Phase 2]** Verified `devm_phy_optional_get()` converts `-ENODEV` to
+  NULL in `phy-core.c:841-848`
+- **[Phase 2]** Verified `phy_get(dev, NULL)` uses index 0 via
+  `_of_phy_get()` in `phy-core.c:767-773`
+- **[Phase 3]** `git blame -L 288,291`: buggy code from `5d324e5159d9e`
+- **[Phase 3]** `git log --oneline -- drivers/phy/qualcomm/phy-
+  qcom-m31-eusb2.c`: driver history in 6.18.y
+- **[Phase 3]** `git merge-base --is-ancestor dd085bf278421 HEAD` →
+  NOT_IN_TREE
+- **[Phase 4]** `b4 dig -c dd085bf278421`: found v1/v2 lore threads
+- **[Phase 4]** `b4 dig -w`: confirmed maintainer CC list
+- **[Phase 4]** `b4 dig -m /tmp/m31-eusb2-repeater.mbox`: no stable
+  nomination, no NAKs
+- **[Phase 5]** Read `m31eusb2_phy_init/exit/set_mode` — all pass
+  `phy->repeater` to NULL-safe phy core APIs
+- **[Phase 5]** Compared with `phy-snps-eusb2.c:589` optional repeater
+  pattern
+- **[Phase 6]** `git describe HEAD` → v6.18.43; `Makefile` → 6.18.43
+- **[Phase 6]** Read current `phy-qcom-m31-eusb2.c` — buggy
+  `devm_of_phy_get_by_index` still present
+- **[Phase 6]** Read
+  `Documentation/devicetree/bindings/phy/qcom,m31-eusb2-phy.yaml` —
+  `phys` not in `required`
+- **[Phase 6]** `grep` for `sm8750-m31-eusb2` in `*.dts*` → no in-tree
+  DTS (driver/bindings only)
+- **[Phase 6]** Confirmed `CONFIG_PHY_QCOM_M31_EUSB` exists in
+  `drivers/phy/qualcomm/Kconfig`
+- **[Phase 6]** Confirmed prior stable backport `09e1c96594afb` (PLL_EN)
+  already in this tree
+- **[Phase 8]** Assessed failure mode as probe failure → USB non-
+  functional (not kernel crash)
 
 **YES**
 
- drivers/net/wireless/intel/iwlwifi/iwl-drv.c | 13 +++++++++++--
- 1 file changed, 11 insertions(+), 2 deletions(-)
+ drivers/phy/qualcomm/phy-qcom-m31-eusb2.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/net/wireless/intel/iwlwifi/iwl-drv.c b/drivers/net/wireless/intel/iwlwifi/iwl-drv.c
-index 0f002ef261fcc..3a4bcfd60905c 100644
---- a/drivers/net/wireless/intel/iwlwifi/iwl-drv.c
-+++ b/drivers/net/wireless/intel/iwlwifi/iwl-drv.c
-@@ -803,6 +803,7 @@ static int iwl_parse_tlv_firmware(struct iwl_drv *drv,
- 	u32 build, paging_mem_size;
- 	int num_of_cpus;
- 	bool usniffer_req = false;
-+	size_t aligned_tlv_len;
+diff --git a/drivers/phy/qualcomm/phy-qcom-m31-eusb2.c b/drivers/phy/qualcomm/phy-qcom-m31-eusb2.c
+index 9434bd22ef32d..275df38256de3 100644
+--- a/drivers/phy/qualcomm/phy-qcom-m31-eusb2.c
++++ b/drivers/phy/qualcomm/phy-qcom-m31-eusb2.c
+@@ -285,7 +285,7 @@ static int m31eusb2_phy_probe(struct platform_device *pdev)
  
- 	if (len < sizeof(*ucode)) {
- 		IWL_ERR(drv, "uCode has invalid length: %zd\n", len);
-@@ -851,8 +852,16 @@ static int iwl_parse_tlv_firmware(struct iwl_drv *drv,
- 				len, tlv_len);
- 			return -EINVAL;
- 		}
--		len -= ALIGN(tlv_len, 4);
--		data += sizeof(*tlv) + ALIGN(tlv_len, 4);
-+
-+		aligned_tlv_len = ALIGN(tlv_len, 4);
-+		if (len < aligned_tlv_len) {
-+			IWL_ERR(drv, "invalid aligned TLV len: %zd/%zu\n",
-+				len, aligned_tlv_len);
-+			return -EINVAL;
-+		}
-+
-+		len -= aligned_tlv_len;
-+		data += sizeof(*tlv) + aligned_tlv_len;
+ 	phy_set_drvdata(phy->phy, phy);
  
- 		switch (tlv_type) {
- 		case IWL_UCODE_TLV_INST:
+-	phy->repeater = devm_of_phy_get_by_index(dev, dev->of_node, 0);
++	phy->repeater = devm_phy_optional_get(dev, NULL);
+ 	if (IS_ERR(phy->repeater))
+ 		return dev_err_probe(dev, PTR_ERR(phy->repeater),
+ 				     "failed to get repeater\n");
 -- 
 2.53.0
 
