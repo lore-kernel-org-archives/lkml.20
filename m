@@ -1,312 +1,170 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F51639769B;
-	Mon, 31 Aug 2026 20:46:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2B2A30D41C
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 20:47:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788209202; cv=none; b=Y/7VcKIVTefbrVIr6jb17GEOBmgtygdBDVrrwKDhtufOwE5eWn4XcVrMuEO7yYe4rXApgXIeXRDjFnznCxG8EDp2EB170EUWOamjFZH0WF23nfsvNP7C9K9CR7lyTjSFL+1czKx5sqToK96v30SOGR1VyXy9HPRKWpa42TpNgvc=
+	t=1788209280; cv=none; b=sUCwDvbugU0cRyt4bZKq4bvZTJ8UZujMz6qy9auVGjDSfdIOx1p7jIxgIgZeOiNR+g6tWrZXhBHLTL7HQAIZE/LbXl3Ns7Jk2nUOxwMFSnX5ZLHozRyQGwnib0zwkcvUHq38BXHYV5T+ukB+8GV3349cDhDbaIHVtV1nNjUUrtE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788209202; c=relaxed/simple;
-	bh=Q4OanSXakhWj/ZM791M5Kl4SUcML/CQo3ST8ohckTUY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=d6X0WcJ7ramT13HH2Fhx5zgveWkDD+ijoxGk3WQz1oyyt/gdf7DEGZkaQQHPsQn4vA9x2WGJihBlBu2bDZNXool+XAZckM38x9573sG8XjVqxzyGLthvlDp3Ge8CBhinSD+f7YkI+SQJ5e71RYcHoOfI8AI+PwRRUxyeAaL0sK8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=fA8g8iU0; arc=none smtp.client-ip=192.198.163.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1788209280; c=relaxed/simple;
+	bh=x0A0yYcEIp4UEd2rRguEMM1NflFS8AKy2GFpo950VOI=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=h2DMnHWIoTPzghM0A+BDQW7X0n3bCVPI5DkkhGzEsWDWulJ7+68vPnQdVgipN/920wZCi6o5Xr0m5X+dvtrzRgnK5aC1s86jP4jdbk9HtYt+Ew+ngc44xQXTPWyUKvf/P7EtX28AhFD94RQZ1VrTdhb1xvoTeyP0UXCa1RNqV70=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--shansinha.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=nYyoursz; arc=none smtp.client-ip=209.85.214.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--shansinha.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="fA8g8iU0"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788209200; x=1819745200;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=Q4OanSXakhWj/ZM791M5Kl4SUcML/CQo3ST8ohckTUY=;
-  b=fA8g8iU04DeT8QgrpU/1+OhsjZfXEMHES+jjFGHhKAXbhjpQBmyT4tA5
-   DeLJY5vEmFbbK+PWkKZoEtzyL4N2r7J4Dl0gX6Pm8y7bD/DErunLKFrt8
-   Pi0Ok+eP3MaoX7ukE2XaEc+EAgdh5g4WNeWTroD7Gu/ztIauoWVYo7ZnC
-   oqwCDtmZ+yQ8Yu+rKauxq7ttGPXZ4mLXeqK9axkEfD9d6JfNEpcNKecKt
-   yGepKBMVma0ZKu0tpkKWvrUtrVtoHLJFCPTgCSV0exzOtyLYUsE3peQvl
-   jpV/j6kEEEUOUPfMg0OUfI2kfUKf7yPeGbodXaUfVR4q6nkj3tnW0Gp8g
-   w==;
-X-CSE-ConnectionGUID: HHP+azhCQEaro1lWREJ0Tg==
-X-CSE-MsgGUID: b0kJtpCeR7+LJiO0F5AgrA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11892"; a="106147317"
-X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; 
-   d="scan'208";a="106147317"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 13:46:39 -0700
-X-CSE-ConnectionGUID: bVnqrbGbTq+G38YwujKm5g==
-X-CSE-MsgGUID: rcxSfOT3S/SazAyJQ8Tz5g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; 
-   d="scan'208";a="268346043"
-Received: from aschofie-mobl2.amr.corp.intel.com (HELO tfalcon-desk.intel.com) ([10.124.220.28])
-  by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 13:46:38 -0700
-From: Thomas Falcon <thomas.falcon@intel.com>
-To: Namhyung Kim <namhyung@kernel.org>
-Cc: linux-perf-users@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>,
-	Dapeng Mi <dapeng1.mi@linux.intel.com>
-Subject: [PATCH v6 5/6] perf tools: Show memory region in perf-script subcommand
-Date: Mon, 31 Aug 2026 15:46:12 -0500
-Message-ID: <20260831204613.2793526-6-thomas.falcon@intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260831204613.2793526-1-thomas.falcon@intel.com>
-References: <20260831204613.2793526-1-thomas.falcon@intel.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="nYyoursz"
+Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2d6f75c1219so1354395ad.3
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 13:47:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1788209278; x=1788814078; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=KHpyNbElWOK3TcOkKmWPd2BY5WxDBRm0wkAaJH7Inkg=;
+        b=nYyourszQj/m27eFoUr86f+Mkt32Ca48aNWhqnG6DvweVWwCeHdbSt4Jh5W7VLcbOS
+         hudBWrdrHcUInjELnzuqVE1pF31qKNAaubBIpjR+zHqb0BpOXug4xRpMvi1LNQgzk/DZ
+         h1CMcIVdx5iK11iSq0xQ42u9ZEdAYOb+qzfmFz9DPNfzbCofKOhQLtmXWQdGVjWU0UNw
+         MtK00uFVxUG7Ihr30GjEG6uScWamnN1eu2K68CziiJ3Fk+qUdLeCKJ6Hu/LKsuwAExRj
+         w4enG8L6fkkLVTdf7Zm0FWMhw4EtNOxaMnSQf7L3BfCM1m8Sf88ZovPruphrzPR2pa3g
+         sOFw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788209278; x=1788814078;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=KHpyNbElWOK3TcOkKmWPd2BY5WxDBRm0wkAaJH7Inkg=;
+        b=TQ+L0bb4Ma63kshvsZB2YDMO3hFLdIj9mGhk0iu7ara8WyQ46fy8yFvzv0aQwct+Nd
+         EOSWZz+tEFRD4bSfkKwN+x051GSak6hE1dO03G8r4gnKWCtnXbUOMj3ZdzFC4x27/h8Q
+         immvdOmgpGGDFIm0zXGQttYG7U8/yGB972WwagXS75BcYpCdF4KF91xBAfwKM2PSe6/Y
+         6G96Sm89Hm6nBpcexeJMAecGOlcUOM4MfBBT7zJDsytlAo8YTsEzVa4/8TmghHCJN5hI
+         F9FR5CCbhiKpAMO4vUtBNpcy1/ZvixrQ7ut1xXkhRT18BZOqkbuE9vYOyqF7l/JvjOpE
+         JtvA==
+X-Forwarded-Encrypted: i=1; AKwUvBzFeTmoH+NT6grSqAEqbA2XRVA0xeGOzu8Z4j1LPIiQY+4bvSIaHCvu/jeneqgXUap09SmTt5YfsP++zqQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++nKIYzOrR27fA2Y4zD3opg2fkD657i5ZrjT0ciy8UPt6Rgz4TDj
+	yfuDKosa7olpbIg2TsofGN5t7vR6R3FAXMibZlMz1oWz0deZlkCXmTbZuavBW0YxRJaFYES62GH
+	lJyO78/ma1gvFb/PWzg==
+X-Received: from pldv19.prod.google.com ([2002:a17:902:ca93:b0:2d8:fd05:fddb])
+ (user=shansinha job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a17:902:f791:b0:2d9:1dee:43db with SMTP id d9443c01a7336-2d91dee456dmr149239135ad.15.1788209277881;
+ Mon, 31 Aug 2026 13:47:57 -0700 (PDT)
+Date: Mon, 31 Aug 2026 20:47:57 +0000
+In-Reply-To: <20260430160716.1120553-7-tycho@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20260430160716.1120553-7-tycho@kernel.org>
+X-Mailer: git-send-email 2.55.0.897.gb25b4bd76c-goog
+Message-ID: <20260831204757.436751-1-shansinha@google.com>
+Subject: Re: [PATCH 6/6] crypto/ccp: Implement SNP firmware live update
+From: Shantanu Sinha <shansinha@google.com>
+To: tycho@kernel.org
+Cc: shansinha@google.com, jackyli@google.com, aik@amd.com, 
+	ashish.kalra@amd.com, davem@davemloft.net, herbert@gondor.apana.org.au, 
+	john.allen@amd.com, kim.phillips@amd.com, linux-crypto@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, michael.roth@amd.com, nikunj@amd.com, 
+	prsampat@amd.com, seanjc@google.com, thomas.lendacky@amd.com
+Content-Type: text/plain; charset="UTF-8"
 
-From: Dapeng Mi <dapeng1.mi@linux.intel.com>
+On Thu, Apr 30, 2026 at 10:07:16AM -0600, Tycho Andersen wrote:
+> +static int sev_firmware_shutdown_if_sev_initialized(struct sev_device *sev)
+> +{
+> +	int rc, error;
+> +	int sev_plat_state;
+> +
+> +	rc = sev_get_platform_state(&sev_plat_state, &error);
+> +	if (rc) {
+> +		if (error)
+> +			rc = error;
+> +		dev_dbg(sev->dev, "SEV get platform state failed %d\n", rc);
+> +		return rc;
+> +	}
+> +
+> +	switch (sev_plat_state) {
+> +	case SEV_STATE_UNINIT:
+> +		return 0;
+> +	case SEV_STATE_INIT:
+> +		error = 0;
+> +		rc = __sev_platform_shutdown_locked(&error);
+> +		if (rc) {
+> +			if (error)
+> +				rc = error;
+> +			dev_err(sev->dev, "SEV platform shutdown failed %d\n", rc);
+> +			return rc;
+> +		}
+> +
+> +		sev_firmware_needs_reinit = true;
+> +		return 0;
 
-Show the memory region in perf-script subcommand. Memory region is found
-in the mem_region field of the memory information data source. This
-field was included with the introduction of support for the Off-module
-Response facility (OMR) [1] in Intel's Diamond Rapids and Nova Lake
-Architectures.
+Tested this on Milan and hit a failure during SEV re-init after firmware update.
 
-An example of perf-script output with the new memory region field is shown
-below:
+__sev_platform_shutdown_locked() sets the FW platform state to UNINIT, but
+sev_es_tmr and sev_init_ex_buffer remain firmware-owned in the RMP. When the
+new firmware comes up, SEV_CMD_INIT_EX rejects the stale page state and fails
+with SEV_RET_INVALID_PAGE_STATE (0x1A).
 
-random      10e6a100042 |OP LOAD|LVL L0 hit|SNP None|TLB L1 or L2 hit|LCK Yes|BLK  N/A|Region  N/A                           7f32ae64a2ec
-random    2411a68201042 |OP LOAD|LVL RAM hit|SNP Hit|TLB L1 or L2 hit|LCK No|BLK  N/A|Region  Mem-1                          561de7f8910a
-random      10e6a100042 |OP LOAD|LVL L0 hit|SNP None|TLB L1 or L2 hit|LCK Yes|BLK  N/A|Region  N/A                           7f32ae64a2d0
-random      20e6a100042 |OP LOAD|LVL L0 hit|SNP None|TLB L1 or L2 hit|LCK Yes|BLK  Data|Region  N/A                          7f32ae64a2d0
-random      20e6a100042 |OP LOAD|LVL L0 hit|SNP None|TLB L1 or L2 hit|LCK Yes|BLK  Data|Region  N/A                          7f32ae64a2d0
-random      10e6a100042 |OP LOAD|LVL L0 hit|SNP None|TLB L1 or L2 hit|LCK Yes|BLK  N/A|Region  N/A                           7f32ae64a2ec
-random      10e6a100042 |OP LOAD|LVL L0 hit|SNP None|TLB L1 or L2 hit|LCK Yes|BLK  N/A|Region  N/A                           7f32ae64a2d0
-random      10e6a100042 |OP LOAD|LVL L0 hit|SNP None|TLB L1 or L2 hit|LCK Yes|BLK  N/A|Region  N/A                           7f32ae64a2d0
-random    2411a68201042 |OP LOAD|LVL RAM hit|SNP Hit|TLB L1 or L2 hit|LCK No|BLK  N/A|Region  Mem-1                          561de7f8910a
-random      10e6a100042 |OP LOAD|LVL L0 hit|SNP None|TLB L1 or L2 hit|LCK Yes|BLK  N/A|Region  N/A                           7f32ae64a2ec
-random      10e6a100042 |OP LOAD|LVL L0 hit|SNP None|TLB L1 or L2 hit|LCK Yes|BLK  N/A|Region  N/A                           7f32ae64a2d0
+Tearing down the buffers on shutdown fixes it for us:
 
-[1]: https://lore.kernel.org/all/20260114011750.350569-1-dapeng1.mi@linux.intel.com/
-
-Assisted-by: Sashiko:gemini-3.1-pro-preview
-Assisted-by: GitHub-Copilot:claude-opus-4-8
-Reviewed-by: Ian Rogers <irogers@google.com>
-Signed-off-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
-Signed-off-by: Thomas Falcon <thomas.falcon@intel.com>
----
-v4: Drop the global show-region flag; pass perf_session to
-    perf_script__meminfo_scnprintf() and gate the Region field
-    on the feature bit, with a pipe-mode fallback
-
-v3: make memory region reporting conditional on feature bit
----
- tools/perf/builtin-script.c                   | 13 +--
- tools/perf/util/mem-events.c                  | 86 ++++++++++++++++++-
- tools/perf/util/mem-events.h                  |  4 +-
- .../scripting-engines/trace-event-python.c    |  5 +-
- 4 files changed, 98 insertions(+), 10 deletions(-)
-
-diff --git a/tools/perf/builtin-script.c b/tools/perf/builtin-script.c
-index ad8ca08ceb5f..c7454155038d 100644
---- a/tools/perf/builtin-script.c
-+++ b/tools/perf/builtin-script.c
-@@ -2078,11 +2078,12 @@ static int evlist__max_name_len(struct evlist *evlist)
- 	return max;
- }
+--- a/drivers/crypto/ccp/sev-dev.c
++++ b/drivers/crypto/ccp/sev-dev.c
+@@ -1905,6 +1905,20 @@ static int sev_firmware_shutdown_if_sev_initialized(struct sev_device *sev)
+	}
  
--static int data_src__fprintf(u64 data_src, FILE *fp)
-+static int data_src__fprintf(struct perf_session *session,
-+			     u64 data_src, FILE *fp)
- {
- 	struct mem_info *mi = mem_info__new();
--	char decode[100];
--	char out[100];
-+	char decode[200];
-+	char out[200];
- 	static int maxlen;
- 	int len;
- 
-@@ -2090,10 +2091,10 @@ static int data_src__fprintf(u64 data_src, FILE *fp)
- 		return -ENOMEM;
- 
- 	mem_info__data_src(mi)->val = data_src;
--	perf_script__meminfo_scnprintf(decode, 100, mi);
-+	perf_script__meminfo_scnprintf(decode, 200, mi, session);
- 	mem_info__put(mi);
- 
--	len = scnprintf(out, 100, "%16" PRIx64 " %s", data_src, decode);
-+	len = scnprintf(out, 200, "%16" PRIx64 " %s", data_src, decode);
- 	if (maxlen < len)
- 		maxlen = len;
- 
-@@ -2487,7 +2488,7 @@ static void process_event(struct perf_script *script,
- 		perf_sample__fprintf_addr(sample, thread, evsel, fp);
- 
- 	if (PRINT_FIELD(DATA_SRC))
--		data_src__fprintf(sample->data_src, fp);
-+		data_src__fprintf(evsel__session(evsel), sample->data_src, fp);
- 
- 	if (PRINT_FIELD(WEIGHT))
- 		fprintf(fp, "%16" PRIu64, sample->weight);
-diff --git a/tools/perf/util/mem-events.c b/tools/perf/util/mem-events.c
-index 4fd48fd20055..8ce4996cad8d 100644
---- a/tools/perf/util/mem-events.c
-+++ b/tools/perf/util/mem-events.c
-@@ -604,8 +604,77 @@ int perf_mem__blk_scnprintf(char *out, size_t sz, const struct mem_info *mem_inf
- 	return l;
- }
- 
--int perf_script__meminfo_scnprintf(char *out, size_t sz, const struct mem_info *mem_info)
-+static int perf_mem__region_scnprintf(char *out, size_t sz, const struct mem_info *mem_info)
- {
-+	size_t l = 0;
-+	u64 mem = PERF_MEM_REGION_NA;
-+
-+	sz -= 1; /* -1 for null termination */
-+	out[0] = '\0';
-+
-+	if (mem_info)
-+		mem = mem_info__const_data_src(mem_info)->mem_region;
-+
-+	switch (mem) {
-+	case PERF_MEM_REGION_NA:
-+	case PERF_MEM_REGION_RSVD:
-+		l += scnprintf(out + l, sz - l, "N/A");
-+		break;
-+	case PERF_MEM_REGION_L_SHARE:
-+		l += scnprintf(out + l, sz - l, "Local-shared-cache");
-+		break;
-+	case PERF_MEM_REGION_L_NON_SHARE:
-+		l += scnprintf(out + l, sz - l, "Local-non-shared-cache");
-+		break;
-+	case PERF_MEM_REGION_O_IO:
-+		l += scnprintf(out + l, sz - l, "Other-IO");
-+		break;
-+	case PERF_MEM_REGION_O_SHARE:
-+		l += scnprintf(out + l, sz - l, "Other-shared-cache");
-+		break;
-+	case PERF_MEM_REGION_O_NON_SHARE:
-+		l += scnprintf(out + l, sz - l, "Other-non-shared-cache");
-+		break;
-+	case PERF_MEM_REGION_MMIO:
-+		l += scnprintf(out + l, sz - l, "MMIO");
-+		break;
-+	case PERF_MEM_REGION_MEM0:
-+		l += scnprintf(out + l, sz - l, "Mem-0");
-+		break;
-+	case PERF_MEM_REGION_MEM1:
-+		l += scnprintf(out + l, sz - l, "Mem-1");
-+		break;
-+	case PERF_MEM_REGION_MEM2:
-+		l += scnprintf(out + l, sz - l, "Mem-2");
-+		break;
-+	case PERF_MEM_REGION_MEM3:
-+		l += scnprintf(out + l, sz - l, "Mem-3");
-+		break;
-+	case PERF_MEM_REGION_MEM4:
-+		l += scnprintf(out + l, sz - l, "Mem-4");
-+		break;
-+	case PERF_MEM_REGION_MEM5:
-+		l += scnprintf(out + l, sz - l, "Mem-5");
-+		break;
-+	case PERF_MEM_REGION_MEM6:
-+		l += scnprintf(out + l, sz - l, "Mem-6");
-+		break;
-+	case PERF_MEM_REGION_MEM7:
-+		l += scnprintf(out + l, sz - l, "Mem-7");
-+		break;
-+	default:
-+		l += scnprintf(out + l, sz - l, "N/A");
-+		break;
++	if (sev_es_tmr) {
++		wbinvd_on_all_cpus();
++		__snp_free_firmware_pages(virt_to_page(sev_es_tmr),
++					  get_order(sev_es_tmr_size),
++					  true);
++		sev_es_tmr = NULL;
 +	}
 +
-+	return l;
-+}
-+
-+int perf_script__meminfo_scnprintf(char *out, size_t sz,
-+				   const struct mem_info *mem_info,
-+				   struct perf_session *session)
-+{
-+	struct perf_env *env;
- 	int i = 0;
- 
- 	i += scnprintf(out, sz, "|OP ");
-@@ -620,6 +689,21 @@ int perf_script__meminfo_scnprintf(char *out, size_t sz, const struct mem_info *
- 	i += perf_mem__lck_scnprintf(out + i, sz - i, mem_info);
- 	i += scnprintf(out + i, sz - i, "|BLK ");
- 	i += perf_mem__blk_scnprintf(out + i, sz - i, mem_info);
-+	if (session) {
-+		/*
-+		 * In case the feature bits are not available, as in
-+		 * pipe mode, fallback to checking for the existence of
-+		 * memory ranges
-+		 */
-+		env = perf_session__env(session);
-+		if ((env && session->data->is_pipe && env->nr_memory_ranges) ||
-+		    perf_header__has_feat(&session->header,
-+					  HEADER_MEMORY_RANGES)) {
-+			i += scnprintf(out + i, sz - i, "|Region ");
-+			i += perf_mem__region_scnprintf(out + i, sz - i,
-+							mem_info);
-+		}
++	if (sev_init_ex_buffer) {
++		__snp_free_firmware_pages(virt_to_page(sev_init_ex_buffer),
++					  get_order(NV_LENGTH),
++					  true);
++		sev_init_ex_buffer = NULL;
 +	}
- 
- 	return i;
- }
-diff --git a/tools/perf/util/mem-events.h b/tools/perf/util/mem-events.h
-index daa22748f9fe..4ebb8109fc3c 100644
---- a/tools/perf/util/mem-events.h
-+++ b/tools/perf/util/mem-events.h
-@@ -4,6 +4,7 @@
- 
- #include <stdbool.h>
- #include <linux/types.h>
-+#include "session.h"
- 
- struct perf_mem_event {
- 	bool		supported;
-@@ -47,7 +48,8 @@ int perf_mem__snp_scnprintf(char *out, size_t sz, const struct mem_info *mem_inf
- int perf_mem__lck_scnprintf(char *out, size_t sz, const struct mem_info *mem_info);
- int perf_mem__blk_scnprintf(char *out, size_t sz, const struct mem_info *mem_info);
- 
--int perf_script__meminfo_scnprintf(char *bf, size_t size, const struct mem_info *mem_info);
-+int perf_script__meminfo_scnprintf(char *bf, size_t size, const struct mem_info *mem_info,
-+				   struct perf_session *session);
- 
- struct c2c_stats {
- 	u32	nr_entries;
-diff --git a/tools/perf/util/scripting-engines/trace-event-python.c b/tools/perf/util/scripting-engines/trace-event-python.c
-index 8f832ae316ca..e359fe529586 100644
---- a/tools/perf/util/scripting-engines/trace-event-python.c
-+++ b/tools/perf/util/scripting-engines/trace-event-python.c
-@@ -694,8 +694,9 @@ static void set_sample_read_in_dict(PyObject *dict_sample, struct perf_sample *s
- static void set_sample_datasrc_in_dict(PyObject *dict,
- 				      struct perf_sample *sample)
- {
-+	struct perf_session *session = evsel__session(sample->evsel);
- 	struct mem_info *mi = mem_info__new();
--	char decode[100];
-+	char decode[200];
- 
- 	if (!mi)
- 		Py_FatalError("couldn't create mem-info");
-@@ -704,7 +705,7 @@ static void set_sample_datasrc_in_dict(PyObject *dict,
- 			PyLong_FromUnsignedLongLong(sample->data_src));
- 
- 	mem_info__data_src(mi)->val = sample->data_src;
--	perf_script__meminfo_scnprintf(decode, 100, mi);
-+	perf_script__meminfo_scnprintf(decode, 200, mi, session);
- 	mem_info__put(mi);
- 
- 	pydict_set_item_string_decref(dict, "datasrc_decode",
--- 
-2.43.0
++
+	sev_firmware_needs_reinit = true;
+	return 0;
 
+(Could also pull this and the cleanup in __sev_firmware_shutdown() into a shared
+helper. This logic is duplicated there.)
+
+>	if (ret == FW_UPLOAD_ERR_NONE) {
+>		error = 0;
+> 
+>		rc = sev_get_api_version();
+>		if (rc) {
+>			if (error)
+>				rc = error;
+>			dev_err(sev->dev, "SEV query api version failed %d\n", rc);
+>		}
+>	}
+> 
+> +	if (!dlfwex_wants_rollback)
+> +		sev_firmware_reinit_if_shutdown(sev);
+
+If rc == SEV_RET_HWSEV_RET_UNSAFE, psp_dead is true but dlfwex_wants_rollback
+is false, so it still falls through to re-init. Even though it is
+recommended that the host should be rebooted after HARDWARE_UNSAFE,
+reboot tooling can lag and we may want some buffer. Plus the kernel shouldn't
+be touching a dead PSP anyway. Checking !psp_dead is a simple safeguard against
+extra churn while awaiting restart:
+
++	if (!dlfwex_wants_rollback && !psp_dead)
+		sev_firmware_reinit_if_shutdown(sev);
+
+I also moved the call to sev_firmware_reinit_if_shutdown() ahead of
+sev_get_api_version() so sev->state is already restored to INIT before sev
+status is queried. This is just to avoid unnecessary transient states.
+Curious if that logic makes sense to you. Am I missing something that made
+the original ordering strictly necessary?
+
+Best,
+Shantanu
