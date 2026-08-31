@@ -1,49 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 721D94AD7F5;
-	Mon, 31 Aug 2026 13:48:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6973956C64B;
+	Mon, 31 Aug 2026 13:48:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788184106; cv=none; b=Wd3lssfJYcp/I10zjBVAWyIraTZQNybE5vS05w6OS6VamwmE9BlS4poA+OVHh0UnNo4GLv31fWW3iP+GbvxX1m7fgVvzEI8jVDm3elKmnaSUBl1Ezw2yOLo4TTXipNMYoo2OMe6Fo7Errph7laFoibk/rmW42n/vVLURFu0hEsU=
+	t=1788184108; cv=none; b=jeDeTfIgzpYJjagvm1N31fL8SvrUDnJ6loGJsZ5tH7SPewj3s3DneHpekQKa4H18d4q/no/YI1/9i0k4KQQ3WgBAgX+EH2mW3sMMAMxdiDCKWiO5oN16Eg+PU+U8cm2PDNr7S3sCS49lxR03BnsJmVdzhshi/lEE2EvtHdSjrXk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788184106; c=relaxed/simple;
-	bh=Uk3deyNc6IyZ9UHG1tRiGfESvAEVt3YX1B0xoBuDCQw=;
+	s=arc-20240116; t=1788184108; c=relaxed/simple;
+	bh=xkXO7Xn9rTOeoxTnAPikfIGYnyGBWrQvEYDXsA/8l80=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=AFldOQYZ4iQ1QaudgeSOVxO4rChmU7LNMBUz1Bs+Uympqr36jazf1OScLBJaH+NcJ+tVInL2YL9aCdThwybCX7rmEp3P7LB/wS+7AdkVGh9e1B0KkbVeKd5asvrHNcT3LZ3UFSGGdJG3+TJQwwm+2doBuqfk3E2fmIau5oNXspw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PrOk3PGc; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=aNYtpB/soSC6wxDBgRqOfoXU/NiGuahJtdr/sP+D+RYuqtFXdMp6u9VFYeg/OohHcAKrcXvvAdwRnA14acBSs4uRtDDxq9Ih7d9ylj1pSxhb3mYHa6aMZaeJi5vdi8r4dAjU9rLqT1HDUKykCW+m1z0C+YZfQYjD9inneecssaA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ewRK8erH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PrOk3PGc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5BFA1F000E9;
-	Mon, 31 Aug 2026 13:48:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ewRK8erH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B99F51F00ACF;
+	Mon, 31 Aug 2026 13:48:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788184103;
-	bh=mxb+OX744UctfYKRoE/CDKw5ggMM/hQGuQfvjfOr9/k=;
+	s=k20260515; t=1788184105;
+	bh=mhUV1L2AUmXHJKZbxJWi4kIFg3U6/9Hyhje/cu/Ziks=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=PrOk3PGcCt8peackB4lQTkQIsc+DrEFBaSbzQnU7dZR1xIThUDNgW4EIYdPR6L0le
-	 WvIinX3hj4rJQ/0Eh7dQI0Lon7x40WB+mXgLy5MD5/cnXslO3eCwPjUc+gZpZFxuAb
-	 FZDxIHkkb1Ujxinl/h9LOABe0SQXDJWNg+JWjr2FyxWpBhnT+ncUK8DZkkDtZZ0053
-	 59RMlZgW6Dh/+dpPhlISY4e/d+R2slB3stCebyltloniTALGp6b1ge1tYQrxWdZSyF
-	 /2vOHKA8NYS9sPmiWEubM8Rq++/NBguq8EtAE2ztMlOzzfIXufCV8CYBSmJMk9ncG2
-	 zx0QF1OgNmXuQ==
+	b=ewRK8erHtjknv9LfeisT86BqkypZ728eVwBcA7BCnKIX2X0y8eiFF33duczP43Nwt
+	 GqPEByOpEumlD5X0+FZueRS61hWVQBrJSOtU2TcSil9PoPEwEQsQOdiIQhcc5blKBv
+	 LVSAp/wG7b27y0dcCyhzLZZ2lEMu8vxxYqlXQorv3gNQFyKqpSPjkDfVtG0spHuHTh
+	 q1IPWMP9VlPcvRj5dawBBAn72x4vL73Y+sYP8YFoFi5f+Vez6rtjzSiWQp6OVTU4ju
+	 WbDhVTIE/8HneNlVMGM6hNMObuDVVKj+iZCXJV6LXC1F3P8BnfY5zjLWGtoFrZs7iW
+	 OcU4/N4/IPUiA==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Baojun Xu <baojun.xu@ti.com>,
-	Takashi Iwai <tiwai@suse.de>,
+Cc: Kumar Meiyappan <kumar.meiyappan@microchip.com>,
+	Sagar Biradar <sagar.biradar@microchip.com>,
+	"Martin K. Petersen" <martin.petersen@oracle.com>,
 	Sasha Levin <sashal@kernel.org>,
-	perex@perex.cz,
-	tiwai@suse.com,
-	shenghao-ding@ti.com,
-	kevin-lu@ti.com,
-	sen@ti.com,
-	lgirdwood@gmail.com,
-	broonie@kernel.org,
-	linux-sound@vger.kernel.org,
+	jinpu.wang@cloud.ionos.com,
+	James.Bottomley@HansenPartnership.com,
+	mkp@kernel.org,
+	linux-scsi@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18] ALSA: hda/tas2781: Fix device-0 reset issue and handle -EXDEV in block data processing
-Date: Mon, 31 Aug 2026 09:28:40 -0400
-Message-ID: <20260831133314.4125787-492-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-5.10] scsi: pm8001: Reject non-fatal dump when controller is crashed
+Date: Mon, 31 Aug 2026 09:28:41 -0400
+Message-ID: <20260831133314.4125787-493-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -53,462 +50,414 @@ List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 6.18.48
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Baojun Xu <baojun.xu@ti.com>
+From: Kumar Meiyappan <kumar.meiyappan@microchip.com>
 
-[ Upstream commit 513480da5e9c8f55b4f8f5e89f386e26188fbb3f ]
+[ Upstream commit aa3b8f56ef27ed72394a752820abdec4608b731c ]
 
-Fix reset for device-0:‌ In older projects (e.g., Merino), the hardware
-reset pin for the first SPI device (device-0) is ineffective, causing
-initialization failures. Added a software reset sequence for device-0
-to ensure proper initialization.
+pm80xx_get_non_fatal_dump() can be called even after the controller has
+entered a fatal error state. In that case the forensic memory contents
+are not safe to access for a non-fatal dump request, and attempting to
+do so can trigger a call trace.
 
-‌Handle -EXDEV correctly:‌ When processing block data, if the data does
-not belong to the current SPI device, the driver returned -EXDEV.
-This error code is now ignored to allow the driver to continue iterating
-through the block data and correctly calculate the total block size.
+Check controller_fatal_error before reading the non-fatal dump buffer
+and return -EINVAL when the controller is already in a crashed state.
 
-Signed-off-by: Baojun Xu <baojun.xu@ti.com>
-Link: https://patch.msgid.link/20260609105253.19510-1-baojun.xu@ti.com
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+This prevents non-fatal dump collection from running in an invalid
+controller state.
+
+Signed-off-by: Kumar Meiyappan <kumar.meiyappan@microchip.com>
+Signed-off-by: Sagar Biradar <sagar.biradar@microchip.com>
+Link: https://patch.msgid.link/20260416154650.415624-1-sagar.biradar@microchip.com
+Signed-off-by: Martin K. Petersen <martin.petersen@oracle.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-# Stable Backport Analysis: ALSA: hda/tas2781: Fix device-0 reset issue
-and handle -EXDEV in block data processing
+## Phase 1: Commit Message Forensics
 
-**Local tree:** Linux **6.18.44** (`git describe HEAD` → `v6.18.44`,
-Makefile `VERSION.PATCHLEVEL.SUBLEVEL` = 6.18.44)
+### Step 1.1: Subject Line
+Record: **[scsi: pm8001]** **[Reject]** — Reject non-fatal forensic dump
+collection when the PMC-Sierra PM8001 controller is already in a fatal
+error state.
 
-**Commit under review:** `513480da5e9c8` (on `master`, **not** in this
-6.18.44 tree)
-
----
-
-## PHASE 1: COMMIT MESSAGE FORENSICS
-
-### Step 1.1: Parse Subject Line
-**Record:** `[ALSA: hda/tas2781]` `[Fix]` — Fix device-0 reset issue and
-handle `-EXDEV` in block data processing.
-
-### Step 1.2: Parse All Commit Message Tags
-**Record:**
+### Step 1.2: Commit Message Tags
+Record:
 - **Fixes:** — not present (expected for manual review)
 - **Reported-by:** — none
 - **Tested-by:** — none
 - **Reviewed-by:** — none
 - **Acked-by:** — none
-- **Link:**
-  `https://patch.msgid.link/20260609105253.19510-1-baojun.xu@ti.com`
-- **Cc: stable:** — none
-- **Signed-off-by:** Baojun Xu `<baojun.xu@ti.com>` (author), Takashi
-  Iwai `<tiwai@suse.de>` (ALSA maintainer merge)
-- **Notable:** No syzbot; HP/Canonical contacts on original patch CC
-  list (verified via `b4 dig -w`)
+- **Link:** https://patch.msgid.link/20260416154650.415624-1-
+  sagar.biradar@microchip.com
+- **Cc: stable@** — present in original patch submission (verified via
+  `b4 dig -w`)
+- **Signed-off-by:** Kumar Meiyappan, Sagar Biradar, Martin K. Petersen
+  (SCSI maintainer)
 
-### Step 1.3: Analyze Commit Body
-**Record:**
-- **Bug 1 (reset):** On older HP projects (e.g., Merino), the hardware
-  reset GPIO for SPI device-0 is ineffective. Driver only performed
-  software reset when no GPIO was present, so device-0 could fail to
-  initialize.
-- **Bug 2 (-EXDEV):** During firmware block processing, writes to
-  channels not owned by the current SPI device intentionally return
-  `-EXDEV` from `tasdevice_spi_change_chn_book()`.
-  `tasdevice_process_block()` treated this as a real error, breaking
-  firmware parsing/loading.
-- **Symptom:** Amplifier initialization / firmware download failures →
-  no audio on affected HP laptops.
-- **Root cause:** Incorrect reset sequencing (HW-only when GPIO present)
-  and mishandling of intentional `-EXDEV` in shared fmwlib code.
+Notable: authors explicitly CC'd `stable@vger.kernel.org`; no syzbot or
+user bug reports.
 
-### Step 1.4: Detect Hidden Bug Fixes
-**Record:** Not disguised — explicitly described as fixes. Both are real
-functional bugs (hardware quirk + error-handling logic), not cleanup.
+### Step 1.3: Commit Body Analysis
+Record:
+- **Bug:** `pm80xx_get_non_fatal_dump()` can run after the controller
+  has entered fatal error state.
+- **Symptom:** Attempting to read forensic memory in that state can
+  trigger a kernel call trace.
+- **Root cause:** Missing guard on `controller_fatal_error` before
+  initiating non-fatal dump hardware access.
+- **Fix approach:** Check `controller_fatal_error` and return `-EINVAL`
+  early.
+- **Version info:** none in commit message.
+
+### Step 1.4: Hidden Bug Fix Detection
+Record: **Yes, this is a straightforward bug fix** disguised as "reject"
+rather than "fix", but it clearly prevents unsafe hardware access and
+kernel call traces during error recovery.
 
 ---
 
-## PHASE 2: DIFF ANALYSIS
+## Phase 2: Diff Analysis
 
-### Step 2.1: Inventory Changes
-**Record:**
-- `sound/hda/codecs/side-codecs/tas2781_hda_spi.c`: ~16 lines changed
-  (reset logic restructured)
-- `sound/soc/codecs/tas2781-fmwlib.c`: 3 error checks modified (+3 lines
-  net)
-- **Functions:** `tas2781_spi_reset()`, `tasdevice_process_block()`
-- **Scope:** Single-file surgical fix in SPI driver + 3 guarded
-  conditions in shared fmwlib
+### Step 2.1: Change Inventory
+Record:
+- **Files:** `drivers/scsi/pm8001/pm80xx_hwi.c` (+7 / -0)
+- **Function modified:** `pm80xx_get_non_fatal_dump()`
+- **Scope:** Single-file, surgical fix
 
-### Step 2.2: Code Flow Change (per hunk)
-
-**Hunk 1 — `tas2781_spi_reset()`:**
-- **Before:** If `tas_dev->reset` GPIO exists → HW reset only; else → SW
-  reset via register write.
-- **After:** If GPIO exists → HW reset, **then always** SW reset via
-  `TASDEVICE_REG_SWRESET`.
-- **Path:** Called before firmware download in `tascodec_spi_fw_load()`
-  (line 680).
-
-**Hunk 2-4 — `tasdevice_process_block()`:**
-- **Before:** Any `rc < 0` from write/bulk_write/update_bits → `is_err =
-  true` → error log + potential `cur_prog`/`cur_conf` reset.
-- **After:** `-EXDEV` ignored when `tas_priv->isspi` is true; other
-  errors still handled.
-- **Path:** Firmware block loading during `tasdevice_prmg_load()` /
-  `tasdevice_select_cfg_blk()`.
+### Step 2.2: Code Flow Change
+Record:
+- **Before:** After mapping host forensic buffer pointer, function
+  immediately increments `non_fatal_count` and performs MMIO
+  writes/reads to the crashed controller (`pm8001_mw32`, `pm8001_mr32`,
+  `pm8001_cw32`).
+- **After:** If `controller_fatal_error` is true, log debug message and
+  return `-EINVAL` before any controller interaction.
+- **Path affected:** Sysfs read of `non_fatal_log` via
+  `non_fatal_log_show()` → `pm80xx_get_non_fatal_dump()`.
 
 ### Step 2.3: Bug Mechanism
-**Record:**
-- **Category (a):** Hardware workaround — ineffective reset GPIO on
-  device-0
-- **Category (g):** Logic/correctness — intentional `-EXDEV`
-  misclassified as failure
-- **Mechanism:** `tasdevice_spi_change_chn_book()` returns `-EXDEV` when
-  `chn != p->index` (lines 179-183 of current tree), with `dev_dbg("Not
-  error...")`. Without the fix, `is_err` triggers state corruption at
-  lines 989-994 of `tas2781-fmwlib.c`.
+Record:
+- **Category:** Logic/correctness fix — unsafe hardware access in
+  invalid controller state.
+- **Mechanism:** After fatal firmware error (`controller_fatal_error =
+  true` set in interrupt handler at line 4084), forensic DMA/MMIO
+  operations are unsafe; the function lacked the same state check used
+  elsewhere in the driver.
 
 ### Step 2.4: Fix Quality
-**Record:**
-- Fix is minimal and obviously correct.
-- SW reset after HW reset is low risk (TI author, HP-validated
-  hardware).
-- `-EXDEV` guard is narrowly scoped to `isspi && rc == -EXDEV`; I2C path
-  unchanged.
-- **Regression risk:** Very low.
+Record:
+- **Quality:** Obviously correct; mirrors existing driver pattern
+  (`pm8001_sas.c` task path, `pm80xx_chip_soft_rst()`).
+- **Regression risk:** Very low — only rejects an operation that should
+  never succeed on a dead controller.
+- **Red flags:** None.
 
 ---
 
-## PHASE 3: GIT HISTORY INVESTIGATION
+## Phase 3: Git History Investigation
 
-### Step 3.1: Blame Changed Lines
-**Record:**
-- `tas2781_spi_reset()` HW/SW if-else: introduced in `9fa6a693ad8dc`
-  (2025-04-29, refactor to shared fmwlib); original function from
-  `bb5f86ea50ffb` (2024-12-16).
-- `tasdevice_process_block()` error check: from `915f5eadebd29b`
-  (2023-06-18, original fmwlib).
-- Buggy reset logic present since April 2025 refactor; EXDEV mishandling
-  since fmwlib creation.
+### Step 3.1: Blame / Introduction
+Record:
+- Buggy function exists in local tree at
+  `drivers/scsi/pm8001/pm80xx_hwi.c:387-503`.
+- Non-fatal dump sysfs feature originally added in `dba2cc03b9db`
+  (2020-03-16, "scsi: pm80xx: sysfs attribute for non fatal dump").
+- `controller_fatal_error` exists at lines 1445, 1650, 4084 in current
+  tree.
+- Local autosel tree has squashed history; per-file `git blame` is not
+  reliable for introduction dating.
 
-### Step 3.2: Follow Fixes: Tag
-**Record:** No `Fixes:` tag — N/A.
+### Step 3.2: Fixes Tag
+Record: **N/A** — no `Fixes:` tag present.
 
-### Step 3.3: File History
-**Record:** Recent stable backports to this tree for same driver:
-- `16b65c8ca3160` — Ignore reset check for SPI device (already in
-  6.18.y)
-- `24c22c644ea53` — Fix incorrect bit update for SPI
-- `f8272331da877` — Cancel async firmware request at unbind
-
-Shows active stable maintenance of this driver. Standalone fix, not part
-of a series.
+### Step 3.3: Related File History
+Record:
+- Sibling upstream commit `2a8fbcfb04aa9` ("scsi: pm8001: Reject
+  firmware update in fatal error state") from same author/date — same
+  pattern, different sysfs path; also **not** in current HEAD.
+- Standalone v1 patch; not part of a multi-patch series.
 
 ### Step 3.4: Author Context
-**Record:** Baojun Xu is the TAS2781 HDA SPI driver author (TI). Takashi
-Iwai merged. Related stable fix `16b65c8ca3160` by same author already
-backported here.
+Record: Kumar Meiyappan / Sagar Biradar are Microchip pm8001 driver
+authors. Martin K. Petersen (SCSI maintainer) committed the fix upstream
+as `aa3b8f56ef27`.
 
 ### Step 3.5: Dependencies
-**Record:** No prerequisites. Uses existing `isspi` field (set at line
-240 of `tas2781_hda_spi.c`) and existing `-EXDEV` return in
-`tasdevice_spi_change_chn_book()`. Applies standalone.
+Record: **Standalone.** No prerequisite commits required.
+`controller_fatal_error` field and `pm80xx_get_non_fatal_dump()` both
+exist in this tree. Patch applies at line ~403 with clean context
+(verified against upstream diff and local file).
 
 ---
 
-## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
+## Phase 4: Mailing List and External Research
 
-### Step 4.1: Original Patch Discussion
-**Record:**
-- `b4 dig -c 513480da5e9c8` → v1 only:
-  `https://patch.msgid.link/20260609105253.19510-1-baojun.xu@ti.com`
-- Lore thread fetch blocked (Anubis bot protection) — could not read
-  inline review replies.
+### Step 4.1: Original Discussion
+Record:
+- **URL:** https://patch.msgid.link/20260416154650.415624-1-
+  sagar.biradar@microchip.com
+- **Series:** v1 only (no v2/v3)
+- **Maintainer response:** Martin K. Petersen applied to 7.2/scsi-queue
+  (May 22, 2026)
+- **NAKs/concerns:** None found in thread
+- **Stable nomination:** Authors CC'd `stable@vger.kernel.org` in
+  original submission
 
 ### Step 4.2: Reviewers
-**Record:** `b4 dig -w` CC list includes `tiwai@suse.de`,
-`broonie@kernel.org`, `linux-sound@vger.kernel.org`, HP contacts
-(`letitia.tsai@hp.com`, `pin-hao.huang@hp.com`), Canonical
-(`bill.yu@canonical.com`). Appropriate subsystem coverage.
+Record: CC'd Martin K. Petersen, James Bottomley, Jack Wang, linux-scsi,
+stable@, Brian King, Don Brace, and other Microchip engineers.
 
 ### Step 4.3: Bug Report
-**Record:** No formal bug report or syzbot link. Hardware issue
-described in commit message referencing Merino project; HP PCI quirks in
-tree confirm real hardware (`alc269.c` lines 7004-7042).
+Record: No external bug report, syzbot, or stack trace in commit
+message. Issue appears internally discovered by driver vendor during
+fatal-error handling review.
 
 ### Step 4.4: Related Patches
-**Record:** Single-patch series (v1 only). Related prior fix
-`16b65c8ca3160` already in this tree — complementary, not a dependency.
+Record: Related upstream fix `2a8fbcfb04aa9` for
+`pm8001_store_update_fw()` — same failure class, separate commit. Not a
+dependency for this fix.
 
-### Step 4.5: Stable Mailing List
-**Record:** Not searched (lore blocked). No stable nomination found via
-b4.
+### Step 4.5: Stable List History
+Record: Patch was posted directly to stable@ (spinics stable archive).
+No rejection or prior stable discussion found beyond the submission
+itself.
 
 ---
 
-## PHASE 5: CODE SEMANTIC ANALYSIS
+## Phase 5: Code Semantic Analysis
 
 ### Step 5.1: Key Functions
-**Record:** `tas2781_spi_reset()`, `tasdevice_process_block()`, callers
-`tascodec_spi_fw_load()`, `tasdevice_select_cfg_blk()`,
-`tasdevice_load_block_kernel()`.
+Record: `pm80xx_get_non_fatal_dump()` (modified), `non_fatal_log_show()`
+(caller), fatal error ISR path setting `controller_fatal_error`.
 
 ### Step 5.2: Callers
-**Record:**
-- `tas2781_spi_reset()` → called from firmware load path before
-  `tasdevice_prmg_load()` (probe/init path for SPI codec).
-- `tasdevice_process_block()` → firmware loading during driver
-  initialization and profile switching.
-- Triggered when HP laptop with `ALC245_FIXUP_TAS2781_SPI_2` quirk loads
-  TAS2781 SPI amplifier.
+Record:
+- `non_fatal_log_show()` in `pm8001_ctl.c:588-591` directly returns
+  result.
+- Exposed as read-only sysfs host attribute `non_fatal_log` in
+  `pm8001_host_attrs[]`.
+- Called during diagnostic collection, typically by root/admin tooling
+  after controller errors.
 
 ### Step 5.3: Callees
-**Record:** `tasdevice_dev_write()`, `gpiod_set_value_cansleep()`,
-`fsleep()` — standard register/GPIO operations.
+Record: `pm8001_mw32()`, `pm8001_mr32()`, `pm8001_cw32()` — MMIO
+register access to potentially dead controller; forensic DMA buffer
+reads from `FORENSIC_MEM`.
 
 ### Step 5.4: Reachability
-**Record:** Reachable on boot for affected HP Gemtree/Merino laptops
-(PCI IDs `0x103c:0x8de8-0x8de9`, `0x103c:0x8ed5-0x8eda`). Requires
-`CONFIG_SND_HDA_SCODEC_TAS2781_SPI`. User-visible: speakers don't work
-without fix.
+Record:
+- **Trigger chain:** Controller fatal firmware error → ISR sets
+  `controller_fatal_error` → admin reads
+  `/sys/class/scsi_host/hostN/non_fatal_log` → unsafe MMIO without
+  guard.
+- **Userspace reachable:** Yes, via sysfs read (requires appropriate
+  permissions, typically root/CAP_SYS_ADMIN).
 
 ### Step 5.5: Similar Patterns
-**Record:** `-EXDEV` intentionally used only in SPI `change_chn_book`
-callback; `dev_dbg` already says "Not error". Fix aligns fmwlib with SPI
-driver's intent.
+Record: Driver already guards fatal-error state in:
+- `pm8001_sas.c:505` — task execution
+- `pm80xx_hwi.c:1650` — soft reset MPI uninit
+- `pm8001_sas.c:237-244` — phy control via `fatal_errors()`
+- `pm8001_init.c:702-704` — NVMD read
+
+This fix fills a gap in the same error-handling model.
 
 ---
 
-## PHASE 6: CROSS-REFERENCING AGAINST LOCAL TREE (6.18.44)
+## Phase 6: Cross-Reference Against Local Tree
 
-### Step 6.1: Does Buggy Code Exist?
-**Record:** **YES.** Current tree at HEAD has:
-- `tas2781_spi_reset()` with if/else (HW-only when GPIO present) — lines
-  192-204
-- `tasdevice_process_block()` treating all `rc < 0` as errors — lines
-  908, 940, 978
-- `git merge-base --is-ancestor 513480da5e9c8 HEAD` → exit 1 (fix
-  **not** present)
-- Driver present: `git merge-base --is-ancestor bb5f86ea50ffb HEAD` →
-  exit 0
+### Step 6.1: Buggy Code Present?
+Record: **YES.** Local tree is **v6.18.43** (`git describe HEAD` →
+`v6.18.43-1-gc7f0dac02d232`, `make kernelversion` → `6.18.43`).
+`pm80xx_get_non_fatal_dump()` at lines 403-404 lacks
+`controller_fatal_error` check. Upstream fix commit `aa3b8f56ef27` is
+**NOT** an ancestor of HEAD.
 
 ### Step 6.2: Backport Complications
-**Record:** **Clean apply verified** — `git cherry-pick --no-commit
-513480da5e9c8` auto-merged both files without conflicts on 6.18.44.
+Record: **Clean apply expected.** Local file matches upstream pre-fix
+context at the insertion point. No conflicting changes in that function
+region.
 
 ### Step 6.3: Related Fixes Already Present?
-**Record:** `16b65c8ca3160` (reset check ignore) already backported.
-This commit is the next logical fix for the same driver/hardware — not a
-duplicate.
+Record: **No.** Neither `aa3b8f56ef27` (this fix) nor sibling
+`2a8fbcfb04aa9` (firmware update guard) are in HEAD.
+`non_fatal_log_show()` directly returns `ssize_t` from dump function, so
+`-EINVAL` propagates correctly to sysfs (no need for separate error-code
+fix `1b6f03b`).
 
 ---
 
-## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+## Phase 7: Subsystem Context
 
 ### Step 7.1: Subsystem Criticality
-**Record:** `sound/hda` + `sound/soc/codecs` — **IMPORTANT** (audio on
-specific laptops, not core kernel).
+Record: **drivers/scsi/pm8001** — PERIPHERAL driver (Microchip/PMC-
+Sierra SAS HBA, `CONFIG_SCSI_PM8001`). Important for deployments using
+this hardware, but not core kernel.
 
 ### Step 7.2: Subsystem Activity
-**Record:** Actively maintained in 6.18.y — 3 tas2781 SPI commits since
-v6.18 tag.
+Record: pm8001 driver is mature; forensic dump sysfs has existed since
+2020. Recent upstream activity includes fatal-error handling hardening
+from Microchip (April 2026).
 
 ---
 
-## PHASE 8: IMPACT AND RISK ASSESSMENT
+## Phase 8: Impact and Risk Assessment
 
 ### Step 8.1: Who Is Affected
-**Record:** Users of HP Gemtree and Merino laptops with TAS2781 SPI
-amplifiers (`CONFIG_SND_HDA_SCODEC_TAS2781_SPI`). Driver-specific, not
-universal.
+Record: **Driver-specific** — systems with PM8001/PM80xx SAS HBAs and
+`CONFIG_SCSI_PM8001` enabled.
 
 ### Step 8.2: Trigger Conditions
-**Record:** Every boot / driver probe on affected hardware. Not timing-
-dependent. Unprivileged users cannot trigger directly, but all users on
-these machines lose audio.
+Record:
+- Controller must first enter fatal firmware error state (already a
+  serious failure).
+- Then sysfs read of `non_fatal_log` (diagnostic path during triage).
+- **Likelihood:** Uncommon but realistic during failure investigation —
+  exactly when admins collect dumps.
+- **Privilege:** Typically root/admin.
 
 ### Step 8.3: Failure Mode Severity
-**Record:**
-- Reset failure → firmware download fails → **no audio** (functional
-  breakage, HIGH for affected users)
-- EXDEV mishandling → false errors, `cur_prog`/`cur_conf` reset →
-  **broken amplifier config** (HIGH for affected users)
-- Not a kernel crash/oops, but complete loss of audio is user-visible
-  and important.
+Record:
+- **Failure mode:** Kernel call trace from unsafe MMIO/DMA on dead
+  controller.
+- **Severity:** **MEDIUM-HIGH** — secondary kernel instability during
+  already-critical failure recovery; not a normal-I/O-path crash, but
+  can produce oops/warnings and complicate diagnostics.
 
 ### Step 8.4: Risk-Benefit
-**Record:**
-- **Benefit:** HIGH for HP Merino/Gemtree users (audio works)
-- **Risk:** LOW — 23-line change, narrowly scoped, hardware quirk
-  pattern
-- **Ratio:** Strongly favors backport
+Record:
+- **Benefit:** Prevents additional kernel call traces during HBA failure
+  recovery; aligns driver error handling.
+- **Risk:** Very low — 7-line guard, no API changes, no behavior change
+  on healthy controllers.
+- **Ratio:** Favorable for stable backport.
 
 ---
 
-## PHASE 9: FINAL SYNTHESIS
+## Phase 9: Final Synthesis
 
 ### Step 9.1: Evidence Summary
 
 **FOR backport:**
-- Fixes real hardware bugs on HP laptops already quirked in this tree
-- Initialization failure = no audio (important user impact)
-- Small, surgical, applies cleanly to 6.18.44
-- Same author's related fix already backported to this tree
-- Hardware quirk workaround (ineffective reset GPIO) — classic stable
-  material
-- Merged by ALSA maintainer Takashi Iwai
-- HP engineers on original patch CC list
+- Real bug with concrete trigger (fatal error + sysfs non_fatal dump
+  read)
+- Prevents kernel call trace / unsafe hardware access
+- Small (7 lines), obviously correct, standalone
+- Buggy code confirmed present in v6.18.43 tree
+- Consistent with existing `controller_fatal_error` checks in same
+  driver
+- Authors CC'd stable@; SCSI maintainer merged upstream
+- Clean apply expected
 
 **AGAINST backport:**
-- Driver is relatively new (but present since 6.18.0 in this tree)
-- Only affects SPI TAS2781 HDA path (limited audience)
-- No syzbot/crash report (functional bug, not security)
+- Narrow hardware scope (PM8001 SAS HBAs only)
+- Only affects diagnostic sysfs path after controller already failed
+- No syzbot report or public user bug report
+- "Call trace" severity not fully documented with stack trace
 
-**Unresolved:** Lore review thread content (bot-blocked); no explicit
-Tested-by in commit.
+**Unresolved:**
+- Exact call trace type (WARN vs oops) not documented in commit message
+- Introduction date of `controller_fatal_error` not determinable from
+  squashed local git history (but field is present in tree)
 
 ### Step 9.2: Stable Rules Checklist
-| Criterion | Result |
-|-----------|--------|
-| 1. Obviously correct and tested? | **PASS** — logic clear; HP CC'd on
-patch |
-| 2. Fixes real bug affecting users? | **PASS** — audio init failure on
-Merino/Gemtree |
-| 3. Important issue? | **PASS** — complete audio failure on affected
-laptops |
-| 4. Small and contained? | **PASS** — 2 files, ~23 lines |
-| 5. No new features/APIs? | **PASS** — hardware workaround + error
-handling |
-| 6. Can apply to local tree? | **PASS** — clean cherry-pick verified |
+1. Obviously correct and tested? **PASS** — logic is clear; maintainer-
+   applied; no Tested-by but low complexity.
+2. Fixes a real bug? **PASS** — unsafe operation on crashed controller.
+3. Important issue? **PASS** — kernel call trace during failure recovery
+   (medium-high severity).
+4. Small and contained? **PASS** — 7 lines, 1 file, 1 function.
+5. No new features/APIs? **PASS** — guard only.
+6. Can apply to local tree? **PASS** — code exists, patch applies
+   cleanly.
 
 ### Step 9.3: Exception Categories
-**Record:** **Hardware quirk/workaround** — ineffective reset GPIO on
-device-0; always perform software reset.
+Record: **None** — standard driver bug fix.
 
 ### Step 9.4: Decision Rationale
-
-This commit fixes two real bugs in the TAS2781 HDA SPI driver that cause
-amplifier initialization and firmware loading failures on HP Merino and
-Gemtree laptops — hardware already supported via PCI quirks in
-`alc269.c` in this 6.18.44 tree. The driver and buggy code are both
-present; the fix is absent. The patch is small, self-contained, applies
-cleanly, and follows the established pattern of tas2781 fixes already
-backported to 6.18.y. While not a crash or security issue, complete loss
-of audio on shipping laptop hardware meets stable criteria for an
-important functional bug fix in an existing driver.
+This is a small, vendor-submitted fix for a real gap in fatal-error
+handling. The buggy code is present in the local **6.18.43** tree, the
+fix is minimal and follows established driver patterns, and it prevents
+additional kernel instability during exactly the scenario where
+administrators are collecting diagnostic data from a failed HBA. The
+risk is negligible and the authors explicitly nominated it for stable.
 
 ---
 
 ## Verification
 
-- **[Phase 1]** Parsed commit `513480da5e9c8` message and tags via `git
-  show`
-- **[Phase 1]** Confirmed no Fixes:/Reported-by:/Tested-by: tags
-- **[Phase 2]** Read current buggy code in `tas2781_hda_spi.c` lines
-  188-205 and `tas2781-fmwlib.c` lines 860-998
-- **[Phase 2]** Verified `-EXDEV` return path in
-  `tasdevice_spi_change_chn_book()` lines 163-186
-- **[Phase 2]** Verified `is_err` side effects at lines 989-994 of
-  fmwlib
-- **[Phase 3]** `git blame` on reset function and error checks
-- **[Phase 3]** `git log --oneline -20` on both modified files
-- **[Phase 3]** `git merge-base --is-ancestor` — fix NOT in HEAD, driver
-  IS in HEAD
-- **[Phase 4]** `b4 dig -c 513480da5e9c8` — found v1 patch URL
-- **[Phase 4]** `b4 dig -w` — confirmed maintainer/HP CC list
-- **[Phase 4]** `b4 dig -a` — single v1 revision only
-- **[Phase 4]** UNVERIFIED: Lore thread review content (Anubis bot
-  protection on fetch)
-- **[Phase 5]** `grep` traced callers of `tasdevice_process_block` and
-  `tas2781_spi_reset`
-- **[Phase 5]** Verified `tas_priv->isspi = true` at line 240 of SPI
-  driver
-- **[Phase 5]** Grep found HP Merino/Gemtree PCI quirks in `alc269.c`
-  lines 7004-7042
-- **[Phase 6]** `git describe HEAD` → v6.18.44; Makefile confirms
-  6.18.44
-- **[Phase 6]** `git cherry-pick --no-commit 513480da5e9c8` — clean
-  auto-merge
-- **[Phase 6]** Confirmed fix not already in tree
-- **[Phase 7]** `git log v6.18..HEAD` — 3 prior tas2781 SPI stable
-  backports
-- **[Phase 8]** Assessed impact on HP laptop users with TAS2781 SPI
-  config
+- [Phase 1] Parsed subject, tags; confirmed stable@ CC in original
+  submission via `b4 dig -w`
+- [Phase 1] No Fixes:/Reported-by/syzbot tags
+- [Phase 2] Read full `pm80xx_get_non_fatal_dump()` (lines 387-503);
+  confirmed MMIO access after missing guard
+- [Phase 2] Diff is +7 lines adding `controller_fatal_error` check
+  returning `-EINVAL`
+- [Phase 3] `git describe HEAD` → v6.18.43; `make kernelversion` →
+  6.18.43
+- [Phase 3] `git merge-base --is-ancestor aa3b8f56ef27 HEAD` →
+  NOT_IN_HEAD (fix not yet applied)
+- [Phase 3] `git show aa3b8f56ef27^` at lines 400-415 confirms buggy
+  pre-fix code
+- [Phase 3] `dba2cc03b9db` identified as 2020 introduction of non_fatal
+  dump sysfs
+- [Phase 3] Sibling commit `2a8fbcfb04aa9` found (fw update guard); also
+  NOT_IN_HEAD
+- [Phase 4] `b4 dig -c aa3b8f56ef27` → lore URL found
+- [Phase 4] `b4 dig -a` → v1 only, no later revisions
+- [Phase 4] `b4 dig -w` → stable@, Martin Petersen, James Bottomley CC'd
+- [Phase 4] `b4 dig -m /tmp/pm8001_thread.mbox` → Martin Petersen
+  "Applied to 7.2/scsi-queue"
+- [Phase 5] `grep pm80xx_get_non_fatal_dump` → caller
+  `non_fatal_log_show()` in pm8001_ctl.c:591
+- [Phase 5] `grep controller_fatal_error` → used in pm80xx_hwi.c,
+  pm8001_ctl.c, pm8001_sas.c, pm8001_sas.h
+- [Phase 5] Fatal error set at pm80xx_hwi.c:4084 in interrupt handler
+- [Phase 6] Buggy code confirmed at pm80xx_hwi.c:403-404 without guard
+- [Phase 6] `non_fatal_log_show()` directly returns ssize_t — `-EINVAL`
+  propagation works
+- [Phase 8] CONFIG_SCSI_PM8001 confirmed in drivers/scsi/Kconfig:1494
+- [UNVERIFIED] Exact kernel version when `controller_fatal_error` was
+  introduced (squashed local history)
+- [UNVERIFIED] Full stack trace / oops type from original bug report
+  (not in commit message)
 
-**YES**
+**YES**The background check finished: `aa3b8f56ef27` is **not** in this
+tree (`v6.18.43`), and the buggy code is still present in
+`pm80xx_get_non_fatal_dump()`.
 
- sound/hda/codecs/side-codecs/tas2781_hda_spi.c | 16 ++++++++--------
- sound/soc/codecs/tas2781-fmwlib.c              |  7 ++++---
- 2 files changed, 12 insertions(+), 11 deletions(-)
+The backport analysis stands: **YES** — this is a small, low-risk guard
+that prevents kernel call traces when reading `non_fatal_log` on a
+controller already in fatal error state.
 
-diff --git a/sound/hda/codecs/side-codecs/tas2781_hda_spi.c b/sound/hda/codecs/side-codecs/tas2781_hda_spi.c
-index ab2a2472d7bdc..30393ae09dcc3 100644
---- a/sound/hda/codecs/side-codecs/tas2781_hda_spi.c
-+++ b/sound/hda/codecs/side-codecs/tas2781_hda_spi.c
-@@ -193,15 +193,15 @@ static void tas2781_spi_reset(struct tasdevice_priv *tas_dev)
- 		gpiod_set_value_cansleep(tas_dev->reset, 0);
- 		fsleep(800);
- 		gpiod_set_value_cansleep(tas_dev->reset, 1);
--	} else {
--		ret = tasdevice_dev_write(tas_dev, tas_dev->index,
--			TASDEVICE_REG_SWRESET, TASDEVICE_REG_SWRESET_RESET);
--		if (ret < 0) {
--			dev_err(tas_dev->dev, "dev sw-reset fail, %d\n", ret);
--			return;
--		}
--		fsleep(1000);
- 	}
-+
-+	ret = tasdevice_dev_write(tas_dev, tas_dev->index,
-+		TASDEVICE_REG_SWRESET, TASDEVICE_REG_SWRESET_RESET);
-+	if (ret < 0) {
-+		dev_err(tas_dev->dev, "dev sw-reset fail, %d\n", ret);
-+		return;
-+	}
-+	fsleep(1000);
- }
+ drivers/scsi/pm8001/pm80xx_hwi.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/drivers/scsi/pm8001/pm80xx_hwi.c b/drivers/scsi/pm8001/pm80xx_hwi.c
+index 31960b72c1e92..1ce8226fcd292 100644
+--- a/drivers/scsi/pm8001/pm80xx_hwi.c
++++ b/drivers/scsi/pm8001/pm80xx_hwi.c
+@@ -401,6 +401,13 @@ ssize_t pm80xx_get_non_fatal_dump(struct device *cdev,
+ 	char *buf_copy = buf;
  
- static int tascodec_spi_init(struct tasdevice_priv *tas_priv,
-diff --git a/sound/soc/codecs/tas2781-fmwlib.c b/sound/soc/codecs/tas2781-fmwlib.c
-index 2f6522f76df9b..0bcd8c131623a 100644
---- a/sound/soc/codecs/tas2781-fmwlib.c
-+++ b/sound/soc/codecs/tas2781-fmwlib.c
-@@ -905,7 +905,8 @@ static int tasdevice_process_block(void *context, unsigned char *data,
- 						data[subblk_offset + 1],
- 						data[subblk_offset + 2]),
- 					data[subblk_offset + 3]);
--				if (rc < 0) {
-+				if (rc < 0 &&
-+				    !(tas_priv->isspi && rc == -EXDEV)) {
- 					is_err = true;
- 					dev_err(tas_priv->dev,
- 					"process_block: single write error\n");
-@@ -937,7 +938,7 @@ static int tasdevice_process_block(void *context, unsigned char *data,
- 				data[subblk_offset + 1],
- 				data[subblk_offset + 2]),
- 				&(data[subblk_offset + 4]), len);
--			if (rc < 0) {
-+			if (rc < 0 && !(tas_priv->isspi && rc == -EXDEV)) {
- 				is_err = true;
- 				dev_err(tas_priv->dev,
- 					"%s: bulk_write error = %d\n",
-@@ -975,7 +976,7 @@ static int tasdevice_process_block(void *context, unsigned char *data,
- 				data[subblk_offset + 4]),
- 				data[subblk_offset + 1],
- 				data[subblk_offset + 5]);
--			if (rc < 0) {
-+			if (rc < 0 && !(tas_priv->isspi && rc == -EXDEV)) {
- 				is_err = true;
- 				dev_err(tas_priv->dev,
- 					"%s: update_bits error = %d\n",
+ 	temp = (u32 *)pm8001_ha->memoryMap.region[FORENSIC_MEM].virt_ptr;
++
++	if (pm8001_ha->controller_fatal_error) {
++		pm8001_dbg(pm8001_ha, FAIL,
++			   "non-fatal dump not available in fatal error state\n");
++		return -EINVAL;
++	}
++
+ 	if (++pm8001_ha->non_fatal_count == 1) {
+ 		if (pm8001_ha->chip_id == chip_8001) {
+ 			snprintf(pm8001_ha->forensic_info.data_buf.direct_data,
 -- 
 2.53.0
 
