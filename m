@@ -1,282 +1,184 @@
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75994345725
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 01:00:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB4CF23EAB4
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 01:02:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788138028; cv=none; b=cMa2hkc8p86XtbZZOVV56uZCG1Py7R0inhhaDhUGgIqNzuLdRYH4EQh8eIu5BoFlnI3zb4XPclpDsOPSmuxC1eA9UqLtTxiTbbRfk+U1++gFARmtgG29leX/S60g6h5DCIP6wVvg3zcAPF4XIH7Mi12lGrgLzlxMI5RwMydhSQY=
+	t=1788138125; cv=none; b=Ab+OPMGxMfghJNakFxD3KGzfgxY4kd6/TS1efFr+i41U3s72UmI3JhcNhcDfpj03s8fcnRXhciTGmUL3eabYAWelb2mVymXYA28l+HlXTGMg3yl/mufVO+7CNWxjOMDTIWCrL9FS+x5jhe2l7MaS2YXvGturabkTEwKH2i+hum0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788138028; c=relaxed/simple;
-	bh=XbWILXbWMzDMgR7qzIX1vHxh8m1MflRutzuKQqnUTsU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=MmCY9ZH5fjmKMqvuUD1+G0WnxdXWi3sKrphkeEBfnlHoMoZWWLxt7GwRZokrh/96Vo0WQizfTSRLDBR9dB65s2RChuJnQdAadJ3vTx2kw8tHdFi7+/wj2WlNAuQjWoWt6OQQcaXTlOkO2XdqUcejR9qvdedJAtwpjY41REbYtpY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kmkBeGMO; arc=none smtp.client-ip=209.85.128.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kmkBeGMO"
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4953e04ef16so28567815e9.2
-        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 18:00:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788138025; x=1788742825; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=FCVsu0gee0/HYHL2XBs9n2zsPu5Jg0UWEowDR7lZR/Q=;
-        b=kmkBeGMOPoSOSa9kLRm833vvBtxKDwOJNgYJdg+pMBd+M5+l5u/z5U5Hy2u0ucpBOq
-         Bq5LdMtMnH2ft9wAOQMXsjLXPCKhe/q3QvFWF2ERWizOyTUA7traNBXVO7t5FGQ1gWJk
-         YDu+B4F3SCht58PicshycmSlEoZG130QjI34eaFJE6r1Ol2Z1TopvEAnrtfCjCf8LdDn
-         2WTVgeIL66q5FuUXUpHp2JWm6PHl5II41juIX9kSm7GMStjupJmz93jK9FNZaYq/qeAB
-         e3PefxFD+ijeybSUjbATn1DoeS/NmGG5bJHPCJ7i1OLvIaFds+ChfjO4Nh7LtIfwiJR5
-         iTnQ==
+	s=arc-20240116; t=1788138125; c=relaxed/simple;
+	bh=oDa65quoB0iul9d26kRjEwz066/ne1iRsGPau5Tyi7E=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=it1IbgsMbDJfpcw7FzFzHTAgU1M/5L0BTJUFn3qHwV58Me5lS9AajJ1s3LMQC2C5rfEsksJ6LPLEy6b2sXzdi8R0A9c6qj2tdUKfTlLh0An/KxhW+73z/R8pg3nXogfMF9dZVElxkhIpYe5HfkCrU42USmo8AuX3gixOXBk1Qrs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4b3319233c2so4184984b6e.0
+        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 18:02:03 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788138025; x=1788742825;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=FCVsu0gee0/HYHL2XBs9n2zsPu5Jg0UWEowDR7lZR/Q=;
-        b=K7JdUquDtslGdbvvfYI4Bkp20ZuQ7DLcnpIgkpWGjL2mqJPIfUgGcs3MwdgvZzrMzu
-         Kw/Nj9fMc8i6atMfYeNEOtgd9ceva4AoXdVxLaO1nxtluNt0K7ZofoAVw4BZSNYp43HS
-         e7Q9U6XnvnGssvJpEWx1uRXdbohAaMxaBQkaQrUFZknFnsD6ZEMEtiwigkGcZ9+f1U7A
-         lMqdpglYhdow53yaOkmOxWxWtKWFdTJyM2x3eVOztksChzE92MniYlUAZpcv35nKi0gN
-         tRaK2thRCFHg90qq04hxQG/y5M+wtJcc+pe7cgSsRbjBWDb4WQUdvYdOkJQG8bQLNLNn
-         MeFw==
-X-Forwarded-Encrypted: i=1; AHgh+RpQLRqnhOEyXvX5KW60/fqwZatxySpvjqBvDuunXD4NEtnYZ1tv5EW/3egmBDgvTpHaN6uWcu3lG1xviVk=@vger.kernel.org
-X-Gm-Message-State: AFuF++nw5EuhOuKC8KtJ+O5sezteDiic1PfCU+bkJIHO+6Hmuql+L6Er
-	k2K2okNzXl0aTiKtIxhx6oXfmSYZlOunnuyIvIuxKVD975i+4zt7iBX+
-X-Gm-Gg: AR+sD10sk2sVpRpzTWVphznu34vFdUVxS5vQeT9pyQVwBcfuYCF3wZWHGkqKxyaqWpi
-	7V6+UUGrkF1nIJpFGlgMPD5WnfJE7CkfIZo20yNrOwKqtakkIcT2G35JZXMM+/eNhPaRJhszHvI
-	9oyiTrVNIZ6lbQuJBssb5tHEIwvoXlW2vbY+OssBI6X/ChfrS7Iauj9cCWCjkO/Bv3S2dJK0MM5
-	xDwp7ww+ekW0h8MJ5jUF0Xf+Izck0lDxGtD/ODpTNygBGEYd/7RjLb+AgmNBjjlI76OfAJoq82m
-	LwOdcw5f3sZ93Yq3TE0P0uZMVcUAe+ZSIIHq+k2HkfAwIfZcInTQejd1eJrJKcMTHFUE0Za/z/M
-	TqEc69lb+7O+zRvX4AAdAQtU0blMp1NxPpK8KcvC0lOEv3RWFEbORKidgnRuyoPIwBG/4GIY1V0
-	8nzjnjbgViQuU0B1GVUgLCXP2cYhWMdgWqwNoodaFMtycWdEyNnpn1Y0/nt1uxbBKCsRVOz9rr5
-	yWkJqjp1dulWEs/FUgCrqlJHSsEWOB+vHVbdr+DRJk=
-X-Received: by 2002:a05:600c:1c0a:b0:499:51f0:a9b2 with SMTP id 5b1f17b1804b1-49b91c1dd3fmr364364395e9.1.1788138024483;
-        Sun, 30 Aug 2026 18:00:24 -0700 (PDT)
-Received: from 1Z10 ([37.161.215.13])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ccea87e1asm109869685e9.2.2026.08.30.18.00.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 30 Aug 2026 18:00:23 -0700 (PDT)
-From: Maurizio Casciano <mauriziocasciano7@gmail.com>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	sashiko-reviews@lists.linux.dev,
-	Maurizio Casciano <mauriziocasciano7@gmail.com>,
-	Sashiko AI review <sashiko-bot@kernel.org>
-Subject: [PATCH v5] Input: drv260x: Fix suspend and resume sequencing
-Date: Mon, 31 Aug 2026 03:00:20 +0200
-Message-ID: <20260831010020.673316-1-mauriziocasciano7@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260830143050.03E081F000E9@smtp.kernel.org>
-References: <20260830143050.03E081F000E9@smtp.kernel.org>
+        d=1e100.net; s=20251104; t=1788138123; x=1788742923;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=JNGL+tbHLtF5rwhnJgoZWLL0n3CwxbYiWAl2PKM9+z8=;
+        b=T+IL0VYhlBf52XXUT01/zUphI1i9rRSygj2mbNmk/rC3W3fLPckTLPFbPCEO2yQQW/
+         FIb81xdpBkIIIU0iqBoegp4WZkjpau9FDknbhzD/8PhmiukV9RdYZOReoYEWceb1MV3b
+         zsPIDrx/rbi4O5Zf9gWMKXKSW9jM1KZtoU3CQ2sv2ICFU/+nNWKmOjqvB0w780ulqxfk
+         r/f2iY2EwnubsQEVqX9smTqJoJnmCR/aUNtwpjP4R0x34vhilO9XY90t9zjHchVESgU0
+         H8ENjz6I6iOtsnMAwspz9mEDjxMfah+wR5jEIPNAzHwr3ijhbbEciTLcRhsU+jMlBV0a
+         g4eQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rowjracls1IB4sVDmb+k3hUueREBO9kJVF+xYr85ItKi+Ex7DepDqE+tQffNFkpVqnGHwhVgIi/eKlDjL0=@vger.kernel.org
+X-Gm-Message-State: AFuF++kjGLmEzF1cx905qwZbGyjx7j9H+51SOEk8kPia0tQlgEkjLzVb
+	LdF8s6xyTcAsvVQIu+h64MTMMqqYAbqpHwlWREdFgrvxYa7fMXH/5JQkO1Gx+P+eFr6Yiim27oL
+	sTW3rySWza3mBLrrRduJ6ZXrWTFdIKxgSBhO3EuiNEhv0laFXAHt7NrTQaR8=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6808:2208:b0:4b3:77da:2b9c with SMTP id
+ 5614622812f47-4b398196054mr25125458b6e.12.1788138122849; Sun, 30 Aug 2026
+ 18:02:02 -0700 (PDT)
+Date: Sun, 30 Aug 2026 18:02:02 -0700
+In-Reply-To: <20260831003832.330549-1-eadavis@sina.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a94d28a.4d659fcc.734b4.0040.GAE@google.com>
+Subject: Re: [syzbot] [usb?] KASAN: slab-use-after-free Write in keyspan_close
+From: syzbot <syzbot+5fabc1ae99ff40690d84@syzkaller.appspotmail.com>
+To: eadavis@sina.com, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-Force-feedback playback is queued asynchronously, but system suspend can
-cut power while the worker is pending. Disable and drain the work item
-before entering standby, and keep force-feedback quiesced until resume has
-restored communication.
+Hello,
 
-The enable GPIO gates I2C access without resetting the device. Raise it and
-observe the startup delay before leaving standby after resume or a failed
-regulator shutdown.
+syzbot has tested the proposed patch but the reproducer is still triggering an issue:
+BUG: corrupted list in usb_hcd_link_urb_to_ep
 
-Use explicit locking and goto-based error unwinding. Keep the work item
-disabled after a resume failure. Track whether it is already disabled
-under the input mutex, so another suspend or a direct resume retry does not
-increment the disable count and a later successful resume balances it
-exactly once. Skip close-time register access while recovery remains
-pending.
+list_add double add: new=ffff88803dbb4e18, prev=ffff88803dbb4e18, next=ffff888054867878.
+------------[ cut here ]------------
+kernel BUG at lib/list_debug.c:35!
+Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
+CPU: 2 UID: 0 PID: 8045 Comm: syz.3.731 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+RIP: 0010:__list_add_valid_or_report.cold+0x34/0x36 lib/list_debug.c:35
+Code: eb ff 90 0f 0b 48 c7 c7 00 0d 62 8c e8 7a be eb ff 90 0f 0b 48 89 d9 4c 89 ea 48 89 ee 48 c7 c7 40 0f 62 8c e8 62 be eb ff 90 <0f> 0b 48 89 de 48 c7 c7 00 10 62 8c e8 50 be eb ff 90 0f 0b 48 89
+RSP: 0018:ffffc900006588b8 EFLAGS: 00010086
+RAX: 0000000000000058 RBX: ffff888054867878 RCX: 0000000000000000
+RDX: 0000000000000058 RSI: ffffffff81e9e1d9 RDI: fffff520000cb108
+RBP: ffff88803dbb4e18 R08: 0000000000000007 R09: 0000000000000000
+R10: 8000000000000103 R11: 0000000000000001 R12: ffff888054867880
+R13: ffff88803dbb4e18 R14: 0000000000000000 R15: ffff88803dbb4e18
+FS:  00007ff211c5e6c0(0000) GS:ffff8880d5d64000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007f348dc70050 CR3: 000000002dba6000 CR4: 0000000000352ef0
+Call Trace:
+ <IRQ>
+ __list_add_valid include/linux/list.h:104 [inline]
+ __list_add include/linux/list.h:169 [inline]
+ list_add_tail include/linux/list.h:206 [inline]
+ usb_hcd_link_urb_to_ep+0x220/0x3a0 drivers/usb/core/hcd.c:1154
+ dummy_urb_enqueue+0x2b5/0x880 drivers/usb/gadget/udc/dummy_hcd.c:1310
+ usb_hcd_submit_urb+0x268/0x2150 drivers/usb/core/hcd.c:1542
+ usb_submit_urb+0x827/0x19b0 drivers/usb/core/urb.c:586
+ keyspan_usa67_send_setup.isra.0+0x641/0x950 drivers/usb/serial/keyspan.c:2740
+ usa67_glocont_callback+0x1bb/0x2a0 drivers/usb/serial/keyspan.c:1454
+ __usb_hcd_giveback_urb+0x38e/0x610 drivers/usb/core/hcd.c:1657
+ usb_hcd_giveback_urb+0x3ca/0x4a0 drivers/usb/core/hcd.c:1741
+ dummy_timer+0xdb2/0x3700 drivers/usb/gadget/udc/dummy_hcd.c:2019
+ __run_hrtimer kernel/time/hrtimer.c:2067 [inline]
+ __hrtimer_run_queues+0x462/0x9c0 kernel/time/hrtimer.c:2124
+ hrtimer_run_softirq+0x1ca/0x360 kernel/time/hrtimer.c:2141
+ handle_softirqs+0x1e6/0x9d0 kernel/softirq.c:645
+ __do_softirq kernel/softirq.c:679 [inline]
+ invoke_softirq kernel/softirq.c:519 [inline]
+ __irq_exit_rcu+0x194/0x210 kernel/softirq.c:767
+ irq_exit_rcu+0x9/0x30 kernel/softirq.c:784
+ instr_sysvec_apic_timer_interrupt arch/x86/kernel/apic/apic.c:1062 [inline]
+ sysvec_apic_timer_interrupt+0xa3/0xc0 arch/x86/kernel/apic/apic.c:1062
+ </IRQ>
+ <TASK>
+ asm_sysvec_apic_timer_interrupt+0x1a/0x20 arch/x86/include/asm/idtentry.h:674
+RIP: 0010:owner_on_cpu include/linux/sched.h:2338 [inline]
+RIP: 0010:mutex_spin_on_owner+0xbb/0x2b0 kernel/locking/mutex.c:406
+Code: 48 89 df e8 d7 f0 98 00 48 89 d8 48 c1 e8 03 42 80 3c 38 00 0f 85 c0 01 00 00 48 8b 03 48 83 e0 f8 48 39 c5 0f 85 24 01 00 00 <48> 8d 7d 34 48 89 f8 48 89 f9 48 c1 e8 03 83 e1 07 42 0f b6 04 38
+RSP: 0018:ffffc90023b476b0 EFLAGS: 00000246
+RAX: ffff888027e88000 RBX: ffff88802db3a150 RCX: ffffffff81e60db9
+RDX: 0000000000000001 RSI: 0000000000000008 RDI: ffff88802db3a150
+RBP: ffff888027e88000 R08: 0000000000000000 R09: ffffed1005b6742a
+R10: ffff88802db3a157 R11: 0000000000000000 R12: ffffed10056b84b0
+R13: ffff88802b5c2580 R14: 0000000000000000 R15: dffffc0000000000
+ mutex_optimistic_spin kernel/locking/mutex.c:509 [inline]
+ __mutex_lock_common kernel/locking/mutex.c:761 [inline]
+ __mutex_lock+0x12c3/0x1bc0 kernel/locking/mutex.c:821
+ tty_lock_interruptible+0x75/0xe0 drivers/tty/tty_mutex.c:27
+ tty_open_by_driver drivers/tty/tty_io.c:2032 [inline]
+ tty_open+0x5e7/0xe20 drivers/tty/tty_io.c:2093
+ chrdev_open+0x234/0x6a0 fs/char_dev.c:411
+ do_dentry_open+0x6ab/0x14d0 fs/open.c:996
+ vfs_open+0x82/0x3f0 fs/open.c:1101
+ do_open fs/namei.c:4837 [inline]
+ path_openat+0x19fa/0x2440 fs/namei.c:5000
+ do_file_open+0x20e/0x430 fs/namei.c:5029
+ do_sys_openat2+0x10f/0x1e0 fs/open.c:1417
+ do_sys_open fs/open.c:1423 [inline]
+ __do_sys_openat fs/open.c:1439 [inline]
+ __se_sys_openat fs/open.c:1434 [inline]
+ __x64_sys_openat+0x12d/0x210 fs/open.c:1434
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7ff210d9e159
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007ff211c5e028 EFLAGS: 00000246 ORIG_RAX: 0000000000000101
+RAX: ffffffffffffffda RBX: 00007ff211025fa0 RCX: 00007ff210d9e159
+RDX: 0000000000000002 RSI: 0000200000000400 RDI: ffffffffffffff9c
+RBP: 00007ff210e35024 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007ff211026038 R14: 00007ff211025fa0 R15: 00007ffc38d9dfd8
+ </TASK>
+Modules linked in:
+---[ end trace 0000000000000000 ]---
+RIP: 0010:__list_add_valid_or_report.cold+0x34/0x36 lib/list_debug.c:35
+Code: eb ff 90 0f 0b 48 c7 c7 00 0d 62 8c e8 7a be eb ff 90 0f 0b 48 89 d9 4c 89 ea 48 89 ee 48 c7 c7 40 0f 62 8c e8 62 be eb ff 90 <0f> 0b 48 89 de 48 c7 c7 00 10 62 8c e8 50 be eb ff 90 0f 0b 48 89
+RSP: 0018:ffffc900006588b8 EFLAGS: 00010086
+RAX: 0000000000000058 RBX: ffff888054867878 RCX: 0000000000000000
+RDX: 0000000000000058 RSI: ffffffff81e9e1d9 RDI: fffff520000cb108
+RBP: ffff88803dbb4e18 R08: 0000000000000007 R09: 0000000000000000
+R10: 8000000000000103 R11: 0000000000000001 R12: ffff888054867880
+R13: ffff88803dbb4e18 R14: 0000000000000000 R15: ffff88803dbb4e18
+FS:  00007ff211c5e6c0(0000) GS:ffff8880d5d64000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007f348dc70050 CR3: 000000002dba6000 CR4: 0000000000352ef0
+----------------
+Code disassembly (best guess):
+   0:	48 89 df             	mov    %rbx,%rdi
+   3:	e8 d7 f0 98 00       	call   0x98f0df
+   8:	48 89 d8             	mov    %rbx,%rax
+   b:	48 c1 e8 03          	shr    $0x3,%rax
+   f:	42 80 3c 38 00       	cmpb   $0x0,(%rax,%r15,1)
+  14:	0f 85 c0 01 00 00    	jne    0x1da
+  1a:	48 8b 03             	mov    (%rbx),%rax
+  1d:	48 83 e0 f8          	and    $0xfffffffffffffff8,%rax
+  21:	48 39 c5             	cmp    %rax,%rbp
+  24:	0f 85 24 01 00 00    	jne    0x14e
+* 2a:	48 8d 7d 34          	lea    0x34(%rbp),%rdi <-- trapping instruction
+  2e:	48 89 f8             	mov    %rdi,%rax
+  31:	48 89 f9             	mov    %rdi,%rcx
+  34:	48 c1 e8 03          	shr    $0x3,%rax
+  38:	83 e1 07             	and    $0x7,%ecx
+  3b:	42 0f b6 04 38       	movzbl (%rax,%r15,1),%eax
 
-Reported-by: Sashiko AI review <sashiko-bot@kernel.org>
-Link: https://lore.kernel.org/linux-input/20260829230740.126461F000E9@smtp.kernel.org/
-Link: https://lore.kernel.org/linux-input/20260830143050.03E081F000E9@smtp.kernel.org/
-Suggested-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Link: https://lore.kernel.org/linux-input/apLD91vzHIrLOPWC@google.com/
-Assisted-by: Codex:gpt-5.6-sol [sparse]
-Signed-off-by: Maurizio Casciano <mauriziocasciano7@gmail.com>
----
-Changes in v5:
-- Keep the work item disabled after every resume failure, so force-feedback
-  cannot reach hardware whose regulator is off.
-- Track the disabled state to avoid incrementing the work disable count again
-  on a later suspend or direct resume retry.
-- Enable the work item only after resume has fully restored the regulator,
-  enable GPIO, and standby state, balancing the disable count exactly once.
-- Avoid close-time register access while PM recovery is pending.
 
- drivers/input/misc/drv260x.c | 80 ++++++++++++++++++++++++++++++------
- 1 file changed, 67 insertions(+), 13 deletions(-)
+Tested on:
 
-diff --git a/drivers/input/misc/drv260x.c b/drivers/input/misc/drv260x.c
-index 6c5c4c53753b..f261bb32fdc0 100644
---- a/drivers/input/misc/drv260x.c
-+++ b/drivers/input/misc/drv260x.c
-@@ -181,6 +181,7 @@
-  * @work: Work item used to off load the enable/disable of the vibration
-  * @enable_gpio: Pointer to the gpio used for enable/disabling
-  * @regulator: Pointer to the regulator for the IC
-+ * @work_disabled: Whether playback work is disabled pending PM recovery
-  * @magnitude: Magnitude of the vibration event
-  * @mode: The operating mode of the IC (LRA_NO_CAL, ERM or LRA)
-  * @library: The vibration library to be used
-@@ -194,6 +195,7 @@ struct drv260x_data {
- 	struct work_struct work;
- 	struct gpio_desc *enable_gpio;
- 	struct regulator *regulator;
-+	bool work_disabled;
- 	u8 magnitude;
- 	u32 mode;
- 	u32 library;
-@@ -215,6 +217,24 @@ static int drv260x_calculate_voltage(unsigned int voltage)
- 	return (voltage * 255 / 5600);
- }
- 
-+static void drv260x_disable_work(struct drv260x_data *haptics)
-+{
-+	if (haptics->work_disabled)
-+		return;
-+
-+	disable_work_sync(&haptics->work);
-+	haptics->work_disabled = true;
-+}
-+
-+static void drv260x_enable_work(struct drv260x_data *haptics)
-+{
-+	if (!haptics->work_disabled)
-+		return;
-+
-+	enable_work(&haptics->work);
-+	haptics->work_disabled = false;
-+}
-+
- static void drv260x_worker(struct work_struct *work)
- {
- 	struct drv260x_data *haptics = container_of(work, struct drv260x_data, work);
-@@ -263,6 +283,10 @@ static void drv260x_close(struct input_dev *input)
- 	struct drv260x_data *haptics = input_get_drvdata(input);
- 	int error;
- 
-+	/* PM has not restored register access yet. */
-+	if (haptics->work_disabled)
-+		return;
-+
- 	cancel_work_sync(&haptics->work);
- 
- 	error = regmap_write(haptics->regmap, DRV260X_MODE, DRV260X_STANDBY);
-@@ -569,18 +593,22 @@ static int drv260x_probe(struct i2c_client *client)
- static int drv260x_suspend(struct device *dev)
- {
- 	struct drv260x_data *haptics = dev_get_drvdata(dev);
--	int error;
-+	bool restore_work = false;
-+	int error, restore_error;
- 
--	guard(mutex)(&haptics->input_dev->mutex);
-+	mutex_lock(&haptics->input_dev->mutex);
- 
- 	if (input_device_enabled(haptics->input_dev)) {
-+		restore_work = !haptics->work_disabled;
-+		drv260x_disable_work(haptics);
-+
- 		error = regmap_update_bits(haptics->regmap,
- 					   DRV260X_MODE,
- 					   DRV260X_STANDBY_MASK,
- 					   DRV260X_STANDBY);
- 		if (error) {
- 			dev_err(dev, "Failed to set standby mode\n");
--			return error;
-+			goto err_enable_work;
- 		}
- 
- 		gpiod_set_value(haptics->enable_gpio, 0);
-@@ -588,14 +616,28 @@ static int drv260x_suspend(struct device *dev)
- 		error = regulator_disable(haptics->regulator);
- 		if (error) {
- 			dev_err(dev, "Failed to disable regulator\n");
--			regmap_update_bits(haptics->regmap,
--					   DRV260X_MODE,
--					   DRV260X_STANDBY_MASK, 0);
--			return error;
-+			goto err_leave_standby;
- 		}
- 	}
- 
-+	mutex_unlock(&haptics->input_dev->mutex);
- 	return 0;
-+
-+err_leave_standby:
-+	gpiod_set_value(haptics->enable_gpio, 1);
-+	fsleep(250);
-+	restore_error = regmap_update_bits(haptics->regmap,
-+					   DRV260X_MODE,
-+					   DRV260X_STANDBY_MASK, 0);
-+	if (restore_error) {
-+		dev_err(dev, "Failed to leave standby mode: %d\n", restore_error);
-+		restore_work = false;
-+	}
-+err_enable_work:
-+	if (restore_work)
-+		drv260x_enable_work(haptics);
-+	mutex_unlock(&haptics->input_dev->mutex);
-+	return error;
- }
- 
- static int drv260x_resume(struct device *dev)
-@@ -603,28 +645,40 @@ static int drv260x_resume(struct device *dev)
- 	struct drv260x_data *haptics = dev_get_drvdata(dev);
- 	int error;
- 
--	guard(mutex)(&haptics->input_dev->mutex);
-+	mutex_lock(&haptics->input_dev->mutex);
- 
- 	if (input_device_enabled(haptics->input_dev)) {
-+		drv260x_disable_work(haptics);
-+
- 		error = regulator_enable(haptics->regulator);
- 		if (error) {
- 			dev_err(dev, "Failed to enable regulator\n");
--			return error;
-+			goto err_unlock;
- 		}
- 
-+		gpiod_set_value(haptics->enable_gpio, 1);
-+		fsleep(250);
-+
- 		error = regmap_update_bits(haptics->regmap,
- 					   DRV260X_MODE,
- 					   DRV260X_STANDBY_MASK, 0);
- 		if (error) {
--			dev_err(dev, "Failed to unset standby mode\n");
--			regulator_disable(haptics->regulator);
--			return error;
-+			dev_err(dev, "Failed to leave standby mode: %d\n", error);
-+			goto err_disable_regulator;
- 		}
- 
--		gpiod_set_value(haptics->enable_gpio, 1);
-+		drv260x_enable_work(haptics);
- 	}
- 
-+	mutex_unlock(&haptics->input_dev->mutex);
- 	return 0;
-+
-+err_disable_regulator:
-+	gpiod_set_value(haptics->enable_gpio, 0);
-+	regulator_disable(haptics->regulator);
-+err_unlock:
-+	mutex_unlock(&haptics->input_dev->mutex);
-+	return error;
- }
- 
- static DEFINE_SIMPLE_DEV_PM_OPS(drv260x_pm_ops, drv260x_suspend, drv260x_resume);
--- 
-2.53.0
+commit:         08dbfad3 Merge tag 'for-linus' of git://git.kernel.org..
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+console output: https://syzkaller.appspot.com/x/log.txt?x=17f68349580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=8c5c3949d762a91f
+dashboard link: https://syzkaller.appspot.com/bug?extid=5fabc1ae99ff40690d84
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=10fd7379580000
+
