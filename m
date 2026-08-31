@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67717459AFC;
-	Mon, 31 Aug 2026 13:34:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A699459AE1;
+	Mon, 31 Aug 2026 13:34:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183282; cv=none; b=XSqSvuz7XLGMbz7/xIlCUMRkNh3mtja4g8KOgOA14/0tcPHQR+BNWLbnuGHrPW4iu+Q8/PFUAZEINZerKLlGUXB63jn1w6bn4jrgBWSFxfQxFDey1m0c8dRhY6eGHHnxSpfG4rU5a5hwdZfWfUFqoVSAD6vO9dNt8JfdHovMCLk=
+	t=1788183284; cv=none; b=ZqDIGO3xJozC4ve3VvTeFX1aK3m+gHRIF2ppiWPK6GJGuFVaIGtwOSVa3feznuKnmU009y+s5BQjwMjrHFSdGj44+PmvJSz484w7P/YGbKQiD18B/i4cyWP3BpDHNtQzlE07SIJHqUDMo1jZ+OySKs0Lka/nr7lul+w2PMEMsMQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183282; c=relaxed/simple;
-	bh=27oT7w6t2dSYoITnOB5E4HZ0ceriHpXM6Thk4gqkeOI=;
+	s=arc-20240116; t=1788183284; c=relaxed/simple;
+	bh=PH2X3SFn9NSEbVrnM93NioM31uEVwUeY3PxrAvoIU5g=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Fix1Ms4ymvN0zz3+673Q2jpY9acSk/+MRWeSBpJ8CgeF4PnoG592Nf1sUTZPfyGFrGWf+ui7v0NEo13vX8me6ghwoaWtwRqZAITafA0af5JuodYXxaPG3M/XGmUaygQvxhm1F1Doa5qbONxxVJJPVDE/gFzcB1u+8+yxAY/dwfQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=esSugd6T; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=OiYyGLRTwAm94SohFS3j5+ujcAtI2HWYNw2yTZJdYIdmBogOZ9DZoBIN0J3m6ixi2vTofAFPYJNWMJ2b3Wyy+HJIYvFOTNcHajQjr0a7qKH6msWImSfFY/zBYDx0QqPS13JMXFL2M9LWH0EQoc22nL/4ze+aIzi7kgKBv3Z2UY0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RvoIgE+O; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="esSugd6T"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2E071F00A3E;
-	Mon, 31 Aug 2026 13:34:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RvoIgE+O"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BE191F000E9;
+	Mon, 31 Aug 2026 13:34:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788183278;
-	bh=hIDmP07IiHCoCW6q2VONui3+T4zKv9c35+YdyipWHtg=;
+	s=k20260515; t=1788183282;
+	bh=mZkxmumgWxt+25lmmE7hMDBxeMFAURVsSHQbXMIjoFo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=esSugd6TJONRShZd19t0s+N+b2xHl8Fj40HCNZWQyeOHLlq6iUJoLygRrh4nEBiBi
-	 bS/DnCmc6Yn7YwVAHB10JO2N7S4fPiaT+IVfm3eFs5IJ8bfM7OUluSCMWON3ttDOsf
-	 IiG8RqEtNax04/eZV86yNLm5lyzINRHGjqydhbnumxIl4k+gTDj4OvxxwQNe8K+ocT
-	 W5BciP4QTlDWNFyaabfZwoKMe86aFoLAlpTGQeyoqorLWJcQxj0AZ+hOJZANrMSPMv
-	 mP0F9OOdQG/wZYFp3poFxEuoVMJcQdRAxtYqHPfvR9LE2a7I9jLzO450ZTlYag+ZWK
-	 x4E/5q9dHIFWQ==
+	b=RvoIgE+OrctmpA+8ZXMVBVnMNE7Zg47gm2VAMVsdfB+XajESy4oXH9yBKaPkJZYvV
+	 a9ci1TYvvchG0Ipxjevn1POoKruEju3mr/gz7Iwi2TuXJH5RCrCfbOKMw5sli+vl9x
+	 9wvEHLQJx8ow5YI+e3Nnz5/JXbPjeeWOBB9jA2cpq4phJ7+fA/cpwoMqli9BGbX2sT
+	 TnUH1XuHb2FzODRgcfhVW3Cha2Ve2Quh4sYfD0/h9ioOJDGQNdj4Mql55lbJ86zZBW
+	 It9tUG7u7+bfW4vV4B+VooweC/FKQINPb3PfRvKHyv83XIAGxg5gefKZwl1fFPAXj7
+	 BFWNGzBJ8mHxg==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Christoph Hellwig <hch@lst.de>,
-	"Christian Brauner (Amutable)" <brauner@kernel.org>,
+Cc: Rosen Penev <rosenp@gmail.com>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Andreas Larsson <andreas@gaisler.com>,
 	Sasha Levin <sashal@kernel.org>,
-	dsterba@suse.com,
-	linux-fsdevel@vger.kernel.org,
+	davem@davemloft.net,
+	sparclinux@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-5.10] affs: handle set_blocksize failures
-Date: Mon, 31 Aug 2026 09:21:20 -0400
-Message-ID: <20260831133314.4125787-52-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-5.10] sparc: Disable compat support with LLD
+Date: Mon, 31 Aug 2026 09:21:22 -0400
+Message-ID: <20260831133314.4125787-54-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -53,315 +54,378 @@ X-stable-base: Linux 6.18.48
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Christoph Hellwig <hch@lst.de>
+From: Rosen Penev <rosenp@gmail.com>
 
-[ Upstream commit 0861182af5983a39bd2a891966436c5679b74a45 ]
+[ Upstream commit 852fed2e8bfe195351fb0078ba7245d41154e7a5 ]
 
-affs uses buffer_heads, which don't handle block size > PAGE_SIZE well.
-Without this, mounting we will hit the
+An LLVM=1 sparc64 allmodconfig enables COMPAT and then tries to
+build the 32-bit vDSO. That path cannot be linked with ld.lld:
 
-        BUG_ON(offset >= folio_size(folio));
+  ld.lld: error: unknown emulation: elf32_sparc
 
-in folio_set_bh on the first __bread_gfp call.
+ld.lld does not support the 32-bit SPARC ELF emulation used for
+the compat vDSO, so keep COMPAT disabled when LLD is the linker.
+This avoids selecting an unsupported build path while leaving the
+existing GNU ld configuration unchanged.
 
-Signed-off-by: Christoph Hellwig <hch@lst.de>
-Link: https://patch.msgid.link/20260511071701.2456211-7-hch@lst.de
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Assisted-by: Codex:GPT-5.5
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+Acked-by: Nathan Chancellor <nathan@kernel.org>
+Reviewed-by: Andreas Larsson <andreas@gaisler.com>
+Link: https://lore.kernel.org/r/20260508000834.834824-1-rosenp@gmail.com
+Signed-off-by: Andreas Larsson <andreas@gaisler.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-## Phase 1: Commit Message Forensics
+# Stable Backport Analysis: `sparc: Disable compat support with LLD`
 
-**Step 1.1 — Subject:** `[affs]` `[handle]` — handle `set_blocksize`
-failures in AFFS mount path.
-
-**Step 1.2 — Tags:**
-- Signed-off-by: Christoph Hellwig \<hch@lst.de\>
-- Link: https://patch.msgid.link/20260511071701.2456211-7-hch@lst.de
-- Signed-off-by: Christian Brauner \<brauner@kernel.org\>
-- No Fixes:, Reported-by:, Tested-by:, Cc: stable, or syzbot tags
-- Mailing list: Acked-by: David Sterba \<dsterba@suse.com\> (from
-  thread)
-
-**Step 1.3 — Body:** AFFS uses buffer_heads, which cannot safely use
-block sizes larger than `PAGE_SIZE`. If `sb_set_blocksize()` fails and
-the code continues, the first `__bread_gfp()` call hits `BUG_ON(offset
->= folio_size(folio))` in `folio_set_bh()`. Symptom: kernel BUG/panic
-during mount (including filesystem auto-probe).
-
-**Step 1.4 — Hidden bug fix?** No — this is an explicit mount-path bug
-fix, not disguised cleanup.
+**Local tree:** Linux **6.18.44** (`v6.18.44-1-g2736c32da98b9`)
 
 ---
 
-## Phase 2: Diff Analysis
+## PHASE 1: COMMIT MESSAGE FORENSICS
 
-**Step 2.1 — Inventory:**
-- `fs/affs/affs.h`: −5 lines (removes `affs_set_blocksize()` wrapper)
-- `fs/affs/super.c`: +4/−2 lines
-- Functions: `affs_fill_super()` only
-- Scope: single-subsystem, surgical (~11 lines net)
+### Step 1.1: Parse the Subject Line
+**Record:** `[sparc] [disable] Disable compat support with LLD` —
+Kconfig change to prevent an unsupported LLVM/LLD build path on sparc64.
 
-**Step 2.2 — Code flow:**
-- **Before:** `affs_set_blocksize()` called `sb_set_blocksize()` and
-  ignored its return value.
-- **After:** Direct `sb_set_blocksize()` calls with failure checks;
-  mount returns `-EINVAL` on failure at both the initial `PAGE_SIZE`
-  setup and each blocksize-probe iteration.
+### Step 1.2: Parse All Commit Message Tags
+**Record:**
+- **Acked-by:** Nathan Chancellor `<nathan@kernel.org>` (LLVM/toolchain
+  maintainer)
+- **Reviewed-by:** Andreas Larsson `<andreas@gaisler.com>` (sparc
+  maintainer)
+- **Link:**
+  https://lore.kernel.org/r/20260508000834.834824-1-rosenp@gmail.com
+- **Signed-off-by:** Rosen Penev `<rosenp@gmail.com>` (author)
+- **Signed-off-by:** Andreas Larsson (committer/maintainer)
+- **Assisted-by:** Codex:GPT-5.5
+- No Fixes:, Reported-by:, Tested-by:, or Cc: stable tags
+- Notable: dual maintainer endorsement (toolchain + sparc)
 
-**Step 2.3 — Bug mechanism:** Missing error-path handling. When
-`sb_set_blocksize()` returns 0 (failure — e.g. requested size >
-`PAGE_SIZE` on a non-`FS_LBS` filesystem, or `set_blocksize()` failure
-on an incompatible block device), mount continued and issued buffer-head
-I/O that triggers `folio_set_bh()`'s `BUG_ON`.
+### Step 1.3: Analyze Commit Body
+**Record:**
+- **Bug:** `LLVM=1 sparc64 allmodconfig` enables `CONFIG_COMPAT`
+  (default y), which builds the 32-bit compat vDSO using `elf32_sparc`
+  linker emulation.
+- **Symptom:** Build failure: `ld.lld: error: unknown emulation:
+  elf32_sparc`
+- **Root cause:** LLD does not support 32-bit SPARC ELF emulation; GNU
+  ld path is unaffected.
+- **Fix approach:** Add `depends on !LD_IS_LLD` to `CONFIG_COMPAT` so
+  LLD builds skip the unsupported vDSO32 path.
+- No kernel version range specified in the message.
 
-**Step 2.4 — Fix quality:** Obviously correct; mirrors patterns already
-used in this tree by ext4, ufs, udf, minix (initial call), etc. Minimal
-regression risk.
-
----
-
-## Phase 3: Git History Investigation
-
-**Step 3.1 — Blame:** Buggy ignore-return-value pattern dates to Linux
-2.6.12 (`1da177e4c3f41`). Present throughout AFFS history in this tree.
-
-**Step 3.2 — Fixes: tag:** Not present (expected for manual review).
-
-**Step 3.3 — Related commits:**
-- `a64e5a596067b` (2025-03-07): re-added `PAGE_SIZE` validation to
-  `sb_set_blocksize()` — **in this tree**
-- `465e5e6a1698f` (2023): added `folio_set_bh()` with `BUG_ON` — **in
-  this tree**
-- Mainline commit: `0861182af5983` — **NOT in this tree**
-- Part of 10-patch series merged as `d90e60ced4c3c` ("fix crashes when
-  mounting legacy file system with sector size > PAGE_SIZE")
-
-**Step 3.4 — Author:** Christoph Hellwig; series merged by VFS
-maintainer Christian Brauner.
-
-**Step 3.5 — Dependencies:** Standalone; patch 6/10 in series but self-
-contained for AFFS. No prerequisite commits required beyond code already
-in 6.18.y.
+### Step 1.4: Detect Hidden Bug Fixes
+**Record:** Not disguised — this is an explicit **build fix**. No hidden
+runtime bug; the failure is at link time during kernel build when LLD is
+the linker.
 
 ---
 
-## Phase 4: Mailing List and External Research
+## PHASE 2: DIFF ANALYSIS
 
-**Step 4.1 — Thread:**
-https://patch.msgid.link/20260511071701.2456211-7-hch@lst.de (b4 dig
-confirmed). Series v1, 10 patches.
+### Step 2.1: Inventory the Changes
+**Record:**
+- **Files:** `arch/sparc/Kconfig` only (+1 line)
+- **Scope:** Single-file, surgical Kconfig fix
+- **Function modified:** N/A (Kconfig symbol `COMPAT`)
 
-**Step 4.2 — Reviewers:** CC'd to linux-fsdevel, Alexander Viro,
-Christian Brauner, filesystem maintainers. David Sterba Acked-by on affs
-patch.
+### Step 2.2: Code Flow Change
+**Record:**
+- **Before:** `CONFIG_COMPAT` depends only on `SPARC64`, defaults to
+  `y`. With `LLVM=1` + LLD, COMPAT stays enabled →
+  `arch/sparc/vdso/Makefile` builds `vdso-image-32.o` using `-m
+  elf32_sparc` → LLD fails.
+- **After:** `CONFIG_COMPAT` additionally requires `!LD_IS_LLD`. LLD
+  builds disable COMPAT and skip vdso32; GNU ld builds unchanged.
 
-**Step 4.3 — Bug report:** Cover letter (`2456211-1-hch@lst.de`): author
-reproduced crashes probing built-in filesystems on a 64K-sector loop
-device; affs was among filesystems that actually crashed.
+### Step 2.3: Bug Mechanism
+**Record:**
+- **Category:** Build fix / toolchain incompatibility (Kconfig guard)
+- **Mechanism:** Kconfig enables a build target (`vdso32.so` with
+  `elf32_sparc`) that the selected linker cannot handle. The fix gates
+  COMPAT on linker capability.
 
-**Step 4.4 — Series context:** 10 filesystems fixed with same pattern;
-affs patch is independent of the others.
+Relevant existing code in this tree:
 
-**Step 4.5 — Stable list:** No stable-specific discussion found; not a
-negative signal.
+```64:64:arch/sparc/vdso/Makefile
+VDSO_LDFLAGS_vdso32.lds = -m elf32_sparc -soname linux-gate.so.1
+```
 
----
+```470:476:arch/sparc/Kconfig
+config COMPAT
+        bool
+        depends on SPARC64
+        default y
+        select HAVE_UID16
+        select ARCH_WANT_OLD_COMPAT_IPC
+        select COMPAT_OLD_SIGACTION
+```
 
-## Phase 5: Code Semantic Analysis
-
-**Step 5.1 — Functions:** `affs_fill_super()`, inline `affs_bread()`
-(unchanged).
-
-**Step 5.2 — Callers:** `affs_fill_super()` called from
-`get_tree_bdev()` during `mount(2)` / filesystem probe.
-
-**Step 5.3 — Callees:** `sb_set_blocksize()` → `set_blocksize()`; on
-success, `affs_bread()` → `sb_bread()` → `__bread_gfp()` →
-`folio_alloc_buffers()` → `folio_set_bh()`.
-
-**Step 5.4 — Reachability:** Reachable from userspace mount and blkid-
-style filesystem probing on block devices with large logical sector
-sizes or on systems where `PAGE_SIZE` > AFFS's supported 4K blocks.
-
-**Step 5.5 — Similar patterns:** 15+ filesystems in this tree already
-check `sb_set_blocksize()` return value; AFFS is an outlier.
-
----
-
-## Phase 6: Cross-Reference Against Local Tree
-
-**Tree:** `v6.18.44` (6.18.y stable)
-
-**Step 6.1 — Buggy code exists:** Yes — `fs/affs/super.c` lines 360 and
-376 still call `affs_set_blocksize()` without checking return value.
-
-**Step 6.2 — Backport difficulty:** Clean apply expected; no conflicting
-changes in this file.
-
-**Step 6.3 — Related fixes already present:** No equivalent AFFS fix.
-Prerequisites (`folio_set_bh` BUG_ON, `sb_set_blocksize` PAGE_SIZE
-check) are both present, making the bug reachable.
+### Step 2.4: Fix Quality Assessment
+**Record:** Obviously correct, minimal (1 line), matches established
+pattern on s390. **Regression risk:** Low — only affects LLVM+LLD
+sparc64 builds; those already fail to build. Trade-off: LLD builds lose
+32-bit compat support, which is unavoidable until LLD gains
+`elf32_sparc` support.
 
 ---
 
-## Phase 7: Subsystem Context
+## PHASE 3: GIT HISTORY INVESTIGATION
 
-**Step 7.1:** AFFS filesystem (`fs/affs/`). Criticality: PERIPHERAL
-(Amiga/legacy FS), but mount path is security-relevant (unprivileged
-mount with privileges).
+### Step 3.1: Blame Changed Lines
+**Record:** `CONFIG COMPAT` on sparc dates to Sam Ravnborg, 2008
+(`26b4c912185a8`). The missing `!LD_IS_LLD` guard has been absent since
+COMPAT was introduced. `CONFIG_LD_IS_LLD` was added in `b744b43f79cc7`
+(kbuild, May 2020) and is present in this tree.
 
-**Step 7.2:** Low recent churn; mature legacy driver.
+### Step 3.2: Follow Fixes: Tag
+**Record:** No `Fixes:` tag. N/A.
+
+### Step 3.3: File History for Related Changes
+**Record:** Recent sparc toolchain work in this tree includes
+`05457d96175d2` ("sparc/module: Add R_SPARC_UA64 relocation handling" —
+needed for LLVM's IAS, committed Sep 2025). This shows active LLVM sparc
+build enablement. The candidate fix is **standalone** (not part of a
+multi-patch series).
+
+### Step 3.4: Author's Other Commits
+**Record:** Rosen Penev is an active contributor (ata, gpio, net
+drivers) but not the sparc maintainer. Andreas Larsson (sparc
+maintainer, also committed the LLVM relocation fix) reviewed and signed
+off.
+
+### Step 3.5: Prerequisite Commits
+**Record:** Requires only `CONFIG_LD_IS_LLD` from `init/Kconfig`, which
+exists in 6.18.44. No other dependencies. Applies cleanly as a one-line
+addition.
 
 ---
 
-## Phase 8: Impact and Risk Assessment
+## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
-**Step 8.1 — Affected users:** Users with `CONFIG_AFFS_FS` who mount or
-auto-probe AFFS on block devices where `sb_set_blocksize()` fails.
+### Step 4.1: Original Patch Discussion
+**Record:** `b4 dig` with message-id failed (wrong invocation syntax).
+Lore.kernel.org fetch blocked by anti-bot protection. Could not read
+thread discussion directly.
 
-**Step 8.2 — Trigger:** Mount/probe on devices with sector size >
-`PAGE_SIZE`, or blocksize/LBA mismatches; more likely on large-page
-architectures or during multi-FS probe on unusual block devices.
+### Step 4.2: Reviewers
+**Record:** Acked-by Nathan Chancellor (LLVM/kbuild) and Reviewed-by
+Andreas Larsson (sparc maintainer) — appropriate reviewers for this
+change.
 
-**Step 8.3 — Failure mode:** Kernel `BUG()` in `folio_set_bh()` —
-**CRITICAL** severity when triggered.
+### Step 4.3: Bug Report
+**Record:** No external bug report or syzbot link. Failure is
+reproducible from the commit message's described build command (`LLVM=1
+sparc64 allmodconfig`).
 
-**Step 8.4 — Risk/benefit:**
-- Benefit: Prevents kernel panic; converts crash to clean `-EINVAL`
-  mount failure
-- Risk: Very low (2 error checks + wrapper removal)
-- Ratio: Strongly favorable
+### Step 4.4: Related Patches/Series
+**Record:** Standalone 1-patch fix. Direct precedent: s390 uses the same
+pattern:
+
+```507:514:arch/s390/Kconfig
+config COMPAT
+        def_bool n
+        prompt "Kernel support for 31 bit emulation"
+        ...
+        depends on MULTIUSER
+        depends on !CC_IS_CLANG && !LD_IS_LLD
+```
+
+### Step 4.5: Stable Mailing List History
+**Record:** Could not search lore (blocked). No evidence of prior stable
+discussion found.
 
 ---
 
-## Phase 9: Final Synthesis
+## PHASE 5: CODE SEMANTIC ANALYSIS
 
-**Evidence FOR:**
-- Real, reproduced crash (author's 64K loop-device probe testing)
-- Kernel BUG/panic on mount
-- Small, obviously correct fix
-- Matches established patterns in this tree
-- Prerequisites present in 6.18.y
-- Reviewed (Acked-by David Sterba) and merged to mainline
-- Bug present since 2.6 in code that exists in this tree
+### Step 5.1: Key Functions
+**Record:** Kconfig symbol `COMPAT` in `arch/sparc/Kconfig`; build
+impact via `arch/sparc/vdso/Makefile` line 14: `obj-$(CONFIG_COMPAT) +=
+vdso-image-32.o`
 
-**Evidence AGAINST:**
-- AFFS is rarely used (niche legacy FS)
-- Trigger conditions are uncommon on typical 4K-page desktops
-- Not a security CVE, but mount-triggered BUG is still serious
+### Step 5.2: Callers / Impact Surface
+**Record:** COMPAT enables 32-bit userspace syscall emulation on sparc64
+(sys_sparc32.c, signal32.c, vdso32, etc.). Only disabled when
+`LD_IS_LLD` is true — a build-time Kconfig decision, not a runtime code
+path.
 
-**Stable rules checklist:**
-1. Obviously correct and tested? **PASS** — author tested; reviewer
-   acked
-2. Fixes real bug affecting users? **PASS** — confirmed crash on mount
-   probe
-3. Important issue? **PASS** — kernel BUG/panic (CRITICAL)
-4. Small and contained? **PASS** — ~11 lines, 2 files
-5. No new features/APIs? **PASS**
-6. Can apply to local tree? **PASS** — clean apply expected
+### Step 5.3: Callees
+**Record:** When COMPAT=y, vdso build invokes `$(LD)` with `-m
+elf32_sparc`. With LLD, this fails at link time.
 
-**Exception category:** None (standard bug fix).
+### Step 5.4: Reachability
+**Record:** Triggered by any developer/CI building `LLVM=1` sparc64
+kernel with LLD (default with LLVM=1). Not userspace-triggerable at
+runtime; build-time only.
+
+### Step 5.5: Similar Patterns
+**Record:** `arch/arm/mm/Kconfig` (`CPU_BIG_ENDIAN depends on
+!LD_IS_LLD`), `arch/arm/Kconfig.platforms`, and `arch/s390/Kconfig`
+(`COMPAT depends on !CC_IS_CLANG && !LD_IS_LLD`) — established pattern
+for gating features LLD cannot support.
+
+---
+
+## PHASE 6: CROSS-REFERENCING AGAINST LOCAL TREE (6.18.44)
+
+### Step 6.1: Does the Buggy Code Exist?
+**Record:** **YES.** `arch/sparc/Kconfig` lacks `depends on !LD_IS_LLD`
+on COMPAT. vdso32 build with `elf32_sparc` is present.
+`CONFIG_LD_IS_LLD` exists in `init/Kconfig`. The fix commit itself is
+**not yet** in this tree.
+
+### Step 6.2: Backport Complications
+**Record:** **Clean apply** — single line insertion after `depends on
+SPARC64`. No conflicting changes in recent `arch/sparc/Kconfig` history.
+
+### Step 6.3: Related Fixes Already Present?
+**Record:** No equivalent fix found (`git log -S "depends on !LD_IS_LLD"
+-- arch/sparc/Kconfig` returned nothing). s390's analogous guard exists
+but sparc does not.
+
+---
+
+## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+
+### Step 7.1: Subsystem Criticality
+**Record:** `arch/sparc` — **PERIPHERAL** architecture (niche hardware),
+but kbuild/toolchain interaction affects kernel builders.
+
+### Step 7.2: Subsystem Activity
+**Record:** Active LLVM/toolchain work on sparc in this tree
+(R_SPARC_UA64 relocation, Sep 2025), indicating LLVM sparc builds are a
+real and growing concern.
+
+---
+
+## PHASE 8: IMPACT AND RISK ASSESSMENT
+
+### Step 8.1: Who Is Affected
+**Record:** **Config-specific** — sparc64 kernel builders using `LLVM=1`
+with LLD. Not general runtime users. Relevant to CI, distro builders,
+and developers adopting LLVM toolchains on SPARC.
+
+### Step 8.2: Trigger Conditions
+**Record:** `LLVM=1` + sparc64 + LLD linker + config that enables COMPAT
+(default y on sparc64). Reproducible on `allmodconfig`. Not timing-
+dependent.
+
+### Step 8.3: Failure Mode Severity
+**Record:** **Build failure** (hard error at link stage) — severity
+**MEDIUM** for affected builders (cannot complete kernel build), **LOW**
+for runtime/production users (no oops, corruption, or security issue).
+
+### Step 8.4: Risk-Benefit Ratio
+**Record:**
+- **Benefit:** Unblocks LLVM+LLD sparc64 kernel builds; aligns with
+  active LLVM enablement work in tree; follows s390 precedent.
+- **Risk:** Very low — 1-line Kconfig guard; only changes behavior for
+  builds that already fail.
+- **Ratio:** Favorable for backport as a build fix.
+
+---
+
+## PHASE 9: FINAL SYNTHESIS
+
+### Step 9.1: Evidence Summary
+
+**FOR backport:**
+- Explicit build fix — listed in `Documentation/process/stable-kernel-
+  rules.rst` as valid stable material
+- Reproducible, documented failure (`elf32_sparc` unsupported by LLD)
+- 1-line, obviously correct, maintainer-reviewed
+- Direct precedent on s390 (`COMPAT depends on !LD_IS_LLD`)
+- Bug exists in 6.18.44; applies cleanly
+- LLVM sparc support actively being developed in this tree
+
+**AGAINST backport:**
+- Very niche audience (sparc64 + LLVM + LLD)
+- No runtime user impact — only affects kernel builders
+- LLD builds lose 32-bit compat (acceptable workaround)
+
+**Unresolved:**
+- Full lore.kernel.org review thread (blocked by anti-bot)
+- Whether any distro has filed a stable request
+
+### Step 9.2: Stable Rules Checklist
+1. Obviously correct and tested? **PASS** — Kconfig guard;
+   Acked/Reviewed by toolchain and sparc maintainers.
+2. Fixes a real bug affecting users? **PASS** — real build failure for
+   LLVM sparc64 builders.
+3. Important issue? **PASS (MEDIUM)** — build error, not
+   crash/corruption/security.
+4. Small and contained? **PASS** — 1 line, 1 file.
+5. No new features or APIs? **PASS** — Kconfig dependency only.
+6. Can apply to local tree? **PASS** — clean one-line apply to 6.18.44.
+
+### Step 9.3: Exception Categories
+**Record:** **Build fix** — explicitly qualifies under stable kernel
+rules.
+
+### Step 9.4: Decision Rationale
+
+This commit fixes a reproducible build failure when compiling a sparc64
+kernel with `LLVM=1` and LLD. The failure occurs because `CONFIG_COMPAT`
+(default y) triggers building the 32-bit vDSO with `elf32_sparc`
+emulation, which LLD does not support. The fix is a one-line Kconfig
+guard matching an established pattern on s390 and arm.
+
+While the affected audience is small (sparc64 LLVM builders), stable
+kernel rules explicitly include build errors as backport-worthy, and
+LLVM toolchain adoption on sparc is actively progressing in this 6.18.y
+tree. The fix is minimal, reviewed by both the sparc and LLVM
+maintainers, and carries negligible regression risk.
 
 ---
 
 ## Verification
 
-- [Phase 1] Parsed commit message and tags from provided diff and `git
-  show 0861182af5983`
-- [Phase 2] Diff analysis: 2 files, `affs_fill_super()` only; adds
-  `sb_set_blocksize()` failure checks
-- [Phase 3] `git describe HEAD`: v6.18.44
-- [Phase 3] `git blame` lines 360–376: bug since `1da177e4c3f41`
-  (2.6.12)
-- [Phase 3] `git merge-base --is-ancestor 0861182af5983 HEAD`: NOT in
-  tree
-- [Phase 3] `git merge-base --is-ancestor a64e5a596067b HEAD`: PAGE_SIZE
-  check present
-- [Phase 3] `git merge-base --is-ancestor 465e5e6a1698f HEAD`:
-  `folio_set_bh` BUG_ON present
-- [Phase 3] Read `block/bdev.c:220-230`: `sb_set_blocksize()` returns 0
-  on failure
-- [Phase 3] Read `fs/buffer.c:1578-1582`: `folio_set_bh()` BUG_ON
-  confirmed
-- [Phase 4] `b4 dig -c 0861182af5983`: thread at
-  patch.msgid.link/20260511071701.2456211-7-hch@lst.de
-- [Phase 4] `b4 dig -a`: v1 series, patch 6/10
-- [Phase 4] `b4 dig -w`: Viro, Brauner, fsdevel CC'd
-- [Phase 4] Mbox: cover letter confirms 64K loop-device crash during FS
-  probe; David Sterba Acked-by
-- [Phase 5] `affs_fill_super` called from `get_tree_bdev()` at
-  `fs/affs/super.c:583`
-- [Phase 5] `sb_bread` → `__bread_gfp` uses `sb->s_blocksize` per
-  `include/linux/buffer_head.h:344-346`
-- [Phase 6] Buggy `affs_set_blocksize()` wrapper confirmed at
-  `fs/affs/affs.h:228-232`
-- [Phase 6] AFFS lacks `FS_LBS` flag (`fs/affs/super.c:651`)
-- [Phase 8] Failure mode: BUG_ON in `folio_set_bh` — CRITICAL
+- [Phase 1] Parsed subject, tags, body; identified as build-fix with
+  maintainer review
+- [Phase 2] Confirmed 1-line diff in `arch/sparc/Kconfig`; verified
+  `elf32_sparc` in `arch/sparc/vdso/Makefile:64` and COMPAT→vdso32
+  linkage at `Makefile:14`
+- [Phase 3] `git describe HEAD`: v6.18.44; `git blame` COMPAT lines to
+  2008; `CONFIG_LD_IS_LLD` present since b744b43f79cc7 (2020)
+- [Phase 3] Related commit `05457d96175d2` (LLVM R_SPARC_UA64) present
+  in tree, confirming active LLVM sparc work
+- [Phase 3] `git log -S "depends on !LD_IS_LLD" -- arch/sparc/Kconfig`:
+  no results — fix not present
+- [Phase 4] `b4 dig` with message-id: failed (syntax error);
+  lore.kernel.org: blocked by anti-bot
+- [Phase 4] Verified s390 precedent at `arch/s390/Kconfig:514` (`depends
+  on !CC_IS_CLANG && !LD_IS_LLD`)
+- [Phase 5] Traced COMPAT → vdso32 build path via Makefile and Kconfig
+- [Phase 6] Confirmed buggy Kconfig state in 6.18.44; fix not yet
+  applied; clean apply expected
+- [Phase 8] Assessed as build-time failure, MEDIUM severity for
+  builders, LOW runtime risk
+- UNVERIFIED: Full mailing list review thread content (lore blocked)
+- UNVERIFIED: Whether commit has landed in mainline (evaluated as
+  candidate for this 6.18.y tree)
 
-This fix prevents a kernel BUG during AFFS mount when
-`sb_set_blocksize()` fails — a scenario the author reproduced during
-filesystem probing on a 64K-sector block device. The change is minimal,
-matches patterns already used by other filesystems in 6.18.y, and all
-prerequisites are present in this tree.
+**YES**
 
-**YES**The background search finished while the AFFS backport analysis
-was already done. It didn’t turn up the `affs: handle set_blocksize
-failures` commit in this tree (expected — it’s only on mainline as
-`0861182af5983`), and the mbox search didn’t find a local copy of the
-patch thread.
+ arch/sparc/Kconfig | 1 +
+ 1 file changed, 1 insertion(+)
 
-**Verdict from the analysis: YES** — the fix should be backported to
-this 6.18.y tree. It’s a small, low-risk change that prevents a kernel
-BUG during AFFS mount when `sb_set_blocksize()` fails, and the buggy
-code is still present here.
-
- fs/affs/affs.h  | 5 -----
- fs/affs/super.c | 6 ++++--
- 2 files changed, 4 insertions(+), 7 deletions(-)
-
-diff --git a/fs/affs/affs.h b/fs/affs/affs.h
-index ac4e9a02910b7..99e54e3453ac1 100644
---- a/fs/affs/affs.h
-+++ b/fs/affs/affs.h
-@@ -225,11 +225,6 @@ static inline bool affs_validblock(struct super_block *sb, int block)
- 	       block < AFFS_SB(sb)->s_partition_size);
- }
- 
--static inline void
--affs_set_blocksize(struct super_block *sb, int size)
--{
--	sb_set_blocksize(sb, size);
--}
- static inline struct buffer_head *
- affs_bread(struct super_block *sb, int block)
- {
-diff --git a/fs/affs/super.c b/fs/affs/super.c
-index 44f8aa883100e..994f1199beaf1 100644
---- a/fs/affs/super.c
-+++ b/fs/affs/super.c
-@@ -357,7 +357,8 @@ static int affs_fill_super(struct super_block *sb, struct fs_context *fc)
- 	size = bdev_nr_sectors(sb->s_bdev);
- 	pr_debug("initial blocksize=%d, #blocks=%d\n", 512, size);
- 
--	affs_set_blocksize(sb, PAGE_SIZE);
-+	if (!sb_set_blocksize(sb, PAGE_SIZE))
-+		return -EINVAL;
- 	/* Try to find root block. Its location depends on the block size. */
- 
- 	i = bdev_logical_block_size(sb->s_bdev);
-@@ -373,7 +374,8 @@ static int affs_fill_super(struct super_block *sb, struct fs_context *fc)
- 		if (ctx->root_block < 0)
- 			sbi->s_root_block = (ctx->reserved + size - 1) / 2;
- 		pr_debug("setting blocksize to %d\n", blocksize);
--		affs_set_blocksize(sb, blocksize);
-+		if (!sb_set_blocksize(sb, blocksize))
-+			return -EINVAL;
- 		sbi->s_partition_size = size;
- 
- 		/* The root block location that was calculated above is not
+diff --git a/arch/sparc/Kconfig b/arch/sparc/Kconfig
+index a630d373e6453..454782ac54b26 100644
+--- a/arch/sparc/Kconfig
++++ b/arch/sparc/Kconfig
+@@ -470,6 +470,7 @@ endmenu
+ config COMPAT
+ 	bool
+ 	depends on SPARC64
++	depends on !LD_IS_LLD
+ 	default y
+ 	select HAVE_UID16
+ 	select ARCH_WANT_OLD_COMPAT_IPC
 -- 
 2.53.0
 
