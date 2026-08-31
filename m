@@ -1,46 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2288F572672;
-	Mon, 31 Aug 2026 13:48:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9644647013F;
+	Mon, 31 Aug 2026 13:48:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788184132; cv=none; b=qXba0rTC3XA3YJ5peX8ial6VY2cqqqEtu0Vn3k9hzgMh8kBDyl+gNDrt56xv4Mq5m2ApHwz9Zd90EG2YzFRI2nnBa02QZYzEiRm11RF01DzQfWfuG4qbHRvvzJ3SKkBtJM8S3Z5fyRXkKnWxEF2NSB7Ii2WC6cNMUJ8LYURAPNA=
+	t=1788184135; cv=none; b=GCKHCwbhoOEyX8P8EyObe+crxpFYMdrIqi13RkBo8ufmrjmurbOUVNmwWVClhNf1KpwFIULA4bHfRAet/ZcsQLYf4pOCwng+GIFjZXF2D0ygY4oXBvnCJ8ZAaBeiqIA/+3yC2hl7WRtHIKv1ZvezPVEjT2xHptBIeh/lhXltZww=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788184132; c=relaxed/simple;
-	bh=1KeNuuyqLcH9vUjKg/oWgSfTXZZDy1XWtee9MW4S4e8=;
+	s=arc-20240116; t=1788184135; c=relaxed/simple;
+	bh=43XdvBZIXnEtZ7bXoHLMHYwlygpWxKt49tSwN52yY5s=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=jRdRp1LzTXJmQEtfuWWu5g60wC83bLm5BthXSNvBCSvKmiQDamPDgvU6ZJkJJWKyjGYqOkkua1eu3JGkBd02gKtZgWU487M7fD1qXsiXuDb2sFXfmp7U9V2eSgW7gi/lVYCZS4D1eb5TApF0b2PIWmennX1OqSSCkL2KVUcnKiM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HrQRVHJy; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=M+i9Y9W8PEzre41nfYWSowm6youQbDobX6Gg7xuPlIYoQ0XbMYg9XTq3Trp5+q5Jlh03xK4czK5MIVGA4fB6V67Vg1Ux3TSBXgFQmWLmeytT8bYtDvEqVOaMtqpbXrdHv79qHmWoEG09TEk3SpfZYChD9UgWKvCItM7+xTO0q1Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=leLkA3W3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HrQRVHJy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45A9B1F00ACA;
-	Mon, 31 Aug 2026 13:48:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="leLkA3W3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 627881F00ACF;
+	Mon, 31 Aug 2026 13:48:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788184129;
-	bh=4XpzPWRoQGI3w2t017OesPnubq7Sn2y171fQixsOjZE=;
+	s=k20260515; t=1788184132;
+	bh=c2ZdKldU5FcP/3B2lyQTye4/dO04aD45VcbKM3gltdg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=HrQRVHJyzY9YgtSfeTNq05FH2Zeqq4fniuB8E8FMDYbcXRFNlldeItVxO4G6FQ2lq
-	 ndOdgYcG5IL40zYvozlGRYIDVZy9N/1kuNVIEyl5v8UVvnn1pZ1Um+tJy3NYkQyNzL
-	 tdz+xzFa+FMx1HXG6dohxPop0IpH4qfcpdQxpmcloY/6Nsndc7vMxbbE80tTKjQy5+
-	 /IRSikofYTJ9IaOkfYvX6lamJtN4gWpJmhDFaFGqGXiJJO8/uK7ioAbOR0JxCjP6hy
-	 pXu/rjBz1U2Vda59rANLLHJNohhIpZt9VIWlg1wUTeI0T9iDthPVZ1WfLEmvwgXOKw
-	 gRgRghuBP1VRg==
+	b=leLkA3W33PDnD7Fw/m2gFnSp1ffAPoAtVyRgRF37Z9WPQFvsWVn7GMNjVCpqz4RD9
+	 d07G/vPuD+aJSn+vNATR61NsjBvWI4tUZOTMAEoe4ocLkz3PEavTIKwAORmEKuGBU8
+	 CQPnTzkbhvfT90eQ3aWavFHSE2KqFku1CCCoagdhJV7eUo24MJNdXVGoEIo7OHV3eG
+	 8yqxEw6LsfITwhiwsBd2NVIg+I3KWKi4OIVmXs+gGF9a3S0oZ9h82Bx90QXdzjG6JY
+	 A9R8K7Sw7I/WRO92NIXarQcaBiz4NeT6kwXoooTBcbYg96Pysf+7fjFo8mz6BL1a/B
+	 D6kDGgWSVbmgg==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Yunxiang Li <Yunxiang.Li@amd.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
+Cc: Xu Rao <raoxu@uniontech.com>,
+	Damien Le Moal <dlemoal@kernel.org>,
+	Niklas Cassel <cassel@kernel.org>,
 	Sasha Levin <sashal@kernel.org>,
-	christian.koenig@amd.com,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
+	linux-ide@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18] drm/amdgpu/ras: add ras_suspend callback and use it for cp_ecc_error_irq
-Date: Mon, 31 Aug 2026 09:28:57 -0400
-Message-ID: <20260831133314.4125787-509-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-5.10] ata: libata-pmp: add JMicron JMS562 quirk
+Date: Mon, 31 Aug 2026 09:28:59 -0400
+Message-ID: <20260831133314.4125787-511-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -56,558 +53,387 @@ X-stable-base: Linux 6.18.48
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Yunxiang Li <Yunxiang.Li@amd.com>
+From: Xu Rao <raoxu@uniontech.com>
 
-[ Upstream commit e3829992dd9fa0a82511af4f01733fc854cd15a5 ]
+[ Upstream commit c62aff1174cf88e10716c7513702443c47551fc6 ]
 
-cp_ecc_error_irq is acquired in amdgpu_gfx_ras_late_init() but
-released in gfx_v9_0_hw_fini(), so the put site has to query
-amdgpu_irq_enabled() because the get is skipped on SR-IOV VF.
+JMicron JMS562, as used in QNAP QDA-A2AR RAID1 adapters, may
+keep the exported ATA device not ready while the array is rebuilding.
 
-ras_late_init / ras_fini have no suspend counterpart, so move the
-put to amdgpu_gfx_ras_suspend() / amdgpu_gfx_ras_fini() and add a
-matching ras_suspend callback that is invoked from
-amdgpu_ras_suspend() before disable_all_features().  The get and
-put now sit in the same place and check the same condition (not
-VF, funcs registered), no refcount querying needed.
+In this state, libata may repeatedly try to softreset and classify
+the fan-out link.  On the affected adapter, this can time out, make
+PMP/SCR access fail, and eventually disable the fan-out link before
+the RAID volume is exported.
 
-An active flag gates ras_fini so the
-suspend-then-unload-without-resume path falls into
-amdgpu_ras_block_late_fini_default() instead of double-releasing
-what ras_suspend already cleaned up.
+A failing boot shows the fan-out link failing SRST, PMP access
+timing out, SCR read failing, and the link being disabled:
 
-Drop the cp_ecc_error_irq put from gfx_v9_0_hw_fini().  gfx_v8_0
-manages cp_ecc_error_irq locally and is unaffected; no other GFX
-generation has this IRQ.
+  ata4.00: softreset failed (device not ready)
+  ata4.15: qc timeout after 3000 msecs (cmd 0xe4)
+  ata4.00: failed to read SCR 0 (Emask=0x4)
+  ata4.00: failed to recover link after 3 tries, disabling
 
-Signed-off-by: Yunxiang Li <Yunxiang.Li@amd.com>
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+After that, the root filesystem on the exported RAID volume cannot
+be found.
+
+Add JMS562 to the existing JMicron PMP quirk that disables LPM,
+avoids softreset on fan-out links, and assumes an ATA device.  This
+prevents libata from dropping the exported RAID volume during rebuild
+recovery.
+
+Signed-off-by: Xu Rao <raoxu@uniontech.com>
+Reviewed-by: Damien Le Moal <dlemoal@kernel.org>
+Signed-off-by: Niklas Cassel <cassel@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-# Stable Backport Analysis: `drm/amdgpu/ras: add ras_suspend callback
-and use it for cp_ecc_error_irq`
+## Phase 1: Commit Message Forensics
 
-**Local tree:** Linux **6.18.44** (`git describe HEAD` → `v6.18.44`)
-**Upstream commit:** `e3829992dd9fa` (not present in this tree; cherry-
-pick applies cleanly)
-
----
-
-## PHASE 1: COMMIT MESSAGE FORENSICS
-
-**Step 1.1 — Subject parse**
-Record: `[drm/amdgpu/ras]` — **add** (lifecycle fix disguised as
-infrastructure) — add `ras_suspend` callback and relocate
-`cp_ecc_error_irq` put to match its get site.
+**Step 1.1 — Subject line**
+- Record: `[ata: libata-pmp] [add] JMicron JMS562 quirk for QNAP
+  QDA-A2AR RAID adapter boot failure during array rebuild`
 
 **Step 1.2 — Tags**
-Record:
-- `Signed-off-by: Yunxiang Li <Yunxiang.Li@amd.com>` (author)
-- `Acked-by: Alex Deucher <alexander.deucher@amd.com>` (subsystem
-  maintainer)
-- `Signed-off-by: Alex Deucher <alexander.deucher@amd.com>` (committer)
-- No `Fixes:`, `Reported-by:`, `Link:`, `Cc: stable@vger.kernel.org`,
-  `Tested-by:`, or `Reviewed-by:`
-
-Notable: maintainer Ack from Alex Deucher is a strong quality signal.
+- Record:
+  - `Signed-off-by: Xu Rao <raoxu@uniontech.com>` (author)
+  - `Reviewed-by: Damien Le Moal <dlemoal@kernel.org>` (libata
+    maintainer)
+  - `Signed-off-by: Niklas Cassel <cassel@kernel.org>` (committer)
+  - No `Fixes:`, `Reported-by:`, `Tested-by:`, `Cc:
+    stable@vger.kernel.org`, or `Link:` tags
+  - Notable: maintainer review from Damien Le Moal; no syzbot/fuzzer
+    involvement
 
 **Step 1.3 — Body analysis**
-Record:
-- **Bug:** `cp_ecc_error_irq` is acquired in
-  `amdgpu_gfx_ras_late_init()` but released in `gfx_v9_0_hw_fini()`,
-  with mismatched conditions (get skipped on SR-IOV VF; put uses broader
-  RAS-support check).
-- **Symptom:** `amdgpu_irq_put()` called when IRQ was never acquired →
-  `WARN_ON(!amdgpu_irq_enabled())` in `amdgpu_irq.c:637`.
-- **Root cause:** No suspend counterpart to `ras_late_init`/`ras_fini`;
-  get/put live in different subsystems with different guards.
-- **Fix approach:** Add `ras_suspend` callback, move put to
-  `amdgpu_gfx_ras_suspend()`/`amdgpu_gfx_ras_fini()` with matching `!VF
-  && funcs` condition; add `active` flag to avoid double-release on
-  suspend-then-unload path.
+- Record:
+  - **Bug:** JMicron JMS562 PMP (QNAP QDA-A2AR RAID1 adapter) keeps
+    exported ATA device "not ready" during RAID rebuild
+  - **Symptom:** libata repeatedly softresets/classifies fan-out link →
+    PMP/SCR timeouts → link disabled → root filesystem on RAID volume
+    not found at boot
+  - **Failure log:** `softreset failed (device not ready)`, `qc
+    timeout`, `failed to read SCR 0`, `failed to recover link after 3
+    tries, disabling`
+  - **Root cause:** Missing quirk; libata error-handling path
+    incompatible with JMS562 behavior during rebuild
+  - **Fix approach:** Add device ID `0x0562` to existing JMicron quirk
+    block (disable LPM, avoid SRST, assume ATA)
+  - **Version info:** None stated in commit message
 
-**Step 1.4 — Hidden bug fix?**
-Record: **Yes.** Despite "add callback" wording, this is a reference-
-counting / lifecycle bug fix. It corrects asymmetric IRQ get/put that
-can trigger kernel warnings and incorrect teardown ordering.
+**Step 1.4 — Hidden bug fix detection**
+- Record: Not hidden — this is an explicit hardware quirk fix. "Add
+  quirk" language is standard for ATA PMP workarounds; the commit
+  clearly describes a real boot failure.
 
 ---
 
-## PHASE 2: DIFF ANALYSIS
+## Phase 2: Diff Analysis
 
 **Step 2.1 — Inventory**
-Record:
-| File | Change |
-|------|--------|
-| `amdgpu_gfx.c` | +26/-4 |
-| `amdgpu_gfx.h` | +3/-1 |
-| `amdgpu_ras.c` | +32/-4 |
-| `amdgpu_ras.h` | +1 |
-| `gfx_v9_0.c` | -2 |
-| **Total** | +53/-11, 5 files |
+- Record:
+  - Files: `drivers/ata/libata-pmp.c` (+6, -1)
+  - Function: `sata_pmp_quirks()`
+  - Scope: Single-file, surgical quirk addition (~7 lines net)
 
-Functions modified: `amdgpu_gfx_ras_late_init`, new
-`amdgpu_gfx_ras_suspend`, new `amdgpu_gfx_ras_fini`,
-`amdgpu_gfx_ras_sw_init`, `amdgpu_ras_suspend`, `amdgpu_ras_late_init`,
-`amdgpu_ras_fini`, `gfx_v9_0_hw_fini`.
-
-Scope: **single-subsystem, surgical** (amdgpu RAS/GFX9).
-
-**Step 2.2 — Code flow per hunk**
-
-| Hunk | Before → After |
-|------|----------------|
-| `amdgpu_gfx_ras_late_init` | VF early-return then separate `irq_get` →
-combined `!VF && funcs` guard for `irq_get` |
-| New `amdgpu_gfx_ras_suspend` | No suspend cleanup → `irq_put` with
-same guard as get |
-| New `amdgpu_gfx_ras_fini` | No gfx-specific fini (header-only orphan
-declaration) → `irq_put` + `amdgpu_ras_block_late_fini` |
-| `amdgpu_gfx_ras_sw_init` | Only sets `ras_late_init` → also sets
-default `ras_suspend` and `ras_fini` |
-| `amdgpu_ras_suspend` | Only disables RAS features → iterates blocks,
-calls `ras_suspend`, clears `active` |
-| `amdgpu_ras_late_init` | No tracking → sets `node->active = true`
-after successful late_init |
-| `amdgpu_ras_fini` | Always calls custom `ras_fini` if supported →
-gated by `ras_node->active` to avoid double-cleanup after suspend |
-| `gfx_v9_0_hw_fini` | `irq_put(cp_ecc_error_irq)` if RAS supported →
-removed (now handled in RAS layer) |
+**Step 2.2 — Code flow change**
+- Record:
+  - **Before:** JMicron vendor `0x197b` quirk applied only to device IDs
+    `0x2352` (JMB350) and `0x0325` (JMB394)
+  - **After:** Same quirk also applied to `0x0562` (JMS562)
+  - **Affected path:** PMP attach → `sata_pmp_quirks()` → per-link flags
+    set at initialization, before normal I/O
+  - **Flags set:** `ATA_LFLAG_NO_LPM | ATA_LFLAG_NO_SRST |
+    ATA_LFLAG_ASSUME_ATA` on all fan-out links
 
 **Step 2.3 — Bug mechanism**
-Record: **Reference counting / resource lifecycle bug.**
-- Get: `amdgpu_irq_get()` in `amdgpu_gfx_ras_late_init()` — only when
-  `!amdgpu_sriov_vf(adev) && cp_ecc_error_irq.funcs`.
-- Put (current tree): `amdgpu_irq_put()` in `gfx_v9_0_hw_fini()` — when
-  `amdgpu_ras_is_supported(adev, AMDGPU_RAS_BLOCK__GFX)` only.
-- On SR-IOV VF with RAS telemetry enabled, late_init runs (see
-  `amdgpu_ras_late_init` VF check) but gfx `irq_get` is skipped; hw_fini
-  still calls `irq_put` before the VF early-return → `WARN_ON` in
-  `amdgpu_irq_put()`.
+- Record:
+  - **Category:** Hardware workaround / logic correctness fix
+  - **Mechanism:** Without quirk, libata performs softreset (SRST) and
+    link classification on a device that legitimately reports "not
+    ready" during RAID rebuild. SRST/classify timeouts trigger error
+    recovery that disables the link before the RAID volume becomes
+    available. Quirk prevents SRST and assumes ATA class, matching
+    proven JMicron PMP behavior.
 
 **Step 2.4 — Fix quality**
-Record: Fix is **obviously correct** — symmetric get/put with identical
-conditions, proper suspend hook, `active` flag prevents double-release.
-Minimal regression risk: no blocks currently register custom `ras_fini`
-in this tree (verified via grep), so the `active` flag behavior only
-affects the newly registered gfx callbacks.
+- Record:
+  - Obviously correct: extends an existing, proven quirk pattern for the
+    same vendor
+  - Minimal scope: one device ID + comment
+  - Low regression risk: only affects JMS562 PMP hardware; flags mirror
+    those already used for sibling JMicron chips
+  - No API, structure, or behavioral changes beyond this device
 
 ---
 
-## PHASE 3: GIT HISTORY INVESTIGATION
+## Phase 3: Git History Investigation
 
 **Step 3.1 — Blame**
-Record:
-- `gfx_v9_0_hw_fini` put lines: `d97b02bb9c7aa` (May 2023) — prior fix
-  for put-without-get when legacy GFX RAS disabled; did not fix VF
-  condition mismatch.
-- `irq_get` in `amdgpu_gfx_ras_late_init`: `6caeee7a708c0` (Sep 2019).
-- Buggy asymmetric lifecycle present since **v5.x** era; still present
-  in **6.18.44**.
+- Record:
+  - JMicron quirk block introduced by `0afc6f5ba9541` (2011, Thermaltake
+    BlackX Duet / JMB350)
+  - JMB394 added by `efb9e0f4f4378` (2014) — that commit included `Cc:
+    stable@vger.kernel.org`
+  - Current tree has the quirk for `0x2352` and `0x0325` but not
+    `0x0562`
+  - Bug is not from a recent regression — it's a missing quirk for
+    hardware that was never covered
 
 **Step 3.2 — Fixes: tag**
-Record: Not applicable (no `Fixes:` tag). Related prior fix
-`d97b02bb9c7aa` is in this tree but incomplete for the VF/get-put
-mismatch.
+- Record: No `Fixes:` tag present; not applicable.
 
-**Step 3.3 — File history**
-Record: Part of 2-patch series `[PATCH 0/2] drm/amdgpu: balance GFX IRQ
-get/put across init/suspend/fini`. This commit is **patch 1/2** and is
-**self-contained** for `cp_ecc_error_irq`. Patch 2/2 (`9117d8be850ba` on
-master) addresses fault/EOP IRQs separately and is **not a
-prerequisite**.
+**Step 3.3 — Related file history**
+- Record:
+  - Recent `libata-pmp.c` changes in this tree are unrelated (FBS/CBS
+    defer, tracepoints, spelling)
+  - Commit `c62aff1174cf8` is the only mainline change to this quirk
+    block since v6.18
+  - Standalone: v2 submission notes "sent as [PATCH 6/6], but this is a
+    standalone patch"
 
 **Step 3.4 — Author context**
-Record: Yunxiang Li is an AMD contributor. Alex Deucher (maintainer)
-Acked and committed.
+- Record: Xu Rao (UnionTech) — first ATA contribution in this tree.
+  Patch reviewed and committed by libata maintainers (Damien Le Moal,
+  Niklas Cassel).
 
 **Step 3.5 — Dependencies**
-Record: **Standalone.** Cherry-pick to 6.18.44 applies cleanly with
-auto-merge. No prerequisite commits required.
+- Record: No dependencies. `git apply --check` against current tree
+  succeeds. Quirk infrastructure and target `else if` block both exist
+  in v6.18.44.
 
 ---
 
-## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
+## Phase 4: Mailing List and External Research
 
 **Step 4.1 — Original discussion**
-Record:
-- URL:
-  https://patch.msgid.link/20260527233504.1830940-2-Yunxiang.Li@amd.com
-- Series: v1 only (no v2/v3 revisions found)
-- Patch 1/2 of 2-patch series
+- Record:
+  - Lore URL: https://patch.msgid.link/71B4D0BBEC4F886F+20260610052835.1
+    111181-1-raoxu@uniontech.com
+  - Series: v1 as `[PATCH 6/6]`, v2 as standalone `[PATCH v2]`
+    (committed version)
+  - Damien Le Moal: "It is really unfortunate that JMicron keeps having
+    these issues. But I do not see any way around this" → `Reviewed-by:`
+  - No NAKs found
+  - No explicit stable nomination in thread
 
 **Step 4.2 — Reviewers**
-Record: CC'd to `amd-gfx@lists.freedesktop.org`, Alex Deucher, Christian
-König. Alex Deucher Acked.
+- Record: CC'd to `dlemoal@kernel.org`, `cassel@kernel.org`, `linux-
+  ide@vger.kernel.org`. Reviewed by libata maintainer Damien Le Moal.
 
 **Step 4.3 — Bug report**
-Record: No external bug report or syzbot link. Mechanism is documented
-in commit message; similar prior bug (`d97b02bb9c7aa`) had stack trace
-from `gfx_v9_0_hw_fini` → `amdgpu_irq_put` during suspend.
+- Record: Real-world hardware bug on QNAP QDA-A2AR; concrete dmesg log
+  in commit message. No external bug tracker link. Severity for affected
+  users: cannot boot when root is on rebuilding RAID volume.
 
 **Step 4.4 — Related patches**
-Record: Patch 2/2 (`drm/amdgpu/gfx: move fault and EOP IRQ get/put to
-hw_init/hw_fini`) is independent. Not required for this fix.
+- Record: Originally part of a 6-patch series but maintainer confirmed
+  v2 is standalone with no code changes from v1. No other series patches
+  required.
 
 **Step 4.5 — Stable list history**
-Record: No `Cc: stable` nomination found in thread. Not a negative
-signal per instructions.
+- Record: No stable-list discussion found for this specific fix.
+  Precedent: JMB394 quirk (`efb9e0f4f4378`) was explicitly nominated for
+  stable.
 
 ---
 
-## PHASE 5: CODE SEMANTIC ANALYSIS
+## Phase 5: Code Semantic Analysis
 
 **Step 5.1 — Key functions**
-Record: `amdgpu_gfx_ras_late_init`, `amdgpu_gfx_ras_suspend`,
-`amdgpu_gfx_ras_fini`, `amdgpu_ras_suspend`, `amdgpu_ras_late_init`,
-`amdgpu_ras_fini`, `gfx_v9_0_hw_fini`, `amdgpu_irq_get`,
-`amdgpu_irq_put`.
+- Record: `sata_pmp_quirks()` (modified), called from
+  `sata_pmp_attach()`
 
 **Step 5.2 — Callers**
-Record:
-- `amdgpu_ras_suspend` ← `amdgpu_device_suspend()` (line 5261) —
-  **system suspend path**
-- `gfx_v9_0_hw_fini` ← `gfx_v9_0_suspend` ← `amdgpu_ip_block_suspend` ←
-  `amdgpu_device_ip_suspend_phase2` — **suspend and driver unload**
-- `amdgpu_ras_late_init` ← `amdgpu_device_ip_late_init` — boot and
-  **resume** (line 5365)
-- `amdgpu_ras_fini` ← `amdgpu_device_ip_fini` — driver unload
+- Record:
+  - `sata_pmp_attach()` defined in `libata-pmp.c`, called from `libata-
+    eh.c` during error-handling/recovery when attaching a PMP device
+  - Triggered during SATA PMP enumeration at boot or hot-plug
 
-**Step 5.3 — Key callees**
-Record: `amdgpu_irq_get/put` (atomic refcount on `enabled_types`),
-`amdgpu_ras_block_late_fini`, `amdgpu_ras_disable_all_features`.
+**Step 5.3 — Callees**
+- Record: Uses `sata_pmp_gscr_vendor()`, `sata_pmp_gscr_devid()`,
+  `ata_for_each_link()` — all standard libata PMP helpers
 
 **Step 5.4 — Reachability**
-Record: **Yes, reachable from normal operations:**
-- System suspend/resume (laptop, server)
-- SR-IOV VF with RAS telemetry
-- Driver unload after suspend (no resume)
-- Config: `CONFIG_DRM_AMDGPU` + GFX9 hardware + RAS enabled
+- Record: Triggered whenever a JMicron JMS562 PMP is detected. Affects
+  boot path for systems using QNAP QDA-A2AR as root storage. Not
+  userspace-triggerable directly, but affects every boot on affected
+  hardware.
 
 **Step 5.5 — Similar patterns**
-Record: Prior fix `d97b02bb9c7aa` addressed same `amdgpu_irq_put` WARN
-class for different condition (`amdgpu_ras_is_supported` vs actually
-enabled). Patch 2/2 in the series addresses similar get/put split for
-other GFX IRQs.
+- Record: Identical quirk pattern already used for JMB350 (`0x2352`) and
+  JMB394 (`0x0325`) in the same function. Same vendor, same flags, same
+  failure mode (SRST breaks detection).
 
 ---
 
-## PHASE 6: CROSS-REFERENCING AGAINST LOCAL TREE
+## Phase 6: Cross-Reference Against Local Tree
 
-**Step 6.1 — Buggy code exists?**
-Record: **Yes.** Current 6.18.44 tree has:
-- `irq_get` in `amdgpu_gfx_ras_late_init` with VF skip (lines 937-943)
-- `irq_put` in `gfx_v9_0_hw_fini` with only `amdgpu_ras_is_supported`
-  guard (lines 4087-4088)
-- No `ras_suspend` callback infrastructure
-- Orphan `amdgpu_gfx_ras_fini` declaration in header with no
-  implementation
+**Step 6.1 — Buggy code present?**
+- Record:
+  - Local tree: **v6.18.44** (`git describe HEAD`)
+  - Commit `c62aff1174cf8` is **NOT** in this tree (`git merge-base
+    --is-ancestor` → NOT)
+  - Buggy code **exists**: lines 460–472 of `drivers/ata/libata-pmp.c`
+    have JMicron quirk without `0x0562`
+  - JMicron quirk infrastructure present since v3.x era; bug is absence
+    of device ID, not post-branch regression
 
 **Step 6.2 — Backport complications**
-Record: **Clean apply** — tested via `git cherry-pick --no-commit
-e3829992dd9fa`, auto-merged all 5 files.
+- Record: Clean apply confirmed (`git apply --check` passes). No
+  conflicting changes to this hunk in v6.18.y. Expected difficulty:
+  **clean apply**.
 
 **Step 6.3 — Related fixes already present?**
-Record: `d97b02bb9c7aa` (partial fix) is in tree. This commit is not
-duplicated; it completes the lifecycle fix.
+- Record: No existing fix for JMS562 in this tree. `git log
+  --grep="JMS562"` returns nothing.
 
 ---
 
-## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+## Phase 7: Subsystem and Maintainer Context
 
-**Step 7.1 — Subsystem criticality**
-Record: `drivers/gpu/drm/amd/amdgpu` — **IMPORTANT** (AMD GPU driver,
-widely deployed on desktops, laptops, servers, cloud VF).
+**Step 7.1 — Subsystem**
+- Record: `drivers/ata/` — libata PMP (Port Multiplier). Criticality:
+  **IMPORTANT** (storage/boot path for affected hardware).
 
 **Step 7.2 — Activity**
-Record: Actively maintained; RAS subsystem receives regular fixes in
-6.18.y.
+- Record: Mature subsystem with occasional quirk additions. PMP quirk
+  table is stable; changes are typically small device-ID additions.
 
 ---
 
-## PHASE 8: IMPACT AND RISK ASSESSMENT
+## Phase 8: Impact and Risk Assessment
 
 **Step 8.1 — Who is affected**
-Record: Users of **AMD GFX9 GPUs** with **RAS enabled** — especially
-**SR-IOV virtual functions** with RAS telemetry, and any system using
-suspend/resume with RAS.
+- Record: Users of QNAP QDA-A2AR RAID1 adapters (JMicron JMS562 PMP)
+  booting from or accessing RAID volumes during rebuild. Driver-
+  specific, but impact is total for those users (unbootable system).
 
 **Step 8.2 — Trigger conditions**
-Record:
-- SR-IOV VF + RAS telemetry + suspend → **high likelihood** of
-  `amdgpu_irq_put` WARN
-- Suspend → unload without resume with new `ras_fini` → potential double
-  `irq_put` without `active` flag
-- Non-VF suspend/resume works today but has architectural fragility
+- Record: Boot or PMP attach while JMS562-managed RAID array is
+  rebuilding. Reproducible on affected hardware per commit message. Not
+  timing-dependent race — deterministic behavior mismatch.
 
-**Step 8.3 — Failure mode severity**
-Record: `WARN_ON` in `amdgpu_irq_put` during suspend — **MEDIUM**
-(kernel warning, incorrect IRQ state; not typically a panic but
-indicates broken refcounting). Suspend-then-unload double-release —
-**MEDIUM-HIGH** (refcount underflow / further WARNs).
+**Step 8.3 — Failure severity**
+- Record: Link disabled → storage unavailable → root filesystem not
+  found. **Severity: CRITICAL** for affected users (unbootable system,
+  potential data access loss during recovery window).
 
 **Step 8.4 — Risk-benefit**
-Record:
-- **Benefit:** HIGH for enterprise VF/cloud; MEDIUM for general amdgpu
-  suspend users
-- **Risk:** LOW — 53 lines, localized, maintainer-acked, applies
-  cleanly, no custom `ras_fini` handlers exist in tree to be disrupted
-- **Ratio:** Favorable
+- Record:
+  - **Benefit: HIGH** — restores bootability on real hardware with
+    documented failure mode
+  - **Risk: VERY LOW** — 7-line quirk addition, scoped to one PCI device
+    ID, mirrors existing proven quirk
+  - **Ratio: Strongly favors backport**
 
 ---
 
-## PHASE 9: FINAL SYNTHESIS
+## Phase 9: Final Synthesis
 
 **Step 9.1 — Evidence summary**
 
-| FOR backport | AGAINST backport |
-|---|---|
-| Fixes real refcounting/lifecycle bug | Part of 2-patch series (but
-patch 1 is self-contained) |
-| Triggerable on suspend (common path) | No syzbot/user report attached
-|
-| SR-IOV VF path clearly broken in current code | WARN severity, not
-panic |
-| Maintainer Acked-by Alex Deucher | |
-| Applies cleanly to 6.18.44 | |
-| Small, contained (53 lines) | |
-| Similar prior fix (`d97b02`) was stable material | |
-| Resume path re-acquires via `amdgpu_ras_late_init` in
-`amdgpu_device_resume` | |
+FOR backport:
+- Real hardware bug with concrete dmesg and boot failure
+- Hardware quirk/workaround — explicit stable exception category
+- Small, surgical, obviously correct
+- Reviewed by libata maintainer
+- Applies cleanly to v6.18.44
+- Standalone, no dependencies
+- Precedent: prior JMicron PMP quirks backported to stable
+
+AGAINST backport:
+- Affects narrow hardware population (QNAP QDA-A2AR users)
+- No syzbot/security angle
+- No explicit stable nomination
+
+UNRESOLVED: None material to the decision.
 
 **Step 9.2 — Stable rules checklist**
+1. Obviously correct and tested? **PASS** — extends existing quirk;
+   reviewed by maintainer
+2. Fixes real bug affecting users? **PASS** — boot failure on QNAP
+   QDA-A2AR
+3. Important issue? **PASS** — unbootable system / root FS unavailable
+   (CRITICAL for affected users)
+4. Small and contained? **PASS** — 7 lines, one file
+5. No new features or APIs? **PASS** — device quirk only
+6. Can apply to local tree? **PASS** — clean apply verified;
+   prerequisite code present
 
-| Criterion | Result |
-|-----------|--------|
-| 1. Obviously correct and tested? | **PASS** — symmetric lifecycle,
-maintainer ack; no explicit Tested-by |
-| 2. Fixes real bug affecting users? | **PASS** — VF suspend WARN,
-suspend/unload edge case |
-| 3. Important issue? | **PASS** — MEDIUM severity (WARN, IRQ refcount
-corruption class) |
-| 4. Small and contained? | **PASS** — 5 files, 53 insertions |
-| 5. No new features/APIs? | **PASS** — internal driver callback only |
-| 6. Can apply to local tree? | **PASS** — clean cherry-pick verified |
-
-**Step 9.3 — Exception categories**
-Record: None (not device ID, quirk, DT, build fix, or docs).
+**Step 9.3 — Exception category**
+- Record: **Hardware quirk/workaround** — adding device ID `0x0562` to
+  existing JMicron PMP quirk table
 
 **Step 9.4 — Decision rationale**
-This commit fixes a longstanding asymmetric IRQ lifecycle in the amdgpu
-RAS/GFX9 path that can trigger `WARN_ON` during system suspend on SR-IOV
-VFs and creates fragile teardown on suspend-then-unload. The fix is
-small, maintainer-reviewed, applies cleanly to 6.18.44, and the affected
-code is present in this tree. The benefit outweighs the low regression
-risk.
+
+This commit adds the JMicron JMS562 (`0x0562`) to an existing, well-
+tested PMP quirk block in `sata_pmp_quirks()`. Without it, libata's
+softreset and link-recovery logic on the QNAP QDA-A2AR adapter can
+disable the fan-out link during RAID rebuild, preventing the root
+filesystem from appearing at boot. The fix is minimal, matches the
+pattern used for other JMicron chips since 2011, applies cleanly to the
+v6.18.44 tree, and was reviewed by the libata maintainer. This is
+textbook stable material: a hardware-specific workaround for a serious,
+reproducible boot failure.
 
 ---
 
 ## Verification
 
-- [Phase 1] Parsed subject, tags, body; identified hidden refcounting
-  bug
-- [Phase 2] Analyzed all 5 file diffs; classified as reference-
-  counting/lifecycle fix
-- [Phase 3] `git blame` on `gfx_v9_0.c:4087-4088` → `d97b02bb9c7aa`
-  (2023); `irq_get` introduced `6caeee7a708c0` (2019); both ancestors in
-  tree
-- [Phase 3] `git log --grep` found commit `e3829992dd9fa` on
-  `origin/master`; not ancestor of HEAD (not in 6.18.44)
-- [Phase 3] Confirmed patch 1/2 is standalone; patch 2/2
-  (`9117d8be850ba`) is separate
-- [Phase 4] `b4 dig -c e3829992dd9fa` →
-  https://patch.msgid.link/20260527233504.1830940-2-Yunxiang.Li@amd.com
-- [Phase 4] `b4 dig -a` → v1 only
-- [Phase 4] `b4 dig -w` → CC: amd-gfx, Alex Deucher, Christian König
-- [Phase 4] No stable nomination in thread
-- [Phase 5] Traced callers: `amdgpu_device_suspend` →
-  `amdgpu_ras_suspend`; `gfx_v9_0_suspend` → `gfx_v9_0_hw_fini`
-- [Phase 5] Read `amdgpu_irq_put` at `amdgpu_irq.c:637` —
-  `WARN_ON(!amdgpu_irq_enabled())`
-- [Phase 5] Grep: no `.ras_fini =` assignments in tree (no custom
-  ras_fini handlers)
-- [Phase 6] `git describe HEAD` → v6.18.44; buggy code confirmed at
-  `amdgpu_gfx.c:937-943`, `gfx_v9_0.c:4087-4088`
-- [Phase 6] `git cherry-pick --no-commit e3829992dd9fa` → clean auto-
-  merge on all 5 files
-- [Phase 6] `amdgpu_device_resume` calls `amdgpu_device_ip_late_init` →
-  `amdgpu_ras_late_init` (re-acquires IRQ on resume)
-- [Phase 8] Failure mode: WARN_ON during VF suspend — MEDIUM severity
+- [Phase 1] Parsed commit `c62aff1174cf8`: subject, body, tags
+  (Reviewed-by: Damien Le Moal; no Fixes/Reported-by/stable tags)
+- [Phase 2] Diff: +6/-1 in `sata_pmp_quirks()`, adds `devid == 0x0562`
+  to JMicron quirk
+- [Phase 3] `git blame -L 460,472`: quirk block from 2011/2014 commits;
+  JMS562 not present
+- [Phase 3] `git show efb9e0f4f4378`: JMB394 quirk had `Cc:
+  stable@vger.kernel.org`
+- [Phase 3] `git merge-base --is-ancestor c62aff1174cf8 HEAD`: commit
+  NOT in tree
+- [Phase 3] `git apply --check` on commit diff: applies cleanly
+- [Phase 4] `b4 dig -c c62aff1174cf8`: found lore thread
+- [Phase 4] `b4 dig -a`: v1 as patch 6/6, v2 standalone (committed
+  version)
+- [Phase 4] `b4 dig -w`: CC'd dlemoal, cassel, linux-ide
+- [Phase 4] mbox: Damien Le Moal Reviewed-by, no NAKs, v2 confirmed
+  standalone
+- [Phase 5] `grep sata_pmp_attach`: caller in `libata-eh.c:3379`
+- [Phase 5] Read `include/linux/libata.h`: confirmed flag meanings for
+  NO_SRST, ASSUME_ATA, NO_LPM
+- [Phase 6] `git describe HEAD`: v6.18.44
+- [Phase 6] Read `drivers/ata/libata-pmp.c:460-472`: buggy code (missing
+  0x0562) confirmed present
+- [Phase 6] `git log v6.18..master -- drivers/ata/libata-pmp.c`: only
+  this commit touches quirk block
+- [Phase 8] Commit message dmesg: softreset failure → link disabled →
+  root FS not found
 
 **YES**
 
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 26 ++++++++++++++++----
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h |  3 ++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 32 +++++++++++++++++++++----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h |  1 +
- drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c   |  2 --
- 5 files changed, 53 insertions(+), 11 deletions(-)
+ drivers/ata/libata-pmp.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-index 40e7482980692..46c0b986db51d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-@@ -934,10 +934,7 @@ int amdgpu_gfx_ras_late_init(struct amdgpu_device *adev, struct ras_common_if *r
- 		if (r)
- 			return r;
- 
--		if (amdgpu_sriov_vf(adev))
--			return r;
--
--		if (adev->gfx.cp_ecc_error_irq.funcs) {
-+		if (!amdgpu_sriov_vf(adev) && adev->gfx.cp_ecc_error_irq.funcs) {
- 			r = amdgpu_irq_get(adev, &adev->gfx.cp_ecc_error_irq, 0);
- 			if (r)
- 				goto late_fini;
-@@ -952,6 +949,21 @@ int amdgpu_gfx_ras_late_init(struct amdgpu_device *adev, struct ras_common_if *r
- 	return r;
- }
- 
-+void amdgpu_gfx_ras_suspend(struct amdgpu_device *adev,
-+			    struct ras_common_if *ras_block)
-+{
-+	if (!amdgpu_sriov_vf(adev) && adev->gfx.cp_ecc_error_irq.funcs)
-+		amdgpu_irq_put(adev, &adev->gfx.cp_ecc_error_irq, 0);
-+}
-+
-+void amdgpu_gfx_ras_fini(struct amdgpu_device *adev,
-+			 struct ras_common_if *ras_block)
-+{
-+	if (!amdgpu_sriov_vf(adev) && adev->gfx.cp_ecc_error_irq.funcs)
-+		amdgpu_irq_put(adev, &adev->gfx.cp_ecc_error_irq, 0);
-+	amdgpu_ras_block_late_fini(adev, ras_block);
-+}
-+
- int amdgpu_gfx_ras_sw_init(struct amdgpu_device *adev)
- {
- 	int err = 0;
-@@ -980,6 +992,12 @@ int amdgpu_gfx_ras_sw_init(struct amdgpu_device *adev)
- 	if (!ras->ras_block.ras_late_init)
- 		ras->ras_block.ras_late_init = amdgpu_gfx_ras_late_init;
- 
-+	if (!ras->ras_block.ras_suspend)
-+		ras->ras_block.ras_suspend = amdgpu_gfx_ras_suspend;
-+
-+	if (!ras->ras_block.ras_fini)
-+		ras->ras_block.ras_fini = amdgpu_gfx_ras_fini;
-+
- 	/* If not defined special ras_cb function, use default ras_cb */
- 	if (!ras->ras_block.ras_cb)
- 		ras->ras_block.ras_cb = amdgpu_gfx_process_ras_data_cb;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-index fb5f7a0ee029f..8949037b62a43 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-@@ -603,7 +603,8 @@ void amdgpu_gfx_off_ctrl(struct amdgpu_device *adev, bool enable);
- void amdgpu_gfx_off_ctrl_immediate(struct amdgpu_device *adev, bool enable);
- int amdgpu_get_gfx_off_status(struct amdgpu_device *adev, uint32_t *value);
- int amdgpu_gfx_ras_late_init(struct amdgpu_device *adev, struct ras_common_if *ras_block);
--void amdgpu_gfx_ras_fini(struct amdgpu_device *adev);
-+void amdgpu_gfx_ras_suspend(struct amdgpu_device *adev, struct ras_common_if *ras_block);
-+void amdgpu_gfx_ras_fini(struct amdgpu_device *adev, struct ras_common_if *ras_block);
- int amdgpu_get_gfx_off_entrycount(struct amdgpu_device *adev, u64 *value);
- int amdgpu_get_gfx_off_residency(struct amdgpu_device *adev, u32 *residency);
- int amdgpu_set_gfx_off_residency(struct amdgpu_device *adev, bool value);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-index 4c1a65fffede7..16ae44e131ad4 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-@@ -92,6 +92,9 @@ struct amdgpu_ras_block_list {
- 	struct list_head node;
- 
- 	struct amdgpu_ras_block_object *ras_obj;
-+
-+	/* set by ras_late_init, cleared by ras_suspend/ras_fini */
-+	bool active;
- };
- 
- const char *get_ras_block_str(struct ras_common_if *ras_block)
-@@ -4392,10 +4395,23 @@ void amdgpu_ras_resume(struct amdgpu_device *adev)
- void amdgpu_ras_suspend(struct amdgpu_device *adev)
- {
- 	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
-+	struct amdgpu_ras_block_list *node;
-+	struct amdgpu_ras_block_object *obj;
- 
- 	if (!adev->ras_enabled || !con)
- 		return;
- 
-+	/* run per-block ras_suspend before tearing down the RAS context */
-+	list_for_each_entry(node, &adev->ras_list, node) {
-+		if (!node->active)
-+			continue;
-+
-+		obj = node->ras_obj;
-+		if (obj && obj->ras_suspend)
-+			obj->ras_suspend(adev, &obj->ras_comm);
-+		node->active = false;
-+	}
-+
- 	amdgpu_ras_disable_all_features(adev, 0);
- 	/* Make sure all ras objects are disabled. */
- 	if (AMDGPU_RAS_GET_FEATURES(con->features))
-@@ -4449,8 +4465,15 @@ int amdgpu_ras_late_init(struct amdgpu_device *adev)
- 					obj->ras_comm.name, r);
- 				return r;
- 			}
--		} else
--			amdgpu_ras_block_late_init_default(adev, &obj->ras_comm);
-+		} else {
-+			r = amdgpu_ras_block_late_init_default(adev, &obj->ras_comm);
-+			if (r) {
-+				dev_err(adev->dev, "%s failed to execute ras_block_late_init_default! ret:%d\n",
-+					obj->ras_comm.name, r);
-+				return r;
-+			}
-+		}
-+		node->active = true;
- 	}
- 
- 	return 0;
-@@ -4487,11 +4510,12 @@ int amdgpu_ras_fini(struct amdgpu_device *adev)
- 	list_for_each_entry_safe(ras_node, tmp, &adev->ras_list, node) {
- 		if (ras_node->ras_obj) {
- 			obj = ras_node->ras_obj;
--			if (amdgpu_ras_is_supported(adev, obj->ras_comm.block) &&
--			    obj->ras_fini)
-+			/* fall back to default cleanup if ras_suspend already ran */
-+			if (ras_node->active && obj->ras_fini)
- 				obj->ras_fini(adev, &obj->ras_comm);
- 			else
- 				amdgpu_ras_block_late_fini_default(adev, &obj->ras_comm);
-+			ras_node->active = false;
- 		}
- 
- 		/* Clear ras blocks from ras_list and free ras block list node */
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-index 6cf0dfd38be8b..8160c4d598543 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-@@ -731,6 +731,7 @@ struct amdgpu_ras_block_object {
- 	int (*ras_block_match)(struct amdgpu_ras_block_object *block_obj,
- 				enum amdgpu_ras_block block, uint32_t sub_block_index);
- 	int (*ras_late_init)(struct amdgpu_device *adev, struct ras_common_if *ras_block);
-+	void (*ras_suspend)(struct amdgpu_device *adev, struct ras_common_if *ras_block);
- 	void (*ras_fini)(struct amdgpu_device *adev, struct ras_common_if *ras_block);
- 	ras_ih_cb ras_cb;
- 	const struct amdgpu_ras_block_hw_ops *hw_ops;
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-index c5549a5abcd43..9d7214bcaadb9 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-@@ -4084,8 +4084,6 @@ static int gfx_v9_0_hw_fini(struct amdgpu_ip_block *ip_block)
- {
- 	struct amdgpu_device *adev = ip_block->adev;
- 
--	if (amdgpu_ras_is_supported(adev, AMDGPU_RAS_BLOCK__GFX))
--		amdgpu_irq_put(adev, &adev->gfx.cp_ecc_error_irq, 0);
- 	amdgpu_irq_put(adev, &adev->gfx.priv_reg_irq, 0);
- 	amdgpu_irq_put(adev, &adev->gfx.priv_inst_irq, 0);
- 	amdgpu_irq_put(adev, &adev->gfx.bad_op_irq, 0);
+diff --git a/drivers/ata/libata-pmp.c b/drivers/ata/libata-pmp.c
+index 48ac09d9031e6..299b1823e0d09 100644
+--- a/drivers/ata/libata-pmp.c
++++ b/drivers/ata/libata-pmp.c
+@@ -457,8 +457,13 @@ static void sata_pmp_quirks(struct ata_port *ap)
+ 		 * otherwise.  Don't try hard to recover it.
+ 		 */
+ 		ap->pmp_link[ap->nr_pmp_links - 1].flags |= ATA_LFLAG_NO_RETRY;
+-	} else if (vendor == 0x197b && (devid == 0x2352 || devid == 0x0325)) {
++	} else if (vendor == 0x197b &&
++		   (devid == 0x0562 || devid == 0x2352 || devid == 0x0325)) {
+ 		/*
++		 * 0x0562: JMicron JMS562, as used in QNAP QDA-A2AR RAID1
++		 *         adapters.  The exported device may stay not ready
++		 *         while the array is rebuilding, and SRST/classify can
++		 *         time out before the RAID volume is exported.
+ 		 * 0x2352: found in Thermaltake BlackX Duet, jmicron JMB350?
+ 		 * 0x0325: jmicron JMB394.
+ 		 */
 -- 
 2.53.0
 
