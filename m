@@ -1,58 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 243F84A4C37;
-	Mon, 31 Aug 2026 13:43:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18D9151FCB4;
+	Mon, 31 Aug 2026 13:43:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183835; cv=none; b=FMbB6EWeryxkIHhSsFrbIp/YWv4hCjrx1+pkBdUEGRZEGx5/dadBuwxA2gno1cbofq8Mmicf+2MOUi/qmby7BG+OyE4sjj0729qfbV26HibN2ujpCQsSUcDIo9FCedrPlBZyXmEwvWmHybwCzoVgSH5zXX5FEEY4OVqln5Bb1Lk=
+	t=1788183840; cv=none; b=kZm9JZanEMZg+IL9sp1U+KaJmGtUeBL1APpMcujl8gQRQaO8/udQRoJy4/8d+OrUp9f4DuKW/uQbsndzKv2o7SPSwzScH2o31L8e2TYWL+KW3RqBEuuVLUviVqPtTmMpkWeUYRyuqdJAHUUDkd2ZDMxGACefBqBdZZU0bRrUDGI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183835; c=relaxed/simple;
-	bh=guxvnReWjgaXVgEWIc//dRH3ZdumFVJN5IaHcZLXP48=;
+	s=arc-20240116; t=1788183840; c=relaxed/simple;
+	bh=r50iPwsBao1PFw/YVuec++5XN914iDIQTjNbCTP0dzo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Ncc2kNXC/NTcGBdMXF558zCdaeN8YS3LmRwqxnhPy33Jma/aTZprY32upqd3N9rftK548VZaELlZGKcVeiw9BxWUrYrb0wLikh8PaLDI4NuFdnMhfLZfaUuO9BxVW/hlhetrVJQdMvJC4O955XYeI/3+RTE2sjQJ39QvHUoVy6c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MBxwbZ6f; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=kTKu5FflCqm8UZVhbkge2RjgsFck/kq4Cz1AKxnZP75afi60Ymbkp385KJXPt76NTshnmBxxWq5lkgiX0K5TL0+hy+HLYuVXwI2sHDdvq0p2ZyzDQxZ0hRlexQxLYgDc/4TrL8RjHTgAsrd7Lk8FAl12xhZ4brGHGYvf5f6OtFA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cx/l67t4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MBxwbZ6f"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7798F1F00A3E;
-	Mon, 31 Aug 2026 13:43:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cx/l67t4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4906E1F00A3F;
+	Mon, 31 Aug 2026 13:43:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788183833;
-	bh=nqh6IQJMFyy0N8GbWvGTs8cWSqQT38lz1Wzeep5i/SE=;
+	s=k20260515; t=1788183838;
+	bh=qGIPQnjyt4OQ6XoqGXnUCOervZ5TVfmZF9/N9wgWUXM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=MBxwbZ6fZN26/SFl2FlA9nDDLKRScjJX35Mgp1BKs5rrb4Zs9WG0b94hdTKLbAy2T
-	 +r4MrdO0N27Bsgrw3ubibcYkojKObze2D7DYjfiqKxkOK0htthhNR+MGu0ymYCkJz1
-	 0uqIJlDWRSqUOMk1Hz2B0BqyRLXrN1oO7QoVxwqkvUfmhKl9rExhp9nVmiIJn6kFCt
-	 HUfXntTkhg1/McqnnHNFDV+orNlV7CDXdLWRQk9tSEq4eAlt67ZCvCclbJryN3KHXo
-	 32bNnY/Uae1lxbEK5hEBROuITVBKmuimwuPMKEgs5Zg2JAuYHXPdyaB9YgOtFsLrs6
-	 rRvp0Ar5v3gTA==
+	b=cx/l67t4HkB85mXPNRwkITyeR3Q4iJ4lqiNc4GX9clzrWgTcQTGUUns+aNByjImbF
+	 AUEwCfxLL0bYhyxhZn6v36XGTNFJC4F3iZ19jStNQRedePboqC2MCQajmaEjJew/L8
+	 RfVp7J8v7R9SswEXl3BGEVnUFVpdWlXdtUFUWIdsc5Z7W81utjLkLly/JKWwcdIrxp
+	 XHJn7ANszJ/zLvA7itsMdMu8MsxNKXWOFVVx6bC2rtdyJIQBS0LenmZAg0kkWX2pQi
+	 E3rCIpG33X+PPQbrRG567sR9gHJglHlwHbDp9JkUDVyGLsS1jzlu9EjwCIGyQokJss
+	 sA24lcvkB1APQ==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Javier Tia <floss@jetm.me>,
-	=?UTF-8?q?=E5=BC=A0=E6=97=AD=E6=B6=B5?= <Loong.0x00@gmail.com>,
-	Marcin FM <marcin@lgic.pl>,
-	Cristian-Florin Radoi <radoi.chris@gmail.com>,
-	George Salukvadze <giosal90@gmail.com>,
-	Evgeny Kapusta <3193631@gmail.com>,
-	Samu Toljamo <samu.toljamo@gmail.com>,
-	Ariel Rosenfeld <ariel.rosenfeld.750@gmail.com>,
-	Chapuis Dario <chapuisdario4@gmail.com>,
-	=?UTF-8?q?Thibaut=20Fran=C3=A7ois?= <tibo@humeurlibre.fr>,
-	Sean Wang <sean.wang@mediatek.com>,
-	Felix Fietkau <nbd@nbd.name>,
+Cc: Hirokazu Honda <hiroh@chromium.org>,
+	Sumit Garg <sumit.garg@oss.qualcomm.com>,
+	Jens Wiklander <jens.wiklander@linaro.org>,
 	Sasha Levin <sashal@kernel.org>,
-	lorenzo@kernel.org,
-	ryder.lee@mediatek.com,
-	matthias.bgg@gmail.com,
-	angelogioacchino.delregno@collabora.com,
-	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org
-Subject: [PATCH AUTOSEL 6.18-6.12] wifi: mt76: mt7925: add 320MHz bandwidth to bss_rlm_tlv
-Date: Mon, 31 Aug 2026 09:25:59 -0400
-Message-ID: <20260831133314.4125787-331-sashal@kernel.org>
+	jenswi@kernel.org,
+	op-tee@lists.trustedfirmware.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 6.18-5.10] tee: optee: Allow MT_NORMAL_TAGGED shared memory
+Date: Mon, 31 Aug 2026 09:26:02 -0400
+Message-ID: <20260831133314.4125787-334-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -62,442 +48,382 @@ List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 6.18.48
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Javier Tia <floss@jetm.me>
+From: Hirokazu Honda <hiroh@chromium.org>
 
-[ Upstream commit efc9a10d1de1763baecd2031c1c6dfe6aac9ac38 ]
+[ Upstream commit 1a6e94a8ff32e7879effd1e4a45bf112e506edc1 ]
 
-bss_rlm_tlv() in mt7925_mcu_bss_rlm_tlv() has no case for
-NL80211_CHAN_WIDTH_320. When associated to a 320MHz BSS, the switch
-falls through to default and sends bw=0 (CMD_CBW_20MHZ) to firmware
-via BSS_RLM TLV. Firmware then configures the RX radio for 20MHz
-and cannot decode the AP's 320MHz frames, resulting in complete data
-path failure at 320MHz.
+On ARM64, shared memory can have MT_NORMAL_TAGGED attribute when using
+the Memory Tagging Extension (MTE). The OP-TEE driver needs to
+recognize this as normal memory to allow sharing such buffers with the
+Secure World.
 
-Add the missing NL80211_CHAN_WIDTH_320 case with CMD_CBW_320MHZ and
-center_chan2.
-
-Tested on ASUS RT-BE92U: 320MHz throughput goes from 0 Mbps to
-841 Mbps (iperf3 -t30 -P8), PHY 4803 Mbps EHT-MCS11.
-
-Reported-by: 张旭涵 <Loong.0x00@gmail.com>
-Closes: https://github.com/openwrt/mt76/issues/927
-Tested-by: 张旭涵 <Loong.0x00@gmail.com>
-Tested-by: Marcin FM <marcin@lgic.pl>
-Tested-by: Cristian-Florin Radoi <radoi.chris@gmail.com>
-Tested-by: George Salukvadze <giosal90@gmail.com>
-Tested-by: Evgeny Kapusta <3193631@gmail.com>
-Tested-by: Samu Toljamo <samu.toljamo@gmail.com>
-Tested-by: Ariel Rosenfeld <ariel.rosenfeld.750@gmail.com>
-Tested-by: Chapuis Dario <chapuisdario4@gmail.com>
-Tested-by: Thibaut François <tibo@humeurlibre.fr>
-Reviewed-by: Sean Wang <sean.wang@mediatek.com>
-Signed-off-by: Javier Tia <floss@jetm.me>
-Link: https://patch.msgid.link/20260425195011.790265-3-sean.wang@kernel.org
-Signed-off-by: Felix Fietkau <nbd@nbd.name>
+Signed-off-by: Hirokazu Honda <hiroh@chromium.org>
+Reviewed-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
+Signed-off-by: Jens Wiklander <jens.wiklander@linaro.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-## Phase 1: Commit Message Forensics
+Connection lost, reconnecting to https://agentn.us.api5.cursor.sh
+(attempt 1)...
+Retry attempt 1...
+# Stable Backport Analysis: `tee: optee: Allow MT_NORMAL_TAGGED shared
+memory`
 
-**Step 1.1 — Subject line**
-
-Record: `[wifi: mt76: mt7925]` `[add]` — add missing 320MHz bandwidth
-handling in `bss_rlm_tlv()`.
-
-**Step 1.2 — Tags**
-
-Record:
-- **Reported-by:** 张旭涵 \<Loong.0x00@gmail.com\>
-- **Tested-by:** 8 testers (reporter plus Marcin FM, Cristian-Florin
-  Radoi, George Salukvadze, Evgeny Kapusta, Samu Toljamo, Ariel
-  Rosenfeld, Chapuis Dario, Thibaut François)
-- **Reviewed-by:** Sean Wang \<sean.wang@mediatek.com\> (MediaTek
-  maintainer)
-- **Closes:** https://github.com/openwrt/mt76/issues/927
-- **Link:**
-  https://patch.msgid.link/20260425195011.790265-3-sean.wang@kernel.org
-- **Signed-off-by:** Javier Tia, Felix Fietkau
-- No `Fixes:`, no `Cc: stable@vger.kernel.org` (expected for candidate
-  review)
-- Ignore pipeline `Signed-off-by: Sasha Levin` if present in prepared
-  form
-
-Notable: broad real-world testing, maintainer review, public bug tracker
-reference.
-
-**Step 1.3 — Body analysis**
-
-Record:
-- **Bug:** `mt7925_mcu_bss_rlm_tlv()` has no `NL80211_CHAN_WIDTH_320`
-  case; falls through to `default` and sends `bw=0` (`CMD_CBW_20MHZ`) to
-  firmware via `BSS_RLM` TLV.
-- **Symptom:** firmware configures RX for 20MHz, cannot decode AP 320MHz
-  frames → complete data-path failure (0 Mbps).
-- **Fix:** add `NL80211_CHAN_WIDTH_320` case with `CMD_CBW_320MHZ` and
-  `center_chan2`.
-- **Evidence:** ASUS RT-BE92U test: 0 Mbps → 841 Mbps iperf3 (`-t30
-  -P8`), PHY 4803 Mbps EHT-MCS11.
-- **Root cause:** missing switch case when programming firmware RLM TLV.
-
-**Step 1.4 — Hidden bug fix?**
-
-Record: **Yes.** Subject says “add,” but this is a functional bug fix:
-wrong bandwidth programmed to firmware causes total connectivity loss at
-320MHz. Not a style/cleanup change.
+**Local tree:** Linux 6.18.43 (`git describe HEAD` → `v6.18.43`)
 
 ---
 
-## Phase 2: Diff Analysis
+## PHASE 1: COMMIT MESSAGE FORENSICS
 
-**Step 2.1 — Inventory**
+### Step 1.1: Subject Line
+**Record:** `[tee: optee]` `[Allow]` — Extend OP-TEE shared-memory
+validation to accept ARM64 `MT_NORMAL_TAGGED` pages (MTE-tagged normal
+memory).
 
-Record:
-- **Files:** `drivers/net/wireless/mediatek/mt76/mt7925/mcu.c` (+4
-  lines)
-- **Function:** `mt7925_mcu_bss_rlm_tlv()`
-- **Scope:** single-file, surgical fix
+### Step 1.2: Tags
+**Record:**
+- `Signed-off-by: Hirokazu Honda <hiroh@chromium.org>` — author (Chrome
+  team)
+- `Reviewed-by: Sumit Garg <sumit.garg@oss.qualcomm.com>` — OP-TEE
+  maintainer review
+- `Signed-off-by: Jens Wiklander <jens.wiklander@linaro.org>` — TEE
+  subsystem maintainer
+- No `Fixes:`, `Reported-by:`, `Cc: stable@vger.kernel.org`, `Link:`,
+  `Tested-by:`, or `Acked-by:` tags
+- Notable: Reviewed by subsystem maintainers; no syzbot or crash report
 
-**Step 2.2 — Code flow**
+### Step 1.3: Body Analysis
+**Record:**
+- **Bug:** On ARM64, userspace buffers mapped with MTE (`PROT_MTE`) use
+  `MT_NORMAL_TAGGED` page attributes. `is_normal_memory()` only accepts
+  `MT_NORMAL`, so `optee_check_mem_type()` rejects valid buffers.
+- **Symptom:** `-EINVAL` when registering shared memory with OP-TEE;
+  secure-world communication fails for MTE-enabled processes.
+- **Root cause:** Incomplete memory-type check — `MT_NORMAL_TAGGED` is
+  documented as a normal-memory variant but not recognized by the
+  driver.
 
-Record:
-- **Before:** `chandef->width == NL80211_CHAN_WIDTH_320` hits `default`
-  → `req->bw = CMD_CBW_20MHZ`.
-- **After:** explicit case sets `req->bw = CMD_CBW_320MHZ` and
-  `req->center_chan2` from `freq2` (same pattern as
-  `NL80211_CHAN_WIDTH_80P80`).
-- **Paths affected:** BSS association/channel-context updates via
-  `mt7925_mcu_set_chctx()` and BSS enable path in
-  `__mt7925_mcu_bss_req()`.
-
-**Step 2.3 — Bug mechanism**
-
-Record: **Logic/correctness bug** — incomplete switch on channel width.
-Category: driver/firmware configuration mismatch causing total RX
-failure. Not a crash/UAF, but complete loss of throughput at 320MHz.
-
-**Step 2.4 — Fix quality**
-
-Record: **Obviously correct.** Mirrors existing `80P80` handling; uses
-`CMD_CBW_320MHZ` already defined in `mt76_connac.h`. Minimal regression
-risk; only affects 320MHz width path.
-
----
-
-## Phase 3: Git History Investigation
-
-**Step 3.1 — Blame**
-
-Record:
-- `mt7925_mcu_bss_rlm_tlv()` introduced in `ca64503a8f06ec` (2024-06-12,
-  merged 2024-07-09): “add mt7925_mcu_bss_rlm_tlv to constitue the RLM
-  TLV”
-- Bandwidth switch written without `NL80211_CHAN_WIDTH_320` from the
-  start
-- `c948b5da6bbec` (2023-09-18) introduced mt7925 driver with
-  `[NL80211_CHAN_WIDTH_320] = 6` elsewhere in `mcu.c`
-
-**Step 3.2 — Fixes: tag**
-
-Record: N/A — no `Fixes:` tag. Bug introduced by omission in
-`ca64503a8f06ec`, which is present in this tree.
-
-**Step 3.3 — Related file history**
-
-Record:
-- `mt7925_mcu_bss_rlm_tlv` added `ca64503a8f06ec`, refined in
-  `22d66ef6653bb`
-- No prior fix for this specific issue in tree
-- Message-ID `-3` suggests patch 3 of a series, but this hunk is self-
-  contained (no new symbols/structs)
-
-**Step 3.4 — Author context**
-
-Record: Patch authored by Javier Tia; reviewed by Sean Wang (MediaTek).
-Felix Fietkau (mt76 maintainer) committed. Consistent with normal mt76
-review path.
-
-**Step 3.5 — Dependencies**
-
-Record: **Standalone.** `CMD_CBW_320MHZ`, `freq2`, and
-`NL80211_CHAN_WIDTH_320` already exist in this tree. No prerequisite
-commits required for this hunk to compile or function.
+### Step 1.4: Hidden Bug Fix?
+**Record:** No — this is an explicit compatibility fix, not disguised
+cleanup. It corrects an overly narrow memory-type whitelist.
 
 ---
 
-## Phase 4: Mailing List and External Research
+## PHASE 2: DIFF ANALYSIS
 
-**Step 4.1 — Original discussion**
+### Step 2.1: Inventory
+**Record:**
+- **Files:** `drivers/tee/optee/call.c` (+2 / -1)
+- **Functions:** `is_normal_memory()` only
+- **Scope:** Single-file, surgical ARM64-only change
 
-Record: `b4 dig` requires `-c COMMITISH`; commit hash not in this tree,
-so direct `b4 dig -c` failed. Lore fetch blocked by bot protection. Link
-points to linux-wireless thread
-`20260425195011.790265-3-sean.wang@kernel.org` (patch 3).
+### Step 2.2: Code Flow Change
+**Record:**
+- **Before:** ARM64 `is_normal_memory()` returns true only for
+  `PTE_ATTRINDX(MT_NORMAL)`.
+- **After:** Also returns true for `PTE_ATTRINDX(MT_NORMAL_TAGGED)`.
+- **Path affected:** `optee_check_mem_type()` → `__check_mem_type()` →
+  `is_normal_memory()` during shared-memory registration.
 
-**Step 4.2 — Reviewers**
+### Step 2.3: Bug Mechanism
+**Record:** **Logic / correctness fix** — incorrect rejection of a valid
+ARM64 memory type. Classification: platform-specific compatibility bug
+(ARM64 MTE + OP-TEE).
 
-Record: UNVERIFIED via `b4 dig -w` (no commit hash). Commit message
-itself documents **Reviewed-by: Sean Wang** and **Signed-off-by: Felix
-Fietkau**.
-
-**Step 4.3 — Bug report**
-
-Record: GitHub issue #927 (MT7927/mt76 support) documents 320MHz
-failure. Contributor analysis (jetm, ~line 2620) identifies this exact
-missing `NL80211_CHAN_WIDTH_320` case as root cause: firmware told
-20MHz, negotiates down, 0 throughput. Matches commit message.
-
-**Step 4.4 — Related patches**
-
-Record: Issue thread mentions additional 320MHz work (EHT MCS maps,
-wiphy caps). **This commit is independently valuable** for the RLM TLV
-path; does not depend on those other changes to be correct.
-
-**Step 4.5 — Stable list history**
-
-Record: UNVERIFIED — lore stable search blocked. No in-tree evidence of
-prior stable nomination.
+### Step 2.4: Fix Quality
+**Record:** Obviously correct — `arch/arm64/include/asm/memory.h`
+documents `MT_NORMAL_TAGGED` as the normal-memory type for `PROT_MTE`
+mappings. Minimal diff, no API changes, no regression risk on non-ARM64
+builds (change is inside `#elif defined(CONFIG_ARM64)`).
 
 ---
 
-## Phase 5: Code Semantic Analysis
+## PHASE 3: GIT HISTORY INVESTIGATION
 
-**Step 5.1 — Key functions**
+### Step 3.1: Blame
+**Record:** `is_normal_memory()` exists in this tree at
+`call.c:599-609`. The original check (only `MT_NORMAL`) dates to the
+2017 introduction of shared-memory type validation (`[PATCH 2/2] tee:
+optee: check type of registered shared memory`). The stable tree's per-
+file history is flattened (entire `call.c` attributed to one upstream
+merge commit), but the function and its `MT_NORMAL`-only check are
+present in 6.18.43.
 
-Record: `mt7925_mcu_bss_rlm_tlv()` (modified).
+### Step 3.2: Fixes Tag
+**Record:** N/A — no `Fixes:` tag in the commit message.
 
-**Step 5.2 — Callers**
+### Step 3.3: Related File History
+**Record:** No related follow-up fixes found in this tree. Standalone
+one-line logical extension.
 
-Record:
-- `mt7925_mcu_set_chctx()` — channel context changes during STA
-  operation
-- `__mt7925_mcu_bss_req()` — BSS enable during association/setup
+### Step 3.4: Author Context
+**Record:** Hirokazu Honda (Chromium). Jens Wiklander is TEE subsystem
+maintainer; Sumit Garg is OP-TEE maintainer. Both reviewed and accepted.
 
-Both are normal runtime WiFi paths, not init-only.
-
-**Step 5.3 — Callees**
-
-Record: `mt76_connac_mcu_add_tlv()`, `ieee80211_frequency_to_channel()`,
-standard TLV population. Uses existing `CMD_CBW_*` constants.
-
-**Step 5.4 — Reachability**
-
-Record: Triggered when `chandef->width == NL80211_CHAN_WIDTH_320` during
-association or channel update. Reachable for hardware/firmware paths
-operating at 320MHz (e.g. MT6639/7927-class devices using mt7925 driver,
-tested setups on 6.18.x per GitHub thread). In vanilla tree,
-`mt7925_init_eht_caps()` currently advertises only 80/160 MHz MCS maps,
-so 320MHz association is less common without additional caps work — but
-the buggy code path still exists and is incorrect whenever 320MHz width
-is presented.
-
-**Step 5.5 — Similar patterns**
-
-Record: `mt76_connac_chan_bw()` in `mt76_connac.h` already maps
-`NL80211_CHAN_WIDTH_320 → CMD_CBW_320MHZ`. `mt7996` uses that helper for
-RLM TLV. mt7925’s manual switch was simply incomplete — clear oversight.
+### Step 3.5: Dependencies
+**Record:** No prerequisites. `MT_NORMAL_TAGGED` is already defined in
+`arch/arm64/include/asm/memory.h` (value `1`). MTE userspace support
+(`PROT_MTE`) is present in this tree. Fix applies standalone.
 
 ---
 
-## Phase 6: Cross-Reference Against Local Tree
+## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
-**Step 6.1 — Buggy code present?**
+### Step 4.1: Original Discussion
+**Record:** Patch submitted Apr 16, 2026. Discussion at [spinics.net
+msg6157985](https://www.spinics.net/lists/kernel/msg6157985.html).
+Single-patch submission (not a series). Jens Wiklander: "Looks good. I'm
+picking up this." Merged via `optee-for-v7.2` tag. No NAKs.
 
-Record: **Yes.** Local tree is **v6.18.44** (`make kernelversion` =
-6.18.44). Current `mt7925_mcu_bss_rlm_tlv()` at lines 2325–2350 lacks
-`NL80211_CHAN_WIDTH_320` case. Fix not yet applied (`git log -S "case
-NL80211_CHAN_WIDTH_320" -- mt7925/mcu.c` returns nothing).
+### Step 4.2: Reviewers
+**Record:** To: Jens Wiklander. Cc: Sumit Garg, op-
+tee@lists.trustedfirmware.org, linux-kernel. Appropriate maintainers
+involved.
 
-**Step 6.2 — Backport difficulty**
+### Step 4.3: Bug Report
+**Record:** No formal bug report or syzbot link. Real-world motivation
+from Chrome/Android MTE + OP-TEE integration.
 
-Record: **Clean apply expected** — 4-line insertion between
-`NL80211_CHAN_WIDTH_160` and `NL80211_CHAN_WIDTH_5` cases. No
-surrounding churn in that hunk.
+### Step 4.4: Related Patches
+**Record:** Standalone fix; no series dependencies.
 
-**Step 6.3 — Related fixes already present?**
-
-Record: **No** equivalent fix in this tree. Other 320MHz references
-exist (`ch_width[]` at line 2151, `CMD_CBW_320MHZ` in `mt76_connac.h`)
-but not in `bss_rlm_tlv()`.
-
----
-
-## Phase 7: Subsystem and Maintainer Context
-
-**Step 7.1 — Subsystem criticality**
-
-Record: **IMPORTANT** — `drivers/net/wireless/mediatek/mt76/mt7925` WiFi
-driver. Affects users of MT7925-class hardware (PCI `0x7925`, `0x0717`;
-USB `0x7925`). Not core-kernel, but connectivity failure is user-visible
-and severe for affected hardware.
-
-**Step 7.2 — Subsystem activity**
-
-Record: Actively maintained in 6.18.y — recent stable commits include
-NULL-deref fix, crash fix, MLO fixes, TLV length fixes.
+### Step 4.5: Stable List History
+**Record:** No `Cc: stable` nomination found in review thread. Absence
+is expected per review pipeline rules and is not a negative signal.
 
 ---
 
-## Phase 8: Impact and Risk Assessment
+## PHASE 5: CODE SEMANTIC ANALYSIS
 
-**Step 8.1 — Who is affected**
+### Step 5.1: Key Functions
+**Record:** `is_normal_memory()` (modified), `__check_mem_type()`,
+`optee_check_mem_type()` (callers unchanged).
 
-Record: **Driver-specific** — users of mt7925/mt7925e/mt7925u (and
-related 0x0717 devices) connecting to 320MHz BSS. Growing install base
-on WiFi 7 platforms (motherboards, routers as STA).
+### Step 5.2: Callers of `optee_check_mem_type()`
+**Record:**
+- `optee_shm_register()` in `smc_abi.c:467` — registers user/kernel
+  shared memory with secure world
+- `optee_shm_register_supp()` in `smc_abi.c:570` — supplicant path
+  validation
+- `optee_ffa_shm_register()` in `ffa_abi.c:289` — FF-A ABI shared memory
+  registration
 
-**Step 8.2 — Trigger conditions**
+### Step 5.3: Callees
+**Record:** `__check_mem_type()` walks VMAs via `for_each_vma_range()`,
+checks `vma->vm_page_prot` against `is_normal_memory()`.
 
-Record: Association or channel update at 320MHz width. Requires 320MHz-
-capable hardware and 320MHz AP/network. Not universal, but reproducible
-and documented with concrete iperf numbers. Unprivileged user can
-trigger by connecting to a 320MHz AP.
+### Step 5.4: Reachability
+**Record:** Userspace → `/dev/tee*` ioctl `TEE_IOC_SHM_REGISTER` →
+`tee_ioctl_shm_register()` → `tee_shm_register_user_buf()` →
+`register_shm_helper()` → `optee_shm_register()` →
+`optee_check_mem_type()`. **Reachable from userspace** on ARM64 systems
+with OP-TEE enabled when registering MTE-tagged buffers.
 
-**Step 8.3 — Failure severity**
-
-Record: **HIGH** — not a kernel oops, but complete data-path failure (0
-Mbps, cannot decode frames). Effectively renders WiFi unusable at
-320MHz.
-
-**Step 8.4 — Risk/benefit**
-
-Record:
-- **Benefit:** HIGH for affected 320MHz users (restores full throughput;
-  0 → 841 Mbps demonstrated)
-- **Risk:** VERY LOW — 4 lines, no API change, only corrects firmware
-  TLV for one width enum
-- **Ratio:** Strongly favorable
+### Step 5.5: Similar Patterns
+**Record:** `pte_tagged()` in `arch/arm64/include/asm/pgtable.h` uses
+the same `MT_NORMAL_TAGGED` check pattern. The kernel already treats
+this as a normal-memory variant elsewhere.
 
 ---
 
-## Phase 9: Final Synthesis
+## PHASE 6: CROSS-REFERENCING AGAINST LOCAL TREE (6.18.43)
 
-**Step 9.1 — Evidence summary**
+### Step 6.1: Buggy Code Present?
+**Record:** **YES.** Current `call.c:605` only checks `MT_NORMAL`:
 
-**FOR:**
-- Real, reproducible bug with 0 Mbps failure mode
-- Severe functional impact on 320MHz operation
-- Minimal, obviously correct fix (matches `80P80` pattern and
-  `mt76_connac_chan_bw()`)
-- Extensively tested (8 Tested-by)
-- Reviewed by MediaTek maintainer
-- Buggy code present in v6.18.44 tree since `ca64503a8f06ec`
-- Standalone, no dependencies
-- Driver already has partial 320MHz support elsewhere — this completes a
-  missing piece
+```605:605:drivers/tee/optee/call.c
+        return (pgprot_val(p) & PTE_ATTRINDX_MASK) ==
+PTE_ATTRINDX(MT_NORMAL);
+```
 
-**AGAINST:**
-- In-tree `mt7925_init_eht_caps()` does not yet advertise 320MHz MCS
-  maps, so vanilla users may not negotiate 320MHz today without
-  additional upstream work
-- Could be viewed as part of broader 320MHz enablement for MT7927-class
-  hardware
-- Full lore/stable discussion not accessible
+`MT_NORMAL_TAGGED` is defined at `arch/arm64/include/asm/memory.h:172`.
+MTE support is present (`PROT_MTE` in `Documentation/arch/arm64/memory-
+tagging-extension.rst`, `arch/arm64/kernel/mte.c`).
 
-**UNRESOLVED:**
-- Exact upstream commit SHA (not in this tree)
-- Whether reviewers explicitly nominated for stable on lore
+### Step 6.2: Backport Complications
+**Record:** **Clean apply expected** — 2-line change in existing
+function, identical context to mainline diff.
 
-The unresolved items do not outweigh the clear technical bug and fix
-quality.
+### Step 6.3: Related Fixes Already Present?
+**Record:** **No** — `git log --grep="MT_NORMAL_TAGGED"` and
+`--grep="Allow MT_NORMAL_TAGGED"` return nothing in this tree. Fix not
+yet applied.
 
-**Step 9.2 — Stable rules checklist**
+---
 
-1. Obviously correct and tested? **PASS** — 4-line switch case; 8
-   Tested-by; maintainer reviewed
-2. Fixes real bug affecting users? **PASS** — documented 0 Mbps at
-   320MHz
-3. Important issue? **PASS** — complete connectivity failure at
-   supported width enum
-4. Small and contained? **PASS** — 4 lines, one function
-5. No new features/APIs? **PASS** — fixes firmware configuration for
-   existing enum value
-6. Can apply to local tree? **PASS** — buggy code confirmed present in
-   v6.18.44
+## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
 
-**Step 9.3 — Exception categories**
+### Step 7.1: Subsystem
+**Record:** `drivers/tee/optee` — TEE/OP-TEE driver. **Criticality:
+IMPORTANT** for ARM64 embedded/Android platforms using secure services
+(Keymaster, DRM, biometrics). Not core kernel, but security-
+infrastructure relevant on those platforms.
 
-Record: Best classified as **hardware/driver quirk completion** —
-completes missing bandwidth handling for hardware/firmware that already
-uses `CMD_CBW_320MHZ` elsewhere in the same driver.
+### Step 7.2: Activity
+**Record:** OP-TEE driver is mature but actively maintained; MTE
+adoption is an ongoing ARM64 platform concern.
 
-**Step 9.4 — Decision rationale**
+---
 
-For **v6.18.44**, the mt7925 driver is present, the incomplete switch
-has been wrong since `bss_rlm_tlv()` was added, and users connecting at
-320MHz get a completely broken data path. The fix is tiny, safe, well-
-tested, and restores real-world functionality. This meets stable-kernel
-criteria for an important driver bug fix.
+## PHASE 8: IMPACT AND RISK ASSESSMENT
+
+### Step 8.1: Who Is Affected
+**Record:** **Platform-specific:** ARM64 + `CONFIG_OPTEE` + userspace
+using `PROT_MTE` on buffers shared with OP-TEE. Primarily Android/Chrome
+OS devices rolling out MTE.
+
+### Step 8.2: Trigger Conditions
+**Record:** User/application maps anonymous memory with `PROT_MTE`, then
+registers it with OP-TEE via `TEE_IOC_SHM_REGISTER`. Trigger is
+deterministic (not a race). Unprivileged users can trigger via TEE ioctl
+on systems with accessible `/dev/tee*`.
+
+### Step 8.3: Failure Mode Severity
+**Record:** **`-EINVAL` on shared-memory registration** — TEE/secure-
+world operations fail entirely for MTE-enabled processes. No crash,
+corruption, deadlock, or security exploit. **Severity: MEDIUM**
+(complete functional breakage for affected configuration, but not a
+stability/security crash).
+
+### Step 8.4: Risk-Benefit
+**Record:**
+- **Benefit:** Restores OP-TEE functionality for MTE-enabled ARM64
+  processes; important for Chrome/Android MTE rollout on TEE-equipped
+  hardware.
+- **Risk:** Very low — 2 lines, ARM64-only, matches existing kernel
+  semantics for `MT_NORMAL_TAGGED`.
+- **Ratio:** Favorable — trivial fix, real production impact for a
+  growing platform configuration.
+
+---
+
+## PHASE 9: FINAL SYNTHESIS
+
+### Step 9.1: Evidence Summary
+
+**FOR backport:**
+- Real, reproducible bug in 6.18.43 (buggy code confirmed present)
+- Small, obviously correct, maintainer-reviewed fix
+- Userspace-reachable on ARM64 OP-TEE systems
+- `MT_NORMAL_TAGGED` prerequisite already in tree
+- Hardware-platform compatibility fix (ARM64 MTE), analogous to
+  quirk/workaround category
+- Chrome production motivation for growing MTE deployment
+
+**AGAINST backport:**
+- Not a crash, corruption, deadlock, or security vulnerability
+- Niche configuration (ARM64 + OPTEE + MTE)
+- No syzbot report or explicit stable nomination
+- Functional `-EINVAL` rather than kernel oops
+
+**Unresolved:** Exact kernel version when MTE userspace + OP-TEE
+combination became common in production (not needed for decision — bug
+mechanism is clear).
+
+### Step 9.2: Stable Rules Checklist
+1. Obviously correct and tested? **PASS** — logic matches `memory.h`
+   documentation; reviewed by OP-TEE and TEE maintainers.
+2. Fixes a real bug affecting users? **PASS** — deterministic `-EINVAL`
+   blocking TEE shared memory for MTE buffers.
+3. Important issue? **PASS (borderline)** — not a crash/corruption, but
+   complete breakage of secure-world communication for MTE processes on
+   ARM64 Android/Chrome platforms.
+4. Small and contained? **PASS** — 2 lines, 1 file, 1 function.
+5. No new features or APIs? **PASS** — extends recognition of existing
+   memory type; no new API.
+6. Can apply to local tree? **PASS** — prerequisites present, clean
+   apply expected.
+
+### Step 9.3: Exception Category
+**Record:** **Hardware/platform workaround** — enables correct handling
+of ARM64 MTE-tagged normal memory, analogous to the quirk/compatibility
+exception category in stable rules.
+
+### Step 9.4: Decision Rationale
+
+This commit fixes a real compatibility gap between ARM64 MTE
+(`MT_NORMAL_TAGGED`) and the OP-TEE driver's shared-memory validator.
+The bug exists in Linux 6.18.43, the fix is trivial and maintainer-
+approved, and all prerequisites (`MT_NORMAL_TAGGED`, MTE support) are
+already in this tree. While the failure mode is functional rather than a
+kernel crash, it completely blocks TEE operations for MTE-enabled
+processes — a growing concern on ARM64 Android/Chrome platforms where
+both OP-TEE and MTE are deployed together. The fix is low-risk and fits
+the stable pattern for small platform compatibility corrections.
 
 ---
 
 ## Verification
 
-- [Phase 1] Parsed commit message, tags, and body from user-provided
-  candidate
-- [Phase 1] Identified 8 Tested-by, 1 Reported-by, Reviewed-by Sean
-  Wang, Closes GitHub #927
-- [Phase 2] Diff: +4 lines in `mt7925_mcu_bss_rlm_tlv()` adding
-  `NL80211_CHAN_WIDTH_320` case
-- [Phase 3] `git describe HEAD` → v6.18.44; `make kernelversion` →
-  6.18.44
-- [Phase 3] `git blame` on lines 2325–2357: switch introduced
-  `ca64503a8f06ec` without 320MHz case
-- [Phase 3] `git show ca64503a8f06ec`: function added June 2024 without
-  320MHz handling
-- [Phase 3] `git show c948b5da6bbec`: mt7925 driver in tree since Sept
-  2023
-- [Phase 3] `git merge-base --is-ancestor c948b5da6bbec HEAD` → driver
-  present
-- [Phase 3] `git merge-base --is-ancestor ca64503a8f06ec HEAD` → buggy
-  function present
-- [Phase 4] `b4 dig` without commit hash failed (needs `-c COMMITISH`)
-- [Phase 4] Lore/patch.msgid.link fetch blocked by bot protection —
-  UNVERIFIED
-- [Phase 4] GitHub issue #927 fetched; line ~2620 confirms same root
-  cause and fix
-- [Phase 5] `grep mt7925_mcu_bss_rlm_tlv` → callers at lines 2421, 2867
-  in `mcu.c`
-- [Phase 5] `mt76_connac_chan_bw()` in `mt76_connac.h` lines 283–300
-  maps 320MHz correctly
-- [Phase 5] `CMD_CBW_320MHZ` exists at `mt76_connac.h:59`
-- [Phase 5] Other 320MHz reference at `mcu.c:2151` (`ch_width[]`)
-- [Phase 6] Read current `mcu.c:2325–2350` — missing 320MHz case
-  confirmed
-- [Phase 6] `git log -S "case NL80211_CHAN_WIDTH_320" -- mt7925/mcu.c` →
-  empty (fix not in tree)
-- [Phase 6] PCI IDs `0x7925`, `0x0717` in `pci.c` since `c948b5da6bbec`
-- [Phase 8] `mt7925_init_eht_caps()` (`main.c:231–236`) advertises only
-  80/160 MHz MCS — noted as scope limiter for vanilla 320MHz
-  negotiation, but does not negate the bug in `bss_rlm_tlv()`
+- [Phase 1] Parsed subject, tags, body from provided commit message
+- [Phase 1] Confirmed no `Fixes:`, `Reported-by:`, or `Cc: stable` tags
+- [Phase 2] Read diff: +2/-1 in `is_normal_memory()`, ARM64 branch only
+- [Phase 2] Read `call.c:599-642` — confirmed current code only checks
+  `MT_NORMAL`
+- [Phase 3] `git describe HEAD` → `v6.18.43`; `make kernelversion` →
+  `6.18.43`
+- [Phase 3] `git blame -L 599,610 drivers/tee/optee/call.c` — function
+  present in tree
+- [Phase 3] Web search: original `is_normal_memory` introduced ~2017 in
+  OP-TEE shm type check patch
+- [Phase 3] `git log --grep="Allow MT_NORMAL_TAGGED"` — no match (fix
+  not in tree)
+- [Phase 4] Fetched spinics.net msg6157985, msg6161595, msg6174403 —
+  maintainer review, no NAKs, no stable Cc
+- [Phase 4] b4 dig unavailable for commit hash (fix not merged in this
+  tree); used spinics/openwall instead
+- [Phase 5] `grep optee_check_mem_type` — 3 call sites in `smc_abi.c`,
+  `ffa_abi.c`
+- [Phase 5] Read `tee_shm.c:496-516` — userspace registration path via
+  `tee_shm_register_user_buf()`
+- [Phase 5] Read `smc_abi.c:453-469` — `optee_shm_register()` calls
+  `optee_check_mem_type()`
+- [Phase 6] Confirmed `MT_NORMAL_TAGGED` defined at
+  `arch/arm64/include/asm/memory.h:172`
+- [Phase 6] Confirmed `pte_tagged()` uses same `MT_NORMAL_TAGGED`
+  pattern in `pgtable.h:191-192`
+- [Phase 6] `grep PROT_MTE` — MTE userspace support present in tree
+- [Phase 8] Traced call chain: ioctl → shm register →
+  `optee_check_mem_type()` → `-EINVAL` on MTE buffers
+
+**YES**The background `git log -S "is_normal_memory"` search finished.
+It didn’t turn up a clean introduction point for `is_normal_memory()` in
+this 6.18.43 stable tree — the hits were unrelated (MIPS) or artifacts
+of the flattened per-file history (the whole `call.c` lumped under one
+upstream merge). External history still points to the original OP-TEE
+shared-memory type check from ~2017.
+
+That doesn’t change the earlier conclusion: the buggy `MT_NORMAL`-only
+check is present in this tree, the fix is small and correct, and it
+should be backported.
 
 **YES**
 
- drivers/net/wireless/mediatek/mt76/mt7925/mcu.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/tee/optee/call.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/net/wireless/mediatek/mt76/mt7925/mcu.c b/drivers/net/wireless/mediatek/mt76/mt7925/mcu.c
-index 1d63bfa58c437..0e45f9c757351 100644
---- a/drivers/net/wireless/mediatek/mt76/mt7925/mcu.c
-+++ b/drivers/net/wireless/mediatek/mt76/mt7925/mcu.c
-@@ -2342,6 +2342,10 @@ void mt7925_mcu_bss_rlm_tlv(struct sk_buff *skb, struct mt76_phy *phy,
- 	case NL80211_CHAN_WIDTH_160:
- 		req->bw = CMD_CBW_160MHZ;
- 		break;
-+	case NL80211_CHAN_WIDTH_320:
-+		req->bw = CMD_CBW_320MHZ;
-+		req->center_chan2 = ieee80211_frequency_to_channel(freq2);
-+		break;
- 	case NL80211_CHAN_WIDTH_5:
- 		req->bw = CMD_CBW_5MHZ;
- 		break;
+diff --git a/drivers/tee/optee/call.c b/drivers/tee/optee/call.c
+index 16eb953e14bb6..e422e77b06fb8 100644
+--- a/drivers/tee/optee/call.c
++++ b/drivers/tee/optee/call.c
+@@ -602,7 +602,8 @@ static bool is_normal_memory(pgprot_t p)
+ 	return (((pgprot_val(p) & L_PTE_MT_MASK) == L_PTE_MT_WRITEALLOC) ||
+ 		((pgprot_val(p) & L_PTE_MT_MASK) == L_PTE_MT_WRITEBACK));
+ #elif defined(CONFIG_ARM64)
+-	return (pgprot_val(p) & PTE_ATTRINDX_MASK) == PTE_ATTRINDX(MT_NORMAL);
++	return ((pgprot_val(p) & PTE_ATTRINDX_MASK) == PTE_ATTRINDX(MT_NORMAL)) ||
++	       ((pgprot_val(p) & PTE_ATTRINDX_MASK) == PTE_ATTRINDX(MT_NORMAL_TAGGED));
+ #else
+ #error "Unsupported architecture"
+ #endif
 -- 
 2.53.0
 
