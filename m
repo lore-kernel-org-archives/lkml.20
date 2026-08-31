@@ -1,252 +1,187 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDAD043F0B3;
-	Mon, 31 Aug 2026 16:13:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 381F7480972
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 16:14:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788192840; cv=none; b=nLnMonHxjv3VI/jwrrpIjRdAbu517GqyZyQC4QizIstiSnT4O6Ll9EdiMKdB0ErgPsA4os/801xSqxGIllzeP3il/0bkwUKNwdhiQIquL2g5VtmrIjsUs0xyd+ci9wEPRAXkbtDnuGzyG1hMwUVrz6Xff+zEg0KuBKT1FdLnBGY=
+	t=1788192847; cv=none; b=Fw0dqRk6AXrcs39a5lfVNVPYzWSIGNSbaTH5nkAQzVGgeoiFQjYQsaiHwBgu497dRQv9WWP6vubrtQ1Swjll8+qqK7qIUsQAnbwlDpxLhZvW8H7lZabaubVjUasgo3utNeTQuBymnKpXxof2zGgklfzv2VRH4XQAZ2XardVsKFg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788192840; c=relaxed/simple;
-	bh=T5M7LVgEkCt809db0CpDFRJbrBhjE8+1x31eHD12gbo=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Sy1Me0BFrOPddkjpjXjAnbBCIWah2XU7kqgauNfDDuCbKL+rpSZ7N/XbepfEDVEudnTZakENSXha+oIOz0yrXmrkuSU/ojPkvcrqTNSY5n4XGvSkCOcjjWfVMvumqVrZYbXjKo6Le48kMrNSZzvNLBFCekszqJptldSpvrWYm1M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=g71aVwJD; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=OxZ5+B3O; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=slJVCh+i; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=xskLf8Xo; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1788192847; c=relaxed/simple;
+	bh=q1/eX6OD1LlB3N2pNLMCJJ4WcVpV2s25rFV257gzCFg=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=F4gTmtIbMOfFNbL00/qKwrNTycesLTZkpWp3QbGUK5KYKrYMWM631O1N+H8vXauayvzcQoeCQMn1lqHthXNSPaUH8AZOxo6HvhyD2WzPG8iom8Uykn2XH0lWq1kLwKvM24/hWjU/6sZlbJqjDKUJlusEnkOqLQArxK4/QWb3u6Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=B1QqRPld; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="g71aVwJD";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="OxZ5+B3O";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="slJVCh+i";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="xskLf8Xo"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 802C12251D;
-	Mon, 31 Aug 2026 16:13:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1788192832; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=5ZrkzXJZNjHYcvsPHtKCbQID7q51joD+l1DUBKm8+nU=;
-	b=g71aVwJDQL2NCmw6tenobjlyUfd5K/k2K929stmloUnbrEFRxT2ypKqwehYflheKdgKhm+
-	xZMbe3X+twqtwbNafEWWVaqq4leDPI1wz+3O3kCJODOmv7Zmi2aYDgsK8ZOWcxNPzF3HFC
-	BV4ufcMThZ81IhVndlfTwlAqcSHpb6U=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1788192832;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=5ZrkzXJZNjHYcvsPHtKCbQID7q51joD+l1DUBKm8+nU=;
-	b=OxZ5+B3OcVAoQJPoX80MK3XyQ3d2H/QnFcgpJSx2ktbyhnFh1XKBRTjE105qyXw8MZDo6k
-	sig46nB3ibb6u4DA==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=slJVCh+i;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=xskLf8Xo
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1788192828; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=5ZrkzXJZNjHYcvsPHtKCbQID7q51joD+l1DUBKm8+nU=;
-	b=slJVCh+iX/jCaocpfmG3f2aFqf0xFyren1ijXcJMDZIuX8O+TPUxrHRe5JBQEMufceN8LY
-	YXw2qKMLAu3zWc7Wy9h5ZaMZnx6k+q4wpEF5YN+rE9/4dyUsQhPV5XbrEOt75Xkqfo7TmH
-	G/Qdx6QkSp6sYmfY6fBSSGZNnAtnA/s=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1788192828;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=5ZrkzXJZNjHYcvsPHtKCbQID7q51joD+l1DUBKm8+nU=;
-	b=xskLf8XoZeFLSjKjGJDniaA0pa/74DRiLyymy6kbmTlf491VUjX6hSD7/nTYJ6BcBDV7a5
-	Nm4kKZiKBYPhmsBg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 349AD13515;
-	Mon, 31 Aug 2026 16:13:48 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id G+lOCzyolWo2ZQAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Mon, 31 Aug 2026 16:13:48 +0000
-Date: Mon, 31 Aug 2026 18:13:47 +0200
-Message-ID: <874igafetg.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: syzbot <syzbot+919c31c248e8a37b89d1@syzkaller.appspotmail.com>
-Cc: anna-maria@linutronix.de,
-	frederic@kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	syzkaller-bugs@googlegroups.com,
-	tglx@kernel.org
-Subject: Re: [syzbot] [sound?] BUG: scheduling while atomic in drain_urb_queue
-In-Reply-To: <6a91b49c.1d9ded08.62e62.00f1.GAE@google.com>
-References: <6a8a5f45.ae6ddae5.3da009.005f.GAE@google.com>
-	<6a91b49c.1d9ded08.62e62.00f1.GAE@google.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="B1QqRPld"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 382B64E4147A;
+	Mon, 31 Aug 2026 16:14:03 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id ECFEB60231;
+	Mon, 31 Aug 2026 16:14:02 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 720E611C7922A;
+	Mon, 31 Aug 2026 18:13:41 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1788192839; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=/B5gbNxP+CH/DlL+GlVqolZtOv6z4W5cDato8UP0oSk=;
+	b=B1QqRPldwk7b5dJn8VLXefiFFGlStxfcIVnISNbt3rtSlyyQbDlcV74I/bH8jFFq8XRC/x
+	RXeJDT2ICZat8owpxGbr6v/y1DoSUj4mAv/q8v1qY/aYrIWaGeJb689qzVChtUbDUyB7kQ
+	2H4+KMnYjrLGJY3LwwYrAHZwYY+xcK/nTHAB/A2YcbCj8XJkTJHcOpas+oxmNEMgISVg/b
+	2/1gUTk0FqaFv1fCco9bwfEAxFP+P8GUtVIXFgelJDVQRAZPflfzqmswWmF5ahDuL33GUj
+	ulIj0alWs3KOXDRNx51KcY7r68tmLt5sqsTM+ovYaW79pEFQPHXpCVdAHqNvRg==
+From: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Subject: [PATCH v3 00/13] drm/bridge: Kconfig: cleanup DRM_PANEL usage
+Date: Mon, 31 Aug 2026 18:13:26 +0200
+Message-Id: <20260831-drm-bridge-drm_panel-cleanup-v3-0-50efd8168b3e@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: 802C12251D
-X-Spamd-Result: default: False [-1.01 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	URI_HIDDEN_PATH(1.00)[https://syzkaller.appspot.com/x/.config?x=19560cab9a915237];
-	MID_CONTAINS_FROM(1.00)[];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[syzkaller.appspot.com:url,suse.de:dkim,suse.de:mid,appspotmail.com:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_TRACE(0.00)[suse.de:+];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	TAGGED_RCPT(0.00)[919c31c248e8a37b89d1];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	SUBJECT_HAS_QUESTION(0.00)[]
-X-Spam-Flag: NO
-X-Spam-Score: -1.01
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/43Nyw7CIBAF0F8xrMVQ+qKu/A9jDI+pxbTQQEs0T
+ f9dqBtd6W5u5ubcBXlwGjw67hbkIGivrYkh3++Q7Li5AdYqZkQJrQjLKFZuwMJpFT/xvI7cQI9
+ lD9zMIyYNqFLKjDQFQ5EYHbT6sfHnyzv7WdxBTslMjU77ybrnth+y1PtzKmSYYKJYVecFNITxk
+ 7B26rU5SDugNBboB0fLHxyNnKwkY4LXbavoN7eu6wuPE5CGKwEAAA==
+X-Change-ID: 20260812-drm-bridge-drm_panel-cleanup-09ed5cc10948
+To: Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>, 
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Peter Senna Tschudin <peter.senna@gmail.com>, 
+ Martyn Welch <martyn.welch@collabora.co.uk>, Andy Yan <andyshrk@163.com>, 
+ Marek Szyprowski <m.szyprowski@samsung.com>, Marek Vasut <marex@denx.de>, 
+ Jagan Teki <jagan@amarulasolutions.com>, 
+ Christopher Vollo <chris@renewoutreach.org>, 
+ Douglas Anderson <dianders@chromium.org>, 
+ Franz Schnyder <franz.schnyder@toradex.com>, 
+ John Ripple <john.ripple@keysight.com>, Michael Walle <mwalle@kernel.org>, 
+ Sudarshan Shetty <tessolveupstream@gmail.com>, 
+ Alexander Stein <alexander.stein@ew.tq-group.com>, 
+ Herve Codina <herve.codina@bootlin.com>, Esben Haabendal <esben@geanix.com>, 
+ Sean Paul <seanpaul@chromium.org>, Vincent Palatin <vpalatin@chromium.org>, 
+ Jitao Shi <jitao.shi@mediatek.com>, CK Hu <ck.hu@mediatek.com>, 
+ Pin-yen Lin <treapking@chromium.org>, Tony Lindgren <tony@atomide.com>, 
+ Vinay Simha BN <simhavcs@gmail.com>, Maoyi Xie <maoyixie.tju@gmail.com>, 
+ Andy Yan <andy.yan@rock-chips.com>, 
+ Andrey Gusakov <andrey.gusakov@cogentembedded.com>, 
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
+ Peter Ujfalusi <peter.ujfalusi@ti.com>, 
+ Svyatoslav Ryhel <clamor95@gmail.com>, Sam Ravnborg <sam@ravnborg.org>, 
+ sashiko-bot@kernel.org, Enric Balletbo i Serra <eballetbo@kernel.org>
+X-Mailer: b4 0.16.0
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Fri, 28 Aug 2026 18:17:32 +0200,
-syzbot wrote:
-> 
-> syzbot has found a reproducer for the following issue on:
-> 
-> HEAD commit:    1b78070aaef6 Merge tag 'net-7.3-rc1' of git://git.kernel.o..
-> git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-> console output: https://syzkaller.appspot.com/x/log.txt?x=13016d79580000
-> kernel config:  https://syzkaller.appspot.com/x/.config?x=19560cab9a915237
-> dashboard link: https://syzkaller.appspot.com/bug?extid=919c31c248e8a37b89d1
-> compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-> C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=162add79580000
-> 
-> IMPORTANT: if you fix the issue, please add the following tag to the commit:
-> Reported-by: syzbot+919c31c248e8a37b89d1@syzkaller.appspotmail.com
-> 
-> usb 33-1: config 1 interface 0 altsetting 1 bulk endpoint 0x1 has invalid maxpacket 64
-> usb 33-1: config 1 interface 0 altsetting 1 bulk endpoint 0x82 has invalid maxpacket 64
-> usb 33-1: New USB device strings: Mfr=0, Product=0, SerialNumber=0
-> BUG: scheduling while atomic: kworker/0:0/9/0x00010001
-> locks held by kworker/0:0/9: 7, on CPU#0:
->  #0: ffff888023287940 ((wq_completion)usb_hub_wq){+.+.}-{0:0}, at: process_one_work+0x1466/0x1b10 kernel/workqueue.c:3362
->  #1: ffffc900000e7d08 ((work_completion)(&hub->events)){+.+.}-{0:0}, at: process_one_work+0xa2c/0x1b10 kernel/workqueue.c:3363
->  #2: ffff88802c0c21d8 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
->  #2: ffff88802c0c21d8 (&dev->mutex){....}-{4:4}, at: hub_event+0x1bb/0x4420 drivers/usb/core/hub.c:5912
->  #3: ffff888023ae91d8 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
->  #3: ffff888023ae91d8 (&dev->mutex){....}-{4:4}, at: __device_attach+0x7e/0x4d0 drivers/base/dd.c:1073
->  #4: ffff8880348291a0 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
->  #4: ffff8880348291a0 (&dev->mutex){....}-{4:4}, at: __device_attach+0x7e/0x4d0 drivers/base/dd.c:1073
->  #5: ffffffff90bc96c0 (register_mutex#6){+.+.}-{4:4}, at: class_mutex_constructor include/linux/mutex.h:253 [inline]
->  #5: ffffffff90bc96c0 (register_mutex#6){+.+.}-{4:4}, at: usb_audio_probe+0x385/0x3b10 sound/usb/card.c:985
->  #6: ffff8880268bc160 (&rmidi->open_mutex){+.+.}-{4:4}, at: class_mutex_constructor include/linux/mutex.h:253 [inline]
->  #6: ffff8880268bc160 (&rmidi->open_mutex){+.+.}-{4:4}, at: rawmidi_release_priv+0x45/0x280 sound/core/rawmidi.c:574
-> Modules linked in:
-> Preemption disabled at:
-> [<ffffffff8bcf4ceb>] __mutex_lock_common kernel/locking/mutex.c:645 [inline]
-> [<ffffffff8bcf4ceb>] __mutex_lock+0x17b/0x1bc0 kernel/locking/mutex.c:821
-> Kernel panic - not syncing: scheduling while atomic: panic_on_warn set ...
-> CPU: 0 UID: 0 PID: 9 Comm: kworker/0:0 Not tainted syzkaller #0 PREEMPT(full) 
-> Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 08/05/2026
-> Workqueue: usb_hub_wq hub_event
-> Call Trace:
->  <TASK>
->  __dump_stack lib/dump_stack.c:94 [inline]
->  dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
->  vpanic+0x553/0x970 kernel/panic.c:651
->  panic+0xd1/0xe0 kernel/panic.c:788
->  check_panic_on_warn kernel/panic.c:525 [inline]
->  check_panic_on_warn.cold+0x19/0x34 kernel/panic.c:520
->  __schedule_bug.cold+0xc4/0xf4 kernel/sched/core.c:6076
->  schedule_debug kernel/sched/core.c:6105 [inline]
->  __schedule+0x4066/0x6920 kernel/sched/core.c:7119
->  __schedule_loop kernel/sched/core.c:7347 [inline]
->  schedule+0xdd/0x2c0 kernel/sched/core.c:7362
->  schedule_timeout+0x127/0x280 kernel/time/sleep_timeout.c:99
->  drain_urb_queue.part.0+0x303/0x470 sound/usb/midi2.c:246
->  drain_urb_queue sound/usb/midi2.c:242 [inline]
->  snd_usb_midi_v2_drain+0x79/0xb0 sound/usb/midi2.c:383
->  snd_ump_rawmidi_drain+0x85/0xb0 sound/core/ump.c:294
->  snd_rawmidi_drain_output+0x3b3/0x880 sound/core/rawmidi.c:282
->  close_substream.part.0+0x3eb/0x860 sound/core/rawmidi.c:551
->  close_substream include/linux/mutex.h:253 [inline]
->  rawmidi_release_priv+0x210/0x280 sound/core/rawmidi.c:580
->  snd_rawmidi_kernel_release+0x3a/0xd0 sound/core/rawmidi.c:596
->  ump_request_close sound/core/ump.c:623 [inline]
->  snd_ump_parse_endpoint+0x15f/0xb00 sound/core/ump.c:1135
->  parse_ump_endpoints sound/usb/midi2.c:810 [inline]
->  snd_usb_midi_v2_create+0x1b97/0x4070 sound/usb/midi2.c:1158
->  snd_usb_create_quirk+0xad/0xf0 sound/usb/quirks.c:544
->  usb_audio_probe+0x96e/0x3b10 sound/usb/card.c:1058
->  usb_probe_interface+0x386/0x9b0 drivers/usb/core/driver.c:399
->  call_driver_probe drivers/base/dd.c:628 [inline]
->  really_probe+0x241/0xa60 drivers/base/dd.c:706
->  __driver_probe_device+0x210/0x460 drivers/base/dd.c:868
->  driver_probe_device+0x4a/0x140 drivers/base/dd.c:898
->  __device_attach_driver+0x1df/0x320 drivers/base/dd.c:1026
->  bus_for_each_drv+0x159/0x1e0 drivers/base/bus.c:500
->  __device_attach+0x1e4/0x4d0 drivers/base/dd.c:1098
->  device_initial_probe+0xaf/0xd0 drivers/base/dd.c:1153
->  bus_probe_device+0x64/0x160 drivers/base/bus.c:620
->  device_add+0x121d/0x1970 drivers/base/core.c:3776
->  usb_set_configuration+0xd97/0x1c60 drivers/usb/core/message.c:2268
->  usb_generic_driver_probe+0xa1/0xe0 drivers/usb/core/generic.c:250
->  usb_probe_device+0xef/0x400 drivers/usb/core/driver.c:293
->  call_driver_probe drivers/base/dd.c:628 [inline]
->  really_probe+0x241/0xa60 drivers/base/dd.c:706
->  __driver_probe_device+0x210/0x460 drivers/base/dd.c:868
->  driver_probe_device+0x4a/0x140 drivers/base/dd.c:898
->  __device_attach_driver+0x1df/0x320 drivers/base/dd.c:1026
->  bus_for_each_drv+0x159/0x1e0 drivers/base/bus.c:500
->  __device_attach+0x1e4/0x4d0 drivers/base/dd.c:1098
->  device_initial_probe+0xaf/0xd0 drivers/base/dd.c:1153
->  bus_probe_device+0x64/0x160 drivers/base/bus.c:620
->  device_add+0x121d/0x1970 drivers/base/core.c:3776
->  usb_new_device.part.0+0xcc2/0x1686 drivers/usb/core/hub.c:2708
->  usb_new_device include/linux/workqueue.h:715 [inline]
->  hub_port_connect drivers/usb/core/hub.c:5580 [inline]
->  hub_port_connect_change drivers/usb/core/hub.c:5720 [inline]
->  port_event drivers/usb/core/hub.c:5884 [inline]
->  hub_event.cold+0x1e3/0xe90 drivers/usb/core/hub.c:5966
->  process_one_work+0xac7/0x1b10 kernel/workqueue.c:3387
->  process_scheduled_works kernel/workqueue.c:3470 [inline]
->  worker_thread+0x5ef/0xe50 kernel/workqueue.c:3551
->  kthread+0x373/0x450 kernel/kthread.c:436
->  ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
->  ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
->  </TASK>
-> Kernel Offset: disabled
-> Rebooting in 86400 seconds..
-> 
-> 
-> ---
-> If you want syzbot to run the reproducer, reply with:
-> #syz test: git://repo/address.git branch-or-commit-hash
-> If you attach or paste a git patch, syzbot will apply it before testing.
+As a cleanup in preparation for making every drm_panel embed a drm_bridge,
+fix missing or unnecessary usage of DRM_PANEL and DRM_PANEL_BRIDGE in
+drivers/gpu/drm/bridge/Kconfig.
 
-#syz fix: locking: Revert switching guards to _irq_{disable,enable}()
+== Grand plan
 
+This is part of the work to support hotplug of DRM bridges. The grand plan
+was discussed in [0].
 
-This looks like a temporary breakage after the commit 1b0866874833.
-I verified locally 7.3-rc1 release fixed the crash.
+Here's the work breakdown (➜ marks the current series):
 
+ 1. ➜ add refcounting to DRM bridges struct drm_bridge,
+      based on devm_drm_bridge_alloc()
+    A. ✔ add new alloc API and refcounting (v6.16)
+    B. ✔ convert all bridge drivers to new API (v6.17)
+    C. ✔ kunit tests (v6.17)
+    D. ✔ add get/put to drm_bridge_add/remove() + attach/detach()
+         and warn on old allocation pattern (v6.17)
+    E. ➜ add get/put on drm_bridge accessors
+       1. ✔ drm_bridge_chain_get_first_bridge(), add cleanup action (v6.18)
+       2. ✔ drm_bridge_get_prev_bridge() (v6.18)
+       3. ✔ drm_bridge_get_next_bridge() (v6.19)
+       4. ✔ drm_for_each_bridge_in_chain() (v6.19)
+       5. ✔ drm_bridge_connector_init (v6.19)
+       6. ✔ protect encoder bridge chain with a mutex (v7.2)
+       7. ✔ of_drm_find_bridge
+          a. ✔ add of_drm_get_bridge() (v7.0),
+               convert basic direct users (v7.0-v7.1)
+          b. ✔ convert direct of_drm_get_bridge() users, part 2 (v7.0)
+          c. ✔ convert direct of_drm_get_bridge() users, part 3 (v7.0)
+          d. ✔ convert direct of_drm_get_bridge() users, part 4 (v7.1-v7.2)
+          e. ✔ bridge-only drm_of_find_panel_or_bridge() users (v7.2)
+       8. ➜ panel_bridge lifetime
+          a. ➜ cleanup DRM_PANEL in bridge drivers
+	  b. … embed a drm_bridge in every drm_panel
+       9. ✔ enforce drm_bridge_add before drm_bridge_attach (v6.19)
+    F. ✔ debugfs improvements
+       1. ✔ add top-level 'bridges' file (v6.16)
+       2. ✔ show refcount and list lingering bridges (v6.19)
+ 2. ✔ handle gracefully atomic updates during bridge removal
+    A. ✔ Add drm_bridge_enter/exit() to protect device resources (v7.0)
+    B. ✔ Add drm_bridge_clear_and_put() (v7.1)
+ 3. … DSI host-device driver interaction
+ 4. ✔ removing the need for the "always-disconnected" connector
+ 5. ✔ Migrate i.MX LCDIF driver to bridge-connector (v7.2)
+ 6. … DRM bridge hotplug
+    A. … Bridge hotplug management in the DRM core
+       1. ✔ bridge-connector: attach encoder to the connector (v7.2)
+       2. … drm bridge hotplug
+    B.   Device tree description
 
-Takashi
+[0] https://lore.kernel.org/lkml/20250206-hotplug-drm-bridge-v6-0-9d6f2c9c3058@bootlin.com/#t
+
+Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+---
+Changes in v3:
+- Fixed a few patches which incorrectly removed 'select DRM_BRIDGE'
+- Added missing 'select DRM_PANEL_BRIDGE' to some patches where
+  devm_drm_of_get_bridge() is used (thanks Doug)
+- Added patch 13 for tc358764
+- Removed boucing address spanda@codeaurora.org from Cc list
+- Link to v2: https://patch.msgid.link/20260825-drm-bridge-drm_panel-cleanup-v2-0-c6c88ba7ffd2@bootlin.com
+
+Changes in v2:
+- Added maintainers and recent authors to per-patch Cc list (these are not
+  added automatically by get-maintainers because the patches touch only the
+  Kconfig file)
+- Added review trailer
+- No changes to commit messages and patch content
+- Link to v1: https://patch.msgid.link/20260812-drm-bridge-drm_panel-cleanup-v1-0-0d86734e908a@bootlin.com
+
+---
+Luca Ceresoli (13):
+      drm/bridge: megachips-stdpxxxx-ge-b850v3-fw: don't select unused DRM_PANEL
+      drm/bridge: tc358764: don't select unused DRM_PANEL
+      drm/bridge: ti-dlpc3433: don't depend on DRM_PANEL, select DRM_PANEL_BRIDGE
+      drm/bridge: ti-sn65dsi86: don't select unused DRM_PANEL, select DRM_PANEL_BRIDGE
+      drm/bridge: ti-sn65dsi83: select DRM_PANEL_BRIDGE
+      drm/bridge: nxp-ptn3460: select DRM_PANEL_BRIDGE, not DRM_PANEL
+      drm/bridge: parade-ps8622: select DRM_PANEL_BRIDGE, not DRM_PANEL
+      drm/bridge: parade-ps8640: select DRM_PANEL_BRIDGE, not DRM_PANEL
+      drm/bridge: tc358775: select DRM_PANEL_BRIDGE, not DRM_PANEL
+      drm/bridge: tc358767: select DRM_PANEL_BRIDGE
+      drm/bridge: tc358768: select DRM_PANEL_BRIDGE
+      drm/bridge: ssd2825: select DRM_PANEL_BRIDGE
+      drm/bridge: tc358764: select DRM_PANEL_BRIDGE
+
+ drivers/gpu/drm/bridge/Kconfig | 21 ++++++++++++---------
+ 1 file changed, 12 insertions(+), 9 deletions(-)
+---
+base-commit: 031ab39b694301e0ccd125c90570cce4fafc4e17
+change-id: 20260812-drm-bridge-drm_panel-cleanup-09ed5cc10948
+
+Best regards,
+--  
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
+
