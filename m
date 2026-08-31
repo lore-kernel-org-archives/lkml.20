@@ -1,29 +1,28 @@
 Received: from mail.virtlab.unibo.it (mail.virtlab.unibo.it [130.136.161.50])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id BF1D9282F16
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 11:30:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id AD0FD3537EE
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 11:30:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=130.136.161.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788175825; cv=none; b=USOley0tXXIM+4rXnSveavXDLMf60/wbSE+f4VIdM5aF0vv43IFkFJMLY8QaiQNSINdRv0gSa2VnC9Ju6Hw5krqfuC7Ghy/JeBHJDcXGSjEUvn+Q6pmwaM/RR/v0Q8tDIQpj3mvQ0oLjFFPX13pAJqUPmXAP7dL6VLVtA8tl9/U=
+	t=1788175825; cv=none; b=EqGaQEnuI3x1WucHWxGQ45stlSdsT1kK6TbGbcr/HM9H7qcO28Jk5tgVBsEea+oYUV0mFobcWyYO0HaYACULUtlfgn57lmRv6lIgpmSd7lJOefeHmXQhmAIugAvPw37ffuTnWBiVwMnb8BG7U6zFtexBwriwWDUzcmby1h6twVc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788175825; c=relaxed/simple;
-	bh=4ywa7uDPMt5wvv6eCmU4CDmJLUpEMNAeJ75LRTodfWg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=enFSRfgLS3wbO9A1HXprjizP7P6IQrUqgeAuBzmwcGJORFIHqGF065nYux2qP9A49s7MNTalDxgxdocOoCSCIJfqXRTysWTcJhTGzK1PIWOg+bgq5xKSY6msuOmSFkPXSpgtjVZX+Lpm3P4i0udQo6wLyrZBT4gKP1Eaa2445Uc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cs.unibo.it; spf=pass smtp.mailfrom=cs.unibo.it; dkim=pass (1024-bit key) header.d=cs.unibo.it header.i=@cs.unibo.it header.b=nEzlccRo; arc=none smtp.client-ip=130.136.161.50
+	bh=sMKECYlbbY+zJgtA1Bu5FPVwu63muDWThlWdRUcC0IQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=oPVQNuetsbK2evKvZRFEPrwqgFfAmocccw7UcTdA+TwYFP5p+NUB65Aef+Hmkfr90Sn05+hnBOIawaYdgAAy/37DYxCm9Tw4uD6jMoDWjQomipgO5BS+Zh5164ulv8reemT/3WrNwzg2DKxsGjkhinrQct1GCuXpW0UwD13HBvw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cs.unibo.it; spf=pass smtp.mailfrom=cs.unibo.it; dkim=pass (1024-bit key) header.d=cs.unibo.it header.i=@cs.unibo.it header.b=PKhUscg1; arc=none smtp.client-ip=130.136.161.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cs.unibo.it
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unibo.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cs.unibo.it header.i=@cs.unibo.it header.b="nEzlccRo"
+	dkim=pass (1024-bit key) header.d=cs.unibo.it header.i=@cs.unibo.it header.b="PKhUscg1"
 Received: from eipi10.cs.unibo.it (unknown [94.32.99.206])
-	by mail.virtlab.unibo.it (Postfix) with ESMTPA id B47C01C024E;
-	Mon, 31 Aug 2026 13:30:21 +0200 (CEST)
+	by mail.virtlab.unibo.it (Postfix) with ESMTPA id 8B3041C0249;
+	Mon, 31 Aug 2026 13:30:18 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=cs.unibo.it;
-	s=virtlab; t=1788175821;
-	bh=4ywa7uDPMt5wvv6eCmU4CDmJLUpEMNAeJ75LRTodfWg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=nEzlccRoHDGmkZ2JY7MAjUDbXxUEJEn6oiDIf4eZqXciik/8yWfr4NcKyEEiK7YCr
-	 vYyDuqOvsX6PVY8+9T3Qm2G5s6BdA4k6VFv79Ercm/NPZZ55d83l/wJTMZD0gzPLXZ
-	 QLOTh7yaMMQyVRUfNWyjAlNSIrbbLdGsX6AV2E1k=
+	s=virtlab; t=1788175818;
+	bh=sMKECYlbbY+zJgtA1Bu5FPVwu63muDWThlWdRUcC0IQ=;
+	h=From:To:Cc:Subject:Date:From;
+	b=PKhUscg1IL/CogGlTrXQwC7TOBWjRZ58pgTbbNsEghT1piFkI5lg9WaCrCTq1G7eq
+	 UyoPsIHX+K+3YgnF9RTLuWpBTXeBVvtNL5VGWb8gqUBLDrqpfxlSnvz/qqyowMcWoI
+	 qLzEotYIgtugHnhdAE+1zf2R4TihlOw0lGk34c/s=
 From: Renzo Davoli <renzo@cs.unibo.it>
 To: linux-kernel@vger.kernel.org
 Cc: Renzo Davoli <renzo@cs.unibo.it>,
@@ -36,12 +35,10 @@ Cc: Renzo Davoli <renzo@cs.unibo.it>,
 	strace-devel@lists.strace.io,
 	"Dmitry V . Levin" <ldv@strace.io>,
 	Thomas Bogendoerfer <tsbogend@alpha.franken.de>
-Subject: [PATCH v3 2/3] ptrace: add PTRACE_SYSCALL_INFO_FLAG_SET_IP
-Date: Mon, 31 Aug 2026 13:30:03 +0200
-Message-ID: <20260831113004.259991-3-renzo@cs.unibo.it>
+Subject: [PATCH v3 0/3] ptrace_set_syscall_info: add support for instruction pointer modification
+Date: Mon, 31 Aug 2026 13:30:01 +0200
+Message-ID: <20260831113004.259991-1-renzo@cs.unibo.it>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260831113004.259991-1-renzo@cs.unibo.it>
-References: <20260831113004.259991-1-renzo@cs.unibo.it>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -50,7 +47,19 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This flag adds support for modifying the tracee's instruction pointer.
+PTRACE_SET_SYSCALL_INFO is a generic ptrace API that complements
+PTRACE_GET_SYSCALL_INFO by allowing a tracer to modify details of a
+system call in which the tracee is currently blocked.
+
+The API is designed to let tracers inspect and modify system call
+information in a simple, architecture-agnostic manner.
+
+The current implementation only supports modifying the subset of
+system call information needed by strace: the system call number,
+arguments, and return value.
+
+This patch set extends PTRACE_SET_SYSCALL_INFO with support for
+modifying the tracee's instruction pointer.
 
 To do this, the tracer stores the new instruction pointer value in the
 instruction_pointer field of the ptrace_syscall_info structure and
@@ -129,83 +138,51 @@ generally useful for any project implementing ptrace-based system call
 interposition, including PRoot, strace's syscall injection machinery, and
 similar frameworks.
 
-Signed-off-by: Renzo Davoli <renzo@cs.unibo.it>
----
- include/uapi/linux/ptrace.h |  4 ++++
- kernel/ptrace.c             | 25 ++++++++++++++++++++-----
- 2 files changed, 24 insertions(+), 5 deletions(-)
+This patchset is a new version of the proposed patchset entitled:
+ptrace_set_syscall_info: add support for seccomp syscall skipping and
+instruction pointer modification
 
-diff --git a/include/uapi/linux/ptrace.h b/include/uapi/linux/ptrace.h
-index 5f8ef6156752..6f62cb812875 100644
---- a/include/uapi/linux/ptrace.h
-+++ b/include/uapi/linux/ptrace.h
-@@ -80,6 +80,10 @@ struct seccomp_metadata {
- #define PTRACE_SYSCALL_INFO_EXIT	2
- #define PTRACE_SYSCALL_INFO_SECCOMP	3
- 
-+#define PTRACE_SYSCALL_INFO_FLAG_SET_IP (1 << 0)
-+#define PTRACE_SYSCALL_INFO_FLAG_ALL \
-+	(PTRACE_SYSCALL_INFO_FLAG_SET_IP)
-+
- struct ptrace_syscall_info {
- 	__u8 op;	/* PTRACE_SYSCALL_INFO_* */
- 	__u8 reserved;
-diff --git a/kernel/ptrace.c b/kernel/ptrace.c
-index 64fd1b455297..6df38f139a2d 100644
---- a/kernel/ptrace.c
-+++ b/kernel/ptrace.c
-@@ -1130,6 +1130,7 @@ ptrace_set_syscall_info(struct task_struct *child, unsigned long user_size,
- 	struct ptrace_syscall_info info;
- 	int op;
- 	bool skip_syscall = false;
-+	int ret;
- 
- 	if (user_size < sizeof(info))
- 		return -EINVAL;
-@@ -1142,8 +1143,8 @@ ptrace_set_syscall_info(struct task_struct *child, unsigned long user_size,
- 	if (copy_from_user(&info, datavp, sizeof(info)))
- 		return -EFAULT;
- 
--	/* Reserved for future use. */
--	if (info.flags || info.reserved)
-+	/* Unused flags and fields reserved for future use. */
-+	if ((info.flags & ~PTRACE_SYSCALL_INFO_FLAG_ALL) || info.reserved)
- 		return -EINVAL;
- 
- 	/*
-@@ -1164,15 +1165,29 @@ ptrace_set_syscall_info(struct task_struct *child, unsigned long user_size,
- 
- 	switch (info.op) {
- 	case PTRACE_SYSCALL_INFO_ENTRY:
--		return ptrace_set_syscall_info_entry(child, regs, &info);
-+		ret = ptrace_set_syscall_info_entry(child, regs, &info);
-+		break;
- 	case PTRACE_SYSCALL_INFO_EXIT:
--		return ptrace_set_syscall_info_exit(child, regs, &info, skip_syscall);
-+		ret = ptrace_set_syscall_info_exit(child, regs, &info, skip_syscall);
-+		break;
- 	case PTRACE_SYSCALL_INFO_SECCOMP:
--		return ptrace_set_syscall_info_seccomp(child, regs, &info);
-+		ret = ptrace_set_syscall_info_seccomp(child, regs, &info);
-+		break;
- 	default:
- 		/* Other types of system call stops are not supported yet. */
- 		return -EINVAL;
- 	}
-+
-+	if (ret== 0) {
-+		if (info.flags & PTRACE_SYSCALL_INFO_FLAG_SET_IP) {
-+			unsigned long ip = info.instruction_pointer;
-+			if (ip != info.instruction_pointer)
-+				return -ERANGE;
-+			instruction_pointer_set(regs, ip);
-+		}
-+	}
-+
-+	return ret;
- }
- #endif /* CONFIG_HAVE_ARCH_TRACEHOOK */
- 
+The patchset has been split in two:
+syscall skipping(previously sent)
+instruction pointer modification (this)
+
+This patch seried depends on the syscall-skipping series:
+[PATCH v7 0/2] PTRACE_SET_SYSCALL_INFO: add support for seccomp syscall skipping
+https://lore.kernel.org/lkml/20260831082753.165731-1-renzo@cs.unibo.it/
+
+This series is based on top of v7 of that series and should be applied
+after it.
+
+The prerequisite series is currently not in mainline.
+
+Changes in v03:
+rebased to Linux 7.3-rc1
+
+Changes in v02:
+compatibility issues with updated syscall skipping
+set_syscall_info selftest: improve error messages
+
+Renzo Davoli (3):
+  asm/ptrace.h: add instruction_pointer_set
+  ptrace: add PTRACE_SYSCALL_INFO_FLAG_SET_IP
+  selftests/ptrace: add a test case for PTRACE_SYSCALL_INFO_FLAG_SET_IP
+
+ arch/alpha/include/asm/ptrace.h               |   6 +
+ arch/hexagon/include/asm/ptrace.h             |   6 +
+ arch/m68k/include/asm/ptrace.h                |   6 +
+ arch/microblaze/include/asm/ptrace.h          |   6 +
+ arch/nios2/include/asm/ptrace.h               |   6 +
+ arch/um/include/asm/ptrace-generic.h          |   6 +
+ arch/xtensa/include/asm/ptrace.h              |   6 +
+ include/uapi/linux/ptrace.h                   |   4 +
+ kernel/ptrace.c                               |  25 ++-
+ .../selftests/ptrace/set_syscall_info.c       | 166 ++++++++++++++++++
+ 10 files changed, 232 insertions(+), 5 deletions(-)
+
+
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+prerequisite-patch-id: 85c29843e62833d036e4a6b492ca77235b1f23d9
+prerequisite-patch-id: 70c352bc91debf7841fec79077217efd9b20eece
 -- 
 2.55.0
 
