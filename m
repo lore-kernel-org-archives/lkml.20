@@ -1,182 +1,175 @@
-Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013038.outbound.protection.outlook.com [40.93.201.38])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A51192DEA95;
-	Mon, 31 Aug 2026 18:28:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.201.38
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788200891; cv=fail; b=V7wQxKVgzIBCP898QiuuOlZGTY1/eu7l3rh55vHV56n4IWKVHa9Pr+FazSu30LKGAo81vakanw8jUhv4IzNpBM0ccfmMYWXUt/iDPdcZq9gL/aXxlJxNaYvGkXY2WfvXJ0wd1VdZvefchf5kVNyb7n+HMH81hoqFEblYrvPWsOw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788200891; c=relaxed/simple;
-	bh=Y1mx0yYoGZcfljU05b3k/OE3qPhfoOx76dAMSoV3+po=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=IEb++fyRIhao2cajX/RA/NXY6lF/jmWUJ1j46nvI/lGr/Lp9aQiS5HVHxMw7XiLOlLj+ioawH9QxVvFKvwALStFpi6ZsXQPIEw+cg7hr7aYpsH37goW7QJvM1dQoqh48sjTixQUEKL/fk6BUmxusDnA7iyA8MAbfr0u0nY02jlg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=uAYHX5aF; arc=fail smtp.client-ip=40.93.201.38
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEC994CCDEC;
+	Mon, 31 Aug 2026 18:32:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788201181; cv=none; b=BWB9nrn4XPQbLIoGZh4uOJbMFW01SS1B/BcdALk5gFJZ4/p99ownPF9M1VYQ2PO/k/OI6/h1JPb6RFm+k4TeYHN+HRPZJat2fMGkLeCT7z3Fseg+/bkXrRaHZdrdOktH8yZ423L3/hmevzA5xEKC651tkMyzwSZk2j4i5+wRiNc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788201181; c=relaxed/simple;
+	bh=qhsge+/69E4jNcWl7mZmEyCtLeMfahz3yWtH0cXD0tc=;
+	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=o//n+1Z9j8HM1WVfS4vMlXBsDfsW0EzHgGPgE5MVujszaQCsBDVEgykzu8xqe44KWXorq2aQyCLyQayQsCkVW0VNPLowpABs1NRVov+rVlUyUIJpolVXyL17KkVqPMbCkpePlSrqxz5niZE10XmC7mRpRMYyb4BQ1xSuJPtHm3E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=cDbAYu5k; arc=none smtp.client-ip=198.175.65.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="uAYHX5aF"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=IPdc67kotDaYlgTeE30BUe3Zb8zsplCmpDMdkcyqN4Vq5Dq+heNESBuBbShKJUPvqQ9/EFRdGmNXdG+fUKGTWoL3eu05fz5OZkrQJk6+RPv1uSu45XphymsYvUO3R+6fg6bd93FmvKOoPXPaRlY2Jzf9BqrjEZv1z8f6EH076go5/M+b4qtI7OKuMdZSglK4MKZIYk+9BBJWsDd9EVQPsT0UCstdSjmMYZ4IXjmMr2AjYQUTcN8xjLjpXoZVJ4Gy6sM5MjWig7Nee0un4QIx0mXIBJGpQ22BmX7Vsa4+CD05mySkuBLDO2TqBO2oCKIsNgIXVBeRUsUyrdKlaFOtnw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Y1mx0yYoGZcfljU05b3k/OE3qPhfoOx76dAMSoV3+po=;
- b=psbV3SNhGKot7D7/DZAb+VmyU4+oleviY/3gAlIIgeGZhNR4DZZRiLHxF2VmUllOx+U49/QXiCXtXTcWP5a62tJDGHuK0bYY/sRrwEC+mVSa2+Cq0dML6cOKE+79DwYll+3vUj4NVZdH84uTC8knspKAOcQK4QUXOGT2H+zDDJ3IiB6esFvl0R3plDifNSJKC5s7efiTKFVV141rNLhgA5p6ADn+Oc7n2R459wvbqOlYE8JwOMOozdXXqbZnfzJkkCRz22L9jHb/ts3DzCtiUXEz2CBQcw+L59BNoMmm5DjZP3ohKYquVwSpz7pHZDh2goKo3GfeKReapFeWkbQSOw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Y1mx0yYoGZcfljU05b3k/OE3qPhfoOx76dAMSoV3+po=;
- b=uAYHX5aFba1lZpDiosnbwp1tOJ2Vxw3oeeL4+ikrOB62IhMcjnH71k0LbjmLYpBhAWuyWSJYOwd3muf7/zp5nuH7KVbhIazty0Vwfc/wWQnqWZ9ahgVFED+tHRr1MsNCXcbQT3x695e0W8O3vKlxaLsv7m/Okvgd65TxwFRP/il0a99pY8ucghI49wPB4XZ7fUW6jsL0pZ6xGRoub8TEv1QxC23sTkZi4FLV94OClQ72Xes2rGQFfenDSv2N+eZNuuswIishPVgcePodJ8oaseLza7i7sJmlx8po+cOeTMiH/+1JgGG2cvGNjtNNQVaa2Bv+to9y6OQ/1VPsiE/eyA==
-Received: from DS0PR12MB7512.namprd12.prod.outlook.com (2603:10b6:8:13a::5) by
- BY1PR12MB8445.namprd12.prod.outlook.com (2603:10b6:a03:523::6) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.360.10; Mon, 31 Aug 2026 18:28:02 +0000
-Received: from DS0PR12MB7512.namprd12.prod.outlook.com
- ([fe80::2b77:2cc3:d751:6b75]) by DS0PR12MB7512.namprd12.prod.outlook.com
- ([fe80::2b77:2cc3:d751:6b75%5]) with mapi id 15.21.0360.008; Mon, 31 Aug 2026
- 18:28:01 +0000
-From: Wayne Chang <waynec@nvidia.com>
-To: Conor Dooley <conor@kernel.org>
-CC: "mathias.nyman@intel.com" <mathias.nyman@intel.com>, "vkoul@kernel.org"
-	<vkoul@kernel.org>, "neil.armstrong@linaro.org" <neil.armstrong@linaro.org>,
-	"robh@kernel.org" <robh@kernel.org>, "krzk+dt@kernel.org"
-	<krzk+dt@kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>,
-	"gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
-	"thierry.reding@gmail.com" <thierry.reding@gmail.com>, Jon Hunter
-	<jonathanh@nvidia.com>, "linux-usb@vger.kernel.org"
-	<linux-usb@vger.kernel.org>, "linux-tegra@vger.kernel.org"
-	<linux-tegra@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "linux-phy@lists.infradead.org"
-	<linux-phy@lists.infradead.org>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>
-Subject: Re: [PATCH 1/8] dt-bindings: phy: tegra-xusb: Add support for
- Tegra264
-Thread-Topic: [PATCH 1/8] dt-bindings: phy: tegra-xusb: Add support for
- Tegra264
-Thread-Index: AQHdB6qBWEacjEQ+cECDCasNXKpGMLZVpeyAgGM3p4A=
-Date: Mon, 31 Aug 2026 18:28:01 +0000
-Message-ID: <56187858-3096-4db9-8d1a-6fb7e72f2eb3@nvidia.com>
-References: <20260629093406.1118594-1-waynec@nvidia.com>
- <20260629093406.1118594-2-waynec@nvidia.com>
- <20260629-baffling-gag-05e20c9d925b@spud>
-In-Reply-To: <20260629-baffling-gag-05e20c9d925b@spud>
-Accept-Language: en-US, zh-TW
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-user-agent: Mozilla Thunderbird
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DS0PR12MB7512:EE_|BY1PR12MB8445:EE_
-x-ms-office365-filtering-correlation-id: 004e6e16-4bfc-4f05-df70-08df078d973b
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|23010399003|376014|7416014|1800799024|366016|38070700021|3023799007|10067099003|56012099006|4143699003|11063799006|18002099003|22082099003;
-x-microsoft-antispam-message-info:
- Wor9LNnOhBhNMzntJweike3uTkgLBxyPxF2k6pzRjgKxoYm4nsoU2fjNyy+QY9wPjE3E+wpJJviFYid5+HJ2B/RV71Ml1uzWueF6ShhUwB4FZ1Drf+/76lUPtgglzjBcsOZXil2We6gn0fSSTfyFheQyx9b0nCCtrkEon4UNJHIWnPPPWJMog981S1eWzE/z7rq3t4/PIZoYDgRuX7ol/p04edZHwQnLiqmJl7BBj3IJVsSBxwAv94FtO23ewKl8/qpJ6Bn0E7nE+82ZKqvbK4oAUJPE4yAL4P9H/88RL4JUV52m+5q6UF81KjJTrnYROjIJbXXnoHSZVIImrVIgiHdLLMJ85Q0RrjkYY1rI8EAXYrY7gqGr0cvhARD6tQ+HSxV+1d5t6cQep/Sy+zAjRjTfmXO9jfvl+oMTZy/q1ZgoW6sVoUD54zEXKJLPTSYpROSRNILsZUUbESD/PewMUPYps7iqTQISR+sm3bQ1tK+kMi4XAb3zsmReQOyuOr73ft4gMWwMe1yx2uJo8qsJoBfoNmZkvac1rYfG+yADEQkcYbvT94YfNzS2020IFUXcKiHrwIKX7P2dxf6WZaEqcTChdjohY6QmV1v9PPIgfQ57z/m2T/AB2g7r7P513qkAVa669aOoIQCOVXLJR0RGRUVKf0s1dOdPVLB6h7RnM3ObbbyCYZ703YxU+t3Dod7AtiVp7xmPExTt02htEOHSQrIIL+9e4qOfITVz43V12A0=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB7512.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(1800799024)(366016)(38070700021)(3023799007)(10067099003)(56012099006)(4143699003)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?dWRyaUZ1RmhOUlJuWktmZExVUFBxSURuZG1nRUNRVG9RaWxtRDg2a1h3b1VS?=
- =?utf-8?B?VDd5SjVtVENnVHR2bVVJamtUNTJQazdrM05XQkE2ckhTNXBzcWEvOHQ0bVRL?=
- =?utf-8?B?RG0zRVJheDBjSXRNd0l4K0QzdDR0QXViK3VuVklKS3RjQ1U4eTZjWGlEL2FZ?=
- =?utf-8?B?OTlFNDRhS3BOa293WXcybFhkWkFOMGw5cDhyclMzaXNhdWg4b3JkOVlZaW45?=
- =?utf-8?B?a0JmWnBwUmpqZVUxN3VJVUxKTnJnRmxDSDBDM1Q4b3Bvb0ZoV1NzbXdKU1BE?=
- =?utf-8?B?aTl2YWVTM0lXdmo2RGdJbVZCdkJ6N2NJZUF3T2hBOGE4V1dGZXR2SnRDekdJ?=
- =?utf-8?B?a2JrM2VEQXBEYUdLRGorM1IwOXNjK1FIek45OC9oZ2ZMSGQ5YSt6blc4ODVH?=
- =?utf-8?B?cVlCdldmY3g3S0xqQXM0UjZId3JoVDlzT1FObCt3SUwwSEhmSzltV2FKdTJE?=
- =?utf-8?B?eHJtUGRuajh1eGdLMEVZNEluSzVHYW00bWhDNEV4V1BaVFh1dXhTVm1nYUZ3?=
- =?utf-8?B?b3VYRjJhNE0vd1pWR21PM2RNdW5PMmRqbEhpek5EL1QremJVVGthRWxjK2hs?=
- =?utf-8?B?dnhlY1RPdjZubTYrQi9CYTFuUXFGZ0pqcW9mNVFmYnBtblRrSExFdkI0UGk4?=
- =?utf-8?B?WnRsUk9MaDI1Z282U2NDSTcxZmhHT1FXT0w1SThPMTdjK2RUN2dhd1Qwc2xa?=
- =?utf-8?B?SnVacGhCaWdNOHZGNE4ySlZVMG1Fem1LV3NrS2JIVnpLVVA1T1ozRFE0cHdS?=
- =?utf-8?B?cWlYNFg5ZHFCUXovS1BpWTh6UEJQYmlWdE5tWDl0UXZIQ3YwRmtGczF3aUY5?=
- =?utf-8?B?QWNuTkc3ODJ4eUxhV2kyeVJOcE40N1VUd2FxQVVXY1Z5YkM0SVEwSXdEL3F2?=
- =?utf-8?B?VmxVam5pbi9mbFpzQ3ZJVEdXby9ObmJJb3pkaTRmTFNWVkVkTWNVNUZDQ1Zt?=
- =?utf-8?B?MTBFZ2I2ZU54QjBRdTdEaHB2MU8wTTQyYlhTd2hpUHhjQ01zVHliS1hWYW15?=
- =?utf-8?B?czlJL0hrWkh5WnFVTzJYY2YyMDlMVnJ5eUdoQXh5RWlLQytxbkZuNXc3dysz?=
- =?utf-8?B?SERSVTJoQjdyTkhUSUdvaE5SL3lSNUFSZnExU3lWeWswTFpVMlRqOHpSUzBW?=
- =?utf-8?B?T25ubmVwQWhCT0lRb3M1RjlFcjBPUWlLZ3RSK2hBM0s5aWEvLzlDYTBUZmNq?=
- =?utf-8?B?b2dlTldEc2lLbDRvcUVBWmRXanI1ME53bTlRK2h4NFNEWFlOY3VSSmtEeSsx?=
- =?utf-8?B?UVN6anQxU0lyUGlwZXVwY0U1UmkyOHBJQjRvSk9JNWVpdXNxdWxnV2ozOGlR?=
- =?utf-8?B?cGdUeGNrTzlvdmtRS2dvK0RyQ0dDWmZhQW80cm5FT3VGK3Fjby8xQ2E5NDVO?=
- =?utf-8?B?VytVTzZWS0pFOFVwV0ZPazhPQ0hZcTNoQjRRcDk5cEEwMGZnRGllVzBUY2Np?=
- =?utf-8?B?eVNMeGhPZWZkRXR1alVGeXRucW9KbVM1RlJDVFdoNkh6bnBsdGphT3U5cjdU?=
- =?utf-8?B?Y0NMTmh6aEk4NmZyUEF6WmpVNk5SWDJjelQ0aUpHMTJlSWJQRnJReURZTWVF?=
- =?utf-8?B?d29tbHVBUjNNdFdIRTJ4NUpiSWVJUWxBVGJOOHdHNVdCOUcxTHdLdG9IMXFN?=
- =?utf-8?B?VGpCbTJkWWZNUmdzN3pINCtoRnp1OHROZGh4YjVMZDBoZ2VqOXo1Y1pCakhu?=
- =?utf-8?B?ekVqNTIrTEFKeWdlY1NlY3BoNUhFNmV4WU90bWxSSjBkZFUwK0lKRmFDcFpt?=
- =?utf-8?B?TXE1ZnRMS2RYOVExMnlsRjJXTUFqSDNCWk5sYnFtN2psMHdMSjRwVkJTOGNq?=
- =?utf-8?B?cFNiUzk5SXJUQVd2emdHVktRTlRvd3dlMWczVlgxSXpMZkQ0eVlJc1JsZFJK?=
- =?utf-8?B?MTVzM3dOSU5ubHZWeVhFcisvdEcvTkdQOUsyNU1oVDRLVStrL1h6eUhOYlF1?=
- =?utf-8?B?U3FCaEhMSkY3a0lLWmFocm1DVlRWUXQ2SUcvWWhsMEFEZ3l6dEZMZHFmZXp0?=
- =?utf-8?B?cjROUjVMbXVZUHhxYUJHVkwvSVlMNCtrTEgvalBIWUUzR3Bxb2UreXI1bTB4?=
- =?utf-8?B?NjdiZUVpL1pNcDFJS3B0ay9yZFNhQks5Y0lhak5xRUpFMHJWMS9tdGtySWQ5?=
- =?utf-8?B?bDMyblBiRU5lb3FmWlZNNWp2bjduWWtVNTFhdUxNSDEvb3dXQldFV254ckZ2?=
- =?utf-8?B?bURUVzFBMFE4L3FmY293UG9iSVRRV2JmNFI4Y29VN3BtNVpXYXczQmlvR0NU?=
- =?utf-8?B?SmM4aSswNG1FV3l6aGRTTnlzTldHWGh2NDBRSERvWmRqQ2s5Y3pQWDgvcGNt?=
- =?utf-8?B?N0hPa0ZiR0x2QlJJV1UxWmphVjdBRVVvNzI2UjltR05ES1pqSExjQT09?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <EAD2C19A2BD5214FAA941F338050A463@namprd12.prod.outlook.com>
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="cDbAYu5k"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788201181; x=1819737181;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=qhsge+/69E4jNcWl7mZmEyCtLeMfahz3yWtH0cXD0tc=;
+  b=cDbAYu5kPhU7GbRbPZa+YpLj5EcfT6RetAM6Eae6GZAsDC0UmGk2BCfH
+   WI7sk6vZa5cibXiR98GYINH/MddqgA0wBT7Eq0ySLkzSMx00ogkHPoCdq
+   2QsBGkXiPiJw9dLTmiF2jV2E3AGOEtBuoIJyhzJSm3ZkycBuPLVBNKiSC
+   q2UUCii7GIth15wb5wtRvY5wq37/N9ZqFIQQGBnZ+6Jaet+hlVUQVZ7LJ
+   o2koIU1B1+YLBpB7XeNwl+/7Mma4WULHA8BXrHmFQ7iAPAUGNJ6HAy41U
+   jdXIOAssECF7VhvLvUQSeV1cWEtPmzaRW80gpzu7OVLZc2PRRIunrfUgT
+   A==;
+X-CSE-ConnectionGUID: dEc+X/ovQbyPP2WPCoDhGQ==
+X-CSE-MsgGUID: /svSJPkqTSeruCc9xkUg1w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11892"; a="88667388"
+X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; 
+   d="scan'208";a="88667388"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 11:33:00 -0700
+X-CSE-ConnectionGUID: Vkz1x03HQ5+hjPCvMPu67g==
+X-CSE-MsgGUID: f6oTpFKnRCqEacANzmAPrQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; 
+   d="scan'208";a="293708209"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.121])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 11:32:54 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Mon, 31 Aug 2026 21:32:51 +0300 (EEST)
+To: Geramy Loveless <gloveless@jqluv.com>
+cc: =?ISO-8859-15?Q?Christian_K=F6nig?= <christian.koenig@amd.com>, 
+    Bjorn Helgaas <bhelgaas@google.com>, alexander.deucher@amd.com, 
+    amd-gfx@lists.freedesktop.org, mario.limonciello@amd.com, 
+    nra3088@gmail.com, meiling.leung@embeddedllm.com, 
+    linux-pci@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] PCI: Reserve prefetchable window headroom for Resizable
+ BARs
+In-Reply-To: <1eb85efc-43f4-4929-8390-467308522236@jqluv.com>
+Message-ID: <7366a0bc-360b-0667-ee94-af839374dfed@linux.intel.com>
+References: <39e09dd8-f73e-4dc2-ba36-8a9228516d26@jqluv.com> <d4c3ea40-d92a-49c4-ab2c-925fc70c4bb9@amd.com> <d6c56ff3-0b83-4d2e-7e6f-f3e65a284341@linux.intel.com> <1eb85efc-43f4-4929-8390-467308522236@jqluv.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7512.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 004e6e16-4bfc-4f05-df70-08df078d973b
-X-MS-Exchange-CrossTenant-originalarrivaltime: 31 Aug 2026 18:28:01.8350
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: +cYXrtIQnZ70PbDDqN7b5cUbWs/gza1jd5Sn7ptUsWD/YrntMT3ic4Vj7mDbTVg2qbOlKnPQ3BPIym7Z8aWF1Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY1PR12MB8445
+Content-Type: multipart/mixed; boundary="8323328-633456053-1788201171=:2637"
 
-SGkgQ29ub3IsDQoNClRoYW5rcyBmb3IgdGhlIHJldmlldyBhbmQgc29ycnkgZm9yIHRoZSBsYXRl
-IHJlcGx5Lg0KDQpBIGZhbGxiYWNrIGlzIG5vdCBzdWl0YWJsZSBoZXJlIGJlY2F1c2UgVGVncmEy
-NjQgWFVTQiBwYWRjdGwgaXMgbm90DQpwcm9ncmFtbWluZy1jb21wYXRpYmxlIHdpdGggVGVncmEy
-MzQgKG9yIFRlZ3JhMTk0KSwgZXZlbiB0aG91Z2ggdGhlDQpEVCBwcm9wZXJ0eSBzZXQgaXMgdGhl
-IHNhbWUuDQoNClRoZSBkcml2ZXIgc2VsZWN0cyBwZXItU29DIGRhdGEgZnJvbSB0aGUgY29tcGF0
-aWJsZSBzdHJpbmcuIFRlZ3JhMjY0DQpkaWZmZXJzIGZyb20gVGVncmEyMzQgaW4gYXQgbGVhc3Q6
-DQoNCi0gVGVncmEyNjQgdXNlcyBoYXJkd2FyZSB0cmFja2luZyBtb2RlICh0cmtfaHdfbW9kZSks
-IHdoaWxlIFRlZ3JhMjM0IA0KZGlzYWJsZXMgaXQuDQotIE9uIFRlZ3JhMjM0LCBDWUFfVFJLX0NP
-REVfVVBEQVRFX09OX0lETEUgbmVlZHMgdG8gYmUgY2xlYXJlZCBzbyB0aGF0IA0KdGhlIGNhbGli
-cmF0aW9uDQp2YWx1ZXMgY2FuIGJlIGNhcHR1cmVkIHdoaWxlIHRoZSBjb250cm9sbGVyIGlzIHN0
-aWxsIGluIHJlc2V0LiBUaGlzIGlzIA0Kbm90IHJlcXVpcmVkIG9uDQpUZWdyYTI2NCwgd2hlcmUg
-dGhlIGNvcnJlc3BvbmRpbmcgaGFuZGxpbmcgaXMgbm90IGV2ZW4gcHJlc2VudC4NCg0KQSBmYWxs
-YmFjayBvZiAibnZpZGlhLHRlZ3JhMjM0LXh1c2ItcGFkY3RsIiB3b3VsZCBsZXQgYW4gT1MgdGhh
-dCBvbmx5DQprbm93cyBUZWdyYTIzNCBwcm9iZSBUZWdyYTI2NCB3aXRoIHRoZSB3cm9uZyBwcm9n
-cmFtbWluZyBzZXF1ZW5jZS4NCg0KVGhhdCBpcyBhbHNvIHdoeSBUZWdyYTIzNCBkaWQgbm90IGZh
-bGwgYmFjayB0byBUZWdyYTE5NCBpbiB0aGlzIHNhbWUNCmJpbmRpbmc6IHRoZSBEVCBzY2hlbWEg
-aXMgc2hhcmVkLCBidXQgZWFjaCBnZW5lcmF0aW9uIG5lZWRzIGl0cyBvd24NCmNvbXBhdGlibGUu
-DQoNClRoYW5rcywNCldheW5lDQoNCg0KT24gNi8yOS8yNiAyMzoxOSwgQ29ub3IgRG9vbGV5IHdy
-b3RlOg0KPiBPbiBNb24sIEp1biAyOSwgMjAyNiBhdCAwNTozMzo1OVBNICswODAwLCBXYXluZSBD
-aGFuZyB3cm90ZToNCj4+IEFkZCB0aGUgY29tcGF0aWJsZSBzdHJpbmcgZm9yIHRoZSBUZWdyYTI2
-NCBYVVNCIFBIWS4NCj4+DQo+PiBTaWduZWQtb2ZmLWJ5OiBXYXluZSBDaGFuZzx3YXluZWNAbnZp
-ZGlhLmNvbT4NCj4gV2h5IGlzIGEgZmFsbGJhY2sgY29tcGF0aWJsZSBub3Qgc3VpdGFibGUgaGVy
-ZT8NCj4NCj4NCj4gVGhhbmtzLA0KPiBDb25vci4NCj4NCj4+IC0tLQ0KPj4gICAuLi4vZGV2aWNl
-dHJlZS9iaW5kaW5ncy9waHkvbnZpZGlhLHRlZ3JhMTk0LXh1c2ItcGFkY3RsLnlhbWwgICAgIHwg
-MSArDQo+PiAgIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigrKQ0KPj4NCj4+IGRpZmYgLS1n
-aXQgYS9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvcGh5L252aWRpYSx0ZWdyYTE5
-NC14dXNiLXBhZGN0bC55YW1sIGIvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL3Bo
-eS9udmlkaWEsdGVncmExOTQteHVzYi1wYWRjdGwueWFtbA0KPj4gaW5kZXggZDhkZTkwMGE0ZmNl
-Li5mNmZlM2M5MGI1YjAgMTAwNjQ0DQo+PiAtLS0gYS9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUv
-YmluZGluZ3MvcGh5L252aWRpYSx0ZWdyYTE5NC14dXNiLXBhZGN0bC55YW1sDQo+PiArKysgYi9E
-b2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvcGh5L252aWRpYSx0ZWdyYTE5NC14dXNi
-LXBhZGN0bC55YW1sDQo+PiBAQCAtNDUsNiArNDUsNyBAQCBwcm9wZXJ0aWVzOg0KPj4gICAgICAg
-ZW51bToNCj4+ICAgICAgICAgLSBudmlkaWEsdGVncmExOTQteHVzYi1wYWRjdGwNCj4+ICAgICAg
-ICAgLSBudmlkaWEsdGVncmEyMzQteHVzYi1wYWRjdGwNCj4+ICsgICAgICAtIG52aWRpYSx0ZWdy
-YTI2NC14dXNiLXBhZGN0bA0KPj4gICANCj4+ICAgICByZWc6DQo+PiAgICAgICBpdGVtczoNCj4+
-IC0tIA0KPj4gMi4yNS4xDQo+Pg0KDQo=
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
+
+--8323328-633456053-1788201171=:2637
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: QUOTED-PRINTABLE
+
+On Mon, 31 Aug 2026, Geramy Loveless wrote:
+> On 8/31/26 9:58 AM, Ilpo J=C3=A4rvinen wrote:
+> > On Mon, 31 Aug 2026, Christian K=C3=B6nig wrote:
+> >
+> >> On 8/28/26 23:37, Geramy Loveless wrote:
+> >>> Firmware typically sizes prefetchable bridge windows for the boot-tim=
+e
+> >>> BAR size. Behind a fixed (non-hotplug) PCIe switch fabric, there is t=
+hen
+> >>> no room for a driver to grow a Resizable BAR afterwards: every window
+> >>> from the leaf up to the root is sized for the small BAR, so
+> >>> pci_resize_resource() fails with -ENOSPC.=20
+> >>>
+> >>> Furthermore, a small prefetchable BAR (e.g., a 2 MiB doorbell) sharin=
+g a=20
+> >>> bridge's single prefetchable window with a much larger one (e.g., a 3=
+2 GiB=20
+> >>> VRAM BAR) pushes the required window size past the large BAR's alignm=
+ent.=20
+> >>> Because bridge windows round up to a power of two, this forces a mass=
+ive=20
+> >>> alignment waste (e.g., 32 GiB + 2 MiB rounds up to a 64 GiB window,=
+=20
+> >>> wasting ~32 GiB per GPU).
+> >>>
+> >>> This patch solves both issues to enable ReBAR on cascaded switch fabr=
+ics:
+> >>>
+> >>> 1. Reserve Headroom:=20
+> >>> Reserve prefetchable window headroom for the maximum size of each=20
+> >>> downstream Resizable BAR during the bridge sizing pass. The device BA=
+R=20
+> >>> and hardware ReBAR are left at their boot size to prevent tearing dow=
+n=20
+> >>> firmware-loaded state (e.g., AMD R9700 PSP) before the driver binds.
+> >> Yeah that was suggested before but that is clearly not something you c=
+an=20
+> >> do in common code.
+> >>
+> >> The ReBAR fields often doesn't reflect the actual needed space but=20
+> >> rather the maximum the HW address logic can resolve.
+> >>
+> >> So what you end up with is allocating multiple TiB for a window which=
+=20
+> >> just needs few GiB, sometimes even completely overflowing the 64bit=20
+> >> address space made available by the root complex.
+>=20
+> Yeah I could imagine that would be bad, hence I tried to compact the=20
+> 64-bit space as well. As far as I understand PCI/PCIe standards its=20
+> making this patch difficult.=20
+
+No compacting will save you in some cases. There are setups with many GPUs=
+=20
+and with VF BARs, the space requirement to fit full-sized ReBARs is way=20
+beyond what the root bus resource can hold. Where's your fallback for such=
+=20
+cases? What are the failure modes of that fallback?
+
+> Christian I'm not sure if you could share these reference documents but=
+=20
+> that probably would be a better start for me to look at before I update=
+=20
+> the patch or make changes, also I need to wait for a review on the last=
+=20
+> patch I submitted too, so that leaves me with some time to review some=20
+> standards if you know specifically where to look, if not thats fine too.
+>=20
+> > Yes. A naive approach to (only) go to the max ReBAR allows just doesn't=
+=20
+> > work well enough to be usable in general case.
+>
+> I did not know the max would report above the amount is actually needed=
+=20
+> because of vendors decisions in the cards, that's interesting.=20
+
+Not just that, using too large size has ripple effects on other resources=
+=20
+in the system, and those failures are hard to correct (your code doesn't=20
+even try to do that).
+
+> > A general algorithm to pick the largests fitting sizes for ReBARs is st=
+ill=20
+> > under works, a few steps away still, and more if I discover more=20
+> > challenges I need address before I can take that final step.
+>
+> So then I would assume instead of doing the "hack" i'm having to use I=20
+> would change it to your new algorithm?
+
+Assuming you meant we apply this kind of naive approach first and later=20
+changing to the new algorithm, the problem with that approach is this
+"hack" must not break working setups either, but it surely would. If it=20
+does break things, the change will just end up reverted. And that end=20
+result is same as not doing the "hack" at all.
+
+It's not enough it doesn't break your setup. It generally must not break=20
+any setup, which is unfortunately very very high bar.
+
+
+--=20
+ i.
+
+--8323328-633456053-1788201171=:2637--
