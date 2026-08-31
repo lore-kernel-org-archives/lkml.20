@@ -1,390 +1,180 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010036.outbound.protection.outlook.com [52.101.46.36])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0251641A50B
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 15:08:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788188898; cv=none; b=bWMQ+P9xIft4zJK4LhiZiS1CxjyMp0mqqdbC0OmRJOGkhgwDU8sryeP7NCi/Ln5Y1K3B+sKbt6AsAsbSNWl04qx3Te1X+Y24GtRMbEPosLPmjQ6JJniczze1BVYibYs4f6crJLg0mVytUklxJwR21McwF1XkQIAnumAbzeSaPyg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788188898; c=relaxed/simple;
-	bh=rCpC9Dwj5ujiSpDavJucdkRcsyXErHFhB3VN3pLX8BM=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=iCBJdxkiibahC3IvOmgm46EGiT3H2984OmN1DSwTNAj2dR2kPNQvKgV8EPSI75talWZ995+63sE6QZYUVjWyyuAhYh6quRImybjEn5p2su05FqlkBO7eiJCCvugUbY3qAOebHpgI1MTJWYY5NIQjLTKGuZ1PC2odvm3ZCaNZUP4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=LFP762yg; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB3F75293F8;
+	Mon, 31 Aug 2026 15:08:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.46.36
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788188909; cv=fail; b=n35TmDR+pwWU0TtTGdUBPkiay37eLNR0Vno64jdSrL9G6us6gQapkTblwnsrFi+g9AVp8FWm7loxTh/3C+BwmiAT/mh15GGuf219yQNlNvvysARrz+Ic7HypXKIvjqft4WN0xblZ9cUK7oqVchfjM6DdwkIWhwvMohF8QT0rgps=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788188909; c=relaxed/simple;
+	bh=oio0HkZIrL1pznerRGIEqnL6VyWPa0YqhgO+e22CU5I=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=iaL0QJeMLmYSFaZjnMG6ukSKqqCOjRqxLktPM8E01zb41I5Vfnvhn7zdmTsb6upaLokiqk//N3bcToq8joAx/bcVb0QY0mQ6SAjBjxpRp0eZ3KOxSXGEbA/s9pXMU/1EOADpNbsiZy8XWWO5OzPeSQWBaGy+w3t4PMupmaVmRnc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=Ov/NuVxt; arc=fail smtp.client-ip=52.101.46.36
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="LFP762yg"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 3A32F1A190E;
-	Mon, 31 Aug 2026 15:08:11 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 0560360231;
-	Mon, 31 Aug 2026 15:08:11 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 39F8B11C78A75;
-	Mon, 31 Aug 2026 17:08:00 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788188885; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=sqiOiFdMJrkbxYSuM3+7ydV7NdUJCu5eq/N9GzPyYT8=;
-	b=LFP762yg7Bf3/oiL2TKSiwe3Tj2/qtPwTa/cB66Cun87afaUb5eqvmWMaVfnpsoiF+Tmo7
-	zr8ZIHSnZLWy8Tcre/B+NR2KMiCY1RCyRcOvRsrL42l70wu7WhhQTAK7i7XpvfponEx9Iq
-	NDNz9SPoci+JtMGSwpKBEKA/GaHtTxSekTyKvlvfN5WmJo7V7r47r9AuqYY2Q/tYRFSGoX
-	3FVnB4UcfxYuS2+7Sr+sIk4rBbZRmSElImx1DNri1mbNbeqfZDIKRKTUcZ0UFj3QLNY0gg
-	jZBG6u+xkEChkiOnBKcwHGwJ03KGobNM6WdDAlOYp5nkm/WjCng6Fz2Ah9dzBA==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: "Michael Walle" <mwalle@kernel.org>
-Cc: "Pratyush Yadav" <pratyush@kernel.org>,  "Takahiro Kuwano"
- <takahiro.kuwano@infineon.com>,  "Richard Weinberger" <richard@nod.at>,
-  "Vignesh Raghavendra" <vigneshr@ti.com>,  "Nicolas Ferre"
- <nicolas.ferre@microchip.com>,  "Alexandre Belloni"
- <alexandre.belloni@bootlin.com>,  "Claudiu Beznea"
- <claudiu.beznea@tuxon.dev>,  "Jonathan Corbet" <corbet@lwn.net>,  "Shuah
- Khan" <skhan@linuxfoundation.org>,  "Steam Lin" <STLin2@winbond.com>,
-  "Hsin-Yi Wang" <hsinyi@chromium.org>,  "Thomas Petazzoni"
- <thomas.petazzoni@bootlin.com>,  <linux-mtd@lists.infradead.org>,
-  <linux-arm-kernel@lists.infradead.org>,  <linux-kernel@vger.kernel.org>,
-  <linux-doc@vger.kernel.org>
-Subject: Re: [PATCH v3 05/23] mtd: spi-nor: Create the concept of fixup
- table with match function
-In-Reply-To: <DL0H9KX4K3UI.145TKS5XKPFEI@kernel.org> (Michael Walle's message
-	of "Fri, 28 Aug 2026 11:43:06 +0200")
-References: <20260813-winbond-v7-1-spi-nor-rv-addition-v3-0-b637cf120d5c@bootlin.com>
-	<20260813-winbond-v7-1-spi-nor-rv-addition-v3-5-b637cf120d5c@bootlin.com>
-	<DKOKFU8AD2U6.151AX0VOBX67H@kernel.org> <87cxv3cy5j.fsf@bootlin.com>
-	<DL0H9KX4K3UI.145TKS5XKPFEI@kernel.org>
-User-Agent: mu4e 1.12.12; emacs 30.2
-Date: Mon, 31 Aug 2026 17:07:59 +0200
-Message-ID: <878q5m9vlc.fsf@bootlin.com>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="Ov/NuVxt"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=gFZF4bOsvngRZHlxHsGEq84XLw5KD2XwwAX27+JYQ8k0sLxFBfzPDY7F53hut94WkX3futx2lYFD1Fvu1xP3+8HpST6uCCdFDWpB2wn6PR2uqtkpF2Qa+FvZuuToZ8kaw6mt0oPQeOr2SI0VlrQ4ASXqQoWt5ajY0AKb2YMnzDxD5B4Bz4iTQcHmHIejWN3UEsXj0R9xutbuNQIb44y8v9q64jEuUudA8H/PA8oBfM4uI7nEoz+pslFnLa/8OMNDZfdBRNHVDc1SfgKgQaKuQg8sn/2HWPwFrDS12eFM7gzVlrR9AmHAzP/apDFvCL8iTzojBBR09trruA1NZjww/Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=hrdBpWaXJRHFD0U34k2w9fEW1QU2au7coORiVdz8l1E=;
+ b=oARjpBettGUq1HrUZhn43O1eNnArXWW8pBF/gzAq7X+WGoHkvCsDrgf0h7bClvmKP85AANJBx33GCxImoXB9yQMz6Hw4tPhQkBMDcosw6xj8gQOIfRsO4frmm+QNszGcTvD55q6pawov5lLAfGhPcZb0QUhx1Kt/VbG30z0XjPHiY1eRK9CV8a51jkqU+zU3sOzCZ7EyYLkaabth9+3IUuwsSuhScKQ1lufYlSI7eHdpkaMjqMCpiKctEpM4XL0d05izMIWdF8JFkrXpPx4Tb7MZh+3X8tSBz+j8+N7xAU7IjbUYyCerfM8/gzwE0C1MFWEW92Yvfysb8txGjPbCKQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lunn.ch smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=hrdBpWaXJRHFD0U34k2w9fEW1QU2au7coORiVdz8l1E=;
+ b=Ov/NuVxtg5TRvNwIlU6of/YK26E9WBGC/QCS50PFvfJ4BZ3Dm0GlU9fT2eikUGd3p0l/tWSYIsU++rK6S/ogxTXaLvYpFenv7V38wVbApo9xTH0UVktVQZZ1aimRfV2FgBROZ8K3FjyyOYXde/5ToHN1ifhKN+EFXy2V+h1iu1Q=
+Received: from BLAPR05CA0026.namprd05.prod.outlook.com (2603:10b6:208:335::8)
+ by CHBPR12MB497579.namprd12.prod.outlook.com (2603:10b6:610:33d::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Mon, 31 Aug
+ 2026 15:08:23 +0000
+Received: from BN2PEPF0000A803.namprd02.prod.outlook.com
+ (2603:10b6:208:335:cafe::22) by BLAPR05CA0026.outlook.office365.com
+ (2603:10b6:208:335::8) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.10 via Frontend Transport; Mon,
+ 31 Aug 2026 15:08:23 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN2PEPF0000A803.mail.protection.outlook.com (10.167.245.164) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.382.8 via Frontend Transport; Mon, 31 Aug 2026 15:08:22 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Mon, 31 Aug
+ 2026 10:08:21 -0500
+Received: from xhdsuragupt40.xilinx.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.46 via Frontend
+ Transport; Mon, 31 Aug 2026 10:08:17 -0500
+From: Suraj Gupta <suraj.gupta2@amd.com>
+To: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>, Andrew Lunn
+	<andrew+netdev@lunn.ch>, "David S . Miller" <davem@davemloft.net>, "Eric
+ Dumazet" <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+	<pabeni@redhat.com>, Michal Simek <michal.simek@amd.com>, Rob Herring
+	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+	<conor+dt@kernel.org>, Russell King <linux@armlinux.org.uk>
+CC: <netdev@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>
+Subject: [PATCH net-next v3 0/6] net: xilinx: axienet: Add 10G/25G (XXV) ethernet support
+Date: Mon, 31 Aug 2026 20:38:10 +0530
+Message-ID: <20260831150816.1020883-1-suraj.gupta2@amd.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN2PEPF0000A803:EE_|CHBPR12MB497579:EE_
+X-MS-Office365-Filtering-Correlation-Id: 133ddd02-7589-4ca2-d5ea-08df0771b326
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|82310400026|1800799024|23010399003|376014|7416014|921020|10067099003|11063799006|56012099006|18002099003|13003099007|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	+2ys7HKcvjEE4j+aYQEgdQbi7knMhhFgTIZFGJbOKLniZOSvF8fWJjZOMoSpAyvGqJ6JhP1Y6DdxefVipSeKSVtxSWCBCxxApFYEBZ+VezV+K6yeW3NN9MskDuGrxDcuB4XjpKXCPMAdDGkDPwcpNaoB7OV0803Xqide5aTVOGeFWiUu82QgzewObymyQl7aZl1P1AryO/0zDsg9BOsXDJ4dYvmmaBj4ikffvbVAx3n+joOK7p3/wnz0ER+TkGoPwiMyI6beu43E6cg6mE90Dwc24pYQbMeXkqauYTeW5HVaYY3ptUB/i7A8taT4ZTXgIayk1gilpaydoWl5Ng0QHDEJTwMoU0WPYthjT/2XV8kM5/B0D7ItCvja/ZoITTvHyDSmQ4egkop5jbmV/G2V4FsA+wTaPk7xyEr48nMWvc3G7/FhQJsorRtT7hVx+t7XoR7pevaZ0LwiS4nSzOfAeMNZIF5Z+g8CZp7zwpg4a9YyiepPVsfoDLiLM9f38b24hrCR/RttPbU2Y2JRtRJRRHGDIvKgydV2n9YfWzQPLEgsXQSAJiRznF/lvStmF6r53awHzup3d7tD3jPTpvIUMOlz+oZin0FjAfRBFx2U5hqHHYBRJi9xTiRS2lIuT3v3dQ+7wRhbj05jNGGNv75svhfRAeV4jBtRd8WFIvF88VL6v1np5HTwQwXmxBRiA7CkeTAIEUoh+Eo3R0k222z9kVH4PS1BnXkRzkyGjwOg61zrgSf7qHzuihtn8g+YYu2N
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(1800799024)(23010399003)(376014)(7416014)(921020)(10067099003)(11063799006)(56012099006)(18002099003)(13003099007)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	JcTe+o83vkLAmS+rcTOSdY70MZIjibdcIk6Z3Hps0RoX9P88Y9ew2gAikBkt1eHU9nVs9vQQBLoV6FTw0hELDF5IpJnTE/VIFORLCIg+Wwi5CA+j5GbveTT3oN2XgxHbho5j/0evbNyr+Vjhj5iQJ4R4QF4p3AmMm+jGsSxUEY+/akclHA7l9FX4BKuve85+/rbB1EQkgPhs2qikRGf/Z/A5hROEJM5J4/TXC34fwIaebsZHrL4VE5PN0s8bRRbvyucD2a8E61YdYnT46/OvDWBs4BpGzQT5YwKlYw5jFIg5LToUml2BpbpheCYBlrP1jsOFzY1UFTJIA/muEFW+XutODYu1GmfUPejK509n+CViHhDanWe7/OUVfIfGgDSbhJGIoAHCS6pKiNpv6snW9I2VyBpfeKMkLiq9M4xiZcMm5nbUKdRnW0sY8jUwAvPd
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 15:08:22.7839
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 133ddd02-7589-4ca2-d5ea-08df0771b326
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN2PEPF0000A803.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CHBPR12MB497579
 
-On 28/08/2026 at 11:43:06 +02, "Michael Walle" <mwalle@kernel.org> wrote:
+This patch series extends the AXI Ethernet driver to support the
+XXV Ethernet subsystem.
 
-> Hi,
->
-> On Thu Aug 27, 2026 at 6:43 PM CEST, Miquel Raynal wrote:
->> I took me a lot of time to go through all your requests, in the end I
->> will not implement most of your feedback because either I do not
->> understand what is the gain, or because the result is not better at all
->> from my point of view. I try to explain that in my feedback
->> below. Nevertheless, I truly appreciate the deep review you made. I
->> think I mostly agree with the comments in the other messages.
->>
->> On 14/08/2026 at 11:40:21 +02, "Michael Walle" <mwalle@kernel.org> wrote:
->>
->>> On Thu Aug 13, 2026 at 5:19 PM CEST, Miquel Raynal wrote:
->>>> Manufacturer ID tables increase and fixup() hooks proliferate. Having
->>>> one possible structure per chip was fine until the fixups started being
->>>> more and more common and needed, to some extend due to ID reuses. Mixi=
-ng
->>>> fixups and chips becomes hard and requires extra helpers to sort which
->>>> ones are needed for a given chip, which every time this happens requir=
-es
->>>> a lot of rework.
->>>
->>> Thanks, this patch looks really promising!
->>>
->>>> Replace the two-level fixup association (a manufacturer wide hook and a
->>>> per flash_info hook) with a per-manufacturer list of fixups that can be
->>>> looked up by flash ID and/or match function.
->>>>
->>>> The match logic works as follows:
->>>> - If there is an ID, it must match
->>>> - If there is a match function, it must match (cumulative)
->>>> - If there is no identifier (no ID nor any match function), it's a
->>>>   catch-all entry typically used for flagging manufacturer fixups.
->
-> I think this one is the crux. See more below.
->
->>> This mimics, how it's currently handled. But since the fixups are
->>> now treated as a separate list, i.e. it has it's own SNOR_ID, we
->>> shall move away from this manufacturer thingy too.
->>
->> Why shall we? See below, I don't get the point. I drafted something it
->> took me two full days to work on that, to eventually realize I did not
->> see *any* benefit.
->
-> Then let me ask the other way around,=20
+- Refactor through struct axienet_config so per-MAC behaviour is
+  expressed as capability flags and callbacks instead of runtime
+  MAC-type checks in the shared code.
 
-Mm :) Generally we are asked to justify the changes, not the
-opposite. Nevertheless, I'll try to play this game ;)
+- Document the XXV IP in Devicetree.
 
-> what is the benefit of having the manufacturer?
+- Add support for the XXV Ethernet subsystem.
 
-Grouping all chips following similar patterns, using similar helpers,
-etc. In general the scope of the manufacturer driver is pretty
-convenient to store static functions only usable inside. Unlike chip
-names, giving manufacturers a name is also handy and people like to see
-it, despite its actual use. Sometimes it is also useful to distinguish
-if you have version A of the HW with chip from manufacturer <foo> from
-version B using chip from manufacturer <bar>.
+- Add a preparatory RMON cleanup, a statistics-ops refactor of
+  struct axienet_config, and ethtool / ndo_get_stats64 counter reporting
+  for XXV.
 
-> There is now one central place for the fixups. Good. But now there
-> is that catch-all thing, which is the replacement for the former
-> manufacturer fixup if I read your code correctly.
+Notes:
+- The devm_clk_bulk_get_enable() helper posted as patch 1/7 in v2 is now
+  in mainline as commit b698927accb1 ("clk: Add
+  devm_clk_bulk_get_enable()"), so it is dropped from this series.
+- This series depends on [1], which is sent as part of another series.
+  That change is required for this series to compile and is not included
+  here to avoid duplication.
+- Due to phylink limitations, we aren't able to advertise both 10G and
+  25G base-r interfaces and switch between them using ethtool.
+  We are open to suggestions on how to handle this.
 
-I think so, but what is the problem with that? I mean, maybe it wasn't
-so nice to set up in the first place, and we may want to limit the
-propagation of manufacturer wide fixups. I don't find that catch-all
-entry useless though. But at this stage we anyway need an equivalent,
-hence the manufacturer wide catch-all entry.
+[1]: https://lore.kernel.org/all/20260717090824.2364230-1-srinivas.neeli@amd.com/
 
-> BUT. We don't have a concept of a 'manufacturer'. We don't match the
-> manufacturer id.
+Changes in v3:
+- Dropped patch 1/7 ("clk: Add devm_clk_bulk_get_enable()"); it has been
+  applied to mainline as commit b698927accb1.
+- Patch 2/6 (dt-bindings):
+  * Added Reviewed-by from Rob Herring. Thanks Rob!
+V2: https://lore.kernel.org/all/20260806181153.1213996-1-suraj.gupta2@amd.com/
 
-This is very easy to do, maybe I should have done that instead of having
-a blind manufacturer-wide fixup. At this stage I do not see the
-difference, but I can easily add the first ID byte to match.
+Changes in v2:
+- Patch 1/7:
+  * Add Reviewed-by: Brian Masney <bmasney@redhat.com>. Thanks Brian!
+- Patch 3/7:
+  * Split the XXV binding into its own schema file
+    (xlnx,xxv-ethernet.yaml) instead of extending xlnx,axi-ethernet.yaml
+    with if/then branches, per Rob Herring's review.
+  * Add a multichannel (MCDMA) example.
+- Patch 4/7:
+  * Require both GT Wizard reset-done bits in axienet_xxv_poll_link_ready()
+    so polling does not exit before both the TX and RX resets complete.
 
-> The manufacturer is just set as an additional
-> information if there is already  matching entry for a specific
-> flash, so we already know the exact part. Before the generic driver,
-> this might have made sense. The intention was to have a common place
-> for the default flags for all *known* flashes of a manufacturer
-> (which probably also was the result of the core rewrite). But now,
-> we might have flashes we do not know, that is, aren't in the
-> database. At least I would assume, that the manufacturer fixups are
-> still applied though. There were already a few different times I
-> proposed to have fixups for SNOR_ID(vendor_id).
->
-> I mean, even you fell into the trap that you'll have to have that
-> catch-all/fallback entry in the flash db (can't find the mail
-> anymore though, so please correct me if I'm wrong).
+V1: https://lore.kernel.org/all/20260723123838.125145-1-suraj.gupta2@amd.com/
 
-Yes, absolutely.
+Suraj Gupta (6):
+  net: xilinx: axienet: Introduce axienet_config for MAC-specific ops
+  dt-bindings: net: xlnx,xxv-ethernet: Add Xilinx XXV 10G/25G Ethernet
+  net: xilinx: axienet: Add 10G/25G (XXV) ethernet support
+  net: xilinx: axienet: Make axienet_rmon_ranges non-static for reuse
+  net: xilinx: axienet: Dispatch statistics through axienet_config ops
+  net: xilinx: axienet: Add statistics support for XXV ethernet
 
-> Also, having the fixups separate from the flash db, we can use the
-> generic flash driver and still have some fixups for given flashes.
+ .../bindings/net/xlnx,xxv-ethernet.yaml       | 107 ++++
+ MAINTAINERS                                   |   1 +
+ drivers/net/ethernet/xilinx/Makefile          |   3 +-
+ drivers/net/ethernet/xilinx/xilinx_axienet.h  |  90 +++
+ .../net/ethernet/xilinx/xilinx_axienet_main.c | 603 ++++++++++++------
+ .../net/ethernet/xilinx/xilinx_axienet_xxv.c  | 595 +++++++++++++++++
+ .../net/ethernet/xilinx/xilinx_axienet_xxv.h  | 141 ++++
+ 7 files changed, 1358 insertions(+), 182 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/net/xlnx,xxv-ethernet.yaml
+ create mode 100644 drivers/net/ethernet/xilinx/xilinx_axienet_xxv.c
+ create mode 100644 drivers/net/ethernet/xilinx/xilinx_axienet_xxv.h
 
-Nothing we cannot do with the current approach, no? You will anyway need
-some kind of identification in order to apply the fixups. I prefer
-having them in vendor drivers rather than in the core.
 
-> If - for example - one would be adding locking support later,
-> nothing but the new flashdb entry has to be added as the fixups are
-> still applied.
-
-Yes, but that's also possible with the approach carried here (using the
-Macronix and now Winbond catch all entries).
-
->>> IMHO that really
->>> clutters the code.
->>
->> Clearly an opinion I do not share. Maybe I am missing something.
->>
->>> As a fun fact, spi_nor_match_id() will have the
->>> unexpected side effect of setting nor->manufacturer.
->>
->> Not sure I get why this is unexpected?
->
-> The signature of the function is:
-> static const struct flash_info *spi_nor_match_id(struct spi_nor *nor,
-> 						 const u8 *id)
->
-> Clearly it will return a pointer to the flash_info entry for a given
-> id. But as a side effect it also sets nor->manufacturer. What if I'd
-> call that twice with different ids? Maybe it's just me, but it looks
-> like a pure function but isn't. I probably got burnt by the generic
-> nor driver which hit that in the first place.
-
-Maybe the name can be improved, naming is never easy, but once there is
-a match, associating a manufacturer name to the device doesn't sound so
-silly to me :)
-
->>> So here's how I'd do it:=20
->>> (1) remove spi_nor_manufacturer.
->>> (2) have a list of initcalls in the core to call into the individual
->>>     vendor modules (that could later be replaced by something more
->>>     sophiticated)
->>> (3) that initcall will then call spi_nor_register_parts(const struct
->>>     flash_info *parts, int nparts)
->>> (4) (optionally) calls spi_nor_register_fixups(const struct
->>>     spi_nor_fixup *fixups, int nfixups)
->>
->> I've been trying hard to follow your approach, but really, I don't get
->> the point. Initcalls are not possible here, or it would prevent
->> CONIFG_MTD_SPI_NOR=3Dm so I went for an alternative approach with an init
->> registration which I believe matches your expectations. This is not
->> an actual problem.
->>
->> But registering parts and fixups independently, maybe, but again, why?
->> What is the intended benefit? We now need to go through 96 (spi-nor
->> wide) fixups. But what do we get in exchange?
->
-> I don't get that. You already have a (new) winbond_fixups[] for
-> example. What is the difference between having that set in
-> spi_nor_manufacturer vs having that in a
->
-> winbond_init() {
-> 	spi_nor_register_flash_devices(&winbond_nor_parts);
-> 	spi_nor_register_fixups(&winbond_fixups);
-
-The difference is that you end up with a big list of parts (like before)
-and a big list of fixups as well, which are not related to the parts. So
-when you have a match with a part, for each of the 6 fixup cases, you
-will check every single fixup entry (96 at this stage) for a
-match. Before this was limited to a dozen at most. OTOH I do not see any
-benefit in registering the parts and fixups like that, compared to just
-exposing the (exported) manufacturer structures.=20
-
-> And probably setting the manufacturer name in winbond_nor_fixups().
-
-Here again: yes that's possible, but for what benefit?
-
-> I guess that all falls apart because of the empty match entry. That
-> could be replaced with the SNOR_ID(winbond_id), though. Then we have
-> *real* per manufacturer fixups.
-
-Ah ok, I believe we agree here, so in the end, do you prefer having a
-manufacturer wide fixup entry without SNOR_ID? Or do you prefer to
-always have an ID to match with, and use the manufacturer ID for that? I
-don't think there is a need for filling an SNOR_ID for this entry since
-the fixup list is associated to the parts list though.
-
-> That is basically what commit afe1ea1344bb ("mtd: spi-nor: add
-> support for Macronix Octal flash") made.
->
->> From my point of view:
->> extra churn and boilerplate, nothing particularly better than before. I
->> must admit, I do not understand your aversion for the manufacturer
->> structure. So while I like the idea of a flash-info independent fixup
->> list (which I implemented in v3), I do not understand the need for this
->> extra step.
->
-> See above.
->
->> Since I do not get the point of this request, I prefer to not implement
->> it, because I will anyway do it the wrong way. If someone wants to make
->> a proposal, I will have a look, but at this point I need to back
->> off.
->
-> I can do that myself, but I'd like to avoid any code churn. So I
-> don't know what you've already tried to come up with, but if there
-> is something which somewhat goes in the right direction of moving the
-> registration to a function inside of the vendor modules. That would
-> really be appreciated.
-
-Unfortunately after struggling hours with it, I dropped it entirely /o\
-I experimented using initcalls, creating those parts/fixup registration
-helpers, etc.
-
->> There are already ~70 patches pending which I hope will be applied
->> ASAP after -rc1 gets tagged and we agree on the remaining points (there
->> are other comments from you and Takahiro which I need to address).
->
-> Looks like I need to apply the patches to the tree, too. Honestly,
-> I've never done that, so I first need to actually see how it's done
-> and if I even have access to the tree.
-
-Thanks. I can help you with that. My setup has been overly simplified
-since I switched to b4. I will share the the details privately.
-
-[...]
-
->>>> --- a/drivers/mtd/spi-nor/gigadevice.c
->>>> +++ b/drivers/mtd/spi-nor/gigadevice.c
->>>> @@ -64,7 +64,6 @@ static const struct flash_info gigadevice_nor_parts[=
-] =3D {
->>>>  		.id =3D SNOR_ID(0xc8, 0x40, 0x19),
->>>>  		.name =3D "gd25q256",
->>>>  		.flags =3D SPI_NOR_HAS_LOCK | SPI_NOR_HAS_TB | SPI_NOR_TB_SR_BIT6,
->>>> -		.fixups =3D &gd25q256_fixups,
->>>>  		.fixup_flags =3D SPI_NOR_4B_OPCODES,
->>>
->>> The fixup_flags should also go into the fixups list.
->>
->> Yes, we can use a similar logic here. Actually if at some point we want
->> to get rid of those flags, we could transform the flags into proper
->> fixup functions, but I'm not going to do that now.
->
-> The flags actually serve the purpose of *not* having a huge amount
-> of different fixup functions. So these should be kept for now. As an
-> alternative, with the new list it might be possible to have multiple
-> fixups for the same flash part. In any case, the fixup_flags have to
-> be removed from the flash_info struct.
-
-I've added a patch for that.
-
->> [...]
->>
->>>> +/* PM25LV parts have no JEDEC ID and are likely matched by name */
->>>> +static bool issi_pm25lv_match(const struct spi_nor *nor)
->>>> +{
->>>> +	const char *name =3D nor->info ? nor->info->name : NULL;
->>>> +
->>>> +	return name && !strncmp(name, "pm25lv", 6);
->>>
->>> Won't just strcmp("pm25lv", name) do it? Both arguments are
->>> guaranteed to be NUL terminated. The above would also match
->>> "pm25lvextrabytes", no, and we get rid of that redundant size
->>> argument.
->>
->> No it won't, because that would no longer be a match, you would compare
->> pm25lv against pm25lv010 or pm25lv512 -> no match if you don't limit to
->> the first 6 bytes. Since names are part of the sysfs ABI, we cannot just
->> modify the names for that. We also need two different entries (two
->> different sizes) since we do not even match with an ID.
->
-> Ah I see, you actually *want* that extra bytes, in that case, please
-> use strstarts().
-
-Yeah, no pb.
-
->> [...]
->>
->>>> @@ -233,6 +230,17 @@ static int mt25qu512a_post_bfpt_fixup(struct spi_=
-nor *nor,
->>>>  	return 0;
->>>>  }
->>>>=20=20
->>>> +/*
->>>> + * n25q00a parts share the first same 3 ID bytes with mt25qu01g.
->>>> + * In order to not mix the fixups, further filter out using the part =
-name.
->>>
->>> How would that work? The part name is also set by the duplicated ID,
->>> so the first one wins, no?
->>
->> - First part (mt25qu01g) is checked
->>   -> ID match
->> - There is a match function where we compare the name with n25q00a
->>   -> no match, not applying the fixup
->>
->> - Second part (n25q00a) is checked
->>   -> ID match
->> - There is a match function where we compare the name with n25q00a
->>   -> name match
->>
->> The fixup is only applied for n25q00a.
->
-> Ah, I now get what you want to try to achieve. Only the first three
-> bytes (I missed that in the function doc) are shared. So no actual ID
-> collision.
->
->> For the other chip we can just give more ID bytes for the match.
->
-> Giving there are more IDs for the n25q00a.
->
->> So I believe there is no problem here?
->
-> Yes, no problem. But use strncmp() here, because this actually
-> matches just one particular flash.
-
-Ok.
-
-> FWIW I don't think this is sustainable, though. It's basically a
-> workaround for the different matching in spi_nor_match_id() (first
-> entry wins) and the fixups ID matching (any matching entry is
-> applied). Though, I can't think of a more generic solution for now.
-
-Thanks,
-Miqu=C3=A8l
+base-commit: 1bb784eb6e38fd73143f021608e4ef3095d0c0d7
+-- 
+2.25.1
