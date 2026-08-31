@@ -1,72 +1,99 @@
-Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09832346FA0
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 07:24:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 091EA39DBD3
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 07:24:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788161044; cv=none; b=TaBv623SNTx3loXi8IST0jzQEPMl1xET7x4QZqvYJD+eLguBvlFRgeWXGqtH/3OfFci0fixMcVrIP5iu8dC2U6dR1VV4QIe6dn9YGMOI7z4UFH5EZSkUXYMqw+dvRAeI5e5tcX0Av2OEuXJrS7kNbNEirlXMQogjOpH7wrSggJo=
+	t=1788161085; cv=none; b=YOIr8qKR9d5NW7SaQLc5MhKZd6YunyFf+vRpYsnSyGDcEq1q0eVRSHzUJLXxWqbx8E9WmoXSxFRcnNqlUkwYt3Q3mQQZbmjW9gWhEt16OeGSSlZUEWFtomatSXvBYc5Sd5z8JM/bxnUjrOOAvY2TmWCkA+gAbr6DDijCRRGvQxM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788161044; c=relaxed/simple;
-	bh=G2U+dpDhdyjhEF89ujP4g8nUUr6JGFjbMk4f99GYFsU=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=IfLzsyH5gedz0MXEFK5pZOL9cb24wJRVbpAFi7fzDZo4EXv2FcNGVV4MmMTkCaBb8gBy93NJld6eW/Fu3qU/pneQDoGGZ6GelN/uBfFAjzMUi7bAgujacG2Sw0U7Cx94b5+aqxGwXt8Xu4iZFRC1AjWNJ1+5yYOFPZZ2D6s0YrY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4b2f2b8d88fso5972106b6e.2
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 00:24:02 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788161042; x=1788765842;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=h8qoGsuawWLrFjlzcIsepzotGVqYYnfivDwWIXWf/Zg=;
-        b=Lu0TZWBQpTn42P2lLNTLA4ro0DrOQyUMX+7W53QLuZA89bRVRqZkPe9795QzDsofBH
-         O4jysfzWRES51nAr9lRN9NmSuKxYuAMPh7h9lusgVBCwcEwi11w48AzGLsKQ5/vZ/YOY
-         Wj2ZcHYRiCT9oDQcJVf9msss8FADxaoQ9AneRuL3bTrF5FFFL1T92NkIrmHGtqH8PZRP
-         rrNX4kWb93j88FaFJFloVbbMkoUwy+qJyjTrgU0cqj/YNkZ7BIKdqukGDuLw23J8Sd/h
-         XF2i7krRSusDuaQCN/mc4ZVY7GK+LWqmpjlgvcIii9/Ny831JKLwJlZ5gDIQQSCvedJN
-         GbGw==
-X-Gm-Message-State: AFuF++nrqoLFEeFByC28QRNeRlw9KvS8eG4679GoO+DFhYkT+736mFO5
-	YhzPrNPGZpH4UbCQFNat0UIX3GQfAj1TVOGOV1SqJdqvJBHj/Z/SPcZkk2Rh9OO+pbBP43GAQl8
-	Pr43GyBH1BDFCNqDadLaM5oUFUl7fNoH2EN/MiE5pLGDVdV2jFZBciTVCg/o=
+	s=arc-20240116; t=1788161085; c=relaxed/simple;
+	bh=Dwak2X8ug1+O5w1ginv9rTPC6Vd6vCeMy0xItYVbPtQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=m4LfCwedfK2z/mHGF1UZxC6wgLQ2po+D6chfwURhO7ICRG0DieOtDH2LK7PxAM/gU6LzWtSX6hjmn/WycTZDCgQ1v984gMObNscy1L8XCJyRBlfwJx3AlF2vdYTlY5YiGIreXrKHSJZ4ncSWcsCQQQF91s/VefTASxT+cdjOEI8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WKz8Y7I/; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WKz8Y7I/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1AC01F00A3E
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 07:24:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788161083;
+	bh=V4tCMQDBO+Y0yv576KgJ9uC7rdHznojwiVTQ/LHcN8w=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=WKz8Y7I/WalnjVawpNSMCEZnu/Lwb3vOHK5eKkY96O8POEPww5fPPmNY/KStKBKKP
+	 P/Zbc+9LOYzp9WV2irVEBMgL9PNGr/Hf+5HwGE4E5zbUtrWJ1EC+joiTKWUShmat7Q
+	 2MxnivuN6fCOS2z2fe6P2lSH9fnwJL/eU0nyIZSwtW6qOBVhPPggeX4ZHkJA9RwiGD
+	 5I0Vi3eNj1AaIAEGBLD2xuzJ9YTB1RJhk4Nl1QtQMt0HJySnCVTR0L24bUHn9N+NKJ
+	 qbtBv3nGszl4kR4r4vf9eHM6/1/ONpa2KfqfGh8soOKgDhP5EWOUjdMQtDDgSxPIqY
+	 I2DUWqgJAQSCg==
+Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6a5ded53570so4420010a12.3
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 00:24:43 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBw+afJCBcTPM7QghzgnD97gc+rXE7ZUdEFHnU1HUiJf3W00NXWtrZaf2Ys25Bcnu+ofXLnKscV1iJ4TPM4=@vger.kernel.org
+X-Gm-Message-State: AFuF++kEiwZI5fVn4q52Xg4rsiMiClceLhe92V9UkMNd0XlPy8ikCLjS
+	DXrCTAec5mZ3GE/2RpzuZHeo1HhqClTIFTL2RHcVhK8DzwjG/BRSDlSevkAKuPTgh/mFDjqE7wR
+	3yLrkYsQARx4UM9LacmnygvHtThobhJA=
+X-Received: by 2002:a05:6402:c44:b0:6a6:32fa:1e9a with SMTP id
+ 4fb4d7f45d1cf-6a632fa1f2bmr5986166a12.18.1788161082357; Mon, 31 Aug 2026
+ 00:24:42 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:1794:b0:495:fb79:7712 with SMTP id
- 5614622812f47-4b5b0fdacfcmr1088492b6e.0.1788161042005; Mon, 31 Aug 2026
- 00:24:02 -0700 (PDT)
-Date: Mon, 31 Aug 2026 00:24:01 -0700
-In-Reply-To: <b51511ac-8334-4898-a586-a5e3c5d7f69en@googlegroups.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a952c11.4d659fcc.734b4.0045.GAE@google.com>
-Subject: Re: [syzbot] [cgroups?] INFO: task hung in cgroup_subtree_control_write
- (2)
-From: syzbot <syzbot+bb2e19a1190a556c01b1@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com, 
-	tao1.yu@intel.com
+References: <20260828061607.240845-1-zenghongling@kylinos.cn> <20260828061607.240845-2-zenghongling@kylinos.cn>
+In-Reply-To: <20260828061607.240845-2-zenghongling@kylinos.cn>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Mon, 31 Aug 2026 16:24:29 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd_v3iw1N9PxDznpGRu4yE2atNG=7WPYM4Z2xNFq2tMx2g@mail.gmail.com>
+X-Gm-Features: AcwNN1UE3hrpbCfdKuNuk-KlWFB8oCsf6qM7Zhviul1R6n6HDA3WqghENaKoscc
+Message-ID: <CAKYAXd_v3iw1N9PxDznpGRu4yE2atNG=7WPYM4Z2xNFq2tMx2g@mail.gmail.com>
+Subject: Re: [PATCH 2/2] ntfs: take invalidate_lock in ntfs_filemap_page_mkwrite()
+To: Hongling Zeng <zenghongling@kylinos.cn>
+Cc: hyc.lee@gmail.com, ntfs@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	zhongling0719@126.com, stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-Hello,
+>         if (NInoWofCompressed(NTFS_I(inode)))
+> @@ -684,7 +685,14 @@ static vm_fault_t ntfs_filemap_page_mkwrite(struct vm_fault *vmf)
+>         sb_start_pagefault(inode->i_sb);
+>         file_update_time(vmf->vma->vm_file);
+>
+> +       /*
+> +        * Serialize against truncate/fallocate which hold the lock
+> +        * exclusively while invalidating pagecache and changing extents.
+> +        */
+> +       filemap_invalidate_lock_shared(mapping);
+>         ret = iomap_page_mkwrite(vmf, &ntfs_page_mkwrite_iomap_ops, NULL);
+> +       filemap_invalidate_unlock_shared(mapping);
+> +
+Please move filemap_invalidate_unlock() after truncate_pagecache() and
+pagecache_isize_extended(). Otherwise, ntfs_filemap_page_mkwrite() can
+race with the page-cache cleanup after fallocate extends the file.
 
-syzbot has tested the proposed patch and the reproducer did not trigger any issue:
+diff --git a/fs/ntfs/file.c b/fs/ntfs/file.c
+index 1969e4f444f7..a266105180a9 100644
+--- a/fs/ntfs/file.c
++++ b/fs/ntfs/file.c
+@@ -1178,13 +1178,15 @@ static long ntfs_fallocate(struct file *file,
+int mode, loff_t offset, loff_t le
 
-Reported-by: syzbot+bb2e19a1190a556c01b1@syzkaller.appspotmail.com
-Tested-by: syzbot+bb2e19a1190a556c01b1@syzkaller.appspotmail.com
-
-Tested on:
-
-commit:         0e09c068 cgroup: don't block subtree_control writes on..
-git tree:       https://github.com/yutao-intel/linux.git fix-linux-next-cgroups
-console output: https://syzkaller.appspot.com/x/log.txt?x=16f4d379580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=31bc85a68b5b5754
-dashboard link: https://syzkaller.appspot.com/bug?extid=bb2e19a1190a556c01b1
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-
-Note: no patches were applied.
-Note: testing is done by a robot and is best-effort only.
+        err = file_modified(file);
+ out:
++       if (!err && mode == 0 && NInoNonResident(ni) &&
++           offset > old_size) {
++               truncate_pagecache(vi, old_size);
++               pagecache_isize_extended(vi, old_size, offset);
++       }
++
+        filemap_invalidate_unlock(vi->i_mapping);
++
+        if (!err) {
+-               if (mode == 0 && NInoNonResident(ni) &&
+-                   offset > old_size) {
+-                       truncate_pagecache(vi, old_size);
+-                       pagecache_isize_extended(vi, old_size, offset);
+-               }
+                NInoSetFileNameDirty(ni);
+                inode_set_mtime_to_ts(vi, inode_set_ctime_current(vi));
+                mark_inode_dirty(vi);
