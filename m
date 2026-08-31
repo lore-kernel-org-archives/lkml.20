@@ -1,587 +1,157 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from fhigh-a6-smtp.messagingengine.com (fhigh-a6-smtp.messagingengine.com [103.168.172.157])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8FB4548571;
-	Mon, 31 Aug 2026 13:46:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06E8054938B;
+	Mon, 31 Aug 2026 13:46:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.157
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183988; cv=none; b=ZaID656pZtiaw9rUhNwkXc7qtVhyhZ1FFHSE1YRYcLqmD3Ks9fb8hFd7fVc10hlo8RGz060WS6Ev6wgSd5Z9piGA+qkDQTvqFnCbNNuEldiaJhUg59xSdUEA8hM6h5cG33w0q/+AtwuxaUfWW7GZIDiuYXsQp4Tc5y3YZmhuL98=
+	t=1788183989; cv=none; b=st4b+GiKg60gwZp4AksRvFCf3tfAEIT0rZvGuX/fTm3JX+hAiKD6oItLJ25AknG78r6utUpLgVmTOsFFUr0TjnERE20tOiFMmaQBxOtCp6tmV61Ho01y1nIeGYENy+UpJ+MCQ2ipGpu9a+MtTzouwXWGS6TaSz9pVzfyKNTkbbA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183988; c=relaxed/simple;
-	bh=cVZ7QEa6jUc7nJxxh5CxUQ4T3B7T/L9Jksl4XIGOjP4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Nze8nIk9k+eNmbCImaMKA+jWf2ECwkwlO+rg1JDAFiuYYCDZaQO3TGVMagEAxYh3yjU2zYax5UDpLoFvnS+uyszu8BpKXEVuivH2IqA157jHNW0Re3oQflU0Apvsg0p0OJOx3TekHNmTqavwWSXS9vLgOi6yl0vB/vKREAfPGC4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FmAO/iXX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788183989; c=relaxed/simple;
+	bh=g3bHuiF2eZyWuULtviNSCTfwDIZfKAG9MuMKJoMM/e4=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=a4HPG+lx77WPxZNOGzYXxhMNbdIUd+HkfyK9YPlM4RcbvpTWaTojUlEYy7CQwlwylvrIl9MHBM4Lq/KXiFhVIlPpFbpRUCFECB4ej4KS1+SJF9n3r0PgncEfS3p22wIX6Hx7gzfyrv5t0obdLd2pSN6FxvMhmrF94oLWkIf8prY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jannau.net; spf=pass smtp.mailfrom=jannau.net; dkim=pass (2048-bit key) header.d=jannau.net header.i=@jannau.net header.b=pWyC59VG; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=PyaRBkqn; arc=none smtp.client-ip=103.168.172.157
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jannau.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jannau.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FmAO/iXX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06CA21F01558;
-	Mon, 31 Aug 2026 13:46:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788183983;
-	bh=beFY3W2U/zL1MNuJiPO6R55UvPAKdfIbCF/BE1eerSc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=FmAO/iXX7IfqS9Mta7rjbGcEuRGrMzV8JTDv9tsHQHDbQEMS7ZExgOclOd/ES/iTZ
-	 qmwX2JsCa8p97FVGnBRKuEBsqUaaa4MUnHlq0YiUaA+nnM2XGfj+P5PBQ4AbT/z+kj
-	 BGDYnTJ9dkwRjNm4Wk0rf8xkkZ3KTnxHG8CoWxZ+ugotMx5gZkGH/Rp9mQbhu9DJFc
-	 Dg2/Ee5d3yiU97QhwJrQpWEDcHfNReHaYYvDslxfVtWSI8bcUqnFWnRUe6Ai3NQ8eg
-	 A+m8GwLHiyloIH8TSxf3SIFs/DRNjLt5ehySlTvjttUqT46LXgUCObaBMTjQMTrKDl
-	 F/0O7ZUl6At6g==
-From: Sasha Levin <sashal@kernel.org>
-To: patches@lists.linux.dev,
-	stable@vger.kernel.org
-Cc: "Stanley.Yang" <Stanley.Yang@amd.com>,
-	Tao Zhou <tao.zhou1@amd.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
-	Sasha Levin <sashal@kernel.org>,
-	christian.koenig@amd.com,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-6.12] drm/amdgpu: harden FRU PIA parsing with bounded helpers
-Date: Mon, 31 Aug 2026 09:27:28 -0400
-Message-ID: <20260831133314.4125787-420-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
-References: <20260831133314.4125787-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=jannau.net header.i=@jannau.net header.b="pWyC59VG";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="PyaRBkqn"
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id 75D7B1400041;
+	Mon, 31 Aug 2026 09:46:24 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-05.internal (MEProxy); Mon, 31 Aug 2026 09:46:24 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jannau.net; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:message-id:mime-version:reply-to
+	:subject:subject:to:to; s=fm2; t=1788183984; x=1788270384; bh=g4
+	/XPVLrP5egtPNVWUyJ/PG5UFV4N/qltkV3ELg9guw=; b=pWyC59VGXVwtGE7jxK
+	0fvG5y9233VGY9k2Pp4TKIbBHpUmdOWYPROY+8jzilZ9qBnwb3aAqFs+9A7H0LCf
+	V2swXI611Al3ogdwMZ2H4OjYgoL1Bj22+G6It77CnYp0SeTSGR3DHL8MolybURWf
+	A6IBF86BRxCIHWyy2F3XL9cdxa2lnCneK6g21k2tMMpVLiUvu2cYD58T7qL24MPw
+	x2B4yvY2cND4vAjQNtA/lC4XnlFXVM4y/K4Ysw9hLnsiSdI59AlocRsqCsoQ+ki7
+	scbGCwqzWMtpIb7dI9MOeGZ6ltPQziUApHWngoQMjEf8djNOVk0PLeYHQznqXXX0
+	6/1A==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:message-id:mime-version:reply-to:subject
+	:subject:to:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm3; t=1788183984; x=1788270384; bh=g4/XPVLrP5egtPNVWUyJ/PG5UFV4
+	N/qltkV3ELg9guw=; b=PyaRBkqngoXLhLW0vtay3lx32XeqT4Xo89hqv78sf9AA
+	tXlrYNwG+FRyd9UZ3hWnkGYkxQxVjTs83GVTw05Tsd0bp5x/rXNsGjxHGZO6VuQg
+	1nd2mOc+kEWpbT/O6wDToS4IpCn+E2ZStyfN7+0G0I7aXUvOpo7UABBZHJ00T2Qu
+	YkQa0UHsqpBPmv2eb23sTVnCLKgO6JopelsLwGxxdUyD7crbr1D2e+p3XNsv/J8v
+	ZH28wH5ZyqHiaVdisZYk2DhpJ6+hrQ2YLt0cLv5EdELGFiDgf/fngfNUKoO/4p7M
+	Jhb7I8aitc/tYE4twQ1o6ZdYJz2SuAr+hdOG+T3EEw==
+X-ME-Sender: <xms:sIWVagpRnYxRqO4aYwMtyOWrQVcTowCgLYNCcu75vDSlnzgGt1qxIw>
+    <xme:sIWVauNMlO01SI9I4okCxgZ8kVd1wxjo1fpcDyhhFPCIQ120jaAD7CvksfKX4Kxg0
+    9dYEmS40lpkdjU06HovQB3kL5EjmV_DgCVWqALdG3N8gIE23iNmYUU>
+X-ME-Received: <xmr:sIWVak25JzsUSjExxmVAeZY_1FjyrJHhABWfEKz92ptsx9ZxS8-ymd4j4eTPWcmhcySWRBEzJWETYUToNVF18FhP8s4DLhllodmVCw>
+X-ME-Proxy-Cause: dmFkZTEvZMkLEr7MhWmsStG7sJZXSLt7S/MV99zX9keQluRTeC57NW+zSl9TBQNf7FCT0S
+    RXUa9Qi0huZw7DA+PRaJ8kjJOGulGLX/LiEN4HozDLX996QN7h/AOwG62KOyPTtLmclyik
+    UHj7e7+vMjCfGxOG7OXwW475YieXIhYchvFCr+heSc7oFhINNeY21c1xRHLgBdfYjwDmVO
+    grhY5RQNgA1kjTZTEMjAFDX+9YjO6jFERPW1FbHLuNe+dmrUdOEfypWf5n9tbhXajYMKiT
+    QqEDXTOJ+ghOws43X9Z+YPTMVomE7EACJ7/jHjGM9Yme83Mw/KKcvSxUFWyF/TlOEVUvIn
+    uU+2rlECtsqv3fBiGUSDwjJu7QdT3GfY0D5J9WrlLI8ygmpkx1tolzbXB4MWB63spDLuUy
+    V1D4Yc2MMkpXvdW6P97vYdip1ZyQfOB02veRDW/eteKeamSgh+e5xrP5puCcjMYTwkBpSM
+    mTcI/mEJgLi+UO/mCGPRtOY7GiNmrI6T0zVfR3jXmowo3epjNdDCH9iNAObwTBr4bdO5Gj
+    UShA9Ck3lIRf7kZ98bp2YdEF7aUOWZp6+dcvxjKlioYlk0kYOeuekjuswa0Jdska1bs7ou
+    x2Px/mOodOEGCibbDTDsoM7EsQMWm6qZIX5i+MfcNUkMRO0eEL4fn4fzZ6fA
+X-ME-Proxy: <xmx:sIWVakpzFC2EjKUzSrmGuzKUDNTfvCCZyYiO40u62GaQnvgDtZ-icQ>
+    <xmx:sIWVamca0xnfrYqJrJSI5_K_Pd4R8w3opLkgTPVOSTr_TfoaSZaV-g>
+    <xmx:sIWVausFFTEhiamIR823ckEc_yjVmcx-1M9hr_TvLZuJEpE3dTwlIA>
+    <xmx:sIWVauXC5H3dhH69dF_q5s1lkynYDgfMSXPjdMvtOiX5a-87WpuaKw>
+    <xmx:sIWVaqM-_XAM7WANhzrvEK8yMGjyFkOSYj9-i4XcBVhEc8K-AtpCpOZo>
+Feedback-ID: i47b949f6:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 31 Aug 2026 09:46:23 -0400 (EDT)
+From: Janne Grunau <j@jannau.net>
+Subject: [PATCH v2 0/2] iommu: apple-dart: device specific DMA aperture
+ support
+Date: Mon, 31 Aug 2026 15:46:07 +0200
+Message-Id: <20260831-iommu-apple-dart-aperture-v2-0-d16ce3770299@jannau.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.18.48
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/42NQQ6CMBBFr0Jm7Zi2RAFX3sOwGMsgNdKSaSEaw
+ t2tnMDdfz/5768QWRxHuBQrCC8uuuAzmEMBdiD/YHRdZjDKnFWtG3RhHGekaXoxdiQpR5Y0C6M
+ t7421VdNVrCHvJ+HevXf3rc08uJiCfParRf/af6yLRoXmZCpV9mWtia5P8p7mo+cE7bZtX5sWL
+ aDDAAAA
+X-Change-ID: 20260819-iommu-apple-dart-aperture-c3b9cc79d7e1
+To: Sven Peter <sven@kernel.org>, Neal Gompa <neal@gompa.dev>, 
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
+ Robin Murphy <robin.murphy@arm.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+ iommu@lists.linux.dev, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Janne Grunau <j@jannau.net>, 
+ Hector Martin <marcan@marcan.st>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2211; i=j@jannau.net;
+ s=yk2025; h=from:subject:message-id;
+ bh=g3bHuiF2eZyWuULtviNSCTfwDIZfKAG9MuMKJoMM/e4=;
+ b=owGbwMvMwCW2UNrmdq9+ahrjabUkhqyprWs62h1eFt7nVK6b+eLhibSEegfJpetf9G1stC2Ze
+ DF3p0tiRykLgxgXg6yYIkuS9ssOhtU1ijG1D8Jg5rAygQxh4OIUgImkbWD4p/Put7t0181crdWS
+ +luXNspsY/9b8sItYKcvv0hlgKDNIUaGu0cuGU/VPhh6mEdr4s5tXC/YjptX/9j39qtvb+tx8eZ
+ 53AA=
+X-Developer-Key: i=j@jannau.net; a=openpgp;
+ fpr=8B336A6BE4E5695E89B8532B81E806F586338419
 
-From: "Stanley.Yang" <Stanley.Yang@amd.com>
+Apple DARTs are often connected directly to devices that expect only a
+portion of their address space to be used for DMA (for example, because
+other ranges are mapped directly to something else).
 
-[ Upstream commit c990c05eb6c74c98d1ff3acf67a19015312820b7 ]
+The USB4 native host controller on M2 Pro/Max/Ultra devices expected to
+be sent by Sven after v7.3-rc1 requires this. In the Asahi downstream
+kernel the display controller and ISP require a specified DMA aperture
+as well.
+The downstream kernel uses a "apple,dma-range" property in the  iommu
+node to specify the aperture. This is not a good way to describe the
+aperture as it is not property of the iommu itself but of its connected
+device. iommu.txt describes this use case as DMA window in its
+"#iommu-cells = <4>" example.
 
-Replace the open-coded TLV walk with fru_pia_advance()
-and fru_pia_copy_field() helpers that bound every read
-by the actual EEPROM data length, preventing out-of-bounds
-reads on truncated or malformed FRU data.
+Implement this for DART allowing additionally 5 iommu-cells specifying a
+64-bit aperture start and length. 0x100_0000_0000 is a commonly used
+aperture start and the aperture often spans a 36-bit address space.
 
-Signed-off-by: Stanley.Yang <Stanley.Yang@amd.com>
-Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+This range *can* be outside of the DART's IAS. In that case, it is
+assumed that the hardware truncates addresses and the page tables will
+only map the lower bits of the address. However, the specified range
+cannot straddle an IAS boundary (you cannot cover more than IAS worth
+of address space nor wrap).
+
+This corresponds to the vm-base and vm-size properties on the Apple
+device tree side of things.
+
+Signed-off-by: Janne Grunau <j@jannau.net>
 ---
-
-LLM Generated explanations, may be completely bogus:
-
-## PHASE 1: COMMIT MESSAGE FORENSICS
-
-### Step 1.1: PARSE THE SUBJECT LINE
-**Record:** `[drm/amdgpu]` `[harden]` — Harden FRU (Field Replaceable
-Unit) Product Info Area (PIA) parsing by replacing open-coded TLV
-walking with bounded helper functions.
-
-### Step 1.2: PARSE ALL COMMIT MESSAGE TAGS
-**Record:**
-- **Fixes:** — not present (expected for manual review)
-- **Reported-by:** — none
-- **Tested-by:** — none
-- **Reviewed-by:** Tao Zhou \<tao.zhou1@amd.com\>
-- **Acked-by:** — none
-- **Link:** — none
-- **Cc: stable@vger.kernel.org:** — absent (not a negative signal)
-- **Signed-off-by:** Stanley.Yang \<Stanley.Yang@amd.com\>, Alex Deucher
-  \<alexander.deucher@amd.com\> (ignore pipeline SOBs)
-
-Notable: reviewed by AMD developer; no fuzzer or user bug reports cited.
-
-### Step 1.3: ANALYZE COMMIT BODY
-**Record:**
-- **Bug described:** Open-coded TLV walk in FRU PIA parsing does not
-  bound reads against actual EEPROM buffer length; truncated or
-  malformed FRU data can cause out-of-bounds reads.
-- **Symptom/failure mode:** Out-of-bounds kernel memory reads when
-  parsing malformed/truncated FRU EEPROM TLV fields.
-- **Version info:** none stated.
-- **Root cause:** TLV cursor advancement (`addr += 1 + (pia[addr] &
-  0x3F)`) and `memcpy()` use field-length bytes without ensuring the
-  cursor and copy length stay within the allocated `pia` buffer (`len`).
-
-### Step 1.4: DETECT HIDDEN BUG FIXES
-**Record:** Not disguised — this is an explicit memory-safety hardening
-fix. "Harden" and "preventing out-of-bounds reads" clearly describe a
-buffer over-read bug fix, not cosmetic cleanup.
-
----
-
-## PHASE 2: DIFF ANALYSIS
-
-### Step 2.1: INVENTORY THE CHANGES
-**Record:**
-- **Files:** `drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c` only (~37
-  lines added helpers, ~43 lines changed in parsing loop; net ~+37/-6 in
-  parsing region)
-- **Functions added:** `fru_pia_advance()`, `fru_pia_copy_field()`
-- **Functions modified:** `amdgpu_fru_get_product_info()`
-- **Scope:** single-file, surgical fix within one parsing function
-
-### Step 2.2: CODE FLOW CHANGE (per hunk)
-**Record:**
-
-1. **New helpers (before `amdgpu_fru_get_product_info`):**
-   - *Before:* no shared TLV walking helpers.
-   - *After:* `fru_pia_advance()` checks `*addr >= len` before reading
-     `pia[*addr]`; `fru_pia_copy_field()` validates header presence and
-     uses `min3(field_len, dst_size-1, len-addr-1)` for bounded
-     `memcpy()`.
-
-2. **Manufacturer/product/serial/fru_id field extraction:**
-   - *Before:* `if (addr + 1 >= len) goto Out` then `memcpy(...,
-     min_t(sizeof(dst), pia[addr] & 0x3F))`; advances via `addr += 1 +
-     (pia[addr] & 0x3F)` often without prior bounds check.
-   - *After:* each field uses `fru_pia_copy_field()` (bounded copy) and
-     `fru_pia_advance()` (bounded advance); failure jumps to `Out`.
-
-3. **Skip fields (Product Version, Asset Tag):**
-   - *Before:* unconditional `addr += 1 + (pia[addr] & 0x3F)` with no
-     bounds check (lines 251, 254, 262, 265 in current tree).
-   - *After:* `fru_pia_advance()` returns false on overrun, triggering
-     `goto Out`.
-
-### Step 2.3: BUG MECHANISM
-**Record:** **Category:** buffer over-read / out-of-bounds access.
-
-**Specific mechanisms in current 6.18.44 code:**
-
-1. **Unchecked TLV advance** — e.g. at lines 251–254:
-```250:255:drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c
-        /* Go to the Product Version field. */
-        addr += 1 + (pia[addr] & 0x3F);
-
-        /* Go to the Product Serial Number field. */
-        addr += 1 + (pia[addr] & 0x3F);
-```
-   If `addr` is near `len` or a prior field length is inflated,
-`pia[addr]` reads past the kmalloc buffer.
-
-2. **Unbounded memcpy** — e.g. at lines 227–229:
-```227:229:drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c
-        memcpy(fru_info->manufacturer_name, pia + addr + 1,
-               min_t(size_t, sizeof(fru_info->manufacturer_name),
-                     pia[addr] & 0x3F));
-```
-   Copy length is capped by destination size and TLV length byte, but
-**not** by remaining buffer bytes (`len - addr - 1`). A field claiming
-63 bytes with only a few bytes remaining causes OOB read.
-
-Checksum validation (lines 211–217) does not prevent structurally
-inconsistent TLV lengths within a checksum-valid PIA.
-
-### Step 2.4: FIX QUALITY
-**Record:**
-- Fix is obviously correct: every read/advance is bounded by `len`.
-- Minimal scope: adds two static helpers, replaces inline parsing.
-- Low regression risk: same parsing logic, stricter bounds; failure
-  paths already go to `Out` and return 0.
-- `min3()` exists in this tree (`include/linux/minmax.h`).
+Changes in v2:
+- validation of the DTS supplied aperture: page size alignment and
+  overflow checks
+- actually add `64BIT` to the COMPILE_TEST depends
+- Link to v1: https://lore.kernel.org/r/20260819-iommu-apple-dart-aperture-v1-0-252703f381aa@jannau.net
 
 ---
+Janne Grunau (2):
+      dt-bindings: iommu: dart: Support specifying the DMA aperture
+      iommu: apple-dart: Support specifying the DMA aperture in the DT
 
-## PHASE 3: GIT HISTORY INVESTIGATION
-
-### Step 3.1: BLAME THE CHANGED LINES
-**Record:**
-- Buggy TLV walk introduced in `0dbf2c5626253` ("drm/amdgpu: Interpret
-  IPMI data for product information (v2)", 2022-11-17) by Luben Tuikov.
-- Field additions in `ac6b1f275f17b` and `8a2b51392ac4a` (2023-10-04)
-  retained the same unchecked advance pattern.
-- Prior OOB-related FRU fix: `02b865f88b4e4` (2021), `00b14ce075732`
-  (2022) — shows this subsystem has a history of bounds fixes.
-- Bug present since ~6.2; confirmed present in this 6.18.44 tree.
-
-### Step 3.2: FOLLOW Fixes: TAG
-**Record:** No `Fixes:` tag. N/A.
-
-### Step 3.3: FILE HISTORY FOR RELATED CHANGES
-**Record:** Recent FRU commits in tree include `fd0c6bd82d19c` (increase
-FRU File Id buffer), `25907304cfce5` (fetch FRU for smu_v13_0_12),
-`a8558fce7ad0c` (avoid FRU on APU). No existing bounded-TLV fix found.
-Standalone fix, not part of a multi-patch series in this tree.
-
-### Step 3.4: AUTHOR'S OTHER COMMITS
-**Record:** Stanley.Yang has multiple amdgpu commits (RAS, VCN, eeprom
-fixes) but is not the original FRU author. Reviewed by Tao Zhou; signed
-off by Alex Deucher (amdgpu maintainer).
-
-### Step 3.5: DEPENDENT/PREREQUISITE COMMITS
-**Record:** No prerequisites identified. Commit not in this tree
-(candidate only). Diff context shows `kzalloc_obj()` on mainline; local
-tree uses `kzalloc(sizeof(*adev->fru_info), GFP_KERNEL)` — PIA parsing
-portion applies independently. No dependency on missing code structures.
-
+ .../devicetree/bindings/iommu/apple,dart.yaml      | 12 ++--
+ drivers/iommu/apple-dart.c                         | 74 +++++++++++++++++++---
+ 2 files changed, 72 insertions(+), 14 deletions(-)
 ---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20260819-iommu-apple-dart-aperture-c3b9cc79d7e1
 
-## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
-
-### Step 4.1: ORIGINAL PATCH DISCUSSION
-**Record:** Commit hash not in local tree; `b4 dig -c` cannot be run.
-`b4 dig -S` is not supported. Lore.kernel.org search blocked by anti-bot
-page. **UNVERIFIED:** original submission thread, series revisions,
-reviewer stable nominations.
-
-### Step 4.2: REVIEWERS
-**Record:** **UNVERIFIED** via b4 -w. Commit message lists Reviewed-by:
-Tao Zhou, Signed-off-by: Alex Deucher.
-
-### Step 4.3: BUG REPORT
-**Record:** No Reported-by, Link, or syzbot reference. No external bug
-report to follow.
-
-### Step 4.4: RELATED PATCHES/SERIES
-**Record:** Appears standalone. Related historical fixes in same file
-(`02b865f`, `00b14ce`) addressed similar OOB concerns in older FRU
-parsing code.
-
-### Step 4.5: STABLE MAILING LIST
-**Record:** **UNVERIFIED** — lore search unavailable.
-
----
-
-## PHASE 5: CODE SEMANTIC ANALYSIS
-
-### Step 5.1: KEY FUNCTIONS
-**Record:** `fru_pia_advance()`, `fru_pia_copy_field()` (new);
-`amdgpu_fru_get_product_info()` (modified).
-
-### Step 5.2: TRACE CALLERS
-**Record:**
-- `amdgpu_fru_get_product_info()` called from `amdgpu_device_init()` at
-  line 3307 of `amdgpu_device.c`.
-- `amdgpu_device_init()` called from `amdgpu_driver_load_kms()` in
-  `amdgpu_kms.c` line 148.
-- **Context:** GPU driver probe/load path during PCI/DRM device
-  initialization.
-- `amdgpu_fru_sysfs_init()` at line 4873 exposes sysfs attributes but
-  does not re-parse FRU data.
-
-### Step 5.3: TRACE CALLEES
-**Record:** `is_fru_eeprom_supported()`, `amdgpu_eeprom_read()`,
-`kzalloc()`, `kfree()`, `memcpy()`, `sprintf()` (default serial),
-`dev_err()`.
-
-### Step 5.4: CALL CHAIN / REACHABILITY
-**Record:** PCI probe → `amdgpu_driver_load_kms()` →
-`amdgpu_device_init()` → `amdgpu_fru_get_product_info()` → PIA TLV
-parse. Triggered on every boot for supported AMD server GPUs with
-accessible FRU EEPROM. Not directly userspace-syscall reachable, but
-runs automatically on driver load when hardware matches (Vega20 server
-SKUs, D603, Aldebaran, SMU v13.0.6/v13.0.14, etc.).
-
-### Step 5.5: SIMILAR PATTERNS
-**Record:** Same unchecked `addr += 1 + (pia[addr] & 0x3F)` pattern
-repeated 6+ times in current code. AMD previously fixed similar FRU OOB
-issues in `02b865f88b4e4` and `00b14ce075732`.
-
----
-
-## PHASE 6: CROSS-REFERENCING AGAINST LOCAL TREE
-
-### Step 6.1: DOES BUGGY CODE EXIST?
-**Record:** **YES.** Local tree is **v6.18.44 / 6.18.44**.
-`amdgpu_fru_eeprom.c` lines 220–270 contain the vulnerable unchecked TLV
-walk. Bug introduced November 2022 (`0dbf2c5626253`), well before 6.18
-branch.
-
-### Step 6.2: BACKPORT COMPLICATIONS
-**Record:** Expected **clean apply** for the PIA parsing helpers and
-loop replacement. Minor context difference: mainline diff shows
-`kzalloc_obj()` but local tree uses `kzalloc()` — unrelated to the fix
-hunks. No significant refactoring conflicts in recent file history
-(`a3e510fd69c31` dev_* conversion is already present).
-
-### Step 6.3: RELATED FIXES ALREADY PRESENT?
-**Record:** No `fru_pia_advance`/`fru_pia_copy_field` or "harden FRU
-PIA" commit in tree. `git log --grep='harden FRU'` returned empty. Fix
-not yet applied.
-
----
-
-## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
-
-### Step 7.1: SUBSYSTEM CRITICALITY
-**Record:** **Subsystem:** `drm/amdgpu` driver — FRU EEPROM parsing for
-AMD server GPUs. **Criticality:** PERIPHERAL (hardware-specific,
-server/datacenter GPUs only), but touches kernel memory safety during
-probe.
-
-### Step 7.2: SUBSYSTEM ACTIVITY
-**Record:** File actively maintained — 20+ commits since 2022, most
-recent in 2025 (dev_* conversion, SMU v13.0.12 support).
-
----
-
-## PHASE 8: IMPACT AND RISK ASSESSMENT
-
-### Step 8.1: WHO IS AFFECTED
-**Record:** Users of AMD server GPUs with FRU EEPROM support (Vega20
-D161/D163, Instinct MI D603, Aldebaran, SMU v13.0.6/v13.0.14, etc.). Not
-APUs, not VF, not all consumer cards. Config/hardware-specific, but real
-production datacenter hardware.
-
-### Step 8.2: TRIGGER CONDITIONS
-**Record:** Malformed, truncated, or internally inconsistent FRU Product
-Info Area TLV data in on-card EEPROM. Occurs during driver probe
-(boot/module load). Not userspace-triggerable directly; requires
-corrupt/tampered EEPROM or hardware/firmware fault. Moderately rare but
-plausible (manufacturing errors, EEPROM corruption, physical tampering
-on servers).
-
-### Step 8.3: FAILURE MODE SEVERITY
-**Record:** Out-of-bounds read from kmalloc'd PIA buffer during GPU
-init. Potential KASAN splat, kernel oops during probe, or information
-leak from adjacent heap data. Severity: **HIGH** for affected hardware
-(memory safety during init); **MEDIUM** overall due to narrow
-hardware/trigger scope. Does not cause silent data corruption of user
-files.
-
-### Step 8.4: RISK-BENEFIT
-**Record:**
-- **Benefit:** MEDIUM — closes real OOB read in server GPU probe path;
-  aligns with prior FRU bounds fixes AMD has shipped.
-- **Risk:** LOW — small, reviewed, behavior-preserving with stricter
-  bounds.
-- **Ratio:** Benefit outweighs risk for 6.18.y.
-
----
-
-## PHASE 9: FINAL SYNTHESIS
-
-### Step 9.1: EVIDENCE COMPILED
-
-**FOR backport:**
-- Real, verifiable OOB read bug in current 6.18.44 code (unchecked TLV
-  advance + unbounded memcpy).
-- Fixes memory safety during GPU driver probe on affected server
-  hardware.
-- Small, single-file, obviously correct bounded helpers.
-- Reviewed by AMD developer; signed off by amdgpu maintainer (Alex
-  Deucher).
-- Same file had prior OOB fixes backported historically.
-- Bug present since 2022; code exists in this tree.
-- `min3()` available; patch should apply cleanly.
-
-**AGAINST backport:**
-- No syzbot report, no user bug report, no CVE cited.
-- Very limited hardware population (AMD server GPUs with FRU EEPROM).
-- Requires malformed EEPROM data — not commonly triggered.
-- Not directly exploitable from userspace.
-- Mailing list review context unverified.
-
-**UNRESOLVED:**
-- Original lore discussion and whether reviewers nominated for stable.
-- Whether any production incident motivated this fix.
-
-### Step 9.2: STABLE RULES CHECKLIST
-1. Obviously correct and tested? **PASS** — logic is clear; reviewed by
-   AMD; no Tested-by but mechanism is verifiable by inspection.
-2. Fixes a real bug affecting users? **PASS** — OOB read on server GPU
-   probe with malformed FRU data.
-3. Important issue? **PASS** — kernel memory safety / potential oops
-   during init (HIGH for affected systems).
-4. Small and contained? **PASS** — one file, ~40 lines of meaningful
-   change.
-5. No new features or APIs? **PASS** — parsing hardening only.
-6. Can apply to local tree? **PASS** — buggy code confirmed present;
-   clean apply expected.
-
-### Step 9.3: EXCEPTION CATEGORIES
-**Record:** None directly (not device ID, quirk, DT, build fix, or
-docs). Standard memory-safety bug fix.
-
-### Step 9.4: DECISION RATIONALE
-
-For **linux-6.18.y** (this checkout): the vulnerable FRU PIA parsing
-code is present and has been since the 2022 IPMI rewrite. The fix
-addresses a concrete out-of-bounds read that can occur when TLV length
-fields in FRU EEPROM data are inconsistent with the actual buffer size —
-a scenario checksum validation does not prevent. While the affected
-hardware base is narrow (AMD server GPUs), memory-safety fixes in probe
-paths are appropriate stable material, especially given AMD's prior
-history of backporting similar FRU bounds fixes. The patch is small,
-reviewed, and low-risk.
-
----
-
-## Verification
-
-- [Phase 1] Parsed subject, tags, body: hardening fix for OOB reads;
-  Reviewed-by Tao Zhou; no Reported-by/syzbot.
-- [Phase 2] Read full diff and current `amdgpu_fru_eeprom.c`: confirmed
-  unchecked advances at lines 251, 254, 262, 265 and unbounded memcpy at
-  227–229, 237–238, etc.
-- [Phase 2] Verified `min3` exists in `include/linux/minmax.h`.
-- [Phase 3] `git blame -L 220,270`: buggy walk from `0dbf2c5626253`
-  (2022-11-17).
-- [Phase 3] `git log --oneline -20 -- amdgpu_fru_eeprom.c`: no existing
-  bounded-helper fix.
-- [Phase 3] `git log --grep='harden FRU'`: empty (commit not in tree).
-- [Phase 3] `git show 00b14ce075732`, `git show 02b865f88b4e4`: prior
-  FRU OOB fixes confirmed.
-- [Phase 4] `b4 dig -c`: **UNVERIFIED** — commit not in tree.
-- [Phase 4] Lore search: **UNVERIFIED** — blocked by anti-bot page.
-- [Phase 5] `grep amdgpu_fru_get_product_info`: callers in
-  `amdgpu_device.c:3307`, init via `amdgpu_kms.c:148`.
-- [Phase 6] `git describe HEAD` → v6.18.44; `make kernelversion` →
-  6.18.44.
-- [Phase 6] Read `amdgpu_fru_eeprom.c` lines 220–270: buggy code
-  confirmed present.
-- [Phase 6] `git merge-base --is-ancestor 0dbf2c5626253 HEAD`: buggy
-  code ancestor in tree.
-- [Phase 8] Failure mode: OOB kernel read during probe; severity HIGH
-  (affected hw) / MEDIUM (overall).
-
-**YES**The background search finished: `git log --grep='harden FRU'`,
-`--grep='bounded helpers'`, and `--grep='fru_pia'` all returned nothing,
-so this fix is not in the local **6.18.44** tree yet.
-
-That matches what we saw in the file — `amdgpu_fru_eeprom.c` still has
-the unchecked TLV walk (e.g. unguarded `addr += 1 + (pia[addr] & 0x3F)`
-around lines 251–265).
-
-**Verdict for linux-6.18.y: YES** — real out-of-bounds read on malformed
-FRU EEPROM data during server GPU probe; small, reviewed hardening fix
-that should apply cleanly.
-
- .../gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c    | 95 ++++++++++++-------
- 1 file changed, 63 insertions(+), 32 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c
-index b0082aa7f3c61..2875627dce8e9 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c
-@@ -114,6 +114,43 @@ static bool is_fru_eeprom_supported(struct amdgpu_device *adev, u32 *fru_addr)
- 	}
- }
- 
-+/*
-+ * IPMI FRU Product Info Area fields are TLV: one type/length byte
-+ * (low 6 bits = data length) followed by that many data bytes. These
-+ * helpers walk the cursor and copy a single field while bounding all
-+ * accesses to the actual buffer length read from the EEPROM.
-+ */
-+#define FRU_FIELD_LEN(p, a)	((p)[a] & 0x3F)
-+
-+/* Advance cursor past the current TLV. Returns false if no more data. */
-+static bool fru_pia_advance(u32 *addr, const unsigned char *pia, int len)
-+{
-+	if (*addr >= (u32)len)
-+		return false;
-+	*addr += 1 + FRU_FIELD_LEN(pia, *addr);
-+	return true;
-+}
-+
-+/*
-+ * Copy the current TLV's data into dst (NUL-terminated). Returns false if
-+ * the TLV header or data would read past the end of pia.
-+ */
-+static bool fru_pia_copy_field(char *dst, size_t dst_size,
-+			       const unsigned char *pia, u32 addr, int len)
-+{
-+	size_t fl;
-+
-+	if (addr + 1 >= (u32)len)
-+		return false;
-+
-+	fl = min3((size_t)FRU_FIELD_LEN(pia, addr),
-+			  dst_size - 1,
-+			  (size_t)(len - addr - 1));
-+	memcpy(dst, pia + addr + 1, fl);
-+	dst[fl] = '\0';
-+	return true;
-+}
-+
- int amdgpu_fru_get_product_info(struct amdgpu_device *adev)
- {
- 	struct amdgpu_fru_info *fru_info;
-@@ -222,52 +259,46 @@ int amdgpu_fru_get_product_info(struct amdgpu_device *adev)
- 	 * Read Manufacturer Name field whose length is [3].
- 	 */
- 	addr = 3;
--	if (addr + 1 >= len)
-+	if (!fru_pia_copy_field(fru_info->manufacturer_name,
-+				sizeof(fru_info->manufacturer_name),
-+				pia, addr, len))
- 		goto Out;
--	memcpy(fru_info->manufacturer_name, pia + addr + 1,
--	       min_t(size_t, sizeof(fru_info->manufacturer_name),
--		     pia[addr] & 0x3F));
--	fru_info->manufacturer_name[sizeof(fru_info->manufacturer_name) - 1] =
--		'\0';
- 
- 	/* Read Product Name field. */
--	addr += 1 + (pia[addr] & 0x3F);
--	if (addr + 1 >= len)
-+	if (!fru_pia_advance(&addr, pia, len) ||
-+	    !fru_pia_copy_field(fru_info->product_name,
-+				sizeof(fru_info->product_name),
-+				pia, addr, len))
- 		goto Out;
--	memcpy(fru_info->product_name, pia + addr + 1,
--	       min_t(size_t, sizeof(fru_info->product_name), pia[addr] & 0x3F));
--	fru_info->product_name[sizeof(fru_info->product_name) - 1] = '\0';
- 
- 	/* Go to the Product Part/Model Number field. */
--	addr += 1 + (pia[addr] & 0x3F);
--	if (addr + 1 >= len)
-+	if (!fru_pia_advance(&addr, pia, len) ||
-+	    !fru_pia_copy_field(fru_info->product_number,
-+				sizeof(fru_info->product_number),
-+				pia, addr, len))
- 		goto Out;
--	memcpy(fru_info->product_number, pia + addr + 1,
--	       min_t(size_t, sizeof(fru_info->product_number),
--		     pia[addr] & 0x3F));
--	fru_info->product_number[sizeof(fru_info->product_number) - 1] = '\0';
- 
--	/* Go to the Product Version field. */
--	addr += 1 + (pia[addr] & 0x3F);
-+	/* Skip the Product Version field. */
-+	if (!fru_pia_advance(&addr, pia, len))
-+		goto Out;
- 
--	/* Go to the Product Serial Number field. */
--	addr += 1 + (pia[addr] & 0x3F);
--	if (addr + 1 >= len)
-+	/* Read the Product Serial Number field. */
-+	if (!fru_pia_advance(&addr, pia, len) ||
-+	    !fru_pia_copy_field(fru_info->serial,
-+				sizeof(fru_info->serial),
-+				pia, addr, len))
- 		goto Out;
--	memcpy(fru_info->serial, pia + addr + 1,
--	       min_t(size_t, sizeof(fru_info->serial), pia[addr] & 0x3F));
--	fru_info->serial[sizeof(fru_info->serial) - 1] = '\0';
- 
--	/* Asset Tag field */
--	addr += 1 + (pia[addr] & 0x3F);
-+	/* Skip the Asset Tag field. */
-+	if (!fru_pia_advance(&addr, pia, len))
-+		goto Out;
- 
- 	/* FRU File Id field. This could be 'null'. */
--	addr += 1 + (pia[addr] & 0x3F);
--	if ((addr + 1 >= len) || !(pia[addr] & 0x3F))
-+	if (!fru_pia_advance(&addr, pia, len) ||
-+	    !fru_pia_copy_field(fru_info->fru_id,
-+				sizeof(fru_info->fru_id),
-+				pia, addr, len))
- 		goto Out;
--	memcpy(fru_info->fru_id, pia + addr + 1,
--	       min_t(size_t, sizeof(fru_info->fru_id), pia[addr] & 0x3F));
--	fru_info->fru_id[sizeof(fru_info->fru_id) - 1] = '\0';
- 
- Out:
- 	kfree(pia);
+Best regards,
 -- 
-2.53.0
+Janne Grunau <j@jannau.net>
 
