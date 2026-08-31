@@ -1,80 +1,142 @@
-Received: from out30-97.freemail.mail.aliyun.com (out30-97.freemail.mail.aliyun.com [115.124.30.97])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F29B39E194
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 06:32:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.97
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA34F3B14B8;
+	Mon, 31 Aug 2026 06:33:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788157970; cv=none; b=DLAoYAQ9WnVRLSoaGBa0szVIu36iBUV8g4MmPqL9uBYEd8nwFR6nmeLtS/Eqet8840rTiWhRdnAwpe9DTOG0oGZ/1CPlOcOxEPaicV0pMdhZA5WYqAofBGh59ysPVr+AkMMSKHIeBMR/Xe+qv5RsizlEwg3C4XxNEjuBL+yCnzQ=
+	t=1788157983; cv=none; b=BHlHSQDjd3C7pZPXesJ8FbDxwga5tNLRcxW6edpRK+fJSQPgqEFwK3a69z8C30np5cw6hBlT38aFUz70jOQaqumF7TGzLnEjrquSmHW84K2TPBqdISthy5LwUCpJOOSPUdJJ1MfacOJfVN9EnF9kFjg9ajk8n+tZBo1O7MtE5Nc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788157970; c=relaxed/simple;
-	bh=D9crxlgw6ub1xfbjPz8ZjCBR2G4y63a+JsPlfFGzU9s=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=XrahNuaSWHvl5ab1MFi3CCyn6G6v4Mkdqt4y+iQnIe65UC5z2cKgI7XiUpEEgi5HLnlfgxRgCp3ijy8wA0890Uiul1XJ/v/7k/GBcdgfqBnL+dh8B4XpHTlCxIVaQrfgy0trSXpCHU+hr1lQkGONF3XCw9xJJU52xb9Mjtr2oQE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=kRtUnF7B; arc=none smtp.client-ip=115.124.30.97
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1788157983; c=relaxed/simple;
+	bh=CvQ+YEq/ATbO9+iTa4L4nQndg/7a70rnRyw93dsjyK4=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=Iq/uium5bYdGgrRZ+tEMW8IqVYU8hbBLzwTfT5t4pV0Khoq3VGbHFjwnMPDF1vEV+bDJysxzj2XEFCqsuCJ23kJKDV/9j9h2Jhf3rUcc3jCwmxEqCWcfzLXjAzDpsm0fC7aTAQh4MVnLDFpYQkxY9up9sND+skunNsBBpfpkcjE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GClwpBwb; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="kRtUnF7B"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1788157960; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=t/36wknHFexnAeKdhAm/GZP0AHM1tihOrh4MgaZ6ly8=;
-	b=kRtUnF7BtV+LmiiSTjShMJE0qmA40Nk/VNc56WnMuWDUohwu6hHu4NGyqWlV3SZbPlXGIrhL43lnwmTUB+XMsX8LettrGFmTGIP3LHFJ2cScYZnkjB7VAFWMoyjJC9pf3afM14Y6XRKryLYnrkC8YRr48Eij4xehTMaMmJBkots=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R201e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037033178;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=10;SR=0;TI=SMTPD_---0X9tGWPr_1788157958;
-Received: from 30.221.129.115(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0X9tGWPr_1788157958 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Mon, 31 Aug 2026 14:32:39 +0800
-Message-ID: <ac2bd4a2-808e-4f37-89de-930836320d36@linux.alibaba.com>
-Date: Mon, 31 Aug 2026 14:32:38 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GClwpBwb"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 15975C2BCFA;
+	Mon, 31 Aug 2026 06:33:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1788157983;
+	bh=CvQ+YEq/ATbO9+iTa4L4nQndg/7a70rnRyw93dsjyK4=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=GClwpBwbHP+sfW0apmpQzwsF0PaZlsiQyGCEy9nd79Eb7huxu+94P8rM6R7Et11hQ
+	 L1DIko8BPgeFWxMFNCaTGJEDE8ltWbc6Nsq1Afy7d8A35dsJSbs5QpdNH2bAvlDU+x
+	 HWHegGm732+PIQPRfX60HeEhAADpSUgGBdZgpFraTrZKUu8CbyfwOQOzpdov7nTku2
+	 aFp9ch4zc17xzB9U0Gls3E8CAuY8HBmw3Yptfgy+KL4p9oJdLiSTg+aCoOdoWkqnPx
+	 OO6f8kzfQ/3Gg86rMchWKO8p+CFwZbxo6LvWO06WyYf8QZzQV0uMkfNqWmwGIgDzQ5
+	 2SSP0ilCe2IYQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E58A3C624A5;
+	Mon, 31 Aug 2026 06:33:02 +0000 (UTC)
+From: Sarath Ganapathiraju via B4 Relay <devnull+sarath.ganapathiraju.oss.qualcomm.com@kernel.org>
+Date: Mon, 31 Aug 2026 12:03:01 +0530
+Subject: [PATCH v7 1/2] dt-bindings: clock: qcom: Add LPASS VA CSR
+ HeartBeat pulse clock
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/2] ocfs2: validate active orphan slots during inode read
-To: Andrew Morton <akpm@linux-foundation.org>,
- ZhengYuan Huang <gality369@gmail.com>
-Cc: mark@fasheh.com, jlbec@evilplan.org, ocfs2-devel@lists.linux.dev,
- linux-kernel@vger.kernel.org, baijiaju1990@gmail.com, r33s3n6@gmail.com,
- zzzccc427@gmail.com, tom442288@tuta.io
-References: <20260803030007.3993199-1-gality369@gmail.com>
- <20260804134157.38e3b8513d53c079f8b05823@linux-foundation.org>
-From: Joseph Qi <joseph.qi@linux.alibaba.com>
-In-Reply-To: <20260804134157.38e3b8513d53c079f8b05823@linux-foundation.org>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20260831-heartbeat-v7-next-20260828-v7-1-e3ffeac46a51@oss.qualcomm.com>
+References: <20260831-heartbeat-v7-next-20260828-v7-0-e3ffeac46a51@oss.qualcomm.com>
+In-Reply-To: <20260831-heartbeat-v7-next-20260828-v7-0-e3ffeac46a51@oss.qualcomm.com>
+To: Bjorn Andersson <andersson@kernel.org>, Stephen Boyd <sboyd@kernel.org>, 
+ Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>, 
+ prasad.kumpatla@oss.qualcomm.com, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788157981; l=2151;
+ i=sarath.ganapathiraju@oss.qualcomm.com; s=default;
+ h=from:subject:message-id;
+ bh=5DgYRL2d+tr5ENMkYeTnCE9rjgsWEYIKZ5OrVRuZXu4=;
+ b=tFB8+8cWhYakiaJEtSe6EXgdn+9QblGG9P/sa1Ejygdd26H3V4nRZpP1SMv9a4cbhAA81RikO
+ IHFUn8H43m4D8U7zW5fEEEjdK31TmWuQm9a57ta3Zhmzwh65tGdSBHL
+X-Developer-Key: i=sarath.ganapathiraju@oss.qualcomm.com; a=ed25519;
+ pk=4p2FWGXM+F2sir13Lu5stw5aKX5trUymK/ttESvgxQg=
+X-Endpoint-Received: by B4 Relay for
+ sarath.ganapathiraju@oss.qualcomm.com/default with auth_id=870
+X-Original-From: Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>
+Reply-To: sarath.ganapathiraju@oss.qualcomm.com
+
+From: Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>
+
+Add a binding for the Qualcomm LPASS VA CSR rate generator node that
+exposes the lpass_heartbeat_pulse clock on Hawi.
+
+The HeartBeat Pulse (also known as RateGen Pulse) synchronizes the
+start of the DMAs and Codec Interfaces for the audio usecase and can
+serve as a periodic wakeup source for the DSP.
+
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>
+---
+ .../bindings/clock/qcom,hawi-lpass-va-csr.yaml     | 45 ++++++++++++++++++++++
+ 1 file changed, 45 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/clock/qcom,hawi-lpass-va-csr.yaml b/Documentation/devicetree/bindings/clock/qcom,hawi-lpass-va-csr.yaml
+new file mode 100644
+index 000000000000..bd3554f5c99c
+--- /dev/null
++++ b/Documentation/devicetree/bindings/clock/qcom,hawi-lpass-va-csr.yaml
+@@ -0,0 +1,45 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/clock/qcom,hawi-lpass-va-csr.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Qualcomm LPASS VA CSR heartbeat pulse clock provider
++
++maintainers:
++  - Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
++  - Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>
++
++description:
++  The Hawi LPASS (Low Power Audio Subsystem) VA CSR block contains a
++  rate generator that produces a periodic HeartBeat Pulse, also known
++  as the RateGen Pulse. This pulse synchronizes the start of DMAs and
++  Codec Interfaces for audio usecases and can serve as a periodic wakeup
++  source for the DSP.
++
++properties:
++  compatible:
++    enum:
++      - qcom,hawi-lpass-va-csr
++
++  reg:
++    maxItems: 1
++    description: Address and size of the VA CSR register block.
++
++  "#clock-cells":
++    const: 0
++
++required:
++  - compatible
++  - reg
++  - "#clock-cells"
++
++additionalProperties: false
++
++examples:
++  - |
++    clock-controller@7ee0000 {
++      compatible = "qcom,hawi-lpass-va-csr";
++      reg = <0x07ee0000 0xe000>;
++      #clock-cells = <0>;
++    };
+
+-- 
+2.34.1
 
 
-
-On 8/5/26 4:41 AM, Andrew Morton wrote:
-> On Mon,  3 Aug 2026 11:00:05 +0800 ZhengYuan Huang <gality369@gmail.com> wrote:
-> 
->> OCFS2 trusts active ordinary and append-DIO orphan slots read from dinodes.
->> A corrupted slot can therefore index osb_orphan_wipes or the slot-local
->> system-inode cache outside their allocations before the corruption is
->> reported.
-> 
-> Thanks.  AI review raised several possible issues, all pre-existing. 
-> "out of bound access", "crash the kernel", "out-of-bounds heap access",
-> "triggering this crash", etc.  All the usual things (seriously!).
-> 
-> 	https://sashiko.dev/#/patchset/20260803030007.3993199-1-gality369@gmail.com
-> 
-> None of which stands in the way of your fixes.
-> 
-> The best I can do with this onslaught is to make maintainers aware then
-> move on.
-> 
-> I do wish that Sashiko was more organized about these drive-by bug
-> reports.  Retain them in some lookable-uppable way for maintainers to
-> look at when they have time.  This has been suggested to the Sashiko
-> developers.  Perhaps one day...
-
-Addressed in:
-https://lore.kernel.org/ocfs2-devel/20260831062848.2743436-1-joseph.qi@linux.alibaba.com/T/#u
-
-Thanks,
-Joseph
