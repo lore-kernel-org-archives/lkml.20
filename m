@@ -1,105 +1,119 @@
-Received: from mail-yx1-f53.google.com (mail-yx1-f53.google.com [74.125.224.53])
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F4FE380FD7
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 18:02:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.53
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788199329; cv=none; b=ZDv6aZ1WFEuiSFwZDc8r7Q4g0eMxht/OOq3GRiMZXC9KbSLRgeVJ7I6FEaqgvMRcSoIpFyUW9mA/3cHi94rrkOi5AmpRyLzcgq7cRvC1ZUC2V9JlOmFEdaOA78VRKQu8y20hOzjZf8/7JJptBGpNxpo23ftkUcp2dhO/zdBjtPQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788199329; c=relaxed/simple;
-	bh=/kc7PYWlypYVZP3WwE3BLRaLams28RAM1V7UJYCZVTU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RQWRIHPi4zaIsKAc8lsSVgV28FQXdR/XNCHj6R+uP/MDc/DumG1mSWOmj6v7hLuuHO2IrKYVLj9RWvDA6djkcM4g1fN7L3zRkiIK0wQ8+vcEbEIu+iwFtn0uOBUTiAa/mv7Sw85vGJ23/MiSBP4V4BUoFjgKyuqVGRGy7UEzCbE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=F5rcCEH3; arc=none smtp.client-ip=74.125.224.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E5C9380FD7
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 18:02:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.182
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788199339; cv=pass; b=cJI9LlyE2q9yKQm5omntVw4x1fTst7b3MYE58w6QWyNGYIrNVrESlI8Aqzf6DL7e0AmoD4cSjff2f8Mx8+HfA5Ql8wF2DZlZCTYfqRo0K1ma2mRjWs+JSuIaI0fTSakCevEMVU9viIbyOaNkzeDco+QJ4LwQk4GF+hA6Hn21olw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788199339; c=relaxed/simple;
+	bh=vUxrg70tu0gkCfDG0Y/HJqfjufL/MVav0fcyO6O4mEo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=NUNYJwqlzTze/OE8mjssmt5+onZWeAljeZT0iq7A7+KAY+ys+PsO95GduOkyk1P+GNiRvBcVtQ/xZ6bCAoT7bDYTjtcpB3UT9tCfJ0GOuQJhZC2Y6u6c0kR6nXWj8M428qgbUeexSZ3pj0PjgeWNSvpYZrZlwTWlxsp39tZtvd0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com; spf=pass smtp.mailfrom=paul-moore.com; dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.b=RzNNzC/5; arc=pass smtp.client-ip=209.85.214.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=paul-moore.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="F5rcCEH3"
-Received: by mail-yx1-f53.google.com with SMTP id 956f58d0204a3-66e5d39cfe1so1655305d50.3
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 11:02:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.b="RzNNzC/5"
+Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2d560775ca2so27158395ad.1
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 11:02:18 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788199338; cv=none;
+        d=google.com; s=arc-20260327;
+        b=gw7e6Q/iyBQNNf4ezZfQv6xo2BIalBvBfYTY4veE7tXgLFbLPNsnhhUV4YeFFh+3Kb
+         A+iP2J6NppAihCTo9dUjegclmQ5q1j8lBZYW0TFbGAjxYzIWHAKiBjzTCPC+fks4xlmc
+         SGTh/xPa7/KvHOboeOrJvC5m+LeTfx7d3sDzvOQOmNTWA8tUlwyE2w7RcTB9gUA39wFg
+         dTE+crgXL+Rqqw/nDm1u7D4d7DLwQZkb434+wS1IJcOxFPGy/jPYeVOlEdS92gtPIIf9
+         R70QZ2k5gSCXgFLpz4vPVW3/WJFCijn+l1BVQcbnsR9GeRmNbfHp1HW9fq6+yFJX3Cba
+         8Qag==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=QrW08dhGSa6XRepSE7GPhDrEpeomStQDl4X2ydpzQUo=;
+        fh=mU7HktP0I3r74dbbYKJzDNabkQbCSMwh3Ea1LhHm68A=;
+        b=sROsewXApYc0vM0H6/J7VEy2fsD+U1pSUVxZZH2PvEVUixTLOwTJiC0F6ZgxKkPseR
+         HmpOiq+PlY8ZMS8CF1xNon6NJ52zqTEq6LJ6xJKOar4V160CaDjyWNmPExIt/rTSyVOX
+         016RyqIv1rLc/v0JarRJ5LSuD34BrcAopKx80MrOaOtyLGm/tgEsyiRV7C1I43TBsNS8
+         X5CKrHaBMfN7anMFj+qvMpO2xsMh0ooA8uIU0HXPLfr1DkLPJRJTUVXHfEWnGhKcg2U0
+         g/ZkHh3L6APXkE/4YRR5gxr/5qI2Bwt1cnsX7dUuNJ6eYiDnEOod5gDAdCNg0JsqZecm
+         bRfg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788199326; x=1788804126; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qFhzGXcio2yqCPX9oQAAIfIvI6f1pTpkLcuZuvtREFY=;
-        b=F5rcCEH3Vg88ikZ0pC1QF4fw+r833VIM+Dd9sXevExoHmo+bk69Y7oLrOceKyqQkGC
-         UtHoKwqA7QBl2jvHo6t8pZ12gU6VWMHyW2opnfydOTyeN8+U30vvaYRSuMypJ/+fr8x5
-         bR6t/2WI5/5tuWzGHedla/w2/+WWTIDq7TjDHwe9Nz3L6z3qP0084QYEdyddC9Yj9DS8
-         jTYQRWCTUf5OnAlp4aRDAz9aY7onh9yS7wjJEpzYLgZ5RrrtJ5rBAsUt7o4Cr7gjyTSI
-         8cmwadSJWoBkwHCMs9HTgPWm1+rN2ERmjsz4YepFwW7SHhYLGpD98zxOywSgXx8SPyht
-         a8Ig==
+        d=paul-moore.com; s=google; t=1788199338; x=1788804138; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=QrW08dhGSa6XRepSE7GPhDrEpeomStQDl4X2ydpzQUo=;
+        b=RzNNzC/5r19aCD+cKnDE9LyAIenQXtB9Fed64ng+CaYCwMZ+XFtr3lyosyxoGAlDfP
+         vzywD/OD6Nl2EHmIF2qam+uan7fBNYlcJtM9VkATu42kHZwtVlLOJePfA7/1B40XP1sW
+         f427g9SdbPfd4sYwAcbiDwTgl/j6tUzTYeasFbMMHfWWyRs6KmYiOf7F00Vm41g3NYup
+         VknLI3bDOAaDiJ8e0kZVO6TAU6uDBShjhm9RcNpmTrNH5UEeIWXt4RZQG7MO7hI5piuO
+         2eqGlQGJ1D3By1bA7MbElRznLa2TwhSvABl54YqoEKXKEYMLn2/hbGP9ujfOWK77Fgp6
+         GGmw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788199326; x=1788804126;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=qFhzGXcio2yqCPX9oQAAIfIvI6f1pTpkLcuZuvtREFY=;
-        b=I/DJJ6ZGEJRq7mMtQl0t9dKG1un4QQehuuVFWGXeicjOZX0yFZsR1n35b2rwfa1KE1
-         XFc6INktDFXLlq/F3NFx0niFehE1VPdy/a0pUAHWsjMslxWU2ridvzyZWcX9ht/Fg5p1
-         voTDHdrNdzjujidI5h8daJexZxRdsuQigXPXEUo+S7Z6wfp5VqSYRFpIGfJvXci4GoCa
-         Mq7axP0cW381ZKTbKXVLbXlZc7JZ1iH09sq7KzhctwMiXakWN+t6RTAGoR7HmEXr3Ca6
-         pRZaMtGyQucCL+YXR1rQhbvTRDyiStzP1JqFsQiAo7Fm0x3l9F+UinvPy8qdkc37ugPQ
-         R95A==
-X-Forwarded-Encrypted: i=1; AKwUvBw9EeiQC1rG3ZIOAMyAES0GkcMIKGOsIEcDar5dv8FwC4/Jhlf1zFDUMaTSb1qt73a2c/2eK4tqrDi+P1Q=@vger.kernel.org
-X-Gm-Message-State: AFuF++ljLUResKSoO+Q3PQg9AjoiXt1uBQCoaFijjInuRU+xNXrL5k1I
-	HGDFlCL3wJiv9xmiT8lEJj1qlhZx345ptt6dq+sLhWYbJxbMA8AMmJ2e
-X-Gm-Gg: AYBFou1BCWaFpOU8Oy6ipLQ/fXo4CHyR8uq5oOv73aiRwEnsRyQuHvWVwGvTbaEZLQC
-	f7aBrnD+VLKO3/RMwIGscBKSPeFOIpPeDHaW1gXawdhWSnLkfe+qJKpsDC86griWCEep538vPKO
-	MmgsJVSKIerEaL1a5A7f1VdaZZoTnt0y2kuZH5L717mR3z2RoIlCB2gWDCs8KGyd8kp9OFMreIo
-	xWvxCxp56UT8cRmA5fEhppijdM87ihBQ5iS69PyvLWopvPsO5+z7uRqmOWX4+DurYr2S//S04ay
-	0xb4VJxkhgwtTvgFN/iHFv9TDLyuQKaPlzU+LYBWIgjBmGODCXxYQ2IXaU/5E2SVi+oqeyJRRis
-	ZROK/FnRc8hSKUpeZc6WvxcV4PLSt3R/dVML4DikeAMSI+UaQJb3DIwuj0DTnvPe4CH3AKPx3aF
-	qfUNvctlYStCSrzLKnj7bcrmSNCa9iFCy07byetpNH9fzgvBLI9hzUgbAX0SbEAIcIOj0guE2gg
-	KAcSWl8tlCMC9+r9dMr9EVRVds=
-X-Received: by 2002:a05:690e:190c:b0:66f:7717:a700 with SMTP id 956f58d0204a3-66f7717adeemr3379779d50.21.1788199326215;
-        Mon, 31 Aug 2026 11:02:06 -0700 (PDT)
-Received: from hoboy.vegasvil.org ([172.58.167.166])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-90ceb0a3a09sm73932946d6.16.2026.08.31.11.01.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 11:02:04 -0700 (PDT)
-Date: Mon, 31 Aug 2026 11:01:56 -0700
-From: Richard Cochran <richardcochran@gmail.com>
-To: Xuanqiang Luo <xuanqiang.luo@linux.dev>
-Cc: Vadim Fedorenko <vadim.fedorenko@linux.dev>, netdev@vger.kernel.org,
-	Jakub Kicinski <kuba@kernel.org>, andrew+netdev@lunn.ch,
-	davem@davemloft.net, edumazet@google.com, pabeni@redhat.com,
-	arnd@arndb.de, john.stultz@linaro.org, jacob.e.keller@intel.com,
-	linux-kernel@vger.kernel.org,
-	Xuanqiang Luo <luoxuanqiang@kylinos.cn>, stable@vger.kernel.org
-Subject: Re: [PATCH net v1] ptp: fix NULL deref when adjtime/adjfine are
- missing
-Message-ID: <apXBlBvh0vqSzhyi@hoboy.vegasvil.org>
-References: <20260826101004.100979-1-xuanqiang.luo@linux.dev>
- <e9c97286-d121-40ca-b6f1-4c63641e7283@linux.dev>
- <ba8e71ce-42e2-4c92-b7c8-dd6ce900a5d4@linux.dev>
+        d=1e100.net; s=20251104; t=1788199338; x=1788804138;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=QrW08dhGSa6XRepSE7GPhDrEpeomStQDl4X2ydpzQUo=;
+        b=VesyYflGoTgWti+iGEzHaNC7uJmaLv6b7mC39gNbbP0EghvKEn4oYvUtwhjWtkPs9T
+         +YIulJ4rOczvnZrhWaQ8egqYSEuR4Kx4sulXL7dAe9dsq7zqb4skt3qBEAZRR2UBbiy/
+         20TB02zeQUyMw84whWx8DXaSWkollSG2jfgzJMMa0/V+rjJZyaoqZ3ZAn01dXxmwQkYR
+         pYeoHhE7gwwSCuIhpUxW0ENxQT/wKP9qSy4VNE8kiBjqjYSQsMaLxZiUEgGvP0+2CzMR
+         mhd6wjwnDHfBSJPZev1t2foraDfX1cTOCZJzQgrYxdjjCDh+2HO5dhX+MxXgaJAWMJWn
+         +lLQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxQbYI8sW14ZUWgrwsKWptBoIpoxA/caW2Vw5iD9ToiFnfVycN8V4eDkW44Wud1hKe0UDqZEnEndYTLKIQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++kTwYdtjh95kIWvK4Jz0jPMe2mQ2iQ8rrkImlFbmd556Wy+9OfG
+	iPxxVoSyNiJWv4LWdXmpmy+1Oe2AVzhn5zJb3TuoxxL3slCK3tDw9z4nOjMVRbN3anL3SYWjHW6
+	JpFfGNljlhu12V7pfWu+41vEjdDXoQz3Eauhen/fjh3WgnQxPXc/Wjg==
+X-Gm-Gg: AYBFou2ztRbVplg025mBMwjydsloXcUs0pJ4qYWzLu5sV++zZKPYWZlTZByZz6wJNRM
+	3phJxh9E/0JwZIvTBdEbHa82fbfOVG9NQ2RWGXHIaVKjeUXBKgSga19oCX+jihX+BHQac+Byq8C
+	7qTCm3WFissKwQXU1a6gxEOpAv2JeQRNwAJvQjGfDA+vzEbHuH8qX/Jd2bJhWezt6vQgxzlUuv1
+	nIKRMWKaFKbpU+0ZXunc4CYRFIIz714exIpzhZVofu5zPXGt4giXIkZLYwzg9i8FXWGSbfiIKti
+	fYnu4LCo63dS+Fm6OlRjtWD6XQb2njWBvko0MMQMs1D1YbcHW9PQQmM=
+X-Received: by 2002:a17:903:354b:b0:2d9:49b3:abac with SMTP id
+ d9443c01a7336-2d949b3ac16mr40004415ad.18.1788199337441; Mon, 31 Aug 2026
+ 11:02:17 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <ba8e71ce-42e2-4c92-b7c8-dd6ce900a5d4@linux.dev>
+References: <20260807140521.510904-1-rrobaina@redhat.com> <77cb8aa1365ead24eda2ff0800a8ec8c@paul-moore.com>
+In-Reply-To: <77cb8aa1365ead24eda2ff0800a8ec8c@paul-moore.com>
+From: Paul Moore <paul@paul-moore.com>
+Date: Mon, 31 Aug 2026 14:02:05 -0400
+X-Gm-Features: AcwNN1UdcuneJpmiDkNpAMqFfZZyAkd8QZdDly9SilEWFq-m2qXi3m1Fl70HtsU
+Message-ID: <CAHC9VhSaEx6q165P=ifZcRBDwcdCmbAK0zuomjR83Kg4c52QNg@mail.gmail.com>
+Subject: Re: [PATCH] audit: add missing unlikely hint to audit_dummy_context() wrappers
+To: Ricardo Robaina <rrobaina@redhat.com>, audit@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Cc: eparis@redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Aug 27, 2026 at 02:43:31PM +0800, Xuanqiang Luo wrote:
+On Mon, Aug 24, 2026 at 6:11=E2=80=AFPM Paul Moore <paul@paul-moore.com> wr=
+ote:
+> On Aug  7, 2026 Ricardo Robaina <rrobaina@redhat.com> wrote:
+> >
+> > The inline wrappers: audit_log_kern_module(), audit_tk_injoffset(),
+> > and audit_ntp_log() check audit_dummy_context() without unlikely(),
+> > unlike every other wrapper in the file.
+> >
+> > Add the missing annotations for consistency.
+> >
+> > Signed-off-by: Ricardo Robaina <rrobaina@redhat.com>
+> > ---
+> >  include/linux/audit.h | 6 +++---
+> >  1 file changed, 3 insertions(+), 3 deletions(-)
+>
+> Thanks.  Merged into audit/dev-staging due to the merge window, this will
+> move to audit/dev next week.
 
-> However, the PTP hardware clock documentation explicitly states:
->     Clock drivers must implement all of the functions in the interface. If
->     a clock does not offer a particular ancillary feature, then the driver
->     should just return -EOPNOTSUPP from those functions.
-> 
-> Link: https://docs.kernel.org/driver-api/ptp.html#writing-clock-drivers
-> 
-> Therefore, iavf does not comply with this requirement, and fixing the
-> issue in the iavf driver is more appropriate.
+... now in audit/dev, thanks!
 
-+1
-
-Thanks,
-Richard
-
+--=20
+paul-moore.com
