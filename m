@@ -1,126 +1,86 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 906243C09F5;
-	Mon, 31 Aug 2026 08:28:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B6FF638E8DA
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 08:29:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788164937; cv=none; b=sSsc8rXXOLj0pcAt2wTDoJFYdSDdUvE1HOiaudbbmHF0qIs6ZJ2Kd918L7BrRUst51R3txUuqbwFIRxO8WVkWIbmFothwglZu9JehUtb3xMxya26cpwRrbAgYvYc2rI15kq9I+nz8ieweC9vV3dw9WNMvBQHKGJEobXfiOGoebA=
+	t=1788164949; cv=none; b=gYzgtRbk2imvuHUOI5s2yIa9gyK5crF6sT2Eq37C+wtMorsmuEMfkFbZoPhylBdeFk4YDiu03DAEzcX5cwF33f2CXgKi5bKdwTSMFRmmo3R0QDGMCGNJQ8EQg8mqLZBqtM+lgvUKDg6j+rj59dEqaURUSbnpG5a2C25gGEmvKhU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788164937; c=relaxed/simple;
-	bh=uRkDcTOAn+R7TrgMni0mcixbt97rdUXaaARcPdcnnL4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KA6JGmq1Nk8I4tJcxsR8XpJJBwJjmxLX8CSG0bxHR4T4G+ijjvpGF+Z1roPOzSTaxvhmIiOV9jtoVVUjEIGKGOc/fgFXqnywk63uv8V0q9DsYgntTg3LS9pU1Kvq+EMiq580bGFgm4ijlDopdv7r3NyrjSJWgC/vkpxS8fFJ/sc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d4ZAcMaG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788164949; c=relaxed/simple;
+	bh=Evn7Zfh9iuBirO24rNV2tVorrvWz1SCWoNgm/w4vOxA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Ofnc4/9Hd9ajVByvJGEUt5qVo+5QCg5Klj1LWqgZSJcOnCC8V8yfdUFyEST3AolqUVF9beRZfOhxI3sPyPEwJAcK1thMU4uXthU4DeZr/B3wP6mgyEkmyLomTSAzi7AZbqFJ+Wl4XOFmOgsnnNE7Q3q7sL5IzX6ct0QJDrbxu40=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=WDek0KzA; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d4ZAcMaG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F240B1F000E9;
-	Mon, 31 Aug 2026 08:28:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788164936;
-	bh=VQpc8lTOdX3xSHi8EiRB4f2hLx8t85VdxKOuNWE2LD0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=d4ZAcMaGmhWkbt0Rh1OPbj1YlvacnstiEn1h6FFml6IuFq+3UCfM+lcx8aLY2H5Sb
-	 aTcviB67lh56jpthcbuARnaiLX4X0zEJ5iPxkrisAndSC28M/yhEdVLGlUkt0diRxO
-	 9bduFdfWk+hI7CWNkelr83aVU9pAyG0ntG7S56uds6uH8gbohovzZGzBTSkSIocm39
-	 gnGlVJEZbg6CRfoOomrsStasSuqGXnXNNxknZttY9AdVDI4XPTmJ93LIezloeltrna
-	 rqfo0Swu4IbyUCEIkpSb0iea7aqu2MJDVQwQFkcSN19DRtkiVxfkbBz7lauGqWknXo
-	 5oualX6cx/Q9g==
-Date: Mon, 31 Aug 2026 11:28:49 +0300
-From: Mike Rapoport <rppt@kernel.org>
-To: Jiri Slaby <jirislaby@kernel.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Matthew Wilcox <willy@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>, linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org, linux-serial@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org
-Subject: Re: [PATCH 2/3] serial: core: replace get_zeroed_page() with
- kzalloc()
-Message-ID: <apU7QSOV22VJL3ay@kernel.org>
-References: <20260830-tty-v1-0-0cbe6170649b@kernel.org>
- <20260830-tty-v1-2-0cbe6170649b@kernel.org>
- <602bdc5f-e9fa-4ed5-a009-03af860d31a6@kernel.org>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="WDek0KzA"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0EDFE1477;
+	Mon, 31 Aug 2026 01:29:02 -0700 (PDT)
+Received: from cesw-amp-gbt-1s-m12830-01.blr.arm.com (cesw-amp-gbt-1s-m12830-01.blr.arm.com [10.164.195.33])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 7253E3F85F;
+	Mon, 31 Aug 2026 01:29:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1788164945; bh=Evn7Zfh9iuBirO24rNV2tVorrvWz1SCWoNgm/w4vOxA=;
+	h=From:To:Cc:Subject:Date:From;
+	b=WDek0KzATN0t8hjZiy7B9EfLSgwTpZL505soK50bfiBjSlYL83nPMqXWIevbm161g
+	 rkL1wmBIsxcEmthh/G4GrnDXaGKKqmgfQyn0ZRFDjuXIGroUF0LL362LIv0s18wc6Y
+	 rtfYyWOI4VXTDleXrN05OYyfl+Uw3qNr+YW8H/Xo=
+From: Dev Jain <dev.jain@arm.com>
+To: akpm@linux-foundation.org,
+	david@kernel.org,
+	ljs@kernel.org
+Cc: Dev Jain <dev.jain@arm.com>,
+	riel@surriel.com,
+	liam@infradead.org,
+	vbabka@kernel.org,
+	harry@kernel.org,
+	jannh@google.com,
+	lance.yang@linux.dev,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] mm/rmap: remove stale hugetlb check in try_to_unmap_one
+Date: Mon, 31 Aug 2026 08:28:47 +0000
+Message-ID: <20260831082849.3573957-1-dev.jain@arm.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <602bdc5f-e9fa-4ed5-a009-03af860d31a6@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Aug 31, 2026 at 05:02:54AM +0200, Jiri Slaby wrote:
-> On 30. 08. 26, 9:49, Mike Rapoport (Microsoft) wrote:
-> > uart_alloc_xmit_buf() allocates the transmit buffer of a serial port. The
-> > buffer only backs the port's kfifo, the data being sent is copied in and
-> > out of it.
-> > 
-> > This buffer can be allocated with kmalloc() as there's nothing special
-> > about it to go directly to the page allocator.
-> > 
-> > kmalloc() provides a better API that does not require ugly casts and
-> > kfree() does not need to know the size of the freed object.
-> > 
-> > Performance difference between kmalloc() and __get_free_pages() is not
-> > measurable as both allocators take an object/page from a per-CPU list for
-> > fast path allocations.
-> > 
-> > For the slow path the performance is anyway determined by the amount of
-> > reclaim involved rather than by what allocator is used.
-> > 
-> > While on it, make the local variable holding the buffer a pointer to get
-> > rid of the casts.
-> > 
-> > Replace use of get_zeroed_page() with kzalloc() and free_page() with
-> > kfree().
-> > 
-> > Link: https://lore.kernel.org/all/635405e4-9423-4a25-a6e7-e03c8ea0bcbe@redhat.com
-> > Assisted-by: copilot:claude-opus
-> > Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-> > ---
-> >   drivers/tty/serial/serial_core.c | 16 ++++++++--------
-> >   1 file changed, 8 insertions(+), 8 deletions(-)
-> > 
-> > diff --git a/drivers/tty/serial/serial_core.c b/drivers/tty/serial/serial_core.c
-> > index 95774b0f1484..f12ce7d190fe 100644
-> > --- a/drivers/tty/serial/serial_core.c
-> > +++ b/drivers/tty/serial/serial_core.c
-> > @@ -247,29 +247,29 @@ static int uart_alloc_xmit_buf(struct tty_port *port)
-> >   	struct uart_state *state = container_of(port, struct uart_state, port);
-> >   	struct uart_port *uport;
-> >   	unsigned long flags;
-> > -	unsigned long page;
-> 
-> 1:
-> 
-> > +	unsigned char *buf;
-> >   	/*
-> >   	 * Initialise and allocate the transmit and temporary
-> >   	 * buffer.
-> >   	 */
-> > -	page = get_zeroed_page(GFP_KERNEL);
-> > -	if (!page)
-> > +	buf = kzalloc(PAGE_SIZE, GFP_KERNEL);
-> > +	if (!buf)
-> >   		return -ENOMEM;
-> >   	uport = uart_port_ref_lock(state, &flags);
-> >   	if (!state->port.xmit_buf) {
-> > -		state->port.xmit_buf = (unsigned char *)page;
-> > +		state->port.xmit_buf = buf;
-> 
-> xmit_buf is u8 *. This uchar was omitted when I was changing the type back
-> then. Could you use the right type at 1b now?
+Post commit d4ec5572825a ("mm/rmap: add try_to_unmap_poisoned_hugetlb_one")
+try_to_unmap_one() cannot be called with a hugetlb folio. Therefore remove
+the folio_test_hugetlb() check.
 
-Sure, I also made this change in uart_free_xmit_buf().
+Signed-off-by: Dev Jain <dev.jain@arm.com>
+---
+Rebase soup - my huge_ptep_get() fixes landed after the refactoring.
+
+This patch applies on Linux 7.3-rc1.
+
+ mm/rmap.c | 7 ++-----
+ 1 file changed, 2 insertions(+), 5 deletions(-)
+
+diff --git a/mm/rmap.c b/mm/rmap.c
+index d1819fd699380..606c8ecf31302 100644
+--- a/mm/rmap.c
++++ b/mm/rmap.c
+@@ -2299,11 +2299,8 @@ static bool try_to_unmap_one(struct folio *folio, struct vm_area_struct *vma,
+ 		VM_BUG_ON_FOLIO(!pvmw.pte, folio);
  
-> thanks,
-> -- 
-> js
-> suse labs
-
+ 		address = pvmw.address;
+-		if (folio_test_hugetlb(folio)) {
+-			pteval = huge_ptep_get(mm, address, pvmw.pte);
+-		} else {
+-			pteval = ptep_get(pvmw.pte);
+-		}
++		pteval = ptep_get(pvmw.pte);
++
+ 		if (likely(pte_present(pteval))) {
+ 			pfn = pte_pfn(pteval);
+ 		} else {
 -- 
-Sincerely yours,
-Mike.
+2.43.0
+
