@@ -1,154 +1,192 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D1B33CF201;
-	Mon, 31 Aug 2026 09:54:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 916DF3DFC6A
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 09:54:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788170054; cv=none; b=LcAEUkF/YC2LbgpzH9jTNwmAkrUokME6uvb9/whZzk5Owz/vH6WWswk0ccIxyYWbbRA8gwAH8NUUzGx55jNrDZxOpnz2C7MsdATbmVRp1ReXIy48dwV4b52gEgQXgZM5QtViwd60kpHRmRh/Oa7CY+HdA6VGFcIzEqiuXxMIUts=
+	t=1788170069; cv=none; b=C3b6mwWdPOrlmlhpzhFwEoc3Ot019FLezlEb+uYZEbLSV6B3PMNdxCEZ2LHPcTwaQFD2y9lAcH3yBNEK5P4sR2GaI2F7+HibxR0XIVewyaBI1gzOx2AwcpXPvgxBhVy1Gza72Ce6LzQ8FbfZ+pJmc7OUcL9dkz3JtAh2WZNlwn8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788170054; c=relaxed/simple;
-	bh=WPYILjTj1XhEKKnetHI3GAXEdVYhCS/Rgz72+FxXANs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=FSKjm6swSjBOvShA2Lc8EaEw9bYaMwCpJb0dZF5EJX9JGdNNuh45tLX46CqFPcHInvRguX93hXD5V88pu13tNSF7thQpfEk/2M8hlSOFm6tO1KnFSMsIjz21xnKeNKiI1wut1ZVJIBRVVAVGlLi5USPpqolazBAK0Qw241oN6dA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=sN2Nh/x1; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1788170069; c=relaxed/simple;
+	bh=/FDrAb7hM/EQSL25eFpDVEjA6s1rq1eNEc590hhbYJ4=;
+	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cgY6z+U0LNeSKcswkqQc/nhhRauZ00kuCphR1gCIa0cQrnZtDcvp70t/3Nd83NLjFo9Eu//vEPu3LJHxMcCryLXWfQmDv1A3O35Ma7wXNg2fTlS0h+6tcqm5+olVxGPT60PidqxQkmdUP/W2nIpPyRBFb1NvoDZZ172HH5g8egc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YMdz/Hku; arc=none smtp.client-ip=209.85.208.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="sN2Nh/x1"
-Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67V82VLh1698357;
-	Mon, 31 Aug 2026 09:54:08 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=8c8dyg
-	oA7sjX0hep2C/MKWpWP3yipeywymZHuoWawYQ=; b=sN2Nh/x12M1u1jG4uOCOdf
-	kgVkp72FQSr2m9UnnDC7iJ5ArsjXjls6xRPkbYVl2FE4up8NaNvLhdCNwPsIYu3M
-	MtWijo6WuxlLDRBAnLvLJGf6Az6cxF4D+SKBlbH7t57RucTI411dWZO/xz3DMYF9
-	pNTHgLp2UGlI7gPz8lsQrtsk+jePw6REf7TmoA2jlFPHJpGv70SgQETdySSWSlzC
-	vWepcqIchCb71LkCsG6sN3wYt+8/46GD9dFfd4pWmZ+2LsH5F3zAPncS8zMlemkH
-	9p8HA+hKWRuO6Kz2IPOezq6Ivb/rN0GED9f4MWhxOH5ocUfuPBy+XTbzmNZAyxpQ
-	==
-Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gbq2t0ad2-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 31 Aug 2026 09:54:08 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma13.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67V9faAw007679;
-	Mon, 31 Aug 2026 09:54:07 GMT
-Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
-	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gcbyg50pb-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 31 Aug 2026 09:54:07 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com [10.20.54.103])
-	by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67V9s5Pl50594182
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 31 Aug 2026 09:54:05 GMT
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id CABFC20043;
-	Mon, 31 Aug 2026 09:54:05 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 439EF20040;
-	Mon, 31 Aug 2026 09:54:04 +0000 (GMT)
-Received: from [9.124.216.250] (unknown [9.124.216.250])
-	by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Mon, 31 Aug 2026 09:54:04 +0000 (GMT)
-Message-ID: <31368a5a-989a-46ff-a3e2-ec0e7838a7d5@linux.ibm.com>
-Date: Mon, 31 Aug 2026 15:24:03 +0530
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YMdz/Hku"
+Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-6a5e392b2b3so5114876a12.1
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 02:54:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788170065; x=1788774865; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=loNoEotVshAkf6GbGqDOZPoaBhFH7ZZvecjTTBvFy18=;
+        b=YMdz/HkukdFx5cggpuv6UK2ClO/CRvo4ikTCw9EIHts07bMWCvIrS6mb6tCQZnRolF
+         OG6enp+sKzd7uKZH05GJ1RC7lhTbOxzzixJB6HifqO1jmL3JT/wcRxZ9r3vzcOulSNvd
+         vI9dtDCUJJ4opSy1Y/b+010EbdZjoXTkiBbiaLouOtC7ndDVqb3Ji3IUqrTzuIp/Ss1E
+         //12bFBW0fU6WoOmSr0mNT1czTXRgCmS4mw4OV3+eGtHlL+yPRx/bsrEc6/2lypqj+xw
+         6EjNsSj5n3x4HIJqaoRj/qRURljDLwLfdWIk1SIyPoIRseMhW/CWbDfe88d+heJZ26gx
+         ndEQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788170065; x=1788774865;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=loNoEotVshAkf6GbGqDOZPoaBhFH7ZZvecjTTBvFy18=;
+        b=iNzVW+Mj/BxSCAKJSCbbZ6JpZ/ySMX04aRlplLhyjcaHv86F5NwqAL1ZHei1CP0g57
+         a7Odh/WocYKHe1k1+3fYnin/0b+VxQKQJ3a5sVijz0z5c5/kgGQchWFb/HXR3TlqJaf9
+         xzKvR9s7T2ELhGqlgB7126kJqY0eQPg8qh8HNNT9yHDeh4n8995Jub4kfRAKKY5AdIrw
+         upqT6o/uZFAj65W6fYpfdte8X80rhRq6inNE8TgQwAQJzA55xHMktqg/SRkbxE+38Yls
+         cpZ7EpmMOCeWoIePBjocJIakSx2iq/JIdJcpoJrrM/ofrKD7bEJ7FmRHKZsuBturZfvS
+         wrog==
+X-Forwarded-Encrypted: i=1; AKwUvBxz8omsiZrymyUcO2svVh6hBd4OR2TCj2/CTcJNZx/O2vLdtST8mBmjNkbet1qh8LdUIPjhedQfTekDsgo=@vger.kernel.org
+X-Gm-Message-State: AFuF++mboRQdWPcxg7yNvE/+DENIVHhTHqO/EtCLRirIXa9LVEM55t4t
+	dhe/OxCG51U/hueTgn1ISeoDzb8A1u0wrSt7T/17cl2EX/s7kBlRyNttPnFjmV3G
+X-Gm-Gg: AYBFou2MeSl0z/najGkwLSY3cI9msuk2UeN2N2FZDjqkHTtwbSIK6gPH1E+TmcPUXWb
+	ZIpat//KlXqRo4wve/NpNMSv0Y9c7zkGCxdKoz353LRQJUy24GlmulxSq2nP//0HbEuzLk4hTDx
+	mtvfEDsrZ0ojA54hldyYOU0cmaUM/BMXOQ388lY0sV8a8YfEB2bgIfsw7aSr65UOPX8yWRJev4D
+	+e9UQpL48Bqp0gdARIiKXc4I6f/j9SL75TZM/VpqrblR+8M7tudiPbrp9FVL2E5Ow4o1dquwjDD
+	bfdas50osW4gDFSWqXcuJEClGrkXtd9pioIjCNWcBdV7g+TuUuBSyv3bjyX1v7/9YriILvsmjbe
+	LrHAY0lPO9havSRSntFFBz5n88k1Jq4PF9sDrGLPp5FY9vVZHzqlP6fmH5D5WPVNLJAT5O50CUe
+	2X7bnm76S8vV7SuJyJNasuwklBEA==
+X-Received: by 2002:a05:6402:501e:b0:6a6:15a1:6c38 with SMTP id 4fb4d7f45d1cf-6a615a16d92mr14366008a12.3.1788170065225;
+        Mon, 31 Aug 2026 02:54:25 -0700 (PDT)
+Received: from milan ([2001:9b1:d5a0:a500::24b])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a636c816bbsm1697500a12.17.2026.08.31.02.54.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Aug 2026 02:54:24 -0700 (PDT)
+From: Uladzislau Rezki <urezki@gmail.com>
+X-Google-Original-From: Uladzislau Rezki <urezki@milan>
+Date: Mon, 31 Aug 2026 11:54:22 +0200
+To: Dev Jain <dev.jain@arm.com>, Ye Liu <ye.liu@linux.dev>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Ye Liu <ye.liu@linux.dev>,
+	Uladzislau Rezki <urezki@gmail.com>, Ye Liu <liuye@kylinos.cn>,
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] mm: vmalloc: fix vmap_purge_lock livelock under
+ memory pressure
+Message-ID: <apVPTt9Xw8kSgmTU@milan>
+References: <20260828091753.299295-1-ye.liu@linux.dev>
+ <20260828110503.e1eff32a9b7df9a8b2ddd4d6@linux-foundation.org>
+ <bec5eaef-d084-467f-9bfd-43f7dedc1aa7@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] selftests/filesystems: Move file_stressor to
- dedicated subdirectory
-Content-Language: en-GB
-To: Christian Brauner <brauner@kernel.org>, shuah@kernel.org
-Cc: linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org,
-        kernel test robot <lkp@intel.com>
-References: <20260521101758.14639-1-disgoel@linux.ibm.com>
- <20260831-klopfen-gedenken-vorleben-54fd9d119a83@brauner>
-From: Disha Goel <disgoel@linux.ibm.com>
-In-Reply-To: <20260831-klopfen-gedenken-vorleben-54fd9d119a83@brauner>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Authority-Analysis: v=2.4 cv=bc1bluPB c=1 sm=1 tr=0 ts=6a954f40 cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=VwQbUJbxAAAA:8
- a=VnNF1IyMAAAA:8 a=DQmHLPe0WECjKNEuLnwA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODMxMDA4MiBTYWx0ZWRfX7839bKwEI/Vu
- lV1CkMeTZfqfxAtct1PcZUmnwC3MHZRf3uc7o1TM18HQkV1nuSw/45NaAQvR43ve8bqnT23leC8
- yR4VpoBFtK1fCjKXmnM3n96taSUv1oM=
-X-Proofpoint-ORIG-GUID: 1TJOd8xgtVa6NGL89rsEhfl0uZg6SWNo
-X-Proofpoint-GUID: 1TJOd8xgtVa6NGL89rsEhfl0uZg6SWNo
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODMxMDA4MiBTYWx0ZWRfX4QyjFZ1P7mix
- 9+tZrZoKUU2sU5WcXOl6ckhuydIqLexby9SCPVkt8wvdaDkKCg7obdd3PnTu6SYOVGsayu7VzVw
- k7rP6WGcX/P90WSoXHiPkfxlj6ACt9aeUyzpaOytWIZvx73+DRdrs53Bo8nWdJ8N1yK1louvEcr
- Apw3RRfVHUmJClqpI7Eav3hxF2JI04LQO4v1V+cVEcbVg2k5kejY8G9HFwjpPnJNoVGC+NvXmZD
- pFcLkVE+rz8541+V/M8c4b/JmrbucvsrwbwKecr/7JWsl873uXiaEV/7xFYgYlmhjQ6XLCk7BOo
- vr61Tohb7s9/72E3MgfddL562mHmTHTIJj5dkMJmm7y6ZOTvTT37qTxOGwX7DlNpoYBZkU06hfH
- L0db6WTKoKsUz6o+DlIL4J7S0bDSp3fr95quzIYGkNfFx23OtfZvqpskcJqnVbv11DYdUsEGmk+
- 06RYpVWjiJBQfkhKZBw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-31_03,2026-08-27_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 suspectscore=0 adultscore=0 malwarescore=0 spamscore=0
- lowpriorityscore=0 phishscore=0 clxscore=1015 priorityscore=1501
- impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2608310082
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <bec5eaef-d084-467f-9bfd-43f7dedc1aa7@arm.com>
 
-On 31/08/26 1:20 pm, Christian Brauner wrote:
-> On Thu, 21 May 2026 15:47:56 +0530, Disha Goel wrote:
->> The file_stressor test requires a 30-minute timeout (1800 seconds) due to
->> its 15-minute runtime plus setup/teardown overhead. This is significantly
->> longer than the default 45-second timeout used by other filesystem tests.
->>
->> Move file_stressor into its own subdirectory (filesystems/file_stressor/)
->> with a dedicated settings file to isolate its timeout configuration. This
->> prevents the long timeout from affecting other fast-running tests in the
->> filesystems/ directory.
->>
->> [...]
+On Mon, Aug 31, 2026 at 11:39:14AM +0530, Dev Jain wrote:
 > 
-> Applied to the vfs-7.4.misc branch of the vfs/vfs.git tree.
-> Patches in the vfs-7.4.misc branch should appear in linux-next soon.
 > 
-> Please report any outstanding bugs that were missed during review in a
-> new review to the original patch series allowing us to drop it.
+> On 28/08/26 11:35 pm, Andrew Morton wrote:
+> > On Fri, 28 Aug 2026 17:17:53 +0800 Ye Liu <ye.liu@linux.dev> wrote:
+> > 
+> >> From: Ye Liu <liuye@kylinos.cn>
+> >>
+> >> The vmap_purge_lock mutex can be held for an extended period by
+> >> __purge_vmap_area_lazy() which calls flush_work() to wait for
+> >> purge_vmap_node workers while holding the lock.  Under memory
+> >> pressure, those workers may themselves be blocked in direct
+> >> reclaim trying to acquire the same lock via the
+> >> vmap_node_shrink_scan() shrinker callback, creating a circular
+> >> dependency that deadlocks the entire system.
+> >>
+> >> Two places acquire vmap_purge_lock from paths that can be reached
+> >> during direct reclaim:
+> >>
+> >> 1. vmap_node_shrink_scan(): replace blocking guard(mutex) with
+> >>    mutex_trylock().  This is a shrinker that only decays the vmap
+> >>    pool and returns SHRINK_STOP without freeing memory; skipping a
+> >>    decay cycle when the lock is contended is harmless and prevents
+> >>    tasks from piling up on the mutex in the direct reclaim path.
+> >>
+> >> 2. reclaim_and_purge_vmap_areas(): replace mutex_lock() with
+> >>    mutex_trylock().  This is called from the vmalloc allocation
+> >>    overflow path; if trylock fails, another thread is already
+> >>    purging and the allocator's retry will find freed space.  The
+> >>    notifier chain provides a fallback if the retry still fails.
+> >>
+> >> Both trylock failures break the circular dependency: the lock
+> >> holder's flush_work() can complete because workers are no longer
+> >> blocked on vmap_purge_lock in the direct reclaim path.
+> > 
+> > Thanks.  AI review expressed a couple of concerns:
+> > 	https://sashiko.dev/#/patchset/20260828091753.299295-1-ye.liu@linux.dev
 > 
-> It's encouraged to provide Acked-bys and Reviewed-bys even though the
-> patch has now been applied. If possible patch trailers will be updated.
 > 
-> Note that commit hashes shown below are subject to change due to rebase,
-> trailer updates or similar. If in doubt, please check the listed branch.
+> Sounds legit to me. Now there is no guarantee of purge being successful, and we
+> can get a spurious failure.
 > 
-> tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
-> branch: vfs-7.4.misc
+> How about using a WQ_RECLAIM workqueue:
 > 
-> [1/2] selftests/filesystems: Move file_stressor to dedicated subdirectory
->        https://git.kernel.org/vfs/vfs/c/5550456dad37
-> [2/2] selftests/filesystems: allow security.selinux xattr in listxattr kernfs test
->        https://git.kernel.org/vfs/vfs/c/cc87d0a97bc0
+> vmap_purge_wq = alloc_workqueue("vmap_purge",
+> 				WQ_MEM_RECLAIM | WQ_PERCPU, 0);
+> 
+> I see the same pattern in __lru_add_drain_all() and kmem_cache_init_late().
+> 
+WQ_MEM_RECLAIM makes sense but this is another patch.
 
-Hi Christian,
+I copied here AI comment:
+>
+> Does replacing this blocking lock with a trylock break synchronization for
+> the callers?
+>
+No it does not. If someone is doing reclaim we do not wait and do not try
+to do it again thus fail allocation.
 
-Thanks for applying the series. One note — v3 of this series was sent on
-03/08/26, and patch 2/2 had changes compared to v2. It looks like v2 was
-applied instead.
+> When vmalloc space is exhausted, alloc_vmap_area() calls
+> reclaim_and_purge_vmap_areas() and relies on its blocking behavior to ensure
+> that free space has actually been reclaimed before looping back to retry:
+> mm/vmalloc.c:alloc_vmap_area() {
+>    ...
+> overflow:
+>	if (!purged) {
+>		reclaim_and_purge_vmap_areas();
+>		purged = 1;
+>		goto retry;
+>	}
+>    ...
+>}
+> With this patch, if another thread holds vmap_purge_lock, mutex_trylock()
+> fails and the function returns immediately.
+>
+If reclaim is in progress and trylock fails a caller repeats only one
+time to retry an allocation. There is no any infinite loop.
 
-v3 patch 2/2 link: 
-https://lore.kernel.org/linux-kselftest/20260803150837.91604-1-disgoel@linux.ibm.com/
+>
+> The allocator then retries
+> instantly without waiting for the concurrent purge to complete.
+> Because the retry fails and purged is already 1, could this cause the
+> allocation to abort and return a spurious vmalloc allocation failure
+> (-EBUSY or -ENOMEM)?
+>
+vmap space can be fragmented and not avail for 32-bit systems. For
+64-bit system it is likely impossible.
 
-Could you update the applied commit with the v3 version, or let me know
-if a re-send is needed?
+But, i think we can overt mutex_lock() into mutex_trylock() just only
+in the:
 
--- 
-Regards,
-Disha
+static unsigned long
+vmap_node_shrink_scan(struct shrinker *shrink, struct shrink_control *sc)
+{
+	struct vmap_node *vn;
 
+	guard(mutex)(&vmap_purge_lock);
+	for_each_vmap_node(vn)
+		decay_va_pool_node(vn, true);
+
+	return SHRINK_STOP;
+}
+
+so the reclaim path is not blocked. It should also address an issue
+reported by the Ye Liu <ye.liu@linux.dev>.
+
+--
+Uladzislau Rezki
