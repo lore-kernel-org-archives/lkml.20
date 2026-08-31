@@ -1,546 +1,218 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com [209.85.208.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C5E839A07C;
-	Mon, 31 Aug 2026 14:53:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788188018; cv=none; b=qvUZZEOkVuNsCooaJg3gLbTqdoqziVxqqGXdeYaggYR2BhAx3LjBkUM9uuD1LGKVI58FJ9wmpXnqSD8l5ipzttsmgnrnaxKSwr4ncSJ+AHDKaBFqj5EdBtmtaG2GG93TDpjSIZplD5VHWxQLkPZdkwCJAXka99vrnbX71oT3Sww=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788188018; c=relaxed/simple;
-	bh=K5hslXH3obRHZ9Aro2YbOsSBK/pIRvwCnZkVW/uL33A=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=lAz19UXWXBpvlG/oGeQDmkf3P2OStIjY1dtxNl4L1TDECGjX723CIrR6di1vq3yyq//G876cdmQpPPVViubCRhipPKk0BX6yrHdkSXpXZO91YwdH19rHA6mfrPMHCbzDoHdUcQDibG2uBol+PjVt1d1Njj8wv2W/jXSUCSSuEJA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=syk4eqYy; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D98739D6DD
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 14:55:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.53
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788188111; cv=pass; b=Ex6hzGhHtFr8Pj8fj+GxPHQbhZLlb0PsUUN/9j8HwpRC93PLVowzpNvo92yF1tY+QqgFkQ+TY2Se5xQAeYB9YynVoIlITldMe70AcjgxIoDyS8YWM8i87b7StOElqzud31EI34KJHDPU4T00KiOy7Yw8Ge+3qgSqsA3I/pIBXts=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788188111; c=relaxed/simple;
+	bh=xY7PzJAuFl926gP7M2esENWf67rjFL/VYhM4pp0oYZg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=OC3ED9qjfh5i8b69kK0Ae4wwCjdPG/0AypNZZppYE1vWX5IDgQhrFdXwHgGc2TVBJgFD9H/UECXGQbprODlhXGKimzo+d9IaCM/42cv/11DkSwH6Ypd7TrrMvUk3p0mmUYbuWPPkwPyXbISVc/a8t1VWacuelBu6Mg0FIk38PxI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=M3qLFVy4; arc=pass smtp.client-ip=209.85.208.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="syk4eqYy"
-Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67VEZSBP2415331;
-	Mon, 31 Aug 2026 14:48:17 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=pp1; bh=XmQKJFd7T+gJLXlbn
-	BN7pAYs13ZWmNadfOS+q2PMYSY=; b=syk4eqYy0yZiTw1WxfYuTkbjh0Hb7trBp
-	+ZcnIAOH/0mmEzqsWucMPwhLckPqKB6AH2QCFtgF6z6onnbVot6tAPluTfaTbDiq
-	JtfNU/G6KZdmCorQUR6Wb1xyE7AhGfzP7gMKcmc1nAE5V81M/5Pf616FtMPBM0pG
-	0Cbp5dPKdAD4IfyqczCCAtki5zCQik1sd6s/4YBmk5hnYYg3njIu12G4IaHgkZEF
-	klcfEezNoekxE61hKsnNi/riz55k+CWeReXVL4mwmLkydTlle7Sicw9VstcuarWg
-	Ak3iWnCa5E2xU8/JSy1o3wCtJBxkJeJdvLoLrsSgJZXnzg/KrktFg==
-Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gbmuhj4rq-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 31 Aug 2026 14:48:17 +0000 (GMT)
-Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma21.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67VEfgUg003411;
-	Mon, 31 Aug 2026 14:48:16 GMT
-Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
-	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gcarjxf6r-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 31 Aug 2026 14:48:16 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
-	by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67VEmCnp44368298
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 31 Aug 2026 14:48:12 GMT
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 484412004E;
-	Mon, 31 Aug 2026 14:48:12 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id BCBD82004B;
-	Mon, 31 Aug 2026 14:48:11 +0000 (GMT)
-Received: from tuxmaker.boeblingen.de.ibm.com (unknown [9.87.85.9])
-	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Mon, 31 Aug 2026 14:48:11 +0000 (GMT)
-From: Steffen Eiden <seiden@linux.ibm.com>
-To: kvm@vger.kernel.org, kvmarm@lists.linux.dev,
-        linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-        linux-s390@vger.kernel.org
-Cc: Alexander Gordeev <agordeev@linux.ibm.com>,
-        Andreas Grapentin <gra@linux.ibm.com>, Arnd Bergmann <arnd@arndb.de>,
-        Catalin Marinas <catalin.marinas@arm.com>,
-        Christian Borntraeger <borntraeger@linux.ibm.com>,
-        Claudio Imbrenda <imbrenda@linux.ibm.com>,
-        David Hildenbrand <david@kernel.org>,
-        Friedrich Welter <fritz@linux.ibm.com>, Fuad Tabba <tabba@google.com>,
-        Gautam Gala <ggala@linux.ibm.com>,
-        Hariharan Mari <hari55@linux.ibm.com>,
-        Heiko Carstens <hca@linux.ibm.com>,
-        Hendrik Brueckner <brueckner@linux.ibm.com>,
-        Ilya Leoshkevich <iii@linux.ibm.com>,
-        Janosch Frank <frankja@linux.ibm.com>, Joey Gouly <joey.gouly@arm.com>,
-        Marc Zyngier <maz@kernel.org>, Nico Boehr <nrb@linux.ibm.com>,
-        Nina Schoetterl-Glausch <oss@nina.schoetterlglausch.eu>,
-        Oliver Upton <oupton@kernel.org>, Paolo Bonzini <pbonzini@redhat.com>,
-        Sean Christopherson <seanjc@google.com>,
-        Suzuki K Poulose <suzuki.poulose@arm.com>,
-        Sven Schnelle <svens@linux.ibm.com>,
-        Ulrich Weigand <Ulrich.Weigand@de.ibm.com>,
-        Vasily Gorbik <gor@linux.ibm.com>, Will Deacon <will@kernel.org>,
-        Zenghui Yu <yuzenghui@huawei.com>
-Subject: [PATCH v7 20/23] KVM: s390: arm64: Implement vm/vcpu create destroy.
-Date: Mon, 31 Aug 2026 16:47:57 +0200
-Message-ID: <20260831144802.834315-21-seiden@linux.ibm.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260831144802.834315-1-seiden@linux.ibm.com>
-References: <20260831144802.834315-1-seiden@linux.ibm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="M3qLFVy4"
+Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-6a0a4aa99bdso4604559a12.1
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 07:55:09 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788188107; cv=none;
+        d=google.com; s=arc-20260327;
+        b=KPJ73QCTgUE8V1wIjBRb9Wk9ajKpUXiLXdVYwOe/tQFr/dh+WZ52l67F4sGlxbtJ4u
+         XSDnMVpLOTdm97bv2np+F77DUbGXBBp2NjfOFcWRXUKQkBwxCMOTVWvKKV0KO5fuETjE
+         pLCwpDV1ooVVHpEH3k0/Xuzm25OuqmEAs3BIwDujTm5mJTAOEyThtLjRx6YFxgK09Mck
+         wqRVo3QIJcIAHUF/dbUa+itVdCgfGAfo8jHeXsWibSibADfCTst1nUIgmpbgzPUuHdd7
+         YJxQOBjwCiYsW1B7Ng105iIgD3c54IZuYylfW6NQGaUoSzTNR/ultz23fF9gACd9tj2X
+         KBEw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=o8pw78oMi9uY1RnWmqztihIod3VWCHkHOIfZPGYQtiA=;
+        fh=/PKyPABmlgcPAcqjByh0u40TVS1Jfwc1u//I7dGtLok=;
+        b=sI0S0/tLaISL5HvUBpTl/0TIDZ0fnuT5C+NoXloTWwgDOIJGDbG4IQIpoGSwVxTSDh
+         WO4A4VPNpJE1ouiX8zA3ITZeldzl3ND8swhIcICyWjP0AqcFB4rGq+9GNq5p5aidRDMa
+         TYDOAqLCSjza6/4aULj6YSrhy98UEEg76Qr9goguJI9Shd0ic0z37aB145Aun6eB9nmr
+         soaEPkXlpZ5T6eTBVl/iFvJf3YynfBHge1cJeT4HjaALHyTqiicDsK/CQ0aSKB0jk72G
+         IQO9Z0Ydkht9YiQcavWyDG4F7B4feb6alwBdkpgSvLk1c/tye4QIUDRqu3bnNM6DOkgU
+         JINg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788188107; x=1788792907; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=o8pw78oMi9uY1RnWmqztihIod3VWCHkHOIfZPGYQtiA=;
+        b=M3qLFVy4uPXuP55qv4JPXLBrGKvUHbq3bqWz+SC9PY+jbA4k08d/DfMLOEOjqotBOk
+         v844+/fS8Ln1x8XiJYtqHtTgnCJ7kCeaAG6Kns+hm0lwkWiNFRVEXTRQBPMQXAGMLGDP
+         qbFymvrWMRuXRnkvrt0nkxxYIXUvabBhfuR88bMDCHoV+4Cj9bRURtxzapkGaGBrZxK/
+         xafe8WUvyKWw0XnBNzlnCbB0N+S0r3gKPp+PvotPKeKJogFCmCkhCdKeEqUCyIFbEVL3
+         ObgK3xrzKWX38sPp/Hk243YZuJnqofUOcP/h9smsEMOaarrEUKxQGIDRSrA/KM7b99XX
+         k4Dw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788188107; x=1788792907;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=o8pw78oMi9uY1RnWmqztihIod3VWCHkHOIfZPGYQtiA=;
+        b=MPnKDAIKgE6fPMcx7lnPmX0RRPo1RQAD3R/WdmcP5wtEOGxlyLrUkdqIbMgQRojd41
+         CvCfVe4FVbVaqSDixXeP/Si65AQ848dHm7EItCY9a9ZlYqoZkS/CpgOYV7j1c1gavcPf
+         m3Dkh30Gzps0bH8OOOy2roVdUdJy/usdz21+hyoKdZrbrBd70QXMohGqB8AzKG1JNxRC
+         iy1ABzRvYC2OwhyN6J2pqO6rZ8so1nBbPwsVCEmUQhLPwtaqFLlUhd09Whiwd90vxv1b
+         k5dXDv2bzJitB9JkAbiCPdprNG7IRhXrM5C7zmj23nMIZ+IpnsZbBpzd+rNiH/UlHdgk
+         Jrfg==
+X-Forwarded-Encrypted: i=1; AKwUvBzrwjoKr+O5Fc3TIQ4TEvLeaTgi7aKr8ZV4TYyI5UIwoZhu96htgM30o1DUM8TwjqG8Oh03s0zBy+u+6NQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++kjhd3mwRaCxJIIBYqyHg6c1E/i4GYuoCk83SvZPWW1EeS3H+EG
+	RNAEIivE8ypjZiHtHHLj9C02P4nF3ha+tb0SOdpy8VQY6h4p/QW5QGEwP1bHcSZ5e66g39b/zgV
+	e4mOqwjnBaGhFARThlSM0fsdiauYxtl8=
+X-Gm-Gg: AYBFou0lp5K9nXqA7y8pS+AANcAZ6n0izN2rrKDaTVonC/wmH+S2H233xv1twaTinU+
+	hgf+sIiIduk9kHxm9bFyIZQZgPa3wisSlNRgFfhgomMNk4SuP4uJAFek4CwVI1MIs79oZnXy2gz
+	1nTsvux3SobApsJ6ViWSpstAzU5LuC6RYUn/Aq9smff89YkcqhNO5dMIXtnlZr7F0xxiz7dS9GW
+	Zvb4FLWDJaOvQICFU0sCSB6DCLwbcahI/cHj//7kKZ3WhN+YLUZEe5899eVE2jZwfia3OQwvoLv
+	8qf2nSlHo1E+b7/xUTFEGnxEjzKg8Qzp9Y78V5ulz2i3eYH/eR2q0lER
+X-Received: by 2002:a05:6402:4586:b0:6a5:d907:7703 with SMTP id
+ 4fb4d7f45d1cf-6a60d3d5a52mr16807888a12.14.1788188107151; Mon, 31 Aug 2026
+ 07:55:07 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-GUID: o33gGe4JgELQPtxv_P7xWpNlG-PlQRG1
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODMxMDEyNSBTYWx0ZWRfXy9q4WbCLketG
- genZY6cdLbW7bM7OLO9pqcafBsBU3RzGsmHBVXDMug/PveJ4n143yAcwNY8HTCPfJFRi6XjTlsN
- KS9IL+BLW5MEzwHKwNYAS8Fu2Cj032U9xiXCTN7l38gaKxyel/1nPZRYxZujjlRDVkcBDbj0rAh
- fpgZudos9lG6gYurCsLRgFn8Mk7dVicKGt+IG+dI71u60hs328v2oF51Of+XVVGLEStNQ67NoM9
- kWsO91rzoMxtCMlhGLE4eeXYFWnjik6qFuVHQZ/unrpouwPiv3u5mWCdjQlBJPx4hNSlLRokvvN
- Ijyj1FH9aQ7hGJPdgoN/BSIjPt25nHT2e6Nbr3mRIZ6dAYh+rJedB0S0amkG8W9BTURzrTsJfJi
- dAMWYyz3P2Y/iqbWdCBYct/dr2j/f0QHMBUdSKQ3cJqzVOVGuaEc4CK7CI7pBAe7KbEGsSMukUg
- 8S3gXmzGeODlMSXHEPw==
-X-Authority-Analysis: v=2.4 cv=Osl/DS/t c=1 sm=1 tr=0 ts=6a959431 cx=c_pps
- a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
- a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=Y2IxJ9c9Rs8Kov3niI8_:22 a=VnNF1IyMAAAA:8 a=vzHPSaZuyQoW_AfhFoEA:9
- a=O8hF6Hzn-FEA:10
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODMxMDEyNSBTYWx0ZWRfX9V5jgy9dwnij
- 36FL3BBCZJtLWJpcaDfx7rXsQpDqJGkx9MkMxRSm6zSYEdp4szJ3NjujuOFSQPKsUGg4Mw6lNMx
- ZeTV4N84earq3Y+NTFe/ImaSR/XizTs=
-X-Proofpoint-ORIG-GUID: YCBYpcauluWu-obBwJcQPr2FUeI4cpfH
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-31_05,2026-08-27_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 malwarescore=0 suspectscore=0 bulkscore=0 lowpriorityscore=0
- adultscore=0 impostorscore=0 phishscore=0 clxscore=1015 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608310125
+References: <20260827045007.3831259-1-4ncienth@gmail.com> <yjfqzckumtd32dgqidi5sndvth2t67mjwah4kt4jiahlx2a5uf@if55sinfv5o7>
+ <20260828042421.964822-1-4ncienth@gmail.com> <ptco7s5x7tjzp42dzlsitibdigpwucl2whwrq37tknjpo7x2lc@b7q27ldlorak>
+ <CAOQ4uxgB9anyJcWem04w65VCJdxbbb2cQDZ_u8qMusw3xpB9Gw@mail.gmail.com>
+ <63aj7jbfaoamdmcurlge2c2kqpliaifgq4vbythrrxpfyr5vtm@z64myom426zd>
+ <CAOQ4uxh-NZ76hEFoNNGjyhodr9U=dvZuGVmYHVPGZ_=jRxCAsA@mail.gmail.com> <67hq7zqnvp6onwwjp24axucgxbzsko2dphielupdfzmfyk6x57@bdeef7fjkqfa>
+In-Reply-To: <67hq7zqnvp6onwwjp24axucgxbzsko2dphielupdfzmfyk6x57@bdeef7fjkqfa>
+From: Amir Goldstein <amir73il@gmail.com>
+Date: Mon, 31 Aug 2026 16:54:55 +0200
+X-Gm-Features: AcwNN1VUPugjGbqI4B0wT9HaChvwtiMplXNGta4vMaUOc8DwPfjODDDmdmwDO_I
+Message-ID: <CAOQ4uxiQF4M_YSBMW3h8VCKR15GV6g_K5nf=2odtYetEwKHm9A@mail.gmail.com>
+Subject: Re: [BUG] fanotify: destroy/add race leaves a mark on a detached connector
+To: Jan Kara <jack@suse.cz>
+Cc: Daehyeon Ko <4ncienth@gmail.com>, Miklos Szeredi <mszeredi@redhat.com>, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Implement init and destroy IOCTLS for vcpu and vm.
-Implement arch vm IOCTL. Use s390 gmap and gmap plumbing.
-Implement function (stubs) required by gamp.
+On Mon, Aug 31, 2026 at 1:39=E2=80=AFPM Jan Kara <jack@suse.cz> wrote:
+>
+> On Sat 29-08-26 17:04:19, Amir Goldstein wrote:
+> > On Fri, Aug 28, 2026 at 7:36=E2=80=AFPM Jan Kara <jack@suse.cz> wrote:
+> > > > > Now there's the question about the best fix for the problem. I've=
+ realized
+> > > > > we cannot just remove the call to fsnotify_inode_delete() from th=
+e place
+> > > > > where fsnotify_inoderemove() is called (and rely on the call from
+> > > > > __destroy_inode()) because the connector holds inode reference an=
+d so
+> > > > > __destroy_inode() would never get called. Hrm, this is a hairy is=
+sue and so
+> > > > > far I don't see a good place to reliably trigger detaching of con=
+nector
+> > > > > from the inode. One reliable place would be iput() but that's rea=
+lly ugly
+> > > > > and would slow down every iput() user. The cleanest solution I ca=
+n
+> > > > > currently see is to stop holding inode reference from a connector=
+ as I've
+> > > > > proposed in the past. Then we can reliably perform the cleanup in
+> > > > > __destroy_inode(). But that will be a rather non-trivial undertak=
+ing. Amir,
+> > > > > do you see some other option?
+> > > >
+> > > > What about the option I proposed to live with the orphan marks
+> > > > Is it so bad? I mean it's confusing and removing the assertion coul=
+d
+> > > > hide real bugs/races, but maybe it's worth not complicating the cod=
+e
+> > > > until we move forward to re-attachable marks.
+> > >
+> > > I'm not so much worried about the case when placing of the mark races=
+ with
+> > > unlink. There I agree we can somehow paper over the problem for now. =
+What
+> > > I'm more worried about is the case where someone places a precontent =
+/
+> > > permission mark on the inode and a malicious user does hardlink + ope=
+n +
+> > > unlink trick and after unlinking the original link to the inode, he h=
+as an
+> > > open fd to the inode stripped of any notification marks which I'd say
+> > > violates the promise of precontent / permission marks.
+> >
+> > I see. so we need a point where there are no more hardlinks and no more
+> > dentry aliases to the inode.
+> >
+> > How about we check for this condition?
+> >
+> > --- a/fs/dcache.c
+> > +++ b/fs/dcache.c
+> > @@ -471,7 +471,7 @@ static void dentry_unlink_inode(struct dentry * den=
+try)
+> >         raw_write_seqcount_end(&dentry->d_seq);
+> >         spin_unlock(&dentry->d_lock);
+> >         spin_unlock(&inode->i_lock);
+> > -       if (!inode->i_nlink)
+> > +       if (!inode->i_nlink && hlist_empty(&inode->i_dentry))
+> >                 fsnotify_inoderemove(inode);
+>
+> This looks like an intriguing idea. But I think it still has a hole. Unti=
+l
+> the last inode reference is put, open_by_handle() can still get you a new
+> dentry and an open file pointing to that inode.
 
-Co-developed-by: Janosch Frank <frankja@linux.ibm.com>
-Signed-off-by: Janosch Frank <frankja@linux.ibm.com>
-Co-developed-by: Andreas Grapentin <gra@linux.ibm.com>
-Signed-off-by: Andreas Grapentin <gra@linux.ibm.com>
-Co-developed-by: Nina Schoetterl-Glausch <nsg@linux.ibm.com>
-Signed-off-by: Nina Schoetterl-Glausch <nsg@linux.ibm.com>
-Signed-off-by: Steffen Eiden <seiden@linux.ibm.com>
----
- arch/s390/kvm/arm64/arm.c       | 197 ++++++++++++++++++++++++++++++++
- arch/s390/kvm/arm64/arm.h       |  54 +++++++++
- arch/s390/kvm/gmap/faultin.c    |   5 +
- arch/s390/kvm/gmap/gmap.c       |   4 +
- arch/s390/kvm/gmap/kvm_mmu.c    |   4 +
- arch/s390/kvm/gmap/trace_gmap.h |  17 +++
- 6 files changed, 281 insertions(+)
+Maybe we can close this hole, because whether open_by_handle()
+should or should not succeed in this case is not well defined,
+We can make it defined.
+Something like this?
+NFS should have a sillyrenamed link to avoid undefined behavior
+around unlinked open files.
 
-diff --git a/arch/s390/kvm/arm64/arm.c b/arch/s390/kvm/arm64/arm.c
-index 299b070f8b6d..7df0e4e697e8 100644
---- a/arch/s390/kvm/arm64/arm.c
-+++ b/arch/s390/kvm/arm64/arm.c
-@@ -8,6 +8,9 @@
- #include <linux/kvm_types.h>
- #include <linux/kvm_host.h>
- 
-+#include <gmap.h>
-+#include <kvm_mmu.h>
-+
- #include "arm.h"
- 
- #define CREATE_TRACE_POINTS
-@@ -19,6 +22,8 @@ static unsigned long system_supported_vcpu_features(void);
- #include "generated/arm.inc"
- #undef __INCL_GEN_ARM_FILE
- 
-+#define KVM_PHYS_SHIFT (40)
-+
- int kvm_vm_ioctl_check_extension(struct kvm *kvm, long ext)
- {
- 	int ret;
-@@ -51,6 +56,83 @@ static u64 kvm_max_guest_address(void)
- 	return ALIGN_DOWN(max_addr + 1, SZ_1G) - 1;
- }
- 
-+static int kvm_gmap_init(struct kvm *kvm)
-+{
-+	struct crst_table *table;
-+
-+	kvm->arch.gmap = gmap_new(kvm, gpa_to_gfn(kvm->arch.guest_phys_size));
-+
-+	if (!kvm->arch.gmap)
-+		return -ENOMEM;
-+
-+	/* arm64 (on s390) do not have pfault */
-+	clear_bit(GMAP_FLAG_PFAULT_ENABLED, &kvm->arch.gmap->flags);
-+	set_bit(GMAP_FLAG_ALLOW_HPAGE_1M, &kvm->arch.gmap->flags);
-+
-+	table = dereference_asce(kvm->arch.gmap->asce);
-+	crst_table_init((void *)table, _CRSTE_HOLE(table->crstes[0].h.tt).val);
-+
-+	return 0;
-+}
-+
-+static int kvm_vm_type_ipa_size_shift(unsigned long type)
-+{
-+	int phys_shift;
-+
-+	phys_shift = KVM_VM_TYPE_ARM_IPA_SIZE(type);
-+	if (phys_shift) {
-+		if (phys_shift > get_kvm_ipa_limit() ||
-+		    phys_shift < ARM64_MIN_PARANGE_BITS)
-+			return -EINVAL;
-+	} else {
-+		phys_shift = KVM_PHYS_SHIFT;
-+		if (phys_shift > get_kvm_ipa_limit()) {
-+			pr_warn_once("%s using unsupported default IPA limit\n",
-+				     current->comm);
-+			return -EINVAL;
-+		}
-+	}
-+
-+	return phys_shift;
-+}
-+
-+int kvm_arch_init_vm(struct kvm *kvm, unsigned long type)
-+{
-+	char debug_name[32];
-+	int ret;
-+
-+	if (type & ~KVM_VM_TYPE_ARM_IPA_SIZE_MASK)
-+		return -EINVAL;
-+
-+	ret = kvm_vm_type_ipa_size_shift(type);
-+	if (ret < 0)
-+		return ret;
-+	kvm->arch.guest_phys_size = 1UL << ret;
-+
-+	mutex_init(&kvm->arch.config_lock);
-+	bitmap_zero(kvm->arch.vcpu_features, KVM_VCPU_MAX_FEATURES);
-+
-+	snprintf(debug_name, sizeof(debug_name), "kvm-arm64-%u-%u",
-+		 current->pid, get_random_u32());
-+	kvm->arch.dbf = debug_register(debug_name, 32, 1, 7 * sizeof(long));
-+	if (!kvm->arch.dbf)
-+		return -ENOMEM;
-+	debug_register_view(kvm->arch.dbf, &debug_sprintf_view);
-+
-+	ret = kvm_gmap_init(kvm);
-+	if (ret)
-+		goto out_err;
-+	kvm->arch.mem_limit = kvm->arch.guest_phys_size;
-+
-+	VM_EVENT(kvm, 3, "vm created with type %lu", type);
-+	return 0;
-+
-+out_err:
-+	debug_unregister(kvm->arch.dbf);
-+
-+	return ret;
-+}
-+
- vm_fault_t kvm_arch_vcpu_fault(struct kvm_vcpu *vcpu, struct vm_fault *vmf)
- {
- 	return VM_FAULT_SIGBUS;
-@@ -62,6 +144,13 @@ long kvm_arch_dev_ioctl(struct file *filp,
- 	return -EINVAL;
- }
- 
-+void kvm_arch_destroy_vm(struct kvm *kvm)
-+{
-+	kvm_destroy_vcpus(kvm);
-+	debug_unregister(kvm->arch.dbf);
-+	kvm->arch.gmap = gmap_put(kvm->arch.gmap);
-+}
-+
- u32 get_kvm_ipa_limit(void)
- {
- 	return fls64(kvm_max_guest_address() + 1) - 1;
-@@ -72,10 +161,43 @@ int kvm_arch_vcpu_precreate(struct kvm *kvm, unsigned int id)
- 	return 0;
- }
- 
-+int kvm_arch_vcpu_create(struct kvm_vcpu *vcpu)
-+{
-+	struct kvm_sae_block *sae_block = &vcpu->arch.sae_block;
-+	struct kvm_sae_save_area *save_area = &vcpu->arch.save_area;
-+
-+	spin_lock_init(&vcpu->arch.mp_state_lock);
-+
-+	/* Force users to call KVM_ARM_VCPU_INIT */
-+	vcpu_clear_flag(vcpu, VCPU_INITIALIZED);
-+
-+	vcpu->arch.mc = kvm_s390_new_mmu_cache();
-+	if (!vcpu->arch.mc)
-+		return -ENOMEM;
-+
-+	sae_block->hbasce = vcpu->kvm->arch.gmap->asce.val;
-+	sae_block->mso = 0L;
-+	sae_block->msl = vcpu->kvm->arch.mem_limit;
-+	sae_block->save_area = virt_to_phys(save_area);
-+
-+	VM_EVENT(vcpu->kvm, 3,
-+		 "create cpu %d at 0x%p, sae block at 0x%p, satellite at 0x%p",
-+		 vcpu->vcpu_id, vcpu, &vcpu->arch.sae_block,
-+		 &vcpu->arch.save_area);
-+	return 0;
-+}
-+
- void kvm_arch_vcpu_postcreate(struct kvm_vcpu *vcpu)
- {
- }
- 
-+void kvm_arch_vcpu_destroy(struct kvm_vcpu *vcpu)
-+{
-+	kvm_s390_free_mmu_cache(vcpu->arch.mc);
-+
-+	VCPU_EVENT(vcpu, 3, "%s", "free cpu");
-+}
-+
- int kvm_arch_vcpu_ioctl_get_mpstate(struct kvm_vcpu *vcpu,
- 				    struct kvm_mp_state *mp_state)
- {
-@@ -101,6 +223,81 @@ static unsigned long system_supported_vcpu_features(void)
- 	return features;
- }
- 
-+int kvm_vm_ioctl_get_dirty_log(struct kvm *kvm,
-+			       struct kvm_dirty_log *log)
-+{
-+	return s390_kvm_mmu_get_dirty_log(kvm, log);
-+}
-+
-+bool kvm_age_gfn(struct kvm *kvm, struct kvm_gfn_range *range)
-+{
-+	scoped_guard(read_lock, &kvm->mmu_lock)
-+		return gmap_age_gfn(kvm->arch.gmap, range->start, range->end);
-+}
-+
-+void kvm_arch_sync_dirty_log(struct kvm *kvm, struct kvm_memory_slot *memslot)
-+{
-+	gfn_t last_gfn = memslot->base_gfn + memslot->npages;
-+
-+	scoped_guard(read_lock, &kvm->mmu_lock)
-+		gmap_sync_dirty_log(kvm->arch.gmap, memslot->base_gfn, last_gfn);
-+}
-+
-+int kvm_arch_prepare_memory_region(struct kvm *kvm,
-+				   const struct kvm_memory_slot *old,
-+				   struct kvm_memory_slot *new,
-+				   enum kvm_mr_change change)
-+{
-+	return s390_kvm_mmu_prepare_memory_region(kvm, old, new, change);
-+}
-+
-+void kvm_arch_commit_memory_region(struct kvm *kvm, struct kvm_memory_slot *old,
-+				   const struct kvm_memory_slot *new,
-+				   enum kvm_mr_change change)
-+{
-+	s390_kvm_mmu_commit_memory_region(kvm, old, new, change);
-+}
-+
-+bool kvm_unmap_gfn_range(struct kvm *kvm, struct kvm_gfn_range *range)
-+{
-+	return gmap_unmap_gfn_range(kvm->arch.gmap, range->slot, range->start, range->end);
-+}
-+
-+bool kvm_test_age_gfn(struct kvm *kvm, struct kvm_gfn_range *range)
-+{
-+	scoped_guard(read_lock, &kvm->mmu_lock)
-+		return dat_test_age_gfn(kvm->arch.gmap->asce, range->start, range->end);
-+}
-+
-+#ifdef CONFIG_KVM_GENERIC_PRE_FAULT_MEMORY
-+long kvm_arch_vcpu_pre_fault_memory(struct kvm_vcpu *vcpu,
-+				    struct kvm_pre_fault_memory *range)
-+{
-+	return -EOPNOTSUPP;
-+}
-+#endif /* CONFIG_KVM_GENERIC_PRE_FAULT_MEMORY*/
-+
-+int kvm_arch_vm_ioctl(struct file *filp, unsigned int ioctl, unsigned long arg)
-+{
-+	void __user *argp = (void __user *)arg;
-+
-+	switch (ioctl) {
-+	case KVM_ARM_PREFERRED_TARGET: {
-+		struct kvm_vcpu_init init = {
-+			.target = KVM_ARM_TARGET_GENERIC_V8,
-+		};
-+
-+		if (copy_to_user(argp, &init, sizeof(init)))
-+			return -EFAULT;
-+
-+		return 0;
-+	}
-+
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
- bool kvm_arch_irqchip_in_kernel(struct kvm *kvm)
- {
- 	return false;
-diff --git a/arch/s390/kvm/arm64/arm.h b/arch/s390/kvm/arm64/arm.h
-index a3db254462c0..093a638e2cf9 100644
---- a/arch/s390/kvm/arm64/arm.h
-+++ b/arch/s390/kvm/arm64/arm.h
-@@ -2,6 +2,60 @@
- #ifndef ARCH_S390_KVM_ARM64_H
- #define ARCH_S390_KVM_ARM64_H
- 
-+#include <linux/compiler_attributes.h>
-+#include <linux/kvm_host.h>
-+
- #define KVM_DEV_NAME "kvm-arm64"
- 
-+#define VM_EVENT(d_kvm, d_loglevel, d_string, d_args...) \
-+	debug_sprintf_event((d_kvm)->arch.dbf, d_loglevel, KVM_DEV_NAME ": " d_string "\n", d_args)
-+
-+#define VCPU_EVENT(d_vcpu, d_loglevel, d_string, d_args...)			\
-+	do {									\
-+		debug_sprintf_event(						\
-+			(d_vcpu)->kvm->arch.dbf, d_loglevel,			\
-+			KVM_DEV_NAME " %02d[%016llx-%016llx]: " d_string "\n",	\
-+			(d_vcpu)->vcpu_id, (d_vcpu)->arch.sae_block.pstate,	\
-+			(d_vcpu)->arch.sae_block.pc, d_args);			\
-+	} while (0)
-+
-+static __always_inline int kvm_is_ucontrol(struct kvm *kvm)
-+{
-+	return 0;
-+}
-+
-+static __always_inline int __kvm_s390_pv_destroy_page(struct page *page)
-+{
-+	return 0;
-+}
-+
-+static __always_inline void kvm_s390_vsie_gmap_notifier(struct gmap *gmap, gpa_t start, gpa_t end)
-+{
-+}
-+
-+static __always_inline int kvm_s390_pv_get_handle(struct kvm *kvm)
-+{
-+	return 0;
-+}
-+
-+static __always_inline int kvm_s390_is_migration_mode(struct kvm *kvm)
-+{
-+	return false;
-+}
-+
-+static __always_inline bool kvm_arch_setup_async_pf(struct kvm_vcpu *vcpu)
-+{
-+	return false;
-+}
-+
-+static __always_inline void kvm_s390_update_cmma_dirty(struct kvm *kvm, struct kvm_memory_slot *old)
-+{
-+}
-+
-+/* should never be called */
-+static __always_inline int kvm_s390_vm_stop_migration(struct kvm *kvm)
-+{
-+	return -EINVAL;
-+}
-+
- #endif /* ARCH_S390_KVM_ARM64_H */
-diff --git a/arch/s390/kvm/gmap/faultin.c b/arch/s390/kvm/gmap/faultin.c
-index 1dc79807012c..2e93bd563d5c 100644
---- a/arch/s390/kvm/gmap/faultin.c
-+++ b/arch/s390/kvm/gmap/faultin.c
-@@ -10,6 +10,11 @@
- 
- #include "gmap.h"
- #include "faultin.h"
-+#ifdef KVM_S390_ARM64
-+#include "arm.h"
-+#else
-+#include "s390.h"
-+#endif
- 
- bool kvm_arch_setup_async_pf(struct kvm_vcpu *vcpu);
- #define CREATE_TRACE_POINTS
-diff --git a/arch/s390/kvm/gmap/gmap.c b/arch/s390/kvm/gmap/gmap.c
-index 4968330e9553..b7071f50f7ad 100644
---- a/arch/s390/kvm/gmap/gmap.c
-+++ b/arch/s390/kvm/gmap/gmap.c
-@@ -21,7 +21,11 @@
- 
- #include "dat.h"
- #include "gmap.h"
-+#ifdef KVM_S390_ARM64
-+#include "arm.h"
-+#else
- #include "s390.h"
-+#endif
- #include "faultin.h"
- 
- static int gmap_limit_to_type(gfn_t limit)
-diff --git a/arch/s390/kvm/gmap/kvm_mmu.c b/arch/s390/kvm/gmap/kvm_mmu.c
-index b08b8229bb6f..a26a16193467 100644
---- a/arch/s390/kvm/gmap/kvm_mmu.c
-+++ b/arch/s390/kvm/gmap/kvm_mmu.c
-@@ -3,7 +3,11 @@
- #include <linux/kvm_types.h>
- #include <linux/kvm_host.h>
- 
-+#ifdef KVM_S390_ARM64
-+#include "arm.h"
-+#else
- #include "s390.h"
-+#endif
- #include "gmap.h"
- #include "dat.h"
- #include "kvm_mmu.h"
-diff --git a/arch/s390/kvm/gmap/trace_gmap.h b/arch/s390/kvm/gmap/trace_gmap.h
-index 15ec88bdce55..431c9442b10c 100644
---- a/arch/s390/kvm/gmap/trace_gmap.h
-+++ b/arch/s390/kvm/gmap/trace_gmap.h
-@@ -5,12 +5,28 @@
- #include <linux/tracepoint.h>
- 
- #undef TRACE_SYSTEM
-+#ifdef KVM_S390_ARM64
-+#define TRACE_SYSTEM kvm_arm64
-+#else
- #define TRACE_SYSTEM kvm
-+#endif
- #undef TRACE_INCLUDE_PATH
- #define TRACE_INCLUDE_PATH ../gmap
- #undef TRACE_INCLUDE_FILE
- #define TRACE_INCLUDE_FILE trace_gmap
- 
-+#ifdef KVM_S390_ARM64
-+#define __KVM_FIELDS \
-+	__field(unsigned long, pstate) \
-+	__field(unsigned long, pc)
-+#define __KVM_ASSIGN ({\
-+	__entry->pstate = vcpu->arch.sae_block.pstate; \
-+	__entry->pc = vcpu->arch.sae_block.pc; \
-+	})
-+#define __KVM_PRINT \
-+	__entry->pstate, \
-+	__entry->pc
-+#else
- #define __KVM_FIELDS \
- 	__field(unsigned long, pswmask) \
- 	__field(unsigned long, pswaddr)
-@@ -21,6 +37,7 @@
- #define __KVM_PRINT \
- 	__entry->pswmask,\
- 	__entry->pswaddr
-+#endif
- 
- TRACE_EVENT(kvm_s390_major_guest_pfault,
- 	    TP_PROTO(struct kvm_vcpu *vcpu),
--- 
-2.53.0
+Thanks,
+Amir.
 
+--- a/fs/dcache.c
++++ b/fs/dcache.c
+@@ -459,6 +459,7 @@ static void dentry_unlink_inode(struct dentry * dentry)
+        __releases(dentry->d_inode->i_lock)
+ {
+        struct inode *inode =3D dentry->d_inode;
++       bool dead;
+
+        raw_write_seqcount_begin(&dentry->d_seq);
+        __d_clear_type_and_inode(dentry);
+@@ -469,9 +470,12 @@ static void dentry_unlink_inode(struct dentry * dentry=
+)
+         */
+        dentry->waiters =3D NULL;
+        raw_write_seqcount_end(&dentry->d_seq);
++       dead =3D !inode->i_nlink && hlist_empty(&inode->i_dentry);
++       if (dead)
++               inode->i_state |=3D I_ZOMBIE;
+        spin_unlock(&dentry->d_lock);
+        spin_unlock(&inode->i_lock);
+-       if (!inode->i_nlink)
++       if (dead)
+                fsnotify_inoderemove(inode);
+        if (dentry->d_op && dentry->d_op->d_iput)
+                dentry->d_op->d_iput(dentry, inode);
+@@ -2244,6 +2248,12 @@ static struct dentry *__d_obtain_alias(struct
+inode *inode, bool disconnected)
+
+        security_d_instantiate(new, inode);
+        spin_lock(&inode->i_lock);
++       if (inode->i_state & I_ZOMBIE) {
++               spin_unlock(&inode->i_lock);
++               dput(new);
++               iput(inode);
++               return ERR_PTR(-ESTALE);
++       }
+        res =3D __d_find_any_alias(inode); /* recheck under lock */
+        if (likely(!res)) { /* still no alias, attach a disconnected dentry=
+ */
+                unsigned add_flags =3D d_flags_for_inode(inode);
