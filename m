@@ -1,90 +1,80 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 884173CF69F
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 08:47:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DA433C988E;
+	Mon, 31 Aug 2026 08:47:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788166037; cv=none; b=A+7AlO7Ozwp5VvMBvdwfZIlMBdlENqL5Uhmh7fjOPVnvv7gE0Iy5In68L+wvlfe/GfMeGjw920qBADHXncG2Y7I82PNXVsVH2OSSTvllK60BHdh4C7UZWCqy91EIhIQ/1/ipd5iC5jIQoWAP1kLyhHZqy1oPYDWVYazz2do8r7M=
+	t=1788166049; cv=none; b=ZuV0LV9oKIFhfxQVopoCxdalwhkRGZviBfi4OdGzfRjSnVWKDdHp1QVARKKqqtKKS6iGj9u1kW9B4YBlhrAucQJ8Cj0Ud3wUdg1RiLpe5Aj2qyLptQg7WV9WA0J60x4V6D6s7nGPXINPMPoxf/I47BH/dej1osSJbqaJqTfB13g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788166037; c=relaxed/simple;
-	bh=6Y8mIgLOX9gNfB/CKfrbSpXaCIhqsITj6hzmi53La3k=;
+	s=arc-20240116; t=1788166049; c=relaxed/simple;
+	bh=Pk4ErvGmQrZOLIOGBljUuFGpUWFpUDhlnCt2Mj3RrMo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kwcVK9WfSAQudPsrf8Da+u0QMk2Npqqdi0ECWi8HovFSVRCuZ9N7lRdOKpONxHrl5mb3o17/mouUolAD0lJRTMTRC3fFzFTo7KMJWdnb46dJcma8oanOURC38kfBPJN+bmgSJZYdNjtUj95adynoiVTTkPjENH4we9Qm93hWVSs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n6rModvz; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=a15WNFgR6DGzdngGYEkRs27lJmIy8rwRXGP3g8wcG0Zc3KFM/e6Uf9S3YBpcl1nt6esM16yLDP2ps0i7o44DLpwiEV53RAb8IVzvigQ7d7e56dWzY2+YPSNDAO2UFISYkVAhF9O2ZB4Pu88jrASZ/hYC6J2xFqGG+sw307v56uw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BIEFSvuz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n6rModvz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9C131F000E9;
-	Mon, 31 Aug 2026 08:47:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BIEFSvuz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9CBC1F000E9;
+	Mon, 31 Aug 2026 08:47:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788166036;
-	bh=j2Mk0tZDWX6Jqg1UsT9JhoDtteuQwP3WlAW2gIqLEl8=;
+	s=k20260515; t=1788166047;
+	bh=Pk4ErvGmQrZOLIOGBljUuFGpUWFpUDhlnCt2Mj3RrMo=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=n6rModvzfMT8KL/sLyWh+3dibwD5hGqkyYm6uTnSlTJAl7ndHpZ5iFN/cT4UNk6sG
-	 wdtyKWTMPdEjCD0GfAoq5YujtJnGBP1I10ojPNRxeYtUDr+rUSs2C0l/MDzt3Nrjek
-	 xfDU+XZtyi7ldcCgIlvxvCmE6JCAwO4j7mU7zcRXCNGcXZ3NrPqTtQNVWgfbzrLy+g
-	 BB9rHt1Tjv/ALrCnQQrr71byw/6m2pvjxj5GGzx9lp6p39NpHWglexa1Tc1j0UxjSr
-	 RS+paGmo4R9TKKVOLsktBEOnphBuqcgwibnoZgH7W/Yxlm7kffQdVEFYshQDwcjkSs
-	 DxQ1DI51igRnQ==
-Date: Mon, 31 Aug 2026 09:47:09 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Dev Jain <dev.jain@arm.com>
-Cc: akpm@linux-foundation.org, david@kernel.org, riel@surriel.com, 
-	liam@infradead.org, vbabka@kernel.org, harry@kernel.org, jannh@google.com, 
-	lance.yang@linux.dev, linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] mm/rmap: remove stale hugetlb check in try_to_unmap_one
-Message-ID: <apU_g-m8-IBY9iTm@gremlin>
-References: <20260831082849.3573957-1-dev.jain@arm.com>
+	b=BIEFSvuzZBvTfLfVp+Vn+FHw9YzHUiaLSCr0qYW0HW0RTzuDXNHNewgiSgSY7+N86
+	 TeSAUngT5um33hCuSvsZHzP6ZjGg7sbw3J4bkoujboHQlFlDtt3vWo51Q1q99T4YUG
+	 i6GNrZIsHJ8EeUqkz0SbLR0sSlKdCMpuiq9J/+EiZZ//Vhjkq2ZRlMKVz20ehkWlmt
+	 HeT7Pf0bHeWrVCvee6UdZ6JXq9RlDMTeG9bcQODpwq7yxHLrTG3VDNpZnqVOWP55XK
+	 RGiy3YiNC2aTplQaKe3BiCpC+SH3W+yF8YzOXWKYS2/s1AdikKtyTU843iIZKLZ6VW
+	 cl394f5bEgf7g==
+Date: Mon, 31 Aug 2026 10:47:23 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Marek Vasut <marex@nabladev.com>
+Cc: linux-phy@lists.infradead.org, Pankaj Dev <pankaj.dev@st.com>, 
+	Rahul Kumar <rahul.kumar05@st.com>, Fabrice Gasnier <fabrice.gasnier@foss.st.com>, 
+	=?utf-8?Q?Cl=C3=A9ment?= Le Goffic <clement.legoffic@foss.st.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+	Christian Bruel <christian.bruel@foss.st.com>, Conor Dooley <conor+dt@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>, 
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Patrice Chotard <patrice.chotard@foss.st.com>, Rob Herring <robh@kernel.org>, Rosen Penev <rosenp@gmail.com>, 
+	Vinod Koul <vkoul@kernel.org>, devicetree@vger.kernel.org, kernel@dh-electronics.com, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [PATCH v4 1/2] dt-bindings: phy: Document ST STM32MP25
+ USB2-FEMTO PHY
+Message-ID: <20260831-festive-gerbil-of-prestige-2fbeeb@quoll>
+References: <20260828150739.174460-1-marex@nabladev.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260831082849.3573957-1-dev.jain@arm.com>
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260828150739.174460-1-marex@nabladev.com>
 
-On Mon, Aug 31, 2026 at 08:28:47AM +0000, Dev Jain wrote:
-> Post commit d4ec5572825a ("mm/rmap: add try_to_unmap_poisoned_hugetlb_one")
-> try_to_unmap_one() cannot be called with a hugetlb folio. Therefore remove
-> the folio_test_hugetlb() check.
->
-> Signed-off-by: Dev Jain <dev.jain@arm.com>
+On Fri, Aug 28, 2026 at 05:06:56PM +0200, Marek Vasut wrote:
+> From: Pankaj Dev <pankaj.dev@st.com>
+>=20
+> Document USB2 PHY for STM32MP25 USB2 controllers, which includes the
+> USB2.0 host-only controller and USB 2.0 part of the DWC3 controller.
+> Two such PHYs in total are present in STM32MP25 SoC, they both are
+> slightly different, therefore they use different compatible string
+> to discern them.
+>=20
+> Signed-off-by: Pankaj Dev <pankaj.dev@st.com>
+> Co-developed-by: Rahul Kumar <rahul.kumar05@st.com>
+> Signed-off-by: Rahul Kumar <rahul.kumar05@st.com>
+> Co-developed-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+> Co-developed-by: Cl=C3=A9ment Le Goffic <clement.legoffic@foss.st.com>
+> Signed-off-by: Cl=C3=A9ment Le Goffic <clement.legoffic@foss.st.com>
+> Co-developed-by: Marek Vasut <marex@nabladev.com>
+> Signed-off-by: Marek Vasut <marex@nabladev.com>
 
-LGTM so:
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Best regards,
+Krzysztof
 
-> ---
-> Rebase soup - my huge_ptep_get() fixes landed after the refactoring.
->
-> This patch applies on Linux 7.3-rc1.
->
->  mm/rmap.c | 7 ++-----
->  1 file changed, 2 insertions(+), 5 deletions(-)
->
-> diff --git a/mm/rmap.c b/mm/rmap.c
-> index d1819fd699380..606c8ecf31302 100644
-> --- a/mm/rmap.c
-> +++ b/mm/rmap.c
-> @@ -2299,11 +2299,8 @@ static bool try_to_unmap_one(struct folio *folio, struct vm_area_struct *vma,
->  		VM_BUG_ON_FOLIO(!pvmw.pte, folio);
->
->  		address = pvmw.address;
-> -		if (folio_test_hugetlb(folio)) {
-> -			pteval = huge_ptep_get(mm, address, pvmw.pte);
-> -		} else {
-> -			pteval = ptep_get(pvmw.pte);
-> -		}
-> +		pteval = ptep_get(pvmw.pte);
-> +
->  		if (likely(pte_present(pteval))) {
->  			pfn = pte_pfn(pteval);
->  		} else {
-> --
-> 2.43.0
->
-
---
-Cheers, Lorenzo
