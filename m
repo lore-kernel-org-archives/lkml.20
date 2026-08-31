@@ -1,43 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EA424E3782;
-	Mon, 31 Aug 2026 13:39:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0470E443AAB;
+	Mon, 31 Aug 2026 13:39:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183567; cv=none; b=G10r4sgBJk+OhlBHlb3qYXi90MuNqGUe/47fjGmKc/Y1SS3rhunPuC4rKIDTxLDydfaLG1W/CpdCQ7oruTpgUaS+7LdvDtABu5Twcqu2hSrK1goPHc6f5xOmjyRABzSQ5+JXgzcYhZ+1t9NFAlz3e0ViAksI3lzfmxW2s6ED9iw=
+	t=1788183569; cv=none; b=MNlnsp57hqU0Vbe2FjrHVU1MgdkgryshNwHOYM7aDVEV7jA1Xmu05q2HEmA5JsW69cfPpRN/17sek0W1LEsC1q3MoMSdXkNQV0aHA+UdKZ0K8ZIlIYOHD3MRMeFHFnvFK2EvWWX1ngSCfNP6KpvlFiopwutzK1+3jT1G7V7ATOQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183567; c=relaxed/simple;
-	bh=oeU7jOD1C0UTRvrVcggrEmhcm0kMGclwDI6jyj28Hfo=;
+	s=arc-20240116; t=1788183569; c=relaxed/simple;
+	bh=sLuQfM5Fa6NsZzaM/d86XT1RxLWz8+BxqdYLRFMdYRM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=L1GrUomViqpEpFL5kmCD3pYmXbXwSjtJzUBdIXSaNrKIyFNu3+yNk/UJXZS3IGolIidTjiUw6HkHavxs5Oo4NabaqaHwkzW6RPitM2G/goN8dVaOAtbhvCnSsrFU8z5C8lC0JCnc9THcW0AN3Eg+4NgnWCWaWmBrxqBIbIdbH2Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aR5REhXp; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=ZlY2zCyZ+PPMM489z9KoXJhJSnv7Pm4UOEBl7Z5YWoSY7IP0UmptLRgavvrBaXNFRf2CWs2f6WgwuCN8A4vYMJMDEIW2ntVZTkBZeNT1dRUhxIhKhijmjmrx+C0AmqwyW0f4QwZtDuLhZYnZOs0/K2Oa7aXQ+GO3mscTTKKCwU4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VXKj2xWl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aR5REhXp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 618951F00A3F;
-	Mon, 31 Aug 2026 13:39:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VXKj2xWl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43CB21F00ACA;
+	Mon, 31 Aug 2026 13:39:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788183564;
-	bh=EBHL3ebJEglbrEUidGQrHGwY+GePgvhXRvXxJLLBbCE=;
+	s=k20260515; t=1788183566;
+	bh=zoeHzATJIOgGVjlLRQUI6U1h8vDJRiolLUK4FvNtRgw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=aR5REhXppD3xC43PrfmzAXAV2ffZha3R7kc0tydqbSQFKeg2s5IFngBsZoLUzbslv
-	 H24KGpmDiJIX4l0UERDZDgnL6pMnPm1fhWPGv3KwTa9iZO0D8a9yCi7BpZW+D76Quz
-	 M6nJzB35eSg48EiS6xO6lP3YgAm5X7j2fdj4PQngGuON6IhI+LYAIDhuR4uOYUSipt
-	 r6Z8F57/KfIKIzeoKXsNHqNiDfEu2rGCbH5L223Xx4oSIO0Cur9eW5hASQC99U9kg6
-	 BiL3TKF/nKouYWpW1F1Vrcqg9R2Giibk1xcoELOLKj73+gJKE4oAKLLmgxgg9jCnUG
-	 tOXsxmVPhODaA==
+	b=VXKj2xWlMzNewndO6oWRT+yXy4MrLLriu8NcP+dziY/iPOCYBw5tO4AASiwZfKMg/
+	 kqdIdM4cgAFOaOfCzH3eiM9TMdoY2lTyvinDqSIwUiynIvNjYaioJZSKNpwti6snGE
+	 x0tw6M28VkAFi5yyrC51+v1BCKfe/yVg+IrfAOn7fA3hlYbFx2x3MlaRiSLPJE4VZd
+	 RLOqU027ATkqs4eh/luyK/BPTn5xqC+xCkF8G9hKFP5mgORNc7O7Y5AuUKqZDb9K8P
+	 Noi7eL3YTluI+cIJu+Bcn2jP4fYy0heTYcBJHF6QfERcN8r06TXJiHs0ndx7YGOcIe
+	 QbXXYfS865f8w==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Namjae Jeon <linkinjeon@kernel.org>,
-	Steve French <stfrench@microsoft.com>,
+Cc: Chen-Yu Tsai <wenst@chromium.org>,
+	Linus Walleij <linusw@kernel.org>,
 	Sasha Levin <sashal@kernel.org>,
-	smfrench@gmail.com,
-	linux-cifs@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-6.6] ksmbd: treat read-control opens as stat opens only for leases
-Date: Mon, 31 Aug 2026 09:23:20 -0400
-Message-ID: <20260831133314.4125787-172-sashal@kernel.org>
+	sean.wang@kernel.org,
+	matthias.bgg@gmail.com,
+	angelogioacchino.delregno@collabora.com,
+	linux-mediatek@lists.infradead.org,
+	linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org
+Subject: [PATCH AUTOSEL 6.18] pinctrl: mediatek: common-v1: bypass pinctrl GPIO layer in set GPIO direction
+Date: Mon, 31 Aug 2026 09:23:21 -0400
+Message-ID: <20260831133314.4125787-173-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -53,426 +57,430 @@ X-stable-base: Linux 6.18.48
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Namjae Jeon <linkinjeon@kernel.org>
+From: Chen-Yu Tsai <wenst@chromium.org>
 
-[ Upstream commit be939e11c4724d1de3650e8bafd4c3583d9684b2 ]
+[ Upstream commit 3982db2df3ed4c195e5f0a9a4513545a15901107 ]
 
-A second open that requests only metadata-level access must not break
-the existing caching state. ksmbd already skips the break for such opens
-via fp->attrib_only (FILE_READ_ATTRIBUTES,
-FILE_WRITE_ATTRIBUTES and FILE_SYNCHRONIZE).
+pinctrl_gpio_direction_input() / pinctrl_gpio_direction_output() take
+the pinctrl mutex. This causes a gpiochip operations to need to sleep.
+Worse yet, the .can_sleep field in the gpiochip is not set. This causes
+the shared GPIO proxy to trip over, as it uses gpiod_cansleep() to check
+whether it can use a spinlock or needs a mutex. In this case, it ends
+up taking a spinlock, then calls pinctrl_gpio_direction_output(), which
+takes a mutex. This causes a huge warning.
 
-An open requesting only READ_CONTROL (reading the security descriptor)
-must be treated differently depending on the existing caching state.
-smbtorture smb2.lease.statopen4 expects a read-control open NOT to break
-a caching lease, while smb2.oplock.statopen1 expects the same open to
-break a batch oplock. So READ_CONTROL is a stat open for leases but not
-for oplocks.
+Since the Mediatek hardware has separate clear/set registers, there is
+no risk of clobbering other bits like with a read-modify-write pattern.
+Also, once the GPIO function is selected / muxed in, further GPIO
+operations do not involve pinctrl operations or state. The GPIO direction
+and level values do not require toggling the pinmux or any other pin config
+options.
 
-Extend the stat-open break-skip in smb_grant_oplock() to also cover a
-read-control-only open, but only when the existing holder is a lease.
-The global fp->attrib_only flag (used for share-mode, rename and truncate
-decisions) is left unchanged so oplock behaviour is preserved.
+Switch to directly calling mtk_pmx_gpio_set_direction() in the GPIO set
+direction callbacks to avoid taking the pinctrl mutex. Drop the
+.gpio_set_direction field in mtk_pmx_ops to signal we are no longer using
+the pinctrl GPIO layer for setting the direction.
 
-Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
-Signed-off-by: Steve French <stfrench@microsoft.com>
+Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
+Signed-off-by: Linus Walleij <linusw@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-# Stable Backport Analysis: `ksmbd: treat read-control opens as stat
-opens only for leases`
+# Stable Backport Analysis: `pinctrl: mediatek: common-v1: bypass
+pinctrl GPIO layer in set GPIO direction`
 
-**Local tree:** `v6.18.44` (`linux-6.18.y` stable, `HEAD` detached at
-`2736c32da98b9`)
-**Candidate commit (mainline):** `be939e11c4724` (on `master`, not yet
-in this tree)
+**Local tree:** Linux **6.18.43** (`git describe HEAD` →
+`v6.18.43-1-gc7f0dac02d232`, `make kernelversion` → `6.18.43`)
+
+**Upstream commit:** `3982db2df3ed4c195e5f0a9a4513545a15901107`
+**Status in this tree:** Buggy code is **present**; fix is **not**
+applied (`git apply --check` succeeds).
 
 ---
 
 ## PHASE 1: COMMIT MESSAGE FORENSICS
 
-**Step 1.1 – Subject line**
-Record: `[ksmbd] [treat] READ_CONTROL-only opens should be treated as
-stat opens for leases (but not oplocks)`
+### Step 1.1: Subject line
+**Record:** `[pinctrl: mediatek: common-v1]` `[bypass]` — bypass the
+pinctrl GPIO helper layer when setting GPIO direction on MediaTek
+common-v1 pinctrl.
 
-**Step 1.2 – Tags**
-Record:
-- `Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>` (author)
-- `Signed-off-by: Steve French <stfrench@microsoft.com>`
-  (committer/maintainer)
-- No `Fixes:`, `Reported-by:`, `Tested-by:`, `Reviewed-by:`, `Acked-
-  by:`, `Link:`, or `Cc: stable@vger.kernel.org`
-- Notable absence: no user report or syzbot; verification cited is Samba
-  torture tests
+### Step 1.2: Tags
+**Record:**
+- **Fixes:** — none
+- **Reported-by:** — none
+- **Tested-by:** — none
+- **Reviewed-by:** — none (Linus Walleij merged with "Patch applied")
+- **Acked-by:** — none
+- **Link:** — none in commit; v2 references v1 at `https://lore.kernel.o
+  rg/all/20260427061720.2393355-1-wenst@chromium.org/`
+- **Cc: stable:** — none
+- **Signed-off-by:** Chen-Yu Tsai `<wenst@chromium.org>`, Linus Walleij
+  `<linusw@kernel.org>`
 
-**Step 1.3 – Body analysis**
-Record:
-- **Bug:** A second open requesting only `READ_CONTROL` (security-
-  descriptor read) incorrectly breaks an existing SMB2 caching lease.
-- **Symptom:** Spurious lease break when a metadata-only open should
-  leave caching state intact; fails `smbtorture smb2.lease.statopen4`.
-- **Expected behavior:** `READ_CONTROL` is a stat open for leases (no
-  break) but not for oplocks (`smb2.oplock.statopen1` expects break).
-- **Root cause:** `fp->attrib_only` covers `FILE_READ_ATTRIBUTES`,
-  `FILE_WRITE_ATTRIBUTES`, and `FILE_SYNCHRONIZE` but not
-  `READ_CONTROL`; the stat-open skip in `smb_grant_oplock()` therefore
-  does not apply.
-- **Fix approach:** Extend the stat-open break-skip for
-  `READ_CONTROL`-only opens, but only when the existing holder is a
-  lease; leave `fp->attrib_only` unchanged so oplock behavior is
-  preserved.
+**Notable:** Author is from Chromium; patch went through v1→v2. No
+syzbot/fuzzer report.
 
-**Step 1.4 – Hidden bug fix?**
-Record: **Yes.** Despite no "fix" in the subject, this is a protocol-
-correctness bug in lease/oplock handling, not cosmetic cleanup.
+### Step 1.3: Body analysis
+**Record:**
+- **Bug:** `pinctrl_gpio_direction_input/output()` take the pinctrl
+  mutex, making GPIO direction ops sleepable, but the MediaTek gpiochip
+  does not set `.can_sleep`. A shared GPIO proxy/forwarder uses
+  `gpiod_cansleep()` to choose spinlock vs mutex; it picks spinlock,
+  then direction ops take a mutex → large kernel warning.
+- **Symptom:** Lockdep / invalid-context warnings (mutex under
+  spinlock).
+- **Root cause:** Mismatch between advertised non-sleeping GPIO chip and
+  sleeping pinctrl mutex path.
+- **Fix rationale:** After muxing to GPIO, direction changes are plain
+  register writes (separate set/clear regs); no pinmux state change
+  needed.
+
+### Step 1.4: Hidden bug fix?
+**Record:** **Yes** — despite “bypass” wording, this is a real lock-
+context / `can_sleep` contract bug, not cosmetic cleanup.
 
 ---
 
 ## PHASE 2: DIFF ANALYSIS
 
-**Step 2.1 – Inventory**
-Record:
-- **Files:** `fs/smb/server/oplock.c` only (+27 / −3 lines)
-- **Functions modified:** new `ksmbd_inode_has_lease()`; modified
-  `smb_grant_oplock()`
-- **Scope:** Single-file, surgical fix
+### Step 2.1: Inventory
+**Record:**
+- **File:** `drivers/pinctrl/mediatek/pinctrl-mtk-common.c` (+10 / −3,
+  13 lines net)
+- **Functions:** new `mtk_gpio_direction_input()`; modified
+  `mtk_gpio_direction_output()`; `mtk_pmx_ops`, `mtk_gpio_chip`
+- **Scope:** Single-file surgical fix
 
-**Step 2.2 – Code flow per hunk**
+### Step 2.2: Code flow per hunk
+**Record:**
+1. **Remove `.gpio_set_direction` from `mtk_pmx_ops`:** pinmux layer no
+   longer exposes direction via pinctrl GPIO API (returns 0/no-op if
+   called through `pinmux_gpio_direction()`).
+2. **Add `mtk_gpio_direction_input()`:** calls
+   `mtk_pmx_gpio_set_direction()` directly via `pctl->pctl_dev`.
+3. **Change `mtk_gpio_direction_output()`:** replaces
+   `pinctrl_gpio_direction_output()` with direct
+   `mtk_pmx_gpio_set_direction()`.
+4. **Wire `.direction_input`:** `pinctrl_gpio_direction_input` →
+   `mtk_gpio_direction_input`.
 
-*Hunk 1 – `ksmbd_inode_has_lease()`:*
-Record: **Before:** no way to distinguish lease vs oplock holder in the
-stat-open path. **After:** peek at first `opinfo` on inode list, return
-`is_lease`, with proper refcount via `opinfo_get_list()` /
-`opinfo_put()`.
+**Before:** gpiochip direction callbacks → `pinctrl_gpio_direction_*()`
+→ `mutex_lock(&pctldev->mutex)` → `mtk_pmx_gpio_set_direction()`.
+**After:** gpiochip direction callbacks → `mtk_pmx_gpio_set_direction()`
+directly (regmap write, no mutex).
 
-*Hunk 2 – `smb_grant_oplock()` stat-open skip:*
-Record: **Before:** only `fp->attrib_only` opens skip the break path
-(set `req_op_level = NONE`, `goto set_lev`). **After:** also skip when
-open requests only stat/metadata access including `READ_CONTROL` **and**
-`ksmbd_inode_has_lease(ci)` is true. Truncating dispositions
-(`FILE_OVERWRITE_*`, `FILE_SUPERSEDE`) still force a break.
+### Step 2.3: Bug mechanism
+**Record:** **Category:** synchronization / lock-context violation
+(mutex-from-non-sleeping-GPIO path).
+**Mechanism:** Driver advertises fast GPIO (`can_sleep` unset/false) but
+direction ops sleep on pinctrl mutex. GPIO forwarder (`gpio-
+aggregator.c`) uses spinlock when `!chip->can_sleep`, creating mutex-
+under-spinlock when direction changes propagate through the forwarder.
 
-**Step 2.3 – Bug mechanism**
-Record:
-- **Category:** Logic / protocol correctness (lease vs oplock semantics)
-- **Mechanism:** `READ_CONTROL`-only open has `fp->attrib_only == false`
-  (set in `smb2pdu.c:3461-3462`), so code falls through to
-  `opinfo_get_list()` and `oplock_break()` even when the existing holder
-  is a caching lease. Fix short-circuits that path for lease holders.
-
-**Step 2.4 – Fix quality**
-Record:
-- Fix is minimal and mirrors existing `attrib_only` logic.
-- Deliberately preserves oplock break behavior by gating on
-  `ksmbd_inode_has_lease()`.
-- Uses existing `fp->daccess` (already set at `smb2pdu.c:3367` before
-  `smb_grant_oplock()` at line 3523).
-- Low regression risk; same `opinfo_get_list()` pattern already used
-  later in `smb_grant_oplock()`.
+### Step 2.4: Fix quality
+**Record:** **Obviously correct** for this hardware —
+`mtk_pmx_gpio_set_direction()` already does atomic set/clear register
+writes and is used directly elsewhere in the same file (pinconf, EINT
+setup). **Low regression risk** — removes redundant mutex layer; pinconf
+paths unchanged. **Minor note:** removing `.gpio_set_direction` makes
+pinctrl-framework direction calls no-ops, which is intentional since
+GPIO chip handles direction directly.
 
 ---
 
 ## PHASE 3: GIT HISTORY INVESTIGATION
 
-**Step 3.1 – Blame**
-Record: Stat-open skip introduced in `849fbc549d4cca` (2021-06-29,
-"ksmbd: opencode to remove ATTR_FP macro"). Bug has existed since
-`attrib_only` was introduced. Present in this 6.18.y tree.
+### Step 3.1: Blame
+**Record:** In this shallow stable checkout, blame points to merge
+`5d324e5159d9e`. Verified at tags: **v6.6, v6.12, v6.18** all contain
+`pinctrl_gpio_direction_input` in direction callbacks (bug predates 6.18
+branch).
 
-**Step 3.2 – Fixes: tag**
-Record: N/A – no `Fixes:` tag.
+### Step 3.2: Fixes: tag
+**Record:** N/A — no `Fixes:` tag.
 
-**Step 3.3 – Related file history**
-Record: Recent `oplock.c` changes in 6.18.y are mostly UAF/NULL-
-deref/refcount fixes. Mainline has ~27 additional lease/oplock commits
-not in 6.18.y (series starting `a04159d96c27f`). This patch is **patch
-26/29** of that series but **`git apply --check` succeeds cleanly** on
-6.18.y without the other 25 patches.
+### Step 3.3: Related file history
+**Record:** In 6.18.43 tree, only two commits touch this file
+(`936a3c0c10e2b` EINT probe fix, merge import). On mainline
+(`build/master`), file was re-added in `a293ec25d59dd` (May 2026
+refactor) already containing the buggy pattern; fix landed 7 days later
+in `3982db2df3ed`.
 
-**Step 3.4 – Author context**
-Record: Namjae Jeon is ksmbd maintainer; Steve French is SMB/CIFS
-maintainer. Both signed off.
+### Step 3.4: Author context
+**Record:** Chen-Yu Tsai (Chromium). Linus Walleij (pinctrl/gpio
+maintainer) merged. Related nearby work: Bartosz Golaszewski’s GPIO
+setter callback conversion (`23a5fa371c772`).
 
-**Step 3.5 – Dependencies**
-Record: **Standalone.** No prerequisite commits required; all symbols
-(`opinfo_get_list`, `fp->daccess`, `FILE_READ_CONTROL_LE`, `is_lease`)
-exist in 6.18.y.
+### Step 3.5: Dependencies
+**Record:** **Standalone.** Requires `mtk_pinctrl::pctl_dev` and
+`mtk_pmx_gpio_set_direction()` — both present in 6.18.43. `git apply
+--check` on upstream diff: **clean apply**.
 
 ---
 
 ## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
-**Step 4.1 – Original discussion**
-Record:
-- `b4 dig -c be939e11c4724`:
-  https://patch.msgid.link/20260621124844.6235-26-linkinjeon@kernel.org
-- Part of v1 series `[PATCH 01/29]` through `[PATCH 29/29]`, dated
-  2026-06-21
+### Step 4.1: Original discussion
+**Record:** `b4 dig -c 3982db2df3ed` →
+https://patch.msgid.link/20260505104056.1812343-1-wenst@chromium.org
+**Series:** v2 only in matched thread (v1 at separate URL). Linus
+Walleij: “Patch applied.”
+**Stable nomination:** None found.
+**NAKs/concerns:** None in thread.
 
-**Step 4.2 – Reviewers**
-Record: `b4 dig -w` CC'd `linux-cifs@vger.kernel.org`,
-`smfrench@gmail.com`, `senozhatsky@chromium.org`, `tom@talpey.com`,
-`atteh.mailbox@gmail.com`. No `Reviewed-by`/`Acked-by` on the committed
-patch.
+### Step 4.2: Reviewers
+**Record:** `b4 dig -w`: CC’d Sean Wang, Matthias Brugger,
+AngeloGioacchino Del Regno, Linus Walleij, linux-mediatek, linux-gpio,
+linux-arm-kernel.
 
-**Step 4.3 – Bug report**
-Record: No external bug report. Verification is internal Samba torture
-references (`smb2.lease.statopen4`, `smb2.oplock.statopen1`).
+### Step 4.3: Bug report
+**Record:** No external bug report. Author notes **“Only compile
+tested”** and initially fixed wrong file (target used `pinctrl-
+paris.c`).
 
-**Step 4.4 – Series context**
-Record: Patch 26/29 in a large lease-improvement series. Earlier patches
-(e.g. `889d2e38943ad` "break conflicting-open leases only as far as
-needed") address related lease-break issues but are **not**
-prerequisites for this patch on 6.18.y.
+### Step 4.4: Series context
+**Record:** Standalone 1-patch fix for `pinctrl-mtk-common.c`
+(common-v1). Paris driver may need a separate fix (out of scope).
 
-**Step 4.5 – Stable list history**
-Record: No `Cc: stable@vger.kernel.org` found in the lore thread (`rg`
-over downloaded mbox). No stable-specific discussion found.
+### Step 4.5: Stable list
+**Record:** Not searched on lore stable (WebFetch blocked for lore). No
+stable discussion in mbox thread.
 
 ---
 
 ## PHASE 5: CODE SEMANTIC ANALYSIS
 
-**Step 5.1 – Key functions**
-Record: `ksmbd_inode_has_lease()`, `smb_grant_oplock()`, helpers
-`opinfo_get_list()`, `opinfo_put()`, `opinfo_count()`
+### Step 5.1: Key functions
+**Record:** `mtk_gpio_direction_input()` (new),
+`mtk_gpio_direction_output()`, `mtk_pmx_gpio_set_direction()`,
+`pinctrl_gpio_direction()` in `core.c`.
 
-**Step 5.2 – Callers**
-Record: `smb_grant_oplock()` called from `smb2pdu.c:3523` during SMB2
-CREATE handling — common file-server path reachable by remote SMB
-clients on every open with oplock/lease request.
+### Step 5.2: Callers
+**Record:** Direction callbacks invoked from gpiolib
+(`gpiod_direction_input/output` → `gpiochip_direction_*`). Reachable
+from device drivers, GPIO forwarder (`gpio_fwd_direction_input/output`
+in `gpio-aggregator.c`), and userspace via gpio-cdev.
 
-**Step 5.3 – Callees**
-Record: `opinfo_get_list()` acquires `ci->m_lock` read lock and bumps
-refcount; `oplock_break()` (avoided by fix) sends break notifications to
-clients.
+### Step 5.3: Callees
+**Record:** `mtk_pmx_gpio_set_direction()` → `regmap_write()` on
+set/clear direction registers — no mutex, no sleeping primitives.
 
-**Step 5.4 – Reachability**
-Record: **Yes, remotely triggerable.** Any SMB client opening a file
-with only `READ_CONTROL` (+ stat bits) while another client holds a
-lease hits this path. ACL/security-descriptor reads are routine Windows
-operations.
+### Step 5.4: Reachability
+**Record:** **Userspace-reachable** via GPIO character device. **Driver-
+reachable** on any MediaTek v1 pinctrl platform (`CONFIG_PINCTRL_MTK`).
+Trigger is most visible when GPIOs are accessed through a GPIO
+forwarder/proxy that assumes non-sleeping ops.
 
-**Step 5.5 – Similar patterns**
-Record: `smb2pdu.c:3303` already treats `FILE_READ_CONTROL` as non-
-conflicting for inode permission checks. `fp->attrib_only` definition at
-`smb2pdu.c:3461-3462` intentionally excludes `READ_CONTROL` because
-oplocks must still break — confirming the fix must be lease-specific,
-not a global `attrib_only` change.
-
----
-
-## PHASE 6: CROSS-REFERENCING AGAINST LOCAL TREE (6.18.y)
-
-**Step 6.1 – Buggy code present?**
-Record: **Yes.** Current tree at `oplock.c:1237-1243`:
-
-```1237:1243:fs/smb/server/oplock.c
-        /* grant none-oplock if second open is trunc */
-        if (fp->attrib_only && fp->cdoption != FILE_OVERWRITE_IF_LE &&
-            fp->cdoption != FILE_OVERWRITE_LE &&
-            fp->cdoption != FILE_SUPERSEDE_LE) {
-                req_op_level = SMB2_OPLOCK_LEVEL_NONE;
-                goto set_lev;
-        }
-```
-
-Bug present since 2021 (`849fbc549d4cca`).
-
-**Step 6.2 – Backport complications**
-Record: **`git format-patch -1 be939e11c4724 | git apply --check` →
-clean apply.** No conflicts expected.
-
-**Step 6.3 – Related fixes already present?**
-Record: No equivalent fix in 6.18.y (`git log -S
-'ksmbd_inode_has_lease'` returns nothing on this tree).
+### Step 5.5: Similar patterns
+**Record:** Same `pinctrl_gpio_direction_*` pattern exists in `pinctrl-
+moore.c`, `pinctrl-airoha.c` (same subsystem, different drivers — not
+fixed by this commit).
 
 ---
 
-## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+## PHASE 6: CROSS-REFERENCE AGAINST LOCAL TREE (6.18.43)
 
-**Step 7.1 – Subsystem**
-Record: `fs/smb/server` (ksmbd / `CONFIG_SMB_SERVER`) — **IMPORTANT**
-for SMB file-server deployments; not core kernel, but critical for that
-use case.
+### Step 6.1: Buggy code present?
+**Record:** **YES.** Current tree at lines 805, 818, 898 uses
+`pinctrl_gpio_direction_input/output` and `.gpio_set_direction =
+mtk_pmx_gpio_set_direction`. `can_sleep` is never set on the gpiochip.
 
-**Step 7.2 – Activity**
-Record: Actively maintained in 6.18.y with frequent security and
-protocol fixes (e.g. `a60b5da05e318` negotiate rejection,
-`213b4568f6e5d` deferred-close status).
+### Step 6.2: Backport complications
+**Record:** **Clean apply** verified. No structural conflicts in
+6.18.43.
+
+### Step 6.3: Related fixes already present?
+**Record:** **No** — `git log --grep="bypass pinctrl GPIO"` returns
+nothing in this tree.
 
 ---
 
-## PHASE 8: IMPACT AND RISK ASSESSMENT
+## PHASE 7: SUBSYSTEM CONTEXT
 
-**Step 8.1 – Who is affected**
-Record: Users running `CONFIG_SMB_SERVER` (module `ksmbd`) with
-oplocks/leases enabled — SMB/NAS/file-server deployments.
+### Step 7.1: Subsystem / criticality
+**Record:** `drivers/pinctrl/mediatek/` — **IMPORTANT** (ARM/ARM64
+embedded SoCs: MT27xx, MT81xx, MT83xx families via
+`CONFIG_PINCTRL_MTK`).
 
-**Step 8.2 – Trigger conditions**
-Record: Second client opens a file requesting only `READ_CONTROL` (+
-optional stat bits) while a caching lease is held. **Common** for
-ACL/security-descriptor access. Unprivileged remote SMB clients can
-trigger.
+### Step 7.2: Activity
+**Record:** Active; recent stable fix `936a3c0c10e2b` (EINT probe) in
+same file.
 
-**Step 8.3 – Failure mode severity**
-Record: Spurious lease break → unnecessary client cache invalidation,
-extra break/ack round-trips, degraded I/O performance. **Not** crash,
-corruption, deadlock, or security exploit. Severity: **MEDIUM**
-(protocol/interoperability + performance).
+---
 
-**Step 8.4 – Risk-benefit**
-Record:
-- **Benefit:** Correct SMB2 lease semantics; passes
-  `smb2.lease.statopen4`; prevents unnecessary cache churn on routine
-  ACL reads.
-- **Risk:** Very low — 27 lines, one file, clean apply, mirrors existing
-  logic.
-- **Ratio:** Favorable for SMB server users; conservative but justified.
+## PHASE 8: IMPACT AND RISK
+
+### Step 8.1: Who is affected
+**Record:** Users of MediaTek **common-v1** pinctrl
+(`CONFIG_PINCTRL_MTK`), especially platforms using GPIO
+forwarding/sharing (Chromebook-class devices per author).
+
+### Step 8.2: Trigger conditions
+**Record:** GPIO direction change on a MediaTek v1 GPIO line,
+particularly when accessed through a non-sleeping GPIO forwarder. Not
+every GPIO toggle hits this — direction changes are the trigger.
+Unprivileged users can trigger via GPIO uAPI if lines are
+exported/accessible.
+
+### Step 8.3: Failure mode severity
+**Record:** **MEDIUM–HIGH** — kernel warnings / lockdep complaints
+(“huge warning” per author); mutex under spinlock can escalate to hangs
+on debug kernels. Not a typical memory-corruption bug, but a real
+correctness violation in a common driver path.
+
+### Step 8.4: Risk vs benefit
+**Record:**
+- **Benefit:** MEDIUM–HIGH for affected MediaTek platforms; fixes
+  longstanding contract violation.
+- **Risk:** LOW — 13-line change, maintainer-merged, uses existing
+  internal helper already used elsewhere in driver.
+- **Ratio:** Favorable for backport.
 
 ---
 
 ## PHASE 9: FINAL SYNTHESIS
 
-**Step 9.1 – Evidence compile**
+### Step 9.1: Evidence summary
 
-*FOR backport:*
-- Real, long-standing protocol bug (since 2021)
-- Remotely triggerable on common SMB server path
-- Small, obviously correct, maintainer-authored fix
-- Applies cleanly to 6.18.y without series dependencies
-- In mainline (`be939e11c4724` on `master`)
-- Precedent: 6.18.y already backports ksmbd protocol/interop fixes
-  (`a60b5da`, `213b4568f6e5d`)
-- Samba torture test provides concrete verification
+**FOR backport:**
+- Real bug: sleeping pinctrl mutex from non-sleeping gpiochip callbacks
+- Bug present in 6.18.43 (verified in source)
+- Small, self-contained, applies cleanly
+- Maintainers merged (Linus Walleij)
+- Fixes lock-context violation with concrete failure mode
+- Hardware-appropriate: direct register writes are safe post-mux
 
-*AGAINST backport:*
-- No crash, corruption, security issue, or hang
-- No user `Reported-by`, no `Cc: stable`, no distro-maintainer
-  nomination
-- `CONFIG_SMB_SERVER` defaults to `n` — narrower audience
-- Performance/interop issue rather than hard failure
-- Part of a larger 29-patch lease series (though standalone applicable)
+**AGAINST backport:**
+- Author only compile-tested (no runtime Tested-by)
+- No syzbot/CVE/user bug report
+- Trigger may be most visible on Chromebook + GPIO-proxy setups
+- Severity is WARN/lockdep, not proven crash/oops in mainline report
 
-*Unresolved:* No end-user production bug reports found; impact
-quantified only via torture tests.
+**Unresolved:** Exact in-tree “GPIO proxy” component name unverified in
+mainline (likely GPIO forwarder in `gpio-aggregator.c` or ChromeOS-
+specific code); runtime reproduction not documented in mailing list.
 
-**Step 9.2 – Stable rules checklist**
-1. Obviously correct and tested? **PASS** — logic is clear; torture-test
-   references; maintainer sign-off.
-2. Fixes a real bug affecting users? **PASS** — incorrect lease breaks
-   on ACL reads affect SMB server clients.
-3. Important issue? **PASS (borderline)** — not crash/corruption, but
-   protocol non-compliance causing spurious lease breaks and measurable
-   cache/performance impact on a file server.
-4. Small and contained? **PASS** — 27 lines, one file.
-5. No new features/APIs? **PASS** — behavior correction only.
-6. Can apply to local tree? **PASS** — verified clean apply.
+### Step 9.2: Stable rules checklist
+1. Obviously correct and tested? **PASS** (logically correct; compile-
+   tested; maintainer merged)
+2. Fixes real bug affecting users? **PASS** (lock-context violation on
+   real hardware class)
+3. Important issue? **PASS** (lockdep / invalid context — MEDIUM–HIGH)
+4. Small and contained? **PASS** (1 file, 13 lines)
+5. No new features/APIs? **PASS**
+6. Can apply to local tree? **PASS** (clean `git apply --check`)
 
-**Step 9.3 – Exception categories**
-Record: None (not device ID, quirk, DT, build fix, or docs). Qualifies
-as protocol correctness fix for existing `CONFIG_SMB_SERVER`
-functionality.
+### Step 9.3: Exception categories
+**Record:** None (not device-ID/quirk/docs/build fix) — standard driver
+bug fix.
 
-**Step 9.4 – Problem summary for stable users**
-Without this fix, ksmbd incorrectly breaks caching leases when a client
-opens a file solely to read its security descriptor (`READ_CONTROL`).
-Windows and Samba clients routinely perform such opens (Explorer
-properties, ACL tools, backup software). Each spurious break forces
-clients to flush caches and complete break acknowledgments, degrading
-performance and violating SMB2 lease semantics that Samba and Windows
-implement correctly. The fix is surgical, self-contained, and applies
-cleanly to 6.18.y.
+### Step 9.4: Decision rationale
+For **Linux 6.18.43**, the buggy pattern exists, the fix is minimal and
+correct, and it resolves a real synchronization contract violation in a
+widely used embedded pinctrl driver. The conservative stable bar is met:
+real bug, contained fix, low regression risk, clear maintainer
+acceptance.
 
 ---
 
 ## Verification
 
-- **[Phase 1]** Parsed commit message from user query and `git show
-  be939e11c4724`; tags recorded.
-- **[Phase 2]** Analyzed diff; confirmed `fp->daccess` field in
-  `vfs_cache.h:94`; confirmed `daccess` set before `smb_grant_oplock()`
-  at `smb2pdu.c:3367`/`3523`.
-- **[Phase 3]** `git describe HEAD` → `v6.18.44`; `git blame` → bug
-  since `849fbc549d4cca` (2021); `git log HEAD..master --
-  fs/smb/server/oplock.c` → 15+ commits including candidate; `git apply
-  --check` → clean.
-- **[Phase 4]** `b4 dig -c be939e11c4724` → lore URL found; `b4 dig -a`
-  → patch 26/29; `b4 dig -w` → recipients listed; mbox downloaded; no
-  `Cc: stable` or NAKs found.
-- **[Phase 5]** `grep smb_grant_oplock` → caller in `smb2pdu.c`; traced
-  `attrib_only` definition at `smb2pdu.c:3461-3462`.
-- **[Phase 6]** Confirmed buggy code at `oplock.c:1237-1243`;
-  `ksmbd_inode_has_lease` absent; `git apply --check` passes.
-- **[Phase 7]** `CONFIG_SMB_SERVER` in `fs/smb/server/Kconfig`; recent
-  ksmbd stable commits reviewed.
-- **[Phase 8]** Assessed trigger (remote READ_CONTROL open) and severity
-  (spurious lease break, MEDIUM).
-- **[Phase 9]** Stable rules checklist completed; decision synthesized.
+- **[Phase 1]** Parsed commit message/tags from `git show 3982db2df3ed`
+  and user-provided text
+- **[Phase 1]** `b4 dig -c 3982db2df3ed`: lore URL
+  https://patch.msgid.link/20260505104056.1812343-1-wenst@chromium.org
+- **[Phase 1]** `b4 dig -a`: v2 series found; v1 referenced in mbox body
+- **[Phase 1]** `b4 dig -w`: maintainers CC list retrieved
+- **[Phase 2]** Read current `pinctrl-mtk-common.c` lines 65–87,
+  800–904, 1116–1128
+- **[Phase 2]** Read `drivers/pinctrl/core.c` lines 855–876:
+  `pinctrl_gpio_direction()` takes `mutex_lock`
+- **[Phase 2]** Read `drivers/gpio/gpio-aggregator.c` lines 327–342,
+  406–421: spinlock when `!chip->can_sleep`
+- **[Phase 2]** `git show 3982db2df3ed`: full diff reviewed
+- **[Phase 3]** `git describe HEAD`, `make kernelversion`: tree is
+  6.18.43
+- **[Phase 3]** `git show v6.6/v6.12/v6.18:...`: buggy
+  `pinctrl_gpio_direction_input` pattern present at all three tags
+- **[Phase 3]** `git apply --check` on upstream patch: succeeds on
+  current tree
+- **[Phase 4]** `b4 dig -m /tmp/mtk-gpio-thread.mbox`: thread saved;
+  Linus Walleij “Patch applied”; author “Only compile tested”
+- **[Phase 5]** Traced `gpiod_direction_input/output` → gpiochip
+  callbacks in `gpiolib.c`
+- **[Phase 6]** `grep` on current tree: buggy code at lines 805, 818,
+  898; no `can_sleep` set
+- **[Phase 6]** Fix not in HEAD: `merge-base --is-ancestor 3982db2df3ed
+  HEAD` → not ancestor
+- **[Phase 7]** `drivers/pinctrl/mediatek/Makefile`:
+  `CONFIG_PINCTRL_MTK` builds `pinctrl-mtk-common.o`
+- **UNVERIFIED:** Exact ChromeOS “GPIO proxy” driver name in mainline
+  (no `gpio_proxy` string found; forwarder mechanism verified in `gpio-
+  aggregator.c`)
 
-**YES**The background `git log` searches timed out, but that didn’t
-block the analysis — the commit was found on `master` as
-`be939e11c4724`, and the rest of the investigation (clean apply to
-6.18.y, lore thread, code review) completed normally.
+**YES**The backport analysis is complete.
 
-**Verdict for 6.18.y: YES** — this is a real SMB2 lease protocol bug
-(spurious lease breaks on `READ_CONTROL`-only opens) with a small, self-
-contained fix that applies cleanly.
+**Verdict for Linux 6.18.43: YES** — the MediaTek common-v1 pinctrl
+driver advertises non-sleeping GPIO ops but uses
+`pinctrl_gpio_direction_*()` (which takes the pinctrl mutex), causing
+lock-context warnings when GPIOs are used through a forwarder/proxy. The
+fix is small (13 lines), applies cleanly, and is already merged upstream
+by Linus Walleij.
 
- fs/smb/server/oplock.c | 30 +++++++++++++++++++++++++++---
- 1 file changed, 27 insertions(+), 3 deletions(-)
+A background `git branch --contains` check for which branches have the
+fix failed (likely due to repo size/timeout). That wasn’t needed for the
+decision: the fix is **not** in your current 6.18.43 checkout, and the
+buggy code is present there.
 
-diff --git a/fs/smb/server/oplock.c b/fs/smb/server/oplock.c
-index b6705a07c6ebe..f700ee48c54c0 100644
---- a/fs/smb/server/oplock.c
-+++ b/fs/smb/server/oplock.c
-@@ -208,6 +208,18 @@ void opinfo_put(struct oplock_info *opinfo)
- 	free_opinfo(opinfo);
- }
+ drivers/pinctrl/mediatek/pinctrl-mtk-common.c | 13 ++++++++++---
+ 1 file changed, 10 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/pinctrl/mediatek/pinctrl-mtk-common.c b/drivers/pinctrl/mediatek/pinctrl-mtk-common.c
+index 3f518dce6d23f..dd2c8aa039385 100644
+--- a/drivers/pinctrl/mediatek/pinctrl-mtk-common.c
++++ b/drivers/pinctrl/mediatek/pinctrl-mtk-common.c
+@@ -802,20 +802,27 @@ static const struct pinmux_ops mtk_pmx_ops = {
+ 	.get_function_name	= mtk_pmx_get_func_name,
+ 	.get_function_groups	= mtk_pmx_get_func_groups,
+ 	.set_mux		= mtk_pmx_set_mux,
+-	.gpio_set_direction	= mtk_pmx_gpio_set_direction,
+ 	.gpio_request_enable	= mtk_pmx_gpio_request_enable,
+ };
  
-+static bool ksmbd_inode_has_lease(struct ksmbd_inode *ci)
++static int mtk_gpio_direction_input(struct gpio_chip *chip, unsigned offset)
 +{
-+	struct oplock_info *opinfo = opinfo_get_list(ci);
-+	bool is_lease;
++	struct mtk_pinctrl *pctl = gpiochip_get_data(chip);
 +
-+	if (!opinfo)
-+		return false;
-+	is_lease = opinfo->is_lease;
-+	opinfo_put(opinfo);
-+	return is_lease;
++	return mtk_pmx_gpio_set_direction(pctl->pctl_dev, NULL, offset, true);
 +}
 +
- static void opinfo_add(struct oplock_info *opinfo, struct ksmbd_file *fp)
+ static int mtk_gpio_direction_output(struct gpio_chip *chip,
+ 					unsigned offset, int value)
  {
- 	struct ksmbd_inode *ci = fp->f_ci;
-@@ -1251,10 +1263,22 @@ int smb_grant_oplock(struct ksmbd_work *work, int req_op_level, u64 pid,
- 	if (!opinfo_count(fp))
- 		goto set_lev;
++	struct mtk_pinctrl *pctl = gpiochip_get_data(chip);
+ 	int ret;
  
--	/* grant none-oplock if second open is trunc */
--	if (fp->attrib_only && fp->cdoption != FILE_OVERWRITE_IF_LE &&
-+	/*
-+	 * A stat open that only requests metadata access must not break the
-+	 * existing caching state. READ_CONTROL (reading the security
-+	 * descriptor) does not conflict with a lease, but it does conflict
-+	 * with an oplock, so only treat a read-control-only open as a stat
-+	 * open when the existing holder is a lease.
-+	 */
-+	if (fp->cdoption != FILE_OVERWRITE_IF_LE &&
- 	    fp->cdoption != FILE_OVERWRITE_LE &&
--	    fp->cdoption != FILE_SUPERSEDE_LE) {
-+	    fp->cdoption != FILE_SUPERSEDE_LE &&
-+	    (fp->attrib_only ||
-+	     (!(fp->daccess & ~(FILE_READ_ATTRIBUTES_LE |
-+				FILE_WRITE_ATTRIBUTES_LE |
-+				FILE_SYNCHRONIZE_LE |
-+				FILE_READ_CONTROL_LE)) &&
-+	      ksmbd_inode_has_lease(ci)))) {
- 		req_op_level = SMB2_OPLOCK_LEVEL_NONE;
- 		goto set_lev;
- 	}
+ 	ret = mtk_gpio_set(chip, offset, value);
+ 	if (ret)
+ 		return ret;
+ 
+-	return pinctrl_gpio_direction_output(chip, offset);
++	return mtk_pmx_gpio_set_direction(pctl->pctl_dev, NULL, offset, false);
+ }
+ 
+ static int mtk_gpio_get_direction(struct gpio_chip *chip, unsigned offset)
+@@ -895,7 +902,7 @@ static const struct gpio_chip mtk_gpio_chip = {
+ 	.request		= gpiochip_generic_request,
+ 	.free			= gpiochip_generic_free,
+ 	.get_direction		= mtk_gpio_get_direction,
+-	.direction_input	= pinctrl_gpio_direction_input,
++	.direction_input	= mtk_gpio_direction_input,
+ 	.direction_output	= mtk_gpio_direction_output,
+ 	.get			= mtk_gpio_get,
+ 	.set			= mtk_gpio_set,
 -- 
 2.53.0
 
