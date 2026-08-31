@@ -1,48 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1BD747F767;
-	Mon, 31 Aug 2026 13:37:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96FDF480359;
+	Mon, 31 Aug 2026 13:37:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183463; cv=none; b=XGC0TbXk15IhESekhiyZ/HmFhAPp/HNqIcQeflwWSiUakR8gQK3NF1wy84n4PtW6mdLAhKJmV2S3OQuutJ1CxGripU+b6dxTpDgF6YTDetiD7DP8JVpREq0O/XnIJ7graWJlnZjGWl0b1ZMrVb7y/zTOcMfMiBM5CtoHCtFZy/A=
+	t=1788183470; cv=none; b=NVCWUpcqY7ISQqk72BG29KeacDhBRiqBxrG/BHwF5ftXwa84Kjhelqr90HYIxFY9cw8pvjfaIrrhmuFpjSBf7ECJXwgEru5/h/a6LdLA9ipz4AfwIVZcDwhdkTzY0BJFEXJDRAP9nlt5t+f0sL7brfiasdoQ+C2Bt/hmsNyzh7A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183463; c=relaxed/simple;
-	bh=FyEW3Bc0Fu/jxu5SwqR5Zk3whVIte3iD6X8zjAnNEZo=;
+	s=arc-20240116; t=1788183470; c=relaxed/simple;
+	bh=bDBlH4a1MmBHE6DnLnnlFkOzoAzhFqgb/g0Bcjkpe78=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=PNsDfNG7Laj/EZsfePjzwHSrpMTbZReDDXd5/1rKraaodT1p8Nbla/8Kovm03sNmZF20mq2XmQurjtwZWKCeHmS/EgaFrWL+2Z0UrOclC7UJbAjiP6rOof+2JIzFW33fNxmBxapFiEceXAGeEmJxapBVNXLMIvCZoCeRCTqJCyE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hZGqM9OK; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=dmKlGkLGTZ2jR1vFlWzhlywbYBgIbdmtSmkLKI8iq1zgALM9Phs3fMPowuyl+pVGJar3FUpOerfMpPZbbI0tcirwUOkq/RZd3ew5DdoCtquOytbr/zymgOCHfNiS4Pyhft8TERdaUNMovYPWtayz8DKqv8DgbwyRboabcXiaktI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JDyzOd+g; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hZGqM9OK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37AA01F000E9;
-	Mon, 31 Aug 2026 13:37:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JDyzOd+g"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 64D871F000E9;
+	Mon, 31 Aug 2026 13:37:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788183461;
-	bh=zRllzes4Brg+KzK9UoYcX5ou4h2m/6LiczELqbs0h0U=;
+	s=k20260515; t=1788183468;
+	bh=sFui/+YKCz/Qv7T6diOuZfT5MJowzo1RedWUcQ8wh0o=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=hZGqM9OKLpsu6N0sauKVK0Nkt6JMUWWRnzN2DX6YWI5jYwlA9cH2SDtMtieybpZHI
-	 65fLx9SjXs5VbPqdpAxtGXouwzLFdKLNfQLOVWHbFA01XKpo6VFNAIwmimUNFkbMQ6
-	 3EHBS2eEgfaPn42GPIZS3yGORk7qzdafbxNfobq+tTv2QlZU5DifuCVib/PVmVXl5F
-	 AX3NFzaeBARInYlryKBaAAHHDGSzEFpM+fC0HDSaHt5LUOoR0CXvlo4eQ+yZuPr0p4
-	 jLgRkr8jF/xTJk3sr0vuaguNFpSPegVKtABrSzbv4q1tC40QNfrkqSKrX3BBTEoeTM
-	 JHjFojkaXJldA==
+	b=JDyzOd+gr4wlrBTWEwSFX+duQzbiIItKuXCOmGCOZqqNxRLvkLx/5nxmtExYX5Dhl
+	 SzlfPsH0/8moipLuH0MRqZT5sTpSHsKexcjdZRLq94VoAaAM3MpU6hI1B2/2cWgZ3e
+	 d/1XnF8npkU8O1dflgEAos0sWC19Squ/qs3g/mN5oR3ybOjHmnQtE+j1zi09DwJwBo
+	 Dhcv2PfXrc89bY2I8sLBPG5byiowfysvPrFDeRqWSkc4/+96t9Vhgoh6lp2kkFTeB9
+	 ZwP3VhvUri+QFClPKAEjcnBBMMIOW/H0VjVgRpwo+mODjBiyk9OHFVDYxGiYc1e57k
+	 7p5diDVhw13YA==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
-	Mark Brown <broonie@kernel.org>,
+Cc: Federico Lombardo <lombardo.federico.lf@gmail.com>,
+	Takashi Iwai <tiwai@suse.de>,
 	Sasha Levin <sashal@kernel.org>,
-	liam.r.girdwood@linux.intel.com,
-	peter.ujfalusi@linux.intel.com,
-	yung-chuan.liao@linux.intel.com,
-	kai.vehmanen@linux.intel.com,
 	perex@perex.cz,
 	tiwai@suse.com,
 	linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-5.10] ASoC: Intel: catpt: Complete coredump handling
-Date: Mon, 31 Aug 2026 09:22:18 -0400
-Message-ID: <20260831133314.4125787-110-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18] ALSA: hda/realtek: Enable mute LED quirk for HP Laptop 15-dw0xxx
+Date: Mon, 31 Aug 2026 09:22:22 -0400
+Message-ID: <20260831133314.4125787-114-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -58,447 +54,310 @@ X-stable-base: Linux 6.18.48
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Cezary Rojewski <cezary.rojewski@intel.com>
+From: Federico Lombardo <lombardo.federico.lf@gmail.com>
 
-[ Upstream commit 7e5d59f407bc39d43b350cc45f7880647429eb5d ]
+[ Upstream commit b28d3d0841a6083f82dfa9fe940afcd748f2a1e2 ]
 
-An exception may occur during the firmware booting procedure.  In such
-case the firmware sends COREDUMP_REQUESTS and expects the driver to dump
-relevant information and finish with the COREDUMP_RELEASE write.
+HP Laptop 15-dw0xxx with subsystem ID 103c:85f0 needs the
+ALC236_FIXUP_HP_MUTE_LED_COEFBIT2 quirk to correctly disable and
+enable the Audio Mute LED.
 
-To distinguish such situation from generic timeout, always signal
-fw_ready completion when a coredump request is received and translate
-it to -EREMOTEIO in catpt_boot_firmware().
+Add the missing quirk entry.
 
-The "FW READY" print makes the success clearly visible even when
-the event-traces are not enabled.
-
-Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
-Link: https://patch.msgid.link/20260528083444.1439233-2-cezary.rojewski@intel.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
+Signed-off-by: Federico Lombardo <lombardo.federico.lf@gmail.com>
+Link: https://patch.msgid.link/20260702204347.187524-1-lombardo.federico.lf@gmail.com
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-# Stable Backport Analysis: ASoC: Intel: catpt: Complete coredump
-handling
+## Phase 1: Commit Message Forensics
 
-**Local tree:** `v6.18.44` (6.18.44 stable)
+**Step 1.1 — Subject line**
+Record: `[ALSA: hda/realtek] [enable] Enable mute LED quirk for HP
+Laptop 15-dw0xxx`
 
----
-
-## PHASE 1: COMMIT MESSAGE FORENSICS
-
-### Step 1.1: Subject line
-**Record:** `[ASoC: Intel: catpt]` `[Complete]` — finish incomplete
-firmware coredump protocol handling during firmware boot failure.
-
-### Step 1.2: Tags
-**Record:**
-- **Signed-off-by:** Cezary Rojewski `<cezary.rojewski@intel.com>`
+**Step 1.2 — Tags**
+Record:
+- `Signed-off-by: Federico Lombardo <lombardo.federico.lf@gmail.com>`
   (author)
-- **Signed-off-by:** Mark Brown `<broonie@kernel.org>` (ASoC maintainer
-  merge)
-- **Link:** `https://patch.msgid.link/20260528083444.1439233-2-
-  cezary.rojewski@intel.com` (patch 2 of a series, per Message-ID)
-- No `Fixes:`, `Reported-by:`, `Cc: stable@vger.kernel.org`, `Tested-
-  by:`, or `Reviewed-by:` tags
-- Notable: maintainer merge sign-off; no fuzzer/user bug report
+- `Link: https://patch.msgid.link/20260702204347.187524-1-
+  lombardo.federico.lf@gmail.com`
+- `Signed-off-by: Takashi Iwai <tiwai@suse.de>` (ALSA/HDA maintainer)
+- No `Fixes:`, `Reported-by:`, `Tested-by:`, `Cc:
+  stable@vger.kernel.org`
 
-### Step 1.3: Body analysis
-**Record:**
-- **Bug:** On firmware boot exception, firmware sends `COREDUMP_REQUEST`
-  and expects the driver to dump state then write `COREDUMP_RELEASE`.
-  Current code dumps but never releases or signals boot completion.
-- **Symptom:** Boot thread waits the full `FW_READY_TIMEOUT_MS` (250
-  ms), returns `-ETIMEDOUT` instead of a firmware-failure error;
-  coredump protocol is incomplete.
-- **Root cause:** `CATPT_GLB_REQUEST_CORE_DUMP` handler calls
-  `catpt_coredump()` but does not write `COREDUMP_RELEASE` or
-  `complete(&cdev->fw_ready)`.
-- **Fix approach:** Release firmware from coredump state, complete
-  `fw_ready`, and return `-EREMOTEIO` from `catpt_boot_firmware()` when
-  woken but `ipc->ready` is false.
+**Step 1.3 — Body analysis**
+Record: HP Laptop 15-dw0xxx with subsystem ID `103c:85f0` needs
+`ALC236_FIXUP_HP_MUTE_LED_COEFBIT2` so the audio mute LED correctly
+tracks mute state. Symptom: mute LED does not correctly enable/disable
+with mic mute. Root cause: missing PCI SSID quirk entry in the Realtek
+HDA quirk table.
 
-### Step 1.4: Hidden bug fix?
-**Record:** Yes. Subject says "Complete" rather than "fix", but this is
-incomplete error-path/protocol handling: missing firmware handshake step
-and incorrect boot error classification.
+**Step 1.4 — Hidden bug fix?**
+Record: Not disguised — this is an explicit hardware quirk for
+broken/misconfigured mute-LED behavior on a specific laptop model.
 
 ---
 
-## PHASE 2: DIFF ANALYSIS
+## Phase 2: Diff Analysis
 
-### Step 2.1: Inventory
-**Record:**
-- `sound/soc/intel/catpt/ipc.c` (+10 lines): coredump path completion,
-  debug print on FW ready
-- `sound/soc/intel/catpt/loader.c` (+3 lines): distinguish coredump
-  wakeup from success
-- `sound/soc/intel/catpt/registers.h` (+12 lines): coredump register
-  constants and DRAM I/O helpers
-- **Functions modified:** `catpt_dsp_process_response()`,
-  `catpt_boot_firmware()`
-- **Scope:** Single-driver, 3 files, ~25 net lines — surgical fix
+**Step 2.1 — Inventory**
+Record:
+- 1 file: `sound/hda/codecs/realtek/alc269.c` (+1 line)
+- Function/table: `alc269_fixup_tbl[]`
+- Scope: single-file, surgical, one-line quirk addition
 
-### Step 2.2: Code flow changes
-**Record:**
-- **Hunk 1 (`ipc.c` fw_ready path):** Adds `dev_dbg("FW READY ...")`
-  before arming IPC — diagnostic only.
-- **Hunk 2 (`ipc.c` coredump path):** After `catpt_coredump()`, reads
-  DRAM coredump register; if `CATPT_COREDUMP_REQUEST`, writes
-  `CATPT_COREDUMP_RELEASE`; then `complete(&cdev->fw_ready)`.
-- **Hunk 3 (`loader.c`):** After successful
-  `wait_for_completion_timeout`, if `!cdev->ipc.ready`, return
-  `-EREMOTEIO` instead of continuing boot.
-- **Hunk 4 (`registers.h`):** Adds `CATPT_DRAM_COREDUMP`,
-  request/release values, `catpt_dram_addr`,
-  `catpt_readl_dram`/`catpt_writel_dram` macros.
+**Step 2.2 — Code flow change**
+Record:
+- Before: `103c:85f0` not in `alc269_fixup_tbl[]`;
+  `snd_hda_pick_fixup()` does not apply
+  `ALC236_FIXUP_HP_MUTE_LED_COEFBIT2` for this machine.
+- After: SSID `103c:85f0` maps to `ALC236_FIXUP_HP_MUTE_LED_COEFBIT2`,
+  which runs `alc236_fixup_hp_mute_led_coefbit2()` at
+  `HDA_FIXUP_ACT_PRE_PROBE` and registers mute-LED control via
+  `snd_hda_gen_add_mute_led_cdev()`.
 
-### Step 2.3: Bug mechanism
-**Record:** **Category:** Logic/correctness fix on firmware error path +
-incomplete protocol handshake.
-- **Before:** Coredump during boot → dump created, `ipc->ready = false`,
-  no completion, no RELEASE → 250 ms timeout → `-ETIMEDOUT`.
-- **After:** Coredump during boot → dump + conditional RELEASE +
-  `fw_ready` completion → immediate wakeup → `-EREMOTEIO`.
-- **Runtime path:** Same coredump handler is used for non-boot
-  exceptions; RELEASE is also missing today on that path.
+**Step 2.3 — Bug mechanism**
+Record: Hardware quirk / audio codec quirk. Category (h): missing
+`SND_PCI_QUIRK` entry for a laptop whose ALC236 codec needs coefficient-
+bit-2 mute-LED handling.
 
-### Step 2.4: Fix quality
-**Record:** Obviously correct and minimal. RELEASE is guarded by a
-register read. Boot cannot proceed on failure because `ipc->ready`
-remains false. Low regression risk; no API changes.
+**Step 2.4 — Fix quality**
+Record: Obviously correct — identical pattern to many existing entries
+(e.g. `0x84ae`, `0x86c1`, `0x8706`). Minimal risk; no new logic, only
+table mapping.
 
 ---
 
-## PHASE 3: GIT HISTORY INVESTIGATION
+## Phase 3: Git History Investigation
 
-### Step 3.1: Blame
-**Record:** Coredump case in `ipc.c` introduced in `64b9b1b005743` (Sep
-2020, "Add IPC message handlers"). Boot wait logic in `a9aa6fb3eb6c7`
-(Sep 2020, "Firmware loading and context restore"). Bug present since
-initial coredump support (~5.9 era).
+**Step 3.1 — Blame**
+Record: Insertion point lines 6734–6735 (`0x85de` → `0x8603`) date from
+merge `5d324e5159d9e` (2025-11-28, Linux 6.18 base). Gap at `0x85f0` is
+present in this tree.
 
-### Step 3.2: Fixes: tag
-**Record:** N/A — no `Fixes:` tag in commit message.
+**Step 3.2 — Fixes: tag**
+Record: N/A — no `Fixes:` tag.
 
-### Step 3.3: Related file history
-**Record:** Recent catpt commits in this tree include init and hw_params
-fixes (`7af2d06ec25b5`, `a2f79598c6c1f`). No prior coredump-completion
-fix. This commit is **not** yet in the local tree (buggy code still
-present).
+**Step 3.3 — Related changes**
+Record: This tree already has many similar backported mute-LED quirks:
+- `3210077ed2648` — HP Laptop 15s-eq1xxx
+  (`ALC236_FIXUP_HP_MUTE_LED_COEFBIT2`)
+- `bee43f7b9bc62` — HP Laptop 14s-dr5xxx
+- `7556bd5cd8ef3` — HP Laptop 15-fd0xxx
+- `a424946e00f2e` — HP Pavilion Laptop 16-ag0xxx
+Standalone one-line quirk; no series dependency.
 
-### Step 3.4: Author context
-**Record:** Cezary Rojewski is the original catpt author (2020). Recent
-catpt work in-tree is maintenance/fixes. Mark Brown merged.
+**Step 3.4 — Author context**
+Record: Federico Lombardo (hardware reporter/contributor). Takashi Iwai
+(maintainer) signed off. Consistent with normal ALSA quirk workflow.
 
-### Step 3.5: Dependencies
-**Record:** Message-ID suffix `-2` suggests a 2-patch series; patch 1
-not found in workspace mbox files. The diff is self-contained (adds its
-own register definitions and helpers). **UNVERIFIED:** whether patch 1
-of the series is required; nothing in the diff references symbols from
-an unseen prerequisite.
-
----
-
-## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
-
-### Step 4.1: Original discussion
-**Record:** **UNVERIFIED** — `b4 dig` requires a commit hash (not
-available; commit not in tree). Lore and patch.msgid.link returned
-403/bot protection. Could not read review thread.
-
-### Step 4.2: Reviewers
-**Record:** **UNVERIFIED** — `b4 dig -w` not run (no commitish).
-
-### Step 4.3: Bug report
-**Record:** N/A — no `Reported-by:` or syzbot link.
-
-### Step 4.4: Series context
-**Record:** Message-ID indicates patch 2/2. Coredump infrastructure
-(`catpt_coredump()`, `CATPT_GLB_REQUEST_CORE_DUMP`) already exists in
-this tree from 2020; this patch completes protocol handling rather than
-introducing coredump support.
-
-### Step 4.5: Stable list discussion
-**Record:** **UNVERIFIED** — lore stable search inaccessible.
+**Step 3.5 — Prerequisites**
+Record: `ALC236_FIXUP_HP_MUTE_LED_COEFBIT2` enum, fixup definition, and
+`alc236_fixup_hp_mute_led_coefbit2()` all exist in this tree. Patch
+applies standalone.
 
 ---
 
-## PHASE 5: CODE SEMANTIC ANALYSIS
+## Phase 4: Mailing List and External Research
 
-### Step 5.1: Key functions
-**Record:** `catpt_dsp_process_response()`, `catpt_boot_firmware()`,
-`catpt_coredump()` (called, not modified).
+**Step 4.1 — Original discussion**
+Record: Link in commit message could not be fetched (Anubis bot
+protection). `b4 dig -c` unavailable — commit not present in this
+checkout. UNVERIFIED: full review thread content.
 
-### Step 5.2: Callers
-**Record:**
-- `catpt_dsp_process_response()` ← `catpt_dsp_irq_thread()` (IRQ thread,
-  interrupt bottom half)
-- `catpt_boot_firmware()` ← `catpt_first_boot_firmware()` (probe) and
-  `catpt_resume()` (resume after suspend)
-- Probe failure path: `catpt_probe_components()` →
-  `catpt_first_boot_firmware()` → on error, `catpt_dsp_power_down()`
+**Step 4.2 — Reviewers**
+Record: Takashi Iwai maintainer sign-off confirmed from commit message.
+UNVERIFIED: full recipient list from `b4 dig -w`.
 
-### Step 5.3: Callees
-**Record:** Coredump path uses `catpt_coredump()` → `dev_coredumpv()`;
-new path uses `readl`/`writel` on DRAM via `host_dram_offset` (present
-in `core.h` and device specs).
+**Step 4.3 — Bug report**
+Record: No external bug report or syzbot link. Hardware-specific user
+report implied by author.
 
-### Step 5.4: Reachability
-**Record:** Triggered when ADSP firmware crashes/exceptions during boot
-or runtime. Boot path is hit on every driver probe and resume.
-Unprivileged users cannot directly trigger it, but normal suspend/resume
-and module load are common.
+**Step 4.4 — Related patches**
+Record: Part of ongoing HP mute-LED quirk additions; same fixup reused
+across multiple HP laptops already in this tree.
 
-### Step 5.5: Similar patterns
-**Record:** No other coredump RELEASE handling exists in catpt today.
-`grep` shows no `CATPT_COREDUMP` symbols in the tree before this patch.
+**Step 4.5 — Stable list**
+Record: UNVERIFIED — could not search lore due to bot protection.
+Precedent in this tree: similar quirks (e.g. `a424946e00f2e`) were
+explicitly backported with `Cc: stable@vger.kernel.org`.
 
 ---
 
-## PHASE 6: CROSS-REFERENCE WITH LOCAL TREE (v6.18.44)
+## Phase 5: Code Semantic Analysis
 
-### Step 6.1: Buggy code present?
-**Record:** **Yes.** Current `ipc.c` lines 214–218 handle coredump
-without RELEASE or `complete()`. Current `loader.c` returns only
-`-ETIMEDOUT` on timeout with no `ipc->ready` check. Driver present since
-2020; `CONFIG_SND_SOC_INTEL_CATPT` targets Haswell/Broadwell.
+**Step 5.1 — Key functions**
+Record: `alc269_fixup_tbl[]`, `alc236_fixup_hp_mute_led_coefbit2()`,
+`coef_mute_led_set()`, `snd_hda_pick_fixup()`.
 
-### Step 6.2: Backport difficulty
-**Record:** Clean apply expected — no conflicting recent changes in
-these hunks. New macros use existing `host_dram_offset` field.
+**Step 5.2 — Callers**
+Record: `snd_hda_pick_fixup(codec, alc269_fixup_models,
+alc269_fixup_tbl, alc269_fixups)` called during Realtek codec
+initialization (line 8471 in `alc269.c`), i.e. at HDA codec probe on
+affected hardware.
 
-### Step 6.3: Related fixes already present?
-**Record:** No — `git log --grep=coredump -- sound/soc/intel/catpt/`
-returns empty.
+**Step 5.3 — Callees**
+Record: Fixup configures `spec->mute_led_coef` (idx `0x07`, mask `1`,
+on/off values) and registers LED class device via
+`snd_hda_gen_add_mute_led_cdev()`. Runtime updates go through
+`coef_mute_led_set()` → `alc_update_coef_led()`.
 
----
+**Step 5.4 — Reachability**
+Record: Triggered on boot/module load when HDA Realtek codec probes on
+HP Laptop 15-dw0xxx (`103c:85f0`). Common laptop audio path; not
+userspace-triggerable for exploitation, but affects all owners of this
+hardware.
 
-## PHASE 7: SUBSYSTEM CONTEXT
-
-### Step 7.1: Subsystem criticality
-**Record:** `sound/soc/intel/catpt` — **IMPORTANT** (audio driver), but
-hardware-specific (older Intel Haswell/Broadwell platforms). Not core
-kernel.
-
-### Step 7.2: Activity
-**Record:** Moderate maintenance activity; recent stable backports
-include init and hw_params fixes.
-
----
-
-## PHASE 8: IMPACT AND RISK
-
-### Step 8.1: Who is affected
-**Record:** Users with `CONFIG_SND_SOC_INTEL_CATPT` on Haswell/Broadwell
-systems when ADSP firmware fails during boot or at runtime.
-
-### Step 8.2: Trigger conditions
-**Record:** Firmware exception during boot (probe/resume) or operation.
-Uncommon but real; not timing-dependent race.
-
-### Step 8.3: Failure severity
-**Record:**
-- **Without fix:** Incomplete firmware handshake (no
-  `COREDUMP_RELEASE`); boot waits 250 ms then reports misleading
-  `-ETIMEDOUT`; firmware may remain in coredump state; audio non-
-  functional.
-- **With fix:** Immediate failure detection, correct `-EREMOTEIO`,
-  protocol completed.
-- **Severity:** **MEDIUM-HIGH** for affected hardware — device
-  recovery/protocol correctness, not kernel oops/UAF. Audio is already
-  broken when triggered, but firmware can be left in a bad state without
-  RELEASE.
-
-### Step 8.4: Risk-benefit
-**Record:**
-- **Benefit:** MEDIUM — completes mandatory firmware protocol,
-  faster/correct boot failure handling, better runtime coredump cleanup
-- **Risk:** LOW — ~25 lines, guarded RELEASE write, explicit
-  `ipc->ready` check prevents false-success boot
-- **Ratio:** Favorable
+**Step 5.5 — Similar patterns**
+Record: 18+ existing `ALC236_FIXUP_HP_MUTE_LED_COEFBIT2` entries in this
+tree, including nearby `0x84ae`, `0x86c1`, `0x8706`, `0x89a0` (HP Laptop
+15-dw4xxx). Same fixup, different SSIDs.
 
 ---
 
-## PHASE 9: FINAL SYNTHESIS
+## Phase 6: Cross-Reference Against Local Tree
 
-### Step 9.1: Evidence summary
+**Step 6.1 — Buggy code present?**
+Record: **Yes.** Local tree is **Linux 6.18.44**
+(`v6.18.44-1-g2736c32da98b9`). `0x85f0` is absent from
+`alc269_fixup_tbl[]`; confirmed gap between `0x85de` and `0x8603`.
+Prerequisite fixup infrastructure is present.
 
-**FOR backport:**
-- Real bug since 2020: incomplete coredump protocol (missing
-  `COREDUMP_RELEASE`)
-- Boot path misreports failure as timeout instead of remote I/O error
-- Unnecessary 250 ms wait on known firmware failure
-- Small, self-contained, maintainer-authored fix
-- Buggy code confirmed present in v6.18.44
-- Applies to both probe and resume boot paths
+**Step 6.2 — Backport complications**
+Record: Clean one-line apply between existing sorted entries. No
+conflicts expected.
 
-**AGAINST backport:**
-- No kernel crash, UAF, security issue, or data corruption
-- Trigger requires firmware failure (uncommon)
-- Niche older hardware
-- Device is already non-functional when bug triggers
-- Probe failure calls `catpt_dsp_power_down()` (DSP reset), which may
-  mitigate stuck state
-- Mailing list review/stable nomination not verified
-- Possible patch 1/2 series dependency unverified
+**Step 6.3 — Related fixes already present?**
+Record: The fixup type and many sibling quirk entries are already
+backported; this specific SSID is the only missing piece.
 
-**Unresolved:** Lore review thread; whether patch 1 is required;
-explicit stable nomination.
+---
 
-### Step 9.2: Stable rules checklist
-1. Obviously correct and tested? **PASS** — logic is clear; no `Tested-
-   by` but maintainer merged
-2. Fixes a real bug affecting users? **PASS** — incomplete firmware
-   protocol on error path
-3. Important issue? **PASS (MEDIUM)** — firmware stuck in coredump
-   state, misleading errors, delayed failure detection on probe/resume;
-   not kernel crash级别
-4. Small and contained? **PASS** — 3 files, ~25 lines
-5. No new features/APIs? **PASS** — completes existing coredump handling
-6. Can apply to local tree? **PASS** — driver and buggy code present;
-   clean apply expected
+## Phase 7: Subsystem and Maintainer Context
 
-### Step 9.3: Exception categories
-**Record:** None (not device ID, quirk, DT, build, or docs fix).
+**Step 7.1 — Subsystem**
+Record: `sound/hda` — ALSA HDA Realtek codec driver. Criticality:
+**IMPORTANT** (peripheral driver, but widely used on consumer laptops).
 
-### Step 9.4: Decision rationale
-This is a genuine, long-standing protocol bug in the Intel catpt driver.
-When firmware exceptions occur, the driver partially handles coredump
-but never completes the handshake the firmware expects
-(`COREDUMP_RELEASE`), and the boot path misinterprets the situation as a
-generic timeout. While the device is already broken when this triggers,
-leaving firmware in coredump state without release is a real correctness
-defect that can impede recovery, and the fix is minimal with very low
-regression risk. It meets stable criteria for a contained driver bug fix
-on an error path affecting probe and resume.
+**Step 7.2 — Activity**
+Record: Actively maintained — numerous Realtek quirk commits in this
+6.18.y tree in 2026, including multiple HP mute-LED entries.
+
+---
+
+## Phase 8: Impact and Risk Assessment
+
+**Step 8.1 — Who is affected**
+Record: Owners of HP Laptop 15-dw0xxx with Realtek ALC236 and SSID
+`103c:85f0`. Driver-specific, hardware-specific.
+
+**Step 8.2 — Trigger conditions**
+Record: Every boot / audio subsystem init on affected hardware. Common
+and deterministic for those machines. Not a security vector.
+
+**Step 8.3 — Failure mode severity**
+Record: Mute LED does not correctly reflect mic mute state (UX/hardware-
+indicator bug). Severity: **LOW** — no crash, corruption, deadlock, or
+security impact. Audio itself may still work; only LED sync is wrong.
+
+**Step 8.4 — Risk vs benefit**
+Record:
+- Benefit: **MEDIUM** for affected HP users (correct mute-LED behavior)
+- Risk: **VERY LOW** (one table line, existing fixup, proven pattern)
+- Ratio: Strongly favorable; matches established stable practice for HDA
+  quirk additions in this tree
+
+---
+
+## Phase 9: Final Synthesis
+
+**Step 9.1 — Evidence compile**
+
+FOR backport:
+- Real hardware bug on a specific HP laptop model
+- One-line, obviously correct hardware quirk
+- Uses existing `ALC236_FIXUP_HP_MUTE_LED_COEFBIT2` already in 6.18.44
+- Maintainer (Takashi Iwai) signed off
+- Identical class of fix already backported to this tree (e.g.
+  `3210077`, `bee43f7b`, `7556bd5`, `a424946e`)
+- Fits stable exception category: audio codec hardware quirk
+- Clean apply expected
+
+AGAINST backport:
+- Not a crash, security, or data-integrity issue
+- Affects only one laptop model/SSID
+- No `Tested-by:` or explicit stable nomination in provided message
+- Mailing list discussion unverified
+
+**Step 9.2 — Stable rules checklist**
+1. Obviously correct and tested? **PASS** (pattern proven; maintainer
+   ACK; UNVERIFIED: author hardware test)
+2. Fixes a real bug affecting users? **PASS** (mute LED broken on
+   specific hardware)
+3. Important issue? **PASS** (hardware quirk exception — fixes real-
+   world hardware behavior; severity LOW but category is standard stable
+   material)
+4. Small and contained? **PASS** (+1 line)
+5. No new features/APIs? **PASS** (table entry only)
+6. Can apply to local tree? **PASS**
+
+**Step 9.3 — Exception category**
+Record: **Hardware quirk / audio codec quirk** — explicit stable
+exception.
+
+**Step 9.4 — Decision rationale**
+For Linux 6.18.44, the missing quirk is present, the required fixup
+infrastructure exists, and this tree already routinely backports
+identical HP mute-LED quirk entries. This is low-risk, hardware-
+specific, and matches established stable practice.
 
 ---
 
 ## Verification
 
-- [Phase 1] Parsed subject, tags, body from provided commit message
-- [Phase 1] Confirmed Message-ID indicates patch 2 of series
-  (`1439233-2`)
-- [Phase 2] Read current `ipc.c`, `loader.c`, `registers.h` — buggy code
-  present, matches pre-patch state
-- [Phase 2] Confirmed `FW_READY_TIMEOUT_MS` is 250 ms in `loader.c`
-- [Phase 3] `git describe HEAD` → `v6.18.44`; `make kernelversion` →
-  `6.18.44`
-- [Phase 3] `git blame` on coredump case → `64b9b1b005743` (Sep 2020)
-- [Phase 3] `git blame` on boot wait → `a9aa6fb3eb6c7` (Sep 2020)
-- [Phase 3] `git log --oneline -20 -- sound/soc/intel/catpt/` — no
-  coredump fix present
-- [Phase 3] `git merge-base --is-ancestor 4fac9b31d0b9d HEAD` → catpt
-  driver in tree
-- [Phase 4] `b4 dig` — requires commitish; not available (commit not in
-  tree)
-- [Phase 4] WebFetch lore/patch.msgid.link — blocked (403/bot
-  protection)
-- [Phase 4] Grep workspace `*.mbx` for series — no match
-- [Phase 5] Traced callers: `catpt_boot_firmware` from probe/resume;
-  `catpt_dsp_process_response` from IRQ thread
-- [Phase 5] Read `catpt_coredump()` in `dsp.c` — dumps via
-  `dev_coredumpv()`
-- [Phase 5] Read `catpt_ipc_arm()` — sets `ipc->ready = true` only on
-  successful FW ready
-- [Phase 5] Confirmed `host_dram_offset` exists in `core.h` and device
-  specs
-- [Phase 6] Grep `CATPT_COREDUMP` — not present (fix not applied)
-- [Phase 6] Read probe error path in `device.c` —
-  `catpt_dsp_power_down()` on boot failure
-- [Phase 7] Read `Kconfig` — `SND_SOC_INTEL_CATPT` for Haswell/Broadwell
-- [Phase 8] Assessed failure modes from code flow analysis
-- **UNVERIFIED:** Mailing list review feedback and stable nominations
-- **UNVERIFIED:** Whether patch 1 of the series is a prerequisite
+- [Phase 1] Parsed subject, tags, and body from provided commit message
+- [Phase 1] Confirmed maintainer sign-off from Takashi Iwai
+- [Phase 2] Diff: +1 line `SND_PCI_QUIRK(0x103c, 0x85f0, ...)` in
+  `alc269_fixup_tbl[]`
+- [Phase 2] Read `alc236_fixup_hp_mute_led_coefbit2()` at lines
+  1551–1563
+- [Phase 3] `git blame -L 6734,6736`: gap confirmed at `0x85f0`
+- [Phase 3] `git log --grep="mute LED"`: multiple similar quirks already
+  in 6.18.y
+- [Phase 3] `git show 3210077`, `git show a424946e`: confirmed backport
+  pattern for same quirk class
+- [Phase 4] WebFetch of patch link: blocked (Anubis) — UNVERIFIED
+- [Phase 4] `b4 dig -c`: not usable (commit not in tree) — UNVERIFIED
+- [Phase 5] `grep alc236_fixup_hp_mute_led_coefbit2`: function and 18+
+  quirk users found
+- [Phase 5] Read `snd_hda_pick_fixup()` call site at line 8471
+- [Phase 6] `git describe HEAD`: v6.18.44-1-g2736c32da98b9
+- [Phase 6] `grep 0x85f0 sound/hda/codecs/realtek/alc269.c`: no match —
+  quirk missing
+- [Phase 6] `grep ALC236_FIXUP_HP_MUTE_LED_COEFBIT2`: fixup present with
+  full implementation
+- [Phase 8] Assessed severity as LOW (LED UX), risk as VERY LOW
 
 **YES**
 
- sound/soc/intel/catpt/ipc.c       |  8 ++++++++
- sound/soc/intel/catpt/loader.c    |  3 +++
- sound/soc/intel/catpt/registers.h | 12 ++++++++++++
- 3 files changed, 23 insertions(+)
+ sound/hda/codecs/realtek/alc269.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/sound/soc/intel/catpt/ipc.c b/sound/soc/intel/catpt/ipc.c
-index d26863249097f..952c26e5d0e6c 100644
---- a/sound/soc/intel/catpt/ipc.c
-+++ b/sound/soc/intel/catpt/ipc.c
-@@ -205,6 +205,7 @@ static void catpt_dsp_process_response(struct catpt_dev *cdev, u32 header)
- 		memcpy_fromio(&config, cdev->lpe_ba + off, sizeof(config));
- 		trace_catpt_ipc_payload((u8 *)&config, sizeof(config));
- 
-+		dev_dbg(cdev->dev, "FW READY 0x%08x\n", header);
- 		catpt_ipc_arm(ipc, &config);
- 		complete(&cdev->fw_ready);
- 		return;
-@@ -215,6 +216,13 @@ static void catpt_dsp_process_response(struct catpt_dev *cdev, u32 header)
- 		dev_err(cdev->dev, "ADSP device coredump received\n");
- 		ipc->ready = false;
- 		catpt_coredump(cdev);
-+
-+		if (catpt_readl_dram(cdev, COREDUMP) == CATPT_COREDUMP_REQUEST) {
-+			dev_dbg(cdev->dev, "releasing firmware from the coredump state\n");
-+			catpt_writel_dram(cdev, COREDUMP, CATPT_COREDUMP_RELEASE);
-+		}
-+
-+		complete(&cdev->fw_ready);
- 		/* TODO: attempt recovery */
- 		break;
- 
-diff --git a/sound/soc/intel/catpt/loader.c b/sound/soc/intel/catpt/loader.c
-index 696d84314eeb5..680efad5f458d 100644
---- a/sound/soc/intel/catpt/loader.c
-+++ b/sound/soc/intel/catpt/loader.c
-@@ -626,6 +626,9 @@ int catpt_boot_firmware(struct catpt_dev *cdev, bool restore)
- 	if (!ret) {
- 		dev_err(cdev->dev, "firmware ready timeout\n");
- 		return -ETIMEDOUT;
-+	/* Wake up does not mean FW is ready, an exception could occur. */
-+	} else if (!cdev->ipc.ready) {
-+		return -EREMOTEIO;
- 	}
- 
- 	/* update sram pg & clock once done booting */
-diff --git a/sound/soc/intel/catpt/registers.h b/sound/soc/intel/catpt/registers.h
-index 6c1ad28c6d692..64bd534a76ff4 100644
---- a/sound/soc/intel/catpt/registers.h
-+++ b/sound/soc/intel/catpt/registers.h
-@@ -124,6 +124,11 @@
- #define CATPT_SSCR2_DEFAULT		0x0
- #define CATPT_SSPSP2_DEFAULT		0x0
- 
-+/* Coredump register and its states */
-+#define CATPT_DRAM_COREDUMP		0x1F4
-+#define CATPT_COREDUMP_REQUEST		UINT_MAX
-+#define CATPT_COREDUMP_RELEASE		0
-+
- /* Physically the same block, access address differs between host and dsp */
- #define CATPT_DSP_DRAM_OFFSET		0x400000
- #define catpt_to_host_offset(offset)	((offset) & ~(CATPT_DSP_DRAM_OFFSET))
-@@ -137,6 +142,8 @@
- 
- /* registry I/O helpers */
- 
-+#define catpt_dram_addr(cdev) \
-+	((cdev)->lpe_ba + (cdev)->spec->host_dram_offset)
- #define catpt_shim_addr(cdev) \
- 	((cdev)->lpe_ba + (cdev)->spec->host_shim_offset)
- #define catpt_dma_addr(cdev, dma) \
-@@ -151,6 +158,11 @@
- #define catpt_writel_ssp(cdev, ssp, reg, val) \
- 	writel(val, catpt_ssp_addr(cdev, ssp) + (reg))
- 
-+#define catpt_readl_dram(cdev, reg) \
-+	readl(catpt_dram_addr(cdev) + CATPT_DRAM_##reg)
-+#define catpt_writel_dram(cdev, reg, val) \
-+	writel(val, catpt_dram_addr(cdev) + CATPT_DRAM_##reg)
-+
- #define catpt_readl_shim(cdev, reg) \
- 	readl(catpt_shim_addr(cdev) + CATPT_SHIM_##reg)
- #define catpt_writel_shim(cdev, reg, val) \
+diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
+index 36d5dfa9e1db8..a07f40e9541ee 100644
+--- a/sound/hda/codecs/realtek/alc269.c
++++ b/sound/hda/codecs/realtek/alc269.c
+@@ -6732,6 +6732,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x103c, 0x854a, "HP EliteBook 830 G6", ALC285_FIXUP_HP_GPIO_LED),
+ 	SND_PCI_QUIRK(0x103c, 0x85c6, "HP Pavilion x360 Convertible 14-dy1xxx", ALC295_FIXUP_HP_MUTE_LED_COEFBIT11),
+ 	SND_PCI_QUIRK(0x103c, 0x85de, "HP Envy x360 13-ar0xxx", ALC285_FIXUP_HP_ENVY_X360),
++	SND_PCI_QUIRK(0x103c, 0x85f0, "HP Laptop 15-dw0xxx", ALC236_FIXUP_HP_MUTE_LED_COEFBIT2),
+ 	SND_PCI_QUIRK(0x103c, 0x8603, "HP Omen 17-cb0xxx", ALC285_FIXUP_HP_MUTE_LED),
+ 	SND_PCI_QUIRK(0x103c, 0x860c, "HP ZBook 17 G6", ALC285_FIXUP_HP_GPIO_AMP_INIT),
+ 	SND_PCI_QUIRK(0x103c, 0x860f, "HP ZBook 15 G6", ALC285_FIXUP_HP_GPIO_AMP_INIT),
 -- 
 2.53.0
 
