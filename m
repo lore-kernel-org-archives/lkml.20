@@ -1,79 +1,78 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C6183002B9
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 08:41:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 083673CFF62
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 08:41:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788165685; cv=none; b=oEdSr/EdLeRlTiTwgoY/gHTt6Z0PNPMuHv9K+xaxfGthNO0Uy1CCPVS269ytDgp+5Zt+ZScmzZMf3UlgL7oAXv7a0o9oPq/0nZ/4/9+lt7yJUbIuFd1lz7NymhgG6WtYVuhWHhMuzv9rCdR5Krz41BfiJio49DmwNH/VZXsP5jE=
+	t=1788165696; cv=none; b=Fa9OAG09XD91ZTcVRYOHmo4sPTxK0GbdL315wOATYg06M1aI+9YVY1m7TX8R+sx3xkLS/cJi6bpoj8zkkIASU/9d37mpr1Rgo7qjiOpHZcsZsfX+KDWrkO6TYsExRoSAoe41G2Jw56WSR4ah1GT0pornBq7RP82vrV+Yx3A8K4s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788165685; c=relaxed/simple;
-	bh=AnnLzZQASW3ffm7HTAuT/jmzPEia7UpYkcE3pF7Rkko=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Lc6ejPSxkAbbCvkHhDAg65jRt2al20I5zzdxAShThcJ9u23CdZCsjHFHMLqbySkOgtPr3dmTY5euzxG4Aq5fez9JcB8pd10C3B290D3fhpYkFwzsgsTYzn4EqyOrBU1nmIWAv4ZPWub+zf+HRtuzJ08p6nWpIjr9BsfrzBBBGIA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=XIxRc4Ms; arc=none smtp.client-ip=192.198.163.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1788165696; c=relaxed/simple;
+	bh=to6zl/n2CMI8LEhJSWsLmG+6IaLANuFS6dLWdh6lZl0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=c7UNPq5SLL+WUBY1Q54wnCyae4Gnby2egCxmUQxr8vtlYG8XbA3Rwj8/PdPLnWr4ud0pM/Uhuk/COLXQVgrP52TlNAI887hKelzoXQ2Y9QDeLTkR+MVtSO0RfiECOPNwt69laOSHgSYP0DyhExCF+0W0IscjeQwgZqtEYd31lkI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IHXWP9Xt; arc=none smtp.client-ip=209.85.216.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="XIxRc4Ms"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788165684; x=1819701684;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=AnnLzZQASW3ffm7HTAuT/jmzPEia7UpYkcE3pF7Rkko=;
-  b=XIxRc4MsQ2FHUPYkQpeJfQbDAzdfIIaq1APFi036yhIod9UkupM+GZ+C
-   dPzVdPqbDA+g9HQIYNqKwCnDy6rD5uhPj4nxKTPtIxxlSCzBWoelkY3ip
-   bFJo9ZfrPldfFxCcvRIsD145VdF/P6Cxo/jbUv51HHYLS0WxKsrWVAvdL
-   cqmmn2gGFQeo2QOC56kgEJ0gKHNCI40/i+lqhlB20dXGAB3kd/HIFcMVb
-   FXSUIK35FEuEaJc95jxKFZU4EB/pH0fzKtXXjP3hfBxIpNIcu30/RUpfI
-   lkwXFCbV9nWUY5g482reB+wNSDRaZsUNFpXcsDLmvTD6SEXAbQEDrldY5
-   A==;
-X-CSE-ConnectionGUID: s199py4MQxGhkF/JebaTMg==
-X-CSE-MsgGUID: jOQsedyKRJ6QWzXTBlyfBA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11891"; a="92377454"
-X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
-   d="scan'208";a="92377454"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 01:41:23 -0700
-X-CSE-ConnectionGUID: x3cXeIogRP+9WYIvzuUX6Q==
-X-CSE-MsgGUID: W9En3HfcRAO15TxpsdsfNQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
-   d="scan'208";a="274009046"
-Received: from junjie-desk-dev.bj.intel.com (HELO junjie-desk-dev.tail2c02c1.ts.net) ([10.238.152.71])
-  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 01:41:18 -0700
-From: Junjie Cao <junjie.cao@intel.com>
-To: syzbot+8785aaf121cfb2141e0d@syzkaller.appspotmail.com
-Cc: liam.howlett@oracle.com,
-	akpm@linux-foundation.org,
-	bigeasy@linutronix.de,
-	david@kernel.org,
-	harry.yoo@oracle.com,
-	jannh@google.com,
-	jpoimboe@kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IHXWP9Xt"
+Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-38d489b6b71so3624167a91.0
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 01:41:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788165694; x=1788770494; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=nqfdJve8Ni4RVv0b2fgjV6qAXoGzSYyxkoSoeuiqXN4=;
+        b=IHXWP9Xtlg3hy0oWbqLNzxTIS7X8CestPW4oRm4nMAYsj1MGwbC2c0B+IIrw84e5Yp
+         g85KtM6u9VkvFpK1CKZ+Z7oEG4gesiDVZziiPYvQbz28vQK0f4WCc7mrwdsh5BrEqJQG
+         v4Rf4+JUnFvvKMzClZAjQ7V6tPHguqZ8kKx4eBBBhpZE0d81EUjsteQ0n6Y0C+e8eXZt
+         03ejxkEdzIC1ymT7C5fuqf5ixGUWU+LPQTtK4xcQLIc21SL8v5mhUPZaC8O4SlCdlBFQ
+         e3zUbQm+GbQs0RJI23LyVpTLKAjvUg9szcBc9JdCf04x1J6CrBse3JdEb0ccXo6Tenqo
+         RjTQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788165694; x=1788770494;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=nqfdJve8Ni4RVv0b2fgjV6qAXoGzSYyxkoSoeuiqXN4=;
+        b=hUFz4iJZg1nHtI55lX4BjcxM8Pto55pIEk3UWQvXklTjap8RHiSaEA62WtF3IUkVS/
+         gwkAiWoihBk/YSSSadEx9TpP+6jfWQofRLtkNPk8d7Wnw08r+Cg1+JU7fcAw6O69BnGd
+         rQx6uCRmEHJvaOeNMW9Fi5KnjaVerhP+JR3eeu/YjI7xTi2rJQtABdqZFIxPP5tGHePR
+         7/8Eo7nf7tCcM9SjHoR3pSvTbzm78U0srhlBhsLg1VxzOQssUVCkJjbtQYE3PXnUv/fy
+         AJcKH+57luy5x4EOG6IQtibpS23ftJH7SxWoM7Y2hcQFWRw0LzC+WYia1cNDO8r4v5iw
+         /I1A==
+X-Forwarded-Encrypted: i=1; AKwUvByfMEFpEZNH8fyEdAAUiHETxdBe/w+91expMd+o95iqYLuefE9bnDmNkrNl60o8Ryj8ygI/DfwqeawgQQY=@vger.kernel.org
+X-Gm-Message-State: AFuF++m48Afvct9N9MtmcTlnZMyjvj/XLTwVJJ8MQpqMu2vREp2ARPqT
+	x/27G1niHLyDuzPNTKE5iB2Fv42XmeHH5ll54xZ7zDR/3iKYs3FqgmjU
+X-Gm-Gg: AYBFou1nLZx1d+6V1qT4k9q+c1Yl/vhojn9osufuZFLg5x5gfELImaxh9q6sfe2ETAA
+	HlxuXUs/rRT3OM+kd3aCCxa6DFQnCC64e0acr0adua8rZ8bQbJutT9BLiJyFxKr0zS/DQU3ECQD
+	O9D2C17o4TU0B21/v1QiG/RBsMkwAy792D4U0i+aPi+qBaWewTYne/6ef6z6ebJVAGT9yTLDmGM
+	5nkmCh6BinKt0j5sANHJORjfpG2vMtkSq720z07SismfleHxsQkdbRKafGTVABCE8ven7ke42R2
+	IAF6HWdouxI/s/5uPJW3K7d9rB5x1JtwDxZ8dIhinh22ggvgLmRpjZIwLG/CO5245OCfhYZoW/5
+	RSK7NIbyxptgGd7Ny/iT4Qfr7XnIPYIXJMyg070XvCbZypYJ3qciLIMJ7cArfwpReQ4T0IixXL3
+	LU8pEJxxWW0MAsPJXeT5K3hOJvU8HNtKQvgfJkEhT1I/Gvpq3fF7MccVMjGL88eqlVsQf0lDT47
+	1NM+uaOuYH8Dxynskp2Jp9pqrUzoNbYkbDp0kvtFw==
+X-Received: by 2002:a17:90b:3c89:b0:398:9be8:ea66 with SMTP id 98e67ed59e1d1-398f86c802fmr2915772a91.19.1788165694102;
+        Mon, 31 Aug 2026 01:41:34 -0700 (PDT)
+Received: from ian-lin-DREAMBOOK-PRO-14V.. ([2401:e180:8832:3ee7:cbb8:f1fb:c6e2:ba18])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396b0fd5c34sm20592434a91.8.2026.08.31.01.41.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Aug 2026 01:41:33 -0700 (PDT)
+From: Ian Lin <jisayme@gmail.com>
+To: =?UTF-8?q?Bj=C3=B8rn=20Mork?= <bjorn@mork.no>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Johan Hovold <johan@kernel.org>,
+	netdev@vger.kernel.org,
+	linux-usb@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	lorenzo.stoakes@oracle.com,
-	peterz@infradead.org,
-	pfalcato@suse.de,
-	riel@surriel.com,
-	syzkaller-bugs@googlegroups.com,
-	vbabka@suse.cz,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	jhs@mojatatu.com,
-	jiri@resnulli.us,
-	vinicius.gomes@intel.com
-Subject: Re: [syzbot] [mm?] INFO: rcu detected stall in sys_munmap (2)
-Date: Mon, 31 Aug 2026 16:41:12 +0800
-Message-ID: <20260831084112.410440-1-junjie.cao@intel.com>
+	Ian Lin <jisayme@gmail.com>
+Subject: [PATCH net-next v3] net: usb: qmi_wwan: add Compal EXM-G1x support
+Date: Mon, 31 Aug 2026 16:41:24 +0800
+Message-ID: <20260831084124.65074-1-jisayme@gmail.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <6945a977.a70a0220.207337.011c.GAE@google.com>
-References: <6945a977.a70a0220.207337.011c.GAE@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -82,142 +81,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/netdev/net.git a8455260b2e9c024d1872ac1c094793d55a7e537
+The Compal EXM-G1x is a Qualcomm SDX12-based LTE modem. Add support for
+its QMI WWAN interface 8 using the DTR quirk.
 
-diff --git a/net/sched/sch_taprio.c b/net/sched/sch_taprio.c
-index 39ac5b97aa3a..901dfd2484e1 100644
---- a/net/sched/sch_taprio.c
-+++ b/net/sched/sch_taprio.c
-@@ -83,6 +83,10 @@ struct sched_gate_list {
- 	s64 cycle_time;
- 	s64 cycle_time_extension;
- 	s64 base_time;
-+	/* min(cycle_time, sum of intervals): the software schedule restarts
-+	 * the list after the last entry even when cycle_time is not up yet.
-+	 */
-+	s64 period;
- };
- 
- struct taprio_sched {
-@@ -871,12 +875,13 @@ static struct sk_buff *taprio_dequeue(struct Qdisc *sch)
- }
- 
- static bool should_restart_cycle(const struct sched_gate_list *oper,
--				 const struct sched_entry *entry)
-+				 const struct sched_entry *entry,
-+				 ktime_t end_time)
- {
- 	if (list_is_last(&entry->list, &oper->entries))
- 		return true;
- 
--	if (ktime_compare(entry->end_time, oper->cycle_end_time) == 0)
-+	if (ktime_compare(end_time, oper->cycle_end_time) == 0)
- 		return true;
- 
- 	return false;
-@@ -925,8 +930,9 @@ static enum hrtimer_restart advance_sched(struct hrtimer *timer)
- 	int num_tc = netdev_get_num_tc(dev);
- 	struct sched_entry *entry, *next;
- 	struct Qdisc *sch = q->root;
--	ktime_t end_time;
--	int tc;
-+	ktime_t end_time, next_start, now;
-+	int budget, tc;
-+	s64 behind;
- 
- 	spin_lock(&q->current_entry_lock);
- 	entry = rcu_dereference_protected(q->current_entry,
-@@ -952,23 +958,49 @@ static enum hrtimer_restart advance_sched(struct hrtimer *timer)
- 		goto first_run;
- 	}
- 
--	if (should_restart_cycle(oper, entry)) {
--		next = list_first_entry(&oper->entries, struct sched_entry,
--					list);
--		oper->cycle_end_time = ktime_add_ns(oper->cycle_end_time,
--						    oper->cycle_time);
--	} else {
--		next = list_next_entry(entry, list);
-+	now = hrtimer_cb_get_time(timer);
-+	end_time = entry->end_time;
-+	behind = ktime_sub(now, end_time);
-+
-+	/* Behind, e.g. delayed timer or stepped clock: skip whole periods
-+	 * arithmetically and walk at most one more to the entry covering
-+	 * now, instead of replaying the backlog one expiry at a time. The
-+	 * cap bounds the walk; a leftover is picked up by the next expiry.
-+	 */
-+	if (unlikely(behind >= oper->period)) {
-+		s64 jump = div64_s64(behind, oper->period) * oper->period;
-+
-+		end_time = ktime_add_ns(end_time, jump);
-+		oper->cycle_end_time = ktime_add_ns(oper->cycle_end_time, jump);
- 	}
- 
--	end_time = ktime_add_ns(entry->end_time, next->interval);
--	end_time = min_t(ktime_t, end_time, oper->cycle_end_time);
-+	budget = 2 * oper->num_entries;
-+	do {
-+		if (should_restart_cycle(oper, entry, end_time)) {
-+			next = list_first_entry(&oper->entries,
-+						struct sched_entry, list);
-+			oper->cycle_end_time = ktime_add_ns(oper->cycle_end_time,
-+							    oper->period);
-+		} else {
-+			next = list_next_entry(entry, list);
-+		}
-+
-+		next_start = end_time;
-+		end_time = ktime_add_ns(next_start, next->interval);
-+		end_time = min_t(ktime_t, end_time, oper->cycle_end_time);
-+		entry = next;
-+	} while (unlikely(ktime_compare(end_time, now) <= 0) && budget--);
- 
-+	/* next can be the entry already published as q->current_entry (a
-+	 * single-entry schedule, or a catch-up of whole periods), so the
-+	 * close times and budgets below are rewritten in place while
-+	 * taprio_dequeue_from_txq() may be reading them.
-+	 */
- 	for (tc = 0; tc < num_tc; tc++) {
- 		if (next->gate_duration[tc] == oper->cycle_time)
- 			next->gate_close_time[tc] = KTIME_MAX;
- 		else
--			next->gate_close_time[tc] = ktime_add_ns(entry->end_time,
-+			next->gate_close_time[tc] = ktime_add_ns(next_start,
- 								 next->gate_duration[tc]);
- 	}
- 
-@@ -1130,6 +1162,8 @@ static int parse_taprio_schedule(struct taprio_sched *q, struct nlattr **tb,
- 				 struct sched_gate_list *new,
- 				 struct netlink_ext_ack *extack)
- {
-+	struct sched_entry *entry;
-+	ktime_t cycle = 0;
- 	int err = 0;
- 
- 	if (tb[TCA_TAPRIO_ATTR_SCHED_SINGLE_ENTRY]) {
-@@ -1152,13 +1186,10 @@ static int parse_taprio_schedule(struct taprio_sched *q, struct nlattr **tb,
- 	if (err < 0)
- 		return err;
- 
--	if (!new->cycle_time) {
--		struct sched_entry *entry;
--		ktime_t cycle = 0;
--
--		list_for_each_entry(entry, &new->entries, list)
--			cycle = ktime_add_ns(cycle, entry->interval);
-+	list_for_each_entry(entry, &new->entries, list)
-+		cycle = ktime_add_ns(cycle, entry->interval);
- 
-+	if (!new->cycle_time) {
- 		if (cycle < 0 || cycle > INT_MAX) {
- 			NL_SET_ERR_MSG(extack, "'cycle_time' is too big");
- 			return -EINVAL;
-@@ -1172,6 +1203,7 @@ static int parse_taprio_schedule(struct taprio_sched *q, struct nlattr **tb,
- 		return -EINVAL;
- 	}
- 
-+	new->period = min(new->cycle_time, cycle);
- 	taprio_calculate_gate_durations(q, new);
- 
- 	return 0;
+Tested on a Compal EXM-G1x modem.
+
+Assisted-by: Codex:GPT-5
+Signed-off-by: Ian Lin <jisayme@gmail.com>
+---
+v3:
+  - base on net-next and mark the target tree in the subject
+  - add AI assistance attribution
+  - post as a fresh thread
+v2: https://lore.kernel.org/20260828082309.12513-1-jisayme@gmail.com/
+  - split QMI WWAN support into a separate patch
+  - identify the Qualcomm SDX12 chipset
+  - keep the device entry sorted and add the product name
+v1: https://lore.kernel.org/20260828075644.6228-1-jisayme@gmail.com/
+
+ drivers/net/usb/qmi_wwan.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/net/usb/qmi_wwan.c b/drivers/net/usb/qmi_wwan.c
+index 8178a8758..fdfdcf24d 100644
+--- a/drivers/net/usb/qmi_wwan.c
++++ b/drivers/net/usb/qmi_wwan.c
+@@ -1446,6 +1446,7 @@ static const struct usb_device_id products[] = {
+ 	{QMI_QUIRK_SET_DTR(0x2c7c, 0x0316, 3)},	/* Quectel RG255C */
+ 	{QMI_QUIRK_SET_DTR(0x2cb7, 0x0104, 4)},	/* Fibocom NL678 series */
+ 	{QMI_QUIRK_SET_DTR(0x2cb7, 0x0112, 0)},	/* Fibocom FG132 */
++	{QMI_QUIRK_SET_DTR(0x04b7, 0x8217, 8)},	/* Compal EXM-G1x */
+ 	{QMI_FIXED_INTF(0x0489, 0xe0b4, 0)},	/* Foxconn T77W968 LTE */
+ 	{QMI_FIXED_INTF(0x0489, 0xe0b5, 0)},	/* Foxconn T77W968 LTE with eSIM support*/
+ 	{QMI_FIXED_INTF(0x2692, 0x9025, 4)},    /* Cellient MPL200 (rebranded Qualcomm 05c6:9025) */
+
+base-commit: 1bb784eb6e38fd73143f021608e4ef3095d0c0d7
+-- 
+2.43.0
