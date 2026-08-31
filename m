@@ -1,156 +1,136 @@
-Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11020117.outbound.protection.outlook.com [52.101.69.117])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com [209.85.167.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7C3C3D171B
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 10:58:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.117
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788173929; cv=fail; b=im7RRng4xHcGan/2ZA5sxsxUAiwa+fCzMmx2G2AOTw5diCKQ/K4t5Ga3qUEi583f08lgGafPC0PumYvWIlGw2In5WD9GjpSRpsySNlnlX2bt7rs/qvrOwVUzb8dVXXv3AY1PiVJ72tRnXlu/bfdOHLKsjgHPPVfPnQxTgd6Ilh0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788173929; c=relaxed/simple;
-	bh=vUqADphE/ipf9WU689X3q+g5qWtfP+7UDdn2DNvTyXY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=UOTSIs+S/+ev4Diq9H75bRpeCzm+fTSaxjLX7iXTo97zRExpAsGwU7jSp0LLyTp+qyDxONw+xGMA1wskze+cVi97Oh2d3uxpMQcWJ6M2EL28syAYK6tKRbo49uKV3Vwr6qxhAdf0oHjYK9XhcbZ2F8sKh8trWdZIQjTCHydFy9Q=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kuleuven.be; spf=pass smtp.mailfrom=kuleuven.be; dkim=pass (1024-bit key) header.d=kuleuven.be header.i=@kuleuven.be header.b=dvAv+rKC; arc=fail smtp.client-ip=52.101.69.117
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kuleuven.be
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kuleuven.be
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 376DD340417
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 11:00:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.42
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788174042; cv=none; b=ZJpIkvMRjI3XyT1peKajuL37PfkpdSx1D81bKFqMp4/jtUAgs5w6SHJtvM44/qHdNHL8Cxmz/r4bp1idBinHsXu+82tsNJ+um5wzkkKUcwjHPPNqgL0TusEf7UCIqW8+lFSucwdtCvcTgv4HLBpHrlZ5paXILEAwB+F/KL4oiGM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788174042; c=relaxed/simple;
+	bh=qLSDHmt0uiYBxN+JEkYuUN9wyR36Mq074xndRfuUSEY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=j4ZqVzerv2xivJxkyOuj2WR76EH5tT4wWN7OuA+7sowCRnHUw0RaDviRY8LU4xlVKvFT8Mw8XVX9ctJ7tpV5Dh4I5O5A21248HWxyuT4L/skw2hqVju5GmKbqEAoaFrXDbvoboynlWz2ac9lsjZH6W63TGInfGZZ7+wN5bWc0c8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Rs4apWVe; arc=none smtp.client-ip=209.85.167.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=kuleuven.be header.i=@kuleuven.be header.b="dvAv+rKC"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rwARrN5iP7YcAb+zWRgDGdf3efxY4z8Qw8mZrsutUOkhrJHpryM73rukJLLi9cxoG+xrNhWQlzl9Vlp0drHyu46ulOxpKyjW88ran6Bo4Z6c6srpA6Mcswr+Yh+t0oqbohF/CKiXxQ9n92y2pErvn061fQ4LiEgrN8Lv6W6cPPwRIj/XkM/0JpmZGXtZh5GoiwjZJ1yeoVn3asgkrgM7F6WRf7Eimiv7SoigpZQ13IC4jMhCFKfhCxm+jr44sYW+7e+ULNIkR9YPQU3mCovfTuNMUZBTQU1twydm+qdhFGIxUJKmyFZ8TDHxbhHqwxbf97JiFO06kLDcCqi5uSk95A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nrvtOnMxk9WsqSuDpa380avo0js21JbLDHh24j8U1qg=;
- b=oITMyOvbehfjG4m5fDCW19aYE3qt5jqvcqE0ip51GjDPZ6/R91qINoHtDC6ct+SwHONKSTRAwGK1vTAP3q0609S89MxBLSEZnGz+TPiY5Vu2rhN1MITafpUaRDeHp4WnG6Zqc7MxEABMbtNdSTki1N5EM/UmXl6lcDRfFU8Z/8qJ3Mrs0N7IlWtV4baI4vof3KTPThr1TbTsC3CIJI+SL2dN9AzyxL6x4HFZWVouZ61DkQ9QCBfVAT3gTTao/vcFI/KaKejk4/N+DpBMUwpp37HfF9PL54EIvMkIBQ6EujROGuutWtA8hmZMmrrdZN6FrYq5j1iYdUw945kGqJXJ3w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=kuleuven.be; dmarc=pass action=none header.from=kuleuven.be;
- dkim=pass header.d=kuleuven.be; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kuleuven.be;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nrvtOnMxk9WsqSuDpa380avo0js21JbLDHh24j8U1qg=;
- b=dvAv+rKC4+EL1CwRaZPbZ+gs2aGWNipMW2aextLHYq0CNSsKbADXLhQ6+yZJ0yjIfaQQQ/oq0mSOU83YuDAx9BB2VYrQmQOuOOYNi2N0yXYcVVsH5VKcFm2p057AF3DTV8XOc5Rc83KT5xcXxMzzEcz4Dd/Z2DGorYInBHrEXDk=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=kuleuven.be;
-Received: from AS8PR08MB8996.eurprd08.prod.outlook.com (2603:10a6:20b:5b1::13)
- by VI0PR08MB11552.eurprd08.prod.outlook.com (2603:10a6:800:2fd::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.10; Mon, 31 Aug
- 2026 10:58:43 +0000
-Received: from AS8PR08MB8996.eurprd08.prod.outlook.com
- ([fe80::ee9d:8228:404b:262c]) by AS8PR08MB8996.eurprd08.prod.outlook.com
- ([fe80::ee9d:8228:404b:262c%6]) with mapi id 15.21.0382.007; Mon, 31 Aug 2026
- 10:58:43 +0000
-From: Shukai Ni <shukai.ni@kuleuven.be>
-To: Jens Wiklander <jenswi@kernel.org>
-Cc: Jo Van Bulck <jo.vanbulck@cs.kuleuven.be>,
-	Shukai Ni <shukai.ni@kuleuven.be>,
-	Sumit Garg <sumit.garg@kernel.org>,
-	op-tee@lists.trustedfirmware.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Rs4apWVe"
+Received: by mail-lf1-f42.google.com with SMTP id 2adb3069b0e04-5b5e1340faeso3053708e87.3
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 04:00:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788174039; x=1788778839; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=SDQLGo2eBys2v5fSX9hMlquDuFbTQ/zAGUSHKc6b0N4=;
+        b=Rs4apWVex3BlW6GpElQW9ji8J1JBjEhWZ6LH+hCJpRxTvxsFzjbenEyQDicMQZ58ZD
+         Se/uVU635dheuiCwf4yqxZSMztvOaItRZxgA+LGd66m1mgBnLVVG7HNUhvBAoqrAMcBp
+         8KKhkWEjO1hUT4f9e0iH2PV5FPUEYxMRLyNKknjoBget/G5Gv8XaemCbVC8H64QMh991
+         GNKZ9rVDx6muB1p7+MgwySqaRuGSv3arsDDF2I1rvKXAVZtdm6jL5HEUigupeNbgQed1
+         f2utOk6sKj3y+g9fc3OXBft7WESPxQRGL/DlZ6yB024dWo0Pvdho2wMY6BD05l48we3r
+         1hwg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788174039; x=1788778839;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=SDQLGo2eBys2v5fSX9hMlquDuFbTQ/zAGUSHKc6b0N4=;
+        b=YaRrYAXV3e/2L0FCB98UM5qOR013KNvcVxofiaLJHK6WIIpwmjYaB3a8XFeosrthoR
+         qV6eFtUkCeqovv5sEnYa6KiFBgUcehmGFTo+penXviBjBVdB4E9w6nOAZjIpXgrm1Vwk
+         5GwciKV3K+n0CPd/yZLkxfrJumA08WqeFcT/RtJm1+xyWa0LwoL/WJmj3dNMKV/ZgieJ
+         HGEqXb5OIKqpz1asl2oTheR21bO4mPxIhDP+Kw54i3Ro11J1Kl794MpORXb+zxzPj2c3
+         TWxOgvC982IrHJm0Dokh04Vyv0/f3GfY89XtBP1mAXKUv8oU/HQ195Td+Y1vwikC4s5E
+         M69A==
+X-Forwarded-Encrypted: i=1; AKwUvByRW9UUN6RM8JcH6//CIAfPvn0ImzU6XXsEJbsK0ZCMEFFmA5YfYYzpWwdLib+kWU3oZl3OHJmtCmhiarU=@vger.kernel.org
+X-Gm-Message-State: AFuF++nGXprB+CG7osNnXit9BO8OqdIzdvlHzPgux93uI43HoCHY5uLV
+	kAdfgKnd8X5lO8QbTwbixQFNCj+lOdROd6bvHGcFZ6geHGjlydZ5QqDR
+X-Gm-Gg: AYBFou3gnrvuLwVAvXrFcdqpbLfZxCYzCLbJU+pAWE0zKRs4Dze+NZt7jD596ivN+j3
+	u0NsJBEeaLQ+je35DzyAgKbJOFmHhu2vwqpEFBD8gW4z8LLdBSsRJH6GIoIvSAf1wvterC6TCNB
+	en9k7PnCVwEd7G0CB8FHRJWbV1bFblbySS1fqt2R+5PPn0/5+ZoPIjyk4dM9JYifweQbSldlS/4
+	pZZBj19LdAxGlhKzLuCOw2Ompx0S7DJWbevVMcF2C0pDSZlgTYxrbGr/ezLcPBXRt5qETkt1tZt
+	sjh/pnHqqVXYg/8uIPbOzedHzWlXrScObnWNADZrAs8e+JfGeBeFpidP82bv80jhF/xXPF52IJ4
+	cwEm8al893EVK+BYNqmXE+ZxrLW4bybNqhQ3byB5DZ1BGFy6VQ6XoOvVwNnUgLk28jfexzes78r
+	OGsbvCFvB0+oWzNgZklrx2d/BL/hjztPVYn3+P0Eeh1mAaD4ZvxD7BZo8oDmOatlSWQq9Rm39z1
+	o4aEbmJJ6h4XxFGIWJUq1oli3LGNWDXlP6+H8si6BtMdYsASaON1jnmM7fJtykbaCf/PAi4ckge
+	DA1FSS3YP+KAsQFFsdUb+EB/AXMF9D3I/fvw38jp5N43o0kY7NGaoppbTUO0C3N/JlKol1az8YI
+	=
+X-Received: by 2002:a05:6512:2355:b0:5b5:f946:513c with SMTP id 2adb3069b0e04-5b5f94653e5mr1425845e87.17.1788174038781;
+        Mon, 31 Aug 2026 04:00:38 -0700 (PDT)
+Received: from MacBook-Pro-von-Karl (dynamic-2a02-3100-acb9-0201-68d0-34d2-ad1a-175a.310.pool.telefonica.de. [2a02:3100:acb9:201:68d0:34d2:ad1a:175a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b5e89c5b65sm2175666e87.16.2026.08.31.04.00.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Aug 2026 04:00:37 -0700 (PDT)
+Date: Mon, 31 Aug 2026 13:00:34 +0200
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Ard Biesheuvel <ardb@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	stable@vger.kernel.org, Catalin Marinas <catalin.marinas@arm.com>, 
+	Will Deacon <will@kernel.org>, Ryan Roberts <ryan.roberts@arm.com>, 
+	Mark Rutland <mark.rutland@arm.com>, linux-arm-kernel@lists.infradead.org, 
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 1/1] tee: fix page count in register_shm_helper() error path
-Date: Mon, 31 Aug 2026 12:58:24 +0200
-Message-ID: <20260831105824.3141687-2-shukai.ni@kuleuven.be>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260831105824.3141687-1-shukai.ni@kuleuven.be>
-References: <20260831105824.3141687-1-shukai.ni@kuleuven.be>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: AM9P192CA0010.EURP192.PROD.OUTLOOK.COM
- (2603:10a6:20b:21d::15) To AS8PR08MB8996.eurprd08.prod.outlook.com
- (2603:10a6:20b:5b1::13)
+Subject: Re: [PATCH 6.6.y] arm64: mm: clear extra idmap level before use
+Message-ID: <apVbNN_gtowKWVhR@gmail.com>
+References: <20260831054247.33352-1-kmehltretter@gmail.com>
+ <2026083125-upbeat-series-9565@gregkh>
+ <7f744f2a-409b-454f-bdb9-fccb5031640d@app.fastmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AS8PR08MB8996:EE_|VI0PR08MB11552:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6dac0c2f-eb0b-4d31-533b-08df074ed280
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|10070799003|366016|23010399003|376014|1800799024|786006|56012099006|10067099003|11063799006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	TYBoZmSGsaGLIttU5hgj1EFCng3DAl/pkYjhG51AUCz+hDX+09hv+bjO12og/1fB0f84ghkBtm91I5WAEPv/wR8xyCFmP/halu1WMR5A5riIKeIQPPayn7do5WjGYxgPdJcLtcJt1X/w/vXI0HwGleR74oP2D8Uzsqg9CrjtZKANg8/AxfwH8mFbpohSLy5eoFEJ6dB11QKbyzu0OJdKfyoyPxdBuaUd++BJJVIqiRVdsnYiYmbT3mOY2DZPf6sM/FZ+9R2JHg4tyMryHMgFVpICgXs8Vlsactsnht7SKgsv2b1PldjbMkW36BkIXeR6OzV36okx07JhVtRblnHcTM8QCOByJ+YY5tbLB52kKDvz3ibxplI0192wVYzXekXDy80+be4x2FYTeWqVqNcBLa31Rfam2zc72RJ+u83ew9ZmnUjXZoz6G7TjMsp9ygIImBPa/w7+Q3Bf2K6CUzv3fZMxqPEDtdbRemTmA4CaUDDMeUEBIKyE/VXqibKhJpZAmv/cvQatymi5TnBZZ5DKfM30SDjW6ekvZv6J+hN+3lb+o6LH1169QMB6n8XLIC68lDZBCU366JEZOcBq4ujb8tpVYJN1I06sH/1LV6+pGyk0n27os9qpS+H2A/QxLQnMiGOiI4Q7DsXgU7wBxSVQWUkBnS3ZvTnDoFQ2ROBOqEI=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS8PR08MB8996.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(366016)(23010399003)(376014)(1800799024)(786006)(56012099006)(10067099003)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?XmzLCRVGeSpCda0y7QNUFsKgf6F/qnSBfvmIEh3cPV5g4HMsmKKjJDymWMQR?=
- =?us-ascii?Q?/26AYlN0dmB7VK4fcWrmPrL3Xc1mIq+ozDdi1xoFwSUvlstwrnlpeK4rHYsm?=
- =?us-ascii?Q?ilG9LtCiJMOD2P+Vrrxc8fC6LI+Ms+2qex0risjuX6oDBLWO5We8qCDMgH27?=
- =?us-ascii?Q?AkmqDv6R0b+i4n0GK559HbJcjBI59MJRk4MXaIf5PKypZYyK5MKR7ynt6h7l?=
- =?us-ascii?Q?YR9ntiodMsFFlP8DAGTwKCXOjOW5PA/N/o96xb6vut4ufDD+cIOm1P6+qudq?=
- =?us-ascii?Q?vMLhhG+/pClktyh4xJl8euY60FDeF+l+Enaq3CscIUj2CqQshKtmHqJPmmpf?=
- =?us-ascii?Q?4q1MhWHtSxo8ulAIDhMTG2x+LH8aEr4V4uzlVrMMUAQp3PW+631FlWdVbbdV?=
- =?us-ascii?Q?ot7BdVvElMePa4l9pmctZ0INit/kXfY598qh4AlldFuT0rngSfdABYB+0WlI?=
- =?us-ascii?Q?sQ7sOU3JdGNN1dOKCfxHrIC0VNDpuG/GBNzxpPMtqFnTCKtA5rHJ35fsZCPE?=
- =?us-ascii?Q?oKoQJL3wRuLeYMLRdShJYLSUVYT/jltyBbMbSrR5aVEBXlgkXz9DwzOxtHah?=
- =?us-ascii?Q?IPeadBzACAgJoPsbk5geW6yCe9n1x0Tka9DR6C0IRcLyDiYYU/671qobRERu?=
- =?us-ascii?Q?Ek2Bx6jS0ObBHgBxfL4oqa72NabXQ6mwYhccNpqcNw9HgDmWuuUFajj/q+Ms?=
- =?us-ascii?Q?H8FgaPikU8fA2HsHQFE6Hmi2cqS4vHfFSHvwNziazD7sVwV8rK3cgD2xQDG2?=
- =?us-ascii?Q?5JRFrEH/qLTAqNqYuMaha8a7yQMGCk19VvsBOzYGiGYkJG/uQbwacSQSr6wF?=
- =?us-ascii?Q?ULqty0tQc/bJ1ccO8MPujJ4bZ+5SZvqUMJU52myMMJoy0HwXYhhIh7UJcTAu?=
- =?us-ascii?Q?bF5Y644MvfFLnYlLr6Vy12LTA9GR1nczII97yxtpFSUrR8nxeh/4j18z9scL?=
- =?us-ascii?Q?8Zt64FEhJUnQ9pmOGAaEILOo9fVR/lO0i2tty4ZQHVlsnoj4bGLO+leuCpVt?=
- =?us-ascii?Q?x2HTqakILVScIoWmpqialEKEqSdSTD30Y6ospLyf2NcI+wKVq5bzjVXrhaQ7?=
- =?us-ascii?Q?duJ6D0G7YSlkBiiHlQ/T996QiTpA98eve5yyNSa8vaShliKD+nBqckYZ70Cl?=
- =?us-ascii?Q?2iXtYAOPbOOEAe8GP3Y7OrNOzHmjWH1Q2EEy7TY8ljx/kaSxhnbpli/qExPf?=
- =?us-ascii?Q?I1jcGCQJyNQL4/PkuPjubDAG0s0hqTMlpF6FyCozpRi2TmHJKIETD38kkLDQ?=
- =?us-ascii?Q?YSzE1wIXKkJm+7ioH2XuIJGT5kJ8dmt6ba2QWAxYdgxz0oAp5Bx6qaXmfwZw?=
- =?us-ascii?Q?csyriQQhE65SNFK93qo47h5kJ8kUnAACVYr2Z5yEmkYaG2KaWOiR1GGvA1uN?=
- =?us-ascii?Q?xduXukg0Pgd8o0YWzibb95ajQom59+TU+CJImWiIML6XMoBPmdT9hs4iiBUb?=
- =?us-ascii?Q?+fC1RuS1cpOMdjEG5lILXrkFWM/iWVA0BNBTXjJf+ee8krF1AbU2TmClXwWl?=
- =?us-ascii?Q?ym2CcqXg45YfHCoCa1oAreGEPCbtPop9faEW6Ztj6K0d9JpC56CZi0T0kmK9?=
- =?us-ascii?Q?onFsd0TwqvtSxI2wsUCU1J0LBVRHWUzkvM+3JIiz5+CadTTLxKHhFVS4FoQ6?=
- =?us-ascii?Q?xd2FiVyIRFyxGIwDTR2kr1Q3/Wt+Unh/t3RpU2cBxk+UTCPIX3u9o5mXN/r2?=
- =?us-ascii?Q?DfUxCQN3HkgoRrzUrlmXEd0ODyy5XpU7v/dvBhBX1GrGig2m71CCTqwlTnaw?=
- =?us-ascii?Q?FRvgfxAWMnfCw/wQPbOpUHrXx1OPFG2fS4RwAxCSyo7JvrI3vPyu?=
-X-OriginatorOrg: kuleuven.be
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6dac0c2f-eb0b-4d31-533b-08df074ed280
-X-MS-Exchange-CrossTenant-AuthSource: AS8PR08MB8996.eurprd08.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 10:58:43.1242
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3973589b-9e40-4eb5-800e-b0b6383d1621
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: w1WN7+/PwL2UyNXCdLdeo4lakFZhrHf84Wg5QoZOE4zG/gxSvL+bKn7WQb5pVlK9k4EgVIhGorX0pIn9nuvt9g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR08MB11552
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <7f744f2a-409b-454f-bdb9-fccb5031640d@app.fastmail.com>
 
-iov_iter_extract_pages() returns the number of bytes extracted and sets off
-to the offset into the first page. For the iterator, the number of pages
-pinned is therefore DIV_ROUND_UP(len + off, PAGE_SIZE).
+On Mon, Aug 31, 2026 at 08:15:52AM +0100, Ard Biesheuvel wrote:
+> 
+> 
+> On Mon, 31 Aug 2026, at 07:54, Greg Kroah-Hartman wrote:
+> > On Mon, Aug 31, 2026 at 07:42:47AM +0200, Karl Mehltretter wrote:
+> >> The 6.6.y adaptation of commit 0e9df1c905d8 ("arm64: mm: Don't remap
+> >> pgtables for allocate vs populate") removes the clearing performed by
+> >> early_pgtable_alloc().  Its replacement clears allocations made by the
+> >> generic page-table walkers, but 6.6's create_idmap() still allocates an
+> >> extra root level directly when a sub-48-bit VA kernel is loaded
+> >> sufficiently high in physical memory.
+> >> 
+> >> memblock_phys_alloc_range() does not zero the returned memory.  The direct
+> >> caller therefore publishes an uncleared root page and passes it to
+> >> __create_pgd_mapping().  A stale nonzero entry can trip the bad-descriptor
+> >> BUG_ON or be followed as a page-table descriptor, preventing the kernel
+> >> from booting.
+> >> 
+> >> Clear the direct allocation through its linear alias before publishing it.
+> >> init_clear_pgtable() also supplies the barrier required before the table
+> >> descriptor becomes visible.
+> >> 
+> >> Mainline is not affected because commit e6128a8e523c ("arm64: mm: Use
+> >> 48-bit virtual addressing for the permanent ID map") removed the dynamic
+> >> extra level before page-table initialization moved out of the allocator.
+> >
+> > Why can't we take that change instead?
+> >
+> 
+> Nope. That relies on a massive refactoring of the arm64 startup code.
+> 
+> Can we just revert 0e9df1c905d8 (aka 54322d95309d) instead?
+> 
 
-The partial-extraction error path instead records len / PAGE_SIZE. For an
-unaligned buffer this can undercount by one, causing unpin_user_pages() to
-leave a page pinned.
+Yes, that fixes the issue too.
 
-Fixes: d5cf5b37064b ("tee: fix register_shm_helper()")
-Cc: stable@vger.kernel.org
-Co-developed-by: Jo Van Bulck <jo.vanbulck@cs.kuleuven.be>
-Signed-off-by: Jo Van Bulck <jo.vanbulck@cs.kuleuven.be>
-Signed-off-by: Shukai Ni <shukai.ni@kuleuven.be>
----
- drivers/tee/tee_shm.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+The commit was patch 3/3 of the following speedup series:
 
-diff --git a/drivers/tee/tee_shm.c b/drivers/tee/tee_shm.c
-index 6742b35..fa446e4 100644
---- a/drivers/tee/tee_shm.c
-+++ b/drivers/tee/tee_shm.c
-@@ -454,7 +454,7 @@ register_shm_helper(struct tee_context *ctx, struct iov_iter *iter, u32 flags,
- 		 * If we only got a few pages, update to release the
- 		 * correct amount below.
- 		 */
--		shm->num_pages = len / PAGE_SIZE;
-+		shm->num_pages = DIV_ROUND_UP(len + off, PAGE_SIZE);
- 		ret = ERR_PTR(-ENOMEM);
- 		goto err_put_shm_pages;
- 	}
--- 
-2.55.0
+https://lore.kernel.org/r/20240412131908.433043-1-ryan.roberts@arm.com
 
+Patches 1 and 2 accounted for most of the speedup.
+
+I'll wait a bit to give the others a chance to comment.
+
+I can send the revert as v2, or my original patch as v2 with the
+missing "Assisted-by: LLM" and "Signed-off-by:" trailers.
+
+Thanks,
+Karl
