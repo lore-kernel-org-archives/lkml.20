@@ -1,103 +1,131 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EB88492520;
-	Mon, 31 Aug 2026 14:05:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D10F492525
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 14:05:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788185135; cv=none; b=QlP8TTVm8jbBcv/3KiZkO1uOdMd6Ni0qGWXaEgB74/10ExA2akSTifn5UftRRBNkOlvkXhu5pkpilMe6ZVh249lP28ORdWXXlTOgTaq5L4Pa6/Ivpw++OQvNpdPWg1gcKok8tR6Ou18EqYVHBakcQJb92ZR4WLLoCXrRkP3V0k0=
+	t=1788185138; cv=none; b=VZJRWJDsK7rV9rDh+jgjRxHs9Bs/M5C9vDrOgTURhnh0RtlJ+ppaLHZjURiStLeOPhKgrtKD/5MvTbKKWaCZ1LUywADov4Tvu9c/6hhjex5ID4q3F+rcwXBKF4E3tvYHch8YW4txSP4Sg0U3Lr8BZa9ZK2jdlVEKV404L3bLR5w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788185135; c=relaxed/simple;
-	bh=oAaZfGE0LIHaxXfesnXqiw1eLC+pyih9L152sojN/6M=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XnGcxtD49uKVyyGlyoqp8I6hsyVDNy/ptftot4f2mxNETrBkw4ZogL66V/A6fY25j6UBWWLQgLeEzcWOJuYSAy+/dhmM/fduTlBHeTR/4otHlDt6yTZI+xoA4HBKuf5azhNukPcIHG183hBY2xlb/+rAj8tVKBC10YEJ9PIsec8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=HZ5I3bPi; arc=none smtp.client-ip=192.198.163.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1788185138; c=relaxed/simple;
+	bh=Rm4xkM59PDrDGUHsP7vwBFOEmR0A3mttMti8rHko1rY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=bgwRQk4MyFRmAn41EAcjrSz6M/clhLd0tX88lfqOu51Ol1G0zW/b9PIa9Evan+ttTU3F784jiyiZUfc0LcZ4lVjR3fKe779Y7c+xqUtjSwVxoZJMA6T1ulfoZHXLZRo4EbPrhO6a8p6guekDXIb59XYLYSCLyWKVGEFXTVfmKxg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eG+D1oac; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="HZ5I3bPi"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788185133; x=1819721133;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=oAaZfGE0LIHaxXfesnXqiw1eLC+pyih9L152sojN/6M=;
-  b=HZ5I3bPid572ErEWH1P2vY5eTZPlfMoGccBuPIWIAfqATNtgWYJDAAHj
-   mNCwOXZRiGCHrYBh6EVrB1evCpHNM7M/gt5AUzHclFrelrxTmOUuJe0bM
-   XPnbHEzS1kfLgy3om//r1XXe21z1fqwyoGQtNspJ8oeCz+cdcES+aLiff
-   9biDovgUND/jFY9lXMzUrs55XjlFI6fEnq0Oyhk4+PlCZ6zRlaktj3ejP
-   NvkAtV6QiL/0sNllcp0JEvxe+k4hurbNlx42tKc+xHd7eIxS62roXzfJe
-   Mp3WlfzdYsOg/2RySvGZhlexuhOF74ZF8Dl5IcUSyFGzZMtj9wZm12VrD
-   Q==;
-X-CSE-ConnectionGUID: rXDTv4fbQzyPBuJ6nDa41A==
-X-CSE-MsgGUID: o/kRP+ksSIOGM8uHC0eBXg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11891"; a="88469550"
-X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; 
-   d="scan'208";a="88469550"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 07:05:22 -0700
-X-CSE-ConnectionGUID: T0R3EfDeTYW6/E9ENg7iSw==
-X-CSE-MsgGUID: XJteXT1URma2VSypDslLYA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; 
-   d="scan'208";a="307032910"
-Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.244.21])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 07:05:17 -0700
-Date: Mon, 31 Aug 2026 17:05:15 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Stefan Popa <stefan.popa@analog.com>
-Cc: linux-iio@vger.kernel.org, jic23@kernel.org, lars@metafoo.de,
-	Michael.Hennerich@analog.com, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, andy@kernel.org, dlechner@baylibre.com,
-	nuno.sa@analog.com, siratul.islam@linux.dev,
-	u.kleine-koenig@baylibre.com, linux@roeck-us.net,
-	joshua.crofts1@gmail.com, ciprian.hegbeli@analog.com,
-	krzysztof.kozlowski@oss.qualcomm.com, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v9 2/2] iio: adc: add MAX40080 current-sense amplifier
- driver
-Message-ID: <apWKGyFYmmJLe-Wx@ashevche-desk.local>
-References: <20260831134334.196359-1-stefan.popa@analog.com>
- <20260831134334.196359-3-stefan.popa@analog.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eG+D1oac"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C6001F00ACA
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 14:05:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788185137;
+	bh=6Icaf4X/kIyDc556ppK1wzC3lefymKH+ZzCaIE2uh4w=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=eG+D1oacxYEoMEK6J9pEO6OoYDL1MSiq+q8EuN3n5U/YidRuSAk4I88LPQdMWJ2Q+
+	 QTu2+jwYCitDZhgMLXxal0ZDqmtNOYAK2CZ5a4J7QOF1YZVk//B8/mCn6nPVfoRDaf
+	 tUA+YPeNvmnsW/uwlI9MdFdo/c22l85iSNm608j5lW1y842ANtKJH+05E438ESHcFo
+	 BiaACHjvWJsTNzLThSoP5AfVaK32fjiyHBozpusADjfjzqbyLnXTyTp63ItGmNHmXV
+	 +ouzZafFaaT9du+veyHaYAsjlg/ozJiLt5ostNoHoaeV8VVorJO+W0t+TUlhymk0F2
+	 HmJHkZD4ZDf/w==
+Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c25344a8c6cso468756166b.0
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 07:05:37 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwB0pZtknsCZQMF1jHqpMqFUoxSKJCXDDZ6tP2jjpAhr8AIIiCResUlPvrtiSJcag6MTrYbZIZKfeDqTrY=@vger.kernel.org
+X-Gm-Message-State: AFuF++nBlpcvMtDySn4i3S9ETy7n5+yBZUJXZXq9hqOvEgeeCOTGPVck
+	9qr5yUvfWoY79/FM2utbVFpTBOYxfA9mvX7EW07a2m+S1tPXL+dK5WyYPxmBPJNdQa4+SFWz0Ih
+	m9HdMshAWTrCkh6d+DRy0sPQWYIM6onM=
+X-Received: by 2002:a17:907:3e8d:b0:c21:601:6501 with SMTP id
+ a640c23a62f3a-c25571d06f7mr1561606266b.20.1788185135715; Mon, 31 Aug 2026
+ 07:05:35 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260831134334.196359-3-stefan.popa@analog.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+References: <20260817115847.2705791-1-nagachaithanya9911@gmail.com>
+In-Reply-To: <20260817115847.2705791-1-nagachaithanya9911@gmail.com>
+From: Huacai Chen <chenhuacai@kernel.org>
+Date: Mon, 31 Aug 2026 22:05:18 +0800
+X-Gmail-Original-Message-ID: <CAAhV-H6Rt4Tvb8LuVZ1_Yna0eYa3bfmzHLUyh8v9=v2BtKH92g@mail.gmail.com>
+X-Gm-Features: AcwNN1VuJY2FdGHf2YH0PvTrLOx4t1TxoEZpNPLnMKG5h3qPA3szQGgwiq-mgV4
+Message-ID: <CAAhV-H6Rt4Tvb8LuVZ1_Yna0eYa3bfmzHLUyh8v9=v2BtKH92g@mail.gmail.com>
+Subject: Re: [PATCH] LoongArch: KVM: Fix memory leak in kvm_loongarch_env_init()
+ error path
+To: Chaithanya Lagisetty <nagachaithanya9911@gmail.com>
+Cc: zhaotianrui@loongson.cn, maobibo@loongson.cn, kernel@xen0n.name, 
+	lixianglai@loongson.cn, kvm@vger.kernel.org, loongarch@lists.linux.dev, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Aug 31, 2026 at 04:43:34PM +0300, Stefan Popa wrote:
-> The MAX40080 is a bidirectional current-sense amplifier with an
-> integrated 12-bit ADC and an I2C/SMBus interface. It measures the
-> voltage across an external shunt resistor and the input bus voltage,
-> storing the results in an internal FIFO.
-> 
-> Add a direct-mode IIO driver exposing the current and voltage channels
-> with raw, scale and hardware-gain attributes, a configurable
-> oversampling (digital averaging) ratio, and PEC-protected register
-> access. The current scale is derived from the shunt resistor value
-> described in the device tree.
-> 
-> The driver operates in single-measurement mode: each raw read triggers
-> an on-demand conversion via SMBus Quick Command and returns a matched
-> current/voltage pair. This avoids the latency and complexity of the
-> continuous FIFO mode while ensuring each read reflects the current
-> state. The two selectable current-sense ranges are exposed through
-> scale/scale_available.
-> 
-> Continuous FIFO buffering, threshold events and the alert interrupt are
-> intentionally left out of this initial submission and may be added
-> later.
+Hi, Bibo,
 
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-
--- 
-With Best Regards,
-Andy Shevchenko
+What do you think about this?
 
 
+Huacai
+
+On Mon, Aug 17, 2026 at 7:59=E2=80=AFPM Chaithanya Lagisetty
+<nagachaithanya9911@gmail.com> wrote:
+>
+> kvm_loongarch_env_init() allocates the per-CPU kvm_context (vmcs) and
+> kvm_loongarch_ops, and registers the perf callbacks, before registering
+> the IPI/EIOINTC/PCH-PIC/DMSINTC KVM devices. If any of those device
+> registrations fails, the function returned the error directly without
+> freeing vmcs and kvm_loongarch_ops or unregistering the perf callbacks.
+> kvm_loongarch_init() propagates the error without calling
+> kvm_loongarch_env_exit(), so these resources are leaked.
+>
+> Unwind the already-acquired resources on the error path, mirroring
+> kvm_loongarch_env_exit().
+>
+> Fixes: c532de5a67a7 ("LoongArch: KVM: Add IPI device support")
+> Signed-off-by: Chaithanya Lagisetty <nagachaithanya9911@gmail.com>
+> ---
+>  arch/loongarch/kvm/main.c | 19 +++++++++++++++----
+>  1 file changed, 15 insertions(+), 4 deletions(-)
+>
+> diff --git a/arch/loongarch/kvm/main.c b/arch/loongarch/kvm/main.c
+> index 3e1005526f4b..685d334cf957 100644
+> --- a/arch/loongarch/kvm/main.c
+> +++ b/arch/loongarch/kvm/main.c
+> @@ -385,22 +385,33 @@ static int kvm_loongarch_env_init(void)
+>         /* Register LoongArch IPI interrupt controller interface. */
+>         ret =3D kvm_loongarch_register_ipi_device();
+>         if (ret)
+> -               return ret;
+> +               goto err;
+>
+>         /* Register LoongArch EIOINTC interrupt controller interface. */
+>         ret =3D kvm_loongarch_register_eiointc_device();
+>         if (ret)
+> -               return ret;
+> +               goto err;
+>
+>         /* Register LoongArch PCH-PIC interrupt controller interface. */
+>         ret =3D kvm_loongarch_register_pch_pic_device();
+>         if (ret)
+> -               return ret;
+> +               goto err;
+>
+>         /* Register LoongArch DMSINTC interrupt contrroller interface */
+> -       if (cpu_has_msgint)
+> +       if (cpu_has_msgint) {
+>                 ret =3D kvm_loongarch_register_dmsintc_device();
+> +               if (ret)
+> +                       goto err;
+> +       }
+>
+> +       return 0;
+> +
+> +err:
+> +       kvm_unregister_perf_callbacks();
+> +       kfree(kvm_loongarch_ops);
+> +       kvm_loongarch_ops =3D NULL;
+> +       free_percpu(vmcs);
+> +       vmcs =3D NULL;
+>         return ret;
+>  }
+>
+> --
+> 2.43.0
+>
