@@ -1,42 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9597548CD47;
-	Mon, 31 Aug 2026 13:38:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD7EB441022;
+	Mon, 31 Aug 2026 13:38:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183506; cv=none; b=YBRMHuYcv5SAOzNSvigmCuXoujYRaSL0GISl/wexDb+5XyQVNnCNZpzC3SGGXeKRVnVisOJbkIUuqjqawLuMeFIrFuJrKq166/8TI4lQBB/TAAX7wdQGkq1FFoL61f0hjtH/aHGsevwEPKCmlioyi5qGZ2BsvdcdtIbLOtutqkM=
+	t=1788183510; cv=none; b=h0tvy9t1E61qIdZD7dbrsWilCzsomRkoIDfS2MGDeJq8b3j5eBFgTXqgxZYPYPfX5QgGnI33DYYi2+m9fdVW1VQZPJ9K8JNBnCAiHP8o1HF9MzuluYtE5K0fhasONaNvcRSNig3Xs0Htcyiex3wzSX41h7PzH5LEhj51kK3K6E4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183506; c=relaxed/simple;
-	bh=BZaqUhVwE9M9AvVI1ckdH04/KyPfZsht/RVSbm0/E5I=;
+	s=arc-20240116; t=1788183510; c=relaxed/simple;
+	bh=H7O8AFWbYds65BUV2OnQXXQQ0uuAGBp7LCP5ruWOFwg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=D7i4yJQfG/nY1dA23qos10prxnITaZ1XbC7gH9rj8B7s+mKnMzZKZBT6+LaMGmH2qQJeffKlZDQ/h3ZfT/y5fc6/BH0eOkNh3Ad5Ajjtuuyj8cZbS+tqJt3scT6kN2IIQQTClDPN8CmCFIzgoGShYU/+G0eQLx2b9k6cBzN6Fu8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FcKezk6S; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=CmFApKmj+XX6R7aeCy3wcmta/v7UOuWkfWY9NH5O4+wSLTNpRD8lld4hFgYk4DoN2rwHt1CFB/t+q0FPghXPI7TLKWPeQTAJxCGaBTWQQX7qdqCFlzd80vkIYxBxVMJyhjaA0alsZvGAkZHn6JC3hbWd7J7sPZTgQk0JrP/jy4g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Hz8X1mGD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FcKezk6S"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63AF01F000E9;
-	Mon, 31 Aug 2026 13:38:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Hz8X1mGD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 256981F000E9;
+	Mon, 31 Aug 2026 13:38:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788183503;
-	bh=zYjGexxpgR3gyp+1xzYD3nJSA80PSxg8RoXvPs2h2uU=;
+	s=k20260515; t=1788183508;
+	bh=NkLywm18i22I7e1PMw/lz0wtuZKA5IybpuX3jse8cns=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=FcKezk6SuwCs27ZYSUeRWBHtk6vTnTHCyNcs4CKlYbv2QdbHPyjlT7nnHljvjCxHb
-	 RSrrCgwf95fO6DtiCb8NNxEhw6zwpIUxEiKuk5vUBnNMX26kNIPhqucCl6yPQWDuHi
-	 NIAFl39lK+gL8Fsq4zAKWh4Gctkeu0ml8QLucTz+3TUMezC3j6KSsDQrqpuOGtDnXK
-	 KsW91vvZ7rl6XumcOC+BcO3pDp3NeF1O25CzdkYA4bQZBTiBkJLnGl5QSYJwihQOiT
-	 NiIA84xpCYy+YO9k61+sr2AdTxmFGYxuORl+Iu/IUx5e4StKZxcE1QLHufSJDabShK
-	 +Xt7kGNykwCyA==
+	b=Hz8X1mGD9MWjZ/iwCbdo22E+MzvgfsWp0ffTuvjvycuSbbCl+NC57201P82cB0HOc
+	 FhrBOnCZHla6Uy2JMkxfNSLXsE6U70mTF5VG+34wzFJrSG87vpqdJLXdpN5c+lRDVr
+	 oJ/CBKyOSRQZVQLfJzkj9ORDr/n4Xek4y/5etgVL72v0jtB/TITNwSpZq6c/OEvBv0
+	 WV/PzW07LdAmZxgBa4oFy8/ZikijCazXRUZ9LZmbHt0g+pUIFbBrcNnXmhyJApbo/7
+	 Kl4P69uOA+2YI3IvrCW0X0/57/7X5vlgzG7Fp6vE08PLKqO2yuv9OhJyf+0fiu8yeH
+	 R9LywGp0mHYAA==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Emmanuel Grumbach <emmanuel.grumbach@intel.com>,
-	Miri Korenblit <miriam.rachel.korenblit@intel.com>,
+Cc: Viktor Menshin <ripeeerr@gmail.com>,
+	Takashi Iwai <tiwai@suse.de>,
 	Sasha Levin <sashal@kernel.org>,
-	linux-wireless@vger.kernel.org,
+	perex@perex.cz,
+	tiwai@suse.com,
+	linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18] wifi: iwlwifi: adapt ND match notif sizing to fixed matches array
-Date: Mon, 31 Aug 2026 09:22:43 -0400
-Message-ID: <20260831133314.4125787-135-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-6.1] ALSA: hda/realtek: Add quirk for Lenovo Xiaoxin 14 GT
+Date: Mon, 31 Aug 2026 09:22:46 -0400
+Message-ID: <20260831133314.4125787-138-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -52,464 +54,429 @@ X-stable-base: Linux 6.18.48
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Emmanuel Grumbach <emmanuel.grumbach@intel.com>
+From: Viktor Menshin <ripeeerr@gmail.com>
 
-[ Upstream commit a426d3227c669ef0ad9855b311a68129f10ac8bf ]
+[ Upstream commit 3a3e810e91080a5121170ee11554a55ed89a1c8b ]
 
-Switch iwl_scan_offload_match_info::matches to a fixed-size array and
-adjust D3 netdetect size handling accordingly.
+The Lenovo Xiaoxin 14 GT (Chinese market model, AMD Ryzen AI 9 365)
+produces constant electrical hissing and crackling noise from both
+internal speakers and 3.5mm headphone jack during audio playback.
+Audio works correctly on Windows.
 
-In MVM D3 paths, compute expected payload size as
-offsetof(struct iwl_scan_offload_match_info, matches) + matches_len to
-preserve previous behavior after the struct layout change.
+The PCI SSID 17aa:3912 is not present in the quirk list. The device
+shares the same AMD platform and ALC287 codec as neighboring Lenovo
+14" AMD models (17aa:3911, 17aa:390d), so apply the same fixup.
 
-In MLD D3 netdetect handling, keep the simple full-notification size
-assumption and validate against sizeof(*notif) before accessing data.
+Note: the fixup selection is based on similarity with neighboring
+models and has not been verified by testing a compiled kernel.
+Guidance from maintainers on the correct fixup is welcome.
 
-This keeps scan offload / netdetect functionality unchanged while
-making length checks consistent with the new struct definition.
-
-Assisted-by: GitHubCopilot:gpt-5.3-codex
-Signed-off-by: Emmanuel Grumbach <emmanuel.grumbach@intel.com>
-Signed-off-by: Miri Korenblit <miriam.rachel.korenblit@intel.com>
-Link: https://patch.msgid.link/20260715215523.4c4346140bcc.I44313ac41daca352e6aecdba09a1c3570c3eea06@changeid
+Signed-off-by: Viktor Menshin <ripeeerr@gmail.com>
+Link: https://patch.msgid.link/20260615092515.1082-1-ripeeerr@gmail.com
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-## Phase 1: Commit Message Forensics
+Connection lost, reconnecting to https://agentn.us.api5.cursor.sh
+(attempt 1)...
+Retry attempt 1...
+Connection lost, reconnecting to https://agentn.us.api5.cursor.sh
+(attempt 2)...
+Retry attempt 2...
+Connection lost, reconnecting to https://agentn.us.api5.cursor.sh
+(attempt 3)...
+Retry attempt 3...
+# Stable Backport Analysis: ALSA: hda/realtek: Add quirk for Lenovo
+Xiaoxin 14 GT
+
+**Local tree:** `v6.18.44` (Makefile: VERSION=6, PATCHLEVEL=18,
+SUBLEVEL=44)
+
+---
+
+## PHASE 1: COMMIT MESSAGE FORENSICS
 
 ### Step 1.1: Subject Line
-**Record:** `[wifi: iwlwifi]` `[adapt]` — adapt ND (netdetect) match-
-notification sizing after changing
-`iwl_scan_offload_match_info::matches` to a fixed-size array.
+**Record:** `[ALSA: hda/realtek]` `[Add]` — Add PCI quirk entry for
+Lenovo Xiaoxin 14 GT (SSID `17aa:3912`).
 
 ### Step 1.2: Tags
 **Record:**
-- **Assisted-by:** GitHubCopilot:gpt-5.3-codex
-- **Signed-off-by:** Emmanuel Grumbach \<emmanuel.grumbach@intel.com\>
-- **Signed-off-by:** Miri Korenblit
-  \<miriam.rachel.korenblit@intel.com\>
-- **Link:** https://patch.msgid.link/20260715215523.4c4346140bcc.I44313a
-  c41daca352e6aecdba09a1c3570c3eea06@changeid
-
-No Fixes:, Reported-by:, Tested-by:, Reviewed-by:, Acked-by:, or Cc:
-stable tags. Absence of Cc: stable is expected per review instructions.
-
-Notable: authored/signed by Intel iwlwifi maintainers; patch 15/15 in
-the "wifi: iwlwifi: fixes - 07-15-2026" series (local mbox).
+- **Signed-off-by:** Viktor Menshin `<ripeeerr@gmail.com>` (author)
+- **Link:**
+  `https://patch.msgid.link/20260615092515.1082-1-ripeeerr@gmail.com`
+- **Signed-off-by:** Takashi Iwai `<tiwai@suse.de>` (ALSA/HDA
+  maintainer)
+- **Absent:** Fixes:, Reported-by:, Tested-by:, Reviewed-by:, Acked-by:,
+  Cc: stable@vger.kernel.org
+- **Notable:** No user bug report ID; maintainer sign-off is the
+  strongest quality signal present.
 
 ### Step 1.3: Body Analysis
 **Record:**
-- **Bug described:** After switching `matches[]` (flexible array) to
-  `matches[IWL_SCAN_MAX_PROFILES_V2]` (fixed array), `sizeof(struct
-  iwl_scan_offload_match_info)` changes from header-only (24 bytes) to
-  header + 8 profile slots (144 bytes). Existing length checks that use
-  `sizeof()` become wrong.
-- **Symptom/failure mode:** Incorrect length validation can allow out-
-  of-bounds reads when copying match data in D3/WoWLAN netdetect paths,
-  or reject valid notifications if checks double-count match data.
-- **Root cause:** Flexible-array `sizeof()` semantics vs. fixed-array
-  `sizeof()` semantics; `iwl_mvm_netdetect_query_results()` only
-  validated the header size while copying `matches_len` bytes.
-- **Version info:** None in commit message.
+- **Bug:** Lenovo Xiaoxin 14 GT (Chinese-market laptop, AMD Ryzen AI 9
+  365, ALC287 codec) produces constant electrical hissing and crackling
+  from internal speakers and the 3.5 mm headphone jack during playback.
+  Audio works on Windows.
+- **Symptom:** Degraded/unusable audio quality (hissing/crackling), not
+  a kernel crash.
+- **Root cause (author):** PCI SSID `17aa:3912` is missing from the
+  Realtek HDA quirk table; device gets generic handling instead of the
+  platform-specific fixup.
+- **Fix approach:** Apply `ALC287_FIXUP_YOGA9_14IAP7_BASS_SPK_PIN`, same
+  as neighboring Lenovo 14" AMD models (`17aa:390d`, `17aa:3911`).
+- **Important caveat:** Author explicitly states the fixup choice is
+  based on hardware similarity and **"has not been verified by testing a
+  compiled kernel."**
 
 ### Step 1.4: Hidden Bug Fix Detection
-**Record:** Yes — disguised as a struct-layout adaptation, but it fixes
-real out-of-bounds read conditions in WoWLAN netdetect handling. The MVM
-query path and MLD notification path both validate too few bytes
-relative to what `memcpy()` consumes.
+**Record:** Yes — this is a hardware audio quirk fix disguised as a
+simple table addition. It corrects incorrect HDA pin/DAC routing for a
+specific laptop model.
 
 ---
 
-## Phase 2: Diff Analysis
+## PHASE 2: DIFF ANALYSIS
 
 ### Step 2.1: Inventory
 **Record:**
-| File | Changes |
-|------|---------|
-| `drivers/net/wireless/intel/iwlwifi/fw/api/scan.h` | Copyright year;
-`matches[]` → `matches[IWL_SCAN_MAX_PROFILES_V2]` |
-| `drivers/net/wireless/intel/iwlwifi/mvm/d3.c` | 3 hunks in
-`iwl_mvm_netdetect_query_results()` and
-`iwl_mvm_nd_match_info_handler()` |
+- **Files:** `sound/hda/codecs/realtek/alc269.c` (+1 line)
+- **Function/table:** `alc269_fixup_tbl[]`
+- **Scope:** Single-file, single-line surgical addition — classic quirk
+  patch.
 
-**Functions modified:** `iwl_mvm_netdetect_query_results()`,
-`iwl_mvm_nd_match_info_handler()`
-**Scope:** Single-subsystem, surgical (~8 insertions, ~5 deletions
-across 2 files).
-
-### Step 2.2: Code Flow Changes
-
-**Hunk 1 — `scan.h` struct:**
-- **Before:** `matches[]` flex array; `sizeof(struct)` = 24 (header
-  only).
-- **After:** `matches[8]` fixed array; `sizeof(struct)` = 144 (header +
-  8 × 15-byte entries).
-
-**Hunk 2 — `iwl_mvm_netdetect_query_results()` V2 path:**
-- **Before:** `query_len = sizeof(struct iwl_scan_offload_match_info)`
-  (= 24); then `memcpy(..., matches_len)` where `matches_len` can be up
-  to 120 bytes.
-- **After:** `query_len = offsetof(..., matches) + matches_len` (= 24 +
-  matches_len). Validation now covers data actually copied.
-
-**Hunk 2 — V1 path:**
-- **Before:** `query_len = sizeof(v1 struct)` (= 24 header only).
-- **After:** `query_len = sizeof(v1 struct) + matches_len`.
-
-**Hunk 3 — `iwl_mvm_nd_match_info_handler()`:**
-- **Before:** `len < sizeof(struct) + matches_len` (= 24 + matches_len)
-  — correct with flex array (already fixed by dd90880 in this tree).
-- **After:** `len < offsetof(..., matches) + matches_len` (= 24 +
-  matches_len) — equivalent numerically, but required to avoid breaking
-  the check after the struct change (without it, `sizeof + matches_len`
-  would be 144 + matches_len, wrongly rejecting valid notifications).
+### Step 2.2: Code Flow Change
+**Record:**
+- **Before:** Device with PCI SSID `0x17aa:0x3912` does not match any
+  entry in `alc269_fixup_tbl[]`; `snd_hda_pick_fixup()` assigns no
+  model-specific fixup → generic ALC287 handling → hissing/crackling.
+- **After:** Same device matches new entry and receives
+  `ALC287_FIXUP_YOGA9_14IAP7_BASS_SPK_PIN`, which runs
+  `alc287_fixup_yoga9_14iap7_bass_spk_pin()` at probe time to override
+  pin configuration and DAC routing.
 
 ### Step 2.3: Bug Mechanism
-**Record:** **Category:** Memory safety / out-of-bounds read.
-
-**Specific mechanism:**
-1. `iwl_mvm_netdetect_query_results()` accepted responses as short as 24
-   bytes but copied up to `matches_len` bytes (up to 120 for V2, more
-   for V1).
-2. `iwl_mld_netdetect_match_info_handler()` (MLD, unchanged in diff)
-   checks `len < sizeof(*notif)` (= 24 with flex array) then
-   `memcpy(..., NETDETECT_QUERY_BUF_LEN)` (= 120 bytes). The struct
-   change makes `sizeof(*notif)` = 144, aligning validation with the
-   copy.
-3. The `offsetof` change in `iwl_mvm_nd_match_info_handler()` prevents a
-   regression from the struct layout change.
+**Record:** **Category (h): Hardware workaround / audio codec quirk.**
+- The fixup corrects pin 0x17 (bass speakers) wrongly reported as
+  unconnected, sets connection overrides, and configures preferred DAC
+  pairs (speakerbar 0x14 + bass 0x17 → DAC 0x02, headphones 0x21 → DAC
+  0x03).
+- Wrong pin routing can cause noise, missing speakers, or incorrect
+  amplifier behavior — consistent with the reported hissing.
 
 ### Step 2.4: Fix Quality
-**Record:** Fix is minimal and logically sound. Using `offsetof +
-matches_len` is the standard pattern for variable-length trailing data
-with a fixed-maximum struct. Regression risk is low: MVM paths preserve
-prior effective thresholds; MLD gets stricter validation matching what
-`memcpy` already required. No public API changes.
+**Record:**
+- **Minimal and idiomatic** — identical pattern to neighboring entries
+  already in this tree.
+- **Regression risk to other hardware:** Negligible — `SND_PCI_QUIRK`
+  matches only SSID `17aa:3912`.
+- **Regression risk on target hardware:** Low-to-medium — author admits
+  fixup is untested; wrong fixup could leave audio broken or change
+  symptoms, but would not affect any other machine.
+- **Concern:** Symptom on Xiaoxin (hissing/crackling on speakers *and*
+  headphones) differs from siblings `3911`/`390d` (bass speakers not
+  working). Fixup may or may not address hissing specifically.
 
 ---
 
-## Phase 3: Git History Investigation
+## PHASE 3: GIT HISTORY INVESTIGATION
 
 ### Step 3.1: Blame
-**Record:** `matches[]` at `scan.h:1277` comes from merge
-`5d324e5159d9e` (6.18-rc8 era). The flex-array layout and insufficient
-query-path validation have been present since this code landed in the
-6.18.y lineage.
+**Record:**
+- Line 7497 (`0x390d`): present since codec split commit
+  `aeeb85f26c3bbe` (Jul 2025, Takashi Iwai).
+- Line 7498 (`0x3911`): added by `0fa5713ac7a19` (Apr 2026,
+  songxiebing).
+- Line 7499 (`0x3913`): present since codec split.
+- **Missing:** `0x3912` — the gap this commit fills.
+- The fixup infrastructure (`ALC287_FIXUP_YOGA9_14IAP7_BASS_SPK_PIN`,
+  `alc287_fixup_yoga9_14iap7_bass_spk_pin()`) has been in this tree
+  since at least the Jul 2025 codec split.
 
 ### Step 3.2: Fixes: Tag
-**Record:** Not applicable — no Fixes: tag in this commit.
+**Record:** Not applicable — no Fixes: tag present.
 
-Related prior fix in this tree: `dd90880eb5ec5` (stable backport of
-upstream `744fabc338e87`) fixed the same class of OOB read in
-`iwl_mvm_nd_match_info_handler()` only. It did **not** fix
-`iwl_mvm_netdetect_query_results()` or MLD netdetect validation.
-
-### Step 3.3: File History
-**Record:** Recent iwlwifi D3 changes in this tree include `dd90880`
-(nd_match_info_handler OOB) and `2d5dec5` (wake packet handler). This
-commit is the logical follow-up for adjacent netdetect paths. It is
-patch 15/15 in a series but only touches `scan.h` and `mvm/d3.c` — no
-dependency on patches 1–14 for these hunks.
+### Step 3.3: Related File History
+**Record:**
+- `8d70503068510` — Add quirk for Lenovo Yoga Pro 7 14ASP10 (`0x390d`,
+  same fixup; had `Cc: stable@vger.kernel.org`)
+- `0fa5713ac7a19` — Add quirk for Lenovo Yoga Pro 7 14IAH10 (`0x3911`,
+  same fixup; backported to this tree with `[Upstream commit ...]`
+  marker)
+- `fceb2a4691215` — Add quirk for Lenovo Yoga Slim 7 14AKP10 (`0x391a`,
+  same fixup)
+- **Standalone:** Yes — single-line quirk, no series dependency.
 
 ### Step 3.4: Author Context
-**Record:** Emmanuel Grumbach is a long-standing Intel iwlwifi
-maintainer (11 of 15 patches in the series). Miri Korenblit is the
-series submitter. High subsystem credibility.
+**Record:** Viktor Menshin appears to be a community contributor (one
+unrelated commit found in tree: `drm/panel` driver). Takashi Iwai
+(maintainer) signed off, indicating subsystem acceptance.
 
 ### Step 3.5: Prerequisites
-**Record:** Self-contained. Verified with `git apply --check` — applies
-cleanly to this tree (minor line offsets only). No prerequisite commits
-required.
+**Record:** None. `ALC287_FIXUP_YOGA9_14IAP7_BASS_SPK_PIN` and its fixup
+function already exist in this tree. Patch inserts cleanly between
+existing `0x3911` and `0x3913` entries.
 
 ---
 
-## Phase 4: Mailing List and External Research
+## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
 ### Step 4.1: Original Discussion
-**Record:** `b4 dig -c <commit>` unavailable (commit not yet in git).
-Local mbox
-`20260715_miriam_rachel_korenblit_wifi_iwlwifi_fixes_07_15_2026.mbx`
-contains the patch. Lore/patch.msgid.link fetches blocked by bot
-protection. Cover letter describes series as "bugfixes" with no per-
-patch stable nominations.
+**Record:** UNVERIFIED — `b4 dig` requires a commit hash (not available
+in this tree); lore.kernel.org and patch.msgid.link returned 403/bot-
+protection. Could not read review thread.
 
 ### Step 4.2: Reviewers
-**Record:** UNVERIFIED for patch 15 specifically — no Reviewed-by on
-this individual patch. Series patch 2 has Reviewed-by: Johannes Berg.
-Maintainers Grumbach/Korenblit are authors.
+**Record:** UNVERIFIED — `b4 dig -w` not possible without commit hash.
+Takashi Iwai maintainer sign-off confirmed from commit message.
 
-### Step 4.3: Bug Reports
-**Record:** No Reported-by or syzbot link. Same bug class as SVACE-found
-dd90880 (already in 6.18.y). Mechanism verified by code inspection.
+### Step 4.3: Bug Report
+**Record:** No Reported-by, no bugzilla, no syzbot. Issue described only
+in commit message by the patch author (who owns the hardware).
 
-### Step 4.4: Series Context
-**Record:** Part of 15-patch iwlwifi validation-hardening series. This
-patch is independently applicable; it does not require other series
-patches.
+### Step 4.4: Related Patches
+**Record:** Direct siblings `0x390d` and `0x3911` use identical fixup;
+`0x3911` commit included bugzilla #221317 and confirmed
+`hda_model=alc287-yoga9-bass-spk-pin` workaround. Xiaoxin commit lacks
+equivalent verification.
 
 ### Step 4.5: Stable List History
-**Record:** UNVERIFIED — lore.kernel.org/stable search blocked. Related
-fix dd90880 was explicitly Cc: stable and is already in this 6.18.y
-tree.
+**Record:** UNVERIFIED — lore stable list inaccessible. Precedent in
+*this* tree: `0x3911` quirk (`0fa5713ac7a19`) was backported here.
 
 ---
 
-## Phase 5: Code Semantic Analysis
+## PHASE 5: CODE SEMANTIC ANALYSIS
 
 ### Step 5.1: Key Functions
-**Record:** `iwl_mvm_netdetect_query_results()`,
-`iwl_mvm_nd_match_info_handler()`, and (indirectly via struct change)
-`iwl_mld_netdetect_match_info_handler()`.
+**Record:** `alc269_fixup_tbl[]` (modified),
+`alc287_fixup_yoga9_14iap7_bass_spk_pin()` (invoked via fixup chain),
+`snd_hda_pick_fixup()` (selector).
 
 ### Step 5.2: Callers
-**Record:**
-- `iwl_mvm_netdetect_query_results()` — called from D3 resume/WoWLAN
-  netdetect reporting path (`d3.c:~2610`) when firmware uses query-based
-  ND results.
-- `iwl_mvm_nd_match_info_handler()` — called from D3 notification
-  handler on `OFFLOAD_MATCH_INFO_NOTIF` (`d3.c:~2967`).
-- `iwl_mld_netdetect_match_info_handler()` — called from MLD D3 resume
-  notification dispatch (`mld/d3.c:~1322`).
-
-All are WoWLAN suspend/resume (D3) paths on Intel wireless hardware.
+**Record:** `snd_hda_pick_fixup(codec, alc269_fixup_models,
+alc269_fixup_tbl, alc269_fixups)` called from ALC269 codec probe path
+(`alc269.c` ~line 8471), during HDA codec initialization on every
+matching Realtek device probe.
 
 ### Step 5.3: Callees
-**Record:** `iwl_mvm_send_cmd()`, `iwl_rx_packet_payload_len()`,
-`memcpy()`, `le32_to_cpu()`, `IWL_ERR()`, `IWL_FW_CHECK()`.
+**Record:** Fixup calls `snd_hda_apply_pincfgs()`,
+`snd_hda_override_conn_list()`, sets `spec->gen.preferred_dacs`, and
+chains to `hda_fixup_ideapad_acpi()`.
 
 ### Step 5.4: Reachability
-**Record:** Triggered during system suspend with WoWLAN netdetect
-configured — common laptop use case. Requires
-`CONFIG_IWLMVM`/`CONFIG_IWLMVM` module and compatible Intel firmware.
-Reachable from normal userspace power-management (suspend), not a root-
-only obscure ioctl.
+**Record:** Triggered automatically at boot/module load when the HDA
+codec for SSID `17aa:3912` is probed. No userspace action required.
+Affects only owners of this specific laptop model.
 
 ### Step 5.5: Similar Patterns
-**Record:** Same `sizeof(flex_array_struct) + trailing_data` under-
-validation pattern that dd90880 fixed in
-`iwl_mvm_nd_match_info_handler()`. The query path
-(`iwl_mvm_netdetect_query_results`) was left unfixed. MLD path has the
-identical pattern with `sizeof(*notif)`.
+**Record:** At least 6 Lenovo models in this tree already use
+`ALC287_FIXUP_YOGA9_14IAP7_BASS_SPK_PIN` for the same AMD 14" platform
+family. This is an established pattern, not experimental code.
 
 ---
 
-## Phase 6: Cross-Reference Against Local Tree
+## PHASE 6: CROSS-REFERENCE AGAINST LOCAL TREE
 
 ### Step 6.1: Buggy Code Present?
-**Record:** **Yes.** Local tree is `stable/linux-6.18.y` at v6.18.44
-(`git describe HEAD` → `v6.18.44-2-g1b9e1abadee04`). Confirmed:
-- `matches[]` flex array at `scan.h:1277`
-- `query_len = sizeof(struct iwl_scan_offload_match_info)` without
-  `matches_len` at `mvm/d3.c:2473`
-- MLD `len < sizeof(*notif)` (= 24) before 120-byte `memcpy` at
-  `mld/d3.c:1134-1152`
+**Record:** **Yes.** `0x3912` entry is absent; neighbors `0x390d` and
+`0x3911` are present at lines 7497–7498. The ALC287 fixup infrastructure
+is fully present. Hardware is contemporary (2025/2026) and plausible on
+6.18.y.
 
 ### Step 6.2: Backport Complications
-**Record:** Clean apply expected — `git apply --check` succeeded with
-only line-offset adjustments. No conflicting refactors in these
-functions on 6.18.y.
+**Record:** **Clean apply expected** — one-line insertion between
+existing entries at the same location as upstream diff. No structural
+divergence at the insertion point.
 
 ### Step 6.3: Related Fixes Already Present?
-**Record:** `dd90880eb5ec5` fixed `iwl_mvm_nd_match_info_handler()`
-length check (flex-array era). The query-path and MLD-path bugs remain
-unfixed. This commit's `offsetof` change in `nd_match_info_handler`
-preserves dd90880's effective threshold after the struct change.
+**Record:** No existing `0x3912` entry or Xiaoxin quirk found. The
+identical fixup for siblings `390d`/`3911` is already in tree.
 
 ---
 
-## Phase 7: Subsystem and Maintainer Context
+## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
 
 ### Step 7.1: Subsystem Criticality
-**Record:** **Subsystem:** `drivers/net/wireless/intel/iwlwifi` — WiFi
-driver (IMPORTANT). Affects Intel laptop/desktop WiFi users using WoWLAN
-netdetect.
+**Record:** **sound/ALSA HDA Realtek** — IMPORTANT (affects laptop audio
+users) but PERIPHERAL relative to core kernel; config- and hardware-
+specific.
 
 ### Step 7.2: Subsystem Activity
-**Record:** Actively maintained; recent stable backports include dd90880
-and wake-packet fixes in the same D3 code.
+**Record:** Actively maintained — multiple Lenovo quirk additions in
+recent `alc269.c` history on this tree (TongFang, HP, Legion, Yoga Pro
+7, etc.).
 
 ---
 
-## Phase 8: Impact and Risk Assessment
+## PHASE 8: IMPACT AND RISK ASSESSMENT
 
 ### Step 8.1: Who Is Affected
-**Record:** Users of Intel iwlwifi (MVM and MLD) with WoWLAN network-
-detection enabled during suspend. Config-dependent (`CONFIG_IWLWIFI`,
-`CONFIG_IWLMVM`/`CONFIG_IWLMLO`), but affects a large installed base of
-Intel WiFi laptops.
+**Record:** **Hardware-specific** — owners of Lenovo Xiaoxin 14 GT with
+PCI SSID `17aa:3912` running Linux with `snd-hda-codec-realtek`
+(ALC287).
 
 ### Step 8.2: Trigger Conditions
-**Record:** System suspend with netdetect profiles configured; firmware
-returns a scan-offload match query response or notification shorter than
-header + match data. Unprivileged users trigger suspend via normal power
-management. If firmware always sends full payloads, the bug is latent;
-if firmware sends truncated/malformed data, OOB read occurs.
+**Record:** Every boot / codec probe on affected hardware. Common for
+laptop owners. Not security-relevant; not triggerable by unprivileged
+users on other systems.
 
 ### Step 8.3: Failure Mode Severity
-**Record:** Out-of-bounds kernel read from firmware notification buffer
-→ potential kernel oops, info leak, or corrupted netdetect results.
-**Severity: HIGH** (memory safety in kernel, WoWLAN resume path).
+**Record:** **MEDIUM** — constant audio hissing/crackling makes playback
+unpleasant/unusable, but no crash, deadlock, data corruption, or
+security impact. Significant quality-of-life issue for affected users.
 
 ### Step 8.4: Risk-Benefit
 **Record:**
-- **Benefit:** HIGH — closes OOB reads in netdetect query and
-  notification paths; aligns validation with actual `memcpy` sizes;
-  complements dd90880 already in tree.
-- **Risk:** LOW — ~13 lines, 2 files, no behavior change for correctly-
-  sized firmware payloads; MLD gets stricter validation that matches
-  existing `memcpy` requirements.
-- **Ratio:** Strong benefit, low risk.
+- **Benefit:** HIGH for affected users (potentially restores usable
+  audio); ZERO for everyone else.
+- **Risk:** VERY LOW for non-target hardware (SSID-gated). LOW for
+  target hardware (worst case: fixup doesn't help or changes symptoms;
+  author uncertainty noted).
+- **Ratio:** Favorable — standard hardware-quirk risk profile.
 
 ---
 
-## Phase 9: Final Synthesis
+## PHASE 9: FINAL SYNTHESIS
 
 ### Step 9.1: Evidence Summary
 
 **FOR backport:**
-- Fixes real out-of-bounds read in `iwl_mvm_netdetect_query_results()`
-  (both V1 and V2 API branches) — only 24-byte header validated, up to
-  120+ bytes copied.
-- Fixes MLD netdetect under-validation via struct `sizeof` correction
-  (24 → 144 bytes required before 120-byte `memcpy`).
-- Same bug class as dd90880, already backported to this 6.18.y tree.
-- WoWLAN/D3 suspend path — user-visible laptop functionality.
-- Small, surgical, from Intel iwlwifi maintainers.
-- Applies cleanly to this tree.
-- No new features or APIs.
+- Hardware quirk — explicit stable exception category
+- Fixes real, user-visible audio defect on specific laptop
+- One-line, surgical, no new APIs or features
+- Uses existing, proven fixup already applied to sibling SSIDs in this
+  tree
+- Maintainer (Takashi Iwai) signed off
+- Identical pattern to `0x3911` quirk already backported to this 6.18.y
+  tree
+- Zero impact on any hardware other than `17aa:3912`
 
 **AGAINST backport:**
-- Struct layout change (flex → fixed array) is slightly broader than a
-  one-line check fix, but necessary and internal to firmware API
-  headers.
-- No explicit Reported-by or Cc: stable (not a negative signal per
-  instructions).
-- Part of a 15-patch series (but this patch is standalone).
+- Author explicitly states fixup **not kernel-tested**
+- No Reported-by, bugzilla, or modprobe-workaround confirmation (unlike
+  `0x3911`)
+- Symptom (hissing/crackling) differs from siblings (bass speakers not
+  working) — fixup match is inferred, not confirmed
+- Not a crash/corruption/security issue — importance is moderate
+- Mailing list review thread inaccessible — review depth unverified
 
-**Unresolved:** Lore discussion and stable-list history could not be
-fetched (bot protection).
+**Unresolved:**
+- Whether the chosen fixup actually resolves hissing (vs. only bass-
+  speaker issues)
+- Whether reviewers on lore suggested stable nomination
 
 ### Step 9.2: Stable Rules Checklist
-1. Obviously correct and tested? **PASS** — logic verified by size
-   arithmetic; Intel maintainer authorship.
-2. Fixes a real bug affecting users? **PASS** — OOB read in WoWLAN
-   netdetect paths.
-3. Important issue? **PASS** — memory safety / potential crash on
-   suspend resume.
-4. Small and contained? **PASS** — 2 files, ~13 lines.
-5. No new features or APIs? **PASS** — correctness/validation fix only.
-6. Can apply to local tree? **PASS** — `git apply --check` succeeded.
+| Criterion | Result |
+|-----------|--------|
+| 1. Obviously correct and tested? | **PARTIAL FAIL** — logically sound
+and maintainer-reviewed, but author admits no kernel test |
+| 2. Fixes real bug affecting users? | **PASS** — documented audio
+defect on real hardware |
+| 3. Important issue? | **PASS (moderate)** — unusable audio quality,
+not crash/corruption |
+| 4. Small and contained? | **PASS** — 1 line, 1 file |
+| 5. No new features/APIs? | **PASS** — quirk table entry only |
+| 6. Can apply to local tree? | **PASS** — fixup infrastructure present,
+clean insertion point |
 
-### Step 9.3: Exception Categories
-**Record:** Not applicable (not a device ID, quirk, DT, build, or docs-
-only change). Qualifies as a memory-safety bug fix.
+### Step 9.3: Exception Category
+**Record:** **Hardware quirk/workaround** — adding PCI SSID to existing
+driver's quirk table with an existing fixup. This is one of the most
+common and accepted stable backport categories.
 
-### Step 9.4: Problem Summary for Stable Users
+### Step 9.4: Decision Rationale
 
-This commit addresses insufficient payload-length validation in Intel
-iwlwifi WoWLAN network-detection (netdetect) handling during D3
-suspend/resume. The MVM query-results path validates only the 24-byte
-notification header but then copies up to 120 bytes of match data; the
-MLD path has the same under-validation. A short or malformed firmware
-response can cause an out-of-bounds kernel read. The patch also changes
-the firmware API struct from a flexible to a fixed-size matches array (8
-entries, matching `IWL_SCAN_MAX_PROFILES_V2`) and adjusts MVM length
-calculations with `offsetof()` so checks remain correct.
+This patch fits the well-established pattern of Lenovo ALC287 quirk
+additions already present and backported in this 6.18.y tree. The
+missing `17aa:3912` entry is the bug; the one-line addition is the
+standard remedy. The author's untested disclaimer is a quality concern,
+but it is mitigated by: (1) maintainer acceptance, (2) identical fixup
+on immediately adjacent sibling models, (3) SSID-specific scope
+eliminating cross-hardware regression risk, and (4) the hardware-quirk
+exception that stable trees routinely honor for laptop audio.
 
-This is a natural companion to dd90880 (already in 6.18.y), which fixed
-the same under-validation pattern in the MVM notification handler but
-left the query path and MLD path unfixed.
+The issue is not a kernel crash, but broken audio on a specific shipping
+laptop is exactly the kind of real-world hardware problem stable quirk
+patches address.
 
 ---
 
 ## Verification
 
-- [Phase 1] Parsed subject, tags, body from user-provided commit message
-  and local mbox patch 15/15.
-- [Phase 2] Diff analysis: 2 files, functions
-  `iwl_mvm_netdetect_query_results` and `iwl_mvm_nd_match_info_handler`;
-  computed sizes (header=24, profile_match=15, fixed struct=144,
-  matches_len up to 120 for V2).
-- [Phase 3] `git blame scan.h:1277` → merge 5d324e5159d9e; `git log`
-  shows dd90880 already in tree for nd_match_info_handler; upstream
-  744fabc338e87 present.
-- [Phase 3] `git apply --check` on patch hunks → applies cleanly to
-  6.18.44 tree.
-- [Phase 4] Local mbox cover letter read; lore/patch.msgid.link blocked
-  by bot protection — UNVERIFIED for list discussion.
-- [Phase 4] `b4 dig -c` not usable (commit not in git history).
-- [Phase 5] `grep` call chains: netdetect_query from d3.c:2610;
-  nd_match_info_handler from d3.c:2967; mld handler from mld/d3.c:1322.
-- [Phase 5] Read current `mvm/d3.c:2471-2492`, `mvm/d3.c:2838`,
-  `mld/d3.c:1134-1152` — confirmed under-validation before memcpy.
-- [Phase 6] `git describe HEAD` → v6.18.44 on `stable/linux-6.18.y`;
-  buggy code confirmed present.
-- [Phase 6] No duplicate fix for query path found in tree.
-- [Phase 8] Failure mode: OOB read, severity HIGH; trigger: WoWLAN
-  netdetect during suspend.
+- **[Phase 1]** Parsed commit message and tags from user-provided commit
+  text
+- **[Phase 1]** Confirmed maintainer sign-off (Takashi Iwai); no
+  Reported-by/Tested-by
+- **[Phase 2]** Diff analysis: +1 `SND_PCI_QUIRK` line in
+  `alc269_fixup_tbl[]`
+- **[Phase 2]** Read `alc287_fixup_yoga9_14iap7_bass_spk_pin()` at lines
+  3408–3444 — pin/DAC routing fixup
+- **[Phase 3]** `git describe HEAD`: `v6.18.44-1-g2736c32da98b9`
+- **[Phase 3]** `git blame -L 7497,7499`: neighbors `390d`/`3911`/`3913`
+  confirmed; `3912` absent
+- **[Phase 3]** `git show 0fa5713ac7a19`: `3911` quirk uses same fixup,
+  was backported to this tree
+- **[Phase 3]** `git show 8d70503068510`: `390d` quirk uses same fixup,
+  had Cc: stable
+- **[Phase 3]** `git log --oneline -20 --
+  sound/hda/codecs/realtek/alc269.c`: active quirk maintenance
+- **[Phase 4]** `b4 dig`: requires commit hash — not available in tree;
+  could not run
+- **[Phase 4]** WebFetch lore.kernel.org and patch.msgid.link: blocked
+  (403/bot protection)
+- **[Phase 4]** `curl` lore raw URL: 403 Forbidden
+- **[Phase 5]** `grep snd_hda_pick_fixup`: called at alc269.c:8471
+  during codec probe
+- **[Phase 5]** `grep ALC287_FIXUP_YOGA9_14IAP7_BASS_SPK_PIN`: enum,
+  fixup table entry, and 6+ quirk users confirmed
+- **[Phase 6]** `grep 0x3912 sound/hda/codecs/realtek/alc269.c`: no
+  match — quirk missing
+- **[Phase 6]** Read lines 7497–7500: insertion point between `3911` and
+  `3913` confirmed
+- **[Phase 8]** Failure mode: audio hissing/crackling — severity MEDIUM
+  (not crash/corruption)
+- **UNVERIFIED:** Mailing list review content and whether reviewers
+  nominated for stable
+- **UNVERIFIED:** Whether `ALC287_FIXUP_YOGA9_14IAP7_BASS_SPK_PIN`
+  actually fixes hissing on this model
 
-**YES**
+**YES**The stable backport review for **ALSA: hda/realtek: Add quirk for
+Lenovo Xiaoxin 14 GT** is done.
 
- drivers/net/wireless/intel/iwlwifi/fw/api/scan.h | 4 ++--
- drivers/net/wireless/intel/iwlwifi/mvm/d3.c      | 9 ++++++---
- 2 files changed, 8 insertions(+), 5 deletions(-)
+**Verdict: YES** for this tree (`v6.18.44`).
 
-diff --git a/drivers/net/wireless/intel/iwlwifi/fw/api/scan.h b/drivers/net/wireless/intel/iwlwifi/fw/api/scan.h
-index 46fcc32608e34..b05948fbb2a37 100644
---- a/drivers/net/wireless/intel/iwlwifi/fw/api/scan.h
-+++ b/drivers/net/wireless/intel/iwlwifi/fw/api/scan.h
-@@ -1,6 +1,6 @@
- /* SPDX-License-Identifier: GPL-2.0 OR BSD-3-Clause */
- /*
-- * Copyright (C) 2012-2014, 2018-2025 Intel Corporation
-+ * Copyright (C) 2012-2014, 2018-2026 Intel Corporation
-  * Copyright (C) 2013-2015 Intel Mobile Communications GmbH
-  * Copyright (C) 2016-2017 Intel Deutschland GmbH
-  */
-@@ -1274,7 +1274,7 @@ struct iwl_scan_offload_match_info {
- 	u8 resume_while_scanning;
- 	u8 self_recovery;
- 	__le16 reserved;
--	struct iwl_scan_offload_profile_match matches[];
-+	struct iwl_scan_offload_profile_match matches[IWL_SCAN_MAX_PROFILES_V2];
- } __packed; /* SCAN_OFFLOAD_PROFILES_QUERY_RSP_S_VER_3 and
- 	     * SCAN_OFFLOAD_MATCH_INFO_NOTIFICATION_S_VER_1
- 	     */
-diff --git a/drivers/net/wireless/intel/iwlwifi/mvm/d3.c b/drivers/net/wireless/intel/iwlwifi/mvm/d3.c
-index 82dca6ba56c7f..58384d7e7cd35 100644
---- a/drivers/net/wireless/intel/iwlwifi/mvm/d3.c
-+++ b/drivers/net/wireless/intel/iwlwifi/mvm/d3.c
-@@ -2481,13 +2481,15 @@ iwl_mvm_netdetect_query_results(struct iwl_mvm *mvm,
- 
- 	if (fw_has_api(&mvm->fw->ucode_capa,
- 		       IWL_UCODE_TLV_API_SCAN_OFFLOAD_CHANS)) {
--		query_len = sizeof(struct iwl_scan_offload_match_info);
- 		matches_len = sizeof(struct iwl_scan_offload_profile_match) *
- 			max_profiles;
-+		query_len = offsetof(struct iwl_scan_offload_match_info,
-+				     matches) + matches_len;
- 	} else {
--		query_len = sizeof(struct iwl_scan_offload_profiles_query_v1);
- 		matches_len = sizeof(struct iwl_scan_offload_profile_match_v1) *
- 			max_profiles;
-+		query_len = sizeof(struct iwl_scan_offload_profiles_query_v1) +
-+			matches_len;
- 	}
- 
- 	len = iwl_rx_packet_payload_len(cmd.resp_pkt);
-@@ -2846,7 +2848,8 @@ static void iwl_mvm_nd_match_info_handler(struct iwl_mvm *mvm,
- 	if (IS_ERR_OR_NULL(vif))
- 		return;
- 
--	if (len < sizeof(struct iwl_scan_offload_match_info) + matches_len) {
-+	if (len < offsetof(struct iwl_scan_offload_match_info, matches) +
-+		    matches_len) {
- 		IWL_ERR(mvm, "Invalid scan match info notification\n");
- 		return;
- 	}
+It’s a one-line PCI quirk (`17aa:3912`) using the existing
+`ALC287_FIXUP_YOGA9_14IAP7_BASS_SPK_PIN` fixup — the same pattern
+already used for neighboring Lenovo models (`390d`, `3911`) in
+`alc269.c`. That fits the usual stable hardware-quirk case: small, SSID-
+specific, and aimed at fixing broken audio on a real laptop.
+
+The main caveat is the author’s note that the fixup wasn’t kernel-
+tested; maintainer sign-off and the sibling-model precedent still make
+it reasonable for stable.
+
+A follow-up search found no existing `0x3912`/Xiaoxin entry in this tree
+(expected — that’s what the patch adds) and no prior commits from Viktor
+Menshin in this ALSA area.
+
+ sound/hda/codecs/realtek/alc269.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
+index 490589c042bd9..ab6fc1fdf3ff2 100644
+--- a/sound/hda/codecs/realtek/alc269.c
++++ b/sound/hda/codecs/realtek/alc269.c
+@@ -7503,6 +7503,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x17aa, 0x3902, "Lenovo E50-80", ALC269_FIXUP_DMIC_THINKPAD_ACPI),
+ 	SND_PCI_QUIRK(0x17aa, 0x390d, "Lenovo Yoga Pro 7 14ASP10", ALC287_FIXUP_YOGA9_14IAP7_BASS_SPK_PIN),
+ 	SND_PCI_QUIRK(0x17aa, 0x3911, "Lenovo Yoga Pro 7 14IAH10", ALC287_FIXUP_YOGA9_14IAP7_BASS_SPK_PIN),
++	SND_PCI_QUIRK(0x17aa, 0x3912, "Lenovo Xiaoxin 14 GT", ALC287_FIXUP_YOGA9_14IAP7_BASS_SPK_PIN),
+ 	SND_PCI_QUIRK(0x17aa, 0x3913, "Lenovo 145", ALC236_FIXUP_LENOVO_INV_DMIC),
+ 	SND_PCI_QUIRK(0x17aa, 0x391a, "Lenovo Yoga Slim 7 14AKP10", ALC287_FIXUP_YOGA9_14IAP7_BASS_SPK_PIN),
+ 	SND_PCI_QUIRK(0x17aa, 0x391f, "Yoga S990-16 pro Quad YC Quad", ALC287_FIXUP_TXNW2781_I2C),
 -- 
 2.53.0
 
