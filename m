@@ -1,64 +1,64 @@
-Received: from mail-lj1-f170.google.com (mail-lj1-f170.google.com [209.85.208.170])
+Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com [209.85.167.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D4AB3AB272
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 21:52:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21BFB3A7193
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 21:51:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788213124; cv=none; b=buFFKb4EM2nrmKxKpi17Ji8jP/+UHWPqh/q9nrViwCFp9lfPvutHPzw1Tu6BhfA8LEB1uI27aJ0xwHAtTuVpUUbPLMJK/X0MpfTGw/I1+KJdxWWDnoMiJjxCyB22dnaNj31OSX3diZ15eQ/6IlG9K3OJ3W5yGHqKBpXo1Rflroc=
+	t=1788213123; cv=none; b=OVgb29xiRlLpUvjMkTTJL/r3zHS+JjyssUrpYy6XjG51EKwcJEr9dNH4FwOFpjXhocqWEZCRbgrxJ3Fa7J3ymT1sdemUX3gAMX+Jpe5w4Kdir+KsiMOFIBLLsu7N2F0QrU2bGB99/9gMzc6eEeuJOiWJjtAIeJPBxWlcsTE1d0M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788213124; c=relaxed/simple;
-	bh=4ETydHIUMxlDO4oDu5fa8XhnlEwNHQHuV9lq4CMLD3A=;
+	s=arc-20240116; t=1788213123; c=relaxed/simple;
+	bh=SxxpWGf9pRNuCBPbGr/fyUHi9zr4zYOgFQXFR7nQNrQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=JYZCOtF4/HnJK34YiXxX+kbmRCtKsBvzXYS4yVbknJXXAFy1g+OgYratNQfTlxzDWVVtfTPaauWnF1v/xfNqlzt9q9dZxH0tGv9pFcV5mDb+y+/GS5vMUn+zzThEJ0A2jiZb4BZLI4LtX9WT0f5XNMjyDrZaKvNgYpm0cHvgPE8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jHZbwL0H; arc=none smtp.client-ip=209.85.208.170
+	 MIME-Version; b=tZow4lOwV0rsjADHPvBu+xWEzuVFSCN55rC0D2diQz9/PmhKRx95JvJhXaoQ/JLs2TmwxzeIK01EFSX4zkueivGhBhCasqJdX5OVB1n0YbCHNC01FY2s4J+z7agNKwb2U5jtrSLxwc7mk3hQSqGKyNZSDiiMKleQw6WgEP45hiQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IZW45Oax; arc=none smtp.client-ip=209.85.167.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jHZbwL0H"
-Received: by mail-lj1-f170.google.com with SMTP id 38308e7fff4ca-39c8ee87f7eso1335871fa.3
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 14:52:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IZW45Oax"
+Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5b4ac3ba821so3331602e87.0
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 14:51:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788213117; x=1788817917; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788213116; x=1788817916; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=EtPySr7ef4Qsy5GLhJjPitHTdTOLF4vFl+f9aSnO9SE=;
-        b=jHZbwL0HvVuHibw4GAJpS7PIwdU0a/wzpswxGqhhvz/Y4jf4jjxf6fmWD/Anccdx/b
-         h+QUqMYwynjtF2merul3uK3XtfoL/ZpUCcMWyWOeWccW88jrWUHmNTa6xMzA9brpsjiu
-         sCGVfcG0XkBHf5yFBun0HV5ubPErr8C43a+R1iIs5wKnsIpnYX//YPkdf1td8DNgPqYJ
-         Ep/f6uSWcJ8Ps25Olyyeqo3alJ4heDQE59Mu4BsCJMrDaEXQWIPA+tdlGgxiJf3N5ew3
-         BXyGJHQiw9PnJrFpdX5EQxLZZr4sn5k4kkJvoRlPhLPX/hflqFabgzSsiMPtA2gSUuwR
-         vnvA==
+        bh=bbE76zffGm5eOpH0C3tIgIhboyJHtbbJ0ikPzbJ0EIk=;
+        b=IZW45OaxEUxvHoKjcnsr9wChlNf8GXlnum6sxfkVRdDf8pmah2CponSQ60gNfVpXs3
+         TOK6YmeHpH/wuBE8xiMEzt3bzKdojm57xsv3MRGN85/099fEitxaVTS/rqMTKlxmA0iE
+         AG/ZWI68c0ubbuAS3HAKqXDMnascOhlV3BNCqvdH5WIUrlVHcYmyl7ktQWEjfRglTFmk
+         yt1D1VGou6FqiyonG7kBtqS+lsk6yGC0Hjk0V2f+pFn1sTpUbWF3ub1r8mJK/83KyXZH
+         WhLNMXoZcnZK9AyoH0LUTrlYzOxqc1AICrw+3wd0OQ7BBWr43KEC/WqNqRJv65fvzl7P
+         qdMQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788213117; x=1788817917;
+        d=1e100.net; s=20251104; t=1788213116; x=1788817916;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=EtPySr7ef4Qsy5GLhJjPitHTdTOLF4vFl+f9aSnO9SE=;
-        b=on1Uq6pmvuEa4lVWB7qVqScfTcj2+PMGqfMJcNO+5oWDle3s/OGFtP4T7jDmgSM6BU
-         NXb8mHezlQIC4VP0rrBtsQvwZMNzqwVJ7O5gNNspazCdEMD9BZAZLnav1HGMRn4uZ/RL
-         ddiCKhVX9a6YtSdPfJ2sBSMnIXgr+e0m1Yo9Jxnr5lwWzA7UZW2P0nCjeIwv5WJOaNe9
-         2l8o0py22d/nT448nbOxIw0re0KjGzd6bm+MyjJaTSkp3swMf1vlYky0QRtCk7Rpzy/C
-         5K9cYOf3/nOGVeM2CsNphZrv4i+54EkqTFmN78xOKfU2Z/aKEidvAcgIBRNNKaXM4ZiF
-         FoPg==
-X-Forwarded-Encrypted: i=1; AKwUvBxDTFqJTt14yNenT96o/UIDU7zGocQyUFk9lftia/p6tKOtfrNnzqWArtUxK5GnTiY48kUToCUS+/2rQ8E=@vger.kernel.org
-X-Gm-Message-State: AFuF++nlmTriXPBpB1RwTY8+knv4RCoYsy5Ce2T2cG/QODb2qPbSGltF
-	IU0zpv4OkUqZg2+YyQtzSlFpJsrXRtcbFYRzwC22ryvEB1llTpilK/XO
-X-Gm-Gg: AYBFou2FD002AHLaCUUJ4+gI7xiPiYE1eb2DCq6JVMTp9GZzpfb3xGIIMIWq6MBD/EU
-	0JBQuCs17bXe9IMX8YjsescHoBtnhRPdnff2UfHZ/VUaoZ4iqzjikbpzrFHUKcQkCIdZXZKfJJp
-	5O55CiqWlqOYHSuggGotUU7p9iG1FgYAjy1KqzMAGPMV9zG4+Br5/77uHgr6orwFBh3b5t1vHeU
-	t4TT3yX7qNAyBkNAPO0sEXDRBYWam18R7QT+XvBv08tGcbvxUqaQaW2AgUnAdfbvL9ijFzFWTyW
-	KxcmOZVtyoHzKBE814B0pggFWfT8ffabB1lsHsz4MzQENFNn+tBBjsGuUsrc6huSSg7o6JLEtGz
-	J9mxKel1hWNzYOH7OpQZVofz+2Eg36XqtcekpqFbCvm/snd+tYqwzc8nx+I2c/lGWAUxcQ/i4Yx
-	AlHz8ff1e//peE+UIouDE78bWvX7q0o7vKEWUl9lM7u1YQporsV4rKBGizkIn+T9cH875TGeBku
-	0uIKSe4YIsHCot4/b8i74k7zhnCvKPJ9g==
-X-Received: by 2002:a05:6512:3b8f:b0:5b5:e2f1:e6f9 with SMTP id 2adb3069b0e04-5b5e68bc823mr9495560e87.11.1788213117123;
-        Mon, 31 Aug 2026 14:51:57 -0700 (PDT)
+        bh=bbE76zffGm5eOpH0C3tIgIhboyJHtbbJ0ikPzbJ0EIk=;
+        b=oeMrpVIA4Hr5G1YJVWRBrF9RaropYTdVgjUj5vYtz6vROd3mosAT7zXkh+4i76p707
+         FlLxymSUYvznLN4W3QS4GQcL81Q1ouNsqErBWHiW3wouDCNaIjtLhZ6NKscjwt/6KBK5
+         J8GiAEazFR9Kjx5DK+Z3ynFlF/hiYgBFnKMHPluRhnF0NI30IvHhSToylSEwBiZiR2L8
+         8C5bel7AaX9baFb+rOIIN3+3W+AqKpRZQAGgr/+2fh0HQhjwxnu1QE0ro9XbY2cFfE/0
+         A6Hpa8enuRONg/e6oN+x/zSg7hyLIaVsueONXRY4xTurdgqpwpGbX85aoRNujN95j4Cn
+         Zxdg==
+X-Forwarded-Encrypted: i=1; AKwUvBwqC022crrWu1miR7p0KSnD4qWvXJV3Uz5HRkZsnv2oetqr34KpM5WXt1ADEG7HW/i3+xJ9eUcR+/sENCE=@vger.kernel.org
+X-Gm-Message-State: AFuF++nRXrkGElinnqsjxkMDAqs3kkAvxafvhrWSeutNufDoWdVgR0N6
+	Qq5wL7GQFSQAqSvb0T1+aC3x90iJHHzECwSwNmaXSquA2wFsHgDU50Nl
+X-Gm-Gg: AYBFou2A5rLltiG8fxNW1shyeZiVeaq506Xr+xfRzk/7wIIYcCnwqTwAk375K2kU1fV
+	VF91o/e89CISsVLluDd9KM9FCeWx6dqARbc51hUHmpr4G6B3Q5jmgUB0xDaBhPJx3b2jJAyOurX
+	rMA85UQbetEU0ccAsDxiiZFQtGQZ4SQKftVjn261x2TAkurIOKzlE/te3EkLdkJCDSNVnlho3RF
+	A06LSAEKN5tmmGjfv2WVugbfRotLMBMmiISP2DUSr21bxpU1k5v67BC5RLt1XriA1M1NXJqRkst
+	LPIRya/kYq9p4CZUOsRKFGQKaRyTfwhvLtbTE5z0yDoLCGvRmOvL+sjaNNm2fh32ZV7S+hwb70m
+	aNle+vd3cQGdUQTB1O+1Y9VH4v7ba07c1SXY0dCXRcZDItIjYQ7ksE7aJcQ3MxXsHnkY/bJcWre
+	kfuwRWEDnmCx25zMOV1YmiF9GnRrJ6HEq+G1fr77o0axzSoSMiza4++B9fSG8IkgYKXt1Xz3hqi
+	tuw8rF1H2IRRNRRg6qE6M1eGsfTdHgnkw==
+X-Received: by 2002:a05:6512:224c:b0:5b1:4c6f:92f9 with SMTP id 2adb3069b0e04-5b5fe0ea9f5mr1112459e87.20.1788213115911;
+        Mon, 31 Aug 2026 14:51:55 -0700 (PDT)
 Received: from dau-home-pc.. ([212.35.184.237])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b5e8a06a77sm2388782e87.48.2026.08.31.14.51.56
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b5e8a06a77sm2388782e87.48.2026.08.31.14.51.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 14:51:56 -0700 (PDT)
+        Mon, 31 Aug 2026 14:51:55 -0700 (PDT)
 From: Anton Danilov <littlesmilingcloud@gmail.com>
 To: netdev@vger.kernel.org
 Cc: "David S . Miller" <davem@davemloft.net>,
@@ -70,9 +70,9 @@ Cc: "David S . Miller" <davem@davemloft.net>,
 	Shuah Khan <shuah@kernel.org>,
 	linux-kernel@vger.kernel.org,
 	linux-kselftest@vger.kernel.org
-Subject: [PATCH net-next 04/11] gre: make gre_parse_header() report a drop reason
-Date: Tue,  1 Sep 2026 00:51:30 +0300
-Message-ID: <20260831215137.549324-5-littlesmilingcloud@gmail.com>
+Subject: [PATCH net-next 03/11] selftests: net: add a test for the tunnel RX drop reasons
+Date: Tue,  1 Sep 2026 00:51:29 +0300
+Message-ID: <20260831215137.549324-4-littlesmilingcloud@gmail.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260831215137.549324-1-littlesmilingcloud@gmail.com>
 References: <20260831215137.549324-1-littlesmilingcloud@gmail.com>
@@ -84,266 +84,292 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-gre_parse_header() returns -EINVAL for six different reasons and its
-callers turn that into a plain kfree_skb().  The only detail they could
-get so far was the csum_err flag, which none of them actually reads:
-both ip_gre and ip6_gre declare it, pass it in and then ignore it.
+Exercise the two drop reasons added to ip_tunnel_rcv() and
+__ip6_tnl_rcv() for the cases they were introduced for, on both GRE and
+ip6gre:
 
-Replace that dead output parameter with an enum skb_drop_reason one and
-let the two receive paths report what happened.  Two reasons are added:
+ - a receiver configured with 'iseq' or 'icsum' facing a sender that
+   emits neither reports IP_TUNNEL_CFG_OPTS_MISMATCH,
 
- - SKB_DROP_REASON_GRE_INVALID_HDR, for a header carrying an unsupported
-   version or the routing bit,
+ - recreating the tunnel device on the sender resets its outgoing
+   sequence number the way a peer reboot would, and the receiver then
+   reports IP_TUNNEL_OLD_SEQ.
 
- - SKB_DROP_REASON_GRE_CSUM, for a checksum error, next to the existing
-   TCP_CSUM, UDP_CSUM, ICMP_CSUM and IP_CSUM.
+A control case, where both endpoints agree on the options, makes sure
+that no tunnel drop reason is reported when the packets are accepted.
 
-The header pull failures reuse SKB_DROP_REASON_HDR_TRUNC, which
-documents exactly this case, and gre_rcv() in the demux reuses
-pskb_may_pull_reason() and SKB_DROP_REASON_UNHANDLED_PROTO.
-
-A NULL reason keeps the meaning a NULL csum_err had: the caller is not
-interested in it and the checksum must not be verified.  This matters
-for the ICMP error handlers, which only get a part of the original
-packet and must not drop it when the checksum does not validate.
-
-Tunnel lookup failures still report SKB_DROP_REASON_NOT_SPECIFIED here;
-they are addressed in the following patches.
+The reasons are read from the skb:kfree_skb tracepoint through a
+dedicated trace instance, so that the test neither disturbs nor depends
+on anything else using the tracing facility.  The test is skipped when
+that instance cannot be set up.
 
 Assisted-by: Claude-Code:claude-opus-5
 Signed-off-by: Anton Danilov <littlesmilingcloud@gmail.com>
 ---
- include/net/dropreason-core.h |  9 +++++++
- include/net/gre.h             |  2 +-
- net/ipv4/gre_demux.c          | 51 ++++++++++++++++++++++++++---------
- net/ipv4/ip_gre.c             |  6 ++---
- net/ipv6/ip6_gre.c            |  6 ++---
- 5 files changed, 55 insertions(+), 19 deletions(-)
+ tools/testing/selftests/net/Makefile          |   1 +
+ tools/testing/selftests/net/config            |   1 +
+ .../selftests/net/tunnel_drop_reasons.sh      | 228 ++++++++++++++++++
+ 3 files changed, 230 insertions(+)
+ create mode 100755 tools/testing/selftests/net/tunnel_drop_reasons.sh
 
-diff --git a/include/net/dropreason-core.h b/include/net/dropreason-core.h
-index 40f94ecb912a..8efa682601f0 100644
---- a/include/net/dropreason-core.h
-+++ b/include/net/dropreason-core.h
-@@ -130,6 +130,8 @@
- 	FN(RECURSION_LIMIT)		\
- 	FN(IP_TUNNEL_CFG_OPTS_MISMATCH)	\
- 	FN(IP_TUNNEL_OLD_SEQ)		\
-+	FN(GRE_INVALID_HDR)		\
-+	FN(GRE_CSUM)			\
- 	FNe(MAX)
- 
- /**
-@@ -622,6 +624,13 @@ enum skb_drop_reason {
- 	 * numbering.
- 	 */
- 	SKB_DROP_REASON_IP_TUNNEL_OLD_SEQ,
-+	/**
-+	 * @SKB_DROP_REASON_GRE_INVALID_HDR: the GRE header is invalid, e.g.
-+	 * an unsupported version or the routing bit is set.
-+	 */
-+	SKB_DROP_REASON_GRE_INVALID_HDR,
-+	/** @SKB_DROP_REASON_GRE_CSUM: GRE checksum error */
-+	SKB_DROP_REASON_GRE_CSUM,
- 	/**
- 	 * @SKB_DROP_REASON_MAX: the maximum of core drop reasons, which
- 	 * shouldn't be used as a real 'reason' - only for tracing code gen
-diff --git a/include/net/gre.h b/include/net/gre.h
-index b55f67ecd2fc..a63f26c3f78e 100644
---- a/include/net/gre.h
-+++ b/include/net/gre.h
-@@ -33,7 +33,7 @@ int gre_add_protocol(const struct gre_protocol *proto, u8 version);
- int gre_del_protocol(const struct gre_protocol *proto, u8 version);
- 
- int gre_parse_header(struct sk_buff *skb, struct tnl_ptk_info *tpi,
--		     bool *csum_err, __be16 proto, int nhs);
-+		     enum skb_drop_reason *reason, __be16 proto, int nhs);
- 
- static inline bool netif_is_gretap(const struct net_device *dev)
- {
-diff --git a/net/ipv4/gre_demux.c b/net/ipv4/gre_demux.c
-index 96fd7dc6d82d..598678f42ef5 100644
---- a/net/ipv4/gre_demux.c
-+++ b/net/ipv4/gre_demux.c
-@@ -58,26 +58,43 @@ EXPORT_SYMBOL_GPL(gre_del_protocol);
- 
- /* Fills in tpi and returns header length to be pulled.
-  * Note that caller must use pskb_may_pull() before pulling GRE header.
-+ *
-+ * @reason is only written when the header is rejected, so the caller has
-+ * to initialise it before the call.
-+ *
-+ * A NULL @reason means that the caller is not interested in the drop
-+ * reason, and also that the checksum must not be verified.  This is what
-+ * the ICMP error handlers need, as they only get a part of the original
-+ * packet.
-  */
- int gre_parse_header(struct sk_buff *skb, struct tnl_ptk_info *tpi,
--		     bool *csum_err, __be16 proto, int nhs)
-+		     enum skb_drop_reason *reason, __be16 proto, int nhs)
- {
- 	const struct gre_base_hdr *greh;
- 	__be32 *options;
- 	int hdr_len;
- 
--	if (unlikely(!pskb_may_pull(skb, nhs + sizeof(struct gre_base_hdr))))
-+	if (unlikely(!pskb_may_pull(skb, nhs + sizeof(struct gre_base_hdr)))) {
-+		if (reason)
-+			*reason = SKB_DROP_REASON_HDR_TRUNC;
- 		return -EINVAL;
-+	}
- 
- 	greh = (struct gre_base_hdr *)(skb->data + nhs);
--	if (unlikely(greh->flags & (GRE_VERSION | GRE_ROUTING)))
-+	if (unlikely(greh->flags & (GRE_VERSION | GRE_ROUTING))) {
-+		if (reason)
-+			*reason = SKB_DROP_REASON_GRE_INVALID_HDR;
- 		return -EINVAL;
-+	}
- 
- 	gre_flags_to_tnl_flags(tpi->flags, greh->flags);
- 	hdr_len = gre_calc_hlen(tpi->flags);
- 
--	if (!pskb_may_pull(skb, nhs + hdr_len))
-+	if (!pskb_may_pull(skb, nhs + hdr_len)) {
-+		if (reason)
-+			*reason = SKB_DROP_REASON_HDR_TRUNC;
- 		return -EINVAL;
-+	}
- 
- 	greh = (struct gre_base_hdr *)(skb->data + nhs);
- 	tpi->proto = greh->protocol;
-@@ -87,8 +104,8 @@ int gre_parse_header(struct sk_buff *skb, struct tnl_ptk_info *tpi,
- 		if (!skb_checksum_simple_validate(skb)) {
- 			skb_checksum_try_convert(skb, IPPROTO_GRE,
- 						 null_compute_pseudo);
--		} else if (csum_err) {
--			*csum_err = true;
-+		} else if (reason) {
-+			*reason = SKB_DROP_REASON_GRE_CSUM;
- 			return -EINVAL;
- 		}
- 
-@@ -116,8 +133,11 @@ int gre_parse_header(struct sk_buff *skb, struct tnl_ptk_info *tpi,
- 
- 		val = skb_header_pointer(skb, nhs + hdr_len,
- 					 sizeof(_val), &_val);
--		if (!val)
-+		if (!val) {
-+			if (reason)
-+				*reason = SKB_DROP_REASON_HDR_TRUNC;
- 			return -EINVAL;
-+		}
- 		tpi->proto = proto;
- 		if ((*val & 0xF0) != 0x40)
- 			hdr_len += 4;
-@@ -132,8 +152,11 @@ int gre_parse_header(struct sk_buff *skb, struct tnl_ptk_info *tpi,
- 	    greh->protocol == htons(ETH_P_ERSPAN2)) {
- 		struct erspan_base_hdr *ershdr;
- 
--		if (!pskb_may_pull(skb, nhs + hdr_len + sizeof(*ershdr)))
-+		if (!pskb_may_pull(skb, nhs + hdr_len + sizeof(*ershdr))) {
-+			if (reason)
-+				*reason = SKB_DROP_REASON_HDR_TRUNC;
- 			return -EINVAL;
-+		}
- 
- 		ershdr = (struct erspan_base_hdr *)(skb->data + nhs + hdr_len);
- 		tpi->key = cpu_to_be32(get_session_id(ershdr));
-@@ -146,15 +169,19 @@ EXPORT_SYMBOL(gre_parse_header);
- static int gre_rcv(struct sk_buff *skb)
- {
- 	const struct gre_protocol *proto;
-+	enum skb_drop_reason reason = SKB_DROP_REASON_NOT_SPECIFIED;
- 	u8 ver;
- 	int ret;
- 
--	if (!pskb_may_pull(skb, 12))
-+	reason = pskb_may_pull_reason(skb, 12);
-+	if (reason)
- 		goto drop;
- 
- 	ver = skb->data[1]&0x7f;
--	if (ver >= GREPROTO_MAX)
-+	if (ver >= GREPROTO_MAX) {
-+		reason = SKB_DROP_REASON_UNHANDLED_PROTO;
- 		goto drop;
-+	}
- 
- 	rcu_read_lock();
- 	proto = rcu_dereference(gre_proto[ver]);
-@@ -167,11 +194,11 @@ static int gre_rcv(struct sk_buff *skb)
- drop_nohandler:
- 	rcu_read_unlock();
- 	dev_core_stats_rx_nohandler_inc(skb->dev);
--	kfree_skb(skb);
-+	kfree_skb_reason(skb, SKB_DROP_REASON_UNHANDLED_PROTO);
- 	return NET_RX_DROP;
- drop:
- 	dev_core_stats_rx_dropped_inc(skb->dev);
--	kfree_skb(skb);
-+	kfree_skb_reason(skb, reason);
- 	return NET_RX_DROP;
- }
- 
-diff --git a/net/ipv4/ip_gre.c b/net/ipv4/ip_gre.c
-index 82309efd417e..1894c5746a73 100644
---- a/net/ipv4/ip_gre.c
-+++ b/net/ipv4/ip_gre.c
-@@ -439,8 +439,8 @@ static int ipgre_rcv(struct sk_buff *skb, const struct tnl_ptk_info *tpi,
- 
- static int gre_rcv(struct sk_buff *skb)
- {
-+	enum skb_drop_reason reason = SKB_DROP_REASON_NOT_SPECIFIED;
- 	struct tnl_ptk_info tpi;
--	bool csum_err = false;
- 	int hdr_len;
- 
- #ifdef CONFIG_NET_IPGRE_BROADCAST
-@@ -451,7 +451,7 @@ static int gre_rcv(struct sk_buff *skb)
- 	}
- #endif
- 
--	hdr_len = gre_parse_header(skb, &tpi, &csum_err, htons(ETH_P_IP), 0);
-+	hdr_len = gre_parse_header(skb, &tpi, &reason, htons(ETH_P_IP), 0);
- 	if (hdr_len < 0)
- 		goto drop;
- 
-@@ -469,7 +469,7 @@ static int gre_rcv(struct sk_buff *skb)
- 	icmp_send(skb, ICMP_DEST_UNREACH, ICMP_PORT_UNREACH, 0);
- drop:
- 	dev_core_stats_rx_dropped_inc(skb->dev);
--	kfree_skb(skb);
-+	kfree_skb_reason(skb, reason);
- 	return 0;
- }
- 
-diff --git a/net/ipv6/ip6_gre.c b/net/ipv6/ip6_gre.c
-index 69c51f1a5bf0..736eefdb528f 100644
---- a/net/ipv6/ip6_gre.c
-+++ b/net/ipv6/ip6_gre.c
-@@ -569,11 +569,11 @@ static int ip6erspan_rcv(struct sk_buff *skb,
- 
- static int gre_rcv(struct sk_buff *skb)
- {
-+	enum skb_drop_reason reason = SKB_DROP_REASON_NOT_SPECIFIED;
- 	struct tnl_ptk_info tpi;
--	bool csum_err = false;
- 	int hdr_len;
- 
--	hdr_len = gre_parse_header(skb, &tpi, &csum_err, htons(ETH_P_IPV6), 0);
-+	hdr_len = gre_parse_header(skb, &tpi, &reason, htons(ETH_P_IPV6), 0);
- 	if (hdr_len < 0)
- 		goto drop;
- 
-@@ -594,7 +594,7 @@ static int gre_rcv(struct sk_buff *skb)
- 	icmpv6_send(skb, ICMPV6_DEST_UNREACH, ICMPV6_PORT_UNREACH, 0);
- drop:
- 	dev_core_stats_rx_dropped_inc(skb->dev);
--	kfree_skb(skb);
-+	kfree_skb_reason(skb, reason);
- 	return 0;
- }
- 
+diff --git a/tools/testing/selftests/net/Makefile b/tools/testing/selftests/net/Makefile
+index 0f5c178bc224..9acf364e8919 100644
+--- a/tools/testing/selftests/net/Makefile
++++ b/tools/testing/selftests/net/Makefile
+@@ -117,6 +117,7 @@ TEST_PROGS := \
+ 	test_vxlan_vnifiltering.sh \
+ 	tfo_passive.sh \
+ 	traceroute.sh \
++	tunnel_drop_reasons.sh \
+ 	txtimestamp.sh \
+ 	udpgro.sh \
+ 	udpgro_bench.sh \
+diff --git a/tools/testing/selftests/net/config b/tools/testing/selftests/net/config
+index 30d5fcb09a83..281633ff3aa9 100644
+--- a/tools/testing/selftests/net/config
++++ b/tools/testing/selftests/net/config
+@@ -14,6 +14,7 @@ CONFIG_CRYPTO_SM4_GENERIC=y
+ CONFIG_DEBUG_INFO_BTF=y
+ CONFIG_DEBUG_INFO_BTF_MODULES=n
+ CONFIG_DUMMY=y
++CONFIG_ENABLE_DEFAULT_TRACERS=y
+ CONFIG_GENEVE=m
+ CONFIG_IFB=y
+ CONFIG_INET_DIAG=y
+diff --git a/tools/testing/selftests/net/tunnel_drop_reasons.sh b/tools/testing/selftests/net/tunnel_drop_reasons.sh
+new file mode 100755
+index 000000000000..eb19967ae7dd
+--- /dev/null
++++ b/tools/testing/selftests/net/tunnel_drop_reasons.sh
+@@ -0,0 +1,228 @@
++#!/bin/bash
++# SPDX-License-Identifier: GPL-2.0
++#
++# Test the drop reasons reported by the generic tunnel RX path,
++# ip_tunnel_rcv() and __ip6_tnl_rcv().
++#
++# Two situations are checked, for both GRE and ip6gre:
++#
++#  - the options carried by the packet do not match the tunnel
++#    configuration, which is reported as IP_TUNNEL_CFG_OPTS_MISMATCH.
++#    It is triggered here by configuring the receiver with 'iseq' or
++#    'icsum' while the sender emits neither.
++#
++#  - the sequence number of the packet is older than the one expected by
++#    the tunnel, which is reported as IP_TUNNEL_OLD_SEQ.  It is
++#    triggered here by recreating the tunnel device on the sender, which
++#    resets its outgoing sequence number the same way a peer reboot
++#    would.
++#
++# A control case, where both endpoints agree on the options, makes sure
++# that no tunnel drop reason is reported when packets are accepted.
++#
++# Drop reasons are read from the skb:kfree_skb tracepoint.  A dedicated
++# trace instance is used so that the test does not disturb, and is not
++# disturbed by, anything else using the tracing facility.
++
++source lib.sh
++
++NS_SND=""
++NS_RCV=""
++TRACE_DIR=""
++TR=""
++
++SND_V4=10.0.0.1
++RCV_V4=10.0.0.2
++SND_V6=2001:db8::1
++RCV_V6=2001:db8::2
++TUN_SND=192.168.1.1
++TUN_RCV=192.168.1.2
++
++cleanup()
++{
++	if [ -n "$TR" ]; then
++		echo 0 > "$TR/events/skb/kfree_skb/enable" 2>/dev/null
++		rmdir "$TR" 2>/dev/null
++	fi
++	cleanup_all_ns
++}
++
++trap cleanup EXIT
++
++setup_tracing()
++{
++	local dir
++
++	for dir in /sys/kernel/tracing /sys/kernel/debug/tracing; do
++		if [ -f "$dir/trace" ]; then
++			TRACE_DIR="$dir"
++			break
++		fi
++	done
++	[ -n "$TRACE_DIR" ] || return 1
++	[ -d "$TRACE_DIR/instances" ] || return 1
++	[ -e "$TRACE_DIR/events/skb/kfree_skb" ] || return 1
++
++	TR="$TRACE_DIR/instances/tunnel_drop_reasons"
++	mkdir "$TR" 2>/dev/null || return 1
++	echo 1 > "$TR/events/skb/kfree_skb/enable" || return 1
++}
++
++setup_ns_pair()
++{
++	cleanup_all_ns
++	setup_ns NS_SND NS_RCV
++
++	ip link add veth_s netns "$NS_SND" type veth \
++		peer name veth_r netns "$NS_RCV"
++	ip -n "$NS_SND" link set veth_s up
++	ip -n "$NS_RCV" link set veth_r up
++
++	ip -n "$NS_SND" addr add "$SND_V4/24" dev veth_s
++	ip -n "$NS_RCV" addr add "$RCV_V4/24" dev veth_r
++	ip -n "$NS_SND" addr add "$SND_V6/64" dev veth_s nodad
++	ip -n "$NS_RCV" addr add "$RCV_V6/64" dev veth_r nodad
++}
++
++# $1: namespace, $2: local, $3: remote, $4...: tunnel options
++add_gre()
++{
++	local ns=$1 loc=$2 rem=$3
++
++	shift 3
++	ip -n "$ns" link add gre_test type gre local "$loc" remote "$rem" "$@"
++	ip -n "$ns" link set gre_test up
++}
++
++# $1: namespace, $2: local, $3: remote, $4...: tunnel options
++add_ip6gre()
++{
++	local ns=$1 loc=$2 rem=$3
++
++	shift 3
++	ip -n "$ns" link add gre_test type ip6gre local "$loc" remote "$rem" \
++		"$@"
++	ip -n "$ns" link set gre_test up
++}
++
++addr_tunnels()
++{
++	ip -n "$NS_SND" addr add "$TUN_SND/24" dev gre_test
++	ip -n "$NS_RCV" addr add "$TUN_RCV/24" dev gre_test
++}
++
++send_traffic()
++{
++	ip netns exec "$NS_SND" ping -c 2 -W 1 "$TUN_RCV" >/dev/null 2>&1
++	# Let the tracepoint records reach the trace buffer.
++	sleep 1
++}
++
++# $1: test name, $2: expected reason, empty if none is expected
++check_reason()
++{
++	local name=$1 want=$2 count
++
++	echo > "$TR/trace"
++	send_traffic
++
++	if [ -n "$want" ]; then
++		count=$(grep -c "reason: $want" "$TR/trace")
++		if [ "$count" -gt 0 ]; then
++			RET=$ksft_pass
++		else
++			RET=$ksft_fail
++		fi
++		log_test "$name" "$count dropped"
++	else
++		count=$(grep -c "reason: IP_TUNNEL_" "$TR/trace")
++		if [ "$count" -eq 0 ]; then
++			RET=$ksft_pass
++		else
++			RET=$ksft_fail
++		fi
++		log_test "$name" "$count dropped"
++	fi
++}
++
++test_opts_mismatch()
++{
++	local proto=$1 opt=$2
++	local add=add_gre loc=$SND_V4 rem=$RCV_V4
++
++	if [ "$proto" = "ip6gre" ]; then
++		add=add_ip6gre
++		loc=$SND_V6
++		rem=$RCV_V6
++	fi
++
++	setup_ns_pair
++	# The sender emits no option, the receiver expects one.
++	$add "$NS_SND" "$loc" "$rem"
++	$add "$NS_RCV" "$rem" "$loc" "$opt"
++	addr_tunnels
++
++	check_reason "$proto: $opt option mismatch" \
++		IP_TUNNEL_CFG_OPTS_MISMATCH
++}
++
++test_old_seq()
++{
++	local proto=$1
++	local add=add_gre loc=$SND_V4 rem=$RCV_V4
++
++	if [ "$proto" = "ip6gre" ]; then
++		add=add_ip6gre
++		loc=$SND_V6
++		rem=$RCV_V6
++	fi
++
++	setup_ns_pair
++	$add "$NS_SND" "$loc" "$rem" oseq
++	$add "$NS_RCV" "$rem" "$loc" iseq
++	addr_tunnels
++
++	# Raise the sequence number expected by the receiver, then reset the
++	# one used by the sender, as a peer reboot would do.
++	send_traffic
++	ip -n "$NS_SND" link del gre_test
++	$add "$NS_SND" "$loc" "$rem" oseq
++	ip -n "$NS_SND" addr add "$TUN_SND/24" dev gre_test
++
++	check_reason "$proto: old sequence number" IP_TUNNEL_OLD_SEQ
++}
++
++test_control()
++{
++	setup_ns_pair
++	add_gre "$NS_SND" "$SND_V4" "$RCV_V4" oseq ocsum
++	add_gre "$NS_RCV" "$RCV_V4" "$SND_V4" iseq icsum
++	addr_tunnels
++
++	check_reason "gre: matching configuration (control)" ""
++}
++
++if [ "$(id -u)" -ne 0 ]; then
++	echo "SKIP: need root"
++	exit "$ksft_skip"
++fi
++
++if ! setup_tracing; then
++	echo "SKIP: could not set up a trace instance for skb:kfree_skb"
++	exit "$ksft_skip"
++fi
++
++test_opts_mismatch gre iseq
++test_opts_mismatch gre icsum
++test_control
++test_old_seq gre
++
++if [ -e /proc/sys/net/ipv6 ]; then
++	test_opts_mismatch ip6gre iseq
++	test_old_seq ip6gre
++else
++	log_test_skip "ip6gre: iseq option mismatch"
++	log_test_skip "ip6gre: old sequence number"
++fi
++
++exit "$EXIT_STATUS"
 -- 
 2.47.3
 
