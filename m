@@ -1,184 +1,112 @@
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 991483DAABE;
-	Mon, 31 Aug 2026 23:14:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 414F33A961A
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 23:15:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788218057; cv=none; b=mFIAuhpxq9xnYkZB0JGPn8f60B4W57LYHYdR0a7FyKQ51wDtgtquJ7F4yLaObV7NOmO8M021LJEk8nSwXW3aClME8T+L3wAchtfyZtvPcCDwxJa3mmtH9L38lMVFhYf2cqlrq2adkYMuqjTF6XtxIcr8MY95ntvlD54/MphRH+M=
+	t=1788218141; cv=none; b=nkOZkGE4ZKRfmKho5G1VGDXf+IUCQjz2EnLpQs2IwERFftYW9nogY0wtDGDu9NiqsonUNIfAjWjmNTgQOyugMcbgLze0LoW4QRdo1wPkk5TJRzMGbSRBKacqAhW0niqWxpjiI7o8GiUYOQmQXY0ZDZFX5Jy8gnn7vA4E+G6S9FA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788218057; c=relaxed/simple;
-	bh=vCqRibqUw0ujaqjjMunaqG6UBr9RmM6P7zuT1Js6OyY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=cZuZFvizWy9X7nrljpJbDJLpvaWbx83BHg3QKTYR7lNdhthKB6AMNLdLRasbAoZbZU++JDmTqgRG3BU35r9ZKFzzfeg1xo6J8macMoBTbGsS2JEMHOc3jcniVEZdA50ZlPMeVcYmg6T+FxMx5cgVHJLpu+KNRrDquzHQeS72Jts=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=YgUWpuZG; arc=none smtp.client-ip=178.251.229.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	s=arc-20240116; t=1788218141; c=relaxed/simple;
+	bh=nLjNT1G5JUYYPrhknY0eB9x0ZjckXKrDo9yhKokRjVk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=DhHiJsMWUXmkQ9Hknju+FuS9KefZF3IeVtbFfLJAGJLTQPxvIXx/3QgXAhPP+34yQ/ayklXzhgT+2hTbZS8F7YO8Pv8cZLAd7FKlElZuuIetnLLGOLWT2mJePAAFVLtRorZe7PUt6TYyrZxe2x7UV9f+27NDEajuhPwnrfnHI4U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NDowiLX+; arc=none smtp.client-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="YgUWpuZG"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C8FB711C9C7;
-	Tue, 01 Sep 2026 01:14:08 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1788218049; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=G/4pCNbo+upZ0k4TXQBP77fIXcguXQOHsC6hBkuc0Xw=;
-	b=YgUWpuZGHTshL6IDcQat5bRGu7CykG7AwTpDVquTxx4NpMuWvVnUwXx5+fKTPpjSbUNj65
-	+C2Cz035Fxhmc95azaWcpGb9fQNmFQs34IuVPjNwE8w09xOAY1SkyjledBxBSiu6G6gyow
-	sc+p9lHD6aI72xm0fEhB7eF9LUuLoB9nq3px97u9Zc438OOKiwbi+z7XNcPAzBuNmOpAhz
-	AtLrz5E+ckVhbr3v53sh9QjKsHYdQ5TXsmR4msbNsLiUt9yEh20S7hES5eahy53ic0/kaT
-	6YmGRv30Pqzz+LK7llHNpVz0vyw1VH7pIrKsseFiXtSK/ktazSgOG+wPnb2U0w==
-From: Marek Vasut <marex@nabladev.com>
-To: linux-arm-kernel@lists.infradead.org
-Cc: Marek Vasut <marex@nabladev.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Christophe Roullier <christophe.roullier@foss.st.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>,
-	Rob Herring <robh@kernel.org>,
-	Yannick Fertre <yannick.fertre@foss.st.com>,
-	devicetree@vger.kernel.org,
-	kernel@dh-electronics.com,
-	linux-kernel@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com
-Subject: [PATCH v5 2/2] soc: st: Add STM32MP2 SYSCFG driver
-Date: Tue,  1 Sep 2026 01:13:25 +0200
-Message-ID: <20260831231359.136475-2-marex@nabladev.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260831231359.136475-1-marex@nabladev.com>
-References: <20260831231359.136475-1-marex@nabladev.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NDowiLX+"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-495437bb891so3640355e9.1
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 16:15:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788218137; x=1788822937; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=4Cbbg1ZOVRL0U5f2uy8yCobIVDqIxQsXjzjOSTe5SUM=;
+        b=NDowiLX+9lFsVlgSpsbSBI75OdoGWkBcd3+W3sPqomHUJpEOngiZS3JDPCNK1zCk4D
+         PcT9p7Nna0HxKYETKWidlLgKKejGVXkefLQCYsmapqoXMMXjOwnN/bL19XZlsyqt44Ao
+         iAzD2ha+jTDygPTOv/mws4TcV37rJ4rQJo+0hg4NJn5xqvKQq9rqFtypGeCFvGNYL9yf
+         wL4rQSduJCopY8p2S0Oet+5tRnKQoH5kWpK4ERvz2J53riqnNK6rp+mSgeWsn6KLmSh8
+         4LbJUyeF8HWyWUKI6vTvLDaOC2J31Wmjjr7D0Bvn1WXm3mFpepcxRKG3saI/T19WDCC+
+         VQ8w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788218137; x=1788822937;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4Cbbg1ZOVRL0U5f2uy8yCobIVDqIxQsXjzjOSTe5SUM=;
+        b=tUgnoFJoKOMI9KX2L82p0kwZPRDKF1tZkEPinCwu4lpq9YshjRQKximGqPZuDLP9QJ
+         EiZNCXhvVZF+YYGJwO851xOjnmXD24FlPuZ5xsraWXFvjBEA3F4SzggjNcy6NfQaNp7g
+         5mqcsgFIgJyTdsg/MhEosnWRpQmVPO/Dz+MuBLCKxDvg2AiLDld7yvCVdDILMn9TGUdb
+         wEQ1BYHlo7ezbPzyFFpIgZlgcjTgqtMkuocOFmv8+24hh+kUXRana45R/SrzeVBgsxLk
+         VzAiH9YHkX7bGgUbMNiszm0mCOoVxGNGs5gD3L8/LbPrU+SLNDOGJldoPdPgmA0/yfw1
+         /SGg==
+X-Forwarded-Encrypted: i=1; AHgh+RprAXppb23EZDLH7Ko7htUitnuJSMulfAYPBg/3JWbpR7uUFoKcTlPEGEPfahMah8W3aDgMOxJVsqJ6vbE=@vger.kernel.org
+X-Gm-Message-State: AFuF++m0jtRyPnE6f7xWNJfGXdciGClpG3DQ9WVMyLfdQJ+9rn7K9i22
+	SEHR7GzCI0spCvHsapOMq+IqXqkD7l9NrJUBhfPimNc1iE77zSwa7Q1E
+X-Gm-Gg: AR+sD13Ol87YMgzTTJytC1bRLWzq0vMsoyW3q4gMg7RdRd0bWkeSCQw872Sed6CyAx2
+	gFNuWSSnh3iYtbbV92u9hqKgimqRVp6V+KjS7CdJY3FDYKvm97QhOOBgNiF1yS2N2745JhHNCrl
+	CV5+hDCZZJt0b7mDDARn7ychmCtSSfpsSKBRoAfSqoauNPUzyp7a2b702sX3yPRDlnp7Pga4oDN
+	7eFUhKnIT/KjDjJnwJRe5cwm1l+npRAsr9dVDaYaK0eSVOZGxtIDFOqrk6i+LsvZcyysCv9b3ZX
+	4XejL1hSwSzggX7H4TfrsCG5shb+NCi8Y29w54oDQZya63Kfy6Yio5ahJYsIExRUUbxvbNr//1U
+	hKnXM0spGbR870w1fO59IOF3U5cH8f1W/Wa03ZW19HvMX9RVTiblHOVufOfKeUyUyRoxwYndCb/
+	PQx42DXYG/abTKCj8Nl1OS0xxg5+ZRUO59y3EZ2mLedGpR5DGkBV28Ualia+OUv844T1rc24faL
+	IiRNTjmWJxpeeC6If0h7Eftw3y3n97c1hRNYo7xgqm12A85D3SHOwhP6NH7oR38iI/AMH0jrEtA
+	FYzDMcNVkggEijpDIMSJNpwcHoSNl8VIq8Iz63aun2CzxXiD9OIwTk/GGtPb2jo=
+X-Received: by 2002:a05:600c:6819:b0:493:f783:c46a with SMTP id 5b1f17b1804b1-49cdd41ca5amr23361785e9.6.1788218137195;
+        Mon, 31 Aug 2026 16:15:37 -0700 (PDT)
+Received: from unknown748F3CBA5068 (dynamic-2a02-3100-acb9-0201-68d0-34d2-ad1a-175a.310.pool.telefonica.de. [2a02:3100:acb9:201:68d0:34d2:ad1a:175a])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48442d6e9cfsm957147f8f.22.2026.08.31.16.15.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Aug 2026 16:15:36 -0700 (PDT)
+Date: Tue, 1 Sep 2026 01:15:33 +0200
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Pablo Neira Ayuso <pablo@netfilter.org>
+Cc: stable@vger.kernel.org, Florian Westphal <fw@strlen.de>, 
+	Phil Sutter <phil@nwl.cc>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
+	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	Mukul Sikka <mukul.sikka@broadcom.com>, Keerthana K <keerthana.kalyanasundaram@broadcom.com>, 
+	Stefano Brivio <sbrivio@redhat.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Brennan Lamoreaux <brennan.lamoreaux@broadcom.com>, Bin Lan <lanbincn@139.com>, XiaoHua Wang <561399680@139.com>, 
+	netfilter-devel@vger.kernel.org, coreteam@netfilter.org, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 6.1.y 6.6.y] netfilter: nft_set_pipapo: restore cloned
+ mapping table memcg accounting
+Message-ID: <apYKQbvpIWvY8Jqi@gmail.com>
+References: <20260831194905.45045-1-kmehltretter@gmail.com>
+ <apX9AZoNkpVrBMIE@chamomile>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <apX9AZoNkpVrBMIE@chamomile>
 
-Add trivial SYSCFG driver for ST STM32MP25xx, which binds drivers
-to its subnodes. This is currently used to bind USB PHY drivers to
-subnodes described in the SYSCFG DT node.
+On Tue, Sep 01, 2026 at 12:15:29AM +0100, Pablo Neira Ayuso wrote:
+> > 
+> > Fixes: a4983e89e3b1 ("netfilter: nft_set_pipapo: do not rely on ZERO_SIZE_PTR")
+> > Fixes: 32bad10de347 ("netfilter: nft_set_pipapo: do not rely on ZERO_SIZE_PTR")
+> 
+> This two Fixes: tag do not make any sense to me.
 
-Signed-off-by: Marek Vasut <marex@nabladev.com>
----
-Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-Cc: Christophe Roullier <christophe.roullier@foss.st.com>
-Cc: Conor Dooley <conor+dt@kernel.org>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-Cc: Marek Vasut <marex@nabladev.com>
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Cc: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
-Cc: Rob Herring <robh@kernel.org>
-Cc: Yannick Fertre <yannick.fertre@foss.st.com>
-Cc: devicetree@vger.kernel.org
-Cc: kernel@dh-electronics.com
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org
-Cc: linux-stm32@st-md-mailman.stormreply.com
----
-V4: New patch
-V5: No change
----
- drivers/soc/Kconfig              |  1 +
- drivers/soc/Makefile             |  1 +
- drivers/soc/st/Kconfig           | 12 ++++++++++++
- drivers/soc/st/Makefile          |  1 +
- drivers/soc/st/stm32mp2-syscfg.c | 33 ++++++++++++++++++++++++++++++++
- 5 files changed, 48 insertions(+)
- create mode 100644 drivers/soc/st/Kconfig
- create mode 100644 drivers/soc/st/Makefile
- create mode 100644 drivers/soc/st/stm32mp2-syscfg.c
+The two Fixes tags are for the two stable branches:
 
-diff --git a/drivers/soc/Kconfig b/drivers/soc/Kconfig
-index a2d65adffb805..dfe5cec592626 100644
---- a/drivers/soc/Kconfig
-+++ b/drivers/soc/Kconfig
-@@ -24,6 +24,7 @@ source "drivers/soc/renesas/Kconfig"
- source "drivers/soc/rockchip/Kconfig"
- source "drivers/soc/samsung/Kconfig"
- source "drivers/soc/sophgo/Kconfig"
-+source "drivers/soc/st/Kconfig"
- source "drivers/soc/sunxi/Kconfig"
- source "drivers/soc/tegra/Kconfig"
- source "drivers/soc/ti/Kconfig"
-diff --git a/drivers/soc/Makefile b/drivers/soc/Makefile
-index c9e689080ceb7..894bd6ebaaa4d 100644
---- a/drivers/soc/Makefile
-+++ b/drivers/soc/Makefile
-@@ -30,6 +30,7 @@ obj-y				+= renesas/
- obj-y				+= rockchip/
- obj-$(CONFIG_SOC_SAMSUNG)	+= samsung/
- obj-y				+= sophgo/
-+obj-y				+= st/
- obj-y				+= sunxi/
- obj-$(CONFIG_ARCH_TEGRA)	+= tegra/
- obj-y				+= ti/
-diff --git a/drivers/soc/st/Kconfig b/drivers/soc/st/Kconfig
-new file mode 100644
-index 0000000000000..2a9d6a77be450
---- /dev/null
-+++ b/drivers/soc/st/Kconfig
-@@ -0,0 +1,12 @@
-+# SPDX-License-Identifier: GPL-2.0-only
-+menu "ST SoC drivers"
-+
-+config SOC_STM32MP2
-+	tristate "STM32MP2 SoC family support"
-+	depends on ARCH_STM32 || COMPILE_TEST
-+	default ARCH_STM32 && ARM64
-+	select SOC_BUS
-+	help
-+	  If you say yes here, you get support for the ST STM32MP2 family
-+
-+endmenu
-diff --git a/drivers/soc/st/Makefile b/drivers/soc/st/Makefile
-new file mode 100644
-index 0000000000000..5ca313476ca93
---- /dev/null
-+++ b/drivers/soc/st/Makefile
-@@ -0,0 +1 @@
-+obj-$(CONFIG_SOC_STM32MP2) += stm32mp2-syscfg.o
-diff --git a/drivers/soc/st/stm32mp2-syscfg.c b/drivers/soc/st/stm32mp2-syscfg.c
-new file mode 100644
-index 0000000000000..102430f258606
---- /dev/null
-+++ b/drivers/soc/st/stm32mp2-syscfg.c
-@@ -0,0 +1,33 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright 2026 Marek Vasut
-+ */
-+
-+#include <linux/module.h>
-+#include <linux/of_platform.h>
-+#include <linux/platform_device.h>
-+
-+static int stm32mp2_syscfg_probe(struct platform_device *pdev)
-+{
-+	return devm_of_platform_populate(&pdev->dev);
-+}
-+
-+static const struct of_device_id stm32mp2_syscfg_ids[] = {
-+	{ .compatible = "st,stm32mp23-syscfg" },
-+	{ .compatible = "st,stm32mp25-syscfg" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, stm32mp2_syscfg_ids);
-+
-+static struct platform_driver stm32mp2_syscfg_driver = {
-+	.driver = {
-+		.name	= "stm32mp2_syscfg",
-+		.of_match_table = stm32mp2_syscfg_ids,
-+	},
-+	.probe = stm32mp2_syscfg_probe,
-+};
-+module_platform_driver(stm32mp2_syscfg_driver);
-+
-+MODULE_AUTHOR("Marek Vasut <marex@nabladev.com>");
-+MODULE_DESCRIPTION("ST STM32MP2 SYSCFG driver");
-+MODULE_LICENSE("GPL");
--- 
-2.53.0
+- a4983e89e3b1 is the 6.1.y backport
+- 32bad10de347 is the 6.6.y backport
 
+Both backports changed this allocation from GFP_KERNEL_ACCOUNT back to
+GFP_KERNEL, which introduced the regression. The accounting was correct
+before these commits.
+
+I used one Fixes tag for each target tree. I am not sure what the usual
+preference is here: one common patch with both Fixes tags, or separate
+patches for each tree. Which do you prefer?
+
+Thanks,
+Karl
