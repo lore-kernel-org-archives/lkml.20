@@ -1,174 +1,130 @@
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE952480DC3
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 14:03:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CADE47F773
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 14:03:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788184993; cv=none; b=TaMRAuwfcS/gBWyV2pGF3qy2CZc6o7XA6KukegkKFwFSHqAlw+iOv9Gr9nTxGhoOsIMJ6yV3zABFnwHwPcAv72YYZSaQblKHivSmHeh7uZhHA1pPZDybnyXBxfkyyIbJ6lEGgNpxnkAPtEEumsuAW3TehBdruLIl2tLXlpYnllE=
+	t=1788185031; cv=none; b=ZGPUxA8wI61+pjpmUvFncVd1O0j8tcEjaGvAc0rG7VTpoUZWzoCxd5w0NPwDmrbYEH8zlH1ud+Ocql9VlKKttEu8s6nqIpRX3HV/fnA1ea47P6dFfSVUnJE+2K1A3J6MisQoHzxSHuB1SHgwd0hR6huluTnmd3x3dQ7jpB8CYPE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788184993; c=relaxed/simple;
-	bh=+gc0pWN60wqj2qnk1kKnjo/gdXf5HK5doecPBdlNOik=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=X2/gxJeivNMmDjHSN/mq1InTSehlIjGfXp157DuQURGQYqGguv1FwBUS/aSafy8znu6HFcr8ZtzJOrBRX+we3kq0d1Q3/Ovuy0jeEs40Uaf8K0UtkK3SsIHyAcckn9j6iVFybl1JCIeqCE7NoH62ymLSzp8yscEuMlkigxN+aqw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Dx4RThvb; arc=none smtp.client-ip=209.85.128.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788185031; c=relaxed/simple;
+	bh=tstv+r2paNW8AO7BDltcvGIkV9VrLmRskx/CX906V+Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=XxsaB3qa57okZU0Zo6T4jkgnrBOH+Io3OfmJFmV1a/YH/islK1BcU9L7EnOiXCmI2E0pj/fzvTjhAU3kBEr0OBUOONI9UWYzGUjnQvLkRpdfAryE/n2nwmrAgfUvJp2e7N0pfIC+oM7sqv+VuckEkOsq4WjPKPG8dMD9MTBPDBU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=MR+dkGeH; arc=none smtp.client-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Dx4RThvb"
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4980fe6b3beso28399485e9.0
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 07:03:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="MR+dkGeH"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-499dd4900dfso2690045e9.1
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 07:03:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788184990; x=1788789790; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=o6AX1MbXuyaka9uH0IjDSsOUW1ps0MxOUibXyKckmV0=;
-        b=Dx4RThvbGG0JkG2nEYc3oWf61Y27YUxyJSVGNZ7Rf2Tq2OoLTerccHVvNuNEBHQi1P
-         2bgMqzNGLjIeopxoND2ia3QYZ0H6sBR2jolL8Ht5cIjz3hVw4J4aUMhMzxU3nNAILiTo
-         BONZEgJsi25ouCiLebsOAdkbf60wFA3RafPi/CVpGCFcqdNB5iyP1q2V6SOYEEJfar7B
-         ID9lWIPb6Zi1qcJ4Bzv6gwjQEfrptaaSC0TCEpJjMHeoqCaapwfFvy30jMrPQwfaerX7
-         SBimFhkQ0eKqwKNRXicBabAo3wFcwIJL6HpL9x2qtvoCSGYNUVR83ESJfsD1ICZwj6eI
-         0erg==
+        d=suse.com; s=google; t=1788185028; x=1788789828; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=D4pF9XPfC8+Fsp7YVqDDtQsmYtPC7Lz+HA1yR/JLKDM=;
+        b=MR+dkGeHU4sJ/JgDnARefO/Mvigpr3pTVJSolDG7dEPrRIHcjapg76ewx7tCWJcHqX
+         md+CBlNqarjYIgJoGOe/cG5iRzyxkRnfC3s3nMTWUZ2OtkSHgwqQmT6JZ2s71VO2GyNf
+         i7w5F01+HO3JDqtlEdsKo0vq2RcKTeGKaLWNu3t14uNFDRL5H2+x9QTlFm+KNGnJgH3c
+         T+FXTtGyb9CV0n1qyULE+y7NKrpw3S1JbLwNUhkEkCF+6ClJ3QPraLhdICmKQgbTuq+b
+         m497dlj3QZ7Yr4M3ntjtmU/jitxijaB3tBj2qeg2EDJqAgi1c0/6TtH6vtcmd0MAUTGc
+         f3ig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788184990; x=1788789790;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=o6AX1MbXuyaka9uH0IjDSsOUW1ps0MxOUibXyKckmV0=;
-        b=TR1ysIzLLbsp4SJNrPe81Z5x8avew0RRMt13zl82exCpl9GQaIaOVCm46G4jukMDYa
-         SxuKXHzqp0gHwvtqs2NeukF+0F6qxPx2U3HOU0MNkFyj3ZkGlG6YU/QUVgfWpdIWJPWF
-         DtgJHBSV7qx1BS6Mx8dMtWTYV424oAnnEqvcu+CIQwuZoC+3CAzRcaQnn+e4mao9FjCj
-         eUIXhiiJ53qcNcpdc3gt85ALBFhFNLs7FwMyxoq35JLFKk7rgHAYxpaRChsuGe7Sbbrf
-         MpmV5gx3oQZKeqY2bBCO0D7Da9h5oKs4YfE9COXxOgNQ04ZqRgxJn8M0XqF0S4GZKx8h
-         8l1A==
-X-Forwarded-Encrypted: i=1; AHgh+Rpn9b6WMV5jARdprymdlHEQbrCWWtaKIE28PndFaj14Q9yTVOaUDVx6DM5bvYuYED/LNNWmJwHOvCy80p0=@vger.kernel.org
-X-Gm-Message-State: AFuF++lXF1QZ8p81BULD4O3+FVcM70oU/WMJQKVtgAUYJTW6PozghYjC
-	vT9e2CubQjFBHvtMGdjosViLUNfC/y4U40r6Ai8E6aqVkI3PUWqvSMw=
-X-Gm-Gg: AR+sD10UrP9W1bQ67Jh5v0KrEpKJe3j2Hq9f8MWF4kc+NIyKb0cOH0DhOGYn/xebct+
-	7hauuks9zdNTp9NUsvsYEYsBirH2WyEMmYxEt8p6ufrpEeasGFaVwtK7QgegLaD0KDgds+MPSoc
-	r/unDCRdBgMXDsmkwHjG7htvKW5D7AKpd1iN0RypwuOomuZy91Vl5GZnnzUvHHHecn7iYOHr9D2
-	20vzGX1X1L6FkVn/XE0UnyoKHmqr111ROqeCFARP8oYbPM1czspNZGXtb7cCgVGQMdKK3U7heka
-	h5kL8VoT0WoFizUseNLwl9B5PDPa37uzn8v2C5Tg1twX/z6UoVfm40GsdFCOjkffLir3D8ULD0X
-	cOZ/EF2KNR70UA9kpCTSLsVrK/+hp2Gp84lQxYtRttDcvt+r3tRgyIeG6bsyk3VuSRiun1Id1FR
-	zXSm9a7GgY5z2Dm3crVH0Hw70wJt7bkVQ0J9jeYaY7NuyjpMGu18ovpBMasc70lcekk7B7aDaI+
-	CGv94snB5oyniuCOao7o5xwCTOND0RToCr8xXfPw+UR
-X-Received: by 2002:a05:600c:699a:b0:49c:799a:177b with SMTP id 5b1f17b1804b1-49cd5312c62mr164142885e9.2.1788184989594;
-        Mon, 31 Aug 2026 07:03:09 -0700 (PDT)
-Received: from surface.. (84.124.213.91.dyn.user.ono.com. [84.124.213.91])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cca3e642dsm173851415e9.2.2026.08.31.07.03.08
+        d=1e100.net; s=20251104; t=1788185028; x=1788789828;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=D4pF9XPfC8+Fsp7YVqDDtQsmYtPC7Lz+HA1yR/JLKDM=;
+        b=p3dL4JrxMyn7B+L850Z0Y/24HqDKRrId0B2guE/4VnvJt9h1PDjwcM/ZhYACoh/mYS
+         9I4fvU7VBIly+5jyzSzZ1o0PsqhY3s03/wdHFMe5Wr09r70Phk14iTprLZZTw19oRrpe
+         33rJrjXxiFWn9DjP1pd4/mXQ1MauDqzQRkzkZZ5p25OvrSdsNjWuPak/a65INOHU15lr
+         vc4zCJjsfGnZcYmjy9dcS5w/TCuUbnrVhgeCKGFMyxELuEekXpLL94akXMA5hvjVjGto
+         LJZOmi9UgMSpGeHHMldmFacRLNKvN2/tSRHTc4X1+wKTzbRFvdAey0q0Nvs1PYj1kQrL
+         Ie9g==
+X-Forwarded-Encrypted: i=1; AHgh+RredZVnxTVF02UqN8XhhBWoetiZySViRtYO+7J6ZWAIR6F7gVpPHA/0Q50g3Z2BxuZPXWVmDqa5jQFcZic=@vger.kernel.org
+X-Gm-Message-State: AFuF++kEobn4xHKibmVo1wWWyQV6Jbb3hf0hEDmyJ+FmZ3YerZV3DRwa
+	W8ylFgN+syDNmyANkrTVlfuCEGU151J1Rlb6yHr+xFio2AAPIdUpPvENc2Lu9+JTM10=
+X-Gm-Gg: AR+sD13Gi8B5BCY6HeEk7uBGNBHSrmJU06R72M2LXVnF0SvVNGU3BB3ui48ec9B4MB5
+	oSDldGwiM3X/M+u/wFBeNMymwoqqzlzBsGYtmXDzgWK2D90FrcAHSyOL14nkDdcoS4aqjmmUzo4
+	/gNVDrmDQayzJ4hyl9XU/yncCYFt+fTruaZFXTVE90EJhPlWPzUtX/c7sESz57sRWI2STdzPxKc
+	yNdD34LJsHsKjkNoKHG88lK67BlMWKTcnnYD887XlpqPGNGNqMHntn2n2zuwHNpdeK2ZYFkCUy2
+	p5N8lSE/MqBHMKr1NN6b3JnLjwiBY4BX45yjgqca2SAdUJ/INf2CqQ7ybDb+S73HRXKNBSmCpxh
+	A5tgnk3TI10equ29QWQ+XDaJC+jCZk+0L0IWANELIx2N63+8BSu58KKtxNEYt5tdX2l/ZBgqIeV
+	uUIC4tliZtJTuFs/cbNqIR5UbKqverw7fPSAxhqXtf5pHh5W1CuJaGEC371f2c
+X-Received: by 2002:a05:600c:868f:b0:49b:9241:7ff0 with SMTP id 5b1f17b1804b1-49b924181aamr132881005e9.0.1788185025340;
+        Mon, 31 Aug 2026 07:03:45 -0700 (PDT)
+Received: from localhost ([202.127.77.110])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-856a397c0a7sm3908762b3a.49.2026.08.31.07.03.43
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 07:03:09 -0700 (PDT)
-From: "D. Manresa" <dmanresa@gmail.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Hans de Goede <johannes.goede@oss.qualcomm.com>,
-	Daniel Scally <dan.scally@ideasonboard.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	"D . Manresa" <dmanresa@gmail.com>
-Subject: [PATCH v2 2/2] media: ipu-bridge: reuse the software nodes on rebind
-Date: Mon, 31 Aug 2026 16:03:03 +0200
-Message-ID: <20260831140304.45940-3-dmanresa@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260831140304.45940-1-dmanresa@gmail.com>
-References: <20260831094257.29398-1-dmanresa@gmail.com>
- <20260831140304.45940-1-dmanresa@gmail.com>
+        Mon, 31 Aug 2026 07:03:44 -0700 (PDT)
+Date: Mon, 31 Aug 2026 22:03:41 +0800
+From: Heming Zhao <heming.zhao@suse.com>
+To: Joseph Qi <joseph.qi@linux.alibaba.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Mark Fasheh <mark@fasheh.com>, Joel Becker <jlbec@evilplan.org>, ocfs2-devel@lists.linux.dev, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/4] ocfs2: validate suballoc bit during inode read
+Message-ID: <apWJqcgBV5UPqJYM@p15>
+References: <20260831062848.2743436-1-joseph.qi@linux.alibaba.com>
+ <20260831062848.2743436-3-joseph.qi@linux.alibaba.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260831062848.2743436-3-joseph.qi@linux.alibaba.com>
 
-The software nodes registered by ipu_bridge_init() are deliberately
-never unregistered, and the intended design is for a rebind to reuse
-the already registered nodes. That reuse path however only exists for
-the case where the IPU device kept its secondary fwnode link, which the
-fwnode graph check at the top of ipu_bridge_init() detects: then the
-function returns early. When the link is gone, ipu_bridge_init()
-unconditionally registers the IPU HID software node again, which fails
-with -EEXIST on the sysfs name (the node from the previous bind is
-still registered) and the IPU driver fails to probe.
+On Mon, Aug 31, 2026 at 02:28:46PM +0800, Joseph Qi wrote:
+> i_suballoc_bit of a dinode is currently not validated at all.  A
+> corrupted dinode can carry an abnormally large i_suballoc_bit, which
+> bypasses ocfs2_validate_inode_block().  When the inode is deleted,
+> ocfs2_remove_inode() calls ocfs2_free_dinode(), which passes the
+> unvalidated bit to _ocfs2_free_suballoc_bits() and triggers
+> BUG_ON((count + start_bit) > ocfs2_bits_per_group(cl)).
+> 
+> Since suballocator block group bitmaps are contained in a single
+> block, a valid suballoc bit must be smaller than the number of bits
+> per block.  Reject oversized i_suballoc_bit values during dinode
+> validation.
+> 
+> Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
 
-That is exactly what happens when the IPU PCI device is removed and
-re-scanned: device_del() unsets the ACPI companion, and
-set_primary_fwnode(dev, NULL) then clears the ACPI fwnode's ->secondary
-pointer, so the fwnode graph check on the next probe finds no endpoints
-and falls through to registration. Observed on a Surface Pro 7+ (IPU6):
-
-  echo 1 > /sys/bus/pci/devices/0000:00:05.0/remove
-  modprobe -r intel_ipu6_isys intel_ipu6   # ipu-bridge unloads too
-  echo 1 > /sys/bus/pci/rescan
-  modprobe intel_ipu6
-
-  sysfs: cannot create duplicate filename '/kernel/software_nodes/INT343E'
-  intel-ipu6 0000:00:05.0: Failed to register the IPU HID node
-  intel-ipu6: probe of 0000:00:05.0 failed with error -17
-
-after which the cameras are unusable until reboot.
-
-Add the missing reuse path: if the IPU software node is already
-registered, look it up with software_node_find_by_name(), point the
-device's secondary fwnode at it and return success. That is all a
-rebind needs: the sensor, IVSC and VCM links live on devices that
-survive an IPU unbind, so nothing has cleared those.
-
-software_node_find_by_name() takes a reference on the node it returns;
-drop it right away since the node is kept alive by its never dropped
-registration.
-
-Assisted-by: LLM
-
-Fixes: 803abec64ef9 ("media: ipu3-cio2: Add cio2-bridge to ipu3-cio2 driver")
-Signed-off-by: D. Manresa <dmanresa@gmail.com>
----
- drivers/media/pci/intel/ipu-bridge.c | 24 ++++++++++++++++++++++++
- 1 file changed, 24 insertions(+)
-
-diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel/ipu-bridge.c
-index 4de42ed..6fa1c3c 100644
---- a/drivers/media/pci/intel/ipu-bridge.c
-+++ b/drivers/media/pci/intel/ipu-bridge.c
-@@ -930,6 +930,7 @@ static DEFINE_MUTEX(ipu_bridge_mutex);
- int ipu_bridge_init(struct device *dev,
- 		    ipu_parse_sensor_fwnode_t parse_sensor_fwnode)
- {
-+	const struct software_node *ipu_node;
- 	struct fwnode_handle *fwnode;
- 	struct ipu_bridge *bridge;
- 	unsigned int i;
-@@ -940,6 +941,29 @@ int ipu_bridge_init(struct device *dev,
- 	if (!ipu_bridge_check_fwnode_graph(dev_fwnode(dev)))
- 		return 0;
- 
-+	/*
-+	 * The software nodes registered by a previous ipu_bridge_init() call
-+	 * are deliberately kept registered when the module is unloaded, and
-+	 * the sensors' ACPI fwnodes still have them as their secondary
-+	 * fwnodes. If the IPU software node is already registered this is a
-+	 * rebind, e.g. after the PCI device was removed and re-scanned,
-+	 * which drops the IPU's secondary fwnode link. Registering the nodes
-+	 * again would fail with -EEXIST, so instead reuse them and just
-+	 * restore the IPU's secondary fwnode link.
-+	 */
-+	ipu_node = software_node_find_by_name(NULL, IPU_HID);
-+	if (ipu_node) {
-+		fwnode = software_node_fwnode(ipu_node);
-+		set_secondary_fwnode(dev, fwnode);
-+		/*
-+		 * The node stays registered, it does not need the reference
-+		 * software_node_find_by_name() took to stay alive.
-+		 */
-+		fwnode_handle_put(fwnode);
-+		dev_dbg(dev, "Reusing the previously registered software nodes\n");
-+		return 0;
-+	}
-+
- 	if (!ipu_bridge_ivsc_is_ready())
- 		return dev_err_probe(dev, -EPROBE_DEFER,
- 				     "waiting for IVSC to become ready\n");
--- 
-2.43.0
-
+LGTM.
+Reviewed-by: Heming Zhao <heming.zhao@suse.com>
+> ---
+>  fs/ocfs2/inode.c | 14 ++++++++++++++
+>  1 file changed, 14 insertions(+)
+> 
+> diff --git a/fs/ocfs2/inode.c b/fs/ocfs2/inode.c
+> index eda50f13ffb5..a982c99a9678 100644
+> --- a/fs/ocfs2/inode.c
+> +++ b/fs/ocfs2/inode.c
+> @@ -1543,6 +1543,20 @@ int ocfs2_validate_inode_block(struct super_block *sb,
+>  		goto bail;
+>  	}
+>  
+> +	/*
+> +	 * A suballocator block group bitmap is contained in a single block,
+> +	 * so a valid suballoc bit can never exceed the number of bits per
+> +	 * block.  Otherwise deleting the inode will pass the oversized bit
+> +	 * to _ocfs2_free_suballoc_bits() via ocfs2_free_dinode() and trigger
+> +	 * BUG_ON((count + start_bit) > ocfs2_bits_per_group(cl)).
+> +	 */
+> +	if (le16_to_cpu(di->i_suballoc_bit) >= sb->s_blocksize * 8) {
+> +		rc = ocfs2_error(sb, "Invalid dinode %llu: suballoc bit %u\n",
+> +				 (unsigned long long)bh->b_blocknr,
+> +				 le16_to_cpu(di->i_suballoc_bit));
+> +		goto bail;
+> +	}
+> +
+>  	if ((le32_to_cpu(di->i_flags) & OCFS2_ORPHANED_FL) &&
+>  	    le16_to_cpu(di->i_orphaned_slot) >= OCFS2_SB(sb)->max_slots) {
+>  		rc = ocfs2_error(sb, "Invalid dinode %llu: orphaned slot %u\n",
+> -- 
+> 2.39.3
+> 
