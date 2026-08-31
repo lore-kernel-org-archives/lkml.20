@@ -1,769 +1,450 @@
-Received: from mx0b-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 006B74A64ED;
-	Mon, 31 Aug 2026 13:44:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.77
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DB634A64D7;
+	Mon, 31 Aug 2026 13:44:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183887; cv=none; b=mY8La/HkiCXBnxzNdRJ+8iGtSCV10DiK6RKOsz/rIOVJjvhYApRVJZdVipypwZj2rjjGQ6e7c/ZjxRkAX1LT911ZNJPblQliw/Uu6/Mg+OogLSjXZzOLRfPynLuYa9l+o7hV1mC5hV96CtvyHxK7nnfJWCzypd69USbykLc4cRA=
+	t=1788183890; cv=none; b=mzxA0kc2ao1NlCxk0sYRAFr6zzakbQ0vO+47w0+1yILnkOP1rPASNigm/44l3fsjWs09B7P2QeMqtHmcANrwcCxse18FRq79N6YitKrn56r78U8aaLSvsOFg9V6fD90fch+fVNPzqX/A60gTy4sUDcsO9CgxU9SBg908rtMSMs8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183887; c=relaxed/simple;
-	bh=xO/ZPSXMQE32kHIzVwHS1gUQCnJqImTvHMWSKSbiCLw=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=KWL0Tw3QBhl61usgXf8xICDQg4LbXinh/Hgqrkp3DarNcAloirfoKAxBeK6Cm9sIkLj0P4wPs4RYU4S8uKms/bSQkatDNtAevCauX44b5/VmDGjIf7Jmif5ujex2olcLtt8qUeu6R4Rty596K8mqrPAh4OACi1Q3fTQzGoipaGo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=puJiacj3; arc=none smtp.client-ip=148.163.135.77
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
+	s=arc-20240116; t=1788183890; c=relaxed/simple;
+	bh=TGuY1fY4zmGNM3mSK0PgK5IAT6dikXccGEZgUBO8wUU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=uQ/zE22XehKN0xvNlPmcvjplV+z359JSLK6ErVcHz3zje2rE14JF0X9uOKjic8VWA+3dV4Fhh1ZLN8+349+EZc6Q2YKREi4gVnkEAY/IUzutqtkxBYL1nAHBgUnZXAFrmLU/vGUPyFPGtaIgMA64yE7zDGbX8gLsOwWF7DASaPc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XCKUyz7x; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="puJiacj3"
-Received: from pps.filterd (m0375855.ppops.net [127.0.0.1])
-	by mx0b-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67VBDG3x513322;
-	Mon, 31 Aug 2026 09:44:09 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=DKIM; bh=tT/rV
-	AyY862iGRGeU2f5dUeNR68GlKChU3yiAWQs6+o=; b=puJiacj3D+yLXof+FcAwL
-	FXQMAmmfvXaKToJ6YrxSmGEEo56HGiyNd+50YGHF57uPvpyS/W/8SPkvc4gfVOAA
-	PbnlDK0CB4Cq7O9EI2nlPoN1PtCcmuk+nYR6R95oHoZG52ixWKlZpY4ggDs3JmGH
-	F7z/BypB/9MDlk0qrfbnRnr+L2lWfo7dq+Phy+EqU3DPO4yK4v+qUXbpIXFRqQmg
-	3CgNT5mPeRAk68YTpFl5tVL5xEgJ7Z+qekMzx42K5CdBGlqtdKRtF82Dqj7wBlyU
-	jTIyE8efIOi7ZutZV/ZFLbo2WxEhle1VRVCZF0qGvw6KGmK0fq72PgH1+N3SwKH6
-	w==
-Received: from nwd2mta4.analog.com ([137.71.173.58])
-	by mx0b-00128a01.pphosted.com (PPS) with ESMTPS id 4gcdrdmwcx-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 31 Aug 2026 09:44:09 -0400 (EDT)
-Received: from ASHBMBX9.ad.analog.com (ASHBMBX9.ad.analog.com [10.64.17.10])
-	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 67VDi8xe054537
-	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Mon, 31 Aug 2026 09:44:08 -0400
-Received: from ASHBCASHYB4.ad.analog.com (10.64.17.132) by
- ASHBMBX9.ad.analog.com (10.64.17.10) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.37; Mon, 31 Aug 2026 09:44:08 -0400
-Received: from ASHBMBX8.ad.analog.com (10.64.17.5) by
- ASHBCASHYB4.ad.analog.com (10.64.17.132) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.37; Mon, 31 Aug 2026 09:44:07 -0400
-Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx8.ad.analog.com
- (10.64.17.5) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
- Transport; Mon, 31 Aug 2026 09:44:07 -0400
-Received: from HYB-JRXo5UEs61B.ad.analog.com ([10.66.6.193])
-	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 67VDhglO004987;
-	Mon, 31 Aug 2026 09:44:01 -0400
-From: Stefan Popa <stefan.popa@analog.com>
-To: <linux-iio@vger.kernel.org>
-CC: <jic23@kernel.org>, <lars@metafoo.de>, <Michael.Hennerich@analog.com>,
-        <robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
-        <andy@kernel.org>, <dlechner@baylibre.com>, <nuno.sa@analog.com>,
-        <siratul.islam@linux.dev>, <u.kleine-koenig@baylibre.com>,
-        <linux@roeck-us.net>, <joshua.crofts1@gmail.com>,
-        <ciprian.hegbeli@analog.com>, <krzysztof.kozlowski@oss.qualcomm.com>,
-        <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-        Stefan Popa
-	<stefan.popa@analog.com>
-Subject: [PATCH v9 2/2] iio: adc: add MAX40080 current-sense amplifier driver
-Date: Mon, 31 Aug 2026 16:43:34 +0300
-Message-ID: <20260831134334.196359-3-stefan.popa@analog.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XCKUyz7x"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A735C1F000E9;
+	Mon, 31 Aug 2026 13:44:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788183887;
+	bh=U5BTuxmrI7v0CTeKOwS95n7YBO2pzdcYeyI9VrAW1xY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=XCKUyz7xt+qEtfcqNQLE7A0Wi1FINycGV7QBuPGgZ0xdlp+Ky729DMn/3+uz7n4za
+	 wb5/5ZnG5hAVnaRZsSLmWtze1EKxJ1rykwCOHHfygVEUj8ksr+oT6NwgYh6PIsdPvV
+	 Sv9+BpDfeXKmvA+DmFEarSWD70aX2yMxDde3rdfSGuYgaUgcsXlRYlAoBlybEFYtBN
+	 zkBw/aCnEAtWnv9eIDXwL4Qlr6KE+75jhUwyYiutObsdd236pWtpRIcWFf1O+O2DBn
+	 J8Z1RzsVt6OqRapaQf6sLkUEyAyY+7c+4frvmFzmBsvFhqxUtFmHGqTPG9z1mmuR1h
+	 6QrrN5XwQfzBQ==
+From: Sasha Levin <sashal@kernel.org>
+To: patches@lists.linux.dev,
+	stable@vger.kernel.org
+Cc: Mieczyslaw Nalewaj <namiltd@yahoo.com>,
+	Luiz Angelo Daros de Luca <luizluca@gmail.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Sasha Levin <sashal@kernel.org>,
+	linusw@kernel.org,
+	andrew@lunn.ch,
+	olteanv@gmail.com,
+	davem@davemloft.net,
+	edumazet@google.com,
+	pabeni@redhat.com,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 6.18-6.1] net: dsa: realtek: rtl8365mb: add support for RTL8367SB
+Date: Mon, 31 Aug 2026 09:26:30 -0400
+Message-ID: <20260831133314.4125787-362-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260831134334.196359-1-stefan.popa@analog.com>
-References: <20260831134334.196359-1-stefan.popa@analog.com>
+In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
+References: <20260831133314.4125787-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-stable: review
+X-Patchwork-Hint: Ignore
+X-stable-base: Linux 6.18.48
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ADIRuleOP-NewSCL: Rule Triggered
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODMxMDExOSBTYWx0ZWRfX4wXM/2dBnj65
- HaQsKRCgorm6/HIcXCwJCuslAT0i/XNe/LRae0uWJl2ivAalB7sfS7swrMgEMIuT70kiKeOXM13
- habRqDKLP5us1jwDOBEDUSlWK5FzDR++ub8HIDo//8HEZgP0oka5
-X-Authority-Analysis: v=2.4 cv=feSdDUQF c=1 sm=1 tr=0 ts=6a958529 cx=c_pps
- a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
- a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22
- a=N--XFCr6TIEc_64PeIT2:22 a=gAnH3GRIAAAA:8 a=VwQbUJbxAAAA:8 a=P-IC7800AAAA:8
- a=3eYyrr9eNLywf0p0sAoA:9 a=d3PnA9EDa4IxuAV0gXij:22
-X-Proofpoint-ORIG-GUID: K_r3gYM1wkKpWxFnLvtDojEt_1oB_28I
-X-Proofpoint-GUID: K_r3gYM1wkKpWxFnLvtDojEt_1oB_28I
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODMxMDExOSBTYWx0ZWRfX3Rz6ptBc0/m5
- +6y1jDsTKss7wLe6tNNi1apo+eTSyXTipcHt4A7xL5Qh3BntdDYtJlASIwcBzaBkiCThjrSK31/
- Fxm/MhSwcXf66zn5QNxMlAXzunp44PTQogUmPKiamUh/Bc0oc9oB595MvaKObtxPLP9Bsqc+DQy
- 2OoRue4bUKh7K3CPkwOOVNyhnNcanljIJ7oLxKX12vD5z2lpb/BwUebBHn3Opx+m9Do+pWTUuw6
- Wp9SXnZ0Slq4sz+FOrWB4eRpx7TrjlCJR/L9Rwa94W1NPjrRlkkMlGMUNst7INkRlS7AaUDA8zU
- c/r62regmTlA5269dRLBrUc8S5ZcJkr3hZ1kbA8E8nyMyMgE3F3rjijKeGdkTkhIuz8iMAPw9/Y
- cH7PXNOxN9r4tASSjjYdzKx/8ZAiu3uAHzjiFEulliPowxqmM7s8+v/IsJZesgcsAPaeUuVwJj9
- S1sufa47wcXnhfDXFBA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-31_04,2026-08-27_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 lowpriorityscore=0 phishscore=0 suspectscore=0 spamscore=0
- adultscore=0 bulkscore=0 clxscore=1015 malwarescore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608310119
 
-The MAX40080 is a bidirectional current-sense amplifier with an
-integrated 12-bit ADC and an I2C/SMBus interface. It measures the
-voltage across an external shunt resistor and the input bus voltage,
-storing the results in an internal FIFO.
+From: Mieczyslaw Nalewaj <namiltd@yahoo.com>
 
-Add a direct-mode IIO driver exposing the current and voltage channels
-with raw, scale and hardware-gain attributes, a configurable
-oversampling (digital averaging) ratio, and PEC-protected register
-access. The current scale is derived from the shunt resistor value
-described in the device tree.
+[ Upstream commit 28702a215c96917d85558ad6309a57ab224808c0 ]
 
-The driver operates in single-measurement mode: each raw read triggers
-an on-demand conversion via SMBus Quick Command and returns a matched
-current/voltage pair. This avoids the latency and complexity of the
-continuous FIFO mode while ensuring each read reflects the current
-state. The two selectable current-sense ranges are exposed through
-scale/scale_available.
+Add chip info entry for the Realtek RTL8367SB switch. This device has
+chip ID 0x6367 and version 0x0010. It exposes two external interfaces:
+port 6 supports MII, TMII, RMII, RGMII, SGMII and HSGMII, while port 7
+supports MII, TMII, RMII and RGMII. Use the existing 8365MB-VC jam table
+for initialization.
 
-Continuous FIFO buffering, threshold events and the alert interrupt are
-intentionally left out of this initial submission and may be added
-later.
-
-Co-developed-by: Ciprian Hegbeli <ciprian.hegbeli@analog.com>
-Signed-off-by: Ciprian Hegbeli <ciprian.hegbeli@analog.com>
-Signed-off-by: Stefan Popa <stefan.popa@analog.com>
-Reviewed-by: Siratul Islam <siratul.islam@linux.dev>
+Reviewed-by: Luiz Angelo Daros de Luca <luizluca@gmail.com>
+Signed-off-by: Mieczyslaw Nalewaj <namiltd@yahoo.com>
+Link: https://patch.msgid.link/3c6d822b-0e85-4173-86ba-2badb140bbf1@yahoo.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- MAINTAINERS                |   1 +
- drivers/iio/adc/Kconfig    |  11 +
- drivers/iio/adc/Makefile   |   1 +
- drivers/iio/adc/max40080.c | 574 +++++++++++++++++++++++++++++++++++++
- 4 files changed, 587 insertions(+)
- create mode 100644 drivers/iio/adc/max40080.c
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index c1e5afa42de2e..27f3be3ead889 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -15520,6 +15520,7 @@ L:	linux-iio@vger.kernel.org
- S:	Supported
- W:	https://ez.analog.com/linux-software-drivers
- F:	Documentation/devicetree/bindings/iio/adc/adi,max40080.yaml
-+F:	drivers/iio/adc/max40080.c
- 
- MAXIM MAX7360 KEYPAD LED MFD DRIVER
- M:	Mathieu Dubois-Briand <mathieu.dubois-briand@bootlin.com>
-diff --git a/drivers/iio/adc/Kconfig b/drivers/iio/adc/Kconfig
-index 58da8255525e4..b651c57bbc3f5 100644
---- a/drivers/iio/adc/Kconfig
-+++ b/drivers/iio/adc/Kconfig
-@@ -1041,6 +1041,17 @@ config MAX34408
- 	  To compile this driver as a module, choose M here: the module will be
- 	  called max34408.
- 
-+config MAX40080
-+	tristate "Analog Devices MAX40080 Current Sense Amplifier"
-+	depends on I2C
-+	help
-+	  Say yes here to build support for the Analog Devices MAX40080
-+	  bidirectional current-sense amplifier with a 12-bit ADC and an I2C
-+	  interface.
-+
-+	  To compile this driver as a module, choose M here: the module will be
-+	  called max40080.
-+
- config MAX77541_ADC
- 	tristate "Analog Devices MAX77541 ADC driver"
- 	depends on MFD_MAX77541
-diff --git a/drivers/iio/adc/Makefile b/drivers/iio/adc/Makefile
-index 7cc8f9a12f763..e1953353c68a4 100644
---- a/drivers/iio/adc/Makefile
-+++ b/drivers/iio/adc/Makefile
-@@ -91,6 +91,7 @@ obj-$(CONFIG_MAX1241) += max1241.o
- obj-$(CONFIG_MAX1363) += max1363.o
- obj-$(CONFIG_MAX14001) += max14001.o
- obj-$(CONFIG_MAX34408) += max34408.o
-+obj-$(CONFIG_MAX40080) += max40080.o
- obj-$(CONFIG_MAX77541_ADC) += max77541-adc.o
- obj-$(CONFIG_MAX9611) += max9611.o
- obj-$(CONFIG_MCP320X) += mcp320x.o
-diff --git a/drivers/iio/adc/max40080.c b/drivers/iio/adc/max40080.c
-new file mode 100644
-index 0000000000000..6864ce1cb0633
---- /dev/null
-+++ b/drivers/iio/adc/max40080.c
-@@ -0,0 +1,574 @@
-+// SPDX-License-Identifier: GPL-2.0+
-+/*
-+ * MAX40080 Digital Current-Sense Amplifier driver
-+ *
-+ * Copyright 2026 Analog Devices, Inc.
-+ *
-+ * Datasheet: https://www.analog.com/media/en/technical-documentation/data-sheets/MAX40080.pdf
-+ */
-+
-+#include <linux/array_size.h>
-+#include <linux/bitfield.h>
-+#include <linux/bitops.h>
-+#include <linux/cleanup.h>
-+#include <linux/i2c.h>
-+#include <linux/iopoll.h>
-+#include <linux/math64.h>
-+#include <linux/module.h>
-+#include <linux/mutex.h>
-+#include <linux/property.h>
-+#include <linux/time.h>
-+#include <linux/types.h>
-+#include <linux/units.h>
-+
-+#include <asm/byteorder.h>
-+
-+#include <linux/iio/iio.h>
-+
-+#define MAX40080_REG_CFG		0x00
-+#define  MAX40080_CFG_MODE_MSK		GENMASK(2, 0)
-+#define  MAX40080_CFG_PEC_EN_MSK	BIT(5)
-+#define  MAX40080_CFG_RANGE_MSK		BIT(6)
-+#define  MAX40080_CFG_FILTER_MSK	GENMASK(14, 12)
-+
-+#define MAX40080_REG_FIFO_CFG		0x0A
-+#define  MAX40080_FIFO_CFG_STORE_IV_MSK	GENMASK(1, 0)
-+
-+#define MAX40080_REG_IV			0x10
-+/* Current is a 13-bit two's-complement value (magnitude + sign bit). */
-+#define  MAX40080_IV_I_MSK		GENMASK(12, 0)
-+#define  MAX40080_IV_I_SIGN_BIT		12
-+#define  MAX40080_IV_V_MAG_MSK		GENMASK(27, 16)
-+#define  MAX40080_IV_VALID_MSK		BIT(31)
-+
-+/* CFG.mode field values. */
-+#define MAX40080_CFG_MODE_STDBY		0x00
-+#define MAX40080_CFG_MODE_SINGLE	0x02
-+
-+/* CFG.range field values. */
-+#define MAX40080_CFG_RANGE_50mV		0
-+#define MAX40080_CFG_RANGE_10mV		1
-+
-+/* FIFO_CFG.store_iv field values. */
-+#define MAX40080_FIFO_CFG_STORE_IV	0x02
-+
-+#define MAX40080_ADC_RES_BITS		12
-+#define MAX40080_INTER_VREF_mV		1250
-+#define MAX40080_V_BUFF_GAIN		30
-+#define MAX40080_CSA_50mV_GAIN		25
-+#define MAX40080_CSA_10mV_GAIN		125
-+
-+/*
-+ * The RANGE field (CFG bit 6) selects one of two current-sense full-scale
-+ * ranges (the MAX40080 supports exactly two: +/-50 mV and +/-10 mV). Indexed
-+ * by the CFG.range field value.
-+ */
-+static const int max40080_csa_gain[] = {
-+	[MAX40080_CFG_RANGE_50mV] = MAX40080_CSA_50mV_GAIN,
-+	[MAX40080_CFG_RANGE_10mV] = MAX40080_CSA_10mV_GAIN,
-+};
-+
-+struct max40080_state {
-+	struct i2c_client *client;
-+	/* Serializes read-modify-write access to the CFG register. */
-+	struct mutex lock;
-+	u32 shunt_resistor_uOhm;
-+	/* Cached configuration: the selected RANGE index and oversampling ratio. */
-+	unsigned int range;
-+	int oversampling_ratio;
-+	/*
-+	 * Precomputed current scale (mA per code) for each RANGE setting, as
-+	 * {integer, nano} pairs for IIO_VAL_INT_PLUS_NANO. The range is
-+	 * selected by writing the corresponding scale.
-+	 */
-+	int current_scale[2][2];
-+};
-+
-+static const int max40080_oversampling_avail[] = { 1, 8, 16, 32, 64, 128 };
-+
-+static int max40080_update_bits(struct max40080_state *st, u8 reg,
-+				u16 mask, u16 val)
-+{
-+	int tmp;
-+
-+	tmp = i2c_smbus_read_word_data(st->client, reg);
-+	if (tmp < 0)
-+		return tmp;
-+
-+	tmp = (tmp & ~mask) | (val & mask);
-+
-+	return i2c_smbus_write_word_data(st->client, reg, tmp);
-+}
-+
-+/*
-+ * In single-measurement mode the device sits idle until it receives an SMBus
-+ * Quick Command, then performs exactly one current and one voltage conversion
-+ * and returns to idle. Triggering on demand this way (rather than running the
-+ * FIFO continuously in active mode) means each read returns a fresh, coherent
-+ * current/voltage pair instead of the oldest queued FIFO entry.
-+ */
-+static int max40080_trigger_measurement(struct max40080_state *st)
-+{
-+	return i2c_smbus_xfer(st->client->adapter, st->client->addr,
-+			      st->client->flags, I2C_SMBUS_WRITE, 0,
-+			      I2C_SMBUS_QUICK, NULL);
-+}
-+
-+/*
-+ * A single measurement holds the matched current/voltage pair in one 32-bit
-+ * word (MAX40080_REG_IV). Reading all four bytes in one transaction returns
-+ * both from the same conversion; reading the separate current (0x0C) and
-+ * voltage (0x0E) registers would decorrelate the two channels.
-+ *
-+ * Unlike the word accesses used elsewhere, this is a plain I2C block read: the
-+ * SMBus layer does not append or verify a PEC byte for it even when PEC is
-+ * otherwise enabled for the device, so this transfer is not PEC protected.
-+ */
-+static int max40080_read_iv_once(struct max40080_state *st, u32 *iv)
-+{
-+	__le32 buf = 0;
-+	int ret;
-+
-+	ret = i2c_smbus_read_i2c_block_data(st->client, MAX40080_REG_IV,
-+					    sizeof(buf), (u8 *)&buf);
-+	if (ret < 0)
-+		return ret;
-+
-+	*iv = le32_to_cpu(buf);
-+
-+	return 0;
-+}
-+
-+static int max40080_read_iv(struct max40080_state *st, u32 *iv)
-+{
-+	u32 tmp = 0;
-+	int ret, io_ret;
-+
-+	guard(mutex)(&st->lock);
-+
-+	ret = max40080_trigger_measurement(st);
-+	if (ret < 0)
-+		return ret;
-+
-+	/*
-+	 * Wait for the conversion to complete by polling the FIFO valid bit
-+	 * (or bail out on an I2C error). Polling the device's own status makes
-+	 * this independent of the actual conversion time, which varies with the
-+	 * oversampling ratio and the bus speed. The timeout is only a safety
-+	 * ceiling: the worst case is the maximum 128x averaging on both the
-+	 * current and voltage channels at the slowest 15 ksps base rate plus the
-+	 * inter-channel switching time, i.e. roughly 20 ms; 50 ms leaves ample
-+	 * margin.
-+	 */
-+	ret = read_poll_timeout(max40080_read_iv_once, io_ret,
-+				io_ret || (tmp & MAX40080_IV_VALID_MSK),
-+				500, 50 * USEC_PER_MSEC, false, st, &tmp);
-+	if (io_ret)
-+		return io_ret;
-+
-+	/*
-+	 * Propagate the last-read value even on timeout so the caller can
-+	 * inspect it for debugging.
-+	 */
-+	*iv = tmp;
-+
-+	return ret;
-+}
-+
-+static int max40080_get_current(struct max40080_state *st, int *val)
-+{
-+	u32 iv;
-+	int ret;
-+
-+	ret = max40080_read_iv(st, &iv);
-+	if (ret)
-+		return ret;
-+
-+	*val = sign_extend32(FIELD_GET(MAX40080_IV_I_MSK, iv),
-+			     MAX40080_IV_I_SIGN_BIT);
-+
-+	return 0;
-+}
-+
-+static int max40080_get_voltage(struct max40080_state *st, int *val)
-+{
-+	u32 iv;
-+	int ret;
-+
-+	ret = max40080_read_iv(st, &iv);
-+	if (ret)
-+		return ret;
-+
-+	*val = FIELD_GET(MAX40080_IV_V_MAG_MSK, iv);
-+
-+	return 0;
-+}
-+
-+static int max40080_set_range(struct max40080_state *st, unsigned int range)
-+{
-+	int ret;
-+
-+	ret = max40080_update_bits(st, MAX40080_REG_CFG, MAX40080_CFG_RANGE_MSK,
-+				   FIELD_PREP(MAX40080_CFG_RANGE_MSK, range));
-+	if (ret)
-+		return ret;
-+
-+	WRITE_ONCE(st->range, range);
-+
-+	return 0;
-+}
-+
-+/*
-+ * Precompute the current scale (mA per code) for each RANGE setting as
-+ * {integer, nano} pairs. The shunt drop for a full-scale code is
-+ *   Vref[mV] / (BIT(ADC_RES_BITS) * gain)
-+ * and current = Vshunt / Rshunt, so with Rshunt in micro-ohms the scale in
-+ * mA/code is
-+ *   Vref[mV] * NANO * MICRO / (BIT(ADC_RES_BITS) * gain * Rshunt[uOhm])
-+ * expressed as an integer part plus a nano fractional part.
-+ */
-+static void max40080_calc_current_scale(struct max40080_state *st)
-+{
-+	u64 numerator, denominator;
-+	u32 rem;
-+
-+	for (unsigned int i = 0; i < ARRAY_SIZE(max40080_csa_gain); i++) {
-+		numerator = (u64)MAX40080_INTER_VREF_mV * NANO * MICRO;
-+		denominator = BIT_ULL(MAX40080_ADC_RES_BITS) * max40080_csa_gain[i] *
-+			      st->shunt_resistor_uOhm;
-+		numerator = div64_u64(numerator, denominator);
-+		st->current_scale[i][0] = div_u64_rem(numerator, NANO, &rem);
-+		st->current_scale[i][1] = rem;
-+	}
-+}
-+
-+/*
-+ * max40080_oversampling_avail[] is ordered so that its index is the FILTER
-+ * field value (index 0 = no averaging, index 1 = 8x, ...). Return that index
-+ * for an exact match, or -EINVAL for a value that is not on the list.
-+ */
-+static int max40080_oversampling_to_filter(int val)
-+{
-+	for (unsigned int i = 0; i < ARRAY_SIZE(max40080_oversampling_avail); i++) {
-+		if (max40080_oversampling_avail[i] == val)
-+			return i;
-+	}
-+
-+	return -EINVAL;
-+}
-+
-+static int max40080_set_oversampling_ratio(struct max40080_state *st, int val)
-+{
-+	int filter;
-+	int ret;
-+
-+	filter = max40080_oversampling_to_filter(val);
-+	if (filter < 0)
-+		return filter;
-+
-+	ret = max40080_update_bits(st, MAX40080_REG_CFG, MAX40080_CFG_FILTER_MSK,
-+				   FIELD_PREP(MAX40080_CFG_FILTER_MSK, filter));
-+	if (ret)
-+		return ret;
-+
-+	WRITE_ONCE(st->oversampling_ratio, val);
-+
-+	return 0;
-+}
-+
-+static int max40080_read_raw(struct iio_dev *indio_dev,
-+			     struct iio_chan_spec const *chan,
-+			     int *val, int *val2, long mask)
-+{
-+	struct max40080_state *st = iio_priv(indio_dev);
-+	unsigned int range;
-+	int ret;
-+
-+	switch (mask) {
-+	case IIO_CHAN_INFO_RAW:
-+		if (chan->type == IIO_CURRENT) {
-+			ret = max40080_get_current(st, val);
-+			if (ret)
-+				return ret;
-+		} else if (chan->type == IIO_VOLTAGE) {
-+			ret = max40080_get_voltage(st, val);
-+			if (ret)
-+				return ret;
-+		}
-+		return IIO_VAL_INT;
-+	case IIO_CHAN_INFO_SCALE:
-+		if (chan->type == IIO_CURRENT) {
-+			/*
-+			 * The selectable current-sense range is exposed through
-+			 * scale: each RANGE setting has its own precomputed
-+			 * mA-per-code value. Userspace picks the range by writing
-+			 * the matching scale.
-+			 *
-+			 * Use READ_ONCE to ensure the compiler reads st->range
-+			 * exactly once, so val and val2 come from the same setting
-+			 * even if a concurrent write changes st->range.
-+			 */
-+			range = READ_ONCE(st->range);
-+			*val = st->current_scale[range][0];
-+			*val2 = st->current_scale[range][1];
-+			return IIO_VAL_INT_PLUS_NANO;
-+		}
-+		/* voltage[mV] = raw * Vref[mV] * buffer_gain / BIT(ADC_RES_BITS) */
-+		*val = MAX40080_INTER_VREF_mV * MAX40080_V_BUFF_GAIN;
-+		*val2 = MAX40080_ADC_RES_BITS;
-+		return IIO_VAL_FRACTIONAL_LOG2;
-+	case IIO_CHAN_INFO_OVERSAMPLING_RATIO:
-+		*val = READ_ONCE(st->oversampling_ratio);
-+		return IIO_VAL_INT;
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+static int max40080_write_raw(struct iio_dev *indio_dev,
-+			      struct iio_chan_spec const *chan,
-+			      int val, int val2, long mask)
-+{
-+	struct max40080_state *st = iio_priv(indio_dev);
-+
-+	guard(mutex)(&st->lock);
-+
-+	switch (mask) {
-+	case IIO_CHAN_INFO_SCALE:
-+		/* Only the current channel has a selectable range/scale. */
-+		if (chan->type != IIO_CURRENT)
-+			return -EINVAL;
-+
-+		for (unsigned int i = 0; i < ARRAY_SIZE(max40080_csa_gain); i++) {
-+			if (val == st->current_scale[i][0] &&
-+			    val2 == st->current_scale[i][1])
-+				return max40080_set_range(st, i);
-+		}
-+
-+		return -EINVAL;
-+	case IIO_CHAN_INFO_OVERSAMPLING_RATIO:
-+		return max40080_set_oversampling_ratio(st, val);
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+static int max40080_write_raw_get_fmt(struct iio_dev *indio_dev,
-+				      struct iio_chan_spec const *chan,
-+				      long mask)
-+{
-+	switch (mask) {
-+	case IIO_CHAN_INFO_SCALE:
-+		return IIO_VAL_INT_PLUS_NANO;
-+	default:
-+		return IIO_VAL_INT;
-+	}
-+}
-+
-+static int max40080_read_avail(struct iio_dev *indio_dev,
-+			       struct iio_chan_spec const *chan,
-+			       const int **vals, int *type, int *length,
-+			       long info)
-+{
-+	struct max40080_state *st = iio_priv(indio_dev);
-+
-+	switch (info) {
-+	case IIO_CHAN_INFO_SCALE:
-+		if (chan->type != IIO_CURRENT)
-+			return -EINVAL;
-+
-+		*vals = (int *)st->current_scale;
-+		*length = ARRAY_SIZE(max40080_csa_gain) * 2;
-+		*type = IIO_VAL_INT_PLUS_NANO;
-+		return IIO_AVAIL_LIST;
-+	case IIO_CHAN_INFO_OVERSAMPLING_RATIO:
-+		*vals = max40080_oversampling_avail;
-+		*length = ARRAY_SIZE(max40080_oversampling_avail);
-+		*type = IIO_VAL_INT;
-+		return IIO_AVAIL_LIST;
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+static int max40080_reg_access(struct iio_dev *indio_dev, unsigned int reg,
-+			       unsigned int write_val, unsigned int *read_val)
-+{
-+	struct max40080_state *st = iio_priv(indio_dev);
-+	int val;
-+
-+	if (read_val) {
-+		val = i2c_smbus_read_word_data(st->client, reg);
-+		if (val < 0)
-+			return val;
-+
-+		*read_val = val;
-+
-+		return 0;
-+	}
-+
-+	return i2c_smbus_write_word_data(st->client, reg, write_val);
-+}
-+
-+static const struct iio_info max40080_info = {
-+	.read_raw = max40080_read_raw,
-+	.write_raw = max40080_write_raw,
-+	.write_raw_get_fmt = max40080_write_raw_get_fmt,
-+	.read_avail = max40080_read_avail,
-+	.debugfs_reg_access = &max40080_reg_access,
-+};
-+
-+static const struct iio_chan_spec max40080_channels[] = {
+LLM Generated explanations, may be completely bogus:
+
+## Phase 1: Commit Message Forensics
+
+### Step 1.1: Subject Line
+**Record:** `[net: dsa: realtek: rtl8365mb]` `[add]` — Add chip-info
+table entry for Realtek RTL8367SB switch variant in the existing
+rtl8365mb DSA driver.
+
+### Step 1.2: Commit Message Tags
+**Record:**
+- **Reviewed-by:** Luiz Angelo Daros de Luca \<luizluca@gmail.com\> —
+  subsystem reviewer who also provided technical feedback during review
+- **Signed-off-by:** Mieczyslaw Nalewaj \<namiltd@yahoo.com\> — author
+- **Signed-off-by:** Jakub Kicinski \<kuba@kernel.org\> — netdev
+  maintainer merge
+- **Link:** https://patch.msgid.link/3c6d822b-0e85-4173-86ba-
+  2badb140bbf1@yahoo.com
+- **No** Fixes:, Reported-by:, Tested-by:, Acked-by:, or Cc:
+  stable@vger.kernel.org
+- Notable: no user bug report or syzbot reference; reviewed by a driver
+  contributor
+
+### Step 1.3: Commit Body Analysis
+**Record:**
+- **Bug description:** RTL8367SB (chip ID `0x6367`, version `0x0010`) is
+  not recognized by `rtl8365mb_detect()` because it has no entry in
+  `rtl8365mb_chip_infos[]`.
+- **Symptom:** Probe fails with `unrecognized switch (id=0x6367,
+  ver=0x0010)` and `-ENODEV`; the switch never registers as a DSA device
+  and networking through it does not work.
+- **Version info:** None stated.
+- **Root cause (author):** Missing chip-info entry; the chip reuses the
+  existing `8365MB-VC` jam initialization table. Port 6 supports
+  MII/TMII/RMII/RGMII/SGMII/HSGMII; port 7 supports MII/TMII/RMII/RGMII.
+
+### Step 1.4: Hidden Bug Fix Detection
+**Record:** Not a crash/UAF/leak fix. This is hardware enablement
+disguised as “add support.” It completes detection for a chip already
+listed in the driver’s family documentation but absent from the runtime
+chip table — functionally equivalent to adding a device/chip ID to an
+existing driver.
+
+---
+
+## Phase 2: Diff Analysis
+
+### Step 2.1: Change Inventory
+**Record:**
+- **File:** `drivers/net/dsa/realtek/rtl8365mb.c` — +14 lines, 0 removed
+- **Modified data:** `rtl8365mb_chip_infos[]` static table only
+- **Scope:** Single-file, surgical table entry addition
+
+### Step 2.2: Code Flow Change
+**Record:**
+- **Before:** `rtl8365mb_detect()` iterates `rtl8365mb_chip_infos[]`;
+  chip `0x6367`/`0x0010` matches nothing → `-ENODEV`.
+- **After:** Same loop matches the new RTL8367SB entry → probe
+  continues, switch initializes with the existing VC jam table and
+  declared external interface capabilities.
+- **Path affected:** Device probe / chip detection during
+  `rtl83xx_register_switch()` → `priv->ops->detect()`.
+
+### Step 2.3: Bug Mechanism
+**Record:**
+- **Category:** Logic/correctness — incomplete chip identification table
+  (hardware enablement).
+- **Mechanism:** Driver documents RTL8367SB in its header comment list
+  (line 81) but had no matching `chip_id`/`chip_ver` entry, so detection
+  always failed for that silicon.
+
+### Step 2.4: Fix Quality
+**Record:**
+- Fix is obviously correct in structure: follows identical pattern to
+  RTL8367S and RTL8367RB-VB entries.
+- Minimal scope; no logic changes beyond the table.
+- **Regression risk:** Low. Wrong `extints` could misreport supported
+  PHY modes, but v3 incorporated reviewer feedback on port-6
+  capabilities; v4 is the reviewed final form.
+- No API or structure changes.
+
+---
+
+## Phase 3: Git History Investigation
+
+### Step 3.1: Blame / Introduction
+**Record:** Current `rtl8365mb_chip_infos[]` entries (including RTL8367S
+and RTL8367RB-VB) were introduced in `6bda50f4333fa` (2025-11-29, v6.18
+base import). RTL8367SB was documented in the file header comment from
+the same baseline but never given a table entry — an omission from
+initial driver bring-up, not a later regression.
+
+### Step 3.2: Fixes: Tag
+**Record:** N/A — no Fixes: tag present.
+
+### Step 3.3: Related File History
+**Record:** Recent rtl8365mb changes in this tree are bug fixes (`fix
+mode mask calculation`, `fix rtl8365mb_phy_ocp_write return value`,
+stats cleanup). This RTL8367SB commit is not yet in the tree. Standalone
+one-patch change (v1–v4 on mailing list, same functional diff in final
+version).
+
+### Step 3.4: Author Context
+**Record:** Mieczyslaw Nalewaj has prior rtl8365mb fixes in this tree
+(`b707f3109f1a7`, `5f5d956b2ce00`, `d95de5acbf9ed`). Active contributor
+to this driver, not the original author of the whole file.
+
+### Step 3.5: Dependencies
+**Record:** No prerequisites. Uses existing
+`rtl8365mb_init_jam_8365mb_vc` table and `PHY_INTF()` macros already
+present. Applies standalone.
+
+---
+
+## Phase 4: Mailing List and External Research
+
+### Step 4.1: Original Discussion
+**Record:**
+- **URL:** [PATCH v4 on
+  lists.openwall.net](https://lists.openwall.net/netdev/2026/05/09/111)
+  (Message-ID `3c6d822b-0e85-4173-86ba-2badb140bbf1@yahoo.com`)
+- **Series revisions:** v1 → v2 (no changes) → v3 (expanded port-6 PHY
+  mode mask per reviewer) → v4 (changelog only, repost)
+- **Reviewer feedback:** Luiz Angelo Daros de Luca noted v2 port
+  capabilities were too narrow for RTL8367SB; v3 corrected them. v3
+  received `Reviewed-by:`.
+- **Stable nominations:** None found in available thread content.
+- **NAKs/concerns:** None found.
+
+### Step 4.2: Reviewers
+**Record:** Patch sent to netdev maintainers (Lunn, Oltean, Miller,
+Kicinski, etc.). Cc’d Luiz Angelo Daros de Luca, who reviewed and
+validated port capabilities.
+
+### Step 4.3: Bug Reports
+**Record:** No Reported-by, no syzbot, no bugzilla. Enablement driven by
+hardware identification need, not a filed crash report.
+
+### Step 4.4: Related Patches
+**Record:** Standalone; not part of a multi-commit series.
+
+### Step 4.5: Stable List History
+**Record:** Could not access lore.kernel.org/stable (bot protection). No
+stable discussion verified.
+
+---
+
+## Phase 5: Code Semantic Analysis
+
+### Step 5.1: Key Functions
+**Record:** Only `rtl8365mb_chip_infos[]` data modified. Detection logic
+in `rtl8365mb_detect()` unchanged.
+
+### Step 5.2: Callers
+**Record:** `rtl8365mb_detect()` registered as `.detect` in
+`rtl8365mb_switch_ops`, called from `rtl83xx_register_switch()` during
+driver probe (platform/MDIO device init). Called once per device at
+boot/module load.
+
+### Step 5.3: Callees
+**Record:** Detection reads chip ID/version registers via regmap; on
+match, subsequent `rtl8365mb_switch_init()` uses `chip_info->jam_table`
+and `extints` for PHY mode validation.
+
+### Step 5.4: Reachability
+**Record:** Triggered when a board with `compatible =
+"realtek,rtl8365mb"` (or MDIO equivalent) has an RTL8367SB switch
+attached. Requires `CONFIG_NET_DSA_REALTEK_RTL8365MB`. Affects
+embedded/router platforms using this switch — not a syscall path, but a
+common boot-time path for affected hardware.
+
+### Step 5.5: Similar Patterns
+**Record:** RTL8367S (`0x6367`/`0x00A0`) and RTL8367RB-VB
+(`0x6367`/`0x0020`) entries use the same pattern. RTL8367SB sits between
+them with a distinct `chip_ver` (`0x0010`) and combined port
+capabilities.
+
+---
+
+## Phase 6: Cross-Reference Against Local Tree (6.18.43)
+
+### Step 6.1: Does Buggy Code Exist?
+**Record:** **Yes.** Local tree is **6.18.43**
+(`v6.18.43-1-gc7f0dac02d232`). `drivers/net/dsa/realtek/rtl8365mb.c`
+exists with `rtl8365mb_chip_infos[]` containing RTL8367S and RTL8367RB-
+VB but **no RTL8367SB entry**, despite RTL8367SB being listed in the
+driver’s supported-family comment at line 81. Commit is **not** yet
+applied to this checkout.
+
+### Step 6.2: Backport Complications
+**Record:** **Clean apply expected.** Current tree has RTL8367S
+immediately followed by RTL8367RB-VB — exactly where the patch inserts
+the new entry. No conflicting changes in that region.
+
+### Step 6.3: Related Fixes Already Present
+**Record:** No existing RTL8367SB support or alternate fix found (`git
+log --grep` returned empty).
+
+---
+
+## Phase 7: Subsystem and Maintainer Context
+
+### Step 7.1: Subsystem Criticality
+**Record:** **net/dsa/realtek** — IMPORTANT (networking driver
+subsystem). Affects only platforms with this specific switch and
+`CONFIG_NET_DSA_REALTEK_RTL8365MB` enabled. Known DTS usage:
+`bcm47094-asus-rt-ac88u.dts` uses `realtek,rtl8365mb` (RTL8365MB-VC, not
+RTL8367SB, but shows driver deployment on consumer routers).
+
+### Step 7.2: Subsystem Activity
+**Record:** Active — multiple rtl8365mb fixes landed in this 6.18.y
+tree.
+
+---
+
+## Phase 8: Impact and Risk Assessment
+
+### Step 8.1: Who Is Affected
+**Record:** **Driver-specific / platform-specific** — users with
+RTL8367SB (`0x6367`/`0x0010`) on boards using the rtl8365mb DSA driver.
+
+### Step 8.2: Trigger Conditions
+**Record:** Boot-time probe of a Realtek DSA switch whose hardware
+reports chip ID `0x6367` and version `0x0010`. Not user-triggerable via
+syscall; requires specific hardware. Unprivileged users cannot trigger
+directly, but affected systems fail networking at boot.
+
+### Step 8.3: Failure Mode Severity
+**Record:** Probe failure (`-ENODEV`, “unrecognized switch”).
+**Severity: MEDIUM** for affected hardware — no kernel crash, panic, or
+data corruption, but switch is completely non-functional. Networking
+unavailable on those boards.
+
+### Step 8.4: Risk-Benefit
+**Record:**
+- **Benefit:** Enables RTL8367SB hardware on existing driver
+  infrastructure; low user count but total failure without it.
+- **Risk:** Very low — 14-line static table entry, reviewed, no
+  behavioral changes to other chips.
+- **Ratio:** Moderate benefit for a narrow audience, very low risk. Fits
+  the stable **device ID / hardware enablement** exception category.
+
+---
+
+## Phase 9: Final Synthesis
+
+### Step 9.1: Evidence Summary
+
+**FOR backport:**
+- Adds missing chip variant ID to an existing driver (stable exception:
+  device ID / hardware enablement)
+- Fixes real functional failure on RTL8367SB hardware (probe `-ENODEV`)
+- Small (14 lines), self-contained, no dependencies
+- Reviewed by driver contributor who corrected port capabilities
+- Driver and infrastructure already present in 6.18.43
+- Should apply cleanly
+
+**AGAINST backport:**
+- Not a crash, security, corruption, or deadlock fix
+- No user bug reports or syzbot findings
+- “Add support” language — feature completion rather than regression fix
+- RTL8367SB was never supported in released 6.18.y; this adds new
+  capability
+- Affects a narrow hardware population
+- No stable mailing list nomination found
+
+**Unresolved:**
+- No verified stable-list discussion (lore blocked)
+- No DTS board in this tree explicitly using RTL8367SB (unverified
+  whether any 6.18.y deployments need it today)
+
+### Step 9.2: Stable Rules Checklist
+1. Obviously correct and tested? **PASS** — table entry follows existing
+   pattern; Reviewed-by from subsystem contributor; no Tested-by.
+2. Fixes a real bug affecting users? **PASS** — probe failure on
+   RTL8367SB is a real, reproducible functional bug for that hardware.
+3. Important issue? **BORDERLINE PASS** — not crash/security class, but
+   complete hardware failure for affected platforms.
+4. Small and contained? **PASS** — 14 lines, one file, data table only.
+5. No new features or APIs? **PASS with exception** — adds hardware
+   support via existing driver mechanism (device ID exception applies).
+6. Can apply to local tree? **PASS** — driver present, patch fits
+   cleanly.
+
+### Step 9.3: Exception Category
+**Record:** **NEW DEVICE IDs / hardware enablement** — adding a chip
+ID/version entry to an existing driver’s identification table, analogous
+to PCI/USB ID additions. Driver (`CONFIG_NET_DSA_REALTEK_RTL8365MB`)
+already exists in 6.18.43.
+
+### Step 9.4: Decision Rationale
+
+For **this** tree (6.18.43), the rtl8365mb driver is present and ships
+with RTL8367SB documented in comments but missing from the detection
+table. Boards with RTL8367SB silicon cannot use the switch at all. The
+patch is a minimal, reviewed chip-identification entry using existing
+initialization infrastructure — the canonical stable pattern for
+enabling hardware on an existing driver without adding new APIs or
+driver logic.
+
+The fix is not security-critical and affects a limited hardware set, but
+stable trees routinely accept such chip/ID table additions because they
+fix real hardware failures with negligible regression risk. This meets
+the stable exception criteria and applies cleanly to 6.18.43.
+
+---
+
+## Verification
+
+- **[Phase 1]** Parsed subject, tags, body from provided commit message;
+  fetched v4 thread from lists.openwall.net
+- **[Phase 2]** Confirmed diff: +14 lines to `rtl8365mb_chip_infos[]`
+  only
+- **[Phase 3]** `git blame -L 535,560`: chip table from `6bda50f4333fa`;
+  `git log --oneline -20 -- rtl8365mb.c`: no RTL8367SB commit in tree
+- **[Phase 3]** `git log --grep="RTL8367SB"`: empty — commit not present
+- **[Phase 4]** openwall.net v4 thread: v1–v4 evolution, Reviewed-by,
+  Luiz Angelo port-capability feedback
+- **[Phase 4]** lore.kernel.org fetch: blocked by bot protection
+  (UNVERIFIED for stable-list discussion)
+- **[Phase 4]** b4 dig: could not run without commit hash in local tree
+  (commit not merged here)
+- **[Phase 5]** Read `rtl8365mb_detect()` at lines 2070–2099: confirmed
+  `-ENODEV` on unrecognized chip
+- **[Phase 5]** Read `rtl83xx_register_switch()` at line 228: `detect()`
+  called at probe
+- **[Phase 5]** Grep `realtek,rtl8365mb` in DTS: found in
+  `bcm47094-asus-rt-ac88u.dts`
+- **[Phase 6]** `git describe HEAD`: v6.18.43; `make kernelversion`:
+  6.18.43
+- **[Phase 6]** Read lines 523–560: RTL8367SB entry absent; patch
+  insertion point matches
+- **[Phase 6]** Read line 81: RTL8367SB listed in family comment but
+  unsupported at runtime
+- **[Phase 7]** `CONFIG_NET_DSA_REALTEK_RTL8365MB` in
+  `drivers/net/dsa/realtek/Makefile`
+- **[Phase 8]** Failure mode verified in code: `-ENODEV` at line 2098,
+  not oops/corruption
+
+**YES**
+
+ drivers/net/dsa/realtek/rtl8365mb.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
+
+diff --git a/drivers/net/dsa/realtek/rtl8365mb.c b/drivers/net/dsa/realtek/rtl8365mb.c
+index e10a789e22022..c806a24dcd031 100644
+--- a/drivers/net/dsa/realtek/rtl8365mb.c
++++ b/drivers/net/dsa/realtek/rtl8365mb.c
+@@ -544,6 +544,20 @@ static const struct rtl8365mb_chip_info rtl8365mb_chip_infos[] = {
+ 		.jam_table = rtl8365mb_init_jam_8365mb_vc,
+ 		.jam_size = ARRAY_SIZE(rtl8365mb_init_jam_8365mb_vc),
+ 	},
 +	{
-+		.type = IIO_CURRENT,
-+		.indexed = 1,
-+		.channel = 0,
-+		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
-+				      BIT(IIO_CHAN_INFO_SCALE),
-+		.info_mask_separate_available = BIT(IIO_CHAN_INFO_SCALE),
-+		.info_mask_shared_by_all = BIT(IIO_CHAN_INFO_OVERSAMPLING_RATIO),
-+		.info_mask_shared_by_all_available =
-+			BIT(IIO_CHAN_INFO_OVERSAMPLING_RATIO),
++		.name = "RTL8367SB",
++		.chip_id = 0x6367,
++		.chip_ver = 0x0010,
++		.extints = {
++			{ 6, 1, PHY_INTF(MII) | PHY_INTF(TMII) |
++				PHY_INTF(RMII) | PHY_INTF(RGMII) |
++				PHY_INTF(SGMII) | PHY_INTF(HSGMII) },
++			{ 7, 2, PHY_INTF(MII) | PHY_INTF(TMII) |
++				PHY_INTF(RMII) | PHY_INTF(RGMII) },
++		},
++		.jam_table = rtl8365mb_init_jam_8365mb_vc,
++		.jam_size = ARRAY_SIZE(rtl8365mb_init_jam_8365mb_vc),
 +	},
-+	{
-+		.type = IIO_VOLTAGE,
-+		.indexed = 1,
-+		.channel = 0,
-+		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
-+				      BIT(IIO_CHAN_INFO_SCALE),
-+		.info_mask_shared_by_all = BIT(IIO_CHAN_INFO_OVERSAMPLING_RATIO),
-+		.info_mask_shared_by_all_available =
-+			BIT(IIO_CHAN_INFO_OVERSAMPLING_RATIO),
-+	},
-+};
-+
-+/*
-+ * Configure the device from the cached state. The device powers up in standby
-+ * with PEC enabled (CFG POR = 0x0060), so PEC is kept enabled throughout.
-+ */
-+static int max40080_init(struct max40080_state *st)
-+{
-+	u16 fifo_cfg, cfg;
-+	int ret, filter;
-+
-+	filter = max40080_oversampling_to_filter(st->oversampling_ratio);
-+	if (filter < 0)
-+		return filter;
-+
-+	/*
-+	 * Put the device in standby before (re)configuring the FIFO: the FIFO
-+	 * configuration register can only be written while the device is not
-+	 * converting.
-+	 */
-+	cfg = FIELD_PREP(MAX40080_CFG_MODE_MSK, MAX40080_CFG_MODE_STDBY) |
-+	      FIELD_PREP(MAX40080_CFG_PEC_EN_MSK, 1);
-+	ret = i2c_smbus_write_word_data(st->client, MAX40080_REG_CFG, cfg);
-+	if (ret)
-+		return ret;
-+
-+	/* Store a matched current+voltage pair per conversion. */
-+	fifo_cfg = FIELD_PREP(MAX40080_FIFO_CFG_STORE_IV_MSK, MAX40080_FIFO_CFG_STORE_IV);
-+	ret = i2c_smbus_write_word_data(st->client, MAX40080_REG_FIFO_CFG,
-+					fifo_cfg);
-+	if (ret)
-+		return ret;
-+
-+	/*
-+	 * Use single-measurement mode: the device stays idle and converts once
-+	 * per SMBus Quick Command (see max40080_trigger_measurement()), so each
-+	 * read returns a fresh sample rather than a queued FIFO entry.
-+	 */
-+	cfg = FIELD_PREP(MAX40080_CFG_MODE_MSK, MAX40080_CFG_MODE_SINGLE) |
-+	      FIELD_PREP(MAX40080_CFG_PEC_EN_MSK, 1) |
-+	      FIELD_PREP(MAX40080_CFG_RANGE_MSK, st->range) |
-+	      FIELD_PREP(MAX40080_CFG_FILTER_MSK, filter);
-+
-+	return i2c_smbus_write_word_data(st->client, MAX40080_REG_CFG, cfg);
-+}
-+
-+static int max40080_probe(struct i2c_client *client)
-+{
-+	struct device *dev = &client->dev;
-+	const char *propname;
-+	struct iio_dev *indio_dev;
-+	struct max40080_state *st;
-+	int ret;
-+
-+	/*
-+	 * The device powers up with PEC enabled (CFG POR = 0x0060) and rejects
-+	 * unprotected transactions, so PEC support is mandatory, along with word
-+	 * access, the I2C block read used for the current/voltage pair, and the
-+	 * Quick Command used to trigger a conversion.
-+	 */
-+	if (!i2c_check_functionality(client->adapter,
-+				     I2C_FUNC_SMBUS_WORD_DATA |
-+				     I2C_FUNC_SMBUS_I2C_BLOCK |
-+				     I2C_FUNC_SMBUS_QUICK |
-+				     I2C_FUNC_SMBUS_PEC))
-+		return -EOPNOTSUPP;
-+
-+	client->flags |= I2C_CLIENT_PEC;
-+
-+	indio_dev = devm_iio_device_alloc(dev, sizeof(*st));
-+	if (!indio_dev)
-+		return -ENOMEM;
-+
-+	st = iio_priv(indio_dev);
-+	st->client = client;
-+
-+	ret = devm_mutex_init(dev, &st->lock);
-+	if (ret)
-+		return ret;
-+
-+	propname = "shunt-resistor-micro-ohms";
-+	ret = device_property_read_u32(dev, propname, &st->shunt_resistor_uOhm);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "can't read %s\n", propname);
-+	if (!st->shunt_resistor_uOhm)
-+		return dev_err_probe(dev, -EINVAL, "%s must be non-zero\n", propname);
-+
-+	max40080_calc_current_scale(st);
-+
-+	/* Defaults: 50 mV range, no averaging. */
-+	st->range = MAX40080_CFG_RANGE_50mV;
-+	st->oversampling_ratio = 1;
-+
-+	indio_dev->name = "max40080";
-+	indio_dev->info = &max40080_info;
-+	indio_dev->modes = INDIO_DIRECT_MODE;
-+	indio_dev->channels = max40080_channels;
-+	indio_dev->num_channels = ARRAY_SIZE(max40080_channels);
-+
-+	ret = max40080_init(st);
-+	if (ret)
-+		return ret;
-+
-+	return devm_iio_device_register(dev, indio_dev);
-+}
-+
-+static const struct i2c_device_id max40080_i2c_ids[] = {
-+	{ .name = "max40080" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(i2c, max40080_i2c_ids);
-+
-+static const struct of_device_id max40080_of_match[] = {
-+	{ .compatible = "adi,max40080" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, max40080_of_match);
-+
-+static struct i2c_driver max40080_driver = {
-+	.driver = {
-+		.name = "max40080",
-+		.of_match_table = max40080_of_match,
-+	},
-+	.probe = max40080_probe,
-+	.id_table = max40080_i2c_ids,
-+};
-+module_i2c_driver(max40080_driver);
-+
-+MODULE_AUTHOR("Ciprian Hegbeli <ciprian.hegbeli@analog.com>");
-+MODULE_AUTHOR("Stefan Popa <stefan.popa@analog.com>");
-+MODULE_DESCRIPTION("Analog Devices MAX40080 current-sense amplifier driver");
-+MODULE_LICENSE("GPL");
+ 	{
+ 		.name = "RTL8367RB-VB",
+ 		.chip_id = 0x6367,
 -- 
 2.53.0
 
