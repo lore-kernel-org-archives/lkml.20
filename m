@@ -1,62 +1,64 @@
-Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com [209.85.210.176])
+Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com [209.85.210.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1391828488F
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 07:54:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC3593C98B5
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 07:54:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788162869; cv=none; b=evdhmtiMfw24NUXnGp4rKHcPyNqsRAiZklqjCCKdOpku7mdMP3YhCkzn38pixYBc5MePCxyFV4QKLh0DdI3ThnWS93lLFXTZPkbKStCrSCEjYq41fF8U1m3fPzsuyIu38q9gw/wc5icKbGnILnPqoVsDcY9LL5KPm071rVixgN8=
+	t=1788162875; cv=none; b=btYJ5+xoQYLnLgBcr+zXnlNC97Q0fmd0PyB+vELrT35LSj2fZPPEZb/uHX6ltho+ys4X8jO69RtkV5OPedZwnh92IFkQVPlPx+zSmaHJ0PToWas6yPMOSWnczzqpLizF5bBmQSWdAYWrp2/IFpeC0H5qndC/ibvOTnhosO6OzEA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788162869; c=relaxed/simple;
-	bh=bvfF+DUVXECUEeR99JcjVt7gfOi3Uh3kiCiqo+9RkZw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MpDAOi9BVnLXI8T7LJzHs+R3Jm92zEh6f/8JGTReqqMsIpJlPVJqfSUexg0rX1OJpozxtr4IqTARuQZ93eT8P4PKIHNqsVy/AbsKTMKwQdjted5tL45nwcNAo8llSdloHf/kw+xT3DYZO/wRvnR//s3VO/9LKrkiN4kzlrDV8j8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=ZP0Zlhto; arc=none smtp.client-ip=209.85.210.176
+	s=arc-20240116; t=1788162875; c=relaxed/simple;
+	bh=o8Aks7xfsNOUvUy+GMfdpXSPyjdlXTmKg+NBN/YdiZ8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=PbT7oKX4GJ/GfOUhTWQPeY10H7+Cxg7dJd+un7oT+iiIMa+ZL+HPICazsaX5T+aiy1dIF025m70kSCLHWv+TSgvuiHaRxiJ+0gZyy/0dY3zPtPTZBxE+5gmsB0Lq2/1Uc5+5QHOTd8SiiWmcJR4BSiuI6w9dM+mHPGDPwQ7j3x8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=gDXK/fxu; arc=none smtp.client-ip=209.85.210.174
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="ZP0Zlhto"
-Received: by mail-pf1-f176.google.com with SMTP id d2e1a72fcca58-84f38f3b36eso2688786b3a.1
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 00:54:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="gDXK/fxu"
+Received: by mail-pf1-f174.google.com with SMTP id d2e1a72fcca58-8485b358552so3095246b3a.2
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 00:54:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bytedance.com; s=google; t=1788162867; x=1788767667; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=TXPCi3Qy+Dn1DAAHVgNjvUWIuwmWO5YrhOqB0jfLte0=;
-        b=ZP0ZlhtokqcMbdb/zrd4WQ6pXwzid2KrvJsX53gr2g+rMKe3zV791ogYqjp0ZCe2Oz
-         mqB4TkhX2rsmVhTnXx6YLEp1zXMtGEh3ambSNOmdGniEm/59niZlktXopDv8fCb/2CAv
-         yUUbGrcjnB0Y5c+JcyKYfFiace4TRn4RHnhux6iG4KODY2gc01h4SeZ9S4d2adIKWxod
-         sit0uLfjc53pUPb7IMS4/g7jL14Y+B1GdzokSl4Tlzsea0jqXScQb7me8q1WUikc9ELK
-         YltuHGxrjy6fajWwyqGiBQMpzCwZza5eDqxmYWtxcBzHcWXLRLFzwh27WfTQQwcr2m/u
-         +rRA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788162867; x=1788767667;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=bytedance.com; s=google; t=1788162872; x=1788767672; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=TXPCi3Qy+Dn1DAAHVgNjvUWIuwmWO5YrhOqB0jfLte0=;
-        b=jbRLnLfeys2DEPiEufU1xQvPTSsaiO+OVag2FysR1T3tg9ueCKawDgCYzv66+KgFsY
-         Q4auERtIVGpD1d8t5SVDzUvrWX7egmQMkRd6VbZ3m9bub8xC7j/1QfekPIex/5lhgqLH
-         N/RXPTfR08XhXuDyYCQR3/6ECC6m/tCD4PYRkXWx9EJEEeD1QiUckL2oWu6jjLQ1DMg/
-         lqPzQvXHRz57ZzKh+6DW9njg8FyKQWChww8rdMm23AGRU5+yCggoJpIa9fAdX+JWFzUh
-         tZVItRTjSWXdN4Ih4/W9V9u5aZOR75manKm/E05uPGaAHWyfIZZpjEM/yLSTqHt/0LAN
-         Uaew==
-X-Forwarded-Encrypted: i=1; AHgh+RqxB+ZfcUjDK9WIne2GM1xOkVtRpf2ZFY1DFBav1UWtZYA7TR2MOSf+bnMGgh+y+8Hzgr1xnYez9QQN+Kk=@vger.kernel.org
-X-Gm-Message-State: AFuF++lvGNbkks55vwBRPJ647tiH9w4QBwyGt93rQ5HCeLM3aPIrjzuT
-	NRCJMAZJfy/8RdAdGk1H6spQA0zE0aSSmsZw04NquXBMDTrEXDRCRMvEm/J06Gbk3Gw=
-X-Gm-Gg: AR+sD11kHkOL0T/8OgA68BIoYWkeyDKgtQkPAW8bNTwxkcos1sLWaNqNKoJa16jXphy
-	ChvRU98+uf800GYq8m2BM8YTitC1efcTIPWEeY2NezICSB6j4EH7GhXmP2a7NiQIWIqOKR6OqZ3
-	6SmVPOInDL3rUU3mjQe8E6yPXEeb0D3kzgV7qcjCfqQ+H1C+ReaiRcJDt4g1r819+1mJjji7qlE
-	xhUlWCyHsdMwJGTkmDmxIrfT3P2a1jOqC/e4DRaS4KTAZVJ8nVVLv6YO0Qh9Q3/xUHDqYElOCBT
-	HK8P2/Qolvrq0zCa+qJtHEE/246zW4Vw9y4aP8nGy8OiQFAVxBqrpwT+Gijqogc6WHu7nuvGJUm
-	Jl8SVT+0bInMml880cEULGZWlpFxsVFBGRveUMxUaoqviFsGgADk/R+zNnstkveFXJ7iYNFXuCa
-	pKepGwSVBC4bdyY00vX0o0U24S9fkWEXkoWdxMmt6bSk3nvqJ9MeDSD4TBSh7IX4CDHwILQVib5
-	pCORUQA5e8Fx5Kavrt4OmW5s+yf0V5lxnM=
-X-Received: by 2002:a05:6a21:e081:b0:3d3:b00b:26e8 with SMTP id adf61e73a8af0-3d3b00b6d9dmr18107787637.28.1788162867110;
-        Mon, 31 Aug 2026 00:54:27 -0700 (PDT)
+        bh=XjT0Dc9Rc0+WQPw0AxlsVqG1ooKsABjb50Q/PiKd2Bg=;
+        b=gDXK/fxujBhG1uzwCam1wU7ulkvRcM2+skkB0CV+uulDP67k7i1cPv2JOJecQyqjdV
+         5ZOAivH+rdpARi53krkJAv6HAwpqPQEhYxZaQiB+sCiALqnHg9s4iB7BapQLFG5T/lk9
+         UIWBp3QlLLW+xAJYt/DMnzuw8/mlz8OW8G/OQgZ4noGaCD0dZOnHvxH+WpXa+iUiTLBG
+         y37Lsai6hpGKA1W1fxC4kePWvevY7v8JeVeX3EAbhk+XjxGER8cyMd22TDHWCMrkIcg1
+         Jj2B8S4Rjr7Oc/PMInWFDvfm7WwIX+yRLqIG/+mfMa6eTIKqeN4X6q2fPcljjwKL7TVh
+         DpxQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788162872; x=1788767672;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=XjT0Dc9Rc0+WQPw0AxlsVqG1ooKsABjb50Q/PiKd2Bg=;
+        b=g7uxNJsVAe+1afU0KFLaAx/0Kjjw0yUyI00ILpu9A6S30kELWEAxXnsOFOltPHbgrT
+         C6HdnId0qU6s7faxRZxGjTjvpu10V4291gaSBxUkLZfsvMYwaDGnn5Zik/LWGKoUMFMb
+         TXLR2g1/8JkvwBe1Ot+tELAZjAJ1BevEdENuBJMeUfR96l5hTQJ7bLYk4Zt5E1B5m2Pd
+         pJkVWPZI9+oWLvWol1VABSF5TIBMWYX77YSZv+ZLkgK5BYhWBcXwc9AxzS5ZnAMKIUH3
+         z6RI7R1Dgaeg4IqJzscqZpHaDLs/jtVrqgQe9Le3wyWiyzmia1r7Lf6N3m1Qt5ebgin/
+         KujQ==
+X-Forwarded-Encrypted: i=1; AHgh+RrzcgidAgBfrP4UoTD2B0p9P/NBNwLznBO5+sVIjKqyLuaOOP8uexvsLDou7sQb0EhO4FPxxE/Y7VeLf7E=@vger.kernel.org
+X-Gm-Message-State: AFuF++nmxl44/Ee9OvkgXTRAEm8SuE1hv5/7l05/DE7vfqIK6KXtSMAM
+	+Sc29SE8hhJx9IM/w4bZVHXcVQUjhqQwX0/VrVeZPQZPDKwft927sGauSctMKhpB3yc=
+X-Gm-Gg: AR+sD122v/SHzQ5vuqYXN1gIRsA+gImqIh/DEUCeRfdOoSneSbbbAu3/marbvBjVcdG
+	5XmEbHZDux0NnMvkXwJUULSSK+A6nezQ3MgzPmaAYeuZ1xe27qrWjLUgNYHq9q+fc0nqAFm+CuV
+	4eLbokhGEIQbPkfUBk0f2lh8OAZahgKkYv/LSMld51Dmrrmb8hrbT+Qt+jKoCwv+WZnbPbf7jiu
+	bEo7qhJEwgP4zgMlbfKBrT6p0dL4sisaFl30QAdkVxugdctJAautLoaGNG8Y4aOtcga4eL9Aswm
+	xkfivERCX+Or1DiB+gGYqmoGAQE0uNiZodsvnyUZ3kKpwPPTXvIJnQVmHArGiCGhV0QRuHZb9+N
+	61PpAYV7kSNCOl+gxs4YNlsWawEtL5sfIfKcXIKT/g0yLxPGrDMKDG6VdCr+KjxTuBeSb6zYx+x
+	1y96cj58Ecz3sa9ZeT9thQh6hId6wuqgF0yUdd+A4weNozfyIC+Q877JgRkTgGsnIJOdeDkm4H8
+	HFNw6GAa6w1rDPuZFfWZeGr
+X-Received: by 2002:a05:6a00:3c8b:b0:857:726d:2e98 with SMTP id d2e1a72fcca58-857726d2fc5mr22906110b3a.21.1788162872037;
+        Mon, 31 Aug 2026 00:54:32 -0700 (PDT)
 Received: from G6L4RL2QG9.bytedance.net ([61.213.176.9])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc1f330f88csm3590256a12.10.2026.08.31.00.54.22
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc1f330f88csm3590256a12.10.2026.08.31.00.54.27
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 31 Aug 2026 00:54:26 -0700 (PDT)
+        Mon, 31 Aug 2026 00:54:31 -0700 (PDT)
 From: Muchun Song <songmuchun@bytedance.com>
 To: Andrew Morton <akpm@linux-foundation.org>,
 	David Hildenbrand <david@kernel.org>,
@@ -76,10 +78,12 @@ Cc: linux-mm@kvack.org,
 	Christophe Leroy <chleroy@kernel.org>,
 	Randy Dunlap <rdunlap@infradead.org>,
 	Muchun Song <songmuchun@bytedance.com>
-Subject: [PATCH 00/11] mm: Switch device DAX to section-based vmemmap optimization
-Date: Mon, 31 Aug 2026 15:53:31 +0800
-Message-ID: <20260831075342.57563-1-songmuchun@bytedance.com>
+Subject: [PATCH 01/11] mm/sparse-vmemmap: introduce CONFIG_SPARSEMEM_VMEMMAP_OPTIMIZATION
+Date: Mon, 31 Aug 2026 15:53:32 +0800
+Message-ID: <20260831075342.57563-2-songmuchun@bytedance.com>
 X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260831075342.57563-1-songmuchun@bytedance.com>
+References: <20260831075342.57563-1-songmuchun@bytedance.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -88,86 +92,180 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This series is split out from the earlier, larger series "mm: Generalize
-HVO for HugeTLB and device DAX" [1]. While the parent series generalizes
-vmemmap optimization across HugeTLB and device DAX, this subset addresses
-a single, self-contained step: switching device DAX to the section-based
-sparse-vmemmap optimization infrastructure introduced for HugeTLB.
+The section-based vmemmap optimization infrastructure is still guarded by
+CONFIG_HUGETLB_PAGE_OPTIMIZE_VMEMMAP, but it also can be used by device
+DAX. Introduce CONFIG_SPARSEMEM_VMEMMAP_OPTIMIZATION as a common config
+for the shared infrastructure.
 
-After the HugeTLB conversion, optimized vmemmap state is described by
-the memory section and the sparse-vmemmap population path can allocate or
-reuse shared tail vmemmap pages based on that metadata. Device DAX still
-uses the older DAX-specific population model, including a separate tail
-vmemmap page reservation and architecture-specific logic to locate or
-populate reusable tail pages.
+Select the new option from HUGETLB_PAGE_OPTIMIZE_VMEMMAP and from
+DEV_DAX when the architecture opts in to DAX vmemmap optimization, and
+use it to guard the generic sparse-vmemmap state and helpers.
 
-This series makes device DAX use the same section-based model. Device DAX
-sets the section order from pgmap->vmemmap_shift before vmemmap
-population, uses the common per-zone shared tail vmemmap page, and drops
-the extra reserved tail page. The powerpc radix path is updated to use
-the same shared tail-page helper, so the generic and powerpc DAX paths
-follow the same reservation model.
+Signed-off-by: Muchun Song <songmuchun@bytedance.com>
+---
+ arch/x86/entry/vdso/vdso32/fake_32bit_build.h |  2 +-
+ drivers/dax/Kconfig                           |  1 +
+ fs/Kconfig                                    |  1 +
+ include/linux/mm.h                            |  3 +++
+ include/linux/mmzone.h                        | 13 +++++++------
+ include/linux/page-flags.h                    |  5 ++---
+ mm/Kconfig                                    |  3 +++
+ mm/sparse.h                                   |  4 ++--
+ 8 files changed, 20 insertions(+), 12 deletions(-)
 
-The first patches prepare the shared infrastructure by introducing a
-generic CONFIG_SPARSEMEM_VMEMMAP_OPTIMIZATION symbol, factoring out
-shared tail-page allocation, and keeping the special shared-tail struct
-page initialization local to sparse-vmemmap.
-
-The middle patches move device DAX onto that infrastructure by recording
-the device DAX compound page order in the memory section, using that
-section metadata to back generic device DAX mappings with the common
-per-zone shared tail page, exposing the shared helpers so the powerpc
-radix path can use the same model, and then dropping the extra DAX-only
-tail page reservation, and the now-unused section accounting arguments
-can be removed.
-
-The final patch updates the documentation for the new DAX layout.
-
-This is intended to be the third smaller step toward the broader HVO
-generalization. The wider HVO consolidation between HugeTLB and device
-DAX is left for follow-up series.
-
-[1] https://lore.kernel.org/linux-mm/20260513130542.35604-1-songmuchun@bytedance.com/
-
-Muchun Song (11):
-  mm/sparse-vmemmap: introduce CONFIG_SPARSEMEM_VMEMMAP_OPTIMIZATION
-  mm/sparse-vmemmap: factor out shared vmemmap tail page allocation
-  mm/sparse-vmemmap: open-code init_compound_tail()
-  mm/sparse-vmemmap: prepare DAX vmemmap population for section orders
-  mm/sparse-vmemmap: set section order for device DAX
-  mm/sparse-vmemmap: switch device DAX to shared tail vmemmap pages
-  mm/sparse-vmemmap: move HVO helpers to a public header
-  powerpc/mm: switch device DAX to shared tail vmemmap pages
-  mm/sparse-vmemmap: drop the extra tail page from device DAX
-    reservation
-  mm/sparse-vmemmap: drop unused section_nr_vmemmap_pages() arguments
-  Documentation/mm: update DAX vmemmap deduplication docs
-
- Documentation/arch/powerpc/vmemmap_dedup.rst  |  90 ++-------
- Documentation/mm/vmemmap_dedup.rst            |  32 +--
- MAINTAINERS                                   |   1 +
- arch/powerpc/mm/book3s64/radix_pgtable.c      | 124 +-----------
- arch/x86/entry/vdso/vdso32/fake_32bit_build.h |   2 +-
- drivers/dax/Kconfig                           |   1 +
- fs/Kconfig                                    |   1 +
- include/linux/mm.h                            |   6 +-
- include/linux/mmzone.h                        |  23 ++-
- include/linux/page-flags.h                    |   5 +-
- include/linux/vmemmap-optimization.h          |  88 +++++++++
- mm/Kconfig                                    |   3 +
- mm/hugetlb.c                                  |   2 +-
- mm/hugetlb_vmemmap.c                          |  30 +--
- mm/internal.h                                 |   9 -
- mm/memory_hotplug.c                           |   6 +-
- mm/mm_init.c                                  |  15 +-
- mm/sparse-vmemmap.c                           | 184 ++++++++----------
- mm/sparse.c                                   |   3 +-
- mm/sparse.h                                   |  78 +-------
- 20 files changed, 244 insertions(+), 459 deletions(-)
- create mode 100644 include/linux/vmemmap-optimization.h
-
-
-base-commit: da6c37ed8beb273e3308e42d4bca3ce11b4432fa
+diff --git a/arch/x86/entry/vdso/vdso32/fake_32bit_build.h b/arch/x86/entry/vdso/vdso32/fake_32bit_build.h
+index bc3e549795c3..5f8424eade2b 100644
+--- a/arch/x86/entry/vdso/vdso32/fake_32bit_build.h
++++ b/arch/x86/entry/vdso/vdso32/fake_32bit_build.h
+@@ -11,7 +11,7 @@
+ #undef CONFIG_PGTABLE_LEVELS
+ #undef CONFIG_ILLEGAL_POINTER_VALUE
+ #undef CONFIG_SPARSEMEM_VMEMMAP
+-#undef CONFIG_HUGETLB_PAGE_OPTIMIZE_VMEMMAP
++#undef CONFIG_SPARSEMEM_VMEMMAP_OPTIMIZATION
+ #undef CONFIG_NR_CPUS
+ #undef CONFIG_PARAVIRT_XXL
+ 
+diff --git a/drivers/dax/Kconfig b/drivers/dax/Kconfig
+index 602f9a0839a9..85ad4c135cdd 100644
+--- a/drivers/dax/Kconfig
++++ b/drivers/dax/Kconfig
+@@ -8,6 +8,7 @@ if DAX
+ config DEV_DAX
+ 	tristate "Device DAX: direct access mapping device"
+ 	depends on TRANSPARENT_HUGEPAGE
++	select SPARSEMEM_VMEMMAP_OPTIMIZATION if ARCH_WANT_OPTIMIZE_DAX_VMEMMAP
+ 	help
+ 	  Support raw access to differentiated (persistence, bandwidth,
+ 	  latency...) memory via an mmap(2) capable character
+diff --git a/fs/Kconfig b/fs/Kconfig
+index d1c210c6508f..9b32ce79cc80 100644
+--- a/fs/Kconfig
++++ b/fs/Kconfig
+@@ -278,6 +278,7 @@ config HUGETLB_PAGE_OPTIMIZE_VMEMMAP
+ 	def_bool HUGETLB_PAGE
+ 	depends on ARCH_WANT_OPTIMIZE_HUGETLB_VMEMMAP
+ 	depends on SPARSEMEM_VMEMMAP
++	select SPARSEMEM_VMEMMAP_OPTIMIZATION
+ 
+ config HUGETLB_PMD_PAGE_TABLE_SHARING
+ 	def_bool HUGETLB_PAGE
+diff --git a/include/linux/mm.h b/include/linux/mm.h
+index a9fbe26536f4..edadd7549b72 100644
+--- a/include/linux/mm.h
++++ b/include/linux/mm.h
+@@ -5188,6 +5188,9 @@ static inline bool __vmemmap_can_optimize(struct vmem_altmap *altmap,
+ 	unsigned long nr_pages;
+ 	unsigned long nr_vmemmap_pages;
+ 
++	if (!IS_ENABLED(CONFIG_SPARSEMEM_VMEMMAP_OPTIMIZATION))
++		return false;
++
+ 	if (!pgmap || !is_power_of_2(sizeof(struct page)))
+ 		return false;
+ 
+diff --git a/include/linux/mmzone.h b/include/linux/mmzone.h
+index c9ae7991a8b2..e9b54ea0eff0 100644
+--- a/include/linux/mmzone.h
++++ b/include/linux/mmzone.h
+@@ -102,9 +102,9 @@
+  *
+  * HVO which is only active if the size of struct page is a power of 2.
+  */
+-#define MAX_FOLIO_VMEMMAP_ALIGN \
+-	(IS_ENABLED(CONFIG_HUGETLB_PAGE_OPTIMIZE_VMEMMAP) && \
+-	 is_power_of_2(sizeof(struct page)) ? \
++#define MAX_FOLIO_VMEMMAP_ALIGN					\
++	(IS_ENABLED(CONFIG_SPARSEMEM_VMEMMAP_OPTIMIZATION) &&	\
++	 is_power_of_2(sizeof(struct page)) ?			\
+ 	 MAX_FOLIO_NR_PAGES * sizeof(struct page) : 0)
+ 
+ /* The number of retained vmemmap pages with HVO enabled. */
+@@ -116,7 +116,8 @@
+ #define __VMEMMAP_OPTIMIZATION_NR_ORDERS	\
+ 	(MAX_FOLIO_ORDER - VMEMMAP_OPTIMIZATION_MIN_ORDER + 1)
+ #define VMEMMAP_OPTIMIZATION_NR_ORDERS		\
+-	(__VMEMMAP_OPTIMIZATION_NR_ORDERS > 0 ? __VMEMMAP_OPTIMIZATION_NR_ORDERS : 0)
++	((__VMEMMAP_OPTIMIZATION_NR_ORDERS > 0 &&	\
++	  IS_ENABLED(CONFIG_SPARSEMEM_VMEMMAP_OPTIMIZATION)) ? __VMEMMAP_OPTIMIZATION_NR_ORDERS : 0)
+ 
+ enum migratetype {
+ 	MIGRATE_UNMOVABLE,
+@@ -1155,7 +1156,7 @@ struct zone {
+ 	/* Zone statistics */
+ 	atomic_long_t		vm_stat[NR_VM_ZONE_STAT_ITEMS];
+ 	atomic_long_t		vm_numa_event[NR_VM_NUMA_EVENT_ITEMS];
+-#ifdef CONFIG_HUGETLB_PAGE_OPTIMIZE_VMEMMAP
++#ifdef CONFIG_SPARSEMEM_VMEMMAP_OPTIMIZATION
+ 	struct page *vmemmap_tails[VMEMMAP_OPTIMIZATION_NR_ORDERS];
+ #endif
+ } ____cacheline_internodealigned_in_smp;
+@@ -2019,7 +2020,7 @@ struct mem_section {
+ 	unsigned long section_mem_map;
+ 
+ 	struct mem_section_usage *usage;
+-#ifdef CONFIG_HUGETLB_PAGE_OPTIMIZE_VMEMMAP
++#ifdef CONFIG_SPARSEMEM_VMEMMAP_OPTIMIZATION
+ 	/*
+ 	 * Normally, sections hold regular (order-0) pages. However, for
+ 	 * sections with HVO enabled, this tracks the compound page order
+diff --git a/include/linux/page-flags.h b/include/linux/page-flags.h
+index ae2ebaed6d4d..de3c06062bc6 100644
+--- a/include/linux/page-flags.h
++++ b/include/linux/page-flags.h
+@@ -208,14 +208,13 @@ enum pageflags {
+ static __always_inline bool compound_info_has_mask(void)
+ {
+ 	/*
+-	 * Limit mask usage to HugeTLB vmemmap optimization (HVO) where it
+-	 * makes a difference.
++	 * Limit mask usage to HVO where it makes a difference.
+ 	 *
+ 	 * The approach with mask would work in the wider set of conditions,
+ 	 * but it requires validating that struct pages are naturally aligned
+ 	 * for all orders up to the MAX_FOLIO_ORDER, which can be tricky.
+ 	 */
+-	if (!IS_ENABLED(CONFIG_HUGETLB_PAGE_OPTIMIZE_VMEMMAP))
++	if (!IS_ENABLED(CONFIG_SPARSEMEM_VMEMMAP_OPTIMIZATION))
+ 		return false;
+ 
+ 	return is_power_of_2(sizeof(struct page));
+diff --git a/mm/Kconfig b/mm/Kconfig
+index c1ddf59c0d71..b5f8372cd164 100644
+--- a/mm/Kconfig
++++ b/mm/Kconfig
+@@ -461,6 +461,9 @@ config SPARSEMEM_VMEMMAP
+ 	  pfn_to_page and page_to_pfn operations.  This is the most
+ 	  efficient option when sufficient kernel resources are available.
+ 
++config SPARSEMEM_VMEMMAP_OPTIMIZATION
++	bool
++
+ #
+ # Select this config option from the architecture Kconfig, if it is preferred
+ # to enable the feature of HugeTLB/dev_dax vmemmap optimization.
+diff --git a/mm/sparse.h b/mm/sparse.h
+index 049272aba84e..b408d15baf7b 100644
+--- a/mm/sparse.h
++++ b/mm/sparse.h
+@@ -10,7 +10,7 @@
+ 
+ #include <linux/mmzone.h>
+ 
+-#ifdef CONFIG_HUGETLB_PAGE_OPTIMIZE_VMEMMAP
++#ifdef CONFIG_SPARSEMEM_VMEMMAP_OPTIMIZATION
+ static inline unsigned int section_order(const struct mem_section *section)
+ {
+ 	return section->order;
+@@ -72,7 +72,7 @@ static inline bool vmemmap_optimizable_pfn(unsigned long pfn)
+ 
+ static inline bool vmemmap_optimizable_order(unsigned int order)
+ {
+-	if (!IS_ENABLED(CONFIG_HUGETLB_PAGE_OPTIMIZE_VMEMMAP))
++	if (!IS_ENABLED(CONFIG_SPARSEMEM_VMEMMAP_OPTIMIZATION))
+ 		return false;
+ 
+ 	if (!is_power_of_2(sizeof(struct page)))
 -- 
 2.54.0
 
