@@ -1,334 +1,310 @@
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29FF53E1729
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 10:00:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DE393ED5B6;
+	Mon, 31 Aug 2026 10:01:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788170453; cv=none; b=OmOovjlvgWbWpogBoLhPlFXMLbTRiKX6vmaQn6sHeSSymnRIFjz3jgn9g7WPDHdtP3QU6btQ97yqM/EFW7Vl2bkbVBJ0rVv2gTrnoqq/hcyUQwK/OAA2a/8jv9pbnoZMj5ceL9uoZE78S2W2bXcMBBF28LUTXy8niZU921jkOkE=
+	t=1788170465; cv=none; b=FP+XtqXGK1uWNugePpWg41blVm3krZtePix0JOo1nU/HqdN5EKsI+UF2uQ6Lfq1XWawBG6jIsMlPY5HnwoLaYkE9CKCe1y+U3v4aWhca25TQwLDydY4QmfZRYB5oy2IlzEUADiv9YmaV6dY09yd5meOQ7oF8yQqOgZeq6wIIn7E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788170453; c=relaxed/simple;
-	bh=e502PeZHGUnKXvSuRWWsiCQrGsJANAUwucP/32hEB6Q=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DzkTq5o0oZHI2ouQ/IdNT7UPaXo6DRplczMLxDEPJpxe2MaBnNvyhLlsVeH54NOPbC9puhayf1QrzALOfL+67HMpS4Hp4oBrjfPpNscObFHPkVtl8JWz3JT2doEYTMTx4YJNidob+gRFw7S6poVszhpD4SAwH2nB6EGOSpLlGD4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=c6eQ7hL6; arc=none smtp.client-ip=209.85.214.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788170465; c=relaxed/simple;
+	bh=UHXiK+2wPlvrPzjnQNVS7btV4PjfAxg2S3vPqZ7EJNg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=uzNfdKEQJ2vek3OfJRAoIx19hVtfT9MC33vcAfY2vG+j0neO/UAyyy0OpN0BtecyjuQwYymwvld87KsAmEjt03ygKKZaZswrngr7Bh+NseB+b9pC2Jx3quelcpGxv/pU1C/93lKpj9cK0fnsRGIorFI1iiZ1sZpCTL3wzUM4CcI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=m+4BR36o; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="c6eQ7hL6"
-Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2d712281f8bso36198005ad.1
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 03:00:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788170451; x=1788775251; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=4qrQTjIOkpT8zIVKPBnb0BW8F6n+G9iLSS3jQwYKHHM=;
-        b=c6eQ7hL6Mo+s1qyk/jBTO1l8NI5a2gtrT7UptiSeO0YWkJvUE++ktxV1dMpTcBlQxD
-         4vpbKSEFzMK6DxcrGYGMTqqV2g9hVWDYK7h2hGME8EA0nnQcZ7twLUz/FOPVMhJbBjxu
-         etEOpm8ltFMfTaFb3eNTGax+w06Ph8pDDmlZxpXurDARU7S7VxqYU7ACZI9l2IxiB824
-         OUtDzyZb1Ytse4QzwmhqK0rleLDeyoRVSFPX0vv1G1IXxVaCx9V2ayee6JhLY1lLjfIm
-         MlSyWaE7xN0Rjxw/nao5S/a9dEWqk0n6/oJ14OsiSAKA8a7FPtsOtRN2rvpnj4KDvY0p
-         Ofyw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788170451; x=1788775251;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4qrQTjIOkpT8zIVKPBnb0BW8F6n+G9iLSS3jQwYKHHM=;
-        b=cW0xa/mrKVvYnkPSuWfOz/u5r+47z0Gcf/Z2PpDcJmzJMccQeK8B+PEdVYdr1SYLxi
-         CuNIQQAXhy/4WQUB8nrdH0qGEH6ozOwSt6hypzZBtQkiI8VTV6/vQSchHlnL/NGM1vkZ
-         EhnwL5Lw5V6NAIT8Y6LxqWAkSf6qb09ChDEPhatvHVvOOYIbmWcG/070uTpTGR9QH33W
-         8lrnBBO32ZKGTAuzb+ZqkvbT59DwZxw7hfYqynWMGN9Rx1z3KH8Kd7MDwL13pKPQjCzj
-         6sizn42uNQtPK/l3dBS88B8M6s57KjLjSMgTphwb4QkflP1720YquhgMwsOD13GzsdQU
-         N/2w==
-X-Forwarded-Encrypted: i=1; AKwUvBxO2PjEvio1XhLL9VxI5+SDsaVzcwd1YldTsLRukOCLf7DTg9vIlbxpZrX/RvymoU4SbQdf5ayUhXHA7ww=@vger.kernel.org
-X-Gm-Message-State: AFuF++lk9czVedTAzmZ48njaaMRr7OHT7EkskH28w1S05qIMWOY/dZY+
-	V4Z5sVdg/F0LVu2Rg1lfey+yA2vz6nSiymSg/dTPCW3QJJuYR7EFAjgA
-X-Gm-Gg: AYBFou1haqyORcItCCUYtPWvHRGXOFn7JEuYpaP3oGw+FhYq/9eutLe7bS71eSkFWJ2
-	5f/l2vz11Y1vRBhlBESFfQsEwy1BIoMQ4g06WosrgC1Bjsm4u57eLZF0PMBoTbPBqUfCB2sonvY
-	d//ehrYWiifNBoIKIV5J7KpoT+EQKHoYRAiAS5ri9BF6aOzKfCkykKr6F+ZZCoHrYY/RgzKTta4
-	BXgOi5altydt62BHxyOdfc8mNRrtUNXi02sds7KK41TRIb4mujc0npJiUWVtm7nMqv1HT37vpYB
-	+WhdUdnfnUAZdsQqwb1yHF7mJIgeet0clbR7c62wBu/Y3CYkfdny+3qRDybVoqN6nwZNjSKyoPj
-	R2IS+PbIrFZWohxwZK+JstzVQw93Eoy+fFvtCCkvtHVruAseL0GnKAXQpwq7/DN2kotchIEn9/r
-	NaXYxeZStCzRKuBwgk4pRcwruGkZC9O3V9vDI8KW0POgRSgQkEE28nYRdePfo=
-X-Received: by 2002:a17:902:fc84:b0:2cf:4339:aaa with SMTP id d9443c01a7336-2d93f9f9d7amr34369695ad.12.1788170451338;
-        Mon, 31 Aug 2026 03:00:51 -0700 (PDT)
-Received: from localhost ([2001:19f0:8000:3e6e:5400:6ff:fe38:3d01])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d75963a250sm32609235ad.31.2026.08.31.03.00.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 03:00:50 -0700 (PDT)
-Date: Mon, 31 Aug 2026 18:00:32 +0800
-From: Inochi Amaoto <inochiama@gmail.com>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	Inochi Amaoto <inochiama@gmail.com>
-Cc: Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, 
-	linux-phy@lists.infradead.org, linux-kernel@vger.kernel.org, Yixun Lan <dlan@gentoo.org>, 
-	Longbin Li <looong.bin@gmail.com>
-Subject: Re: [PATCH 3/3] phy: core: Add phy bulk data helper functions
-Message-ID: <apVOES6c42e_NBbe@inochi.infowork>
-References: <20260831025319.94886-1-inochiama@gmail.com>
- <20260831025506.95548-1-inochiama@gmail.com>
- <20260831025506.95548-3-inochiama@gmail.com>
- <apVJW6H8_y0uiVtj@ashevche-desk.local>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="m+4BR36o"
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67V82P9B1640487;
+	Mon, 31 Aug 2026 10:00:58 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=dAonsd
+	otnxClF/j5+upZcKC3LgcUzP8274aPq8QRIY4=; b=m+4BR36ouEdJBzzv1YJ2Rd
+	nJwHhjFk/+Yo21DigpDrwDahRx5vQeHKDaNdhdlSTBxMCSvXY13rvY78welBnO8q
+	A3XcdyRd8rIUHeFsTER6RmMZB1rHey97Pw/v+h7CPiMT6Ujy5es9UKDNdvqGQue2
+	ZA0xd74l63PU6cWMfgz5gYiGF3lpAB674XCYBq+75d01Zqv+6Oi/JN5qC/wdGRy5
+	pniCIwXdBFls9BaM6oCSYxv16bBdZ7yE3ytApB7PbKdMKVpJd9tNUmlMjiRKVF3F
+	EfZeu/Y5DcG/IwSKPbDDChMBuEfTafSizI5ns20cmCfA6f0N7f3Nr9rgoFRVbOMQ
+	==
+Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gbpx58ha0-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 31 Aug 2026 10:00:57 +0000 (GMT)
+Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma13.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67V9uOK4024984;
+	Mon, 31 Aug 2026 10:00:56 GMT
+Received: from smtprelay04.dal12v.mail.ibm.com ([172.16.1.6])
+	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gcbyg51n8-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 31 Aug 2026 10:00:56 +0000 (GMT)
+Received: from smtpav01.dal12v.mail.ibm.com (smtpav01.dal12v.mail.ibm.com [10.241.53.100])
+	by smtprelay04.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67VA0twa33096432
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 31 Aug 2026 10:00:55 GMT
+Received: from smtpav01.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 848585805D;
+	Mon, 31 Aug 2026 10:00:55 +0000 (GMT)
+Received: from smtpav01.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 2128358059;
+	Mon, 31 Aug 2026 10:00:50 +0000 (GMT)
+Received: from [9.123.0.223] (unknown [9.123.0.223])
+	by smtpav01.dal12v.mail.ibm.com (Postfix) with ESMTP;
+	Mon, 31 Aug 2026 10:00:49 +0000 (GMT)
+Message-ID: <37021811-78ac-4bdd-ab59-62fb089850f3@linux.ibm.com>
+Date: Mon, 31 Aug 2026 15:30:48 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <apVJW6H8_y0uiVtj@ashevche-desk.local>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC] module: init-failure path can free a module with live
+ try_module_get() users
+To: Petr Pavlu <petr.pavlu@suse.com>
+Cc: Luis Chamberlain <mcgrof@kernel.org>, Daniel Gomez <da.gomez@kernel.org>,
+        Sami Tolvanen <samitolvanen@google.com>,
+        Aaron Tomlin <atomlin@atomlin.com>, linux-modules@vger.kernel.org,
+        linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+        linux-s390@vger.kernel.org, "D. Wythe" <alibuda@linux.alibaba.com>,
+        Dust Li <dust.li@linux.alibaba.com>,
+        Sidraya Jayagond <sidraya@linux.ibm.com>,
+        Tony Lu
+ <tonylu@linux.alibaba.com>, Wen Gu <guwen@linux.alibaba.com>,
+        Alexandra Winter <wintera@linux.ibm.com>,
+        Halil Pasic <pasic@linux.ibm.com>,
+        Hidayath Khan <hidayath@linux.ibm.com>
+References: <5dc1fe2b-289e-4786-b9e9-e181dda8d4e9@linux.ibm.com>
+ <8b6506a1-5bfc-4f9b-92fa-234c89afe9ad@suse.com>
+Content-Language: en-US
+From: Mahanta Jambigi <mjambigi@linux.ibm.com>
+In-Reply-To: <8b6506a1-5bfc-4f9b-92fa-234c89afe9ad@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Authority-Analysis: v=2.4 cv=PPc/P/qC c=1 sm=1 tr=0 ts=6a9550d9 cx=c_pps
+ a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=Bmp3t_kZ57zNF6DfwVUA:9
+ a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: JuENR-MDDg3XZpXSo-5dKm2MmJNYow_B
+X-Proofpoint-ORIG-GUID: 0yzz6gdF7xbs_MNMZMpwgprYkX1NdiAp
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODMxMDA4MiBTYWx0ZWRfX8J94zLdW4/eU
+ M0gJyy+lkUFSa0iAjGwHYLizGBCqhwBlp03aLR8OjQ7xBb5/IpdzKf6uFZqN0W8nWoHKnctd0x7
+ EqoJyf1YlFDH1nXUZ311zhd4vi45P50=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODMxMDA4MiBTYWx0ZWRfXzr1mYNKb/Iov
+ VW6ZkGipP+5AKmYFt26gvqICJzuo0F9fUR5OVUCSAXwsb1TQuAd7N22gHyH5L1N7TsCQKcxsGV+
+ y4Jwy7svvS8C7WWDSJ5Ail96R2GLocTXSs/jvzXwcyMdMF3DvFWzwbEMCr8HYes2is29Be95UGR
+ ev8LCuETWuOuxKH1DejUntQCRFGn3nlm5SHDmRSFNEPVp+s/sfu0Z9fnpWVxTmoxKnHFYBI5ypK
+ gi+FXlL7yH6dLB5e6WWX37W0tYbJqz00dAagz4SzZqAfF3BpdNP/3JAd/99vfxYefJiVh9IJwnz
+ axrW/RO84AWq2sP9pMJL29e9iMLNUl5yEfM8GOo8TKryf4EMb/eauLPykRaI/TLJMC12MJ+8Hwu
+ QKzbUUoUVbUCW7QjyLe20JgYtrhkNriJ5vdpfIF9SWHtsVyOMjs8B/VJAMYTmnqdgya0pIV0Xhc
+ VXdkrpP2Yoq/rMKeV2g==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-31_03,2026-08-27_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 phishscore=0 adultscore=0 suspectscore=0 bulkscore=0
+ spamscore=0 priorityscore=1501 impostorscore=0 malwarescore=0
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2608310082
 
-On Mon, Aug 31, 2026 at 12:28:59PM +0300, Andy Shevchenko wrote:
-> On Mon, Aug 31, 2026 at 10:55:05AM +0800, Inochi Amaoto wrote:
-> > Add several helper functions that allow drivers to get several phy
-> > consumers in one operation. If any of the phy cannot be acquired then
-> > any phys that were got will be put before returning to the caller.
-> > 
-> > This can relieve the driver owners' life who needs to handle many phys,
-> > as well as each phy error reporting.
-> 
-> ...
-> 
-> > +/**
-> > + * of_phy_get_parent_count() - Get the number of phys of a device node
-> > + * @np: device_node for which to get the phy
-> > + *
-> > + * Return: the phy count if successful, 0 if no phy handle is found,
-> > + * negative error value if error occurs.
-> 
-> Just for the reference, here is the correct format of the kernel-doc!
-> 
-> > + */
-> > +static int of_phy_get_parent_count(const struct device_node *np)
-> > +{
-> > +	int count;
-> > +
-> > +	count = of_count_phandle_with_args(np, "phys", "#phy-cells");
-> 
-> > +	if (count == -ENOENT)
-> > +		return 0;
-> 
-> Why? And if so, the function perhaps needs to return unsigned type. Also
-> kernel-doc says about negative error codes.
-> 
 
-There is a special reason for -ENOENT is the of_count_phandle_with_args()
-return -ENOENT if is can not find "phys" property. I think it is the case
-that there is no phy required for this device. So I judge it and return
-0. For other errors, they should not be translated so return them as they
-are.
 
-> > +	return count;
-> > +}
+On 28/08/26 5:33 pm, Petr Pavlu wrote:
+> On 8/24/26 8:13 AM, Mahanta Jambigi wrote:
+>> Hi Luis, Petr, Daniel, Sami, Aaron,
+>>
+>> I'm writing to ask about what looks like a generic module-init failure
+>> lifetime problem in the module loader. I ran into it while working on
+>> the SMC networking module (net/smc/), but after several patch
+>> iterations, it seems the root issue may belong in kernel/module/main.c
+>> rather than in SMC itself. I'd appreciate your guidance on whether this
+>> reading is correct, and if so, what fix direction would be preferred.
+>>
+>> THE ISSUE IN do_init_module()
+>> =============================
+>>
+>> include/linux/module.h has a long-standing FIXME in module_is_live():
+>>
+>>     /* FIXME: It'd be nice to isolate modules during init, too, so they
+>>        aren't used before they (may) fail. But presently too much code
+>>        (IDE & SCSI) require entry into the module during init. */
+>>     static inline bool module_is_live(struct module *mod)
+>>     {
+>>         return mod->state != MODULE_STATE_GOING;
+>>     }
+>>
+>> Because MODULE_STATE_COMING is not MODULE_STATE_GOING, try_module_get()
+>> can succeed once a module's __init is executing. If __init makes the
+>> module externally reachable partway through and then later fails, the
+>> failure path in do_init_module() appears to do:
+>>
+>>     fail:
+>>         mod->state = MODULE_STATE_GOING;
+>>         synchronize_rcu();
+>>         module_put(mod);
+>>         ...
+>>         free_module(mod);
+>>
+>> synchronize_rcu() waits for RCU readers, but not for threads that
+>> already obtained a module reference via try_module_get() and are still
+>> executing module text.
+>>
+>> By contrast, the normal unload path in try_stop_module() refuses to
+>> proceed while the refcount is non-zero.
+>>
+>> So the asymmetry seems to be that the normal unload path waits for
+>> references to drain, while the init-failure path does not.
+>>
+>> A concrete race would look like:
+>>
+>>   1. Module __init registers an externally reachable interface.
+>>   2. User space enters through that interface and try_module_get()
+>>      succeeds while the module is still COMING.
+>>   3. A later __init step fails.
+>>   4. do_init_module() frees the module.
+>>   5. The in-flight caller is still executing module text.
+>>
+>> SMC AS A CONCRETE EXAMPLE
+>> =========================
+>>
+>> In SMC, simply moving registration later does not appear to eliminate
+>> the window, because there are two separate registration points that can
+>> make the module reachable via socket():
+>>
+>>   1. sock_register(&smc_sock_family_ops)
+>>      After this, socket(AF_SMC, ...) can succeed and reach
+>>      try_module_get() via __sock_create().
+>>
+>>   2. smc_inet_init() -> inet_register_protosw()
+>>      After this, socket(AF_INET, SOCK_STREAM, IPPROTO_SMC) can succeed
+>>      and again reach try_module_get().
+>>
+>> Either registration point can succeed before a later init step fails.
+>>
+>> This may not be specific to SMC; other protocol modules that become
+>> reachable during init, such as Bluetooth, may have similar exposure and
+>> appear worth auditing as well.
+>>
+>> ON THE FIXME'S IDE/SCSI CONCERN
+>> ===============================
+>>
+>> The FIXME mentions IDE and SCSI as reasons not to isolate modules
+>> during init.
+>>
+>>   1. IDE was removed in Linux 5.14, so that half of the concern no
+>>      longer applies.
+>>
+>>   2. SCSI still appears to self-reference during init
+>>      (scsi_device_get() -> try_module_get(hostt->module) during
+>>      scsi_scan_host()), so a blanket wait-for-refcount-to-drain
+>>      approach in the failure path may deadlock there.
+>>
+>> Also, strong_try_module_get() already rejects MODULE_STATE_COMING with
+>> -EBUSY, so the infrastructure for refusing callers during init already
+>> exists in some form.
+>>
+>> QUESTIONS
+>> =========
+>>
+>> First, is my reading of this init-failure refcount/lifetime asymmetry
+>> correct?
 > 
-> ...
+> Your analysis looks correct to me.
 > 
-> > +void phy_bulk_put(struct device *dev, int num_phys, struct phy_bulk_data *phys)
-> > +{
-> > +	if (!phys)
-> > +		return;
+>>
+>> If so, would one of the following directions be acceptable?
+>>
+>>   1. An opt-in mechanism (for example, a module flag) for modules that
+>>      are safe to isolate during init and whose init-failure path should
+>>      wait for external references to drain.
 > 
-> > +	while (--num_phys >= 0) {
+> In general, it is preferred if the module loader handles all modules in
+> the same way.
 > 
-> It's hard to follow.
+> I would say that the module loader should wait for external references
+> to drain after an init failure for all modules and that it should be the
+> responsibility of individual modules to ensure that this wait eventually
+> completes. Excluding some modules would mean that the module loader
+> could still free them while they are in use by the kernel.
 > 
-> 	while (num_phys--) {
+> Before such a wait, the module loader should cancel all idempotent
+> module loads. This is especially important during boot when several
+> udevd workers may be trying to insert the same module. In that case,
+> a failed module init function should block only a single udevd task, so
+> that the system can still boot properly.
 > 
-> will do the job. Ditto for other similar cases.
-> 
+Thank you for the clear direction. I agree with both points — uniform
+handling for all modules, and unblocking concurrent loaders before the
+drain wait. Below is the proposed change with the rationale for each
+step. Proposed change to the fail: path in do_init_module().
 
-Thanks.
+fail_free_freeinit:
+	kfree(freeinit);
+fail:
+	/*
+	 * Mark dying so try_module_get() fails for all new callers.
+	 * synchronize_rcu() ensures this is visible on all CPUs before
+	 * we proceed; no new references can be taken after this point.
+	 */
+	mod->state = MODULE_STATE_GOING;
+	synchronize_rcu();
 
-> > +		if (phys[num_phys].phy)
-> > +			phy_put(dev, phys[num_phys].phy);
-> > +		phys[num_phys].phy = NULL;
-> > +	}
-> > +}
-> 
-> ...
-> 
-> > +static int __phy_bulk_get(struct device *dev, int num_phys,
-> > +			  struct phy_bulk_data *phys, bool optional)
-> > +{
-> > +	int ret;
-> 
-> > +	int i;
-> 
-> Do you expect num_phys to be negative?
-> 
-> static int __phy_bulk_get(struct device *dev, unsigned int num_phys,
-> ...
-> 	unsigned int i;
-> 
-> Same comment to the rest of the similar changes.
-> 
+	/* Drop the loader's own reference taken in module_unload_init(). */
+	module_put(mod);
 
-No, all should be postive, this is a mistake I have made, thanks
-for pointing out.
+	/*
+	 * Unblock concurrent loaders before blocking on the drain below,
+	 * so that a failed init delays only this task, not every udevd
+	 * worker that raced to load the same module.
+	 *
+	 * Two dedup paths exist:
+	 *
+	 * - finit_module path: losers of the inode race sleep in
+	 *   idempotent_wait_for_completion(). They are unblocked by
+	 *   idempotent_complete() in idempotent_init_module(), which
+	 *   runs as do_init_module() returns — before we reach here.
+	 *   No action needed.
+	 *
+	 * - init_module path: callers sleep in module_patient_check_exists()
+	 *   on module_wq waiting for finished_loading(), which returns
+	 *   true once state == MODULE_STATE_GOING. wake_up_all() kicks
+	 *   them loose immediately.
+	 */
+	*wake_up_all*(&module_wq);
 
-> > +
-> > +	for (i = 0; i < num_phys; i++)
-> > +		phys[i].phy = NULL;
-> > +
-> > +	for (i = 0; i < num_phys; i++) {
-> > +		phys[i].phy = phy_get(dev, phys[i].id);
-> 
-> 		ret = PTR_ERR_OR_ZERO(...);
-> 
-> > +		if (IS_ERR(phys[i].phy)) {
-> 
-> 		if (ret) {
-> 
-> > +			ret = PTR_ERR(phys[i].phy);
-> > +			phys[i].phy = NULL;
-> > +
-> > +			if (ret == -ENODEV && optional)
-> > +				continue;
-> > +
-> > +			dev_err_probe(dev, ret,
-> > +				      "Failed to get phy: (%s)\n",
-> 
-> There is room on the previous line.
-> 
-> > +				      phys[i].id);
-> > +			goto err;
-> > +		}
-> > +	}
-> > +
-> > +	return 0;
-> > +
-> > +err:
-> > +	phy_bulk_put(dev, i, phys);
-> > +
-> > +	return ret;
-> > +}
-> 
-> ...
-> 
-> > + * Return: %0 if successful, a negative error code otherwise
-> 
-> Note, the reference to 0 is inconsistent with the previous changes.
-> Make it there [of_phy_get_parent_count()] to follow.
-> 
+	/*
+	 * Drain async workers scheduled during __init (e.g. SCSI async
+	 * scan). MODULE_STATE_GOING is visible everywhere, so workers
+	 * that have not yet called try_module_get() will fail cleanly.
+	 * Workers already holding a reference complete and release it
+	 * naturally. Must run before free_module() regardless of
+	 * async_probe_requested.
+	 */
+	*async_synchronize_full*();
 
-Thanks for this information.
+	/*
+	 * Wait for references taken before MODULE_STATE_GOING became
+	 * visible. refcnt is monotonically decreasing from here; the
+	 * loop terminates provided the module's error path pairs every
+	 * __module_get() with a module_put(). The hung-task detector
+	 * catches violations.
+	 */
+	while (*module_refcount*(mod) != 0)
+		msleep(10);
 
-> ...
-> 
-> > +static int of_phy_bulk_get_by_index(struct device_node *np, int num_phys,
-> > +				    struct phy_bulk_data *phys)
-> > +{
-> > +	int ret, i;
-> > +
-> > +	for (i = 0; i < num_phys; i++) {
-> > +		phys[i].id = NULL;
-> > +		phys[i].phy = NULL;
-> > +	}
-> > +
-> > +	for (i = 0; i < num_phys; i++) {
-> > +		of_property_read_string_index(np, "phy-names", i,
-> > +					      &phys[i].id);
-> 
-> The line limit is exactly 80, please fix your editor and double check that you
-> use as much room as available (with the correction on the logical splits where
-> it makes sense).
-> 
+	blocking_notifier_call_chain(&module_notify_list,
+				     MODULE_STATE_GOING, mod);
+	klp_module_going(mod);
+	ftrace_release_mod(mod);
+	free_module(mod);
 
-Yes, you are right, I misjudge this as my completion plugin output the
-arguments name. I will change that.
+	return ret;
 
-> > +
-> > +		phys[i].phy = of_phy_get_by_index(np, i);
-> 
-> 		ret = PTR_ERR_OR_ZERO(...);
-> 
-> ?
-> 
-
-Right, I missed this.
-
-> > +		if (IS_ERR(phys[i].phy)) {
-> > +			ret = PTR_ERR(phys[i].phy);
-> > +			phys[i].phy = NULL;
-> > +			goto err;
-> > +		}
-> > +	}
-> > +
-> > +	return 0;
-> > +
-> > +err:
-> > +	of_phy_bulk_put(i, phys);
-> > +
-> > +	return ret;
-> > +}
-> 
-> ...
-> 
-> > +int of_phy_bulk_get_all(struct device_node *np, struct phy_bulk_data **phys)
-> > +{
-> > +	struct phy_bulk_data *phy_bulk;
-> > +	int num_phys;
-> > +	int ret;
-> > +
-> > +	*phys = NULL;
-> 
-> > +	if (!np)
-> > +		return 0;
-> 
-> Dup check? The OF APIs are usually NULL-aware.
-> Same Q to the ress of the code.
-> 
-
-Thanks, I will remove them.
-
-> > +	num_phys = of_phy_get_parent_count(np);
-> > +	if (num_phys <= 0)
-> > +		return num_phys;
-> > +
-> > +	phy_bulk = kmalloc_objs(*phy_bulk, num_phys);
-> > +	if (!phy_bulk)
-> > +		return -ENOMEM;
-> > +
-> > +	ret = of_phy_bulk_get_by_index(np, num_phys, phy_bulk);
-> > +	if (ret) {
-> > +		kfree(phy_bulk);
-> > +		return ret;
-> > +	}
-> > +
-> > +	*phys = phy_bulk;
-> > +
-> > +	return num_phys;
-> > +}
-> 
-> ...
-> 
-> > +struct phy_bulk_devres {
-> > +	struct phy_bulk_data *phys;
-> > +	int num_phys;
-> 
-> Why signed?
-> 
-
-My mistake. It always needs to be unsigned.
-
-> > +	bool free_phys;
-> > +};
-> 
-> ...
-> 
-> I stopped here. It's too many stuff in a single patch. Please, split to two for
-> a starter:
-> - non-devm additions
-> - devm coverage
-> 
-
-Sorry for a bad time, I will do a better check and fix them. And I will split
-the patch into two in the next version.
-
-Regards,
-Inochi
+Does this direction look correct to you?
