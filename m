@@ -1,133 +1,105 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 839DF46C830
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 15:20:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6BAF46C825
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 15:21:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788189633; cv=none; b=ms1lnG/t5rH5bwXRxVYyJQRN3HHdwbbQouNfm4O2xiA96fmC0Q8xQRwsTLRBicp1ZpZ51/IG4rqJ4QixaU6osejvjg1mcNZFuMEmqJdaQcLNKi2VtI28vX5EwapT4KY7qLGrCSdgRbL8uIuXEYAu+tqipxOHEQ09ev8I6AQv4B8=
+	t=1788189671; cv=none; b=nCIPkL+M3VqxMmBTa6Aw2eI7z/zikiw33+YqtQISXjOE2Ifl4Odd8+QJ2sor5qA6hFt0HbK+kP0CeKtx3B0HbfQUGP6w2HWE0kwkZpbefRsFiK3slUQv1U+IzfjnyVySkLMUSBOMgJ1cWOJQkUsy7B1z5h5fcZkTfNoYYetzcI4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788189633; c=relaxed/simple;
-	bh=avelS9yxwBCzLqnCFBVGEpqk6z5pwt8rF+j41/ET888=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=jMAgS1+2wx2f0ZZ99rx0KJEIsfjyHaf3/pmWK7+kjnvgxSgMyDzf8matP91jdOmFhWgUTqscMJkkW8oOZz/5chgVJW6iHwO8T+35R+DO6a11iGX+LAdaRcFZMEGDoSVG+ALYHx3zVEOMiMZnFvBDWtbw8AOH271C8E//4D+zGIg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iypM/nne; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788189671; c=relaxed/simple;
+	bh=I3IR3GBHdAkVdNiESsyYvrip0q0uu2T6kLFw5nY8Hio=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=u70JSF8v+o4uDJCo7IOiEGIo5iKNMa/z91qJnBkprn1837ZhBXewrV9WNzgIbQxnbs9V42JGsNuc/l8XGC4p2M+Jdhw0PJVz7YlM1QRX38M+ixUIo6quGC7wHzYjLAOa5TyrLnulg/qaS/CJr/S6XTXFfbRjAnyq3tS4RVQwWso=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NkCL/YRx; arc=none smtp.client-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iypM/nne"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 64EB71F00ACA
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 15:20:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788189632;
-	bh=6JFS2kLm337yb3dQKB2DDrEUSXPoA2CmSEWj9anOX3g=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=iypM/nneyqTV8PgsspEKnf2poc5c/P9qC9IxC2HCr38g3z5G/mIEQrrL/fiuumO1N
-	 r5uFBdQE/LmbI0lKGrtyud/v+OTzbgepB4R1uEQmtZ380KdTWY8iuc7tFtgC1GfYiO
-	 BPWAf7ZyJsi51rlImpK83UyKd2pe/cGQanlcZxptck+2ruvnCCEeR7Cv5oJtVcvgxj
-	 wOuF3b6qjEQZqulPNGbK2sAnxNBE8OaXu6m9lJUiE/2vbOmJ81YBsGnVNIsp7PHdyA
-	 +L3P00j+BmRSKQNJOQYeXWGfCLF95nWLEsw9xCHPA48QW/eBSoAY9Q/Qxuc0o0999J
-	 QHeMnHz8uyRhQ==
-Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-6a156627e22so8255919a12.1
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 08:20:32 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RoWlULjvgJljoKyUfKNQaOmf5XMlodA1rzj2P+m5yBCxT4Jm2/Kj3zfI3B5tDlhcIta3Tgwj+JBp3tBSdU=@vger.kernel.org
-X-Gm-Message-State: AFuF++lM0OGLmEEImWWwmITc3s3SUchAzP2s6GISDB4GJShBhy+UkI2L
-	zC4nIx09eBX8KrYaid8R3DeiGcdqRRo82+IQ1FWIeDhiSB4s7GuQ4PZesDMkpi2SCLyqti+qfcn
-	/oJyh2PymPvT23otOWe/qaigyERWJ8F4=
-X-Received: by 2002:a17:907:930b:b0:c12:8a:7d7b with SMTP id
- a640c23a62f3a-c25966a3bb1mr478179866b.1.1788189631212; Mon, 31 Aug 2026
- 08:20:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NkCL/YRx"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-49b0d78a801so28113845e9.2
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 08:21:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788189668; x=1788794468; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/Upu5Sph9WjD5dUvZLJCJ1CVmGjImMqIfnouv4erWVM=;
+        b=NkCL/YRxe0THu+EQa4D3X21RcS6Lr+FXqoG/ozqCCntah4y08W37h9nOUt1bRkmT9r
+         IERuY2Bh355v3WbGOYH7zUsMzWNSNWvsD4Bv1FxGs1pyTa8+igGnuZakoAv3XhQHx6kr
+         EzHqFaVbfOboJNY9wX564biV3mOnCZGc0lxcNN3JGYSlk30plp8sQiiOwxTKwsrJLRj+
+         F7MwQGUUeqZL5GZ7mqe6lCFUO/wc4d+V7AU9EKt2G0CHhT9EZQK33j2wU2J9OMmYzViG
+         a4+WX7FW8zFTv+juPIEe+9G2eQJXa+2rZRjubzYhmzoYS9ljUQlxYeVWp1k7jhLhjcj5
+         NzTg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788189668; x=1788794468;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=/Upu5Sph9WjD5dUvZLJCJ1CVmGjImMqIfnouv4erWVM=;
+        b=rkOJRzo/rtTKcyjSvikqBzc5U1aENvAexhcxDwn0USOHShST4QRgh6Qb0N/YD59Y1j
+         FsbXHH2qYfLtRjfgf05N/tU9/V20KIZJMjHkdgajGo0oGnc0ynuTqJ8sB+QX71i3b2cd
+         h6Zot5oer/Nvknw/XVf/wZUhoet1LvJeZvF0kG5q6e6Ny31xzAFNlouZB/2Lsx9ON4ec
+         01dINggfC7c9CPkORkZWj8IFn3euH0Y9Gd3R60cBKt5qHlg0jkm2iYrCtrBZOeqNb/y8
+         H00tQWPY9QXVDYE5QWvfniRZ/JZPGZyrTbvO+UfERkpPCOtL/S5ebTFz5XL9plGcEsh9
+         rblA==
+X-Forwarded-Encrypted: i=1; AHgh+RrCNQoeIJqEHNYwK+inskkOqEI3dpuXlW+knOm8PRrqHpj6OjUrcKeT7KM56tGbSWb5kkbbWhazfZ09g88=@vger.kernel.org
+X-Gm-Message-State: AFuF++kwHdujU3PXvfY0w8bDVSfiNEA6/0fOJ8xveHksFbpLNB828DpK
+	XiFqVoB6+vAf6s63AZv8lNNy2JnMayDcZup4FupOUp+rGeL64+3bwzxj0nAGAVeCoQw=
+X-Gm-Gg: AR+sD13FSnKWBkodWPVPyMZVAVDm42dz2jNyqbeRBc4jJu1Pjth4XeJoJGwUR2hnBWs
+	OffxtxbN1ETpLLg9G6bT/c+1lD7NJl6cMFWywrG2/teivPhPh8FKh/In8S3al1FyyjLr8vEa8Gx
+	LjyNymUNZSJvcY+tNI+GdWk3XiVCXFeTTNsQPgnaw6tmr4+tcaOJjg/KEm3dPGDhBc7daeboIlB
+	VyF03i7b4zhcJKS25i536qfECormNBtNpGUru6WVVxSrRr2Xy970QzJFxNfZpaJ9ny7AwhYoxzT
+	68AECyeslZrN5dIhuN7RdabJ+nOV1L0fm3xSnt408cd9XRnsd6LIYUbQwWPOTqjX3i6LCha3tXK
+	xY3DVALyaH5UNQ6EgK9T1LN+3mzJR20mvI1NnmKz5UarYXfT3cMkpWNB27WIEzB4ehfM/N3zAR+
+	Y2WBqTnFeDCT+NT5yiJlr/iwnEzzDjihnG6jtNr9ifvvOio/OL0ChehMgG8eHjN+zy2V+iKjNkp
+	/rwCuAza/LI5dNoaTWKIv+4
+X-Received: by 2002:a05:600c:1d1d:b0:499:ad2e:f7bc with SMTP id 5b1f17b1804b1-49b91c3ddbcmr332472335e9.10.1788189668022;
+        Mon, 31 Aug 2026 08:21:08 -0700 (PDT)
+Received: from unix.. (244.red-81-44-253.staticip.rima-tde.net. [81.44.253.244])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b963c3c0asm528166815e9.10.2026.08.31.08.20.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Aug 2026 08:21:04 -0700 (PDT)
+From: =?UTF-8?q?Iv=C3=A1n=20Ezequiel=20Rodriguez?= <ivanrwcm25@gmail.com>
+To: Jens Axboe <axboe@kernel.dk>
+Cc: linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?Iv=C3=A1n=20Ezequiel=20Rodriguez?= <ivanrwcm25@gmail.com>
+Subject: [PATCH v1 0/2] block: brd/loop error-path cleanup
+Date: Mon, 31 Aug 2026 12:20:42 -0300
+Message-ID: <20260831152044.166353-1-ivanrwcm25@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260830114731.8322-1-wujianyue000@gmail.com> <20260830114731.8322-2-wujianyue000@gmail.com>
-In-Reply-To: <20260830114731.8322-2-wujianyue000@gmail.com>
-From: Yosry Ahmed <yosry@kernel.org>
-Date: Mon, 31 Aug 2026 08:20:19 -0700
-X-Gmail-Original-Message-ID: <CAO9r8zPYZqZ9UsSU9xVcB6=m-uTkucSoPvA5xCB=mMrb9yVD_w@mail.gmail.com>
-X-Gm-Features: AcwNN1UIzSfb5LeEBaceBs3HLojJ5C16n921xYexG7UOvAbwQ2-o_vxM5QWB-3s
-Message-ID: <CAO9r8zPYZqZ9UsSU9xVcB6=m-uTkucSoPvA5xCB=mMrb9yVD_w@mail.gmail.com>
-Subject: Re: [RFC PATCH v4 1/3] mm/zswap: release retired pools via
- queue_rcu_work() instead of synchronize_rcu()
-To: Jianyue Wu <wujianyue000@gmail.com>
-Cc: Johannes Weiner <hannes@cmpxchg.org>, Nhat Pham <nphamcs@gmail.com>, 
-	Chengming Zhou <chengming.zhou@linux.dev>, Andrew Morton <akpm@linux-foundation.org>, 
-	Chris Li <chrisl@kernel.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Sun, Aug 30, 2026 at 4:47=E2=80=AFAM Jianyue Wu <wujianyue000@gmail.com>=
- wrote:
->
-> When a pool's last reference is dropped, __zswap_pool_empty() removes it
-> from the pool list and schedules __zswap_pool_release(), which calls
-> synchronize_rcu() to wait for readers before tearing the pool down.
->
-> synchronize_rcu() is a synchronous, potentially long wait.  Replace it
-> with queue_rcu_work(): __zswap_pool_empty() hands the pool to
-> queue_rcu_work(), which waits for a grace period asynchronously and then
-> runs __zswap_pool_release() from a worker for the sleepable teardown
-> (__zswap_pool_empty() can run in atomic context and must not block).
-> The grace-period guarantee is unchanged; the retirement path just no
-> longer blocks on it.
->
-> Suggested-by: Yosry Ahmed <yosry@kernel.org>
-> Signed-off-by: Jianyue Wu <wujianyue000@gmail.com>
+Hi,
 
-Why are the patches still tagged RFC?
+Two small error-path cleanups in brd and loop.
 
-Anyway, with one nit below:
+Patch 1 destroys the brd xarray on allocation failure after xa_init().
+Patch 2 restores backing-file GFP mask, clears lo_backing_file /
+lo_device, and re-enables uevents when loop_configure() fails after
+loop_assign_backing_file().
 
-Acked-by: Yosry Ahmed <yosry@kernel.org>
+Base: v7.3-rc1
 
-> ---
->  mm/zswap.c | 12 +++++-------
->  1 file changed, 5 insertions(+), 7 deletions(-)
->
-> diff --git a/mm/zswap.c b/mm/zswap.c
-> index 37f34e406c8e..0bb30e58950a 100644
-> --- a/mm/zswap.c
-> +++ b/mm/zswap.c
-> @@ -155,7 +155,7 @@ struct zswap_pool {
->         struct crypto_acomp_ctx __percpu *acomp_ctx;
->         struct percpu_ref ref;
->         struct list_head list;
-> -       struct work_struct release_work;
-> +       struct rcu_work release_work;
+Tested: built bzImage with CONFIG_BLK_DEV_RAM=y and CONFIG_BLK_DEV_LOOP=y;
+booted QEMU initramfs smoke (ram0 present + LOOP_CONFIGURE happy path).
 
-Seems like the convention is to use rwork in the name instead of work.
+Thanks,
+Iván
 
->         struct hlist_node node;
->         char tfm_name[CRYPTO_MAX_ALG_NAME];
->  };
-> @@ -379,10 +379,8 @@ static void zswap_pool_destroy(struct zswap_pool *po=
-ol)
->
->  static void __zswap_pool_release(struct work_struct *work)
->  {
-> -       struct zswap_pool *pool =3D container_of(work, typeof(*pool),
-> -                                               release_work);
-> -
-> -       synchronize_rcu();
-> +       struct zswap_pool *pool =3D container_of(to_rcu_work(work),
-> +                                              typeof(*pool), release_wor=
-k);
->
->         /* nobody should have been able to get a ref... */
->         WARN_ON(!percpu_ref_is_zero(&pool->ref));
-> @@ -406,8 +404,8 @@ static void __zswap_pool_empty(struct percpu_ref *ref=
-)
->
->         list_del_rcu(&pool->list);
->
-> -       INIT_WORK(&pool->release_work, __zswap_pool_release);
-> -       schedule_work(&pool->release_work);
-> +       INIT_RCU_WORK(&pool->release_work, __zswap_pool_release);
-> +       queue_rcu_work(system_percpu_wq, &pool->release_work);
->
->         spin_unlock_bh(&zswap_pools_lock);
->  }
-> --
-> 2.43.0
->
+Iván Ezequiel Rodriguez (2):
+  block: brd: destroy xa on allocation failure
+  block: loop: restore state on loop_configure() error
+
+ drivers/block/brd.c  | 1 +
+ drivers/block/loop.c | 7 +++++++
+ 2 files changed, 8 insertions(+)
+
+-- 
+2.43.0
