@@ -1,179 +1,72 @@
-Received: from mail-vs2-f1.google.com (mail-vs2-f1.google.com [74.125.227.1])
+Received: from mta0.migadu.com (out-175.mta0.migadu.com [91.218.175.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC2D93B42F1
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 08:13:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44B2B25771
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 08:13:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788163998; cv=none; b=GoCDo3d7WGIT0+AEK/ihWuYqzdymdFxsuqQKt3nS+hyQcmnoXl559iZFSNmI/aIIJLcnHQmUF/r8lMILsuZPq8BcV8KvxnDdgOC36WK+37aKERuVSkwWNxCPdwDI4hPV3nrKO8HbCzMOZEbZGvdg5SfWOs2EnzX8quGNbzIeGbE=
+	t=1788164031; cv=none; b=CPbaaDStM6W2N+/ggyXPXj8C1nE6KgcU0honPPUwybOyFyVdjvlsTQcUEAt2iaosnRvLdrXkl2Km4lwzneoap+iCOeXT0OffgQALlfLotBO4r6HQ8TFCFekAaOHg3A6hJGXS1Qwj+ssjFaZtf8BCK2eSc/AZiOAABLZBFvM8DCw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788163998; c=relaxed/simple;
-	bh=+qn3x8nquazRyDm0Q+Tw3miio+SG11ZPkQozR/1R4To=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ALVaW5GW6iIghS2ceI8Vb1t2uw9VTb8HEzYFkZb20HifO1JiSS1kjQUed7NgozWi+yOCXoko09Vqg9ztOryFY4UVjSKVT5qdKqUsi6TiQiS9uK7JddLJfndW8l4w7ti7b2wtUGgjBaw3zt52GMUipjc1EYdBH3MtO7poPurEegs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.227.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vs2-f1.google.com with SMTP id ada2fe7eead31-74acc945b83so3094128137.1
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 01:13:16 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788163995; x=1788768795;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=n+6mIWWcx/hgj72l0+IMwbJPq4HotcZmhxU6vYoZhGw=;
-        b=gdmmi1qCrEwQNXXEext3txqJNigtLHnHwtkap52LtsOdFcz7hv9DL3A5eYBDXCp07e
-         ltUxHGl5q3Ex2E/Jf55FqxYt0ZUlB6SskmiFh9+30yiG56ZJwrZGVr1IaCWIgZjbTiT6
-         Y4Ggks1IMcfZ4/GkNtkodHUVPABC/IL3W09WCdJZtfa2jbJC5R20iJWwNz1Oy6PXZPow
-         8HALCjgSIXo4je28oIOzh+VMMvHb9DAVathzqv/bJK9OhyIlGF7oKS9RE2+Ok0ZziOz2
-         HgCGJoDdLSxaOFqoPhf7R7pxnmtmUBKWOP1yY5VSWIKYiXMxbTsRj81ByjZVYOr/lLt9
-         YxYQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rpeodc2SYA6TbwmT4zUOTEnVTsPQTu6M+9FwYWG5JAht3mWeJm9Kbd/kHj+Scabk0MexAvUir48uxiIRiM=@vger.kernel.org
-X-Gm-Message-State: AFuF++kWxrsZJO6xkEbSqb0EOgmKqb/pi9ewDjYs8ayUhd0Mmw0nrhvx
-	IrUxyU8I2Qi5MXP46Dl4+Qku/jTYv5E9+quIHJm6a8/NotivcrtezVSkonJXrjFa1uE=
-X-Gm-Gg: AR+sD13NcaH/Dq/F4ZDmMrmy1xLpvIPz2IORLSRZhr+cmjIuNp9SDHj//qPAkU9I/Am
-	Xkn55+D3D5muL3+dZghcSFh3FaCEez2SBUrPmifVK65fJa+TPUHjyoz+29UKQBYja2HQD/cUuSL
-	wAG5SPstqGhkbGXNn7703sTXJG3tdT4DZUozNS9nyWEhjYyDzryOEX+SGAVoiAEb7zqQIfPJUuu
-	c3KsywRyleDhPBYw3Ks91rqTMx5P+fDFWFy6/x+y++s3cP00UKCdyB9yepWFrK3XTuKXaOSn/G4
-	x7NDmf5qDUjTS3STno9CRbD+VLdf3ExVaclTJm4VtYpb4aGzj2lj6yPIrPk8KEmyUIvt4OoNEcA
-	eEmZUiRNAk4YROX91x7T4o+PNoYNz/JqelOyoqJkJXwQ1WjfJDyVfSIU6/DFVT92OE2qPWDdqK5
-	2rAqxe6bDe74pboWHzbe4A9y7rkFohZY2g8jvRzRGVuJePBTz8DI1vOuttYfnUJkMcdKlHaa3GE
-	LWtkfLdJOP779m9FBeSNcT3Pg==
-X-Received: by 2002:a05:6102:1620:b0:785:e444:15de with SMTP id ada2fe7eead31-785e4442a4cmr8102558137.6.1788163995412;
-        Mon, 31 Aug 2026 01:13:15 -0700 (PDT)
-Received: from mail-vs1-f50.google.com (mail-vs1-f50.google.com. [209.85.217.50])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-97e84b6d55bsm7607100241.10.2026.08.31.01.13.15
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 31 Aug 2026 01:13:15 -0700 (PDT)
-Received: by mail-vs1-f50.google.com with SMTP id ada2fe7eead31-782df51b4c1so2326612137.3
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 01:13:15 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RrQ+y7oL1+QVnYc5yabWXE0kh6rZgg57MoHO+2UvmbMTDAPi3AMr8bkPZQgAxh/dvbfyBLDhwA3O+ZvMAk=@vger.kernel.org
-X-Received: by 2002:a05:6102:f9b:b0:77f:7df:ddd2 with SMTP id
- ada2fe7eead31-785972e710emr9471412137.1.1788163994928; Mon, 31 Aug 2026
- 01:13:14 -0700 (PDT)
+	s=arc-20240116; t=1788164031; c=relaxed/simple;
+	bh=pZe/tkBo7AVg/nWLPKTCi9tMSARHqWFLj/O31WOcVRw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=oaGRdBlZ1C7pXjS+CTe+sybHMc4fXHWEwzB14jPx8aqA3ZheuM7s3H3S+/8qcE6n42Z6AYAeevhz7woNaqAaxCoGZ/08yPbSKCV1rjwG1AK2uN6Z5pEv6yGNLexriTmS89z96XLS3wBSAbe4ZM0/EHbUU78XdiKJE4s9apU7UrQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=gLohn+ZB; arc=none smtp.client-ip=91.218.175.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="gLohn+ZB"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=pZe/tkBo7AVg/nWLPKTCi9tMSARHqWFLj/O31WOcVRw=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788164028; v=1; x=1788768828;
+ b=gLohn+ZBMnVExZRiFpmWamwEvigmsEau5puWwhc0gbk1Hz0R4Ng50/jnv0I7DklXNj8I8s3V
+ quN/uqOnruVU4XCkKH5ARplHD/WaHezWvaIfcc+s8/EH4B8s5eAtp3GxLg3TONKXt4YBeBC66Ug
+ 8YsjJ+6xYGE55nORKYOS9fig=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta11.migadu.com with ESMTPS id 30540ebc6273e7ef;
+	Mon, 31 Aug 2026 08:13:48 +0000
+X-Mizu-Trace-ID: 30540ebc6273e7ef
+X-Migadu-Flow: FLOW_OUT
+Date: Mon, 31 Aug 2026 10:13:42 +0200
+From: Thorsten Blum <thorsten.blum@linux.dev>
+To: Jai Luthra <jai.luthra@ideasonboard.com>
+Cc: Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+	David Huang <d-huang@ti.com>, Devarsh Thakkar <devarsht@ti.com>,
+	Hans Verkuil <hverkuil@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Sebastian Fricke <sebastian.fricke@collabora.com>,
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RESEND] media: imagination: Fix value clamping in
+ calculate_qp_tables()
+Message-ID: <apU3tgw67BSgUrPe@linux.dev>
+References: <20260727094729.408762-2-thorsten.blum@linux.dev>
+ <178514849109.506511.14905916758246243206@freya>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260828192223.402422-1-marek.vasut+renesas@mailbox.org>
-In-Reply-To: <20260828192223.402422-1-marek.vasut+renesas@mailbox.org>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Mon, 31 Aug 2026 10:13:03 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdWEz=NoDkvvSjZqNwDQE7+F-JqEeduD0-E-NXTj4Ykbuw@mail.gmail.com>
-X-Gm-Features: AcwNN1W_pE0AEcDpr5Qk2q9RcyT_OX0D891rRk8joGtPW1leA8taoV55ukV4EjA
-Message-ID: <CAMuHMdWEz=NoDkvvSjZqNwDQE7+F-JqEeduD0-E-NXTj4Ykbuw@mail.gmail.com>
-Subject: Re: [PATCH 1/2] dt-bindings: phy: Document Renesas Multi-Protocol PHY
- driver for R-Car X5H
-To: Marek Vasut <marek.vasut+renesas@mailbox.org>
-Cc: linux-phy@lists.infradead.org, Arnd Bergmann <arnd@arndb.de>, 
-	Biju Das <biju.das.jz@bp.renesas.com>, Conor Dooley <conor+dt@kernel.org>, 
-	Hai Pham <hai.pham.ud@renesas.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Magnus Damm <magnus.damm@gmail.com>, Manivannan Sadhasivam <mani@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Phong Hoang <phong.hoang.wz@renesas.com>, 
-	Rob Herring <robh@kernel.org>, Tam Nguyen <tam.nguyen.xa@renesas.com>, 
-	Thanh Quan <thanh.quan.xn@renesas.com>, 
-	Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>, 
-	Vinh Nguyen <vinh.nguyen.xz@renesas.com>, Vinod Koul <vkoul@kernel.org>, 
-	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <178514849109.506511.14905916758246243206@freya>
 
-Hi Marek,
+On Mon, Jul 27, 2026 at 04:04:51PM +0530, Jai Luthra wrote:
+> Quoting Thorsten Blum (2026-07-27 15:17:30)
+> > The local variable val was never clamped to 1 or 255 because the return
+> > value of clamp() was not used. Fix this by assigning the clamped value
+> > back to val.
+> > 
+> > Fixes: a1e294045885 ("media: imagination: Add E5010 JPEG Encoder driver")
+> > Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
+> 
+> Reviewed-by: Jai Luthra <jai.luthra@ideasonboard.com>
 
-On Fri, 28 Aug 2026 at 21:22, Marek Vasut
-<marek.vasut+renesas@mailbox.org> wrote:
-> Document Renesas Multi-Protocol PHY present in R-Car X5H (R8A78000) SoC.
-> This is a multiplexing PHY block with inputs from five IPs, and outputs
-> to four separate IO blocks. The five inputs are two PCIe4, two USB 3.2,
-> and ethernet PCS, each connected into the PHY with up to 4 times 2 lanes.
-> The inputs can be multiplexed to the four IO blocks as needed.
->
-> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+Thank you for the review.
 
-Thanks for your patch!
+Could someone please pick this up?
 
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/phy/renesas,rcar-gen5-mpphy.yaml
-> @@ -0,0 +1,125 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/phy/renesas,rcar-gen5-mpphy.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Renesas R-Car Generation 5 Multi-Protocol PHY
-> +
-> +maintainers:
-> +  - Marek Vasut <marek.vasut+renesas@mailbox.org>
-> +  - Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
-> +
-> +properties:
-> +  compatible:
-> +    items:
-> +      - const: renesas,r8a78000-mpphy   # R-Car X5H MPPHY
-> +      - const: renesas,rcar-gen5-mpphy  # R-Car Gen5 MPPHY
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  clocks:
-> +    minItems: 5
-> +    maxItems: 5
-> +
-> +  clock-names:
-> +    items:
-> +      - const: mpphy01
-> +      - const: mpphy11
-> +      - const: mpphy21
-> +      - const: mpphy31
-> +      - const: mpphy02
-
-These look like provider-centric instead of consumer-centric names.
-Please add descriptions, so it is more clear what they are, especially
-for the last entry (which should perhaps be the second entry?).
-
-> +
-> +  power-domains:
-> +    minItems: 4
-> +    maxItems: 4
-
-Why four? (yeah, SCMI...)
-
-> +
-> +  power-domain-names:
-> +    items:
-> +      - const: mpp0
-> +      - const: mpp1
-> +      - const: mpp2
-> +      - const: mpp3
-
-Likewise.
-
-> +
-> +  resets:
-> +    minItems: 5
-> +    maxItems: 5
-> +
-> +  reset-names:
-> +    items:
-> +      - const: mpphy01
-> +      - const: mpphy11
-> +      - const: mpphy21
-> +      - const: mpphy31
-> +      - const: mpphy02
-
-These look like provider-centric instead of consumer-centric names.
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+Thanks,
+Thorsten
