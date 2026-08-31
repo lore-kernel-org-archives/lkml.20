@@ -1,108 +1,103 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11BB53DD52B;
-	Mon, 31 Aug 2026 09:45:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC2363E024B
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 09:45:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788169523; cv=none; b=iME5NZMUbjPzbgMuWUUuTpPQUC32db4IScr9Bu7w7DnVcFwVkeAXrKTN5Gde1gheniRmMtWLVfm7EvMvU6wqbXL+ky8q3r81+UuaerRigStCCmQ17qImTIFa6sHWyzA5yf5mWrP9IHwdcDUPFhqjWc0Vmxp5+VfcJHrBZbQ/oVY=
+	t=1788169527; cv=none; b=Y2r7KGF9pt2R98mgaCaVcNI96Lu6rWMy5RUY5IPztg0zDepYK0Cxm6QHSArfUynJawM39DNZFKfUiFcwNh6c+UnZMmwyDUK1uGzmMbJ3+igtklu7Hw43+10zTa73hHqrrr0865dhz1Tf19TAxK0HdXrX8Ge+bgyQYWDWWpEWoMM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788169523; c=relaxed/simple;
-	bh=gQzwm5noWbz01jvLjFXEAsShIdISx+9ix3zb5X2dSrE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TQW2WkOC5spZCr7ZWH1KVRLcSd2kFZ2s4xobuKgfOnKXIWqvKGrlMrLYCKv4fMSWz8vdyWlGl+1xSsAOhANZa6bg7vAcfoz8IWl66eMKc4XlKWsT26cUQY5MTQw7XcuUz8TH9yw+7jPXGp64ApqqhV6HLK681beugwpE1YjcpRE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=M2LYsv7l; arc=none smtp.client-ip=198.175.65.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1788169527; c=relaxed/simple;
+	bh=rhIMHMOLnpQiyCwraNUoq9MA7SOjQO0C20Cw0tZcSBQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=olhVTQwjxSK1/yHnuDkgop0d7/7s7DLg1MDSjuGgfMjfbebnOY8sm8fzgwH1obXDQXUws0VKuRNDIqYdAGxaowZY3ccjvOQyBAfLp10PYD2fpj61IEA2NAP0T1W8SViwlfnqM+DRo86X3TwCuNqgLL4rLX8fGBKxCgG3RN7DEjU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=IaE/THbf; arc=none smtp.client-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="M2LYsv7l"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788169521; x=1819705521;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=gQzwm5noWbz01jvLjFXEAsShIdISx+9ix3zb5X2dSrE=;
-  b=M2LYsv7lNV9FNtMagvDPoef9+XncfblZQ4q5YmX4pSqaSv/X7D/a/73l
-   KkCJf3IHGI57c4zvLDPBG8H4TzlYbUz+vX9ivmn3ulHM0i2qFiJ5CIELP
-   5ezojDg0e06D+LGuTJXRzzlDP74Avfmlbnx/vdB28IY8OTWCA6ItLQ1kO
-   CcBY/GUz4eMCgTvfNJ+HqZ8h3fw3aEiGFSc2fDC6ntp+vjG2dSCPlYlWy
-   45I3+oNhxBsYz+sUm+wscAm/i2SqIJiboK+ydkTzDewYY+tQEEq0SX6ID
-   P6Nl+CVNQAwJyRSulJCX6hNOU032gZJqFissYgajL2zdajjlCfkpnBm7V
-   Q==;
-X-CSE-ConnectionGUID: RYoDw1zZSkK0kTBju063Jg==
-X-CSE-MsgGUID: 351rfqVmRcyHfrNLpMyg1Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11891"; a="88777428"
-X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
-   d="scan'208";a="88777428"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 02:45:21 -0700
-X-CSE-ConnectionGUID: BNZz5EiFTC+iTEauNgBqDg==
-X-CSE-MsgGUID: vOpY7dZkQvKpgiPqmadaDA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
-   d="scan'208";a="266170805"
-Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.244.21])
-  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 02:45:17 -0700
-Date: Mon, 31 Aug 2026 12:45:15 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Maurizio Casciano <mauriziocasciano7@gmail.com>
-Cc: linux-media@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Bingbu Cao <bingbu.cao@amd.com>,
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
-	Nicholas Roth <nicholas@rothemail.net>,
-	Andy Shevchenko <andy@kernel.org>, Hans de Goede <hansg@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jose Maria Martin <jmmartinf@hotmail.com>,
-	Uwe Kleine-Koenig <ukleinek@kernel.org>,
-	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 08/15] media: ov2740: support 288 MHz link frequency
-Message-ID: <apVNK1OpZewyp2zM@ashevche-desk.local>
-References: <cover.1787933456.git.mauriziocasciano7@gmail.com>
- <8ad0d4958d140486e69c05e55865df49e55cd5b9.1787933456.git.mauriziocasciano7@gmail.com>
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="IaE/THbf"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-49b8687630fso23116115e9.3
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 02:45:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1788169523; x=1788774323; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=1adx4Gc+EAGVyQph6bJvgo9B2nQWzOo5SA1jOlLp1vM=;
+        b=IaE/THbfisO/0wZAGnXPQTQw3oYSHoGoDfeuRxTsAPwft6lZ6qgLIaZ+vqrbN+6rZF
+         Gs34u8GJKhf58OIHci+oxDsHZGwyR+kpu2xnu1s8GOLa3nqIsAiZOl7Sw38i105jvroq
+         oPBzC5i46xt4X+3zRp1C7L7lB7WV/nv4z/myaJ/Sn4FBK7ughgsz2yntkXJhmnDEZIJC
+         y8fvo+/sLM0+XGdoiW2LVaEBL6x8W02rAVm7POxtp3k7ZEbR3vY+wubuaWv2htzdVOe6
+         t2+otemKpOmucJ9zJntDhbXYAkiNbemWVUOKDUmg5zol0pIpjaCieum0au+j19uwXIQs
+         Q1Xg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788169523; x=1788774323;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1adx4Gc+EAGVyQph6bJvgo9B2nQWzOo5SA1jOlLp1vM=;
+        b=hg/1EUSpb12C4HYB0Cz/q+L2PgPkxsj2Feg8OeUbtQaLqy+DCBxHL4wT+cb6TX6Oih
+         6zeOqRXm3cE0i1X0oDXyzixFFna3BEhZK4ayhwNCjWtofj8l88goqBjN9vSsXGBFqaoJ
+         oqtHdyxql4s4n4yS54v9QyfgQNlKYWT0ne8KArR/NlSZYgSU3puHx4hhwVVaZtydznj0
+         77OpiVIHX/v5JwAWeCwumUrNnxG3SQ41PdT5m900SmAkeQCvW7ppb3t4Vc3CuE6NIcco
+         oUu5dYI0JGGWcfXZsHfiNTjE4emHeC5yKHxWaiiuI6l4RL60IqzkKB0yxO/Eo5YLXarT
+         Desg==
+X-Forwarded-Encrypted: i=1; AHgh+RqGD01kOI4TdionroLurJ+Of1kE4Zm/e5l7Zthvy5hjyRwO2sr+ZdumstuanAhgF814QVd80KNeAeVA7Ck=@vger.kernel.org
+X-Gm-Message-State: AFuF++nc2k0qM5nL0ozVprdDLCvTABUYCUVuE7m5TUD2jKH8kufxX6Ea
+	5pGvwR0ca0uZGNDXkY8jr9faSwjrMUc0Q9+0QIQVgxiFAtfDPxoy4ua5puWSOOUu9t4=
+X-Gm-Gg: AR+sD11RLRTYFFmzvR8NRgQKXr1OCx1nY12SbqwqdI3Wf6g+845vZzmEmE30cgmozKQ
+	stBrzB4tEeJEWm62igiLwVxC7jU/6e4FYENaW0fz63u2DZhjQd3Mn/gNmEFt686temfu0RfqtyV
+	dg7xLJot/3Ka6vvMB5nM6+Sf7KEDY+AXkdwh/sMJmpoP1MNjPAUc55m2yIfOD/o7lyYImSyxYfa
+	LHYoGK+An6sbzdTPgpgqB0RCAx4ZBawV4/8IdLBzbHoCiATWW7+NSISgd7aNe24tzbSviTYRrBp
+	Em7+w8UkyPDyOOkZAhfiL96e5+vKPftoIk2fvLM1YHIPTnXI0gWNSB6HToR3+HG+j+2E29H3nDr
+	Ag1313ZpYSejxE2hnX9swACfErbgRILT3UF8+xz/C28sG++3IGt/O/aFUtvvqiKJrD2OUtgonNc
+	o0G0C4G8IpPg3Nccaf9DyyNqBgur/BNPc+Jq0PgPGNZ4e5PzxpWNhvNbfyDQ==
+X-Received: by 2002:a05:600c:1d08:b0:499:bf0e:95c8 with SMTP id 5b1f17b1804b1-49b91c2e145mr374445115e9.1.1788169523048;
+        Mon, 31 Aug 2026 02:45:23 -0700 (PDT)
+Received: from localhost ([2a01:e0a:3c5:5fb1:a65d:30ba:195:2a4c])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48436e2af45sm12860834f8f.9.2026.08.31.02.45.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Aug 2026 02:45:22 -0700 (PDT)
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>,
+	Kevin Hilman <khilman@baylibre.com>,
+	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Lucas Tanure <tanure@linux.com>
+Cc: Jerome Brunet <jbrunet@baylibre.com>,
+	Jian Hu <jian.hu@amlogic.com>,
+	Ronald Claveau <linux-kernel-dev@aliel.fr>,
+	Brian Masney <bmasney@redhat.com>,
+	Chuan Liu <chuan.liu@amlogic.com>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-amlogic@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-clk@vger.kernel.org
+Subject: Re: (subset) [PATCH 0/4] arm64: amlogic: t7: describe the VIM4 supplies and keep the fabric clocks running
+Date: Mon, 31 Aug 2026 11:45:15 +0200
+Message-ID: <178816849353.1471657.3294500872963560105.b4-ty@b4>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260829094758.23248-1-tanure@linux.com>
+References: <20260829094758.23248-1-tanure@linux.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <8ad0d4958d140486e69c05e55865df49e55cd5b9.1787933456.git.mauriziocasciano7@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-On Fri, Aug 28, 2026 at 06:14:50PM +0200, Maurizio Casciano wrote:
-> The Lenovo Yoga Book YB1-X91 front camera uses two CSI-2 lanes at a
-> 288 MHz link frequency. Add the matching PLL configuration and mode
-> timing.
-> 
-> Reuse the existing 1932x1092 crop and mode register list so the Bayer
-> order remains SGRBG across link frequencies. Cropping the CSI-2
-> receiver output to a smaller processed frame is a userspace pipeline
-> decision.
+Applied to clk-meson (clk-meson-next), thanks!
 
-> Link: https://lore.kernel.org/linux-media/apFzAc5XfV9gQpXS@kekkonen.localdomain/
-> Link: https://lore.kernel.org/linux-media/apF0Cds9fnqQ7XRg@kekkonen.localdomain/
+[1/4] clk: meson: t7: keep the memory fabric clocks running
+      https://github.com/BayLibre/clk-meson/commit/43e1705ecab9
 
-No, you shouldn't add these tags. You can refer to the URLs in a free form in
-the comment block, and not in the commit message.
-
-> Assisted-by: Codex:gpt-5.6-sol sparse
-> ---
-
-Comment block is here.
-
-...
-
->  #define OV2740_SCLK			72000000LL
-> -#define OV2740_MCLK			19200000
-> +#define OV2740_MCLK			(192 * HZ_PER_MHZ / 10)
-
-720 is left untouched so should this.
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Best regards,
+--
+Jerome
