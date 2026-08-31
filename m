@@ -1,122 +1,141 @@
-Received: from mta0.migadu.com (out-237.mta0.migadu.com [91.218.175.237])
+Received: from va-2-26.ptr.blmpb.com (va-2-26.ptr.blmpb.com [209.127.231.26])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE5BD3B9DBF
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 04:52:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.237
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62D2D3C1D40
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 04:55:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.26
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788151973; cv=none; b=rxVTu4t/28cCpwWcK6AN1GMcYYetr8nQY0G1rlll65D+0+il4nnIWwiTIgtEZxN55MGHjrtlO1c10S9uQ7hEkxmcUHPbDZ1M9/rn6aopw98wZbwbHot4CFLHQV37w4B/DUGxvh5fzJ3QoMp/w3FuP41OZgQUgArKmRQ54/e5Dcw=
+	t=1788152146; cv=none; b=TMHvtb8zMNSFyaW1DP0rnVmhkkA4htnSEINwlf7J4KYZPpbFZiVX+VGps5ILOJED2IQL6NUrmUM88uhb3wMe0rGsC515i6qfazRYVohznfe9SVSw57tr/uqh0er76VbCe31Rj7aEM/mVSfbE7UIbCi80wWkj82AHAE9SxyU/Yo0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788151973; c=relaxed/simple;
-	bh=bmzSrjJaq3XT8jBEdtgSjOSepJY+gkPVCqgxYOBVBd8=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=YvFBonOTYFOMG23vZqm2v6g1lIRM+66Crte4UqQFJHCnIzK5+LMi3V3++wVsy6jTtfEY19koQqPpfw2Zc5EFxdEsPsO7DOCt2sgZqOSmHWTT77SosSSQCntPgxet0RP2YKIH2+Yi5zLewCi/SVcWs2b6LVaHHZXKSL73WbUNq/k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=LXdcyDXe; arc=none smtp.client-ip=91.218.175.237
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788152146; c=relaxed/simple;
+	bh=Ax64etgIAtuiMSY9v0hJJ+Zy8ZscVg0ooBhAR4GMufM=;
+	h=Date:To:Content-Type:From:Subject:Mime-Version:Cc:Message-Id; b=BUkompkXPQjZPhw0LQZmSV78VRO8EKIASmxPCJ8iyQX4OLA29k2iKPuS4nxBqxKZUklk7knZFO8qaap7y3PHEvhaR5ua43+3oPixwREQaS+kZVGXhzi9Xkpq7Msa4JltQuW19+6/2ZLg5jxSkquO7Ik4nNT7y63JcarQ04XpXRo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=moonshot.ai; spf=pass smtp.mailfrom=moonshot.ai; dkim=pass (2048-bit key) header.d=moonshot.ai header.i=@moonshot.ai header.b=Y37iTFxD; arc=none smtp.client-ip=209.127.231.26
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=moonshot.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=moonshot.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="LXdcyDXe"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=bmzSrjJaq3XT8jBEdtgSjOSepJY+gkPVCqgxYOBVBd8=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788151969; v=1; x=1788756769;
- b=LXdcyDXejfPMX70dfSa96dlNTo5Zv0aHZXPDjeQm1a+mkQZbnbpGYe7ORNXA/PxsMYf8wmAW
- jgAZauaMJgvBG9nYO4SwEqmo25S/slmDixxJqJjtPv6NtXGD/EaoaUQsDxMLco7zEDuF6lkfaQe
- klSFlqqw9/O0Vdp6I537CxeM=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 1c9dc12ac8dfd3e8;
-	Mon, 31 Aug 2026 04:52:49 +0000
-X-Mizu-Trace-ID: 1c9dc12ac8dfd3e8
-X-Migadu-Flow: FLOW_OUT
-From: Lance Yang <lance.yang@linux.dev>
-To: sarthak.sharma@arm.com
-Cc: akpm@linux-foundation.org,
-	david@kernel.org,
-	ljs@kernel.org,
-	liam@infradead.org,
-	vbabka@kernel.org,
-	rppt@kernel.org,
-	surenb@google.com,
-	mhocko@suse.com,
-	shuah@kernel.org,
-	skhan@linuxfoundation.org,
-	corbet@lwn.net,
-	jgg@ziepe.ca,
-	jhubbard@nvidia.com,
-	peterx@redhat.com,
-	leon@kernel.org,
-	ziy@nvidia.com,
-	baolin.wang@linux.alibaba.com,
-	npache@redhat.com,
-	ryan.roberts@arm.com,
-	dev.jain@arm.com,
-	baohua@kernel.org,
-	lance.yang@linux.dev,
-	broonie@kernel.org,
-	anshuman.khandual@arm.com,
-	usama.anjum@arm.com,
-	linux-mm@kvack.org,
-	linux-kselftest@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v8 1/6] selftests/mm: make file helpers return errors
-Date: Mon, 31 Aug 2026 12:52:41 +0800
-Message-Id: <20260831045241.25826-1-lance.yang@linux.dev>
-X-Mailer: git-send-email 2.39.3 (Apple Git-146)
-In-Reply-To: <20260831042101.18085-2-sarthak.sharma@arm.com>
-References: <20260831042101.18085-2-sarthak.sharma@arm.com>
+	dkim=pass (2048-bit key) header.d=moonshot.ai header.i=@moonshot.ai header.b="Y37iTFxD"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=feishu2510091218; d=moonshot.ai; t=1788152133; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=JTNBYzTVvEFBkVlvhYr+tJv6fEBe1dkT+9DimDVSK0U=;
+ b=Y37iTFxDgy266GXCcKQQApdWhoWvqVDz00PXimcy94eEbjNdGtHBXPFyRrBZv3NOkYDX74
+ R/CANjOx8Kq5YsCKHGwAkM5mNYPXRo9wov2t6FOOnn1d1UQtm9zXJQmbG6iPt8YzSYIgSA
+ eI44Ps0AJwWxlb3hQv/fUgnF9uReON2EqmagClyI1/wg8MrWFyK8H/OqrArsZ5GJpYeEwQ
+ 7Q5sOOTH1PKrAoPIWpP6rXwmhDG5QIWYxhXM3NJ2bS+xAJT0x1VhqHKo3vnpUVu1hs1G/b
+ B2ah/huySN0tdtn4JJQYblsi7/BQ9ZgAnBAk2iqfYBJDYjmU5Uli36nA+H0yYQ==
+Date: Mon, 31 Aug 2026 12:55:06 +0800
+X-Original-From: Yilin Zhang <yilinzhang@moonshot.ai>
+Received: from dev.msh-dev.svc.cluster.local ([117.157.206.135]) by smtp.feishu.cn with ESMTPS; Mon, 31 Aug 2026 12:55:30 +0800
+X-Mailer: git-send-email 2.34.1
+To: <tiwai@suse.com>, <perex@perex.cz>
+Content-Type: text/plain; charset=UTF-8
+From: "Yilin Zhang" <yilinzhang@moonshot.ai>
+Subject: [PATCH] ALSA: pcm: Serialize PCM mmap with buffer reallocation to fix page UAF
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Cc: "Yilin Zhang" <yilinzhang@moonshot.ai>, <linux-sound@vger.kernel.org>, 
+	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>, 
+	"Kimi Security Team" <bug-report@moonshot.ai>
+Message-Id: <20260831045506.889070-1-yilinzhang@moonshot.ai>
+X-Lms-Return-Path: <lba+26a950943+78c6d3+vger.kernel.org+yilinzhang@moonshot.ai>
 
+snd_pcm_hw_params() and snd_pcm_hw_free() guard buffer reallocation
+with an mmap_count check performed under the PCM stream lock, but the
+lock is released long before the buffer is actually freed:
+snd_pcm_sync_stop(), constraint refinement and do_free_pages() all
+happen in between.  snd_pcm_mmap_data(), on the other hand, takes no
+lock at all: it validates against the old buffer's state and
+dma_bytes, remaps its pages into the VMA, and only then increments
+mmap_count.
 
-On Mon, Aug 31, 2026 at 09:50:56AM +0530, Sarthak Sharma wrote:
-[...]
->diff --git a/tools/testing/selftests/mm/vm_util.h b/tools/testing/selftests/mm/vm_util.h
->index 9a49af88702e..62f6f5b42649 100644
->--- a/tools/testing/selftests/mm/vm_util.h
->+++ b/tools/testing/selftests/mm/vm_util.h
->@@ -166,11 +166,11 @@ int unpoison_memory(unsigned long pfn);
-> #define PAGEMAP_PRESENT(ent)	(((ent) & (1ull << 63)) != 0)
-> #define PAGEMAP_PFN(ent)	((ent) & ((1ull << 55) - 1))
-> 
->-void write_file(const char *path, const char *buf, size_t buflen);
->+int write_file(const char *path, const char *buf, size_t buflen);
-> int read_file(const char *path, char *buf, size_t buflen);
->-unsigned long read_num(const char *path);
->-void write_num(const char *path, unsigned long num);
->-void write_num_ignore_einval(const char *path, unsigned long num);
->+int read_num(const char *path, unsigned long *num);
->+int write_num(const char *path, unsigned long num);
->+int write_num_ignore_einval(const char *path, unsigned long num);
+A concurrent mmap() can therefore slip in between the check and the
+free.  remap_pfn_range() installs writable PTEs for the old buffer's
+pages without taking page references, and the subsequent
+do_free_pages() returns those pages to the page allocator while the
+VMA still maps them.  This leaves a stale, writable mapping of freed
+pages: a page-level use-after-free that can be leveraged for local
+privilege escalation.
 
-Ouch ...
+Make snd_pcm_mmap_data() participate in the buffer-access scheme
+introduced for hw_params/hw_free: acquire runtime->buffer_accessing
+before validating and remapping, and release it afterwards.  Buffer
+reallocation already fails with -EBUSY while accessors are active,
+and the mmap side now fails with -EBUSY while a reallocation is in
+progress, so the validate/remap sequence and the check/free sequence
+can no longer interleave.
 
-Looks like this conversion misses hugetlb-soft-offline.c ...
+A reproducer that turns this race into a stale writable mapping of
+the freed DMA buffer pages is available on request.
 
-TEST_GEN_FILES += hugetlb-soft-offline
+Reported-by: Kimi Security Team <bug-report@moonshot.ai>
+Fixes: 92ee3c60ec9f ("ALSA: pcm: Fix races among concurrent hw_params and hw_free calls")
+Signed-off-by: Yilin Zhang <yilinzhang@moonshot.ai>
+---
+ sound/core/pcm_native.c | 35 +++++++++++++++++++++++++----------
+ 1 file changed, 25 insertions(+), 10 deletions(-)
 
-int main(int argc, char **argv)
-{
-...
-	orig_enable_soft_offline = read_num(ENABLE_SOFT_OFFLINE_PATH);
-...
-}
-
-And the compiler isn't happy:
-
-tools/testing/selftests/mm/hugetlb-soft-offline.c:199:36:
-error: too few arguments to function 'read_num'
-  199 |  orig_enable_soft_offline = read_num(ENABLE_SOFT_OFFLINE_PATH);
-tools/lib/mm/file_utils.h:9:5: note: declared here
-    9 | int read_num(const char *path, unsigned long *num);
-
-Cheers, Lance
-
-[...]
+diff --git a/sound/core/pcm_native.c b/sound/core/pcm_native.c
+--- a/sound/core/pcm_native.c
++++ b/sound/core/pcm_native.c
+@@ -3937,20 +3937,33 @@
+ 			return -EINVAL;
+ 	}
+ 	runtime = substream->runtime;
+-	if (runtime->state == SNDRV_PCM_STATE_OPEN)
+-		return -EBADFD;
+-	if (!(runtime->info & SNDRV_PCM_INFO_MMAP))
+-		return -ENXIO;
++	/* don't race with buffer reallocation in hw_params/hw_free */
++	if (!atomic_inc_unless_negative(&runtime->buffer_accessing))
++		return -EBUSY;
++	if (runtime->state == SNDRV_PCM_STATE_OPEN) {
++		err = -EBADFD;
++		goto out;
++	}
++	if (!(runtime->info & SNDRV_PCM_INFO_MMAP)) {
++		err = -ENXIO;
++		goto out;
++	}
+ 	if (runtime->access == SNDRV_PCM_ACCESS_RW_INTERLEAVED ||
+-	    runtime->access == SNDRV_PCM_ACCESS_RW_NONINTERLEAVED)
+-		return -EINVAL;
++	    runtime->access == SNDRV_PCM_ACCESS_RW_NONINTERLEAVED) {
++		err = -EINVAL;
++		goto out;
++	}
+ 	size = area->vm_end - area->vm_start;
+ 	offset = area->vm_pgoff << PAGE_SHIFT;
+ 	dma_bytes = PAGE_ALIGN(runtime->dma_bytes);
+-	if ((size_t)size > dma_bytes)
+-		return -EINVAL;
+-	if (offset > dma_bytes - size)
+-		return -EINVAL;
++	if ((size_t)size > dma_bytes) {
++		err = -EINVAL;
++		goto out;
++	}
++	if (offset > dma_bytes - size) {
++		err = -EINVAL;
++		goto out;
++	}
+ 
+ 	area->vm_ops = &snd_pcm_vm_ops_data;
+ 	area->vm_private_data = substream;
+@@ -3960,6 +3973,8 @@
+ 		err = snd_pcm_lib_default_mmap(substream, area);
+ 	if (!err)
+ 		atomic_inc(&substream->mmap_count);
++out:
++	atomic_dec(&runtime->buffer_accessing);
+ 	return err;
+ }
+ EXPORT_SYMBOL(snd_pcm_mmap_data);
+-- 
+2.43.0
