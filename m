@@ -1,465 +1,206 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013017.outbound.protection.outlook.com [40.93.196.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BA13530DFE;
-	Mon, 31 Aug 2026 13:45:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183903; cv=none; b=er1eqjRyw+hAYsKOUw9L6p06Hn17eqhJir0e4OAKtADdiz0RMEpXUuLxvOw36vnMBb2B+FdJZ3nhReXy8f3d+0MqpJJjGbF3VnQsgOYOfLPCGBideEddDoRq+ukcn8btbzQMhZRVOL5nE0l3EWm2Ra/63ksxWEreRemW1mHjxJQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183903; c=relaxed/simple;
-	bh=A9wcVg/qwbsNaIOy7VZIx0sVrR5+ogYxsAEZBgXB610=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E26934A6CDD
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 13:45:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.17
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788183905; cv=fail; b=R0mHp4man1IkCW8+Z0LEOjQqVTQUoWku5h37a1TvLEiO+z1Se3eW+DE17qQa7k9+9csm2LD6mOTxxNl6yldti5XXd0dxJ9a6uFjp8ZRsaHKhUr1KC4ZIEWPfMsetG0whrhMvxmJixPdF1MLE80G9WYUFCmWXVARF3qMhjevBgcU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788183905; c=relaxed/simple;
+	bh=Wq3wBXv6BOsPy4L5d9OoKrvq0N2MREydFk0OzlHAFAA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ZgMsEKuQT0IHFeElARxWU67SVuhjfi1dtpR/2ZG213KIneh/ITVJFY3cr03h5bTzvlC9Bywp/jbnxy+Osqi0ZY5n8Aos6y1SGvJp5eQCSTm1dd6XlfrKrfvxAmxdR6N0NI4oH4JgEQIJLA7lOGVk+NbsIN2B79FFoDQLAFntupQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gBFlgIr+; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:MIME-Version; b=srNXrjg4jzy1/ZYcgEo8364MGhiYpDjagnYhdVqdSynueNpGvJGx3v2otfkTcLDGhPhpUFxyd/ujpnvBj0O5hGNymHTr5+GHjWSFfcVB6wF2I8Z1AlCOylXrr4/ZxI2RFPI2s4LhwvGVoWJLaAsc6GcBPXdkoliG4VyJiCczSIE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=uqi1PR+7; arc=fail smtp.client-ip=40.93.196.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gBFlgIr+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D02681F000E9;
-	Mon, 31 Aug 2026 13:44:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788183900;
-	bh=lxHNJnQPSpDPD+kKDwAJoTZTqjJCXIA4FZuShnRYobQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=gBFlgIr+Q2TD6VPJ02Bgy7iqgbCw2BnDtDolKuNlJ9nFnrqXyW+1tZ6fSXJy7ZAze
-	 VgfhJ/5+2VJIH57/N8GbUqCmKR2JXwKcPv+rvFbRgegyBzuTGCbSKClZ0vL59En6vz
-	 wLdhBcCej2qAxKs9Uchz+p2J7aLUij2DeJLiKeYp1TfUngVqC8MQLuVV8tDe2RpT9S
-	 BT36cTvUYiXe4B6+Bd6CuywJU9LUVKq1nR4gQao7FJZR5Q4fR16rt7geH8JDhxjr4K
-	 CvVssaCo3lvXSS7zvgXd/bZci412UnMScCydLvQ5gC/lXOZWsEtaWlEK5iT4Tme7Hp
-	 ZadkWGMLvm8wQ==
-From: Sasha Levin <sashal@kernel.org>
-To: patches@lists.linux.dev,
-	stable@vger.kernel.org
-Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>,
-	"Rob Herring (Arm)" <robh@kernel.org>,
-	Sasha Levin <sashal@kernel.org>,
-	saravanak@kernel.org,
-	devicetree@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="uqi1PR+7"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=kJNGTQhwN5SK6KeqGR2Rvp9JZZ5mTIF/9RJZ5vOx0OS+grBHDwm8ucla7wf/eqSeY5EPr23Y0GJ1NeX/lW2z2YJdRCw+KPKv09GDDtbrnaqu79A5X4dElwecHfeRqSjeYfH2Ngu15DzTUKQBITeenyrj6oWmo+HobA/wc15qjUWKQwOrx03BJ7Zo+Z9pmUGXKQH+aS2xpJvo98lHKpwW91Cied1E5jLJRTPg+z/VGofpApX0apIO4yDm9Rjf26KLSM7dSIHn4iwGAJg2ifV1xN9351CC+UkrkRL4p664xPwZj7HZGlcSeB+B+QufEx43Xgcflz0NiD//nHnPXRfhPA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Hh/cIef6OruU4Kl4uhFyYrMto78fRMpVVLFQN6JSB70=;
+ b=nyC9rOwv/NKWiMnf5QeKAzNEur5JgqhA9C7fj2E7Fu1z4KF2LcN5uAcvvwOBGUlNjXRjQXdPmlBbeTBy+BF/NJaxnAXS6zWORWoMEAZjn2xj97f9VFozQvARJQwDvWBxhTSDJyw+mfaNxS6AG+QfdRIK0BVdlIOm6bw9CjwcfmPMIqECztn7YMhqajYhAdlB004RuKCKymc5tUAV389jN+OzBVgCJ4lAgglcnSUAqItmMujZYEN4F5KklAWXfzIwJTaWTKJdKtKv7qQuXkxucI8u3Kp8LZhS6RDhKgwLig5HS3em7OePN+GMQ5drLZPBdjGDGI6SZirno6+JT61nqA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Hh/cIef6OruU4Kl4uhFyYrMto78fRMpVVLFQN6JSB70=;
+ b=uqi1PR+76piM/e6lQTIz6TVZyw8AIJ5wzyX2cZCfgx5OI9OrnTuRUL0w/z4gh3b4Z8AybPZUauweSOBvu6ccu0eNouW3p3ZHiGvw6i5SjDL4mSU4LHgsYns/KrAzeihondW4NaLjES7okY358hXTnQLryDv0Du9XG9V3fRGUkGKTVTlozCNjh/SpqR/SJDwaqK6cOVIJc9a0oq2wEoswJ0DA8p26Ff4O6/4Uw12Fr9EctzYu/ctjyVHbpBBZ9jl5oTsi01Lnd4XTKW5hxC8kOraYxaya2fWHFupQfiJ7mNilJLIBClhFxZx993hia75PJKx9Po3qvRHyhOGon+7Oug==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DM6PR12MB4827.namprd12.prod.outlook.com (2603:10b6:5:1d6::14)
+ by MW4PR12MB6755.namprd12.prod.outlook.com (2603:10b6:303:1ea::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.12; Mon, 31 Aug
+ 2026 13:44:58 +0000
+Received: from DM6PR12MB4827.namprd12.prod.outlook.com
+ ([fe80::6261:3040:864b:159c]) by DM6PR12MB4827.namprd12.prod.outlook.com
+ ([fe80::6261:3040:864b:159c%5]) with mapi id 15.21.0360.008; Mon, 31 Aug 2026
+ 13:44:58 +0000
+From: Andrea Righi <arighi@nvidia.com>
+To: Tejun Heo <tj@kernel.org>,
+	David Vernet <void@manifault.com>,
+	Changwoo Min <changwoo@igalia.com>,
+	John Stultz <jstultz@google.com>
+Cc: Ingo Molnar <mingo@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>,
+	Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Christian Loehle <christian.loehle@arm.com>,
+	David Dai <david.dai@linux.dev>,
+	Emil Tsalapatis <etsal@meta.com>,
+	Lee Trager <ltrager@nvidia.com>,
+	Richard Cheng <icheng@nvidia.com>,
+	Koba Ko <kobak@nvidia.com>,
+	Aiqun Yu <aiqun.yu@oss.qualcomm.com>,
+	sched-ext@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-6.6] drivers/of: validate status properties in reconfig state changes
-Date: Mon, 31 Aug 2026 09:26:38 -0400
-Message-ID: <20260831133314.4125787-370-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
-References: <20260831133314.4125787-1-sashal@kernel.org>
+Subject: [PATCH 09/18] sched_ext: Block proxy donors across scheduler transitions
+Date: Mon, 31 Aug 2026 15:42:19 +0200
+Message-ID: <20260831134338.1531664-10-arighi@nvidia.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260831134338.1531664-1-arighi@nvidia.com>
+References: <20260831134338.1531664-1-arighi@nvidia.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: MI2P293CA0015.ITAP293.PROD.OUTLOOK.COM
+ (2603:10a6:290:45::9) To CH2PR12MB4824.namprd12.prod.outlook.com
+ (2603:10b6:610:b::22)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.18.48
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4827:EE_|MW4PR12MB6755:EE_
+X-MS-Office365-Filtering-Correlation-Id: 353d9e07-f0f0-47cb-5fee-08df07660a85
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|1800799024|23010399003|366016|6133799003|10067099003|56012099006|11063799006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	bdZl3d0kIEt2+bZgT7oQfEDjA5CGYf8LWTnaAaqu3iduaJoxGGGhUKNll+nRzk7LmWKtsdjoMZNSFOYwIHfpESRseWje96ze8JoRvQAnVC6RjgNPVDI1VxWhn8PHQMziQmR9J+c+Ejw1+a+OocvNIlRNzPIuX+kEjB/p6YCLgqK+lGiX46WWhrOR6gE7F2ualCFRdEhk7zgeB2HouicGq0W/zX6h+PnMCNbZIu+BgSQwmJT6d1tD4L8fxc7UlGUwbawYqewGAPvdNEptT1JtHIaLGRYrT4JMGxZJ3L5L7ovPQZIECSox3JE8HC9i+bEdhYc+qgGZLEb8AGs9GUNhcuBH/j1lx+jJIlvr9hsOewlTa2Qe+eL+cjBFqI9I0LPLBcCHup+HIEu8RGd/gqMyAmxQw8M4C7g9kF21n0xDc0EtJ3MeVxVBTjCm2d7H7y0GfAULYs+FC2eUX8y2W+8FzKT06q62ZiXOWaFSt1A7kIJXuTUiIS9+JEQ2lMyF4GEYkhMGVxp7qJoJGtLPp5VgvYonDuu8fEHUN1LPigwHeBfC6v4FQ7WX6glDfSvSVIpi9Pu8UtGMG0KRpuGF+XOGqCfgLtZR+OqWnjrPolY34jQr+2gdBzvsuOO/qYg+A4jJKs8EBw6wfYGq7ydGYHoW3Ob9QIDVt/YgI4l6dcKPX7U=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR12MB4827.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(23010399003)(366016)(6133799003)(10067099003)(56012099006)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?tlwR2NyjGfSilWa7h0srTelQ8sFz84PpFdAfd5dNMGzZaEpDXoKJ5ESyrS3n?=
+ =?us-ascii?Q?/4voWIj5GuRvvAfEI9dKueIDJPhKh94Aiqw6Gl3MfjFVTyR9oci9oGIuSbmm?=
+ =?us-ascii?Q?LzJUz1hJev89afZIbPpLNbisoY8oK5P1fpgwhEvpO2On7iAJZyCMCsEKio8J?=
+ =?us-ascii?Q?WIKzY4xkPH6IVHWCNJvUrvIWGUpk0dASdXBNI3zC4Xa9H19Wzvk6pr5bKA9I?=
+ =?us-ascii?Q?gJqpeJCZw6dUYfXnzL2yMgZkAdRi+ueOHBws5bpIyAS7JWU45XJulQgbDddc?=
+ =?us-ascii?Q?ucAqdpnaQtjFDt1AXQ6CjNkk0kTFK/7MChqXjTMMLnP0gFPWI7nvG1ca3K3P?=
+ =?us-ascii?Q?t0bzZUoBj+e43/R54b8LgvD4cu5bECIML2BWJw9qHXI0HluH/0XNlfUCOkRv?=
+ =?us-ascii?Q?BqOPAA46DO+SDYDFrefp101rbiyEGSX0jFQhBnWjtK23y0BHHL2Ov1MfJTqo?=
+ =?us-ascii?Q?0KnXv9acP9ZyT88+c8utbd82NrmCdcS6JtqJ4aJdczDZeDCbfi4cFYpPwHom?=
+ =?us-ascii?Q?hHMeq5n2AvIkHomC2fcWYxxYtwvx63HxxSkY23ESkw0GjYM7jQ4LAszP+0bY?=
+ =?us-ascii?Q?MhbrxGBDy7tX0QoB38fAF30301wSD98mnlJWTrIE7p7Dh4eCZD5JJwa28lN7?=
+ =?us-ascii?Q?54PBu9uWwxMqRGq6FCunF98wDqI7ED81Kgt4KZci94iDB287XFgCUykowiBT?=
+ =?us-ascii?Q?HPxd2MHaPa3pYmzUYhsPpiUx5VXrtJQN7VTzOjr5g5b1n8Q/WLoWC/eoCDy6?=
+ =?us-ascii?Q?upmnp7B1lclkQJnQGjnEoUrP7dkV7bl7sQTqfHFFd1x/7MLSO2cpu2ViiRvD?=
+ =?us-ascii?Q?nJB4Kcty0I++uSPEDxFbmYIOo62u2kSghwPyKY1IxekCZplKVZSsNSRt9XyE?=
+ =?us-ascii?Q?H5m825FQAmI/IU2xC5cdTFfN2tf+8zvvLMmIsiarWZta2gTic2GZma0n8U1L?=
+ =?us-ascii?Q?zM50rEAAM9dbW9ph40OwzZTnL+9rKANWCHxqc0wKxTuDIS1nWidECWWIf7m2?=
+ =?us-ascii?Q?pUIWqOSP4PwiYpG65Tjif6/ScEInpUyrpileib/LnkDqsEsQtJTFKMzk8mAZ?=
+ =?us-ascii?Q?wA+kPnOXtXC4GW6pW/ErFQ8gWq0fBe950jTfUNIYpDJekkEddJsQuJo4e177?=
+ =?us-ascii?Q?Ogia3FJbCc9RNcUyVhH1c9u7TYWkjxRkjNjLbmAbvD0/3Wxml3nGMKvVCPUV?=
+ =?us-ascii?Q?SPznuSywiDdBjPhcX28+pZbVTw8TxgwELAc6B4s66WSZTB85B5FJDW2X4zfz?=
+ =?us-ascii?Q?dDDjG/bhu9TEk+fE0A6JhJD9d2hbZ1/bNqMbA/06r7GAD6gaPiZbiN3P9pwT?=
+ =?us-ascii?Q?qLdc4IxHxRlGjibnCGB7cmypAuaVcS3Us4mrPp5NrDckohPzRwt1qUZBiwI9?=
+ =?us-ascii?Q?yAb8fj51zKPzjL3alZzUrNwjapB1AjDgRUnYmn6HpXH338/56/vqWYEdm2iZ?=
+ =?us-ascii?Q?BEGjq3niNBiYKJ2SNU1M2fi59uAvHXGKwShXwxuLffzq0/QwNeoaT6iyiOxo?=
+ =?us-ascii?Q?qzbc56dLmNnu1JXC0gmv5nAnc2fknlqq0BBugAO2HmBC343sHMdRKfVa6T65?=
+ =?us-ascii?Q?CtxZaLbjI+A3NeoQLfuKjHH/1YAwZodwOj++bJ4aYj0JPk+kGuZRiLKsfsRD?=
+ =?us-ascii?Q?Ur8rOAiwk1xv1vABYjBDmvu2q/pHMA5dAwN7341d5G7W7TXXK67JbJoJ7/vR?=
+ =?us-ascii?Q?HteZE/BnT1g0pWYHEferykLZcY/xWoE5Aj/IfJJRaGsbV44t5revXwo4HEVm?=
+ =?us-ascii?Q?hsGQA+Fkyw=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 353d9e07-f0f0-47cb-5fee-08df07660a85
+X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB4824.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 13:44:58.0068
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: fEQqPt3xIZf4+zhGq/2ObxLcwh+5s8q1/UKbx4ZrFhSGIsLDYgD0SopcVvxTkxnBlkUZdxmFTSQ7FW6UBWaHzQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6755
 
-From: Pengpeng Hou <pengpeng@iscas.ac.cn>
+Proxy execution retains mutex-blocked donors on the runqueue so their
+scheduling context can execute a lock owner. sched_ext cannot safely retain
+such donors unless the BPF scheduler explicitly participates in their
+admission and ordering.
 
-[ Upstream commit 0b6b12c5dcce16e604d4cde953bef46531b98571 ]
+Make sched_ext reject retained donors by default. Implement
+scx_allow_proxy_exec() to force blocked EXT tasks through the regular block
+path in schedule().
 
-Live-tree reconfiguration properties also carry raw values plus explicit
-lengths. `of_reconfig_get_state_change()` currently treats `status`
-property values as NUL-terminated strings and feeds them straight into
-`strcmp()`.
+Also fully deactivate any retained proxy donor in sched_change_begin()
+before changing its scheduling class. This prevents sched_setscheduler(),
+PI transitions and sched_ext activation from carrying an existing proxy
+session into the new class.
 
-Factor the `"okay"` / `"ok"` check out into a helper that first verifies
-that the property contains a bounded C string within `prop->length`.
-Malformed `status` updates should be treated as not enabling the node.
+Some RT/DL PI transitions could usefully preserve the proxy session. For
+example, an RT waiter can boost a FAIR donor which is itself blocked on a
+non-PI mutex; retaining the donor would allow the boosted context to keep
+proxy-executing that mutex owner. Doing so safely requires defining which
+scheduling classes can carry retained proxy state across a transition. Keep
+the conservative reset for now and leave compatible RT/DL PI chains for
+future work.
 
-Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
-Link: https://patch.msgid.link/20260507081812.91838-2-pengpeng@iscas.ac.cn
-Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+This is a preparatory change to support proxy execution with sched_ext.
+
+Signed-off-by: Andrea Righi <arighi@nvidia.com>
 ---
-
-LLM Generated explanations, may be completely bogus:
-
-## Phase 1: Commit Message Forensics
-
-### Step 1.1: Subject Line
-**Record:** `[drivers/of]` `[validate]` — validate `status` properties
-during live-tree reconfiguration state-change detection.
-
-### Step 1.2: Tags
-**Record:**
-- **Link:**
-  `https://patch.msgid.link/20260507081812.91838-2-pengpeng@iscas.ac.cn`
-  (v3, patch 2/2)
-- **Signed-off-by:** Pengpeng Hou `<pengpeng@iscas.ac.cn>`
-- **Signed-off-by:** Rob Herring (Arm) `<robh@kernel.org>` (OF
-  maintainer)
-- No Fixes:, Reported-by:, Tested-by:, Cc: stable, or syzbot tags
-- Notable: patch **2/2** in a series; v3 changelog says "no code change;
-  carried with patch 1/2"
-
-### Step 1.3: Body Analysis
-**Record:**
-- **Bug:** `of_reconfig_get_state_change()` uses `strcmp()` on
-  `prop->value` without verifying a NUL terminator within
-  `prop->length`. Live-tree reconfiguration properties are raw byte
-  sequences + explicit length.
-- **Symptom:** Malformed/non-NUL-terminated `status` values can cause
-  out-of-bounds reads via `strcmp()`, and may be misclassified as
-  enabling/disabling a node.
-- **Fix approach:** New `of_property_status_ok()` helper uses
-  `strnlen()` bounded by `prop->length`; malformed values → not
-  enabling.
-- **Root cause:** Reconfig path assumes C strings; DT properties are
-  length-bounded byte sequences.
-
-### Step 1.4: Hidden Bug Fix?
-**Record:** Yes — described as validation, but it is a memory-safety and
-correctness fix (OOB read + wrong state decisions), not cosmetic
-cleanup.
-
----
-
-## Phase 2: Diff Analysis
-
-### Step 2.1: Inventory
-**Record:**
-- **File:** `drivers/of/dynamic.c` (+16 / -4, ~20 lines net)
-- **Functions:** new `of_property_status_ok()`; modified
-  `of_reconfig_get_state_change()`
-- **Scope:** Single-file, surgical fix
-
-### Step 2.2: Code Flow Change
-**Record:**
-- **Hunk 1 (new helper):** Before — no bounds check. After — reject
-  NULL/empty/non-NUL-terminated values; only then `strcmp("okay"/"ok")`.
-- **Hunk 2 (`of_reconfig_get_state_change`):** Before — direct
-  `strcmp(prop->value, "okay")`. After — `of_property_status_ok(prop)`
-  for new and old status properties on ADD/UPDATE/REMOVE/ATTACH/DETACH
-  paths.
-
-### Step 2.3: Bug Mechanism
-**Record:** **Category:** Memory safety (out-of-bounds read) + logic
-correctness.
-- `strcmp()` reads past `prop->length` when no NUL exists within the
-  declared length.
-- `__of_prop_dup()` copies exactly `prop->length` bytes via `kmemdup()`
-  with no added NUL.
-- FDT `populate_properties()` stores raw blob bytes with `pp->length =
-  sz` — a normal `status = "okay"` is 4 bytes, typically without a
-  trailing NUL.
-- Malformed values may be treated as enabled when they should not be.
-
-### Step 2.4: Fix Quality
-**Record:** Obviously correct; matches existing OF patterns in
-`overlay.c:228` and `property.c:505`. Minimal regression risk —
-conservative default (malformed = disabled). No new APIs.
-
----
-
-## Phase 3: Git History Investigation
-
-### Step 3.1: Blame
-**Record:** Buggy `strcmp` lines at `dynamic.c:138-142` attributed to
-`6bda50f4333fa` (initial tree content). `of_reconfig_get_state_change()`
-has been present since tree import; bug is not newly introduced
-post-6.18 branch.
-
-### Step 3.2: Fixes: Tag
-**Record:** N/A — no Fixes: tag.
-
-### Step 3.3: Related File History
-**Record:** Recent `dynamic.c` changes: `fa9a4c5e` (fwnode flags thread
-safety), `ae62edb0` (revert). No prior fix for this issue in this tree.
-Fix not yet merged here.
-
-### Step 3.4: Author Context
-**Record:** Pengpeng Hou has multiple sanitizer-hardening patches in
-this tree (btusb, hwmon, media, iommu). Rob Herring reviewed and
-committed. Patch series went v1 → v2 → v3 with maintainer feedback on
-patch 1/2 only.
-
-### Step 3.5: Dependencies
-**Record:** Patch 2/2 is **standalone** — self-contained helper in
-`dynamic.c`, no symbols from patch 1/2. v3 changelog explicitly says "no
-code change" in 2/2 across revisions. Can apply independently.
-
----
-
-## Phase 4: Mailing List and External Research
-
-### Step 4.1: Original Discussion
-**Record:** Lore blocked by bot protection. Verified via lkml.iu.edu
-mirror: [PATCH v3 2/2](https://lkml.iu.edu/2605.0/09220.html). Series:
-patch 1/2 fixes `of_prop_next_string()` / `__of_device_is_status()` in
-`property.c`/`base.c`; patch 2/2 fixes reconfig notifier path.
-
-### Step 4.2: Reviewers
-**Record:** To: Rob Herring, Saravana Kannan. Cc: devicetree, linux-
-kernel. Rob Herring applied with his Signed-off-by.
-
-### Step 4.3: Bug Report
-**Record:** No external bug report or syzbot link. Bug identified by
-code analysis in patch series (live-tree properties not NUL-terminated).
-
-### Step 4.4: Series Context
-**Record:** Patch 1/2 is complementary but separate. This commit alone
-closes the reconfig-specific hole. Patch 1/2 not in this tree either.
-
-### Step 4.5: Stable List
-**Record:** No stable-list discussion found (lore inaccessible). Not a
-negative signal per instructions.
-
----
-
-## Phase 5: Code Semantic Analysis
-
-### Step 5.1: Key Functions
-**Record:** `of_property_status_ok()` (new),
-`of_reconfig_get_state_change()` (modified).
-
-### Step 5.2: Callers
-**Record:** `of_reconfig_get_state_change()` called from reconfig
-notifiers in:
-- `drivers/of/platform.c:730` — platform device create/destroy on DT
-  changes
-- `drivers/i2c/i2c-core-of.c:168` — I2C client register/unregister
-- `drivers/spi/spi.c:4802` — SPI device management
-- `drivers/gpio/gpiolib-of.c:909` — GPIO chip management
-- `drivers/bus/imx-weim.c:309` — WEIM bus
-
-All under `CONFIG_OF_DYNAMIC`.
-
-### Step 5.3: Callees
-**Record:** `strnlen()`, `strcmp()` — validation then comparison only on
-bounded C strings.
-
-### Step 5.4: Reachability
-**Record:** Triggered during live DT changesets/overlays
-(`of_changeset_apply()`, `of_overlay_*()`). `CONFIG_OF_DYNAMIC` is
-selected by `CONFIG_OF_OVERLAY` (common on ARM/embedded) and several
-platform Kconfigs (PowerPC pseries, PCI, etc.). Reachable when overlays
-change `status` or nodes are attached/detached — not a dead-code path on
-affected configs.
-
-### Step 5.5: Similar Patterns
-**Record:** Same `strnlen(prop->value, prop->length) >= prop->length`
-guard already used in `overlay.c:228` and `of_property_read_string()` at
-`property.c:505`. This commit brings the reconfig path in line with
-established OF practice.
-
----
-
-## Phase 6: Cross-Reference Against Local Tree
-
-### Step 6.1: Buggy Code Present?
-**Record:** **Yes.** Local tree is **6.18.43** (`git describe HEAD` →
-`v6.18.43-1-gc7f0dac02d232`). Buggy `strcmp` code present at
-`drivers/of/dynamic.c:138-142`. Fix (`of_property_status_ok`) **not**
-present.
-
-### Step 6.2: Backport Complications
-**Record:** Clean apply expected — single file, no structural conflicts.
-Recent `dynamic.c` churn is unrelated (fwnode flags, revert).
-
-### Step 6.3: Related Fixes Already Present?
-**Record:** No. `of_property_status_ok` not found. Patch 1/2 string-
-validation changes not in tree.
-
----
-
-## Phase 7: Subsystem Context
-
-### Step 7.1: Subsystem Criticality
-**Record:** **drivers/of** — device tree core. **IMPORTANT** for
-ARM/embedded/PowerPC platforms using live DT overlays; not universal
-like mm/net, but critical on affected platforms.
-
-### Step 7.2: Activity
-**Record:** OF subsystem actively maintained; live-tree/overlay code is
-mature but still receiving hardening fixes.
-
----
-
-## Phase 8: Impact and Risk Assessment
-
-### Step 8.1: Who Is Affected
-**Record:** Platforms with `CONFIG_OF_DYNAMIC` (typically
-`CONFIG_OF_OVERLAY`). Users applying DT overlays or runtime changesets
-that touch `status` properties.
-
-### Step 8.2: Trigger Conditions
-**Record:**
-- Any reconfig action where `status` property lacks NUL within
-  `prop->length` — includes normal FDT `"okay"` (4 bytes) on ATTACH_NODE
-  via `of_find_property()`.
-- Overlay property updates via `__of_prop_dup()` (exact-length copy, no
-  NUL appended).
-- **Likelihood:** Moderate on overlay-enabled systems; ATTACH_NODE with
-  standard DTB is a common path.
-- **Unprivileged trigger:** Overlay application typically requires
-  elevated privileges (root/capabilities), limiting direct userspace
-  exploitation.
-
-### Step 8.3: Failure Mode Severity
-**Record:**
-- **OOB read** via `strcmp()` past property boundary — **HIGH** (memory
-  safety; KASAN-detectable)
-- **Incorrect enable/disable** of platform/I2C/SPI/GPIO devices —
-  **MEDIUM-HIGH** (wrong devices probed or removed)
-- Not typically a direct panic, but real correctness and safety impact.
-
-### Step 8.4: Risk-Benefit
-**Record:**
-- **Benefit:** HIGH on OF_DYNAMIC platforms — closes verified OOB read
-  and fixes state-machine correctness.
-- **Risk:** VERY LOW — ~14 lines of helper, conservative semantics,
-  maintainer-reviewed, matches existing OF patterns.
-- **Ratio:** Strongly favors backport.
-
----
-
-## Phase 9: Final Synthesis
-
-### Step 9.1: Evidence Summary
-
-**FOR backport:**
-- Real memory-safety bug (`strcmp` past `prop->length`)
-- Affects live DT reconfiguration — common overlay path on embedded ARM
-- Can mis-probe or mis-remove devices
-- Small, self-contained, obviously correct
-- OF maintainer (Rob Herring) signed off
-- Buggy code confirmed present in local 6.18.43 tree
-- Standalone — no dependency on patch 1/2
-- Matches established validation pattern elsewhere in OF
-
-**AGAINST backport:**
-- Only affects `CONFIG_OF_DYNAMIC` builds (not all kernels)
-- No syzbot/user crash report filed
-- Patch 1/2 addresses related paths separately (but does not subsume
-  this fix)
-- Overlay access usually requires privileges
-
-**Unresolved:** Full lore review thread unavailable (bot protection). No
-runtime crash report — impact inferred from code analysis.
-
-### Step 9.2: Stable Rules Checklist
-1. Obviously correct and tested? **PASS** — logic mirrors
-   `overlay.c`/`property.c`; maintainer reviewed; no unit tests in this
-   patch but pattern is established.
-2. Fixes a real bug? **PASS** — OOB read and incorrect status
-   classification verified in code.
-3. Important issue? **PASS** — memory safety (HIGH) + device probe
-   correctness (MEDIUM-HIGH).
-4. Small and contained? **PASS** — 1 file, ~20 lines.
-5. No new features/APIs? **PASS** — static helper only.
-6. Can apply to local tree? **PASS** — buggy code present, clean apply
-   expected.
-
-### Step 9.3: Exception Category
-**Record:** Not a device-ID/quirk/DT/bindings/doc exception — standard
-bug fix.
-
-### Step 9.4: Problem Summary for Stable Users
-
-On 6.18.y systems with live device-tree reconfiguration enabled,
-`of_reconfig_get_state_change()` uses unbounded `strcmp()` on `status`
-property values that are stored as length-delimited byte sequences (not
-guaranteed NUL-terminated). A normal `status = "okay"` from a DTB is 4
-bytes without a trailing NUL; `__of_prop_dup()` also copies without
-appending NUL. This can read past the property boundary and produce
-wrong enable/disable decisions during overlay application, causing
-incorrect device probe/remove behavior on affected platforms.
-
-The fix is minimal, self-contained, maintainer-approved, and directly
-applicable to this 6.18.43 tree where the bug exists.
-
----
-
-## Verification
-
-- **[Phase 1]** Parsed subject, tags, body from user-provided commit
-  message; fetched lkml mirror for v3 2/2
-- **[Phase 2]** Read diff; confirmed `of_property_status_ok()` and
-  `of_reconfig_get_state_change()` changes
-- **[Phase 2]** Read `__of_prop_dup()` at `dynamic.c:409-425` —
-  `kmemdup(prop->value, prop->length)` without NUL
-- **[Phase 2]** Read `populate_properties()` at `fdt.c:151-153` — stores
-  raw FDT bytes with explicit length
-- **[Phase 2]** Confirmed `strnlen` pattern in `overlay.c:228` and
-  `property.c:505`
-- **[Phase 3]** `git blame -L 136,142 drivers/of/dynamic.c` → lines from
-  `6bda50f4333fa`
-- **[Phase 3]** `git log --oneline -20 -- drivers/of/dynamic.c` — no
-  prior fix for this issue
-- **[Phase 3]** `git log --grep='of_property_status_ok'` — no results
-  (fix not merged)
-- **[Phase 4]** lkml.iu.edu/2605.0/09220.html — confirmed v3 2/2 content
-  and standalone nature
-- **[Phase 4]** Web search — identified patch 1/2 as separate (`validate
-  live-tree string properties`)
-- **[Phase 4]** lore.kernel.org — blocked (Anubis); b4 dig requires
-  commit hash not available in tree
-- **[Phase 5]** `grep of_reconfig_get_state_change` — 5 caller sites
-  verified
-- **[Phase 5]** Read `platform.c:730`, `i2c-core-of.c:168` notifier
-  paths
-- **[Phase 6]** `git describe HEAD` → v6.18.43; `make kernelversion` →
-  6.18.43
-- **[Phase 6]** Read `dynamic.c:136-142` — buggy strcmp code present
-- **[Phase 6]** `grep of_property_status_ok` — not found
-- **[Phase 7]** Read `drivers/of/Kconfig:83-107` — OF_DYNAMIC selected
-  by OF_OVERLAY
-- **[Phase 8]** Assessed OOB read + incorrect probe as HIGH/MEDIUM-HIGH
-  severity
-- **UNVERIFIED:** No runtime KASAN report or user crash report found for
-  this specific path
-
-**YES**The background `git log -S 'of_reconfig_get_state_change'` job
-hung (likely from a slow history walk) and was killed. A rerun without
-`--all` finished, but this tree’s history is shallow, so it didn’t pin
-down when the function was first added.
-
-That didn’t change the backport call: the buggy `strcmp` path is present
-in your **6.18.43** tree, the fix is small and self-contained, and the
-verdict remains **YES**.
-
- drivers/of/dynamic.c | 20 ++++++++++++++++----
- 1 file changed, 16 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/of/dynamic.c b/drivers/of/dynamic.c
-index b5be7484fb36d..3e08484d351b4 100644
---- a/drivers/of/dynamic.c
-+++ b/drivers/of/dynamic.c
-@@ -74,6 +74,20 @@ static const char *action_names[] = {
- 	[OF_RECONFIG_UPDATE_PROPERTY] = "UPDATE_PROPERTY",
- };
- 
-+static bool of_property_status_ok(const struct property *prop)
-+{
-+	const char *status;
-+
-+	if (!prop || !prop->value || prop->length <= 0)
-+		return false;
-+
-+	status = prop->value;
-+	if (strnlen(status, prop->length) >= prop->length)
-+		return false;
-+
-+	return !strcmp(status, "okay") || !strcmp(status, "ok");
-+}
-+
- #define _do_print(func, prefix, action, node, prop, ...) ({	\
- 	func("changeset: " prefix "%-15s %pOF%s%s\n",		\
- 	     ##__VA_ARGS__, action_names[action], node,		\
-@@ -135,11 +149,9 @@ int of_reconfig_get_state_change(unsigned long action, struct of_reconfig_data *
- 
- 	if (prop && !strcmp(prop->name, "status")) {
- 		is_status = 1;
--		status_state = !strcmp(prop->value, "okay") ||
--			       !strcmp(prop->value, "ok");
-+		status_state = of_property_status_ok(prop);
- 		if (old_prop)
--			old_status_state = !strcmp(old_prop->value, "okay") ||
--					   !strcmp(old_prop->value, "ok");
-+			old_status_state = of_property_status_ok(old_prop);
+ kernel/sched/core.c    | 9 +++++++++
+ kernel/sched/ext/ext.c | 2 +-
+ 2 files changed, 10 insertions(+), 1 deletion(-)
+
+diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+index f142ab455b797..4bd956182af8d 100644
+--- a/kernel/sched/core.c
++++ b/kernel/sched/core.c
+@@ -11302,6 +11302,15 @@ sched_change_begin(struct task_struct *p, const struct sched_class *next_class,
+ 		flags |= DEQUEUE_NOCLOCK;
  	}
  
- 	switch (action) {
++	/*
++	 * Don't carry retained proxy state across scheduling class changes.
++	 * Compatible RT/DL PI transitions could preserve the session so that a
++	 * boosted donor continues proxy-executing its lock owner. Defining which
++	 * class transitions can safely retain that state is left for future work.
++	 */
++	if ((flags & DEQUEUE_CLASS) && next_class != p->sched_class)
++		sched_proxy_block_task(rq, p);
++
+ 	if ((flags & DEQUEUE_CLASS) && p->sched_class->switching_from)
+ 		p->sched_class->switching_from(rq, p);
+ 
+diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
+index f3e59f4fad4ac..d5ed996ebfb4c 100644
+--- a/kernel/sched/ext/ext.c
++++ b/kernel/sched/ext/ext.c
+@@ -26,7 +26,7 @@ DEFINE_RAW_SPINLOCK(scx_sched_lock);
+ 
+ bool scx_allow_proxy_exec(const struct task_struct *p)
+ {
+-	return true;
++	return p->sched_class != &ext_sched_class;
+ }
+ 
+ /*
 -- 
-2.53.0
+2.55.0
 
