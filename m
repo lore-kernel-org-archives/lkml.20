@@ -1,62 +1,64 @@
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDD343A5422
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 04:49:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4142E3C1D66
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 04:49:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788151749; cv=none; b=tDezjKmnK+Ov7QIVOej/+LCdcHqRaH0f5fzjTpEo2lDtad2vWgK98X/eOlRRksfiU9PeYc+gU8Y3g0hMBuWb5CiJmZovUVyxbc9wYUlbsjoh/qsoDdJ5bR+891wBA8uToOzbabRfac17DLPue5Py5+W9UgMNzmTLVttOmKGExLE=
+	t=1788151753; cv=none; b=p8gAoQSt8g0H3kTQBTr0qw/eFC1MazRqkxK+qELG6+2PlkgVdlbgF4f6krqO41TUSCnrTZNDzcDLL43csN5c8hKpZdU15ZSoVroGAv7J4veUiSYv3lQXF35/YTdtU110p3v7qNK00nK4Ii6f56HlNPldLb+ANfNEfLOKrtgg/WA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788151749; c=relaxed/simple;
-	bh=gRjZ543JpnkvPdOiYYfaRnVfystG759Aro/R69ofTXg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Z6PXSYjp6jgeaOm8x/HveOMGMpf6JOSjA+WTTmjSdFNxb7evIJb5VbYJt1wvDWzCYrHZVlyBiDdjZEqstjV6s6M0qTlw3qhgW5r0HunqrGNUIe4IIHTO2GGEDeJh+OYGm6awBvGIHf7YDRjWcUGWDJPnMexWenAh2X95SZ9awHk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AqkTYyMH; arc=none smtp.client-ip=209.85.216.53
+	s=arc-20240116; t=1788151753; c=relaxed/simple;
+	bh=kNo6YdY+tnvG2KdzifeNUva3yG8J1Asl4yyX1fMA87g=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=rGgRTXBCtnmeKV7E0AxPEAMVPTvHOJqkDE0hWJ7QiC7n5iF5ITHa3nDDZ2RzuUUaX7WzBluPCekmfm+HkXOlGAV0B4Eye02HqaZTFVZfOWUVu40XslHHjxIveiLGw8wblDkX7UsYaW8hm2DwOnqjhhatFKA3QuknxYXLflvTpsg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cDlovnGN; arc=none smtp.client-ip=209.85.216.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AqkTYyMH"
-Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-398c1101c1bso1120183a91.1
-        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 21:49:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cDlovnGN"
+Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-3966791a6eeso3646287a91.3
+        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 21:49:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788151747; x=1788756547; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=g6UxknVhwES+fkCV48PrpOtYW0/olM82VS/wYfSM3Uw=;
-        b=AqkTYyMHVjFiA5THOgWEfyFALqCL0x5lKu3eaVtmLO1wMWK6A6OAmMg8MX9dCCZGCR
-         Ai5bp1Xo9IHdyvZYH7V3YEJMSNpKO0VVzMv3Z1R5WGyCwT6ch9u8xLriFqtPBthjB+7c
-         VYXGv/t0VnasctYfQujLLxioqFqUyU3xYv3pAv1BPGLV5KcF8mi4Gx6yubY6IaEse4M2
-         kznaXQ78Yi2gF0XEeeeZVtxQhSjq6caSTxtQ4fWCY58qAc/WE1TkV1P1HUItG/iumDtC
-         pnBdeoXyC8pU6W2xTugfGDWLCtRuRoXnvA1lGmYGagmwdvY9Zc2fxkl8gfZJo7dna0LP
-         vdsA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788151747; x=1788756547;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1788151752; x=1788756552; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=g6UxknVhwES+fkCV48PrpOtYW0/olM82VS/wYfSM3Uw=;
-        b=Dwb7VJ8cdRyA5/NfxX2wlV4a3JxQ1cIN77kx2bQkc1UJPc/31onh9786uQmj1lipf8
-         EmeYgaGXFYPR/lLnbw/b4hD2QR8tTgZQEB8a5NziHfKZ6Pg3gTqPlIvxgkQiT98chCRt
-         NaAPVlXO2MnM6yAzjy/ySdBeBC2sK6yR7Q6M97jOBPFjqQsEMXmrbD5vjAjTNWLHKFHa
-         T04mQGAGtSrlCVyaUXesVZ29zAVdOjNB3zAp8BEDqi+zzpReyZQAt0aSPVnrz5KOkNRl
-         ha3Yt9XHIo53QMOe+EpDQjuv0wIQSQdasfdkJ8tDBft3DRsg5zIPDmgoUzl8CfLH63r+
-         voGg==
-X-Forwarded-Encrypted: i=1; AKwUvByc4TRtBqDgJEUdFOQ2bTkROOAY/a+beFA4yhQ+qvxIvoZhd5V/5u/uu0tvDwMnQDQDDhDfH8gt5Hwjqx8=@vger.kernel.org
-X-Gm-Message-State: AFuF++lUUiRK3gm8EQXWVW8tvZ6/2zomx3YoC56xmGiXzMSkt3xOtK/M
-	IgwuQ9TFmXx2nAUVULC527t/O3d+7x/k+IsvignoAJj3hir0dlC95+B5
-X-Gm-Gg: AYBFou0ZlOAS94mhkUVuvTGeqv5QCxmsZRrSNgtd2YziJEBO4OY7+vqFmndrclUsCvc
-	7mRxucu2s914BxpsDveZu35qygdAS/D4e//eF9G/kB5U5yd/kvpbvKl0vRfPa+laqRqPtlpCMwE
-	E651zrbAlqJz7Rahln5pLmupgvQXPgQVxisj8F58dl4SoDb54j4TmMoPqYo2YydprxWMk4WGV+D
-	403ot5Y2EAFv33vzjalZc3LONaoVWLPwAYtIhHmkKzk0MrBEcIrtwbZs1lN4WYJjYB9HheY4faq
-	TKQig+7jSa3LgoirBf31QnDFKptKB9JT3Vx8hMCNtR117zBzQuobDdhH7b5tL4+h2Xih6nH+7zn
-	5LUGkbaUoK685075/2p5wuBEGFV36bheYCpzQLSdOiOy9NogClc8kk7FBi51KA23RYuqr4J8zl+
-	oh0fP/RW1fRik4vjxGjz6TmF8o1qY13/0X7kezdbRZR7EvZ3+7vT9ery7XCcAv27kQbszLZ73By
-	VLVZJZdEB8Q+Q==
-X-Received: by 2002:a17:90b:4b05:b0:381:cef1:11ac with SMTP id 98e67ed59e1d1-396d0fe2140mr36234553a91.10.1788151746977;
-        Sun, 30 Aug 2026 21:49:06 -0700 (PDT)
+        bh=bq8iQGfvzt1d+4SYb4LSAR03b7kK3VKsffzTguj8T24=;
+        b=cDlovnGN1woY+8zxnTgMNAKSkCK5gnD1q4lwD12BBxTwvvMwafiAeV+q3CfJEi6VUY
+         SmOUJ7MrtnA9R2NAD0D0biZ/bLtriI1dInyQgfdQ8m+hMfhlVW3/wN4u3h3P0026WvFO
+         t2sdp7rJhSv7nLa/H+rP7WeuZaQBnVdtC0sa9MJxVjxnabvPIXE6IU3o+3R6GZ2oQqk5
+         JEMW/ZMGGorJU4PAf8F+rc91NA3xaO42QGs8u/RFSfQYjeiHTBCe3L+z4ARO1NJLUAOg
+         kyBQKRbSrOsTTUpeMcc4+l6UDgqyqjHMyTV5Z5+1EUE21ND+tXaOWO5AV845nFb+fN1r
+         yGug==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788151752; x=1788756552;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=bq8iQGfvzt1d+4SYb4LSAR03b7kK3VKsffzTguj8T24=;
+        b=gUGF/Ot2YFNHH4RMBEdOkR2CPWLRX9MSK6AGxHdD5/4ecw2151seblNr8M0jtX9Fj7
+         3tqFWVNJCRJKYiWYLZSndB83fo23q1dNgrTCOZguhBw6CW51s8GOU5bN2XU5qgNeN2dk
+         n0duUUVlTNEFclKWyOSkXHbAJhUXp9D3ADvf6cJOuMzkMQVzsYRfVvnrtH0MWpa6IAiT
+         f9kwUNQkckGT7MY6kfbbLFRvHtE9dKOLafjtaKlFG4r7L8sAUDRhGwr1nSzqGXWvI+cp
+         tBCX5vOr21JvVOfMsSx5j5AyIbamesrB7xDxnGImI5ebWRYrsUveXagaQ6/402RxrvbX
+         U7QQ==
+X-Forwarded-Encrypted: i=1; AKwUvBymvxJiELQLwYbtnu4mzESbTkdS2NCG2GMN6kXAGKen7hlz+egIm9cpkKXTGmuZeSwlJo0ZRMg2XlU+z5M=@vger.kernel.org
+X-Gm-Message-State: AFuF++ntwSRVhauIPbaU2WeXLcIK+WPAiHjtx1AMjmDcmBnuZp23vOJN
+	wrN37/+XdEV6VQM7FexCQiuT3qiuCI7PdnKJIRHD7Rgt+l9c18Ul8IRE
+X-Gm-Gg: AYBFou3JpNBYJty6U7aJ3FLFUVloEZwQ3szGif2mdL4i82MogFUwYyMCx/6GqsED1bD
+	jGpkQaex4V6kf3aCqpnGYEz0Sf/nhrzTOXIcu84kFKFQc8LLtqvtBdgm0OjObl//+arJiQD9wqu
+	xYvXN6pAecnuHU/qiFY7C0ryNUwe+Cd0ywM1SNR/rZ3fm5uzl+FxbjGgNUyt3ZUuOr+PFpX0wOL
+	Sjh03BvdoccQwp5bZu8MHzZbgbMX9pVTJPq8RM1CQ1P5HUFqH9GZcigrvkVpefOVlRt0JgNIeHa
+	KuYiBtUZ+DsTwBwRZSCv3TVk5odpC5AnZh6fSgV18duNz6B0O9l5bkec9hs01BkPhLKXqgV8Zde
+	tBPZj0tK6taXfvbWhAm1SodOIvaDz6WMp9iY+DorrMeScY/8GKm65h8wXGXY1l7oEq4M0mX6+xl
+	gNdGKU0pcA+en0oZFwA+xyzoHadfDmvW7vrwNn5GgwGp+sEv7dA2dwRkN2t2/1IXjVTJ9CuheGH
+	kcLBEtu34vakw==
+X-Received: by 2002:a17:90b:17cd:b0:398:bc52:825b with SMTP id 98e67ed59e1d1-398bc52849emr14859186a91.21.1788151751644;
+        Sun, 30 Aug 2026 21:49:11 -0700 (PDT)
 Received: from d.home.yangfl.dn42 ([2a09:bac1:76a0:d30::4cf:2e])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396b0fd5c34sm19345763a91.8.2026.08.30.21.49.03
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396b0fd5c34sm19345763a91.8.2026.08.30.21.49.07
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 30 Aug 2026 21:49:06 -0700 (PDT)
+        Sun, 30 Aug 2026 21:49:11 -0700 (PDT)
 From: David Yang <mmyangfl@gmail.com>
 To: netdev@vger.kernel.org
 Cc: David Yang <mmyangfl@gmail.com>,
@@ -71,10 +73,12 @@ Cc: David Yang <mmyangfl@gmail.com>,
 	Conor Dooley <conor+dt@kernel.org>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next v11 0/5] net: dsa: motorcomm: Add LED support
-Date: Mon, 31 Aug 2026 12:38:53 +0800
-Message-ID: <20260831044818.4103477-1-mmyangfl@gmail.com>
+Subject: [PATCH net-next v11 1/5] net: dsa: yt921x: Check lock status with lockdep_assert_held_once()
+Date: Mon, 31 Aug 2026 12:38:54 +0800
+Message-ID: <20260831044818.4103477-2-mmyangfl@gmail.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260831044818.4103477-1-mmyangfl@gmail.com>
+References: <20260831044818.4103477-1-mmyangfl@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -83,65 +87,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-LEDs can be described in the device tree using the standard LED node
-notation. Currently, only parallel mode and strict 1:1 mapping (i.e. the
-HW default) are supported.
+mutex_is_locked() was used to check the lock status. While it should not
+be triggered unless a bug is introduced, it does not warn on lock being
+held by another thread. Fix it with lockdep helpers.
 
-v10: https://lore.kernel.org/r/20260816193905.218112-1-mmyangfl@gmail.com
-  - new patch to fix lock status check
-  - LED control block redesigned
-v9: https://lore.kernel.org/r/20260726162731.1005803-1-mmyangfl@gmail.com
-  - LED initialization sequence adjusted
-  - add DT description
-v8: https://lore.kernel.org/r/20260725045008.858692-1-mmyangfl@gmail.com
-  - limit the led port number
-v7: https://lore.kernel.org/r/20260723195335.806002-1-mmyangfl@gmail.com
-  - rebase
-v6: https://lore.kernel.org/r/20260709014812.1158178-1-mmyangfl@gmail.com
-  - per-port initialization support
-v5: https://lore.kernel.org/r/20260707064752.1030345-1-mmyangfl@gmail.com
-  - improve trigger selection
-v4: https://lore.kernel.org/r/20260703165241.542195-1-mmyangfl@gmail.com
-  - fix some reg op typos
-v3: https://lore.kernel.org/r/20260701155519.273212-1-mmyangfl@gmail.com
-  - fix null pointer dereference
-  - support polarity auto-configuration
-v2: https://lore.kernel.org/r/20260629183137.541341-1-mmyangfl@gmail.com
-  - allocate LED structures only
-  - eliminate double locking
-v1: https://lore.kernel.org/r/20260618202716.2166450-1-mmyangfl@gmail.com
-  - set up polarity correctly
-  - do not set up .brightness_get() to prevent dead lo
+Fixes: 186623f4aa72 ("net: dsa: yt921x: Add support for Motorcomm YT921x")
+Signed-off-by: David Yang <mmyangfl@gmail.com>
+---
+ drivers/net/dsa/yt921x.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-David Yang (5):
-  net: dsa: yt921x: Check lock status with lockdep_assert_held_once()
-  net: dsa: motorcomm: Move to subdirectory
-  net: dsa: motorcomm: Split SMI module
-  net: dsa: motorcomm: Add LED support
-  dt-bindings: net: dsa: yt921x: Add LEDs definition example
-
- .../bindings/net/dsa/motorcomm,yt921x.yaml    |  23 +
- MAINTAINERS                                   |   2 +-
- drivers/net/dsa/Kconfig                       |  10 +-
- drivers/net/dsa/Makefile                      |   2 +-
- drivers/net/dsa/motorcomm/Kconfig             |  17 +
- drivers/net/dsa/motorcomm/Makefile            |   5 +
- .../net/dsa/{yt921x.c => motorcomm/chip.c}    | 228 +------
- .../net/dsa/{yt921x.h => motorcomm/chip.h}    |  15 +
- drivers/net/dsa/motorcomm/leds.c              | 641 ++++++++++++++++++
- drivers/net/dsa/motorcomm/leds.h              | 118 ++++
- drivers/net/dsa/motorcomm/smi.c               | 180 +++++
- drivers/net/dsa/motorcomm/smi.h               |  61 ++
- 12 files changed, 1083 insertions(+), 219 deletions(-)
- create mode 100644 drivers/net/dsa/motorcomm/Kconfig
- create mode 100644 drivers/net/dsa/motorcomm/Makefile
- rename drivers/net/dsa/{yt921x.c => motorcomm/chip.c} (96%)
- rename drivers/net/dsa/{yt921x.h => motorcomm/chip.h} (99%)
- create mode 100644 drivers/net/dsa/motorcomm/leds.c
- create mode 100644 drivers/net/dsa/motorcomm/leds.h
- create mode 100644 drivers/net/dsa/motorcomm/smi.c
- create mode 100644 drivers/net/dsa/motorcomm/smi.h
-
+diff --git a/drivers/net/dsa/yt921x.c b/drivers/net/dsa/yt921x.c
+index 159b16606f6c..44fcdd47ffb5 100644
+--- a/drivers/net/dsa/yt921x.c
++++ b/drivers/net/dsa/yt921x.c
+@@ -198,14 +198,14 @@ static u32 ethaddr_lo2_to_u32(const unsigned char *addr)
+ 
+ static int yt921x_reg_read(struct yt921x_priv *priv, u32 reg, u32 *valp)
+ {
+-	WARN_ON(!mutex_is_locked(&priv->reg_lock));
++	lockdep_assert_held_once(&priv->reg_lock);
+ 
+ 	return priv->reg_ops->read(priv->reg_ctx, reg, valp);
+ }
+ 
+ static int yt921x_reg_write(struct yt921x_priv *priv, u32 reg, u32 val)
+ {
+-	WARN_ON(!mutex_is_locked(&priv->reg_lock));
++	lockdep_assert_held_once(&priv->reg_lock);
+ 
+ 	return priv->reg_ops->write(priv->reg_ctx, reg, val);
+ }
 -- 
 2.53.0
 
