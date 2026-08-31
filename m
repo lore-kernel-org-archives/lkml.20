@@ -1,57 +1,57 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2BF8373BEC;
-	Mon, 31 Aug 2026 14:48:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD5EC3750BC;
+	Mon, 31 Aug 2026 14:48:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788187712; cv=none; b=cPF4vcZ+tgUO30/UTl2Ao8RaocGJpvEBGui9ncoO0CutMBEonQ1fSGBzhjbuSORxrDk/lqDHdWujKJf6jmeYWZw+hqdUFztFP2OzhHCALA6OOLfaQLpTNZ2PgUIR2AmMtGPUDkeWpWh7oNluNDjM07PrDvnaw3R83SF0y5pR05I=
+	t=1788187714; cv=none; b=b98L9I2eEhzDNey0hrTPm1SepK3vjVIIcXED6ht0E4FGG5NQwr662USzKF39h82k63H/okCVoF+udTttxufNGM6MZPzvUxZsY68rBJ3RqY/84QDsLyyKJbDnl0WWr4BIxXz38n8flYf6GGsWQC3H5hiVNpxh56NjBv03RLO5c3s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788187712; c=relaxed/simple;
-	bh=2mUB/Zb+wJR8Brxh3hdGKTIWjCCl94nE9bkIKMoxed4=;
+	s=arc-20240116; t=1788187714; c=relaxed/simple;
+	bh=FKAS5JM0YtlqsygrtUhVlasxecpfNmansRMVSSV7FM0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Vl9u1WsHa7pYYpQ8Rtcqy0pTVDuerkjC94GSYlsmgVfIkV0PtEHp7BncFf8m9pDRynNDKF2bKKZ1gKmeOhQBpkKEhs+JTVoJLIIXerUoXWyYje96386RO6yHkcPv2ryxjpNUwOsSu4kScoKjzizxMaKFXvbv+EnHSTvAVlB3NOY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=cXKGlmpe; arc=none smtp.client-ip=148.163.156.1
+	 MIME-Version; b=sDXLJukJLNwjEdUr8rK+9eXPnowcggdHnSFUYcc9cwQGeC91p0AQesttFvKpUsNDbEVv+7FLNth7y1OyC9ti/orFqwbdbw2wSZI+IQ3LHe1y0mdEsjauDcdVnE9Dd4220c0wHRg8OFFXpY2yjjGQOMvPyxKkLozs8WTcwfbr688=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=IQuRavFz; arc=none smtp.client-ip=148.163.158.5
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="cXKGlmpe"
-Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67VEZ7nK2530426;
-	Mon, 31 Aug 2026 14:48:12 GMT
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="IQuRavFz"
+Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67VEZB5K1398307;
+	Mon, 31 Aug 2026 14:48:10 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
 	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=pp1; bh=kXpGqjwL3LJiqnjvi
-	NTG1AYP8Ty1ye94cTF+5lhO3IQ=; b=cXKGlmpeOrB47DkUFSKnkfoNi8+m3tB9n
-	YPfGSLM+TLwZ+BZjht0MehKIVNmKAfV6oCE04RzWMsqueqW+SP1Z2NFRxIrMiSGX
-	p5OzJZ6eiPu9KtmTlaS/bWl75O7oMM9vkPrY5XNhnLJhrx2APejAUwmQBFdLswOe
-	MbFj8NuoPWOI0OxUrOTuTnYWviYN/dmVpUgzl68E9oXnUvBkqA+WnPOVJrzDmFAz
-	QaI9psT3RFQtk3nOBmjbNA0Y5B2tO8IgD10ASBHslNMp7L3FJV/fS+AwDQ+CPBh8
-	tQlUb+MxDniZwQPZgl4/WFhoCM9svcX3W4jJTHvd5J691MYW8nnKA==
-Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gbpx5a0ca-1
+	:mime-version:references:subject:to; s=pp1; bh=6kkUuBtQh7OlhH3TH
+	IaN3BECiqBALGTcSbqHwQf9XXw=; b=IQuRavFzrhIkFIM+v1LRPMMBJYLHrSxD7
+	gbRySdBzdhjAcotrFWG0eZY64U6id3fBgso/8aBryA2f2N4waUtmZ3JcRK2PINUq
+	OqeJ/Q12wvLV4AfodSQdw/yIShX5XAMFuiKSZCklrIcAXnKOgALmrzdFHPISKnuv
+	3uk+WocXMk3RMgijEOfczU4NbpODmPKA24MvTVmGuOdD3y26P6wSEwb+Se/nmFed
+	bZhyGcXTqNlCS9nFkWVg2Rvo94XbLjQ7czgtsHZhP7e+BbkEKd48WZfVQZyDmSBq
+	NCjfPA0NmoueQ/snpJjTNKlL/QrkbjwN8N6ltboJ3nZIdhCNRH6yA==
+Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gbnudhyrw-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 31 Aug 2026 14:48:11 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma23.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67VEfgVg016964;
-	Mon, 31 Aug 2026 14:48:10 GMT
+	Mon, 31 Aug 2026 14:48:10 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma11.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67VEfcCM029530;
+	Mon, 31 Aug 2026 14:48:09 GMT
 Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
-	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gcb8h6cjc-1
+	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gccexx7nf-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
 	Mon, 31 Aug 2026 14:48:09 +0000 (GMT)
 Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
-	by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67VEm5Gq51708206
+	by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67VEm5YJ51970358
 	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 31 Aug 2026 14:48:06 GMT
+	Mon, 31 Aug 2026 14:48:05 GMT
 Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id CEB6120043;
+	by IMSVA (Postfix) with ESMTP id 66F8420043;
 	Mon, 31 Aug 2026 14:48:05 +0000 (GMT)
 Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 6D0EF2004B;
+	by IMSVA (Postfix) with ESMTP id 0468C2004E;
 	Mon, 31 Aug 2026 14:48:05 +0000 (GMT)
 Received: from tuxmaker.boeblingen.de.ibm.com (unknown [9.87.85.9])
 	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Mon, 31 Aug 2026 14:48:05 +0000 (GMT)
+	Mon, 31 Aug 2026 14:48:04 +0000 (GMT)
 From: Steffen Eiden <seiden@linux.ibm.com>
 To: kvm@vger.kernel.org, kvmarm@lists.linux.dev,
         linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
@@ -78,9 +78,9 @@ Cc: Alexander Gordeev <agordeev@linux.ibm.com>,
         Ulrich Weigand <Ulrich.Weigand@de.ibm.com>,
         Vasily Gorbik <gor@linux.ibm.com>, Will Deacon <will@kernel.org>,
         Zenghui Yu <yuzenghui@huawei.com>
-Subject: [PATCH v7 06/23] arm64: sysreg: Convert SPSR_ELx to automatic register generation
-Date: Mon, 31 Aug 2026 16:47:43 +0200
-Message-ID: <20260831144802.834315-7-seiden@linux.ibm.com>
+Subject: [PATCH v7 05/23] arm64: ptrace: Use constants for compat register numbers
+Date: Mon, 31 Aug 2026 16:47:42 +0200
+Message-ID: <20260831144802.834315-6-seiden@linux.ibm.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831144802.834315-1-seiden@linux.ibm.com>
 References: <20260831144802.834315-1-seiden@linux.ibm.com>
@@ -93,132 +93,116 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-TM-AS-GCONF: 00
 X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Authority-Analysis: v=2.4 cv=PPc/P/qC c=1 sm=1 tr=0 ts=6a95942b cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
+X-Proofpoint-GUID: N7EzIVXekhao_KlC2qo9hiQmtSOK0s0j
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODMxMDEyNSBTYWx0ZWRfXyz1vqdRWVCVy
+ 5yXnwtUxMpyJbMgGvjnyWBlEvutMdPaI/LikW7H62ot0qT4l7wA0mZ51kWpvjymNWPV50OBjmAE
+ 2RJwoB43hKToCKcH/9sXPZOmpt34YUupAXeXNWvSWIqT3JBU9t70mvUdUIx7vR+6wEyG8HIF+zw
+ EBJoDEQydFxZKhKXw5xWT52Qt3ZgVqF+UAyday61AzkBC3eitF2ESirIuBaZyftWRemO6m+AlHd
+ SnhwLbXYZBpvIgTquX4UVgUCMYH7lJBiFz/DUOGzGuH77M6F7VagvZV2M/y7rfalPnEVAzl2VOY
+ 5It9r9S2/pQ0lUrSd0Uy3nQWMNn+8fpp7wGsLD7MGE4/ZefDWsWNKnHAxplo/eH78mU6CxgytiQ
+ bXGxd045ellGSGWfPEouoxvJPzHGYJ4e7dhsUROCsbVGQW1FyGD9HwS//UV4LmTqrbI5UdGHuf+
+ TpzgtgeyXJuwyFvRQYQ==
+X-Proofpoint-ORIG-GUID: 4fyJHe-23G76FwA_MKSnAexW_LOErLar
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODMxMDEyNSBTYWx0ZWRfX1rEhu5mzYrE+
+ ZNXwWILMiKJTMyDmmde5e0dMQoLXv3L4e+EDaGR1YpmEA7Mq8pBdZbD6bUMxRakuAfTdo0/HdFe
+ HkWNgZtSkCyn5QfAoTWIyyZ3H8qZT8Y=
+X-Authority-Analysis: v=2.4 cv=B92JFutM c=1 sm=1 tr=0 ts=6a95942a cx=c_pps
+ a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
  a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=iQ6ETzBq9ecOQQE5vZCe:22 a=VnNF1IyMAAAA:8 a=qAnUzrOnmDNqMeXR4cMA:9
-X-Proofpoint-GUID: 9lZ4dDKGEWl_lnL3Pp7S052-LsVXpeHn
-X-Proofpoint-ORIG-GUID: ueiIeIa4ZQzrONzuU4KI3jeOZQdNnZP4
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODMxMDEyNSBTYWx0ZWRfX5KXfKinaDrEM
- 527hnzeHlWVWQX/8P3uoPzJvkE/0VpIY7nr/gKYegdBBAG/YGrfKUy9KyNiwsFIxYqtSpjLECgz
- ofwz7KZkhONBKLwH6FgUhByLjJWD7rw=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODMxMDEyNSBTYWx0ZWRfX1iDjhFmF3fGC
- 2vKOZwgCeGQNOWOOqj96gp3Hlcvr4TRD2qsISRwMZAxEPs9Xep79V1AgwuUrI4Uc4By7G/mGbo/
- 11AEHoQMMGfRI/0ZIn8fx7CMZzRugIJPi+WC+IkHlCVVHxJ7KBi02Gu7Gg9t/H9B3zzDF57z8VY
- 6GTUhoIZQnY041Rxw1rCTyNP7R2GQ7Rnk774lXSxB/FYbutJUkNUejHi8amO0KHFQS/SSDNYQAR
- Sb0ZHV3jGCyu02kD8fX/K85y7RQ+UkQHy/QouKlcW9JpWnrwbWPg//zCoCGAjF8EgGr6y5/5sNQ
- Gvoc1Y54jgWwoPNhnCrbQfgT9j1vIUFsYjaf3ZZkvFEzLSkq8sVKo+wMIovpyV16ogJ2A6+lI/v
- JIT8p2S+QvoMeMQKz2i5bn4/HDdwVUjmoKFZMfVG32cr8ihh402pY19+jGJwygrFP7r7eK3vCWU
- Jtb9zZsaSFPy89BO8Ag==
+ a=V8glGbnc2Ofi9Qvn3v5h:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
+ a=8sKaXpLx0aSSeG29UzUA:9
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-08-31_05,2026-08-27_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 phishscore=0 adultscore=0 suspectscore=0 bulkscore=0
- spamscore=0 priorityscore=1501 impostorscore=0 malwarescore=0
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ adultscore=0 spamscore=0 clxscore=1015 suspectscore=0 phishscore=0
+ lowpriorityscore=0 bulkscore=0 priorityscore=1501 impostorscore=0
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
  route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
  definitions=main-2608310125
 
-Convert SPSR_EL{1, 2, 12} to automatic register generation as per
-DDIO616 2026-06. No functional change.
+Define an enum to determine the register number for the mapping from
+AArch32 and AArch64 registers. This allows for a more flexible use of
+the register mappings.
 
+Reviewed-by: Marc Zyngier <maz@kernel.org>
 Signed-off-by: Steffen Eiden <seiden@linux.ibm.com>
 ---
- arch/arm64/include/asm/sysreg.h |  3 --
- arch/arm64/tools/sysreg         | 51 +++++++++++++++++++++++++++++++++
- 2 files changed, 51 insertions(+), 3 deletions(-)
+ arch/arm64/include/asm/ptrace.h | 60 ++++++++++++++++++++++-----------
+ 1 file changed, 41 insertions(+), 19 deletions(-)
 
-diff --git a/arch/arm64/include/asm/sysreg.h b/arch/arm64/include/asm/sysreg.h
-index 4bfdac9401bd..1aa601c95188 100644
---- a/arch/arm64/include/asm/sysreg.h
-+++ b/arch/arm64/include/asm/sysreg.h
-@@ -295,7 +295,6 @@
- #define SYS_APGAKEYLO_EL1		sys_reg(3, 0, 2, 3, 0)
- #define SYS_APGAKEYHI_EL1		sys_reg(3, 0, 2, 3, 1)
+diff --git a/arch/arm64/include/asm/ptrace.h b/arch/arm64/include/asm/ptrace.h
+index f7dc5fb9427d..49a83a0636b9 100644
+--- a/arch/arm64/include/asm/ptrace.h
++++ b/arch/arm64/include/asm/ptrace.h
+@@ -102,26 +102,48 @@
+ #define COMPAT_USER_SZ	296
  
--#define SYS_SPSR_EL1			sys_reg(3, 0, 4, 0, 0)
- #define SYS_ELR_EL1			sys_reg(3, 0, 4, 0, 1)
+ /* Architecturally defined mapping between AArch32 and AArch64 registers */
++enum {
++	__compat_fp		= 11,
++	__compat_sp		= 13,
++	__compat_lr		= 14,
++	__compat_sp_hyp		= 15,
++	__compat_lr_irq		= 16,
++	__compat_sp_irq		= 17,
++	__compat_lr_svc		= 18,
++	__compat_sp_svc		= 19,
++	__compat_lr_abt		= 20,
++	__compat_sp_abt		= 21,
++	__compat_lr_und		= 22,
++	__compat_sp_und		= 23,
++	__compat_r8_fiq		= 24,
++	__compat_r9_fiq		= 25,
++	__compat_r10_fiq	= 26,
++	__compat_r11_fiq	= 27,
++	__compat_r12_fiq	= 28,
++	__compat_sp_fiq		= 29,
++	__compat_lr_fiq		= 30,
++};
++
+ #define compat_usr(x)	regs[(x)]
+-#define compat_fp	regs[11]
+-#define compat_sp	regs[13]
+-#define compat_lr	regs[14]
+-#define compat_sp_hyp	regs[15]
+-#define compat_lr_irq	regs[16]
+-#define compat_sp_irq	regs[17]
+-#define compat_lr_svc	regs[18]
+-#define compat_sp_svc	regs[19]
+-#define compat_lr_abt	regs[20]
+-#define compat_sp_abt	regs[21]
+-#define compat_lr_und	regs[22]
+-#define compat_sp_und	regs[23]
+-#define compat_r8_fiq	regs[24]
+-#define compat_r9_fiq	regs[25]
+-#define compat_r10_fiq	regs[26]
+-#define compat_r11_fiq	regs[27]
+-#define compat_r12_fiq	regs[28]
+-#define compat_sp_fiq	regs[29]
+-#define compat_lr_fiq	regs[30]
++#define compat_fp	regs[__compat_fp]
++#define compat_sp	regs[__compat_sp]
++#define compat_lr	regs[__compat_lr]
++#define compat_sp_hyp	regs[__compat_sp_hyp]
++#define compat_lr_irq	regs[__compat_lr_irq]
++#define compat_sp_irq	regs[__compat_sp_irq]
++#define compat_lr_svc	regs[__compat_lr_svc]
++#define compat_sp_svc	regs[__compat_sp_svc]
++#define compat_lr_abt	regs[__compat_lr_abt]
++#define compat_sp_abt	regs[__compat_sp_abt]
++#define compat_lr_und	regs[__compat_lr_und]
++#define compat_sp_und	regs[__compat_sp_und]
++#define compat_r8_fiq	regs[__compat_r8_fiq]
++#define compat_r9_fiq	regs[__compat_r9_fiq]
++#define compat_r10_fiq	regs[__compat_r10_fiq]
++#define compat_r11_fiq	regs[__compat_r11_fiq]
++#define compat_r12_fiq	regs[__compat_r12_fiq]
++#define compat_sp_fiq	regs[__compat_sp_fiq]
++#define compat_lr_fiq	regs[__compat_lr_fiq]
  
- #define SYS_ICC_PMR_EL1			sys_reg(3, 0, 4, 6, 0)
-@@ -518,7 +517,6 @@
- #define SYS_VTTBR_EL2			sys_reg(3, 4, 2, 1, 0)
- 
- #define SYS_HAFGRTR_EL2			sys_reg(3, 4, 3, 1, 6)
--#define SYS_SPSR_EL2			sys_reg(3, 4, 4, 0, 0)
- #define SYS_ELR_EL2			sys_reg(3, 4, 4, 0, 1)
- #define SYS_SP_EL1			sys_reg(3, 4, 4, 1, 0)
- #define SYS_SPSR_irq			sys_reg(3, 4, 4, 3, 0)
-@@ -604,7 +602,6 @@
- #define SYS_BRBCR_EL12			sys_reg(2, 5, 9, 0, 0)
- #define SYS_TTBR0_EL12			sys_reg(3, 5, 2, 0, 0)
- #define SYS_TTBR1_EL12			sys_reg(3, 5, 2, 0, 1)
--#define SYS_SPSR_EL12			sys_reg(3, 5, 4, 0, 0)
- #define SYS_ELR_EL12			sys_reg(3, 5, 4, 0, 1)
- #define SYS_AFSR0_EL12			sys_reg(3, 5, 5, 1, 0)
- #define SYS_AFSR1_EL12			sys_reg(3, 5, 5, 1, 1)
-diff --git a/arch/arm64/tools/sysreg b/arch/arm64/tools/sysreg
-index 94bf065c8ac7..553d3859fb00 100644
---- a/arch/arm64/tools/sysreg
-+++ b/arch/arm64/tools/sysreg
-@@ -401,6 +401,57 @@ Res0	3:1
- Field	0	SO
- EndSysreg
- 
-+SysregFields	SPSR_ELx
-+Res0	63:37
-+Field	36	UNIJ
-+Field	35	PACM
-+Field	34	EXLOCK
-+Res0	33
-+Field	32	PM
-+Field	31	N
-+Field	30	Z
-+Field	29	C
-+Field	28	V
-+Res0	27:26
-+Field	25	TCO
-+Field	24	DIT
-+Field	23	UAO
-+Field	22	PAN
-+Field	21	SS
-+Field	20	IL
-+Res0	19:14
-+Field	13	ALLINT
-+Field	12	SSBS
-+Field	11:10	BTYPE
-+Field	9	D
-+Field	8	A
-+Field	7	I
-+Field	6	F
-+Res0	5
-+Field	4	M4
-+Enum	3:0	M
-+	0b0000	EL0
-+	0b0100	EL1t
-+	0b0101	EL1h
-+	0b1000	EL2t
-+	0b1001	EL2h
-+	0b1100	EL3t
-+	0b1101	EL3h
-+EndEnum
-+EndSysregFields
-+
-+Sysreg	SPSR_EL1	3	0	4	0	0
-+Fields	SPSR_ELx
-+EndSysreg
-+
-+Sysreg	SPSR_EL2	3	4	4	0	0
-+Fields	SPSR_ELx
-+EndSysreg
-+
-+Sysreg	SPSR_EL12	3	5	4	0	0
-+Mapping	SPSR_EL1
-+EndSysreg
-+
- Sysreg ID_PFR0_EL1	3	0	0	1	0
- Res0	63:32
- UnsignedEnum	31:28	RAS
+ static inline unsigned long compat_psr_to_pstate(const unsigned long psr)
+ {
 -- 
 2.53.0
 
