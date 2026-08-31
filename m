@@ -1,45 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18A485452AE;
-	Mon, 31 Aug 2026 13:46:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2161654528E;
+	Mon, 31 Aug 2026 13:46:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183974; cv=none; b=cOraDgHzw539TTo79KT1e9RWwv6b129KavyPaWyQmmyJ7W+Kwl/rOJ95gunX69U1KEJ5cMd5HYUB5gD7ybC6o8iLeL+0U2RXMZfoB/bWRuXlllgHNqXKIaLxNCP7Cz7GgzFXLxgGy6DB2NDppi1WqWW/h8BRgXYbFrau3yDUyqY=
+	t=1788183977; cv=none; b=LTZLqaQxlEZrVgKNeJOx7aii4WVYPuygkq4QCbdIi8pgdeSbIqLMHupcJbaKz6CM1CCvFtIid4TTGJmalU++HzluPj3tZiqezy0SSGvh+8of6PYqkhl5nUWQYl9uJIQk7/owNS4mkQ0hRjdXRSDlvbYiS37OU+vSuEyobAGSU68=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183974; c=relaxed/simple;
-	bh=0aE/oO2MPaQWqaJemDPF+AEzcS/C9vT3DePSBBX7y8E=;
+	s=arc-20240116; t=1788183977; c=relaxed/simple;
+	bh=dzSTdZ849HBReuhrO41FWQwocuEhov5JM/MClRFC4NU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=U+TBdVWtbg0bVKBbRAPchdV7Zuy3qfs71FrUjFAOc0+sXII/8CoYK5hCEJ8bsVupIaVYD4BPHErtc9qcH65UnqddcvkOkVWYKNCq7wBuWBoI9svggRUheVQYjtnGJxvjowNShI+pT+85l7v3mKn98Ck1RI9rqogkTXhtqUVDhxc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eOXAf6pM; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=CX6HnmpUwjJxx5Ey5btUVa2sgy/Y+7YhfzQ/YMZ8baSuC+yjvj+0TEmsWe0kEET51wt04qPIMH7JBYdSM7ArbdnrFXBN1jU6/PsoT38cZxv6LDJThSKSG4uIPc9TRa7mjxU7nkuNxwiapnNKpyZJo1toZdN/Y8ex4oanmpNlnAI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a5F7DQhs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eOXAf6pM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D27A1F00ACF;
-	Mon, 31 Aug 2026 13:46:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a5F7DQhs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD0CB1F00A3F;
+	Mon, 31 Aug 2026 13:46:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788183970;
-	bh=cN5TP4EZ603qWBDmqoSOqeM6CBwPnR8Wtb1a+BBdkDQ=;
+	s=k20260515; t=1788183973;
+	bh=T8CoT45ycZ6x0kFHPpneDiyOZEEg+LlC41dDKdWTFYo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=eOXAf6pMI/AIEL9Z2jZr66c/5cDO004lYN7etxj3Z3LsX/D2EiVNHGimXFCEgnRxV
-	 uvcsXhKNbCxiuB0OnSp6o+AgBMDj5jK4CkGLUFhUxhrzHt3vI1N+dqYX8ChDyYA6Gn
-	 8fHTxp0k2Y/7knxYPoK/EHsMsGv8dqY2xXgrcj3nqsd+xem4RCSuU5T06UgKCI2p2T
-	 yT8xPiFrffLDWWTF/hhwzoIkRwSWyC7qFZHONSApNu46QAiFixdEQpfhTnecKTBETp
-	 yj6/Z12B4pXIqnLcY9jpipMbFkAGlBP1Z2KZL6haKwEzIDEO2djYSSrsNWdNsdE0fq
-	 P0BuM5UD7ObPQ==
+	b=a5F7DQhs6IyKi3Ggt+9gb65BJU/RUiDB7HxGp9XcZWBxnnwu7e8rhoBg91z/iPujm
+	 9xwr75yCmmyJmr47Nhvn9B4BxlXAIdm4UNKsAbskO/0EUqjPjltglcaHsuoG+rtMBg
+	 laC/Tk4F3zLOreHoxUtWSibHTO/yBSWxppqClOL3XGxIeLkp48VvG+Ld0KebenLpGy
+	 wrw16k4MzpU0x4S+ZE3c1OFicFMh7n9vbUFLKUcevJrm5dLyAgY0fecptfDgSFBeDH
+	 m8txyFVpJlQyXh2GWBkV+G8BgjxRPTJ7XJPoXhZDbn4V9g5o25YLTQHjCGLPVkDmKn
+	 +ENpTwg7kk3IQ==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Brian Downey <bdowne01@gmail.com>,
-	Eugene Shalygin <eugene.shalygin@gmail.com>,
-	Guenter Roeck <linux@roeck-us.net>,
+Cc: Chen-Yu Tsai <wenst@chromium.org>,
+	Linus Walleij <linusw@kernel.org>,
 	Sasha Levin <sashal@kernel.org>,
-	corbet@lwn.net,
-	linux-hwmon@vger.kernel.org,
-	linux-doc@vger.kernel.org,
+	sean.wang@kernel.org,
+	linux-mediatek@lists.infradead.org,
+	linux-gpio@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18] hwmon: (asus-ec-sensors) add ROG MAXIMUS Z790 EXTREME
-Date: Mon, 31 Aug 2026 09:27:20 -0400
-Message-ID: <20260831133314.4125787-412-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18] pinctrl: mediatek: paris: bypass pinctrl GPIO layer in set GPIO direction
+Date: Mon, 31 Aug 2026 09:27:22 -0400
+Message-ID: <20260831133314.4125787-414-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -55,16 +54,32 @@ X-stable-base: Linux 6.18.48
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Brian Downey <bdowne01@gmail.com>
+From: Chen-Yu Tsai <wenst@chromium.org>
 
-[ Upstream commit 5f6617089dc06f9941e8ca57ba64345c9f1ed9ed ]
+[ Upstream commit c87c9046c4e00d599454e033a477176c4d73ac2a ]
 
-Add support for ROG MAXIMUS Z790 EXTREME
+pinctrl_gpio_direction_input() / pinctrl_gpio_direction_output() take
+the pinctrl mutex. This causes a gpiochip operations to need to sleep.
+Worse yet, the .can_sleep field in the gpiochip is not set. This causes
+the shared GPIO proxy to trip over, as it uses gpiod_cansleep() to check
+whether it can use a spinlock or needs a mutex. In this case, it ends
+up taking a spinlock, then calls pinctrl_gpio_direction_output(), which
+takes a mutex. This causes a huge warning.
 
-Signed-off-by: Brian Downey <bdowne01@gmail.com>
-Signed-off-by: Eugene Shalygin <eugene.shalygin@gmail.com>
-Link: https://lore.kernel.org/r/20260608060855.40469-1-eugene.shalygin@gmail.com
-Signed-off-by: Guenter Roeck <linux@roeck-us.net>
+While this class of Mediatek hardware does not have separate clear/set
+registers, the pinctrl context has a spinlock that is taken whenever
+a register read-modify-write is done. Also, once the GPIO function is
+selected / muxed in, further GPIO operations do not involve pinctrl
+operations or state. The GPIO direction and level values do not require
+toggling the pinmux or any other pin config options.
+
+Switch to directly calling mtk_pinmux_gpio_set_direction() in the GPIO
+set direction callbacks to avoid taking the pinctrl mutex. Drop the
+.gpio_set_direction field in mtk_pmxops to signal we are no longer using
+the pinctrl GPIO layer for setting the direction.
+
+Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
+Signed-off-by: Linus Walleij <linusw@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
@@ -72,419 +87,365 @@ LLM Generated explanations, may be completely bogus:
 
 ## PHASE 1: COMMIT MESSAGE FORENSICS
 
-### Step 1.1: PARSE THE SUBJECT LINE
-**Record:** `[hwmon: (asus-ec-sensors)] [add] [ROG MAXIMUS Z790 EXTREME
-board support to existing EC sensors driver]`
+### Step 1.1: Subject line
+**Record:** `[pinctrl: mediatek: paris]` `[bypass]` — bypass the pinctrl
+GPIO layer when setting GPIO direction on MediaTek Paris pin
+controllers.
 
-### Step 1.2: PARSE ALL COMMIT MESSAGE TAGS
+### Step 1.2: Tags
 **Record:**
-- **Fixes:** — not present (expected for manual review)
-- **Reported-by:** — none
-- **Tested-by:** — none
-- **Reviewed-by:** — none
-- **Acked-by:** — none
-- **Link:** `https://lore.kernel.org/r/20260608060855.40469-1-
-  eugene.shalygin@gmail.com`
-- **Cc: stable@vger.kernel.org** — not present (expected)
-- **Signed-off-by:** Brian Downey, Eugene Shalygin, Guenter Roeck (hwmon
+- **Signed-off-by:** Chen-Yu Tsai `<wenst@chromium.org>` (author)
+- **Signed-off-by:** Linus Walleij `<linusw@kernel.org>` (pinctrl
   maintainer)
+- No `Fixes:`, `Reported-by:`, `Tested-by:`, `Cc:
+  stable@vger.kernel.org`, or `Link:` tags
+- Notable: maintainer sign-off; no syzbot/fuzzer report
 
-Notable: no syzbot/sanitizer reports; maintainer (Guenter Roeck)
-committed it.
-
-### Step 1.3: ANALYZE THE COMMIT BODY TEXT
+### Step 1.3: Body analysis
 **Record:**
-- **Bug description:** None stated. Commit only says "Add support for
-  ROG MAXIMUS Z790 EXTREME."
-- **Symptom/failure mode:** Without this patch, `asus-ec-sensors` does
-  not match this board's DMI name and does not expose EC-based hwmon
-  sensors (T_Sensor, VRM, water-in/out, water-flow).
-- **Version info:** None in message.
-- **Root cause:** Board not listed in `dmi_table[]`;
-  `sensors_family_intel_700[]` lacked water-sensor EC register mappings
-  needed by this board.
+- **Bug:** `pinctrl_gpio_direction_input/output()` take
+  `pctldev->mutex`, so direction callbacks can sleep, but the Paris
+  gpiochip does not set `.can_sleep`. The shared GPIO proxy uses
+  `gpiod_cansleep()` to choose spinlock vs mutex; with `can_sleep ==
+  false` it takes a spinlock, then direction setup reaches the pinctrl
+  mutex → lockdep “sleeping in atomic context” warning.
+- **Symptom:** Large kernel warning (lockdep sleep-in-atomic).
+- **Root cause:** Redundant pinctrl-layer direction call adds a sleeping
+  mutex on a chip that should be fast/MMIO; after muxing to GPIO,
+  direction changes only need register RMW under the driver’s spinlock.
+- **Version info:** None in the message.
 
-### Step 1.4: DETECT HIDDEN BUG FIXES
-**Record:** Not a hidden bug fix. This is explicit hardware enablement —
-a DMI board table entry plus sensor-family data for a new motherboard.
-No crash, leak, race, or corruption is described or implied.
+### Step 1.4: Hidden bug fix?
+**Record:** Yes. Although framed as bypassing a layer, this is a real
+concurrency bug fix: sleeping mutex taken from a path that must be non-
+sleeping.
 
 ---
 
 ## PHASE 2: DIFF ANALYSIS
 
-### Step 2.1: INVENTORY THE CHANGES
+### Step 2.1: Inventory
 **Record:**
-- `Documentation/hwmon/asus_ec_sensors.rst`: +1 line (board list)
-- `drivers/hwmon/asus-ec-sensors.c`: +15 lines
-- **Functions modified:** None (only static data:
-  `sensors_family_intel_700[]`, new `board_info_maximus_z790_extreme`,
-  `dmi_table[]`)
-- **Scope:** Single-file driver change + doc; surgical hardware-ID
-  addition
+- **File:** `drivers/pinctrl/mediatek/pinctrl-paris.c` only
+- **Scope:** ~8 lines changed (1 removed, 5 added, 2 modified)
+- **Functions:** `mtk_pmxops`, `mtk_gpio_direction_input()`,
+  `mtk_gpio_direction_output()`
+- **Classification:** Single-file surgical fix
 
-### Step 2.2: CODE FLOW CHANGE
+### Step 2.2: Code flow per hunk
 **Record:**
-- **Hunk 1 (`sensors_family_intel_700[]`):** Before: intel 700 family
-  had T_Sensor, T_Sensor 2, VRM, CPU_Opt only. After: adds Water_Flow,
-  Water_In, Water_Out EC register mappings (same addresses as intel 600
-  family).
-- **Hunk 2 (`board_info_maximus_z790_extreme`):** New board config
-  mirroring `board_info_maximus_z690_formula` but using
-  `family_intel_700_series`.
-- **Hunk 3 (`dmi_table[]`):** Adds DMI exact match for `"ROG MAXIMUS
-  Z790 EXTREME"` → new board info.
-- **Affected path:** `get_board_info()` → `dmi_first_match()` →
-  `asus_ec_probe()` only when DMI matches this board.
+1. **`mtk_pmxops`:** Removes `.gpio_set_direction =
+   mtk_pinmux_gpio_set_direction` so the pinctrl core no longer exposes
+   this hook.
+2. **`mtk_gpio_direction_input()`:** Before:
+   `pinctrl_gpio_direction_input()` → mutex + `pinmux_gpio_direction()`
+   → `mtk_pinmux_gpio_set_direction()`. After: direct
+   `mtk_pinmux_gpio_set_direction(hw->pctrl, NULL, gpio, true)` — no
+   pinctrl mutex.
+3. **`mtk_gpio_direction_output()`:** Same pattern after
+   `mtk_gpio_set()`; direct call with `false` for output.
 
-### Step 2.3: IDENTIFY THE BUG MECHANISM
+### Step 2.3: Bug mechanism
 **Record:**
-- **Bug category:** None (hardware enablement / missing board ID)
-- **Mechanism:** Driver probes via platform device; `get_board_info()`
-  returns NULL for unknown boards → probe returns `-ENODEV`. This patch
-  adds the missing board identifier and its sensor map.
+- **Category:** Synchronization / sleep-in-atomic (lockdep)
+- **Mechanism:** `pinctrl_gpio_direction()` in `core.c` does
+  `mutex_lock(&pctldev->mutex)` before calling the pinmux op. Paris
+  gpiochip has `can_sleep` unset (false) and uses `mtk_hw_set_value()` →
+  `mtk_rmw()` under `spinlock_irqsave(&pctl->lock)`. The pinctrl mutex
+  path is inappropriate for a non-sleeping gpiochip and conflicts with
+  callers that serialize with a spinlock.
 
-### Step 2.4: ASSESS THE FIX QUALITY
-**Record:**
-- Fix is obviously correct: copies the established Z690 FORMULA pattern
-  (same sensor set, same mutex path) onto intel 700 family.
-- Minimal and surgical; no logic changes.
-- **Regression risk:** Very low. Water sensor entries in
-  `sensors_family_intel_700[]` are only used when a board's `.sensors`
-  bitmask requests them. Existing intel-700 boards (`ROG STRIX Z790-E
-  GAMING WIFI II`, `ROG STRIX Z790-I GAMING WIFI`) do not enable water
-  sensors and are unaffected.
+### Step 2.4: Fix quality
+**Record:** Obviously correct and minimal. Same underlying function
+(`mtk_pinmux_gpio_set_direction`) is invoked; only the mutex wrapper is
+removed. Low regression risk; matches the tegra stable backport already
+in this tree.
 
 ---
 
 ## PHASE 3: GIT HISTORY INVESTIGATION
 
-### Step 3.1: BLAME THE CHANGED LINES
-**Record:**
-- `sensors_family_intel_700[]` introduced in `0183cb21b8a87`
-  (2025-07-28, "Add ROG STRIX Z790E GAMING WIFI II"); water sensors were
-  absent from the start.
-- Commit `5f6617089dc06` (2026-06-08) adds Z790 EXTREME support.
-- Intel 700 family and DMI infrastructure are present in this tree since
-  v6.18 development.
+### Step 3.1: Blame
+**Record:** Current direction callbacks and `.gpio_set_direction` in
+`mtk_pmxops` trace to `5d324e5159d9e` in this stable tree (squashed
+history). Paris driver and the `pinctrl_gpio_direction_*` pattern are
+present throughout v6.18.x.
 
-### Step 3.2: FOLLOW THE FIXES: TAG
-**Record:** No `Fixes:` tag present; step not applicable.
+### Step 3.2: Fixes: tag
+**Record:** N/A — no `Fixes:` tag.
 
-### Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES
-**Record:**
-- Similar board-add commits already in v6.18.44: `15c8317366908` (Z790-I
-  GAMING WIFI), `0183cb21b8a87` (Z790E GAMING WIFI II), `34c61c198d06b`
-  (Z690-E GAMING WIFI).
-- Same author ecosystem (Eugene Shalygin as committer/reviewer on many
-  board-add patches).
-- Standalone single-patch series (v1 → v2 per `b4 dig -a`); no multi-
-  patch dependency.
+### Step 3.3: Related file history
+**Record:** Only one history entry visible for `pinctrl-paris.c` in this
+tree. Related sibling issue exists in `pinctrl-mtk-common.c` (common-v1)
+with a separate patch series; this Paris commit is standalone.
 
-### Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS
-**Record:** Eugene Shalygin is a regular `asus-ec-sensors` contributor
-(many board-add patches). Brian Downey contributed the board data.
-Guenter Roeck (hwmon maintainer) committed it.
+### Step 3.4: Author context
+**Record:** Chen-Yu Tsai (Chromium) has other MediaTek pinctrl work in-
+tree. Linus Walleij is the pinctrl maintainer and signed off upstream.
 
-### Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS
-**Record:**
-- Prerequisites present in v6.18.44: `asus-ec-sensors` driver,
-  `family_intel_700_series`, `ASUS_HW_ACCESS_MUTEX_RMTW_ASMX`, DMI
-  matching macros, water sensor enum/bit definitions.
-- Commit is self-contained; no series dependencies.
-- Cherry-pick to v6.18.44 applies cleanly (verified).
+### Step 3.5: Dependencies
+**Record:** No prerequisites. `mtk_pinmux_gpio_set_direction()`,
+`hw->pctrl`, and `gpiochip_get_data()` all exist in this tree. Applies
+standalone.
 
 ---
 
 ## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
-### Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION
-**Record:**
-- `b4 dig -c 5f6617089dc06`: matched v2 at `https://patch.msgid.link/202
-  60608060855.40469-1-eugene.shalygin@gmail.com`
-- `b4 dig -a`: v1 (2026-06-07) and v2 (2026-06-08); committed version is
-  latest (v2).
-- Lore thread content could not be fetched (Anubis bot protection on
-  patch.msgid.link). Stable nomination in thread: **unverified**.
+### Step 4.1: Original discussion
+**Record:** v2 posted 2026-05-05 by Chen-Yu Tsai; thread at
+[spinics](https://www.spinics.net/lists/kernel/msg6186918.html). CC’d to
+MediaTek, GPIO, arm-kernel maintainers. v1 linked in cover letter. Linus
+Walleij replied in-thread (per index). `b4 dig -c` could not be used
+(commit not in this checkout).
 
-### Step 4.2: CHECK WHO REVIEWED THE PATCH
-**Record:** `b4 dig -w` recipients include Guenter Roeck (hwmon
-maintainer), linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org,
-Jonathan Corbet, Shuah Khan.
+### Step 4.2: Reviewers
+**Record:** To: Sean Wang, Matthias Brugger, AngeloGioacchino Del Regno,
+Linus Walleij. Maintainer sign-off from Linus Walleij.
 
-### Step 4.3: SEARCH FOR THE BUG REPORT
-**Record:** No bug report tags or syzbot links. This is a user/hardware
-enablement request, not a crash report.
+### Step 4.3: Bug report
+**Record:** No external bugzilla/syzbot link. Author describes
+reproduced lockdep warning on Chromebook-class MediaTek hardware.
 
-### Step 4.4: CHECK FOR RELATED PATCHES AND SERIES
-**Record:** Standalone 1-patch series (v1/v2). No companion fixes
-required.
+### Step 4.4: Related patches
+**Record:** Companion patch for `pinctrl-mtk-common.c` (common-v1)
+exists; not required for this Paris-only fix.
 
-### Step 4.5: CHECK STABLE MAILING LIST HISTORY
-**Record:** Not searched (no stable Cc: tag, no bug report to anchor
-search). Stable-specific discussion: **unverified**.
+### Step 4.5: Stable list
+**Record:** No explicit stable nomination in the Paris v2 post (unlike
+tegra fix `ac761e66708d5` which had `Cc: stable@vger.kernel.org`).
 
 ---
 
 ## PHASE 5: CODE SEMANTIC ANALYSIS
 
-### Step 5.1: IDENTIFY KEY FUNCTIONS IN THE DIFF
-**Record:** No functions modified. Static data consumed by
-`get_board_info()` and `asus_ec_probe()`.
+### Step 5.1: Key functions
+**Record:** `mtk_gpio_direction_input`, `mtk_gpio_direction_output`,
+`mtk_pinmux_gpio_set_direction`, `pinctrl_gpio_direction`,
+`mtk_hw_set_value`, `mtk_rmw`.
 
-### Step 5.2: TRACE CALLERS
-**Record:**
-- `get_board_info()` → called from `asus_ec_probe()` (line ~1256)
-- `asus_ec_probe()` → registered as `.probe` in platform driver; reached
-  from `asus_ec_init()` via `platform_create_bundle()`
-- `module_init(asus_ec_init)` at driver load
-- Context: module init / platform probe during boot; not a hot path
+### Step 5.2: Callers
+**Record:** Direction callbacks are reached from gpiolib
+(`gpiod_direction_input_nonotify`, `gpiod_direction_output_raw_commit` →
+`gpiochip_direction_*`). On Chromebook/MediaTek platforms these GPIOs
+are used by regulators, PMICs, USB, display, etc. Shared-GPIO consumers
+(when present) call direction while holding their lock.
 
-### Step 5.3: TRACE CALLEES
-**Record:** `dmi_first_match(dmi_table)`, sensor setup via
-`setup_sensor_data()`, `fill_ec_registers()`, hwmon device registration.
-Uses existing EC read infrastructure and ACPI mutex locking.
+### Step 5.3: Callees
+**Record:** Fixed path calls `mtk_pinmux_gpio_set_direction()` →
+`mtk_hw_set_value()` → `mtk_rmw()` with
+`spin_lock_irqsave(&pctl->lock)`.
 
-### Step 5.4: FOLLOW THE CALL CHAIN
-**Record:** Boot-time driver load → DMI match → hwmon sysfs sensors
-exposed. Not directly syscall-triggered, but affects all users of this
-motherboard who want temperature/fan monitoring via `asus-ec-sensors`.
-Without match, driver silently does not bind (`-ENODEV`).
+### Step 5.4: Reachability
+**Record:** Reachable from userspace-driven device operations and from
+kernel drivers requesting GPIO direction changes. The problematic path
+is direction change on a non-`can_sleep` chip while a spinlock-holding
+caller (e.g. gpio-shared-proxy on newer kernels) invokes
+`gpiod_direction_*`.
 
-### Step 5.5: SEARCH FOR SIMILAR PATTERNS
-**Record:** Identical pattern used for dozens of boards in this driver
-(e.g., `board_info_maximus_z690_formula` with same sensor set on intel
-600 family). Water sensor EC addresses match those in
-`sensors_family_intel_600[]`.
-
----
-
-## PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
-
-### Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?
-**Record:**
-- **Local tree:** `v6.18.44` (linux-6.18.y stable), `VERSION=6
-  PATCHLEVEL=18 SUBLEVEL=44`
-- **Missing board support exists:** `ROG MAXIMUS Z790 EXTREME` is absent
-  from `dmi_table[]` and documentation in HEAD.
-- Commit `5f6617089dc06` is **not** an ancestor of HEAD (`commit NOT in
-  tree`).
-- Driver `asus-ec-sensors` and `family_intel_700_series` **do** exist.
-- `ROG MAXIMUS Z790 EXTREME` appears in `nct6775-platform.c` WMI list
-  (partial/alternate monitoring path), but not in `asus-ec-sensors`.
-
-### Step 6.2: CHECK FOR BACKPORT COMPLICATIONS
-**Record:** Cherry-pick of `5f6617089dc06` onto v6.18.44 succeeds with
-auto-merge, no conflicts. Expected apply: **clean**.
-
-### Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE
-**Record:** No equivalent Z790 EXTREME entry in `asus-ec-sensors`.
-Related intel-700 Z790 boards (Z790-I, Z790E WIFI II) are already
-supported. This specific board is the gap.
+### Step 5.5: Similar patterns
+**Record:** `ac761e66708d5` (“gpio: tegra: do not call pinctrl for GPIO
+direction”) is already in this v6.18.43 tree — same bug class,
+explicitly backported to stable with `Cc: stable@vger.kernel.org`.
+`pinctrl-mtk-common.c` and `pinctrl-moore.c` still use
+`pinctrl_gpio_direction_*` but are out of scope for this commit.
 
 ---
 
-## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+## PHASE 6: CROSS-REFERENCE AGAINST LOCAL TREE (v6.18.43)
 
-### Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY
-**Record:** `drivers/hwmon/` — hardware monitoring. **Criticality:
-PERIPHERAL** (affects specific ASUS motherboard owners, not core kernel
-paths).
+### Step 6.1: Buggy code present?
+**Record:** **Yes.** `git describe HEAD` → `v6.18.43`; `Makefile` →
+6.18.43. Current code at lines 889 and 901 still calls
+`pinctrl_gpio_direction_input/output()`. `.gpio_set_direction` is set in
+`mtk_pmxops` at line 774. `can_sleep` is not set in
+`mtk_build_gpiochip()`.
 
-### Step 7.2: ASSESS SUBSYSTEM ACTIVITY
-**Record:** `asus-ec-sensors` is actively maintained with frequent
-board-add commits. v6.18.44 already includes multiple board-add patches
-from the same series.
+### Step 6.2: Backport complications
+**Record:** Clean apply expected — small, localized change; no
+structural conflicts observed.
+
+### Step 6.3: Related fixes already present?
+**Record:** Tegra equivalent fix `ac761e66708d5` is in HEAD. This Paris
+fix is **not** yet applied. No duplicate fix found.
+
+**Important nuance:** `gpio-shared-proxy` was merged in **6.19**, not
+6.18. It is **not** present in this v6.18.43 tree (`grep` found no
+`GPIO_SHARED`, `gpio-shared-proxy`, or `gpio_shared_proxy`). The
+commit’s primary trigger is therefore not available in 6.18.43 today,
+but the underlying mutex-in-non-sleeping-callback bug still exists and
+matches the tegra stable backport rationale.
 
 ---
 
-## PHASE 8: IMPACT AND RISK ASSESSMENT
+## PHASE 7: SUBSYSTEM CONTEXT
 
-### Step 8.1: DETERMINE WHO IS AFFECTED
-**Record:** **Platform-specific** — owners of ASUS ROG MAXIMUS Z790
-EXTREME motherboards running `CONFIG_SENSORS_ASUS_EC`. No impact on
-other hardware.
+### Step 7.1: Subsystem and criticality
+**Record:** `drivers/pinctrl/mediatek/` — **IMPORTANT** (ARM64 SoC pin
+control; affects Chromebooks, tablets, embedded MediaTek Paris
+platforms: MT8186, MT8188, MT8192, MT8195, MT8196, etc.).
 
-### Step 8.2: DETERMINE THE TRIGGER CONDITIONS
-**Record:** Triggered at boot when DMI reports `"ROG MAXIMUS Z790
-EXTREME"` and `asus-ec-sensors` module loads. Common for affected
-hardware owners. Not a security issue; not userspace-triggerable beyond
-normal module loading.
+### Step 7.2: Activity
+**Record:** Active subsystem with many Paris-based SoC drivers in
+`Kconfig`.
 
-### Step 8.3: DETERMINE THE FAILURE MODE SEVERITY
-**Record:** Without patch: EC-based hwmon sensors unavailable (no
-T_Sensor header, VRM temp, water loop temps/flow via this driver).
-System boots normally; monitoring gap only. **Severity: LOW** (missing
-functionality, not crash/corruption/hang).
+---
 
-### Step 8.4: CALCULATE RISK-BENEFIT RATIO
+## PHASE 8: IMPACT AND RISK
+
+### Step 8.1: Who is affected
+**Record:** Users of MediaTek Paris pinctrl/GPIO on affected SoCs
+(CONFIG_PINCTRL_MTK_PARIS and selected SoC drivers). Not universal, but
+significant for ChromeOS/Chromebook and embedded MTK platforms.
+
+### Step 8.2: Trigger conditions
+**Record:** GPIO direction change on a Paris pin after it is muxed to
+GPIO, when called from a context expecting non-sleeping behavior
+(notably shared-GPIO proxy on 6.19+; tegra stable commit documents the
+same class on 6.18). Normal process-context `gpiod_direction_*` works
+but still incorrectly takes a sleeping mutex on a chip advertised as
+non-sleeping.
+
+### Step 8.3: Failure mode severity
+**Record:** Lockdep “sleeping in atomic context” / potential real
+deadlock or oops under contention. **Severity: HIGH** (not data
+corruption, but serious stability warning and potential hang).
+
+### Step 8.4: Risk-benefit
 **Record:**
-- **Benefit:** Enables hwmon for a real, shipping high-end motherboard
-  on 6.18.y; matches established in-tree pattern.
-- **Risk:** Very low — 16 lines of static data, no logic changes, no
-  effect on existing boards.
-- **Ratio:** Moderate benefit for a small user population vs. very low
-  regression risk.
+- **Benefit:** HIGH for affected platforms; aligns with accepted tegra
+  stable fix in the same tree.
+- **Risk:** VERY LOW — 8-line change, same hardware operation, removes
+  redundant mutex.
+- **Ratio:** Strong benefit, minimal risk.
 
 ---
 
 ## PHASE 9: FINAL SYNTHESIS
 
-### Step 9.1: COMPILE THE EVIDENCE
+### Step 9.1: Evidence summary
 
-**FOR backporting:**
-- Explicitly permitted by `Documentation/process/stable-kernel-
-  rules.rst`: *"must either fix a real bug … or just add a device ID"*
-- DMI board table entry is the functional equivalent of a device ID for
-  this driver
-- Driver already exists in v6.18.44; only board ID + sensor map added
-- Small (16 lines), applies cleanly, obviously correct
-- Same pattern as board-add commits already present in this tree
-  (Z790-I, Z690 FORMULA, etc.)
-- Hwmon maintainer committed it
-- No regression risk for existing configurations
+**FOR backport:**
+- Real concurrency bug (sleeping mutex in non-sleeping gpiochip
+  callback)
+- Small, surgical, maintainer-reviewed fix
+- Buggy code confirmed present in v6.18.43
+- Same pattern as tegra fix already backported to this tree
+  (`ac761e66708d5`)
+- Affects widely deployed MediaTek Paris SoCs
+- Direct call preserves semantics while removing incorrect mutex
 
-**AGAINST backporting:**
-- Not a bug fix (no crash, corruption, security, deadlock)
-- Missing sensors is low-severity — system works without them
-- Partial monitoring may exist via `nct6775` WMI path for this board
-  name
-- Adds sensor family entries beyond a pure one-line ID (though only used
-  by the new board)
-- No `Cc: stable` or user bug reports demonstrating urgency
+**AGAINST backport:**
+- `gpio-shared-proxy` (the described trigger) is not in v6.18.43 (landed
+  in 6.19)
+- No `Cc: stable` tag on the Paris patch
+- Common-v1 (`pinctrl-mtk-common.c`) has the same pattern but is a
+  separate commit
 
 **Unresolved:**
-- Whether lore reviewers nominated for stable (thread inaccessible)
-- Whether users rely exclusively on `asus-ec-sensors` vs. `nct6775` on
-  this board
+- Exact upstream commit SHA not in this checkout (candidate evaluation
+  only)
+- Could not fetch full Linus Walleij review reply (wrong spinics message
+  ID)
 
-### Step 9.2: STABLE RULES CHECKLIST
-1. Obviously correct and tested? **PASS** — mirrors Z690 FORMULA;
-   maintainer committed; v1→v2 review cycle
-2. Fixes a real bug affecting users? **PASS** (via device-ID exception)
-   — not a crash bug, but missing board ID prevents hardware monitoring
-   on a supported driver
-3. Important issue (crash, security, corruption, deadlock)? **FAIL** for
-   bug-fix criterion; **PASS** only under device-ID exception (low-
-   severity enablement)
-4. Small and contained? **PASS** — 16 lines, 2 files, static data only
-5. No new features or APIs? **PASS** — no new APIs; board ID addition
-   per stable rules exception
-6. Can apply to local tree? **PASS** — cherry-pick verified clean on
-   v6.18.44
+### Step 9.2: Stable rules checklist
+1. Obviously correct and tested? **PASS** — same function, mutex
+   removed; maintainer SOB; author reproduced warning.
+2. Fixes a real bug? **PASS** — lockdep sleep-in-atomic on direction
+   change.
+3. Important issue? **PASS** — stability / lockdep, HIGH severity.
+4. Small and contained? **PASS** — 1 file, ~8 lines.
+5. No new features/APIs? **PASS** — behavior correction only.
+6. Can apply to local tree? **PASS** — code exists, no dependencies.
 
-### Step 9.3: EXCEPTION CATEGORIES
-**Record:** Falls under **device ID addition** (DMI board identifier for
-existing driver). Analogous to PCI/USB ID additions documented in stable
-rules and review guidelines.
+### Step 9.3: Exception category
+**Record:** None (not device ID, quirk, DT, build, or docs). Standard
+driver bug fix.
 
-### Step 9.4: DECISION RATIONALE
+### Step 9.4: Decision rationale
 
-For **linux-6.18.y (v6.18.44)**: the `asus-ec-sensors` driver, intel-700
-sensor family, and DMI infrastructure are all present. The commit adds
-only a missing board identifier and its sensor configuration — the exact
-pattern already used for other Z790/Z690 boards in this stable series.
-Per the tree's own stable rules, device-ID additions to existing drivers
-are explicitly eligible for stable backport even when they are not crash
-fixes.
-
-The patch is minimal, applies cleanly, and cannot affect boards that do
-not match the new DMI entry. The benefit is enabling EC sensor
-monitoring for ROG MAXIMUS Z790 EXTREME owners on 6.18.y; the risk is
-negligible.
+This tree (v6.18.43) still has Paris GPIO direction callbacks routing
+through `pinctrl_gpio_direction_*`, which takes the pinctrl mutex on a
+gpiochip that does not set `can_sleep` and whose register access uses a
+spinlock. That is incorrect and matches the tegra direction fix already
+accepted into this same stable series. Even though `gpio-shared-proxy`
+is not in 6.18, the underlying bug is present and the fix is minimal,
+obviously correct, and low-risk. Chromebook/MediaTek users benefit, and
+the change is consistent with stable maintainer practice for this bug
+class.
 
 ---
 
 ## Verification
 
-- [Phase 1] Parsed subject, tags, body: hardware enablement, no
-  bug/crash language
-- [Phase 1] No syzbot/sanitizer/Fixes tags found
-- [Phase 2] Diff: 16 lines, static data only in `asus-ec-sensors.c` + 1
-  doc line
-- [Phase 2] Verified water sensor bits not set on existing intel-700
-  boards in HEAD
-- [Phase 3] `git describe HEAD`: `v6.18.44`
-- [Phase 3] `git merge-base --is-ancestor 5f6617089dc06 HEAD`: commit
-  NOT in tree
-- [Phase 3] `git blame` on `sensors_family_intel_700[]`: introduced
-  0183cb21b8a87
-- [Phase 3] Similar board-add `15c8317366908` IS in v6.18.44
-- [Phase 4] `b4 dig -c 5f6617089dc06`: v2 lore URL found
-- [Phase 4] `b4 dig -a`: v1 and v2 revisions found
-- [Phase 4] `b4 dig -w`: Guenter Roeck and linux-hwmon CC'd
-- [Phase 4] UNVERIFIED: lore thread content (Anubis blocked fetch)
-- [Phase 5] Traced `get_board_info()` → `asus_ec_probe()` call chain in
-  source
-- [Phase 5] `module_init(asus_ec_init)` confirmed at line 1402
-- [Phase 6] `ROG MAXIMUS Z790 EXTREME` absent from `asus-ec-sensors.c`
-  in HEAD
-- [Phase 6] `ROG MAXIMUS Z790 EXTREME` present in `nct6775-platform.c`
-  WMI list
-- [Phase 6] Cherry-pick `5f6617089dc06` onto HEAD: clean auto-merge
-- [Phase 7] `CONFIG_SENSORS_ASUS_EC` exists in `drivers/hwmon/Kconfig`
-- [Phase 8] Failure mode assessed as missing hwmon, severity LOW
-- [Phase 9] `Documentation/process/stable-kernel-rules.rst` line 15:
-  device ID exception confirmed
+- [Phase 1] Parsed subject, tags, body; no Fixes/Reported-by/Cc:stable
+- [Phase 2] Diff: 1 file, `mtk_gpio_direction_*` + `mtk_pmxops`; mutex-
+  bypass fix verified in `core.c` and `pinctrl-paris.c`
+- [Phase 3] `git blame` lines 887–902, 769–776 → present in v6.18.43; no
+  Fixes tag; standalone (no deps)
+- [Phase 4] WebFetch spinics v2 thread; b4 dig requires commit in tree
+  (N/A); gpio-shared-proxy confirmed 6.19+ via web search
+- [Phase 5] Traced `pinctrl_gpio_direction()` → `mutex_lock`;
+  `mtk_hw_set_value()` → `spin_lock_irqsave`
+- [Phase 6] `git describe HEAD` → v6.18.43; buggy code at lines 774,
+  889, 901; `hw->pctrl` in `pinctrl-mtk-common-v2.h:292`; tegra fix
+  `ac761e66708d5` in HEAD
+- [Phase 6] `grep` — no `gpio-shared-proxy` / `GPIO_SHARED` in tree
+- [Phase 7] Paris used by multiple MTK SoCs in `Kconfig`
+- [Phase 8] Failure mode: lockdep sleep-in-atomic, HIGH severity
+- [UNVERIFIED] Full text of Linus Walleij review reply not retrieved
+
+**YES**Those three background `git log -S "gpio_shared_proxy"` searches
+didn’t finish (they timed out or were killed on this large tree), so
+they didn’t add anything new.
+
+That doesn’t change the conclusion: `gpio_shared_proxy` / `gpio-shared-
+proxy` isn’t in this v6.18.43 checkout — that was already confirmed with
+targeted `grep` and the 6.19 merge history. The Paris pinctrl fix should
+still be backported to this tree.
 
 **YES**
 
- Documentation/hwmon/asus_ec_sensors.rst |  1 +
- drivers/hwmon/asus-ec-sensors.c         | 15 +++++++++++++++
- 2 files changed, 16 insertions(+)
+ drivers/pinctrl/mediatek/pinctrl-paris.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-diff --git a/Documentation/hwmon/asus_ec_sensors.rst b/Documentation/hwmon/asus_ec_sensors.rst
-index a8456f29db950..8b9c24664e158 100644
---- a/Documentation/hwmon/asus_ec_sensors.rst
-+++ b/Documentation/hwmon/asus_ec_sensors.rst
-@@ -25,6 +25,7 @@ Supported boards:
-  * ROG MAXIMUS XI HERO
-  * ROG MAXIMUS XI HERO (WI-FI)
-  * ROG MAXIMUS Z690 FORMULA
-+ * ROG MAXIMUS Z790 EXTREME
-  * ROG STRIX B550-E GAMING
-  * ROG STRIX B550-I GAMING
-  * ROG STRIX B650E-I GAMING WIFI
-diff --git a/drivers/hwmon/asus-ec-sensors.c b/drivers/hwmon/asus-ec-sensors.c
-index 57b771d96d4f0..33402bc3f6cd7 100644
---- a/drivers/hwmon/asus-ec-sensors.c
-+++ b/drivers/hwmon/asus-ec-sensors.c
-@@ -382,6 +382,12 @@ static const struct ec_sensor_info sensors_family_intel_700[] = {
- 	[ec_sensor_temp_vrm] = EC_SENSOR("VRM", hwmon_temp, 1, 0x00, 0x33),
- 	[ec_sensor_fan_cpu_opt] =
- 		EC_SENSOR("CPU_Opt", hwmon_fan, 2, 0x00, 0xb0),
-+	[ec_sensor_fan_water_flow] =
-+		EC_SENSOR("Water_Flow", hwmon_fan, 2, 0x00, 0xbc),
-+	[ec_sensor_temp_water_in] =
-+		EC_SENSOR("Water_In", hwmon_temp, 1, 0x01, 0x00),
-+	[ec_sensor_temp_water_out] =
-+		EC_SENSOR("Water_Out", hwmon_temp, 1, 0x01, 0x01),
+diff --git a/drivers/pinctrl/mediatek/pinctrl-paris.c b/drivers/pinctrl/mediatek/pinctrl-paris.c
+index 6bf37d8085fae..23f04b24fd65e 100644
+--- a/drivers/pinctrl/mediatek/pinctrl-paris.c
++++ b/drivers/pinctrl/mediatek/pinctrl-paris.c
+@@ -771,7 +771,6 @@ static const struct pinmux_ops mtk_pmxops = {
+ 	.get_function_name	= mtk_pmx_get_func_name,
+ 	.get_function_groups	= mtk_pmx_get_func_groups,
+ 	.set_mux		= mtk_pmx_set_mux,
+-	.gpio_set_direction	= mtk_pinmux_gpio_set_direction,
+ 	.gpio_request_enable	= mtk_pinmux_gpio_request_enable,
  };
  
- /* Shortcuts for common combinations */
-@@ -475,6 +481,13 @@ static const struct ec_board_info board_info_maximus_z690_formula = {
- 	.family = family_intel_600_series,
- };
+@@ -886,19 +885,22 @@ static int mtk_gpio_set(struct gpio_chip *chip, unsigned int gpio, int value)
  
-+static const struct ec_board_info board_info_maximus_z790_extreme = {
-+	.sensors = SENSOR_TEMP_T_SENSOR | SENSOR_TEMP_VRM |
-+		SENSOR_SET_TEMP_WATER | SENSOR_FAN_WATER_FLOW,
-+	.mutex_path = ASUS_HW_ACCESS_MUTEX_RMTW_ASMX,
-+	.family = family_intel_700_series,
-+};
+ static int mtk_gpio_direction_input(struct gpio_chip *chip, unsigned int gpio)
+ {
+-	return pinctrl_gpio_direction_input(chip, gpio);
++	struct mtk_pinctrl *hw = gpiochip_get_data(chip);
 +
- static const struct ec_board_info board_info_prime_x470_pro = {
- 	.sensors = SENSOR_SET_TEMP_CHIPSET_CPU_MB |
- 		SENSOR_TEMP_T_SENSOR | SENSOR_TEMP_VRM |
-@@ -776,6 +789,8 @@ static const struct dmi_system_id dmi_table[] = {
- 					&board_info_maximus_xi_hero),
- 	DMI_EXACT_MATCH_ASUS_BOARD_NAME("ROG MAXIMUS Z690 FORMULA",
- 					&board_info_maximus_z690_formula),
-+	DMI_EXACT_MATCH_ASUS_BOARD_NAME("ROG MAXIMUS Z790 EXTREME",
-+					&board_info_maximus_z790_extreme),
- 	DMI_EXACT_MATCH_ASUS_BOARD_NAME("ROG STRIX B550-E GAMING",
- 					&board_info_strix_b550_e_gaming),
- 	DMI_EXACT_MATCH_ASUS_BOARD_NAME("ROG STRIX B550-I GAMING",
++	return mtk_pinmux_gpio_set_direction(hw->pctrl, NULL, gpio, true);
+ }
+ 
+ static int mtk_gpio_direction_output(struct gpio_chip *chip, unsigned int gpio,
+ 				     int value)
+ {
++	struct mtk_pinctrl *hw = gpiochip_get_data(chip);
+ 	int ret;
+ 
+ 	ret = mtk_gpio_set(chip, gpio, value);
+ 	if (ret)
+ 		return ret;
+ 
+-	return pinctrl_gpio_direction_output(chip, gpio);
++	return mtk_pinmux_gpio_set_direction(hw->pctrl, NULL, gpio, false);
+ }
+ 
+ static int mtk_gpio_to_irq(struct gpio_chip *chip, unsigned int offset)
 -- 
 2.53.0
 
