@@ -1,53 +1,57 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED95F3955DC;
-	Mon, 31 Aug 2026 20:21:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE7F739891E;
+	Mon, 31 Aug 2026 20:21:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788207704; cv=none; b=rZ8nZ3iRpbLHqtYYoMmWgyZUPmp85FE33zU55Kj81F3E+UcPz+XS7IPYRgBbN4RUDnUyskkK+r4/Jvf2dpvRUcFmwAI+cUk6/eoqi+i2aNKaJPAK1Cfu+1PmL86UiSE/wjBekINSlp3svuIlg4Oq65Odpk13J9Lk56Mo8hONocg=
+	t=1788207706; cv=none; b=kSko+xz3cNM6kdEJX+1oXNuoSIYFlGag9vJqiG/3Fj9bYxJCd13TzaTD4CDPwMcYQWTZDurt2pq832aK1zChSM+QdK+w+0kTh3fpY3LWhovDujMRxP+bA7fN+p6lyIAQwJuV8om8NvFc10NX+AdZnKGBOc6PxO4wd4p4uCbwwrs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788207704; c=relaxed/simple;
-	bh=mWd+Mb5Z4+HSOwmsDqY0t200hb3Jq63Kx4MbFS7HBvw=;
+	s=arc-20240116; t=1788207706; c=relaxed/simple;
+	bh=/Y3EZxW6g7d5B/VNknmDyKXeSC0mAN9v2XpLzeh5uDY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=RR2kwOZVulaJXudia8f5zN49fbkT7JE31O0n6Zu3gUheeWJakm9WSUhT9PM+Wd2ZSTbTTF3iCWx5lOzfhpgtD4L8qoKSsQQkQ/XerQmfjZ+otuAhvb//M6r4n2cFZNNHVHjz2U4LonRGByRZGPyjbrG+dn/5s1FeFqo9em8lnxc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gxCH2VpX; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=OAxvT/belk6O8DWvUV/6HNm1G8RTfHFG+SyW7XC1vWSDgE4KaSpHaxPVIx1osAX4HA4xKiL760R1Tg3BJoXzyM3J4N0jqe6dNw8Qr2V/4byqDc3E6W3nwp4zwlcmiLGPcJEgBRLU3CLhpXu6JB/hn9jg3ViHPxbNdDE700DrAlQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W/T3s8o5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gxCH2VpX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E10D71F00ADE;
-	Mon, 31 Aug 2026 20:21:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W/T3s8o5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18FE31F00A3D;
+	Mon, 31 Aug 2026 20:21:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788207702;
-	bh=sTN0Gf9Aj13nHFatd/xmnH9hA5RP7BLUG26PmGdZLWc=;
+	s=k20260515; t=1788207704;
+	bh=TallvL90aPVr5j44xFEumLaFjCEv1DwUjfW0ndv9IbM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=gxCH2VpXNbIUrT8A2Qu86ZHI6OZtFMLvED4eNaBumxVRTziZ9eQTKLDAM7wJph67O
-	 ts4HU9w2fbAJYqyS7cEw2tqsNx/u1CXP3Du11W4gTrTP6UJd0V52K4Td/1Hn0tsSZh
-	 PH8XOEpurbEM4bRRWFtF6AptscF5P3cMAm2JTZcjLOuiWQcZ2hJycHaSK4DQCWRVtD
-	 TrfbK5nbOmK+rccqhWCeJYL6lVkaEBQxPWr6KBz3ZrNQ1c+WaFIvrVIL25J/tR8SRn
-	 q/Ryjf7zEWsQygov/5kgPOjjx7tDQ6JmZydCNU+14jzvMXB9yocY1O0DSRJlc/UABg
-	 +L7dAzZlTeZIg==
+	b=W/T3s8o5zidjbRKvHEyU6mwUFGaEa9/KjMdmRdtOdtFstKF49TDCNT/zvyEaTMsHK
+	 OyaDYfyhDF6eJDm7tSUNytn9WeMlCFmondevUoLEa0m0EkLVFZa87UujizO7hDRcYR
+	 7Udq7LnK/5ppodkROlqfDrjNPiSk+5fTjHzehO3KkwFr6JfWg8gaohQnsLcWs8qkEK
+	 V5akRTnnDs7veo7ewgDy2+0RW7RVFC9Va9szEeBHn7zrkaO6lf+ivwxvlh4zxLtfN/
+	 h1QNQ1kMCUgTYRZl7h0q38T/VZMV/oM/wAdL8SASCn+XyJscWP4KR0FaoGt6EiajSC
+	 AmYbgwk0W0y6w==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Konrad Dybcio <konradybcio@kernel.org>,
+To: Herbert Xu <herbert@gondor.apana.org.au>,
+	"David S. Miller" <davem@davemloft.net>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
+	Harshal Dev <harshal.dev@oss.qualcomm.com>,
+	Vinod Koul <vkoul@kernel.org>,
 	Bartosz Golaszewski <brgl@kernel.org>,
-	Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Frank Li <Frank.Li@kernel.org>,
+	Andy Gross <agross@kernel.org>,
+	Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	linux-arm-msm@vger.kernel.org,
+	linux-crypto@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-pci@vger.kernel.org,
-	linux-pm@vger.kernel.org,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	Abel Vesa <abel.vesa@oss.qualcomm.com>
-Subject: Re: (subset) [PATCH v7 0/3] arm64: dts: qcom: eliza-evk: Enable PCIe0 and PCIe1 with M.2 and TC9563 switch
-Date: Mon, 31 Aug 2026 15:21:20 -0500
-Message-ID: <178820768644.1699313.8603462826395094258.b4-ty@kernel.org>
+	dmaengine@vger.kernel.org,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Subject: Re: (subset) [PATCH v4 0/6] Shikra: Add DT support for ICE, RNG and QCE
+Date: Mon, 31 Aug 2026 15:21:21 -0500
+Message-ID: <178820768643.1699313.2761481849387372250.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260730-eliza_evk-v7-0-7ac7b66a3e6d@oss.qualcomm.com>
-References: <20260730-eliza_evk-v7-0-7ac7b66a3e6d@oss.qualcomm.com>
+In-Reply-To: <20260714-b4-shikra_crypto_changse-v4-0-06a4ea97c209@oss.qualcomm.com>
+References: <20260714-b4-shikra_crypto_changse-v4-0-06a4ea97c209@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -58,26 +62,24 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Thu, 30 Jul 2026 17:30:15 +0530, Krishna Chaitanya Chundru wrote:
-> This series enables PCIe for the Eliza EVK board (CQS SoM on EVK carrier).
+On Tue, 14 Jul 2026 15:35:11 +0530, Kuldeep Singh wrote:
+> This patch series enables SDHC ICE, RNG and QCE support on Shikra,
+> aligned with how similar support is modeled on other Qualcomm platforms.
 > 
-> The Eliza EVK exposes two PCIe ports:
-> 
-> - PCIe0 drives an M.2 E key connector. The 3.3V supply is GPIO-controlled
->   via a TCA9538 I/O expander on I2C4. The slot hosts a WLAN module
->   (connected over PCIe) and a Bluetooth device (connected over UART5),
->   modelled with the pcie-m2-e-connector binding.
+> These DT and dt-bindings updates were previously posted as three
+> separate series. Based on review feedback, they are grouped here as one
+> crypto-focused series.
+> Previous threads:
+> QCE: https://lore.kernel.org/lkml/20260515-shikra_qcrypto-v1-0-80f07b345c29@oss.qualcomm.com/
+> RNG: https://lore.kernel.org/lkml/20260514-shikra_rng-v1-0-4ea721a1429a@oss.qualcomm.com/
+> ICE: https://lore.kernel.org/lkml/20260515-shikra_ice_ufs-v2-0-2724a54339db@oss.qualcomm.com/
 > 
 > [...]
 
 Applied, thanks!
 
-[1/3] arm64: dts: qcom: eliza: Add PCIe PHY and controller nodes
-      commit: b47be235dcc5b512b5af4ee0e1c014571155edb2
-[2/3] arm64: dts: qcom: eliza-evk: Add PCIe0 with M.2 E key connector
-      commit: 073c6a891eb39578ab85d8a1ccff156ad1d8a98f
-[3/3] arm64: dts: qcom: eliza-evk: Add PCIe1 with TC9563 PCIe switch
-      commit: 9439277347656b22957a8b9156b0e33c446b490d
+[6/6] arm64: dts: qcom: shikra: Add ICE, TRNG and QCE nodes
+      commit: 099cd05d200ba241bcc7497c4384b8d657a5632e
 
 Best regards,
 -- 
