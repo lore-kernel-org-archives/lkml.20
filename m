@@ -1,265 +1,246 @@
-Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com [209.85.208.45])
+Received: from mail-yx1-f41.google.com (mail-yx1-f41.google.com [74.125.224.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB68937DAA9
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 19:16:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.45
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788203815; cv=pass; b=arJcM2n7mDj8BjzO7gKVKQEMyX3z2ITd6DWSiy4A8WFRZP3flMOyN0UbvbxQj2tJdRynkgRBgGK0Vkizn+W9WypuMRn0ROv3xwzkVc7K/PX+J1eun+5yj/C1QqnLkrYEFYtE71Jue0uN/XsQv0ZzzYZ/NDScki1vZ5QX4Z/uGIE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788203815; c=relaxed/simple;
-	bh=A3S+U7J2OdwNyfma0wnLOklR/XimcGFT8VWX+qv2kXw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=F4PZmwL4B+D6ZViQOO+SIdZ1hMaZ6lIoY/KS4/qiJ+bXLgeLqgFa4++ZixNZi4KDrHsNFN/rhLShWDo+5gWJEeWtXkxDDQsSAEXhzbsngrd8gi70Jyr1g/3nfMa6FjEAOOI6c8B656mpqzWkewSIDCVgwL5KjC0HDLMPE66B9rs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=q2UUAFqp; arc=pass smtp.client-ip=209.85.208.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EE6525B093
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 19:18:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.41
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788203930; cv=none; b=dfXb0BD2klcaqBNXOBud8bPPNJNnDOTXiFIl65aoyOoT2dm9o/LZIQq3Rs6K9PUgAFtTIqdq3yJ8XYtw8vaVdpab/iB+p1LaGnmbVaU7XH7/o7NI+OY75pAsA7zxwFT33Byf5SMquriDKmEkXX+Ceqeu9Z5zPItE4qYEBRRIRpU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788203930; c=relaxed/simple;
+	bh=SUWAGf8sVHKWryZvJc2CRMyaoHq/CAf8ooTs1lQf5cA=;
+	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
+	 Mime-Version:Content-Type; b=Sy7oHzaTtO2DBskDzE7upaNpFRmizAWZplvVtJCbFZcyp/FEhtT1beVvYmIUdKMazoETwqOLAIFl+KOlVwrOPqzIsubqnYWp+Uw9erPD5UAn7Ux6skgRvXQcBWqtiIHmjfLCAhaKUTCdUGZkRF7v4bErF4kxZhWCsINua6VpQYM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=S0gsBBh1; arc=none smtp.client-ip=74.125.224.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="q2UUAFqp"
-Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-6a5f91ae397so1883a12.1
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 12:16:53 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788203812; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Kbs2ffJdu8nSccD1G80FQqJzwdCNXOLBoBz00KflXEbQe0cg/cd2LNXXAQdVau6tgt
-         zsEEGHAc4hFwD/MQQ16Jw1yJd1I5j6wYCBAqPumA1YeUk1ZIlH6gMcWXqeMZHtzi0SVB
-         MNWtPPZUIKPhG6BKZ3Lmec6N8NDUDp2UvgRduq6c5U+inPT5/T/2C96uF+Fxty6qIgUX
-         NMd09/gIPsLw5s9mLzzFVsL9bsY+QLRopzXhq6TWDqmWERgwLwuP1nJF0GkMB5b8m44K
-         6EVAnXtJOhWk07sN3HGYASsAjYS7TMNlvag8DIs0JWvo5E8M5lUCd5xLkShrtVK39LUp
-         55HA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=2j1aLdCw891zGxvM8nmdzD+khl40rKBnJPhJm/y1Ofw=;
-        fh=wCUHYmQhg/ToMt50gb9hQ/Nl8E7Db9eOXlV0kfQeFN4=;
-        b=TyqEknPxgadzd8OU/a+MB+dMSZrbWo4WhgP4ageqBrtKs8+E007vw0REEACySZFnLA
-         dAuEw8orLHeSOYNziilTxdlf9gBqXRBXytH0JdnSzNIYsg7RLqwP3d/Zo2J5m11HtKVR
-         Wljd7woaI1yr24rZL0HejfTD7Pe48tIdbmHFtMNdHPRKaXWNjDXgrfr+lXA/41nt6sF0
-         /H5VPsl21cnB4dvK/QecBg+uP+pwvAIqIDYwRk6EVrYAemJqYcWGGD0b740EIdIQMy6v
-         WBxLr0rxgsp7KzTLVNXl7fpSV2De38O9vwVY20WNiNENoR14N+Dnilb+VAyFxIrHebEv
-         1xWQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="S0gsBBh1"
+Received: by mail-yx1-f41.google.com with SMTP id 956f58d0204a3-66e63afda8fso1734016d50.3
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 12:18:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788203812; x=1788808612; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=2j1aLdCw891zGxvM8nmdzD+khl40rKBnJPhJm/y1Ofw=;
-        b=q2UUAFqpPnhDYj6uS6A7QB2epKZAqd/snHVuP+xAcxeBbvd1rIfDOyaqrC0GZj30KQ
-         GfmjRTQpMrmIOYEOt6RVEPnnuPAVEy0Gigt6nAWXw1zNcQL2W83T/PRIt0hnoGsWl9L4
-         HZAKhF3bfAn9EQbMDtNqNTPiICxcZrez4hVgGV1+0dnckAuFK3LLUP2qLLHJl40mNmT8
-         LB1VmWlVNc72DuJmqWfYXdkY2KlLqQ3DMlu7qZletMM60q0HRsuqv8eNkjgH/s4k4Xc8
-         Fy1HefLIAs279a3LgyVuUGoq6Q6CB4y9WhKnwP/iydUUblLqyiEGwBanFQ2warXUHpe8
-         9QmA==
+        d=gmail.com; s=20251104; t=1788203927; x=1788808727; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:subject
+         :references:in-reply-to:message-id:cc:to:from:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=vyGggYc18dLYZvLE+3PHcbnS8L3cXtAXyIgurB3vQjg=;
+        b=S0gsBBh1Q8dxmt9Bh/gnTP65jBd1H3cjishr05Lpn3jyaP+5qr5ZT4UzpXZshlMVGE
+         3dQn/ChQNwYC1do7iGkNjyRonMVWD1rlFhSDIbVTH422OvPHtqWmKA+z1yWfSAxlT4sM
+         uIVgJ5jm9pU2MrOO6tFrshjBucYHJl3tNG9ndfNKJQWL+HWeAFRFjflXORJoiSveIc6y
+         Ox4cbGRKcnFbKJo91yVNJJWJ8CDA4HoGJIhvdjevP160RmP8jQm+7eXeIIlEgvowULMi
+         /hf+kUFlArlVsaXhAl+iDSDT9ovqX/3CRRJVfjtZLL6wVIPTTWb/k96QQYbPn0edn13j
+         9HpA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788203812; x=1788808612;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20251104; t=1788203927; x=1788808727;
+        h=content-transfer-encoding:content-type:mime-version:subject
+         :references:in-reply-to:message-id:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=2j1aLdCw891zGxvM8nmdzD+khl40rKBnJPhJm/y1Ofw=;
-        b=EhwJ2+NOHyPWGv7kwJ7dZKew+xSOjIF8fc3y523PjMjFA+afhP+jT6FPBqlULczQ/2
-         MA3v50RFkco0+0aQ2+I4CN34w+hvYEzzmte9zoxP4qD1tonB18Z5J0yNstqQa3ePItTl
-         XVB5YxqKT2TFGfMZcSPnFodaijZA7YyuKFEeIbSR5jg9QqGG8Q1+lpEg48i+cAf+u1sE
-         IFT4LGoIgMpsCv2eFbmbwhL052dHdDy9L2LoS/tzbgeTDkcFqo6s6pIVW/Eo3WqlLZXs
-         cUndyR2JDE+oBl9BIzkdBuxRNwd0s30Chn4RnoTNXqseU+K7xH5YPtypEPaC80Loi5RH
-         uXsA==
-X-Forwarded-Encrypted: i=1; AKwUvByoNLAM/rWHFcUpaoeCQwXuCjSZ4Ghs8QmLr65UhBmeoEjSibYm0oRHPudTzn1gw5kt3DeeAVjJtvPfyHw=@vger.kernel.org
-X-Gm-Message-State: AFuF++llKergSkBL98oGHT9Azu+aiJLw8hFmOk5KZhdM+28qftYy3grj
-	GIdxqZLsaJBXMWWkBBt1JYNGA1nzvxwWb4TztYPuhxHex6EoXnmXNHav2K6p3/B6iS5sYR68gN6
-	j8l/9yLnBQMzfapApnUdDJoCxlUVz2D9wPjMz26UC
-X-Gm-Gg: AYBFou2E/w/6CwgIHALjnQCY0vLgiDLoqZKfirFKai94uXTWE2Wfc51eYDAdsknxNtu
-	5pcFZYLVc7qM2CSOmITmGupI0ZYVcfgSNLYyQrfJokdq5jfoC0lZSBzCNhnLCviICWMGX37UR2x
-	WdByhI1xoXf8JmEBUdzb7e0chpJ8FhsE7S6Qw8yMKefNaFtCdPHhCPmXivh1uxOxY9hEamf8aeB
-	lRRr724T7/0P1iTCVrYZ9fON4cH2FowL0LpP0QngDXgswkh+ZQnpDQUmVMLKHx1E1W7msoQxdrr
-	bWMF2/SVczewu1cvRqf0L+pxi2Pouee0w6lcJpGfIGKk0TkRzrSJoZcfkZgK5V0TNYaPIkSxr9c
-	=
-X-Received: by 2002:a05:6402:4044:20b0:68a:e1ba:9cc0 with SMTP id
- 4fb4d7f45d1cf-6a66a1783a9mr5047a12.8.1788203811129; Mon, 31 Aug 2026 12:16:51
- -0700 (PDT)
+        bh=vyGggYc18dLYZvLE+3PHcbnS8L3cXtAXyIgurB3vQjg=;
+        b=otvOT9XuLGLJxNNg7eYfUmMJTg6DMTnkbES1Ju38Q07YoKfJ9zHV0+QhCA+BWTpV4w
+         1cAp93RtuqzUGC8XWp8X/I2TIhL5XHYc0/TD6J8Jh0Y56Prr+XflQ2hPSovcbSCigiVs
+         7tkatrW9RBBrKXQCq2XGuAPNLjc85L7KsqeT1Ix7j3iTWQoil2FlPMaUF+2ULKujtR5X
+         8VPdY2W8VCVEqt3Es+dIbzL/gp53dBAZQS6PpVJr7GgvsS6m/MYCK4vNrTh+5oXua8Mv
+         suWNizjQydiIRZWEb3DIxGxIs5HMF49zLmmoXv1hUUmJvWegSoatlL5iZZpF/JhGXQg5
+         /8eA==
+X-Forwarded-Encrypted: i=1; AKwUvBxAA5hGkKUhqLard4HU7y44UNBhfAPUJopkP6kgOiKxrLmLJNfZHVGxmoWOSE5NET5IdnIPD6kkLFEDJGs=@vger.kernel.org
+X-Gm-Message-State: AFuF++kbXiD7mlSOyze9Koz8JtyrQ97/bTZPrCUFFfwKNuk+YV5AGZjC
+	I7RRTpbd820WrmTMx8XACRnYSPsfynOPnwZ0/UWmNlYxve8fjgX6ZNQi
+X-Gm-Gg: AYBFou1wdqdqE1FdxUnOZiDxI33ak0UmFpqVEYwbkWIsho5DAiB7tqu3hOkEAMX3iBu
+	oiTYlS/zcX+kA6963qgQcR+mGvLMjnG65+hNYQfnCU8FX2zVpK2CBTLdrlFXEfpml049+0u8kl+
+	er9Fv64ciHnSZ2ErJwX315TIJPD1xJRrsm3ropKZGqdQRZtOhle1yD+fP/pRUQy+KjwRLNnSdvB
+	VMz5XWhL3WJWqxzKhsNOpWtk3yqYMJ2GBRCV73ZNWYszyjajGB67fIa60l3sW5iijcr0DVQv+i/
+	JJoY2T48UKgCpaDFBA+XQbrMva4NXNbm34pqAXCFuc8Xu8KUs4pP//ybqFC0VXxv/92v7XhnbTs
+	T9TTlRU/PwH5vBKKafTHwt7kg4BIn8hNi8nRnYfqmWroNT8uP4ciMeTEQuTHjrPGZncS/xtLvq4
+	w724cQ7p9RGWPiQJasvcUW9RP52NpkvDz4VniGVcWz1IjUgDmwSHJGaTXjg9XvmnfYPXmulHfLJ
+	gWaI5bFlZfy3qUK6bZtrYMzsAQFvldb4RtzAlKeHA==
+X-Received: by 2002:a53:e950:0:b0:66d:289f:6498 with SMTP id 956f58d0204a3-66f875c6a73mr824777d50.36.1788203926780;
+        Mon, 31 Aug 2026 12:18:46 -0700 (PDT)
+Received: from gmail.com (234.207.85.34.bc.googleusercontent.com. [34.85.207.234])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-66e4ed2c78esm6675036d50.19.2026.08.31.12.18.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Aug 2026 12:18:46 -0700 (PDT)
+Date: Mon, 31 Aug 2026 15:18:45 -0400
+From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+To: Junnan Zhang <zhangjn_dev@163.com>, 
+ Willem de Bruijn <willemdebruijn.kernel@gmail.com>, 
+ "David S . Miller" <davem@davemloft.net>, 
+ Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>
+Cc: Simon Horman <horms@kernel.org>, 
+ "Michael S . Tsirkin" <mst@redhat.com>, 
+ Hangbin Liu <liuhangbin@gmail.com>, 
+ netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ zhangjn_dev@163.com, 
+ Junnan Zhang <zhangjn11@chinatelecom.cn>, 
+ Shouxin Sun <sunshx@chinatelecom.cn>
+Message-ID: <willemdebruijn.kernel.2a4f4a498e1ff@gmail.com>
+In-Reply-To: <20260831072034.40044-1-zhangjn_dev@163.com>
+References: <20260831072034.40044-1-zhangjn_dev@163.com>
+Subject: Re: [PATCH net v2] net/packet: fix network header offset for non-VLAN
+ raw packets
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260831183529.2517322-1-sdf@fomichev.me>
-In-Reply-To: <20260831183529.2517322-1-sdf@fomichev.me>
-From: Mina Almasry <almasrymina@google.com>
-Date: Mon, 31 Aug 2026 12:16:39 -0700
-X-Gm-Features: AcwNN1XnKk8Q1yV8OPLja8nclDBYAhbaAMUtHpnN3C_oaUd1cu504Lsi8H-QCvc
-Message-ID: <CAHS8izM5+CrZG77PxKpfG9k5kEWYMgN=uAuYvy21aabyztBt0w@mail.gmail.com>
-Subject: Re: [PATCH net-next 0/2] net: devmem: remove gen_pool from dma-buf allocations
-To: Stanislav Fomichev <sdf.kernel@gmail.com>, Kaifeng Wang <kaifengw@google.com>
-Cc: netdev@vger.kernel.org, davem@davemloft.net, edumazet@google.com, 
-	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, sdf@fomichev.me, 
-	bobbyeshleman@meta.com, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Mime-Version: 1.0
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Aug 31, 2026 at 11:35=E2=80=AFAM Stanislav Fomichev
-<sdf.kernel@gmail.com> wrote:
->
-> Replace devmem's gen_pool based fixed-size allocator with a binding-level
-> freelist similar to the one used by io_uring zero-copy receive.
->
-> This is motivated by allocation latency observed in the NAPI receive path=
-:
->
->   [ 1036.228913]  ? gen_pool_create+0x90/0x90
->   [ 1036.228915]  net_devmem_alloc_dmabuf+0x1f/0x60
->   [ 1036.228918]  mp_dmabuf_devmem_alloc_netmems+0x17/0x80
->   [ 1036.228920]  mlx5e_post_rx_mpwqes+0xdbe/0xdd0
->   [ 1036.228926]  mlx5e_napi_poll+0x113/0x830
->   [ 1036.228928]  ? sched_clock+0x5/0x10
->   [ 1036.228931]  ? wake_up_process+0x778/0x14b0
->   [ 1036.228933]  net_rx_action+0x15d/0x570
->   [ 1036.228934]  ? update_rq_clock+0x31/0x240
->   [ 1036.228937]  ? __napi_schedule+0x55/0xa0
->   [ 1036.228938]  ? mlx5_eq_comp_int+0x137/0x230
->   [ 1036.228940]  ? atomic_notifier_call_chain+0x36/0x90
->   [ 1036.228943]  ? sched_clock+0x5/0x10
->   [ 1036.228944]  ? sched_clock_cpu+0xc/0x170
->   [ 1036.228947]  irq_exit_rcu+0x12b/0x370
->   [ 1036.228950]  common_interrupt+0x85/0x90
->
-> udmabuf can create a very large number of SG entries. In the worst case,
-> devmem ends up adding one gen_pool chunk for each net_iov allocation
-> unit backed by those entries. The gen_pool allocation path then has to
-> traverse a linked list that can become too long for this hot path.
->
-> Patch 1 removes the gen_pool and replaces it with a simple freelist of
-> net_iov pointers protected by the same spin_lock_bh() pattern used by
-> io_uring zcrx. Patch 2 removes the now-unnecessary chunk owner wrapper by
-> embedding the net_iov_area directly in the dma-buf binding.
->
+Junnan Zhang wrote:
+> AF_PACKET SOCK_RAW sets skb network_header to dev->hard_header_len in
+> packet_snd(). For Ethernet devices whose hard_header_len exceeds the
+> on-wire L2 header length (min_header_len = ETH_HLEN) -- e.g.
+> software-offload VLAN subinterfaces, where hard_header_len = ETH_HLEN +
+> VLAN_HLEN = 18 -- a non-VLAN SOCK_RAW frame still carries a standard
+> 14-byte Ethernet header, so its L3 header sits at min_header_len, not
+> hard_header_len.
+> 
+> packet_parse_headers() only corrects network_header for VLAN-tagged
+> frames. For non-VLAN frames it leaves network_header at hard_header_len,
+> so the IP header is found (hard_header_len - min_header_len) bytes too
+> late and inet_gso_segment() fails with -EINVAL.
+> 
+> Observed on a virtio_net NIC (KVM guest) that advertises
+> NETIF_F_HW_VLAN_CTAG_FILTER but not NETIF_F_HW_VLAN_CTAG_TX, so VLAN
+> subinterfaces use software tag insertion (hard_header_len = 18). An
+> AF_PACKET SOCK_RAW socket bound to the VLAN subinterface with
+> PACKET_VNET_HDR enabled sends a large IPv4/TCP frame exceeding the path
+> MTU, with gso_type set in the virtio-net header. The user frame is a
+> plain [ethhdr][IP...] layout without a VLAN tag; the VLAN subdevice
+> inserts the 802.1Q tag in vlan_dev_hard_start_xmit(). 
 
-Oh boy, this is going to be a bit tricky.
+Where does it do this? validate_xmit_vlan does this on the physical
+device I think.
 
-I ran into this exact horrible perf bug (sorry for it in the first
-place), but my solution was different. My solution [1] was to coalesce
-the SG entries that are contigious (and they usually are in practice),
-and I got 'acceptable' perf after that. Kaifeng is actually working on
-cleaning up my hacky patch up to send it upstream now.
+That adds a bigger problem that the extra needed headroom of
+(hard_header_len - min_header_len) is not reserved at the start of the
+frame.
 
-Now I don't know which approach is better. Thinking about the pros and
-cons of your approach:
+In packet_snd, reserve == hard_header_len, so the packet socket
+starts writing at the start of the buffer. When
+__vlan_insert_inner_tag inserts the tag, it tries to move the mac
+header back, leaving the network header in place. Which works fine if
+the network header was set correctly from the start, and the original
+mac started at network_header - min_header_len.
 
-+ your approach is much simpler, and removes gen_pool overheads for a
-single queue case. It should be (much?) faster for that case.
-- your approach adds a lock and allocations from multiple queues in
-parallel will contend on this lock. There should be some value of # of
-queues N where your approach starts to completely trash. gen_pool is
-lockless so I wouldn't expect it to degrade significantly in the
-multi-queue case.
+This is all messy because before needed_headroom existed, legacy
+tunnels had to resort to increasing hard_header_len to reserve extra
+room for their outer headers.
 
-The question for me is what the performance is for a real use case
-(NCCL all-to-all for example) over a realistic number of shared queues
-(it's 4-8 for me). I need that perf data to be honest before judging
-this.
+Long aside, and I don't expect to address/disentangle that in this bug
+fix targeting net. Will take a look whether we can safely do that in
+net-next.
 
-The io_uring zcrx comparision is not completely valid. io_uring zcrx
-is built from the ground up to be one-buffer-is-bound-to-one-rx-queue,
-and devmem tcp is built from the ground up to be
-one-buffer-can-be-bound-to-N-rx-queues.
+But please Link to this version of the patch (and thus the thread)
+when sending the next version.
 
-Are you able to get NCCL all-to-all tests for N=3D4/8 yourself?
-Otherwise please wait for me to backport this to my release kernel and
-test it. ETA sometime this week, I hope.
+> With
+> network_header stuck at 18 while the real IP header is at ETH_HLEN (14),
+> inet_gso_segment() reads a misaligned ip_hdr(skb) and returns -EINVAL.
+> 
+> Set network_header to min_header_len for non-VLAN SOCK_RAW frames on
+> Ethernet devices whose hard_header_len exceeds min_header_len, so the
+> L3/L4 header positions match the actual on-the-wire frame.
+> 
+> This fix is placed before skb_probe_transport_header() so that both the
+> transport header probe (which uses skb_network_offset() as nhoff) and
+> subsequent GSO see the right L3/L4 offsets. It complements
+> commit 01fdecc0480d ("net: packet: fix wrong transport_header when sending VLAN-tagged frame")
+> which only covers VLAN-tagged frames.
+> 
+> Fixes: dfed913e8b55 ("net/af_packet: add VLAN support for AF_PACKET SOCK_RAW GSO")
+> Signed-off-by: Junnan Zhang <zhangjn11@chinatelecom.cn>
+> Signed-off-by: Shouxin Sun <sunshx@chinatelecom.cn>
+> Signed-off-by: Junnan Zhang <zhangjn_dev@163.com>
+> ---
+> v2:
+> - Drop "on VLAN subinterfaces" from the subject and reword the scope to
+>   Ethernet devices whose hard_header_len exceeds the on-wire L2 header
+>   length (min_header_len). The min_header_len < hard_header_len test is
+>   not VLAN-specific; it also covers Ethernet drivers that reserve extra
+>   hard_header_len space for driver-internal wrapping.
+> - Restructure packet_parse_headers() to test dev->type once; replace
+>   has_vlan, which mixed the device and packet tests, with the
+>   packet-only is_vlan.
+> - Describe the header offset error generically as (hard_header_len -
+>   min_header_len) bytes instead of hard-coding the 4-byte VLAN case.
+> - Document the reproducer: virtio_net advertising
+>   NETIF_F_HW_VLAN_CTAG_FILTER but not NETIF_F_HW_VLAN_CTAG_TX, with
+>   PACKET_VNET_HDR and GSO triggering the -EINVAL from
+>   inet_gso_segment().
+> 
+> v1: https://lore.kernel.org/all/20260821085722.24036-1-zhangjn_dev@163.com/#t
+> ---
+>  net/packet/af_packet.c | 22 ++++++++++++++++++++--
+>  1 file changed, 20 insertions(+), 2 deletions(-)
+> 
+> diff --git a/net/packet/af_packet.c b/net/packet/af_packet.c
+> index 1168bd6b09cd..be5bf9db7ea1 100644
+> --- a/net/packet/af_packet.c
+> +++ b/net/packet/af_packet.c
+> @@ -1935,6 +1935,7 @@ static int packet_rcv_spkt(struct sk_buff *skb, struct net_device *dev,
+>  static void packet_parse_headers(struct sk_buff *skb, struct socket *sock)
+>  {
+>  	int depth;
+> +	bool is_vlan = false;
+>  
+>  	/* On TX skb->data is the L2 header; anchor it for all socket types. */
+>  	skb_reset_mac_header(skb);
+> @@ -1943,11 +1944,28 @@ static void packet_parse_headers(struct sk_buff *skb, struct socket *sock)
+>  	    sock->type == SOCK_RAW)
+>  		skb->protocol = dev_parse_header_protocol(skb);
+>  
+> +	if (likely(skb->dev->type == ARPHRD_ETHER)) {
+> +		is_vlan = eth_type_vlan(skb->protocol);
+> +
+> +		/* For non-VLAN SOCK_RAW frames on Ethernet devices whose
+> +		 * hard_header_len exceeds the on-wire L2 header length
+> +		 * (min_header_len) -- e.g. software-offload VLAN subinterfaces,
+> +		 * or Ethernet drivers that reserve extra space in
+> +		 * hard_header_len for driver-internal wrapping -- the SOCK_RAW
+> +		 * send paths leave network_header at hard_header_len, while the
+> +		 * user frame's L3 sits at min_header_len. Move network_header
+> +		 * to the actual L2/L3 boundary so the transport header probe
+> +		 * below and subsequent GSO see the right L3.
+> +		 */
+> +		if (!is_vlan && sock->type == SOCK_RAW &&
+> +		    skb->dev->min_header_len < skb->dev->hard_header_len)
 
-But please no merge without real perf data. This has potential to be
-great, but is very risky :(
+Instead of using min_header_len != hard_header_len to detect vlan devices,
+consider is_vlan_dev(). That does not have false positives for other
+protocols, and makes the code more self-descriptive.
 
+Unless we are certain that the same also exhibits for other devices that
+play hard_header_len games, such as GRE tunnels. But then the
+ARPHRD_ETHER check excludes those anyway. So for now I would focus on the
+VLAN issue only.
 
-[1] patch:
-commit 7bb6d32e21b6e ("net: devmem: coalesce sg chunks before feeding
-into gen_pool")
-Author: Mina Almasry <almasrymina@google.com>
-Date:   Mon Dec 8 01:44:39 2025 +0000
+  if (sock->type == SOCK_RAW && !is_vlan_packet && is_vlan_dev(skb->dev))
+    skb_set_network_header(skb, skb->dev->min_header_len);
 
-    net: devmem: coalesce sg chunks before feeding into gen_pool
+It sucks that we have to add another branch in the hot path for an edge
+case. Would be preferable if we can fix this in the vlan driver. But
+that will come too late for skb_probe_transport_header.
 
-    On dma_buf_map_attachment drivers typically return an sglist where each
-    sg is of size 64KB. When mapping a very large dmabuf (like 4GB or so),
-    this results in an sglist of 62500 entries, but usually they all map to
-    a contiguous range.
-
-    The current implementation inserts each sg as a separate chunk into the
-    gen_pool. This results in much slower gen_pool_alloc and gen_pool_free
-    performance due to the gen_pool actually looping through all the chunks
-    and trying to free/alloc from each of them.
-
-    There is no reason to insert each individual sg into a gen_pool chunk.
-    Instead, detect that the next sg starts at the dma_addr of the current
-    chunk and coalesce them.
-
-    This results in a huge improvement in all-to-all devmem collectives, fo=
-r
-    example sweeping 1G and 2G message sizes:
-
-    Before:
-
-           0     0x0         AlltoAll  1073741824       8388608
-float    none      -1   289212    3.71    3.60      0 1796277    0.60
-  0.58    N/A
-           0     0x0         AlltoAll  2147483648      16777216
-float    none      -1 4242107    0.51    0.49      0 6301030    0.34
- 0.33    N/A
-
-    After:
-
-           0     0x0         AlltoAll  1073741824       8388608
-float    none      -1   284860    3.77    3.65      0   252456    4.25
-   4.12    N/A
-           0     0x0         AlltoAll  2147483648      16777216
-float    none      -1   569225    3.77    3.65      0   553717    3.88
-   3.76    N/A
-
-    Signed-off-by: Mina Almasry <almasrymina@google.com>
-
-    TEST=3DTested using the all-to-all devmem collective outlined above.
-
-    Reviewed-by: Eric Dumazet <edumazet@google.com>
-    Reviewed-by: Kevin Berry <kpberry@google.com>
-
-diff --git a/net/core/devmem.c b/net/core/devmem.c
-index 606e556d1935b..07ba32b177390 100644
---- a/net/core/devmem.c
-+++ b/net/core/devmem.c
-@@ -274,6 +274,18 @@ net_devmem_bind_dmabuf(struct net_device *dev,
-                size_t len =3D sg_dma_len(sg);
-                struct net_iov *niov;
-
-+               /* Detect contiguous sg's and coalesce them. This improves =
-the
-+                * gen_pool allocs/frees with O(GB) dmabufs, because the
-+                * gen_pool code attempts 1 allocation/free per chunk in a
-+                * list_for_each_entry_rcu.
-+                */
-+               while (sg_idx < binding->sgt->orig_nents - 1 &&
-+                      dma_addr + len =3D=3D sg_dma_address(sg_next(sg))) {
-+                       len +=3D sg_dma_len(sg_next(sg));
-+                       sg =3D sg_next(sg);
-+                       sg_idx++;
-+               }
-+
-                owner =3D kzalloc_node(sizeof(*owner), GFP_KERNEL,
-                                     dev_to_node(&dev->dev));
-                if (!owner) {
-> Stanislav Fomichev (2):
->   net: devmem: replace gen_pool with freelist
->   net: devmem: embed net_iov_area in binding
->
->  net/Kconfig       |   1 -
->  net/core/devmem.c | 158 ++++++++++++++++++----------------------------
->  net/core/devmem.h |  38 ++++-------
->  3 files changed, 72 insertions(+), 125 deletions(-)
->
-> --
-> 2.53.0-Meta
->
+> +			skb_set_network_header(skb, skb->dev->min_header_len);
+> +	}
+> +
+>  	skb_probe_transport_header(skb);
+>  
+>  	/* Move network header to the right position for VLAN tagged packets */
+> -	if (likely(skb->dev->type == ARPHRD_ETHER) &&
+> -	    eth_type_vlan(skb->protocol) &&
+> +	if (is_vlan &&
+>  	    vlan_get_protocol_and_depth(skb, skb->protocol, &depth) != 0)
+>  		skb_set_network_header(skb, depth);
+>  }
+> -- 
+> 2.43.0
+> 
 
 
---=20
-Thanks,
-Mina
