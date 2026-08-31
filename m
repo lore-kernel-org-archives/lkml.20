@@ -1,155 +1,217 @@
-Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
+Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41DA43B47FD
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 18:25:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.169
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788200703; cv=pass; b=AERoqRn8iFqQh5AQ2J3kGwfQPjkxQArbR9rwDNil7SfC6pNhZ3Jak6uTplZP8FINxYKZg0gEDTObx6XEaGQkQH1A586THOflij/RC2o4vmHPDV2xGGv4kFUXk9FAZkuQyYNL3Qr88FebqGs+7G6ipyJX+p4QntQZL3qNnijnIrs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788200703; c=relaxed/simple;
-	bh=6r+BJPWVERiNLMS1CKAwGPYLRJVbPK90B4onWQeT+qY=;
-	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=oYeDkyZNSClS1RMh5JMdQfep8zEc8Lk/NOEBBCyi4u1khoc8cgJLVMd3XxMZUvIdLxAawzqost8YatXZ6dVVv/ady6Rrcdl5bcFmTq2W/klKPht8QModYka+wPVbx9PmCAeVE9eXDE0Y2uYGatW6kzUftBYA2ur6GCGhh4d3Y6I=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=recall.ai; spf=pass smtp.mailfrom=recall.ai; dkim=pass (2048-bit key) header.d=recall.ai header.i=@recall.ai header.b=RO5Z2t8G; arc=pass smtp.client-ip=209.85.215.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=recall.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=recall.ai
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61B953B7B93
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 18:25:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.180
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788200706; cv=none; b=SwSIjHRGtgOBnPXvbhjjjJ7oE3nIjHDfAsrFmz32gCYM/RNMB+ub0tT4iDGnYEEV8adcmuzrojsrp/Wfc6CaaXd7N5PsPCyB71HrTh67GB5UXr8+eXoT7W9L+KhBnE8whtBruxaYuEmF6X6vGp4JCL39SpTBxrivcjeNbzHnxkw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788200706; c=relaxed/simple;
+	bh=1geMDasm5YEAbcc8lbIMJ8Z0mYy0xqKyIcoPdlMMkQg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=EME7cmPE0YWIa1YfwWF3JaKHmwX34ovCVqexgc11C9a5sDLX3FHDR8/f/FkbdScaaUm2EaixTkyDeYnKtGAVw2l/KiQZvjTQVTK75rccPbCQbSHrWs7FfJdE2oEsXVld+pqngOm85gT5IqYy83mnrux5AlXW+BzDDMzoG2310yg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aEo9tyXt; arc=none smtp.client-ip=209.85.215.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=recall.ai header.i=@recall.ai header.b="RO5Z2t8G"
-Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-ca766c1c9ccso2579462a12.0
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 11:25:01 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788200701; cv=none;
-        d=google.com; s=arc-20260327;
-        b=eJ3+RnolZuyk3FhOn4VjGImb1xfJw4gDV6pfRwB9Z5OHtr7EWxCjyNPXkv+eTT0TSY
-         t33dPXabrnP4zXa3YQJ416x2Ae87yKyWdScl39gmEaklMJJqNYofXqfxMzVfqXcofvUc
-         cyTXvh2Z1INbwSS++Y8iiuCDIx2KZUuFzRnuixMimCO8h+/6qqzgTR/XJhUinX4Y+ZO6
-         wZsA+lAWmG75IIt2Xr3qrjVB7lLg4rxydQxb75GezbYR5lY0QELl6r4bwu2HbgtFdVPv
-         ANqsP8js7IpYpgM5nbWiGP4wEnJ6xp7ExPQ+nKh+hNGcZpFc7ecwYaiMwYIgWgJUGlyo
-         IgNQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=hbV5Wg8l0nJ8T1Mygha+CfNYcTHfR/M+eEDDy9eLWnc=;
-        fh=vQXvw7WiGQ9ewuzNBl3WVswNmgKGxBJw4lbk1Bw2FSk=;
-        b=HS/RKoQ+Kkd79QkUad8R+AdB0bkQoXkjZ4zOpDEYzVxfOt2mgooNzLQgZp4CfsDrMo
-         ES5+w2fyykaNj+OxCs8iFLaPYajFJZDSyp1TrINbB5A4xJK24HKz9H/WyTdp4a2eyBgH
-         yVnd+WaXqRfZRbAHRMsT1JUte0SMWQEYeYfUDyNrkcqlEy0YGONhO0w+mly80AbFblvL
-         au6HDfwWDYTJm4SDehH9Q9FvhUIhpL01/z4Pa2HQnf4EPNQTRL9jLvoJfIP2FUltideH
-         hfFzQpRolrU0yIjDw/4MQ3d/FQXdBCLdkLyQRAj1f9RB1ZR3UeSwAQy3OtK+nLXbQJNT
-         8YPQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aEo9tyXt"
+Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-cc1cb472b76so3487849a12.0
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 11:25:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=recall.ai; s=google; t=1788200701; x=1788805501; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=hbV5Wg8l0nJ8T1Mygha+CfNYcTHfR/M+eEDDy9eLWnc=;
-        b=RO5Z2t8G3WWpA8luZIKNu/Ipdq6dSO2j7V9756tbtBDVMZS0ECAeB+SDeBXrQk2cVg
-         KXVNx9IQZ04A/L0OukbqoQuaruRlilhLjhzOeIBEPr10T9OqdZFTn7Xb8LcyIFN+1kfY
-         vhloeB1b/9tge2bqfYi2NPmFyL0CkY3eGA1Iq4/63t1OkDfoS9DDHne11NYmk4yActhT
-         kn3BaSq5QjPQOmhuThA83jfe/MxlxppxCAFEpvwZ5kLdizKdDEsIuf65gAJ7NBjbVcNT
-         xml92uSyYnVX8pOeuK8AuRytHmhaWdMk6TskVqEA2JuP7KAObYMhrxWNasAjBHZafGLe
-         xcRg==
+        d=gmail.com; s=20251104; t=1788200704; x=1788805504; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=zg16aUyXsNhWNe3K+DCBkMThZsxzbl8N3Kd+8LFw0cY=;
+        b=aEo9tyXtGNimgrIMSUIZ9lBYkP6+sw5rb0YFS7uDF8pkZqTO3sTNhuEQ5Uw55FGHvp
+         UMQCWZkNedqvW7qWwLN8L0czwPbF4BZnd/TR/E4sCCk5gl5L3BGg+ZJhpkiWnZW3C/Ep
+         YjHky+as5u27md+DERO9iZoQLA4qVB92qKdq2W1f5EWvPkqmD59BigmUXuaUJeCDQLJf
+         xlBKcpn8G/KQ7MGN21clXLqM0/O0tW0aoarHOXcSk2FvXmXvJQ9+Q4Y9FrMfRQelhV0H
+         w9w2k96Kz6J4MTul8gRYqN8991oh0qEy4C5j0IehIGJ1iBfJhMV5ZZoacqu0HsgM/5hF
+         jEpw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788200701; x=1788805501;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=hbV5Wg8l0nJ8T1Mygha+CfNYcTHfR/M+eEDDy9eLWnc=;
-        b=fMtQtQzCIfL8flM3eaS5rFSJ+8h1cEDfct0s1Eae0622muHIY32YrmtbZWfE4tlrRw
-         h9uydwHvyLf4c6bRqi1OlafhPoRsVrO2Kot/0Grir+EHlx/5F83GSCtL3CLxWXytIDeF
-         9Xn9+mKEFuRC3+Br90Y0nZmdqmIO99TiEyuWlDNKJvWDeMpEabllsl2dms9PRidvDEmk
-         Qnux/9/m7iha32vHCnG3nn1tc+xyaUHawyN6eqyV6dBKGCQ63896WHDSk6MRsPXvXsUq
-         rarGmVBmJVBf8GoUAuiBm4Fr/b33zDlbWiplEpcb6GsXHVa6VmWes8Um3UgQtlTww2f+
-         QKvw==
-X-Gm-Message-State: AFuF++nIWUyMe3anr1/pPmEFEBU3W1BK5ed67BfS48rvHvnXZLCjE6Zv
-	Eti0ZOY7q/gdAbmus3gRronpnA9E6HPFKrvp5Vqdbb9t3eAx+DGxO6uy+/6Uhn0+s2gtx3iblEN
-	9xC3B7p9GKZJOfbAoeqk1ufTj/QumNxfMdXfIIBLfNXDUvPRoX27EnuWAsN9S
-X-Gm-Gg: AR+sD12iEBSq4mWwDbVFGaA4muHUhBFrQUQjgCd1+mEsUsSxhIB/JrD5OyRUoZGyIVK
-	XHx4xnTgCzCj6IrtfxKCUXV7AeTi+a85SAZ81knXlIbpaE+/Ck26naNvsyca3E+rWa5eMLUcFL1
-	Yb6mR/RwvF2Roo0Sti9Y4UDvfbLI70DtxcdClvncZGQXyOmQDamfq7efhfoD7yHiMlBIchNxKKq
-	JK1WcsE7vE0yta/npKEpx4mKMlWVcEH8H5ttfG+jFjRf5YC9YEjpCRNlp2WcvM2JI3txG41B3i9
-	W7WbVUpmZ51NvFOHVl+z/PdCSs4ISuktAsGE6UeaetDcVw==
-X-Received: by 2002:a05:6a21:700d:b0:3d3:b00a:7082 with SMTP id
- adf61e73a8af0-3d3b00a77a9mr34040179637.28.1788200700253; Mon, 31 Aug 2026
- 11:25:00 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788200704; x=1788805504;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=zg16aUyXsNhWNe3K+DCBkMThZsxzbl8N3Kd+8LFw0cY=;
+        b=oxug554N00GDAIkRgJhDdfDl1z55xiKsktU2LynC5MZMnSm3RkTtrYGalXpg/BbmDj
+         HT22PzkEJOt0dhi/jcwPI/htmI51qUDMFycKGVfHnuNUE+FvYXafcIE0qarmsfiY/uRb
+         Tohys4/5cm3yZ7UmWjmUlaTshdaQ3A/IPZWVyIlrrb9tGz2OEqbOg7foZCB6IVsqfxj6
+         HqCDpq81bl4ag2MUHbORCfub0PpZ/uZOe50f1KW//huqCQO0Y8yZV3HhTzU14WrU6hQh
+         isy8eBBoHdxBgRGOU7UXJYqrciGTl//dvf5a3hMkfPeJHoyTv8v0kxl1wSuRhfnQvQCd
+         eSPQ==
+X-Gm-Message-State: AFuF++kbxTpxr9GdLWJIDD97emaWI/Ivs8r51N20WbbjWsVGvJw3mSaP
+	e5cn+eGgOnOm/6a0AVRWh44XL1Bo94Tin4t7MbD0Um5zUMKbBhYP3Tmt
+X-Gm-Gg: AR+sD107gLR5tH3E0kDJQek3As/gLYnPnpWI0WZ6s1oBUlMaDCQE4efFWCfeALb+Ob6
+	a/UT/xuzvpdd3t6+oCaLsTiBmzRiK134hl5IwE2YjBMX/mfsXO2uvpT8lBOVltH+x9eJmS4rLtB
+	VPcN0J1TOod567dSp29HGMGvThFfRPebi54Um5Bd7Bi4pE9UJ99/I3CBtPpEb2KqhldVVnabit2
+	DcG3nVIWpgdXPXxdtGzg6DioxWR0QnsjxXyOZ5Fy30KXfWgwvQedTy5cxC0cdBzdol98B4BqaRz
+	gwyyiGUBzjwRXxYhEHfj5yaR/o/hOQkLYbY9ZkYPvkU2/E4TIdKOwdKAGFNA8X/SOdZhCcG7RDW
+	YDd8ORjNibGdVxSvBdE0lPge0kDclyfz2rcu+kJvP/QAEu85CPZYe+i5NF5mPjqUHXLl/ihi7uv
+	9znYA5BMMoS14f+6wFXhvAMuAFBoaJoqBuJRYGNWj0xT2vIkjaNhczD4j2Fh3yCFb/BTz9qKTrz
+	RjDehrbVrw6kBaMYAIZTKki
+X-Received: by 2002:a05:6a21:46c4:b0:3d1:2f88:913f with SMTP id adf61e73a8af0-3d2681aa0damr46895633637.14.1788200703483;
+        Mon, 31 Aug 2026 11:25:03 -0700 (PDT)
+Received: from [192.168.21.192] ([24.18.106.4])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-142e0dc898dsm29077645c88.9.2026.08.31.11.25.01
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 31 Aug 2026 11:25:02 -0700 (PDT)
+Message-ID: <afaa8ced-0717-4d62-8ea6-4ecdbf489694@gmail.com>
+Date: Mon, 31 Aug 2026 11:25:01 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: Mike Kaplinskiy <mike@recall.ai>
-Date: Mon, 31 Aug 2026 11:24:48 -0700
-X-Gm-Features: AcwNN1V4UKSJdBYkgpssMkmifC2j4_SqBsHSkI7X8KbOD1NWjz0zJyXnc6Ib_f0
-Message-ID: <CABeknB_S2XJSHFgnHdgnN0rjzHhH4oQJs_APq9fvxHztQ_pgiA@mail.gmail.com>
-Subject: [BUG/RFC] mm/madvise: MADV_WILLNEED skips swapped file-backed COW pages
-To: linux-mm@kvack.org
-Cc: linux-kernel@vger.kernel.org, akpm@linux-foundation.org, 
-	liam@infradead.org, ljs@kernel.org, david@kernel.org, vbabka@kernel.org, 
-	jannh@google.com
-Content-Type: multipart/mixed; boundary="00000000000086d436065a5beb9a"
+User-Agent: Betterbird (Linux)
+Subject: Re: [PATCH v2] sparc64: increase kernel thread stack size to 32K
+To: Stian Halseth <stian@itx.no>, andreas@gaisler.com, davem@davemloft.net,
+ sparclinux@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org, david.laight.linux@gmail.com,
+ glaubitz@physik.fu-berlin.de, thuth@redhat.com, regressions@lists.linux.dev,
+ nroach44@nroach44.id.au
+References: <20260519075809.8993-1-unixpro1970@gmail.com>
+ <20260831172928.3082853-1-stian@itx.no>
+Content-Language: en-US
+From: Tony Rodriguez <unixpro1970@gmail.com>
+In-Reply-To: <20260831172928.3082853-1-stian@itx.no>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
---00000000000086d436065a5beb9a
-Content-Type: text/plain; charset="UTF-8"
+Hi Stian,
 
-Hi,
+Thanks for following up regarding this, I am currently busy with other 
+tasks.  Back in May/June 2026, I also mentioned the following to Andreas:
 
-I'm seeing a strange behavior when using MADV_WILLNEED to schedule
-swap page-in. It seems MADV_WILLNEED does not schedule swap reads for
-swapped-out COW pages in an ordinary file-backed MAP_PRIVATE mapping.
+The combined stack usage is already very close to the 32K limit. If you 
+need an immediate workaround, increasing the stack to 64 K may be the 
+better option. That should provide enough headroom to avoid the stack 
+overflow panics we are seeing.  As of kernel 7.1, I haven't noticed any 
+panics using a 32K stack, but once again a stack size that is so close 
+to the 32K boundary is a concern. But once again, sparc64 definitely 
+crashes with a 16K stack.  The Nvidia/Mellonox mlx5 driver also 
+allocates a big stack on sparc64, which pushes it to the 32K boundary.  
+There may be other drivers that may do so as well.
 
-I reproduced this on Linux 7.0.14 on aarch64, but I think this code
-hasn't changed in a while. mm/madvise.c:madvise_willneed walks swap
-PTEs only when vma->vm_file is NULL, and sends other file-backed
-mappings to vfs_fadvise(POSIX_FADV_WILLNEED). This skips the case of
-MAP_PRIVATE mappings with changes, which frequently happens for
-libraries/binaries with relocations and/or writable globals.
+The 64K stack is more ideal.
 
-The code is at the top of
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/mm/madvise.c#n282
-.
+When I compile the kernel with -fstack-usage to generate .su files, on 
+7.1 kerner, the static analysis shows small stack frames for all USB 
+core functions.
+For example:
 
-Minimal reproducer attached. Would there be interest in changing this
-path to prefetch private copies in addition to the readahead?
+hub_event:      2457 bytes  (static)
+hub_activate:   1892 bytes  (static)
+usb_control_msg: 1248 bytes (static)
 
-Thanks,
-Mike
+However, my runtime stack tracing shows a dramatically different picture:
 
---00000000000086d436065a5beb9a
-Content-Type: text/x-csrc; charset="US-ASCII"; name="madvise-willneed-cow-repro.c"
-Content-Disposition: attachment; filename="madvise-willneed-cow-repro.c"
-Content-Transfer-Encoding: base64
-Content-ID: <>
-X-Attachment-Id: 
+STACKTRACE: hub_event():entry: 31856 bytes used
+STACKTRACE: hub_activate():entry: 31680 bytes used
+STACKTRACE: usb_control_msg():entry: 30768 bytes used
 
-I2RlZmluZSBfR05VX1NPVVJDRQojaW5jbHVkZSA8YXNzZXJ0Lmg+CiNpbmNsdWRlIDxmY250bC5o
-PgojaW5jbHVkZSA8c3RkaW8uaD4KI2luY2x1ZGUgPHN0ZGxpYi5oPgojaW5jbHVkZSA8c3RyaW5n
-Lmg+CiNpbmNsdWRlIDxzeXMvbW1hbi5oPgojaW5jbHVkZSA8dW5pc3RkLmg+CgojZGVmaW5lIFNJ
-WkUgKDY0VUwgPDwgMjApCgpzdGF0aWMgc2l6ZV90IHN3YXBfa2liKHZvaWQgKm1hcHBpbmcpCnsK
-CUZJTEUgKmYgPSBmb3BlbigiL3Byb2Mvc2VsZi9zbWFwcyIsICJyIik7CgljaGFyIGxpbmVbMjU2
-XSwgcGVybXNbNV07Cgl1bnNpZ25lZCBsb25nIHN0YXJ0LCBlbmQsIHZhbHVlID0gMDsKCWludCBv
-dXJzID0gMDsKCglhc3NlcnQoZik7Cgl3aGlsZSAoZmdldHMobGluZSwgc2l6ZW9mKGxpbmUpLCBm
-KSkgewoJCWlmIChzc2NhbmYobGluZSwgIiVseC0lbHggJTRzIiwgJnN0YXJ0LCAmZW5kLCBwZXJt
-cykgPT0gMykKCQkJb3VycyA9IHN0YXJ0ID09ICh1bnNpZ25lZCBsb25nKW1hcHBpbmc7CgkJZWxz
-ZSBpZiAob3VycyAmJiBzc2NhbmYobGluZSwgIlN3YXA6ICVsdSBrQiIsICZ2YWx1ZSkgPT0gMSkK
-CQkJYnJlYWs7Cgl9CglmY2xvc2UoZik7CglyZXR1cm4gdmFsdWU7Cn0KCnN0YXRpYyB1bnNpZ25l
-ZCBsb25nIHBzd3Bpbih2b2lkKQp7CglGSUxFICpmID0gZm9wZW4oIi9wcm9jL3Ztc3RhdCIsICJy
-Iik7CgljaGFyIG5hbWVbMzJdOwoJdW5zaWduZWQgbG9uZyB2YWx1ZSA9IDA7CgoJYXNzZXJ0KGYp
-OwoJd2hpbGUgKGZzY2FuZihmLCAiJTMxcyAlbHUiLCBuYW1lLCAmdmFsdWUpID09IDIpCgkJaWYg
-KCFzdHJjbXAobmFtZSwgInBzd3BpbiIpKQoJCQlicmVhazsKCWZjbG9zZShmKTsKCXJldHVybiB2
-YWx1ZTsKfQoKaW50IG1haW4odm9pZCkKewoJY2hhciBwYXRoW10gPSAiL3RtcC9tYWR2aXNlLWNv
-dy1YWFhYWFgiOwoJaW50IGZkID0gbWtzdGVtcChwYXRoKTsKCWNoYXIgKnA7Cgl1bnNpZ25lZCBs
-b25nIGJlZm9yZTsKCXZvbGF0aWxlIHVuc2lnbmVkIGxvbmcgc3VtID0gMDsKCglhc3NlcnQoZmQg
-Pj0gMCAmJiAhZnRydW5jYXRlKGZkLCBTSVpFKSk7CglwID0gbW1hcChOVUxMLCBTSVpFLCBQUk9U
-X1JFQUQgfCBQUk9UX1dSSVRFLCBNQVBfUFJJVkFURSwgZmQsIDApOwoJYXNzZXJ0KHAgIT0gTUFQ
-X0ZBSUxFRCk7Cgl1bmxpbmsocGF0aCk7CgoJZm9yIChzaXplX3QgaSA9IDA7IGkgPCBTSVpFOyBp
-ICs9IGdldHBhZ2VzaXplKCkpCgkJcFtpXSA9IGkgLyBnZXRwYWdlc2l6ZSgpICsgMTsgLyogY3Jl
-YXRlIHByaXZhdGUgQ09XIHBhZ2VzICovCglhc3NlcnQoIW1hZHZpc2UocCwgU0laRSwgTUFEVl9Q
-QUdFT1VUKSk7Cgl1c2xlZXAoNTAwMDAwKTsKCXByaW50ZigiYWZ0ZXIgUEFHRU9VVDogIFN3YXA9
-JXp1IGtCXG4iLCBzd2FwX2tpYihwKSk7CgoJYmVmb3JlID0gcHN3cGluKCk7Cglhc3NlcnQoIW1h
-ZHZpc2UocCwgU0laRSwgTUFEVl9XSUxMTkVFRCkpOwoJc2xlZXAoMik7IC8qIFdJTExORUVEIGlz
-IGFzeW5jaHJvbm91cyAqLwoJcHJpbnRmKCJhZnRlciBXSUxMTkVFRDogU3dhcD0lenUga0IsIHBz
-d3Bpbj0rJWx1XG4iLAoJICAgICAgIHN3YXBfa2liKHApLCBwc3dwaW4oKSAtIGJlZm9yZSk7CgoJ
-YmVmb3JlID0gcHN3cGluKCk7Cglmb3IgKHNpemVfdCBpID0gMDsgaSA8IFNJWkU7IGkgKz0gZ2V0
-cGFnZXNpemUoKSkKCQlzdW0gKz0gcFtpXTsKCXByaW50ZigiYWZ0ZXIgdG91Y2g6ICAgIHBzd3Bp
-bj0rJWx1IChzdW09JWx1KVxuIiwKCSAgICAgICBwc3dwaW4oKSAtIGJlZm9yZSwgc3VtKTsKfQo=
---00000000000086d436065a5beb9a--
+
+PS - I have not tested a 64K stack yet, only 32K, and this is a heads-up 
+recommendation.
+
+
+Tony
+
+On 8/31/26 10:29 AM, Stian Halseth wrote:
+> From: Tony Rodriguez <unixpro1970@gmail.com>
+>
+> Kernel stacks on sparc64 are 16K and this is no longer enough:
+> several machines (SPARC T5-2 among them) panic early in boot during
+> USB hub enumeration with "corrupted stack end detected inside
+> scheduler". sparc has not been converted to THREAD_INFO_IN_TASK, so
+> thread_info sits at the bottom of the kernel stack and a marginal
+> overflow corrupts it first; CONFIG_SCHED_STACK_END_CHECK then fires
+> from __schedule long after the deep path has unwound, which is why
+> the reported backtraces look shallow.
+>
+> Measurements with CONFIG_STACK_TRACER on an UltraSPARC T4-1 show the
+> problem is frame count, not any single large frame. The high-water
+> mark of an ordinary successful boot is 12616 of 16384 bytes (77%),
+> reached in hub_probe() with a printk console flush and then a timer
+> interrupt (which runs on the task stack, and whose scheduler tick
+> performs load balancing and IPI delivery) stacked on top. Of the 66
+> frames in that path the largest is 408 bytes, and ~85% of them are
+> 176-224 bytes - at or just above the SPARC V9 ABI minimum frame
+> (128-byte register window save area plus 48-byte argument save
+> area). An equivalent call chain on x86-64 costs roughly a third of
+> the stack, so a 16K stack on sparc64 provides far less effective
+> call depth than on other 64-bit architectures.
+>
+> Double THREAD_SIZE to 32K (four 8K pages). The PAGE_SHIFT
+> conditionals are dropped: sparc64 only supports 8K base pages, so
+> the other branches were dead code. Kernel stacks become order-2
+> allocations; sparc64 has no VMAP_STACK, but stacks are allocated
+> once per thread and the trade against boot-time panics is a good
+> one.
+>
+> Link: https://lore.kernel.org/all/20260519075809.8993-1-unixpro1970@gmail.com/
+> Signed-off-by: Tony Rodriguez <unixpro1970@gmail.com>
+> [stian: reduced the diff to the THREAD_* defines, measured stack
+>   usage with CONFIG_STACK_TRACER and rewrote the changelog]
+> Signed-off-by: Stian Halseth <stian@itx.no>
+> ---
+> v2:
+>   - drop the CONFIG_SPARC64 / PAGE_SHIFT conditional chain from v1;
+>     thread_info_64.h is only built on sparc64 and only 8K pages are
+>     supported, so define the three constants unconditionally
+>   - replace the panic backtrace in the changelog with stack tracer
+>     measurements answering David Laight's review comments:
+>     https://lore.kernel.org/all/20260520144104.618c75ca@pumpkin/
+>   - retitled from "unify thread stack sizing and add explicit 32KB
+>     stack"; the sizing logic for other configurations is unchanged
+>
+> Tested on an UltraSPARC T4-1, booted with the stack tracer armed
+> ("stacktrace") before and after this patch. The boot high-water mark
+> is 12616 bytes on both kernels - the worst path (hub_probe with a
+> printk and a timer interrupt on top) is deterministic - i.e. 77% of
+> the 16K stack before, 38% of the 32K stack after. DEBUG_STACK_USAGE
+> agrees: the peak boot-time task shows 9208 bytes left of 16K before
+> vs 25592 bytes left of 32K after (7176 bytes used in both).
+>
+>   arch/sparc/include/asm/thread_info_64.h | 15 +++------------
+>   1 file changed, 3 insertions(+), 12 deletions(-)
+>
+> diff --git a/arch/sparc/include/asm/thread_info_64.h b/arch/sparc/include/asm/thread_info_64.h
+> --- a/arch/sparc/include/asm/thread_info_64.h
+> +++ b/arch/sparc/include/asm/thread_info_64.h
+> @@ -99,13 +99,8 @@
+>   #define FAULT_CODE_BLKCOMMIT	0x10	/* Use blk-commit ASI in copy_page */
+>   #define	FAULT_CODE_BAD_RA	0x20	/* Bad RA for sun4v		   */
+>   
+> -#if PAGE_SHIFT == 13
+> -#define THREAD_SIZE (2*PAGE_SIZE)
+> -#define THREAD_SHIFT (PAGE_SHIFT + 1)
+> -#else /* PAGE_SHIFT == 13 */
+> -#define THREAD_SIZE PAGE_SIZE
+> -#define THREAD_SHIFT PAGE_SHIFT
+> -#endif /* PAGE_SHIFT == 13 */
+> +#define THREAD_SIZE (4 * PAGE_SIZE)
+> +#define THREAD_SHIFT (PAGE_SHIFT + 2)
+>   
+>   /*
+>    * macros/functions for gaining access to the thread information structure
+> @@ -128,11 +123,7 @@
+>   #endif
+>   
+>   /* thread information allocation */
+> -#if PAGE_SHIFT == 13
+> -#define THREAD_SIZE_ORDER	1
+> -#else /* PAGE_SHIFT == 13 */
+> -#define THREAD_SIZE_ORDER	0
+> -#endif /* PAGE_SHIFT == 13 */
+> +#define THREAD_SIZE_ORDER	2
+>   
+>   #define __thread_flag_byte_ptr(ti)	\
+>   	((unsigned char *)(&((ti)->flags)))
+> --
+> 2.53.0
