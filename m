@@ -1,47 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AEB241D4D0;
-	Mon, 31 Aug 2026 13:34:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEA8D44C508;
+	Mon, 31 Aug 2026 13:34:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183256; cv=none; b=b4zfjrBXnTSjFxsuouzdTapek7SNu3g94L/QjTx0Ozq+rhRzipEYBNRpS3A8yDYdx8POwqCMCEMYJ6r5isRr75y1JcgzATpTUSZxgOj8Ut0CNpZVrJAvmNp5b4I0uzCR25EShMrM/8g7JJgyT3RUYLVpgLey7lj3Mf5I3LLehzI=
+	t=1788183259; cv=none; b=qhlz5Q61dnhpuw8VviNq6hc+zJcAc+BdCYo0BSTR2rlTfAg1XVvGjfhNQM0/Ks7+qevkFf3P5Y6gHLJgeK5qR9Gd4fUVD94pkM92Q3LXUw4bF+eecsfyXIksHdLVSjsE9l6RYui9m92TIfW1kp6w8YlyCpeTEEOKav4Tu4zcO0o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183256; c=relaxed/simple;
-	bh=8PUSKcI0rCh181oAz0uBvOIUW1gHW67lG31yI5EYr2E=;
+	s=arc-20240116; t=1788183259; c=relaxed/simple;
+	bh=flkCPkaR3RUwFV7iED67qPPJ6/uIor7wSBXtKPZRykk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=DcuOw30vK6oBD20Hu8JbxkU/p2CuWbQybqWG9p+jNj7Ef1++yBPm9CWjfMtMtYT6DJF7Z6eVFKMmu9htFRmEjBrCxk13NtxU1+LmmdpMhgEorZ1/5OZ4MhiDXct+2NAXx5NZTrvqftSM+yf3+XUZh0TDKhMzKrq4myPjaKd1UrE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ooD4djly; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=EqUXvbmRtoB0Uz9kU/+jS3F0kp2JRRWzZfPvdWuG9v3khky7aZn6IdhGo5jY41QbnYj5AV06fPX+BrHjwdAV4iIV1QWbSqe2q0V68sfZQ9eCui0b1tUCIYiYwQktat/uszbTUw7hY0DuQln8OYHetwl3oRsiiJLarFS6BkEGa+c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=URSWDM6T; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ooD4djly"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0EFD1F00ACA;
-	Mon, 31 Aug 2026 13:34:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="URSWDM6T"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7FF01F000E9;
+	Mon, 31 Aug 2026 13:34:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788183254;
-	bh=/Q79X5Xn+tg1UZxAIgYhgAna65OpGpoajZyd4LCaADw=;
+	s=k20260515; t=1788183256;
+	bh=HD1E/sgoZex4ry4jV5krfYZp6gRMh0Yc7m3s82PBiAI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ooD4djlyqAt3nWkmqMgPM8/He6nbwvRxTQU0Kg1273mJ2IFfO26pa4h74ESML1v+I
-	 OtpBVb1leIQHgGlcbFJMpQdzyT0MmfLvpnXN05Zk8X9vCfb41eDmp4rI4XieyHvh3C
-	 F29fVMEPNqJGL4FRBXFYrsCGDLtz7KUxS72wnVN5HTHwqlL8V1roSDDpvHXcybYlvi
-	 F5HJexi8RDTBBbENo/DmRrcIYmxeHnQuQlFUxOgfADtzcwW+Khf0nB0DtTKksypwzl
-	 6vIojdr2zIlcJ+xJCHLum/+ED34l+SBznclQSWcjV7O/edPCSE/DjZ246T+6oi+CoE
-	 aRU+vkDFVSzig==
+	b=URSWDM6TF52GjvmulHw6FiVPR2ZoIxUp0ZAkNAtgL5dRj0iNN2aoK22HqtqZtxR4n
+	 wBLi12Li3AR72eQFlXphR5f3kGOMhmnLMZjSwNgstemrWeLncx+CVhNnolSuhBIMS9
+	 CLwrid15FAeEMjjUjbhvTrtnaiHYa+QvgXDIPZvErFgIF8ZrNB/XO+SWEj8oMNURzj
+	 XAfaKHaVZRoF85QcdSI0gmL4JbnvMXfEwkIdavpMerBAf3EGtfxqD439JwkFQ/fZ9u
+	 lwJwHoNsxop1THKEh5LRETmtdYOcXvLhq+v6YvR7BcyX9deoxnNJ+eR9dSAdFNTEqc
+	 zv19nAmnWsuKA==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Candice Li <candice.li@amd.com>,
-	Tao Zhou <tao.zhou1@amd.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
+Cc: Johannes Berg <johannes.berg@intel.com>,
+	Miriam Rachel Korenblit <miriam.rachel.korenblit@intel.com>,
 	Sasha Levin <sashal@kernel.org>,
-	christian.koenig@amd.com,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
+	johannes@sipsolutions.net,
+	linux-wireless@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-6.12] drm/amdgpu: validate and share PSP fw_pri_buf copies via psp_copy_fw
-Date: Mon, 31 Aug 2026 09:21:06 -0400
-Message-ID: <20260831133314.4125787-38-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18] wifi: nl80211: check link is beaconing for color change
+Date: Mon, 31 Aug 2026 09:21:08 -0400
+Message-ID: <20260831133314.4125787-40-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -57,66 +53,63 @@ X-stable-base: Linux 6.18.48
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Candice Li <candice.li@amd.com>
+From: Johannes Berg <johannes.berg@intel.com>
 
-[ Upstream commit d1f9f5839bd785a3a06335a01d53282e80f8e5fa ]
+[ Upstream commit 55308cee9c2196f39cd1ce8ee6c1fed9e12a00d4 ]
 
-Change psp_copy_fw from void to int: return -ENODEV when drm_dev_enter
-fails, and -EINVAL when the image size is zero or larger than the
-1 MiB PSP private buffer.
+When trying to do a color change, validate that the link is
+beaconing first, to avoid calling the driver with an invalid
+link.
 
-Replace open-coded memset/memcpy into fw_pri_buf with psp_copy_fw.
-
-Signed-off-by: Candice Li <candice.li@amd.com>
-Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Reviewed-by: Miriam Rachel Korenblit <miriam.rachel.korenblit@intel.com>
+Link: https://patch.msgid.link/20260415145348.beb59ea5fbf7.I128a956a3e610bb6a5c9cad941d7d5b59b735a5e@changeid
+Signed-off-by: Johannes Berg <johannes.berg@intel.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-# Stable Backport Analysis: `drm/amdgpu: validate and share PSP
-fw_pri_buf copies via psp_copy_fw`
+# Stable Backport Analysis: `wifi: nl80211: check link is beaconing for
+color change`
 
-**Local tree:** `v6.18.44` (`stable/linux-6.18.y`)
-**Upstream commit:** `d1f9f5839bd78` (not yet in this tree)
+**Local tree:** Linux **6.18.43** (`git describe HEAD` → `v6.18.43`)
 
 ---
 
 ## PHASE 1: COMMIT MESSAGE FORENSICS
 
-### Step 1.1: Subject Line
-**Record:** `[drm/amdgpu]` `[validate]` — Add size validation and error
-propagation to `psp_copy_fw`, consolidating open-coded `fw_pri_buf`
-copies.
+### Step 1.1: Subject line
+**Record:** `[wifi: nl80211]` `[check]` — validate that the target MLO
+link is actively beaconing before initiating a BSS color change.
 
 ### Step 1.2: Tags
 **Record:**
-- `Signed-off-by: Candice Li <candice.li@amd.com>` (author)
-- `Reviewed-by: Tao Zhou <tao.zhou1@amd.com>`
-- `Signed-off-by: Alex Deucher <alexander.deucher@amd.com>` (subsystem
-  maintainer)
-- No `Fixes:`, `Reported-by:`, `Link:`, `Cc: stable@vger.kernel.org`,
-  `Tested-by:`
+| Tag | Value |
+|-----|-------|
+| Reviewed-by | Miriam Rachel Korenblit
+\<miriam.rachel.korenblit@intel.com\> |
+| Link | https://patch.msgid.link/20260415145348.beb59ea5fbf7.I128a956a3
+e610bb6a5c9cad941d7d5b59b735a5e@changeid |
+| Signed-off-by | Johannes Berg \<johannes.berg@intel.com\> |
 
-Notable: AMD maintainer review and merge; no fuzzer or user bug report.
+No Fixes:, Reported-by:, Tested-by:, Cc: stable, or syzbot tags.
 
-### Step 1.3: Body Analysis
+**Notable patterns:** Reviewed by Intel wireless developer; author is
+wireless subsystem maintainer. No user/fuzzer reports.
+
+### Step 1.3: Body analysis
 **Record:**
-- **Bug:** `psp_copy_fw()` silently returns on `drm_dev_enter()`
-  failure; `memcpy()` into `fw_pri_buf` has no bounds check against the
-  1 MiB (`PSP_1_MEG`) buffer.
-- **Symptom:** Callers proceed as if the copy succeeded — PSP commands
-  may run with stale/empty buffer data, or a heap buffer overflow occurs
-  if `bin_size > PSP_1_MEG`.
-- **Root cause:** `psp_copy_fw` was `void` with no size validation;
-  several PSP version files duplicated `memset`/`memcpy` without checks.
-- **Fix:** Return `-ENODEV` / `-EINVAL`; propagate errors to all
-  callers; route all copies through `psp_copy_fw`.
+- **Bug:** Color change can be requested on an MLO link that has been
+  added but is not actively beaconing (AP not started on that link).
+- **Symptom:** `rdev_color_change()` / mac80211 driver path is invoked
+  with an invalid/inactive link.
+- **Root cause:** `nl80211_color_change()` lacked the `beacon_interval`
+  guard that sibling AP operations already use.
+- **Version info:** None in message.
 
-### Step 1.4: Hidden Bug Fix?
-**Record:** Yes. Despite "validate and share" wording, this is a real
-memory-safety and error-handling bug fix, not cosmetic cleanup.
+### Step 1.4: Hidden bug fix?
+**Record:** No — this is an explicit validation bug fix, not disguised
+cleanup.
 
 ---
 
@@ -124,551 +117,358 @@ memory-safety and error-handling bug fix, not cosmetic cleanup.
 
 ### Step 2.1: Inventory
 **Record:**
-- 8 files: `amdgpu_psp.c` (+32/-7 net), `amdgpu_psp.h` (+1/-1),
-  `psp_v3_1.c`, `psp_v11_0.c`, `psp_v12_0.c`, `psp_v13_0.c`,
-  `psp_v13_0_4.c`, `psp_v14_0.c`
-- Total: +62 / -38 lines
-- Functions: `psp_copy_fw`, `psp_load_toc`, `psp_rl_load`,
-  `psp_ta_load`, plus bootloader load helpers in PSP version files
-- **Scope:** Multi-file but mechanical; single-subsystem surgical fix
+- **File:** `net/wireless/nl80211.c` (+3 net lines in core logic, −1
+  duplicate line)
+- **Function:** `nl80211_color_change()`
+- **Scope:** Single-file, surgical fix
 
-### Step 2.2: Code Flow Changes
+### Step 2.2: Code flow change
 **Record:**
+
 | Hunk | Before | After |
 |------|--------|-------|
-| `psp_copy_fw` | `void`; silent return on `drm_dev_enter` fail;
-unchecked `memcpy` | `int`; returns `-ENODEV`/`-EINVAL`; validates `0 <
-bin_size <= PSP_1_MEG` |
-| `psp_load_toc`, `psp_rl_load`, `psp_ta_load` | Ignored `psp_copy_fw`
-result | Check return; release cmd buf and abort on error |
-| `psp_v11_0`–`psp_v14_0` bootloader paths | Open-coded
-`memset`/`memcpy` or ignored `psp_copy_fw` return | Use `psp_copy_fw`
-with error propagation |
+| Early in function | `params.link_id` unset during beacon parsing; no
+beaconing check | `params.link_id = nl80211_link_id(...)` resolved
+early; returns `-EINVAL` if
+`!wdev->links[params.link_id].ap.beacon_interval` |
+| Before `rdev_color_change()` | `params.link_id` assigned here |
+Duplicate assignment removed |
 
-### Step 2.3: Bug Mechanism
+**Note for this tree (6.18.43):** `nl80211_parse_beacon()` here takes no
+channel argument; the channel-parameter changes in the upstream diff are
+from a separate patch (`[PATCH 18/20] wifi: nl80211: always validate AP
+operation/PHY regulatory`). The beacon_interval check backports
+independently.
+
+### Step 2.3: Bug mechanism
+**Record:** **Logic / correctness fix** — missing input validation on a
+netlink command path.
+
+- `NL80211_CMD_COLOR_CHANGE_REQUEST` has
+  `NL80211_FLAG_MLO_VALID_LINK_ID` (link exists) but does not verify the
+  link is actively beaconing.
+- `wdev->links[link_id].ap.beacon_interval` is set only in
+  `nl80211_start_ap()` (line 6883); zero means AP not running on that
+  link.
+- Without the check, mac80211's `ieee80211_color_change()` can run on an
+  inactive link (link struct may exist, but no beacon), setting
+  `color_change_active` and modifying beacon state incorrectly.
+
+### Step 2.4: Fix quality
 **Record:**
-- **Category:** Memory safety (buffer overflow) + logic bug (ignored
-  error path)
-- **Mechanism:** `fw_pri_buf` is allocated at exactly `PSP_1_MEG`
-  (verified at `amdgpu_psp.c:508`). `is_psp_fw_valid()` only checks
-  `size_bytes != 0` (`amdgpu_psp.c:4179-4181`). `memcpy(psp->fw_pri_buf,
-  start_addr, bin_size)` with `bin_size > PSP_1_MEG` overflows the 1 MiB
-  kernel buffer. On `drm_dev_enter` failure, callers previously
-  submitted PSP commands believing the copy succeeded.
+- **Quality:** High — mirrors existing checks in the same file.
+- **Regression risk:** Very low — only rejects previously-accepted
+  invalid requests.
+- **Red flags:** None. No API changes, no new features.
 
-### Step 2.4: Fix Quality
-**Record:** Obviously correct. Mirrors existing TA validation
-(`ta_bin_len > PSP_1_MEG` in `amdgpu_psp_ta.c:169`). Minimal regression
-risk; error paths properly release acquired resources.
+**Parallel checks already in this tree:**
+
+```6925:6926:net/wireless/nl80211.c
+        if (!wdev->links[link_id].ap.beacon_interval)
+                return -EINVAL;
+```
+(`nl80211_change_beacon`)
+
+```11365:11367:net/wireless/nl80211.c
+                /* useless if AP is not running */
+                if (!wdev->links[link_id].ap.beacon_interval)
+                        return -ENOTCONN;
+```
+(`nl80211_channel_switch`)
 
 ---
 
 ## PHASE 3: GIT HISTORY INVESTIGATION
 
 ### Step 3.1: Blame
-**Record:** `psp_copy_fw` introduced in `f89f8c6bafd06` (May 2021,
-"Guard against write accesses after device removal"). `drm_dev_enter`
-guard added then; silent `return` on failure is the latent bug. Code
-present in 6.18.44.
+**Record:** `nl80211_color_change()` blame points to `19eef1d98eeda`
+(shallow/unified history artifact). The function is present at lines
+17385–17496 in this tree. `change_beacon`'s `beacon_interval` check
+shares the same blame entry — both introduced together; color change
+simply missed the same guard.
 
-### Step 3.2: Fixes Tag
-**Record:** N/A — no `Fixes:` tag.
+### Step 3.2: Fixes: tag
+**Record:** N/A — no Fixes: tag.
 
-### Step 3.3: Related File History
-**Record:** Related prior fix `c99769bceab4e` ("Validate TA binary
-size", 2023) is already in 6.18.44 — validates userspace TA loads
-against `PSP_1_MEG`. This commit extends the same constraint to kernel
-firmware copy paths. Standalone; not part of a multi-patch series.
+### Step 3.3: Related file history
+**Record:** Recent `nl80211.c` changes in this tree are unrelated
+validation fixes (MBSSID, PMSR, etc.). The beacon_interval validation
+gap for color change is a standalone oversight, not part of an
+incomplete series for *this* specific fix.
 
-### Step 3.4: Author Context
-**Record:** Candice Li is an active AMD amdgpu contributor. Alex Deucher
-(maintainer) committed the merge.
+### Step 3.4: Author context
+**Record:** Johannes Berg is the wireless/cfg80211 maintainer. Related
+Apr 2026 series (`20260415_johannes_wifi_mac80211_clean_up_and_fix_per_s
+ta_bw_handling.mbx`) includes patch 18/20 noting CSA and color change
+"missed" regulatory validation — a separate but related hardening
+effort.
 
 ### Step 3.5: Dependencies
-**Record:** No prerequisites. All touched files and `psp_copy_fw` exist
-in 6.18.44. Cherry-pick test: applies cleanly (exit 0).
+**Record:** **Standalone for the beacon_interval check.** The channel-
+argument changes to `nl80211_parse_beacon()` in the upstream diff are
+from a different commit and are NOT required for this validation fix in
+6.18.43.
 
 ---
 
 ## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
-### Step 4.1: Patch Discussion
-**Record:** `b4 dig -c d1f9f5839bd78` — no lore match found. Patch
-likely merged via GitLab/Freedesktop rather than public lore thread.
+### Step 4.1: Original discussion
+**Record:** `b4 dig -c <commit>` could not be run (no commit hash in
+tree). WebFetch of patch.msgid.link and lore.kernel.org blocked by
+Anubis bot protection. **UNVERIFIED:** full mailing list thread content.
 
 ### Step 4.2: Reviewers
-**Record:** `b4 dig -w` not run (no lore match). Commit message confirms
-`Reviewed-by: Tao Zhou` and `Signed-off-by: Alex Deucher`.
+**Record:** Reviewed-by Miriam Rachel Korenblit (Intel wireless). Author
+is subsystem maintainer.
 
-### Step 4.3: Bug Report
-**Record:** N/A — no `Reported-by:` or `Link:` tags. No syzbot report.
+### Step 4.3: Bug report
+**Record:** No external bug report, syzbot, or user Reported-by. Bug
+identified by maintainer during related nl80211 hardening.
 
-### Step 4.4: Related Patches
-**Record:** `c99769bceab4e` (TA size validation) is the directly related
-prior fix, already in this tree.
+### Step 4.4: Related patches
+**Record:** Part of broader Apr 2026 nl80211 validation work; this
+specific commit is self-contained.
 
-### Step 4.5: Stable List History
-**Record:** lore.kernel.org search blocked (Anubis bot protection). No
-stable-list discussion found.
+### Step 4.5: Stable list
+**Record:** **UNVERIFIED** — could not search lore stable list due to
+bot protection.
 
 ---
 
 ## PHASE 5: CODE SEMANTIC ANALYSIS
 
-### Step 5.1: Key Functions
-**Record:** `psp_copy_fw`, `psp_load_toc`, `psp_rl_load`, `psp_ta_load`,
-`psp_v*_bootloader_load_*`
+### Step 5.1: Key functions
+**Record:** `nl80211_color_change()`, `nl80211_link_id()`,
+`rdev_color_change()` → `ieee80211_color_change()` →
+`ieee80211_set_color_change_beacon()`
 
 ### Step 5.2: Callers
-**Record:** `psp_copy_fw` called from PSP init/bootloader paths
-(`psp_v3_1`, `psp_v11_0`, `psp_v12_0`, `psp_v13_0`, `psp_v13_0_4`,
-`psp_v14_0`) and from `psp_load_toc`, `psp_ta_load` during GPU
-probe/initialization. All AMD GPU users with PSP enabled hit these paths
-at driver load.
+**Record:** `nl80211_color_change` is registered as `.doit` for
+`NL80211_CMD_COLOR_CHANGE_REQUEST` (line 18971). Invoked from generic
+netlink with `GENL_UNS_ADMIN_PERM` — root-only, not unprivileged
+userspace.
 
 ### Step 5.3: Callees
-**Record:** `drm_dev_enter/exit`, `memset`, `memcpy`, `dev_err` —
-operates on `psp->fw_pri_buf` (1 MiB BO-mapped buffer).
+**Record:** Parses beacon data, then calls `rdev_color_change()` which
+invokes mac80211's `ieee80211_color_change()`. mac80211 checks link
+existence and CSA/color-change-active state but does **not** check
+whether AP is beaconing.
 
 ### Step 5.4: Reachability
-**Record:** Triggered during GPU probe/init (every boot with amdgpu).
-Not a direct syscall path, but universal for amdgpu hardware. Overflow
-requires `size_bytes > PSP_1_MEG` from firmware header parsing;
-`drm_dev_enter` failure occurs during device teardown concurrent with
-PSP operations.
+**Record:** Reachable by root via nl80211 genetlink. Relevant in **MLO
+AP** setups where multiple links exist but only some have `start_ap`
+called. `NL80211_FLAG_MLO_VALID_LINK_ID` validates link ID existence,
+not beaconing state.
 
-### Step 5.5: Similar Patterns
-**Record:** Userspace TA path already validates `ta_bin_len > PSP_1_MEG`
-(`amdgpu_psp_ta.c:169`). Kernel paths in `psp_v13_0.c`, `psp_v14_0.c`,
-`psp_v13_0_4.c`, and `psp_rl_load` still use unchecked `memcpy` —
-exactly what this fix addresses.
-
----
-
-## PHASE 6: CROSS-REFERENCE WITH LOCAL TREE
-
-### Step 6.1: Buggy Code Present?
-**Record:** Yes. In 6.18.44, `psp_copy_fw` is still `void` with
-unchecked `memcpy` (`amdgpu_psp.c:4157-4168`). Open-coded unchecked
-copies exist in `psp_v13_0.c:268-271`, `psp_v14_0.c:143-146`,
-`psp_v13_0_4.c`, and `psp_rl_load` (`amdgpu_psp.c:1162-1163`). Bug
-present since 2021.
-
-### Step 6.2: Backport Complications
-**Record:** Clean apply confirmed via test cherry-pick. No conflicts
-expected.
-
-### Step 6.3: Related Fixes Already Present?
-**Record:** TA userspace validation (`c99769bceab4e`) is in tree. The
-kernel-path validation this commit adds is not.
+### Step 5.5: Similar patterns
+**Record:** Identical `beacon_interval` guard in
+`nl80211_change_beacon`, `nl80211_channel_switch`,
+`nl80211_get_ftm_responder_stats` (line 17100), and
+`nl80211_set_mac_acl` (line 5300). Color change is the outlier.
 
 ---
 
-## PHASE 7: SUBSYSTEM CONTEXT
+## PHASE 6: CROSS-REFERENCING AGAINST LOCAL TREE
 
-### Step 7.1: Subsystem
-**Record:** `drivers/gpu/drm/amd/amdgpu` — GPU driver (IMPORTANT).
-Affects all AMD GPU users with PSP firmware loading.
+### Step 6.1: Buggy code present?
+**Record:** **YES.** `nl80211_color_change()` at lines 17385–17496 lacks
+the `beacon_interval` check. `params.link_id` is only set at line 17486,
+immediately before `rdev_color_change()`.
 
-### Step 7.2: Activity
-**Record:** Actively maintained; PSP v13/v14 support added in recent
-6.18 development.
+### Step 6.2: Backport complications
+**Record:** **Clean apply** for the core fix in 6.18.43:
+```c
+params.link_id = nl80211_link_id(info->attrs);
+if (!wdev->links[params.link_id].ap.beacon_interval)
+    return -EINVAL;
+```
+Place after attribute/count validation, before `nl80211_parse_beacon()`.
+Remove duplicate `params.link_id` assignment at line 17486. No channel-
+parameter changes needed in this tree.
+
+### Step 6.3: Related fixes already present?
+**Record:** **NO** — grep found no `beacon_interval` check in
+`nl80211_color_change()`. Sibling operations already have the guard.
 
 ---
 
-## PHASE 8: IMPACT AND RISK
+## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
 
-### Step 8.1: Who Is Affected
-**Record:** All amdgpu users during GPU initialization (driver-specific,
-but broad within AMD GPU deployments).
+### Step 7.1: Subsystem criticality
+**Record:** **wifi / cfg80211 / nl80211** — IMPORTANT. Affects AP mode
+with BSS color and MLO; not universal but used in production WiFi stacks
+(hostapd, wpa_supplicant).
 
-### Step 8.2: Trigger Conditions
+### Step 7.2: Subsystem activity
+**Record:** Actively developed; MLO multi-link support is relatively
+recent, making this class of per-link validation gaps realistic.
+
+---
+
+## PHASE 8: IMPACT AND RISK ASSESSMENT
+
+### Step 8.1: Who is affected
+**Record:** Users of **MLO AP mode** with BSS color change
+(`NL80211_EXT_FEATURE_BSS_COLOR`). Config-specific, not all kernel
+users.
+
+### Step 8.2: Trigger conditions
+**Record:** Root/userspace sends `NL80211_CMD_COLOR_CHANGE_REQUEST`
+targeting an MLO link ID that exists but has no active AP
+(`beacon_interval == 0`). Plausible in multi-link setups where links are
+added but not all are started. **Not triggerable by unprivileged
+users.**
+
+### Step 8.3: Failure mode severity
+**Record:** Without fix: invalid color-change operation reaches
+mac80211/driver — can set `color_change_active` on inactive link, modify
+beacon state incorrectly, return confusing errors downstream.
+**Severity: MEDIUM** — correctness/state-machine bug, not demonstrated
+kernel oops/panic, but can cause operational failures in WiFi management
+software.
+
+### Step 8.4: Risk-benefit
 **Record:**
-- **Overflow:** Corrupt/malformed firmware header with `size_bytes >
-  0x100000`, or internal bug setting oversized `size_bytes`.
-  Unprivileged users cannot directly trigger kernel firmware path;
-  requires bad firmware on disk.
-- **drm_dev_enter failure:** Device removal/teardown racing with PSP
-  firmware load (uncommon but realistic).
-
-### Step 8.3: Failure Mode Severity
-**Record:**
-- Buffer overflow → heap corruption, kernel oops/panic — **CRITICAL**
-- Silent copy failure → PSP commands with stale data, init failure or
-  hardware hang — **HIGH**
-
-### Step 8.4: Risk-Benefit
-**Record:**
-- **Benefit:** HIGH — closes a real overflow window; consistent with
-  existing TA validation; proper error propagation
-- **Risk:** LOW — small, mechanical, reviewed by AMD maintainer, applies
-  cleanly
-- **Ratio:** Strongly favors backport
+- **Benefit:** MEDIUM — closes validation gap consistent with sibling
+  ops; prevents invalid driver invocations in MLO AP.
+- **Risk:** VERY LOW — 3-line guard, fail-fast with `-EINVAL`.
+- **Ratio:** Favorable for stable.
 
 ---
 
 ## PHASE 9: FINAL SYNTHESIS
 
-### Step 9.1: Evidence Summary
+### Step 9.1: Evidence compile
 
-**FOR:**
-- Fixes potential heap buffer overflow (memory safety)
-- Fixes silent error on `drm_dev_enter` failure
-- Extends validation already applied to userspace TA path
-  (`c99769bceab4e`, in tree)
-- Small (+62/-38), obviously correct, AMD-reviewed
-- Applies cleanly to 6.18.44
-- All affected code exists in this tree
+**FOR backport:**
+- Real bug: color change allowed on non-beaconing MLO link
+- Identical validation pattern exists for `change_beacon`,
+  `channel_switch`, FTM stats
+- Small, surgical, maintainer-authored and reviewed
+- Buggy code confirmed present in 6.18.43
+- Clean backport without dependent commits
+- Prevents incorrect mac80211 state (`color_change_active` on inactive
+  link)
 
-**AGAINST:**
-- No user report, syzbot, or CVE
-- Normal AMD firmware sizes are well under 1 MiB; overflow requires
-  corrupt firmware or parsing bug
-- Primarily defense-in-depth on init path
+**AGAINST backport:**
+- No user reports, syzbot, or crash traces
+- Root-only API; requires misbehaving or buggy userspace
+- Severity is operational correctness, not demonstrated crash/security
+- Mailing list discussion unverified
 
 **UNRESOLVED:**
-- No public lore discussion found
-- No production crash report documented
+- Full lore thread and any stable nomination comments
 
-### Step 9.2: Stable Rules Checklist
-1. Obviously correct and tested? **PASS** — simple bounds check; AMD
-   internal review
-2. Fixes a real bug? **PASS** — unchecked `memcpy` into fixed 1 MiB
-   buffer
-3. Important issue? **PASS** — buffer overflow (CRITICAL class)
-4. Small and contained? **PASS** — 8 files, ~100 lines, single subsystem
-5. No new features/APIs? **PASS** — validation and error propagation
-   only
-6. Can apply to local tree? **PASS** — clean cherry-pick confirmed
+### Step 9.2: Stable rules checklist
 
-### Step 9.3: Exception Category
-**Record:** None of the automatic exception categories apply; this is a
-standard memory-safety bug fix.
+| Criterion | Result |
+|-----------|--------|
+| 1. Obviously correct and tested? | **PASS** — mirrors existing in-file
+pattern; reviewed by Intel developer |
+| 2. Fixes real bug affecting users? | **PASS** — MLO AP + BSS color
+users can hit invalid driver calls |
+| 3. Important issue? | **PASS (borderline)** — prevents invalid
+driver/state-machine operation; not crash-level but operationally
+significant for WiFi AP |
+| 4. Small and contained? | **PASS** — ~3 lines |
+| 5. No new features/APIs? | **PASS** — validation only |
+| 6. Applies to local tree? | **PASS** — buggy code present in 6.18.43 |
 
-### Step 9.4: Decision Rationale
+### Step 9.3: Exception categories
+**Record:** None (not device ID, quirk, DT, build fix, or docs).
 
-This commit closes a genuine memory-safety hole: `fw_pri_buf` is exactly
-1 MiB, but multiple kernel firmware copy paths perform unchecked
-`memcpy` based on `size_bytes` from firmware headers, with
-`is_psp_fw_valid()` only rejecting zero size. The driver already
-validates the same 1 MiB limit for userspace-loaded TA binaries — this
-brings kernel paths to the same standard. The `drm_dev_enter` error
-propagation fix prevents PSP command submission after a failed copy
-during device teardown.
+### Step 9.4: Decision rationale
 
-While no crash has been reported, buffer overflow fixes are explicitly
-stable-worthy, the change is small and low-risk, and it applies cleanly
-to 6.18.44.
+This is a maintainer fix closing an obvious validation gap in
+`nl80211_color_change()` that sibling AP operations already guard
+against. In an MLO AP configuration, a valid link ID does not imply the
+link is beaconing; without this check, mac80211 can be invoked to
+perform a color change on an inactive link. The fix is minimal, follows
+established conventions in the same file, applies cleanly to 6.18.43,
+and carries negligible regression risk.
 
 ---
 
 ## Verification
 
-- [Phase 1] Parsed commit `d1f9f5839bd78` message and tags from `git
-  show`
-- [Phase 2] Analyzed full diff; confirmed `PSP_1_MEG = 0x100000` in
-  `amdgpu_psp.h:37`
-- [Phase 2] Verified `fw_pri_buf` allocated at `PSP_1_MEG`
-  (`amdgpu_psp.c:508-513`)
-- [Phase 2] Verified `is_psp_fw_valid()` only checks non-zero
-  (`amdgpu_psp.c:4179-4181`)
-- [Phase 2] Found unchecked `memcpy` in `psp_v13_0.c:271`,
-  `psp_v14_0.c:146`, `psp_rl_load` (`amdgpu_psp.c:1162-1163`)
-- [Phase 3] `git blame`: `psp_copy_fw` from `f89f8c6bafd06` (May 2021)
-- [Phase 3] Related fix `c99769bceab4e` confirmed in tree via `git
-  merge-base --is-ancestor`
-- [Phase 3] Cherry-pick test: `git cherry-pick --no-commit
-  d1f9f5839bd78` — clean apply (exit 0)
-- [Phase 4] `b4 dig -c d1f9f5839bd78` — no lore match
-- [Phase 4] lore.kernel.org fetch — blocked by Anubis
-- [Phase 5] `grep psp_copy_fw`: 14 call sites across 7 files in tree
-- [Phase 5] TA validation at `amdgpu_psp_ta.c:169` confirmed
-- [Phase 6] `git describe HEAD` → `v6.18.44`
-- [Phase 6] Buggy `void psp_copy_fw` confirmed present at
-  `amdgpu_psp.c:4157`
-- [Phase 6] Commit not in tree: present on `origin/master`, absent from
-  `stable/linux-6.18.y`
-- [Phase 8] Failure modes assessed from code flow analysis
+- **[Phase 1]** Parsed subject, tags (Reviewed-by, Link, Signed-off-by);
+  no Reported-by/syzbot
+- **[Phase 2]** Diff analysis: adds early `link_id` + `beacon_interval`
+  check, removes duplicate `link_id` assignment
+- **[Phase 2]** Read `nl80211_change_beacon` (6925–6926) and
+  `nl80211_channel_switch` (11365–11367) — confirmed parallel guards
+- **[Phase 3]** `git blame -L 17385,17496 net/wireless/nl80211.c`:
+  function present in tree
+- **[Phase 3]** `git blame -L 6925,6926`: change_beacon guard present
+- **[Phase 3]** Read mbox `20260415_johannes_wifi_mac80211_clean_up_and_
+  fix_per_sta_bw_handling.mbx` line 2426: CSA/color change noted as
+  missing validation (separate regulatory patch)
+- **[Phase 4]** WebFetch patch.msgid.link: blocked by Anubis —
+  **UNVERIFIED** thread content
+- **[Phase 4]** WebFetch lore.kernel.org: blocked — **UNVERIFIED**
+- **[Phase 4]** `b4 dig`: requires commit hash not available in tree —
+  **UNVERIFIED**
+- **[Phase 5]** Grep `color_change` in `net/mac80211/cfg.c`:
+  `ieee80211_color_change` does not check beaconing
+- **[Phase 5]** Read `ieee80211_color_change()` (5274–5330): checks link
+  exists, not beaconing
+- **[Phase 5]** Read genl op registration (18971–18976):
+  `NL80211_FLAG_MLO_VALID_LINK_ID` set
+- **[Phase 5]** Read `nl80211_link_id()` (1387–1391): returns ID without
+  beaconing validation
+- **[Phase 6]** `git describe HEAD`: v6.18.43
+- **[Phase 6]** Read `nl80211_color_change()` (17385–17496): missing
+  beacon_interval check confirmed
+- **[Phase 6]** `nl80211_parse_beacon` signature (6134–6137): no channel
+  param in this tree — backport is simpler than upstream diff
+- **[Phase 6]** Grep: no existing beacon_interval check in color_change
+  path
+- **[Phase 8]** `ieee80211_assign_beacon` (1313–1315): may return
+  `-EINVAL` without old beacon, but color-change path can still set
+  `color_change_active` before/beacon manipulation — invalid state
+  remains possible
 
-**YES**The background `git log` search for `psp_copy_fw` and "validate
-and share PSP fw_pri_buf" finished with no matches in this tree —
-expected, since `d1f9f5839bd78` is on mainline but not in `v6.18.44`
-yet.
+**YES**The backport analysis is done: **YES** for Linux **6.18.43**.
 
-That lines up with the earlier analysis: the unchecked `memcpy` paths
-are still present here, and the fix applies cleanly. Verdict remains
-**YES** for backport.
+`nl80211_color_change()` is missing the `beacon_interval` check that
+sibling AP paths like `change_beacon` and `channel_switch` already use.
+On MLO AP setups, that lets a color change reach mac80211 on a link that
+exists but isn’t actively beaconing. The fix is small (early `link_id`
+resolution plus a `-EINVAL` guard) and should apply cleanly here without
+the separate upstream `nl80211_parse_beacon()` channel changes.
 
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c  | 32 ++++++++++++++++++------
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h  |  2 +-
- drivers/gpu/drm/amd/amdgpu/psp_v11_0.c   |  8 ++++--
- drivers/gpu/drm/amd/amdgpu/psp_v12_0.c   |  8 ++++--
- drivers/gpu/drm/amd/amdgpu/psp_v13_0.c   | 14 +++++------
- drivers/gpu/drm/amd/amdgpu/psp_v13_0_4.c | 14 +++++------
- drivers/gpu/drm/amd/amdgpu/psp_v14_0.c   | 14 +++++------
- drivers/gpu/drm/amd/amdgpu/psp_v3_1.c    |  8 ++++--
- 8 files changed, 62 insertions(+), 38 deletions(-)
+The background `git log -S "NL80211_EXT_FEATURE_BSS_COLOR"` search
+didn’t add much — shallow history mostly surfaced unrelated bulk commits
+rather than a clear BSS_COLOR introduction point. That doesn’t change
+the verdict; the buggy path is present in this tree.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-index 5f7aa840b2151..9f3581ce492f3 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-@@ -832,7 +832,11 @@ static int psp_load_toc(struct psp_context *psp,
- 	struct psp_gfx_cmd_resp *cmd = acquire_psp_cmd_buf(psp);
+ net/wireless/nl80211.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/net/wireless/nl80211.c b/net/wireless/nl80211.c
+index 9adf6f948d3dc..41695fb53ddff 100644
+--- a/net/wireless/nl80211.c
++++ b/net/wireless/nl80211.c
+@@ -17414,6 +17414,10 @@ static int nl80211_color_change(struct sk_buff *skb, struct genl_info *info)
+ 	params.count = nla_get_u8(info->attrs[NL80211_ATTR_COLOR_CHANGE_COUNT]);
+ 	params.color = nla_get_u8(info->attrs[NL80211_ATTR_COLOR_CHANGE_COLOR]);
  
- 	/* Copy toc to psp firmware private buffer */
--	psp_copy_fw(psp, psp->toc.start_addr, psp->toc.size_bytes);
-+	ret = psp_copy_fw(psp, psp->toc.start_addr, psp->toc.size_bytes);
-+	if (ret) {
-+		release_psp_cmd_buf(psp);
-+		return ret;
-+	}
- 
- 	psp_prep_load_toc_cmd_buf(cmd, psp->fw_pri_mc_addr, psp->toc.size_bytes);
- 
-@@ -1159,8 +1163,11 @@ static int psp_rl_load(struct amdgpu_device *adev)
- 
- 	cmd = acquire_psp_cmd_buf(psp);
- 
--	memset(psp->fw_pri_buf, 0, PSP_1_MEG);
--	memcpy(psp->fw_pri_buf, psp->rl.start_addr, psp->rl.size_bytes);
-+	ret = psp_copy_fw(psp, psp->rl.start_addr, psp->rl.size_bytes);
-+	if (ret) {
-+		release_psp_cmd_buf(psp);
-+		return ret;
-+	}
- 
- 	cmd->cmd_id = GFX_CMD_ID_LOAD_IP_FW;
- 	cmd->cmd.cmd_load_ip_fw.fw_phy_addr_lo = lower_32_bits(psp->fw_pri_mc_addr);
-@@ -1383,8 +1390,12 @@ int psp_ta_load(struct psp_context *psp, struct ta_context *context)
- 
- 	cmd = acquire_psp_cmd_buf(psp);
- 
--	psp_copy_fw(psp, context->bin_desc.start_addr,
--		    context->bin_desc.size_bytes);
-+	ret = psp_copy_fw(psp, context->bin_desc.start_addr,
-+			  context->bin_desc.size_bytes);
-+	if (ret) {
-+		release_psp_cmd_buf(psp);
-+		return ret;
-+	}
- 
- 	if (amdgpu_virt_xgmi_migrate_enabled(psp->adev) &&
- 		context->mem_context.shared_bo)
-@@ -4154,17 +4165,24 @@ static ssize_t psp_usbc_pd_fw_sysfs_write(struct device *dev,
- 	return count;
- }
- 
--void psp_copy_fw(struct psp_context *psp, uint8_t *start_addr, uint32_t bin_size)
-+int psp_copy_fw(struct psp_context *psp, uint8_t *start_addr, uint32_t bin_size)
- {
- 	int idx;
- 
- 	if (!drm_dev_enter(adev_to_drm(psp->adev), &idx))
--		return;
-+		return -ENODEV;
-+
-+	if (!bin_size || bin_size > PSP_1_MEG) {
-+		dev_err(psp->adev->dev, "PSP firmware is invalid\n");
-+		drm_dev_exit(idx);
++	params.link_id = nl80211_link_id(info->attrs);
++	if (!wdev->links[params.link_id].ap.beacon_interval)
 +		return -EINVAL;
-+	}
++
+ 	err = nl80211_parse_beacon(rdev, info->attrs, &params.beacon_next,
+ 				   info->extack);
+ 	if (err)
+@@ -17487,7 +17491,6 @@ static int nl80211_color_change(struct sk_buff *skb, struct genl_info *info)
+ 			goto out;
+ 	}
  
- 	memset(psp->fw_pri_buf, 0, PSP_1_MEG);
- 	memcpy(psp->fw_pri_buf, start_addr, bin_size);
+-	params.link_id = nl80211_link_id(info->attrs);
+ 	err = rdev_color_change(rdev, dev, &params);
  
- 	drm_dev_exit(idx);
-+	return 0;
- }
- 
- /**
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-index 237b624aa51ca..c3a5940e311aa 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-@@ -605,7 +605,7 @@ int psp_get_fw_attestation_records_addr(struct psp_context *psp,
- int psp_update_fw_reservation(struct psp_context *psp);
- int psp_load_fw_list(struct psp_context *psp,
- 		     struct amdgpu_firmware_info **ucode_list, int ucode_count);
--void psp_copy_fw(struct psp_context *psp, uint8_t *start_addr, uint32_t bin_size);
-+int psp_copy_fw(struct psp_context *psp, uint8_t *start_addr, uint32_t bin_size);
- 
- int psp_spatial_partition(struct psp_context *psp, int mode);
- int psp_memory_partition(struct psp_context *psp, int mode);
-diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-index 27d883fda5fa9..6f131f4b81134 100644
---- a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-@@ -217,7 +217,9 @@ static int psp_v11_0_bootloader_load_component(struct psp_context  	*psp,
- 		return ret;
- 
- 	/* Copy PSP System Driver binary to memory */
--	psp_copy_fw(psp, bin_desc->start_addr, bin_desc->size_bytes);
-+	ret = psp_copy_fw(psp, bin_desc->start_addr, bin_desc->size_bytes);
-+	if (ret)
-+		return ret;
- 
- 	/* Provide the sys driver to bootloader */
- 	WREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_36,
-@@ -263,7 +265,9 @@ static int psp_v11_0_bootloader_load_sos(struct psp_context *psp)
- 		return ret;
- 
- 	/* Copy Secure OS binary to PSP memory */
--	psp_copy_fw(psp, psp->sos.start_addr, psp->sos.size_bytes);
-+	ret = psp_copy_fw(psp, psp->sos.start_addr, psp->sos.size_bytes);
-+	if (ret)
-+		return ret;
- 
- 	/* Provide the PSP secure OS to bootloader */
- 	WREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_36,
-diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v12_0.c b/drivers/gpu/drm/amd/amdgpu/psp_v12_0.c
-index 4c6450d62299a..80ba57cce3916 100644
---- a/drivers/gpu/drm/amd/amdgpu/psp_v12_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/psp_v12_0.c
-@@ -87,7 +87,9 @@ static int psp_v12_0_bootloader_load_sysdrv(struct psp_context *psp)
- 		return ret;
- 
- 	/* Copy PSP System Driver binary to memory */
--	psp_copy_fw(psp, psp->sys.start_addr, psp->sys.size_bytes);
-+	ret = psp_copy_fw(psp, psp->sys.start_addr, psp->sys.size_bytes);
-+	if (ret)
-+		return ret;
- 
- 	/* Provide the sys driver to bootloader */
- 	WREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_36,
-@@ -123,7 +125,9 @@ static int psp_v12_0_bootloader_load_sos(struct psp_context *psp)
- 		return ret;
- 
- 	/* Copy Secure OS binary to PSP memory */
--	psp_copy_fw(psp, psp->sos.start_addr, psp->sos.size_bytes);
-+	ret = psp_copy_fw(psp, psp->sos.start_addr, psp->sos.size_bytes);
-+	if (ret)
-+		return ret;
- 
- 	/* Provide the PSP secure OS to bootloader */
- 	WREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_36,
-diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v13_0.c b/drivers/gpu/drm/amd/amdgpu/psp_v13_0.c
-index af4a7d7c4abd8..8100930e47eb1 100644
---- a/drivers/gpu/drm/amd/amdgpu/psp_v13_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/psp_v13_0.c
-@@ -265,10 +265,9 @@ static int psp_v13_0_bootloader_load_component(struct psp_context  	*psp,
- 	if (ret)
- 		return ret;
- 
--	memset(psp->fw_pri_buf, 0, PSP_1_MEG);
--
--	/* Copy PSP KDB binary to memory */
--	memcpy(psp->fw_pri_buf, bin_desc->start_addr, bin_desc->size_bytes);
-+	ret = psp_copy_fw(psp, bin_desc->start_addr, bin_desc->size_bytes);
-+	if (ret)
-+		return ret;
- 
- 	/* Provide the PSP KDB to bootloader */
- 	WREG32_SOC15(MP0, 0, regMP0_SMN_C2PMSG_36,
-@@ -347,10 +346,9 @@ static int psp_v13_0_bootloader_load_sos(struct psp_context *psp)
- 	if (ret)
- 		return ret;
- 
--	memset(psp->fw_pri_buf, 0, PSP_1_MEG);
--
--	/* Copy Secure OS binary to PSP memory */
--	memcpy(psp->fw_pri_buf, psp->sos.start_addr, psp->sos.size_bytes);
-+	ret = psp_copy_fw(psp, psp->sos.start_addr, psp->sos.size_bytes);
-+	if (ret)
-+		return ret;
- 
- 	/* Provide the PSP secure OS to bootloader */
- 	WREG32_SOC15(MP0, 0, regMP0_SMN_C2PMSG_36,
-diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v13_0_4.c b/drivers/gpu/drm/amd/amdgpu/psp_v13_0_4.c
-index 5f39a2edcc956..3d5e26b3fa00a 100644
---- a/drivers/gpu/drm/amd/amdgpu/psp_v13_0_4.c
-+++ b/drivers/gpu/drm/amd/amdgpu/psp_v13_0_4.c
-@@ -105,10 +105,9 @@ static int psp_v13_0_4_bootloader_load_component(struct psp_context  	*psp,
- 	if (ret)
- 		return ret;
- 
--	memset(psp->fw_pri_buf, 0, PSP_1_MEG);
--
--	/* Copy PSP KDB binary to memory */
--	memcpy(psp->fw_pri_buf, bin_desc->start_addr, bin_desc->size_bytes);
-+	ret = psp_copy_fw(psp, bin_desc->start_addr, bin_desc->size_bytes);
-+	if (ret)
-+		return ret;
- 
- 	/* Provide the PSP KDB to bootloader */
- 	WREG32_SOC15(MP0, 0, regMP0_SMN_C2PMSG_36,
-@@ -168,10 +167,9 @@ static int psp_v13_0_4_bootloader_load_sos(struct psp_context *psp)
- 	if (ret)
- 		return ret;
- 
--	memset(psp->fw_pri_buf, 0, PSP_1_MEG);
--
--	/* Copy Secure OS binary to PSP memory */
--	memcpy(psp->fw_pri_buf, psp->sos.start_addr, psp->sos.size_bytes);
-+	ret = psp_copy_fw(psp, psp->sos.start_addr, psp->sos.size_bytes);
-+	if (ret)
-+		return ret;
- 
- 	/* Provide the PSP secure OS to bootloader */
- 	WREG32_SOC15(MP0, 0, regMP0_SMN_C2PMSG_36,
-diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v14_0.c b/drivers/gpu/drm/amd/amdgpu/psp_v14_0.c
-index 38dfc5c19f2a7..040a61aefa866 100644
---- a/drivers/gpu/drm/amd/amdgpu/psp_v14_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/psp_v14_0.c
-@@ -140,10 +140,9 @@ static int psp_v14_0_bootloader_load_component(struct psp_context  	*psp,
- 	if (ret)
- 		return ret;
- 
--	memset(psp->fw_pri_buf, 0, PSP_1_MEG);
--
--	/* Copy PSP KDB binary to memory */
--	memcpy(psp->fw_pri_buf, bin_desc->start_addr, bin_desc->size_bytes);
-+	ret = psp_copy_fw(psp, bin_desc->start_addr, bin_desc->size_bytes);
-+	if (ret)
-+		return ret;
- 
- 	/* Provide the PSP KDB to bootloader */
- 	WREG32_SOC15(MP0, 0, regMPASP_SMN_C2PMSG_36,
-@@ -214,10 +213,9 @@ static int psp_v14_0_bootloader_load_sos(struct psp_context *psp)
- 	if (ret)
- 		return ret;
- 
--	memset(psp->fw_pri_buf, 0, PSP_1_MEG);
--
--	/* Copy Secure OS binary to PSP memory */
--	memcpy(psp->fw_pri_buf, psp->sos.start_addr, psp->sos.size_bytes);
-+	ret = psp_copy_fw(psp, psp->sos.start_addr, psp->sos.size_bytes);
-+	if (ret)
-+		return ret;
- 
- 	/* Provide the PSP secure OS to bootloader */
- 	WREG32_SOC15(MP0, 0, regMPASP_SMN_C2PMSG_36,
-diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v3_1.c b/drivers/gpu/drm/amd/amdgpu/psp_v3_1.c
-index 833830bc3e2e3..409f097f4c524 100644
---- a/drivers/gpu/drm/amd/amdgpu/psp_v3_1.c
-+++ b/drivers/gpu/drm/amd/amdgpu/psp_v3_1.c
-@@ -96,7 +96,9 @@ static int psp_v3_1_bootloader_load_sysdrv(struct psp_context *psp)
- 		return ret;
- 
- 	/* Copy PSP System Driver binary to memory */
--	psp_copy_fw(psp, psp->sys.start_addr, psp->sys.size_bytes);
-+	ret = psp_copy_fw(psp, psp->sys.start_addr, psp->sys.size_bytes);
-+	if (ret)
-+		return ret;
- 
- 	/* Provide the sys driver to bootloader */
- 	WREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_36,
-@@ -135,7 +137,9 @@ static int psp_v3_1_bootloader_load_sos(struct psp_context *psp)
- 		return ret;
- 
- 	/* Copy Secure OS binary to PSP memory */
--	psp_copy_fw(psp, psp->sos.start_addr, psp->sos.size_bytes);
-+	ret = psp_copy_fw(psp, psp->sos.start_addr, psp->sos.size_bytes);
-+	if (ret)
-+		return ret;
- 
- 	/* Provide the PSP secure OS to bootloader */
- 	WREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_36,
+ out:
 -- 
 2.53.0
 
