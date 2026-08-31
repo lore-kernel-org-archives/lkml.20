@@ -1,43 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D64F54B53EB;
-	Mon, 31 Aug 2026 13:52:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D60942E438;
+	Mon, 31 Aug 2026 13:52:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788184348; cv=none; b=W9ToU6eem5zTZ5uMQ1s/7rQFf1HWnBcjo7BeiP609uMobdMzEi3SgPLYajID0kS9I5ES04UbNsNxjKhKTS28xr36hn4PgKXUCnG6exUXYdAobUlF2EznBGL+ugN0Lbl2sRIh+BfI8mX9BiRdvFIMW66MFRhpsbuJqgpBGNY239g=
+	t=1788184350; cv=none; b=jp6/+CThtmuO0P/QzVz+zyolRlEmd8zFP+L/AmnZK7l0K1Y7O6zwahdyHl1Zs54CJVxU4iaTVxrBKuV5jpx+g4StcYMJ+y3Ts75Zr26fy2HdOaFlEWbOeZ8IsDPoaemZl7Ix3Lp9UBqpN+AQ+PDdcO2M+hNC7E3sdCdBpH7+krA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788184348; c=relaxed/simple;
-	bh=/5H2QMsFBdC/sHjNWmW+6+m3DluKWJ2DzZGs/u8fOq8=;
+	s=arc-20240116; t=1788184350; c=relaxed/simple;
+	bh=yq2TsEnzH0rAVpa+zv4y/e1uGaaWmp5qOApaRubGKd0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=LtCSvLxwXfdnY96oo0/kRC5yrXhDof/rrxSyZwMM3/7YWAjHtvZgL63qODx2LHzmPE8xRgth7MfF9WBUJezn9ARPxDi9us9cC9ONms/MZ2oscwdf+NufJNWUejsbLLbSpamgmqXBwd6shQy5Zp8qT1aXZ4qiAlLXfMIXAJhYZ+o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DZvuqgkM; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=UH8CZh+u1cv8H9UqHX8lhdf9IJQ16hcsZUEVrn3P51tVxwNd60HvxO82p3LMxzoUL0meQefNfQwbPU51QQzOmY76CPnHMR79t+VwRu2SL0qdfguGVCiVKnH4vq01CSJQ4b3DKFLWXizcCccTYb9tFaHOOr9xAvH6e5iJA1ctAcA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O7Ei3aLC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DZvuqgkM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 116701F000E9;
-	Mon, 31 Aug 2026 13:52:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O7Ei3aLC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3041B1F00ACF;
+	Mon, 31 Aug 2026 13:52:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788184345;
-	bh=x1Z0q7I5beFOwnfBY2vAbNAJbzVWmodoMg+XIypW9KQ=;
+	s=k20260515; t=1788184347;
+	bh=ya+pZcZsROeTq92EOwS98qoDIqV0o6/MQn2Vl568B18=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=DZvuqgkM5+riojTT/1a9VqynfR2TRrcsxsNnFE2ctPD3NPNV2HsSh40LNbCuezzHQ
-	 qnxxf7u06erAtXIRd8xfTTU7ixXiE0HXwbK2T/Lz6CRyfqRbUH++v/JDOC3//ghS2s
-	 z8nwugveQ5s0vEfRoE/IallyTf9y1jF87Uecofn0QZ2un3+reQTor3o6WLQc3LTSSd
-	 FIFguoOlMGE8kPpCUjz34YlCbPxRswdOfPCSvGn1YlFdpqhFYRcjxI6vPgtMoCN7Pu
-	 knKJL3+C5ARHXDWC5URUxM95DXmmAlGOqiWTdVmM1zNQVelup5u+yDQmoRjqxjZfmr
-	 z86aDnkHF0URw==
+	b=O7Ei3aLC2BScX+NGekhVIO5inX8FQ09cRULy8Edki1T+EMtN4ZPDOuFf4bTl7y+tD
+	 yedW3e8jD6OWxMQCYOm7zplDx/AJPulXLOEZUb22FgQX4frHSaB522IiCB8u05rUxY
+	 BAxxuWi3f5yTmwfMqM52IDzI0Q5166qb/qbcS/RnmJh9qi448gQeMMQ3LJcNTEpc5Q
+	 1IsmyEnno028pc2waX41M8dIjebSR7SIG9B9zQIrYa9ux5+LS0HQffyrPkPbKxSqkY
+	 2ytQqXhCW83pS3BCRxkTRGSaTd8NswUil/qX4VAB10Kv+rmoIdrx1Iq2M7Mwh7R7QG
+	 Y9JFrNqU6YChQ==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Namjae Jeon <linkinjeon@kernel.org>,
-	Steve French <stfrench@microsoft.com>,
+Cc: liuxixin <gliuxen@gmail.com>,
+	Nitesh Shetty <nj.shetty@samsung.com>,
+	Christoph Hellwig <hch@lst.de>,
+	Keith Busch <kbusch@kernel.org>,
 	Sasha Levin <sashal@kernel.org>,
-	smfrench@gmail.com,
-	linux-cifs@vger.kernel.org,
+	sagi@grimberg.me,
+	linux-nvme@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-5.15] ksmbd: treat unnamed DATA stream as base file
-Date: Mon, 31 Aug 2026 09:31:07 -0400
-Message-ID: <20260831133314.4125787-639-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18] nvme: validate FDP configuration descriptor sizes
+Date: Mon, 31 Aug 2026 09:31:08 -0400
+Message-ID: <20260831133314.4125787-640-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -53,65 +55,66 @@ X-stable-base: Linux 6.18.48
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Namjae Jeon <linkinjeon@kernel.org>
+From: liuxixin <gliuxen@gmail.com>
 
-[ Upstream commit 171b5d72dd80f99271c073c6e38d5263687c3b6d ]
+[ Upstream commit 0ef4daa6534a510d61ea67c8ad9bb5097b0dd5f8 ]
 
-The SMB path suffix :: names the unnamed data stream of the base
-file, not an alternate data stream backed by a DosStream xattr.
+Validate descriptor sizes while walking the FDP configurations log so
+dsze == 0 or a descriptor past the log end cannot cause unbounded
+iteration or reads past the buffer.
 
-Canonicalize an empty stream name with an explicit  type to a NULL
-stream name after parsing. This keeps the base filename produced by
-strsep() and lets open continue through the normal base-file path instead
-of looking for a non-existent empty stream xattr.
-
-Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
-Signed-off-by: Steve French <stfrench@microsoft.com>
+Reviewed-by: Nitesh Shetty <nj.shetty@samsung.com>
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Signed-off-by: liuxixin <gliuxen@gmail.com>
+Signed-off-by: Keith Busch <kbusch@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
+# Stable Backport Analysis: `nvme: validate FDP configuration descriptor
+sizes`
+
+**Local tree:** Linux **6.18.44** (`stable/linux-6.18.y`, `HEAD`
+detached at `v6.18.44`)
+**Mainline commit:** `0ef4daa6534a5` — **not present** in this tree;
+buggy code **is present**
+
+---
+
 ## PHASE 1: COMMIT MESSAGE FORENSICS
 
 ### Step 1.1: Subject line
-**Record:** `[ksmbd] [treat] — Correctly handle SMB `::$DATA` paths as
-the base file's unnamed data stream, not as an alternate DosStream
-xattr.`
+**Record:** `[nvme]` `[validate]` — Validate FDP configuration
+descriptor sizes while walking the FDP configurations log.
 
 ### Step 1.2: Tags
 **Record:**
-- **Fixes:** — none
-- **Reported-by:** — none
-- **Tested-by:** — none
-- **Reviewed-by:** — none
-- **Acked-by:** — none
-- **Link:** — none
-- **Cc: stable:** — none (expected for manual review)
-- **Signed-off-by:** Namjae Jeon `<linkinjeon@kernel.org>`, Steve French
-  `<stfrench@microsoft.com>`
-- **Notable:** Part of `[PATCH 7/14]` series
-  (`20260618141739.9029-7-linkinjeon@kernel.org`); no syzbot, no
-  explicit stable nomination in the patch.
+- **Reviewed-by:** Nitesh Shetty `<nj.shetty@samsung.com>`
+- **Reviewed-by:** Christoph Hellwig `<hch@lst.de>`
+- **Signed-off-by:** liuxixin `<gliuxen@gmail.com>`
+- **Signed-off-by:** Keith Busch `<kbusch@kernel.org>`
+- No `Fixes:`, `Reported-by:`, `Link:`, `Cc: stable@vger.kernel.org`, or
+  `Tested-by:` tags
+- Notable: reviewed by NVMe/block maintainers; no syzbot report
 
 ### Step 1.3: Body analysis
 **Record:**
-- **Bug:** SMB path suffix `::$DATA` names the *unnamed* (default) data
-  stream of the base file per SMB/NTFS semantics, not an alternate
-  stream stored in a `DosStream` xattr.
-- **Symptom:** `parse_stream_name()` leaves `stream_name` pointing to an
-  empty string (`""`), which is non-NULL. Callers treat that as an
-  alternate stream and look up a non-existent empty-stream xattr;
-  `FILE_OPEN` fails with `-EBADF`.
-- **Root cause:** Empty stream name after parsing `file::$DATA` is not
-  canonicalized to NULL, so the stream-specific open path is taken
-  instead of the normal base-file path.
-- **Version info:** None in the message.
+- **Bug:** Walking FDP configuration descriptors uses `dsze` from
+  device-provided log data without validating each descriptor size
+  before advancing.
+- **Symptoms:** `dsze == 0` or a descriptor extending past the log end
+  can cause invalid iteration over the log buffer and reads past the
+  allocated buffer.
+- **Root cause:** Size is applied (`log += dsze`) before bounds are
+  checked; zero-sized descriptors are not rejected.
+- **Version info:** None in commit message.
 
 ### Step 1.4: Hidden bug fix?
-**Record:** Yes — despite the neutral verb "treat", this is a functional
-correctness fix for SMB CREATE/open when clients use explicit `::$DATA`
-syntax (common Windows behavior).
+**Record:** Yes — this is a defensive parsing fix for malformed or
+malicious device log data, not cosmetic cleanup. It prevents out-of-
+bounds reads and incorrect descriptor traversal during namespace setup
+on FDP-capable NVMe controllers.
 
 ---
 
@@ -119,77 +122,82 @@ syntax (common Windows behavior).
 
 ### Step 2.1: Inventory
 **Record:**
-- **File:** `fs/smb/server/misc.c` (+11 / −3)
-- **Function:** `parse_stream_name()`
-- **Scope:** Single-file, surgical fix
+- **Files:** `drivers/nvme/host/core.c` (+6/−4 lines)
+- **Function:** `nvme_query_fdp_granularity()`
+- **Scope:** Single-file, surgical fix in one loop
 
 ### Step 2.2: Code flow change
 **Record:**
 
 | Hunk | Before | After |
 |------|--------|-------|
-| Init | `*stream_name` unset | `*stream_name = NULL` at entry |
-| Type detection | Sets `*s_type` inline | Tracks `has_stream_type =
-true` when `$DATA` or `$INDEX_ALLOCATION` matched |
-| Empty unnamed stream | `*stream_name = s_name` (empty string, non-
-NULL) | If `has_stream_type && !s_name[0] && *s_type == DATA_STREAM`,
-skip assignment and `goto out` with `stream_name == NULL` |
+| Descriptor walk loop | Advance `log` by `desc->dsze`, then check `log
+>= end` | Read `dsze`, reject `!dsze` or `log + dsze > end`, then
+advance |
+| Error message | Generic `"FDP invalid config descriptor list"` |
+Specific `"FDP invalid config descriptor at index %d"` |
 
-**Affected path:** SMB2 CREATE/open (and any other caller of
-`parse_stream_name()` when path contains `::$DATA`).
+**Path affected:** Error/validation path during FDP granularity query at
+namespace enumeration.
 
 ### Step 2.3: Bug mechanism
 **Record:**
-- **Category:** Logic / correctness fix (wrong interpretation of SMB
-  stream syntax)
-- **Mechanism:** For `file::$DATA`, `strsep()` yields `s_name=""`. A
-  non-NULL pointer to `""` passes `if (stream_name)` in `smb2_create()`
-  and triggers `smb2_set_stream_name_xattr()`, which builds
-  `user.DosStream.:$DATA` via `ksmbd_vfs_xattr_stream_name()` and fails
-  lookup on `FILE_OPEN` (`-EBADF` at lines 2502–2504 of `smb2pdu.c`).
-  With the fix, `stream_name == NULL` and the normal base-file open path
-  runs.
+- **Category:** Buffer overflow / out-of-bounds read (memory safety);
+  logic error on malformed descriptors
+- **Mechanism:**
+  1. **`dsze == 0`:** Pointer never advances; walk does not reach the
+     intended `fdp_idx` descriptor; subsequent reads of `desc->nrg` and
+     `desc->runs` use wrong data.
+  2. **`log + dsze > end`:** Old code advanced first, then checked. A
+     large `dsze` sets `desc` past the buffer before the check;
+     depending on iteration count and layout, subsequent field reads
+     (`nrg` at offset 4, `runs` at offset 12 in `struct
+     nvme_fdp_config_desc`) can access memory beyond the `kvmalloc`'d
+     log buffer.
+  3. New code validates **before** advancing, rejecting zero or over-
+     length descriptors.
 
 ### Step 2.4: Fix quality
 **Record:**
-- Fix is minimal and matches SMB semantics.
-- Initializing `*stream_name = NULL` is correct defensive practice.
-- Only empty **DATA** streams are canonicalized; named streams
-  (`file:alt::$DATA`) and `$INDEX_ALLOCATION` paths are unchanged.
-- **Minor concern:** `smb2_rename()` also calls `parse_stream_name()`
-  and passes `stream_name` to `ksmbd_vfs_xattr_stream_name()` without a
-  NULL check. Deleting the default unnamed `$DATA` stream via rename is
-  not a normal SMB operation; this edge case appears unreachable in
-  practice and was already broken with the empty-string xattr lookup.
+- Fix is minimal, obviously correct, and matches standard kernel parsing
+  practice.
+- Reviewed by Christoph Hellwig and Keith Busch (applied to `nvme-7.2`).
+- **Regression risk:** Very low — only affects the error path for
+  invalid FDP log data; valid devices unchanged.
+- v5 cover letter notes removal of redundant `log >= end` check per
+  maintainer feedback.
 
 ---
 
 ## PHASE 3: GIT HISTORY INVESTIGATION
 
 ### Step 3.1: Blame
-**Record:** `parse_stream_name()` introduced in `e2f34481b24db` ("cifsd:
-add server-side procedures for SMB3", 2021-03-16). Confirmed ancestor of
-current HEAD. Bug present since initial stream parsing; file later moved
-to `fs/smb/server/misc.c` in `38c8a9a520825`.
+**Record:** Buggy loop introduced in `30b5f20bb2dda` ("nvme: register
+fdp parameters with the block layer", Keith Busch, 2025-05-06). First
+appeared in **v6.16**. Present in this 6.18.44 tree.
 
 ### Step 3.2: Fixes: tag
-**Record:** N/A — no `Fixes:` tag.
+**Record:** N/A — no `Fixes:` tag. Introducing commit `30b5f20bb2dda` is
+in this tree.
 
 ### Step 3.3: Related file history
-**Record:** Recent `misc.c` changes in this tree: `c7c884a1305aa` (path
-resolution), `0066f623bce8f` (__GFP_RETRY_MAYFAIL), directory move. No
-conflicting stream-parsing changes. Fix is standalone (patch 7/14 of a
-series, but only touches `misc.c` with no structural dependencies on
-other patches).
+**Record:**
+- `5e406928404d6` — "nvme: fix FDP fdpcidx bounds check" (same author) —
+  **already in 6.18.y**
+- `0ef4daa6534a5` — this descriptor-size validation — **not in 6.18.y**
+  (only on `master`)
+- Companion fix from v4 series; v5 split out descriptor validation
+  separately per maintainer feedback
 
 ### Step 3.4: Author context
-**Record:** Namjae Jeon is the ksmbd maintainer. Patch is from the June
-2026 ksmbd server fixes series later referenced in Steve French's GIT
-PULL.
+**Record:** liuxixin contributed the related fdpcidx bounds fix already
+backported to 6.18.y. Keith Busch (NVMe maintainer) committed both
+fixes.
 
 ### Step 3.5: Dependencies
-**Record:** None. `has_stream_type` is local; `DATA_STREAM` enum already
-exists in `vfs.h`. Applies cleanly to current `misc.c` in this tree.
+**Record:** Standalone — no series dependencies. Requires FDP code from
+`30b5f20bb2dda`, which is present. `git apply --check` confirms clean
+apply to current tree.
 
 ---
 
@@ -197,126 +205,147 @@ exists in `vfs.h`. Applies cleanly to current `misc.c` in this tree.
 
 ### Step 4.1: Original discussion
 **Record:**
-- `b4 dig -c 178b490...` failed (commit not in this checkout).
-- Found patch in local mbox:
-  `20260618_linkinjeon_ksmbd_validate_smb2_lease_create_contexts.mbx`,
-  `[PATCH 7/14]`, Message-Id
-  `20260618141739.9029-7-linkinjeon@kernel.org`.
-- lore.kernel.org fetch blocked (bot protection).
-- Web search: commit listed in June 2026 `[GIT PULL] ksmbd server fixes`
-  under "Tighten CREATE and stream semantics, including ... unnamed DATA
-  stream handling".
+- **b4 dig URL:** https://patch.msgid.link/e6f7a8b9c0d1e2f3a4b5c6d7e8f9a
+  0b1c2d3e4f.1748841600.git.gliuxen@gmail.com
+- **Series:** v1→v2 (combined parsing fix) → v4 (split: fdpcidx +
+  descriptor validation) → v5 (descriptor validation only)
+- Keith Busch applied v5 to `nvme-7.2`; no NAKs found in thread
 
 ### Step 4.2: Reviewers
-**Record:** Patch has author SOB and Steve French SOB. No Reviewed-
-by/Acked-by in the mbox entry. Series CC'd to linux-cifs (inferred from
-series context).
+**Record:** CC'd: `linux-nvme@lists.infradead.org`, `kbusch@kernel.org`,
+`axboe@kernel.dk`, `hch@lst.de`, `nj.shetty@samsung.com`, `linux-
+kernel@vger.kernel.org`
 
-### Step 4.3: Bug reports
-**Record:** No formal bug report or syzbot link. Related GitHub issue
-#507 discusses separate stream SetInfo/truncation bugs, not this
-specific `::$DATA` parsing issue.
+### Step 4.3: Bug report
+**Record:** No external bug report or syzbot link. v5 cover letter
+documents testing with **fdp-lab**: `dsze==0` and walk-past-end cases
+produce `"FDP invalid config descriptor at index %d"`.
 
-### Step 4.4: Series context
-**Record:** Patch 7/14 of a larger ksmbd fix series. This patch is self-
-contained and does not require other series patches.
+### Step 4.4: Related patches
+**Record:** Descriptor validation was originally v4 2/2; split to v5
+after fdpcidx fix (v4 1/2) was applied separately. fdpcidx fix is
+already in 6.18.y; this patch is the remaining half.
 
 ### Step 4.5: Stable list
-**Record:** No stable-list discussion found for this specific patch.
-(Unrelated ksmbd stream patches have been nominated to stable
-historically.)
+**Record:** No `Cc: stable` discussion found in mbox thread.
 
 ---
 
 ## PHASE 5: CODE SEMANTIC ANALYSIS
 
 ### Step 5.1: Key functions
-**Record:** `parse_stream_name()` (modified). Callers: `smb2_create()`
-and `smb2_rename()` in `smb2pdu.c`.
+**Record:** `nvme_query_fdp_granularity()` (modified); callers via
+`nvme_query_fdp_info()`.
 
 ### Step 5.2: Callers
 **Record:**
-- **`smb2_create()`** (line 2979): Called when `strchr(name, ':')` and
-  streams share flag set — primary SMB2 CREATE/open path, reachable from
-  any SMB client.
-- **`smb2_rename()`** (line 6125): Stream-delete rename path; less
-  common.
+- `nvme_query_fdp_info()` ← `nvme_update_ns_info_block()` (line 2373)
+- `nvme_update_ns_info()` ← `nvme_alloc_ns()` (line 4163),
+  `nvme_validate_ns()` (line 4300)
+- `nvme_scan_ns()` → `nvme_alloc_ns()` / `nvme_validate_ns()` during
+  namespace scan
 
 ### Step 5.3: Callees
-**Record:** `strsep()`, `strchr()`, `ksmbd_validate_stream_name()`,
-`strncasecmp()`. Downstream in open path: `smb2_set_stream_name_xattr()`
-→ `ksmbd_vfs_xattr_stream_name()` → xattr lookup/create.
+**Record:** `nvme_get_log_lsi()`, `kvmalloc()`, `kvfree()`,
+`le16_to_cpu()`, `le32_to_cpu()`, `le64_to_cpu()`, `dev_warn()`.
 
 ### Step 5.4: Reachability
-**Record:** Any SMB client opening a file with explicit `::$DATA` suffix
-(standard Windows unnamed-stream notation) on a ksmbd share with
-`KSMBD_SHARE_FLAG_STREAMS` enabled triggers the bug. Reachable from
-network clients without special privileges.
+**Record:**
+- Triggered when `ns->ctrl->ctratt & NVME_CTRL_ATTR_FDPS` and FDP
+  feature enabled (`FDPCFG_FDPE`)
+- Runs during NVMe namespace enumeration (probe/rescan/AEN paths)
+- Device-controlled log data from PCIe NVMe hardware — reachable
+  whenever an FDP-capable controller is attached
+- Not a general syscall path, but attacker with physical PCIe access or
+  VFIO passthrough of a malicious device can supply crafted log data
 
 ### Step 5.5: Similar patterns
-**Record:** Related but distinct stable-worthy stream fixes exist in
-ksmbd history (e.g., default stream in FILE_STREAM_INFORMATION). This
-fix addresses CREATE/open parsing specifically.
+**Record:** Related fdpcidx bounds fix (`5e406928404d6`, already in
+tree) addresses a separate off-by-one in the same function. This patch
+completes FDP log parsing hardening.
 
 ---
 
-## PHASE 6: CROSS-REFERENCING AGAINST LOCAL TREE
+## PHASE 6: CROSS-REFERENCE WITH LOCAL TREE (6.18.44)
 
-### Step 6.1: Buggy code in tree?
-**Record:** **Yes.** Local tree is **v6.18.44** (`git describe HEAD` →
-`v6.18.44-1-g2736c32da98b9`). `parse_stream_name()` at lines 119–151 of
-`fs/smb/server/misc.c` lacks the fix (`has_stream_type` not present).
-Bug has existed since ksmbd stream support landed (2021).
+### Step 6.1: Buggy code present?
+**Record:** **Yes.** Current tree at lines 2243–2251 still has the pre-
+fix loop:
+
+```2243:2251:drivers/nvme/host/core.c
+        for (i = 0; i < fdp_idx; i++) {
+                log += le16_to_cpu(desc->dsze);
+                desc = log;
+                if (log >= end) {
+                        dev_warn(ctrl->device,
+                                 "FDP invalid config descriptor
+list\n");
+                        ret = 0;
+                        goto out;
+                }
+        }
+```
+
+FDP support landed in v6.16; present throughout 6.18.y.
 
 ### Step 6.2: Backport complications
-**Record:** Clean apply expected — `misc.c` is stable, minimal recent
-churn, no conflicting edits at the target hunk.
+**Record:** **Clean apply** — `git apply --check` succeeds with no
+conflicts. No rework needed.
 
-### Step 6.3: Fix already present?
-**Record:** **No.** `git grep has_stream_type` only finds the patch in
-the mbox file, not in the tree. Fix commit not in this checkout.
+### Step 6.3: Related fixes already present?
+**Record:** `5e406928404d6` (fdpcidx bounds check) is in 6.18.y.
+Descriptor-size validation (`0ef4daa6534a5`) is **not**.
 
 ---
 
-## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+## PHASE 7: SUBSYSTEM CONTEXT
 
 ### Step 7.1: Subsystem criticality
-**Record:** **ksmbd** (in-kernel SMB server) under `fs/smb/server/`.
-**IMPORTANT** — affects users who run the kernel SMB server
-(`CONFIG_SMB_SERVER` in `fs/smb/server/Kconfig`), not all kernel users.
+**Record:** `drivers/nvme/host/` — **IMPORTANT** (block storage, widely
+deployed; niche FDP subset)
 
-### Step 7.2: Subsystem activity
-**Record:** Actively maintained; recent commits in this tree include UAF
-fixes, NEGOTIATE fixes, and DACL validation — indicating ongoing ksmbd
-stable fix activity.
+### Step 7.2: Activity
+**Record:** NVMe/FDP code is actively maintained; FDP registration added
+in 6.16, with follow-up fixes in 2026.
 
 ---
 
 ## PHASE 8: IMPACT AND RISK ASSESSMENT
 
 ### Step 8.1: Who is affected
-**Record:** Users running ksmbd with alternate data streams enabled on a
-share, accessed by SMB clients (especially Windows) that open files
-using `::$DATA` syntax.
+**Record:** Users of NVMe controllers reporting `NVME_CTRL_ATTR_FDPS`
+with FDP enabled. Growing but still limited hardware base (datacenter
+SSDs with Flexible Data Placement). All such users on 6.18.y without
+this fix.
 
 ### Step 8.2: Trigger conditions
-**Record:** Client sends SMB2 CREATE for a path like
-`document.docx::$DATA`. Common when streams support is enabled. Not
-timing-dependent; deterministic logic bug.
+**Record:**
+- Controller advertises FDPS; namespace scan queries FDP configuration
+  log
+- Malformed firmware response or malicious device provides `dsze == 0`
+  or oversized `dsze`
+- Triggered at device attach/rescan — not everyday, but automatic on
+  enumeration
+- Physical attacker or compromised passthrough device can trigger
 
 ### Step 8.3: Failure mode severity
-**Record:** **MEDIUM-HIGH** — file open fails (`-EBADF` / SMB error),
-breaking interoperability. No kernel crash/oops, but prevents access to
-files that should open normally. Can affect Office documents and other
-apps using explicit default-stream paths.
+**Record:**
+- **Out-of-bounds read** of kernel heap buffer → potential oops/crash or
+  information leak — **HIGH**
+- **Incorrect parsing** with zero `dsze` → wrong granularity registered
+  — **MEDIUM**
+- Not a typical soft-lockup (loop bounded by `u8 fdp_idx`, max 255),
+  despite "unbounded iteration" wording referring to buffer traversal
+- **Overall severity: HIGH** (memory safety on device-driven kernel
+  parsing)
 
 ### Step 8.4: Risk-benefit
 **Record:**
-- **Benefit:** Restores correct open behavior for standard SMB unnamed
-  data stream syntax; fixes long-standing interoperability bug.
-- **Risk:** Very low — ~11 lines, one function, no API changes,
-  maintainer-authored.
-- **Ratio:** Strong benefit, minimal risk for ksmbd users.
+- **Benefit:** HIGH for FDP users; prevents OOB reads from device-
+  controlled data
+- **Risk:** VERY LOW — 6-line validation in error path, reviewed by
+  maintainers, tested with fdp-lab
+- **Ratio:** Strong benefit, minimal risk
 
 ---
 
@@ -325,147 +354,113 @@ apps using explicit default-stream paths.
 ### Step 9.1: Evidence summary
 
 **FOR backport:**
-- Real, reproducible functional bug in SMB2 CREATE/open
-- Long present since 2021 stream parsing code
-- Small, surgical, maintainer-authored fix
-- Buggy code confirmed in local 6.18.44 tree; fix not yet applied
-- Part of reviewed ksmbd server fixes pull request
-- Correct per SMB/NTFS `::$DATA` semantics
+- Real memory-safety bug in kernel parsing of device-provided data
+- Buggy code present in 6.18.44; fix not yet applied
+- Small, surgical, maintainer-reviewed fix
+- Clean apply to current tree
+- Companion fdpcidx fix already backported — this is the natural follow-
+  up
+- fdp-lab test coverage documented
 
 **AGAINST backport:**
-- Only affects ksmbd server users (not universal)
-- No syzbot/CVE/crash report
-- Theoretical rename-path NULL concern for `::$DATA/` stream delete
-  (likely invalid SMB operation, unverified)
+- Only affects FDP-capable NVMe hardware (limited audience)
+- No syzbot/CVE report
+- No explicit stable nomination on mailing list
+
+**Unresolved:** None blocking decision.
 
 ### Step 9.2: Stable rules checklist
-1. Obviously correct and tested? **PASS** — logic matches SMB spec;
-   maintainer series merged to mainline.
-2. Fixes a real bug affecting users? **PASS** — open failures for
-   `::$DATA` paths.
-3. Important issue? **PASS** — MEDIUM-HIGH severity interoperability
-   failure on file open.
-4. Small and contained? **PASS** — 1 file, ~14 lines.
-5. No new features or APIs? **PASS** — parsing correction only.
-6. Can apply to local tree? **PASS** — buggy code present, clean apply
-   expected.
+1. Obviously correct and tested? **PASS** — reviewed by Hellwig/Shetty;
+   fdp-lab tested
+2. Fixes a real bug? **PASS** — OOB read / invalid descriptor walk on
+   malformed FDP log
+3. Important issue? **PASS** — memory safety, potential crash/info leak
+   from device data
+4. Small and contained? **PASS** — ~6 lines, one function
+5. No new features/APIs? **PASS** — validation only
+6. Can apply to local tree? **PASS** — clean apply verified
 
 ### Step 9.3: Exception categories
-**Record:** None (not a device ID, quirk, DT, build, or docs fix).
-Qualifies as a standard bug fix.
+**Record:** None (not device ID, quirk, DT, build, or docs). Standard
+bug-fix category.
 
-### Step 9.4: Problem and decision
-
-Windows and other SMB clients commonly reference the default data stream
-with the `::$DATA` suffix. ksmbd's `parse_stream_name()` incorrectly
-treats the resulting empty stream name as an alternate stream, routing
-opens through xattr lookup that fails. The fix canonicalizes an empty
-stream name with explicit `$DATA` type to NULL, allowing normal base-
-file open — exactly what SMB semantics require.
-
-For the **6.18.44** tree checked out here, ksmbd is present, the buggy
-code is present, and the fix is small, correct, and addresses a real
-interoperability failure for SMB server deployments.
+### Step 9.4: Decision rationale
+For **Linux 6.18.y** specifically: FDP support and the buggy descriptor-
+walk code are both present; the fix is absent; the patch applies
+cleanly; and it closes a real memory-safety hole in device log parsing
+during namespace enumeration. The limited hardware scope lowers urgency
+slightly, but stable rules favor small, correct fixes for crash/OOB-read
+bugs in production drivers — especially when a related fix from the same
+series is already in the tree.
 
 ---
 
 ## Verification
 
-- **[Phase 1]** Parsed subject, body, tags from user-provided commit
-  message and mbox
-  `20260618_linkinjeon_ksmbd_validate_smb2_lease_create_contexts.mbx`.
-- **[Phase 2]** Read diff and current `parse_stream_name()` at lines
-  119–151 of `fs/smb/server/misc.c`.
-- **[Phase 2]** Traced open failure: `smb2_create()` line 2979 → `if
-  (stream_name)` line 3184/3451 → `smb2_set_stream_name_xattr()` →
-  `ksmbd_vfs_xattr_stream_name()` lines 1800–1818 → `FILE_OPEN` returns
-  `-EBADF` lines 2502–2504.
-- **[Phase 3]** `git blame -L 119,151 fs/smb/server/misc.c`: introduced
-  `e2f34481b24db` (2021-03-16).
-- **[Phase 3]** `git merge-base --is-ancestor e2f34481b24db HEAD`:
-  confirmed ancestor.
-- **[Phase 3]** `git log --oneline -20 -- fs/smb/server/misc.c`: no
-  conflicting stream changes.
-- **[Phase 4]** `b4 dig -c 178b490e56d8d4711c0c61d37652bcfd1269d5b0`:
-  failed (commit not in tree).
-- **[Phase 4]** Grep mbox for patch 7/14: found full diff and Message-
-  Id.
-- **[Phase 4]** lore.kernel.org fetch: blocked by bot protection.
-- **[Phase 4]** Web search: found GIT PULL reference listing this fix
-  under stream semantics.
-- **[Phase 5]** `grep parse_stream_name`: callers at `smb2pdu.c:2979`
-  and `smb2pdu.c:6125`.
-- **[Phase 5]** Read `smb2_create()` stream handling at lines 3175–3458.
-- **[Phase 5]** Read `ksmbd_vfs_xattr_stream_name()` at
-  `vfs.c:1800–1818`.
-- **[Phase 6]** `git describe HEAD`: v6.18.44-1-g2736c32da98b9; `make
-  kernelversion`: 6.18.44.
-- **[Phase 6]** `grep has_stream_type`: only in mbox, not in tree — fix
-  absent.
-- **[Phase 6]** Read current `misc.c` lines 119–151: buggy code
-  confirmed.
-- **[Phase 7]** Read `fs/smb/server/Kconfig`: ksmbd server is
-  `CONFIG_SMB_SERVER`.
-- **[Phase 8]** Traced `file::$DATA` parsing manually via `strsep()`
-  logic.
-- **UNVERIFIED:** Whether any SMB client issues rename/delete for
-  `::$DATA/` (theoretical NULL concern in `smb2_rename()`).
+- **[Phase 1]** Parsed commit message and tags from `git show
+  0ef4daa6534a5`
+- **[Phase 2]** Diff analysis: 6 lines changed in
+  `nvme_query_fdp_granularity()` loop
+- **[Phase 3]** `git blame -L 2240,2252`: buggy code from
+  `30b5f20bb2dda` (2025-05-06)
+- **[Phase 3]** `git merge-base --is-ancestor 30b5f20bb2dda HEAD`: FDP
+  code in 6.18.y
+- **[Phase 3]** `git merge-base --is-ancestor 0ef4daa6534a5 HEAD`: fix
+  **not** in tree
+- **[Phase 3]** `git tag -l 'v6.16*' --contains 30b5f20bb2dda`: FDP
+  introduced in v6.16
+- **[Phase 3]** `git apply --check`: patch applies cleanly
+- **[Phase 3]** `5e406928404d6` already in 6.18.y (related fdpcidx fix)
+- **[Phase 4]** `b4 dig -c 0ef4daa6534a5`: lore URL found
+- **[Phase 4]** `b4 dig -a`: v1→v5 series evolution documented
+- **[Phase 4]** `b4 dig -w`: maintainers CC'd (Busch, Axboe, Hellwig,
+  Shetty)
+- **[Phase 4]** `b4 dig -m /tmp/fdp_validate.mbox`: v5 cover letter with
+  fdp-lab test plan
+- **[Phase 4]** No stable-list nomination in mbox
+- **[Phase 5]** `grep nvme_query_fdp_info`: call chain through
+  `nvme_update_ns_info_block` → `nvme_scan_ns`
+- **[Phase 5]** Read `struct nvme_fdp_config_desc` in
+  `include/linux/nvme.h` (lines 705–717)
+- **[Phase 6]** `git describe HEAD` / `make kernelversion`: **6.18.44**
+- **[Phase 6]** Read current `core.c` lines 2243–2251: pre-fix code
+  confirmed
+- **[Phase 6]** `git merge-base --is-ancestor 30b5f20bb2dda
+  stable/linux-6.12.y`: FDP **not** in 6.12.y (noted; verdict is for
+  6.18.y only)
+- **[Phase 8]** Failure mode: OOB read from device-controlled FDP log →
+  HIGH severity
 
-**YES**The background git searches didn’t add much beyond what we
-already had:
+**YES**
 
-- **Find commit hash:** Finished with no matches — `has_stream_type` and
-  the commit subject aren’t in this 6.18.44 tree, which matches the fix
-  not being applied yet.
-- **Search git history:** Didn’t complete (timed out / was stopped). The
-  commit was already identified from the local mbox (`[PATCH 7/14]`) and
-  the GitHub mirror (`178b490`).
+ drivers/nvme/host/core.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
-The backport recommendation stands: **YES** for this tree — ksmbd
-mishandles `::$DATA` opens, and the fix is a small, self-contained
-change in `fs/smb/server/misc.c`.
-
- fs/smb/server/misc.c | 14 +++++++++++---
- 1 file changed, 11 insertions(+), 3 deletions(-)
-
-diff --git a/fs/smb/server/misc.c b/fs/smb/server/misc.c
-index 53ddcae31f719..d6abe574fc89b 100644
---- a/fs/smb/server/misc.c
-+++ b/fs/smb/server/misc.c
-@@ -121,7 +121,9 @@ int parse_stream_name(char *filename, char **stream_name, int *s_type)
- 	char *stream_type;
- 	char *s_name;
- 	int rc = 0;
-+	bool has_stream_type = false;
- 
-+	*stream_name = NULL;
- 	s_name = filename;
- 	filename = strsep(&s_name, ":");
- 	ksmbd_debug(SMB, "filename : %s, streams : %s\n", filename, s_name);
-@@ -137,14 +139,20 @@ int parse_stream_name(char *filename, char **stream_name, int *s_type)
- 
- 		ksmbd_debug(SMB, "stream name : %s, stream type : %s\n", s_name,
- 			    stream_type);
--		if (!strncasecmp("$data", stream_type, 5))
-+		if (!strncasecmp("$data", stream_type, 5)) {
- 			*s_type = DATA_STREAM;
--		else if (!strncasecmp("$index_allocation", stream_type, 17))
-+			has_stream_type = true;
-+		} else if (!strncasecmp("$index_allocation", stream_type, 17)) {
- 			*s_type = DIR_STREAM;
--		else
-+			has_stream_type = true;
-+		} else {
- 			rc = -ENOENT;
-+		}
+diff --git a/drivers/nvme/host/core.c b/drivers/nvme/host/core.c
+index 43cbbcd3796b1..5ea331e933c55 100644
+--- a/drivers/nvme/host/core.c
++++ b/drivers/nvme/host/core.c
+@@ -2241,14 +2241,16 @@ static int nvme_query_fdp_granularity(struct nvme_ctrl *ctrl,
+ 	desc = log;
+ 	end = log + size - sizeof(*h);
+ 	for (i = 0; i < fdp_idx; i++) {
+-		log += le16_to_cpu(desc->dsze);
+-		desc = log;
+-		if (log >= end) {
++		u16 dsze = le16_to_cpu(desc->dsze);
++
++		if (!dsze || log + dsze > end) {
+ 			dev_warn(ctrl->device,
+-				 "FDP invalid config descriptor list\n");
++				 "FDP invalid config descriptor at index %d\n", i);
+ 			ret = 0;
+ 			goto out;
+ 		}
++		log += dsze;
++		desc = log;
  	}
  
-+	if (has_stream_type && !s_name[0] && *s_type == DATA_STREAM)
-+		goto out;
-+
- 	*stream_name = s_name;
- out:
- 	return rc;
+ 	if (le32_to_cpu(desc->nrg) > 1) {
 -- 
 2.53.0
 
