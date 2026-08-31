@@ -1,69 +1,107 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 532393D9680;
-	Mon, 31 Aug 2026 09:31:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B1D03DB64D;
+	Mon, 31 Aug 2026 09:32:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788168711; cv=none; b=qg8A8l0xxfebu31szTIpe2VkmlNPuWRiKxCENjtdCuOrqJKeOWVn3mHB3Y6NObXv3kM1df4ntr7av3RBw1QpB53pmdX4QnRFrpyvxeO55QPSy+G3+LOL9wFLMvo2kHqxT7aE+8DV1zQw9ojKCwdXp67em33rVxvu28eKEBMctZs=
+	t=1788168735; cv=none; b=FDyLj31Zm5Fgc6EWvvnkO3F4hfZWOWU2Q/qDMDNkME4oppKzCtduwBrO9z0GDW9hmSELuQ5zERs29QWvj/wHn+3ttLF22CkOO22u+DAKQwst1mOGgNXE7Wzje+AYL8bL2k40mHXQ1hr57FuBvJJH3+dlNxZxBO+yQ4Vq/FJ0/PA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788168711; c=relaxed/simple;
-	bh=A/vt1hf0Z6gfuhvuYt8mGNHjXcdcuBY5UjxheryYVWE=;
+	s=arc-20240116; t=1788168735; c=relaxed/simple;
+	bh=kYFY1a0Km/MA/WbUGgeqey1AxwgJqE9ciOIuHC/0EBM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WXD0j3m0nBvrk2GoWH9vfySFz7hQsmv3s030N9Fv2KNQmmUmiG182Y+I4csieAbBeP2ZGbI8/XqGNfQM56WxnoHI+lK/G0VYqTSxjTx/lTy6+i8RtR2mQxu8oYuhkFIa+IXfggCnpkAFqjTpw273bm8xbv14Xhr3o9HsXLgMVSA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EPlWHXg1; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=Ln3t544umfwu6J1ycfG2q8fRrfsLK6bUF6gpRaijma3Ie7p6d4qIFGEEpbeNxQb9z/DZ2nA+x6IbVy4H61+I8SG6EzizfKynbydH07CZhWNekGwIBnJNN1fVcOrxk4c7SClI3wQWQYCuUTShQtWQJLLB26OnNYMlgdvWLzzQFv0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=lgfcXBv+; arc=none smtp.client-ip=198.175.65.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EPlWHXg1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB31A1F000E9;
-	Mon, 31 Aug 2026 09:31:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788168710;
-	bh=I/ZLphTPjUkEeHKsQ9Nye7MuF7iO1KEVcoQ4aJjUww4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=EPlWHXg1NML3NxDQYNNqFlvMhreEaA8zk2aGoZ0XTubZIhFjC85EhDQSlCqT9NLh1
-	 o3UDmlv+4LXBwmxLPqg2M/C4hjC+xOkwvS4X6ogJ/38CBquHp9XNq3bLQisliTRekm
-	 JSKZLFE3tAHdLVL2AhVebk40GgtkedGabDQUDZwlWVLEN8zLl/9Whpjt4wQtcHvkZe
-	 2Ag9PM+Q+umblIw9DnRaCxnc6kYmLE+N1PMT3S9Wn7nwBrIGMsqBl/NpO9WqMPFpqU
-	 518P8xc8g+4JnCFVWUbSsiunCPTizkgVkKuld+t0mR4XlOaQcjhtz1+cytG7B6w4Zg
-	 uLol7I/TqKovQ==
-Date: Mon, 31 Aug 2026 11:31:46 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Cc: Daniel Lezcano <daniel.lezcano@kernel.org>, 
-	"Rafael J . Wysocki" <rafael@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>, Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>, 
-	Manivannan Sadhasivam <mani@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
-	linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Dhruvin Rajpura <drajpura@qti.qualcomm.com>
-Subject: Re: [PATCH] dt-bindings: thermal: qcom,pm8775-mbg-tm: Document
- PMAU0102
-Message-ID: <20260831-finicky-holistic-mouflon-1e8bed@quoll>
-References: <20260830101025.191697-1-shengchao.guo@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="lgfcXBv+"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788168733; x=1819704733;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=kYFY1a0Km/MA/WbUGgeqey1AxwgJqE9ciOIuHC/0EBM=;
+  b=lgfcXBv+VTb9Wpy/HPr4S6xqYAzT+6ZDoZHmIhtoDRh+wmR7dhtko9FW
+   dx52bXoybamkMQaLZpb067f1vLfbpb7xunwKuPB8+BdqGS7pXDe4jkCke
+   92CGlosUitxMji/er7iO3tvp6IE0xWJQ6FUrTpJvDANV3KCwaGTh7nrpS
+   8QbLaFJziyXTZNl9roE5zNX/UHuSyrIAt818kO47ASPzb31wUlJWX4Kco
+   JTHT2ZrAOvltuZ2KEeBt5jkgrOPLOjpLO4Np/j2/8dcZcCzgzjBQ5cJ5A
+   K0UpbNCkl8VyZjgsKD9LkUUdA/WtCKt8AWUI2YiiqKyz5xPNb+XkSa3JJ
+   w==;
+X-CSE-ConnectionGUID: /uZZ91+URVOoL3mo2zHttg==
+X-CSE-MsgGUID: pc3/FmnuRI2KbgUv8yb1hg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11891"; a="98908153"
+X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
+   d="scan'208";a="98908153"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 02:32:06 -0700
+X-CSE-ConnectionGUID: ZelpqDcMT/a4r/B7IsNdVw==
+X-CSE-MsgGUID: H9UWajU5TtuPmfLtlYReUg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
+   d="scan'208";a="272941824"
+Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.244.21])
+  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 02:32:03 -0700
+Date: Mon, 31 Aug 2026 12:32:00 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Maurizio Casciano <mauriziocasciano7@gmail.com>
+Cc: linux-media@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Bingbu Cao <bingbu.cao@amd.com>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+	Nicholas Roth <nicholas@rothemail.net>,
+	Andy Shevchenko <andy@kernel.org>, Hans de Goede <hansg@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jose Maria Martin <jmmartinf@hotmail.com>,
+	Uwe Kleine-Koenig <ukleinek@kernel.org>,
+	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 01/15] media: ov8858: Extract digital gain programming
+Message-ID: <apVKEJ63Ew6qDWrn@ashevche-desk.local>
+References: <cover.1787933456.git.mauriziocasciano7@gmail.com>
+ <1a7c8fba6835b2191b71ae1d903734621626e1f6.1787933456.git.mauriziocasciano7@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260830101025.191697-1-shengchao.guo@oss.qualcomm.com>
+In-Reply-To: <1a7c8fba6835b2191b71ae1d903734621626e1f6.1787933456.git.mauriziocasciano7@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Sun, Aug 30, 2026 at 06:10:25PM +0800, Shawn Guo wrote:
-> From: Dhruvin Rajpura <drajpura@qti.qualcomm.com>
-> 
-> Document MBG temperature monitor on PMAU0102 which is programming-model
-> compatible with the one on PM8775.
-> 
-> Signed-off-by: Dhruvin Rajpura <drajpura@qti.qualcomm.com>
-> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-> ---
->  .../devicetree/bindings/thermal/qcom,pm8775-mbg-tm.yaml    | 7 ++++++-
->  1 file changed, 6 insertions(+), 1 deletion(-)
+On Fri, Aug 28, 2026 at 06:14:43PM +0200, Maurizio Casciano wrote:
+> Move the existing packed digital-gain register programming into a helper so
+> clock-specific gain handling can be added separately.
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+My comment was ignored, I am not sure why...
 
-Best regards,
-Krzysztof
+...
+
+> +static int ov8858_set_long_digital_gain(struct ov8858 *ov8858, u32 gain)
+> +{
+> +	u16 long_gain;
+> +
+> +	/*
+> +	 * Digital gain is assembled as:
+> +	 * 0x350a[7:0] = dgain[13:6]
+> +	 * 0x350b[5:0] = dgain[5:0]
+
+This comment most likely has a typo as I pointed out earlier.
+
+> +	 * Reassemble the control value to write it in one go.
+> +	 */
+> +	long_gain = (gain & OV8858_LONG_DIGIGAIN_L_MASK) |
+> +		    ((gain & OV8858_LONG_DIGIGAIN_H_MASK) <<
+> +		     OV8858_LONG_DIGIGAIN_H_SHIFT);
+> +
+> +	return ov8858_write(ov8858, OV8858_REG_LONG_DIGIGAIN, long_gain, NULL);
+> +}
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
 
