@@ -1,49 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AED95566C58;
-	Mon, 31 Aug 2026 13:48:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF321569F2C;
+	Mon, 31 Aug 2026 13:48:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788184095; cv=none; b=YMfMTUll878OUYTAEcNqj+aeCVCX4vPl3yrC8UgUdnPgf15ncMXZ2p2gJWUZqJS+FPpnRlXAaCKbGvuUMavmXneXE5xP4r+35+s0Q3++muW+HGOmaoendXPdJUT2aW2lO0Yf+vnFORc4x52EcAebImTnVTSsuPHXniXM6loRhQA=
+	t=1788184098; cv=none; b=Clh4XcE0KYolSr/8KBtr8eYsETzzLOGTpHVv1yBHnIfe3eQB3Tg9pRRdB2E/1zvXGfrU/ff3n33dgoDkpd8lvI0MQKb1gfNfaeRm9I6IGzlv8NJmVDy8e0x0/4opKgML/go1gNXi1zom5ltMT6laZ8uwBGgwnaBL7blQTlyXRNo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788184095; c=relaxed/simple;
-	bh=d8iWgnIp6yXd9PebB7tlbj4DpHyFhBfco6h6XzfC+NY=;
+	s=arc-20240116; t=1788184098; c=relaxed/simple;
+	bh=pWlITHxsdaR6tNy9qB/AzeymDyMTpAtdKdFnL3D5sUA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=gXr8cPVJ3U/hxlP104UvYpzgRd3gBkSO0yFDEDLy5oPzDf4vKBSihexlN29P+xRzwcFinLU7vlvGxCblYsohaQldMmx5KQJoAquVNg6Ma/bTsBHnRlMCsE5QSPn4RUiGU1FjzolZBAbGeFuC6xgoWw0grD2U7yF+c29T9rtGeBM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JxtE7QXc; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=WwqYFt/bUXKn3oBiMFhmlsz02X66TL0E3UX5nLPxdKTav+l0AIBdmNFYClbwOCV6VUOGWsC8NoBicnB1jg09NL9Wf6RLbhjWqtMX0ApfN0EtogEl9Uj0wKu33IS7P2hfz9MjE0LfGlAaBzGeDlNT8ZgkSeKUfyEKYExwEllcxRI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=krVpy1ko; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JxtE7QXc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 231001F00A3F;
-	Mon, 31 Aug 2026 13:48:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="krVpy1ko"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 614E11F00ADB;
+	Mon, 31 Aug 2026 13:48:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788184092;
-	bh=gcUDc/YMYu8tt5GLt8IMZ7NcJOBB64p0HHW21MoPpMk=;
+	s=k20260515; t=1788184095;
+	bh=dpzFcOsUzknn7jzsTuxyFFmfi2Q3KDvIdInsUb0qOtE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=JxtE7QXcOJqLWnhayzvKBTUstjKC4xbQprkAj3yX55nQSYZtGi11CqvOCebwSMOqT
-	 mjAM1aaQIpWj5/n0iO3GHKDePoIJXzolt9Qcw2q8GRvh37I3tacLSllHqG2LWFLRK1
-	 pXeoE58LckANFCHLyL3VZNbC2Dctxz3s337YNlaQ2W3Cqnhw7FID2Hh4jIMLnEphV6
-	 iw2Msyz6WwKXbW8fQLP+Cr/n77esGzQ2UMbH4eVRm4ITUBd5McsAKlJkvH+ntG1jOj
-	 Ar+mEToZRJdJD+oVTg1kc1mBzvqUsYWR2ego9+OhtvHsQI/Gtcv4nOvaciuZfaZAtA
-	 td+HbQLz+7cfQ==
+	b=krVpy1kouME1As/HCW+TEFNMYYC97E0mkxfDT48gBWYHcxzbWreigNtn6Fbmehhvz
+	 fCLwjvfE3NCETRyTTR1js4EnPqBTKkSjkg0V6NxeI0nDIpdeyfKdmBU+AmOakLzWOy
+	 q6M67txowtLF4PW2m7VKBt/r+Jz5g2G3aAOiIyCfZrccdgzMoVfv20Qub0/VeV628a
+	 iraqjbMJrU0TljrbgbPvye+E2LzqPVntzinfY9bY0Uvg1UQio92PDe8mxP9Yx5Ypfr
+	 R2j9ph+tblVQJZfhTzjLgUzf8ggXIA8ypc2v/5fWXWPlvhCB3x0oElepVYcdes730s
+	 iLMzOW/xzBRnQ==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Alice Mikityanska <alice@isovalent.com>,
-	Davide Caratti <dcaratti@redhat.com>,
-	Willem de Bruijn <willemb@google.com>,
-	Paolo Abeni <pabeni@redhat.com>,
+Cc: Ping-Ke Shih <pkshih@realtek.com>,
 	Sasha Levin <sashal@kernel.org>,
-	jhs@mojatatu.com,
-	jiri@resnulli.us,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	netdev@vger.kernel.org,
+	linux-wireless@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-5.10] net/sched: act_csum: don't mangle UDP tunnel GSO packets
-Date: Mon, 31 Aug 2026 09:28:34 -0400
-Message-ID: <20260831133314.4125787-486-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-6.6] wifi: rtw89: phy: check length before parsing PHY status IE
+Date: Mon, 31 Aug 2026 09:28:36 -0400
+Message-ID: <20260831133314.4125787-488-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -59,415 +51,386 @@ X-stable-base: Linux 6.18.48
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Alice Mikityanska <alice@isovalent.com>
+From: Ping-Ke Shih <pkshih@realtek.com>
 
-[ Upstream commit 9bcb30b389ec5888590cb6ec58c7a3b80fe49a11 ]
+[ Upstream commit 884495c39de1a02f42bd40051b921e2311d6ac91 ]
 
-Similar to commit add641e7dee3 ("sched: act_csum: don't mangle TCP and
-UDP GSO packets"), UDP tunnel GSO packets going through act_csum
-shouldn't have their checksum calculated at this point, because it will
-be done after segmentation. Setting the checksum in act_csum modifies
-skb->ip_summed and prevents inner IP csum offload from kicking in,
-resulting in a packet with a bad checksum.
+Hardware might report PHY status IE with unexpected length, and parser
+might access out of range. Check the length ahead.
 
-Add UDP tunnel GSO packets to the exceptions, and also add UDP GSO
-(SKB_GSO_UDP_L4), as the same logic as in the commit mentioned above
-applies to UDP GSO too.
-
-Signed-off-by: Alice Mikityanska <alice@isovalent.com>
-Reviewed-by: Davide Caratti <dcaratti@redhat.com>
-Reviewed-by: Willem de Bruijn <willemb@google.com>
-Link: https://patch.msgid.link/20260611192955.604661-2-alice.kernel@fastmail.im
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+Signed-off-by: Ping-Ke Shih <pkshih@realtek.com>
+Link: https://patch.msgid.link/20260506131000.1706298-12-pkshih@realtek.com
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-# Stable Backport Analysis: `net/sched: act_csum: don't mangle UDP
-tunnel GSO packets`
+# Stable Backport Analysis: `wifi: rtw89: phy: check length before
+parsing PHY status IE`
 
-**Local tree:** Linux **6.18.44** (`git describe HEAD` →
-`v6.18.44-1-g2736c32da98b9`)
+**Local tree:** Linux **6.18.43** (`git describe HEAD` →
+`v6.18.43-1-gc7f0dac02d232`)
 
 ---
 
 ## PHASE 1: COMMIT MESSAGE FORENSICS
 
-### Step 1.1: Subject Line
-**Record:** `[net/sched] [act_csum] [don't mangle] — Extend GSO skip
-logic in act_csum for UDP tunnel and UDP L4 GSO packets`
+### Step 1.1: Parse the subject line
+**Record:** `[wifi: rtw89: phy]` `[check]` — validate PHY status IE
+length before parsing; prevents out-of-range access when hardware
+reports unexpected IE lengths.
 
-### Step 1.2: Tags
+### Step 1.2: Parse all commit message tags
 **Record:**
-- **Reviewed-by:** Davide Caratti `<dcaratti@redhat.com>` (author of the
-  original 2017 act_csum GSO fix)
-- **Reviewed-by:** Willem de Bruijn `<willemb@google.com>` (UDP GSO
-  subsystem expert)
-- **Link:** https://patch.msgid.link/20260611192955.604661-2-
-  alice.kernel@fastmail.im
-- **Signed-off-by:** Alice Mikityanska, Paolo Abeni
-- No Fixes:, Reported-by:, Tested-by:, Cc: stable
-- Notable: Two strong subsystem reviewers; no syzbot/user bug report
+- **Signed-off-by:** Ping-Ke Shih `<pkshih@realtek.com>` (author)
+- **Link:**
+  https://patch.msgid.link/20260506131000.1706298-12-pkshih@realtek.com
+- **No** Fixes:, Reported-by:, Tested-by:, Reviewed-by:, Acked-by:, or
+  Cc: stable tags
+- Message ID suffix `-12-` indicates patch 12 of a series (series
+  context noted; core reorder fix is still standalone)
 
-### Step 1.3: Body Analysis
+### Step 1.3: Analyze commit body
 **Record:**
-- **Bug:** `act_csum` prematurely computes checksums on UDP tunnel GSO
-  and UDP L4 GSO skbs, setting `skb->ip_summed = CHECKSUM_NONE`
-- **Symptom:** Inner IP checksum offload does not run after segmentation
-  → **packets leave with bad checksums**
-- **Root cause:** Only `SKB_GSO_UDP` (UFO) was exempted;
-  `SKB_GSO_UDP_L4`, `SKB_GSO_UDP_TUNNEL`, and `SKB_GSO_UDP_TUNNEL_CSUM`
-  were not
-- **Reference:** Extends logic from `add641e7dee3` ("sched: act_csum:
-  don't mangle TCP and UDP GSO packets", 2017)
-- **Version info:** None explicit; bug exists wherever newer GSO types
-  are used with act_csum
+- **Bug:** Hardware may deliver PHY status IEs with unexpected length;
+  parser can read past the skb buffer.
+- **Symptom:** Out-of-range memory access during PHY status parsing
+  (potential oops / info leak).
+- **Root cause:** `rtw89_core_process_phy_status_ie()` runs before
+  confirming `pos + ie_len <= end`.
+- **No** explicit kernel version range in the message.
 
-### Step 1.4: Hidden Bug Fix?
-**Record:** Not disguised — this is an explicit correctness fix for
-incomplete GSO exemption coverage. The early-return pattern is identical
-to the established 2017 fix.
+### Step 1.4: Detect hidden bug fixes
+**Record:** Not disguised — message explicitly describes an OOB-access
+bug. The fix is reordering validation before parsing, a standard bounds-
+check pattern.
 
 ---
 
 ## PHASE 2: DIFF ANALYSIS
 
-### Step 2.1: Inventory
+### Step 2.1: Inventory the changes
 **Record:**
-- **File:** `net/sched/act_csum.c` only (+8/-4 lines across 2 hunks)
-- **Functions:** `tcf_csum_ipv4_udp()`, `tcf_csum_ipv6_udp()`
-- **Scope:** Single-file surgical fix
+- **File:** `drivers/net/wireless/realtek/rtw89/core.c` (~5 lines
+  changed, reorder + minor error-path additions)
+- **Function:** `rtw89_core_rx_parse_phy_sts()`
+- **Scope:** Single-file, surgical fix in one loop body
 
-### Step 2.2: Code Flow Change
-**Record:**
-- **Hunk 1 (`tcf_csum_ipv4_udp`, ~line 262):** Before: skip only
-  `SKB_GSO_UDP`. After: skip `SKB_GSO_UDP | SKB_GSO_UDP_L4 |
-  SKB_GSO_UDP_TUNNEL | SKB_GSO_UDP_TUNNEL_CSUM`
-- **Hunk 2 (`tcf_csum_ipv6_udp`, ~line 318):** Identical change for IPv6
-  path
-- **Path affected:** TX path through tc `act_csum` on GSO UDP/tunnel
-  packets — normal datapath for cloud/tunnel workloads
+### Step 2.2: Code flow change
+**Record (per hunk):**
 
-### Step 2.3: Bug Mechanism
-**Record:**
-- **Category:** Logic/correctness fix — premature checksum state
-  mutation on GSO skbs
-- **Mechanism:** Without early return, act_csum zeroes UDP header
-  checksum, computes partial checksum, and sets `skb->ip_summed =
-  CHECKSUM_NONE` (lines 305, 355 in current tree). For GSO packets,
-  checksums must be computed **after** segmentation. Premature
-  `CHECKSUM_NONE` blocks inner IP checksum offload during tunnel GSO
-  segmentation (`skb_udp_tunnel_segment()` path in
-  `net/ipv4/udp_offload.c`)
+**Before:**
+```c
+ie_len = rtw89_core_get_phy_status_ie_len(rtwdev, iehdr);
+rtw89_core_process_phy_status_ie(rtwdev, iehdr, phy_ppdu);  // parses
+first
+pos += ie_len;
+if (pos > end || ie_len == 0)
+    return -EINVAL;
+```
 
-### Step 2.4: Fix Quality
-**Record:**
-- **Obviously correct:** Mirrors the 2017 TCP/UDP GSO exemption pattern
-  and matches how `udp_gso_segment()` itself distinguishes GSO types
-  (see `net/ipv4/udp_offload.c:647-655`)
-- **Minimal:** Only widens the bitmask in two identical checks
-- **Regression risk:** Very low — only adds more GSO types to an
-  existing skip list; cannot affect non-GSO packets
+**After:**
+```c
+ie_len = rtw89_core_get_phy_status_ie_len(rtwdev, iehdr);
+pos += ie_len;
+if (pos > end || ie_len == 0) {
+    /* clear ie09/ie10 on newer trees */
+    return -EINVAL;
+}
+rtw89_core_process_phy_status_ie(rtwdev, iehdr, phy_ppdu);  // parse
+only if in-bounds
+```
+
+**Affected path:** RX PPDU status processing loop (normal + error
+paths).
+
+### Step 2.3: Bug mechanism
+**Record:** **Buffer over-read / out-of-bounds access.**
+`rtw89_core_process_phy_status_ie()` casts `iehdr` to structures like
+`rtw89_phy_sts_ie01` (24 bytes) and `rtw89_phy_sts_ie01_v2` (40 bytes,
+accesses `w8`/`w9`). If `ie_len` is wrong or the remaining buffer is
+shorter than the structure, the parser reads past `end` before the
+existing bounds check runs.
+
+### Step 2.4: Fix quality
+**Record:** Obviously correct — validate-then-use is the right pattern.
+Minimal regression risk (only skips parsing of IEs already known to be
+invalid). No API or behavioral changes for valid packets.
 
 ---
 
 ## PHASE 3: GIT HISTORY INVESTIGATION
 
-### Step 3.1: Blame
-**Record:**
-- Buggy `SKB_GSO_UDP`-only check introduced by `0c19f846d582af` (Willem
-  de Bruijn, Nov 2017) — "net: accept UFO datagrams from tuntap and
-  packet"
-- Original GSO exemption for TCP/UDP: `add641e7dee3` (Davide Caratti,
-  Mar 2017)
-- Gap: `SKB_GSO_UDP_TUNNEL` existed since 2014 (`0f4f4ffa7b7c3`);
-  `SKB_GSO_UDP_L4` since 2018 (`ee80d1ebe5ba7`) — never added to
-  act_csum exemptions
+### Step 3.1: Blame changed lines
+**Record:** `rtw89_core_rx_parse_phy_sts()` and the process-before-check
+ordering are present at the v6.18 merge point (`6bda50f4333fa`,
+2025-11-29). The buggy ordering has been in this tree since at least
+**6.18.0**.
 
-### Step 3.2: Fixes: Tag
-**Record:** No Fixes: tag present. N/A.
+### Step 3.2: Follow Fixes: tag
+**Record:** N/A — no Fixes: tag.
 
-### Step 3.3: Related File History
-**Record:**
-- Recent act_csum changes in this tree: VLAN validation
-  (`ec4930979b3f7`), RCU dump fix (`ba9dc9c14038b`), NULL deref fixes —
-  unrelated
-- No other commit addresses UDP tunnel GSO in act_csum (`git log
-  --grep="act_csum.*GSO"` returns only `add641e7dee3`)
-- Standalone fix, not part of a series
+### Step 3.3: File history for related changes
+**Record:** Recent rtw89 fixes in this tree follow the same pattern:
+- `ebeaa3b24ba56` — validate release report before use (same author)
+- `ef7fa19809b2d` — validate TX release report sequence
+- `ad445de67359f` — bounds check on firmware `mac_id`
 
-### Step 3.4: Author Context
-**Record:** Alice Mikityanska (Isovalent/Cilium) — no prior act_csum
-commits in this tree. Reviewers are the relevant experts.
+Standalone fix; no prerequisite commits required for the reorder.
+
+### Step 3.4: Author context
+**Record:** Ping-Ke Shih is the primary Realtek rtw89 maintainer.
+Multiple rtw89 stable backports from this author are already in 6.18.y.
 
 ### Step 3.5: Dependencies
-**Record:**
-- Requires `add641e7dee3` — **present** in this tree
-- Requires `SKB_GSO_UDP_L4`, `SKB_GSO_UDP_TUNNEL`,
-  `SKB_GSO_UDP_TUNNEL_CSUM` in `include/linux/skbuff.h` — **all
-  present** (lines 691-705)
-- Applies standalone with no prerequisite commits
+**Record:** The upstream diff also touches `ie09`/`ie10` fields and
+monitor-mode accept logic that **do not exist** in 6.18.43. The core
+reorder fix applies independently; backport would drop those hunks.
 
 ---
 
 ## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
-### Step 4.1: Original Discussion
-**Record:** `b4 dig` could not match the commit (not yet merged in this
-tree). Lore.kernel.org and patch.msgid.link blocked by bot protection.
-**UNVERIFIED:** Full mailing list thread content.
+### Step 4.1: Original patch discussion
+**Record:** `b4 dig -c` could not match (commit not in local tree).
+lore.kernel.org and patch.msgid.link blocked by bot protection
+(Anubis/403). **UNVERIFIED:** full review thread content.
 
 ### Step 4.2: Reviewers
-**Record:** Commit message lists Davide Caratti and Willem de Bruijn as
-Reviewed-by — both are authoritative for tc actions and UDP GSO
-respectively.
+**Record:** **UNVERIFIED** — `b4 dig -w` not possible without commit
+hash.
 
-### Step 4.3: Bug Report
-**Record:** No external bug report, syzbot, or user Reported-by. Bug
-identified by code analysis extending the 2017 fix.
+### Step 4.3: Bug report
+**Record:** No syzbot/bugzilla link. Bug is described as hardware-
+reported malformed PHY status data — plausible real-world trigger
+(firmware edge cases), not purely theoretical.
 
-### Step 4.4: Related Patches
-**Record:** Single-patch fix extending `add641e7dee3`. No series
-dependencies.
+### Step 4.4: Related patches / series
+**Record:** Message ID indicates patch 12 of a series. The bounds-check
+reorder does not depend on earlier series patches for correctness in
+6.18.43.
 
-### Step 4.5: Stable List History
-**Record:** **UNVERIFIED** — could not search lore.kernel.org/stable due
-to bot protection.
+### Step 4.5: Stable mailing list
+**Record:** **UNVERIFIED** — could not search lore stable archive due to
+access restrictions.
 
 ---
 
 ## PHASE 5: CODE SEMANTIC ANALYSIS
 
-### Step 5.1: Key Functions
-**Record:** `tcf_csum_ipv4_udp()`, `tcf_csum_ipv6_udp()`, called from
-`tcf_csum_ipv4()` / `tcf_csum_ipv6()` → `tcf_csum_act()`
+### Step 5.1: Key functions
+**Record:** `rtw89_core_rx_parse_phy_sts()`,
+`rtw89_core_process_phy_status_ie()`,
+`rtw89_core_get_phy_status_ie_len()`,
+`rtw89_core_parse_phy_status_ie01()`,
+`rtw89_core_parse_phy_status_ie01_v2()`.
 
 ### Step 5.2: Callers
 **Record:**
-- `tcf_csum_act()` registered as `.act` in `act_csum_ops` (line 708)
-- Invoked via `tc_wrapper.h` indirect dispatch on skb traversing tc
-  classifier/action pipeline
-- Context: packet TX through qdisc/filter — common in traffic shaping,
-  NAT, and Cilium/eBPF-adjacent tc pipelines
+- `rtw89_core_rx_process_phy_sts()` → `rtw89_core_rx_parse_phy_sts()`
+- `rtw89_core_rx_process_ppdu_sts()` → `rtw89_core_rx_process_phy_sts()`
+- `rtw89_core_rx_process_report()` handles
+  `RTW89_CORE_RX_TYPE_PPDU_STAT`
+
+Called on every PPDU status report from firmware during normal WiFi RX.
 
 ### Step 5.3: Callees
-**Record:** On the buggy path: `tcf_csum_skb_nextlayer()`,
-`csum_partial()`, `csum_tcpudp_magic()` / `csum_ipv6_magic()`, then
-`skb->ip_summed = CHECKSUM_NONE`
+**Record:** IE parsers read multi-word hardware structures via
+`le32_get_bits()` at fixed offsets (e.g., `ie->w8`, `ie->w9` up to 40
+bytes into `rtw89_phy_sts_ie01_v2`).
 
 ### Step 5.4: Reachability
-**Record:**
-- Trigger: `tc action csum` configured on an interface sending GSO UDP
-  tunnel traffic (VXLAN, GENEVE, FOU, etc.) or UDP L4 GSO
-- Reachable from userspace via `tc`/`ip` netlink configuration — no
-  special privileges beyond network admin
-- Common in container/cloud overlay networking
+**Record:** Triggered by firmware RX reports on active WiFi interfaces —
+common runtime path, not init-only or debug-only.
 
-### Step 5.5: Similar Patterns
-**Record:** `net/ipv4/udp_offload.c:647-655` already handles tunnel GSO
-and UDP L4 GSO as distinct types from `SKB_GSO_UDP`. act_csum was
-inconsistent with this established split.
+### Step 5.5: Similar patterns
+**Record:** Same driver already had multiple “validate before use”
+stable backports (`ebeaa3b`, `ef7fa198`, `ad445de`), confirming
+maintainer awareness of malformed-firmware crash class.
 
 ---
 
-## PHASE 6: CROSS-REFERENCE AGAINST LOCAL TREE (6.18.44)
+## PHASE 6: CROSS-REFERENCE AGAINST LOCAL TREE (6.18.43)
 
-### Step 6.1: Buggy Code Present?
-**Record:** **YES.** Current tree at lines 262 and 318 checks only
-`SKB_GSO_UDP`:
+### Step 6.1: Does buggy code exist?
+**Record:** **YES.** Current code at lines 2024–2026 still calls
+`rtw89_core_process_phy_status_ie()` before the bounds check:
 
-```262:263:net/sched/act_csum.c
-        if (skb_is_gso(skb) && skb_shinfo(skb)->gso_type & SKB_GSO_UDP)
-                return 1;
+```2021:2031:drivers/net/wireless/realtek/rtw89/core.c
+        while (pos < end) {
+                const struct rtw89_phy_sts_iehdr *iehdr = pos;
+
+                ie_len = rtw89_core_get_phy_status_ie_len(rtwdev,
+iehdr);
+                rtw89_core_process_phy_status_ie(rtwdev, iehdr,
+phy_ppdu);
+                pos += ie_len;
+                if (pos > end || ie_len == 0) {
+                        rtw89_debug(rtwdev, RTW89_DBG_TXRX,
+                                    "phy status parse failed\n");
+                        return -EINVAL;
+                }
+        }
 ```
 
-The fix commit is **not yet applied** to this checkout.
+### Step 6.2: Backport complications
+**Record:** **Clean apply** for the reorder hunk. Upstream `ie09`/`ie10`
+clearing and monitor-mode `accept` logic are not in 6.18.43 and should
+be omitted during backport.
 
-### Step 6.2: Backport Complications
-**Record:** Clean apply expected — two identical one-line bitmask
-expansions. No conflicting recent changes in these functions.
-Difficulty: **trivial**.
-
-### Step 6.3: Related Fixes Already Present?
-**Record:** `add641e7dee3` (original TCP/UDP GSO exemption) is present.
-No duplicate or alternative fix for tunnel/L4 GSO types found.
+### Step 6.3: Related fixes already present?
+**Record:** **No** — grep found no “check length before parsing” commit;
+fix not yet applied.
 
 ---
 
 ## PHASE 7: SUBSYSTEM CONTEXT
 
-### Step 7.1: Subsystem Criticality
-**Record:** `net/sched` (traffic control) — **IMPORTANT**. Affects
-packet integrity on configured network paths, widely used in data-center
-and container networking.
+### Step 7.1: Subsystem criticality
+**Record:** `drivers/net/wireless/realtek/rtw89` — **IMPORTANT**
+(Realtek WiFi devices on PCI/USB; widely deployed on laptops and
+desktops with `CONFIG_RTW89`).
 
-### Step 7.2: Activity
-**Record:** act_csum actively maintained (VLAN validation, NULL deref
-fixes in 2024-2025). Bug is a long-standing gap, not a regression from
-recent churn.
+### Step 7.2: Subsystem activity
+**Record:** High — 27+ rtw89 commits in this tree’s recent history;
+active maintenance and stable backports.
 
 ---
 
-## PHASE 8: IMPACT AND RISK ASSESSMENT
+## PHASE 8: IMPACT AND RISK
 
-### Step 8.1: Who Is Affected
-**Record:** Users with `tc action csum` in their pipeline sending UDP
-tunnel GSO or UDP L4 GSO traffic — overlay networks (VXLAN/GENEVE),
-Cilium-style deployments, tun/tap GSO injection. Config-specific but
-affects production networking stacks.
+### Step 8.1: Who is affected
+**Record:** Users with rtw89-supported hardware (RTL8852AE/BE,
+RTL8922AE/DE, etc.) running normal WiFi traffic.
 
-### Step 8.2: Trigger Conditions
+### Step 8.2: Trigger conditions
+**Record:** Malformed or unexpectedly-sized PHY status IE from
+hardware/firmware. Not every packet, but reachable during normal RX
+without special privileges. Unprivileged users can generate WiFi traffic
+that produces PPDU status reports.
+
+### Step 8.3: Failure mode severity
+**Record:** Out-of-bounds read from skb data → **HIGH** severity (kernel
+oops possible; potential info leak past buffer). Existing error return
+path does not prevent damage because parsing happens first.
+
+### Step 8.4: Risk-benefit
 **Record:**
-- `CONFIG_NET_SCHED_ACT_CSUM` enabled (module `act_csum`)
-- tc csum action applied to egress path
-- GSO skb with `gso_type` of `SKB_GSO_UDP_L4`, `SKB_GSO_UDP_TUNNEL`, or
-  `SKB_GSO_UDP_TUNNEL_CSUM`
-- Moderately common in cloud/container environments; not every-boot
-  universal
-
-### Step 8.3: Failure Mode Severity
-**Record:**
-- **Failure mode:** Incorrect checksums on transmitted packets → silent
-  packet loss, broken tunnels, degraded connectivity
-- **Severity:** **HIGH** (network data corruption/connectivity failure;
-  not a kernel oops, but real user-visible impact)
-- The 2017 predecessor caused `skb_warn_bad_offload` WARN_ONs; this
-  commit addresses bad checksums specifically for newer GSO types
-
-### Step 8.4: Risk-Benefit
-**Record:**
-- **Benefit:** HIGH for affected deployments — restores correct checksum
-  handling for tunnel GSO traffic through tc
-- **Risk:** VERY LOW — 8-line bitmask extension following established
-  pattern, reviewed by subsystem experts
+- **Benefit:** HIGH — prevents crash/info-leak on malformed firmware
+  data in a hot RX path
+- **Risk:** VERY LOW — ~3-line reorder, no logic change for valid IEs
 - **Ratio:** Strongly favors backport
 
 ---
 
 ## PHASE 9: FINAL SYNTHESIS
 
-### Step 9.1: Evidence Summary
+### Step 9.1: Evidence summary
 
 **FOR backport:**
-- Fixes real packet corruption bug (bad checksums on wire)
-- Small, surgical, obviously correct (extends proven 2017 pattern)
-- All GSO types and prerequisite code exist in 6.18.44
-- Reviewed by original act_csum GSO fix author and UDP GSO expert
-- Consistent with how `udp_offload.c` handles the same GSO type split
-- Long-standing gap since 2014/2018 GSO types were introduced
+- Real OOB-read bug in production RX path
+- Bug confirmed present in 6.18.43
+- Small, obviously correct fix
+- Same author/maintainer pattern already accepted in this tree
+- Prevents kernel crash on malformed hardware reports
 
 **AGAINST backport:**
-- No user bug report or syzbot reproduction
-- Affects only systems with tc act_csum + tunnel GSO (config-specific)
-- Mailing list discussion could not be verified
+- No syzbot/user crash report attached (weaker evidence, but mechanism
+  is clear from code)
+- Upstream patch is part of a series and includes hunks not applicable
+  to 6.18.43 (minor backport adaptation needed)
+- Mailing list review not verified
 
-**UNRESOLVED:**
-- Full lore review thread content
-- Whether any distribution has filed a user-visible bug report
+**Unresolved:** Full lore review thread; whether a user-visible crash
+report exists.
 
-### Step 9.2: Stable Rules Checklist
-1. Obviously correct and tested? **PASS** — mirrors existing exemption;
-   reviewed by two domain experts
-2. Fixes a real bug? **PASS** — bad checksums on transmitted GSO tunnel
-   packets
-3. Important issue? **PASS** — network data corruption / connectivity
-   failure (HIGH)
-4. Small and contained? **PASS** — 8 lines, one file
-5. No new features/APIs? **PASS** — extends existing skip logic only
-6. Can apply to local tree? **PASS** — clean apply, all prerequisites
-   present
+### Step 9.2: Stable rules checklist
+1. Obviously correct and tested? **PASS** — reorder is self-evident;
+   author is driver maintainer
+2. Fixes a real bug? **PASS** — OOB read before bounds check
+3. Important issue? **PASS** — crash / memory safety in RX hot path
+   (**HIGH**)
+4. Small and contained? **PASS** — single function, few lines
+5. No new features/APIs? **PASS**
+6. Can apply to local tree? **PASS** — reorder applies cleanly; omit
+   `ie09`/`ie10` hunks
 
-### Step 9.3: Exception Categories
-**Record:** None (not device ID, quirk, DT, build, or docs). Standard
-bug fix.
+### Step 9.3: Exception categories
+**Record:** N/A (not device ID, quirk, DT, build, or docs — standard bug
+fix).
 
-### Step 9.4: Decision Rationale
-
-This commit completes the GSO exemption work started in 2017. The local
-6.18.44 tree has the incomplete check (`SKB_GSO_UDP` only) while
-`SKB_GSO_UDP_TUNNEL`, `SKB_GSO_UDP_TUNNEL_CSUM`, and `SKB_GSO_UDP_L4`
-have been in the tree for years. When tunnel GSO packets traverse
-`act_csum`, premature checksum computation corrupts packet checksum
-state, producing on-wire bad checksums. The fix is minimal, follows an
-established pattern, has expert review, and carries negligible
-regression risk.
+### Step 9.4: Decision rationale
+This commit fixes a clear ordering bug: the driver parses PHY status
+information elements before verifying they fit within the received skb
+buffer. When hardware reports an unexpected IE length, parsers access
+fixed offsets (up to 40 bytes) that can extend past the buffer end,
+causing a kernel oops or information leak. The bug exists in 6.18.43,
+the fix is minimal and follows established rtw89 stable-backport
+patterns from the same maintainer, and it addresses a serious failure
+mode on a common RX path.
 
 ---
 
 ## Verification
 
-- **[Phase 1]** Parsed commit message tags: Reviewed-by ×2, Link tag, no
-  Fixes/Reported-by
-- **[Phase 2]** Diff analysis: 2 hunks in `tcf_csum_ipv4_udp()` and
-  `tcf_csum_ipv6_udp()`, bitmask expanded by 3 GSO types
-- **[Phase 2]** Confirmed `skb->ip_summed = CHECKSUM_NONE` set on non-
-  skipped path (lines 305, 355)
-- **[Phase 3]** `git blame -L 258,265`: GSO check from `0c19f846d582af`
-  (2017)
-- **[Phase 3]** `git show add641e7dee3`: original 2017 TCP/UDP GSO
-  exemption confirmed
-- **[Phase 3]** `git log --grep="act_csum.*GSO"`: only prior GSO fix is
-  `add641e7dee3`
-- **[Phase 3]** `git merge-base --is-ancestor`: all prerequisites
-  (`add641e7dee3`, `0f4f4ffa7b7c3`, `ee80d1ebe5ba7`) confirmed in tree
-- **[Phase 4]** `b4 dig`: no match (commit not merged); **UNVERIFIED**
-  lore thread
-- **[Phase 4]** WebFetch lore.kernel.org and patch.msgid.link: blocked
-  by bot protection
-- **[Phase 5]** `grep tcf_csum_act`: called via tc action dispatch in TX
-  path
-- **[Phase 5]** `net/ipv4/udp_offload.c:647-655`: confirms separate
-  handling of tunnel/L4 GSO types
-- **[Phase 5]** `net/core/gso.c:66-73`: `skb_needs_check()` behavior on
-  `CHECKSUM_NONE` skbs
-- **[Phase 6]** `git describe HEAD`: v6.18.44 — local tree identified
-- **[Phase 6]** `grep SKB_GSO_UDP` in act_csum.c: buggy code present,
-  fix not applied
-- **[Phase 6]** `include/linux/skbuff.h:691-705`: all four GSO types
-  defined
-- **[Phase 8]** Failure mode: bad checksum → packet drops; severity HIGH
-  for affected configs
+- **[Phase 1]** Parsed subject, tags (Signed-off-by, Link); no
+  Fixes:/Reported-by
+- **[Phase 2]** Read diff and current `core.c` lines 2007–2038;
+  confirmed process-before-check ordering
+- **[Phase 2]** Verified IE structure sizes in `txrx.h`
+  (`rtw89_phy_sts_ie01` 24B, `rtw89_phy_sts_ie01_v2` 40B with `w8`/`w9`)
+- **[Phase 3]** `git blame -L 2007,2040`: function present since
+  `6bda50f4333fa` (v6.18 merge)
+- **[Phase 3]** `git show 6bda50f4333fa:core.c`: function existed at
+  v6.18.0 with same bug pattern
+- **[Phase 3]** `git log --oneline -20 --
+  drivers/net/wireless/realtek/rtw89/`: related validation fixes present
+- **[Phase 3]** `git show ebeaa3b24ba56`, `ad445de67359f`: same
+  “validate before use” pattern already backported
+- **[Phase 4]** `b4 dig -c HEAD`: no match (commit not in tree)
+- **[Phase 4]** lore.kernel.org / patch.msgid.link: **BLOCKED** (bot
+  protection) — review thread UNVERIFIED
+- **[Phase 5]** `grep rtw89_core_rx_process_phy_sts`: call chain through
+  `rtw89_core_rx_process_ppdu_sts` → PPDU_STAT RX path
+- **[Phase 5]** Read `rtw89_core_rx_process_phy_ppdu_iter`: only uses
+  parsed data after `phy_ppdu->valid` set on success
+- **[Phase 6]** `git describe HEAD` / `make kernelversion`: tree is
+  6.18.43
+- **[Phase 6]** `grep ie09|ie10 drivers/net/wireless/realtek/rtw89/`: no
+  matches — upstream-only hunks not in this tree
+- **[Phase 6]** `grep "check length before parsing"`: not present — fix
+  not yet applied
+- **[Phase 8]** Confirmed failure mode is OOB read with HIGH severity on
+  active WiFi RX path
 
-**YES**The background search finished: `git log --grep="don't mangle TCP
-and UDP GSO"` found the original 2017 exemption (`add641e7dee3`), and
-there is no matching commit for "don't mangle UDP tunnel GSO" in this
-tree yet.
-
-That matches the earlier analysis: the bug is still present in 6.18.44,
-and this patch should be backported.
+---
 
 **YES**
 
- net/sched/act_csum.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ drivers/net/wireless/realtek/rtw89/core.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/net/sched/act_csum.c b/net/sched/act_csum.c
-index 3a377604ad343..b6873f393aa33 100644
---- a/net/sched/act_csum.c
-+++ b/net/sched/act_csum.c
-@@ -259,7 +259,9 @@ static int tcf_csum_ipv4_udp(struct sk_buff *skb, unsigned int ihl,
- 	const struct iphdr *iph;
- 	u16 ul;
+diff --git a/drivers/net/wireless/realtek/rtw89/core.c b/drivers/net/wireless/realtek/rtw89/core.c
+index c2bf839fd82a9..2eb992c1c2d08 100644
+--- a/drivers/net/wireless/realtek/rtw89/core.c
++++ b/drivers/net/wireless/realtek/rtw89/core.c
+@@ -2026,13 +2026,15 @@ static int rtw89_core_rx_parse_phy_sts(struct rtw89_dev *rtwdev,
+ 		const struct rtw89_phy_sts_iehdr *iehdr = pos;
  
--	if (skb_is_gso(skb) && skb_shinfo(skb)->gso_type & SKB_GSO_UDP)
-+	if (skb_is_gso(skb) && skb_shinfo(skb)->gso_type &
-+	    (SKB_GSO_UDP | SKB_GSO_UDP_L4 |
-+	     SKB_GSO_UDP_TUNNEL | SKB_GSO_UDP_TUNNEL_CSUM))
- 		return 1;
+ 		ie_len = rtw89_core_get_phy_status_ie_len(rtwdev, iehdr);
+-		rtw89_core_process_phy_status_ie(rtwdev, iehdr, phy_ppdu);
+ 		pos += ie_len;
+ 		if (pos > end || ie_len == 0) {
+ 			rtw89_debug(rtwdev, RTW89_DBG_TXRX,
+ 				    "phy status parse failed\n");
++
+ 			return -EINVAL;
+ 		}
++
++		rtw89_core_process_phy_status_ie(rtwdev, iehdr, phy_ppdu);
+ 	}
  
- 	/*
-@@ -315,7 +317,9 @@ static int tcf_csum_ipv6_udp(struct sk_buff *skb, unsigned int ihl,
- 	const struct ipv6hdr *ip6h;
- 	u16 ul;
- 
--	if (skb_is_gso(skb) && skb_shinfo(skb)->gso_type & SKB_GSO_UDP)
-+	if (skb_is_gso(skb) && skb_shinfo(skb)->gso_type &
-+	    (SKB_GSO_UDP | SKB_GSO_UDP_L4 |
-+	     SKB_GSO_UDP_TUNNEL | SKB_GSO_UDP_TUNNEL_CSUM))
- 		return 1;
- 
- 	/*
+ 	rtw89_chip_convert_rpl_to_rssi(rtwdev, phy_ppdu);
 -- 
 2.53.0
 
