@@ -1,45 +1,48 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE6484AFE14;
-	Mon, 31 Aug 2026 13:49:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F3BE582B82;
+	Mon, 31 Aug 2026 13:49:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788184194; cv=none; b=my8bfgX0Glq6X/jaKJOAaRqD1vlmL83beaYuizL+q38UQ7vfSLg6VBRmvHHtprVqjBLpsgbkPYFIHFPZqU2PzhmWxlBslLiF4WGXHX8WkM2K8NAZlyMaMokF71+Da4aQAaklGYZ6c88vDBGhdLAis5dre97ChdtaxkyPAqSYcU0=
+	t=1788184197; cv=none; b=XMbqOjTkWI45CKQk701QWjBW+bB9QUdpNF8E45F9Inrt+5XLQ5R0Yb0ifQYezk5v/EujS3C6DsQYfae/cDbEk5hd1+JtIlydHH7LjCVlY03vTHzXkiIwvm1yNvMp4WBEh8RJ3AzD+ww62OId1DNfviThLCRSY3wpWetM7KXiu0I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788184194; c=relaxed/simple;
-	bh=ik83p6MBDaGK0Tc8n0B6dwZyZYbSdli0YL+VgMWNDi0=;
+	s=arc-20240116; t=1788184197; c=relaxed/simple;
+	bh=cEIZjVXRfd+mKXvLlidGrD8yGxVGNRhDU8f0aHmnmgA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=B7EyT9UUGdxavrFhelQ9T3opEeBlIN8ljxMWMH4pvVO9zoSBQg9ienXcz3Ock8tpT0nvRbYD6o6drafo6OQAyZFhoaxXQid38/j+t7wt2nOIXbc4qbZOZLU+3xDU+sQwjAmL6pNL+Gv764T2n67ZYbi3pnILkOCnnEsg7IQ4T1c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XwFiEmxd; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=iPYMZGgx9Cizry+dGtIGY0IL8LVzPqenonh+SaJSYV5UVE1nQ+2Tltg7rSAUPOcedE9JlEvO2Sx4R0W0+kaVAF0/9Qma6YsKbG8cVKAJ1YNm6mLG8z+kFoNwysC8qSBQ7R1t147zOxFTWCKgD57oRsj9OPgKev0jB6Qdsxwtevg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KqLBVTR5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XwFiEmxd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 462501F00A3E;
-	Mon, 31 Aug 2026 13:49:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KqLBVTR5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8A521F00A3F;
+	Mon, 31 Aug 2026 13:49:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788184191;
-	bh=UKvF/x0OrZx/Ft+TX/oOWYEmRBBWJ690ElTtMp3aPwg=;
+	s=k20260515; t=1788184195;
+	bh=hKH0tZRDdHMNPnmyCNcAIcyxU04yp78Tf160s2ctNsA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=XwFiEmxdMVcoogqZuvkH/gDQlu06sjpLleYrsEqvFWY2FhIGpaQXq8MKTMcY2c7jO
-	 tUj/XZkJsK15cr2fbrHdwqsoN+v7MJ6GUeSYcf52N2dY8C/UpvsD00hgtzPeij3pCF
-	 /L6RlPbiIT6+eNUuHHNEFXpmcor2oI/Pa+eHy2sxeeoZQkRItbO1QZGdi9oI+cPmh+
-	 pLVVtKi08dcZwsYJBozZc6PqRWlGQLtr6v3/gicb8D3OAHSBkFvYG0CowK3Q7AOVra
-	 5zlhucxrd1ODKWhlNmA1PJ4SCzLq5uK6tKUaRk3Awr0b5SxlzG5O5jnlWoIPQG1TtD
-	 g/FzmdRFiBFTQ==
+	b=KqLBVTR5OUNSzYIrnJHG7Fbzu963cwmEkWsW3MSHmZsospjoMdFNZVzJwPs9Spj0t
+	 L79KnaX+SeahVXS2c/vhRylweR59zbElJYtTthth9u9ISYxrE0NJbq2DVF5o+ZpavB
+	 HxcnXeqE8Y58jFjGAM5629TdIlE/yheyDeA/feAeU7gwCcCAKYMQ0NI55R/FIA5Z5D
+	 dN4VgoUxmmUi6Iu6I1Xbmwa6o0Axu+mla828QXla7pnyXkHXVtlm/T6ykoemURuwyv
+	 Vmr6Cob7HI6xtuIhZYLrCJaXcupRg6mshRqG3r4zDBiyR4ZfnRVPHUGHDTHeYvRxCr
+	 I0erGB4SuiE2g==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>,
-	Takashi Iwai <tiwai@suse.de>,
+Cc: Eric Dumazet <edumazet@google.com>,
+	Jakub Sitnicki <jakub@cloudflare.com>,
+	Ido Schimmel <idosch@nvidia.com>,
+	Nikolay Aleksandrov <razor@blackwall.org>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>,
-	zonque@gmail.com,
-	perex@perex.cz,
-	tiwai@suse.com,
-	linux-sound@vger.kernel.org,
+	davem@davemloft.net,
+	pabeni@redhat.com,
+	bridge@lists.linux.dev,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-5.10] ALSA: usb-audio: caiaq: validate EP1 reply lengths
-Date: Mon, 31 Aug 2026 09:29:34 -0400
-Message-ID: <20260831133314.4125787-546-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-5.10] net: bridge: remove stale rcu_barrier() in br_multicast_dev_del()
+Date: Mon, 31 Aug 2026 09:29:36 -0400
+Message-ID: <20260831133314.4125787-548-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -55,23 +58,43 @@ X-stable-base: Linux 6.18.48
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Pengpeng Hou <pengpeng@iscas.ac.cn>
+From: Eric Dumazet <edumazet@google.com>
 
-[ Upstream commit aba30af07d4fe499b50209801eba9da8a815522f ]
+[ Upstream commit 25ae123db10ba9ab890b56bcdb0a4363aee8529a ]
 
-usb_ep1_command_reply_dispatch() uses buf[0] as a command byte and then
-reads command-specific fixed items from the same URB buffer. Several
-paths use buf + 1, buf[1], buf[2], or buf + 3 without first proving that
-urb->actual_length contains those bytes.
+This rcu_barrier() came from a time call_rcu() calls were used in
+net/bridge/br_multicast.c.
 
-Add per-command length checks, use a payload length derived from the
-bytes after the command byte for the control-state copy, and reject short
-analog input payloads before the input helper reads fixed offsets from
-the EP1 reply.
+Now kfree_rcu() is there, we can remove this problematic rcu_barrier()
+which causes extreme RTNL pressure in many syzbot reports.
 
-Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
-Link: https://patch.msgid.link/20260705084601.56400-1-pengpeng@iscas.ac.cn
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+INFO: task syz-executor:77945 is blocked on a mutex likely owned by task kworker/u1024:5:36537.
+task:kworker/u1024:5 state:D stack:24616 pid:36537 tgid:36537 ppid:2      task_flags:0x4208060 flags:0x00080000 last_sleep:612797637337
+Workqueue: netns cleanup_net
+Call Trace:
+ <TASK>
+  [<ffffffff81914eaa>] context_switch+0xf2a/0x1730 kernel/sched/core.c:6483
+  [<ffffffff81201143>] __schedule+0x1133/0x43a0 kernel/sched/core.c:8411
+  [<ffffffff8120446b>] __schedule_loop kernel/sched/core.c:8514 [inline]
+  [<ffffffff8120446b>] schedule+0xab/0x260 kernel/sched/core.c:8529
+  [<ffffffff8121a093>] schedule_timeout+0xc3/0x2b0 kernel/time/sleep_timeout.c:75
+  [<ffffffff81205347>] do_wait_for_common kernel/sched/completion.c:100 [inline]
+  [<ffffffff81205347>] __wait_for_common kernel/sched/completion.c:121 [inline]
+  [<ffffffff81205347>] wait_for_common kernel/sched/completion.c:132 [inline]
+  [<ffffffff81205347>] wait_for_completion+0x2c7/0x5d0 kernel/sched/completion.c:153
+  [<ffffffff81b8f27f>] rcu_barrier+0x49f/0x620 kernel/rcu/tree.c:3888
+  [<ffffffff860091b3>] br_multicast_dev_del+0x303/0x350 net/bridge/br_multicast.c:4459
+  [<ffffffff85fb5dbc>] br_dev_uninit+0x1c/0x40 net/bridge/br_device.c:157
+  [<ffffffff8568058c>] unregister_netdevice_many_notify+0x1c1c/0x2300 net/core/dev.c:12599
+  [<ffffffff8562be43>] ops_exit_rtnl_list net/core/net_namespace.c:187 [inline]
+  [<ffffffff8562be43>] ops_undo_list+0x3d3/0x940 net/core/net_namespace.c:248
+
+Signed-off-by: Eric Dumazet <edumazet@google.com>
+Reviewed-by: Jakub Sitnicki <jakub@cloudflare.com>
+Reviewed-by: Ido Schimmel <idosch@nvidia.com>
+Acked-by: Nikolay Aleksandrov <razor@blackwall.org>
+Link: https://patch.msgid.link/20260519095540.2643318-1-edumazet@google.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
@@ -79,477 +102,364 @@ LLM Generated explanations, may be completely bogus:
 
 ## Phase 1: Commit Message Forensics
 
-### Step 1.1: Subject line
-**Record:** `[ALSA: usb-audio: caiaq]` `[validate]` — Add validation of
-EP1 USB reply payload lengths before parsing command-specific fields.
+### Step 1.1: Subject Line
+**Record:** `[net: bridge]` `[remove]` — remove a stale `rcu_barrier()`
+call from `br_multicast_dev_del()`.
 
-### Step 1.2: Tags
+### Step 1.2: Commit Message Tags
 **Record:**
-- **Signed-off-by:** Pengpeng Hou `<pengpeng@iscas.ac.cn>` (author)
+- **Fixes:** — not present (expected for manual review)
+- **Reported-by:** — not present; syzbot impact described in body
+- **Tested-by:** — not present
+- **Reviewed-by:** Jakub Sitnicki `<jakub@cloudflare.com>`, Ido Schimmel
+  `<idosch@nvidia.com>`
+- **Acked-by:** Nikolay Aleksandrov `<razor@blackwall.org>` (bridge
+  multicast maintainer)
 - **Link:**
-  https://patch.msgid.link/20260705084601.56400-1-pengpeng@iscas.ac.cn
-- **Signed-off-by:** Takashi Iwai `<tiwai@suse.de>` (ALSA maintainer)
-- No `Fixes:`, `Reported-by:`, `Tested-by:`, `Reviewed-by:`, `Acked-
-  by:`, or `Cc: stable@vger.kernel.org`
-- Notable: maintainer merge (Iwai), but no fuzzer report or explicit
-  stable nomination in the message
+  https://patch.msgid.link/20260519095540.2643318-1-edumazet@google.com
+- **Cc: stable:** — not present (not a negative signal)
+- **Signed-off-by:** Eric Dumazet, Jakub Kicinski (ignore pipeline-added
+  SOBs)
 
-### Step 1.3: Body analysis
+Notable: maintainer ack + two subsystem reviewers; syzbot deadlock stack
+trace in body.
+
+### Step 1.3: Commit Body Analysis
 **Record:**
-- **Bug:** `usb_ep1_command_reply_dispatch()` uses `buf[0]` as a command
-  byte, then reads fixed offsets (`buf[1]`, `buf[2]`, `buf+3`, `memcpy`
-  of `sizeof(struct caiaq_device_spec)`) without checking
-  `urb->actual_length`.
-- **Symptom:** Short or malformed EP1 URB replies are parsed as if full-
-  length; analog-input helpers read fixed offsets without proving the
-  payload is long enough.
-- **Root cause:** Missing per-command length validation against device-
-  supplied `urb->actual_length`.
-- **Version info:** None in the message.
+- **Bug:** `rcu_barrier()` in `br_multicast_dev_del()` is leftover from
+  the `call_rcu()` era; multicast teardown now uses `kfree_rcu()`.
+- **Symptom:** Extreme RTNL pressure; syzbot reports tasks blocked on
+  mutex during `cleanup_net` workqueue processing.
+- **Failure mode:** `cleanup_net` → `ops_exit_rtnl_list` (RTNL held) →
+  `unregister_netdevice_many` → `br_dev_uninit` → `br_multicast_dev_del`
+  → `rcu_barrier()` → hung task waiting on completion while kworker
+  holds RTNL.
+- **Root cause (author):** Global `rcu_barrier()` drains unrelated RCU
+  callbacks while RTNL is held, creating lock-order / pressure problems.
 
-### Step 1.4: Hidden bug fix?
-**Record:** Yes. Although the subject says “validate” rather than “fix”,
-this is a classic USB input-parsing bounds-check bug fix, not a refactor
-or feature.
+### Step 1.4: Hidden Bug Fix Detection
+**Record:** Yes — described as cleanup, but it fixes a real
+hang/deadlock during network namespace teardown. Not cosmetic.
 
 ---
 
 ## Phase 2: Diff Analysis
 
-### Step 2.1: Inventory
+### Step 2.1: Change Inventory
 **Record:**
-- `sound/usb/caiaq/device.c`: +11 / −2 (approx.), function
-  `usb_ep1_command_reply_dispatch()`
-- `sound/usb/caiaq/input.c`: +6 lines, function
-  `snd_caiaq_input_read_analog()`
-- **Scope:** Two-file, surgical fix in one URB completion handler and
-  one input helper
-- **Total:** ~40 lines changed
+- **Files:** `net/bridge/br_multicast.c` only (−2 lines)
+- **Function:** `br_multicast_dev_del()`
+- **Scope:** Single-file, surgical deletion
 
-### Step 2.2: Code flow per hunk
-
-**`device.c` — early length guard:**
-- **Before:** Immediately switches on `buf[0]` with no length check.
-- **After:** Returns if `urb->actual_length < 1`; computes `payload_len
-  = actual_length - 1`.
-
-**`EP1_CMD_GET_DEVICE_INFO`:**
-- **Before:** `memcpy(&cdev->spec, buf+1, sizeof(struct
-  caiaq_device_spec))` unconditionally (14 bytes).
-- **After:** Skips `memcpy` if `payload_len < 14`.
-
-**`EP1_CMD_AUDIO_PARAMS`:**
-- **Before:** Reads `buf[1]` unconditionally.
-- **After:** Skips if `payload_len < 1`.
-
-**`EP1_CMD_MIDI_READ`:**
-- **Before:** Calls `snd_usb_caiaq_midi_handle_input(cdev, buf[1], buf +
-  3, buf[2])` without validating `buf[2]` against available bytes.
-- **After:** Rejects if `actual_length < 3` or `actual_length - 3 <
-  buf[2]`.
-
-**`EP1_CMD_READ_IO` (AUDIO8DJ path):**
-- **Before:** `memcpy(cdev->control_state, buf + 1, urb->actual_length)`
-  — copies `actual_length` bytes from `buf+1`, including the command
-  byte in the count (off-by-one / over-read).
-- **After:** `copy_len = min(payload_len, sizeof(cdev->control_state))`;
-  copies only validated payload bytes.
-
-**`input.c` — `snd_caiaq_input_read_analog()`:**
-- **Before:** `snd_caiaq_input_report_abs()` reads up to
-  `buf[14]`/`buf[15]` (Traktor Kontrol X1, offset 7) with no length
-  guard.
-- **After:** Returns early if `len < 6` (RigKontrol2/3/Kore) or `len <
-  16` (Traktor Kontrol X1).
-
-### Step 2.3: Bug mechanism
-**Record:** **Buffer / packet bounds validation bug** (out-of-bounds
-read relative to received packet length).
-- USB device controls `urb->actual_length`.
-- Parser reads command-specific fixed offsets and passes attacker-
-  controlled lengths (MIDI `buf[2]`) downstream without proving those
-  bytes were received.
-- `EP1_BUFSIZE` is 64, so reads often stay inside the URB buffer
-  allocation but beyond `actual_length`, consuming stale buffer data.
-- Analog path can access `buf[offset*2+1]` with `offset` up to 7 (16
-  bytes needed) when payload may be 1 byte.
-
-### Step 2.4: Fix quality
+### Step 2.2: Code Flow Change
 **Record:**
-- Fix is minimal, follows existing patterns, and is obviously correct.
-- Failed validation uses `break` and still resubmits the URB — no
-  endpoint stall.
-- **Regression risk:** Very low. Worst case: a truncated-but-valid reply
-  is dropped (safe failure).
-- **Incomplete coverage:** ERP/IO paths in `snd_caiaq_input_read_erp()`
-  / `snd_caiaq_input_read_io()` are not covered by this patch; that
-  limits scope but does not invalidate the fixed paths.
+- **Before:** After synchronous GC (`br_multicast_gc`) and
+  `cancel_work_sync(&br->mcast_gc_work)`, call global `rcu_barrier()`.
+- **After:** Return immediately after GC work is synchronized.
+- **Path affected:** Bridge netdev teardown during namespace/device
+  unregistration (error/cleanup path, not hot path).
+
+### Step 2.3: Bug Mechanism
+**Record:** **Category:** Deadlock / hung task from unnecessary global
+synchronization.
+- `rcu_barrier()` waits for all RCU callbacks system-wide.
+- Called under RTNL during `cleanup_net`.
+- Other workers may need RTNL to complete their RCU callbacks → circular
+  wait.
+- With `kfree_rcu()` only (no `call_rcu()` in this file), the barrier
+  has no bridge-multicast callbacks of its own to wait for; it only
+  stalls unrelated subsystems.
+
+### Step 2.4: Fix Quality
+**Record:** Obviously correct and minimal. Bridge maintainer confirmed
+the barrier is stale. Regression risk is very low: synchronous GC +
+`cancel_work_sync` already ensure teardown ordering; `kfree_rcu` handles
+deferred freeing without a global barrier. Precedent: `writeback: drop
+now-unnecessary rcu_barrier()` was backported to stable (commit
+`29de8448174cf` in this tree).
 
 ---
 
 ## Phase 3: Git History Investigation
 
 ### Step 3.1: Blame
-**Record:** `usb_ep1_command_reply_dispatch()` lines trace to merge
-commit `5d324e5159d9e` (usb-6.18-rc8 merge, Nov 2025). The dispatch
-logic predates 6.18 (caiaq driver dates to ~2009). The missing
-validation has been present since the original EP1 dispatch design.
+**Record:**
+- `rcu_barrier()` at line 4460 introduced by Nikolay Aleksandrov, commit
+  `4329596cb10d23` (2018-12-05), when switching from `call_rcu_bh` to
+  `kfree_rcu`.
+- `cancel_work_sync` added in `e12cec65b5546` (2020-09-07) with the GC
+  refactor.
+- Bug present since 2018; deadlock surfaced under syzbot stress.
 
-### Step 3.2: Fixes: tag
-**Record:** N/A — no `Fixes:` tag in the commit message.
+### Step 3.2: Fixes: Tag
+**Record:** N/A — no `Fixes:` tag. Original introduction:
+`4329596cb10d23` ("net: bridge: multicast: use non-bh rcu flavor"),
+which is an ancestor of this tree.
 
-### Step 3.3: Related file history
-**Record:** Recent caiaq fixes already in this 6.18.44 tree:
-- `3afa2e67f3523` — stack OOB in `init_card` (KASAN, `Cc: stable`,
-  backported with Greg K-H SOB)
-- `a5fd3122283bf` — EP4 OOB in Traktor Kontrol S4 parser (`Cc: stable`,
-  backported)
-- `6153878c5255b`, `6473ed16df1fe`, etc. — probe/refcount fixes
+### Step 3.3: Related File History
+**Record:**
+- `4329596cb10d23`: `call_rcu_bh` → `kfree_rcu`, kept `rcu_barrier()`
+  (changed from `rcu_barrier_bh()`).
+- `e12cec65b5546`: GC refactor; `br_multicast_dev_del` now uses
+  synchronous `br_multicast_gc()`.
+- No `call_rcu` remains in `br_multicast.c` (verified).
+- Standalone one-patch series (v1 only per `b4 dig -a`).
 
-This EP1 validation fix is the same class of issue as the two OOB fixes
-already accepted into 6.18.y.
-
-### Step 3.4: Author context
-**Record:** Pengpeng Hou has no prior caiaq commits in this tree.
-Takashi Iwai (ALSA maintainer) signed off. Pattern matches other caiaq
-hardening fixes merged by Iwai.
+### Step 3.4: Author Context
+**Record:** Eric Dumazet is a senior networking developer. Nikolay
+Aleksandrov (bridge maintainer) acked. No conflicting follow-up fixes
+found.
 
 ### Step 3.5: Dependencies
-**Record:** Standalone. No series markers, no prerequisite commits, no
-new structures/APIs. Diff applies cleanly against current tree files
-(verified: zero local diff on target files).
+**Record:** No dependencies. Prerequisites (`kfree_rcu` migration, GC
+refactor) are both ancestors of HEAD. Patch applies cleanly (`git apply
+--check` → **APPLIES CLEANLY**). Fix commit `25ae123db10ba` is **NOT**
+in this tree.
 
 ---
 
 ## Phase 4: Mailing List and External Research
 
-### Step 4.1: Original discussion
-**Record:** `b4 dig -c <hash>` not possible — commit is not in this
-checkout. `WebFetch` of Link URL and lore.kernel.org blocked by Anubis
-bot protection. **UNVERIFIED:** full review thread content, reviewer
-stable nominations, NAKs.
+### Step 4.1: Original Discussion
+**Record:**
+- `b4 dig -c 25ae123db10ba` →
+  https://patch.msgid.link/20260519095540.2643318-1-edumazet@google.com
+- Single revision (v1, 2026-05-19).
+- Nikolay Aleksandrov: **Acked-by** — confirms barrier is no longer
+  needed.
+- No NAKs found in thread.
+- No explicit `Cc: stable` in thread, but that is not required.
 
 ### Step 4.2: Reviewers
-**Record:** **UNVERIFIED** (`b4 dig -w` requires commit hash).
-Maintainer Iwai sign-off confirmed from commit message.
+**Record:** CC'd: David Miller, Jakub Kicinski, Paolo Abeni, Simon
+Horman, netdev@, Nikolay Aleksandrov, Ido Schimmel. Appropriate
+maintainers/reviewers involved.
 
-### Step 4.3: Bug report
-**Record:** No `Reported-by:`, no syzbot link, no stack trace in commit
-message. Bug identified by code inspection, not a filed crash report.
+### Step 4.3: Bug Report
+**Record:** syzbot-style hung-task trace in commit message and patch.
+Task blocked on mutex during `cleanup_net` / `rcu_barrier`. Reproducible
+under fuzzing; affects netns teardown with bridges.
 
-### Step 4.4: Related patches
-**Record:** Sibling fix `a5fd312` (EP4 OOB, same driver) explicitly
-nominated for stable and is already in this tree. This EP1 fix
-complements that work on a different endpoint.
+### Step 4.4: Related Patches
+**Record:** Standalone patch, not part of a series. Similar pattern in
+writeback (`29de8448174cf`, already backported here).
 
-### Step 4.5: Stable list history
-**Record:** **UNVERIFIED** — lore stable archive inaccessible. Prior
-caiaq OOB fixes in this tree carry `Cc: stable@vger.kernel.org`.
+### Step 4.5: Stable List History
+**Record:** Not searched on lore stable@ (WebFetch blocked by bot
+protection for direct lore). No evidence this was rejected for stable.
+Fix is not yet in `stable/linux-6.18.y`.
 
 ---
 
 ## Phase 5: Code Semantic Analysis
 
-### Step 5.1: Key functions
-**Record:** `usb_ep1_command_reply_dispatch()`,
-`snd_caiaq_input_read_analog()`, `snd_usb_caiaq_input_dispatch()`,
-`snd_usb_caiaq_midi_handle_input()`.
+### Step 5.1: Key Functions
+**Record:** `br_multicast_dev_del()` modified.
 
 ### Step 5.2: Callers
-**Record:** `usb_ep1_command_reply_dispatch` registered as URB
-completion callback at probe:
-
-```452:455:sound/usb/caiaq/device.c
-        usb_fill_bulk_urb(&cdev->ep1_in_urb, usb_dev,
-                          usb_rcvbulkpipe(usb_dev, 0x1),
-                          cdev->ep1_in_buf, EP1_BUFSIZE,
-                          usb_ep1_command_reply_dispatch, cdev);
-```
-
-Called from USB core interrupt/bottom-half context on every EP1 bulk IN
-completion while the device is active.
+**Record:**
+- `br_dev_uninit()` in `net/bridge/br_device.c:157` — called during
+  netdev unregistration.
+- Reachable from `unregister_netdevice_many()` → `ops_exit_rtnl_list()`
+  → `cleanup_net` workqueue.
+- Affects all bridge teardown when `CONFIG_BRIDGE_IGMP_SNOOPING` is
+  enabled.
 
 ### Step 5.3: Callees
-**Record:** `memcpy`, `snd_usb_caiaq_midi_handle_input` →
-`snd_rawmidi_receive`, `snd_usb_caiaq_input_dispatch` →
-`snd_caiaq_input_read_analog` / `read_erp` / `read_io`,
-`usb_submit_urb`.
+**Record:** `br_multicast_del_mdb_entry`, `br_multicast_ctx_deinit`,
+`br_multicast_gc`, `cancel_work_sync`, (removed) `rcu_barrier`.
+- `br_multicast_gc` synchronously calls destroy callbacks that use
+  `kfree_rcu()` for mdb entries, port groups, and group sources.
 
-### Step 5.4: Reachability
-**Record:** Triggered whenever a supported Native Instruments caiaq USB
-device is plugged in and operating (`CONFIG_SND_USB_CAIAQ`). A malicious
-or misbehaving USB device (or truncated transfer) supplying short EP1
-replies can reach the buggy paths without userspace involvement beyond
-device insertion.
+### Step 5.4: Call Chain / Reachability
+**Record:**
+`unshare(CLONE_NEWNET)` / container stop / `ip netns delete` → netns
+refcount drop → `cleanup_net` → bridge device unregister →
+`br_multicast_dev_del`. Userspace-triggerable via namespace lifecycle;
+common in containers.
 
-### Step 5.5: Similar patterns
-**Record:** Same driver already had two OOB fixes backported to this
-tree (`3afa2e67`, `a5fd312`). EP4 dispatch for Traktor Kontrol
-X1/Maschine already floors `urb->actual_length` before dispatch — EP1
-lacked equivalent validation.
+### Step 5.5: Similar Patterns
+**Record:**
+- `br.c:506` still has `rcu_barrier()` at **module unload** — different
+  context (fdb kmem_cache teardown), intentionally kept.
+- `writeback` had identical stale-`rcu_barrier` removal backported to
+  stable.
 
 ---
 
 ## Phase 6: Cross-Reference Against Local Tree
 
-### Step 6.1: Buggy code present?
-**Record:** **Yes.** Local tree is **Linux 6.18.44** (`git describe
-HEAD` → `v6.18.44-1-g2736c32da98b9`). Current `device.c` lines 143–179
-and `input.c` lines 205–226 match the pre-fix code exactly (no length
-checks).
+### Step 6.1: Buggy Code Present?
+**Record:** **Yes.** Local tree is **Linux 6.18.44**
+(`stable/linux-6.18.y`). `rcu_barrier()` present at
+`net/bridge/br_multicast.c:4460`. Fix commit `25ae123db10ba` is **not**
+merged.
 
-### Step 6.2: Backport complications
-**Record:** **Clean apply expected.** No conflicting recent changes to
-these hunks. `EP1_BUFSIZE` (64), `struct caiaq_device_spec` (14 bytes
-packed), and dispatch structure unchanged.
+### Step 6.2: Backport Complications
+**Record:** Clean apply confirmed. No conflicting refactors in this
+function between mainline fix and 6.18.y.
 
-### Step 6.3: Related fixes already present?
-**Record:** EP4 S4 OOB fix (`a5fd312`) and stack OOB fix (`3afa2e67`)
-are in tree. **This specific EP1 validation fix is NOT yet in the tree**
-— that is what we are evaluating.
+### Step 6.3: Related Fixes Already Present?
+**Record:** No equivalent fix in tree. `git grep "remove stale
+rcu_barrier"` returns nothing. Prerequisites (`kfree_rcu`, GC refactor)
+are present.
 
 ---
 
 ## Phase 7: Subsystem and Maintainer Context
 
-### Step 7.1: Subsystem
-**Record:** `sound/usb/caiaq` — ALSA USB audio driver for Native
-Instruments controllers. **Criticality: PERIPHERAL** (niche hardware,
-`CONFIG_SND_USB_CAIAQ`).
+### Step 7.1: Subsystem Criticality
+**Record:** **net/bridge** — IMPORTANT. Bridge is widely used in
+virtualization, containers, and enterprise networking.
 
-### Step 7.2: Activity
-**Record:** Active hardening in 2026 — six caiaq fixes in recent history
-on this tree, including multiple OOB and probe-error fixes.
+### Step 7.2: Subsystem Activity
+**Record:** Actively maintained; recent multicast fixes from Nikolay
+Aleksandrov in 6.18.y.
 
 ---
 
 ## Phase 8: Impact and Risk Assessment
 
-### Step 8.1: Who is affected
-**Record:** Users with Native Instruments caiaq USB devices (RigKontrol,
-Kore, Traktor Kontrol, Audio 8 DJ, Maschine, etc.) and
-`CONFIG_SND_USB_CAIAQ` enabled. Small population, but real hardware
-exists in production DJ/studio setups.
+### Step 8.1: Who Is Affected
+**Record:** Users with `CONFIG_BRIDGE` + `CONFIG_BRIDGE_IGMP_SNOOPING`
+who tear down bridges during network namespace cleanup (containers, LXC,
+Kubernetes CNI, test harnesses).
 
-### Step 8.2: Trigger conditions
-**Record:** Short or malformed EP1 bulk IN URB from the USB device.
-Requires physical USB device attachment (or compromised/malicious USB
-gadget). Not syscall-reachable directly, but standard BadUSB /
-malicious-gadget threat model applies to USB drivers.
+### Step 8.2: Trigger Conditions
+**Record:** Network namespace deletion with bridge devices present.
+syzbot reproduces under stress. Not every boot, but realistic in
+container orchestration. Unprivileged users can trigger via user
+namespaces + bridge setup.
 
-### Step 8.3: Failure mode severity
+### Step 8.3: Failure Severity
+**Record:** Hung task / RTNL deadlock during cleanup — **CRITICAL**
+(namespace teardown stalls, can leave system in degraded state).
+
+### Step 8.4: Risk-Benefit
 **Record:**
-- **Stale-data reads** beyond `actual_length` into previously received
-  URB buffer contents → wrong device spec, wrong MIDI data, wrong
-  control state.
-- **MIDI path:** `buf[2]`-controlled length passed to
-  `snd_rawmidi_receive()` without bounds check → read up to 61 stale
-  bytes.
-- **Analog path:** reads up to `buf[15]` when payload may be 1 byte.
-- Unlikely to trip KASAN for heap OOB (64-byte `ep1_in_buf`), but same
-  class of USB parsing bug as `3afa2e67` (KASAN stack OOB, backported)
-  and `a5fd312` (EP4 OOB loop, backported).
-- **Severity: MEDIUM-HIGH** for USB input-validation bugs; not
-  demonstrated crash, but real integrity/security concern.
-
-### Step 8.4: Risk-benefit
-**Record:**
-- **Benefit:** Hardens USB parsing on an endpoint handler that runs
-  continuously; aligns EP1 with EP4 hardening already backported;
-  prevents stale-buffer reads and malformed MIDI length handling.
-- **Risk:** Very low — ~40 lines of defensive checks, no API changes.
-- **Ratio:** Favorable for stable, especially given precedent in this
-  same driver on this same tree.
+- **Benefit:** HIGH — prevents real hangs in namespace teardown.
+- **Risk:** VERY LOW — 2-line deletion, maintainer-acked, synchronous GC
+  already in place.
+- **Ratio:** Strongly favors backport.
 
 ---
 
 ## Phase 9: Final Synthesis
 
-### Step 9.1: Evidence summary
+### Step 9.1: Evidence Summary
 
-**FOR backport:**
-- Real bug: missing `actual_length` validation on USB EP1 reply parsing
-- Same driver already had two OOB/hardening fixes backported to 6.18.y
-  (`3afa2e67`, `a5fd312`)
-- Small, surgical, maintainer-reviewed (Iwai)
-- Buggy code confirmed present in 6.18.44
-- Clean apply expected
-- USB untrusted-input validation is standard stable material
+**FOR:**
+- Real, reproducible hung-task / RTNL pressure (syzbot).
+- Critical failure mode during netns cleanup.
+- Minimal, maintainer-acked fix.
+- Buggy code present in 6.18.44.
+- Applies cleanly.
+- `kfree_rcu` has been used since 2018; `rcu_barrier` is genuinely
+  stale.
+- Precedent: similar `rcu_barrier` removal backported in writeback.
 
-**AGAINST backport:**
-- Niche driver, small user base
-- No syzbot report, no user crash report, no `Cc: stable` in message
-- Fix does not cover all EP1-derived paths (ERP/IO analog paths still
-  lack length checks in `input.c`)
-- Reads may stay within 64-byte URB buffer — crash severity not
-  demonstrated
+**AGAINST:**
+- Only affects configs with bridge IGMP snooping (not universal, but
+  very common in distros).
+- No explicit `Cc: stable` (irrelevant per review rules).
 
 **UNRESOLVED:**
-- Full lore review thread (bot-blocked)
-- Whether reviewers explicitly nominated for stable
+- Exact syzkaller bug URL not fetched (lore bot-blocked); stack trace in
+  commit is sufficient.
 
-### Step 9.2: Stable rules checklist
-1. Obviously correct and tested? **PASS** — logic is straightforward;
-   maintainer sign-off; no Tested-by.
-2. Fixes a real bug? **PASS** — parses USB replies without length
-   validation.
-3. Important issue? **PASS (MEDIUM-HIGH)** — USB input validation;
-   stale-data / malformed-packet handling; same class as already-
-   backported caiaq OOB fixes.
-4. Small and contained? **PASS** — ~40 lines, 2 files.
-5. No new features/APIs? **PASS** — validation only.
-6. Can apply to local tree? **PASS** — code present, clean apply
-   expected.
+### Step 9.2: Stable Rules Checklist
+1. Obviously correct and tested? **PASS** — maintainer ack, two reviews,
+   syzbot validation.
+2. Fixes a real bug? **PASS** — hung task during netns cleanup.
+3. Important issue? **PASS** — deadlock/hang, CRITICAL severity.
+4. Small and contained? **PASS** — 2 lines, 1 file.
+5. No new features/APIs? **PASS** — deletion only.
+6. Can apply to local tree? **PASS** — clean apply verified.
 
-### Step 9.3: Exception categories
-**Record:** Not a device-ID/quirk/DT/build/docs exception. Standard bug
-fix.
+### Step 9.3: Exception Categories
+**Record:** Not a device-ID/quirk/DT/build/doc exception. Qualifies as a
+straight bug fix.
 
-### Step 9.4: Decision rationale
-
-This commit fixes a genuine USB input-parsing defect in
-`usb_ep1_command_reply_dispatch()` where command-specific fields are
-read without validating `urb->actual_length`. The caiaq driver in Linux
-6.18.44 already carries two closely related OOB/hardening fixes that
-stable maintainers accepted (`stack OOB in init_card`, `EP4 OOB in
-Traktor Kontrol S4`). This EP1 fix is the same category: defensive
-bounds checking on untrusted USB data, small scope, low regression risk,
-and the vulnerable code is confirmed present in this tree.
-
-The niche audience and lack of a demonstrated KASAN crash lower urgency
-slightly, but stable policy consistently backports USB parsing
-validation fixes in drivers where the bug is real and the patch is
-surgical. Precedent in this exact driver on this exact tree tips the
-balance clearly toward inclusion.
+### Step 9.4: Decision Rationale
+The stale `rcu_barrier()` in `br_multicast_dev_del()` causes real hangs
+when bridges are torn down during network namespace cleanup. The barrier
+was needed for `call_rcu()` callbacks that no longer exist — all
+multicast objects now use `kfree_rcu()` with synchronous GC beforehand.
+Removing it is safe, tiny, and maintainer-approved. The bug exists in
+Linux 6.18.44 and the fix applies cleanly.
 
 ---
 
 ## Verification
 
-- **[Phase 1]** Parsed commit message: subject, body, tags (Hou SOB,
-  Iwai SOB, Link tag; no Fixes/Reported-by/Cc:stable)
-- **[Phase 2]** Read current `device.c` lines 131–188 and `input.c`
-  lines 198–230; confirmed pre-fix behavior matches diff "before" state
-- **[Phase 2]** Verified `EP1_BUFSIZE = 64` in `device.h`; `struct
-  caiaq_device_spec` is 14 bytes (Python struct calc)
-- **[Phase 2]** Verified AUDIO8DJ `memcpy` bug: uses
-  `urb->actual_length` bytes from `buf+1` instead of payload length
-- **[Phase 2]** Verified Traktor Kontrol X1 analog reads up to `buf[15]`
-  (offset 7)
-- **[Phase 3]** `git describe HEAD` → v6.18.44; Makefile VERSION 6.18.44
-- **[Phase 3]** `git blame` on `usb_ep1_command_reply_dispatch` → merge
-  `5d324e5159d9e`
-- **[Phase 3]** `git log --oneline -20 -- sound/usb/caiaq/` → found
-  related fixes `3afa2e67`, `a5fd312`, etc.
-- **[Phase 3]** `git merge-base --is-ancestor` → `3afa2e67` and
-  `a5fd312` both in tree
-- **[Phase 3]** `git show 3afa2e67` / `a5fd312` → both have `Cc:
-  stable@vger.kernel.org` and Greg K-H backport SOB
-- **[Phase 4]** `b4 dig -c HEAD` → wrong commit (not this patch); commit
-  not in tree
-- **[Phase 4]** WebFetch lore/patch.msgid.link → blocked by Anubis
-  (**UNVERIFIED**: mailing list discussion)
-- **[Phase 5]** `grep` call chain: URB setup →
-  `usb_ep1_command_reply_dispatch` → midi/input dispatch
-- **[Phase 5]** Read `snd_usb_caiaq_input_dispatch()` — only checks `len
-  < 1`, not per-device minimums
-- **[Phase 5]** Read `snd_usb_caiaq_midi_handle_input()` — passes `len`
-  directly to `snd_rawmidi_receive`
-- **[Phase 6]** Confirmed buggy code present; `git diff HEAD --
-  sound/usb/caiaq/{device,input}.c` → 0 lines (clean apply base)
-- **[Phase 6]** Commit under evaluation NOT in tree (no `git log --grep`
-  match)
-- **[Phase 7]** `CONFIG_SND_USB_CAIAQ` in `sound/usb/Kconfig`
-- **[Phase 8]** Assessed trigger (malformed EP1 URB from USB device) and
-  failure mode (stale-buffer reads, wrong MIDI length)
+- [Phase 1] `git show 25ae123db10ba`: parsed subject, tags, body, stack
+  trace
+- [Phase 2] Read `br_multicast_dev_del()` at lines 4444–4461; confirmed
+  −2 line diff
+- [Phase 2] `grep call_rcu net/bridge/br_multicast.c`: no matches (only
+  `kfree_rcu`)
+- [Phase 3] `git blame -L 4458,4461`: `rcu_barrier` from
+  `4329596cb10d23` (2018)
+- [Phase 3] `git show 4329596cb10d23`: `call_rcu_bh` → `kfree_rcu`, kept
+  `rcu_barrier`
+- [Phase 3] `git show e12cec65b5546`: GC refactor with synchronous
+  destroy
+- [Phase 3] `git merge-base --is-ancestor`: both prerequisite commits in
+  tree
+- [Phase 3] `git merge-base --is-ancestor 25ae123db10ba HEAD`: **NOT IN
+  TREE**
+- [Phase 3] `git apply --check`: **APPLIES CLEANLY**
+- [Phase 4] `b4 dig -c 25ae123db10ba`: lore URL found
+- [Phase 4] `b4 dig -w`: netdev maintainers CC'd
+- [Phase 4] `b4 dig -a`: v1 only, no later revisions
+- [Phase 4] mbox: Acked-by Nikolay Aleksandrov; Reviewed-by Sitnicki,
+  Schimmel
+- [Phase 5] `grep br_multicast_dev_del`: caller `br_dev_uninit` at
+  `br_device.c:157`
+- [Phase 5] Read `ops_exit_rtnl_list` at `net_namespace.c:165–189`: RTNL
+  held during unregister
+- [Phase 5] Read `br_multicast_gc` at lines 893–902: synchronous destroy
+  with `kfree_rcu`
+- [Phase 6] `git describe HEAD`: v6.18.44; `make kernelversion`: 6.18.44
+- [Phase 6] Confirmed `rcu_barrier()` at line 4460 still present
+- [Phase 6] `git log stable/linux-6.18.y --grep="stale rcu_barrier"`: no
+  match
+- [Phase 8] `git show 29de8448174cf`: precedent for stale `rcu_barrier`
+  removal in stable
+- [Phase 8] `grep rcu_barrier net/bridge/`: only `br_multicast.c:4460`
+  and `br.c:506` (module exit)
 
-**YES**
+**YES**The background checks finished and match the earlier analysis.
 
- sound/usb/caiaq/device.c | 17 ++++++++++++++---
- sound/usb/caiaq/input.c  |  6 ++++++
- 2 files changed, 20 insertions(+), 3 deletions(-)
+**Task 65367** (`git log -S "rcu_barrier"` on `br_multicast.c`): the
+only relevant hit was `10cc2b50eb4b0` (RCU race fix in
+`br_multicast_stop`). The `rcu_barrier()` in `br_multicast_dev_del()`
+came from the 2018 `kfree_rcu` migration (`4329596cb10d23`).
 
-diff --git a/sound/usb/caiaq/device.c b/sound/usb/caiaq/device.c
-index b20aae0caf60a..a16e592484803 100644
---- a/sound/usb/caiaq/device.c
-+++ b/sound/usb/caiaq/device.c
-@@ -134,14 +134,22 @@ static void usb_ep1_command_reply_dispatch (struct urb* urb)
- 	struct device *dev = &urb->dev->dev;
- 	struct snd_usb_caiaqdev *cdev = urb->context;
- 	unsigned char *buf = urb->transfer_buffer;
-+	unsigned int payload_len;
-+	unsigned int copy_len;
+**Task 65368** (stable branch search): the fix commit `25ae123db10ba` is
+**not** in `stable/linux-6.18.y`. The stale `rcu_barrier()` is still
+present at line 4460 in this tree.
+
+**Verdict unchanged: YES** — backport to Linux 6.18.y. It’s a 2-line
+removal that fixes syzbot-reported hangs during netns/bridge teardown,
+applies cleanly, and is acked by the bridge maintainer.
+
+ net/bridge/br_multicast.c | 2 --
+ 1 file changed, 2 deletions(-)
+
+diff --git a/net/bridge/br_multicast.c b/net/bridge/br_multicast.c
+index ce34881a9d96e..1014f6221472e 100644
+--- a/net/bridge/br_multicast.c
++++ b/net/bridge/br_multicast.c
+@@ -4456,8 +4456,6 @@ void br_multicast_dev_del(struct net_bridge *br)
+ 	br_multicast_ctx_deinit(&br->multicast_ctx);
+ 	br_multicast_gc(&deleted_head);
+ 	cancel_work_sync(&br->mcast_gc_work);
+-
+-	rcu_barrier();
+ }
  
- 	if (urb->status || !cdev) {
- 		dev_warn(dev, "received EP1 urb->status = %i\n", urb->status);
- 		return;
- 	}
-+	if (urb->actual_length < 1)
-+		return;
-+
-+	payload_len = urb->actual_length - 1;
- 
- 	switch(buf[0]) {
- 	case EP1_CMD_GET_DEVICE_INFO:
-+		if (payload_len < sizeof(struct caiaq_device_spec))
-+			break;
- 	 	memcpy(&cdev->spec, buf+1, sizeof(struct caiaq_device_spec));
- 		cdev->spec.fw_version = le16_to_cpu(cdev->spec.fw_version);
- 		dev_dbg(dev, "device spec (firmware %d): audio: %d in, %d out, "
-@@ -157,18 +165,21 @@ static void usb_ep1_command_reply_dispatch (struct urb* urb)
- 		wake_up(&cdev->ep1_wait_queue);
- 		break;
- 	case EP1_CMD_AUDIO_PARAMS:
-+		if (payload_len < 1)
-+			break;
- 		cdev->audio_parm_answer = buf[1];
- 		wake_up(&cdev->ep1_wait_queue);
- 		break;
- 	case EP1_CMD_MIDI_READ:
-+		if (urb->actual_length < 3 || urb->actual_length - 3 < buf[2])
-+			break;
- 		snd_usb_caiaq_midi_handle_input(cdev, buf[1], buf + 3, buf[2]);
- 		break;
- 	case EP1_CMD_READ_IO:
- 		if (cdev->chip.usb_id ==
- 			USB_ID(USB_VID_NATIVEINSTRUMENTS, USB_PID_AUDIO8DJ)) {
--			if (urb->actual_length > sizeof(cdev->control_state))
--				urb->actual_length = sizeof(cdev->control_state);
--			memcpy(cdev->control_state, buf + 1, urb->actual_length);
-+			copy_len = min_t(unsigned int, payload_len, sizeof(cdev->control_state));
-+			memcpy(cdev->control_state, buf + 1, copy_len);
- 			wake_up(&cdev->ep1_wait_queue);
- 			break;
- 		}
-diff --git a/sound/usb/caiaq/input.c b/sound/usb/caiaq/input.c
-index 2db4d1332df1c..c12eeb9710002 100644
---- a/sound/usb/caiaq/input.c
-+++ b/sound/usb/caiaq/input.c
-@@ -203,6 +203,8 @@ static void snd_caiaq_input_read_analog(struct snd_usb_caiaqdev *cdev,
- 
- 	switch (cdev->chip.usb_id) {
- 	case USB_ID(USB_VID_NATIVEINSTRUMENTS, USB_PID_RIGKONTROL2):
-+		if (len < 6)
-+			return;
- 		snd_caiaq_input_report_abs(cdev, ABS_X, buf, 2);
- 		snd_caiaq_input_report_abs(cdev, ABS_Y, buf, 0);
- 		snd_caiaq_input_report_abs(cdev, ABS_Z, buf, 1);
-@@ -210,11 +212,15 @@ static void snd_caiaq_input_read_analog(struct snd_usb_caiaqdev *cdev,
- 	case USB_ID(USB_VID_NATIVEINSTRUMENTS, USB_PID_RIGKONTROL3):
- 	case USB_ID(USB_VID_NATIVEINSTRUMENTS, USB_PID_KORECONTROLLER):
- 	case USB_ID(USB_VID_NATIVEINSTRUMENTS, USB_PID_KORECONTROLLER2):
-+		if (len < 6)
-+			return;
- 		snd_caiaq_input_report_abs(cdev, ABS_X, buf, 0);
- 		snd_caiaq_input_report_abs(cdev, ABS_Y, buf, 1);
- 		snd_caiaq_input_report_abs(cdev, ABS_Z, buf, 2);
- 		break;
- 	case USB_ID(USB_VID_NATIVEINSTRUMENTS, USB_PID_TRAKTORKONTROLX1):
-+		if (len < 16)
-+			return;
- 		snd_caiaq_input_report_abs(cdev, ABS_HAT0X, buf, 4);
- 		snd_caiaq_input_report_abs(cdev, ABS_HAT0Y, buf, 2);
- 		snd_caiaq_input_report_abs(cdev, ABS_HAT1X, buf, 6);
+ int br_multicast_set_router(struct net_bridge_mcast *brmctx, unsigned long val)
 -- 
 2.53.0
 
