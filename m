@@ -1,95 +1,145 @@
-Received: from mta0.migadu.com (out-194.mta0.migadu.com [91.218.175.194])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx.itxnorge.no (itx-kvm-14.itxnorge.no [91.189.121.228])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEBD3472F67
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 17:29:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.194
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3196042D777;
+	Mon, 31 Aug 2026 17:29:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.189.121.228
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788197350; cv=none; b=Ay6g76vfyRs2ObSNflxPG2iVxoB58AcUyE6Q7VB1Vv0872wo7PjRbDaeJlj+T9wBR7XLkpzksAIAw8H8AlVhjdilb4SUppNP4frflF06BYiZnK3BBYxeb/2OqwGXbw5Z4wgNVKBoLYMjrd1pf+EimtSA6fIOYhBOffXGuxuDPGA=
+	t=1788197380; cv=none; b=TM0qab4Ar4x+7jYzVu/6kezmrBxPrOYxPuCsJuZVtg856eho/EqOLo9v/DZgr6kyVgB9N51xUSXqCI+1Xkg4AK2Vx3X8giWwd9j9xAP6W8WAqpmF3fxUw0VEEUAkGwTKT0kAmQsc2R68kVv+Zhm9kK4rGw4KEMQ8gDnDppuP7I0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788197350; c=relaxed/simple;
-	bh=1kSqhe2+PT1a5oElxIG7Elgw45NvEJRmD8rNlzuc6uQ=;
-	h=Mime-Version:Content-Type:Date:Message-Id:To:Cc:Subject:From:
-	 References:In-Reply-To; b=q3PMZwjlxWZLkm+TEHd5uJ7/7LB7X4+m0aBgLx6vYxKUvsZpn06RsxFp+7aeuWkTxHxm+wB56jeEd9s3HBtfnROPMiL6Nx9cmTVXFtjswm3aUtIk/yEiDzuKR4CyqCZrYlg3gTcZYOcyt2JdrEkomAQIxSJapFYM1RSNcODDur0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com; spf=pass smtp.mailfrom=cknow-tech.com; dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b=DHLF4tOO; arc=none smtp.client-ip=91.218.175.194
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cknow-tech.com
+	s=arc-20240116; t=1788197380; c=relaxed/simple;
+	bh=lKZFVN8JLmInDHrp96Aem5GFnlnxOcTOHx3Yzjj1r44=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=VK+p6gSqt3yYkQ4gcmOtfodgFyRFNIsvmLxhVYWnsHFugunhYcin9NqG84i9j/Hq6Vjr7OC0WX2g586mmE/IpmiM/plQmSvYLsdDj+lRjrvtp9QiqG15Rlb4Ixm+8EMSZUKqz5SepSTxYQJbdyJp3kiXryMXuPLzdJc1nUcyl8o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no; spf=pass smtp.mailfrom=itx.no; dkim=pass (1024-bit key) header.d=itx.no header.i=@itx.no header.b=Xor3L9HU; arc=none smtp.client-ip=91.189.121.228
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=itx.no
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b="DHLF4tOO"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=1kSqhe2+PT1a5oElxIG7Elgw45NvEJRmD8rNlzuc6uQ=;
- c=simple/simple; d=cknow-tech.com;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788197344; v=1; x=1788802144;
- b=DHLF4tOOWRhXHHzS8XUXjRxVubzd/MiFcMt2joJsuh4ccsLIv2xk6AYFGYMdF7V0SRRy0Fxu
- o3MHjZsRapr6sWRennPSQaWuU/zD4jEd6HxgmhRGKhWbDMvKyOpMVuGIctRT5J5rWQGgoY9gnF5
- meHCU8T/4gCfy4fbEg19ataHfsKQfTfBevfz1lFL+jiTszbk+W6MBmPMYN9lF8Dqd6oHku9+Jc7
- w0XkIyPTSwgzhV4cd/nL+fHvAEFa3oobl+plutQS8gjEQQsu1gBPXFqCESDA7NH9Je3s/Jskvp8
- erQsFNn6JysMrOz0iM7ryoeZIU/4ygaTouc+RllT4lmsQ==
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 3bb6bfbe23dd3995;
-	Mon, 31 Aug 2026 17:29:04 +0000
-X-Mizu-Trace-ID: 3bb6bfbe23dd3995
-X-Migadu-Flow: FLOW_OUT
+	dkim=pass (1024-bit key) header.d=itx.no header.i=@itx.no header.b="Xor3L9HU"
+From: Stian Halseth <stian@itx.no>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=itx.no; s=mx.itx.no;
+	t=1788197377;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=as1Q7CFzcg3A1HVRGPPklx5tG13IWKXOKBiHIvgFoy8=;
+	b=Xor3L9HU+bV+NUIPw2yR8REDwL6c/wcL/gfWVJs7ETIpdTc2bVWNgLjoXwEghyeOAlQjH9
+	aurkkqLoZDsEC3+omIgshgJm3voGhoGJ4WEZ7JjgCRzy6r+GNHvACYuEkcv9+He6+OFsy6
+	I8ju50AfRDXnX2irMIUabCaZyLX2b9E=
+To: andreas@gaisler.com,
+	davem@davemloft.net,
+	sparclinux@vger.kernel.org
+Cc: Tony Rodriguez <unixpro1970@gmail.com>,
+	linux-kernel@vger.kernel.org,
+	david.laight.linux@gmail.com,
+	glaubitz@physik.fu-berlin.de,
+	thuth@redhat.com,
+	regressions@lists.linux.dev,
+	nroach44@nroach44.id.au,
+	Stian Halseth <stian@itx.no>
+Subject: [PATCH v2] sparc64: increase kernel thread stack size to 32K
+Date: Mon, 31 Aug 2026 19:29:24 +0200
+Message-ID: <20260831172928.3082853-1-stian@itx.no>
+In-Reply-To: <20260519075809.8993-1-unixpro1970@gmail.com>
+References: <20260519075809.8993-1-unixpro1970@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 31 Aug 2026 19:29:00 +0200
-Message-Id: <DL3B1XH7K4WC.1ZXA6ANI8Q1A0@cknow-tech.com>
-To: "Detlev Casanova" <detlev.casanova@collabora.com>, "Rob Herring"
- <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor
- Dooley" <conor+dt@kernel.org>, "Heiko Stuebner" <heiko@sntech.de>, "Johan
- Jonker" <jbx6244@gmail.com>, "Alex Bee" <knaerzche@gmail.com>, "Christian
- Hewitt" <christianshewitt@gmail.com>, "Robin Murphy"
- <robin.murphy@arm.com>, "Nicolas Frattaroli"
- <frattaroli.nicolas@gmail.com>, "Nicolas Frattaroli"
- <nicolas.frattaroli@collabora.com>, "Kuninori Morimoto"
- <kuninori.morimoto.gx@renesas.com>
-Cc: <kernel@collabora.com>, <devicetree@vger.kernel.org>,
- <linux-arm-kernel@lists.infradead.org>,
- <linux-rockchip@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 5/7] arm64: dts: rockchip: Rename rk356x HDMI audio card
-From: "Diederik de Haas" <diederik@cknow-tech.com>
-X-Mailer: aerc 0.22.0-9-ge948bb7230f4
-References: <20260831-fix-rockchip-hdmi-audio-names-v1-0-5b155ae05293@collabora.com> <20260831-fix-rockchip-hdmi-audio-names-v1-5-5b155ae05293@collabora.com>
-In-Reply-To: <20260831-fix-rockchip-hdmi-audio-names-v1-5-5b155ae05293@collabora.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Mon Aug 31, 2026 at 4:20 PM CEST, Detlev Casanova wrote:
-> Rename the card from "HDMI" to "RK356x HDMI" so it identifies the SoC
-> in user-visible ALSA fields and no longer collides with the identical
-> "HDMI" string used by other Rockchip SoCs.
->
-> Fixes: 697ee8546e241 ("arm64: dts: rockchip: Add HDMI audio nodes to rk35=
-6x")
-> Signed-off-by: Detlev Casanova <detlev.casanova@collabora.com>
-> ---
->  arch/arm64/boot/dts/rockchip/rk356x-base.dtsi | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi b/arch/arm64/b=
-oot/dts/rockchip/rk356x-base.dtsi
-> index a5832895bd39..98785c812fc4 100644
-> --- a/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
-> +++ b/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
-> @@ -150,7 +150,7 @@ scmi_clk: protocol@14 {
-> =20
->  	hdmi_sound: hdmi-sound {
->  		compatible =3D "simple-audio-card";
-> -		simple-audio-card,name =3D "HDMI";
-> +		simple-audio-card,name =3D "RK356x HDMI";
+From: Tony Rodriguez <unixpro1970@gmail.com>
 
-Move the name property to rk3566.dtsi and rk3568.dtsi and use their actual
-SoC name, thus RK3566 and RK3568?
+Kernel stacks on sparc64 are 16K and this is no longer enough:
+several machines (SPARC T5-2 among them) panic early in boot during
+USB hub enumeration with "corrupted stack end detected inside
+scheduler". sparc has not been converted to THREAD_INFO_IN_TASK, so
+thread_info sits at the bottom of the kernel stack and a marginal
+overflow corrupts it first; CONFIG_SCHED_STACK_END_CHECK then fires
+from __schedule long after the deep path has unwound, which is why
+the reported backtraces look shallow.
 
-Cheers,
-  Diederik
->  		simple-audio-card,format =3D "i2s";
->  		simple-audio-card,mclk-fs =3D <256>;
->  		status =3D "disabled";
+Measurements with CONFIG_STACK_TRACER on an UltraSPARC T4-1 show the
+problem is frame count, not any single large frame. The high-water
+mark of an ordinary successful boot is 12616 of 16384 bytes (77%),
+reached in hub_probe() with a printk console flush and then a timer
+interrupt (which runs on the task stack, and whose scheduler tick
+performs load balancing and IPI delivery) stacked on top. Of the 66
+frames in that path the largest is 408 bytes, and ~85% of them are
+176-224 bytes - at or just above the SPARC V9 ABI minimum frame
+(128-byte register window save area plus 48-byte argument save
+area). An equivalent call chain on x86-64 costs roughly a third of
+the stack, so a 16K stack on sparc64 provides far less effective
+call depth than on other 64-bit architectures.
 
+Double THREAD_SIZE to 32K (four 8K pages). The PAGE_SHIFT
+conditionals are dropped: sparc64 only supports 8K base pages, so
+the other branches were dead code. Kernel stacks become order-2
+allocations; sparc64 has no VMAP_STACK, but stacks are allocated
+once per thread and the trade against boot-time panics is a good
+one.
 
+Link: https://lore.kernel.org/all/20260519075809.8993-1-unixpro1970@gmail.com/
+Signed-off-by: Tony Rodriguez <unixpro1970@gmail.com>
+[stian: reduced the diff to the THREAD_* defines, measured stack
+ usage with CONFIG_STACK_TRACER and rewrote the changelog]
+Signed-off-by: Stian Halseth <stian@itx.no>
+---
+v2:
+ - drop the CONFIG_SPARC64 / PAGE_SHIFT conditional chain from v1;
+   thread_info_64.h is only built on sparc64 and only 8K pages are
+   supported, so define the three constants unconditionally
+ - replace the panic backtrace in the changelog with stack tracer
+   measurements answering David Laight's review comments:
+   https://lore.kernel.org/all/20260520144104.618c75ca@pumpkin/
+ - retitled from "unify thread stack sizing and add explicit 32KB
+   stack"; the sizing logic for other configurations is unchanged
+
+Tested on an UltraSPARC T4-1, booted with the stack tracer armed
+("stacktrace") before and after this patch. The boot high-water mark
+is 12616 bytes on both kernels - the worst path (hub_probe with a
+printk and a timer interrupt on top) is deterministic - i.e. 77% of
+the 16K stack before, 38% of the 32K stack after. DEBUG_STACK_USAGE
+agrees: the peak boot-time task shows 9208 bytes left of 16K before
+vs 25592 bytes left of 32K after (7176 bytes used in both).
+
+ arch/sparc/include/asm/thread_info_64.h | 15 +++------------
+ 1 file changed, 3 insertions(+), 12 deletions(-)
+
+diff --git a/arch/sparc/include/asm/thread_info_64.h b/arch/sparc/include/asm/thread_info_64.h
+--- a/arch/sparc/include/asm/thread_info_64.h
++++ b/arch/sparc/include/asm/thread_info_64.h
+@@ -99,13 +99,8 @@
+ #define FAULT_CODE_BLKCOMMIT	0x10	/* Use blk-commit ASI in copy_page */
+ #define	FAULT_CODE_BAD_RA	0x20	/* Bad RA for sun4v		   */
+ 
+-#if PAGE_SHIFT == 13
+-#define THREAD_SIZE (2*PAGE_SIZE)
+-#define THREAD_SHIFT (PAGE_SHIFT + 1)
+-#else /* PAGE_SHIFT == 13 */
+-#define THREAD_SIZE PAGE_SIZE
+-#define THREAD_SHIFT PAGE_SHIFT
+-#endif /* PAGE_SHIFT == 13 */
++#define THREAD_SIZE (4 * PAGE_SIZE)
++#define THREAD_SHIFT (PAGE_SHIFT + 2)
+ 
+ /*
+  * macros/functions for gaining access to the thread information structure
+@@ -128,11 +123,7 @@
+ #endif
+ 
+ /* thread information allocation */
+-#if PAGE_SHIFT == 13
+-#define THREAD_SIZE_ORDER	1
+-#else /* PAGE_SHIFT == 13 */
+-#define THREAD_SIZE_ORDER	0
+-#endif /* PAGE_SHIFT == 13 */
++#define THREAD_SIZE_ORDER	2
+ 
+ #define __thread_flag_byte_ptr(ti)	\
+ 	((unsigned char *)(&((ti)->flags)))
+--
+2.53.0
