@@ -1,45 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB3CF5970C4;
-	Mon, 31 Aug 2026 13:51:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F7CA5970D5;
+	Mon, 31 Aug 2026 13:51:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788184284; cv=none; b=ZDmZt1+70KYX0uCZH3od0+XDwa1slFhcAlfQrvuhHeqOgJZirrNWB1GtEd6BGJtC2P3ByDm9zEUyUMH8rd7DyovQmYB63mWdiNeDarlruwk5dmcvPTt17zJESriBeztuojav5Xag55YJAYUBcZzF1hmNoi0M6PEbTGV+Lef96Ak=
+	t=1788184286; cv=none; b=sIrOqT6ILs5wKiM2giD9QVJM8261Hw9NsX2/pJboLDPP+XAeVbqd15C946WwSuRX/L/cXRWBEn0XeLQ13oy1Q0khNuNbnxSUhZkPpy7BfVSAoTlKYS4RORU+OqF5aCZSSuLyEs6bz5DWbfqCbbCIDPYWhsoniqtDJSh7ihjN3ac=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788184284; c=relaxed/simple;
-	bh=0PVHaOnKMr16wApATx6PfqxEAuxQ/LaX/pG5KqHrqW8=;
+	s=arc-20240116; t=1788184286; c=relaxed/simple;
+	bh=b1+7sDCFr7Lzi605lxCk+6E6GtmibPSn9uWdStIKDrI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=VFsUeePHgciZ/uCeQyXFzz2scqlen88sy2rf0cHyGuoO17xq8vuMm/4CEOUaqsOmuZvpsw0T5P2rXU5G7ZeTs2d4uW5nqb9vlXp0RWAkgIw8aAdEyTOHLUITYNArFPP4AzxLj7W2BU6E2jrqT27j+jBmiBqFlA7Xo9caUVTJBfo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CxwlR5BP; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=iX1hvsYqw1xEMqk1We6og8XxrvAF2JA4sTpK4dsyTzUrkdGpzf5DNLXALSsbL3IW0xGjLC8sg0vEJ5zOddInwelbbD7MrYN9ql9qmR0cgojhxzux1MEprKvqiQGjCwc80wt5CRLFI960DaGx6PaJcVTi6kKrEGh1xHJzA8aXzNU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fX6tVGFI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CxwlR5BP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62D161F00A3F;
-	Mon, 31 Aug 2026 13:51:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fX6tVGFI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 140531F000E9;
+	Mon, 31 Aug 2026 13:51:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788184281;
-	bh=NgqzQU3iitijG6CwHdYsSqIl/muPKnrewyIb1NE+DrU=;
+	s=k20260515; t=1788184283;
+	bh=Ry5bGhee1+Y43sY8l3F1gxSiDytd52XG4ku7HJvav4U=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=CxwlR5BP/Ft9Ddb9ngqqb9OPLRYB8QwVezLCBlqBPOpb6/fljqcWxYvM8u5sYhfCO
-	 6ErywSVdP9N0NULJELG0RiIlxsLczYEpbd7ZA9b5KmuV3A6HUJsFNL6EIDIVDdDpHL
-	 NM+8PZd8d/IF6VZKWEbmr3REiufwU7FoNxyVD9sO/gP7QargDH9GECIOASPIzP82xm
-	 B0jPWEnmts+k7Zku4p6ubTu4sMA0KcCtDeYGKeTwFPhXw4PsiEpAeGZ0sYsD7vsPbj
-	 YEktMvsG1FzOzAZFERmFha2HgJKqUxF+SXRhIb1AiGRiXD3hiR2obqTkr8AVSN65vN
-	 olTVlhUlrVvbA==
+	b=fX6tVGFIvQ8/hpjgcPv0/wUE/qh3r8NtXudfpCEDAmcDhXryO2+3tyQ/kbUx3HvWE
+	 PiXUtERzgW6suLfB8bsUPZHTTmbATAaciSHKpIEHN+qX/hGBd+YJYIw17Spt1mBXfB
+	 /+xH5vXwJyFaJuQ0gcdKJGrltZSkNxAdQ3/5w9l6H7GHUi24Lp6OwojiaQmKd3IbD5
+	 lUdAZ4Yg2W/wy2/PHWXuNBsn8o6ynCBiIYX54+p2p64Wxif/JxiXB6dzunskDH8wdd
+	 B/qUG1SvI/RvjD7jN7UJxsDqs3UqcEkYfANCdWaZeuYMhY8lg5elH4a8wv48fisw3+
+	 lZIyGJm0Lvqng==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Kuba Piecuch <jpiecuch@google.com>,
-	Tejun Heo <tj@kernel.org>,
+Cc: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Vinod Koul <vkoul@kernel.org>,
 	Sasha Levin <sashal@kernel.org>,
-	mingo@redhat.com,
-	peterz@infradead.org,
-	juri.lelli@redhat.com,
-	vincent.guittot@linaro.org,
+	linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18] sched_ext: Mark waker CPU busy when selected in WAKE_SYNC case
-Date: Mon, 31 Aug 2026 09:30:27 -0400
-Message-ID: <20260831133314.4125787-599-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-6.6] soundwire: intel: Move suspend tracking from trigger to pm suspend
+Date: Mon, 31 Aug 2026 09:30:28 -0400
+Message-ID: <20260831133314.4125787-600-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -55,299 +53,290 @@ X-stable-base: Linux 6.18.48
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Kuba Piecuch <jpiecuch@google.com>
+From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 
-[ Upstream commit 9591fcc95dddfd24298724f8eb5239e907980779 ]
+[ Upstream commit acf676b9de0c86bc735a7f04962d3d688e156ffc ]
 
-SCX's built-in idle CPU tracking is imperfect and can be out-of-sync
-with the actual idle state of CPUs, especially immediately after
-enabling SCX due to scx_idle_enable() marking all online CPUs idle.
+Mark all open DAI runtimes as suspended in the component .suspend
+callback instead of relying on SNDRV_PCM_TRIGGER_SUSPEND, which is
+not delivered during PAUSE or xrun states.
 
-scx_select_cpu_dfl() skips marking the selected CPU as busy if
-the selected CPU is the waker CPU in the SCX_WAKE_SYNC case.
-If the waker CPU was marked idle by SCX, it will still be marked idle
-after CPU selection and potentially even after switching to the wakee.
+If during system suspend a dai is open it means that it is in either in
+SUSPENDED, PAUSED or STOPPED  (due to xrun) state and they will need to be
+re-initialized during resume (which is done in .prepare callback).
 
-In the allowed_cpus selftest, this can manifest as the test failing with
-the following message in dmesg:
-
-  allowed_cpus.bpf.c:21: CPU 0 should be marked as busy
-
-This patch explicitly marks the waker CPU as busy. With this patch,
-the test failure no longer reproduces. There are still some pretty
-unlikely races that could make the test fail (e.g. pick_task_idle()
-marking the selected CPU idle between selection and validation), but
-these can't be fixed easily.
-
-Signed-off-by: Kuba Piecuch <jpiecuch@google.com>
-Signed-off-by: Tejun Heo <tj@kernel.org>
+Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+Link: https://patch.msgid.link/20260508101755.1247039-1-yung-chuan.liao@linux.intel.com
+Signed-off-by: Vinod Koul <vkoul@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-# Stable Backport Analysis: `sched_ext: Mark waker CPU busy when
-selected in WAKE_SYNC case`
+# Stable Backport Analysis: `soundwire: intel: Move suspend tracking
+from trigger to pm suspend`
 
-**Local tree:** `v6.18.44` (`linux-6.18.y`, VERSION=6, PATCHLEVEL=18,
-SUBLEVEL=44)
-
-**Commit analyzed:** `b9f6521da1907` (upstream: `9591fcc95dddf`)
+**Local tree:** Linux 6.18.43 (`git describe HEAD` →
+`v6.18.43-1-gc7f0dac02d232`)
 
 ---
 
 ## PHASE 1: COMMIT MESSAGE FORENSICS
 
 ### Step 1.1: Subject Line
-**Record:** `[sched_ext]` `[Mark]` — Mark waker CPU busy when selected
-in WAKE_SYNC case. Action is a correctness/state fix (not a feature
-add).
+**Record:** `[soundwire: intel]` `[move]` — Relocate suspend-state
+tracking from PCM trigger callback to component PM suspend callback.
 
-### Step 1.2: Tags
+### Step 1.2: Commit Message Tags
 **Record:**
-- **Signed-off-by:** Kuba Piecuch `<jpiecuch@google.com>` (author)
-- **Signed-off-by:** Tejun Heo `<tj@kernel.org>` (sched_ext maintainer)
-- No Fixes:, Reported-by:, Tested-by:, Reviewed-by:, Link:, or Cc:
-  stable tags
-- `[Upstream commit 9591fcc95dddf]` marker present (pipeline artifact —
-  ignored per instructions)
+- **Signed-off-by:** Peter Ujfalusi, Bard Liao, Vinod Koul (subsystem
+  maintainer)
+- **Link:** https://patch.msgid.link/20260508101755.1247039-1-yung-
+  chuan.liao@linux.intel.com
+- No Fixes:, Reported-by:, Tested-by:, Reviewed-by:, Acked-by:, or Cc:
+  stable@vger.kernel.org
+- Notable: Maintainer (Vinod Koul) signed off; no syzbot/fuzzer report
 
-### Step 1.3: Body Analysis
+### Step 1.3: Commit Body Analysis
 **Record:**
-- **Bug:** SCX built-in idle CPU tracking can be out of sync with real
-  CPU idle state, especially right after `scx_idle_enable()` marks all
-  online CPUs idle.
-- **Mechanism:** In `scx_select_cpu_dfl()`, the `SCX_WAKE_SYNC` path
-  selects the waker CPU but skips `scx_idle_test_and_clear_cpu()`,
-  unlike every other selection path in the same function.
-- **Symptom:** Selected waker CPU remains marked idle after CPU
-  selection (and potentially after wakee switch).
-- **Observable failure:** `allowed_cpus` selftest fails with
-  `allowed_cpus.bpf.c:21: CPU 0 should be marked as busy` in dmesg.
-- **Root cause (author):** Missing idle-bit clear on the WAKE_SYNC
-  waker-CPU fast path.
+- **Bug:** Suspend tracking relied on `SNDRV_PCM_TRIGGER_SUSPEND`, which
+  ALSA does not deliver when a stream is in PAUSE or xrun (STOPPED)
+  state at system-suspend time.
+- **Symptom:** On resume, `.prepare()` does not reinitialize SHIM/DMA
+  hardware because `dai_runtime->suspended` was never set; audio fails
+  after suspend/resume.
+- **Root cause:** `TRIGGER_SUSPEND` is only sent when
+  `snd_pcm_running()` is true (RUNNING/DRAINING only).
+- **Fix approach:** Mark all open DAIs suspended in the component
+  `.suspend` callback, which runs during system PM suspend after PCM
+  suspend.
 
-### Step 1.4: Hidden Bug Fix?
-**Record:** Yes — despite not using "fix" in the subject, this is a
-logic/correctness bug in idle tracking state management, not cleanup or
-optimization.
+### Step 1.4: Hidden Bug Fix Detection
+**Record:** Yes — described as a refactor (“move”), but it fixes a real
+suspend/resume correctness bug. The `suspended` flag gates hardware
+reinit in `intel_prepare()`.
 
 ---
 
 ## PHASE 2: DIFF ANALYSIS
 
-### Step 2.1: Inventory
+### Step 2.1: Change Inventory
 **Record:**
-- **File:** `kernel/sched/ext_idle.c` (+3, -1 lines)
-- **Function:** `scx_select_cpu_dfl()`
-- **Scope:** Single-file, surgical fix in one code path
+- `drivers/soundwire/intel.c`: ~17 lines removed, ~10 modified (net −7)
+- `drivers/soundwire/intel_ace2x.c`: ~14 lines removed, ~27 added (new
+  `intel_component_dais_suspend`, `.suspend` hook)
+- **Functions modified:** `intel_trigger()`,
+  `intel_component_dais_suspend()` (intel.c); `intel_trigger()`, new
+  `intel_component_dais_suspend()` (intel_ace2x.c)
+- **Scope:** Single-subsystem, two related driver files; surgical fix
 
 ### Step 2.2: Code Flow Change
 **Record:**
-- **Before:** In `SCX_WAKE_SYNC` path, when waker's local DSQ is empty
-  and system underutilized, if waker CPU is in `allowed` mask → `goto
-  out_unlock` without updating idle tracking.
-- **After:** Same path, but calls `scx_idle_test_and_clear_cpu(cpu)`
-  before `goto out_unlock`, matching all other CPU selection exits in
-  this function.
-- **Path affected:** WAKE_SYNC synchronous wakeup CPU selection (normal
-  wakeup path, not error path).
+
+| Hunk | Before | After |
+|------|--------|-------|
+| `intel_trigger()` (both files) | On `SNDRV_PCM_TRIGGER_SUSPEND`, set
+`dai_runtime->suspended = true` | `TRIGGER_SUSPEND` case removed; only
+pause tracking remains |
+| `intel_component_dais_suspend()` (intel.c) | Only set `suspended` if
+`paused && !suspended` | Set `suspended = true` for every open
+`dai_runtime` |
+| `intel_ace2x.c` component driver | No `.suspend` callback | Adds
+`intel_component_dais_suspend` + `.suspend` hook |
+
+**Execution path affected:** System suspend (S3/runtime suspend) → ASoC
+card suspend → PCM suspend → component suspend → resume → `.prepare()`.
 
 ### Step 2.3: Bug Mechanism
-**Record:** **Logic / correctness fix** — inconsistent idle-mask
-bookkeeping. Other selection branches call
-`scx_idle_test_and_clear_cpu()` when claiming a CPU; this branch was the
-sole exception, leaving the waker CPU incorrectly marked idle in SCX's
-built-in idle cpumask.
+**Record:**
+- **Category:** Logic/correctness — suspend-state tracking bug
+- **Mechanism:** `snd_pcm_do_suspend()` in `sound/core/pcm_native.c`
+  skips `TRIGGER_SUSPEND` when `!snd_pcm_running()`. PAUSED and XRUN
+  streams are not “running,” so the driver never sets
+  `dai_runtime->suspended`. `intel_prepare()` only reinitializes
+  SHIM/ALH when `dai_runtime->suspended` is true.
+
+Verified in tree:
+
+```1713:1721:sound/core/pcm_native.c
+static int snd_pcm_do_suspend(struct snd_pcm_substream *substream,
+                              snd_pcm_state_t state)
+{
+        struct snd_pcm_runtime *runtime = substream->runtime;
+        if (runtime->trigger_master != substream)
+                return 0;
+        if (! snd_pcm_running(substream))
+                return 0;
+        substream->ops->trigger(substream, SNDRV_PCM_TRIGGER_SUSPEND);
+```
+
+```711:716:include/sound/pcm.h
+static inline int snd_pcm_running(struct snd_pcm_substream *substream)
+{
+        return (substream->runtime->state == SNDRV_PCM_STATE_RUNNING ||
+                (substream->runtime->state == SNDRV_PCM_STATE_DRAINING
+&&
+                 substream->stream == SNDRV_PCM_STREAM_PLAYBACK));
+}
+```
 
 ### Step 2.4: Fix Quality
 **Record:**
-- Obviously correct: mirrors existing pattern used at lines 528, 566,
-  614, 937 in the same file.
-- Minimal change, no API changes, no new behavior beyond fixing state.
-- **Regression risk:** Very low — `scx_idle_test_and_clear_cpu()` is
-  idempotent-safe for a CPU about to run a task; it's already called on
-  every other selection path.
+- Fix is minimal and matches the PM lifecycle; component suspend runs
+  after `snd_pcm_suspend_all()` in `snd_soc_suspend()`.
+- `intel.c` had a partial PAUSE workaround; this generalizes it to all
+  open streams.
+- `intel_ace2x.c` had no component suspend at all — worse for PAUSE and
+  XRUN.
+- **Regression risk:** Low. Setting `suspended` on already-suspended
+  streams is idempotent; open streams need reinit after system sleep
+  regardless.
 
 ---
 
 ## PHASE 3: GIT HISTORY INVESTIGATION
 
 ### Step 3.1: Blame
-**Record:**
-- WAKE_SYNC block introduced in `48849271e66114` (Andrea Righi, Feb
-  2025, "sched_ext: idle: Per-node idle cpumasks").
-- The `goto out_unlock` without idle clear at lines 551–552 introduced
-  in `23c63a965275ce` (Apr 2025, refactoring to pass explicit allowed
-  cpumask — "pure refactoring with no functional changes", but the
-  WAKE_SYNC path never had the clear call).
-- Buggy code **is an ancestor of HEAD** in this tree.
+**Record:** `git blame` shows suspend-tracking code in `intel.c` at the
+tree’s base commit (`a112b91dd6349`). History is shallow in this
+checkout; exact introduction commit not determinable. Buggy code is
+present in 6.18.43.
 
 ### Step 3.2: Fixes: Tag
-**Record:** Not applicable — no Fixes: tag present.
+**Record:** N/A — no Fixes: tag.
 
 ### Step 3.3: Related File History
-**Record:** Recent stable-relevant sched_ext idle fixes already in
-`linux-6.18.y`:
-- `a8f4a82e5629c` — idle: Recheck prev_cpu after narrowing allowed mask
-- `b49bf41b41148` — Fix inconsistent NUMA node lookup in
-  scx_select_cpu_dfl()
-- `72c43eb2e334f` — Fix is_bpf_migration_disabled() false negative
-
-This fix is the same category: small sched_ext idle-selection
-correctness fix.
+**Record:** `git log --oneline -- drivers/soundwire/intel.c` returns
+only the tree base commit (shallow history). Both `intel.c` and
+`intel_ace2x.c` exist and are built via `soundwire-intel-y` in
+`drivers/soundwire/Makefile`.
 
 ### Step 3.4: Author Context
-**Record:** Kuba Piecuch (Google). No prior commits in `kernel/sched/`
-in this tree; patch went through Tejun Heo's sched_ext tree
-(`for-7.2-fixes`).
+**Record:** Peter Ujfalusi and Bard Liao are regular Intel SoundWire
+contributors. Vinod Koul (SoundWire maintainer) committed. Standalone
+fix, not part of a multi-patch series in the message.
 
 ### Step 3.5: Dependencies
-**Record:** Standalone — no series dependencies, no prerequisite
-commits. Applies cleanly to current HEAD (`git apply --check` passes).
+**Record:** No prerequisites. Uses existing `for_each_component_dais`,
+`dai_runtime_array`, and `intel_component_dais_suspend` pattern from
+`intel.c`. Applies standalone to this tree.
 
 ---
 
 ## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
 ### Step 4.1: Original Discussion
-**Record:**
-- `b4 dig -c b9f6521da1907 -a` found v1 submission:
-  https://patch.msgid.link/20260722143307.2772632-1-jpiecuch@google.com
-  (2026-07-22, sched_ext/for-7.2-fixes)
-- `b4 dig -c` without `-a` could not match by patch-id alone
-- Lore/msgid.link fetch blocked by bot protection — could not read
-  thread content
+**Record:** Lore/patch.msgid.link blocked (403/Anubis). `b4 dig` could
+not match this commit (not in local history). **UNVERIFIED:** reviewer
+feedback and stable nominations.
 
 ### Step 4.2: Reviewers
-**Record:** `b4 dig -w` did not return recipient details (same patch-id
-match failure). Commit has Tejun Heo SOB (maintainer acceptance).
+**Record:** **UNVERIFIED** — `b4 dig -w` not usable without matching
+commit.
 
-### Step 4.3: Bug Report
-**Record:** Failure documented in commit message via `allowed_cpus`
-selftest. No syzbot, no user bugzilla report.
+### Step 4.3: Bug Reports
+**Record:** No external bug report tags. Mechanism verified from ALSA
+core + driver code.
 
 ### Step 4.4: Related Patches
-**Record:** Standalone 1-patch fix for for-7.2-fixes. No multi-patch
-series dependency.
+**Record:** Similar pattern in `sound/soc/sof/intel/hda-dai.c`
+(`hda_dsp_dais_suspend`) documents the same ALSA `TRIGGER_SUSPEND`
+limitation during PAUSE.
 
 ### Step 4.5: Stable List History
-**Record:** Could not search lore stable list (bot protection). However,
-similar sched_ext idle fixes are already present in this 6.18.y tree
-(see Phase 3.3).
+**Record:** **UNVERIFIED** — lore blocked.
 
 ---
 
 ## PHASE 5: CODE SEMANTIC ANALYSIS
 
 ### Step 5.1: Key Functions
-**Record:** `scx_select_cpu_dfl()`, `scx_idle_test_and_clear_cpu()`,
-`scx_bpf_select_cpu_and()` (wrapper calling `scx_select_cpu_dfl`)
+**Record:** `intel_trigger()`, `intel_component_dais_suspend()`,
+`intel_prepare()`, `cdns_set_sdw_stream()`
 
 ### Step 5.2: Callers
 **Record:**
-- `scx_select_cpu_dfl()` called from `scx_bpf_select_cpu_and()` (BPF
-  kfunc, line 942) and `kernel/sched/ext.c:2578` (default select_cpu
-  when BPF scheduler doesn't implement `ops.select_cpu`)
-- `SCX_WAKE_SYNC` originates from normal scheduler wakeups (`WF_SYNC` in
-  `kernel/sched/fair.c`, `kernel/sched/core.c`)
-- Reachable from syscall-driven task wakeups when sched_ext is active
+- `intel_trigger()` — ALSA/ASoC PCM trigger path
+- `intel_component_dais_suspend()` — `snd_soc_component_suspend()` from
+  `snd_soc_suspend()` during system suspend
+- `intel_prepare()` — PCM prepare before start/resume after system sleep
 
 ### Step 5.3: Callees
-**Record:** `scx_idle_test_and_clear_cpu()` clears CPU (and SMT cluster)
-from per-node idle cpumasks via `cpumask_test_and_clear_cpu()`.
+**Record:** `intel_prepare()` calls `intel_pdi_shim_configure()`,
+`intel_pdi_alh_configure()`, `sdw_cdns_config_stream()`,
+`intel_params_stream()` when `dai_runtime->suspended` is true.
 
-### Step 5.4: Call Chain / Reachability
-**Record:** `wake_up_*` → CFS/SCX wakeup → `scx_select_cpu_dfl()` with
-`SCX_WAKE_SYNC` → BPF kfunc `scx_bpf_select_cpu_and()` → BPF scheduler
-validation. **Reachable from userspace** via normal process wakeup when
-`CONFIG_SCHED_CLASS_EXT` is enabled and a BPF scheduler is loaded.
+### Step 5.4: Reachability
+**Record:** Triggered by system suspend/resume on machines with
+`CONFIG_SND_SOC_SOF` + Intel SoundWire (`soundwire-intel` module).
+Common on modern Intel laptops. Userspace does not need special
+privileges beyond having audio open during suspend.
 
 ### Step 5.5: Similar Patterns
-**Record:** Every other CPU-claim path in `scx_select_cpu_dfl()` calls
-`scx_idle_test_and_clear_cpu()` before returning the selected CPU. The
-WAKE_SYNC waker path was the only exception — systematic omission, not
-an isolated quirk.
+**Record:** SOF Intel HDA has the same PAUSE/`TRIGGER_SUSPEND`
+workaround comment. Confirms this is a known ALSA limitation, not
+driver-specific imagination.
 
 ---
 
-## PHASE 6: CROSS-REFERENCING AGAINST LOCAL TREE
+## PHASE 6: CROSS-REFERENCING AGAINST LOCAL TREE (6.18.43)
 
-### Step 6.1: Buggy Code Exists?
-**Record:** **Yes.** Current HEAD at `kernel/sched/ext_idle.c:551-552`:
-
-```551:552:kernel/sched/ext_idle.c
-                        if (cpumask_test_cpu(cpu, allowed))
-                                goto out_unlock;
-```
-
-Missing `scx_idle_test_and_clear_cpu(cpu)` call. Fix commit
-`b9f6521da1907` is **NOT** an ancestor of HEAD.
+### Step 6.1: Buggy Code Present?
+**Record:** **Yes.** Verified:
+- `intel.c`: `TRIGGER_SUSPEND` in `intel_trigger()` (line 910); partial
+  `intel_component_dais_suspend()` (only handles `paused`)
+- `intel_ace2x.c`: `TRIGGER_SUSPEND` in `intel_trigger()` (line 825);
+  **no** `.suspend` callback
+- `dai_runtime->suspended` used in `intel_prepare()` in both files
 
 ### Step 6.2: Backport Complications
-**Record:** **Clean apply** — patch targets `kernel/sched/ext_idle.c`
-(user-provided diff showed `kernel/sched/ext/idle.c` from mainline post-
-refactor; this tree uses the pre-refactor filename). `git apply --check`
-on the actual backport commit succeeds with no conflicts.
+**Record:** Expected clean apply. Current code matches the patch
+context. No conflicting refactors observed.
 
 ### Step 6.3: Related Fixes Already Present?
-**Record:** No equivalent fix already in tree. Related idle-selection
-fixes are present (NUMA lookup, prev_cpu recheck) but not this WAKE_SYNC
-path.
+**Record:** Partial PAUSE-only workaround exists in `intel.c` only. No
+fix for XRUN; `intel_ace2x.c` unprotected. This commit not yet applied.
 
 ---
 
 ## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
 
 ### Step 7.1: Subsystem Criticality
-**Record:** **IMPORTANT** — `kernel/sched/ext_*` (sched_ext BPF
-scheduler class). Not universal (requires `CONFIG_SCHED_CLASS_EXT`), but
-scheduling correctness affects all tasks when enabled.
+**Record:** `drivers/soundwire/` — IMPORTANT (Intel laptop audio via
+SoundWire). Not core kernel, but affects many production systems.
 
 ### Step 7.2: Subsystem Activity
-**Record:** Highly active in 6.18.y — sched_ext merged for 6.18
-(`fd95357fd8c67`), with ongoing idle-selection fixes backported to
-stable.
+**Record:** Actively maintained Intel audio path. `intel_ace2x.c` is
+part of current `soundwire-intel` build.
 
 ---
 
 ## PHASE 8: IMPACT AND RISK ASSESSMENT
 
 ### Step 8.1: Who Is Affected
-**Record:** Users with `CONFIG_SCHED_CLASS_EXT` enabled running BPF
-schedulers that use built-in idle CPU selection
-(`SCX_OPS_KEEP_BUILTIN_IDLE` or no `ops.update_idle`). Includes
-selftests and production schedulers (scx_simple, custom Google/Meta
-schedulers, etc.).
+**Record:** Users of Intel SoundWire audio (Tiger Lake and newer Intel
+platforms with SOF + SoundWire codecs). Config: `CONFIG_SOUNDWIRE` /
+`soundwire-intel` module.
 
 ### Step 8.2: Trigger Conditions
 **Record:**
-- Synchronous wakeup (`SCX_WAKE_SYNC` / `WF_SYNC`)
-- Waker's local DSQ empty, system underutilized (idle CPUs exist)
-- Waker CPU is in the allowed cpumask
-- Particularly visible right after SCX enable when all CPUs are marked
-  idle
-- **Common enough** in normal wakeup patterns; not an obscure error path
+- System suspend while audio stream is open and PAUSED, or
+- System suspend while stream is in xrun (STOPPED) state
+- Moderately common: paused music/video, buffer underrun before lid-
+  close
+- Unprivileged user with open PCM device
 
 ### Step 8.3: Failure Mode Severity
-**Record:**
-- **Incorrect idle tracking** → BPF schedulers see CPU as idle when it's
-  selected for a task
-- **Selftest:** `scx_bpf_error()` → BPF scheduler disabled
-  (`SCX_EXIT_ERROR_BPF`)
-- **Production:** Suboptimal/wrong CPU placement, potential double-
-  selection of "idle" CPUs, broken scheduler invariants for BPF code
-  relying on idle mask accuracy
-- **Severity: MEDIUM-HIGH** for sched_ext users (functional correctness
-  / scheduler failure), not kernel oops/panic/data corruption
+**Record:** Audio broken after resume until full PCM teardown/reopen.
+**Severity: HIGH** (functional breakage on suspend/resume, not a kernel
+oops, but serious UX impact on laptops).
 
 ### Step 8.4: Risk-Benefit
 **Record:**
-- **Benefit:** Fixes real API contract violation; restores consistency
-  with all other selection paths; fixes reproducible selftest failure;
-  aligns with other sched_ext idle fixes already in 6.18.y
-- **Risk:** Very low — 3-line addition of existing helper call
-- **Ratio:** Strong benefit, minimal risk for affected users
+- **Benefit:** HIGH — fixes real suspend/resume audio failure
+- **Risk:** LOW — ~50 lines, idempotent flag set, no API changes
+- **Ratio:** Strongly favors backport
 
 ---
 
@@ -356,131 +345,212 @@ schedulers, etc.).
 ### Step 9.1: Evidence Summary
 
 **FOR backport:**
-- Real bug: WAKE_SYNC path omits idle-bit clear that all sibling paths
-  perform
-- Bug present in v6.18.44 tree; fix not yet applied
-- Patch applies cleanly
-- Small, surgical, maintainer-signed (Tejun Heo)
-- Breaks `scx_bpf_select_cpu_and()` API contract (returned CPU should
-  not still be idle)
-- Reproducible via `allowed_cpus` selftest
-- Similar sched_ext idle fixes already backported to this tree
-- sched_ext is a supported subsystem in 6.18.y
+- Real bug with verified ALSA mechanism (`snd_pcm_running()` gate)
+- User-visible suspend/resume audio failure
+- Small, surgical, maintainer-reviewed fix
+- Buggy code present in 6.18.43 (both `intel.c` and `intel_ace2x.c`)
+- `intel_ace2x.c` completely lacks component suspend today
+- Same class of fix as existing SOF HDA workaround
 
 **AGAINST backport:**
-- No production user crash report or CVE
-- Only affects `CONFIG_SCHED_CLASS_EXT` users (optional config)
-- Author acknowledges remaining unlikely races (fix is not complete for
-  all edge cases)
-- Not a kernel panic/oops — BPF scheduler error/disable at worst
-- Lore discussion content unverified (bot protection)
+- Driver-specific (not universal)
+- No fuzzer/CVE report
+- Lore review discussion unverified
 
 **UNRESOLVED:**
-- Full mailing list review thread content (could not fetch)
-- Whether any reviewer explicitly nominated for stable
+- Original mailing-list review thread
+- Exact mainline commit SHA in this checkout
 
 ### Step 9.2: Stable Rules Checklist
-1. Obviously correct and tested? **PASS** — mirrors existing pattern;
-   selftest no longer reproduces
-2. Fixes a real bug affecting users? **PASS** — idle tracking
-   inconsistency in sched_ext
-3. Important issue? **PASS** — scheduling correctness bug; can disable
-   BPF scheduler via `scx_bpf_error()`
-4. Small and contained? **PASS** — 3 lines, 1 file, 1 function
-5. No new features or APIs? **PASS** — state bookkeeping fix only
-6. Can apply to local tree? **PASS** — clean apply verified
+1. Obviously correct and tested? **PASS** — logic matches ALSA PM
+   behavior; maintainer SOB
+2. Fixes a real user-affecting bug? **PASS**
+3. Important issue? **PASS** — suspend/resume audio failure (HIGH)
+4. Small and contained? **PASS** — ~50 lines, 2 files
+5. No new features/APIs? **PASS** — moves existing tracking to correct
+   callback
+6. Can apply to local tree? **PASS** — code present, structure matches
 
 ### Step 9.3: Exception Categories
-**Record:** Not applicable (not device ID, quirk, DT, build, or docs
-fix).
+**Record:** N/A — standard bug fix, not device-ID/quirk/DT/build/doc
+exception.
 
 ### Step 9.4: Decision Rationale
-This is a clear correctness bug in sched_ext's built-in idle CPU
-tracking that exists in the 6.18.y tree. The fix is trivial, follows an
-established pattern already used throughout the same function, applies
-cleanly, and is consistent with other sched_ext idle-selection fixes
-already backported to this stable series. While the primary documented
-failure is a selftest, the underlying bug violates the
-`scx_bpf_select_cpu_and()` contract and can affect real BPF scheduler
-behavior on synchronous wakeups — a path reachable from normal process
-activity.
+For Linux 6.18.43, the suspend-tracking bug exists in both Intel
+SoundWire driver files. The ALSA core deliberately does not send
+`TRIGGER_SUSPEND` for PAUSED or xrun streams, so the current trigger-
+based tracking is incomplete. Without `dai_runtime->suspended`,
+`intel_prepare()` skips hardware reinit after system resume, leaving
+audio broken. The fix is small, correct, and addresses a realistic
+laptop suspend scenario.
 
 ---
 
 ## Verification
 
-- **[Phase 1]** `git show b9f6521da1907 --format=fuller --no-patch`:
-  parsed commit message and tags
-- **[Phase 2]** `git show b9f6521da1907`: confirmed 3-line fix in
-  `scx_select_cpu_dfl()` WAKE_SYNC path
-- **[Phase 2]** Read `kernel/sched/ext_idle.c:519-570`: confirmed
-  missing `scx_idle_test_and_clear_cpu(cpu)` on buggy path vs. present
-  on other paths
-- **[Phase 3]** `git blame -L 546,555 kernel/sched/ext_idle.c`:
-  WAKE_SYNC block from `48849271e66114`, goto without clear from
-  `23c63a965275ce`
-- **[Phase 3]** `git merge-base --is-ancestor 23c63a965275ce HEAD`:
-  buggy code is in tree
-- **[Phase 3]** `git merge-base --is-ancestor b9f6521da1907 HEAD`: fix
-  NOT in tree
-- **[Phase 3]** `git log --oneline -15 stable/linux-6.18.y --
-  kernel/sched/ext_idle.c`: related idle fixes already backported
-- **[Phase 4]** `b4 dig -c b9f6521da1907 -a`: found v1 at
-  patch.msgid.link/20260722143307.2772632-1-jpiecuch@google.com
-- **[Phase 4]** WebFetch lore/msgid.link: **BLOCKED** by bot protection
-  — thread content unverified
-- **[Phase 5]** `Grep SCX_WAKE_SYNC, scx_select_cpu_dfl`: traced call
-  paths through `scx_bpf_select_cpu_and()` and `ext.c:2578`
-- **[Phase 5]** Read `allowed_cpus.bpf.c:17-27`: selftest validates CPU
-  must not be idle after selection
-- **[Phase 5]** Read `ext.c:6420-6431`: `scx_bpf_error()` triggers
-  scheduler disable
-- **[Phase 6]** `git describe HEAD`: v6.18.44 confirmed
-- **[Phase 6]** `git show b9f6521da1907 -- kernel/sched/ext_idle.c | git
-  apply --check`: clean apply
-- **[Phase 6]** `Grep kernel/sched/ext`: directory does not exist; code
-  is in `ext_idle.c` (filename differs from user's diff but same code)
-- **[Phase 7]** `kernel/Kconfig.preempt:166-191`:
-  `CONFIG_SCHED_CLASS_EXT` present in tree
-- **[Phase 8]** Read `reset_idle_masks()` at `ext_idle.c:775-795`:
-  confirms all online CPUs marked idle at SCX enable
+- **[Phase 1]** Parsed subject, tags, body from provided commit message
+- **[Phase 1]** Identified hidden bug fix (suspend/resume correctness)
+- **[Phase 2]** Diff: 2 files, `intel_trigger` +
+  `intel_component_dais_suspend` changes
+- **[Phase 2]** Read `snd_pcm_do_suspend()` — confirmed
+  `TRIGGER_SUSPEND` skipped when `!snd_pcm_running()`
+- **[Phase 2]** Read `snd_pcm_running()` — only RUNNING/DRAINING return
+  true
+- **[Phase 2]** Read `intel_prepare()` in `intel.c` and `intel_ace2x.c`
+  — reinit gated on `dai_runtime->suspended`
+- **[Phase 3]** `git describe HEAD` → v6.18.43
+- **[Phase 3]** `git blame` on `intel.c:910-980` — code at tree base
+- **[Phase 3]** Shallow history: only base commit for soundwire files
+- **[Phase 4]** WebFetch lore/patch.msgid.link — blocked (Anubis/403)
+- **[Phase 4]** `curl` lore raw — 403 Forbidden
+- **[Phase 4]** `b4 dig -c HEAD` — no match for this commit
+- **[Phase 4]** Found analogous SOF HDA comment in `hda-dai.c:935-941`
+- **[Phase 5]** Traced suspend path: `snd_soc_suspend()` →
+  `snd_pcm_suspend_all()` then `snd_soc_component_suspend()`
+- **[Phase 5]** Verified `for_each_component_dais` in
+  `include/sound/soc-component.h`
+- **[Phase 5]** Verified `dai_runtime_array` allocated in
+  `cdns_set_sdw_stream()` when stream is set
+- **[Phase 6]** Confirmed buggy code in `intel.c` (partial PAUSE fix, no
+  XRUN fix)
+- **[Phase 6]** Confirmed `intel_ace2x.c` has no `.suspend` callback
+- **[Phase 6]** Confirmed both files built via
+  `drivers/soundwire/Makefile`
+- **[Phase 8]** Failure mode: audio broken after suspend/resume — HIGH
+  severity
+- **UNVERIFIED:** Mailing-list reviewer feedback and stable nominations
+- **UNVERIFIED:** Mainline commit SHA in this checkout
 
-**YES****Result:** Analysis of `sched_ext: Mark waker CPU busy when
-selected in WAKE_SYNC case` (`b9f6521da1907`) for **linux-6.18.y
-(v6.18.44)** is complete.
+**YES**The background history search finished. In this 6.18.43 checkout,
+`git log -S 'intel_component_dais_suspend'` only turns up the tree base
+commit (`a112b91dd6349`), so the shallow history here doesn’t show when
+suspend tracking was originally added.
 
-**Finding:** The bug is present in this tree — in
-`scx_select_cpu_dfl()`’s `SCX_WAKE_SYNC` path, the waker CPU is selected
-without calling `scx_idle_test_and_clear_cpu()`, unlike every other
-selection path. That leaves SCX’s built-in idle tracking wrong and
-breaks the `scx_bpf_select_cpu_and()` contract (reproducible via the
-`allowed_cpus` selftest).
+That doesn’t change the backport call: the buggy code is present in both
+`intel.c` and `intel_ace2x.c`, and the fix still looks appropriate for
+this tree.
 
-**Backport suitability:** The fix is 3 lines, applies cleanly to
-`kernel/sched/ext_idle.c`, matches other sched_ext idle fixes already in
-6.18.y, and is signed off by Tejun Heo.
+**YES**
 
-**Verdict: YES** — backport to this tree.
+ drivers/soundwire/intel.c       | 31 ++++++--------------------
+ drivers/soundwire/intel_ace2x.c | 39 ++++++++++++++++++++++-----------
+ 2 files changed, 33 insertions(+), 37 deletions(-)
 
- kernel/sched/ext_idle.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/kernel/sched/ext_idle.c b/kernel/sched/ext_idle.c
-index d16a1de078656..42a65a9535aef 100644
---- a/kernel/sched/ext_idle.c
-+++ b/kernel/sched/ext_idle.c
-@@ -548,8 +548,10 @@ s32 scx_select_cpu_dfl(struct task_struct *p, s32 prev_cpu, u64 wake_flags,
- 		    cpu_rq(cpu)->scx.local_dsq.nr == 0 &&
- 		    (!(flags & SCX_PICK_IDLE_IN_NODE) || (waker_node == node)) &&
- 		    !cpumask_empty(idle_cpumask(waker_node)->cpu)) {
--			if (cpumask_test_cpu(cpu, allowed))
-+			if (cpumask_test_cpu(cpu, allowed)) {
-+				scx_idle_test_and_clear_cpu(cpu);
- 				goto out_unlock;
-+			}
- 		}
+diff --git a/drivers/soundwire/intel.c b/drivers/soundwire/intel.c
+index 9db78f3d76152..a83371233603b 100644
+--- a/drivers/soundwire/intel.c
++++ b/drivers/soundwire/intel.c
+@@ -907,19 +907,6 @@ static int intel_trigger(struct snd_pcm_substream *substream, int cmd, struct sn
  	}
  
+ 	switch (cmd) {
+-	case SNDRV_PCM_TRIGGER_SUSPEND:
+-
+-		/*
+-		 * The .prepare callback is used to deal with xruns and resume operations.
+-		 * In the case of xruns, the DMAs and SHIM registers cannot be touched,
+-		 * but for resume operations the DMAs and SHIM registers need to be initialized.
+-		 * the .trigger callback is used to track the suspend case only.
+-		 */
+-
+-		dai_runtime->suspended = true;
+-
+-		break;
+-
+ 	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
+ 		dai_runtime->paused = true;
+ 		break;
+@@ -956,10 +943,12 @@ static int intel_component_dais_suspend(struct snd_soc_component *component)
+ 	struct snd_soc_dai *dai;
+ 
+ 	/*
+-	 * In the corner case where a SUSPEND happens during a PAUSE, the ALSA core
+-	 * does not throw the TRIGGER_SUSPEND. This leaves the DAIs in an unbalanced state.
+-	 * Since the component suspend is called last, we can trap this corner case
+-	 * and force the DAIs to release their resources.
++	 * Mark all open streams as suspended.
++	 * Open streams at this point can be in SUSPENDED, PAUSED or STOPPED
++	 * state and during prepare the DMAs and SHIM registers need to be
++	 * initialized for them.
++	 * The STOPPED state is a special corner case which can happen if audio
++	 * experiences xrun at suspend time.
+ 	 */
+ 	for_each_component_dais(component, dai) {
+ 		struct sdw_cdns *cdns = snd_soc_dai_get_drvdata(dai);
+@@ -967,13 +956,7 @@ static int intel_component_dais_suspend(struct snd_soc_component *component)
+ 
+ 		dai_runtime = cdns->dai_runtime_array[dai->id];
+ 
+-		if (!dai_runtime)
+-			continue;
+-
+-		if (dai_runtime->suspended)
+-			continue;
+-
+-		if (dai_runtime->paused)
++		if (dai_runtime)
+ 			dai_runtime->suspended = true;
+ 	}
+ 
+diff --git a/drivers/soundwire/intel_ace2x.c b/drivers/soundwire/intel_ace2x.c
+index 63aef98361467..f0e0a79b30b0e 100644
+--- a/drivers/soundwire/intel_ace2x.c
++++ b/drivers/soundwire/intel_ace2x.c
+@@ -822,19 +822,6 @@ static int intel_trigger(struct snd_pcm_substream *substream, int cmd, struct sn
+ 	}
+ 
+ 	switch (cmd) {
+-	case SNDRV_PCM_TRIGGER_SUSPEND:
+-
+-		/*
+-		 * The .prepare callback is used to deal with xruns and resume operations.
+-		 * In the case of xruns, the DMAs and SHIM registers cannot be touched,
+-		 * but for resume operations the DMAs and SHIM registers need to be initialized.
+-		 * the .trigger callback is used to track the suspend case only.
+-		 */
+-
+-		dai_runtime->suspended = true;
+-
+-		break;
+-
+ 	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
+ 		dai_runtime->paused = true;
+ 		break;
+@@ -858,8 +845,34 @@ static const struct snd_soc_dai_ops intel_pcm_dai_ops = {
+ 	.get_stream = intel_get_sdw_stream,
+ };
+ 
++static int intel_component_dais_suspend(struct snd_soc_component *component)
++{
++	struct snd_soc_dai *dai;
++
++	/*
++	 * Mark all open streams as suspended.
++	 * Open streams at this point can be in SUSPENDED, PAUSED or STOPPED
++	 * state and during prepare the DMAs and SHIM registers need to be
++	 * initialized for them.
++	 * The STOPPED state is a special corner case which can happen if audio
++	 * experiences xrun at suspend time.
++	 */
++	for_each_component_dais(component, dai) {
++		struct sdw_cdns *cdns = snd_soc_dai_get_drvdata(dai);
++		struct sdw_cdns_dai_runtime *dai_runtime;
++
++		dai_runtime = cdns->dai_runtime_array[dai->id];
++
++		if (dai_runtime)
++			dai_runtime->suspended = true;
++	}
++
++	return 0;
++}
++
+ static const struct snd_soc_component_driver dai_component = {
+ 	.name			= "soundwire",
++	.suspend		= intel_component_dais_suspend,
+ };
+ 
+ /*
 -- 
 2.53.0
 
