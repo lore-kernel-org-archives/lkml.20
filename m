@@ -1,42 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F28FD4A9D76;
-	Mon, 31 Aug 2026 13:46:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8FB4548571;
+	Mon, 31 Aug 2026 13:46:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183988; cv=none; b=LAnIK9dRkNoT6nMJOvWl1rk4R9AyXXX4+LJVdt/azcw8LRKdFm1LvwHLpaORwD6vniOyDSV+ahq2UZoCd3wQdOltSoMeqAXRUrZ/VHBcTGFeBLLLIrxkTSacMa6r8wqua6hrgMh/U9r7lTVmpak6C+Kkk5DTXHHXDiJR4f9s1UY=
+	t=1788183988; cv=none; b=ZaID656pZtiaw9rUhNwkXc7qtVhyhZ1FFHSE1YRYcLqmD3Ks9fb8hFd7fVc10hlo8RGz060WS6Ev6wgSd5Z9piGA+qkDQTvqFnCbNNuEldiaJhUg59xSdUEA8hM6h5cG33w0q/+AtwuxaUfWW7GZIDiuYXsQp4Tc5y3YZmhuL98=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788183988; c=relaxed/simple;
-	bh=bG6HE97XeTbZtwJczo+3R7kVtqCn1sg/nwCk5Pw33OU=;
+	bh=cVZ7QEa6jUc7nJxxh5CxUQ4T3B7T/L9Jksl4XIGOjP4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=QCd3zNnxfi2YMV/9Qv5M9+7v6yGpC7wvdc9YvqEPWVLYCpv6Q0Lkk+Ddfj83EejuBRD8guFsMEo6tMbPr2ASkSqoV80VDzTfxN7kjKIBk8+wU4PJkcfabJW/IRpcye3kVwpC3AklUwlT9/xj+Oowt1QSiyuk5TjCRnIW6EBEJGw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d5PuIKvQ; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=Nze8nIk9k+eNmbCImaMKA+jWf2ECwkwlO+rg1JDAFiuYYCDZaQO3TGVMagEAxYh3yjU2zYax5UDpLoFvnS+uyszu8BpKXEVuivH2IqA157jHNW0Re3oQflU0Apvsg0p0OJOx3TekHNmTqavwWSXS9vLgOi6yl0vB/vKREAfPGC4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FmAO/iXX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d5PuIKvQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E98371F00A3D;
-	Mon, 31 Aug 2026 13:46:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FmAO/iXX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06CA21F01558;
+	Mon, 31 Aug 2026 13:46:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788183984;
-	bh=Mk0Kqx6Y2AMx5CFVQu6LfnWMNetcPw3qURDJ/mI0Q+E=;
+	s=k20260515; t=1788183983;
+	bh=beFY3W2U/zL1MNuJiPO6R55UvPAKdfIbCF/BE1eerSc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=d5PuIKvQlmzpDQJ3zD/IxjqArkNlGkrzl3DxMEuIDmjfFIKPV/2DYjuNGuZ15J9qu
-	 SMC6y0tPepxn0sZ6IgseMieoDt3LNPHEMrig+e3zNXxAjEIzQrhTfrOMEoPYYbAqEb
-	 AvOvFecrsCFlFTD7SdkII5snJNi6gho9bLqP0vqhs+AZdPsNRX7l1SS1oFyVvDFACr
-	 W218pHpgd9pYXHFwe7nVXw6p81Ysjeu9EvJ1bV5lWPS7PnPcxq/lXIv9W44cxjX5qc
-	 2KFRnOIJxsa5xb0hrsCdwg4eVE0G/QRP00qZbaBTVzp6UIhrKrDDxJ0qvnXM1Xs4xZ
-	 oEvWWZ89q1qEA==
+	b=FmAO/iXX7IfqS9Mta7rjbGcEuRGrMzV8JTDv9tsHQHDbQEMS7ZExgOclOd/ES/iTZ
+	 qmwX2JsCa8p97FVGnBRKuEBsqUaaa4MUnHlq0YiUaA+nnM2XGfj+P5PBQ4AbT/z+kj
+	 BGDYnTJ9dkwRjNm4Wk0rf8xkkZ3KTnxHG8CoWxZ+ugotMx5gZkGH/Rp9mQbhu9DJFc
+	 Dg2/Ee5d3yiU97QhwJrQpWEDcHfNReHaYYvDslxfVtWSI8bcUqnFWnRUe6Ai3NQ8eg
+	 A+m8GwLHiyloIH8TSxf3SIFs/DRNjLt5ehySlTvjttUqT46LXgUCObaBMTjQMTrKDl
+	 F/0O7ZUl6At6g==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Emmanuel Grumbach <emmanuel.grumbach@intel.com>,
-	Miri Korenblit <miriam.rachel.korenblit@intel.com>,
+Cc: "Stanley.Yang" <Stanley.Yang@amd.com>,
+	Tao Zhou <tao.zhou1@amd.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
 	Sasha Levin <sashal@kernel.org>,
-	linux-wireless@vger.kernel.org,
+	christian.koenig@amd.com,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18] wifi: iwlwifi: mld: clear tzone on fail
-Date: Mon, 31 Aug 2026 09:27:29 -0400
-Message-ID: <20260831133314.4125787-421-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-6.12] drm/amdgpu: harden FRU PIA parsing with bounded helpers
+Date: Mon, 31 Aug 2026 09:27:28 -0400
+Message-ID: <20260831133314.4125787-420-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -52,402 +57,531 @@ X-stable-base: Linux 6.18.48
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Emmanuel Grumbach <emmanuel.grumbach@intel.com>
+From: "Stanley.Yang" <Stanley.Yang@amd.com>
 
-[ Upstream commit 5c55827ef5c74a5d56939ed0e93df21e6f1f864e ]
+[ Upstream commit c990c05eb6c74c98d1ff3acf67a19015312820b7 ]
 
-iwl_mld_thermal_zone_register() stores the thermal zone pointer in
-mld->tzone before calling thermal_zone_device_enable(). If enable
-fails, the code unregisters the zone but leaves mld->tzone stale,
-so iwl_mld_thermal_zone_unregister() can unregister it again.
-Clear mld->tzone after unregister in the error path.
+Replace the open-coded TLV walk with fru_pia_advance()
+and fru_pia_copy_field() helpers that bound every read
+by the actual EEPROM data length, preventing out-of-bounds
+reads on truncated or malformed FRU data.
 
-While at it remove a pointless if in iwl_mld_thermal_zone_unregister
-after we've alredy checked the tzone pointer is not NULL.
-
-Assisted-by: GitHubCopilot:gpt-5.3-codex
-Signed-off-by: Emmanuel Grumbach <emmanuel.grumbach@intel.com>
-Link: https://patch.msgid.link/20260714141909.595dcb8cb7fe.I8125e4a2eeb0390798e3f4074c62c00443eda8e8@changeid
-Signed-off-by: Miri Korenblit <miriam.rachel.korenblit@intel.com>
+Signed-off-by: Stanley.Yang <Stanley.Yang@amd.com>
+Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-# Stable Backport Analysis: `wifi: iwlwifi: mld: clear tzone on fail`
-
-**Local tree:** `v6.18.44-1-g2736c32da98b9` (kernel version **6.18.44**)
-
----
-
 ## PHASE 1: COMMIT MESSAGE FORENSICS
 
-### Step 1.1: Subject line
-**Record:** `[wifi: iwlwifi: mld]` `[clear]` — clear stale thermal-zone
-pointer on registration failure path in the iwlwifi MLD driver.
+### Step 1.1: PARSE THE SUBJECT LINE
+**Record:** `[drm/amdgpu]` `[harden]` — Harden FRU (Field Replaceable
+Unit) Product Info Area (PIA) parsing by replacing open-coded TLV
+walking with bounded helper functions.
 
-### Step 1.2: Tags
+### Step 1.2: PARSE ALL COMMIT MESSAGE TAGS
 **Record:**
-- **Link:** `https://patch.msgid.link/20260714141909.595dcb8cb7fe...`
-  (patch submission reference; lore blocked by bot protection)
-- **Assisted-by:** GitHubCopilot:gpt-5.3-codex
-- **Signed-off-by:** Emmanuel Grumbach `<emmanuel.grumbach@intel.com>`
-  (author)
-- **Signed-off-by:** Miri Korenblit
-  `<miriam.rachel.korenblit@intel.com>` (committer)
-- **No** Fixes:, Reported-by:, Tested-by:, Reviewed-by:, Cc: stable, or
-  syzbot tags
+- **Fixes:** — not present (expected for manual review)
+- **Reported-by:** — none
+- **Tested-by:** — none
+- **Reviewed-by:** Tao Zhou \<tao.zhou1@amd.com\>
+- **Acked-by:** — none
+- **Link:** — none
+- **Cc: stable@vger.kernel.org:** — absent (not a negative signal)
+- **Signed-off-by:** Stanley.Yang \<Stanley.Yang@amd.com\>, Alex Deucher
+  \<alexander.deucher@amd.com\> (ignore pipeline SOBs)
 
-**Notable patterns:** Intel iwlwifi maintainers; no external bug report
-cited.
+Notable: reviewed by AMD developer; no fuzzer or user bug reports cited.
 
-### Step 1.3: Body analysis
+### Step 1.3: ANALYZE COMMIT BODY
 **Record:**
-- **Bug:** `iwl_mld_thermal_zone_register()` stores `mld->tzone` before
-  calling `thermal_zone_device_enable()`. On enable failure, the zone is
-  unregistered but `mld->tzone` is left non-NULL.
-- **Symptom:** `iwl_mld_thermal_zone_unregister()` can call
-  `thermal_zone_device_unregister()` again on a freed/stale pointer.
-- **Root cause:** Missing `mld->tzone = NULL` in the enable-failure
-  error path (the register-failure path already clears it correctly).
-- **Secondary change:** Remove redundant inner `if (mld->tzone)` in
-  unregister after the outer NULL check.
+- **Bug described:** Open-coded TLV walk in FRU PIA parsing does not
+  bound reads against actual EEPROM buffer length; truncated or
+  malformed FRU data can cause out-of-bounds reads.
+- **Symptom/failure mode:** Out-of-bounds kernel memory reads when
+  parsing malformed/truncated FRU EEPROM TLV fields.
+- **Version info:** none stated.
+- **Root cause:** TLV cursor advancement (`addr += 1 + (pia[addr] &
+  0x3F)`) and `memcpy()` use field-length bytes without ensuring the
+  cursor and copy length stay within the allocated `pia` buffer (`len`).
 
-### Step 1.4: Hidden bug fix?
-**Record:** **Yes** — described as cleanup but is a real lifecycle bug:
-stale pointer after `thermal_zone_device_unregister()` → use-after-free
-on later access/unregister.
+### Step 1.4: DETECT HIDDEN BUG FIXES
+**Record:** Not disguised — this is an explicit memory-safety hardening
+fix. "Harden" and "preventing out-of-bounds reads" clearly describe a
+buffer over-read bug fix, not cosmetic cleanup.
 
 ---
 
 ## PHASE 2: DIFF ANALYSIS
 
-### Step 2.1: Inventory
+### Step 2.1: INVENTORY THE CHANGES
 **Record:**
-- **File:** `drivers/net/wireless/intel/iwlwifi/mld/thermal.c` (+3
-  meaningful lines, -4 lines including copyright year)
-- **Functions:** `iwl_mld_thermal_zone_register()`,
-  `iwl_mld_thermal_zone_unregister()`
-- **Scope:** Single-file surgical fix under `#ifdef CONFIG_THERMAL`
+- **Files:** `drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c` only (~37
+  lines added helpers, ~43 lines changed in parsing loop; net ~+37/-6 in
+  parsing region)
+- **Functions added:** `fru_pia_advance()`, `fru_pia_copy_field()`
+- **Functions modified:** `amdgpu_fru_get_product_info()`
+- **Scope:** single-file, surgical fix within one parsing function
 
-### Step 2.2: Code flow per hunk
+### Step 2.2: CODE FLOW CHANGE (per hunk)
+**Record:**
 
-**Hunk 1 — `iwl_mld_thermal_zone_register()` error path:**
-**Record:** Before: on `thermal_zone_device_enable()` failure →
-unregister zone, leave dangling `mld->tzone`. After: set `mld->tzone =
-NULL` after unregister, matching the `IS_ERR()` path at lines 263–268.
+1. **New helpers (before `amdgpu_fru_get_product_info`):**
+   - *Before:* no shared TLV walking helpers.
+   - *After:* `fru_pia_advance()` checks `*addr >= len` before reading
+     `pia[*addr]`; `fru_pia_copy_field()` validates header presence and
+     uses `min3(field_len, dst_size-1, len-addr-1)` for bounded
+     `memcpy()`.
 
-**Hunk 2 — `iwl_mld_thermal_zone_unregister()`:**
-**Record:** Before: redundant double-check `if (mld->tzone)`. After:
-direct unregister + NULL assignment (behavior unchanged for valid
-paths).
+2. **Manufacturer/product/serial/fru_id field extraction:**
+   - *Before:* `if (addr + 1 >= len) goto Out` then `memcpy(...,
+     min_t(sizeof(dst), pia[addr] & 0x3F))`; advances via `addr += 1 +
+     (pia[addr] & 0x3F)` often without prior bounds check.
+   - *After:* each field uses `fru_pia_copy_field()` (bounded copy) and
+     `fru_pia_advance()` (bounded advance); failure jumps to `Out`.
 
-### Step 2.3: Bug mechanism
-**Record:** **Category:** use-after-free / stale pointer after resource
-teardown.
+3. **Skip fields (Product Version, Asset Tag):**
+   - *Before:* unconditional `addr += 1 + (pia[addr] & 0x3F)` with no
+     bounds check (lines 251, 254, 262, 265 in current tree).
+   - *After:* `fru_pia_advance()` returns false on overrun, triggering
+     `goto Out`.
 
-**Mechanism verified in `thermal_zone_device_unregister()`:**
+### Step 2.3: BUG MECHANISM
+**Record:** **Category:** buffer over-read / out-of-bounds access.
 
-```1716:1742:drivers/thermal/thermal_core.c
-void thermal_zone_device_unregister(struct thermal_zone_device *tz)
-{
-        if (!tz)
-                return;
-        // ...
-        kfree(tz);
-}
+**Specific mechanisms in current 6.18.44 code:**
+
+1. **Unchecked TLV advance** — e.g. at lines 251–254:
+```250:255:drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c
+        /* Go to the Product Version field. */
+        addr += 1 + (pia[addr] & 0x3F);
+
+        /* Go to the Product Serial Number field. */
+        addr += 1 + (pia[addr] & 0x3F);
 ```
+   If `addr` is near `len` or a prior field length is inflated,
+`pia[addr]` reads past the kmalloc buffer.
 
-First unregister on enable failure frees `tz`. Without clearing
-`mld->tzone`, later code dereferences freed memory:
-- **Unload path:** `iwl_mld_thermal_exit()` →
-  `iwl_mld_thermal_zone_unregister()` (line 465)
-- **Runtime path:** e.g. `iwl_mld_handle_ct_kill_notif()` at lines 76–77
-  checks `if (mld->tzone)` then calls `thermal_zone_device_update()`
+2. **Unbounded memcpy** — e.g. at lines 227–229:
+```227:229:drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c
+        memcpy(fru_info->manufacturer_name, pia + addr + 1,
+               min_t(size_t, sizeof(fru_info->manufacturer_name),
+                     pia[addr] & 0x3F));
+```
+   Copy length is capped by destination size and TLV length byte, but
+**not** by remaining buffer bytes (`len - addr - 1`). A field claiming
+63 bytes with only a few bytes remaining causes OOB read.
 
-### Step 2.4: Fix quality
-**Record:** Obviously correct; mirrors existing pattern in the same
-function. Minimal regression risk. The redundant-if removal is pure
-cleanup.
+Checksum validation (lines 211–217) does not prevent structurally
+inconsistent TLV lengths within a checksum-valid PIA.
+
+### Step 2.4: FIX QUALITY
+**Record:**
+- Fix is obviously correct: every read/advance is bounded by `len`.
+- Minimal scope: adds two static helpers, replaces inline parsing.
+- Low regression risk: same parsing logic, stricter bounds; failure
+  paths already go to `Out` and return 0.
+- `min3()` exists in this tree (`include/linux/minmax.h`).
 
 ---
 
 ## PHASE 3: GIT HISTORY INVESTIGATION
 
-### Step 3.1: Blame
-**Record:** Buggy register/enable path present in current tree at lines
-271–275. `git blame` attributes lines to `5d324e5159d9e` (limited
-history in this stable checkout). Bug present since MLD thermal support
-landed in this tree.
+### Step 3.1: BLAME THE CHANGED LINES
+**Record:**
+- Buggy TLV walk introduced in `0dbf2c5626253` ("drm/amdgpu: Interpret
+  IPMI data for product information (v2)", 2022-11-17) by Luben Tuikov.
+- Field additions in `ac6b1f275f17b` and `8a2b51392ac4a` (2023-10-04)
+  retained the same unchecked advance pattern.
+- Prior OOB-related FRU fix: `02b865f88b4e4` (2021), `00b14ce075732`
+  (2022) — shows this subsystem has a history of bounds fixes.
+- Bug present since ~6.2; confirmed present in this 6.18.44 tree.
 
-### Step 3.2: Fixes: tag
-**Record:** N/A — no Fixes: tag in commit message.
+### Step 3.2: FOLLOW Fixes: TAG
+**Record:** No `Fixes:` tag. N/A.
 
-### Step 3.3: Related file history
-**Record:** `git log --
-drivers/net/wireless/intel/iwlwifi/mld/thermal.c` shows only the base
-import commit in this tree's history. Related iwlwifi mld fixes (e.g.
-`3a74aaad04735` UAF fix in `link.c`) are already backported here,
-indicating active stable maintenance of iwl_mld.
+### Step 3.3: FILE HISTORY FOR RELATED CHANGES
+**Record:** Recent FRU commits in tree include `fd0c6bd82d19c` (increase
+FRU File Id buffer), `25907304cfce5` (fetch FRU for smu_v13_0_12),
+`a8558fce7ad0c` (avoid FRU on APU). No existing bounded-TLV fix found.
+Standalone fix, not part of a multi-patch series in this tree.
 
-### Step 3.4: Author context
-**Record:** Emmanuel Grumbach is iwlwifi maintainer. Miri Korenblit is
-active iwlwifi contributor. No other commits from Grumbach on
-`mld/thermal.c` in this tree's log.
+### Step 3.4: AUTHOR'S OTHER COMMITS
+**Record:** Stanley.Yang has multiple amdgpu commits (RAS, VCN, eeprom
+fixes) but is not the original FRU author. Reviewed by Tao Zhou; signed
+off by Alex Deucher (amdgpu maintainer).
 
-### Step 3.5: Dependencies
-**Record:** Standalone fix. No series dependencies. No prerequisite
-commits required. Patch context matches current tree code exactly.
+### Step 3.5: DEPENDENT/PREREQUISITE COMMITS
+**Record:** No prerequisites identified. Commit not in this tree
+(candidate only). Diff context shows `kzalloc_obj()` on mainline; local
+tree uses `kzalloc(sizeof(*adev->fru_info), GFP_KERNEL)` — PIA parsing
+portion applies independently. No dependency on missing code structures.
 
 ---
 
 ## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
-### Step 4.1: Original discussion
-**Record:** `b4 dig` returned no results (empty output). Link URL
-blocked by Anubis bot protection. Local `.mbx` files contain no match
-for "clear tzone". **Could not retrieve lore discussion.**
+### Step 4.1: ORIGINAL PATCH DISCUSSION
+**Record:** Commit hash not in local tree; `b4 dig -c` cannot be run.
+`b4 dig -S` is not supported. Lore.kernel.org search blocked by anti-bot
+page. **UNVERIFIED:** original submission thread, series revisions,
+reviewer stable nominations.
 
-### Step 4.2: Reviewers
-**Record:** UNVERIFIED — `b4 dig -w` not available.
+### Step 4.2: REVIEWERS
+**Record:** **UNVERIFIED** via b4 -w. Commit message lists Reviewed-by:
+Tao Zhou, Signed-off-by: Alex Deucher.
 
-### Step 4.3: Bug report
-**Record:** No Reported-by: or syzbot link. Bug identified by code
-inspection during driver development.
+### Step 4.3: BUG REPORT
+**Record:** No Reported-by, Link, or syzbot reference. No external bug
+report to follow.
 
-### Step 4.4: Related patches
-**Record:** The legacy MVM driver (`mvm/tt.c` lines 688–692) has the
-same missing-NULL pattern but is **not** fixed by this commit. Out of
-scope for this evaluation.
+### Step 4.4: RELATED PATCHES/SERIES
+**Record:** Appears standalone. Related historical fixes in same file
+(`02b865f`, `00b14ce`) addressed similar OOB concerns in older FRU
+parsing code.
 
-### Step 4.5: Stable list discussion
-**Record:** UNVERIFIED — lore blocked.
+### Step 4.5: STABLE MAILING LIST
+**Record:** **UNVERIFIED** — lore search unavailable.
 
 ---
 
 ## PHASE 5: CODE SEMANTIC ANALYSIS
 
-### Step 5.1: Key functions
-**Record:** `iwl_mld_thermal_zone_register()`,
-`iwl_mld_thermal_zone_unregister()`, `iwl_mld_thermal_initialize()`,
-`iwl_mld_thermal_exit()`
+### Step 5.1: KEY FUNCTIONS
+**Record:** `fru_pia_advance()`, `fru_pia_copy_field()` (new);
+`amdgpu_fru_get_product_info()` (modified).
 
-### Step 5.2: Callers
+### Step 5.2: TRACE CALLERS
 **Record:**
-- `iwl_mld_thermal_initialize()` called from `iwl_op_mode_mld_start()`
-  (`mld.c:478`) during driver start
-- `iwl_mld_thermal_exit()` called from `iwl_op_mode_mld_stop()`
-  (`mld.c:506`) during driver stop/unload
+- `amdgpu_fru_get_product_info()` called from `amdgpu_device_init()` at
+  line 3307 of `amdgpu_device.c`.
+- `amdgpu_device_init()` called from `amdgpu_driver_load_kms()` in
+  `amdgpu_kms.c` line 148.
+- **Context:** GPU driver probe/load path during PCI/DRM device
+  initialization.
+- `amdgpu_fru_sysfs_init()` at line 4873 exposes sysfs attributes but
+  does not re-parse FRU data.
 
-### Step 5.3: Callees
-**Record:** `thermal_zone_device_register_with_trips()`,
-`thermal_zone_device_enable()`, `thermal_zone_device_unregister()`
+### Step 5.3: TRACE CALLEES
+**Record:** `is_fru_eeprom_supported()`, `amdgpu_eeprom_read()`,
+`kzalloc()`, `kfree()`, `memcpy()`, `sprintf()` (default serial),
+`dev_err()`.
 
-### Step 5.4: Reachability
-**Record:** Trigger requires `CONFIG_THERMAL` + `CONFIG_IWLMLD`. Path is
-reachable on Intel MLD WiFi device probe with thermal support enabled.
-`iwl_mld_thermal_zone_register()` is `void` and does not abort probe on
-enable failure — driver continues with stale pointer. Unload always
-calls `iwl_mld_thermal_exit()`.
+### Step 5.4: CALL CHAIN / REACHABILITY
+**Record:** PCI probe → `amdgpu_driver_load_kms()` →
+`amdgpu_device_init()` → `amdgpu_fru_get_product_info()` → PIA TLV
+parse. Triggered on every boot for supported AMD server GPUs with
+accessible FRU EEPROM. Not directly userspace-syscall reachable, but
+runs automatically on driver load when hardware matches (Vega20 server
+SKUs, D603, Aldebaran, SMU v13.0.6/v13.0.14, etc.).
 
-### Step 5.5: Similar patterns
-**Record:** Register-failure path already sets `mld->tzone = NULL` (line
-267). MVM `tt.c` has identical enable-failure bug (not addressed here).
-
----
-
-## PHASE 6: CROSS-REFERENCE WITH LOCAL TREE (6.18.44)
-
-### Step 6.1: Buggy code present?
-**Record:** **YES.** Current tree at lines 271–275 lacks `mld->tzone =
-NULL` after unregister on enable failure. Fix commit is **not** yet
-applied.
-
-### Step 6.2: Backport complications
-**Record:** **Clean apply expected.** Diff context matches current file
-exactly. No conflicting changes in recent history.
-
-### Step 6.3: Related fixes already present?
-**Record:** No equivalent fix found. `git log --grep='clear tzone'`
-returns nothing.
+### Step 5.5: SIMILAR PATTERNS
+**Record:** Same unchecked `addr += 1 + (pia[addr] & 0x3F)` pattern
+repeated 6+ times in current code. AMD previously fixed similar FRU OOB
+issues in `02b865f88b4e4` and `00b14ce075732`.
 
 ---
 
-## PHASE 7: SUBSYSTEM CONTEXT
+## PHASE 6: CROSS-REFERENCING AGAINST LOCAL TREE
 
-### Step 7.1: Subsystem criticality
-**Record:** **IMPORTANT** — Intel WiFi driver
-(`drivers/net/wireless/intel/iwlwifi/mld/`), device-driver subsystem.
-Affects users of MLD-capable Intel WiFi hardware with thermal support.
+### Step 6.1: DOES BUGGY CODE EXIST?
+**Record:** **YES.** Local tree is **v6.18.44 / 6.18.44**.
+`amdgpu_fru_eeprom.c` lines 220–270 contain the vulnerable unchecked TLV
+walk. Bug introduced November 2022 (`0dbf2c5626253`), well before 6.18
+branch.
 
-### Step 7.2: Activity
-**Record:** Active — multiple iwl_mld stable backports in this tree (PTP
-race, NULL deref, BA session fixes).
+### Step 6.2: BACKPORT COMPLICATIONS
+**Record:** Expected **clean apply** for the PIA parsing helpers and
+loop replacement. Minor context difference: mainline diff shows
+`kzalloc_obj()` but local tree uses `kzalloc()` — unrelated to the fix
+hunks. No significant refactoring conflicts in recent file history
+(`a3e510fd69c31` dev_* conversion is already present).
+
+### Step 6.3: RELATED FIXES ALREADY PRESENT?
+**Record:** No `fru_pia_advance`/`fru_pia_copy_field` or "harden FRU
+PIA" commit in tree. `git log --grep='harden FRU'` returned empty. Fix
+not yet applied.
 
 ---
 
-## PHASE 8: IMPACT AND RISK
+## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
 
-### Step 8.1: Who is affected
-**Record:** Config-specific (`CONFIG_IWLMLD` + `CONFIG_THERMAL`). Users
-of newer Intel MLD WiFi devices with thermal framework enabled.
+### Step 7.1: SUBSYSTEM CRITICALITY
+**Record:** **Subsystem:** `drm/amdgpu` driver — FRU EEPROM parsing for
+AMD server GPUs. **Criticality:** PERIPHERAL (hardware-specific,
+server/datacenter GPUs only), but touches kernel memory safety during
+probe.
 
-### Step 8.2: Trigger conditions
-**Record:** `thermal_zone_device_enable()` fails after successful
-registration. Uncommon but explicitly handled error path. Any subsequent
-driver unload or thermal notification using `mld->tzone` triggers UAF.
-Not userspace-triggerable directly, but reachable during normal driver
-lifecycle on affected hardware.
+### Step 7.2: SUBSYSTEM ACTIVITY
+**Record:** File actively maintained — 20+ commits since 2022, most
+recent in 2025 (dev_* conversion, SMU v13.0.12 support).
 
-### Step 8.3: Failure mode severity
-**Record:** **HIGH** — use-after-free on freed `struct
-thermal_zone_device`. Can cause kernel oops on module unload or during
-thermal event handling. Potential security relevance (UAF class).
+---
 
-### Step 8.4: Risk-benefit
+## PHASE 8: IMPACT AND RISK ASSESSMENT
+
+### Step 8.1: WHO IS AFFECTED
+**Record:** Users of AMD server GPUs with FRU EEPROM support (Vega20
+D161/D163, Instinct MI D603, Aldebaran, SMU v13.0.6/v13.0.14, etc.). Not
+APUs, not VF, not all consumer cards. Config/hardware-specific, but real
+production datacenter hardware.
+
+### Step 8.2: TRIGGER CONDITIONS
+**Record:** Malformed, truncated, or internally inconsistent FRU Product
+Info Area TLV data in on-card EEPROM. Occurs during driver probe
+(boot/module load). Not userspace-triggerable directly; requires
+corrupt/tampered EEPROM or hardware/firmware fault. Moderately rare but
+plausible (manufacturing errors, EEPROM corruption, physical tampering
+on servers).
+
+### Step 8.3: FAILURE MODE SEVERITY
+**Record:** Out-of-bounds read from kmalloc'd PIA buffer during GPU
+init. Potential KASAN splat, kernel oops during probe, or information
+leak from adjacent heap data. Severity: **HIGH** for affected hardware
+(memory safety during init); **MEDIUM** overall due to narrow
+hardware/trigger scope. Does not cause silent data corruption of user
+files.
+
+### Step 8.4: RISK-BENEFIT
 **Record:**
-- **Benefit:** Prevents UAF on driver teardown and runtime thermal
-  paths; one-line meaningful fix
-- **Risk:** Very low — adds NULL assignment matching existing pattern;
-  cleanup-only hunk in unregister
-- **Ratio:** Strong benefit, minimal risk
+- **Benefit:** MEDIUM — closes real OOB read in server GPU probe path;
+  aligns with prior FRU bounds fixes AMD has shipped.
+- **Risk:** LOW — small, reviewed, behavior-preserving with stricter
+  bounds.
+- **Ratio:** Benefit outweighs risk for 6.18.y.
 
 ---
 
 ## PHASE 9: FINAL SYNTHESIS
 
-### Step 9.1: Evidence summary
+### Step 9.1: EVIDENCE COMPILED
 
 **FOR backport:**
-- Real UAF bug on error path with clear mechanism
-- Fix is minimal, obviously correct, matches existing code pattern
-- Buggy code confirmed present in 6.18.44 tree
-- Driver unload path always hits unregister — crash risk on affected
-  hardware
-- iwl_mld actively maintained in this stable series
-- Similar iwl_mld UAF fixes already backported here
+- Real, verifiable OOB read bug in current 6.18.44 code (unchecked TLV
+  advance + unbounded memcpy).
+- Fixes memory safety during GPU driver probe on affected server
+  hardware.
+- Small, single-file, obviously correct bounded helpers.
+- Reviewed by AMD developer; signed off by amdgpu maintainer (Alex
+  Deucher).
+- Same file had prior OOB fixes backported historically.
+- Bug present since 2022; code exists in this tree.
+- `min3()` available; patch should apply cleanly.
 
 **AGAINST backport:**
-- No syzbot/user bug report (theoretical until enable fails)
-- Narrow audience (IWLMLD + CONFIG_THERMAL)
-- MVM driver has same bug but is not fixed by this commit
-- Could not verify lore review discussion
+- No syzbot report, no user bug report, no CVE cited.
+- Very limited hardware population (AMD server GPUs with FRU EEPROM).
+- Requires malformed EEPROM data — not commonly triggered.
+- Not directly exploitable from userspace.
+- Mailing list review context unverified.
 
-**Unresolved:** Lore review thread inaccessible; exact frequency of
-`thermal_zone_device_enable()` failure unverified.
+**UNRESOLVED:**
+- Original lore discussion and whether reviewers nominated for stable.
+- Whether any production incident motivated this fix.
 
-### Step 9.2: Stable rules checklist
-1. Obviously correct and tested? **PASS** — logic is self-evident; no
-   Tested-by but pattern matches existing error path
-2. Fixes a real bug? **PASS** — stale pointer after free confirmed by
-   code reading
-3. Important issue? **PASS** — UAF, HIGH severity on unload
-4. Small and contained? **PASS** — ~3 meaningful lines in one file
-5. No new features/APIs? **PASS**
-6. Can apply to local tree? **PASS** — code present, clean apply
-   expected
+### Step 9.2: STABLE RULES CHECKLIST
+1. Obviously correct and tested? **PASS** — logic is clear; reviewed by
+   AMD; no Tested-by but mechanism is verifiable by inspection.
+2. Fixes a real bug affecting users? **PASS** — OOB read on server GPU
+   probe with malformed FRU data.
+3. Important issue? **PASS** — kernel memory safety / potential oops
+   during init (HIGH for affected systems).
+4. Small and contained? **PASS** — one file, ~40 lines of meaningful
+   change.
+5. No new features or APIs? **PASS** — parsing hardening only.
+6. Can apply to local tree? **PASS** — buggy code confirmed present;
+   clean apply expected.
 
-### Step 9.3: Exception categories
-**Record:** None (not device ID, quirk, DT, build, or docs). Standard
-bug fix.
+### Step 9.3: EXCEPTION CATEGORIES
+**Record:** None directly (not device ID, quirk, DT, build fix, or
+docs). Standard memory-safety bug fix.
 
-### Step 9.4: Problem and decision rationale
+### Step 9.4: DECISION RATIONALE
 
-When `thermal_zone_device_enable()` fails during iwl_mld thermal zone
-setup, the driver unregisters the zone but leaves `mld->tzone` pointing
-at freed memory. Because registration failure does not abort driver
-probe, the WiFi device continues operating with a dangling pointer. On
-driver removal (`iwl_op_mode_mld_stop` → `iwl_mld_thermal_exit`),
-`iwl_mld_thermal_zone_unregister()` dereferences that freed structure —
-a classic use-after-free that can oops the kernel. Runtime thermal
-notification paths (`iwl_mld_handle_ct_kill_notif`) are similarly
-affected.
-
-For 6.18.44 users running Intel MLD WiFi with thermal support, this is a
-real stability fix with negligible backport risk. The fix mirrors the
-already-correct `IS_ERR()` path in the same function.
+For **linux-6.18.y** (this checkout): the vulnerable FRU PIA parsing
+code is present and has been since the 2022 IPMI rewrite. The fix
+addresses a concrete out-of-bounds read that can occur when TLV length
+fields in FRU EEPROM data are inconsistent with the actual buffer size —
+a scenario checksum validation does not prevent. While the affected
+hardware base is narrow (AMD server GPUs), memory-safety fixes in probe
+paths are appropriate stable material, especially given AMD's prior
+history of backporting similar FRU bounds fixes. The patch is small,
+reviewed, and low-risk.
 
 ---
 
 ## Verification
 
-- **[Phase 1]** Parsed commit message and tags from user-provided diff
-- **[Phase 2]** Read `thermal.c` lines 65–467; confirmed missing
-  `mld->tzone = NULL` at lines 271–275
-- **[Phase 2]** Read `thermal_core.c:1716–1742`; confirmed
-  `thermal_zone_device_unregister()` frees `tz` via `kfree(tz)`
-- **[Phase 2]** Read `thermal_core.c:1691–1709`; confirmed second
-  unregister accesses `tz->node` on potentially freed memory
-- **[Phase 3]** `git describe HEAD` → `v6.18.44-1-g2736c32da98b9`; `make
-  kernelversion` → `6.18.44`
-- **[Phase 3]** `git blame -L 242,276 thermal.c` → buggy code in current
-  tree
-- **[Phase 3]** `git log --grep='clear tzone'` → no existing fix
-- **[Phase 3]** `git show 3a74aaad04735` → confirmed iwl_mld fixes are
-  backported to this tree
-- **[Phase 4]** `b4 dig` → empty/no match
-- **[Phase 4]** WebFetch lore/patch.msgid.link → blocked by Anubis
-- **[Phase 4]** Grep `*.mbx` for "clear tzone" → no matches
-- **[Phase 5]** Grep `iwl_mld_thermal` → callers in `mld.c:478,506`
-- **[Phase 5]** Read `mld.c:460–527` → thermal init on start, exit on
-  stop
-- **[Phase 6]** Confirmed
-  `drivers/net/wireless/intel/iwlwifi/mld/thermal.c` exists (467 lines)
-- **[Phase 6]** Confirmed `CONFIG_IWLMLD` in `Kconfig:84`
-- **[Phase 6]** Diff context matches current tree — clean apply expected
-- **[Phase 8]** Grep `mvm/tt.c` → same bug pattern at lines 688–692 (not
-  fixed by this commit)
-- **UNVERIFIED:** Lore review discussion and stable nomination comments
-- **UNVERIFIED:** How often `thermal_zone_device_enable()` fails on
-  iwl_mld hardware
+- [Phase 1] Parsed subject, tags, body: hardening fix for OOB reads;
+  Reviewed-by Tao Zhou; no Reported-by/syzbot.
+- [Phase 2] Read full diff and current `amdgpu_fru_eeprom.c`: confirmed
+  unchecked advances at lines 251, 254, 262, 265 and unbounded memcpy at
+  227–229, 237–238, etc.
+- [Phase 2] Verified `min3` exists in `include/linux/minmax.h`.
+- [Phase 3] `git blame -L 220,270`: buggy walk from `0dbf2c5626253`
+  (2022-11-17).
+- [Phase 3] `git log --oneline -20 -- amdgpu_fru_eeprom.c`: no existing
+  bounded-helper fix.
+- [Phase 3] `git log --grep='harden FRU'`: empty (commit not in tree).
+- [Phase 3] `git show 00b14ce075732`, `git show 02b865f88b4e4`: prior
+  FRU OOB fixes confirmed.
+- [Phase 4] `b4 dig -c`: **UNVERIFIED** — commit not in tree.
+- [Phase 4] Lore search: **UNVERIFIED** — blocked by anti-bot page.
+- [Phase 5] `grep amdgpu_fru_get_product_info`: callers in
+  `amdgpu_device.c:3307`, init via `amdgpu_kms.c:148`.
+- [Phase 6] `git describe HEAD` → v6.18.44; `make kernelversion` →
+  6.18.44.
+- [Phase 6] Read `amdgpu_fru_eeprom.c` lines 220–270: buggy code
+  confirmed present.
+- [Phase 6] `git merge-base --is-ancestor 0dbf2c5626253 HEAD`: buggy
+  code ancestor in tree.
+- [Phase 8] Failure mode: OOB kernel read during probe; severity HIGH
+  (affected hw) / MEDIUM (overall).
 
-**YES**The `b4 dig` search for the patch thread finished with no match —
-it returned empty output for both the commit hash and the subject line
-`wifi: iwlwifi: mld: clear tzone on fail`. Lore/patch.msgid.link was
-also unreachable (bot protection), so the review thread couldn’t be
-retrieved that way.
+**YES**The background search finished: `git log --grep='harden FRU'`,
+`--grep='bounded helpers'`, and `--grep='fru_pia'` all returned nothing,
+so this fix is not in the local **6.18.44** tree yet.
 
-That doesn’t change the earlier conclusion: the bug is a real stale-
-pointer/UAF on the thermal-zone enable-failure path in `iwl_mld`, the
-fix is small and applies cleanly to this 6.18.44 tree, and the backport
-recommendation remains **YES**.
+That matches what we saw in the file — `amdgpu_fru_eeprom.c` still has
+the unchecked TLV walk (e.g. unguarded `addr += 1 + (pia[addr] & 0x3F)`
+around lines 251–265).
 
- drivers/net/wireless/intel/iwlwifi/mld/thermal.c | 9 ++++-----
- 1 file changed, 4 insertions(+), 5 deletions(-)
+**Verdict for linux-6.18.y: YES** — real out-of-bounds read on malformed
+FRU EEPROM data during server GPU probe; small, reviewed hardening fix
+that should apply cleanly.
 
-diff --git a/drivers/net/wireless/intel/iwlwifi/mld/thermal.c b/drivers/net/wireless/intel/iwlwifi/mld/thermal.c
-index f8a8c35066beb..e445b1d7d4b00 100644
---- a/drivers/net/wireless/intel/iwlwifi/mld/thermal.c
-+++ b/drivers/net/wireless/intel/iwlwifi/mld/thermal.c
-@@ -1,6 +1,6 @@
- // SPDX-License-Identifier: GPL-2.0 OR BSD-3-Clause
- /*
-- * Copyright (C) 2024-2025 Intel Corporation
-+ * Copyright (C) 2024-2026 Intel Corporation
-  */
- #ifdef CONFIG_THERMAL
- #include <linux/sort.h>
-@@ -272,6 +272,7 @@ static void iwl_mld_thermal_zone_register(struct iwl_mld *mld)
- 	if (ret) {
- 		IWL_DEBUG_TEMP(mld, "Failed to enable thermal zone\n");
- 		thermal_zone_device_unregister(mld->tzone);
-+		mld->tzone = NULL;
+ .../gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c    | 95 ++++++++++++-------
+ 1 file changed, 63 insertions(+), 32 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c
+index b0082aa7f3c61..2875627dce8e9 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c
+@@ -114,6 +114,43 @@ static bool is_fru_eeprom_supported(struct amdgpu_device *adev, u32 *fru_addr)
  	}
  }
  
-@@ -385,10 +386,8 @@ static void iwl_mld_thermal_zone_unregister(struct iwl_mld *mld)
- 		return;
++/*
++ * IPMI FRU Product Info Area fields are TLV: one type/length byte
++ * (low 6 bits = data length) followed by that many data bytes. These
++ * helpers walk the cursor and copy a single field while bounding all
++ * accesses to the actual buffer length read from the EEPROM.
++ */
++#define FRU_FIELD_LEN(p, a)	((p)[a] & 0x3F)
++
++/* Advance cursor past the current TLV. Returns false if no more data. */
++static bool fru_pia_advance(u32 *addr, const unsigned char *pia, int len)
++{
++	if (*addr >= (u32)len)
++		return false;
++	*addr += 1 + FRU_FIELD_LEN(pia, *addr);
++	return true;
++}
++
++/*
++ * Copy the current TLV's data into dst (NUL-terminated). Returns false if
++ * the TLV header or data would read past the end of pia.
++ */
++static bool fru_pia_copy_field(char *dst, size_t dst_size,
++			       const unsigned char *pia, u32 addr, int len)
++{
++	size_t fl;
++
++	if (addr + 1 >= (u32)len)
++		return false;
++
++	fl = min3((size_t)FRU_FIELD_LEN(pia, addr),
++			  dst_size - 1,
++			  (size_t)(len - addr - 1));
++	memcpy(dst, pia + addr + 1, fl);
++	dst[fl] = '\0';
++	return true;
++}
++
+ int amdgpu_fru_get_product_info(struct amdgpu_device *adev)
+ {
+ 	struct amdgpu_fru_info *fru_info;
+@@ -222,52 +259,46 @@ int amdgpu_fru_get_product_info(struct amdgpu_device *adev)
+ 	 * Read Manufacturer Name field whose length is [3].
+ 	 */
+ 	addr = 3;
+-	if (addr + 1 >= len)
++	if (!fru_pia_copy_field(fru_info->manufacturer_name,
++				sizeof(fru_info->manufacturer_name),
++				pia, addr, len))
+ 		goto Out;
+-	memcpy(fru_info->manufacturer_name, pia + addr + 1,
+-	       min_t(size_t, sizeof(fru_info->manufacturer_name),
+-		     pia[addr] & 0x3F));
+-	fru_info->manufacturer_name[sizeof(fru_info->manufacturer_name) - 1] =
+-		'\0';
  
- 	IWL_DEBUG_TEMP(mld, "Thermal zone device unregister\n");
--	if (mld->tzone) {
--		thermal_zone_device_unregister(mld->tzone);
--		mld->tzone = NULL;
--	}
-+	thermal_zone_device_unregister(mld->tzone);
-+	mld->tzone = NULL;
- }
+ 	/* Read Product Name field. */
+-	addr += 1 + (pia[addr] & 0x3F);
+-	if (addr + 1 >= len)
++	if (!fru_pia_advance(&addr, pia, len) ||
++	    !fru_pia_copy_field(fru_info->product_name,
++				sizeof(fru_info->product_name),
++				pia, addr, len))
+ 		goto Out;
+-	memcpy(fru_info->product_name, pia + addr + 1,
+-	       min_t(size_t, sizeof(fru_info->product_name), pia[addr] & 0x3F));
+-	fru_info->product_name[sizeof(fru_info->product_name) - 1] = '\0';
  
- static void iwl_mld_cooling_device_unregister(struct iwl_mld *mld)
+ 	/* Go to the Product Part/Model Number field. */
+-	addr += 1 + (pia[addr] & 0x3F);
+-	if (addr + 1 >= len)
++	if (!fru_pia_advance(&addr, pia, len) ||
++	    !fru_pia_copy_field(fru_info->product_number,
++				sizeof(fru_info->product_number),
++				pia, addr, len))
+ 		goto Out;
+-	memcpy(fru_info->product_number, pia + addr + 1,
+-	       min_t(size_t, sizeof(fru_info->product_number),
+-		     pia[addr] & 0x3F));
+-	fru_info->product_number[sizeof(fru_info->product_number) - 1] = '\0';
+ 
+-	/* Go to the Product Version field. */
+-	addr += 1 + (pia[addr] & 0x3F);
++	/* Skip the Product Version field. */
++	if (!fru_pia_advance(&addr, pia, len))
++		goto Out;
+ 
+-	/* Go to the Product Serial Number field. */
+-	addr += 1 + (pia[addr] & 0x3F);
+-	if (addr + 1 >= len)
++	/* Read the Product Serial Number field. */
++	if (!fru_pia_advance(&addr, pia, len) ||
++	    !fru_pia_copy_field(fru_info->serial,
++				sizeof(fru_info->serial),
++				pia, addr, len))
+ 		goto Out;
+-	memcpy(fru_info->serial, pia + addr + 1,
+-	       min_t(size_t, sizeof(fru_info->serial), pia[addr] & 0x3F));
+-	fru_info->serial[sizeof(fru_info->serial) - 1] = '\0';
+ 
+-	/* Asset Tag field */
+-	addr += 1 + (pia[addr] & 0x3F);
++	/* Skip the Asset Tag field. */
++	if (!fru_pia_advance(&addr, pia, len))
++		goto Out;
+ 
+ 	/* FRU File Id field. This could be 'null'. */
+-	addr += 1 + (pia[addr] & 0x3F);
+-	if ((addr + 1 >= len) || !(pia[addr] & 0x3F))
++	if (!fru_pia_advance(&addr, pia, len) ||
++	    !fru_pia_copy_field(fru_info->fru_id,
++				sizeof(fru_info->fru_id),
++				pia, addr, len))
+ 		goto Out;
+-	memcpy(fru_info->fru_id, pia + addr + 1,
+-	       min_t(size_t, sizeof(fru_info->fru_id), pia[addr] & 0x3F));
+-	fru_info->fru_id[sizeof(fru_info->fru_id) - 1] = '\0';
+ 
+ Out:
+ 	kfree(pia);
 -- 
 2.53.0
 
