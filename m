@@ -1,43 +1,48 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F702476060;
-	Mon, 31 Aug 2026 13:52:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAF205A4116;
+	Mon, 31 Aug 2026 13:52:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788184332; cv=none; b=l13tzjk1ipGCBNxQjjfqpu1mWOdkx5NqY6Oej9l4zKRpXysuIRkjqiLdVcU7yK6e7geb4VG68/qH6LBiyJxdwYmBuQalvOPbPSNa++uHoIQDpZqzRVX5JxbnVtdr7HtQMxJdL9IwMV33aXq5FXTWSLBuy8qxgCuc8s3eNeweNS8=
+	t=1788184334; cv=none; b=h5VbfF/33Ab85t2UlJphKh/UIgXAdMoi2WtiHojmNbe3PuyFggbnQZf55FHxFB1UL2DCAIw9r4QbLkbokrd7Hn8bRayOlJo6sjdLlCZPNldxbCRzmUuHVTqt3XjpZR88LZdc24JCGXb9ihm+ishH3mwQwEbbe8cSOwtFvEGJTu8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788184332; c=relaxed/simple;
-	bh=+8ZiQKKyaZYmO9q8rTvBxQD2meYqCapR5UbS8OrCFmQ=;
+	s=arc-20240116; t=1788184334; c=relaxed/simple;
+	bh=cF0Rwb4iiVUoE6QIsHGC7SlZyMYl0ckqTJN20oDZzuQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=mhGDuOBnTlrkjBlYSgerbve/r53xtzv2sEyCYllH4XCKd6yH1MaVHr9ezDxmb4rcA1uu7wta96UQTmzCxAN7tjQ4/NldLAMkMyGzlqLKGaPotD4HZTSWsyz1n4ryJRV35HKfLtJloNU1uqSh4CeR0pYUgA10eOKcv/lQOMfT1wg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=du7j9q5d; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=JUaNVPiv8fcweBACmkqCX6OoCW4IR9zE+bBomPxKF+FdOjzanpLr+KCO4PGChEcv3ntBlS+8Svszx3l/JzYvbJpgYB+zGcTlqcXJ4B21sbCa0GHiPvVmpjHyo8NOHFDBtcXITVX1WiuGMiV09e4vdVbiVGH3GtM/d3m+G5iJaHI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jqOYAdeX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="du7j9q5d"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE4941F00A3F;
-	Mon, 31 Aug 2026 13:52:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jqOYAdeX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3BD0D1F00A3E;
+	Mon, 31 Aug 2026 13:52:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788184329;
-	bh=8z0Zk6f6IzTTH0YSgbBk7q9JHOnumno17VaPZOVy9u4=;
+	s=k20260515; t=1788184331;
+	bh=KlS/P84QSh8TJgklCQ5BAZQdOWGMmdpiND2aQ7OWxRs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=du7j9q5d7S+hJGl99Q0zt+jYE/xNWPdDsmvPfxnHvp4BR19AbStx8OrBHRg/UZNhN
-	 J3dCPEfOp/rBmGEe86Bvw/Rjt5RDGUwMtYQ6ei/iO8ymlOXRtOPLN1bW28gZ7plml4
-	 5fopyOnpEw49ecY5X7FJmS6I/8naQPB90rulepY/Hf6sygpN6JYsiU+t/gUN2jfGIO
-	 vtk/pJx4JcEW4i1LHzLh46fZCfxhx6kLgXZGrfKVNhQY60D1Xq4xNq/7alF7hzHCfr
-	 cjqJPgy0Oxp4RFgL8Wsn2BbEqgNHpHdiytgJYKXyA+xYO8q2yWPrqw41Zp4Ytac7rH
-	 Uv6GnLNkIx/6w==
+	b=jqOYAdeXyzskRVFUYm+h97hGAGGcpxwFV0ejZccXzh3Wajbni3UB09ARLIQ2MnLDL
+	 xhEzHzVBDYt05FZOQXgIom/PInBu85XpfGtbmYLRyF2xzyXSJFHsPujHOJwk+uhWYR
+	 KX2Hn9ADv55Vgj/7Y8HfRQRa/g8WHOnftIjDxWVB9SSIuX4eqs3KEw/zrf42DaB4c3
+	 XVIpbx70ozBosblmRdMQUcHAhofZF+nfg0jVcqDgD7xgcmfQMhw31tWmDcHuj3SOvW
+	 3CsvRv0T21fZY39HXZY+tB3hDIYzckpJxrnTFEDijeIvN5KZadQWC17wfsEQwlDAHo
+	 KsJRb67aM88ag==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Namjae Jeon <linkinjeon@kernel.org>,
-	Steve French <stfrench@microsoft.com>,
+Cc: Michal Wajdeczko <michal.wajdeczko@intel.com>,
+	Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>,
 	Sasha Levin <sashal@kernel.org>,
-	smfrench@gmail.com,
-	linux-cifs@vger.kernel.org,
+	matthew.brost@intel.com,
+	thomas.hellstrom@linux.intel.com,
+	rodrigo.vivi@intel.com,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	intel-xe@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-6.1] ksmbd: align SMB2 oplock break ack handling
-Date: Mon, 31 Aug 2026 09:30:57 -0400
-Message-ID: <20260831133314.4125787-629-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18] drm/xe/guc: Add support for NO_RESPONSE_BUSY in CTB
+Date: Mon, 31 Aug 2026 09:30:58 -0400
+Message-ID: <20260831133314.4125787-630-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -53,25 +58,33 @@ X-stable-base: Linux 6.18.48
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Namjae Jeon <linkinjeon@kernel.org>
+From: Michal Wajdeczko <michal.wajdeczko@intel.com>
 
-[ Upstream commit 80a56d4a826c6c84430286fcf7d8655f7c5b0868 ]
+[ Upstream commit 4d33314decfeac8b82d771a1bd083a59f4ac6fae ]
 
-Handle SMB2 oplock break acknowledgments according to the server-side
-validation rules in MS-SMB2.
+We only have support for G2H NO_RESPONSE_BUSY messages over MMIO,
+but it turned out that GuC also uses that type of messages in CTB.
 
-Return STATUS_INVALID_DEVICE_STATE when an ACK arrives while the open is
-not breaking, reject SMB2_OPLOCK_LEVEL_LEASE with
-STATUS_INVALID_PARAMETER, allow BATCH acknowledgments to EXCLUSIVE, and
-make invalid ACK levels fail with STATUS_INVALID_OPLOCK_PROTOCOL after
-lowering the oplock to NONE.
+The following error was recently observed on BMG after adding VGT
+policy updates to the GT restart sequence:
 
-Update the successful response from the final granted oplock level instead
-of relying on the oplock transition helpers, which could turn invalid ACKs
-into successful responses.
+ [] xe 0000:03:00.0: [drm] *ERROR* Tile0: GT1: G2H channel broken on read, type=3, reset required
+ [] xe 0000:03:00.0: [drm] *ERROR* Tile0: GT1: CT dequeue failed: -95
+ ...
+ [] xe 0000:03:00.0: [drm] *ERROR* Tile0: GT1: Timed out wait for G2H, fence 21965, action 5502, done no
+ [] xe 0000:03:00.0: [drm] PF: Tile0: GT1: Failed to push 1 policy KLV (-ETIME)
+ [] xe 0000:03:00.0: [drm] Tile0: GT1: { key 0x8004 : no value } # engine_group_config
 
-Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
-Signed-off-by: Steve French <stfrench@microsoft.com>
+where type=3 was this unrecognized NO_RESPONSE_BUSY message.
+
+Note that GuC might send the real RESPONSE message right after
+the BUSY message, so we must be prepared to update our g2h_fence
+data twice before sender actually wakes up and clears the flags.
+
+Signed-off-by: Michal Wajdeczko <michal.wajdeczko@intel.com>
+Cc: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+Reviewed-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+Link: https://patch.msgid.link/20260410110457.573-1-michal.wajdeczko@intel.com
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
@@ -79,521 +92,477 @@ LLM Generated explanations, may be completely bogus:
 
 ## Phase 1: Commit Message Forensics
 
-**Step 1.1 — Subject line**
+### Step 1.1: Subject Line
+**Record:** `[drm/xe/guc]` `[Add support for]` — Extend GuC CTB (Command
+Transport Buffer) handling to recognize `GUC_HXG_TYPE_NO_RESPONSE_BUSY`
+messages, mirroring existing MMIO-path support.
 
-Record: **[ksmbd] [align] SMB2 oplock break ack handling — correct SMB2
-oplock-break ACK validation per MS-SMB2**
+### Step 1.2: Tags
+**Record:**
+- **Signed-off-by:** Michal Wajdeczko \<michal.wajdeczko@intel.com\>
+- **Cc:** Daniele Ceraolo Spurio \<daniele.ceraolospurio@intel.com\>
+- **Reviewed-by:** Daniele Ceraolo Spurio
+  \<daniele.ceraolospurio@intel.com\>
+- **Link:** https://patch.msgid.link/20260410110457.573-1-
+  michal.wajdeczko@intel.com
+- **No** Fixes:, Reported-by:, Tested-by:, Acked-by:, or Cc:
+  stable@vger.kernel.org
+- Notable: Reviewed-by from a co-developer; no syzbot/fuzzer report;
+  real hardware log in commit body
 
-**Step 1.2 — Tags**
+### Step 1.3: Body Analysis
+**Record:**
+- **Bug:** GuC can send `NO_RESPONSE_BUSY` (HXG type 3) over the CTB G2H
+  channel, but the CT path only handled it over MMIO. CT treats type 3
+  as unknown and marks the channel broken.
+- **Symptom:** `G2H channel broken on read, type=3, reset required` →
+  `CT dequeue failed: -95` → `Timed out wait for G2H` → `Failed to push
+  1 policy KLV (-ETIME)` with action `0x5502`
+  (`GUC_ACTION_PF2GUC_UPDATE_VGT_POLICY`)
+- **Trigger context:** Observed on BMG (Battlemage) during VGT policy
+  updates in the GT restart sequence
+- **Root cause:** Missing CTB handler for an existing GuC protocol
+  message type; a final response may follow the BUSY message on the same
+  fence
 
-Record:
-- **Signed-off-by:** Namjae Jeon `<linkinjeon@kernel.org>` (author)
-- **Signed-off-by:** Steve French `<stfrench@microsoft.com>` (CIFS/ksmbd
-  maintainer, committer)
-- No Fixes:, Reported-by:, Tested-by:, Reviewed-by:, Acked-by:, Link:,
-  or Cc: stable tags
-- Notable: maintainer-authored and maintainer-committed; no syzbot or
-  user bug report in message
-
-**Step 1.3 — Body analysis**
-
-Record:
-- **Bug:** `smb20_oplock_break_ack()` does not follow MS-SMB2 server-
-  side ACK validation
-- **Symptoms:**
-  - ACK while open is not breaking → wrong handling
-  - `SMB2_OPLOCK_LEVEL_LEASE` in oplock-break ACK → not rejected
-    correctly
-  - Valid BATCH→EXCLUSIVE ACK → incorrectly rejected
-  - Invalid ACK levels → can return SUCCESS instead of
-    `STATUS_INVALID_OPLOCK_PROTOCOL`
-- **Root cause:** State/level checks are wrong; transition helpers
-  (`opinfo_write_to_*`) can succeed on invalid ACKs and produce a
-  successful response
-- **Version info:** None in message
-
-**Step 1.4 — Hidden bug fix?**
-
-Record: **Yes.** Despite “align” wording, this fixes real protocol/logic
-bugs: wrong state gating, incorrect rejection of valid BATCH/EXCLUSIVE
-ACKs, and invalid ACKs returning NTSTATUS success.
+### Step 1.4: Hidden Bug Fix?
+**Record:** Yes. Despite "Add support" wording, this is a protocol-
+handling bug fix. The driver already handles `NO_RESPONSE_BUSY` on MMIO
+(`xe_guc.c`) and in the relay path (`xe_guc_relay.c`); only the CT
+blocking-send path was missing it.
 
 ---
 
 ## Phase 2: Diff Analysis
 
-**Step 2.1 — Inventory**
+### Step 2.1: Inventory
+**Record:**
+- **File:** `drivers/gpu/drm/xe/xe_guc_ct.c` — +36 / −2 lines
+- **Functions modified:** `struct g2h_fence`, `g2h_fence_init` area,
+  `guc_ct_send_recv()`, `parse_g2h_response()`, `parse_g2h_msg()`
+- **New:** `g2h_fence_reinit()`
+- **Scope:** Single-file, surgical fix
 
-Record:
-- **Files:** `fs/smb/server/smb2pdu.c` only (+46 / -58)
-- **Function:** `smb20_oplock_break_ack()`
-- **Scope:** Single-file, single-function surgical change
+### Step 2.2: Code Flow Changes
+**Record:**
+- **`g2h_fence`:** Adds `counter` and `wait` fields for BUSY state
+- **`g2h_fence_reinit()`:** Clears response-side fields via
+  `memset_after()` while preserving `seqno` and `response_buffer`
+- **`parse_g2h_msg()`:** Routes `GUC_HXG_TYPE_NO_RESPONSE_BUSY` to
+  `parse_g2h_response()` instead of the `default` broken-channel path
+- **`parse_g2h_response()`:** On BUSY, uses `xa_load()` instead of
+  `xa_erase()` (fence stays registered); reinitializes fence state; sets
+  `wait=true` and `counter`; skips buffer space release for intermediate
+  messages
+- **`guc_ct_send_recv()`:** On `g2h_fence.wait`, reinitializes fence and
+  loops back to `wait_event_timeout()` for the final response
 
-**Step 2.2 — Code flow changes**
+### Step 2.3: Bug Mechanism
+**Record:**
+- **Category:** Logic / protocol correctness — missing handler for a
+  valid GuC message type
+- **Mechanism:** When GuC sends type 3 over CTB, `parse_g2h_msg()` hits
+  `default`, logs "channel broken", calls `CT_DEAD()`, returns
+  `-EOPNOTSUPP` (−95). The waiting `guc_ct_send_recv()` then times out.
+  The CT channel is left in a broken state requiring GT reset.
 
-Record:
-- **Hunk 1 (state check):** Before: reject only if `op_state ==
-  OPLOCK_STATE_NONE` with `STATUS_UNSUCCESSFUL`. After: require
-  `op_state == OPLOCK_ACK_WAIT`; otherwise
-  `STATUS_INVALID_DEVICE_STATE`.
-- **Hunk 2 (LEASE level):** Before: no explicit LEASE-level rejection.
-  After: reject `SMB2_OPLOCK_LEVEL_LEASE` with
-  `STATUS_INVALID_PARAMETER`, set level to NONE.
-- **Hunk 3 (validation):** Before: complex `oplock_change_type` + switch
-  calling `opinfo_write_to_read/none`. After: explicit per-level
-  validation; invalid ACKs set level to NONE and error out.
-- **Hunk 4 (BATCH/EXCLUSIVE):** Before: BATCH + EXCLUSIVE ACK treated as
-  invalid. After: EXCLUSIVE explicitly allowed for BATCH.
-- **Hunk 5 (success path):** Before: response level from transition
-  helpers. After: set `opinfo->level` and `rsp_oplevel` directly from
-  validated request level.
-- **Hunk 6 (error path):** Before: `err_out` could conflate pin failures
-  with protocol errors. After: clear `status` assignment and separate
-  `out` path.
-
-**Step 2.3 — Bug mechanism**
-
-Record: **[Logic / protocol correctness]**
-- Wrong state machine gate (never required `OPLOCK_ACK_WAIT` in
-  `smb2pdu.c`)
-- Incorrect protocol validation for BATCH/EXCLUSIVE
-- Invalid ACKs could complete successfully via transition helpers
-  despite intended error status
-
-**Step 2.4 — Fix quality**
-
-Record: **High.** Simpler, directly mirrors MS-SMB2 rules, minimal
-scope. Low regression risk; uses existing `OPLOCK_ACK_WAIT` constant
-already defined in `oplock.h` and set in `oplock.c` during breaks.
+### Step 2.4: Fix Quality
+**Record:**
+- Fix is obviously correct: mirrors the existing MMIO `NO_RESPONSE_BUSY`
+  pattern and the established `NO_RESPONSE_RETRY` CT handling
+- Minimal, self-contained, no API changes
+- Low regression risk: only affects the BUSY message path; fence lookup
+  semantics are carefully preserved for intermediate vs. final responses
 
 ---
 
 ## Phase 3: Git History Investigation
 
-**Step 3.1 — Blame**
+### Step 3.1: Blame
+**Record:** The `parse_g2h_msg()` switch (lines 1411–1427) dates to
+commit `308dc9b27874d` (initial xe driver import, Jul 2025). It has
+handled `NO_RESPONSE_RETRY` since import but never `NO_RESPONSE_BUSY`.
+MMIO BUSY handling was added in `1d087cb7d81f9` (Nov 2023) and is
+present in this tree.
 
-Record: Buggy logic introduced in **e2f34481b24db2** (“cifsd: add
-server-side procedures for SMB3”, Namjae Jeon, 2021-03-16). BATCH
-handling extended in **64b39f4a2fd293** (2021-03-30). Bug present since
-ksmbd’s SMB3 server code landed.
+### Step 3.2: Fixes: Tag
+**Record:** N/A — no Fixes: tag.
 
-**Step 3.2 — Fixes: tag**
+### Step 3.3: Related File History
+**Record:**
+- `1d087cb7d81f9` — MMIO `NO_RESPONSE_BUSY` fix (in tree)
+- `3c01e01214026` — MMIO follow-up for unexpected messages after BUSY
+  (in tree)
+- `4d33314decfea` — this CTB fix (NOT in tree; `git merge-base --is-
+  ancestor` returns 1)
+- Recent `xe_guc_ct.c` changes are unrelated CT state/retry fixes
 
-Record: **N/A** — no Fixes: tag in commit message.
+### Step 3.4: Author Context
+**Record:** Michal Wajdeczko is an active Intel xe/GuC contributor
+(`159afd92bae81`, `2506af5f8109a`, etc. on `xe_guc_ct.c`). Reviewed by
+Daniele Ceraolo Spurio (co-developer).
 
-**Step 3.3 — Related file history**
-
-Record: Recent `smb2pdu.c` changes in this tree are mostly ksmbd
-security/UAF/permission fixes. No prior fix for this ACK-validation
-issue. Commit is **patch 06/14** in Namjae’s June 2026 lease/oplock
-series, but this hunk is self-contained in `smb20_oplock_break_ack()`.
-
-**Step 3.4 — Author context**
-
-Record: Namjae Jeon is ksmbd maintainer. Steve French committed to
-mainline. Series was part of the 50-commit “ksmbd server fixes” pull for
-Linux 7.2.
-
-**Step 3.5 — Dependencies**
-
-Record: **Standalone for this tree.** `OPLOCK_ACK_WAIT` already exists
-in `oplock.h`; `oplock.c` already sets `op_state = OPLOCK_ACK_WAIT`
-during breaks. No structural prerequisites from earlier series patches
-required for compilation or semantics. Follow-up mainline commit “return
-oplock protocol error for level II ack” builds on this but is separate.
+### Step 3.5: Dependencies
+**Record:** Standalone. Uses `memset_after()` (present in
+`include/linux/string.h`), `GUC_HXG_TYPE_NO_RESPONSE_BUSY` and
+`GUC_HXG_BUSY_MSG_0_COUNTER` (present in `abi/guc_messages_abi.h`). No
+prerequisite commits required. Cherry-pick to HEAD applies cleanly
+(+36/−2, auto-merge, no conflicts).
 
 ---
 
 ## Phase 4: Mailing List and External Research
 
-**Step 4.1 — Original discussion**
+### Step 4.1: Original Discussion
+**Record:**
+- **b4 dig -c 4d33314decfea:** https://patch.msgid.link/20260410110457.5
+  73-1-michal.wajdeczko@intel.com
+- **Series:** v1 (Apr 3) → v2 (Apr 8) → v3 (Apr 10); committed version
+  is v3
+- **Review:** Reviewed-by Daniele Ceraolo Spurio in v3
+- **CI:** Patchwork CI reported failure, but for unrelated IGT test
+  changes — not a functional objection to the patch logic
+- **Stable nomination:** None found in mbox thread
 
-Record:
-- **b4 dig -c 80a56d4a826c:**
-  https://patch.msgid.link/20260618141739.9029-6-linkinjeon@kernel.org
-- **Series:** v1, patch 06/14 of lease/oplock series (2026-06-18)
-- **Review thread:** No replies in saved mbox; no NAKs, no stable
-  nomination found
+### Step 4.2: Reviewers
+**Record:** CC'd to `intel-xe@lists.freedesktop.org` and Daniele Ceraolo
+Spurio. Reviewed-by from co-developer.
 
-**Step 4.2 — Reviewers**
+### Step 4.3: Bug Report
+**Record:** No external bug tracker link. Reproducible failure described
+in commit message with full dmesg on BMG hardware.
 
-Record: **b4 dig -w** CC’d linux-cifs, Steve French, Senozhatsky, Tom
-Talpey, Metze, Atte Pöyölä. No explicit Reviewed-by/Acked-by in thread.
+### Step 4.4: Related Patches
+**Record:** Part of a single-patch series (not multi-patch). Related
+MMIO fixes (`1d087cb7d81f9`, `3c01e01214026`) are already in this tree.
 
-**Step 4.3 — Bug reports**
-
-Record: No direct bug report. Parent git pull (Steve French, 2026-06-26)
-states fixes were “found by smbtorture where ksmbd diverged from SMB2/3
-protocol requirements,” including “oplock break corner cases, including
-ACK validation.”
-
-**Step 4.4 — Related patches**
-
-Record: Same series includes lease rework; separate follow-up “return
-oplock protocol error for level II ack” depends on the `OPLOCK_ACK_WAIT`
-check introduced here.
-
-**Step 4.5 — Stable list**
-
-Record: **Not searched on lore stable@** (lore blocked by bot protection
-for web fetch). No Cc: stable in commit or thread.
+### Step 4.5: Stable List
+**Record:** No stable-list discussion found.
 
 ---
 
 ## Phase 5: Code Semantic Analysis
 
-**Step 5.1 — Key functions**
+### Step 5.1: Key Functions
+**Record:** `guc_ct_send_recv()`, `parse_g2h_response()`,
+`parse_g2h_msg()`, `g2h_fence_reinit()`
 
-Record: `smb20_oplock_break_ack()` (modified); callers unchanged:
-`smb2_oplock_break()`.
+### Step 5.2: Callers
+**Record:** `xe_guc_ct_send_recv()` is reached via
+`xe_guc_ct_send_block()` from many subsystems:
+- `xe_gt_sriov_pf_policy.c` — VGT policy (action 0x5502, the reported
+  failure)
+- `xe_gt_sriov_pf_config.c`, `xe_gt_sriov_pf_control.c`,
+  `xe_gt_sriov_pf_migration.c`
+- `xe_guc.c`, `xe_guc_pc.c`, `xe_guc_submit.c`,
+  `xe_guc_engine_activity.c`, `xe_guc_relay.c`
 
-**Step 5.2 — Callers**
+### Step 5.3: Callees
+**Record:** `wait_event_timeout()`, `xa_load()`/`xa_erase()`,
+`g2h_release_space()`, `wake_up_all()`, `memset_after()`
 
-Record:
-- `smb2_oplock_break()` → `smb20_oplock_break_ack()` for SMB 2.0 oplock
-  breaks
-- Dispatched via `smb2_0_server_cmds[SMB2_OPLOCK_BREAK_HE]` in
-  `smb2ops.c`
-- Reachable from remote SMB clients over network on established sessions
+### Step 5.4: Reachability
+**Record:** Triggered during normal GuC CT blocking operations — GT
+reset recovery, SR-IOV PF policy/config pushes, GuC init/load, engine
+activity queries. These run during device operation and GT reset paths
+on systems with `CONFIG_DRM_XE`.
 
-**Step 5.3 — Callees**
-
-Record: `ksmbd_lookup_fd_slow()`, `opinfo_get()`, `ksmbd_iov_pin_rsp()`,
-`smb2_set_err_rsp()`, `wake_up_interruptible_all()`, `opinfo_put()`,
-`ksmbd_fd_put()`. Old path also called `opinfo_write_to_read/none()`;
-new path removes that dependency for ACK handling.
-
-**Step 5.4 — Reachability**
-
-Record: **Yes, remotely reachable.** Any SMB client using oplocks
-(Windows and Samba clients commonly do) triggers oplock breaks and ACKs
-during concurrent file access.
-
-**Step 5.5 — Similar patterns**
-
-Record: `OPLOCK_ACK_WAIT` is checked in `oplock.c` (e.g.
-`close_id_del_oplock()`), but was never checked in
-`smb20_oplock_break_ack()` in this tree — inconsistent state handling.
+### Step 5.5: Similar Patterns
+**Record:** MMIO path in `xe_guc.c:1458–1486` already waits through BUSY
+for final response. Relay path in `xe_guc_relay.c:839–841` handles BUSY.
+CT path had `NO_RESPONSE_RETRY` but not BUSY — clear inconsistency.
 
 ---
 
-## Phase 6: Cross-Reference Against Local Tree
+## Phase 6: Cross-Reference Against Local Tree (v6.18.43)
 
-**Step 6.1 — Buggy code present?**
+### Step 6.1: Buggy Code Present?
+**Record:** Yes. At `parse_g2h_msg()` lines 1416–1426, type 3 falls
+through to `default` and marks the G2H channel broken.
+`parse_g2h_response()` has no BUSY branch. Confirmed: `git merge-base
+--is-ancestor 4d33314decfea HEAD` returns 1 (fix not present).
 
-Record: **Yes.** Local tree is **v6.18.44** (`git describe HEAD`).
-Current `smb20_oplock_break_ack()` at lines 8723–8798 still has the old
-logic (checks `OPLOCK_STATE_NONE`, rejects BATCH+EXCLUSIVE, uses
-transition helpers). `OPLOCK_ACK_WAIT` is not referenced in `smb2pdu.c`.
+### Step 6.2: Backport Complications
+**Record:** Clean apply verified: `git cherry-pick --no-commit
+4d33314decfea` auto-merges with no conflicts (+36/−2). No structural
+refactoring conflicts in `xe_guc_ct.c`.
 
-**Step 6.2 — Backport complications**
-
-Record: **`git apply --check` on mainline commit 80a56d4a826c applies
-cleanly to HEAD.** Expected apply: clean.
-
-**Step 6.3 — Related fixes already present?**
-
-Record: **No.** `git merge-base --is-ancestor 80a56d4a826c HEAD` →
-NOT_IN_TREE. `git log --grep="align SMB2 oplock"` on reachable history →
-no match.
+### Step 6.3: Related Fixes Already Present?
+**Record:** MMIO BUSY handling (`1d087cb7d81f9`) and relay BUSY handling
+are present. CT BUSY handling is the remaining gap — no duplicate fix in
+tree.
 
 ---
 
-## Phase 7: Subsystem and Maintainer Context
+## Phase 7: Subsystem Context
 
-**Step 7.1 — Subsystem**
+### Step 7.1: Subsystem and Criticality
+**Record:** `drivers/gpu/drm/xe/` — Intel Xe GPU driver. **IMPORTANT**
+for Intel discrete/integrated GPU users. BMG (Battlemage) platform
+support is present (`xe_pci.c` `bmg_desc`, `xe_vsec.c`, GuC firmware
+defs in `xe_uc_fw.c`).
 
-Record: **ksmbd / SMB server** (`fs/smb/server/`). Criticality:
-**IMPORTANT** for `CONFIG_SMB_SERVER` users (in-kernel NAS/file server);
-not core kernel, but file-sharing correctness is critical for those
-deployments.
-
-**Step 7.2 — Activity**
-
-Record: Actively maintained in 6.18.y — recent ksmbd UAF, permission,
-and session fixes in this tree’s history.
+### Step 7.2: Activity
+**Record:** Actively maintained — recent commits on `xe_guc_ct.c`
+include CT state management, fence synchronization, and resource-leak
+fixes.
 
 ---
 
 ## Phase 8: Impact and Risk Assessment
 
-**Step 8.1 — Who is affected**
+### Step 8.1: Who Is Affected
+**Record:** Users of Intel Xe GPUs with GuC CT communication —
+especially BMG with SR-IOV PF enabled, but any platform where GuC sends
+`NO_RESPONSE_BUSY` over CTB during blocking operations.
 
-Record: Users running **ksmbd (CONFIG_SMB_SERVER)** with SMB2 clients
-using oplocks — especially Windows clients using batch oplocks.
+### Step 8.2: Trigger Conditions
+**Record:** GuC sends `NO_RESPONSE_BUSY` (type 3) on the CTB G2H channel
+while the host is blocked in `guc_ct_send_recv()`. Observed during VGT
+policy push (action 0x5502) on BMG; can affect any
+`xe_guc_ct_send_block()` caller when GuC is temporarily busy. Requires
+`CONFIG_DRM_XE` and functioning GuC CT.
 
-**Step 8.2 — Trigger conditions**
+### Step 8.3: Failure Severity
+**Record:** **CRITICAL** — CT G2H channel marked broken (`CT_DEAD`),
+operations fail with `-ETIME`/`-EOPNOTSUPP`, SR-IOV policy/config
+provisioning fails, GT reset required. GPU functionality degrades or
+becomes unusable until reset.
 
-Record: Common multi-client file access scenarios: conflicting opens
-causing oplock breaks, client sending oplock-break ACK. Not exotic;
-standard SMB caching behavior.
-
-**Step 8.3 — Failure severity**
-
-Record:
-- Valid BATCH→EXCLUSIVE ACK rejected → interoperability failure, broken
-  caching handshakes
-- Invalid ACK returning SUCCESS → server/client oplock state divergence
-  → **cache coherency risk / potential data corruption**
-- ACK while not in `OPLOCK_ACK_WAIT` (e.g. `OPLOCK_CLOSING`) processed
-  incorrectly
-- Severity: **HIGH** for ksmbd deployments (data integrity), not kernel
-  oops
-
-**Step 8.4 — Risk vs benefit**
-
-Record:
-- **Benefit:** HIGH for SMB server users — fixes long-standing protocol
-  bugs verified by smbtorture
-- **Risk:** LOW — one function, one file, applies cleanly, uses existing
-  constants/state machine
-- **Ratio:** Strong benefit, low risk for affected users
+### Step 8.4: Risk-Benefit
+**Record:**
+- **Benefit:** HIGH — prevents CT channel corruption and cascading
+  failures on a widely used communication path
+- **Risk:** LOW — 36 lines, one file, follows established patterns,
+  verified clean cherry-pick
+- **Ratio:** Strongly favors backport
 
 ---
 
 ## Phase 9: Final Synthesis
 
-**Step 9.1 — Evidence**
+### Step 9.1: Evidence Summary
 
-**FOR:**
-- Real, verified protocol bugs (smbtorture series context)
-- Can cause oplock state mismatch → cache coherency / data integrity
-  risk
-- Breaks valid Windows BATCH oplock ACK behavior
-- Bug present since 2021 in this tree
-- Small, surgical, maintainer-authored fix
-- Applies cleanly to v6.18.44
+**FOR backport:**
+- Fixes a real, observed hardware failure on BMG
+- Causes CT channel breakage and GPU reset requirement — serious
+  stability impact
+- Small, surgical, reviewed fix following existing MMIO/relay patterns
+- Buggy code confirmed present in v6.18.43; fix not yet applied
+- Cherry-picks cleanly
+- Affects many callers of blocking CT send (SR-IOV, GuC init, engine
+  activity, etc.)
 
-**AGAINST:**
-- Optional module (`CONFIG_SMB_SERVER`), not all kernel users
-- No kernel crash/oops; protocol correctness rather than memory safety
-- Part of larger 14-patch series (though this hunk is self-contained)
-- No Cc: stable or user bug report in commit message
-- Follow-up patch may also be desirable for complete level-II ACK
-  handling
+**AGAINST backport:**
+- Commit message trigger (VGT policy in GT restart sequence) may be a
+  newer mainline integration; however, VGT policy push via
+  `xe_guc_ct_send_block()` already exists in 6.18.43, and the bug is
+  protocol-general, not restart-specific
+- No explicit stable nomination or wide user reports beyond Intel
+  internal testing
+- CI reported unrelated test failures (not a functional NAK)
 
-**Step 9.2 — Stable rules checklist**
+**Unresolved:** Whether the exact "VGT policy during GT restart" call
+path from mainline is already in 6.18.43 — but this does not affect the
+verdict because the underlying CT BUSY bug is present and reachable via
+existing policy push paths.
 
-1. Obviously correct and tested? **PASS** — MS-SMB2 alignment,
-   smbtorture-tested series, maintainer commit
-2. Fixes a real bug? **PASS** — incorrect ACK validation and wrong
-   success responses
-3. Important issue? **PASS** — data integrity / interoperability for SMB
-   file server users
-4. Small and contained? **PASS** — ~100 lines, one function, one file
-5. No new features/APIs? **PASS** — validation correction only
-6. Can apply to local tree? **PASS** — verified clean apply
+### Step 9.2: Stable Rules Checklist
+1. Obviously correct and tested? **PASS** — mirrors MMIO handling;
+   Reviewed-by; observed fix on BMG
+2. Fixes a real bug affecting users? **PASS** — documented dmesg on real
+   hardware
+3. Important issue? **PASS** — CRITICAL: CT channel broken, GPU reset,
+   operation failures
+4. Small and contained? **PASS** — 36 lines, 1 file
+5. No new features or APIs? **PASS** — protocol parity fix, no userspace
+   changes
+6. Can apply to local tree? **PASS** — verified clean cherry-pick
 
-**Step 9.3 — Exception category**
+### Step 9.3: Exception Categories
+**Record:** Hardware quirk/workaround category does not apply. This is a
+driver protocol-handling bug fix.
 
-Record: **N/A** — not device ID, quirk, DT, build, or docs; standard
-protocol bug fix.
-
-**Step 9.4 — Decision rationale**
-
-For **v6.18.44**, the buggy code is present and has been since ksmbd
-landed. The fix is self-contained, applies cleanly, and addresses real
-SMB2 oplock-break ACK validation errors that can cause client/server
-oplock state divergence — a data-integrity concern for anyone using
-ksmbd as a file server. This meets stable criteria for important,
-contained correctness fixes in an actively used subsystem.
+### Step 9.4: Decision Rationale
+This commit closes a longstanding gap where the xe driver's GuC CT
+blocking-send path did not handle `NO_RESPONSE_BUSY`, a message type the
+GuC firmware legitimately sends and that the MMIO and relay paths
+already handle. In v6.18.43, receiving type 3 on CTB corrupts the G2H
+channel and causes timeouts and failures across SR-IOV policy, config,
+and other GuC operations. The fix is small, reviewed, self-contained,
+and applies cleanly to this tree.
 
 ---
 
 ## Verification
 
-- [Phase 1] Parsed commit message and tags from user-provided diff and
-  `git show 80a56d4a826c`
-- [Phase 2] Read current `smb20_oplock_break_ack()` at lines 8687–8804
-  in `fs/smb/server/smb2pdu.c`; confirmed old logic matches “before”
-  side of diff
-- [Phase 3] `git blame -L 8723,8763`: buggy code from e2f34481b24db2
-  (2021-03-16)
-- [Phase 3] `git log --oneline -20 -- fs/smb/server/smb2pdu.c`: no prior
-  ACK-validation fix
-- [Phase 3] `git merge-base --is-ancestor 80a56d4a826c HEAD` →
-  NOT_IN_TREE
-- [Phase 4] `b4 dig -c 80a56d4a826c` → lore URL found
-- [Phase 4] `b4 dig -c 80a56d4a826c -a` → patch 06/14 in v1 series
-- [Phase 4] `b4 dig -c 80a56d4a826c -w` → linux-cifs, Steve French CC’d
-- [Phase 4] `b4 dig -m /tmp/oplock_ack.mbx` → saved thread; no
-  stable/NAK mentions
-- [Phase 4] OpenWall git pull (2026-06-26) → smbtorture protocol
-  divergence, oplock ACK validation listed
-- [Phase 5] `grep smb2_oplock_break`: dispatch via `smb2ops.c` line 189
-- [Phase 5] Read `oplock.c` lines 944–954: `op_state = OPLOCK_ACK_WAIT`
-  set during breaks
-- [Phase 6] `git describe HEAD` → v6.18.44-1-g2736c32da98b9; Makefile
-  VERSION 6.18.44
-- [Phase 6] `git show 80a56d4a826c -p | git apply --check` → applies
-  cleanly
-- [Phase 6] `grep OPLOCK_ACK_WAIT fs/smb/server/smb2pdu.c` → no matches
-  (bug present)
-- [Phase 8] Traced invalid-ACK path in old code: transition helpers can
-  return 0 → success response without error status
+- [Phase 1] Parsed commit message and tags from `git show 4d33314decfea`
+- [Phase 1] Confirmed action 0x5502 =
+  `GUC_ACTION_PF2GUC_UPDATE_VGT_POLICY` in `guc_actions_sriov_abi.h`
+- [Phase 1] Confirmed type 3 = `GUC_HXG_TYPE_NO_RESPONSE_BUSY` in
+  `guc_messages_abi.h`
+- [Phase 2] Full diff reviewed via `git show 4d33314decfea`
+- [Phase 2] Read current buggy code at `xe_guc_ct.c:1411–1427` and
+  `1357–1380`
+- [Phase 3] `git describe HEAD` → v6.18.43
+- [Phase 3] `git merge-base --is-ancestor 4d33314decfea HEAD` → exit 1
+  (not in tree)
+- [Phase 3] `git merge-base --is-ancestor 1d087cb7d81f9 HEAD` → exit 0
+  (MMIO fix in tree)
+- [Phase 3] `git merge-base --is-ancestor 3c01e01214026 HEAD` → exit 0
+- [Phase 3] `git blame` on `parse_g2h_msg` switch → `308dc9b27874d`
+- [Phase 4] `b4 dig -c 4d33314decfea` → lore URL found
+- [Phase 4] `b4 dig -c 4d33314decfea -a` → v1/v2/v3 series, v3 committed
+- [Phase 4] `b4 dig -c 4d33314decfea -w` → CC intel-xe, Daniele Ceraolo
+  Spurio
+- [Phase 4] `b4 dig -m /tmp/no_response_busy.mbx` → Reviewed-by
+  confirmed, no stable Cc
+- [Phase 5] Grep `xe_guc_ct_send_block` → 10+ call sites across xe
+  driver
+- [Phase 5] Read MMIO BUSY handler at `xe_guc.c:1458–1486`
+- [Phase 5] Read relay BUSY handler at `xe_guc_relay.c:839–841`
+- [Phase 6] Confirmed `GUC_HXG_TYPE_NO_RESPONSE_BUSY` absent from
+  `xe_guc_ct.c` grep
+- [Phase 6] Cherry-pick test: clean auto-merge, +36/−2
+- [Phase 6] Confirmed `memset_after` in `include/linux/string.h:508`
+- [Phase 6] Confirmed BMG platform in `xe_pci.c`, `xe_vsec.c`,
+  `xe_uc_fw.c`
+- [Phase 7] Confirmed `xe_gt_sriov_pf_policy.c` uses
+  `xe_guc_ct_send_block` for action 0x5502
+- [Phase 8] Failure mode verified from commit message dmesg and code
+  path analysis
 
-**YES**The background git searches finished and match the earlier
-analysis:
+**YES**The background search finished and confirmed the commit: upstream
+`4d33314decfea` (stable-prepared as `a405c6d35e5cc`), plus related MMIO-
+side fixes already in this tree.
 
-- **`align SMB2 oplock break`** — no match in reachable history; the fix
-  is not in v6.18.44.
-- **`oplock break ack`** — only older, unrelated oplock commits (e.g.
-  CIFS-era fixes from 2021).
-- **`OPLOCK_ACK_WAIT` in `smb2pdu.c`** — no matches; the ACK handler
-  still uses the old logic.
+**Verdict for Linux 6.18.43: YES**
 
-That supports the **YES** backport recommendation for commit
-`80a56d4a826c` on this tree.
+The CT blocking-send path in `xe_guc_ct.c` doesn't handle GuC
+`NO_RESPONSE_BUSY` (type 3) messages, so it marks the G2H channel broken
+and causes timeouts/failures (seen on BMG during VGT policy pushes).
+MMIO and relay paths already handle this message type. The fix is small
+(36 lines, one file), reviewed, and cherry-picks cleanly onto
+v6.18.43.The ancestry check finished: `4d33314decfea` is **not** in
+v6.18.43 (`merge-base --is-ancestor` returned exit 1). That matches the
+earlier finding — the CTB `NO_RESPONSE_BUSY` fix still needs to be
+backported to this tree.
 
- fs/smb/server/smb2pdu.c | 104 ++++++++++++++++++----------------------
- 1 file changed, 46 insertions(+), 58 deletions(-)
+ drivers/gpu/drm/xe/xe_guc_ct.c | 38 ++++++++++++++++++++++++++++++++--
+ 1 file changed, 36 insertions(+), 2 deletions(-)
 
-diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
-index 1921a87e20855..99a0108cb21f4 100644
---- a/fs/smb/server/smb2pdu.c
-+++ b/fs/smb/server/smb2pdu.c
-@@ -8712,11 +8712,10 @@ static void smb20_oplock_break_ack(struct ksmbd_work *work)
- 	struct smb2_oplock_break *rsp;
- 	struct ksmbd_file *fp;
- 	struct oplock_info *opinfo = NULL;
--	__le32 err = 0;
--	int ret = 0;
-+	__le32 status = STATUS_SUCCESS;
-+	int ret;
- 	u64 volatile_id, persistent_id;
- 	char req_oplevel = 0, rsp_oplevel = 0;
--	unsigned int oplock_change_type;
+diff --git a/drivers/gpu/drm/xe/xe_guc_ct.c b/drivers/gpu/drm/xe/xe_guc_ct.c
+index 4158e8af13908..b9d265ad06a0e 100644
+--- a/drivers/gpu/drm/xe/xe_guc_ct.c
++++ b/drivers/gpu/drm/xe/xe_guc_ct.c
+@@ -82,13 +82,16 @@ static void ct_dead_capture(struct xe_guc_ct *ct, struct guc_ctb *ctb, u32 reaso
+ struct g2h_fence {
+ 	u32 *response_buffer;
+ 	u32 seqno;
++	/* fields below this point are setup based on the response */
+ 	u32 response_data;
+ 	u16 response_len;
+ 	u16 error;
+ 	u16 hint;
+ 	u16 reason;
++	u32 counter;
+ 	bool cancel;
+ 	bool retry;
++	bool wait;
+ 	bool fail;
+ 	bool done;
+ };
+@@ -102,6 +105,11 @@ static void g2h_fence_init(struct g2h_fence *g2h_fence, u32 *response_buffer)
+ 	g2h_fence->seqno = ~0x0;
+ }
  
- 	WORK_BUFFERS(work, req, rsp);
- 
-@@ -8742,71 +8741,55 @@ static void smb20_oplock_break_ack(struct ksmbd_work *work)
- 		return;
++static void g2h_fence_reinit(struct g2h_fence *g2h_fence)
++{
++	memset_after(g2h_fence, 0, seqno);
++}
++
+ static void g2h_fence_cancel(struct g2h_fence *g2h_fence)
+ {
+ 	g2h_fence->cancel = true;
+@@ -1134,6 +1142,7 @@ static int guc_ct_send_recv(struct xe_guc_ct *ct, const u32 *action, u32 len,
+ 	/* READ_ONCEs pairs with WRITE_ONCEs in parse_g2h_response
+ 	 * and g2h_fence_cancel.
+ 	 */
++wait_again:
+ 	ret = wait_event_timeout(ct->g2h_fence_wq, READ_ONCE(g2h_fence.done), HZ);
+ 	if (!ret) {
+ 		LNL_FLUSH_WORK(&ct->g2h_worker);
+@@ -1159,6 +1168,14 @@ static int guc_ct_send_recv(struct xe_guc_ct *ct, const u32 *action, u32 len,
+ 		return -ETIME;
  	}
  
--	if (opinfo->level == SMB2_OPLOCK_LEVEL_NONE) {
--		rsp->hdr.Status = STATUS_INVALID_OPLOCK_PROTOCOL;
-+	if (opinfo->op_state != OPLOCK_ACK_WAIT) {
-+		ksmbd_debug(SMB, "unexpected oplock state 0x%x\n",
-+			    opinfo->op_state);
-+		status = STATUS_INVALID_DEVICE_STATE;
- 		goto err_out;
- 	}
- 
--	if (opinfo->op_state == OPLOCK_STATE_NONE) {
--		ksmbd_debug(SMB, "unexpected oplock state 0x%x\n", opinfo->op_state);
--		rsp->hdr.Status = STATUS_UNSUCCESSFUL;
-+	if (req_oplevel == SMB2_OPLOCK_LEVEL_LEASE) {
-+		opinfo->level = SMB2_OPLOCK_LEVEL_NONE;
-+		status = STATUS_INVALID_PARAMETER;
- 		goto err_out;
- 	}
- 
--	if ((opinfo->level == SMB2_OPLOCK_LEVEL_EXCLUSIVE ||
--	     opinfo->level == SMB2_OPLOCK_LEVEL_BATCH) &&
--	    (req_oplevel != SMB2_OPLOCK_LEVEL_II &&
--	     req_oplevel != SMB2_OPLOCK_LEVEL_NONE)) {
--		err = STATUS_INVALID_OPLOCK_PROTOCOL;
--		oplock_change_type = OPLOCK_WRITE_TO_NONE;
--	} else if (opinfo->level == SMB2_OPLOCK_LEVEL_II &&
--		   req_oplevel != SMB2_OPLOCK_LEVEL_NONE) {
--		err = STATUS_INVALID_OPLOCK_PROTOCOL;
--		oplock_change_type = OPLOCK_READ_TO_NONE;
--	} else if (req_oplevel == SMB2_OPLOCK_LEVEL_II ||
--		   req_oplevel == SMB2_OPLOCK_LEVEL_NONE) {
--		err = STATUS_INVALID_DEVICE_STATE;
--		if ((opinfo->level == SMB2_OPLOCK_LEVEL_EXCLUSIVE ||
--		     opinfo->level == SMB2_OPLOCK_LEVEL_BATCH) &&
--		    req_oplevel == SMB2_OPLOCK_LEVEL_II) {
--			oplock_change_type = OPLOCK_WRITE_TO_READ;
--		} else if ((opinfo->level == SMB2_OPLOCK_LEVEL_EXCLUSIVE ||
--			    opinfo->level == SMB2_OPLOCK_LEVEL_BATCH) &&
--			   req_oplevel == SMB2_OPLOCK_LEVEL_NONE) {
--			oplock_change_type = OPLOCK_WRITE_TO_NONE;
--		} else if (opinfo->level == SMB2_OPLOCK_LEVEL_II &&
--			   req_oplevel == SMB2_OPLOCK_LEVEL_NONE) {
--			oplock_change_type = OPLOCK_READ_TO_NONE;
--		} else {
--			oplock_change_type = 0;
--		}
--	} else {
--		oplock_change_type = 0;
-+	if (opinfo->level == SMB2_OPLOCK_LEVEL_NONE) {
-+		status = STATUS_INVALID_OPLOCK_PROTOCOL;
-+		goto err_out;
- 	}
- 
--	switch (oplock_change_type) {
--	case OPLOCK_WRITE_TO_READ:
--		ret = opinfo_write_to_read(opinfo);
--		rsp_oplevel = SMB2_OPLOCK_LEVEL_II;
--		break;
--	case OPLOCK_WRITE_TO_NONE:
--		ret = opinfo_write_to_none(opinfo);
--		rsp_oplevel = SMB2_OPLOCK_LEVEL_NONE;
--		break;
--	case OPLOCK_READ_TO_NONE:
--		ret = opinfo_read_to_none(opinfo);
--		rsp_oplevel = SMB2_OPLOCK_LEVEL_NONE;
--		break;
--	default:
--		pr_err("unknown oplock change 0x%x -> 0x%x\n",
--		       opinfo->level, rsp_oplevel);
-+	if (opinfo->level == SMB2_OPLOCK_LEVEL_EXCLUSIVE &&
-+	    req_oplevel != SMB2_OPLOCK_LEVEL_II &&
-+	    req_oplevel != SMB2_OPLOCK_LEVEL_NONE) {
-+		opinfo->level = SMB2_OPLOCK_LEVEL_NONE;
-+		status = STATUS_INVALID_OPLOCK_PROTOCOL;
-+		goto err_out;
- 	}
- 
--	if (ret < 0) {
--		rsp->hdr.Status = err;
-+	if (opinfo->level == SMB2_OPLOCK_LEVEL_BATCH &&
-+	    req_oplevel != SMB2_OPLOCK_LEVEL_II &&
-+	    req_oplevel != SMB2_OPLOCK_LEVEL_NONE &&
-+	    req_oplevel != SMB2_OPLOCK_LEVEL_EXCLUSIVE) {
-+		opinfo->level = SMB2_OPLOCK_LEVEL_NONE;
-+		status = STATUS_INVALID_OPLOCK_PROTOCOL;
-+		goto err_out;
++	if (g2h_fence.wait) {
++		xe_gt_dbg(gt, "H2G action %#x busy: counter %u\n",
++			  action[0], g2h_fence.counter);
++		/* we can't leave any response data if we want to wait again */
++		g2h_fence_reinit(&g2h_fence);
++		mutex_unlock(&ct->lock);
++		goto wait_again;
 +	}
-+
-+	if (opinfo->level == SMB2_OPLOCK_LEVEL_II &&
-+	    req_oplevel != SMB2_OPLOCK_LEVEL_NONE) {
-+		opinfo->level = SMB2_OPLOCK_LEVEL_NONE;
-+		status = STATUS_INVALID_OPLOCK_PROTOCOL;
- 		goto err_out;
+ 	if (g2h_fence.retry) {
+ 		xe_gt_dbg(gt, "H2G action %#x retrying: reason %#x\n",
+ 			  action[0], g2h_fence.reason);
+@@ -1354,7 +1371,12 @@ static int parse_g2h_response(struct xe_guc_ct *ct, u32 *msg, u32 len)
+ 		return -EPROTO;
  	}
  
-+	if (req_oplevel == SMB2_OPLOCK_LEVEL_EXCLUSIVE)
-+		rsp_oplevel = SMB2_OPLOCK_LEVEL_NONE;
+-	g2h_fence = xa_erase(&ct->fence_lookup, fence);
++	/* don't erase as we still expect a final response with the same fence */
++	if (type == GUC_HXG_TYPE_NO_RESPONSE_BUSY)
++		g2h_fence = xa_load(&ct->fence_lookup, fence);
 +	else
-+		rsp_oplevel = req_oplevel;
++		g2h_fence = xa_erase(&ct->fence_lookup, fence);
 +
-+	opinfo->level = rsp_oplevel;
-+
- 	rsp->StructureSize = cpu_to_le16(24);
- 	rsp->OplockLevel = rsp_oplevel;
- 	rsp->Reserved = 0;
-@@ -8814,11 +8797,16 @@ static void smb20_oplock_break_ack(struct ksmbd_work *work)
- 	rsp->VolatileFid = volatile_id;
- 	rsp->PersistentFid = persistent_id;
- 	ret = ksmbd_iov_pin_rsp(work, rsp, sizeof(struct smb2_oplock_break));
--	if (ret) {
-+	if (ret)
-+		ksmbd_debug(SMB, "failed to pin oplock break response: %d\n",
-+			    ret);
-+	goto out;
-+
- err_out:
--		smb2_set_err_rsp(work);
--	}
-+	rsp->hdr.Status = status;
-+	smb2_set_err_rsp(work);
+ 	if (unlikely(!g2h_fence)) {
+ 		/* Don't tear down channel, as send could've timed out */
+ 		/* CT_DEAD(ct, NULL, PARSE_G2H_UNKNOWN); */
+@@ -1365,6 +1387,12 @@ static int parse_g2h_response(struct xe_guc_ct *ct, u32 *msg, u32 len)
  
-+out:
- 	opinfo->op_state = OPLOCK_STATE_NONE;
- 	wake_up_interruptible_all(&opinfo->oplock_q);
- 	opinfo_put(opinfo);
+ 	xe_gt_assert(gt, fence == g2h_fence->seqno);
+ 
++	/*
++	 * reinit as we might have already process this g2h_fence before
++	 * if we received a NO_RESPONSE_BUSY reply
++	 */
++	g2h_fence_reinit(g2h_fence);
++
+ 	if (type == GUC_HXG_TYPE_RESPONSE_FAILURE) {
+ 		g2h_fence->fail = true;
+ 		g2h_fence->error = FIELD_GET(GUC_HXG_FAILURE_MSG_0_ERROR, hxg[0]);
+@@ -1372,6 +1400,9 @@ static int parse_g2h_response(struct xe_guc_ct *ct, u32 *msg, u32 len)
+ 	} else if (type == GUC_HXG_TYPE_NO_RESPONSE_RETRY) {
+ 		g2h_fence->retry = true;
+ 		g2h_fence->reason = FIELD_GET(GUC_HXG_RETRY_MSG_0_REASON, hxg[0]);
++	} else if (type == GUC_HXG_TYPE_NO_RESPONSE_BUSY) {
++		g2h_fence->wait = true;
++		g2h_fence->counter = FIELD_GET(GUC_HXG_BUSY_MSG_0_COUNTER, hxg[0]);
+ 	} else if (g2h_fence->response_buffer) {
+ 		g2h_fence->response_len = hxg_len;
+ 		memcpy(g2h_fence->response_buffer, hxg, hxg_len * sizeof(u32));
+@@ -1379,7 +1410,9 @@ static int parse_g2h_response(struct xe_guc_ct *ct, u32 *msg, u32 len)
+ 		g2h_fence->response_data = FIELD_GET(GUC_HXG_RESPONSE_MSG_0_DATA0, hxg[0]);
+ 	}
+ 
+-	g2h_release_space(ct, GUC_CTB_HXG_MSG_MAX_LEN);
++	/* don't release any space if it was an intermediate message */
++	if (!g2h_fence->wait)
++		g2h_release_space(ct, GUC_CTB_HXG_MSG_MAX_LEN);
+ 
+ 	/* WRITE_ONCE pairs with READ_ONCEs in guc_ct_send_recv. */
+ 	WRITE_ONCE(g2h_fence->done, true);
+@@ -1416,6 +1449,7 @@ static int parse_g2h_msg(struct xe_guc_ct *ct, u32 *msg, u32 len)
+ 	case GUC_HXG_TYPE_RESPONSE_SUCCESS:
+ 	case GUC_HXG_TYPE_RESPONSE_FAILURE:
+ 	case GUC_HXG_TYPE_NO_RESPONSE_RETRY:
++	case GUC_HXG_TYPE_NO_RESPONSE_BUSY:
+ 		ret = parse_g2h_response(ct, msg, len);
+ 		break;
+ 	default:
 -- 
 2.53.0
 
