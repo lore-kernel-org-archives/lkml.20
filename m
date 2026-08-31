@@ -1,288 +1,129 @@
-Received: from mail-10630.protonmail.ch (mail-10630.protonmail.ch [79.135.106.30])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EEB939CCFA
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 12:44:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.30
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C81C23DA5B0
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 12:44:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788180254; cv=none; b=fJIrTa5ycsyf3dO8PZNMiRKb9Kq3cVxwTykPFq/sgDazP+udW5DXE54v4RprmqiqyZ48u4lHAjG6ggSTnr5gzV2fba4BQbnW8h+FoPvJ7V1x6c5bVtmTDpCJe97iPUqn6So1fEjHv9Ea2ycXgi5lQ+9tgdfoIIPc2pZSa4zmfRU=
+	t=1788180266; cv=none; b=kU3WSATLxDttjGr4BO3Y3ufqkST5HA2QryPfISEQJhILmF7ev0hdr4irYKp69w/8/pZQdw7N+mjtqBm/q6uLj/kYbnWxVFZgHjEhXUEoWsXSxC32Rdrr9U0TaD4nKvOi59BdZ+vvQ5z54VgnjdLGAnDrb2UmhSdQpWnVXnLMDN8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788180254; c=relaxed/simple;
-	bh=RhinvOlP7HCyS/uj95yyg5DU+3uQnsU4o454PCaHbWI=;
-	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=ZtoKzubVCHMUQyXfrcQ1p7nU4Gj+zxW7HvcqAdilJM/r6Mejf3maGVojQezSX7zwHSelF/vgcn73iv5QZdzHj5aRhqJ37hH7fDRqbc+9F7fJvktqao/RDYC2pBy/1PK47Y5I0fmpQKKxAL8iomvMPtBLAaOR5Yxrp/Q7TVZkNWo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=rimR6HWa; arc=none smtp.client-ip=79.135.106.30
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	s=arc-20240116; t=1788180266; c=relaxed/simple;
+	bh=twM5iKsuAc3xLVX46SHQS26qsWYtE0sdxed6QRzWLKY=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=Zm8ExDMzFms5ehKq+nCvJdyQnuyGMnLAG6p3ZbcGOW+RDWxI9DNTmUEPvV32ufbljvigoG2LThhoexSKkTobuQz1aBhRwL9+gXcVwwcumpuwEZYFOmT4T+AlbqKiCLPGv/FuyJKK9qu0T7WxfMQ9o2BL0MBovnhIqz/KK1IZym8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=aYiXlcf4; arc=none smtp.client-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="rimR6HWa"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1788180246; x=1788439446;
-	bh=sKmkbCtJsOXdCXQUTzGC7kdJktkSE1Uq06Y4dwPvjqg=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=rimR6HWae11QIe020Yh/nON68KFWL/5HM2W+lonHJNNE0Dx76PGWClNfvpRec65+r
-	 J0wvT0Oyzxk50eXqY1pI9ZZBl6YDzTB5vyKDzUrwD/fV1t4VCQlT2UPenywoheTOLK
-	 Xr9/w2D3m6dirlSt/aum5Fd+rpsI+waq33DBR9OpBPSyPJhqBUdkTIwtjCU27oLKH4
-	 ykHA4M+vvHfs2I7olfpKuCkzhPDssEKvhMB/3ijUgnn/n04Uva3Tb4mQn3lhXqtOR2
-	 WtxFz34/ERkdaAuEWP5jTFmUYIgR8/P04nifVx2qlCD/S2xzdA3p3XLkewtQ4iaKhR
-	 ttZIsmKRe0N2Q==
-Date: Mon, 31 Aug 2026 12:44:00 +0000
-To: Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Hans de Goede <hansg@kernel.org>
-From: Sergey Lebedev <lsa.uz@pm.me>
-Cc: Daniel Scally <dan.scally@ideasonboard.com>, Jakob Berg Jespersen <dev@berg.pm>, linux-media@vger.kernel.org, platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v2] media: i2c: ov13858: add regulator, clock and reset GPIO handling
-Message-ID: <20260831124352.86935-1-lsa.uz@pm.me>
-Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: 8135d971aaa816250a55b22583a16f3ccbff1a7b
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="aYiXlcf4"
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-499b2981a7bso38356505e9.3
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 05:44:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1788180261; x=1788785061; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=9EvpzgjhvcxWJzAemqIAhsf9SNmX9ng1FkRl8Qno2LU=;
+        b=aYiXlcf4+Aw/sZASsjGs/TEEDpkWS0eJ1bGfOW4zdltuWk+WCF3C+orXwC7g7pWPTy
+         WCQpDeIW8o0wHj0C86YafOEuClR4sKKjGF0DRe8MKZaWb/x2W7Y3sDNGALd7NBvUofGR
+         zRet1HokS42pdljhxECFMaZqfsrLnBSyBQyhspKhk2P6s7iZDQqprxox6b4VGlTpGR2o
+         ElcKyR6tY6ZI3XleN2bRQaixpvMrMAWZuBmopASZdKL0T3AB+ueNYbCwUYZije2MEZSa
+         faedO0qPxYRp/AH0Hm7iPj8Ov58VIDh9Kla2gPau2eGGbXO8nS4rqoxSml2Dgez9HwtQ
+         dVLA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788180261; x=1788785061;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9EvpzgjhvcxWJzAemqIAhsf9SNmX9ng1FkRl8Qno2LU=;
+        b=pI0Qv862GfWyzBoH83xRS+RnSvBhDc1qGvVgsSxnKutkn5GcAI0Oc392DoKuAhCNKw
+         8415NiriKy0gPhh3hU4LAwUtBjHhAqZcnqvObhx5vpMlnsNpKfrIwv5W9s+wzYKYP//S
+         /YVbrFPplhRjTnfG3Myj5YbWihgGhTimqu2cIcL6oL9oP7dBLxtpm2m6gF4qFfyXDXRB
+         Pf7BuurGStfQ+oTfM8/Tx8ESkTQrEY57i1/yVcuGCX94e5m0N7fmm1Xf1oLbcOKu9ilk
+         8WXPUDPJvggH2vEU1NYO1mjtq9yl1UoJWLl6Ta5ryTdzaj+ZJ8qZOXsGjjOu51/Obnp7
+         KTrQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rqc1FNFElCf2HoqlmJjmHbbD54/K5hc4ge5WLlSiF0ROROslnucuAt9mb91P0HawSwrwlSS+7/jblhKzFU=@vger.kernel.org
+X-Gm-Message-State: AFuF++mgJjnlNFS49NjOS+g+rr5krcAIN1QM05WV6KkMGTkdeKiYiMjj
+	xpPu8Wzwv12V8FvZNsZ1l5qIOvlniCZVsQS4P42A/bRVJChsDTWdjhDMYTCBlHirtKs=
+X-Gm-Gg: AR+sD103UuckdELTH+iHV9A1f6RHerrsaVrIMOFts9Dt0JFqMzsOm3ydx0dtl49vqLM
+	hEquIpBBcFHYMS/06/jHgnrAtISckVbKonR9yBHSGhZ8n00jwJIQK7WoXwq1SmaLgcPPNZizus4
+	+iZDqOpy2rZlOQUEpqy8hcBCkVy4xN9pBKlsjkEnN46Ts5gr+yzLuBzxLPtSfOrFaHeE/HbZHJE
+	Cm+9PHJTyeMZtIPyr8LX7sH3q/+TWU8NcNL9Sc7O8dsRQChttwPw7nOjnsVHVhxThJchhMFAD65
+	qgpXBfoLW5xUql4206bqvfxt6tssezKwWScBTZk6unCoJmbmw+VrsL+I6TG34vWTRcZHO2z+Bfo
+	P9s0TszSRiPVg1TR3nT23wdupADnSLQd4cCgGOK53hqHcnz/UKaigKoURCXOenP4e+l/R2WDX6E
+	qZ0D9u8bI/kKHD0y5jZmw17WgwSsjKNgbIBxSyoq7UW7Ywo6+Ha3iQuIzz/zGV2NHYLeE44cGZw
+	TicBDqvgQ==
+X-Received: by 2002:a05:600c:1f8b:b0:499:ae94:be05 with SMTP id 5b1f17b1804b1-49cdc3df92amr7182765e9.0.1788180260838;
+        Mon, 31 Aug 2026 05:44:20 -0700 (PDT)
+Received: from arrakeen.starnux.net ([2a01:e0e:1005:fa8b:52eb:f6ff:feb3:451a])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b95013d06sm390196485e9.12.2026.08.31.05.44.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Aug 2026 05:44:18 -0700 (PDT)
+From: Neil Armstrong <neil.armstrong@linaro.org>
+To: Kevin Hilman <khilman@baylibre.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Lucas Tanure <tanure@linux.com>
+Cc: linux-arm-kernel@lists.infradead.org, 
+ Xianwei Zhao <xianwei.zhao@amlogic.com>, linux-amlogic@lists.infradead.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20260823115335.102219-1-tanure@linux.com>
+References: <20260823115335.102219-1-tanure@linux.com>
+Subject: Re: [PATCH v2 0/2] arm64: dts: amlogic: t7: fix UART clock and SD
+ card recovery
+Message-Id: <178818025763.2318126.6483446574954996795.b4-ty@b4>
+Date: Mon, 31 Aug 2026 14:44:17 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15.1
 
-The driver assumes the sensor is already powered when probe() reads its chi=
-p
-ID. That holds where the rails and clock are ACPI power resources, but not
-where an INT3472 companion device registers them as regulators, a clock and=
- a
-reset GPIO for the sensor driver to consume, which this driver does not do.
+Hi,
 
-Request the three supplies and the reset GPIO, and sequence them along with
-the clock the driver already looks up, in runtime PM callbacks.
+On Sun, 23 Aug 2026 12:53:33 +0100, Lucas Tanure wrote:
+> Two fixes found while booting mainline on a Khadas VIM4.
+> 
+> The first one wires uart_a to the real UART bus clock. It was pointed at
+> the 24MHz crystal as a placeholder, because the T7 clock controller
+> driver did not exist when these boards were added. That leaves the real
+> clock without a user, so the kernel turns it off when it disables unused
+> clocks at the end of boot, and the board hangs with the console gone.
+> 
+> [...]
 
-Signed-off-by: Sergey Lebedev <lsa.uz@pm.me>
----
-Changes in v2, all from Sakari Ailus's review:
-- commit message cut down; the detail below
-- dropped the comment on the supply names; it is a KAPI with int3472
-- ARRAY_SIZE() directly instead of a local macro
-- fsleep() instead of usleep_range()
-- one function each for power on and off, used as the PM callbacks directly=
-,
-  instead of a pair of wrappers
-- removed the now-useless dev_err() in the probe error path
-- i declared inside its loop
-Link to v1: https://patch.msgid.link/20260831100404.40463-1-lsa.uz@pm.me
+Thanks, Applied to https://git.kernel.org/pub/scm/linux/kernel/git/amlogic/linux.git (v7.3/fixes)
 
-Without the patch the first I2C transaction fails:
+[1/2] arm64: dts: amlogic: t7: use the real UART pclk
+      https://git.kernel.org/amlogic/c/882de800bf583dd15969836088789edbf035a944
+[2/2] arm64: dts: amlogic: t7: khadas-vim4: allow the SD card to be power cycled
+      https://git.kernel.org/amlogic/c/c793a084ab3088744516aef437b4239d0d98623f
 
-  ov13858 i2c-OVTID858:00: failed to find sensor: -5
+These changes has been applied on the intermediate git tree [1].
 
-The power sequence follows ov02c10: supplies, then clock, then release rese=
-t,
-and the reverse on the way down.
+The v7.3/fixes branch will then be sent via a formal Pull Request to the Linux SoC maintainers
+for inclusion in their intermediate git branches in order to be sent to Linus during
+the next merge window, or sooner if it's a set of fixes.
 
-Measured on a Microsoft Surface Pro 11 for Business (Intel Lunar Lake, IPU7=
-),
-with the parts isolated one at a time:
+In the cases of fixes, those will be merged in the current release candidate
+kernel and as soon they appear on the Linux master branch they will be
+backported to the previous Stable and Long-Stable kernels [2].
 
-  supplies enabled, clock enabled   sensor identifies, driver binds
-  supplies enabled, clock left off  -EIO
-  supplies left off, clock enabled  -EIO
+The intermediate git branches are merged daily in the linux-next tree [3],
+people are encouraged testing these pre-release kernels and report issues on the
+relevant mailing-lists.
 
-so both are needed; a longer settling delay alone is not enough. Verified
-across five module unload/load cycles with no probe failure, and again afte=
-r
-this rework, with the sensor streaming each time.
+If problems are discovered on those changes, please submit a signed-off-by revert
+patch followed by a corrective changeset.
 
-This needs POWER1 GPIO support in int3472 to be useful on that machine: the
-dvdd rail is described there as an INT3472 GPIO of type 0x08, and without t=
-hat
-patch the rail is never registered.
-Link: https://patch.msgid.link/20260829-sp7plus-int3472-v3-1-454b50485ce2@b=
-erg.pm
+[1] https://git.kernel.org/pub/scm/linux/kernel/git/amlogic/linux.git
+[2] https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
+[3] https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
 
-The same sensor on the Surface Pro 10 was made to work downstream by forcin=
-g
-the regulators on for the driver's lifetime, which the people who did it
-called too broad for upstream. Runtime PM keeps them off while the sensor i=
-s
-idle instead.
-Link: https://github.com/linux-surface/linux-surface/issues/2153
-
-dovdd is not described on this machine and resolves to a dummy regulator. I=
-t
-is listed because it is one of the three supplies these sensors normally ta=
-ke.
-
-A working camera also needs an ipu-bridge entry for OVTID858, separately.
----
---- a/drivers/media/i2c/ov13858.c
-+++ b/drivers/media/i2c/ov13858.c
-@@ -3,9 +3,12 @@
-=20
- #include <linux/acpi.h>
- #include <linux/clk.h>
-+#include <linux/delay.h>
-+#include <linux/gpio/consumer.h>
- #include <linux/i2c.h>
- #include <linux/module.h>
- #include <linux/pm_runtime.h>
-+#include <linux/regulator/consumer.h>
- #include <media/v4l2-ctrls.h>
- #include <media/v4l2-device.h>
- #include <media/v4l2-event.h>
-@@ -1028,9 +1031,17 @@
- =09}
- };
-=20
-+static const char * const ov13858_supply_names[] =3D {
-+=09"dovdd",=09/* Digital I/O power */
-+=09"avdd",=09=09/* Analog power */
-+=09"dvdd",=09=09/* Digital core power */
-+};
-+
- struct ov13858 {
- =09struct device *dev;
- =09struct clk *clk;
-+=09struct regulator_bulk_data supplies[ARRAY_SIZE(ov13858_supply_names)];
-+=09struct gpio_desc *reset_gpio;
-=20
- =09struct v4l2_subdev sd;
- =09struct media_pad pad;
-@@ -1653,8 +1664,54 @@
- {
- =09v4l2_ctrl_handler_free(ov13858->sd.ctrl_handler);
- =09mutex_destroy(&ov13858->mutex);
-+}
-+
-+static int ov13858_power_on(struct device *dev)
-+{
-+=09struct v4l2_subdev *sd =3D dev_get_drvdata(dev);
-+=09struct ov13858 *ov13858 =3D to_ov13858(sd);
-+=09int ret;
-+
-+=09ret =3D regulator_bulk_enable(ARRAY_SIZE(ov13858_supply_names), ov13858=
-->supplies);
-+=09if (ret) {
-+=09=09dev_err(ov13858->dev, "failed to enable regulators: %d\n", ret);
-+=09=09return ret;
-+=09}
-+
-+=09ret =3D clk_prepare_enable(ov13858->clk);
-+=09if (ret) {
-+=09=09dev_err(ov13858->dev, "failed to enable clock: %d\n", ret);
-+=09=09regulator_bulk_disable(ARRAY_SIZE(ov13858_supply_names), ov13858->su=
-pplies);
-+=09=09return ret;
-+=09}
-+
-+=09if (ov13858->reset_gpio) {
-+=09=09/* Hold reset for at least 1 ms on a back to back off-on */
-+=09=09fsleep(1000);
-+=09=09gpiod_set_value_cansleep(ov13858->reset_gpio, 0);
-+=09}
-+
-+=09/* t4: 8192 XVCLK cycles after reset is released, before the first I2C =
-*/
-+=09fsleep(5000);
-+
-+=09return 0;
- }
-=20
-+static int ov13858_power_off(struct device *dev)
-+{
-+=09struct v4l2_subdev *sd =3D dev_get_drvdata(dev);
-+=09struct ov13858 *ov13858 =3D to_ov13858(sd);
-+
-+=09gpiod_set_value_cansleep(ov13858->reset_gpio, 1);
-+=09regulator_bulk_disable(ARRAY_SIZE(ov13858_supply_names), ov13858->suppl=
-ies);
-+=09clk_disable_unprepare(ov13858->clk);
-+
-+=09return 0;
-+}
-+
-+static DEFINE_RUNTIME_DEV_PM_OPS(ov13858_pm_ops, ov13858_power_off,
-+=09=09=09=09 ov13858_power_on, NULL);
-+
- static int ov13858_probe(struct i2c_client *client)
- {
- =09struct ov13858 *ov13858;
-@@ -1678,14 +1735,34 @@
- =09=09=09=09     "external clock %lu is not supported\n",
- =09=09=09=09     freq);
-=20
-+=09for (unsigned int i =3D 0; i < ARRAY_SIZE(ov13858_supply_names); i++)
-+=09=09ov13858->supplies[i].supply =3D ov13858_supply_names[i];
-+
-+=09ret =3D devm_regulator_bulk_get(ov13858->dev, ARRAY_SIZE(ov13858_supply=
-_names),
-+=09=09=09=09      ov13858->supplies);
-+=09if (ret)
-+=09=09return dev_err_probe(ov13858->dev, ret,
-+=09=09=09=09     "failed to get regulators\n");
-+
-+=09ov13858->reset_gpio =3D devm_gpiod_get_optional(ov13858->dev, "reset",
-+=09=09=09=09=09=09      GPIOD_OUT_HIGH);
-+=09if (IS_ERR(ov13858->reset_gpio))
-+=09=09return dev_err_probe(ov13858->dev,
-+=09=09=09=09     PTR_ERR(ov13858->reset_gpio),
-+=09=09=09=09     "failed to get reset GPIO\n");
-+
- =09/* Initialize subdev */
- =09v4l2_i2c_subdev_init(&ov13858->sd, client, &ov13858_subdev_ops);
-=20
-+=09ret =3D ov13858_power_on(ov13858->dev);
-+=09if (ret)
-+=09=09return ret;
-+
- =09/* Check module identity */
- =09ret =3D ov13858_identify_module(ov13858);
- =09if (ret) {
- =09=09dev_err(ov13858->dev, "failed to find sensor: %d\n", ret);
--=09=09return ret;
-+=09=09goto error_power_off;
- =09}
-=20
- =09/* Set default mode to max resolution */
-@@ -1693,7 +1770,7 @@
-=20
- =09ret =3D ov13858_init_controls(ov13858);
- =09if (ret)
--=09=09return ret;
-+=09=09goto error_power_off;
-=20
- =09/* Initialize subdev */
- =09ov13858->sd.internal_ops =3D &ov13858_internal_ops;
-@@ -1729,8 +1806,10 @@
-=20
- error_handler_free:
- =09ov13858_free_controls(ov13858);
--=09dev_err(ov13858->dev, "%s failed:%d\n", __func__, ret);
-=20
-+error_power_off:
-+=09ov13858_power_off(ov13858->dev);
-+
- =09return ret;
- }
-=20
-@@ -1744,11 +1823,14 @@
- =09ov13858_free_controls(ov13858);
-=20
- =09pm_runtime_disable(ov13858->dev);
-+=09if (!pm_runtime_status_suspended(ov13858->dev))
-+=09=09ov13858_power_off(ov13858->dev);
-+=09pm_runtime_set_suspended(ov13858->dev);
- }
-=20
- static const struct i2c_device_id ov13858_id_table[] =3D {
--=09{ .name =3D "ov13858" },
--=09{ }
-+=09{ "ov13858" },
-+=09{}
- };
-=20
- MODULE_DEVICE_TABLE(i2c, ov13858_id_table);
-@@ -1766,6 +1848,7 @@
- =09.driver =3D {
- =09=09.name =3D "ov13858",
- =09=09.acpi_match_table =3D ACPI_PTR(ov13858_acpi_ids),
-+=09=09.pm =3D pm_ptr(&ov13858_pm_ops),
- =09},
- =09.probe =3D ov13858_probe,
- =09.remove =3D ov13858_remove,
+-- 
+Neil
 
