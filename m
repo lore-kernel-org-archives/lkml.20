@@ -1,143 +1,90 @@
-Received: from mo4-p02-ob.smtp.rzone.de (mo4-p02-ob.smtp.rzone.de [81.169.146.170])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B09BE3195FD;
-	Mon, 31 Aug 2026 13:02:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=81.169.146.170
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788181323; cv=pass; b=O5GRvrmiyFf/AVwKj27K4s5JofGrJFjuJJdcwjrbkK53R9TtmnmCKIMOcQiPto1VgBqL/VVSKNo6ktYNts7RHU75UNeKGi7KNKD0d9dodu/Ka7Le2JWR6s3um2dFBznXWsd/ChQ3rme5e0DxlMmPOfWhOMb3WdmslY0LvG3/QoE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788181323; c=relaxed/simple;
-	bh=7K2++2lVCH/mhMxQmGo9pjPt8HQrezFr/5LDlPaqLm8=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=BkBrS93M+k5mo2DhqR/BN6Pj2CqWI7I0aVgyVPgB7SGnfbZn2UjSlZHOuMrzaLfwDGa+YCUqyvxrNfmCWhxuxHC/Q+GLLX/CbkktUw4okNWLy602bHOEjOA7O6+PCkI930TOewB5c8u+k7Y0HxZCdJYefzFmNQVNzGsme5VRVB4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iokpp.de; spf=none smtp.mailfrom=iokpp.de; dkim=pass (2048-bit key) header.d=iokpp.de header.i=@iokpp.de header.b=rLltL18x; dkim=permerror (0-bit key) header.d=iokpp.de header.i=@iokpp.de header.b=J5qUM+A2; arc=pass smtp.client-ip=81.169.146.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iokpp.de
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=iokpp.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 812D02F9D98;
+	Mon, 31 Aug 2026 13:02:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788181326; cv=none; b=D4+xTfAOzGTaxmcRgfJfut/cdXg6jU6Q2J8d+16MY8oTixgCLqYRFvXF6kmcKX+Kza0NIcZqkIFmTqIyS+1OI7wWv/2hJ1brD9dxfZr2AUf/UrbuXL2uwMnXqjyvXSu5X/T6/qJPiXin3JE75x3HExXNM2A/dgOtiGOQRL9ZgF0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788181326; c=relaxed/simple;
+	bh=oyPcS09y2VRy2att5zN8ZgksAJ2ceHqffSGYYyUukbw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=aFmWyeLJRd2lAgy2vVQ6GmwAyJ8YkTmuEKfaCdJBgI+cL9H1kn8HVgEN59cFt/5gwqpKqeP3XSCL5p9v6jPJ76rcSI73tGxfVVsDBGMoGrPyDbpmHHJRlfYuOtA9lonU7EjSY0hEQ2bD0Ov35k4agfl5w7qTPo9mhO2Esyv+UeI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e6LuR5oi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=iokpp.de header.i=@iokpp.de header.b="rLltL18x";
-	dkim=permerror (0-bit key) header.d=iokpp.de header.i=@iokpp.de header.b="J5qUM+A2"
-ARC-Seal: i=1; a=rsa-sha256; t=1788181299; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=ta8OmsDsot2gg4c9trXmg4QkvqmuOrx40FzhaoAGT5umHLXFTfv+Ir+m1iSgIyD2ba
-    L3D28kixnFWf3XrbhXAiu8WRw/gK32xwcAYwI8Elkm4zNjLnXYKeB0WC+ouMzNp8cdj/
-    WGzP3RNNk7qLOyUXNNG2lycAzLRRpnH78FZUteBoJWaCxhy1U9Pz4kPQY5IrkALR1eVp
-    QnxWxvXCpE7YaaaYZP6lR45BsqjBaIw7YgmHOQIcTpJyAfEuRjCU8BjnrbisPZAkY09d
-    vbyh/jgQLpKdgGzUyp65toRV722x9fJh74bJKAdUnMLv1Fh4gMtJQpndWjCxKmx283Ev
-    ZQDg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1788181299;
-    s=strato-dkim-0002; d=strato.com;
-    h=References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Cc:Date:
-    From:Subject:Sender;
-    bh=DQNekzi3HMaJqX2BC7HG+aXLO4uXJg8AL/wH7W8AuKg=;
-    b=BITry1WPy2PjcTRJVr6l0khh0FcTMKANTZuCXPGt6qaUo+PgciMeH/SZ71c99zS773
-    Gu2IGNBWyulhIi/3xD8CxRffCQceMXCMcAQv2ycSXaqhmje4ui/m4Uk/rtzWwwPhqDFC
-    Oz3gpIXnDzyDsN+rUPIXp0D4smO2AeRV46il7lYJw9SxAcVywYnpgumw4xOpxkVEPr4N
-    1MThmsoQaq2jJ6d7u1O5jORUotJ3s9OnUPaTGRnFL6P32A3mlc1WjyRgo5iUXEbPCNxl
-    uyfKuGd+Xye9uHhuPwXJ8/UxWH1Woi0x4vQ53I78PG6lANiRQCMLn+TYqyqiPJe1+WT6
-    fmIQ==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo02
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1788181299;
-    s=strato-dkim-0002; d=iokpp.de;
-    h=References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Cc:Date:
-    From:Subject:Sender;
-    bh=DQNekzi3HMaJqX2BC7HG+aXLO4uXJg8AL/wH7W8AuKg=;
-    b=rLltL18xdIS/o0eI7KyFlcs9Ce/BwJGrrlv3HrtmTilGqTC3P8p4dgK6cbo2pKgyNM
-    tW4KCarWbwvy3LaVesOrP9KotR3wgqQRNZalAJ2jNYeQ9hSgT/waprmNzU104Q0Xn/7q
-    y+J19SyCyWpaME+aN8Ot4FcDgkz8zrvFToEwyvaMC24WNB0LH1gzI2FnuP9+bWkc/P3y
-    KOtbNixw24I6rjTYJ58EfFLUJnYGRdjBUrXZioH8cxIr0G5udrEecuzFMOumY4qOZXa6
-    QwRJl3UaHn44gVvW0KXBMWeJbbneTLe2mq30HVFMlpCRYfruLChnz9n/AUSVN9APkeDj
-    q9ng==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1788181299;
-    s=strato-dkim-0003; d=iokpp.de;
-    h=References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Cc:Date:
-    From:Subject:Sender;
-    bh=DQNekzi3HMaJqX2BC7HG+aXLO4uXJg8AL/wH7W8AuKg=;
-    b=J5qUM+A2EJfVAtX12oCv6pGPuLWK5fxnb328CkGOVzOzRPPIdeRaB8PTCMfOTsyV6+
-    buTtRZiIP9J4ykk2fvDw==
-X-RZG-AUTH: ":LmkFe0i9dN8c2t4QQyGBB/NDXvjDB6pBSfNuhhDSDt3O2J2YOom0XQaPis+nU/xK"
-Received: from Munilab01-lab.micron.com
-    by smtp.strato.de (RZmta 55.6.2 AUTH)
-    with ESMTPSA id ze37e127VD1ckHk
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
-	(Client did not present a certificate);
-    Mon, 31 Aug 2026 15:01:38 +0200 (CEST)
-From: Bean Huo <beanhuo@iokpp.de>
-To: MyungJoo Ham <myungjoo.ham@samsung.com>,
-	Kyungmin Park <kyungmin.park@samsung.com>,
-	Chanwoo Choi <cw00.choi@samsung.com>,
-	"Martin K . Petersen" <mkp@kernel.org>,
-	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>
-Cc: Alim Akhtar <alim.akhtar@samsung.com>,
-	Avri Altman <avri.altman@sandisk.com>,
-	Bart Van Assche <bvanassche@acm.org>,
-	Jie Zhan <zhanjie9@hisilicon.com>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	linux-pm@vger.kernel.org,
-	linux-scsi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Bean Huo <beanhuo@micron.com>
-Subject: [PATCH 1/3] PM / devfreq: Fall back to previous_freq when get_cur_freq() fails
-Date: Mon, 31 Aug 2026 15:01:27 +0200
-Message-Id: <20260831130129.3979454-2-beanhuo@iokpp.de>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260831130129.3979454-1-beanhuo@iokpp.de>
-References: <20260831130129.3979454-1-beanhuo@iokpp.de>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e6LuR5oi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A69FE1F00A3D;
+	Mon, 31 Aug 2026 13:02:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788181325;
+	bh=3dnPizRRvsAQfZPqAFMwtgRgAwpSS6Otb/qYtZvqXYk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=e6LuR5oihFjNcM5KEn1U5aEy0BsuDjJhg0mXI/+rRQ/SD50/JgMB+Kpzwuy9NtJh1
+	 Fapive5LcnOzBfSgCGtb+ugmn7dDdsclDXiVuRug+ZnL7pGNWKog1k0t6ep8gJdiuE
+	 o1+S7rI2+4J9YFRv+TpJhCremB4j2RTUKixVEEdVRGN2hcVEZFseZqzYM8q+jGqHW6
+	 ezDn4Vyfm5gzjUknmsXehD0p39H0yU8mDSqLKdOu6qxY83jG1OAopiVxsXyLVjfjdC
+	 Viyb7pacT4SVh7z1vezg+1rQnGUwLpe6GqZxENt/HUULvnbPB4M+xhb46ezNJ9n3Jh
+	 fuKnOG5iAAytw==
+Date: Mon, 31 Aug 2026 15:02:02 +0200
+From: Frederic Weisbecker <frederic@kernel.org>
+To: Marco Crivellari <marco.crivellari@suse.com>
+Cc: linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+	Anna-Maria Behnsen <anna-maria@linutronix.de>,
+	Thomas Gleixner <tglx@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Michal Hocko <mhocko@suse.com>,
+	"Paul E. McKenney" <paulmck@kernel.org>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	Waiman Long <longman@redhat.com>
+Subject: Re: [PATCH v2 0/2] doc: Rename dynticks-testing to cpunoise
+Message-ID: <apV7SvlfxxNpLJaG@localhost.localdomain>
+References: <20260831092118.124576-1-marco.crivellari@suse.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="us-ascii"
+In-Reply-To: <20260831092118.124576-1-marco.crivellari@suse.com>
 
-From: Bean Huo <beanhuo@micron.com>
+Le Mon, Aug 31, 2026 at 11:21:11AM +0200, Marco Crivellari a écrit :
+> Hi,
+> 
+> Currently the documentation still mention dynticks-testing.
+> 
+> Recently the repository name and the tool have been renamed to cpunoise,
+> both the patches reflect this change.
+> 
+> The tool announcement can be found at:
+> 
+>   https://lore.kernel.org/all/20260815083728.15470-1-marco.crivellari@suse.com/
+> 
+> Thanks,
+> 
+> ---
+> Changes in v2:
+> - Link to the tool Announcement added in both the patches and cover letter
+> 
+> - Corrected another occurrence reported by Sebastian
+> 
+> Link to v1: https://lore.kernel.org/all/20260831081823.67972-1-marco.crivellari@suse.com/
+> 
+> Marco Crivellari (2):
+>   doc: Change dynticks-testing repository name
+>   Documentation/no_hz: Change dynticks-testing repository name
+> 
+>  Documentation/admin-guide/cpu-isolation.rst | 4 ++--
+>  Documentation/timers/no_hz.rst              | 2 +-
+>  2 files changed, 3 insertions(+), 3 deletions(-)
 
-devfreq_set_target() calls the optional ->get_cur_freq() callback to get
-the frequency that is passed as freqs.old to the DEVFREQ_PRECHANGE and
-DEVFREQ_POSTCHANGE notifiers, but it does not check the return value. If
-the callback fails without setting @freq, cur_freq is never assigned, and
-an uninitialized stack value is passed to the notifiers.
+Acked-by: Frederic Weisbecker <frederic@kernel.org>
 
-hisi_uncore_get_cur_freq() can hit this. It returns -ENODEV without
-setting @freq when its PCC channel is missing. On the mailbox error path
-it sets @freq to 0 instead, so that the core does not read a random
-value.
-
-The other two callers, cur_freq_show() and devfreq_monitor_resume(),
-already check the return value and use devfreq->previous_freq when the
-callback fails. Do the same in devfreq_set_target().
-
-This does not seem to cause a visible problem today. The passive governor
-is the only DEVFREQ_TRANSITION_NOTIFIER user in the tree, and it only
-reads freqs.new. So this patch is not marked for stable.
-
-Fixes: 0fe3a66410a3 ("PM / devfreq: Add new DEVFREQ_TRANSITION_NOTIFIER notifier")
-Signed-off-by: Bean Huo <beanhuo@micron.com>
----
- drivers/devfreq/devfreq.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/devfreq/devfreq.c b/drivers/devfreq/devfreq.c
-index f08fc6966eae..f20d9a660779 100644
---- a/drivers/devfreq/devfreq.c
-+++ b/drivers/devfreq/devfreq.c
-@@ -348,9 +348,8 @@ static int devfreq_set_target(struct devfreq *devfreq, unsigned long new_freq,
- 	unsigned long cur_freq;
- 	int err = 0;
- 
--	if (devfreq->profile->get_cur_freq)
--		devfreq->profile->get_cur_freq(devfreq->dev.parent, &cur_freq);
--	else
-+	if (!devfreq->profile->get_cur_freq ||
-+	    devfreq->profile->get_cur_freq(devfreq->dev.parent, &cur_freq))
- 		cur_freq = devfreq->previous_freq;
- 
- 	freqs.old = cur_freq;
 -- 
-2.34.1
-
+Frederic Weisbecker
+SUSE Labs
