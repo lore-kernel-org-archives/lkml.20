@@ -1,82 +1,115 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 093C74C6D;
-	Mon, 31 Aug 2026 07:27:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A47E23C1D5E;
+	Mon, 31 Aug 2026 07:28:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788161243; cv=none; b=rkpw4Zr3gooePi33uw6nr3wK34PErfpEXhEviLzVn4hfi7JGE7nFTgfKOb6G0w06e7gIZ3x+Mj4y7LXaArz6eJuKdvOl1T4dsbmNhnXw95c4jcrFhGadK8ldoGZ0L/sC7uZjTAwK0RU6/MrS5+Noh5e0lNUJwkRAW5EjEzpoWK4=
+	t=1788161291; cv=none; b=NHQSEpmN3n8J41KcEF7fK6MEmC0YXK1hJDSSMY+JhoFVgnY8G/vg/U5xA1nISb4VdGyUTUhAc8I+OkFB2Qojlra0T90J6XOza5S37NYb/7fhRPpp+B5oQEdU4AqkJNlyo20CmTfywt/ZkqdNug0bYYEzQX4GhUXypT0J8pi/5x8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788161243; c=relaxed/simple;
-	bh=3eJh8lKlTSMT66jtXXUivIhdzm+2ibaSV4rCQdFElyA=;
+	s=arc-20240116; t=1788161291; c=relaxed/simple;
+	bh=FXtZHMaUyuz6tloPARhW1tSsICenfu1kk99C0DJp/Sc=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qyLY52+cVOdlJWzN+uhXOqOVQ1L0bMg6JBWVFQorkX/o41nmc/HqQmJH54BBo4IQc5+4+ZZ+9DMZGwulIJwAmWQVvBTMJxaSFTbeDENODuUiqze4NNJXxxng/l7ImthjZzAJMlojkXs+GK1/6ixcVxyVQ1WrXfDyVQq5hMaUThc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PMgiu5Xl; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=pP4oEYz5TPiCVfrf2BuJiAf/+WDe88C6zuApDrn+iLZiN+JBI+H5akzUO6i7j1dsDVGQ0+NSm421I7yTpt6w++fGeGY4gbPqFDSXIj20zQ1Qo+3LxHKAftQZOtBnwujIHaGMFsz+docGfepAkdID/ddvSO/xs95yApAaPQerXFY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=WhTdb0yy; arc=none smtp.client-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PMgiu5Xl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18E7D1F000E9;
-	Mon, 31 Aug 2026 07:27:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788161241;
-	bh=rU7LA4eKjnDRvScYayCrmuHQplFrllwWDBoWgb710pk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=PMgiu5XlcCRV+ARmzlavl8pdj0wmliZ8v+vbFISM3mXZhxpL60AVAptYUsdHYTq/5
-	 09YgRsk4GyVu+rjdE5e1JsJnNR/o2/sgwEu9V8Jfu+LWPIbeRr2IXepLHGRgazGWBL
-	 KyjXz91pU0BL735fA2K2xrQdb4jnasdnbNgwKWyn3yksyZ8gjE4eIoY34ZvhT0gh14
-	 5i0TWpTgR8IQut78oeF6FXiDAR70fZymKwU1i16ebWK7BCUD2B8JnRDKsOKWA55FiT
-	 gLO5gFKe8wkoMGn2geuOiV3mszDuG+HZO1blN+jxpmy+zcdLhr6cx3ftVyBwUZH5Em
-	 KYF1wXVdudBdQ==
-Date: Mon, 31 Aug 2026 09:27:17 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Qiang Yu <qiang.yu@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
-	Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Taniya Das <taniya.das@oss.qualcomm.com>, Konrad Dybcio <konradybcio@kernel.org>, 
-	linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="WhTdb0yy"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788161290; x=1819697290;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=FXtZHMaUyuz6tloPARhW1tSsICenfu1kk99C0DJp/Sc=;
+  b=WhTdb0yyrFf6b/BMVpAuQXlbL9rP27wPq6Um4s/2zD6mWNJbLr+3YNsl
+   LjMCNaTasFlrcrriA1Ef2HhFzPPrZldFKSXAymH6oYvmWg3syvB9F6xhl
+   2oxYSOEbtsNOSz/0sG4XjSqiElhYnKydiGtvf0rU6nuqEDalWl3nLwFgN
+   bMTTzoRy6V6FUw5jkAW4AN1zA58V899aGiAvpVsZzDiFEW1VKVnyO1IcQ
+   DRug0rE/f/aBuihehFuAYdyQ0xremMgXzRAE0AzBDVhYJXpYRkRBACL2Z
+   dzYrvMnvJ+C/2eQTm7DGL1kPXK9W0NPW1I3yXF5ekhYjC0e1K4am2597q
+   g==;
+X-CSE-ConnectionGUID: NBcf8krJRrmfGQ/XbVOuRw==
+X-CSE-MsgGUID: c1TRNln1Q6yvSmU0iFTjPg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11891"; a="88322656"
+X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
+   d="scan'208";a="88322656"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 00:28:09 -0700
+X-CSE-ConnectionGUID: pXYTBenFQ0yxxjo+9nO0xA==
+X-CSE-MsgGUID: sFv3dv+eTLm3/gTPVzkoMQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
+   d="scan'208";a="273989107"
+Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.244.21])
+  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 00:28:07 -0700
+Date: Mon, 31 Aug 2026 10:28:04 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Peter Rosin <peda@lysator.liu.se>
+Cc: Ahmad Byagowi <ahmadexp@gmail.com>, Andy Shevchenko <andy@kernel.org>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, linux-i2c@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 1/4] dt-bindings: clock: qcom: Move x1e80100 TCSR to
- own binding
-Message-ID: <20260831-ambitious-aloof-inchworm-88acb1@quoll>
-References: <20260827-hamoa_tcsr_qref_0826-v4-0-663c9d30468d@oss.qualcomm.com>
- <20260827-hamoa_tcsr_qref_0826-v4-1-663c9d30468d@oss.qualcomm.com>
+Subject: Re: [PATCH v7 3/3] i2c: mux: Propagate software nodes to channel
+ adapters
+Message-ID: <apUtBFvuUGiP4QCE@ashevche-desk.local>
+References: <cover.1787502619.git.ahmadexp@gmail.com>
+ <a4abcd31c3a6758e219f5edcdd4acd307e674f18.1787502619.git.ahmadexp@gmail.com>
+ <ao0tPhBvK1Er_Vs0@gryt>
+ <CAOQiBWNVvHpO7X8yWyZEa3-nV76YJfRbkzo+_4U-upEj4VNfow@mail.gmail.com>
+ <ao_VE0W-FohWqPPt@ashevche-desk.local>
+ <apO31ydKoiqWCEKo@gryt>
+ <CAOQiBWN5DgOcJ9Gg7s2GZmpQguJUh121Jn9yUzxxm=D530c8dA@mail.gmail.com>
+ <apUpnqAQQfWaflS8@gryt>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <20260827-hamoa_tcsr_qref_0826-v4-1-663c9d30468d@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <apUpnqAQQfWaflS8@gryt>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Thu, Aug 27, 2026 at 11:00:33PM -0700, Qiang Yu wrote:
-> The QREF block supplies reference clocks to PCIe/USB/UFS PHYs and requires
-> dedicated LDO supplies to operate. The digital control interface for QREF
-> (clkref_en registers) resides in TCSR on x1e80100. Since QREF has no
-> dedicated DT node of its own, these supply properties are placed in the
-> TCSR node which acts as the control interface for QREF.
+On Mon, Aug 31, 2026 at 09:13:34AM +0200, Peter Rosin wrote:
+> Den Sat, Aug 29, 2026 at 10:10:40PM -0700, skrev Ahmad Byagowi:
+> > Peter, thanks for clarifying.
+> > 
+> > The check is intentional. Without it, the generic traversal would also
+> > inspect ACPI firmware nodes and could match _DSD child nodes carrying
+> > a "reg" property, while the existing ACPI path below uses
+> > acpi_preset_companion() to associate the adapter by channel address.
 > 
-> These LDOs are required by QREF to provide a stable reference clock,
-> without which the USB/PCIe/eDP PHYs cannot work properly, so the supplies
-> are marked required even though it breaks ABI.
-> 
-> TCSR does not act as a reset provider on x1e80100: no driver has ever
-> registered a reset controller for it, and no consumer references it as a
-> reset, so #reset-cells is dropped entirely rather than documented.
-> 
-> Add a dedicated binding file for qcom,x1e80100-tcsr and document the
-> supply properties.
-> 
-> Signed-off-by: Qiang Yu <qiang.yu@oss.qualcomm.com>
-> ---
->  .../bindings/clock/qcom,sm8550-tcsr.yaml           |   1 -
->  .../bindings/clock/qcom,x1e80100-tcsr.yaml         | 114 +++++++++++++++++++++
->  2 files changed, 114 insertions(+), 1 deletion(-)
+> Yes, I got that. The question is if the precaution is really needed.
+> Are "reg" properties common in ACPI nodes?
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Nope, and we have documented how ACPI DSDT is supposed to be constructed for
+the I²C muxes, but as I answered there, it relies on a human (factor).
 
-Best regards,
-Krzysztof
+> > I have not established that changing the ACPI lookup behavior is safe,
+> > and that change is not needed for software-node support. With the
+> > check retained, OF and software nodes use the generic lookup, while
+> > ACPI continues to use the existing acpi_preset_companion() path
+> > exclusively.
+> 
+> Yes, I figured as much, which is why I directed the question at Andy.
+> 
+> > That said, I will clarify this in the commit message for the next revision.
+> 
+> I'd rather tweak the check to exclude ACPI (instead of including OF and
+> SW) with a code comment about why ACPI is excluded. That is, if it can
+> be determined that ACPI actually needs to be excluded. If it is hard to
+> get an answer to that question, I'm inclined to just attempt to not
+> exclude ACPI, and then be prepared to exclude ACPI in a follow-up if
+> there is any fallout.
+
+Agree (and also answered in the similar way earlier).
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
 
