@@ -1,112 +1,102 @@
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 267B64E8DF7
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 14:33:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B918441DE01;
+	Mon, 31 Aug 2026 14:33:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788186783; cv=none; b=tPVLYv9hHDfrgPZ6wErIotJ8f4cgOdXi3i0imoDWstwL4qkyMr7ujbDsLMv3t4sXknzPjZhFZFCOXUaKC9wz2KWq2xWTGlGkPUnC8HKUXBK8Fd4U7i+H/Rmo5jedQ+BDXokIypK2ic1W4+SzQJQOUOwDyoKhkZ0aimV6pmQRJds=
+	t=1788186825; cv=none; b=imGJgtfoGQILhJaoTR6u/4WcBSjB3BAgid/qIrKboQiOw1rp6Z25IfiqwYxA4JvlEsCGeIcg0qSjRfv6Eq//XJjSBsGMm/3LUMUY50ZA3WZHSD/shLd94Yntdbpvj+kTnToTP3Ieugh9iqQv9lUL5wWNzEP1aldFEy6fk9oP+D4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788186783; c=relaxed/simple;
-	bh=JMCAe2D62F+WBYgEqiYoMmr4gCc1PIsBFv3J9qtq950=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=dsG9eusrrjbFHPESmI7sqFEoDCN1LNfVjT6N/xyyjRj+NGLvbJzp6EIBoaX+VfHhp5SFfRmxbRcIxq28+Lg9Noi6XsNEVVNm8C7E3laxO6lZ4ttXx6MLU+ZNjYfYqQmVlAVrqxPssTCSu/Di78W7baIWBzcCCQbSBFdkH/NDuf4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SVGTa49Z; arc=none smtp.client-ip=209.85.128.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788186825; c=relaxed/simple;
+	bh=xu25haCIVd579iAiCSmqBW6uo3BT2Zy8ttRINTKNUYc=;
+	h=Mime-Version:Content-Type:Date:Message-Id:To:From:Subject:Cc:
+	 References:In-Reply-To; b=LYye5hlrfBiA7OPgvmKsci27PFJQU0HCbO/R/4YXirKUkpsX397DHL89yBxFcp4fKBsb/VwYoiMAskQu3bYojqOGqa1B0l7boqorC/iMIYdlhrtY/JEPukt4pVtyeFknl/b7wwJev+aQO5n0Y3uQ7W69VJNCCAqmrbF3u/B7AFk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bMoStvfv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SVGTa49Z"
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-490cf322ed0so41658525e9.1
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 07:33:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788186780; x=1788791580; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=2jL+a4C7D0aKEgmVaWlVk7rTqIUCFUo6pEcsZDOtEZU=;
-        b=SVGTa49ZuSxEQjYrS0LRKHEiwXcy2gTQagSeV15i65Ujt1HIlTMauVRF8WJHbdJkuj
-         VpseAtMHo1tXLacBd+A0QjpMjufN4LzN2xEdYw2qPhuDYxyHeoTttyHckfVxpm0MK1OL
-         rDv+DArEVxykHqBwIyli7BL52jJqma6JgVu/eWCLxpFcrtTgOXuyepV/EWi5Y/C6aL7Z
-         2KpL50jSPgGqEEFk6FH0SxpBAr+XWfQdugeFgOWCtKdsnryj7CupdhuGgnLElZZkOfRW
-         u9eFda2YqFCoQrLPGzCL7+sNiZFWdtqL81GFonZC7ho2fVh0IJ9CHUouaRMnuR8BQSh2
-         MBcQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788186780; x=1788791580;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2jL+a4C7D0aKEgmVaWlVk7rTqIUCFUo6pEcsZDOtEZU=;
-        b=gueeSS2PZVj19DXFDzGQ3j91TrvYc/K0t5+Zr5hVdgnr7alxPk4SWDdE2Bop7eCgya
-         2+x9Z5GNiQHaeHkWmC4LHF+4pyHAGErJacnnOmqnIKd0KeiSweBh89emspqSUWzvlAO7
-         lhoSZLcoHYG1EWWGBrd3hqualRzLpalsYFvf3Ssh6WYVaLgeRwJhP95N8GsYg4UL1Wyj
-         ttcN4qTKzj2+g+LuzVP5jjHbp2XE9AdEkjUlhQ0EGK56N/wqkuePK84ZA0zuvUKnljBh
-         TluWmoWRd1/eKaeXD3oq42EvfmELbZFWDljeEz29W0xHuhNkpkS3bWTGKnzUpW06CF2z
-         lZwg==
-X-Forwarded-Encrypted: i=1; AHgh+Rr0XX87gegJxJ3a1ehDzvMQpJuNRNXUPQuyvWZEskiWtxyDGmmwifzfc+Es64Yo27IqAvHwKUStJloBqL4=@vger.kernel.org
-X-Gm-Message-State: AFuF++kD+aeV9ceiZVHDmoBmKUhlNtA0pmXs2TXbNWXxj7N1e4DvEhxV
-	FRhXUgU1Z+1KLW/5Rl4+bxlJMFqxINPRLx+dZ1Gh4hbfn6pj3kSu3AeZ
-X-Gm-Gg: AR+sD11qFXBkRvzbDoO9BAVc1klOnZtM8Ekpl16R5C76ViV6V4Is/EiFT1/d7Vd9mh5
-	5vLXXrwxH9UN+yWncqdCFy+F78FRbGe2A+seGaxlMVGV8ISybvcPj3owBPHgGYxHAiRURi9sT4Z
-	2SPrOVG3xNoVQCgBflsHy4zdLgJcjy+AYngYLpA6y0fH93vEi/rd61z9ZTGEavS4kx37AV2DUzy
-	VSh6iO0otNvcaK8Irgeih1oqgq0XpGkYllBY4GToRFVz+yUd9+lWmi9MSoKEZChu4/onUHkBXmG
-	Ud46zgFKnQvrzAZnqf0d9sZaACnR+OxMm9667np1y7/miFXxwT06fWh0YWJyPPy5fpgzcSkWVfC
-	R/AzPkQo81g+TWtovHKvrRPN/NwKqpHKJy7L7VV3J0BwqIYwgzUd5XayOo4hGlBCgtcGPWhl3n1
-	MySTND/HMHP6Tf7xGqNhgOraneVHPC7IVVng3QjqLC87hE29l/DYItECizYE2VwInW9k8sZBh0u
-	HmypGwa2NxosV9sNg1SYmA4
-X-Received: by 2002:a05:600c:8107:b0:49c:d26a:cf70 with SMTP id 5b1f17b1804b1-49cd26ad005mr206906115e9.15.1788186780413;
-        Mon, 31 Aug 2026 07:33:00 -0700 (PDT)
-Received: from unix.. (244.red-81-44-253.staticip.rima-tde.net. [81.44.253.244])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b945816f2sm344786125e9.8.2026.08.31.07.32.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 07:32:59 -0700 (PDT)
-From: =?UTF-8?q?Iv=C3=A1n=20Ezequiel=20Rodriguez?= <ivanrwcm25@gmail.com>
-To: Jonathan Corbet <corbet@lwn.net>,
-	Bartosz Golaszewski <brgl@kernel.org>
-Cc: linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-gpio@vger.kernel.org,
-	=?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>,
-	Jason Wang <jasowangio@gmail.com>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	=?UTF-8?q?Iv=C3=A1n=20Ezequiel=20Rodriguez?= <ivanrwcm25@gmail.com>
-Subject: [PATCH 7/7] gpio: cdev: return EOPNOTSUPP when HTE is unavailable
-Date: Mon, 31 Aug 2026 11:31:25 -0300
-Message-ID: <20260831143125.151360-8-ivanrwcm25@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260831143125.151360-1-ivanrwcm25@gmail.com>
-References: <20260831143125.151360-1-ivanrwcm25@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bMoStvfv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B011C1F000E9;
+	Mon, 31 Aug 2026 14:33:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788186824;
+	bh=ZL5bFu7CsTNzqvus3MEa0m6EG4X7lg8HsHo2/a5DEMQ=;
+	h=Date:To:From:Subject:Cc:References:In-Reply-To;
+	b=bMoStvfvvwN006vdgROgnRCHVv5olC01N//krxZXlxBtjZ7hc7zAOU0H96VgzAYhu
+	 Obh0HeH6W2ufSd2LuhWYA7aJU0JL4OYJeFOiWPCYnYUP8blGdS0fJ5rIu0H+YFf5dc
+	 aXAgoGsZYrEA3r4o+QnuZ/1MpcDijZd+UzhaKTFtZ/wUlFP61NzunD3pjPyzIZwALj
+	 qqzAEVKLn/WQh+qwM8vn4vD5k954/rlJx1uxjeDFFqwJN9LR5wp8yumC+mNO1JBAEe
+	 BchC3FAatMdskNmzumUMnYcKRo7tS6FW2sSQRju/pNkYMRc9gJRtr7s91Qlq6gfXfD
+	 wDqolbfbwZLog==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Date: Mon, 31 Aug 2026 16:33:40 +0200
+Message-Id: <DL37BOJC2I73.1BK0RELPBUPY2@kernel.org>
+To: "Alistair Popple" <apopple@nvidia.com>
+From: "Danilo Krummrich" <dakr@kernel.org>
+Subject: Re: [PATCH v5 09/11] drm: nova: Report GPU name in GPU info
+Cc: "nova-gpu" <nova-gpu@lists.linux.dev>, "M Henning"
+ <mhenning@darkrefraction.com>, "Alice Ryhl" <aliceryhl@google.com>, "David
+ Airlie" <airlied@gmail.com>, "Alexandre Courbot" <acourbot@nvidia.com>,
+ "Benno Lossin" <lossin@kernel.org>, "Gary Guo" <gary@garyguo.net>, "Eliot
+ Courtney" <ecourtney@nvidia.com>, "John Hubbard" <jhubbard@nvidia.com>,
+ <linux-kernel@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <rust-for-linux@vger.kernel.org>
+References: <20260828033531.1117754-1-apopple@nvidia.com>
+ <20260828033531.1117754-10-apopple@nvidia.com>
+In-Reply-To: <20260828033531.1117754-10-apopple@nvidia.com>
 
-GPIO v2 documentation promises -EOPNOTSUPP when
-GPIO_V2_LINE_FLAG_EVENT_CLOCK_HTE is requested without HTE hardware;
-map -ENODEV from hte_ts_get() in the HTE-only edge setup path.
+On Fri Aug 28, 2026 at 5:35 AM CEST, Alistair Popple wrote:
+>  impl NovaCoreApi<'_> {
+> +    /// Returns the NUL-terminated full GPU name supplied by GSP-RM.
+> +    pub fn gpu_name(&self) -> [u8; 64] {
 
-Signed-off-by: Iván Ezequiel Rodriguez <ivanrwcm25@gmail.com>
----
- drivers/gpio/gpiolib-cdev.c | 2 ++
- 1 file changed, 2 insertions(+)
+I don't really like that we have two separate accessors for this, can't we =
+just
+use the one we already have, which also does all the validation already?
 
-diff --git a/drivers/gpio/gpiolib-cdev.c b/drivers/gpio/gpiolib-cdev.c
-index 9f3b628d5793..6dc01f7ea838 100644
---- a/drivers/gpio/gpiolib-cdev.c
-+++ b/drivers/gpio/gpiolib-cdev.c
-@@ -715,6 +715,8 @@ static int hte_edge_setup(struct line *line, u64 eflags)
- 			   line->desc);
- 
- 	ret = hte_ts_get(NULL, hdesc, 0);
-+	if (ret == -ENODEV)
-+		return -EOPNOTSUPP;
- 	if (ret)
- 		return ret;
- 
--- 
-2.43.0
+The constructor of GpuInfo could look like this:
 
+	fn new(reg_data: &DrmRegData<'_>) -> Result<Self> {
+	    let mut info =3D uapi::drm_nova_gpu_info {
+	        architecture: reg_data.api.architecture(),
+	        implementation: reg_data.api.implementation(),
+	        ..Default::default()
+	    };
+	    let bytes =3D reg_data.api.gpu_name()?.as_bytes();
+	    info.gpu_name[..bytes.len()].copy_from_slice(bytes);
+	    Ok(Self(info))
+	}
+
+Could also be infallible if we want to go with a fallback name, given that =
+we
+consider the firmware not providing something useful as non-fatal so far.
+
+> +        *self.gpu.gsp_static_info.gpu_name_bytes()
+> +    }
+> +
+>      /// Obtain a [`NovaCoreApi`] handle from an auxiliary device registe=
+red
+>      /// by nova-core.
+>      pub fn of(adev: &auxiliary::Device<Bound>) -> Result<Pin<&NovaCoreAp=
+i<'_>>> {
+> diff --git a/drivers/gpu/nova-core/gsp/commands.rs b/drivers/gpu/nova-cor=
+e/gsp/commands.rs
+> index 6453184af55b..b8dc64808620 100644
+> --- a/drivers/gpu/nova-core/gsp/commands.rs
+> +++ b/drivers/gpu/nova-core/gsp/commands.rs
+> @@ -251,6 +251,11 @@ pub(crate) enum GpuNameError {
+>  }
+> =20
+>  impl GetGspStaticInfoReply {
+> +    /// Returns the full GPU name as a NUL-terminated byte string.
+> +    pub(crate) fn gpu_name_bytes(&self) -> &[u8; 64] {
+> +        &self.gpu_name
+> +    }
+
+AFAICS there's nothing ensuring that this is actually NULL terminated? The
+existing gpu_name() method already does this.
